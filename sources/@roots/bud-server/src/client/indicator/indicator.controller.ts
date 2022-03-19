@@ -40,7 +40,6 @@ export class IndicatorController {
     this.node.payload = payload
 
     this.node.setAttribute('has-warnings', payload.errors?.length)
-
     this.node.setAttribute('has-errors', payload.warnings?.length)
   }
 }

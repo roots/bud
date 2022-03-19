@@ -4,6 +4,8 @@
  * @public
  */
 export class Component extends HTMLElement {
+  public name: string = `bud-overlay`
+
   /**
    * `true` if component has been rendered
    *
@@ -18,85 +20,90 @@ export class Component extends HTMLElement {
    */
   public payload: any
 
-  /**
-   * Get accessor: has warnings
-   *
-   * @public
-   */
-  public get hash(): string {
-    return this.getAttribute('hash')
+  public get message() {
+    return this.getAttribute('message')
   }
 
   /**
+   * Render component
+   *
    * @public
    */
   public render() {
-    this.classList.add(`bud-overlay__component`)
+    this.rendered = true
+    this.classList.add(this.name)
+  }
 
-    this.innerHTML = ` \
+  public setInnerHtml(content: string) {
+    this.innerHTML = `
     <style>
-      .bud-overlay__component {
-        backdrop-filter: blur(10px);
+      .${this.name} {
+        display: none;
+        width: 100vw;
+        height: 100vh;
+        overflow-x: hidden;
+        overflow-y: scroll;
         position: absolute;
-        height: 100%;
-        width: 100%;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
+        transition: all 0.2s ease-in-out;
+        justify-content: center;
+      }
+      .${this.name}__visible {
+        backdrop-filter: blur(10px);
+        border-top: 3px solid red;
+        display: flex;
         align-items: center;
         align-content: center;
-        max-height: 100%;
-        max-width: 100%;
-        flex-wrap: wrap;
-        display: none;
         flex-direction: column;
         transition: all 0.2s ease-in-out;
       }
-
-      .bud-overlay__component_visible {
-        display: inline-flex;
+      .${this.name}__visible > div {
+        align-items: center;
+        align-content: center;
+        flex-direction: column;
+        padding: 1rem;
+      }
+      .${this.name}__visible > div > * {
+        display: inline-block;
+        width: 100vw;
+        padding: 1rem;
+      }
+      .${this.name}__visible > div > span {
+        font-size: 1.5rem;
+        font-weight: 500;
+      }
+      .${this.name}__visible > div > pre {
+        font-size: 0.8rem;
+        overflow-x: scroll;
       }
     </style>
 
-    <div>
-      ${this.payload.errors.reduce(
-        (all: string, current: string) =>
-          `${all}<span><code>${current}</code></span>`,
-        '',
-      )}
-    </div>
+    ${content}
   `
   }
 
-  public update() {
-    if (!this.payload?.errors?.length) {
-      return this.clear()
-    }
-
-    this.error()
-  }
-
-  public clear() {
-    this.classList.remove('bud-overlay__component_visible')
-  }
-
-  public error() {
-    this.classList.add('bud-overlay__component_visible')
-  }
-
   public static get observedAttributes() {
-    return ['hash']
+    return ['message']
   }
 
   public attributeChangedCallback() {
-    this.update()
+    if (this.getAttribute('message')) {
+      !this.classList.contains(`${this.name}__visible`) &&
+        this.classList.add(`${this.name}__visible`)
+
+      return this.setInnerHtml(this.getAttribute('message'))
+    }
+
+    this.classList.contains(`${this.name}__visible`) &&
+      this.classList.remove(`${this.name}__visible`)
   }
 
   public connectedCallback() {
-    if (!this.rendered) {
-      this.render()
-      this.rendered = true
-    }
+    if (this.rendered) return
+
+    this.render()
   }
 }

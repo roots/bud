@@ -1,45 +1,65 @@
+import stripAnsi from 'strip-ansi'
+import {StatsError} from 'webpack'
+
 import {Component} from './overlay.web-component'
 
+interface Payload {
+  hash: string
+  errors: Array<StatsError>
+}
+
 /**
- * Activity overlay controller
- *
+ * Overlay controller
  * @public
  */
 export class OverlayController {
   /**
-   * DOM node
-   *
+   * Element
    * @public
    */
-  public node = null
+  public element: HTMLElement
 
   /**
-   * Active WHM payload
-   *
+   * HMR update
    * @public
    */
-  public payload = null
+  public payload: Payload
 
   /**
-   * Class constructor
-   *
+   * Formatted error message
    * @public
    */
-  public constructor() {
-    customElements.define('bud-overlay', Component)
-
-    this.node = document.createElement('bud-overlay')
-    document.body && document.body.appendChild(this.node)
+  public get message(): string {
+    return (
+      this.payload.errors?.reduce(
+        (a, c) => `${a}
+        <div>
+          <span>${c?.title ?? 'Compilation error'}</span>
+          <pre>${stripAnsi(c?.message)}</pre>
+        </div>`,
+        ``,
+      ) ?? null
+    )
   }
 
   /**
-   * Render errors to DOM
-   *
+   * Class constructor
    * @public
    */
-  public update(payload): void {
+  public constructor() {
+    !customElements.get('bud-error') &&
+      customElements.define('bud-error', Component)
+
+    this.element = document.createElement('bud-error')
+    document.body && document.body.appendChild(this.element)
+  }
+
+  /**
+   * Update element
+   * @public
+   */
+  public update(payload: Payload): void {
     this.payload = payload
-    this.node.payload = payload
-    this.node.setAttribute('hash', payload.hash)
+    this.element.setAttribute('message', this.message)
   }
 }
