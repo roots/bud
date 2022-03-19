@@ -88,7 +88,7 @@
     "@skypack/package-check": "0.2.2",
     "@types/babel__core": "7.1.18",
     "@types/node": "16.11.26",
-    "@types/react": "17.0.39",
+    "@types/react": "17.0.41",
     "@types/react-dom": "17.0.13",
     "type-fest": "2.11.2",
     "webpack": "5.70.0"
