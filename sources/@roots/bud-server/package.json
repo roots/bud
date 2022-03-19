@@ -58,7 +58,7 @@
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@roots/container": "workspace:sources/@roots/container",
     "express": "^4.17.1",
-    "http-proxy-middleware": "2.0.3",
+    "http-proxy-middleware": "2.0.4",
     "tslib": "^2.3.1",
     "webpack-dev-middleware": "5.3.1",
     "webpack-hot-middleware": "^2.25.1"

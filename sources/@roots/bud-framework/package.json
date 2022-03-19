@@ -82,7 +82,7 @@
     "@types/lodash": "4.14.180",
     "@types/node": "16.11.26",
     "chokidar": "3.5.3",
-    "http-proxy-middleware": "2.0.3",
+    "http-proxy-middleware": "2.0.4",
     "ink": "3.2.0",
     "webpack": "5.70.0",
     "webpack-dev-middleware": "5.3.1",
