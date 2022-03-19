@@ -34,11 +34,11 @@ For more information on utilizing this package [check out our dedicated docs](ht
 
 Keep track of development and community news.
 
-- Participate on the [Roots Discourse](https://discourse.roots.io)
+- Join us on Roots Slack by becoming a [GitHub sponsor](https://github.com/sponsors/roots)
+- Participate on the [Roots Discourse](https://discourse.roots.io/)
 - Follow [@rootswp on Twitter](https://twitter.com/rootswp)
-- Read and subscribe to the [Roots blog](https://roots.io/blog/)
+- Read and subscribe to the [Roots Blog](https://roots.io/blog/)
 - Subscribe to the [Roots Newsletter](https://roots.io/subscribe/)
-- Listen to the [Roots Radio podcast](https://roots.io/podcast/)
 
 ## Contributing
 
