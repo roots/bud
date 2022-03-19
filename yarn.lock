@@ -3556,7 +3556,7 @@ __metadata:
     "@types/node": 16.11.26
     "@types/react": 17.0.41
     "@types/react-dom": 17.0.14
-    "@wordpress/browserslist-config": 4.1.1
+    "@wordpress/browserslist-config": 4.1.2
     jest: 27.5.1
     react: 17.0.2
     react-dom: 17.0.2
@@ -5726,10 +5726,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wordpress/browserslist-config@npm:4.1.1":
-  version: 4.1.1
-  resolution: "@wordpress/browserslist-config@npm:4.1.1"
-  checksum: a45589ef1dafea4c51ecd23030a3acc174d651888b9acbadc2f2c6a54d7d5125533f5e8287cfa13ad19543e43495ec0592ca65af6c58a0576a6e9ac2ba049c99
+"@wordpress/browserslist-config@npm:4.1.2":
+  version: 4.1.2
+  resolution: "@wordpress/browserslist-config@npm:4.1.2"
+  checksum: 12c2e5ad35f1776a239b496b80481836bdea4882898fbd28e1f2f4015bdb95eb1b5bcc911cce90dd82bcec2f0403f3040d3275b2cafea50fe96dfff7746acf99
   languageName: node
   linkType: hard
 
