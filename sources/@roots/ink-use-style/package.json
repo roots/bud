@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/lodash": "4.14.179",
+    "@types/lodash": "4.14.180",
     "@types/node": "16.11.26",
     "ink": "3.2.0",
     "ink-use-stdout-dimensions": "1.0.5",

@@ -78,14 +78,14 @@
     "@skypack/package-check": "0.2.2",
     "@types/fs-extra": "9.0.13",
     "@types/jest": "27.4.1",
-    "@types/lodash": "4.14.179",
+    "@types/lodash": "4.14.180",
     "@types/node": "16.11.26",
     "fs-extra": "10.0.1",
     "html-webpack-plugin": "5.5.0",
     "lodash": "4.17.21",
     "nanoid": "3.3.1",
     "npm-run-path": "5.1.0",
-    "webpack": "5.68.0"
+    "webpack": "5.70.0"
   },
   "dependencies": {
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
