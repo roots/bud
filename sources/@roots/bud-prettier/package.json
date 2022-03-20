@@ -59,7 +59,7 @@
     "autobind-decorator": "2.4.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
-    "prettier": "2.5.1",
+    "prettier": "2.6.0",
     "tslib": "2.3.1"
   },
   "peerDependencies": {
