@@ -90,7 +90,7 @@
     "@types/node": "16.11.26",
     "@types/react": "17.0.41",
     "@types/react-dom": "17.0.14",
-    "type-fest": "2.11.2",
+    "type-fest": "2.12.1",
     "webpack": "5.70.0"
   },
   "dependencies": {
