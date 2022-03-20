@@ -1,8 +1,4 @@
 /* global __resourceQuery */
-/* istanbul ignore file */
-
-// @ts-ignore
-const resourceQuery = __resourceQuery as string
 
 ;(async (query: string) => {
   const querystring = await import('querystring')
@@ -42,4 +38,7 @@ const resourceQuery = __resourceQuery as string
       'background: white; color: #343a40;',
     )
   })
-})(resourceQuery)
+})(
+  // @ts-ignore
+  __resourceQuery as string,
+)

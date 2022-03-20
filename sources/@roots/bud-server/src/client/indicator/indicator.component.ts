@@ -1,40 +1,36 @@
-import {pulse} from './pulse.component'
+import {pulse} from './indicator.pulse'
 
 /**
  * Indicator web component
- *
  * @public
  */
 export class IndicatorComponent extends HTMLElement {
   /**
    * Has component rendered
-   *
    * @public
    */
   public rendered: boolean
 
   /**
    * Component name
-   *
    * @public
    */
   public name: string = `bud-activity-indicator`
 
   /**
    * Timer
-   *
    * @public
    */
   public hideTimeout: NodeJS.Timer
 
   /**
    * hmr status payload
+   * @public
    */
   public payload: any
 
   /**
    * Get accessor: has errors
-   *
    * @public
    */
   public get hasErrors(): boolean {
@@ -43,7 +39,6 @@ export class IndicatorComponent extends HTMLElement {
 
   /**
    * Get accessor: has warnings
-   *
    * @public
    */
   public get hasWarnings(): boolean {
@@ -51,24 +46,10 @@ export class IndicatorComponent extends HTMLElement {
   }
 
   /**
-   * Compilation is ongoing
-   *
-   * @public
-   */
-  public get isPending(): boolean {
-    return (
-      !this.payload?.errors?.length &&
-      !this.payload?.warnings?.length &&
-      this.payload?.action == 'building'
-    )
-  }
-
-  /**
    * Status indicator colors
-   *
    * @public
    */
-  public colors = {
+  public colors: Record<string, [number, number, number]> = {
     success: [4, 120, 87],
     error: [220, 38, 38],
     warn: [252, 211, 77],
@@ -77,7 +58,6 @@ export class IndicatorComponent extends HTMLElement {
 
   /**
    * Render status indicator
-   *
    * @public
    */
   public render() {
@@ -117,7 +97,6 @@ export class IndicatorComponent extends HTMLElement {
 
   /**
    * Show status indicator
-   *
    * @public
    */
   public show() {
@@ -143,10 +122,9 @@ export class IndicatorComponent extends HTMLElement {
 
   /**
    * Status is pending
-   *
    * @public
    */
-  public pending() {
+  public onPending() {
     this.show()
 
     this.classList.remove(
@@ -162,10 +140,9 @@ export class IndicatorComponent extends HTMLElement {
 
   /**
    * Status is success
-   *
    * @public
    */
-  public success() {
+  public onSuccess() {
     this.show()
 
     this.classList.remove(
@@ -181,10 +158,9 @@ export class IndicatorComponent extends HTMLElement {
 
   /**
    * Status is error
-   *
    * @public
    */
-  public error() {
+  public onError() {
     this.show()
 
     this.classList.remove(
@@ -198,10 +174,9 @@ export class IndicatorComponent extends HTMLElement {
 
   /**
    * Status is warning
-   *
    * @public
    */
-  public warning() {
+  public onWarning() {
     this.show()
 
     this.classList.remove(
@@ -215,38 +190,23 @@ export class IndicatorComponent extends HTMLElement {
 
   /**
    * Update status
-   *
    * @public
    */
   public update() {
+    if (this.payload?.errors?.length) return this.onError()
+    if (this.payload?.warnings?.length) return this.onWarning()
     if (
       !this.payload?.errors?.length &&
       !this.payload?.warnings?.length &&
       this.payload.action == 'built'
-    ) {
-      this.success()
-      return
-    }
-
+    )
+      return this.onSuccess()
     if (
       this.payload?.action == 'building' ||
       this.payload?.action == 'sync'
-    ) {
-      this.pending()
-      return
-    }
-
-    if (this.payload?.errors?.length) {
-      this.error()
-      return
-    }
-
-    if (this.payload?.warnings?.length) {
-      this.warning()
-      return
-    }
+    )
+      return this.onPending()
   }
-
   public static get observedAttributes() {
     return ['has-errors', 'has-warnings', 'action']
   }

@@ -1,7 +1,7 @@
 import stripAnsi from 'strip-ansi'
 import {StatsError} from 'webpack'
 
-import {Component} from './overlay.web-component'
+import {Component} from './overlay.component'
 
 interface Payload {
   hash: string
@@ -30,15 +30,13 @@ export class OverlayController {
    * @public
    */
   public get message(): string {
-    return (
-      this.payload.errors?.reduce(
-        (a, c) => `${a}
+    return this.payload.errors?.reduce(
+      (a, c) => `${a}
         <div>
           <span>${c?.title ?? 'Compilation error'}</span>
-          <pre>${stripAnsi(c?.message)}</pre>
+          <pre>${stripAnsi(c?.message) ?? ''}</pre>
         </div>`,
-        ``,
-      ) ?? null
+      ``,
     )
   }
 
@@ -60,6 +58,6 @@ export class OverlayController {
    */
   public update(payload: Payload): void {
     this.payload = payload
-    this.element.setAttribute('message', this.message)
+    this.element.setAttribute('message', this.message ?? ``)
   }
 }

@@ -1,6 +1,4 @@
 /* eslint-disable no-console */
-/*eslint-env browser*/
-/*global __resourceQuery __webpack_public_path__*/
 
 var options = {
   path: '/__bud/hmr',
@@ -15,6 +13,7 @@ var options = {
   overlayWarnings: false,
   ansiColors: {},
 }
+
 //@ts-ignore
 if (__resourceQuery) {
   var querystring = require('querystring')

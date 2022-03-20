@@ -85,8 +85,8 @@ export class Compiler extends Service implements Contract {
   @bind
   @once
   public async compile() {
-    const config = await this.before()
-    const compiler = await this.invoke(config)
+    this.config = await this.before()
+    const compiler = await this.invoke(this.config)
 
     this.app.timeEnd('bud')
     this.app._hrdone = this.app._hrdiff()
@@ -131,7 +131,9 @@ export class Compiler extends Service implements Contract {
      */
     await this.app.build.make()
 
+    // if (this.app.hasChildren == false)
     this.config.push(this.app.build.config)
+
     /**
      * If there are {@link Framework.children} instances, iterate through
      * them and add to `config`

@@ -47,7 +47,7 @@ export const seed = (app: Framework) => {
       `dev.client.scripts`,
       new Set([
         app => src(`index.js?name=${app.name}&path=/__bud/hmr`),
-        _app => src(`proxy-click-interceptor.js`),
+        () => src(`proxy-click-interceptor.js`),
       ]),
     )
     .hooks.on(`dev.url`, new URL(`http://localhost`))

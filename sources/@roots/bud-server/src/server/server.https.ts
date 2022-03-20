@@ -7,8 +7,7 @@ import {BaseServer} from './server.base'
 const {readFile} = fs
 
 /**
- * HTTP Server
- *
+ * HTTPS Server
  * @public
  */
 export class Https
@@ -17,14 +16,12 @@ export class Https
 {
   /**
    * Server instance
-   *
    * @public
    */
   public instance: HttpsServer
 
   /**
    * Has SSL key
-   *
    * @public
    */
   public hasKey(): boolean {
@@ -33,7 +30,6 @@ export class Https
 
   /**
    * Get SSL key
-   *
    * @returns
    */
   public async getKey(): Promise<string> {
@@ -43,7 +39,6 @@ export class Https
 
   /**
    * Has SSL certificate
-   *
    * @public
    */
   public hasCert(): boolean {
@@ -52,7 +47,6 @@ export class Https
 
   /**
    * Get SSL certificate
-   *
    * @public
    */
   public async getCert(): Promise<string> {
@@ -62,7 +56,6 @@ export class Https
 
   /**
    * Create HTTPS server
-   *
    * @public
    */
   public createServer = async function (app: any): Promise<HttpsServer> {

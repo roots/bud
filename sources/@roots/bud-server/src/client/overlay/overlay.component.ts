@@ -20,6 +20,8 @@ export class Component extends HTMLElement {
    */
   public payload: any
 
+  public documentBodyStyle: any
+
   public get message() {
     return this.getAttribute('message')
   }
@@ -29,12 +31,12 @@ export class Component extends HTMLElement {
    *
    * @public
    */
-  public render() {
+  public render(): void {
     this.rendered = true
     this.classList.add(this.name)
   }
 
-  public setInnerHtml(content: string) {
+  public setInnerHtml(content: string): void {
     this.innerHTML = `
     <style>
       .${this.name} {
@@ -60,28 +62,27 @@ export class Component extends HTMLElement {
         flex-direction: column;
         transition: all 0.2s ease-in-out;
       }
-      .${this.name}__visible > div {
+      .${this.name} > div {
         align-items: center;
         align-content: center;
         flex-direction: column;
         padding: 1rem;
       }
-      .${this.name}__visible > div > * {
+      .${this.name} > div > * {
         display: inline-block;
         width: 100vw;
         padding: 1rem;
       }
-      .${this.name}__visible > div > span {
+      .${this.name} > div > span {
         font-size: 1.5rem;
         font-weight: 500;
       }
-      .${this.name}__visible > div > pre {
+      .${this.name} > div > pre {
         font-size: 0.8rem;
         overflow-x: scroll;
       }
     </style>
-
-    ${content}
+    ${content ?? ''}
   `
   }
 
@@ -91,17 +92,23 @@ export class Component extends HTMLElement {
 
   public attributeChangedCallback() {
     if (this.getAttribute('message')) {
+      document.body.style.overflow = 'hidden'
+
       !this.classList.contains(`${this.name}__visible`) &&
         this.classList.add(`${this.name}__visible`)
 
       return this.setInnerHtml(this.getAttribute('message'))
     }
 
+    document.body.style.overflow = this.documentBodyStyle.overflow
+
     this.classList.contains(`${this.name}__visible`) &&
       this.classList.remove(`${this.name}__visible`)
   }
 
   public connectedCallback() {
+    this.documentBodyStyle = document.body.style
+
     if (this.rendered) return
 
     this.render()

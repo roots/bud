@@ -1,9 +1,15 @@
+export interface pulse {
+  (name: string, color: [number, number, number]): string
+}
+
 /**
  * CSS animation for reload indicator
- *
  * @public
  */
-export const pulse = (name: string, color: number[]): string => `
+export const pulse = (
+  name: string,
+  color: [number, number, number],
+): string => `
   .${name} {
     transform: scale(1);
     background: rgba(${color[0]}, ${color[1]}, ${color[2]}, 1);
