@@ -46,7 +46,6 @@ const Sage: Sage = {
     app.setPath({
       '@src': 'resources',
       '@dist': 'public',
-      '@app': 'app',
       '@resources': '@src',
       '@public': '@dist',
       '@fonts': '@src/fonts',
@@ -60,10 +59,10 @@ const Sage: Sage = {
      * Application aliases
      */
     app.alias({
-      '@fonts': 'resources/fonts',
-      '@images': 'resources/images',
-      '@scripts': 'resources/scripts',
-      '@styles': 'resources/styles',
+      '@fonts': app.path('@fonts'),
+      '@images': app.path('@images'),
+      '@scripts': app.path('@scripts'),
+      '@styles': app.path('@styles'),
     })
 
     /**
