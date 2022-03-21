@@ -3135,7 +3135,6 @@ __metadata:
     "@types/lodash": 4.14.180
     "@types/node": 16.11.26
     babel-loader: ^8.2.3
-    babel-plugin-add-module-exports: ^1.0.4
     tslib: ^2.3.1
     webpack: 5.70.0
   peerDependencies:
@@ -6954,13 +6953,6 @@ __metadata:
     "@babel/core": ^7.0.0
     webpack: ">=2"
   checksum: 78e1e1a91954d644b6ce66366834d4d245febbc0fde33e4e2831725e83d6e760d12b3a78e9534ce92af69067bef1d9d9674df36d8c1f20ee127bc2354b2203ba
-  languageName: node
-  linkType: hard
-
-"babel-plugin-add-module-exports@npm:^1.0.4":
-  version: 1.0.4
-  resolution: "babel-plugin-add-module-exports@npm:1.0.4"
-  checksum: def017e6f34c956302b2fb2ce594d253b83229c3491444f89c2ee4a66e0882025a814676e27173687ca6d1fd4fbff860ce2f35ca4d66d1b333f6c78c8765e981
   languageName: node
   linkType: hard
 
