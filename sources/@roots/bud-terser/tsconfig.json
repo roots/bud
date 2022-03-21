@@ -1,15 +1,14 @@
 {
   "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
-    "baseUrl": ".",
+    "declarationDir": "./types",
+    "esModuleInterop": true,
     "rootDir": "./src",
     "outDir": "./lib/cjs",
-    "declarationDir": "./types",
-    "esModuleInterop": true
+    "types": ["node", "@roots/bud-api"]
   },
-  "include": [
-    "src"
-  ],
+  "files": ["./src/bud.env.d.ts"],
+  "include": ["src/**/*.ts", "src/**/*.json"],
   "references": [
     {
       "path": "./../bud-framework/tsconfig.json"
