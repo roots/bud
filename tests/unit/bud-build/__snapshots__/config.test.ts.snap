@@ -220,13 +220,14 @@ Array [
 
 exports[`bud.build.config has expected resolve.extensions default 1`] = `
 Array [
-  ".wasm",
   ".mjs",
+  ".cjs",
   ".js",
   ".jsx",
   ".css",
   ".json",
-  ".toml",
+  ".wasm",
   ".yml",
+  ".toml",
 ]
 `;
