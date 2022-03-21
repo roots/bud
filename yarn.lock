@@ -3699,7 +3699,10 @@ __metadata:
     "@types/webpack-hot-middleware": 2.25.6
     ansi-html-community: 0.0.8
     express: ^4.17.1
+    html-entities: ^2.1.0
     http-proxy-middleware: 2.0.4
+    querystring: ^0.2.0
+    strip-ansi: ^6.0.0
     tslib: ^2.3.1
     webpack: 5.70.0
     webpack-dev-middleware: 5.3.1
