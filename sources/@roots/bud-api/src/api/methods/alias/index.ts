@@ -12,6 +12,14 @@ export interface alias {
 export const alias: alias = async function (input) {
   const app = this as Framework
 
+  input = Object.entries(input).reduce((a, [k, v]) => {
+    if (v.startsWith('@')) a[k] = app.path(v)
+    if (v.startsWith('./')) a[k] = v.replace('./', app.path())
+    if (!v.startsWith('/')) a[k] = app.path(v)
+
+    return a
+  }, {})
+
   app.hooks.async('build.resolve.alias', async aliases => {
     return {...(aliases ?? {}), ...(input ?? {})}
   })
