@@ -1,7 +1,4 @@
-// Copyright (c) Roots Foundation, LLC. All rights reserved.
-// Licensed under the MIT license.
-
-// Copyright (c) Roots Foundation, LLC. All rights reserved.
+// Copyright © Roots Software Foundation LLC
 // Licensed under the MIT license.
 
 /**
