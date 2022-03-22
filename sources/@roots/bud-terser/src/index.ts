@@ -17,17 +17,4 @@
  * @packageDocumentation
  */
 
-import type {terser} from './terser.api'
-import type {Extension} from './terser.interface'
-
-declare module '@roots/bud-framework' {
-  interface Framework {
-    terser: terser
-  }
-
-  interface Modules {
-    'terser-webpack-plugin': Extension
-  }
-}
-
 export {name, api, options, boot} from './terser.extension'
