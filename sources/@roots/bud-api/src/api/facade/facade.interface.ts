@@ -336,6 +336,7 @@ export class Facade {
    * @public
    */
   public entry: entryFacade
+
   /**
    * Generate application entrypoints from source asset paths.
    *

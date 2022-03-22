@@ -30,6 +30,10 @@ const Sage: Sage = {
      */
     await app.extensions.add(ThemeJSON)
 
+    app.extensions
+      .get('@roots/bud-entrypoints')
+      .setOption('publicPath', '')
+
     /**
      * Override output directory for svg assets
      * `@roots/bud-build` places them, by default, in `svg/`

@@ -15,12 +15,6 @@
 
     if (!origin.proxy || !origin.dev) return
 
-    console.info(
-      `%c bud %c intercepting anchor links`,
-      'background: #525ddc; color: #ffffff;',
-      'background: transparent;',
-    )
-
     document.addEventListener('click', event => {
       // @ts-ignore
       const el = event.target.closest('a')

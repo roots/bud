@@ -239,13 +239,7 @@ export abstract class Framework {
    *
    * @public
    */
-  public _server: Server.Service
-  public get server(): Server.Service {
-    return this.root._server
-  }
-  public set server(server: Server.Service) {
-    this.root._server = server
-  }
+  public server: Server.Service
 
   /**
    * Container service for holding configuration values

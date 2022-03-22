@@ -136,9 +136,7 @@ export class Build extends Framework.Service implements Framework.Build {
 
     if (isUndefined(propValue)) return
 
-    Object.assign(this.config, {
-      [propKey]: propValue,
-    })
+    Object.assign(this.config, {[propKey]: propValue})
   }
 
   /**

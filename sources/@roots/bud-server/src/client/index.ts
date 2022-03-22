@@ -1,12 +1,8 @@
 /* global __resourceQuery */
-/* istanbul ignore file */
-
-// @ts-ignore
-const resourceQuery = __resourceQuery as string
 
 ;(async (query: string) => {
   const querystring = await import('querystring')
-  const {hmr} = await import('./bridge')
+  const hmr = await import('./bridge')
   const {IndicatorController} = await import(
     './indicator/indicator.controller'
   )
@@ -19,7 +15,6 @@ const resourceQuery = __resourceQuery as string
     path: '/__bud/hmr',
     timeout: 20 * 1000,
     overlay: true,
-    reload: false,
     log: false,
     warn: true,
     name: '',
@@ -29,7 +24,6 @@ const resourceQuery = __resourceQuery as string
   }
 
   hmr.setOptionsAndConnect(instance)
-
   hmr.subscribeAll(payload => {
     if (payload.action === 'reload') window.location.reload()
 
@@ -44,4 +38,7 @@ const resourceQuery = __resourceQuery as string
       'background: white; color: #343a40;',
     )
   })
-})(resourceQuery)
+})(
+  // @ts-ignore
+  __resourceQuery as string,
+)

@@ -15,7 +15,7 @@ export interface watch {
 }
 
 export const watch: watch = function (files, options = {}) {
-  const ctx = (this.root as Framework) ?? (this as Framework)
+  const ctx = this as Framework
 
   files = Array.isArray(files) ? files : [files]
 
