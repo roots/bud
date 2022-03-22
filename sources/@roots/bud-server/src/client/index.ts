@@ -55,7 +55,7 @@ interface Options extends BaseOptions {
     path: string,
     flag: `${keyof Options & string}`,
   ) => {
-    if (flag && !options[flag]) {
+    if (options[flag]) {
       const controllerModule = await import(path)
       const controller = await controllerModule.make()
       controller?.update && controllers.push(controller)
