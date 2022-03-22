@@ -1,8 +1,6 @@
 import stripAnsi from 'strip-ansi'
 import {StatsError} from 'webpack'
 
-import {Component} from './overlay.component'
-
 interface Payload {
   hash: string
   errors: Array<StatsError>
@@ -12,7 +10,7 @@ interface Payload {
  * Overlay controller
  * @public
  */
-export class OverlayController {
+export class Controller {
   /**
    * Element
    * @public
@@ -45,9 +43,6 @@ export class OverlayController {
    * @public
    */
   public constructor() {
-    !customElements.get('bud-error') &&
-      customElements.define('bud-error', Component)
-
     this.element = document.createElement('bud-error')
     document.body && document.body.appendChild(this.element)
   }
