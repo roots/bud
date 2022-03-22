@@ -1,6 +1,49 @@
-import readline from 'node:readline'
+import {boxen, fs} from '@roots/bud-support'
 
 import {Framework} from '.'
+
+const {removeSync} = fs
+
+/**
+ * Render error
+ */
+const renderError = (msg: string, name?: string) => {
+  global.process.stderr.write(
+    boxen(msg, {
+      title: name ?? 'error',
+      borderStyle: 'bold',
+      borderColor: 'red',
+    }),
+  )
+}
+
+/**
+ * Create an error handler
+ */
+const curryHandler = function (code: number) {
+  const ERROR = code !== 0
+
+  const close = () => {
+    if (ERROR) removeSync(this.path('@storage/cache'))
+
+    global.process.exitCode = code
+    global.process.exit()
+  }
+
+  return (exitMessage: string | Error) => {
+    const exit = () => setTimeout(close, 100).unref()
+
+    if (!ERROR) return exit()
+
+    if (exitMessage instanceof Error) {
+      renderError(exitMessage.message, exitMessage.name)
+    } else {
+      renderError(exitMessage, 'error')
+    }
+
+    return exit()
+  }
+}
 
 /**
  * Registers a callback for all kinds of application shutdown events.
@@ -14,46 +57,27 @@ import {Framework} from '.'
  * @public
  */
 export const initialize = (app: Framework) => {
-  const keypressListener = (_chunk, key) => {
-    key?.name == 'q' && app.close(process.exit)
-  }
+  const makeHandler = curryHandler.bind(app)
 
-  const exit = (code: number) => {
-    process.exitCode = code
-    process.exit(process.exitCode)
-  }
+  global.process
+    // only works when there is no task running
+    // because we have a server always listening port, this handler will NEVER execute
+    .on('beforeExit', makeHandler(0))
 
-  const makeHandle = (code: number) => msg => {
-    process.exitCode = code
-    code === 0 && app.logger.instance.info(msg)
+    // only works when the global.process normally exits
+    // on windows, ctrl-c will not trigger this handler (it is unnormal)
+    // unless you listen on 'SIGINT'
+    .on('exit', makeHandler(0))
 
-    if (code !== 0) {
-      typeof msg == 'string'
-        ? app.logger.instance.error(msg)
-        : Array.isArray(msg)
-        ? msg.map(app.logger.instance.error)
-        : Object.entries(msg).map(app.logger.instance.error)
-    }
+    // catch ctrl-c, so that event 'exit' always works
+    .on('SIGINT', makeHandler(0))
 
-    setTimeout(() => exit(code), 500).unref()
-  }
+    // kill-9
+    .on('SIGTERM', makeHandler(0))
 
-  const beforeExit = () => {
-    process.stdin.removeAllListeners()
-  }
+    // exit with errors
+    .on('uncaughtException', makeHandler(1))
 
-  process.exitCode = 0
-  process
-    .on('beforeExit', beforeExit)
-    .on('SIGTERM', makeHandle(0))
-    .on('SIGINT', makeHandle(0))
-    .on('uncaughtException', makeHandle(1))
-    .on('unhandledRejection', makeHandle(1))
-
-  readline.emitKeypressEvents(process.stdin)
-
-  process.stdin.isTTY &&
-    !process.env.JEST_WORKER_ID &&
-    !process.env.CI &&
-    process.stdin.setRawMode(true).on('keypress', keypressListener)
+    // exit with errors
+    .on('unhandledRejection', makeHandler(1))
 }

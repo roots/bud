@@ -1,4 +1,5 @@
 import {figures} from './figures'
+import {Framework} from './logger.interface'
 
 /**
  * Instance configuration
@@ -25,43 +26,39 @@ export const INSTANCE_CONFIG: any = {
 interface Type {
   /** The icon corresponding to the logger. */
   badge: string
+
   /**
    * The color of the label, can be any of the foreground colors supported by
    * [chalk](https://github.com/chalk/chalk#colors).
    */
   color: string
+
   /** The label used to identify the type of the logger. */
   label: string
-  logLevel?: string | undefined
-  stream?: NodeJS.WriteStream | NodeJS.WriteStream[] | undefined
-}
 
-/**
- * @internal
- */
-export interface types {
-  [key: string]: Type
+  logLevel?: string | undefined
+
+  stream?: NodeJS.WriteStream | NodeJS.WriteStream[] | undefined
 }
 
 export const enum LEVEL {
   VERBOSE = 'log',
   STANDARD = 'timer',
+  ERROR = 'error',
 }
 
-export const types = app => ({
+export const types: (app: Framework) => Record<string, Type> = app => ({
   error: {
     badge: figures.cross,
     color: 'red',
     label: 'error',
-    logLevel: LEVEL.STANDARD,
-    process: [app.context.stderr, app.context.stdout],
+    logLevel: LEVEL.ERROR,
   },
   fatal: {
     badge: figures.cross,
     color: 'red',
     label: 'fatal',
-    logLevel: LEVEL.STANDARD,
-    process: [app.context.stderr],
+    logLevel: LEVEL.ERROR,
   },
   star: {
     badge: figures.star,
@@ -73,7 +70,7 @@ export const types = app => ({
     badge: figures.info,
     color: 'magenta',
     label: 'log',
-    logLevel: LEVEL.STANDARD,
+    logLevel: LEVEL.VERBOSE,
   },
   success: {
     badge: figures.tick,
