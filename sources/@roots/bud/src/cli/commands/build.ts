@@ -148,17 +148,17 @@ export class BuildCommand extends BaseCommand {
   })
 
   /**
+   * --indicator
+   */
+  public indicator = Option.Boolean(`--indicator`, true, {
+    description: 'Enable development status indicator',
+  })
+
+  /**
    * --log
    */
   public log = Option.Boolean(`--log`, undefined, {
     description: 'Enable logging',
-  })
-
-  /**
-   * --verbose
-   */
-  public verbose = Option.Boolean(`--verbose`, false, {
-    description: 'Set logging level',
   })
 
   /**
@@ -175,12 +175,25 @@ export class BuildCommand extends BaseCommand {
     description: 'Minimize compiled assets',
   })
 
+  /**
+   * --modules
+   */
   public modules = Option.String(`--modules`, undefined, {
     description: 'Module resolution path',
   })
 
+  /**
+   * --notify
+   */
   public notify = Option.Boolean(`--notify`, true, {
-    description: 'Allow OS notifications',
+    description: 'Enable notfication center messages',
+  })
+
+  /**
+   * --overlay
+   */
+  public overlay = Option.Boolean(`--overlay`, true, {
+    description: 'Enable error overlay in development mode',
   })
 
   /**
@@ -209,6 +222,13 @@ export class BuildCommand extends BaseCommand {
   })
 
   /**
+   * --verbose
+   */
+  public verbose = Option.Boolean(`--verbose`, false, {
+    description: 'Set logging level',
+  })
+
+  /**
    * Execute command
    */
   public async execute() {
@@ -225,6 +245,7 @@ export class BuildCommand extends BaseCommand {
       flush: this.flush ?? null,
       hash: this.hash ?? null,
       html: this.html ?? null,
+      indicator: this.indicator ?? null,
       inject: this.inject ?? null,
       log: this.log ?? null,
       verbose: this.verbose ?? null,
@@ -233,6 +254,7 @@ export class BuildCommand extends BaseCommand {
       mode: this.mode ?? null,
       modules: this.modules ?? null,
       notify: this.notify ?? null,
+      overlay: this.overlay ?? null,
       publicPath: this.publicPath ?? null,
       src: this.src ?? null,
       splitChunks: this.splitChunks ?? null,

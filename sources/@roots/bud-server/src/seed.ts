@@ -46,7 +46,10 @@ export const seed = (app: Framework) => {
     .hooks.on(
       `dev.client.scripts`,
       new Set([
-        app => src(`index.js?name=${app.name}&path=/__bud/hmr`),
+        app =>
+          src(
+            `index.js?name=${app.name}&bud.overlay=${app.context.args.overlay}&bud.indicator=${app.context.args.indicator}&path=/__bud/hmr`,
+          ),
         () => src(`proxy-click-interceptor.js`),
       ]),
     )
