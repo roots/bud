@@ -1,4 +1,5 @@
-import type {
+import {
+  boxen,
   HighlightOptions,
   PrettyFormatOptions,
 } from '@roots/bud-support'
@@ -721,8 +722,6 @@ export abstract class Framework {
         }),
       )}`,
     )
-
-    process.exit(1)
   }
 
   /**
@@ -737,11 +736,15 @@ export abstract class Framework {
   @bind
   public error(...messages: any[]) {
     this.logger.instance.error(...messages)
-
-    process.exitCode = 1
-    process.exit()
+    if (this.isProduction) {
+      process.exitCode = 1
+      process.exit()
+    }
   }
 
+  /**
+   * Dump object and return Framework
+   */
   @bind
   public dump(
     obj: any,
@@ -757,19 +760,25 @@ export abstract class Framework {
 
     // eslint-disable-next-line no-console
     process.stdout.write(
-      `${options?.prefix ? `\n${options.prefix}\n` : `\n`}${highlight(
-        format(obj, {
-          callToJSON: false,
-          maxDepth: 8,
-          printFunctionName: false,
-          escapeString: false,
-          ...prettyFormatOptions,
-        }),
+      boxen(
+        highlight(
+          format(obj, {
+            callToJSON: false,
+            maxDepth: 8,
+            printFunctionName: false,
+            escapeString: false,
+            ...prettyFormatOptions,
+          }),
+          {
+            language: options?.language ?? 'typescript',
+            ignoreIllegals: options?.ignoreIllegals ?? true,
+          },
+        ),
         {
-          language: options?.language ?? 'typescript',
-          ignoreIllegals: options?.ignoreIllegals ?? true,
+          title: options.prefix ?? 'object dump',
+          borderStyle: 'round',
         },
-      )}`,
+      ),
     )
 
     return this

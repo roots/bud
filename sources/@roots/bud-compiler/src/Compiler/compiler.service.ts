@@ -245,16 +245,13 @@ export class Compiler extends Service implements Contract {
             chalk.blue(`[${stage}]`),
             ...message,
           )
-        : this.logger.log(
+        : this.stats?.errorsCount > 0 &&
+          this.logger.log(
             statusColor(`[${percent}%]`),
-            statusColor(
-              this.stats?.errorsCount > 0
-                ? `Compiled with errors`
-                : `Compiled`,
-            ),
+            statusColor(`Compiled with errors`),
           )
     } catch (error) {
-      this.app.error(error)
+      this.app.warn(error)
     }
   }
 }
