@@ -28,7 +28,7 @@ export const options: Extension.Module['options'] = async (
       compact: false,
     },
   },
-  root: app.path('@src'),
+  root: app.path(),
 })
 
 /**
