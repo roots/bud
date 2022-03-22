@@ -1,37 +1,11 @@
 import {lodash} from '@roots/bud-support'
 
-import * as Framework from '../..'
+import {Framework, Locations} from '../..'
 
 const {isString} = lodash
 
 /**
- * setPath function interface
- *
- * @internal
- */
-export interface setPath {
-  <T extends `${keyof Framework.Locations & string}`>(
-    arg1: T | Record<T, string>,
-    arg2?: string,
-  ): Framework.Framework
-}
-
-const transformShorthandBase = (
-  app: Framework.Framework,
-  base: string,
-): string => {
-  const parts = base.includes('/') ? base.split('/') : [base]
-  parts[0] = app.hooks.filter(`location.${parts[0]}`)
-  return parts.join('/')
-}
-
-/**
- * Set a {@link @roots/bud-framework#Location | Location} value
- *
- * @remarks
- * The {@link Location.project} should be an absolute path.
- * All other directories should be relative (src, dist, etc.)
- * @see {@link Locations}
+ * Set a reference to a project path
  *
  * @example
  * ```js
@@ -40,21 +14,33 @@ const transformShorthandBase = (
  *
  * @public
  */
-export function setPath<
-  T extends `${Omit<'project', keyof Framework.Locations> & string}`,
->(arg1: T | Record<T, string>, arg2?: string): Framework.Framework {
-  const ctx = this as Framework.Framework
+export interface setPath {
+  <T extends `${keyof Locations & `@${string}` & string}`>(
+    arg1: T | Record<T, string>,
+    arg2?: string,
+  ): Framework
+}
+
+export const setPath: setPath = function (arg1, arg2) {
+  const app = this as Framework
 
   const input = isString(arg1) ? {[arg1]: arg2} : arg1
 
-  Object.entries(input).map(([key, value]: [string, string]) => {
-    value = value.startsWith(`@`)
-      ? transformShorthandBase(ctx, value)
-      : value
+  Object.entries(input).map(([key, value]) => {
+    !key.startsWith(`@`) &&
+      app.error(
+        `bud paths are required to be prefixed with \`@\`. Please convert \`${key}\` to \`@${key}\``,
+      )
 
-    ctx.hooks.on(`location.${key}`, value)
-    ctx.info(`${key} set to ${value}`)
+    const absolutePath = app.path(value)
+    !absolutePath.startsWith('/') &&
+      app.error(
+        `internal error: the final result of a bud.setPath transform was not absolute: ${key} => ${value} => ${absolutePath}`,
+      )
+
+    app.hooks.on(`location.${key}`, app.path(value))
+    app.info(`${key} set to ${value}`)
   })
 
-  return ctx
+  return app
 }
