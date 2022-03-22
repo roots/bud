@@ -1,6 +1,6 @@
 module.exports = {
   rules: {
-    ...require('./base'),
+    ...require('./common'),
     'at-rule-no-unknown': require('./rules/at-rule-no-unknown'),
   },
 }
