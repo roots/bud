@@ -57,6 +57,6 @@ export class DoctorCommand extends BaseCommand {
       this.app.error(error)
     }
 
-    this.app.close(process.exit)
+    this.app.close()
   }
 }
