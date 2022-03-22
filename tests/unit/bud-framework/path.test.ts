@@ -34,8 +34,4 @@ describe('bud.path', function () {
   it('path: returns correct paths joined to context', () => {
     expect(bud.path('foo')).toEqual(join(mockProject.path, 'foo'))
   })
-
-  it('path: returns correct paths with @ shorthand', () => {
-    expect(bud.path('foo')).toContain(`util/project/foo`)
-  })
 })
