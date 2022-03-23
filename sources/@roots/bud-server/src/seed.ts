@@ -41,8 +41,6 @@ export const seed = (app: Framework) => {
     )
     .hooks.on(`middleware.hot.options.heartbeat`, 2000)
 
-    .hooks.on(`middleware.proxy.target`, new URL(`http://localhost`))
-
     .hooks.on(
       `dev.client.scripts`,
       new Set([
