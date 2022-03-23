@@ -1,9 +1,25 @@
 import {Framework} from '@roots/bud-framework'
 import {bind} from '@roots/bud-support'
-import {IncomingMessage, ServerResponse} from 'http'
+import * as http from 'http'
 import {responseInterceptor} from 'http-proxy-middleware'
 
 import {ApplicationURL} from './url'
+
+interface IncomingMessage extends http.IncomingMessage {
+  cookies: any
+}
+interface ServerResponse extends http.ServerResponse {
+  cookie: any
+}
+
+export interface ResponseInterceptorFactory {
+  interceptor(
+    buffer: Buffer,
+    proxyRes: IncomingMessage,
+    request: IncomingMessage,
+    response: ServerResponse,
+  ): Promise<Buffer | string>
+}
 
 /**
  * Proxy response interceptor
@@ -39,27 +55,37 @@ export class ResponseInterceptorFactory {
    * It is passed the response body, the response object, and the request object.
    * It can be used to modify the response body or the response object.
    *
-   * @param buffer - Buffered response body
    * @param proxyRes - Response from the proxy
    * @param req - Request from the client
    * @param res - Response from the server
-   * @returns client response body
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public async _interceptor(
+  public async interceptor(
     buffer: Buffer,
-    _proxyRes: IncomingMessage,
-    _req: IncomingMessage,
-    res: ServerResponse,
-  ): Promise<Buffer | string> {
-    res.setHeader('x-proxy-by', '@roots/bud')
-    res.setHeader('x-bud-proxy-origin', this.url.proxy.origin)
-    res.setHeader('x-bud-dev-origin', this.url.dev.origin)
+    proxyRes: IncomingMessage,
+    request: IncomingMessage,
+    response: ServerResponse,
+  ): Promise<Buffer | String> {
+    response.setHeader('x-proxy-by', '@roots/bud')
+    response.setHeader('x-bud-proxy-origin', this.url.proxy.origin)
+    response.setHeader('x-bud-dev-origin', this.url.dev.origin)
+    response.setHeader('x-http-method-override', '')
+    Object.entries(request.cookies).map(([k, v]) =>
+      response.cookie(k, v, {domain: null}),
+    )
 
-    return buffer
+    return [
+      [
+        `<link id="wp-admin-canonical" rel="canonical" href="${this.url.proxy.origin}`,
+        `<link id="wp-admin-canonical" rel="canonical" href="${this.url.dev.origin}`,
+      ],
+    ].reduce(
+      (buffer, [find, replace]) => buffer.replaceAll(find, replace),
+      buffer.toString(),
+    )
   }
 
   /**
@@ -70,6 +96,6 @@ export class ResponseInterceptorFactory {
    */
   @bind
   public make() {
-    return responseInterceptor(this._interceptor)
+    return responseInterceptor(this.interceptor)
   }
 }

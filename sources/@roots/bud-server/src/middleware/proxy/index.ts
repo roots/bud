@@ -12,7 +12,7 @@ import {ApplicationURL} from './url'
  */
 export const proxy = (app: Framework) => {
   const url = new ApplicationURL(() => app)
-  const interceptor = new ResponseInterceptorFactory(() => app, url)
+  const response = new ResponseInterceptorFactory(() => app, url)
   const request = new RequestInterceptorFactory(() => app, url)
 
   const options: Options = {
@@ -39,26 +39,32 @@ export const proxy = (app: Framework) => {
 
     followRedirects: app.hooks.filter(
       `middleware.proxy.options.followRedirects`,
-      true,
+      false,
     ),
 
     /**
      * Headers
      */
-    headers: app.hooks.filter(`middleware.proxy.options.headers`, {
-      [`X-Proxy-By`]: `@roots/bud`,
-      [`Connection`]: `keep-alive`,
-      [`Access-Control-Allow-Origin`]: `*`,
-      [`Access-Control-Allow-Credentials`]: `*`,
-      [`Access-Control-Allow-Methods`]: `*`,
-    }),
+    headers: {
+      ...app.hooks.filter(`middleware.proxy.options.headers`, {
+        connection: 'keep-alive',
+        'access-control-allow-origin': `*`,
+        'access-control-allow-credentials': `*`,
+        'access-control-allow-methods': `*`,
+      }),
+      'x-proxy-by': '@roots/bud',
+      'x-bud-dev-origin': url.dev.origin,
+      'x-bud-dev-protocol': url.dev.protocol,
+      'x-bud-dev-hostname': url.dev.hostname,
+      'x-bud-proxy-origin': url.proxy.origin,
+    },
 
     /**
      * Host rewrite
      */
     hostRewrite: app.hooks.filter(
       `middleware.proxy.options.hostRewrite`,
-      `${url.dev.host}`,
+      url.dev.host,
     ),
 
     /**
@@ -87,7 +93,7 @@ export const proxy = (app: Framework) => {
      */
     onProxyRes: app.hooks.filter(
       `middleware.proxy.options.onProxyRes`,
-      interceptor.make,
+      response.make,
     ),
 
     /**

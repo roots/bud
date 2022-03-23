@@ -9,10 +9,12 @@ const {removeSync} = fs
  */
 const renderError = (msg: string, name?: string) => {
   global.process.stderr.write(
-    boxen(msg, {
+    boxen(`\n${msg}\n`, {
       title: name ?? 'error',
       borderStyle: 'bold',
       borderColor: 'red',
+      padding: 1,
+      margin: 1,
     }),
   )
 }
@@ -24,7 +26,11 @@ const curryHandler = function (code: number) {
   const ERROR = code !== 0
 
   const close = () => {
-    if (ERROR) removeSync(this.path('@storage/cache'))
+    process.stdout.write(`\n`)
+
+    try {
+      ERROR && removeSync(this.path('@storage/cache'))
+    } catch (err) {}
 
     global.process.exitCode = code
     global.process.exit()
@@ -38,7 +44,7 @@ const curryHandler = function (code: number) {
     if (exitMessage instanceof Error) {
       renderError(exitMessage.message, exitMessage.name)
     } else {
-      renderError(exitMessage, 'error')
+      renderError(`\n${exitMessage}\n`, 'error')
     }
 
     return exit()

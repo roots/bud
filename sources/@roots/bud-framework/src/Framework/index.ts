@@ -730,6 +730,7 @@ export abstract class Framework {
   @bind
   public error(...messages: any[]) {
     this.logger.instance.error(...messages)
+
     if (this.isProduction) {
       process.exitCode = 1
       process.exit()
