@@ -1,6 +1,20 @@
-import {Server as HttpServer} from 'http'
-import {Server as HttpsServer} from 'https'
+import {
+  Server as HttpServer,
+  ServerOptions as HttpServerOptions,
+} from 'http'
+import {
+  Server as HttpsServer,
+  ServerOptions as HttpsServerOptions,
+} from 'https'
 import {IncomingMessage, ServerResponse} from 'webpack-dev-middleware'
+
+export {HttpsServerOptions}
+export {HttpServerOptions}
+
+export interface Options extends HttpsServerOptions, HttpServerOptions {}
+export type OptionsMap = {
+  [K in keyof Options as `dev.options.${K & string}`]: Options[K]
+}
 
 /**
  * Connection
@@ -8,38 +22,32 @@ import {IncomingMessage, ServerResponse} from 'webpack-dev-middleware'
 export interface Connection<T = HttpServer> {
   /**
    * Node server
-   *
    * @public
    */
   instance: T
 
   /**
    * Server URL
-   *
    * @public
    */
   url: URL
 
   /**
    * Server port
-   *
    * @public
    */
   get port(): number
 
   /**
    * Create server
-   *
    * @remarks
    * Returns Node server
-   *
    * @public
    */
   createServer: (app: any) => Promise<T>
 
   /**
    * Setup
-   *
    * @public
    */
   setup(): Promise<void>
@@ -105,29 +113,25 @@ export interface Http extends Connection<HttpServer> {}
 export interface Https extends Connection<HttpsServer> {
   /**
    * Has SSL key
-   *
    * @public
    */
   hasKey(): boolean
 
   /**
    * Get SSL key
-   *
    * @returns
    */
-  getKey(): Promise<string>
+  getKey(): Promise<Options['key']>
 
   /**
    * Has SSL certificate
-   *
    * @public
    */
   hasCert(): boolean
 
   /**
    * Get SSL certificate
-   *
    * @public
    */
-  getCert(): Promise<string>
+  getCert(): Promise<Options['cert']>
 }

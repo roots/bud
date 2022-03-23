@@ -202,13 +202,11 @@ export namespace Hooks {
   export interface Map
     extends Server.Middleware.Middleware<`options`>,
       Server.Middleware.Middleware<`factory`>,
+      Server.Connection.OptionsMap,
       LocationKeyMap,
       ConfigMap {
     [`extension`]: ValueOf<Plugins> | ValueOf<Modules>
-    [`dev.ssl.enabled`]: boolean
-    [`dev.ssl.cert`]: string
-    [`dev.ssl.key`]: string
-    [`dev.ssl.port`]: number
+    [`dev.options`]: Server.Connection.Options
     [`dev.url`]: URL
     [`dev.watch.files`]: Set<string>
     [`dev.watch.options`]: WatchOptions

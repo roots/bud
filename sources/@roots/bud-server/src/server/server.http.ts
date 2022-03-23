@@ -1,5 +1,5 @@
 import {Server} from '@roots/bud-framework'
-import {createServer, Server as HttpServer} from 'http'
+import {createServer, RequestListener, Server as HttpServer} from 'http'
 
 import {BaseServer} from './server.base'
 
@@ -19,9 +19,9 @@ export class Http
    * @returns http.Server
    */
   public createServer = function (
-    app: Express.Application,
+    express: RequestListener,
   ): Promise<HttpServer> {
-    this.instance = createServer(app)
+    this.instance = createServer(this.options, express)
     return this.instance
   }
 }
