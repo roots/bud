@@ -215,6 +215,7 @@ export namespace Hooks {
     [`dev.client.scripts`]: Set<(app: Framework) => string>
     [`middleware.enabled`]: Array<keyof Server.Middleware.Available>
     [`middleware.proxy.target`]: URL
+    [`middleware.proxy.replacements`]: Array<[string, string]>
 
     // here down is wack
     [key: Server.Middleware.OptionsKey]: any

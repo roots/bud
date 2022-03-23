@@ -77,15 +77,12 @@ export class ResponseInterceptorFactory {
       response.cookie(k, v, {domain: null}),
     )
 
-    return [
-      [
-        `<link id="wp-admin-canonical" rel="canonical" href="${this.url.proxy.origin}`,
-        `<link id="wp-admin-canonical" rel="canonical" href="${this.url.dev.origin}`,
-      ],
-    ].reduce(
-      (buffer, [find, replace]) => buffer.replaceAll(find, replace),
-      buffer.toString(),
-    )
+    return this.app.hooks
+      .filter('middleware.proxy.replacements')
+      .reduce(
+        (buffer, [find, replace]) => buffer.replaceAll(find, replace),
+        buffer.toString(),
+      )
   }
 
   /**
