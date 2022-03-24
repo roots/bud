@@ -26,6 +26,7 @@ export type Middleware<V extends 'options' | 'factory'> = {
 export interface Available {
   dev?: Definition<WebpackDevMiddlewareOptions<any, any>>
   hot?: Definition<WebpackHotMiddleware.MiddlewareOptions>
+  cookie?: Definition<null>
   proxy?: Definition<ProxyOptions>
 }
 

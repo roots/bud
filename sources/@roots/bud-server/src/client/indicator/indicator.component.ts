@@ -4,7 +4,7 @@ import {pulse} from './indicator.pulse'
  * Indicator web component
  * @public
  */
-export class IndicatorComponent extends HTMLElement {
+export class Component extends HTMLElement {
   /**
    * Has component rendered
    * @public

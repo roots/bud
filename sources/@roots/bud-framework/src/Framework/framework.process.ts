@@ -8,11 +8,13 @@ const {removeSync} = fs
  * Render error
  */
 const renderError = (msg: string, name?: string) => {
-  global.process.stderr.write(
-    boxen(msg, {
+  process.stderr.write(
+    boxen(`\n${msg}\n`, {
       title: name ?? 'error',
       borderStyle: 'bold',
       borderColor: 'red',
+      padding: 1,
+      margin: 1,
     }),
   )
 }
@@ -24,24 +26,26 @@ const curryHandler = function (code: number) {
   const ERROR = code !== 0
 
   const close = () => {
-    if (ERROR) removeSync(this.path('@storage/cache'))
+    process.stdout.write(`\n`)
 
-    global.process.exitCode = code
-    global.process.exit()
+    try {
+      ERROR && removeSync(this.path('@storage/cache'))
+    } catch (err) {}
+
+    process.exitCode = code
+    setTimeout(() => process.exit(), 100)
   }
 
   return (exitMessage: string | Error) => {
-    const exit = () => setTimeout(close, 100).unref()
-
-    if (!ERROR) return exit()
+    if (!ERROR) return close()
 
     if (exitMessage instanceof Error) {
       renderError(exitMessage.message, exitMessage.name)
     } else {
-      renderError(exitMessage, 'error')
+      renderError(`\n${exitMessage}\n`, 'error')
     }
 
-    return exit()
+    return close()
   }
 }
 
@@ -59,12 +63,12 @@ const curryHandler = function (code: number) {
 export const initialize = (app: Framework) => {
   const makeHandler = curryHandler.bind(app)
 
-  global.process
+  process
     // only works when there is no task running
     // because we have a server always listening port, this handler will NEVER execute
     .on('beforeExit', makeHandler(0))
 
-    // only works when the global.process normally exits
+    // only works when the process normally exits
     // on windows, ctrl-c will not trigger this handler (it is unnormal)
     // unless you listen on 'SIGINT'
     .on('exit', makeHandler(0))

@@ -188,7 +188,10 @@ export class Hooks extends Service implements Contract {
           | ((value: Contract.Map[T]) => Contract.Map[T])
           | Contract.Map[T],
       ) => {
-        return isFunction(current) ? current(accumulated) : current
+        const next = isFunction(current) ? current(accumulated) : current
+        if (this.app.context.args.debug)
+          this.app.info(`hooks.filter`, id, `=>`, next)
+        return next
       },
       value,
     )

@@ -55,6 +55,7 @@ export class Component extends HTMLElement {
       }
       .${this.name}__visible {
         backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.75);
         border-top: 3px solid red;
         display: flex;
         align-items: center;

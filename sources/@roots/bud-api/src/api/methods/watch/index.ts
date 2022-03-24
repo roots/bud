@@ -1,33 +1,21 @@
 import type {Framework} from '@roots/bud-framework'
-import {chokidar} from '@roots/bud-support'
 
 export interface watch {
   (
     /**
      * Watched files
      */
-    files: Array<string>,
-    /**
-     * Watcher options
-     */
-    options?: chokidar.WatchOptions,
+    ...files: Array<string>
   ): Framework
 }
 
-export const watch: watch = function (files, options = {}) {
-  const ctx = this as Framework
+export const watch: watch = function (...input) {
+  const app = this as Framework
 
-  files = Array.isArray(files) ? files : [files]
+  input = Array.isArray(input) ? input : [input]
+  app.hooks.on('dev.watch.files', files =>
+    input.reduce((files, file) => files.add(file), files),
+  )
 
-  ctx.hooks
-    .on('dev.watch.files', fileSet => {
-      files.forEach(file => fileSet.add(file))
-      return fileSet
-    })
-    .hooks.on('dev.watch.options', hookValue => ({
-      ...(hookValue ?? {}),
-      ...(options ?? {}),
-    }))
-
-  return ctx
+  return app
 }

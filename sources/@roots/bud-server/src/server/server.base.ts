@@ -1,4 +1,4 @@
-import {Framework} from '@roots/bud-framework'
+import {Framework, Server} from '@roots/bud-framework'
 import {Connection} from '@roots/bud-framework/src/Server/Connection'
 import {bind, getPort, Signale} from '@roots/bud-support'
 import {IncomingMessage, Server as HttpServer} from 'http'
@@ -7,60 +7,57 @@ import {ServerResponse} from 'webpack-dev-middleware'
 
 /**
  * HTTP Server
- *
  * @public
  */
-export abstract class BaseServer<T> implements Connection {
-  public abstract createServer: Connection['createServer']
+export abstract class BaseServer implements Connection {
+  public abstract createServer(app: any): Promise<HttpServer | HttpsServer>
 
   /**
    * Server instance
-   *
    * @public
    */
-  public instance: T & (HttpServer | HttpsServer)
-
-  /**
-   * Port number
-   *
-   * @public
-   */
-  public port: number
+  public instance: Connection['instance']
 
   /**
    * Logger
-   *
    * @public
    */
   public logger: Signale
 
   /**
+   * Options
+   * @public
+   */
+  public get options(): Server.Connection.Options {
+    return this.app.hooks.filter(`dev.options`)
+  }
+
+  /**
    * Constructor
-   *
    * @param app - Framework
+   * @public
    */
   public constructor(public app: Framework, public url: URL) {
-    this.logger = this.app.logger.instance
+    this.logger = this.app.logger.instance.scope(this.url.host)
   }
 
   /**
    * setup
-   *
    * @public
+   * @decorator `@bind`
    */
   @bind
   public async setup() {
     const port = await getPort({port: Number(this.url.port)})
     this.url.port = `${port}`
     this.app.hooks.on('dev.url', this.url)
-
-    this.logger.log(this.url.toString())
+    this.logger.log('url', this.url)
   }
 
   /**
    * Listen
-   *
    * @public
+   * @decorator `@bind`
    */
   @bind
   public async listen() {
@@ -73,17 +70,16 @@ export abstract class BaseServer<T> implements Connection {
 
   /**
    * Server listen event
-   *
    * @public
+   * @decorator `@bind`
    */
   @bind
-  public onListening() {
-    this.logger.info(`listening`)
+  public onListening(...param: any[]) {
+    this.logger.info(`listening`, ...param)
   }
 
   /**
    * Server request
-   *
    * @public
    * @decorator `@bind`
    */
@@ -92,26 +88,17 @@ export abstract class BaseServer<T> implements Connection {
     request: IncomingMessage,
     response: ServerResponse,
   ) {
-    if (request.headers['bud-healthcheck']) return response
-
-    if (response.statusCode === 200) {
-      this.logger.success([response.statusCode], request.url)
-      return response
-    }
-
-    if (response.statusCode === 500) {
-      this.logger.error([response.statusCode], request.url)
-      return response
-    }
+    this.logger.log(
+      `[${response.statusCode}]`,
+      request.url,
+      response.statusMessage ?? '',
+    )
 
     return response
   }
 
   /**
    * Server error
-   *
-   * @param error - error
-   *
    * @public
    * @decorator `@bind`
    */

@@ -11,18 +11,22 @@ export class Env {
    * @returns
    */
   public constructor(baseDirectory: string) {
-    const {parsed, error} = dotenv.config({
-      path: join(baseDirectory, '.env'),
-    })
-    if (error || !parsed) return
+    const paths = baseDirectory.split('/')
 
-    const expanded = dotenvExpand({
-      ...parsed,
-    })
-    if (!expanded) return
+    Object.entries(process.env).map(([k, v]) => (this[k] = v))
 
-    Object.entries(expanded).map(([k, v]) => {
-      this[k] = v
-    })
+    const get = (path: string) => {
+      const {parsed, error} = dotenv.config({path})
+      if (error || !parsed) return
+      const expanded = dotenvExpand(parsed)
+      if (!expanded) return
+      Object.entries(expanded).map(([k, v]) => (this[k] = v))
+    }
+
+    paths.reduce((a, c) => {
+      const next = join(a, c)
+      get(join(next, '.env'))
+      return next
+    }, `/`)
   }
 }

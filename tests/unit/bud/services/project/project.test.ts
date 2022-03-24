@@ -1,5 +1,7 @@
 import {Bud, factory} from '@repo/test-kit/bud'
 
+jest.setTimeout(15000)
+
 describe('bud.project', function () {
   let bud: Bud
 
