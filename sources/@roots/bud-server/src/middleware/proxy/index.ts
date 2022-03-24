@@ -18,7 +18,7 @@ export const proxy = (app: Framework) => {
   const options: Options = {
     autoRewrite: app.hooks.filter(
       'middleware.proxy.options.autoRewrite',
-      true,
+      false,
     ),
 
     /**

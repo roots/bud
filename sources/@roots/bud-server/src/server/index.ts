@@ -122,8 +122,8 @@ export class Server
   @once
   public async setConnection() {
     this.connection =
-      this.app.hooks.filter('dev.options.cert') &&
-      this.app.hooks.filter('dev.options.key')
+      this.app.hooks.filter('dev.options').cert &&
+      this.app.hooks.filter('dev.options').key
         ? new Https(this.app, this.app.hooks.filter('dev.url'))
         : new Http(this.app, this.app.hooks.filter('dev.url'))
 

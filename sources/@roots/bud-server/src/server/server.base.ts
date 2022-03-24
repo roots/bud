@@ -1,29 +1,22 @@
 import {Framework, Server} from '@roots/bud-framework'
 import {Connection} from '@roots/bud-framework/src/Server/Connection'
-import {bind, fs, getPort, Signale} from '@roots/bud-support'
-import {IncomingMessage} from 'http'
+import {bind, getPort, Signale} from '@roots/bud-support'
+import {IncomingMessage, Server as HttpServer} from 'http'
+import {Server as HttpsServer} from 'https'
 import {ServerResponse} from 'webpack-dev-middleware'
-
-const {readFile} = fs
 
 /**
  * HTTP Server
  * @public
  */
-export abstract class BaseServer<T> implements Connection {
-  public abstract createServer: Connection['createServer']
+export abstract class BaseServer implements Connection {
+  public abstract createServer(app: any): Promise<HttpServer | HttpsServer>
 
   /**
    * Server instance
    * @public
    */
-  public instance: T & Connection['instance']
-
-  /**
-   * Port number
-   * @public
-   */
-  public port: number
+  public instance: Connection['instance']
 
   /**
    * Logger
@@ -45,61 +38,7 @@ export abstract class BaseServer<T> implements Connection {
    * @public
    */
   public constructor(public app: Framework, public url: URL) {
-    this.logger = this.app.logger.instance
-  }
-
-  /**
-   * util: is path like
-   * @param subject - something or other
-   * @returns boolean if string and starts with '/'
-   */
-  private isPathIsh(subject: unknown): boolean {
-    return typeof subject === 'string' && subject.startsWith('/')
-  }
-
-  /**
-   * Has SSL key
-   * @public
-   */
-  @bind
-  public hasKey(): boolean {
-    return this.options.key ? true : false
-  }
-
-  /**
-   * Has SSL certificate
-   * @public
-   */
-  @bind
-  public hasCert(): boolean {
-    return this.options.cert ? true : false
-  }
-
-  /**
-   * Get SSL key
-   * @returns
-   */
-  @bind
-  public async getKey(): Promise<Server.Connection.Options['key']> {
-    !this.hasKey() && this.app.error('Server key is not defined')
-
-    return this.isPathIsh(this.options.key)
-      ? await readFile(this.options.key as string, 'utf8')
-      : this.options.key
-  }
-
-  /**
-   * Get SSL certificate
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async getCert(): Promise<Server.Connection.Options['cert']> {
-    !this.hasCert() && this.app.error('Server cert is not defined')
-
-    return this.isPathIsh(this.options.cert)
-      ? await readFile(this.options.cert as string, 'utf8')
-      : this.options.cert
+    this.logger = this.app.logger.instance.scope('dev')
   }
 
   /**
@@ -114,7 +53,7 @@ export abstract class BaseServer<T> implements Connection {
     this.url.port = `${port}`
     this.app.hooks.on('dev.url', this.url)
 
-    this.logger.log(this.url.toString())
+    this.logger.log('url', this.url.toString())
   }
 
   /**
@@ -166,6 +105,5 @@ export abstract class BaseServer<T> implements Connection {
   @bind
   public onError(error: Error) {
     this.app.error(error)
-    return error
   }
 }

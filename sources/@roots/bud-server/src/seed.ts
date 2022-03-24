@@ -52,7 +52,6 @@ export const seed = (app: Framework) => {
       ]),
     )
     .hooks.on(`dev.url`, new URL(`http://localhost`))
-    .hooks.on(`dev.options`, {})
     .hooks.on(`dev.watch.files`, new Set([]))
     .hooks.on(`dev.watch.options`, {})
 }

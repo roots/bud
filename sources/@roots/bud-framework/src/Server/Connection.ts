@@ -19,12 +19,12 @@ export type OptionsMap = {
 /**
  * Connection
  */
-export interface Connection<T = HttpServer> {
+export interface Connection {
   /**
    * Node server
    * @public
    */
-  instance: T
+  instance: HttpServer | HttpsServer
 
   /**
    * Server URL
@@ -33,18 +33,12 @@ export interface Connection<T = HttpServer> {
   url: URL
 
   /**
-   * Server port
-   * @public
-   */
-  get port(): number
-
-  /**
    * Create server
    * @remarks
    * Returns Node server
    * @public
    */
-  createServer: (app: any) => Promise<T>
+  createServer(app: any): Promise<Connection['instance']>
 
   /**
    * Setup
@@ -103,14 +97,14 @@ export interface Connection<T = HttpServer> {
  *
  * @public
  */
-export interface Http extends Connection<HttpServer> {}
+export interface Http extends Connection {}
 
 /**
  * Https Connection
  *
  * @public
  */
-export interface Https extends Connection<HttpsServer> {
+export interface Https extends Connection {
   /**
    * Has SSL key
    * @public
