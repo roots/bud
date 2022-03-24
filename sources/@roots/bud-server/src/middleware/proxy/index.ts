@@ -18,7 +18,7 @@ export const proxy = (app: Framework) => {
   const options: Options = {
     autoRewrite: app.hooks.filter(
       'middleware.proxy.options.autoRewrite',
-      false,
+      true,
     ),
 
     /**
@@ -37,6 +37,9 @@ export const proxy = (app: Framework) => {
       url.dev.host,
     ),
 
+    /**
+     * Follow redirects
+     */
     followRedirects: app.hooks.filter(
       `middleware.proxy.options.followRedirects`,
       false,

@@ -52,9 +52,10 @@ export class ResponseInterceptorFactory {
    * @remarks
    * This is the callback for `http-proxy-middleware`s `responseInterceptor`.
    * It is called after the response has been received from the target server.
-   * It is passed the response body, the response object, and the request object.
+   * It is passed the response body, and the req and res objects.
    * It can be used to modify the response body or the response object.
    *
+   * @param buffer - Buffered response
    * @param proxyRes - Response from the proxy
    * @param req - Request from the client
    * @param res - Response from the server
@@ -72,7 +73,8 @@ export class ResponseInterceptorFactory {
     response.setHeader('x-proxy-by', '@roots/bud')
     response.setHeader('x-bud-proxy-origin', this.url.proxy.origin)
     response.setHeader('x-bud-dev-origin', this.url.dev.origin)
-    response.setHeader('x-http-method-override', '')
+    response.removeHeader('x-http-method-override')
+
     Object.entries(request.cookies).map(([k, v]) =>
       response.cookie(k, v, {domain: null}),
     )

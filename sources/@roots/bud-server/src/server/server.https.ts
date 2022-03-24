@@ -61,6 +61,7 @@ export class Https extends BaseServer implements Server.Connection.Https {
   /**
    * Create HTTPS server
    * @public
+   * @decorator `@bind`
    */
   @bind
   public async createServer(
@@ -69,7 +70,8 @@ export class Https extends BaseServer implements Server.Connection.Https {
     const key = await this.getKey()
     const cert = await this.getCert()
 
-    this.instance = createServer({key, cert}, express)
+    this.instance = createServer({...this.options, key, cert}, express)
+
     return this.instance
   }
 }

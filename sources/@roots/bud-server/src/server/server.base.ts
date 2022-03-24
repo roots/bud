@@ -38,7 +38,7 @@ export abstract class BaseServer implements Connection {
    * @public
    */
   public constructor(public app: Framework, public url: URL) {
-    this.logger = this.app.logger.instance.scope('dev')
+    this.logger = this.app.logger.instance.scope(this.url.host)
   }
 
   /**
@@ -49,11 +49,9 @@ export abstract class BaseServer implements Connection {
   @bind
   public async setup() {
     const port = await getPort({port: Number(this.url.port)})
-
     this.url.port = `${port}`
     this.app.hooks.on('dev.url', this.url)
-
-    this.logger.log('url', this.url.toString())
+    this.logger.log('url', this.url)
   }
 
   /**
@@ -91,9 +89,11 @@ export abstract class BaseServer implements Connection {
     request: IncomingMessage,
     response: ServerResponse,
   ) {
-    const kind = response.statusCode === 200 ? 'success' : 'error'
-    this.logger[kind]([response.statusCode], request.url)
-
+    this.logger.log(
+      `[${response.statusCode}]`,
+      request.url,
+      response.statusMessage ?? '',
+    )
     return response
   }
 

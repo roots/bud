@@ -21,7 +21,7 @@ export class Http extends BaseServer implements Server.Connection.Http {
   public async createServer(
     express: RequestListener,
   ): Promise<HttpServer> {
-    this.instance = createServer(express)
+    this.instance = createServer(this.options, express)
     return this.instance
   }
 }
