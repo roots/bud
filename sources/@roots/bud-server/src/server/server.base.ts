@@ -56,7 +56,6 @@ export abstract class BaseServer implements Connection {
 
   /**
    * Listen
-   *
    * @public
    * @decorator `@bind`
    */
@@ -94,6 +93,7 @@ export abstract class BaseServer implements Connection {
       request.url,
       response.statusMessage ?? '',
     )
+
     return response
   }
 

@@ -20,12 +20,23 @@ export class Https extends BaseServer implements Server.Connection.Https {
   public instance: HttpsServer
 
   /**
+   * Has options
+   * @returns boolean
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public hasOptions(): boolean {
+    return Object.keys(this.options).length > 0
+  }
+
+  /**
    * Has SSL key
    * @public
    */
   @bind
   public hasKey(): boolean {
-    return !isUndefined(this.options.key)
+    return this.hasOptions() && !isUndefined(this.options.key)
   }
 
   /**
@@ -34,7 +45,7 @@ export class Https extends BaseServer implements Server.Connection.Https {
    */
   @bind
   public hasCert(): boolean {
-    return !isUndefined(this.options.cert)
+    return this.hasOptions() && !isUndefined(this.options.cert)
   }
 
   /**
@@ -43,8 +54,16 @@ export class Https extends BaseServer implements Server.Connection.Https {
    */
   @bind
   public async getKey(): Promise<Server.Connection.Options['key']> {
-    !this.hasKey() && this.app.warn('Server key is not defined')
-    return await readFile(this.options.key as string, 'utf8')
+    if (!this.hasKey()) {
+      this.app.warn('Server key is not defined')
+      return
+    }
+
+    try {
+      return await readFile(this.options.key as string, 'utf8')
+    } catch (err) {
+      this.app.error(err)
+    }
   }
 
   /**
@@ -54,8 +73,16 @@ export class Https extends BaseServer implements Server.Connection.Https {
    */
   @bind
   public async getCert(): Promise<Server.Connection.Options['cert']> {
-    !this.hasCert() && this.app.warn('Server cert is not defined')
-    return await readFile(this.options.cert as string, 'utf8')
+    if (!this.hasKey()) {
+      this.app.warn('Server key is not defined')
+      return
+    }
+
+    try {
+      return await readFile(this.options.cert as string, 'utf8')
+    } catch (err) {
+      this.app.error(err)
+    }
   }
 
   /**
@@ -67,11 +94,16 @@ export class Https extends BaseServer implements Server.Connection.Https {
   public async createServer(
     express: RequestListener & Express.Application,
   ): Promise<HttpsServer> {
+    if (!this.hasOptions()) {
+      this.instance = createServer(express)
+      return this.instance
+    }
+
     const key = await this.getKey()
     const cert = await this.getCert()
+    const options = {...this.options, ...({key} ?? {}), ...({cert} ?? {})}
 
-    this.instance = createServer({...this.options, key, cert}, express)
-
+    this.instance = createServer(options, express)
     return this.instance
   }
 }

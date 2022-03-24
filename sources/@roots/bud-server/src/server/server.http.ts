@@ -10,6 +10,12 @@ import {BaseServer} from './server.base'
  */
 export class Http extends BaseServer implements Server.Connection.Http {
   /**
+   * Server instance
+   * @public
+   */
+  public instance: HttpServer
+
+  /**
    * createServer
    *
    * @param express - Express application
