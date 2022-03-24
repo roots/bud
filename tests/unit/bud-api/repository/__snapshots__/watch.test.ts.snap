@@ -25,3 +25,11 @@ Array [
   "**/*.js",
 ]
 `;
+
+exports[`bud.watch sets watch files: **/*.js 1`] = `
+Array [
+  Array [
+    "**/*.js",
+  ],
+]
+`;

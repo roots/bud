@@ -4,40 +4,30 @@ import {lodash} from '@roots/bud-support'
 
 const {isFunction} = lodash
 
-export type UserInput = [
-  URL | string,
-  (
-    | Connection.Options
-    | ((options: Connection.Options) => Connection.Options)
-  ),
-]
-
 export interface method {
-  (...input: UserInput): Framework
+  (
+    url: URL | string,
+    options?:
+      | Connection.Options
+      | ((options: Connection.Options) => Connection.Options),
+  ): Framework
 }
 
 export type facade = method
 
-export const method: method = function (...input) {
+export const method: method = function (input, options?) {
   const app = this as Framework
 
   if (!app.isDevelopment) return app
 
-  const [url, options] = input
-
   if (options) {
     const unwrapped = isFunction(options)
-      ? options(app.hooks.filter('dev.options'))
+      ? options(app.hooks.filter('dev.options') ?? {})
       : options
 
-    app.hooks.on('dev.options', unwrapped)
-  }
-
-  if (typeof input === 'number') {
-    return app.hooks.on('dev.url', url => {
-      url.port = `${input}`
-      return url
-    })
+    app.hooks.on('dev.options', value =>
+      value ? {...value, ...unwrapped} : unwrapped,
+    )
   }
 
   if (typeof input === 'string') {
@@ -47,8 +37,6 @@ export const method: method = function (...input) {
   if (input instanceof URL) {
     return app.hooks.on('dev.url', input)
   }
-
-  url && app.hooks.on('dev.url', url instanceof URL ? url : new URL(url))
 
   return app
 }
