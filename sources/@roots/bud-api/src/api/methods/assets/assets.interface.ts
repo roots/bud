@@ -6,7 +6,7 @@ export interface facade {
     ...request: Array<
       | string
       | CopyPlugin.ObjectPattern
-      | Array<string | CopyPlugin.ObjectPattern>
+      | Array<string | [string, string] | CopyPlugin.ObjectPattern>
     >
   ): Framework
 }
@@ -16,7 +16,7 @@ export interface method {
     ...request: Array<
       | string
       | CopyPlugin.ObjectPattern
-      | Array<string | CopyPlugin.ObjectPattern>
+      | Array<string | [string, string] | CopyPlugin.ObjectPattern>
     >
   ): Promise<Framework>
 }

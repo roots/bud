@@ -12,11 +12,8 @@ export interface watch {
 export const watch: watch = function (...input) {
   const app = this as Framework
 
-  app.hooks.on('dev.watch.files', watching =>
-    input.reduce((files, file) => {
-      Array.isArray(file) ? file.map(f => files.add(f)) : files.add(file)
-      return files
-    }, watching),
+  app.hooks.on('dev.watch.files', files =>
+    input.flat().reduce((files, file) => files.add(file), files),
   )
 
   return app
