@@ -41,7 +41,7 @@ bud.watch(['pages/**/*', 'package.json'])
 
 ## Resolving paths
 
-All watch parameters are resolved as project relative paths. You may use `node:path` or **bud.path** to specify absolute directories, if preferred:
+All watch parameters are resolved as project relative paths. You may use `node:path` or [bud.path](https://bud.js.org/docs/bud.path) to specify absolute directories, if preferred:
 
 ```ts
 bud.watch(bud.path('pages/**/*'), bud.path('package.json'))
