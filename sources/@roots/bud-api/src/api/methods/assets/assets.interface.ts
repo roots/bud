@@ -3,18 +3,20 @@ import CopyPlugin from 'copy-webpack-plugin'
 
 export interface facade {
   (
-    paths:
+    ...request: Array<
       | string
       | CopyPlugin.ObjectPattern
-      | Array<string | CopyPlugin.ObjectPattern>,
+      | Array<string | CopyPlugin.ObjectPattern>
+    >
   ): Framework
 }
 
 export interface method {
   (
-    paths:
+    ...request: Array<
       | string
       | CopyPlugin.ObjectPattern
-      | Array<string | CopyPlugin.ObjectPattern>,
+      | Array<string | CopyPlugin.ObjectPattern>
+    >
   ): Promise<Framework>
 }
