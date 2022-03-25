@@ -2,13 +2,13 @@
 @import url('./dank-mono.css');
 
 :root {
-  --ifm-color-primary: rgb(134, 144, 250);
+  --ifm-color-primary: rgba(82, 93, 220, 1);
   --ifm-color-primary-dark: rgb(86, 98, 218);
   --ifm-color-primary-darker: rgb(71, 83, 220);
   --ifm-color-primary-darkest: rgb(40, 49, 142);
-  --ifm-color-primary-light: rgb(86, 98, 218);
-  --ifm-color-primary-lighter: rgb(140, 146, 220);
-  --ifm-color-primary-lightest: rgb(206, 209, 247);
+  --ifm-color-primary-light: rgba(82, 93, 220, 1)
+  --ifm-color-primary-lighter: rgba(82, 93, 220, 1)
+  --ifm-color-primary-lightest: rgba(82, 93, 220, 1)
 
   --ifm-font-family-base: 'Public Sans', system-ui, sans-serif;
   --ifm-font-family-monospace: 'dm', monospace;

@@ -8,6 +8,7 @@ export const config: config = {
   description:
     '⚡️ Lightning fast frontend build tools combining the best parts of Symfony Encore and Laravel Mix',
   logo: 'https://cdn.roots.io/app/uploads/logo-bud.svg',
+  card: 'https://bud.js.org/img/bud.js.png',
   url: {
     discourse: 'https://discourse.roots.io/c/bud/24',
     docs: 'https://bud.js.org',
@@ -137,6 +138,11 @@ export interface config {
    * Project logo
    */
   logo: string
+
+  /**
+   * Project share card
+   */
+  card: string
 
   /**
    * Project links

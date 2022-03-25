@@ -81,10 +81,37 @@ export const footer: Config['themeConfig']['footer'] = {
  * @public
  */
 export const metadata: Config['themeConfig']['metadata'] = [
-  {
-    name: 'google-site-verification',
-    content: 'PHCTrbi0cn0A3I_eE3g2Gr9WnsFMsvtKRxVP8ghfCfM',
-  },
+  /**
+   * Standard
+   */
+  {name: 'title', content: config.name},
+  {name: 'description', content: config.description},
+
+  /**
+   * Presentational
+   */
+  {name: 'theme-color', content: '#525ddc'},
+
+  /**
+   * Open graph
+   */
+  {name: 'fb:app_id', content: '1022828784420871'},
+  {name: 'og:image', content: 'https://bud.js.org/img/bud.js.png'},
+  {name: 'og:locale', content: 'en_US'},
+  {name: 'og:site_name', content: config.name},
+  {name: 'og:title', content: config.name},
+  {name: 'og:type', content: 'website'},
+  {name: 'og:url', content: 'https://bud.js.org'},
+
+  /**
+   * Twitter
+   */
+  {name: 'twitter:card', content: 'summary_large_image'},
+  {name: 'twitter:creator', content: config.organization.twitter},
+  {name: 'twitter:image', content: '/img/bud.js.png'},
+  {name: 'twitter:site', content: config.organization.twitter},
+  {name: 'twitter:title', content: config.name},
+  {name: 'twitter:url', content: config.url.docs},
 ]
 
 /**
@@ -101,7 +128,7 @@ export const navbar: Config['themeConfig']['navbar'] = {
   items: [
     {
       type: 'doc',
-      docId: 'introduction',
+      docId: 'overview/introduction',
       position: 'left',
       label: 'Guides',
       docsPluginId: 'guides',

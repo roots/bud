@@ -8,6 +8,13 @@ import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import CodeBlock from '@theme/CodeBlock'
 
+:::info Experimental feature
+
+This is a newer feature of bud.js. It is possible that this API will change in future releases. We suspect these changes will
+be driven by the needs of users.
+
+:::
+
 It is possible to configure more than one Webpack compiler from a single bud config file.
 
 For a single page app this isn't really that useful. However, for WordPress or a Symfony app &mdash; anything with very different
@@ -34,13 +41,11 @@ module.exports = app =>
   app
     .make('theme', theme =>
       theme
-        .use(require('@roots/bud-babel'))
         .setPath('dist', 'dist/theme')
         .entry('theme', ['theme.js', 'theme.css']),
     )
     .make('plugin', plugin =>
       plugin
-        .use([require('@roots/bud-babel'), require('@roots/bud-react')])
         .setPath('dist', 'dist/plugin')
         .entry('plugin', ['plugin.js', 'plugin.css']),
     )
@@ -51,20 +56,16 @@ module.exports = app =>
 
 ```ts title='bud.config.ts'
 import type {Framework} from '@roots/bud'
-import Babel from '@roots/bud-babel'
-import React from '@roots/bud-react'
 
 export default (app: Framework): void =>
   app
     .make('theme', (theme: Framework): void => {
       theme
-        .use(Babel)
         .setPath('dist', 'dist/theme')
         .entry('theme', ['theme.js', 'theme.css'])
     })
     .make('plugin', (plugin: Framework): void =>
       plugin
-        .use([Babel, React])
         .setPath('dist', 'dist/plugin')
         .entry('plugin', ['plugin.js', 'plugin.css']),
     )
@@ -72,12 +73,6 @@ export default (app: Framework): void =>
 
   </TabItem>
 </Tabs>
-
-There is an implicit benefit to structuring our config this way: our `plugin` compiler uses [@roots/bud-react](/extensions/bud-react),
-but our `theme` compiler does not.
-
-Ideally, tree-shaking would make it so that react code didn't make it into our theme but now that we've separated our
-build into two distinct compilations we've all but guaranteed that it won't.
 
 ## Using the `--target` flag
 
@@ -100,11 +95,10 @@ $ yarn bud build --target theme --target plugin
 
 You cannot create a child compiler from a child compiler. So, don't do this:
 
-```js title='bud.config.js' {9-13}
+```js title='bud.config.js'
 module.exports = app =>
   app.make('theme', theme => {
     theme
-      .use([require('@roots/bud-babel')])
       .setPath('dist', 'dist/theme')
       .entry('theme', ['theme.js', 'theme.css'])
 
@@ -118,18 +112,16 @@ module.exports = app =>
 
 If you want to create another child compiler, do so from the parent context:
 
-```js title='bud.config.js' {8-13}
+```js title='bud.config.js'
 module.exports = app =>
   app
     .make('theme', theme => {
       theme
-        .use([require('@roots/bud-babel')])
         .setPath('dist', 'dist/theme')
         .entry('theme', ['theme.js', 'theme.css'])
     })
     .make('plugin', plugin => {
       plugin
-        .use([require('@roots/bud-babel')])
         .setPath('dist', 'dist/plugin')
         .entry('plugin', ['plugin.js', 'plugin.css'])
     })
