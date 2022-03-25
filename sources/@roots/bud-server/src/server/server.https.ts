@@ -1,19 +1,18 @@
 import {Server} from '@roots/bud-framework'
-import {fs} from '@roots/bud-support'
+import {bind, fs, lodash} from '@roots/bud-support'
+import {RequestListener} from 'http'
 import {createServer, Server as HttpsServer} from 'https'
 
 import {BaseServer} from './server.base'
 
 const {readFile} = fs
+const {isUndefined} = lodash
 
 /**
  * HTTPS Server
  * @public
  */
-export class Https
-  extends BaseServer<HttpsServer>
-  implements Server.Connection.Https
-{
+export class Https extends BaseServer implements Server.Connection.Https {
   /**
    * Server instance
    * @public
@@ -21,49 +20,90 @@ export class Https
   public instance: HttpsServer
 
   /**
-   * Has SSL key
+   * Has options
+   * @returns boolean
    * @public
+   * @decorator `@bind`
    */
-  public hasKey(): boolean {
-    return this.app.hooks.filter('dev.ssl.key') ? true : false
+  @bind
+  public hasOptions(): boolean {
+    return Object.keys(this.options).length > 0
   }
 
   /**
-   * Get SSL key
-   * @returns
+   * Has SSL key
+   * @public
    */
-  public async getKey(): Promise<string> {
-    !this.hasKey() && this.app.error('Server key is not defined')
-    return await readFile(this.app.hooks.filter('dev.ssl.key'), 'utf8')
+  @bind
+  public hasKey(): boolean {
+    return this.hasOptions() && !isUndefined(this.options.key)
   }
 
   /**
    * Has SSL certificate
    * @public
    */
+  @bind
   public hasCert(): boolean {
-    return this.app.hooks.filter('dev.ssl.cert') ? true : false
+    return this.hasOptions() && !isUndefined(this.options.cert)
+  }
+
+  /**
+   * Get SSL key
+   * @returns
+   */
+  @bind
+  public async getKey(): Promise<Server.Connection.Options['key']> {
+    if (!this.hasKey()) {
+      this.app.warn('Server key is not defined')
+      return
+    }
+
+    try {
+      return await readFile(this.options.key as string, 'utf8')
+    } catch (err) {
+      this.app.error(err)
+    }
   }
 
   /**
    * Get SSL certificate
    * @public
+   * @decorator `@bind`
    */
-  public async getCert(): Promise<string> {
-    !this.hasCert() && this.app.error('Server cert is not defined')
-    return await readFile(this.app.hooks.filter('dev.ssl.cert'), 'utf8')
+  @bind
+  public async getCert(): Promise<Server.Connection.Options['cert']> {
+    if (!this.hasKey()) {
+      this.app.warn('Server key is not defined')
+      return
+    }
+
+    try {
+      return await readFile(this.options.cert as string, 'utf8')
+    } catch (err) {
+      this.app.error(err)
+    }
   }
 
   /**
    * Create HTTPS server
    * @public
+   * @decorator `@bind`
    */
-  public createServer = async function (app: any): Promise<HttpsServer> {
+  @bind
+  public async createServer(
+    express: RequestListener & Express.Application,
+  ): Promise<HttpsServer> {
+    if (!this.hasOptions()) {
+      this.instance = createServer(express)
+      return this.instance
+    }
+
     const key = await this.getKey()
     const cert = await this.getCert()
+    const options = {...this.options, ...({key} ?? {}), ...({cert} ?? {})}
 
-    this.instance = createServer({key, cert}, app)
-
+    this.instance = createServer(options, express)
     return this.instance
   }
 }

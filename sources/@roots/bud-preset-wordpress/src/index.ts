@@ -10,7 +10,7 @@
  * @packageDocumentation
  */
 
-import type {Extension} from '@roots/bud-framework'
+import type {Extension, Framework} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
   interface Modules {
@@ -35,5 +35,27 @@ type BudWordPressPreset = Extension.Module
 
 export const name: BudWordPressPreset['name'] =
   '@roots/bud-preset-wordpress'
+
+export const boot = async (app: Framework) => {
+  app.hooks.on(
+    'middleware.proxy.replacements',
+    (replacements): Array<[string, string]> => {
+      const proxy = app.hooks.filter('middleware.proxy.target').origin
+      const dev = app.server.connection.url.origin
+
+      return [
+        ...(replacements ?? []),
+        [
+          `<link id="wp-admin-canonical" rel="canonical" href="${proxy}`,
+          `<link id="wp-admin-canonical" rel="canonical" href="${dev}`,
+        ],
+        [
+          `<form name="loginform" id="loginform" action="${proxy}`,
+          `<form name="loginform" id="loginform" action="${dev}`,
+        ],
+      ]
+    },
+  )
+}
 
 export * as ThemeJSON from './theme'

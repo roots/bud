@@ -116,7 +116,7 @@ export class Build extends Framework.Service implements Framework.Build {
 
     if (!this.app.hooks.has(`build.${key}`)) return false
 
-    const type = rest.length && rest.shift() ? 'async' : 'sync'
+    const type = rest.length && rest.shift() ? true : false
     const count = this.app.hooks.count(`build.${key}`)
 
     return [key, type, count]
@@ -124,13 +124,13 @@ export class Build extends Framework.Service implements Framework.Build {
 
   @bind
   @memo()
-  public async memoMapValue([propKey, type, _count]: [
+  public async memoMapValue([propKey, isAsync, _count]: [
     keyof Configuration,
-    'async' | 'sync',
+    boolean,
     number,
   ]) {
     const propValue =
-      type == 'async'
+      isAsync === true
         ? await this.app.hooks.filterAsync(`build.${propKey}` as any)
         : this.app.hooks.filter(`build.${propKey}` as any)
 

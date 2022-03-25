@@ -1,10 +1,8 @@
-import {IndicatorComponent} from './indicator.component'
-
 /**
  * Activity indicator controller
  * @public
  */
-export class IndicatorController {
+export class Controller {
   /**
    * DOM node
    * @public
@@ -24,7 +22,6 @@ export class IndicatorController {
   public constructor() {
     this.node = document.createElement('bud-activity-indicator')
     document.body && document.body.appendChild(this.node)
-    customElements.define('bud-activity-indicator', IndicatorComponent)
   }
 
   /**

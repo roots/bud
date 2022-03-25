@@ -16,6 +16,6 @@ export class InstallCommand extends BaseCommand {
       `This command was deprecated in 5.3.0. In the future this command will throw an error.\n`,
     )
 
-    this.app.close(process.exit)
+    this.app.close()
   }
 }

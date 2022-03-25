@@ -1,4 +1,4 @@
-import {types} from './logger.constants'
+import {LEVEL, types} from './logger.constants'
 import {Signale} from './logger.dependencies'
 import type {Framework} from './logger.interface'
 
@@ -15,6 +15,16 @@ export class Logger {
    */
   public instance: Signale
 
+  public get level() {
+    if (!this.app.context.args.log) return LEVEL.ERROR
+    if (!this.app.context.args.verbose) return LEVEL.STANDARD
+    return LEVEL.VERBOSE
+  }
+
+  public get interactive() {
+    return !this.app.context.args.log ? true : false
+  }
+
   /**
    * Class constructor
    *
@@ -22,13 +32,10 @@ export class Logger {
    */
   public constructor(private app: Framework) {
     this.instance = new Signale({
-      disabled: this.app.context.args.log !== true,
-      interactive: false,
+      interactive: this.interactive,
       secrets: [this.app.context.projectDir, this.app.context.cwd],
-      logLevel: this.app.context.args.verbose ? 'vvvv' : 'vvv',
+      logLevel: this.level,
       types: types(app),
-      // @ts-ignore
-      stream: [this.app.context.stdout],
     })
 
     this.instance.config({

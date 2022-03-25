@@ -23,13 +23,16 @@ export const enableMiddleware = (
   middleware: Array<keyof Server.Middleware.Available>,
 ): Array<keyof Server.Middleware.Available> => [
   ...(disableMiddleware(middleware) ?? []),
+  'cookie',
   'proxy',
 ]
 
 export const disableMiddleware = (
   middleware: Array<keyof Server.Middleware.Available>,
 ): Array<keyof Server.Middleware.Available> =>
-  middleware?.filter(middleware => middleware !== 'proxy') ?? []
+  middleware?.filter(
+    middleware => middleware !== 'proxy' && middleware !== 'cookie',
+  ) ?? []
 
 export const method: method = function (input) {
   const ctx = this as Framework

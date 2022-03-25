@@ -90,6 +90,11 @@ export class BuildCommand extends BaseCommand {
     hidden: true,
   })
 
+  public debug = Option.Boolean(`--debug`, false, {
+    description:
+      'Enable debugging mode. Very verbose logging. Writes output files to `@storage` directory',
+  })
+
   /**
    * --devtool
    */
@@ -148,17 +153,17 @@ export class BuildCommand extends BaseCommand {
   })
 
   /**
+   * --indicator
+   */
+  public indicator = Option.Boolean(`--indicator`, true, {
+    description: 'Enable development status indicator',
+  })
+
+  /**
    * --log
    */
   public log = Option.Boolean(`--log`, undefined, {
     description: 'Enable logging',
-  })
-
-  /**
-   * --verbose
-   */
-  public verbose = Option.Boolean(`--verbose`, false, {
-    description: 'Set logging level',
   })
 
   /**
@@ -175,12 +180,25 @@ export class BuildCommand extends BaseCommand {
     description: 'Minimize compiled assets',
   })
 
+  /**
+   * --modules
+   */
   public modules = Option.String(`--modules`, undefined, {
     description: 'Module resolution path',
   })
 
+  /**
+   * --notify
+   */
   public notify = Option.Boolean(`--notify`, true, {
-    description: 'Allow OS notifications',
+    description: 'Enable notfication center messages',
+  })
+
+  /**
+   * --overlay
+   */
+  public overlay = Option.Boolean(`--overlay`, true, {
+    description: 'Enable error overlay in development mode',
   })
 
   /**
@@ -209,6 +227,13 @@ export class BuildCommand extends BaseCommand {
   })
 
   /**
+   * --verbose
+   */
+  public verbose = Option.Boolean(`--verbose`, false, {
+    description: 'Set logging level',
+  })
+
+  /**
    * Execute command
    */
   public async execute() {
@@ -216,28 +241,32 @@ export class BuildCommand extends BaseCommand {
       this.context.stdout.write(
         `the --dashboard and --no-dashboard flags are deprecated and will be removed in a future release.\n`,
       )
-
-    this.context.args = {
-      cache: this.cache ?? null,
-      clean: this.clean ?? null,
-      devtool: this.devtool ?? null,
-      dist: this.dist ?? null,
-      flush: this.flush ?? null,
-      hash: this.hash ?? null,
-      html: this.html ?? null,
-      inject: this.inject ?? null,
-      log: this.log ?? null,
-      verbose: this.verbose ?? null,
-      manifest: this.manifest ?? null,
-      minimize: this.minimize ?? null,
-      mode: this.mode ?? null,
-      modules: this.modules ?? null,
-      notify: this.notify ?? null,
-      publicPath: this.publicPath ?? null,
-      src: this.src ?? null,
-      splitChunks: this.splitChunks ?? null,
-      target: this.target ?? null,
-    }
+    ;[
+      'cache',
+      'ci',
+      'clean',
+      'debug',
+      'devtool',
+      'flush',
+      'hash',
+      'html',
+      'indicator',
+      'inject',
+      'log',
+      'manifest',
+      'minimize',
+      'mode',
+      'modules',
+      'notify',
+      'overlay',
+      'publicPath',
+      'src',
+      'splitChunks',
+      'target',
+      'verbose',
+    ].map(arg => {
+      this.context.args[arg] = isUndefined(arg) ? null : this[arg]
+    })
 
     this.app = await factory({
       name: 'bud',
