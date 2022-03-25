@@ -1,0 +1,48 @@
+---
+id: bud.watch
+title: bud.watch
+description: Specify files which will trigger a full page reload in development mode
+sidebar_label: bud.watch
+---
+
+Specify files which trigger a full page reload in development mode.
+
+## Signature
+
+```ts
+(...files: Array<string | Array<string>>): Framework
+```
+
+## Usage
+
+Specify a file to watch using a string:
+
+```ts
+bud.watch('pages/page.php')
+```
+
+You can use glob syntax to specify multiple files using pattern matching:
+
+```ts
+bud.watch('pages/**/*')
+```
+
+You can add additional watch patterns using additional parameters:
+
+```ts
+bud.watch('pages/**/*', 'package.json')
+```
+
+It is fine to express multiple patterns with an array, if preferred:
+
+```ts
+bud.watch(['pages/**/*', 'package.json'])
+```
+
+## Resolving paths
+
+All watch parameters are resolved as project relative paths. You may use `node:path` or **bud.path** to specify absolute directories, if preferred:
+
+```ts
+bud.watch(bud.path('pages/**/*'), bud.path('package.json'))
+```
