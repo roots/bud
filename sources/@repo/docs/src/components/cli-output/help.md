@@ -9,10 +9,10 @@
 
 ━━━ Compile ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  @roots/bud build [--mode #0] [--cache] [--ci] [--clean] [--devtool] [--flush] [--hash] [--html] [--input,-i #0] [--output,-o #0] [--storage #0] [--log] [--verbose] [--manifest] [--minimize] [--modules #0] [--notify] [--publicPath #0] [--splitChunks,--vendor] [--target,-t #0]
+  @roots/bud build [--mode #0] [--cache] [--ci] [--clean] [--debug] [--devtool] [--flush] [--hash] [--html] [--input,-i #0] [--output,-o #0] [--storage #0] [--indicator] [--log] [--manifest] [--minimize] [--modules #0] [--notify] [--overlay] [--publicPath #0] [--splitChunks,--vendor] [--target,-t #0] [--verbose]
     Compile source assets
 
-  @roots/bud dev [--cache] [--ci] [--clean] [--devtool] [--flush] [--hash] [--html] [--input,-i #0] [--output,-o #0] [--storage #0] [--log] [--verbose] [--manifest] [--minimize] [--modules #0] [--notify] [--publicPath #0] [--splitChunks,--vendor] [--target,-t #0]
+  @roots/bud dev [--cache] [--ci] [--clean] [--debug] [--devtool] [--flush] [--hash] [--html] [--input,-i #0] [--output,-o #0] [--storage #0] [--indicator] [--log] [--manifest] [--minimize] [--modules #0] [--notify] [--overlay] [--publicPath #0] [--splitChunks,--vendor] [--target,-t #0] [--verbose]
     Compile and serve source assets
 
 ━━━ Doctor ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
