@@ -1,9 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`bud.watch sets watch files: **/*.js 1`] = `
+exports[`bud.watch sets watch files 1`] = `
 Array [
-  Array [
-    "**/*.js",
-  ],
+  "1/*.js",
+]
+`;
+
+exports[`bud.watch sets watch files 2`] = `
+Array [
+  "1/*.js",
+  "2/*.js",
 ]
 `;
