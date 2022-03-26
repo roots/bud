@@ -70,14 +70,11 @@ interface Options extends BaseOptions {
   await registerOverlay()
 
   hmr.subscribeAll(payload => {
-    console.table({
-      name: payload.name,
-      action: payload.action,
-      hash: payload.hash,
-    })
+    if (!payload) return
+    console.table(payload)
 
-    payload.warnings.map(console.warn)
-    payload.errors.map(console.error)
+    payload.warnings?.map(console.warn)
+    payload.errors?.map(console.error)
 
     controllers.map(controller => controller.update(payload))
 
