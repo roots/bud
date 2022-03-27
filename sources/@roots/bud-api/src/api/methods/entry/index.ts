@@ -22,41 +22,39 @@ export interface facade {
 }
 
 const isGlobular = (str: string) =>
-  ['*', '{', '}'].filter(c => str.includes(c))?.length > 0
+  ['*', '{', '}', ','].filter(c => str.includes(c))?.length > 0
 
-export const entry: entry = async function (...userInput) {
+export const entry: entry = async function (...input) {
   const ctx = this as Framework
   const glob: typeof globAssets = globAssets.bind(this)
 
-  const normalizedInput = isString(userInput[0])
-    ? {[userInput[0]]: userInput[1]}
-    : userInput[0]
+  const normal = isString(input[0]) ? {[input[0]]: input[1]} : input[0]
 
   ctx.hooks.async('build.entry', async all => {
     await Promise.all(
-      Object.entries(normalizedInput).map(async ([name, entry]) => {
-        const normalizedImports = isArray(entry.import ?? entry)
-          ? entry.import ?? entry
-          : [entry.import ?? entry]
+      Object.entries(normal)
+        .map(([name, entry]) => [name, entry.import ?? entry])
+        .map(async ([name, entry]) => {
+          const arrayedImports = isArray(entry) ? entry : [entry]
 
-        this.log(`inputs`, normalizedImports)
+          this.log(`importing..`, arrayedImports)
 
-        const value = (
-          await Promise.all(
-            normalizedImports.map(async (request: string) =>
-              isGlobular(request) ? await glob(request) : request,
-            ),
-          )
-        ).flat()
+          const value = (
+            await Promise.all(
+              arrayedImports.map(async (request: string) =>
+                isGlobular(request) ? await glob(request) : request,
+              ),
+            )
+          ).flat()
 
-        all = {
-          ...(all ?? {}),
-          [name]: {
-            ...(!isString(entry) && !isArray(entry) ? entry : {}),
-            import: value,
-          },
-        }
-      }),
+          all = {
+            ...(all ?? {}),
+            [name]: {
+              ...(!isString(entry) && !isArray(entry) ? entry : {}),
+              import: value,
+            },
+          }
+        }),
     )
 
     return all
@@ -66,11 +64,9 @@ export const entry: entry = async function (...userInput) {
 }
 
 export async function globAssets(search: string): Promise<Array<string>> {
-  const cwd = this.path('@src')
-
   try {
     this.log(`search`, search)
-    const results = await globby.globby(search, {cwd})
+    const results = await globby.globby(search, {cwd: this.path('@src')})
 
     this.log(`results`, results)
 
@@ -78,12 +74,14 @@ export async function globAssets(search: string): Promise<Array<string>> {
       this.error(
         `bud.entry found no files matching ${JSON.stringify(
           search,
-        )}. check your config for errors. files should be specified relative to ${cwd}. fast glob syntax can be referenced here https://git.io/JkGbw`,
+        )}. check your config for errors. files should be specified relative to ${this.path(
+          '@src',
+        )}. fast glob syntax can be referenced here https://git.io/JkGbw`,
       )
       throw new Error(
         `nothing resolvable for ${JSON.stringify(
           search,
-        )} query of results for ${cwd}`,
+        )} query of results for ${this.path('@src')}`,
       )
     }
 
