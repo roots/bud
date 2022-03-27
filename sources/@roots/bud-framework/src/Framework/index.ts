@@ -505,32 +505,9 @@ export abstract class Framework {
    */
   public sequence: methods.sequence = methods.sequence.bind(this)
 
-  /**
-   * Execute a callback
-   *
-   * @remarks
-   * Callback is provided {@link Framework | the Framework instance} as a parameter.
-   *
-   * @example
-   * ```js
-   * bud.tap(bud => {
-   *   // do something with bud
-   * })
-   * ```
-   *
-   * @example
-   * Lexical scope is bound to Framework where applicable, so it
-   * is possible to reference the Framework using `this`.
-   *
-   * ```js
-   * bud.tap(function () {
-   *  // do something with this
-   * })
-   * ```
-   *
-   * @public
-   */
   public tap: methods.tap = methods.tap.bind(this)
+
+  public tapAsync: methods.tapAsync = methods.tapAsync.bind(this)
 
   /**
    * Executes a function if a given test is `true`.
