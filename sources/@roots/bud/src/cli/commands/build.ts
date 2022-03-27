@@ -11,20 +11,17 @@ const {isUndefined} = lodash
 
 /**
  * Build command
- *
  * @public
  */
 export class BuildCommand extends BaseCommand {
   /**
    * Command paths
-   *
    * @public
    */
   public static paths = [[`build`]]
 
   /**
    * Command usage
-   *
    * @public
    */
   public static usage = Command.Usage({
@@ -98,8 +95,36 @@ export class BuildCommand extends BaseCommand {
   /**
    * --devtool
    */
-  public devtool = Option.Boolean(`--devtool`, undefined, {
+  public devtool = Option.String(`--devtool`, undefined, {
+    tolerateBoolean: true,
     description: `Set devtool option`,
+    validator: t.isOneOf([
+      t.isLiteral(false),
+      t.isLiteral('eval'),
+      t.isLiteral('eval-cheap-source-map'),
+      t.isLiteral('eval-cheap-module-source-map'),
+      t.isLiteral('eval-source-map'),
+      t.isLiteral('cheap-source-map'),
+      t.isLiteral('cheap-module-source-map'),
+      t.isLiteral('source-map'),
+      t.isLiteral('inline-cheap-source-map'),
+      t.isLiteral('inline-cheap-module-source-map'),
+      t.isLiteral('inline-source-map'),
+      t.isLiteral('eval-nosources-cheap-source-map'),
+      t.isLiteral('eval-nosources-cheap-modules-source-map'),
+      t.isLiteral('eval-nosources-source-map'),
+      t.isLiteral('inline-nosources-cheap-source-map'),
+      t.isLiteral('inline-nosources-cheap-module-source-map'),
+      t.isLiteral('inline-nosources-source-map'),
+      t.isLiteral('nosources-cheap-source-map'),
+      t.isLiteral('nosources-cheap-module-source-map'),
+      t.isLiteral('hidden-nosources-cheap-source-map'),
+      t.isLiteral('hidden-nosources-cheap-module-source-map'),
+      t.isLiteral('hidden-nosources-source-map'),
+      t.isLiteral('hidden-cheap-source-map'),
+      t.isLiteral('hidden-cheap-module-source-map'),
+      t.isLiteral('hidden-source-map'),
+    ]),
   })
 
   /**
