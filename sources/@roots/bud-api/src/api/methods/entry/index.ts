@@ -32,29 +32,29 @@ export const entry: entry = async function (...input) {
 
   ctx.hooks.async('build.entry', async all => {
     await Promise.all(
-      Object.entries(normal)
-        .map(([name, entry]) => [name, entry.import ?? entry])
-        .map(async ([name, entry]) => {
-          const arrayedImports = isArray(entry) ? entry : [entry]
+      Object.entries(normal).map(async ([name, entry]) => {
+        const importArray = isArray(entry.import ?? entry)
+          ? entry.import ?? entry
+          : [entry.import ?? entry]
 
-          this.log(`importing..`, arrayedImports)
+        this.log(`importing...`, ...importArray)
 
-          const value = (
-            await Promise.all(
-              arrayedImports.map(async (request: string) =>
-                isGlobular(request) ? await glob(request) : request,
-              ),
-            )
-          ).flat()
+        const value = (
+          await Promise.all(
+            importArray.map(async (request: string) =>
+              isGlobular(request) ? await glob(request) : request,
+            ),
+          )
+        ).flat()
 
-          all = {
-            ...(all ?? {}),
-            [name]: {
-              ...(!isString(entry) && !isArray(entry) ? entry : {}),
-              import: value,
-            },
-          }
-        }),
+        all = {
+          ...(all ?? {}),
+          [name]: {
+            ...(!isString(entry) && !isArray(entry) ? entry : {}),
+            import: value,
+          },
+        }
+      }),
     )
 
     return all
