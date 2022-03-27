@@ -43,7 +43,7 @@
   "exports": {
     ".": "./lib/cjs/index.js",
     "./stylelint-config": "./stylelint-config/default.js",
-    "./stylelint-config/scss": "./stylelint-config/scss/scss.js"
+    "./stylelint-config/scss": "./stylelint-config/scss.js"
   },
   "bud": {
     "type": "extension",
