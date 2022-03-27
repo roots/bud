@@ -29,7 +29,7 @@ export const assets: method = async function assets(
    * - a pattern has no segments and does not contain a dot
    */
   const isDirectoryish = (pattern: string) => {
-    if (pattern.endsWith('*')) return false
+    if (pattern.includes('*')) return false
     if (pattern.endsWith('/')) return true
     if (pattern.includes('/') && !pattern.split('/').pop().includes('.'))
       return true
@@ -62,29 +62,10 @@ export const assets: method = async function assets(
       ? fromDotRel(toWildcard(input))
       : fromDotRel(input)
 
-    /**
-     * Test if input starts with a given string
-     */
-    const test = (test: string) => from.startsWith(test)
-
-    /**
-     * Return path that serves as base of request
-     *
-     * @remarks
-     * In order of priority:
-     *  - project `src` path
-     *  - project path
-     *  - raw input
-     */
-    const context = () => {
-      if (test('.')) return ctx.path()
-      if (test('/')) return
-      else return ctx.path('@src')
-    }
-
     return {
       from,
-      context: context(),
+      to: ctx.path('@name'),
+      context: ctx.path('@src'),
       noErrorOnMissing: true,
     }
   }
@@ -109,6 +90,7 @@ export const assets: method = async function assets(
     return {
       from,
       to,
+      context: ctx.path('@src'),
       noErrorOnMissing: true,
     }
   }
