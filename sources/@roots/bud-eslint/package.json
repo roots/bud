@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-eslint",
-  "version": "0.0.0",
+  "version": "5.7.3",
   "description": "Adds eslint support to Bud",
   "repository": {
     "type": "git",
