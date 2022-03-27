@@ -1,5 +1,5 @@
 import {Framework} from '@roots/bud-framework'
-import {bind, lodash, log} from '@roots/bud-support'
+import {bind, lodash} from '@roots/bud-support'
 
 import {Bud} from '../../Bud/index.js'
 import {ConfigManifest} from '../../services/Project/project.repository.js'
