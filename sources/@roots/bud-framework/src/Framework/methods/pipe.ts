@@ -32,11 +32,13 @@ export interface pipe {
  * @public
  */
 export function pipe<T = Framework>(fns: Callback<T>[], value?: T): T {
+  const app = this as Framework
+
   const pipeReducer = (val: T, fn: Callback<T>) => {
-    return fn(val)
+    return fn.call(val, val)
   }
 
   return value
     ? fns.reduce(pipeReducer, value)
-    : fns.reduce(pipeReducer, this)
+    : fns.reduce(pipeReducer, app)
 }
