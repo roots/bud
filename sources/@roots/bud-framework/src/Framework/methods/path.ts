@@ -57,7 +57,7 @@ export const path: path = function (base, ...segments) {
         '@file',
         app.store.is('features.hash', true)
           ? '[path][name].[contenthash:6][ext]'
-          : '[path][name].[ext]',
+          : '[path][name][ext]',
       )
       .replace(
         '@name',
