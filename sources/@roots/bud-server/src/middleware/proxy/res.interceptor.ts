@@ -70,6 +70,8 @@ export class ResponseInterceptorFactory {
     request: IncomingMessage,
     response: ServerResponse,
   ): Promise<Buffer | String> {
+    await this.app.hooks.fire('event.proxy.interceptor')
+
     response.setHeader('x-proxy-by', '@roots/bud')
     response.setHeader('x-bud-proxy-origin', this.url.proxy.origin)
     response.setHeader('x-bud-dev-origin', this.url.dev.origin)
@@ -80,7 +82,9 @@ export class ResponseInterceptorFactory {
     )
 
     return this.app.hooks
-      .filter('middleware.proxy.replacements')
+      .filter('middleware.proxy.replacements', [
+        [this.url.proxy.href, '/'],
+      ])
       .reduce(
         (buffer, [find, replace]) => buffer.replaceAll(find, replace),
         buffer.toString(),

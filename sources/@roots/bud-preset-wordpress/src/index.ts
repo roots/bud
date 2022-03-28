@@ -37,25 +37,25 @@ export const name: BudWordPressPreset['name'] =
   '@roots/bud-preset-wordpress'
 
 export const boot = async (app: Framework) => {
-  app.hooks.on(
-    'middleware.proxy.replacements',
-    (replacements): Array<[string, string]> => {
-      const proxy = app.hooks.filter('middleware.proxy.target').origin
-      const dev = app.server.connection.url.origin
-
-      return [
-        ...(replacements ?? []),
-        [
-          `<link id="wp-admin-canonical" rel="canonical" href="${proxy}`,
-          `<link id="wp-admin-canonical" rel="canonical" href="${dev}`,
-        ],
-        [
-          `<form name="loginform" id="loginform" action="${proxy}`,
-          `<form name="loginform" id="loginform" action="${dev}`,
-        ],
-      ]
-    },
-  )
+  app
+    .when(app.env.has('WP_SITEURL') && app.env.has('WP_HOME'), app =>
+      app.hooks.action('event.proxy.interceptor', async app => {
+        app.hooks.on(
+          'middleware.proxy.replacements',
+          (replacements): Array<[string, string]> => [
+            ...(replacements ?? []),
+            [
+              app.env.get('WP_SITEURL'),
+              app.env
+                .get('WP_SITEURL')
+                .replace(app.env.get('WP_HOME'), ''),
+            ],
+            [app.env.get('WP_HOME').concat('/'), '/'],
+          ],
+        )
+      }),
+    )
+    .hooks.on('build.output.publicPath', app.isDevelopment ? `/` : ``)
 }
 
 export * as ThemeJSON from './theme'

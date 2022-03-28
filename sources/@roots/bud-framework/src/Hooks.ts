@@ -165,6 +165,7 @@ export namespace Hooks {
       `event.server.before`,
       `event.server.listen`,
       `event.server.after`,
+      `event.proxy.interceptor`,
     ]
   }
 
