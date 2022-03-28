@@ -13,5 +13,5 @@ export interface Dashboard extends Service {
    *
    * @public
    */
-  stats(stats): void
+  stats(stats): Promise<void>
 }

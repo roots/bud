@@ -39,12 +39,12 @@ export const name: BudWordPressPreset['name'] =
 export const boot = async (app: Framework) => {
   app.when(app.env.has('WP_HOME'), () => {
     /**
-     * Set proxy if WP_HOME is available
+     * Set proxy URL
      */
     app.proxy(app.env.get('WP_HOME'))
 
     /**
-     * Intercept WP_HOME url
+     * Intercept URL
      */
     app.hooks.action('event.proxy.interceptor', async ({hooks}) =>
       hooks.on(
