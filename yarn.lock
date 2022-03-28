@@ -3810,6 +3810,8 @@ __metadata:
     json5: 2.2.0
     lodash: 4.17.21
     nanoid: 3.3.1
+    open: 8.4.0
+    open-editor: 4.0.0
     pkg-up: 4.0.0
     pretty-format: 27.5.1
     safe-json-stringify: 1.2.0
@@ -9703,6 +9705,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"env-editor@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "env-editor@npm:1.0.0"
+  checksum: ef0dd9f75b234c21d54b90a7a5400857477995ca302f98ed7dde634f7320a2e3af809aa90b200d7f5cf500405b47059c1f198082094a3785dca2b9d8a039ab92
+  languageName: node
+  linkType: hard
+
 "env-paths@npm:^2.2.0":
   version: 2.2.1
   resolution: "env-paths@npm:2.2.1"
@@ -10492,7 +10501,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"execa@npm:^5.0.0":
+"execa@npm:^5.0.0, execa@npm:^5.1.1":
   version: 5.1.1
   resolution: "execa@npm:5.1.1"
   dependencies:
@@ -14005,6 +14014,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"line-column-path@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "line-column-path@npm:3.0.0"
+  dependencies:
+    type-fest: ^2.0.0
+  checksum: 124564d302e45a5c2ce7d05588ead253aca254a064db8875fa9c31e7e00d9ae5b5d7caf7f1c45ff3615739cc0960ec0490d1ac0903a978a904f2aa114641f152
+  languageName: node
+  linkType: hard
+
 "lines-and-columns@npm:^1.1.6":
   version: 1.1.6
   resolution: "lines-and-columns@npm:1.1.6"
@@ -15936,7 +15954,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"open@npm:^8.0.9, open@npm:^8.4.0":
+"open-editor@npm:4.0.0":
+  version: 4.0.0
+  resolution: "open-editor@npm:4.0.0"
+  dependencies:
+    env-editor: ^1.0.0
+    execa: ^5.1.1
+    line-column-path: ^3.0.0
+    open: ^8.4.0
+  checksum: b3af8d0303cda1a0ae3d0a866094a35e4b0e0f646ab27389cd56cc9f4875f6ddc9e8249babbf7ffcfa1c162f8799dc5e5e7e8f6e528c02fbc17241d3ed88b706
+  languageName: node
+  linkType: hard
+
+"open@npm:8.4.0, open@npm:^8.0.9, open@npm:^8.4.0":
   version: 8.4.0
   resolution: "open@npm:8.4.0"
   dependencies:
@@ -20846,7 +20876,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"type-fest@npm:2.12.1, type-fest@npm:^2.5.0, type-fest@npm:^2.5.4":
+"type-fest@npm:2.12.1, type-fest@npm:^2.0.0, type-fest@npm:^2.5.0, type-fest@npm:^2.5.4":
   version: 2.12.1
   resolution: "type-fest@npm:2.12.1"
   checksum: faac07668190b7709c16ba4696e42b6cc83b702fa11e8936ce94d9ed1415eb9034b157ae25bba23e222d755e031787f7b92552710704d55e39aadcc27f0ee1da

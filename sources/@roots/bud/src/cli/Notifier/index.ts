@@ -1,5 +1,5 @@
 import {Framework} from '@roots/bud-framework'
-import {bind} from '@roots/bud-support'
+import {bind, debounce, open, openEditor} from '@roots/bud-support'
 import {
   Notification,
   NotificationCallback,
@@ -68,20 +68,47 @@ and ${this.app.compiler.stats.warningsCount} warnings`
 
   public get open(): string {
     if (this.app.isProduction) return
-
     return this.app.server.connection.url.toString()
+  }
+
+  @bind
+  public openEditor() {
+    this.app.isDevelopment &&
+      this.app.context.args.openEditor == true &&
+      this.app.compiler.stats?.errors?.length &&
+      this.app.compiler.stats.errors[0].moduleTrace?.length &&
+      this.app.compiler.stats.errors[0].moduleTrace[0].originName &&
+      openEditor(
+        this.app.compiler.stats.errors[0].moduleTrace
+          .filter(({originName}) => originName)
+          .map(({originName}) => ({
+            file: this.app.path(originName),
+          })),
+      )
+  }
+
+  @bind
+  public async openBrowser() {
+    if (
+      this.app.isDevelopment &&
+      this.app.context.args.openBrowser == true &&
+      this.app.compiler.stats.errorsCount == 0
+    )
+      await open(this.app.server.connection.url.toString())
   }
 
   /**
    * Emits notification
-   *
-   * @param app - Framework
-   *
    * @public
    * @decorator `@bind`
+   * @decorator `@debounce`
    */
   @bind
+  @debounce(1000)
   public async notify() {
+    this.openEditor()
+    await this.openBrowser()
+
     this.app.context.args.notify === true &&
       this.notificationCenter.notify(
         {
@@ -102,7 +129,5 @@ and ${this.app.compiler.stats.warningsCount} warnings`
    * @decorator `@bind`
    */
   @bind
-  public callback(error: Error, response: any, metadata: any) {
-    //  error && this.app.error(error.toString())
-  }
+  public async callback(error: Error, response: any, metadata: any) {}
 }
