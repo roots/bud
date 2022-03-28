@@ -88,7 +88,6 @@ export class Compiler extends Service implements Contract {
     this.config = await this.before()
     const compiler = await this.invoke(this.config)
 
-    this.app.timeEnd('bud')
     this.app._hrdone = this.app._hrdiff()
 
     return compiler

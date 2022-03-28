@@ -1,12 +1,5 @@
-import {format} from '@roots/bud-support'
-import {bind, chalk, highlight, lodash} from '@roots/bud-support'
-import {PrettyFormatOptions} from 'pretty-format/build/types'
-
 import {Bootstrapper} from './Bootstrapper'
 import {Framework} from './Framework'
-import {Logger} from './Logger'
-
-const {isString, isUndefined} = lodash
 
 /**
  * Atomic unit of {@link Framework} functionality.
@@ -44,15 +37,6 @@ export abstract class Service<
    * @public
    */
   public ident?: string = 'service'
-
-  /**
-   * Service scoped logger
-   *
-   * @public
-   */
-  public get logger(): Logger['instance'] {
-    return this.app.logger.instance
-  }
 
   /**
    * Lifecycle method: bootstrap
@@ -123,60 +107,4 @@ export abstract class Service<
    * @virtual @public
    */
   public booted?(app: Framework): Promise<any>
-
-  /**
-   * Dump the service repository
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public dump(options?: PrettyFormatOptions) {
-    this.app.log({
-      message: highlight(
-        format(this.repository, {
-          maxDepth: 2,
-          ...options,
-        }),
-      ),
-      prefix: this.ident,
-    })
-  }
-
-  /**
-   * Log a message
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public log(type: string, ...messages: any[]) {
-    this.app.store.is('features.log', true) &&
-      this.logger[type](
-        ...messages.reduce(
-          (
-            acc,
-            loggedItem: string | {message?: string; suffix?: string},
-          ) => {
-            if (
-              typeof loggedItem !== 'string' &&
-              !isUndefined(loggedItem?.suffix) &&
-              isString(loggedItem?.suffix)
-            ) {
-              loggedItem.suffix = chalk.dim(
-                loggedItem.suffix.replace(
-                  this.app.context.projectDir,
-                  '.',
-                ),
-              )
-            }
-
-            return [...acc, loggedItem]
-          },
-          [],
-        ),
-      )
-
-    return this
-  }
 }

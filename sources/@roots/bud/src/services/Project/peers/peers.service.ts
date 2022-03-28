@@ -1,9 +1,5 @@
 /* eslint-disable simple-import-sort/imports */
-import {
-  Framework,
-  Peers as PeersInterface,
-  Service,
-} from '@roots/bud-framework'
+import {Framework, Peers as PeersInterface} from '@roots/bud-framework'
 import {bind, fs, pkgUp, safeResolve} from '@roots/bud-support'
 import {posix} from 'path'
 import {AdjacencyList} from './adjacencyList'
@@ -23,7 +19,7 @@ export class Peers implements PeersInterface {
    *
    * @public
    */
-  public get log(): Service['log'] {
+  public get log(): Console['log'] {
     return this.app.project.log
   }
 

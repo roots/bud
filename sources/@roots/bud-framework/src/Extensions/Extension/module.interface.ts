@@ -1,4 +1,3 @@
-import {Signale} from '@roots/bud-support'
 import {Container} from '@roots/container'
 
 import {Factory, Framework, Loose, Maybe, Modules, Plugins} from '../..'
@@ -30,14 +29,14 @@ export interface Module<Options = any> extends Loose {
    *
    * @public
    */
-  register?: Factory<[Framework, Signale], any>
+  register?: Factory<[Framework, Console], any>
 
   /**
    * General purpose callback. Called after everything else.
    *
    * @public
    */
-  boot?: Factory<[Framework, Signale], any>
+  boot?: Factory<[Framework, Console], any>
 
   /**
    * Objects to bind to the framework. May be expressed as an object literal or a factory function.

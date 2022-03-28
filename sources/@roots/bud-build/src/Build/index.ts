@@ -54,12 +54,7 @@ export class Build extends Framework.Service implements Framework.Build {
    */
   @bind
   public async registered() {
-    this.app.hooks
-      .action('event.build.before', async app => app.time(`build.make`))
-      .hooks.action('event.build.after', async app =>
-        app.timeEnd(`build.make`),
-      )
-      .hooks.action('event.build.after', this.writeFinalConfig)
+    this.app.hooks.action('event.build.after', this.writeFinalConfig)
   }
 
   /**

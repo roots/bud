@@ -37,7 +37,7 @@ export function bindMethod<FunctionMap = GenericFunctionMap>(
   })
 
   Object.keys(properties).forEach(key => {
-    this.success(`bound ${key}`)
+    this.log(`bound ${key}`)
   })
 
   return this

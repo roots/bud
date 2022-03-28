@@ -1,10 +1,7 @@
+/* eslint-disable no-console */
 import * as Framework from '@roots/bud-framework'
 
-import {
-  bind,
-  DependenciesManager,
-  Signale,
-} from './dependencies.dependencies'
+import {bind, DependenciesManager} from './dependencies.dependencies'
 
 /**
  * Dependencies management service
@@ -55,27 +52,19 @@ export class Dependencies
       version: string
     }[],
   ): Promise<void> {
-    const logger = new Signale({interactive: true})
-
     try {
-      logger.await({
-        message: 'installing packages',
-        suffix: packages,
-      })
+      console.log('installing packages')
 
       await this.client.install(
         packages.map(v => [v.name, v.version]),
         true,
         message => {
-          logger.log(message)
+          console.log(message)
         },
       )
-
-      logger.success({
-        message: 'installing packages',
-      })
     } catch (err) {
-      logger.error(err)
+      console.error(err)
+      throw new Error(err)
     }
   }
 }

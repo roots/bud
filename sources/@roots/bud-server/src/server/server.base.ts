@@ -1,6 +1,6 @@
 import {Framework, Server} from '@roots/bud-framework'
 import {Connection} from '@roots/bud-framework/src/Server/Connection'
-import {bind, getPort, Signale} from '@roots/bud-support'
+import {bind, getPort} from '@roots/bud-support'
 import {IncomingMessage, Server as HttpServer} from 'http'
 import {Server as HttpsServer} from 'https'
 import {ServerResponse} from 'webpack-dev-middleware'
@@ -22,7 +22,7 @@ export abstract class BaseServer implements Connection {
    * Logger
    * @public
    */
-  public logger: Signale
+  public logger: Console
 
   /**
    * Options
@@ -37,9 +37,7 @@ export abstract class BaseServer implements Connection {
    * @param app - Framework
    * @public
    */
-  public constructor(public app: Framework, public url: URL) {
-    this.logger = this.app.logger.instance.scope(this.url.host)
-  }
+  public constructor(public app: Framework, public url: URL) {}
 
   /**
    * setup
@@ -51,7 +49,6 @@ export abstract class BaseServer implements Connection {
     const port = await getPort({port: Number(this.url.port)})
     this.url.port = `${port}`
     this.app.hooks.on('dev.url', this.url)
-    this.logger.log('url', this.url)
   }
 
   /**
@@ -88,7 +85,8 @@ export abstract class BaseServer implements Connection {
     request: IncomingMessage,
     response: ServerResponse,
   ) {
-    this.logger.log(
+    this.logger.info(
+      `[${this.url.host}]`,
       `[${response.statusCode}]`,
       request.url,
       response.statusMessage ?? '',

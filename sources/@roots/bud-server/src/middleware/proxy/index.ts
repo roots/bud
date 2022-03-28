@@ -81,7 +81,13 @@ export const proxy = (app: Framework) => {
     /**
      * Log provider
      */
-    logProvider: () => app.logger.instance.scope('proxy'),
+    logProvider: () => ({
+      log: (...args: any[]) => app.log(`[proxy]`, ...args),
+      debug: (...args: any[]) => app.debug(`[proxy]`, ...args),
+      info: (...args: any[]) => app.info(`[proxy]`, ...args),
+      warn: (...args: any[]) => app.warn(`[proxy]`, ...args),
+      error: (...args: any[]) => app.error(`[proxy]`, ...args),
+    }),
 
     /**
      * Proxy request handler
@@ -125,9 +131,6 @@ export const proxy = (app: Framework) => {
      */
     target: app.hooks.filter('middleware.proxy.target', url.proxy),
   }
-
-  const {log} = app.logger.instance.scope('proxy')
-  Object.entries(options).map(v => log(...v))
 
   return createProxyMiddleware(options)
 }

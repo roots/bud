@@ -1,6 +1,8 @@
-import {LEVEL, types} from './logger.constants'
-import {Signale} from './logger.dependencies'
-import type {Framework} from './logger.interface'
+import {Signale} from '@roots/bud-support'
+
+import type {Framework} from '../'
+import {LEVEL} from './logger.levels'
+import {types} from './logger.types'
 
 /**
  * Logger service
@@ -13,7 +15,7 @@ export class Logger {
    *
    * @public
    */
-  public instance: Signale
+  public instance: Signale | Console
 
   public get level() {
     if (!this.app.context.args.log) return LEVEL.ERROR

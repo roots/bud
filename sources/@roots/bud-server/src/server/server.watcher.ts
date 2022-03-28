@@ -46,7 +46,9 @@ export class Watcher implements Server.Watcher {
    */
   @bind
   public async watch(): Promise<Watcher['instance']> {
-    const {info} = this.app.logger.instance.scope('watch')
+    const info = (...messages: any[]) =>
+      this.app.info(`[watch]`, ...messages)
+
     const watchFiles = await this.getWatchedFiles()
 
     if (!watchFiles.length) return

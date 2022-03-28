@@ -54,7 +54,7 @@ export class Extensions extends Service implements Base {
     await Promise.all(
       this.getEntries().map(async ([key, extension]) => {
         this.setController(extension)
-        this.log('success', {message: `${key} instantiated`})
+        this.app.log({message: `${key} instantiated`})
       }),
     )
 
@@ -72,7 +72,7 @@ export class Extensions extends Service implements Base {
   @bind
   public async injectExtensions() {
     if (this.app.store.is('features.inject', false)) {
-      this.log('log', 'injection disabled')
+      this.app.log('injection disabled')
       return
     }
 
@@ -105,7 +105,7 @@ export class Extensions extends Service implements Base {
   public async importExtension(
     extension: Record<string, any>,
   ): Promise<void> {
-    this.log('log', `importing ${extension.name}`)
+    this.app.log(`importing ${extension.name}`)
     const importedModule = await import(extension.name)
     const importedExtension: Extension.Module = importedModule.default
       ? importedModule.default
@@ -153,8 +153,6 @@ export class Extensions extends Service implements Base {
    */
   @bind
   public async registerExtensions(): Promise<void> {
-    this.log('time', 'registering')
-
     await this.getEntries().reduce(
       async (promised, [_key, controller]) => {
         await promised
@@ -162,8 +160,6 @@ export class Extensions extends Service implements Base {
       },
       Promise.resolve(),
     )
-
-    this.log('timeEnd', 'registering')
   }
 
   /**
@@ -171,13 +167,10 @@ export class Extensions extends Service implements Base {
    */
   @bind
   public async bootExtensions(): Promise<void> {
-    this.log('time', 'booting')
     await this.getEntries().reduce(async (promised, [key, controller]) => {
       await promised
       await this.bootExtension(controller)
     }, Promise.resolve())
-
-    this.log('timeEnd', 'booting')
   }
 
   /**
@@ -189,7 +182,7 @@ export class Extensions extends Service implements Base {
   @bind
   public async add(extension: Extension.Module): Promise<void> {
     if (this.has(extension.name)) {
-      this.log('info', `${extension.name} already exists. skipping.`)
+      this.app.log(`${extension.name} already exists. skipping.`)
       return
     }
 
@@ -239,8 +232,6 @@ export class Extensions extends Service implements Base {
       apply: CallableFunction
     }[]
   > {
-    this.log('time', 'extensions.make')
-
     await this.processQueue()
 
     const plugins = this.getValues()
@@ -249,24 +240,18 @@ export class Extensions extends Service implements Base {
         const result = controller.make()
 
         if (!result) {
-          this.log(
-            'log',
+          this.app.log(
             `${controller.name} will not be used in the compilation`,
           )
 
           return result
         }
 
-        this.log(
-          'success',
-          `${controller.name} will be used in the compilation`,
-        )
+        this.app.log(`${controller.name} will be used in the compilation`)
 
         return result
       })
       .filter(Boolean)
-
-    this.log('timeEnd', 'extensions.make')
 
     return plugins
   }

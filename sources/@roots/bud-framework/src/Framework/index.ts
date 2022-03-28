@@ -617,19 +617,6 @@ export abstract class Framework {
   }
 
   /**
-   * Log a `success` level message
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public success(...messages: any[]) {
-    this.logger?.instance && this.logger.instance.success(...messages)
-
-    return this
-  }
-
-  /**
    * Log a `warning` level message
    *
    * @public
@@ -638,58 +625,6 @@ export abstract class Framework {
   @bind
   public warn(...messages: any[]) {
     this.logger?.instance && this.logger.instance.warn(...messages)
-
-    return this
-  }
-
-  /**
-   * Log a `warning` level message
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public time(...messages: any[]) {
-    this.logger?.instance && this.logger.instance.time(...messages)
-
-    return this
-  }
-
-  /**
-   * Log a `warning` level message
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public await(...messages: any[]) {
-    this.logger?.instance && this.logger.instance.await(...messages)
-
-    return this
-  }
-
-  /**
-   * Log a `warning` level message
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public complete(...messages: any[]) {
-    this.logger?.instance && this.logger.instance.complete(...messages)
-
-    return this
-  }
-
-  /**
-   * Log a `warning` level message
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public timeEnd(...messages: any[]) {
-    this.logger?.instance && this.logger.instance.timeEnd(...messages)
 
     return this
   }

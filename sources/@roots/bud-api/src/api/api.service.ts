@@ -73,7 +73,7 @@ export class Api extends Framework.Service implements Framework.Api {
    */
   @bind
   public async call(name: string, ...args: any[]) {
-    this.log('log', {
+    this.app.log({
       message: `executing ${chalk.blue(name)}`,
       suffix:
         args && !isEmpty(args) ? this.app.json.stringify(args) : 'none',
@@ -100,7 +100,7 @@ export class Api extends Framework.Service implements Framework.Api {
   public async processQueue() {
     if (!this.queue.length) return
 
-    this.log('await', `Executing ${this.queue.length} enqueued functions`)
+    this.app.log(`Executing ${this.queue.length} enqueued functions`)
 
     await Promise.all(
       this.queue.map(async ([name, args]) => {
@@ -115,32 +115,5 @@ export class Api extends Framework.Service implements Framework.Api {
     )
 
     this.queue = []
-  }
-
-  /**
-   * Dump the method call trace
-   *
-   * @public
-   */
-  @bind
-  public dump() {
-    this.app.dump(
-      this.trace.reduce(
-        (a, t) => [
-          ...a,
-          {
-            method: t[0],
-            arguments: isEmpty(t[1]) ? 'none' : t[1],
-          },
-        ],
-        [],
-      ),
-      {
-        prefix: `${this.app.name} config traced calls`,
-        printBasicPrototype: false,
-        callToJSON: true,
-        min: true,
-      },
-    )
   }
 }

@@ -16,7 +16,7 @@ export const devtool: devtool = async function (devtool = false) {
 
   this.hooks.on('build.devtool', value)
 
-  this.api.log('success', {prefix: 'devtool', message: devtool})
+  this.log({prefix: 'devtool', message: devtool})
 
   return this
 }

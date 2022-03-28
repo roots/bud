@@ -14,14 +14,14 @@ export const persist: persist = function (
 
   if (type === false) {
     ctx.cache.enabled = false
-    ctx.api.log('success', {message: 'cache disabled'})
+    ctx.log({message: 'cache disabled'})
     return ctx
   }
 
   ctx.cache.enabled = true
   ctx.cache.type = isString(type) ? type : 'filesystem'
 
-  ctx.api.log('success', {
+  ctx.log({
     message: 'cache enabled',
     suffix: chalk.dim(type),
   })

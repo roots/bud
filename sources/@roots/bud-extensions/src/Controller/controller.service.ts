@@ -1,4 +1,4 @@
-import {Modules, Service} from '@roots/bud-framework'
+import {Modules} from '@roots/bud-framework'
 import {Container} from '@roots/container'
 
 import {
@@ -8,7 +8,6 @@ import {
   isObject,
   isUndefined,
   omit,
-  Signale,
 } from './controller.dependencies'
 import {Extension, Framework, Plugin} from './controller.interface'
 
@@ -49,14 +48,8 @@ export class Controller {
     booted: false,
   }
 
-  public get moduleLogger(): Signale {
-    let logger = new Signale().scope(this.name)
-
-    if (this.app.store.is('features.log', false)) {
-      logger.disable()
-    }
-
-    return logger
+  public log(...messages: any[]) {
+    this.app.log(`[${this.name}]`, ...messages)
   }
 
   /**
@@ -65,18 +58,13 @@ export class Controller {
   public _module: Extension | Plugin = {}
 
   /**
-   * @public
-   */
-  public log: typeof Service.prototype.log
-
-  /**
    * Controller constructor
    *
    * @public
    */
   public constructor(_app: Framework, extension: Extension) {
     this._app = () => _app
-    this.log = this.app.extensions.log
+    this.log = this.app.log
     this.meta.instance = this.app.name
 
     if (!extension) {
@@ -372,11 +360,11 @@ export class Controller {
     await this.api()
 
     if (isFunction(this._module.register)) {
-      await this._module.register(this.app, this.moduleLogger)
+      await this._module.register(this.app, this.app.logger.instance)
 
       await this.app.api.processQueue()
 
-      this.moduleLogger.success({
+      this.log({
         message: `register called`,
         suffix: chalk.dim`${this.name}`,
       })
@@ -470,7 +458,7 @@ export class Controller {
     this.app.mixin(classMap)
 
     Object.entries(classMap).forEach(([k, v]) => {
-      this.moduleLogger.success({
+      this.log({
         message: `registered ${this.app.name}.${k}`,
         suffix: chalk.dim`${this.name}`,
       })
@@ -506,13 +494,11 @@ export class Controller {
       ))
 
     if (isFunction(this._module.boot)) {
-      await this._module.boot(this.app, this.moduleLogger)
+      await this._module.boot(this.app, this.app.logger.instance)
 
       await this.app.api.processQueue()
 
-      this.moduleLogger.success({
-        message: `${this.name} booted`,
-      })
+      this.log({message: `${this.name} booted`})
     }
 
     return this

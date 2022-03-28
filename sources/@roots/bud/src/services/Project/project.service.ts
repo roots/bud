@@ -65,7 +65,7 @@ export class Project
     try {
       await this.buildProfile()
     } catch (e) {
-      this.log('error', e)
+      this.app.error(e)
     }
   }
 
@@ -134,15 +134,11 @@ export class Project
       this.app.path(`@storage/${this.app.name}/profile.json`),
     )
 
-    this.log('time', 'building profile')
-
     try {
       await this.resolvePeers()
     } catch (error) {
       this.app.error(error)
     }
-
-    this.log('timeEnd', 'building profile')
   }
 
   /**
@@ -158,7 +154,7 @@ export class Project
       jsonStringify(this.repository, null, 2),
     )
 
-    this.log('success', {
+    this.app.log({
       message: 'write profile',
       suffix: this.app.path(`@storage/${this.app.name}/profile.json`),
     })

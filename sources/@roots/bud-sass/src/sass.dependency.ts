@@ -1,5 +1,3 @@
-import type {Signale} from '@roots/bud-support'
-
 /**
  * Imports sass/sass implementation
  *
@@ -8,13 +6,11 @@ import type {Signale} from '@roots/bud-support'
  *
  * @public
  */
-export async function importSassImplementation(logger: Signale) {
+export async function importSassImplementation(logger: Console) {
   try {
-    logger.await('attempting to import sass')
-
     const sass = await import('sass')
 
-    logger.success('sass imported')
+    logger.info('sass successfully imported')
 
     return sass
   } catch (e) {
@@ -32,7 +28,7 @@ export async function importSassImplementation(logger: Signale) {
  *
  * @public
  */
-export function resolveLoader(logger: Signale): string {
+export function resolveLoader(logger: Console): string {
   try {
     return require.resolve('sass-loader')
   } catch (e) {

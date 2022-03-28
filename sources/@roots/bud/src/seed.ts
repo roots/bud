@@ -162,8 +162,8 @@ export const seed: Partial<Store.Repository> = {
     log: infrastructureLogger.instance.log,
     table: (tabularData?: any, properties?: string[]) =>
       infrastructureLogger.instance.log(table.table(tabularData)),
-    time: infrastructureLogger.instance.time,
-    timeEnd: infrastructureLogger.instance.timeEnd,
+    time: () => null,
+    timeEnd: () => null,
     timeLog: () => null,
     trace: (message, ...params) =>
       infrastructureLogger.instance.log(

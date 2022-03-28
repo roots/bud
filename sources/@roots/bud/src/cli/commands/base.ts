@@ -54,9 +54,7 @@ export abstract class BaseCommand extends Command {
     this.app.hooks.action('event.compiler.done', this.notifier.notify)
 
     try {
-      this.logger.time('process user configs')
       await disk.config(this.app)
-      this.logger.timeEnd('process user configs')
     } catch (error) {
       throw new Error(error)
     }

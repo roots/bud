@@ -45,7 +45,6 @@ export async function make(
   const app = this as Framework
 
   handleChildNestingError.bind(app)()
-  app.logger.instance.fav(`new instance:`, name)
 
   const instance = new app.implementation({
     name,
@@ -55,6 +54,8 @@ export async function make(
     context: app.context,
     services: app.options.services,
   })
+
+  app.info(`new instance:`, name)
 
   await instance.lifecycle()
 

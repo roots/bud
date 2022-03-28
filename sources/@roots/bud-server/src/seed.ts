@@ -37,9 +37,8 @@ export const seed = (app: Framework) => {
     .hooks.on(`middleware.dev.options.writeToDisk`, true)
 
     .hooks.on(`middleware.hot.options.path`, `/__bud/hmr`)
-    .hooks.on(
-      `middleware.hot.options.log`,
-      app.logger.instance.scope('hot').info,
+    .hooks.on(`middleware.hot.options.log`, (...messages: any[]) =>
+      app.info(`[HMR]`, ...messages),
     )
     .hooks.on(`middleware.hot.options.heartbeat`, 2000)
 

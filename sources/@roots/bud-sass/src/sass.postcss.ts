@@ -1,5 +1,4 @@
 import type {Framework} from '@roots/bud-framework'
-import type {Signale} from '@roots/bud-support'
 
 /**
  * Add postcss-scss syntax
@@ -20,11 +19,11 @@ export function configure(app: Framework): void {
  *
  * @internal
  */
-export function verify(app: Framework, logger: Signale): void {
+export function verify(app: Framework, logger: Console): void {
   const options = app.hooks.filter('extension.@roots/bud-postcss.options')
 
   if (options?.syntax == 'postcss-scss') {
-    logger.success('postcss configured to handle scss syntax')
+    logger.info('postcss configured to handle scss syntax')
   } else {
     logger.warn(
       'There was a problem adding postcss-scss to the build. Consider filing an issue at https://github.com/roots/bud. You may be fine as long as you are not using postcss syntax in your scss stylesheets.',

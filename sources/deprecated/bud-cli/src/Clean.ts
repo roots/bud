@@ -27,25 +27,16 @@ export default class Clean extends Command {
   public async run() {
     this.cli = this.parse(Clean)
 
-    const runner = new Runner(this.cli, {
-      config,
-    })
+    const runner = new Runner(this.cli, {config})
 
     this.app = await runner.make(false)
-
-    this.app.logger.instance.scope('cli').timeEnd('pre clean')
-
-    this.app.logger.instance.scope('cli').time('clean')
 
     this.app.logger.instance.scope('cli').debug(this.app)
 
     if (this.target[0] !== 'all') {
       try {
         await remove(
-          this.app.path(
-            this.target[0],
-            ...this.target.splice(1),
-          ),
+          this.app.path(this.target[0], ...this.target.splice(1)),
         )
       } catch (err) {
         this.app.logger.instance.error(err)
@@ -63,8 +54,6 @@ export default class Clean extends Command {
         this.app.logger.instance.error(err)
       }
     }
-
-    this.app.logger.instance.scope('cli').timeEnd('clean')
 
     process.exit()
   }

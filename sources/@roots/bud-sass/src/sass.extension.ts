@@ -1,5 +1,4 @@
 import type {Extension, Framework} from '@roots/bud-framework'
-import type {Signale} from '@roots/bud-support'
 
 import {importSassImplementation} from './sass.dependency'
 import * as postcss from './sass.postcss'
@@ -27,7 +26,7 @@ export const extension: extension = {
    *
    * @public
    */
-  async register(app: Framework, logger: Signale) {
+  async register(app: Framework, logger: Console) {
     const implementation = await importSassImplementation(logger)
 
     app.hooks

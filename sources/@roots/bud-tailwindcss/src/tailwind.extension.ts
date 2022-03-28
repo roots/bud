@@ -1,5 +1,4 @@
 import type {Extension, Framework} from '@roots/bud-framework'
-import type {Signale} from '@roots/bud-support'
 
 /**
  * Add TailwindCSS support to Bud
@@ -25,7 +24,7 @@ export class BudTailwindCssExtension implements BudTailwindCssExtension {
    * @param app - Framework
    * @returns void
    */
-  public static async boot(app: Framework, logger: Signale) {
+  public static async boot(app: Framework, logger: Console) {
     try {
       const {default: tailwindcss} = await import('tailwindcss')
       const {default: nesting} = await import('tailwindcss/nesting')
@@ -37,7 +36,7 @@ export class BudTailwindCssExtension implements BudTailwindCssExtension {
         'postcss-preset-env': app.postcss.get('postcss-preset-env'),
       })
 
-      logger.success('postcss has been configured for tailwindcss')
+      logger.log('postcss has been configured for tailwindcss')
     } catch (message) {
       logger.warn({message})
     }
