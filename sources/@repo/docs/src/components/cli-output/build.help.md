@@ -24,6 +24,8 @@ $ @roots/bud build
   --minimize                Minimize compiled assets
   --modules #0              Module resolution path
   --notify                  Enable notfication center messages
+  --openBrowser             Open browser on successful development build
+  --openEditor              Open editor to file containing errors on unsuccessful development build
   --overlay                 Enable error overlay in development mode
   --publicPath #0           public path of emitted assets
   --splitChunks,--vendor    Separate vendor bundle
