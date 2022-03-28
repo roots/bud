@@ -1,4 +1,5 @@
-import {figures} from './figures'
+import {figures} from '@roots/bud-support'
+
 import {Framework} from './logger.interface'
 
 /**
