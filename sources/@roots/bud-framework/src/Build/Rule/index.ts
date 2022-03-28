@@ -19,7 +19,7 @@ export namespace Rule {
     use?: Rule['use'] | ((use: Rule['use'], app: Framework) => Rule['use'])
     include?: Rule['include']
     exclude?: Rule['exclude']
-    type?: Rule['test']
+    type?: Rule['type']
     parser?: Rule['parser']
     generator?: Rule['generator']
   }
@@ -164,7 +164,7 @@ export interface Rule {
    *
    * @public
    */
-  parser?: (app: Framework) => Rule.Parser
+  parser?: ((app: Framework) => Rule.Parser) | Rule.Parser
 
   /**
    * Get the value of `parser`
