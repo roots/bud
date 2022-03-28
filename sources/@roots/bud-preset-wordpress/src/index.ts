@@ -37,25 +37,40 @@ export const name: BudWordPressPreset['name'] =
   '@roots/bud-preset-wordpress'
 
 export const boot = async (app: Framework) => {
-  app
-    .when(app.env.has('WP_SITEURL') && app.env.has('WP_HOME'), app =>
-      app.hooks.action('event.proxy.interceptor', async app => {
-        app.hooks.on(
-          'middleware.proxy.replacements',
-          (replacements): Array<[string, string]> => [
-            ...(replacements ?? []),
-            [
-              app.env.get('WP_SITEURL'),
-              app.env
-                .get('WP_SITEURL')
-                .replace(app.env.get('WP_HOME'), ''),
-            ],
-            [app.env.get('WP_HOME').concat('/'), '/'],
-          ],
-        )
-      }),
+  app.when(app.env.has('WP_HOME'), () => {
+    /**
+     * Set proxy if WP_HOME is available
+     */
+    app.proxy(app.env.get('WP_HOME'))
+
+    /**
+     * Intercept WP_HOME url
+     */
+    app.hooks.action('event.proxy.interceptor', async ({hooks}) =>
+      hooks.on(
+        'middleware.proxy.replacements',
+        (replacements): Array<[string, string]> => [
+          ...(replacements ?? []),
+          [app.env.get('WP_HOME').concat('/'), '/'],
+        ],
+      ),
     )
-    .hooks.on('build.output.publicPath', app.isDevelopment ? `/` : ``)
+  })
+
+  app.when(app.env.has('WP_SITE_URL'), ({hooks}) => {
+    hooks.action('event.proxy.interceptor', async ({hooks}) => {
+      hooks.on(
+        'middleware.proxy.replacements',
+        (replacements): Array<[string, string]> => [
+          ...(replacements ?? []),
+          [
+            app.env.get('WP_SITEURL'),
+            app.env.get('WP_SITEURL').replace(app.env.get('WP_HOME'), ''),
+          ],
+        ],
+      )
+    })
+  })
 }
 
 export * as ThemeJSON from './theme'
