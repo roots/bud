@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
 var options = {
-  path: '/__bud/hmr',
+  path: '/__hmr',
   timeout: 20 * 1000,
   overlay: true,
   reload: false,

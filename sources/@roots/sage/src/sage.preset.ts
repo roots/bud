@@ -1,52 +1,30 @@
 import * as Framework from '@roots/bud-framework'
 
-import eventAppClose from './hooks/event.app.close'
-import eventCompilerDone from './hooks/event.compiler.done'
+import {makeAcornCompat} from './acorn'
 import * as ThemeJSON from './theme/extension'
 
 interface Sage extends Framework.Extension.Module {}
 
 /**
- * Sage preset
- *
  * @public
  */
 const Sage: Sage = {
   /**
-   * Extension identifier
-   *
    * @public
    */
   name: '@roots/sage',
 
   /**
-   * Extension boot
-   *
    * @public
    */
   boot: async app => {
-    /**
-     * Add theme.json generator support
-     */
+    /* Acorn concerns */
+    makeAcornCompat(app)
+
+    /* Add theme.json extension */
     await app.extensions.add(ThemeJSON)
 
-    app.extensions
-      .get('@roots/bud-entrypoints')
-      .setOption('publicPath', '')
-
-    /**
-     * Override output directory for svg assets
-     * `@roots/bud-build` places them, by default, in `svg/`
-     */
-    app.build.rules.svg.setGenerator(app => ({
-      filename: app.store.is('features.hash', true)
-        ? 'images/'.concat(app.store.get('hashFormat')).concat('[ext]')
-        : 'images/'.concat(app.store.get('fileFormat')).concat('[ext]'),
-    }))
-
-    /**
-     * Application paths
-     */
+    /* Set application paths */
     app.setPath({
       '@src': 'resources',
       '@dist': 'public',
@@ -59,9 +37,7 @@ const Sage: Sage = {
       '@views': '@src/views',
     })
 
-    /**
-     * Application aliases
-     */
+    /* Set application client aliases */
     app.alias({
       '@fonts': app.path('@fonts'),
       '@images': app.path('@images'),
@@ -69,34 +45,14 @@ const Sage: Sage = {
       '@styles': app.path('@styles'),
     })
 
-    /**
-     * Separate vendor code from application
-     */
+    /* Create vendor chunk(s) */
     app.splitChunks()
 
-    /**
-     * Production/development configuration
-     */
+    /* Environment specific configuration */
     app.when(
-      /**
-       * Test for production
-       */
       app.isProduction,
-
-      /**
-       * Production
-       */
       () => app.minimize().hash().runtime('single'),
-
-      /**
-       * Development
-       */
-      () => {
-        app
-          .devtool()
-          .hooks.action('event.compiler.done', eventCompilerDone)
-          .hooks.action('event.app.close', eventAppClose)
-      },
+      () => app.devtool(),
     )
   },
 }
