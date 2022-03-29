@@ -57,8 +57,8 @@ export class ResponseInterceptorFactory {
    *
    * @param buffer - Buffered response
    * @param proxyRes - Response from the proxy
-   * @param req - Request from the client
-   * @param res - Response from the server
+   * @param request - Request from the client
+   * @param response - Response from the server
    *
    * @public
    * @decorator `@bind`
@@ -81,14 +81,14 @@ export class ResponseInterceptorFactory {
       response.cookie(k, v, {domain: null}),
     )
 
-    return this.app.hooks
-      .filter('middleware.proxy.replacements', [
-        [this.url.proxy.href, '/'],
-      ])
-      .reduce(
-        (buffer, [find, replace]) => buffer.replaceAll(find, replace),
-        buffer.toString(),
-      )
+    return [
+      ...(this.app.hooks.filter('middleware.proxy.replacements') ?? []),
+      [this.url.proxy.href, this.url.proxy.pathname],
+    ].reduce(
+      (buffer, [find, replace]: [string | RegExp, string]) =>
+        buffer.replaceAll(find, replace),
+      buffer.toString(),
+    )
   }
 
   /**

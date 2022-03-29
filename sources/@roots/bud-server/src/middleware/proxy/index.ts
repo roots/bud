@@ -42,7 +42,7 @@ export const proxy = (app: Framework) => {
      */
     followRedirects: app.hooks.filter(
       `middleware.proxy.options.followRedirects`,
-      false,
+      true,
     ),
 
     /**
