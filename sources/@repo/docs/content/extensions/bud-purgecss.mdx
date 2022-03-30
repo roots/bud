@@ -8,7 +8,7 @@ import {Install} from '@site/src/docs/Install'
 
 # @roots/bud-purgecss
 
-[PurgeCSS](https://purgecss.com/) support can be added by installing the [@roots/bud-purgecss](/extensions/bud-purgecss) extension.
+By default, bud does not purge any styles on its own. [PurgeCSS](https://purgecss.com/) support can be added by installing the [@roots/bud-purgecss](/extensions/bud-purgecss) extension.
 
 ## Installation
 
@@ -21,9 +21,6 @@ import {Install} from '@site/src/docs/Install'
 ```ts title="bud.config.js"
 app.purgecss({
   content: [app.path('resources/views/**')],
-  safelist: [
-    ...require('purgecss-with-wordpress').safelist,
-  ],
-});
-
+  safelist: [...require('purgecss-with-wordpress').safelist],
+})
 ```
