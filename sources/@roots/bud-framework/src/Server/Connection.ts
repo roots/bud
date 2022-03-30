@@ -27,15 +27,29 @@ export interface Connection {
   instance: HttpServer | HttpsServer
 
   /**
-   * Server URL
+   * Resolved port
+   * @public
+   */
+  port: number
+
+  /**
+   * Resolved URL
    * @public
    */
   url: URL
 
   /**
+   * User specifications
+   * @public
+   */
+  specification: {
+    port: Array<number>
+    exclude: Array<number>
+    host: string
+  }
+
+  /**
    * Create server
-   * @remarks
-   * Returns Node server
    * @public
    */
   createServer(app: any): Promise<Connection['instance']>

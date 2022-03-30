@@ -1,48 +1,54 @@
+/* eslint-disable no-console */
+
 type Target = HTMLAnchorElement | HTMLLinkElement | HTMLFormElement
 type ElementTuple = [HTMLCollectionOf<Target>, any]
 
-const main = async () => {
-  const {headers} = await fetch(window.location.origin, {method: 'GET'})
-
-  const bud = {
-    proxy: new URL(headers.get('x-bud-proxy-origin')),
-    dev: new URL(headers.get('x-bud-dev-origin')),
+const main = async (proxy = null) => {
+  try {
+    const {headers} = await fetch(window.location.href, {method: 'GET'})
+    proxy = new URL(headers.get('x-bud-proxy-origin')).href
+  } catch (err) {
+    return console.error(
+      `There was an issue requesting ${window.location.href} (it should be the current page).`,
+      err,
+    )
   }
 
-  setInterval(
-    () =>
-      [
-        [document.getElementsByTagName('a'), 'href'],
-        [document.getElementsByTagName('link'), 'href'],
-      ]
-        .map(
-          ([elements, attribute]: ElementTuple): [Array<Target>, any] => [
-            Array.from(elements),
-            attribute,
-          ],
-        )
-        .forEach(([elements, attribute]: [Array<Target>, any]) =>
-          elements
-            .filter(el => el.hasAttribute(attribute))
-            .filter(el => !el.hasAttribute('__bud_processed'))
-            .filter(el => {
-              const attr = el.getAttribute(attribute)
-              return (
-                attr.startsWith(bud.proxy.origin) &&
-                !attr.startsWith(bud.dev.origin)
-              )
-            })
-            .map(el => {
-              const mutated = el
-                .getAttribute(attribute)
-                .replace(bud.proxy.origin, bud.dev.origin)
-
-              el.setAttribute(attribute, mutated)
-              el.setAttribute('__bud_processed', '')
-            }),
-        ),
-    1000,
-  )
+  try {
+    setInterval(
+      () =>
+        [
+          [document.getElementsByTagName('a'), 'href'],
+          [document.getElementsByTagName('link'), 'href'],
+        ]
+          .map(
+            ([elements, attribute]: ElementTuple): [
+              Array<Target>,
+              any,
+            ] => [Array.from(elements), attribute],
+          )
+          .forEach(([elements, attribute]: [Array<Target>, any]) =>
+            elements
+              .filter(el => el.hasAttribute(attribute))
+              .filter(el => !el.hasAttribute('__bud_processed'))
+              .filter(el => el.getAttribute(attribute).startsWith(proxy))
+              .map(el => {
+                const value = el.getAttribute(attribute)
+                console.info(
+                  `replacing ${attribute} on ${el.tagName} with value of ${value}`,
+                )
+                el.setAttribute(attribute, value.replace(proxy, '/'))
+                el.setAttribute('__bud_processed', '')
+              }),
+          ),
+      1000,
+    )
+  } catch (err) {
+    return console.error(
+      `There was a problem replacing hrefs for the proxied server. Exiting script early.`,
+      err,
+    )
+  }
 }
 
 ;(async () =>

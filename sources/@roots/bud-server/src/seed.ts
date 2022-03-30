@@ -59,7 +59,19 @@ export const seed = (app: Framework) => {
         () => src(`proxy-click-interceptor.js`),
       ]),
     )
-    .hooks.on(`dev.url`, new URL(`http://localhost`))
     .hooks.on(`dev.watch.files`, new Set([]))
     .hooks.on(`dev.watch.options`, {})
+
+    /**
+     * Proxy interception
+     */
+    .hooks.action(`event.proxy.interceptor`, async app =>
+      app.hooks.on(
+        `middleware.proxy.replacements`,
+        (replacements): Array<[string | RegExp, string]> => [
+          ...(replacements ?? []),
+          [app.hooks.filter('middleware.proxy.target').href, '/'],
+        ],
+      ),
+    )
 }

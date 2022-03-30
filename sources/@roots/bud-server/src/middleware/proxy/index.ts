@@ -104,7 +104,7 @@ export const proxy = (app: Framework) => {
      */
     protocolRewrite: app.hooks.filter(
       `middleware.proxy.options.protocolRewrite`,
-      url.dev.protocol?.startsWith('https') ? 'https' : undefined,
+      app.hooks.filter('dev.ssl') ? 'https' : undefined,
     ),
 
     /**

@@ -32,9 +32,13 @@ type BudWordPressPreset = Extension.Module
  * https://mysite.com/  `-->` [https://mysite.com/, /]
  * https://mysite.com/subsite `-->` [https://mysite.com/subsite/, /subsite/]
  */
-const findReplace = (input: string): [string, string] => {
+const makeInterception = (input: string): [string, string] => {
   const url = new URL(input)
-  if (!url.pathname.endsWith('/')) url.pathname = `${url.pathname}/`
+
+  url.pathname = url.pathname.endsWith('/')
+    ? url.pathname
+    : `${url.pathname}/`
+
   return [url.href, url.pathname]
 }
 
@@ -47,23 +51,37 @@ export const name: BudWordPressPreset['name'] =
 /**
  * @public
  */
-export const boot = async (app: Framework) => {
+export const boot = async (app: Framework, logger: Console) => {
   /* Exit early if env is not set */
-  if (!app.env.has('WP_SITEURL') || !app.env.has('WP_HOME')) return
+  if (!app.env.isString('WP_HOME')) return
+
+  /* source env */
+  const HOME: string = app.env.get('WP_HOME')
+  logger.info(`WP_HOME envvar found`, HOME)
 
   /**
    * Set proxy target to `WP_HOME`
    */
-  app.proxy(new URL(app.env.get<string>('WP_HOME')).href)
+  try {
+    const url = new URL(HOME)
+
+    app.proxy(url)
+  } catch (err) {
+    logger.warn(
+      `\n`,
+      `Tried to set proxy based on value of WP_HOME but failed`,
+      `WP_HOME is set as: ${HOME}`,
+      `\n`,
+    )
+  }
 
   /**
-   * Hook proxy server `WP_HOME` and `WP_SITEURL` replacements
+   * Set interceptor replacements
    */
   app.hooks.action('event.proxy.interceptor', async ({hooks}) =>
     hooks.on('middleware.proxy.replacements', replacements => [
       ...(replacements ?? []),
-      findReplace(app.env.get<string>('WP_HOME')),
-      findReplace(app.env.get<string>('WP_SITEURL')),
+      makeInterception(HOME),
     ]),
   )
 }

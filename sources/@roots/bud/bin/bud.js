@@ -13,20 +13,17 @@ const { makeContext } = require('../lib/cjs/context/index.js')
 
 /**
  * Run Bud CLI
- *
  * @public
  */
 const bud = async () => {
   /**
    * Arguments
-   *
    * @public
    */
   const argv = process.argv.splice(2)
 
   /**
    * Execution context
-   *
    * @see {@link https://mael.dev/clipanion/docs/contexts}
    */
   const context = await makeContext()
@@ -70,13 +67,11 @@ const bud = async () => {
 
   /**
    * CLI instantiation
-   *
    * @see {@link https://mael.dev/clipanion/docs/api/cli}
-   *
    * @public
    */
   const application = new Cli({
-    binaryLabel: context.application.name,
+    binaryLabel: context.application.label,
     binaryName: context.application.name,
     binaryVersion: context.application.version,
     enableColors: true,

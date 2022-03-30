@@ -24,12 +24,37 @@ export abstract class BaseServer implements Connection {
    */
   public logger: Signale
 
+  public port: number
+
   /**
    * Options
    * @public
    */
   public get options(): Server.Connection.Options {
-    return this.app.hooks.filter(`dev.options`)
+    return {
+      ...(this.app.hooks.filter(`dev.options`) ?? {}),
+    }
+  }
+
+  /**
+   * Port options
+   * @public
+   */
+  public get specification() {
+    return {
+      port: this.app.hooks.filter('dev.port') ?? [3000],
+      exclude: this.app.hooks.filter('dev.exclude') ?? [],
+      host: this.app.hooks.filter('dev.host') ?? '0.0.0.0',
+    }
+  }
+
+  public get url(): URL {
+    const protocol = this.app.hooks.filter('dev.ssl') ? 'https:' : 'http:'
+    const url = new URL(`${protocol}//${this.specification.host}`)
+
+    url.port = `${this.port}`
+    url.pathname = '/'
+    return url
   }
 
   /**
@@ -37,8 +62,10 @@ export abstract class BaseServer implements Connection {
    * @param app - Framework
    * @public
    */
-  public constructor(public app: Framework, public url: URL) {
-    this.logger = this.app.logger.instance.scope(this.url.host)
+  public constructor(public app: Framework) {
+    this.logger = this.app.logger.instance.scope(
+      this.constructor.name.toLowerCase(),
+    )
   }
 
   /**
@@ -48,10 +75,15 @@ export abstract class BaseServer implements Connection {
    */
   @bind
   public async setup() {
-    const port = await getPort({port: Number(this.url.port)})
-    this.url.port = `${port}`
-    this.app.hooks.on('dev.url', this.url)
-    this.logger.log('url', this.url)
+    this.port = await getPort(this.specification)
+
+    if (!this.specification.port.includes(Number(this.port))) {
+      this.logger.warn(
+        `\n`,
+        `None of the requested ports could be resolved.`,
+        `A port was automatically selected: ${this.port}`,
+      )
+    }
   }
 
   /**
@@ -62,8 +94,7 @@ export abstract class BaseServer implements Connection {
   @bind
   public async listen() {
     this.instance
-      .listen({port: this.url.port, host: this.url.hostname})
-      .on('listening', this.onListening)
+      .listen(this.port, this.onListening)
       .on('request', this.onRequest)
       .on('error', this.onError)
   }
