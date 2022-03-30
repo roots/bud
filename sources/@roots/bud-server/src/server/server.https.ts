@@ -1,12 +1,11 @@
 import {Server} from '@roots/bud-framework'
-import {bind, fs, lodash} from '@roots/bud-support'
+import {bind, fs} from '@roots/bud-support'
 import {RequestListener} from 'http'
 import {createServer, Server as HttpsServer} from 'https'
 
 import {BaseServer} from './server.base'
 
 const {readFile} = fs
-const {isUndefined} = lodash
 
 /**
  * HTTPS Server
@@ -36,7 +35,7 @@ export class Https extends BaseServer implements Server.Connection.Https {
    */
   @bind
   public hasKey(): boolean {
-    return this.hasOptions() && !isUndefined(this.options.key)
+    return typeof this.app.hooks.filter('dev.key') === 'string'
   }
 
   /**
@@ -45,7 +44,7 @@ export class Https extends BaseServer implements Server.Connection.Https {
    */
   @bind
   public hasCert(): boolean {
-    return this.hasOptions() && !isUndefined(this.options.cert)
+    return typeof this.app.hooks.filter('dev.cert') === 'string'
   }
 
   /**
@@ -60,7 +59,7 @@ export class Https extends BaseServer implements Server.Connection.Https {
     }
 
     try {
-      return await readFile(this.options.key as string, 'utf8')
+      return await readFile(this.app.hooks.filter('dev.key'), 'utf8')
     } catch (err) {
       this.app.error(err)
     }
@@ -79,7 +78,7 @@ export class Https extends BaseServer implements Server.Connection.Https {
     }
 
     try {
-      return await readFile(this.options.cert as string, 'utf8')
+      return await readFile(this.app.hooks.filter('dev.cert'), 'utf8')
     } catch (err) {
       this.app.error(err)
     }
@@ -101,7 +100,10 @@ export class Https extends BaseServer implements Server.Connection.Https {
 
     const key = await this.getKey()
     const cert = await this.getCert()
-    const options = {...this.options, ...({key} ?? {}), ...({cert} ?? {})}
+
+    const options = this.options ?? {}
+    if (key) options.key = key
+    if (cert) options.cert = cert
 
     this.instance = createServer(options, express)
     return this.instance

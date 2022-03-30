@@ -207,10 +207,47 @@ export namespace Hooks {
       LocationKeyMap,
       ConfigMap {
     [`extension`]: ValueOf<Plugins> | ValueOf<Modules>
+    /**
+     * Dev server connection options
+     */
     [`dev.options`]: Server.Connection.Options
-    [`dev.url`]: URL
+
+    /**
+     * IPV4 or IPV6 binding
+     */
+    [`dev.host`]: string
+    /**
+     * Ports to exclude from selection
+     */
+    [`dev.exclude`]: Array<number>
+    /**
+     * Ports to prefer
+     */
+    [`dev.port`]: Array<number>
+    /**
+     * Should use SSL server
+     */
+    [`dev.ssl`]: boolean
+    /**
+     * SSL certificate (path)
+     */
+    [`dev.cert`]: string
+    /**
+     * SSL key (path)
+     */
+    [`dev.key`]: string
+
+    /**
+     * Files which trigger a full browser reload
+     */
     [`dev.watch.files`]: Set<string>
+    /**
+     * FS.Watcher options
+     */
     [`dev.watch.options`]: WatchOptions
+    /**
+     * Scripts included in dev builds
+     */
     [`dev.client.scripts`]: Set<(app: Framework) => string>
     [`middleware.enabled`]: Array<keyof Server.Middleware.Available>
     [`middleware.proxy.target`]: URL
