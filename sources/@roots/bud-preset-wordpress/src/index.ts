@@ -82,7 +82,7 @@ export const boot = async (app: Framework, logger: Console) => {
     const url = new URL(HOME)
     app.serve({
       host: url.host,
-      ssl: url.protocol === 'https:',
+      ssl: false,
     })
   } catch (err) {
     logger.warn(
