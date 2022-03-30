@@ -17,7 +17,7 @@ describe('bud.serve', function () {
     await bud.api.processQueue()
 
     expect(bud.hooks.filter('dev.ssl')).toBe(false)
-    expect(bud.hooks.filter('dev.host')).toStrictEqual('example.com')
+    expect(bud.hooks.filter('dev.hostname')).toStrictEqual('example.com')
     expect(bud.hooks.filter('dev.port')).toStrictEqual([3000])
   })
 
