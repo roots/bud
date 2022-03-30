@@ -41,9 +41,6 @@ Replacements will also be made when compiling [html templates](/docs/bud.templat
 
 ```ts title='@roots/bud-api/types/repository/index.d.ts'
 interface Define {
-  (
-    this: Framework,
-    values: Webpack.DefinePlugin['definitions'],
-  ): Framework
+  (this: Framework, values: Webpack.DefinePlugin['definitions']): Framework
 }
 ```

@@ -3,7 +3,6 @@ slug: bud.isProduction
 title: bud.isProduction
 description: Property that is `true` when bud.mode is `production`
 sidebar_label: bud.isProduction
-image: 'https://bud.js.org/img/share/docs/bud.mode__bud.isProduction.png'
 ---
 
 # bud.isProduction
@@ -15,8 +14,7 @@ image: 'https://bud.js.org/img/share/docs/bud.mode__bud.isProduction.png'
 Very useful in conditionals:
 
 ```js title='bud.config.js'
-module.exports = bud =>
-  bud.isProduction && bud.devtool('source-map')
+module.exports = bud => bud.isProduction && bud.devtool('source-map')
 ```
 
 Pairs well with [bud.when](/docs/bud.when):

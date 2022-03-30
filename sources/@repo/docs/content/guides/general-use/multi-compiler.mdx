@@ -15,10 +15,10 @@ be driven by the needs of users.
 
 :::
 
-It is possible to configure more than one Webpack compiler from a single bud config file.
+It is possible to configure more than one Webpack compiler in a project.
 
-For a single page app this isn't really that useful. However, for WordPress or a Symfony app &mdash; anything with very different
-needs for its marketing pages and administrative interfaces &mdash; it is potentially very useful.
+For a single page app this isn't really that useful. However, for WordPress or a Symfony app &mdash; or anything with potentially
+very different builds for different pages &mdash; it is potentially very useful.
 
 ## In practice
 
@@ -39,14 +39,14 @@ In this example we're creating two instances of bud: one for `theme` code and an
 ```js title='bud.config.js'
 module.exports = app =>
   app
-    .make('theme', theme =>
+    .make('theme', async theme =>
       theme
-        .setPath('dist', 'dist/theme')
+        .setPath('@dist', 'dist/theme')
         .entry('theme', ['theme.js', 'theme.css']),
     )
-    .make('plugin', plugin =>
+    .make('plugin', async plugin =>
       plugin
-        .setPath('dist', 'dist/plugin')
+        .setPath('@dist', 'dist/plugin')
         .entry('plugin', ['plugin.js', 'plugin.css']),
     )
 ```
@@ -59,15 +59,75 @@ import type {Framework} from '@roots/bud'
 
 export default (app: Framework): void =>
   app
-    .make('theme', (theme: Framework): void => {
+    .make('theme', async (theme: Framework): Promise<void> => {
       theme
-        .setPath('dist', 'dist/theme')
+        .setPath('@dist', 'dist/theme')
         .entry('theme', ['theme.js', 'theme.css'])
     })
-    .make('plugin', (plugin: Framework): void =>
+    .make(
+      'plugin',
+      async (plugin: Framework): Promise<void> =>
+        plugin
+          .setPath('@dist', 'dist/plugin')
+          .entry('plugin', ['plugin.js', 'plugin.css']),
+    )
+```
+
+  </TabItem>
+</Tabs>
+
+## Limitations
+
+The outer compiler must be a valid compiler. This means you either need a script, even if it's empty, at `@src/index.js`. Or you need to specify an entrypoint
+for the outer context in `bud.config.js`. Also take care to make sure your paths do not overlap if you are using the `--clean` flag, otherwise the compilers
+will overwrite one another during emit.
+
+<Tabs
+  groupId="lang"
+  defaultValue="ts"
+  values={[
+    {label: 'Javascript', value: 'js'},
+    {label: 'TypeScript', value: 'ts'},
+  ]}>
+  <TabItem value="js">
+
+```js title='bud.config.js'
+module.exports = app => {
+  app
+    .setPath('@dist', 'dist/global')
+    .make('theme', async theme => {
+      theme
+        .setPath('@dist', 'dist/theme')
+        .entry('theme', ['theme.js', 'theme.css']),
+    })
+    .make('plugin', async plugin => {
       plugin
-        .setPath('dist', 'dist/plugin')
+        .setPath('@dist', 'dist/plugin')
         .entry('plugin', ['plugin.js', 'plugin.css']),
+    })
+}
+```
+
+  </TabItem>
+  <TabItem value="ts">
+
+```ts title='bud.config.ts'
+import type {Framework} from '@roots/bud'
+
+export default (app: Framework): void =>
+  app
+    .setPath('@dist', 'dist/global')
+    .make('theme', async (theme: Framework): Promise<void> => {
+      theme
+        .setPath('@dist', 'dist/theme')
+        .entry('theme', ['theme.js', 'theme.css'])
+    })
+    .make(
+      'plugin',
+      async (plugin: Framework): Promise<void> =>
+        plugin
+          .setPath('@dist', 'dist/plugin')
+          .entry('plugin', ['plugin.js', 'plugin.css']),
     )
 ```
 
@@ -91,38 +151,99 @@ If you had more than two instances it might make sense to want to target more th
 $ yarn bud build --target theme --target plugin
 ```
 
-## Compilers can only be made from the parent context
+## Multiple configurations
 
-You cannot create a child compiler from a child compiler. So, don't do this:
+To keep your project well organized, you might consider using multiple bud configuration files to separate compilers.
 
-```js title='bud.config.js'
-module.exports = app =>
-  app.make('theme', theme => {
+```ts title='bud.config.theme.js'
+module.exports = async app =>
+  app.make('theme', async theme =>
     theme
-      .setPath('dist', 'dist/theme')
-      .entry('theme', ['theme.js', 'theme.css'])
-
-      .make('invalid', grandchild => {
-        /**
-         * `theme` cannot create a child compiler. only `app` can.
-         */
-      })
-  })
+      .setPath('@dist', app.path('dist/theme'))
+      .entry('theme', ['@src/theme']),
+  )
 ```
 
-If you want to create another child compiler, do so from the parent context:
+```ts title='bud.config.plugin.js'
+module.exports = async app =>
+  app.make('plugin', async plugin =>
+    plugin
+      .setPath('@dist', app.path('dist/plugin'))
+      .entry('plugin', ['@src/plugin']),
+  )
+```
 
-```js title='bud.config.js'
-module.exports = app =>
-  app
-    .make('theme', theme => {
-      theme
-        .setPath('dist', 'dist/theme')
-        .entry('theme', ['theme.js', 'theme.css'])
-    })
-    .make('plugin', plugin => {
-      plugin
-        .setPath('dist', 'dist/plugin')
-        .entry('plugin', ['plugin.js', 'plugin.css'])
-    })
+Remember that [you must always have a top-level compiler](#limitations).
+
+So, either create a dummy file at `@src/index.js` or ensure at least one compiler has an outer rule:
+
+```ts title='bud.config.compiler-b.js'
+module.exports = async app =>
+    app
+      .setPath('@dist', 'dist/app')
+      .entry('theme', ['theme.js', 'theme.css']),
+  )
+```
+
+## Bud extensions
+
+By default, all extensions will be applied to all compilers in the project.
+
+You can use the `--no-inject` flag to prevent any extensions from being registered (except for core extensions).
+
+In that case you will need to manually register the extensions you want to use per compiler:
+
+```ts title='bud.config.compiler-a.js'
+module.exports = async app => {
+  app.make('theme', async theme => {
+    app
+      .use(require('@roots/bud-postcss'))
+      .setPath('@dist', 'dist/app')
+      .entry('theme', ['theme.css'])
+  })
+}
+```
+
+```ts title='bud.config.compiler-b.js'
+module.exports = async app => {
+  app.make('plugin', async plugin => {
+    app
+      .use(require('@roots/bud-postcss'))
+      .use(require('@roots/bud-babel'))
+      .use(require('@roots/bud-react'))
+
+    app.setPath('@dist', 'dist/app').entry('plugin', ['plugin.css'])
+  })
+}
+```
+
+## Configuring manually registered extensions
+
+When using [bud.use](/docs/bud.use) extensions will not be registered until after the config has been processed.
+
+This matters when you want to configure an extension (like [@roots/bud-postcss](/extensions/bud-postcss)). In such cases you have two options:
+
+### 1. Use `bud.extensions.add` to register the extension asyncronously
+
+```ts title='bud.config.extensions.js'
+module.exports = async app => {
+  app.make('plugin', async plugin => {
+    await app.extensions.add(require('@roots/bud-postcss'))
+    plugin.postcss.setPluginOption('postcss-preset-env', {stage: 0})
+  })
+}
+```
+
+### 2. Create a separate config file used to explicitly configure extensions
+
+```ts title='bud.config.plugin.js'
+app.make('plugin', async plugin => {
+  plugin.use(require('@roots/bud-postcss'))
+})
+```
+
+```ts title='bud.config.extensions.js'
+app.get('plugin', async plugin => {
+  plugin.postcss.setPluginOption('postcss-preset-env', {stage: 0})
+})
 ```

@@ -3,7 +3,6 @@ title: Pathing
 description: Working with paths
 slug: pathing
 sidebar_label: Referencing paths
-sidebar_position: 5
 ---
 
 You might consider using **bud.path** to easily reference a file or directory's absolute path:
@@ -110,3 +109,14 @@ Now, any source asset can be easily referenced from the source root:
 ```ts
 import {Dropdown} from '@/components/dropdown'
 ```
+
+## @roots/sage
+
+Users of the [@roots/sage](/extensions/sage) extension will find a number of preset paths are available out-of-the-box:
+
+| handle   | path         | actual              |
+| -------- | ------------ | ------------------- |
+| @scripts | @src/scripts | ./resources/scripts |
+| @styles  | @src/styles  | ./resources/styles  |
+| @fonts   | @src/fonts   | ./resources/fonts   |
+| @images  | @src/images  | ./resources/images  |

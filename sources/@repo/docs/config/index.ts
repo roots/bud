@@ -87,7 +87,7 @@ const docusaurusConfig: Config = {
           [require('@docusaurus/remark-plugin-npm2yarn'), {sync: true}],
         ],
         routeBasePath: 'guides',
-        sidebarPath,
+        sidebarPath: docsPath('sidebars/guides.js'),
         include: ['**/*.md', '**/*.mdx'],
       },
     ],

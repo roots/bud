@@ -3,7 +3,6 @@ slug: bud.isDevelopment
 title: bud.isDevelopment
 description: Property that is `true` when bud.mode is `development`
 sidebar_label: bud.isDevelopment
-image: 'https://bud.js.org/img/share/docs/bud.mode__bud.isDevelopment.png'
 ---
 
 # bud.isDevelopment
@@ -15,15 +14,13 @@ image: 'https://bud.js.org/img/share/docs/bud.mode__bud.isDevelopment.png'
 Very useful in conditionals:
 
 ```js title='bud.config.js'
-module.exports = bud =>
-  bud.isDevelopment && bud.devtool('source-map')
+module.exports = bud => bud.isDevelopment && bud.devtool('source-map')
 ```
 
 Pairs well with [bud.when](/docs/bud.when):
 
 ```js {2} title='bud.config.js'
-module.exports = bud =>
-  bud.when(bud.isDevelopment, bud => bud.devtool())
+module.exports = bud => bud.when(bud.isDevelopment, bud => bud.devtool())
 ```
 
 ## See also

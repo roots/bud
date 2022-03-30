@@ -21,9 +21,7 @@ For more context on how this might be useful check out [the guide on multi-compi
 - An optional callback to use for configuring the compiler.
 
 ```js
-await bud.make('scripts', async child =>
-  child.entry('app', 'app.js'),
-)
+await bud.make('scripts', async child => child.entry('app', 'app.js'))
 ```
 
 It returns a `Promise` which resolves to the root instance for further chaining.

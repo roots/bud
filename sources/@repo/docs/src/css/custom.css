@@ -14,6 +14,10 @@
   --ifm-font-family-monospace: 'dm', monospace;
 }
 
+navbar--primary {
+  background-color:rgb(40, 49, 142)
+}
+
 .navbar__items--right > :last-child {
   padding-left: var(--ifm-navbar-item-padding-horizontal);
 }

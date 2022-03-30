@@ -13,7 +13,10 @@ const Home = () => {
     <Layout>
       <Header.Component {...siteConfig}>
         <div className={Header.styles.buttons}>
-          <Link className="button button--outline button--lg" to="/guides/">
+          <Link
+            className="button button--outline button--lg"
+            to="/guides/"
+          >
             Learn more
           </Link>
 
