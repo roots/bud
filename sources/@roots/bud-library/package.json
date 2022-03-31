@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-library",
-  "version": "0.0.0",
+  "version": "5.7.6",
   "description": "Adds dynamic link library support to Bud",
   "repository": {
     "type": "git",
