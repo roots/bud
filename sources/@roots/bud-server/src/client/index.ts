@@ -39,7 +39,7 @@ interface Options extends BaseOptions {
     warn: false,
     name: '',
     overlayWarnings: false,
-    path: '/__bud/hmr',
+    path: '/__hmr',
   }
 
   const options: Options = Object.entries(
@@ -52,32 +52,24 @@ interface Options extends BaseOptions {
 
   hmr.setOptionsAndConnect(options)
 
-  const registerIndicator = async () => {
-    if (!options['bud.indicator']) return
+  if (options['bud.indicator']) {
     const controllerModule = await import('./indicator/index.js')
     const controller = await controllerModule.make()
     controller?.update && controllers.push(controller)
   }
 
-  const registerOverlay = async () => {
-    if (!options['bud.overlay']) return
+  if (options['bud.overlay']) {
     const controllerModule = await import('./overlay/index.js')
     const controller = await controllerModule.make()
     controller?.update && controllers.push(controller)
   }
 
-  await registerIndicator()
-  await registerOverlay()
-
   hmr.subscribeAll(payload => {
-    console.table({
-      name: payload.name,
-      action: payload.action,
-      hash: payload.hash,
-    })
+    if (!payload) return
+    console.table(payload)
 
-    payload.warnings.map(console.warn)
-    payload.errors.map(console.error)
+    payload.warnings?.map(console.warn)
+    payload.errors?.map(console.error)
 
     controllers.map(controller => controller.update(payload))
 

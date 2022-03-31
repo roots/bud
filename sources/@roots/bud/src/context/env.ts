@@ -1,32 +1,49 @@
 import {dotenv, dotenvExpand} from '@roots/bud-support'
 import {join} from 'node:path'
 
+/**
+ * Env context
+ * @public
+ */
 export class Env {
+  /**
+   * Index
+   * @public
+   */
   [key: string]: string | undefined
 
   /**
    * Constructor
-   *
    * @param baseDirectory -- nearest directory containing package.json from root
-   * @returns
+   * @public
    */
   public constructor(baseDirectory: string) {
-    const paths = baseDirectory.split('/')
+    let values = {}
 
-    Object.entries(process.env).map(([k, v]) => (this[k] = v))
+    Object.entries(process.env).map(([k, v]) => {
+      values[k] = v
+    })
 
     const get = (path: string) => {
       const {parsed, error} = dotenv.config({path})
       if (error || !parsed) return
+
       const expanded = dotenvExpand(parsed)
       if (!expanded) return
-      Object.entries(expanded).map(([k, v]) => (this[k] = v))
+
+      Object.entries(expanded).map(([k, v]) => {
+        values[k] = v
+      })
     }
 
-    paths.reduce((a, c) => {
+    baseDirectory.split('/').reduce((a, c) => {
       const next = join(a, c)
       get(join(next, '.env'))
       return next
     }, `/`)
+
+    Object.entries(values).map(([k, v]: [string, string]) => {
+      this[k] = v
+    })
   }
 }

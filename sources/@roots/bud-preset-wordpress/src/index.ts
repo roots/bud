@@ -20,41 +20,69 @@ declare module '@roots/bud-framework' {
 
 /**
  * Preset config for WordPress plugins & themes
- *
- * @remarks
- * This preset is a wrapper for the following presets:
- * - `@roots/bud-preset-recommend`
- * - `@roots/bud-react`
- * - `@roots/bud-wordpress-dependencies`
- * - `@roots/bud-wordpress-externals`
- * - `@roots/bud-wordpress-manifests`
- *
  * @public
  */
 type BudWordPressPreset = Extension.Module
 
+/**
+ * Find/replace {@link URL.href} with {@link URL.pathname}
+ *
+ * @example
+ * https://mysite.com `-->` [https://mysite.com/, /]
+ * https://mysite.com/  `-->` [https://mysite.com/, /]
+ * https://mysite.com/subsite `-->` [https://mysite.com/subsite/, /subsite/]
+ */
+const makeInterception = (input: string): [string, string] => {
+  const url = new URL(input)
+
+  url.pathname = url.pathname.endsWith('/')
+    ? url.pathname
+    : `${url.pathname}/`
+
+  return [url.href, url.pathname]
+}
+
+/**
+ * @public
+ */
 export const name: BudWordPressPreset['name'] =
   '@roots/bud-preset-wordpress'
 
-export const boot = async (app: Framework) => {
-  app.hooks.on(
-    'middleware.proxy.replacements',
-    (replacements): Array<[string, string]> => {
-      const proxy = app.hooks.filter('middleware.proxy.target').origin
-      const dev = app.server.connection.url.origin
+/**
+ * @public
+ */
+export const boot = async (app: Framework, logger: Console) => {
+  /* Exit early if env is not set */
+  if (!app.env.isString('WP_HOME')) return
 
-      return [
-        ...(replacements ?? []),
-        [
-          `<link id="wp-admin-canonical" rel="canonical" href="${proxy}`,
-          `<link id="wp-admin-canonical" rel="canonical" href="${dev}`,
-        ],
-        [
-          `<form name="loginform" id="loginform" action="${proxy}`,
-          `<form name="loginform" id="loginform" action="${dev}`,
-        ],
-      ]
-    },
+  /* source env */
+  const HOME: string = app.env.get('WP_HOME')
+  logger.info(`WP_HOME envvar found`, HOME)
+
+  /**
+   * Set proxy target to `WP_HOME`
+   */
+  try {
+    const url = new URL(HOME)
+    app.proxy(url)
+  } catch (err) {
+    logger.warn(
+      `\n`,
+      `Tried to set proxy based on value of WP_HOME but failed\n`,
+      `WP_HOME is set as: ${HOME}`,
+      `\n`,
+      err,
+    )
+  }
+
+  /**
+   * Set interceptor replacements
+   */
+  app.hooks.action('event.proxy.interceptor', async ({hooks}) =>
+    hooks.on('middleware.proxy.replacements', replacements => [
+      ...(replacements ?? []),
+      makeInterception(HOME),
+    ]),
   )
 }
 

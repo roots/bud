@@ -1,0 +1,73 @@
+---
+slug: '5.7.0'
+title: 'Release: 5.7.0'
+description: 'Release notes for bud.js 5.7.0'
+date: 2022-03-25
+author: Kelly Mears
+author_title: Lead developer
+author_url: https://github.com/kellymears
+author_image_url: https://avatars.githubusercontent.com/u/397606?v=4
+tags: [release]
+---
+
+Client tooling improvements
+
+<!--truncate-->
+
+## New features and improvements
+
+### Client error overlay and build status indicators
+
+These can be toggled with the `--indicator` and `--overlay` flags.
+
+### Better .env support
+
+Env values are sourced from any `.env` files in the path. This is probably of particular note to
+wordpress developers: you can now reference values in bedrock's `.env` file using `bud.env`.
+
+Example:
+
+```ts
+bud.env.get('WP_HOME')
+```
+
+### Stickier proxy links
+
+The **bud.js** proxy server does a better job of keeping you "glued" to the development server when
+clicking links, submitting forms, etc.
+
+## Fixes
+
+- Fix: HMR fixes (we ended up forking `webpack-hot-middleware`)
+- Fix: **bud.alias** path resolution
+- Fix: stylelint configs for **@roots/bud-tailwindcss**
+- Fix: **@roots/bud-terser** config function
+- Fix: random port assigned when **bud.serve** is _not_ called
+
+## Upgrade guide
+
+If you were using **bud.serve** to set SSL options, you'll need to update that call:
+
+```ts
+bud.serve({
+  url: 'https://my-site.com',
+  key: '/path/to/site.key',
+  cert: '/path/to/site.crt',
+})
+```
+
+becomes:
+
+```ts
+bud.serve('https://my-site.com', {
+  key: '/path/to/site.key',
+  cert: '/path/to/site.crt',
+})
+```
+
+You may pass any other node server options you want or need to using the second parameter.
+
+## More information
+
+- [Read the release changelog](/releases/5.7.0)
+- [Review the diff to see what's changed](https://github.com/roots/bud/compare/v5.6.0...v5.7.0)

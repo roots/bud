@@ -3,7 +3,6 @@ id: bud.assets
 title: bud.assets
 description: Include static assets in your compilation even if they aren't referenced in scripts or stylesheets.
 sidebar_label: bud.assets
-image: 'https://bud.js.org/img/share/docs/bud.assets.png'
 ---
 
 Include static assets in your compilation even if they aren't referenced in scripts or stylesheets.
@@ -15,14 +14,18 @@ You may specify a path to a specific file or use glob syntax to match many files
 This function is pretty flexible and accepts a few different ways of specifying what you want to copy.
 
 ```ts
-(paths:
-  | string
-  | CopyPlugin.ObjectPattern
-  | Array<string | CopyPlugin.ObjectPattern>,
-): Framework
+  (
+    ...request: Array<
+      | string
+      | CopyPlugin.ObjectPattern
+      | Array<string | [string, string] | CopyPlugin.ObjectPattern>
+    >
+  ): Framework
 ```
 
 ## Usage
+
+### Copying a file
 
 Use a single `string` to specify a single file to copy. Relative to source dir.
 
@@ -30,56 +33,82 @@ Use a single `string` to specify a single file to copy. Relative to source dir.
 bud.assets('images/image.png')
 ```
 
+### Copying a directory
+
 Use a single `string` to copy the entire images directory. Relative to source dir.
 
 ```js title='bud.config.js'
 bud.assets('images')
 ```
 
-Copy only `.woff` files found in `src/fonts` and the images directory. Relative to source dir.
+### Copying using an object
 
-```js title='bud.config.js'
-// you can add as many arguments as you'd like
-bud.assets('fonts/**/*.woff', 'images')
-// or, use an array
-bud.assets(['fonts/**/*.woff', 'images'])
-```
-
-Copy a file relative to the project root with a leading `./`.
-
-```js title='bud.config.js'
-bud.assets('./assets/some-file.svg')
-```
-
-Copy a file with an absolute path.
-
-```js title='bud.config.js'
-bud.assets('/srv/www/project/assets/some-file.svg')
-
-// or, use the bud.path utility
-bud.assets(bud.path('project', 'assets/some-file.svg'))
-```
-
-Specify the job using a `CopyPlugin.ObjectPattern` object:
+You can specify `CopyPlugin.ObjectPattern` object(s) directly:
 
 ```js title='bud.config.js'
 bud.assets({
-  from: './assets/some-file.svg',
-  to: './dist/some-file.svg',
+  from: bud.path('assets/some-file.svg'),
+  to: bud.path('dist/some-file.svg'),
+  noErrorOnMissing: false,
 })
 ```
 
-Or some combination:
+### Copying using source/destination tuples
 
-```js
+You can use an array of tuples to specify a set of copy jobs.
+
+The first item in each tuple is the source and the second is the destination:
+
+```js title='bud.config.js'
+bud.assets([
+  [bud.path('@src/assets/asset.png'), bud.path('@dist/asset.png')],
+  [bud.path('@src/fonts'), bud.path('@dist/fonts')],
+])
+```
+
+### Copying from multiple sources
+
+To specify additional copy sources you can add additional parameters.
+
+```js title='bud.config.js'
+bud.assets('fonts/**/*.woff', 'images')
+```
+
+```js title='bud.config.js'
 bud.assets(
-  'image.jpg',
   {
-    from: './assets/some-file.svg',
-    to: './dist/some-file.svg',
+    from: bud.path('@src/images'),
+    to: bud.path('@dist/images'),
   },
-  './assets/another-file.svg',
+  {
+    from: bud.path('@src/fonts'),
+    to: bud.path('@dist/fonts'),
+  },
 )
+```
+
+You can also specify using an array, if preferred:
+
+```ts
+bud.assets(['images', 'fonts'])
+```
+
+The one exception to these rules is when using source/destination tuples (`[[from, to], [from, to]]`).
+
+They must always be expressed using one parameter, which is an array.
+
+## Merging existing assets
+
+**bud.assets** can be called multiple times and the results will be merged onto the existing jobs.
+
+```ts
+bud
+  .assets('fonts')
+  .assets({
+    from: bud.path('@src/svg'),
+    to: bud.path('@dist/svg'),
+  })
+  .assets([[bud.path('@src/images'), bud.path('@dest/images')]])
 ```
 
 ## Additional information
@@ -90,3 +119,7 @@ in your distribution. You don't need to manually require it with **bud.assets**,
 there is probably no real harm in doing so.
 
 [bud.assets](/docs/bud.assets) is specifically for compiling files which are not already included elsewhere.
+
+```
+
+```

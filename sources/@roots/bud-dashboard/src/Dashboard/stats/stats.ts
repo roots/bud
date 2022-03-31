@@ -20,7 +20,7 @@ export const write = (
       ...components.timing(app, compilation),
       ...components.summary(app, compilation),
       ...(app.store.get('features.log') ? components.framework(app) : []),
-    ].join('\n')
+    ].join('')
 
     // eslint-disable-next-line
     app.context.stdout.write(`\n${output}\n`)

@@ -34,7 +34,7 @@ const docusaurusConfig: Config = {
         docs: {
           path: docsPath('content/docs'),
           sidebarPath,
-          editUrl: join(config.url.web, `edit/main/sources/docs/`),
+          editUrl: join(config.url.web, `edit/main/sources/@repo/docs/`),
           remarkPlugins: [
             [require('@docusaurus/remark-plugin-npm2yarn'), {sync: true}],
           ],

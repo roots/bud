@@ -1,4 +1,5 @@
-import {figures} from './figures'
+import {figures} from '@roots/bud-support'
+
 import {Framework} from './logger.interface'
 
 /**
@@ -60,6 +61,12 @@ export const types: (app: Framework) => Record<string, Type> = app => ({
     label: 'fatal',
     logLevel: LEVEL.ERROR,
   },
+  warn: {
+    badge: figures.warning,
+    color: 'yellow',
+    label: 'warning',
+    logLevel: LEVEL.ERROR,
+  },
   star: {
     badge: figures.star,
     color: 'cyan',
@@ -76,12 +83,6 @@ export const types: (app: Framework) => Record<string, Type> = app => ({
     badge: figures.tick,
     color: 'green',
     label: 'success',
-    logLevel: LEVEL.STANDARD,
-  },
-  warn: {
-    badge: figures.warning,
-    color: 'yellow',
-    label: 'warning',
     logLevel: LEVEL.STANDARD,
   },
   complete: {

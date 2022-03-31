@@ -14,20 +14,26 @@ describe('bud.watch', function () {
   })
 
   it('sets watch files', async () => {
-    await bud.api.call('watch', ['**/*.js'])
+    await bud.api.call('watch', '1/*.js')
 
     expect(
       Array.from(bud.hooks.filter('dev.watch.files')),
-    ).toMatchSnapshot('**/*.js')
+    ).toMatchSnapshot(['1/*.js'])
+  })
+
+  it('sets watch files', async () => {
+    await bud.api.call('watch', ['2/*.js'])
+
+    expect(
+      Array.from(bud.hooks.filter('dev.watch.files')),
+    ).toMatchSnapshot(['1/*.js', '2/*.js'])
   })
 
   it('merges watch files', async () => {
-    bud.watch('foo/*.js')
-
-    await bud.api.processQueue()
+    await bud.api.call('watch', '3/*.js')
 
     expect(Array.from(bud.hooks.filter('dev.watch.files')).length).toEqual(
-      2,
+      3,
     )
   })
 })
