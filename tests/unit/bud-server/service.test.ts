@@ -11,7 +11,7 @@ describe('@roots/bud-server', function () {
   })
 
   it('has expected defaults', () => {
-    expect(bud.hooks.filter('dev.host')).toMatchSnapshot()
+    expect(bud.hooks.filter('dev.hostname')).toMatchSnapshot()
     expect(bud.hooks.filter('dev.watch.files')).toMatchSnapshot()
     expect(bud.hooks.filter('dev.watch.options')).toMatchSnapshot()
     expect(bud.hooks.filter('dev.client.scripts')).toMatchSnapshot()

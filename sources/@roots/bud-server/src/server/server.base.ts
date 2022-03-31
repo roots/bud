@@ -6,10 +6,22 @@ import {Server as HttpsServer} from 'https'
 import {ServerResponse} from 'webpack-dev-middleware'
 
 /**
- * HTTP Server
+ * Node server
  * @public
  */
 export abstract class BaseServer implements Connection {
+  /**
+   * protocol
+   * @virtual
+   * @public
+   */
+  public abstract protocol: 'http:' | 'https:'
+
+  /**
+   * Create server
+   * @virtual
+   * @public
+   */
   public abstract createServer(app: any): Promise<HttpServer | HttpsServer>
 
   /**
@@ -24,16 +36,44 @@ export abstract class BaseServer implements Connection {
    */
   public logger: Signale
 
+  /**
+   * Port
+   * @public
+   */
   public port: number
+
+  /**
+   * Final URL
+   *
+   * @remarks
+   * For overrides: this is what the listen event will be passed
+   *
+   * @public
+   */
+  public url: URL
+
+  /**
+   * host
+   * @public
+   */
+  public get hostname(): string {
+    return this.app.hooks.filter('dev.hostname', '0.0.0.0')
+  }
+
+  /**
+   * interface
+   * @public
+   */
+  public get interface(): string {
+    return this.app.hooks.filter('dev.interface')
+  }
 
   /**
    * Options
    * @public
    */
-  public get options(): Server.Connection.Options {
-    return {
-      ...(this.app.hooks.filter(`dev.options`) ?? {}),
-    }
+  public get options(): Server.Options {
+    return this.app.hooks.filter(`dev.options`)
   }
 
   /**
@@ -42,19 +82,10 @@ export abstract class BaseServer implements Connection {
    */
   public get specification() {
     return {
-      port: this.app.hooks.filter('dev.port') ?? [3000],
-      exclude: this.app.hooks.filter('dev.exclude') ?? [],
-      host: this.app.hooks.filter('dev.host') ?? '0.0.0.0',
+      port: this.app.hooks.filter('dev.port', [3000]),
+      exclude: this.app.hooks.filter('dev.exclude', []),
+      host: this.interface,
     }
-  }
-
-  public get url(): URL {
-    const protocol = this.app.hooks.filter('dev.ssl') ? 'https:' : 'http:'
-    const url = new URL(`${protocol}//${this.specification.host}`)
-
-    url.port = `${this.port}`
-    url.pathname = '/'
-    return url
   }
 
   /**
@@ -82,8 +113,13 @@ export abstract class BaseServer implements Connection {
         `\n`,
         `None of the requested ports could be resolved.`,
         `A port was automatically selected: ${this.port}`,
+        `\n`,
       )
     }
+
+    this.url = new URL(`${this.protocol}//${this.hostname}`)
+    this.url.port = `${this.port}`
+    this.url.pathname = '/'
   }
 
   /**
@@ -94,7 +130,10 @@ export abstract class BaseServer implements Connection {
   @bind
   public async listen() {
     this.instance
-      .listen(this.port, this.onListening)
+      .listen({
+        port: Number(this.url.port),
+      })
+      .on('listening', this.onListening)
       .on('request', this.onRequest)
       .on('error', this.onError)
   }

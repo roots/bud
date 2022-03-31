@@ -8,12 +8,17 @@ import {BaseServer} from './server.base'
  * HTTP Server
  * @public
  */
-export class Http extends BaseServer implements Server.Connection.Http {
+export class Http extends BaseServer implements Server.Connection {
   /**
    * Server instance
    * @public
    */
   public instance: HttpServer
+
+  /**
+   * Http: protocol
+   */
+  public protocol: 'http:' = 'http:'
 
   /**
    * createServer

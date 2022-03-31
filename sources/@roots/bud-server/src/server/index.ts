@@ -117,12 +117,9 @@ export class Server
   @bind
   @once
   public async setConnection() {
-    this.connection =
-      (this.app.hooks.filter('dev.cert') &&
-        this.app.hooks.filter('dev.key')) ||
-      this.app.hooks.filter('dev.ssl')
-        ? new Https(this.app)
-        : new Http(this.app)
+    this.connection = this.app.hooks.filter('dev.ssl')
+      ? new Https(this.app)
+      : new Http(this.app)
 
     await this.connection.setup()
   }

@@ -64,14 +64,14 @@ export const boot = async (app: Framework, logger: Console) => {
    */
   try {
     const url = new URL(HOME)
-
     app.proxy(url)
   } catch (err) {
     logger.warn(
       `\n`,
-      `Tried to set proxy based on value of WP_HOME but failed`,
+      `Tried to set proxy based on value of WP_HOME but failed\n`,
       `WP_HOME is set as: ${HOME}`,
       `\n`,
+      err,
     )
   }
 

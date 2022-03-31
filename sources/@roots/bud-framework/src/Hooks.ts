@@ -203,19 +203,28 @@ export namespace Hooks {
   export interface Map
     extends Server.Middleware.Middleware<`options`>,
       Server.Middleware.Middleware<`factory`>,
-      Server.Connection.OptionsMap,
+      Server.OptionsMap,
       LocationKeyMap,
       ConfigMap {
     [`extension`]: ValueOf<Plugins> | ValueOf<Modules>
     /**
      * Dev server connection options
+     * @public
      */
-    [`dev.options`]: Server.Connection.Options
+    [`dev.options`]: Server.Options
 
     /**
      * IPV4 or IPV6 binding
+     * @public
      */
-    [`dev.host`]: string
+    [`dev.interface`]: string
+
+    /**
+     * Hostname
+     * @public
+     */
+    [`dev.hostname`]: string
+
     /**
      * Ports to exclude from selection
      */
@@ -228,15 +237,6 @@ export namespace Hooks {
      * Should use SSL server
      */
     [`dev.ssl`]: boolean
-    /**
-     * SSL certificate (path)
-     */
-    [`dev.cert`]: string
-    /**
-     * SSL key (path)
-     */
-    [`dev.key`]: string
-
     /**
      * Files which trigger a full browser reload
      */
