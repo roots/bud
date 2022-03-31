@@ -1,94 +1,12 @@
 ---
 title: Getting Started
-description: In this guide we'll configure a simple project for use with bud.js
-sidebar_label: First steps
-sidebar_position: 1
-slug: /getting-started/
+hide_title: true
+hide_table_of_contents: true
 ---
 
-import Tabs from '@theme/Tabs'
-import TabItem from '@theme/TabItem'
-import CodeBlock from '@theme/CodeBlock'
-import Installation from '../overview/installation.mdx'
-import Help from '!!raw-loader!@site/src/components/cli-output/help.md'
+import {Hero} from '@site/src/components/Hero'
+import {Card} from '@site/src/components/Card'
 
-In this guide we'll configure a simple project for use with **bud.js**.
-
-- [Setup and installation](/guides/getting-started)
-- [Building the project](/guides/getting-started/building)
-- [Development workflow](/guides/getting-started/developing)
-- [Project configuration](/guides/getting-started/config)
-- [Adding entrypoints](/guides/getting-started/entrypoints)
-- [Adding extensions](/guides/getting-started/extending)
-- [Production optimizations](/guides/getting-started/optimizing)
-
-## Our project
-
-To follow along, recreate the following project in an empty directory:
-
-<Tabs
-  defaultValue="structure"
-  values={[
-    {label: 'structure', value: 'structure'},
-    {label: 'package.json', value: 'package.json'},
-    {label: 'src/index.js', value: 'src/index.js'},
-    {label: 'src/index.css', value: 'src/index.css'},
-  ]}>
-
-  <TabItem value="structure">
-
-```shell title='$ tree -I node_modules'
-├── package.json
-└── src
-    ├── index.js
-    └── index.css
-```
-
-  </TabItem>
-  <TabItem value="package.json">
-
-```json title='package.json'
-{
-  "name": "getting-started",
-  "private": true,
-  "devDependencies": {
-    "@roots/bud": "stable"
-  }
-}
-```
-
-  </TabItem>
-  <TabItem value="src/index.js">
-
-```js title='src/index.js'
-import './index.css'
-
-console.log('hello world!')
-```
-
-  </TabItem>
-  <TabItem value="src/index.css">
-
-```css title='src/index.css'
-body {
-  margin: 0;
-  padding: 0;
-  background: black;
-  color: white;
-}
-```
-
-  </TabItem>
-</Tabs>
-
-## Installing bud
-
-<Installation />
-
-## Using the CLI
-
-The **bud** command is your primary means of initiating builds and carrying out other tasks.
-
-For a better sense of what all is possible, read [the guide to using the cli](/guides/bud-cli/) and try invoking `bud --help`:
-
-<CodeBlock title="$ yarn bud --help">{Help}</CodeBlock>
+<div className="margin-bottom--lg">
+  <Hero title="Getting started" subtitle="Working with bud.js" />
+</div>

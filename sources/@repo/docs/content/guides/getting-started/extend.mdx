@@ -1,17 +1,17 @@
 ---
-title: Adding extensions
-description: Part 5/7 of the Getting Started guide covers adding extensions to your build
-sidebar_position: 6
+title: Extend
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-Our project is coming together, but it's a little rough working with vanilla js. Let's add support for [Babel](https://babeljs.io/docs/en/#babel-is-a-javascript-compiler).
+## Adding an extension
 
-## Installing an extension
+We'll work through adding [**@roots/bud-babel**](/extensions/bud-babel) to a config.
 
-Start by installing [**@roots/bud-babel**](/extensions/bud-babel).
+All extensions have pretty much the same workflow.
+
+### Step 1: Install
 
 <Tabs
   defaultValue="yarn"
@@ -30,6 +30,8 @@ Start by installing [**@roots/bud-babel**](/extensions/bud-babel).
 
   </TabItem>
 </Tabs>
+
+### There isn't a step 2, really.
 
 Your scripts will now be transpiled with babel.
 

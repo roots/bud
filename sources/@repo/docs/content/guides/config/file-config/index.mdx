@@ -1,0 +1,51 @@
+---
+title: File config
+description: Configure your project using a bud.js config file
+hide_table_of_contents: true
+---
+
+import CodeBlock from '@theme/CodeBlock'
+import Help from '!!raw-loader!@site/src/components/cli-output/build.help.md'
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+Owing to the flexibility afforded by file based configuration is
+most likely the best pick for most **bud.js** projects.
+
+## The basics
+
+- A bud.js config file must include `bud.config` in the filename.
+- The file exports a single function which receives an instance of **bud**.
+- The function can be async.
+
+Here is a super minimal example, to give you an idea:
+
+<Tabs
+  groupId="lang"
+  defaultValue="js"
+  values={[
+    {label: 'Javascript', value: 'js'},
+    {label: 'TypeScript', value: 'ts'},
+  ]}>
+  <TabItem value="js">
+
+```js title='bud.config.js'
+module.exports = async bud => bud.entry('app', 'app.js')
+```
+
+  </TabItem>
+  <TabItem value="ts">
+
+```ts title='bud.config.ts'
+import {Bud} from '@roots/bud'
+
+export default async function (bud: Bud) {
+  bud.entry('app', 'app.js')
+}
+```
+
+  </TabItem>
+</Tabs>
+
+There is [an entire section in these docs dedicated to all the
+tools available to you](/docs), so we won't touch on that here.

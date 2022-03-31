@@ -7,25 +7,17 @@ description: Part 7/7 of the Getting Started guide covers optimizing your build 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-We're now compiling project assets with babel and postcss.
-
-## Minimizing filesizes
+## Minimizing filesize
 
 Minify css and js output using [bud.minimize](/docs/bud.minimize)
 
-```js {13} title='bud.config.js'
-module.exports = async bud =>
-  bud
-    .entry({
-      main: ['index.js', 'index.css'],
-      landing: 'landing.js',
-    })
-    .assets(['images/**/*.{png,gif,jpg}'])
-    .template()
-    .minimize()
+```js {4} title='bud.config.js'
+module.exports = async bud => {
+  bud.entry('app', 'app.js').minimize()
+}
 ```
 
-## Hashing filenames
+## Cache busting
 
 Add filename hashing using [bud.hash](/docs/bud.hash)
 
