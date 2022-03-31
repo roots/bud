@@ -76,25 +76,6 @@ export const boot = async (app: Framework, logger: Console) => {
   }
 
   /**
-   * Set server based on `WP_HOME`
-   */
-  try {
-    const url = new URL(HOME)
-    app.serve({
-      host: url.host,
-      ssl: false,
-    })
-  } catch (err) {
-    logger.warn(
-      `\n`,
-      `Tried to set server based on value of WP_HOME but failed\n`,
-      `WP_HOME is set as: ${HOME}`,
-      `\n`,
-      err,
-    )
-  }
-
-  /**
    * Set interceptor replacements
    */
   app.hooks.action('event.proxy.interceptor', async ({hooks}) =>

@@ -57,7 +57,7 @@ export abstract class BaseServer implements Connection {
    * @public
    */
   public get hostname(): string {
-    return this.app.hooks.filter('dev.hostname', 'localhost')
+    return this.app.hooks.filter('dev.hostname', '0.0.0.0')
   }
 
   /**
