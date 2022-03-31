@@ -28,37 +28,48 @@ export const entry: entry = async function (...input) {
   const ctx = this as Framework
   const glob: typeof globAssets = globAssets.bind(this)
 
-  const normal = isString(input[0]) ? {[input[0]]: input[1]} : input[0]
+  const normal = isString(input[0])
+    ? {
+        [input[0]]: isArray(input[1])
+          ? {import: input[1]}
+          : isString(input[1])
+          ? {import: [input[1]]}
+          : input[1],
+      }
+    : input[0]
 
-  ctx.hooks.async('build.entry', async all => {
-    await Promise.all(
-      Object.entries(normal).map(async ([name, entry]) => {
-        const importArray = isArray(entry.import ?? entry)
-          ? entry.import ?? entry
-          : [entry.import ?? entry]
+  const entryObject = await Promise.all(
+    Object.entries(normal).map(async ([name, entry]) => {
+      const importArray = isArray(entry.import ?? entry)
+        ? entry.import ?? entry
+        : [entry.import ?? entry]
 
-        this.log(`importing...`, ...importArray)
+      this.log(`inputs`, importArray)
 
-        const value = (
-          await Promise.all(
-            importArray.map(async (request: string) =>
-              isGlobular(request) ? await glob(request) : request,
-            ),
-          )
-        ).flat()
+      entry.import = (
+        await Promise.all(
+          importArray.map(async (request: string) =>
+            isGlobular(request) ? await glob(request) : request,
+          ),
+        )
+      ).flat()
 
-        all = {
-          ...(all ?? {}),
-          [name]: {
-            ...(!isString(entry) && !isArray(entry) ? entry : {}),
-            import: value,
-          },
-        }
+      return [name, entry]
+    }),
+  )
+
+  ctx.hooks.on('build.entry', all =>
+    entryObject.reduce(
+      (all, [name, entry]) => ({
+        ...(all ?? {}),
+        [name]: {
+          ...(!isString(entry) && !isArray(entry) ? entry : {}),
+          import: entry.import,
+        },
       }),
-    )
-
-    return all
-  })
+      all,
+    ),
+  )
 
   return ctx
 }
