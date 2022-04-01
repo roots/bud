@@ -7,6 +7,8 @@ const {isArray, isString} = lodash
 export {EntryObject}
 
 export type Input =
+  | [string]
+  | [Array<string>]
   | [string, string | Array<string>]
   | [Record<string, string | Array<string>>]
   | [Record<string, EntryObject>]

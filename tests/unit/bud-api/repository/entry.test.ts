@@ -26,6 +26,25 @@ describe('bud.entry', function () {
     expect(value).toContain('styles/app.css')
   })
 
+  it('sets an entrypoint using (string) fn signature', async () => {
+    await bud.api.call('entry', 'styles/app.css')
+
+    expect(bud.hooks.filter('build.entry')).toStrictEqual({
+      default: {
+        import: ['styles/app.css'],
+      },
+    })
+  })
+  it('sets an entrypoint using (array) fn signature', async () => {
+    await bud.api.call('entry', ['scripts/app.js', 'styles/app.css'])
+
+    expect(bud.hooks.filter('build.entry')).toStrictEqual({
+      default: {
+        import: ['scripts/app.js', 'styles/app.css'],
+      },
+    })
+  })
+
   it('sets an entrypoint using (string, string[]) fn signature', async () => {
     await bud.api.call('entry', 'app', [
       'scripts/app.js',
