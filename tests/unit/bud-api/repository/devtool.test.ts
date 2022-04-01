@@ -1,5 +1,4 @@
-import {Bud, factory, mockProject} from '@repo/test-kit/bud'
-import {execa} from '@roots/bud-support'
+import {Bud, factory} from '@repo/test-kit/bud'
 
 describe('bud.devtool', function () {
   let bud: Bud
