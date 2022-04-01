@@ -1,33 +1,24 @@
 import {globby} from '@roots/bud-support'
 
 import {Framework} from '../..'
-import {path} from './path'
 
-/**
- * @public
- */
-export async function doGlob(search: string): Promise<Array<string>> {
+export interface globSync {
+  (...searches: Array<Array<string> | string>): Array<string>
+}
+
+export interface glob {
+  (...searches: Array<Array<string> | string>): Promise<Array<string>>
+}
+
+export const globSync: globSync = function (...searches) {
+  const app = this as Framework
+
   try {
-    this.log(`search`, search)
-    const results = await globby.globby(search, {cwd: this.path('@src')})
+    const paths = searches.flatMap(search => transformPaths(app, search))
+    app.info(`glob (sync)`, `[paths]`, paths)
 
-    this.log(`results`, results)
-
-    if (!results.length) {
-      this.error(
-        `bud.entry found no files matching ${JSON.stringify(
-          search,
-        )}. check your config for errors. files should be specified relative to ${this.path(
-          '@src',
-        )}. fast glob syntax can be referenced here https://git.io/JkGbw`,
-      )
-
-      throw new Error(
-        `nothing resolvable for ${JSON.stringify(
-          search,
-        )} query of results for ${this.path('@src')}`,
-      )
-    }
+    const results = globby.globbySync(paths)
+    app.info(`glob (sync)`, `[results]`, results)
 
     return results
   } catch (error) {
@@ -35,11 +26,23 @@ export async function doGlob(search: string): Promise<Array<string>> {
   }
 }
 
-export type glob = path<Promise<Array<string>>>
-
-export const glob: glob = async function (base, ...segments) {
+export const glob: glob = async function (...searches) {
   const app = this as Framework
-  const path = app.path(base, ...segments)
 
-  return await doGlob(path)
+  try {
+    const paths = searches.flatMap(search => transformPaths(app, search))
+    app.info(`glob (async)`, `[paths]`, paths)
+
+    const results = globby.globby(paths)
+    app.info(`glob (sync)`, `[results]`, results)
+
+    return results
+  } catch (error) {
+    throw new Error(error)
+  }
 }
+
+const transformPaths = (app: Framework, search: Array<string> | string) =>
+  Array.isArray(search)
+    ? search.map(search => app.path(search))
+    : app.path(search)

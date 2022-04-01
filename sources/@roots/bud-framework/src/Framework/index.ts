@@ -422,8 +422,8 @@ export abstract class Framework {
   public path: methods.path = methods.path.bind(this)
 
   /**
-   * Returns an absolute path and interprets `@path`-style handles.
-   * Will be processed as a glob.
+   * Processes a bud.path or array of bud.path arguments
+   * as a glob.
    *
    * @remarks
    * Uses fast-glob syntax
@@ -431,6 +431,17 @@ export abstract class Framework {
    * @public
    */
   public glob: methods.glob = methods.glob.bind(this)
+
+  /**
+   * Processes a bud.path or array of bud.path arguments
+   * as a glob. Sync version.
+   *
+   * @remarks
+   * Uses fast-glob syntax
+   *
+   * @public
+   */
+  public globSync: methods.globSync = methods.globSync.bind(this)
 
   /**
    * Pipe a value through an array of functions. The return value of each callback is used as input for the next.

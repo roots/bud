@@ -1,9 +1,11 @@
+import {REPO_PATH} from '@repo/constants'
 import {Bud, factory as budFactory, makeContext, seed} from '@roots/bud'
 import {join} from 'path'
 
 export {Bud} from '@roots/bud'
 
-export const repoPath = (path: string) => join(process.cwd(), path)
+export const repoPath = (...path: Array<string>) =>
+  join(REPO_PATH, ...(path ?? []))
 
 export const mockProject = {
   path: repoPath('tests/util/project'),
