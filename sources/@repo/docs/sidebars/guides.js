@@ -48,5 +48,7 @@ module.exports = {
         },
       ],
     },
+    'paths',
+    'node-api',
   ],
 }
