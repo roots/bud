@@ -410,11 +410,27 @@ export abstract class Framework {
   public make: methods.make = methods.make.bind(this)
 
   /**
-   * Returns a {@link Locations} value as an absolute path
+   * Returns an absolute path and interprets `@path`-style handles.
+   *
+   * @example
+   * ```ts
+   * bud.path('@src')
+   * ```
    *
    * @public
    */
   public path: methods.path = methods.path.bind(this)
+
+  /**
+   * Returns an absolute path and interprets `@path`-style handles.
+   * Will be processed as a glob.
+   *
+   * @remarks
+   * Uses fast-glob syntax
+   *
+   * @public
+   */
+  public glob: methods.glob = methods.glob.bind(this)
 
   /**
    * Pipe a value through an array of functions. The return value of each callback is used as input for the next.

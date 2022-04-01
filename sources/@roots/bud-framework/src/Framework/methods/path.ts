@@ -41,8 +41,8 @@ export const parseAlias: parseAlias = (app, base) => {
  *
  * @public
  */
-export interface path {
-  (base?: string, ...segments: Array<string>): string
+export interface path<Return = string> {
+  (base?: string, ...segments: Array<string>): Return
 }
 
 export const path: path = function (base, ...segments) {
