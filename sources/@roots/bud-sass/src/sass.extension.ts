@@ -31,7 +31,7 @@ export const extension: extension = {
     const implementation = await importSassImplementation(logger)
 
     app.hooks
-      .on('build.resolve.extensions', ext => ext.add('.scss'))
+      .on('build.resolve.extensions', ext => ext.add('.scss').add('.sass'))
       .build.setLoader('sass', require.resolve('sass-loader'))
       .setItem('sass', {
         loader: 'sass',
