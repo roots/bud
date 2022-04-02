@@ -1,0 +1,26 @@
+.sponsors {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: align;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 0;
+  margin: 1.5rem;
+  padding-bottom: 36px;
+}
+
+.section {
+  padding: 36px 0;
+  display: block;
+  text-align: center;
+}
+
+.section h2 {
+  padding-bottom: 1.5rem;
+}
+
+.image {
+  max-height: 120px;
+  border-radius: var(--ifm-card-border-radius);
+}

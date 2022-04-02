@@ -12,7 +12,7 @@ export interface Props {
   date: string
 }
 
-export function Tweet({
+export default function Testimony({
   url,
   handle,
   name,
