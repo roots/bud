@@ -13,8 +13,7 @@
  * @packageDocumentation
  */
 
-import {Item, Loader, Rule} from '@roots/bud-build'
-import {Extension} from '@roots/bud-framework'
+import * as Framework from '@roots/bud-framework'
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
 
 import {BudTypeScriptExtension} from './bud.extension'
@@ -40,21 +39,21 @@ declare module '@roots/bud-framework' {
   }
 
   interface Plugins {
-    'fork-ts-checker-plugin': Extension.CompilerPlugin<
+    'fork-ts-checker-plugin': Framework.Extension.CompilerPlugin<
       typeof ForkTsCheckerWebpackPlugin
     >
   }
 
   interface Loaders {
-    ts: Loader
+    ts: Framework.Loader
   }
 
   interface Items {
-    ts: Item
+    ts: Framework.Item
   }
 
   interface Rules {
-    ts: Rule
+    ts: Framework.Rule
   }
 }
 
