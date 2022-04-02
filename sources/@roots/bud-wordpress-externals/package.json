@@ -49,9 +49,9 @@
   "devDependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@skypack/package-check": "0.2.2",
-    "@types/jest": "27.4.0",
-    "@types/lodash": "4.14.178",
-    "@types/node": "16.11.25",
+    "@types/jest": "27.4.1",
+    "@types/lodash": "4.14.180",
+    "@types/node": "16.11.26",
     "jest": "27.5.1"
   },
   "dependencies": {

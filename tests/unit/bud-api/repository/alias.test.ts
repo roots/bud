@@ -12,21 +12,13 @@ describe('bud.alias', function () {
   })
 
   it('is configurable by bud.alias', async () => {
-    bud.alias({'@foo': 'bar'})
+    await bud.api.call('alias', {'@foo': 'bar'})
 
-    await bud.api.processQueue()
-    await bud.build.make()
-
-    const filteredAlias = await bud.hooks.filterAsync(
-      'build.resolve.alias',
-    )
-
-    expect(filteredAlias).toEqual({
-      '@foo': bud.path('project', 'bar'),
-    })
-
-    expect(bud.build.config.resolve.alias).toEqual({
-      '@foo': bud.path('project', 'bar'),
+    const alias = await bud.hooks.filterAsync('build.resolve.alias')
+    expect(alias).toEqual({
+      '@dist': bud.path('@dist'),
+      '@src': bud.path('@src'),
+      '@foo': bud.path('bar'),
     })
   })
 })

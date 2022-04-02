@@ -1,9 +1,8 @@
-// Copyright (c) Roots Foundation, LLC. All rights reserved.
+// Copyright © Roots Software Foundation LLC
 // Licensed under the MIT license.
 
 /**
- * The {@link @roots/bud-babel# | @roots/bud-babel extension} adds Babel
- * transpilation to {@link @roots/bud-framework# | @roots/bud-framework}.
+ * Babel transpilation for {@link @roots/bud-framework# | @roots/bud-framework}.
 
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
@@ -17,11 +16,12 @@ import '@roots/bud-framework'
 import {Item, Loader} from '@roots/bud-build'
 
 import {Config} from './babel.config'
-import {mixin, name, register} from './babel.extension'
+import {mixin, name, options, register} from './babel.extension'
 
 interface BabelExtension {
   name: typeof name
   mixin: typeof mixin
+  options: typeof options
   register: typeof register
 }
 
@@ -61,4 +61,4 @@ declare module '@roots/bud' {
   }
 }
 
-export {name, mixin, register}
+export {name, mixin, options, register}

@@ -1,67 +1,69 @@
 import type {Framework, Server} from '@roots/bud-framework'
-import {URL} from 'url'
+import {lodash} from '@roots/bud-support'
 
-export interface proxy {
-  (config?: Server.Configuration['proxy']['url']): Framework
+const {isBoolean, isString, isUndefined, isNumber} = lodash
+
+export type UserInput = URL | string | boolean | number
+
+export interface method {
+  (input?: UserInput): Framework
 }
 
-export interface proxy {
-  (config?: boolean): Framework
-}
+export type facade = method
 
-export interface proxy {
-  (config?: number): Framework
-}
+/**
+ * Enables proxy middleware
+ *
+ * @remarks
+ * If proxy middleware is already enabled it will be removed before it is re-added
+ *
+ * @public
+ */
+export const enableMiddleware = (
+  middleware: Array<keyof Server.Middleware.Available>,
+): Array<keyof Server.Middleware.Available> => [
+  ...(disableMiddleware(middleware) ?? []),
+  'cookie',
+  'proxy',
+]
 
-export interface proxy {
-  (url?: URL): Framework
-}
+export const disableMiddleware = (
+  middleware: Array<keyof Server.Middleware.Available>,
+): Array<keyof Server.Middleware.Available> =>
+  middleware?.filter(
+    middleware => middleware !== 'proxy' && middleware !== 'cookie',
+  ) ?? []
 
-export interface proxy {
-  (config?: Partial<Server.Configuration['proxy']>): Framework
-}
-
-export const proxy: proxy = function (
-  config: URL | Partial<Server.Configuration['proxy']> | boolean | number,
-) {
+export const method: method = function (input) {
   const ctx = this as Framework
 
-  if (typeof config === 'undefined') {
-    ctx.api.log('log', 'enabling proxy')
-    ctx.store.set('server.middleware.proxy', true)
-    return ctx
+  if (!ctx.isDevelopment) return ctx
+
+  if (isUndefined(input)) {
+    return ctx.hooks.on('middleware.enabled', enableMiddleware)
   }
 
-  if (typeof config === 'boolean') {
-    ctx.api.log('log', config ? 'enabling' : 'disabling', 'proxy')
-    ctx.store.set('server.middleware.proxy', config)
-    return ctx
+  if (isBoolean(input)) {
+    return ctx.hooks.on(
+      'middleware.enabled',
+      input ? enableMiddleware : disableMiddleware,
+    )
   }
 
-  ctx.store.set('server.middleware.proxy', true)
-  ctx.api.log('log', 'enabling proxy')
+  ctx.hooks.on('middleware.enabled', enableMiddleware)
 
-  if (typeof config === 'number') {
-    const url = ctx.store.get('server.proxy.url')
-    url.port = `${config}`
-    ctx.store.set('server.proxy.url', url)
-    return ctx
+  if (isNumber(input)) {
+    return ctx.hooks.on('middleware.proxy.target', url => {
+      url.port = `${input}`
+      return url
+    })
   }
 
-  if (typeof config === 'string') {
-    ctx.store.set('server.proxy.url', new URL(config))
-    return ctx
+  if (isString(input)) {
+    return ctx.hooks.on('middleware.proxy.target', new URL(input))
   }
 
-  if (config instanceof URL) {
-    ctx.store.set('server.proxy.url', config)
-    return ctx
+  if (input instanceof URL) {
+    return ctx.hooks.on('middleware.proxy.target', input)
   }
-
-  ctx.api.log('error', {
-    message: 'proxy fallthrough! maybe misconfiguration.',
-    suffix: config,
-  })
-
-  return ctx
 }

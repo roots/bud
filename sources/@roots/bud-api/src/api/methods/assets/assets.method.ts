@@ -9,7 +9,7 @@ export const assets: method = async function assets(
   ...request: Array<
     | string
     | CopyPlugin.ObjectPattern
-    | Array<string | CopyPlugin.ObjectPattern>
+    | Array<string | [string, string] | CopyPlugin.ObjectPattern>
   >
 ): Promise<Framework> {
   /**
@@ -18,11 +18,6 @@ export const assets: method = async function assets(
    * this function will be bound.
    */
   const ctx = this as Framework
-
-  /**
-   * Flatten request
-   */
-  request = request.flat()
 
   /**
    * We know it's not a directory
@@ -39,19 +34,19 @@ export const assets: method = async function assets(
     if (pattern.includes('/') && !pattern.split('/').pop().includes('.'))
       return true
 
-    return !pattern.includes('.')
+    return !pattern.split('/').pop().includes('.')
   }
+
   /**
    * Return a wildcard glob for a given path
    */
   const toWildcard = (pattern: string) => normalize(`${pattern}/**/*`)
+
   /**
    * Replace a leading dot with the project path
    */
   const fromDotRel = (pattern: string) =>
-    pattern.startsWith('./')
-      ? pattern.replace('./', `/`.concat(ctx.path('project')))
-      : pattern
+    pattern?.startsWith('./') ? pattern.replace('./', ctx.path()) : pattern
 
   /**
    * Take an input string and return a {@link CopyPlugin.ObjectPattern}
@@ -82,15 +77,38 @@ export const assets: method = async function assets(
      *  - raw input
      */
     const context = () => {
-      if (test(ctx.path('src'))) return ctx.path('src')
-      if (test(ctx.path('project'))) return ctx.path('project')
-      if (!test('/')) return ctx.path('src')
-      else return
+      if (test('.')) return ctx.path()
+      if (test('/')) return
+      else return ctx.path('@src')
     }
 
     return {
       from,
       context: context(),
+      noErrorOnMissing: true,
+    }
+  }
+
+  /**
+   * Handle tuple set
+   *
+   * @param tuple - [origin, destination]
+   * @returns
+   */
+  const makeFromTo = ([from, to]: [string, string]) => {
+    /**
+     * Process raw user input.
+     *
+     * - Replace leading dot with project path
+     * - Append wildcard glob to directory requests
+     */
+    from = isDirectoryish(from)
+      ? fromDotRel(toWildcard(from))
+      : fromDotRel(from)
+
+    return {
+      from,
+      to,
       noErrorOnMissing: true,
     }
   }
@@ -102,13 +120,19 @@ export const assets: method = async function assets(
     return isString(request) ? makePatternObject(request) : request
   }
 
-  const mergePattern = isArray(request)
-    ? request.map(parse)
-    : [parse(request)]
+  const appearsTupled = isArray(request[0]) && isArray(request[0][0])
+
+  if (appearsTupled) {
+    ctx.extensions
+      .get('copy-webpack-plugin')
+      .mergeOption('patterns', request.flat().map(makeFromTo))
+
+    return ctx
+  }
 
   ctx.extensions
     .get('copy-webpack-plugin')
-    .mergeOption('patterns', mergePattern)
+    .mergeOption('patterns', request.flat().map(parse))
 
   return ctx
 }

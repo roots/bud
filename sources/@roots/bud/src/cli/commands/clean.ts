@@ -1,13 +1,12 @@
-import {bind, fs} from '@roots/bud-support'
+import {bind, chalk, fs} from '@roots/bud-support'
 import {Command} from 'clipanion'
 
-import {factory} from '../../factory/index.js'
-import {Notifier} from '../Notifier/index.js'
-import {BuildCommand} from './build.js'
+import {factory} from '../../factory'
+import {BaseCommand} from './base'
 
 const {ensureDir, remove} = fs
 
-export class CleanCommand extends BuildCommand {
+export class CleanCommand extends BaseCommand {
   public static paths = [[`clean`]]
 
   public static usage = Command.Usage({
@@ -17,41 +16,39 @@ export class CleanCommand extends BuildCommand {
   })
 
   public async execute() {
-    this.app = await factory({config: this.config()})
+    this.app = await factory()
     await this.cleanProjectAssets()
   }
 
   @bind
   public async cleanProjectAssets() {
-    this.notifier = new Notifier(this.app)
-
-    this.logger.info('clearing artifacts')
+    this.context.stdout.write('clearing artifacts\n')
 
     try {
-      this.logger.pending(`emptying ${this.app.path('storage')}`)
+      this.context.stdout.write(`emptying ${this.app.path('@storage')}\n`)
 
-      await ensureDir(this.app.path('storage'))
+      await ensureDir(this.app.path('@storage'))
+      await remove(this.app.path('@storage'))
 
-      await remove(this.app.path('storage'))
+      this.context.stdout.write(
+        chalk.green(`✔ emptying ${this.app.path('@storage')}\n`),
+      )
+    } catch (err) {
+      this.context.stderr.write(chalk.red(err))
+    }
 
-      this.logger.success(`emptying ${this.app.path('storage')}`)
+    try {
+      this.context.stdout.write(`emptying ${this.app.path('@dist')}\n`)
+
+      await remove(this.app.path('@dist'))
+
+      this.context.stdout.write(
+        chalk.green(`✔ emptying ${this.app.path('@dist')}\n`),
+      )
     } catch (err) {
       this.app.error(err)
     }
 
-    try {
-      this.logger.pending(`emptying ${this.app.path('dist')}`)
-
-      await remove(this.app.path('dist'))
-
-      this.logger.success(`emptying ${this.app.path('dist')}`)
-    } catch (err) {
-      this.app.error(err)
-    }
-  }
-
-  @bind
-  public async run() {
-    await this.app.api.call('run')
+    this.app.close()
   }
 }

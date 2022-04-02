@@ -1,39 +1,51 @@
+import {boxen, fs} from '@roots/bud-support'
+
 import {Framework} from '.'
 
+const {removeSync} = fs
+
 /**
- * Node shutdown factory
- *
- * @remarks
- * Returns a curried function which accepts a sigterm code
- * and a reason to be logged for the shutdown and returns a
- * a node `process.on` event handler.
- *
- * @param app - the Framework instance
- * @param options - Termination options
- * @returns
- *
- * @public
+ * Render error
  */
-export const makeTerminator = (
-  app: Framework,
-  options = {timeout: 500},
-) => {
-  const exit = (code: number) => () => {
-    global.process.exitCode = code
-    global.process.exit()
+const renderError = (msg: string, name?: string) => {
+  process.stderr.write(
+    boxen(`\n${msg}\n`, {
+      title: name ?? 'error',
+      borderStyle: 'bold',
+      borderColor: 'red',
+      padding: 1,
+      margin: 1,
+    }),
+  )
+}
+
+/**
+ * Create an error handler
+ */
+const curryHandler = function (code: number) {
+  const ERROR = code !== 0
+
+  const close = () => {
+    process.stdout.write(`\n`)
+
+    try {
+      ERROR && removeSync(this.path('@storage/cache'))
+    } catch (err) {}
+
+    process.exitCode = code
+    setTimeout(() => process.exit(), 100)
   }
 
-  return (code: number, reason: string) => (err: Error, promise) => {
-    if (err && err instanceof Error) {
-      const termLog = app.logger.scoped('node', 'terminate')
-      termLog.error(err.message, err.stack)
+  return (exitMessage: string | Error) => {
+    if (!ERROR) return close()
+
+    if (exitMessage instanceof Error) {
+      renderError(exitMessage.message, exitMessage.name)
+    } else {
+      renderError(`\n${exitMessage}\n`, 'error')
     }
 
-    app.logger.scoped(app.name, 'node', 'terminate').info(reason)
-
-    app.close(exit(code))
-
-    setTimeout(exit(code), options.timeout).unref()
+    return close()
   }
 }
 
@@ -49,12 +61,27 @@ export const makeTerminator = (
  * @public
  */
 export const initialize = (app: Framework) => {
-  const handler = makeTerminator(app, {timeout: 500})
+  const makeHandler = curryHandler.bind(app)
 
-  global.process.on('uncaughtException', handler(1, 'uncaughtException'))
-  global.process.on('unhandledRejection', handler(1, 'unhandledRejection'))
-  global.process.on('beforeExit', handler(0, 'beforeExit'))
-  global.process.on('exit', handler(0, 'exit'))
-  global.process.on('SIGTERM', handler(0, 'SIGTERM'))
-  global.process.on('SIGINT', handler(0, 'SIGINT'))
+  process
+    // only works when there is no task running
+    // because we have a server always listening port, this handler will NEVER execute
+    .on('beforeExit', makeHandler(0))
+
+    // only works when the process normally exits
+    // on windows, ctrl-c will not trigger this handler (it is unnormal)
+    // unless you listen on 'SIGINT'
+    .on('exit', makeHandler(0))
+
+    // catch ctrl-c, so that event 'exit' always works
+    .on('SIGINT', makeHandler(0))
+
+    // kill-9
+    .on('SIGTERM', makeHandler(0))
+
+    // exit with errors
+    .on('uncaughtException', makeHandler(1))
+
+    // exit with errors
+    .on('unhandledRejection', makeHandler(1))
 }

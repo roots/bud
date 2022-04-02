@@ -11,56 +11,67 @@ Docs are a work-in-progress.
 
 :::
 
-Below is a work-in-progress index of all hooks registered by `@roots/bud` core packages.
+This page is very difficult to keep in sync with source. To furhter explore what hooks are available it is recommended
+to just explore the `bud.hooks` object directly.
 
-Most `build` related hooks can be found in `@roots/bud-build`.
+```ts
+console.log(bud.hooks.all())
+```
 
-Most extensions related hooks can be found in `@roots/bud`.
+## Hooks
 
-| key                             | notes                                                             |
-| ------------------------------- | ----------------------------------------------------------------- |
-| build                           | builds webpack config                                             |
-| before                          | called directly before build                                      |
-| after                           | called directly after build.                                      |
-| locations/project               | project path (absolute)                                           |
-| locations/src                   | source path (relative to `locations/project`)                     |
-| locations/dist                  | dist path (relative to `locations/project`)                       |
-| locations/publicPath            | public path (default: `/`)                                        |
-| locations/modules               | node_modules path (relative to `locations/project`)               |
-| locations/storage               | storage dir for artifacts/cache (relative to `locations/project`) |
-| build/bail                      | webpack.bail                                                      |
-| build/cache                     | webpack.cache                                                     |
-| build/context                   | webpack.context                                                   |
-| build/devtool                   | webpack.devtool                                                   |
-| build/entry                     | webpack.entry                                                     |
-| build/experiments               | webpack.experiments                                               |
-| build/externals                 | webpack.externals                                                 |
-| build/infrastructureLogging     | webpack.infrastructureLogging                                     |
-| build/mode                      | webpack.mode                                                      |
-| build/name                      | webpack.name                                                      |
-| build/node                      | webpack.node                                                      |
-| build/output                    | webpack.output                                                    |
-| build/output/path               | webpack.output.path                                               |
-| build/output/pathinfo           | webpack.output.pathinfo                                           |
-| build/output/publicPath         | webpack.output.publicPath                                         |
-| build/output/filename           | webpack.output.filename                                           |
-| build/optimization              | webpack.optimization                                              |
-| build/optimization/emitOnErrors | webpack.optimization.emitOnErrors                                 |
-| build/optimization/minimize     | webpack.optimization.minimize                                     |
-| build/optimization/minimizer    | webpack.optimization.minimizer                                    |
-| build/optimization/moduleIds    | webpack.optimization.moduleIds                                    |
-| build/optimization/runtimeChunk | webpack.optimization.runtimeChunk                                 |
-| build/optimization/splitChunks  | webpack.optimization.splitChunks                                  |
-| build/parallelism               | webpack.parallelism                                               |
-| build/performance               | webpack.performance                                               |
-| build/plugins                   | webpack.plugins                                                   |
-| build/profile                   | webpack.profile                                                   |
-| build/recordsPath               | webpack.recordsPath                                               |
-| build/resolve                   | webpack.resolve                                                   |
-| build/resolve/alias             | webpack.resolve.alias                                             |
-| build/resolve/extensions        | webpack.resolve.extensions                                        |
-| build/resolve/modules           | webpack.resolve.modules                                           |
-| build/stats                     | webpack.stats                                                     |
-| build/target                    | webpack.target                                                    |
-| build/watch                     | webpack.watch                                                     |
-| build/watchOptions              | webpack.watchOptions                                              |
+| id                                   | type    | description                                                  |
+| ------------------------------------ | ------- | ------------------------------------------------------------ |
+| build                                | `async` | webpack configuration                                        |
+| build.bail                           | `sync`  | webpack.bail                                                 |
+| build.cache                          | `sync`  | webpack.cache                                                |
+| build.cache.buildDependencies        | `sync`  | webpack.cache.buildDependencies                              |
+| build.cache.cacheDirectory           | `sync`  | webpack.cache.cacheDirectory                                 |
+| build.cache.managedPaths             | `sync`  | webpack.cache.managedPaths                                   |
+| build.cache.type                     | `sync`  | webpack.cache.type                                           |
+| build.cache.version                  | `sync`  | webpack.cache.version                                        |
+| build.context                        | `sync`  | webpack.context                                              |
+| build.devtool                        | `sync`  | webpack.devtool                                              |
+| build.infrastructureLogging          | `sync`  | webpack.infrastructureLogging                                |
+| build.mode                           | `sync`  | webpack.mode                                                 |
+| build.module                         | `sync`  | webpack.module                                               |
+| build.name                           | `sync`  | webpack.name                                                 |
+| build.node                           | `sync`  | webpack.node                                                 |
+| build.optimization                   | `sync`  | webpack.optimization                                         |
+| build.optimization.emitOnErrors      | `sync`  | webpack.optimization.emitOnErrors                            |
+| build.optimization.minimize          | `sync`  | webpack.optimization.minimize                                |
+| build.optimization.minimizer         | `sync`  | webpack.optimization.minimizer                               |
+| build.optimization.moduleIds         | `sync`  | webpack.optimization.moduleIds                               |
+| build.optimization.removeEmptyChunks | `sync`  | webpack.optimization.removeEmptyChunks                       |
+| build.optimization.runtimeChunk      | `sync`  | webpack.optimization.runtimeChunk                            |
+| build.optimization.splitChunks       | `sync`  | webpack.optimization.splitChunks                             |
+| build.output                         | `sync`  | webpack.output                                               |
+| build.output.assetModuleFilename     | `sync`  | webpack.output.assetModuleFilename                           |
+| build.output.chunkFilename           | `sync`  | webpack.output.chunkFilename                                 |
+| build.output.clean                   | `sync`  | webpack.output.clean                                         |
+| build.output.filename                | `sync`  | webpack.output.filename                                      |
+| build.output.path                    | `sync`  | webpack.output.path                                          |
+| build.output.pathinfo                | `sync`  | webpack.output.pathinfo                                      |
+| build.output.publicPath              | `sync`  | webpack.output.publicPath                                    |
+| build.parallelism                    | `sync`  | webpack.parallelism                                          |
+| build.performance                    | `sync`  | webpack.performance                                          |
+| build.plugins                        | `sync`  | webpack.plugins                                              |
+| build.profile                        | `sync`  | webpack.profile                                              |
+| build.recordsPath                    | `sync`  | webpack.recordsPath                                          |
+| build.resolve                        | `async` | webpack.resolve                                              |
+| build.resolve.alias                  | `sync`  | webpack.resolve.alias                                        |
+| build.resolve.modules                | `sync`  | webpack.resolve.modules                                      |
+| build.resolve.extensions             | `sync`  | webpack.resolve.extensions                                   |
+| build.stats                          | `sync`  | webpack.stats                                                |
+| build.target                         | `sync`  | webpack.target                                               |
+| build.watch                          | `sync`  | webpack.watch                                                |
+| build.watchOptions                   | `sync`  | webpack.watchOptions                                         |
+| location.project                     | `sync`  | absolute path to project                                     |
+| location.src                         | `sync`  | relative path from `location.project` to `src` directory     |
+| location.dist                        | `sync`  | relative path from `location.project` to `dist` directory    |
+| location.modules                     | `sync`  | relative path from `location.project` to `modules` directory |
+| location.storage                     | `sync`  | relative path from `location.project` to `storage` directory |
+
+```
+
+```

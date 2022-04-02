@@ -34,14 +34,6 @@
     "stylelint-config/",
     "types/"
   ],
-  "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.js",
-  "types": "./types/index.d.ts",
-  "exports": {
-    ".": "./lib/cjs/index.js",
-    "./eslint-config": "./eslint-config/index.js",
-    "./stylelint-config": "./stylelint-config/index.js"
-  },
   "bud": {
     "type": "extension",
     "peers": [
@@ -55,18 +47,36 @@
       "@roots/bud-wordpress-manifests"
     ]
   },
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "types": "./types/index.d.ts",
+  "exports": {
+    ".": "./lib/cjs/index.js",
+    "./eslint-config": "./eslint-config/index.js",
+    "./stylelint-config": "./stylelint-config/index.js"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./types/index.d.ts"
+      ],
+      "theme": [
+        "./types/theme.d.ts"
+      ]
+    }
+  },
   "devDependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@skypack/package-check": "0.2.2",
-    "@types/jest": "27.4.0",
-    "@types/lodash": "4.14.178",
-    "@types/node": "16.11.25",
-    "@types/react": "17.0.39",
-    "@types/react-dom": "17.0.11",
+    "@types/jest": "27.4.1",
+    "@types/lodash": "4.14.180",
+    "@types/node": "16.11.26",
+    "@types/react": "17.0.41",
+    "@types/react-dom": "17.0.14",
     "jest": "27.5.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "webpack": "5.68.0"
+    "webpack": "5.70.0"
   },
   "dependencies": {
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
@@ -76,7 +86,7 @@
     "@roots/bud-wordpress-dependencies": "workspace:sources/@roots/bud-wordpress-dependencies",
     "@roots/bud-wordpress-externals": "workspace:sources/@roots/bud-wordpress-externals",
     "@roots/bud-wordpress-manifests": "workspace:sources/@roots/bud-wordpress-manifests",
-    "@wordpress/browserslist-config": "4.1.1",
+    "@wordpress/browserslist-config": "4.1.2",
     "tslib": "2.3.1"
   },
   "peerDependencies": {

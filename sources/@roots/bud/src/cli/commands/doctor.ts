@@ -1,14 +1,14 @@
-import {bind} from '@roots/bud-support'
+import {bind, chalk} from '@roots/bud-support'
 import {Command} from 'clipanion'
 import webpackcli from 'webpack-cli'
 
 import {factory} from '../../factory/index.js'
-import {BuildCommand} from './build.js'
+import {BaseCommand} from './base.js'
 
 /**
  * @internal
  */
-export class DoctorCommand extends BuildCommand {
+export class DoctorCommand extends BaseCommand {
   public webpack: {validate: (conf: any) => any}
   public webpackCLI: webpackcli
 
@@ -16,19 +16,18 @@ export class DoctorCommand extends BuildCommand {
 
   public static usage = Command.Usage({
     category: `Doctor`,
-    description: `Doctor source assets`,
+    description: `Check compiled configuration against webpack`,
     examples: [
-      [`Check bud compiled configuration against webpack`, `$0 doctor`],
+      [`Check compiled configuration against webpack`, `$0 doctor`],
     ],
   })
 
   public async execute() {
     this.webpackCLI = new webpackcli()
     this.webpack = await this.webpackCLI.loadWebpack()
-    this.app = await factory({config: this.config()})
+    this.app = await factory()
 
     await this.make()
-
     await this.checkConfiguration()
   }
 
@@ -38,18 +37,26 @@ export class DoctorCommand extends BuildCommand {
       const conf = await this.app.compiler.before()
 
       if (!conf) {
-        throw new Error('config not returned from bud compiler.')
+        this.app.error('config not returned from bud compiler.')
       }
 
       if (!Array.isArray(conf)) {
-        this.logger.info('the bud compiler should always return an array.')
-        throw new Error('compiler did not return an array')
+        this.logger.info('The bud compiler should always return an array.')
+        this.app.error('compiler did not return an array')
       }
 
       this.webpack.validate(conf)
-      this.logger.success(`webpack configuration is valid`)
+      this.context.stdout.write(
+        chalk.green(`Webpack configuration is valid\n`),
+      )
     } catch (error) {
-      this.logger.error(error)
+      this.context.stderr.write(
+        chalk.red(`webpack configuration check returned an error\n`),
+      )
+
+      this.app.error(error)
     }
+
+    this.app.close()
   }
 }

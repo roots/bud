@@ -45,19 +45,15 @@
     "import": "./lib/esm/index.js"
   },
   "devDependencies": {
-    "@roots/container": "workspace:sources/@roots/container",
-    "@skypack/package-check": "0.2.2",
-    "@types/jest": "27.4.0",
-    "@types/lodash": "4.14.178",
-    "@types/node": "16.11.25",
-    "jest": "27.5.1"
-  },
-  "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "autobind-decorator": "^2.4.0",
-    "lodash": "^4.17.21",
-    "pretty-format": "^27.3.1",
-    "tslib": "^2.3.1"
+    "@roots/container": "workspace:sources/@roots/container",
+    "@skypack/package-check": "0.2.2",
+    "@types/jest": "27.4.1",
+    "@types/lodash": "4.14.180",
+    "@types/node": "16.11.26",
+    "autobind-decorator": "2.4.0",
+    "jest": "27.5.1",
+    "tslib": "2.3.1"
   }
 }

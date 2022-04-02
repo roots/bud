@@ -1,63 +1,108 @@
 import {Framework} from '@roots/bud-framework'
-import {bind, humanReadable, NodeNotifier} from '@roots/bud-support'
-import {dirname, resolve} from 'path'
-import {StatsCompilation} from 'webpack'
+import {bind} from '@roots/bud-support'
+import {
+  Notification,
+  NotificationCallback,
+  NotificationCenter,
+} from 'node-notifier'
+import {join} from 'path'
 
-/**
- * MacOS binary
- */
-const MACOS_NOTIFIER_PATH = resolve(
-  __dirname,
-  '../../../vendor/roots-notifier.app/Contents/MacOS/roots-notifier',
-)
+interface NotificationCenter {
+  notify(
+    notification?: Notification,
+    callback?: NotificationCallback,
+  ): NotificationCenter
+}
 
 export class Notifier {
-  public instance: NodeNotifier.NotificationCenter
+  /**
+   * Node notifier notification center
+   *
+   * @public
+   */
+  public notificationCenter: NotificationCenter
 
-  public constructor(public app: Framework) {
-    this.instance = new NodeNotifier.NotificationCenter({
-      customPath: MACOS_NOTIFIER_PATH,
-    })
-
-    this.app.hooks.on('event.compiler.stats', this.notify)
+  /**
+   * Binary path
+   *
+   * @public
+   */
+  public get binary() {
+    return join(
+      this.app.context.application.dir,
+      'vendor',
+      'mac.no-index',
+      'roots-notifier.app',
+      'Contents',
+      'MacOS',
+      'roots-notifier',
+    )
   }
 
-  @bind
-  public async notify(stats: StatsCompilation) {
-    const summary = stats.children?.reduce(
-      (summary, compilation) => {
-        return {
-          errors: summary.errors + (compilation.errorsCount ?? 0),
-          warnings: summary.warnings + (compilation.warningsCount ?? 0),
-          assets: summary.assets + (compilation.assets?.length ?? 0),
-          time: summary.time + (compilation.time ?? 0),
-        }
-      },
-      {
-        errors: stats.errorsCount ?? 0,
-        warnings: stats.warningsCount ?? 0,
-        assets: 0,
-        time: 0,
-      },
-    )
-
-    const group = dirname(this.app.path('project')).split('/').pop()
-    const title =
-      !summary?.errors && !summary?.warnings
-        ? 'Compilation success'
-        : summary?.errors
-        ? 'Compilation failed'
-        : 'Compiled with warnings'
-
-    this.instance.notify({
-      title,
-      group,
-      message: `Done in ${humanReadable.durationFormatter()(
-        summary?.time,
-      )}.`,
-      contentImage: resolve(__dirname, '../../../assets/bud-icon.jpg'),
+  /**
+   * Class constructor
+   *
+   * @public
+   */
+  public constructor(public app: Framework) {
+    this.notificationCenter = new NotificationCenter({
+      customPath: this.binary,
     })
+  }
 
-    return stats
+  public get title(): string {
+    return this.app.compiler.stats.errorsCount > 0
+      ? `✖ ${this.app.project.get('manifest.name') ?? this.app.name}`
+      : `✔ ${this.app.project.get('manifest.name') ?? this.app.name}`
+  }
+
+  public get group(): string {
+    return this.app.context.manifest.name
+  }
+
+  public get message() {
+    return `\
+${this.app.mode} build completed with ${this.app.compiler.stats.errorsCount} errors \
+and ${this.app.compiler.stats.warningsCount} warnings`
+  }
+
+  public get open(): string {
+    if (this.app.isProduction) return
+
+    return this.app.server.connection.url.toString()
+  }
+
+  /**
+   * Emits notification
+   *
+   * @param app - Framework
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async notify() {
+    this.app.context.args.notify === true &&
+      this.notificationCenter.notify(
+        {
+          title: this.title,
+          message: this.message,
+          // @ts-ignore
+          group: this.group,
+          open: this.open,
+        },
+        this.callback,
+      )
+  }
+
+  /**
+   * node notifier callback
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public callback(error: Error, response: any, metadata: any) {
+    //  error && this.app.error(error.toString())
   }
 }

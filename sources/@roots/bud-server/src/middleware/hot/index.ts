@@ -1,28 +1,19 @@
-// import {URL} from 'url'
+import type {Framework} from '@roots/bud-framework'
 
-import {WebpackHotMiddleware} from './hot.dependencies'
-import type {Framework} from './hot.interface'
+import webpackHotMiddleware from './webpack-hot-middleware/middleware'
 
 /**
  * Hot middleware options
  *
  * @public
  */
-const options: (
-  app: Framework,
-) => WebpackHotMiddleware.MiddlewareOptions = app => {
-  return {
-    path: `/__bud/hmr`,
-    log: false,
-    heartbeat: 2000,
-  }
-}
+const options: (app: Framework) => any = app =>
+  app.hooks.filter('middleware.hot.options')
 
 /**
  * Hot middleware factory
  *
  * @public
  */
-export default function hot(app: Framework) {
-  return WebpackHotMiddleware(app.compiler.instance, options(app))
-}
+export const hot = (app: Framework) =>
+  webpackHotMiddleware(app.compiler.compilation, options(app))

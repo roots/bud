@@ -7,17 +7,19 @@ export interface provide {
 export const provide: provide = function (
   packages: Record<string, Array<string>>,
 ) {
-  this as Framework
+  const ctx = this as Framework
 
-  this.extensions.get('webpack-provide-plugin').mutateOptions(options => {
-    Object.entries(packages).forEach(([k, v]) => {
-      v.forEach(alias => {
-        options.set(alias, k)
-      })
+  ctx.extensions.get('webpack-provide-plugin').mutateOptions(options => {
+    Object.entries(packages).forEach(([key, value]) => {
+      Array.isArray(value)
+        ? value.forEach(alias => {
+            options.set(alias, key)
+          })
+        : options.set(value, key)
     })
 
     return options
   })
 
-  return this
+  return ctx
 }

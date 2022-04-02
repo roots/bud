@@ -1,32 +1,32 @@
-import type {
+import {
+  boxen,
   HighlightOptions,
   PrettyFormatOptions,
 } from '@roots/bud-support'
-import {bind, format, highlight, lodash} from '@roots/bud-support'
+import {bind, format, highlight, lodash, parsers} from '@roots/bud-support'
 import {Container} from '@roots/container'
 
 import {
   Api,
   Build,
+  Cache,
   Compiler,
+  Context,
   Dashboard,
   Dependencies,
   Env,
   Extension,
+  Extensions,
   Hooks,
-  Mode,
+  Logger,
   Server,
   Services,
   Store,
 } from '../'
-import * as Cache from '../Cache'
-import {Extensions} from '../Extensions'
-import {Logger} from '../Logger'
 import {Project} from '../Project'
 import * as frameworkProcess from './framework.process'
 import {lifecycle} from './lifecycle'
 import * as methods from './methods'
-import * as parser from './parser'
 
 const {isFunction, omit} = lodash
 
@@ -43,6 +43,8 @@ export abstract class Framework {
    */
   public abstract implementation: Constructor
 
+  public context: Context
+
   /**
    * Framework name
    *
@@ -53,11 +55,9 @@ export abstract class Framework {
    *
    * @public
    */
-  public get name(): string {
-    return this.store?.get('name') ?? this.options.config.name ?? 'bud'
-  }
-  public set name(name: string) {
-    this.store.set('name', name)
+  private _name: string
+  public get name() {
+    return this._name
   }
 
   /**
@@ -68,13 +68,10 @@ export abstract class Framework {
    *
    * @defaultValue 'production'
    */
-  public get mode(): Mode {
-    return this.store.get('mode')
+  private _mode: 'production' | 'development'
+  public get mode(): 'development' | 'production' {
+    return this._mode
   }
-  public set mode(mode: Mode) {
-    this.store.set('mode', mode)
-  }
-
   /**
    * Parent {@link Framework} instance
    *
@@ -91,7 +88,7 @@ export abstract class Framework {
    * @readonly
    */
   public get isRoot(): boolean {
-    return this.root.name === this.name
+    return this.name === this.root.name
   }
 
   /**
@@ -100,7 +97,7 @@ export abstract class Framework {
    * @readonly
    */
   public get isChild(): boolean {
-    return this.root.name !== this.name
+    return this.name !== this.root.name
   }
 
   /**
@@ -144,14 +141,14 @@ export abstract class Framework {
    *
    * @public
    */
-  public build: Build.Interface
+  public build: Build
 
   /**
    * Determines cache validity and generates cache keys.
    *
    * @public
    */
-  public cache: Cache.Interface
+  public cache: Cache
 
   /**
    * Compiles configuration and stats/errors/progress reporting.
@@ -239,17 +236,11 @@ export abstract class Framework {
   public logger: Logger
 
   /**
-   * Development server and browser devtools
+   * Development server
    *
    * @public
    */
-  public _server: Server.Interface
-  public get server(): Server.Interface {
-    return this.root._server
-  }
-  public set server(server: Server.Interface) {
-    this.root._server = server
-  }
+  public server: Server.Service
 
   /**
    * Container service for holding configuration values
@@ -300,7 +291,10 @@ export abstract class Framework {
   public constructor(options: Options) {
     this.options = options
 
-    this.logger = new Logger(this)
+    this.context = options.context
+
+    this._mode = this.options.mode
+    this._name = this.options.name
 
     this.store = new Store(this, options.config)
 
@@ -323,6 +317,8 @@ export abstract class Framework {
 
       this[key] = method.bind(this)
     })
+
+    this.logger = new Logger(this)
   }
 
   /**
@@ -463,7 +459,7 @@ export abstract class Framework {
    *
    * @example
    * ```js
-   * bud.setPath('src', 'custom/src')
+   * bud.setPath('@src', 'custom/src')
    * ```
    *
    * @param this - {@link Framework}
@@ -585,23 +581,14 @@ export abstract class Framework {
    *
    * @public
    */
-  public json: typeof parser.json = parser.json
+  public json: typeof parsers.json5 = parsers.json5
 
   /**
    * Read and write yaml files
    *
    * @public
    */
-  public yml: typeof parser.yml = parser.yml
-
-  /**
-   * Read and write typescript files
-   *
-   * @public
-   */
-  public ts: typeof parser.ts = {
-    read: parser.ts.read.bind(this),
-  }
+  public yml: typeof parsers.yml = parsers.yml
 
   /**
    * Log a message
@@ -611,8 +598,7 @@ export abstract class Framework {
    */
   @bind
   public log(...messages: any[]) {
-    this.logger?.instance &&
-      this.logger.instance.scope(...this.logger.context).log(...messages)
+    this.logger?.instance && this.logger.instance.log(...messages)
 
     return this
   }
@@ -625,8 +611,7 @@ export abstract class Framework {
    */
   @bind
   public info(...messages: any[]) {
-    this.logger?.instance &&
-      this.logger.instance.scope(...this.logger.context).info(...messages)
+    this.logger?.instance && this.logger.instance.info(...messages)
 
     return this
   }
@@ -639,10 +624,7 @@ export abstract class Framework {
    */
   @bind
   public success(...messages: any[]) {
-    this.logger?.instance &&
-      this.logger.instance
-        .scope(...this.logger.context)
-        .success(...messages)
+    this.logger?.instance && this.logger.instance.success(...messages)
 
     return this
   }
@@ -655,8 +637,7 @@ export abstract class Framework {
    */
   @bind
   public warn(...messages: any[]) {
-    this.logger?.instance &&
-      this.logger.instance.scope(...this.logger.context).warn(...messages)
+    this.logger?.instance && this.logger.instance.warn(...messages)
 
     return this
   }
@@ -669,8 +650,7 @@ export abstract class Framework {
    */
   @bind
   public time(...messages: any[]) {
-    this.logger?.instance &&
-      this.logger.instance.scope(...this.logger.context).time(...messages)
+    this.logger?.instance && this.logger.instance.time(...messages)
 
     return this
   }
@@ -683,8 +663,7 @@ export abstract class Framework {
    */
   @bind
   public await(...messages: any[]) {
-    this.logger?.instance &&
-      this.logger.instance.scope(...this.logger.context).await(...messages)
+    this.logger?.instance && this.logger.instance.await(...messages)
 
     return this
   }
@@ -697,9 +676,7 @@ export abstract class Framework {
    */
   @bind
   public complete(...messages: any[]) {
-    this.logger.instance
-      .scope(...this.logger.context)
-      .complete(...messages)
+    this.logger?.instance && this.logger.instance.complete(...messages)
 
     return this
   }
@@ -712,7 +689,7 @@ export abstract class Framework {
    */
   @bind
   public timeEnd(...messages: any[]) {
-    this.logger.instance.scope(...this.logger.context).timeEnd(...messages)
+    this.logger?.instance && this.logger.instance.timeEnd(...messages)
 
     return this
   }
@@ -729,19 +706,16 @@ export abstract class Framework {
   @bind
   public debug(...messages: any[]) {
     // eslint-disable-next-line no-console
-    process.stdout.write(
+    this.context.stdout.write(
       `${highlight(
         format(messages, {
           callToJSON: false,
           maxDepth: 8,
           printFunctionName: false,
           escapeString: false,
-          min: this.options.config.cli.flags['log.min'],
         }),
       )}`,
     )
-
-    process.exit(1)
   }
 
   /**
@@ -755,16 +729,23 @@ export abstract class Framework {
    */
   @bind
   public error(...messages: any[]) {
-    this.logger.instance.scope(...this.logger.context).error(...messages)
-    throw new Error('Error thrown. Reference message contents above.')
+    this.logger.instance.error(...messages)
+
+    if (this.isProduction) {
+      process.exitCode = 1
+      process.exit()
+    }
   }
 
+  /**
+   * Dump object and return Framework
+   */
   @bind
   public dump(
     obj: any,
     options?: PrettyFormatOptions & HighlightOptions & {prefix: string},
   ): Framework {
-    if (this.logger.level !== 'log') return
+    if (!this.context.args.verbose) return
 
     const prettyFormatOptions = omit(options, [
       'prefix',
@@ -774,24 +755,41 @@ export abstract class Framework {
 
     // eslint-disable-next-line no-console
     process.stdout.write(
-      `${options?.prefix ? `\n${options.prefix}\n` : `\n`}${highlight(
-        format(obj, {
-          callToJSON: false,
-          maxDepth: 8,
-          printFunctionName: false,
-          escapeString: false,
-          min: this.options.config.cli.flags['log.min'],
-          ...prettyFormatOptions,
-        }),
+      boxen(
+        highlight(
+          format(obj, {
+            callToJSON: false,
+            maxDepth: 8,
+            printFunctionName: false,
+            escapeString: false,
+            ...prettyFormatOptions,
+          }),
+          {
+            language: options?.language ?? 'typescript',
+            ignoreIllegals: options?.ignoreIllegals ?? true,
+          },
+        ),
         {
-          language: options?.language ?? 'typescript',
-          ignoreIllegals: options?.ignoreIllegals ?? true,
+          title: options.prefix ?? 'object dump',
+          borderStyle: 'round',
         },
-      )}`,
+      ),
     )
 
     return this
   }
+
+  /**
+   * timer util
+   *
+   * @public
+   */
+  public _hrtime: [number, number] = process.hrtime()
+  public _hrdiff() {
+    const diff = process.hrtime(this._hrtime)
+    return diff[0] * 1000 + diff[1] / 1000000
+  }
+  public _hrdone: number
 }
 
 /**
@@ -799,10 +797,40 @@ export abstract class Framework {
  */
 export type Constructor = new (options: Options) => Framework
 
-/*
+/**
  * Constructor options
+ *
+ * @public
  */
 export interface Options {
+  /**
+   * Application context
+   *
+   * @public
+   */
+  context?: Context
+
+  /**
+   * name
+   *
+   * @defaultValue `bud`
+   *
+   * @public
+   */
+  name?: string
+
+  /**
+   * Build mode
+   *
+   * @remarks
+   * One of: `production` | `development`
+   *
+   * @defaultValue `production`
+   *
+   * @public
+   */
+  mode?: 'production' | 'development'
+
   /**
    * The object providing initial configuration values.
    *
@@ -814,7 +842,7 @@ export interface Options {
    *
    * @public
    */
-  config?: Partial<Store['repository']>
+  config?: Partial<Store.Repository>
 
   /**
    * Framework services

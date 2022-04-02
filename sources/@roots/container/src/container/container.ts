@@ -355,7 +355,7 @@ export class Container<I = any> {
    * @decorator `@bind`
    */
   @bind
-  public set(key: string, value: any): this {
+  public set(key: string | Array<string>, value: any): this {
     _.set(this.repository, key, value)
 
     return this

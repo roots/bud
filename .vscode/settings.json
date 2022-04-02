@@ -7,7 +7,7 @@
     ]
   },
   "eslint.options": {
-    "overrideConfigFile": "config/eslint.config.js",
+    "overrideConfigFile": "config/eslint.config.js"
   },
   "eslint.nodePath": ".yarn/sdks/eslint",
   "eslint.validate": ["javascript", "typescript"],
@@ -39,5 +39,30 @@
     "*.tsx": "typescriptreact",
     "*.mdx": "mdx",
     "bud.config.json": "json5"
+  },
+  "cSpell.words": [
+    "browserslist",
+    "clsx",
+    "codecov",
+    "clipanion",
+    "entrypoints",
+    "oclif",
+    "instanceof",
+    "purgecss",
+    "stylelint",
+    "tailwindcss",
+    "webp",
+    "webpack",
+    "kellymears",
+    "tsdoc"
+  ],
+  "cSpell.ignoreRegExpList": ["@.*", "bud-.*", "@roots/.*"],
+  "cSpell.customDictionaries": {
+    "custom-dictionary-workspace": {
+      "name": "custom-dictionary-workspace",
+      "path": "${workspaceFolder:bud}/.cspell/custom-dictionary-workspace.txt",
+      "addWords": true,
+      "scope": "workspace"
+    }
   }
 }

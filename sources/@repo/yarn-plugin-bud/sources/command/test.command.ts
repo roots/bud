@@ -1,6 +1,6 @@
 import {INTEGRATION_TESTS, paths, REGISTRY_PROXY} from '@repo/constants'
 import {CommandClass, Option} from 'clipanion'
-import {copy} from 'fs-extra'
+import {copy, remove} from 'fs-extra'
 import {bind} from 'helpful-decorators'
 
 import {Command} from './base.command'
@@ -53,6 +53,10 @@ export class Test extends Command {
         `run integration test on mock sage project`,
       ],
       [
+        `@bud test integration/vue`,
+        `run integration test on mock vue project`,
+      ],
+      [
         `@bud test integration --verbose`,
         `run integration tests with jest verbose flag`,
       ],
@@ -68,9 +72,7 @@ export class Test extends Command {
    *
    * @internal
    */
-  public match = Option.String({
-    name: `test matcher`,
-  })
+  public match = Option.String({name: `test matcher`})
 
   /**
    * Variadic arguments
@@ -107,9 +109,6 @@ export class Test extends Command {
    */
   public async execute() {
     if (this.shouldSetup) {
-      await copy(`./examples`, `${paths.mocks}/npm`)
-      await copy(`./examples`, `${paths.mocks}/yarn`)
-
       await INTEGRATION_TESTS.reduce(this.install, Promise.resolve())
       await Promise.all(INTEGRATION_TESTS.map(this.build))
     }
@@ -131,15 +130,22 @@ export class Test extends Command {
   ) {
     await promised
 
+    await remove(`${paths.mocks}/npm/${example}`)
+    await remove(`${paths.mocks}/yarn/${example}`)
+
+    await copy(`./examples/${example}`, `${paths.mocks}/npm/${example}`)
+    await copy(`./examples/${example}`, `${paths.mocks}/yarn/${example}`)
+
     await this.$(
-      `cd ${paths.mocks}/yarn/${example} \ 
+      `cd ${paths.mocks}/yarn/${example} \
         && yarn cache clean --all \
         && yarn install --update-checksums --skip-integrity-check \
                         --registry ${REGISTRY_PROXY} --force`,
     )
 
     await this.$(
-      `cd ${paths.mocks}/npm/${example} && npm install --registry ${REGISTRY_PROXY}`,
+      `cd ${paths.mocks}/npm/${example} \
+        && npm install --registry ${REGISTRY_PROXY}`,
     )
   }
 

@@ -1,23 +1,32 @@
-import * as Framework from '@roots/bud-framework'
-import {Framework as Bud} from '@roots/bud-framework'
-import {bind, lodash} from '@roots/bud-support'
-const {isFunction} = lodash
+import {Framework, Loader as Contract} from '@roots/bud-framework'
+
+import {Base} from '../shared/Base'
+
+export namespace Loader {
+  export type ConstructorOptions = string
+}
 
 /**
  * Framework Loader
  *
  * @public
  */
-export class Loader
-  extends Framework.Loader.Abstract
-  implements Framework.Loader.Interface
-{
+export class Loader extends Base implements Contract {
   /**
    * Factory returning the loader path
    *
    * @public
    */
-  public src: Framework.Factory<[Bud], string>
+  public src: string | ((app: Framework) => string)
+
+  public getSrc() {
+    return this.unwrap(this.src)
+  }
+
+  public setSrc(src: string | ((app: Framework) => string)) {
+    this.src = this.wrap(src)
+    return this
+  }
 
   /**
    * Class constructor
@@ -26,37 +35,8 @@ export class Loader
    *
    * @public
    */
-  public constructor(src: Framework.Maybe<[Bud], string>) {
-    super()
-
-    this.src = this.normalizeInput<string>(src)
-  }
-
-  /**
-   * Factory producing the final loader path
-   *
-   * @param app - {@link @roots/bud-Bud#Bud}
-   * @returns final loader path
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public make(app: Bud): string {
-    return this.src(app)
-  }
-
-  /**
-   * Ensure that a userInput is assigned to the class as a {@link @roots/bud-Bud#Factory | Factory}
-   *
-   * @param input - input value
-   * @returns normalized value from user input
-   *
-   * @public
-   */
-  public normalizeInput<T = any>(
-    input: Framework.Maybe<[Bud], T>,
-  ): Framework.Factory<[Bud], T> {
-    return isFunction(input) ? input : () => input
+  public constructor(_app: () => Framework, src: string) {
+    super(_app)
+    this.src = src
   }
 }

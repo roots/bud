@@ -1,30 +1,23 @@
-import {IncomingMessage, ServerResponse} from 'webpack-dev-middleware'
-
-import {WebpackDevMiddleware} from './dev.dependencies'
-import type {Framework} from './dev.interface'
+import type {Framework, Server} from '@roots/bud-framework'
+import WebpackDevMiddleware, {
+  IncomingMessage,
+  ServerResponse,
+} from 'webpack-dev-middleware'
 
 /**
  * Dev middleware factory
  *
  * @public
  */
-export default function dev(app: Framework) {
-  const options = makeOptions(app)
-  return WebpackDevMiddleware(app.compiler.instance as any, options)
+export interface dev
+  extends Server.Middleware.Definition<
+    WebpackDevMiddleware.Options<IncomingMessage, ServerResponse>
+  > {
+  (app: Framework): any
 }
 
-/**
- * Dev middleware options factory
- *
- * @public
- */
-const makeOptions = (
-  app: Framework,
-): WebpackDevMiddleware.Options<IncomingMessage, ServerResponse> => ({
-  headers: {
-    ['X-Server']: '@roots/bud',
-  },
-  publicPath: app.hooks.filter('build.output.publicPath'),
-  stats: false,
-  writeToDisk: true,
-})
+export const dev = (app: Framework) =>
+  WebpackDevMiddleware(
+    app.compiler.compilation,
+    app.hooks.filter(`middleware.dev.options`),
+  )

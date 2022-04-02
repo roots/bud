@@ -1,58 +1,20 @@
-import {bind, lodash as _} from '@roots/bud-support'
+import {lodash} from '@roots/bud-support'
 import {Command, Option} from 'clipanion'
 import * as t from 'typanion'
 
-import {Bud} from '../../Bud/index.js'
 import {factory} from '../../factory/index.js'
 import {seed} from '../../seed.js'
-import * as dynamic from '../config/dynamic.config.js'
-import * as manifest from '../config/manifest.config.js'
 import * as overrides from '../config/override.config.js'
-import {Notifier} from '../Notifier/index.js'
+import {BaseCommand} from './base.js'
 
-/**
- * Accepted options
- *
- * @public
- */
-export interface BuildOptions {
-  cache: Bud.Options['config']['cache']
-  features: Bud.Options['config']['features']
-  location: Bud.Options['config']['location']
-  mode: Bud.Options['config']['mode']
-  publicPath: Bud.Options['config']['output']['publicPath']
-  target: Array<string>
-}
+const {isUndefined} = lodash
 
 /**
  * Build command
  *
  * @public
  */
-export class BuildCommand extends Command {
-  /**
-   * Application
-   *
-   * @public
-   */
-  public app: Bud
-
-  /**
-   * Application logger
-   *
-   * @public
-   */
-  public get logger() {
-    return this.app.logger.scoped('cli')
-  }
-
-  /**
-   * Node notifier
-   *
-   * @public
-   */
-  public notifier: Notifier
-
+export class BuildCommand extends BaseCommand {
   /**
    * Command paths
    *
@@ -68,49 +30,58 @@ export class BuildCommand extends Command {
   public static usage = Command.Usage({
     category: `Compile`,
     description: `Compile source assets`,
-    examples: [
-      [`Compile source`, `$0 build`],
-      [
-        `Compile from a single compiler`,
-        `$0 build --target [compiler-name]`,
-      ],
-    ],
+    details: `
+      \`bud build\` compiles source assets from the \`@src\` directory to the \`@dist\` directory.
+
+      Any boolean options can be negated by prefixing the flag with \`--no-\`. You can also pass a boolean
+      value. Example: \`--no-cache\` and \`--cache false\` are equivalent.
+
+      By default, the \`@src\` directory is \`[project]/src\`. You can override this with the \`-i\` flag.
+
+      If you run this command without a bud configuration file \`bud\` will
+      look for an entrypoint at \`@src/index.js\`.
+    `,
+    examples: [[`Compile source`, `$0 build`]],
   })
 
   /**
    * --mode
    */
-  public mode = Option.String(seed.mode, 'production', {
+  public mode = Option.String(`--mode`, 'production', {
     description: `Compilation mode`,
     validator: t.isOneOf([
       t.isLiteral('production'),
       t.isLiteral('development'),
     ]),
+    env: 'BUILD_MODE',
   })
 
   /**
    * --cache
    */
-  public cache = Option.Boolean(`--cache`, seed.features.cache, {
-    description: `Utilize filesystem cache`,
-  })
-
-  /**
-   * --cacheType
-   */
-  public cacheType = Option.String(`--cacheType`, seed.cache.type, {
-    description: `Type of cache`,
+  public cache = Option.String(`--cache`, undefined, {
+    description: `Utilize compiler's filesystem cache`,
     tolerateBoolean: true,
     validator: t.isOneOf([
       t.isLiteral('filesystem'),
       t.isLiteral('memory'),
+      t.isLiteral(true),
+      t.isLiteral(false),
     ]),
+    env: 'BUILD_CACHE',
+  })
+
+  /**
+   * --ci
+   */
+  public ci = Option.Boolean(`--ci`, undefined, {
+    description: `Run in CI mode (disables keyboard input handlers).`,
   })
 
   /**
    * --clean
    */
-  public clean = Option.Boolean(`--clean`, seed.features.clean, {
+  public clean = Option.Boolean(`--clean`, undefined, {
     description: `Clean artifacts and distributables prior to compilation`,
   })
 
@@ -121,116 +92,133 @@ export class BuildCommand extends Command {
     hidden: true,
   })
 
+  public debug = Option.Boolean(`--debug`, false, {
+    description:
+      'Enable debugging mode. Very verbose logging. Writes output files to `@storage` directory',
+  })
+
+  /**
+   * --devtool
+   */
+  public devtool = Option.Boolean(`--devtool`, undefined, {
+    description: `Set devtool option`,
+  })
+
+  /**
+   * --flush
+   */
+  public flush = Option.Boolean(`--flush`, undefined, {
+    description: `Force clearing bud internal cache`,
+  })
+
   /**
    * --hash
    */
-  public hash = Option.Boolean(`--hash`, seed.features.hash, {
-    description: 'Hash compiled files',
+  public hash = Option.Boolean(`--hash`, undefined, {
+    description: 'Hash compiled filenames',
   })
 
   /**
    * --html
    */
-  public html = Option.Boolean(`--html`, seed.features.html, {
+  public html = Option.Boolean(`--html`, undefined, {
     description: 'Generate an html template',
   })
 
   /**
    * --inject
    */
-  public inject = Option.Boolean(`--inject`, seed.features.inject, {
+  public inject = Option.Boolean(`--inject`, undefined, {
     description: 'Automatically inject extensions',
+    hidden: true,
   })
-
-  /**
-   * --project
-   */
-  public project = Option.String(
-    `--project --cwd`,
-    seed.location.project,
-    {
-      description: 'Project directory',
-    },
-  )
 
   /**
    * --src
    */
-  public src = Option.String(`--source --src --input`, seed.location.src, {
+  public src = Option.String(`--input,-i`, undefined, {
     description: 'Source directory (relative to project)',
   })
 
-  /**
+  /*
    * --dist
    */
-  public dist = Option.String(`--dist --output`, seed.location.dist, {
+  public dist = Option.String(`--output,-o`, undefined, {
     description: 'Distribution directory (relative to project)',
   })
 
   /**
    * --storage
    */
-  public storage = Option.String(`--storage`, seed.location.storage, {
-    description: 'Storage/cache directory (relative to project)',
+  public storage = Option.String(`--storage`, undefined, {
+    description: 'Storage directory (relative to project)',
+    env: 'BUILD_PATH_STORAGE',
+  })
+
+  /**
+   * --indicator
+   */
+  public indicator = Option.Boolean(`--indicator`, true, {
+    description: 'Enable development status indicator',
   })
 
   /**
    * --log
    */
-  public log = Option.Boolean(`--log`, seed.features.log, {
+  public log = Option.Boolean(`--log`, undefined, {
     description: 'Enable logging',
   })
 
   /**
-   * --log.level
-   */
-  public logLevel = Option.String(
-    `--log.level --logLevel`,
-    seed.log.level,
-    {
-      description: 'Set logging level',
-      validator: t.isOneOf([
-        t.isLiteral('v'),
-        t.isLiteral('vv'),
-        t.isLiteral('vvv'),
-        t.isLiteral('vvvv'),
-      ]),
-    },
-  )
-
-  /**
    * --manifest
    */
-  public manifest = Option.Boolean(`--manifest`, seed.features.manifest, {
+  public manifest = Option.Boolean(`--manifest`, undefined, {
     description: 'Generate a manifest of compiled assets',
   })
 
   /**
    * --minimize
    */
-  public minimize = Option.Boolean(
-    `--minimize --minify --min`,
-    seed.build.optimization.enable,
-    {
-      description: 'Minimize compiled assets',
-    },
-  )
+  public minimize = Option.Boolean(`--minimize`, undefined, {
+    description: 'Minimize compiled assets',
+  })
+
+  /**
+   * --modules
+   */
+  public modules = Option.String(`--modules`, undefined, {
+    description: 'Module resolution path',
+    env: 'BUILD_PATH_MODULES',
+  })
+
+  /**
+   * --notify
+   */
+  public notify = Option.Boolean(`--notify`, true, {
+    description: 'Enable notfication center messages',
+  })
+
+  /**
+   * --overlay
+   */
+  public overlay = Option.Boolean(`--overlay`, true, {
+    description: 'Enable error overlay in development mode',
+  })
 
   /**
    * --publicPath
    */
-  public publicPath = Option.String(
-    `--publicPath --public`,
-    // this value may be a function, but not over cli
-    seed.build.output.publicPath as string,
-  )
+  public publicPath = Option.String(`--publicPath`, undefined, {
+    description: 'public path of emitted assets',
+    env: 'APP_PUBLIC_PATH',
+  })
 
   /**
    * --splitChunks
    */
   public splitChunks = Option.Boolean(
-    `--splitChunks --vendor`,
-    seed.features.splitChunks,
+    `--splitChunks,--vendor`,
+    undefined,
     {
       description: 'Separate vendor bundle',
     },
@@ -239,96 +227,86 @@ export class BuildCommand extends Command {
   /**
    * --target
    */
-  public target = Option.Array(`--target -t`, [], {
+  public target = Option.Array(`--target,-t`, undefined, {
     description: 'Limit compilation to particular compilers',
   })
 
   /**
-   * Bud configuration
-   *
-   * @remarks
-   * Fills in whatever is missing with values from the seed config.
-   *
-   * @returns Bud configuration
+   * --verbose
    */
-  public config(): BuildOptions {
-    return {
-      ...seed,
-      mode: this.mode,
-      target: this.target,
-      location: {
-        ...seed.location,
-        project: this.project,
-        src: this.src,
-        dist: this.dist,
-        storage: this.storage,
-      },
-      publicPath: this.publicPath,
-      cache: {
-        ...seed.cache,
-        type: this.cacheType,
-      },
-      features: {
-        ...seed.features,
-        cache: this.cache,
-        clean: this.clean,
-        hash: this.hash,
-        html: this.html,
-        inject: this.inject,
-        log: this.log,
-        manifest: this.manifest,
-        splitChunks: this.splitChunks,
-      },
-    }
-  }
+  public verbose = Option.Boolean(`--verbose`, false, {
+    description: 'Set logging level',
+  })
 
   /**
    * Execute command
    */
   public async execute() {
-    if (!_.isUndefined(this.dashboard))
-      process.stdout.write(
+    if (!isUndefined(this.dashboard))
+      this.context.stdout.write(
         `the --dashboard and --no-dashboard flags are deprecated and will be removed in a future release.\n`,
       )
+    ;[
+      'cache',
+      'ci',
+      'clean',
+      'debug',
+      'devtool',
+      'flush',
+      'hash',
+      'html',
+      'indicator',
+      'inject',
+      'log',
+      'manifest',
+      'minimize',
+      'mode',
+      'modules',
+      'notify',
+      'overlay',
+      'publicPath',
+      'src',
+      'splitChunks',
+      'target',
+      'verbose',
+    ].map(arg => {
+      this.context.args[arg] = isUndefined(arg) ? null : this[arg]
+    })
 
-    this.app = await factory({config: this.config()})
+    this.app = await factory({
+      name: 'bud',
+      mode: this.mode,
+      context: this.context,
+      config: {
+        'build.output.publicPath': isUndefined(this.publicPath)
+          ? seed['build.output.publicPath']
+          : () => this.publicPath,
+        'features.inject': isUndefined(this.inject)
+          ? seed['features.inject']
+          : this.inject,
+        'features.log': isUndefined(this.log)
+          ? seed['features.log']
+          : this.log,
+        'features.manifest': isUndefined(this.manifest)
+          ? seed['features.manifest']
+          : this.manifest,
+        location: {
+          '@src': isUndefined(this.src) ? seed.location['@src'] : this.src,
+          '@dist': isUndefined(this.dist)
+            ? seed.location['@dist']
+            : this.dist,
+          '@storage': isUndefined(this.storage)
+            ? seed.location['@storage']
+            : this.storage,
+          '@modules': isUndefined(this.modules)
+            ? seed.location['@modules']
+            : this.modules,
+        },
+      },
+    })
 
     await this.make()
+    await overrides.config(this)
     await this.run()
-  }
-
-  /**
-   * Bootstrap Application
-   *
-   * @returns Bud
-   */
-  @bind
-  public async make() {
-    this.notifier = new Notifier(this.app)
-
-    try {
-      this.logger.time('process user configs')
-      await dynamic.configs(this.app, this.logger)
-      await manifest.configs(this.app, this.logger)
-      this.logger.timeEnd('process user configs')
-    } catch (error) {
-      throw new Error(error)
-    }
-
-    await overrides.config(this.app, this.config())
-    this.app.api.processQueue()
-    this.app.extensions.processQueue()
-
-    return this.app
-  }
-
-  /**
-   * Run the build
-   *
-   * @public
-   */
-  @bind
-  public async run() {
-    await this.app.api.call('run')
   }
 }

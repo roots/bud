@@ -35,7 +35,6 @@
     "node": ">=14"
   },
   "files": [
-    "eslint-config/",
     "lib/",
     "types/"
   ],
@@ -82,26 +81,22 @@
     ]
   },
   "devDependencies": {
-    "@babel/core": "7.17.5",
+    "@babel/core": "7.17.8",
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@skypack/package-check": "0.2.2",
     "@types/babel__core": "7.1.18",
-    "@types/node": "16.11.25",
-    "@types/react": "17.0.39",
-    "@types/react-dom": "17.0.11",
-    "type-fest": "2.11.2",
-    "webpack": "5.68.0"
+    "@types/node": "16.11.26",
+    "@types/react": "17.0.41",
+    "@types/react-dom": "17.0.14",
+    "type-fest": "2.12.1",
+    "webpack": "5.70.0"
   },
   "dependencies": {
     "@babel/plugin-syntax-jsx": "^7.16.0",
     "@babel/preset-react": "^7.16.0",
     "@pmmmwh/react-refresh-webpack-plugin": "0.5.4",
-    "autobind-decorator": "2.4.0",
-    "eslint-plugin-jsx-a11y": "^6.5.1",
-    "eslint-plugin-react": "^7.27.1",
-    "eslint-plugin-react-hooks": "^4.3.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hot-loader": "^4.13.0",

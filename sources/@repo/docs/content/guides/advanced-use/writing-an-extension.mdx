@@ -3,14 +3,13 @@ title: Writing an extension
 description: Create and package an extension to reuse across projects and share with other users
 sidebar_label: Writing an extension
 sidebar_position: 3
-image: 'https://budjs.netlify.app/img/share/guides/advanced-use__writing-an-extension.png'
+image: 'https://bud.js.org/img/share/guides/advanced-use__writing-an-extension.png'
 ---
 
 import ModuleDefinition from '!!raw-loader!@site/../../@roots/bud-framework/src/Extensions/Extension/module.interface.ts'
 
 import Index from '!!raw-loader!@site/../../@roots/bud-tailwindcss/src/index.ts'
 import Extension from '!!raw-loader!@site/../../@roots/bud-tailwindcss/src/tailwind.extension.ts'
-import Config from '!!raw-loader!@site/../../@roots/bud-tailwindcss/src/bud.tailwind.ts'
 
 import CodeBlock from '@theme/CodeBlock'
 import Tabs from '@theme/Tabs'
@@ -31,17 +30,11 @@ There are two types of extensions:
 
 ### Example (@roots/bud-tailwindcss)
 
-The [@roots/bud-tailwindcss](/extensions/bud-tailwindcss) extension:
-
-- registers a function `bud.tailwind` that configures [@roots/bud-postcss](/extensions/bud-postcss).
-- On `boot` it calls that `function` if peer requirements are met.
-
 <Tabs
   defaultValue="index.ts"
   values={[
     {label: 'index.ts', value: 'index.ts'},
     {label: 'tailwind.service.ts', value: 'tailwind.service.ts'},
-    {label: 'tailwind.config.ts', value: 'tailwind.config.ts'},
   ]}>
 
 <TabItem value="index.ts">
@@ -53,12 +46,6 @@ The [@roots/bud-tailwindcss](/extensions/bud-tailwindcss) extension:
 <TabItem value="tailwind.service.ts">
   <CodeBlock className="language-ts" title="tailwind.service.ts">
     {Extension}
-  </CodeBlock>
-</TabItem>
-
-<TabItem value="tailwind.config.ts">
-  <CodeBlock className="language-ts" title="tailwind.config.ts">
-    {Config}
   </CodeBlock>
 </TabItem>
 

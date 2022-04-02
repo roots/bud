@@ -1,8 +1,7 @@
+import {Bud, factory} from '@repo/test-kit/bud'
 import {Framework} from '@roots/bud-framework'
 import {Container} from '@roots/container'
 import {noop} from 'lodash'
-
-import {Bud, factory} from '@repo/test-kit/bud'
 
 describe('bud', () => {
   let bud: Bud
@@ -15,22 +14,20 @@ describe('bud', () => {
     expect(bud.mode).toEqual('production')
   })
 
-  it('isDevelopment', () => {
-    bud.mode = 'production'
-    expect(bud.isDevelopment).toEqual(false)
+  it('isDevelopment', async () => {
+    const isNotDev = await factory({mode: 'production'})
+    expect(isNotDev.isDevelopment).toEqual(false)
 
-    bud.mode = 'development'
-    expect(bud.isDevelopment).toEqual(true)
+    const isDev = await factory({mode: 'development'})
+    expect(isDev.isDevelopment).toEqual(true)
   })
 
-  it('isProduction', done => {
-    bud.mode = 'production'
-    expect(bud.isProduction).toEqual(true)
+  it('isProduction', async () => {
+    const isNotProduction = await factory({mode: 'development'})
+    expect(isNotProduction.isProduction).toEqual(false)
 
-    bud.mode = 'development'
-    expect(bud.isProduction).toEqual(false)
-
-    done()
+    const isProduction = await factory({mode: 'production'})
+    expect(isProduction.isProduction).toEqual(true)
   })
 
   it('maybeCall processes a literal value', done => {

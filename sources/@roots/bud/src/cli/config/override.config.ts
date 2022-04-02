@@ -1,71 +1,102 @@
-import {Bud} from '../../Bud/index.js'
-import {seed} from '../../seed.js'
-import {BuildOptions} from '../commands/build.js'
+import {lodash} from '@roots/bud-support'
 
-export const config = async (
-  app: Bud,
-  {location, features, publicPath, target}: BuildOptions,
-) => {
-  if (location.project !== seed.location.project) {
-    app.setPath('project', location.project)
-    app.children?.every((_name, child) =>
-      child.setPath('project', location.project),
-    )
-  }
+import {BuildCommand} from '../commands/build.js'
 
-  if (location.src !== seed.location.src) {
-    app.setPath('src', location.src)
-    app.children?.every((_name, child) =>
-      child.setPath('src', location.src),
-    )
-  }
+const {isUndefined} = lodash
 
-  if (location.dist !== seed.location.dist) {
-    app.setPath('dist', location.dist)
-    app.children?.every((_name, child) =>
-      child.setPath('dist', location.dist),
-    )
-  }
-
-  if (publicPath !== seed.build.output.publicPath) {
-    app.setPublicPath(publicPath)
-    app.children?.every((_name, child) => child.setPublicPath(publicPath))
-  }
-
-  if (features.hash !== seed.features.hash) {
-    app.api.call('hash', features.hash)
-    app.children?.every((_name, child) => child.hash(features.hash))
-  }
-
-  if (features.html !== seed.features.html) {
-    app.template(features.html)
-    app.children?.every((_name, child) => child.template(features.html))
-  }
-
-  if (features.manifest !== seed.features.manifest) {
-    app.store.set('features.manifest', features.manifest)
-    app.children?.every((_name, child) =>
-      child.store.set('features.manifest', features.manifest),
-    )
-  }
-
-  if (features.minimize !== seed.build.optimization.enable) {
-    app.api.call('minimize', features.minimize)
-    app.children?.every((_name, child) => {
-      child.api.call('minimize', features.minimize)
+export const config = async (command: BuildCommand) => {
+  if (!isUndefined(command.target)) {
+    command.app.children?.getKeys().forEach(name => {
+      !command.target.includes(name) && command.app.children?.remove(name)
     })
   }
 
-  if (features.splitChunks !== seed.features.splitChunks) {
-    app.api.call('splitChunks', features.splitChunks)
-    app.children?.every((_name, child) => {
-      child.api.call('splitChunks', features.splitChunks)
+  if (!isUndefined(command.src)) {
+    command.app.setPath('@src', command.src)
+    command.app.children?.every((_name, child) =>
+      child.setPath('@src', command.src),
+    )
+  }
+
+  if (!isUndefined(command.dist)) {
+    command.app.setPath('@dist', command.dist)
+    command.app.children?.every((_name, child) =>
+      child.setPath('@dist', command.dist),
+    )
+  }
+
+  if (!isUndefined(command.publicPath)) {
+    command.app.setPublicPath(command.publicPath)
+    command.app.children?.every((_name, child) =>
+      child.setPublicPath(command.publicPath),
+    )
+  }
+
+  if (!isUndefined(command.manifest)) {
+    command.app.store.set('features.manifest', command.manifest)
+    command.app.children?.every((_name, child) =>
+      child.store.set('features.manifest', command.manifest),
+    )
+  }
+
+  if (!isUndefined(command.cache)) {
+    command.app.api.call(`persist`, command.cache)
+    await Promise.all(
+      command.app.children.getEntries().map(async ([_name, child]) => {
+        await child.app.api.call(`persist`, command.cache)
+      }),
+    )
+  }
+
+  if (!isUndefined(command.clean)) {
+    command.app.hooks.on('build.output.clean', true)
+    command.app.children.getEntries().map(([_name, child]) => {
+      child.hooks.on('build.output.clean', true)
     })
   }
 
-  if (target?.length) {
-    app.children?.getKeys().forEach(name => {
-      !target?.includes(name) && app.children?.remove(name)
-    })
+  if (!isUndefined(command.devtool)) {
+    await command.app.api.call('devtool', command.devtool)
+    await Promise.all(
+      command.app.children.getEntries().map(async ([_name, child]) => {
+        await child.api.call('devtool', command.devtool)
+      }),
+    )
+  }
+
+  if (!isUndefined(command.hash)) {
+    await command.app.api.call('hash', command.hash)
+    await Promise.all(
+      command.app.children.getEntries().map(async ([_name, child]) => {
+        await child.api.call('hash', command.hash)
+      }),
+    )
+  }
+
+  if (!isUndefined(command.html)) {
+    await command.app.api.call('template', command.html)
+    await Promise.all(
+      command.app.children.getEntries().map(async ([_name, child]) => {
+        await child.api.call('template', command.html)
+      }),
+    )
+  }
+
+  if (!isUndefined(command.minimize)) {
+    await command.app.api.call('minimize', command.minimize)
+    await Promise.all(
+      command.app.children.getEntries().map(async ([_name, child]) => {
+        await child.api.call('minimize', command.minimize)
+      }),
+    )
+  }
+
+  if (!isUndefined(command.splitChunks)) {
+    await command.app.api.call('splitChunks', command.splitChunks)
+    await Promise.all(
+      command.app.children.getEntries().map(async ([_name, child]) => {
+        await child.api.call('splitChunks', command.splitChunks)
+      }),
+    )
   }
 }

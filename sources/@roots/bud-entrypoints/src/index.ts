@@ -1,4 +1,4 @@
-// Copyright (c) Roots Foundation, LLC. All rights reserved.
+// Copyright © Roots Software Foundation LLC
 // Licensed under the MIT license.
 
 /**
@@ -19,4 +19,4 @@ declare module '@roots/bud-framework' {
   }
 }
 
-export const {name, make} = BudEntrypointsExtension
+export const {name, options, make} = BudEntrypointsExtension

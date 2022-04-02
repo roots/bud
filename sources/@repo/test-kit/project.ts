@@ -8,6 +8,7 @@ import {join} from 'path'
 interface Options {
   name: string
   with: 'yarn' | 'npm'
+  dist?: string
 }
 
 /**
@@ -42,17 +43,37 @@ export class Project {
 
   public assets = {}
 
-  public entrypoints = {}
+  public entrypoints: {
+    [key: string]: {
+      js: Array<string>
+      css: Array<string>
+      dependencies?: Array<string>
+    }
+  } = {}
 
   public manifest = {}
 
-  public modules = {}
+  public modules: {
+    chunks: {
+      byName: any
+      bySource: any
+    }
+  } = {
+    chunks: {
+      byName: null,
+      bySource: null,
+    },
+  }
 
-  public packageJson = {}
+  public packageJson: Record<string, any> = {}
 
   public constructor(public options: Options) {}
 
   public async setup() {
+    if (this.options.dist) {
+      this.dist = this.options.dist
+    }
+
     await this.setPackageJson()
     await this.setManifest()
     await this.setAssets()
@@ -63,7 +84,7 @@ export class Project {
   }
 
   public get dir() {
-    return join(`/srv/mocks/${this.options.with}`, this.options.name)
+    return join(`/srv/mocks`, this.options.with, this.options.name)
   }
 
   @bind

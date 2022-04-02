@@ -6,4 +6,7 @@ module.exports = async app => {
       },
     })
     .copy(['src/images/**/*'])
+    .template({template: 'src/index.html'})
+    .devtool(false)
+    .watch('src/index.html')
 }

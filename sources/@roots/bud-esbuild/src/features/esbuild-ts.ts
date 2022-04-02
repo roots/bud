@@ -1,33 +1,40 @@
-import {Item} from '@roots/bud-build'
-import type {Extension, Framework} from '@roots/bud-framework'
-import {pathExistsSync, readJson} from 'fs-extra'
+import type {Extension} from '@roots/bud-framework'
+import {fs} from '@roots/bud-support'
 
-export const tsFeature: Extension.CompilerPlugin = {
+const {pathExists, readJson} = fs
+
+export const tsFeature: Extension.Module = {
   name: '@roots/bud-esbuild/ts',
 
-  boot: ({build, hooks}: Framework) => {
-    build.items['esbuild-ts'] = new Item({
-      loader: ({build}) => build.loaders.esbuild,
+  options: async ({path}) => ({
+    loader: 'tsx',
+    target: 'es2015',
+    tsconfigRaw: (await pathExists(path('tsconfig.json')))
+      ? await readJson(path('tsconfig.json'))
+      : {
+          compilerOptions: {
+            importsNotUsedAsValues: 'remove',
+          },
+        },
+  }),
 
-      options: ({path}) => ({
-        loader: 'tsx',
-        target: 'es2015',
-        tsconfigRaw: pathExistsSync(path('project', 'tsconfig.json'))
-          ? readJson(path('project', 'tsconfig.json'))
-          : {
-              compilerOptions: {
-                importsNotUsedAsValues: 'remove',
-              },
-            },
-      }),
-    })
-
-    build.setRule('ts', {
-      test: app => app.store.get('patterns.ts'),
-      exclude: app => app.store.get('patterns.modules'),
-      use: app => [app.build.items['esbuild-ts']],
-    })
-
-    hooks.on('build.resolve.extensions', exts => ['.ts', '.tsx', ...exts])
+  boot: ({hooks}) => {
+    hooks
+      .on('build.resolve.extensions', ext => ext.add('.ts').add('.tsx'))
+      .build.setItem('es-build-ts', {
+        loader: `esbuild`,
+        options: ({extensions}) => ({
+          loader: 'tsx',
+          target: 'es2015',
+          tsconfigRaw: extensions
+            .get(`@roots/bud-esbuild/ts`)
+            .options.all(),
+        }),
+      })
+      .setRule('ts', {
+        test: app => app.store.get('patterns.ts'),
+        exclude: app => app.store.get('patterns.modules'),
+        use: [`esbuild-ts`],
+      })
   },
 }

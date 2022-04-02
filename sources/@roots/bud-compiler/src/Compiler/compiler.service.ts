@@ -3,72 +3,69 @@ import {
   Framework,
   Service,
 } from '@roots/bud-framework'
-import {bind, chalk, lodash, once} from '@roots/bud-support'
+import {bind, chalk, lodash, once, Signale} from '@roots/bud-support'
 import {
   Configuration,
   MultiStats,
   ProgressPlugin,
+  Stats,
   StatsCompilation,
-  StatsError,
   webpack,
 } from 'webpack'
 
-import * as budProcess from './process'
+import * as logger from './compiler.logger'
 
-const {isFunction, isEqual} = lodash
+const {isFunction} = lodash
 
 /**
  * Wepback compilation controller class
- *
  * @public
  */
 export class Compiler extends Service implements Contract {
   /**
-   * Compiler instance
-   *
+   * Compiler
    * @public
    */
-  public instance: Contract.Instance
+  public compiler: Contract.Compiler = webpack
+
+  /**
+   * Compiler instance
+   * @public
+   */
+  public compilation: Contract.Compilation
 
   /**
    * Compilation stats
-   *
    * @public
    */
-  public stats: StatsCompilation = {
-    assets: [],
-    errors: [],
-    warnings: [],
-  }
-
-  /**
-   * Compiler errors
-   */
-  public errors: Array<StatsError> = []
+  public stats: StatsCompilation
 
   /**
    * Compilation progress
-   *
    * @public
    */
   public progress: Contract.Progress
 
   /**
-   * True if compiler is already instantiated
-   *
-   * @public
-   */
-  public isCompiled: boolean = false
-
-  /**
+   * Multi-compiler configuration
    * @public
    */
   public config: Array<Configuration> = []
 
   /**
+   * Logger
    * @public
    */
-  public scope: Array<String>
+  public get logger(): Signale {
+    return logger.instance
+  }
+
+  public getCompiler(): Contract.Compiler {
+    return this.compiler
+  }
+  public setCompiler(compiler: Contract.Compiler) {
+    this.compiler = compiler
+  }
 
   /**
    * Initiates compilation
@@ -77,14 +74,16 @@ export class Compiler extends Service implements Contract {
    *
    * @public
    * @decorator `@bind`
+   * @decorator `@once`
    */
   @bind
   @once
   public async compile() {
-    const config = await this.before()
-    const compiler = await this.invoke(config)
+    this.config = await this.before()
+    const compiler = await this.invoke(this.config)
 
     this.app.timeEnd('bud')
+    this.app._hrdone = this.app._hrdiff()
 
     return compiler
   }
@@ -92,57 +91,26 @@ export class Compiler extends Service implements Contract {
   /**
    * @public
    * @decorator `@bind`
+   * @decorator `@once`
    */
   @bind
+  @once
   public async invoke(config: Array<Configuration>) {
-    config = await this.app.hooks.filterAsync(
-      'event.compiler.before',
-      config,
-    )
+    await this.app.hooks.fire('event.compiler.before')
 
-    this.config = this.app.hooks.filter('config.override', config)
+    this.compilation = this.compiler(this.config)
 
-    const progressPluginCallback = function (
-      percent: number,
-      scope: string,
-      ...message: any[]
-    ) {
-      try {
-        const normalPercent = Math.ceil((percent ?? 0) * 100)
-        scope = scope.replace(/\[.*\]/, '')?.trim() ?? ''
+    this.app.isDevelopment &&
+      this.compilation.hooks.done.tap(
+        config.shift().name,
+        this.handleStats,
+      )
 
-        this.message = message
-          ? message.flatMap(i => (i ? `${i}`?.trim() : ''))
-          : []
-        this.message.reverse()
+    new ProgressPlugin(this.progressCallback).apply(this.compilation)
 
-        const isStale = isEqual(this.progress, [
-          normalPercent,
-          message.join(' ').concat(scope),
-        ])
-        this.progress = [normalPercent, message.join(' ').concat(scope)]
+    await this.app.hooks.fire('event.compiler.after')
 
-        !isStale &&
-          (message.length > 1 || scope) &&
-          budProcess.logger
-            .scope(chalk.green(`${normalPercent}%`), chalk.blue(scope))
-            .log(...this.message)
-      } catch (error) {
-        this.app.error(error)
-      }
-    }
-
-    this.instance = webpack(this.config)
-    this.instance.hooks.done.tap(config.shift().name, async stats => {
-      if (this.app.isDevelopment) await this.handleStats(stats)
-    })
-    new ProgressPlugin(progressPluginCallback.bind(this)).apply(
-      this.instance,
-    )
-
-    this.app.hooks.filter('event.compiler.after', this.app)
-
-    return this.instance
+    return this.compilation
   }
 
   /**
@@ -152,24 +120,14 @@ export class Compiler extends Service implements Contract {
    * @decorator `@bind`
    */
   @bind
-  @once
   public async before() {
-    this.isCompiled = true
+    /**
+     * Make config
+     */
     await this.app.build.make()
 
-    /**
-     * Attempt to use the parent instance in the compilation if there are entries
-     * registered to it or if it has no child instances registered.
-     */
-    if (!this.app.hasChildren) {
-      this.app.info(`using config from parent compiler`)
-      this.config.push(this.app.build.config)
-      return this.config
-    }
-
-    this.app.warn(
-      `root compiler will not be tapped (child compilers in use)`,
-    )
+    // if (this.app.hasChildren == false)
+    this.config.push(this.app.build.config)
 
     /**
      * If there are {@link Framework.children} instances, iterate through
@@ -179,6 +137,7 @@ export class Compiler extends Service implements Contract {
       this.app.children?.getValues().map(async (instance: Framework) => {
         if (!instance.name) return
         await instance.build.make()
+
         this.config.push(instance.build.config)
       }),
     )
@@ -186,36 +145,104 @@ export class Compiler extends Service implements Contract {
     return this.config
   }
 
+  /**
+   * Webpack callback
+   *
+   * @public
+   * @decorator `@bind`
+   * @decorator `@once`
+   */
   @bind
-  public async callback(error: Error, stats: MultiStats) {
-    await this.handleErrors(error)
-    await this.handleStats(stats)
+  @once
+  public async callback(error: Error, stats: Stats & MultiStats) {
+    if (error) await this.handleErrors(error)
+    if (stats) await this.handleStats(stats)
 
-    this.instance.close(err => {
-      err && this.app.error(err)
-      this.app.close()
-    })
+    this.app.isProduction &&
+      this.compilation.close(async error => {
+        error ? this.app.error(error) : this.app.close()
+      })
   }
 
+  /**
+   * Stats handler
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
-  public async handleStats(stats: MultiStats) {
+  public async handleStats(stats: Stats & MultiStats) {
     if (!stats?.toJson || !isFunction(stats?.toJson)) return
-    this.stats = stats.toJson(this.app.store.get('build.stats'))
-    budProcess.stats.write(this.stats, this.app.store.get('theme.colors'))
 
-    await this.app.hooks.filter(
-      'event.compiler.stats',
-      async () => this.stats,
-    )
+    this.stats = stats.toJson()
+    await this.app.dashboard.stats(stats)
+
+    await this.app.hooks.fire(`event.compiler.done`)
+
+    this.app.isProduction &&
+      this.stats.errorsCount > 0 &&
+      this.app.error('Errors detected in source')
   }
 
+  /**
+   * Error handler
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public async handleErrors(error: Error) {
     if (!error) return
 
-    this.app.isDevelopment &&
-      this.app.server.middleware?.hot?.publish({error})
+    this.app.isDevelopment
+      ? this.app.server.enabledMiddleware?.hot?.publish({error})
+      : this.app.error(error)
 
-    this.app.error(error)
+    await this.app.hooks.fire(`event.compiler.error`)
+  }
+
+  /**
+   * Progress callback
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public progressCallback(
+    percent: number,
+    scope: string,
+    ...message: any[]
+  ) {
+    try {
+      percent = Math.ceil((percent ?? 0) * 100)
+
+      message = (
+        message ? message.flatMap(i => (i ? `${i}`?.trim() : ``)) : []
+      ).reverse()
+
+      const stage =
+        (scope.includes(`]`) ? scope.split(`]`).pop()?.trim() : scope) ??
+        ``
+
+      this.progress = [percent, message.join(` `).concat(stage)]
+
+      const statusColor = chalk.hex(
+        this.stats?.errorsCount > 0 ? '#ff5c57' : '#5af78e',
+      )
+
+      percent !== 100 && percent !== 0 && message.length
+        ? this.logger.log(
+            statusColor(`[${percent}%]`),
+            chalk.blue(`[${stage}]`),
+            ...message,
+          )
+        : this.stats?.errorsCount > 0 &&
+          this.logger.log(
+            statusColor(`[${percent}%]`),
+            statusColor(`Compiled with errors`),
+          )
+    } catch (error) {
+      this.app.warn(error)
+    }
   }
 }

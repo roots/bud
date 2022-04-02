@@ -1,10 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`bud.persist enables persistant caching 1`] = `
+exports[`bud.persist sets buildDependencies 1`] = `
 Object {
   "bud": Array [
-    StringContaining "project/package.json",
-    StringContaining "project/bud.config.js",
+    StringContaining "package.json",
+    StringContaining ".eslintrc.js",
+    StringContaining "bud.config.js",
+    StringContaining "docker-compose.yml",
+    StringContaining "tailwind.config.js",
+    StringContaining "tsconfig.json",
   ],
 }
 `;

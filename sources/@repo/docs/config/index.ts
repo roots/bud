@@ -25,7 +25,7 @@ const docusaurusConfig: Config = {
   favicon: config.organization.favicon,
   organizationName: config.organization.name,
   projectName: config.name,
-  customFields: config,
+  customFields: config as unknown as Record<string, unknown>,
   themeConfig,
   presets: [
     [
@@ -34,7 +34,10 @@ const docusaurusConfig: Config = {
         docs: {
           path: docsPath('content/docs'),
           sidebarPath,
-          editUrl: join(config.url.web, `edit/main/sources/docs/`),
+          editUrl: join(config.url.web, `edit/main/sources/@repo/docs/`),
+          remarkPlugins: [
+            [require('@docusaurus/remark-plugin-npm2yarn'), {sync: true}],
+          ],
         },
         blog: {
           path: docsPath('content/blog'),
@@ -55,6 +58,9 @@ const docusaurusConfig: Config = {
       {
         id: 'releases',
         path: docsPath('content/releases'),
+        remarkPlugins: [
+          [require('@docusaurus/remark-plugin-npm2yarn'), {sync: true}],
+        ],
         routeBasePath: 'releases',
         include: ['**/*.md', '**/*.mdx'],
       },
@@ -64,6 +70,9 @@ const docusaurusConfig: Config = {
       {
         id: 'dev',
         path: docsPath('content/dev'),
+        remarkPlugins: [
+          [require('@docusaurus/remark-plugin-npm2yarn'), {sync: true}],
+        ],
         routeBasePath: 'dev',
         sidebarPath,
         include: ['**/*.md', '**/*.mdx'],
@@ -74,6 +83,9 @@ const docusaurusConfig: Config = {
       {
         id: 'guides',
         path: docsPath('content/guides'),
+        remarkPlugins: [
+          [require('@docusaurus/remark-plugin-npm2yarn'), {sync: true}],
+        ],
         routeBasePath: 'guides',
         sidebarPath,
         include: ['**/*.md', '**/*.mdx'],

@@ -1,76 +1,60 @@
-import {Extension} from '@roots/bud-framework'
+import * as Framework from '@roots/bud-framework'
 
-import eventAppClose from './hooks/event.app.close'
-import eventCompilerStats from './hooks/event.compiler.stats'
+import {makeAcornCompat} from './acorn'
+import * as ThemeJSON from './theme/extension'
+
+interface Sage extends Framework.Extension.Module {}
 
 /**
- * Sage preset
- *
  * @public
  */
-export const Sage: Extension.Module<void> = {
+const Sage: Sage = {
   /**
-   * Extension identifier
-   *
    * @public
    */
   name: '@roots/sage',
 
   /**
-   * Extension boot
-   *
    * @public
    */
   boot: async app => {
-    /**
-     * Override output directory for svg assets
-     * `@roots/bud-build` places them, by default, in `svg/`
-     */
-    app.build.rules.svg.setGenerator(app => ({
-      filename: app.store.is('features.hash', true)
-        ? 'images/'.concat(app.store.get('hashFormat')).concat('[ext]')
-        : 'images/'.concat(app.store.get('fileFormat')).concat('[ext]'),
-    }))
+    /* Acorn concerns */
+    makeAcornCompat(app)
 
-    /**
-     * Directory aliases
-     */
-    app.alias({
-      '@fonts': app.path('src', 'fonts'),
-      '@images': app.path('src', 'images'),
-      '@scripts': app.path('src', 'scripts'),
-      '@styles': app.path('src', 'styles'),
+    /* Add theme.json extension */
+    await app.extensions.add(ThemeJSON)
+
+    /* Set application paths */
+    app.setPath({
+      '@src': 'resources',
+      '@dist': 'public',
+      '@resources': '@src',
+      '@public': '@dist',
+      '@fonts': '@src/fonts',
+      '@images': '@src/images',
+      '@scripts': '@src/scripts',
+      '@styles': '@src/styles',
+      '@views': '@src/views',
     })
 
-    /**
-     * Separate vendor code from application
-     */
+    /* Set application client aliases */
+    app.alias({
+      '@fonts': app.path('@fonts'),
+      '@images': app.path('@images'),
+      '@scripts': app.path('@scripts'),
+      '@styles': app.path('@styles'),
+    })
+
+    /* Create vendor chunk(s) */
     app.splitChunks()
 
-    /**
-     * Production/development configuration
-     */
+    /* Environment specific configuration */
     app.when(
-      /**
-       * Test for production
-       */
       app.isProduction,
-
-      /**
-       * Production
-       */
       () => app.minimize().hash().runtime('single'),
-
-      /**
-       * Development
-       */
-      ({devtool, hooks, setPublicPath}) => {
-        devtool()
-        setPublicPath('/')
-
-        hooks.async('event.compiler.stats', eventCompilerStats.bind(app))
-        hooks.on('event.app.close', eventAppClose.bind(app))
-      },
+      () => app.devtool(),
     )
   },
 }
+
+export {Sage as default}

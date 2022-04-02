@@ -1,76 +1,75 @@
-import {
-  Framework,
-  Item,
-  Maybe,
-  Rule as FrameworkRule,
-} from '@roots/bud-framework'
-import {bind} from '@roots/bud-support'
+import {Framework, Items, Rule as Contract} from '@roots/bud-framework'
+import {bind, lodash} from '@roots/bud-support'
 
 import {Base} from '../shared/Base'
+
+const {isFunction, isString} = lodash
+
+export namespace Rule {
+  export type ConstructorOptions = Partial<Contract.Options>
+}
 
 /**
  * Framework Rule
  *
  * @public
  */
-export class Rule extends Base implements FrameworkRule.Interface {
+export class Rule extends Base implements Contract {
   /**
    * {@inheritDoc @roots/bud-framework#Rule.Abstract.test}
    *
    * @public
    */
-  public test?: (app: Framework) => RegExp
+  public test: Contract['test']
 
   /**
    * {@inheritDoc @roots/bud-framework#Rule.Abstract.use}
    *
    * @public
    */
-  public use?: (app: Framework) => Item.Interface[]
+  public use?: Array<keyof Items & string>
 
   /**
    * Include paths
    */
-  public include?: (app: Framework) => string
+  public include?: Contract['include']
 
   /**
    * {@inheritDoc @roots/bud-framework#Rule.Abstract.exclude}
    *
    * @public
    */
-  public exclude?: (app: Framework) => RegExp
+  public exclude?: Contract['exclude']
 
   /**
    * {@inheritDoc @roots/bud-framework#Rule.Abstract."type"}
    *
    * @public
    */
-  public type?: (app: Framework) => string
+  public type?: Contract['type']
 
   /**
    * Generator factory
    *
    * @public
    */
-  public parser?: (app: Framework) => FrameworkRule.Parser
+  public parser?: Contract['parser']
 
   /**
    * Generator factory
    *
    * @public
    */
-  public generator?: (app: Framework) => any
+  public generator?: Contract['generator']
 
   /**
    * Class constructor
    *
    * @public
    */
-  public constructor(
-    public app: Framework,
-    options: FrameworkRule.Options,
-  ) {
-    super()
+  public constructor(_app: () => Framework, options?: Contract.Options) {
+    super(_app)
+
     if (!options) return
 
     options.test && this.setTest(options.test)
@@ -92,7 +91,7 @@ export class Rule extends Base implements FrameworkRule.Interface {
    */
   @bind
   public getTest(): RegExp {
-    return this.test ? this.test(this.app) : null
+    return this.unwrap(this.test)
   }
 
   /**
@@ -102,8 +101,8 @@ export class Rule extends Base implements FrameworkRule.Interface {
    * @decorator `@bind`
    */
   @bind
-  public setTest(test: RegExp | (() => RegExp)): Rule {
-    this.test = this.normalizeInput(test)
+  public setTest(test: Rule['test']): Rule {
+    this.test = this.wrap(test)
     return this
   }
 
@@ -114,8 +113,8 @@ export class Rule extends Base implements FrameworkRule.Interface {
    * @decorator `@bind`
    */
   @bind
-  public getParser(): FrameworkRule.Parser {
-    return this.parser ? this.parser(this.app) : null
+  public getParser(): Contract.Parser {
+    return this.unwrap(this.parser)
   }
 
   /**
@@ -125,10 +124,8 @@ export class Rule extends Base implements FrameworkRule.Interface {
    * @decorator `@bind`
    */
   @bind
-  public setParser(
-    parser: Maybe<[Framework], FrameworkRule.Parser>,
-  ): Rule {
-    this.parser = this.normalizeInput(parser)
+  public setParser(parser: Contract['parser']): Rule {
+    this.parser = this.wrap(parser)
     return this
   }
 
@@ -139,8 +136,8 @@ export class Rule extends Base implements FrameworkRule.Interface {
    * @decorator `@bind`
    */
   @bind
-  public getUse(): Item.Interface[] {
-    return this.use ? this.use(this.app) : null
+  public getUse(): Array<`${keyof Items & string}`> {
+    return this.unwrap(this.use)?.filter(isString) ?? []
   }
 
   /**
@@ -150,8 +147,18 @@ export class Rule extends Base implements FrameworkRule.Interface {
    * @decorator `@bind`
    */
   @bind
-  public setUse(use: Maybe<[Framework], Item.Interface[]>): Rule {
-    this.use = this.normalizeInput(use)
+  public setUse(
+    input:
+      | Array<keyof Items & string>
+      | ((
+          use: Array<keyof Items & string>,
+          app: Framework,
+        ) => Array<keyof Items & string>),
+  ): Rule {
+    this.use =
+      (isFunction(input) ? input(this.getUse() ?? [], this.app) : input) ??
+      []
+
     return this
   }
 
@@ -162,8 +169,8 @@ export class Rule extends Base implements FrameworkRule.Interface {
    * @decorator `@bind`
    */
   @bind
-  public getInclude(): string {
-    return this.include ? this.include(this.app) : null
+  public getInclude(): Array<string | RegExp> {
+    return this.unwrap(this.include)
   }
 
   /**
@@ -173,8 +180,8 @@ export class Rule extends Base implements FrameworkRule.Interface {
    * @decorator `@bind`
    */
   @bind
-  public setInclude(include: Maybe<[Framework], string>): Rule {
-    this.include = this.normalizeInput(include)
+  public setInclude(include: Contract['include']): Rule {
+    this.include = this.wrap(include)
     return this
   }
 
@@ -185,8 +192,8 @@ export class Rule extends Base implements FrameworkRule.Interface {
    * @decorator `@bind`
    */
   @bind
-  public getExclude(): RegExp {
-    return this.exclude ? this.exclude(this.app) : null
+  public getExclude(): Array<string | RegExp> {
+    return this.unwrap(this.exclude)
   }
 
   /**
@@ -196,8 +203,8 @@ export class Rule extends Base implements FrameworkRule.Interface {
    * @decorator `@bind`
    */
   @bind
-  public setExclude(exclude: Maybe<[Framework], RegExp>): Rule {
-    this.exclude = this.normalizeInput(exclude)
+  public setExclude(exclude: Contract['exclude']): Rule {
+    this.exclude = this.wrap(exclude)
     return this
   }
 
@@ -209,7 +216,7 @@ export class Rule extends Base implements FrameworkRule.Interface {
    */
   @bind
   public getType() {
-    return this.type ? this.type(this.app) : null
+    return this.unwrap(this.type)
   }
 
   /**
@@ -220,7 +227,7 @@ export class Rule extends Base implements FrameworkRule.Interface {
    */
   @bind
   public setType(type): Rule {
-    this.type = this.normalizeInput(type)
+    this.type = this.wrap(type)
     return this
   }
 
@@ -232,7 +239,7 @@ export class Rule extends Base implements FrameworkRule.Interface {
    */
   @bind
   public getGenerator() {
-    return this.generator ? this.generator(this.app) : null
+    return this.unwrap(this.generator)
   }
 
   /**
@@ -242,12 +249,8 @@ export class Rule extends Base implements FrameworkRule.Interface {
    * @decorator `@bind`
    */
   @bind
-  public setGenerator(
-    generator:
-      | FrameworkRule.Interface['generator']
-      | ((app: Framework) => FrameworkRule.Interface['generator']),
-  ): Rule {
-    this.generator = this.normalizeInput(generator)
+  public setGenerator(generator: Contract['generator']): Rule {
+    this.generator = this.wrap(generator)
     return this
   }
 
@@ -261,40 +264,21 @@ export class Rule extends Base implements FrameworkRule.Interface {
    * @decorator `@bind`
    */
   @bind
-  public make() {
-    const output: FrameworkRule.Output = {
-      test: this.test(this.app),
-    }
+  public toWebpack() {
+    const output = {test: this.getTest()}
 
     this.use &&
       Object.assign(output, {
-        use: this.use(this.app).map(item => item.make(this.app)),
+        use: this.getUse().map(item =>
+          this.app.build.items[item].toWebpack(),
+        ),
       })
-
-    this.include &&
-      Object.assign(output, {
-        include: this.include(this.app),
-      })
-
-    this.exclude &&
-      Object.assign(output, {
-        exclude: this.exclude(this.app),
-      })
-
-    this.type &&
-      Object.assign(output, {
-        type: this.type(this.app),
-      })
-
-    this.parser &&
-      Object.assign(output, {
-        parser: this.parser(this.app),
-      })
-
+    this.include && Object.assign(output, {include: this.getInclude()})
+    this.exclude && Object.assign(output, {exclude: this.getExclude()})
+    this.type && Object.assign(output, {type: this.getType()})
+    this.parser && Object.assign(output, {parser: this.getParser()})
     this.generator &&
-      Object.assign(output, {
-        generator: this.generator(this.app),
-      })
+      Object.assign(output, {generator: this.getGenerator()})
 
     return output
   }

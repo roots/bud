@@ -1,14 +1,25 @@
+import {Config} from '@docusaurus/types'
 import dracula from 'prism-react-renderer/themes/dracula'
 import github from 'prism-react-renderer/themes/github'
 
 import {config} from '../../../../config/monorepo.config'
 
-export const announcementBar = {
+/**
+ * Announcement bar config
+ *
+ * @public
+ */
+export const announcementBar: Config['themeConfig']['announcementBar'] = {
   id: 'announcementBar-2', // Increment on change
   content: `🧹 We're working hard to get the docs up to date with Bud v5. Thanks for your understanding!`,
 }
 
-export const footer = {
+/**
+ * Footer config
+ *
+ * @public
+ */
+export const footer: Config['themeConfig']['footer'] = {
   style: 'dark',
   links: [
     {
@@ -19,7 +30,7 @@ export const footer = {
           to: '/guides/getting-started/',
         },
         {
-          label: 'Documentation',
+          label: 'Configuration',
           to: '/docs/',
         },
         {
@@ -64,7 +75,24 @@ export const footer = {
   }.`,
 }
 
-export const navbar = {
+/**
+ * Metaadata config
+ *
+ * @public
+ */
+export const metadata: Config['themeConfig']['metadata'] = [
+  {
+    name: 'google-site-verification',
+    content: 'PHCTrbi0cn0A3I_eE3g2Gr9WnsFMsvtKRxVP8ghfCfM',
+  },
+]
+
+/**
+ * Navbar config
+ *
+ * @public
+ */
+export const navbar: Config['themeConfig']['navbar'] = {
   hideOnScroll: true,
   logo: {
     alt: config.name,
@@ -91,20 +119,18 @@ export const navbar = {
       label: 'Extensions',
       docsPluginId: 'extensions',
     },
-    {to: '/blog', label: 'Blog', position: 'left'},
+    {to: '/blog', label: 'Blog', position: 'right'},
     {
       href: '/dev',
-      label: 'Development',
+      label: 'Dev',
       position: 'right',
       className: 'header-github-link',
-      'aria-label': 'Release notes',
     },
     {
-      href: '/releases',
-      label: 'Releases',
+      href: config.url.discourse,
+      label: 'Community',
       position: 'right',
-      className: 'header-github-link',
-      'aria-label': 'Release notes',
+      className: 'header-discourse-link',
     },
     {
       href: config.url.web,
@@ -116,7 +142,12 @@ export const navbar = {
   ],
 }
 
-export const prism = {
+/**
+ * Prism theme config
+ *
+ * @public
+ */
+export const prism: Config['themeConfig']['prism'] = {
   additionalLanguages: ['php'],
   darkTheme: dracula,
   theme: github,

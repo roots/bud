@@ -45,8 +45,8 @@
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/lodash": "4.14.178",
-    "@types/node": "16.11.25",
+    "@types/lodash": "4.14.180",
+    "@types/node": "16.11.26",
     "@types/vinyl": "2.0.6",
     "critical": "4.0.1"
   },

@@ -1,17 +1,20 @@
 import {Framework, Hooks as Contract, Service} from '@roots/bud-framework'
-import {bind, lodash} from '@roots/bud-support'
+import {bind, chalk, lodash} from '@roots/bud-support'
 
 const {get, isFunction, isUndefined, set} = lodash
 
 /**
- * Service allowing for fitering values through callbacks.
+ * Hooks and events registry
+ *
+ * @remarks
+ * Supports async and sync value hooks as well as asyncronous events.
  *
  * @example
  * Add a new entry to the `webpack.externals` configuration:
  *
  * ```ts
  * hooks.on(
- *   'build/externals',
+ *   'build.externals',
  *   externals => ({
  *     ...externals,
  *     $: 'jquery',
@@ -30,14 +33,14 @@ const {get, isFunction, isUndefined, set} = lodash
  * ```
  *
  * @example
- * Create a new filter for a value:
+ * Filter a value through any registered hooks:
  *
  * ```ts
- * hooks.filter('my-event-name', DEFAULT_VALUE)
+ * hooks.filter('build.output.filename', DEFAULT_VALUE)
  * ```
  *
  * @example
- * Create a new async filter for a value:
+ * Filter an async value through any registered hooks:
  *
  * ```ts
  * await hooks.filterAsync('my-event-name', async () => DEFAULT_VALUE)
@@ -98,11 +101,13 @@ export class Hooks extends Service implements Contract {
   @bind
   public on<T extends keyof Contract.Map & string>(
     id: T,
-    callback: Contract.Map[T] | ((value: Contract.Map[T]) => any),
+    input: Contract.Map[T] | ((value: Contract.Map[T]) => any),
   ): Framework {
-    const current = this.has(id) ? this.get(id) : []
+    const retrieved = this.has(id) ? this.get(id) : []
+    const normal = Array.isArray(retrieved) ? retrieved : [retrieved]
+    const callback = typeof input === 'function' ? input : () => input
 
-    this.set(id, [...current, callback])
+    this.set(id, [...normal, callback])
 
     return this.app
   }
@@ -129,15 +134,17 @@ export class Hooks extends Service implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public async<T extends keyof Contract.Map & string>(
+  public async<T extends keyof Contract.AsyncMap & string>(
     id: T,
-    callback:
-      | Contract.Map[T]
-      | ((value: Contract.Map[T]) => Promise<Contract.Map[T]>),
+    input:
+      | Contract.AsyncMap[T]
+      | ((value: Contract.AsyncMap[T]) => Promise<Contract.AsyncMap[T]>),
   ): Framework {
-    const current = this.has(id) ? this.get(id) : []
+    const retrieved = this.has(id) ? this.get(id) : []
+    const normal = Array.isArray(retrieved) ? retrieved : [retrieved]
+    const callback = typeof input === 'function' ? input : () => input
 
-    this.set(id, [...current, callback])
+    this.set(id, [...normal, callback])
 
     return this.app
   }
@@ -167,12 +174,25 @@ export class Hooks extends Service implements Contract {
     value?: Contract.Map[T] | ((value?: Contract.Map[T]) => any),
   ): Contract.Map[T] {
     if (!this.has(id)) {
-      if (isUndefined(value)) return
+      if (isUndefined(value)) return undefined
       return isFunction(value) ? value() : value
     }
 
-    return this.get(id).reduce(
-      (v: T, cb?: CallableFunction) => (isFunction(cb) ? cb(v) : cb),
+    const retrieved = this.get(id) ?? []
+    const normal = Array.isArray(retrieved) ? retrieved : [retrieved]
+
+    return normal.reduce(
+      (
+        accumulated: Contract.Map[T],
+        current?:
+          | ((value: Contract.Map[T]) => Contract.Map[T])
+          | Contract.Map[T],
+      ) => {
+        const next = isFunction(current) ? current(accumulated) : current
+        if (this.app.context.args.debug)
+          this.app.info(`hooks.filter`, id, `=>`, next)
+        return next
+      },
       value,
     )
   }
@@ -195,21 +215,87 @@ export class Hooks extends Service implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public async filterAsync<T extends keyof Contract.Map & string>(
+  public async filterAsync<T extends keyof Contract.AsyncMap & string>(
     id: T,
-    value?: Contract.Map[T] | ((value?: Contract.Map[T]) => any),
-  ): Promise<Contract.Map[T]> {
+    value?: Contract.AsyncMap[T] | ((value?: Contract.AsyncMap[T]) => any),
+  ): Promise<Contract.AsyncMap[T]> {
     if (!this.has(id)) {
       if (isUndefined(value)) return
       return isFunction(value) ? await value() : value
     }
 
-    return await this.get(id).reduce(
-      async (promised: Promise<T>, cb?: (value: T) => Promise<T>) => {
+    const retrieved = this.get(id) ?? []
+    const normal = Array.isArray(retrieved) ? retrieved : [retrieved]
+
+    return await normal.reduce(
+      async (
+        promised,
+        current?:
+          | ((value: T) => Promise<T> | Contract.AsyncMap[T])
+          | Contract.AsyncMap[T],
+      ) => {
         const value = await promised
-        return isFunction(cb) ? await cb(value) : cb
+        return isFunction(current) ? await current(value) : current
       },
       value,
     )
+  }
+
+  /**
+   * Register an action (called with {@link Hooks.fire})
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public action<T extends keyof Contract.Events & string>(
+    id: T,
+    ...action: Array<(app: Framework) => Promise<unknown>>
+  ): Framework {
+    const retrieved = this.has(id) ? this.get(id) : []
+    const normal = Array.isArray(retrieved) ? retrieved : [retrieved]
+
+    this.app.log({
+      message: `registering action: ${id}`,
+      suffix: chalk.dim(`${normal.length + 1} registered`),
+    })
+
+    this.set(id, [...normal, ...action])
+
+    return this.app
+  }
+
+  /**
+   * Fire actions registered to an event.
+   *
+   * @example
+   * ```js
+   * await app.hooks.fire('namespace.key')
+   * ```
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async fire<T extends keyof Contract.Events & string>(
+    id: T,
+  ): Promise<Framework> {
+    if (!this.has(id)) return
+
+    const retrieved = this.get(id)
+    const normal = Array.isArray(retrieved) ? retrieved : [retrieved]
+
+    await normal.reduce(async (promised, current, increment) => {
+      await promised
+
+      this.app.log({
+        message: `firing action ${id}`,
+        suffix: chalk.dim(`${increment + 1}/${normal.length}`),
+      })
+
+      return await current(this.app)
+    }, Promise.resolve())
+
+    return this.app
   }
 }

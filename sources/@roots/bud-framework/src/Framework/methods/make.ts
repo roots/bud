@@ -42,25 +42,25 @@ export async function make(
   name: string,
   tap?: (app: Framework) => any,
 ): Promise<Framework> {
-  this as Framework
+  const app = this as Framework
 
-  handleChildNestingError.bind(this)()
-  this.logger.instance.fav(`new instance:`, name)
+  handleChildNestingError.bind(app)()
+  app.logger.instance.fav(`new instance:`, name)
 
-  const instance = new this.implementation({
-    childOf: this,
-    config: {
-      ...this.options.config,
-      name,
-    },
-    services: this.options.services,
+  const instance = new app.implementation({
+    name,
+    mode: app.mode,
+    childOf: app,
+    config: {...app.options.config, name},
+    context: app.context,
+    services: app.options.services,
   })
 
   await instance.lifecycle()
 
   if (tap) await tap(instance)
 
-  this.children?.set(name, instance)
+  app.children?.set(name, instance)
 
-  return this
+  return app
 }

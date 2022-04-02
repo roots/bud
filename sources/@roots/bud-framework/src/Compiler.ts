@@ -5,7 +5,9 @@ import {
   MultiCompiler as WebpackMultiCompiler,
   MultiStats,
   ProgressPlugin,
+  Stats,
   StatsCompilation,
+  webpack,
 } from 'webpack'
 
 import {Service} from './'
@@ -20,19 +22,14 @@ import {Service} from './'
  * @public
  */
 interface Compiler extends Service {
+  compiler: Compiler.Compiler
+
   /**
    * The compiler instance
    *
    * @public
    */
-  instance: Compiler.Instance
-
-  /**
-   * `true` if compiler has already been instantiated.
-   *
-   * @public
-   */
-  isCompiled: boolean
+  compilation: Compiler.Compilation
 
   /**
    * Contains compilation stats, if available.
@@ -79,11 +76,11 @@ interface Compiler extends Service {
    */
   before(): any
 
-  callback(error: Error, stats: MultiStats): Promise<void>
+  callback(error: Error, stats: Stats & MultiStats): void
 
-  handleStats(stats: MultiStats): Promise<void>
+  handleStats(stats: Stats & MultiStats): void
 
-  handleErrors(error: Error): Promise<void>
+  handleErrors(error: Error): void
 }
 
 /**
@@ -93,7 +90,8 @@ interface Compiler extends Service {
  */
 namespace Compiler {
   export type Config = Configuration
-  export type Instance = WebpackCompiler | WebpackMultiCompiler
+  export type Compiler = typeof webpack
+  export type Compilation = WebpackCompiler | WebpackMultiCompiler
 
   export type Progress = [number, string]
 

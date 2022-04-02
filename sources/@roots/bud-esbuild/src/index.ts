@@ -1,4 +1,4 @@
-// Copyright (c) Roots Foundation, LLC. All rights reserved.
+// Copyright © Roots Software Foundation LLC
 // Licensed under the MIT license.
 
 /**
@@ -15,14 +15,6 @@
  * @remarks
  * If you would like to contribute to the development of this plugin (especially if you have experience
  * with module reloading in an ESBuild context), please open an issue on Github.
- *
- * @remarks
- * - 💁 Composable - Build exceptional applications with a modular, configurable build system
- *
- * - 💪 Modern - Modern framework written in TypeScript with an expressive API
- *
- * - 🌱 Easy - Low bundle size and fast build times
- *
  * @packageDocumentation
  */
 
@@ -73,7 +65,7 @@ const extension: Extension.Module = {
   }),
 
   boot: ({build, extensions, hooks}) => {
-    build.loaders.esbuild = new Loader(require.resolve('esbuild-loader'))
+    build.setLoader('esbuild', require.resolve('esbuild-loader'))
 
     Promise.all(
       features.map(async feature => await extensions.add(feature)),

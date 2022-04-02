@@ -1,6 +1,8 @@
 import {paths, projectConfig} from '@repo/constants'
-import {logger} from '@repo/logger'
+import {log, logger} from '@repo/logger'
 import {readJson} from 'fs-extra'
+import {chunk} from 'lodash'
+import {cpus} from 'os'
 import path from 'path'
 import React from 'react'
 
@@ -25,13 +27,7 @@ const writeReadme = async (
   Component: any,
   data: Record<string, any>,
   target: string,
-) => {
-  logger.await(`[${data.name}] rendering README`)
-  logger.info('target', target)
-
-  await render(<Component {...data} />, target)
-  logger.success(`[${data.name}] rendering README`)
-}
+) => await render(<Component {...data} />, target)
 
 /**
  * Returns props for a template
@@ -39,12 +35,7 @@ const writeReadme = async (
 async function getReadmeProps(
   packageName: string,
 ): Promise<Record<string, any>> {
-  logger.await(`[${packageName}] get json`)
-
   const json = await readJson(getPackagePath(packageName, 'package.json'))
-
-  logger.success(`[${packageName}] get json`)
-
   return {...json, projectConfig}
 }
 
@@ -55,27 +46,35 @@ async function writeReadmes(
   template: any,
   group: 'extension' | 'library' | 'core',
 ) {
-  logger.await(`[${group}] rendering README.md`)
-
   try {
-    await Promise.all(
-      projectConfig.packages[group].map(async (packageName: string) => {
-        try {
-          const path = getPackagePath(packageName, 'README.md')
-          const data = await getReadmeProps(packageName)
+    await chunk(
+      projectConfig.packages[group],
+      cpus().length > 0 ? cpus().length : 1,
+    ).reduce(async (promised, chunk) => {
+      await promised
+      await Promise.all(
+        chunk.map(async (packageName: string) => {
+          try {
+            const path = getPackagePath(packageName, 'README.md')
+            logger.scope(group, packageName, 'resolve').success()
 
-          await writeReadme(template, data, path)
-        } catch (e) {
-          throw new Error(e)
-        }
-      }),
-    )
+            const data = await getReadmeProps(packageName)
+            logger.scope(group, packageName, 'fetch').success()
+
+            await writeReadme(template, data, path)
+            logger.scope(group, packageName, 'render').success()
+          } catch (e) {
+            throw new Error(e)
+          }
+        }),
+      )
+    }, Promise.resolve())
   } catch (e) {
     logger.error(template, group, 'error during render')
     logger.error(e)
   }
 
-  logger.success(`[${group}] rendering README.md`)
+  logger.scope(group).success()
 }
 
 /**
@@ -97,10 +96,13 @@ async function writeReadmes(
   ]
 
   /* Render each template */
-  await Promise.all(
-    templates.map(async ([Template, key]): Promise<void> => {
+  await templates.reduce(
+    async (promised, [Template, key]): Promise<void> => {
+      await promised
+      log(`Writing ${key} README.md files`)
       await writeReadmes(Template, key)
-    }),
+    },
+    Promise.resolve(),
   )
 
   /* Render the repo README */

@@ -8,10 +8,10 @@ export interface options {
 
 export const options: options = ({path}) => ({
   extensions: ['js', 'jsx', 'ts', 'tsx', 'vue'],
-  cacheLocation: path('storage', 'cache', 'eslint.json'),
+  cacheLocation: path('@storage/cache/eslint.json'),
   cacheStrategy: 'content',
-  cwd: path('project'),
+  cwd: path(),
   eslintPath: require.resolve('eslint'),
-  resolvePluginsRelativeTo: path('project'),
+  resolvePluginsRelativeTo: path(),
   threads: cpus.length / 2,
 })

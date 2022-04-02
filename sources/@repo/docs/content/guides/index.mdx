@@ -1,65 +1,34 @@
 ---
 id: introduction
-title: Introduction
+title: Overview
+hide_title: true
+hide_table_of_contents: true
 description: ⚡️ Lightning fast frontend build tools combining the best parts of Symfony Encore and Laravel Mix
-sidebar_label: Introduction
+sidebar_label: Overview
 sidebar_position: 1
 slug: /
-image: 'https://budjs.netlify.app/img/share/guides/index.png'
+image: 'https://bud.js.org/img/share/guides/index.png'
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
+import {Hero} from '@site/src/components/Hero'
 import {Callout} from '@site/src/docs/callout'
 
-<Callout.Component>
-  Lightning fast frontend build tools combining the best parts of Symfony
-  Encore and Laravel Mix.
-</Callout.Component>
+<div className="container margin-bottom--lg">
+  <div className="row">
+    <Hero
+      title="bud.js"
+      subtitle="Lightning fast frontend build tools combining the best parts of Symfony
+  Encore and Laravel Mix."
+    />
+  </div>
+</div>
 
 What Bud provides:
 
-- a neat wrapper for Webpack and some associated build tools
-- a friendly, chainable API to meet your configuration needs
-- some battle-tested prefabs to help you stay focused on your application code
-
-What Bud does not provide:
-
-- **Out-of-the-box support for everything under the sun.** A fresh Bud install doesn't support sass, babel, react, etc.
-  Instead, those things are installed from a [a rich library of first-party extensions](/extensions).
-
-## Installation
-
-See [installation instructions](/guides/installation).
-
-## Getting started
-
-If you don't know a lot about Webpack or don't feel fully comfortable with JavaScript,
-check out the [Getting Started guide](/guides/getting-started). It was written with you in mind specifically.
-
-## Working with the CLI
-
-Check out the [bud cli guide](/guides/bud-cli/) for usage instructions.
-
-## General usage guides
-
-- [Configuring with TypeScript](/guides/general-use/config-ts)
-- [Configuring with yml or json](/guides/general-use/config-static)
-- [Environment specific configuration](/guides/general-use/config-env)
-- [Running multiple compilers](/guides/general-use/multi-compiler)
-- [Using as a node library](/guides/advanced-use/node)
-
-## Configuration function reference
-
-Common `bud.config.js` functions are all detailed [in their own docs](/docs). It is also a great resource to skim if you're
-trying to figure out what all **bud** can do.
-
-## Extensions repository
-
-In bud most features are opt-in and provided via installable extensions. You may be interested in scoping out
-the [list of extensions and their documented uses](/extensions).
-
-## Blog
-
-Lastly, [check out our blog](/blog) for release announcements and maintainer notes.
+- zero configuration required
+- support for `js`, `ts`, `yml` & `json5` build configs
+- exceptional intellisense
+- support for running multiple compilers in parallel

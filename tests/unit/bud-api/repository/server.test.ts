@@ -1,27 +1,31 @@
 import {Bud, factory} from '@repo/test-kit/bud'
-import {join} from 'path'
 
 describe('bud.serve', function () {
   let bud: Bud
 
   beforeAll(async () => {
-    bud = await factory({
-      features: {
-        dashboard: false,
-        log: false,
-      },
-      location: {
-        project: join(process.cwd(), 'examples/sage'),
-      },
-    })
+    bud = await factory({mode: 'development'})
   })
 
-  it('sets host', async () => {
+  beforeEach(async () => {
+    await bud.api.call('serve', 'http://localhost:3000')
+  })
+
+  it('sets URL from string', async () => {
     bud.serve('http://example.com')
+
     await bud.api.processQueue()
 
-    expect(bud.store.get('server.dev.url')).toEqual(
-      new URL('http://example.com'),
-    )
+    expect(bud.hooks.filter('dev.ssl')).toBe(false)
+    expect(bud.hooks.filter('dev.hostname')).toStrictEqual('example.com')
+    expect(bud.hooks.filter('dev.port')).toStrictEqual([3000])
+  })
+
+  it('sets options', async () => {
+    const options = {cert: 'foo', key: 'bar'}
+
+    await bud.api.call('serve', {options})
+
+    expect(bud.hooks.filter('dev.options')).toStrictEqual(options)
   })
 })

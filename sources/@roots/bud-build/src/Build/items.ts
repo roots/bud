@@ -1,137 +1,116 @@
-import {Item} from '../Item'
+import {Framework} from '@roots/bud-framework'
 
 /**
- * Items
+ * .css handler factory
  *
  * @public
  */
-export default {
-  /**
-   * .css handler factory
-   *
-   * @public
-   */
-  css: () =>
-    new Item({
-      loader: ({build}) => build.loaders.css,
-      options: ({hooks}) => ({
-        importLoaders: 1,
-        sourceMap: hooks.filter('build.devtool') ? true : false,
-      }),
-    }),
+export const css = (app: Framework) =>
+  app.build
+    .makeItem()
+    .setLoader(`css`)
+    .setOptions(({hooks}) => ({
+      importLoaders: 1,
+      sourceMap: hooks.filter('build.devtool') ? true : false,
+    }))
 
-  /**
-   * .css handler factory
-   *
-   * @public
-   */
-  cssModule: () =>
-    new Item({
-      loader: ({build}) => build.loaders.css,
-      options: ({hooks}) => ({
-        importLoaders: 1,
-        localIdentName: '[name]__[local]___[hash:base64:5]',
-        modules: true,
-        sourceMap: hooks.filter('build.devtool') ? true : false,
-      }),
-    }),
+/**
+ * .css handler factory
+ *
+ * @public
+ */
+export const cssModule = (app: Framework) =>
+  app.build
+    .makeItem()
+    .setLoader(`css`)
+    .setOptions(({hooks}) => ({
+      importLoaders: 1,
+      localIdentName: '[name]__[local]___[hash:base64:5]',
+      modules: true,
+      sourceMap: hooks.filter('build.devtool') ? true : false,
+    }))
 
-  /**
-   * .csv handler factory
-   *
-   * @public
-   */
-  csv: () =>
-    new Item({
-      loader: ({build}) => build.loaders.csv,
-    }),
+/**
+ * .csv handler factory
+ *
+ * @public
+ */
+export const csv = (app: Framework) =>
+  app.build.makeItem().setLoader(`csv`)
 
-  /**
-   * .html handler factory
-   *
-   * @public
-   */
-  html: () =>
-    new Item({
-      loader: ({build}) => build.loaders.html,
-    }),
+/**
+ * .html handler factory
+ *
+ * @public
+ */
+export const html = (app: Framework) =>
+  app.build.makeItem().setLoader(`html`)
 
-  /**
-   * Factory {@link Item} for style
-   *
-   * @public
-   */
-  style: () =>
-    new Item({
-      loader: ({build}) => build.loaders.style,
-    }),
+/**
+ * Factory {@link Item} for style
+ *
+ * @public
+ */
+export const style = (app: Framework) =>
+  app.build.makeItem().setLoader(`style`)
 
-  /**
-   * Factory {@link Item} for markdown
-   *
-   * @public
-   */
-  md: () =>
-    new Item({
-      loader: ({build}) => build.loaders.md,
-    }),
+/**
+ * Factory {@link Item} for markdown
+ *
+ * @public
+ */
+export const md = (app: Framework) => app.build.makeItem({loader: 'md'})
 
-  /**
-   * Factory {@link Item} for minicss-extract-plugin
-   *
-   * @public
-   */
-  minicss: () =>
-    new Item({
-      loader: ({build}) => build.loaders.minicss,
-    }),
+/**
+ * Factory {@link Item} for minicss-extract-plugin
+ * @public
+ */
+export const minicss = (app: Framework) =>
+  app.build.makeItem().setLoader(`minicss`)
 
-  /**
-   * Factory {@link Item} for raw
-   *
-   * @public
-   */
-  raw: () =>
-    new Item({
-      loader: ({build}) => build.loaders.raw,
-    }),
+/**
+ * CSS rule which accounts for env
+ * @public
+ */
+export const precss = (app: Framework) =>
+  app.build.makeItem().setLoader(app.isProduction ? `minicss` : `style`)
 
-  /**
-   * Factory {@link Item} for file
-   *
-   * @public
-   */
-  file: () =>
-    new Item({
-      loader: ({build}) => build.loaders.file,
-      options: app => ({
-        name: app.store.is('features.hash', true)
-          ? app.store.get('hashFormat').concat('.[ext]')
-          : app.store.get('fileFormat').concat('.[ext]'),
-      }),
-    }),
+export const raw = ({build}: Framework) =>
+  build.makeItem().setLoader(`raw`)
 
-  /**
-   * Factory {@link Item} resolve-url
-   *
-   * @public
-   */
-  [`resolve-url`]: () =>
-    new Item({
-      loader: ({build}) => build.loaders['resolve-url'],
-      options: ({path, hooks}) => ({
-        root: path('src'),
-        sourceMap: hooks.filter('build.devtool') ?? false,
-      }),
-    }),
+/**
+ * Factory {@link Item} for file
+ *
+ * @public
+ */
+export const file = (app: Framework) =>
+  app.build
+    .makeItem()
+    .setLoader(`file`)
+    .setOptions(app => ({
+      name: app.store.is('features.hash', true)
+        ? app.store.get('hashFormat').concat('.[ext]')
+        : app.store.get('fileFormat').concat('.[ext]'),
+    }))
 
-  /**
-   * Factory {@link Item} for xml
-   *
-   * @public
-   */
-  xml: () =>
-    new Item({
-      loader: ({build}) => build.loaders.xml,
-    }),
-}
+/**
+ * Factory {@link Item} resolve-url
+ *
+ * @public
+ */
+export const resolveUrl = (app: Framework) =>
+  app.build
+    .makeItem()
+    .setLoader(`resolveUrl`)
+    .setOptions(({path, hooks}) => ({
+      root: path('@src'),
+      sourceMap: hooks.filter('build.devtool') ? true : false,
+    }))
+
+/**
+ * Factory {@link Item} for xml
+ *
+ * @public
+ */
+export const xml = (app: Framework) =>
+  app.build.makeItem().setLoader(`xml`)

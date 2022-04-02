@@ -22,15 +22,11 @@ describe('examples/basic', () => {
 
   describe('main.js', () => {
     it('has contents', () => {
-      expect(project.assets['main.js'].length).toBeGreaterThan(
-        10,
-      )
+      expect(project.assets['main.js'].length).toBeGreaterThan(10)
     })
 
     it('is transpiled', () => {
-      expect(
-        project.assets['main.js'].includes('import'),
-      ).toBeFalsy()
+      expect(project.assets['main.js'].includes('import')).toBeFalsy()
     })
 
     it('matches snapshot', () => {

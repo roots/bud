@@ -11,7 +11,7 @@ import * as purge from './purge.interface'
  * @example
  * ```js
  * app.purgecss({
- *   content: [app.path('project', 'resources/views/**')],
+ *   content: [app.path('resources/views/**')],
  *   allow: require('purgecss-with-wordpress').whitelist,
  *   allowPatterns: require('purgecss-with-wordpress').whitelistPatterns,
  * })

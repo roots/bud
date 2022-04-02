@@ -29,10 +29,13 @@
 ## Requirements
 
 - Node 16+
+- yarn 1.22 or higher
+- npm 8.3 or higher
+- Windows users must run bud.js under the Windows Subsystem for Linux.
 
 ## Getting started
 
-Check out our [dedicated documentation](https://budjs.netlify.app) to get started.
+Check out our [dedicated documentation](https://bud.js.org) to get started.
 
 There are also [example implementations available in the /examples directory of this repo](https://github.com/roots/bud/tree/master/examples).
 
@@ -40,45 +43,45 @@ There are also [example implementations available in the /examples directory of 
 
 ### Presets
 
-| Name                                                                    | Usage                                                                         | Latest                                                                                                 |
-| ----------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| [**@roots/bud-preset-recommend**](/sources/@roots/bud-preset-recommend) | [📚 Usage](https://budjs.netlify.app/extensions/presets/bud-preset-recommend) | ![npm](https://img.shields.io/npm/v/@roots/bud-preset-recommend.svg?color=%23525ddc&style=flat-square) |
-| [**@roots/bud-preset-wordpress**](/sources/@roots/bud-preset-wordpress) | [📚 Usage](https://budjs.netlify.app/extensions/presets/bud-preset-wordpress) | ![npm](https://img.shields.io/npm/v/@roots/bud-preset-wordpress.svg?color=%23525ddc&style=flat-square) |
+| Name                                                                    | Usage                                                                  | Latest                                                                                                 |
+| ----------------------------------------------------------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| [**@roots/bud-preset-recommend**](/sources/@roots/bud-preset-recommend) | [📚 Usage](https://bud.js.org/extensions/presets/bud-preset-recommend) | ![npm](https://img.shields.io/npm/v/@roots/bud-preset-recommend.svg?color=%23525ddc&style=flat-square) |
+| [**@roots/bud-preset-wordpress**](/sources/@roots/bud-preset-wordpress) | [📚 Usage](https://bud.js.org/extensions/presets/bud-preset-wordpress) | ![npm](https://img.shields.io/npm/v/@roots/bud-preset-wordpress.svg?color=%23525ddc&style=flat-square) |
 
 ### Extensions
 
-| Name                                                                                | Usage                                                                                 | Latest                                                                                                       |
-| ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| [**@roots/bud-babel**](/sources/@roots/bud-babel)                                   | [📚 Usage](https://budjs.netlify.app/extensions/bud-babel/README.md)                  | ![npm](https://img.shields.io/npm/v/@roots/bud-babel.svg?color=%23525ddc&style=flat-square)                  |
-| [**@roots/bud-compress**](/sources/@roots/bud-compress)                             | [📚 Usage](https://budjs.netlify.app/extensions/bud-compress/README.md)               | ![npm](https://img.shields.io/npm/v/@roots/bud-compress.svg?color=%23525ddc&style=flat-square)               |
-| [**@roots/bud-criticalcss**](/sources/@roots/bud-criticalcss)                       | [📚 Usage](https://budjs.netlify.app/extensions/bud-criticalcss/README.md)            | ![npm](https://img.shields.io/npm/v/@roots/bud-criticalcss.svg?color=%23525ddc&style=flat-square)            |
-| [**@roots/bud-emotion**](/sources/@roots/bud-emotion)                               | [📚 Usage](https://budjs.netlify.app/extensions/bud-emotion/README.md)                | ![npm](https://img.shields.io/npm/v/@roots/bud-emotion.svg?color=%23525ddc&style=flat-square)                |
-| [**@roots/bud-entrypoints**](/sources/@roots/bud-entrypoints)                       | [📚 Usage](https://budjs.netlify.app/extensions/bud-entrypoints/README.md)            | ![npm](https://img.shields.io/npm/v/@roots/bud-entrypoints.svg?color=%23525ddc&style=flat-square)            |
-| [**@roots/bud-esbuild**](/sources/@roots/bud-esbuild)                               | [📚 Usage](https://budjs.netlify.app/extensions/bud-esbuild/README.md)                | ![npm](https://img.shields.io/npm/v/@roots/bud-esbuild.svg?color=%23525ddc&style=flat-square)                |
-| [**@roots/bud-eslint**](/sources/@roots/bud-eslint)                                 | [📚 Usage](https://budjs.netlify.app/extensions/bud-eslint/README.md)                 | ![npm](https://img.shields.io/npm/v/@roots/bud-eslint.svg?color=%23525ddc&style=flat-square)                 |
-| [**@roots/bud-imagemin**](/sources/@roots/bud-imagemin)                             | [📚 Usage](https://budjs.netlify.app/extensions/bud-imagemin/README.md)               | ![npm](https://img.shields.io/npm/v/@roots/bud-imagemin.svg?color=%23525ddc&style=flat-square)               |
-| [**@roots/bud-library**](/sources/@roots/bud-library)                               | [📚 Usage](https://budjs.netlify.app/extensions/bud-library/README.md)                | ![npm](https://img.shields.io/npm/v/@roots/bud-library.svg?color=%23525ddc&style=flat-square)                |
-| [**@roots/bud-mdx**](/sources/@roots/bud-mdx)                                       | [📚 Usage](https://budjs.netlify.app/extensions/bud-mdx/README.md)                    | ![npm](https://img.shields.io/npm/v/@roots/bud-mdx.svg?color=%23525ddc&style=flat-square)                    |
-| [**@roots/bud-postcss**](/sources/@roots/bud-postcss)                               | [📚 Usage](https://budjs.netlify.app/extensions/bud-postcss/README.md)                | ![npm](https://img.shields.io/npm/v/@roots/bud-postcss.svg?color=%23525ddc&style=flat-square)                |
-| [**@roots/bud-prettier**](/sources/@roots/bud-prettier)                             | [📚 Usage](https://budjs.netlify.app/extensions/bud-prettier/README.md)               | ![npm](https://img.shields.io/npm/v/@roots/bud-prettier.svg?color=%23525ddc&style=flat-square)               |
-| [**@roots/bud-purgecss**](/sources/@roots/bud-purgecss)                             | [📚 Usage](https://budjs.netlify.app/extensions/bud-purgecss/README.md)               | ![npm](https://img.shields.io/npm/v/@roots/bud-purgecss.svg?color=%23525ddc&style=flat-square)               |
-| [**@roots/bud-react**](/sources/@roots/bud-react)                                   | [📚 Usage](https://budjs.netlify.app/extensions/bud-react/README.md)                  | ![npm](https://img.shields.io/npm/v/@roots/bud-react.svg?color=%23525ddc&style=flat-square)                  |
-| [**@roots/bud-sass**](/sources/@roots/bud-sass)                                     | [📚 Usage](https://budjs.netlify.app/extensions/bud-sass/README.md)                   | ![npm](https://img.shields.io/npm/v/@roots/bud-sass.svg?color=%23525ddc&style=flat-square)                   |
-| [**@roots/bud-solid**](/sources/@roots/bud-solid)                                   | [📚 Usage](https://budjs.netlify.app/extensions/bud-solid/README.md)                  | ![npm](https://img.shields.io/npm/v/@roots/bud-solid.svg?color=%23525ddc&style=flat-square)                  |
-| [**@roots/bud-stylelint**](/sources/@roots/bud-stylelint)                           | [📚 Usage](https://budjs.netlify.app/extensions/bud-stylelint/README.md)              | ![npm](https://img.shields.io/npm/v/@roots/bud-stylelint.svg?color=%23525ddc&style=flat-square)              |
-| [**@roots/bud-tailwindcss**](/sources/@roots/bud-tailwindcss)                       | [📚 Usage](https://budjs.netlify.app/extensions/bud-tailwindcss/README.md)            | ![npm](https://img.shields.io/npm/v/@roots/bud-tailwindcss.svg?color=%23525ddc&style=flat-square)            |
-| [**@roots/bud-terser**](/sources/@roots/bud-terser)                                 | [📚 Usage](https://budjs.netlify.app/extensions/bud-terser/README.md)                 | ![npm](https://img.shields.io/npm/v/@roots/bud-terser.svg?color=%23525ddc&style=flat-square)                 |
-| [**@roots/bud-typescript**](/sources/@roots/bud-typescript)                         | [📚 Usage](https://budjs.netlify.app/extensions/bud-typescript/README.md)             | ![npm](https://img.shields.io/npm/v/@roots/bud-typescript.svg?color=%23525ddc&style=flat-square)             |
-| [**@roots/bud-vue**](/sources/@roots/bud-vue)                                       | [📚 Usage](https://budjs.netlify.app/extensions/bud-vue/README.md)                    | ![npm](https://img.shields.io/npm/v/@roots/bud-vue.svg?color=%23525ddc&style=flat-square)                    |
-| [**@roots/bud-wordpress-dependencies**](/sources/@roots/bud-wordpress-dependencies) | [📚 Usage](https://budjs.netlify.app/extensions/bud-wordpress-dependencies/README.md) | ![npm](https://img.shields.io/npm/v/@roots/bud-wordpress-dependencies.svg?color=%23525ddc&style=flat-square) |
-| [**@roots/bud-wordpress-externals**](/sources/@roots/bud-wordpress-externals)       | [📚 Usage](https://budjs.netlify.app/extensions/bud-wordpress-externals/README.md)    | ![npm](https://img.shields.io/npm/v/@roots/bud-wordpress-externals.svg?color=%23525ddc&style=flat-square)    |
-| [**@roots/bud-wordpress-manifests**](/sources/@roots/bud-wordpress-manifests)       | [📚 Usage](https://budjs.netlify.app/extensions/bud-wordpress-manifests/README.md)    | ![npm](https://img.shields.io/npm/v/@roots/bud-wordpress-manifests.svg?color=%23525ddc&style=flat-square)    |
+| Name                                                                                | Usage                                                                          | Latest                                                                                                       |
+| ----------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
+| [**@roots/bud-babel**](/sources/@roots/bud-babel)                                   | [📚 Usage](https://bud.js.org/extensions/bud-babel/README.md)                  | ![npm](https://img.shields.io/npm/v/@roots/bud-babel.svg?color=%23525ddc&style=flat-square)                  |
+| [**@roots/bud-compress**](/sources/@roots/bud-compress)                             | [📚 Usage](https://bud.js.org/extensions/bud-compress/README.md)               | ![npm](https://img.shields.io/npm/v/@roots/bud-compress.svg?color=%23525ddc&style=flat-square)               |
+| [**@roots/bud-criticalcss**](/sources/@roots/bud-criticalcss)                       | [📚 Usage](https://bud.js.org/extensions/bud-criticalcss/README.md)            | ![npm](https://img.shields.io/npm/v/@roots/bud-criticalcss.svg?color=%23525ddc&style=flat-square)            |
+| [**@roots/bud-emotion**](/sources/@roots/bud-emotion)                               | [📚 Usage](https://bud.js.org/extensions/bud-emotion/README.md)                | ![npm](https://img.shields.io/npm/v/@roots/bud-emotion.svg?color=%23525ddc&style=flat-square)                |
+| [**@roots/bud-entrypoints**](/sources/@roots/bud-entrypoints)                       | [📚 Usage](https://bud.js.org/extensions/bud-entrypoints/README.md)            | ![npm](https://img.shields.io/npm/v/@roots/bud-entrypoints.svg?color=%23525ddc&style=flat-square)            |
+| [**@roots/bud-esbuild**](/sources/@roots/bud-esbuild)                               | [📚 Usage](https://bud.js.org/extensions/bud-esbuild/README.md)                | ![npm](https://img.shields.io/npm/v/@roots/bud-esbuild.svg?color=%23525ddc&style=flat-square)                |
+| [**@roots/bud-eslint**](/sources/@roots/bud-eslint)                                 | [📚 Usage](https://bud.js.org/extensions/bud-eslint/README.md)                 | ![npm](https://img.shields.io/npm/v/@roots/bud-eslint.svg?color=%23525ddc&style=flat-square)                 |
+| [**@roots/bud-imagemin**](/sources/@roots/bud-imagemin)                             | [📚 Usage](https://bud.js.org/extensions/bud-imagemin/README.md)               | ![npm](https://img.shields.io/npm/v/@roots/bud-imagemin.svg?color=%23525ddc&style=flat-square)               |
+| [**@roots/bud-library**](/sources/@roots/bud-library)                               | [📚 Usage](https://bud.js.org/extensions/bud-library/README.md)                | ![npm](https://img.shields.io/npm/v/@roots/bud-library.svg?color=%23525ddc&style=flat-square)                |
+| [**@roots/bud-mdx**](/sources/@roots/bud-mdx)                                       | [📚 Usage](https://bud.js.org/extensions/bud-mdx/README.md)                    | ![npm](https://img.shields.io/npm/v/@roots/bud-mdx.svg?color=%23525ddc&style=flat-square)                    |
+| [**@roots/bud-postcss**](/sources/@roots/bud-postcss)                               | [📚 Usage](https://bud.js.org/extensions/bud-postcss/README.md)                | ![npm](https://img.shields.io/npm/v/@roots/bud-postcss.svg?color=%23525ddc&style=flat-square)                |
+| [**@roots/bud-prettier**](/sources/@roots/bud-prettier)                             | [📚 Usage](https://bud.js.org/extensions/bud-prettier/README.md)               | ![npm](https://img.shields.io/npm/v/@roots/bud-prettier.svg?color=%23525ddc&style=flat-square)               |
+| [**@roots/bud-purgecss**](/sources/@roots/bud-purgecss)                             | [📚 Usage](https://bud.js.org/extensions/bud-purgecss/README.md)               | ![npm](https://img.shields.io/npm/v/@roots/bud-purgecss.svg?color=%23525ddc&style=flat-square)               |
+| [**@roots/bud-react**](/sources/@roots/bud-react)                                   | [📚 Usage](https://bud.js.org/extensions/bud-react/README.md)                  | ![npm](https://img.shields.io/npm/v/@roots/bud-react.svg?color=%23525ddc&style=flat-square)                  |
+| [**@roots/bud-sass**](/sources/@roots/bud-sass)                                     | [📚 Usage](https://bud.js.org/extensions/bud-sass/README.md)                   | ![npm](https://img.shields.io/npm/v/@roots/bud-sass.svg?color=%23525ddc&style=flat-square)                   |
+| [**@roots/bud-solid**](/sources/@roots/bud-solid)                                   | [📚 Usage](https://bud.js.org/extensions/bud-solid/README.md)                  | ![npm](https://img.shields.io/npm/v/@roots/bud-solid.svg?color=%23525ddc&style=flat-square)                  |
+| [**@roots/bud-stylelint**](/sources/@roots/bud-stylelint)                           | [📚 Usage](https://bud.js.org/extensions/bud-stylelint/README.md)              | ![npm](https://img.shields.io/npm/v/@roots/bud-stylelint.svg?color=%23525ddc&style=flat-square)              |
+| [**@roots/bud-tailwindcss**](/sources/@roots/bud-tailwindcss)                       | [📚 Usage](https://bud.js.org/extensions/bud-tailwindcss/README.md)            | ![npm](https://img.shields.io/npm/v/@roots/bud-tailwindcss.svg?color=%23525ddc&style=flat-square)            |
+| [**@roots/bud-terser**](/sources/@roots/bud-terser)                                 | [📚 Usage](https://bud.js.org/extensions/bud-terser/README.md)                 | ![npm](https://img.shields.io/npm/v/@roots/bud-terser.svg?color=%23525ddc&style=flat-square)                 |
+| [**@roots/bud-typescript**](/sources/@roots/bud-typescript)                         | [📚 Usage](https://bud.js.org/extensions/bud-typescript/README.md)             | ![npm](https://img.shields.io/npm/v/@roots/bud-typescript.svg?color=%23525ddc&style=flat-square)             |
+| [**@roots/bud-vue**](/sources/@roots/bud-vue)                                       | [📚 Usage](https://bud.js.org/extensions/bud-vue/README.md)                    | ![npm](https://img.shields.io/npm/v/@roots/bud-vue.svg?color=%23525ddc&style=flat-square)                    |
+| [**@roots/bud-wordpress-dependencies**](/sources/@roots/bud-wordpress-dependencies) | [📚 Usage](https://bud.js.org/extensions/bud-wordpress-dependencies/README.md) | ![npm](https://img.shields.io/npm/v/@roots/bud-wordpress-dependencies.svg?color=%23525ddc&style=flat-square) |
+| [**@roots/bud-wordpress-externals**](/sources/@roots/bud-wordpress-externals)       | [📚 Usage](https://bud.js.org/extensions/bud-wordpress-externals/README.md)    | ![npm](https://img.shields.io/npm/v/@roots/bud-wordpress-externals.svg?color=%23525ddc&style=flat-square)    |
+| [**@roots/bud-wordpress-manifests**](/sources/@roots/bud-wordpress-manifests)       | [📚 Usage](https://bud.js.org/extensions/bud-wordpress-manifests/README.md)    | ![npm](https://img.shields.io/npm/v/@roots/bud-wordpress-manifests.svg?color=%23525ddc&style=flat-square)    |
 
 Have you produced a Bud extension and want to share it here? Please, create an issue sharing information about your project.
 
 ## Want to contribute to bud.js?
 
-Check out [our development guide](https://budjs.netlify.app/dev) to get started.
+Check out [our development guide](https://bud.js.org/dev) to get started.
 
 ## Licensing
 
@@ -88,11 +91,11 @@ Bud is licensed MIT.
 
 Keep track of development and community news.
 
-- Participate on the [Roots Discourse](https://discourse.roots.io)
+- Join us on Roots Slack by becoming a [GitHub sponsor](https://github.com/sponsors/roots)
+- Participate on the [Roots Discourse](https://discourse.roots.io/)
 - Follow [@rootswp on Twitter](https://twitter.com/rootswp)
-- Read and subscribe to the [Roots blog](https://roots.io/blog/)
+- Read and subscribe to the [Roots Blog](https://roots.io/blog/)
 - Subscribe to the [Roots Newsletter](https://roots.io/subscribe/)
-- Listen to the [Roots Radio podcast](https://roots.io/podcast/)
 
 ## Contributing
 

@@ -5,14 +5,18 @@ export interface devtool {
   (devtool?: Configuration['devtool']): Promise<Framework>
 }
 
-export const devtool: devtool = async function (devtool = false) {
-  this as Framework
+export interface facade {
+  (devtool?: Configuration['devtool']): Framework
+}
 
-  const value = devtool ?? 'cheap-module-source-map'
+export const devtool: devtool = async function (
+  input = 'cheap-module-source-map',
+) {
+  const app = this as Framework
 
-  this.hooks.on('build.devtool', value)
+  app.hooks.on('build.devtool', () => input)
 
-  this.api.log('success', {prefix: 'devtool', message: devtool})
+  app.log({message: `devtool set: ${input}`})
 
   return this
 }

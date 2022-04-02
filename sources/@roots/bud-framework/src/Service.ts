@@ -1,6 +1,5 @@
 import {format} from '@roots/bud-support'
-import {bind, chalk, lodash} from '@roots/bud-support'
-import highlight from 'cli-highlight'
+import {bind, chalk, highlight, lodash} from '@roots/bud-support'
 import {PrettyFormatOptions} from 'pretty-format/build/types'
 
 import {Bootstrapper} from './Bootstrapper'
@@ -52,9 +51,7 @@ export abstract class Service<
    * @public
    */
   public get logger(): Logger['instance'] {
-    return this.app.logger.scoped(
-      this.ident ?? this.constructor.name.toLowerCase(),
-    )
+    return this.app.logger.instance
   }
 
   /**
@@ -167,7 +164,10 @@ export abstract class Service<
               isString(loggedItem?.suffix)
             ) {
               loggedItem.suffix = chalk.dim(
-                loggedItem.suffix.replace(process.cwd(), '.'),
+                loggedItem.suffix.replace(
+                  this.app.context.projectDir,
+                  '.',
+                ),
               )
             }
 

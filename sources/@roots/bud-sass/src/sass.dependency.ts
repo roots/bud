@@ -3,7 +3,7 @@ import type {Signale} from '@roots/bud-support'
 /**
  * Imports sass/sass implementation
  *
- * @param app -- Bud instance
+ * @param logger - Signale logger
  * @returns dart-sass
  *
  * @public

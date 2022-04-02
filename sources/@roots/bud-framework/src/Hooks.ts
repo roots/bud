@@ -1,10 +1,12 @@
-import {IncomingMessage, ServerResponse} from 'http'
+import {Container} from '@roots/container'
+import {WatchOptions} from 'chokidar'
 import {ValueOf} from 'type-fest'
-import {Configuration, RuleSetRule, StatsCompilation} from 'webpack'
+import {Configuration} from 'webpack'
 
-import {Framework, Modules, Plugins, Service} from './'
+import {Framework, Locations, Modules, Plugins, Service} from './'
+import {ConfigMap} from './config.map'
 import {EntryObject} from './entry'
-import {ProxyOptions} from './Server'
+import * as Server from './Server'
 
 /**
  * Assign and filter callback to values.
@@ -50,7 +52,7 @@ export interface Hooks extends Service {
    */
   on<T extends keyof Hooks.Map & string>(
     id: T,
-    callback?: (param?: Hooks.Map[T]) => Hooks.Map[T],
+    callback?: ((param?: Hooks.Map[T]) => Hooks.Map[T]) | Hooks.Map[T],
   ): Framework
 
   /**
@@ -66,9 +68,9 @@ export interface Hooks extends Service {
    *
    * @public
    */
-  async<T extends keyof Hooks.Map & string>(
+  async<T extends keyof Hooks.AsyncMap & string>(
     id: T,
-    callback?: (param?: Hooks.Map[T]) => Promise<Hooks.Map[T]>,
+    callback?: (param?: Hooks.AsyncMap[T]) => Promise<Hooks.AsyncMap[T]>,
   ): Framework
 
   /**
@@ -105,23 +107,35 @@ export interface Hooks extends Service {
    *
    * @public
    */
-  filterAsync<T extends keyof Hooks.Map & string>(
+  filterAsync<T extends keyof Hooks.AsyncMap & string>(
     id: T,
     value?:
-      | Hooks.Map[T]
-      | ((param?: Hooks.Map[T]) => Promise<Hooks.Map[T]>),
-  ): Promise<Hooks.Map[T]>
+      | Hooks.AsyncMap[T]
+      | ((param?: Hooks.AsyncMap[T]) => Promise<Hooks.AsyncMap[T]>),
+  ): Promise<Hooks.AsyncMap[T]>
+
+  /**
+   * Event
+   *
+   * @public
+   */
+  fire<T extends keyof Hooks.Events & string>(id: T): Promise<Framework>
+
+  /**
+   * Action (on event)
+   *
+   * @public
+   */
+  action<T extends keyof Hooks.Events & string>(
+    id: T,
+    ...action: Array<(app: Framework) => Promise<unknown>>
+  ): Framework
 }
 
 /**
  * @public
  */
 export namespace Hooks {
-  /**
-   * Same with plugins
-   */
-  type LimitedPlugin = Array<{apply: any}>
-
   /**
    * Hook signature
    *
@@ -133,100 +147,123 @@ export namespace Hooks {
     | Map[T]
     | Partial<Map[T]>
 
-  export interface Map {
-    [`build`]: Record<string, any>
-    [`build.bail`]: boolean
-    [`build.cache`]: any
-    ['build.cache.buildDependencies']: Record<string, Array<string>>
-    ['build.cache.cacheDirectory']: string
-    [`build.cache.version`]: string
-    ['build.cache.type']: 'memory' | 'filesystem'
-    ['build.cache.managedPaths']: Array<string>
-    [`build.context`]: Configuration['context']
-    [`build.devtool`]: Configuration['devtool']
-    [`build.entry`]: Record<string, EntryObject>
-    [`build.experiments`]: Configuration['experiments']
-    [`build.externals`]: Configuration['externals']
-    [`build.infrastructureLogging`]: Configuration['infrastructureLogging']
-    [`build.mode`]: Configuration['mode']
-    [`build.module`]: Configuration['module']
-    [`build.module.rules`]: Configuration['module']['rules']
-    [`build.module.rules.oneOf`]: Array<RuleSetRule>
-    [`build.module.rules.before`]: Array<RuleSetRule>
-    [`build.module.rules.after`]: Array<RuleSetRule>
-    [`build.module.unsafeCache`]: Configuration['module']['unsafeCache']
-    [`build.name`]: Configuration['name']
-    [`build.node`]: Configuration['node']
-    [`build.optimization`]: Configuration['optimization']
-    [`build.optimization.emitOnErrors`]: Configuration['optimization']['emitOnErrors']
-    [`build.optimization.minimize`]: Configuration['optimization']['minimize']
-    [`build.optimization.minimizer`]: Configuration['optimization']['minimizer']
-    [`build.optimization.moduleIds`]: Configuration['optimization']['moduleIds']
-    [`build.optimization.removeEmptyChunks`]: Configuration['optimization']['removeEmptyChunks']
-    [`build.optimization.runtimeChunk`]: Configuration['optimization']['runtimeChunk']
-    [`build.optimization.splitChunks`]: any
-    [`build.output`]: Configuration['output']
-    [`build.output.assetModuleFilename`]: Configuration['output']['assetModuleFilename']
-    [`build.output.chunkFilename`]: Configuration['output']['chunkFilename']
-    [`build.output.clean`]: Configuration['output']['clean']
-    [`build.output.filename`]: Configuration['output']['filename']
-    [`build.output.path`]: Configuration['output']['path']
-    [`build.output.pathinfo`]: Configuration['output']['pathinfo']
-    [`build.output.publicPath`]: string
-    [`build.parallelism`]: Configuration['parallelism']
-    [`build.performance`]: Configuration['performance']
-    [`build.plugins`]: LimitedPlugin
-    [`build.profile`]: Configuration['profile']
-    [`build.recordsPath`]: Configuration['recordsPath']
-    [`build.resolve`]: Configuration['resolve']
-    [`build.resolve.alias`]: {
-      [index: string]: string | false | string[]
-    }
-    [`build.resolve.extensions`]: Configuration['resolve']['extensions']
-    [`build.resolve.modules`]: Configuration['resolve']['modules']
-    [`build.stats`]: Configuration['stats']
-    [`build.target`]: Configuration['target']
-    [`build.watch`]: Configuration['watch']
-    [`build.watchOptions`]: Configuration['watchOptions']
-    [`extension`]: ValueOf<Plugins> | ValueOf<Modules>
-    [`location.src`]: string
-    [`location.dist`]: string
-    [`location.project`]: string
-    [`location.modules`]: string
-    [`location.storage`]: string
-    [`config.override`]: Array<Configuration>
-    [`event.app.close`]: unknown
-    [`event.build.make.before`]: unknown
-    [`event.build.make.after`]: unknown
-    [`event.build.override`]: Configuration
-    [`event.compiler.before`]: Array<Configuration>
-    [`event.compiler.after`]: Framework
-    [`event.compiler.stats`]: Promise<StatsCompilation>
-    [`event.compiler.error`]: Error
-    [`event.dashboard.done`]: void
-    [`event.dashboard.q`]: void
-    [`event.dashboard.c`]: void
-    [`event.project.write`]: Framework['project']
-    [`event.server.listen`]: Framework['server']
-    [`event.server.before`]: Framework
-    [`event.server.after`]: Framework
-    [`event.run`]: Framework
-    [`proxy.target`]: string
-    [`proxy.interceptor`]: (
-      buffer: Buffer,
-      proxyRes: IncomingMessage,
-      req: IncomingMessage,
-      res: ServerResponse,
-    ) => Promise<Buffer | string>
-    [`proxy.replace`]: Array<[string | RegExp, string]>
-    [`proxy.options`]?: ProxyOptions
-    [`server.inject`]?: Array<(app: Framework) => string>
-    [`server.middleware`]?: Record<
-      string,
-      (app: Framework) => Express.Response
-    >
+  /**
+   * Event Keys
+   */
+  interface Keys {
+    events: [
+      `event.app.close`,
+      `event.build.before`,
+      `event.build.after`,
+      `event.compiler.before`,
+      `event.compiler.after`,
+      `event.compiler.done`,
+      `event.compiler.error`,
+      `event.dashboard.q`,
+      `event.project.write`,
+      `event.run`,
+      `event.server.before`,
+      `event.server.listen`,
+      `event.server.after`,
+      `event.proxy.interceptor`,
+    ]
+  }
 
-    // this is wack
-    [key: `extension.${string}`]: any
+  type EventMap = {
+    [K in Keys['events'] as `${K & string}`]: (
+      app: Framework,
+    ) => Promise<any>
+  }
+
+  export interface Events extends EventMap {}
+
+  /**
+   * Asyncronous hooks map
+   *
+   * @public
+   */
+  export interface AsyncMap {
+    [`build`]: Record<string, any>
+    [`build.entry`]: Record<string, EntryObject>
+    [`build.plugins`]: Array<any>
+    [`build.resolve`]: Configuration['resolve']
+    [`build.resolve.alias`]: Configuration[`resolve`][`alias`]
+    [`build.resolve.modules`]: Configuration[`resolve`][`modules`]
+  }
+
+  export type LocationKeyMap = {
+    [K in keyof Locations as `location.${K & string}`]: Locations[K]
+  }
+
+  /**
+   * Syncronous hooks map
+   *
+   * @public
+   */
+  export interface Map
+    extends Server.Middleware.Middleware<`options`>,
+      Server.Middleware.Middleware<`factory`>,
+      Server.OptionsMap,
+      LocationKeyMap,
+      ConfigMap {
+    [`extension`]: ValueOf<Plugins> | ValueOf<Modules>
+    /**
+     * Dev server connection options
+     * @public
+     */
+    [`dev.options`]: Server.Options
+
+    /**
+     * IPV4 or IPV6 binding
+     * @public
+     */
+    [`dev.interface`]: string
+
+    /**
+     * Hostname
+     * @public
+     */
+    [`dev.hostname`]: string
+
+    /**
+     * Ports to exclude from selection
+     */
+    [`dev.exclude`]: Array<number>
+    /**
+     * Ports to prefer
+     */
+    [`dev.port`]: Array<number>
+    /**
+     * Should use SSL server
+     */
+    [`dev.ssl`]: boolean
+    /**
+     * Files which trigger a full browser reload
+     */
+    [`dev.watch.files`]: Set<string>
+    /**
+     * FS.Watcher options
+     */
+    [`dev.watch.options`]: WatchOptions
+    /**
+     * Scripts included in dev builds
+     */
+    [`dev.client.scripts`]: Set<(app: Framework) => string>
+    [`middleware.enabled`]: Array<keyof Server.Middleware.Available>
+    [`middleware.proxy.target`]: URL
+    [`middleware.proxy.replacements`]: Array<[RegExp | string, string]>
+
+    // here down is wack
+    [key: Server.Middleware.OptionsKey]: any
+    [
+      key: `extension.${
+        | (keyof Modules & string)
+        | (keyof Plugins & string)}`
+    ]: any
+    [
+      key: `extension.${
+        | (keyof Modules & string)
+        | (keyof Plugins & string)}.options`
+    ]: Container<Record<string, any>>
   }
 }

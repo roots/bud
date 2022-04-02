@@ -33,7 +33,6 @@
     "node": ">=14"
   },
   "files": [
-    "eslint-config/",
     "stylelint-config/",
     "tsconfig/",
     "lib/",
@@ -46,14 +45,13 @@
     ".": "./lib/cjs/index.js",
     "./client": "./lib/cjs/client/index.js",
     "./client/dom-ready": "./lib/cjs/client/domReady.js",
-    "./eslint-config": "./eslint-config/index.js",
     "./stylelint-config": "./stylelint-config/index.js",
+    "./theme/tailwind": "./lib/cjs/theme/tailwind.adapter.js",
     "./tsconfig": "./tsconfig/tsconfig.json"
   },
   "bud": {
     "type": "extension",
     "peers": [
-      "@roots/bud-eslint",
       "@roots/bud-preset-wordpress"
     ]
   },
@@ -61,15 +59,12 @@
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@skypack/package-check": "0.2.2",
-    "@types/lodash": "4.14.178",
-    "@types/node": "16.11.25",
-    "webpack": "5.68.0"
+    "@types/node": "16.11.26",
+    "webpack": "5.70.0"
   },
   "dependencies": {
-    "@roots/bud-eslint": "workspace:sources/@roots/bud-eslint",
     "@roots/bud-preset-wordpress": "workspace:sources/@roots/bud-preset-wordpress",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "helpful-decorators": "^2.1.0",
     "tslib": "^2.3.1"
   }
 }

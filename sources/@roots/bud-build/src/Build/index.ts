@@ -1,21 +1,17 @@
-import {
-  Build as Contract,
-  Items,
-  Loaders,
-  Rules,
-} from '@roots/bud-framework'
-import {Service} from '@roots/bud-framework'
-import {bind, chalk, fs, lodash, prettyFormat} from '@roots/bud-support'
-import type * as Webpack from 'webpack'
-import {Configuration} from 'webpack'
+import * as Framework from '@roots/bud-framework'
+import {bind, fs, lodash, memo} from '@roots/bud-support'
+import {isFunction} from 'lodash'
+import type {Configuration} from 'webpack'
 
-import {Rule} from '../Rule/index'
-import * as config from './config/index'
-import items from './items'
-import loaders from './loaders'
+import {Item} from '../Item'
+import {Loader} from '../Loader'
+import {Rule} from '../Rule'
+import * as config from './config'
+import * as items from './items'
+import * as loaders from './loaders'
 import * as rules from './rules'
 
-const {isNull, isUndefined} = lodash
+const {isUndefined} = lodash
 const {ensureFile, writeFile} = fs
 
 /**
@@ -23,32 +19,32 @@ const {ensureFile, writeFile} = fs
  *
  * @public
  */
-export class Build extends Service implements Contract.Interface {
+export class Build extends Framework.Service implements Framework.Build {
   /**
    * @public
    */
-  public config: Partial<Configuration>
+  public config: Partial<Configuration> = {}
 
   /**
    * Registered loaders
    *
    * @public
    */
-  public loaders: Loaders
+  public loaders: Framework.Loaders
 
   /**
    * Registered rules
    *
    * @public
    */
-  public rules: Rules
+  public rules: Framework.Rules
 
   /**
    * Registered items
    *
    * @public
    */
-  public items: Items
+  public items: Framework.Items
 
   /**
    * Service booted event
@@ -58,7 +54,12 @@ export class Build extends Service implements Contract.Interface {
    */
   @bind
   public async registered() {
-    this.app.hooks.on('event.build.make.after', this.writeFinalConfig)
+    this.app.hooks
+      .action('event.build.before', async app => app.time(`build.make`))
+      .hooks.action('event.build.after', async app =>
+        app.timeEnd(`build.make`),
+      )
+      .hooks.action('event.build.after', this.writeFinalConfig)
   }
 
   /**
@@ -68,42 +69,74 @@ export class Build extends Service implements Contract.Interface {
    * @decorator `@bind`
    */
   @bind
-  public async make(): Promise<Webpack.Configuration> {
-    await this.app.hooks.filterAsync('event.build.make.before', this.app)
+  public async make(): Promise<Configuration> {
+    await this.app.hooks.fire('event.build.before')
 
-    const build = await this.app.hooks.filterAsync('build')
-
-    if (!build) {
-      throw new Error('Configuration could not be processed')
-    }
-
-    this.config = await this.app.hooks.filterAsync(
-      'event.build.override',
-      Object.entries(build).reduce((all: Configuration, [key, value]) => {
-        if (isUndefined(value) || isNull(value)) {
-          this.log(`warn`, {
-            message: `build.make: excluding ${key}`,
-            suffix: `value is undefined`,
-          })
-
-          return all
-        }
-
-        this.app.dump(value, {
-          prefix: `${chalk.bgBlue(this.app.name)} config.${key}`,
-          maxDepth: 2,
-        })
-
-        return {...all, [key]: value}
-      }, {}),
+    await Promise.all(
+      [
+        ['entry', true],
+        ['plugins', true],
+        ['resolve', true],
+        ['bail'],
+        ['cache'],
+        ['context'],
+        ['devtool'],
+        ['experiments'],
+        ['externals'],
+        ['infrastructureLogging'],
+        ['loader'],
+        ['mode'],
+        ['module'],
+        ['name'],
+        ['node'],
+        ['output'],
+        ['optimization'],
+        ['parallelism'],
+        ['performance'],
+        ['profile'],
+        ['recordsPath'],
+        ['stats'],
+        ['target'],
+        ['watch'],
+        ['watchOptions'],
+      ]
+        .map(this.memoMap)
+        .filter(Boolean)
+        .map(this.memoMapValue),
     )
 
-    await this.app.hooks.filterAsync(
-      'event.build.make.after',
-      async () => null,
-    )
+    await this.app.hooks.fire('event.build.after')
 
     return this.config
+  }
+
+  @bind
+  public memoMap(...args: [value: (string | boolean)[]]) {
+    const [[key, ...rest]] = args
+
+    if (!this.app.hooks.has(`build.${key}`)) return false
+
+    const type = rest.length && rest.shift() ? true : false
+    const count = this.app.hooks.count(`build.${key}`)
+
+    return [key, type, count]
+  }
+
+  @bind
+  @memo()
+  public async memoMapValue([propKey, isAsync, _count]: [
+    keyof Configuration,
+    boolean,
+    number,
+  ]) {
+    const propValue =
+      isAsync === true
+        ? await this.app.hooks.filterAsync(`build.${propKey}` as any)
+        : this.app.hooks.filter(`build.${propKey}` as any)
+
+    if (isUndefined(propValue)) return
+
+    Object.assign(this.config, {[propKey]: propValue})
   }
 
   /**
@@ -114,7 +147,10 @@ export class Build extends Service implements Contract.Interface {
    */
   @bind
   public async register() {
-    const reducer = (a: Rules | Items | Loaders, [k, v]) => ({
+    const reducer = (
+      a: Framework.Rules | Framework.Items | Framework.Loaders,
+      [k, v],
+    ) => ({
       ...a,
       [k]: v(this.app),
     })
@@ -141,33 +177,104 @@ export class Build extends Service implements Contract.Interface {
    * Set a rule
    *
    * @param name - rule key
-   * @param constructorProperties - rule constructor properties
+   * @param options - rule constructor properties
    * @returns the rule
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public setRule(name: string, constructorProperties?): Rule {
-    Object.assign(this.rules, {
-      [name]: this.makeRule(constructorProperties),
-    })
+  public setRule(name: string, options?: Framework.Rule.Options): Build {
+    Object.assign(this.rules, {[name]: this.makeRule(options)})
 
-    return this.rules[name]
+    return this
+  }
+  /**
+   * Make a rule
+   *
+   * @param options - rule constructor properties
+   * @returns the rule
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public makeRule(options?: Framework.Rule.Options): Rule {
+    return new Rule(() => this.app, options)
+  }
+
+  /**
+   * Set a rule
+   *
+   * @param name - rule key
+   * @param options - rule constructor properties
+   * @returns the rule
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public setLoader(name: string, options: string): Build {
+    Object.assign(this.loaders, {[name]: this.makeLoader(options)})
+
+    return this
   }
 
   /**
    * Make a rule
    *
-   * @param constructorProperties - rule constructor properties
+   * @param options - rule constructor properties
    * @returns the rule
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public makeRule(constructorProperties?): Rule {
-    return new Rule(this.app, constructorProperties)
+  public makeLoader(options: string): Loader {
+    return new Loader(() => this.app, options)
+  }
+
+  /**
+   * Set a rule
+   *
+   * @param name - rule key
+   * @param options - rule constructor properties
+   * @returns the rule
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public setItem(
+    name: string,
+    options:
+      | ((item: Framework.Item) => Framework.Item)
+      | Framework.Item.ConstructorOptions,
+  ): Build {
+    const processedOptions = isFunction(options)
+      ? options(this.makeItem())
+      : this.makeItem(options)
+
+    Object.assign(this.items, {[name]: processedOptions})
+
+    return this
+  }
+
+  /**
+   * Make a rule
+   *
+   * @param options - rule constructor properties
+   * @returns the rule
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public makeItem(options?: {
+    options?: Item['options']
+    loader?: Item['loader']
+  }): Item {
+    return new Item(() => this.app, options)
   }
 
   /**
@@ -180,25 +287,20 @@ export class Build extends Service implements Contract.Interface {
   public async writeFinalConfig(): Promise<void> {
     try {
       const filePath = this.app.path(
-        'storage',
-        this.config.name,
-        'webpack.config.js',
+        `@storage/${this.config.name}/webpack.config.js`,
       )
-
-      this.log('log', {
-        message: `writing webpack dump to disk`,
-        suffix: filePath,
-      })
 
       await ensureFile(filePath)
-
       await writeFile(
         filePath,
-        `module.exports = (${prettyFormat(this.config)})`,
+        `module.exports = ${this.app.json.stringify(
+          this.config,
+          null,
+          2,
+        )}`,
       )
     } catch (error) {
-      this.log('error', `failed to write webpack.config.json`)
-      this.log(`error`, error)
+      this.app.error(`failed to write webpack.config.json`)
     }
   }
 }

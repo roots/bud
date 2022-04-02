@@ -51,17 +51,17 @@
   "devDependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.11.25",
+    "@types/node": "16.11.26",
     "@types/signale": "1.4.4",
-    "webpack": "5.68.0"
+    "webpack": "5.70.0"
   },
   "dependencies": {
     "@roots/bud-build": "workspace:sources/@roots/bud-build",
-    "postcss": "8.4.6",
+    "postcss": "8.4.12",
     "postcss-import": "14.0.2",
     "postcss-loader": "6.2.1",
     "postcss-nested": "5.0.6",
-    "postcss-preset-env": "7.4.1",
+    "postcss-preset-env": "7.4.2",
     "tslib": "2.3.1"
   },
   "peerDependencies": {

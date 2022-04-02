@@ -1,0 +1,50 @@
+You can generate a `theme.json` during build using the `themeJson` function provided by Sage.
+
+Shown with defaults:
+
+```ts title="bud.config.js"
+app.themeJson({
+  color: {
+    custom: false,
+    customGradient: false,
+  },
+  custom: {
+    spacing: {},
+    typography: {'font-size': {}, 'line-height': {}},
+  },
+  spacing: {
+    padding: true,
+    units: ['px', '%', 'em', 'rem', 'vw', 'vh'],
+  },
+  typography: {
+    customFontSize: false,
+    dropCap: false,
+  },
+})
+```
+
+If you just want to modify the defaults rather than provide your own entirely, you can do so with a function.
+
+By default, the callback will supply you with a container of the default `theme.json` values:
+
+```ts title="bud.config.js"
+app.themeJson(theme => {
+  theme.set('typography.customFontSize', true)
+  return theme
+})
+```
+
+If preferred, you can request a normal object by passing `true` as an optional second parameter:
+
+```ts title="bud.config.js"
+app.themeJson(
+  theme => ({
+    ...theme,
+    typography: {
+      ...theme.typography,
+      customFontSize: true,
+    },
+  }),
+  true,
+)
+```

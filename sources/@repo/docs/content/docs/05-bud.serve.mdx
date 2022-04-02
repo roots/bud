@@ -3,54 +3,60 @@ id: bud.serve
 title: bud.serve
 description: Configure the development server.
 sidebar_label: bud.serve
-image: 'https://budjs.netlify.app/img/share/docs/bud.serve.png'
+image: 'https://bud.js.org/img/share/docs/bud.serve.png'
 ---
 
 Configure the development server.
 
 ## Server information
 
-By default the server is available at this address:
+By default bud will serve at the following address:
 
 | Property | Value     |
 | -------- | --------- |
 | host     | localhost |
 | port     | 3000      |
 
+If port 3000 is already used a new port will be dynamically selected.
+
 ## Usage
 
 There is no need to call this function in order to use the development server. Development server functionality is automatically enabled when
 the `bud serve` cli command is invoked.
 
-This function is used to configure the development server to run at a different address or port, or to disable certain middleware functions.
+This function is used to configure the development server to run at a specific hostname or port, and/or serve over SSL.
 
-## Specifying host and port
+## Specifying server address
 
 :::warning
 
-You will need to handle resolving custom domains yourself if you don't want to use localhost.
+You will need to handle resolving custom domains yourself if you don't want to use `localhost`.
 
 :::
 
+Specify a different port:
+
 ```ts title='bud.config.js'
-bud.serve({
-  host: 'my-local-site.example',
-  port: 5000,
-})
+bud.serve(3010)
 ```
 
-## Middleware
-
-You may enable or disable middleware using the middleware key.
-
-Example disabling all server middleware:
+Specify an address as a string:
 
 ```ts title='bud.config.js'
-bud.serve({
-  middleware: {
-    dev: false,
-    hot: false,
-    proxy: false,
-  },
+bud.serve('http://example.test:3000')
+```
+
+Specify an address with a node URL object:
+
+```ts title='bud.config.js'
+bud.serve(new URL('http://example.test:3000'))
+```
+
+Serve over `https`:
+
+```ts title='bud.config.js'
+bud.serve('https://example.test', {
+  cert: '/path/to/example.test.crt',
+  key: '/path/to/example.test.key',
 })
 ```

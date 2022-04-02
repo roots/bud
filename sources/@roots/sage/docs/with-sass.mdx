@@ -1,0 +1,19 @@
+Install the [`@roots/bud-sass` extension](/extensions/bud-sass):
+
+```sh npm2yarn
+yarn add @roots/bud-sass --dev
+```
+
+If using stylelint you can configure it to support sass with the included config:
+
+```ts
+module.exports = {
+  extends: [
+    '@roots/sage/stylelint-config',
+    '@roots/bud-sass/stylelint-config',
+  ],
+  rules: {
+    'color-no-invalid-hex': true,
+  },
+}
+```

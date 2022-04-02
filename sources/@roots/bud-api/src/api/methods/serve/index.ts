@@ -1,44 +1,206 @@
-import type {Framework, Server} from '@roots/bud-framework'
-import {URL} from 'url'
+import type {Framework} from '@roots/bud-framework'
+import {fs, lodash} from '@roots/bud-support'
+import Https from 'https'
+import Http from 'https'
 
-export interface serve {
-  (port: number): Framework
+const {isUndefined} = lodash
+
+/**
+ * Specification object
+ *
+ * @public
+ */
+export interface Specification {
+  /**
+   * A preferred port or anArray of preferred ports to use.
+   * @public
+   */
+  port?: number | Array<number>
+
+  /**
+   * Use ssl connection
+   * @public
+   */
+  ssl?: boolean
+
+  /**
+   * Ports that should not be returned.
+   * @public
+   */
+  exclude?: number | Array<number>
+
+  /**
+   * Hostname
+   * @public
+   */
+  host?: string
+
+  /**
+   * OS network interface
+   *
+   * @remarks
+   * The host on which port resolution should be performed. Can be either an IPv4 or IPv6 address.
+   * By default, it checks availability on all local addresses defined in [OS network interfaces](https://nodejs.org/api/os.html#os_os_networkinterfaces).
+   * If this option is set, it will only check the given host.
+   *
+   * @public
+   */
+  interface?: string
+
+  /**
+   * SSL certificate (path)
+   * @public
+   */
+  cert?: string
+
+  /**
+   * SSL key (path)
+   * @public
+   */
+  key?: string
+
+  /**
+   * http & https server options
+   * @public
+   */
+  options?: Https.ServerOptions | Http.ServerOptions
 }
 
-export interface serve {
-  (url: URL): Framework
+/**
+ * Permissable options
+ * @public
+ */
+export type Options = Specification | number | Array<number> | URL | string
+
+/**
+ * bud.serve
+ * @public
+ */
+export interface Serve<ReturnType = Promise<Framework>> {
+  (options: Specification): ReturnType
+}
+export interface Serve<ReturnType = Promise<Framework>> {
+  (options: URL): ReturnType
+}
+export interface Serve<ReturnType = Promise<Framework>> {
+  (options: string): ReturnType
+}
+export interface Serve<ReturnType = Promise<Framework>> {
+  (options: number): ReturnType
+}
+export interface Serve<ReturnType = Promise<Framework>> {
+  (options: Array<number>): ReturnType
 }
 
-export interface serve {
-  (url: string): Framework
-}
+/**
+ * bud.serve sync facade
+ * @public
+ */
+export type facade = Serve<Framework>
 
-export interface serve {
-  (config: Partial<Server.Configuration['dev']>): Framework
-}
+/**
+ * bud.serve
+ * @public
+ */
+export const method: Serve = async function (
+  options: Options,
+): Promise<Framework> {
+  const app = this as Framework
 
-export const serve: serve = function (
-  config: URL | string | number | Partial<Server.Configuration['dev']>,
-): Framework {
-  const ctx = this as Framework
+  if (!app.isDevelopment) return app
 
-  if (typeof config === 'number') {
-    const url = ctx.store.get('server.dev.url')
-    url.port = `${config}`
-    ctx.store.set('server.dev.url', url)
-    return ctx
+  if (Array.isArray(options) || typeof options === 'number') {
+    assignNumberArr(app, 'dev.port', options)
+    return app
   }
 
-  if (typeof config === 'string') {
-    ctx.store.set('server.dev.url', new URL(config))
-    return ctx
+  if (options instanceof URL || typeof options === 'string') {
+    assignURL(app, options)
+    return app
   }
 
-  if (config instanceof URL) {
-    ctx.store.set('server.dev.url', config)
-    return ctx
+  await assignSpec(app, options)
+  return app
+}
+
+/**
+ * Process specification object
+ * @public
+ */
+const assignSpec = async (app: Framework, spec: Specification) => {
+  const isSSL =
+    [
+      spec.ssl === true,
+      spec.cert,
+      spec.key,
+      spec.options?.cert,
+      spec.options?.key,
+      spec.host?.startsWith('https'),
+    ].filter(Boolean).length > 0
+
+  if (isSSL) {
+    if (!spec.options) spec.options = {}
+
+    if (!spec.options.cert && spec.cert)
+      spec.options.cert = await fs.readFile(spec.cert)
+
+    if (!spec.options.key && spec.key)
+      spec.options.key = await fs.readFile(spec.key)
+
+    app.hooks.on('dev.ssl', true)
   }
 
-  ctx.store.set('server.dev', config)
-  return ctx
+  if (!isUndefined(spec.ssl)) app.hooks.on('dev.ssl', spec.ssl)
+
+  spec.options && app.hooks.on('dev.options', spec.options)
+  spec.interface && app.hooks.on('dev.interface', spec.interface)
+
+  spec.port && assignNumberArr(app, 'dev.port', spec.port)
+  spec.exclude && assignNumberArr(app, 'dev.exclude', spec.exclude)
+  spec.host && assignHostname(app, spec.host)
+}
+
+/**
+ * Process Node URL
+ * @public
+ */
+const assignURL = (app: Framework, url: URL | string) => {
+  url = url instanceof URL ? url : new URL(url)
+
+  app.hooks.on('dev.hostname', url.hostname)
+  url.port && app.hooks.on('dev.port', [Number(url.port)])
+  app.hooks.on('dev.ssl', url.protocol === 'https:')
+}
+
+/**
+ * Assign nummber or array of numbers to either dev.exclude or dev.port
+ *
+ * @remarks
+ * normalized to array
+ *
+ * @public
+ */
+const assignNumberArr = (
+  app: Framework,
+  key: 'dev.exclude' | 'dev.port',
+  maybeNumber: Array<number> | number,
+) => {
+  app.hooks.on(
+    key,
+    Array.isArray(maybeNumber) ? maybeNumber : [maybeNumber],
+  )
+}
+
+/**
+ * Assign hostname from string
+ *
+ * @param app - Framework
+ * @param hostname - string hostname
+ * @public
+ */
+const assignHostname = (app: Framework, hostname: string) => {
+  app.hooks.on(
+    'dev.hostname',
+    hostname.replace('http:', '').replace('https:', '').replace('/', ''),
+  )
 }

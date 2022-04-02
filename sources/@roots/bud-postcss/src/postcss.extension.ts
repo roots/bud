@@ -1,18 +1,7 @@
-import {Item, Loader} from '@roots/bud-build'
 import {Extension, Framework} from '@roots/bud-framework'
+import {Signale} from '@roots/bud-framework/src/Logger/logger.dependencies'
 
 import {PostCssConfig} from './bud.postcss'
-
-const ensureDependencies = async function (this: Framework) {
-  try {
-    await import('postcss')
-    this.success('postcss is installed')
-    return true
-  } catch (e) {
-    this.error(e)
-    return
-  }
-}
 
 export const BudPostCssExtension: Extension.Module = {
   name: '@roots/bud-postcss',
@@ -21,44 +10,28 @@ export const BudPostCssExtension: Extension.Module = {
     postcss: [PostCssConfig],
   }),
 
-  register: async (app: Framework) => {
-    const log = app.logger.scoped('@roots/bud-postcss')
-
-    const postcssLoaded = await ensureDependencies.bind(app)()
-    if (!postcssLoaded) return
-
-    app.build.loaders.postcss = new Loader(
-      require.resolve('postcss-loader'),
-    )
-
-    app.build.items.postcss = new Item({
-      loader: app.build.loaders.postcss,
-      options: ({postcss}) => {
-        return {
+  register: async (app: Framework, logger: Signale) => {
+    app.build
+      .setLoader('postcss', require.resolve('postcss-loader'))
+      .setItem('postcss', item =>
+        item.setLoader(`postcss`).setOptions(({postcss}) => ({
           postcssOptions: {
-            ...app.hooks.filter(
-              'extension.@roots/bud-postcss.options',
-              () => ({}),
-            ),
-            plugins: [...(postcss.getValues() ?? [])],
+            ...(app.extensions.get('@roots/bud-postcss').options.all() ??
+              {}),
+            ...(postcss.getValues() ? {plugins: postcss.getValues()} : {}),
           },
           sourceMap: true,
-        }
-      },
-    })
+        })),
+      )
 
-    app.build.rules.css.setUse(app => [
-      app.isProduction ? app.build.items.minicss : app.build.items.style,
-      app.build.items.css,
-      app.build.items.postcss,
-    ])
+    app.build.rules.css.setUse([`precss`, `css`, `postcss`])
 
     try {
-      log.await('resolving postcss plugins')
+      logger.await('resolving postcss plugins')
 
       app.postcss.setPlugins({
-        'postcss-import': require.resolve('postcss-import'),
-        'postcss-nested': require.resolve('postcss-nested'),
+        'postcss-import': [require.resolve('postcss-import')],
+        'postcss-nested': [require.resolve('postcss-nested')],
         'postcss-preset-env': [
           require.resolve('postcss-preset-env'),
           {
@@ -70,7 +43,7 @@ export const BudPostCssExtension: Extension.Module = {
         ],
       })
 
-      log.success('resolving postcss plugins')
+      logger.success('resolving postcss plugins')
     } catch (e) {
       app.error(e)
     }

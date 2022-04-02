@@ -1,4 +1,4 @@
-import {isUndefined} from 'lodash'
+import {lodash} from '@roots/bud-support'
 
 import {Service} from '../../Service'
 import {Framework} from '..'
@@ -7,6 +7,8 @@ import {
   LIFECYCLE_EVENTS,
   PARENT_SERVICES,
 } from './constants'
+
+const {isUndefined} = lodash
 
 /**
  * Bootstrap interface

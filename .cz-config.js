@@ -1,14 +1,14 @@
 module.exports = {
   types: [
     {value: ':sparkles: feat', name: '✨ feat\tadd feature'},
-    {value: ':tada: feat', name: '🎉 feat\tadd package'},
+    {value: ':tada: pkg', name: '🎉 feat\tadd package'},
     {value: ':label: types', name: '🏷️  types\tadd or update type'},
     {value: ':package: deps', name: '📦 deps\tmodify dependencies'},
     {value: ':nailcare: style', name: '💅 style\tcode formatting'},
     {value: ':recycle: improve', name: '♻️  improve\timprove code'},
     {
-      value: ':put_litter_in_its_place: improve',
-      name: '🚮 improve\tremove code',
+      value: ':roller_skate: improve',
+      name: '🛼 improve\tremove code',
     },
     {value: ':ambulance: fix', name: '🚑 fix\tcritical fix'},
     {value: ':bug: fix', name: '🐛 fix\tminor fix'},

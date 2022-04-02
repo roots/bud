@@ -1,70 +1,17 @@
-import {fs} from '@roots/bud-support'
 import {Bud, factory} from '@repo/test-kit/bud'
-import {expect, describe, beforeAll, it} from '@jest/globals'
 
-const PROJECT_MANIFEST_PATH = `${process.cwd()}/tests/util/project/package.json`
-const PROJECT_BUD_PROFILE_PATH = `${process.cwd()}/tests/util/project/.budfiles/bud/profile.json`
+jest.setTimeout(15000)
 
 describe('bud.project', function () {
   let bud: Bud
-  let manifest: Record<string, any>
-  let profile: Record<string, any>
 
   beforeAll(async () => {
     bud = await factory()
     await bud.build.make()
-    manifest = await fs.readJson(PROJECT_MANIFEST_PATH)
-    profile = await fs.readJson(PROJECT_BUD_PROFILE_PATH)
-  })
-
-  it('holds cache validation hash', () => {
-    expect(bud.project.get('cache')).toMatchSnapshot({
-      hash: expect.any(String),
-    })
-  })
-
-  it('holds cache deps', async () => {
-    expect(bud.project.get('dependencies').length).toEqual(2)
-  })
-
-  it('holds env values', async () => {
-    expect(bud.project.get('env.all')).toMatchSnapshot({
-      TEST: 'VALUE',
-      PUBLIC_APP_TEST: 'PUBLIC_VALUE',
-    })
-
-    expect(bud.project.get('env.public')).toMatchSnapshot({
-      APP_TEST: 'PUBLIC_VALUE',
-    })
-  })
-
-  it('has evn records matching profile.json artifact', async () => {
-    expect(bud.project.get('env.all')).toMatchSnapshot(
-      profile.env.all,
-    )
-    expect(bud.project.get('env.public')).toMatchSnapshot(
-      profile.env.public,
-    )
-  })
-
-  it('holds cli records', async () => {
-    expect(bud.project.get('cli')).toStrictEqual({
-      args: {},
-      argv: [],
-      flags: {},
-      metadata: {},
-      raw: [],
-    })
-  })
-
-  it('holds manifest records', async () => {
-    expect(bud.project.get('manifest')).toStrictEqual(manifest)
   })
 
   it('references @roots/bud-babel', async () => {
-    expect(
-      bud.project.get('modules.@roots/bud-babel'),
-    ).toMatchSnapshot({
+    expect(bud.project.get('modules.@roots/bud-babel')).toMatchSnapshot({
       bud: {type: 'extension'},
       name: '@roots/bud-babel',
       peerDependencies: {},
@@ -90,9 +37,7 @@ describe('bud.project', function () {
   })
 
   it('references @roots/bud-eslint', async () => {
-    expect(
-      bud.project.get('modules.@roots/bud-eslint'),
-    ).toMatchSnapshot({
+    expect(bud.project.get('modules.@roots/bud-eslint')).toMatchSnapshot({
       bud: {
         type: 'extension',
       },
@@ -107,9 +52,7 @@ describe('bud.project', function () {
   })
 
   it('references @roots/bud-postcss', async () => {
-    expect(
-      bud.project.get('modules.@roots/bud-postcss'),
-    ).toMatchSnapshot({
+    expect(bud.project.get('modules.@roots/bud-postcss')).toMatchSnapshot({
       bud: {
         type: 'extension',
       },
@@ -178,7 +121,6 @@ describe('bud.project', function () {
         '@roots/bud-tailwindcss': 'workspace:*',
       },
       name: 'root',
-      parent: null,
       private: true,
       requires: [
         ['@roots/bud', 'workspace:*'],
@@ -215,7 +157,6 @@ describe('bud.project', function () {
     expect(bud.build.config.resolve.modules).toMatchSnapshot([
       expect.stringContaining('src'),
       expect.stringContaining('node_modules'),
-      expect.stringContaining('/sources'),
     ])
   })
 })

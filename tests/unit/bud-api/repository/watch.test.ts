@@ -4,7 +4,9 @@ describe('bud.watch', function () {
   let bud: Bud
 
   beforeAll(async () => {
-    bud = await factory()
+    bud = await factory({
+      mode: 'development',
+    })
   })
 
   it('is a function', () => {
@@ -12,44 +14,26 @@ describe('bud.watch', function () {
   })
 
   it('sets watch files', async () => {
-    bud.watch(['**/*.js'])
+    await bud.api.call('watch', '1/*.js')
 
-    await bud.api.processQueue()
+    expect(
+      Array.from(bud.hooks.filter('dev.watch.files')),
+    ).toMatchSnapshot(['1/*.js'])
+  })
 
-    expect(bud.store.get('server.watch.files')).toMatchSnapshot([
-      '**/*.js',
-    ])
+  it('sets watch files', async () => {
+    await bud.api.call('watch', ['2/*.js'])
+
+    expect(
+      Array.from(bud.hooks.filter('dev.watch.files')),
+    ).toMatchSnapshot(['1/*.js', '2/*.js'])
   })
 
   it('merges watch files', async () => {
-    bud.watch(['foo/*.js'])
+    await bud.api.call('watch', '3/*.js')
 
-    await bud.api.processQueue()
-
-    expect(bud.store.get('server.watch.files')).toMatchSnapshot([
-      '**/*.js',
-      'foo/*.js',
-    ])
-  })
-
-  it('set watch options', async () => {
-    bud.watch([], {depth: 1})
-
-    await bud.api.processQueue()
-
-    expect(bud.store.get('server.watch.options')).toMatchSnapshot({
-      depth: 1,
-    })
-  })
-
-  it('merges watch options', async () => {
-    bud.watch([], {cwd: '/srv/www'})
-
-    await bud.api.processQueue()
-
-    expect(bud.store.get('server.watch.options')).toMatchSnapshot({
-      cwd: '/srv/www',
-      depth: 1,
-    })
+    expect(Array.from(bud.hooks.filter('dev.watch.files')).length).toEqual(
+      3,
+    )
   })
 })

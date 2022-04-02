@@ -6,27 +6,27 @@ import {Command} from './base.command'
 /**
  * Build command
  *
- * @internal
+ * @public
  */
 export class Build extends Command {
   /**
    * Command name
    *
-   * @internal
+   * @public
    */
   public name = 'build'
 
   /**
    * Command paths
    *
-   * @internal
+   * @public
    */
   public static paths: CommandClass['paths'] = [[`@bud`, `build`]]
 
   /**
    * Command usage
    *
-   * @internal
+   * @public
    */
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
@@ -37,7 +37,7 @@ export class Build extends Command {
   /**
    * Passthrough args
    *
-   * @internal
+   * @public
    */
   public passthrough = Option.Proxy({
     name: `tsc options`,
@@ -46,18 +46,12 @@ export class Build extends Command {
   /**
    * Execute command
    *
-   * @internal
+   * @public
    */
   public async execute() {
-    await this.$(this.withPassthrough(`yarn tsc -b ${TS_CONFIG_PATH}`))
-
     await this.$(
-      `yarn @bud compile @roots/container`,
-      `yarn @bud compile @roots/bud-dashboard`,
-      `yarn @bud compile @roots/bud-support`,
-      `yarn @bud compile @roots/wordpress-dependencies-webpack-plugin`,
-      `yarn @bud compile @roots/wordpress-externals-webpack-plugin`,
-      `yarn @bud compile @roots/entrypoints-webpack-plugin`,
+      this.withPassthrough(`yarn tsc -b ${TS_CONFIG_PATH} --force`),
     )
+    await this.$(`yarn @bud compile`)
   }
 }

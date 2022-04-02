@@ -9,19 +9,20 @@ import {Framework} from '..'
  * @public
  */
 export interface close {
-  (done?: CallableFunction): void
+  (done?: CallableFunction): Promise<void>
 }
 
 /**
  * Exit the program
  *
- * @param this - {@link @roots/bud-framework#Framework}
- * @param done - Callback function to be called before end of run
+ * @param callback - Callback function to be called before end of run
  *
  * @public
  */
-export function close(done = process.exit) {
+export function close(callback?: any) {
   const ctx = this as Framework
-  ctx.hooks.filter('event.app.close')
-  done()
+
+  ctx.hooks.fire('event.app.close')
+
+  callback ? callback() : process.exit()
 }

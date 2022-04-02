@@ -7,40 +7,30 @@
 </p>
 
 <h1 align="center">
-  <strong>@roots/bud-typescript</strong>
+  <strong>@roots/eslint-config</strong>
 </h1>
 
 <p align="center">
-  Adds Typescript support to Bud.
+  eslint presets for roots projects
 </p>
 
 ## Installation
 
-Install **@roots/bud-typescript** to your project.
+Install **@roots/eslint-config** to your project.
 
 ```shell
-yarn add @roots/bud-typescript --dev
+yarn add @roots/eslint-config --dev
 ```
-
-Run `bud install` after installation to ensure peer dependencies are met.
-
-```shell
-yarn bud install
-```
-
-## Documentation
-
-For more information on utilizing this package [check out our dedicated docs](https://budjs.netlify.app)
 
 ## Community
 
 Keep track of development and community news.
 
-- Participate on the [Roots Discourse](https://discourse.roots.io)
+- Join us on Roots Slack by becoming a [GitHub sponsor](https://github.com/sponsors/roots)
+- Participate on the [Roots Discourse](https://discourse.roots.io/)
 - Follow [@rootswp on Twitter](https://twitter.com/rootswp)
-- Read and subscribe to the [Roots blog](https://roots.io/blog/)
+- Read and subscribe to the [Roots Blog](https://roots.io/blog/)
 - Subscribe to the [Roots Newsletter](https://roots.io/subscribe/)
-- Listen to the [Roots Radio podcast](https://roots.io/podcast/)
 
 ## Contributing
 
@@ -52,7 +42,6 @@ We have [contribution guidelines](https://github.com/roots/guidelines/blob/maste
 
 Help support our open-source development efforts by [becoming a patron](https://www.patreon.com/rootsdev).
 
-<a href="https://kinsta.com/?kaid=OFDHAJIXUDIV"><img src="https://cdn.roots.io/app/uploads/kinsta.svg" alt="Kinsta" width="200" height="150"/></a>
 <a href="https://k-m.com/"><img src="https://cdn.roots.io/app/uploads/km-digital.svg" alt="KM Digital" width="200" height="150"/></a>
 <a href="https://carrot.com/"><img src="https://cdn.roots.io/app/uploads/carrot.svg" alt="Carrot" width="200" height="150"/></a>
 <a href="https://www.c21redwood.com/"><img src="https://cdn.roots.io/app/uploads/c21redwood.svg" alt="C21 Redwood Realty" width="200" height="150"/></a>

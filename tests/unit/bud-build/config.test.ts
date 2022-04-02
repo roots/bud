@@ -1,14 +1,16 @@
 import {Bud, factory} from '@repo/test-kit/bud'
+import {seed} from '@roots/bud'
 import {json5, toml, yaml} from '@roots/bud-support'
 import {RuleSetRule} from 'webpack'
+
+/* 3x */
+jest.setTimeout(15000)
 
 describe('bud.build.config', function () {
   let bud: Bud
 
   beforeAll(async () => {
     bud = await factory()
-    await bud.project.buildProfile()
-    await bud.extensions.injectExtensions()
     await bud.build.make()
   })
 
@@ -22,23 +24,36 @@ describe('bud.build.config', function () {
   })
 
   it('has expected cache default', () => {
-    expect(bud.build.config.cache).toMatchSnapshot({
-      type: 'filesystem',
-      buildDependencies: {
-        bud: expect.any(Array),
-      },
-      cacheDirectory: expect.stringContaining('.budfiles'),
-      managedPaths: expect.any(Array),
-      version: expect.any(String),
-    })
+    const cache: any = bud.build.config.cache
+
+    expect(cache.type).toStrictEqual('filesystem')
+
+    expect(cache.buildDependencies.bud).toEqual([
+      expect.stringContaining('package.json'),
+      expect.stringContaining('.eslintrc.js'),
+      expect.stringContaining('bud.config.js'),
+      expect.stringContaining('docker-compose.yml'),
+      expect.stringContaining('tailwind.config.js'),
+      expect.stringContaining('tsconfig.json'),
+    ])
+
+    expect(cache.cacheDirectory).toStrictEqual(
+      expect.stringContaining('.budfiles/cache/webpack'),
+    )
+
+    expect(cache.managedPaths).toStrictEqual([
+      expect.stringContaining('node_modules'),
+    ])
+
+    expect(cache.version).toStrictEqual(expect.any(String))
   })
 
   it('has expected context default', () => {
-    expect(bud.build.config.context).toEqual(bud.path('project'))
+    expect(bud.build.config.context).toEqual(bud.path())
   })
 
   it('has expected devtool default', () => {
-    expect(bud.build.config.devtool).toBe(false)
+    expect(bud.build.config.devtool).toBe(undefined)
   })
 
   it('has expected entry default', () => {
@@ -46,9 +61,13 @@ describe('bud.build.config', function () {
   })
 
   it('has expected infrastructureLogging default', () => {
-    expect(bud.build.config.infrastructureLogging).toEqual({
-      console: false,
-    })
+    expect(
+      JSON.stringify(bud.build.config.infrastructureLogging.console),
+    ).toStrictEqual(
+      JSON.stringify(
+        bud.maybeCall(seed['build.infrastructureLogging.console']),
+      ),
+    )
   })
 
   it('has expected mode default', () => {
@@ -74,32 +93,30 @@ describe('bud.build.config', function () {
   })
 
   it('has expected optimization.runtimeChunk default', () => {
-    expect(bud.build.config.optimization.runtimeChunk).toEqual(false)
+    expect(bud.build.config.optimization.runtimeChunk).toBeUndefined()
   })
 
   it('has expected profile default', () => {
-    expect(bud.build.config.profile).toEqual(undefined)
+    expect(bud.build.config.profile).toBeUndefined()
   })
 
   it('has expected resolve.alias default', () => {
-    expect(bud.build.config.resolve.alias).toEqual({})
+    expect(bud.build.config.resolve.alias).toEqual({
+      '@dist': bud.path('@dist'),
+      '@src': bud.path('@src'),
+    })
   })
 
   it('has expected resolve.extensions default', () => {
     expect(bud.build.config.resolve.extensions).toMatchSnapshot([
-      '.wasm',
-      '.mjs',
-      '.js',
-      '.jsx',
-      '.css',
-      '.json',
-      '.json5',
-      '.toml',
-      '.xml',
-      '.csv',
-      '.yml',
-      '.yaml',
-      '.xml',
+      `.wasm`,
+      `.mjs`,
+      `.js`,
+      `.jsx`,
+      `.css`,
+      `.json`,
+      `.toml`,
+      `.yml`,
     ])
   })
 
@@ -115,14 +132,10 @@ describe('bud.build.config', function () {
     expect(bud.build.config.watchOptions).toBeUndefined()
   })
 
-  it('has expected number of plugins', () => {
-    expect(bud.build.config.plugins?.length).toMatchSnapshot()
-  })
-
-  it('has valid plugins', () => {
-    bud.build.config.plugins.filter(plugin => {
-      expect(plugin).toHaveProperty('apply')
-    })
+  it('has expected plugins', () => {
+    expect(
+      bud.build.config.plugins.map(plugin => plugin.constructor.name),
+    ).toMatchSnapshot()
   })
 
   it('has expected default requireEnsure rule', () => {
@@ -137,7 +150,7 @@ describe('bud.build.config', function () {
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[0],
     ).toMatchSnapshot({
       test: /\.(js|jsx)/,
-      include: expect.stringContaining('src'),
+      include: [expect.stringContaining('src')],
       use: [
         {
           loader: expect.any(String),
@@ -152,7 +165,7 @@ describe('bud.build.config', function () {
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[1],
     ).toMatchSnapshot({
       test: /\.css$/,
-      include: expect.stringContaining('src'),
+      include: [expect.stringContaining('src')],
       use: [
         {
           loader: expect.stringContaining(
@@ -181,7 +194,7 @@ describe('bud.build.config', function () {
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[2],
     ).toMatchSnapshot({
       test: /\.module.css$/,
-      include: expect.stringContaining('src'),
+      include: [expect.stringContaining('src')],
       use: [
         {
           loader: expect.stringContaining(
@@ -204,7 +217,6 @@ describe('bud.build.config', function () {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[3],
     ).toMatchSnapshot({
-      exclude: /(node_modules|bower_components)/,
       generator: {
         filename: 'images/[name][ext]',
       },
@@ -242,7 +254,7 @@ describe('bud.build.config', function () {
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[6],
     ).toMatchSnapshot({
       type: 'asset',
-      include: expect.stringContaining('src'),
+      include: [expect.stringContaining('src')],
       generator: {filename: 'fonts/[name][ext]'},
     })
   })
@@ -251,7 +263,7 @@ describe('bud.build.config', function () {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[7],
     ).toMatchSnapshot({
-      include: expect.stringContaining('src'),
+      include: [expect.stringContaining('src')],
       parser: {parse: json5.parse},
       test: /\.json$/,
       type: 'json',
@@ -262,7 +274,7 @@ describe('bud.build.config', function () {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[8],
     ).toMatchSnapshot({
-      include: expect.stringContaining('src'),
+      include: [expect.stringContaining('src')],
       parser: {parse: yaml.parse},
       test: /\.ya?ml$/,
       type: 'json',
@@ -274,7 +286,7 @@ describe('bud.build.config', function () {
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[9],
     ).toMatchSnapshot({
       test: /\.(html?)$/,
-      include: expect.stringContaining('src'),
+      include: [expect.stringContaining('src')],
       use: [
         {
           loader: expect.stringContaining('html-loader/dist/cjs.js'),
@@ -288,7 +300,7 @@ describe('bud.build.config', function () {
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[10],
     ).toMatchSnapshot({
       test: /\.(csv|tsv)$/,
-      include: expect.stringContaining('src'),
+      include: [expect.stringContaining('src')],
       use: [
         {
           loader: expect.stringContaining('csv-loader/index.js'),
@@ -302,7 +314,7 @@ describe('bud.build.config', function () {
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[11],
     ).toMatchSnapshot({
       test: /\.xml$/,
-      include: expect.stringContaining('src'),
+      include: [expect.stringContaining('src')],
       use: [
         {
           loader: expect.stringContaining('/xml-loader/index.js'),
@@ -315,7 +327,7 @@ describe('bud.build.config', function () {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[12],
     ).toMatchSnapshot({
-      include: expect.stringContaining('src'),
+      include: [expect.stringContaining('src')],
       parser: {
         parse: toml.parse,
       },

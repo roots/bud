@@ -1,4 +1,4 @@
-export {method as alias} from './alias'
+export {alias} from './alias'
 export {method as assets, method as copy} from './assets'
 export {
   config,
@@ -14,10 +14,10 @@ export {hash, hash as version} from './hash'
 export {minimize} from './minimize'
 export {persist} from './persist'
 export {provide} from './provide'
-export {proxy} from './proxy'
+export {method as proxy} from './proxy'
 export {run} from './run'
 export {runtime} from './runtime'
-export {serve} from './serve'
+export {method as serve} from './serve'
 export {method as splitChunks, method as extract} from './splitChunks'
 export {template} from './template'
 export {use} from './use'

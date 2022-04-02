@@ -35,14 +35,12 @@
   "files": [
     "lib/",
     "types/",
-    "eslint-config/",
     "tsconfig/"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "exports": {
     ".": "./lib/cjs/index.js",
-    "./eslint-config": "./eslint-config/index.js",
     "./tsconfig": "./tsconfig/tsconfig.json"
   },
   "types": "./types/index.d.ts",
@@ -57,20 +55,20 @@
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@skypack/package-check": "0.2.2",
     "@types/fork-ts-checker-webpack-plugin": "0.4.5",
-    "@types/node": "16.11.25",
-    "typescript": "4.5.5",
-    "webpack": "5.68.0"
+    "@types/node": "16.11.26",
+    "typescript": "4.6.2",
+    "webpack": "5.70.0"
   },
   "dependencies": {
     "@roots/bud-build": "workspace:sources/@roots/bud-build",
-    "@typescript-eslint/eslint-plugin": "5.11.0",
-    "@typescript-eslint/parser": "5.11.0",
+    "@typescript-eslint/eslint-plugin": "5.15.0",
+    "@typescript-eslint/parser": "5.15.0",
     "autobind-decorator": "^2.4.0",
     "fork-ts-checker-webpack-plugin": "^7.0.0",
     "ts-loader": "^9.2.6",
-    "ts-node": "^10.4.0",
+    "ts-node": "10.7.0",
     "tslib": "^2.3.1",
-    "typescript": "4.5.5"
+    "typescript": "4.6.2"
   },
   "peerDependencies": {
     "typescript": "^4.5.5"

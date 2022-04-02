@@ -1,4 +1,4 @@
-// Copyright (c) Roots Foundation, LLC. All rights reserved.
+// Copyright © Roots Software Foundation LLC
 // Licensed under the MIT license.
 
 /**
@@ -7,7 +7,7 @@
  * @example
  * ```ts
  * app.purge({
- *  content: [app.path('project', 'resources/views/**')],
+ *  content: [app.path('resources/views/**')],
  *  allow: require('purgecss-with-wordpress').whitelist,
  *  allowPatterns: require('purgecss-with-wordpress').whitelistPatterns,
  * })

@@ -29,14 +29,14 @@ export const STORAGE_PATH = join(REPO_PATH, 'storage')
  *
  * @public
  */
-export const INTEGRATION_TESTS = ['babel', 'sage']
+export const INTEGRATION_TESTS = ['babel', 'sage', 'sass', 'vue']
 
 /**
  * Base public package tsconfig
  *
  * @public
  */
-export const TS_CONFIG_PATH = `${REPO_PATH}/config/tsconfig.json`
+export const TS_CONFIG_PATH = join(REPO_PATH, 'config', 'tsconfig.json')
 
 /**
  * Proxy registry URL
@@ -50,10 +50,10 @@ export const REGISTRY_PROXY = 'http://verdaccio:4873'
  */
 export const paths = {
   root: REPO_PATH,
-  config: `${REPO_PATH}/config`,
-  sources: `${REPO_PATH}/sources`,
-  tests: `${REPO_PATH}/tests`,
-  mocks: `${REPO_PATH}/../mocks`,
+  config: join(REPO_PATH, 'config'),
+  sources: join(REPO_PATH, 'sources'),
+  tests: join(REPO_PATH, 'tests'),
+  mocks: join(REPO_PATH, '../mocks'),
 }
 
 /**

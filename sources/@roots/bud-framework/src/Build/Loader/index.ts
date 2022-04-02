@@ -1,15 +1,32 @@
 import {Framework} from '../../Framework'
-import Abstract from './Abstract'
-import Interface from './Interface'
-
-export {Interface}
-export {Abstract}
 
 /**
- * Loader factory interface
+ * Defines a webpack loader
  *
  * @public
  */
-export interface Factory {
-  (app: Framework): Interface
+export interface Loader {
+  /**
+   * Application instance
+   */
+  app: Framework
+
+  /**
+   * Loader src factory
+   *
+   * @public
+   */
+  src: string | ((app: Framework) => string)
+
+  /**
+   * Set src
+   *
+   * @param src - string
+   */
+  setSrc(src: string | ((app: Framework) => string)): Loader
+  getSrc(): string
+}
+
+export namespace Loader {
+  export type Constructor = string | ((app: Framework) => string)
 }

@@ -1,22 +1,19 @@
 {
-  "extends": [
-    "config:base",
-    "schedule:daily",
-    ":dependencyDashboard"
-  ],
+  "baseBranches": ["main"],
   "commitMessageAction": "Bump",
   "commitMessageTopic": "{{depName}}",
-  "postUpdateOptions": ["yarnDedupeHighest"],
-  "timezone": "America/Los_Angeles",
-  "baseBranches": ["main"],
+  "extends": ["config:base", "schedule:daily", ":dependencyDashboard"],
+  "ignorePaths": ["sources/deprecated/**"],
   "packageRules": [
     {
-      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
-      "automerge": true
+      "automerge": true,
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"]
     },
     {
-      "matchPackagePrefixes": ["@yarnpkg/"],
-      "groupName": "yarnpkg monorepo"
+      "groupName": "yarnpkg monorepo",
+      "matchPackagePrefixes": ["@yarnpkg/"]
     }
-  ]
+  ],
+  "postUpdateOptions": ["yarnDedupeHighest"],
+  "timezone": "America/Los_Angeles"
 }

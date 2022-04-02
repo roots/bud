@@ -72,7 +72,10 @@ export class PostCssConfig extends Container<Registry> {
    */
   @bind
   public setPluginOptions(plugin: string, options: any): this {
-    this.set(plugin, [this.get(plugin).shift(), options])
+    this.set(plugin, [
+      this.isArray(plugin) ? this.get(plugin).shift() : this.get(plugin),
+      options,
+    ])
 
     return this
   }

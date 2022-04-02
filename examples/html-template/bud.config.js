@@ -8,7 +8,7 @@
 module.exports = async app =>
   app
     .template({
-      template: app.path('project', 'public/index.html'),
+      template: app.path('public/index.html'),
       replace: {
         TITLE: 'Demo',
         DESCRIPTION: 'html templating example',

@@ -1,5 +1,4 @@
-import {Item, Loader} from '@roots/bud-build'
-import {Framework} from '@roots/bud-framework'
+import {Extension, Framework} from '@roots/bud-framework'
 
 import {Config} from './babel.config'
 import {DEFAULT_PLUGINS, DEFAULT_PRESETS} from './babel.constants'
@@ -16,8 +15,20 @@ export const name = '@roots/bud-babel'
  *
  * @public
  */
-export const mixin = async app => ({
+export const mixin: Extension.Module['mixin'] = async app => ({
   babel: [Config, app],
+})
+
+export const options: Extension.Module['options'] = async (
+  app: Framework,
+) => ({
+  cacheDirectory: app.path(`@storage/cache/babel`),
+  env: {
+    development: {
+      compact: false,
+    },
+  },
+  root: app.path(),
 })
 
 /**
@@ -25,43 +36,25 @@ export const mixin = async app => ({
  *
  * @public
  */
-export const register = async (app: Framework) => {
-  app.build.loaders.babel = new Loader(() =>
-    require.resolve('babel-loader'),
-  )
+export const register: Extension.Module['register'] = async (
+  app: Framework,
+) => {
+  app.build
+    .setLoader('babel', require.resolve('babel-loader'))
+    .setItem('babel', babel =>
+      babel.setLoader(`babel`).setOptions(app => {
+        const options = app.extensions.get('@roots/bud-babel').options
 
-  app.build.items.babel = new Item({
-    loader: ({build}) => build.loaders.babel,
-    options: app => {
-      const options: {
-        cacheDirectory: string
-        env: any
-        root: string
-        presets?: any
-        plugins?: any
-      } = {
-        cacheDirectory: app.path('storage', 'cache', 'babel'),
-        env: {
-          development: {
-            compact: false,
-          },
-        },
-        root: app.path('src'),
-      }
+        app.babel?.presets &&
+          options.set('presets', Object.values(app.babel.presets))
 
-      if (app.babel?.presets) {
-        options.presets = Object.values(app.babel.presets)
-      }
+        app.babel?.plugins &&
+          options.set('plugins', Object.values(app.babel.plugins))
 
-      if (app.babel?.plugins) {
-        options.plugins = Object.values(app.babel.plugins)
-      }
-
-      return options
-    },
-  })
-
-  app.build.rules.js.setUse([app.build.items.babel])
+        return options.all()
+      }),
+    )
+    .rules.js.setUse(items => [`babel`, ...items])
 
   app.babel.setPresets(DEFAULT_PRESETS).setPlugins(DEFAULT_PLUGINS)
 }

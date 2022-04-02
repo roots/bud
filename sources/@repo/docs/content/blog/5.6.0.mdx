@@ -1,0 +1,93 @@
+---
+slug: '5.6.0'
+title: 'Release: 5.6.0'
+description: 'Release notes for v5.6.0'
+date: 2022-03-15
+author: Kelly Mears
+author_title: Lead developer
+author_url: https://github.com/kellymears
+author_image_url: https://avatars.githubusercontent.com/u/397606?v=4
+tags: [release]
+---
+
+Notifications (macos), speed improvements, easier webpack customizations.
+
+<!--truncate-->
+
+## Performance
+
+bud is now about 30% faster 🎉.
+
+There is a new CLI flag `--flush` which will force a full recompilation if you feel like something is goofy. It's also recommended to run `bud clean` after installing an update.
+
+## Notifier
+
+MacOS notification center notices are fixed. If you don't want them run the cli command with the `--no-notify` flag.
+
+## **bud.path** and **bud.setPath**
+
+TLDR: Way less clunky to work with.
+
+- `bud.path()` can be called with no parameters will now resolve to the project root.
+
+- `bud.path('relative/path')` now returns an absolute path from a project relative one.
+
+- `bud.path('/absolute/path')` is recognized as an absolute path and will not be interpolated.
+
+- There are several reserved strings referencing key directories: `@src`, `@dist`, `@storage`, `@modules`. The `@` prefix is now being used to make it clearer that this is not a normal path.
+
+- You can use `bud.setPath` to define additional directory aliases:
+
+```ts
+bud.setPath({'@config': 'app/config/directory'})
+
+bud.path('@config/config-file.json')
+// => [root]/app/config/directory/config-file.json
+```
+
+- This only applies to the _first segment_ and only when the _@_ symbol is prefixed. `app/@alias/example` will not work.
+
+- This does not automatically make webpack aliases from a path. To use the same convention in your client scripts you still need to use `bud.alias`.
+
+### ⚠️ Upgrade guide
+
+- Any calls which referenced `'project'` as the first parameter should have that parameter removed. Examples:
+
+  - `bud.path('project')` becomes `bud.path()`.
+  - `bud.path('project', 'directory')` becomes `bud.path('directory')`.
+
+- Any calls which used `src`, `dist`, `storage` or `modules` as the first parameter should be updated to use the `@` prefix. Examples:
+
+  - `bud.path('src', 'some-file.js')` becomes `bud.path('@src', 'some-file.js')`.
+  - Or, just `bud.path('@src/some-file.js')`.
+
+- Any calls to `bud.setPath` which referenced those magic strings also needs to be updated. Example:
+  - `bud.setPath('src', 'js')` becomes `bud.setPath('@src', 'js')`
+
+## Defining modules is a lot easier
+
+Want to add support to bud for some arcane syntax? Great news, the API for `loaders`, `items` and `rules` just got a nice upgrade.
+
+Here's typescript.
+
+```ts
+app.build
+  .setLoader('ts', 'ts-loader')
+  .setItem('ts', {loader: 'ts', options: {}})
+  .setRule('ts', {test: /\.tsx?/, use: [`babel`, `ts`]})
+```
+
+If you just want to modify an existing rule, there is lots for you in this update:
+
+```ts
+app.bulid.rule.ts.setUse([`babel`, `ts`])
+app.build.loaders.ts.setSrc(`alternate-ts-loader`)
+app.build.items.ts.setOptions({...options})
+```
+
+Extension authors should take advantage of how all properties for loader, item, and rule definitions can be expressed with a callback. This means if someone changes their source path later your rule will still be pointed in the right direction.
+
+## More information
+
+- [Read the release notes](/releases/5.6.0)
+- [Review the diff to see what's changed](https://github.com/roots/bud/compare/v5.5.0...v5.6.0)

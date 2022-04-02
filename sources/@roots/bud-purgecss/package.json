@@ -56,9 +56,9 @@
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
     "@skypack/package-check": "0.2.2",
-    "@types/lodash": "4.14.178",
-    "@types/node": "16.11.25",
-    "postcss": "8.4.6"
+    "@types/lodash": "4.14.180",
+    "@types/node": "16.11.26",
+    "postcss": "8.4.12"
   },
   "dependencies": {
     "@fullhuman/postcss-purgecss": "4.1.3",

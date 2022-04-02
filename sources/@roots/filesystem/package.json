@@ -47,10 +47,10 @@
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@roots/container": "workspace:sources/@roots/container",
     "@skypack/package-check": "0.2.2",
-    "@types/lodash": "4.14.178",
-    "@types/node": "16.11.25",
+    "@types/lodash": "4.14.180",
+    "@types/node": "16.11.26",
     "autobind-decorator": "2.4.0",
-    "fs-extra": "10.0.0",
+    "fs-extra": "10.0.1",
     "lodash": "4.17.21",
     "resolve-from": "5.0.0"
   },

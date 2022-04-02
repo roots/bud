@@ -1,4 +1,4 @@
-// Copyright (c) Roots Foundation, LLC. All rights reserved.
+// Copyright © Roots Software Foundation LLC
 // Licensed under the MIT license.
 
 /**
@@ -10,29 +10,6 @@
  * @packageDocumentation
  */
 
-import {Sage} from './sage.preset'
-
-declare module '@roots/bud-framework' {
-  interface Framework {
-    /**
-     * setPublicPath
-     *
-     * @deprecated
-     * Please remove this function from your config file. It is not needed.
-     * When Sage 10 exits beta this function call will break your build.
-     *
-     * @returns Framework
-     *
-     * @public
-     */
-    setPublicPath: (
-      publicPath: string | ((publicPath: string) => string),
-    ) => Framework
-  }
-
-  interface Modules {
-    '@roots/sage': typeof Sage
-  }
-}
+import Sage from './sage.preset'
 
 export const {name, boot} = Sage

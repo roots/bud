@@ -1,8 +1,7 @@
 import {Signale} from '@roots/bud-support'
 import {Container} from '@roots/container'
 
-import {Factory, Framework, Loose, Maybe} from '../..'
-import {Name} from '.'
+import {Factory, Framework, Loose, Maybe, Modules, Plugins} from '../..'
 
 /**
  * Bud extension interface
@@ -17,7 +16,7 @@ export interface Module<Options = any> extends Loose {
    *
    * @public
    */
-  name?: Name
+  name?: `${(keyof Modules & string) | (keyof Plugins & string)}`
 
   /**
    * Options registered to the extension module

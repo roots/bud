@@ -15,6 +15,10 @@
     {
       "name": "QWp6t",
       "url": "https://github.com/QWp6t"
+    },
+    {
+      "name": "joshuafredrickson",
+      "url": "https://github.com/joshuafredrickson"
     }
   ],
   "license": "MIT",
@@ -42,7 +46,8 @@
   "types": "./types/index.d.ts",
   "exports": {
     ".": "./lib/cjs/index.js",
-    "./stylelint-config": "./stylelint-config/index.js"
+    "./stylelint-config": "./stylelint-config/default.js",
+    "./stylelint-config/scss": "./stylelint-config/scss.js"
   },
   "bud": {
     "type": "extension",
@@ -55,9 +60,9 @@
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
     "@skypack/package-check": "0.2.2",
-    "@types/lodash": "4.14.178",
-    "@types/node": "16.11.25",
-    "@types/tailwindcss": "3.0.8",
+    "@types/lodash": "4.14.180",
+    "@types/node": "16.11.26",
+    "@types/tailwindcss": "3.0.9",
     "tailwindcss": "3.0.23"
   },
   "dependencies": {

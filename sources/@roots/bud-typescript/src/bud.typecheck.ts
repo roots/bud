@@ -37,8 +37,8 @@ export const typecheck: typecheck = async function (
    * if it is registered
    */
   if (options === false) {
-    this.extensions.has('fork-ts-checker-plugin') &&
-      this.extensions.remove('fork-ts-checker-plugin')
+    this.extensions.has('fork-ts-checker-webpack-plugin') &&
+      this.extensions.remove('fork-ts-checker-webpack-plugin')
 
     return this
   }
@@ -53,7 +53,7 @@ export const typecheck: typecheck = async function (
    * No options is the same as passing true.
    * It implicitly enables the plugin.
    */
-  if (!options) return this
+  if (!options || options === true) return this
 
   /**
    * If there were options passed and they are

@@ -13,10 +13,6 @@ export class DevCommand extends BuildCommand {
     description: `Compile and serve source assets`,
     examples: [
       [`Start dev server and compile assets in dev mode`, `$0 dev`],
-      [
-        `Limit to one or more target compilers`,
-        `$0 dev --target [compiler-name]`,
-      ],
     ],
   })
 

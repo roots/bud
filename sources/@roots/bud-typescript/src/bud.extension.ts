@@ -1,7 +1,5 @@
-import {Item, Loader} from '@roots/bud-build'
 import {Extension} from '@roots/bud-framework'
 import {Options} from 'ts-loader'
-import {Configuration} from 'webpack'
 
 import {typecheck} from './bud.typecheck'
 
@@ -9,7 +7,12 @@ import {typecheck} from './bud.typecheck'
  * @public
  */
 export interface BudTypeScriptExtension
-  extends Extension.Module<Partial<Options>> {}
+  extends Extension.Module<Partial<Options>> {
+  name: '@roots/bud-typescript'
+  api: {typecheck: typecheck}
+  options: Partial<Options>
+  boot: Extension.Module['boot']
+}
 
 /**
  * @public
@@ -17,34 +20,28 @@ export interface BudTypeScriptExtension
 export const BudTypeScriptExtension: BudTypeScriptExtension = {
   name: '@roots/bud-typescript',
 
-  api: {
-    typecheck,
-  },
+  api: {typecheck},
 
-  options: {
-    transpileOnly: true,
-  },
+  options: {transpileOnly: true},
 
-  boot: ({build, hooks, store}) => {
-    store.set('patterns.ts', /\.tsx?$/)
-
-    build.loaders['ts'] = new Loader(require.resolve('ts-loader'))
-
-    build.items['ts'] = new Item({
-      loader: build.loaders['ts'],
-      options: app =>
-        app.extensions.get('@roots/bud-typescript').options.all(),
-    })
-
-    build.setRule('ts', {
-      test: store.get('patterns.ts'),
-      exclude: store.get('patterns.modules'),
-      use: ({build}) => [build.items['babel'], build.items['ts']],
-    })
-
-    hooks.on(
-      'build.resolve.extensions',
-      (e: Configuration['resolve']['extensions']) => [...e, '.ts', '.tsx'],
+  boot: async app => {
+    app.hooks.on('build.resolve.extensions', ext =>
+      ext.add('.ts').add('.tsx'),
     )
+
+    app.build
+      .setLoader('ts', require.resolve('ts-loader'))
+      .setItem('ts', {
+        loader: 'ts',
+        options: app =>
+          app.extensions.get('@roots/bud-typescript').options.all(),
+      })
+      .setRule('ts', {
+        test: /(jsx?)|(tsx?)/,
+        include: app => [app.path('@src')],
+      })
+
+    app.build.rules.ts.setUse(['babel', 'ts'])
+    app.build.rules.js.setUse(['babel', 'ts'])
   },
 }

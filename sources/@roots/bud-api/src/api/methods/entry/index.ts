@@ -66,11 +66,12 @@ export const entry: entry = async function (...userInput) {
 }
 
 export async function globAssets(search: string): Promise<Array<string>> {
-  const cwd = this.path('src')
+  const cwd = this.path('@src')
 
   try {
     this.log(`search`, search)
     const results = await globby.globby(search, {cwd})
+
     this.log(`results`, results)
 
     if (!results.length) {

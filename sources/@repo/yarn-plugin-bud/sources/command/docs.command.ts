@@ -1,6 +1,6 @@
 import * as repo from '@repo/constants'
 import {CommandClass, Option} from 'clipanion'
-import {copy, ensureDir} from 'fs-extra'
+import {copy} from 'fs-extra'
 
 import {Command} from './base.command'
 
@@ -86,7 +86,13 @@ export class Docs extends Command {
           --tsconfig ./config/tsconfig.json \
           --entryPointStrategy expand \
           --entryPoints \
+            ./sources/@roots/bud/src/index.ts \
             ./sources/@roots/bud-framework/src/index.ts \
+            ./sources/@roots/bud-api/src/index.ts \
+            ./sources/@roots/bud-build/src/index.ts \
+            ./sources/@roots/bud-compiler/src/index.ts \
+            ./sources/@roots/bud-hooks/src/index.ts \
+            ./sources/@roots/sage/src/index.ts \
             ./sources/@roots/container/src/index.ts`,
       )
     }

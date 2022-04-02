@@ -8,21 +8,15 @@
     "types": [
       "node",
       "@roots/bud-api",
-      "@roots/bud-tailwindcss",
       "@roots/bud-preset-wordpress",
-      "@roots/bud-framework",
-      "@roots/bud-prettier",
-      "@roots/bud-stylelint"
+      "@roots/bud-framework"
     ],
   },
+  "files": ["./src/bud.env.d.ts"],
   "include": ["./src"],
   "references": [
     {"path": "./../bud-framework/tsconfig.json"},
     {"path": "./../bud-api/tsconfig.json"},
-    {"path": "./../bud-eslint/tsconfig.json"},
     {"path": "./../bud-preset-wordpress/tsconfig.json"},
-    {"path": "./../bud-prettier/tsconfig.json"},
-    {"path": "./../bud-stylelint/tsconfig.json"},
-    {"path": "./../bud-tailwindcss/tsconfig.json"}
   ]
 }

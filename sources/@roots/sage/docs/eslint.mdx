@@ -1,0 +1,14 @@
+Install the [`@roots/bud-eslint` extension](/extensions/bud-eslint):
+
+```sh npm2yarn
+yarn add @roots/bud-eslint --dev
+```
+
+Next, in your theme directory create a `eslint.config.js` file and include the Sage default eslint config:
+
+```ts
+module.exports = {
+  root: true,
+  extends: ['@roots/eslint-config/sage'],
+}
+```

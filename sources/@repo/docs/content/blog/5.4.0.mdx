@@ -1,0 +1,67 @@
+---
+slug: '5.4.0'
+title: 'Release: 5.4.0'
+description: 'Release notes for v5.4.0'
+date: 2022-02-22
+author: Kelly Mears
+author_title: Lead developer
+author_url: https://github.com/kellymears
+author_image_url: https://avatars.githubusercontent.com/u/397606?v=4
+tags: [release]
+---
+
+Incremental improvements and fixes for core bud features.
+
+<!--truncate-->
+
+## New package: `@roots/eslint-config`
+
+Eslint configs have been centralized in the new `@roots/eslint-config` package.
+
+| Name        | Import                             |
+| ----------- | ---------------------------------- |
+| defaults    | `@roots/eslint-config`             |
+| react       | `@roots/eslint-config/react`       |
+| recommended | `@roots/eslint-config/recommended` |
+| typescript  | `@roots/eslint-config/typescript`  |
+| wordpress   | `@roots/eslint-config/wordpress`   |
+| sage        | `@roots/eslint-config/sage`        |
+
+If you are using a `@roots` eslint config please use the appropriate export from `@roots/eslint-config` instead. **These exports will be removed in 5.5.0**.
+
+## CLI Improvements
+
+We've replaced oclif with clipanion. Clipanion is the same library that powers yarn. Additionally, exception handling has been enhanced to give better feedback
+when something goes wrong before compilation begins.
+
+The `--no-dashboard` flag has been deprecated (since the output is now equally safe in CI or in development). Also, by default bud now runs with logging disabled.
+If you prefer the verbose logging you can enable it with the `--log` flag.
+
+## Improved resolution for modules outside `src`
+
+By default, `bud` only transpiles modules found in the project `src` directory. This is excellent for most projects -- it limits the number of
+directories bud will try and resolve from and speeds things up immensely. The vast majorty of modules come precompiled.
+
+But, certain packages ship modules as source code for you to transpile as part of your build.
+Of course, you can specify directories to act as additional module sources. It used to require _a bit_ more work, but now it's easier.
+
+Here's an example where we'll make it possible to resolve source code from `some-npm-pkg`:
+
+```ts
+bud.build.rules.js.setIncludes([
+  require.resolve('src'),
+  require.resolve('node_modules/some-npm-pkg'),
+])
+```
+
+You could just open up the entire project `setIncludes([app.path('project')])` but that will make compilation needlessly slow.
+
+## Improved: anchor tag `onClick` interceptor (for proxy dev)
+
+Link clicks should more reliably keep you "stuck" to the dev server rather than sending you back out to the proxied site. This was a small change
+but hopefully makes for happy deving.
+
+## More information
+
+- [Read the release notes](/releases/5.4.0)
+- [Review the diff to see what's changed](https://github.com/roots/bud/compare/v5.3.2...v5.4.0)

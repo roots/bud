@@ -1,15 +1,13 @@
-import {SignaleConfig} from 'signale'
+import {figures} from '@roots/bud-support'
 
-import {figures} from './figures'
-
-export type INSTANCE_CONFIG = SignaleConfig
+import {Framework} from './logger.interface'
 
 /**
  * Instance configuration
  *
  * @internal
  */
-export const INSTANCE_CONFIG: SignaleConfig = {
+export const INSTANCE_CONFIG: any = {
   displayScope: true,
   displayBadge: true,
   displayDate: false,
@@ -29,121 +27,117 @@ export const INSTANCE_CONFIG: SignaleConfig = {
 interface Type {
   /** The icon corresponding to the logger. */
   badge: string
+
   /**
    * The color of the label, can be any of the foreground colors supported by
    * [chalk](https://github.com/chalk/chalk#colors).
    */
   color: string
+
   /** The label used to identify the type of the logger. */
   label: string
+
   logLevel?: string | undefined
+
   stream?: NodeJS.WriteStream | NodeJS.WriteStream[] | undefined
 }
 
-/**
- * @internal
- */
-export interface types {
-  [key: string]: Type
+export const enum LEVEL {
+  VERBOSE = 'log',
+  STANDARD = 'timer',
+  ERROR = 'error',
 }
 
-export const LEVEL = {
-  vvvv: 'log',
-  vvv: 'timer',
-  vv: 'warn',
-  v: 'error',
-}
-
-export const types = () => ({
+export const types: (app: Framework) => Record<string, Type> = app => ({
   error: {
     badge: figures.cross,
     color: 'red',
     label: 'error',
-    logLevel: LEVEL['v'],
+    logLevel: LEVEL.ERROR,
   },
   fatal: {
     badge: figures.cross,
     color: 'red',
     label: 'fatal',
-    logLevel: LEVEL['v'],
-  },
-  star: {
-    badge: figures.star,
-    color: 'cyan',
-    label: 'instantiate',
-    logLevel: LEVEL['vvv'],
-  },
-  info: {
-    badge: figures.info,
-    color: 'magenta',
-    label: 'log',
-    logLevel: LEVEL['vvv'],
-  },
-  success: {
-    badge: figures.tick,
-    color: 'green',
-    label: 'success',
-    logLevel: LEVEL['vvv'],
+    logLevel: LEVEL.ERROR,
   },
   warn: {
     badge: figures.warning,
     color: 'yellow',
     label: 'warning',
-    logLevel: LEVEL['vv'],
+    logLevel: LEVEL.ERROR,
+  },
+  star: {
+    badge: figures.star,
+    color: 'cyan',
+    label: 'instantiate',
+    logLevel: LEVEL.STANDARD,
+  },
+  info: {
+    badge: figures.info,
+    color: 'magenta',
+    label: 'log',
+    logLevel: LEVEL.VERBOSE,
+  },
+  success: {
+    badge: figures.tick,
+    color: 'green',
+    label: 'success',
+    logLevel: LEVEL.STANDARD,
   },
   complete: {
     badge: figures.circleFilled,
     color: 'cyan',
     label: 'complete',
-    logLevel: LEVEL['vvv'],
+    logLevel: LEVEL.STANDARD,
   },
   pending: {
     badge: figures.ellipsis,
     color: 'cyan',
     label: 'pending',
-    logLevel: LEVEL['vvv'],
+    logLevel: LEVEL.STANDARD,
     stream: process.stdout,
   },
   note: {
     badge: figures.bullet,
     color: 'blue',
     label: 'note',
-    logLevel: LEVEL['vvv'],
+    logLevel: LEVEL.STANDARD,
   },
   start: {
     badge: figures.play,
     color: 'green',
     label: 'start',
-    logLevel: LEVEL['vvv'],
+    logLevel: LEVEL.STANDARD,
   },
   pause: {
     badge: figures.squareSmallFilled,
     color: 'yellow',
     label: 'pause',
-    logLevel: LEVEL['vvv'],
+    logLevel: LEVEL.STANDARD,
   },
   debug: {
     badge: figures.circleFilled,
     color: 'red',
     label: 'log',
-    logLevel: LEVEL['vvvv'],
+    logLevel: LEVEL.VERBOSE,
   },
   await: {
     badge: figures.ellipsis,
     color: 'cyan',
     label: 'awaiting',
-    logLevel: LEVEL['vvv'],
+    logLevel: LEVEL.STANDARD,
   },
   watch: {
     badge: figures.ellipsis,
     color: 'yellow',
     label: 'watching',
-    logLevel: LEVEL['vvv'],
+    logLevel: LEVEL.STANDARD,
   },
   log: {
     badge: figures.pointer,
     color: 'blue',
     label: 'log',
-    logLevel: LEVEL['vvv'],
+    logLevel: LEVEL.STANDARD,
   },
 })

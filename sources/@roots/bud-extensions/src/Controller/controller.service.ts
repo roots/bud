@@ -50,8 +50,7 @@ export class Controller {
   }
 
   public get moduleLogger(): Signale {
-    let logger = new Signale()
-    logger = logger.scope(...this.app.logger.context, this.name)
+    let logger = new Signale().scope(this.name)
 
     if (this.app.store.is('features.log', false)) {
       logger.disable()
@@ -261,9 +260,6 @@ export class Controller {
     this.app.error(
       `[${this.name}] options must be a container or an object`,
     )
-    throw new Error(
-      `[${this.name}] options must be a container or an object`,
-    )
   }
 
   /**
@@ -375,13 +371,16 @@ export class Controller {
     await this.mixin()
     await this.api()
 
-    if (isFunction(this._module.register))
+    if (isFunction(this._module.register)) {
       await this._module.register(this.app, this.moduleLogger)
 
-    this.moduleLogger.success({
-      message: `register called`,
-      suffix: chalk.dim`${this.name}`,
-    })
+      await this.app.api.processQueue()
+
+      this.moduleLogger.success({
+        message: `register called`,
+        suffix: chalk.dim`${this.name}`,
+      })
+    }
 
     return this
   }
@@ -508,6 +507,8 @@ export class Controller {
 
     if (isFunction(this._module.boot)) {
       await this._module.boot(this.app, this.moduleLogger)
+
+      await this.app.api.processQueue()
 
       this.moduleLogger.success({
         message: `${this.name} booted`,

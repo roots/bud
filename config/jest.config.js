@@ -37,7 +37,10 @@ module.exports = async function config() {
       },
     },
     moduleNameMapper,
-    modulePathIgnorePatterns: [`<rootDir>/node_modules/`, `<rootDir>/storage/`],
+    modulePathIgnorePatterns: [
+      `<rootDir>/node_modules/`,
+      `<rootDir>/storage/`,
+    ],
     name: 'bud',
     preset: 'ts-jest',
     rootDir: resolve(__dirname, '../'),
@@ -46,6 +49,8 @@ module.exports = async function config() {
       `<rootDir>/tests/unit/**/*.test.ts`,
       `<rootDir>/tests/integration/babel.test.ts`,
       `<rootDir>/tests/integration/sage.test.ts`,
+      `<rootDir>/tests/integration/vue.test.ts`,
+      `<rootDir>/tests/integration/sass.test.ts`,
     ],
     testPathIgnorePatterns: [
       '<rootDir>/build/',

@@ -1,7 +1,5 @@
-import {SignaleConfig, SignaleOptions} from 'signale'
-
-import {INSTANCE_CONFIG, types} from './logger.constants'
-import {bind, Signale} from './logger.dependencies'
+import {LEVEL, types} from './logger.constants'
+import {Signale} from './logger.dependencies'
 import type {Framework} from './logger.interface'
 
 /**
@@ -11,55 +9,21 @@ import type {Framework} from './logger.interface'
  */
 export class Logger {
   /**
-   * Context
-   */
-  public get context(): Array<string> {
-    const ctx = ['root']
-
-    !this.app.isRoot && this.app.name && ctx.push(this.app.name)
-
-    return ctx
-  }
-
-  /**
-   * Scoped logger
-   *
-   * @public
-   */
-  public scoped(...scope: Array<string>) {
-    return this.instance.scope(...[...this.context, ...(scope ?? [])])
-  }
-
-  /**
    * Logger instance
    *
    * @public
    */
   public instance: Signale
 
-  /**
-   * Logger level
-   *
-   * @public
-   */
-  public get level(): string {
-    return this.app.options.config.log.level
+  public get level() {
+    if (!this.app.context.args.log) return LEVEL.ERROR
+    if (!this.app.context.args.verbose) return LEVEL.STANDARD
+    return LEVEL.VERBOSE
   }
 
-  /**
-   * Logger secrets hidden in process stdout
-   *
-   * @public
-   */
-  public secrets: Array<string> = [process.cwd()]
-
-  /**
-   * Config
-   *
-   * @public
-   */
-  public config: INSTANCE_CONFIG = INSTANCE_CONFIG
-  public options: SignaleOptions
+  public get interactive() {
+    return !this.app.context.args.log ? true : false
+  }
 
   /**
    * Class constructor
@@ -67,50 +31,25 @@ export class Logger {
    * @public
    */
   public constructor(private app: Framework) {
-    this.instantiate()
-    this.scoped('logger').debug('config', this.instance.config)
-  }
-
-  /**
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public instantiate() {
-    this.options = {
-      disabled: this.app.options.config.features.log === false,
-      interactive: false,
-      secrets: this.secrets,
-      types: types(),
+    this.instance = new Signale({
+      interactive: this.interactive,
+      secrets: [this.app.context.projectDir, this.app.context.cwd],
       logLevel: this.level,
-    }
+      types: types(app),
+    })
 
-    this.instance = this.makeInstance()
-  }
-
-  /**
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public makeInstance(
-    options?: SignaleOptions,
-    config?: SignaleConfig,
-  ): Signale {
-    options = {
-      ...this.options,
-      ...(options ?? {}),
-    }
-
-    config = {
-      ...this.config,
-      ...(config ?? {}),
-    }
-
-    const instance = new Signale(options)
-
-    instance.config(config)
-
-    return instance
+    this.instance.config({
+      displayScope: true,
+      displayBadge: true,
+      displayDate: false,
+      displayFilename: false,
+      displayLabel: false,
+      displayTimestamp: false,
+      underlineLabel: false,
+      underlineMessage: false,
+      underlinePrefix: false,
+      underlineSuffix: false,
+      uppercaseLabel: false,
+    })
   }
 }

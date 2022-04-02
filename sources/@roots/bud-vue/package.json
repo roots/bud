@@ -49,14 +49,14 @@
     "@roots/bud-build": "workspace:sources/@roots/bud-build",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@types/eslint": "8.4.1",
-    "@types/jest": "27.4.0",
-    "@types/lodash": "4.14.178",
-    "@types/node": "16.11.25",
+    "@types/jest": "27.4.1",
+    "@types/lodash": "4.14.180",
+    "@types/node": "16.11.26",
     "@vue/compiler-sfc": "3.2.31",
-    "css-loader": "6.6.0",
+    "css-loader": "6.7.1",
     "jest": "27.5.1",
     "vue": "3.2.31",
-    "webpack": "5.68.0"
+    "webpack": "5.70.0"
   },
   "bud": {
     "type": "extension"

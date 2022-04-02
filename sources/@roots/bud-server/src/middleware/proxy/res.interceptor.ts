@@ -1,9 +1,25 @@
 import {Framework} from '@roots/bud-framework'
 import {bind} from '@roots/bud-support'
-import {IncomingMessage, ServerResponse} from 'http'
+import * as http from 'http'
 import {responseInterceptor} from 'http-proxy-middleware'
 
-import {URL} from './url'
+import {ApplicationURL} from './url'
+
+interface IncomingMessage extends http.IncomingMessage {
+  cookies: any
+}
+interface ServerResponse extends http.ServerResponse {
+  cookie: any
+}
+
+export interface ResponseInterceptorFactory {
+  interceptor(
+    buffer: Buffer,
+    proxyRes: IncomingMessage,
+    request: IncomingMessage,
+    response: ServerResponse,
+  ): Promise<Buffer | string>
+}
 
 /**
  * Proxy response interceptor
@@ -25,7 +41,10 @@ export class ResponseInterceptorFactory {
    *
    * @public
    */
-  public constructor(public _app: () => Framework, public url: URL) {}
+  public constructor(
+    public _app: () => Framework,
+    public url: ApplicationURL,
+  ) {}
 
   /**
    * Response interceptor
@@ -33,30 +52,50 @@ export class ResponseInterceptorFactory {
    * @remarks
    * This is the callback for `http-proxy-middleware`s `responseInterceptor`.
    * It is called after the response has been received from the target server.
-   * It is passed the response body, the response object, and the request object.
+   * It is passed the response body, and the req and res objects.
    * It can be used to modify the response body or the response object.
    *
-   * @param buffer - Buffered response body
+   * @param buffer - Buffered response
    * @param proxyRes - Response from the proxy
-   * @param req - Request from the client
-   * @param res - Response from the server
-   * @returns client response body
+   * @param request - Request from the client
+   * @param response - Response from the server
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public async _interceptor(
+  public async interceptor(
     buffer: Buffer,
-    _proxyRes: IncomingMessage,
-    _req: IncomingMessage,
-    res: ServerResponse,
-  ): Promise<Buffer | string> {
-    res.setHeader('x-proxy-by', '@roots/bud')
-    res.setHeader('x-bud-proxy-origin', this.url.proxy.origin)
-    res.setHeader('x-bud-dev-origin', this.url.dev.origin)
-    return buffer
-    // return res.buffer ?? buffer
+    proxyRes: IncomingMessage,
+    request: IncomingMessage,
+    response: ServerResponse,
+  ): Promise<Buffer | String> {
+    this.app.info(
+      request.url,
+      request.statusCode,
+      response.getHeader('content-type'),
+    )
+
+    if (!`${response.getHeader('content-type')}`.startsWith('text/'))
+      return buffer
+
+    await this.app.hooks.fire('event.proxy.interceptor')
+
+    response.setHeader('x-proxy-by', '@roots/bud')
+    response.setHeader('x-bud-proxy-origin', this.url.proxy.origin)
+    response.removeHeader('x-http-method-override')
+
+    Object.entries(request.cookies).map(([k, v]) =>
+      response.cookie(k, v, {domain: null}),
+    )
+
+    return this.app.hooks
+      .filter('middleware.proxy.replacements', [])
+      .reduce(
+        (buffer, [find, replace]: [string | RegExp, string]) =>
+          buffer.replaceAll(find, replace),
+        buffer.toString(),
+      )
   }
 
   /**
@@ -67,8 +106,6 @@ export class ResponseInterceptorFactory {
    */
   @bind
   public make() {
-    return responseInterceptor(
-      this.app.hooks.filter('proxy.interceptor', () => this._interceptor),
-    )
+    return responseInterceptor(this.interceptor)
   }
 }

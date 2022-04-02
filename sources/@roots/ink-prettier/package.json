@@ -47,10 +47,10 @@
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/lodash": "4.14.178",
-    "@types/node": "16.11.25",
+    "@types/lodash": "4.14.180",
+    "@types/node": "16.11.26",
     "@types/prettier": "2.4.4",
-    "@types/react": "17.0.39"
+    "@types/react": "17.0.41"
   },
   "peerDependencies": {
     "ink": "^3.0.9",

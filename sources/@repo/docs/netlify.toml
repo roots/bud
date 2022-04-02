@@ -2,3 +2,15 @@
   base = "./"
   publish = "sources/@repo/docs/build/"
   command = "yarn docusaurus build"
+
+[[redirects]]
+  from = "http://budjs.netlify.app/*"
+  to = "https://bud.js.org/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://budjs.netlify.app/*"
+  to = "https://bud.js.org/:splat"
+  status = 301
+  force = true

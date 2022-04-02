@@ -47,14 +47,12 @@
   "devDependencies": {
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@skypack/package-check": "0.2.2",
-    "@types/lodash": "4.14.178",
-    "@types/node": "16.11.25"
-  },
-  "dependencies": {
     "@roots/bud-support": "workspace:^",
-    "helpful-decorators": "^2.1.0",
-    "tslib": "^2.3.1",
-    "webpack": "5.68.0"
+    "@skypack/package-check": "0.2.2",
+    "@types/lodash": "4.14.180",
+    "@types/node": "16.11.26",
+    "helpful-decorators": "2.1.0",
+    "tslib": "2.3.1",
+    "webpack": "5.70.0"
   }
 }

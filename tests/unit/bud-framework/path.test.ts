@@ -1,4 +1,5 @@
-import {Bud, factory} from '@repo/test-kit/bud'
+import {Bud, factory, mockProject} from '@repo/test-kit/bud'
+import {join} from 'node:path'
 
 describe('bud.path', function () {
   let bud: Bud
@@ -11,21 +12,26 @@ describe('bud.path', function () {
     expect(bud.path).toBeInstanceOf(Function)
   })
 
-  it('path: returns the correct default context', () => {
-    expect(bud.path('project')).toEqual(
-      `${process.cwd()}/tests/util/project`,
+  it('returns projectDir when nothing passed', () => {
+    expect(bud.path()).toEqual(mockProject.path)
+  })
+
+  it('returns expected project relative path', () => {
+    expect(bud.path('foo')).toEqual(join(mockProject.path, 'foo'))
+  })
+  it('returns expected multipart path', () => {
+    expect(bud.path('foo', 'bar')).toEqual(
+      join(mockProject.path, 'foo', 'bar'),
+    )
+  })
+
+  it('path: returns src relative path', () => {
+    expect(bud.path('@src', 'foo')).toEqual(
+      join(mockProject.path, 'src', 'foo'),
     )
   })
 
   it('path: returns correct paths joined to context', () => {
-    expect(bud.path('project', 'foo')).toEqual(
-      `${process.cwd()}/tests/util/project/foo`,
-    )
-  })
-
-  it('path: returns correct multipart paths joined to context', () => {
-    expect(bud.path('project', 'foo', 'bar')).toEqual(
-      `${process.cwd()}/tests/util/project/foo/bar`,
-    )
+    expect(bud.path('foo')).toEqual(join(mockProject.path, 'foo'))
   })
 })

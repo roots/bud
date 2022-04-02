@@ -1,4 +1,4 @@
-// Copyright (c) Roots Foundation, LLC. All rights reserved.
+// Copyright © Roots Software Foundation LLC
 // Licensed under the MIT license.
 
 /**
@@ -36,7 +36,7 @@ declare module '@roots/bud-framework' {
   }
 
   interface Modules {
-    '@roots/bud-typescript': Extension.Module
+    '@roots/bud-typescript': BudTypeScriptExtension
   }
 
   interface Plugins {

@@ -43,6 +43,15 @@
   "exports": {
     ".": {
       "require": "./lib/cjs/index.js"
+    },
+    "./compiler": {
+      "require": "./lib/cjs/Compiler.js"
+    },
+    "./service": {
+      "require": "./lib/cjs/Service.js"
+    },
+    "./server": {
+      "require": "./lib/cjs/Server/index.js"
     }
   },
   "typesVersions": {
@@ -50,37 +59,38 @@
       ".": [
         "./types/index.d.ts"
       ],
+      "compiler": [
+        "./types/Compiler.d.ts"
+      ],
       "entry": [
         "./types/entry/index.d.ts"
+      ],
+      "service": [
+        "./types/Service.d.ts"
+      ],
+      "server": [
+        "./types/Server/index.d.ts"
+      ],
+      "store": [
+        "./types/Store.d.ts"
       ]
     }
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@types/js-yaml": "4.0.5",
-    "@types/lodash": "4.14.178",
-    "@types/node": "16.11.25",
+    "@types/lodash": "4.14.180",
+    "@types/node": "16.11.26",
     "chokidar": "3.5.3",
-    "http-proxy-middleware": "2.0.3",
+    "http-proxy-middleware": "2.0.4",
     "ink": "3.2.0",
-    "webpack": "5.68.0"
+    "webpack": "5.70.0",
+    "webpack-dev-middleware": "5.3.1",
+    "webpack-hot-middleware": "2.25.1"
   },
   "dependencies": {
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@roots/container": "workspace:sources/@roots/container",
-    "cli-highlight": "^2.1.11",
-    "js-yaml": "^4.1.0",
-    "json5": "^2.2.0",
-    "signale": "^1.4.0",
-    "ts-node": "^10.4.0",
     "tslib": "^2.3.1"
-  },
-  "peerDependencies": {
-    "typescript": "^4.5.5"
-  },
-  "peerDependenciesMeta": {
-    "typescript": {
-      "optional": true
-    }
   }
 }

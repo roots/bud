@@ -1,8 +1,8 @@
-import {Dashboard as Contract, Framework} from '@roots/bud-framework'
+import {Dashboard as Contract} from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework'
-import {bind, once} from '@roots/bud-support'
-import React from 'react'
-import {MultiCompiler} from 'webpack'
+import {bind} from '@roots/bud-support'
+
+import {stats} from './stats'
 
 /**
  * Dashboard service
@@ -11,34 +11,13 @@ import {MultiCompiler} from 'webpack'
  */
 export class Dashboard extends Service implements Contract {
   /**
-   * @public
-   * @decorator `@bind`
-   * @decorator `@once`
-   */
-  @bind
-  @once
-  public async bootstrap(): Promise<void> {
-    this.app.hooks.async('event.compiler.after', async app => {
-      app.store.is('features.dashboard', true) && (await this.run())
-      return app
-    })
-  }
-
-  /**
-   * Run the dashboard
+   * Run dashboard
    *
    * @public
    * @decorator `@bind`
-   * @decorator `@once`
    */
   @bind
-  @once
-  public async run(compiler?: MultiCompiler): Promise<Framework> {
-    const {Build} = await import('../components')
-    const {render} = await import('ink')
-
-    render(<Build tap={() => this.app.root ?? this.app} />)
-
-    return this.app
+  public async stats(compilerStats): Promise<void> {
+    stats.write(compilerStats, this.app)
   }
 }

@@ -1,62 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`@roots/bud-server has expected defaults 1`] = `
-Object {
-  "browser": Object {
-    "indicator": true,
-    "log": true,
-    "overlay": true,
-  },
-  "dev": Object {
-    "url": Object {
-      Symbol(context): URLContext {
-        "flags": 400,
-        "fragment": null,
-        "host": "localhost",
-        "password": "",
-        "path": Array [
-          "",
-        ],
-        "port": 3000,
-        "query": null,
-        "scheme": "http:",
-        "username": "",
-      },
-      Symbol(query): URLSearchParams {
-        Symbol(query): Array [],
-        Symbol(context): "http://localhost:3000/",
-      },
-    },
-  },
-  "middleware": Object {
-    "dev": true,
-    "hot": true,
-    "proxy": false,
-  },
-  "proxy": Object {
-    "url": Object {
-      Symbol(context): URLContext {
-        "flags": 400,
-        "fragment": null,
-        "host": "localhost",
-        "password": "",
-        "path": Array [
-          "",
-        ],
-        "port": null,
-        "query": null,
-        "scheme": "http:",
-        "username": "",
-      },
-      Symbol(query): URLSearchParams {
-        Symbol(query): Array [],
-        Symbol(context): "http://localhost/",
-      },
-    },
-  },
-  "watch": Object {
-    "files": Array [],
-    "options": Object {},
-  },
+exports[`@roots/bud-server has expected defaults 1`] = `undefined`;
+
+exports[`@roots/bud-server has expected defaults 2`] = `Set {}`;
+
+exports[`@roots/bud-server has expected defaults 3`] = `Object {}`;
+
+exports[`@roots/bud-server has expected defaults 4`] = `
+Set {
+  [Function],
+  [Function],
 }
 `;

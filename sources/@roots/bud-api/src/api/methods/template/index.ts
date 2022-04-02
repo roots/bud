@@ -89,7 +89,7 @@ export const template: template = async function (
 
     plugins.html.setOption(
       'template',
-      join(dirname(manifest), 'templates', 'template.html'),
+      join(dirname(manifest), 'templates/template.html'),
     )
   }
 

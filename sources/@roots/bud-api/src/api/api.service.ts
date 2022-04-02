@@ -55,12 +55,7 @@ export class Api extends Framework.Service implements Framework.Api {
   @bind
   public async registered() {
     await this.processQueue()
-
-    this.app.hooks.async('event.build.make.before', async app => {
-      await this.processQueue()
-      this.dump()
-      return app
-    })
+    this.app.hooks.action('event.build.before', this.processQueue)
   }
 
   /**
@@ -80,7 +75,8 @@ export class Api extends Framework.Service implements Framework.Api {
   public async call(name: string, ...args: any[]) {
     this.log('log', {
       message: `executing ${chalk.blue(name)}`,
-      suffix: args && !isEmpty(args) ? JSON.stringify(args) : 'none',
+      suffix:
+        args && !isEmpty(args) ? this.app.json.stringify(args) : 'none',
     })
 
     // get a reference to the callable

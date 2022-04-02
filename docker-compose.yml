@@ -30,9 +30,6 @@ services:
       - YARN_RC_FILENAME=${YARN_RC_FILENAME:-config/yarnrc.dev.yml}
     volumes:
       - ./:/srv/bud
-      - mocks:/srv/mocks
-      - modules:/srv/bud/node_modules
-      - support-libs:/srv/bud/sources/@roots/bud-support/lib
 
 networks:
   node-network:
@@ -43,8 +40,6 @@ volumes:
     driver: local
   verdaccio:
     driver: local
-
-  mocks:
-  modules:
   storage:
-  support-libs:
+    driver: local
+  mocks:

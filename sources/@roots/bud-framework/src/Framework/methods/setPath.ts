@@ -1,67 +1,46 @@
-import {Framework} from '..'
+import {lodash} from '@roots/bud-support'
+
+import {Framework, Locations} from '../..'
+
+const {isString} = lodash
 
 /**
- * setPath function interface
- *
- * @internal
- */
-export interface setPath {
-  (...args): Framework
-}
-
-/**
- * Set a {@link @roots/bud-framework#Location | Location} value
- *
- * @remarks
- * The {@link Location.project} should be an absolute path.
- * All other directories should be relative (src, dist, etc.)
- * @see {@link Locations}
+ * Set a reference to a project path
  *
  * @example
  * ```js
- * bud.setPath('src', 'custom/src')
+ * bud.setPath('@src', 'custom/src')
  * ```
- *
- * @param this - {@link Framework}
- * @param args - path parts
  *
  * @public
  */
-export function setPath(...args): Framework {
-  this as Framework
+export interface setPath {
+  <T extends `${keyof Locations & `@${string}` & string}`>(
+    arg1: T | Record<T, string>,
+    arg2?: string,
+  ): Framework
+}
 
-  if (typeof args[0] == 'string') {
-    this.hooks.on(`location.${args[0]}`, args[1])
-    this.info(`${args[0]} set to ${args[1]}`)
+export const setPath: setPath = function (arg1, arg2) {
+  const app = this as Framework
 
-    return this
-  }
+  const input = isString(arg1) ? {[arg1]: arg2} : arg1
 
-  if (Object.entries(args[0]).length === 0) {
-    this.error({
-      message: `${args[0].toString()} cannot be empty. It should be an object with keys set to registered locations`,
-    })
-  }
+  Object.entries(input).map(([key, value]) => {
+    !key.startsWith(`@`) &&
+      app.error(
+        `bud paths are required to be prefixed with \`@\`. Please convert \`${key}\` to \`@${key}\``,
+      )
 
-  Object.entries(args[0]).map(([k, v]: [string, string]) => {
-    this.when(k == 'project' && !v.startsWith('/'), () => {
-      this.error({
-        message: 'The project path must be absolute',
-      })
-    })
+    const absolutePath = app.path(value)
+    !absolutePath.startsWith('/') &&
+      app.error(
+        `internal error: the final result of a bud.setPath transform was not absolute: ${key} => ${value} => ${absolutePath}`,
+      )
 
-    this.when(!['project'].includes(k) && v.startsWith('/'), () => {
-      this.warn({
-        message: `${k} was defined as ${v}.`,
-        suffix: `This path should be relative to the project root. You should fix this.`,
-      })
-
-      v = v.replace(this.hooks.filter('location.project'), '')
-    })
-
-    this.hooks.on(`location.${k}`, v)
-    this.info({message: `${k} set`, suffix: v})
+    app.hooks.on(`location.${key}`, app.path(value))
+    app.info(`${key} set to ${value}`)
   })
 
-  return this
+  return app
 }

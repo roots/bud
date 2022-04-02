@@ -1,6 +1,10 @@
+import {lodash} from '@roots/bud-support'
+
 import {cssMinimizerOptions} from './minimize.constants'
 import {CssMinimizer} from './minimize.dependencies'
 import {Framework} from './minimize.interface'
+
+const {isUndefined} = lodash
 
 /**
  * Minimize function interface
@@ -40,17 +44,18 @@ export interface minimize {
  *
  * @public
  */
-export const minimize: minimize = function (
-  enabled = true,
-  options?: {css: any},
-) {
-  this as Framework
+export const minimize: minimize = function (input?, options?: {css: any}) {
+  const ctx = this as Framework
 
-  enabled = enabled !== false
+  if (input === false) {
+    ctx.hooks.on('build.optimization.minimize', false)
+  }
 
-  this.hooks.on('build.optimization.minimize', () => enabled)
+  if (isUndefined(input) || input === true) {
+    ctx.hooks.on('build.optimization.minimize', true)
+  }
 
-  this.hooks.on('build.optimization.minimizer', (minimizer: any[]) => {
+  ctx.hooks.on('build.optimization.minimizer', (minimizer: any[]) => {
     minimizer.push(
       ...(minimizer.includes('...') ? [] : ['...']),
       new CssMinimizer({
@@ -62,5 +67,5 @@ export const minimize: minimize = function (
     return minimizer
   })
 
-  return this
+  return ctx
 }

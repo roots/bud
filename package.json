@@ -17,8 +17,8 @@
     }
   },
   "volta": {
-    "node": "16.14.0",
-    "yarn": "1.22.17"
+    "node": "16.14.2",
+    "yarn": "1.22.18"
   },
   "workspaces": {
     "packages": [
@@ -27,37 +27,31 @@
       "sources/@repo/*"
     ]
   },
-  "scripts": {
-    "g:profile": "yarn run profile:cjs && yarn run profile:esm",
-    "g:profile:cjs": "mkdir -p ./profiles/cjs && tsc --extendedDiagnostics --generateCpuProfile ./profiles/cjs/profile.cpuprofile --generateTrace ./profiles/cjs -p ./tsconfig.json | tee ./profiles/cjs/build.log",
-    "g:profile:esm": "mkdir -p ./profiles/esm && tsc --extendedDiagnostics --generateCpuProfile ./profiles/esm/profile.cpuprofile --generateTrace ./profiles/esm -p ./tsconfig-esm.json | tee ./profiles/esm/build.log"
-  },
   "devDependencies": {
     "@commitlint/cli": "16.2.1",
     "@repo/constants": "workspace:*",
     "@repo/logger": "workspace:*",
     "@repo/test-kit": "workspace:sources/@repo/test-kit",
     "@roots/bud-build": "workspace:sources/@roots/bud-build",
-    "@types/jest": "27.4.0",
-    "@types/node": "16.11.25",
-    "@typescript-eslint/eslint-plugin": "5.11.0",
-    "@typescript-eslint/parser": "5.11.0",
+    "@types/jest": "27.4.1",
+    "@types/node": "16.11.26",
+    "@typescript-eslint/eslint-plugin": "5.15.0",
+    "@typescript-eslint/parser": "5.15.0",
     "codecov": "3.8.3",
     "commitizen": "4.2.4",
     "commitlint-config-gitmoji": "2.2.5",
     "cz-customizable": "6.3.0",
-    "eslint": "8.9.0",
+    "eslint": "8.11.0",
     "eslint-plugin-import": "2.25.4",
-    "eslint-plugin-react": "7.28.0",
+    "eslint-plugin-react": "7.29.4",
     "eslint-plugin-react-hooks": "4.3.0",
     "eslint-plugin-simple-import-sort": "7.0.0",
     "eslint-plugin-tsdoc": "0.2.14",
-    "ink": "3.2.0",
     "jest": "27.5.1",
-    "prettier": "2.5.1",
+    "prettier": "2.6.0",
     "ts-jest": "27.1.3",
-    "ts-node": "10.5.0",
-    "typescript": "4.5.5"
+    "ts-node": "10.7.0",
+    "typescript": "4.6.2"
   },
   "dependencies": {
     "tslib": "2.3.1"

@@ -43,20 +43,9 @@
   "devDependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "@roots/ink-use-style": "workspace:sources/@roots/ink-use-style",
     "@skypack/package-check": "0.2.2",
-    "@types/lodash": "4.14.178",
-    "@types/node": "16.11.25",
-    "@types/react": "17.0.39",
-    "axios": "0.26.0",
-    "ink": "3.2.0",
-    "ink-gradient": "2.0.0",
-    "ink-spinner": "4.0.3",
-    "react": "17.0.2",
-    "react-use": "17.3.2",
-    "webpack": "5.68.0"
-  },
-  "dependencies": {
-    "tslib": "^2.3.1"
+    "@types/node": "16.11.26",
+    "tslib": "2.3.1",
+    "webpack": "5.70.0"
   }
 }
