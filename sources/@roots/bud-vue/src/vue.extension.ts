@@ -1,40 +1,41 @@
 import {Extension} from '@roots/bud-framework'
-import {VueLoaderPlugin} from 'vue-loader'
 
-/**
- * @public
- */
-export const VueExtension: Extension.Module = {
-  name: '@roots/bud-vue',
+import { makeAlias } from './makeAlias'
+import * as loader from './vue.loader'
+import * as styleLoader from './vue.styleLoader'
 
-  boot: async app => {
-    await app.extensions.add({
-      name: 'vue-loader-plugin',
-      make: () => new VueLoaderPlugin(),
-    })
+/** @public */
+export type extension = Extension.Module<{ runtimeOnly: boolean }>
 
+/** @public */
+export const name: extension['name'] = '@roots/bud-vue'
+
+/** @public */
+export const options: extension['options'] = {runtimeOnly: true}
+
+/** @public */
+export const boot: extension['boot'] = async (app, logger) => {
+  logger.log('booting vue extension')
+
+  const extensionPath = await app.module.path('@roots/bud-vue')
+  logger.info('vue extension booting from', extensionPath)
+
+  await loader.set(extensionPath, app, logger)
+  await styleLoader.set(extensionPath, app, logger)
+  
+  app.hooks.on('build.module.rules.before', ruleset => [
     app.build
-      .setLoader('vue', require.resolve('vue-loader'))
-      .setItem('vue', item => item.setLoader('vue'))
-      .setLoader('vue-style', require.resolve('vue-style-loader'))
-      .setItem('vue-style', item => item.setLoader('vue-style'))
+      .makeRule()
+      .setTest(app.store.get('patterns.vue'))
+      .setUse(items => [`vue`, ...items])
+      .toWebpack(),
+    ...(ruleset ?? []),
+  ])
 
-    app.build.rules.css.setUse(items => [`vue-style`, ...items])
+  .hooks.on('build.resolve.extensions', ext => ext.add('.vue'))
 
-    app.hooks.on('build.module.rules.before', rules => [
-      app.build
-        .makeRule()
-        .setTest(app.store.get('patterns.vue'))
-        .setUse(items => [`vue`, ...items])
-        .toWebpack(),
-      ...rules,
-    ])
-
-    app.hooks.on('build.resolve.extensions', ext => ext.add('.vue'))
-
-    app.hooks.async('build.resolve.alias', async aliases => ({
-      ...(aliases ?? {}),
-      vue: '@vue/runtime-dom',
-    }))
-  },
+  .hooks.async('build.resolve.alias', async all => {
+    const vue = await makeAlias(extensionPath, app, logger)
+    return Object.assign(all, {vue})
+  })
 }

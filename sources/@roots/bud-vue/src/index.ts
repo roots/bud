@@ -10,32 +10,6 @@
  * @packageDocumentation
  */
 
-import '@roots/bud-api'
+import './interface'
 
-import {Item, Loader, Rule} from '@roots/bud-build'
-import {Extension} from '@roots/bud-framework'
-
-import {VueExtension} from './vue.extension'
-
-declare module '@roots/bud-framework' {
-  interface Modules {
-    '@roots/bud-vue': Extension.Module
-    'vue-loader-plugin': Extension.Module
-  }
-
-  interface Loaders {
-    vue: Loader
-    'vue-style': Loader
-  }
-
-  interface Items {
-    vue: Item
-    'vue-style': Item
-  }
-
-  interface Rules {
-    vue: Rule
-  }
-}
-
-export const {name, boot} = VueExtension
+export * from './vue.extension'
