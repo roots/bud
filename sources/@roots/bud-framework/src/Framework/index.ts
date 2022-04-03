@@ -25,8 +25,9 @@ import {
 } from '../'
 import {Project} from '../Project'
 import * as frameworkProcess from './framework.process'
-import {lifecycle} from './lifecycle'
+import { lifecycle } from './lifecycle'
 import * as methods from './methods'
+import {Module} from './module'
 
 const {isFunction, omit} = lodash
 
@@ -268,11 +269,9 @@ export abstract class Framework {
   }
 
   /**
-   * True if ts-node has been invoked
-   *
-   * @public
+   * Module
    */
-  public usingTsNode: boolean = false
+  public module: Module
 
   /**
    * Initially received options
@@ -292,7 +291,7 @@ export abstract class Framework {
     this.options = options
 
     this.context = options.context
-
+  
     this._mode = this.options.mode
     this._name = this.options.name
 
@@ -306,6 +305,8 @@ export abstract class Framework {
     } else {
       this.root = options.childOf
     }
+
+    this.module = new Module(this)
 
     this.lifecycle = lifecycle.bind(this)
     this.services = options.services
