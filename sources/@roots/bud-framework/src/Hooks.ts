@@ -1,9 +1,7 @@
-import {Container} from '@roots/container'
 import {WatchOptions} from 'chokidar'
-import {ValueOf} from 'type-fest'
 import {Configuration} from 'webpack'
 
-import {Framework, Locations, Modules, Plugins, Service} from './'
+import {Framework, Locations, Modules, Service} from './'
 import {ConfigMap} from './config.map'
 import {EntryObject} from './entry'
 import * as Server from './Server'
@@ -195,6 +193,10 @@ export namespace Hooks {
     [K in keyof Locations as `location.${K & string}`]: Locations[K]
   }
 
+  export type ModuleOptions = {
+    [K in keyof Modules as `extension.${K & string}.options`]: Modules[K]['options']
+  }
+
   /**
    * Syncronous hooks map
    *
@@ -202,11 +204,12 @@ export namespace Hooks {
    */
   export interface Map
     extends Server.Middleware.Middleware<`options`>,
-      Server.Middleware.Middleware<`factory`>,
-      Server.OptionsMap,
-      LocationKeyMap,
-      ConfigMap {
-    [`extension`]: ValueOf<Plugins> | ValueOf<Modules>
+    Server.Middleware.Middleware<`factory`>,
+    Server.OptionsMap,
+    LocationKeyMap,
+    ConfigMap,
+    ModuleOptions {
+    
     /**
      * Dev server connection options
      * @public
@@ -252,18 +255,6 @@ export namespace Hooks {
     [`middleware.enabled`]: Array<keyof Server.Middleware.Available>
     [`middleware.proxy.target`]: URL
     [`middleware.proxy.replacements`]: Array<[RegExp | string, string]>
-
-    // here down is wack
     [key: Server.Middleware.OptionsKey]: any
-    [
-      key: `extension.${
-        | (keyof Modules & string)
-        | (keyof Plugins & string)}`
-    ]: any
-    [
-      key: `extension.${
-        | (keyof Modules & string)
-        | (keyof Plugins & string)}.options`
-    ]: Container<Record<string, any>>
   }
 }

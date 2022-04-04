@@ -1,6 +1,6 @@
 import {resolve, sep as slash} from 'node:path'
 
-import {Framework} from '../..'
+import {Framework, Locations} from '../..'
 
 /**
  * Transform `@alias` path
@@ -12,7 +12,12 @@ import {Framework} from '../..'
  * @public
  */
 export interface parseAlias {
-  (app: Framework, base: `@${string}` & string): string
+  (
+    app: Framework,
+    base:
+      | `${keyof Locations & string}`
+      | `${keyof Locations & string}/${string}`,
+  ): string
 }
 
 export const parseAlias: parseAlias = (app, base) => {
@@ -42,7 +47,10 @@ export const parseAlias: parseAlias = (app, base) => {
  * @public
  */
 export interface path {
-  (base?: string, ...segments: Array<string>): string
+  (
+    base?: `${keyof Locations & string}` | `@file` | `@name` | `${keyof Locations & string}/${string}` | `./${string}` | `/${string}`,
+    ...segments: Array<string>
+  ): string
 }
 
 export const path: path = function (base, ...segments) {
@@ -51,7 +59,7 @@ export const path: path = function (base, ...segments) {
   /* Exit early with projectDir if no path was passed */
   if (!base) return app.context.projectDir
 
-  const fileHandles = (pathString: string) =>
+  const fileHandles = (pathString: string): string =>
     pathString
       .replace(
         '@file',

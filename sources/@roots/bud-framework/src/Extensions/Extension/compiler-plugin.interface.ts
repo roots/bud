@@ -1,7 +1,7 @@
 import {Signale} from '@roots/bud-support'
 import {Container} from '@roots/container'
 
-import {Framework, Maybe} from '../..'
+import {Framework} from '../..'
 import {Module} from './module.interface'
 
 /**
@@ -25,7 +25,7 @@ export interface CompilerPlugin<
    *
    * @public
    */
-  make?: Maybe<[Container<Options>, Framework, Signale], Plugin>
+  make?: | Plugin | ((options: Container<Options>, app: Framework, logger: Signale) => Plugin)
 
   /**
    * Compiler plugin `apply` method
