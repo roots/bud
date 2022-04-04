@@ -212,12 +212,6 @@ export namespace Store {
      * @public
      */
     hashFormat: string
-
-    /**
-     * Initial webpack configuration values
-     *
-     * @public
-     */
   }
 
   export interface Map

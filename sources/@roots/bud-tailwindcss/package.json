@@ -15,6 +15,10 @@
     {
       "name": "QWp6t",
       "url": "https://github.com/QWp6t"
+    },
+    {
+      "name": "joshuafredrickson",
+      "url": "https://github.com/joshuafredrickson"
     }
   ],
   "license": "MIT",
@@ -42,7 +46,8 @@
   "types": "./types/index.d.ts",
   "exports": {
     ".": "./lib/cjs/index.js",
-    "./stylelint-config": "./stylelint-config/index.js"
+    "./stylelint-config": "./stylelint-config/default.js",
+    "./stylelint-config/scss": "./stylelint-config/scss.js"
   },
   "bud": {
     "type": "extension",

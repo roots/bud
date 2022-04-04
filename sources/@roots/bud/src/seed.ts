@@ -93,7 +93,7 @@ export const seed: Partial<Store.Repository> = {
    * @public
    */
   patterns: {
-    js: /\.([c|m]?jsx?)$/,
+    js: /\.(cjs|mjs|jsx?)$/,
     ts: /\.(tsx?)$/,
     sass: /\.(scss|sass)$/,
     sassModule: /\.module\.(scss|sass)$/,
@@ -180,7 +180,7 @@ export const seed: Partial<Store.Repository> = {
   [`build.module.unsafeCache`]: app => false,
   [`build.node`]: app => false,
   [`build.output.pathinfo`]: app => false,
-  [`build.output.publicPath`]: app => `auto`,
+  [`build.output.publicPath`]: app => ``,
   [`build.optimization.emitOnErrors`]: app => false,
   [`build.optimization.minimize`]: app => false,
   [`build.optimization.minimizer`]: app => [`...`],
@@ -207,9 +207,10 @@ export const seed: Partial<Store.Repository> = {
   [`build.module.rules.before`]: app => [
     {
       test: app.store.get('patterns.js'),
+      include: [app.path('@src')],
       parser: {requireEnsure: false},
     },
   ],
   [`build.module.rules.after`]: app => [],
-  [`build.stats`]: app => ({preset: `normal`}),
+  [`build.stats`]: app => `normal`,
 }

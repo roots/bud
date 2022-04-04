@@ -1,76 +1,53 @@
 import {Server} from '@roots/bud-framework'
-import {fs} from '@roots/bud-support'
+import {bind} from '@roots/bud-support'
+import {RequestListener} from 'http'
 import {createServer, Server as HttpsServer} from 'https'
 
 import {BaseServer} from './server.base'
 
-const {readFile} = fs
-
 /**
- * HTTP Server
- *
+ * HTTPS Server
  * @public
  */
-export class Https
-  extends BaseServer<HttpsServer>
-  implements Server.Connection.Https
-{
+export class Https extends BaseServer implements Server.Connection {
   /**
    * Server instance
-   *
    * @public
    */
   public instance: HttpsServer
 
   /**
-   * Has SSL key
-   *
+   * Https protocol
    * @public
    */
-  public hasKey(): boolean {
-    return this.app.hooks.filter('dev.ssl.key') ? true : false
-  }
+  public protocol: 'https:' = 'https:'
 
   /**
-   * Get SSL key
-   *
-   * @returns
-   */
-  public async getKey(): Promise<string> {
-    !this.hasKey() && this.app.error('Server key is not defined')
-    return await readFile(this.app.hooks.filter('dev.ssl.key'), 'utf8')
-  }
-
-  /**
-   * Has SSL certificate
-   *
+   * Has options
+   * @returns boolean
    * @public
+   * @decorator `@bind`
    */
-  public hasCert(): boolean {
-    return this.app.hooks.filter('dev.ssl.cert') ? true : false
-  }
-
-  /**
-   * Get SSL certificate
-   *
-   * @public
-   */
-  public async getCert(): Promise<string> {
-    !this.hasCert() && this.app.error('Server cert is not defined')
-    return await readFile(this.app.hooks.filter('dev.ssl.cert'), 'utf8')
+  @bind
+  public hasOptions(): boolean {
+    return this.options && Object.keys(this.options).length > 0
   }
 
   /**
    * Create HTTPS server
-   *
    * @public
+   * @decorator `@bind`
    */
-  public createServer = async function (app: any): Promise<HttpsServer> {
-    const key = await this.getKey()
-    const cert = await this.getCert()
+  @bind
+  public async createServer(
+    express: RequestListener & Express.Application,
+  ): Promise<HttpsServer> {
+    if (!this.hasOptions()) {
+      this.instance = createServer(express)
+      return this.instance
+    }
 
-    this.instance = createServer({key, cert}, app)
-
+    this.instance = createServer(this.options, express)
     return this.instance
   }
 }

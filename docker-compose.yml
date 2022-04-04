@@ -40,6 +40,6 @@ volumes:
     driver: local
   verdaccio:
     driver: local
-
-  mocks:
   storage:
+    driver: local
+  mocks:

@@ -165,6 +165,7 @@ export namespace Hooks {
       `event.server.before`,
       `event.server.listen`,
       `event.server.after`,
+      `event.proxy.interceptor`,
     ]
   }
 
@@ -202,19 +203,55 @@ export namespace Hooks {
   export interface Map
     extends Server.Middleware.Middleware<`options`>,
       Server.Middleware.Middleware<`factory`>,
+      Server.OptionsMap,
       LocationKeyMap,
       ConfigMap {
     [`extension`]: ValueOf<Plugins> | ValueOf<Modules>
-    [`dev.ssl.enabled`]: boolean
-    [`dev.ssl.cert`]: string
-    [`dev.ssl.key`]: string
-    [`dev.ssl.port`]: number
-    [`dev.url`]: URL
+    /**
+     * Dev server connection options
+     * @public
+     */
+    [`dev.options`]: Server.Options
+
+    /**
+     * IPV4 or IPV6 binding
+     * @public
+     */
+    [`dev.interface`]: string
+
+    /**
+     * Hostname
+     * @public
+     */
+    [`dev.hostname`]: string
+
+    /**
+     * Ports to exclude from selection
+     */
+    [`dev.exclude`]: Array<number>
+    /**
+     * Ports to prefer
+     */
+    [`dev.port`]: Array<number>
+    /**
+     * Should use SSL server
+     */
+    [`dev.ssl`]: boolean
+    /**
+     * Files which trigger a full browser reload
+     */
     [`dev.watch.files`]: Set<string>
+    /**
+     * FS.Watcher options
+     */
     [`dev.watch.options`]: WatchOptions
+    /**
+     * Scripts included in dev builds
+     */
     [`dev.client.scripts`]: Set<(app: Framework) => string>
     [`middleware.enabled`]: Array<keyof Server.Middleware.Available>
     [`middleware.proxy.target`]: URL
+    [`middleware.proxy.replacements`]: Array<[RegExp | string, string]>
 
     // here down is wack
     [key: Server.Middleware.OptionsKey]: any

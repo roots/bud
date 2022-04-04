@@ -1,22 +1,17 @@
-import type {Framework} from '@roots/bud-framework'
+import * as Framework from '@roots/bud-framework'
+import TerserPlugin from 'terser-webpack-plugin'
 
-import * as api from './terser.api'
-import {TerserPlugin} from './terser.dependencies'
+import {terser} from './terser.api'
 
-export const name = '@roots/bud-terser'
+export const name: Framework.Terser.Extension['name'] = '@roots/bud-terser'
 
-export const options = (app: Framework) => ({
-  parallel: app.hooks.filter('build.parallelism'),
+export const options: Framework.Terser.Extension['options'] = app => ({
   include: app.store.get('patterns.js'),
   extractComments: false,
   terserOptions: {
-    parse: {
-      ecma: 2018,
-    },
+    parse: {ecma: 2018},
     compress: false,
-    mangle: {
-      safari10: true,
-    },
+    mangle: {safari10: true},
     output: {
       ecma: 5,
       comments: false,
@@ -25,15 +20,16 @@ export const options = (app: Framework) => ({
   },
 })
 
-export const boot = ({extensions, hooks, store}) => {
+export const boot: Framework.Terser.Extension['boot'] = ({
+  extensions,
+  hooks,
+}) => {
   hooks.on('build.optimization.minimizer', minimizer => {
     minimizer.push(
-      new TerserPlugin(
-        extensions.get('terser-webpack-plugin').options.all(),
-      ),
+      new TerserPlugin(extensions.get('@roots/bud-terser').options.all()),
     )
     return minimizer
   })
 }
 
-export {api}
+export const api: Framework.Terser.Extension['api'] = {terser}

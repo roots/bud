@@ -34,7 +34,7 @@ export function unwrap<
       : value
 
     if (!isUndefined(initValue)) {
-      return initValue
+      return initValue as Hooks.Map[F]
     }
 
     if (!isUndefined(fallback)) {

@@ -1,27 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`bud.watch merges watch files 1`] = `
+exports[`bud.watch sets watch files 1`] = `
 Array [
-  "**/*.js",
-  "foo/*.js",
+  "1/*.js",
 ]
 `;
 
-exports[`bud.watch merges watch options 1`] = `
-Object {
-  "cwd": "/srv/www",
-  "depth": 1,
-}
-`;
-
-exports[`bud.watch set watch options 1`] = `
-Object {
-  "depth": 1,
-}
-`;
-
-exports[`bud.watch sets watch files 1`] = `
+exports[`bud.watch sets watch files 2`] = `
 Array [
-  "**/*.js",
+  "1/*.js",
+  "2/*.js",
 ]
 `;

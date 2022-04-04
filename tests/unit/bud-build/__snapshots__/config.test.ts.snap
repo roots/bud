@@ -135,6 +135,9 @@ Object {
 
 exports[`bud.build.config has expected default requireEnsure rule 1`] = `
 Object {
+  "include": Array [
+    "/srv/bud/tests/util/project/src",
+  ],
   "parser": Object {
     "requireEnsure": false,
   },

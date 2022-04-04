@@ -1,4 +1,4 @@
-export {method as alias} from './alias'
+export {alias} from './alias'
 export {method as assets, method as copy} from './assets'
 export {
   config,

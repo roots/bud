@@ -1,9 +1,35 @@
-import {join, resolve, sep as slash} from 'node:path'
+import {resolve, sep as slash} from 'node:path'
 
 import {Framework} from '../..'
 
-export interface path {
-  (base?: string, ...segments: Array<string>): string
+/**
+ * Transform `@alias` path
+ *
+ * @param app - Framework instance
+ * @param base - Path segment
+ * @returns string
+ *
+ * @public
+ */
+export interface parseAlias {
+  (app: Framework, base: `@${string}` & string): string
+}
+
+export const parseAlias: parseAlias = (app, base) => {
+  /* Normalize base path to an array of path segments */
+  let [ident, ...parts] = base.includes(slash) ? base.split(slash) : [base]
+
+  /* If there is no match for ident there is a problem */
+  !app.hooks.has(`location.${ident}`) &&
+    app.error(
+      `\`${ident}\` is not a registered path. It must be defined with bud.setPath`,
+    )
+
+  /* Replace base path */
+  ident = app.hooks.filter(`location.${ident}`)
+
+  /* If segments were passed, resolve */
+  return parts.length ? resolve(ident, ...parts) : ident
 }
 
 /**
@@ -15,56 +41,41 @@ export interface path {
  *
  * @public
  */
-const transformShorthandBase = (app: Framework, base: string): string => {
-  /**
-   * If path contains multiple segments, explode into an array
-   * If path contains one segment, insert it into a blank array
-   */
-  const [ident, ...parts] = base.includes(slash)
-    ? base.split(slash)
-    : [base]
-
-  !app.hooks.has(`location.${ident}`) &&
-    app.error(
-      `\`${ident}\` is not a registered path. It must be defined with bud.setPath`,
-    )
-
-  /**
-   * Replace
-   */
-  const value = app.hooks.filter(`location.${ident}`)
-
-  return join(value, ...(parts ?? []).filter(Boolean))
+export interface path {
+  (base?: string, ...segments: Array<string>): string
 }
 
-export const path: path = function (
-  base?: string,
-  ...segments: Array<string>
-): string {
+export const path: path = function (base, ...segments) {
   const app = this as Framework
-  /**
-   * If no base path was provided return the project directory
-   */
+
+  /* Exit early with projectDir if no path was passed */
   if (!base) return app.context.projectDir
 
-  /**
-   * If base path starts with `/` return the joined path and segments (if any)
-   */
-  if (base.startsWith('/'))
-    return segments.length ? join(base, ...segments) : base
+  const fileHandles = (pathString: string) =>
+    pathString
+      .replace(
+        '@file',
+        app.store.is('features.hash', true)
+          ? '[path][name].[contenthash:6][ext]'
+          : '[path][name][ext]',
+      )
+      .replace(
+        '@name',
+        app.store.is('features.hash', true)
+          ? '[name].[contenthash:6][ext]'
+          : '[name][ext]',
+      )
 
-  /**
-   * Replace any `@alias` aliases with their corresponding entry
-   */
-  const normalized = base.startsWith(`@`)
-    ? transformShorthandBase(app, base)
-    : base
+  if (base === '@file' || base === '@name') return fileHandles(base)
+  base = fileHandles(base)
+  segments = segments.map(fileHandles)
 
-  const absolutePath = base.startsWith(`/`)
-    ? normalized
-    : resolve(app.context.projectDir, normalized)
+  /* Parse `@` aliases. Should return an absolute path */
+  if (base.startsWith(`@`)) base = parseAlias(app, base as `@${string}`)
 
-  return segments.length
-    ? resolve(absolutePath, ...(segments ?? []).filter(Boolean))
-    : absolutePath
+  /* Resolve any base path that isn't already absolute */
+  if (!base.startsWith(`/`)) base = resolve(app.context.projectDir, base)
+
+  /* If segments were passed, resolve them against base */
+  return segments.length ? resolve(base, ...segments) : base
 }

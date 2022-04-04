@@ -1,117 +1,206 @@
 import type {Framework} from '@roots/bud-framework'
-import {chokidar} from '@roots/bud-support'
+import {fs, lodash} from '@roots/bud-support'
+import Https from 'https'
+import Http from 'https'
+
+const {isUndefined} = lodash
 
 /**
- * Input object
+ * Specification object
  *
  * @public
  */
-export interface UserRecordInput {
+export interface Specification {
   /**
-   * URL object or url string
-   *
-   * @defaultValue URL('http://localhost:3000')
+   * A preferred port or anArray of preferred ports to use.
+   * @public
    */
-  url?: URL | string
+  port?: number | Array<number>
+
   /**
-   * Path to ssl certificate
+   * Use ssl connection
+   * @public
+   */
+  ssl?: boolean
+
+  /**
+   * Ports that should not be returned.
+   * @public
+   */
+  exclude?: number | Array<number>
+
+  /**
+   * Hostname
+   * @public
+   */
+  host?: string
+
+  /**
+   * OS network interface
    *
-   * @defaultValue undefined
+   * @remarks
+   * The host on which port resolution should be performed. Can be either an IPv4 or IPv6 address.
+   * By default, it checks availability on all local addresses defined in [OS network interfaces](https://nodejs.org/api/os.html#os_os_networkinterfaces).
+   * If this option is set, it will only check the given host.
+   *
+   * @public
+   */
+  interface?: string
+
+  /**
+   * SSL certificate (path)
+   * @public
    */
   cert?: string
+
   /**
-   * Path to ssl key
-   *
-   * @defaultValue undefined
+   * SSL key (path)
+   * @public
    */
   key?: string
-  /**
-   * Client options
-   */
-  client?: {
-    /**
-     * Scripts to be injected before application scripts
-     */
-    scripts: Set<(app: Framework) => string>
-  }
 
   /**
-   * FSWatcher
+   * http & https server options
+   * @public
    */
-  watch?: {
-    /**
-     * Watched files
-     */
-    files: Array<string>
-    /**
-     * Watcher options
-     */
-    options?: chokidar.WatchOptions
-  }
+  options?: Https.ServerOptions | Http.ServerOptions
 }
 
-export type UserInput = URL | string | number | UserRecordInput
+/**
+ * Permissable options
+ * @public
+ */
+export type Options = Specification | number | Array<number> | URL | string
 
-export interface method {
-  (input?: UserInput): Framework
+/**
+ * bud.serve
+ * @public
+ */
+export interface Serve<ReturnType = Promise<Framework>> {
+  (options: Specification): ReturnType
+}
+export interface Serve<ReturnType = Promise<Framework>> {
+  (options: URL): ReturnType
+}
+export interface Serve<ReturnType = Promise<Framework>> {
+  (options: string): ReturnType
+}
+export interface Serve<ReturnType = Promise<Framework>> {
+  (options: number): ReturnType
+}
+export interface Serve<ReturnType = Promise<Framework>> {
+  (options: Array<number>): ReturnType
 }
 
-export type facade = method
+/**
+ * bud.serve sync facade
+ * @public
+ */
+export type facade = Serve<Framework>
 
-export const method: method = function (input) {
-  const ctx = this as Framework
+/**
+ * bud.serve
+ * @public
+ */
+export const method: Serve = async function (
+  options: Options,
+): Promise<Framework> {
+  const app = this as Framework
 
-  if (!ctx.isDevelopment) return ctx
+  if (!app.isDevelopment) return app
 
-  if (typeof input === 'number') {
-    return ctx.hooks.on('dev.url', url => {
-      url.port = `${input}`
-      return url
-    })
+  if (Array.isArray(options) || typeof options === 'number') {
+    assignNumberArr(app, 'dev.port', options)
+    return app
   }
 
-  if (typeof input === 'string') {
-    return ctx.hooks.on('dev.url', new URL(input))
+  if (options instanceof URL || typeof options === 'string') {
+    assignURL(app, options)
+    return app
   }
 
-  if (input instanceof URL) {
-    return ctx.hooks.on('dev.url', input)
+  await assignSpec(app, options)
+  return app
+}
+
+/**
+ * Process specification object
+ * @public
+ */
+const assignSpec = async (app: Framework, spec: Specification) => {
+  const isSSL =
+    [
+      spec.ssl === true,
+      spec.cert,
+      spec.key,
+      spec.options?.cert,
+      spec.options?.key,
+      spec.host?.startsWith('https'),
+    ].filter(Boolean).length > 0
+
+  if (isSSL) {
+    if (!spec.options) spec.options = {}
+
+    if (!spec.options.cert && spec.cert)
+      spec.options.cert = await fs.readFile(spec.cert)
+
+    if (!spec.options.key && spec.key)
+      spec.options.key = await fs.readFile(spec.key)
+
+    app.hooks.on('dev.ssl', true)
   }
 
-  input.url &&
-    ctx.hooks.on(
-      'dev.url',
-      input.url instanceof URL ? input.url : new URL(input.url),
-    )
+  if (!isUndefined(spec.ssl)) app.hooks.on('dev.ssl', spec.ssl)
 
-  input.key && ctx.hooks.on('dev.ssl.key', input.key)
-  input.cert && ctx.hooks.on('dev.ssl.cert', input.cert)
+  spec.options && app.hooks.on('dev.options', spec.options)
+  spec.interface && app.hooks.on('dev.interface', spec.interface)
 
-  ctx.hooks.filter('dev.ssl.key') &&
-    ctx.hooks.filter('dev.ssl.cert') &&
-    ctx.hooks.on('dev.url', url => {
-      url.protocol = `https:`
-      url.port = url.port ?? `443`
-      return url
-    })
+  spec.port && assignNumberArr(app, 'dev.port', spec.port)
+  spec.exclude && assignNumberArr(app, 'dev.exclude', spec.exclude)
+  spec.host && assignHostname(app, spec.host)
+}
 
-  input.watch?.files &&
-    ctx.hooks.on('dev.watch.files', files => {
-      input.watch.files.forEach(file => files.add(file))
-      return files
-    })
+/**
+ * Process Node URL
+ * @public
+ */
+const assignURL = (app: Framework, url: URL | string) => {
+  url = url instanceof URL ? url : new URL(url)
 
-  input.watch?.options &&
-    ctx.hooks.on('dev.watch.options', options => ({
-      ...options,
-      ...input.watch.options,
-    }))
+  app.hooks.on('dev.hostname', url.hostname)
+  url.port && app.hooks.on('dev.port', [Number(url.port)])
+  app.hooks.on('dev.ssl', url.protocol === 'https:')
+}
 
-  input.client?.scripts &&
-    ctx.hooks.on('dev.client.scripts', scripts => {
-      input.client.scripts.forEach(script => scripts.add(script))
-      return scripts
-    })
+/**
+ * Assign nummber or array of numbers to either dev.exclude or dev.port
+ *
+ * @remarks
+ * normalized to array
+ *
+ * @public
+ */
+const assignNumberArr = (
+  app: Framework,
+  key: 'dev.exclude' | 'dev.port',
+  maybeNumber: Array<number> | number,
+) => {
+  app.hooks.on(
+    key,
+    Array.isArray(maybeNumber) ? maybeNumber : [maybeNumber],
+  )
+}
 
-  return ctx
+/**
+ * Assign hostname from string
+ *
+ * @param app - Framework
+ * @param hostname - string hostname
+ * @public
+ */
+const assignHostname = (app: Framework, hostname: string) => {
+  app.hooks.on(
+    'dev.hostname',
+    hostname.replace('http:', '').replace('https:', '').replace('/', ''),
+  )
 }

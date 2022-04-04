@@ -30,6 +30,7 @@ export const inject: inject = async (instance: Framework, injection) => {
         `${instance.name} entrypoints are malformed`,
         `skipping inject`,
       )
+
       return entrypoints
     }
 

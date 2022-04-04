@@ -9,7 +9,7 @@ export const assets: method = async function assets(
   ...request: Array<
     | string
     | CopyPlugin.ObjectPattern
-    | Array<string | CopyPlugin.ObjectPattern>
+    | Array<string | [string, string] | CopyPlugin.ObjectPattern>
   >
 ): Promise<Framework> {
   /**
@@ -18,11 +18,6 @@ export const assets: method = async function assets(
    * this function will be bound.
    */
   const ctx = this as Framework
-
-  /**
-   * Flatten request
-   */
-  request = request.flat()
 
   /**
    * We know it's not a directory
@@ -51,9 +46,7 @@ export const assets: method = async function assets(
    * Replace a leading dot with the project path
    */
   const fromDotRel = (pattern: string) =>
-    pattern?.startsWith('./')
-      ? pattern.replace('./', `/`.concat(ctx.path()))
-      : pattern
+    pattern?.startsWith('./') ? pattern.replace('./', ctx.path()) : pattern
 
   /**
    * Take an input string and return a {@link CopyPlugin.ObjectPattern}
@@ -97,19 +90,49 @@ export const assets: method = async function assets(
   }
 
   /**
+   * Handle tuple set
+   *
+   * @param tuple - [origin, destination]
+   * @returns
+   */
+  const makeFromTo = ([from, to]: [string, string]) => {
+    /**
+     * Process raw user input.
+     *
+     * - Replace leading dot with project path
+     * - Append wildcard glob to directory requests
+     */
+    from = isDirectoryish(from)
+      ? fromDotRel(toWildcard(from))
+      : fromDotRel(from)
+
+    return {
+      from,
+      to,
+      noErrorOnMissing: true,
+    }
+  }
+
+  /**
    * Parse a request item
    */
   const parse = (request: string | CopyPlugin.ObjectPattern) => {
     return isString(request) ? makePatternObject(request) : request
   }
 
-  const mergePattern = isArray(request)
-    ? request.map(parse)
-    : [parse(request)]
+  const appearsTupled = isArray(request[0]) && isArray(request[0][0])
+
+  if (appearsTupled) {
+    ctx.extensions
+      .get('copy-webpack-plugin')
+      .mergeOption('patterns', request.flat().map(makeFromTo))
+
+    return ctx
+  }
 
   ctx.extensions
     .get('copy-webpack-plugin')
-    .mergeOption('patterns', mergePattern)
+    .mergeOption('patterns', request.flat().map(parse))
 
   return ctx
 }

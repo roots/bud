@@ -1,27 +1,38 @@
 import {Server} from '@roots/bud-framework'
-import {createServer, Server as HttpServer} from 'http'
+import {bind} from '@roots/bud-support'
+import {createServer, RequestListener, Server as HttpServer} from 'http'
 
 import {BaseServer} from './server.base'
 
 /**
  * HTTP Server
- *
  * @public
  */
-export class Http
-  extends BaseServer<HttpServer>
-  implements Server.Connection.Http
-{
+export class Http extends BaseServer implements Server.Connection {
+  /**
+   * Server instance
+   * @public
+   */
+  public instance: HttpServer
+
+  /**
+   * Http: protocol
+   */
+  public protocol: 'http:' = 'http:'
+
   /**
    * createServer
    *
-   * @param app - Express application
+   * @param express - Express application
    * @returns http.Server
+   * @public
+   * @decorator `@bind`
    */
-  public createServer = function (
-    app: Express.Application,
+  @bind
+  public async createServer(
+    express: RequestListener,
   ): Promise<HttpServer> {
-    this.instance = createServer(app)
+    this.instance = createServer(this.options, express)
     return this.instance
   }
 }

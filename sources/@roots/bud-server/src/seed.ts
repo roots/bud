@@ -11,15 +11,17 @@ const src = (modulePath: string) =>
 export const seed = (app: Framework) => {
   app.hooks
     .on(`middleware.enabled`, [`dev`, `hot`])
+
     .hooks.on(`middleware.dev.options`, () => ({
       headers: app.hooks.filter(`middleware.dev.options.headers`),
       publicPath: app.hooks.filter(`middleware.dev.options.publicPath`),
       stats: app.hooks.filter(`middleware.dev.options.stats`),
       writeToDisk: app.hooks.filter(`middleware.dev.options.writeToDisk`),
     }))
+
     .hooks.on(`middleware.hot.options`, () => ({
-      path: app.hooks.filter('middleware.hot.options.path', `/__bud/hmr`),
-      log: app.hooks.filter('middleware.hot.options.log', false),
+      path: app.hooks.filter('middleware.hot.options.path'),
+      log: app.hooks.filter('middleware.hot.options.log'),
       heartbeat: app.hooks.filter('middleware.hot.options.heartbeat'),
     }))
 
@@ -29,28 +31,47 @@ export const seed = (app: Framework) => {
       'x-powered-by': '@roots/bud',
     })
     .hooks.on(`middleware.dev.options.publicPath`, () =>
-      app.hooks.filter(`build.output.publicPath`),
+      app.hooks.filter('build.output.publicPath'),
     )
     .hooks.on(`middleware.dev.options.stats`, false)
-    .hooks.on(`middleware.dev.options.writeToDisk`, () => true)
+    .hooks.on(`middleware.dev.options.writeToDisk`, true)
 
-    .hooks.on(`middleware.hot.options.path`, `/__bud/hmr`)
+    .hooks.on(
+      `middleware.hot.options.path`,
+      () => `${app.hooks.filter('build.output.publicPath')}__hmr`,
+    )
     .hooks.on(
       `middleware.hot.options.log`,
       app.logger.instance.scope('hot').info,
     )
     .hooks.on(`middleware.hot.options.heartbeat`, 2000)
-
-    .hooks.on(`middleware.proxy.target`, new URL(`http://localhost`))
-
     .hooks.on(
       `dev.client.scripts`,
       new Set([
-        app => src(`index.js?name=${app.name}&path=/__bud/hmr`),
-        _app => src(`proxy-click-interceptor.js`),
+        app =>
+          src(
+            `index.js?name=${app.name}&bud.overlay=${
+              app.context.args.overlay
+            }&bud.indicator=${
+              app.context.args.indicator
+            }&path=${app.hooks.filter('middleware.hot.options.path')}`,
+          ),
+        () => src(`proxy-click-interceptor.js`),
       ]),
     )
-    .hooks.on(`dev.url`, new URL(`http://localhost`))
     .hooks.on(`dev.watch.files`, new Set([]))
     .hooks.on(`dev.watch.options`, {})
+
+    /**
+     * Proxy interception
+     */
+    .hooks.action(`event.proxy.interceptor`, async app =>
+      app.hooks.on(
+        `middleware.proxy.replacements`,
+        (replacements): Array<[string | RegExp, string]> => [
+          ...(replacements ?? []),
+          [app.hooks.filter('middleware.proxy.target').href, '/'],
+        ],
+      ),
+    )
 }

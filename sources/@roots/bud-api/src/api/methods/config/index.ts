@@ -1,24 +1,32 @@
 import type {Framework} from '@roots/bud-framework'
-import Webpack from 'webpack'
+import {lodash} from '@roots/bud-support'
+import {Configuration} from 'webpack'
 
-export interface config {
-  (overrides: Partial<Webpack.Configuration>): Framework
+const {isFunction} = lodash
+
+export interface override {
+  (config: Partial<Configuration>): Partial<Configuration>
 }
 
-export function config(
-  overrides: (
-    config: Partial<Webpack.Configuration>,
-  ) => Partial<Webpack.Configuration>,
-): Framework {
+export interface config {
+  (input: override | Partial<Configuration>): Framework
+}
+
+export const config: config = function (input): Framework {
   const ctx = this as Framework
 
-  if (!overrides)
+  if (!input)
     throw new Error(
-      'config overrides must pass a callback function that returns a webpack configuration',
+      'config input must pass a callback function that returns a webpack configuration',
     )
 
   ctx.hooks.action('event.build.after', async app => {
-    app.build.config = overrides(app.build.config)
+    app.build.config = isFunction(input)
+      ? input(app.build.config)
+      : {
+          ...app.build.config,
+          ...input,
+        }
   })
 
   return ctx

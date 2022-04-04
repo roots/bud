@@ -1,4 +1,5 @@
-import type {
+import {
+  boxen,
   HighlightOptions,
   PrettyFormatOptions,
 } from '@roots/bud-support'
@@ -239,13 +240,7 @@ export abstract class Framework {
    *
    * @public
    */
-  public _server: Server.Service
-  public get server(): Server.Service {
-    return this.root._server
-  }
-  public set server(server: Server.Service) {
-    this.root._server = server
-  }
+  public server: Server.Service
 
   /**
    * Container service for holding configuration values
@@ -510,32 +505,9 @@ export abstract class Framework {
    */
   public sequence: methods.sequence = methods.sequence.bind(this)
 
-  /**
-   * Execute a callback
-   *
-   * @remarks
-   * Callback is provided {@link Framework | the Framework instance} as a parameter.
-   *
-   * @example
-   * ```js
-   * bud.tap(bud => {
-   *   // do something with bud
-   * })
-   * ```
-   *
-   * @example
-   * Lexical scope is bound to Framework where applicable, so it
-   * is possible to reference the Framework using `this`.
-   *
-   * ```js
-   * bud.tap(function () {
-   *  // do something with this
-   * })
-   * ```
-   *
-   * @public
-   */
   public tap: methods.tap = methods.tap.bind(this)
+
+  public tapAsync: methods.tapAsync = methods.tapAsync.bind(this)
 
   /**
    * Executes a function if a given test is `true`.
@@ -721,8 +693,6 @@ export abstract class Framework {
         }),
       )}`,
     )
-
-    process.exit(1)
   }
 
   /**
@@ -738,10 +708,15 @@ export abstract class Framework {
   public error(...messages: any[]) {
     this.logger.instance.error(...messages)
 
-    process.exitCode = 1
-    process.exit()
+    if (this.isProduction) {
+      process.exitCode = 1
+      process.exit()
+    }
   }
 
+  /**
+   * Dump object and return Framework
+   */
   @bind
   public dump(
     obj: any,
@@ -757,19 +732,25 @@ export abstract class Framework {
 
     // eslint-disable-next-line no-console
     process.stdout.write(
-      `${options?.prefix ? `\n${options.prefix}\n` : `\n`}${highlight(
-        format(obj, {
-          callToJSON: false,
-          maxDepth: 8,
-          printFunctionName: false,
-          escapeString: false,
-          ...prettyFormatOptions,
-        }),
+      boxen(
+        highlight(
+          format(obj, {
+            callToJSON: false,
+            maxDepth: 8,
+            printFunctionName: false,
+            escapeString: false,
+            ...prettyFormatOptions,
+          }),
+          {
+            language: options?.language ?? 'typescript',
+            ignoreIllegals: options?.ignoreIllegals ?? true,
+          },
+        ),
         {
-          language: options?.language ?? 'typescript',
-          ignoreIllegals: options?.ignoreIllegals ?? true,
+          title: options.prefix ?? 'object dump',
+          borderStyle: 'round',
         },
-      )}`,
+      ),
     )
 
     return this

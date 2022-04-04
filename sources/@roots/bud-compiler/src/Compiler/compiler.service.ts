@@ -15,52 +15,45 @@ import {
 
 import * as logger from './compiler.logger'
 
-const {isFunction, isEqual} = lodash
+const {isFunction} = lodash
 
 /**
  * Wepback compilation controller class
- *
  * @public
  */
 export class Compiler extends Service implements Contract {
   /**
    * Compiler
-   *
    * @public
    */
   public compiler: Contract.Compiler = webpack
 
   /**
    * Compiler instance
-   *
    * @public
    */
   public compilation: Contract.Compilation
 
   /**
    * Compilation stats
-   *
    * @public
    */
   public stats: StatsCompilation
 
   /**
    * Compilation progress
-   *
    * @public
    */
   public progress: Contract.Progress
 
   /**
    * Multi-compiler configuration
-   *
    * @public
    */
   public config: Array<Configuration> = []
 
   /**
    * Logger
-   *
    * @public
    */
   public get logger(): Signale {
@@ -81,12 +74,13 @@ export class Compiler extends Service implements Contract {
    *
    * @public
    * @decorator `@bind`
+   * @decorator `@once`
    */
   @bind
   @once
   public async compile() {
-    const config = await this.before()
-    const compiler = await this.invoke(config)
+    this.config = await this.before()
+    const compiler = await this.invoke(this.config)
 
     this.app.timeEnd('bud')
     this.app._hrdone = this.app._hrdiff()
@@ -97,6 +91,7 @@ export class Compiler extends Service implements Contract {
   /**
    * @public
    * @decorator `@bind`
+   * @decorator `@once`
    */
   @bind
   @once
@@ -131,7 +126,9 @@ export class Compiler extends Service implements Contract {
      */
     await this.app.build.make()
 
+    // if (this.app.hasChildren == false)
     this.config.push(this.app.build.config)
+
     /**
      * If there are {@link Framework.children} instances, iterate through
      * them and add to `config`
@@ -153,12 +150,13 @@ export class Compiler extends Service implements Contract {
    *
    * @public
    * @decorator `@bind`
+   * @decorator `@once`
    */
   @bind
   @once
   public async callback(error: Error, stats: Stats & MultiStats) {
-    error && (await this.handleErrors(error))
-    stats && (await this.handleStats(stats))
+    if (error) await this.handleErrors(error)
+    if (stats) await this.handleStats(stats)
 
     this.app.isProduction &&
       this.compilation.close(async error => {
@@ -177,7 +175,7 @@ export class Compiler extends Service implements Contract {
     if (!stats?.toJson || !isFunction(stats?.toJson)) return
 
     this.stats = stats.toJson()
-    this.app.dashboard.stats(stats)
+    await this.app.dashboard.stats(stats)
 
     await this.app.hooks.fire(`event.compiler.done`)
 
@@ -226,35 +224,25 @@ export class Compiler extends Service implements Contract {
         (scope.includes(`]`) ? scope.split(`]`).pop()?.trim() : scope) ??
         ``
 
-      const isStale = isEqual(this.progress, [
-        percent,
-        message.join(` `).concat(stage),
-      ])
-
       this.progress = [percent, message.join(` `).concat(stage)]
-
-      if (isStale) return
 
       const statusColor = chalk.hex(
         this.stats?.errorsCount > 0 ? '#ff5c57' : '#5af78e',
       )
 
-      percent !== 100
+      percent !== 100 && percent !== 0 && message.length
         ? this.logger.log(
             statusColor(`[${percent}%]`),
             chalk.blue(`[${stage}]`),
             ...message,
           )
-        : this.logger.log(
+        : this.stats?.errorsCount > 0 &&
+          this.logger.log(
             statusColor(`[${percent}%]`),
-            statusColor(
-              this.stats?.errorsCount > 0
-                ? `Compiled with errors`
-                : `Compiled`,
-            ),
+            statusColor(`Compiled with errors`),
           )
     } catch (error) {
-      this.app.error(error)
+      this.app.warn(error)
     }
   }
 }

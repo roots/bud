@@ -11,13 +11,6 @@ const {isString} = lodash
  */
 export class Env extends Service implements Base {
   /**
-   * Service ident
-   *
-   * @internal
-   */
-  public ident = 'env'
-
-  /**
    * Bootstrap event callback
    *
    * @internal
