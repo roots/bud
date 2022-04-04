@@ -74,7 +74,7 @@ const bud = async () => {
 
   const application = new Cli({
     binaryLabel: context.application.label,
-    binaryName: context.application.name,
+    binaryName: context.application.label,
     binaryVersion: context.application.version,
     enableColors: true,
   })

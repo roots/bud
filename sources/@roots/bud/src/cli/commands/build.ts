@@ -9,6 +9,8 @@ import {BaseCommand} from './base.js'
 
 const {isUndefined} = lodash
 
+const fallback = (obj: any | undefined, obj2: any) => isUndefined(obj) ? obj2 : obj
+
 /**
  * Build command
  * @public
@@ -69,13 +71,6 @@ export class BuildCommand extends BaseCommand {
   })
 
   /**
-   * --ci
-   */
-  public ci = Option.Boolean(`--ci`, undefined, {
-    description: `Run in CI mode (disables keyboard input handlers).`,
-  })
-
-  /**
    * --clean
    */
   public clean = Option.Boolean(`--clean`, undefined, {
@@ -98,7 +93,6 @@ export class BuildCommand extends BaseCommand {
    * --devtool
    */
   public devtool = Option.String(`--devtool`, undefined, {
-    tolerateBoolean: true,
     description: `Set devtool option`,
     validator: t.isOneOf([
       t.isLiteral(false),
@@ -273,7 +267,6 @@ export class BuildCommand extends BaseCommand {
       )
     ;[
       'cache',
-      'ci',
       'clean',
       'debug',
       'devtool',
@@ -295,7 +288,7 @@ export class BuildCommand extends BaseCommand {
       'target',
       'verbose',
     ].map(arg => {
-      this.context.args[arg] = isUndefined(arg) ? null : this[arg]
+      this.context.args[arg] = fallback(this[arg], null)
     })
 
     this.app = await factory({
@@ -303,29 +296,27 @@ export class BuildCommand extends BaseCommand {
       mode: this.mode,
       context: this.context,
       config: {
-        'build.output.publicPath': isUndefined(this.publicPath)
-          ? seed['build.output.publicPath']
-          : () => this.publicPath,
-        'features.inject': isUndefined(this.inject)
-          ? seed['features.inject']
-          : this.inject,
-        'features.log': isUndefined(this.log)
-          ? seed['features.log']
-          : this.log,
-        'features.manifest': isUndefined(this.manifest)
-          ? seed['features.manifest']
-          : this.manifest,
+        'build.output.publicPath': fallback(
+          this.publicPath,
+          seed['build.output.publicPath'],
+        ),
+        'features.inject': fallback(
+          this.inject,
+          seed['features.inject'],
+        ),
+        'features.log': fallback(this.log, seed['features.log']),
+        'features.manifest': fallback(
+          this.manifest,
+          seed['features.manifest'],
+        ),
         location: {
-          '@src': isUndefined(this.src) ? seed.location['@src'] : this.src,
-          '@dist': isUndefined(this.dist)
-            ? seed.location['@dist']
-            : this.dist,
-          '@storage': isUndefined(this.storage)
-            ? seed.location['@storage']
-            : this.storage,
-          '@modules': isUndefined(this.modules)
-            ? seed.location['@modules']
-            : this.modules,
+          '@src': fallback(this.src, seed.location['@src']),
+          '@dist': fallback(this.dist, seed.location['@dist']),
+          '@storage': fallback(
+            this.storage,
+            seed.location['@storage'],
+          ),
+          '@modules': fallback(this.modules, seed.location['@modules']),
         },
       },
     })

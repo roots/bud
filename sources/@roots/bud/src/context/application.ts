@@ -20,6 +20,7 @@ export class Application {
 
   public async find(): Promise<Application> {
     const manifestPath = await pkgUp.pkgUp({cwd: __dirname})
+
     this.dir = dirname(manifestPath)
 
     const manifest = await fs.readJson(manifestPath)
