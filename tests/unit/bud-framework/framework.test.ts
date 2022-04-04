@@ -79,20 +79,15 @@ describe('bud', () => {
     done()
   })
 
-  it('sequence calls fns', done => {
-    bud.sequence([
-      app => {
-        expect(app).toBeInstanceOf(Framework)
+  it('sequence calls fns', async () => {
+    await bud.sequence([
+      async bud => {
+        expect(bud).toBeInstanceOf(Bud)
       },
-      app => {
-        expect(app).toBeInstanceOf(Framework)
-      },
-      app => {
-        expect(app).toBeInstanceOf(Framework)
+      async bud => {
+        expect(bud).toBeInstanceOf(Bud)
       },
     ])
-
-    done()
   })
 
   it('pipe passes value through fn chain', done => {

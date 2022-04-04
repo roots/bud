@@ -496,7 +496,7 @@ export abstract class Framework {
     methods.setPublicPath.bind(this)
 
   /**
-   * Run a value through an array of syncronous, non-mutational functions.
+   * Run a value through an array of asyncronous, non-mutational functions.
    *
    * @remarks
    * Unlike {@link pipe} the value returned from each function is ignored.
@@ -505,6 +505,42 @@ export abstract class Framework {
    */
   public sequence: methods.sequence = methods.sequence.bind(this)
 
+  /**
+   * Run a value through an array of syncronous, non-mutational functions.
+   *
+   * @remarks
+   * Unlike {@link pipe} the value returned from each function is ignored.
+   *
+   * @public
+   */
+  public sequenceSync: methods.sequenceSync =
+    methods.sequenceSync.bind(this)
+
+  /**
+   * Execute a callback
+   *
+   * @remarks
+   * Callback is provided {@link Framework | the Framework instance} as a parameter.
+   *
+   * @example
+   * ```js
+   * bud.tap(bud => {
+   *   // do something with bud
+   * })
+   * ```
+   *
+   * @example
+   * Lexical scope is bound to Framework where applicable, so it
+   * is possible to reference the Framework using `this`.
+   *
+   * ```js
+   * bud.tap(function () {
+   *  // do something with this
+   * })
+   * ```
+   *
+   * @public
+   */
   public tap: methods.tap = methods.tap.bind(this)
 
   public tapAsync: methods.tapAsync = methods.tapAsync.bind(this)

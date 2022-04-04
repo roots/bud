@@ -1,20 +1,43 @@
+import {isFunction} from 'lodash'
+
 import {Framework} from '..'
 
 interface Callback {
-  <T>(value: T): any
+  (value?: Framework): Promise<unknown>
 }
 
-export interface sequence {
-  <T = Framework>(fns: Callback[], value?: T): Framework
+export interface sequence<T = Framework> {
+  (fns: Array<Callback>): Promise<Framework>
 }
 
-export function sequence<T = Framework>(
-  fns: Callback[],
-  value?: T,
-): Framework {
-  const ctx = this as Framework
+export const sequence = async function (
+  fns: Array<Callback>,
+): Promise<Framework> {
+  const app = this as Framework
 
-  value ? fns.map(fn => fn(value)) : fns.map(fn => fn(ctx))
+  await fns.reduce(async (next, fn) => {
+    const current = await next
+    await fn.call(this, app)
+    return current
+  }, Promise.resolve())
 
-  return ctx
+  return app
+}
+
+interface SyncCallback {
+  (value: unknown): unknown
+}
+
+export interface sequenceSync {
+  <T>(fns: Array<SyncCallback>): Framework
+}
+
+export const sequenceSync: sequenceSync = (
+  fns: Array<SyncCallback>,
+): Framework => {
+  const app = this as Framework
+
+  fns.map(fn => (isFunction(fn) ? app.tap(fn) : fn))
+
+  return app
 }
