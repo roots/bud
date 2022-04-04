@@ -15,52 +15,45 @@ import {
 
 import * as logger from './compiler.logger'
 
-const {isFunction, isEqual} = lodash
+const {isFunction} = lodash
 
 /**
  * Wepback compilation controller class
- *
  * @public
  */
 export class Compiler extends Service implements Contract {
   /**
    * Compiler
-   *
    * @public
    */
   public compiler: Contract.Compiler = webpack
 
   /**
    * Compiler instance
-   *
    * @public
    */
   public compilation: Contract.Compilation
 
   /**
    * Compilation stats
-   *
    * @public
    */
   public stats: StatsCompilation
 
   /**
    * Compilation progress
-   *
    * @public
    */
   public progress: Contract.Progress
 
   /**
    * Multi-compiler configuration
-   *
    * @public
    */
   public config: Array<Configuration> = []
 
   /**
    * Logger
-   *
    * @public
    */
   public get logger(): Signale {
@@ -81,6 +74,7 @@ export class Compiler extends Service implements Contract {
    *
    * @public
    * @decorator `@bind`
+   * @decorator `@once`
    */
   @bind
   @once
@@ -97,6 +91,7 @@ export class Compiler extends Service implements Contract {
   /**
    * @public
    * @decorator `@bind`
+   * @decorator `@once`
    */
   @bind
   @once
@@ -155,12 +150,13 @@ export class Compiler extends Service implements Contract {
    *
    * @public
    * @decorator `@bind`
+   * @decorator `@once`
    */
   @bind
   @once
   public async callback(error: Error, stats: Stats & MultiStats) {
-    error && (await this.handleErrors(error))
-    stats && (await this.handleStats(stats))
+    if (error) await this.handleErrors(error)
+    if (stats) await this.handleStats(stats)
 
     this.app.isProduction &&
       this.compilation.close(async error => {
@@ -179,7 +175,7 @@ export class Compiler extends Service implements Contract {
     if (!stats?.toJson || !isFunction(stats?.toJson)) return
 
     this.stats = stats.toJson()
-    this.app.dashboard.stats(stats)
+    await this.app.dashboard.stats(stats)
 
     await this.app.hooks.fire(`event.compiler.done`)
 
@@ -228,20 +224,13 @@ export class Compiler extends Service implements Contract {
         (scope.includes(`]`) ? scope.split(`]`).pop()?.trim() : scope) ??
         ``
 
-      const isStale = isEqual(this.progress, [
-        percent,
-        message.join(` `).concat(stage),
-      ])
-
       this.progress = [percent, message.join(` `).concat(stage)]
-
-      if (isStale) return
 
       const statusColor = chalk.hex(
         this.stats?.errorsCount > 0 ? '#ff5c57' : '#5af78e',
       )
 
-      percent !== 100
+      percent !== 100 && percent !== 0 && message.length
         ? this.logger.log(
             statusColor(`[${percent}%]`),
             chalk.blue(`[${stage}]`),

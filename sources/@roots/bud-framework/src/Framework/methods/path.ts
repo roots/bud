@@ -51,6 +51,25 @@ export const path: path = function (base, ...segments) {
   /* Exit early with projectDir if no path was passed */
   if (!base) return app.context.projectDir
 
+  const fileHandles = (pathString: string) =>
+    pathString
+      .replace(
+        '@file',
+        app.store.is('features.hash', true)
+          ? '[path][name].[contenthash:6][ext]'
+          : '[path][name][ext]',
+      )
+      .replace(
+        '@name',
+        app.store.is('features.hash', true)
+          ? '[name].[contenthash:6][ext]'
+          : '[name][ext]',
+      )
+
+  if (base === '@file' || base === '@name') return fileHandles(base)
+  base = fileHandles(base)
+  segments = segments.map(fileHandles)
+
   /* Parse `@` aliases. Should return an absolute path */
   if (base.startsWith(`@`)) base = parseAlias(app, base as `@${string}`)
 

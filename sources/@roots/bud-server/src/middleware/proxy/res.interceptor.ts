@@ -57,8 +57,8 @@ export class ResponseInterceptorFactory {
    *
    * @param buffer - Buffered response
    * @param proxyRes - Response from the proxy
-   * @param req - Request from the client
-   * @param res - Response from the server
+   * @param request - Request from the client
+   * @param response - Response from the server
    *
    * @public
    * @decorator `@bind`
@@ -70,9 +70,19 @@ export class ResponseInterceptorFactory {
     request: IncomingMessage,
     response: ServerResponse,
   ): Promise<Buffer | String> {
+    this.app.info(
+      request.url,
+      request.statusCode,
+      response.getHeader('content-type'),
+    )
+
+    if (!`${response.getHeader('content-type')}`.startsWith('text/'))
+      return buffer
+
+    await this.app.hooks.fire('event.proxy.interceptor')
+
     response.setHeader('x-proxy-by', '@roots/bud')
     response.setHeader('x-bud-proxy-origin', this.url.proxy.origin)
-    response.setHeader('x-bud-dev-origin', this.url.dev.origin)
     response.removeHeader('x-http-method-override')
 
     Object.entries(request.cookies).map(([k, v]) =>
@@ -80,9 +90,10 @@ export class ResponseInterceptorFactory {
     )
 
     return this.app.hooks
-      .filter('middleware.proxy.replacements')
+      .filter('middleware.proxy.replacements', [])
       .reduce(
-        (buffer, [find, replace]) => buffer.replaceAll(find, replace),
+        (buffer, [find, replace]: [string | RegExp, string]) =>
+          buffer.replaceAll(find, replace),
         buffer.toString(),
       )
   }

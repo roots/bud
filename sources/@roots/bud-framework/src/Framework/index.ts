@@ -543,6 +543,8 @@ export abstract class Framework {
    */
   public tap: methods.tap = methods.tap.bind(this)
 
+  public tapAsync: methods.tapAsync = methods.tapAsync.bind(this)
+
   /**
    * Executes a function if a given test is `true`.
    *
