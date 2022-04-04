@@ -25,20 +25,15 @@ export interface bindMethod {
  * @typeParam FunctionMap - Map of {@link Framework} keys to {@link CallableFunction} types
  *
  * @public
- * @decorator `@bind`
  */
 export function bindMethod<FunctionMap = GenericFunctionMap>(
   properties: FunctionMap,
 ): Framework {
-  this as Framework
+  const app = this as Framework
 
   Object.entries(properties).forEach(([key, value]) => {
-    this[key] = value.bind(this)
+    app[key] = value.bind(app)
   })
 
-  Object.keys(properties).forEach(key => {
-    this.success(`bound ${key}`)
-  })
-
-  return this
+  return app
 }
