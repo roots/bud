@@ -3,16 +3,16 @@ import {dirname} from 'node:path'
 
 export interface Application {
   name: string
+  label: string
   version: string
   dependencies: Record<string, string>
   devDependencies: Record<string, string>
-  label: string
 }
 
 export class Application {
-  public label: string
-
   public name: string
+
+  public label: string
 
   public version: string
 

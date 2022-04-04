@@ -50,6 +50,7 @@ export class BuildCommand extends BaseCommand {
       t.isLiteral('production'),
       t.isLiteral('development'),
     ]),
+    env: 'BUILD_MODE',
   })
 
   /**
@@ -64,6 +65,7 @@ export class BuildCommand extends BaseCommand {
       t.isLiteral(true),
       t.isLiteral(false),
     ]),
+    env: 'BUILD_CACHE',
   })
 
   /**
@@ -175,6 +177,7 @@ export class BuildCommand extends BaseCommand {
    */
   public storage = Option.String(`--storage`, undefined, {
     description: 'Storage directory (relative to project)',
+    env: 'BUILD_PATH_STORAGE',
   })
 
   /**
@@ -210,6 +213,7 @@ export class BuildCommand extends BaseCommand {
    */
   public modules = Option.String(`--modules`, undefined, {
     description: 'Module resolution path',
+    env: 'BUILD_PATH_MODULES',
   })
 
   /**
@@ -231,6 +235,7 @@ export class BuildCommand extends BaseCommand {
    */
   public publicPath = Option.String(`--publicPath`, undefined, {
     description: 'public path of emitted assets',
+    env: 'APP_PUBLIC_PATH',
   })
 
   /**

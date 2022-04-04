@@ -73,7 +73,7 @@ const bud = async () => {
   await notifier(context)
 
   const application = new Cli({
-    binaryLabel: context.application.name,
+    binaryLabel: context.application.label,
     binaryName: context.application.name,
     binaryVersion: context.application.version,
     enableColors: true,

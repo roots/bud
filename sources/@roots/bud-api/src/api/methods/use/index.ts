@@ -23,7 +23,7 @@ export const use: use = async function (source): Promise<Framework> {
     }
 
     if (bud.extensions.has(source.name)) {
-      bud.warn(
+      bud.info(
         `extension "${source.name}" is already registered. skipping`,
       )
 

@@ -19,7 +19,7 @@ export default async function (app: Framework) {
     await ensureDir(app.path('@dist'))
 
     await writeJson(app.path('@dist', 'hmr.json'), {
-      dev: urlToHttpOptions(app.hooks.filter('dev.url')) ?? null,
+      dev: urlToHttpOptions(app.server.connection.url) ?? null,
       proxy:
         urlToHttpOptions(app.hooks.filter('middleware.proxy.target')) ??
         null,

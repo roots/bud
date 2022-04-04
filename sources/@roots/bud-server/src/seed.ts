@@ -31,18 +31,20 @@ export const seed = (app: Framework) => {
       'x-powered-by': '@roots/bud',
     })
     .hooks.on(`middleware.dev.options.publicPath`, () =>
-      app.hooks.filter(`build.output.publicPath`, `/`),
+      app.hooks.filter('build.output.publicPath'),
     )
     .hooks.on(`middleware.dev.options.stats`, false)
     .hooks.on(`middleware.dev.options.writeToDisk`, true)
 
-    .hooks.on(`middleware.hot.options.path`, `/__bud/hmr`)
+    .hooks.on(
+      `middleware.hot.options.path`,
+      () => `${app.hooks.filter('build.output.publicPath')}__hmr`,
+    )
     .hooks.on(
       `middleware.hot.options.log`,
       app.logger.instance.scope('hot').info,
     )
     .hooks.on(`middleware.hot.options.heartbeat`, 2000)
-
     .hooks.on(
       `dev.client.scripts`,
       new Set([
@@ -57,7 +59,19 @@ export const seed = (app: Framework) => {
         () => src(`proxy-click-interceptor.js`),
       ]),
     )
-    .hooks.on(`dev.url`, new URL(`http://localhost`))
     .hooks.on(`dev.watch.files`, new Set([]))
     .hooks.on(`dev.watch.options`, {})
+
+    /**
+     * Proxy interception
+     */
+    .hooks.action(`event.proxy.interceptor`, async app =>
+      app.hooks.on(
+        `middleware.proxy.replacements`,
+        (replacements): Array<[string | RegExp, string]> => [
+          ...(replacements ?? []),
+          [app.hooks.filter('middleware.proxy.target').href, '/'],
+        ],
+      ),
+    )
 }

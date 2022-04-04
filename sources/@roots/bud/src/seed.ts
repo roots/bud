@@ -204,12 +204,11 @@ export const seed: Partial<Store.Repository> = {
     ]),
   [`build.module.rules.before`]: app => [
     {
-      test: /\.[cm]?(jsx?|tsx?)$/,
-      parser: {
-        requireEnsure: false,
-      },
+      test: /\.(cjs|mjs|jsx?|tsx?)$/,
+      include: [app.path('@src')],
+      parser: {requireEnsure: false},
     },
   ],
   [`build.module.rules.after`]: app => [],
-  [`build.stats`]: app => ({preset: `normal`}),
+  [`build.stats`]: app => `normal`,
 }

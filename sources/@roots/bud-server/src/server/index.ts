@@ -13,7 +13,6 @@ import {Watcher} from './server.watcher'
 
 /**
  * Server service class
- *
  * @public
  */
 export class Server
@@ -22,35 +21,36 @@ export class Server
 {
   /**
    * Express instance
-   *
    * @public
    */
   public application: Express.Application
 
   /**
+   * Express instance
+   * @public
+   */
+  public express = Express
+
+  /**
    * Watcher instance
-   *
    * @public
    */
   public watcher: Watcher
 
   /**
    * Server connections
-   *
    * @public
    */
   public connection: Connection
 
   /**
    * Available middleware
-   *
    * @public
    */
   public availableMiddleware = middlewareMap
 
   /**
    * Utilized middleware
-   *
    * @public
    */
   public get enabledMiddleware(): BudServer.Service['enabledMiddleware'] {
@@ -65,7 +65,6 @@ export class Server
 
   /**
    * Applied middleware
-   *
    * @public
    */
   public appliedMiddleware: Partial<
@@ -74,7 +73,6 @@ export class Server
 
   /**
    * Register service
-   *
    * @public
    * @decorator `@bind`
    * @decorator `@once`
@@ -84,14 +82,14 @@ export class Server
   public async register(): Promise<void> {
     seed(this.app)
 
-    this.application = Express()
+    this.application = this.express()
     this.application.set('x-powered-by', false)
+
     this.watcher = new Watcher(this.app)
   }
 
   /**
    * Boot service
-   *
    * @public
    * @decorator `@bind`
    * @decorator `@once`
@@ -106,14 +104,12 @@ export class Server
       this.app.compiler.compile,
       this.applyMiddleware,
     )
-    this.app.hooks.action('event.server.after', async () =>
-      this.watcher.watch(),
-    )
+
+    this.app.hooks.action('event.server.after', this.watcher.watch)
   }
 
   /**
    * Set connection
-   *
    * @public
    * @decorator `@bind`
    * @decorator `@once`
@@ -121,19 +117,15 @@ export class Server
   @bind
   @once
   public async setConnection() {
-    this.connection =
-      this.app.hooks.filter('dev.options') &&
-      this.app.hooks.filter('dev.options').cert &&
-      this.app.hooks.filter('dev.options').key
-        ? new Https(this.app, this.app.hooks.filter('dev.url'))
-        : new Http(this.app, this.app.hooks.filter('dev.url'))
+    this.connection = this.app.hooks.filter('dev.ssl')
+      ? new Https(this.app)
+      : new Http(this.app)
 
     await this.connection.setup()
   }
 
   /**
    * Inject scripts
-   *
    * @public
    * @decorator `@bind`
    * @decorator `@once`
@@ -155,7 +147,6 @@ export class Server
 
   /**
    * Apply middleware
-   *
    * @public
    * @decorator `@bind`
    * @decorator `@once`
@@ -171,7 +162,6 @@ export class Server
 
   /**
    * Run development server
-   *
    * @public
    * @decorator `@bind`
    */

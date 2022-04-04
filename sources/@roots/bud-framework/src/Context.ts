@@ -7,6 +7,7 @@ export interface Context {
   manifest: Record<string, any>
   application: {
     name: string
+    label: string
     version: string
     dir: string
   }

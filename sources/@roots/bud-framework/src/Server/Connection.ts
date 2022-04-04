@@ -27,15 +27,29 @@ export interface Connection {
   instance: HttpServer | HttpsServer
 
   /**
-   * Server URL
+   * Resolved port
+   * @public
+   */
+  port: number
+
+  /**
+   * Resolved URL
    * @public
    */
   url: URL
 
   /**
+   * User specifications
+   * @public
+   */
+  specification: {
+    port: Array<number>
+    exclude: Array<number>
+    host: string
+  }
+
+  /**
    * Create server
-   * @remarks
-   * Returns Node server
    * @public
    */
   createServer(app: any): Promise<Connection['instance']>
@@ -88,44 +102,4 @@ export interface Connection {
    * @public
    */
   onError(error: Error): void
-}
-
-/**
- * Server instance
- *
- * @defaultValue express instance
- *
- * @public
- */
-export interface Http extends Connection {}
-
-/**
- * Https Connection
- *
- * @public
- */
-export interface Https extends Connection {
-  /**
-   * Has SSL key
-   * @public
-   */
-  hasKey(): boolean
-
-  /**
-   * Get SSL key
-   * @returns
-   */
-  getKey(): Promise<Options['key']>
-
-  /**
-   * Has SSL certificate
-   * @public
-   */
-  hasCert(): boolean
-
-  /**
-   * Get SSL certificate
-   * @public
-   */
-  getCert(): Promise<Options['cert']>
 }

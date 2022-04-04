@@ -1,5 +1,5 @@
 import * as Framework from '../'
-import * as Connection from './Connection'
+import {Connection} from './Connection'
 import * as Middleware from './Middleware'
 import {Watcher} from './Watcher'
 
@@ -21,10 +21,9 @@ export interface Application extends Express.Application {}
  *
  * @public
  */
-export interface Connections
-  extends Record<string, Connection.Connection> {
-  http: Connection.Http
-  https: Connection.Https
+export interface Connections extends Record<string, Connection> {
+  http: Connection
+  https: Connection
 }
 
 /**
@@ -45,7 +44,7 @@ export interface Service extends Framework.Service {
    *
    * @public
    */
-  connection: Connection.Http | Connection.Https
+  connection: Connection
 
   /**
    * Available middleware
