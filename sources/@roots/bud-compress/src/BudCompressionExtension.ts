@@ -1,3 +1,5 @@
+import '@roots/bud-api'
+
 import {Extension, Framework} from '@roots/bud-framework'
 
 import {BudBrotliWebpackPlugin} from './BudBrotliWebpackPlugin'
@@ -10,10 +12,8 @@ interface BudCompressionExtension extends Extension.CompilerPlugin {
 
 const name: BudCompressionExtension['name'] = '@roots/bud-compress'
 
-const boot: BudCompressionExtension['boot'] = async function boot({
-  use,
-}: Framework): Promise<void> {
-  await use([BudBrotliWebpackPlugin, BudGzipWebpackPlugin])
+const boot: BudCompressionExtension['boot'] = async function boot(app) {
+  await app.extensions.add([BudBrotliWebpackPlugin, BudGzipWebpackPlugin])
 }
 
 const BudCompressionExtension: BudCompressionExtension = {
