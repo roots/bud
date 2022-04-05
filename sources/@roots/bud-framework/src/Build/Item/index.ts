@@ -1,5 +1,5 @@
-import {Framework, Loaders} from '../..'
-import {Loader} from '../Loader'
+import {Framework} from '../..'
+import {Loader, Loaders} from '..'
 
 /**
  * Item interface
@@ -7,11 +7,18 @@ import {Loader} from '../Loader'
  * @public
  */
 export interface Item {
+  /**
+   * The {@link Framework} instance
+   * @public
+   */
   get app(): Framework
 
   /**
-   * Loader
-   *
+   * Key from {@link Loaders} registry
+   * 
+   * @remarks
+   * Or a callback which returns it
+   * 
    * @public
    */
   loader:
@@ -19,11 +26,8 @@ export interface Item {
     | ((app: Framework) => `${keyof Loaders & string}`)
 
   /**
-   * Set loader
-   *
-   * @param factory - {@link Loader.Factory}
-   * @returns void
-   *
+   * Set the {@link Loaders} key
+   * 
    * @public
    */
   setLoader(loader: Item['loader']): Item
@@ -72,7 +76,6 @@ export interface Item {
 export namespace Item {
   /**
    * Item.Options interface
-   *
    * @public
    */
   export interface Options {
@@ -81,7 +84,6 @@ export namespace Item {
 
   /**
    * Constructor interface
-   *
    * @public
    */
   export type ConstructorOptions = {
@@ -91,13 +93,11 @@ export namespace Item {
 
   /**
    * Output interface
-   *
    * @public
    */
   export interface Output {
     /**
      * Finalized loader
-     *
      * @public
      */
     loader: string

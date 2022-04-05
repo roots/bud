@@ -30,7 +30,7 @@
  * @packageDocumentation
  */
 
-import {Build, Item, Loader, Rule} from './Build'
+export {Build, Item, Items, Loader, Loaders, Rule, Rules} from './Build'
 import {Cache} from './Cache'
 import {Context} from './Context'
 import {Extensions} from './Extensions'
@@ -41,38 +41,19 @@ import {Project} from './Project'
 import * as Server from './Server'
 import {Service} from './Service'
 
-/**
- * Concrete classes
- */
-//
-
 export {Store} from './Store'
 
-/**
- * Abstract classes
- */
-//
-
-export {Build}
 export {Cache}
 export {Constructor}
 export {Context}
 export {Extension}
 export {Extensions}
 export {Framework}
-export {Item}
-export {Loader}
 export {Options}
 export {Peers}
 export {Project}
-export {Rule}
 export {Service}
 export {Server}
-
-/**
- * Types and interfaces
- */
-//
 
 export {Api} from './Api'
 export {Compiler} from './Compiler'
@@ -168,27 +149,6 @@ export interface Modules extends Partial<Index<Extension.Module>> {}
  */
 export interface Plugins
   extends Partial<Index<Extension.CompilerPlugin>> {}
-
-/**
- * Registered loaders
- *
- * @virtual @public
- */
-export interface Loaders extends Partial<Index<Loader>> {}
-
-/**
- * Registered items
- *
- * @virtual @public
- */
-export interface Items extends Partial<Index<Item>> {}
-
-/**
- * Registered rules
- *
- * @virtual @public
- */
-export interface Rules extends Partial<Record<string, Rule>> {}
 
 /**
  * Registered locations

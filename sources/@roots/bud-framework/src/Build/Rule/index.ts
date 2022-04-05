@@ -1,17 +1,20 @@
 import {Items} from '../..'
 import {Framework} from '../../Framework'
 
+/**
+ * Loader rule definition
+ * 
+ * @public
+ */
 export namespace Rule {
   /**
    * File parser interface
-   *
    * @public
    */
   export interface Parser extends Record<string, any> {}
 
   /**
    * Options interface
-   *
    * @public
    */
   export type Options = {
