@@ -1,12 +1,13 @@
 import type {Extension} from '@roots/bud-framework'
+import {lodash, nanoid} from '@roots/bud-support'
 
-import {isEqual, isFunction, nanoid} from './use.dependencies'
+const {isEqual, isFunction} = lodash
 
 /**
  * Returns true if extensions appears to be a WebpackPlugin constructor
  *
- * @param extensions - Extensions to check
- * @returns True if extensions appears to be a WebpackPlugin constructor
+ * @param extension - Extension to check
+ * @returns True if extension appears to be a WebpackPlugin constructor
  *
  * @example
  * ```ts
@@ -17,7 +18,7 @@ import {isEqual, isFunction, nanoid} from './use.dependencies'
  * @internal
  */
 export const isCompilerPlugin = (
-  extension: Extension.Module | Extension.CompilerPlugin,
+  extension: Extension.Module,
 ): boolean =>
   extension.apply &&
   isFunction(extension.apply) &&
@@ -49,7 +50,7 @@ export const hasValidConstructorName = (
  * Generates a unique name for extensions which do not
  * have a name prop or constructor name
  *
- * @param extensions - Extensions to check
+ * @param input - Extensions to check
  * @returns Unique name for extensions which do not
  * have a name prop or constructor name
  *
