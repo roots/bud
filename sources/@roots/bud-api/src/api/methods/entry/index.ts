@@ -5,6 +5,7 @@ import {isArray} from 'lodash'
 import {globAssets} from './globAssets'
 import {
   applyToImports,
+  EntryObject,
   facade,
   isGlobular,
   makeEntry,
@@ -44,3 +45,5 @@ export const entry: method = async function (...input) {
 }
 
 export type {method, facade}
+
+export {EntryObject}
