@@ -12,7 +12,6 @@
       "@roots/bud-framework"
     ],
   },
-  "files": ["./src/bud.env.d.ts"],
   "include": ["./src"],
   "references": [
     {"path": "./../bud-framework/tsconfig.json"},

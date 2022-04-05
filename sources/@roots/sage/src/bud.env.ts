@@ -1,10 +1,10 @@
 // Copyright © Roots Software Foundation LLC
 // Licensed under the MIT license.
 
-import '@roots/bud-framework'
 import '@roots/bud-api'
+import '@roots/bud-framework'
 
-import Sage from './sage.preset'
+import {Sage} from './sage.preset'
 import * as themeJson from './theme/api/themeJson'
 import * as useTailwindColors from './theme/api/useTailwindColors'
 import * as ThemeJSON from './theme/extension'

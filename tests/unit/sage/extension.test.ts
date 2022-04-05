@@ -1,7 +1,5 @@
-import '@roots/bud-babel'
-
 import {Bud, factory} from '@repo/test-kit/bud'
-import {Sage} from '@roots/sage/src/sage.preset'
+import * as Sage from '@roots/sage'
 
 describe('@roots/sage', () => {
   let bud: Bud
@@ -16,19 +14,25 @@ describe('@roots/sage', () => {
   })
 
   it(`has name prop`, () => expect(Sage.name).toBe('@roots/sage'))
+
   it(`registers prop: name`, () =>
     expect(bud.extensions.get('@roots/sage').get('name')).toBe(Sage.name))
 
-  it(`has boot prop`, () => expect(Sage.name).toBeInstanceOf(Function))
+  it(`has boot prop`, () => expect(Sage.boot).toBeInstanceOf(Function))
+
   it(`registers prop: boot`, () =>
     expect(bud.extensions.get('@roots/sage').get('boot')).toBe(Sage.boot))
 
-  it(`sets aliases`, () => {
-    expect(bud.hooks.filter('build.resolve.alias')).toBe({
-      '@scripts': bud.path('@src', 'scripts'),
-      '@styles': bud.path('@src', 'styles'),
-      '@images': bud.path('@src', 'images'),
-      '@fonts': bud.path('@src', 'fonts'),
+  it(`sets aliases`, async () => {
+    const aliases = await bud.hooks.filterAsync('build.resolve.alias')
+
+    expect(aliases).toStrictEqual({
+      '@src': bud.path('@src'),
+      '@scripts': bud.path('@src/scripts'),
+      '@styles': bud.path('@src/styles'),
+      '@images': bud.path('@src/images'),
+      '@fonts': bud.path('@src/fonts'),
+      '@dist': bud.path('@dist'),
     })
   })
 
