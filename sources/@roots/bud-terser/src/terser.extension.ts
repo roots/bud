@@ -1,11 +1,11 @@
-import * as Framework from '@roots/bud-framework'
 import TerserPlugin from 'terser-webpack-plugin'
 
+import {Extension} from './'
 import {terser} from './terser.api'
 
-export const name: Framework.Terser.Extension['name'] = '@roots/bud-terser'
+export const name: Extension['name'] = '@roots/bud-terser'
 
-export const options: Framework.Terser.Extension['options'] = app => ({
+export const options: Extension['options'] = app => ({
   include: app.store.get('patterns.js'),
   extractComments: false,
   terserOptions: {
@@ -20,7 +20,7 @@ export const options: Framework.Terser.Extension['options'] = app => ({
   },
 })
 
-export const boot: Framework.Terser.Extension['boot'] = ({
+export const boot: Extension['boot'] = ({
   extensions,
   hooks,
 }) => {
@@ -32,4 +32,4 @@ export const boot: Framework.Terser.Extension['boot'] = ({
   })
 }
 
-export const api: Framework.Terser.Extension['api'] = {terser}
+export const api: Extension['api'] = {terser}

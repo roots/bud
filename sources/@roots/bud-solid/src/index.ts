@@ -10,6 +10,8 @@
  * @packageDocumentation
  */
 
+import '@roots/bud-babel'
+
 import type {Extension} from '@roots/bud-framework'
 import {safeRequire} from '@roots/bud-support'
 
