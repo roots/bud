@@ -6,10 +6,22 @@ import {Server as HttpsServer} from 'https'
 import {ServerResponse} from 'webpack-dev-middleware'
 
 /**
- * HTTP Server
+ * Node server
  * @public
  */
 export abstract class BaseServer implements Connection {
+  /**
+   * protocol
+   * @virtual
+   * @public
+   */
+  public abstract protocol: 'http:' | 'https:'
+
+  /**
+   * Create server
+   * @virtual
+   * @public
+   */
   public abstract createServer(app: any): Promise<HttpServer | HttpsServer>
 
   /**
@@ -25,11 +37,55 @@ export abstract class BaseServer implements Connection {
   public logger: Signale
 
   /**
+   * Port
+   * @public
+   */
+  public port: number
+
+  /**
+   * Final URL
+   *
+   * @remarks
+   * For overrides: this is what the listen event will be passed
+   *
+   * @public
+   */
+  public url: URL
+
+  /**
+   * host
+   * @public
+   */
+  public get hostname(): string {
+    return this.app.hooks.filter('dev.hostname', '0.0.0.0')
+  }
+
+  /**
+   * interface
+   * @public
+   */
+  public get interface(): string {
+    return this.app.hooks.filter('dev.interface')
+  }
+
+  /**
    * Options
    * @public
    */
-  public get options(): Server.Connection.Options {
+  public get options(): Server.Options {
     return this.app.hooks.filter(`dev.options`)
+  }
+
+  /**
+   * Port options
+   * @public
+   */
+  public get specification() {
+    return {
+      port: this.app.hooks.filter('dev.port', [3000]),
+      exclude: this.app.hooks.filter('dev.exclude', []),
+      host: this.interface,
+    }
   }
 
   /**
@@ -37,8 +93,10 @@ export abstract class BaseServer implements Connection {
    * @param app - Framework
    * @public
    */
-  public constructor(public app: Framework, public url: URL) {
-    this.logger = this.app.logger.instance.scope(this.url.host)
+  public constructor(public app: Framework) {
+    this.logger = this.app.logger.instance.scope(
+      this.constructor.name.toLowerCase(),
+    )
   }
 
   /**
@@ -48,10 +106,20 @@ export abstract class BaseServer implements Connection {
    */
   @bind
   public async setup() {
-    const port = await getPort({port: Number(this.url.port)})
-    this.url.port = `${port}`
-    this.app.hooks.on('dev.url', this.url)
-    this.logger.log('url', this.url)
+    this.port = await getPort(this.specification)
+
+    if (!this.specification.port.includes(Number(this.port))) {
+      this.logger.warn(
+        `\n`,
+        `None of the requested ports could be resolved.`,
+        `A port was automatically selected: ${this.port}`,
+        `\n`,
+      )
+    }
+
+    this.url = new URL(`${this.protocol}//${this.hostname}`)
+    this.url.port = `${this.port}`
+    this.url.pathname = '/'
   }
 
   /**
@@ -62,7 +130,9 @@ export abstract class BaseServer implements Connection {
   @bind
   public async listen() {
     this.instance
-      .listen({port: this.url.port, host: this.url.hostname})
+      .listen({
+        port: Number(this.url.port),
+      })
       .on('listening', this.onListening)
       .on('request', this.onRequest)
       .on('error', this.onError)

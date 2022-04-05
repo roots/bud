@@ -11,7 +11,7 @@ export const css = (app: Framework) =>
     .setLoader(`css`)
     .setOptions(({hooks}) => ({
       importLoaders: 1,
-      sourceMap: hooks.filter('build.devtool') ?? false,
+      sourceMap: hooks.filter('build.devtool') ? true : false,
     }))
 
 /**
@@ -27,7 +27,7 @@ export const cssModule = (app: Framework) =>
       importLoaders: 1,
       localIdentName: '[name]__[local]___[hash:base64:5]',
       modules: true,
-      sourceMap: hooks.filter('build.devtool') ?? false,
+      sourceMap: hooks.filter('build.devtool') ? true : false,
     }))
 
 /**
@@ -104,7 +104,7 @@ export const resolveUrl = (app: Framework) =>
     .setLoader(`resolveUrl`)
     .setOptions(({path, hooks}) => ({
       root: path('@src'),
-      sourceMap: hooks.filter('build.devtool') ?? false,
+      sourceMap: hooks.filter('build.devtool') ? true : false,
     }))
 
 /**

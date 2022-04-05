@@ -93,8 +93,8 @@ export const seed: Partial<Store.Repository> = {
    * @public
    */
   patterns: {
-    js: /\.(js|jsx)$/,
-    ts: /\.(ts|tsx)$/,
+    js: /\.(cjs|mjs|jsx?)$/,
+    ts: /\.(tsx?)$/,
     sass: /\.(scss|sass)$/,
     sassModule: /\.module\.(scss|sass)$/,
     css: /\.css$/,
@@ -193,23 +193,24 @@ export const seed: Partial<Store.Repository> = {
   }),
   [`build.resolve.extensions`]: app =>
     new Set([
-      `.wasm`,
+      `.mjs`,
+      `.cjs`,
       `.mjs`,
       `.js`,
       `.jsx`,
       `.css`,
       `.json`,
-      `.toml`,
+      `.wasm`,
       `.yml`,
+      `.toml`,
     ]),
   [`build.module.rules.before`]: app => [
     {
-      test: /\.[cm]?(jsx?|tsx?)$/,
-      parser: {
-        requireEnsure: false,
-      },
+      test: app.store.get('patterns.js'),
+      include: [app.path('@src')],
+      parser: {requireEnsure: false},
     },
   ],
   [`build.module.rules.after`]: app => [],
-  [`build.stats`]: app => ({preset: `normal`}),
+  [`build.stats`]: app => `normal`,
 }

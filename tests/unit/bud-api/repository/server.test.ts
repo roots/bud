@@ -1,5 +1,4 @@
 import {Bud, factory} from '@repo/test-kit/bud'
-import {URL} from 'url'
 
 describe('bud.serve', function () {
   let bud: Bud
@@ -17,26 +16,15 @@ describe('bud.serve', function () {
 
     await bud.api.processQueue()
 
-    expect(bud.hooks.filter('dev.url')).toStrictEqual(
-      new URL('http://example.com'),
-    )
-  })
-
-  it('sets URL from URL', async () => {
-    const testUrl = new URL('http://test-url.com')
-
-    bud.serve(testUrl)
-
-    await bud.api.processQueue()
-
-    expect(bud.hooks.filter('dev.url')).toStrictEqual(testUrl)
+    expect(bud.hooks.filter('dev.ssl')).toBe(false)
+    expect(bud.hooks.filter('dev.hostname')).toStrictEqual('example.com')
+    expect(bud.hooks.filter('dev.port')).toStrictEqual([3000])
   })
 
   it('sets options', async () => {
-    const url = new URL('http://test-url.com')
-
     const options = {cert: 'foo', key: 'bar'}
-    await bud.api.call('serve', url, options)
+
+    await bud.api.call('serve', {options})
 
     expect(bud.hooks.filter('dev.options')).toStrictEqual(options)
   })

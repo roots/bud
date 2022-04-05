@@ -45,6 +45,7 @@ export * from './external/table'
 export * from './util/dump'
 export * from './util/killPort'
 
+export * as figures from './util/figures'
 export * as wpPkgs from './util/wordpressPkgs'
 export * as parsers from './parsers'
 

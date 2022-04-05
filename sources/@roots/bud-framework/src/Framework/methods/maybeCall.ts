@@ -1,12 +1,17 @@
+import {lodash} from '@roots/bud-support'
+
 import {Framework} from '..'
-import {isFunction} from '../framework.dependencies'
+
+const {isFunction} = lodash
 
 /**
  * @internal
  */
-export interface maybeCall<I = any> {
-  (value: ((app: Framework) => I) | I): I
+export interface maybeCall {
+  <I = Framework>(maybeCallable: maybeCallable<I>, value?: I): I
 }
+
+export type maybeCallable<I = unknown> = ((param: Framework) => I) | I
 
 /**
  * Calls a given value if it is a function. The function will be bound to
@@ -14,12 +19,13 @@ export interface maybeCall<I = any> {
  *
  * If it is not a function, returns the value without doing anything to it.
  *
- * @param this - Bud
  * @typeParam I - Type of the value expected to be returned
- *
  * @public
  */
-export function maybeCall<I = any>(value: (app: Framework) => I | I) {
-  this as Framework
-  return isFunction(value) ? value.bind(this)(this) : value
+export function maybeCall<I = Framework>(maybeCallable: maybeCallable): I {
+  const app = this as Framework
+
+  return isFunction(maybeCallable)
+    ? maybeCallable.call(app, app)
+    : maybeCallable
 }
