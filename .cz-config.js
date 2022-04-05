@@ -19,7 +19,7 @@ module.exports = {
       name: '🔨 dev\tadd or update config files or dev scripts',
     },
     {value: ':rewind: revert', name: '⏪️ revert\trevert commit'},
-    {value: ':merge: merge', name: '🔀 merge\tmerge branch'},
+    {value: ':fast_forward: merge', name: '⏩ merge\tmerge branch'},
     {value: ':construction: wip', name: '🚧 wip\twork in progress'},
   ],
 
