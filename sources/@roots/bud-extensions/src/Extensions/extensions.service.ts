@@ -4,9 +4,12 @@ import {
   Framework,
   Service,
 } from '@roots/bud-framework'
+import {lodash} from '@roots/bud-support'
 
 import {Controller} from '../Controller'
 import {bind} from './extensions.dependencies'
+
+const {isArray} = lodash
 
 /**
  * Extensions Service
@@ -19,14 +22,12 @@ import {bind} from './extensions.dependencies'
 export class Extensions extends Service implements Base {
   /**
    * Extensions queued for registration
-   *
    * @public
    */
   public queue = []
 
   /**
    * Controller factory
-   *
    * @public
    */
   public makeController(
@@ -43,6 +44,8 @@ export class Extensions extends Service implements Base {
   }
 
   /**
+   * `booted` callback
+   * 
    * @override
    * @public
    */
@@ -65,7 +68,7 @@ export class Extensions extends Service implements Base {
 
   /**
    * Inject extension modules
-   *
+   * 
    * @public
    * @decorator `@bind`
    */
@@ -187,15 +190,25 @@ export class Extensions extends Service implements Base {
    * @decorator `@bind`
    */
   @bind
-  public async add(extension: Extension.Module): Promise<void> {
-    if (this.has(extension.name)) {
-      this.log('info', `${extension.name} already exists. skipping.`)
-      return
-    }
+  public async add(extension: Extension.Module | Array<Extension.Module>): Promise<void> {
+    const arrayed = isArray(extension) ? extension : [extension]
 
-    await this.setController(extension)
-    await this.registerExtension(this.get(extension.name))
-    await this.bootExtension(this.get(extension.name))
+    await Promise.all(
+      arrayed.map(async extension => {
+        try {
+          if (this.has(extension.name)) {
+            this.log('info', `${extension.name} already exists. skipping.`)
+            return
+          }
+
+          await this.setController(extension)
+          await this.registerExtension(this.get(extension.name))
+          await this.bootExtension(this.get(extension.name))
+        } catch (err) {
+          this.app.error(err)
+        }
+      })
+    )
   }
 
   /**

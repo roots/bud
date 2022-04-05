@@ -20,12 +20,12 @@ export interface Extensions extends Service {
    *
    * @public
    */
-  add(extension: CompilerPlugin | Module): Promise<void>
+  add(extension: Module | Array<Module>): Promise<void>
 
   /**
    * @public
    */
-  enqueue(extension: CompilerPlugin | Module): Framework
+  enqueue(extension: Module): Framework
 
   /**
    * Auto install and register discovered extensions
