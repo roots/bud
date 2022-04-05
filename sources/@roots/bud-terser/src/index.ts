@@ -15,6 +15,8 @@ import './bud.env'
 import {Extension, Framework} from '@roots/bud-framework'
 import TerserPlugin from 'terser-webpack-plugin/types'
 
+import * as extension from './terser.extension'
+
 export type Options = TerserPlugin.BasePluginOptions
 
 export type Plugin = TerserPlugin
@@ -28,4 +30,4 @@ export interface Extension
   options: (app: Framework) => Options
 }
 
-export {name, api, options, boot} from './terser.extension'
+export const {name, api, options, boot} = extension
