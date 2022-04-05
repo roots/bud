@@ -1,6 +1,6 @@
 import {Configuration} from 'webpack'
 
-import type {Service} from '../Service'
+import type {Service} from '../../Service'
 
 /**
  * Cache service Interface
@@ -17,6 +17,8 @@ export interface Cache extends Service {
 
   /**
    * Enabled?
+   * 
+   * @public
    */
   enabled: boolean
 

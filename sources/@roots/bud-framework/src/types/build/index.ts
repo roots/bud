@@ -1,6 +1,6 @@
 import * as Webpack from 'webpack'
 
-import {Service} from '../Service'
+import {Service} from '../../Service'
 import {Item} from './Item'
 import {Loader} from './Loader'
 import {Rule} from './Rule'
@@ -20,21 +20,21 @@ import {Rule} from './Rule'
  * - {@link Build.rules} can be extended by augmenting the {@link Framework.Rules} interface
  *
  * @example
- * Access the config
+ * Access the configuration:
  *
  * ```js
  * build.config
  * ```
  * 
  * @example
- * Build the config
+ * Build the configuration:
  * 
  * ```js
  * await build.make()
  * ```
  *
  * @example
- * Filter the Webpack configuration.entry value
+ * Get the current `configuration.entry` value
  *
  * ```js
  * bud.hooks.filter('build.entry')
@@ -44,49 +44,57 @@ import {Rule} from './Rule'
  */
 export interface Build extends Service {
   /**
-   * Arrayed {@link Loader}
+   * Arrayed {@link Loader} instances
+   * 
    * @public
    */
   loaders: Loaders
 
   /**
-   * Arrayed {@link Item}
+   * Arrayed {@link Item} instances
+   * 
    * @public
    */
   items: Items
 
   /**
-   * Arrayed {@link Rule}
+   * Arrayed {@link Rule} instances
+   * 
    * @public
    */
   rules: Rules
 
   /**
    * Compiler configuration
+   * 
    * @public
    */
   config: Webpack.Configuration
 
   /**
    * Make {@link Build.config}
+   * 
    * @public
    */
   make(): Promise<Build['config']>
 
   /**
-   * Set a {@link Loader}
+   * Set a {@link Loader} instance
+   * 
    * @public
    */
   setLoader(name: string, options: string): Build
 
   /**
-   * Make a {@link Loader}
+   * Make a {@link Loader} instance
+   * 
    * @public
    */
   makeLoader(options?: string): Loader
 
   /**
-   * Set a {@link Rule}
+   * Set a {@link Rule} instance
+   * 
    * @public
    */
   setRule(
@@ -95,13 +103,15 @@ export interface Build extends Service {
   ): Build
 
   /**
-   * Make a new {@link Rule}
+   * Make a new {@link Rule} instance
+   * 
    * @public
    */
   makeRule(options?: Partial<Rule.Options>): Rule
 
   /**
-   * Set a {@link Item}
+   * Set a {@link Item} instance
+   * 
    * @public
    */
   setItem(
@@ -110,7 +120,8 @@ export interface Build extends Service {
   ): Build
 
   /**
-   * Make a new {@link Item}
+   * Make a new {@link Item} instance
+   * 
    * @public
    */
   makeItem(options?: Partial<Item.Options>): Item
@@ -118,6 +129,7 @@ export interface Build extends Service {
 
 /**
  * Registered {@link Loader} instances
+ * 
  * @virtual @public
  */
 export interface Loaders extends Partial<Record<string, Loader>> {}
@@ -125,6 +137,7 @@ export {Loader}
 
 /**
  * Registered {@link Item} instances
+ * 
  * @virtual @public
  */
 export interface Items extends Partial<Record<string, Item>> {}
@@ -132,6 +145,7 @@ export {Item}
 
 /**
  * Registered {@link Rule} instances
+ * 
  * @virtual @public
  */
 export interface Rules extends Partial<Record<string, Rule>> {}

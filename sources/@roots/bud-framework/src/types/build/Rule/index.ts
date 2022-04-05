@@ -1,5 +1,5 @@
-import {Items} from '../..'
-import {Framework} from '../../Framework'
+import {Framework} from '../../../Framework'
+import {Items} from '../'
 
 /**
  * Loader rule definition
@@ -9,12 +9,14 @@ import {Framework} from '../../Framework'
 export namespace Rule {
   /**
    * File parser interface
+   * 
    * @public
    */
   export interface Parser extends Record<string, any> {}
 
   /**
    * Options interface
+   * 
    * @public
    */
   export type Options = {
@@ -47,7 +49,9 @@ export namespace Rule {
 
 export interface Rule {
   /**
-   * Framework instance
+   * The {@link Framework} instance
+   * 
+   * @public
    */
   app: Framework
 

@@ -1,8 +1,8 @@
-import {Framework} from '../../Framework'
+import {Framework} from '../../../Framework'
 
 /**
  * Loader interface
- * 
+ *
  * @remarks
  * Contains the path to the loader source.
  * Loader options are associated with the loader using the {@link @roots/bud-framework#Item} interface

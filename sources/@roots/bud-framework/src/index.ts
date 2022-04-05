@@ -30,8 +30,8 @@
  * @packageDocumentation
  */
 
-export {Build, Item, Items, Loader, Loaders, Rule, Rules} from './Build'
-import {Cache} from './Cache'
+export {Build, Item, Items, Loader, Loaders, Rule, Rules} from './types/build'
+export {Cache} from './types/cache'
 import {Context} from './Context'
 import {Extensions} from './Extensions'
 import * as Extension from './Extensions/Extension'
@@ -43,7 +43,6 @@ import {Service} from './Service'
 
 export {Store} from './Store'
 
-export {Cache}
 export {Constructor}
 export {Context}
 export {Extension}

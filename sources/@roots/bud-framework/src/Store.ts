@@ -14,13 +14,6 @@ const {get, set} = lodash
  */
 export class Store<T = Store.Repository> extends Service<T> {
   /**
-   * Service identifier
-   *
-   * @public
-   */
-  public ident: string = 'store'
-
-  /**
    * Store constructor
    *
    * @param app - Framework

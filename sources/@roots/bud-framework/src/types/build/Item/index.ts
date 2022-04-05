@@ -1,5 +1,5 @@
-import {Framework} from '../..'
-import {Loader, Loaders} from '..'
+import {Framework} from '../../../Framework'
+import {Loader, Loaders} from '../'
 
 /**
  * Item interface
@@ -9,16 +9,17 @@ import {Loader, Loaders} from '..'
 export interface Item {
   /**
    * The {@link Framework} instance
+   *
    * @public
    */
   get app(): Framework
 
   /**
    * Key from {@link Loaders} registry
-   * 
+   *
    * @remarks
    * Or a callback which returns it
-   * 
+   *
    * @public
    */
   loader:
@@ -27,46 +28,53 @@ export interface Item {
 
   /**
    * Set the {@link Loaders} key
-   * 
+   *
    * @public
    */
   setLoader(loader: Item['loader']): Item
+
+  /**
+   * Get the associated {@link Loader} instance
+   *
+   * @public
+   */
   getLoader(): Loader
 
   /**
-   * Item.Options
+   * Associated {@link Loader} options
    *
    * @public
    */
   options: Item.Options | ((app: Framework) => Item.Options)
 
   /**
-   * Set options
-   *
-   * @param factory - {@link Item.OptionsFactory}
-   * @returns void
+   * Set {@link Item.Options}
    *
    * @public
    */
-  setOptions(factory: Item['options']): Item
-  getOptions(): Item['options']
+  setOptions(
+    factory: Item.Options | ((app: Framework) => Item.Options),
+  ): Item
+
+  /**
+   * Get associated {@link Loader} options
+   *
+   * @public
+   */
+  getOptions(): Item.Options
 
   /**
    * Merge option
    *
    * @param options - Item.Options to merge
-   * @param app - {@link Framework}
    * @returns void
    *
    * @public
    */
-  mergeOptions(options: Item['options']): void
+  mergeOptions(options: Item.Options): void
 
   /**
    * Makes final Item output
-   *
-   * @param app - {@link Framework}
-   * @returns finalized Item
    *
    * @public
    */
@@ -76,6 +84,7 @@ export interface Item {
 export namespace Item {
   /**
    * Item.Options interface
+   * 
    * @public
    */
   export interface Options {
@@ -84,20 +93,23 @@ export namespace Item {
 
   /**
    * Constructor interface
+   * 
    * @public
    */
   export type ConstructorOptions = {
     loader?: Item['loader']
-    options?: Item['options']
+    options?: Item.Options
   }
 
   /**
    * Output interface
+   * 
    * @public
    */
   export interface Output {
     /**
      * Finalized loader
+     * 
      * @public
      */
     loader: string
