@@ -25,7 +25,7 @@ export interface EntryObject {
   /**
    * Module(s) that are loaded upon startup.
    */
-  import: Array<string>
+  import: string | Array<string>
 
   /**
    * Specifies the layer in which modules of this entrypoint are placed.

@@ -51,9 +51,7 @@ export const reactRefresh: reactRefresh = async function (
     ctx.extensions.has('@pmmmwh/react-refresh-webpack-plugin')
   ) {
     ctx.extensions.remove('@pmmmwh/react-refresh-webpack-plugin')
-    ctx.hooks.async('build.entry', async entries =>
-      reduceEntries.remove(entries),
-    )
+    ctx.hooks.on('build.entry', reduceEntries.remove)
 
     return ctx
   }
@@ -61,9 +59,7 @@ export const reactRefresh: reactRefresh = async function (
   /**
    * Add entries
    */
-  ctx.hooks.async('build.entry', async entries =>
-    reduceEntries.add(entries),
-  )
+  ctx.hooks.on('build.entry', reduceEntries.add)
   await ctx.extensions.add(ReactRefreshExtension)
 
   if (!userOptions || userOptions === true) return ctx
