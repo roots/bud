@@ -4,7 +4,7 @@ module.exports = {
     {value: ':tada: pkg', name: '🎉 feat\tadd package'},
     {value: ':label: types', name: '🏷️  types\tadd or update type'},
     {value: ':package: deps', name: '📦 deps\tmodify dependencies'},
-    {value: ':nailcare: style', name: '💅 style\tcode formatting'},
+    {value: ':nail_care: style', name: '💅 style\tcode formatting'},
     {value: ':recycle: improve', name: '♻️  improve\timprove code'},
     {
       value: ':roller_skate: improve',
