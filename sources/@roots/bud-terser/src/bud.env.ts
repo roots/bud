@@ -2,7 +2,7 @@ import {Extension} from './'
 import {terser} from './terser.api'
 
 declare module '@roots/bud-framework' {
-  interface Framework {
+  interface Bud {
     terser: terser
   }
 

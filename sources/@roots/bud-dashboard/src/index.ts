@@ -2,7 +2,7 @@
 // Licensed under the MIT license.
 
 /**
- * The Dashboard package implements the Framework.Dashboard interface.
+ * The Dashboard package implements the Bud.Dashboard interface.
  *
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud

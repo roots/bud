@@ -1,8 +1,7 @@
 import {
-  Extension,
+  Bud,
+  ContainerService,
   Extensions as Base,
-  Framework,
-  Service,
 } from '@roots/bud-framework'
 import {lodash} from '@roots/bud-support'
 
@@ -19,7 +18,7 @@ const {isArray} = lodash
  *
  * @public
  */
-export class Extensions extends Service implements Base {
+export class Extensions extends ContainerService<Controller> implements Base.Service {
   /**
    * Extensions queued for registration
    * @public
@@ -31,21 +30,21 @@ export class Extensions extends Service implements Base {
    * @public
    */
   public makeController(
-    extension: Extension.Module | Promise<Extension.Module>,
+    extension: Base.Module | Promise<Base.Module>,
   ): Controller {
     const controller = new Controller(this.app, extension)
     return controller
   }
 
   @bind
-  public async setController(extension: Extension.Module): Promise<void> {
+  public async setController(extension: Base.Module): Promise<void> {
     const controller = this.makeController(extension)
     this.set(controller.name, controller)
   }
 
   /**
    * `booted` callback
-   * 
+   *
    * @override
    * @public
    */
@@ -68,7 +67,7 @@ export class Extensions extends Service implements Base {
 
   /**
    * Inject extension modules
-   * 
+   *
    * @public
    * @decorator `@bind`
    */
@@ -110,7 +109,7 @@ export class Extensions extends Service implements Base {
   ): Promise<void> {
     this.log('log', `importing ${extension.name}`)
     const importedModule = await import(extension.name)
-    const importedExtension: Extension.Module = importedModule.default
+    const importedExtension: Base.Module = importedModule.default
       ? importedModule.default
       : importedModule
 
@@ -190,7 +189,7 @@ export class Extensions extends Service implements Base {
    * @decorator `@bind`
    */
   @bind
-  public async add(extension: Extension.Module | Array<Extension.Module>): Promise<void> {
+  public async add(extension: Base.Module | Array<Base.Module>): Promise<void> {
     const arrayed = isArray(extension) ? extension : [extension]
 
     await Promise.all(
@@ -221,7 +220,7 @@ export class Extensions extends Service implements Base {
    * @decorator `@bind`
    */
   @bind
-  public enqueue(extension: Extension.Module): Framework {
+  public enqueue(extension: Base.Module): Bud {
     this.queue.push(extension)
     return this.app
   }

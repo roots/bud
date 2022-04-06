@@ -1,7 +1,7 @@
 import {Bud, factory as budFactory, makeContext, seed} from '@roots/bud'
 import {join} from 'path'
 
-export {Bud} from '@roots/bud'
+export {Bud}
 
 export const repoPath = (path: string) => join(process.cwd(), path)
 

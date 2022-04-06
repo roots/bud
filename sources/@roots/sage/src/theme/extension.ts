@@ -10,12 +10,12 @@ import {Options, ThemeJsonWebpackPlugin} from './plugin'
  * @public
  */
 export interface ThemeExtension
-  extends Framework.Extension.CompilerPlugin<
+  extends Framework.Extension.Plugin<
     ThemeJsonWebpackPlugin,
     Options
   > {
   name: 'wp-theme-json'
-  options: (app: Framework.Framework) => Options
+  options: (app: Framework.Bud) => Options
   api: {
     themeJson: themeJson.method
     useTailwindColors: useTailwindColors.method

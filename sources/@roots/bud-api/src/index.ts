@@ -13,7 +13,7 @@
 import {Api, Facade} from './api'
 
 declare module '@roots/bud-framework' {
-  interface Framework extends Facade {}
+  interface Bud extends Facade {}
 }
 
 export {Api, Facade}

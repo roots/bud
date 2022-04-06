@@ -18,7 +18,7 @@ import {BudCriticalCssPlugin} from './BudCriticalCssPlugin'
 import {critical} from './critical'
 
 declare module '@roots/bud-framework' {
-  interface Framework {
+  interface Bud {
     critical: critical
   }
 

@@ -1,9 +1,11 @@
+import '@roots/bud-postcss'
+
 import {Extension} from '@roots/bud-framework'
 
 import * as purge from './purge.interface'
 
 declare module '@roots/bud-framework' {
-  interface Framework {
+  interface Bud {
     purgecss: purge.api
   }
 

@@ -15,7 +15,7 @@ import {BudDllPlugin} from './BudDllPlugin'
 import {library} from './library'
 
 declare module '@roots/bud-framework' {
-  interface Framework {
+  interface Bud {
     library: library
   }
 

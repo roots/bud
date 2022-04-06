@@ -1,4 +1,4 @@
-import {Framework} from '@roots/bud-framework'
+import {Bud} from '@roots/bud-framework'
 
 import {Options} from './fork-ts-checker-webpack-plugin'
 
@@ -6,7 +6,7 @@ import {Options} from './fork-ts-checker-webpack-plugin'
  * @public
  */
 export interface OptionsFactory {
-  (app: Framework): Options
+  (app: Bud): Options
 }
 
 /**
@@ -14,7 +14,7 @@ export interface OptionsFactory {
  *
  * @public
  */
-export const production: OptionsFactory = (app: Framework) => ({
+export const production: OptionsFactory = (app: Bud) => ({
   async: false,
   logger: {
     infrastructure: app.logger.instance,
@@ -36,7 +36,7 @@ export const production: OptionsFactory = (app: Framework) => ({
  *
  * @public
  */
-export const development: OptionsFactory = (app: Framework) => ({
+export const development: OptionsFactory = (app: Bud) => ({
   async: false,
   logger: {
     infrastructure: app.logger.instance,

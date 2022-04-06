@@ -1,6 +1,6 @@
 import {
   Compiler as Contract,
-  Framework,
+  Bud,
   Service,
 } from '@roots/bud-framework'
 import {bind, chalk, lodash, once, Signale} from '@roots/bud-support'
@@ -21,7 +21,7 @@ const {isFunction} = lodash
  * Wepback compilation controller class
  * @public
  */
-export class Compiler extends Service implements Contract {
+export class Compiler extends Service implements Contract.Service {
   /**
    * Compiler
    * @public
@@ -130,11 +130,11 @@ export class Compiler extends Service implements Contract {
     this.config.push(this.app.build.config)
 
     /**
-     * If there are {@link Framework.children} instances, iterate through
+     * If there are {@link Bud.children} instances, iterate through
      * them and add to `config`
      */
     await Promise.all(
-      this.app.children?.getValues().map(async (instance: Framework) => {
+      this.app.children?.getValues().map(async (instance: Bud) => {
         if (!instance.name) return
         await instance.build.make()
 

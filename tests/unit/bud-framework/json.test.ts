@@ -1,5 +1,5 @@
 import {paths} from '@repo/constants'
-import {read,write} from '@roots/bud-framework/src/Framework/methods/json5'
+import {read,write} from '@roots/bud-framework/src/methods/json5'
 import {join} from 'node:path'
 
 describe('bud.json', () => {

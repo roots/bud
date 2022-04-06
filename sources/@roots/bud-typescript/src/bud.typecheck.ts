@@ -1,4 +1,4 @@
-import {Framework} from '@roots/bud-framework'
+import {Bud} from '@roots/bud-framework'
 import {Container} from '@roots/container'
 
 import * as BudTypeCheckPlugin from './fork-ts-checker-webpack-plugin'
@@ -21,15 +21,15 @@ interface OptionsMutator {
 type Options = OptionsMutator | BudTypeCheckPlugin.Options | boolean
 
 export interface typecheck {
-  (this: Framework, options?: Options): Promise<Framework>
+  (this: Bud, options?: Options): Promise<Bud>
 }
 
 export interface facade {
-  (this: Framework, options?: Options): Framework
+  (this: Bud, options?: Options): Bud
 }
 
 export const typecheck: typecheck = async function (
-  this: Framework,
+  this: Bud,
   options?,
 ) {
   /**

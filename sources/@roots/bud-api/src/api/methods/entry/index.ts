@@ -1,4 +1,4 @@
-import type {Framework} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
 import {lodash} from '@roots/bud-support'
 import {isArray} from 'lodash'
 
@@ -16,7 +16,7 @@ import {
 const {isString} = lodash
 
 export const entry: method = async function (...input) {
-  const ctx = this as Framework
+  const ctx = this as Bud
 
   if (input.length > 1 && !isString(input[0])) {
     ctx.error(

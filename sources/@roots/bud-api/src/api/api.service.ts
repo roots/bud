@@ -15,7 +15,7 @@ const {isEmpty, isFunction} = lodash
  *
  * @public
  */
-export class Api extends Framework.Service implements Framework.Api {
+export class Api extends Framework.ContainerService implements Framework.Api.Service {
   /**
    * Queued method calls
    *
@@ -115,32 +115,5 @@ export class Api extends Framework.Service implements Framework.Api {
     )
 
     this.queue = []
-  }
-
-  /**
-   * Dump the method call trace
-   *
-   * @public
-   */
-  @bind
-  public dump() {
-    this.app.dump(
-      this.trace.reduce(
-        (a, t) => [
-          ...a,
-          {
-            method: t[0],
-            arguments: isEmpty(t[1]) ? 'none' : t[1],
-          },
-        ],
-        [],
-      ),
-      {
-        prefix: `${this.app.name} config traced calls`,
-        printBasicPrototype: false,
-        callToJSON: true,
-        min: true,
-      },
-    )
   }
 }

@@ -16,7 +16,7 @@ import {PostCssConfig} from './bud.postcss'
 import {BudPostCssExtension} from './postcss.extension'
 
 declare module '@roots/bud-framework' {
-  interface Framework {
+  interface Bud {
     postcss: PostCssConfig
   }
 

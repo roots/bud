@@ -4,7 +4,7 @@ import * as Plugin from 'compression-webpack-plugin'
 import {BudCompressionExtension} from './'
 
 interface BudGzipWebpackPlugin
-  extends Extension.CompilerPlugin<
+  extends Extension.Plugin<
     Plugin,
     BudCompressionExtension.Options
   > {}

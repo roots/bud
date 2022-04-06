@@ -1,9 +1,9 @@
 import {lodash} from '@roots/bud-support'
 
 import {Locations} from './'
-import {ConfigMap} from './config.map'
-import {Framework} from './Framework'
-import {Service} from './Service'
+import {Bud} from './bud'
+import {ConfigMap} from './config/map'
+import {ContainerService} from './service'
 
 const {get, set} = lodash
 
@@ -12,18 +12,7 @@ const {get, set} = lodash
  *
  * @public
  */
-export class Store<T = Store.Repository> extends Service<T> {
-  /**
-   * Store constructor
-   *
-   * @param app - Framework
-   * @param options - Partial framework config
-   */
-  public constructor(app: Framework, options: Partial<Store.Repository>) {
-    super(app)
-    this.repository = options
-  }
-
+export class Store<T = Store.Repository> extends ContainerService<T> {
   /**
    * Get a store value
    *
@@ -49,21 +38,21 @@ export class Store<T = Store.Repository> extends Service<T> {
   }
 }
 
-export type FrameworkCallable<T> = (app: Framework) => T
+export type BudCallable<T> = (app: Bud) => T
 
 export type CompilerConfigCallables = {
-  [K in keyof ConfigMap as `${K & string}`]: FrameworkCallable<
+  [K in keyof ConfigMap as `${K & string}`]: BudCallable<
     ConfigMap[K]
   >
 }
 
 export namespace Store {
   /**
-   * Framework base configuration
+   * Bud base configuration
    *
    * @remarks
-   * These are just initial values. They can be overwritten by the user, or extended by the framework/modules.
-   * It is recommended to use {@link @roots/bud-framework#Hooks.on} to extend the
+   * These are just initial values. They can be overwritten by the user, or extended by the Bud/modules.
+   * It is recommended to use {@link @roots/bud-Bud#Hooks.on} to extend the
    *
    * @public
    */

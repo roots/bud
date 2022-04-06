@@ -1,22 +1,22 @@
-import type { Extension, Framework} from '@roots/bud-framework'
+import type { Bud,Extension} from '@roots/bud-framework'
 import {lodash} from '@roots/bud-support'
 
-import {generateName, isCompilerPlugin} from './use.utilities'
+import {generateName, isPlugin} from './use.utilities'
 
 const {isArray} = lodash
 
 export interface use {
-  (source: Extension.Module): Promise<Framework>
+  (source: Extension.Module): Promise<Bud>
 }
 
 export interface facade {
-  (source: Extension.Module): Framework
+  (source: Extension.Module): Bud
 }
 
-export const use: use = async function (source): Promise<Framework> {
-  const bud = this as Framework
+export const use: use = async function (source): Promise<Bud> {
+  const bud = this as Bud
 
-  const addExtension = async (source: Extension.Module): Promise<Framework> => {
+  const addExtension = async (source: Extension.Module): Promise<Bud> => {
     if (!source) {
       bud.error(`"${source.name}" extension source is not defined`)
     }
@@ -33,7 +33,7 @@ export const use: use = async function (source): Promise<Framework> {
       return bud
     }
 
-    const normalized = isCompilerPlugin(source)
+    const normalized = isPlugin(source)
       ? {...source, make: () => source}
       : source
     await bud.extensions.add(normalized)

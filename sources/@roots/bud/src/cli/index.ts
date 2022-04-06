@@ -1,4 +1,4 @@
-import {Context} from '@roots/bud-framework'
+import {Config} from '@roots/bud-framework'
 import {execa} from '@roots/bud-support'
 import {Builtins, Cli} from 'clipanion'
 import {platform} from 'node:os'
@@ -13,9 +13,10 @@ import {InstallCommand} from './commands/install'
 
 /**
  * Register ts-node if available
+ *
  * @public
  */
-const tsNode = async (context: Context) => {
+const tsNode = async (context: Config.Context) => {
   if (
     context.disk.config &&
     Object.keys(context.disk.config)?.filter(
@@ -39,7 +40,7 @@ const tsNode = async (context: Context) => {
  * @param context - application context
  * @public
  */
-const notifier = async (context: Context) => {
+const notifier = async (context: Config.Context) => {
   if (platform() === 'darwin') {
     try {
       const notifierPath = join(

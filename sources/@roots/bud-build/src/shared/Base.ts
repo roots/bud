@@ -1,26 +1,26 @@
-import type {Framework} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
 import {lodash} from '@roots/bud-support'
 
 const {isFunction} = lodash
 
 export class Base {
-  private _app: () => Framework
+  private _app: () => Bud
 
   public get app() {
     return this._app()
   }
 
-  public constructor(_app: () => Framework) {
+  public constructor(_app: () => Bud) {
     this._app = _app
   }
 
   public wrap<T = any>(
-    input: T | ((app: Framework) => T),
-  ): (app: Framework) => T {
+    input: T | ((app: Bud) => T),
+  ): (app: Bud) => T {
     return isFunction(input) ? input : () => input
   }
   public unwrap<T = any>(
-    input: T | ((app: Framework, ...options: Array<any>) => T),
+    input: T | ((app: Bud, ...options: Array<any>) => T),
     ...options: Array<any>
   ): T {
     return isFunction(input) ? input(this.app, ...options) : input

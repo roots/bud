@@ -2,27 +2,7 @@
 // Licensed under the MIT license.
 
 /**
- * ⚡️ Bud/Framework - Extensible build tooling for modern web development
- *
- * @remarks
- * The {@link @roots/bud-framework# | @roots/bud-framework} package defines the
- * abstract {@link Framework} class and provides interfaces for the Framework's
- * essential {@link Service} classes.
- *
- * The overarching design goal of this architecture is to make it as simple as
- * possible to swap out the underlying {@link Service} implementations without
- * having to modify the core framework code.
- *
- * To that effect, interoperability with other build tools is possible through
- * extending the {@link Framework} class and adding or modifying {@link Service}
- * classes.
- *
- * The original implementation uses Webpack as the underlying
- * build tool, but this is not a requirement for future implementations and
- * we've done our best to maintain a separation of core code from
- * the build tool we are currently leveraging.
- *
- * We sincerely hope that these efforts will help you build a better web.
+ * ⚡️ `@roots/bud-framework` - Extensible build tooling for modern web development
  *
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
@@ -30,37 +10,64 @@
  * @packageDocumentation
  */
 
-export {Build, Item, Items, Loader, Loaders, Rule, Rules} from './types/build'
-export {Cache} from './types/cache'
-import {Context} from './Context'
-import {Extensions} from './Extensions'
-import * as Extension from './Extensions/Extension'
-import {Constructor, Framework, Options} from './Framework'
-import {Peers} from './Peers'
-import {Project} from './Project'
-import * as Server from './Server'
-import {Service} from './Service'
+export * as Api from './services/api'
+export * as Build from './services/build'
+export * as Cache from './services/cache'
+export * as Compiler from './services/compiler'
+export * as Dashboard from './services/dashboard'
+export * as Env from './services/env'
+export * as Extension from './services/extensions'
+export * as Extensions from './services/extensions'
+export * as Hooks from './services/hooks'
+export * as Peers from './services/peers'
+export * as Project from './services/project'
+export * as Server from './services/server'
+export * as Services from './services'
 
-export {Store} from './Store'
+export * as Config from './config'
 
-export {Constructor}
-export {Context}
-export {Extension}
-export {Extensions}
-export {Framework}
-export {Options}
-export {Peers}
-export {Project}
-export {Service}
-export {Server}
+export {Bud} from './bud'
+export {ContainerService, Service} from './service'
+export {Logger} from './logger'
+export {Store} from './store'
 
-export {Api} from './Api'
-export {Compiler} from './Compiler'
-export {Dashboard} from './Dashboard'
-export {Dependencies} from './Dependencies'
-export {Env} from './Env'
-export {Hooks} from './Hooks'
-export {Logger} from './Logger'
+import {Module, Plugin} from './services/extensions'
+
+/**
+ * Compilation mode
+ *
+ * @public
+ */
+export type Mode = 'production' | 'development'
+
+/**
+ * Registered locations
+ *
+ * @virtual @public
+ */
+export interface Locations extends Partial<Record<string, string>> {
+  '@src': string
+  '@dist': string
+  '@storage': string
+  '@modules': string
+}
+
+/**
+ * Registered modules
+ *
+ * @virtual @public
+ */
+export interface Modules extends Partial<Record<string, Module>> {}
+export {Module}
+
+/**
+ * Registered plugins
+ *
+ * @virtual @public
+ */
+export interface Plugins
+  extends Partial<Record<string, Plugin>> {}
+export {Plugin}
 
 /**
  * Loosely typed interface
@@ -72,7 +79,7 @@ export interface Loose {
 }
 
 /**
- * Framework factory
+ * Bud factory
  *
  * @public
  */
@@ -81,22 +88,12 @@ export interface Factory<P extends any[], T> {
 }
 
 /**
- * Framework async factory
+ * Bud async factory
  *
  * @public
  */
 export interface AsyncFactory<P extends any[], T> {
   (...args: P): Promise<T>
-}
-
-/**
- * Callback which accepts Framework as a parameter
- *
- * @public
- */
-export interface Tapable<P extends any[] = [Framework], T = any>
-  extends Factory<[P], T> {
-  (this: P, ...args: P): T
 }
 
 /**
@@ -126,54 +123,3 @@ export type Maybe<A extends any[], T> = T | Factory<A, T>
  * @public
  */
 export type Index<T = any> = {[key: string]: T}
-
-/**
- * Compilation mode
- *
- * @public
- */
-export type Mode = 'production' | 'development'
-
-/**
- * Registered extensions
- *
- * @virtual @public
- */
-export interface Modules extends Partial<Index<Extension.Module>> {}
-
-/**
- * Registered plugins
- *
- * @virtual @public
- */
-export interface Plugins
-  extends Partial<Index<Extension.CompilerPlugin>> {}
-
-/**
- * Registered locations
- *
- * @virtual @public
- */
-export interface Locations extends Partial<Record<string, string>> {
-  '@src': string
-  '@dist': string
-  '@storage': string
-  '@modules': string
-}
-
-/**
- * Registered services
- *
- * @virtual @public
- */
-export interface Services
-  extends Partial<Record<string, new (app: Framework) => Service>> {}
-
-/**
- * Module
- *
- * @deprecated Use {@link Extension.Module} or {@link Extension.CompilerPlugin} instead
- *
- * @public
- */
-export interface Module<P = any, O = any> extends Extension.Module<O> {}

@@ -1,58 +1,58 @@
 import '@roots/bud-api'
 
-import * as Framework from '@roots/bud-framework'
+import {Build, Extensions} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
   interface Plugins {
-    'webpack-provide-plugin': Framework.Extension.CompilerPlugin
-    'webpack-config-dump-plugin': Framework.Extension.CompilerPlugin
-    'copy-webpack-plugin': Framework.Extension.CompilerPlugin
-    'webpack-define-plugin': Framework.Extension.CompilerPlugin
-    'webpack-hot-module-replacement-plugin': Framework.Extension.CompilerPlugin
-    'webpack-manifest-plugin': Framework.Extension.CompilerPlugin
-    'mini-css-extract-plugin': Framework.Extension.CompilerPlugin
+    'webpack-provide-plugin': Extensions.Plugin
+    'webpack-config-dump-plugin': Extensions.Plugin
+    'copy-webpack-plugin': Extensions.Plugin
+    'webpack-define-plugin': Extensions.Plugin
+    'webpack-hot-module-replacement-plugin': Extensions.Plugin
+    'webpack-manifest-plugin': Extensions.Plugin
+    'mini-css-extract-plugin': Extensions.Plugin
   }
 
   interface Loaders {
-    css: Framework.Loader
-    csv: Framework.Loader
-    file: Framework.Loader
-    html: Framework.Loader
-    md: Framework.Loader
-    minicss: Framework.Loader
-    resolveUrl: Framework.Loader
-    style: Framework.Loader
-    url: Framework.Loader
-    xml: Framework.Loader
+    css: Build.Loader
+    csv: Build.Loader
+    file: Build.Loader
+    html: Build.Loader
+    md: Build.Loader
+    minicss: Build.Loader
+    resolveUrl: Build.Loader
+    style: Build.Loader
+    url: Build.Loader
+    xml: Build.Loader
   }
 
   interface Items {
-    precss: Framework.Item
-    minicss: Framework.Item
-    style: Framework.Item
-    css: Framework.Item
-    csv: Framework.Item
-    file: Framework.Item
-    image: Framework.Item
-    font: Framework.Item
-    html: Framework.Item
-    md: Framework.Item
-    resolveUrl: Framework.Item
-    raw: Framework.Item
-    xml: Framework.Item
+    precss: Build.Item
+    minicss: Build.Item
+    style: Build.Item
+    css: Build.Item
+    csv: Build.Item
+    file: Build.Item
+    image: Build.Item
+    font: Build.Item
+    html: Build.Item
+    md: Build.Item
+    resolveUrl: Build.Item
+    raw: Build.Item
+    xml: Build.Item
   }
 
   interface Rules {
-    js: Framework.Rule
-    css: Framework.Rule
-    html: Framework.Rule
-    svg: Framework.Rule
-    image: Framework.Rule
-    font: Framework.Rule
-    xml: Framework.Rule
-    json5: Framework.Rule
-    csv: Framework.Rule
-    yml: Framework.Rule
-    toml: Framework.Rule
+    js: Build.Rule
+    css: Build.Rule
+    html: Build.Rule
+    svg: Build.Rule
+    image: Build.Rule
+    font: Build.Rule
+    xml: Build.Rule
+    json5: Build.Rule
+    csv: Build.Rule
+    yml: Build.Rule
+    toml: Build.Rule
   }
 }

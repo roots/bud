@@ -1,8 +1,7 @@
-import {Framework} from '@roots/bud-framework'
+import {Bud} from '@roots/bud-framework'
 import {bind, lodash} from '@roots/bud-support'
 
-import {Bud} from '../../Bud/index.js'
-import {ConfigManifest} from '../../services/Project/project.repository.js'
+import {ConfigManifest} from '../../services/Project/project.repository'
 
 const {isFunction, isObject} = lodash
 
@@ -17,7 +16,7 @@ class Configuration {
    */
   public manifest: Record<
     string,
-    Record<string, unknown> | ((app: Framework) => Promise<unknown>)
+    Record<string, unknown> | ((app: Bud) => Promise<unknown>)
   > = {}
 
   /**

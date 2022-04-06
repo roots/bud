@@ -1,4 +1,6 @@
-import {Framework, Hooks as Contract, Service} from '@roots/bud-framework'
+import * as Framework from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework/types/bud'
+import type {AsyncMap, Events} from '@roots/bud-framework/types/services/hooks'
 import {bind, chalk, lodash} from '@roots/bud-support'
 
 const {get, isFunction, isUndefined, set} = lodash
@@ -48,12 +50,7 @@ const {get, isFunction, isUndefined, set} = lodash
  *
  * @public
  */
-export class Hooks extends Service implements Contract {
-  /**
-   * @internal
-   */
-  public ident = 'hooks'
-
+export class Hooks extends Framework.ContainerService implements Framework.Hooks.Service {
   /**
    * hook getter
    *
@@ -61,7 +58,7 @@ export class Hooks extends Service implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public get<T = any>(path: `${keyof Contract.Map & string}`) {
+  public get<T = any>(path: `${keyof Framework.Hooks.Map & string}`) {
     return get(this.repository, path) as T
   }
 
@@ -72,7 +69,7 @@ export class Hooks extends Service implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public set(key: `${keyof Contract.Map & string}`, value: any): this {
+  public set(key: `${keyof Framework.Hooks.Map & string}`, value: any): this {
     set(this.repository, key, value)
     return this
   }
@@ -99,10 +96,10 @@ export class Hooks extends Service implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public on<T extends keyof Contract.Map & string>(
+  public on<T extends keyof Framework.Hooks.Map & string>(
     id: T,
-    input: Contract.Map[T] | ((value: Contract.Map[T]) => any),
-  ): Framework {
+    input: Framework.Hooks.Map[T] | ((value: Framework.Hooks.Map[T]) => any),
+  ): Bud {
     const retrieved = this.has(id) ? this.get(id) : []
     const normal = Array.isArray(retrieved) ? retrieved : [retrieved]
     const callback = typeof input === 'function' ? input : () => input
@@ -134,12 +131,12 @@ export class Hooks extends Service implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public async<T extends keyof Contract.AsyncMap & string>(
+  public async<T extends keyof AsyncMap & string>(
     id: T,
     input:
-      | Contract.AsyncMap[T]
-      | ((value: Contract.AsyncMap[T]) => Promise<Contract.AsyncMap[T]>),
-  ): Framework {
+      | AsyncMap[T]
+      | ((value: AsyncMap[T]) => Promise<AsyncMap[T]>),
+  ): Bud {
     const retrieved = this.has(id) ? this.get(id) : []
     const normal = Array.isArray(retrieved) ? retrieved : [retrieved]
     const callback = typeof input === 'function' ? input : () => input
@@ -169,10 +166,10 @@ export class Hooks extends Service implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public filter<T extends keyof Contract.Map & string>(
+  public filter<T extends keyof Framework.Hooks.Map & string>(
     id: T,
-    value?: Contract.Map[T] | ((value?: Contract.Map[T]) => any),
-  ): Contract.Map[T] {
+    value?: Framework.Hooks.Map[T] | ((value?: Framework.Hooks.Map[T]) => any),
+  ): Framework.Hooks.Map[T] {
     if (!this.has(id)) {
       if (isUndefined(value)) return undefined
       return isFunction(value) ? value() : value
@@ -183,10 +180,10 @@ export class Hooks extends Service implements Contract {
 
     return normal.reduce(
       (
-        accumulated: Contract.Map[T],
+        accumulated: Framework.Hooks.Map[T],
         current?:
-          | ((value: Contract.Map[T]) => Contract.Map[T])
-          | Contract.Map[T],
+          | ((value: Framework.Hooks.Map[T]) => Framework.Hooks.Map[T])
+          | Framework.Hooks.Map[T],
       ) => {
         const next = isFunction(current) ? current(accumulated) : current
         if (this.app.context.args.debug)
@@ -215,10 +212,10 @@ export class Hooks extends Service implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public async filterAsync<T extends keyof Contract.AsyncMap & string>(
+  public async filterAsync<T extends keyof AsyncMap & string>(
     id: T,
-    value?: Contract.AsyncMap[T] | ((value?: Contract.AsyncMap[T]) => any),
-  ): Promise<Contract.AsyncMap[T]> {
+    value?: AsyncMap[T] | ((value?: AsyncMap[T]) => any),
+  ): Promise<AsyncMap[T]> {
     if (!this.has(id)) {
       if (isUndefined(value)) return
       return isFunction(value) ? await value() : value
@@ -231,8 +228,8 @@ export class Hooks extends Service implements Contract {
       async (
         promised,
         current?:
-          | ((value: T) => Promise<T> | Contract.AsyncMap[T])
-          | Contract.AsyncMap[T],
+          | ((value: T) => Promise<T> | AsyncMap[T])
+          | AsyncMap[T],
       ) => {
         const value = await promised
         return isFunction(current) ? await current(value) : current
@@ -248,10 +245,10 @@ export class Hooks extends Service implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public action<T extends keyof Contract.Events & string>(
+  public action<T extends keyof Events & string>(
     id: T,
-    ...action: Array<(app: Framework) => Promise<unknown>>
-  ): Framework {
+    ...action: Array<(app: Bud) => Promise<unknown>>
+  ): Bud {
     const retrieved = this.has(id) ? this.get(id) : []
     const normal = Array.isArray(retrieved) ? retrieved : [retrieved]
 
@@ -277,9 +274,9 @@ export class Hooks extends Service implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public async fire<T extends keyof Contract.Events & string>(
+  public async fire<T extends keyof Events & string>(
     id: T,
-  ): Promise<Framework> {
+  ): Promise<Bud> {
     if (!this.has(id)) return
 
     const retrieved = this.get(id)

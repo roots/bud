@@ -15,7 +15,7 @@ import {BudCompressionExtension} from './BudCompressionExtension'
 import {BudGzipWebpackPlugin} from './BudGzipWebpackPlugin'
 
 declare module '@roots/bud-framework' {
-  interface Framework {
+  interface Bud {
     /**
      * Compress static assets with brotli compression.
      *
@@ -50,14 +50,14 @@ declare module '@roots/bud-framework' {
      *
      * @public
      */
-    brotli(options?: BudCompressionExtension.Options): Framework
+    brotli(options?: BudCompressionExtension.Options): Bud
 
     /**
      * Gzip static assets.
      *
      * @public
      */
-    gzip(options?: BudCompressionExtension.Options): Framework
+    gzip(options?: BudCompressionExtension.Options): Bud
   }
 
   interface Modules {

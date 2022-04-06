@@ -1,4 +1,4 @@
-import {Framework} from '@roots/bud-framework'
+import {Bud} from '@roots/bud-framework'
 import {bind} from '@roots/bud-support'
 import {ClientRequest, IncomingMessage, ServerResponse} from 'http'
 
@@ -25,7 +25,7 @@ export class RequestInterceptorFactory {
    * @public
    */
   public constructor(
-    public _app: () => Framework,
+    public _app: () => Bud,
     public url: ApplicationURL,
   ) {}
 

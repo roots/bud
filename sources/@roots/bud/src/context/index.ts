@@ -20,7 +20,7 @@ import {Manifest} from './manifest'
  */
 const makeContext = async (
   rootDir = process.cwd(),
-): Promise<Framework.Context> => {
+): Promise<Framework.Config.Context> => {
   const dir = await new Dir(rootDir).find()
 
   const application = await new Application().find()

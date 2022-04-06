@@ -1,5 +1,5 @@
 import {paths} from '@repo/constants'
-import {read,write} from '@roots/bud-framework/src/Framework/methods/yaml'
+import {read,write} from '@roots/bud-framework/src/methods/yaml'
 import {join} from 'node:path'
 
 describe('bud.yml', () => {
@@ -12,7 +12,6 @@ describe('bud.yml', () => {
       expect(manifest.enableTelemetry).toBe(false)
     })
   })
-
 
   describe('write', () => {
     it('is a fn', async () => {

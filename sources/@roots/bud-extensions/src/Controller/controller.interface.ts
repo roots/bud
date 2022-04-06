@@ -1,5 +1,5 @@
-import {Extension} from '@roots/bud-framework'
+import {Extensions} from '@roots/bud-framework'
 
-export type {Framework} from '@roots/bud-framework'
-export type Plugin = Extension.CompilerPlugin
-export type Extension = Extension.Module
+export type {Bud} from '@roots/bud-framework'
+export type Plugin = Extensions.Plugin
+export type Extension = Extensions.Module

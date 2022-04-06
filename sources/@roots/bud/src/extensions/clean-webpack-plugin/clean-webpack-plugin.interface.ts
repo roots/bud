@@ -6,7 +6,7 @@ export type {CleanWebpackPlugin}
 export type {Container}
 export type {Options}
 
-export type Extension = Contract.CompilerPlugin<
+export type Extension = Contract.Plugin<
   CleanWebpackPlugin,
   Options
 >

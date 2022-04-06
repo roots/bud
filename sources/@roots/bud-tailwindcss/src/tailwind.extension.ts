@@ -1,4 +1,4 @@
-import type {Extension, Framework} from '@roots/bud-framework'
+import type {Bud,Extension} from '@roots/bud-framework'
 import type {Signale} from '@roots/bud-support'
 
 /**
@@ -8,7 +8,7 @@ import type {Signale} from '@roots/bud-support'
  */
 export interface BudTailwindCssExtension extends Extension.Module {
   label: '@roots/bud-tailwindcss'
-  boot: (app: Framework) => Promise<void>
+  boot: (app: Bud) => Promise<void>
 }
 
 export class BudTailwindCssExtension implements BudTailwindCssExtension {
@@ -22,10 +22,10 @@ export class BudTailwindCssExtension implements BudTailwindCssExtension {
   /**
    * Extension boot
    *
-   * @param app - Framework
+   * @param app - Bud
    * @returns void
    */
-  public static async boot(app: Framework, logger: Signale) {
+  public static async boot(app: Bud, logger: Signale) {
     try {
       const {default: tailwindcss} = await import('tailwindcss')
       const {default: nesting} = await import('tailwindcss/nesting')

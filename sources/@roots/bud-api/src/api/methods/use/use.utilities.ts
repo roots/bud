@@ -11,13 +11,13 @@ const {isEqual, isFunction} = lodash
  *
  * @example
  * ```ts
- * isCompilerPlugin(new WebpackPlugin())
+ * isPlugin(new WebpackPlugin())
  * // => true
  * ```
  *
  * @internal
  */
-export const isCompilerPlugin = (
+export const isPlugin = (
   extension: Extension.Module,
 ): boolean =>
   extension.apply &&
@@ -39,7 +39,7 @@ export const isCompilerPlugin = (
  * @internal
  */
 export const hasValidConstructorName = (
-  input: Extension.Module | Extension.CompilerPlugin,
+  input: Extension.Module | Extension.Plugin,
 ): boolean =>
   input?.constructor?.name &&
   typeof input.constructor.name == 'string' &&
@@ -63,5 +63,5 @@ export const hasValidConstructorName = (
  * @internal
  */
 export const generateName = (
-  input: Extension.Module | Extension.CompilerPlugin,
+  input: Extension.Module | Extension.Plugin,
 ) => (hasValidConstructorName(input) ? input.constructor.name : nanoid(4))

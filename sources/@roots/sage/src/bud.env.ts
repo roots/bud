@@ -2,6 +2,8 @@
 // Licensed under the MIT license.
 
 import '@roots/bud-api'
+import '@roots/bud-preset-wordpress'
+import '@roots/bud-tailwindcss'
 import '@roots/bud-framework'
 
 import {Sage} from './sage.preset'
@@ -10,7 +12,7 @@ import * as useTailwindColors from './theme/api/useTailwindColors'
 import * as ThemeJSON from './theme/extension'
 
 declare module '@roots/bud-framework' {
-  interface Framework {
+  interface Bud {
     /**
      * Generate a WordPress `theme.json`
      *

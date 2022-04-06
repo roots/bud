@@ -14,7 +14,7 @@ import * as api from './eslint.api'
 import {BudEslintWebpackPlugin} from './eslint.extension'
 
 declare module '@roots/bud-framework' {
-  interface Framework {
+  interface Bud {
     eslint: api.eslint
   }
 

@@ -1,4 +1,4 @@
-import {Framework} from '@roots/bud-framework'
+import {Bud} from '@roots/bud-framework'
 
 /**
  * URL helpers for proxy middleware
@@ -38,5 +38,5 @@ export class ApplicationURL {
    *
    * @public
    */
-  public constructor(public _app: () => Framework) {}
+  public constructor(public _app: () => Bud) {}
 }

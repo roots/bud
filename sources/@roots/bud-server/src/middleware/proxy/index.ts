@@ -1,4 +1,4 @@
-import type {Framework} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
 import {createProxyMiddleware, Options} from 'http-proxy-middleware'
 
 import {RequestInterceptorFactory} from './req.interceptor'
@@ -10,7 +10,7 @@ import {ApplicationURL} from './url'
  *
  * @public
  */
-export const proxy = (app: Framework) => {
+export const proxy = (app: Bud) => {
   const url = new ApplicationURL(() => app)
   const response = new ResponseInterceptorFactory(() => app, url)
   const request = new RequestInterceptorFactory(() => app, url)

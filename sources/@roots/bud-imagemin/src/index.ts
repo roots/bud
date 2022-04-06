@@ -16,7 +16,7 @@ import {imagemin} from './imagemin.config'
 import * as BudImagemin from './imagemin.extension'
 
 declare module '@roots/bud-framework' {
-  interface Framework {
+  interface Bud {
     imagemin: imagemin
   }
 

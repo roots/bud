@@ -1,6 +1,7 @@
+import {Signale} from '@roots/bud-support'
+
+import type {Bud} from '..'
 import {LEVEL, types} from './logger.constants'
-import {Signale} from './logger.dependencies'
-import type {Framework} from './logger.interface'
 
 /**
  * Logger service
@@ -30,7 +31,7 @@ export class Logger {
    *
    * @public
    */
-  public constructor(private app: Framework) {
+  public constructor(private app: Bud) {
     this.instance = new Signale({
       interactive: this.interactive,
       secrets: [this.app.context.projectDir, this.app.context.cwd],

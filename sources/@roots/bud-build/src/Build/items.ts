@@ -1,11 +1,11 @@
-import {Framework} from '@roots/bud-framework'
+import {Bud} from '@roots/bud-framework'
 
 /**
  * .css handler factory
  *
  * @public
  */
-export const css = (app: Framework) =>
+export const css = (app: Bud) =>
   app.build
     .makeItem()
     .setLoader(`css`)
@@ -19,7 +19,7 @@ export const css = (app: Framework) =>
  *
  * @public
  */
-export const cssModule = (app: Framework) =>
+export const cssModule = (app: Bud) =>
   app.build
     .makeItem()
     .setLoader(`css`)
@@ -35,7 +35,7 @@ export const cssModule = (app: Framework) =>
  *
  * @public
  */
-export const csv = (app: Framework) =>
+export const csv = (app: Bud) =>
   app.build.makeItem().setLoader(`csv`)
 
 /**
@@ -43,7 +43,7 @@ export const csv = (app: Framework) =>
  *
  * @public
  */
-export const html = (app: Framework) =>
+export const html = (app: Bud) =>
   app.build.makeItem().setLoader(`html`)
 
 /**
@@ -51,7 +51,7 @@ export const html = (app: Framework) =>
  *
  * @public
  */
-export const style = (app: Framework) =>
+export const style = (app: Bud) =>
   app.build.makeItem().setLoader(`style`)
 
 /**
@@ -59,23 +59,23 @@ export const style = (app: Framework) =>
  *
  * @public
  */
-export const md = (app: Framework) => app.build.makeItem({loader: 'md'})
+export const md = (app: Bud) => app.build.makeItem({loader: 'md'})
 
 /**
  * Factory {@link Item} for minicss-extract-plugin
  * @public
  */
-export const minicss = (app: Framework) =>
+export const minicss = (app: Bud) =>
   app.build.makeItem().setLoader(`minicss`)
 
 /**
  * CSS rule which accounts for env
  * @public
  */
-export const precss = (app: Framework) =>
+export const precss = (app: Bud) =>
   app.build.makeItem().setLoader(app.isProduction ? `minicss` : `style`)
 
-export const raw = ({build}: Framework) =>
+export const raw = ({build}: Bud) =>
   build.makeItem().setLoader(`raw`)
 
 /**
@@ -83,7 +83,7 @@ export const raw = ({build}: Framework) =>
  *
  * @public
  */
-export const file = (app: Framework) =>
+export const file = (app: Bud) =>
   app.build
     .makeItem()
     .setLoader(`file`)
@@ -98,7 +98,7 @@ export const file = (app: Framework) =>
  *
  * @public
  */
-export const resolveUrl = (app: Framework) =>
+export const resolveUrl = (app: Bud) =>
   app.build
     .makeItem()
     .setLoader(`resolveUrl`)
@@ -112,5 +112,5 @@ export const resolveUrl = (app: Framework) =>
  *
  * @public
  */
-export const xml = (app: Framework) =>
+export const xml = (app: Bud) =>
   app.build.makeItem().setLoader(`xml`)

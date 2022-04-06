@@ -26,7 +26,7 @@ import {esbuild} from './bud.esbuild'
 import {features} from './features'
 
 declare module '@roots/bud-framework' {
-  interface Framework {
+  interface Bud {
     esbuild: esbuild
   }
 

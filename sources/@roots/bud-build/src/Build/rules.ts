@@ -1,4 +1,4 @@
-import {Framework} from '@roots/bud-framework'
+import {Bud} from '@roots/bud-framework'
 import {
   json5 as json5Parser,
   toml as tomlParser,
@@ -10,7 +10,7 @@ import {
  *
  * @public
  */
-export const js = (app: Framework) =>
+export const js = (app: Bud) =>
   app.build
     .makeRule()
     .setTest(({store}) => store.get('patterns.js'))
@@ -22,7 +22,7 @@ export const js = (app: Framework) =>
  *
  * @public
  */
-export const css = (app: Framework) =>
+export const css = (app: Bud) =>
   app.build
     .makeRule()
     .setTest(({store}) => store.get('patterns.css'))
@@ -34,7 +34,7 @@ export const css = (app: Framework) =>
  *
  * @public
  */
-export const cssModule = (app: Framework) =>
+export const cssModule = (app: Bud) =>
   app.build
     .makeRule()
     .setTest(({store}) => store.get('patterns.cssModule'))
@@ -46,7 +46,7 @@ export const cssModule = (app: Framework) =>
  *
  * @public
  */
-export const image = (app: Framework) =>
+export const image = (app: Bud) =>
   app.build
     .makeRule()
     .setTest(({store}) => store.get('patterns.image'))
@@ -66,7 +66,7 @@ export const image = (app: Framework) =>
  *
  * @public
  */
-export const webp = (app: Framework) =>
+export const webp = (app: Bud) =>
   app.build
     .makeRule()
     .setTest(({store}) => store.get('patterns.webp'))
@@ -84,7 +84,7 @@ export const webp = (app: Framework) =>
  *
  * @public
  */
-export const svg = (app: Framework) =>
+export const svg = (app: Bud) =>
   app.build
     .makeRule()
     .setTest(({store}) => store.get('patterns.svg'))
@@ -101,7 +101,7 @@ export const svg = (app: Framework) =>
  *
  * @public
  */
-export const font = (app: Framework) =>
+export const font = (app: Bud) =>
   app.build
     .makeRule()
     .setType('asset')
@@ -118,7 +118,7 @@ export const font = (app: Framework) =>
  *
  * @public
  */
-export const json = (app: Framework) =>
+export const json = (app: Bud) =>
   app.build
     .makeRule()
     .setType('json')
@@ -131,7 +131,7 @@ export const json = (app: Framework) =>
  *
  * @public
  */
-export const yml = (app: Framework) =>
+export const yml = (app: Bud) =>
   app.build
     .makeRule()
     .setType('json')
@@ -144,7 +144,7 @@ export const yml = (app: Framework) =>
  *
  * @public
  */
-export const html = (app: Framework) =>
+export const html = (app: Bud) =>
   app.build
     .makeRule()
     .setInclude(({path}) => [path('@src')])
@@ -156,7 +156,7 @@ export const html = (app: Framework) =>
  *
  * @public
  */
-export const csv = (app: Framework) =>
+export const csv = (app: Bud) =>
   app.build
     .makeRule()
     .setInclude(({path}) => [path('@src')])
@@ -168,7 +168,7 @@ export const csv = (app: Framework) =>
  *
  * @public
  */
-export const xml = (app: Framework) =>
+export const xml = (app: Bud) =>
   app.build
     .makeRule()
     .setInclude(({path}) => [path('@src')])
@@ -180,7 +180,7 @@ export const xml = (app: Framework) =>
  *
  * @public
  */
-export const toml = (app: Framework) =>
+export const toml = (app: Bud) =>
   app.build
     .makeRule()
     .setType('json')

@@ -1,6 +1,6 @@
 import {figures} from '@roots/bud-support'
 
-import {Framework} from './logger.interface'
+import {Bud} from '..'
 
 /**
  * Instance configuration
@@ -48,7 +48,7 @@ export const enum LEVEL {
   ERROR = 'error',
 }
 
-export const types: (app: Framework) => Record<string, Type> = app => ({
+export const types: (app: Bud) => Record<string, Type> = app => ({
   error: {
     badge: figures.cross,
     color: 'red',

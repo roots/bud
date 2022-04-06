@@ -1,14 +1,14 @@
-import {Framework} from '@roots/bud-framework'
+import {Bud} from '@roots/bud-framework'
 
 export interface method {
-  (): Promise<Framework>
+  (): Promise<Bud>
 }
 export interface facade {
-  (): Framework
+  (): Bud
 }
 
 export const method: method = async function () {
-  const ctx = this as Framework
+  const ctx = this as Bud
 
   const {getPalette, transformPalette} = await import(
     '../tailwind.adapter'

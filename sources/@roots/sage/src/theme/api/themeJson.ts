@@ -1,4 +1,4 @@
-import {Framework} from '@roots/bud-framework'
+import {Bud} from '@roots/bud-framework'
 import {lodash} from '@roots/bud-support'
 import {Container} from '@roots/container'
 
@@ -21,24 +21,24 @@ export interface method {
   (
     input?: Mutator | WPThemeJson['settings'],
     raw?: boolean,
-  ): Promise<Framework>
+  ): Promise<Bud>
 }
 
 export interface facade {
-  (input?: Mutator | WPThemeJson['settings'], raw?: boolean): Framework
+  (input?: Mutator | WPThemeJson['settings'], raw?: boolean): Bud
 }
 
-const getContainerOptions = (app: Framework) =>
+const getContainerOptions = (app: Bud) =>
   app.extensions.get('wp-theme-json').options
 
-const getRawOptions = (app: Framework) =>
+const getRawOptions = (app: Bud) =>
   app.extensions.get('wp-theme-json').options.all()
 
 export const method: method = async function (
   input?: Mutator | WPThemeJson['settings'],
   raw?: boolean,
 ) {
-  const app = this as Framework
+  const app = this as Bud
 
   if (!app.extensions.has('wp-theme-json')) return
 

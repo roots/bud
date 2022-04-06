@@ -3,7 +3,6 @@ import {Build} from './Build'
 import {Cache} from './Cache'
 import {Compiler} from './Compiler'
 import {Dashboard} from './Dashboard'
-import {Dependencies} from './Dependencies'
 import {Env} from './Env'
 import {Extensions} from './Extensions'
 import {Hooks} from './Hooks'
@@ -23,7 +22,6 @@ export const services = {
   build: Build,
   compiler: Compiler,
   cache: Cache,
-  dependencies: Dependencies,
   server: Server,
   dashboard: Dashboard,
   extensions: Extensions,
@@ -35,7 +33,6 @@ export {
   Cache,
   Compiler,
   Dashboard,
-  Dependencies,
   Env,
   Extensions,
   Hooks,

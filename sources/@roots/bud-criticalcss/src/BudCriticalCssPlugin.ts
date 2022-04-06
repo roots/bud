@@ -1,4 +1,4 @@
-import type {Extension, Framework} from '@roots/bud-framework'
+import type {Bud,Extensions} from '@roots/bud-framework'
 import type {Container} from '@roots/container'
 import {
   CriticalCssWebpackPlugin,
@@ -13,7 +13,7 @@ import {critical} from './critical'
  * @public
  */
 export interface BudCriticalCssPlugin
-  extends Extension.CompilerPlugin<
+  extends Extensions.Plugin<
     CriticalCssWebpackPlugin,
     Partial<Options>
   > {
@@ -22,7 +22,7 @@ export interface BudCriticalCssPlugin
   api: {critical: critical}
   make: (
     options: Container<Partial<Options>>,
-    app: Framework,
+    app: Bud,
   ) => CriticalCssWebpackPlugin
 }
 

@@ -6,15 +6,7 @@
  *
  * @see https://roots.io/bud
  * @see https://github.com/roots/bud
- *
- * @remarks
- * This preset is a wrapper for the following presets:
- *
- * - {@link @roots/bud-babel# | @roots/bud-babel}
- *
- * - {@link @roots/bud-postcss# | @roots/bud-postcss}
- *
- * - {@link @roots/bud-entrypoints# | @roots/bud-entrypoints}
+ * 
  * @packageDocumentation
  */
 

@@ -1,4 +1,4 @@
-import type {Framework, Index} from '@roots/bud-framework'
+import type {Bud, Index} from '@roots/bud-framework'
 import {bind} from '@roots/bud-support'
 import type {Compilation, Compiler} from 'webpack'
 
@@ -17,7 +17,7 @@ export class InterpolateHtmlPlugin {
    */
   public name = 'interpolate-html-plugin'
 
-  public bud?: () => Framework
+  public bud?: () => Bud
 
   /**
    * Class constructor
@@ -30,7 +30,7 @@ export class InterpolateHtmlPlugin {
   public constructor(
     public htmlWebpackPlugin: HtmlWebpackPlugin,
     public replacements: Index<RegExp>,
-    bud?: Framework,
+    bud?: Bud,
   ) {
     if (bud) {
       this.bud = () => bud

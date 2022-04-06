@@ -1,4 +1,4 @@
-import {Framework} from '@roots/bud-framework'
+import {Bud} from '@roots/bud-framework'
 import {StatsCompilation} from 'webpack'
 
 import * as box from './box.factory'
@@ -8,7 +8,7 @@ import * as webpackMessage from './webpack.message'
 
 export const write = (
   stats: {toJson: () => StatsCompilation},
-  app: Framework,
+  app: Bud,
 ) =>
   stats.toJson().children?.map(compilation => {
     if (!compilation?.entrypoints) return compilation
