@@ -1,7 +1,7 @@
 import {Signale} from '@roots/bud-support'
 import {Container} from '@roots/container'
 
-import {Bud, Maybe} from '../../..'
+import {Bud} from '../../..'
 import {Module} from './module'
 
 /**
@@ -15,7 +15,8 @@ import {Module} from './module'
 export interface Plugin<Plugin = any, Options = Record<string, any>>
   extends Module {
   /**
-   * Either a function returning a finalized {@link ApplyPlugin} or a literal {@link ApplyPlugin}.
+   * Either a function returning a plugin 
+   * value or the plugin value itself.
    *
    * @remarks
    * If a factory is implemented, it will be passed a {@link Container} instance holding
@@ -23,13 +24,19 @@ export interface Plugin<Plugin = any, Options = Record<string, any>>
    *
    * @public
    */
-  make?: Maybe<[Container<Options>, Bud, Signale], Plugin>
+  make?:
+    | Plugin
+    | ((
+        options: Container<Options>,
+        app: Bud,
+        logger: Signale,
+      ) => Plugin)
 
   /**
    * Compiler plugin `apply` method
    *
    * @remarks
-   * This function makes the {@link @roots/bud-Bud#Extension.Module} interoperable with
+   * This function makes the {@link @roots/bud#Extension.Module} interoperable with
    * the Webpack plugin interface
    *
    * @public

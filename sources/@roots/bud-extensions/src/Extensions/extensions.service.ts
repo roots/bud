@@ -1,8 +1,4 @@
-import {
-  Bud,
-  ContainerService,
-  Extensions as Base,
-} from '@roots/bud-framework'
+import * as Framework from '@roots/bud-framework'
 import {lodash} from '@roots/bud-support'
 
 import {Controller} from '../Controller'
@@ -19,8 +15,8 @@ const {isArray} = lodash
  * @public
  */
 export class Extensions
-  extends ContainerService<Controller>
-  implements Base.Service
+  extends Framework.ContainerService<Controller>
+  implements Framework.Extensions.Service
 {
   /**
    * Extensions queued for registration
@@ -33,14 +29,14 @@ export class Extensions
    * @public
    */
   public makeController(
-    extension: Base.Module | Promise<Base.Module>,
+    extension: Framework.Module,
   ): Controller {
     const controller = new Controller(this.app, extension)
     return controller
   }
 
   @bind
-  public async setController(extension: Base.Module): Promise<void> {
+  public async setController(extension: Framework.Module): Promise<void> {
     const controller = this.makeController(extension)
     this.set(controller.name, controller)
   }
@@ -112,7 +108,7 @@ export class Extensions
   ): Promise<void> {
     this.log('log', `importing ${extension.name}`)
     const importedModule = await import(extension.name)
-    const importedExtension: Base.Module = importedModule.default
+    const importedExtension: Framework.Module = importedModule.default
       ? importedModule.default
       : importedModule
 
@@ -193,7 +189,7 @@ export class Extensions
    */
   @bind
   public async add(
-    extension: Base.Module | Array<Base.Module>,
+    extension: Framework.Module | Array<Framework.Module>,
   ): Promise<void> {
     const arrayed = isArray(extension) ? extension : [extension]
 
@@ -225,7 +221,7 @@ export class Extensions
    * @decorator `@bind`
    */
   @bind
-  public enqueue(extension: Base.Module): Bud {
+  public enqueue(extension: Framework.Module): Framework.Bud {
     this.queue.push(extension)
     return this.app
   }

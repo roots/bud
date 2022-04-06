@@ -15,8 +15,8 @@ const {isString} = lodash
  * @public
  */
 export interface setPath {
-  <T extends `${keyof Locations & `@${string}` & string}`>(
-    arg1: T | Record<T, string>,
+  <T extends `${keyof Locations & string}`>(
+    arg1: T | Partial<Record<T, string>>,
     arg2?: string,
   ): Bud
 }
@@ -26,7 +26,7 @@ export const setPath: setPath = function (arg1, arg2) {
 
   const input = isString(arg1) ? {[arg1]: arg2} : arg1
 
-  Object.entries(input).map(([key, value]) => {
+  Object.entries(input).map(([key, value]: [`${keyof Locations & string}`, string]) => {
     !key.startsWith(`@`) &&
       app.error(
         `bud paths are required to be prefixed with \`@\`. Please convert \`${key}\` to \`@${key}\``,

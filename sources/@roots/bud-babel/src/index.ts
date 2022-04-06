@@ -13,12 +13,13 @@
 import '@roots/bud-framework'
 
 import {Item, Loader} from '@roots/bud-build'
+import { Extension } from '@roots/bud-framework'
 
 import {Config} from './babel.config'
 import {mixin, name, options, register} from './babel.extension'
 
-interface BabelExtension {
-  name: typeof name
+interface BabelExtension extends Extension.Module {
+  name: `${typeof name & string}`
   mixin: typeof mixin
   options: typeof options
   register: typeof register

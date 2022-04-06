@@ -30,7 +30,7 @@ export interface Service extends ContainerService {
    * @public
    */
   add(
-    extension: Module | Plugin | Array<Module | Plugin>,
+    extension: Module | Plugin | Array<Module> | Array<Plugin>,
   ): Promise<unknown>
 
   /**

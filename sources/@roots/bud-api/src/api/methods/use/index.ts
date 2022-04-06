@@ -6,17 +6,29 @@ import {generateName, isPlugin} from './use.utilities'
 const {isArray} = lodash
 
 export interface use {
-  (source: Extension.Module): Promise<Bud>
+  (
+    source:
+      | Extension.Module
+      | Extension.Plugin
+      | Array<Extension.Module>
+      | Array<Extension.Plugin>
+  ): Promise<Bud>
 }
 
 export interface facade {
-  (source: Extension.Module): Bud
+  (
+    source:
+      | Extension.Module
+      | Extension.Plugin
+      | Array<Extension.Module>
+      | Array<Extension.Plugin>  
+  ): Bud
 }
 
 export const use: use = async function (source): Promise<Bud> {
   const bud = this as Bud
 
-  const addExtension = async (source: Extension.Module): Promise<Bud> => {
+  const addExtension = async (source: Extension.Module | Extension.Plugin): Promise<Bud> => {
     if (!source) {
       bud.error(`"${source.name}" extension source is not defined`)
     }
@@ -41,7 +53,7 @@ export const use: use = async function (source): Promise<Bud> {
 
   !isArray(source)
     ? await addExtension(source)
-    : await Promise.all(source.map(async ext => await addExtension(ext)))
+    : await Promise.all(source.map(async (ext: Extension.Module | Extension.Plugin) => await addExtension(ext)))
 
   return bud
 }

@@ -29,14 +29,16 @@ import * as Process from './process'
 const {isFunction, omit} = lodash
 
 /**
- * Base {@link Bud} class
+ * Abstract {@link Bud}
+ * 
+ * @remarks
+ * See `@roots/bud` for an example implementation
  *
  * @public
  */
 export abstract class Bud {
   /**
-   * Concrete implementation of the {@link Bud}
-   *
+   * Concrete implementation of {@link Bud}
    * @internal @virtual
    */
   public abstract implementation: Constructor

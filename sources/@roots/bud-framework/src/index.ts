@@ -31,8 +31,6 @@ export {ContainerService, Service} from './service'
 export {Logger} from './logger'
 export {Store} from './store'
 
-import {Module, Plugin} from './services/extensions'
-
 /**
  * Compilation mode
  *
@@ -52,11 +50,14 @@ export interface Locations extends Partial<Record<string, string>> {
   '@modules': string
 }
 
+
 /**
  * Registered modules
  *
  * @virtual @public
  */
+//
+import {Module} from './services/extensions'
 export interface Modules extends Partial<Record<string, Module>> {}
 export {Module}
 
@@ -65,21 +66,13 @@ export {Module}
  *
  * @virtual @public
  */
+//
+import {Plugin} from './services/extensions'
 export interface Plugins extends Partial<Record<string, Plugin>> {}
 export {Plugin}
 
 /**
- * Loosely typed interface
- *
- * @public
- */
-export interface Loose {
-  [key: string]: any
-}
-
-/**
- * Bud factory
- *
+ * Factory
  * @public
  */
 export interface Factory<P extends any[], T> {
@@ -87,38 +80,9 @@ export interface Factory<P extends any[], T> {
 }
 
 /**
- * Bud async factory
- *
+ * Async factory
  * @public
  */
 export interface AsyncFactory<P extends any[], T> {
   (...args: P): Promise<T>
 }
-
-/**
- * At least one parameter is required
- *
- * @public
- */
-export type AtLeastOne<Type = unknown> = Type | Type[]
-
-/**
- * Maybe
- *
- * @remarks
- * If T is a function, and it is passed a value of type A, it returns T.
- * If it is not a function, it returns T.
- *
- * @typeParam A - Arguments to be passed when T is a function and it is invoked
- * @typeParam T - Type to be returned
- *
- * @public
- */
-export type Maybe<A extends any[], T> = T | Factory<A, T>
-
-/**
- * Hash of a given object type
- *
- * @public
- */
-export type Index<T = any> = {[key: string]: T}

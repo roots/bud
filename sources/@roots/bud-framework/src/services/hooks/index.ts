@@ -1,10 +1,9 @@
-import {Container} from '@roots/container'
 import {WatchOptions} from 'chokidar'
 import {ValueOf} from 'type-fest'
 import {Configuration} from 'webpack'
 
 import {ContainerService, Locations} from '../..'
-import {Bud, Modules, Plugins} from '../..'
+import {Bud, Modules} from '../..'
 import {EntryObject} from '../../config/entry'
 import {ConfigMap} from '../../config/map'
 import * as Server from '../server'
@@ -188,6 +187,11 @@ export type LocationKeyMap = {
   [K in keyof Locations as `location.${K & string}`]: Locations[K]
 }
 
+export type ModuleOptions = {
+  [K in keyof Modules as `extension.${K &
+    string}.options`]: Modules[K]['options']
+}
+
 /**
  * Syncronous hooks map
  *
@@ -198,7 +202,8 @@ export interface Map
     Server.Middleware.Middleware<`factory`>,
     Server.OptionsMap,
     LocationKeyMap,
-    ConfigMap {
+    ConfigMap, 
+    ModuleOptions {
   [`extension`]: ValueOf<Modules>
   /**
    * Dev server connection options
@@ -246,14 +251,5 @@ export interface Map
   [`middleware.proxy.target`]: URL
   [`middleware.proxy.replacements`]: Array<[RegExp | string, string]>
 
-  // here down is wack
   [key: Server.Middleware.OptionsKey]: any
-  [
-    key: `extension.${(keyof Modules & string) | (keyof Plugins & string)}`
-  ]: any
-  [
-    key: `extension.${
-      | (keyof Modules & string)
-      | (keyof Plugins & string)}.options`
-  ]: Container<Record<string, any>>
 }

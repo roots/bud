@@ -73,6 +73,18 @@ declare module '@roots/bud-framework' {
     useTailwindColors: useTailwindColors.facade
   }
 
+  interface Locations {
+    '@src': string
+    '@dist': string
+    '@resources': string
+    '@public': string
+    '@fonts': string
+    '@images': string
+    '@scripts': string
+    '@styles': string
+    '@views': string
+  }
+
   interface Modules {
     '@roots/sage': Sage
     'wp-theme-json': ThemeJSON.ThemeExtension

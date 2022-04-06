@@ -1,7 +1,7 @@
 import {Signale} from '@roots/bud-support'
 import {Container} from '@roots/container'
 
-import {Bud, Factory, Loose, Maybe, Modules, Plugins} from '../../..'
+import {Bud, Factory, Modules, Plugins} from '../../..'
 
 /**
  * Bud extension interface
@@ -10,7 +10,7 @@ import {Bud, Factory, Loose, Maybe, Modules, Plugins} from '../../..'
  *
  * @public
  */
-export interface Module<Options = any> extends Loose {
+export interface Module<Options = any> extends Record<string, any> {
   /**
    * The module name
    *
@@ -23,7 +23,7 @@ export interface Module<Options = any> extends Loose {
    *
    * @public
    */
-  options?: Maybe<[Bud], Options>
+  options?: Options | ((app: Bud) => Options)
 
   /**
    * General purpose callback. Called first.
@@ -78,5 +78,7 @@ export interface Module<Options = any> extends Loose {
    *
    * @public
    */
-  when?: Maybe<[Bud, Container<Options>], boolean>
+  when?:
+    | boolean
+    | ((app: Bud, options: Container<Options>) => boolean)
 }

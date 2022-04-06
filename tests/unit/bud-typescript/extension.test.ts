@@ -2,7 +2,7 @@ import '@roots/bud-postcss'
 
 import {Bud, factory} from '@repo/test-kit/bud'
 import * as BudBabel from '@roots/bud-babel'
-import * as BudTypescript from '@roots/bud-typescript/src/index'
+import * as BudTypescript from '@roots/bud-typescript'
 
 describe('@roots/bud-typescript', () => {
   let bud: Bud

@@ -1,6 +1,6 @@
 import {resolve, sep as slash} from 'node:path'
 
-import {Bud} from '..'
+import {Bud, Locations} from '..'
 
 /**
  * Transform `@alias` path
@@ -12,7 +12,12 @@ import {Bud} from '..'
  * @public
  */
 export interface parseAlias {
-  (app: Bud, base: `@${string}` & string): string
+  (
+    app: Bud,
+    base:
+      | `${keyof Locations & string}`
+      | `${keyof Locations & string}/${string}`,
+  ): string
 }
 
 export const parseAlias: parseAlias = (app, base) => {
@@ -42,9 +47,17 @@ export const parseAlias: parseAlias = (app, base) => {
  * @public
  */
 export interface path {
-  (base?: string, ...segments: Array<string>): string
+  (
+    base?:
+      | `${keyof Locations & string}`
+      | `@file`
+      | `@name`
+      | `${keyof Locations & string}/${string}`
+      | `./${string}`
+      | `/${string}`,
+    ...segments: Array<string>
+  ): string
 }
-
 export const path: path = function (base, ...segments) {
   const app = this as Bud
 
