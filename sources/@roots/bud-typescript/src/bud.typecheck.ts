@@ -28,10 +28,7 @@ export interface facade {
   (this: Bud, options?: Options): Bud
 }
 
-export const typecheck: typecheck = async function (
-  this: Bud,
-  options?,
-) {
+export const typecheck: typecheck = async function (this: Bud, options?) {
   /**
    * Explicitly passing false will remove the extension
    * if it is registered

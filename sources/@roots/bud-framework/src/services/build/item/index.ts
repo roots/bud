@@ -52,9 +52,7 @@ export interface Item {
    *
    * @public
    */
-  setOptions(
-    factory: Item.Options | ((app: Bud) => Item.Options),
-  ): Item
+  setOptions(factory: Item.Options | ((app: Bud) => Item.Options)): Item
 
   /**
    * Get associated {@link Loader} options

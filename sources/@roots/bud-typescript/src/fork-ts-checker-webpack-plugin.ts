@@ -1,4 +1,4 @@
-import {Bud,Extension} from '@roots/bud-framework'
+import {Bud, Extension} from '@roots/bud-framework'
 import Plugin from 'fork-ts-checker-webpack-plugin'
 
 import * as factory from './options'

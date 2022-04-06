@@ -1,4 +1,4 @@
-import type { Bud,Extension} from '@roots/bud-framework'
+import type {Bud, Extension} from '@roots/bud-framework'
 import {lodash} from '@roots/bud-support'
 
 import {generateName, isPlugin} from './use.utilities'

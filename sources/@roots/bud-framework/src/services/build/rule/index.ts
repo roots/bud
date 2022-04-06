@@ -104,9 +104,7 @@ export interface Rule {
    *
    * @public
    */
-  exclude?:
-    | ((app: Bud) => Array<string | RegExp>)
-    | Array<string | RegExp>
+  exclude?: ((app: Bud) => Array<string | RegExp>) | Array<string | RegExp>
 
   /**
    * Get the value of `exclude`
@@ -127,9 +125,7 @@ export interface Rule {
    *
    * @public
    */
-  include?:
-    | ((app: Bud) => Array<string | RegExp>)
-    | Array<string | RegExp>
+  include?: ((app: Bud) => Array<string | RegExp>) | Array<string | RegExp>
 
   /**
    * Get the value of `include`

@@ -41,9 +41,7 @@ export class Store<T = Store.Repository> extends ContainerService<T> {
 export type BudCallable<T> = (app: Bud) => T
 
 export type CompilerConfigCallables = {
-  [K in keyof ConfigMap as `${K & string}`]: BudCallable<
-    ConfigMap[K]
-  >
+  [K in keyof ConfigMap as `${K & string}`]: BudCallable<ConfigMap[K]>
 }
 
 export namespace Store {

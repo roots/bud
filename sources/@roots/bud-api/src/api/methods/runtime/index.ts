@@ -4,10 +4,7 @@ import type {Configuration, EntryObject} from 'webpack'
 import {isUndefined} from './runtime.dependencies'
 
 export interface runtime {
-  (
-    this: Bud,
-    runtime?: Configuration['optimization']['runtimeChunk'],
-  ): Bud
+  (this: Bud, runtime?: Configuration['optimization']['runtimeChunk']): Bud
 }
 
 /**

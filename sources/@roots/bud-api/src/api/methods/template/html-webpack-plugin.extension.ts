@@ -1,4 +1,4 @@
-import {Extension, Bud} from '@roots/bud-framework'
+import {Bud, Extension} from '@roots/bud-framework'
 
 import {HtmlWebpackPlugin} from './html-webpack-plugin.plugin'
 

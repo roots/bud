@@ -18,7 +18,10 @@ const {isArray} = lodash
  *
  * @public
  */
-export class Extensions extends ContainerService<Controller> implements Base.Service {
+export class Extensions
+  extends ContainerService<Controller>
+  implements Base.Service
+{
   /**
    * Extensions queued for registration
    * @public
@@ -189,7 +192,9 @@ export class Extensions extends ContainerService<Controller> implements Base.Ser
    * @decorator `@bind`
    */
   @bind
-  public async add(extension: Base.Module | Array<Base.Module>): Promise<void> {
+  public async add(
+    extension: Base.Module | Array<Base.Module>,
+  ): Promise<void> {
     const arrayed = isArray(extension) ? extension : [extension]
 
     await Promise.all(
@@ -206,7 +211,7 @@ export class Extensions extends ContainerService<Controller> implements Base.Ser
         } catch (err) {
           this.app.error(err)
         }
-      })
+      }),
     )
   }
 

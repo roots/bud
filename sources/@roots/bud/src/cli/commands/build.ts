@@ -9,7 +9,8 @@ import {BaseCommand} from './base.js'
 
 const {isUndefined} = lodash
 
-const fallback = (obj: any | undefined, obj2: any) => isUndefined(obj) ? obj2 : obj
+const fallback = (obj: any | undefined, obj2: any) =>
+  isUndefined(obj) ? obj2 : obj
 
 /**
  * Build command
@@ -300,10 +301,7 @@ export class BuildCommand extends BaseCommand {
           this.publicPath,
           seed['build.output.publicPath'],
         ),
-        'features.inject': fallback(
-          this.inject,
-          seed['features.inject'],
-        ),
+        'features.inject': fallback(this.inject, seed['features.inject']),
         'features.log': fallback(this.log, seed['features.log']),
         'features.manifest': fallback(
           this.manifest,
@@ -312,10 +310,7 @@ export class BuildCommand extends BaseCommand {
         location: {
           '@src': fallback(this.src, seed.location['@src']),
           '@dist': fallback(this.dist, seed.location['@dist']),
-          '@storage': fallback(
-            this.storage,
-            seed.location['@storage'],
-          ),
+          '@storage': fallback(this.storage, seed.location['@storage']),
           '@modules': fallback(this.modules, seed.location['@modules']),
         },
       },

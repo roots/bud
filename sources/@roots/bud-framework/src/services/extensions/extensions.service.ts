@@ -29,7 +29,9 @@ export interface Service extends ContainerService {
    *
    * @public
    */
-  add(extension: | Module | Plugin | Array<Module | Plugin>): Promise<unknown>
+  add(
+    extension: Module | Plugin | Array<Module | Plugin>,
+  ): Promise<unknown>
 
   /**
    * Add an extension to the queue

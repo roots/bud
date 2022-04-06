@@ -18,10 +18,7 @@ export interface Mutator {
 }
 
 export interface method {
-  (
-    input?: Mutator | WPThemeJson['settings'],
-    raw?: boolean,
-  ): Promise<Bud>
+  (input?: Mutator | WPThemeJson['settings'], raw?: boolean): Promise<Bud>
 }
 
 export interface facade {

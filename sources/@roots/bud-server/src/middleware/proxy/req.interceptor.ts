@@ -24,10 +24,7 @@ export class RequestInterceptorFactory {
    *
    * @public
    */
-  public constructor(
-    public _app: () => Bud,
-    public url: ApplicationURL,
-  ) {}
+  public constructor(public _app: () => Bud, public url: ApplicationURL) {}
 
   /**
    * Callback for `http-proxy-middleware` `onProxyReq`

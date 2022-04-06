@@ -1,4 +1,4 @@
-import {Bud,Extension} from '@roots/bud-framework'
+import {Bud, Extension} from '@roots/bud-framework'
 
 /**
  * Module registration

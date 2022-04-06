@@ -3,7 +3,7 @@ import {WatchOptions} from 'chokidar'
 import {ValueOf} from 'type-fest'
 import {Configuration} from 'webpack'
 
-import {ContainerService,Locations} from '../..'
+import {ContainerService, Locations} from '../..'
 import {Bud, Modules, Plugins} from '../..'
 import {EntryObject} from '../../config/entry'
 import {ConfigMap} from '../../config/map'
@@ -110,9 +110,7 @@ export interface Service extends ContainerService {
    */
   filterAsync<T extends keyof AsyncMap & string>(
     id: T,
-    value?:
-      | AsyncMap[T]
-      | ((param?: AsyncMap[T]) => Promise<AsyncMap[T]>),
+    value?: AsyncMap[T] | ((param?: AsyncMap[T]) => Promise<AsyncMap[T]>),
   ): Promise<AsyncMap[T]>
 
   /**
@@ -167,9 +165,7 @@ interface Keys {
 }
 
 type EventMap = {
-  [K in Keys['events'] as `${K & string}`]: (
-    app: Bud,
-  ) => Promise<any>
+  [K in Keys['events'] as `${K & string}`]: (app: Bud) => Promise<any>
 }
 
 export interface Events extends EventMap {}
@@ -253,9 +249,7 @@ export interface Map
   // here down is wack
   [key: Server.Middleware.OptionsKey]: any
   [
-    key: `extension.${
-      | (keyof Modules & string)
-      | (keyof Plugins & string)}`
+    key: `extension.${(keyof Modules & string) | (keyof Plugins & string)}`
   ]: any
   [
     key: `extension.${

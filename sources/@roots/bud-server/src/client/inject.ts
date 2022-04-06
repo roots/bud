@@ -4,10 +4,7 @@ import {lodash} from '@roots/bud-support'
 const {isNull, isUndefined} = lodash
 
 export interface inject {
-  (
-    app: Bud,
-    injection: Array<(app: Bud) => string>,
-  ): Promise<void>
+  (app: Bud, injection: Array<(app: Bud) => string>): Promise<void>
 }
 
 /**

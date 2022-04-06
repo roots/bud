@@ -15,7 +15,10 @@ const {isEmpty, isFunction} = lodash
  *
  * @public
  */
-export class Api extends Framework.ContainerService implements Framework.Api.Service {
+export class Api
+  extends Framework.ContainerService
+  implements Framework.Api.Service
+{
   /**
    * Queued method calls
    *

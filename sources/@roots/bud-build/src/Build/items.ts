@@ -35,24 +35,21 @@ export const cssModule = (app: Bud) =>
  *
  * @public
  */
-export const csv = (app: Bud) =>
-  app.build.makeItem().setLoader(`csv`)
+export const csv = (app: Bud) => app.build.makeItem().setLoader(`csv`)
 
 /**
  * .html handler factory
  *
  * @public
  */
-export const html = (app: Bud) =>
-  app.build.makeItem().setLoader(`html`)
+export const html = (app: Bud) => app.build.makeItem().setLoader(`html`)
 
 /**
  * Factory {@link Item} for style
  *
  * @public
  */
-export const style = (app: Bud) =>
-  app.build.makeItem().setLoader(`style`)
+export const style = (app: Bud) => app.build.makeItem().setLoader(`style`)
 
 /**
  * Factory {@link Item} for markdown
@@ -75,8 +72,7 @@ export const minicss = (app: Bud) =>
 export const precss = (app: Bud) =>
   app.build.makeItem().setLoader(app.isProduction ? `minicss` : `style`)
 
-export const raw = ({build}: Bud) =>
-  build.makeItem().setLoader(`raw`)
+export const raw = ({build}: Bud) => build.makeItem().setLoader(`raw`)
 
 /**
  * Factory {@link Item} for file
@@ -112,5 +108,4 @@ export const resolveUrl = (app: Bud) =>
  *
  * @public
  */
-export const xml = (app: Bud) =>
-  app.build.makeItem().setLoader(`xml`)
+export const xml = (app: Bud) => app.build.makeItem().setLoader(`xml`)

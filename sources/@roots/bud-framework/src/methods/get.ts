@@ -5,11 +5,7 @@ import {Bud} from '..'
 const {isFunction} = lodash
 
 export interface get {
-  (
-    this: Bud,
-    name: string,
-    tap?: (app: Bud) => Bud,
-  ): Bud
+  (this: Bud, name: string, tap?: (app: Bud) => Bud): Bud
 }
 
 export interface get {

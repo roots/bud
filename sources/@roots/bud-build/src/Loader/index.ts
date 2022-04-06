@@ -1,4 +1,4 @@
-import {Build,Bud} from '@roots/bud-framework'
+import {Bud, Build} from '@roots/bud-framework'
 
 import {Base} from '../shared/Base'
 

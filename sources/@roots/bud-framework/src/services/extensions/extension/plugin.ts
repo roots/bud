@@ -12,10 +12,8 @@ import {Module} from './module'
  *
  * @public
  */
-export interface Plugin<
-  Plugin = any,
-  Options = Record<string, any>,
-> extends Module {
+export interface Plugin<Plugin = any, Options = Record<string, any>>
+  extends Module {
   /**
    * Either a function returning a finalized {@link ApplyPlugin} or a literal {@link ApplyPlugin}.
    *

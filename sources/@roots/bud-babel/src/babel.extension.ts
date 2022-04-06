@@ -1,4 +1,4 @@
-import {Extension, Bud} from '@roots/bud-framework'
+import {Bud, Extension} from '@roots/bud-framework'
 
 import {Config} from './babel.config'
 import {DEFAULT_PLUGINS, DEFAULT_PRESETS} from './babel.constants'
@@ -19,9 +19,7 @@ export const mixin: Extension.Module['mixin'] = async app => ({
   babel: [Config, app],
 })
 
-export const options: Extension.Module['options'] = async (
-  app: Bud,
-) => ({
+export const options: Extension.Module['options'] = async (app: Bud) => ({
   cacheDirectory: app.path(`@storage/cache/babel`),
   env: {
     development: {
@@ -36,9 +34,7 @@ export const options: Extension.Module['options'] = async (
  *
  * @public
  */
-export const register: Extension.Module['register'] = async (
-  app: Bud,
-) => {
+export const register: Extension.Module['register'] = async (app: Bud) => {
   app.build
     .setLoader('babel', require.resolve('babel-loader'))
     .setItem('babel', babel =>

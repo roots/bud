@@ -13,7 +13,10 @@ const {dirname, join} = posix
  *
  * @public
  */
-export class Peers extends Framework.Service implements Framework.Peers.Service {
+export class Peers
+  extends Framework.Service
+  implements Framework.Peers.Service
+{
   public adjacents: AdjacencyList
 
   public modules: Record<string, Dependency> = {}

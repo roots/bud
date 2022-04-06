@@ -1,10 +1,7 @@
-import {Bud,Extension} from '@roots/bud-framework'
+import {Bud, Extension} from '@roots/bud-framework'
 import AutoDllPlugin from 'autodll-webpack-plugin'
 
-type BudDllPlugin = Extension.Plugin<
-  AutoDllPlugin,
-  AutoDllPlugin.Options
->
+type BudDllPlugin = Extension.Plugin<AutoDllPlugin, AutoDllPlugin.Options>
 
 interface BudDllPluginConstructor {
   (modules: string | string[]): BudDllPlugin

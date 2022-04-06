@@ -42,9 +42,7 @@ export function mixin<ClassMap = GenericClassMap>(
     this[name] = new ClassObj(...params)
 
     if (!(this[name] instanceof ClassObj)) {
-      this.error(
-        `${name} not properly bound to ${this.name} Bud instance`,
-      )
+      this.error(`${name} not properly bound to ${this.name} Bud instance`)
       this.dump(this.name)
       this.dump(ClassObj)
     }

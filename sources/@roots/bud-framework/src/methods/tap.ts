@@ -42,10 +42,7 @@ export const tap: tap = function (
 }
 
 export interface tapAsync<T = Bud> {
-  (
-    fn: (app: Bud) => Promise<unknown>,
-    bound?: boolean,
-  ): Promise<Bud>
+  (fn: (app: Bud) => Promise<unknown>, bound?: boolean): Promise<Bud>
 }
 
 /**

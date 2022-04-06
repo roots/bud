@@ -10,10 +10,7 @@ import {Options, ThemeJsonWebpackPlugin} from './plugin'
  * @public
  */
 export interface ThemeExtension
-  extends Framework.Extension.Plugin<
-    ThemeJsonWebpackPlugin,
-    Options
-  > {
+  extends Framework.Extension.Plugin<ThemeJsonWebpackPlugin, Options> {
   name: 'wp-theme-json'
   options: (app: Framework.Bud) => Options
   api: {

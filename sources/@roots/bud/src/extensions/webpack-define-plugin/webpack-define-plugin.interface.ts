@@ -1,4 +1,4 @@
-import type {Bud,Extension} from '@roots/bud-framework'
+import type {Bud, Extension} from '@roots/bud-framework'
 import type {Container} from '@roots/container'
 import type Webpack from 'webpack'
 

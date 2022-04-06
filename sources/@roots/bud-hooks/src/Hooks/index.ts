@@ -1,6 +1,9 @@
 import * as Framework from '@roots/bud-framework'
 import type {Bud} from '@roots/bud-framework/types/bud'
-import type {AsyncMap, Events} from '@roots/bud-framework/types/services/hooks'
+import type {
+  AsyncMap,
+  Events,
+} from '@roots/bud-framework/types/services/hooks'
 import {bind, chalk, lodash} from '@roots/bud-support'
 
 const {get, isFunction, isUndefined, set} = lodash
@@ -50,7 +53,10 @@ const {get, isFunction, isUndefined, set} = lodash
  *
  * @public
  */
-export class Hooks extends Framework.ContainerService implements Framework.Hooks.Service {
+export class Hooks
+  extends Framework.ContainerService
+  implements Framework.Hooks.Service
+{
   /**
    * hook getter
    *
@@ -69,7 +75,10 @@ export class Hooks extends Framework.ContainerService implements Framework.Hooks
    * @decorator `@bind`
    */
   @bind
-  public set(key: `${keyof Framework.Hooks.Map & string}`, value: any): this {
+  public set(
+    key: `${keyof Framework.Hooks.Map & string}`,
+    value: any,
+  ): this {
     set(this.repository, key, value)
     return this
   }
@@ -98,7 +107,9 @@ export class Hooks extends Framework.ContainerService implements Framework.Hooks
   @bind
   public on<T extends keyof Framework.Hooks.Map & string>(
     id: T,
-    input: Framework.Hooks.Map[T] | ((value: Framework.Hooks.Map[T]) => any),
+    input:
+      | Framework.Hooks.Map[T]
+      | ((value: Framework.Hooks.Map[T]) => any),
   ): Bud {
     const retrieved = this.has(id) ? this.get(id) : []
     const normal = Array.isArray(retrieved) ? retrieved : [retrieved]
@@ -133,9 +144,7 @@ export class Hooks extends Framework.ContainerService implements Framework.Hooks
   @bind
   public async<T extends keyof AsyncMap & string>(
     id: T,
-    input:
-      | AsyncMap[T]
-      | ((value: AsyncMap[T]) => Promise<AsyncMap[T]>),
+    input: AsyncMap[T] | ((value: AsyncMap[T]) => Promise<AsyncMap[T]>),
   ): Bud {
     const retrieved = this.has(id) ? this.get(id) : []
     const normal = Array.isArray(retrieved) ? retrieved : [retrieved]
@@ -168,7 +177,9 @@ export class Hooks extends Framework.ContainerService implements Framework.Hooks
   @bind
   public filter<T extends keyof Framework.Hooks.Map & string>(
     id: T,
-    value?: Framework.Hooks.Map[T] | ((value?: Framework.Hooks.Map[T]) => any),
+    value?:
+      | Framework.Hooks.Map[T]
+      | ((value?: Framework.Hooks.Map[T]) => any),
   ): Framework.Hooks.Map[T] {
     if (!this.has(id)) {
       if (isUndefined(value)) return undefined
@@ -227,9 +238,7 @@ export class Hooks extends Framework.ContainerService implements Framework.Hooks
     return await normal.reduce(
       async (
         promised,
-        current?:
-          | ((value: T) => Promise<T> | AsyncMap[T])
-          | AsyncMap[T],
+        current?: ((value: T) => Promise<T> | AsyncMap[T]) | AsyncMap[T],
       ) => {
         const value = await promised
         return isFunction(current) ? await current(value) : current
@@ -274,9 +283,7 @@ export class Hooks extends Framework.ContainerService implements Framework.Hooks
    * @decorator `@bind`
    */
   @bind
-  public async fire<T extends keyof Events & string>(
-    id: T,
-  ): Promise<Bud> {
+  public async fire<T extends keyof Events & string>(id: T): Promise<Bud> {
     if (!this.has(id)) return
 
     const retrieved = this.get(id)

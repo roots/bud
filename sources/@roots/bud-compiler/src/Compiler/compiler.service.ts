@@ -1,8 +1,4 @@
-import {
-  Compiler as Contract,
-  Bud,
-  Service,
-} from '@roots/bud-framework'
+import {Bud, Compiler as Contract, Service} from '@roots/bud-framework'
 import {bind, chalk, lodash, once, Signale} from '@roots/bud-support'
 import {
   Configuration,

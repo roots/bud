@@ -15,10 +15,7 @@ import {Watcher} from './server.watcher'
  * Server service class
  * @public
  */
-export class Server
-  extends Service
-  implements Base.Service
-{
+export class Server extends Service implements Base.Service {
   /**
    * Express instance
    * @public

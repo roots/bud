@@ -1,18 +1,18 @@
-import {bind, chalk,lodash} from '@roots/bud-support'
-import { Container } from '@roots/container'
+import {bind, chalk, lodash} from '@roots/bud-support'
+import {Container} from '@roots/container'
 
 import {Bud} from './bud'
 import {Logger} from './logger'
 
 const {isString, isUndefined} = lodash
 
-/** 
+/**
  * @remarks
  * The {@link Service} interface extends {@link Bootstrapper}, which provides {@link @roots/container#Container}
  * and {@link Bud} access
- * 
+ *
  * A {@link Service} is tapped through a series of callbacks at different points in the build.
- * 
+ *
  * All of the callbacks are optional:
  *
  * - {@link Service.bootstrap} is called when the Service is instantiated (but before all services are guaranteed to be instantiated).

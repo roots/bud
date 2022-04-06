@@ -1,4 +1,4 @@
-import type {Bud,Extension} from '@roots/bud-framework'
+import type {Bud, Extension} from '@roots/bud-framework'
 import type {Signale} from '@roots/bud-support'
 
 import {importSassImplementation} from './sass.dependency'

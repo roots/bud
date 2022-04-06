@@ -9,10 +9,7 @@ import {Container} from '@roots/container'
  * @public
  */
 export interface ReactRefreshExtension
-  extends Extension.Plugin<
-    RefreshPlugin,
-    ReactRefreshPluginOptions
-  > {
+  extends Extension.Plugin<RefreshPlugin, ReactRefreshPluginOptions> {
   name: '@pmmmwh/react-refresh-webpack-plugin'
   options: ReactRefreshPluginOptions
   make: (options: Container<ReactRefreshPluginOptions>) => RefreshPlugin

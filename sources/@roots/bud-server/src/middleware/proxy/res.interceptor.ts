@@ -41,10 +41,7 @@ export class ResponseInterceptorFactory {
    *
    * @public
    */
-  public constructor(
-    public _app: () => Bud,
-    public url: ApplicationURL,
-  ) {}
+  public constructor(public _app: () => Bud, public url: ApplicationURL) {}
 
   /**
    * Response interceptor

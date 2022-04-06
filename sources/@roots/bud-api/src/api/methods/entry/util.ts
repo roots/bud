@@ -1,4 +1,4 @@
-import type {Config,Bud} from '@roots/bud-framework'
+import type {Bud, Config} from '@roots/bud-framework'
 import {lodash} from '@roots/bud-support'
 
 const {isArray, isString} = lodash
@@ -17,7 +17,9 @@ export type RawValue =
   | Array<string>
   | {import: string | Array<string>}
 
-export type NormalValue = {import: Array<string>} & Config.Entry.EntryObject
+export type NormalValue = {
+  import: Array<string>
+} & Config.Entry.EntryObject
 
 export interface method {
   (...entrypoint: Input): Promise<Bud>

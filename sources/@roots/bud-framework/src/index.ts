@@ -65,8 +65,7 @@ export {Module}
  *
  * @virtual @public
  */
-export interface Plugins
-  extends Partial<Record<string, Plugin>> {}
+export interface Plugins extends Partial<Record<string, Plugin>> {}
 export {Plugin}
 
 /**

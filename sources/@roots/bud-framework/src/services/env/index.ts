@@ -1,4 +1,4 @@
-import { ContainerService } from '../../service';
+import {ContainerService} from '../../service'
 
 /**
  * Env container interface

@@ -17,9 +17,7 @@ const {isEqual, isFunction} = lodash
  *
  * @internal
  */
-export const isPlugin = (
-  extension: Extension.Module,
-): boolean =>
+export const isPlugin = (extension: Extension.Module): boolean =>
   extension.apply &&
   isFunction(extension.apply) &&
   !isEqual(extension.apply.toString(), '[native code]')
@@ -62,6 +60,5 @@ export const hasValidConstructorName = (
  *
  * @internal
  */
-export const generateName = (
-  input: Extension.Module | Extension.Plugin,
-) => (hasValidConstructorName(input) ? input.constructor.name : nanoid(4))
+export const generateName = (input: Extension.Module | Extension.Plugin) =>
+  hasValidConstructorName(input) ? input.constructor.name : nanoid(4)

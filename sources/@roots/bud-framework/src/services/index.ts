@@ -16,5 +16,4 @@ export * as Server from './server'
  *
  * @virtual @public
  */
-export interface Registry
-  extends Partial<Record<string, Service>> {}
+export interface Registry extends Partial<Record<string, Service>> {}

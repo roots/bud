@@ -1,6 +1,6 @@
 import '@roots/bud-api'
 
-import {Bud,Extension} from '@roots/bud-framework'
+import {Bud, Extension} from '@roots/bud-framework'
 
 import {BudBrotliWebpackPlugin} from './BudBrotliWebpackPlugin'
 import {BudGzipWebpackPlugin} from './BudGzipWebpackPlugin'

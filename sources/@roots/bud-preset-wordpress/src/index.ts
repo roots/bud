@@ -10,7 +10,7 @@
  * @packageDocumentation
  */
 
-import type {Bud,Extension} from '@roots/bud-framework'
+import type {Bud, Extension} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
   interface Modules {

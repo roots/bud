@@ -1,4 +1,4 @@
-import type {Bud,Extensions} from '@roots/bud-framework'
+import type {Bud, Extensions} from '@roots/bud-framework'
 import type {Container} from '@roots/container'
 import {
   CriticalCssWebpackPlugin,
@@ -13,10 +13,7 @@ import {critical} from './critical'
  * @public
  */
 export interface BudCriticalCssPlugin
-  extends Extensions.Plugin<
-    CriticalCssWebpackPlugin,
-    Partial<Options>
-  > {
+  extends Extensions.Plugin<CriticalCssWebpackPlugin, Partial<Options>> {
   name: '@roots/bud-criticalcss'
   options: Partial<Options>
   api: {critical: critical}

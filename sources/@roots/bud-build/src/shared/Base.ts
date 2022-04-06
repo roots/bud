@@ -14,9 +14,7 @@ export class Base {
     this._app = _app
   }
 
-  public wrap<T = any>(
-    input: T | ((app: Bud) => T),
-  ): (app: Bud) => T {
+  public wrap<T = any>(input: T | ((app: Bud) => T)): (app: Bud) => T {
     return isFunction(input) ? input : () => input
   }
   public unwrap<T = any>(

@@ -4,10 +4,7 @@ import * as Plugin from 'compression-webpack-plugin'
 import {BudCompressionExtension} from './'
 
 interface BudGzipWebpackPlugin
-  extends Extension.Plugin<
-    Plugin,
-    BudCompressionExtension.Options
-  > {}
+  extends Extension.Plugin<Plugin, BudCompressionExtension.Options> {}
 
 const name: BudGzipWebpackPlugin['name'] = 'bud-gzip-webpack-plugin'
 
