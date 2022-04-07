@@ -112,7 +112,7 @@ export class Hooks
   ): Framework.Bud {
     const retrieved = this.has(id) ? this.get(id) : []
     const normal = Array.isArray(retrieved) ? retrieved : [retrieved]
-    const callback = typeof input === 'function' ? input : () => input
+    const callback = isFunction(input) ? input : () => input
 
     this.set(id, [...normal, callback])
 
@@ -147,7 +147,7 @@ export class Hooks
   ): Framework.Bud {
     const retrieved = this.has(id) ? this.get(id) : []
     const normal = Array.isArray(retrieved) ? retrieved : [retrieved]
-    const callback = typeof input === 'function' ? input : () => input
+    const callback = isFunction(input) ? input : () => input
 
     this.set(id, [...normal, callback])
 
