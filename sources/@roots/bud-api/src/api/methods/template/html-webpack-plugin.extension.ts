@@ -1,8 +1,8 @@
-import {Bud, Extension} from '@roots/bud-framework'
+import {Bud, Plugin} from '@roots/bud-framework'
 
 import {HtmlWebpackPlugin} from './html-webpack-plugin.plugin'
 
-export type BudHtmlWebpackPlugin = Extension.Plugin<
+export type BudHtmlWebpackPlugin = Plugin<
   HtmlWebpackPlugin,
   HtmlWebpackPlugin.Options
 >

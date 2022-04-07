@@ -1,4 +1,4 @@
-import {Module} from '@roots/bud-framework/types/services/extensions/extension'
+import {Module} from '@roots/bud-framework'
 
 import {PostCssConfig} from './bud.postcss'
 

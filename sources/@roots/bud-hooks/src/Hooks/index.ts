@@ -1,5 +1,4 @@
 import * as Framework from '@roots/bud-framework'
-import type {Bud} from '@roots/bud-framework/types/bud'
 import type {
   AsyncMap,
   Events,
@@ -110,7 +109,7 @@ export class Hooks
     input:
       | Framework.Hooks.Map[T]
       | ((value: Framework.Hooks.Map[T]) => any),
-  ): Bud {
+  ): Framework.Bud {
     const retrieved = this.has(id) ? this.get(id) : []
     const normal = Array.isArray(retrieved) ? retrieved : [retrieved]
     const callback = typeof input === 'function' ? input : () => input
@@ -145,7 +144,7 @@ export class Hooks
   public async<T extends keyof AsyncMap & string>(
     id: T,
     input: AsyncMap[T] | ((value: AsyncMap[T]) => Promise<AsyncMap[T]>),
-  ): Bud {
+  ): Framework.Bud {
     const retrieved = this.has(id) ? this.get(id) : []
     const normal = Array.isArray(retrieved) ? retrieved : [retrieved]
     const callback = typeof input === 'function' ? input : () => input
@@ -256,12 +255,12 @@ export class Hooks
   @bind
   public action<T extends keyof Events & string>(
     id: T,
-    ...action: Array<(app: Bud) => Promise<unknown>>
-  ): Bud {
+    ...action: Array<(app: Framework.Bud) => Promise<unknown>>
+  ): Framework.Bud {
     const retrieved = this.has(id) ? this.get(id) : []
     const normal = Array.isArray(retrieved) ? retrieved : [retrieved]
 
-    this.app.log({
+    this.app.info({
       message: `registering action: ${id}`,
       suffix: chalk.dim(`${normal.length + 1} registered`),
     })
@@ -283,7 +282,7 @@ export class Hooks
    * @decorator `@bind`
    */
   @bind
-  public async fire<T extends keyof Events & string>(id: T): Promise<Bud> {
+  public async fire<T extends keyof Events & string>(id: T): Promise<Framework.Bud> {
     if (!this.has(id)) return
 
     const retrieved = this.get(id)
@@ -292,7 +291,7 @@ export class Hooks
     await normal.reduce(async (promised, current, increment) => {
       await promised
 
-      this.app.log({
+      this.app.info({
         message: `firing action ${id}`,
         suffix: chalk.dim(`${increment + 1}/${normal.length}`),
       })

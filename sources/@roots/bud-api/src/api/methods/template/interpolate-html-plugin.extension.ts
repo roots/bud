@@ -1,5 +1,4 @@
-import type {Bud} from '@roots/bud-framework'
-import type {Extensions} from '@roots/bud-framework/types/services'
+import type {Bud, Plugin} from '@roots/bud-framework'
 
 import {HtmlWebpackPlugin} from './html-webpack-plugin.plugin'
 import {InterpolateHtmlPlugin} from './interpolate-html-plugin.plugin'
@@ -10,7 +9,7 @@ import {InterpolateHtmlPlugin} from './interpolate-html-plugin.plugin'
  * @public
  */
 export interface BudInterpolateHtmlPlugin
-  extends Extensions.Plugin<
+  extends Plugin<
     InterpolateHtmlPlugin,
     Record<string, RegExp>
   > {}

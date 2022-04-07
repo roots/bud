@@ -6,7 +6,7 @@
  *
  * @beta
  * This extension  only adds Prettier as a managed dependency of the Bud framework.
- * It does not add any aditional functionality or tie into the build process.
+ * It does not add any additional functionality or tie into the build process.
  *
  * It will be developed further as the Framework matures.
  *
