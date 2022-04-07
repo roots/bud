@@ -1,4 +1,4 @@
-import type {Framework} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
 import {fs} from '@roots/bud-support'
 
 export const {ensureDirSync, pathExistsSync} = fs
@@ -8,7 +8,7 @@ export interface run {
 }
 
 export const run: run = async function (): Promise<void> {
-  const ctx = this as Framework
+  const ctx = this as Bud
 
   await ctx.hooks.fire('event.run')
 

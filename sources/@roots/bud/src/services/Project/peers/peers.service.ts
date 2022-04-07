@@ -1,9 +1,5 @@
 /* eslint-disable simple-import-sort/imports */
-import {
-  Framework,
-  Peers as PeersInterface,
-  Service,
-} from '@roots/bud-framework'
+import * as Framework from '@roots/bud-framework'
 import {bind, fs, pkgUp, safeResolve} from '@roots/bud-support'
 import {posix} from 'path'
 import {AdjacencyList} from './adjacencyList'
@@ -17,28 +13,15 @@ const {dirname, join} = posix
  *
  * @public
  */
-export class Peers implements PeersInterface {
-  /**
-   * Log helper
-   *
-   * @public
-   */
-  public get log(): Service['log'] {
-    return this.app.project.log
-  }
-
+export class Peers
+  extends Framework.Service
+  implements Framework.Peers.Service
+{
   public adjacents: AdjacencyList
 
   public modules: Record<string, Dependency> = {}
 
   public peerDependencies: Map<string, string> = new Map()
-
-  /**
-   * Class constructor
-   *
-   * @public
-   */
-  public constructor(public app: Framework) {}
 
   /**
    * Returns path for a module name (if findable)
@@ -53,8 +36,7 @@ export class Peers implements PeersInterface {
 
       return dirname(result)
     } catch (err) {
-      this.log('error', `${name} manifest cannot be resolved`)
-      return
+      this.app.warn(`${name} manifest cannot be resolved`)
     }
   }
 
@@ -69,7 +51,7 @@ export class Peers implements PeersInterface {
     try {
       return await readJson(join(directoryPath, '/package.json'))
     } catch (err) {
-      this.log('error', {
+      this.app.warn({
         message: `manifest could not be resolved`,
         suffix: directoryPath,
       })

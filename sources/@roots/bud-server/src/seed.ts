@@ -1,4 +1,4 @@
-import {Framework} from '@roots/bud-framework'
+import {Bud} from '@roots/bud-framework'
 
 const src = (modulePath: string) =>
   `@roots/bud-server/client/${modulePath}`
@@ -8,7 +8,7 @@ const src = (modulePath: string) =>
  *
  * @public
  */
-export const seed = (app: Framework) => {
+export const seed = (app: Bud) => {
   app.hooks
     .on(`middleware.enabled`, [`dev`, `hot`])
 

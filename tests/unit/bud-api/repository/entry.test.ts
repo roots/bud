@@ -1,5 +1,5 @@
 import {Bud, factory} from '@repo/test-kit/bud'
-import {EntryObject} from '@roots/bud-framework/entry'
+import {EntryObject} from '@roots/bud-framework/types/config/entry'
 
 describe('bud.entry', function () {
   let bud: Bud

@@ -1,11 +1,11 @@
-import type {Framework} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
 
 export interface hash {
-  (this: Framework, enabled?: boolean): Framework
+  (this: Bud, enabled?: boolean): Bud
 }
 
 export const hash: hash = function (enabled = true) {
-  this as Framework
+  this as Bud
 
   this.store.set('features.hash', enabled)
 

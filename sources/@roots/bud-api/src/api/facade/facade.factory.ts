@@ -1,11 +1,11 @@
-import {Framework} from '@roots/bud-framework'
+import {Bud} from '@roots/bud-framework'
 import {chalk} from '@roots/bud-support'
 
 /**
  * @internal
  */
 export interface facade {
-  (...args: any[]): Framework
+  (...args: any[]): Bud
 }
 
 /**
@@ -19,7 +19,7 @@ export interface factory {
  * @internal
  */
 export const factory: factory = (name: string): facade =>
-  function facade(...args: any[]): Framework {
+  function facade(...args: any[]): Bud {
     this.api.queue.push([name, args])
 
     this.log({

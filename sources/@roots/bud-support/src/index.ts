@@ -4,7 +4,7 @@
 /**
  * This package is a collection of internal dependencies utilized by the build system.
  *
- * @see https://roots.io/bud
+ * @see https://bud.js.org
  * @see https://github.com/roots/bud
  *
  * @remarks

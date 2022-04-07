@@ -3,7 +3,7 @@ import {globby} from '@roots/bud-support'
 export async function globAssets(search: string): Promise<Array<string>> {
   try {
     this.log(`search`, search)
-    
+
     const results = await globby.globby(search, {cwd: this.path('@src')})
     this.log(`results`, results)
 

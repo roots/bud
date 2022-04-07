@@ -10,7 +10,7 @@ import {
   omit,
   Signale,
 } from './controller.dependencies'
-import {Extension, Framework, Plugin} from './controller.interface'
+import {Bud, Extension, Plugin} from './controller.interface'
 
 /**
  * Extension instance controller
@@ -21,14 +21,14 @@ export class Controller {
   /**
    * @internal
    */
-  public _app: () => Framework
+  public _app: () => Bud
 
   /**
    * The application instance
    *
    * @public @readonly
    */
-  public get app(): Framework {
+  public get app(): Bud {
     return this._app()
   }
 
@@ -74,7 +74,7 @@ export class Controller {
    *
    * @public
    */
-  public constructor(_app: Framework, extension: Extension) {
+  public constructor(_app: Bud, extension: Extension) {
     this._app = () => _app
     this.log = this.app.extensions.log
     this.meta.instance = this.app.name

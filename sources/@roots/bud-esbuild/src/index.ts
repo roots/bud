@@ -4,7 +4,7 @@
 /**
  * ESBuild support for Bud projects
  *
- * @see https://roots.io/bud
+ * @see https://bud.js.org
  * @see https://github.com/roots/bud
  *
  * @beta
@@ -26,7 +26,7 @@ import {esbuild} from './bud.esbuild'
 import {features} from './features'
 
 declare module '@roots/bud-framework' {
-  interface Framework {
+  interface Bud {
     esbuild: esbuild
   }
 
@@ -64,7 +64,7 @@ const extension: Extension.Module = {
     exclude: store.get('patterns.modules'),
   }),
 
-  boot: ({build, extensions, hooks}) => {
+  boot: async ({build, extensions, hooks}) => {
     build.setLoader('esbuild', require.resolve('esbuild-loader'))
 
     Promise.all(

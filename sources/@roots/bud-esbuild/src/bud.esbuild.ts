@@ -1,4 +1,4 @@
-import {Framework} from '@roots/bud-framework'
+import {Bud} from '@roots/bud-framework'
 
 interface LoaderOptions {
   target?:
@@ -24,7 +24,7 @@ interface LoaderOptions {
 }
 
 export interface esbuild {
-  (type: 'js' | 'ts', opts: LoaderOptions): Framework
+  (type: 'js' | 'ts', opts: LoaderOptions): Bud
 }
 /**
  * Configure esbuild-loader options
@@ -43,7 +43,7 @@ export interface esbuild {
  *
  * @beta
  */
-export const esbuild: esbuild = function (type, opts): Framework {
+export const esbuild: esbuild = function (type, opts): Bud {
   this.items[`esbuild-${type}`].setOptions(app => ({
     ...app.build.items[`esbuild-${type}`].options,
     ...opts,

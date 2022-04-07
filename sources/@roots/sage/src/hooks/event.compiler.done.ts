@@ -1,4 +1,4 @@
-import {Framework} from '@roots/bud-framework'
+import {Bud} from '@roots/bud-framework'
 import {fs} from '@roots/bud-support'
 import {ensureDir} from 'fs-extra'
 import {urlToHttpOptions} from 'url'
@@ -14,7 +14,7 @@ const {writeJson} = fs
  *
  * @public
  */
-export default async function (app: Framework) {
+export default async function (app: Bud) {
   try {
     await ensureDir(app.path('@dist'))
 

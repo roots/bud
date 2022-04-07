@@ -1,9 +1,9 @@
 import type {Extension} from '@roots/bud-framework'
 
-export const jsFeature: Extension.CompilerPlugin = {
+export const jsFeature: Extension.Plugin = {
   name: '@roots/bud-esbuild/js',
 
-  boot: app => {
+  boot: async app => {
     app.build
       .setItem('esbuild-js', {
         loader: `esbuild`,

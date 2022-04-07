@@ -1,31 +1,32 @@
-import type {Framework} from '@roots/bud-framework'
-import type {EntryObject} from '@roots/bud-framework/types/entry'
+import type {Bud, Config} from '@roots/bud-framework'
 import {lodash} from '@roots/bud-support'
 
 const {isArray, isString} = lodash
 
-export {EntryObject}
+export type EntryObject = Config.Entry.EntryObject
 
 export type Input =
   | [string]
   | [Array<string>]
   | [string, string | Array<string>]
   | [Record<string, string | Array<string>>]
-  | [Record<string, EntryObject>]
+  | [Record<string, Config.Entry.EntryObject>]
 
 export type RawValue =
   | string
   | Array<string>
   | {import: string | Array<string>}
 
-export type NormalValue = {import: Array<string>} & EntryObject
+export type NormalValue = {
+  import: Array<string>
+} & Config.Entry.EntryObject
 
 export interface method {
-  (...entrypoint: Input): Promise<Framework>
+  (...entrypoint: Input): Promise<Bud>
 }
 
 export interface facade {
-  (...entrypoint: Input): Framework
+  (...entrypoint: Input): Bud
 }
 
 /**

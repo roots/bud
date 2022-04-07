@@ -4,10 +4,7 @@ import * as Plugin from 'compression-webpack-plugin'
 import {BudCompressionExtension} from './'
 
 interface BudBrotliWebpackPlugin
-  extends Extension.CompilerPlugin<
-    Plugin,
-    BudCompressionExtension.Options
-  > {}
+  extends Extension.Plugin<Plugin, BudCompressionExtension.Options> {}
 
 const BudBrotliWebpackPlugin: BudBrotliWebpackPlugin = {
   name: 'compression-webpack-plugin-brotli',

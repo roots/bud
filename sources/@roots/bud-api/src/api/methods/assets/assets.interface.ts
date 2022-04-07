@@ -1,4 +1,4 @@
-import type {Framework} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
 import CopyPlugin from 'copy-webpack-plugin'
 
 export interface facade {
@@ -8,7 +8,7 @@ export interface facade {
       | CopyPlugin.ObjectPattern
       | Array<string | [string, string] | CopyPlugin.ObjectPattern>
     >
-  ): Framework
+  ): Bud
 }
 
 export interface method {
@@ -18,5 +18,5 @@ export interface method {
       | CopyPlugin.ObjectPattern
       | Array<string | [string, string] | CopyPlugin.ObjectPattern>
     >
-  ): Promise<Framework>
+  ): Promise<Bud>
 }

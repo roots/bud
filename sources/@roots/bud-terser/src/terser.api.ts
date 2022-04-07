@@ -1,13 +1,12 @@
-import type {Framework, Terser} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
+
+import {Options} from './'
 
 export interface terser {
-  (this: Framework, options: Terser.Options): Framework
+  (this: Bud, options: Options): Bud
 }
 
-export const terser: terser = function (
-  this: Framework,
-  options: Terser.Options,
-): Framework {
+export const terser: terser = function (this: Bud, options: Options): Bud {
   this.extensions.get('@roots/bud-terser').setOptions(options)
 
   return this

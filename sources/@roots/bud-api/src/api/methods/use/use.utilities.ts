@@ -1,24 +1,23 @@
 import type {Extension} from '@roots/bud-framework'
+import {lodash, nanoid} from '@roots/bud-support'
 
-import {isEqual, isFunction, nanoid} from './use.dependencies'
+const {isEqual, isFunction} = lodash
 
 /**
  * Returns true if extensions appears to be a WebpackPlugin constructor
  *
- * @param extensions - Extensions to check
- * @returns True if extensions appears to be a WebpackPlugin constructor
+ * @param extension - Extension to check
+ * @returns True if extension appears to be a WebpackPlugin constructor
  *
  * @example
  * ```ts
- * isCompilerPlugin(new WebpackPlugin())
+ * isPlugin(new WebpackPlugin())
  * // => true
  * ```
  *
  * @internal
  */
-export const isCompilerPlugin = (
-  extension: Extension.Module | Extension.CompilerPlugin,
-): boolean =>
+export const isPlugin = (extension: Extension.Module): boolean =>
   extension.apply &&
   isFunction(extension.apply) &&
   !isEqual(extension.apply.toString(), '[native code]')
@@ -38,7 +37,7 @@ export const isCompilerPlugin = (
  * @internal
  */
 export const hasValidConstructorName = (
-  input: Extension.Module | Extension.CompilerPlugin,
+  input: Extension.Module | Extension.Plugin,
 ): boolean =>
   input?.constructor?.name &&
   typeof input.constructor.name == 'string' &&
@@ -49,7 +48,7 @@ export const hasValidConstructorName = (
  * Generates a unique name for extensions which do not
  * have a name prop or constructor name
  *
- * @param extensions - Extensions to check
+ * @param input - Extensions to check
  * @returns Unique name for extensions which do not
  * have a name prop or constructor name
  *
@@ -61,6 +60,5 @@ export const hasValidConstructorName = (
  *
  * @internal
  */
-export const generateName = (
-  input: Extension.Module | Extension.CompilerPlugin,
-) => (hasValidConstructorName(input) ? input.constructor.name : nanoid(4))
+export const generateName = (input: Extension.Module | Extension.Plugin) =>
+  hasValidConstructorName(input) ? input.constructor.name : nanoid(4)

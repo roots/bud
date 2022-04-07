@@ -5,8 +5,7 @@
     "rootDir": "./src",
     "outDir": "./lib/cjs",
     "declarationDir": "./types",
-    "esModuleInterop": true,
-    "types": ["node"]
+    "esModuleInterop": true
   },
   "include": ["src"],
   "references": [

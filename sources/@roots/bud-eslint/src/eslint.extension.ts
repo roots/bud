@@ -4,7 +4,7 @@ import EslintPlugin, {Options} from 'eslint-webpack-plugin'
 import * as api from './eslint.api'
 import {options} from './eslint.options'
 
-export type BudEslintWebpackPlugin = Extension.CompilerPlugin<
+export type BudEslintWebpackPlugin = Extension.Plugin<
   EslintPlugin,
   Options
 >

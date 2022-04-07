@@ -1,4 +1,4 @@
-import type {Framework, Hooks} from '@roots/bud-framework'
+import type {Bud, Hooks} from '@roots/bud-framework'
 import type {CompilerConfigCallables} from '@roots/bud-framework/store'
 import {lodash} from '@roots/bud-support'
 
@@ -9,7 +9,7 @@ const {isUndefined} = lodash
  *
  * @remarks
  * Returns the initializing value for a hook
- * If the value is available from {@link Framework.store}, the store value is used.
+ * If the value is available from {@link Bud.store}, the store value is used.
  * Otherwise, it will return the fallback value (if supplied)
  *
  * @param this - Application
@@ -22,7 +22,7 @@ const {isUndefined} = lodash
 export function unwrap<
   F extends keyof CompilerConfigCallables & keyof Hooks.Map & string,
 >(
-  this: Framework,
+  this: Bud,
   key: F,
   fallback?: Hooks.Map[F] & CompilerConfigCallables[F],
 ) {

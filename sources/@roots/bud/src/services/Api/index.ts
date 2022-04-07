@@ -6,11 +6,4 @@ import {Api as Base} from '@roots/bud-api'
  *
  * @public
  */
-export class Api extends Base {
-  /**
-   * Service identifier
-   *
-   * @public
-   */
-  public ident = 'api'
-}
+export class Api extends Base {}

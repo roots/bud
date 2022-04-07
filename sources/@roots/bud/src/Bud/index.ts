@@ -5,31 +5,25 @@ import * as Framework from '@roots/bud-framework'
  *
  * @public
  */
-export class Bud extends Framework.Framework {
+export class Bud extends Framework.Bud {
   /**
    * Constructor for producing additional Bud instances.
    *
    * @internal
    */
-  public implementation: Framework.Constructor = Bud
+  public implementation = Bud
 }
 
-/**
- * ⚡️ Bud
- *
- * @public
- */
 export namespace Bud {
   /**
    * Application context
-   * @see {@link }
+   * @public
    */
-  export type Context = Framework.Context
+  export type Context = Framework.Config.Context
 
   /**
    * Bud constructor options
-   *
    * @public
    */
-  export type Options = Framework.Options
+  export type Options = Framework.Config.Options
 }

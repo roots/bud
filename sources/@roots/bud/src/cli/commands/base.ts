@@ -1,4 +1,4 @@
-import {Context} from '@roots/bud-framework'
+import {Config} from '@roots/bud-framework'
 import {bind, lodash as _} from '@roots/bud-support'
 import {BaseContext, Command} from 'clipanion'
 
@@ -16,7 +16,7 @@ export abstract class BaseCommand extends Command {
    * Context
    * @public
    */
-  public context: Context & BaseContext
+  public context: Config.Context & BaseContext
 
   /**
    * Application

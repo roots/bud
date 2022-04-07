@@ -1,16 +1,16 @@
-import type {Framework} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
 import {chalk, lodash} from '@roots/bud-support'
 
 const {isString} = lodash
 
 export interface persist {
-  (type?: 'memory' | 'filesystem' | false): Framework
+  (type?: 'memory' | 'filesystem' | false): Bud
 }
 
 export const persist: persist = function (
   type?: 'memory' | 'filesystem' | false,
 ) {
-  const ctx = this as Framework
+  const ctx = this as Bud
 
   if (type === false) {
     ctx.cache.enabled = false

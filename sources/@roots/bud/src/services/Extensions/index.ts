@@ -9,13 +9,6 @@ import {extensions} from '../../extensions'
  */
 export class Extensions extends Base {
   /**
-   * Service ident
-   *
-   * @internal
-   */
-  public ident = 'extensions'
-
-  /**
    * Extensions repository
    *
    * @internal

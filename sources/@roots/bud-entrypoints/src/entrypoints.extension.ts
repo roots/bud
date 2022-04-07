@@ -9,7 +9,7 @@ import {
  *
  * @public
  */
-export type BudEntrypointsExtension = Extension.CompilerPlugin<
+export type BudEntrypointsExtension = Extension.Plugin<
   EntrypointsWebpackPlugin,
   Options
 >

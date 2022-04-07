@@ -1,4 +1,4 @@
-import type {Extension} from '@roots/bud-framework'
+import type {Extensions} from '@roots/bud-framework'
 import {WordPressExternals} from '@roots/wordpress-externals-webpack-plugin'
 
 /**
@@ -7,7 +7,7 @@ import {WordPressExternals} from '@roots/wordpress-externals-webpack-plugin'
  * @public
  */
 export interface PluginAdapter
-  extends Extension.CompilerPlugin<WordPressExternals> {
+  extends Extensions.Plugin<WordPressExternals> {
   name: '@roots/wordpress-externals-webpack-plugin'
   make: () => WordPressExternals
 }

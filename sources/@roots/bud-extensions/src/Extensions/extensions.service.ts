@@ -1,12 +1,10 @@
-import {
-  Extension,
-  Extensions as Base,
-  Framework,
-  Service,
-} from '@roots/bud-framework'
+import * as Framework from '@roots/bud-framework'
+import {lodash} from '@roots/bud-support'
 
 import {Controller} from '../Controller'
 import {bind} from './extensions.dependencies'
+
+const {isArray} = lodash
 
 /**
  * Extensions Service
@@ -16,33 +14,36 @@ import {bind} from './extensions.dependencies'
  *
  * @public
  */
-export class Extensions extends Service implements Base {
+export class Extensions
+  extends Framework.ContainerService<Controller>
+  implements Framework.Extensions.Service
+{
   /**
    * Extensions queued for registration
-   *
    * @public
    */
   public queue = []
 
   /**
    * Controller factory
-   *
    * @public
    */
   public makeController(
-    extension: Extension.Module | Promise<Extension.Module>,
+    extension: Framework.Module,
   ): Controller {
     const controller = new Controller(this.app, extension)
     return controller
   }
 
   @bind
-  public async setController(extension: Extension.Module): Promise<void> {
+  public async setController(extension: Framework.Module): Promise<void> {
     const controller = this.makeController(extension)
     this.set(controller.name, controller)
   }
 
   /**
+   * `booted` callback
+   *
    * @override
    * @public
    */
@@ -107,7 +108,7 @@ export class Extensions extends Service implements Base {
   ): Promise<void> {
     this.log('log', `importing ${extension.name}`)
     const importedModule = await import(extension.name)
-    const importedExtension: Extension.Module = importedModule.default
+    const importedExtension: Framework.Module = importedModule.default
       ? importedModule.default
       : importedModule
 
@@ -187,15 +188,27 @@ export class Extensions extends Service implements Base {
    * @decorator `@bind`
    */
   @bind
-  public async add(extension: Extension.Module): Promise<void> {
-    if (this.has(extension.name)) {
-      this.log('info', `${extension.name} already exists. skipping.`)
-      return
-    }
+  public async add(
+    extension: Framework.Module | Array<Framework.Module>,
+  ): Promise<void> {
+    const arrayed = isArray(extension) ? extension : [extension]
 
-    await this.setController(extension)
-    await this.registerExtension(this.get(extension.name))
-    await this.bootExtension(this.get(extension.name))
+    await Promise.all(
+      arrayed.map(async extension => {
+        try {
+          if (this.has(extension.name)) {
+            this.log('info', `${extension.name} already exists. skipping.`)
+            return
+          }
+
+          await this.setController(extension)
+          await this.registerExtension(this.get(extension.name))
+          await this.bootExtension(this.get(extension.name))
+        } catch (err) {
+          this.app.error(err)
+        }
+      }),
+    )
   }
 
   /**
@@ -208,7 +221,7 @@ export class Extensions extends Service implements Base {
    * @decorator `@bind`
    */
   @bind
-  public enqueue(extension: Extension.Module): Framework {
+  public enqueue(extension: Framework.Module): Framework.Bud {
     this.queue.push(extension)
     return this.app
   }

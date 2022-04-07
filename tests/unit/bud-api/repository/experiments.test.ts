@@ -4,7 +4,7 @@ describe('bud.experiments', function () {
   let bud: Bud
 
   beforeAll(async () => {
-    bud = await factory({})
+    bud = await factory()
   })
 
   it('is a function', () => {

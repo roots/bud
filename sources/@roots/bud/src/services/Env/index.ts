@@ -1,5 +1,5 @@
 import type {Env as Base} from '@roots/bud-framework'
-import {Service} from '@roots/bud-framework'
+import {ContainerService} from '@roots/bud-framework'
 import {bind, lodash} from '@roots/bud-support'
 
 const {isString} = lodash
@@ -9,11 +9,11 @@ const {isString} = lodash
  *
  * @public
  */
-export class Env extends Service implements Base {
+export class Env extends ContainerService implements Base.Service {
   /**
    * Bootstrap event callback
    *
-   * @internal
+   * @public
    * @decorator `@bind`
    */
   @bind

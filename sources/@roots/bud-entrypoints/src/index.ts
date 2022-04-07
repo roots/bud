@@ -5,7 +5,7 @@
  * The `bud-entrypoints` package provides {@link BudEntrypointsPlugin}, an adapter
  * for {@link @roots/entrypoints-webpack-plugin# | @roots/entrypoints-webpack-plugin}.
  *
- * @see https://roots.io/bud
+ * @see https://bud.js.org
  * @see https://github.com/roots/bud
  *
  * @packageDocumentation

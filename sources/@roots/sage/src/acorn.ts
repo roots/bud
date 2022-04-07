@@ -1,4 +1,4 @@
-import {Framework} from '@roots/bud-framework'
+import {Bud} from '@roots/bud-framework'
 
 import eventAppClose from './hooks/event.app.close'
 import eventCompilerDone from './hooks/event.compiler.done'
@@ -7,7 +7,7 @@ import eventCompilerDone from './hooks/event.compiler.done'
  * Acorn compatibility layer
  * @public
  */
-export const makeAcornCompat = (app: Framework) => {
+export const makeAcornCompat = (app: Bud) => {
   /**
    * Override output directory for svg assets
    * `@roots/bud-build` places them, by default, in `svg/`

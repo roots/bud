@@ -1,4 +1,4 @@
-import type {Framework} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
 import {lodash} from '@roots/bud-support'
 import {Configuration} from 'webpack'
 
@@ -9,11 +9,11 @@ export interface override {
 }
 
 export interface config {
-  (input: override | Partial<Configuration>): Framework
+  (input: override | Partial<Configuration>): Bud
 }
 
-export const config: config = function (input): Framework {
-  const ctx = this as Framework
+export const config: config = function (input): Bud {
+  const ctx = this as Bud
 
   if (!input)
     throw new Error(
