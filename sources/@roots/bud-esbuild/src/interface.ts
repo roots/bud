@@ -1,14 +1,8 @@
-import {
-  Extension,
-  Framework,
-  Item,
-  Loader,
-  Rule,
-} from '@roots/bud-framework'
+import {Bud, Build, Extension} from '@roots/bud-framework'
 
 interface Esbuild extends Extension.Module<options> {
   name: '@roots/bud-esbuild'
-  options: (app: Framework) => options
+  options: (app: Bud) => options
 }
 
 declare module '@roots/bud-framework' {
@@ -17,16 +11,16 @@ declare module '@roots/bud-framework' {
   }
 
   interface Loaders {
-    esbuild: Loader
+    esbuild: Build.Loader
   }
 
   interface Items {
-    'esbuild-js': Item
-    'esbuild-ts': Item
+    'esbuild-js': Build.Item
+    'esbuild-ts': Build.Item
   }
 
   interface Rules {
-    ts: Rule
+    ts: Build.Rule
   }
 }
 
