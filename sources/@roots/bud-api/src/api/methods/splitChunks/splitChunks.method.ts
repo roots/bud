@@ -1,4 +1,4 @@
-import type {Framework} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
 import {lodash} from '@roots/bud-support'
 
 import * as defaultGroups from './groups'
@@ -33,7 +33,7 @@ const {isUndefined} = lodash
  * @public
  */
 export const splitChunks: method = function (options) {
-  const ctx = this as Framework
+  const ctx = this as Bud
 
   /**
    * For `true` and `undefined` options the default

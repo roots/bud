@@ -1,9 +1,9 @@
-import type {Framework} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
 import type {Options} from 'eslint-webpack-plugin'
 import {cpus} from 'os'
 
 export interface options {
-  (app: Framework): Options
+  (app: Bud): Options
 }
 
 export const options: options = ({path}) => ({

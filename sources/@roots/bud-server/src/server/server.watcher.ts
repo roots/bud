@@ -1,4 +1,4 @@
-import {Framework, Server} from '@roots/bud-framework'
+import {Bud, Server} from '@roots/bud-framework'
 import {bind, chokidar, globby} from '@roots/bud-support'
 
 /**
@@ -19,7 +19,7 @@ export class Watcher implements Server.Watcher {
    *
    * @param app - Application instance
    */
-  public constructor(public app: Framework) {}
+  public constructor(public app: Bud) {}
 
   /**
    * Get watched files

@@ -1,10 +1,7 @@
-import {Extension, Framework} from '@roots/bud-framework'
+import {Bud, Extension} from '@roots/bud-framework'
 import AutoDllPlugin from 'autodll-webpack-plugin'
 
-type BudDllPlugin = Extension.CompilerPlugin<
-  AutoDllPlugin,
-  AutoDllPlugin.Options
->
+type BudDllPlugin = Extension.Plugin<AutoDllPlugin, AutoDllPlugin.Options>
 
 interface BudDllPluginConstructor {
   (modules: string | string[]): BudDllPlugin
@@ -13,7 +10,7 @@ interface BudDllPluginConstructor {
 const BudDllPluginConstructor: BudDllPluginConstructor = modules => ({
   name: 'autodll-webpack-plugin',
 
-  options: (app: Framework) => ({
+  options: (app: Bud) => ({
     debug: false,
     inject: false,
     filename: app.store.is('features.hash', true)

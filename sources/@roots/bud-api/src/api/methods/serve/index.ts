@@ -1,4 +1,4 @@
-import type {Framework} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
 import {fs, lodash} from '@roots/bud-support'
 import Https from 'https'
 import Http from 'https'
@@ -76,19 +76,19 @@ export type Options = Specification | number | Array<number> | URL | string
  * bud.serve
  * @public
  */
-export interface Serve<ReturnType = Promise<Framework>> {
+export interface Serve<ReturnType = Promise<Bud>> {
   (options: Specification): ReturnType
 }
-export interface Serve<ReturnType = Promise<Framework>> {
+export interface Serve<ReturnType = Promise<Bud>> {
   (options: URL): ReturnType
 }
-export interface Serve<ReturnType = Promise<Framework>> {
+export interface Serve<ReturnType = Promise<Bud>> {
   (options: string): ReturnType
 }
-export interface Serve<ReturnType = Promise<Framework>> {
+export interface Serve<ReturnType = Promise<Bud>> {
   (options: number): ReturnType
 }
-export interface Serve<ReturnType = Promise<Framework>> {
+export interface Serve<ReturnType = Promise<Bud>> {
   (options: Array<number>): ReturnType
 }
 
@@ -96,7 +96,7 @@ export interface Serve<ReturnType = Promise<Framework>> {
  * bud.serve sync facade
  * @public
  */
-export type facade = Serve<Framework>
+export type facade = Serve<Bud>
 
 /**
  * bud.serve
@@ -104,8 +104,8 @@ export type facade = Serve<Framework>
  */
 export const method: Serve = async function (
   options: Options,
-): Promise<Framework> {
-  const app = this as Framework
+): Promise<Bud> {
+  const app = this as Bud
 
   if (!app.isDevelopment) return app
 
@@ -127,7 +127,7 @@ export const method: Serve = async function (
  * Process specification object
  * @public
  */
-const assignSpec = async (app: Framework, spec: Specification) => {
+const assignSpec = async (app: Bud, spec: Specification) => {
   const isSSL =
     [
       spec.ssl === true,
@@ -164,7 +164,7 @@ const assignSpec = async (app: Framework, spec: Specification) => {
  * Process Node URL
  * @public
  */
-const assignURL = (app: Framework, url: URL | string) => {
+const assignURL = (app: Bud, url: URL | string) => {
   url = url instanceof URL ? url : new URL(url)
 
   app.hooks.on('dev.hostname', url.hostname)
@@ -181,7 +181,7 @@ const assignURL = (app: Framework, url: URL | string) => {
  * @public
  */
 const assignNumberArr = (
-  app: Framework,
+  app: Bud,
   key: 'dev.exclude' | 'dev.port',
   maybeNumber: Array<number> | number,
 ) => {
@@ -194,11 +194,11 @@ const assignNumberArr = (
 /**
  * Assign hostname from string
  *
- * @param app - Framework
+ * @param app - Bud
  * @param hostname - string hostname
  * @public
  */
-const assignHostname = (app: Framework, hostname: string) => {
+const assignHostname = (app: Bud, hostname: string) => {
   app.hooks.on(
     'dev.hostname',
     hostname.replace('http:', '').replace('https:', '').replace('/', ''),

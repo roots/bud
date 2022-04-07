@@ -1,4 +1,4 @@
-import {Framework} from '@roots/bud-framework'
+import {Bud} from '@roots/bud-framework'
 import {lodash} from '@roots/bud-support'
 import CssMinimizer from 'css-minimizer-webpack-plugin'
 
@@ -15,7 +15,7 @@ const {isUndefined} = lodash
  * @public
  */
 export interface minimize {
-  (enabled?: boolean, options?: {css: any}): Framework
+  (enabled?: boolean, options?: {css: any}): Bud
 }
 
 /**
@@ -45,7 +45,7 @@ export interface minimize {
  * @public
  */
 export const minimize: minimize = function (input?, options?: {css: any}) {
-  const ctx = this as Framework
+  const ctx = this as Bud
 
   if (input === false) {
     ctx.hooks.on('build.optimization.minimize', false)

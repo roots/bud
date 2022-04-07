@@ -4,12 +4,24 @@ import {BuildCommand} from '../commands/build.js'
 
 const {isUndefined} = lodash
 
+/**
+ * --target override
+ *
+ * @remarks
+ * This override should always be first.
+ *
+ * No reason to handle child instances which are slated
+ * to be discarded
+ *
+ * @public
+ */
+const target = (command: BuildCommand) =>
+  command.app.children?.getKeys().forEach(name => {
+    !command.target.includes(name) && command.app.children?.remove(name)
+  })
+
 export const config = async (command: BuildCommand) => {
-  if (!isUndefined(command.target)) {
-    command.app.children?.getKeys().forEach(name => {
-      !command.target.includes(name) && command.app.children?.remove(name)
-    })
-  }
+  !isUndefined(command.target) && target(command)
 
   if (!isUndefined(command.src)) {
     command.app.setPath('@src', command.src)

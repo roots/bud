@@ -1,4 +1,4 @@
-import type {Framework, Server} from '@roots/bud-framework'
+import type {Bud, Server} from '@roots/bud-framework'
 import WebpackDevMiddleware, {
   IncomingMessage,
   ServerResponse,
@@ -13,10 +13,10 @@ export interface dev
   extends Server.Middleware.Definition<
     WebpackDevMiddleware.Options<IncomingMessage, ServerResponse>
   > {
-  (app: Framework): any
+  (app: Bud): any
 }
 
-export const dev = (app: Framework) =>
+export const dev = (app: Bud) =>
   WebpackDevMiddleware(
     app.compiler.compilation,
     app.hooks.filter(`middleware.dev.options`),

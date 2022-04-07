@@ -1,4 +1,4 @@
-import type {Framework} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
 import {CriticalCssWebpackPlugin} from '@roots/critical-css-webpack-plugin'
 
 /**
@@ -15,16 +15,16 @@ import {CriticalCssWebpackPlugin} from '@roots/critical-css-webpack-plugin'
  */
 export interface critical {
   (
-    this: Framework,
+    this: Bud,
     userOptions: Partial<CriticalCssWebpackPlugin['options']>,
-  ): Framework
+  ): Bud
 }
 
 /**
  * @public
  */
 export const critical: critical = function (
-  this: Framework,
+  this: Bud,
   userOptions: CriticalCssWebpackPlugin['options'],
 ) {
   this.extensions.get('@roots/bud-criticalcss').mergeOptions(userOptions)

@@ -1,21 +1,36 @@
-import {isArray} from './use.dependencies'
-import type {Framework, Source} from './use.interface'
-import {generateName, isCompilerPlugin} from './use.utilities'
+import type {Bud, Extension} from '@roots/bud-framework'
+import {lodash} from '@roots/bud-support'
+
+import {generateName, isPlugin} from './use.utilities'
+
+const {isArray} = lodash
 
 export interface use {
-  (source: Source): Promise<Framework>
+  (
+    source:
+      | Extension.Module
+      | Extension.Plugin
+      | Array<Extension.Module>
+      | Array<Extension.Plugin>
+  ): Promise<Bud>
 }
 
 export interface facade {
-  (source: Source): Framework
+  (
+    source:
+      | Extension.Module
+      | Extension.Plugin
+      | Array<Extension.Module>
+      | Array<Extension.Plugin>  
+  ): Bud
 }
 
-export const use: use = async function (source): Promise<Framework> {
-  const bud = this as Framework
+export const use: use = async function (source): Promise<Bud> {
+  const bud = this as Bud
 
-  const addExtension = async (source: Source): Promise<Framework> => {
+  const addExtension = async (source: Extension.Module | Extension.Plugin): Promise<Bud> => {
     if (!source) {
-      bud.error(`extension source is not defined. skipping`)
+      bud.error(`"${source.name}" extension source is not defined`)
     }
 
     if (!source.hasOwnProperty('name')) {
@@ -30,14 +45,15 @@ export const use: use = async function (source): Promise<Framework> {
       return bud
     }
 
-    await bud.extensions.add(
-      isCompilerPlugin(source) ? {...source, make: () => source} : source,
-    )
+    const normalized = isPlugin(source)
+      ? {...source, make: () => source}
+      : source
+    await bud.extensions.add(normalized)
   }
 
   !isArray(source)
     ? await addExtension(source)
-    : await Promise.all(source.map(async ext => await addExtension(ext)))
+    : await Promise.all(source.map(async (ext: Extension.Module | Extension.Plugin) => await addExtension(ext)))
 
   return bud
 }

@@ -1,4 +1,4 @@
-import {Hooks as Contract, Service} from '@roots/bud-framework'
+import {Hooks as Contract} from '@roots/bud-framework'
 import {Hooks as Base} from '@roots/bud-hooks'
 
 import {Bud} from '../../Bud'
@@ -8,14 +8,7 @@ import {Bud} from '../../Bud'
  *
  * @public
  */
-export class Hooks extends Base implements Contract, Service {
-  /**
-   * Service identifier
-   *
-   * @internal
-   */
-  public ident: string = 'hooks'
-
+export class Hooks extends Base implements Contract.Service {
   public constructor(bud: Bud) {
     super(bud)
 

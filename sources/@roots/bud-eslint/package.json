@@ -30,17 +30,14 @@
     "node": ">=14"
   },
   "files": [
-    "eslint-config/",
     "lib/",
-    "types/",
-    "template/"
+    "types/"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    ".": "./lib/cjs/index.js",
-    "./eslint-config": "./eslint-config/index.js"
+    ".": "./lib/cjs/index.js"
   },
   "bud": {
     "type": "extension"
@@ -53,14 +50,12 @@
     "webpack": "5.70.0"
   },
   "dependencies": {
-    "@babel/eslint-parser": "^7.16.5",
     "eslint": "8.11.0",
-    "eslint-plugin-import": "^2.25.3",
     "eslint-webpack-plugin": "^3.1.1",
     "tslib": "^2.3.1"
   },
   "peerDependencies": {
-    "eslint": "^8.6.0"
+    "eslint": "*"
   },
   "peerDependenciesMeta": {
     "eslint": {

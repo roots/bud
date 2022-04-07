@@ -4,7 +4,7 @@
 /**
  * Adds TypeScript support to Bud
  *
- * @see https://roots.io/bud
+ * @see https://bud.js.org
  * @see https://github.com/roots/bud
  *
  * @remarks
@@ -13,14 +13,14 @@
  * @packageDocumentation
  */
 
-import * as Framework from '@roots/bud-framework'
+import {Build, Plugin} from '@roots/bud-framework'
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
 
 import {BudTypeScriptExtension} from './bud.extension'
 import {facade} from './bud.typecheck'
 
 declare module '@roots/bud-framework' {
-  interface Framework {
+  interface Bud {
     /**
      * Enable typescript type checking
      *
@@ -39,21 +39,21 @@ declare module '@roots/bud-framework' {
   }
 
   interface Plugins {
-    'fork-ts-checker-plugin': Framework.Extension.CompilerPlugin<
+    'fork-ts-checker-plugin': Plugin<
       typeof ForkTsCheckerWebpackPlugin
     >
   }
 
   interface Loaders {
-    ts: Framework.Loader
+    ts: Build.Loader
   }
 
   interface Items {
-    ts: Framework.Item
+    ts: Build.Item
   }
 
   interface Rules {
-    ts: Framework.Rule
+    ts: Build.Rule
   }
 }
 

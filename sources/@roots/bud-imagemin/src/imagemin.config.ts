@@ -1,14 +1,14 @@
-import {Framework} from '@roots/bud-framework'
+import {Bud} from '@roots/bud-framework'
 import {Container} from '@roots/container'
 import {isString} from 'lodash'
 
 import * as BudImagemin from './imagemin.extension'
 
 export interface imagemin {
-  (callback: (options: Container) => typeof BudImagemin.options): Framework
+  (callback: (options: Container) => typeof BudImagemin.options): Bud
 }
 export interface imagemin {
-  (setting: 'lossless' | 'lossy'): Framework
+  (setting: 'lossless' | 'lossy'): Bud
 }
 
 const lossless = {
@@ -24,8 +24,8 @@ export const imagemin: imagemin = function (
     | 'lossless'
     | 'lossy'
     | ((options: Container) => typeof BudImagemin.options),
-): Framework {
-  const ctx = this as Framework
+): Bud {
+  const ctx = this as Bud
 
   if (isString(option) && option == 'lossy') {
     ctx.extensions

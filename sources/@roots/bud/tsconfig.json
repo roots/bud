@@ -5,9 +5,7 @@
     "esModuleInterop": true,
     "rootDir": "./src",
     "outDir": "./lib/cjs",
-    "types": ["node", "@roots/bud-api"]
   },
-  "files": ["./src/bud.env.d.ts"],
   "include": ["src/**/*.ts", "src/**/*.json"],
   "references": [
     {

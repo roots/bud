@@ -1,5 +1,5 @@
-import {Framework, Server} from '@roots/bud-framework'
-import {Connection} from '@roots/bud-framework/src/Server/Connection'
+import {Bud, Server} from '@roots/bud-framework'
+import {Connection} from '@roots/bud-framework/types/services/server/connection'
 import {bind, getPort, Signale} from '@roots/bud-support'
 import {IncomingMessage, Server as HttpServer} from 'http'
 import {Server as HttpsServer} from 'https'
@@ -90,10 +90,10 @@ export abstract class BaseServer implements Connection {
 
   /**
    * Constructor
-   * @param app - Framework
+   * @param app - Bud
    * @public
    */
-  public constructor(public app: Framework) {
+  public constructor(public app: Bud) {
     this.logger = this.app.logger.instance.scope(
       this.constructor.name.toLowerCase(),
     )

@@ -1,94 +1,49 @@
-import type {Framework} from '@roots/bud-framework'
-import type {EntryObject} from '@roots/bud-framework/types/entry'
-import {globby, lodash} from '@roots/bud-support'
+import type {Bud} from '@roots/bud-framework'
+import {lodash} from '@roots/bud-support'
+import {isArray} from 'lodash'
 
-const {isArray, isString} = lodash
+import {globAssets} from './globAssets'
+import {
+  applyToImports,
+  EntryObject,
+  facade,
+  isGlobular,
+  makeEntry,
+  method,
+  reduceEntry,
+} from './util'
 
-export {EntryObject}
+const {isString} = lodash
 
-export type Input =
-  | [string, string]
-  | [string, Array<string>]
-  | [Record<string, string>]
-  | [Record<string, Array<string>>]
-  | [Record<string, EntryObject>]
+export const entry: method = async function (...input) {
+  const ctx = this as Bud
 
-export interface entry {
-  (...entrypoint: Input): Promise<Framework>
-}
-
-export interface facade {
-  (...entrypoint: Input): Framework
-}
-
-const isGlobular = (str: string) =>
-  ['*', '{', '}'].filter(c => str.includes(c))?.length > 0
-
-export const entry: entry = async function (...userInput) {
-  const ctx = this as Framework
-  const glob: typeof globAssets = globAssets.bind(this)
-
-  const normalizedInput = isString(userInput[0])
-    ? {[userInput[0]]: userInput[1]}
-    : userInput[0]
-
-  ctx.hooks.async('build.entry', async all => {
-    await Promise.all(
-      Object.entries(normalizedInput).map(async ([name, entry]) => {
-        const normalizedImports = isArray(entry.import ?? entry)
-          ? entry.import ?? entry
-          : [entry.import ?? entry]
-
-        this.log(`inputs`, normalizedImports)
-
-        const value = (
-          await Promise.all(
-            normalizedImports.map(async (request: string) =>
-              isGlobular(request) ? await glob(request) : request,
-            ),
-          )
-        ).flat()
-
-        all = {
-          ...(all ?? {}),
-          [name]: {
-            ...(!isString(entry) && !isArray(entry) ? entry : {}),
-            import: value,
-          },
-        }
-      }),
+  if (input.length > 1 && !isString(input[0])) {
+    ctx.error(
+      'the first parameter in a multi-parameter call to bud.entry must be a string',
     )
+    return ctx
+  }
 
-    return all
-  })
+  if ((input.length == 1 && isString(input[0])) || isArray(input[0])) {
+    input = ['default', input[0]]
+  }
+
+  const normal = isString(input[0])
+    ? makeEntry(input[0], input[1])
+    : Object.entries(input[0]).reduce(reduceEntry, {})
+
+  const records = await applyToImports(normal, async (request: string) =>
+    isGlobular(request) ? await globAssets.bind(this)(request) : request,
+  )
+
+  ctx.hooks.on('build.entry', a =>
+    records.reduce((a, [k, v]) => ({...a, [k]: v}), a),
+  )
 
   return ctx
 }
 
-export async function globAssets(search: string): Promise<Array<string>> {
-  const cwd = this.path('@src')
+export type {method, facade}
 
-  try {
-    this.log(`search`, search)
-    const results = await globby.globby(search, {cwd})
-
-    this.log(`results`, results)
-
-    if (!results.length) {
-      this.error(
-        `bud.entry found no files matching ${JSON.stringify(
-          search,
-        )}. check your config for errors. files should be specified relative to ${cwd}. fast glob syntax can be referenced here https://git.io/JkGbw`,
-      )
-      throw new Error(
-        `nothing resolvable for ${JSON.stringify(
-          search,
-        )} query of results for ${cwd}`,
-      )
-    }
-
-    return results
-  } catch (error) {
-    throw new Error(error)
-  }
-}
+export {EntryObject}

@@ -1,6 +1,6 @@
-import * as Framework from '@roots/bud-framework'
-import * as BudServer from '@roots/bud-framework/server'
-import {Connection} from '@roots/bud-framework/src/Server/Connection'
+import {Server as Base} from '@roots/bud-framework'
+import {Service} from '@roots/bud-framework'
+import {Connection} from '@roots/bud-framework/types/services/server/connection'
 import {bind, once} from '@roots/bud-support'
 import Express from 'express'
 
@@ -15,10 +15,7 @@ import {Watcher} from './server.watcher'
  * Server service class
  * @public
  */
-export class Server
-  extends Framework.Service
-  implements BudServer.Service
-{
+export class Server extends Service implements Base.Service {
   /**
    * Express instance
    * @public
@@ -53,7 +50,7 @@ export class Server
    * Utilized middleware
    * @public
    */
-  public get enabledMiddleware(): BudServer.Service['enabledMiddleware'] {
+  public get enabledMiddleware(): Base.Service['enabledMiddleware'] {
     return this.app.hooks.filter('middleware.enabled').reduce(
       (enabled, key) => ({
         ...enabled,
@@ -68,7 +65,7 @@ export class Server
    * @public
    */
   public appliedMiddleware: Partial<
-    Record<keyof BudServer.Middleware.Available, any>
+    Record<keyof Base.Middleware.Available, any>
   > = {}
 
   /**

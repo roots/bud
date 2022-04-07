@@ -6,10 +6,7 @@ import {join} from 'node:path'
  * @public
  */
 export class Env {
-  /**
-   * Index
-   * @public
-   */
+  /** @public */
   [key: string]: string | undefined
 
   /**

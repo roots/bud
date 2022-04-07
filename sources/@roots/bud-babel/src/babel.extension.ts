@@ -1,10 +1,10 @@
-import {Extension, Framework} from '@roots/bud-framework'
+import {Bud, Extension} from '@roots/bud-framework'
 
 import {Config} from './babel.config'
 import {DEFAULT_PLUGINS, DEFAULT_PRESETS} from './babel.constants'
 
 /**
- * Adds Babel transpiler support to Framework projects
+ * Adds Babel transpiler support to Bud projects
  *
  * @public
  */
@@ -19,9 +19,7 @@ export const mixin: Extension.Module['mixin'] = async app => ({
   babel: [Config, app],
 })
 
-export const options: Extension.Module['options'] = async (
-  app: Framework,
-) => ({
+export const options: Extension.Module['options'] = async (app: Bud) => ({
   cacheDirectory: app.path(`@storage/cache/babel`),
   env: {
     development: {
@@ -36,9 +34,7 @@ export const options: Extension.Module['options'] = async (
  *
  * @public
  */
-export const register: Extension.Module['register'] = async (
-  app: Framework,
-) => {
+export const register: Extension.Module['register'] = async (app: Bud) => {
   app.build
     .setLoader('babel', require.resolve('babel-loader'))
     .setItem('babel', babel =>

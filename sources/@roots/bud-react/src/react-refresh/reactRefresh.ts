@@ -1,5 +1,5 @@
 import type {ReactRefreshPluginOptions} from '@pmmmwh/react-refresh-webpack-plugin/types/lib/types'
-import type {Framework} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
 import {isFunction} from 'lodash'
 
 import {ReactRefreshExtension} from './extension'
@@ -34,26 +34,24 @@ import * as reduceEntries from './reducers'
  * @public
  */
 export interface reactRefresh {
-  (options?: ReactRefreshPluginOptions): Promise<Framework>
+  (options?: ReactRefreshPluginOptions): Promise<Bud>
 }
 
 export interface reactRefresh {
-  (options?: boolean): Promise<Framework>
+  (options?: boolean): Promise<Bud>
 }
 
 export const reactRefresh: reactRefresh = async function (
   userOptions?: ReactRefreshPluginOptions | boolean,
 ) {
-  const ctx = this as Framework
+  const ctx = this as Bud
 
   if (
     userOptions === false &&
     ctx.extensions.has('@pmmmwh/react-refresh-webpack-plugin')
   ) {
     ctx.extensions.remove('@pmmmwh/react-refresh-webpack-plugin')
-    ctx.hooks.async('build.entry', async entries =>
-      reduceEntries.remove(entries),
-    )
+    ctx.hooks.on('build.entry', reduceEntries.remove)
 
     return ctx
   }
@@ -61,9 +59,7 @@ export const reactRefresh: reactRefresh = async function (
   /**
    * Add entries
    */
-  ctx.hooks.async('build.entry', async entries =>
-    reduceEntries.add(entries),
-  )
+  ctx.hooks.on('build.entry', reduceEntries.add)
   await ctx.extensions.add(ReactRefreshExtension)
 
   if (!userOptions || userOptions === true) return ctx

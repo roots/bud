@@ -57,4 +57,4 @@ const Sage: Sage = {
   },
 }
 
-export {Sage as default}
+export {Sage}

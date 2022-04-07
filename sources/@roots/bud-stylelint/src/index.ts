@@ -4,7 +4,7 @@
 /**
  * Add stylelint support to Bud
  *
- * @see https://roots.io/bud
+ * @see https://bud.js.org
  * @see https://github.com/roots/bud
  *
  * @packageDocumentation
@@ -15,14 +15,14 @@ import StylelintWebpackPlugin, {Options} from 'stylelint-webpack-plugin'
 
 declare module '@roots/bud-framework' {
   interface Modules {
-    '@roots/bud-stylelint': Extension.CompilerPlugin<
+    '@roots/bud-stylelint': Extension.Plugin<
       StylelintWebpackPlugin,
       Options
     >
   }
 }
 
-const BudStylelintWebpackPlugin: Extension.CompilerPlugin<
+const BudStylelintWebpackPlugin: Extension.Plugin<
   StylelintWebpackPlugin,
   Options
 > = {

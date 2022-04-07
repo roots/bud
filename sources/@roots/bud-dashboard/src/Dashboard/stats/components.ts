@@ -1,4 +1,4 @@
-import {Framework} from '@roots/bud-framework'
+import {Bud} from '@roots/bud-framework'
 import {chalk, humanReadable, lodash} from '@roots/bud-support'
 import {StatsAsset, StatsCompilation} from 'webpack'
 
@@ -93,7 +93,7 @@ export const report = (compilation: StatsCompilation) => [
   ),
 ]
 
-export const timing = (app: Framework, compilation: StatsCompilation) => [
+export const timing = (app: Bud, compilation: StatsCompilation) => [
   table.make([
     [
       chalk.hex(theme.magenta)(`duration`),
@@ -106,7 +106,7 @@ export const timing = (app: Framework, compilation: StatsCompilation) => [
   ]),
 ]
 
-export const summary = (app: Framework, compilation: StatsCompilation) => [
+export const summary = (app: Bud, compilation: StatsCompilation) => [
   table.make([
     [
       chalk.hex(theme.magenta)(`mode`),
@@ -141,7 +141,7 @@ export const summary = (app: Framework, compilation: StatsCompilation) => [
     : []),
 ]
 
-export const development = (app: Framework) => [
+export const development = (app: Bud) => [
   box.make(
     'development',
     table.make([
@@ -159,7 +159,7 @@ export const development = (app: Framework) => [
   ),
 ]
 
-export const framework = (app: Framework) => [
+export const framework = (app: Bud) => [
   box.make(
     'rules',
     table.make(

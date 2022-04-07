@@ -4,7 +4,4 @@ import {
   WebpackManifestPlugin,
 } from 'webpack-manifest-plugin'
 
-export type Plugin = Extension.CompilerPlugin<
-  WebpackManifestPlugin,
-  Options
->
+export type Plugin = Extension.Plugin<WebpackManifestPlugin, Options>

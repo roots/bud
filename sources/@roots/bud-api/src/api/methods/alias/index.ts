@@ -1,16 +1,16 @@
-import type {Framework} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
 import type {Configuration} from 'webpack'
 
 export interface facade {
-  (alias: Configuration['resolve']['alias']): Framework
+  (alias: Configuration['resolve']['alias']): Bud
 }
 
 export interface alias {
-  (alias: Configuration['resolve']['alias']): Promise<Framework>
+  (alias: Configuration['resolve']['alias']): Promise<Bud>
 }
 
 export const alias: alias = async function (input) {
-  const app = this as Framework
+  const app = this as Bud
 
   input = Object.entries(input).reduce((a, [k, v]) => {
     if (v.startsWith('@')) {

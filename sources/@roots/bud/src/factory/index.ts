@@ -53,15 +53,12 @@ export async function factory(overrides?: Options): Promise<Bud> {
   process.env.BABEL_ENV = project.mode
   process.env.NODE_ENV = project.mode
 
-  project.time(project.name)
+  project.log({
+    message: `process.env.NODE_ENV: ${process.env.NODE_ENV}`,
+  })
 
   project.log({
-    message: 'process.env.NODE_ENV',
-    suffix: process.env.NODE_ENV,
-  })
-  project.log({
-    message: 'process.env.BABEL_ENV',
-    suffix: process.env.NODE_ENV,
+    message: `process.env.BABEL_ENV: ${process.env.BABEL_ENV}`,
   })
 
   await project.lifecycle()

@@ -1,50 +1,38 @@
-import {Framework} from '@roots/bud-framework'
+import {Bud} from '@roots/bud-framework'
 import {bind, lodash} from '@roots/bud-support'
 
-import {Bud} from '../../Bud/index.js'
-import {ConfigManifest} from '../../services/Project/project.repository.js'
+import {ConfigManifest} from '../../services/Project/project.repository'
 
 const {isFunction, isObject} = lodash
 
 /**
  * User config parser
- *
  * @public
  */
 class Configuration {
   /**
    * Manifest
-   *
    * @public
    */
   public manifest: Record<
     string,
-    Record<string, unknown> | ((app: Framework) => Promise<unknown>)
+    Record<string, unknown> | ((app: Bud) => Promise<unknown>)
   > = {}
 
   /**
    * Class constructor
-   *
    * @public
    */
   public constructor(public app: Bud, public manifests: ConfigManifest) {
     manifests &&
       Object.values(manifests)
-        .filter(config => {
-          const isBud = config?.name?.includes('bud.config')
-          this.app.log(
-            'project config',
-            config.name,
-            isBud ? 'is a bud config' : 'is not a bud config',
-          )
-          return isBud
-        })
+        .filter(config => config?.name?.includes('bud.config'))
         .map(config => {
           this.manifest[config.name] = config.module
         })
 
     Object.keys(this.manifest).map(k =>
-      this.app.log(`Processing config: ${k}`),
+      this.app.info({message: `Processing config: ${k}`}),
     )
   }
 
@@ -72,6 +60,8 @@ class Configuration {
 
   /**
    * @public
+   * @decorator `@bind`
+   * @decorator `@log`
    */
   @bind
   public async processStatic(config: Record<string, any>): Promise<void> {
@@ -79,10 +69,7 @@ class Configuration {
       Object.entries(config).map(async ([key, value]) => {
         const request = this.app[key]
 
-        if (isFunction(request)) {
-          this.app.log(key, `called on`, this.app.name)
-          await request(value)
-        }
+        if (isFunction(request)) await request(value)
       }),
     )
   }
