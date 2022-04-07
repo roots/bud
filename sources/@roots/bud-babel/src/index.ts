@@ -4,7 +4,7 @@
 /**
  * Babel transpilation for {@link @roots/bud-framework# | @roots/bud-framework}.
 
- * @see https://roots.io/bud
+ * @see https://bud.js.org
  * @see https://github.com/roots/bud
  *
  * @packageDocumentation

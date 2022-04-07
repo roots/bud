@@ -4,7 +4,7 @@
 /**
  * Preset config for WordPress plugins & themes.
  *
- * @see https://roots.io/bud
+ * @see https://bud.js.org
  * @see https://github.com/roots/bud
  *
  * @packageDocumentation

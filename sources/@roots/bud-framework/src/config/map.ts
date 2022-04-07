@@ -1,6 +1,6 @@
 import {Configuration, RuleSetRule} from 'webpack'
 
-import {PluginInstance} from '../services/extensions/extension/plugin'
+import {PluginInstance} from '../extension/plugin'
 import {EntryObject} from './entry'
 
 export interface ConfigMap {

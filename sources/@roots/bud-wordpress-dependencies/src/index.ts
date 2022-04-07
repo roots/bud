@@ -4,7 +4,7 @@
 /**
  * {@link @roots/wordpress-dependencies-webpack-plugin# | @roots/wordpress-dependencies-webpack-plugin} adapter
  *
- * @see https://roots.io/bud
+ * @see https://bud.js.org
  *
  * @packageDocumentation
  */

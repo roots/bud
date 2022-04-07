@@ -4,7 +4,7 @@
 /**
  * Add solid.js to Bud
  *
- * @see https://roots.io/bud
+ * @see https://bud.js.org
  * @see https://github.com/roots/bud
  *
  * @packageDocumentation
@@ -25,7 +25,8 @@ type BudSolidExtension = Extension.Module
 
 const BudSolidExtension: BudSolidExtension = {
   name: '@roots/bud-solid',
-  boot({babel, warn}) {
+
+  async boot({babel, warn}) {
     !safeRequire('babel-preset-solid') &&
       warn(
         'babel-preset-solid is required by @roots/bud-solid-js but is not resolvable.',

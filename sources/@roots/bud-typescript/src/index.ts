@@ -4,7 +4,7 @@
 /**
  * Adds TypeScript support to Bud
  *
- * @see https://roots.io/bud
+ * @see https://bud.js.org
  * @see https://github.com/roots/bud
  *
  * @remarks

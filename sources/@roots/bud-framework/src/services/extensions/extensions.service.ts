@@ -1,6 +1,6 @@
 import {Bud} from '../..'
+import {Module, Plugin} from '../../extension'
 import {ContainerService} from '../../service'
-import {Module, Plugin} from './extension'
 
 /**
  * Container service for {@link Bud} extensions.

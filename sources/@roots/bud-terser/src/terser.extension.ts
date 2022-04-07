@@ -20,11 +20,12 @@ export const options: Extension['options'] = app => ({
   },
 })
 
-export const boot: Extension['boot'] = ({extensions, hooks}) => {
+export const boot: Extension['boot'] = async ({extensions, hooks}) => {
   hooks.on('build.optimization.minimizer', minimizer => {
     minimizer.push(
       new TerserPlugin(extensions.get('@roots/bud-terser').options.all()),
     )
+
     return minimizer
   })
 }

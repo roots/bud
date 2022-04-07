@@ -4,12 +4,12 @@ import {isFunction} from 'lodash'
 import type {Configuration} from 'webpack'
 
 import {Item} from '../Item'
+import * as items from '../items'
 import {Loader} from '../Loader'
+import * as loaders from '../loaders'
 import {Rule} from '../Rule'
+import * as rules from '../rules'
 import * as config from './config'
-import * as items from './items'
-import * as loaders from './loaders'
-import * as rules from './rules'
 
 const {isUndefined} = lodash
 const {ensureFile, writeFile} = fs

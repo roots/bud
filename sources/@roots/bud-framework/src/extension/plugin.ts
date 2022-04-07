@@ -1,7 +1,7 @@
 import {Signale} from '@roots/bud-support'
 import {Container} from '@roots/container'
 
-import {Bud} from '../../..'
+import {Bud} from '..'
 import {Module} from './module'
 
 /**

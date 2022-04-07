@@ -16,7 +16,7 @@ export class Store<T = Store.Repository> extends ContainerService<T> {
   /**
    * Get a store value
    *
-   * @override
+   * @override @public
    */
   public get<K extends keyof Store.Map & string, T = Store.Map[K]>(
     path: K,
@@ -27,7 +27,7 @@ export class Store<T = Store.Repository> extends ContainerService<T> {
   /**
    * Set a store value
    *
-   * @override
+   * @override @public
    */
   public set<K extends keyof Store.Map & string, T = Store.Map[K]>(
     path: K,
@@ -76,8 +76,6 @@ export namespace Store {
      * the `@dist` directory prior to the next
      * compilation.
      *
-     * @defaultValue true
-     *
      * @public
      */
     ['features.clean']?: boolean
@@ -85,16 +83,12 @@ export namespace Store {
     /**
      * Enable or disable filename hashing
      *
-     * @defaultValue false
-     *
      * @public
      */
     ['features.hash']?: boolean
 
     /**
      * Emit html template
-     *
-     * @defaultValue true
      *
      * @public
      */
@@ -110,8 +104,6 @@ export namespace Store {
     /**
      * Log to console
      *
-     * @defaultValue false
-     *
      * @public
      */
     ['features.log']?: boolean
@@ -119,14 +111,14 @@ export namespace Store {
     /**
      * Enable or disable producing a manifest.json file
      *
-     * @defaultValue true
-     *
      * @public
      */
     ['features.manifest']?: boolean
 
     /**
      * Enable or disable proxy
+     * 
+     * @public
      */
     ['features.proxy']?: boolean
 
@@ -176,13 +168,12 @@ export namespace Store {
      * @remarks
      * do not include extension
      *
-     * @defaultValue '[name]'
-     *
      * @public
      */
     fileFormat: string
+  
     /**
-     * File format when hashing is enabled
+     * File format (when hashing is enabled)
      *
      * @remarks
      * do not include extension

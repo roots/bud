@@ -18,7 +18,7 @@ export const tsFeature: Extension.Module = {
         },
   }),
 
-  boot: ({hooks}) => {
+  boot: async ({hooks}) => {
     hooks
       .on('build.resolve.extensions', ext => ext.add('.ts').add('.tsx'))
       .build.setItem('es-build-ts', {

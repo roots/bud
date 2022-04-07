@@ -9,7 +9,7 @@
  * need to be enqueued using WordPress PHP APIs for inclusion in a theme
  * or plugin.
  *
- * @see https://roots.io/bud
+ * @see https://bud.js.org
 
  * @packageDocumentation
  */

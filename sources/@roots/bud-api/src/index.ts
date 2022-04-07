@@ -4,7 +4,7 @@
 /**
  * Repository of high-level facades which simplify common configuration tasks
  *
- * @see https://roots.io/bud
+ * @see https://bud.js.org
  * @see https://github.com/roots/bud
  *
  * @packageDocumentation

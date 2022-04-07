@@ -1,7 +1,7 @@
 import {Signale} from '@roots/bud-support'
 import {Container} from '@roots/container'
 
-import {Bud, Factory, Modules, Plugins} from '../../..'
+import {Bud, Modules, Plugins} from '..'
 
 /**
  * Bud extension interface
@@ -30,14 +30,14 @@ export interface Module<Options = any> extends Record<string, any> {
    *
    * @public
    */
-  register?: Factory<[Bud, Signale], any>
+  register?: (app: Bud, logger: Signale) => Promise<unknown>
 
   /**
    * General purpose callback. Called after everything else.
    *
    * @public
    */
-  boot?: Factory<[Bud, Signale], any>
+  boot?: (app: Bud, logger: Signale) => Promise<unknown>
 
   /**
    * Objects to bind to the Bud. May be expressed as an object literal or a factory function.
@@ -78,7 +78,5 @@ export interface Module<Options = any> extends Record<string, any> {
    *
    * @public
    */
-  when?:
-    | boolean
-    | ((app: Bud, options: Container<Options>) => boolean)
+  when?: boolean | ((app: Bud, options: Container<Options>) => boolean)
 }

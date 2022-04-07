@@ -1,7 +1,4 @@
-import {Bud} from '../bud'
-import {Service} from '../service'
-import * as Services from '../services'
-import {Store} from '../store'
+import {Bud, Mode, Service, Services, Store} from '..'
 import {Context} from './context'
 
 /**
@@ -32,11 +29,9 @@ export interface Options {
    * @remarks
    * One of: `production` | `development`
    *
-   * @defaultValue `production`
-   *
    * @public
    */
-  mode?: 'production' | 'development'
+  mode?: Mode
 
   /**
    * The object providing initial configuration values.
@@ -45,7 +40,7 @@ export interface Options {
    * It is probable that extensions and services will modify
    * values introduced in this object. If you are looking to simply modify
    * configuration values it is generally a better idea to use the
-   * {@link @roots/bud-hooks#Hooks | Hooks class} instead.
+   * {@link Services.Hooks} instead.
    *
    * @public
    */
