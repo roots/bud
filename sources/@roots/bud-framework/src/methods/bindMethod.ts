@@ -9,7 +9,7 @@ export interface bindMethod {
 }
 
 /**
- * Bind a {@link CallableFunction} to the {@link Bud}
+ * Bind a {@link CallableFunction} to {@link Bud}
  *
  * @example
  * Bind a function named `fooFn` to `app.foo`
@@ -19,8 +19,8 @@ export interface bindMethod {
  * ```
  *
  * @remarks
- * You should also override the {@link @roots/bud-Bud# | '@roots/bud-Bud' module} to ensure
- * that your function typings are correctly implemented and exported.
+ * You should also override the {@link Bud} module declaration to ensure
+ * that your typings are correctly implemented and exported.
  *
  * @typeParam FunctionMap - Map of {@link Bud} keys to {@link CallableFunction} types
  *

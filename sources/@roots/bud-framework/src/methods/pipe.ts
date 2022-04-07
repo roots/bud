@@ -20,14 +20,23 @@ export interface pipe {
 }
 
 /**
- * Pipe a value through an array of functions
+ * Pipe a value through an array of functions. The return value of each callback is used as input for the next.
  *
  * @remarks
- * - The return value of each callback is used as input for the next.
+ * If no value is provided the value is assumed to be the {@link Bud} itself
  *
- * - If no value is provided the value is assumed to be the Bud itself
+ * {@link sequence} is a non-mutational version of this method.
  *
- * - `bud.sequence` is a non-mutational version of this method.
+ * @example
+ * ```js
+ * app.pipe(
+ *   [
+ *     value => value + 1,
+ *     value => value + 1,
+ *   ],
+ *   1, // initial value
+ * ) // resulting value is 3
+ * ```
  *
  * @public
  */

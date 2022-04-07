@@ -4,16 +4,6 @@ import {Bud, Locations} from '..'
 
 const {isString} = lodash
 
-/**
- * Set a reference to a project path
- *
- * @example
- * ```js
- * bud.setPath('@src', 'custom/src')
- * ```
- *
- * @public
- */
 export interface setPath {
   <T extends `${keyof Locations & string}`>(
     arg1: T | Partial<Record<T, string>>,
@@ -21,6 +11,22 @@ export interface setPath {
   ): Bud
 }
 
+/**
+ * Set a {@link Locations} value
+ *
+ * @remarks
+ * All {@link Locations} values should be relative to the project directory
+ *
+ * @example
+ * ```js
+ * bud.setPath('@src', 'custom/src')
+ * ```
+ *
+ * @param arg1 - path handler
+ * @param arg2 - path value
+ *
+ * @public
+ */
 export const setPath: setPath = function (arg1, arg2) {
   const app = this as Bud
 

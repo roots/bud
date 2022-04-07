@@ -29,7 +29,7 @@ import * as Process from './process'
 const {isFunction, omit} = lodash
 
 /**
- * Abstract {@link Bud}
+ * {@link Bud} abstract class
  * 
  * @remarks
  * See `@roots/bud` for an example implementation
@@ -38,8 +38,10 @@ const {isFunction, omit} = lodash
  */
 export abstract class Bud {
   /**
-   * Concrete implementation of {@link Bud}
-   * @internal @virtual
+   * {@link Bud} constructor
+   * 
+   * @internal 
+   * @virtual
    */
   public abstract implementation: Constructor
 
@@ -51,11 +53,11 @@ export abstract class Bud {
   public context: Config.Context
 
   /**
-   * Bud name
+   * Name
    *
    * @remarks
    * The name of the parent compiler is used as a base when sourcing configuration files.
-   * So, in an implementation that uses the name `app`, the Bud will be sourcing
+   * So, in an implementation that uses the name `app`, {@link Bud} will be sourcing
    * `app.config.js`, `app.development.config.js`, etc.
    *
    * @public
@@ -69,7 +71,7 @@ export abstract class Bud {
    * Compilation mode
    *
    * @remarks
-   * Either `production` or `development`. Unlike webpack, there is no 'none' mode.
+   * Either `production` or `development`.
    *
    * @defaultValue 'production'
    */
@@ -107,7 +109,7 @@ export abstract class Bud {
   }
 
   /**
-   * {@link @roots/container#Container} of child {@link Bud} instances
+   * {@link Container} of {@link Bud} instances
    *
    * @remarks
    * Is `null` if the current instance is a child instance.
@@ -178,11 +180,6 @@ export abstract class Bud {
    */
   public project: Project.Service
 
-  /**
-   * .env container
-   *
-   * @public
-   */
   public env: Env.Service
 
   public extensions: Extensions.Service
@@ -260,7 +257,7 @@ export abstract class Bud {
   public usingTsNode: boolean = false
 
   /**
-   * Initially received options
+   * Constructor options
    *
    * @public
    */
@@ -269,7 +266,7 @@ export abstract class Bud {
   /**
    * Class constructor
    *
-   * @param options - {@link Bud.Options | Bud constructor options}
+   * @param options - {@link Config.Options}
    *
    * @public
    */
@@ -306,34 +303,12 @@ export abstract class Bud {
     this.logger = new Logger(this)
   }
 
-  /**
-   * @internal
-   */
   public lifecycle: lifecycle = lifecycle.bind(this)
 
-  /**
-   * Access a value which may or may not be a function.
-   *
-   * @remarks
-   * If a value is a function **access** will call that function and return the result.
-   *
-   * If the value is not a function **access** will return its value.
-   *
-   * @example
-   * ```js
-   * const isAFunction = (option) => `option value: ${option}`
-   * const isAValue = 'option value: true'
-   *
-   * access(isAFunction, true) // => `option value: true`
-   * access(isAValue) // => `option value: true`
-   * ```
-   *
-   * @public
-   */
   public maybeCall: methods.maybeCall = methods.maybeCall.bind(this)
 
   /**
-   * Gracefully shutdown {@link Bud} and registered {@link @roots/bud-Bud#Service | Service instances}
+   * Gracefully shutdown {@link Bud} and registered {@link Services}
    *
    * @example
    * ```js
@@ -344,84 +319,14 @@ export abstract class Bud {
    */
   public close: methods.close = methods.close.bind(this)
 
-  /**
-   * Create a new {@link Container} instance
-   *
-   * @example
-   * ```js
-   * const myContainer = bud.container({key: methods.'value'})
-   *
-   * myContainer.get('key') // returns 'value'
-   * ```
-   *
-   * @public
-   */
   public container: methods.container = methods.container.bind(this)
 
-  /**
-   * Returns a {@link Bud | Bud instance} from the {@link Bud.children} container
-   *
-   * @remarks
-   * An optional {@link tap} function can be provided to configure the {@link Bud} instance.
-   *
-   * @example
-   * ```js
-   * const name = 'plugin'
-   * const tapFn = plugin => plugin.entry('main', 'main.js')
-   *
-   * bud.get(name, tapFn)
-   * ```
-   *
-   * @public
-   */
   public get: methods.get = methods.get.bind(this)
 
-  /**
-   * Instantiate a child instance and add to {@link Bud.children} container
-   *
-   * @remarks
-   * **make** takes two parameters:
-   *
-   * - The **name** of the new compiler
-   * - An optional callback to use for configuring the compiler.
-   *
-   * @example
-   * ```js
-   * bud.make('scripts', child => child.entry('app', 'app.js'))
-   * ```
-   *
-   * @public
-   */
   public make: methods.make = methods.make.bind(this)
 
-  /**
-   * Returns a {@link Locations} value as an absolute path
-   *
-   * @public
-   */
   public path: methods.path = methods.path.bind(this)
 
-  /**
-   * Pipe a value through an array of functions. The return value of each callback is used as input for the next.
-   *
-   * @remarks
-   * If no value is provided the value is assumed to be the {@link Bud} itself
-   *
-   * {@link sequence} is a non-mutational version of this method.
-   *
-   * @example
-   * ```js
-   * app.pipe(
-   *   [
-   *     value => value + 1,
-   *     value => value + 1,
-   *   ],
-   *   1, // initial value
-   * ) // resulting value is 3
-   * ```
-   *
-   * @public
-   */
   public pipe: methods.pipe = methods.pipe.bind(this)
 
   /**
@@ -434,137 +339,22 @@ export abstract class Bud {
    */
   public publicPath: methods.publicPath = methods.setPublicPath.bind(this)
 
-  /**
-   * Set a {@link @roots/bud-Bud#Location | Location} value
-   *
-   * @remarks
-   * The {@link Location.project} should be an absolute path.
-   * All other directories should be relative (src, dist, etc.)
-   * @see {@link Locations}
-   *
-   * @example
-   * ```js
-   * bud.setPath('@src', 'custom/src')
-   * ```
-   *
-   * @param this - {@link Bud}
-   * @param args - path parts
-   *
-   * @public
-   */
   public setPath: methods.setPath = methods.setPath.bind(this)
 
-  /**
-   * By default it is assumed that assets are served from webroot (`/`).
-   * You can use this method to replace this value for apps served from
-   * a subdirectory.
-   *
-   * @example
-   * Set the default path using a string
-   *
-   * ```js
-   * app.setPublicPath('/app/themes/sage/dist')
-   * ```
-   *
-   * @example
-   * Set the publicPath using a function.
-   *
-   * ```js
-   * app.setPublicPath(publicPath => {
-   *   return `web/assets/${publicPath}`
-   * })
-   * ```
-   *
-   * @public
-   */
   public setPublicPath: methods.setPublicPath =
     methods.setPublicPath.bind(this)
 
-  /**
-   * Run a value through an array of asyncronous, non-mutational functions.
-   *
-   * @remarks
-   * Unlike {@link pipe} the value returned from each function is ignored.
-   *
-   * @public
-   */
   public sequence: methods.sequence = methods.sequence.bind(this)
 
-  /**
-   * Run a value through an array of syncronous, non-mutational functions.
-   *
-   * @remarks
-   * Unlike {@link pipe} the value returned from each function is ignored.
-   *
-   * @public
-   */
   public sequenceSync: methods.sequenceSync =
     methods.sequenceSync.bind(this)
 
-  /**
-   * Execute a callback
-   *
-   * @remarks
-   * Callback is provided {@link Bud | the Bud instance} as a parameter.
-   *
-   * @example
-   * ```js
-   * bud.tap(bud => {
-   *   // do something with bud
-   * })
-   * ```
-   *
-   * @example
-   * Lexical scope is bound to Bud where applicable, so it
-   * is possible to reference the Bud using `this`.
-   *
-   * ```js
-   * bud.tap(function () {
-   *  // do something with this
-   * })
-   * ```
-   *
-   * @public
-   */
   public tap: methods.tap = methods.tap.bind(this)
 
   public tapAsync: methods.tapAsync = methods.tapAsync.bind(this)
 
-  /**
-   * Executes a function if a given test is `true`.
-   *
-   * @remarks
-   * - The first parameter is the conditional check.
-   * - The second parameter is the function to run if `true`.
-   * - The third parameter is optional; executed if the conditional is not `true`.
-   *
-   * @example
-   * Only produce a vendor bundle when running in `production` {@link Mode}:
-   *
-   * ```js
-   * bud.when(bud.isProduction, () => bud.vendor())
-   * ```
-   *
-   * @example
-   * Use `eval` sourcemap in development mode and `hidden-source-map` in production:
-   *
-   * ```js
-   * bud.when(
-   *   bud.isDevelopment,
-   *   () => bud.devtool('eval'),
-   *   () => bud.devtool('hidden-source-map'),
-   * )
-   * ```
-   *
-   * @public
-   */
   public when: methods.when = methods.when.bind(this)
 
-  /**
-   * Bind method to {@link Bud | Bud instance}
-   *
-   * @public
-   */
   public bindMethod: methods.bindMethod = methods.bindMethod.bind(this)
 
   /**
@@ -694,10 +484,7 @@ export abstract class Bud {
 
   /**
    * Log and display a debug message.
-   *
-   * @remarks
-   * This error is fatal and will kill the process
-   *
+   * 
    * @public
    * @decorator `@bind`
    */
@@ -720,7 +507,8 @@ export abstract class Bud {
    * Log and display an error.
    *
    * @remarks
-   * This error is fatal and will kill the process
+   * In `production` this error is treated as fatal 
+   * and will kill the process.
    *
    * @public
    * @decorator `@bind`
@@ -751,8 +539,7 @@ export abstract class Bud {
       'ignoreIllegals',
     ])
 
-    // eslint-disable-next-line no-console
-    process.stdout.write(
+    this.context.stdout.write(
       boxen(
         highlight(
           format(obj, {

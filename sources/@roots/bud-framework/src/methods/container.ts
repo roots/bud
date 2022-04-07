@@ -10,7 +10,14 @@ export interface container<T = any> {
 }
 
 /**
- * Instantiates and returns a new {@link @roots/container#Container | Container}
+ * Create a new {@link Container} instance
+ *
+ * @example
+ * ```js
+ * const myContainer = bud.container({key: methods.'value'})
+ *
+ * myContainer.get('key') // returns 'value'
+ * ```
  *
  * @public
  */

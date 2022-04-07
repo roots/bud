@@ -10,6 +10,14 @@ export interface sequence<T = Bud> {
   (fns: Array<Callback>): Promise<Bud>
 }
 
+/**
+ * Run a value through an array of asyncronous, non-mutational functions.
+ *
+ * @remarks
+ * Unlike {@link pipe} the value returned from each function is ignored.
+ *
+ * @public
+ */
 export const sequence = async function (
   fns: Array<Callback>,
 ): Promise<Bud> {
@@ -32,6 +40,14 @@ export interface sequenceSync {
   <T>(fns: Array<SyncCallback>): Bud
 }
 
+/**
+ * Run a value through an array of syncronous, non-mutational functions.
+ *
+ * @remarks
+ * Unlike {@link pipe} the value returned from each function is ignored.
+ *
+ * @public
+ */
 export const sequenceSync: sequenceSync = (
   fns: Array<SyncCallback>,
 ): Bud => {

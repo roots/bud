@@ -51,7 +51,6 @@ export interface Locations extends Partial<Record<string, string>> {
   '@modules': string
 }
 
-
 /**
  * Registered modules
  *
