@@ -1,4 +1,4 @@
-import type {Extension, Framework} from '@roots/bud-framework'
+import type {Bud, Extensions} from '@roots/bud-framework'
 
 import {reactRefresh} from './react-refresh/reactRefresh'
 
@@ -7,10 +7,10 @@ import {reactRefresh} from './react-refresh/reactRefresh'
  *
  * @public
  */
-export interface ReactExtension extends Extension.Module {
+export interface ReactExtension extends Extensions.Module {
   name: '@roots/bud-react'
   api: {reactRefresh: reactRefresh}
-  boot: (app: Framework) => Promise<void>
+  boot: (app: Bud) => Promise<void>
 }
 
 export const ReactExtension: ReactExtension = {

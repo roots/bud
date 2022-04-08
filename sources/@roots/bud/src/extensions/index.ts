@@ -15,7 +15,7 @@ import * as WebpackProvidePlugin from './webpack-provide-plugin'
  *
  * @public
  */
-export function extensions(): Record<string, Extension.CompilerPlugin> {
+export function extensions(): Record<string, Extension.Plugin> {
   return {
     ['webpack-provide-plugin']: WebpackProvidePlugin,
     ['clean-webpack-plugin']: CleanWebpackPlugin,

@@ -1,22 +1,22 @@
-import type {Framework} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
 import type {Configuration} from 'webpack'
 
 export interface devtool {
-  (devtool?: Configuration['devtool']): Promise<Framework>
+  (devtool?: Configuration['devtool']): Promise<Bud>
 }
 
 export interface facade {
-  (devtool?: Configuration['devtool']): Framework
+  (devtool?: Configuration['devtool']): Bud
 }
 
-export const devtool: devtool = async function (devtool = false) {
-  this as Framework
+export const devtool: devtool = async function (
+  input = 'cheap-module-source-map',
+) {
+  const app = this as Bud
 
-  const value = devtool ?? 'cheap-module-source-map'
+  app.hooks.on('build.devtool', () => input)
 
-  this.hooks.on('build.devtool', value)
-
-  this.api.log('success', {prefix: 'devtool', message: devtool})
+  app.log({message: `devtool set: ${input}`})
 
   return this
 }

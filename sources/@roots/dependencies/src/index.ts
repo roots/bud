@@ -4,7 +4,7 @@
 /**
  * Easy programmatic package management for yarn and npm.
  *
- * @see https://roots.io/bud
+ * @see https://bud.js.org
  * @see https://github.com/roots/bud
  *
  * @remarks

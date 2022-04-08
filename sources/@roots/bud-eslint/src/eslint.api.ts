@@ -1,9 +1,9 @@
-import type {Framework} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
 import {bind} from '@roots/bud-support'
 import type {Options} from 'eslint-webpack-plugin'
 
 export interface eslint {
-  config(userOptions: Options): Framework
+  config(userOptions: Options): Bud
 }
 
 /**
@@ -13,7 +13,7 @@ export class eslint {
   /**
    * @internal
    */
-  public _app: () => Framework
+  public _app: () => Bud
 
   /**
    * @internal
@@ -25,7 +25,7 @@ export class eslint {
   /**
    * @internal
    */
-  public constructor(app: Framework) {
+  public constructor(app: Bud) {
     this._app = () => app
   }
 
@@ -33,7 +33,7 @@ export class eslint {
    * @public
    */
   @bind
-  public config(userOptions: Options): Framework {
+  public config(userOptions: Options): Bud {
     this.app.extensions.get('@roots/bud-eslint').setOptions(userOptions)
 
     this.app.info({

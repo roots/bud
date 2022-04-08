@@ -1,4 +1,4 @@
-import type {Framework} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
 import {pkgUp} from '@roots/bud-support'
 import type {Options as HtmlOptions} from 'html-webpack-plugin'
 import {posix as path} from 'path'
@@ -9,11 +9,11 @@ import {BudInterpolateHtmlPlugin} from './interpolate-html-plugin.extension'
 const {dirname, join} = path
 
 export interface template {
-  (userOptions?: Options | boolean): Promise<Framework>
+  (userOptions?: Options | boolean): Promise<Bud>
 }
 
 export interface facade {
-  (userOptions?: Options | boolean): Framework
+  (userOptions?: Options | boolean): Bud
 }
 
 /**
@@ -39,8 +39,8 @@ interface Options extends HtmlOptions {
 
 export const template: template = async function (
   userOptions?: Options | boolean,
-): Promise<Framework> {
-  this as Framework
+): Promise<Bud> {
+  this as Bud
 
   if (userOptions === false) {
     this.store.set('features.html', false)

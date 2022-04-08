@@ -1,4 +1,4 @@
-import {Dashboard as Contract} from '@roots/bud-framework'
+import {Dashboard as Base} from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework'
 import {bind} from '@roots/bud-support'
 
@@ -9,7 +9,7 @@ import {stats} from './stats'
  *
  * @public
  */
-export class Dashboard extends Service implements Contract {
+export class Dashboard extends Service implements Base.Service {
   /**
    * Run dashboard
    *

@@ -1,15 +1,19 @@
+import '@roots/bud-babel'
+
 import {ReactExtension} from './extension'
 import {ReactRefreshExtension} from './react-refresh/extension'
 import {reactRefresh} from './react-refresh/reactRefresh'
 
 declare module '@roots/bud-framework' {
-  interface Framework {
+  interface Bud {
     reactRefresh: reactRefresh
   }
+
   interface Modules {
     '@roots/bud-react': ReactExtension
   }
-  interface CompilerPlugin {
+
+  interface Plugins {
     '@pmmmwh/react-refresh-webpack-plugin': ReactRefreshExtension
   }
 }

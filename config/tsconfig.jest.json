@@ -3,16 +3,8 @@
   "compilerOptions": {
     "module": "commonjs",
     "noEmit": true,
-    "types": ["node", "jest"]
   },
   "files": [],
-  "include": ["../sources/@roots/*/src/**/*"],
-  "exclude": [
-    "../node_modules/**/*",
-    "../sources/@roots/*/lib/**/*",
-    "../sources/@roots/*/node_modules/**/*",
-    "../sources/@roots/*/types/**/*"
-  ],
   "references": [
     {
       "path": "../sources/@roots/bud/tsconfig.json"

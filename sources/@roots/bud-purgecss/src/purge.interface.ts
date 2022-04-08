@@ -1,4 +1,4 @@
-import {Extension, Framework} from '@roots/bud-framework'
+import {Bud, Extension} from '@roots/bud-framework'
 
 /**
  * Module registration
@@ -6,7 +6,7 @@ import {Extension, Framework} from '@roots/bud-framework'
  * @public
  */
 export interface register {
-  (app: Framework): Promise<void>
+  (app: Bud): Promise<void>
 }
 
 /**
@@ -25,7 +25,7 @@ export interface register {
  * ```
  */
 export interface api {
-  (this: Framework, userOptions: UserOptions): Framework
+  (this: Bud, userOptions: UserOptions): Bud
 }
 
 export interface Purge extends Extension.Module {

@@ -31,6 +31,7 @@ export function add(
 
     if (
       assets?.import &&
+      isArray(assets?.import) &&
       !assets.import.includes('react-refresh/runtime')
     ) {
       assets.import.unshift('react-refresh/runtime')

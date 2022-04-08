@@ -1,4 +1,4 @@
-import type {Framework} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
 
 import {unwrap as unwrapFn} from './builder.unwrap'
 import {filenameFormat} from './filenameFormat'
@@ -8,14 +8,14 @@ import {filenameFormat} from './filenameFormat'
  *
  * @remarks
  * All hooks in the `build` namespace are initialized here with
- * the exception of `build.cache` which is handled in {@link Framework.cache}
+ * the exception of `build.cache` which is handled in {@link Bud.cache}
  *
- * @param app - the Framework instance
+ * @param app - the Bud instance
  * @returns Promise
  *
  * @public
  */
-export async function build(app: Framework): Promise<void> {
+export async function build(app: Bud): Promise<void> {
   /**
    * App bound unwrap
    */

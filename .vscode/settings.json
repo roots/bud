@@ -20,6 +20,9 @@
     "**/Thumbs.db": true,
     "**/node_modules": false
   },
+  "jestrunner.runOptions": ["--verbose"],
+  "jestrunner.changeDirectoryToWorkspaceRoot": true,
+  "jestrunner.configPath": "config/jest.config.js",
   "search.exclude": {
     ".yarn": true,
     ".git": true,
@@ -39,30 +42,5 @@
     "*.tsx": "typescriptreact",
     "*.mdx": "mdx",
     "bud.config.json": "json5"
-  },
-  "cSpell.words": [
-    "browserslist",
-    "clsx",
-    "codecov",
-    "clipanion",
-    "entrypoints",
-    "oclif",
-    "instanceof",
-    "purgecss",
-    "stylelint",
-    "tailwindcss",
-    "webp",
-    "webpack",
-    "kellymears",
-    "tsdoc"
-  ],
-  "cSpell.ignoreRegExpList": ["@.*", "bud-.*", "@roots/.*"],
-  "cSpell.customDictionaries": {
-    "custom-dictionary-workspace": {
-      "name": "custom-dictionary-workspace",
-      "path": "${workspaceFolder:bud}/.cspell/custom-dictionary-workspace.txt",
-      "addWords": true,
-      "scope": "workspace"
-    }
   }
 }

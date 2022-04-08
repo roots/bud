@@ -109,14 +109,15 @@ describe('bud.build.config', function () {
 
   it('has expected resolve.extensions default', () => {
     expect(bud.build.config.resolve.extensions).toMatchSnapshot([
-      `.wasm`,
       `.mjs`,
+      `.cjs`,
       `.js`,
       `.jsx`,
       `.css`,
       `.json`,
-      `.toml`,
+      `.wasm`,
       `.yml`,
+      `.toml`,
     ])
   })
 

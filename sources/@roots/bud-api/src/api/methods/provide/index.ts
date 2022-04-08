@@ -1,13 +1,13 @@
-import type {Framework} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
 
 export interface provide {
-  (packages?: Record<string, Array<string>>): Framework
+  (packages?: Record<string, Array<string>>): Bud
 }
 
 export const provide: provide = function (
   packages: Record<string, Array<string>>,
 ) {
-  const ctx = this as Framework
+  const ctx = this as Bud
 
   ctx.extensions.get('webpack-provide-plugin').mutateOptions(options => {
     Object.entries(packages).forEach(([key, value]) => {

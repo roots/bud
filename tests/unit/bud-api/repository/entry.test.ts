@@ -1,47 +1,57 @@
 import {Bud, factory} from '@repo/test-kit/bud'
-import {EntryObject} from '@roots/bud-framework/entry'
+import {EntryObject} from '@roots/bud-framework/types/config/entry'
 
 describe('bud.entry', function () {
   let bud: Bud
 
-  beforeAll(async () => {
-    bud = await factory()
-  })
-
-  beforeEach(() => {
-    bud.hooks.on('build.entry', {})
-  })
+  beforeAll(async () => (bud = await factory()))
+  beforeEach(() => bud.hooks.on('build.entry', {}))
 
   it('sets an entrypoint using (string, string) fn signature', async () => {
-    bud.entry('app', 'scripts/app.js')
-    await bud.build.make()
+    await bud.api.call('entry', 'app', 'scripts/app.js')
 
-    expect(bud.build.config.entry).toEqual({
-      app: {
-        import: ['scripts/app.js'],
-      },
+    expect(bud.hooks.filter('build.entry')).toEqual({
+      app: {import: ['scripts/app.js']},
     })
   })
 
   it('sets an entrypoint using (string, string) fn signature with globbing', async () => {
-    bud.entry('app', '**/app.{css,js}')
+    await bud.api.call('entry', 'app', '**/app.{css,js}')
 
-    await bud.build.make()
+    const {
+      app: {import: value},
+    } = bud.hooks.filter('build.entry')
 
-    expect((bud.build.config.entry as any).app.import).toContain(
-      'scripts/app.js',
-    )
-    expect((bud.build.config.entry as any).app.import).toContain(
-      'styles/app.css',
-    )
+    expect(value).toContain('scripts/app.js')
+    expect(value).toContain('styles/app.css')
+  })
+
+  it('sets an entrypoint using (string) fn signature', async () => {
+    await bud.api.call('entry', 'styles/app.css')
+
+    expect(bud.hooks.filter('build.entry')).toStrictEqual({
+      default: {
+        import: ['styles/app.css'],
+      },
+    })
+  })
+  it('sets an entrypoint using (array) fn signature', async () => {
+    await bud.api.call('entry', ['scripts/app.js', 'styles/app.css'])
+
+    expect(bud.hooks.filter('build.entry')).toStrictEqual({
+      default: {
+        import: ['scripts/app.js', 'styles/app.css'],
+      },
+    })
   })
 
   it('sets an entrypoint using (string, string[]) fn signature', async () => {
-    bud.entry('app', ['scripts/app.js', 'styles/app.css'])
+    await bud.api.call('entry', 'app', [
+      'scripts/app.js',
+      'styles/app.css',
+    ])
 
-    await bud.build.make()
-
-    expect(bud.build.config.entry).toStrictEqual({
+    expect(bud.hooks.filter('build.entry')).toStrictEqual({
       app: {
         import: ['scripts/app.js', 'styles/app.css'],
       },
@@ -49,11 +59,9 @@ describe('bud.entry', function () {
   })
 
   it('sets an entrypoint using (string, string[]) fn signature with globbing', async () => {
-    bud.entry('app', ['**/app.js', '**/editor.css'])
+    await bud.api.call('entry', 'app', ['**/app.js', '**/editor.css'])
 
-    await bud.build.make()
-
-    expect(bud.build.config.entry).toStrictEqual({
+    expect(bud.hooks.filter('build.entry')).toStrictEqual({
       app: {
         import: ['scripts/app.js', 'styles/editor.css'],
       },
@@ -61,13 +69,11 @@ describe('bud.entry', function () {
   })
 
   it('sets a single entrypoint using k, v fn signature', async () => {
-    bud.entry({
+    await bud.api.call('entry', {
       app: ['scripts/app.js', 'styles/app.css'],
     })
 
-    await bud.build.make()
-
-    expect(bud.build.config.entry).toEqual({
+    expect(bud.hooks.filter('build.entry')).toStrictEqual({
       app: {
         import: ['scripts/app.js', 'styles/app.css'],
       },
@@ -75,12 +81,9 @@ describe('bud.entry', function () {
   })
 
   it('sets a single entrypoint using k, v fn signature with globbing', async () => {
-    bud.entry({
-      app: ['**/app.js', 'styles/*.css'],
-    })
-    const config = await bud.build.make()
+    await bud.api.call('entry', {app: ['**/app.js', 'styles/*.css']})
 
-    expect(config.entry).toEqual({
+    expect(bud.hooks.filter('build.entry')).toStrictEqual({
       app: {
         import: ['scripts/app.js', 'styles/app.css', 'styles/editor.css'],
       },
@@ -88,14 +91,12 @@ describe('bud.entry', function () {
   })
 
   it('sets multiple entrypoints using k, v fn signature', async () => {
-    bud.entry({
+    await bud.api.call('entry', {
       app: ['scripts/app.js', 'styles/app.css'],
       editor: ['styles/editor.css'],
     })
 
-    await bud.build.make()
-
-    expect(bud.build.config.entry).toEqual({
+    expect(bud.hooks.filter('build.entry')).toStrictEqual({
       app: {
         import: ['scripts/app.js', 'styles/app.css'],
       },
@@ -105,10 +106,11 @@ describe('bud.entry', function () {
     })
   })
 
-  it('supports dependOn', async () => {
-    const input = {
+  it('supports other props', async () => {
+    const input: Record<string, EntryObject> = {
       app: {
         import: ['scripts/app.js', 'styles/app.css'],
+        runtime: 'main',
       },
       editor: {
         import: ['styles/editor.css'],
@@ -116,33 +118,8 @@ describe('bud.entry', function () {
       },
     }
 
-    bud.entry(input)
+    await bud.api.call('entry', input)
 
-    await bud.build.make()
-
-    expect(bud.build.config.entry).toEqual(input)
-  })
-
-  it('supports managing runtime', async () => {
-    const input: Record<string, EntryObject> = {
-      app: {
-        import: ['scripts/main.js'],
-        dependOn: ['entry', 'entry-2'],
-      },
-      entry: {
-        import: ['scripts/entry.js', 'styles/entry.css'],
-        runtime: 'main',
-      },
-      ['entry-2']: {
-        import: ['scripts/entry-2.js', 'styles/entry-2.css'],
-        runtime: 'main',
-      },
-    }
-
-    bud.entry(input)
-
-    await bud.build.make()
-
-    expect(bud.build.config.entry).toEqual(input)
+    expect(bud.hooks.filter('build.entry')).toStrictEqual(input)
   })
 })

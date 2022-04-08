@@ -1,35 +1,13 @@
-import {Extension, Framework} from '@roots/bud-framework'
+import {Bud, Extension} from '@roots/bud-framework'
 
-/**
- * BudEmotionExtension interface
- *
- * @public
- */
-export interface BudEmotionExtension extends Extension.Module {}
+export interface EmotionCSS extends Extension.Module {}
 
-/**
- * Adds EmotionCSS to the framework
- *
- * @public
- */
-export const BudEmotionExtension: BudEmotionExtension = {
-  /**
-   * {@inheritDoc @roots/bud-framework#Module.name}
-   *
-   * @public
-   */
-  name: '@roots/bud-emotion',
+export const name: EmotionCSS['name'] = '@roots/bud-emotion'
 
-  /**
-   * {@inheritDoc @roots/bud-framework#Module.boot}
-   *
-   * @public
-   */
-  async boot({babel}: Framework) {
-    babel?.setPlugins &&
-      babel.setPlugin(
-        '@emotion/babel-plugin',
-        require.resolve('@emotion/babel-plugin'),
-      )
-  },
+export const boot: EmotionCSS['boot'] = async ({babel}: Bud) => {
+  babel?.setPlugins &&
+    babel.setPlugin(
+      '@emotion/babel-plugin',
+      require.resolve('@emotion/babel-plugin'),
+    )
 }

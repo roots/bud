@@ -1,4 +1,4 @@
-import type {Framework} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
 import CopyPlugin from 'copy-webpack-plugin'
 import {isArray, isString} from 'lodash'
 import {normalize} from 'path'
@@ -11,13 +11,13 @@ export const assets: method = async function assets(
     | CopyPlugin.ObjectPattern
     | Array<string | [string, string] | CopyPlugin.ObjectPattern>
   >
-): Promise<Framework> {
+): Promise<Bud> {
   /**
    * tsc will complain about `this` context being lost
    * when destructuring bud even though the context of
    * this function will be bound.
    */
-  const ctx = this as Framework
+  const ctx = this as Bud
 
   /**
    * We know it's not a directory

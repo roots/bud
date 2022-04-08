@@ -4,25 +4,21 @@
 /**
  * Preset config for WordPress plugins & themes.
  *
- * @see https://roots.io/bud
+ * @see https://bud.js.org
  * @see https://github.com/roots/bud
  *
  * @packageDocumentation
  */
 
-import type {Extension, Framework} from '@roots/bud-framework'
+import './bud.env'
 
-declare module '@roots/bud-framework' {
-  interface Modules {
-    '@roots/bud-preset-wordpress': BudWordPressPreset
-  }
-}
+import type {Bud, Extension} from '@roots/bud-framework'
 
 /**
  * Preset config for WordPress plugins & themes
  * @public
  */
-type BudWordPressPreset = Extension.Module
+export type BudWordPressPreset = Extension.Module
 
 /**
  * Find/replace {@link URL.href} with {@link URL.pathname}
@@ -51,7 +47,7 @@ export const name: BudWordPressPreset['name'] =
 /**
  * @public
  */
-export const boot = async (app: Framework, logger: Console) => {
+export const boot = async (app: Bud, logger: Console) => {
   /* Exit early if env is not set */
   if (!app.env.isString('WP_HOME')) return
 

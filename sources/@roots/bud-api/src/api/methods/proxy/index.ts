@@ -1,4 +1,4 @@
-import type {Framework, Server} from '@roots/bud-framework'
+import type {Bud, Server} from '@roots/bud-framework'
 import {lodash} from '@roots/bud-support'
 
 const {isBoolean, isString, isUndefined, isNumber} = lodash
@@ -6,7 +6,7 @@ const {isBoolean, isString, isUndefined, isNumber} = lodash
 export type UserInput = URL | string | boolean | number
 
 export interface method {
-  (input?: UserInput): Framework
+  (input?: UserInput): Bud
 }
 
 export type facade = method
@@ -35,7 +35,7 @@ export const disableMiddleware = (
   ) ?? []
 
 export const method: method = function (input) {
-  const ctx = this as Framework
+  const ctx = this as Bud
 
   if (!ctx.isDevelopment) return ctx
 

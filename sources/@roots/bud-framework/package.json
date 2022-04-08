@@ -44,14 +44,11 @@
     ".": {
       "require": "./lib/cjs/index.js"
     },
-    "./compiler": {
-      "require": "./lib/cjs/Compiler.js"
-    },
     "./service": {
-      "require": "./lib/cjs/Service.js"
+      "require": "./lib/cjs/service.js"
     },
-    "./server": {
-      "require": "./lib/cjs/Server/index.js"
+    "./store": {
+      "require": "./lib/cjs/store.js"
     }
   },
   "typesVersions": {
@@ -59,20 +56,17 @@
       ".": [
         "./types/index.d.ts"
       ],
-      "compiler": [
-        "./types/Compiler.d.ts"
-      ],
-      "entry": [
-        "./types/entry/index.d.ts"
+      "config": [
+        "./types/config/index.d.ts"
       ],
       "service": [
-        "./types/Service.d.ts"
+        "./types/service.d.ts"
       ],
-      "server": [
-        "./types/Server/index.d.ts"
+      "services/*": [
+        "./types/services/*/index.d.ts"
       ],
       "store": [
-        "./types/Store.d.ts"
+        "./types/store.d.ts"
       ]
     }
   },
