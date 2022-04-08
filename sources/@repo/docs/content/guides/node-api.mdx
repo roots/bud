@@ -8,15 +8,17 @@ import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import CodeBlock from '@theme/CodeBlock'
 
-**bud.js** is designed to be used as a CLI tool but it is possible to use it in NodeJS directly. This makes it easier to:
+**bud.js** is designed to be used as a CLI tool but it is possible to use it in NodeJS directly. 
+
+This makes it easier to:
 
 - Use **bud.js** as part of an existing asset pipeline
 - Use **bud.js** to generate a configuration to be consumed by **webpack** directly
-- Hack on
+- Hack
 
 ## Using bud.js with node
 
-The easiest way to get going is calling the **factory** helper exported from **@roots/bud**.
+The fastest way to get going is calling the [factory](/dev/api/modules/bud_src.html#factory) helper exported from **@roots/bud**.
 
 <Tabs
   groupId="lang"
@@ -56,7 +58,7 @@ build()
 
 ## Exporting a webpack config
 
-Call `bud.build.make` and return the configuration.
+Call [bud.build.make](/dev/api/classes/bud_build_src.build#make) and return the configuration.
 
 ```js title='webpack.config.js'
 const {factory} = require('@roots/bud')

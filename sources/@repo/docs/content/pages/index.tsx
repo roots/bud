@@ -14,8 +14,6 @@ const Home = () => {
     <Layout>
       <Mast />
 
-      {/*<Testimonials />*/}
-
       <Features />
 
       <Sponsors.Component />

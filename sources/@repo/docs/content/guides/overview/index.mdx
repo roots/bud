@@ -7,20 +7,34 @@ hide_table_of_contents: true
 ---
 
 import {Hero} from '@site/src/components/Hero'
+import {Card} from '@site/src/components/Card'
 
-<div className="container margin-bottom--lg">
-  <div className="row">
-    <Hero
-      title="bud.js"
-      subtitle="Lightning fast frontend build tools combining the best parts of Symfony
-  Encore and Laravel Mix."
+<div className="margin-bottom--lg">
+  <Hero
+    title="bud.js"
+    subtitle="Lightning fast frontend build tools combining the best parts of Symfony
+Encore and Laravel Mix."
+  />
+</div>
+
+<div className="row">
+  <div className="col">
+    <Card
+      title="Requirements"
+      description="Confirm your environment is set up for bud.js"
+      links={[
+        ['Read more', '/guides/overview/requirements'],
+      ]}
+    />
+  </div>
+
+  <div className="col">
+    <Card
+      title="Installation"
+      description="Install the bud.js framework"
+      links={[
+        ['Read more', '/guides/overview/installation'],
+      ]}
     />
   </div>
 </div>
-
-What Bud provides:
-
-- zero configuration required
-- support for `js`, `ts`, `yml` & `json5` build configs
-- exceptional intellisense
-- support for running multiple compilers in parallel

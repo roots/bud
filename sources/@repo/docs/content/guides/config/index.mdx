@@ -1,9 +1,45 @@
 ---
 title: Configuration
 description: Configuring bud.js
+hide_title: true
+hide_table_of_contents: true
 ---
 
-Configuring anything with bud.js is strictly optional.
+import {Card} from '@site/src/components/Card'
+import {Hero} from '@site/src/components/Hero'
 
-If you have a simple project that just needs to move a couple scripts from a source
-directory to one for distributables then bud.js is arguably a perfect fit.
+<div className="margin-bottom--lg">
+  <Hero title="Configuration options" />
+</div>
+
+<div className="row">
+  <div className="col">
+    <Card
+      title="Zero config"
+      description="The best config is no config."
+      links={[
+        ['Read more', '/guides/config/zero-config'],
+      ]}
+    />
+  </div>
+
+  <div className="col">
+    <Card
+      title="File-based configuration"
+      description="The canonical approach."
+      links={[
+        ['Read more', '/guides/config/file-config'],
+      ]}
+    />
+  </div>
+
+  <div className="col">
+    <Card
+      title="CLI configuration"
+      description="Overriding from the terminal."
+      links={[
+        ['Read more', '/guides/config/cli-config'],
+      ]}
+    />
+  </div>
+</div>

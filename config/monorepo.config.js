@@ -3,7 +3,7 @@
  *
  * @public
  */
-export const config: config = {
+module.exports = {
   name: 'bud.js',
   description:
     '⚡️ Lightning fast frontend build tools combining the best parts of Symfony Encore and Laravel Mix',
@@ -119,71 +119,4 @@ export const config: config = {
       '@roots/ink-prettier',
     ],
   },
-}
-
-export type ContributionTypes = '🚀 steward' | '💻 dev' | '✍🏽 docs'
-
-export interface config {
-  /**
-   * Project name
-   */
-  name: string
-
-  /**
-   * Project description
-   */
-  description: string
-
-  /**
-   * Project logo
-   */
-  logo: string
-
-  /**
-   * Project share card
-   */
-  card: string
-
-  /**
-   * Project links
-   */
-  url: {
-    discourse: `https://discourse.roots.io/${string}`
-    docs: `https://${string}`
-    git: 'git@github.com:roots/bud'
-    web: 'https://github.com/roots/bud'
-  }
-
-  /**
-   * Project organization information
-   */
-  organization: {
-    name: string
-    site: `https://${string}`
-    twitter: `https://${string}`
-    favicon: `https://${string}.ico`
-  }
-
-  /**
-   * Record of contributors
-   */
-  contributors: Record<string, Record<string, Array<ContributionTypes>>>
-
-  /**
-   * Sponsoring organizations
-   */
-  sponsors: Array<{
-    image: `https://${string}`
-    title: string
-    url: `https://${string}`
-  }>
-
-  /**
-   * Packages
-   */
-  packages: {
-    core: Array<string>
-    extension: Array<string>
-    library: Array<string>
-  }
 }

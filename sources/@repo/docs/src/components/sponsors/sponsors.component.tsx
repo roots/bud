@@ -22,7 +22,7 @@ export const Component = () => {
 
       <div className={styles.sponsors}>
         {sponsors.map(({url, image, title}, id) => (
-          <a key={id} href={url} className={styles.anchor}>
+          <a key={id} href={url} className={styles.anchor} rel="sponsored">
             <img src={image} alt={title} className={styles.image} />
           </a>
         ))}

@@ -35,10 +35,14 @@ entry:
   </TabItem>
   <TabItem value="json">
 
-```json title="bud.config.json"
+```json5 title="bud.config.json"
 {
-  "entry": {
-    "app": ["index.js", "index.css"]
+  /**
+   * You can include comments in json configs
+   */
+  entry: {
+    // keys do not need to be quoted
+    app: ["index.js", "index.css"]
   }
 }
 ```
@@ -51,5 +55,4 @@ entry:
 Things to think about:
 
 - You can't do a bunch of stuff in a static config. If you need to specify a callback or anything that isn't a simple primitive as a parameter a static config is not for you. You should use a JavaScript or TypeScript config.
-- Static configurations will likely never have parity with JavaScript or TypeScript configurations. It's just not on the roadmap.
-- yml is about ten times slower to parse than any other config type.
+- Static configurations will likely never have total parity with JavaScript or TypeScript configurations. It's just not on the roadmap.

@@ -1,21 +1,19 @@
-import type {Config} from '@docusaurus/types'
-import {paths} from '@repo/constants'
-import {join} from 'path'
+const {join, resolve} = require('path')
 
-import {config} from '../../../../config/monorepo.config'
-import * as themeConfig from './docusaurus.theme'
+const config = require('../../../../config/monorepo.config')
+const themeConfig = require('./docusaurus.theme')
 
 const presetClassic = require.resolve('@docusaurus/preset-classic')
 const pluginBlog = require.resolve('@docusaurus/plugin-content-blog')
 const pluginDocs = require.resolve('@docusaurus/plugin-content-docs')
 const pluginSearch = require.resolve('docusaurus-lunr-search')
 
-const docsPath = (path?: string) =>
-  join(paths.sources, '@repo/docs', path ?? '')
+const docsPath = (path) =>
+  resolve(__dirname, '..', path ?? '')
 
 const sidebarPath = docsPath('sidebars/docs.js')
 
-const docusaurusConfig: Config = {
+module.exports = {
   title: config.name,
   tagline: config.description,
   url: config.url.docs,
@@ -25,7 +23,7 @@ const docusaurusConfig: Config = {
   favicon: config.organization.favicon,
   organizationName: config.organization.name,
   projectName: config.name,
-  customFields: config as unknown as Record<string, unknown>,
+  customFields: config,
   themeConfig,
   presets: [
     [
@@ -109,5 +107,3 @@ const docusaurusConfig: Config = {
     ],
   ],
 }
-
-export {docusaurusConfig as default}

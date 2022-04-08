@@ -1,15 +1,14 @@
-import {Config} from '@docusaurus/types'
-import dracula from 'prism-react-renderer/themes/dracula'
-import github from 'prism-react-renderer/themes/github'
+const dracula = require('prism-react-renderer/themes/dracula')
+const github = require('prism-react-renderer/themes/github')
 
-import {config} from '../../../../config/monorepo.config'
+const config = require('../../../../config/monorepo.config')
 
 /**
  * Announcement bar config
  *
  * @public
  */
-export const announcementBar: Config['themeConfig']['announcementBar'] = {
+const announcementBar = {
   id: 'announcementBar-2', // Increment on change
   content: `🧹 We're working hard to get the docs up to date with Bud v5. Thanks for your understanding!`,
 }
@@ -19,7 +18,7 @@ export const announcementBar: Config['themeConfig']['announcementBar'] = {
  *
  * @public
  */
-export const footer: Config['themeConfig']['footer'] = {
+const footer = {
   style: 'dark',
   links: [
     {
@@ -80,7 +79,7 @@ export const footer: Config['themeConfig']['footer'] = {
  *
  * @public
  */
-export const metadata: Config['themeConfig']['metadata'] = [
+const metadata = [
   /**
    * Presentational
    */
@@ -110,7 +109,7 @@ export const metadata: Config['themeConfig']['metadata'] = [
  *
  * @public
  */
-export const navbar: Config['themeConfig']['navbar'] = {
+const navbar = {
   hideOnScroll: true,
   logo: {
     alt: config.name,
@@ -165,8 +164,16 @@ export const navbar: Config['themeConfig']['navbar'] = {
  *
  * @public
  */
-export const prism: Config['themeConfig']['prism'] = {
+const prism = {
   additionalLanguages: ['php'],
   darkTheme: dracula,
   theme: github,
+}
+
+module.exports = {
+  announcementBar,
+  footer,
+  metadata,
+  navbar,
+  prism,
 }

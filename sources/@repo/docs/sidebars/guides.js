@@ -7,7 +7,11 @@ module.exports = {
         type: 'doc',
         id: 'overview/index',
       },
-      items: ['overview/installation', 'overview/requirements'],
+      items: [
+        'overview/what-is-bud',
+        'overview/installation',
+        'overview/requirements',
+      ],
     },
     {
       type: 'category',
@@ -48,7 +52,20 @@ module.exports = {
         },
       ],
     },
-    'paths',
+    {
+      type: 'category',
+      label: 'CLI',
+      link: {
+        type: 'doc',
+        id: 'cli/index',
+      },
+      items: [
+        'cli/bud-build',
+        'cli/bud-clean',
+        'cli/bud-dev',
+        'cli/bud-doctor',
+      ],
+    },
     'node-api',
   ],
 }
