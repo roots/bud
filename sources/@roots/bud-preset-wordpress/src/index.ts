@@ -10,19 +10,15 @@
  * @packageDocumentation
  */
 
-import type {Bud, Extension} from '@roots/bud-framework'
+import './bud.env'
 
-declare module '@roots/bud-framework' {
-  interface Modules {
-    '@roots/bud-preset-wordpress': BudWordPressPreset
-  }
-}
+import type {Bud, Extension} from '@roots/bud-framework'
 
 /**
  * Preset config for WordPress plugins & themes
  * @public
  */
-type BudWordPressPreset = Extension.Module
+export type BudWordPressPreset = Extension.Module
 
 /**
  * Find/replace {@link URL.href} with {@link URL.pathname}
