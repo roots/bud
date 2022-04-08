@@ -22,10 +22,11 @@ export const Mast = () => {
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
       <div className="container">
         <h1 className="hero__title">
-          Bud is a beautiful way to build your CSS and JS
+          **bud.js** is a javascript build framework
         </h1>
         <h2 className="hero__subtitle">
-          CSS, PostCSS, Sass, Javascript, Typescript
+          with support for Babel, React, PostCSS, CSS-in-JS, Sass, Typescript,
+          esbuild, ESLint, Prettier, and more.
         </h2>
 
         <div className={styles.buttons}>
