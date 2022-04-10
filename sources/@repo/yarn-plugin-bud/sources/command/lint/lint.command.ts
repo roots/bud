@@ -1,6 +1,6 @@
 import {CommandClass, Option} from 'clipanion'
 
-import {Command} from './base.command'
+import {Command} from '../base.command'
 
 /**
  * Lint command class
