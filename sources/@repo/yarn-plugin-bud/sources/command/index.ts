@@ -1,11 +1,11 @@
 import {Build} from './build.command'
 import {Clean} from './clean.command'
 import {Compile} from './compile.command'
-import {ContainerDown} from './container/down.command'
-import {ContainerUp} from './container/up.command'
 import {Dev} from './dev.command'
 import {Docs} from './docs.command'
-import {Lint} from './lint.command'
+import {Eslint} from './lint/eslint.command'
+import {Lint} from './lint/lint.command'
+import {Prettier} from './lint/prettier.command'
 import {Make} from './make.command'
 import {Publish} from './publish.command'
 import {Release} from './release.command'
@@ -16,11 +16,11 @@ export const Commands = {
   Build,
   Clean,
   Compile,
-  ContainerDown,
-  ContainerUp,
   Dev,
   Docs,
   Lint,
+  Eslint,
+  Prettier,
   Make,
   Publish,
   Release,
