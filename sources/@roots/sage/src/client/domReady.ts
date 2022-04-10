@@ -1,5 +1,5 @@
 /**
- * Calls given function once document has loaded.
+ * Calls once document has loaded.
  *
  * @param onReady - callback function
  * @returns void
@@ -16,4 +16,4 @@ const domReady: domReady = onReady => {
   })
 }
 
-export default domReady
+export {domReady as default}

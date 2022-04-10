@@ -8,7 +8,7 @@ export type BudHtmlWebpackPlugin = Plugin<
 >
 
 export const BudHtmlWebpackPlugin: BudHtmlWebpackPlugin = {
-  name: 'html-webpack-plugin',
+  label: 'html-webpack-plugin',
 
   options(app: Bud) {
     return {

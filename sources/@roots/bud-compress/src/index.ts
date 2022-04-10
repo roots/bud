@@ -84,4 +84,4 @@ export namespace BudCompressionExtension {
   }
 }
 
-export const {name, boot} = BudCompressionExtension
+export const {label, boot} = BudCompressionExtension

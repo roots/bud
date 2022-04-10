@@ -11,7 +11,7 @@ import {Options, ThemeJsonWebpackPlugin} from './plugin'
  */
 export interface ThemeExtension
   extends Framework.Extension.Plugin<ThemeJsonWebpackPlugin, Options> {
-  name: 'wp-theme-json'
+  label: 'wp-theme-json'
   options: (app: Framework.Bud) => Options
   api: {
     themeJson: themeJson.method
@@ -19,18 +19,10 @@ export interface ThemeExtension
   }
 }
 
-/**
- * Extension name
- *
- * @public
- */
-export const name: ThemeExtension['name'] = 'wp-theme-json'
+/** @public */
+export const label: ThemeExtension['label'] = 'wp-theme-json'
 
-/**
- * Extension options
- *
- * @public
- */
+/** @public */
 export const options: ThemeExtension['options'] = app => ({
   path: app.path('theme.json'),
   settings: {
@@ -53,30 +45,18 @@ export const options: ThemeExtension['options'] = app => ({
   },
 })
 
-/**
- * Extension api
- *
- * @public
- */
+/** @public */
 export const api: ThemeExtension['api'] = {
   themeJson: themeJson.method,
   useTailwindColors: useTailwindColors.method,
 }
 
-/**
- * Extension make
- *
- * @public
- */
+/** @public */
 export const make: ThemeExtension['make'] = options =>
   new ThemeJsonWebpackPlugin({
     path: options.get('path'),
     settings: options.get('settings'),
   })
 
-/**
- * Extension when
- *
- * @public
- */
+/** @public */
 export const when: ThemeExtension['when'] = false

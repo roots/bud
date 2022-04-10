@@ -39,16 +39,6 @@ export interface Connection {
   url: URL
 
   /**
-   * User specifications
-   * @public
-   */
-  specification: {
-    port: Array<number>
-    exclude: Array<number>
-    host: string
-  }
-
-  /**
    * Create server
    * @public
    */

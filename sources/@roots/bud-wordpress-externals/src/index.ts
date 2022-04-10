@@ -25,4 +25,4 @@ declare module '@roots/bud-framework' {
   }
 }
 
-export const {name, make} = PluginAdapter
+export const {label, make} = PluginAdapter

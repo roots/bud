@@ -3,7 +3,7 @@ import TerserPlugin from 'terser-webpack-plugin'
 import {Extension} from './'
 import {terser} from './terser.api'
 
-export const name: Extension['name'] = '@roots/bud-terser'
+export const label: Extension['label'] = '@roots/bud-terser'
 
 export const options: Extension['options'] = app => ({
   include: app.store.get('patterns.js'),

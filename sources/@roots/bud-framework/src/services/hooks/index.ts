@@ -188,8 +188,7 @@ export type LocationKeyMap = {
 }
 
 export type ModuleOptions = {
-  [K in keyof Modules as `extension.${K &
-    string}.options`]: Modules[K]['options']
+  [K in keyof Modules as `extension.${K & string}.options`]: any
 }
 
 /**
@@ -202,7 +201,7 @@ export interface Map
     Server.Middleware.Middleware<`factory`>,
     Server.OptionsMap,
     LocationKeyMap,
-    ConfigMap, 
+    ConfigMap,
     ModuleOptions {
   [`extension`]: ValueOf<Modules>
   /**
@@ -230,7 +229,7 @@ export interface Map
   /**
    * Ports to prefer
    */
-  [`dev.port`]: Array<number>
+  [`dev.port`]: number
   /**
    * Should use SSL server
    */

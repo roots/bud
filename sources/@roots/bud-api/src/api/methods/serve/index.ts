@@ -1,9 +1,7 @@
 import type {Bud} from '@roots/bud-framework'
-import {fs, lodash} from '@roots/bud-support'
+import {fs, getPort} from '@roots/bud-support'
 import Https from 'https'
 import Http from 'https'
-
-const {isUndefined} = lodash
 
 /**
  * Specification object
@@ -110,16 +108,31 @@ export const method: Serve = async function (
   if (!app.isDevelopment) return app
 
   if (Array.isArray(options) || typeof options === 'number') {
-    assignNumberArr(app, 'dev.port', options)
+    const port = await processPort(
+      app,
+      options,
+      [],
+    )
+    app.hooks.on('dev.port', port)
     return app
   }
 
   if (options instanceof URL || typeof options === 'string') {
     assignURL(app, options)
-    return app
+  } else {
+    await assignSpec(app, options)
   }
 
-  await assignSpec(app, options)
+  const requestPort = (options as Specification)?.port ?? app.hooks.filter('dev.port') ?? 3000
+  const requestExclude = (options as Specification)?.exclude ?? []
+  const port = await processPort(
+    app,
+    requestPort,
+    requestExclude
+  )
+
+  app.hooks.on('dev.port', port)
+
   return app
 }
 
@@ -150,13 +163,8 @@ const assignSpec = async (app: Bud, spec: Specification) => {
     app.hooks.on('dev.ssl', true)
   }
 
-  if (!isUndefined(spec.ssl)) app.hooks.on('dev.ssl', spec.ssl)
-
   spec.options && app.hooks.on('dev.options', spec.options)
   spec.interface && app.hooks.on('dev.interface', spec.interface)
-
-  spec.port && assignNumberArr(app, 'dev.port', spec.port)
-  spec.exclude && assignNumberArr(app, 'dev.exclude', spec.exclude)
   spec.host && assignHostname(app, spec.host)
 }
 
@@ -164,31 +172,17 @@ const assignSpec = async (app: Bud, spec: Specification) => {
  * Process Node URL
  * @public
  */
-const assignURL = (app: Bud, url: URL | string) => {
+const assignURL = async (app: Bud, url: URL | string) => {
   url = url instanceof URL ? url : new URL(url)
 
-  app.hooks.on('dev.hostname', url.hostname)
-  url.port && app.hooks.on('dev.port', [Number(url.port)])
-  app.hooks.on('dev.ssl', url.protocol === 'https:')
-}
+  if (url.port) {
+    const port = await processPort(app, Number(url.port), [])
+    url.port = `${port}`
+    app.hooks.on('dev.port', port)
+  }
 
-/**
- * Assign nummber or array of numbers to either dev.exclude or dev.port
- *
- * @remarks
- * normalized to array
- *
- * @public
- */
-const assignNumberArr = (
-  app: Bud,
-  key: 'dev.exclude' | 'dev.port',
-  maybeNumber: Array<number> | number,
-) => {
-  app.hooks.on(
-    key,
-    Array.isArray(maybeNumber) ? maybeNumber : [maybeNumber],
-  )
+  app.hooks.on('dev.hostname', url.hostname)
+  app.hooks.on('dev.ssl', url.protocol === 'https:')
 }
 
 /**
@@ -201,6 +195,29 @@ const assignNumberArr = (
 const assignHostname = (app: Bud, hostname: string) => {
   app.hooks.on(
     'dev.hostname',
-    hostname.replace('http:', '').replace('https:', '').replace('/', ''),
+    hostname.replace('http://', '//').replace('https://', '//'),
   )
+}
+
+const processPort = async (app: Bud, port: number | Array<number>, exclude: number | Array<number>) => {
+  const portRequest = Array.isArray(port) ? port : [port]
+  const excludeRequest = Array.isArray(exclude)
+    ? exclude
+    : [exclude]
+
+  port = await getPort({
+    port: portRequest,
+    exclude: excludeRequest,
+  })
+
+  if (!portRequest.includes(port)) {
+    app.warn(
+      `\n`,
+      `None of the requested ports could be resolved.`,
+      `A port was automatically selected: ${port}`,
+      `\n`,
+    )
+  }
+
+  return port
 }

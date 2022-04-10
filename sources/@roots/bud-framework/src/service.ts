@@ -8,7 +8,7 @@ const {isString, isUndefined} = lodash
 
 /**
  * Service
- * 
+ *
  * @remarks
  * The {@link Service} interface extends {@link Bootstrapper}, which provides {@link @roots/container#Container}
  * and {@link Bud} access

@@ -19,4 +19,4 @@ declare module '@roots/bud-framework' {
   }
 }
 
-export const {name, options, make} = BudEntrypointsExtension
+export const {label, options, make} = BudEntrypointsExtension

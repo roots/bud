@@ -8,7 +8,7 @@ interface BudDllPluginConstructor {
 }
 
 const BudDllPluginConstructor: BudDllPluginConstructor = modules => ({
-  name: 'autodll-webpack-plugin',
+  label: 'autodll-webpack-plugin',
 
   options: (app: Bud) => ({
     debug: false,

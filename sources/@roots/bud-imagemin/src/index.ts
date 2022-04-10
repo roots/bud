@@ -30,7 +30,7 @@ declare module '@roots/bud-framework' {
  *
  * @public
  */
-export const name: Extension.Module['name'] = BudImagemin.name
+export const label: Extension.Module['label'] = BudImagemin.label
 
 /**
  * Extension options

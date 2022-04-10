@@ -26,7 +26,7 @@ const BudStylelintWebpackPlugin: Extension.Plugin<
   StylelintWebpackPlugin,
   Options
 > = {
-  name: 'stylelint-webpack-plugin',
+  label: 'stylelint-webpack-plugin',
 
   options(app) {
     return {
@@ -39,4 +39,4 @@ const BudStylelintWebpackPlugin: Extension.Plugin<
   },
 }
 
-export const {name, options, make} = BudStylelintWebpackPlugin
+export const {label, options, make} = BudStylelintWebpackPlugin

@@ -38,4 +38,4 @@ declare module '@roots/bud-framework' {
   }
 }
 
-export const {name, boot} = VueExtension
+export const {label, boot} = VueExtension

@@ -14,7 +14,7 @@ import {critical} from './critical'
  */
 export interface BudCriticalCssPlugin
   extends Extensions.Plugin<CriticalCssWebpackPlugin, Partial<Options>> {
-  name: '@roots/bud-criticalcss'
+  label: '@roots/bud-criticalcss'
   options: Partial<Options>
   api: {critical: critical}
   make: (
@@ -34,7 +34,7 @@ export const BudCriticalCssPlugin: BudCriticalCssPlugin = {
    *
    * @public
    */
-  name: '@roots/bud-criticalcss',
+  label: '@roots/bud-criticalcss',
 
   /**
    * Extension api functions

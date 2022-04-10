@@ -5,13 +5,13 @@ import {library} from './library'
 
 export interface BudDllExtension
   extends Extension.Plugin<AutoDllPlugin, AutoDllPlugin.Options> {
-  name: Extension.Plugin['name'] & '@roots/bud-library'
+  label: Extension.Plugin['label'] & '@roots/bud-library'
   api: Extension.Plugin['api'] & {
     library: library
   }
 }
 
 export const BudDllExtension: BudDllExtension = {
-  name: '@roots/bud-library',
+  label: '@roots/bud-library',
   api: {library},
 }

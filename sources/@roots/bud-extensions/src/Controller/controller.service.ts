@@ -1,16 +1,10 @@
-import {Modules, Service} from '@roots/bud-framework'
+import {Extension, Modules} from '@roots/bud-framework'
+import {bind, lodash, Signale} from '@roots/bud-support'
 import {Container} from '@roots/container'
 
-import {
-  bind,
-  chalk,
-  isFunction,
-  isObject,
-  isUndefined,
-  omit,
-  Signale,
-} from './controller.dependencies'
-import {Bud, Extension, Plugin} from './controller.interface'
+import {Bud} from './controller.interface'
+
+const {isFunction, isObject, isUndefined} = lodash
 
 /**
  * Extension instance controller
@@ -18,13 +12,11 @@ import {Bud, Extension, Plugin} from './controller.interface'
  * @public
  */
 export class Controller {
-  /**
-   * @internal
-   */
-  public _app: () => Bud
+  /** @internal @readonly */
+  private readonly _app: () => Bud
 
   /**
-   * The application instance
+   * The Bud instance
    *
    * @public @readonly
    */
@@ -36,62 +28,48 @@ export class Controller {
    * @public
    */
   public meta: {
-    instance: string
-    bound: boolean
-    mixed: boolean
-    registered: boolean
-    booted: boolean
+    register: boolean
+    boot: boolean
   } = {
-    instance: null,
-    bound: false,
-    mixed: false,
-    registered: false,
-    booted: false,
+    register: false,
+    boot: false,
   }
 
-  public get moduleLogger(): Signale {
-    let logger = new Signale().scope(this.name)
-
-    if (this.app.store.is('features.log', false)) {
-      logger.disable()
-    }
-
-    return logger
-  }
+  public moduleLogger: Signale
 
   /**
    * @internal
    */
-  public _module: Extension | Plugin = {}
-
-  /**
-   * @public
-   */
-  public log: typeof Service.prototype.log
+  public _module:
+    | Extension.Module
+    | Extension.Plugin
+    | Extension.Extension = {}
 
   /**
    * Controller constructor
    *
    * @public
    */
-  public constructor(_app: Bud, extension: Extension) {
+  public constructor(
+    _app: Bud,
+    extension: Extension.Module | Extension.Plugin | Extension.Extension,
+  ) {
     this._app = () => _app
-    this.log = this.app.extensions.log
-    this.meta.instance = this.app.name
 
     if (!extension) {
-      throw Error(`extension controller constructor: missing module`)
+      this.app.info(this.app.extensions.all())
+      this.app.error(`extension controller: missing module`)
     }
 
-    if (!extension.name) {
-      this.app.dump(extension)
-      throw Error(`name is a required property for extensions`)
-    }
+    if (isFunction(extension)) {
+      this._module = new (extension as any)(() => _app)
+    } else Object.assign(this._module, extension)
 
-    this.name = extension.name
-    this.options = extension.options
+    this.moduleLogger = new Signale().scope(this.label)
+    this.app.store.isFalse('features.log') && this.moduleLogger.disable()
+    this._module.logger = this.moduleLogger
 
-    Object.assign(this._module, omit(extension, ['name', 'options']))
+    this.moduleLogger.success('constructed')
   }
 
   /**
@@ -117,11 +95,11 @@ export class Controller {
    *
    * @public
    */
-  public get name(): string {
-    return this._module.name
+  public get label(): string {
+    return this._module.label
   }
-  public set name(name: string) {
-    this._module.name = name
+  public set label(label: string) {
+    this._module.label = label
   }
 
   /**
@@ -140,18 +118,19 @@ export class Controller {
 
     if (this._module.options instanceof Container) {
       return this.app.hooks.filter(
-        `extension.${this._module.name as keyof Modules & string}.options`,
+        `extension.${this.label as keyof Modules & string}.options`,
         () => this._module.options,
       )
     }
 
-    if (!isObject(this._module.options))
-      throw new Error(
-        `${this.name} options must be an object or Container instance`,
+    if (!isObject(this._module.options)) {
+      this.app.error(
+        `${this.label} options must be an object or Container instance`,
       )
+    }
 
     return this.app.hooks.filter(
-      `extension.${this._module.name as keyof Modules & string}.options`,
+      `extension.${this.label as keyof Modules & string}.options`,
       () => this.app.container(this._module.options),
     )
   }
@@ -176,7 +155,7 @@ export class Controller {
   @bind
   public mutateOptions(options) {
     if (!isFunction(options)) {
-      throw new Error(
+      this.app.error(
         `mutation must be a function that receives a container and returns an object or container`,
       )
     }
@@ -184,7 +163,7 @@ export class Controller {
     const result = options(this.options)
 
     if (!(result instanceof Container) || !isObject(result)) {
-      throw new Error(`mutation must return an object or container`)
+      this.app.error(`mutation must return an object or container`)
     }
 
     this.options = result
@@ -208,7 +187,7 @@ export class Controller {
     }
 
     if (!isObject(options)) {
-      throw new Error(`merged options must be an object or container`)
+      this.app.error(`merged options must be an object or container`)
     }
 
     const optionsContainer = this.options
@@ -229,8 +208,7 @@ export class Controller {
   @bind
   public mergeOption(key, options) {
     if (!this.options.has(key)) {
-      this.app.error(`[${this.name}] key ${key} does not exist`)
-      throw new Error(`[${this.name}] key ${key} does not exist`)
+      this.app.error(`[${this.label}] key ${key} does not exist`)
     }
 
     const optionsContainer = this.options
@@ -239,10 +217,8 @@ export class Controller {
   }
 
   /**
-   * Set an extension option
+   * Set options
    *
-   * @param key - option key
-   * @param value - options value
    * @public
    */
   @bind
@@ -258,7 +234,7 @@ export class Controller {
     }
 
     this.app.error(
-      `[${this.name}] options must be a container or an object`,
+      `[${this.label}] options must be a container or an object`,
     )
   }
 
@@ -285,7 +261,7 @@ export class Controller {
   @bind
   public getOption(key) {
     if (!this.options.has(key)) {
-      throw new Error(`key ${key} does not exist`)
+      this.app.error(`key ${key} does not exist`)
     }
 
     return this.options.get(key)
@@ -301,16 +277,7 @@ export class Controller {
     if (this.when === false) return false
     if (!this._module.make && !this._module.apply) return false
 
-    if (this._module.apply) {
-      return this._module
-    }
-
-    if (!this.options.isEmpty())
-      this.app.dump(this.options.all(), {
-        prefix: `${chalk.bgBlue(`${this.app.name}`)} ${
-          this.name
-        } ctor options`,
-      })
+    if (this._module.apply) return this._module
 
     return isFunction(this._module.make)
       ? this._module.make(this.options, this.app)
@@ -351,130 +318,35 @@ export class Controller {
   @bind
   public async register(): Promise<Controller> {
     if (!this._module.register) {
-      this.meta.registered = true
-      return this
+      this.meta.register = true
     }
-    if (this.meta.registered) return this
-    this.meta.registered = true
+    if (this.meta.register) return this
 
-    this.app.project.has(`project.peers.${this.name}.requires`) &&
-      (await Promise.all(
+    this.meta.register = true
+
+    this.moduleLogger.info(`registering`)
+
+    if (this.app.project.has(`project.peers.${this.label}.requires`)) {
+      await Promise.all(
         this.app.project
-          .get(`project.peers.${this.name}.requires`)
+          .get(`project.peers.${this.label}.requires`)
           .map(async ([name]) => {
-            if (!this.app.extensions.get(name).meta.registered) {
+            if (!this.app.extensions.get(name).meta.register) {
               await this.app.extensions.get(name).register()
             }
           }),
-      ))
-
-    await this.mixin()
-    await this.api()
+      )
+    }
 
     if (isFunction(this._module.register)) {
       await this._module.register(this.app, this.moduleLogger)
-
-      await this.app.api.processQueue()
-
-      this.moduleLogger.success({
-        message: `register called`,
-        suffix: chalk.dim`${this.name}`,
-      })
     }
+
+    await this.app.api.processQueue()
+
+    this.moduleLogger.success(`registered`)
 
     return this
-  }
-
-  /**
-   * @public
-   */
-  @bind
-  public async api(): Promise<Controller> {
-    if (!this._module.api) {
-      this.meta.bound = true
-      return this
-    }
-    if (this.meta.bound) return this
-    this.meta.bound = true
-    this.app.project.has(`project.peers.${this.name}.requires`) &&
-      (await Promise.all(
-        this.app.project
-          .get(`project.peers.${this.name}.requires`)
-          .map(async ([name]) => {
-            if (!this.app.extensions.get(name).meta.bound) {
-              await this.app.extensions.get(name).api()
-            }
-          }),
-      ))
-
-    const methodMap: Record<string, CallableFunction> = isFunction(
-      this._module.api,
-    )
-      ? await this._module.api(this.app)
-      : this._module.api
-
-    if (!isObject(methodMap))
-      throw new Error(
-        `${this.name}] api must be an object or return an object`,
-      )
-
-    Object.entries(methodMap).forEach(([name, method]) => {
-      if (!isFunction(method))
-        throw new Error(`${name} must be a function`)
-
-      this.app.api.set(name, method.bind ? method.bind(this.app) : method)
-
-      this.app.api.bindFacade(name)
-
-      if (isUndefined(this.app[name]) || !isFunction(this.app[name]))
-        throw new Error(
-          `there was a problem binding the ${name} fn to bud (${this.name})`,
-        )
-    })
-
-    return this
-  }
-
-  /**
-   * @public
-   */
-  @bind
-  public async mixin(): Promise<this> {
-    if (!this._module.mixin) {
-      this.meta.mixed = true
-      return this
-    }
-    if (this.meta.mixed) return this
-    this.meta.mixed = true
-    this.app.project.has(`project.peers.${this.name}.requires`) &&
-      (await Promise.all(
-        this.app.project
-          .get(`project.peers.${this.name}.requires`)
-          .map(async ([name]) => {
-            if (!this.app.extensions.get(name).meta.mixed) {
-              await this.app.extensions.get(name).mixin()
-            }
-          }),
-      ))
-
-    let classMap: Record<string, any>
-
-    if (isFunction(this._module.mixin)) {
-      classMap = await this._module.mixin(this.app)
-    } else {
-      classMap = this._module.mixin
-    }
-
-    if (!isObject(classMap)) return
-
-    this.app.mixin(classMap)
-
-    Object.entries(classMap).forEach(([k, v]) => {
-      this.moduleLogger.success({
-        message: `registered ${this.app.name}.${k}`,
-        suffix: chalk.dim`${this.name}`,
-      })
-    })
   }
 
   /**
@@ -489,31 +361,33 @@ export class Controller {
   @bind
   public async boot(): Promise<this> {
     if (!this._module.boot) {
-      this.meta.booted = true
+      this.meta.boot = true
       return this
     }
-    if (this.meta.booted) return this
-    this.meta.booted = true
-    this.app.project.has(`project.peers.${this.name}.requires`) &&
-      (await Promise.all(
+    if (this.meta.boot) return this
+    this.meta.boot = true
+
+    this.moduleLogger.info(`registering`)
+
+    if (this.app.project.has(`project.peers.${this.label}.requires`)) {
+      await Promise.all(
         this.app.project
-          .get(`project.peers.${this.name}.requires`)
+          .get(`project.peers.${this.label}.requires`)
           .map(async ([name]) => {
             if (!this.app.extensions.get(name).meta.boot) {
               await this.app.extensions.get(name).boot()
             }
           }),
-      ))
+      )
+    }
 
     if (isFunction(this._module.boot)) {
       await this._module.boot(this.app, this.moduleLogger)
-
-      await this.app.api.processQueue()
-
-      this.moduleLogger.success({
-        message: `${this.name} booted`,
-      })
     }
+
+    await this.app.api.processQueue()
+
+    this.moduleLogger.success(`booted`)
 
     return this
   }

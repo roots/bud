@@ -6,7 +6,7 @@ import {BudCompressionExtension} from './'
 interface BudGzipWebpackPlugin
   extends Extension.Plugin<Plugin, BudCompressionExtension.Options> {}
 
-const name: BudGzipWebpackPlugin['name'] = 'bud-gzip-webpack-plugin'
+const label: BudGzipWebpackPlugin['label'] = 'bud-gzip-webpack-plugin'
 
 const options: BudGzipWebpackPlugin['options'] = {
   algorithm: 'gzip',
@@ -39,7 +39,7 @@ const api: BudGzipWebpackPlugin['api'] = {
 const when = ({store}) => store.is('features.gzip', true)
 
 const BudGzipWebpackPlugin: BudGzipWebpackPlugin = {
-  name,
+  label,
   options,
   make,
   api,

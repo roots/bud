@@ -8,13 +8,13 @@ import {reactRefresh} from './react-refresh/reactRefresh'
  * @public
  */
 export interface ReactExtension extends Extensions.Module {
-  name: '@roots/bud-react'
+  label: '@roots/bud-react'
   api: {reactRefresh: reactRefresh}
   boot: (app: Bud) => Promise<void>
 }
 
 export const ReactExtension: ReactExtension = {
-  name: '@roots/bud-react',
+  label: '@roots/bud-react',
   api: {reactRefresh},
   boot: async app => {
     app.babel.setPreset(

@@ -15,34 +15,34 @@ export interface when {
   ): Bud
 }
 
-  /**
-   * Executes a function if a given test is `true`.
-   *
-   * @remarks
-   * - The first parameter is the conditional check.
-   * - The second parameter is the function to run if `true`.
-   * - The third parameter is optional; executed if the conditional is not `true`.
-   *
-   * @example
-   * Only produce a vendor bundle when running in `production`:
-   *
-   * ```js
-   * bud.when(bud.isProduction, () => bud.vendor())
-   * ```
-   *
-   * @example
-   * Use `eval` sourcemap in development mode and `hidden-source-map` in production:
-   *
-   * ```js
-   * bud.when(
-   *   bud.isDevelopment,
-   *   () => bud.devtool('eval'),
-   *   () => bud.devtool('hidden-source-map'),
-   * )
-   * ```
-   *
-   * @public
-   */
+/**
+ * Executes a function if a given test is `true`.
+ *
+ * @remarks
+ * - The first parameter is the conditional check.
+ * - The second parameter is the function to run if `true`.
+ * - The third parameter is optional; executed if the conditional is not `true`.
+ *
+ * @example
+ * Only produce a vendor bundle when running in `production`:
+ *
+ * ```js
+ * bud.when(bud.isProduction, () => bud.vendor())
+ * ```
+ *
+ * @example
+ * Use `eval` sourcemap in development mode and `hidden-source-map` in production:
+ *
+ * ```js
+ * bud.when(
+ *   bud.isDevelopment,
+ *   () => bud.devtool('eval'),
+ *   () => bud.devtool('hidden-source-map'),
+ * )
+ * ```
+ *
+ * @public
+ */
 export function when(
   test: ((app: Bud) => boolean) | boolean,
   trueCase: (app: Bud) => any,

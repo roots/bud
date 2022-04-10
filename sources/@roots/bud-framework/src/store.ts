@@ -117,7 +117,7 @@ export namespace Store {
 
     /**
      * Enable or disable proxy
-     * 
+     *
      * @public
      */
     ['features.proxy']?: boolean
@@ -171,7 +171,7 @@ export namespace Store {
      * @public
      */
     fileFormat: string
-  
+
     /**
      * File format (when hashing is enabled)
      *

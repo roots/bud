@@ -12,7 +12,6 @@
 
 import './typings'
 
-import {BudTailwindCssExtension} from './tailwind.extension'
+import {BudTailwindCss} from './tailwind.extension'
 
-export const name = BudTailwindCssExtension.label
-export const boot = BudTailwindCssExtension.boot
+export {BudTailwindCss as default}

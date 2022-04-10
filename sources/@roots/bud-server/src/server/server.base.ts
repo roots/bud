@@ -1,6 +1,6 @@
 import {Bud, Server} from '@roots/bud-framework'
 import {Connection} from '@roots/bud-framework/types/services/server/connection'
-import {bind, getPort, Signale} from '@roots/bud-support'
+import {bind, Signale} from '@roots/bud-support'
 import {IncomingMessage, Server as HttpServer} from 'http'
 import {Server as HttpsServer} from 'https'
 import {ServerResponse} from 'webpack-dev-middleware'
@@ -77,18 +77,6 @@ export abstract class BaseServer implements Connection {
   }
 
   /**
-   * Port options
-   * @public
-   */
-  public get specification() {
-    return {
-      port: this.app.hooks.filter('dev.port', [3000]),
-      exclude: this.app.hooks.filter('dev.exclude', []),
-      host: this.interface,
-    }
-  }
-
-  /**
    * Constructor
    * @param app - Bud
    * @public
@@ -106,19 +94,8 @@ export abstract class BaseServer implements Connection {
    */
   @bind
   public async setup() {
-    this.port = await getPort(this.specification)
-
-    if (!this.specification.port.includes(Number(this.port))) {
-      this.logger.warn(
-        `\n`,
-        `None of the requested ports could be resolved.`,
-        `A port was automatically selected: ${this.port}`,
-        `\n`,
-      )
-    }
-
     this.url = new URL(`${this.protocol}//${this.hostname}`)
-    this.url.port = `${this.port}`
+    this.url.port = `${this.app.hooks.filter('dev.port')}`
     this.url.pathname = '/'
   }
 

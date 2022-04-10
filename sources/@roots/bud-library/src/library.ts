@@ -26,11 +26,11 @@ import {BudDllPluginConstructor} from './BudDllPlugin'
  * @public
  */
 export interface library {
-  (this: Bud, modules: string | string[]): Bud
+  (this: Bud, modules: string | string[]): Promise<Bud>
 }
 
-export const library: library = function (modules) {
-  this.extensions.enqueue(BudDllPluginConstructor(modules))
+export const library: library = async function (modules) {
+  await this.extensions.add(BudDllPluginConstructor(modules))
 
   return this
 }

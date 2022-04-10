@@ -1,9 +1,9 @@
 import '@roots/bud-postcss'
 
-import {BudTailwindCssExtension} from './tailwind.extension'
+import {BudTailwindCss} from './tailwind.extension'
 
 declare module '@roots/bud-framework' {
   interface Modules {
-    '@roots/bud-tailwindcss': BudTailwindCssExtension
+    '@roots/bud-tailwindcss': BudTailwindCss
   }
 }

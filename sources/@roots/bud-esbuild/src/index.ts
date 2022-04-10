@@ -19,7 +19,7 @@ import {ESBuildMinifyPlugin} from 'esbuild-loader'
 export type extension = Modules['@roots/bud-esbuild']
 
 /** @public */
-export const name: extension['name'] = '@roots/bud-esbuild'
+export const label: extension['label'] = '@roots/bud-esbuild'
 
 /** @public */
 export const options: extension['options'] = ({project, store}) => ({

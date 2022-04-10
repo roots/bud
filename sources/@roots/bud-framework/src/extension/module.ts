@@ -10,20 +10,24 @@ import {Bud, Modules, Plugins} from '..'
  *
  * @public
  */
-export interface Module<Options = any> extends Record<string, any> {
+export interface Module<Options = any> {
+  [key: string]: any
+  
   /**
    * The module name
    *
    * @public
    */
-  name?: `${(keyof Modules & string) | (keyof Plugins & string)}`
+  label?: `${(keyof Modules & string) | (keyof Plugins & string)}`
 
   /**
    * Options registered to the extension module
    *
    * @public
    */
-  options?: Options | ((app: Bud) => Options)
+  options?:
+    | Options
+    | ((app: Bud) => Options)
 
   /**
    * General purpose callback. Called first.
@@ -38,32 +42,6 @@ export interface Module<Options = any> extends Record<string, any> {
    * @public
    */
   boot?: (app: Bud, logger: Signale) => Promise<unknown>
-
-  /**
-   * Objects to bind to the Bud. May be expressed as an object literal or a factory function.
-   *
-   * @remarks
-   * You might also use {@link @roots/bud-Bud#Service.bindMethod | bindMethod} to accomplish the same thing.
-   *
-   * If expressed as a factory function, the function will be called with the {@link Bud} as the first parameter.
-   *
-   * @public
-   */
-  api?:
-    | ((app: Bud) => Promise<Record<string, CallableFunction>>)
-    | Record<string, CallableFunction>
-
-  /**
-   * Objects to bind to the Bud. May be expressed as an object literal or a factory function.
-   *
-   * @remarks
-   * You might also use {@link @roots/bud-Bud#Service.bindClass | bindClass} to accomplish the same thing.
-   *
-   * If expressed as a factory function, the function will be called with the {@link Bud} as the first parameter.
-   *
-   * @public
-   */
-  mixin?: (app: Bud) => Promise<Record<string, any>>
 
   /**
    * Boolean or a function returning a boolean indicating if the {@link Module} should be utilized.

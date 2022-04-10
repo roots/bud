@@ -8,7 +8,7 @@ import type {
 /**
  * @public
  */
-export const name: Extension['name'] = 'clean-webpack-plugin'
+export const label: Extension['label'] = 'clean-webpack-plugin'
 
 /**
  * @public

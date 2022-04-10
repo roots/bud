@@ -12,7 +12,7 @@ const Sage: Sage = {
   /**
    * @public
    */
-  name: '@roots/sage',
+  label: '@roots/sage',
 
   /**
    * @public

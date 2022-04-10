@@ -24,7 +24,7 @@ declare module '@roots/bud-framework' {
 type BudSolidExtension = Extension.Module
 
 const BudSolidExtension: BudSolidExtension = {
-  name: '@roots/bud-solid',
+  label: '@roots/bud-solid',
 
   async boot({babel, warn}) {
     !safeRequire('babel-preset-solid') &&
@@ -39,4 +39,4 @@ const BudSolidExtension: BudSolidExtension = {
   },
 }
 
-export const {name, boot} = BudSolidExtension
+export const {label, boot} = BudSolidExtension

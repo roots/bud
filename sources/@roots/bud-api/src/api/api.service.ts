@@ -40,14 +40,7 @@ export class Api
    */
   @bind
   public async bootstrap() {
-    this.setStore(
-      Object.entries(methods).reduce(
-        (a, [k, v]) => ({...a, [k]: v.bind(this.app)}),
-        {},
-      ),
-    )
-      .getKeys()
-      .map(this.bindFacade)
+    Object.entries(methods).map(([k, v]) => this.bindFacade(k, v))
   }
 
   /**
@@ -65,7 +58,8 @@ export class Api
    * @internal
    */
   @bind
-  public bindFacade(name: string) {
+  public bindFacade<K extends `${keyof Api['repository'] & string}`>(name: K, fn: Api['repository'][K]) {
+    this.set(name, fn.bind(this.app))
     this.app.bindMethod({[`${name}`]: facade.factory(name)})
   }
 

@@ -17,7 +17,7 @@ export type Options = Plugin['options']
  */
 export interface BudTypeCheckPlugin
   extends Extension.Plugin<Plugin, Options> {
-  name: 'fork-ts-checker-webpack-plugin'
+  label: 'fork-ts-checker-webpack-plugin'
   options(app: Bud): Options
 }
 
@@ -26,7 +26,7 @@ export interface BudTypeCheckPlugin
  *
  * @public
  */
-export const name: BudTypeCheckPlugin['name'] =
+export const label: BudTypeCheckPlugin['label'] =
   'fork-ts-checker-webpack-plugin'
 
 /**

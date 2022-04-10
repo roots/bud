@@ -27,7 +27,7 @@ export class Rule extends Base implements Build.Rule {
    *
    * @public
    */
-  public use?: Array<keyof Build.Items & string>
+  public use?: Array<`${keyof Build.Items & string}`>
 
   /**
    * Include paths

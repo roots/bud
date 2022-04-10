@@ -9,10 +9,7 @@ import {InterpolateHtmlPlugin} from './interpolate-html-plugin.plugin'
  * @public
  */
 export interface BudInterpolateHtmlPlugin
-  extends Plugin<
-    InterpolateHtmlPlugin,
-    Record<string, RegExp>
-  > {}
+  extends Plugin<InterpolateHtmlPlugin, Record<string, RegExp>> {}
 
 /**
  * Adapter for {@link InterpolateHtmlPlugin}
@@ -20,17 +17,13 @@ export interface BudInterpolateHtmlPlugin
  * @public
  */
 export const BudInterpolateHtmlPlugin: BudInterpolateHtmlPlugin = {
-  /**
-   * {@inheritDoc @roots/bud-framework#Extension.Plugin.name}
-   *
-   * @public
+  /** 
+   * @public 
    */
-  name: 'interpolate-html-plugin',
+  label: 'interpolate-html-plugin',
 
-  /**
-   * {@inheritDoc @roots/bud-framework#Extension.Plugin.options}
-   *
-   * @public
+  /** 
+   * @public 
    */
   options: (app: Bud) => {
     return {
@@ -40,25 +33,12 @@ export const BudInterpolateHtmlPlugin: BudInterpolateHtmlPlugin = {
   },
 
   /**
-   * {@inheritDoc @roots/bud-framework#Extension.Plugin.make}
-   *
    * @public
    */
-  make: (options, app) => {
-    app.dump(options.all(), {
-      prefix: `${app.name} interpolate-html-plugin made with options`,
-    })
-
-    return new InterpolateHtmlPlugin(
-      HtmlWebpackPlugin as any,
-      options.all(),
-      app,
-    )
-  },
+  make: (options) =>
+    new InterpolateHtmlPlugin(HtmlWebpackPlugin as any, options.all()),
 
   /**
-   * {@inheritDoc @roots/bud-framework#Extension.Plugin.when}
-   *
    * @public
    */
   when: (_app, options) => options.getEntries().length > 0,

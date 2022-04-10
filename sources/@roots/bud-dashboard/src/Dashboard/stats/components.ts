@@ -192,8 +192,8 @@ export const framework = (app: Bud) => [
         .map(chunk =>
           [
             ...chunk.map(
-              ({name}) =>
-                `${chalk.hex(theme.cyan)(`\`${name.toLowerCase()}\``)}`,
+              ({label}) =>
+                `${chalk.hex(theme.cyan)(`\`${label?.toLowerCase()}\``)}`,
             ),
             ...Array(1).fill(``),
           ].slice(0, 2),

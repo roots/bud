@@ -10,14 +10,14 @@ import {Container} from '@roots/container'
  */
 export interface ReactRefreshExtension
   extends Extension.Plugin<RefreshPlugin, ReactRefreshPluginOptions> {
-  name: '@pmmmwh/react-refresh-webpack-plugin'
+  label: '@pmmmwh/react-refresh-webpack-plugin'
   options: ReactRefreshPluginOptions
   make: (options: Container<ReactRefreshPluginOptions>) => RefreshPlugin
   when: (app: Bud) => boolean
 }
 
 export const ReactRefreshExtension: ReactRefreshExtension = {
-  name: '@pmmmwh/react-refresh-webpack-plugin',
+  label: '@pmmmwh/react-refresh-webpack-plugin',
 
   options: {overlay: false},
 

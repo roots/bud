@@ -17,7 +17,7 @@ export const extension: extension = {
    *
    * @public
    */
-  name: '@roots/bud-sass',
+  label: '@roots/bud-sass',
 
   /**
    * Extension registration callback

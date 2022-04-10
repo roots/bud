@@ -282,7 +282,9 @@ export class Hooks
    * @decorator `@bind`
    */
   @bind
-  public async fire<T extends keyof Events & string>(id: T): Promise<Framework.Bud> {
+  public async fire<T extends keyof Events & string>(
+    id: T,
+  ): Promise<Framework.Bud> {
     if (!this.has(id)) return
 
     const retrieved = this.get(id)

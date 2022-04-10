@@ -4,7 +4,7 @@ import type Webpack from 'webpack'
 
 export interface BudWebpackDefinePlugin
   extends Extension.Plugin<Webpack.DefinePlugin, Options> {
-  name: 'webpack-define-plugin' & Extension.Plugin['name']
+  label: 'webpack-define-plugin' & Extension.Plugin['label']
   make: (options: Container<Options>) => Webpack.DefinePlugin
   when: (app: Bud, options: Container<Options>) => boolean
   options: (app: Bud) => Options

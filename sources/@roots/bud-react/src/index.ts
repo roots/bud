@@ -15,4 +15,4 @@ import './global'
 
 import {ReactExtension} from './extension'
 
-export const {api, boot, name} = ReactExtension
+export const {api, boot, label} = ReactExtension

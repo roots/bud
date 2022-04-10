@@ -81,10 +81,8 @@ class Configuration {
 export const config = async (app: Bud) => {
   const process = async (manifests: ConfigManifest): Promise<void> => {
     await app.api.processQueue()
-    await app.extensions.processQueue()
     await new Configuration(app, manifests).run()
     await app.api.processQueue()
-    await app.extensions.processQueue()
   }
 
   const baseConfig = app.project.get(`config.base`)

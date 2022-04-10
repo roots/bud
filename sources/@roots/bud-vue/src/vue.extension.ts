@@ -5,7 +5,7 @@ import {VueLoaderPlugin} from 'vue-loader'
  * @public
  */
 export const VueExtension: Extension.Module = {
-  name: '@roots/bud-vue',
+  label: '@roots/bud-vue',
 
   boot: async app => {
     await app.extensions.add({

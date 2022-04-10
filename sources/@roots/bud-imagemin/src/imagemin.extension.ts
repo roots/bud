@@ -7,7 +7,7 @@ import ImageMinimizerPlugin, {
 
 import {imagemin} from './imagemin.config'
 
-export const name: Extension.Module['name'] = '@roots/bud-imagemin'
+export const label: Extension.Module['label'] = '@roots/bud-imagemin'
 
 export const options: Extension.Module['options'] | SquooshOptions = {
   test: /.(jpe?g|png|gif|tif|webp|svg|avif)$/i,

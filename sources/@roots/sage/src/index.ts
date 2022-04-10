@@ -14,4 +14,6 @@ import './bud.env'
 
 import {Sage} from './sage.preset'
 
-export const {name, boot} = Sage
+export const {label, boot} = Sage
+
+export * as client from './client'

@@ -23,8 +23,8 @@ export type Plugin = TerserPlugin
 
 export interface Extension
   extends Extensions.Plugin<TerserPlugin, TerserPlugin.BasePluginOptions> {
-  name: '@roots/bud-terser'
+  label: '@roots/bud-terser'
   options: (app: Bud) => Options
 }
 
-export const {name, api, options, boot} = extension
+export const {label, api, options, boot} = extension

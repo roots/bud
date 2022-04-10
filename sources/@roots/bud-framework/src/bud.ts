@@ -30,7 +30,7 @@ const {isFunction, omit} = lodash
 
 /**
  * {@link Bud} abstract class
- * 
+ *
  * @remarks
  * See `@roots/bud` for an example implementation
  *
@@ -39,8 +39,8 @@ const {isFunction, omit} = lodash
 export abstract class Bud {
   /**
    * {@link Bud} constructor
-   * 
-   * @internal 
+   *
+   * @internal
    * @virtual
    */
   public abstract implementation: Constructor
@@ -358,13 +358,6 @@ export abstract class Bud {
   public bindMethod: methods.bindMethod = methods.bindMethod.bind(this)
 
   /**
-   * Adds a class as a property of the Bud
-   *
-   * @public
-   */
-  public mixin: typeof methods.mixin
-
-  /**
    * Read and write json files
    *
    * @public
@@ -484,7 +477,7 @@ export abstract class Bud {
 
   /**
    * Log and display a debug message.
-   * 
+   *
    * @public
    * @decorator `@bind`
    */
@@ -507,7 +500,7 @@ export abstract class Bud {
    * Log and display an error.
    *
    * @remarks
-   * In `production` this error is treated as fatal 
+   * In `production` this error is treated as fatal
    * and will kill the process.
    *
    * @public
