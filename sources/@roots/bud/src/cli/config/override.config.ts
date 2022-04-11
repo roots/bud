@@ -45,9 +45,9 @@ export const config = async (command: BuildCommand) => {
   }
 
   if (!isUndefined(command.manifest)) {
-    command.app.store.set('features.manifest', command.manifest)
+    command.app.hooks.on('feature.manifest', command.manifest)
     command.app.children?.every((_name, child) =>
-      child.store.set('features.manifest', command.manifest),
+      child.hooks.on('feature.manifest', command.manifest),
     )
   }
 

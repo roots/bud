@@ -101,38 +101,25 @@ export type facade = Serve<Bud>
  * @public
  */
 export const method: Serve = async function (
-  options: Options,
+  input: Options,
 ): Promise<Bud> {
   const app = this as Bud
-
   if (!app.isDevelopment) return app
 
-  if (Array.isArray(options) || typeof options === 'number') {
-    const port = await processPort(
-      app,
-      options,
-      [],
-    )
-    app.hooks.on('dev.port', port)
-    return app
+  const current = app.hooks.filter('dev.url')
+
+  if (Array.isArray(input) || typeof input === 'number') {
+    current.port = await requestPort(app, current, input)
+    return app.hooks.on('dev.url', current)
   }
 
-  if (options instanceof URL || typeof options === 'string') {
-    assignURL(app, options)
-  } else {
-    await assignSpec(app, options)
+  if (input instanceof URL || typeof input === 'string') {
+    const url = input instanceof URL ? input : new URL(input)
+    url.port = await requestPort(app, url, Number(url.port ?? current.port))
+    return app.hooks.on('dev.url', url)
   }
 
-  const requestPort = (options as Specification)?.port ?? app.hooks.filter('dev.port') ?? 3000
-  const requestExclude = (options as Specification)?.exclude ?? []
-  const port = await processPort(
-    app,
-    requestPort,
-    requestExclude
-  )
-
-  app.hooks.on('dev.port', port)
-
+  await assignSpec(app, current, input)
   return app
 }
 
@@ -140,84 +127,55 @@ export const method: Serve = async function (
  * Process specification object
  * @public
  */
-const assignSpec = async (app: Bud, spec: Specification) => {
-  const isSSL =
-    [
-      spec.ssl === true,
-      spec.cert,
-      spec.key,
-      spec.options?.cert,
-      spec.options?.key,
-      spec.host?.startsWith('https'),
-    ].filter(Boolean).length > 0
+const assignSpec = async (app: Bud, url: URL, spec: Specification) => {
+  if (!spec.options) spec.options = {}
 
-  if (isSSL) {
-    if (!spec.options) spec.options = {}
-
-    if (!spec.options.cert && spec.cert)
-      spec.options.cert = await fs.readFile(spec.cert)
-
-    if (!spec.options.key && spec.key)
-      spec.options.key = await fs.readFile(spec.key)
-
-    app.hooks.on('dev.ssl', true)
+  if ([spec.ssl,spec.cert,spec.key].filter(Boolean).length > 0) {
+    url.protocol = 'https:'
   }
+
+  if (spec.cert)
+    spec.options.cert = await fs.readFile(spec.cert)
+
+  if (spec.key)
+    spec.options.key = await fs.readFile(spec.key)
+
+  if (spec.port) {
+    url.port = await requestPort(app, url, Number(url.port))
+  }
+
+  if (spec.host) url.hostname = spec.host
 
   spec.options && app.hooks.on('dev.options', spec.options)
   spec.interface && app.hooks.on('dev.interface', spec.interface)
-  spec.host && assignHostname(app, spec.host)
+  app.hooks.on('dev.url', url)
 }
 
 /**
  * Process Node URL
  * @public
  */
-const assignURL = async (app: Bud, url: URL | string) => {
-  url = url instanceof URL ? url : new URL(url)
-
-  if (url.port) {
-    const port = await processPort(app, Number(url.port), [])
-    url.port = `${port}`
-    app.hooks.on('dev.port', port)
+const requestPort = async (
+  app: Bud,
+  url: URL,
+  request: number | Array<number>,
+  exclude: number | Array<number> = [],
+) => {
+  const opts = {
+    port: Array.isArray(request) ? request : [Number(request)],
+    exclude: Array.isArray(exclude) ? exclude : [exclude],
   }
 
-  app.hooks.on('dev.hostname', url.hostname)
-  app.hooks.on('dev.ssl', url.protocol === 'https:')
-}
+  url.port = await getPort(opts).then(p => `${p}`)
 
-/**
- * Assign hostname from string
- *
- * @param app - Bud
- * @param hostname - string hostname
- * @public
- */
-const assignHostname = (app: Bud, hostname: string) => {
-  app.hooks.on(
-    'dev.hostname',
-    hostname.replace('http://', '//').replace('https://', '//'),
-  )
-}
-
-const processPort = async (app: Bud, port: number | Array<number>, exclude: number | Array<number>) => {
-  const portRequest = Array.isArray(port) ? port : [port]
-  const excludeRequest = Array.isArray(exclude)
-    ? exclude
-    : [exclude]
-
-  port = await getPort({
-    port: portRequest,
-    exclude: excludeRequest,
-  })
-
-  if (!portRequest.includes(port)) {
+  if (!opts.port.includes(Number(url.port))) {
     app.warn(
       `\n`,
       `None of the requested ports could be resolved.`,
-      `A port was automatically selected: ${port}`,
+      `A port was automatically selected: ${url.port}`,
       `\n`,
     )
   }
 
-  return port
+  return url.port
 }

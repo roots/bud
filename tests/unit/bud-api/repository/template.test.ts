@@ -31,7 +31,7 @@ describe('bud.template', function () {
     beforeAll(async () => {
       bud = await factory()
       bud.extensions.remove('html-webpack-plugin')
-      bud.store.set('features.html', false)
+      bud.hooks.on('feature.html', false)
     })
 
     it('returns bud', async () => {
@@ -53,7 +53,7 @@ describe('bud.template', function () {
 
     it('enables html feature flag', async () => {
       await bud.api.call('template')
-      expect(bud.store.is('features.html', true)).toEqual(true)
+      expect(bud.hooks.filter('feature.html')).toEqual(true)
     })
   })
 
@@ -68,10 +68,9 @@ describe('bud.template', function () {
       bud.close(done)
     })
 
-    it('does not register plugin when explicitly disabled', async () => {
+    it('can be disabled', async () => {
       await bud.api.call('template', false)
-
-      expect(bud.store.is('features.html', false)).toEqual(true)
+      expect(bud.hooks.filter('feature.html')).toEqual(false)
     })
 
     it('changes the template when template options is passed', async () => {

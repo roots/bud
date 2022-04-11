@@ -38,7 +38,7 @@ export const extension: extension = {
         options: {implementation, sourceMap: true},
       })
       .setRule('sass', {
-        test: app => app.store.get('patterns.sass'),
+        test: app => app.hooks.filter('pattern.sass'),
         include: app => [app.path('@src')],
         use: [`precss`, `css`, `postcss`, `resolveUrl`, `sass`],
       })

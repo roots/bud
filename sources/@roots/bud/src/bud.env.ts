@@ -10,7 +10,7 @@ import '@roots/bud-server'
 import {Build, Extension} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
-  interface Plugins {
+  interface Modules {
     'webpack-provide-plugin': Extension.Plugin
     'webpack-config-dump-plugin': Extension.Plugin
     'copy-webpack-plugin': Extension.Plugin

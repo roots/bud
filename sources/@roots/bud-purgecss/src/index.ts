@@ -32,13 +32,6 @@ import {Purge} from './purge.interface'
 export const label: Purge['label'] = '@roots/bud-purgecss'
 
 /**
- * Module api
- *
- * @public
- */
-export const api: Purge['api'] = {purgecss}
-
-/**
  * Module registration
  *
  * @public

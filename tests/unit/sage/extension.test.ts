@@ -13,10 +13,10 @@ describe('@roots/sage', () => {
     expect(bud.extensions.has('@roots/sage')).toBeTruthy()
   })
 
-  it(`has name prop`, () => expect(Sage.name).toBe('@roots/sage'))
+  it(`has label prop`, () => expect(Sage.label).toBe('@roots/sage'))
 
-  it(`registers prop: name`, () =>
-    expect(bud.extensions.get('@roots/sage').get('name')).toBe(Sage.name))
+  it(`registers prop: label`, () =>
+    expect(bud.extensions.get('@roots/sage').get('label')).toBe(Sage.label))
 
   it(`has boot prop`, () => expect(Sage.boot).toBeInstanceOf(Function))
 

@@ -15,7 +15,7 @@ export const write = (stats: {toJson: () => StatsCompilation}, app: Bud) =>
       components.report(compilation).join(''),
       ...components.timing(app, compilation),
       ...components.summary(app, compilation),
-      ...(app.store.get('features.log') ? components.framework(app) : []),
+      ...(app.hooks.filter('feature.log') ? components.framework(app) : []),
     ].join('')
 
     // eslint-disable-next-line

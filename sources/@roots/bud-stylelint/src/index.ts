@@ -15,17 +15,16 @@ import StylelintWebpackPlugin, {Options} from 'stylelint-webpack-plugin'
 
 declare module '@roots/bud-framework' {
   interface Modules {
-    '@roots/bud-stylelint': Extension.Plugin<
-      StylelintWebpackPlugin,
-      Options
-    >
+    '@roots/bud-stylelint': BudStylelintWebpackPlugin
   }
 }
 
-const BudStylelintWebpackPlugin: Extension.Plugin<
-  StylelintWebpackPlugin,
-  Options
-> = {
+type BudStylelintWebpackPlugin = Extension.Module<
+  Options,
+  StylelintWebpackPlugin
+>
+
+const BudStylelintWebpackPlugin: BudStylelintWebpackPlugin = {
   label: 'stylelint-webpack-plugin',
 
   options(app) {

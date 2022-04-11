@@ -4,6 +4,8 @@ import {bind} from '@roots/bud-support'
 import {Config} from './babel.config'
 import {DEFAULT_PLUGINS, DEFAULT_PRESETS} from './babel.constants'
 
+export interface BabelExtension extends Extension.Extension {}
+
 /**
  * Babel support for `@roots/bud`
  * 

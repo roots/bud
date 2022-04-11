@@ -3,7 +3,7 @@ import {extension} from '@roots/bud-sass/src/sass.extension'
 
 describe('@roots/bud-sass', () => {
   it('has @roots/bud-sass name', () => {
-    expect(BudSass.name).toBe('@roots/bud-sass')
+    expect(BudSass.label).toBe('@roots/bud-sass')
   })
   it('has boot fn', () => {
     expect(BudSass.boot).toBeInstanceOf(Function)
@@ -14,7 +14,7 @@ describe('@roots/bud-sass', () => {
   })
 
   it('has @roots/bud-sass name', () => {
-    expect(BudSass.name).toBe(extension.name)
+    expect(BudSass.label).toBe(extension.label)
   })
   it('has boot fn', () => {
     expect(BudSass.boot).toBe(extension.boot)

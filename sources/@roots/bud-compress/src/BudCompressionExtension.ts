@@ -5,8 +5,8 @@ import {Bud, Extension} from '@roots/bud-framework'
 import {BudBrotliWebpackPlugin} from './BudBrotliWebpackPlugin'
 import {BudGzipWebpackPlugin} from './BudGzipWebpackPlugin'
 
-interface BudCompressionExtension extends Extension.Plugin {
-  label: '@roots/bud-compress' & Extension.Plugin['label']
+interface BudCompressionExtension extends Extension.Module {
+  label: '@roots/bud-compress' & Extension.Module['label']
   boot(app: Bud): any
 }
 

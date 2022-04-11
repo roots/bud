@@ -14,7 +14,7 @@
 import {BudEntrypointsExtension} from './entrypoints.extension'
 
 declare module '@roots/bud-framework' {
-  interface Plugins {
+  interface Modules {
     '@roots/bud-entrypoints': BudEntrypointsExtension
   }
 }

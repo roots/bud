@@ -13,7 +13,7 @@ import type {Plugin} from '@roots/bud-framework/types/extension/plugin'
 import {WordPressDependenciesWebpackPlugin} from '@roots/wordpress-dependencies-webpack-plugin'
 
 declare module '@roots/bud-framework' {
-  interface Plugins {
+  interface Modules {
     '@roots/wordpress-dependencies-webpack-plugin': Plugin
   }
 }

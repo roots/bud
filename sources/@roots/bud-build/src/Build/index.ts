@@ -117,7 +117,7 @@ export class Build extends Bud.Service implements Bud.Build.Service {
     if (!this.app.hooks.has(`build.${key}`)) return false
 
     const type = rest.length && rest.shift() ? true : false
-    const count = this.app.hooks.count(`build.${key}`)
+    const count = this.app.hooks.store[`build.${key}`] ? Object.entries(this.app.hooks.store[`build.${key}`]).length : 0
 
     return [key, type, count]
   }

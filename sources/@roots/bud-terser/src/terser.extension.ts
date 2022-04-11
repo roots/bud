@@ -6,7 +6,7 @@ import {terser} from './terser.api'
 export const label: Extension['label'] = '@roots/bud-terser'
 
 export const options: Extension['options'] = app => ({
-  include: app.store.get('patterns.js'),
+  include: app.hooks.filter('pattern.js'),
   extractComments: false,
   terserOptions: {
     parse: {ecma: 2018},
@@ -20,6 +20,8 @@ export const options: Extension['options'] = app => ({
   },
 })
 
+export const register: Extension['register'] = async ({api}) => api.bindFacade('terser', terser)
+
 export const boot: Extension['boot'] = async ({extensions, hooks}) => {
   hooks.on('build.optimization.minimizer', minimizer => {
     minimizer.push(
@@ -29,5 +31,3 @@ export const boot: Extension['boot'] = async ({extensions, hooks}) => {
     return minimizer
   })
 }
-
-export const api: Extension['api'] = {terser}

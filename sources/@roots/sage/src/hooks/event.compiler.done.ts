@@ -21,7 +21,7 @@ export default async function (app: Bud) {
     await writeJson(app.path('@dist', 'hmr.json'), {
       dev: urlToHttpOptions(app.server.connection.url) ?? null,
       proxy:
-        urlToHttpOptions(app.hooks.filter('middleware.proxy.target')) ??
+        urlToHttpOptions(app.hooks.filter('dev.middleware.proxy.target')) ??
         null,
       publicPath: app.hooks.filter('build.output.publicPath') ?? null,
     })

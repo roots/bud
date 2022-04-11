@@ -1,4 +1,4 @@
 export {Bud} from '../bud'
-export {Module} from './module'
-export {Plugin, PluginInstance} from './plugin'
+export {Module, PluginInstance} from './module'
+export {Plugin} from './plugin'
 export {Extension} from './abstract'

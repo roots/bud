@@ -16,18 +16,18 @@ describe('@roots/bud-react', () => {
     expect(bud.extensions.has('@roots/bud-react')).toBeTruthy()
   })
 
-  it(`registers prop: name`, () =>
-    expect(bud.extensions.get('@roots/bud-react').get('name')).toBe(
-      BudReact.name,
+  it(`registers prop: label`, () =>
+    expect(bud.extensions.get('@roots/bud-react').get('label')).toBe(
+      BudReact.label,
     ))
 
-  it(`registers prop: api`, () =>
-    expect(bud.extensions.get('@roots/bud-react').get('api')).toBe(
-      BudReact.api,
+  it(`registers prop: register`, () =>
+    expect(bud.extensions.get('@roots/bud-react')._module.register).toBe(
+      BudReact.register,
     ))
 
   it(`registers prop: boot`, () =>
-    expect(bud.extensions.get('@roots/bud-react').get('boot')).toBe(
+    expect(bud.extensions.get('@roots/bud-react')._module.boot).toBe(
       BudReact.boot,
     ))
 

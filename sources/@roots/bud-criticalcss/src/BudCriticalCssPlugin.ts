@@ -13,10 +13,9 @@ import {critical} from './critical'
  * @public
  */
 export interface BudCriticalCssPlugin
-  extends Extensions.Plugin<CriticalCssWebpackPlugin, Partial<Options>> {
+  extends Extensions.Module<Partial<Options>, CriticalCssWebpackPlugin> {
   label: '@roots/bud-criticalcss'
   options: Partial<Options>
-  api: {critical: critical}
   make: (
     options: Container<Partial<Options>>,
     app: Bud,
@@ -30,29 +29,21 @@ export interface BudCriticalCssPlugin
  */
 export const BudCriticalCssPlugin: BudCriticalCssPlugin = {
   /**
-   * Extension identifier
-   *
    * @public
    */
   label: '@roots/bud-criticalcss',
 
   /**
-   * Extension api functions
-   *
-   * @public
-   */
-  api: {critical},
-
-  /**
-   * Extension options
-   *
    * @public
    */
   options: {},
 
   /**
-   * Makes compiler plugin
-   *
+   * @public
+   */
+  register: async ({api}) => api.bindFacade('critical', critical),
+
+  /**
    * @public
    */
   make(options): CriticalCssWebpackPlugin {
@@ -60,8 +51,6 @@ export const BudCriticalCssPlugin: BudCriticalCssPlugin = {
   },
 
   /**
-   * Prerequiste criteria for plugin usage
-   *
    * @public
    */
   when: app => app.isProduction,

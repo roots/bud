@@ -301,18 +301,16 @@ export class BuildCommand extends BaseCommand {
           this.publicPath,
           seed['build.output.publicPath'],
         ),
-        'features.inject': fallback(this.inject, seed['features.inject']),
-        'features.log': fallback(this.log, seed['features.log']),
-        'features.manifest': fallback(
+        'feature.inject': fallback(this.inject, seed['feature.inject']),
+        'feature.log': fallback(this.log, seed['feature.log']),
+        'feature.manifest': fallback(
           this.manifest,
-          seed['features.manifest'],
+          seed['feature.manifest'],
         ),
-        location: {
-          '@src': fallback(this.src, seed.location['@src']),
-          '@dist': fallback(this.dist, seed.location['@dist']),
-          '@storage': fallback(this.storage, seed.location['@storage']),
-          '@modules': fallback(this.modules, seed.location['@modules']),
-        },
+        'location.@src': fallback(this.src, seed['location.@src']),
+        'location.@dist': fallback(this.dist, seed['location.@dist']),
+        'location.@storage': fallback(this.storage, seed['location.@storage']),
+        'location.@modules': fallback(this.modules, seed['location.@modules']),
       },
     })
 

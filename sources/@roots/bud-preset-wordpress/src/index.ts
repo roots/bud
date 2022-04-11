@@ -70,7 +70,7 @@ export const boot = async (app: Bud, logger: Console) => {
    * Set interceptor replacements
    */
   app.hooks.action('event.proxy.interceptor', async ({hooks}) =>
-    hooks.on('middleware.proxy.replacements', replacements => [
+    hooks.on('dev.middleware.proxy.replacements', replacements => [
       ...(replacements ?? []),
       makeInterception(HOME),
     ]),

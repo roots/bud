@@ -1,11 +1,8 @@
+import {Registry} from '@roots/bud-framework'
 import * as Framework from '@roots/bud-framework'
-import type {
-  AsyncMap,
-  Events,
-} from '@roots/bud-framework/types/services/hooks'
 import {bind, chalk, lodash} from '@roots/bud-support'
 
-const {get, isFunction, isUndefined, set} = lodash
+const {isFunction} = lodash
 
 /**
  * Hooks and events registry
@@ -52,10 +49,9 @@ const {get, isFunction, isUndefined, set} = lodash
  *
  * @public
  */
-export class Hooks
-  extends Framework.ContainerService
-  implements Framework.Hooks.Service
-{
+export class Hooks extends Framework.Service implements Framework.Hooks.Service {
+  public store: Partial<Registry.RegistryStore> = {}
+
   /**
    * hook getter
    *
@@ -63,8 +59,10 @@ export class Hooks
    * @decorator `@bind`
    */
   @bind
-  public get<T = any>(path: `${keyof Framework.Hooks.Map & string}`) {
-    return get(this.repository, path) as T
+  public get<T extends `${keyof Registry.RegistryStore & string}`>(
+    path: T,
+  ): Registry.RegistryStore[T] {
+    return this.store[path]
   }
 
   /**
@@ -74,12 +72,25 @@ export class Hooks
    * @decorator `@bind`
    */
   @bind
-  public set(
-    key: `${keyof Framework.Hooks.Map & string}`,
-    value: any,
+  public set<T extends `${keyof Registry.RegistryValue & string}`>(
+    path: T,
+    value: Registry.RegistryStore[T],
   ): this {
-    set(this.repository, key, value)
+    this.store[path] = value
     return this
+  }
+
+  /**
+   * hook setter
+   *
+   * @internal
+   * @decorator `@bind`
+   */
+  @bind
+  public has<T extends `${keyof Registry.RegistryStore & string}`>(
+    path: T,
+  ): boolean {
+    return this.store[path] ? true : false
   }
 
   /**
@@ -104,17 +115,28 @@ export class Hooks
    * @decorator `@bind`
    */
   @bind
-  public on<T extends keyof Framework.Hooks.Map & string>(
+  public on<T extends keyof Registry.RegistryStore & string>(
     id: T,
-    input:
-      | Framework.Hooks.Map[T]
-      | ((value: Framework.Hooks.Map[T]) => any),
+    input: Registry.RegistryValue[T] | ((current?: Registry.RegistryValue[T]) => Registry.RegistryValue[T]),
   ): Framework.Bud {
-    const retrieved = this.has(id) ? this.get(id) : []
-    const normal = Array.isArray(retrieved) ? retrieved : [retrieved]
-    const callback = isFunction(input) ? input : () => input
+    const value = this.has(id) ? this.get(id) : []
 
-    this.set(id, [...normal, callback])
+    if (!Array.isArray(value)) {
+      this.app.error(
+        '\n',
+        id,
+        'is not an array (but it should be)\n',
+        'value retrieved:',
+        value,
+        '\nnext value:',
+        input,
+      )
+    }
+
+    value.push(input)
+
+    this.app.info(`hooks.on`, id, input)
+    this.set(id, value)
 
     return this.app
   }
@@ -141,15 +163,15 @@ export class Hooks
    * @decorator `@bind`
    */
   @bind
-  public async<T extends keyof AsyncMap & string>(
+  public async<T extends keyof Registry.AsyncRecord & keyof Registry.RegistryStore & string>(
     id: T,
-    input: AsyncMap[T] | ((value: AsyncMap[T]) => Promise<AsyncMap[T]>),
+    callback: Registry.AsyncRecord[T]
   ): Framework.Bud {
-    const retrieved = this.has(id) ? this.get(id) : []
-    const normal = Array.isArray(retrieved) ? retrieved : [retrieved]
-    const callback = isFunction(input) ? input : () => input
+    const value = this.has(id) ? this.get<T>(id) : []
+    value.push(callback)
 
-    this.set(id, [...normal, callback])
+    this.app.info(`hooks.async`, id, value)
+    this.set<T>(id, value)
 
     return this.app
   }
@@ -174,34 +196,27 @@ export class Hooks
    * @decorator `@bind`
    */
   @bind
-  public filter<T extends keyof Framework.Hooks.Map & string>(
+  public filter<T extends keyof Registry.RegistryValue & string>(
     id: T,
-    value?:
-      | Framework.Hooks.Map[T]
-      | ((value?: Framework.Hooks.Map[T]) => any),
-  ): Framework.Hooks.Map[T] {
-    if (!this.has(id)) {
-      if (isUndefined(value)) return undefined
-      return isFunction(value) ? value() : value
-    }
+    value?: Registry.RegistryValue[T] | ((value?: Registry.RegistryValue[T]) => any),
+  ): Registry.RegistryValue[T] {
+    if (!this.has(id)) return isFunction(value) ? value() : value
 
     const retrieved = this.get(id) ?? []
     const normal = Array.isArray(retrieved) ? retrieved : [retrieved]
 
-    return normal.reduce(
+    const result = normal.reduce(
       (
-        accumulated: Framework.Hooks.Map[T],
+        accumulated: Registry.RegistryValue[T],
         current?:
-          | ((value: Framework.Hooks.Map[T]) => Framework.Hooks.Map[T])
-          | Framework.Hooks.Map[T],
-      ) => {
-        const next = isFunction(current) ? current(accumulated) : current
-        if (this.app.context.args.debug)
-          this.app.info(`hooks.filter`, id, `=>`, next)
-        return next
-      },
+          | ((value: Registry.RegistryValue[T]) => Registry.RegistryValue[T])
+          | Registry.RegistryValue[T],
+      ) => (isFunction(current) ? current(accumulated) : current),
       value,
     )
+
+    this.app.info(`hooks.filter`, id, result)
+    return result
   }
 
   /**
@@ -222,28 +237,30 @@ export class Hooks
    * @decorator `@bind`
    */
   @bind
-  public async filterAsync<T extends keyof AsyncMap & string>(
+  public async filterAsync<T extends keyof Registry.AsyncRecord & string>(
     id: T,
-    value?: AsyncMap[T] | ((value?: AsyncMap[T]) => any),
-  ): Promise<AsyncMap[T]> {
-    if (!this.has(id)) {
-      if (isUndefined(value)) return
-      return isFunction(value) ? await value() : value
-    }
+    value?: Registry.RegistryValue[T],
+  ): Promise<Registry.RegistryValue[T]> {
+    if (!this.has(id)) return isFunction(value) ? await value() : value
 
     const retrieved = this.get(id) ?? []
-    const normal = Array.isArray(retrieved) ? retrieved : [retrieved]
+    const arrayed = Array.isArray(retrieved) ? retrieved : [retrieved]
 
-    return await normal.reduce(
+    const result = await arrayed.reduce(
       async (
         promised,
-        current?: ((value: T) => Promise<T> | AsyncMap[T]) | AsyncMap[T],
+        current?:
+          | ((value: T) => Promise<T> | Registry.AsyncRecord[T])
+          | Registry.AsyncRecord[T],
       ) => {
-        const value = await promised
-        return isFunction(current) ? await current(value) : current
+        const next = await promised
+        return isFunction(current) ? await current(next) : current
       },
       value,
     )
+
+    this.app.info(`hooks.filterAsync`, id, result)
+    return result
   }
 
   /**
@@ -253,19 +270,22 @@ export class Hooks
    * @decorator `@bind`
    */
   @bind
-  public action<T extends keyof Events & string>(
+  public action<T extends keyof Registry.StoreMap<Registry.Events, 'event'> &
+      keyof Registry.RegistryStore &
+      string>(
     id: T,
-    ...action: Array<(app: Framework.Bud) => Promise<unknown>>
+    ...actions: Array<Registry.RegistryValue[T]>
   ): Framework.Bud {
-    const retrieved = this.has(id) ? this.get(id) : []
-    const normal = Array.isArray(retrieved) ? retrieved : [retrieved]
+    const value = this.has(id) ? this.get(id) : []
+
+    actions.forEach(action => value.push(action))
 
     this.app.info({
       message: `registering action: ${id}`,
-      suffix: chalk.dim(`${normal.length + 1} registered`),
+      suffix: chalk.dim(`${value.length + 1} registered`),
     })
 
-    this.set(id, [...normal, ...action])
+    this.set(id, value)
 
     return this.app
   }
@@ -282,21 +302,17 @@ export class Hooks
    * @decorator `@bind`
    */
   @bind
-  public async fire<T extends keyof Events & string>(
+  public async fire<T extends keyof Registry.ValueMap<Registry.Events, 'event'> & string>(
     id: T,
   ): Promise<Framework.Bud> {
     if (!this.has(id)) return
 
-    const retrieved = this.get(id)
-    const normal = Array.isArray(retrieved) ? retrieved : [retrieved]
+    const retrieved = this.get<T>(id)
 
-    await normal.reduce(async (promised, current, increment) => {
+    await retrieved.reduce(async (promised, current: (app: Framework.Bud) => Promise<unknown>) => {
       await promised
 
-      this.app.info({
-        message: `firing action ${id}`,
-        suffix: chalk.dim(`${increment + 1}/${normal.length}`),
-      })
+      this.app.info(`firing action ${id}`)
 
       return await current(this.app)
     }, Promise.resolve())

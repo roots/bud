@@ -1,6 +1,6 @@
-import type {Store} from '@roots/bud-framework'
+import type {Registry} from '@roots/bud-framework'
 import {prettyFormat, Signale, table} from '@roots/bud-support'
-import {cpus} from 'os'
+import { cpus } from 'os'
 
 const infrastructureLogger = {
   count: {},
@@ -12,130 +12,115 @@ const infrastructureLogger = {
  *
  * @public
  */
-export const seed: Partial<Store.Repository> = {
+export const seed: Partial<Registry.RegistryStore> = {
   /**
    * Feature flags
    *
    * @public
    */
-  [`features.cache`]: true,
+  'feature.cache': [true],
 
   /**
    * Clean dist directory prior to compilation
    *
    * @public
    */
-  [`features.clean`]: false,
+  'feature.clean': [false],
 
   /**
    * Hash emitted filenames
    *
    * @public
    */
-  [`features.hash`]: false,
+  'feature.hash': [false],
 
   /**
    * Emit an html file during compilation
    *
    * @public
    */
-  [`features.html`]: false,
+  'feature.html': [false],
 
   /**
    * Automatically register installed extensions
    *
    * @public
    */
-  [`features.inject`]: true,
+  'feature.inject': [true],
 
   /**
    * Log build status informatino to the terminal
    *
    * @public
    */
-  [`features.log`]: false,
+  'feature.log': [false],
 
   /**
    * Emit a manifest.json with references to emitted assets
    *
    * @public
    */
-  [`features.manifest`]: true,
+  'feature.manifest': [true],
 
   /**
    * @public
    */
-  [`features.runtimeChunk`]: false,
+  'feature.runtimeChunk': [false],
 
   /**
    * Enable code splitting
    *
    * @public
    */
-  [`features.splitChunks`]: false,
+  'feature.splitChunks': [false],
+
   /**
    * Filename format for emitted assets when hashing is disabled
    *
    * @public
    */
-  fileFormat: `[name]`,
+  'value.fileFormat': ['[name]'],
 
   /**
    * Filename format for emitted assets when hashing is enabled
    *
    * @public
    */
-  hashFormat: `[name].[contenthash:6]`,
+  'value.hashFormat': ['[name].[contenthash:6]'],
 
   /**
    * Regular expression records
    *
    * @public
    */
-  patterns: {
-    js: /\.(cjs|mjs|jsx?)$/,
-    ts: /\.(tsx?)$/,
-    sass: /\.(scss|sass)$/,
-    sassModule: /\.module\.(scss|sass)$/,
-    css: /\.css$/,
-    cssModule: /\.module\.css$/,
-    font: /\.(ttf|otf|eot|woff2?|ico)$/,
-    html: /\.(html?)$/,
-    image: /\.(png|jpe?g|gif)$/,
-    modules: /(node_modules|bower_components)/,
-    svg: /\.svg$/,
-    vue: /\.vue$/,
-    md: /\.md$/,
-    toml: /\.toml$/,
-    webp: /\.webp$/,
-    yml: /\.ya?ml$/,
-    xml: /\.xml$/,
-    csv: /\.(csv|tsv)$/,
-    json: /\.json$/,
-    json5: /\.json5$/,
-  },
+  'pattern.js': [/\.(cjs|mjs|jsx?)$/],
+  'pattern.ts': [/\.(tsx?)$/],
+  'pattern.sass': [/\.(scss|sass)$/],
+  'pattern.sassModule': [/\.module\.(scss|sass)$/],
+  'pattern.css': [/\.css$/],
+  'pattern.cssModule': [/\.module\.css$/],
+  'pattern.font': [/\.(ttf|otf|eot|woff2?|ico)$/],
+  'pattern.html': [/\.(html?)$/],
+  'pattern.image': [/\.(png|jpe?g|gif)$/],
+  'pattern.modules': [/(node_modules|bower_components)/],
+  'pattern.svg': [/\.svg$/],
+  'pattern.vue': [/\.vue$/],
+  'pattern.md': [/\.md$/],
+  'pattern.toml': [/\.toml$/],
+  'pattern.webp': [/\.webp$/],
+  'pattern.yml': [/\.ya?ml$/],
+  'pattern.xml': [/\.xml$/],
+  'pattern.csv': [/\.(csv|tsv)$/],
+  'pattern.json': [/\.json$/],
+  'pattern.json5': [/\.json5$/],
 
-  /**
-   * Project disk locations
-   *
-   * @public
-   */
-  location: {
-    '@src': 'src',
-    '@dist': 'dist',
-    '@modules': 'node_modules',
-    '@storage': '.budfiles',
-  },
+  'location.@src': ['src'],
+  'location.@dist': ['dist'],
+  'location.@modules': ['node_modules'],
+  'location.@storage': ['.budfiles'],
 
-  /**
-   * Baseline webpack configuration
-   *
-   * @public
-   */
-  [`build.bail`]: app => app.isProduction,
-  [`build.context`]: app => app.context.projectDir,
-  [`build.infrastructureLogging.level`]: app => `verbose`,
-  [`build.infrastructureLogging.console`]: app => ({
+  'build.infrastructureLogging.level': ['error'],
+  'build.infrastructureLogging.console': [{
     Console: require(`console`),
     assert: (v, m) => v && infrastructureLogger.instance.info(m),
     // eslint-disable-next-line
@@ -160,7 +145,7 @@ export const seed: Partial<Store.Repository> = {
     groupEnd: () => null,
     info: infrastructureLogger.instance.info,
     log: infrastructureLogger.instance.log,
-    table: (tabularData?: any, properties?: string[]) =>
+    table: (tabularData?: any) =>
       infrastructureLogger.instance.log(table.table(tabularData)),
     time: infrastructureLogger.instance.time,
     timeEnd: infrastructureLogger.instance.timeEnd,
@@ -175,42 +160,39 @@ export const seed: Partial<Store.Repository> = {
     profile: () => null,
     profileEnd: () => null,
     timeStamp: () => null,
-  }),
-  [`build.module.noParse`]: app => /jquery|lodash/,
-  [`build.module.unsafeCache`]: app => false,
-  [`build.node`]: app => false,
-  [`build.output.pathinfo`]: app => false,
-  [`build.output.publicPath`]: app => ``,
-  [`build.optimization.emitOnErrors`]: app => false,
-  [`build.optimization.minimize`]: app => false,
-  [`build.optimization.minimizer`]: app => [`...`],
-  [`build.optimization.removeEmptyChunks`]: app => true,
-  [`build.parallelism`]: app => Math.max(cpus().length - 1, 1),
-  [`build.performance`]: app => ({hints: false}),
-  [`build.resolve.alias`]: app => ({
-    '@src': app.path('@src'),
-    '@dist': app.path('@dist'),
-  }),
-  [`build.resolve.extensions`]: app =>
-    new Set([
-      `.mjs`,
-      `.cjs`,
-      `.mjs`,
-      `.js`,
-      `.jsx`,
-      `.css`,
-      `.json`,
-      `.wasm`,
-      `.yml`,
-      `.toml`,
-    ]),
-  [`build.module.rules.before`]: app => [
+  }],
+  'build.module.noParse': [/jquery|lodash/],
+  'build.module.unsafeCache': [false],
+  'build.node': [false],
+  'build.output.pathinfo': [false],
+  'build.output.publicPath': [''],
+  'build.optimization.emitOnErrors': [false],
+  'build.optimization.minimize': [false],
+  'build.optimization.minimizer': [['...']],
+  'build.optimization.removeEmptyChunks': [true],
+  'build.parallelism': [Math.max(cpus().length - 1, 1)],
+  'build.performance': [{hints: false}],
+  'build.resolve.extensions': [new Set([
+    '.mjs',
+    '.cjs',
+    '.js',
+    '.jsx',
+    '.css',
+    '.json',
+    '.wasm',
+    '.yml',
+    '.toml',
+  ])],
+  'build.module.rules.before': [[
     {
-      test: app.store.get('patterns.js'),
-      include: [app.path('@src')],
+      test: /\.(cjs|mjs|jsx?)$/,
+      exclude: [/node_modules/],
       parser: {requireEnsure: false},
     },
-  ],
-  [`build.module.rules.after`]: app => [],
-  [`build.stats`]: app => `normal`,
+  ]],
+  'build.module.rules.after': [[]],
+  'build.stats': [false],
+
+  'dev.middleware.enabled': [['dev', 'hot']],
+  'dev.url': [new URL('http://0.0.0.0:3000')],
 }

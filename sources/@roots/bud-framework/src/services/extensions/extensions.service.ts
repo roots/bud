@@ -1,8 +1,7 @@
-import {Extension, Module, Plugin} from '../../extension'
-import {PluginInstance} from '../../extension/plugin'
+import {Bud, Extension, Module, PluginInstance} from '../../extension'
 import {ContainerService} from '../../service'
 
-export type BudExtension = Module | Plugin | Extension
+export type BudExtension = Module | (new (app: (() => Bud)) => Extension)
 
 /**
  * Container service for {@link Bud} extensions.

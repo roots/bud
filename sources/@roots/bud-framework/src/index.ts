@@ -27,46 +27,13 @@ import * as Hooks from './services/hooks'
 import * as Peers from './services/peers'
 import * as Project from './services/project'
 import * as Server from './services/server'
-import {Store} from './store'
 
 import * as Extension from './extension'
-import {Plugin} from './extension/plugin'
 import {Module} from './extension/module'
 
-export {Bud, ContainerService, Extension, Service, Store}
+import * as Registry from './registry'
 
-/**
- * Compilation mode
- *
- * @public
- */
-export type Mode = 'production' | 'development'
-
-/**
- * Registered locations
- *
- * @virtual @public
- */
-export interface Locations extends Partial<Record<string, string>> {
-  '@src': string
-  '@dist': string
-  '@storage': string
-  '@modules': string
-}
-
-/**
- * Registered extension modules
- *
- * @virtual @public
- */
-export interface Modules extends Partial<Record<string, Extension.Module | Extension.Extension>> {}
-
-/**
- * Registered plugins
- *
- * @virtual @public
- */
-export interface Plugins extends Partial<Record<string, Plugin>> {}
+export {Bud, ContainerService, Extension, Service}
 
 export {
   Api,
@@ -80,9 +47,25 @@ export {
   Hooks,
   Logger,
   Module,
-  Plugin,
   Peers,
   Project,
+  Registry,
   Server,
   Services,
 }
+
+/**
+ * Registered types
+ *
+ * @public
+ */
+//
+
+export type Mode = 'production' | 'development'
+export {Locations} from './registry/locations'
+export {Modules} from './registry/extensions'
+export {Flags} from './registry/flags'
+export {Events} from './registry/events'
+export {Patterns} from './registry/patterns'
+export {Dev} from './registry/dev'
+export {Values} from './registry/values'

@@ -9,8 +9,8 @@ import {typecheck} from './bud.typecheck'
 export interface BudTypeScriptExtension
   extends Extension.Module<Partial<Options>> {
   label: '@roots/bud-typescript'
-  api: {typecheck: typecheck}
   options: Partial<Options>
+  register: Extension.Module['register']
   boot: Extension.Module['boot']
 }
 
@@ -20,9 +20,11 @@ export interface BudTypeScriptExtension
 export const BudTypeScriptExtension: BudTypeScriptExtension = {
   label: '@roots/bud-typescript',
 
-  api: {typecheck},
-
   options: {transpileOnly: true},
+
+  register: async app => {
+    app.api.bindFacade('typecheck', typecheck)
+  },
 
   boot: async app => {
     app.hooks.on('build.resolve.extensions', ext =>

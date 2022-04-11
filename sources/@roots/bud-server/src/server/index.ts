@@ -51,7 +51,7 @@ export class Server extends Service implements Base.Service {
    * @public
    */
   public get enabledMiddleware(): Base.Service['enabledMiddleware'] {
-    return this.app.hooks.filter('middleware.enabled').reduce(
+    return this.app.hooks.filter('dev.middleware.enabled').reduce(
       (enabled, key) => ({
         ...enabled,
         [key]: this.availableMiddleware[key],
@@ -114,7 +114,7 @@ export class Server extends Service implements Base.Service {
   @bind
   @once
   public async setConnection() {
-    this.connection = this.app.hooks.filter('dev.ssl')
+    this.connection = this.app.hooks.filter('dev.url').protocol === 'https:'
       ? new Https(this.app)
       : new Http(this.app)
 

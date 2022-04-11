@@ -9,11 +9,7 @@ describe('@roots/bud-terser', () => {
   })
 
   it('has name prop', () => {
-    expect(BudTerser.name).toBe('@roots/bud-terser')
-  })
-
-  it('has api prop', () => {
-    expect(BudTerser.api).toBeInstanceOf(Object)
+    expect(BudTerser.label).toBe('@roots/bud-terser')
   })
 
   it('has options prop', () => {

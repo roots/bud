@@ -22,11 +22,11 @@ export type extension = Modules['@roots/bud-esbuild']
 export const label: extension['label'] = '@roots/bud-esbuild'
 
 /** @public */
-export const options: extension['options'] = ({project, store}) => ({
+export const options: extension['options'] = ({project, hooks}) => ({
   minify: {
     css: true,
-    include: [store.get('patterns.js'), store.get('patterns.ts')],
-    exclude: store.get('patterns.modules'),
+    include: [hooks.filter('pattern.js'), hooks.filter('pattern.ts')],
+    exclude: hooks.filter('pattern.modules'),
   },
   js: {
     loader: 'jsx',
@@ -59,8 +59,8 @@ export const boot: extension['boot'] = async ({
         extensions.get('@roots/bud-esbuild').options.get('ts'),
     })
     .setRule('ts', {
-      test: ({store}) => store.get('patterns.ts'),
-      exclude: ({store}) => store.get('patterns.modules'),
+      test: ({hooks}) => hooks.filter('pattern.ts'),
+      include: ({path}) => [path('@src')],
       use: ['esbuild-ts'],
     })
     .rules.js.setUse(['esbuild-js'])

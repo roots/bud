@@ -13,9 +13,9 @@ export const makeAcornCompat = (app: Bud) => {
    * `@roots/bud-build` places them, by default, in `svg/`
    */
   app.build.rules.svg.setGenerator(app => ({
-    filename: app.store.is('features.hash', true)
-      ? 'images/'.concat(app.store.get('hashFormat')).concat('[ext]')
-      : 'images/'.concat(app.store.get('fileFormat')).concat('[ext]'),
+    filename: app.hooks.filter('feature.hash')
+      ? 'images/'.concat(app.hooks.filter('value.hashFormat')).concat('[ext]')
+      : 'images/'.concat(app.hooks.filter('value.fileFormat')).concat('[ext]'),
   }))
 
   /**

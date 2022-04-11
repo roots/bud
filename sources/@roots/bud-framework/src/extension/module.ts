@@ -1,7 +1,7 @@
 import {Signale} from '@roots/bud-support'
 import {Container} from '@roots/container'
 
-import {Bud, Modules, Plugins} from '..'
+import {Bud, Modules} from '..'
 
 /**
  * Bud extension interface
@@ -10,24 +10,20 @@ import {Bud, Modules, Plugins} from '..'
  *
  * @public
  */
-export interface Module<Options = any> {
-  [key: string]: any
-  
+export interface Module<Options = any, Instance = PluginInstance> {
   /**
    * The module name
    *
    * @public
    */
-  label?: `${(keyof Modules & string) | (keyof Plugins & string)}`
+  label?: `${keyof Modules & string}`
 
   /**
    * Options registered to the extension module
    *
    * @public
    */
-  options?:
-    | Options
-    | ((app: Bud) => Options)
+  options?: Options | ((app: Bud) => Options)
 
   /**
    * General purpose callback. Called first.
@@ -57,4 +53,40 @@ export interface Module<Options = any> {
    * @public
    */
   when?: boolean | ((app: Bud, options: Container<Options>) => boolean)
+
+  /**
+   * Either a function returning a plugin value or the plugin value itself.
+   *
+   * @public
+   */
+  make?:
+    | Instance
+    | ((
+        options: Container<Options>,
+        app: Bud,
+        logger: Signale,
+      ) =>  Instance)
+
+  /**
+   * Compiler plugin `apply` method
+   *
+   * @public
+   */
+  apply?: PluginInstance['apply']
+}
+
+/**
+ * Compiler plugin interface
+ * 
+ * @public
+ */
+export interface PluginInstance {
+  [key: string]: any
+
+  /**
+   * Apply method
+   *
+   * @public
+   */
+  apply: CallableFunction
 }

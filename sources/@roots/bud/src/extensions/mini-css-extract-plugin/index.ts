@@ -4,16 +4,16 @@ import type {Plugin} from './mini-css-extract-plugin.interface'
 
 export const label: Plugin['label'] = 'mini-css-extract-plugin'
 
-export const options: Plugin['options'] = ({store, isProduction}) => ({
+export const options: Plugin['options'] = ({hooks, isProduction}) => ({
   filename:
-    store.is('features.hash', true) && isProduction
-      ? store.get('hashFormat').concat('.css')
-      : store.get('fileFormat').concat('.css'),
+    hooks.filter('feature.hash') && isProduction
+      ? hooks.filter('value.hashFormat').concat('.css')
+      : hooks.filter('value.fileFormat').concat('.css'),
 
   chunkFilename:
-    store.is('features.hash', true) && isProduction
-      ? store.get('hashFormat').concat('.css')
-      : store.get('fileFormat').concat('.css'),
+    hooks.filter('feature.hash') && isProduction
+      ? hooks.filter('value.hashFormat').concat('.css')
+      : hooks.filter('value.fileFormat').concat('.css'),
 })
 
 export const make: Plugin['make'] = options =>

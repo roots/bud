@@ -5,7 +5,7 @@ import {generateName, isPlugin} from './use.utilities'
 
 const {isArray, isFunction} = lodash
 
-type Definition = Extension.Module | Extension.Plugin | Extension.Extension
+export type Definition = Extension.Module | (new () => Extension.Extension)
 
 export interface use {
   (
@@ -30,28 +30,29 @@ export const use: use = async function (source): Promise<Bud> {
     source: Definition,
   ): Promise<Bud> => {
     if (!source) {
-      bud.error(`"${source.label}" extension source is not defined`)
+      bud.error(`extension source is not defined`)
     }
+
+    let instance
 
     if (isFunction(source)) {
-      source = new (source as any)(bud)
+      instance = new (source as any)(bud)
+    } else instance = source
+
+    if (!instance.label) {
+      instance.label = generateName(instance)
     }
 
-    if (!source.hasOwnProperty('label')) {
-      source.label = generateName(source)
-    }
-
-    if (bud.extensions.has(source.label)) {
+    if (bud.extensions.has(instance.label)) {
       bud.info(
-        `extension "${source.label}" is already registered. skipping`,
+        `extension "${instance.label}" is already registered. skipping`,
       )
 
       return bud
     }
 
-    if (isPlugin(source)) source.make = () => source
-
-    await bud.extensions.add(source)
+    if (isPlugin(instance)) instance.make = () => instance
+    await bud.extensions.add(instance)
   }
 
   !isArray(source)

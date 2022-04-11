@@ -138,7 +138,7 @@ export class Service {
    */
   @bind
   public log(type: string, ...messages: any[]) {
-    this.app.store.is('features.log', true) &&
+    this.app.hooks.filter('feature.log') &&
       this.logger[type](
         ...messages.reduce(
           (
@@ -283,7 +283,7 @@ export class ContainerService<T = any> extends Container<T> {
    */
   @bind
   public log(type: string, ...messages: any[]) {
-    this.app.store.is('features.log', true) &&
+    this.app.hooks.filter('feature.log') &&
       this.logger[type](
         ...messages.reduce(
           (

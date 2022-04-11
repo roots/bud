@@ -35,7 +35,7 @@ const BudWebpackManifestPlugin: Plugin = {
   /**
    * @public
    */
-  when: app => app.store.is('features.manifest', true),
+  when: app => app.hooks.filter('feature.manifest'),
 }
 
 export const {label, options, make, when} = BudWebpackManifestPlugin

@@ -1,5 +1,5 @@
-import {Extension, Modules} from '@roots/bud-framework'
-import {bind, lodash, Signale} from '@roots/bud-support'
+import {Extension, Logger, Registry} from '@roots/bud-framework'
+import {bind, lodash} from '@roots/bud-support'
 import {Container} from '@roots/container'
 
 import {Bud} from './controller.interface'
@@ -35,15 +35,12 @@ export class Controller {
     boot: false,
   }
 
-  public moduleLogger: Signale
+  public logger: Logger['instance']
 
   /**
    * @internal
    */
-  public _module:
-    | Extension.Module
-    | Extension.Plugin
-    | Extension.Extension = {}
+  public _module: (Extension.Module | Extension.Extension) & {logger: Logger['instance']}
 
   /**
    * Controller constructor
@@ -52,7 +49,7 @@ export class Controller {
    */
   public constructor(
     _app: Bud,
-    extension: Extension.Module | Extension.Plugin | Extension.Extension,
+    extension: Extension.Module | (new () => Extension.Extension),
   ) {
     this._app = () => _app
 
@@ -63,13 +60,16 @@ export class Controller {
 
     if (isFunction(extension)) {
       this._module = new (extension as any)(() => _app)
-    } else Object.assign(this._module, extension)
+    } else this._module = Object.assign(extension, {logger: this.logger})
 
-    this.moduleLogger = new Signale().scope(this.label)
-    this.app.store.isFalse('features.log') && this.moduleLogger.disable()
-    this._module.logger = this.moduleLogger
+    this.logger = new Logger(_app).instance.scope(
+      this.label ?? '[unknown extension]',
+    )
+    
+    !this.app.hooks.filter('feature.log') && this.logger.disable()
+    this._module.logger = this.logger
 
-    this.moduleLogger.success('constructed')
+    this.logger.success('constructed')
   }
 
   /**
@@ -118,7 +118,9 @@ export class Controller {
 
     if (this._module.options instanceof Container) {
       return this.app.hooks.filter(
-        `extension.${this.label as keyof Modules & string}.options`,
+        `extension.${
+          this.label as keyof Registry.Modules & string
+        }.options`,
         () => this._module.options,
       )
     }
@@ -130,7 +132,7 @@ export class Controller {
     }
 
     return this.app.hooks.filter(
-      `extension.${this.label as keyof Modules & string}.options`,
+      `extension.${this.label as keyof Registry.Modules & string}.options`,
       () => this.app.container(this._module.options),
     )
   }
@@ -324,7 +326,7 @@ export class Controller {
 
     this.meta.register = true
 
-    this.moduleLogger.info(`registering`)
+    this.logger.info(`registering`)
 
     if (this.app.project.has(`project.peers.${this.label}.requires`)) {
       await Promise.all(
@@ -339,12 +341,12 @@ export class Controller {
     }
 
     if (isFunction(this._module.register)) {
-      await this._module.register(this.app, this.moduleLogger)
+      await this._module.register(this.app, this.logger)
     }
 
     await this.app.api.processQueue()
 
-    this.moduleLogger.success(`registered`)
+    this.logger.success(`registered`)
 
     return this
   }
@@ -367,7 +369,7 @@ export class Controller {
     if (this.meta.boot) return this
     this.meta.boot = true
 
-    this.moduleLogger.info(`registering`)
+    this.logger.info(`registering`)
 
     if (this.app.project.has(`project.peers.${this.label}.requires`)) {
       await Promise.all(
@@ -382,12 +384,12 @@ export class Controller {
     }
 
     if (isFunction(this._module.boot)) {
-      await this._module.boot(this.app, this.moduleLogger)
+      await this._module.boot(this.app, this.logger)
     }
 
     await this.app.api.processQueue()
 
-    this.moduleLogger.success(`booted`)
+    this.logger.success(`booted`)
 
     return this
   }

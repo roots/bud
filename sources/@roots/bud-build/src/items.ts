@@ -84,9 +84,9 @@ export const file = (app: Bud) =>
     .makeItem()
     .setLoader(`file`)
     .setOptions(app => ({
-      name: app.store.is('features.hash', true)
-        ? app.store.get('hashFormat').concat('.[ext]')
-        : app.store.get('fileFormat').concat('.[ext]'),
+      name: app.hooks.filter('feature.hash')
+        ? app.hooks.filter('value.hashFormat').concat('.[ext]')
+        : app.hooks.filter('value.fileFormat').concat('.[ext]'),
     }))
 
 /**

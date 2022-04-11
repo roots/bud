@@ -87,7 +87,7 @@ export class ResponseInterceptorFactory {
     )
 
     return this.app.hooks
-      .filter('middleware.proxy.replacements', [])
+      .filter('dev.middleware.proxy.replacements', [])
       .reduce(
         (buffer, [find, replace]: [string | RegExp, string]) =>
           buffer.replaceAll(find, replace),

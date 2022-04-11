@@ -18,9 +18,9 @@ declare module '@roots/bud-framework' {
     eslint: api.eslint
   }
 
-  interface Plugins {
+  interface Modules {
     'eslint-webpack-plugin': BudEslintWebpackPlugin
   }
 }
 
-export const {label, options, regiser, make} = BudEslintWebpackPlugin
+export const {label, options, register, make} = BudEslintWebpackPlugin

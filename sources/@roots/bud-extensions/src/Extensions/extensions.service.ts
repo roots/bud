@@ -19,14 +19,23 @@ export class Extensions
    * Controller factory
    * @public
    */
-  public makeController(extension: Framework.Module): Controller {
+  public makeController(
+    extension:
+      | Framework.Module
+      | (new () => Framework.Extension.Extension),
+  ): Controller {
     return new Controller(this.app, extension)
   }
 
   @bind
-  public async setController(extension: Framework.Module): Promise<void> {
+  public async setController(
+    extension:
+      | Framework.Module
+      | (new () => Framework.Extension.Extension),
+  ): Promise<Controller> {
     const controller = this.makeController(extension)
     this.set(controller.label, controller)
+    return controller
   }
 
   /**
@@ -51,8 +60,8 @@ export class Extensions
    */
   @bind
   public async injectExtensions() {
-    if (this.app.store.is('features.inject', false)) {
-      this.log('log', 'injection disabled')
+    if (this.app.hooks.filter('feature.inject') === false) {
+      this.app.log('injection disabled')
       return
     }
 
@@ -74,7 +83,8 @@ export class Extensions
   public async import(
     extension: Record<string, any> | string,
   ): Promise<void> {
-    const pkgName = typeof extension !== 'string' ? extension.name : extension
+    const pkgName =
+      typeof extension !== 'string' ? extension.name : extension
     if (this.has(pkgName)) return
     this.app.log('importing', pkgName)
 
@@ -82,7 +92,7 @@ export class Extensions
     const importedExtension: Framework.Module = importedModule.default
       ? importedModule.default
       : importedModule
-    
+
     await this.setController(importedExtension)
   }
 
@@ -105,7 +115,7 @@ export class Extensions
    */
   @bind
   public async controllerBoot(controller: Controller): Promise<void> {
-    if (!controller) return  
+    if (!controller) return
     try {
       await controller.boot()
     } catch (err) {
@@ -147,13 +157,23 @@ export class Extensions
    */
   @bind
   public async add(
-    extension: Framework.Module | Array<Framework.Module>,
+    extension:
+      | Framework.Module
+      | Array<Framework.Module | (new () => Framework.Extension.Extension)>
+      | (new () => Framework.Extension.Extension),
   ): Promise<void> {
     const arrayed = Array.isArray(extension) ? extension : [extension]
 
     await Promise.all(
       arrayed.map(async extension => {
         try {
+          if (typeof extension === 'function') {
+            const controller = await this.setController(extension)
+            await this.controllerRegister(this.get(controller.label))
+            await this.controllerBoot(this.get(controller.label))
+            return
+          }
+
           if (this.has(extension.label)) {
             this.app.log(`${extension.label} already exists. skipping.`)
             return
@@ -179,15 +199,13 @@ export class Extensions
    * @decorator `@bind`
    */
   @bind
-  public async make(): Promise<
-    Framework.Extension.PluginInstance[]
-  > {
+  public async make(): Promise<Framework.Extension.PluginInstance[]> {
     return this.getValues()
       .filter(controller => controller._module.make)
       .map((controller: Controller) => {
         const result = controller.make()
         if (!result) return
-        controller.moduleLogger.success(`will be used in the compilation`)
+        controller.logger.success(`will be used in the compilation`)
         return result
       })
       .filter(Boolean)

@@ -20,7 +20,6 @@ import {
   Project,
   Server,
   Services,
-  Store,
 } from '.'
 import {lifecycle} from './lifecycle'
 import * as methods from './methods'
@@ -225,13 +224,6 @@ export abstract class Bud {
   public server: Server.Service
 
   /**
-   * Container service for holding configuration values
-   *
-   * @public
-   */
-  public store: Store
-
-  /**
    * True when {@link Bud.mode} is `production`
    *
    * @public
@@ -278,9 +270,6 @@ export abstract class Bud {
     this._mode = this.options.mode
     this._name = this.options.name
 
-    this.store = new Store(this)
-    this.store.setStore(options.config)
-
     Process.initialize(this)
 
     if (!options.childOf) {
@@ -307,16 +296,6 @@ export abstract class Bud {
 
   public maybeCall: methods.maybeCall = methods.maybeCall.bind(this)
 
-  /**
-   * Gracefully shutdown {@link Bud} and registered {@link Services}
-   *
-   * @example
-   * ```js
-   * bud.close()
-   * ```
-   *
-   * @public
-   */
   public close: methods.close = methods.close.bind(this)
 
   public container: methods.container = methods.container.bind(this)
@@ -329,14 +308,6 @@ export abstract class Bud {
 
   public pipe: methods.pipe = methods.pipe.bind(this)
 
-  /**
-   * Public path
-   *
-   * @remarks
-   * Path from web root to assets
-   *
-   * @public
-   */
   public publicPath: methods.publicPath = methods.setPublicPath.bind(this)
 
   public setPath: methods.setPath = methods.setPath.bind(this)

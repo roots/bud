@@ -40,30 +40,30 @@ export const method: method = function (input) {
   if (!ctx.isDevelopment) return ctx
 
   if (isUndefined(input)) {
-    return ctx.hooks.on('middleware.enabled', enableMiddleware)
+    return ctx.hooks.on('dev.middleware.enabled', enableMiddleware)
   }
 
   if (isBoolean(input)) {
     return ctx.hooks.on(
-      'middleware.enabled',
+      'dev.middleware.enabled',
       input ? enableMiddleware : disableMiddleware,
     )
   }
 
-  ctx.hooks.on('middleware.enabled', enableMiddleware)
+  ctx.hooks.on('dev.middleware.enabled', enableMiddleware)
 
   if (isNumber(input)) {
-    return ctx.hooks.on('middleware.proxy.target', url => {
+    return ctx.hooks.on('dev.middleware.proxy.target', url => {
       url.port = `${input}`
       return url
     })
   }
 
   if (isString(input)) {
-    return ctx.hooks.on('middleware.proxy.target', new URL(input))
+    return ctx.hooks.on('dev.middleware.proxy.target', new URL(input))
   }
 
   if (input instanceof URL) {
-    return ctx.hooks.on('middleware.proxy.target', input)
+    return ctx.hooks.on('dev.middleware.proxy.target', input)
   }
 }

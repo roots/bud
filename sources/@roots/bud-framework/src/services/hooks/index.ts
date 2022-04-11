@@ -1,12 +1,6 @@
-import {WatchOptions} from 'chokidar'
-import {ValueOf} from 'type-fest'
-import {Configuration} from 'webpack'
-
-import {ContainerService, Locations} from '../..'
-import {Bud, Modules} from '../..'
-import {EntryObject} from '../../config/entry'
-import {ConfigMap} from '../../config/map'
-import * as Server from '../server'
+import * as Framework from '../..'
+import {Bud} from '../..'
+import * as Registry from '../../registry'
 
 /**
  * Assign and filter callback to values.
@@ -36,7 +30,41 @@ import * as Server from '../server'
  *
  * @public
  */
-export interface Service extends ContainerService {
+export interface Service extends Framework.Service {
+  store: Partial<Registry.RegistryStore>
+
+
+  /**
+   * hook getter
+   *
+   * @internal
+   * @decorator `@bind`
+   */
+  get<T extends `${keyof Registry.RegistryStore & string}`>(
+    path: T,
+  ): Registry.RegistryStore[T]
+
+  /**
+   * hook setter
+   *
+   * @internal
+   * @decorator `@bind`
+   */
+  set<T extends `${keyof Registry.RegistryValue & string}`>(
+    path: T,
+    value: Registry.RegistryStore[T],
+  ): Service
+
+  /**
+   * hook setter
+   *
+   * @internal
+   * @decorator `@bind`
+   */
+  has<T extends `${keyof Registry.RegistryStore & string}`>(
+    path: T,
+  ): boolean
+
   /**
    * Register a function to modify a filtered value
    *
@@ -50,9 +78,11 @@ export interface Service extends ContainerService {
    *
    * @public
    */
-  on<T extends keyof Map & string>(
+  on<T extends keyof Registry.SyncValue & string>(
     id: T,
-    callback?: ((param?: Map[T]) => Map[T]) | Map[T],
+    callback?:
+      | ((param?: Registry.SyncValue[T]) => Registry.SyncValue[T])
+      | Registry.SyncValue[T],
   ): Bud
 
   /**
@@ -68,10 +98,14 @@ export interface Service extends ContainerService {
    *
    * @public
    */
-  async<T extends keyof AsyncMap & string>(
+  async<
+    T extends keyof Registry.AsyncStore &
+      keyof Registry.RegistryStore &
+      string,
+  >(
     id: T,
-    callback?: (param?: AsyncMap[T]) => Promise<AsyncMap[T]>,
-  ): Bud
+    callback: Registry.AsyncRecord[T],
+  ): Framework.Bud
 
   /**
    * Filter a value
@@ -86,10 +120,14 @@ export interface Service extends ContainerService {
    *
    * @public
    */
-  filter<T extends keyof Map & string>(
+  filter<
+    T extends `${keyof Registry.SyncStore &
+      keyof Registry.RegistryStore &
+      string}`,
+  >(
     id: T,
-    value?: Map[T] | ((value?: Map[T]) => Map[T]),
-  ): Map[T]
+    value?: Registry.SyncValue[T]
+  ): Registry.SyncValue[T]
 
   /**
    * Async version of hook.filter
@@ -107,148 +145,33 @@ export interface Service extends ContainerService {
    *
    * @public
    */
-  filterAsync<T extends keyof AsyncMap & string>(
+  filterAsync<T extends keyof Registry.AsyncRecord & string>(
     id: T,
-    value?: AsyncMap[T] | ((param?: AsyncMap[T]) => Promise<AsyncMap[T]>),
-  ): Promise<AsyncMap[T]>
+    value?: Registry.RegistryValue[T]
+  ): Promise<Registry.RegistryValue[T]>
 
   /**
-   * Event
+   * Execute an action
    *
    * @public
    */
-  fire<T extends keyof Events & string>(id: T): Promise<Bud>
+  fire<
+    T extends keyof Registry.StoreMap<Registry.Events, 'event'> &
+      keyof Registry.RegistryStore &
+      string,
+  >(
+    id: T,
+  ): Promise<Framework.Bud>
 
   /**
-   * Action (on event)
+   * Registry callback to an action handler
    *
    * @public
    */
-  action<T extends keyof Events & string>(
+  action<T extends keyof Registry.StoreMap<Registry.Events, 'event'> &
+      keyof Registry.RegistryStore &
+      string>(
     id: T,
     ...action: Array<(app: Bud) => Promise<unknown>>
   ): Bud
-}
-
-/**
- * Hook signature
- *
- * @public
- */
-export type Hook<T extends keyof Map & string> =
-  | ((value?: T) => Map[T])
-  | ((value?: T) => Partial<Map[T]>)
-  | Map[T]
-  | Partial<Map[T]>
-
-/**
- * Event Keys
- */
-interface Keys {
-  events: [
-    `event.app.close`,
-    `event.build.before`,
-    `event.build.after`,
-    `event.compiler.before`,
-    `event.compiler.after`,
-    `event.compiler.done`,
-    `event.compiler.error`,
-    `event.dashboard.q`,
-    `event.project.write`,
-    `event.run`,
-    `event.server.before`,
-    `event.server.listen`,
-    `event.server.after`,
-    `event.proxy.interceptor`,
-  ]
-}
-
-type EventMap = {
-  [K in Keys['events'] as `${K & string}`]: (app: Bud) => Promise<any>
-}
-
-export interface Events extends EventMap {}
-
-/**
- * Asyncronous hooks map
- *
- * @public
- */
-export interface AsyncMap {
-  [`build`]: Record<string, any>
-  [`build.entry`]: Record<string, EntryObject>
-  [`build.plugins`]: Array<any>
-  [`build.resolve`]: Configuration['resolve']
-  [`build.resolve.alias`]: Configuration[`resolve`][`alias`]
-  [`build.resolve.modules`]: Configuration[`resolve`][`modules`]
-}
-
-export type LocationKeyMap = {
-  [K in keyof Locations as `location.${K & string}`]: Locations[K]
-}
-
-export type ModuleOptions = {
-  [K in keyof Modules as `extension.${K & string}.options`]: any
-}
-
-/**
- * Syncronous hooks map
- *
- * @public
- */
-export interface Map
-  extends Server.Middleware.Middleware<`options`>,
-    Server.Middleware.Middleware<`factory`>,
-    Server.OptionsMap,
-    LocationKeyMap,
-    ConfigMap,
-    ModuleOptions {
-  [`extension`]: ValueOf<Modules>
-  /**
-   * Dev server connection options
-   * @public
-   */
-  [`dev.options`]: Server.Options
-
-  /**
-   * IPV4 or IPV6 binding
-   * @public
-   */
-  [`dev.interface`]: string
-
-  /**
-   * Hostname
-   * @public
-   */
-  [`dev.hostname`]: string
-
-  /**
-   * Ports to exclude from selection
-   */
-  [`dev.exclude`]: Array<number>
-  /**
-   * Ports to prefer
-   */
-  [`dev.port`]: number
-  /**
-   * Should use SSL server
-   */
-  [`dev.ssl`]: boolean
-  /**
-   * Files which trigger a full browser reload
-   */
-  [`dev.watch.files`]: Set<string>
-  /**
-   * FS.Watcher options
-   */
-  [`dev.watch.options`]: WatchOptions
-  /**
-   * Scripts included in dev builds
-   */
-  [`dev.client.scripts`]: Set<(app: Bud) => string>
-  [`middleware.enabled`]: Array<keyof Server.Middleware.Available>
-  [`middleware.proxy.target`]: URL
-  [`middleware.proxy.replacements`]: Array<[RegExp | string, string]>
-
-  [key: Server.Middleware.OptionsKey]: any
 }

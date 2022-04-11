@@ -33,7 +33,17 @@ export const setPath: setPath = function (arg1, arg2) {
   const input = isString(arg1) ? {[arg1]: arg2} : arg1
 
   Object.entries(input).map(
-    ([key, value]: [`${keyof Locations & string}`, string]) => {
+    ([key, value]: [
+      `${keyof Locations & string}`,
+      (
+        | `${keyof Locations & string}`
+        | `@file`
+        | `@name`
+        | `${keyof Locations & string}/${string}`
+        | `./${string}`
+        | `/${string}`
+      ),
+    ]) => {
       !key.startsWith(`@`) &&
         app.error(
           `bud paths are required to be prefixed with \`@\`. Please convert \`${key}\` to \`@${key}\``,

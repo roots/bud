@@ -26,29 +26,21 @@ declare module '@roots/bud-framework' {
 }
 
 /**
- * Extension name
- *
  * @public
  */
 export const label: Extension.Module['label'] = BudImagemin.label
 
 /**
- * Extension options
- *
  * @public
  */
 export const options: Extension.Module['options'] = BudImagemin.options
 
 /**
- * Extension api
- *
  * @public
  */
-export const api: {imagemin: imagemin} = BudImagemin.api
+export const register: Extension.Module['register'] = BudImagemin.register
 
 /**
- * Extension boot
- *
  * @public
  */
 export const boot: Extension.Module['boot'] = BudImagemin.boot

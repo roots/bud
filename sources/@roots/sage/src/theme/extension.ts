@@ -1,4 +1,4 @@
-import * as Framework from '@roots/bud-framework'
+import {Module} from '@roots/bud-framework'
 
 import * as themeJson from './api/themeJson'
 import * as useTailwindColors from './api/useTailwindColors'
@@ -9,22 +9,14 @@ import {Options, ThemeJsonWebpackPlugin} from './plugin'
  *
  * @public
  */
-export interface ThemeExtension
-  extends Framework.Extension.Plugin<ThemeJsonWebpackPlugin, Options> {
-  label: 'wp-theme-json'
-  options: (app: Framework.Bud) => Options
-  api: {
-    themeJson: themeJson.method
-    useTailwindColors: useTailwindColors.method
-  }
-}
+export type Extension = Module<Options, ThemeJsonWebpackPlugin>
 
 /** @public */
-export const label: ThemeExtension['label'] = 'wp-theme-json'
+export const label: Extension['label'] = 'wp-theme-json'
 
 /** @public */
-export const options: ThemeExtension['options'] = app => ({
-  path: app.path('theme.json'),
+export const options: Extension['options'] = app => ({
+  path: app.path('./theme.json'),
   settings: {
     color: {
       custom: false,
@@ -46,17 +38,17 @@ export const options: ThemeExtension['options'] = app => ({
 })
 
 /** @public */
-export const api: ThemeExtension['api'] = {
-  themeJson: themeJson.method,
-  useTailwindColors: useTailwindColors.method,
+export const register: Extension['register'] = async ({api}) => {
+  api.bindFacade('themeJson', themeJson.method)
+  api.bindFacade('useTailwindColors', useTailwindColors.method)
 }
 
 /** @public */
-export const make: ThemeExtension['make'] = options =>
+export const make: Extension['make'] = options =>
   new ThemeJsonWebpackPlugin({
     path: options.get('path'),
     settings: options.get('settings'),
   })
 
 /** @public */
-export const when: ThemeExtension['when'] = false
+export const when: Extension['when'] = false

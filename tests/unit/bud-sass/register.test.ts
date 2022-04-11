@@ -38,7 +38,7 @@ describe('@roots/bud-sass registration', () => {
 
   it('sets sass test', () => {
     expect(bud.build.rules.sass.getTest()).toBe(
-      bud.store.get('patterns.sass'),
+      bud.hooks.filter('pattern.sass'),
     )
   })
 

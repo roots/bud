@@ -31,7 +31,6 @@ export interface api {
 export interface Purge extends Extension.Module {
   name: string
   register: register
-  api: {purgecss: api}
 }
 
 /**

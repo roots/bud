@@ -51,21 +51,21 @@ export const size = asset =>
 export const hot = compilation =>
   compilation.assets.filter(
     asset =>
-      asset.name.endsWith(`.js`) && asset.name.includes(`hot-update`),
+      asset.name.endsWith(`.js`) && asset.name?.includes(`hot-update`),
   ) ?? []
 
 export const statics = compilation =>
   compilation.assets.filter(
     asset =>
       ![`js`, `css`].includes(asset.name.split('.').pop()) &&
-      !asset.name.includes(`hot-update`),
+      !asset.name?.includes(`hot-update`),
   ) ?? []
 
 export const assets = compilation =>
   compilation.assets.filter(
     asset =>
-      asset.name.endsWith(`.css`) ||
-      (asset.name.endsWith(`.js`) && !asset.name.includes('hot-update')),
+      asset.name?.endsWith(`.css`) ||
+      (asset.name?.endsWith(`.js`) && !asset.name?.includes('hot-update')),
   ) ?? []
 
 export const time = time =>
@@ -130,10 +130,10 @@ export const summary = (app: Bud, compilation: StatsCompilation) => [
             chalk.hex(theme.magenta)(`server url:`),
             app.server.connection.url.toString(),
           ],
-          app.hooks.filter(`middleware.enabled`).includes(`proxy`)
+          app.hooks.filter('dev.middleware.enabled').includes('proxy')
             ? [
-                chalk.hex(theme.magenta)(`proxy url:`),
-                app.hooks.filter(`middleware.proxy.target`).toString(),
+                chalk.hex(theme.magenta)('proxy url:'),
+                app.hooks.filter('dev.middleware.proxy.target').toString(),
               ]
             : [``, ``],
         ]),
@@ -149,10 +149,10 @@ export const development = (app: Bud) => [
         chalk.hex(theme.magenta)('server'),
         app.server.connection.url.toString(),
       ],
-      app.hooks.filter('middleware.enabled').includes('proxy')
+      app.hooks.filter('dev.middleware.enabled')?.includes('proxy')
         ? [
             chalk.hex(theme.magenta)('proxy'),
-            app.hooks.filter('middleware.proxy.target').toString(),
+            app.hooks.filter('dev.middleware.proxy.target')?.toString(),
           ]
         : ['', ''],
     ]),

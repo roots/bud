@@ -53,27 +53,11 @@ export abstract class BaseServer implements Connection {
   public url: URL
 
   /**
-   * host
-   * @public
-   */
-  public get hostname(): string {
-    return this.app.hooks.filter('dev.hostname', '0.0.0.0')
-  }
-
-  /**
-   * interface
-   * @public
-   */
-  public get interface(): string {
-    return this.app.hooks.filter('dev.interface')
-  }
-
-  /**
    * Options
    * @public
    */
   public get options(): Server.Options {
-    return this.app.hooks.filter(`dev.options`)
+    return this.app.hooks.filter('dev.options')
   }
 
   /**
@@ -94,9 +78,8 @@ export abstract class BaseServer implements Connection {
    */
   @bind
   public async setup() {
-    this.url = new URL(`${this.protocol}//${this.hostname}`)
+    this.url = this.app.hooks.filter('dev.url')
     this.url.port = `${this.app.hooks.filter('dev.port')}`
-    this.url.pathname = '/'
   }
 
   /**

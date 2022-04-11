@@ -41,10 +41,6 @@ export async function factory(overrides?: Options): Promise<Bud> {
     config: {
       ...seed,
       ...(overrides?.config ?? {}),
-      location: {
-        ...seed.location,
-        ...(overrides?.config?.location ?? {}),
-      },
     },
   }
 

@@ -13,9 +13,9 @@ const BudDllPluginConstructor: BudDllPluginConstructor = modules => ({
   options: (app: Bud) => ({
     debug: false,
     inject: false,
-    filename: app.store.is('features.hash', true)
-      ? app.store.get('hashFormat')
-      : app.store.get('fileFormat'),
+    filename: app.hooks.filter('feature.hash')
+      ? app.hooks.filter('value.hashFormat')
+      : app.hooks.filter('value.fileFormat'),
     entry: {
       library: typeof modules == 'string' ? [modules] : modules,
     },
