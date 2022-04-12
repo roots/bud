@@ -1,7 +1,7 @@
 import '@roots/bud-postcss'
 
 import {Bud, factory} from '@repo/test-kit/bud'
-import * as BudBabel from '@roots/bud-babel'
+import BudBabel from '@roots/bud-babel'
 import * as BudTypescript from '@roots/bud-typescript'
 
 describe('@roots/bud-typescript', () => {
@@ -13,7 +13,7 @@ describe('@roots/bud-typescript', () => {
 
   beforeEach(async () => {
     bud.extensions.setStore({})
-    bud.use([BudBabel, BudTypescript])
+    bud.use([new BudBabel(() => bud), BudTypescript])
     await bud.api.processQueue()
   })
 

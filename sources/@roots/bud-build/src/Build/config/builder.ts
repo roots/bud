@@ -18,6 +18,10 @@ export async function build(app: Bud): Promise<void> {
   app.hooks
     .on('build.cache', () => app.cache.configuration)
     .hooks.on('build.context', () => app.context.projectDir)
+    .hooks.on('build.infrastructureLogging', () => ({
+      console: app.hooks.filter('build.infrastructureLogging.console'),
+      loggingLevel: app.hooks.filter('build.infrastructureLogging.level'),
+    }))
     .hooks.on('build.mode', () => app.mode)
     .hooks.on('build.module', () => ({
       noParse: app.hooks.filter('build.module.noParse'),
@@ -89,8 +93,4 @@ export async function build(app: Bud): Promise<void> {
         ? `browserslist:${app.path('./package.json')}`
         : undefined,
     )
-    .hooks.on('build.infrastructureLogging', () => ({
-      console: app.hooks.filter('build.infrastructureLogging.console'),
-      level: app.hooks.filter('build.infrastructureLogging.level'),
-    }))
 }
