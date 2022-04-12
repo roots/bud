@@ -37,8 +37,8 @@ describe('@roots/bud-sass registration', () => {
   })
 
   it('sets sass test', () => {
-    expect(bud.build.rules.sass.getTest()).toBe(
-      bud.hooks.filter('pattern.sass'),
+    expect(JSON.stringify(bud.build.rules.sass.getTest())).toStrictEqual(
+      JSON.stringify(bud.hooks.filter('pattern.sass')),
     )
   })
 

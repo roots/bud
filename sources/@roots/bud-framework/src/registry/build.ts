@@ -3,62 +3,65 @@ import {Configuration, RuleSetRule} from 'webpack'
 import {EntryObject} from '../config/entry'
 import {PluginInstance} from '../extension'
 
-export interface Build {
-  'bail': boolean
-  'cache': any
-  'cache.buildDependencies': Record<string, Array<string>>
-  'cache.cacheDirectory': string
-  'cache.name': string
-  'cache.version': string
-  'cache.type': 'memory' | 'filesystem'
-  'cache.managedPaths': Array<string>
-  'context': Configuration['context']
-  'devtool': Configuration['devtool']
-  'entry': Record<string, EntryObject>
-  'experiments': Configuration['experiments']
-  'externals': Configuration['externals']
-  'infrastructureLogging': Configuration['infrastructureLogging']
-  'infrastructureLogging.level': Configuration['infrastructureLogging']['level']
-  'infrastructureLogging.console': Configuration['infrastructureLogging']['console']
-  'loader': Configuration['loader']
-  'mode': Configuration['mode'] & ('production' | 'development')
-  'module': Configuration['module']
-  'module.noParse': Configuration['module']['noParse']
-  'module.rules': Configuration['module']['rules']
-  'module.rules.oneOf': Array<RuleSetRule>
-  'module.rules.before': Array<RuleSetRule>
-  'module.rules.after': Array<RuleSetRule>
-  'module.unsafeCache': Configuration['module']['unsafeCache']
-  'name': Configuration['name']
-  'node': Configuration['node']
-  'optimization': Configuration['optimization']
-  'optimization.emitOnErrors': Configuration['optimization']['emitOnErrors']
-  'optimization.minimize': Configuration['optimization']['minimize']
-  'optimization.minimizer': Configuration['optimization']['minimizer']
-  'optimization.moduleIds': Configuration['optimization']['moduleIds']
-  'optimization.removeEmptyChunks': Configuration['optimization']['removeEmptyChunks']
-  'optimization.runtimeChunk': Configuration['optimization']['runtimeChunk']
-  'optimization.splitChunks': any
-  'output': Configuration['output']
-  'output.assetModuleFilename': Configuration['output']['assetModuleFilename']
-  'output.chunkFilename': Configuration['output']['chunkFilename']
-  'output.clean': Configuration['output']['clean']
-  'output.filename': Configuration['output']['filename']
-  'output.path': Configuration['output']['path']
-  'output.pathinfo': Configuration['output']['pathinfo']
-  'output.publicPath': string
-  'parallelism': Configuration['parallelism']
-  'performance': Configuration['performance']
-  'plugins': Array<PluginInstance>
-  'profile': Configuration['profile']
-  'recordsPath': Configuration['recordsPath']
-  'resolve': Configuration['resolve']
-  'resolve.alias': Configuration['resolve']['alias']
-  'resolve.extensions': Set<string>
-  'resolve.modules': Configuration['resolve']['modules']
-  'stats': Configuration['stats']
-  'stats.preset': string
-  'target': Configuration['target']
-  'watch': Configuration['watch']
-  'watchOptions': Configuration['watchOptions']
+export interface Sync {
+  'build.bail': boolean
+  'build.cache': any
+  'build.cache.buildDependencies': Record<string, Array<string>>
+  'build.cache.cacheDirectory': string
+  'build.cache.name': string
+  'build.cache.version': string
+  'build.cache.type': 'memory' | 'filesystem'
+  'build.cache.managedPaths': Array<string>
+  'build.context': Configuration['context']
+  'build.devtool': Configuration['devtool']
+  'build.entry': Record<string, EntryObject>
+  'build.experiments': Configuration['experiments']
+  'build.externals': Configuration['externals']
+  'build.infrastructureLogging': Configuration['infrastructureLogging']
+  'build.infrastructureLogging.level': Configuration['infrastructureLogging']['level']
+  'build.infrastructureLogging.console': Configuration['infrastructureLogging']['console']
+  'build.loader': Configuration['loader']
+  'build.mode': Configuration['mode'] & ('production' | 'development')
+  'build.module': Configuration['module']
+  'build.module.noParse': Configuration['module']['noParse']
+  'build.module.rules': Configuration['module']['rules']
+  'build.module.rules.oneOf': Array<RuleSetRule>
+  'build.module.rules.before': Array<RuleSetRule>
+  'build.module.rules.after': Array<RuleSetRule>
+  'build.module.unsafeCache': Configuration['module']['unsafeCache']
+  'build.name': Configuration['name']
+  'build.node': Configuration['node']
+  'build.optimization': Configuration['optimization']
+  'build.optimization.emitOnErrors': Configuration['optimization']['emitOnErrors']
+  'build.optimization.minimize': Configuration['optimization']['minimize']
+  'build.optimization.minimizer': Configuration['optimization']['minimizer']
+  'build.optimization.moduleIds': Configuration['optimization']['moduleIds']
+  'build.optimization.removeEmptyChunks': Configuration['optimization']['removeEmptyChunks']
+  'build.optimization.runtimeChunk': Configuration['optimization']['runtimeChunk']
+  'build.optimization.splitChunks': any
+  'build.output': Configuration['output']
+  'build.output.assetModuleFilename': Configuration['output']['assetModuleFilename']
+  'build.output.chunkFilename': Configuration['output']['chunkFilename']
+  'build.output.clean': Configuration['output']['clean']
+  'build.output.filename': Configuration['output']['filename']
+  'build.output.path': Configuration['output']['path']
+  'build.output.pathinfo': Configuration['output']['pathinfo']
+  'build.output.publicPath': string
+  'build.parallelism': Configuration['parallelism']
+  'build.performance': Configuration['performance']
+  'build.profile': Configuration['profile']
+  'build.recordsPath': Configuration['recordsPath']
+  'build.resolve.extensions': Set<string>
+  'build.stats': Configuration['stats']
+  'build.stats.preset': string
+  'build.target': Configuration['target']
+  'build.watch': Configuration['watch']
+  'build.watchOptions': Configuration['watchOptions']
+}
+
+export interface Async {
+  'build.plugins': Array<PluginInstance>
+  'build.resolve': Configuration['resolve']
+  'build.resolve.alias': Configuration['resolve']['alias']
+  'build.resolve.modules': Configuration['resolve']['modules']
 }

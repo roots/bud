@@ -58,7 +58,10 @@ export class Api
    * @internal
    */
   @bind
-  public bindFacade<K extends `${keyof Api['repository'] & string}`>(name: K, fn: Api['repository'][K]) {
+  public bindFacade<K extends `${keyof Api['repository'] & string}`>(
+    name: K,
+    fn: Api['repository'][K],
+  ) {
     this.set(name, fn.bind(this.app))
     this.app.bindMethod({[`${name}`]: facade.factory(name)})
   }

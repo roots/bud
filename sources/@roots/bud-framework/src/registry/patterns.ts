@@ -20,3 +20,9 @@ export interface Patterns {
   csv: RegExp
   webp: RegExp
 }
+
+export namespace Patterns {
+  export type HookMap = {
+    [K in keyof Patterns as `pattern.${K & string}`]: Patterns[K]
+  }
+}

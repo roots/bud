@@ -3,7 +3,10 @@ import * as Plugin from 'compression-webpack-plugin'
 
 import {BudCompressionExtension} from './'
 
-type BudGzipWebpackPlugin = Extension.Module<BudCompressionExtension.Options, Plugin>
+type BudGzipWebpackPlugin = Extension.Module<
+  BudCompressionExtension.Options,
+  Plugin
+>
 
 const label: BudGzipWebpackPlugin['label'] =
   'compression-webpack-plugin-gzip'

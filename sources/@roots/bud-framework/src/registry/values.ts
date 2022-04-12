@@ -7,7 +7,7 @@ export interface Values {
    *
    * @public
    */
-  fileFormat: string
+  'value.fileFormat': string
 
   /**
    * File format (when hashing is enabled)
@@ -19,5 +19,5 @@ export interface Values {
    *
    * @public
    */
-  hashFormat: string
+  'value.hashFormat': string
 }

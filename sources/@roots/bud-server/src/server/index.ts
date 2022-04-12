@@ -114,9 +114,10 @@ export class Server extends Service implements Base.Service {
   @bind
   @once
   public async setConnection() {
-    this.connection = this.app.hooks.filter('dev.url').protocol === 'https:'
-      ? new Https(this.app)
-      : new Http(this.app)
+    this.connection =
+      this.app.hooks.filter('dev.url').protocol === 'https:'
+        ? new Https(this.app)
+        : new Http(this.app)
 
     await this.connection.setup()
   }

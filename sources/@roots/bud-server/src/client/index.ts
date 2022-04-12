@@ -22,7 +22,7 @@ interface Options extends BaseOptions {
   'bud.indicator': boolean
 }
 
-(async (query: string) => {
+;(async (query: string) => {
   const querystring = await import('querystring')
   const hmr = await import('./bridge')
 

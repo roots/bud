@@ -64,7 +64,7 @@ describe('bud.build.config', function () {
     expect(
       JSON.stringify(bud.build.config.infrastructureLogging.console),
     ).toStrictEqual(
-      JSON.stringify(seed['build.infrastructureLogging.console'].pop()),
+      JSON.stringify(seed['build.infrastructureLogging.console'].pop()()),
     )
   })
 

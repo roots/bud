@@ -31,7 +31,7 @@ import * as Server from './services/server'
 import * as Extension from './extension'
 import {Module} from './extension/module'
 
-import * as Registry from './registry'
+import {Registry} from './registry'
 
 export {Bud, ContainerService, Extension, Service}
 
@@ -63,9 +63,10 @@ export {
 
 export type Mode = 'production' | 'development'
 export {Locations} from './registry/locations'
-export {Modules} from './registry/extensions'
+export {Modules} from './registry/modules'
 export {Flags} from './registry/flags'
 export {Events} from './registry/events'
 export {Patterns} from './registry/patterns'
 export {Dev} from './registry/dev'
 export {Values} from './registry/values'
+export {Store} from './registry'

@@ -9,6 +9,7 @@ describe('@roots/bud-hooks', function () {
   beforeAll(async () => {
     bud = await factory()
     hooks = new Hooks(bud)
+    hooks.store = {} as any
   })
 
   it('has an on method', () => {

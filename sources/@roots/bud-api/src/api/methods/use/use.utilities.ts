@@ -37,9 +37,7 @@ export const isPlugin = (extension: Definition): boolean =>
  *
  * @internal
  */
-export const hasValidConstructorName = (
-  input: Definition
-): boolean =>
+export const hasValidConstructorName = (input: Definition): boolean =>
   input?.constructor?.name &&
   typeof input.constructor.name == 'string' &&
   input.constructor.name !== 'default' &&

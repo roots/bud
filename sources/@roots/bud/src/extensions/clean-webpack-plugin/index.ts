@@ -28,4 +28,5 @@ export const make: Extension['make'] = (options: Container<Options>) =>
 /**
  * @public
  */
-export const when: Extension['when'] = ({hooks}) => hooks.filter('feature.clean')
+export const when: Extension['when'] = ({hooks}) =>
+  hooks.filter('feature.clean')

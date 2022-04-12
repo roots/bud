@@ -8,55 +8,76 @@ export interface Dev {
    * Dev server connection options
    * @public
    */
-  options: Server.Options
+  'dev.options': Server.Options
 
   /**
    * IPV4 or IPV6 binding
    * @public
    */
-  interface: string
+  'dev.interface': string
 
   /**
    * Server URL
    * @public
    */
-  url: URL
+  'dev.url': URL
 
   /**
    * Files which trigger a full browser reload
    */
-  'watch.files': Set<string>
+  'dev.watch.files': Set<string>
   /**
    * FS.Watcher options
    * @public
    */
-  'watch.options': WatchOptions
+  'dev.watch.options': WatchOptions
 
   /**
    * Scripts included in dev builds
    * @public
    */
-  'client.scripts': Set<(app: Bud) => string>
+  'dev.client.scripts': Set<(app: Bud) => string>
 
   /**
    * Enabled middleware
    * @public
    */
-  'middleware.enabled': Array<keyof Server.Middleware.Available>
+  'dev.middleware.enabled': Array<keyof Server.Middleware.Available>
 
-  'middleware.dev.options': Server.Middleware.Available['dev']['options']
-  'middleware.hot.options': Server.Middleware.Available['hot']['options']
-  'middleware.proxy.options': Server.Middleware.Available['proxy']['options']
+  'dev.middleware.dev.options': Server.Middleware.Available['dev']['options']
+  'dev.middleware.dev.options.headers': Server.Middleware.Available['dev']['options']['headers']
+  'dev.middleware.dev.options.publicPath': Server.Middleware.Available['dev']['options']['publicPath']
+  'dev.middleware.dev.options.stats': Server.Middleware.Available['dev']['options']['stats']
+  'dev.middleware.dev.options.writeToDisk': Server.Middleware.Available['dev']['options']['writeToDisk']
+
+  'dev.middleware.hot.options': Server.Middleware.Available['hot']['options']
+  'dev.middleware.hot.options.heartbeat': Server.Middleware.Available['hot']['options']['heartbeat']
+  'dev.middleware.hot.options.log': Server.Middleware.Available['hot']['options']['log']
+  'dev.middleware.hot.options.path': Server.Middleware.Available['hot']['options']['path']
+
+  'dev.middleware.proxy.options': Server.Middleware.Available['proxy']['options']
+  'dev.middleware.proxy.options.autoRewrite': Server.Middleware.Available['proxy']['options']['autoRewrite']
+  'dev.middleware.proxy.options.changeOrigin': Server.Middleware.Available['proxy']['options']['changeOrigin']
+  'dev.middleware.proxy.options.cookieDomainRewrite': Server.Middleware.Available['proxy']['options']['cookieDomainRewrite']
+  'dev.middleware.proxy.options.followRedirects': Server.Middleware.Available['proxy']['options']['followRedirects']
+  'dev.middleware.proxy.options.headers': Server.Middleware.Available['proxy']['options']['headers']
+  'dev.middleware.proxy.options.hostRewrite': Server.Middleware.Available['proxy']['options']['hostRewrite']
+  'dev.middleware.proxy.options.logLevel': Server.Middleware.Available['proxy']['options']['logLevel']
+  'dev.middleware.proxy.options.onProxyReq': Server.Middleware.Available['proxy']['options']['onProxyReq']
+  'dev.middleware.proxy.options.onProxyRes': Server.Middleware.Available['proxy']['options']['onProxyRes']
+  'dev.middleware.proxy.options.protocolRewrite': Server.Middleware.Available['proxy']['options']['protocolRewrite']
+  'dev.middleware.proxy.options.secure': Server.Middleware.Available['proxy']['options']['secure']
+  'dev.middleware.proxy.options.selfHandleResponse': Server.Middleware.Available['proxy']['options']['selfHandleResponse']
 
   /**
    * Proxy target URL
    * @public
    */
-  'middleware.proxy.target': URL
+  'dev.middleware.proxy.target': URL
 
   /**
    * Proxy middleware replacements
    * @public
    */
-  'middleware.proxy.replacements': Array<[RegExp | string, string]>
+  'dev.middleware.proxy.replacements': Array<[RegExp | string, string]>
 }

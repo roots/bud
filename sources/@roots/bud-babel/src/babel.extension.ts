@@ -8,12 +8,12 @@ export interface BabelExtension extends Extension.Extension {}
 
 /**
  * Babel support for `@roots/bud`
- * 
+ *
  * @public
  */
 export class BabelExtension extends Extension.Extension {
-  /** 
-   * @public 
+  /**
+   * @public
    */
   public label = '@roots/bud-babel'
 

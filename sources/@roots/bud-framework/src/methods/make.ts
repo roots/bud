@@ -51,7 +51,7 @@ export async function make(
     name,
     mode: app.mode,
     childOf: app,
-    config: {...app.options.config, name: [name]},
+    config: {...app.options.config, 'build.name': [() => name]},
     context: app.context,
     services: app.options.services,
   })

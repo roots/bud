@@ -7,7 +7,7 @@ import type {Signale} from '@roots/bud-support'
  * @internal
  */
 export function configure(app: Bud): void {
-  app.hooks.on('extension.@roots/bud-postcss.options', options => ({
+  app.hooks.on('extension.@roots/bud-postcss.options' as any, options => ({
     syntax: 'postcss-scss',
   }))
 }
@@ -21,7 +21,9 @@ export function configure(app: Bud): void {
  * @internal
  */
 export function verify(app: Bud, logger: Signale): void {
-  const options = app.hooks.filter('extension.@roots/bud-postcss.options')
+  const options = app.hooks.filter(
+    'extension.@roots/bud-postcss.options' as any,
+  )
 
   if (options?.syntax == 'postcss-scss') {
     logger.success('postcss configured to handle scss syntax')

@@ -65,7 +65,7 @@ export interface Module<Options = any, Instance = PluginInstance> {
         options: Container<Options>,
         app: Bud,
         logger: Signale,
-      ) =>  Instance)
+      ) => Instance)
 
   /**
    * Compiler plugin `apply` method
@@ -77,7 +77,7 @@ export interface Module<Options = any, Instance = PluginInstance> {
 
 /**
  * Compiler plugin interface
- * 
+ *
  * @public
  */
 export interface PluginInstance {

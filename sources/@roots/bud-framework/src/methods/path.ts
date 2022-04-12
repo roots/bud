@@ -1,6 +1,6 @@
 import {resolve, sep as slash} from 'node:path'
 
-import {Bud, Registry} from '..'
+import {Bud, Locations} from '..'
 
 /**
  * Transform `@alias` path
@@ -15,8 +15,8 @@ export interface parseAlias {
   (
     app: Bud,
     base:
-      | `${keyof Registry.Locations & string}`
-      | `${keyof Registry.Locations & string}/${string}`,
+      | `${keyof Locations & string}`
+      | `${keyof Locations & string}/${string}`,
   ): string
 }
 
@@ -25,13 +25,13 @@ export const parseAlias: parseAlias = (app, base) => {
   let [ident, ...parts] = base.includes(slash) ? base.split(slash) : [base]
 
   /* If there is no match for ident there is a problem */
-  !app.hooks.has(`location.${ident}`) &&
+  !app.hooks.has(`location.${ident as keyof Locations}`) &&
     app.error(
       `\`${ident}\` is not a registered path. It must be defined with bud.setPath`,
     )
 
   /* Replace base path */
-  ident = app.hooks.filter(`location.${ident}`)
+  ident = app.hooks.filter(`location.${ident as keyof Locations}`)
 
   /* If segments were passed, resolve */
   return parts.length ? resolve(ident, ...parts) : ident
@@ -49,10 +49,10 @@ export const parseAlias: parseAlias = (app, base) => {
 export interface path {
   (
     base?:
-      | `${keyof Registry.Locations & string}`
+      | `${keyof Locations & string}`
       | `@file`
       | `@name`
-      | `${keyof Registry.Locations & string}/${string}`
+      | `${keyof Locations & string}/${string}`
       | `./${string}`
       | `/${string}`,
     ...segments: Array<string>
@@ -64,9 +64,7 @@ export const path: path = function (base, ...segments) {
   /* Exit early with projectDir if no path was passed */
   if (!base) return app.context.projectDir
 
-  const fileHandles = (
-    pathString: string,
-  ): string =>
+  const fileHandles = (pathString: string): string =>
     pathString
       .replace(
         '@file',
@@ -89,7 +87,8 @@ export const path: path = function (base, ...segments) {
   if (base.startsWith(`@`)) base = parseAlias(app, base as any) as any
 
   /* Resolve any base path that isn't already absolute */
-  if (!base.startsWith(`/`)) base = resolve(app.context.projectDir, base) as any
+  if (!base.startsWith(`/`))
+    base = resolve(app.context.projectDir, base) as any
 
   /* If segments were passed, resolve them against base */
   return segments.length ? resolve(base, ...segments) : base

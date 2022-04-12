@@ -1,4 +1,4 @@
-import {Extension, Logger, Registry} from '@roots/bud-framework'
+import {Extension, Logger, Modules} from '@roots/bud-framework'
 import {bind, lodash} from '@roots/bud-support'
 import {Container} from '@roots/container'
 
@@ -40,7 +40,9 @@ export class Controller {
   /**
    * @internal
    */
-  public _module: (Extension.Module | Extension.Extension) & {logger: Logger['instance']}
+  public _module: (Extension.Module | Extension.Extension) & {
+    logger: Logger['instance']
+  }
 
   /**
    * Controller constructor
@@ -65,7 +67,7 @@ export class Controller {
     this.logger = new Logger(_app).instance.scope(
       this.label ?? '[unknown extension]',
     )
-    
+
     !this.app.hooks.filter('feature.log') && this.logger.disable()
     this._module.logger = this.logger
 
@@ -95,10 +97,11 @@ export class Controller {
    *
    * @public
    */
-  public get label(): string {
+  public get label(): `${keyof Modules & string}` {
     return this._module.label
   }
-  public set label(label: string) {
+
+  public set label(label: `${keyof Modules & string}`) {
     this._module.label = label
   }
 
@@ -118,9 +121,7 @@ export class Controller {
 
     if (this._module.options instanceof Container) {
       return this.app.hooks.filter(
-        `extension.${
-          this.label as keyof Registry.Modules & string
-        }.options`,
+        `extension.${this.label}.options` as any,
         () => this._module.options,
       )
     }
@@ -132,7 +133,7 @@ export class Controller {
     }
 
     return this.app.hooks.filter(
-      `extension.${this.label as keyof Registry.Modules & string}.options`,
+      `extension.${this.label as keyof Modules & string}.options` as any,
       () => this.app.container(this._module.options),
     )
   }

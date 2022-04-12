@@ -115,7 +115,11 @@ export const method: Serve = async function (
 
   if (input instanceof URL || typeof input === 'string') {
     const url = input instanceof URL ? input : new URL(input)
-    url.port = await requestPort(app, url, Number(url.port ?? current.port))
+    url.port = await requestPort(
+      app,
+      url,
+      Number(url.port ?? current.port),
+    )
     return app.hooks.on('dev.url', url)
   }
 
@@ -130,15 +134,13 @@ export const method: Serve = async function (
 const assignSpec = async (app: Bud, url: URL, spec: Specification) => {
   if (!spec.options) spec.options = {}
 
-  if ([spec.ssl,spec.cert,spec.key].filter(Boolean).length > 0) {
+  if ([spec.ssl, spec.cert, spec.key].filter(Boolean).length > 0) {
     url.protocol = 'https:'
   }
 
-  if (spec.cert)
-    spec.options.cert = await fs.readFile(spec.cert)
+  if (spec.cert) spec.options.cert = await fs.readFile(spec.cert)
 
-  if (spec.key)
-    spec.options.key = await fs.readFile(spec.key)
+  if (spec.key) spec.options.key = await fs.readFile(spec.key)
 
   if (spec.port) {
     url.port = await requestPort(app, url, Number(url.port))

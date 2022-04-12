@@ -29,5 +29,8 @@ export interface Service extends ContainerService {
   /**
    * @internal
    */
-  bindFacade<K extends `${keyof Service['repository'] & string}`>(key: K, fn: Service['repository'][K]): void
+  bindFacade<K extends `${keyof Service['repository'] & string}`>(
+    key: K,
+    fn: Service['repository'][K],
+  ): void
 }

@@ -8,27 +8,17 @@ const {isArray, isFunction} = lodash
 export type Definition = Extension.Module | (new () => Extension.Extension)
 
 export interface use {
-  (
-    source:
-      | Definition
-      | Array<Definition>
-  ): Promise<Bud>
+  (source: Definition | Array<Definition>): Promise<Bud>
 }
 
 export interface facade {
-  (
-    source:
-      | Definition
-      | Array<Definition>
-  ): Bud
+  (source: Definition | Array<Definition>): Bud
 }
 
 export const use: use = async function (source): Promise<Bud> {
   const bud = this as Bud
 
-  const addExtension = async (
-    source: Definition,
-  ): Promise<Bud> => {
+  const addExtension = async (source: Definition): Promise<Bud> => {
     if (!source) {
       bud.error(`extension source is not defined`)
     }
@@ -58,10 +48,7 @@ export const use: use = async function (source): Promise<Bud> {
   !isArray(source)
     ? await addExtension(source)
     : await Promise.all(
-        source.map(
-          async (ext: Definition) =>
-            await addExtension(ext),
-        ),
+        source.map(async (ext: Definition) => await addExtension(ext)),
       )
 
   return bud

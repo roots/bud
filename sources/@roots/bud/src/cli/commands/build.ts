@@ -309,8 +309,14 @@ export class BuildCommand extends BaseCommand {
         ),
         'location.@src': fallback(this.src, seed['location.@src']),
         'location.@dist': fallback(this.dist, seed['location.@dist']),
-        'location.@storage': fallback(this.storage, seed['location.@storage']),
-        'location.@modules': fallback(this.modules, seed['location.@modules']),
+        'location.@storage': fallback(
+          this.storage,
+          seed['location.@storage'],
+        ),
+        'location.@modules': fallback(
+          this.modules,
+          seed['location.@modules'],
+        ),
       },
     })
 

@@ -14,8 +14,12 @@ export const makeAcornCompat = (app: Bud) => {
    */
   app.build.rules.svg.setGenerator(app => ({
     filename: app.hooks.filter('feature.hash')
-      ? 'images/'.concat(app.hooks.filter('value.hashFormat')).concat('[ext]')
-      : 'images/'.concat(app.hooks.filter('value.fileFormat')).concat('[ext]'),
+      ? 'images/'
+          .concat(app.hooks.filter('value.hashFormat'))
+          .concat('[ext]')
+      : 'images/'
+          .concat(app.hooks.filter('value.fileFormat'))
+          .concat('[ext]'),
   }))
 
   /**

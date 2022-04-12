@@ -9,12 +9,16 @@ const src = (modulePath: string) =>
  * @public
  */
 export const seed = (app: Bud) => {
-  app
-    .hooks.on(`dev.middleware.dev.options`, () => ({
+  app.hooks
+    .on(`dev.middleware.dev.options`, () => ({
       headers: app.hooks.filter(`dev.middleware.dev.options.headers`),
-      publicPath: app.hooks.filter(`dev.middleware.dev.options.publicPath`),
+      publicPath: app.hooks.filter(
+        `dev.middleware.dev.options.publicPath`,
+      ),
       stats: app.hooks.filter(`dev.middleware.dev.options.stats`),
-      writeToDisk: app.hooks.filter(`dev.middleware.dev.options.writeToDisk`),
+      writeToDisk: app.hooks.filter(
+        `dev.middleware.dev.options.writeToDisk`,
+      ),
     }))
 
     .hooks.on(`dev.middleware.hot.options`, () => ({
@@ -45,17 +49,20 @@ export const seed = (app: Bud) => {
     .hooks.on(`dev.middleware.hot.options.heartbeat`, 2000)
     .hooks.on(
       `dev.client.scripts`,
-      () => new Set([
-        app =>
-          src(
-            `index.js?name=${app.name}&bud.overlay=${
-              app.context.args.overlay
-            }&bud.indicator=${
-              app.context.args.indicator
-            }&path=${app.hooks.filter('dev.middleware.hot.options.path')}`,
-          ),
-        () => src(`proxy-click-interceptor.js`),
-      ]),
+      () =>
+        new Set([
+          app =>
+            src(
+              `index.js?name=${app.name}&bud.overlay=${
+                app.context.args.overlay
+              }&bud.indicator=${
+                app.context.args.indicator
+              }&path=${app.hooks.filter(
+                'dev.middleware.hot.options.path',
+              )}`,
+            ),
+          () => src(`proxy-click-interceptor.js`),
+        ]),
     )
     .hooks.on(`dev.watch.files`, new Set([]))
     .hooks.on(`dev.watch.options`, {})

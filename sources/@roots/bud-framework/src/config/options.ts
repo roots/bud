@@ -1,4 +1,4 @@
-import {Bud, Mode, Registry, Service, Services} from '..'
+import {Bud, Mode, Service, Services} from '..'
 import {Context} from './context'
 
 /**
@@ -44,7 +44,7 @@ export interface Options {
    *
    * @public
    */
-  config?: Partial<Registry.RegistryStore>
+  config?: Partial<Bud['hooks']['store']>
 
   /**
    * Services

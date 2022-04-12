@@ -59,12 +59,10 @@ declare module '@roots/bud-framework' {
      */
     gzip(options?: BudCompressionExtension.Options): Bud
   }
-  
-  namespace Registry {
-    interface Flags {
-      'gzip': boolean
-      'brotli': boolean
-    }
+
+  interface Flags {
+    gzip: boolean
+    brotli: boolean
   }
 
   interface Modules {

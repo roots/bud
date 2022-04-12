@@ -37,7 +37,10 @@ declare module '@roots/bud-framework' {
 
   interface Modules {
     '@roots/bud-typescript': BudTypeScriptExtension
-    'fork-ts-checker-plugin': Module<any, typeof ForkTsCheckerWebpackPlugin>
+    'fork-ts-checker-plugin': Module<
+      any,
+      typeof ForkTsCheckerWebpackPlugin
+    >
   }
 
   interface Loaders {

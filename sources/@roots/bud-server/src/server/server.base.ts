@@ -79,7 +79,6 @@ export abstract class BaseServer implements Connection {
   @bind
   public async setup() {
     this.url = this.app.hooks.filter('dev.url')
-    this.url.port = `${this.app.hooks.filter('dev.port')}`
   }
 
   /**

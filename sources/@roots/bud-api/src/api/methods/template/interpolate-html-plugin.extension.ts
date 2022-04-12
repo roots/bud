@@ -17,13 +17,13 @@ export interface BudInterpolateHtmlPlugin
  * @public
  */
 export const BudInterpolateHtmlPlugin: BudInterpolateHtmlPlugin = {
-  /** 
-   * @public 
+  /**
+   * @public
    */
   label: 'interpolate-html-plugin',
 
-  /** 
-   * @public 
+  /**
+   * @public
    */
   options: (app: Bud) => {
     return {
@@ -35,7 +35,7 @@ export const BudInterpolateHtmlPlugin: BudInterpolateHtmlPlugin = {
   /**
    * @public
    */
-  make: (options) =>
+  make: options =>
     new InterpolateHtmlPlugin(HtmlWebpackPlugin as any, options.all()),
 
   /**

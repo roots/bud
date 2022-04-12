@@ -29,7 +29,6 @@ export const extension: extension = {
    */
   async register(app: Bud, logger: Signale) {
     const implementation = await importSassImplementation(logger)
-
     app.hooks
       .on('build.resolve.extensions', ext => ext.add('.scss').add('.sass'))
       .build.setLoader('sass', require.resolve('sass-loader'))

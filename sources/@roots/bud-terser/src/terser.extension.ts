@@ -20,7 +20,8 @@ export const options: Extension['options'] = app => ({
   },
 })
 
-export const register: Extension['register'] = async ({api}) => api.bindFacade('terser', terser)
+export const register: Extension['register'] = async ({api}) =>
+  api.bindFacade('terser', terser)
 
 export const boot: Extension['boot'] = async ({extensions, hooks}) => {
   hooks.on('build.optimization.minimizer', minimizer => {

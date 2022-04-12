@@ -1,7 +1,7 @@
 import {Bud, Extension, Module, PluginInstance} from '../../extension'
 import {ContainerService} from '../../service'
 
-export type BudExtension = Module | (new (app: (() => Bud)) => Extension)
+export type BudExtension = Module | (new (app: () => Bud) => Extension)
 
 /**
  * Container service for {@link Bud} extensions.
@@ -20,9 +20,7 @@ export interface Service extends ContainerService {
    *
    * @public
    */
-  add(
-    extension: BudExtension | Array<BudExtension>,
-  ): Promise<unknown>
+  add(extension: BudExtension | Array<BudExtension>): Promise<unknown>
 
   /**
    * Install and register discovered extensions

@@ -1,4 +1,4 @@
-import { Extension } from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework'
 
 export class BudTailwindCss extends Extension.Extension {
   /**

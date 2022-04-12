@@ -2,7 +2,7 @@ import {Module} from './module'
 
 /**
  * Plugin module
- * 
+ *
  * @deprecated
  * Use {@link Module} directly
  */

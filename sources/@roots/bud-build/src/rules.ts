@@ -54,8 +54,12 @@ export const image = (app: Bud) =>
     .setType('asset/resource')
     .setGenerator(app => ({
       filename: app.hooks.filter('feature.hash')
-        ? 'images/'.concat(app.hooks.filter('value.hashFormat')).concat('[ext]')
-        : 'images/'.concat(app.hooks.filter('value.fileFormat')).concat('[ext]'),
+        ? 'images/'
+            .concat(app.hooks.filter('value.hashFormat'))
+            .concat('[ext]')
+        : 'images/'
+            .concat(app.hooks.filter('value.fileFormat'))
+            .concat('[ext]'),
     }))
 
 /**
@@ -74,8 +78,12 @@ export const webp = (app: Bud) =>
     .setType('asset/resource')
     .setGenerator(app => ({
       filename: app.hooks.filter('feature.hash')
-        ? 'images/'.concat(app.hooks.filter('value.hashFormat')).concat('[ext]')
-        : 'images/'.concat(app.hooks.filter('value.fileFormat')).concat('[ext]'),
+        ? 'images/'
+            .concat(app.hooks.filter('value.hashFormat'))
+            .concat('[ext]')
+        : 'images/'
+            .concat(app.hooks.filter('value.fileFormat'))
+            .concat('[ext]'),
     }))
 
 /**
@@ -92,8 +100,12 @@ export const svg = (app: Bud) =>
     .setType('asset/resource')
     .setGenerator(app => ({
       filename: app.hooks.filter('feature.hash')
-        ? 'svg/'.concat(app.hooks.filter('value.hashFormat')).concat('[ext]')
-        : 'svg/'.concat(app.hooks.filter('value.fileFormat')).concat('[ext]'),
+        ? 'svg/'
+            .concat(app.hooks.filter('value.hashFormat'))
+            .concat('[ext]')
+        : 'svg/'
+            .concat(app.hooks.filter('value.fileFormat'))
+            .concat('[ext]'),
     }))
 
 /**
@@ -109,8 +121,12 @@ export const font = (app: Bud) =>
     .setInclude(({path}) => [path('@src')])
     .setGenerator(app => ({
       filename: app.hooks.filter('feature.hash')
-        ? 'fonts/'.concat(app.hooks.filter('value.hashFormat')).concat('[ext]')
-        : 'fonts/'.concat(app.hooks.filter('value.fileFormat')).concat('[ext]'),
+        ? 'fonts/'
+            .concat(app.hooks.filter('value.hashFormat'))
+            .concat('[ext]')
+        : 'fonts/'
+            .concat(app.hooks.filter('value.fileFormat'))
+            .concat('[ext]'),
     }))
 
 /**

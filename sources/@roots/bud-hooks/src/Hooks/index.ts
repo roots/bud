@@ -1,5 +1,5 @@
-import {Registry} from '@roots/bud-framework'
 import * as Framework from '@roots/bud-framework'
+import {Registry, Store} from '@roots/bud-framework/types/registry'
 import {bind, chalk, lodash} from '@roots/bud-support'
 
 const {isFunction} = lodash
@@ -49,8 +49,11 @@ const {isFunction} = lodash
  *
  * @public
  */
-export class Hooks extends Framework.Service implements Framework.Hooks.Service {
-  public store: Partial<Registry.RegistryStore> = {}
+export class Hooks
+  extends Framework.Service
+  implements Framework.Hooks.Service
+{
+  public store: Store
 
   /**
    * hook getter
@@ -59,9 +62,8 @@ export class Hooks extends Framework.Service implements Framework.Hooks.Service 
    * @decorator `@bind`
    */
   @bind
-  public get<T extends `${keyof Registry.RegistryStore & string}`>(
-    path: T,
-  ): Registry.RegistryStore[T] {
+  public get<T extends `${keyof Store & string}`>(path: T): Store[T] {
+    if (!this.store[path]) this.store[path] = []
     return this.store[path]
   }
 
@@ -72,24 +74,22 @@ export class Hooks extends Framework.Service implements Framework.Hooks.Service 
    * @decorator `@bind`
    */
   @bind
-  public set<T extends `${keyof Registry.RegistryValue & string}`>(
+  public set<T extends `${keyof Store & string}`>(
     path: T,
-    value: Registry.RegistryStore[T],
+    value: Store[T],
   ): this {
-    this.store[path] = value
+    if (this.store[path])
+      this.store[path] = [...this.store[path], ...value]
+    else this.store[path] = value
     return this
   }
 
   /**
-   * hook setter
-   *
-   * @internal
-   * @decorator `@bind`
+   * Not type safe but very convenient
+   * to check if a hook has been set somewhere
    */
   @bind
-  public has<T extends `${keyof Registry.RegistryStore & string}`>(
-    path: T,
-  ): boolean {
+  public has<T extends `${keyof Store & string}`>(path: T): boolean {
     return this.store[path] ? true : false
   }
 
@@ -115,28 +115,17 @@ export class Hooks extends Framework.Service implements Framework.Hooks.Service 
    * @decorator `@bind`
    */
   @bind
-  public on<T extends keyof Registry.RegistryStore & string>(
+  public on<T extends `${keyof Registry.Sync & string}`>(
     id: T,
-    input: Registry.RegistryValue[T] | ((current?: Registry.RegistryValue[T]) => Registry.RegistryValue[T]),
+    input:
+      | Registry.Sync[T]
+      | ((current?: Registry.Sync[T]) => Registry.Sync[T]),
   ): Framework.Bud {
-    const value = this.has(id) ? this.get(id) : []
-
-    if (!Array.isArray(value)) {
-      this.app.error(
-        '\n',
-        id,
-        'is not an array (but it should be)\n',
-        'value retrieved:',
-        value,
-        '\nnext value:',
-        input,
-      )
-    }
-
-    value.push(input)
+    const inputFn: (current?: Registry.Sync[T]) => Registry.Sync[T] =
+      typeof input === 'function' ? input : () => input
 
     this.app.info(`hooks.on`, id, input)
-    this.set(id, value)
+    this.set(id, [inputFn])
 
     return this.app
   }
@@ -163,15 +152,16 @@ export class Hooks extends Framework.Service implements Framework.Hooks.Service 
    * @decorator `@bind`
    */
   @bind
-  public async<T extends keyof Registry.AsyncRecord & keyof Registry.RegistryStore & string>(
+  public async<T extends `${keyof Registry.Async & string}`>(
     id: T,
-    callback: Registry.AsyncRecord[T]
+    input:
+      | Registry.Async[T]
+      | ((current?: Registry.Async[T]) => Promise<Registry.Async[T]>),
   ): Framework.Bud {
-    const value = this.has(id) ? this.get<T>(id) : []
-    value.push(callback)
+    const inputFn = typeof input === 'function' ? input : async () => input
 
-    this.app.info(`hooks.async`, id, value)
-    this.set<T>(id, value)
+    this.app.info(`hooks.async`, id, input)
+    this.set(id, [inputFn as any])
 
     return this.app
   }
@@ -196,27 +186,25 @@ export class Hooks extends Framework.Service implements Framework.Hooks.Service 
    * @decorator `@bind`
    */
   @bind
-  public filter<T extends keyof Registry.RegistryValue & string>(
+  public filter<T extends keyof Registry.Sync & string>(
     id: T,
-    value?: Registry.RegistryValue[T] | ((value?: Registry.RegistryValue[T]) => any),
-  ): Registry.RegistryValue[T] {
-    if (!this.has(id)) return isFunction(value) ? value() : value
+    fallback?:
+      | Registry.Sync[T]
+      | ((value?: Registry.Sync[T]) => Registry.Sync[T]),
+  ): Registry.Sync[T] {
+    if (!this.has(id)) return isFunction(fallback) ? fallback() : fallback
 
-    const retrieved = this.get(id) ?? []
-    const normal = Array.isArray(retrieved) ? retrieved : [retrieved]
-
-    const result = normal.reduce(
+    const result = this.get(id).reduce(
       (
-        accumulated: Registry.RegistryValue[T],
-        current?:
-          | ((value: Registry.RegistryValue[T]) => Registry.RegistryValue[T])
-          | Registry.RegistryValue[T],
-      ) => (isFunction(current) ? current(accumulated) : current),
-      value,
+        accumulated: Registry.Sync[T],
+        current: (value?: Registry.Sync[T]) => Registry.Sync[T],
+      ): Registry.Sync[T] => current(accumulated),
+      isFunction(fallback) ? fallback() : fallback,
     )
 
     this.app.info(`hooks.filter`, id, result)
-    return result
+
+    return result as Registry.Sync[T]
   }
 
   /**
@@ -237,29 +225,29 @@ export class Hooks extends Framework.Service implements Framework.Hooks.Service 
    * @decorator `@bind`
    */
   @bind
-  public async filterAsync<T extends keyof Registry.AsyncRecord & string>(
+  public async filterAsync<T extends `${keyof Registry.Async & string}`>(
     id: T,
-    value?: Registry.RegistryValue[T],
-  ): Promise<Registry.RegistryValue[T]> {
-    if (!this.has(id)) return isFunction(value) ? await value() : value
+    fallback?: Registry.Async[T],
+  ): Promise<Registry.Async[T]> {
+    if (!this.has(id))
+      return isFunction(fallback) ? await fallback() : fallback
 
     const retrieved = this.get(id) ?? []
     const arrayed = Array.isArray(retrieved) ? retrieved : [retrieved]
 
     const result = await arrayed.reduce(
       async (
-        promised,
-        current?:
-          | ((value: T) => Promise<T> | Registry.AsyncRecord[T])
-          | Registry.AsyncRecord[T],
+        accumulated,
+        current?: ((fallback: T) => Promise<T> | Store[T]) | Store[T],
       ) => {
-        const next = await promised
+        const next = await accumulated
         return isFunction(current) ? await current(next) : current
       },
-      value,
+      fallback,
     )
 
     this.app.info(`hooks.filterAsync`, id, result)
+
     return result
   }
 
@@ -270,15 +258,13 @@ export class Hooks extends Framework.Service implements Framework.Hooks.Service 
    * @decorator `@bind`
    */
   @bind
-  public action<T extends keyof Registry.StoreMap<Registry.Events, 'event'> &
-      keyof Registry.RegistryStore &
-      string>(
+  public action<T extends keyof Registry.Events & string>(
     id: T,
-    ...actions: Array<Registry.RegistryValue[T]>
+    ...actions: Array<(app?: Framework.Bud) => Promise<unknown>>
   ): Framework.Bud {
-    const value = this.has(id) ? this.get(id) : []
+    const value = this.get(id)
 
-    actions.forEach(action => value.push(action))
+    actions.forEach(action => value.push(action as any))
 
     this.app.info({
       message: `registering action: ${id}`,
@@ -302,20 +288,23 @@ export class Hooks extends Framework.Service implements Framework.Hooks.Service 
    * @decorator `@bind`
    */
   @bind
-  public async fire<T extends keyof Registry.ValueMap<Registry.Events, 'event'> & string>(
+  public async fire<T extends keyof Registry.Events & string>(
     id: T,
   ): Promise<Framework.Bud> {
     if (!this.has(id)) return
 
-    const retrieved = this.get<T>(id)
+    const retrieved = this.get(id) as unknown as Array<Registry.Events[T]>
 
-    await retrieved.reduce(async (promised, current: (app: Framework.Bud) => Promise<unknown>) => {
-      await promised
+    await retrieved.reduce(
+      async (promised, current: Registry.Events[T]) => {
+        await promised
 
-      this.app.info(`firing action ${id}`)
+        this.app.info(`firing action ${id}`)
 
-      return await current(this.app)
-    }, Promise.resolve())
+        return await current(this.app)
+      },
+      Promise.resolve(),
+    )
 
     return this.app
   }

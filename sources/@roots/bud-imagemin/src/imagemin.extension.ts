@@ -26,7 +26,8 @@ export const options: Extension.Module['options'] | SquooshOptions = {
   ],
 }
 
-export const register = async ({api}) => api.bindFacade('imagemin', imagemin)
+export const register = async ({api}) =>
+  api.bindFacade('imagemin', imagemin)
 
 export const boot = async (app: Bud): Promise<void> => {
   app.hooks.on('build.optimization.minimizer', minimizer => [

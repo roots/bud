@@ -91,5 +91,6 @@ export async function build(app: Bud): Promise<void> {
     )
     .hooks.on('build.infrastructureLogging', () => ({
       console: app.hooks.filter('build.infrastructureLogging.console'),
+      loggingLevel: app.hooks.filter('build.infrastructureLogging.level'),
     }))
 }
