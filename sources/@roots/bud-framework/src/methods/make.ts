@@ -51,12 +51,14 @@ export async function make(
     name,
     mode: app.mode,
     childOf: app,
-    config: {...app.options.config, 'build.name': [() => name]},
+    seed: app.options.seed,
     context: app.context,
     services: app.options.services,
   })
 
   await instance.lifecycle()
+
+  instance.hooks.on('build.name', name)
 
   if (tap) await tap(instance)
 

@@ -1,98 +1,28 @@
-import type {Bud} from '@roots/bud-framework'
-import {prettyFormat, Signale, table} from '@roots/bud-support'
+import {Bud, Logger} from '@roots/bud-framework'
+import {prettyFormat, table} from '@roots/bud-support'
 import {cpus} from 'os'
-
-const infrastructureLogger = {
-  count: {},
-  instance: new Signale({scope: `webpack`}),
-}
 
 /**
  * Bud configuration defaults
  *
  * @public
  */
-export const seed: Partial<Bud['hooks']['store']> = {
-  /**
-   * Feature flags
-   *
-   * @public
-   */
+export const seed: (app: Bud) => Partial<Bud['hooks']['store']> = (
+  app: Bud,
+) => ({
   'feature.cache': [() => true],
-
-  /**
-   * Clean dist directory prior to compilation
-   *
-   * @public
-   */
   'feature.clean': [() => false],
-
-  /**
-   * Hash emitted filenames
-   *
-   * @public
-   */
   'feature.hash': [() => false],
-
-  /**
-   * Emit an html file during compilation
-   *
-   * @public
-   */
   'feature.html': [() => false],
-
-  /**
-   * Automatically register installed extensions
-   *
-   * @public
-   */
   'feature.inject': [() => true],
-
-  /**
-   * Log build status informatino to the terminal
-   *
-   * @public
-   */
   'feature.log': [() => false],
-
-  /**
-   * Emit a manifest.json with references to emitted assets
-   *
-   * @public
-   */
   'feature.manifest': [() => true],
-
-  /**
-   * @public
-   */
   'feature.runtimeChunk': [() => false],
-
-  /**
-   * Enable code splitting
-   *
-   * @public
-   */
   'feature.splitChunks': [() => false],
 
-  /**
-   * Filename format for emitted assets when hashing is disabled
-   *
-   * @public
-   */
   'value.fileFormat': [() => '[name]'],
-
-  /**
-   * Filename format for emitted assets when hashing is enabled
-   *
-   * @public
-   */
   'value.hashFormat': [() => '[name].[contenthash:6]'],
 
-  /**
-   * Regular expression records
-   *
-   * @public
-   */
   'pattern.js': [() => /\.(cjs|mjs|jsx?)$/],
   'pattern.ts': [() => /\.(tsx?)$/],
   'pattern.sass': [() => /\.(scss|sass)$/],
@@ -121,47 +51,54 @@ export const seed: Partial<Bud['hooks']['store']> = {
 
   'build.infrastructureLogging.level': [() => 'error'],
   'build.infrastructureLogging.console': [
-    () => ({
-      Console: require(`console`),
-      assert: (v, m) => v && infrastructureLogger.instance.info(m),
-      // eslint-disable-next-line
-      clear: () => null,
-      count: (label?: string) => {
-        infrastructureLogger.count[label] =
-          infrastructureLogger.count[label] + 1
+    () => {
+      const infrastructureLogger = {
+        count: {},
+        instance: new Logger(app).instance.scope('webpack'),
+      }
 
-        infrastructureLogger.instance.info(
-          `${label}: ${infrastructureLogger.count[label]}`,
-        )
-      },
-      countReset: (label?: string) => {
-        infrastructureLogger.count[label] = 0
-      },
-      debug: infrastructureLogger.instance.debug,
-      dir: infrastructureLogger.instance.info,
-      dirxml: infrastructureLogger.instance.info,
-      error: infrastructureLogger.instance.error,
-      group: () => null,
-      groupCollapsed: () => null,
-      groupEnd: () => null,
-      info: infrastructureLogger.instance.info,
-      log: infrastructureLogger.instance.log,
-      table: (tabularData?: any) =>
-        infrastructureLogger.instance.log(table.table(tabularData)),
-      time: infrastructureLogger.instance.time,
-      timeEnd: infrastructureLogger.instance.timeEnd,
-      timeLog: () => null,
-      trace: (message, ...params) =>
-        infrastructureLogger.instance.log(
-          `Trace: `,
-          message ? prettyFormat(message) : ``,
-          ...params,
-        ),
-      warn: infrastructureLogger.instance.warn,
-      profile: () => null,
-      profileEnd: () => null,
-      timeStamp: () => null,
-    }),
+      return {
+        Console: require(`console`),
+        assert: (v, m) => v && infrastructureLogger.instance.info(m),
+        // eslint-disable-next-line
+        clear: () => null,
+        count: (label?: string) => {
+          infrastructureLogger.count[label] =
+            infrastructureLogger.count[label] + 1
+
+          infrastructureLogger.instance.info(
+            `${label}: ${infrastructureLogger.count[label]}`,
+          )
+        },
+        countReset: (label?: string) => {
+          infrastructureLogger.count[label] = 0
+        },
+        debug: infrastructureLogger.instance.debug,
+        dir: infrastructureLogger.instance.info,
+        dirxml: infrastructureLogger.instance.info,
+        error: infrastructureLogger.instance.error,
+        group: () => null,
+        groupCollapsed: () => null,
+        groupEnd: () => null,
+        info: infrastructureLogger.instance.info,
+        log: infrastructureLogger.instance.log,
+        table: (tabularData?: any) =>
+          infrastructureLogger.instance.log(table.table(tabularData)),
+        time: infrastructureLogger.instance.time,
+        timeEnd: infrastructureLogger.instance.timeEnd,
+        timeLog: () => null,
+        trace: (message, ...params) =>
+          infrastructureLogger.instance.log(
+            `Trace: `,
+            message ? prettyFormat(message) : ``,
+            ...params,
+          ),
+        warn: infrastructureLogger.instance.warn,
+        profile: () => null,
+        profileEnd: () => null,
+        timeStamp: () => null,
+      }
+    },
   ],
   'build.module.noParse': [() => /jquery|lodash/],
   'build.module.unsafeCache': [() => false],
@@ -202,4 +139,4 @@ export const seed: Partial<Bud['hooks']['store']> = {
 
   'dev.middleware.enabled': [() => ['dev', 'hot']],
   'dev.url': [() => new URL('http://0.0.0.0:3000')],
-}
+})

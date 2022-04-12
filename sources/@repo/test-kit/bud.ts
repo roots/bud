@@ -1,4 +1,4 @@
-import {Bud, factory as budFactory, makeContext, seed} from '@roots/bud'
+import {Bud, factory as budFactory, makeContext} from '@roots/bud'
 import {join} from 'path'
 
 export {Bud}
@@ -23,14 +23,6 @@ export const factory = async (options?: Options) => {
     context: {
       ...context,
       ...(options?.context ?? {}),
-    },
-    config: {
-      ...seed,
-      ...(options?.config ?? {}),
-      location: {
-        ...seed.location,
-        ...(options?.config?.location ?? {}),
-      },
     },
   })
 

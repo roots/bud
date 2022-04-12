@@ -34,20 +34,17 @@ export interface Options {
   mode?: Mode
 
   /**
-   * The object providing initial configuration values.
-   *
-   * @remarks
-   * It is probable that extensions and services will modify
-   * values introduced in this object. If you are looking to simply modify
-   * configuration values it is generally a better idea to use the
-   * {@link Services.Hooks} instead.
+   * Seed values for the {@link Bud.hooks} service
    *
    * @public
    */
-  config?: Partial<Bud['hooks']['store']>
+  seed?:
+    | Partial<Bud['hooks']['store']>
+    | ((bud: Bud) => Partial<Bud['hooks']['store']>)
 
   /**
    * Services
+   *
    * @public
    */
   services?: Record<string, new (...params: Array<any>) => Service>

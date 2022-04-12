@@ -53,7 +53,7 @@ export class Hooks
   extends Framework.Service
   implements Framework.Hooks.Service
 {
-  public store: Store
+  public store = {} as Hooks['store']
 
   /**
    * hook getter

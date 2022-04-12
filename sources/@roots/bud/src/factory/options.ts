@@ -12,4 +12,5 @@ export interface Options extends Bud.Options {
   mode: Bud['mode']
   context?: Config.Context
   services?: Partial<Bud.Options['services']>
+  seed?: Bud.Options['seed']
 }

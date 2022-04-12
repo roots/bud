@@ -296,7 +296,7 @@ export class BuildCommand extends BaseCommand {
       name: 'bud',
       mode: this.mode,
       context: this.context,
-      config: {
+      seed: {
         'build.output.publicPath': fallback(
           this.publicPath,
           seed['build.output.publicPath'],

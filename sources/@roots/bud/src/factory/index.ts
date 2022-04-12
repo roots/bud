@@ -38,10 +38,7 @@ export async function factory(overrides?: Options): Promise<Bud> {
       ...services,
       ...(overrides?.services ?? {}),
     },
-    config: {
-      ...seed,
-      ...(overrides?.config ?? {}),
-    },
+    seed: overrides?.seed ?? seed,
   }
 
   const project = new Bud(options)
@@ -52,7 +49,6 @@ export async function factory(overrides?: Options): Promise<Bud> {
   project.log({
     message: `process.env.NODE_ENV: ${process.env.NODE_ENV}`,
   })
-
   project.log({
     message: `process.env.BABEL_ENV: ${process.env.BABEL_ENV}`,
   })
