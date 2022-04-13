@@ -16,11 +16,12 @@ import {filenameFormat} from './filenameFormat'
  */
 export async function build(app: Bud): Promise<void> {
   app.hooks
-    .on('build.cache', () => app.cache.configuration)
+    .on('build.bail', () => app.isProduction)
+    .hooks.on('build.cache', () => app.cache.configuration)
     .hooks.on('build.context', () => app.context.projectDir)
     .hooks.on('build.infrastructureLogging', () => ({
       console: app.hooks.filter('build.infrastructureLogging.console'),
-      loggingLevel: app.hooks.filter('build.infrastructureLogging.level'),
+      level: app.hooks.filter('build.infrastructureLogging.level'),
     }))
     .hooks.on('build.mode', () => app.mode)
     .hooks.on('build.module', () => ({
@@ -49,6 +50,10 @@ export async function build(app: Bud): Promise<void> {
       path: app.hooks.filter('build.output.path'),
       pathinfo: app.hooks.filter('build.output.pathinfo'),
       publicPath: app.hooks.filter('build.output.publicPath'),
+    }))
+    .hooks.async('build.resolve.alias', async () => ({
+      '@src': app.path('@src'),
+      '@dist': app.path('@dist'),
     }))
     .hooks.on('build.output.assetModuleFilename', () =>
       filenameFormat(app, '[ext]'),

@@ -1,6 +1,7 @@
 import * as Framework from '@roots/bud-framework'
 import {Registry, Store} from '@roots/bud-framework/types/registry'
-import {bind, chalk, lodash} from '@roots/bud-support'
+import {bind, lodash} from '@roots/bud-support'
+import { isUndefined } from 'lodash'
 
 const {isFunction} = lodash
 
@@ -53,10 +54,25 @@ export class Hooks
   extends Framework.Service
   implements Framework.Hooks.Service
 {
+  /**
+   * Hooks store
+   * @public
+   */
   public store = {} as Hooks['store']
 
   /**
-   * hook getter
+   * Class constructor
+   * 
+   * @param app - Bud instance
+   * @public
+   */
+  public constructor(app: Framework.Bud) {
+    super(app)
+    this.store = app.options.seed
+  }
+
+  /**
+   * Get stored value
    *
    * @internal
    * @decorator `@bind`
@@ -68,7 +84,7 @@ export class Hooks
   }
 
   /**
-   * hook setter
+   * Set stored value
    *
    * @internal
    * @decorator `@bind`
@@ -90,7 +106,7 @@ export class Hooks
    */
   @bind
   public has<T extends `${keyof Store & string}`>(path: T): boolean {
-    return this.store[path] ? true : false
+    return !isUndefined(this.store[path]) ? true : false
   }
 
   /**
@@ -167,12 +183,10 @@ export class Hooks
   }
 
   /**
-   * Hooks filter
+   * Filter sync value
    *
    * @remarks
-   * The other side of bud.hooks.on. Passes a key and a value. If
-   * any filters are registered on that key they will transform
-   * the output before it is returned.
+   * Will filter a sync value
    *
    * @example
    * ```js
@@ -266,10 +280,7 @@ export class Hooks
 
     actions.forEach(action => value.push(action as any))
 
-    this.app.info({
-      message: `registering action: ${id}`,
-      suffix: chalk.dim(`${value.length + 1} registered`),
-    })
+    this.app.info({message: `registering action: ${id}`})
 
     this.set(id, value)
 

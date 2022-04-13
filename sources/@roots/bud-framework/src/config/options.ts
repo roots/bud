@@ -38,9 +38,7 @@ export interface Options {
    *
    * @public
    */
-  seed?:
-    | Partial<Bud['hooks']['store']>
-    | ((bud: Bud) => Partial<Bud['hooks']['store']>)
+  seed?: Partial<Bud['hooks']['store']>
 
   /**
    * Services

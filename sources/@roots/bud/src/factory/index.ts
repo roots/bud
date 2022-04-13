@@ -1,8 +1,9 @@
+import { Options } from '@roots/bud-framework/types/config'
+
 import {Bud} from '../Bud'
 import {makeContext} from '../context'
 import {seed} from '../seed'
 import {services} from '../services'
-import {Options} from './options'
 
 /**
  * Create a {@link Bud} instance programatically
@@ -38,7 +39,10 @@ export async function factory(overrides?: Options): Promise<Bud> {
       ...services,
       ...(overrides?.services ?? {}),
     },
-    seed: overrides?.seed ?? seed,
+    seed: {
+      ...seed,
+      ...(overrides?.seed ?? {}),
+    },
   }
 
   const project = new Bud(options)

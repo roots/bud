@@ -2,6 +2,12 @@ import {resolve, sep as slash} from 'node:path'
 
 import {Bud, Locations} from '..'
 
+type AbsolutePath = `/${string}`
+type RelativePath =  `./${string}`
+type Handle = `${keyof Locations & string}`
+type HandleSlashPath = `${Handle}/${string}`
+type FileHandle = `@name` | `@file`
+
 /**
  * Transform `@alias` path
  *
@@ -15,8 +21,8 @@ export interface parseAlias {
   (
     app: Bud,
     base:
-      | `${keyof Locations & string}`
-      | `${keyof Locations & string}/${string}`,
+      | Handle
+      | HandleSlashPath,
   ): string
 }
 
@@ -24,14 +30,14 @@ export const parseAlias: parseAlias = (app, base) => {
   /* Normalize base path to an array of path segments */
   let [ident, ...parts] = base.includes(slash) ? base.split(slash) : [base]
 
-  /* If there is no match for ident there is a problem */
+    /* If there is no match for ident there is a problem */
   !app.hooks.has(`location.${ident as keyof Locations}`) &&
     app.error(
       `\`${ident}\` is not a registered path. It must be defined with bud.setPath`,
     )
 
   /* Replace base path */
-  ident = app.hooks.filter(`location.${ident as keyof Locations}`)
+  ident = app.hooks.filter(`location.${ident as Handle}`)
 
   /* If segments were passed, resolve */
   return parts.length ? resolve(ident, ...parts) : ident
@@ -49,12 +55,11 @@ export const parseAlias: parseAlias = (app, base) => {
 export interface path {
   (
     base?:
-      | `${keyof Locations & string}`
-      | `@file`
-      | `@name`
-      | `${keyof Locations & string}/${string}`
-      | `./${string}`
-      | `/${string}`,
+      | Handle
+      | FileHandle
+      | HandleSlashPath
+      | RelativePath
+      | AbsolutePath,
     ...segments: Array<string>
   ): string
 }

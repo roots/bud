@@ -1,5 +1,5 @@
-import {Bud, Logger} from '@roots/bud-framework'
-import {prettyFormat, table} from '@roots/bud-support'
+import { Options } from '@roots/bud-framework/types/config'
+import {prettyFormat, Signale, table} from '@roots/bud-support'
 import {cpus} from 'os'
 
 /**
@@ -7,9 +7,7 @@ import {cpus} from 'os'
  *
  * @public
  */
-export const seed: (app: Bud) => Partial<Bud['hooks']['store']> = (
-  app: Bud,
-) => ({
+export const seed: Options['seed'] = {
   'feature.cache': [() => true],
   'feature.clean': [() => false],
   'feature.hash': [() => false],
@@ -49,12 +47,12 @@ export const seed: (app: Bud) => Partial<Bud['hooks']['store']> = (
   'location.@modules': [() => 'node_modules'],
   'location.@storage': [() => '.budfiles'],
 
-  'build.infrastructureLogging.level': [() => 'error'],
+  'build.infrastructureLogging.level': [(): 'none' => 'none'],
   'build.infrastructureLogging.console': [
     () => {
       const infrastructureLogger = {
         count: {},
-        instance: new Logger(app).instance.scope('webpack'),
+        instance: new Signale().scope('webpack'),
       }
 
       return {
@@ -139,4 +137,4 @@ export const seed: (app: Bud) => Partial<Bud['hooks']['store']> = (
 
   'dev.middleware.enabled': [() => ['dev', 'hot']],
   'dev.url': [() => new URL('http://0.0.0.0:3000')],
-})
+}

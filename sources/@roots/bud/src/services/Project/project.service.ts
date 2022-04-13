@@ -134,15 +134,11 @@ export class Project
       this.app.path(`@storage/${this.app.name}/profile.json`),
     )
 
-    this.log('time', 'building profile')
-
     try {
       await this.resolvePeers()
     } catch (error) {
       this.app.error(error)
     }
-
-    this.log('timeEnd', 'building profile')
   }
 
   /**
