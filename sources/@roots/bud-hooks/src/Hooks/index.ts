@@ -1,7 +1,7 @@
 import * as Framework from '@roots/bud-framework'
 import {Registry, Store} from '@roots/bud-framework/types/registry'
 import {bind, lodash} from '@roots/bud-support'
-import { isUndefined } from 'lodash'
+import {isUndefined} from 'lodash'
 
 const {isFunction} = lodash
 
@@ -62,7 +62,7 @@ export class Hooks
 
   /**
    * Class constructor
-   * 
+   *
    * @param app - Bud instance
    * @public
    */
@@ -208,7 +208,7 @@ export class Hooks
   ): Registry.Sync[T] {
     if (!this.has(id)) return isFunction(fallback) ? fallback() : fallback
 
-    const result = this.get(id).reduce(
+    const result = (this.store[id] ?? []).reduce(
       (
         accumulated: Registry.Sync[T],
         current: (value?: Registry.Sync[T]) => Registry.Sync[T],
@@ -218,7 +218,7 @@ export class Hooks
 
     this.app.info(`hooks.filter`, id, result)
 
-    return result as Registry.Sync[T]
+    return result
   }
 
   /**
@@ -246,10 +246,7 @@ export class Hooks
     if (!this.has(id))
       return isFunction(fallback) ? await fallback() : fallback
 
-    const retrieved = this.get(id) ?? []
-    const arrayed = Array.isArray(retrieved) ? retrieved : [retrieved]
-
-    const result = await arrayed.reduce(
+    const result = await (this.store[id] ?? []).reduce(
       async (
         accumulated,
         current?: ((fallback: T) => Promise<T> | Store[T]) | Store[T],
@@ -276,7 +273,7 @@ export class Hooks
     id: T,
     ...actions: Array<(app?: Framework.Bud) => Promise<unknown>>
   ): Framework.Bud {
-    const value = this.get(id)
+    const value = this.store[id] ?? []
 
     actions.forEach(action => value.push(action as any))
 

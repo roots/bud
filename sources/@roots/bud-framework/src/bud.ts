@@ -310,6 +310,8 @@ export abstract class Bud {
 
   public publicPath: methods.publicPath = methods.setPublicPath.bind(this)
 
+  public relPath: methods.relPath = methods.relPath.bind(this)
+
   public setPath: methods.setPath = methods.setPath.bind(this)
 
   public setPublicPath: methods.setPublicPath =
