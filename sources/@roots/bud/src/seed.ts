@@ -1,216 +1,140 @@
-import type {Store} from '@roots/bud-framework'
+import { Options } from '@roots/bud-framework/types/config'
 import {prettyFormat, Signale, table} from '@roots/bud-support'
 import {cpus} from 'os'
-
-const infrastructureLogger = {
-  count: {},
-  instance: new Signale({scope: `webpack`}),
-}
 
 /**
  * Bud configuration defaults
  *
  * @public
  */
-export const seed: Partial<Store.Repository> = {
-  /**
-   * Feature flags
-   *
-   * @public
-   */
-  [`features.cache`]: true,
+export const seed: Options['seed'] = {
+  'feature.cache': [() => true],
+  'feature.clean': [() => false],
+  'feature.hash': [() => false],
+  'feature.html': [() => false],
+  'feature.inject': [() => true],
+  'feature.log': [() => false],
+  'feature.manifest': [() => true],
+  'feature.runtimeChunk': [() => false],
+  'feature.splitChunks': [() => false],
 
-  /**
-   * Clean dist directory prior to compilation
-   *
-   * @public
-   */
-  [`features.clean`]: false,
+  'value.fileFormat': [() => '[name]'],
+  'value.hashFormat': [() => '[name].[contenthash:6]'],
 
-  /**
-   * Hash emitted filenames
-   *
-   * @public
-   */
-  [`features.hash`]: false,
+  'pattern.js': [() => /\.(cjs|mjs|jsx?)$/],
+  'pattern.ts': [() => /\.(tsx?)$/],
+  'pattern.sass': [() => /\.(scss|sass)$/],
+  'pattern.sassModule': [() => /\.module\.(scss|sass)$/],
+  'pattern.css': [() => /\.css$/],
+  'pattern.cssModule': [() => /\.module\.css$/],
+  'pattern.font': [() => /\.(ttf|otf|eot|woff2?|ico)$/],
+  'pattern.html': [() => /\.(html?)$/],
+  'pattern.image': [() => /\.(png|jpe?g|gif)$/],
+  'pattern.modules': [() => /(node_modules|bower_components)/],
+  'pattern.svg': [() => /\.svg$/],
+  'pattern.vue': [() => /\.vue$/],
+  'pattern.md': [() => /\.md$/],
+  'pattern.toml': [() => /\.toml$/],
+  'pattern.webp': [() => /\.webp$/],
+  'pattern.yml': [() => /\.ya?ml$/],
+  'pattern.xml': [() => /\.xml$/],
+  'pattern.csv': [() => /\.(csv|tsv)$/],
+  'pattern.json': [() => /\.json$/],
+  'pattern.json5': [() => /\.json5$/],
 
-  /**
-   * Emit an html file during compilation
-   *
-   * @public
-   */
-  [`features.html`]: false,
+  'location.@src': [() => 'src'],
+  'location.@dist': [() => 'dist'],
+  'location.@modules': [() => 'node_modules'],
+  'location.@storage': [() => '.budfiles'],
 
-  /**
-   * Automatically register installed extensions
-   *
-   * @public
-   */
-  [`features.inject`]: true,
+  'build.infrastructureLogging.level': [(): 'none' => 'none'],
+  'build.infrastructureLogging.console': [
+    () => {
+      const infrastructureLogger = {
+        count: {},
+        instance: new Signale().scope('webpack'),
+      }
 
-  /**
-   * Log build status informatino to the terminal
-   *
-   * @public
-   */
-  [`features.log`]: false,
+      return {
+        Console: require(`console`),
+        assert: (v, m) => v && infrastructureLogger.instance.info(m),
+        // eslint-disable-next-line
+        clear: () => null,
+        count: (label?: string) => {
+          infrastructureLogger.count[label] =
+            infrastructureLogger.count[label] + 1
 
-  /**
-   * Emit a manifest.json with references to emitted assets
-   *
-   * @public
-   */
-  [`features.manifest`]: true,
-
-  /**
-   * @public
-   */
-  [`features.runtimeChunk`]: false,
-
-  /**
-   * Enable code splitting
-   *
-   * @public
-   */
-  [`features.splitChunks`]: false,
-  /**
-   * Filename format for emitted assets when hashing is disabled
-   *
-   * @public
-   */
-  fileFormat: `[name]`,
-
-  /**
-   * Filename format for emitted assets when hashing is enabled
-   *
-   * @public
-   */
-  hashFormat: `[name].[contenthash:6]`,
-
-  /**
-   * Regular expression records
-   *
-   * @public
-   */
-  patterns: {
-    js: /\.(cjs|mjs|jsx?)$/,
-    ts: /\.(tsx?)$/,
-    sass: /\.(scss|sass)$/,
-    sassModule: /\.module\.(scss|sass)$/,
-    css: /\.css$/,
-    cssModule: /\.module\.css$/,
-    font: /\.(ttf|otf|eot|woff2?|ico)$/,
-    html: /\.(html?)$/,
-    image: /\.(png|jpe?g|gif)$/,
-    modules: /(node_modules|bower_components)/,
-    svg: /\.svg$/,
-    vue: /\.vue$/,
-    md: /\.md$/,
-    toml: /\.toml$/,
-    webp: /\.webp$/,
-    yml: /\.ya?ml$/,
-    xml: /\.xml$/,
-    csv: /\.(csv|tsv)$/,
-    json: /\.json$/,
-    json5: /\.json5$/,
-  },
-
-  /**
-   * Project disk locations
-   *
-   * @public
-   */
-  location: {
-    '@src': 'src',
-    '@dist': 'dist',
-    '@modules': 'node_modules',
-    '@storage': '.budfiles',
-  },
-
-  /**
-   * Baseline webpack configuration
-   *
-   * @public
-   */
-  [`build.bail`]: app => app.isProduction,
-  [`build.context`]: app => app.context.projectDir,
-  [`build.infrastructureLogging.level`]: app => `verbose`,
-  [`build.infrastructureLogging.console`]: app => ({
-    Console: require(`console`),
-    assert: (v, m) => v && infrastructureLogger.instance.info(m),
-    // eslint-disable-next-line
-    clear: () => null,
-    count: (label?: string) => {
-      infrastructureLogger.count[label] =
-        infrastructureLogger.count[label] + 1
-
-      infrastructureLogger.instance.info(
-        `${label}: ${infrastructureLogger.count[label]}`,
-      )
-    },
-    countReset: (label?: string) => {
-      infrastructureLogger.count[label] = 0
-    },
-    debug: infrastructureLogger.instance.debug,
-    dir: infrastructureLogger.instance.info,
-    dirxml: infrastructureLogger.instance.info,
-    error: infrastructureLogger.instance.error,
-    group: () => null,
-    groupCollapsed: () => null,
-    groupEnd: () => null,
-    info: infrastructureLogger.instance.info,
-    log: infrastructureLogger.instance.log,
-    table: (tabularData?: any, properties?: string[]) =>
-      infrastructureLogger.instance.log(table.table(tabularData)),
-    time: infrastructureLogger.instance.time,
-    timeEnd: infrastructureLogger.instance.timeEnd,
-    timeLog: () => null,
-    trace: (message, ...params) =>
-      infrastructureLogger.instance.log(
-        `Trace: `,
-        message ? prettyFormat(message) : ``,
-        ...params,
-      ),
-    warn: infrastructureLogger.instance.warn,
-    profile: () => null,
-    profileEnd: () => null,
-    timeStamp: () => null,
-  }),
-  [`build.module.noParse`]: app => /jquery|lodash/,
-  [`build.module.unsafeCache`]: app => false,
-  [`build.node`]: app => false,
-  [`build.output.pathinfo`]: app => false,
-  [`build.output.publicPath`]: app => ``,
-  [`build.optimization.emitOnErrors`]: app => false,
-  [`build.optimization.minimize`]: app => false,
-  [`build.optimization.minimizer`]: app => [`...`],
-  [`build.optimization.removeEmptyChunks`]: app => true,
-  [`build.parallelism`]: app => Math.max(cpus().length - 1, 1),
-  [`build.performance`]: app => ({hints: false}),
-  [`build.resolve.alias`]: app => ({
-    '@src': app.path('@src'),
-    '@dist': app.path('@dist'),
-  }),
-  [`build.resolve.extensions`]: app =>
-    new Set([
-      `.mjs`,
-      `.cjs`,
-      `.mjs`,
-      `.js`,
-      `.jsx`,
-      `.css`,
-      `.json`,
-      `.wasm`,
-      `.yml`,
-      `.toml`,
-    ]),
-  [`build.module.rules.before`]: app => [
-    {
-      test: app.store.get('patterns.js'),
-      include: [app.path('@src')],
-      parser: {requireEnsure: false},
+          infrastructureLogger.instance.info(
+            `${label}: ${infrastructureLogger.count[label]}`,
+          )
+        },
+        countReset: (label?: string) => {
+          infrastructureLogger.count[label] = 0
+        },
+        debug: infrastructureLogger.instance.debug,
+        dir: infrastructureLogger.instance.info,
+        dirxml: infrastructureLogger.instance.info,
+        error: infrastructureLogger.instance.error,
+        group: () => null,
+        groupCollapsed: () => null,
+        groupEnd: () => null,
+        info: infrastructureLogger.instance.info,
+        log: infrastructureLogger.instance.log,
+        table: (tabularData?: any) =>
+          infrastructureLogger.instance.log(table.table(tabularData)),
+        time: infrastructureLogger.instance.time,
+        timeEnd: infrastructureLogger.instance.timeEnd,
+        timeLog: () => null,
+        trace: (message, ...params) =>
+          infrastructureLogger.instance.log(
+            `Trace: `,
+            message ? prettyFormat(message) : ``,
+            ...params,
+          ),
+        warn: infrastructureLogger.instance.warn,
+        profile: () => null,
+        profileEnd: () => null,
+        timeStamp: () => null,
+      }
     },
   ],
-  [`build.module.rules.after`]: app => [],
-  [`build.stats`]: app => `normal`,
+  'build.module.noParse': [() => /jquery|lodash/],
+  'build.module.unsafeCache': [() => false],
+  'build.node': [() => false],
+  'build.output.pathinfo': [() => false],
+  'build.output.publicPath': [() => ''],
+  'build.optimization.emitOnErrors': [() => false],
+  'build.optimization.minimize': [() => false],
+  'build.optimization.minimizer': [() => ['...']],
+  'build.optimization.removeEmptyChunks': [() => true],
+  'build.parallelism': [() => Math.max(cpus().length - 1, 1)],
+  'build.performance': [() => ({hints: false})],
+  'build.resolve.extensions': [
+    () =>
+      new Set([
+        '.mjs',
+        '.cjs',
+        '.js',
+        '.jsx',
+        '.css',
+        '.json',
+        '.wasm',
+        '.yml',
+        '.toml',
+      ]),
+  ],
+  'build.module.rules.before': [
+    () => [
+      {
+        test: /\.(cjs|mjs|jsx?)$/,
+        exclude: [/node_modules/],
+        parser: {requireEnsure: false},
+      },
+    ],
+  ],
+  'build.module.rules.after': [() => []],
+  'build.stats': [() => false],
+
+  'dev.middleware.enabled': [() => ['dev', 'hot']],
+  'dev.url': [() => new URL('http://0.0.0.0:3000')],
 }

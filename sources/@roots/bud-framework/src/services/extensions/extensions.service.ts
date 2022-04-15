@@ -1,6 +1,7 @@
-import {Bud} from '../..'
-import {Module, Plugin} from '../../extension'
+import {Bud, Extension, Module, PluginInstance} from '../../extension'
 import {ContainerService} from '../../service'
+
+export type BudExtension = Module | (new (app: () => Bud) => Extension)
 
 /**
  * Container service for {@link Bud} extensions.
@@ -8,37 +9,18 @@ import {ContainerService} from '../../service'
  * @remarks
  * Extensions can be defined as a {@link Module}, which is more generic.
  *
- * They can also be defined as a {@link WebpackPlugin} which is a {@link Module}
- * specifically yielding a {@link WebpackPluginInstance}.
- *
- * When adding a {@link Module} or {@link Plugin} to the container
- * with {@link Extensions.add} it is cast to the {@link Extension} type.
+ * They can also be defined as a {@link Plugin} which is a {@link Module}
+ * yielding a {@link PluginInstance}.
  *
  * @public
  */
 export interface Service extends ContainerService {
   /**
-   * Extensions to be processed before build
-   *
-   * @public
-   */
-  queue: Array<Module>
-
-  /**
    * Add an extension
    *
    * @public
    */
-  add(
-    extension: Module | Plugin | Array<Module> | Array<Plugin>,
-  ): Promise<unknown>
-
-  /**
-   * Add an extension to the queue
-   *
-   * @public
-   */
-  enqueue(extension: Module): Bud
+  add(extension: BudExtension | Array<BudExtension>): Promise<unknown>
 
   /**
    * Install and register discovered extensions
@@ -52,24 +34,19 @@ export interface Service extends ContainerService {
    *
    * @public
    */
-  registerExtensions(): Promise<void>
+  registerAll(): Promise<void>
 
   /**
    * Boot event for all extensions
    *
    * @public
    */
-  bootExtensions(): Promise<void>
+  bootAll(): Promise<void>
 
   /**
-   * Get {@link ApplyPlugin} instances to be included in compilation
+   * Returns array of {@link PluginInstance}s
    *
    * @public
    */
-  make(): Promise<{[key: string]: any; apply: CallableFunction}[]>
-
-  /**
-   * @public
-   */
-  processQueue(): Promise<void>
+  make(): Promise<Array<PluginInstance>>
 }

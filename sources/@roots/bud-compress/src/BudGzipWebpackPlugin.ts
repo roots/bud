@@ -1,12 +1,15 @@
-import type {Extension} from '@roots/bud-framework'
+import type {Bud, Extension} from '@roots/bud-framework'
 import * as Plugin from 'compression-webpack-plugin'
 
 import {BudCompressionExtension} from './'
 
-interface BudGzipWebpackPlugin
-  extends Extension.Plugin<Plugin, BudCompressionExtension.Options> {}
+type BudGzipWebpackPlugin = Extension.Module<
+  BudCompressionExtension.Options,
+  Plugin
+>
 
-const name: BudGzipWebpackPlugin['name'] = 'bud-gzip-webpack-plugin'
+const label: BudGzipWebpackPlugin['label'] =
+  'compression-webpack-plugin-gzip'
 
 const options: BudGzipWebpackPlugin['options'] = {
   algorithm: 'gzip',
@@ -20,29 +23,31 @@ const options: BudGzipWebpackPlugin['options'] = {
   deleteOriginalAssets: false,
 }
 
-const make: BudGzipWebpackPlugin['make'] = options =>
-  new Plugin(options.all())
+const register: BudGzipWebpackPlugin['register'] = async app => {
+  app.api.bindFacade('gzip', function (options) {
+    const app = this as Bud
 
-const api: BudGzipWebpackPlugin['api'] = {
-  gzip: function (options) {
-    this.store.set('features.gzip', true)
+    app.hooks.on('feature.gzip', true)
 
     if (options)
-      this.extensions
+      app.extensions
         .get('compression-webpack-plugin-gzip')
         .setOptions(options)
 
-    return this
-  },
+    return app
+  })
 }
 
-const when = ({store}) => store.is('features.gzip', true)
+const make: BudGzipWebpackPlugin['make'] = options =>
+  new Plugin(options.all())
+
+const when = ({hooks}) => hooks.filter('feature.gzip')
 
 const BudGzipWebpackPlugin: BudGzipWebpackPlugin = {
-  name,
+  label,
   options,
   make,
-  api,
+  register,
   when,
 }
 

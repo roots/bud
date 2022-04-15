@@ -1,8 +1,9 @@
+import { Options } from '@roots/bud-framework/types/config'
+
 import {Bud} from '../Bud'
 import {makeContext} from '../context'
 import {seed} from '../seed'
 import {services} from '../services'
-import {Options} from './options'
 
 /**
  * Create a {@link Bud} instance programatically
@@ -38,13 +39,9 @@ export async function factory(overrides?: Options): Promise<Bud> {
       ...services,
       ...(overrides?.services ?? {}),
     },
-    config: {
+    seed: {
       ...seed,
-      ...(overrides?.config ?? {}),
-      location: {
-        ...seed.location,
-        ...(overrides?.config?.location ?? {}),
-      },
+      ...(overrides?.seed ?? {}),
     },
   }
 
@@ -56,7 +53,6 @@ export async function factory(overrides?: Options): Promise<Bud> {
   project.log({
     message: `process.env.NODE_ENV: ${process.env.NODE_ENV}`,
   })
-
   project.log({
     message: `process.env.BABEL_ENV: ${process.env.BABEL_ENV}`,
   })

@@ -29,14 +29,7 @@ import {Purge} from './purge.interface'
  *
  * @public
  */
-export const name: Purge['name'] = '@roots/bud-purgecss'
-
-/**
- * Module api
- *
- * @public
- */
-export const api: Purge['api'] = {purgecss}
+export const label: Purge['label'] = '@roots/bud-purgecss'
 
 /**
  * Module registration
@@ -44,7 +37,5 @@ export const api: Purge['api'] = {purgecss}
  * @public
  */
 export const register: Purge['register'] = async app => {
-  app.api.set('purgecss', purgecss.bind(app))
-  // @ts-ignore
-  app.api.bindFacade('purgecss')
+  app.api.bindFacade('purgecss', purgecss)
 }

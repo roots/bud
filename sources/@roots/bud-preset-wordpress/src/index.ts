@@ -30,18 +30,13 @@ export type BudWordPressPreset = Extension.Module
  */
 const makeInterception = (input: string): [string, string] => {
   const url = new URL(input)
-
-  url.pathname = url.pathname.endsWith('/')
-    ? url.pathname
-    : `${url.pathname}/`
-
-  return [url.href, url.pathname]
+  return [url.href, url.href.endsWith('/') ? '/' : '']
 }
 
 /**
  * @public
  */
-export const name: BudWordPressPreset['name'] =
+export const label: BudWordPressPreset['label'] =
   '@roots/bud-preset-wordpress'
 
 /**
@@ -75,7 +70,7 @@ export const boot = async (app: Bud, logger: Console) => {
    * Set interceptor replacements
    */
   app.hooks.action('event.proxy.interceptor', async ({hooks}) =>
-    hooks.on('middleware.proxy.replacements', replacements => [
+    hooks.on('dev.middleware.proxy.replacements', replacements => [
       ...(replacements ?? []),
       makeInterception(HOME),
     ]),

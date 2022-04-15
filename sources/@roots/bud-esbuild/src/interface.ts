@@ -1,7 +1,7 @@
 import {Bud, Build, Extension} from '@roots/bud-framework'
 
 interface Esbuild extends Extension.Module<options> {
-  name: '@roots/bud-esbuild'
+  label: '@roots/bud-esbuild'
   options: (app: Bud) => options
 }
 

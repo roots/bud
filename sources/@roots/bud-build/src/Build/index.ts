@@ -1,5 +1,5 @@
 import * as Bud from '@roots/bud-framework'
-import {bind, fs, lodash, memo} from '@roots/bud-support'
+import {bind, fs, lodash} from '@roots/bud-support'
 import {isFunction} from 'lodash'
 import type {Configuration} from 'webpack'
 
@@ -74,7 +74,7 @@ export class Build extends Bud.Service implements Bud.Build.Service {
 
     await Promise.all(
       [
-        ['entry', true],
+        ['entry'],
         ['plugins', true],
         ['resolve', true],
         ['bail'],
@@ -99,10 +99,7 @@ export class Build extends Bud.Service implements Bud.Build.Service {
         ['target'],
         ['watch'],
         ['watchOptions'],
-      ]
-        .map(this.memoMap)
-        .filter(Boolean)
-        .map(this.memoMapValue),
+      ].map(this.memoMapValue),
     )
 
     await this.app.hooks.fire('event.build.after')
@@ -111,23 +108,9 @@ export class Build extends Bud.Service implements Bud.Build.Service {
   }
 
   @bind
-  public memoMap(...args: [value: (string | boolean)[]]) {
-    const [[key, ...rest]] = args
-
-    if (!this.app.hooks.has(`build.${key}`)) return false
-
-    const type = rest.length && rest.shift() ? true : false
-    const count = this.app.hooks.count(`build.${key}`)
-
-    return [key, type, count]
-  }
-
-  @bind
-  @memo()
-  public async memoMapValue([propKey, isAsync, _count]: [
+  public async memoMapValue([propKey, isAsync]: [
     keyof Configuration,
     boolean,
-    number,
   ]) {
     const propValue =
       isAsync === true

@@ -37,6 +37,7 @@ export class Logger {
       secrets: [this.app.context.projectDir, this.app.context.cwd],
       logLevel: this.level,
       types: types(app),
+      scope: 'bud',
     })
 
     this.instance.config({

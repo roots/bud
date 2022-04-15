@@ -18,7 +18,7 @@ describe('bud.alias', function () {
     expect(alias).toEqual({
       '@dist': bud.path('@dist'),
       '@src': bud.path('@src'),
-      '@foo': bud.path('bar'),
+      '@foo': bud.path('./bar'),
     })
   })
 })

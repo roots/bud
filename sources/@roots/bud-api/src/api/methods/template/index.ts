@@ -40,43 +40,43 @@ interface Options extends HtmlOptions {
 export const template: template = async function (
   userOptions?: Options | boolean,
 ): Promise<Bud> {
-  this as Bud
+  const app = this as Bud
 
   if (userOptions === false) {
-    this.store.set('features.html', false)
-    return this
+    app.hooks.on('feature.html', false)
+    return app
   }
 
-  this.store.set('features.html', true)
+  app.hooks.on('feature.html', true)
 
   /**
    * Add {@link BudHtmlWebpackPlugin} if it isn't already added
    */
-  if (!this.extensions.has('html-webpack-plugin')) {
-    await this.extensions.add(BudHtmlWebpackPlugin)
+  if (!app.extensions.has('html-webpack-plugin')) {
+    await app.extensions.add(BudHtmlWebpackPlugin)
   }
 
   /**
    * Add {@link BudInterpolateHtmlPlugin} if it isn't already added
    */
-  if (!this.extensions.has('interpolate-html-plugin')) {
-    await this.extensions.add(BudInterpolateHtmlPlugin)
+  if (!app.extensions.has('interpolate-html-plugin')) {
+    await app.extensions.add(BudInterpolateHtmlPlugin)
   }
 
   /**
    * If there were no options specified, we're done.
    */
-  if (!userOptions || userOptions === true) return this
+  if (!userOptions || userOptions === true) return app
 
   /**
    * Plugin references
    */
   const plugins = {
-    html: this.extensions.get('html-webpack-plugin'),
-    interpolate: this.extensions.get('interpolate-html-plugin'),
+    html: app.extensions.get('html-webpack-plugin'),
+    interpolate: app.extensions.get('interpolate-html-plugin'),
   }
 
-  this.info('processing html-webpack-plugin options')
+  app.info('processing html-webpack-plugin options')
   plugins.html.mergeOptions(userOptions)
 
   /**
@@ -96,10 +96,10 @@ export const template: template = async function (
   /**
    * If there were no replacements specified, we're done.
    */
-  if (!userOptions.replace) return this
+  if (!userOptions.replace) return app
 
-  this.info('processing bud-interpolate-html-plugin options')
+  app.info('processing bud-interpolate-html-plugin options')
   plugins.interpolate.mergeOptions(userOptions.replace)
 
-  return this
+  return app
 }

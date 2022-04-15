@@ -25,7 +25,7 @@ declare module '@roots/bud-framework' {
 }
 
 const extension: Extension.Module = {
-  name: '@roots/bud-prettier',
+  label: '@roots/bud-prettier',
 }
 
-export const {name} = extension
+export const {label} = extension

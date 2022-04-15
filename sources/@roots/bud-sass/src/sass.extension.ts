@@ -17,7 +17,7 @@ export const extension: extension = {
    *
    * @public
    */
-  name: '@roots/bud-sass',
+  label: '@roots/bud-sass',
 
   /**
    * Extension registration callback
@@ -29,7 +29,6 @@ export const extension: extension = {
    */
   async register(app: Bud, logger: Signale) {
     const implementation = await importSassImplementation(logger)
-
     app.hooks
       .on('build.resolve.extensions', ext => ext.add('.scss').add('.sass'))
       .build.setLoader('sass', require.resolve('sass-loader'))
@@ -38,7 +37,7 @@ export const extension: extension = {
         options: {implementation, sourceMap: true},
       })
       .setRule('sass', {
-        test: app => app.store.get('patterns.sass'),
+        test: app => app.hooks.filter('pattern.sass'),
         include: app => [app.path('@src')],
         use: [`precss`, `css`, `postcss`, `resolveUrl`, `sass`],
       })

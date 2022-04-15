@@ -6,7 +6,7 @@ import '@roots/bud-preset-wordpress'
 import '@roots/bud-tailwindcss'
 import '@roots/bud-framework'
 
-import {Sage} from './sage.preset'
+import * as Sage from './sage.preset'
 import * as themeJson from './theme/api/themeJson'
 import * as useTailwindColors from './theme/api/useTailwindColors'
 import * as ThemeJSON from './theme/extension'
@@ -74,8 +74,6 @@ declare module '@roots/bud-framework' {
   }
 
   interface Locations {
-    '@src': string
-    '@dist': string
     '@resources': string
     '@public': string
     '@fonts': string
@@ -86,7 +84,7 @@ declare module '@roots/bud-framework' {
   }
 
   interface Modules {
-    '@roots/sage': Sage
-    'wp-theme-json': ThemeJSON.ThemeExtension
+    '@roots/sage': Sage.Sage
+    'wp-theme-json': ThemeJSON.Extension
   }
 }

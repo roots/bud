@@ -29,4 +29,4 @@ declare module '@roots/bud-framework' {
   }
 }
 
-export const {name, boot, register} = extension
+export const {label, boot, register} = extension

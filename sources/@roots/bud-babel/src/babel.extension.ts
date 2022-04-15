@@ -1,56 +1,85 @@
-import {Bud, Extension} from '@roots/bud-framework'
+import {Bud, Build, Extension} from '@roots/bud-framework'
+import {bind} from '@roots/bud-support'
 
 import {Config} from './babel.config'
 import {DEFAULT_PLUGINS, DEFAULT_PRESETS} from './babel.constants'
 
+export interface BabelExtension extends Extension.Extension {}
+
 /**
- * Adds Babel transpiler support to Bud projects
+ * Babel support for `@roots/bud`
  *
  * @public
  */
-export const name = '@roots/bud-babel'
+export class BabelExtension extends Extension.Extension {
+  /**
+   * @public
+   */
+  public label = '@roots/bud-babel'
 
-/**
- * Exposes app.babel configuration utility
- *
- * @public
- */
-export const mixin: Extension.Module['mixin'] = async app => ({
-  babel: [Config, app],
-})
+  /**
+   * @public
+   */
+  public get cacheDirectory() {
+    return this.app.path(`@storage/cache/babel`)
+  }
 
-export const options: Extension.Module['options'] = async (app: Bud) => ({
-  cacheDirectory: app.path(`@storage/cache/babel`),
-  env: {
-    development: {
-      compact: false,
-    },
-  },
-  root: app.path(),
-})
+  /**
+   * @public
+   */
+  public get rootDirectory() {
+    return this.app.path()
+  }
 
-/**
- * Extension register event
- *
- * @public
- */
-export const register: Extension.Module['register'] = async (app: Bud) => {
-  app.build
-    .setLoader('babel', require.resolve('babel-loader'))
-    .setItem('babel', babel =>
-      babel.setLoader(`babel`).setOptions(app => {
-        const options = app.extensions.get('@roots/bud-babel').options
+  /**
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async options() {
+    return {
+      cacheDirectory: this.cacheDirectory,
+      env: {
+        development: {
+          compact: false,
+        },
+      },
+      root: this.rootDirectory,
+    }
+  }
 
-        app.babel?.presets &&
-          options.set('presets', Object.values(app.babel.presets))
+  /**
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async register(app: Bud) {
+    app.babel = new Config()
 
-        app.babel?.plugins &&
-          options.set('plugins', Object.values(app.babel.plugins))
+    app.build.setLoader('babel', require.resolve('babel-loader'))
+    app.build.setItem('babel', this.setRuleSetItem)
+    app.build.rules.js.setUse(items => ['babel', ...items])
 
-        return options.all()
-      }),
-    )
-    .rules.js.setUse(items => [`babel`, ...items])
+    app.babel.setPresets(DEFAULT_PRESETS)
+    app.babel.setPlugins(DEFAULT_PLUGINS)
+  }
 
-  app.babel.setPresets(DEFAULT_PRESETS).setPlugins(DEFAULT_PLUGINS)
+  /**
+   * @internal
+   * @decorator `@bind`
+   */
+  @bind
+  public setRuleSetItem(ruleSetItem: Build.Item) {
+    return ruleSetItem.setLoader('babel').setOptions(app => {
+      const options = app.extensions.get('@roots/bud-babel').options
+
+      app.babel?.presets &&
+        options.set('presets', Object.values(app.babel.presets))
+
+      app.babel?.plugins &&
+        options.set('plugins', Object.values(app.babel.plugins))
+
+      return options.all()
+    })
+  }
 }

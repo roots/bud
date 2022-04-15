@@ -20,7 +20,6 @@ import {
   Project,
   Server,
   Services,
-  Store,
 } from '.'
 import {lifecycle} from './lifecycle'
 import * as methods from './methods'
@@ -30,7 +29,7 @@ const {isFunction, omit} = lodash
 
 /**
  * {@link Bud} abstract class
- * 
+ *
  * @remarks
  * See `@roots/bud` for an example implementation
  *
@@ -39,8 +38,8 @@ const {isFunction, omit} = lodash
 export abstract class Bud {
   /**
    * {@link Bud} constructor
-   * 
-   * @internal 
+   *
+   * @internal
    * @virtual
    */
   public abstract implementation: Constructor
@@ -225,13 +224,6 @@ export abstract class Bud {
   public server: Server.Service
 
   /**
-   * Container service for holding configuration values
-   *
-   * @public
-   */
-  public store: Store
-
-  /**
    * True when {@link Bud.mode} is `production`
    *
    * @public
@@ -278,9 +270,6 @@ export abstract class Bud {
     this._mode = this.options.mode
     this._name = this.options.name
 
-    this.store = new Store(this)
-    this.store.setStore(options.config)
-
     Process.initialize(this)
 
     if (!options.childOf) {
@@ -307,16 +296,6 @@ export abstract class Bud {
 
   public maybeCall: methods.maybeCall = methods.maybeCall.bind(this)
 
-  /**
-   * Gracefully shutdown {@link Bud} and registered {@link Services}
-   *
-   * @example
-   * ```js
-   * bud.close()
-   * ```
-   *
-   * @public
-   */
   public close: methods.close = methods.close.bind(this)
 
   public container: methods.container = methods.container.bind(this)
@@ -329,15 +308,9 @@ export abstract class Bud {
 
   public pipe: methods.pipe = methods.pipe.bind(this)
 
-  /**
-   * Public path
-   *
-   * @remarks
-   * Path from web root to assets
-   *
-   * @public
-   */
   public publicPath: methods.publicPath = methods.setPublicPath.bind(this)
+
+  public relPath: methods.relPath = methods.relPath.bind(this)
 
   public setPath: methods.setPath = methods.setPath.bind(this)
 
@@ -356,13 +329,6 @@ export abstract class Bud {
   public when: methods.when = methods.when.bind(this)
 
   public bindMethod: methods.bindMethod = methods.bindMethod.bind(this)
-
-  /**
-   * Adds a class as a property of the Bud
-   *
-   * @public
-   */
-  public mixin: typeof methods.mixin
 
   /**
    * Read and write json files
@@ -484,7 +450,7 @@ export abstract class Bud {
 
   /**
    * Log and display a debug message.
-   * 
+   *
    * @public
    * @decorator `@bind`
    */
@@ -507,7 +473,7 @@ export abstract class Bud {
    * Log and display an error.
    *
    * @remarks
-   * In `production` this error is treated as fatal 
+   * In `production` this error is treated as fatal
    * and will kill the process.
    *
    * @public

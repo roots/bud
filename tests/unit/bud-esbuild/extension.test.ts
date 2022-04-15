@@ -6,7 +6,7 @@ describe('@roots/bud-esbuild', () => {
   let bud: Bud
 
   it('has name prop', () => {
-    expect(esbuild.name).toBe('@roots/bud-esbuild')
+    expect(esbuild.label).toBe('@roots/bud-esbuild')
   })
 
   describe('module boot', () => {

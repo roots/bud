@@ -45,27 +45,25 @@ export interface minimize {
  * @public
  */
 export const minimize: minimize = function (input?, options?: {css: any}) {
-  const ctx = this as Bud
+  const app = this as Bud
 
   if (input === false) {
-    ctx.hooks.on('build.optimization.minimize', false)
+    app.hooks.on('build.optimization.minimize', false)
   }
 
   if (isUndefined(input) || input === true) {
-    ctx.hooks.on('build.optimization.minimize', true)
+    app.hooks.on('build.optimization.minimize', true)
   }
 
-  ctx.hooks.on('build.optimization.minimizer', (minimizer: any[]) => {
-    minimizer.push(
-      ...(minimizer.includes('...') ? [] : ['...']),
+  app.hooks.on('build.optimization.minimizer', () => {
+    return [
+      '...' as any,
       new CssMinimizer({
         ...cssMinimizerOptions,
         ...(options?.css ?? {}),
       }),
-    )
-
-    return minimizer
+    ]
   })
 
-  return ctx
+  return app
 }

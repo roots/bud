@@ -1,7 +1,7 @@
 import {Signale} from '@roots/bud-support'
 import {Container} from '@roots/container'
 
-import {Bud, Modules, Plugins} from '..'
+import {Bud, Modules} from '..'
 
 /**
  * Bud extension interface
@@ -10,13 +10,13 @@ import {Bud, Modules, Plugins} from '..'
  *
  * @public
  */
-export interface Module<Options = any> extends Record<string, any> {
+export interface Module<Options = any, Instance = PluginInstance> {
   /**
    * The module name
    *
    * @public
    */
-  name?: `${(keyof Modules & string) | (keyof Plugins & string)}`
+  label?: `${keyof Modules & string}`
 
   /**
    * Options registered to the extension module
@@ -40,32 +40,6 @@ export interface Module<Options = any> extends Record<string, any> {
   boot?: (app: Bud, logger: Signale) => Promise<unknown>
 
   /**
-   * Objects to bind to the Bud. May be expressed as an object literal or a factory function.
-   *
-   * @remarks
-   * You might also use {@link @roots/bud-Bud#Service.bindMethod | bindMethod} to accomplish the same thing.
-   *
-   * If expressed as a factory function, the function will be called with the {@link Bud} as the first parameter.
-   *
-   * @public
-   */
-  api?:
-    | ((app: Bud) => Promise<Record<string, CallableFunction>>)
-    | Record<string, CallableFunction>
-
-  /**
-   * Objects to bind to the Bud. May be expressed as an object literal or a factory function.
-   *
-   * @remarks
-   * You might also use {@link @roots/bud-Bud#Service.bindClass | bindClass} to accomplish the same thing.
-   *
-   * If expressed as a factory function, the function will be called with the {@link Bud} as the first parameter.
-   *
-   * @public
-   */
-  mixin?: (app: Bud) => Promise<Record<string, any>>
-
-  /**
    * Boolean or a function returning a boolean indicating if the {@link Module} should be utilized.
    *
    * @remarks
@@ -79,4 +53,40 @@ export interface Module<Options = any> extends Record<string, any> {
    * @public
    */
   when?: boolean | ((app: Bud, options: Container<Options>) => boolean)
+
+  /**
+   * Either a function returning a plugin value or the plugin value itself.
+   *
+   * @public
+   */
+  make?:
+    | Instance
+    | ((
+        options: Container<Options>,
+        app: Bud,
+        logger: Signale,
+      ) => Instance)
+
+  /**
+   * Compiler plugin `apply` method
+   *
+   * @public
+   */
+  apply?: PluginInstance['apply']
+}
+
+/**
+ * Compiler plugin interface
+ *
+ * @public
+ */
+export interface PluginInstance {
+  [key: string]: any
+
+  /**
+   * Apply method
+   *
+   * @public
+   */
+  apply: CallableFunction
 }

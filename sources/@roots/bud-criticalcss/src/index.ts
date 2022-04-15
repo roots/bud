@@ -22,7 +22,7 @@ declare module '@roots/bud-framework' {
     critical: critical
   }
 
-  interface Plugins {
+  interface Modules {
     '@roots/bud-criticalcss': BudCriticalCssPlugin
   }
 }

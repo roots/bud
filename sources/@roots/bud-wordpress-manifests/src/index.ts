@@ -28,8 +28,8 @@ const BudMergedManifestAdapter: Extensions.Plugin<
   MergedManifestWebpackPlugin,
   null
 > = {
-  name: '@roots/bud-wordpress-manifests',
+  label: '@roots/bud-wordpress-manifests',
   make: () => new MergedManifestWebpackPlugin(),
 }
 
-export const {name, make} = BudMergedManifestAdapter
+export const {label, make} = BudMergedManifestAdapter

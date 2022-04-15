@@ -9,23 +9,21 @@
  * @packageDocumentation
  */
 
-import type {Extensions} from '@roots/bud-framework'
-import {WordPressDependenciesWebpackPlugin as Plugin} from '@roots/wordpress-dependencies-webpack-plugin'
+import type {Plugin} from '@roots/bud-framework/types/extension/plugin'
+import {WordPressDependenciesWebpackPlugin} from '@roots/wordpress-dependencies-webpack-plugin'
 
 declare module '@roots/bud-framework' {
-  interface Plugins {
-    '@roots/wordpress-dependencies-webpack-plugin': Extensions.Plugin
+  interface Modules {
+    '@roots/wordpress-dependencies-webpack-plugin': Plugin
   }
 }
 
-/**
- * @public
- */
-export const name: Extensions.Plugin['name'] =
+/** @public */
+export const label: Plugin['label'] =
   '@roots/wordpress-dependencies-webpack-plugin'
 
-/**
- * @public
- */
-export const make: Extensions.Plugin<Plugin, null>['make'] = () =>
-  new Plugin()
+/** @public */
+export const make: Plugin<
+  WordPressDependenciesWebpackPlugin,
+  null
+>['make'] = () => new WordPressDependenciesWebpackPlugin()

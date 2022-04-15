@@ -19,7 +19,7 @@ declare module '@roots/bud-framework' {
 }
 
 export interface BudPresetRecommend extends Extension.Module {
-  name: '@roots/bud-preset-recommend'
+  label: '@roots/bud-preset-recommend'
 }
 
 /**
@@ -27,4 +27,4 @@ export interface BudPresetRecommend extends Extension.Module {
  *
  * @public
  */
-export const name = '@roots/bud-preset-recommend'
+export const label = '@roots/bud-preset-recommend'

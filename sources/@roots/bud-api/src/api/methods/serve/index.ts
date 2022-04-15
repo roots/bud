@@ -1,9 +1,7 @@
 import type {Bud} from '@roots/bud-framework'
-import {fs, lodash} from '@roots/bud-support'
+import {fs, getPort} from '@roots/bud-support'
 import Https from 'https'
 import Http from 'https'
-
-const {isUndefined} = lodash
 
 /**
  * Specification object
@@ -103,23 +101,29 @@ export type facade = Serve<Bud>
  * @public
  */
 export const method: Serve = async function (
-  options: Options,
+  input: Options,
 ): Promise<Bud> {
   const app = this as Bud
-
   if (!app.isDevelopment) return app
 
-  if (Array.isArray(options) || typeof options === 'number') {
-    assignNumberArr(app, 'dev.port', options)
-    return app
+  const current = app.hooks.filter('dev.url')
+
+  if (Array.isArray(input) || typeof input === 'number') {
+    current.port = await requestPort(app, current, input)
+    return app.hooks.on('dev.url', current)
   }
 
-  if (options instanceof URL || typeof options === 'string') {
-    assignURL(app, options)
-    return app
+  if (input instanceof URL || typeof input === 'string') {
+    const url = input instanceof URL ? input : new URL(input)
+    url.port = await requestPort(
+      app,
+      url,
+      Number(url.port ?? current.port),
+    )
+    return app.hooks.on('dev.url', url)
   }
 
-  await assignSpec(app, options)
+  await assignSpec(app, current, input)
   return app
 }
 
@@ -127,80 +131,53 @@ export const method: Serve = async function (
  * Process specification object
  * @public
  */
-const assignSpec = async (app: Bud, spec: Specification) => {
-  const isSSL =
-    [
-      spec.ssl === true,
-      spec.cert,
-      spec.key,
-      spec.options?.cert,
-      spec.options?.key,
-      spec.host?.startsWith('https'),
-    ].filter(Boolean).length > 0
+const assignSpec = async (app: Bud, url: URL, spec: Specification) => {
+  if (!spec.options) spec.options = {}
 
-  if (isSSL) {
-    if (!spec.options) spec.options = {}
-
-    if (!spec.options.cert && spec.cert)
-      spec.options.cert = await fs.readFile(spec.cert)
-
-    if (!spec.options.key && spec.key)
-      spec.options.key = await fs.readFile(spec.key)
-
-    app.hooks.on('dev.ssl', true)
+  if ([spec.ssl, spec.cert, spec.key].filter(Boolean).length > 0) {
+    url.protocol = 'https:'
   }
 
-  if (!isUndefined(spec.ssl)) app.hooks.on('dev.ssl', spec.ssl)
+  if (spec.cert) spec.options.cert = await fs.readFile(spec.cert)
+
+  if (spec.key) spec.options.key = await fs.readFile(spec.key)
+
+  if (spec.port) {
+    url.port = await requestPort(app, url, Number(url.port))
+  }
+
+  if (spec.host) url.hostname = spec.host
 
   spec.options && app.hooks.on('dev.options', spec.options)
   spec.interface && app.hooks.on('dev.interface', spec.interface)
-
-  spec.port && assignNumberArr(app, 'dev.port', spec.port)
-  spec.exclude && assignNumberArr(app, 'dev.exclude', spec.exclude)
-  spec.host && assignHostname(app, spec.host)
+  app.hooks.on('dev.url', url)
 }
 
 /**
  * Process Node URL
  * @public
  */
-const assignURL = (app: Bud, url: URL | string) => {
-  url = url instanceof URL ? url : new URL(url)
-
-  app.hooks.on('dev.hostname', url.hostname)
-  url.port && app.hooks.on('dev.port', [Number(url.port)])
-  app.hooks.on('dev.ssl', url.protocol === 'https:')
-}
-
-/**
- * Assign nummber or array of numbers to either dev.exclude or dev.port
- *
- * @remarks
- * normalized to array
- *
- * @public
- */
-const assignNumberArr = (
+const requestPort = async (
   app: Bud,
-  key: 'dev.exclude' | 'dev.port',
-  maybeNumber: Array<number> | number,
+  url: URL,
+  request: number | Array<number>,
+  exclude: number | Array<number> = [],
 ) => {
-  app.hooks.on(
-    key,
-    Array.isArray(maybeNumber) ? maybeNumber : [maybeNumber],
-  )
-}
+  const opts = {
+    port: Array.isArray(request) ? request : [Number(request)],
+    exclude: Array.isArray(exclude) ? exclude : [exclude],
+  }
 
-/**
- * Assign hostname from string
- *
- * @param app - Bud
- * @param hostname - string hostname
- * @public
- */
-const assignHostname = (app: Bud, hostname: string) => {
-  app.hooks.on(
-    'dev.hostname',
-    hostname.replace('http:', '').replace('https:', '').replace('/', ''),
-  )
+  url.port = await getPort(opts).then(p => `${p}`)
+
+  if (!opts.port.includes(Number(url.port))) {
+    app.warn(
+      `\n`,
+      `None of the requested ports could be resolved.`,
+      `A port was automatically selected: ${url.port}`,
+      `\n`,
+    )
+  }
+
+  return url.port
 }

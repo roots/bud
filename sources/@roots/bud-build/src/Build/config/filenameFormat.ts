@@ -11,6 +11,6 @@ import {Bud} from '@roots/bud-framework'
  * @public
  */
 export const filenameFormat = (app: Bud, ext?: string) =>
-  app.store.is('features.hash', true)
-    ? app.store.get('hashFormat').concat(ext ?? '.js')
-    : app.store.get('fileFormat').concat(ext ?? '.js')
+  app.hooks.filter('feature.hash')
+    ? app.hooks.filter('value.hashFormat').concat(ext ?? '.js')
+    : app.hooks.filter('value.fileFormat').concat(ext ?? '.js')

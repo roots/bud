@@ -64,9 +64,7 @@ describe('bud.build.config', function () {
     expect(
       JSON.stringify(bud.build.config.infrastructureLogging.console),
     ).toStrictEqual(
-      JSON.stringify(
-        bud.maybeCall(seed['build.infrastructureLogging.console']),
-      ),
+      JSON.stringify(seed['build.infrastructureLogging.console'].pop()()),
     )
   })
 
@@ -142,6 +140,7 @@ describe('bud.build.config', function () {
   it('has expected default requireEnsure rule', () => {
     expect(bud.build.config.module.rules[0]).toMatchSnapshot({
       test: /\.[cm]?(jsx?|tsx?)$/,
+      exclude: [/node_modules/],
       parser: {requireEnsure: false},
     })
   })

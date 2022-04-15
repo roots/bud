@@ -3,57 +3,53 @@ import {lodash} from '@roots/bud-support'
 
 import {generateName, isPlugin} from './use.utilities'
 
-const {isArray} = lodash
+const {isArray, isFunction} = lodash
+
+export type Definition = Extension.Module | (new () => Extension.Extension)
 
 export interface use {
-  (
-    source:
-      | Extension.Module
-      | Extension.Plugin
-      | Array<Extension.Module>
-      | Array<Extension.Plugin>
-  ): Promise<Bud>
+  (source: Definition | Array<Definition>): Promise<Bud>
 }
 
 export interface facade {
-  (
-    source:
-      | Extension.Module
-      | Extension.Plugin
-      | Array<Extension.Module>
-      | Array<Extension.Plugin>  
-  ): Bud
+  (source: Definition | Array<Definition>): Bud
 }
 
 export const use: use = async function (source): Promise<Bud> {
   const bud = this as Bud
 
-  const addExtension = async (source: Extension.Module | Extension.Plugin): Promise<Bud> => {
+  const addExtension = async (source: Definition): Promise<Bud> => {
     if (!source) {
-      bud.error(`"${source.name}" extension source is not defined`)
+      bud.error(`extension source is not defined`)
     }
 
-    if (!source.hasOwnProperty('name')) {
-      source.name = generateName(source)
+    let instance
+
+    if (isFunction(source)) {
+      instance = new (source as any)(bud)
+    } else instance = source
+
+    if (!instance.label) {
+      instance.label = generateName(instance)
     }
 
-    if (bud.extensions.has(source.name)) {
+    if (bud.extensions.has(instance.label)) {
       bud.info(
-        `extension "${source.name}" is already registered. skipping`,
+        `extension "${instance.label}" is already registered. skipping`,
       )
 
       return bud
     }
 
-    const normalized = isPlugin(source)
-      ? {...source, make: () => source}
-      : source
-    await bud.extensions.add(normalized)
+    if (isPlugin(instance)) instance.make = () => instance
+    await bud.extensions.add(instance)
   }
 
   !isArray(source)
     ? await addExtension(source)
-    : await Promise.all(source.map(async (ext: Extension.Module | Extension.Plugin) => await addExtension(ext)))
+    : await Promise.all(
+        source.map(async (ext: Definition) => await addExtension(ext)),
+      )
 
   return bud
 }

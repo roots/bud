@@ -12,4 +12,4 @@
 
 import './bud.env'
 
-export {name, boot} from './BudEmotionExtension'
+export {label, boot} from './BudEmotionExtension'

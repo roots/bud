@@ -1,18 +1,14 @@
+import {Bud, factory} from '@repo/test-kit/bud'
 import * as postcss from '@roots/bud-postcss'
 import * as extension from '@roots/bud-purgecss'
 import {purgecss} from '@roots/bud-purgecss/src/bud.purge'
-
-import {Bud, factory} from '@repo/test-kit/bud'
 
 describe('@roots/bud-purgecss', () => {
   test.todo('test @roots/bud-purgecss')
 
   describe('purgecss extension', () => {
     it('has name prop', () => {
-      expect(extension.name).toBe('@roots/bud-purgecss')
-    })
-    it('has api prop', () => {
-      expect(extension.api.purgecss).toBeInstanceOf(Function)
+      expect(extension.label).toBe('@roots/bud-purgecss')
     })
     it('has a registration method', () => {
       expect(extension.register).toBeInstanceOf(Function)
@@ -26,7 +22,6 @@ describe('@roots/bud-purgecss', () => {
       bud = await factory()
       await bud.build.make()
       await bud.extensions.add(postcss)
-      await bud.extensions.processQueue()
     })
 
     it('has a registration method', () => {
@@ -42,7 +37,6 @@ describe('@roots/bud-purgecss', () => {
       bud = await factory()
       await bud.build.make()
       await bud.extensions.add(postcss)
-      await bud.extensions.processQueue()
     })
 
     it('is a fn', () => {

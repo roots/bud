@@ -20,9 +20,9 @@
 import {PluginAdapter} from './PluginAdapter'
 
 declare module '@roots/bud-framework' {
-  interface Plugins {
+  interface Modules {
     '@roots/wordpress-externals-webpack-plugin': PluginAdapter
   }
 }
 
-export const {name, make} = PluginAdapter
+export const {label, make} = PluginAdapter

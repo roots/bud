@@ -1,60 +1,57 @@
 import * as Framework from '@roots/bud-framework'
+import {bind} from '@roots/bud-support'
 
-import {makeAcornCompat} from './acorn'
+import * as acorn from './acorn'
 import * as ThemeJSON from './theme/extension'
 
-interface Sage extends Framework.Extension.Module {}
+export interface Sage extends Framework.Extension.Extension {}
 
 /**
  * @public
  */
-const Sage: Sage = {
-  /**
-   * @public
-   */
-  name: '@roots/sage',
+export class Sage extends Framework.Extension.Extension {
+  /** @public */
+  public label = '@roots/sage'
+
+  /** @public */
+  public pathHandles = {
+    '@src': 'resources',
+    '@dist': 'public',
+    '@resources': '@src',
+    '@public': '@dist',
+    '@fonts': '@src/fonts',
+    '@images': '@src/images',
+    '@scripts': '@src/scripts',
+    '@styles': '@src/styles',
+    '@views': '@src/views',
+  }
 
   /**
    * @public
+   * @decorator `@bind`
    */
-  boot: async app => {
-    /* Acorn concerns */
-    makeAcornCompat(app)
+  @bind
+  public async boot() {
+    acorn.setSvgEmit(this.app)
+    acorn.setManifestPublicPath(this.app)
+    acorn.setPublicPath(this.app)
+    acorn.hmrJson(this.app)
 
-    /* Add theme.json extension */
-    await app.extensions.add(ThemeJSON)
+    await this.app.extensions.add(ThemeJSON)
 
-    /* Set application paths */
-    app.setPath({
-      '@src': 'resources',
-      '@dist': 'public',
-      '@resources': '@src',
-      '@public': '@dist',
-      '@fonts': '@src/fonts',
-      '@images': '@src/images',
-      '@scripts': '@src/scripts',
-      '@styles': '@src/styles',
-      '@views': '@src/views',
+    this.app.setPath(this.pathHandles)
+    this.app.alias({
+      '@fonts': this.app.path('@fonts'),
+      '@images': this.app.path('@images'),
+      '@scripts': this.app.path('@scripts'),
+      '@styles': this.app.path('@styles'),
     })
 
-    /* Set application client aliases */
-    app.alias({
-      '@fonts': app.path('@fonts'),
-      '@images': app.path('@images'),
-      '@scripts': app.path('@scripts'),
-      '@styles': app.path('@styles'),
-    })
-
-    /* Create vendor chunk(s) */
-    app.splitChunks()
-
-    /* Environment specific configuration */
-    app.when(
-      app.isProduction,
-      () => app.minimize().hash().runtime('single'),
-      () => app.devtool(),
+    this.app.splitChunks()
+    this.app.when(
+      this.app.isProduction,
+      () => this.app.minimize().hash().runtime('single'),
+      () => this.app.devtool(),
     )
-  },
+  }
 }
-
-export {Sage}

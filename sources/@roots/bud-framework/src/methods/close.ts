@@ -13,9 +13,12 @@ export interface close {
 }
 
 /**
- * Exit the program
+ * Gracefully shutdown {@link Bud} and registered {@link Services}
  *
- * @param callback - Callback function to be called before end of run
+ * @example
+ * ```js
+ * bud.close()
+ * ```
  *
  * @public
  */

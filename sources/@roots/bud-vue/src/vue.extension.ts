@@ -5,11 +5,11 @@ import {VueLoaderPlugin} from 'vue-loader'
  * @public
  */
 export const VueExtension: Extension.Module = {
-  name: '@roots/bud-vue',
+  label: '@roots/bud-vue',
 
   boot: async app => {
     await app.extensions.add({
-      name: 'vue-loader-plugin',
+      label: 'vue-loader-plugin',
       make: () => new VueLoaderPlugin(),
     })
 
@@ -24,7 +24,7 @@ export const VueExtension: Extension.Module = {
     app.hooks.on('build.module.rules.before', rules => [
       app.build
         .makeRule()
-        .setTest(app.store.get('patterns.vue'))
+        .setTest(app.hooks.filter('pattern.vue'))
         .setUse(items => [`vue`, ...items])
         .toWebpack(),
       ...rules,

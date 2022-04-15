@@ -9,8 +9,11 @@ import {BaseCommand} from './base.js'
 
 const {isUndefined} = lodash
 
-const fallback = (obj: any | undefined, obj2: any) =>
-  isUndefined(obj) ? obj2 : obj
+const fallback = (
+  test: any | undefined,
+  value: any | undefined,
+  fallback: any,
+) => (isUndefined(test) ? fallback : value)
 
 /**
  * Build command
@@ -289,30 +292,54 @@ export class BuildCommand extends BaseCommand {
       'target',
       'verbose',
     ].map(arg => {
-      this.context.args[arg] = fallback(this[arg], null)
+      this.context.args[arg] = fallback(this[arg], this[arg], null)
     })
 
     this.app = await factory({
       name: 'bud',
       mode: this.mode,
       context: this.context,
-      config: {
+      seed: {
         'build.output.publicPath': fallback(
           this.publicPath,
+          [() => this.publicPath],
           seed['build.output.publicPath'],
         ),
-        'features.inject': fallback(this.inject, seed['features.inject']),
-        'features.log': fallback(this.log, seed['features.log']),
-        'features.manifest': fallback(
-          this.manifest,
-          seed['features.manifest'],
+        'feature.inject': fallback(
+          this.inject,
+          [() => this.inject],
+          seed['feature.inject'],
         ),
-        location: {
-          '@src': fallback(this.src, seed.location['@src']),
-          '@dist': fallback(this.dist, seed.location['@dist']),
-          '@storage': fallback(this.storage, seed.location['@storage']),
-          '@modules': fallback(this.modules, seed.location['@modules']),
-        },
+        'feature.log': fallback(
+          this.log,
+          [() => this.log],
+          seed['feature.log'],
+        ),
+        'feature.manifest': fallback(
+          this.manifest,
+          [() => this.manifest],
+          seed['feature.manifest'],
+        ),
+        'location.@src': fallback(
+          this.src,
+          [() => this.src],
+          seed['location.@src'],
+        ),
+        'location.@dist': fallback(
+          this.dist,
+          [() => this.dist],
+          seed['location.@dist'],
+        ),
+        'location.@storage': fallback(
+          this.storage,
+          [() => this.storage],
+          seed['location.@storage'],
+        ),
+        'location.@modules': fallback(
+          this.modules,
+          [() => this.modules],
+          seed['location.@modules'],
+        ),
       },
     })
 

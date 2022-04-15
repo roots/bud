@@ -7,8 +7,8 @@ import {WordPressExternals} from '@roots/wordpress-externals-webpack-plugin'
  * @public
  */
 export interface PluginAdapter
-  extends Extensions.Plugin<WordPressExternals> {
-  name: '@roots/wordpress-externals-webpack-plugin'
+  extends Extensions.Module<WordPressExternals> {
+  label: '@roots/wordpress-externals-webpack-plugin'
   make: () => WordPressExternals
 }
 
@@ -19,7 +19,7 @@ export const PluginAdapter: PluginAdapter = {
   /**
    * @public
    */
-  name: '@roots/wordpress-externals-webpack-plugin',
+  label: '@roots/wordpress-externals-webpack-plugin',
 
   /**
    * @public

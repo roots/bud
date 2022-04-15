@@ -1,6 +1,6 @@
 import {logger} from '@repo/logger'
 import {Bud, factory} from '@repo/test-kit/bud'
-import { Service } from '@roots/bud-framework'
+import {Service} from '@roots/bud-framework'
 import {Server} from '@roots/bud-server'
 
 describe('@roots/bud-server', function () {
@@ -18,7 +18,7 @@ describe('@roots/bud-server', function () {
   })
 
   it('has expected defaults', () => {
-    expect(bud.hooks.filter('dev.hostname')).toMatchSnapshot()
+    expect(bud.hooks.filter('dev.url')).toMatchSnapshot()
     expect(bud.hooks.filter('dev.watch.files')).toMatchSnapshot()
     expect(bud.hooks.filter('dev.watch.options')).toMatchSnapshot()
     expect(bud.hooks.filter('dev.client.scripts')).toMatchSnapshot()

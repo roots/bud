@@ -3,13 +3,11 @@ import {Module} from '@roots/bud-framework'
 import {PostCssConfig} from './bud.postcss'
 
 export const BudPostCssExtension: Module = {
-  name: '@roots/bud-postcss',
-
-  mixin: async () => ({
-    postcss: [PostCssConfig],
-  }),
+  label: '@roots/bud-postcss',
 
   register: async (app, logger) => {
+    app.postcss = new PostCssConfig()
+
     app.build
       .setLoader('postcss', require.resolve('postcss-loader'))
       .setItem('postcss', item =>
