@@ -16,7 +16,7 @@ export type Options = Plugin['options']
  * @public
  */
 export interface BudTypeCheckPlugin
-  extends Extension.Plugin<Plugin, Options> {
+  extends Extension.Module<Plugin, Options> {
   label: 'fork-ts-checker-webpack-plugin'
   options(app: Bud): Options
 }

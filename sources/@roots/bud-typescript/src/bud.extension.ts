@@ -1,49 +1,51 @@
 import {Extension} from '@roots/bud-framework'
-import {Options} from 'ts-loader'
+import {bind} from '@roots/bud-support'
 
 import {typecheck} from './bud.typecheck'
 
 /**
  * @public
  */
-export interface BudTypeScriptExtension
-  extends Extension.Module<Partial<Options>> {
-  label: '@roots/bud-typescript'
-  options: Partial<Options>
-  register: Extension.Module['register']
-  boot: Extension.Module['boot']
-}
+export class TypeScript extends Extension.Extension {
+  /**
+   * @public
+   */
+  public label = '@roots/bud-typescript'
 
-/**
- * @public
- */
-export const BudTypeScriptExtension: BudTypeScriptExtension = {
-  label: '@roots/bud-typescript',
+  /**
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async register() {
+    this.app.api.bindFacade('typecheck', typecheck)
+  }
 
-  options: {transpileOnly: true},
-
-  register: async app => {
-    app.api.bindFacade('typecheck', typecheck)
-  },
-
-  boot: async app => {
-    app.hooks.on('build.resolve.extensions', ext =>
+  /**
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async boot() {
+    this.app.hooks.on('build.resolve.extensions', ext =>
       ext.add('.ts').add('.tsx'),
     )
 
-    app.build
-      .setLoader('ts', require.resolve('ts-loader'))
+    this.app.build
+      .setLoader('ts', this.resolve('ts-loader'))
       .setItem('ts', {
         loader: 'ts',
-        options: app =>
-          app.extensions.get('@roots/bud-typescript').options.all(),
+        options: {
+          compiler: this.resolve('typescript'),
+          transpileOnly: true,
+        },
       })
       .setRule('ts', {
-        test: /(jsx?)|(tsx?)/,
-        include: app => [app.path('@src')],
+        test: this.app.hooks.filter('pattern.ts'),
+        include: [this.app.path('@src')],
+        use: ['babel', 'ts'],
       })
 
-    app.build.rules.ts.setUse(['babel', 'ts'])
-    app.build.rules.js.setUse(['babel', 'ts'])
-  },
+    this.app.build.rules.js.setUse(['babel', 'ts'])
+  }
 }

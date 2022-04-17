@@ -30,8 +30,8 @@ export const production: OptionsFactory = (app: Bud) => ({
     },
   },
 })
-
-/**
+/*
+ *
  * options to use when bud.mode is `development`.
  *
  * @public

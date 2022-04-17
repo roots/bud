@@ -12,13 +12,13 @@ import * as BudTypeCheckPlugin from './fork-ts-checker-webpack-plugin'
  *
  * @public
  */
-interface OptionsMutator {
+export interface OptionsMutator {
   (
     options: Container<BudTypeCheckPlugin.Options>,
   ): BudTypeCheckPlugin.Options
 }
 
-type Options = OptionsMutator | BudTypeCheckPlugin.Options | boolean
+export type Options = OptionsMutator | BudTypeCheckPlugin.Options | boolean
 
 export interface typecheck {
   (this: Bud, options?: Options): Promise<Bud>
