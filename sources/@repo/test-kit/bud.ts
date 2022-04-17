@@ -2,6 +2,8 @@ import {Bud, factory as budFactory, makeContext, seed} from '@roots/bud'
 import {Config} from '@roots/bud-framework'
 import {join} from 'path'
 
+jest.setTimeout(99999)
+
 export {Bud}
 
 export const repoPath = (path: string) => join(process.cwd(), path)
@@ -11,7 +13,7 @@ export const mockProject = {
 }
 
 export const factory = async (options?: Config.Options) => {
-  const context = await makeContext(mockProject.path)
+  const context = await makeContext(repoPath('tests/util/project'))
 
   const bud = await budFactory({
     name: 'bud',

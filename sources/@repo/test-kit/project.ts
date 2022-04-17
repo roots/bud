@@ -1,9 +1,13 @@
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
 /* eslint-disable no-console */
+import {paths, REGISTRY_PROXY} from '@repo/constants'
+import * as logger from '@repo/logger'
 import {bind, execa} from '@roots/bud-support'
-import {readFile} from 'fs-extra'
+import {copy, readFile, remove} from 'fs-extra'
 import * as json5 from 'json5'
 import {join} from 'path'
+
+jest.setTimeout(120000)
 
 interface Options {
   name: string
@@ -37,8 +41,6 @@ export class Project {
 
   public mode: 'dev' | 'production' = 'production'
 
-  public dist: string = 'dist'
-
   public storage: string = '.budfiles'
 
   public assets = {}
@@ -67,12 +69,33 @@ export class Project {
 
   public packageJson: Record<string, any> = {}
 
-  public constructor(public options: Options) {}
+  /**
+   * dir
+   * @public
+   */
+  public dir: string
 
-  public async setup() {
-    if (this.options.dist) {
-      this.dist = this.options.dist
-    }
+  /**
+   * logger
+   * @public
+   */
+  public logger: typeof logger.logger
+
+  public constructor(public options: Options) {
+    this.dir = join(paths.mocks, this.options.with, this.options.name)
+    this.logger = logger
+      .make({interactive: true})
+      .scope(this.options.name, this.options.with)
+  }
+
+  /**
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async setup(): Promise<Project> {
+    await this.install()
+    await this.build()
 
     await this.setPackageJson()
     await this.setManifest()
@@ -80,47 +103,128 @@ export class Project {
     await this.setModules()
     await this.setEntrypoints()
 
+    this.logger.success('setup complete')
+
     return this
   }
 
-  public get dir() {
-    return join(`/srv/mocks`, this.options.with, this.options.name)
+  @bind
+  public async $(bin: string, flags: Array<string>) {
+    try {
+      await execa.execa(bin, flags ?? [], {
+        cwd: this.projectPath(),
+        shell: true,
+      })
+    } catch (error) {
+      logger.error(error)
+    }
   }
 
   @bind
-  public projectPath(file) {
-    return `${this.dir}/${file}`
+  public async yarnInstall() {
+    await this.$(`yarn`, [
+      `install`,
+      `--update-checksums`,
+      `--skip-integrity-check`,
+      `--registry`,
+      REGISTRY_PROXY,
+      `--force`,
+    ])
   }
 
+  @bind
+  public async npmInstall() {
+    await this.$(`npm`, [`install`, `--registry`, REGISTRY_PROXY])
+  }
+  @bind
+  public async install() {
+    this.logger.log('removing')
+
+    try {
+      await remove(this.projectPath())
+    } catch (e) {
+      logger.error(e)
+    }
+
+    this.logger.log('copying')
+
+    try {
+      await copy(`./examples/${this.options.name}`, this.projectPath())
+    } catch (e) {
+      logger.error(e)
+    }
+
+    this.logger.log('installing')
+
+    this.options.with === 'yarn'
+      ? await this.yarnInstall()
+      : await this.npmInstall()
+  }
+
+  @bind
+  public async build() {
+    this.logger.log('building')
+
+    this.options.with === 'yarn'
+      ? await this.$(`yarn`, [`bud`, `build`])
+      : await this.$(`node`, [`node_modules/.bin/bud`, `build`])
+  }
+
+  /**
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public projectPath(file?: string) {
+    return join(this.dir, file ?? '')
+  }
+
+  /**
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public async readJson(file: string) {
     const contentString = await readFile(file)
     return json5.parse(contentString.toString())
   }
 
+  /**
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public async setPackageJson() {
-    let packageJson = await this.readJson(this.projectPath('package.json'))
+    const packageJson = await this.readJson(
+      this.projectPath('package.json'),
+    )
     Object.assign(this, {packageJson})
   }
 
+  /**
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public async setManifest() {
-    let manifest = await this.readJson(
-      this.projectPath(`${this.dist}/manifest.json`),
+    this.manifest = await this.readJson(
+      this.projectPath(`${this.options.dist}/manifest.json`),
     )
-
-    Object.assign(this, {manifest})
   }
 
+  /**
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public async setAssets() {
-    const assets = await Object.entries(this.manifest).reduce(
-      async (promised: Promise<any>, [name, path]) => {
+    this.assets = await Object.entries(this.manifest).reduce(
+      async (promised: Promise<any>, [name, path]: [string, string]) => {
         const assets = await promised
 
+        logger.log('attempting to read', `${this.options.dist}/${path}`)
         const buffer = await readFile(
-          this.projectPath(`${this.dist}/${path}`),
+          this.projectPath(`${this.options.dist}/${path}`),
           'utf8',
         )
 
@@ -131,40 +235,35 @@ export class Project {
       },
       Promise.resolve(),
     )
-
-    Object.assign(this, {assets})
   }
 
+  /**
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public async setEntrypoints() {
     try {
       const entrypoints = await this.readJson(
-        this.projectPath(`${this.dist}/entrypoints.json`),
+        this.projectPath(`${this.options.dist}/entrypoints.json`),
       )
 
       Object.assign(this, {entrypoints})
     } catch (e) {}
   }
 
+  /**
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public async setModules() {
     try {
       const modules = await this.readJson(
-        this.projectPath(`${this.storage}/bud/modules.json`),
+        this.projectPath(join(this.storage, `bud/modules.json`)),
       )
 
       Object.assign(this, {modules})
     } catch (e) {}
-  }
-
-  @bind
-  public async yarn(...opts: any) {
-    const res = execa.execa('yarn', opts, {
-      cwd: this.dir,
-    })
-
-    await res
-
-    return Promise.resolve()
   }
 }
