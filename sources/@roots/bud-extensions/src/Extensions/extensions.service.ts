@@ -1,7 +1,7 @@
 import * as Framework from '@roots/bud-framework'
+import {bind} from '@roots/bud-support'
 
 import {Controller} from '../Controller'
-import {bind} from './extensions.dependencies'
 
 /**
  * Extensions Service
@@ -20,18 +20,14 @@ export class Extensions
    * @public
    */
   public makeController(
-    extension:
-      | Framework.Module
-      | (new () => Framework.Extension.Extension),
+    extension: Framework.Module | Framework.Extension.Constructor,
   ): Controller {
     return new Controller(this.app, extension)
   }
 
   @bind
   public async setController(
-    extension:
-      | Framework.Module
-      | (new () => Framework.Extension.Extension),
+    extension: Framework.Module | Framework.Extension.Constructor,
   ): Promise<Controller> {
     const controller = this.makeController(extension)
     this.set(controller.label, controller)
@@ -102,7 +98,9 @@ export class Extensions
   @bind
   public async controllerRegister(controller: Controller): Promise<void> {
     if (!controller) return
+
     try {
+      await controller.init()
       await controller.register()
     } catch (err) {
       this.app.log(controller)
@@ -159,8 +157,8 @@ export class Extensions
   public async add(
     extension:
       | Framework.Module
-      | Array<Framework.Module | (new () => Framework.Extension.Extension)>
-      | (new () => Framework.Extension.Extension),
+      | Framework.Extension.Constructor
+      | Array<Framework.Module | Framework.Extension.Constructor>,
   ): Promise<void> {
     const arrayed = Array.isArray(extension) ? extension : [extension]
 

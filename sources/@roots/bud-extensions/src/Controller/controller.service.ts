@@ -51,7 +51,7 @@ export class Controller {
    */
   public constructor(
     _app: Bud,
-    extension: Extension.Module | (new () => Extension.Extension),
+    extension: Extension.Module | Extension.Constructor,
   ) {
     this._app = () => _app
 
@@ -61,7 +61,7 @@ export class Controller {
     }
 
     if (isFunction(extension)) {
-      this._module = new (extension as any)(() => _app)
+      this._module = new (extension as any)(_app)
     } else this._module = Object.assign(extension, {logger: this.logger})
 
     this.logger = new Logger(_app).instance.scope(
@@ -100,9 +100,16 @@ export class Controller {
   public get label(): `${keyof Modules & string}` {
     return this._module.label
   }
-
   public set label(label: `${keyof Modules & string}`) {
     this._module.label = label
+  }
+
+  /**
+   * Initializer
+   */
+  public async init() {
+    if (this._module.init) await this._module.init(this.app, this.logger)
+    return this
   }
 
   /**
