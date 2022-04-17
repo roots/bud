@@ -1,8 +1,8 @@
 import {Extension} from '@roots/bud-framework'
+import {bind, parseSemver} from '@roots/bud-support'
+import {Configuration, RuleSetRule} from 'webpack'
 
-import {makeAlias} from './makeAlias'
-import * as loader from './vue.loader'
-import * as styleLoader from './vue.styleLoader'
+type Aliases = Configuration['resolve']['alias']
 
 /**
  * Vue support
@@ -10,34 +10,105 @@ import * as styleLoader from './vue.styleLoader'
  * @public
  */
 export class Vue extends Extension.Extension {
-  public name = '@roots/bud-vue'
+  /**
+   * @public
+   */
+  public label = '@roots/bud-vue'
 
+  /**
+   * @public
+   */
   public options = {runtimeOnly: true}
 
+  /**
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
   public async boot() {
-    this.logger.log('booting vue extension')
+    await this.addLoader()
+    await this.addStyleLoader()
 
-    const extensionPath = await this.app.module.path('@roots/bud-vue')
-    this.logger.info('vue extension booting from', extensionPath)
+    this.app.hooks.on('build.module.rules.before', this.moduleRulesBefore)
+    this.app.hooks.on('build.resolve.extensions', ext => ext.add('.vue'))
+    this.app.hooks.async('build.resolve.alias', this.resolveAlias)
+  }
 
-    await loader.set(extensionPath, this.app, this.logger)
-    await styleLoader.set(extensionPath, this.app, this.logger)
+  /**
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async addLoader() {
+    const loader = this.resolve('vue-loader')
+    const {VueLoaderPlugin: Plugin} = await this.import('vue-loader')
 
-    this.app.hooks
-      .on('build.module.rules.before', ruleset => [
-        this.app.build
-          .makeRule()
-          .setTest(this.app.hooks.filter('pattern.vue'))
-          .setUse(items => [`vue`, ...items])
-          .toWebpack(),
-        ...(ruleset ?? []),
-      ])
+    this.app.build.setLoader('vue', loader)
+    this.app.build.setItem('vue', {loader: 'vue'})
 
-      .hooks.on('build.resolve.extensions', ext => ext.add('.vue'))
+    await this.app.extensions.add({
+      label: 'vue-loader-plugin',
+      make: () => new Plugin(),
+    })
+  }
 
-      .hooks.async('build.resolve.alias', async all => {
-        const vue = await makeAlias(extensionPath, this.app, this.logger)
-        return Object.assign(all, {vue})
-      })
+  /**
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async addStyleLoader() {
+    this.app.build.setLoader('vue-style', this.resolve('vue-style-loader'))
+    this.app.build.setItem('vue-style', {loader: 'vue-style'})
+    this.app.build.rules.css.setUse(items => ['vue-style', ...items])
+  }
+
+  /**
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public moduleRulesBefore(ruleset: Array<RuleSetRule>) {
+    const rule = this.app.build.makeRule({
+      test: this.app.hooks.filter('pattern.vue'),
+      use: items => [`vue`, ...items],
+    })
+
+    return [...(ruleset ?? []), rule.toWebpack()]
+  }
+
+  /**
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async resolveAlias(aliases: Aliases) {
+    const isVue2 = await this.isVue2()
+    const isRuntimeOnly = this.getOptions().is('runtimeOnly', true)
+
+    isVue2 &&
+      this.logger.log('configuring for vue2 based on project dependencies')
+
+    const type = isVue2 ? 'esm' : 'esm-bundler'
+
+    const vue = isRuntimeOnly
+      ? `vue/dist/vue.runtime.${type}.js`
+      : `vue/dist/vue.${type}.js`
+
+    return Object.assign(aliases, {vue})
+  }
+
+  /**
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async isVue2() {
+    const manifest = await this.app.module.readManifest([
+      'vue',
+      [this.path, 'vue'],
+    ])
+
+    return parseSemver(`vue@${manifest.version}`).version.startsWith('2')
   }
 }

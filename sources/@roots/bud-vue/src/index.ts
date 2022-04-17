@@ -2,7 +2,7 @@
 // Licensed under the MIT license.
 
 /**
- * Adds vue sfc support to Bud projects
+ * Add Vue support
  *
  * @see https://bud.js.org
  * @see https://github.com/roots/bud
