@@ -11,7 +11,9 @@ export type ReactExtension = Extensions.Module
 
 export const ReactExtension: ReactExtension = {
   label: '@roots/bud-react',
+
   register: async ({api}) => api.bindFacade('reactRefresh', reactRefresh),
+
   boot: async app => {
     app.babel.setPreset(
       '@babel/preset-react',

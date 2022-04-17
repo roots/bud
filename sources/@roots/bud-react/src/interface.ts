@@ -11,9 +11,6 @@ declare module '@roots/bud-framework' {
 
   interface Modules {
     '@roots/bud-react': ReactExtension
-  }
-
-  interface Modules {
     '@pmmmwh/react-refresh-webpack-plugin': ReactRefreshExtension
   }
 }

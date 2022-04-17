@@ -4,13 +4,7 @@
     "baseUrl": ".",
     "rootDir": "./src",
     "outDir": "./lib/cjs",
-    "declarationDir": "./types",
-    "types": [
-      "node",
-      "@roots/bud-api",
-      "@roots/bud-babel",
-      "@roots/bud-framework"
-    ]
+    "declarationDir": "./types"
   },
   "include": ["src"],
   "references": [

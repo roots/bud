@@ -11,7 +11,7 @@
  * @packageDocumentation
  */
 
-import './global'
+import './interface'
 
 import {ReactExtension} from './extension'
 

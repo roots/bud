@@ -12,7 +12,7 @@ import {Bud} from './bud'
 const {isArray, isString} = lodash
 
 /**
- * Module util
+ * Module resolver
  *
  * @public
  */
@@ -20,13 +20,11 @@ export class Module {
   /**
    * Class constructor
    *
-   * @param app - Bud instance
    * @public
    */
   public constructor(public app: Bud) {}
 
   /**
-   *
    * @public
    * @decorator `@bind`
    */
@@ -40,7 +38,6 @@ export class Module {
   }
 
   /**
-   *
    * @public
    * @decorator `@bind`
    */
@@ -55,7 +52,6 @@ export class Module {
   }
 
   /**
-   *
    * @public
    * @decorator `@bind`
    */
@@ -68,7 +64,6 @@ export class Module {
   }
 
   /**
-   *
    * @public
    * @decorator `@bind`
    */
@@ -80,7 +75,6 @@ export class Module {
   }
 
   /**
-   *
    * @public
    * @decorator `@bind`
    */
@@ -93,7 +87,6 @@ export class Module {
   }
 
   /**
-   *
    * @public
    * @decorator `@bind`
    */
@@ -108,7 +101,6 @@ export class Module {
   }
 
   /**
-   *
    * @public
    * @decorator `@bind`
    */
@@ -121,7 +113,6 @@ export class Module {
   }
 
   /**
-   *
    * @public
    * @decorator `@bind`
    */
