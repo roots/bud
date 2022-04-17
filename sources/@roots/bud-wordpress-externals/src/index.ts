@@ -7,7 +7,7 @@
  * This package replaces source code references to WordPress provided packages and collects package
  * references in the {@link @roots/bud-entrypoints# | entrypoints manifest}
  *
- * @see https://roots.io/bud
+ * @see https://bud.js.org
  * @see https://github.com/roots/bud
 
  * @remarks
@@ -20,9 +20,9 @@
 import {PluginAdapter} from './PluginAdapter'
 
 declare module '@roots/bud-framework' {
-  interface Plugins {
+  interface Modules {
     '@roots/wordpress-externals-webpack-plugin': PluginAdapter
   }
 }
 
-export const {name, make} = PluginAdapter
+export const {label, make} = PluginAdapter

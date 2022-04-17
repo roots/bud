@@ -1,12 +1,12 @@
-import type {Framework} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
 import type {Configuration} from 'webpack'
 
 export interface externals {
-  (externals: Configuration['externals']): Framework
+  (externals: Configuration['externals']): Bud
 }
 
 export const externals: externals = function (externals) {
-  this as Framework
+  this as Bud
 
   this.hooks.on(
     'build.externals',

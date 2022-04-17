@@ -9,27 +9,27 @@
  * need to be enqueued using WordPress PHP APIs for inclusion in a theme
  * or plugin.
  *
- * @see https://roots.io/bud
+ * @see https://bud.js.org
 
  * @packageDocumentation
  */
 
-import {Extension} from '@roots/bud-framework'
+import {Extensions} from '@roots/bud-framework'
 import {MergedManifestWebpackPlugin} from '@roots/merged-manifest-webpack-plugin'
 
 declare module '@roots/bud-framework' {
   interface Modules {
-    '@roots/bud-wordpress-manifests': Extension.CompilerPlugin
-    '@roots/merged-manifest-webpack-plugin': Extension.CompilerPlugin
+    '@roots/bud-wordpress-manifests': Extensions.Plugin
+    '@roots/merged-manifest-webpack-plugin': Extensions.Plugin
   }
 }
 
-const BudMergedManifestAdapter: Extension.CompilerPlugin<
+const BudMergedManifestAdapter: Extensions.Plugin<
   MergedManifestWebpackPlugin,
   null
 > = {
-  name: '@roots/bud-wordpress-manifests',
+  label: '@roots/bud-wordpress-manifests',
   make: () => new MergedManifestWebpackPlugin(),
 }
 
-export const {name, make} = BudMergedManifestAdapter
+export const {label, make} = BudMergedManifestAdapter

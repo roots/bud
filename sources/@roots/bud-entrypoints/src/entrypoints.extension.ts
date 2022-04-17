@@ -9,7 +9,7 @@ import {
  *
  * @public
  */
-export type BudEntrypointsExtension = Extension.CompilerPlugin<
+export type BudEntrypointsExtension = Extension.Plugin<
   EntrypointsWebpackPlugin,
   Options
 >
@@ -20,11 +20,7 @@ export type BudEntrypointsExtension = Extension.CompilerPlugin<
  * @public
  */
 export const BudEntrypointsExtension: BudEntrypointsExtension = {
-  name: '@roots/bud-entrypoints',
-  options: () => ({
-    emitHtml: false,
-  }),
-  make: options => {
-    return new EntrypointsWebpackPlugin(options.all())
-  },
+  label: '@roots/bud-entrypoints',
+  options: () => ({emitHtml: false}),
+  make: options => new EntrypointsWebpackPlugin(options.all()),
 }

@@ -1,13 +1,10 @@
-import type {Framework} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
 import type {Configuration, EntryObject} from 'webpack'
 
 import {isUndefined} from './runtime.dependencies'
 
 export interface runtime {
-  (
-    this: Framework,
-    runtime?: Configuration['optimization']['runtimeChunk'],
-  ): Framework
+  (this: Bud, runtime?: Configuration['optimization']['runtimeChunk']): Bud
 }
 
 /**

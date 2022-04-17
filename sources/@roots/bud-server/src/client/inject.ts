@@ -1,13 +1,10 @@
-import {Framework} from '@roots/bud-framework'
+import {Bud} from '@roots/bud-framework'
 import {lodash} from '@roots/bud-support'
 
 const {isNull, isUndefined} = lodash
 
 export interface inject {
-  (
-    app: Framework,
-    injection: Array<(app: Framework) => string>,
-  ): Promise<void>
+  (app: Bud, injection: Array<(app: Bud) => string>): Promise<void>
 }
 
 /**
@@ -17,7 +14,7 @@ export interface inject {
  *
  * @public
  */
-export const inject: inject = async (instance: Framework, injection) => {
+export const inject: inject = async (instance: Bud, injection) => {
   instance.hooks.on('build.entry', entrypoints => {
     const invalidEntrypoints =
       !entrypoints ||

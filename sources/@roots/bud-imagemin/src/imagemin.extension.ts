@@ -1,4 +1,4 @@
-import type {Extension, Framework} from '@roots/bud-framework'
+import type {Bud, Extension} from '@roots/bud-framework'
 import ImageMinimizerPlugin, {
   squooshGenerate,
   squooshMinify,
@@ -7,7 +7,7 @@ import ImageMinimizerPlugin, {
 
 import {imagemin} from './imagemin.config'
 
-export const name: Extension.Module['name'] = '@roots/bud-imagemin'
+export const label: Extension.Module['label'] = '@roots/bud-imagemin'
 
 export const options: Extension.Module['options'] | SquooshOptions = {
   test: /.(jpe?g|png|gif|tif|webp|svg|avif)$/i,
@@ -26,11 +26,10 @@ export const options: Extension.Module['options'] | SquooshOptions = {
   ],
 }
 
-export const api: {imagemin: imagemin} = {
-  imagemin,
-}
+export const register = async ({api}) =>
+  api.bindFacade('imagemin', imagemin)
 
-export const boot = async (app: Framework): Promise<void> => {
+export const boot = async (app: Bud): Promise<void> => {
   app.hooks.on('build.optimization.minimizer', minimizer => [
     ...minimizer,
     new ImageMinimizerPlugin(

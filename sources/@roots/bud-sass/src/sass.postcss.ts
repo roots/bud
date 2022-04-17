@@ -1,4 +1,4 @@
-import type {Framework} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
 import type {Signale} from '@roots/bud-support'
 
 /**
@@ -6,8 +6,8 @@ import type {Signale} from '@roots/bud-support'
  *
  * @internal
  */
-export function configure(app: Framework): void {
-  app.hooks.on('extension.@roots/bud-postcss.options', options => ({
+export function configure(app: Bud): void {
+  app.hooks.on('extension.@roots/bud-postcss.options' as any, options => ({
     syntax: 'postcss-scss',
   }))
 }
@@ -20,8 +20,10 @@ export function configure(app: Framework): void {
  *
  * @internal
  */
-export function verify(app: Framework, logger: Signale): void {
-  const options = app.hooks.filter('extension.@roots/bud-postcss.options')
+export function verify(app: Bud, logger: Signale): void {
+  const options = app.hooks.filter(
+    'extension.@roots/bud-postcss.options' as any,
+  )
 
   if (options?.syntax == 'postcss-scss') {
     logger.success('postcss configured to handle scss syntax')

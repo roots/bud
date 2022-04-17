@@ -1,4 +1,4 @@
-const {resolve} = require('path')
+const {resolve} = require('node:path')
 const mapModuleNames = require('@repo/test-kit/moduleNameMapper')
 
 /**
@@ -18,6 +18,10 @@ module.exports = async function config() {
       '!node_modules/**/*',
     ],
     coveragePathIgnorePatterns: [
+      'sources/@roots/bud-framework/src/Build/',
+      'sources/@roots/bud-framework/src/Extensions/',
+      'sources/@roots/bud-framework/src/Peers/',
+      'sources/@roots/bud-framework/src/Project/',
       'sources/@roots/bud-dashboard/',
       'sources/@roots/bud-support/',
       'sources/@roots/filesystem/',

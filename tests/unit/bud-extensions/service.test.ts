@@ -15,7 +15,7 @@ describe('Extensions', function () {
   }
 
   let mockModule: Extension.Module = {
-    name: '@roots/bud-postcss',
+    label: '@roots/bud-postcss',
     register: jest.fn(async () => null),
     boot: jest.fn(async () => null),
     options: jest.fn(() => options),
@@ -38,6 +38,6 @@ describe('Extensions', function () {
 
     extensions.add(mockModule)
 
-    expect(extensions.get(mockModule.name)._module).toEqual(mockModule)
+    expect(extensions.get(mockModule.label)._module).toEqual(mockModule)
   })
 })

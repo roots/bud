@@ -1,0 +1,44 @@
+---
+title: Configure
+sidebar_label: Configure
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+:::tip
+
+Hey, did you know? [No configuration is needed](/guides/config/zero-config) as long you have something at **src/index.js**.
+
+:::
+
+Create a file titled **bud.config.js** file in the project root.
+
+This file exports a single function that will tell **bud.js** what to do in order to build our project.
+
+<Tabs
+  groupId="lang"
+  defaultValue="js"
+  values={[
+    {label: 'Javascript', value: 'js'},
+    {label: 'TypeScript', value: 'ts'},
+  ]}>
+  <TabItem value="js">
+
+```js title='bud.config.js'
+module.exports = async bud => bud.template()
+```
+
+  </TabItem>
+  <TabItem value="ts">
+
+```ts title='bud.config.ts'
+import type {Framework} from '@roots/bud'
+
+export default async function (bud: Framework): void {
+  bud.template()
+}
+```
+
+  </TabItem>
+</Tabs>

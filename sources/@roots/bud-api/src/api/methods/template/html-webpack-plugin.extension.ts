@@ -1,16 +1,16 @@
-import {Extension, Framework} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework'
 
 import {HtmlWebpackPlugin} from './html-webpack-plugin.plugin'
 
-export type BudHtmlWebpackPlugin = Extension.CompilerPlugin<
-  HtmlWebpackPlugin,
-  HtmlWebpackPlugin.Options
+export type BudHtmlWebpackPlugin = Extension.Module<
+  HtmlWebpackPlugin.Options,
+  HtmlWebpackPlugin
 >
 
 export const BudHtmlWebpackPlugin: BudHtmlWebpackPlugin = {
-  name: 'html-webpack-plugin',
+  label: 'html-webpack-plugin',
 
-  options(app: Framework) {
+  options() {
     return {
       alwaysWriteToDisk: true,
       inject: true,
@@ -24,5 +24,5 @@ export const BudHtmlWebpackPlugin: BudHtmlWebpackPlugin = {
       publicPath: app.publicPath(),
     }),
 
-  when: ({store}) => store.is('features.html', true),
+  when: ({hooks}) => hooks.filter('feature.html'),
 }

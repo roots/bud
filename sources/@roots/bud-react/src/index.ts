@@ -4,7 +4,7 @@
 /**
  * Adds support for react to bud projects.
  *
- * @see https://roots.io/bud
+ * @see https://bud.js.org
  * @see https://github.com/roots/bud
  *
  *
@@ -15,4 +15,4 @@ import './global'
 
 import {ReactExtension} from './extension'
 
-export const {api, boot, name} = ReactExtension
+export const {register, boot, label} = ReactExtension

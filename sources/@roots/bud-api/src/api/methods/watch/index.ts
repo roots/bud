@@ -1,4 +1,4 @@
-import type {Framework} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
 
 export interface watch {
   (
@@ -6,11 +6,11 @@ export interface watch {
      * Watched files
      */
     ...files: Array<string | Array<string>>
-  ): Framework
+  ): Bud
 }
 
 export const watch: watch = function (...input) {
-  const app = this as Framework
+  const app = this as Bud
 
   app.hooks.on('dev.watch.files', files =>
     input.flat().reduce((files, file) => files.add(file), files),

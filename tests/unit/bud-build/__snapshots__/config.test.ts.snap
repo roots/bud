@@ -135,8 +135,8 @@ Object {
 
 exports[`bud.build.config has expected default requireEnsure rule 1`] = `
 Object {
-  "include": Array [
-    "/srv/bud/tests/util/project/src",
+  "exclude": Array [
+    Object {},
   ],
   "parser": Object {
     "requireEnsure": false,
@@ -223,13 +223,14 @@ Array [
 
 exports[`bud.build.config has expected resolve.extensions default 1`] = `
 Array [
-  ".wasm",
   ".mjs",
+  ".cjs",
   ".js",
   ".jsx",
   ".css",
   ".json",
-  ".toml",
+  ".wasm",
   ".yml",
+  ".toml",
 ]
 `;

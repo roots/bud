@@ -4,7 +4,7 @@
 /**
  * Adds PostCSS support to Bud
 
- * @see https://roots.io/bud
+ * @see https://bud.js.org
  * @see https://github.com/roots/bud
  *
  * @packageDocumentation
@@ -16,7 +16,7 @@ import {PostCssConfig} from './bud.postcss'
 import {BudPostCssExtension} from './postcss.extension'
 
 declare module '@roots/bud-framework' {
-  interface Framework {
+  interface Bud {
     postcss: PostCssConfig
   }
 
@@ -33,4 +33,4 @@ declare module '@roots/bud-framework' {
   }
 }
 
-export const {name, mixin, register} = BudPostCssExtension
+export const {label, register} = BudPostCssExtension

@@ -1,45 +1,29 @@
-import type {Extension, Framework} from '@roots/bud-framework'
-import type {Signale} from '@roots/bud-support'
+import {Extension} from '@roots/bud-framework'
 
-/**
- * Add TailwindCSS support to Bud
- *
- * @public
- */
-export interface BudTailwindCssExtension extends Extension.Module {
-  label: '@roots/bud-tailwindcss'
-  boot: (app: Framework) => Promise<void>
-}
-
-export class BudTailwindCssExtension implements BudTailwindCssExtension {
+export class BudTailwindCss extends Extension.Extension {
   /**
-   * Extension name
-   *
    * @public
    */
-  public static label = '@roots/bud-tailwindcss'
+  public label = '@roots/bud-tailwindcss'
 
   /**
-   * Extension boot
-   *
-   * @param app - Framework
-   * @returns void
+   * @public
    */
-  public static async boot(app: Framework, logger: Signale) {
+  public async boot() {
     try {
       const {default: tailwindcss} = await import('tailwindcss')
       const {default: nesting} = await import('tailwindcss/nesting')
 
-      app.postcss.setPlugins({
-        'postcss-import': app.postcss.get('postcss-import'),
+      this.app.postcss.setPlugins({
+        'postcss-import': this.app.postcss.get('postcss-import'),
         'tailwindcss-nesting': [nesting],
         tailwindcss: [tailwindcss],
-        'postcss-preset-env': app.postcss.get('postcss-preset-env'),
+        'postcss-preset-env': this.app.postcss.get('postcss-preset-env'),
       })
 
-      logger.success('postcss has been configured for tailwindcss')
+      this.logger.success('postcss configured for tailwindcss')
     } catch (message) {
-      logger.warn({message})
+      this.logger.warn(message)
     }
   }
 }

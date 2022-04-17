@@ -5,6 +5,7 @@ describe('bud.assets', function () {
 
   beforeEach(async () => {
     bud = await factory()
+    bud.extensions.get('copy-webpack-plugin').setOptions({patterns: []})
   })
 
   it('is a function', () => {
@@ -38,9 +39,7 @@ describe('bud.assets', function () {
    * ```
    */
   it('adds variadic assets', async () => {
-    bud.assets('images', 'fonts')
-
-    await bud.api.processQueue()
+    await bud.api.call('assets', 'images', 'fonts')
 
     const {options} = bud.extensions.get('copy-webpack-plugin')
 

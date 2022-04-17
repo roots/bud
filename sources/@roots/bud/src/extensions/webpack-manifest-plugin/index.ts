@@ -10,7 +10,7 @@ const BudWebpackManifestPlugin: Plugin = {
   /**
    * @public
    */
-  name: 'webpack-manifest-plugin',
+  label: 'webpack-manifest-plugin',
 
   /**
    * @public
@@ -35,7 +35,7 @@ const BudWebpackManifestPlugin: Plugin = {
   /**
    * @public
    */
-  when: app => app.store.is('features.manifest', true),
+  when: app => app.hooks.filter('feature.manifest'),
 }
 
-export const {name, options, make, when} = BudWebpackManifestPlugin
+export const {label, options, make, when} = BudWebpackManifestPlugin

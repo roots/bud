@@ -1,9 +1,4 @@
-import {
-  Extension,
-  Extensions as Base,
-  Framework,
-  Service,
-} from '@roots/bud-framework'
+import * as Framework from '@roots/bud-framework'
 
 import {Controller} from '../Controller'
 import {bind} from './extensions.dependencies'
@@ -16,51 +11,45 @@ import {bind} from './extensions.dependencies'
  *
  * @public
  */
-export class Extensions extends Service implements Base {
-  /**
-   * Extensions queued for registration
-   *
-   * @public
-   */
-  public queue = []
-
+export class Extensions
+  extends Framework.ContainerService<Controller>
+  implements Framework.Extensions.Service
+{
   /**
    * Controller factory
-   *
    * @public
    */
   public makeController(
-    extension: Extension.Module | Promise<Extension.Module>,
+    extension:
+      | Framework.Module
+      | (new () => Framework.Extension.Extension),
   ): Controller {
-    const controller = new Controller(this.app, extension)
-    return controller
+    return new Controller(this.app, extension)
   }
 
   @bind
-  public async setController(extension: Extension.Module): Promise<void> {
+  public async setController(
+    extension:
+      | Framework.Module
+      | (new () => Framework.Extension.Extension),
+  ): Promise<Controller> {
     const controller = this.makeController(extension)
-    this.set(controller.name, controller)
+    this.set(controller.label, controller)
+    return controller
   }
 
   /**
+   * `booted` callback
+   *
    * @override
    * @public
    */
   @bind
   public async booted(): Promise<void> {
-    /**
-     * Handle in-built extensions
-     */
-    await Promise.all(
-      this.getEntries().map(async ([key, extension]) => {
-        this.setController(extension)
-        this.log('success', {message: `${key} instantiated`})
-      }),
-    )
-
-    await this.registerExtensions()
-    await this.bootExtensions()
+    await Promise.all(this.getValues().map(this.setController))
     await this.injectExtensions()
+    await this.registerAll()
+    await this.bootAll()
   }
 
   /**
@@ -71,47 +60,39 @@ export class Extensions extends Service implements Base {
    */
   @bind
   public async injectExtensions() {
-    if (this.app.store.is('features.inject', false)) {
-      this.log('log', 'injection disabled')
+    if (this.app.hooks.filter('feature.inject') === false) {
+      this.app.log('injection disabled')
       return
     }
 
     try {
-      const modules = Object.values(this.app.project.peers.modules)
-        .filter(Boolean)
-        .filter(({bud}) => bud?.type === 'extension')
-
       await Promise.all(
-        modules.map(async record => {
-          await this.importExtension(record)
-        }),
+        Object.values(this.app.project.peers.modules ?? {})
+          .filter(Boolean)
+          .filter(({bud}) => bud?.type === 'extension')
+          .map(async record => {
+            await this.import(record)
+          }),
       )
-
-      await modules.reduce(async (promised: Promise<void>, record) => {
-        await promised
-        await this.registerExtension(this.get(record.name))
-      }, Promise.resolve())
-
-      await modules.reduce(async (promised, record) => {
-        await promised
-        await this.bootExtension(this.get(record.name))
-      }, Promise.resolve())
     } catch (e) {
       this.app.error(e)
     }
   }
 
   @bind
-  public async importExtension(
-    extension: Record<string, any>,
+  public async import(
+    extension: Record<string, any> | string,
   ): Promise<void> {
-    this.log('log', `importing ${extension.name}`)
-    const importedModule = await import(extension.name)
-    const importedExtension: Extension.Module = importedModule.default
+    const pkgName =
+      typeof extension !== 'string' ? extension.name : extension
+    if (this.has(pkgName)) return
+    this.app.log('importing', pkgName)
+
+    const importedModule = await import(pkgName)
+    const importedExtension: Framework.Module = importedModule.default
       ? importedModule.default
       : importedModule
 
-    if (this.has(importedExtension.name)) return
     await this.setController(importedExtension)
   }
 
@@ -119,17 +100,13 @@ export class Extensions extends Service implements Base {
    * @public
    */
   @bind
-  public async registerExtension(extension: Controller): Promise<void> {
+  public async controllerRegister(controller: Controller): Promise<void> {
+    if (!controller) return
     try {
-      if (!extension) return
-      this.app.log('registering', extension.name)
-
-      await extension.mixin()
-      await extension.api()
-      await extension.register()
+      await controller.register()
     } catch (err) {
-      this.app.log(extension)
-      throw new Error(err)
+      this.app.log(controller)
+      this.app.error(err)
     }
   }
 
@@ -137,14 +114,13 @@ export class Extensions extends Service implements Base {
    * @public
    */
   @bind
-  public async bootExtension(extension: Controller): Promise<void> {
+  public async controllerBoot(controller: Controller): Promise<void> {
+    if (!controller) return
     try {
-      if (!extension) return
-      this.app.log('booting', extension.name)
-
-      await extension.boot()
+      await controller.boot()
     } catch (err) {
-      throw new Error(err)
+      this.app.log(controller)
+      this.app.error(err)
     }
   }
 
@@ -152,32 +128,25 @@ export class Extensions extends Service implements Base {
    * @public
    */
   @bind
-  public async registerExtensions(): Promise<void> {
-    this.log('time', 'registering')
-
+  public async registerAll(): Promise<void> {
     await this.getEntries().reduce(
       async (promised, [_key, controller]) => {
         await promised
-        await this.registerExtension(controller)
+        await this.controllerRegister(controller)
       },
       Promise.resolve(),
     )
-
-    this.log('timeEnd', 'registering')
   }
 
   /**
    * @public
    */
   @bind
-  public async bootExtensions(): Promise<void> {
-    this.log('time', 'booting')
+  public async bootAll(): Promise<void> {
     await this.getEntries().reduce(async (promised, [key, controller]) => {
       await promised
-      await this.bootExtension(controller)
+      await this.controllerBoot(controller)
     }, Promise.resolve())
-
-    this.log('timeEnd', 'booting')
   }
 
   /**
@@ -187,40 +156,37 @@ export class Extensions extends Service implements Base {
    * @decorator `@bind`
    */
   @bind
-  public async add(extension: Extension.Module): Promise<void> {
-    if (this.has(extension.name)) {
-      this.log('info', `${extension.name} already exists. skipping.`)
-      return
-    }
+  public async add(
+    extension:
+      | Framework.Module
+      | Array<Framework.Module | (new () => Framework.Extension.Extension)>
+      | (new () => Framework.Extension.Extension),
+  ): Promise<void> {
+    const arrayed = Array.isArray(extension) ? extension : [extension]
 
-    await this.setController(extension)
-    await this.registerExtension(this.get(extension.name))
-    await this.bootExtension(this.get(extension.name))
-  }
+    await Promise.all(
+      arrayed.map(async extension => {
+        try {
+          if (typeof extension === 'function') {
+            const controller = await this.setController(extension)
+            await this.controllerRegister(this.get(controller.label))
+            await this.controllerBoot(this.get(controller.label))
+            return
+          }
 
-  /**
-   * Queue an extension to be added to the container before the build process.
-   *
-   * @remarks
-   * Useful for extensions which cannot be added in an awaitable context (like a user config)
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public enqueue(extension: Extension.Module): Framework {
-    this.queue.push(extension)
-    return this.app
-  }
+          if (this.has(extension.label)) {
+            this.app.log(`${extension.label} already exists. skipping.`)
+            return
+          }
 
-  /**
-   * @public
-   */
-  @bind
-  public async processQueue(): Promise<void> {
-    if (!this.queue.length) return
-    await Promise.all(this.queue.map(this.add))
-    this.queue = []
+          await this.setController(extension)
+          await this.controllerRegister(this.get(extension.label))
+          await this.controllerBoot(this.get(extension.label))
+        } catch (err) {
+          this.app.error(err)
+        }
+      }),
+    )
   }
 
   /**
@@ -233,41 +199,15 @@ export class Extensions extends Service implements Base {
    * @decorator `@bind`
    */
   @bind
-  public async make(): Promise<
-    {
-      [key: string]: any
-      apply: CallableFunction
-    }[]
-  > {
-    this.log('time', 'extensions.make')
-
-    await this.processQueue()
-
-    const plugins = this.getValues()
+  public async make(): Promise<Framework.Extension.PluginInstance[]> {
+    return this.getValues()
       .filter(controller => controller._module.make)
       .map((controller: Controller) => {
         const result = controller.make()
-
-        if (!result) {
-          this.log(
-            'log',
-            `${controller.name} will not be used in the compilation`,
-          )
-
-          return result
-        }
-
-        this.log(
-          'success',
-          `${controller.name} will be used in the compilation`,
-        )
-
+        if (!result) return
+        controller.logger.success(`will be used in the compilation`)
         return result
       })
       .filter(Boolean)
-
-    this.log('timeEnd', 'extensions.make')
-
-    return plugins
   }
 }

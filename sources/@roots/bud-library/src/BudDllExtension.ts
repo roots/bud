@@ -3,15 +3,12 @@ import AutoDllPlugin from 'autodll-webpack-plugin'
 
 import {library} from './library'
 
-export interface BudDllExtension
-  extends Extension.CompilerPlugin<AutoDllPlugin, AutoDllPlugin.Options> {
-  name: Extension.CompilerPlugin['name'] & '@roots/bud-library'
-  api: Extension.CompilerPlugin['api'] & {
-    library: library
-  }
-}
+export type BudDllExtension = Extension.Plugin<
+  AutoDllPlugin,
+  AutoDllPlugin.Options
+>
 
 export const BudDllExtension: BudDllExtension = {
-  name: '@roots/bud-library',
-  api: {library},
+  label: '@roots/bud-library',
+  register: async app => app.api.bindFacade('library', library),
 }

@@ -40,7 +40,6 @@
   },
   "bin": "./bin/bud.js",
   "files": [
-    "assets/",
     "bin/",
     "lib/",
     "types/",

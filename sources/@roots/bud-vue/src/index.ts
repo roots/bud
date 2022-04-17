@@ -4,7 +4,7 @@
 /**
  * Adds vue sfc support to Bud projects
  *
- * @see https://roots.io/bud
+ * @see https://bud.js.org
  * @see https://github.com/roots/bud
 
  * @packageDocumentation
@@ -12,4 +12,4 @@
 
 import './interface'
 
-export * from './vue.extension'
+export {Vue as default} from './vue.extension'

@@ -4,7 +4,7 @@
 /**
  * Add image optimization support to Bud projects
  *
- * @see https://roots.io/bud
+ * @see https://bud.js.org
  * @see https://github.com/roots/bud
  *
  * @packageDocumentation
@@ -16,7 +16,7 @@ import {imagemin} from './imagemin.config'
 import * as BudImagemin from './imagemin.extension'
 
 declare module '@roots/bud-framework' {
-  interface Framework {
+  interface Bud {
     imagemin: imagemin
   }
 
@@ -26,29 +26,21 @@ declare module '@roots/bud-framework' {
 }
 
 /**
- * Extension name
- *
  * @public
  */
-export const name: Extension.Module['name'] = BudImagemin.name
+export const label: Extension.Module['label'] = BudImagemin.label
 
 /**
- * Extension options
- *
  * @public
  */
 export const options: Extension.Module['options'] = BudImagemin.options
 
 /**
- * Extension api
- *
  * @public
  */
-export const api: {imagemin: imagemin} = BudImagemin.api
+export const register: Extension.Module['register'] = BudImagemin.register
 
 /**
- * Extension boot
- *
  * @public
  */
 export const boot: Extension.Module['boot'] = BudImagemin.boot

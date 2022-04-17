@@ -1,7 +1,7 @@
 import type {Extension} from './copy-webpack-plugin.interface'
 
 const BudCopyWebpackPlugin: Extension = {
-  name: 'copy-webpack-plugin',
+  label: 'copy-webpack-plugin',
 
   options: () => ({
     patterns: [],
@@ -17,4 +17,4 @@ const BudCopyWebpackPlugin: Extension = {
   },
 }
 
-export const {name, options, make, when} = BudCopyWebpackPlugin
+export const {label, options, make, when} = BudCopyWebpackPlugin

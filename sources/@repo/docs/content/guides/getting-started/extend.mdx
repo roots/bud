@@ -1,0 +1,54 @@
+---
+title: Extend
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+## Adding an extension
+
+We'll work through adding [**@roots/bud-babel**](/extensions/bud-babel) to a config.
+
+All extensions have pretty much the same workflow.
+
+### Step 1: Install
+
+<Tabs
+  defaultValue="yarn"
+  values={[
+    {label: 'yarn', value: 'yarn'},
+    {label: 'npm', value: 'npm'},
+  ]}>
+  <TabItem value="yarn">
+
+    yarn add @roots/bud-babel --dev
+
+  </TabItem>
+  <TabItem value="npm">
+
+    npm install @roots/bud-babel --save-dev
+
+  </TabItem>
+</Tabs>
+
+### There isn't a step 2, really.
+
+Your scripts will now be transpiled with babel.
+
+You can see for yourself by modifying `src/index.js` so that it contains some fancy stuff:
+
+```js title='src/index.js'
+class CoolClass {
+  message = 'hello world'
+
+  function sayHello() {
+    return this.message
+  }
+}
+
+const cool = new CoolClass()
+
+console.log(cool.sayHello())
+```
+
+Run a build and check `dist/main.js`. You should find the class declaration has been transpiled away.

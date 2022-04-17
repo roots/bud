@@ -1,7 +1,7 @@
 /**
  * Add sass support to Bud projects
  *
- * @see https://roots.io/bud
+ * @see https://bud.js.org
  * @see https://github.com/roots/bud
  *
  * @packageDocumentation
@@ -29,4 +29,4 @@ declare module '@roots/bud-framework' {
   }
 }
 
-export const {name, boot, register} = extension
+export const {label, boot, register} = extension

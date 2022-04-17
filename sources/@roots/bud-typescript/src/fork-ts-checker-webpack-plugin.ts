@@ -1,4 +1,4 @@
-import {Extension, Framework} from '@roots/bud-framework'
+import {Bud, Extension} from '@roots/bud-framework'
 import Plugin from 'fork-ts-checker-webpack-plugin'
 
 import * as factory from './options'
@@ -16,9 +16,9 @@ export type Options = Plugin['options']
  * @public
  */
 export interface BudTypeCheckPlugin
-  extends Extension.CompilerPlugin<Plugin, Options> {
-  name: 'fork-ts-checker-webpack-plugin'
-  options(app: Framework): Options
+  extends Extension.Plugin<Plugin, Options> {
+  label: 'fork-ts-checker-webpack-plugin'
+  options(app: Bud): Options
 }
 
 /**
@@ -26,7 +26,7 @@ export interface BudTypeCheckPlugin
  *
  * @public
  */
-export const name: BudTypeCheckPlugin['name'] =
+export const label: BudTypeCheckPlugin['label'] =
   'fork-ts-checker-webpack-plugin'
 
 /**
@@ -34,7 +34,7 @@ export const name: BudTypeCheckPlugin['name'] =
  *
  * @public
  */
-export const options: BudTypeCheckPlugin['options'] = (app: Framework) => {
+export const options: BudTypeCheckPlugin['options'] = (app: Bud) => {
   return app.isProduction
     ? factory.production(app)
     : factory.development(app)

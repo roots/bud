@@ -1,4 +1,4 @@
-import {Framework} from '@roots/bud-framework'
+import {Bud} from '@roots/bud-framework'
 import {chalk, humanReadable, lodash} from '@roots/bud-support'
 import {StatsAsset, StatsCompilation} from 'webpack'
 
@@ -51,21 +51,21 @@ export const size = asset =>
 export const hot = compilation =>
   compilation.assets.filter(
     asset =>
-      asset.name.endsWith(`.js`) && asset.name.includes(`hot-update`),
+      asset.name.endsWith(`.js`) && asset.name?.includes(`hot-update`),
   ) ?? []
 
 export const statics = compilation =>
   compilation.assets.filter(
     asset =>
       ![`js`, `css`].includes(asset.name.split('.').pop()) &&
-      !asset.name.includes(`hot-update`),
+      !asset.name?.includes(`hot-update`),
   ) ?? []
 
 export const assets = compilation =>
   compilation.assets.filter(
     asset =>
-      asset.name.endsWith(`.css`) ||
-      (asset.name.endsWith(`.js`) && !asset.name.includes('hot-update')),
+      asset.name?.endsWith(`.css`) ||
+      (asset.name?.endsWith(`.js`) && !asset.name?.includes('hot-update')),
   ) ?? []
 
 export const time = time =>
@@ -93,7 +93,7 @@ export const report = (compilation: StatsCompilation) => [
   ),
 ]
 
-export const timing = (app: Framework, compilation: StatsCompilation) => [
+export const timing = (app: Bud, compilation: StatsCompilation) => [
   table.make([
     [
       chalk.hex(theme.magenta)(`duration`),
@@ -106,7 +106,7 @@ export const timing = (app: Framework, compilation: StatsCompilation) => [
   ]),
 ]
 
-export const summary = (app: Framework, compilation: StatsCompilation) => [
+export const summary = (app: Bud, compilation: StatsCompilation) => [
   table.make([
     [
       chalk.hex(theme.magenta)(`mode`),
@@ -130,10 +130,10 @@ export const summary = (app: Framework, compilation: StatsCompilation) => [
             chalk.hex(theme.magenta)(`server url:`),
             app.server.connection.url.toString(),
           ],
-          app.hooks.filter(`middleware.enabled`).includes(`proxy`)
+          app.hooks.filter('dev.middleware.enabled').includes('proxy')
             ? [
-                chalk.hex(theme.magenta)(`proxy url:`),
-                app.hooks.filter(`middleware.proxy.target`).toString(),
+                chalk.hex(theme.magenta)('proxy url:'),
+                app.hooks.filter('dev.middleware.proxy.target').toString(),
               ]
             : [``, ``],
         ]),
@@ -141,7 +141,7 @@ export const summary = (app: Framework, compilation: StatsCompilation) => [
     : []),
 ]
 
-export const development = (app: Framework) => [
+export const development = (app: Bud) => [
   box.make(
     'development',
     table.make([
@@ -149,17 +149,17 @@ export const development = (app: Framework) => [
         chalk.hex(theme.magenta)('server'),
         app.server.connection.url.toString(),
       ],
-      app.hooks.filter('middleware.enabled').includes('proxy')
+      app.hooks.filter('dev.middleware.enabled')?.includes('proxy')
         ? [
             chalk.hex(theme.magenta)('proxy'),
-            app.hooks.filter('middleware.proxy.target').toString(),
+            app.hooks.filter('dev.middleware.proxy.target')?.toString(),
           ]
         : ['', ''],
     ]),
   ),
 ]
 
-export const framework = (app: Framework) => [
+export const framework = (app: Bud) => [
   box.make(
     'rules',
     table.make(
@@ -192,8 +192,8 @@ export const framework = (app: Framework) => [
         .map(chunk =>
           [
             ...chunk.map(
-              ({name}) =>
-                `${chalk.hex(theme.cyan)(`\`${name.toLowerCase()}\``)}`,
+              ({label}) =>
+                `${chalk.hex(theme.cyan)(`\`${label?.toLowerCase()}\``)}`,
             ),
             ...Array(1).fill(``),
           ].slice(0, 2),

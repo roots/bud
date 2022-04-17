@@ -1,16 +1,13 @@
-import type {Extension} from '@roots/bud-framework'
+import type {Bud, Extensions} from '@roots/bud-framework'
 import * as Plugin from 'compression-webpack-plugin'
 
 import {BudCompressionExtension} from './'
 
 interface BudBrotliWebpackPlugin
-  extends Extension.CompilerPlugin<
-    Plugin,
-    BudCompressionExtension.Options
-  > {}
+  extends Extensions.Module<BudCompressionExtension.Options, Plugin> {}
 
 const BudBrotliWebpackPlugin: BudBrotliWebpackPlugin = {
-  name: 'compression-webpack-plugin-brotli',
+  label: 'compression-webpack-plugin-brotli',
 
   options: {
     algorithm: 'brotliCompress',
@@ -26,18 +23,19 @@ const BudBrotliWebpackPlugin: BudBrotliWebpackPlugin = {
 
   make: options => new Plugin(options.all()),
 
-  when: ({store}) => store.is('features.brotli', true),
+  when: ({hooks}) => hooks.filter('feature.brotli'),
 
-  api: {
-    brotli: function (options) {
-      this.store.set('features.brotli', true)
+  register: async app => {
+    app.api.bindFacade('brotli', function (options) {
+      const app = this as Bud
+      app.hooks.on('feature.brotli', true)
       if (options)
-        this.extensions
+        app.extensions
           .get('compression-webpack-plugin-brotli')
           .setOptions(options)
 
-      return this
-    },
+      return app
+    })
   },
 }
 

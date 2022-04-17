@@ -8,7 +8,7 @@ import type {
 /**
  * @public
  */
-export const name: Extension['name'] = 'clean-webpack-plugin'
+export const label: Extension['label'] = 'clean-webpack-plugin'
 
 /**
  * @public
@@ -28,5 +28,5 @@ export const make: Extension['make'] = (options: Container<Options>) =>
 /**
  * @public
  */
-export const when: Extension['when'] = ({store}) =>
-  store.is('features.clean', true)
+export const when: Extension['when'] = ({hooks}) =>
+  hooks.filter('feature.clean')

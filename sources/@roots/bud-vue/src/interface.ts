@@ -1,11 +1,11 @@
 import {Item, Loader, Rule} from '@roots/bud-build'
 import {Extension} from '@roots/bud-framework'
 
-import {extension} from './vue.extension'
+import {Vue} from './vue.extension'
 
 declare module '@roots/bud-framework' {
   interface Modules {
-    '@roots/bud-vue': extension
+    '@roots/bud-vue': Vue
     'vue-loader-plugin': Extension.Module
   }
 

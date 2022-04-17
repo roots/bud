@@ -15,7 +15,10 @@ const {isEmpty, isFunction} = lodash
  *
  * @public
  */
-export class Api extends Framework.Service implements Framework.Api {
+export class Api
+  extends Framework.ContainerService
+  implements Framework.Api.Service
+{
   /**
    * Queued method calls
    *
@@ -37,14 +40,7 @@ export class Api extends Framework.Service implements Framework.Api {
    */
   @bind
   public async bootstrap() {
-    this.setStore(
-      Object.entries(methods).reduce(
-        (a, [k, v]) => ({...a, [k]: v.bind(this.app)}),
-        {},
-      ),
-    )
-      .getKeys()
-      .map(this.bindFacade)
+    Object.entries(methods).map(([k, v]) => this.bindFacade(k, v))
   }
 
   /**
@@ -62,7 +58,11 @@ export class Api extends Framework.Service implements Framework.Api {
    * @internal
    */
   @bind
-  public bindFacade(name: string) {
+  public bindFacade<K extends `${keyof Api['repository'] & string}`>(
+    name: K,
+    fn: Api['repository'][K],
+  ) {
+    this.set(name, fn.bind(this.app))
     this.app.bindMethod({[`${name}`]: facade.factory(name)})
   }
 
@@ -115,32 +115,5 @@ export class Api extends Framework.Service implements Framework.Api {
     )
 
     this.queue = []
-  }
-
-  /**
-   * Dump the method call trace
-   *
-   * @public
-   */
-  @bind
-  public dump() {
-    this.app.dump(
-      this.trace.reduce(
-        (a, t) => [
-          ...a,
-          {
-            method: t[0],
-            arguments: isEmpty(t[1]) ? 'none' : t[1],
-          },
-        ],
-        [],
-      ),
-      {
-        prefix: `${this.app.name} config traced calls`,
-        printBasicPrototype: false,
-        callToJSON: true,
-        min: true,
-      },
-    )
   }
 }

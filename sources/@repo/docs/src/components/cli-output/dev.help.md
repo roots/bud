@@ -2,15 +2,14 @@ Compile and serve source assets
 
 ━━━ Usage ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-$ @roots/bud dev
+$ bud dev
 
 ━━━ Options ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   --cache                   Utilize compiler's filesystem cache
-  --ci                      Run in CI mode (disables keyboard input handlers).
   --clean                   Clean artifacts and distributables prior to compilation
   --debug                   Enable debugging mode. Very verbose logging. Writes output files to `@storage` directory
-  --devtool                 Set devtool option
+  --devtool #0              Set devtool option
   --flush                   Force clearing bud internal cache
   --hash                    Hash compiled filenames
   --html                    Generate an html template
@@ -32,4 +31,4 @@ $ @roots/bud dev
 ━━━ Examples ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Start dev server and compile assets in dev mode
-  $ @roots/bud dev
+  $ bud dev

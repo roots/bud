@@ -2,9 +2,9 @@ Check compiled configuration against webpack
 
 ━━━ Usage ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-$ @roots/bud doctor
+$ bud doctor
 
 ━━━ Examples ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Check compiled configuration against webpack
-  $ @roots/bud doctor
+  $ bud doctor

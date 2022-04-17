@@ -4,17 +4,9 @@
 /**
  * Recommended preset configuration for Bud.
  *
- * @see https://roots.io/bud
+ * @see https://bud.js.org
  * @see https://github.com/roots/bud
  *
- * @remarks
- * This preset is a wrapper for the following presets:
- *
- * - {@link @roots/bud-babel# | @roots/bud-babel}
- *
- * - {@link @roots/bud-postcss# | @roots/bud-postcss}
- *
- * - {@link @roots/bud-entrypoints# | @roots/bud-entrypoints}
  * @packageDocumentation
  */
 
@@ -27,7 +19,7 @@ declare module '@roots/bud-framework' {
 }
 
 export interface BudPresetRecommend extends Extension.Module {
-  name: '@roots/bud-preset-recommend'
+  label: '@roots/bud-preset-recommend'
 }
 
 /**
@@ -35,4 +27,4 @@ export interface BudPresetRecommend extends Extension.Module {
  *
  * @public
  */
-export const name = '@roots/bud-preset-recommend'
+export const label = '@roots/bud-preset-recommend'

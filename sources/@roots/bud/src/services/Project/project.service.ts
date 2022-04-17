@@ -13,8 +13,8 @@ const {ensureFile, writeFile} = fs
  * @public
  */
 export class Project
-  extends Framework.Service
-  implements Framework.Project
+  extends Framework.ContainerService
+  implements Framework.Project.Service
 {
   /**
    * Service ident
@@ -81,7 +81,7 @@ export class Project
 
     this.app.hooks.action(
       'event.build.after',
-      async (app: Framework.Framework) => {
+      async (app: Framework.Bud) => {
         await app.hooks.fire('event.project.write')
         await this.writeProfile()
       },
@@ -134,15 +134,11 @@ export class Project
       this.app.path(`@storage/${this.app.name}/profile.json`),
     )
 
-    this.log('time', 'building profile')
-
     try {
       await this.resolvePeers()
     } catch (error) {
       this.app.error(error)
     }
-
-    this.log('timeEnd', 'building profile')
   }
 
   /**

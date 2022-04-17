@@ -4,19 +4,19 @@
 /**
  * Adds MDX support to Bud
 
- * @see https://roots.io/bud
+ * @see https://bud.js.org
  * @see https://github.com/roots/bud
  *
  * @packageDocumentation
  */
 
 import {Item, Loader} from '@roots/bud-build'
-import {Extension, Framework} from '@roots/bud-framework'
+import {Bud, Extension} from '@roots/bud-framework'
 
 import {MdxConfig} from './MdxConfig'
 
 declare module '@roots/bud-framework' {
-  interface Framework {
+  interface Bud {
     /**
      * Configure mdx to suit your application needs
      */
@@ -47,11 +47,13 @@ declare module '@roots/bud-framework' {
 }
 
 const extension: Extension.Module = {
-  name: '@roots/bud-mdx',
+  label: '@roots/bud-mdx',
 
-  mixin: async app => ({mdx: [MdxConfig, app]}),
+  register: async app => {
+    app.mdx = new MdxConfig(app)
+  },
 
-  boot: (app: Framework) =>
+  boot: async (app: Bud) =>
     app.hooks
       .on('build.resolve.extensions', ext => ext.add('.md').add('.mdx'))
       .build.setLoader(`mdx`, require.resolve(`@mdx-js/loader`))
@@ -63,4 +65,4 @@ const extension: Extension.Module = {
       }),
 }
 
-export const {name, boot, mixin} = extension
+export const {label, boot, register} = extension

@@ -13,14 +13,13 @@ describe('@roots/bud-extensions Controller', function () {
   let options = {test: 'foo'}
 
   let mockModule: Extension.Module = {
-    name: '@roots/bud-postcss',
-    register: jest.fn(() => null),
-    boot: jest.fn(() => null),
-    api: {
-      foo: jest.fn(async function (this: Bud) {
+    label: '@roots/bud-postcss',
+    register: jest.fn(async (app) => {
+      app.api.bindFacade('foo', jest.fn(async function (this: Bud) {
         return this
-      }),
-    },
+      }))
+    }),
+    boot: jest.fn(() => null),
     options: jest.fn(() => options),
     make: jest.fn(() => mockWebpackPlugin),
     when: jest.fn(() => true),
@@ -59,7 +58,6 @@ describe('@roots/bud-extensions Controller', function () {
 
   it('module options are registered', async () => {
     await bud.extensions.add(mockModule)
-    await bud.extensions.processQueue()
 
     expect(
       bud.extensions.get('@roots/bud-postcss').options.all(),
@@ -67,10 +65,7 @@ describe('@roots/bud-extensions Controller', function () {
   })
 
   it('Controller options are undefined when not set in module', () => {
-    const controller = new Controller(bud, {
-      name: '@roots/bud-null',
-    })
-
+    const controller = new Controller(bud, {label: '@roots/bud-null'})
     expect(controller.options.all()).toEqual({})
   })
 
@@ -82,11 +77,13 @@ describe('@roots/bud-extensions Controller', function () {
 
   it('controller.api', async () => {
     const controller = new Controller(bud, mockModule)
-    await controller.api()
+    await controller.register()
+
     // @ts-ignore
     expect(bud.foo).toBeInstanceOf(Function)
+    
     // @ts-ignore
-    expect(bud.foo()).toBeInstanceOf(Bud)
-    expect(bud.api.get('foo')()).toBeInstanceOf(Promise)
+    const result = await bud.api.call('foo')
+    expect(result).toBeInstanceOf(Bud)
   })
 })

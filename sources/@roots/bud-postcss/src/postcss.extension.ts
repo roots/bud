@@ -1,16 +1,13 @@
-import {Extension, Framework} from '@roots/bud-framework'
-import {Signale} from '@roots/bud-framework/src/Logger/logger.dependencies'
+import {Module} from '@roots/bud-framework'
 
 import {PostCssConfig} from './bud.postcss'
 
-export const BudPostCssExtension: Extension.Module = {
-  name: '@roots/bud-postcss',
+export const BudPostCssExtension: Module = {
+  label: '@roots/bud-postcss',
 
-  mixin: async () => ({
-    postcss: [PostCssConfig],
-  }),
+  register: async (app, logger) => {
+    app.postcss = new PostCssConfig()
 
-  register: async (app: Framework, logger: Signale) => {
     app.build
       .setLoader('postcss', require.resolve('postcss-loader'))
       .setItem('postcss', item =>

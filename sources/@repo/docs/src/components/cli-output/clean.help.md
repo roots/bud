@@ -2,9 +2,9 @@ Clean project artifacts and caches
 
 ━━━ Usage ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-$ @roots/bud clean
+$ bud clean
 
 ━━━ Examples ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Clean artifacts/caches
-  $ @roots/bud clean
+  $ bud clean

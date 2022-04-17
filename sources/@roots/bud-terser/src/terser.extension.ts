@@ -1,12 +1,12 @@
-import * as Framework from '@roots/bud-framework'
 import TerserPlugin from 'terser-webpack-plugin'
 
+import {Extension} from './'
 import {terser} from './terser.api'
 
-export const name: Framework.Terser.Extension['name'] = '@roots/bud-terser'
+export const label: Extension['label'] = '@roots/bud-terser'
 
-export const options: Framework.Terser.Extension['options'] = app => ({
-  include: app.store.get('patterns.js'),
+export const options: Extension['options'] = app => ({
+  include: app.hooks.filter('pattern.js'),
   extractComments: false,
   terserOptions: {
     parse: {ecma: 2018},
@@ -20,16 +20,15 @@ export const options: Framework.Terser.Extension['options'] = app => ({
   },
 })
 
-export const boot: Framework.Terser.Extension['boot'] = ({
-  extensions,
-  hooks,
-}) => {
+export const register: Extension['register'] = async ({api}) =>
+  api.bindFacade('terser', terser)
+
+export const boot: Extension['boot'] = async ({extensions, hooks}) => {
   hooks.on('build.optimization.minimizer', minimizer => {
     minimizer.push(
       new TerserPlugin(extensions.get('@roots/bud-terser').options.all()),
     )
+
     return minimizer
   })
 }
-
-export const api: Framework.Terser.Extension['api'] = {terser}

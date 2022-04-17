@@ -1,4 +1,4 @@
-import type {Framework, Server} from '@roots/bud-framework'
+import type {Bud, Server} from '@roots/bud-framework'
 import {lodash} from '@roots/bud-support'
 
 const {isBoolean, isString, isUndefined, isNumber} = lodash
@@ -6,7 +6,7 @@ const {isBoolean, isString, isUndefined, isNumber} = lodash
 export type UserInput = URL | string | boolean | number
 
 export interface method {
-  (input?: UserInput): Framework
+  (input?: UserInput): Bud
 }
 
 export type facade = method
@@ -35,35 +35,35 @@ export const disableMiddleware = (
   ) ?? []
 
 export const method: method = function (input) {
-  const ctx = this as Framework
+  const ctx = this as Bud
 
   if (!ctx.isDevelopment) return ctx
 
   if (isUndefined(input)) {
-    return ctx.hooks.on('middleware.enabled', enableMiddleware)
+    return ctx.hooks.on('dev.middleware.enabled', enableMiddleware)
   }
 
   if (isBoolean(input)) {
     return ctx.hooks.on(
-      'middleware.enabled',
+      'dev.middleware.enabled',
       input ? enableMiddleware : disableMiddleware,
     )
   }
 
-  ctx.hooks.on('middleware.enabled', enableMiddleware)
+  ctx.hooks.on('dev.middleware.enabled', enableMiddleware)
 
   if (isNumber(input)) {
-    return ctx.hooks.on('middleware.proxy.target', url => {
+    return ctx.hooks.on('dev.middleware.proxy.target', url => {
       url.port = `${input}`
       return url
     })
   }
 
   if (isString(input)) {
-    return ctx.hooks.on('middleware.proxy.target', new URL(input))
+    return ctx.hooks.on('dev.middleware.proxy.target', new URL(input))
   }
 
   if (input instanceof URL) {
-    return ctx.hooks.on('middleware.proxy.target', input)
+    return ctx.hooks.on('dev.middleware.proxy.target', input)
   }
 }

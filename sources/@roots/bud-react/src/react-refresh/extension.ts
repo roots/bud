@@ -1,6 +1,6 @@
 import RefreshPlugin from '@pmmmwh/react-refresh-webpack-plugin'
 import {ReactRefreshPluginOptions} from '@pmmmwh/react-refresh-webpack-plugin/types/lib/types'
-import type * as Bud from '@roots/bud-framework'
+import type {Bud, Extension} from '@roots/bud-framework'
 import {Container} from '@roots/container'
 
 /**
@@ -9,18 +9,15 @@ import {Container} from '@roots/container'
  * @public
  */
 export interface ReactRefreshExtension
-  extends Bud.Extension.CompilerPlugin<
-    RefreshPlugin,
-    ReactRefreshPluginOptions
-  > {
-  name: '@pmmmwh/react-refresh-webpack-plugin'
+  extends Extension.Plugin<RefreshPlugin, ReactRefreshPluginOptions> {
+  label: '@pmmmwh/react-refresh-webpack-plugin'
   options: ReactRefreshPluginOptions
   make: (options: Container<ReactRefreshPluginOptions>) => RefreshPlugin
-  when: (app: Bud.Framework) => boolean
+  when: (app: Bud) => boolean
 }
 
 export const ReactRefreshExtension: ReactRefreshExtension = {
-  name: '@pmmmwh/react-refresh-webpack-plugin',
+  label: '@pmmmwh/react-refresh-webpack-plugin',
 
   options: {overlay: false},
 

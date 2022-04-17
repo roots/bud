@@ -4,7 +4,7 @@ module.exports = {
     {value: ':tada: pkg', name: '🎉 feat\tadd package'},
     {value: ':label: types', name: '🏷️  types\tadd or update type'},
     {value: ':package: deps', name: '📦 deps\tmodify dependencies'},
-    {value: ':nailcare: style', name: '💅 style\tcode formatting'},
+    {value: ':nail_care: style', name: '💅 style\tcode formatting'},
     {value: ':recycle: improve', name: '♻️  improve\timprove code'},
     {
       value: ':roller_skate: improve',
@@ -19,7 +19,7 @@ module.exports = {
       name: '🔨 dev\tadd or update config files or dev scripts',
     },
     {value: ':rewind: revert', name: '⏪️ revert\trevert commit'},
-    {value: ':merge: merge', name: '🔀 merge\tmerge branch'},
+    {value: ':fast_forward: merge', name: '⏩ merge\tmerge branch'},
     {value: ':construction: wip', name: '🚧 wip\twork in progress'},
   ],
 
@@ -35,4 +35,5 @@ module.exports = {
   allowBreakingChanges: ['feat', 'fix'],
   skipQuestions: ['body'],
   subjectLimit: 100,
+  symbol: true,
 }

@@ -4,25 +4,21 @@
 /**
  * Preset config for WordPress plugins & themes.
  *
- * @see https://roots.io/bud
+ * @see https://bud.js.org
  * @see https://github.com/roots/bud
  *
  * @packageDocumentation
  */
 
-import type {Extension, Framework} from '@roots/bud-framework'
+import './bud.env'
 
-declare module '@roots/bud-framework' {
-  interface Modules {
-    '@roots/bud-preset-wordpress': BudWordPressPreset
-  }
-}
+import type {Bud, Extension} from '@roots/bud-framework'
 
 /**
  * Preset config for WordPress plugins & themes
  * @public
  */
-type BudWordPressPreset = Extension.Module
+export type BudWordPressPreset = Extension.Module
 
 /**
  * Find/replace {@link URL.href} with {@link URL.pathname}
@@ -34,24 +30,19 @@ type BudWordPressPreset = Extension.Module
  */
 const makeInterception = (input: string): [string, string] => {
   const url = new URL(input)
-
-  url.pathname = url.pathname.endsWith('/')
-    ? url.pathname
-    : `${url.pathname}/`
-
-  return [url.href, url.pathname]
+  return [url.href, url.href.endsWith('/') ? '/' : '']
 }
 
 /**
  * @public
  */
-export const name: BudWordPressPreset['name'] =
+export const label: BudWordPressPreset['label'] =
   '@roots/bud-preset-wordpress'
 
 /**
  * @public
  */
-export const boot = async (app: Framework, logger: Console) => {
+export const boot = async (app: Bud, logger: Console) => {
   /* Exit early if env is not set */
   if (!app.env.isString('WP_HOME')) return
 
@@ -79,7 +70,7 @@ export const boot = async (app: Framework, logger: Console) => {
    * Set interceptor replacements
    */
   app.hooks.action('event.proxy.interceptor', async ({hooks}) =>
-    hooks.on('middleware.proxy.replacements', replacements => [
+    hooks.on('dev.middleware.proxy.replacements', replacements => [
       ...(replacements ?? []),
       makeInterception(HOME),
     ]),
