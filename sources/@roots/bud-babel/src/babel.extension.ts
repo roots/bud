@@ -1,10 +1,7 @@
-import {Bud, Build, Extension} from '@roots/bud-framework'
+import {Build, Extension} from '@roots/bud-framework'
 import {bind} from '@roots/bud-support'
 
 import {Config} from './babel.config'
-import {DEFAULT_PLUGINS, DEFAULT_PRESETS} from './babel.constants'
-
-export interface BabelExtension extends Extension.Extension {}
 
 /**
  * Babel support for `@roots/bud`
@@ -20,15 +17,8 @@ export class BabelExtension extends Extension.Extension {
   /**
    * @public
    */
-  public get cacheDirectory() {
+  protected get cacheDirectory() {
     return this.app.path(`@storage/cache/babel`)
-  }
-
-  /**
-   * @public
-   */
-  public get rootDirectory() {
-    return this.app.path()
   }
 
   /**
@@ -44,7 +34,7 @@ export class BabelExtension extends Extension.Extension {
           compact: false,
         },
       },
-      root: this.rootDirectory,
+      root: this.app.path(),
     }
   }
 
@@ -53,15 +43,32 @@ export class BabelExtension extends Extension.Extension {
    * @decorator `@bind`
    */
   @bind
-  public async register(app: Bud) {
-    app.babel = new Config()
+  public async register() {
+    this.app.babel = new Config()
 
-    app.build.setLoader('babel', require.resolve('babel-loader'))
-    app.build.setItem('babel', this.setRuleSetItem)
-    app.build.rules.js.setUse(items => ['babel', ...items])
+    this.app.build.setLoader('babel', this.resolve('babel-loader'))
+    this.app.build.setItem('babel', this.setRuleSetItem)
+    this.app.build.rules.js.setUse(items => ['babel', ...items])
 
-    app.babel.setPresets(DEFAULT_PRESETS)
-    app.babel.setPlugins(DEFAULT_PLUGINS)
+    this.app.babel
+      .setPresets({
+        '@babel/preset-env': this.resolve('@babel/preset-env'),
+      })
+      .setPlugins({
+        '@babel/plugin-transform-runtime': [
+          this.resolve('@babel/plugin-transform-runtime'),
+          {helpers: false},
+        ],
+        '@babel/plugin-proposal-object-rest-spread': this.resolve(
+          '@babel/plugin-proposal-object-rest-spread',
+        ),
+        '@babel/plugin-syntax-dynamic-import': this.resolve(
+          '@babel/plugin-syntax-dynamic-import',
+        ),
+        '@babel/plugin-proposal-class-properties': this.resolve(
+          '@babel/plugin-proposal-class-properties',
+        ),
+      })
   }
 
   /**
@@ -69,9 +76,9 @@ export class BabelExtension extends Extension.Extension {
    * @decorator `@bind`
    */
   @bind
-  public setRuleSetItem(ruleSetItem: Build.Item) {
+  protected setRuleSetItem(ruleSetItem: Build.Item) {
     return ruleSetItem.setLoader('babel').setOptions(app => {
-      const options = app.extensions.get('@roots/bud-babel').options
+      const options = this.getOptions()
 
       app.babel?.presets &&
         options.set('presets', Object.values(app.babel.presets))

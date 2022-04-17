@@ -1,14 +1,24 @@
-export type Options = {
-  plugins?: Plugin[]
-  config?: boolean | string
-}
+import '@roots/bud-framework'
 
-export type NormalizedPlugin = [any, Record<string, any>]
+import {Item, Loader} from '@roots/bud-build'
 
-export type Plugin = string | NormalizedPlugin | CallableFunction
+import {Config} from './babel.config'
+import {BabelExtension} from './babel.extension'
 
-export type Registrable = string | NormalizedPlugin
+declare module '@roots/bud-framework' {
+  interface Bud {
+    babel: Config
+  }
 
-export interface Registry {
-  [key: string]: [string, any?]
+  interface Modules {
+    '@roots/bud-babel': BabelExtension
+  }
+
+  interface Loaders {
+    babel: Loader
+  }
+
+  interface Items {
+    babel: Item
+  }
 }

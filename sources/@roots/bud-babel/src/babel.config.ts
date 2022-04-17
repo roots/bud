@@ -1,11 +1,25 @@
-import {bind} from './babel.dependencies'
-import {Registry} from './babel.interface'
+import {bind} from '@roots/bud-support'
+
+export type Options = {
+  plugins?: Plugin[]
+  config?: boolean | string
+}
+
+export type NormalizedPlugin = [any, Record<string, any>]
+
+export type Plugin = string | NormalizedPlugin | CallableFunction
+
+export type Registrable = string | NormalizedPlugin
+
+export interface Registry {
+  [key: string]: [string, any?]
+}
 
 /**
- * Babel configuration class
+ * Babel configuration
  *
  * @remarks
- * This class is used to configure the Babel transpiler.
+ * Configures plugins and presets for the Babel transpiler.
  *
  * @example
  * ```ts
