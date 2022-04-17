@@ -26,6 +26,13 @@ export interface Module<Options = any, Instance = PluginInstance> {
   options?: Options | ((app: Bud) => Options)
 
   /**
+   * Initialize
+   *
+   * @public
+   */
+  init?: (app: Bud, logger: Signale) => Module<Options, Instance>
+
+  /**
    * General purpose callback. Called first.
    *
    * @public
