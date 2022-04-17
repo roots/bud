@@ -11,8 +11,8 @@ export class BudTailwindCss extends Extension.Extension {
    */
   public async boot() {
     try {
-      const {default: tailwindcss} = await import('tailwindcss')
-      const {default: nesting} = await import('tailwindcss/nesting')
+      const {default: tailwindcss} = await this.import('tailwindcss')
+      const {default: nesting} = await this.import('tailwindcss/nesting')
 
       this.app.postcss.setPlugins({
         'postcss-import': this.app.postcss.get('postcss-import'),
@@ -23,7 +23,7 @@ export class BudTailwindCss extends Extension.Extension {
 
       this.logger.success('postcss configured for tailwindcss')
     } catch (message) {
-      this.logger.warn(message)
+      this.logger.error(message)
     }
   }
 }
