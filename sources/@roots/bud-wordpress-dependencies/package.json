@@ -58,6 +58,6 @@
     "@roots/wordpress-dependencies-webpack-plugin": "workspace:sources/@roots/wordpress-dependencies-webpack-plugin",
     "autobind-decorator": "^2.4.0",
     "lodash": "^4.17.21",
-    "tslib": "^2.3.1"
+    "tslib": "2.3.1"
   }
 }

@@ -65,6 +65,6 @@
   "dependencies": {
     "@roots/bud-preset-wordpress": "workspace:sources/@roots/bud-preset-wordpress",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "tslib": "^2.3.1"
+    "tslib": "2.3.1"
   }
 }

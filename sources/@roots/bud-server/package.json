@@ -67,7 +67,7 @@
     "http-proxy-middleware": "2.0.4",
     "querystring": "^0.2.0",
     "strip-ansi": "^6.0.0",
-    "tslib": "^2.3.1",
+    "tslib": "2.3.1",
     "webpack-dev-middleware": "5.3.1"
   }
 }

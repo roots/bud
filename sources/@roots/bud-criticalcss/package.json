@@ -54,7 +54,7 @@
     "@roots/critical-css-webpack-plugin": "workspace:sources/@roots/critical-css-webpack-plugin",
     "autobind-decorator": "^2.4.0",
     "critical": "4.0.1",
-    "tslib": "^2.3.1"
+    "tslib": "2.3.1"
   },
   "peerDependencies": {
     "critical": "^4.0.1"

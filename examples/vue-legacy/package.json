@@ -1,5 +1,5 @@
 {
-  "name": "example-typescript",
+  "name": "example-vue-legacy",
   "private": true,
   "browserslist": {
     "production": [
@@ -14,11 +14,13 @@
     ]
   },
   "devDependencies": {
-    "@roots/bud": "0.0.0",
-    "@roots/bud-babel": "0.0.0",
-    "@roots/bud-typescript": "0.0.0"
+    "@roots/bud": "latest",
+    "@roots/bud-vue": "latest"
   },
   "dependencies": {
-    "@types/webpack-env": "latest"
+    "lodash": "4.17.21",
+    "vue": "^2.6.14",
+    "vue-template-compiler": "^2.6.14",
+    "vue-loader": "^15.9.4"
   }
 }

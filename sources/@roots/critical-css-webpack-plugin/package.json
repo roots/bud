@@ -54,7 +54,7 @@
     "autobind-decorator": "^2.4.0",
     "lodash": "^4.17.21",
     "safe-require": "^1.0.4",
-    "tslib": "^2.3.1",
+    "tslib": "2.3.1",
     "vinyl": "^2.2.1",
     "webpack": "^5.64.2"
   },

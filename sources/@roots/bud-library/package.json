@@ -53,7 +53,7 @@
   "dependencies": {
     "autobind-decorator": "^2.4.0",
     "autodll-webpack-plugin": "^0.4.2",
-    "tslib": "^2.3.1"
+    "tslib": "2.3.1"
   },
   "peerDependencies": {
     "autodll-webpack-plugin": "^0.4.2"

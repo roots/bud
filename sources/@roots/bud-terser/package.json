@@ -53,6 +53,6 @@
   "dependencies": {
     "autobind-decorator": "^2.4.0",
     "terser-webpack-plugin": "^5.2.5",
-    "tslib": "^2.3.1"
+    "tslib": "2.3.1"
   }
 }

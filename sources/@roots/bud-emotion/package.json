@@ -67,7 +67,7 @@
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
     "autobind-decorator": "^2.4.0",
-    "tslib": "^2.3.1"
+    "tslib": "2.3.1"
   },
   "peerDependencies": {
     "@emotion/babel-plugin": "^11.7.2",

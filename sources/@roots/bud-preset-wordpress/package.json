@@ -29,7 +29,6 @@
     "node": ">=14"
   },
   "files": [
-    "eslint-config/",
     "lib/",
     "stylelint-config/",
     "types/"
@@ -68,12 +67,10 @@
   "devDependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@skypack/package-check": "0.2.2",
-    "@types/jest": "27.4.1",
     "@types/lodash": "4.14.180",
     "@types/node": "16.11.26",
     "@types/react": "17.0.41",
     "@types/react-dom": "17.0.14",
-    "jest": "27.5.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "webpack": "5.70.0"
@@ -90,7 +87,7 @@
     "tslib": "2.3.1"
   },
   "peerDependencies": {
-    "@wordpress/browserslist-config": "^4.1.0"
+    "@wordpress/browserslist-config": "*"
   },
   "peerDependenciesMeta": {
     "@wordpress/browserslist-config": {

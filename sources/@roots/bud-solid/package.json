@@ -68,7 +68,7 @@
     "autobind-decorator": "^2.4.0",
     "babel-preset-solid": "^1.2.5",
     "solid-js": "^1.1.7",
-    "tslib": "^2.3.1"
+    "tslib": "2.3.1"
   },
   "peerDependencies": {
     "@babel/plugin-syntax-jsx": "7.16.7",

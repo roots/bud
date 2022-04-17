@@ -83,7 +83,7 @@
     "mini-css-extract-plugin": "^2.4.5",
     "node-notifier": "10.0.1",
     "schema-utils": "4.0.0",
-    "tslib": "^2.3.1",
+    "tslib": "2.3.1",
     "typanion": "3.7.1",
     "type-fest": "^2.5.4",
     "webpack": "5.70.0",
