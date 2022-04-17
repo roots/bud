@@ -1,10 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`sass npm app.css has contents 1`] = `
-"html,body{padding:0;margin:0}body{background:blue}body div{border:#fff}
-"
-`;
-
 exports[`sass npm app.css matches snapshot 1`] = `
 "html,body{padding:0;margin:0}body{background:blue}body div{border:#fff}
 "
@@ -15,11 +10,6 @@ Object {
   "app.css": "app.css",
   "app.js": "app.js",
 }
-`;
-
-exports[`sass yarn app.css has contents 1`] = `
-"html,body{padding:0;margin:0}body{background:blue}body div{border:#fff}
-"
 `;
 
 exports[`sass yarn app.css matches snapshot 1`] = `

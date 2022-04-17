@@ -1,9 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`react npm app.js has contents 1`] = `"\\"use strict\\";(self.webpackChunkexample_react=self.webpackChunkexample_react||[]).push([[143],{837:function(e,n,t){var c,o,l=t(294),r=t(935),a=t(798),s=function(){return l.createElement(\\"div\\",{className:\\"App\\"},l.createElement(\\"div\\",{className:\\"header\\"},l.createElement(\\"img\\",{src:a,className:\\"logo\\",alt:\\"logo\\"}),\\"Edit \\",l.createElement(\\"code\\",null,\\"src/components/App.js\\"),\\" and save to reload\\"))};e=t.hmd(e),r.render(l.createElement(s,null),document.getElementById(\\"root\\")),null===(c=e)||void 0===c||null===(o=c.hot)||void 0===o||o.accept((function(e){console.error(e)}))},416:function(){},798:function(e,n,t){e.exports=t.p+\\"svg/logo.svg\\"}},function(e){var n=function(n){return e(e.s=n)};e.O(0,[329],(function(){return n(837),n(416)})),e.O()}]);"`;
-
-exports[`react npm app.js matches snapshot 1`] = `"\\"use strict\\";(self.webpackChunkexample_react=self.webpackChunkexample_react||[]).push([[143],{837:function(e,n,t){var c,o,l=t(294),r=t(935),a=t(798),s=function(){return l.createElement(\\"div\\",{className:\\"App\\"},l.createElement(\\"div\\",{className:\\"header\\"},l.createElement(\\"img\\",{src:a,className:\\"logo\\",alt:\\"logo\\"}),\\"Edit \\",l.createElement(\\"code\\",null,\\"src/components/App.js\\"),\\" and save to reload\\"))};e=t.hmd(e),r.render(l.createElement(s,null),document.getElementById(\\"root\\")),null===(c=e)||void 0===c||null===(o=c.hot)||void 0===o||o.accept((function(e){console.error(e)}))},416:function(){},798:function(e,n,t){e.exports=t.p+\\"svg/logo.svg\\"}},function(e){var n=function(n){return e(e.s=n)};e.O(0,[329],(function(){return n(837),n(416)})),e.O()}]);"`;
-
 exports[`react npm manifest.json matches snapshot 1`] = `
 Object {
   "app.css": "app.css",
@@ -14,10 +10,6 @@ Object {
   "vendor/app.js": "vendor/app.js",
 }
 `;
-
-exports[`react yarn app.js has contents 1`] = `"\\"use strict\\";(self.webpackChunkexample_react=self.webpackChunkexample_react||[]).push([[143],{837:function(e,n,t){var c,o,l=t(294),r=t(935),a=t(798),s=function(){return l.createElement(\\"div\\",{className:\\"App\\"},l.createElement(\\"div\\",{className:\\"header\\"},l.createElement(\\"img\\",{src:a,className:\\"logo\\",alt:\\"logo\\"}),\\"Edit \\",l.createElement(\\"code\\",null,\\"src/components/App.js\\"),\\" and save to reload\\"))};e=t.hmd(e),r.render(l.createElement(s,null),document.getElementById(\\"root\\")),null===(c=e)||void 0===c||null===(o=c.hot)||void 0===o||o.accept((function(e){console.error(e)}))},416:function(){},798:function(e,n,t){e.exports=t.p+\\"svg/logo.svg\\"}},function(e){var n=function(n){return e(e.s=n)};e.O(0,[329],(function(){return n(837),n(416)})),e.O()}]);"`;
-
-exports[`react yarn app.js matches snapshot 1`] = `"\\"use strict\\";(self.webpackChunkexample_react=self.webpackChunkexample_react||[]).push([[143],{837:function(e,n,t){var c,o,l=t(294),r=t(935),a=t(798),s=function(){return l.createElement(\\"div\\",{className:\\"App\\"},l.createElement(\\"div\\",{className:\\"header\\"},l.createElement(\\"img\\",{src:a,className:\\"logo\\",alt:\\"logo\\"}),\\"Edit \\",l.createElement(\\"code\\",null,\\"src/components/App.js\\"),\\" and save to reload\\"))};e=t.hmd(e),r.render(l.createElement(s,null),document.getElementById(\\"root\\")),null===(c=e)||void 0===c||null===(o=c.hot)||void 0===o||o.accept((function(e){console.error(e)}))},416:function(){},798:function(e,n,t){e.exports=t.p+\\"svg/logo.svg\\"}},function(e){var n=function(n){return e(e.s=n)};e.O(0,[329],(function(){return n(837),n(416)})),e.O()}]);"`;
 
 exports[`react yarn manifest.json matches snapshot 1`] = `
 Object {

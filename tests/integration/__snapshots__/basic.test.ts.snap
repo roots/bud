@@ -1,49 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`basic npm main.js has contents 1`] = `
-"/******/ (function() { // webpackBootstrap
-var __webpack_exports__ = {};
-console.log('hello')
-console.log('world')
-
-/******/ })()
-;"
-`;
-
-exports[`basic npm main.js matches snapshot 1`] = `
-"/******/ (function() { // webpackBootstrap
-var __webpack_exports__ = {};
-console.log('hello')
-console.log('world')
-
-/******/ })()
-;"
-`;
-
 exports[`basic npm manifest.json matches snapshot 1`] = `
 Object {
   "main.js": "main.js",
 }
-`;
-
-exports[`basic yarn main.js has contents 1`] = `
-"/******/ (function() { // webpackBootstrap
-var __webpack_exports__ = {};
-console.log('hello')
-console.log('world')
-
-/******/ })()
-;"
-`;
-
-exports[`basic yarn main.js matches snapshot 1`] = `
-"/******/ (function() { // webpackBootstrap
-var __webpack_exports__ = {};
-console.log('hello')
-console.log('world')
-
-/******/ })()
-;"
 `;
 
 exports[`basic yarn manifest.json matches snapshot 1`] = `

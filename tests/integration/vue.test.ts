@@ -12,28 +12,22 @@ const run = pacman => () => {
   })
 
   describe('app.css', () => {
-    it('has contents', () =>
-      expect(project.assets['app.css']).toMatchSnapshot())
+    it('has contents', () => {
+      expect(project.assets['app.css'].length).toBeGreaterThan(10)
+    })
 
     it('is transpiled', () => {
       expect(project.assets['app.css'].includes(`from '`)).toBeFalsy()
     })
-
-    it('matches snapshot', () => {
-      expect(project.assets['app.css']).toMatchSnapshot()
-    })
   })
 
   describe('app.js', () => {
-    it('has contents', () =>
-      expect(project.assets['app.js']).toMatchSnapshot())
+    it('has contents', () => {
+      expect(project.assets['app.js'].length).toBeGreaterThan(10)
+    })
 
     it('is transpiled', () => {
       expect(project.assets['app.js'].includes(`from '`)).toBeFalsy()
-    })
-
-    it('matches snapshot', () => {
-      expect(project.assets['app.js']).toMatchSnapshot()
     })
   })
 

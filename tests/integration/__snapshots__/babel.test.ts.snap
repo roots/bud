@@ -1,9 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`babel npm app.js has contents 1`] = `"(self.webpackChunkexample_babel=self.webpackChunkexample_babel||[]).push([[143],{289:function(n,e,c){\\"use strict\\";c(63),(void 0).accept(console.error)},63:function(){[\\"fancy\\",\\"ecma!\\"].map(console.log)},805:function(){},150:function(){}},function(n){var e=function(e){return n(n.s=e)};e(289),e(63),e(805),e(150)}]);"`;
-
-exports[`babel npm app.js matches snapshot 1`] = `"(self.webpackChunkexample_babel=self.webpackChunkexample_babel||[]).push([[143],{289:function(n,e,c){\\"use strict\\";c(63),(void 0).accept(console.error)},63:function(){[\\"fancy\\",\\"ecma!\\"].map(console.log)},805:function(){},150:function(){}},function(n){var e=function(e){return n(n.s=e)};e(289),e(63),e(805),e(150)}]);"`;
-
 exports[`babel npm manifest.json matches snapshot 1`] = `
 Object {
   "app.css": "app.css",
@@ -11,10 +7,6 @@ Object {
   "runtime.js": "runtime.js",
 }
 `;
-
-exports[`babel yarn app.js has contents 1`] = `"(self.webpackChunkexample_babel=self.webpackChunkexample_babel||[]).push([[143],{289:function(n,e,c){\\"use strict\\";c(63),(void 0).accept(console.error)},63:function(){[\\"fancy\\",\\"ecma!\\"].map(console.log)},805:function(){},150:function(){}},function(n){var e=function(e){return n(n.s=e)};e(289),e(63),e(805),e(150)}]);"`;
-
-exports[`babel yarn app.js matches snapshot 1`] = `"(self.webpackChunkexample_babel=self.webpackChunkexample_babel||[]).push([[143],{289:function(n,e,c){\\"use strict\\";c(63),(void 0).accept(console.error)},63:function(){[\\"fancy\\",\\"ecma!\\"].map(console.log)},805:function(){},150:function(){}},function(n){var e=function(e){return n(n.s=e)};e(289),e(63),e(805),e(150)}]);"`;
 
 exports[`babel yarn manifest.json matches snapshot 1`] = `
 Object {
