@@ -10,7 +10,7 @@
  * @packageDocumentation
  */
 
-import './bud.env'
+import './interface'
 
 import type {Bud, Extension} from '@roots/bud-framework'
 

@@ -4,22 +4,10 @@
     "baseUrl": ".",
     "rootDir": "./src",
     "outDir": "./lib/cjs",
-    "declarationDir": "./types",
-    "types": [
-      "node",
-      "jest",
-      "@roots/bud-api",
-      "@roots/bud-babel",
-      "@roots/bud-postcss"
-    ]
+    "declarationDir": "./types"
   },
   "include": [
     "src"
-  ],
-  "exclude": [
-    "node_modules",
-    "lib",
-    "types"
   ],
   "references": [
     {

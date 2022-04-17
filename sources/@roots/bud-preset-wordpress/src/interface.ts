@@ -1,3 +1,4 @@
+import '@roots/bud-api'
 import '@roots/bud-babel'
 import '@roots/bud-postcss'
 import '@roots/bud-react'
