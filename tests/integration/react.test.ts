@@ -1,30 +1,37 @@
 import {Project} from '@repo/test-kit/project'
 
-jest.setTimeout(60000)
-
-describe('examples/react', () => {
+const test = pacman => () => {
   let project: Project
 
   beforeAll(async () => {
-    project = new Project({
+    project = await new Project({
       name: 'react',
-      dir: 'examples/react',
+      dist: 'dist',
+      with: pacman,
+    }).setup()
+  })
+
+  describe('app.js', () => {
+    it('has contents', () =>
+      expect(project.assets['app.js']).toMatchSnapshot())
+
+    it('is transpiled', () => {
+      expect(project.assets['app.js'].includes(`from '`)).toBeFalsy()
     })
 
-    await project.setup()
+    it('matches snapshot', () => {
+      expect(project.assets['app.js']).toMatchSnapshot()
+    })
   })
 
-  it('[app.js] has contents', () => {
-    expect(project.assets['app.js'].length).toBeGreaterThan(10)
+  describe('manifest.json', () => {
+    it('matches snapshot', () => {
+      expect(project.manifest).toMatchSnapshot()
+    })
   })
+}
 
-  it('[app.js] is transpiled', () => {
-    expect(
-      project.assets['app.js'].includes('import'),
-    ).toBeFalsy()
-  })
-
-  it('[app.css] is transpiled', () => {
-    expect(project.assets['app.css']).toMatchSnapshot()
-  })
+describe('react', () => {
+  describe('npm', test('npm'))
+  describe('yarn', test('yarn'))
 })

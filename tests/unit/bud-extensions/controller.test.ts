@@ -14,10 +14,13 @@ describe('@roots/bud-extensions Controller', function () {
 
   let mockModule: Extension.Module = {
     label: '@roots/bud-postcss',
-    register: jest.fn(async (app) => {
-      app.api.bindFacade('foo', jest.fn(async function (this: Bud) {
-        return this
-      }))
+    register: jest.fn(async app => {
+      app.api.bindFacade(
+        'foo',
+        jest.fn(async function (this: Bud) {
+          return this
+        }),
+      )
     }),
     boot: jest.fn(() => null),
     options: jest.fn(() => options),
@@ -81,7 +84,7 @@ describe('@roots/bud-extensions Controller', function () {
 
     // @ts-ignore
     expect(bud.foo).toBeInstanceOf(Function)
-    
+
     // @ts-ignore
     const result = await bud.api.call('foo')
     expect(result).toBeInstanceOf(Bud)

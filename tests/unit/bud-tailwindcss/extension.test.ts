@@ -10,7 +10,7 @@ describe('@roots/bud-tailwindcss', () => {
 
   beforeAll(async () => {
     bud = await factory()
-    instance = new BudTailwindCssExtension(() => bud)
+    instance = new BudTailwindCssExtension(bud)
   })
 
   it('has name prop', () => {
@@ -18,7 +18,7 @@ describe('@roots/bud-tailwindcss', () => {
   })
 
   it('sets up postcss plugins', async () => {
-    bud.use([BudPostCssExtension, new BudTailwindCssExtension(() => bud)])
+    bud.use([BudPostCssExtension, BudTailwindCssExtension])
     await bud.api.processQueue()
 
     expect(bud.postcss.getKeys()).toEqual([

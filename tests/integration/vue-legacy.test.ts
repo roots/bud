@@ -5,7 +5,7 @@ const run = pacman => () => {
 
   beforeAll(async () => {
     project = await new Project({
-      name: 'babel',
+      name: 'vue-legacy',
       dist: 'dist',
       with: pacman,
     }).setup()
@@ -16,7 +16,7 @@ const run = pacman => () => {
       expect(project.assets['app.js']).toMatchSnapshot())
 
     it('is transpiled', () => {
-      expect(project.assets['app.js'].includes('import')).toBeFalsy()
+      expect(project.assets['app.js'].includes(`from '`)).toBeFalsy()
     })
 
     it('matches snapshot', () => {
@@ -31,7 +31,7 @@ const run = pacman => () => {
   })
 }
 
-describe('babel', () => {
+describe('vue (legacy)', () => {
   describe('npm', run('npm'))
   describe('yarn', run('yarn'))
 })

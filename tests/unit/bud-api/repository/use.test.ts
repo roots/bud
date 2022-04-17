@@ -65,7 +65,7 @@ describe('bud.use', function () {
   })
 
   it('registers multiple extensions', async () => {
-    bud.use([new Babel(() => bud), new HtmlWebpackPlugin()])
+    bud.use([Babel, new HtmlWebpackPlugin()])
     await bud.api.processQueue()
     expect(bud.extensions.has('@roots/bud-babel')).toBe(true)
     expect(bud.extensions.has('HtmlWebpackPlugin')).toBe(true)

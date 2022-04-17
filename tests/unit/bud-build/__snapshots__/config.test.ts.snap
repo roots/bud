@@ -98,7 +98,7 @@ Object {
     "filename": "images/[name][ext]",
   },
   "include": Array [
-    "/srv/bud/tests/util/project/src",
+    StringContaining "project/src",
   ],
   "test": Object {},
   "type": "asset/resource",
@@ -151,7 +151,7 @@ Object {
     "filename": "svg/[name][ext]",
   },
   "include": Array [
-    "/srv/bud/tests/util/project/src",
+    StringContaining "project/src",
   ],
   "test": Object {},
   "type": "asset/resource",
@@ -177,7 +177,7 @@ Object {
     "filename": "images/[name][ext]",
   },
   "include": Array [
-    "/srv/bud/tests/util/project/src",
+    StringContaining "project/src",
   ],
   "test": Object {},
   "type": "asset/resource",

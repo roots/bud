@@ -1,5 +1,3 @@
-import '@roots/bud-babel'
-
 import {Bud, factory} from '@repo/test-kit/bud'
 import * as BudReact from '@roots/bud-react'
 

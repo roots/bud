@@ -10,7 +10,7 @@ describe('@roots/bud-babel', function () {
   beforeAll(async () => {
     bud = await factory()
     config = new Config()
-    BabelInstance = new BudBabelExtension.default(() => bud)
+    BabelInstance = new BudBabelExtension.default(bud)
   })
 
   it('works with require', () => {

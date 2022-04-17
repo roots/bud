@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`bud.project references @roots/bud-babel 1`] = `
+exports[`bud.project references @roots/bud-babel 2 1`] = `
 Object {
   "bud": Object {
     "type": "extension",
@@ -21,6 +21,8 @@ Object {
   "version": Any<String>,
 }
 `;
+
+exports[`bud.project references @roots/bud-babel: extension 1`] = `"extension"`;
 
 exports[`bud.project references @roots/bud-entrypoints 1`] = `
 Object {
@@ -180,11 +182,4 @@ Object {
   "resolvable": true,
   "version": Any<String>,
 }
-`;
-
-exports[`bud.project resolveFrom contains paths of found peers 1`] = `
-Array [
-  StringContaining "src",
-  StringContaining "node_modules",
-]
 `;

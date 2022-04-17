@@ -1,16 +1,17 @@
 import {Bud, factory} from '@repo/test-kit/bud'
 
-jest.setTimeout(15000)
-
-describe('bud.project', function () {
+describe('bud.project', () => {
   let bud: Bud
 
-  beforeAll(async () => {
-    bud = await factory()
-    await bud.build.make()
-  })
+  beforeAll(async () => (bud = await factory()))
 
   it('references @roots/bud-babel', async () => {
+    expect(
+      bud.project.get('modules.@roots/bud-babel.bud.type'),
+    ).toMatchSnapshot('extension')
+  })
+
+  it('references @roots/bud-babel 2', async () => {
     expect(bud.project.get('modules.@roots/bud-babel')).toMatchSnapshot({
       bud: {type: 'extension'},
       name: '@roots/bud-babel',
@@ -151,12 +152,5 @@ describe('bud.project', function () {
       resolvable: true,
       version: expect.any(String),
     })
-  })
-
-  it('resolveFrom contains paths of found peers', async () => {
-    expect(bud.build.config.resolve.modules).toMatchSnapshot([
-      expect.stringContaining('src'),
-      expect.stringContaining('node_modules'),
-    ])
   })
 })
