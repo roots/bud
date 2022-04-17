@@ -55,9 +55,9 @@ export const minimize: minimize = function (input?, options?: {css: any}) {
     app.hooks.on('build.optimization.minimize', true)
   }
 
-  app.hooks.on('build.optimization.minimizer', () => {
+  app.hooks.on('build.optimization.minimizer', minimizer => {
     return [
-      '...' as any,
+      ...(minimizer ?? []),
       new CssMinimizer({
         ...cssMinimizerOptions,
         ...(options?.css ?? {}),
