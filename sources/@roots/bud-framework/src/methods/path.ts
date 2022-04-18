@@ -3,7 +3,7 @@ import {resolve, sep as slash} from 'node:path'
 import {Bud, Locations} from '..'
 
 type AbsolutePath = `/${string}`
-type RelativePath =  `./${string}`
+type RelativePath = `./${string}`
 type Handle = `${keyof Locations & string}`
 type HandleSlashPath = `${Handle}/${string}`
 type FileHandle = `@name` | `@file`
@@ -18,19 +18,14 @@ type FileHandle = `@name` | `@file`
  * @public
  */
 export interface parseAlias {
-  (
-    app: Bud,
-    base:
-      | Handle
-      | HandleSlashPath,
-  ): string
+  (app: Bud, base: Handle | HandleSlashPath): string
 }
 
 export const parseAlias: parseAlias = (app, base) => {
   /* Normalize base path to an array of path segments */
   let [ident, ...parts] = base.includes(slash) ? base.split(slash) : [base]
 
-    /* If there is no match for ident there is a problem */
+  /* If there is no match for ident there is a problem */
   !app.hooks.has(`location.${ident as keyof Locations}`) &&
     app.error(
       `\`${ident}\` is not a registered path. It must be defined with bud.setPath`,

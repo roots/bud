@@ -10,10 +10,14 @@ export interface Sage extends Framework.Extension.Extension {}
  * @public
  */
 export class Sage extends Framework.Extension.Extension {
-  /** @public */
+  /**
+   * @public
+   */
   public label = '@roots/sage'
 
-  /** @public */
+  /**
+   * @public
+   */
   public pathHandles = {
     '@src': 'resources',
     '@dist': 'public',

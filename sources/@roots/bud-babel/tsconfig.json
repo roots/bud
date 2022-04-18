@@ -4,16 +4,9 @@
     "baseUrl": ".",
     "rootDir": "./src",
     "outDir": "./lib/cjs",
-    "declarationDir": "./types",
-    "esModuleInterop": true,
-    "types": ["node"]
+    "declarationDir": "./types"
   },
-  "include": ["./**/*.ts", "./**/*.js"],
-  "exclude": [
-    "./node_modules/**/*",
-    "./lib/**/*",
-    "./types/**/*"
-  ],
+  "include": ["src"],
   "references": [
     {
       "path": "./../bud/tsconfig.json"
