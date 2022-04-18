@@ -6,10 +6,10 @@ import '@roots/bud-wordpress-dependencies'
 import '@roots/bud-wordpress-externals'
 import '@roots/bud-wordpress-manifests'
 
-import {BudWordPressPreset} from './'
+import {WordPress} from './extension'
 
 declare module '@roots/bud-framework' {
   interface Modules {
-    '@roots/bud-preset-wordpress': BudWordPressPreset
+    '@roots/bud-preset-wordpress': WordPress
   }
 }

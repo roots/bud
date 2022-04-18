@@ -56,6 +56,7 @@ export class Hooks
 {
   /**
    * Hooks store
+   *
    * @public
    */
   public store = {} as Hooks['store']
@@ -269,7 +270,7 @@ export class Hooks
    * @decorator `@bind`
    */
   @bind
-  public action<T extends keyof Registry.Events & string>(
+  public action<T extends keyof Registry.Events & keyof Store & string>(
     id: T,
     ...actions: Array<(app?: Framework.Bud) => Promise<unknown>>
   ): Framework.Bud {
@@ -296,23 +297,20 @@ export class Hooks
    * @decorator `@bind`
    */
   @bind
-  public async fire<T extends keyof Registry.Events & string>(
-    id: T,
-  ): Promise<Framework.Bud> {
+  public async fire<
+    T extends keyof Registry.Events & keyof Store & string,
+  >(id: T): Promise<Framework.Bud> {
     if (!this.has(id)) return
 
-    const retrieved = this.get(id) as unknown as Array<Registry.Events[T]>
+    const retrieved = this.get(id)
 
-    await retrieved.reduce(
-      async (promised, current: Registry.Events[T]) => {
-        await promised
+    await retrieved.reduce(async (promised, current) => {
+      await promised
 
-        this.app.info(`firing action ${id}`)
+      this.app.info(`firing action ${id}`)
 
-        return await current(this.app)
-      },
-      Promise.resolve(),
-    )
+      return await current(this.app)
+    }, Promise.resolve())
 
     return this.app
   }

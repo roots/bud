@@ -51,13 +51,16 @@
   "types": "./types/index.d.ts",
   "exports": {
     ".": "./lib/cjs/index.js",
-    "./eslint-config": "./eslint-config/index.js",
+    "./*": "./lib/cjs/*",
     "./stylelint-config": "./stylelint-config/index.js"
   },
   "typesVersions": {
     "*": {
       ".": [
         "./types/index.d.ts"
+      ],
+      "extension": [
+        "./types/extension.d.ts"
       ],
       "theme": [
         "./types/theme.d.ts"

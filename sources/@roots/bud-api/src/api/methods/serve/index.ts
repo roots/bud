@@ -34,18 +34,6 @@ export interface Specification {
   host?: string
 
   /**
-   * OS network interface
-   *
-   * @remarks
-   * The host on which port resolution should be performed. Can be either an IPv4 or IPv6 address.
-   * By default, it checks availability on all local addresses defined in [OS network interfaces](https://nodejs.org/api/os.html#os_os_networkinterfaces).
-   * If this option is set, it will only check the given host.
-   *
-   * @public
-   */
-  interface?: string
-
-  /**
    * SSL certificate (path)
    * @public
    */
@@ -104,26 +92,31 @@ export const method: Serve = async function (
   input: Options,
 ): Promise<Bud> {
   const app = this as Bud
+
   if (!app.isDevelopment) return app
 
   const current = app.hooks.filter('dev.url')
 
   if (Array.isArray(input) || typeof input === 'number') {
     current.port = await requestPort(app, current, input)
+
     return app.hooks.on('dev.url', current)
   }
 
   if (input instanceof URL || typeof input === 'string') {
     const url = input instanceof URL ? input : new URL(input)
+
     url.port = await requestPort(
       app,
       url,
       Number(url.port ?? current.port),
     )
+
     return app.hooks.on('dev.url', url)
   }
 
   await assignSpec(app, current, input)
+
   return app
 }
 
@@ -149,7 +142,6 @@ const assignSpec = async (app: Bud, url: URL, spec: Specification) => {
   if (spec.host) url.hostname = spec.host
 
   spec.options && app.hooks.on('dev.options', spec.options)
-  spec.interface && app.hooks.on('dev.interface', spec.interface)
   app.hooks.on('dev.url', url)
 }
 
