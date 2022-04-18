@@ -1,5 +1,4 @@
-import {Bud} from 'src/extension'
-
+import {Bud} from '../extension'
 import * as Build from './build'
 import {Dev} from './dev'
 import {Events} from './events'
