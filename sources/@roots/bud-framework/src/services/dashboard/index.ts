@@ -1,3 +1,5 @@
+import type {StatsCompilation} from 'webpack'
+
 import type {Service as Base} from '../../service'
 
 /**
@@ -13,5 +15,5 @@ export interface Service extends Base {
    *
    * @public
    */
-  stats(stats): Promise<void>
+  stats(stats: StatsCompilation): void
 }

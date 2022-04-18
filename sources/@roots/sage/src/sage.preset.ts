@@ -44,6 +44,7 @@ export class Sage extends Framework.Extension.Extension {
     await this.app.extensions.add(ThemeJSON)
 
     this.app.setPath(this.pathHandles)
+
     this.app.alias({
       '@fonts': this.app.path('@fonts'),
       '@images': this.app.path('@images'),

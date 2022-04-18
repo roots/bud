@@ -49,6 +49,19 @@
     "./theme/tailwind": "./lib/cjs/theme/tailwind.adapter.js",
     "./tsconfig": "./tsconfig/tsconfig.json"
   },
+  "typeVersions": {
+    "*": {
+      ".": [
+        "./types/index.d.ts"
+      ],
+      "./client": [
+        "./types/client/index.d.ts"
+      ],
+      "./theme/tailwind": [
+        "./types/theme/tailwind.adapter.d.ts"
+      ]
+    }
+  },
   "bud": {
     "type": "extension",
     "peers": [

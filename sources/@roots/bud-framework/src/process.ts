@@ -22,18 +22,21 @@ const renderError = (msg: string, name?: string) => {
 /**
  * Create an error handler
  */
-const curryHandler = function (code: number) {
+const curryHandler = function (this: Bud, code: number) {
   const ERROR = code !== 0
 
   const close = () => {
-    process.stdout.write(`\n`)
+    const die = () => {
+      process.exitCode = code
+      setTimeout(process.exit, 100)
+    }
 
     try {
       ERROR && removeSync(this.path('@storage/cache'))
-    } catch (err) {}
-
-    process.exitCode = code
-    setTimeout(() => process.exit(), 100)
+      this.hooks.fire('event.app.close').then(die)
+    } catch (err) {
+      die()
+    }
   }
 
   return (exitMessage: string | Error) => {

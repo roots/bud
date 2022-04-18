@@ -3731,12 +3731,10 @@ __metadata:
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@roots/container": "workspace:sources/@roots/container"
     "@skypack/package-check": 0.2.2
-    "@types/js-yaml": 4.0.5
     "@types/lodash": 4.14.180
     "@types/node": 16.11.26
     chokidar: 3.5.3
     http-proxy-middleware: 2.0.4
-    ink: 3.2.0
     tslib: 2.3.1
     webpack: 5.70.0
     webpack-dev-middleware: 5.3.1
@@ -5196,13 +5194,6 @@ __metadata:
     jest-matcher-utils: ^27.0.0
     pretty-format: ^27.0.0
   checksum: 5184f3eef4832d01ee8f59bed15eec45ccc8e29c724a5e6ce37bf74396b37bdf04f557000f45ba4fc38ae6075cf9cfcce3d7a75abc981023c61ceb27230a93e4
-  languageName: node
-  linkType: hard
-
-"@types/js-yaml@npm:4.0.5":
-  version: 4.0.5
-  resolution: "@types/js-yaml@npm:4.0.5"
-  checksum: 7dcac8c50fec31643cc9d6444b5503239a861414cdfaa7ae9a38bc22597c4d850c4b8cec3d82d73b3fbca408348ce223b0408d598b32e094470dfffc6d486b4d
   languageName: node
   linkType: hard
 

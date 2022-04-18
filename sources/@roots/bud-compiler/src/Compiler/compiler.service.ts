@@ -1,5 +1,5 @@
 import {Bud, Compiler as Contract, Service} from '@roots/bud-framework'
-import {bind, chalk, lodash, once, Signale} from '@roots/bud-support'
+import {bind, lodash, once, Signale} from '@roots/bud-support'
 import {
   Configuration,
   MultiStats,
@@ -76,11 +76,10 @@ export class Compiler extends Service implements Contract.Service {
   @once
   public async compile() {
     this.config = await this.before()
-    const compiler = await this.invoke(this.config)
-
     this.app.timeEnd('bud')
     this.app._hrdone = this.app._hrdiff()
 
+    const compiler = await this.invoke(this.config)
     return compiler
   }
 
@@ -122,7 +121,6 @@ export class Compiler extends Service implements Contract.Service {
      */
     await this.app.build.make()
 
-    // if (this.app.hasChildren == false)
     this.config.push(this.app.build.config)
 
     /**
@@ -171,13 +169,13 @@ export class Compiler extends Service implements Contract.Service {
     if (!stats?.toJson || !isFunction(stats?.toJson)) return
 
     this.stats = stats.toJson()
-    await this.app.dashboard.stats(stats)
-
-    await this.app.hooks.fire(`event.compiler.done`)
+    this.app.dashboard.stats(stats)
 
     this.app.isProduction &&
       this.stats.errorsCount > 0 &&
       this.app.error('Errors detected in source')
+
+    await this.app.hooks.fire(`event.compiler.done`)
   }
 
   /**
@@ -195,6 +193,7 @@ export class Compiler extends Service implements Contract.Service {
       : this.app.error(error)
 
     await this.app.hooks.fire(`event.compiler.error`)
+    await this.app.hooks.fire(`event.compiler.done`)
   }
 
   /**
@@ -219,24 +218,23 @@ export class Compiler extends Service implements Contract.Service {
       const stage =
         (scope.includes(`]`) ? scope.split(`]`).pop()?.trim() : scope) ??
         ``
+      this.progress = [percent, `${stage} ${message.join(` `)}`]
 
-      this.progress = [percent, message.join(` `).concat(stage)]
+      const shouldLog = ![
+        !stage,
+        stage === 'cache',
+        stage === 'done',
+        !message?.length,
+      ].includes(true)
 
-      const statusColor = chalk.hex(
-        this.stats?.errorsCount > 0 ? '#ff5c57' : '#5af78e',
-      )
-
-      percent !== 100 && percent !== 0 && message.length
-        ? this.logger.log(
-            statusColor(`[${percent}%]`),
-            chalk.blue(`[${stage}]`),
-            ...message,
+      shouldLog &&
+        this.logger
+          .scope(
+            `${percent}%`,
+            stage,
+            ...message.splice(0, message.length - 1),
           )
-        : this.stats?.errorsCount > 0 &&
-          this.logger.log(
-            statusColor(`[${percent}%]`),
-            statusColor(`Compiled with errors`),
-          )
+          .log(...message)
     } catch (error) {
       this.app.warn(error)
     }

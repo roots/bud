@@ -1,5 +1,3 @@
-import {isFunction} from 'lodash'
-
 import {Bud} from '..'
 
 interface Callback {
@@ -37,7 +35,7 @@ interface SyncCallback {
 }
 
 export interface sequenceSync {
-  <T>(fns: Array<SyncCallback>): Bud
+  (fns: Array<SyncCallback>): Bud
 }
 
 /**
@@ -53,7 +51,7 @@ export const sequenceSync: sequenceSync = (
 ): Bud => {
   const app = this as Bud
 
-  fns.map(fn => (isFunction(fn) ? app.tap(fn) : fn))
+  fns.map(fn => fn.call(this, app))
 
   return app
 }
