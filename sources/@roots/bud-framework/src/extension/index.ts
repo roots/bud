@@ -33,8 +33,8 @@ export abstract class Extension {
   /**
    * @public
    */
-  public constructor(_app: Bud) {
-    this._app = () => _app
+  public constructor(_app?: Bud) {
+    if (_app) this._app = () => _app
   }
 
   /**

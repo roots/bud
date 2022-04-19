@@ -65,13 +65,6 @@ export class Test extends Command {
   }
 
   /**
-   * Match
-   *
-   * @internal
-   */
-  public match = Option.String({name: `test matcher`})
-
-  /**
    * Variadic arguments
    *
    * @internal
@@ -79,32 +72,15 @@ export class Test extends Command {
   public passthrough = Option.Proxy({name: `jest params`})
 
   /**
-   * True if setup script should be run
-   *
-   * @internal
-   */
-  public get shouldSetup(): boolean {
-    return this.match === 'all' || this.match.includes('integration')
-  }
-
-  /**
-   * Returns base jest command with match argument and
-   * default flags applied
-   *
-   * @internal
-   */
-  public get jestBase(): string {
-    return this.match === 'all'
-      ? `node ./node_modules/.bin/jest ${DEFAULT_JEST_FLAGS}`
-      : `node ./node_modules/.bin/jest ${this.match} ${DEFAULT_JEST_FLAGS}`
-  }
-
-  /**
    * Execute command
    *
    * @internal
    */
   public async execute() {
-    return await this.$(this.withPassthrough(this.jestBase))
+    return await this.$(
+      this.withPassthrough(
+        `node ./node_modules/.bin/jest ${DEFAULT_JEST_FLAGS}`,
+      ),
+    )
   }
 }

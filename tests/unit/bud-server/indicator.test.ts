@@ -1,6 +1,6 @@
 /* eslint-disable tsdoc/syntax */
-/** 
- * @jest-environment jsdom 
+/**
+ * @jest-environment jsdom
  */
 
 import * as Indicator from '@roots/bud-server/src/client/indicator'

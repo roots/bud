@@ -16,4 +16,4 @@ const domReady: domReady = onReady => {
   })
 }
 
-export {domReady as default}
+export default domReady

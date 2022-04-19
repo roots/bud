@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`@roots/bud extensions returns object 1`] = `
+Object {
+  "clean-webpack-plugin": Object {
+    "label": "clean-webpack-plugin",
+    "make": [Function],
+    "options": Object {
+      "cleanOnceBeforeBuildPatterns": Array [
+        "**/*",
+        "!dll",
+      ],
+      "cleanStaleWebpackAssets": true,
+      "protectWebpackAssets": true,
+    },
+    "when": [Function],
+  },
+  "copy-webpack-plugin": Object {
+    "label": "copy-webpack-plugin",
+    "make": [Function],
+    "options": [Function],
+    "when": [Function],
+  },
+  "mini-css-extract-plugin": Object {
+    "label": "mini-css-extract-plugin",
+    "make": [Function],
+    "options": [Function],
+    "when": [Function],
+  },
+  "webpack-define-plugin": Object {
+    "label": "webpack-define-plugin",
+    "make": [Function],
+    "options": [Function],
+    "when": [Function],
+  },
+  "webpack-hot-module-replacement-plugin": Object {
+    "label": "webpack-hot-module-replacement-plugin",
+    "make": [Function],
+    "when": [Function],
+  },
+  "webpack-manifest-plugin": Object {
+    "label": "webpack-manifest-plugin",
+    "make": [Function],
+    "options": [Function],
+    "when": [Function],
+  },
+  "webpack-provide-plugin": Object {
+    "label": "webpack-provide-plugin",
+    "make": [Function],
+    "when": [Function],
+  },
+}
+`;

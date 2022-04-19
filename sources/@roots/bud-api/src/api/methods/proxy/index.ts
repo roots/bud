@@ -111,9 +111,9 @@ export const method: method = function (input, replacements) {
   isUndefined(replacements)
     ? ctx.hooks.on(
         'dev.middleware.proxy.replacements',
-        (replacements): Array<[string | RegExp, string]> => [
-          ...(replacements ?? []),
-          [ctx.hooks.filter('dev.middleware.proxy.target').host, ''],
+        (hookValue): Array<[string | RegExp, string]> => [
+          ...(hookValue ?? []),
+          [ctx.hooks.filter('dev.middleware.proxy.target').origin, ''],
         ],
       )
     : ctx.hooks.on('dev.middleware.proxy.replacements', replacements)

@@ -10,18 +10,8 @@
  * @packageDocumentation
  */
 
-import * as api from './eslint.api'
+import './env'
+
 import {BudEslintWebpackPlugin} from './eslint.extension'
-
-declare module '@roots/bud-framework' {
-  interface Bud {
-    eslint: api.eslint
-    eslintConfig: api.eslint['config']
-  }
-
-  interface Modules {
-    'eslint-webpack-plugin': BudEslintWebpackPlugin
-  }
-}
 
 export const {label, options, register, make} = BudEslintWebpackPlugin

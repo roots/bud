@@ -1,4 +1,4 @@
-import { Options } from '@roots/bud-framework/types/config'
+import {Options} from '@roots/bud-framework/types/config'
 
 import {Bud} from '../Bud'
 import {makeContext} from '../context'

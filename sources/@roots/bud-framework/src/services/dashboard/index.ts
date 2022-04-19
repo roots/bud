@@ -8,6 +8,8 @@ import type {Service as Base} from '../../service'
  * @public
  */
 export interface Service extends Base {
+  progressCallback(percent: number, scope: string, ...message: any[]): void
+
   /**
    * Render the dashboard
    *

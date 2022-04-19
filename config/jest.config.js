@@ -24,6 +24,7 @@ module.exports = async function config() {
       'sources/@roots/bud-framework/src/Project/',
       'sources/@roots/bud-dashboard/',
       'sources/@roots/bud-support/',
+      'sources/@roots/dependencies/',
       'sources/@roots/filesystem/',
       'sources/@roots/ink-prettier/',
       'sources/@roots/ink-use-style/',
@@ -50,6 +51,7 @@ module.exports = async function config() {
     rootDir: resolve(__dirname, '../'),
     testEnvironment: 'node',
     testMatch: [
+      `<rootDir>/sources/@roots/**/src/**/*.test.{ts,tsx}`,
       `<rootDir>/tests/unit/**/*.test.ts`,
       `<rootDir>/tests/integration/basic.test.ts`,
       `<rootDir>/tests/integration/postcss.test.ts`,

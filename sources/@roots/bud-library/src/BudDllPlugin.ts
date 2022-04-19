@@ -1,7 +1,7 @@
 import {Bud, Extension} from '@roots/bud-framework'
 import AutoDllPlugin from 'autodll-webpack-plugin'
 
-type BudDllPlugin = Extension.Plugin<AutoDllPlugin, AutoDllPlugin.Options>
+type BudDllPlugin = Extension.Module<AutoDllPlugin, AutoDllPlugin.Options>
 
 interface BudDllPluginConstructor {
   (modules: string | string[]): BudDllPlugin
@@ -13,9 +13,7 @@ const BudDllPluginConstructor: BudDllPluginConstructor = modules => ({
   options: (app: Bud) => ({
     debug: false,
     inject: false,
-    filename: app.hooks.filter('feature.hash')
-      ? app.hooks.filter('value.hashFormat')
-      : app.hooks.filter('value.fileFormat'),
+    filename: app.path('@name'),
     entry: {
       library: typeof modules == 'string' ? [modules] : modules,
     },
