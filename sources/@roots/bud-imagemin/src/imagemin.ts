@@ -1,3 +1,5 @@
+import './interface'
+
 import {Bud, Extension} from '@roots/bud-framework'
 import {bind} from '@roots/bud-support'
 import ImageMinimizerPlugin, {

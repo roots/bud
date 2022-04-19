@@ -1,3 +1,4 @@
+import '@roots/bud-framework'
 import '@roots/bud-babel'
 
 import {ReactExtension} from './extension'

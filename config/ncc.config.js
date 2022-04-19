@@ -4,11 +4,7 @@
  * @see `sources/@repo/compile-kit`
  */
 module.exports = {
-  packages: [
-    '@roots/bud-dashboard',
-    '@roots/bud-support',
-    '@roots/container',
-  ],
+  packages: ['@roots/bud-support'],
   options: {
     externals: [
       'css-loader',
@@ -28,7 +24,7 @@ module.exports = {
       '@roots/bud-support',
     ],
     cache: false,
-    minify: false,
+    minify: true,
     sourceMap: false,
     sourceMapRegister: false,
     watch: false,

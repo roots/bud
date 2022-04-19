@@ -1,4 +1,4 @@
-import {Constructor} from '../extension/abstract'
+import {Constructor} from '../extension'
 import {Module} from '../extension/module'
 
 export interface Modules {

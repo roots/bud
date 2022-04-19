@@ -64,3 +64,6 @@ export const url = (app: Bud) =>
  */
 export const xml = (app: Bud) =>
   app.build.makeLoader().setSrc(require.resolve('xml-loader'))
+
+export const yml = (app: Bud) =>
+  app.build.makeLoader().setSrc(require.resolve('js-yaml-loader'))

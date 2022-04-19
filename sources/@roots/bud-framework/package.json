@@ -41,40 +41,31 @@
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    ".": {
-      "require": "./lib/cjs/index.js"
-    },
-    "./bud": {
-      "require": "./lib/cjs/bud.js"
-    },
-    "./extension": {
-      "require": "./lib/cjs/extension/extension.js"
-    },
-    "./module": {
-      "require": "./lib/cjs/module.js"
-    },
-    "./service": {
-      "require": "./lib/cjs/service.js"
-    },
-    "./services/*": {
-      "require": "./lib/cjs/services/*/index.js"
-    }
+    ".": "./lib/cjs/index.js",
+    "./bud": "./lib/cjs/bud.js",
+    "./extension": "./lib/cjs/extension/index.js",
+    "./module": "./lib/cjs/module.js",
+    "./service": "./lib/cjs/service.js",
+    "./services/*": "./lib/cjs/services/*/index.js"
   },
   "typesVersions": {
     "*": {
       ".": [
         "./types/index.d.ts"
       ],
-      "./config": [
+      "bud": [
+        "./types/bud.d.ts"
+      ],
+      "config": [
         "./types/config/index.d.ts"
       ],
-      "./extension": [
-        "./types/extension/extension.d.ts"
+      "extension": [
+        "./types/extension/index.d.ts"
       ],
-      "./service": [
+      "service": [
         "./types/service.d.ts"
       ],
-      "./services/*": [
+      "services/*": [
         "./types/services/*/index.d.ts"
       ]
     }
