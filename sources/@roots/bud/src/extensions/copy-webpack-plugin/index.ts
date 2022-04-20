@@ -1,20 +1,28 @@
-import type {Extension} from './copy-webpack-plugin.interface'
+import {Extension} from '@roots/bud-framework'
+import CopyWebpackPlugin, {PluginOptions} from 'copy-webpack-plugin'
 
-const BudCopyWebpackPlugin: Extension = {
-  label: 'copy-webpack-plugin',
+class BudCopyPlugin extends Extension.Extension<
+  PluginOptions,
+  CopyWebpackPlugin
+> {
+  public label = 'copy-webpack-plugin'
 
-  options: () => ({
-    patterns: [],
-  }),
+  public options() {
+    return {patterns: []}
+  }
 
-  make: options =>
-    new (require('copy-webpack-plugin'))({
+  public make(options) {
+    return new (require('copy-webpack-plugin'))({
       ...options.all(),
-    }),
+    })
+  }
 
-  when(_app, options) {
-    return options.has('patterns') && options.get('patterns')?.length > 0
-  },
+  public when() {
+    return (
+      this.getOptions().has('patterns') &&
+      this.getOptions().isNotEmpty('patterns')
+    )
+  }
 }
 
-export const {label, options, make, when} = BudCopyWebpackPlugin
+export default BudCopyPlugin

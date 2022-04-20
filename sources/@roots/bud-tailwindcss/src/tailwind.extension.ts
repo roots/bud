@@ -1,6 +1,7 @@
 import {Extension} from '@roots/bud-framework'
+import {bind} from '@roots/bud-support'
 
-export class BudTailwindCss extends Extension.Extension {
+class BudTailwindCss extends Extension.Extension {
   /**
    * @public
    */
@@ -9,16 +10,19 @@ export class BudTailwindCss extends Extension.Extension {
   /**
    * @public
    */
+  @bind
   public async boot() {
     try {
       const {default: tailwindcss} = await this.import('tailwindcss')
       const {default: nesting} = await this.import('tailwindcss/nesting')
 
       this.app.postcss.setPlugins({
-        'postcss-import': this.app.postcss.get('postcss-import'),
+        'postcss-import': this.app.postcss.plugins.get('postcss-import'),
         'tailwindcss-nesting': [nesting],
         tailwindcss: [tailwindcss],
-        'postcss-preset-env': this.app.postcss.get('postcss-preset-env'),
+        'postcss-preset-env': this.app.postcss.plugins.get(
+          'postcss-preset-env',
+        ),
       })
 
       this.logger.success('postcss configured for tailwindcss')
@@ -27,3 +31,5 @@ export class BudTailwindCss extends Extension.Extension {
     }
   }
 }
+
+export default BudTailwindCss

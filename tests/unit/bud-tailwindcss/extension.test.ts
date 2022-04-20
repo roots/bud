@@ -1,7 +1,5 @@
-import '@roots/bud-postcss'
-
 import {Bud, factory} from '@repo/test-kit/bud'
-import {BudPostCssExtension} from '@roots/bud-postcss/src/postcss.extension'
+import BudPostCss from '@roots/bud-postcss'
 import BudTailwindCssExtension from '@roots/bud-tailwindcss'
 
 describe('@roots/bud-tailwindcss', () => {
@@ -18,10 +16,13 @@ describe('@roots/bud-tailwindcss', () => {
   })
 
   it('sets up postcss plugins', async () => {
-    bud.use([BudPostCssExtension, BudTailwindCssExtension])
-    await bud.api.processQueue()
+    const bud = await factory()
 
-    expect(bud.postcss.getKeys()).toEqual([
+    await bud.extensions.add(BudPostCss)
+    await bud.extensions.add(BudTailwindCssExtension)
+    const plugins = [...bud.postcss.plugins.keys()]
+
+    expect(plugins).toEqual([
       'postcss-import',
       'tailwindcss-nesting',
       'tailwindcss',

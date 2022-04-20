@@ -12,6 +12,6 @@
 
 import './typings'
 
-import {BudTailwindCss} from './tailwind.extension'
+import BudTailwindCss from './tailwind.extension'
 
-export {BudTailwindCss as default}
+export default BudTailwindCss

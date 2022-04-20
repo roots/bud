@@ -1,15 +1,16 @@
-import {Extension} from '@roots/bud-framework'
+import {Bud, Extension} from '@roots/bud-framework'
 import {bind, parseSemver} from '@roots/bud-support'
 import {Configuration, RuleSetRule} from 'webpack'
 
 type Aliases = Configuration['resolve']['alias']
+type Options = {runtimeOnly: boolean}
 
 /**
  * Vue support
  *
  * @public
  */
-export class Vue extends Extension.Extension {
+export class Vue extends Extension.Extension<Options, null> {
   /**
    * @public
    */
@@ -18,7 +19,11 @@ export class Vue extends Extension.Extension {
   /**
    * @public
    */
-  public options = {runtimeOnly: true}
+  public options(app: Bud): Options {
+    return {
+      runtimeOnly: true,
+    }
+  }
 
   /**
    * @public

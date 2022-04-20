@@ -11,13 +11,13 @@ import {Build, Extension} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
   interface Modules {
-    'webpack-provide-plugin': Extension.Plugin
-    'webpack-config-dump-plugin': Extension.Plugin
-    'copy-webpack-plugin': Extension.Plugin
-    'webpack-define-plugin': Extension.Plugin
-    'webpack-hot-module-replacement-plugin': Extension.Plugin
-    'webpack-manifest-plugin': Extension.Plugin
-    'mini-css-extract-plugin': Extension.Plugin
+    'webpack-provide-plugin': Extension.Module
+    'webpack-config-dump-plugin': Extension.Module
+    'copy-webpack-plugin': Extension.Module
+    'webpack-define-plugin': Extension.Module
+    'webpack-hot-module-replacement-plugin': Extension.Module
+    'webpack-manifest-plugin': Extension.Module
+    'mini-css-extract-plugin': Extension.Module
   }
 
   interface Loaders {

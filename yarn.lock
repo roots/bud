@@ -3821,6 +3821,7 @@ __metadata:
   dependencies:
     "@roots/bud-build": "workspace:sources/@roots/bud-build"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
+    "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
     "@types/node": 16.11.26
     "@types/signale": 1.4.4
@@ -3832,10 +3833,10 @@ __metadata:
     tslib: 2.3.1
     webpack: 5.70.0
   peerDependencies:
-    postcss: ^8.4.5
-    postcss-import: ^14.0.2
-    postcss-nested: ^5.0.6
-    postcss-preset-env: ^7.1.0
+    postcss: "*"
+    postcss-import: "*"
+    postcss-nested: "*"
+    postcss-preset-env: "*"
   peerDependenciesMeta:
     postcss:
       optional: true

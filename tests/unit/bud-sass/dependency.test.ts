@@ -6,9 +6,7 @@ import {Signale} from '@roots/bud-support'
 
 describe('@roots/bud-sass dependency', () => {
   it('has dependency source', async () => {
-    const importSass = await importSassImplementation(
-      new Signale(),
-    )
+    const importSass = await importSassImplementation(new Signale())
 
     const raw = await import('sass')
 

@@ -3,9 +3,6 @@ import {seed} from '@roots/bud'
 import {json5, toml} from '@roots/bud-support'
 import {RuleSetRule} from 'webpack'
 
-/* 3x */
-jest.setTimeout(15000)
-
 describe('bud.build.config', function () {
   let bud: Bud
 

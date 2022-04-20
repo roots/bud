@@ -2,7 +2,6 @@ import type {Bud, Extension} from '@roots/bud-framework'
 import type {Signale} from '@roots/bud-support'
 
 import {importSassImplementation} from './sass.dependency'
-import * as postcss from './sass.postcss'
 
 export interface extension extends Extension.Module {}
 
@@ -47,10 +46,8 @@ export const extension: extension = {
    * Extension boot callback
    *
    * @param app - Bud instance
-   * @param logger - Bud logger
    */
-  async boot(app, logger): Promise<void> {
-    postcss.configure(app)
-    postcss.verify(app, logger)
+  async boot(app): Promise<void> {
+    app.postcss.syntax = 'postcss-scss'
   },
 }

@@ -24,7 +24,7 @@ module.exports = {
       '@roots/bud-support',
     ],
     cache: false,
-    minify: true,
+    minify: false,
     sourceMap: false,
     sourceMapRegister: false,
     watch: false,

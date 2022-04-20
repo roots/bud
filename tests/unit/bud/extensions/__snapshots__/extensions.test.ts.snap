@@ -15,12 +15,7 @@ Object {
     },
     "when": [Function],
   },
-  "copy-webpack-plugin": Object {
-    "label": "copy-webpack-plugin",
-    "make": [Function],
-    "options": [Function],
-    "when": [Function],
-  },
+  "copy-webpack-plugin": [Function],
   "mini-css-extract-plugin": Object {
     "label": "mini-css-extract-plugin",
     "make": [Function],

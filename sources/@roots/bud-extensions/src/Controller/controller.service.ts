@@ -283,14 +283,14 @@ export class Controller {
    * @public
    */
   @bind
-  public make() {
+  public make(): {apply: any} | false {
     if (this.when === false) return false
     if (!this._module.make && !this._module.apply) return false
 
-    if (this._module.apply) return this._module
+    if (this._module.apply) return this._module as {apply: any}
 
     return isFunction(this._module.make)
-      ? this._module.make(this.options, this.app)
+      ? this._module.make(this.options, this.app, this.logger)
       : this._module.make
   }
 

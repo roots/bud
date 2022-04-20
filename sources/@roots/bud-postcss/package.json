@@ -49,6 +49,7 @@
     "type": "extension"
   },
   "devDependencies": {
+    "@roots/bud-build": "workspace:sources/@roots/bud-build",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.11.26",
@@ -56,7 +57,7 @@
     "webpack": "5.70.0"
   },
   "dependencies": {
-    "@roots/bud-build": "workspace:sources/@roots/bud-build",
+    "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "postcss": "8.4.12",
     "postcss-import": "14.0.2",
     "postcss-loader": "6.2.1",
@@ -65,10 +66,10 @@
     "tslib": "2.3.1"
   },
   "peerDependencies": {
-    "postcss": "^8.4.5",
-    "postcss-import": "^14.0.2",
-    "postcss-nested": "^5.0.6",
-    "postcss-preset-env": "^7.1.0"
+    "postcss": "*",
+    "postcss-import": "*",
+    "postcss-nested": "*",
+    "postcss-preset-env": "*"
   },
   "peerDependenciesMeta": {
     "postcss": {

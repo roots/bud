@@ -8,7 +8,7 @@ import {Config} from './babel.config'
  *
  * @public
  */
-export class BabelExtension extends Extension.Extension {
+export class BabelExtension extends Extension.Extension<any, null> {
   /**
    * @public
    */
