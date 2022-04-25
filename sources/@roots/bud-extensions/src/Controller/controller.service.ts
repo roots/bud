@@ -9,7 +9,7 @@ const {isFunction} = lodash
  * @public
  */
 export class Controller<
-  Ext extends Extension,
+  Ext extends Extension = Extension<any, any>,
   Constructor extends {new (...args: any[]): Ext} = {
     new (...args: any[]): Ext
   },
@@ -121,12 +121,15 @@ export class Controller<
   public async ensureDependenciesRanFirst(
     method: 'init' | 'register' | 'boot',
   ): Promise<void> {
-    if (this.module.dependsOn?.size > 0) {
-      for (const name in this.module.dependsOn) {
-        if (this.app.extensions.has(name)) {
-          await this.app.extensions.get(name)[method]()
+    if (this.has('dependsOn')) {
+      Array.from(this.get('dependsOn')).map(async pkgName => {
+        if (!this.app.extensions.has(pkgName))
+          await this.app.extensions.import(pkgName)
+
+        if (this.app.extensions.has(pkgName)) {
+          await this.app.extensions.get(pkgName)[method]()
         }
-      }
+      })
     }
   }
 

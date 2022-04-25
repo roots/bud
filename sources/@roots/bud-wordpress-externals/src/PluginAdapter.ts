@@ -1,15 +1,10 @@
 import {Extension} from '@roots/bud-framework'
+import {label, plugin} from '@roots/bud-framework/extension/decorators'
 import {WordPressExternals} from '@roots/wordpress-externals-webpack-plugin'
 
-/**
- * @public
- */
-class BudWordPressExternals extends Extension {
-  public label: '@roots/wordpress-externals-webpack-plugin'
-
-  public async make() {
-    return new WordPressExternals()
-  }
-}
-
-export default BudWordPressExternals
+@label('@roots/bud-wordpress-externals')
+@plugin(WordPressExternals)
+export default class BudWordPressExternals extends Extension<
+  {},
+  WordPressExternals
+> {}

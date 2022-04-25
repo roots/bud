@@ -16,8 +16,10 @@ import {MergedManifestWebpackPlugin} from '@roots/merged-manifest-webpack-plugin
 
 declare module '@roots/bud-framework' {
   interface Modules {
-    '@roots/bud-wordpress-manifests': Extension
-    '@roots/merged-manifest-webpack-plugin': Extension
+    '@roots/bud-wordpress-manifests': Extension<
+      {},
+      MergedManifestWebpackPlugin
+    >
   }
 }
 

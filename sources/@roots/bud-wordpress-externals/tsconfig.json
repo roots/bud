@@ -4,12 +4,7 @@
     "baseUrl": ".",
     "rootDir": "./src",
     "outDir": "./lib/cjs",
-    "declarationDir": "./types",
-    "esModuleInterop": true,
-    "types": [
-      "node",
-      "jest"
-    ]
+    "declarationDir": "./types"
   },
   "include": [
     "src"

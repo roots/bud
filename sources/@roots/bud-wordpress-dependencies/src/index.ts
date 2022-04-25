@@ -14,12 +14,15 @@ import {WordPressDependenciesWebpackPlugin} from '@roots/wordpress-dependencies-
 
 declare module '@roots/bud-framework' {
   interface Modules {
-    '@roots/wordpress-dependencies-webpack-plugin': Plugin
+    '@roots/bud-wordpress-dependencies': Extension<
+      null,
+      WordPressDependenciesWebpackPlugin
+    >
   }
 }
 
 export const label: Extension['label'] =
-  '@roots/wordpress-dependencies-webpack-plugin'
+  '@roots/bud-wordpress-dependencies'
 
 export const plugin: Extension<
   null,

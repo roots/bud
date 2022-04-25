@@ -143,7 +143,7 @@ class BudPostCss extends Extension<any, any> {
     options: Record<string, any>,
   ): this {
     this.plugins.set(plugin, [
-      this.plugins.has(plugin) && this.plugins.get(plugin).length
+      this.plugins.has(plugin) && this.plugins.get(plugin)?.length
         ? this.get(plugin).shift()
         : this.get(plugin),
       options,

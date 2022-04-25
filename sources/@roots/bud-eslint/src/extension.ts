@@ -19,7 +19,7 @@ import {cpus} from 'os'
   cwd: app => app.path(),
   eslintPath: require.resolve('eslint'),
   resolvePluginsRelativeTo: app => app.path(),
-  threads: cpus.length / 2,
+  threads: Math.max(cpus?.length / 2, 1),
 })
 class BudEslint extends Extension<Options, EslintPlugin> {
   @bind

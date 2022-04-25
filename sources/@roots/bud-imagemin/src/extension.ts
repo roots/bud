@@ -1,22 +1,34 @@
-import {Extension} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
   expose,
   label,
-  value,
 } from '@roots/bud-framework/extension/decorators'
 import ImageMinimizerPlugin, {
   Generator,
-  ImageminMinifyFunction,
 } from 'image-minimizer-webpack-plugin'
 
 @label('@roots/bud-imagemin')
-@value('implementation', ImageMinimizerPlugin.squooshMinify)
 @expose('imagemin')
 export default class BudImagemin extends Extension {
-  public implementation: ImageminMinifyFunction
-  public getImplementation: () => ImageminMinifyFunction
-  public setImplementation: (value: ImageminMinifyFunction) => this
+  public _implementation = ImageMinimizerPlugin.squooshGenerate
+  public get implementation() {
+    return this._implementation
+  }
+  public set implementation(
+    implementation: typeof ImageMinimizerPlugin.squooshGenerate,
+  ) {
+    this._implementation = implementation
+  }
+  @bind
+  public getImplementation(): typeof ImageMinimizerPlugin.squooshGenerate {
+    return this.implementation
+  }
+  @bind
+  public setImplementation(implementation): BudImagemin {
+    this.implementation = implementation
+    return this
+  }
 
   public _generatorImplementation = ImageMinimizerPlugin.squooshGenerate
   public get generatorImplementation() {

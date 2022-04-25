@@ -26,15 +26,7 @@ export interface Service extends BaseService {
   remove<K extends keyof this['repository']>(key: K): this
 
   set<K extends keyof this['repository']>(
-    key: K & string,
     value: Controller<Modules[K & string], ModuleDefinitions[K & string]>,
-  ): this
-
-  setController<K extends keyof this['repository']>(
-    controller: Controller<
-      Modules[K & string],
-      ModuleDefinitions[K & string]
-    >,
   ): this
 
   /**
@@ -48,6 +40,8 @@ export interface Service extends BaseService {
       | Partial<Extension>
       | Array<Extension.Constructor | Partial<Extension>>,
   ): Promise<unknown>
+
+  import(packageName: string): Promise<Controller>
 
   /**
    * Install and register discovered extensions

@@ -1,10 +1,11 @@
 import {Bud, factory} from '@repo/test-kit/bud'
 import {Controller} from '@roots/bud-extensions'
+import {Modules} from '@roots/bud-framework'
 import BudTerser from '@roots/bud-terser'
 
 describe('@roots/bud-terser', () => {
   let bud: Bud
-  let controller: Controller<'@roots/bud-terser'>
+  let controller: Controller<Modules['@roots/bud-terser']>
 
   beforeAll(async () => {
     bud = await factory()

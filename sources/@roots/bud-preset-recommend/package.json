@@ -62,12 +62,7 @@
     }
   },
   "bud": {
-    "type": "extension",
-    "peers": [
-      "@roots/bud-babel",
-      "@roots/bud-entrypoints",
-      "@roots/bud-postcss"
-    ]
+    "type": "extension"
   },
   "devDependencies": {
     "@roots/bud-api": "workspace:sources/@roots/bud-api",

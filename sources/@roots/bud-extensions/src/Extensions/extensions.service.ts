@@ -6,15 +6,12 @@ import {
   Service,
 } from '@roots/bud-framework'
 import {Controllers} from '@roots/bud-framework/types/registry'
-import {bind} from '@roots/bud-support'
+import {bind, chalk} from '@roots/bud-support'
 
 import {Controller} from '../Controller'
 
 /**
  * Extensions Service
- *
- * @remarks
- * Manages extension controllers
  *
  * @public
  */
@@ -43,11 +40,14 @@ export class Extensions extends Service implements Contract.Service {
 
   @bind
   public set<K extends keyof this['repository']>(
-    key: K & string,
     value: Controller<Modules[K & string], ModuleDefinitions[K & string]>,
   ): this {
-    this.app.log(`setting controller: ${key}`, value.module)
-    this.repository[key] = value
+    value
+      .get('logger')
+      .log(`setting controller`, chalk.blue(value.get('label')))
+
+    this.repository[value.get('label')] = value
+
     return this
   }
 
@@ -59,28 +59,11 @@ export class Extensions extends Service implements Contract.Service {
   }
 
   @bind
-  public setController<K extends keyof this['repository'] & string>(
-    controller: Controller<
-      Modules[K & string],
-      ModuleDefinitions[K & string]
-    >,
-  ): this {
-    if (this.has(controller.get('label'))) {
-      this.get(controller.get('label'))
-        .get('logger')
-        .info(`this controller has already been set`)
-    } else this.set(controller.get('label'), controller)
-
-    return this
-  }
-
-  @bind
   public async booted(): Promise<void> {
-    this.app.options.extensions
-      .map(this.makeController)
-      .map(this.setController)
+    this.app.options.extensions.map(this.makeController).map(this.set)
 
     await this.injectExtensions()
+
     await this.withAllControllers('init')
     await this.withAllControllers('register')
     await this.withAllControllers('boot')
@@ -93,16 +76,28 @@ export class Extensions extends Service implements Contract.Service {
       return
     }
 
-    try {
-      await Promise.all(
-        Object.values(this.app.project.peers.modules ?? {})
-          .filter(Boolean)
-          .filter(({bud}) => bud?.type === 'extension')
-          .map(this.import),
-      )
-    } catch (e) {
-      this.app.error(e)
-    }
+    this.app.info('injecting extensions')
+    const dependencyKeys = Object.keys({
+      ...(this.app.context.manifest?.devDependencies ?? {}),
+      ...(this.app.context.manifest?.dependencies ?? {}),
+    })
+
+    return Promise.all(
+      dependencyKeys.map(async (pkg, i) => {
+        this.app.info('injecting', pkg)
+
+        try {
+          const manifestPath = await this.app.module.manifestPath(pkg)
+          const manifest = await this.app.module.readManifest(manifestPath)
+
+          if (!manifest?.bud) return
+
+          await this.import(pkg)
+        } catch (error) {
+          this.app.error(`Error importing`, pkg, `\n`, error)
+        }
+      }),
+    )
   }
 
   @bind
@@ -111,16 +106,20 @@ export class Extensions extends Service implements Contract.Service {
   ): Promise<Controller<any, any>> {
     const pkgName = typeof input !== 'string' ? input.name : input
     if (this.has(pkgName)) return
-    this.app.log('importing', pkgName)
+
+    this.app.info(chalk.dim(`importing ${pkgName}`))
 
     const imported = await import(pkgName)
     const extension: Extension = imported.default
       ? imported.default
       : imported
 
+    this.app.success(chalk.green(`imported ${pkgName}`))
+
     const controller = this.makeController(extension)
+
     if (this.has(controller.get('label'))) return
-    this.set(controller.get('label'), controller)
+    this.set(controller)
 
     return controller
   }
@@ -130,28 +129,71 @@ export class Extensions extends Service implements Contract.Service {
     controllerName: K & string,
     methodName: 'init' | 'register' | 'boot',
   ): Promise<this> {
-    if (!this.has(controllerName)) return
+    if (!this.has(controllerName)) {
+      this.app.warn(
+        methodName,
+        'called on',
+        controllerName,
+        'but it could not be found',
+      )
+      return this
+    }
 
     const controller = this.get(controllerName)
 
-    if (!controller) return
+    if (
+      controller.has('dependsOn') &&
+      controller.get('dependsOn').size > 0
+    ) {
+      await Promise.all(
+        Array.from(controller.get('dependsOn')).map(async packageName => {
+          if (this.has(packageName)) return
+
+          this.app.info(
+            packageName,
+            'has not been imported but it is required by',
+            controller.get('label'),
+          )
+
+          try {
+            await this.import(packageName)
+          } catch (error) {
+            this.app.error(
+              controller.get('label'),
+              'request for',
+              packageName,
+              'could not be fulfilled',
+              '\n',
+              error,
+            )
+          }
+        }),
+      )
+    }
 
     try {
       await controller[methodName]()
       return this
     } catch (err) {
-      this.app.log(controller)
       this.app.error(err)
     }
   }
 
   /**
+   * Execute a controller lifecycle method on all registered controllers
+   *
    * @public
    */
   @bind
   public async withAllControllers(
     methodName: 'init' | 'register' | 'boot',
   ): Promise<Array<void>> {
+    this.app.log(
+      'calling',
+      chalk.blue(methodName),
+      'on all registered controllers',
+    )
+
     return Promise.all(
       Object.values(this.repository).map(async controller => {
         await this.withController(controller.get('label'), methodName)
@@ -160,7 +202,7 @@ export class Extensions extends Service implements Contract.Service {
   }
 
   /**
-   * Add a {@link Controller} to the container
+   * Add a {@link Controller} to the extensions repository
    *
    * @public
    * @decorator `@bind`
@@ -174,15 +216,15 @@ export class Extensions extends Service implements Contract.Service {
 
       try {
         const controller = this.makeController(extension)
-        this.setController(controller)
+        this.set(controller)
 
         if (
           controller.has('dependsOn') &&
-          controller.get('dependsOn')?.size > 0
+          controller.get('dependsOn').size > 0
         ) {
-          for (const name in controller.get('dependsOn')) {
+          Array.from(controller.get('dependsOn')).map(async name => {
             if (this.has(name)) {
-              controller.get('logger').info({
+              this.app.info({
                 prefix: `skipping dependency import`,
                 message: `${name} has already been imported`,
               })
@@ -192,9 +234,9 @@ export class Extensions extends Service implements Contract.Service {
             const dependency = await this.app.module.import(name)
 
             !dependency
-              ? controller.get('logger').warn(`${dependency} import?`)
+              ? this.app.warn(`${dependency} import?`)
               : await this.add(dependency)
-          }
+          })
         }
 
         await this.withController(controller.get('label'), 'init')
@@ -225,9 +267,12 @@ export class Extensions extends Service implements Contract.Service {
         async (controller: Controller<any, any>) => {
           const result = await controller.make()
           if (!result) return
-          controller
-            .get('logger')
-            .success(`will be used in the compilation`)
+
+          this.app.success(
+            controller.get('label'),
+            `will be used in the compilation`,
+          )
+
           return result
         },
       ),

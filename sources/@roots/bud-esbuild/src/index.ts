@@ -37,6 +37,7 @@ type Opts = {
   }
 }
 
+@label('@roots/bud-esbuild')
 @options<Opts>({
   minify: app => ({
     css: true,
@@ -57,7 +58,6 @@ type Opts = {
       project.get(['config', 'base', 'tsconfig.json', 'module']) ?? null,
   }),
 })
-@label('@roots/bud-esbuild')
 class BudEsbuild extends Extension<Opts> {
   @bind
   public async boot() {

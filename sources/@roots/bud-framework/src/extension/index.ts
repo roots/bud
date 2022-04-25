@@ -113,10 +113,9 @@ export class Extension<E = any, Plugin = any> {
   public constructor(_app: Bud) {
     this._app = () => _app
 
-    const logger = (() =>
-      _app.logger.makeInstance({
-        scope: this.label ?? 'anonymous extension',
-      }))()
+    const logger = _app.logger.makeInstance({
+      scope: this.label ?? 'anonymous extension',
+    })
 
     Object.defineProperty(this, 'app', {
       get: (() =>
@@ -128,7 +127,7 @@ export class Extension<E = any, Plugin = any> {
     Object.defineProperty(this, 'logger', {
       get: (() =>
         function (): Signale {
-          return logger.scope(this.label)
+          return logger.scope(this.label ?? 'anonymous extension')
         }.bind(this))(),
     })
 

@@ -6,6 +6,6 @@ declare module '@roots/bud-framework' {
   }
 
   interface Modules {
-    'eslint-webpack-plugin': BudEslint
+    '@roots/bud-eslint': BudEslint
   }
 }

@@ -12,7 +12,7 @@ export const relPath: relPath = function (...parts): string {
   const processedParts: string[] = parts.map(part => app.path(part as any))
 
   return relative(
-    processedParts.length > 1 ? processedParts.shift() : app.path(),
+    processedParts?.length > 1 ? processedParts.shift() : app.path(),
     processedParts.shift(),
   )
 }

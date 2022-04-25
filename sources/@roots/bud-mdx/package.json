@@ -46,11 +46,7 @@
     "import": "./lib/esm/index.js"
   },
   "bud": {
-    "type": "extension",
-    "peers": [
-      "@roots/bud-babel",
-      "@roots/bud-react"
-    ]
+    "type": "extension"
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
@@ -66,7 +62,6 @@
     "@roots/bud-build": "workspace:sources/@roots/bud-build",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-react": "workspace:sources/@roots/bud-react",
-    "autobind-decorator": "^2.4.0",
     "tslib": "2.3.1"
   },
   "peerDependencies": {

@@ -35,4 +35,4 @@ const BudSolidExtension: BudSolidExtension = {
   },
 }
 
-export const {label, boot} = BudSolidExtension
+export const {label, boot, dependsOn} = BudSolidExtension

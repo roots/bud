@@ -5,7 +5,7 @@ import {
   label,
 } from '@roots/bud-framework/extension/decorators'
 
-@label('@roots/bud-wordpress')
+@label('@roots/bud-preset-wordpress')
 @dependsOn([
   '@roots/bud-babel',
   '@roots/bud-entrypoints',

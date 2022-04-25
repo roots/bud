@@ -80,7 +80,7 @@ export const assetGroup = assets =>
 export const report = (compilation: StatsCompilation) => [
   table.make([[chalk.hex(theme.cyan)(`${compilation.name}`)]]),
   table.make(assetGroup(assets(compilation)).filter(Boolean)),
-  assets.length
+  assets?.length
     ? table.make([
         [chalk.hex(theme.dim).italic(`+ ${assets.length} static assets`)],
       ])

@@ -44,10 +44,7 @@
     }
   },
   "bud": {
-    "type": "extension",
-    "peers": [
-      "@roots/bud-babel"
-    ]
+    "type": "extension"
   },
   "devDependencies": {
     "@babel/core": "7.17.8",

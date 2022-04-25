@@ -13,8 +13,12 @@ describe('@roots/bud-imagemin', () => {
     it('exposes class through imagemin prop', () => {
       expect(bud.imagemin).toBeInstanceOf(imagemin)
     })
-    it('exposes class through imagemin prop', () => {
+    it('setImplementation', () => {
       expect(bud.imagemin.setImplementation).toBeInstanceOf(Function)
+    })
+    it('setImplementation', () => {
+      bud.imagemin.setImplementation('test' as any)
+      expect(bud.imagemin.getImplementation()).toBe('test')
     })
   })
 })

@@ -21,7 +21,7 @@ import BudWordPressExternals from './PluginAdapter'
 
 declare module '@roots/bud-framework' {
   interface Modules {
-    '@roots/wordpress-externals-webpack-plugin': BudWordPressExternals
+    '@roots/bud-wordpress-externals': BudWordPressExternals
   }
 }
 

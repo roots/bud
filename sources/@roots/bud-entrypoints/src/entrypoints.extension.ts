@@ -12,9 +12,7 @@ import {
 @label('@roots/bud-entrypoints')
 @options({emitHtml: false})
 @plugin(EntrypointsWebpackPlugin)
-class BudEntrypointsExtension extends Extension<
+export default class BudEntrypointsExtension extends Extension<
   Options,
   EntrypointsWebpackPlugin
 > {}
-
-export default BudEntrypointsExtension

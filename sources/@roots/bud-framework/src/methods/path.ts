@@ -35,7 +35,7 @@ export const parseAlias: parseAlias = (app, base) => {
   ident = app.hooks.filter(`location.${ident as Handle}`)
 
   /* If segments were passed, resolve */
-  return parts.length ? resolve(ident, ...parts) : ident
+  return parts?.length ? resolve(ident, ...parts) : ident
 }
 
 /**
@@ -91,5 +91,5 @@ export const path: path = function (base, ...segments) {
     base = resolve(app.context.projectDir, base) as any
 
   /* If segments were passed, resolve them against base */
-  return segments.length ? resolve(base, ...segments) : base
+  return segments?.length ? resolve(base, ...segments) : base
 }

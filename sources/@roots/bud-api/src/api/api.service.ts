@@ -98,13 +98,10 @@ export class Api
    */
   @bind
   public async processQueue() {
-    if (!this.queue.length) return
-
-    this.app.log(`Executing ${this.queue.length} enqueued functions`)
-
     await Promise.all(
-      this.queue.map(async ([name, args]) => {
+      this.queue.map(async ([name, args], i) => {
         this.trace.push([name, ...args])
+        delete this.queue[i]
 
         try {
           await this.call(name, ...args)
@@ -120,7 +117,5 @@ export class Api
         }
       }),
     )
-
-    this.queue = []
   }
 }

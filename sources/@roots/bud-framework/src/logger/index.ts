@@ -29,7 +29,7 @@ export class Logger {
   }
 
   public get interactive() {
-    return !this.app.context.args.log ? true : false
+    return this.level === LEVEL.ERROR
   }
 
   /**
@@ -45,12 +45,14 @@ export class Logger {
 
   @bind
   public makeInstance(constructorOverrides = {}, configOverrides = {}) {
-    const instance = new Signale({
+    let instance = new Signale({
       interactive: this.interactive,
       secrets: [this.app.context.projectDir, this.app.context.cwd],
       logLevel: this.level,
       types: types(this.app),
-      scope: 'bud',
+      scope:
+        this.app.context.manifest.name ??
+        this.app.context.application.label,
       ...constructorOverrides,
     })
 
@@ -68,6 +70,12 @@ export class Logger {
       uppercaseLabel: false,
       ...configOverrides,
     })
+
+    instance = instance.scope(
+      this.app.context.application.label,
+      this.app.context.application.version,
+      this.app.context.manifest.name,
+    )
 
     return instance
   }

@@ -47,10 +47,7 @@
     "./stylelint-config": "./stylelint-config/index.js"
   },
   "bud": {
-    "type": "extension",
-    "peers": [
-      "@roots/bud-postcss"
-    ]
+    "type": "extension"
   },
   "devDependencies": {
     "@roots/bud-api": "workspace:sources/@roots/bud-api",

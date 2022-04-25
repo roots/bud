@@ -42,21 +42,11 @@
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    ".": {
-      "require": "./lib/cjs/index.js"
-    },
-    "./client": {
-      "require": "./lib/cjs/client/index.js"
-    },
-    "./client/dom-ready": {
-      "require": "./lib/cjs/client/dom-ready.js"
-    },
-    "./stylelint-config": {
-      "require": "./stylelint-config/index.js"
-    },
-    "./theme/tailwind": {
-      "require": "./lib/cjs/theme/tailwind.adapter.js"
-    }
+    ".": "./lib/cjs/index.js",
+    "./client": "./lib/cjs/client/index.js",
+    "./client/dom-ready": "./lib/cjs/client/dom-ready.js",
+    "./stylelint-config": "./stylelint-config/index.js",
+    "./theme/tailwind": "./lib/cjs/theme/tailwind.adapter.js"
   },
   "typesVersions": {
     "*": {
@@ -75,10 +65,7 @@
     }
   },
   "bud": {
-    "type": "extension",
-    "peers": [
-      "@roots/bud-preset-wordpress"
-    ]
+    "type": "extension"
   },
   "devDependencies": {
     "@roots/bud-api": "workspace:sources/@roots/bud-api",

@@ -124,7 +124,7 @@ export abstract class Bud {
    * @readonly
    */
   public get hasChildren(): boolean {
-    return this.children?.getEntries().length > 0
+    return this.children?.getEntries()?.length > 0
   }
 
   /**

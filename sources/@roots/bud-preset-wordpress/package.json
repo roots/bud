@@ -34,17 +34,7 @@
     "types/"
   ],
   "bud": {
-    "type": "extension",
-    "peers": [
-      "@roots/bud-babel",
-      "@roots/bud-entrypoints",
-      "@roots/bud-postcss",
-      "@roots/bud-preset-recommend",
-      "@roots/bud-react",
-      "@roots/bud-wordpress-externals",
-      "@roots/bud-wordpress-dependencies",
-      "@roots/bud-wordpress-manifests"
-    ]
+    "type": "extension"
   },
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -68,7 +58,6 @@
     }
   },
   "devDependencies": {
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@skypack/package-check": "0.2.2",
     "@types/lodash": "4.14.180",
     "@types/node": "16.11.26",
@@ -81,6 +70,7 @@
   "dependencies": {
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
     "@roots/bud-entrypoints": "workspace:sources/@roots/bud-entrypoints",
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-preset-recommend": "workspace:sources/@roots/bud-preset-recommend",
     "@roots/bud-react": "workspace:sources/@roots/bud-react",
     "@roots/bud-wordpress-dependencies": "workspace:sources/@roots/bud-wordpress-dependencies",

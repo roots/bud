@@ -1,5 +1,4 @@
 import {Bud, factory} from '@repo/test-kit/bud'
-import BudBabel from '@roots/bud-babel'
 import BudTypescript from '@roots/bud-typescript'
 
 describe('@roots/bud-typescript', () => {
@@ -11,14 +10,20 @@ describe('@roots/bud-typescript', () => {
 
   beforeEach(async () => {
     bud.extensions.repository = {} as any
-    bud.use([BudBabel, BudTypescript])
-    await bud.api.processQueue()
+    await bud.extensions.add(BudTypescript)
   })
 
   it('label', () => {
     expect(bud.extensions.get('@roots/bud-typescript').get('label')).toBe(
       '@roots/bud-typescript',
     )
+  })
+
+  it('registered @roots/bud-typescript', () => {
+    expect(bud.extensions.has('@roots/bud-typescript')).toBeTruthy()
+  })
+  it('registered @roots/bud-babel', () => {
+    expect(bud.extensions.has('@roots/bud-babel')).toBeTruthy()
   })
 
   it('provides callable typecheck method', async () => {

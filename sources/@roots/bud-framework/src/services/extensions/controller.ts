@@ -6,7 +6,7 @@ import {Bud, Extension} from '../../'
  * @public
  */
 export interface Controller<
-  Ext extends Extension,
+  Ext extends Extension = Extension<any, any>,
   Constructor extends {new (...args: any[]): Ext} = {
     new (...args: any[]): Ext
   },

@@ -1,8 +1,7 @@
 import * as Framework from '@roots/bud-framework'
 import {bind, fs, lodash} from '@roots/bud-support'
 
-import {Peers} from './peers'
-import {repository} from './project.repository'
+import {repository} from './repository'
 
 const {isFunction, isString, omit} = lodash
 const {ensureFile, writeFile} = fs
@@ -17,13 +16,6 @@ export class Project
   implements Framework.Project.Service
 {
   /**
-   * Project peer dependencies manager
-   *
-   * @public
-   */
-  public peers: Peers
-
-  /**
    * Repository values
    *
    * @public
@@ -37,8 +29,6 @@ export class Project
    * @decorator `@bind`
    */
   public async bootstrap() {
-    this.peers = new Peers(this.app)
-
     this.set(
       'context',
       omit(this.app.context, ['stdin', 'stderr', 'stdout']),
@@ -56,7 +46,9 @@ export class Project
   @bind
   public async register() {
     try {
-      await this.buildProfile()
+      await ensureFile(
+        this.app.path(`@storage/${this.app.name}/profile.json`),
+      )
     } catch (e) {
       this.app.error(e)
     }
@@ -82,19 +74,6 @@ export class Project
   }
 
   /**
-   * Read project package.json and record peer dependencies
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async resolvePeers() {
-    await this.peers.discover()
-    this.set('modules', this.peers.modules)
-    this.set('adjacents', this.peers.adjacents.fromRoot('root'))
-  }
-
-  /**
    * Read manifest from disk
    *
    * @public
@@ -116,22 +95,6 @@ export class Project
   @bind
   public hasPeerDependency(pkg: string): boolean {
     return this.has(`modules.${pkg}`)
-  }
-
-  /**
-   * @public
-   */
-  @bind
-  public async buildProfile() {
-    await ensureFile(
-      this.app.path(`@storage/${this.app.name}/profile.json`),
-    )
-
-    try {
-      await this.resolvePeers()
-    } catch (error) {
-      this.app.error(error)
-    }
   }
 
   /**
