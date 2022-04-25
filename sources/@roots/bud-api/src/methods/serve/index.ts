@@ -164,8 +164,8 @@ const requestPort = async (
 
   if (!opts.port.includes(Number(url.port))) {
     app.warn(
-      `\n`,
       `None of the requested ports could be resolved.`,
+      `\n`,
       `A port was automatically selected: ${url.port}`,
       `\n`,
     )

@@ -1,5 +1,5 @@
-import {Extension} from '../..'
-import {Controllers} from '../../registry'
+import {Extension, ModuleDefinitions} from '../..'
+import {Controllers, Modules} from '../../registry'
 import {Service as BaseService} from '../../service'
 import {Controller} from './controller'
 
@@ -17,19 +17,24 @@ import {Controller} from './controller'
 export interface Service extends BaseService {
   repository: Controllers
 
-  has<K extends keyof Controllers & string>(key: K): boolean
+  has<K extends keyof this['repository']>(key: K): boolean
 
-  get<K extends keyof Controllers & string>(key: K): Controller<K & string>
+  get<K extends keyof this['repository']>(
+    key: K & string,
+  ): Controller<Modules[K & string], ModuleDefinitions[K & string]>
 
-  remove<K extends keyof Controllers & string>(key: K): this
+  remove<K extends keyof this['repository']>(key: K): this
 
-  set<K extends keyof Controllers & string>(
-    key: K,
-    value: Controller<K & string>,
+  set<K extends keyof this['repository']>(
+    key: K & string,
+    value: Controller<Modules[K & string], ModuleDefinitions[K & string]>,
   ): this
 
-  setController<K extends keyof Controllers & string>(
-    controller: Controller<K & string>,
+  setController<K extends keyof this['repository']>(
+    controller: Controller<
+      Modules[K & string],
+      ModuleDefinitions[K & string]
+    >,
   ): this
 
   /**
@@ -54,8 +59,8 @@ export interface Service extends BaseService {
   /**
    * @public
    */
-  withController<K extends keyof Controllers & string>(
-    controller: Controllers[K],
+  withController<K extends keyof this['repository']>(
+    controller: K & string,
     methodName: 'init' | 'register' | 'boot' | 'make',
   ): unknown
 

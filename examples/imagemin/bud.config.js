@@ -2,7 +2,7 @@
 
 /**
  * @typedef {import('@roots/bud').Bud} Bud
- * @typedef {import('@roots/bud-imagemin')}
+ * @typedef {import('@roots/bud-imagemin/types/env')}
  *
  * @param {Bud} app
  */

@@ -3677,7 +3677,7 @@ __metadata:
     tslib: 2.3.1
     webpack: 5.70.0
   peerDependencies:
-    esbuild-loader: ^2.16.0
+    esbuild-loader: "*"
   peerDependenciesMeta:
     esbuild-loader:
       optional: true
@@ -3760,11 +3760,18 @@ __metadata:
   dependencies:
     "@roots/bud-api": "workspace:sources/@roots/bud-api"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
-    "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
     "@squoosh/lib": 0.4.0
     image-minimizer-webpack-plugin: ^3.2.3
     tslib: 2.3.1
+  peerDependencies:
+    "@squoosh/lib": "*"
+    image-minimizer-webpack-plugin: "*"
+  peerDependenciesMeta:
+    "@squoosh/lib":
+      optional: true
+    image-minimizer-webpack-plugin:
+      optional: true
   languageName: unknown
   linkType: soft
 
@@ -3899,17 +3906,11 @@ __metadata:
   dependencies:
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@skypack/package-check": 0.2.2
-    "@types/jest": 27.4.1
-    "@types/lodash": 4.14.180
     "@types/node": 16.11.26
-    autobind-decorator: 2.4.0
-    eslint-config-prettier: ^8.3.0
-    eslint-plugin-prettier: ^4.0.0
-    jest: 27.5.1
     prettier: 2.6.0
     tslib: 2.3.1
   peerDependencies:
-    prettier: ^2.5.1
+    prettier: "*"
   peerDependenciesMeta:
     prettier:
       optional: true
@@ -4412,8 +4413,10 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^5.10.1
     "@typescript-eslint/parser": 5.15.0
     eslint: ^7.32.0 || ^8.2.0
+    eslint-config-prettier: ^8.3.0
     eslint-plugin-import: ^2.25.3
     eslint-plugin-jsx-a11y: ^6.5.1
+    eslint-plugin-prettier: ^4.0.0
     eslint-plugin-react: ^7.27.1
     eslint-plugin-react-hooks: ^4.3.0
   languageName: unknown

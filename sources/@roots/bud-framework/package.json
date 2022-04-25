@@ -41,14 +41,33 @@
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    ".": "./lib/cjs/index.js",
-    "./bud": "./lib/cjs/bud.js",
-    "./extension": "./lib/cjs/extension/index.js",
-    "./extension/decorators": "./lib/cjs/extension/decorators.js",
-    "./methods/*": "./lib/cjs/methods/*.js",
-    "./module": "./lib/cjs/module.js",
-    "./service": "./lib/cjs/service.js",
-    "./services/*": "./lib/cjs/services/*/index.js"
+    ".": {
+      "require": "./lib/cjs/index.js"
+    },
+    "./bud": {
+      "require": "./lib/cjs/bud.js"
+    },
+    "./extension": {
+      "require": "./lib/cjs/extension/index.js"
+    },
+    "./extension/decorators": {
+      "require": "./lib/cjs/extension/decorators/index.js"
+    },
+    "./extension/decorators/*": {
+      "require": "./lib/cjs/extension/decorators/*.js"
+    },
+    "./methods/*": {
+      "require": "./lib/cjs/methods/*.js"
+    },
+    "./module": {
+      "require": "./lib/cjs/module.js"
+    },
+    "./service": {
+      "require": "./lib/cjs/service.js"
+    },
+    "./services/*": {
+      "require": "./lib/cjs/services/*/index.js"
+    }
   },
   "typesVersions": {
     "*": {
@@ -65,7 +84,10 @@
         "./types/extension/index.d.ts"
       ],
       "extension/decorators": [
-        "./types/extension/decorators.d.ts"
+        "./types/extension/decorators/index.d.ts"
+      ],
+      "extension/decorators/*": [
+        "./types/extension/decorators/*.d.ts"
       ],
       "methods/*": [
         "./types/methods/*.js"

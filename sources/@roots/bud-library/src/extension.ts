@@ -16,7 +16,7 @@ export default class BudDllExtension extends Extension<
 > {
   @bind
   public async add(modules: string | Array<string>) {
-    await this.app.extensions.add(factory(modules))
+    this.app.use(factory(modules))
     return this.app
   }
 }

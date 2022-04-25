@@ -1,32 +1,22 @@
-import './interface'
-
-import {Bud, Extension} from '@roots/bud-framework'
-import {bind} from '@roots/bud-framework/extension/decorators'
+import {Extension} from '@roots/bud-framework'
+import {
+  bind,
+  expose,
+  label,
+  value,
+} from '@roots/bud-framework/extension/decorators'
 import ImageMinimizerPlugin, {
   Generator,
+  ImageminMinifyFunction,
 } from 'image-minimizer-webpack-plugin'
 
-/**
- * @public
- */
-export class Imagemin extends Extension {
-  /**
-   * @public
-   */
-  public label = '@roots/bud-imagemin'
-
-  public _implementation = ImageMinimizerPlugin.squooshMinify
-  public get implementation() {
-    return this._implementation
-  }
-  public set implementation(implementation) {
-    this._implementation = implementation
-  }
-  @bind
-  public setImplementation(implementation): Imagemin {
-    this.implementation = implementation
-    return this
-  }
+@label('@roots/bud-imagemin')
+@value('implementation', ImageMinimizerPlugin.squooshMinify)
+@expose('imagemin')
+export default class BudImagemin extends Extension {
+  public implementation: ImageminMinifyFunction
+  public getImplementation: () => ImageminMinifyFunction
+  public setImplementation: (value: ImageminMinifyFunction) => this
 
   public _generatorImplementation = ImageMinimizerPlugin.squooshGenerate
   public get generatorImplementation() {
@@ -36,7 +26,7 @@ export class Imagemin extends Extension {
     this._generatorImplementation = generatorImplementation
   }
   @bind
-  public setGeneratorImplementation(generatorImplementation): Imagemin {
+  public setGeneratorImplementation(generatorImplementation): BudImagemin {
     this.generatorImplementation = generatorImplementation
     return this
   }
@@ -54,12 +44,12 @@ export class Imagemin extends Extension {
     this._encodeOptions = options
   }
   @bind
-  public setEncodeOptions(options): Imagemin {
+  public setEncodeOptions(options): BudImagemin {
     this.encodeOptions = options
     return this
   }
   @bind
-  public encode(key: string, value: any): Imagemin {
+  public encode(key: string, value: any): BudImagemin {
     key =
       key === 'jpeg' || key === 'jpg'
         ? 'mozjpeg'
@@ -89,17 +79,9 @@ export class Imagemin extends Extension {
     this._generator = generator
   }
   @bind
-  public setGenerator(generator): Imagemin {
+  public setGenerator(generator): BudImagemin {
     this.generator = generator
     return this
-  }
-
-  /**
-   * @public
-   */
-  @bind
-  public async register(app: Bud) {
-    app.imagemin = this
   }
 
   /**

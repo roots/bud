@@ -10,6 +10,8 @@
  * @packageDocumentation
  */
 
-import './interface'
+import './env'
 
-export {Imagemin as default} from './imagemin'
+import BudImagemin from './extension'
+
+export default BudImagemin

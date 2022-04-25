@@ -53,8 +53,12 @@
   },
   "typesVersions": {
     "*": {
-      ".": ["./types/index.d.ts"],
-      "./extension": ["./types/extension.d.ts"]
+      ".": [
+        "./types/index.d.ts"
+      ],
+      "./extension": [
+        "./types/extension.d.ts"
+      ]
     }
   },
   "bud": {

@@ -1,3 +1,5 @@
+import '@roots/bud-library/env'
+
 import {Bud, factory} from '@repo/test-kit/bud'
 import library from '@roots/bud-library'
 

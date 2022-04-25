@@ -1,4 +1,4 @@
-import {Bud, Extension, Extensions, Modules} from '@roots/bud-framework'
+import {Bud, Extension, Extensions} from '@roots/bud-framework'
 import {bind, lodash} from '@roots/bud-support'
 
 const {isFunction} = lodash
@@ -8,8 +8,12 @@ const {isFunction} = lodash
  *
  * @public
  */
-export class Controller<K extends `${keyof Modules & string}` = any>
-  implements Extensions.Controller<K>
+export class Controller<
+  Ext extends Extension,
+  Constructor extends {new (...args: any[]): Ext} = {
+    new (...args: any[]): Ext
+  },
+> implements Extensions.Controller<Ext, Constructor>
 {
   public readonly _app: () => Bud
 
@@ -31,7 +35,7 @@ export class Controller<K extends `${keyof Modules & string}` = any>
     boot: false,
   }
 
-  public module: Modules[K]
+  public module: Ext
 
   /**
    * Controller constructor
@@ -43,49 +47,52 @@ export class Controller<K extends `${keyof Modules & string}` = any>
   }
 
   @bind
-  public setModule(
-    extension: (Extension | Extension.Constructor) & Modules[K],
-  ): this {
+  public setModule(extension: Ext | Constructor): this {
     this.module =
       typeof extension === 'function'
         ? new extension(this.app)
         : !(extension instanceof Extension)
-        ? new Extension(this.app).fromObject(extension)
+        ? (new Extension(this.app).fromObject(extension) as Ext)
         : extension
 
     return this
   }
 
   @bind
-  public get<T extends `${keyof Modules[K] & string}`>(
-    key: T,
-  ): Modules[K][T] {
+  public has<T extends keyof Ext>(key: T & string): boolean {
+    return this.module[key] ? true : false
+  }
+
+  @bind
+  public get<T extends keyof Ext>(key: T & string): Ext[T & string] {
     return this.module[key]
   }
 
   @bind
-  public set<T extends `${keyof Modules[K] & string}`>(
-    key: T,
-    value: Modules[K][T],
+  public set<T extends keyof Ext>(
+    key: T & string,
+    value: Ext[T & string],
   ): this {
     this.module[key] = value
     return this
   }
 
   @bind
-  public getOption<T extends `${keyof Modules[K]['options'] & string}`>(
-    key: T,
-  ): Modules[K]['options'][T] {
+  public getOption<T extends keyof Ext['options']>(
+    key: T & string,
+  ): Ext['options'][T & string] {
     if (!this.module.options) this.module.options = {}
     return this.module.options[key]
   }
 
   @bind
-  public setOption<T extends `${keyof Modules[K]['options'] & string}`>(
-    key: T,
+  public setOption<T extends keyof Ext['options']>(
+    key: T & string,
     value:
-      | Modules[K]['options'][T]
-      | ((value: Modules[K]['options'][T]) => Modules[K]['options'][T]),
+      | Ext['options'][T & string]
+      | ((
+          value: Ext['options'][T & string],
+        ) => Ext['options'][T & string]),
   ): this {
     if (!this.module.options) this.module.options = {}
     this.module.options[key] = isFunction(value)
@@ -96,15 +103,13 @@ export class Controller<K extends `${keyof Modules & string}` = any>
   }
 
   @bind
-  public getOptions(): Modules[K]['options'] {
+  public getOptions(): Ext['options'] {
     return this.module.options ?? {}
   }
 
   @bind
   public setOptions(
-    value:
-      | Modules[K]['options']
-      | ((value: Modules[K]['options']) => Modules[K]['options']),
+    value: Ext['options'] | ((value: Ext['options']) => Ext['options']),
   ): this {
     this.module.options = isFunction(value)
       ? value(this.module.options)

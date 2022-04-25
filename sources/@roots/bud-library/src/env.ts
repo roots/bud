@@ -1,3 +1,5 @@
+import '@roots/bud-api'
+
 import BudDll from './extension'
 import {Plugin} from './factory'
 

@@ -1,7 +1,8 @@
 import {bind, lodash as _, Signale} from '@roots/bud-support'
 
+import {ModuleDefinitions} from '../'
 import {Bud} from '../bud'
-import {Modules} from '../registry'
+import {Controllers, Modules} from '../registry'
 import {Options} from './types'
 
 export class Extension<E = any, Plugin = any> {
@@ -55,7 +56,12 @@ export class Extension<E = any, Plugin = any> {
    *
    * @public
    */
-  public label?: `${keyof Modules & string}`
+  public label?: (
+    | keyof Modules
+    | keyof Controllers
+    | keyof ModuleDefinitions
+  ) &
+    string
 
   /**
    * Depends on
@@ -201,17 +207,21 @@ export class Extension<E = any, Plugin = any> {
    * @public
    */
   @bind
-  public resolve?(module: string) {
-    return this.app.module.resolvePreferred(module, this.path)
+  public resolve?(packageName: string): string {
+    const result = this.app.module.resolvePreferred(packageName, this.path)
+    this.logger.info('resolved', packageName, 'to', result)
+    return result
   }
 
   /**
    * @public
    */
   @bind
-  public async import?(module: string) {
+  public async import?<T = any>(packageName: string): Promise<T> {
     try {
-      return await import(this.resolve(module))
+      const result = await import(this.resolve(packageName))
+      this.logger.info('imported', packageName)
+      return result
     } catch (error) {
       this.app.error(error)
     }

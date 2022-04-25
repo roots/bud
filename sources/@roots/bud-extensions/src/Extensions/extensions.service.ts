@@ -1,6 +1,7 @@
 import {
   Extension,
   Extensions as Contract,
+  ModuleDefinitions,
   Modules,
   Service,
 } from '@roots/bud-framework'
@@ -21,29 +22,29 @@ export class Extensions extends Service implements Contract.Service {
   public repository: Controllers = {}
 
   @bind
-  public has<K extends keyof Controllers & string>(
+  public has<K extends keyof this['repository']>(
     key: K & string,
   ): boolean {
     return this.repository[key] ? true : false
   }
 
   @bind
-  public get<K extends keyof Controllers & string>(
-    key: K,
-  ): Controllers[K] {
+  public get<K extends keyof this['repository']>(key: K & string) {
     return this.repository[key]
   }
 
   @bind
-  public remove<K extends keyof Controllers & string>(key: K): this {
+  public remove<K extends keyof this['repository']>(
+    key: K & string,
+  ): this {
     delete this.repository[key]
     return this
   }
 
   @bind
-  public set<K extends keyof Controllers & string>(
+  public set<K extends keyof this['repository']>(
     key: K & string,
-    value: Controllers[K],
+    value: Controller<Modules[K & string], ModuleDefinitions[K & string]>,
   ): this {
     this.app.log(`setting controller: ${key}`, value.module)
     this.repository[key] = value
@@ -51,21 +52,24 @@ export class Extensions extends Service implements Contract.Service {
   }
 
   @bind
-  public makeController<K extends keyof Controllers & string>(
-    extension: Modules[K],
-  ): Controller {
+  public makeController<K extends keyof this['repository']>(
+    extension: Modules[K & string],
+  ): Controller<Modules[K & string], ModuleDefinitions[K & string]> {
     return new Controller(this.app).setModule(extension)
   }
 
   @bind
-  public setController<K extends keyof Controllers & string>(
-    controller: Controllers[K],
+  public setController<K extends keyof this['repository'] & string>(
+    controller: Controller<
+      Modules[K & string],
+      ModuleDefinitions[K & string]
+    >,
   ): this {
-    if (this.has(controller.module.label)) {
-      this.get(controller.module.label)
+    if (this.has(controller.get('label'))) {
+      this.get(controller.get('label'))
         .get('logger')
         .info(`this controller has already been set`)
-    } else this.set(controller.module.label, controller)
+    } else this.set(controller.get('label'), controller)
 
     return this
   }
@@ -104,7 +108,7 @@ export class Extensions extends Service implements Contract.Service {
   @bind
   public async import(
     input: Record<string, any> | string,
-  ): Promise<Controller> {
+  ): Promise<Controller<any, any>> {
     const pkgName = typeof input !== 'string' ? input.name : input
     if (this.has(pkgName)) return
     this.app.log('importing', pkgName)
@@ -115,19 +119,21 @@ export class Extensions extends Service implements Contract.Service {
       : imported
 
     const controller = this.makeController(extension)
-    if (this.has(controller.module.label)) return
-    this.set(controller.module.label, controller)
+    if (this.has(controller.get('label'))) return
+    this.set(controller.get('label'), controller)
 
     return controller
   }
 
   @bind
-  public async withController<
-    K extends `${keyof Controllers & string & string}`,
-  >(
-    controller: Controllers[K],
+  public async withController<K extends keyof this['repository']>(
+    controllerName: K & string,
     methodName: 'init' | 'register' | 'boot',
   ): Promise<this> {
+    if (!this.has(controllerName)) return
+
+    const controller = this.get(controllerName)
+
     if (!controller) return
 
     try {
@@ -148,7 +154,7 @@ export class Extensions extends Service implements Contract.Service {
   ): Promise<Array<void>> {
     return Promise.all(
       Object.values(this.repository).map(async controller => {
-        await this.withController(controller, methodName)
+        await this.withController(controller.get('label'), methodName)
       }),
     )
   }
@@ -170,10 +176,13 @@ export class Extensions extends Service implements Contract.Service {
         const controller = this.makeController(extension)
         this.setController(controller)
 
-        if (controller.module.dependsOn?.size > 0) {
-          for (const name in controller.module.dependsOn) {
+        if (
+          controller.has('dependsOn') &&
+          controller.get('dependsOn')?.size > 0
+        ) {
+          for (const name in controller.get('dependsOn')) {
             if (this.has(name)) {
-              controller.module.logger.info({
+              controller.get('logger').info({
                 prefix: `skipping dependency import`,
                 message: `${name} has already been imported`,
               })
@@ -183,14 +192,14 @@ export class Extensions extends Service implements Contract.Service {
             const dependency = await this.app.module.import(name)
 
             !dependency
-              ? controller.module.logger.warn(`${dependency} import?`)
+              ? controller.get('logger').warn(`${dependency} import?`)
               : await this.add(dependency)
           }
         }
 
-        await this.withController(controller, 'init')
-        await this.withController(controller, 'register')
-        await this.withController(controller, 'boot')
+        await this.withController(controller.get('label'), 'init')
+        await this.withController(controller.get('label'), 'register')
+        await this.withController(controller.get('label'), 'boot')
 
         return true
       } catch (err) {
@@ -213,12 +222,12 @@ export class Extensions extends Service implements Contract.Service {
   public async make(): Promise<Extension.PluginInstance[]> {
     return await Promise.all(
       Object.values(this.repository).map(
-        async (controller: Controller) => {
+        async (controller: Controller<any, any>) => {
           const result = await controller.make()
           if (!result) return
-          controller.module.logger.success(
-            `will be used in the compilation`,
-          )
+          controller
+            .get('logger')
+            .success(`will be used in the compilation`)
           return result
         },
       ),

@@ -1,11 +1,16 @@
-import {Bud, Extension, Modules} from '../../'
+import {Bud, Extension} from '../../'
 
 /**
  * Modules instance controller
  *
  * @public
  */
-export interface Controller<K extends keyof Modules & string> {
+export interface Controller<
+  Ext extends Extension,
+  Constructor extends {new (...args: any[]): Ext} = {
+    new (...args: any[]): Ext
+  },
+> {
   _app: () => Bud
 
   app: Bud
@@ -16,36 +21,35 @@ export interface Controller<K extends keyof Modules & string> {
     boot: boolean
   }
 
-  module: Modules[K]
+  module: Ext
 
-  setModule(
-    extension: (Extension | Extension.Constructor) & Modules[K],
-  ): this
+  setModule(extension: Ext | Constructor): this
 
-  get<T extends `${keyof Modules[K] & string}`>(key: T): Modules[K][T]
+  has<T extends keyof Ext>(key: T & string): boolean
 
-  set<T extends `${keyof Modules[K] & string}`>(
-    key: T,
-    value: Modules[K][T],
-  ): this
+  get<T extends keyof Ext>(key: T): Ext[T & string]
 
-  getOption<T extends `${keyof Modules[K]['options'] & string}`>(
-    key: T,
-  ): Modules[K]['options'][T]
+  set<T extends keyof Ext>(key: T, value: Ext[T & string]): this
 
-  getOptions(): Modules[K]['options']
+  getOption<T extends keyof Ext['options']>(
+    key: T & string,
+  ): Ext['options'][T & string]
 
-  setOption<T extends `${keyof Modules[K]['options'] & string}`>(
-    key: T,
+  getOptions(): Ext['options']
+
+  setOption<T extends Ext['options']>(
+    key: T & string,
     value:
-      | Modules[K]['options'][T]
-      | ((value: Modules[K]['options'][T]) => Modules[K]['options'][T]),
+      | Ext['options'][T & string]
+      | ((
+          value: Ext['options'][T & string],
+        ) => Ext['options'][T & string]),
   ): this
 
   setOptions(
     options:
-      | Modules[K]['options']
-      | ((options: Modules[K]['options']) => Modules[K]['options']),
+      | Ext['options']
+      | ((options: Ext['options']) => Ext['options']),
   ): this
 
   init(): Promise<this>
