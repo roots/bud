@@ -3987,10 +3987,10 @@ __metadata:
     tslib: 2.3.1
     webpack: 5.70.0
   peerDependencies:
-    postcss-scss: ^4.0.3
-    sass: ^1.45.2
-    sass-loader: ^12.4.0
-    stylelint-config-recommended-scss: ^5.0.2
+    postcss-scss: "*"
+    sass: "*"
+    sass-loader: "*"
+    stylelint-config-recommended-scss: "*"
   peerDependenciesMeta:
     postcss-scss:
       optional: true
@@ -4212,7 +4212,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-vue@workspace:sources/@roots/bud-vue"
   dependencies:
-    "@roots/bud-build": "workspace:sources/@roots/bud-build"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@skypack/package-check": 0.2.2
     "@types/node": 16.11.26

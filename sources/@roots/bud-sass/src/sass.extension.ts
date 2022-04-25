@@ -31,13 +31,18 @@ class BudSass extends Extension {
 
   @bind
   public async register() {
-    this.app.hooks
-      .on('build.resolve.extensions', ext => ext.add('.scss').add('.sass'))
-      .build.setLoader('sass', this.resolve('sass-loader'))
+    const implementation = await this.implementation()
+
+    this.app.hooks.on('build.resolve.extensions', ext =>
+      ext.add('.scss').add('.sass'),
+    )
+
+    this.app.build
+      .setLoader('sass', this.resolve('sass-loader'))
       .setItem('sass', {
         loader: 'sass',
         options: {
-          implementation: this.implementation,
+          implementation,
           sourceMap: true,
         },
       })

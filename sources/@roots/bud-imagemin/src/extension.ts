@@ -11,17 +11,17 @@ import ImageMinimizerPlugin, {
 @label('@roots/bud-imagemin')
 @expose('imagemin')
 export default class BudImagemin extends Extension {
-  public _implementation = ImageMinimizerPlugin.squooshGenerate
+  public _implementation = ImageMinimizerPlugin.squooshMinify
   public get implementation() {
     return this._implementation
   }
   public set implementation(
-    implementation: typeof ImageMinimizerPlugin.squooshGenerate,
+    implementation: typeof ImageMinimizerPlugin.squooshMinify,
   ) {
     this._implementation = implementation
   }
   @bind
-  public getImplementation(): typeof ImageMinimizerPlugin.squooshGenerate {
+  public getImplementation(): typeof ImageMinimizerPlugin.squooshMinify {
     return this.implementation
   }
   @bind
