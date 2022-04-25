@@ -12,6 +12,5 @@
 
 import './env'
 
-import {BudEslintWebpackPlugin} from './eslint.extension'
-
-export const {label, options, register, make} = BudEslintWebpackPlugin
+import BudEslint from './extension'
+export default BudEslint

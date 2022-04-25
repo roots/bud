@@ -1,5 +1,5 @@
 import * as Framework from '@roots/bud-framework'
-import {Registry, Store} from '@roots/bud-framework/types/registry'
+import {Registry, Store} from '@roots/bud-framework'
 import {bind, lodash} from '@roots/bud-support'
 import {isUndefined} from 'lodash'
 

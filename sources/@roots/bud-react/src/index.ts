@@ -13,6 +13,6 @@
 
 import './interface'
 
-import {ReactExtension} from './extension'
+import BudReact from './extension'
 
-export const {register, boot, label} = ReactExtension
+export default BudReact

@@ -15,4 +15,6 @@
 
 import './interface'
 
-export {TypeScript as default} from './bud.extension'
+import BudTypeScript from './bud.extension'
+
+export default BudTypeScript

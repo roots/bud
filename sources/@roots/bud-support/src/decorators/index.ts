@@ -9,5 +9,3 @@ export {
   once,
   throttle,
 } from '../external/helpful-decorators'
-
-export {logProp} from './logProp'

@@ -6,19 +6,11 @@
     "outDir": "./lib/cjs",
     "declarationDir": "./types",
     "types": [
-      "node",
-      "jest",
-      "@roots/bud-api",
-      "@roots/bud-babel"
+      "node"
     ]
   },
   "include": [
     "src"
-  ],
-  "exclude": [
-    "lib",
-    "node_modules",
-    "types"
   ],
   "references": [
     {

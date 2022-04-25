@@ -1,8 +1,8 @@
 import * as Framework from '@roots/bud-framework'
 import {bind, chalk, lodash} from '@roots/bud-support'
 
-import * as facade from './facade'
-import * as methods from './methods'
+import * as facade from '../facade'
+import * as methods from '../methods'
 
 const {isEmpty, isFunction} = lodash
 
@@ -73,7 +73,7 @@ export class Api
    */
   @bind
   public async call(name: string, ...args: any[]) {
-    this.log('log', {
+    this.app.log({
       message: `executing ${chalk.blue(name)}`,
       suffix:
         args && !isEmpty(args) ? this.app.json.stringify(args) : 'none',
@@ -100,7 +100,7 @@ export class Api
   public async processQueue() {
     if (!this.queue.length) return
 
-    this.log('await', `Executing ${this.queue.length} enqueued functions`)
+    this.app.log(`Executing ${this.queue.length} enqueued functions`)
 
     await Promise.all(
       this.queue.map(async ([name, args]) => {
@@ -109,7 +109,14 @@ export class Api
         try {
           await this.call(name, ...args)
         } catch (error) {
-          throw new Error(error)
+          this.app.error(
+            `Error calling`,
+            name,
+            `with args`,
+            args,
+            `\nerror:`,
+            error,
+          )
         }
       }),
     )

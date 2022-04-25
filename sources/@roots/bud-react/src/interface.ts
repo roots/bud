@@ -1,8 +1,8 @@
 import '@roots/bud-framework'
 import '@roots/bud-babel'
 
-import {ReactExtension} from './extension'
-import {ReactRefreshExtension} from './react-refresh/extension'
+import BudReact from './extension'
+import BudReactRefresh from './react-refresh/extension'
 import {reactRefresh} from './react-refresh/reactRefresh'
 
 declare module '@roots/bud-framework' {
@@ -11,7 +11,7 @@ declare module '@roots/bud-framework' {
   }
 
   interface Modules {
-    '@roots/bud-react': ReactExtension
-    '@pmmmwh/react-refresh-webpack-plugin': ReactRefreshExtension
+    '@roots/bud-react': BudReact
+    '@pmmmwh/react-refresh-webpack-plugin': BudReactRefresh
   }
 }

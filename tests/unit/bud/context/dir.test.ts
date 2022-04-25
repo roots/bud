@@ -1,4 +1,4 @@
-import {Dir} from '@roots/bud/src/context/dir'
+import {Dir} from '@roots/bud/context/dir'
 import {join} from 'node:path'
 
 describe('unit', function () {

@@ -26,16 +26,12 @@ const curryHandler = function (this: Bud, code: number) {
   const ERROR = code !== 0
 
   const close = () => {
-    const die = () => {
-      process.exitCode = code
-      setTimeout(process.exit, 100)
-    }
-
     try {
       ERROR && removeSync(this.path('@storage/cache'))
-      this.hooks.fire('event.app.close').then(die)
+      this.close()
     } catch (err) {
-      die()
+      process.exitCode = code
+      setTimeout(process.exit, 100).unref()
     }
   }
 

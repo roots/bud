@@ -1,35 +1,29 @@
-import './env'
-
 import {Extension} from '@roots/bud-framework'
 import {bind} from '@roots/bud-support'
 import {Plugin, Processor} from 'postcss'
 
-type InputRecords = Record<
-  string,
-  string | Plugin | Processor | [string | Plugin | Processor, any?]
->
-type InputMap = Map<
-  string,
-  string | Plugin | Processor | [string | Plugin | Processor, any?]
->
+type Input =
+  | string
+  | Plugin
+  | Processor
+  | [string | Plugin | Processor, any?]
+
+type InputList = Array<string>
+type InputRecords = Record<string, Input>
+type InputMap = Map<string, Input>
 type Registry = Map<string, [any, any?] | [Plugin | Processor]>
 
-class BudPostCss extends Extension.Extension<any, any> {
-  public label = '@roots/bud-postcss'
+class BudPostCss extends Extension<any, any> {
+  public readonly label = '@roots/bud-postcss'
 
-  /** @readonly */
+  protected _syntax: string = null
+
   protected _sourceMap: boolean = true
 
-  /** @readonly */
-  protected _syntax: string
-
-  /** @readonly */
-  protected _plugins: Registry = new Map([])
+  protected readonly _plugins: Registry = new Map([])
 
   /**
    * postcss-loader `postcssOptions` accessor
-   *
-   * @readonly
    */
   protected get postcssOptions() {
     return {
@@ -39,12 +33,7 @@ class BudPostCss extends Extension.Extension<any, any> {
   }
 
   /**
-   * Syntax option
-   *
-   * @remarks
    * postcss-loader's `postcssOptions.syntax`
-   *
-   * @public
    */
   public get syntax() {
     return this._syntax
@@ -54,9 +43,8 @@ class BudPostCss extends Extension.Extension<any, any> {
   }
 
   /**
-   * PostCss loader source-map option
+   * postcss-loader's source-map option
    *
-   * @public
    */
   public get sourceMap() {
     return this._sourceMap
@@ -68,13 +56,12 @@ class BudPostCss extends Extension.Extension<any, any> {
   /**
    * PostCss plugins
    *
-   * @public
    */
   public get plugins() {
     return this._plugins
   }
   public set plugins(plugins: Registry) {
-    this._plugins = plugins
+    plugins.forEach((v, k) => this._plugins.set(k, v))
   }
 
   /**
@@ -88,10 +75,7 @@ class BudPostCss extends Extension.Extension<any, any> {
    * @decorator `@bind` - binds the method to the class instance
    */
   @bind
-  public setPlugin(
-    name: string,
-    plugin?: [any, any?] | string | Plugin | Processor,
-  ): this {
+  public setPlugin(name: string, plugin?: Input): this {
     const modulePath = plugin ?? [name]
 
     this.plugins.set(
@@ -111,14 +95,17 @@ class BudPostCss extends Extension.Extension<any, any> {
    * @decorator `@bind` - binds the method to the class instance
    */
   @bind
-  public setPlugins(plugins: InputRecords | InputMap): this {
-    this.plugins.clear()
+  public setPlugins(plugins: InputRecords | InputMap | InputList): this {
+    this._plugins.clear()
 
-    const pluginMap: InputMap =
-      plugins instanceof Map ? plugins : new Map(Object.entries(plugins))
+    const pluginMap: InputMap = Array.isArray(plugins)
+      ? new Map(plugins.map(plugin => [plugin, plugin]))
+      : plugins instanceof Map
+      ? plugins
+      : new Map(Object.entries(plugins))
 
     pluginMap.forEach((v, k) => {
-      this.plugins.set(k, Array.isArray(v) ? v : [v])
+      this._plugins.set(k, Array.isArray(v) ? v : [v])
     })
 
     return this
@@ -136,6 +123,7 @@ class BudPostCss extends Extension.Extension<any, any> {
   @bind
   public unsetPlugin(plugin: string) {
     this.plugins.has(plugin) && this.plugins.delete(plugin)
+
     return this
   }
 
@@ -185,10 +173,12 @@ class BudPostCss extends Extension.Extension<any, any> {
       .setLoader('postcss', this.resolve('postcss-loader'))
       .setItem('postcss', {
         loader: 'postcss',
-        options: () => ({
-          postcssOptions: this.postcssOptions,
-          sourceMap: this.sourceMap,
-        }),
+        options: () => {
+          return {
+            postcssOptions: this.postcssOptions,
+            sourceMap: this.sourceMap,
+          }
+        },
       })
       .rules.css.setUse(['precss', 'css', 'postcss'])
 

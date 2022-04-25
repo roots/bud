@@ -1,12 +1,8 @@
 import {Bud, factory} from '@repo/test-kit/bud'
-import * as library from '@roots/bud-library'
+import library from '@roots/bud-library'
 
 describe('@roots/bud-library', () => {
   let bud: Bud
-
-  it('has name prop', () => {
-    expect(library.label).toBe('@roots/bud-library')
-  })
 
   describe('module register', () => {
     beforeAll(async () => {
@@ -14,8 +10,8 @@ describe('@roots/bud-library', () => {
       await bud.extensions.add(library)
     })
 
-    it('is a method', () => {
-      expect(library.register).toBeInstanceOf(Function)
+    it('exposes class through library prop', () => {
+      expect(bud.library).toBeInstanceOf(library)
     })
   })
 })

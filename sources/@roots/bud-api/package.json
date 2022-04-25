@@ -44,14 +44,14 @@
     ".": {
       "require": "./lib/cjs/index.js"
     },
-    "./repository": {
-      "require": "./lib/cjs/repository/index.js"
+    "./api": {
+      "require": "./lib/cjs/api/index.js"
     },
     "./methods": {
       "require": "./lib/cjs/methods/index.js"
     },
     "./methods/*": {
-      "require": "./lib/cjs/api/methods/*/index.js"
+      "require": "./lib/cjs/methods/*/index.js"
     }
   },
   "typesVersions": {
@@ -59,17 +59,17 @@
       ".": [
         "./types/index.d.ts"
       ],
-      "repository": [
-        "./types/repository/index.d.ts"
+      "api": [
+        "./types/api/index.d.ts"
       ],
-      "repository/*": [
-        "./types/repository/*/index.d.ts"
+      "facade": [
+        "./types/facade/index.d.ts"
       ],
       "methods": [
-        "./types/repository/index.d.ts"
+        "./types/methods/index.d.ts"
       ],
       "methods/*": [
-        "./types/api/methods/*/index.d.ts"
+        "./types/methods/*/index.d.ts"
       ]
     }
   },

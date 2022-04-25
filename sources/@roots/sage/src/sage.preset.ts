@@ -1,23 +1,16 @@
-import * as Framework from '@roots/bud-framework'
-import {bind} from '@roots/bud-support'
+import {Extension} from '@roots/bud-framework/extension'
+import {
+  bind,
+  dependsOn,
+  label,
+} from '@roots/bud-framework/extension/decorators'
 
 import * as acorn from './acorn'
-import * as ThemeJSON from './theme/extension'
+import ThemeJSON from './theme/extension'
 
-export interface Sage extends Framework.Extension.Extension {}
-
-/**
- * @public
- */
-export class Sage extends Framework.Extension.Extension {
-  /**
-   * @public
-   */
-  public label = '@roots/sage'
-
-  /**
-   * @public
-   */
+@label('@roots/sage')
+@dependsOn(['@roots/bud-preset-wordpress'])
+export default class Sage extends Extension {
   public pathHandles = {
     '@src': 'resources',
     '@dist': 'public',
@@ -30,10 +23,6 @@ export class Sage extends Framework.Extension.Extension {
     '@views': '@src/views',
   }
 
-  /**
-   * @public
-   * @decorator `@bind`
-   */
   @bind
   public async boot() {
     acorn.setSvgEmit(this.app)
@@ -53,6 +42,7 @@ export class Sage extends Framework.Extension.Extension {
     })
 
     this.app.splitChunks()
+
     this.app.when(
       this.app.isProduction,
       () => this.app.minimize().hash().runtime('single'),

@@ -1,9 +1,16 @@
-import * as BudEmotion from '@roots/bud-emotion'
+import {Bud, factory} from '@repo/test-kit/bud'
+import BudEmotion from '@roots/bud-emotion'
 
 describe('@roots/bud-emotion', () => {
-  describe('settings', () => {
-    it('has name prop', () => {
-      expect(BudEmotion.label).toBe('@roots/bud-emotion')
-    })
+  let bud: Bud
+  let impl: BudEmotion
+
+  beforeAll(async () => {
+    bud = await factory()
+    impl = new BudEmotion(bud)
+  })
+
+  it('has name prop', () => {
+    expect(impl.label).toBe('@roots/bud-emotion')
   })
 })

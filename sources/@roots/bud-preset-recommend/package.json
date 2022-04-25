@@ -37,17 +37,25 @@
     "node": ">=14"
   },
   "files": [
-    "eslint-config/",
     "lib/",
-    "types/",
-    "index.d.ts"
+    "types/"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    ".": "./lib/cjs/index.js",
-    "./eslint-config": "./eslint-config/index.js"
+    ".": {
+      "require": "./lib/cjs/index.js"
+    },
+    "./extension": {
+      "require": "./lib/cjs/extension.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      ".": ["./types/index.d.ts"],
+      "./extension": ["./types/extension.d.ts"]
+    }
   },
   "bud": {
     "type": "extension",

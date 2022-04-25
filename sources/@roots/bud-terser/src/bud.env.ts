@@ -1,5 +1,5 @@
-import {Extension} from './'
 import {terser} from './terser.api'
+import BudTerser from './terser.extension'
 
 declare module '@roots/bud-framework' {
   interface Bud {
@@ -7,6 +7,6 @@ declare module '@roots/bud-framework' {
   }
 
   interface Modules {
-    '@roots/bud-terser': Extension
+    '@roots/bud-terser': BudTerser
   }
 }

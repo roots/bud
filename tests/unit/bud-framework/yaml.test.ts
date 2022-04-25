@@ -1,5 +1,5 @@
 import {paths} from '@repo/constants'
-import {read,write} from '@roots/bud-framework/src/methods/yaml'
+import {read, write} from '@roots/bud-framework/methods/yaml'
 import {join} from 'node:path'
 
 describe('bud.yml', () => {

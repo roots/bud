@@ -3,7 +3,7 @@
  * @jest-environment jsdom
  */
 
-import * as Overlay from '@roots/bud-server/src/client/indicator'
+import * as Overlay from '@roots/bud-server/client/indicator'
 
 describe('@roots/bud-server', function () {
   describe('overlay', () => {

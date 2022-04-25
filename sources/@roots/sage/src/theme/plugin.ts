@@ -11,7 +11,9 @@ export interface Options {
   /**
    * JSON contents
    */
-  settings: ThemeJSON.JSONSchemaForWordPressBlockThemeGlobalSettingsAndStyles['settings']
+  settings: Partial<
+    ThemeJSON.JSONSchemaForWordPressBlockThemeGlobalSettingsAndStyles['settings']
+  >
 
   /**
    * Emit path

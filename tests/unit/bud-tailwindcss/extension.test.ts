@@ -1,5 +1,4 @@
 import {Bud, factory} from '@repo/test-kit/bud'
-import BudPostCss from '@roots/bud-postcss'
 import BudTailwindCssExtension from '@roots/bud-tailwindcss'
 
 describe('@roots/bud-tailwindcss', () => {
@@ -15,10 +14,15 @@ describe('@roots/bud-tailwindcss', () => {
     expect(instance.label).toBe('@roots/bud-tailwindcss')
   })
 
+  it('queues up postcss', async () => {
+    const bud = await factory()
+    await bud.extensions.add(BudTailwindCssExtension)
+    expect(bud.extensions.has('@roots/bud-postcss'))
+  })
+
   it('sets up postcss plugins', async () => {
     const bud = await factory()
 
-    await bud.extensions.add(BudPostCss)
     await bud.extensions.add(BudTailwindCssExtension)
     const plugins = [...bud.postcss.plugins.keys()]
 

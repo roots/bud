@@ -11,6 +11,6 @@ describe('Extensions', function () {
   })
 
   it('[development] bud.extensions.repository options matches snapshot', () => {
-    expect(bud.extensions.getKeys().sort()).toMatchSnapshot()
+    expect(Object.keys(bud.extensions.repository).sort()).toMatchSnapshot()
   })
 })

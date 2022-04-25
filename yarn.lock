@@ -3468,7 +3468,6 @@ __metadata:
     "@babel/plugin-syntax-dynamic-import": ^7.8.3
     "@babel/plugin-transform-runtime": ^7.16.4
     "@babel/preset-env": ^7.16.4
-    "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
@@ -3626,17 +3625,17 @@ __metadata:
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-react": "workspace:sources/@roots/bud-react"
+    "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
     "@types/lodash": 4.14.180
     "@types/node": 16.11.26
-    autobind-decorator: ^2.4.0
     react: 17.0.2
     tslib: 2.3.1
   peerDependencies:
-    "@emotion/babel-plugin": ^11.7.2
-    "@emotion/css": ^11.7.1
-    "@emotion/react": ^11.7.1
-    "@emotion/styled": ^11.6.0
+    "@emotion/babel-plugin": "*"
+    "@emotion/css": "*"
+    "@emotion/react": "*"
+    "@emotion/styled": "*"
   peerDependenciesMeta:
     "@emotion/babel-plugin":
       optional: true
@@ -3778,12 +3777,11 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/lodash": 4.14.180
     "@types/node": 16.11.26
-    autobind-decorator: ^2.4.0
     autodll-webpack-plugin: ^0.4.2
     tslib: 2.3.1
     webpack: 5.70.0
   peerDependencies:
-    autodll-webpack-plugin: ^0.4.2
+    autodll-webpack-plugin: "*"
   peerDependenciesMeta:
     autodll-webpack-plugin:
       optional: true
@@ -4052,7 +4050,6 @@ __metadata:
     "@types/jest": 27.4.1
     "@types/lodash": 4.14.180
     "@types/node": 16.11.26
-    autobind-decorator: ^2.4.0
     babel-preset-solid: ^1.2.5
     eslint: 8.11.0
     jest: 27.5.1
@@ -4061,9 +4058,9 @@ __metadata:
     type-fest: 2.12.1
     webpack: 5.70.0
   peerDependencies:
-    "@babel/plugin-syntax-jsx": 7.16.7
-    babel-preset-solid: ^1.2.5
-    solid-js: ^1.1.7
+    "@babel/plugin-syntax-jsx": "*"
+    babel-preset-solid: "*"
+    solid-js: "*"
   peerDependenciesMeta:
     "@babel/plugin-syntax-jsx":
       optional: true

@@ -7,13 +7,15 @@
  * @packageDocumentation
  */
 
+import '@roots/bud-postcss'
+
 import type {Item, Loader, Rule} from '@roots/bud-build'
 
-import {extension} from './sass.extension'
+import BudSass from './sass.extension'
 
 declare module '@roots/bud-framework' {
   interface Modules {
-    '@roots/bud-sass': extension
+    '@roots/bud-sass': BudSass
   }
 
   interface Loaders {
@@ -29,4 +31,4 @@ declare module '@roots/bud-framework' {
   }
 }
 
-export const {label, boot, register} = extension
+export default BudSass

@@ -9,15 +9,18 @@ import '@roots/bud-server'
 
 import {Build, Extension} from '@roots/bud-framework'
 
+import BudClean from './extensions/clean-webpack-plugin'
+import BudProvide from './extensions/webpack-provide-plugin'
+
 declare module '@roots/bud-framework' {
   interface Modules {
-    'webpack-provide-plugin': Extension.Module
-    'webpack-config-dump-plugin': Extension.Module
-    'copy-webpack-plugin': Extension.Module
-    'webpack-define-plugin': Extension.Module
-    'webpack-hot-module-replacement-plugin': Extension.Module
-    'webpack-manifest-plugin': Extension.Module
-    'mini-css-extract-plugin': Extension.Module
+    'webpack:define-plugin': Extension
+    'webpack:provide-plugin': BudProvide
+    'webpack:hot-module-replacement-plugin': Extension
+    'copy-webpack-plugin': Extension
+    'clean-webpack-plugin': BudClean
+    'manifest-plugin': Extension
+    'mini-css-extract-plugin': Extension
   }
 
   interface Loaders {

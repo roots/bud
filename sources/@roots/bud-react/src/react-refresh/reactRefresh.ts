@@ -2,7 +2,7 @@ import type {ReactRefreshPluginOptions} from '@pmmmwh/react-refresh-webpack-plug
 import type {Bud} from '@roots/bud-framework'
 import {isFunction} from 'lodash'
 
-import {ReactRefreshExtension} from './extension'
+import ReactRefreshExtension from './extension'
 import * as reduceEntries from './reducers'
 
 /**
@@ -67,14 +67,14 @@ export const reactRefresh: reactRefresh = async function (
   if (isFunction(userOptions)) {
     ctx.extensions
       .get('@pmmmwh/react-refresh-webpack-plugin')
-      .mutateOptions(userOptions)
+      .setOptions(userOptions)
 
     return ctx
   }
 
   ctx.extensions
     .get('@pmmmwh/react-refresh-webpack-plugin')
-    .mergeOptions(userOptions)
+    .setOptions(options => ({...options, ...userOptions}))
 
   return ctx
 }

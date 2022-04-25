@@ -188,12 +188,14 @@ export const framework = (app: Bud) => [
     'extensions',
     table.make(
       lodash
-        .chunk(app.extensions.getValues(), 2)
+        .chunk(Object.values(app.extensions.repository), 2)
         .map(chunk =>
           [
             ...chunk.map(
-              ({label}) =>
-                `${chalk.hex(theme.cyan)(`\`${label?.toLowerCase()}\``)}`,
+              controller =>
+                `${chalk.hex(theme.cyan)(
+                  `\`${controller.get('label')?.toLowerCase()}\``,
+                )}`,
             ),
             ...Array(1).fill(``),
           ].slice(0, 2),

@@ -1,23 +1,25 @@
-import type {Extensions} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework'
+import {
+  bind,
+  dependsOn,
+  label,
+} from '@roots/bud-framework/extension/decorators'
 
 import {reactRefresh} from './react-refresh/reactRefresh'
 
-/**
- * Adds React support
- *
- * @public
- */
-export type ReactExtension = Extensions.Module
+@label('@roots/bud-react')
+@dependsOn(['@roots/bud-babel'])
+export default class BudReact extends Extension {
+  @bind
+  public async register() {
+    this.app.api.bindFacade('reactRefresh', reactRefresh)
+  }
 
-export const ReactExtension: ReactExtension = {
-  label: '@roots/bud-react',
-
-  register: async ({api}) => api.bindFacade('reactRefresh', reactRefresh),
-
-  boot: async app => {
-    app.babel.setPreset(
+  @bind
+  public async boot() {
+    this.app.babel.setPreset(
       '@babel/preset-react',
-      require.resolve('@babel/preset-react'),
+      this.resolve('@babel/preset-react'),
     )
-  },
+  }
 }

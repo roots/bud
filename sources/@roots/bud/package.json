@@ -47,13 +47,61 @@
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
+  "types": "./types/index.d.ts",
   "exports": {
     ".": {
-      "require": "./lib/cjs/index.js",
-      "import": "./lib/esm/index.js"
+      "require": "./lib/cjs/index.js"
+    },
+    "./cli": {
+      "require": "./lib/cjs/cli/index.js"
+    },
+    "./context": {
+      "require": "./lib/cjs/context/index.js"
+    },
+    "./context/*": {
+      "require": "./lib/cjs/context/*/index.js"
+    },
+    "./extensions": {
+      "require": "./lib/cjs/extensions/index.js"
+    },
+    "./extensions/*": {
+      "require": "./lib/cjs/extensions/*/index.js"
+    },
+    "./factory": {
+      "require": "./lib/cjs/factory/index.js"
+    },
+    "./services": {
+      "require": "./lib/cjs/services/index.js"
     }
   },
-  "types": "./types/index.d.ts",
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./types/index.d.ts"
+      ],
+      "cli": [
+        "./types/cli/index.d.ts"
+      ],
+      "context": [
+        "./types/context/index.d.ts"
+      ],
+      "context/*": [
+        "./types/context/*.d.ts"
+      ],
+      "extensions": [
+        "./types/extensions/index.d.ts"
+      ],
+      "extensions/*": [
+        "./types/extensions/*/index.d.ts"
+      ],
+      "factory": [
+        "./types/factory/index.d.ts"
+      ],
+      "services": [
+        "./types/services/index.d.ts"
+      ]
+    }
+  },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@types/braces": "3.0.1",

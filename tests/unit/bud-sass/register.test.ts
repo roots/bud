@@ -1,13 +1,13 @@
 import {Bud, factory} from '@repo/test-kit/bud'
 import {Loader} from '@roots/bud-build'
-import * as BudSass from '@roots/bud-sass/src/index'
+import BudSass from '@roots/bud-sass'
 
 describe('@roots/bud-sass registration', () => {
   let bud: Bud
 
   beforeAll(async () => {
     bud = await factory()
-    await BudSass.register(bud, bud.extensions.logger)
+    await new BudSass(bud).register()
   })
 
   it('adds scss extension', () => {

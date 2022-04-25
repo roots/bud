@@ -10,9 +10,9 @@
  * @packageDocumentation
  */
 
-import {BudBrotliWebpackPlugin} from './BudBrotliWebpackPlugin'
-import {BudCompressionExtension} from './BudCompressionExtension'
-import {BudGzipWebpackPlugin} from './BudGzipWebpackPlugin'
+import BudBrotliWebpackPlugin from './BudBrotliWebpackPlugin'
+import BudCompressionExtension from './BudCompressionExtension'
+import BudGzipWebpackPlugin from './BudGzipWebpackPlugin'
 
 declare module '@roots/bud-framework' {
   interface Bud {
@@ -86,4 +86,4 @@ export namespace BudCompressionExtension {
   }
 }
 
-export const {label, boot} = BudCompressionExtension
+export default BudCompressionExtension

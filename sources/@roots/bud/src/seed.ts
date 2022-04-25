@@ -1,4 +1,4 @@
-import {Options} from '@roots/bud-framework/types/config'
+import {Config} from '@roots/bud-framework'
 import {prettyFormat, Signale, table} from '@roots/bud-support'
 import {cpus} from 'os'
 
@@ -7,7 +7,7 @@ import {cpus} from 'os'
  *
  * @public
  */
-export const seed: Options['seed'] = {
+export const seed: Config.Options['seed'] = {
   'feature.cache': [() => true],
   'feature.clean': [() => false],
   'feature.hash': [() => false],

@@ -1,23 +1,40 @@
 import {Bud, factory} from '@repo/test-kit/bud'
-import * as BudTerser from '@roots/bud-terser'
+import {Controller} from '@roots/bud-extensions'
+import BudTerser from '@roots/bud-terser'
 
 describe('@roots/bud-terser', () => {
   let bud: Bud
+  let controller: Controller<'@roots/bud-terser'>
 
   beforeAll(async () => {
     bud = await factory()
+    await bud.extensions.add(BudTerser)
+    controller = bud.extensions.get('@roots/bud-terser')
   })
 
   it('has name prop', () => {
-    expect(BudTerser.label).toBe('@roots/bud-terser')
+    expect(controller.get('label')).toBe('@roots/bud-terser')
   })
 
   it('has options prop', () => {
-    expect(BudTerser.options).toBeInstanceOf(Function)
+    expect(controller.module.options).toStrictEqual({
+      extractComments: false,
+      include: /\.(cjs|mjs|jsx?)$/,
+      terserOptions: {
+        compress: false,
+        mangle: {
+          safari10: true,
+        },
+        output: {
+          ascii_only: true,
+          comments: false,
+        },
+      },
+    })
   })
 
   it('has boot prop', () => {
-    expect(BudTerser.boot).toBeInstanceOf(Function)
+    expect(controller.module.boot).toBeInstanceOf(Function)
   })
 
   it('binds the bud.terser function', async () => {

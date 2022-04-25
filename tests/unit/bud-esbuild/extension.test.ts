@@ -1,22 +1,31 @@
 import {Bud, factory} from '@repo/test-kit/bud'
 import {Loader} from '@roots/bud-build'
-import * as esbuild from '@roots/bud-esbuild'
+import esbuild from '@roots/bud-esbuild'
 
 describe('@roots/bud-esbuild', () => {
   let bud: Bud
+  let controller: any
+
+  beforeAll(async () => {
+    bud = await factory()
+    await bud.extensions.add(esbuild)
+    controller = bud.extensions.get('@roots/bud-esbuild')
+    await bud.build.make()
+  })
 
   it('has name prop', () => {
-    expect(esbuild.label).toBe('@roots/bud-esbuild')
+    expect(bud.extensions.get('@roots/bud-esbuild').get('label')).toBe(
+      '@roots/bud-esbuild',
+    )
   })
 
   describe('module boot', () => {
-    beforeAll(async () => {
-      bud = await factory()
-      await bud.extensions.add(esbuild)
+    it('has label prop', () => {
+      expect(controller.get('label')).toBe('@roots/bud-esbuild')
     })
 
     it('is a method', () => {
-      expect(esbuild.boot).toBeInstanceOf(Function)
+      expect(controller.module.boot).toBeInstanceOf(Function)
     })
 
     it('registers js ruleset item', () => {
@@ -27,7 +36,7 @@ describe('@roots/bud-esbuild', () => {
 
     it('registers js ruleset item options', () => {
       expect(bud.build.items['esbuild-js'].getOptions()).toEqual(
-        bud.extensions.get('@roots/bud-esbuild').options.get('js'),
+        controller.getOption('js'),
       )
     })
 
@@ -45,7 +54,7 @@ describe('@roots/bud-esbuild', () => {
 
     it('registers ts ruleset item options', () => {
       expect(bud.build.items['esbuild-ts'].getOptions()).toEqual(
-        bud.extensions.get('@roots/bud-esbuild').options.get('ts'),
+        controller.module.options.ts,
       )
     })
 
@@ -61,16 +70,12 @@ describe('@roots/bud-esbuild', () => {
   })
 
   describe('module options', () => {
-    beforeAll(async () => {
-      bud = await factory()
-    })
-
     it('is a method', () => {
-      expect(esbuild.options).toBeInstanceOf(Function)
+      expect(controller.module.options).toBeDefined()
     })
 
     it('yields expected options', async () => {
-      const options = esbuild.options(bud)
+      const options = controller.module.options
 
       expect(options).toEqual({
         minify: {
@@ -92,13 +97,7 @@ describe('@roots/bud-esbuild', () => {
   })
 
   describe('does its job', () => {
-    beforeAll(async () => {
-      bud = await factory()
-      await bud.extensions.add(esbuild)
-      await bud.build.make()
-    })
-
-    it('only leaves a single minifier', () => {
+    it('single minifier', () => {
       expect(bud.build.config.optimization.minimizer).toHaveLength(1)
     })
 

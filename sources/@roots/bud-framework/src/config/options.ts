@@ -1,4 +1,4 @@
-import {Bud, Mode, Service, Services} from '..'
+import {Bud, Extension, Mode, Service} from '..'
 import {Context} from './context'
 
 /**
@@ -57,5 +57,5 @@ export interface Options {
    *
    * @public
    */
-  extensions?: () => Record<string, Services.Extensions.Module>
+  extensions?: Array<Extension | Extension.Constructor>
 }

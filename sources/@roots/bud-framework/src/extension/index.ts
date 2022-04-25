@@ -1,20 +1,54 @@
-import {lodash, Signale} from '@roots/bud-support'
-import {Container} from '@roots/container'
+import {bind, lodash as _, Signale} from '@roots/bud-support'
 
 import {Bud} from '../bud'
 import {Modules} from '../registry'
-import {PluginInstance} from './module'
+import {Options} from './types'
 
-export interface Constructor {
-  new (app: Bud): void
-}
-export type Definition = Constructor
+export class Extension<E = any, Plugin = any> {
+  public _app?: () => Bud
+  public app?: Bud
 
-export class Extension<
-  Options extends Record<string, any> = Record<string, any>,
-  Plugin extends PluginInstance = null,
-> {
-  [key: string]: any
+  protected _options?: Options.FuncMap<E>
+  public options?: Options<E>
+
+  @bind
+  public async _init?() {
+    this.path = await this.app.module.path(this.label)
+    if (this.init) {
+      this.logger.log('initializing')
+      await this.init(this.options, this.app)
+    }
+  }
+  public async init?(options: Options<E>, app: Bud): Promise<unknown>
+
+  @bind
+  public async _register?() {
+    if (this.register) {
+      this.logger.log('registering')
+      await this.register(this.options ?? {}, this.app)
+    }
+  }
+  public async register?(options: Options<E>, app: Bud): Promise<unknown>
+
+  @bind
+  public async _boot?() {
+    if (this.boot) {
+      this.logger.log('booting')
+      await this.boot(this.options ?? {}, this.app)
+    }
+  }
+  public async boot?(options?: Options<E>, app?: Bud): Promise<unknown>
+
+  @bind
+  public async _make?() {
+    if (this.make) {
+      this.logger.log('making')
+      return await this.make(this.options ?? {}, this.app)
+    }
+
+    return false
+  }
+  public async make?(options?: Options<E>, app?: Bud): Promise<Plugin>
 
   /**
    * The module name
@@ -24,25 +58,11 @@ export class Extension<
   public label?: `${keyof Modules & string}`
 
   /**
-   * Options registered to the extension module
+   * Depends on
    *
    * @public
    */
-  public options?(app: Bud): Options
-
-  /**
-   * General purpose callback. Called first.
-   *
-   * @public
-   */
-  public register?(app?: Bud, logger?: Signale): Promise<unknown>
-
-  /**
-   * General purpose callback. Called after everything else.
-   *
-   * @public
-   */
-  public boot?(app?: Bud, logger?: Signale): Promise<unknown>
+  public dependsOn?: Set<`${keyof Modules & string}`>
 
   /**
    * Boolean or a function returning a boolean indicating if the {@link Module} should be utilized.
@@ -57,37 +77,24 @@ export class Extension<
    *
    * @public
    */
-  public when?(app?: Bud, options?: Container<Options>): boolean
+  public when?(options: Options<E>, app: Bud): Promise<boolean>
 
   /**
-   * Either a function returning a plugin value or the plugin value itself.
-   *
-   * @public
+   * Plugin constructor
    */
-  public make?(
-    options?: Container<Options>,
-    app?: Bud,
-    logger?: Signale,
-  ): Plugin & {apply: Plugin['apply']}
+  public plugin?: new (options: Options<E>) => Plugin
 
   /**
    * Compiler plugin `apply` method
    *
    * @public
    */
-  public apply?: Plugin['apply']
+  public apply?: Extension.PluginInstance['apply']
 
   /**
    * @public
    */
-  public path: string
-
-  /**
-   * @public
-   */
-  public get app(): Bud {
-    return this._app()
-  }
+  public path?: string
 
   /**
    * @public
@@ -97,44 +104,112 @@ export class Extension<
   /**
    * @public
    */
-  public constructor(_app?: Bud) {
-    if (_app) this._app = () => _app
+  public constructor(_app: Bud) {
+    this._app = () => _app
+
+    const logger = (() =>
+      _app.logger.makeInstance({
+        scope: this.label ?? 'anonymous extension',
+      }))()
+
+    Object.defineProperty(this, 'app', {
+      get: (() =>
+        function (): Bud {
+          return this._app()
+        }.bind(this))(),
+    })
+
+    Object.defineProperty(this, 'logger', {
+      get: (() =>
+        function (): Signale {
+          return logger.scope(this.label)
+        }.bind(this))(),
+    })
+
+    Object.defineProperty(this, 'options', {
+      get: (() =>
+        function (): Options<E> {
+          if (!this._options) this._options = {}
+          return Object.entries(this._options).reduce(
+            this.fromOptionsMap,
+            {},
+          )
+        }.bind(this))(),
+
+      set: (() =>
+        function (value: Options.FuncMap<Options<E>>) {
+          this._options = Object.entries(value).reduce(
+            this.toOptionsMap,
+            {},
+          )
+        }.bind(this))(),
+    })
   }
 
-  public get<K extends string, T = any>(key: K) {
-    return lodash.get(this, key) as T
-  }
-
-  public set<K extends string, T = any>(key: K, value: T) {
-    lodash.set(this, key, value)
+  @bind
+  public fromObject?(extensionObject: Extension): this {
+    Object.entries(extensionObject).map(([k, v]) => {
+      this.set(k, v)
+    })
     return this
   }
 
-  /**
-   * @public
-   */
-  public async init() {
-    this.path = await this.app.module.path(this.label)
+  @bind
+  public toOptionsMap?<K extends `${keyof Extension['options'] & string}`>(
+    funcMap: Options.FuncMap<Options<E>> = {},
+    [key, value]: [K, Extension['options'][K] | Extension['_options'][K]],
+  ): Options.FuncMap<Options<E>> {
+    return {
+      ...funcMap,
+      [key]: _.isFunction(value) ? value : () => value,
+    }
+  }
+
+  @bind
+  public fromOptionsMap?<K extends `${Extension['_options'] & string}`>(
+    options: Options<E>,
+    [key, value]: [K, Extension['_options'][K]],
+  ): Options<E> {
+    return {
+      ...(options ?? {}),
+      [key]: _.isFunction(value) ? value(this.app) : value,
+    }
+  }
+
+  @bind
+  public get?<K extends string, T = any>(key: K) {
+    return _.get(this, key) as T
+  }
+
+  @bind
+  public set?<K extends string, T = any>(key: K, value: T) {
+    _.set(this, key, value)
+    return this
+  }
+
+  @bind
+  public has?<K extends keyof Extension>(key: K): boolean {
+    return this[key] ? true : false
+  }
+
+  @bind
+  public isFunction?<K extends keyof Extension>(key: K): boolean {
+    return _.isFunction(this[key]) ? true : false
   }
 
   /**
    * @public
    */
-  public getOptions(): Container<Options> {
-    return this.app.extensions.get(this.label).options
-  }
-
-  /**
-   * @public
-   */
-  public resolve(module: string) {
+  @bind
+  public resolve?(module: string) {
     return this.app.module.resolvePreferred(module, this.path)
   }
 
   /**
    * @public
    */
-  public async import(module: string) {
+  @bind
+  public async import?(module: string) {
     try {
       return await import(this.resolve(module))
     } catch (error) {
@@ -143,6 +218,26 @@ export class Extension<
   }
 }
 
-export {Bud} from '../bud'
-export {Module, PluginInstance} from './module'
-export {Plugin} from './plugin'
+export namespace Extension {
+  export interface Constructor {
+    new (...args: any[]): Extension
+  }
+
+  export type Definition = Constructor
+
+  /**
+   * Compiler plugin interface
+   *
+   * @public
+   */
+  export interface PluginInstance {
+    [key: string]: any
+
+    /**
+     * Apply method
+     *
+     * @public
+     */
+    apply?: CallableFunction
+  }
+}

@@ -1,15 +1,13 @@
 import {Extension} from '@roots/bud-framework'
-import {bind} from '@roots/bud-support'
+import {
+  bind,
+  dependsOn,
+  label,
+} from '@roots/bud-framework/extension/decorators'
 
-class BudTailwindCss extends Extension.Extension {
-  /**
-   * @public
-   */
-  public label = '@roots/bud-tailwindcss'
-
-  /**
-   * @public
-   */
+@label('@roots/bud-tailwindcss')
+@dependsOn(['@roots/bud-postcss'])
+class BudTailwindCss extends Extension {
   @bind
   public async boot() {
     try {

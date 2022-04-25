@@ -10,21 +10,7 @@
  * @packageDocumentation
  */
 
-import {Extension} from '@roots/bud-framework'
+import './env'
 
-declare module '@roots/bud-framework' {
-  interface Modules {
-    '@roots/bud-preset-recommend': BudPresetRecommend
-  }
-}
-
-export interface BudPresetRecommend extends Extension.Module {
-  label: '@roots/bud-preset-recommend'
-}
-
-/**
- * Recommended preset configuration for Bud.
- *
- * @public
- */
-export const label = '@roots/bud-preset-recommend'
+import BudPresetRecommend from './extension'
+export default BudPresetRecommend

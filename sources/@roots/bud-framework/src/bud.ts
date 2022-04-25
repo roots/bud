@@ -401,19 +401,6 @@ export abstract class Bud {
    * @decorator `@bind`
    */
   @bind
-  public time(...messages: any[]) {
-    this.logger?.instance && this.logger.instance.time(...messages)
-
-    return this
-  }
-
-  /**
-   * Log a `warning` level message
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
   public await(...messages: any[]) {
     this.logger?.instance && this.logger.instance.await(...messages)
 
@@ -429,19 +416,6 @@ export abstract class Bud {
   @bind
   public complete(...messages: any[]) {
     this.logger?.instance && this.logger.instance.complete(...messages)
-
-    return this
-  }
-
-  /**
-   * Log a `warning` level message
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public timeEnd(...messages: any[]) {
-    this.logger?.instance && this.logger.instance.timeEnd(...messages)
 
     return this
   }

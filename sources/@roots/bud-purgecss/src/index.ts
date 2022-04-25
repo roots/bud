@@ -22,20 +22,11 @@
 import './bud.env'
 
 import {purgecss} from './bud.purge'
-import {Purge} from './purge.interface'
 
-/**
- * Module name
- *
- * @public
- */
-export const label: Purge['label'] = '@roots/bud-purgecss'
+export const label = '@roots/bud-purgecss'
 
-/**
- * Module registration
- *
- * @public
- */
-export const register: Purge['register'] = async app => {
+export const dependsOn = new Set(['@roots/bud-postcss'])
+
+export const register = async (_options, app) => {
   app.api.bindFacade('purgecss', purgecss)
 }

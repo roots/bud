@@ -5,6 +5,7 @@
     "rootDir": "./src",
     "outDir": "./lib/cjs",
     "declarationDir": "./types",
+    "emitDecoratorMetadata": true,
     "esModuleInterop": true
   },
   "include": ["src"],

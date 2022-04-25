@@ -16,9 +16,16 @@ export const method: method = async function () {
 
   const palette = await getPalette(ctx.path('./tailwind.config.js'))
 
-  ctx.extensions
-    .get('wp-theme-json')
-    .setOption('settings.color.palette', transformPalette(palette))
+  ctx.extensions.get('wp-theme-json').setOptions(options => ({
+    path: options.path,
+    settings: {
+      ...(options.settings ?? {}),
+      color: {
+        ...(options.settings.color ?? {}),
+        palette: transformPalette(palette),
+      },
+    },
+  }))
 
   return ctx
 }

@@ -1,27 +1,20 @@
 import RefreshPlugin from '@pmmmwh/react-refresh-webpack-plugin'
 import {ReactRefreshPluginOptions} from '@pmmmwh/react-refresh-webpack-plugin/types/lib/types'
-import type {Bud, Extension} from '@roots/bud-framework'
-import {Container} from '@roots/container'
+import {Extension} from '@roots/bud-framework/extension'
+import {
+  development,
+  label,
+  options,
+  plugin,
+} from '@roots/bud-framework/extension/decorators'
 
-/**
- * Add react-refresh-webpack-plugin
- *
- * @public
- */
-export interface ReactRefreshExtension
-  extends Extension.Plugin<RefreshPlugin, ReactRefreshPluginOptions> {
-  label: '@pmmmwh/react-refresh-webpack-plugin'
-  options: ReactRefreshPluginOptions
-  make: (options: Container<ReactRefreshPluginOptions>) => RefreshPlugin
-  when: (app: Bud) => boolean
-}
+@label('@pmmmwh/react-refresh-webpack-plugin')
+@plugin(RefreshPlugin)
+@options({overlay: false})
+@development
+class ReactRefreshExtension extends Extension<
+  ReactRefreshPluginOptions,
+  RefreshPlugin
+> {}
 
-export const ReactRefreshExtension: ReactRefreshExtension = {
-  label: '@pmmmwh/react-refresh-webpack-plugin',
-
-  options: {overlay: false},
-
-  make: opt => new RefreshPlugin(opt.all()),
-
-  when: ({isDevelopment}) => isDevelopment,
-}
+export default ReactRefreshExtension

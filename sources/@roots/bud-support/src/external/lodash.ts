@@ -1,5 +1,13 @@
 export {
+  camelCase,
+  remove,
+  lowerCase,
+  lowerFirst,
+  pick,
+  upperFirst,
+  upperCase,
   chunk,
+  has,
   isBoolean,
   isFunction,
   isObject,

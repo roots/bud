@@ -1,8 +1,9 @@
-import {HotModuleReplacementPlugin} from './webpack-hot-module-replacement.dependencies'
-import type {Plugin} from './webpack-hot-module-replacement.interface'
+import {Extension} from '@roots/bud-framework'
+import {HotModuleReplacementPlugin} from 'webpack'
 
-export const label = 'webpack-hot-module-replacement-plugin'
+export const label = 'webpack:hot-module-replacement-plugin'
 
-export const make: Plugin['make'] = () => new HotModuleReplacementPlugin()
+export const plugin: Extension['plugin'] = HotModuleReplacementPlugin
 
-export const when: Plugin['when'] = app => app.isDevelopment
+export const when: Extension['when'] = async (options, app) =>
+  app.isDevelopment

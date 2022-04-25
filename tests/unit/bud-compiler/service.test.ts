@@ -1,6 +1,5 @@
 import {Bud, factory} from '@repo/test-kit/bud'
 import {Compiler} from '@roots/bud-compiler'
-import {Signale} from '@roots/bud-support'
 
 describe('@roots/bud-compiler', function () {
   let bud: Bud
@@ -13,10 +12,6 @@ describe('@roots/bud-compiler', function () {
 
   it('has run fn', () => {
     expect(impl.compile).toBeInstanceOf(Function)
-  })
-
-  it('has logger', () => {
-    expect(impl.logger).toBeInstanceOf(Signale)
   })
 
   it('has before fn', () => {

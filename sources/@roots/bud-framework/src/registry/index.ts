@@ -1,10 +1,10 @@
-import {Bud} from '../extension'
+import {Bud} from '../bud'
 import * as Build from './build'
 import {Dev} from './dev'
 import {Events} from './events'
 import {Flags} from './flags'
 import {Locations} from './locations'
-import {Modules} from './modules'
+import {Controllers, Modules} from './modules'
 import {Patterns} from './patterns'
 import {Values} from './values'
 
@@ -50,4 +50,13 @@ export namespace Store {
   }
 }
 
-export {Build, Dev, Flags, Locations, Modules, Patterns, Values}
+export {
+  Build,
+  Controllers,
+  Dev,
+  Flags,
+  Locations,
+  Modules,
+  Patterns,
+  Values,
+}

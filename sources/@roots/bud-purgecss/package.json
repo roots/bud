@@ -42,8 +42,23 @@
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.js"
+    ".": {
+      "require": "./lib/cjs/index.js",
+      "import": "./lib/esm/index.js"
+    },
+    "./bud.purge": {
+      "require": "./lib/cjs/bud.purge.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./types/index.d.ts"
+      ],
+      "bud.purge": [
+        "./types/bud.purge.d.ts"
+      ]
+    }
   },
   "bud": {
     "type": "extension",

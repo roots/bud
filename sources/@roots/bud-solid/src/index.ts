@@ -10,10 +10,9 @@
  * @packageDocumentation
  */
 
-import '@roots/bud-babel'
+import '@roots/bud-babel/types/env'
 
 import type {Extension} from '@roots/bud-framework'
-import {safeRequire} from '@roots/bud-support'
 
 declare module '@roots/bud-framework' {
   interface Modules {
@@ -21,17 +20,14 @@ declare module '@roots/bud-framework' {
   }
 }
 
-type BudSolidExtension = Extension.Module
+type BudSolidExtension = Extension
 
 const BudSolidExtension: BudSolidExtension = {
   label: '@roots/bud-solid',
 
-  async boot({babel, warn}) {
-    !safeRequire('babel-preset-solid') &&
-      warn(
-        'babel-preset-solid is required by @roots/bud-solid-js but is not resolvable.',
-      )
+  dependsOn: new Set(['@roots/bud-babel']),
 
+  async boot(_, {babel}) {
     babel.setPreset(
       'babel-preset-solid',
       require.resolve('babel-preset-solid'),

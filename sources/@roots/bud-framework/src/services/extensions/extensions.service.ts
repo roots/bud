@@ -1,7 +1,7 @@
-import {Constructor, Module, PluginInstance} from '../../extension'
-import {ContainerService} from '../../service'
-
-export type BudExtension = Module | Constructor
+import {Extension} from '../..'
+import {Controllers} from '../../registry'
+import {Service as BaseService} from '../../service'
+import {Controller} from './controller'
 
 /**
  * Container service for {@link Bud} extensions.
@@ -14,39 +14,62 @@ export type BudExtension = Module | Constructor
  *
  * @public
  */
-export interface Service extends ContainerService {
+export interface Service extends BaseService {
+  repository: Controllers
+
+  has<K extends keyof Controllers & string>(key: K): boolean
+
+  get<K extends keyof Controllers & string>(key: K): Controller<K & string>
+
+  remove<K extends keyof Controllers & string>(key: K): this
+
+  set<K extends keyof Controllers & string>(
+    key: K,
+    value: Controller<K & string>,
+  ): this
+
+  setController<K extends keyof Controllers & string>(
+    controller: Controller<K & string>,
+  ): this
+
   /**
    * Add an extension
    *
    * @public
    */
-  add(extension: BudExtension | Array<BudExtension>): Promise<unknown>
+  add(
+    extension:
+      | Extension.Constructor
+      | Partial<Extension>
+      | Array<Extension.Constructor | Partial<Extension>>,
+  ): Promise<unknown>
 
   /**
    * Install and register discovered extensions
    *
    * @public
    */
-  injectExtensions(): Promise<void>
+  injectExtensions(): unknown
 
   /**
-   * Register event for all extensions
-   *
    * @public
    */
-  registerAll(): Promise<void>
+  withController<K extends keyof Controllers & string>(
+    controller: Controllers[K],
+    methodName: 'init' | 'register' | 'boot' | 'make',
+  ): unknown
 
   /**
-   * Boot event for all extensions
-   *
    * @public
    */
-  bootAll(): Promise<void>
+  withAllControllers(
+    methodName: 'make' | 'register' | 'boot' | 'init',
+  ): unknown
 
   /**
    * Returns array of {@link PluginInstance}s
    *
    * @public
    */
-  make(): Promise<Array<PluginInstance>>
+  make(): Promise<Array<Extension.PluginInstance>>
 }

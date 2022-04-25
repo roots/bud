@@ -27,7 +27,7 @@ export class Rule extends Base implements Build.Rule {
    *
    * @public
    */
-  public use?: Array<`${keyof Build.Items & string}`>
+  public use?: Array<`${`${keyof Build.Items & string}`}`>
 
   /**
    * Include paths
@@ -136,7 +136,7 @@ export class Rule extends Base implements Build.Rule {
    * @decorator `@bind`
    */
   @bind
-  public getUse(): Array<`${keyof Build.Items & string}`> {
+  public getUse(): Array<`${`${keyof Build.Items & string}`}`> {
     return this.unwrap(this.use)?.filter(isString) ?? []
   }
 
@@ -149,11 +149,11 @@ export class Rule extends Base implements Build.Rule {
   @bind
   public setUse(
     input:
-      | Array<keyof Build.Items & string>
+      | Array<`${keyof Build.Items & string}`>
       | ((
-          use: Array<keyof Build.Items & string>,
+          use: Array<`${keyof Build.Items & string}`>,
           app: Bud,
-        ) => Array<keyof Build.Items & string>),
+        ) => Array<`${keyof Build.Items & string}`>),
   ): Rule {
     this.use =
       (isFunction(input) ? input(this.getUse() ?? [], this.app) : input) ??

@@ -10,6 +10,7 @@
  * @packageDocumentation
  */
 
-import './babel.interface'
+import './env'
 
-export {BabelExtension as default} from './babel.extension'
+import BabelExtension from './extension'
+export default BabelExtension

@@ -12,4 +12,5 @@
 
 import './interface'
 
-export {WordPress as default} from './extension'
+import BudPresetWordPress from './extension'
+export default BudPresetWordPress

@@ -1,41 +1,31 @@
-import {WebpackManifestPlugin} from './webpack-manifest-plugin.dependencies'
-import type {Plugin} from './webpack-manifest-plugin.interface'
+import {Extension} from '@roots/bud-framework'
+import {
+  bind,
+  label,
+  options,
+  plugin,
+} from '@roots/bud-framework/extension/decorators'
+import {
+  ManifestPluginOptions as Options,
+  WebpackManifestPlugin,
+} from 'webpack-manifest-plugin'
 
-/**
- * Webpack Manifest Plugin adapter
- *
- * @public
- */
-const BudWebpackManifestPlugin: Plugin = {
-  /**
-   * @public
-   */
-  label: 'webpack-manifest-plugin',
-
-  /**
-   * @public
-   */
-  options: () => ({
-    fileName: 'manifest.json',
-    writeToFileEmit: true,
-  }),
-
-  /**
-   * @public
-   */
-  make: (options, {hooks}) => {
-    return new WebpackManifestPlugin({
-      publicPath: hooks
-        .filter('build.output.publicPath')
-        .replace('auto', ''),
-      ...options.all(),
-    })
-  },
-
-  /**
-   * @public
-   */
-  when: app => app.hooks.filter('feature.manifest'),
+@label('webpack-manifest-plugin')
+@plugin(WebpackManifestPlugin)
+@options({
+  fileName: 'manifest.json',
+  writeToFileEmit: true,
+  publicPath: ({hooks}) =>
+    hooks.filter('build.output.publicPath').replace('auto', ''),
+})
+class BudWebpackManifestPlugin extends Extension<
+  Options,
+  WebpackManifestPlugin
+> {
+  @bind
+  public async when() {
+    return this.app.hooks.filter('feature.manifest')
+  }
 }
 
-export const {label, options, make, when} = BudWebpackManifestPlugin
+export default BudWebpackManifestPlugin

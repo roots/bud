@@ -1,10 +1,19 @@
-import {Constructor} from '../extension'
-import {Module} from '../extension/module'
+import {Extension} from '../extension'
+import {Controller} from '../services/extensions'
 
 export interface Modules {
-  [key: `extension.${string}`]: Module | Constructor
+  [key: string]: Extension
+}
+export type ModuleMap = Modules & {
+  [K in keyof Modules as `${K & string}`]: Modules[K]
 }
 
-export namespace Modules {
-  export type HookMap = Modules
+export type Controllers = {
+  [K in keyof Modules as `${K & string}`]?: Controller<K & string>
+}
+
+export type Definitions = {
+  [K in keyof ModuleMap as `${K & string}`]?: new (
+    ...args: any[]
+  ) => ModuleMap[K]
 }

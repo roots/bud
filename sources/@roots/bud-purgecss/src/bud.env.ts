@@ -10,6 +10,6 @@ declare module '@roots/bud-framework' {
   }
 
   interface Modules {
-    '@roots/bud-purgecss': Extension.Module
+    '@roots/bud-purgecss': Extension
   }
 }

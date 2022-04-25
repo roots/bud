@@ -6,7 +6,7 @@ import {Vue} from './vue.extension'
 declare module '@roots/bud-framework' {
   interface Modules {
     '@roots/bud-vue': Vue
-    'vue-loader-plugin': Extension.Module
+    'vue-loader-plugin': Extension
   }
 
   interface Loaders {

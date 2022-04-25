@@ -20,7 +20,7 @@ export const setSvgEmit = ({build}: Bud) =>
  * and unresolved assets.
  */
 export const setManifestPublicPath = ({extensions}: Bud) =>
-  extensions.get('@roots/bud-entrypoints').setOption('publicPath', '')
+  (extensions.get('@roots/bud-entrypoints').module.options.publicPath = '')
 
 /**
  * - If publicPath is `/` in production assets will not be locatable by Acorn.

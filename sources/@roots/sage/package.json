@@ -42,22 +42,34 @@
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    ".": "./lib/cjs/index.js",
-    "./client": "./lib/cjs/client/index.js",
-    "./client/dom-ready": "./lib/cjs/client/domReady.js",
-    "./stylelint-config": "./stylelint-config/index.js",
-    "./theme/tailwind": "./lib/cjs/theme/tailwind.adapter.js",
-    "./tsconfig": "./tsconfig/tsconfig.json"
+    ".": {
+      "require": "./lib/cjs/index.js"
+    },
+    "./client": {
+      "require": "./lib/cjs/client/index.js"
+    },
+    "./client/dom-ready": {
+      "require": "./lib/cjs/client/dom-ready.js"
+    },
+    "./stylelint-config": {
+      "require": "./stylelint-config/index.js"
+    },
+    "./theme/tailwind": {
+      "require": "./lib/cjs/theme/tailwind.adapter.js"
+    }
   },
-  "typeVersions": {
+  "typesVersions": {
     "*": {
       ".": [
         "./types/index.d.ts"
       ],
-      "./client": [
+      "client": [
         "./types/client/index.d.ts"
       ],
-      "./theme/tailwind": [
+      "client/dom-ready": [
+        "./types/client/dom-ready.d.ts"
+      ],
+      "theme/tailwind": [
         "./types/theme/tailwind.adapter.d.ts"
       ]
     }
@@ -70,12 +82,12 @@
   },
   "devDependencies": {
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.11.26",
     "webpack": "5.70.0"
   },
   "dependencies": {
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-preset-wordpress": "workspace:sources/@roots/bud-preset-wordpress",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "tslib": "2.3.1"

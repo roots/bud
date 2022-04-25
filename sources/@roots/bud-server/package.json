@@ -42,7 +42,17 @@
   "types": "./types/index.d.ts",
   "exports": {
     ".": "./lib/cjs/index.js",
-    "./client/*": "./lib/cjs/client/*"
+    "./client/*": "./lib/cjs/client/*/index.js"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./types/index.d.ts"
+      ],
+      "client/*": [
+        "./types/client/*/index.d.ts"
+      ]
+    }
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",

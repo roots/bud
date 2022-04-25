@@ -1,4 +1,4 @@
-import {Env} from '@roots/bud/src/context/env'
+import {Env} from '@roots/bud/context/env'
 
 describe('unit', function () {
   describe('context', () => {

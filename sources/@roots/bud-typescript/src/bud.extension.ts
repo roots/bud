@@ -1,30 +1,20 @@
-import {Extension} from '@roots/bud-framework'
-import {bind} from '@roots/bud-support'
+import {Extension} from '@roots/bud-framework/extension'
+import {
+  bind,
+  dependsOn,
+  label,
+} from '@roots/bud-framework/extension/decorators'
 
 import {typecheck} from './bud.typecheck'
 
-/**
- * @public
- */
-export class TypeScript extends Extension.Extension {
-  /**
-   * @public
-   */
-  public label = '@roots/bud-typescript'
-
-  /**
-   * @public
-   * @decorator `@bind`
-   */
+@label('@roots/bud-typescript')
+@dependsOn(['@roots/bud-babel'])
+class BudTypeScript extends Extension {
   @bind
   public async register() {
     this.app.api.bindFacade('typecheck', typecheck)
   }
 
-  /**
-   * @public
-   * @decorator `@bind`
-   */
   @bind
   public async boot() {
     this.app.hooks.on('build.resolve.extensions', ext =>
@@ -49,3 +39,5 @@ export class TypeScript extends Extension.Extension {
     this.app.build.rules.js.setUse(['babel', 'ts'])
   }
 }
+
+export default BudTypeScript

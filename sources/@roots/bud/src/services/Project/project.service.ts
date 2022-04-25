@@ -1,5 +1,5 @@
 import * as Framework from '@roots/bud-framework'
-import {bind, fs, jsonStringify, lodash} from '@roots/bud-support'
+import {bind, fs, lodash} from '@roots/bud-support'
 
 import {Peers} from './peers'
 import {repository} from './project.repository'
@@ -16,13 +16,6 @@ export class Project
   extends Framework.ContainerService
   implements Framework.Project.Service
 {
-  /**
-   * Service ident
-   *
-   * @internal
-   */
-  public ident = 'project'
-
   /**
    * Project peer dependencies manager
    *
@@ -65,7 +58,7 @@ export class Project
     try {
       await this.buildProfile()
     } catch (e) {
-      this.log('error', e)
+      this.app.error(e)
     }
   }
 
@@ -147,16 +140,17 @@ export class Project
   @bind
   public async writeProfile() {
     await ensureFile(
-      this.app.path(`@storage/${this.app.name}/profile.json`),
-    )
-    await writeFile(
-      this.app.path(`@storage/${this.app.name}/profile.json`),
-      jsonStringify(this.repository, null, 2),
+      this.app.path(`@storage`, this.app.name, `profile.json`),
     )
 
-    this.log('success', {
+    await writeFile(
+      this.app.path(`@storage`, this.app.name, `profile.json`),
+      this.app.json.stringify(this.repository, null, 2),
+    )
+
+    this.app.success({
       message: 'write profile',
-      suffix: this.app.path(`@storage/${this.app.name}/profile.json`),
+      suffix: this.app.path(`@storage`, this.app.name, `profile.json`),
     })
   }
 

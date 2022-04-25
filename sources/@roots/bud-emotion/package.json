@@ -66,14 +66,14 @@
     "@emotion/css": "^11.7.1",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
-    "autobind-decorator": "^2.4.0",
+    "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "tslib": "2.3.1"
   },
   "peerDependencies": {
-    "@emotion/babel-plugin": "^11.7.2",
-    "@emotion/css": "^11.7.1",
-    "@emotion/react": "^11.7.1",
-    "@emotion/styled": "^11.6.0"
+    "@emotion/babel-plugin": "*",
+    "@emotion/css": "*",
+    "@emotion/react": "*",
+    "@emotion/styled": "*"
   },
   "peerDependenciesMeta": {
     "@emotion/babel-plugin": {

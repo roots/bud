@@ -41,14 +41,33 @@
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    ".": "./lib/cjs/index.js"
+    ".": {
+      "require": "./lib/cjs/index.js"
+    },
+    "./extension": {
+      "require": "./lib/cjs/extension.js"
+    },
+    "./config": {
+      "require": "./lib/cjs/config.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./types/index.d.ts"
+      ],
+      "extension": [
+        "./types/extension.d.ts"
+      ],
+      "config": [
+        "./types/config.d.ts"
+      ]
+    }
   },
   "bud": {
     "type": "extension"
   },
   "devDependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud",
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@skypack/package-check": "0.2.2",
     "@types/fs-extra": "9.0.13",
     "@types/lodash": "4.14.180",
@@ -62,6 +81,7 @@
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@babel/plugin-transform-runtime": "^7.16.4",
     "@babel/preset-env": "^7.16.4",
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "babel-loader": "^8.2.3",
     "tslib": "2.3.1"

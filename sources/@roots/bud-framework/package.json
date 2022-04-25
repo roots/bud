@@ -44,6 +44,8 @@
     ".": "./lib/cjs/index.js",
     "./bud": "./lib/cjs/bud.js",
     "./extension": "./lib/cjs/extension/index.js",
+    "./extension/decorators": "./lib/cjs/extension/decorators.js",
+    "./methods/*": "./lib/cjs/methods/*.js",
     "./module": "./lib/cjs/module.js",
     "./service": "./lib/cjs/service.js",
     "./services/*": "./lib/cjs/services/*/index.js"
@@ -61,6 +63,12 @@
       ],
       "extension": [
         "./types/extension/index.d.ts"
+      ],
+      "extension/decorators": [
+        "./types/extension/decorators.d.ts"
+      ],
+      "methods/*": [
+        "./types/methods/*.js"
       ],
       "service": [
         "./types/service.d.ts"

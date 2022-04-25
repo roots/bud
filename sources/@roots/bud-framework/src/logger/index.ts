@@ -1,4 +1,4 @@
-import {Signale} from '@roots/bud-support'
+import {bind, Signale} from '@roots/bud-support'
 
 import type {Bud} from '..'
 import {LEVEL, types} from './logger.constants'
@@ -9,6 +9,12 @@ import {LEVEL, types} from './logger.constants'
  * @public
  */
 export class Logger {
+  protected _app: () => Bud
+
+  public get app() {
+    return this._app()
+  }
+
   /**
    * Logger instance
    *
@@ -31,16 +37,24 @@ export class Logger {
    *
    * @public
    */
-  public constructor(private app: Bud) {
-    this.instance = new Signale({
+  public constructor(_app: Bud) {
+    this._app = () => _app
+
+    this.instance = this.makeInstance()
+  }
+
+  @bind
+  public makeInstance(constructorOverrides = {}, configOverrides = {}) {
+    const instance = new Signale({
       interactive: this.interactive,
       secrets: [this.app.context.projectDir, this.app.context.cwd],
       logLevel: this.level,
-      types: types(app),
+      types: types(this.app),
       scope: 'bud',
+      ...constructorOverrides,
     })
 
-    this.instance.config({
+    instance.config({
       displayScope: true,
       displayBadge: true,
       displayDate: false,
@@ -52,6 +66,9 @@ export class Logger {
       underlinePrefix: false,
       underlineSuffix: false,
       uppercaseLabel: false,
+      ...configOverrides,
     })
+
+    return instance
   }
 }

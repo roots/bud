@@ -1,7 +1,7 @@
 import './interface'
 
 import {Bud, Extension} from '@roots/bud-framework'
-import {bind} from '@roots/bud-support'
+import {bind} from '@roots/bud-framework/extension/decorators'
 import ImageMinimizerPlugin, {
   Generator,
 } from 'image-minimizer-webpack-plugin'
@@ -9,7 +9,7 @@ import ImageMinimizerPlugin, {
 /**
  * @public
  */
-export class Imagemin extends Extension.Extension {
+export class Imagemin extends Extension {
   /**
    * @public
    */
