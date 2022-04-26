@@ -10,7 +10,8 @@ import {Make} from './make.command'
 import {Publish} from './publish.command'
 import {Release} from './release.command'
 import {Test} from './test.command'
-import {Version} from './version.command'
+import {Vendor} from './vendor.command'
+import { Version } from './version.command'
 
 export const Commands = {
   Build,
@@ -25,5 +26,6 @@ export const Commands = {
   Publish,
   Release,
   Test,
+  Vendor,
   Version,
 }
