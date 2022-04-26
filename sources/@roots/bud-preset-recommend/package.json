@@ -36,6 +36,9 @@
   "engines": {
     "node": ">=14"
   },
+  "bud": {
+    "type": "extension"
+  },
   "files": [
     "lib/",
     "types/"
@@ -44,12 +47,8 @@
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    ".": {
-      "require": "./lib/cjs/index.js"
-    },
-    "./extension": {
-      "require": "./lib/cjs/extension.js"
-    }
+    ".": "./lib/cjs/index.js",
+    "./extension": "./lib/cjs/extension.js"
   },
   "typesVersions": {
     "*": {
@@ -61,12 +60,8 @@
       ]
     }
   },
-  "bud": {
-    "type": "extension"
-  },
   "devDependencies": {
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@skypack/package-check": "0.2.2",
     "@types/lodash": "4.14.180",
     "@types/node": "16.11.26"
@@ -74,6 +69,7 @@
   "dependencies": {
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
     "@roots/bud-entrypoints": "workspace:sources/@roots/bud-entrypoints",
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
     "tslib": "2.3.1"
   }

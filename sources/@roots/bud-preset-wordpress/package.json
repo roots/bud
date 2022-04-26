@@ -28,20 +28,20 @@
   "engines": {
     "node": ">=14"
   },
+  "bud": {
+    "type": "extension"
+  },
   "files": [
     "lib/",
     "stylelint-config/",
     "types/"
   ],
-  "bud": {
-    "type": "extension"
-  },
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
     ".": "./lib/cjs/index.js",
-    "./*": "./lib/cjs/*",
+    "./extension": "./lib/cjs/extension.js",
     "./stylelint-config": "./stylelint-config/index.js"
   },
   "typesVersions": {

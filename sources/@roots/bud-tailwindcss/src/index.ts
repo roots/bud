@@ -10,8 +10,14 @@
  * @packageDocumentation
  */
 
-import './typings'
+import '@roots/bud-framework/types'
+import '@roots/bud-postcss/types'
 
-import BudTailwindCss from './tailwind.extension'
+declare module '@roots/bud-framework' {
+  interface Modules {
+    '@roots/bud-tailwindcss': BudTailwindCss
+  }
+}
 
+import BudTailwindCss from './extension'
 export default BudTailwindCss

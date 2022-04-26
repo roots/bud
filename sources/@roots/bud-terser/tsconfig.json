@@ -5,9 +5,8 @@
     "esModuleInterop": true,
     "rootDir": "./src",
     "outDir": "./lib/cjs",
-    "types": ["node", "@roots/bud-api"]
   },
-  "include": ["src/**/*.ts", "src/**/*.json"],
+  "include": ["src"],
   "references": [
     {
       "path": "./../bud-framework/tsconfig.json"

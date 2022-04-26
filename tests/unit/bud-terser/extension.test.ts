@@ -38,8 +38,8 @@ describe('@roots/bud-terser', () => {
     expect(controller.module.boot).toBeInstanceOf(Function)
   })
 
-  it('binds the bud.terser function', async () => {
+  it('exposes self @ bud.terser', async () => {
     await bud.extensions.add([BudTerser])
-    expect(bud.terser).toBeInstanceOf(Function)
+    expect(bud.terser).toBeInstanceOf(BudTerser)
   })
 })

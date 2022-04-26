@@ -3307,6 +3307,7 @@ __metadata:
     "@babel/plugin-syntax-dynamic-import": ^7.8.3
     "@babel/plugin-transform-runtime": ^7.16.4
     "@babel/preset-env": ^7.16.4
+    "@roots/bud-build": "workspace:sources/@roots/bud-build"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
@@ -3659,7 +3660,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-postcss@workspace:sources/@roots/bud-postcss"
   dependencies:
-    "@roots/bud-build": "workspace:sources/@roots/bud-build"
+    "@roots/bud-api": "workspace:sources/@roots/bud-api"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
@@ -3675,6 +3676,7 @@ __metadata:
   peerDependencies:
     postcss: "*"
     postcss-import: "*"
+    postcss-loader: "*"
     postcss-nested: "*"
     postcss-preset-env: "*"
   peerDependenciesMeta:
@@ -3810,11 +3812,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-sass@workspace:sources/@roots/bud-sass"
   dependencies:
-    "@roots/bud-api": "workspace:sources/@roots/bud-api"
-    "@roots/bud-build": "workspace:sources/@roots/bud-build"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss"
-    "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
     "@types/lodash": 4.14.180
     "@types/node": 16.11.26
@@ -3881,13 +3880,9 @@ __metadata:
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@skypack/package-check": 0.2.2
-    "@types/eslint": 8.4.1
-    "@types/jest": 27.4.1
     "@types/lodash": 4.14.180
     "@types/node": 16.11.26
     babel-preset-solid: ^1.2.5
-    eslint: 8.11.0
-    jest: 27.5.1
     solid-js: 1.3.13
     tslib: 2.3.1
     type-fest: 2.12.1
@@ -4004,8 +3999,11 @@ __metadata:
     tailwindcss: 3.0.23
     tslib: 2.3.1
   peerDependencies:
-    tailwindcss: ^3.0.8
+    autoprefixer: "*"
+    tailwindcss: "*"
   peerDependenciesMeta:
+    autoprefixer:
+      optional: true
     tailwindcss:
       optional: true
   languageName: unknown
@@ -4051,6 +4049,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-vue@workspace:sources/@roots/bud-vue"
   dependencies:
+    "@roots/bud-babel": "workspace:sources/@roots/bud-babel"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@skypack/package-check": 0.2.2
     "@types/node": 16.11.26

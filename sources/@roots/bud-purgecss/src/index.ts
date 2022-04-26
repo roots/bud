@@ -19,14 +19,20 @@
  * @packageDocumentation
  */
 
-import './bud.env'
+import '@roots/bud-postcss/types'
 
-import {purgecss} from './bud.purge'
+import {Extension} from '@roots/bud-framework/types'
 
-export const label = '@roots/bud-purgecss'
+import * as purge from './purge.interface'
 
-export const dependsOn = new Set(['@roots/bud-postcss'])
+declare module '@roots/bud-framework' {
+  interface Bud {
+    purgecss: purge.api
+  }
 
-export const register = async (_options, app) => {
-  app.api.bindFacade('purgecss', purgecss)
+  interface Modules {
+    '@roots/bud-purgecss': Extension
+  }
 }
+
+export * from './extension'

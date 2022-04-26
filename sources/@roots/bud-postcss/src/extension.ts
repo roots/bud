@@ -1,5 +1,9 @@
-import {Extension} from '@roots/bud-framework'
-import {bind} from '@roots/bud-support'
+import {Extension} from '@roots/bud-framework/extension'
+import {
+  bind,
+  expose,
+  label,
+} from '@roots/bud-framework/extension/decorators'
 import {Plugin, Processor} from 'postcss'
 
 type Input =
@@ -13,9 +17,9 @@ type InputRecords = Record<string, Input>
 type InputMap = Map<string, Input>
 type Registry = Map<string, [any, any?] | [Plugin | Processor]>
 
-class BudPostCss extends Extension<any, any> {
-  public readonly label = '@roots/bud-postcss'
-
+@label('@roots/bud-postcss')
+@expose('postcss')
+class BudPostCss extends Extension {
   protected _syntax: string = null
 
   protected _sourceMap: boolean = true
@@ -160,11 +164,6 @@ class BudPostCss extends Extension<any, any> {
    */
   @bind
   public async register() {
-    /**
-     * Expose this class to bud.postcss
-     */
-    this.app.postcss = this
-
     /**
      * Install postcss-loader, postcss-loader options, and
      * modify the css rule to utilize them.

@@ -10,12 +10,15 @@
  * @packageDocumentation
  */
 
-import './bud.env'
+declare module '@roots/bud-framework' {
+  interface Bud {
+    terser: BudTerser
+  }
 
-import TerserPlugin from 'terser-webpack-plugin'
+  interface Modules {
+    '@roots/bud-terser': BudTerser
+  }
+}
 
-export type Options = TerserPlugin.BasePluginOptions
-export type Plugin = TerserPlugin
-
-import Extension from './terser.extension'
-export default Extension
+import BudTerser from './extension'
+export default BudTerser

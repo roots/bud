@@ -1,4 +1,4 @@
-import {Extension} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
   dependsOn,
@@ -7,7 +7,7 @@ import {
 
 @label('@roots/bud-tailwindcss')
 @dependsOn(['@roots/bud-postcss'])
-class BudTailwindCss extends Extension {
+export default class BudTailwindCss extends Extension {
   @bind
   public async boot() {
     try {
@@ -29,5 +29,3 @@ class BudTailwindCss extends Extension {
     }
   }
 }
-
-export default BudTailwindCss

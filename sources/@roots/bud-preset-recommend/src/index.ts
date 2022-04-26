@@ -10,7 +10,15 @@
  * @packageDocumentation
  */
 
-import './env'
+import '@roots/bud-babel/types'
+import '@roots/bud-entrypoints/types'
+import '@roots/bud-postcss/types'
+
+declare module '@roots/bud-framework' {
+  interface Modules {
+    '@roots/bud-preset-recommend': BudPresetRecommend
+  }
+}
 
 import BudPresetRecommend from './extension'
 export default BudPresetRecommend

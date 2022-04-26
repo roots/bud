@@ -7,11 +7,9 @@
  * @packageDocumentation
  */
 
-import '@roots/bud-postcss'
+import '@roots/bud-postcss/types'
 
-import type {Item, Loader, Rule} from '@roots/bud-build'
-
-import BudSass from './sass.extension'
+import type {Build} from '@roots/bud-framework/types'
 
 declare module '@roots/bud-framework' {
   interface Modules {
@@ -19,16 +17,17 @@ declare module '@roots/bud-framework' {
   }
 
   interface Loaders {
-    sass: Loader
+    sass: Build.Loader
   }
 
   interface Items {
-    sass: Item
+    sass: Build.Item
   }
 
   interface Rules {
-    sass: Rule
+    sass: Build.Rule
   }
 }
 
+import BudSass from './extension'
 export default BudSass

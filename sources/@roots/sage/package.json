@@ -32,6 +32,9 @@
   "engines": {
     "node": ">=14"
   },
+  "bud": {
+    "type": "extension"
+  },
   "files": [
     "stylelint-config/",
     "tsconfig/",
@@ -63,9 +66,6 @@
         "./types/theme/tailwind.adapter.d.ts"
       ]
     }
-  },
-  "bud": {
-    "type": "extension"
   },
   "devDependencies": {
     "@roots/bud-api": "workspace:sources/@roots/bud-api",

@@ -15,6 +15,7 @@ module.exports = async () => {
       (mapping, pkg) => ({
         ...mapping,
         [`^${pkg}$`]: `<rootDir>/sources/${pkg}/src/index`,
+        [`^${pkg}/types$`]: `<rootDir>/sources/${pkg}/src/index`,
         [`^${pkg}/(.*)$`]: `<rootDir>/sources/${pkg}/src/$1`,
         '@roots/bud-support': `<rootDir>/sources/@roots/bud-support/lib/cjs/index`,
       }),

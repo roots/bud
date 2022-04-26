@@ -1,4 +1,4 @@
-import {Extension} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
   dependsOn,
@@ -12,7 +12,7 @@ import {
  */
 @label('@roots/bud-sass')
 @dependsOn(['@roots/bud-postcss'])
-class BudSass extends Extension {
+export default class BudSass extends Extension {
   @bind
   public async implementation() {
     try {
@@ -58,5 +58,3 @@ class BudSass extends Extension {
     this.app.postcss.syntax = 'postcss-scss'
   }
 }
-
-export default BudSass

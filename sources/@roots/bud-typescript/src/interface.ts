@@ -1,4 +1,4 @@
-import '@roots/bud-babel'
+import '@roots/bud-babel/types'
 
 import type * as Build from '@roots/bud-framework/types/services/build'
 

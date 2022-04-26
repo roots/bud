@@ -10,29 +10,13 @@
  * @packageDocumentation
  */
 
-import '@roots/bud-babel/types/env'
-
-import type {Extension} from '@roots/bud-framework'
+import '@roots/bud-babel/types'
 
 declare module '@roots/bud-framework' {
   interface Modules {
-    '@roots/bud-solid': BudSolidExtension
+    '@roots/bud-solid': BudSolid
   }
 }
 
-type BudSolidExtension = Extension
-
-const BudSolidExtension: BudSolidExtension = {
-  label: '@roots/bud-solid',
-
-  dependsOn: new Set(['@roots/bud-babel']),
-
-  async boot(_, {babel}) {
-    babel.setPreset(
-      'babel-preset-solid',
-      require.resolve('babel-preset-solid'),
-    )
-  },
-}
-
-export const {label, boot, dependsOn} = BudSolidExtension
+import BudSolid from './extension'
+export default BudSolid

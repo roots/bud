@@ -29,6 +29,9 @@
   "engines": {
     "node": ">=16"
   },
+  "bud": {
+    "type": "extension"
+  },
   "files": [
     "lib/",
     "types/"
@@ -37,12 +40,8 @@
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    ".": {
-      "require": "./lib/cjs/index.js"
-    },
-    "./extension": {
-      "require": "./lib/cjs/extension.js"
-    }
+    ".": "./lib/cjs/index.js",
+    "./extension": "./lib/cjs/extension.js"
   },
   "typesVersions": {
     "*": {
@@ -53,9 +52,6 @@
         "./types/extension.d.ts"
       ]
     }
-  },
-  "bud": {
-    "type": "extension"
   },
   "devDependencies": {
     "@roots/bud-api": "workspace:sources/@roots/bud-api",

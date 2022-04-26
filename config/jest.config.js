@@ -39,6 +39,7 @@ module.exports = async function config() {
       'ts-jest': {
         tsconfig: '<rootDir>/config/tsconfig.jest.json',
         compiler: 'typescript',
+        isolatedModules: true,
       },
     },
     moduleNameMapper,

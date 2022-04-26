@@ -10,8 +10,25 @@
  * @packageDocumentation
  */
 
-import './env'
+import type {Build} from '@roots/bud-framework/types'
+
+declare module '@roots/bud-framework' {
+  interface Bud {
+    postcss: BudPostCss
+  }
+
+  interface Modules {
+    '@roots/bud-postcss': BudPostCss
+  }
+
+  interface Loaders {
+    postcss: Build.Loader
+  }
+
+  interface Items {
+    postcss: Build.Item
+  }
+}
 
 import BudPostCss from './extension'
-
 export default BudPostCss

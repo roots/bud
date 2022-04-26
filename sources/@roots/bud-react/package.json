@@ -34,6 +34,9 @@
   "engines": {
     "node": ">=14"
   },
+  "bud": {
+    "type": "extension"
+  },
   "files": [
     "lib/",
     "types/"
@@ -42,21 +45,11 @@
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    ".": {
-      "require": "./lib/cjs/index.js"
-    },
-    "./eslint-config": {
-      "require": "./eslint-config/index.js"
-    },
-    "./extension": {
-      "require": "./lib/cjs/extension.js"
-    },
-    "./react-refresh": {
-      "require": "./lib/cjs/react-refresh/index.js"
-    },
-    "./react-refresh/*": {
-      "require": "./lib/cjs/react-refresh/*.js"
-    }
+    ".": "./lib/cjs/index.js",
+    "./eslint-config": "./eslint-config/index.js",
+    "./extension": "./lib/cjs/extension.js",
+    "./react-refresh": "./lib/cjs/react-refresh/index.js",
+    "./react-refresh/*": "./lib/cjs/react-refresh/*.js"
   },
   "typesVersions": {
     "*": {
@@ -74,14 +67,9 @@
       ]
     }
   },
-  "bud": {
-    "type": "extension"
-  },
   "devDependencies": {
     "@babel/core": "7.17.9",
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
-    "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@skypack/package-check": "0.2.2",
     "@types/babel__core": "7.1.18",
     "@types/node": "16.11.26",
@@ -94,6 +82,8 @@
     "@babel/plugin-syntax-jsx": "^7.16.0",
     "@babel/preset-react": "^7.16.0",
     "@pmmmwh/react-refresh-webpack-plugin": "0.5.4",
+    "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hot-loader": "^4.13.0",

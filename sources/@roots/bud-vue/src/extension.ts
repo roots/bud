@@ -1,7 +1,11 @@
-import {Extension} from '@roots/bud-framework'
-import {bind, options} from '@roots/bud-framework/extension/decorators'
+import {Extension} from '@roots/bud-framework/extension'
+import {
+  bind,
+  label,
+  options,
+} from '@roots/bud-framework/extension/decorators'
 import {parseSemver} from '@roots/bud-support'
-import {Configuration, RuleSetRule} from 'webpack'
+import type {Configuration, RuleSetRule} from 'webpack'
 
 type Aliases = Configuration['resolve']['alias']
 type Options = {runtimeOnly: boolean}
@@ -11,10 +15,9 @@ type Options = {runtimeOnly: boolean}
  *
  * @public
  */
+@label('@roots/bud-vue')
 @options({runtimeOnly: true})
-export class Vue extends Extension<Options, null> {
-  public label = '@roots/bud-vue'
-
+export default class Vue extends Extension<Options, null> {
   @bind
   public async boot() {
     await this.addLoader()

@@ -10,7 +10,18 @@
  * @packageDocumentation
  */
 
-import './interface'
+import '@roots/bud-api/types'
+import '@roots/bud-preset-recommend/types'
+import '@roots/bud-react/types'
+import '@roots/bud-wordpress-dependencies/types'
+import '@roots/bud-wordpress-externals/types'
+import '@roots/bud-wordpress-manifests/types'
+
+declare module '@roots/bud-framework' {
+  interface Modules {
+    '@roots/bud-preset-wordpress': BudPresetWordPress
+  }
+}
 
 import BudPresetWordPress from './extension'
 export default BudPresetWordPress

@@ -1,5 +1,5 @@
 import {Bud, factory as budFactory, makeContext, seed} from '@roots/bud'
-import {Config} from '@roots/bud-framework'
+import {Config} from '@roots/bud-framework/types'
 import {join} from 'path'
 
 jest.setTimeout(99999)

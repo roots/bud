@@ -1,5 +1,6 @@
-import {Build, Extension} from '@roots/bud-framework'
-import {bind} from '@roots/bud-support'
+import {Build} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
+import {bind, label} from '@roots/bud-framework/extension/decorators'
 
 import {Config} from './config'
 
@@ -8,15 +9,8 @@ import {Config} from './config'
  *
  * @public
  */
+@label('@roots/bud-babel')
 export default class BabelExtension extends Extension<any, null> {
-  /**
-   * @public
-   */
-  public label = '@roots/bud-babel'
-
-  /**
-   * @public
-   */
   protected get cacheDirectory() {
     return this.app.path(`@storage/cache/babel`)
   }
@@ -33,10 +27,6 @@ export default class BabelExtension extends Extension<any, null> {
     return this.app.path()
   }
 
-  /**
-   * @public
-   * @decorator `@bind`
-   */
   @bind
   public async register() {
     this.app.babel = new Config()
@@ -66,10 +56,6 @@ export default class BabelExtension extends Extension<any, null> {
       })
   }
 
-  /**
-   * @internal
-   * @decorator `@bind`
-   */
   @bind
   protected setRuleSetItem(ruleSetItem: Build.Item) {
     return ruleSetItem.setLoader('babel').setOptions(app => ({

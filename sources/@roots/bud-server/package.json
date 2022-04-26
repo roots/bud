@@ -42,7 +42,29 @@
   "types": "./types/index.d.ts",
   "exports": {
     ".": "./lib/cjs/index.js",
-    "./client/*": "./lib/cjs/client/*"
+    "./client": "./lib/cjs/client/index.js",
+    "./client/proxy-click-interceptor": "./lib/cjs/client/proxy-click-interceptor.js",
+    "./client/indicator": "./lib/cjs/client/indicator/index.js",
+    "./client/overlay": "./lib/cjs/client/overlay/index.js"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./types/index.d.ts"
+      ],
+      "client": [
+        "./types/client/index.d.ts"
+      ],
+      "client/proxy-click-interceptor": [
+        "./types/client/proxy-click-interceptor.d.ts"
+      ],
+      "client/overlay": [
+        "./types/client/overlay/index.d.ts"
+      ],
+      "client/indicator": [
+        "./types/client/indicator/index.d.ts"
+      ]
+    }
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",

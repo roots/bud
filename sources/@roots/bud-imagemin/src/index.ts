@@ -10,8 +10,15 @@
  * @packageDocumentation
  */
 
-import './env'
+declare module '@roots/bud-framework' {
+  interface Bud {
+    imagemin: BudImagemin
+  }
+
+  interface Modules {
+    '@roots/bud-imagemin': BudImagemin
+  }
+}
 
 import BudImagemin from './extension'
-
 export default BudImagemin

@@ -10,7 +10,14 @@
  * @packageDocumentation
  */
 
-import './env'
+import '@roots/bud-babel/types'
+import '@roots/bud-react/types'
+
+declare module '@roots/bud-framework' {
+  interface Modules {
+    '@roots/bud-emotion': BudEmotion
+  }
+}
 
 import BudEmotion from './extension'
 export default BudEmotion

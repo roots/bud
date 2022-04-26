@@ -1,12 +1,17 @@
-import {Extension} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
+  expose,
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
 import TerserPlugin from 'terser-webpack-plugin'
 
-import {terser} from './terser.api'
+type Options = TerserPlugin.BasePluginOptions & {
+  minify?: TerserPlugin.MinimizerImplementation<any>
+  terserOptions?: TerserPlugin.MinimizerOptions<any>
+}
 
 @label('@roots/bud-terser')
 @options({
@@ -23,22 +28,19 @@ import {terser} from './terser.api'
     },
   },
 })
-export default class Terser extends Extension<
-  TerserPlugin.BasePluginOptions & {
-    minify?: TerserPlugin.MinimizerImplementation<any>
-    terserOptions?: TerserPlugin.MinimizerOptions<any>
-  }
-> {
-  @bind
-  public async register() {
-    this.app.api.bindFacade('terser', terser)
-  }
-
+@expose('terser')
+export default class Terser extends Extension<Options> {
   @bind
   public async boot() {
     this.app.hooks.on('build.optimization.minimizer', minimizer => {
       minimizer.push(new TerserPlugin(this.options))
       return minimizer
     })
+  }
+
+  @bind
+  public config(options: Options): Bud {
+    this.options = options
+    return this.app
   }
 }

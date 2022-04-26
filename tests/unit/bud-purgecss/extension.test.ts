@@ -1,11 +1,9 @@
 import {Bud, factory} from '@repo/test-kit/bud'
 import postcss from '@roots/bud-postcss'
 import * as extension from '@roots/bud-purgecss'
-import {purgecss} from '@roots/bud-purgecss/bud.purge'
+import {purgecss} from '@roots/bud-purgecss/api'
 
 describe('@roots/bud-purgecss', () => {
-  test.todo('test @roots/bud-purgecss')
-
   describe('purgecss extension', () => {
     it('has name prop', () => {
       expect(extension.label).toBe('@roots/bud-purgecss')
