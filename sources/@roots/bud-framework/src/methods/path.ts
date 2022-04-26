@@ -1,4 +1,4 @@
-import {resolve, sep as slash} from 'node:path'
+import {join, resolve, sep as slash} from 'node:path'
 
 import {Bud, Locations} from '..'
 
@@ -35,7 +35,7 @@ export const parseAlias: parseAlias = (app, base) => {
   ident = app.hooks.filter(`location.${ident as Handle}`)
 
   /* If segments were passed, resolve */
-  return parts?.length ? resolve(ident, ...parts) : ident
+  return join(ident, ...(parts ?? []))
 }
 
 /**
@@ -91,5 +91,5 @@ export const path: path = function (base, ...segments) {
     base = resolve(app.context.projectDir, base) as any
 
   /* If segments were passed, resolve them against base */
-  return segments?.length ? resolve(base, ...segments) : base
+  return resolve(base, ...(segments ?? []))
 }

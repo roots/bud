@@ -94,6 +94,7 @@ export abstract class Bud {
    * True when current instance is the parent instance
    *
    * @readonly
+   * @public
    */
   public get isRoot(): boolean {
     return this.name === this.root.name
@@ -103,6 +104,7 @@ export abstract class Bud {
    * True when current instance is a child instance
    *
    * @readonly
+   * @public
    */
   public get isChild(): boolean {
     return this.name !== this.root.name
@@ -114,7 +116,7 @@ export abstract class Bud {
    * @remarks
    * Is `null` if the current instance is a child instance.
    *
-   * @defaultValue null
+   * @public
    */
   public children: Container<Record<string, Bud>> = null
 
@@ -122,6 +124,7 @@ export abstract class Bud {
    * True when {@link Bud} has children
    *
    * @readonly
+   * @public
    */
   public get hasChildren(): boolean {
     return this.children?.getEntries()?.length > 0
@@ -184,30 +187,6 @@ export abstract class Bud {
 
   public extensions: Extensions.Service
 
-  /**
-   * Service allowing for fitering {@link Bud} values through callbacks.
-   *
-   * @example Add a new entry to the `webpack.externals` configuration:
-   * ```ts
-   * hooks.on(
-   *   'build/externals',
-   *   externals => ({
-   *     ...externals,
-   *     $: 'jquery',
-   *   })
-   * )
-   * ```
-   *
-   * @example Change the `webpack.output.filename` format:
-   * ```ts
-   * hooks.on(
-   *   'build.output.filename',
-   *   () => '[name].[hash:4]',
-   * )
-   * ```
-   *
-   * @public
-   */
   public hooks: Hooks.Service
 
   /**
@@ -281,7 +260,12 @@ export abstract class Bud {
 
     Object.entries(methods).map(([key, method]) => {
       if (!isFunction(method)) {
-        this.error(`Bud ctor`, `method "${key}" is not a function`)
+        this.error(
+          'Bud constructor',
+          'method',
+          `"${key}"`,
+          'is not a function',
+        )
       }
 
       this[key] = method.bind(this)
@@ -299,6 +283,10 @@ export abstract class Bud {
   public container: methods.container = methods.container.bind(this)
 
   public get: methods.get = methods.get.bind(this)
+
+  public glob: methods.glob = methods.glob.bind(this)
+
+  public globSync: methods.globSync = methods.globSync.bind(this)
 
   public make: methods.make = methods.make.bind(this)
 
