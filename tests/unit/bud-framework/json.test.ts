@@ -1,5 +1,5 @@
 import {paths} from '@repo/constants'
-import {read,write} from '@roots/bud-framework/src/methods/json5'
+import {read, write} from '@roots/bud-framework/methods/json5'
 import {join} from 'node:path'
 
 describe('bud.json', () => {
@@ -12,7 +12,6 @@ describe('bud.json', () => {
       expect(manifest.name).toBe('bud')
     })
   })
-
 
   describe('write', () => {
     it('is a fn', async () => {

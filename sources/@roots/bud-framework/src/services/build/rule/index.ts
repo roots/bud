@@ -95,8 +95,8 @@ export interface Rule {
    *
    * @public
    */
-  setUse(
-    use: ((use: Rule['use'], app: Bud) => Rule['use']) | Rule['use'],
+  setUse<K extends `${keyof Items & string}`>(
+    use: ((use: Array<K>, app: Bud) => Array<K>) | Array<K>,
   ): Rule
 
   /**

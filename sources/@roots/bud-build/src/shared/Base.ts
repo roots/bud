@@ -3,7 +3,7 @@ import {lodash} from '@roots/bud-support'
 
 const {isFunction} = lodash
 
-export class Base {
+export default class Base {
   private _app: () => Bud
 
   public get app() {

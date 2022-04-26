@@ -11,13 +11,13 @@ export default async (app: Bud) => {
   /**
    * Use an imported webpack plugin
    */
-  await app.use(new WebpackPlugin(app.log))
+  app.use(new WebpackPlugin(app.log))
 
   /**
    * Use a webpack plugin defined inline
    */
-  await app.use({
-    name: 'inline-plugin',
+  app.use({
+    label: 'inline-plugin',
     apply() {
       app.log({message: 'inline-plugin', suffix: 'applied!'})
     },
@@ -26,9 +26,9 @@ export default async (app: Bud) => {
   /**
    * Use an array of plugins
    */
-  await app.use([
+  app.use([
     {
-      name: 'array-plugin-1',
+      label: 'array-plugin-1',
       apply() {
         app.log({message: 'array-plugin-1', suffix: 'applied!'})
       },
@@ -52,14 +52,15 @@ export default async (app: Bud) => {
    * for the constructor name. If there is no constructor name a name
    * will be generated for the plugin.
    */
-  await app.use({
-    name: 'my-labeled-plugin',
+  app.use({
+    label: 'my-labeled-plugin',
     options: () => ({enabled: false}),
     make: () => new WebpackPlugin(),
     when: (_app, options) => options.is('enabled', true),
   })
 
   /** Now the constructor arguments are filterable */
+  // @ts-ignore
   app.hooks.on('extension.my-labeled-plugin.options', opts =>
     opts.set('enabled', false),
   )
@@ -70,26 +71,17 @@ export default async (app: Bud) => {
    * @remarks
    * This plugin will only be applied for production builds
    */
-  await app.use({
-    name: 'my-conditional-plugin',
+  app.use({
+    label: 'my-conditional-plugin',
     make: () => new WebpackPlugin(app.log),
     when: app => app.isProduction,
   })
 
   /**
-   * Enqueue a plugin to be loaded later
-   *
-   * @remarks
-   * You can't configure this extension beyond this moment
-   * but if the extension doesn't require fruther configuration
-   * then you can enjoy the convenience of synchronous loading
+   * Immediately add an extension
    */
-  app.extensions
-    .enqueue({
-      name: 'my-enqueued-plugin',
-      make: () => new WebpackPlugin(app.log),
-    })
-    .when(true, () =>
-      app.log('you can chain off bud.extensions.enqueue'),
-    )
+  await app.extensions.add({
+    label: 'my-enqueued-plugin',
+    make: () => new WebpackPlugin(app.log),
+  })
 }

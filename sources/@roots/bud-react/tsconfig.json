@@ -5,14 +5,9 @@
     "rootDir": "./src",
     "outDir": "./lib/cjs",
     "declarationDir": "./types",
-    "types": [
-      "node",
-      "@roots/bud-api",
-      "@roots/bud-babel",
-      "@roots/bud-framework"
-    ]
+    "types": ["@roots/bud-framework", "@roots/bud-babel"]
   },
-  "include": ["src"],
+  "include": ["./src/**/*.ts"],
   "references": [
     {
       "path": "./../bud-api/tsconfig.json"

@@ -7,12 +7,10 @@
  * @see https://bud.js.org
  * @see https://github.com/roots/bud
  *
- *
  * @packageDocumentation
  */
 
-import './global'
+import './env'
 
-import {ReactExtension} from './extension'
-
-export const {register, boot, label} = ReactExtension
+import BudReact from './extension'
+export default BudReact

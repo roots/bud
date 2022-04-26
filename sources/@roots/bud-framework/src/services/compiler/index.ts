@@ -1,7 +1,5 @@
 import {
-  Compiler as WebpackCompiler,
   Configuration,
-  MultiCompiler,
   MultiCompiler as WebpackMultiCompiler,
   MultiStats,
   ProgressPlugin,
@@ -29,7 +27,7 @@ interface Service extends Bud.Service {
    *
    * @public
    */
-  compilation: Compilation
+  compilation: WebpackMultiCompiler
 
   /**
    * Contains compilation stats, if available.
@@ -39,15 +37,7 @@ interface Service extends Bud.Service {
   stats: StatsCompilation
 
   /**
-   * Contains compilation progress, if avialable
-   *
-   * @public
-   */
-  progress: Progress
-
-  /**
-   * Returns a {@link @roots/bud-Bud#Compiler."instance" | Compiler instance}
-   * when provided with a valid {@link Configuration}
+   * Returns a {@link WebpackMultiCompiler} instance
    *
    * @example
    * ```js
@@ -63,7 +53,7 @@ interface Service extends Bud.Service {
    *
    * @public
    */
-  compile(): Promise<MultiCompiler>
+  compile(): Promise<WebpackMultiCompiler>
 
   /**
    * Callback for {@link (Bud:namespace).Hooks | Bud.Hooks} `before` filter
@@ -85,7 +75,6 @@ interface Service extends Bud.Service {
 
 export type Config = Configuration
 export type Compiler = typeof webpack
-export type Compilation = WebpackCompiler | WebpackMultiCompiler
 
 export type Progress = [number, string]
 

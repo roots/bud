@@ -1,4 +1,4 @@
-import {boundMethod as bind} from 'autobind-decorator'
+import {bind} from 'helpful-decorators'
 import {uniq} from 'lodash'
 import type * as Webpack from 'webpack'
 import {sources} from 'webpack'

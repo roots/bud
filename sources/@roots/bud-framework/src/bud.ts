@@ -23,6 +23,7 @@ import {
 } from '.'
 import {lifecycle} from './lifecycle'
 import * as methods from './methods'
+import {Module} from './module'
 import * as Process from './process'
 
 const {isFunction, omit} = lodash
@@ -123,7 +124,7 @@ export abstract class Bud {
    * @readonly
    */
   public get hasChildren(): boolean {
-    return this.children?.getEntries().length > 0
+    return this.children?.getEntries()?.length > 0
   }
 
   /**
@@ -223,6 +224,8 @@ export abstract class Bud {
    */
   public server: Server.Service
 
+  public module: Module
+
   /**
    * True when {@link Bud.mode} is `production`
    *
@@ -240,13 +243,6 @@ export abstract class Bud {
   public get isDevelopment(): boolean {
     return this.mode === 'development'
   }
-
-  /**
-   * True if ts-node has been invoked
-   *
-   * @public
-   */
-  public usingTsNode: boolean = false
 
   /**
    * Constructor options
@@ -269,6 +265,8 @@ export abstract class Bud {
 
     this._mode = this.options.mode
     this._name = this.options.name
+
+    this.module = new Module(this)
 
     Process.initialize(this)
 
@@ -403,19 +401,6 @@ export abstract class Bud {
    * @decorator `@bind`
    */
   @bind
-  public time(...messages: any[]) {
-    this.logger?.instance && this.logger.instance.time(...messages)
-
-    return this
-  }
-
-  /**
-   * Log a `warning` level message
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
   public await(...messages: any[]) {
     this.logger?.instance && this.logger.instance.await(...messages)
 
@@ -431,19 +416,6 @@ export abstract class Bud {
   @bind
   public complete(...messages: any[]) {
     this.logger?.instance && this.logger.instance.complete(...messages)
-
-    return this
-  }
-
-  /**
-   * Log a `warning` level message
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public timeEnd(...messages: any[]) {
-    this.logger?.instance && this.logger.instance.timeEnd(...messages)
 
     return this
   }

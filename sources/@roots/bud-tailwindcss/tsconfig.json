@@ -5,30 +5,12 @@
     "rootDir": "./src",
     "outDir": "./lib/cjs",
     "declarationDir": "./types",
-    "types": [
-      "node",
-      "tailwindcss",
-      "@roots/bud-api",
-      "@roots/bud-postcss"
-    ]
+    "types": ["@roots/bud-framework", "@roots/bud-api", "@roots/bud-postcss"]
   },
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "lib",
-    "node_modules",
-    "types"
-  ],
+  "include": ["./src"],
   "references": [
-    {
-      "path": "./../bud-api/tsconfig.json"
-    },
-    {
-      "path": "./../bud-postcss/tsconfig.json"
-    },
-    {
-      "path": "./../bud-framework/tsconfig.json"
-    }
+    {"path": "./../bud-api/tsconfig.json"},
+    {"path": "./../bud-postcss/tsconfig.json"},
+    {"path": "./../bud-framework/tsconfig.json"}
   ]
 }

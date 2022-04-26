@@ -10,8 +10,7 @@
  * @packageDocumentation
  */
 
-import './typings'
+import './env'
 
-import {BudTailwindCss} from './tailwind.extension'
-
-export {BudTailwindCss as default}
+import BudTailwindCss from './extension'
+export default BudTailwindCss

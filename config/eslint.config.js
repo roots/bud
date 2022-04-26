@@ -38,7 +38,7 @@ module.exports = {
       },
     ],
     'no-console': ERROR,
-    'no-extra-semi': WARN,
+    'no-extra-semi': OFF,
     quotes: [
       'error',
       'single',

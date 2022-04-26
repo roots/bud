@@ -20,13 +20,6 @@ export const seed = (app: Bud) => {
         `dev.middleware.dev.options.writeToDisk`,
       ),
     }))
-
-    .hooks.on(`dev.middleware.hot.options`, () => ({
-      path: app.hooks.filter('dev.middleware.hot.options.path'),
-      log: app.hooks.filter('dev.middleware.hot.options.log'),
-      heartbeat: app.hooks.filter('dev.middleware.hot.options.heartbeat'),
-    }))
-
     .hooks.on(`dev.middleware.dev.options.headers`, {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Headers': '*',
@@ -37,6 +30,12 @@ export const seed = (app: Bud) => {
     )
     .hooks.on(`dev.middleware.dev.options.stats`, false)
     .hooks.on(`dev.middleware.dev.options.writeToDisk`, true)
+
+    .hooks.on(`dev.middleware.hot.options`, () => ({
+      path: app.hooks.filter('dev.middleware.hot.options.path'),
+      log: app.hooks.filter('dev.middleware.hot.options.log'),
+      heartbeat: app.hooks.filter('dev.middleware.hot.options.heartbeat'),
+    }))
 
     .hooks.on(
       `dev.middleware.hot.options.path`,

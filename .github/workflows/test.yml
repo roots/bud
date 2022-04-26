@@ -57,8 +57,8 @@ jobs:
 
       - name: Unit
         run: |
-          docker-compose run --rm bud yarn @bud test unit --coverage --maxWorkers 50%
+          docker-compose run --rm bud yarn @bud test unit --coverage --verbose --maxWorkers 50%
 
       - name: Integration
         run: |
-          docker-compose run --rm bud yarn @bud test integration --coverage --maxWorkers 50%
+          docker-compose run --rm bud yarn @bud test integration --coverage --verbose --maxWorkers 50%

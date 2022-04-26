@@ -1,22 +1,25 @@
-import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import {Extension} from '@roots/bud-framework'
+import {
+  label,
+  options,
+  plugin,
+  production,
+} from '@roots/bud-framework/extension/decorators'
+import MiniCssPlugin, {PluginOptions} from 'mini-css-extract-plugin'
 
-import type {Plugin} from './mini-css-extract-plugin.interface'
-
-export const label: Plugin['label'] = 'mini-css-extract-plugin'
-
-export const options: Plugin['options'] = ({hooks, isProduction}) => ({
-  filename:
-    hooks.filter('feature.hash') && isProduction
-      ? hooks.filter('value.hashFormat').concat('.css')
-      : hooks.filter('value.fileFormat').concat('.css'),
-
-  chunkFilename:
-    hooks.filter('feature.hash') && isProduction
-      ? hooks.filter('value.hashFormat').concat('.css')
-      : hooks.filter('value.fileFormat').concat('.css'),
+@label('mini-css-extract-plugin')
+@plugin(MiniCssPlugin)
+@production
+@options({
+  filename: app =>
+    app.hooks.filter('feature.hash') && app.isProduction
+      ? app.hooks.filter('value.hashFormat').concat('.css')
+      : app.hooks.filter('value.fileFormat').concat('.css'),
+  chunkFilename: app =>
+    app.hooks.filter('feature.hash') && app.isProduction
+      ? app.hooks.filter('value.hashFormat').concat('.css')
+      : app.hooks.filter('value.fileFormat').concat('.css'),
 })
+class CssExtract extends Extension<PluginOptions, MiniCssPlugin> {}
 
-export const make: Plugin['make'] = options =>
-  new MiniCssExtractPlugin(options.all())
-
-export const when: Plugin['when'] = ({isProduction}) => isProduction
+export default CssExtract

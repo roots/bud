@@ -98,7 +98,7 @@ Object {
     "filename": "images/[name][ext]",
   },
   "include": Array [
-    "/srv/bud/tests/util/project/src",
+    StringContaining "project/src",
   ],
   "test": Object {},
   "type": "asset/resource",
@@ -151,7 +151,7 @@ Object {
     "filename": "svg/[name][ext]",
   },
   "include": Array [
-    "/srv/bud/tests/util/project/src",
+    StringContaining "project/src",
   ],
   "test": Object {},
   "type": "asset/resource",
@@ -177,7 +177,7 @@ Object {
     "filename": "images/[name][ext]",
   },
   "include": Array [
-    "/srv/bud/tests/util/project/src",
+    StringContaining "project/src",
   ],
   "test": Object {},
   "type": "asset/resource",
@@ -200,14 +200,18 @@ Object {
 
 exports[`bud.build.config has expected default yaml rule 1`] = `
 Object {
-  "include": Array [
-    StringContaining "src",
+  "exclude": Array [
+    StringContaining "node_modules",
   ],
-  "parser": Object {
-    "parse": [Function],
-  },
+  "include": Array [
+    StringContaining "/project",
+  ],
   "test": Object {},
-  "type": "json",
+  "use": Array [
+    Object {
+      "loader": StringContaining "js-yaml-loader",
+    },
+  ],
 }
 `;
 

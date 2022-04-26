@@ -1,63 +1,74 @@
-import * as Framework from '@roots/bud-framework'
+import {
+  Extension,
+  Extensions as Contract,
+  ModuleDefinitions,
+  Modules,
+  Service,
+} from '@roots/bud-framework'
+import type {Controllers} from '@roots/bud-framework/types/registry'
+import {bind, chalk} from '@roots/bud-support'
 
 import {Controller} from '../Controller'
-import {bind} from './extensions.dependencies'
 
 /**
  * Extensions Service
  *
- * @remarks
- * Manages extension controllers
- *
  * @public
  */
-export class Extensions
-  extends Framework.ContainerService<Controller>
-  implements Framework.Extensions.Service
-{
-  /**
-   * Controller factory
-   * @public
-   */
-  public makeController(
-    extension:
-      | Framework.Module
-      | (new () => Framework.Extension.Extension),
-  ): Controller {
-    return new Controller(this.app, extension)
+export class Extensions extends Service implements Contract.Service {
+  public repository: Controllers = {}
+
+  @bind
+  public has<K extends keyof this['repository']>(
+    key: K & string,
+  ): boolean {
+    return this.repository[key] ? true : false
   }
 
   @bind
-  public async setController(
-    extension:
-      | Framework.Module
-      | (new () => Framework.Extension.Extension),
-  ): Promise<Controller> {
-    const controller = this.makeController(extension)
-    this.set(controller.label, controller)
-    return controller
+  public get<K extends keyof this['repository']>(key: K & string) {
+    return this.repository[key]
   }
 
-  /**
-   * `booted` callback
-   *
-   * @override
-   * @public
-   */
+  @bind
+  public remove<K extends keyof this['repository']>(
+    key: K & string,
+  ): this {
+    delete this.repository[key]
+    return this
+  }
+
+  @bind
+  public set<K extends keyof this['repository']>(
+    value: Controller<Modules[K & string], ModuleDefinitions[K & string]>,
+  ): this {
+    value
+      .get('logger')
+      .log(`setting controller`, chalk.blue(value.get('label')))
+
+    this.repository[value.get('label')] = value
+
+    return this
+  }
+
+  @bind
+  public makeController<K extends keyof this['repository']>(
+    extension: Modules[K & string],
+  ): Controller<Modules[K & string], ModuleDefinitions[K & string]> {
+    return new Controller(this.app).setModule(extension)
+  }
+
   @bind
   public async booted(): Promise<void> {
-    await Promise.all(this.getValues().map(this.setController))
+    this.app.options.extensions.map(this.makeController).map(this.set)
+
     await this.injectExtensions()
-    await this.registerAll()
-    await this.bootAll()
+
+    await this.withAllControllers('init')
+    await this.withAllControllers('register')
+    await this.withAllControllers('boot')
   }
 
-  /**
-   * Inject extension modules
-   *
-   * @public
-   * @decorator `@bind`
-   */
   @bind
   public async injectExtensions() {
     if (this.app.hooks.filter('feature.inject') === false) {
@@ -65,128 +76,179 @@ export class Extensions
       return
     }
 
-    try {
-      await Promise.all(
-        Object.values(this.app.project.peers.modules ?? {})
-          .filter(Boolean)
-          .filter(({bud}) => bud?.type === 'extension')
-          .map(async record => {
-            await this.import(record)
-          }),
-      )
-    } catch (e) {
-      this.app.error(e)
-    }
+    this.app.info('injecting extensions')
+    const dependencyKeys = Object.keys({
+      ...(this.app.context.manifest?.devDependencies ?? {}),
+      ...(this.app.context.manifest?.dependencies ?? {}),
+    })
+
+    return Promise.all(
+      dependencyKeys.map(async (pkg, i) => {
+        this.app.info('injecting', pkg)
+
+        try {
+          const manifestPath = await this.app.module.manifestPath(pkg)
+          const manifest = await this.app.module.readManifest(manifestPath)
+
+          if (!manifest?.bud) return
+
+          await this.import(pkg)
+        } catch (error) {
+          this.app.error(`Error importing`, pkg, `\n`, error)
+        }
+      }),
+    )
   }
 
   @bind
   public async import(
-    extension: Record<string, any> | string,
-  ): Promise<void> {
-    const pkgName =
-      typeof extension !== 'string' ? extension.name : extension
+    input: Record<string, any> | string,
+  ): Promise<Controller<any, any>> {
+    const pkgName = typeof input !== 'string' ? input.name : input
     if (this.has(pkgName)) return
-    this.app.log('importing', pkgName)
 
-    const importedModule = await import(pkgName)
-    const importedExtension: Framework.Module = importedModule.default
-      ? importedModule.default
-      : importedModule
+    this.app.info(chalk.dim(`importing ${pkgName}`))
 
-    await this.setController(importedExtension)
+    const imported = await import(pkgName)
+    const extension: Extension = imported.default
+      ? imported.default
+      : imported
+
+    this.app.success(chalk.green(`imported ${pkgName}`))
+
+    const controller = this.makeController(extension)
+
+    if (this.has(controller.get('label'))) return
+    this.set(controller)
+
+    return controller
   }
 
-  /**
-   * @public
-   */
   @bind
-  public async controllerRegister(controller: Controller): Promise<void> {
-    if (!controller) return
+  public async withController<K extends keyof this['repository']>(
+    controllerName: K & string,
+    methodName: 'init' | 'register' | 'boot',
+  ): Promise<this> {
+    if (!this.has(controllerName)) {
+      this.app.warn(
+        methodName,
+        'called on',
+        controllerName,
+        'but it could not be found',
+      )
+      return this
+    }
+
+    const controller = this.get(controllerName)
+
+    if (
+      controller.has('dependsOn') &&
+      controller.get('dependsOn').size > 0
+    ) {
+      await Promise.all(
+        Array.from(controller.get('dependsOn')).map(async packageName => {
+          if (this.has(packageName)) return
+
+          this.app.info(
+            packageName,
+            'has not been imported but it is required by',
+            controller.get('label'),
+          )
+
+          try {
+            await this.import(packageName)
+          } catch (error) {
+            this.app.error(
+              controller.get('label'),
+              'request for',
+              packageName,
+              'could not be fulfilled',
+              '\n',
+              error,
+            )
+          }
+        }),
+      )
+    }
+
     try {
-      await controller.register()
+      await controller[methodName]()
+      return this
     } catch (err) {
-      this.app.log(controller)
       this.app.error(err)
     }
   }
 
   /**
+   * Execute a controller lifecycle method on all registered controllers
+   *
    * @public
    */
   @bind
-  public async controllerBoot(controller: Controller): Promise<void> {
-    if (!controller) return
-    try {
-      await controller.boot()
-    } catch (err) {
-      this.app.log(controller)
-      this.app.error(err)
-    }
-  }
+  public async withAllControllers(
+    methodName: 'init' | 'register' | 'boot',
+  ): Promise<Array<void>> {
+    this.app.log(
+      'calling',
+      chalk.blue(methodName),
+      'on all registered controllers',
+    )
 
-  /**
-   * @public
-   */
-  @bind
-  public async registerAll(): Promise<void> {
-    await this.getEntries().reduce(
-      async (promised, [_key, controller]) => {
-        await promised
-        await this.controllerRegister(controller)
-      },
-      Promise.resolve(),
+    return Promise.all(
+      Object.values(this.repository).map(async controller => {
+        await this.withController(controller.get('label'), methodName)
+      }),
     )
   }
 
   /**
-   * @public
-   */
-  @bind
-  public async bootAll(): Promise<void> {
-    await this.getEntries().reduce(async (promised, [key, controller]) => {
-      await promised
-      await this.controllerBoot(controller)
-    }, Promise.resolve())
-  }
-
-  /**
-   * Add a {@link Controller} to the container
+   * Add a {@link Controller} to the extensions repository
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public async add(
-    extension:
-      | Framework.Module
-      | Array<Framework.Module | (new () => Framework.Extension.Extension)>
-      | (new () => Framework.Extension.Extension),
-  ): Promise<void> {
-    const arrayed = Array.isArray(extension) ? extension : [extension]
+  public async add(input: Extension | Array<Extension>): Promise<void> {
+    const arrayed = Array.isArray(input) ? input : [input]
 
-    await Promise.all(
-      arrayed.map(async extension => {
-        try {
-          if (typeof extension === 'function') {
-            const controller = await this.setController(extension)
-            await this.controllerRegister(this.get(controller.label))
-            await this.controllerBoot(this.get(controller.label))
-            return
-          }
+    await arrayed.reduce(async (promised, extension) => {
+      await promised
 
-          if (this.has(extension.label)) {
-            this.app.log(`${extension.label} already exists. skipping.`)
-            return
-          }
+      try {
+        const controller = this.makeController(extension)
+        this.set(controller)
 
-          await this.setController(extension)
-          await this.controllerRegister(this.get(extension.label))
-          await this.controllerBoot(this.get(extension.label))
-        } catch (err) {
-          this.app.error(err)
+        if (
+          controller.has('dependsOn') &&
+          controller.get('dependsOn').size > 0
+        ) {
+          Array.from(controller.get('dependsOn')).map(async name => {
+            if (this.has(name)) {
+              this.app.info({
+                prefix: `skipping dependency import`,
+                message: `${name} has already been imported`,
+              })
+              return
+            }
+
+            const dependency = await this.app.module.import(name)
+
+            !dependency
+              ? this.app.warn(`${dependency} import?`)
+              : await this.add(dependency)
+          })
         }
-      }),
-    )
+
+        await this.withController(controller.get('label'), 'init')
+        await this.withController(controller.get('label'), 'register')
+        await this.withController(controller.get('label'), 'boot')
+
+        return true
+      } catch (err) {
+        this.app.error(err)
+        return false
+      }
+    }, Promise.resolve(true))
   }
 
   /**
@@ -199,15 +261,21 @@ export class Extensions
    * @decorator `@bind`
    */
   @bind
-  public async make(): Promise<Framework.Extension.PluginInstance[]> {
-    return this.getValues()
-      .filter(controller => controller._module.make)
-      .map((controller: Controller) => {
-        const result = controller.make()
-        if (!result) return
-        controller.logger.success(`will be used in the compilation`)
-        return result
-      })
-      .filter(Boolean)
+  public async make(): Promise<Extension.PluginInstance[]> {
+    return await Promise.all(
+      Object.values(this.repository).map(
+        async (controller: Controller<any, any>) => {
+          const result = await controller.make()
+          if (!result) return
+
+          this.app.success(
+            controller.get('label'),
+            `will be used in the compilation`,
+          )
+
+          return result
+        },
+      ),
+    ).then(res => res.filter(Boolean))
   }
 }

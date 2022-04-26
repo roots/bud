@@ -3,11 +3,11 @@ import {bind, fs, lodash} from '@roots/bud-support'
 import {isFunction} from 'lodash'
 import type {Configuration} from 'webpack'
 
-import {Item} from '../Item'
+import Item from '../Item'
 import * as items from '../items'
-import {Loader} from '../Loader'
+import Loader from '../Loader'
 import * as loaders from '../loaders'
-import {Rule} from '../Rule'
+import Rule from '../Rule'
 import * as rules from '../rules'
 import * as config from './config'
 
@@ -54,12 +54,7 @@ export class Build extends Bud.Service implements Bud.Build.Service {
    */
   @bind
   public async registered() {
-    this.app.hooks
-      .action('event.build.before', async app => app.time(`build.make`))
-      .hooks.action('event.build.after', async app =>
-        app.timeEnd(`build.make`),
-      )
-      .hooks.action('event.build.after', this.writeFinalConfig)
+    this.app.hooks.action('event.build.after', this.writeFinalConfig)
   }
 
   /**

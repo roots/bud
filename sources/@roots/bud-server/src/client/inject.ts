@@ -14,8 +14,11 @@ export interface inject {
  *
  * @public
  */
-export const inject: inject = async (instance: Bud, injection) => {
-  instance.hooks.on('build.entry', entrypoints => {
+export const inject: inject = async (
+  app: Bud,
+  injection: Array<(app: Bud) => string>,
+): Promise<void> => {
+  app.hooks.on('build.entry', entrypoints => {
     const invalidEntrypoints =
       !entrypoints ||
       isUndefined(entrypoints) ||
@@ -23,10 +26,7 @@ export const inject: inject = async (instance: Bud, injection) => {
       !injection
 
     if (invalidEntrypoints) {
-      instance.warn(
-        `${instance.name} entrypoints are malformed`,
-        `skipping inject`,
-      )
+      app.warn(`${app.name} entrypoints are malformed`, `skipping inject`)
 
       return entrypoints
     }
@@ -37,7 +37,7 @@ export const inject: inject = async (instance: Bud, injection) => {
 
         entry.import = Array.from(
           new Set([
-            ...injection.map(inject => inject(instance)),
+            ...injection.map(inject => inject(app)),
             ...(entry.import ?? []),
           ]),
         )

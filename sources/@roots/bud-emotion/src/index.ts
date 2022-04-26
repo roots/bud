@@ -10,6 +10,7 @@
  * @packageDocumentation
  */
 
-import './bud.env'
+import './env'
 
-export {label, boot} from './BudEmotionExtension'
+import BudEmotion from './extension'
+export default BudEmotion

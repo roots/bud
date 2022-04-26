@@ -12,45 +12,47 @@ const {isFunction} = lodash
  * @public
  */
 export interface Mutator {
-  (json: Container<WPThemeJson['settings']>): Container<
+  (json: Partial<WPThemeJson['settings']>): Partial<
     WPThemeJson['settings']
   >
 }
 
 export interface method {
-  (input?: Mutator | WPThemeJson['settings'], raw?: boolean): Promise<Bud>
+  (input?: Mutator | Partial<WPThemeJson['settings']>): Promise<Bud>
 }
 
 export interface facade {
-  (input?: Mutator | WPThemeJson['settings'], raw?: boolean): Bud
+  (input?: Mutator | Partial<WPThemeJson['settings']>): Bud
 }
 
-const getContainerOptions = (app: Bud) =>
-  app.extensions.get('wp-theme-json').options
-
-const getRawOptions = (app: Bud) =>
-  app.extensions.get('wp-theme-json').options.all()
-
 export const method: method = async function (
-  input?: Mutator | WPThemeJson['settings'],
-  raw?: boolean,
+  input?: Mutator | Partial<WPThemeJson['settings']>,
 ) {
   const app = this as Bud
 
   if (!app.extensions.has('wp-theme-json')) return
 
-  app.extensions.get('wp-theme-json').set('when', true)
+  app.extensions.get('wp-theme-json').set('when', async () => true)
 
   if (!input) return app
 
-  isFunction(input)
-    ? app.extensions
-        .get('wp-theme-json')
-        .setOption(
-          'settings',
-          raw === true ? getRawOptions(app) : getContainerOptions(app),
-        )
-    : app.extensions.get('wp-theme-json').setOption('settings', input)
+  if (isFunction(input)) {
+    const mutatedValue = input(
+      app.extensions.get('wp-theme-json').getOption('settings'),
+    )
 
+    app.extensions
+      .get('wp-theme-json')
+      .setOption(
+        'settings',
+        mutatedValue instanceof Container
+          ? mutatedValue.all()
+          : mutatedValue,
+      )
+
+    return app
+  }
+
+  app.extensions.get('wp-theme-json').setOption('settings', input)
   return app
 }

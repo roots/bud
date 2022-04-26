@@ -39,7 +39,7 @@ export interface Service extends Framework.Service {
    * @internal
    * @decorator `@bind`
    */
-  get<T extends `${keyof Registry & string}`>(path: T): Store[T]
+  get<T extends `${keyof Store & string}`>(path: T): Store[T]
 
   /**
    * hook setter
@@ -47,10 +47,7 @@ export interface Service extends Framework.Service {
    * @internal
    * @decorator `@bind`
    */
-  set<T extends `${keyof Registry & string}`>(
-    path: T,
-    value: Registry[T],
-  ): this
+  set<T extends `${keyof Store & string}`>(path: T, value: Store[T]): this
 
   /**
    * hook setter

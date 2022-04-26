@@ -11,7 +11,7 @@
  */
 
 import {Item, Loader} from '@roots/bud-build'
-import {Bud, Extension} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework'
 
 import {MdxConfig} from './MdxConfig'
 
@@ -36,7 +36,7 @@ declare module '@roots/bud-framework' {
    * @public @override
    */
   interface Modules {
-    '@roots/bud-mdx': Extension.Module
+    '@roots/bud-mdx': Extension
   }
 
   namespace Store {
@@ -46,17 +46,19 @@ declare module '@roots/bud-framework' {
   }
 }
 
-const extension: Extension.Module = {
+const extension: Extension = {
   label: '@roots/bud-mdx',
 
-  register: async app => {
+  dependsOn: new Set(['@roots/bud-babel', '@roots/bud-react']),
+
+  register: async (_options, app) => {
     app.mdx = new MdxConfig(app)
   },
 
-  boot: async (app: Bud) =>
+  boot: async (_, app) =>
     app.hooks
       .on('build.resolve.extensions', ext => ext.add('.md').add('.mdx'))
-      .build.setLoader(`mdx`, require.resolve(`@mdx-js/loader`))
+      .build.setLoader(`mdx`, app.module.resolve(`@mdx-js/loader`))
       .setItem(`mdx`, {loader: `mdx`, options: ({mdx}) => mdx.options})
       .setRule(`mdx`, {
         test: /\.mdx?$/,

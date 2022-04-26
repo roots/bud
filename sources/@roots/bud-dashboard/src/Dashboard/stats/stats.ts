@@ -5,8 +5,8 @@ import * as components from './components'
 import {theme} from './theme'
 import * as webpackMessage from './webpack.message'
 
-export const write = (stats: {toJson: () => StatsCompilation}, app: Bud) =>
-  stats.toJson().children?.map(compilation => {
+export const write = (stats: StatsCompilation, app: Bud) =>
+  stats?.children?.map(compilation => {
     if (!compilation?.entrypoints) return compilation
 
     const output = [

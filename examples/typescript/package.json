@@ -14,8 +14,11 @@
     ]
   },
   "devDependencies": {
-    "@roots/bud": "latest",
-    "@roots/bud-babel": "latest",
-    "@roots/bud-typescript": "latest"
+    "@roots/bud": "0.0.0",
+    "@roots/bud-babel": "0.0.0",
+    "@roots/bud-typescript": "0.0.0"
+  },
+  "dependencies": {
+    "@types/webpack-env": "latest"
   }
 }

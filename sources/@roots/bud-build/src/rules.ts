@@ -1,9 +1,5 @@
 import {Bud} from '@roots/bud-framework'
-import {
-  json5 as json5Parser,
-  toml as tomlParser,
-  yaml as yamlParser,
-} from '@roots/bud-support'
+import {json5 as json5Parser, toml as tomlParser} from '@roots/bud-support'
 
 /**
  * .js rule
@@ -150,10 +146,10 @@ export const json = (app: Bud) =>
 export const yml = (app: Bud) =>
   app.build
     .makeRule()
-    .setType('json')
-    .setInclude(({path}) => [path('@src')])
+    .setInclude(({path}) => [path()])
+    .setExclude(({path}) => [path('@modules')])
     .setTest(({hooks}) => hooks.filter('pattern.yml'))
-    .setParser({parse: yamlParser.parse})
+    .setUse(['yml'])
 
 /**
  * Returns {@link Rule} for `.html` handling

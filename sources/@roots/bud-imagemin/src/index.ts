@@ -10,37 +10,15 @@
  * @packageDocumentation
  */
 
-import {Extension} from '@roots/bud-framework'
-
-import {imagemin} from './imagemin.config'
-import * as BudImagemin from './imagemin.extension'
-
 declare module '@roots/bud-framework' {
   interface Bud {
-    imagemin: imagemin
+    imagemin: BudImagemin
   }
 
   interface Modules {
-    '@roots/bud-imagemin': typeof BudImagemin
+    '@roots/bud-imagemin': BudImagemin
   }
 }
 
-/**
- * @public
- */
-export const label: Extension.Module['label'] = BudImagemin.label
-
-/**
- * @public
- */
-export const options: Extension.Module['options'] = BudImagemin.options
-
-/**
- * @public
- */
-export const register: Extension.Module['register'] = BudImagemin.register
-
-/**
- * @public
- */
-export const boot: Extension.Module['boot'] = BudImagemin.boot
+import BudImagemin from './extension'
+export default BudImagemin

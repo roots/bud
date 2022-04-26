@@ -82,6 +82,13 @@ export class BuildCommand extends BaseCommand {
   })
 
   /**
+   * --ci
+   */
+  public ci = Option.Boolean(`--ci`, undefined, {
+    description: `Simple build summaries for CI`,
+  })
+
+  /**
    * --dashboard
    */
   public dashboard = Option.Boolean(`--dashboard`, undefined, {
@@ -271,6 +278,7 @@ export class BuildCommand extends BaseCommand {
       )
     ;[
       'cache',
+      'ci',
       'clean',
       'debug',
       'devtool',

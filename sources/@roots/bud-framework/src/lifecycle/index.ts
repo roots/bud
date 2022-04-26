@@ -69,7 +69,7 @@ export async function lifecycle(this: Bud): Promise<Bud> {
       service => service[event],
     )
 
-    if (!eligibleServices.length) return
+    if (!eligibleServices?.length) return
 
     await Promise.all(
       eligibleServices.map(async (service: Service, i) => {

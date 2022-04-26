@@ -7,10 +7,17 @@
     ]
   },
   "eslint.options": {
-    "overrideConfigFile": "config/eslint.config.js"
+    "overrideConfigFile": "config/eslint.config.js",
+    "ignorePath": "config/.eslintignore"
   },
   "eslint.nodePath": ".yarn/sdks/eslint",
   "eslint.validate": ["javascript", "typescript"],
+  "files.associations": {
+    "*.ts": "typescript",
+    "*.tsx": "typescriptreact",
+    "*.mdx": "mdx",
+    "bud.config.json": "json5"
+  },
   "files.exclude": {
     "**/.git": true,
     "**/.svn": true,
@@ -36,11 +43,5 @@
   "prettier.ignorePath": "config/.prettierignore",
   "prettier.prettierPath": ".yarn/sdks/prettier",
   "typescript.tsdk": ".yarn/sdks/typescript",
-  "typescript.enablePromptUseWorkspaceTsdk": true,
-  "files.associations": {
-    "*.ts": "typescript",
-    "*.tsx": "typescriptreact",
-    "*.mdx": "mdx",
-    "bud.config.json": "json5"
-  }
+  "typescript.enablePromptUseWorkspaceTsdk": true
 }

@@ -14,7 +14,7 @@
  * @packageDocumentation
  */
 
-import {BudCriticalCssPlugin} from './BudCriticalCssPlugin'
+import {BudCriticalCss} from './BudCriticalCssPlugin'
 import {critical} from './critical'
 
 declare module '@roots/bud-framework' {
@@ -23,8 +23,8 @@ declare module '@roots/bud-framework' {
   }
 
   interface Modules {
-    '@roots/bud-criticalcss': BudCriticalCssPlugin
+    '@roots/bud-criticalcss': BudCriticalCss
   }
 }
 
-export default BudCriticalCssPlugin
+export default BudCriticalCss

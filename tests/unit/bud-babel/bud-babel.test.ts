@@ -1,16 +1,16 @@
 import {Bud, factory} from '@repo/test-kit/bud'
-import * as BudBabelExtension from '@roots/bud-babel'
-import {Config} from '@roots/bud-babel/src/babel.config'
+import {Config} from '@roots/bud-babel/config'
+import BudBabelExtension from '@roots/bud-babel/extension'
 
-describe('@roots/bud-babel', function () {
+describe('@roots/bud-babel', () => {
   let bud: Bud
   let config: Config
-  let BabelInstance: BudBabelExtension.default
+  let BabelInstance: BudBabelExtension
 
   beforeAll(async () => {
     bud = await factory()
     config = new Config()
-    BabelInstance = new BudBabelExtension.default(() => bud)
+    BabelInstance = new BudBabelExtension(bud)
   })
 
   it('works with require', () => {

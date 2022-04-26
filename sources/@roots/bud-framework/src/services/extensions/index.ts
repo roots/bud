@@ -1,2 +1,2 @@
-export {Module, Plugin} from '../../extension'
+export {Controller} from './controller'
 export {Service} from './extensions.service'
