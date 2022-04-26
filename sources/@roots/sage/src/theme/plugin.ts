@@ -1,6 +1,6 @@
 import type * as ThemeJSON from '@roots/bud-preset-wordpress/types/theme'
 import {bind, fs} from '@roots/bud-support'
-import type {Compiler, WebpackPluginInstance} from 'webpack'
+import type {Compiler, WebpackPluginInstance} from 'webpack/types'
 
 /**
  * Plugin options

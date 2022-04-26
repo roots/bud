@@ -1,9 +1,7 @@
-import '@roots/bud-postcss'
-
-import * as adapter from '@roots/sage/theme/tailwind'
+import {tailwind} from '@roots/sage/theme'
 
 describe('themeJson tailwind adapter', () => {
-  const mockPalette: adapter.TailwindColors = {
+  const mockPalette: tailwind.TailwindColors = {
     blue: {
       shade: {
         hue: {
@@ -18,7 +16,7 @@ describe('themeJson tailwind adapter', () => {
   }
 
   it('transformsPalette', () => {
-    expect(adapter.transformPalette(mockPalette)).toStrictEqual([
+    expect(tailwind.transformPalette(mockPalette)).toStrictEqual([
       {
         name: 'Blue Shade Hue 50',
         slug: 'blue-shade-hue-50',
