@@ -22,8 +22,10 @@ export interface Mutator {
   (
     json:
       | Partial<WPThemeJson['settings']>
-      | Container<WPThemeJson['settings']>,
-  ): Partial<WPThemeJson['settings']> | Container<WPThemeJson['settings']>
+      | Container<Partial<WPThemeJson['settings']>>,
+  ):
+    | Partial<WPThemeJson['settings']>
+    | Container<Partial<WPThemeJson['settings']>>
 }
 
 @label('wp-theme-json')
@@ -67,8 +69,12 @@ export default class ThemeJson extends Extension<
 
   @bind
   public async init() {
+    if (!this.app.context.disk.config['tailwind.config.js']) return
+
     try {
-      ThemeJson.tailwind.getPalette(this.app.path('./tailwind.config.js'))
+      this.palette = await ThemeJson.tailwind.getPalette(
+        this.app.path('./tailwind.config.js'),
+      )
     } catch (error) {}
   }
 
@@ -83,7 +89,7 @@ export default class ThemeJson extends Extension<
     input?: Mutator | Partial<WPThemeJson['settings']> | boolean,
     raw?: boolean,
   ) {
-    this.when = async () => input !== false
+    this.when = async () => _.isUndefined(input) || input !== false
 
     if (!input) return this.app
 
