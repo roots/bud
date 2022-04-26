@@ -1,19 +1,21 @@
-import {Extension, Logger, Modules} from '@roots/bud-framework'
+import {Bud, Extension, Extensions} from '@roots/bud-framework'
 import {bind, lodash} from '@roots/bud-support'
-import {Container} from '@roots/container'
 
-import {Bud} from './controller.interface'
-
-const {isFunction, isObject, isUndefined} = lodash
+const {isFunction} = lodash
 
 /**
  * Extension instance controller
  *
  * @public
  */
-export class Controller {
-  /** @internal @readonly */
-  private readonly _app: () => Bud
+export class Controller<
+  Ext extends Extension = Extension<any, any>,
+  Constructor extends {new (...args: any[]): Ext} = {
+    new (...args: any[]): Ext
+  },
+> implements Extensions.Controller<Ext, Constructor>
+{
+  public readonly _app: () => Bud
 
   /**
    * The Bud instance
@@ -27,327 +29,133 @@ export class Controller {
   /**
    * @public
    */
-  public meta: {
-    register: boolean
-    boot: boolean
-  } = {
+  public meta = {
+    init: false,
     register: false,
     boot: false,
   }
 
-  public logger: Logger['instance']
-
-  /**
-   * @internal
-   */
-  public _module: (Extension.Module | Extension.Extension) & {
-    logger: Logger['instance']
-  }
+  public module: Ext
 
   /**
    * Controller constructor
    *
    * @public
    */
-  public constructor(
-    _app: Bud,
-    extension: Extension.Module | (new () => Extension.Extension),
-  ) {
-    this._app = () => _app
-
-    if (!extension) {
-      this.app.info(this.app.extensions.all())
-      this.app.error(`extension controller: missing module`)
-    }
-
-    if (isFunction(extension)) {
-      this._module = new (extension as any)(() => _app)
-    } else this._module = Object.assign(extension, {logger: this.logger})
-
-    this.logger = new Logger(_app).instance.scope(
-      this.label ?? '[unknown extension]',
-    )
-
-    !this.app.hooks.filter('feature.log') && this.logger.disable()
-    this._module.logger = this.logger
-
-    this.logger.success('constructed')
+  public constructor(app: Bud) {
+    this._app = () => app
   }
 
-  /**
-   * @public
-   * @decorator `@bind`
-   */
   @bind
-  public get(key: string): any {
-    return this._module[key]
+  public setModule(extension: Ext | Constructor): this {
+    this.module =
+      typeof extension === 'function'
+        ? new extension(this.app)
+        : !(extension instanceof Extension)
+        ? (new Extension(this.app).fromObject(extension) as Ext)
+        : extension
+
+    return this
   }
 
-  /**
-   * @public
-   * @decorator `@bind`
-   */
   @bind
-  public set(key: string, value: any) {
-    this._module[key] = value
+  public has<T extends keyof Ext>(key: T & string): boolean {
+    return this.module[key] ? true : false
   }
 
-  /**
-   * Extension module name
-   *
-   * @public
-   */
-  public get label(): `${keyof Modules & string}` {
-    return this._module.label
-  }
-
-  public set label(label: `${keyof Modules & string}`) {
-    this._module.label = label
-  }
-
-  /**
-   * Extension module options
-   *
-   * @public
-   */
-  public get options() {
-    if (isUndefined(this._module.options)) {
-      return this.app.container()
-    }
-
-    if (isFunction(this._module.options)) {
-      return this.app.container(this._module.options(this.app))
-    }
-
-    if (this._module.options instanceof Container) {
-      return this.app.hooks.filter(
-        `extension.${this.label}.options` as any,
-        () => this._module.options,
-      )
-    }
-
-    if (!isObject(this._module.options)) {
-      this.app.error(
-        `${this.label} options must be an object or Container instance`,
-      )
-    }
-
-    return this.app.hooks.filter(
-      `extension.${this.label as keyof Modules & string}.options` as any,
-      () => this.app.container(this._module.options),
-    )
-  }
-
-  /**
-   * @public
-   */
-  public set options(options) {
-    this._module.options = options
-  }
-
-  /**
-   * Mutate options
-   *
-   * @remarks
-   * mutation fn receives a container of existing options and returns
-   * an object or container of mutated options
-   *
-   * @param options - mutation fn
-   * @public
-   */
   @bind
-  public mutateOptions(options) {
-    if (!isFunction(options)) {
-      this.app.error(
-        `mutation must be a function that receives a container and returns an object or container`,
-      )
-    }
-
-    const result = options(this.options)
-
-    if (!(result instanceof Container) || !isObject(result)) {
-      this.app.error(`mutation must return an object or container`)
-    }
-
-    this.options = result
+  public get<T extends keyof Ext>(key: T & string): Ext[T & string] {
+    return this.module[key]
   }
 
-  /**
-   * Merge options
-   *
-   * @remarks
-   * Supplied options must be an object or container of options to merge
-   *
-   * @param options - options to merge
-   * @public
-   */
   @bind
-  public mergeOptions(options) {
-    if (options instanceof Container) {
-      const optionsContainer = this.options
-      optionsContainer.mergeStore(options.all())
-      this.options = optionsContainer
-    }
-
-    if (!isObject(options)) {
-      this.app.error(`merged options must be an object or container`)
-    }
-
-    const optionsContainer = this.options
-    optionsContainer.mergeStore(options)
-    this.options = optionsContainer
+  public set<T extends keyof Ext>(
+    key: T & string,
+    value: Ext[T & string],
+  ): this {
+    this.module[key] = value
+    return this
   }
 
-  /**
-   * Merge option
-   *
-   * @remarks
-   * Supplied options must be an object or container of options to merge
-   *
-   * @param key - option key
-   * @param options - value to merge
-   * @public
-   */
   @bind
-  public mergeOption(key, options) {
-    if (!this.options.has(key)) {
-      this.app.error(`[${this.label}] key ${key} does not exist`)
-    }
-
-    const optionsContainer = this.options
-    optionsContainer.merge(key, options)
-    this.options = optionsContainer
+  public getOption<T extends keyof Ext['options']>(
+    key: T & string,
+  ): Ext['options'][T & string] {
+    if (!this.module.options) this.module.options = {}
+    return this.module.options[key]
   }
 
-  /**
-   * Set options
-   *
-   * @public
-   */
   @bind
-  public setOptions(value): Controller {
-    if (value instanceof Container) {
-      this.options = value
-      return this
-    }
+  public setOption<T extends keyof Ext['options']>(
+    key: T & string,
+    value:
+      | Ext['options'][T & string]
+      | ((
+          value: Ext['options'][T & string],
+        ) => Ext['options'][T & string]),
+  ): this {
+    if (!this.module.options) this.module.options = {}
+    this.module.options[key] = isFunction(value)
+      ? value(this.module.options[key])
+      : value
 
-    if (isObject(value)) {
-      this.options = this.app.container(value)
-      return this
-    }
-
-    this.app.error(
-      `[${this.label}] options must be a container or an object`,
-    )
+    return this
   }
 
-  /**
-   * Set an extension option
-   *
-   * @param key - option key
-   * @param value - options value
-   * @public
-   */
   @bind
-  public setOption(key, value) {
-    const optionsContainer = this.options
-    optionsContainer.set(key, value)
-    this.options = optionsContainer
+  public getOptions(): Ext['options'] {
+    return this.module.options ?? {}
   }
 
-  /**
-   * Get an extension option
-   *
-   * @param key - option key
-   * @public
-   */
   @bind
-  public getOption(key) {
-    if (!this.options.has(key)) {
-      this.app.error(`key ${key} does not exist`)
-    }
-
-    return this.options.get(key)
+  public setOptions(
+    value: Ext['options'] | ((value: Ext['options']) => Ext['options']),
+  ): this {
+    this.module.options = isFunction(value)
+      ? value(this.module.options)
+      : value
+    return this
   }
 
-  /**
-   * Value determining if the extension should be utilized
-   *
-   * @public
-   */
   @bind
-  public make() {
-    if (this.when === false) return false
-    if (!this._module.make && !this._module.apply) return false
+  public async ensureDependenciesRanFirst(
+    method: 'init' | 'register' | 'boot',
+  ): Promise<void> {
+    if (this.has('dependsOn')) {
+      Array.from(this.get('dependsOn')).map(async pkgName => {
+        if (!this.app.extensions.has(pkgName))
+          await this.app.extensions.import(pkgName)
 
-    if (this._module.apply) return this._module
-
-    return isFunction(this._module.make)
-      ? this._module.make(this.options, this.app)
-      : this._module.make
+        if (this.app.extensions.has(pkgName)) {
+          await this.app.extensions.get(pkgName)[method]()
+        }
+      })
+    }
   }
 
-  /**
-   * Value determining if the extension should be utilized
-   *
-   * @public
-   */
-  public get when() {
-    if (isUndefined(this._module.when)) return true
-
-    if (isFunction(this._module.when))
-      return this._module.when(this.app, this.options)
-
-    return this._module.when
-  }
-
-  /**
-   * Value determining if the extension should be utilized
-   *
-   * @public
-   */
-  public set when(when) {
-    this._module.when = when
-  }
-
-  /**
-   * Extension registration event
-   *
-   * @remarks
-   * Calls the {@link Extension} callback
-   *
-   * @public
-   */
   @bind
-  public async register(): Promise<Controller> {
-    if (!this._module.register) {
-      this.meta.register = true
-    }
-    if (this.meta.register) return this
+  public async init(): Promise<this> {
+    await this.ensureDependenciesRanFirst('init')
 
-    this.meta.register = true
+    if (!this.module.init) this.meta.init = true
+    if (this.meta.init) return this
+    else this.meta.init = true
 
-    this.logger.info(`registering`)
-
-    if (this.app.project.has(`project.peers.${this.label}.requires`)) {
-      await Promise.all(
-        this.app.project
-          .get(`project.peers.${this.label}.requires`)
-          .map(async ([name]) => {
-            if (!this.app.extensions.get(name).meta.register) {
-              await this.app.extensions.get(name).register()
-            }
-          }),
-      )
-    }
-
-    if (isFunction(this._module.register)) {
-      await this._module.register(this.app, this.logger)
-    }
-
+    await this.module._init()
     await this.app.api.processQueue()
 
-    this.logger.success(`registered`)
+    return this
+  }
+
+  @bind
+  public async register(): Promise<this> {
+    await this.ensureDependenciesRanFirst('register')
+
+    if (this.meta.register) return this
+    else this.meta.register = true
+
+    await this.module._register()
+    await this.app.api.processQueue()
 
     return this
   }
@@ -356,42 +164,51 @@ export class Controller {
    * Extension boot event
    *
    * @remarks
-   * Calls the {@link @roots/bud-framework#Module.boot} callback
+   * Calls the {@link Module.boot} callback
    *
    * @public
    * @decorator `@bind`
    */
   @bind
   public async boot(): Promise<this> {
-    if (!this._module.boot) {
-      this.meta.boot = true
-      return this
-    }
+    await this.ensureDependenciesRanFirst('boot')
+
     if (this.meta.boot) return this
-    this.meta.boot = true
+    else this.meta.boot = true
 
-    this.logger.info(`registering`)
-
-    if (this.app.project.has(`project.peers.${this.label}.requires`)) {
-      await Promise.all(
-        this.app.project
-          .get(`project.peers.${this.label}.requires`)
-          .map(async ([name]) => {
-            if (!this.app.extensions.get(name).meta.boot) {
-              await this.app.extensions.get(name).boot()
-            }
-          }),
-      )
-    }
-
-    if (isFunction(this._module.boot)) {
-      await this._module.boot(this.app, this.logger)
-    }
-
+    await this.module._boot()
     await this.app.api.processQueue()
 
-    this.logger.success(`booted`)
-
     return this
+  }
+
+  @bind
+  public async make(): Promise<{apply: any} | false> {
+    const enabled = await this.isEnabled()
+
+    if (
+      enabled === false ||
+      (!this.module.make && !this.module.apply && !this.module.plugin)
+    )
+      return false
+
+    if (this.module.plugin)
+      return new this.module.plugin(this.module.options ?? {})
+
+    if (this.module.apply) return this.module as {apply: any}
+
+    return await this.module._make()
+  }
+
+  /**
+   * Value determining if the extension should be utilized
+   *
+   * @public
+   */
+  @bind
+  public async isEnabled(): Promise<boolean> {
+    if (this.module.when)
+      return await this.module.when(this.module.options ?? {}, this.app)
+    return true
   }
 }

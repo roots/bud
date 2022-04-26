@@ -1,7 +1,7 @@
 import {Configuration, RuleSetRule} from 'webpack'
 
 import {EntryObject} from '../config/entry'
-import {PluginInstance} from '../extension'
+import {Extension} from '../extension'
 
 export interface Sync {
   'build.bail': boolean
@@ -60,7 +60,7 @@ export interface Sync {
 }
 
 export interface Async {
-  'build.plugins': Array<PluginInstance>
+  'build.plugins': Array<Extension.PluginInstance>
   'build.resolve': Configuration['resolve']
   'build.resolve.alias': Configuration['resolve']['alias']
   'build.resolve.modules': Configuration['resolve']['modules']

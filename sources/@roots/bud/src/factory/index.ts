@@ -1,7 +1,8 @@
-import { Options } from '@roots/bud-framework/types/config'
+import {Config} from '@roots/bud-framework'
 
 import {Bud} from '../Bud'
 import {makeContext} from '../context'
+import {extensions} from '../extensions'
 import {seed} from '../seed'
 import {services} from '../services'
 
@@ -24,10 +25,10 @@ import {services} from '../services'
  *
  * @public
  */
-export async function factory(overrides?: Options): Promise<Bud> {
+export async function factory(overrides?: Config.Options): Promise<Bud> {
   const context = await makeContext()
 
-  const options: Options = {
+  const options: Config.Options = {
     name: 'bud',
     mode: 'production',
     ...(overrides ?? {}),
@@ -35,14 +36,15 @@ export async function factory(overrides?: Options): Promise<Bud> {
       ...context,
       ...(overrides?.context ?? {}),
     },
-    services: {
-      ...services,
-      ...(overrides?.services ?? {}),
-    },
     seed: {
       ...seed,
       ...(overrides?.seed ?? {}),
     },
+    services: {
+      ...services,
+      ...(overrides?.services ?? {}),
+    },
+    extensions: [...(extensions ?? []), ...(overrides?.extensions ?? [])],
   }
 
   const project = new Bud(options)
@@ -57,6 +59,5 @@ export async function factory(overrides?: Options): Promise<Bud> {
     message: `process.env.BABEL_ENV: ${process.env.BABEL_ENV}`,
   })
 
-  await project.lifecycle()
-  return project
+  return await project.lifecycle()
 }

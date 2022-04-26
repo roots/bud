@@ -1,4 +1,4 @@
-import { Options } from '@roots/bud-framework/types/config'
+import type {Config} from '@roots/bud-framework'
 import {prettyFormat, Signale, table} from '@roots/bud-support'
 import {cpus} from 'os'
 
@@ -7,7 +7,7 @@ import {cpus} from 'os'
  *
  * @public
  */
-export const seed: Options['seed'] = {
+export const seed: Config.Options['seed'] = {
   'feature.cache': [() => true],
   'feature.clean': [() => false],
   'feature.hash': [() => false],
@@ -29,7 +29,7 @@ export const seed: Options['seed'] = {
   'pattern.cssModule': [() => /\.module\.css$/],
   'pattern.font': [() => /\.(ttf|otf|eot|woff2?|ico)$/],
   'pattern.html': [() => /\.(html?)$/],
-  'pattern.image': [() => /\.(png|jpe?g|gif)$/],
+  'pattern.image': [() => /\.(png|jpe?g|gif|webp)$/],
   'pattern.modules': [() => /(node_modules|bower_components)/],
   'pattern.svg': [() => /\.svg$/],
   'pattern.vue': [() => /\.vue$/],

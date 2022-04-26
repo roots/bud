@@ -28,12 +28,10 @@ import * as Peers from './services/peers'
 import * as Project from './services/project'
 import * as Server from './services/server'
 
-import * as Extension from './extension'
-import {Module} from './extension/module'
-
+export * from './extension'
 import {Registry} from './registry'
 
-export {Bud, ContainerService, Extension, Service}
+export {Bud, ContainerService, Service}
 
 export {
   Api,
@@ -46,7 +44,6 @@ export {
   Extensions,
   Hooks,
   Logger,
-  Module,
   Peers,
   Project,
   Registry,
@@ -63,7 +60,11 @@ export {
 
 export type Mode = 'production' | 'development'
 export {Locations} from './registry/locations'
-export {Modules} from './registry/modules'
+export {
+  Controllers,
+  Modules,
+  Definitions as ModuleDefinitions,
+} from './registry/modules'
 export {Flags} from './registry/flags'
 export {Events} from './registry/events'
 export {Patterns} from './registry/patterns'

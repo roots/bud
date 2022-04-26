@@ -19,7 +19,10 @@ export interface Service extends ContainerService {
   /**
    * @internal
    */
-  call: (name: string, ...args: any[]) => Promise<void>
+  call<K extends keyof Service['repository']>(
+    name: K,
+    ...args: any
+  ): Promise<void>
 
   /**
    * @internal

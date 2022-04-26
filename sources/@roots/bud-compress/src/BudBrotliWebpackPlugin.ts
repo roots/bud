@@ -1,42 +1,54 @@
-import type {Bud, Extensions} from '@roots/bud-framework'
+import {Bud, Extension} from '@roots/bud-framework'
+import {
+  bind,
+  label,
+  plugin,
+} from '@roots/bud-framework/src/extension/decorators'
 import * as Plugin from 'compression-webpack-plugin'
 
 import {BudCompressionExtension} from './'
 
-interface BudBrotliWebpackPlugin
-  extends Extensions.Module<BudCompressionExtension.Options, Plugin> {}
-
-const BudBrotliWebpackPlugin: BudBrotliWebpackPlugin = {
-  label: 'compression-webpack-plugin-brotli',
-
-  options: {
-    algorithm: 'brotliCompress',
-    filename: '[name].br[query]',
-    test: /\.js$|\.css$|\.html$|\.htm$/,
-    compressionOptions: {
+@label('compression-webpack-plugin-brotli')
+@plugin(Plugin)
+class BudBrotliWebpackPlugin extends Extension<
+  BudCompressionExtension.Options,
+  Plugin
+> {
+  public _options = {
+    algorithm: () => 'brotliCompress',
+    filename: () => '[name].br[query]',
+    test: () => /\.js$|\.css$|\.html$|\.htm$/,
+    compressionOptions: () => ({
       level: 11,
-    },
-    threshold: 10240,
-    minRatio: 0.8,
-    deleteOriginalAssets: false,
-  },
+    }),
+    threshold: () => 10240,
+    minRatio: () => 0.8,
+    deleteOriginalAssets: () => false,
+  }
 
-  make: options => new Plugin(options.all()),
+  @bind
+  public async when() {
+    return this.app.hooks.filter('feature.brotli')
+  }
 
-  when: ({hooks}) => hooks.filter('feature.brotli'),
+  @bind
+  public async register() {
+    this.app.api.bindFacade('brotli', this.config)
+  }
 
-  register: async app => {
-    app.api.bindFacade('brotli', function (options) {
-      const app = this as Bud
-      app.hooks.on('feature.brotli', true)
-      if (options)
-        app.extensions
-          .get('compression-webpack-plugin-brotli')
-          .setOptions(options)
+  @bind
+  public async config(
+    options: BudCompressionExtension.Options,
+  ): Promise<Bud> {
+    this.app.hooks.on('feature.brotli', true)
 
-      return app
-    })
-  },
+    options &&
+      this.app.extensions
+        .get('compression-webpack-plugin-brotli')
+        .setOptions(options)
+
+    return this.app
+  }
 }
 
-export {BudBrotliWebpackPlugin}
+export default BudBrotliWebpackPlugin

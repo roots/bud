@@ -44,14 +44,14 @@
     ".": {
       "require": "./lib/cjs/index.js"
     },
-    "./repository": {
-      "require": "./lib/cjs/repository/index.js"
+    "./api": {
+      "require": "./lib/cjs/api/index.js"
     },
     "./methods": {
       "require": "./lib/cjs/methods/index.js"
     },
     "./methods/*": {
-      "require": "./lib/cjs/api/methods/*/index.js"
+      "require": "./lib/cjs/methods/*/index.js"
     }
   },
   "typesVersions": {
@@ -59,17 +59,17 @@
       ".": [
         "./types/index.d.ts"
       ],
-      "repository": [
-        "./types/repository/index.d.ts"
+      "api": [
+        "./types/api/index.d.ts"
       ],
-      "repository/*": [
-        "./types/repository/*/index.d.ts"
+      "facade": [
+        "./types/facade/index.d.ts"
       ],
       "methods": [
-        "./types/repository/index.d.ts"
+        "./types/methods/index.d.ts"
       ],
       "methods/*": [
-        "./types/api/methods/*/index.d.ts"
+        "./types/methods/*/index.d.ts"
       ]
     }
   },
@@ -85,6 +85,6 @@
     "copy-webpack-plugin": "10.2.4",
     "css-minimizer-webpack-plugin": "3.4.1",
     "html-webpack-plugin": "5.5.0",
-    "tslib": "^2.3.1"
+    "tslib": "2.3.1"
   }
 }

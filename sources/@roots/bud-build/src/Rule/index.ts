@@ -1,11 +1,11 @@
 import {Bud, Build} from '@roots/bud-framework'
 import {bind, lodash} from '@roots/bud-support'
 
-import {Base} from '../shared/Base'
+import Base from '../shared/Base'
 
 const {isFunction, isString} = lodash
 
-export namespace Rule {
+namespace Rule {
   export type ConstructorOptions = Partial<Build.Rule.Options>
 }
 
@@ -14,7 +14,7 @@ export namespace Rule {
  *
  * @public
  */
-export class Rule extends Base implements Build.Rule {
+class Rule extends Base implements Build.Rule {
   /**
    * {@inheritDoc @roots/bud-framework#Rule.Abstract.test}
    *
@@ -27,7 +27,7 @@ export class Rule extends Base implements Build.Rule {
    *
    * @public
    */
-  public use?: Array<`${keyof Build.Items & string}`>
+  public use?: Array<`${`${keyof Build.Items & string}`}`>
 
   /**
    * Include paths
@@ -136,7 +136,7 @@ export class Rule extends Base implements Build.Rule {
    * @decorator `@bind`
    */
   @bind
-  public getUse(): Array<`${keyof Build.Items & string}`> {
+  public getUse(): Array<`${`${keyof Build.Items & string}`}`> {
     return this.unwrap(this.use)?.filter(isString) ?? []
   }
 
@@ -149,11 +149,11 @@ export class Rule extends Base implements Build.Rule {
   @bind
   public setUse(
     input:
-      | Array<keyof Build.Items & string>
+      | Array<`${keyof Build.Items & string}`>
       | ((
-          use: Array<keyof Build.Items & string>,
+          use: Array<`${keyof Build.Items & string}`>,
           app: Bud,
-        ) => Array<keyof Build.Items & string>),
+        ) => Array<`${keyof Build.Items & string}`>),
   ): Rule {
     this.use =
       (isFunction(input) ? input(this.getUse() ?? [], this.app) : input) ??
@@ -283,3 +283,5 @@ export class Rule extends Base implements Build.Rule {
     return output
   }
 }
+
+export {Rule as default}

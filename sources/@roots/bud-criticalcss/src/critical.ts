@@ -27,7 +27,10 @@ export const critical: critical = function (
   this: Bud,
   userOptions: CriticalCssWebpackPlugin['options'],
 ) {
-  this.extensions.get('@roots/bud-criticalcss').mergeOptions(userOptions)
+  this.extensions.get('@roots/bud-criticalcss').setOptions(options => ({
+    ...options,
+    ...userOptions,
+  }))
 
   return this
 }

@@ -109,3 +109,10 @@ export const resolveUrl = (app: Bud) =>
  * @public
  */
 export const xml = (app: Bud) => app.build.makeItem().setLoader(`xml`)
+
+/**
+ * Factory {@link Item} for yml
+ *
+ * @public
+ */
+export const yml = (app: Bud) => app.build.makeItem().setLoader(`yml`)

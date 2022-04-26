@@ -11,12 +11,6 @@ export interface Dev {
   'dev.options': Server.Options
 
   /**
-   * IPV4 or IPV6 binding
-   * @public
-   */
-  'dev.interface': string
-
-  /**
    * Server URL
    * @public
    */

@@ -1,22 +1,19 @@
-import {Module} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework'
+import {
+  bind,
+  label,
+  options,
+  plugin,
+  when,
+} from '@roots/bud-framework/extension/decorators'
 
 import * as themeJson from './api/themeJson'
 import * as useTailwindColors from './api/useTailwindColors'
 import {Options, ThemeJsonWebpackPlugin} from './plugin'
 
-/**
- * Extension for managing WordPress `theme.json`
- *
- * @public
- */
-export type Extension = Module<Options, ThemeJsonWebpackPlugin>
-
-/** @public */
-export const label: Extension['label'] = 'wp-theme-json'
-
-/** @public */
-export const options: Extension['options'] = app => ({
-  path: app.path('./theme.json'),
+@label('wp-theme-json')
+@options({
+  path: app => app.path('./theme.json'),
   settings: {
     color: {
       custom: false,
@@ -36,19 +33,14 @@ export const options: Extension['options'] = app => ({
     },
   },
 })
-
-/** @public */
-export const register: Extension['register'] = async ({api}) => {
-  api.bindFacade('themeJson', themeJson.method)
-  api.bindFacade('useTailwindColors', useTailwindColors.method)
+@when(async () => false)
+@plugin(ThemeJsonWebpackPlugin)
+class ThemeJson extends Extension<Options, ThemeJsonWebpackPlugin> {
+  @bind
+  public async register() {
+    this.app.api.bindFacade('themeJson', themeJson.method)
+    this.app.api.bindFacade('useTailwindColors', useTailwindColors.method)
+  }
 }
 
-/** @public */
-export const make: Extension['make'] = options =>
-  new ThemeJsonWebpackPlugin({
-    path: options.get('path'),
-    settings: options.get('settings'),
-  })
-
-/** @public */
-export const when: Extension['when'] = false
+export default ThemeJson

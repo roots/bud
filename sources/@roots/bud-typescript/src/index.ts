@@ -13,47 +13,8 @@
  * @packageDocumentation
  */
 
-import type {Module} from '@roots/bud-framework/types/extension/module'
-import type * as Build from '@roots/bud-framework/types/services/build'
-import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
+import './interface'
 
-import {BudTypeScriptExtension} from './bud.extension'
-import {facade} from './bud.typecheck'
+import BudTypeScript from './bud.extension'
 
-declare module '@roots/bud-framework' {
-  interface Bud {
-    /**
-     * Enable typescript type checking
-     *
-     * @example
-     * ```js
-     * bud.typecheck()
-     * ```
-     *
-     * @public
-     */
-    typecheck: facade
-  }
-
-  interface Modules {
-    '@roots/bud-typescript': BudTypeScriptExtension
-    'fork-ts-checker-plugin': Module<
-      any,
-      typeof ForkTsCheckerWebpackPlugin
-    >
-  }
-
-  interface Loaders {
-    ts: Build.Loader
-  }
-
-  interface Items {
-    ts: Build.Item
-  }
-
-  interface Rules {
-    ts: Build.Rule
-  }
-}
-
-export const {label, register, boot, options} = BudTypeScriptExtension
+export default BudTypeScript

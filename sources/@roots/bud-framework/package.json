@@ -44,11 +44,29 @@
     ".": {
       "require": "./lib/cjs/index.js"
     },
+    "./bud": {
+      "require": "./lib/cjs/bud.js"
+    },
+    "./extension": {
+      "require": "./lib/cjs/extension/index.js"
+    },
+    "./extension/decorators": {
+      "require": "./lib/cjs/extension/decorators/index.js"
+    },
+    "./extension/decorators/*": {
+      "require": "./lib/cjs/extension/decorators/*.js"
+    },
+    "./methods/*": {
+      "require": "./lib/cjs/methods/*.js"
+    },
+    "./module": {
+      "require": "./lib/cjs/module.js"
+    },
     "./service": {
       "require": "./lib/cjs/service.js"
     },
-    "./store": {
-      "require": "./lib/cjs/store.js"
+    "./services/*": {
+      "require": "./lib/cjs/services/*/index.js"
     }
   },
   "typesVersions": {
@@ -56,28 +74,38 @@
       ".": [
         "./types/index.d.ts"
       ],
+      "bud": [
+        "./types/bud.d.ts"
+      ],
       "config": [
         "./types/config/index.d.ts"
+      ],
+      "extension": [
+        "./types/extension/index.d.ts"
+      ],
+      "extension/decorators": [
+        "./types/extension/decorators/index.d.ts"
+      ],
+      "extension/decorators/*": [
+        "./types/extension/decorators/*.d.ts"
+      ],
+      "methods/*": [
+        "./types/methods/*.js"
       ],
       "service": [
         "./types/service.d.ts"
       ],
       "services/*": [
         "./types/services/*/index.d.ts"
-      ],
-      "store": [
-        "./types/store.d.ts"
       ]
     }
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/js-yaml": "4.0.5",
     "@types/lodash": "4.14.180",
     "@types/node": "16.11.26",
     "chokidar": "3.5.3",
     "http-proxy-middleware": "2.0.4",
-    "ink": "3.2.0",
     "webpack": "5.70.0",
     "webpack-dev-middleware": "5.3.1",
     "webpack-hot-middleware": "2.25.1"
@@ -85,6 +113,6 @@
   "dependencies": {
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@roots/container": "workspace:sources/@roots/container",
-    "tslib": "^2.3.1"
+    "tslib": "2.3.1"
   }
 }

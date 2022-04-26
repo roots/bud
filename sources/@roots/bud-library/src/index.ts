@@ -10,19 +10,5 @@
  * @packageDocumentation
  */
 
-import {BudDllExtension} from './BudDllExtension'
-import {BudDllPlugin} from './BudDllPlugin'
-import {library} from './library'
-
-declare module '@roots/bud-framework' {
-  interface Bud {
-    library: library
-  }
-
-  interface Modules {
-    '@roots/bud-library': BudDllExtension
-    'autodll-webpack-plugin': BudDllPlugin
-  }
-}
-
-export const {label, register} = BudDllExtension
+import BudDll from './extension'
+export default BudDll

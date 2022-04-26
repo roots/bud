@@ -1,14 +1,11 @@
-import '@roots/bud-babel'
-
 import {Bud, factory} from '@repo/test-kit/bud'
-import * as BudReact from '@roots/bud-react'
+import BudReact from '@roots/bud-react'
 
 describe('@roots/bud-react', () => {
   let bud: Bud
 
   beforeAll(async () => {
     bud = await factory()
-
     await bud.extensions.add(BudReact)
   })
 
@@ -18,18 +15,18 @@ describe('@roots/bud-react', () => {
 
   it(`registers prop: label`, () =>
     expect(bud.extensions.get('@roots/bud-react').get('label')).toBe(
-      BudReact.label,
+      '@roots/bud-react',
     ))
 
   it(`registers prop: register`, () =>
-    expect(bud.extensions.get('@roots/bud-react')._module.register).toBe(
-      BudReact.register,
-    ))
+    expect(
+      bud.extensions.get('@roots/bud-react').get('register'),
+    ).toBeInstanceOf(Function))
 
   it(`registers prop: boot`, () =>
-    expect(bud.extensions.get('@roots/bud-react')._module.boot).toBe(
-      BudReact.boot,
-    ))
+    expect(
+      bud.extensions.get('@roots/bud-react').get('boot'),
+    ).toBeInstanceOf(Function))
 
   it('regissters fn: react-refresh', async () => {
     expect(bud.reactRefresh).toBeInstanceOf(Function)

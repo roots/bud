@@ -1,9 +1,9 @@
 /* eslint-disable tsdoc/syntax */
-/** 
- * @jest-environment jsdom 
+/**
+ * @jest-environment jsdom
  */
 
-import * as Indicator from '@roots/bud-server/src/client/indicator'
+import * as Indicator from '@roots/bud-server/client/indicator'
 
 describe('@roots/bud-server', function () {
   it('has a make fn', () => {

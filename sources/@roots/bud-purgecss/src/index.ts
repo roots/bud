@@ -19,23 +19,20 @@
  * @packageDocumentation
  */
 
-import './bud.env'
+import '@roots/bud-postcss'
 
-import {purgecss} from './bud.purge'
-import {Purge} from './purge.interface'
+import type {Extension} from '@roots/bud-framework'
 
-/**
- * Module name
- *
- * @public
- */
-export const label: Purge['label'] = '@roots/bud-purgecss'
+import * as purge from './purge.interface'
 
-/**
- * Module registration
- *
- * @public
- */
-export const register: Purge['register'] = async app => {
-  app.api.bindFacade('purgecss', purgecss)
+declare module '@roots/bud-framework' {
+  interface Bud {
+    purgecss: purge.api
+  }
+
+  interface Modules {
+    '@roots/bud-purgecss': Extension
+  }
 }
+
+export * from './extension'

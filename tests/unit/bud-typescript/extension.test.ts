@@ -1,8 +1,5 @@
-import '@roots/bud-postcss'
-
 import {Bud, factory} from '@repo/test-kit/bud'
-import BudBabel from '@roots/bud-babel'
-import * as BudTypescript from '@roots/bud-typescript'
+import BudTypescript from '@roots/bud-typescript'
 
 describe('@roots/bud-typescript', () => {
   let bud: Bud
@@ -12,15 +9,21 @@ describe('@roots/bud-typescript', () => {
   })
 
   beforeEach(async () => {
-    bud.extensions.setStore({})
-    bud.use([new BudBabel(() => bud), BudTypescript])
-    await bud.api.processQueue()
+    bud.extensions.repository = {} as any
+    await bud.extensions.add(BudTypescript)
   })
 
   it('label', () => {
-    expect(bud.extensions.get('@roots/bud-typescript').label).toBe(
+    expect(bud.extensions.get('@roots/bud-typescript').get('label')).toBe(
       '@roots/bud-typescript',
     )
+  })
+
+  it('registered @roots/bud-typescript', () => {
+    expect(bud.extensions.has('@roots/bud-typescript')).toBeTruthy()
+  })
+  it('registered @roots/bud-babel', () => {
+    expect(bud.extensions.has('@roots/bud-babel')).toBeTruthy()
   })
 
   it('provides callable typecheck method', async () => {
@@ -62,27 +65,28 @@ describe('@roots/bud-typescript', () => {
         },
       },
     }
+
     await bud.api.call('typecheck', options)
     expect(
-      bud.extensions.get('fork-ts-checker-webpack-plugin').options.all(),
+      bud.extensions.get('fork-ts-checker-webpack-plugin').get('options'),
     ).toEqual(options)
   })
 
   it('has typecheck method that accepts fn callback', async () => {
-    await bud.api.call('typecheck', options => {
-      options.set('async', true)
-      return options
-    })
+    await bud.api.call('typecheck', options => ({
+      ...options,
+      async: true,
+    }))
 
     expect(
       bud.extensions
         .get('fork-ts-checker-webpack-plugin')
-        .options.get('async'),
+        .getOption('async'),
     ).toBe(true)
   })
 
   it('sets up ts module rule', async () => {
-    expect(bud.build.rules['ts']).toBeDefined()
+    expect(bud.build.rules.ts).toBeDefined()
   })
 
   it('adds ts and tsx extensions', async () => {

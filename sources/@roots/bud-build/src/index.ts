@@ -12,9 +12,11 @@
 
 export {Build} from './Build'
 
-export {Loader} from './Loader'
-export {Item} from './Item'
-export {Rule} from './Rule'
+import Item from './Item'
+import Loader from './Loader'
+import Rule from './Rule'
+
+export {Loader, Item, Rule}
 
 export * as items from './items'
 export * as loaders from './loaders'

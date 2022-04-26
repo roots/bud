@@ -1,4 +1,4 @@
-import {Signale} from '@roots/bud-support'
+import {bind, Signale} from '@roots/bud-support'
 
 import type {Bud} from '..'
 import {LEVEL, types} from './logger.constants'
@@ -9,6 +9,12 @@ import {LEVEL, types} from './logger.constants'
  * @public
  */
 export class Logger {
+  protected _app: () => Bud
+
+  public get app() {
+    return this._app()
+  }
+
   /**
    * Logger instance
    *
@@ -23,7 +29,7 @@ export class Logger {
   }
 
   public get interactive() {
-    return !this.app.context.args.log ? true : false
+    return this.level === LEVEL.ERROR
   }
 
   /**
@@ -31,16 +37,26 @@ export class Logger {
    *
    * @public
    */
-  public constructor(private app: Bud) {
-    this.instance = new Signale({
+  public constructor(_app: Bud) {
+    this._app = () => _app
+
+    this.instance = this.makeInstance()
+  }
+
+  @bind
+  public makeInstance(constructorOverrides = {}, configOverrides = {}) {
+    let instance = new Signale({
       interactive: this.interactive,
       secrets: [this.app.context.projectDir, this.app.context.cwd],
       logLevel: this.level,
-      types: types(app),
-      scope: 'bud',
+      types: types(this.app),
+      scope:
+        this.app.context.manifest.name ??
+        this.app.context.application.label,
+      ...constructorOverrides,
     })
 
-    this.instance.config({
+    instance.config({
       displayScope: true,
       displayBadge: true,
       displayDate: false,
@@ -52,6 +68,15 @@ export class Logger {
       underlinePrefix: false,
       underlineSuffix: false,
       uppercaseLabel: false,
+      ...configOverrides,
     })
+
+    instance = instance.scope(
+      this.app.context.application.label,
+      this.app.context.application.version,
+      this.app.context.manifest.name,
+    )
+
+    return instance
   }
 }

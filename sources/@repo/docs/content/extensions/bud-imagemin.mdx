@@ -11,39 +11,96 @@ import {Install} from '@site/src/docs/Install'
 
 [@roots/bud-imagemin](/extensions/bud-imagemin) optimizes image filesizes.
 
-The extension uses [squoosh](https://squoosh.app) under the hood and can be configured for
-lossless or lossy compression.
+The extension uses [GoogleChromeLabs/squoosh](https://github.com/GoogleChromeLabs/squoosh) under the hood.
 
 ## Installation
 
 <Install packages="@roots/bud-imagemin" />
 
+## Usage
+
+Once installed, all compatible assets will be run through the image minimizer. No further config is necessary.
+
+### Convert to `webp`
+
+You may convert an asset to `webp` format using the `?as=webp` url param:
+
+```css
+body {
+  background-image: url(./images/image.jpg?as=webp);
+}
+```
+
+```ts
+import Image from './images/image.jpg?as=webp'
+```
+
 ## Configuration
 
-Without any configuration, the image minimizer extension will compress many image asset types and compress them very well.
+Sans configuration, the image minimizer extension will apply the libSquoosh `'auto'` config.
 
-To compress assets losslessly:
+### Encoder
 
-```ts
-bud.imagemin('lossless')
-```
-
-To compress assets in a lossy manner:
+You can set options for an encoder with `imagemin.encode`:
 
 ```ts
-bud.imagemin('lossy')
+module.exports = bud => {
+  bud.imagemin
+    /**
+     * Set encoder options:
+     * - 'jpg' will be interpolated to 'mozjpeg'
+     * - 'png' will be interpolated to 'oxipng'
+     */
+    .encode('jpg', {quality: 50})
+    .encode('png', {quality: 90})
+}
 ```
 
-### Custom config
+Available encoders:
 
-To provide your own configuration options you can pass a callback which
-will receive and should return the `web`.
+| encoder | extension       |
+| ------- | --------------- |
+| mozjpeg | `.jpeg`, `.jpg` |
+| webp    | `.webp`         |
+| avif    | `.avif`         |
+| jxl     | `.jxl`          |
+| wp2     | `.wp2`          |
+| oxipng  | `.oxipng`       |
+
+### setEncodeOptions
+
+You can fully override the encoder config using `imagemin.setEncodeOptions`.
+
+Options are expressed as a `Map`:
 
 ```ts
-bud.imagemin(options => ({
-  ...options,
-  // ...override
-}))
+const options = new Map([
+  ['mozjpeg', {quality: 50}],
+  ['oxipng', 'auto'],
+  ['webp', {}],
+])
+
+module.exports = bud => {
+  bud.imagemin.setEncodeOptions(options)
+}
 ```
 
-You could use this function to provide your own `implementation` if you would prefer to use something other than squoosh.
+## Implementation
+
+You can replace libSquoosh with another implementation using `imagemin.setImplementation`:
+
+```ts
+module.exports = bud => {
+  bud.imagemin.setImplementation(MyImplementation)
+}
+```
+
+## Generator implementation
+
+You can replace the libSquoosh generator with another implementation using `imagemin.setGeneratorImplementation`:
+
+```ts
+module.exports = bud => {
+  bud.imagemin.setGeneratorImplementation(MyImplementation)
+}
+```
