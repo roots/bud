@@ -1,6 +1,6 @@
 import '@roots/bud-postcss'
 
-import * as adapter from '@roots/sage/src/theme/tailwind.adapter'
+import * as adapter from '@roots/sage/theme/tailwind'
 
 describe('themeJson tailwind adapter', () => {
   const mockPalette: adapter.TailwindColors = {
