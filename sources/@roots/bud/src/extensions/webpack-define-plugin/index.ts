@@ -1,14 +1,26 @@
+import {Extension} from '@roots/bud-framework'
+import {
+  bind,
+  label,
+  plugin,
+} from '@roots/bud-framework/extension/decorators'
 import {DefinePlugin} from 'webpack'
 
-import type {BudWebpackDefinePlugin} from './webpack-define-plugin.interface'
+@label('webpack:define-plugin')
+@plugin(DefinePlugin)
+class BudDefine extends Extension<
+  Record<string, DefinePlugin['definitions']>,
+  DefinePlugin
+> {
+  @bind
+  public async init() {
+    this.options = this.app.env.getPublicEnv()
+  }
 
-export const name: BudWebpackDefinePlugin['name'] = 'webpack-define-plugin'
+  @bind
+  public async when() {
+    return this.options && Object.keys(this.options).length > 0
+  }
+}
 
-export const options: BudWebpackDefinePlugin['options'] = ({env}) =>
-  env.getPublicEnv() ?? {}
-
-export const make: BudWebpackDefinePlugin['make'] = options =>
-  new DefinePlugin(options.all())
-
-export const when: BudWebpackDefinePlugin['when'] = (_, opts) =>
-  opts?.getEntries()?.length > 0
+export default BudDefine

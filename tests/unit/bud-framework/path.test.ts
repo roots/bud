@@ -17,10 +17,10 @@ describe('bud.path', function () {
   })
 
   it('returns expected project relative path', () => {
-    expect(bud.path('foo')).toEqual(join(mockProject.path, 'foo'))
+    expect(bud.path('./foo')).toEqual(join(mockProject.path, 'foo'))
   })
   it('returns expected multipart path', () => {
-    expect(bud.path('foo', 'bar')).toEqual(
+    expect(bud.path('./foo', 'bar')).toEqual(
       join(mockProject.path, 'foo', 'bar'),
     )
   })
@@ -29,9 +29,5 @@ describe('bud.path', function () {
     expect(bud.path('@src', 'foo')).toEqual(
       join(mockProject.path, 'src', 'foo'),
     )
-  })
-
-  it('path: returns correct paths joined to context', () => {
-    expect(bud.path('foo')).toEqual(join(mockProject.path, 'foo'))
   })
 })

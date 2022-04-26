@@ -1,4 +1,4 @@
-import {Framework} from '@roots/bud-framework'
+import {Bud} from '@roots/bud-framework'
 import {bind} from '@roots/bud-support'
 import * as http from 'http'
 import {responseInterceptor} from 'http-proxy-middleware'
@@ -41,10 +41,7 @@ export class ResponseInterceptorFactory {
    *
    * @public
    */
-  public constructor(
-    public _app: () => Framework,
-    public url: ApplicationURL,
-  ) {}
+  public constructor(public _app: () => Bud, public url: ApplicationURL) {}
 
   /**
    * Response interceptor
@@ -90,7 +87,7 @@ export class ResponseInterceptorFactory {
     )
 
     return this.app.hooks
-      .filter('middleware.proxy.replacements', [])
+      .filter('dev.middleware.proxy.replacements', [])
       .reduce(
         (buffer, [find, replace]: [string | RegExp, string]) =>
           buffer.replaceAll(find, replace),

@@ -1,4 +1,4 @@
-import {Context} from '@roots/bud-framework'
+import {Config} from '@roots/bud-framework'
 import {bind, lodash as _} from '@roots/bud-support'
 import {BaseContext, Command} from 'clipanion'
 
@@ -14,21 +14,18 @@ import {Notifier} from '../Notifier'
 export abstract class BaseCommand extends Command {
   /**
    * Context
-   *
    * @public
    */
-  public context: Context & BaseContext
+  public context: Config.Context & BaseContext
 
   /**
    * Application
-   *
    * @public
    */
   public app: Bud
 
   /**
    * Application logger
-   *
    * @public
    */
   public get logger() {
@@ -37,14 +34,12 @@ export abstract class BaseCommand extends Command {
 
   /**
    * Node notifier
-   *
    * @public
    */
   public notifier: Notifier
 
   /**
    * Bootstrap Application
-   *
    * @returns Bud
    */
   @bind
@@ -54,9 +49,7 @@ export abstract class BaseCommand extends Command {
     this.app.hooks.action('event.compiler.done', this.notifier.notify)
 
     try {
-      this.logger.time('process user configs')
       await disk.config(this.app)
-      this.logger.timeEnd('process user configs')
     } catch (error) {
       throw new Error(error)
     }
@@ -66,7 +59,6 @@ export abstract class BaseCommand extends Command {
 
   /**
    * Run the build
-   *
    * @public
    */
   @bind

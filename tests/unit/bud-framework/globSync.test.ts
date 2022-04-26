@@ -1,6 +1,7 @@
+import {logger} from '@repo/logger'
 import {Bud, factory} from '@repo/test-kit/bud'
 
-describe('bud.globSync', function () {
+describe('bud.globSync', () => {
   let bud: Bud
 
   beforeAll(async () => {
@@ -13,6 +14,17 @@ describe('bud.globSync', function () {
 
   it('returns glob results from string param', () => {
     const results = bud.globSync('@src/**/*.js')
+
+    expect(results).toEqual(
+      expect.arrayContaining([
+        expect.stringContaining('scripts/app.js'),
+        expect.stringContaining('scripts/components/main.js'),
+      ]),
+    )
+  })
+
+  it('returns glob results without alias', () => {
+    const results = bud.globSync('src/**/*.js')
 
     expect(results).toEqual(
       expect.arrayContaining([

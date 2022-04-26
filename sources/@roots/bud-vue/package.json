@@ -32,6 +32,9 @@
     "bud",
     "vue"
   ],
+  "bud": {
+    "type": "extension"
+  },
   "files": [
     "lib/",
     "types/"
@@ -40,53 +43,58 @@
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.js"
+    ".": "./lib/cjs/index.js",
+    "./extension": "./lib/cjs/extension.js"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./types/index.d.ts"
+      ],
+      "env": [
+        "./types/env.d.ts"
+      ],
+      "extension": [
+        "./types/extension.d.ts"
+      ]
+    }
   },
   "devDependencies": {
-    "@roots/bud-api": "workspace:sources/@roots/bud-api",
-    "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
-    "@roots/bud-build": "workspace:sources/@roots/bud-build",
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@types/eslint": "8.4.1",
-    "@types/jest": "27.4.1",
-    "@types/lodash": "4.14.180",
+    "@skypack/package-check": "0.2.2",
     "@types/node": "16.11.26",
-    "@vue/compiler-sfc": "3.2.31",
-    "css-loader": "6.7.1",
-    "jest": "27.5.1",
-    "vue": "3.2.31",
     "webpack": "5.70.0"
   },
-  "bud": {
-    "type": "extension"
-  },
   "dependencies": {
-    "@skypack/package-check": "0.2.2",
-    "autobind-decorator": "^2.4.0",
-    "babel-helper-vue-jsx-merge-props": "^2.0.3",
-    "babel-plugin-transform-vue-jsx": "^3.7.0",
-    "de-indent": "^1.0.2",
-    "he": "^1.2.0",
-    "tslib": "^2.3.1",
+    "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "@vue/compiler-sfc": "3.2.31",
+    "tslib": "2.3.1",
     "vue": "3.2.31",
     "vue-loader": "^17.0.0",
     "vue-style-loader": "^4.1.3",
     "vue-template-compiler": "^2.6.14"
   },
   "peerDependencies": {
-    "@vue/compiler-sfc": "^3.2.26",
-    "@vue/runtime-dom": "^3.2.26",
-    "vue": "^3.2.26"
+    "@vue/compiler-sfc": "*",
+    "vue": "*",
+    "vue-loader": "*",
+    "vue-style-loader": "*",
+    "vue-template-compiler": "*"
   },
   "peerDependenciesMeta": {
     "@vue/compiler-sfc": {
       "optional": true
     },
-    "@vue/runtime-dom": {
+    "vue": {
       "optional": true
     },
-    "vue": {
+    "vue-loader": {
+      "optional": true
+    },
+    "vue-style-loader": {
+      "optional": true
+    },
+    "vue-template-compiler": {
       "optional": true
     }
   }

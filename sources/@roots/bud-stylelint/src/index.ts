@@ -4,39 +4,30 @@
 /**
  * Add stylelint support to Bud
  *
- * @see https://roots.io/bud
+ * @see https://bud.js.org
  * @see https://github.com/roots/bud
  *
  * @packageDocumentation
  */
 
-import type {Extension} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework'
+import {
+  label,
+  options,
+  plugin,
+} from '@roots/bud-framework/extension/decorators'
 import StylelintWebpackPlugin, {Options} from 'stylelint-webpack-plugin'
 
 declare module '@roots/bud-framework' {
   interface Modules {
-    '@roots/bud-stylelint': Extension.CompilerPlugin<
-      StylelintWebpackPlugin,
-      Options
-    >
+    '@roots/bud-stylelint': BudStylelintWebpackPlugin
   }
 }
 
-const BudStylelintWebpackPlugin: Extension.CompilerPlugin<
-  StylelintWebpackPlugin,
-  Options
-> = {
-  name: 'stylelint-webpack-plugin',
-
-  options(app) {
-    return {
-      context: app.path('@src'),
-    }
-  },
-
-  make(options) {
-    return new StylelintWebpackPlugin(options.all())
-  },
-}
-
-export const {name, options, make} = BudStylelintWebpackPlugin
+@label('stylelint-webpack-plugin')
+@plugin(StylelintWebpackPlugin)
+@options({context: app => app.path('@src')})
+class BudStylelintWebpackPlugin extends Extension<
+  Options,
+  StylelintWebpackPlugin
+> {}

@@ -1,226 +1,254 @@
 import {
   Extension,
-  Extensions as Base,
-  Framework,
+  Extensions as Contract,
+  ModuleDefinitions,
+  Modules,
   Service,
 } from '@roots/bud-framework'
+import type {Controllers} from '@roots/bud-framework/types/registry'
+import {bind, chalk} from '@roots/bud-support'
 
 import {Controller} from '../Controller'
-import {bind} from './extensions.dependencies'
 
 /**
  * Extensions Service
  *
- * @remarks
- * Manages extension controllers
- *
  * @public
  */
-export class Extensions extends Service implements Base {
-  /**
-   * Extensions queued for registration
-   *
-   * @public
-   */
-  public queue = []
+export class Extensions extends Service implements Contract.Service {
+  public repository: Controllers = {}
 
-  /**
-   * Controller factory
-   *
-   * @public
-   */
-  public makeController(
-    extension: Extension.Module | Promise<Extension.Module>,
-  ): Controller {
-    const controller = new Controller(this.app, extension)
+  @bind
+  public has<K extends keyof this['repository']>(
+    key: K & string,
+  ): boolean {
+    return this.repository[key] ? true : false
+  }
+
+  @bind
+  public get<K extends keyof this['repository']>(key: K & string) {
+    return this.repository[key]
+  }
+
+  @bind
+  public remove<K extends keyof this['repository']>(
+    key: K & string,
+  ): this {
+    delete this.repository[key]
+    return this
+  }
+
+  @bind
+  public set<K extends keyof this['repository']>(
+    value: Controller<Modules[K & string], ModuleDefinitions[K & string]>,
+  ): this {
+    value
+      .get('logger')
+      .log(`setting controller`, chalk.blue(value.get('label')))
+
+    this.repository[value.get('label')] = value
+
+    return this
+  }
+
+  @bind
+  public makeController<K extends keyof this['repository']>(
+    extension: Modules[K & string],
+  ): Controller<Modules[K & string], ModuleDefinitions[K & string]> {
+    return new Controller(this.app).setModule(extension)
+  }
+
+  @bind
+  public async booted(): Promise<void> {
+    this.app.options.extensions.map(this.makeController).map(this.set)
+
+    await this.injectExtensions()
+
+    await this.withAllControllers('init')
+    await this.withAllControllers('register')
+    await this.withAllControllers('boot')
+  }
+
+  @bind
+  public async injectExtensions() {
+    if (this.app.hooks.filter('feature.inject') === false) {
+      this.app.log('injection disabled')
+      return
+    }
+
+    this.app.info('injecting extensions')
+    const dependencyKeys = Object.keys({
+      ...(this.app.context.manifest?.devDependencies ?? {}),
+      ...(this.app.context.manifest?.dependencies ?? {}),
+    })
+
+    return Promise.all(
+      dependencyKeys.map(async (pkg, i) => {
+        this.app.info('injecting', pkg)
+
+        try {
+          const manifestPath = await this.app.module.manifestPath(pkg)
+          const manifest = await this.app.module.readManifest(manifestPath)
+
+          if (!manifest?.bud) return
+
+          await this.import(pkg)
+        } catch (error) {
+          this.app.error(`Error importing`, pkg, `\n`, error)
+        }
+      }),
+    )
+  }
+
+  @bind
+  public async import(
+    input: Record<string, any> | string,
+  ): Promise<Controller<any, any>> {
+    const pkgName = typeof input !== 'string' ? input.name : input
+    if (this.has(pkgName)) return
+
+    this.app.info(chalk.dim(`importing ${pkgName}`))
+
+    const imported = await import(pkgName)
+    const extension: Extension = imported.default
+      ? imported.default
+      : imported
+
+    this.app.success(chalk.green(`imported ${pkgName}`))
+
+    const controller = this.makeController(extension)
+
+    if (this.has(controller.get('label'))) return
+    this.set(controller)
+
     return controller
   }
 
   @bind
-  public async setController(extension: Extension.Module): Promise<void> {
-    const controller = this.makeController(extension)
-    this.set(controller.name, controller)
-  }
-
-  /**
-   * @override
-   * @public
-   */
-  @bind
-  public async booted(): Promise<void> {
-    /**
-     * Handle in-built extensions
-     */
-    await Promise.all(
-      this.getEntries().map(async ([key, extension]) => {
-        this.setController(extension)
-        this.log('success', {message: `${key} instantiated`})
-      }),
-    )
-
-    await this.registerExtensions()
-    await this.bootExtensions()
-    await this.injectExtensions()
-  }
-
-  /**
-   * Inject extension modules
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async injectExtensions() {
-    if (this.app.store.is('features.inject', false)) {
-      this.log('log', 'injection disabled')
-      return
+  public async withController<K extends keyof this['repository']>(
+    controllerName: K & string,
+    methodName: 'init' | 'register' | 'boot',
+  ): Promise<this> {
+    if (!this.has(controllerName)) {
+      this.app.warn(
+        methodName,
+        'called on',
+        controllerName,
+        'but it could not be found',
+      )
+      return this
     }
 
-    try {
-      const modules = Object.values(this.app.project.peers.modules)
-        .filter(Boolean)
-        .filter(({bud}) => bud?.type === 'extension')
+    const controller = this.get(controllerName)
 
+    if (
+      controller.has('dependsOn') &&
+      controller.get('dependsOn').size > 0
+    ) {
       await Promise.all(
-        modules.map(async record => {
-          await this.importExtension(record)
+        Array.from(controller.get('dependsOn')).map(async packageName => {
+          if (this.has(packageName)) return
+
+          this.app.info(
+            packageName,
+            'has not been imported but it is required by',
+            controller.get('label'),
+          )
+
+          try {
+            await this.import(packageName)
+          } catch (error) {
+            this.app.error(
+              controller.get('label'),
+              'request for',
+              packageName,
+              'could not be fulfilled',
+              '\n',
+              error,
+            )
+          }
         }),
       )
-
-      await modules.reduce(async (promised: Promise<void>, record) => {
-        await promised
-        await this.registerExtension(this.get(record.name))
-      }, Promise.resolve())
-
-      await modules.reduce(async (promised, record) => {
-        await promised
-        await this.bootExtension(this.get(record.name))
-      }, Promise.resolve())
-    } catch (e) {
-      this.app.error(e)
     }
-  }
 
-  @bind
-  public async importExtension(
-    extension: Record<string, any>,
-  ): Promise<void> {
-    this.log('log', `importing ${extension.name}`)
-    const importedModule = await import(extension.name)
-    const importedExtension: Extension.Module = importedModule.default
-      ? importedModule.default
-      : importedModule
-
-    if (this.has(importedExtension.name)) return
-    await this.setController(importedExtension)
-  }
-
-  /**
-   * @public
-   */
-  @bind
-  public async registerExtension(extension: Controller): Promise<void> {
     try {
-      if (!extension) return
-      this.app.log('registering', extension.name)
-
-      await extension.mixin()
-      await extension.api()
-      await extension.register()
+      await controller[methodName]()
+      return this
     } catch (err) {
-      this.app.log(extension)
-      throw new Error(err)
+      this.app.error(err)
     }
   }
 
   /**
+   * Execute a controller lifecycle method on all registered controllers
+   *
    * @public
    */
   @bind
-  public async bootExtension(extension: Controller): Promise<void> {
-    try {
-      if (!extension) return
-      this.app.log('booting', extension.name)
-
-      await extension.boot()
-    } catch (err) {
-      throw new Error(err)
-    }
-  }
-
-  /**
-   * @public
-   */
-  @bind
-  public async registerExtensions(): Promise<void> {
-    this.log('time', 'registering')
-
-    await this.getEntries().reduce(
-      async (promised, [_key, controller]) => {
-        await promised
-        await this.registerExtension(controller)
-      },
-      Promise.resolve(),
+  public async withAllControllers(
+    methodName: 'init' | 'register' | 'boot',
+  ): Promise<Array<void>> {
+    this.app.log(
+      'calling',
+      chalk.blue(methodName),
+      'on all registered controllers',
     )
 
-    this.log('timeEnd', 'registering')
+    return Promise.all(
+      Object.values(this.repository).map(async controller => {
+        await this.withController(controller.get('label'), methodName)
+      }),
+    )
   }
 
   /**
+   * Add a {@link Controller} to the extensions repository
+   *
    * @public
+   * @decorator `@bind`
    */
   @bind
-  public async bootExtensions(): Promise<void> {
-    this.log('time', 'booting')
-    await this.getEntries().reduce(async (promised, [key, controller]) => {
+  public async add(input: Extension | Array<Extension>): Promise<void> {
+    const arrayed = Array.isArray(input) ? input : [input]
+
+    await arrayed.reduce(async (promised, extension) => {
       await promised
-      await this.bootExtension(controller)
-    }, Promise.resolve())
 
-    this.log('timeEnd', 'booting')
-  }
+      try {
+        const controller = this.makeController(extension)
+        this.set(controller)
 
-  /**
-   * Add a {@link Controller} to the container
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async add(extension: Extension.Module): Promise<void> {
-    if (this.has(extension.name)) {
-      this.log('info', `${extension.name} already exists. skipping.`)
-      return
-    }
+        if (
+          controller.has('dependsOn') &&
+          controller.get('dependsOn').size > 0
+        ) {
+          Array.from(controller.get('dependsOn')).map(async name => {
+            if (this.has(name)) {
+              this.app.info({
+                prefix: `skipping dependency import`,
+                message: `${name} has already been imported`,
+              })
+              return
+            }
 
-    await this.setController(extension)
-    await this.registerExtension(this.get(extension.name))
-    await this.bootExtension(this.get(extension.name))
-  }
+            const dependency = await this.app.module.import(name)
 
-  /**
-   * Queue an extension to be added to the container before the build process.
-   *
-   * @remarks
-   * Useful for extensions which cannot be added in an awaitable context (like a user config)
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public enqueue(extension: Extension.Module): Framework {
-    this.queue.push(extension)
-    return this.app
-  }
+            !dependency
+              ? this.app.warn(`${dependency} import?`)
+              : await this.add(dependency)
+          })
+        }
 
-  /**
-   * @public
-   */
-  @bind
-  public async processQueue(): Promise<void> {
-    if (!this.queue.length) return
-    await Promise.all(this.queue.map(this.add))
-    this.queue = []
+        await this.withController(controller.get('label'), 'init')
+        await this.withController(controller.get('label'), 'register')
+        await this.withController(controller.get('label'), 'boot')
+
+        return true
+      } catch (err) {
+        this.app.error(err)
+        return false
+      }
+    }, Promise.resolve(true))
   }
 
   /**
@@ -233,41 +261,21 @@ export class Extensions extends Service implements Base {
    * @decorator `@bind`
    */
   @bind
-  public async make(): Promise<
-    {
-      [key: string]: any
-      apply: CallableFunction
-    }[]
-  > {
-    this.log('time', 'extensions.make')
+  public async make(): Promise<Extension.PluginInstance[]> {
+    return await Promise.all(
+      Object.values(this.repository).map(
+        async (controller: Controller<any, any>) => {
+          const result = await controller.make()
+          if (!result) return
 
-    await this.processQueue()
-
-    const plugins = this.getValues()
-      .filter(controller => controller._module.make)
-      .map((controller: Controller) => {
-        const result = controller.make()
-
-        if (!result) {
-          this.log(
-            'log',
-            `${controller.name} will not be used in the compilation`,
+          this.app.success(
+            controller.get('label'),
+            `will be used in the compilation`,
           )
 
           return result
-        }
-
-        this.log(
-          'success',
-          `${controller.name} will be used in the compilation`,
-        )
-
-        return result
-      })
-      .filter(Boolean)
-
-    this.log('timeEnd', 'extensions.make')
-
-    return plugins
+        },
+      ),
+    ).then(res => res.filter(Boolean))
   }
 }

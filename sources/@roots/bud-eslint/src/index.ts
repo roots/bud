@@ -4,23 +4,13 @@
 /**
  * Provides eslint integration for Bud.
  *
- * @see https://roots.io/bud
+ * @see https://bud.js.org
  * @see https://github.com/roots/bud
  *
  * @packageDocumentation
  */
 
-import * as api from './eslint.api'
-import {BudEslintWebpackPlugin} from './eslint.extension'
+import './env'
 
-declare module '@roots/bud-framework' {
-  interface Framework {
-    eslint: api.eslint
-  }
-
-  interface Plugins {
-    'eslint-webpack-plugin': BudEslintWebpackPlugin
-  }
-}
-
-export const {name, options, make, mixin} = BudEslintWebpackPlugin
+import BudEslint from './extension'
+export default BudEslint

@@ -1,0 +1,88 @@
+---
+slug: bud.proxy
+title: bud.proxy
+description: Proxy an existing development server
+sidebar_label: bud.proxy
+image: 'https://bud.js.org/img/share/docs/bud.proxy.png'
+---
+
+## Usage
+
+```ts title='bud.config.ts'
+bud.proxy()
+bud.proxy(true) // these are equivalent
+```
+
+By default, **bud.proxy** will target `http://localhost`. You may use a `String` to set the proxy target:
+
+```ts title='bud.config.ts'
+bud.proxy('https://example.test')
+```
+
+Or, a `URL` object:
+
+```ts title='bud.config.ts'
+bud.proxy(new URL('https://example.test'))
+```
+
+### Disabling
+
+The proxy can be disabled with `false`.
+
+```ts bud.config.ts
+bud.proxy(false)
+```
+
+## URL replacement
+
+It is generally desirable to replace instances of the proxy URL's `origin` with
+the dev server's `origin` in proxied responses.
+Otherwise, anchor links and and window location events will still point to the proxied server.
+
+By default, **bud.js** will replace the proxy `origin` with a `/`. This generally works
+prety well. A URL pointing to `https://example.test/foo/bar` will be served as `/foo/bar`.
+
+### Customizing replacements
+
+This won't work for all setups. But, **bud.proxy** takes a second, optional parameter to customize
+this default behavior.
+
+Each search/replace is expressed with a `tuple`. The first item is the
+search string or regular expression, and the second is the replacement:
+
+```ts
+const replacement = ['search string', 'replace string']
+```
+
+These are stored by **bud.js** as an array:
+
+```ts
+const replacements = [
+  ['find', 'replace'],
+  ['find2', 'replace2'],
+]
+```
+
+You can add additional replacements using a callback:
+
+```ts title='bud.config.ts'
+bud.proxy('https://example.test', (replacements = []) => {
+  replacements.push([
+    'https://api.example.test',
+    'https://proxy-api.example.test',
+  ])
+
+  return replacements
+})
+```
+
+### Overwriting replacements
+
+To fully ovewrite these search/replace tasks, you can pass the array
+without a callback:
+
+```ts title='bud.config.ts'
+bud.proxy('https://example.test', [
+  ['https://find.test', 'https://replace.test'],
+])
+```

@@ -1,27 +1,37 @@
-import {Hooks as Contract, Service} from '@roots/bud-framework'
+import {Services} from '@roots/bud-framework'
 import {Hooks as Base} from '@roots/bud-hooks'
+import {bind, lodash} from '@roots/bud-support'
 
 import {Bud} from '../../Bud'
+
+const {isFunction} = lodash
 
 /**
  * Hooks service
  *
  * @public
  */
-export class Hooks extends Base implements Contract, Service {
+export class Hooks extends Base implements Services.Hooks.Service {
   /**
-   * Service identifier
+   * Bootstrap service
    *
-   * @internal
+   * @public
+   * @decorator `@bind`
    */
-  public ident: string = 'hooks'
+  @bind
+  public async bootstrap(bud: Bud) {
+    Object.assign(this, {
+      store: isFunction(bud.options.seed)
+        ? bud.options.seed(bud)
+        : bud.options.seed,
+    })
 
-  public constructor(bud: Bud) {
-    super(bud)
+    this.async('build.resolve.alias', async () => ({
+      '@src': bud.path('@src'),
+      '@dist': bud.path('@dist'),
+    }))
 
-    this.on('location.@src', this.app.store.get('location.@src'))
-    this.on('location.@dist', this.app.store.get('location.@dist'))
-    this.on('location.@storage', this.app.store.get('location.@storage'))
-    this.on('location.@modules', this.app.store.get('location.@modules'))
+    this.on('build.bail', () => bud.isProduction)
+    this.on('build.context', () => bud.context.projectDir)
   }
 }

@@ -1,22 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`babel app.css has contents npm 1`] = `"p{font-weight:700}body,html{margin:0;padding:0}.app{align-items:center;background:#5813d5;color:#fff;display:flex;font-family:sans-serif;height:100vh;justify-content:center;letter-spacing:.2em;text-align:center;text-transform:uppercase;width:100vw}"`;
-
-exports[`babel app.css has contents yarn 1`] = `"p{font-weight:700}body,html{margin:0;padding:0}.app{align-items:center;background:#5813d5;color:#fff;display:flex;font-family:sans-serif;height:100vh;justify-content:center;letter-spacing:.2em;text-align:center;text-transform:uppercase;width:100vw}"`;
-
-exports[`babel app.css matches snapshot npm 1`] = `"p{font-weight:700}body,html{margin:0;padding:0}.app{align-items:center;background:#5813d5;color:#fff;display:flex;font-family:sans-serif;height:100vh;justify-content:center;letter-spacing:.2em;text-align:center;text-transform:uppercase;width:100vw}"`;
-
-exports[`babel app.css matches snapshot yarn 1`] = `"p{font-weight:700}body,html{margin:0;padding:0}.app{align-items:center;background:#5813d5;color:#fff;display:flex;font-family:sans-serif;height:100vh;justify-content:center;letter-spacing:.2em;text-align:center;text-transform:uppercase;width:100vw}"`;
-
-exports[`babel app.js has contents npm 1`] = `"(self.webpackChunkexample_babel=self.webpackChunkexample_babel||[]).push([[143],{289:function(n,e,c){\\"use strict\\";c(63),(void 0).accept(console.error)},63:function(){[\\"fancy\\",\\"ecma!\\"].map(console.log)},805:function(){},150:function(){}},function(n){var e=function(e){return n(n.s=e)};e(289),e(63),e(805),e(150)}]);"`;
-
-exports[`babel app.js has contents yarn 1`] = `"(self.webpackChunkexample_babel=self.webpackChunkexample_babel||[]).push([[143],{289:function(n,e,c){\\"use strict\\";c(63),(void 0).accept(console.error)},63:function(){[\\"fancy\\",\\"ecma!\\"].map(console.log)},805:function(){},150:function(){}},function(n){var e=function(e){return n(n.s=e)};e(289),e(63),e(805),e(150)}]);"`;
-
-exports[`babel app.js matches snapshot npm 1`] = `"(self.webpackChunkexample_babel=self.webpackChunkexample_babel||[]).push([[143],{289:function(n,e,c){\\"use strict\\";c(63),(void 0).accept(console.error)},63:function(){[\\"fancy\\",\\"ecma!\\"].map(console.log)},805:function(){},150:function(){}},function(n){var e=function(e){return n(n.s=e)};e(289),e(63),e(805),e(150)}]);"`;
-
-exports[`babel app.js matches snapshot yarn 1`] = `"(self.webpackChunkexample_babel=self.webpackChunkexample_babel||[]).push([[143],{289:function(n,e,c){\\"use strict\\";c(63),(void 0).accept(console.error)},63:function(){[\\"fancy\\",\\"ecma!\\"].map(console.log)},805:function(){},150:function(){}},function(n){var e=function(e){return n(n.s=e)};e(289),e(63),e(805),e(150)}]);"`;
-
-exports[`babel manifest.json matches snapshot npm 1`] = `
+exports[`babel npm manifest.json matches snapshot 1`] = `
 Object {
   "app.css": "app.css",
   "app.js": "app.js",
@@ -24,7 +8,7 @@ Object {
 }
 `;
 
-exports[`babel manifest.json matches snapshot yarn 1`] = `
+exports[`babel yarn manifest.json matches snapshot 1`] = `
 Object {
   "app.css": "app.css",
   "app.js": "app.js",

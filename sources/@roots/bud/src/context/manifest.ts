@@ -5,7 +5,7 @@ import {Disk} from './disk'
 export class Manifest {
   public constructor(public disk: Disk) {}
 
-  public read() {
-    return fs.readJson(this.disk.config['package.json'], 'utf8')
+  public async read() {
+    return await fs.readJson(this.disk.config['package.json'], 'utf8')
   }
 }

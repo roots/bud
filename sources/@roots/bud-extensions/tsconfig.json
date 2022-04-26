@@ -7,16 +7,15 @@
     "declarationDir": "./types",
     "types": [
       "node",
-      "@roots/bud-framework"
     ]
   },
   "include": [
-    "src"
+    "./src"
   ],
   "exclude": [
-    "lib",
-    "node_modules",
-    "types"
+    "./lib",
+    "./node_modules",
+    "./types"
   ],
   "references": [
     {

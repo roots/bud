@@ -8,6 +8,7 @@ import React from 'react'
 
 import {render} from './renderer'
 import * as Template from './templates'
+
 /**
  * Get the absolute path of a repo file or directory
  */

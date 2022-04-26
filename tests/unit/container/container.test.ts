@@ -17,7 +17,6 @@ describe('container', function () {
     it('returns the keyed value', () => {
       const repo = {foo: 'bar'}
       const container = new Container(repo)
-
       expect(container.get('foo')).toBe('bar')
     })
   })
@@ -35,9 +34,7 @@ describe('container', function () {
     it('returns itself', () => {
       const container = new Container()
 
-      expect(container.set('foo', 'bar')).toBeInstanceOf(
-        Container,
-      )
+      expect(container.set('foo', 'bar')).toBeInstanceOf(Container)
     })
 
     it('sets a value', () => {
@@ -352,9 +349,7 @@ describe('container', function () {
       const repo = {foo: 'bar', ergo: 'dox'}
       const container = new Container(repo)
 
-      expect(
-        container.mergeStore({crash: 'bandicoot'}).all(),
-      ).toEqual({
+      expect(container.mergeStore({crash: 'bandicoot'}).all()).toEqual({
         ...repo,
         crash: 'bandicoot',
       })
@@ -376,9 +371,7 @@ describe('container', function () {
   describe('fromEntries', () => {
     it('sets repo from entries', () => {
       const repo = {foo: 'bar', ergo: 'dox'}
-      const container = new Container().fromEntries(
-        Object.entries(repo),
-      )
+      const container = new Container().fromEntries(Object.entries(repo))
 
       expect(container.all()).toEqual(repo)
     })

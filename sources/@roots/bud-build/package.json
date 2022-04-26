@@ -41,36 +41,62 @@
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.js"
+    ".": "./lib/cjs/index.js",
+    "./item": "./lib/cjs/Item/index.js",
+    "./items": "./lib/cjs/items.js",
+    "./loader": "./lib/cjs/Loader/index.js",
+    "./loaders": "./lib/cjs/loaders.js",
+    "./rule": "./lib/cjs/Rule/index.js",
+    "./rules": "./lib/cjs/rules.js"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./types/index.d.ts"
+      ],
+      "./item": [
+        "./types/Item/index.d.ts"
+      ],
+      "./items": [
+        "./types/items.d.ts"
+      ],
+      "./loader": [
+        "./types/Loader/index.d.ts"
+      ],
+      "./loaders": [
+        "./types/loaders.d.ts"
+      ],
+      "./rule": [
+        "./types/Rule/index.d.ts"
+      ],
+      "./rules": [
+        "./types/rules.d.ts"
+      ]
+    }
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@types/lodash": "4.14.180",
     "@types/mini-css-extract-plugin": "2.5.0",
     "@types/node": "16.11.26",
-    "@types/svgo": "2.6.2",
     "webpack": "5.70.0"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "autobind-decorator": "^2.4.0",
     "css-loader": "^6.5.1",
     "csv-loader": "^3.0.3",
     "file-loader": "^6.2.0",
     "html-loader": "^3.0.1",
-    "lodash": "^4.17.21",
+    "js-yaml-loader": "1.2.2",
     "mini-css-extract-plugin": "^2.4.5",
-    "mini-svg-data-uri": "^1.4.3",
     "pretty-format": "^27.3.1",
     "remark": "^14.0.2",
     "remark-html": "^15.0.0",
     "remark-loader": "4.0.0",
     "resolve-url-loader": "^5.0.0",
     "style-loader": "^3.3.1",
-    "svgo": "^2.8.0",
-    "tslib": "^2.3.1",
+    "tslib": "2.3.1",
     "url-loader": "^4.1.1",
     "xml-loader": "^1.2.1"
   }
