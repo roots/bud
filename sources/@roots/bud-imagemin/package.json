@@ -29,6 +29,9 @@
   "engines": {
     "node": ">=16"
   },
+  "bud": {
+    "type": "extension"
+  },
   "files": [
     "lib/",
     "types/"
@@ -37,24 +40,39 @@
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.js"
+    ".": "./lib/cjs/index.js",
+    "./extension": "./lib/cjs/extension.js"
   },
-  "bud": {
-    "type": "extension"
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./types/index.d.ts"
+      ],
+      "extension": [
+        "./types/extension.d.ts"
+      ]
+    }
   },
   "devDependencies": {
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@skypack/package-check": "0.2.2",
-    "@types/lodash": "4.14.180",
-    "@types/node": "16.11.26",
-    "webpack": "5.70.0"
+    "@skypack/package-check": "0.2.2"
   },
   "dependencies": {
-    "@squoosh/lib": "^0.4.0",
-    "helpful-decorators": "^2.1.0",
-    "image-minimizer-webpack-plugin": "^3.0.0",
-    "tslib": "^2.3.1"
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "@squoosh/lib": "0.4.0",
+    "image-minimizer-webpack-plugin": "^3.2.3",
+    "tslib": "2.3.1"
+  },
+  "peerDependencies": {
+    "@squoosh/lib": "*",
+    "image-minimizer-webpack-plugin": "*"
+  },
+  "peerDependenciesMeta": {
+    "@squoosh/lib": {
+      "optional": true
+    },
+    "image-minimizer-webpack-plugin": {
+      "optional": true
+    }
   }
 }

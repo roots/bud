@@ -1,41 +1,36 @@
-import * as Framework from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework'
+import {
+  bind,
+  expose,
+  label,
+  options,
+  plugin,
+  when,
+} from '@roots/bud-framework/extension/decorators'
+import {lodash as _} from '@roots/bud-support'
+import {Container} from '@roots/container'
 
-import * as themeJson from './api/themeJson'
-import * as useTailwindColors from './api/useTailwindColors'
+import {tailwind, WPThemeJson} from '.'
 import {Options, ThemeJsonWebpackPlugin} from './plugin'
 
 /**
- * Extension for managing WordPress `theme.json`
+ * Callback function used to configure wordpress `theme.json`
  *
  * @public
  */
-export interface ThemeExtension
-  extends Framework.Extension.CompilerPlugin<
-    ThemeJsonWebpackPlugin,
-    Options
-  > {
-  name: 'wp-theme-json'
-  options: (app: Framework.Framework) => Options
-  api: {
-    themeJson: themeJson.method
-    useTailwindColors: useTailwindColors.method
-  }
+export interface Mutator {
+  (
+    json:
+      | Partial<WPThemeJson['settings']>
+      | Container<Partial<WPThemeJson['settings']>>,
+  ):
+    | Partial<WPThemeJson['settings']>
+    | Container<Partial<WPThemeJson['settings']>>
 }
 
-/**
- * Extension name
- *
- * @public
- */
-export const name: ThemeExtension['name'] = 'wp-theme-json'
-
-/**
- * Extension options
- *
- * @public
- */
-export const options: ThemeExtension['options'] = app => ({
-  path: app.path('theme.json'),
+@label('wp-theme-json')
+@options({
+  path: app => app.path('./theme.json'),
   settings: {
     color: {
       custom: false,
@@ -55,31 +50,76 @@ export const options: ThemeExtension['options'] = app => ({
     },
   },
 })
+@when(async () => false)
+@plugin(ThemeJsonWebpackPlugin)
+@expose('themeJson')
+export default class ThemeJson extends Extension<
+  Options,
+  ThemeJsonWebpackPlugin
+> {
+  protected static tailwind = tailwind
 
-/**
- * Extension api
- *
- * @public
- */
-export const api: ThemeExtension['api'] = {
-  themeJson: themeJson.method,
-  useTailwindColors: useTailwindColors.method,
+  protected _palette: tailwind.TailwindColors
+  protected get palette() {
+    return this._palette
+  }
+  protected set palette(palette) {
+    this._palette = palette
+  }
+
+  @bind
+  public async init() {
+    if (!this.app.context.disk.config['tailwind.config.js']) return
+
+    try {
+      this.palette = await ThemeJson.tailwind.getPalette(
+        this.app.path('./tailwind.config.js'),
+      )
+    } catch (error) {}
+  }
+
+  @bind
+  public async register() {
+    this.app.api.bindFacade('themeJson', this.themeJson)
+    this.app.api.bindFacade('useTailwindColors', this.useTailwindColors)
+  }
+
+  @bind
+  public themeJson(
+    input?: Mutator | Partial<WPThemeJson['settings']> | boolean,
+    raw?: boolean,
+  ) {
+    this.when = async () => _.isUndefined(input) || input !== false
+
+    if (!input) return this.app
+
+    const value = _.isFunction(input)
+      ? input(
+          raw
+            ? this.options.settings
+            : this.app.container(this.options.settings),
+        )
+      : this.options.settings
+
+    this.options.settings =
+      value instanceof Container ? value.all() : value
+
+    return this.app
+  }
+
+  @bind
+  public useTailwindColors() {
+    this.options = {
+      path: this.options.path,
+      settings: {
+        ...(this.options.settings ?? {}),
+        color: {
+          ...(this.options.settings.color ?? {}),
+          palette: ThemeJson.tailwind.transformPalette(this.palette),
+        },
+      },
+    }
+
+    return this.app
+  }
 }
-
-/**
- * Extension make
- *
- * @public
- */
-export const make: ThemeExtension['make'] = options =>
-  new ThemeJsonWebpackPlugin({
-    path: options.get('path'),
-    settings: options.get('settings'),
-  })
-
-/**
- * Extension when
- *
- * @public
- */
-export const when: ThemeExtension['when'] = false

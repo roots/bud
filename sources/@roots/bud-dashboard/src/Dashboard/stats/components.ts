@@ -1,5 +1,5 @@
-import {Framework} from '@roots/bud-framework'
-import {chalk, humanReadable, lodash} from '@roots/bud-support'
+import {Bud} from '@roots/bud-framework'
+import {chalk, figures, humanReadable, lodash} from '@roots/bud-support'
 import {StatsAsset, StatsCompilation} from 'webpack'
 
 import * as box from './box.factory'
@@ -18,15 +18,13 @@ const assetColor = asset =>
 const assetIcon = asset =>
   asset.info.minimized && asset.emitted
     ? `⚡`
-    : asset.info.hotModuleReplacement
-    ? `🔥`
     : asset.emitted
-    ? `✔`
+    ? figures.tick
     : asset.info.error
-    ? `✖`
+    ? figures.cross
     : asset.info.warning
-    ? `⚠`
-    : ` `
+    ? figures.warning
+    : figures.tick
 
 export const status = (asset: StatsAsset) =>
   chalk.hex(assetColor(asset))(assetIcon(asset))
@@ -51,21 +49,22 @@ export const size = asset =>
 export const hot = compilation =>
   compilation.assets.filter(
     asset =>
-      asset.name.endsWith(`.js`) && asset.name.includes(`hot-update`),
+      asset.name.endsWith(`.js`) && asset.name?.includes(`hot-update`),
   ) ?? []
 
-export const statics = compilation =>
-  compilation.assets.filter(
+export const statics = compilation => [
+  ...(compilation.assets.filter(
     asset =>
       ![`js`, `css`].includes(asset.name.split('.').pop()) &&
-      !asset.name.includes(`hot-update`),
-  ) ?? []
+      !asset.name?.includes(`hot-update`),
+  ) ?? []),
+]
 
 export const assets = compilation =>
   compilation.assets.filter(
     asset =>
-      asset.name.endsWith(`.css`) ||
-      (asset.name.endsWith(`.js`) && !asset.name.includes('hot-update')),
+      asset.name?.endsWith(`.css`) ||
+      (asset.name?.endsWith(`.js`) && !asset.name?.includes('hot-update')),
   ) ?? []
 
 export const time = time =>
@@ -75,25 +74,20 @@ export const time = time =>
 
 export const assetGroup = assets =>
   assets?.length
-    ? assets.map(asset => [
-        status(asset),
-        chunk(asset),
-        name(asset),
-        size(asset),
-      ])
+    ? assets.map(asset => [status(asset), name(asset), size(asset)])
     : []
 
 export const report = (compilation: StatsCompilation) => [
-  table.make(
-    [
-      ...assetGroup(assets(compilation)),
-      ...assetGroup(hot(compilation)),
-      ...assetGroup(statics(compilation)),
-    ].filter(Boolean),
-  ),
+  table.make([[chalk.hex(theme.cyan)(`${compilation.name}`)]]),
+  table.make(assetGroup(assets(compilation)).filter(Boolean)),
+  assets?.length
+    ? table.make([
+        [chalk.hex(theme.dim).italic(`+ ${assets.length} static assets`)],
+      ])
+    : [],
 ]
 
-export const timing = (app: Framework, compilation: StatsCompilation) => [
+export const timing = (app: Bud, compilation: StatsCompilation) => [
   table.make([
     [
       chalk.hex(theme.magenta)(`duration`),
@@ -106,7 +100,7 @@ export const timing = (app: Framework, compilation: StatsCompilation) => [
   ]),
 ]
 
-export const summary = (app: Framework, compilation: StatsCompilation) => [
+export const summary = (app: Bud, compilation: StatsCompilation) => [
   table.make([
     [
       chalk.hex(theme.magenta)(`mode`),
@@ -122,6 +116,12 @@ export const summary = (app: Framework, compilation: StatsCompilation) => [
       chalk.hex(theme.magenta)('webpack'),
       chalk.hex(theme.foregroundColor)(compilation.version),
     ],
+    [
+      chalk.hex(theme.magenta)('node'),
+      chalk.hex(theme.foregroundColor)(process.versions.node),
+      '',
+      '',
+    ],
   ]),
   ...(app.isDevelopment
     ? [
@@ -130,10 +130,10 @@ export const summary = (app: Framework, compilation: StatsCompilation) => [
             chalk.hex(theme.magenta)(`server url:`),
             app.server.connection.url.toString(),
           ],
-          app.hooks.filter(`middleware.enabled`).includes(`proxy`)
+          app.hooks.filter('dev.middleware.enabled').includes('proxy')
             ? [
-                chalk.hex(theme.magenta)(`proxy url:`),
-                app.hooks.filter(`middleware.proxy.target`).toString(),
+                chalk.hex(theme.magenta)('proxy url:'),
+                app.hooks.filter('dev.middleware.proxy.target').toString(),
               ]
             : [``, ``],
         ]),
@@ -141,7 +141,7 @@ export const summary = (app: Framework, compilation: StatsCompilation) => [
     : []),
 ]
 
-export const development = (app: Framework) => [
+export const development = (app: Bud) => [
   box.make(
     'development',
     table.make([
@@ -149,17 +149,17 @@ export const development = (app: Framework) => [
         chalk.hex(theme.magenta)('server'),
         app.server.connection.url.toString(),
       ],
-      app.hooks.filter('middleware.enabled').includes('proxy')
+      app.hooks.filter('dev.middleware.enabled')?.includes('proxy')
         ? [
             chalk.hex(theme.magenta)('proxy'),
-            app.hooks.filter('middleware.proxy.target').toString(),
+            app.hooks.filter('dev.middleware.proxy.target')?.toString(),
           ]
         : ['', ''],
     ]),
   ),
 ]
 
-export const framework = (app: Framework) => [
+export const framework = (app: Bud) => [
   box.make(
     'rules',
     table.make(
@@ -188,12 +188,14 @@ export const framework = (app: Framework) => [
     'extensions',
     table.make(
       lodash
-        .chunk(app.extensions.getValues(), 2)
+        .chunk(Object.values(app.extensions.repository), 2)
         .map(chunk =>
           [
             ...chunk.map(
-              ({name}) =>
-                `${chalk.hex(theme.cyan)(`\`${name.toLowerCase()}\``)}`,
+              controller =>
+                `${chalk.hex(theme.cyan)(
+                  `\`${controller.get('label')?.toLowerCase()}\``,
+                )}`,
             ),
             ...Array(1).fill(``),
           ].slice(0, 2),

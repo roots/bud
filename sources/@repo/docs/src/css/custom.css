@@ -2,16 +2,20 @@
 @import url('./dank-mono.css');
 
 :root {
-  --ifm-color-primary: rgb(134, 144, 250);
+  --ifm-color-primary: rgb(82, 93, 220);
   --ifm-color-primary-dark: rgb(86, 98, 218);
   --ifm-color-primary-darker: rgb(71, 83, 220);
   --ifm-color-primary-darkest: rgb(40, 49, 142);
-  --ifm-color-primary-light: rgb(86, 98, 218);
-  --ifm-color-primary-lighter: rgb(140, 146, 220);
-  --ifm-color-primary-lightest: rgb(206, 209, 247);
+  --ifm-color-primary-light: rgba(82, 93, 220, 1);
+  --ifm-color-primary-lighter: rgba(82, 93, 220, 1);
+  --ifm-color-primary-lightest: rgba(82, 93, 220, 1);
 
   --ifm-font-family-base: 'Public Sans', system-ui, sans-serif;
   --ifm-font-family-monospace: 'dm', monospace;
+
+  --icon-external: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' style='stroke: rgb(82, 93, 220)' viewBox='0 0 16 16' %3E%3Cpath fill-rule='evenodd' d='M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z'/%3E%3Cpath fill-rule='evenodd' d='M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z'/%3E%3C/svg%3E");
+  --icon-code: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' style='stroke: rgb(82, 93, 220)' viewBox='0 0 24 24' stroke-width='2' %3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4' /%3E%3C/svg%3E");
+  --icon-cog: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' style='stroke: rgb(82, 93, 220)' viewBox='0 0 24 24' class='h-6 w-6' fill='none' stroke-width='2'%3e%3cpath stroke-linecap='round' stroke-linejoin='round' d='M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z' /%3e%3cpath stroke-linecap='round' stroke-linejoin='round' d='M15 12a3 3 0 11-6 0 3 3 0 016 0z' /%3e%3c/svg%3e");
 }
 
 .navbar__items--right > :last-child {
@@ -37,3 +41,58 @@
 .footer {
   background: var(--ifm-color-primary-darker);
 }
+
+.markdown a {
+  color: var(--ifm-link-color);  
+  font-weight: bold;
+  border-bottom: 2px solid transparent;
+  transition: all var(--ifm-transition-fast) var(--ifm-transition-timing-default);
+}
+
+.markdown a::before {
+  content: "";
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  font-weight: bold;
+  color: var(--ifm-link-color);
+  stroke: var(--ifm-link-color);
+  text-decoration: var(--ifm-link-decoration);
+  transition: all var(--ifm-transition-fast) var(--ifm-transition-timing-default);
+  display: inline-block;
+}
+
+.markdown a:hover {
+  color: var(--ifm-link-hover-color);
+  border-bottom: 2px solid var(--ifm-link-hover-color);
+  text-decoration: none;
+}
+
+.markdown a[href^="http"]::before,
+.markdown a[href^="https://"]::before
+{
+  content: "";
+  width: 12px;
+  height: 12px;
+  margin-right: 2px;
+  background-image: var(--icon-external);
+}
+
+.markdown a[href^="/dev/api/"]::before
+{
+  content: "";
+  width: 12px;
+  height: 12px;
+  margin-right: 2px;
+  background-image: var(--icon-cog);
+}
+
+.markdown a[href^="https://github.com/"]::before
+{
+  content: "";
+  width: 12px;
+  height: 12px;
+  margin-right: 2px;
+  background-image: var(--icon-code) !important;
+}
+

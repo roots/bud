@@ -1,8 +1,8 @@
 import React from 'react'
 
-export const Sandbox = ({id, style, allow, sandbox, title}) => (
+export const Sandbox = ({id, style = {}, allow, sandbox, title}) => (
   <iframe
-    src={`https://codesandbox.io/embed/${id}?expanddevtools=1&fontsize=12&hidenavigation=1&module=%2Fbud.config.js&theme=dark`}
+    src={`https://codesandbox.io/embed/${id}?expanddevtools=1&fontsize=12&hidenavigation=1&theme=dark`}
     title={title ?? id}
     allow={
       allow ??

@@ -1,7 +1,7 @@
 {
   "name": "@repo/compile-kit",
   "private": true,
-  "packageManager": "yarn@3.1.1",
+  "packageManager": "yarn@3.2.0",
   "exports": {
     "./cjs": "./src/cjs.ts",
     "./esm": "./src/esm.ts",

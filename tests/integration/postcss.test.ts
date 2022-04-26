@@ -1,36 +1,32 @@
 import {Project} from '@repo/test-kit/project'
 
-jest.setTimeout(60000)
-
-describe('examples/postcss', () => {
-  let project
+const test = (pacman: 'yarn' | 'npm') => () => {
+  let project: Project
 
   beforeAll(async () => {
-    project = new Project({
+    project = await new Project({
       name: 'postcss',
-      dir: 'examples/postcss',
-    })
-
-    await project.setup()
+      with: pacman,
+      dist: 'dist',
+    }).setup()
   })
 
   describe('main.css', () => {
     it('has contents', () => {
-      expect(project.assets['app.css'].length).toBeGreaterThan(
-        10,
-      )
+      expect(project.assets['app.css'].length).toBeGreaterThan(10)
     })
 
     it('is transpiled', () => {
-      expect(
-        project.assets['app.css'].includes('@import'),
-      ).toBeFalsy()
+      expect(project.assets['app.css'].includes('@import')).toBeFalsy()
     })
 
     it('successfully used @import', () => {
-      expect(
-        project.assets['app.css'].includes('h2'),
-      ).toBeTruthy()
+      expect(project.assets['app.css'].includes('h2')).toBeTruthy()
     })
   })
+}
+
+describe('postcss', () => {
+  describe('yarn', test('yarn'))
+  describe('npm', test('npm'))
 })

@@ -29,7 +29,19 @@ export const STORAGE_PATH = join(REPO_PATH, 'storage')
  *
  * @public
  */
-export const INTEGRATION_TESTS = ['babel', 'sage', 'sass', 'vue']
+export const INTEGRATION_TESTS = [
+  'basic',
+  'postcss',
+  'sass',
+  'tailwindcss',
+  'babel',
+  'vue',
+  'vue-legacy',
+  'react',
+  'typescript',
+  'imagemin',
+  'sage',
+]
 
 /**
  * Base public package tsconfig
@@ -61,4 +73,5 @@ export const paths = {
  *
  * @public
  */
-export {config as projectConfig} from '../../../config/monorepo.config'
+import projectConfig from '../../../config/monorepo.config'
+export {projectConfig}

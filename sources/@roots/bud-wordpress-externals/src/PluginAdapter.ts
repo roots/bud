@@ -1,28 +1,10 @@
-import type {Extension} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework'
+import {label, plugin} from '@roots/bud-framework/extension/decorators'
 import {WordPressExternals} from '@roots/wordpress-externals-webpack-plugin'
 
-/**
- * Adapter for {@link @roots/wordpress-externals-webpack-plugin#Plugin | WordPressExternalsWebpackPlugin}
- *
- * @public
- */
-export interface PluginAdapter
-  extends Extension.CompilerPlugin<WordPressExternals> {
-  name: '@roots/wordpress-externals-webpack-plugin'
-  make: () => WordPressExternals
-}
-
-/**
- * @public
- */
-export const PluginAdapter: PluginAdapter = {
-  /**
-   * @public
-   */
-  name: '@roots/wordpress-externals-webpack-plugin',
-
-  /**
-   * @public
-   */
-  make: () => new WordPressExternals(),
-}
+@label('@roots/bud-wordpress-externals')
+@plugin(WordPressExternals)
+export default class BudWordPressExternals extends Extension<
+  {},
+  WordPressExternals
+> {}

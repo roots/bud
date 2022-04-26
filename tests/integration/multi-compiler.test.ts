@@ -22,16 +22,11 @@ describe('multi-compiler', () => {
   }
 
   beforeAll(async () => {
-    plugin.manifest = await readJson(
-      `${cwd}/dist/plugin/manifest.json`,
-    )
+    plugin.manifest = await readJson(`${cwd}/dist/plugin/manifest.json`)
     plugin.assets = await Object.entries(plugin.manifest).reduce(
       async (promised: Promise<any>, [name, path]) => {
         const assets = await promised
-        const buffer = await readFile(
-          `${cwd}/dist/plugin/${path}`,
-          'utf8',
-        )
+        const buffer = await readFile(`${cwd}/dist/plugin/${path}`, 'utf8')
 
         return {
           ...assets,
@@ -41,16 +36,11 @@ describe('multi-compiler', () => {
       Promise.resolve(),
     )
 
-    theme.manifest = await readJson(
-      `${cwd}/dist/theme/manifest.json`,
-    )
+    theme.manifest = await readJson(`${cwd}/dist/theme/manifest.json`)
     theme.assets = await Object.entries(theme.manifest).reduce(
       async (promised: Promise<any>, [name, path]) => {
         const assets = await promised
-        const buffer = await readFile(
-          `${cwd}/dist/theme/${path}`,
-          'utf8',
-        )
+        const buffer = await readFile(`${cwd}/dist/theme/${path}`, 'utf8')
 
         return {
           ...assets,
@@ -69,23 +59,17 @@ describe('multi-compiler', () => {
     })
 
     it('is transpiled', () => {
-      expect(
-        theme.assets['theme.js'].includes('import'),
-      ).toBeFalsy()
+      expect(theme.assets['theme.js'].includes('import')).toBeFalsy()
     })
   })
 
   describe('plugin.js', () => {
     it('has contents', () => {
-      expect(plugin.assets['plugin.js'].length).toBeGreaterThan(
-        10,
-      )
+      expect(plugin.assets['plugin.js'].length).toBeGreaterThan(10)
     })
 
     it('is transpiled', () => {
-      expect(
-        plugin.assets['plugin.js'].includes('import'),
-      ).toBeFalsy()
+      expect(plugin.assets['plugin.js'].includes('import')).toBeFalsy()
     })
   })
 

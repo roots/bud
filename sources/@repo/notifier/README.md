@@ -42,19 +42,19 @@ Or if you want to use this from
 install it through RubyGems:
 
 ```
-$ [sudo] gem install terminal-notifier
+[sudo] gem install terminal-notifier
 ```
 
 You can also install it via [Homebrew](https://github.com/mxcl/homebrew):
 
 ```
-$ brew install terminal-notifier
+brew install terminal-notifier
 ```
 
 ## Usage
 
 ```
-$ ./terminal-notifier.app/Contents/MacOS/terminal-notifier -[message|group|list] [VALUE|ID|ID] [options]
+./terminal-notifier.app/Contents/MacOS/terminal-notifier -[message|group|list] [VALUE|ID|ID] [options]
 ```
 
 In order to use terminal-notifier, you have to call the binary _inside_ the
@@ -64,7 +64,7 @@ The Ruby gem, which wraps this tool, _does_ have a bin wrapper. If installed
 you can simply do:
 
 ```
-$ terminal-notifier -[message|group|list] [VALUE|ID|ID] [options]
+terminal-notifier -[message|group|list] [VALUE|ID|ID] [options]
 ```
 
 This will obviously be a bit slower than using the tool without the wrapper.
@@ -76,7 +76,7 @@ If you'd like notifications to stay on the screen until dismissed, go to System 
 Display piped data with a sound:
 
 ```
-$ echo 'Piped Message Data!' | terminal-notifier -sound default
+echo 'Piped Message Data!' | terminal-notifier -sound default
 ```
 
 ![Example 1](assets/Example_1.png)
@@ -84,7 +84,7 @@ $ echo 'Piped Message Data!' | terminal-notifier -sound default
 Use a custom icon:
 
 ```
-$ terminal-notifier -title ProjectX -subtitle "new tag detected" -message "Finished" -appIcon http://vjeantet.fr/images/logo.png
+terminal-notifier -title ProjectX -subtitle "new tag detected" -message "Finished" -appIcon http://vjeantet.fr/images/logo.png
 ```
 
 ![Example 3](assets/Example_3.png)
@@ -92,7 +92,7 @@ $ terminal-notifier -title ProjectX -subtitle "new tag detected" -message "Finis
 Open an URL when the notification is clicked:
 
 ```
-$ terminal-notifier -title '💰' -message 'Check your Apple stock!' -open 'http://finance.yahoo.com/q?s=AAPL'
+terminal-notifier -title '💰' -message 'Check your Apple stock!' -open 'http://finance.yahoo.com/q?s=AAPL'
 ```
 
 ![Example 4](assets/Example_4.png)
@@ -100,7 +100,7 @@ $ terminal-notifier -title '💰' -message 'Check your Apple stock!' -open 'http
 Open an app when the notification is clicked:
 
 ```
-$ terminal-notifier -group 'address-book-sync' -title 'Address Book Sync' -subtitle 'Finished' -message 'Imported 42 contacts.' -activate 'com.apple.AddressBook'
+terminal-notifier -group 'address-book-sync' -title 'Address Book Sync' -subtitle 'Finished' -message 'Imported 42 contacts.' -activate 'com.apple.AddressBook'
 ```
 
 ![Example 5](assets/Example_5.png)

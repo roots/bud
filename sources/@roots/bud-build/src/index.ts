@@ -2,20 +2,22 @@
 // Licensed under the MIT license.
 
 /**
- * Compiler configuration builder
+ * Configuration builder
  *
- * @see https://roots.io/bud
+ * @see https://bud.js.org
  * @see https://github.com/roots/bud
  *
  * @packageDocumentation
  */
 
 export {Build} from './Build'
-export {Loader} from './Loader'
-export {Item} from './Item'
-export {Rule} from './Rule'
 
-import * as items from './Build/items'
-import * as loaders from './Build/loaders'
-import * as rules from './Build/rules'
-export {items, loaders, rules}
+import Item from './Item'
+import Loader from './Loader'
+import Rule from './Rule'
+
+export {Loader, Item, Rule}
+
+export * as items from './items'
+export * as loaders from './loaders'
+export * as rules from './rules'

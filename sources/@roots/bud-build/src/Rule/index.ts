@@ -1,73 +1,73 @@
-import {Framework, Items, Rule as Contract} from '@roots/bud-framework'
+import {Bud, Build} from '@roots/bud-framework'
 import {bind, lodash} from '@roots/bud-support'
 
-import {Base} from '../shared/Base'
+import Base from '../shared/Base'
 
 const {isFunction, isString} = lodash
 
-export namespace Rule {
-  export type ConstructorOptions = Partial<Contract.Options>
+namespace Rule {
+  export type ConstructorOptions = Partial<Build.Rule.Options>
 }
 
 /**
- * Framework Rule
+ * Bud Rule
  *
  * @public
  */
-export class Rule extends Base implements Contract {
+class Rule extends Base implements Build.Rule {
   /**
    * {@inheritDoc @roots/bud-framework#Rule.Abstract.test}
    *
    * @public
    */
-  public test: Contract['test']
+  public test: Build.Rule['test']
 
   /**
    * {@inheritDoc @roots/bud-framework#Rule.Abstract.use}
    *
    * @public
    */
-  public use?: Array<keyof Items & string>
+  public use?: Array<`${`${keyof Build.Items & string}`}`>
 
   /**
    * Include paths
    */
-  public include?: Contract['include']
+  public include?: Build.Rule['include']
 
   /**
    * {@inheritDoc @roots/bud-framework#Rule.Abstract.exclude}
    *
    * @public
    */
-  public exclude?: Contract['exclude']
+  public exclude?: Build.Rule['exclude']
 
   /**
    * {@inheritDoc @roots/bud-framework#Rule.Abstract."type"}
    *
    * @public
    */
-  public type?: Contract['type']
+  public type?: Build.Rule['type']
 
   /**
    * Generator factory
    *
    * @public
    */
-  public parser?: Contract['parser']
+  public parser?: Build.Rule['parser']
 
   /**
    * Generator factory
    *
    * @public
    */
-  public generator?: Contract['generator']
+  public generator?: Build.Rule['generator']
 
   /**
    * Class constructor
    *
    * @public
    */
-  public constructor(_app: () => Framework, options?: Contract.Options) {
+  public constructor(_app: () => Bud, options?: Build.Rule.Options) {
     super(_app)
 
     if (!options) return
@@ -84,7 +84,7 @@ export class Rule extends Base implements Contract {
   /**
    * Test value
    *
-   * @param app - Framework instance
+   * @param app - Bud instance
    *
    * @public
    * @decorator `@bind`
@@ -113,7 +113,7 @@ export class Rule extends Base implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public getParser(): Contract.Parser {
+  public getParser(): Build.Rule.Parser {
     return this.unwrap(this.parser)
   }
 
@@ -124,7 +124,7 @@ export class Rule extends Base implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public setParser(parser: Contract['parser']): Rule {
+  public setParser(parser: Build.Rule['parser']): Rule {
     this.parser = this.wrap(parser)
     return this
   }
@@ -136,7 +136,7 @@ export class Rule extends Base implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public getUse(): Array<`${keyof Items & string}`> {
+  public getUse(): Array<`${`${keyof Build.Items & string}`}`> {
     return this.unwrap(this.use)?.filter(isString) ?? []
   }
 
@@ -149,11 +149,11 @@ export class Rule extends Base implements Contract {
   @bind
   public setUse(
     input:
-      | Array<keyof Items & string>
+      | Array<`${keyof Build.Items & string}`>
       | ((
-          use: Array<keyof Items & string>,
-          app: Framework,
-        ) => Array<keyof Items & string>),
+          use: Array<`${keyof Build.Items & string}`>,
+          app: Bud,
+        ) => Array<`${keyof Build.Items & string}`>),
   ): Rule {
     this.use =
       (isFunction(input) ? input(this.getUse() ?? [], this.app) : input) ??
@@ -180,7 +180,7 @@ export class Rule extends Base implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public setInclude(include: Contract['include']): Rule {
+  public setInclude(include: Build.Rule['include']): Rule {
     this.include = this.wrap(include)
     return this
   }
@@ -203,7 +203,7 @@ export class Rule extends Base implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public setExclude(exclude: Contract['exclude']): Rule {
+  public setExclude(exclude: Build.Rule['exclude']): Rule {
     this.exclude = this.wrap(exclude)
     return this
   }
@@ -249,7 +249,7 @@ export class Rule extends Base implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public setGenerator(generator: Contract['generator']): Rule {
+  public setGenerator(generator: Build.Rule['generator']): Rule {
     this.generator = this.wrap(generator)
     return this
   }
@@ -257,7 +257,7 @@ export class Rule extends Base implements Contract {
   /**
    * Produce final Base output
    *
-   * @param app - {@link @roots/bud-framework#Framework}
+   * @param app - {@link @roots/bud-framework#Bud}
    * @returns finalized rule
    *
    * @public
@@ -283,3 +283,5 @@ export class Rule extends Base implements Contract {
     return output
   }
 }
+
+export {Rule as default}

@@ -1,5 +1,5 @@
-import {readFile, writeFile} from 'fs-extra'
-import yaml from 'js-yaml'
+import {readFile, writeFile} from '../external/fs-extra'
+import {yaml} from '../external/yaml'
 
 export const read = async (file: string): Promise<any> => {
   const source = await readFile(file, 'utf8')

@@ -13,7 +13,7 @@ import {Install} from '@site/src/docs/Install'
 
 import Example from '!!raw-loader!@site/../../../examples/postcss/bud.config.js'
 
-[PostCSS](https://postcss.org) can be added by installing the [@roots/bud-postcss](/extensions/bud-postcss) extension.
+[PostCSS](https://postcss.org) can be added by installing the **@roots/bud-postcss** extension.
 
 ## Installation
 
@@ -21,11 +21,11 @@ import Example from '!!raw-loader!@site/../../../examples/postcss/bud.config.js'
 
 ## Configuration
 
-By default, [@roots/bud-postcss](/extensions/bud-postcss) includes:
+By default, **@roots/bud-postcss** includes:
 
-- postcss-import
-- postcss-nested
-- postcss-preset-env
+- [postcss-import](https://github.com/postcss/postcss-import)
+- [postcss-nested](https://github.com/postcss/postcss-nested)
+- [postcss-preset-env](https://preset-env.cssdb.org/)
 
 If this works for you, great! No need to keep reading. But, should you need something more specialized,
 you can configure it in your bud config file or a [postcss.config.js[ file in your project's root directory.
@@ -36,81 +36,52 @@ If you have a postcss config file in your project, that configuration will be us
 
 :::
 
-## Using the bud config builder
-
-The API used by [@roots/bud-postcss](/extensions/bud-postcss) internally can also be used in your project config.
-
-Let's say you want to use `postcss-import` to take advantage of the `import` syntax in your CSS along with
-`postcss-preset-env`.
-
-You could use a configuration object with `postcss.setPlugins`.
-
-```js
-bud.postcss.setPlugins({
-  'postcss-import': require.resolve('postcss-import'),
-  'postcss-preset-env': [
-    require.resolve('postcss-preset-env'),
-    {stage: 1},
-  ],
-})
-```
-
-Or use a fluent API with `postcss.setPlugin`.
-
-```js
-bud.postcss
-  .setPlugin('postcss-import', require.resolve('postcss-import'))
-  .setPlugin('postcss-preset-env', [
-    require.resolve('postcss-preset-env'),
-    {stage: 1},
-  ])
-```
-
-In addition to `postcss.setPlugin` there is a `postcss.setPluginOptions` method that allows you to set plugin options fluently.
-
-```js
-bud.postcss
-  .setPlugin('postcss-import', require.resolve('postcss-import'))
-  .setPlugin('postcss-preset-env', require.resolve('postcss-preset-env'))
-  .setPluginOptions('postcss-preset-env', {stage: 1})
-```
-
 ### postcss.setPlugin
 
-Add a postcss plugin. Takes two parameters.
+Let's say you want to use [postcss-grid-kiss](https://github.com/sylvainpolletvillard/postcss-grid-kiss). This is an extension that
+lets you write a CSS grid with ascii art (!!):
+
+```ascii
+body {
+	grid-kiss:
+		"+-------------------------------+      "
+		"|           header ↑            | 120px"
+		"+-------------------------------+      "
+		"                                       "
+		"+-- 30% ---+  +--- auto --------+      "
+		"| .sidebar |  |       main      | auto "
+		"+----------+  +-----------------+      "
+		"                                       "
+		"+-------------------------------+      "
+		"|              ↓                | 60px "
+		"|         → footer ←            |      "
+		"+-------------------------------+      "
+}
+```
+
+You can do exactly that with `postcss.setPlugin`.
+
+The function takes up to two parameters.
 
 The first is the resolvable plugin module name.
 
-The second parameter can either be the path to the postcss plugin module, or a tuple with the path and any associated options.
+```js
+bud.postcss.setPlugin('precss')
+```
+
+You can use a second parameter to be explicit about where to resolve the plugin from:
 
 ```js
-bud.postcss.setPlugin('postcss-preset-env', [
+bud.postcss.setPlugin('precss', bud.path('./directory/dev-plugin.js'))
+```
+
+Lastly, you can use a `tuple` alongside the path to set any associated options in one call.
+
+```js
+bud.postcss.setPlugin('precss', [
   require.resolve('postcss-preset-env'), // the plugin module path
   {stage: 1}, // options
 ])
-```
-
-### postcss.setPlugins
-
-Add multiple postcss plugins. Takes a single parameter, which is an object using the plugin
-name as keys and the plugin module path and options as values. The options can be either a single object or an array of objects.
-
-```js
-bud.postcss.setPlugins({
-  'postcss-import': require.resolve('postcss-import'),
-  'postcss-preset-env': [
-    require.resolve('postcss-preset-env'),
-    {stage: 1},
-  ],
-})
-```
-
-### postcss.unsetPlugin
-
-Remove a postcss plugin by name.
-
-```js
-bud.postcss.unsetPlugin('postcss-import')
 ```
 
 ### postcss.setPluginOptions
@@ -119,7 +90,30 @@ Set the options for a postcss plugin. Takes two parameters. The first is the plu
 the second is the options object.
 
 ```js
-bud.postcss.setPluginOptions('postcss-import', {
-  path: bud.filter('build/resolve/modules'),
-})
+bud.postcss.setPluginOptions('precss', {optimize: false})
+```
+
+### postcss.setPlugins
+
+Add multiple postcss plugins. Takes a single parameter, which is either a plain `Object` or a `Map` using the plugin
+name as keys and the plugin module path and options as values.
+
+The options can be either a single object or an array of objects.
+
+```js
+bud.postcss.setPlugins(new Map([
+  ['postcss-import', require.resolve('postcss-import')],
+  ['postcss-preset-env', [
+    require.resolve('postcss-preset-env'),
+    {stage: 1},
+  ],
+])
+```
+
+### postcss.unsetPlugin
+
+Remove a plugin.
+
+```js
+bud.postcss.unsetPlugin('postcss-import')
 ```

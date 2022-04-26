@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`@roots/bud-server has expected defaults 1`] = `undefined`;
+exports[`@roots/bud-server has expected defaults 1`] = `"http://0.0.0.0:3000/"`;
 
 exports[`@roots/bud-server has expected defaults 2`] = `Set {}`;
 

@@ -1,5 +1,4 @@
-import type {Extension, Framework} from '@roots/bud-framework'
-import type {Container} from '@roots/container'
+import type {Extension} from '@roots/bud-framework'
 import {
   CriticalCssWebpackPlugin,
   Options,
@@ -12,60 +11,18 @@ import {critical} from './critical'
  *
  * @public
  */
-export interface BudCriticalCssPlugin
-  extends Extension.CompilerPlugin<
-    CriticalCssWebpackPlugin,
-    Partial<Options>
-  > {
-  name: '@roots/bud-criticalcss'
-  options: Partial<Options>
-  api: {critical: critical}
-  make: (
-    options: Container<Partial<Options>>,
-    app: Framework,
-  ) => CriticalCssWebpackPlugin
-}
+export interface BudCriticalCss
+  extends Extension<Partial<Options>, CriticalCssWebpackPlugin> {}
 
 /**
  * Adds critical css webpack plugin to compilation
  *
  * @public
  */
-export const BudCriticalCssPlugin: BudCriticalCssPlugin = {
-  /**
-   * Extension identifier
-   *
-   * @public
-   */
-  name: '@roots/bud-criticalcss',
-
-  /**
-   * Extension api functions
-   *
-   * @public
-   */
-  api: {critical},
-
-  /**
-   * Extension options
-   *
-   * @public
-   */
+export const BudCriticalCss: BudCriticalCss = {
+  label: '@roots/bud-criticalcss',
   options: {},
-
-  /**
-   * Makes compiler plugin
-   *
-   * @public
-   */
-  make(options): CriticalCssWebpackPlugin {
-    return new CriticalCssWebpackPlugin(options.all())
-  },
-
-  /**
-   * Prerequiste criteria for plugin usage
-   *
-   * @public
-   */
-  when: app => app.isProduction,
+  register: async (options, {api}) => api.bindFacade('critical', critical),
+  plugin: CriticalCssWebpackPlugin,
+  when: async (options, app) => app.isProduction,
 }

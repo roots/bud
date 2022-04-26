@@ -1,5 +1,4 @@
 import {Bud, factory} from '@repo/test-kit/bud'
-import {Framework} from '@roots/bud-framework'
 import {Container} from '@roots/container'
 import {noop} from 'lodash'
 
@@ -52,47 +51,42 @@ describe('bud', () => {
 
   it('tap calls fn and returns instance of Bud', done => {
     const fn = jest.fn()
-    expect(bud.tap(fn)).toBeInstanceOf(Framework)
+    expect(bud.tap(fn)).toBeInstanceOf(Bud)
     expect(fn).toHaveBeenCalledTimes(1)
     done()
   })
 
   it('tap passes an instance of Bud', done => {
-    bud.tap(app => expect(app).toBeInstanceOf(Framework))
+    bud.tap(app => expect(app).toBeInstanceOf(Bud))
     done()
   })
 
   it('tap can bind a function to Bud', done => {
     bud.tap(function () {
-      expect(this).not.toBeInstanceOf(Framework)
+      expect(this).not.toBeInstanceOf(Bud)
     }, false)
 
     bud.tap(function () {
-      expect(this).toBeInstanceOf(Framework)
+      expect(this).toBeInstanceOf(Bud)
     }, true)
 
     // it binds by default
     bud.tap(function () {
-      expect(this).toBeInstanceOf(Framework)
+      expect(this).toBeInstanceOf(Bud)
     })
 
     done()
   })
 
-  it('sequence calls fns', done => {
-    bud.sequence([
-      app => {
-        expect(app).toBeInstanceOf(Framework)
+  it('sequence calls fns', async () => {
+    await bud.sequence([
+      async bud => {
+        expect(bud).toBeInstanceOf(Bud)
       },
-      app => {
-        expect(app).toBeInstanceOf(Framework)
-      },
-      app => {
-        expect(app).toBeInstanceOf(Framework)
+      async bud => {
+        expect(bud).toBeInstanceOf(Bud)
       },
     ])
-
-    done()
   })
 
   it('pipe passes value through fn chain', done => {

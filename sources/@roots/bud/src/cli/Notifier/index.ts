@@ -1,4 +1,4 @@
-import {Framework} from '@roots/bud-framework'
+import {Bud} from '@roots/bud-framework'
 import {bind} from '@roots/bud-support'
 import {
   Notification,
@@ -44,7 +44,7 @@ export class Notifier {
    *
    * @public
    */
-  public constructor(public app: Framework) {
+  public constructor(public app: Bud) {
     this.notificationCenter = new NotificationCenter({
       customPath: this.binary,
     })
@@ -75,7 +75,7 @@ and ${this.app.compiler.stats.warningsCount} warnings`
   /**
    * Emits notification
    *
-   * @param app - Framework
+   * @param app - Bud
    *
    * @public
    * @decorator `@bind`
