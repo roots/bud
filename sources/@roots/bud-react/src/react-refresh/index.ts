@@ -2,15 +2,13 @@
 // Licensed under the MIT license.
 
 /**
- * Adds PostCSS support to Bud
-
+ * Adds react-refresh
+ *
  * @see https://bud.js.org
  * @see https://github.com/roots/bud
  *
  * @packageDocumentation
  */
 
-import './env'
-
-import BudPostCss from './extension'
-export default BudPostCss
+import BudReactRefresh from './extension'
+export default BudReactRefresh

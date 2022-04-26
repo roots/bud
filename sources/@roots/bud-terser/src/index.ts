@@ -10,15 +10,7 @@
  * @packageDocumentation
  */
 
-declare module '@roots/bud-framework' {
-  interface Bud {
-    terser: BudTerser
-  }
-
-  interface Modules {
-    '@roots/bud-terser': BudTerser
-  }
-}
+import './env'
 
 import BudTerser from './extension'
 export default BudTerser

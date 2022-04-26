@@ -4,7 +4,7 @@ import CleanWebpackPlugin from './clean-webpack-plugin'
 import CopyWebpackPlugin from './copy-webpack-plugin'
 import MiniCssExtractPlugin from './mini-css-extract-plugin'
 import DefineWebpackPlugin from './webpack-define-plugin'
-import * as HotModuleReplacementPlugin from './webpack-hot-module-replacement-plugin'
+import HotModuleReplacementPlugin from './webpack-hot-module-replacement-plugin'
 import WebpackManifestPlugin from './webpack-manifest-plugin'
 import BudProvide from './webpack-provide-plugin'
 

@@ -10,7 +10,7 @@
  * @packageDocumentation
  */
 
-import '@roots/bud-babel/types'
+import '@roots/bud-babel'
 
 declare module '@roots/bud-framework' {
   interface Modules {

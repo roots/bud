@@ -59,6 +59,5 @@ export async function factory(overrides?: Config.Options): Promise<Bud> {
     message: `process.env.BABEL_ENV: ${process.env.BABEL_ENV}`,
   })
 
-  await project.lifecycle()
-  return project
+  return await project.lifecycle()
 }

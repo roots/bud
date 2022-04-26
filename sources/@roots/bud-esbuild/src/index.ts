@@ -58,7 +58,7 @@ type Opts = {
       project.get(['config', 'base', 'tsconfig.json', 'module']) ?? null,
   }),
 })
-class BudEsbuild extends Extension<Opts> {
+export default class BudEsbuild extends Extension<Opts> {
   @bind
   public async boot() {
     this.app.build
@@ -89,5 +89,3 @@ class BudEsbuild extends Extension<Opts> {
     })
   }
 }
-
-export default BudEsbuild

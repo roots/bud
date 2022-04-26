@@ -46,6 +46,19 @@
     ".": "./lib/cjs/index.js",
     "./extension": "./lib/cjs/extension.js"
   },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./types/index.d.ts"
+      ],
+      "env": [
+        "./types/env.d.ts"
+      ],
+      "extension": [
+        "./types/extension.d.ts"
+      ]
+    }
+  },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.11.26",

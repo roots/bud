@@ -19,9 +19,9 @@
  * @packageDocumentation
  */
 
-import '@roots/bud-postcss/types'
+import '@roots/bud-postcss'
 
-import {Extension} from '@roots/bud-framework/types'
+import type {Extension} from '@roots/bud-framework'
 
 import * as purge from './purge.interface'
 

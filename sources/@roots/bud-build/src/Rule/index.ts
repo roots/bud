@@ -1,11 +1,11 @@
 import {Bud, Build} from '@roots/bud-framework'
 import {bind, lodash} from '@roots/bud-support'
 
-import {Base} from '../shared/Base'
+import Base from '../shared/Base'
 
 const {isFunction, isString} = lodash
 
-export namespace Rule {
+namespace Rule {
   export type ConstructorOptions = Partial<Build.Rule.Options>
 }
 
@@ -14,7 +14,7 @@ export namespace Rule {
  *
  * @public
  */
-export class Rule extends Base implements Build.Rule {
+class Rule extends Base implements Build.Rule {
   /**
    * {@inheritDoc @roots/bud-framework#Rule.Abstract.test}
    *
@@ -283,3 +283,5 @@ export class Rule extends Base implements Build.Rule {
     return output
   }
 }
+
+export {Rule as default}

@@ -10,12 +10,12 @@
  * @packageDocumentation
  */
 
-import '@roots/bud-api/types'
-import '@roots/bud-preset-recommend/types'
-import '@roots/bud-react/types'
-import '@roots/bud-wordpress-dependencies/types'
-import '@roots/bud-wordpress-externals/types'
-import '@roots/bud-wordpress-manifests/types'
+import '@roots/bud-api'
+import '@roots/bud-preset-recommend'
+import '@roots/bud-react'
+import '@roots/bud-wordpress-dependencies'
+import '@roots/bud-wordpress-externals'
+import '@roots/bud-wordpress-manifests'
 
 declare module '@roots/bud-framework' {
   interface Modules {

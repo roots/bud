@@ -49,30 +49,14 @@
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    ".": {
-      "require": "./lib/cjs/index.js"
-    },
-    "./cli": {
-      "require": "./lib/cjs/cli/index.js"
-    },
-    "./context": {
-      "require": "./lib/cjs/context/index.js"
-    },
-    "./context/*": {
-      "require": "./lib/cjs/context/*/index.js"
-    },
-    "./extensions": {
-      "require": "./lib/cjs/extensions/index.js"
-    },
-    "./extensions/*": {
-      "require": "./lib/cjs/extensions/*/index.js"
-    },
-    "./factory": {
-      "require": "./lib/cjs/factory/index.js"
-    },
-    "./services": {
-      "require": "./lib/cjs/services/index.js"
-    }
+    ".": "./lib/cjs/index.js",
+    "./cli": "./lib/cjs/cli/index.js",
+    "./context": "./lib/cjs/context/index.js",
+    "./context/*": "./lib/cjs/context/*/index.js",
+    "./extensions": "./lib/cjs/extensions/index.js",
+    "./extensions/*": "./lib/cjs/extensions/*/index.js",
+    "./factory": "./lib/cjs/factory/index.js",
+    "./services": "./lib/cjs/services/index.js"
   },
   "typesVersions": {
     "*": {
@@ -123,14 +107,12 @@
     "@roots/bud-server": "workspace:sources/@roots/bud-server",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@roots/container": "workspace:sources/@roots/container",
-    "@roots/dependencies": "workspace:sources/@roots/dependencies",
     "clean-webpack-plugin": "^4.0.0",
     "clipanion": "3.2.0-rc.10",
     "copy-webpack-plugin": "^10.0.0",
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.4.5",
     "node-notifier": "10.0.1",
-    "schema-utils": "4.0.0",
     "tslib": "2.3.1",
     "typanion": "3.7.1",
     "type-fest": "^2.5.4",

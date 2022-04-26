@@ -1,26 +1,22 @@
-import '@roots/bud-api'
-import '@roots/bud-build'
-import '@roots/bud-cache'
-import '@roots/bud-compiler'
-import '@roots/bud-dashboard'
-import '@roots/bud-extensions'
-import '@roots/bud-hooks'
-import '@roots/bud-server'
+import type {Build} from '@roots/bud-framework'
 
-import {Build, Extension} from '@roots/bud-framework'
-
-import BudClean from './extensions/clean-webpack-plugin'
-import BudProvide from './extensions/webpack-provide-plugin'
+import type BudClean from './extensions/clean-webpack-plugin'
+import type BudCopy from './extensions/copy-webpack-plugin'
+import type BudMiniCss from './extensions/mini-css-extract-plugin'
+import type BudDefine from './extensions/webpack-define-plugin'
+import type BudHMR from './extensions/webpack-hot-module-replacement-plugin'
+import type BudManifest from './extensions/webpack-manifest-plugin'
+import type BudProvide from './extensions/webpack-provide-plugin'
 
 declare module '@roots/bud-framework' {
   interface Modules {
-    'webpack:define-plugin': Extension
+    'webpack:define-plugin': BudDefine
     'webpack:provide-plugin': BudProvide
-    'webpack:hot-module-replacement-plugin': Extension
-    'copy-webpack-plugin': Extension
+    'webpack:hot-module-replacement-plugin': BudHMR
+    'copy-webpack-plugin': BudCopy
     'clean-webpack-plugin': BudClean
-    'manifest-plugin': Extension
-    'mini-css-extract-plugin': Extension
+    'manifest-plugin': BudManifest
+    'mini-css-extract-plugin': BudMiniCss
   }
 
   interface Loaders {

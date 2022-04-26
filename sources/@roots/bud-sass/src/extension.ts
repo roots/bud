@@ -5,11 +5,6 @@ import {
   label,
 } from '@roots/bud-framework/extension/decorators'
 
-/**
- * Adds scss and postcss-scss support to Bud
- *
- * @public
- */
 @label('@roots/bud-sass')
 @dependsOn(['@roots/bud-postcss'])
 export default class BudSass extends Extension {

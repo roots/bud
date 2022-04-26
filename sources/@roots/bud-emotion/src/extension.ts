@@ -7,7 +7,7 @@ import {
 
 @label('@roots/bud-emotion')
 @dependsOn(['@roots/bud-babel', '@roots/bud-react'])
-class BudEmotion extends Extension {
+export default class BudEmotion extends Extension {
   @bind
   public async boot() {
     this.app.babel.setPlugins &&
@@ -17,5 +17,3 @@ class BudEmotion extends Extension {
       )
   }
 }
-
-export default BudEmotion

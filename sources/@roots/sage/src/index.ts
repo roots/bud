@@ -10,8 +10,8 @@
  * @packageDocumentation
  */
 
-import '@roots/bud-preset-wordpress/types'
-import '@roots/bud-tailwindcss/types'
+import '@roots/bud-preset-wordpress'
+import '@roots/bud-tailwindcss'
 
 import * as themeJson from './theme/api/themeJson'
 import * as useTailwindColors from './theme/api/useTailwindColors'

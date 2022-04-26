@@ -5,7 +5,7 @@ import {
   Modules,
   Service,
 } from '@roots/bud-framework'
-import {Controllers} from '@roots/bud-framework/types/registry'
+import type {Controllers} from '@roots/bud-framework/types/registry'
 import {bind, chalk} from '@roots/bud-support'
 
 import {Controller} from '../Controller'

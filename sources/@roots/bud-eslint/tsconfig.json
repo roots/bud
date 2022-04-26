@@ -7,14 +7,13 @@
     "outDir": "./lib/cjs",
     "declarationDir": "./types",
     "types": [
-      "node"
+      "node",
+      "@roots/bud-framework",
+      "@roots/bud-api"
     ]
   },
-  "files": [
-    "./src/env.ts",
-  ],
   "include": [
-    "src"
+    "./src"
   ],
   "references": [
     {

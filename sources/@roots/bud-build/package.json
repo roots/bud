@@ -41,8 +41,38 @@
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.js"
+    ".": "./lib/cjs/index.js",
+    "./item": "./lib/cjs/Item/index.js",
+    "./items": "./lib/cjs/items.js",
+    "./loader": "./lib/cjs/Loader/index.js",
+    "./loaders": "./lib/cjs/loaders.js",
+    "./rule": "./lib/cjs/Rule/index.js",
+    "./rules": "./lib/cjs/rules.js"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./types/index.d.ts"
+      ],
+      "./item": [
+        "./types/Item/index.d.ts"
+      ],
+      "./items": [
+        "./types/items.d.ts"
+      ],
+      "./loader": [
+        "./types/Loader/index.d.ts"
+      ],
+      "./loaders": [
+        "./types/loaders.d.ts"
+      ],
+      "./rule": [
+        "./types/Rule/index.d.ts"
+      ],
+      "./rules": [
+        "./types/rules.d.ts"
+      ]
+    }
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",

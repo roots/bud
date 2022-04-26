@@ -1,4 +1,3 @@
-import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
@@ -14,6 +13,7 @@ type Options = TerserPlugin.BasePluginOptions & {
 }
 
 @label('@roots/bud-terser')
+@expose('terser')
 @options({
   include: app => app.hooks.filter('pattern.js'),
   extractComments: false,
@@ -28,7 +28,6 @@ type Options = TerserPlugin.BasePluginOptions & {
     },
   },
 })
-@expose('terser')
 export default class Terser extends Extension<Options> {
   @bind
   public async boot() {
@@ -39,7 +38,7 @@ export default class Terser extends Extension<Options> {
   }
 
   @bind
-  public config(options: Options): Bud {
+  public config(options: Options) {
     this.options = options
     return this.app
   }

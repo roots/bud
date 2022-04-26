@@ -1,4 +1,4 @@
-import {Config} from '@roots/bud-framework'
+import type {Config} from '@roots/bud-framework'
 import {prettyFormat, Signale, table} from '@roots/bud-support'
 import {cpus} from 'os'
 

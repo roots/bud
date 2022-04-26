@@ -1,4 +1,4 @@
-import {Bud, Extension} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework'
 import {
   bind,
   expose,
@@ -23,7 +23,7 @@ import {cpus} from 'os'
 })
 class BudEslint extends Extension<Options, EslintPlugin> {
   @bind
-  public config(value: Options): Bud {
+  public config(value: Options) {
     this.options = {...this.options, ...value}
 
     return this.app

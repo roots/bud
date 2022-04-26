@@ -1,5 +1,5 @@
 import RefreshPlugin from '@pmmmwh/react-refresh-webpack-plugin'
-import {ReactRefreshPluginOptions} from '@pmmmwh/react-refresh-webpack-plugin/types/lib/types'
+import type {ReactRefreshPluginOptions} from '@pmmmwh/react-refresh-webpack-plugin/types/lib/types'
 import {Extension} from '@roots/bud-framework/extension'
 import {
   development,
@@ -12,9 +12,9 @@ import {
 @plugin(RefreshPlugin)
 @options({overlay: false})
 @development
-class ReactRefreshExtension extends Extension<
+class BudReactRefresh extends Extension<
   ReactRefreshPluginOptions,
   RefreshPlugin
 > {}
 
-export default ReactRefreshExtension
+export default BudReactRefresh

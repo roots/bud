@@ -28,6 +28,17 @@ export default class BabelExtension extends Extension<any, null> {
   }
 
   @bind
+  protected setRuleSetItem(ruleSetItem: Build.Item) {
+    return ruleSetItem.setLoader('babel').setOptions(app => ({
+      cacheDirectory: this.cacheDirectory,
+      presets: Object.values(this.app.babel.presets),
+      plugins: Object.values(this.app.babel.plugins),
+      env: this.env,
+      root: this.root,
+    }))
+  }
+
+  @bind
   public async register() {
     this.app.babel = new Config()
 
@@ -54,16 +65,5 @@ export default class BabelExtension extends Extension<any, null> {
           '@babel/plugin-proposal-class-properties',
         ),
       })
-  }
-
-  @bind
-  protected setRuleSetItem(ruleSetItem: Build.Item) {
-    return ruleSetItem.setLoader('babel').setOptions(app => ({
-      cacheDirectory: this.cacheDirectory,
-      presets: Object.values(this.app.babel.presets),
-      plugins: Object.values(this.app.babel.plugins),
-      env: this.env,
-      root: this.root,
-    }))
   }
 }

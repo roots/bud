@@ -10,27 +10,7 @@
  * @packageDocumentation
  */
 
-import {Item, Loader} from '@roots/bud-build/types'
-
-import {Config} from './config'
-
-declare module '@roots/bud-framework' {
-  interface Bud {
-    babel: Config
-  }
-
-  interface Modules {
-    '@roots/bud-babel': BabelExtension
-  }
-
-  interface Loaders {
-    babel: Loader
-  }
-
-  interface Items {
-    babel: Item
-  }
-}
+import './env'
 
 import BabelExtension from './extension'
 export default BabelExtension

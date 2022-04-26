@@ -42,10 +42,7 @@
   "types": "./types/index.d.ts",
   "exports": {
     ".": "./lib/cjs/index.js",
-    "./client": "./lib/cjs/client/index.js",
-    "./client/proxy-click-interceptor": "./lib/cjs/client/proxy-click-interceptor.js",
-    "./client/indicator": "./lib/cjs/client/indicator/index.js",
-    "./client/overlay": "./lib/cjs/client/overlay/index.js"
+    "./client/*": "./lib/cjs/client/*"
   },
   "typesVersions": {
     "*": {

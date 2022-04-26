@@ -40,9 +40,6 @@
     ".": {
       "require": "./lib/cjs/index.js"
     },
-    "./env": {
-      "require": "./lib/cjs/env.js"
-    },
     "./extension": {
       "require": "./lib/cjs/extension.js"
     }

@@ -1,9 +1,11 @@
 import type {ReactRefreshPluginOptions} from '@pmmmwh/react-refresh-webpack-plugin/types/lib/types'
 import type {Bud} from '@roots/bud-framework'
-import {isFunction} from 'lodash'
+import {lodash} from '@roots/bud-support'
 
 import ReactRefreshExtension from './extension'
 import * as reduceEntries from './reducers'
+
+const {isFunction} = lodash
 
 /**
  * Configure react-refresh-webpack-plugin

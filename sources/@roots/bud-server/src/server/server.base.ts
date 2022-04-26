@@ -1,5 +1,5 @@
 import {Bud, Server} from '@roots/bud-framework'
-import {Connection} from '@roots/bud-framework/types/services/server/connection'
+import type {Connection} from '@roots/bud-framework/types/services/server/connection'
 import {bind, Signale} from '@roots/bud-support'
 import {IncomingMessage, Server as HttpServer} from 'http'
 import {Server as HttpsServer} from 'https'

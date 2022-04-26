@@ -55,8 +55,11 @@
       ".": [
         "./types/index.d.ts"
       ],
-      "./extension": [
-        "./types/extension.js"
+      "env": [
+        "./types/env.d.ts"
+      ],
+      "extension": [
+        "./types/extension.d.ts"
       ]
     }
   },
@@ -69,20 +72,24 @@
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
+    "postcss": "8.4.12",
     "postcss-scss": "4.0.3",
-    "resolve-cwd": "3.0.0",
     "sass": "1.49.9",
     "sass-loader": "12.6.0",
     "stylelint-config-recommended-scss": "5.0.2",
     "tslib": "2.3.1"
   },
   "peerDependencies": {
+    "postcss": "*",
     "postcss-scss": "*",
     "sass": "*",
     "sass-loader": "*",
     "stylelint-config-recommended-scss": "*"
   },
   "peerDependenciesMeta": {
+    "postcss": {
+      "optional": true
+    },
     "postcss-scss": {
       "optional": true
     },

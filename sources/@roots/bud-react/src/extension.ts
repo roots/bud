@@ -5,14 +5,14 @@ import {
   label,
 } from '@roots/bud-framework/extension/decorators'
 
-import {reactRefresh} from './react-refresh/reactRefresh'
+import * as api from './react-refresh/api'
 
 @label('@roots/bud-react')
 @dependsOn(['@roots/bud-babel'])
 export default class BudReact extends Extension {
   @bind
   public async register() {
-    this.app.api.bindFacade('reactRefresh', reactRefresh)
+    this.app.api.bindFacade('reactRefresh', api.reactRefresh)
   }
 
   @bind

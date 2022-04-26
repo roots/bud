@@ -53,6 +53,9 @@
       ".": [
         "./types/index.d.ts"
       ],
+      "env": [
+        "./types/env.d.ts"
+      ],
       "extension": [
         "./types/extension.d.ts"
       ],

@@ -48,8 +48,8 @@
     ".": "./lib/cjs/index.js",
     "./client": "./lib/cjs/client/index.js",
     "./client/dom-ready": "./lib/cjs/client/dom-ready.js",
-    "./stylelint-config": "./stylelint-config/index.js",
-    "./theme/tailwind": "./lib/cjs/theme/tailwind.adapter.js"
+    "./theme/tailwind": "./lib/cjs/theme/tailwind.adapter.js",
+    "./stylelint-config": "./stylelint-config/index.js"
   },
   "typesVersions": {
     "*": {
