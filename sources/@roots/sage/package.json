@@ -48,7 +48,7 @@
     ".": "./lib/cjs/index.js",
     "./client": "./lib/cjs/client/index.js",
     "./client/dom-ready": "./lib/cjs/client/dom-ready.js",
-    "./theme/tailwind": "./lib/cjs/theme/tailwind.adapter.js",
+    "./theme": "./lib/cjs/theme/index.js",
     "./stylelint-config": "./stylelint-config/index.js"
   },
   "typesVersions": {
@@ -62,8 +62,8 @@
       "client/dom-ready": [
         "./types/client/dom-ready.d.ts"
       ],
-      "theme/tailwind": [
-        "./types/theme/tailwind.adapter.d.ts"
+      "theme": [
+        "./types/theme/index.d.ts"
       ]
     }
   },
