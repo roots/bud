@@ -12,6 +12,8 @@
 
 import {Extension} from '@roots/bud-framework'
 import {
+  bind,
+  expose,
   label,
   options,
   plugin,
@@ -19,6 +21,9 @@ import {
 import StylelintWebpackPlugin, {Options} from 'stylelint-webpack-plugin'
 
 declare module '@roots/bud-framework' {
+  interface Bud {
+    stylelint: BudStylelintWebpackPlugin
+  }
   interface Modules {
     '@roots/bud-stylelint': BudStylelintWebpackPlugin
   }
@@ -27,7 +32,19 @@ declare module '@roots/bud-framework' {
 @label('stylelint-webpack-plugin')
 @plugin(StylelintWebpackPlugin)
 @options({context: app => app.path('@src')})
-class BudStylelintWebpackPlugin extends Extension<
+@expose('stylelint')
+export default class BudStylelintWebpackPlugin extends Extension<
   Options,
   StylelintWebpackPlugin
-> {}
+> {
+  @bind
+  public failOnError(fail: boolean = true): this {
+    this.options.failOnError = fail
+    return this
+  }
+  @bind
+  public failOnWarning(fail: boolean = true): this {
+    this.options.failOnWarning = fail
+    return this
+  }
+}

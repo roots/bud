@@ -17,7 +17,7 @@ export class Extension<E = any, Plugin = any> {
     this.path = await this.app.module.path(this.label)
     if (this.init) {
       this.logger.log('initializing')
-      await this.init(this.options, this.app)
+      await this.init(this.options ?? {}, this.app)
     }
   }
   public async init?(options: Options<E>, app: Bud): Promise<unknown>
@@ -39,6 +39,17 @@ export class Extension<E = any, Plugin = any> {
     }
   }
   public async boot?(options?: Options<E>, app?: Bud): Promise<unknown>
+
+  @bind
+  public async _beforeBuild?() {
+    if (this.beforeBuild) {
+      this.beforeBuild(this.options ?? {}, this.app)
+    }
+  }
+  public async beforeBuild?(
+    options: Options<E>,
+    app?: Bud,
+  ): Promise<unknown>
 
   @bind
   public async _make?() {
@@ -193,6 +204,17 @@ export class Extension<E = any, Plugin = any> {
   }
 
   @bind
+  public getOptions?(): Options<E> {
+    return this.options
+  }
+
+  @bind
+  public setOptions?(options: Options<E>): this {
+    this.options = options
+    return this
+  }
+
+  @bind
   public has?<K extends keyof Extension>(key: K): boolean {
     return this[key] ? true : false
   }
@@ -224,6 +246,21 @@ export class Extension<E = any, Plugin = any> {
     } catch (error) {
       this.app.error(error)
     }
+  }
+
+  @bind
+  public disable?() {
+    this.when = async () => false
+  }
+
+  @bind
+  public enable?() {
+    this.when = async () => true
+  }
+
+  @bind
+  public done?(): Bud {
+    return this.app
   }
 }
 

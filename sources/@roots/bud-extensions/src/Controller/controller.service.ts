@@ -122,14 +122,25 @@ export class Controller<
     method: 'init' | 'register' | 'boot',
   ): Promise<void> {
     if (this.has('dependsOn')) {
-      Array.from(this.get('dependsOn')).map(async pkgName => {
-        if (!this.app.extensions.has(pkgName))
-          await this.app.extensions.import(pkgName)
+      await Promise.all(
+        Array.from(this.get('dependsOn')).map(async pkgName => {
+          try {
+            if (!this.app.extensions.has(pkgName))
+              await this.app.extensions.import(pkgName)
 
-        if (this.app.extensions.has(pkgName)) {
-          await this.app.extensions.get(pkgName)[method]()
-        }
-      })
+            if (this.app.extensions.has(pkgName)) {
+              await this.app.extensions.get(pkgName)[method]()
+            }
+          } catch (error) {
+            this.app.error(
+              `before calling \`${method}\` ${this.get(
+                'label',
+              )} tried to import \`${pkgName}\` but encountered an error.`,
+              error,
+            )
+          }
+        }),
+      )
     }
   }
 
@@ -183,6 +194,13 @@ export class Controller<
   }
 
   @bind
+  public async beforeBuild(): Promise<unknown> {
+    const enabled = await this.isEnabled()
+    if (!enabled) return
+    await this.module._beforeBuild()
+  }
+
+  @bind
   public async make(): Promise<{apply: any} | false> {
     const enabled = await this.isEnabled()
 
@@ -209,6 +227,7 @@ export class Controller<
   public async isEnabled(): Promise<boolean> {
     if (this.module.when)
       return await this.module.when(this.module.options ?? {}, this.app)
+
     return true
   }
 }

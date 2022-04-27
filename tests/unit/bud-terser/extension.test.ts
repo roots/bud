@@ -34,10 +34,6 @@ describe('@roots/bud-terser', () => {
     })
   })
 
-  it('has boot prop', () => {
-    expect(controller.module.boot).toBeInstanceOf(Function)
-  })
-
   it('exposes self @ bud.terser', async () => {
     await bud.extensions.add([BudTerser])
     expect(bud.terser).toBeInstanceOf(BudTerser)

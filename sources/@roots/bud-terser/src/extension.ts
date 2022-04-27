@@ -5,7 +5,7 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
-import TerserPlugin from 'terser-webpack-plugin'
+import type TerserPlugin from 'terser-webpack-plugin'
 
 type Options = TerserPlugin.BasePluginOptions & {
   minify?: TerserPlugin.MinimizerImplementation<any>
@@ -30,16 +30,50 @@ type Options = TerserPlugin.BasePluginOptions & {
 })
 export default class Terser extends Extension<Options> {
   @bind
-  public async boot() {
-    this.app.hooks.on('build.optimization.minimizer', minimizer => {
-      minimizer.push(new TerserPlugin(this.options))
-      return minimizer
-    })
+  public dropConsole(enable: boolean = true): this {
+    this.options.terserOptions.compress = {
+      ...(this.options.terserOptions.compress ?? {}),
+      drop_console: enable,
+    }
+    return this
   }
 
   @bind
-  public config(options: Options) {
-    this.options = options
-    return this.app
+  public dropComments(enable: boolean = true): this {
+    this.options.terserOptions.output = {
+      ...(this.options.terserOptions.output ?? {}),
+      comments: !enable,
+    }
+    return this
+  }
+
+  @bind
+  public comments(enable: boolean = true): this {
+    this.options.terserOptions.output = {
+      ...(this.options.terserOptions.output ?? {}),
+      comments: enable,
+    }
+    return this
+  }
+
+  @bind
+  public mangle(mangle: Options['terserOptions']['mangle']): this {
+    this.options.terserOptions.mangle = mangle
+
+    return this
+  }
+
+  @bind
+  public async beforeBuild() {
+    if (!this.app.hooks.filter('build.optimization.minimize')) return
+
+    const {default: TerserPlugin} = await this.import(
+      'terser-webpack-plugin',
+    )
+
+    this.app.hooks.on('build.optimization.minimizer', minimizer => {
+      minimizer.push(new TerserPlugin(this.options))
+      return minimizer.filter(item => item !== '...')
+    })
   }
 }
