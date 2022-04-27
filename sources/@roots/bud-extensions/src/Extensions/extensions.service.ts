@@ -251,6 +251,17 @@ export class Extensions extends Service implements Contract.Service {
     }, Promise.resolve(true))
   }
 
+  @bind
+  public async beforeBuild(): Promise<unknown> {
+    return await Promise.all(
+      Object.values(this.repository).map(
+        async (controller: Controller<any, any>) => {
+          await controller.beforeBuild()
+        },
+      ),
+    )
+  }
+
   /**
    * Returns an array of plugin instances which have been registered to the
    * container and are set to be used in the compilation

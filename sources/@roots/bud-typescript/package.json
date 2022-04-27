@@ -32,6 +32,9 @@
   "engines": {
     "node": ">=14"
   },
+  "bud": {
+    "type": "extension"
+  },
   "files": [
     "lib/",
     "types/",
@@ -39,12 +42,28 @@
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
-  "exports": {
-    ".": "./lib/cjs/index.js"
-  },
   "types": "./types/index.d.ts",
-  "bud": {
-    "type": "extension"
+  "exports": {
+    ".": "./lib/cjs/index.js",
+    "./extension": "./lib/cjs/extension.js",
+    "./typecheck": "./lib/cjs/typecheck/index.js",
+    "./typecheck/extension": "./lib/cjs/typecheck/extension.js"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./types/index.d.ts"
+      ],
+      "extension": [
+        "./types/extension.d.ts"
+      ],
+      "typecheck": [
+        "./types/typecheck/index.d.ts"
+      ],
+      "typecheck/extension": [
+        "./types/typecheck/extension.d.ts"
+      ]
+    }
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
@@ -54,7 +73,8 @@
   },
   "dependencies": {
     "@babel/core": "^7.16.0",
-    "@roots/bud-support": "workspace:sources/@roots/bud-support",
+    "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
+    "@types/webpack-env": "^1.16.3",
     "fork-ts-checker-webpack-plugin": "^7.2.6",
     "ts-loader": "^9.2.8",
     "ts-node": "^10.7.0",
@@ -62,9 +82,13 @@
     "typescript": "^4.6.3"
   },
   "peerDependencies": {
+    "ts-node": "*",
     "typescript": "*"
   },
   "peerDependenciesMeta": {
+    "ts-node": {
+      "optional": true
+    },
     "typescript": {
       "optional": true
     }

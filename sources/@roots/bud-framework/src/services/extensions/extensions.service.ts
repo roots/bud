@@ -65,6 +65,8 @@ export interface Service extends BaseService {
     methodName: 'make' | 'register' | 'boot' | 'init',
   ): unknown
 
+  beforeBuild(): Promise<unknown>
+
   /**
    * Returns array of {@link PluginInstance}s
    *

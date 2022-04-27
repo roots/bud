@@ -28,6 +28,12 @@ class BudEslint extends Extension<Options, EslintPlugin> {
 
     return this.app
   }
+
+  @bind
+  public fix(fix: boolean = true): this {
+    this.options.fix = fix
+    return this
+  }
 }
 
 export default BudEslint
