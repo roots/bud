@@ -14,7 +14,7 @@ describe('bud.assets', function () {
 
   it('copy-webpack-plugin exists', () => {
     expect(bud.extensions.has('copy-webpack-plugin')).toBeTruthy()
-    logger.log(bud.extensions.get('copy-webpack-plugin').module.options)
+    logger.log(bud.extensions.get('copy-webpack-plugin').options)
   })
 
   /**

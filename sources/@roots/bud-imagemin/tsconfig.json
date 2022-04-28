@@ -4,7 +4,8 @@
     "baseUrl": ".",
     "rootDir": "./src",
     "outDir": "./lib/cjs",
-    "declarationDir": "./types"
+    "declarationDir": "./types",
+    "types": ["@roots/bud-framework"]
   },
   "include": ["./src"],
   "references": [

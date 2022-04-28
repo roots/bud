@@ -4,12 +4,12 @@ import esbuild from '@roots/bud-esbuild'
 
 describe('@roots/bud-esbuild', () => {
   let bud: Bud
-  let controller: any
+  let extension: any
 
   beforeAll(async () => {
     bud = await factory()
     await bud.extensions.add(esbuild)
-    controller = bud.extensions.get('@roots/bud-esbuild')
+    extension = bud.extensions.get('@roots/bud-esbuild')
     await bud.build.make()
   })
 
@@ -21,11 +21,11 @@ describe('@roots/bud-esbuild', () => {
 
   describe('module boot', () => {
     it('has label prop', () => {
-      expect(controller.get('label')).toBe('@roots/bud-esbuild')
+      expect(extension.get('label')).toBe('@roots/bud-esbuild')
     })
 
     it('is a method', () => {
-      expect(controller.module.boot).toBeInstanceOf(Function)
+      expect(extension.boot).toBeInstanceOf(Function)
     })
 
     it('registers js ruleset item', () => {
@@ -36,7 +36,7 @@ describe('@roots/bud-esbuild', () => {
 
     it('registers js ruleset item options', () => {
       expect(bud.build.items['esbuild-js'].getOptions()).toEqual(
-        controller.getOption('js'),
+        extension.getOption('js'),
       )
     })
 
@@ -54,7 +54,7 @@ describe('@roots/bud-esbuild', () => {
 
     it('registers ts ruleset item options', () => {
       expect(bud.build.items['esbuild-ts'].getOptions()).toEqual(
-        controller.module.options.ts,
+        extension.options.ts,
       )
     })
 
@@ -71,13 +71,11 @@ describe('@roots/bud-esbuild', () => {
 
   describe('module options', () => {
     it('is a method', () => {
-      expect(controller.module.options).toBeDefined()
+      expect(extension.options).toBeDefined()
     })
 
     it('yields expected options', async () => {
-      const options = controller.module.options
-
-      expect(options).toEqual({
+      expect(extension.options).toEqual({
         minify: {
           css: true,
           include: [expect.any(RegExp), expect.any(RegExp)],

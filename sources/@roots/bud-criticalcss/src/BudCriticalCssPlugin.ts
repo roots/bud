@@ -12,7 +12,7 @@ import {critical} from './critical'
  * @public
  */
 export interface BudCriticalCss
-  extends Extension<Partial<Options>, CriticalCssWebpackPlugin> {}
+  extends Extension<Options, CriticalCssWebpackPlugin> {}
 
 /**
  * Adds critical css webpack plugin to compilation
@@ -22,7 +22,7 @@ export interface BudCriticalCss
 export const BudCriticalCss: BudCriticalCss = {
   label: '@roots/bud-criticalcss',
   options: {},
-  register: async (options, {api}) => api.bindFacade('critical', critical),
+  register: async (_, {api}) => api.bindFacade('critical', critical),
   plugin: CriticalCssWebpackPlugin,
-  when: async (options, app) => app.isProduction,
+  when: async (_, app) => app.isProduction,
 }

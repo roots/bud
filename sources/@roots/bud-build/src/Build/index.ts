@@ -66,7 +66,7 @@ export class Build extends Bud.Service implements Bud.Build.Service {
   @bind
   public async make(): Promise<Configuration> {
     await this.app.hooks.fire('event.build.before')
-    await this.app.extensions.beforeBuild()
+    await this.app.extensions.runAll('_beforeBuild')
 
     await Promise.all(
       [

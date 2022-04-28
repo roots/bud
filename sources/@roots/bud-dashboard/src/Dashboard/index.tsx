@@ -14,6 +14,10 @@ import {stats} from './stats'
 export class Dashboard extends Service implements Base.Service {
   protected hash: string
 
+  protected jsonStats: StatsCompilation
+
+  protected stringStats: string
+
   protected dashboardLogger: Signale = instance
 
   protected progress: [number, string] = [0, ``]
@@ -26,16 +30,34 @@ export class Dashboard extends Service implements Base.Service {
    */
   @bind
   public stats(compilerStats: StatsCompilation): void {
-    const jsonStats = compilerStats.toJson(),
-      stringStats = compilerStats.toString()
+    if (!compilerStats) return
 
-    if (jsonStats.hash === this.hash) return
+    this.jsonStats = compilerStats.toJson()
+    this.stringStats = compilerStats.toString()
 
-    this.hash = jsonStats.hash
-    this.app.context.args.ci
-      ? // eslint-disable-next-line no-console
-        this.app.context.stdout.write(`\n${stringStats}\n`)
-      : stats.write(jsonStats, this.app)
+    if (!this.jsonStats) {
+      this.renderCI()
+      return
+    }
+
+    if (this.jsonStats.hash === this.hash) return
+    this.hash = this.jsonStats.hash
+
+    this.app.context.args.ci ? this.renderCI() : this.render()
+  }
+
+  @bind
+  public renderCI() {
+    this.app.context.stdout.write(`\n${this.stringStats}\n`)
+  }
+
+  @bind
+  public render() {
+    try {
+      stats.write(this.jsonStats, this.app)
+    } catch {
+      this.renderCI()
+    }
   }
 
   /**

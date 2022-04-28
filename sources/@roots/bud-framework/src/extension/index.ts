@@ -1,16 +1,51 @@
 import {bind, lodash as _, Signale} from '@roots/bud-support'
 
-import {ModuleDefinitions} from '../'
 import {Bud} from '../bud'
-import {Controllers, Modules} from '../registry'
+import {Modules} from '../registry'
 import {Options} from './types'
 
 export class Extension<E = any, Plugin = any> {
   public _app?: () => Bud
   public app?: Bud
 
-  protected _options?: Options.FuncMap<E>
-  public options?: Options<E>
+  protected _options?: Options.FuncMap<E> = {}
+  public readonly options?: Options<E>
+
+  public meta? = {}
+
+  /**
+   * The module name
+   *
+   * @public
+   */
+  public label?: keyof Modules & string
+
+  /**
+   * Depends on
+   *
+   * @public
+   */
+  public dependsOn?: Set<`${keyof Modules & string}`>
+
+  /**
+   * Boolean or a function returning a boolean indicating if the {@link Extension} should be utilized.
+   *
+   * @remarks
+   * If a factory is implemented, it will be passed the {@link Bud} instance as its first parameter and
+   * a {@link Container} instance holding the {@link Extension.options} (if any) as the second parameter.
+   *
+   * Do note that this is not the same parameter order as {@link Extension.make}. That's because it is more common
+   * to check the state of the {@link Bud} in the {@link Extension.when} callback than the {@link Extension.options}
+   * (ie Checking the {@link Bud.isProduction} state).
+   *
+   * @public
+   */
+  public when?(options: Options<E>, app: Bud): Promise<boolean>
+
+  /**
+   * Plugin constructor
+   */
+  public plugin?: new (options: Options<E>) => Plugin
 
   @bind
   public async _init?() {
@@ -53,53 +88,16 @@ export class Extension<E = any, Plugin = any> {
 
   @bind
   public async _make?() {
-    if (this.make) {
-      this.logger.log('making')
-      return await this.make(this.options ?? {}, this.app)
-    }
+    const enabled = await this.isEnabled()
 
-    return false
+    if (enabled === false || (!this.make && !this.apply && !this.plugin))
+      return false
+
+    if (this.plugin) return new this.plugin(this.options ?? {})
+
+    if (this.apply) return this as {apply: any}
   }
   public async make?(options?: Options<E>, app?: Bud): Promise<Plugin>
-
-  /**
-   * The module name
-   *
-   * @public
-   */
-  public label?: (
-    | keyof Modules
-    | keyof Controllers
-    | keyof ModuleDefinitions
-  ) &
-    string
-
-  /**
-   * Depends on
-   *
-   * @public
-   */
-  public dependsOn?: Set<`${keyof Modules & string}`>
-
-  /**
-   * Boolean or a function returning a boolean indicating if the {@link Module} should be utilized.
-   *
-   * @remarks
-   * If a factory is implemented, it will be passed the {@link Bud} instance as its first parameter and
-   * a {@link Container} instance holding the {@link Module.options} (if any) as the second parameter.
-   *
-   * Do note that this is not the same parameter order as {@link Module.make}. That's because it is more common
-   * to check the state of the {@link Bud} in the {@link Module.when} callback than the {@link Module.options}
-   * (ie Checking the {@link Bud.isProduction} state).
-   *
-   * @public
-   */
-  public when?(options: Options<E>, app: Bud): Promise<boolean>
-
-  /**
-   * Plugin constructor
-   */
-  public plugin?: new (options: Options<E>) => Plugin
 
   /**
    * Compiler plugin `apply` method
@@ -143,53 +141,8 @@ export class Extension<E = any, Plugin = any> {
     })
 
     Object.defineProperty(this, 'options', {
-      get: (() =>
-        function (): Options<E> {
-          if (!this._options) this._options = {}
-          return Object.entries(this._options).reduce(
-            this.fromOptionsMap,
-            {},
-          )
-        }.bind(this))(),
-
-      set: (() =>
-        function (value: Options.FuncMap<Options<E>>) {
-          this._options = Object.entries(value).reduce(
-            this.toOptionsMap,
-            {},
-          )
-        }.bind(this))(),
+      get: this.getOptions,
     })
-  }
-
-  @bind
-  public fromObject?(extensionObject: Extension): this {
-    Object.entries(extensionObject).map(([k, v]) => {
-      this.set(k, v)
-    })
-    return this
-  }
-
-  @bind
-  public toOptionsMap?<K extends `${keyof Extension['options'] & string}`>(
-    funcMap: Options.FuncMap<Options<E>> = {},
-    [key, value]: [K, Extension['options'][K] | Extension['_options'][K]],
-  ): Options.FuncMap<Options<E>> {
-    return {
-      ...funcMap,
-      [key]: _.isFunction(value) ? value : () => value,
-    }
-  }
-
-  @bind
-  public fromOptionsMap?<K extends `${Extension['_options'] & string}`>(
-    options: Options<E>,
-    [key, value]: [K, Extension['_options'][K]],
-  ): Options<E> {
-    return {
-      ...(options ?? {}),
-      [key]: _.isFunction(value) ? value(this.app) : value,
-    }
   }
 
   @bind
@@ -205,18 +158,68 @@ export class Extension<E = any, Plugin = any> {
 
   @bind
   public getOptions?(): Options<E> {
-    return this.options
+    return Object.entries(this._options).reduce(this.fromOptionsMap, {})
   }
 
   @bind
-  public setOptions?(options: Options<E>): this {
-    this.options = options
+  public setOptions?(
+    value: Options<E> | ((value: Options<E>) => Options<E>),
+  ): this {
+    this._options = _.isFunction(value) ? value(this.options) : value
+    return this
+  }
+
+  @bind
+  public getOption?<K extends keyof Options<E>>(
+    key: K,
+  ): Options<E>[K & string] {
+    return _.get(this, `options.${key}`)
+  }
+
+  @bind
+  public setOption?<K extends keyof Options<E>>(
+    key: K & string,
+    option: Options<E>[K & string],
+  ): this {
+    _.set(this, `_options.${key}`, option)
+    return this
+  }
+
+  @bind
+  protected toOptionsMap?<K extends keyof Options<E>>(
+    funcMap: Options.FuncMap<Options<E>> = {},
+    [key, value]: [K & string, Options<E>[K & string]],
+  ): Options.FuncMap<Options<E>> {
+    return {
+      ...funcMap,
+      [key]: _.isFunction(value) ? value : () => value,
+    }
+  }
+
+  @bind
+  protected fromOptionsMap?<K extends keyof Options<E>>(
+    options: Options<E>,
+    [key, value]: [K & string, Options<E>[K & string]],
+  ): Options<E> {
+    return {
+      ...(options ?? {}),
+      [key]: _.isFunction(value) ? value(this.app) : value,
+    }
+  }
+
+  @bind
+  public fromObject?(extensionObject: Extension): this {
+    Object.entries(extensionObject).map(([k, v]) => {
+      this.set(k, v)
+    })
+    extensionObject.options && this.setOptions(extensionObject.options)
+
     return this
   }
 
   @bind
   public has?<K extends keyof Extension>(key: K): boolean {
-    return this[key] ? true : false
+    return _.has(this, key)
   }
 
   @bind
@@ -256,6 +259,17 @@ export class Extension<E = any, Plugin = any> {
   @bind
   public enable?() {
     this.when = async () => true
+  }
+
+  /**
+   * Value determining if the extension should be utilized
+   *
+   * @public
+   */
+  @bind
+  public async isEnabled?(): Promise<boolean> {
+    if (this.when) return await this.when(this.options ?? {}, this.app)
+    return true
   }
 
   @bind

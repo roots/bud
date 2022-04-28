@@ -6,7 +6,7 @@ import * as box from './box.factory'
 import * as table from './table.factory'
 import {theme} from './theme'
 
-const assetColor = asset =>
+const assetColor = (asset: StatsAsset) =>
   asset.info.error
     ? theme.red
     : asset.info.warning
@@ -15,77 +15,111 @@ const assetColor = asset =>
     ? theme.green
     : theme.dim
 
-const assetIcon = asset =>
+const assetIcon = (asset: StatsAsset) =>
   asset.info.minimized && asset.emitted
-    ? `⚡`
+    ? figures.circleFilled
     : asset.emitted
-    ? figures.tick
+    ? figures.circle
     : asset.info.error
     ? figures.cross
     : asset.info.warning
     ? figures.warning
-    : figures.tick
+    : figures.circleDotted
 
 export const status = (asset: StatsAsset) =>
   chalk.hex(assetColor(asset))(assetIcon(asset))
 
-export const name = asset =>
-  chalk.hex(assetColor(asset))(
+export const name = (asset: StatsAsset) =>
+  chalk.hex(!asset.emitted ? theme.dim : theme.foregroundColor)(
     asset.info.hotModuleReplacement
-      ? (asset.info.sourceFilename ?? asset.name).split(`.`)[0]
-      : asset.info.sourceFilename ?? asset.name,
+      ? asset.name.split(`.`)[0]
+      : asset.name,
   )
 
-export const chunk = asset =>
+export const chunk = (asset: StatsAsset) =>
   chalk.hex(assetColor(asset))(
     asset.chunkNames.length ? asset.chunkNames.join(` `) : `᠃`,
   )
 
-export const size = asset =>
-  chalk.hex(asset.emitted ? theme.foregroundColor : theme.dim)(
-    humanReadable.sizeFormatter()(asset.info.size),
-  )
+export const size = (asset: StatsAsset) =>
+  chalk.hex(theme.dim)(humanReadable.sizeFormatter()(asset.info.size))
 
-export const hot = compilation =>
+export const hot = (compilation: StatsCompilation) =>
   compilation.assets.filter(
     asset =>
       asset.name.endsWith(`.js`) && asset.name?.includes(`hot-update`),
   ) ?? []
 
-export const statics = compilation => [
-  ...(compilation.assets.filter(
+export const statics = (compilation: StatsCompilation) => {
+  const list = compilation.assets.filter(
     asset =>
       ![`js`, `css`].includes(asset.name.split('.').pop()) &&
       !asset.name?.includes(`hot-update`),
-  ) ?? []),
-]
+  )
 
-export const assets = compilation =>
+  return list
+}
+
+export const assets = (compilation: StatsCompilation) =>
   compilation.assets.filter(
     asset =>
       asset.name?.endsWith(`.css`) ||
       (asset.name?.endsWith(`.js`) && !asset.name?.includes('hot-update')),
   ) ?? []
 
-export const time = time =>
+export const time = (time: StatsAsset['time'] & string) =>
   humanReadable.durationFormatter({
     allowMultiples: ['s', 'ms'],
   })(time)
 
-export const assetGroup = assets =>
+export const assetGroup = (assets: StatsCompilation['assets']) =>
   assets?.length
     ? assets.map(asset => [status(asset), name(asset), size(asset)])
     : []
 
-export const report = (compilation: StatsCompilation) => [
-  table.make([[chalk.hex(theme.cyan)(`${compilation.name}`)]]),
-  table.make(assetGroup(assets(compilation)).filter(Boolean)),
-  assets?.length
-    ? table.make([
-        [chalk.hex(theme.dim).italic(`+ ${assets.length} static assets`)],
-      ])
-    : [],
-]
+export const report = ({
+  appName,
+  count,
+  context,
+  compilation,
+}: {
+  appName: string
+  count: [number, number]
+  context: Bud['context']
+  compilation: StatsCompilation
+}) => {
+  const assetTable = table.make(
+    assetGroup(assets(compilation)).filter(Boolean),
+  )
+
+  const staticGroup = statics(compilation)
+  const staticDisplay = staticGroup.splice(0, 5)
+  const staticTable = table.make(assetGroup(staticDisplay).filter(Boolean))
+
+  return [
+    box.make(
+      `[${count[0]}/${count[1]}] ${compilation.outputPath.replace(
+        context.projectDir,
+        '.',
+      )}`,
+      [
+        assetTable,
+        staticDisplay?.length
+          ? staticGroup.length
+            ? [
+                staticTable,
+                chalk.italic.dim(
+                  `+ ${staticGroup.length} additional static assets\n`,
+                ),
+              ].join('')
+            : staticTable
+          : null,
+      ]
+        .filter(Boolean)
+        .join(''),
+    ),
+  ]
+}
 
 export const timing = (app: Bud, compilation: StatsCompilation) => [
   table.make([
@@ -192,9 +226,9 @@ export const framework = (app: Bud) => [
         .map(chunk =>
           [
             ...chunk.map(
-              controller =>
+              extension =>
                 `${chalk.hex(theme.cyan)(
-                  `\`${controller.get('label')?.toLowerCase()}\``,
+                  `\`${extension.label?.toLowerCase()}\``,
                 )}`,
             ),
             ...Array(1).fill(``),

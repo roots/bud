@@ -61,7 +61,6 @@ export {
 export type Mode = 'production' | 'development'
 export {Locations} from './registry/locations'
 export {
-  Controllers,
   Modules,
   Definitions as ModuleDefinitions,
 } from './registry/modules'

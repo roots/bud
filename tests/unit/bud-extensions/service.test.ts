@@ -38,7 +38,7 @@ describe('Extensions', function () {
 
     await extensions.add(mockModule)
 
-    expect(extensions.get(mockModule.label).module.options.test).toEqual(
+    expect(extensions.get(mockModule.label).options.test).toEqual(
       mockModule.options.test,
     )
   })

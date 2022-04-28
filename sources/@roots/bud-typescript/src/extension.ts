@@ -12,7 +12,6 @@ import {
 export default class BudTypeScript extends Extension {
   public get typecheck() {
     return this.app.extensions.get('@roots/bud-typescript/typecheck')
-      .module
   }
 
   @bind

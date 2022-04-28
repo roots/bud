@@ -1,7 +1,5 @@
-import {Extension, ModuleDefinitions} from '../..'
-import {Controllers, Modules} from '../../registry'
+import {Extension, Modules} from '../..'
 import {Service as BaseService} from '../../service'
-import {Controller} from './controller'
 
 /**
  * Container service for {@link Bud} extensions.
@@ -15,19 +13,15 @@ import {Controller} from './controller'
  * @public
  */
 export interface Service extends BaseService {
-  repository: Controllers
+  repository: Modules
 
-  has<K extends keyof this['repository']>(key: K): boolean
+  has<K extends keyof Modules>(key: K & string): boolean
 
-  get<K extends keyof this['repository']>(
-    key: K & string,
-  ): Controller<Modules[K & string], ModuleDefinitions[K & string]>
+  get<K extends keyof Modules>(key: K & string): Modules[K & string]
 
-  remove<K extends keyof this['repository']>(key: K): this
+  remove<K extends keyof Modules>(key: K & string): this
 
-  set<K extends keyof this['repository']>(
-    value: Controller<Modules[K & string], ModuleDefinitions[K & string]>,
-  ): this
+  set<K extends keyof Modules>(value: Modules[K & string]): this
 
   /**
    * Add an extension
@@ -41,7 +35,7 @@ export interface Service extends BaseService {
       | Array<Extension.Constructor | Partial<Extension>>,
   ): Promise<unknown>
 
-  import(packageName: string): Promise<Controller>
+  import(input: Record<string, any> | string): Promise<Extension>
 
   /**
    * Install and register discovered extensions
@@ -50,22 +44,19 @@ export interface Service extends BaseService {
    */
   injectExtensions(): unknown
 
-  /**
-   * @public
-   */
-  withController<K extends keyof this['repository']>(
-    controller: K & string,
-    methodName: 'init' | 'register' | 'boot' | 'make',
-  ): unknown
+  runAll(
+    methodName: '_init' | '_register' | '_boot' | '_beforeBuild' | '_make',
+  ): Promise<Array<void>>
 
-  /**
-   * @public
-   */
-  withAllControllers(
-    methodName: 'make' | 'register' | 'boot' | 'init',
-  ): unknown
+  run<K extends Modules>(
+    extension: Modules[K & string],
+    methodName: '_init' | '_register' | '_boot' | '_beforeBuild' | '_make',
+  ): Promise<this>
 
-  beforeBuild(): Promise<unknown>
+  runDependencies<K extends Modules>(
+    extension: Modules[K & string],
+    methodName: '_init' | '_register' | '_boot' | '_beforeBuild' | '_make',
+  ): Promise<void>
 
   /**
    * Returns array of {@link PluginInstance}s
