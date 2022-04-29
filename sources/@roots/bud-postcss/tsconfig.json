@@ -5,26 +5,12 @@
     "rootDir": "./src",
     "outDir": "./lib/cjs",
     "declarationDir": "./types",
-    "types": [
-      "node",
-      "@roots/bud-build",
-      "@roots/bud-framework"
-    ]
+    "types": ["node", "@roots/bud-api", "@roots/bud-framework"]
   },
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "lib",
-    "node_modules",
-    "types"
-  ],
+  "include": ["./src"],
+  "exclude": ["./lib", "./types", "./node_modules"],
   "references": [
-    {
-      "path": "./../bud-build/tsconfig.json"
-    },
-    {
-      "path": "./../bud-framework/tsconfig.json"
-    }
+    {"path": "../bud-api/tsconfig.json"},
+    {"path": "../bud-framework/tsconfig.json"}
   ]
 }

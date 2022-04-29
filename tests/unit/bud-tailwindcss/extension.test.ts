@@ -1,25 +1,32 @@
-import '@roots/bud-postcss'
-
 import {Bud, factory} from '@repo/test-kit/bud'
-import {BudPostCssExtension} from '@roots/bud-postcss/src/postcss.extension'
-import * as BudTailwindCssExtension from '@roots/bud-tailwindcss'
+import BudTailwindCssExtension from '@roots/bud-tailwindcss'
 
 describe('@roots/bud-tailwindcss', () => {
   let bud: Bud
+  let instance: BudTailwindCssExtension
 
   beforeAll(async () => {
     bud = await factory()
+    instance = new BudTailwindCssExtension(bud)
   })
 
   it('has name prop', () => {
-    expect(BudTailwindCssExtension.name).toBe('@roots/bud-tailwindcss')
+    expect(instance.label).toBe('@roots/bud-tailwindcss')
+  })
+
+  it('queues up postcss', async () => {
+    const bud = await factory()
+    await bud.extensions.add(BudTailwindCssExtension)
+    expect(bud.extensions.has('@roots/bud-postcss'))
   })
 
   it('sets up postcss plugins', async () => {
-    bud.use([BudPostCssExtension, BudTailwindCssExtension])
-    await bud.api.processQueue()
+    const bud = await factory()
 
-    expect(bud.postcss.getKeys()).toEqual([
+    await bud.extensions.add(BudTailwindCssExtension)
+    const plugins = [...bud.postcss.plugins.keys()]
+
+    expect(plugins).toEqual([
       'postcss-import',
       'tailwindcss-nesting',
       'tailwindcss',

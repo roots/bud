@@ -9,22 +9,25 @@ import {BaseCommand} from './base.js'
 
 const {isUndefined} = lodash
 
+const fallback = (
+  test: any | undefined,
+  value: any | undefined,
+  fallback: any,
+) => (isUndefined(test) ? fallback : value)
+
 /**
  * Build command
- *
  * @public
  */
 export class BuildCommand extends BaseCommand {
   /**
    * Command paths
-   *
    * @public
    */
   public static paths = [[`build`]]
 
   /**
    * Command usage
-   *
    * @public
    */
   public static usage = Command.Usage({
@@ -53,6 +56,7 @@ export class BuildCommand extends BaseCommand {
       t.isLiteral('production'),
       t.isLiteral('development'),
     ]),
+    env: 'BUILD_MODE',
   })
 
   /**
@@ -67,13 +71,7 @@ export class BuildCommand extends BaseCommand {
       t.isLiteral(true),
       t.isLiteral(false),
     ]),
-  })
-
-  /**
-   * --ci
-   */
-  public ci = Option.Boolean(`--ci`, undefined, {
-    description: `Run in CI mode (disables keyboard input handlers).`,
+    env: 'BUILD_CACHE',
   })
 
   /**
@@ -81,6 +79,13 @@ export class BuildCommand extends BaseCommand {
    */
   public clean = Option.Boolean(`--clean`, undefined, {
     description: `Clean artifacts and distributables prior to compilation`,
+  })
+
+  /**
+   * --ci
+   */
+  public ci = Option.Boolean(`--ci`, undefined, {
+    description: `Simple build summaries for CI`,
   })
 
   /**
@@ -98,8 +103,35 @@ export class BuildCommand extends BaseCommand {
   /**
    * --devtool
    */
-  public devtool = Option.Boolean(`--devtool`, undefined, {
+  public devtool = Option.String(`--devtool`, undefined, {
     description: `Set devtool option`,
+    validator: t.isOneOf([
+      t.isLiteral(false),
+      t.isLiteral('eval'),
+      t.isLiteral('eval-cheap-source-map'),
+      t.isLiteral('eval-cheap-module-source-map'),
+      t.isLiteral('eval-source-map'),
+      t.isLiteral('cheap-source-map'),
+      t.isLiteral('cheap-module-source-map'),
+      t.isLiteral('source-map'),
+      t.isLiteral('inline-cheap-source-map'),
+      t.isLiteral('inline-cheap-module-source-map'),
+      t.isLiteral('inline-source-map'),
+      t.isLiteral('eval-nosources-cheap-source-map'),
+      t.isLiteral('eval-nosources-cheap-modules-source-map'),
+      t.isLiteral('eval-nosources-source-map'),
+      t.isLiteral('inline-nosources-cheap-source-map'),
+      t.isLiteral('inline-nosources-cheap-module-source-map'),
+      t.isLiteral('inline-nosources-source-map'),
+      t.isLiteral('nosources-cheap-source-map'),
+      t.isLiteral('nosources-cheap-module-source-map'),
+      t.isLiteral('hidden-nosources-cheap-source-map'),
+      t.isLiteral('hidden-nosources-cheap-module-source-map'),
+      t.isLiteral('hidden-nosources-source-map'),
+      t.isLiteral('hidden-cheap-source-map'),
+      t.isLiteral('hidden-cheap-module-source-map'),
+      t.isLiteral('hidden-source-map'),
+    ]),
   })
 
   /**
@@ -150,6 +182,7 @@ export class BuildCommand extends BaseCommand {
    */
   public storage = Option.String(`--storage`, undefined, {
     description: 'Storage directory (relative to project)',
+    env: 'BUILD_PATH_STORAGE',
   })
 
   /**
@@ -185,6 +218,7 @@ export class BuildCommand extends BaseCommand {
    */
   public modules = Option.String(`--modules`, undefined, {
     description: 'Module resolution path',
+    env: 'BUILD_PATH_MODULES',
   })
 
   /**
@@ -192,6 +226,21 @@ export class BuildCommand extends BaseCommand {
    */
   public notify = Option.Boolean(`--notify`, true, {
     description: 'Enable notfication center messages',
+  })
+
+  /**
+   * --notify
+   */
+  public openBrowser = Option.Boolean(`--openBrowser`, false, {
+    description: 'Open browser on successful development build',
+  })
+
+  /**
+   * --notify
+   */
+  public openEditor = Option.Boolean(`--openEditor`, false, {
+    description:
+      'Open editor to file containing errors on unsuccessful development build',
   })
 
   /**
@@ -206,6 +255,7 @@ export class BuildCommand extends BaseCommand {
    */
   public publicPath = Option.String(`--publicPath`, undefined, {
     description: 'public path of emitted assets',
+    env: 'APP_PUBLIC_PATH',
   })
 
   /**
@@ -259,44 +309,62 @@ export class BuildCommand extends BaseCommand {
       'modules',
       'notify',
       'overlay',
+      'openBrowser',
+      'openEditor',
       'publicPath',
       'src',
       'splitChunks',
       'target',
       'verbose',
     ].map(arg => {
-      this.context.args[arg] = isUndefined(arg) ? null : this[arg]
+      this.context.args[arg] = fallback(this[arg], this[arg], null)
     })
 
     this.app = await factory({
       name: 'bud',
       mode: this.mode,
       context: this.context,
-      config: {
-        'build.output.publicPath': isUndefined(this.publicPath)
-          ? seed['build.output.publicPath']
-          : () => this.publicPath,
-        'features.inject': isUndefined(this.inject)
-          ? seed['features.inject']
-          : this.inject,
-        'features.log': isUndefined(this.log)
-          ? seed['features.log']
-          : this.log,
-        'features.manifest': isUndefined(this.manifest)
-          ? seed['features.manifest']
-          : this.manifest,
-        location: {
-          '@src': isUndefined(this.src) ? seed.location['@src'] : this.src,
-          '@dist': isUndefined(this.dist)
-            ? seed.location['@dist']
-            : this.dist,
-          '@storage': isUndefined(this.storage)
-            ? seed.location['@storage']
-            : this.storage,
-          '@modules': isUndefined(this.modules)
-            ? seed.location['@modules']
-            : this.modules,
-        },
+      seed: {
+        'build.output.publicPath': fallback(
+          this.publicPath,
+          [() => this.publicPath],
+          seed['build.output.publicPath'],
+        ),
+        'feature.inject': fallback(
+          this.inject,
+          [() => this.inject],
+          seed['feature.inject'],
+        ),
+        'feature.log': fallback(
+          this.log,
+          [() => this.log],
+          seed['feature.log'],
+        ),
+        'feature.manifest': fallback(
+          this.manifest,
+          [() => this.manifest],
+          seed['feature.manifest'],
+        ),
+        'location.@src': fallback(
+          this.src,
+          [() => this.src],
+          seed['location.@src'],
+        ),
+        'location.@dist': fallback(
+          this.dist,
+          [() => this.dist],
+          seed['location.@dist'],
+        ),
+        'location.@storage': fallback(
+          this.storage,
+          [() => this.storage],
+          seed['location.@storage'],
+        ),
+        'location.@modules': fallback(
+          this.modules,
+          [() => this.modules],
+          seed['location.@modules'],
+        ),
       },
     })
 

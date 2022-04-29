@@ -161,11 +161,11 @@ export class Container<I = any> {
    * @decorator `@bind`
    */
   @bind
-  public get<T = any>(key: string) {
+  public get<T = any>(key: string | Array<string>) {
     return _.get(this.repository, key) as T
   }
 
-  /**
+  /**w
    * Returns a repository key and value as a tuple
    *
    * @remarks

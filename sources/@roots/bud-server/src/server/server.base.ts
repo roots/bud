@@ -1,15 +1,27 @@
-import {Framework, Server} from '@roots/bud-framework'
-import {Connection} from '@roots/bud-framework/src/Server/Connection'
-import {bind, getPort, Signale} from '@roots/bud-support'
+import {Bud, Server} from '@roots/bud-framework'
+import type {Connection} from '@roots/bud-framework/types/services/server/connection'
+import {bind, Signale} from '@roots/bud-support'
 import {IncomingMessage, Server as HttpServer} from 'http'
 import {Server as HttpsServer} from 'https'
 import {ServerResponse} from 'webpack-dev-middleware'
 
 /**
- * HTTP Server
+ * Node server
  * @public
  */
 export abstract class BaseServer implements Connection {
+  /**
+   * protocol
+   * @virtual
+   * @public
+   */
+  public abstract protocol: 'http:' | 'https:'
+
+  /**
+   * Create server
+   * @virtual
+   * @public
+   */
   public abstract createServer(app: any): Promise<HttpServer | HttpsServer>
 
   /**
@@ -25,20 +37,38 @@ export abstract class BaseServer implements Connection {
   public logger: Signale
 
   /**
+   * Port
+   * @public
+   */
+  public port: number
+
+  /**
+   * Final URL
+   *
+   * @remarks
+   * For overrides: this is what the listen event will be passed
+   *
+   * @public
+   */
+  public url: URL
+
+  /**
    * Options
    * @public
    */
-  public get options(): Server.Connection.Options {
-    return this.app.hooks.filter(`dev.options`)
+  public get options(): Server.Options {
+    return this.app.hooks.filter('dev.options')
   }
 
   /**
    * Constructor
-   * @param app - Framework
+   * @param app - Bud
    * @public
    */
-  public constructor(public app: Framework, public url: URL) {
-    this.logger = this.app.logger.instance.scope(this.url.host)
+  public constructor(public app: Bud) {
+    this.logger = this.app.logger.instance.scope(
+      this.constructor.name.toLowerCase(),
+    )
   }
 
   /**
@@ -48,10 +78,7 @@ export abstract class BaseServer implements Connection {
    */
   @bind
   public async setup() {
-    const port = await getPort({port: Number(this.url.port)})
-    this.url.port = `${port}`
-    this.app.hooks.on('dev.url', this.url)
-    this.logger.log('url', this.url)
+    this.url = this.app.hooks.filter('dev.url')
   }
 
   /**
@@ -62,7 +89,9 @@ export abstract class BaseServer implements Connection {
   @bind
   public async listen() {
     this.instance
-      .listen({port: this.url.port, host: this.url.hostname})
+      .listen({
+        port: Number(this.url.port),
+      })
       .on('listening', this.onListening)
       .on('request', this.onRequest)
       .on('error', this.onError)

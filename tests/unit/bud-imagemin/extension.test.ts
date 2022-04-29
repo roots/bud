@@ -1,10 +1,24 @@
-import * as imagemin from '@roots/bud-imagemin'
+import {Bud, factory} from '@repo/test-kit/bud'
+import imagemin from '@roots/bud-imagemin'
 
 describe('@roots/bud-imagemin', () => {
-  it('has expected exports', () => {
-    expect(imagemin.name).toBe('@roots/bud-imagemin')
-    // @ts-ignore
-    expect(imagemin.api.imagemin).toBeInstanceOf(Function)
-    expect(imagemin.boot).toBeInstanceOf(Function)
+  let bud: Bud
+
+  describe('module register', () => {
+    beforeAll(async () => {
+      bud = await factory()
+      await bud.extensions.add(imagemin)
+    })
+
+    it('exposes class through imagemin prop', () => {
+      expect(bud.imagemin).toBeInstanceOf(imagemin)
+    })
+    it('setImplementation', () => {
+      expect(bud.imagemin.setImplementation).toBeInstanceOf(Function)
+    })
+    it('setImplementation', () => {
+      bud.imagemin.setImplementation('test' as any)
+      expect(bud.imagemin.getImplementation()).toBe('test')
+    })
   })
 })

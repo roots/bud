@@ -1,29 +1,29 @@
-import {Framework, Loader as Contract} from '@roots/bud-framework'
+import {Bud, Build} from '@roots/bud-framework'
 
-import {Base} from '../shared/Base'
+import Base from '../shared/Base'
 
-export namespace Loader {
+namespace Loader {
   export type ConstructorOptions = string
 }
 
 /**
- * Framework Loader
+ * Bud Loader
  *
  * @public
  */
-export class Loader extends Base implements Contract {
+class Loader extends Base implements Build.Loader {
   /**
    * Factory returning the loader path
    *
    * @public
    */
-  public src: string | ((app: Framework) => string)
+  public src: string | ((app: Bud) => string)
 
   public getSrc() {
     return this.unwrap(this.src)
   }
 
-  public setSrc(src: string | ((app: Framework) => string)) {
+  public setSrc(src: string | ((app: Bud) => string)) {
     this.src = this.wrap(src)
     return this
   }
@@ -35,8 +35,10 @@ export class Loader extends Base implements Contract {
    *
    * @public
    */
-  public constructor(_app: () => Framework, src: string) {
+  public constructor(_app: () => Bud, src: string) {
     super(_app)
     this.src = src
   }
 }
+
+export {Loader as default}

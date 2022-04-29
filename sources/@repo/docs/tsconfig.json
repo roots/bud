@@ -7,11 +7,16 @@
     "noEmit": true,
     "noImplicitAny": false,
     "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "@site/*": ["*"],
+    },
     "types": [
       "node",
       "@docusaurus/module-type-aliases",
       "@docusaurus/theme-classic"
     ]
   },
-  "include": ["./"]
+  "include": ["**/*"],
+  "exclude": ["node_modules", ".netlify", ".docusaurus", ".build"],
 }

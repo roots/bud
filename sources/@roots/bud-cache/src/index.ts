@@ -2,9 +2,9 @@
 // Licensed under the MIT license.
 
 /**
- * The {@link @roots/bud-cache#} package implements the {@link @roots/bud-framework#Cache | Cache interface}
+ * Compiler and pre-compiler caching
  *
- * @see https://roots.io/bud
+ * @see https://bud.js.org
  * @see https://github.com/roots/bud
  *
  * @packageDocumentation

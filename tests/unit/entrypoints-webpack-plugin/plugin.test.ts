@@ -12,10 +12,7 @@ describe('entrypoints.json', () => {
       chunks: [chonk],
     })
 
-    expect(files).toMatchSnapshot([
-      {file: 'foo.js'},
-      {file: 'bar.js'},
-    ])
+    expect(files).toMatchSnapshot([{file: 'foo.js'}, {file: 'bar.js'}])
   })
 
   it('should create manifest object', () => {

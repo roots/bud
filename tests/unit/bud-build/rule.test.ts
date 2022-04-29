@@ -58,7 +58,7 @@ describe('Build Rule', function () {
 
     const rule = new Rule(() => bud, definition)
 
-    expect(rule.getExclude()).toEqual(definition.exclude)
+    expect(rule.exclude).toEqual(definition.exclude)
   })
 
   it('setExclude from fn', () => {
@@ -67,7 +67,7 @@ describe('Build Rule', function () {
     const mutationFn = () => [/.js$/]
     rule.setExclude(mutationFn)
 
-    expect(rule.exclude).toEqual(mutationFn)
+    expect(rule.getExclude()).toEqual([/.js$/])
   })
 
   it('setExclude from obj', () => {

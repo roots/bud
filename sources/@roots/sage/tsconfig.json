@@ -5,15 +5,10 @@
     "rootDir": "./src",
     "outDir": "./lib/cjs",
     "declarationDir": "./types",
-    "types": [
-      "node",
-      "@roots/bud-api",
-      "@roots/bud-preset-wordpress",
-      "@roots/bud-framework"
-    ],
+    "types": ["@roots/bud-framework", "@roots/bud-api", "@roots/bud-preset-wordpress", "@roots/bud-tailwindcss"]
   },
-  "files": ["./src/bud.env.d.ts"],
   "include": ["./src"],
+  "exclude": ["./lib", "./node_modules", "./types"],
   "references": [
     {"path": "./../bud-framework/tsconfig.json"},
     {"path": "./../bud-api/tsconfig.json"},

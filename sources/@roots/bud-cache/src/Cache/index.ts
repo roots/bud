@@ -1,4 +1,4 @@
-import * as Framework from '@roots/bud-framework'
+import {Service, Services} from '@roots/bud-framework'
 import {bind, fs} from '@roots/bud-support'
 import {createHash} from 'crypto'
 
@@ -7,7 +7,7 @@ import {createHash} from 'crypto'
  *
  * @public
  */
-export class Cache extends Framework.Service implements Framework.Cache {
+export class Cache extends Service implements Services.Cache.Service {
   /**
    * Enabled
    *

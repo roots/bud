@@ -36,27 +36,52 @@
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.js"
+    ".": {
+      "require": "./lib/cjs/index.js"
+    },
+    "./env": {
+      "require": "./lib/cjs/env.js"
+    },
+    "./extension": {
+      "require": "./lib/cjs/extension.js"
+    },
+    "./factory": {
+      "require": "./lib/cjs/factory.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./types/index.d.ts"
+      ],
+      "env": [
+        "./types/env.d.ts"
+      ],
+      "extension": [
+        "./types/extension.d.ts"
+      ],
+      "factory": [
+        "./types/factory.d.ts"
+      ]
+    }
   },
   "bud": {
     "type": "extension"
   },
   "devDependencies": {
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@skypack/package-check": "0.2.2",
     "@types/lodash": "4.14.180",
     "@types/node": "16.11.26",
     "webpack": "5.70.0"
   },
   "dependencies": {
-    "autobind-decorator": "^2.4.0",
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "autodll-webpack-plugin": "^0.4.2",
-    "tslib": "^2.3.1"
+    "tslib": "2.3.1"
   },
   "peerDependencies": {
-    "autodll-webpack-plugin": "^0.4.2"
+    "autodll-webpack-plugin": "*"
   },
   "peerDependenciesMeta": {
     "autodll-webpack-plugin": {

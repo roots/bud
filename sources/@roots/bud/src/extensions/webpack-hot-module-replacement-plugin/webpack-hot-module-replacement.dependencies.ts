@@ -1,1 +1,0 @@
-export {HotModuleReplacementPlugin} from 'webpack'

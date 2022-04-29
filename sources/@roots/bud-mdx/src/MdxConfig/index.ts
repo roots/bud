@@ -1,4 +1,4 @@
-import type {Framework, Index} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
 
 interface Options {
   rehypePlugins: any[]
@@ -6,19 +6,22 @@ interface Options {
 }
 
 class MdxConfig implements MdxConfig {
-  public _app: () => Framework
+  public _app: () => Bud
 
   /**
    * Get registered remark plugins.
    */
-  public remarkPlugins: Index<any> = {}
+  public remarkPlugins: Record<string, any> = {}
 
   /**
    * Get registered rehype plugins.
    */
-  public rehypePlugins: Index<any> = {}
+  public rehypePlugins: Record<string, any> = {}
 
-  public constructor(app: Framework) {
+  /**
+   * Class constructor
+   */
+  public constructor(app: Bud) {
     this._app = () => app
   }
 

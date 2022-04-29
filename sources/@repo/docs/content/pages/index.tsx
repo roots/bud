@@ -1,34 +1,22 @@
-import Link from '@docusaurus/Link'
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
+/* eslint-disable simple-import-sort/imports */
+
 import Layout from '@theme/Layout'
 import React from 'react'
 
-import {Header} from '../../src/components/header'
-import {Sponsors} from '../../src/components/sponsors'
+import {
+  Features,
+  Mast,
+  Sponsors,
+} from '@site/src/partials/index.components'
 
 const Home = () => {
-  const {siteConfig} = useDocusaurusContext()
-
   return (
     <Layout>
-      <Header.Component {...siteConfig}>
-        <div className={Header.styles.buttons}>
-          <Link className="button button--outline button--lg" to="/guides/">
-            Learn more
-          </Link>
+      <Mast />
 
-          <Link
-            className="button button--outline button--lg"
-            to="/guides/getting-started/"
-          >
-            Getting started
-          </Link>
-        </div>
-      </Header.Component>
+      <Features />
 
-      <main>
-        <Sponsors.Component />
-      </main>
+      <Sponsors.Component />
     </Layout>
   )
 }

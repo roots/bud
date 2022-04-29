@@ -1,19 +1,12 @@
 ---
 title: '@roots/bud-esbuild'
 description: 'esbuild support for bud.js projects'
-sidebar_label: '🔴 @roots/bud-esbuild'
-image: 'https://bud.js.org/img/share/extensions/bud-esbuild.png'
+sidebar_label: '🟢 @roots/bud-esbuild'
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import {Install} from '@site/src/docs/Install'
-
-:::warning
-
-This extension is experimental and does not yet feature support for hot module reloading.
-
-:::
 
 [Esbuild](https://esbuild.github.io) support can be added by installing the **@roots/bud-esbuild** extension.
 
@@ -21,10 +14,19 @@ This extension is experimental and does not yet feature support for hot module r
 
 <Install packages="@roots/bud-esbuild" />
 
-## Configuration
+## Details
 
-Set options:
+- Supports `.js`, `.jsx`, `.ts`, `.tsx` files.
+- Does not support typechecking.
 
-```js
-bud.esbuild.setOptions({target: 'es2020'})
+## Adding typechcking
+
+Typechecking can be added with [fork-ts-checker-webpack-plugin](https://www.npmjs.com/package/fork-ts-checker-webpack-plugin).
+
+```ts
+import Plugin from 'fork-ts-checker-webpack-plugin'
+
+export default app => {
+  await app.extensions.add(Plugin)
+}
 ```

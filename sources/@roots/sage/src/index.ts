@@ -10,6 +10,10 @@
  * @packageDocumentation
  */
 
-import Sage from './sage.preset'
+import './env'
 
-export const {name, boot} = Sage
+import Sage from './extension'
+export default Sage
+
+import * as client from './client'
+export {client}
