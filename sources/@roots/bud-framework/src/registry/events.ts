@@ -6,9 +6,9 @@ export interface Events {
   'build.after': (app?: Bud) => Promise<unknown>
   'compiler.before': (app?: Bud) => Promise<unknown>
   'compiler.after': (app?: Bud) => Promise<unknown>
-  'compiler.done': (app?: Bud) => Promise<unknown>
+  'compiler.close': (app?: Bud) => Promise<unknown>
+  'compiler.success': (app?: Bud) => Promise<unknown>
   'compiler.error': (app?: Bud) => Promise<unknown>
-  'dashboard.q': (app?: Bud) => Promise<unknown>
   'project.write': (app?: Bud) => Promise<unknown>
   run: (app?: Bud) => Promise<unknown>
   'server.before': (app?: Bud) => Promise<unknown>

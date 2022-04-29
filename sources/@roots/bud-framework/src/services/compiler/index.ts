@@ -35,6 +35,8 @@ interface Service extends Bud.Service {
    */
   stats: StatsCompilation
 
+  errors: Array<any>
+
   /**
    * Returns a {@link WebpackMultiCompiler} instance
    *
@@ -69,7 +71,7 @@ interface Service extends Bud.Service {
 
   handleStats(stats: Stats & MultiStats): void
 
-  handleErrors(error: Error): void
+  onError(error: any): void
 }
 
 export type Config = Configuration

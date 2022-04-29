@@ -76,6 +76,8 @@
     "json5": "2.2.0",
     "lodash": "4.17.21",
     "nanoid": "3.3.1",
+    "open": "8.4.0",
+    "open-editor": "4.0.0",
     "parse-semver": "1.1.1",
     "pkg-up": "4.0.0",
     "pretty-format": "27.5.1",

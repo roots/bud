@@ -46,7 +46,9 @@ export abstract class BaseCommand extends Command {
   public async make() {
     this.notifier = new Notifier(this.app)
 
-    this.app.hooks.action('event.compiler.done', this.notifier.notify)
+    this.app.hooks
+      .action('event.compiler.success', this.notifier.notify)
+      .hooks.action('event.compiler.error', this.notifier.notify)
 
     try {
       await disk.config(this.app)

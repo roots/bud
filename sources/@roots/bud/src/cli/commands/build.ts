@@ -229,6 +229,21 @@ export class BuildCommand extends BaseCommand {
   })
 
   /**
+   * --notify
+   */
+  public openBrowser = Option.Boolean(`--openBrowser`, false, {
+    description: 'Open browser on successful development build',
+  })
+
+  /**
+   * --notify
+   */
+  public openEditor = Option.Boolean(`--openEditor`, false, {
+    description:
+      'Open editor to file containing errors on unsuccessful development build',
+  })
+
+  /**
    * --overlay
    */
   public overlay = Option.Boolean(`--overlay`, true, {
@@ -294,6 +309,8 @@ export class BuildCommand extends BaseCommand {
       'modules',
       'notify',
       'overlay',
+      'openBrowser',
+      'openEditor',
       'publicPath',
       'src',
       'splitChunks',

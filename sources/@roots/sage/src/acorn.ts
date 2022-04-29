@@ -1,6 +1,6 @@
 import {Bud} from '@roots/bud-framework'
 
-import eventAppClose from './hooks/event.app.close'
+import eventCompilerClose from './hooks/event.compiler.close'
 import eventCompilerDone from './hooks/event.compiler.done'
 
 /**
@@ -37,6 +37,6 @@ export const setPublicPath = ({hooks, isDevelopment}: Bud) =>
 export const hmrJson = ({isDevelopment, tap}: Bud) =>
   isDevelopment &&
   [
-    ({hooks}) => hooks.action('event.compiler.done', eventCompilerDone),
-    ({hooks}) => hooks.action('event.app.close', eventAppClose),
+    ({hooks}) => hooks.action('event.compiler.success', eventCompilerDone),
+    ({hooks}) => hooks.action('event.compiler.close', eventCompilerClose),
   ].map(fn => tap(fn))

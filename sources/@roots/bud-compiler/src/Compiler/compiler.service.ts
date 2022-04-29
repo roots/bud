@@ -6,7 +6,9 @@ import {
   ProgressPlugin,
   Stats,
   StatsCompilation,
+  StatsError,
   webpack,
+  WebpackError,
 } from 'webpack'
 
 const {isFunction} = lodash
@@ -39,6 +41,12 @@ export class Compiler extends Service implements Contract.Service {
    * @public
    */
   public stats: StatsCompilation
+
+  /**
+   * Errors
+   * @public
+   */
+  public errors: Array<any>
 
   /**
    * Multi-compiler configuration
@@ -135,13 +143,10 @@ export class Compiler extends Service implements Contract.Service {
   @bind
   @once
   public async callback(error: Error, stats: Stats & MultiStats) {
-    if (error) await this.handleErrors(error)
+    if (error) await this.onError(error)
     if (stats) await this.handleStats(stats)
 
-    this.app.isProduction &&
-      this.compilation.close(async error => {
-        error ? this.app.error(error) : this.app.close()
-      })
+    this.app.isProduction && this.compilation.close(this.onClose)
   }
 
   /**
@@ -157,28 +162,43 @@ export class Compiler extends Service implements Contract.Service {
     this.stats = stats.toJson()
     this.app.dashboard.stats(stats)
 
-    this.app.isProduction &&
-      this.stats.errorsCount > 0 &&
-      this.app.error('Errors detected in source')
-
-    await this.app.hooks.fire(`event.compiler.done`)
+    if (this.stats.errorsCount > 0) await this.onError(this.stats.errors)
+    await this.app.hooks.fire(`event.compiler.success`)
   }
 
   /**
-   * Error handler
+   * Compiler close event
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public async handleErrors(error: Error) {
-    if (!error) return
+  public async onClose(error: WebpackError) {
+    if (error) await this.onError(error)
+    await this.app.hooks.fire('event.compiler.close')
+    this.app.close()
+  }
 
-    this.app.isDevelopment
-      ? this.app.server.enabledMiddleware?.hot?.publish({error})
-      : this.app.error(error)
+  /**
+   * Compiler error event
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async onError(error: StatsError[] | Error) {
+    this.errors = Array.isArray(error) ? error : [error]
 
-    await this.app.hooks.fire(`event.compiler.error`)
-    await this.app.hooks.fire(`event.compiler.done`)
+    this.app.isDevelopment &&
+      this.app.server.enabledMiddleware?.hot?.publish({error})
+
+    await this.app.hooks.fire('event.compiler.error')
+
+    this.app.isProduction &&
+      this.app.error(
+        this.errors
+          .filter(err => err.message)
+          .reduce((str, err) => `${str}\n${err.message}`),
+      )
   }
 }
