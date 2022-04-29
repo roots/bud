@@ -29,7 +29,7 @@ export default class BabelExtension extends Extension<any, null> {
 
   @bind
   protected setRuleSetItem(ruleSetItem: Build.Item) {
-    return ruleSetItem.setLoader('babel').setOptions(app => ({
+    return ruleSetItem.setLoader('babel').setOptions(() => ({
       cacheDirectory: this.cacheDirectory,
       presets: Object.values(this.app.babel.presets),
       plugins: Object.values(this.app.babel.plugins),

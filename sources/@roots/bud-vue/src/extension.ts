@@ -1,6 +1,7 @@
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
+  dependsOnOptional,
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
@@ -17,6 +18,7 @@ type Options = {runtimeOnly: boolean}
  */
 @label('@roots/bud-vue')
 @options({runtimeOnly: true})
+@dependsOnOptional(['@roots/bud-postcss', '@roots/bud-sass'])
 export default class Vue extends Extension<Options, null> {
   @bind
   public async boot() {
@@ -38,7 +40,7 @@ export default class Vue extends Extension<Options, null> {
 
     await this.app.extensions.add({
       label: 'vue-loader-plugin',
-      make: () => new Plugin(),
+      plugin: Plugin,
     })
   }
 
@@ -47,6 +49,7 @@ export default class Vue extends Extension<Options, null> {
     this.app.build.setLoader('vue-style', this.resolve('vue-style-loader'))
     this.app.build.setItem('vue-style', {loader: 'vue-style'})
     this.app.build.rules.css.setUse(items => ['vue-style', ...items])
+    this.app.build.rules.sass?.setUse(items => ['vue-style', ...items])
   }
 
   @bind

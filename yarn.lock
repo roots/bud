@@ -3311,6 +3311,7 @@ __metadata:
     "@babel/plugin-syntax-dynamic-import": ^7.8.3
     "@babel/plugin-transform-runtime": ^7.16.4
     "@babel/preset-env": ^7.16.4
+    "@roots/bud-api": "workspace:sources/@roots/bud-api"
     "@roots/bud-build": "workspace:sources/@roots/bud-build"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
@@ -4048,9 +4049,9 @@ __metadata:
     "@types/webpack-env": ^1.16.3
     fork-ts-checker-webpack-plugin: ^7.2.6
     ts-loader: ^9.2.8
-    ts-node: ^10.7.0
-    tslib: ^2.3.1
-    typescript: ^4.6.3
+    ts-node: 10.7.0
+    tslib: 2.3.1
+    typescript: 4.6.2
     webpack: 5.70.0
   peerDependencies:
     ts-node: "*"
@@ -4206,9 +4207,9 @@ __metadata:
     safe-require: ^1.0.4
     tslib: 2.3.1
     vinyl: ^2.2.1
-    webpack: ^5.64.2
+    webpack: 5.70.0
   peerDependencies:
-    critical: ^4.0.1
+    critical: "*"
   languageName: unknown
   linkType: soft
 
@@ -22122,7 +22123,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-node@npm:10.7.0, ts-node@npm:^10.5.0, ts-node@npm:^10.7.0":
+"ts-node@npm:10.7.0, ts-node@npm:^10.5.0":
   version: 10.7.0
   resolution: "ts-node@npm:10.7.0"
   dependencies:
@@ -22346,17 +22347,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:4.6.3, typescript@npm:^4.6.3":
-  version: 4.6.3
-  resolution: "typescript@npm:4.6.3"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 255bb26c8cb846ca689dd1c3a56587af4f69055907aa2c154796ea28ee0dea871535b1c78f85a6212c77f2657843a269c3a742d09d81495b97b914bf7920415b
-  languageName: node
-  linkType: hard
-
-"typescript@npm:^4.4.3":
+"typescript@npm:4.6.2, typescript@npm:^4.4.3":
   version: 4.6.2
   resolution: "typescript@npm:4.6.2"
   bin:
@@ -22366,23 +22357,33 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@4.6.3#~builtin<compat/typescript>, typescript@patch:typescript@^4.6.3#~builtin<compat/typescript>":
+"typescript@npm:4.6.3":
   version: 4.6.3
-  resolution: "typescript@patch:typescript@npm%3A4.6.3#~builtin<compat/typescript>::version=4.6.3&hash=bda367"
+  resolution: "typescript@npm:4.6.3"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 6bf45caf847062420592e711bc9c28bf5f9a9a7fa8245343b81493e4ededae33f1774009d1234d911422d1646a2c839f44e1a23ecb111b40a60ac2ea4c1482a8
+  checksum: 255bb26c8cb846ca689dd1c3a56587af4f69055907aa2c154796ea28ee0dea871535b1c78f85a6212c77f2657843a269c3a742d09d81495b97b914bf7920415b
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^4.4.3#~builtin<compat/typescript>":
+"typescript@patch:typescript@4.6.2#~builtin<compat/typescript>, typescript@patch:typescript@^4.4.3#~builtin<compat/typescript>":
   version: 4.6.2
   resolution: "typescript@patch:typescript@npm%3A4.6.2#~builtin<compat/typescript>::version=4.6.2&hash=bda367"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 40b493a71747fb89fa70df104e2c4a5e284b43750af5bea024090a5261cefa387f7a9372411b13030f7bf5555cee4275443d08805642ae5c74ef76740854a4c7
+  languageName: node
+  linkType: hard
+
+"typescript@patch:typescript@4.6.3#~builtin<compat/typescript>":
+  version: 4.6.3
+  resolution: "typescript@patch:typescript@npm%3A4.6.3#~builtin<compat/typescript>::version=4.6.3&hash=bda367"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 6bf45caf847062420592e711bc9c28bf5f9a9a7fa8245343b81493e4ededae33f1774009d1234d911422d1646a2c839f44e1a23ecb111b40a60ac2ea4c1482a8
   languageName: node
   linkType: hard
 
@@ -23474,7 +23475,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack@npm:^5, webpack@npm:^5.38.1, webpack@npm:^5.64.2, webpack@npm:^5.70.0":
+"webpack@npm:^5, webpack@npm:^5.38.1, webpack@npm:^5.70.0":
   version: 5.71.0
   resolution: "webpack@npm:5.71.0"
   dependencies:

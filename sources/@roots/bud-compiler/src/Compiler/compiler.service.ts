@@ -20,12 +20,12 @@ export class Compiler extends Service implements Contract.Service {
    * Compiler
    * @public
    */
-  protected _compiler: Contract.Compiler = webpack
-  public get compiler(): Contract.Compiler {
-    return this._compiler
+  protected _implementation: Contract.Implementation = webpack
+  public get implementation(): Contract.Implementation {
+    return this._implementation
   }
-  public set compiler(compiler: Contract.Compiler) {
-    this._compiler = compiler
+  public set implementation(implementation: Contract.Implementation) {
+    this._implementation = implementation
   }
 
   /**
@@ -77,7 +77,7 @@ export class Compiler extends Service implements Contract.Service {
   ): Promise<Contract.Service['compilation']> {
     await this.app.hooks.fire('event.compiler.before')
 
-    this.compilation = this.compiler(this.config)
+    this.compilation = this.implementation(this.config)
 
     this.app.isDevelopment &&
       this.compilation.hooks.done.tap(

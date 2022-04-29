@@ -72,8 +72,7 @@ export const method: method = function (input, replacements) {
   /**
    * User proxy request from a port #
    */
-  !isUndefined(input) &&
-    isNumber(input) &&
+  isNumber(input) &&
     ctx.hooks.on('dev.middleware.proxy.target', url => {
       url.port = `${input}`
       return url
@@ -82,15 +81,13 @@ export const method: method = function (input, replacements) {
   /**
    * User proxy request from a string
    */
-  !isUndefined(input) &&
-    isString(input) &&
+  isString(input) &&
     ctx.hooks.on('dev.middleware.proxy.target', new URL(input))
 
   /**
    * User proxy request from a URL
    */
-  !isUndefined(input) &&
-    input instanceof URL &&
+  input instanceof URL &&
     ctx.hooks.on('dev.middleware.proxy.target', input)
 
   /**

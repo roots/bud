@@ -41,18 +41,10 @@
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    ".": {
-      "require": "./lib/cjs/index.js"
-    },
-    "./api": {
-      "require": "./lib/cjs/api/index.js"
-    },
-    "./methods": {
-      "require": "./lib/cjs/methods/index.js"
-    },
-    "./methods/*": {
-      "require": "./lib/cjs/methods/*/index.js"
-    }
+    ".": "./lib/cjs/index.js",
+    "./api": "./lib/cjs/api/index.js",
+    "./methods": "./lib/cjs/methods/index.js",
+    "./methods/*": "./lib/cjs/methods/*/index.js"
   },
   "typesVersions": {
     "*": {

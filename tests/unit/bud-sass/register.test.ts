@@ -43,9 +43,9 @@ describe('@roots/bud-sass registration', () => {
   })
 
   it('includes @src dir', () => {
-    expect(bud.build.rules.sass.getInclude()).toStrictEqual([
+    expect(bud.build.rules.sass.getInclude().pop()).toStrictEqual(
       bud.path('@src'),
-    ])
+    )
   })
 
   it('sets up rulesetuse items', () => {

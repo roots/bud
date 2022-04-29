@@ -10,7 +10,7 @@ export const js = (app: Bud) =>
   app.build
     .makeRule()
     .setTest(({hooks}) => hooks.filter('pattern.js'))
-    .setInclude(({path}) => [path('@src')])
+    .setInclude([app => app.path('@src')])
     .setUse([])
 
 /**
@@ -22,7 +22,7 @@ export const css = (app: Bud) =>
   app.build
     .makeRule()
     .setTest(({hooks}) => hooks.filter('pattern.css'))
-    .setInclude(({path}) => [path('@src')])
+    .setInclude([app => app.path('@src')])
     .setUse([`precss`, `css`])
 
 /**
@@ -34,7 +34,7 @@ export const cssModule = (app: Bud) =>
   app.build
     .makeRule()
     .setTest(({hooks}) => hooks.filter('pattern.cssModule'))
-    .setInclude(({path}) => [path('@src')])
+    .setInclude([app => app.path('@src')])
     .setUse([`precss`, `cssModule`])
 
 /**
@@ -46,7 +46,7 @@ export const image = (app: Bud) =>
   app.build
     .makeRule()
     .setTest(({hooks}) => hooks.filter('pattern.image'))
-    .setInclude(({path}) => [path('@src')])
+    .setInclude([app => app.path('@src')])
     .setType('asset/resource')
     .setGenerator(app => ({
       filename: app.hooks.filter('feature.hash')
@@ -70,7 +70,7 @@ export const webp = (app: Bud) =>
   app.build
     .makeRule()
     .setTest(({hooks}) => hooks.filter('pattern.webp'))
-    .setInclude(({path}) => [path('@src')])
+    .setInclude([app => app.path('@src')])
     .setType('asset/resource')
     .setGenerator(app => ({
       filename: app.hooks.filter('feature.hash')
@@ -92,7 +92,7 @@ export const svg = (app: Bud) =>
   app.build
     .makeRule()
     .setTest(({hooks}) => hooks.filter('pattern.svg'))
-    .setInclude(({path}) => [path('@src')])
+    .setInclude([app => app.path('@src')])
     .setType('asset/resource')
     .setGenerator(app => ({
       filename: app.hooks.filter('feature.hash')
@@ -114,7 +114,7 @@ export const font = (app: Bud) =>
     .makeRule()
     .setType('asset')
     .setTest(({hooks}) => hooks.filter('pattern.font'))
-    .setInclude(({path}) => [path('@src')])
+    .setInclude([app => app.path('@src')])
     .setGenerator(app => ({
       filename: app.hooks.filter('feature.hash')
         ? 'fonts/'
@@ -134,7 +134,8 @@ export const json = (app: Bud) =>
   app.build
     .makeRule()
     .setType('json')
-    .setInclude(({path}) => [path('@src')])
+    .setInclude([app => app.path()])
+    .setExclude([app => app.path('@modules')])
     .setTest(({hooks}) => hooks.filter('pattern.json'))
     .setParser({parse: json5Parser.parse})
 
@@ -146,8 +147,8 @@ export const json = (app: Bud) =>
 export const yml = (app: Bud) =>
   app.build
     .makeRule()
-    .setInclude(({path}) => [path()])
-    .setExclude(({path}) => [path('@modules')])
+    .setInclude([app => app.path()])
+    .setExclude([app => app.path('@modules')])
     .setTest(({hooks}) => hooks.filter('pattern.yml'))
     .setUse(['yml'])
 
@@ -159,7 +160,8 @@ export const yml = (app: Bud) =>
 export const html = (app: Bud) =>
   app.build
     .makeRule()
-    .setInclude(({path}) => [path('@src')])
+    .setInclude([app => app.path()])
+    .setExclude([app => app.path('@modules')])
     .setTest(({hooks}) => hooks.filter('pattern.html'))
     .setUse([`html`])
 
@@ -171,7 +173,8 @@ export const html = (app: Bud) =>
 export const csv = (app: Bud) =>
   app.build
     .makeRule()
-    .setInclude(({path}) => [path('@src')])
+    .setInclude([app => app.path()])
+    .setExclude([app => app.path('@modules')])
     .setTest(({hooks}) => hooks.filter('pattern.csv'))
     .setUse([`csv`])
 
@@ -183,7 +186,8 @@ export const csv = (app: Bud) =>
 export const xml = (app: Bud) =>
   app.build
     .makeRule()
-    .setInclude(({path}) => [path('@src')])
+    .setInclude([app => app.path()])
+    .setExclude([app => app.path('@modules')])
     .setTest(({hooks}) => hooks.filter('pattern.xml'))
     .setUse([`xml`])
 
@@ -196,6 +200,7 @@ export const toml = (app: Bud) =>
   app.build
     .makeRule()
     .setType('json')
-    .setInclude(({path}) => [path('@src')])
+    .setInclude([app => app.path()])
+    .setExclude([app => app.path('@modules')])
     .setTest(({hooks}) => hooks.filter('pattern.html'))
     .setParser({parse: tomlParser.parse})

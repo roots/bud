@@ -1,4 +1,5 @@
 export {bind} from '@roots/bud-support'
+export {dependsOnOptional} from './dependsOnOptional'
 export {dependsOn} from './dependsOn'
 export {development} from './development'
 export {expose} from './expose'

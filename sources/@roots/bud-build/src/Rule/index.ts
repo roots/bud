@@ -27,7 +27,7 @@ class Rule extends Base implements Build.Rule {
    *
    * @public
    */
-  public use?: Array<`${`${keyof Build.Items & string}`}`>
+  public use?: Array<keyof Build.Items & string>
 
   /**
    * Include paths
@@ -149,11 +149,11 @@ class Rule extends Base implements Build.Rule {
   @bind
   public setUse(
     input:
-      | Array<`${keyof Build.Items & string}`>
+      | Array<keyof Build.Items & string>
       | ((
-          use: Array<`${keyof Build.Items & string}`>,
+          use: Array<keyof Build.Items & string>,
           app: Bud,
-        ) => Array<`${keyof Build.Items & string}`>),
+        ) => Array<keyof Build.Items & string>),
   ): Rule {
     this.use =
       (isFunction(input) ? input(this.getUse() ?? [], this.app) : input) ??
@@ -163,25 +163,34 @@ class Rule extends Base implements Build.Rule {
   }
 
   /**
-   * Get exclude value
+   * Get include value
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public getInclude(): Array<string | RegExp> {
-    return this.unwrap(this.include)
+  public getInclude(): Rule['include'] {
+    return this.include.map(this.unwrap)
   }
 
   /**
-   * Set exclude value
+   * Set include value
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public setInclude(include: Build.Rule['include']): Rule {
-    this.include = this.wrap(include)
+  public setInclude(
+    includes:
+      | ((includes: Rule['include']) => Rule['include'])
+      | Rule['include'],
+  ): Rule {
+    if (!this.include) this.include = []
+
+    if (typeof includes === 'function')
+      this.include = includes(this.include)
+    else this.include = includes
+
     return this
   }
 
@@ -192,8 +201,8 @@ class Rule extends Base implements Build.Rule {
    * @decorator `@bind`
    */
   @bind
-  public getExclude(): Array<string | RegExp> {
-    return this.unwrap(this.exclude)
+  public getExclude(): Rule['exclude'] {
+    return this.exclude.map(this.unwrap)
   }
 
   /**
@@ -203,8 +212,17 @@ class Rule extends Base implements Build.Rule {
    * @decorator `@bind`
    */
   @bind
-  public setExclude(exclude: Build.Rule['exclude']): Rule {
-    this.exclude = this.wrap(exclude)
+  public setExclude(
+    excludes:
+      | ((excludes: Rule['exclude']) => Rule['exclude'])
+      | Rule['exclude'],
+  ): Rule {
+    if (!this.exclude) this.exclude = []
+
+    if (typeof excludes === 'function')
+      this.exclude = excludes(this.exclude)
+    else this.exclude = excludes
+
     return this
   }
 
@@ -264,8 +282,8 @@ class Rule extends Base implements Build.Rule {
    * @decorator `@bind`
    */
   @bind
-  public toWebpack() {
-    const output = {test: this.getTest()}
+  public toWebpack(): Build.Rule.Output {
+    const output: Build.Rule.Output = {test: this.getTest()}
 
     this.use &&
       Object.assign(output, {

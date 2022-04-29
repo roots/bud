@@ -36,15 +36,9 @@ export async function factory(overrides?: Config.Options): Promise<Bud> {
       ...context,
       ...(overrides?.context ?? {}),
     },
-    seed: {
-      ...seed,
-      ...(overrides?.seed ?? {}),
-    },
-    services: {
-      ...services,
-      ...(overrides?.services ?? {}),
-    },
-    extensions: [...(extensions ?? []), ...(overrides?.extensions ?? [])],
+    seed: overrides?.seed ?? seed,
+    services: overrides?.services ?? services,
+    extensions: overrides?.extensions ?? extensions,
   }
 
   const project = new Bud(options)

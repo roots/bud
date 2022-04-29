@@ -31,7 +31,7 @@ export default class BudTypeScript extends Extension {
       })
       .setRule('ts', {
         test: ({hooks}) => hooks.filter('pattern.ts'),
-        include: ({path}) => [path('@src')],
+        include: [({path}) => path('@src')],
         use: ['babel', 'ts'],
       })
 

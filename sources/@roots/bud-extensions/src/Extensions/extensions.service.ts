@@ -24,6 +24,7 @@ export class Extensions extends Service implements Contract.Service {
     await this.runAll('_init')
     await this.runAll('_register')
     await this.runAll('_boot')
+    await this.runAll('_beforeBuild')
   }
 
   @bind
@@ -71,7 +72,7 @@ export class Extensions extends Service implements Contract.Service {
       return
     }
 
-    this.app.info('injecting extensions')
+    this.app.log('injecting extensions')
     const dependencyKeys = Object.keys({
       ...(this.app.context.manifest?.devDependencies ?? {}),
       ...(this.app.context.manifest?.dependencies ?? {}),
@@ -79,7 +80,7 @@ export class Extensions extends Service implements Contract.Service {
 
     return Promise.all(
       dependencyKeys.map(async (pkg, i) => {
-        this.app.info('injecting', pkg)
+        this.app.log('injecting', pkg)
 
         try {
           const manifestPath = await this.app.module.manifestPath(pkg)
@@ -102,7 +103,7 @@ export class Extensions extends Service implements Contract.Service {
     const pkgName = typeof input !== 'string' ? input.name : input
     if (this.has(pkgName)) return
 
-    this.app.info(chalk.dim(`importing ${pkgName}`))
+    this.app.log(chalk.dim(`importing ${pkgName}`))
 
     const imported = await import(pkgName)
     const extensionModule: Extension = imported.default
@@ -125,9 +126,14 @@ export class Extensions extends Service implements Contract.Service {
     methodName: '_init' | '_register' | '_boot' | '_beforeBuild' | '_make',
   ): Promise<this> {
     if (extension.meta[methodName] === true) return this
-    extension.meta[methodName] = true
+    else extension.meta[methodName] = true
 
     try {
+      extension.logger.log(
+        'running',
+        chalk.blue(extension.label),
+        chalk.cyan(methodName),
+      )
       await this.runDependencies(extension, methodName)
       await extension[methodName]()
       await this.app.api.processQueue()
@@ -145,25 +151,43 @@ export class Extensions extends Service implements Contract.Service {
   ): Promise<void> {
     if (extension.dependsOn && extension.dependsOn.size > 0) {
       await Promise.all(
-        Array.from(extension.dependsOn).map(async pkgName => {
+        Array.from(extension.dependsOn).map(async dependency => {
           try {
-            if (!this.app.extensions.has(pkgName))
-              await this.app.extensions.import(pkgName)
-
-            if (this.app.extensions.has(pkgName)) {
-              await this.app.extensions.run(
-                this.app.extensions.get(pkgName),
-                methodName,
-              )
+            if (!this.app.extensions.has(dependency)) {
+              extension.logger.log('importing', chalk.blue(dependency))
+              await this.import(dependency)
             }
+
+            await this.run(this.get(dependency), methodName)
           } catch (error) {
             this.app.error(
               `before calling \`${methodName}\` ${this.get(
                 'label',
-              )} tried to import \`${pkgName}\` but encountered an error.`,
+              )} tried to import \`${dependency}\` but encountered an error.`,
               error,
             )
           }
+        }),
+      )
+    }
+
+    if (
+      extension.dependsOnOptional &&
+      extension.dependsOnOptional.size > 0
+    ) {
+      await Promise.all(
+        Array.from(extension.dependsOnOptional).map(async dependency => {
+          try {
+            if (!this.app.extensions.has(dependency)) {
+              extension.logger.log(
+                'attempting to import optional dependency',
+                chalk.blue(dependency),
+              )
+              await this.import(dependency)
+            }
+
+            await this.run(this.get(dependency), methodName)
+          } catch (error) {}
         }),
       )
     }
@@ -178,12 +202,6 @@ export class Extensions extends Service implements Contract.Service {
   public async runAll(
     methodName: '_init' | '_register' | '_boot' | '_beforeBuild' | '_make',
   ): Promise<Array<void>> {
-    this.app.log(
-      'calling',
-      chalk.blue(methodName),
-      'on all registered extensions',
-    )
-
     return Promise.all(
       Object.values(this.repository).map(async extension => {
         await this.run(extension, methodName)
@@ -206,18 +224,21 @@ export class Extensions extends Service implements Contract.Service {
 
       try {
         const extension = this.instantiate(rawExtension)
+        if (this.has(extension.label)) return
+
         this.set(extension)
 
         await this.run(extension, '_init')
         await this.run(extension, '_register')
         await this.run(extension, '_boot')
+        await this.run(extension, '_beforeBuild')
 
-        return Promise.resolve()
+        return Promise.resolve(true)
       } catch (err) {
         this.app.error(err)
-        return Promise.resolve()
+        return Promise.reject()
       }
-    }, Promise.resolve())
+    }, Promise.resolve(true))
   }
 
   /**

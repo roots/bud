@@ -19,7 +19,7 @@ type Registry = Map<string, [any, any?] | [Plugin | Processor]>
 
 @label('@roots/bud-postcss')
 @expose('postcss')
-class BudPostCss extends Extension {
+export default class BudPostCss extends Extension {
   protected _syntax: string = null
 
   protected _sourceMap: boolean = true
@@ -148,8 +148,8 @@ class BudPostCss extends Extension {
   ): this {
     this.plugins.set(plugin, [
       this.plugins.has(plugin) && this.plugins.get(plugin)?.length
-        ? this.get(plugin).shift()
-        : this.get(plugin),
+        ? this.plugins.get(plugin).shift()
+        : this.plugins.get(plugin),
       options,
     ])
 
@@ -204,5 +204,3 @@ class BudPostCss extends Extension {
     )
   }
 }
-
-export default BudPostCss

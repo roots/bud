@@ -8,8 +8,8 @@ export class Extension<E = any, Plugin = any> {
   public _app?: () => Bud
   public app?: Bud
 
-  protected _options?: Options.FuncMap<E> = {}
-  public readonly options?: Options<E>
+  public _options?: Options.FuncMap<E> = {}
+  public options?: Options<E> = {}
 
   public meta? = {}
 
@@ -28,15 +28,18 @@ export class Extension<E = any, Plugin = any> {
   public dependsOn?: Set<`${keyof Modules & string}`>
 
   /**
+   * Depends on (optional)
+   *
+   * @public
+   */
+  public dependsOnOptional?: Set<`${keyof Modules & string}`>
+
+  /**
    * Boolean or a function returning a boolean indicating if the {@link Extension} should be utilized.
    *
    * @remarks
    * If a factory is implemented, it will be passed the {@link Bud} instance as its first parameter and
    * a {@link Container} instance holding the {@link Extension.options} (if any) as the second parameter.
-   *
-   * Do note that this is not the same parameter order as {@link Extension.make}. That's because it is more common
-   * to check the state of the {@link Bud} in the {@link Extension.when} callback than the {@link Extension.options}
-   * (ie Checking the {@link Bud.isProduction} state).
    *
    * @public
    */
@@ -52,7 +55,7 @@ export class Extension<E = any, Plugin = any> {
     this.path = await this.app.module.path(this.label)
     if (this.init) {
       this.logger.log('initializing')
-      await this.init(this.options ?? {}, this.app)
+      await this.init(this.options, this.app)
     }
   }
   public async init?(options: Options<E>, app: Bud): Promise<unknown>
@@ -61,7 +64,7 @@ export class Extension<E = any, Plugin = any> {
   public async _register?() {
     if (this.register) {
       this.logger.log('registering')
-      await this.register(this.options ?? {}, this.app)
+      await this.register(this.options, this.app)
     }
   }
   public async register?(options: Options<E>, app: Bud): Promise<unknown>
@@ -70,7 +73,7 @@ export class Extension<E = any, Plugin = any> {
   public async _boot?() {
     if (this.boot) {
       this.logger.log('booting')
-      await this.boot(this.options ?? {}, this.app)
+      await this.boot(this.options, this.app)
     }
   }
   public async boot?(options?: Options<E>, app?: Bud): Promise<unknown>
@@ -78,7 +81,11 @@ export class Extension<E = any, Plugin = any> {
   @bind
   public async _beforeBuild?() {
     if (this.beforeBuild) {
-      this.beforeBuild(this.options ?? {}, this.app)
+      this.logger.log('beforeBuild')
+      this.app.hooks.action(
+        'event.build.before',
+        async () => await this.beforeBuild(this.options, this.app),
+      )
     }
   }
   public async beforeBuild?(
@@ -93,9 +100,10 @@ export class Extension<E = any, Plugin = any> {
     if (enabled === false || (!this.make && !this.apply && !this.plugin))
       return false
 
-    if (this.plugin) return new this.plugin(this.options ?? {})
-
+    if (this.plugin) return new this.plugin(this.options)
     if (this.apply) return this as {apply: any}
+
+    return await this.make()
   }
   public async make?(options?: Options<E>, app?: Bud): Promise<Plugin>
 
@@ -140,18 +148,27 @@ export class Extension<E = any, Plugin = any> {
         }.bind(this))(),
     })
 
+    const initOpts = this.options
+    delete this.options
+
     Object.defineProperty(this, 'options', {
       get: this.getOptions,
+      set: this.setOptions,
     })
+
+    this.options = initOpts
   }
 
   @bind
-  public get?<K extends string, T = any>(key: K) {
-    return _.get(this, key) as T
+  public get?<K extends keyof this>(key: K & string): this[K & string] {
+    return this[key]
   }
 
   @bind
-  public set?<K extends string, T = any>(key: K, value: T) {
+  public set?<K extends keyof this>(
+    key: K,
+    value: this[K & string],
+  ): this {
     _.set(this, key, value)
     return this
   }
@@ -171,17 +188,17 @@ export class Extension<E = any, Plugin = any> {
 
   @bind
   public getOption?<K extends keyof Options<E>>(
-    key: K,
+    key: K & string,
   ): Options<E>[K & string] {
-    return _.get(this, `options.${key}`)
+    return this.options[key]
   }
 
   @bind
   public setOption?<K extends keyof Options<E>>(
     key: K & string,
-    option: Options<E>[K & string],
+    value: Options<E>[K & string],
   ): this {
-    _.set(this, `_options.${key}`, option)
+    this.options[key] = value
     return this
   }
 
@@ -210,9 +227,8 @@ export class Extension<E = any, Plugin = any> {
   @bind
   public fromObject?(extensionObject: Extension): this {
     Object.entries(extensionObject).map(([k, v]) => {
-      this.set(k, v)
+      this[k] = v
     })
-    extensionObject.options && this.setOptions(extensionObject.options)
 
     return this
   }
@@ -233,7 +249,7 @@ export class Extension<E = any, Plugin = any> {
   @bind
   public resolve?(packageName: string): string {
     const result = this.app.module.resolvePreferred(packageName, this.path)
-    this.logger.info('resolved', packageName, 'to', result)
+    this.logger.log('resolved', packageName, 'to', result)
     return result
   }
 
@@ -244,7 +260,7 @@ export class Extension<E = any, Plugin = any> {
   public async import?<T = any>(packageName: string): Promise<T> {
     try {
       const result = await import(this.resolve(packageName))
-      this.logger.info('imported', packageName)
+      this.logger.log('imported', packageName)
       return result
     } catch (error) {
       this.app.error(error)

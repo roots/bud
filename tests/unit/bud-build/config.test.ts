@@ -263,7 +263,8 @@ describe('bud.build.config', function () {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[7],
     ).toMatchSnapshot({
-      include: [expect.stringContaining('src')],
+      include: [expect.stringContaining('project')],
+      exclude: [expect.stringContaining('node_modules')],
       parser: {parse: json5.parse},
       test: /\.json$/,
       type: 'json',
@@ -286,7 +287,8 @@ describe('bud.build.config', function () {
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[9],
     ).toMatchSnapshot({
       test: /\.(html?)$/,
-      include: [expect.stringContaining('src')],
+      include: [expect.stringContaining('project')],
+      exclude: [expect.stringContaining('node_modules')],
       use: [
         {
           loader: expect.stringContaining('html-loader/dist/cjs.js'),
@@ -300,7 +302,8 @@ describe('bud.build.config', function () {
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[10],
     ).toMatchSnapshot({
       test: /\.(csv|tsv)$/,
-      include: [expect.stringContaining('src')],
+      include: [expect.stringContaining('project')],
+      exclude: [expect.stringContaining('node_modules')],
       use: [
         {
           loader: expect.stringContaining('csv-loader/index.js'),
@@ -314,7 +317,8 @@ describe('bud.build.config', function () {
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[11],
     ).toMatchSnapshot({
       test: /\.xml$/,
-      include: [expect.stringContaining('src')],
+      include: [expect.stringContaining('project')],
+      exclude: [expect.stringContaining('node_modules')],
       use: [
         {
           loader: expect.stringContaining('/xml-loader/index.js'),
@@ -327,7 +331,8 @@ describe('bud.build.config', function () {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[12],
     ).toMatchSnapshot({
-      include: [expect.stringContaining('src')],
+      include: [expect.stringContaining('project')],
+      exclude: [expect.stringContaining('node_modules')],
       parser: {
         parse: toml.parse,
       },
