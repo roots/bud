@@ -43,7 +43,7 @@ export default class BudSass extends Extension {
       })
       .setRule('sass', {
         test: app => app.hooks.filter('pattern.sass'),
-        include: app => [app.path('@src')],
+        include: [app => app.path('@src')],
         use: [`precss`, `css`, `postcss`, `resolveUrl`, `sass`],
       })
   }

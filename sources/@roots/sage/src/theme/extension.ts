@@ -109,7 +109,7 @@ export default class ThemeJson extends Extension<
 
   @bind
   public useTailwindColors() {
-    this.options = {
+    this.setOptions({
       path: this.options.path,
       settings: {
         ...(this.options.settings ?? {}),
@@ -118,7 +118,7 @@ export default class ThemeJson extends Extension<
           palette: ThemeJson.tailwind.transformPalette(this.palette),
         },
       },
-    }
+    })
 
     return this.app
   }

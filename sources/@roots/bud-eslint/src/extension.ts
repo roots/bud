@@ -21,19 +21,10 @@ import {cpus} from 'os'
   resolvePluginsRelativeTo: app => app.path(),
   threads: Math.max(cpus?.length / 2, 1),
 })
-class BudEslint extends Extension<Options, EslintPlugin> {
-  @bind
-  public config(value: Options) {
-    this.options = {...this.options, ...value}
-
-    return this.app
-  }
-
+export default class BudEslint extends Extension<Options, EslintPlugin> {
   @bind
   public fix(fix: boolean = true): this {
-    this.options.fix = fix
+    this.setOption('fix', fix)
     return this
   }
 }
-
-export default BudEslint

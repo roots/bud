@@ -16,6 +16,19 @@ describe('bud.serve', function () {
     expect(bud.hooks.filter('dev.url').hostname).toBe('example.com')
   })
 
+  it('sets URL from number', async () => {
+    const port = 6969
+    await bud.api.call('serve', port)
+    expect(bud.hooks.filter('dev.url').port).toBe(port.toString())
+  })
+
+  it('sets URL from URL', async () => {
+    await bud.api.call('serve', new URL('http://example.org:9696'))
+    expect(bud.hooks.filter('dev.url').origin).toBe(
+      'http://example.org:9696',
+    )
+  })
+
   it('sets options', async () => {
     const options = {cert: 'foo', key: 'bar'}
     await bud.api.call('serve', {options})

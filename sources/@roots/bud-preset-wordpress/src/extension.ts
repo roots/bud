@@ -7,9 +7,7 @@ import {
 
 @label('@roots/bud-preset-wordpress')
 @dependsOn([
-  '@roots/bud-babel',
   '@roots/bud-entrypoints',
-  '@roots/bud-postcss',
   '@roots/bud-preset-recommend',
   '@roots/bud-react',
   '@roots/bud-wordpress-externals',

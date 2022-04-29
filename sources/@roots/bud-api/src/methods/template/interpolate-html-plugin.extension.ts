@@ -6,7 +6,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import {InterpolateHtmlPlugin} from './interpolate-html-plugin.plugin'
 
 @label('interpolate-html-plugin')
-class BudInterpolateHtmlPlugin extends Extension<
+export default class BudInterpolateHtmlPlugin extends Extension<
   Record<string, RegExp>,
   InterpolateHtmlPlugin
 > {
@@ -16,24 +16,25 @@ class BudInterpolateHtmlPlugin extends Extension<
 
   @bind
   public async register() {
-    this.options = {
+    this.setOptions({
       ...this.publicEnv,
       ...this.app.extensions.get('webpack:define-plugin').get('options'),
-    }
+    })
   }
 
   @bind
-  public async make(options) {
-    return new InterpolateHtmlPlugin(HtmlWebpackPlugin as any, options)
+  public async make() {
+    return new InterpolateHtmlPlugin(
+      HtmlWebpackPlugin as any,
+      this.options,
+    )
   }
 
   /**
    * @public
    */
   @bind
-  public async when(options) {
+  public async when(options: Record<string, RegExp>) {
     return options ? true : false
   }
 }
-
-export default BudInterpolateHtmlPlugin

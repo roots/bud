@@ -5,7 +5,6 @@ import {
   ProgressPlugin,
   Stats,
   StatsCompilation,
-  webpack,
 } from 'webpack'
 
 import * as Bud from '../..'
@@ -20,7 +19,7 @@ import * as Bud from '../..'
  * @public
  */
 interface Service extends Bud.Service {
-  compiler: Compiler
+  implementation: Implementation
 
   /**
    * The compiler instance
@@ -74,7 +73,7 @@ interface Service extends Bud.Service {
 }
 
 export type Config = Configuration
-export type Compiler = typeof webpack
+export type Implementation = (...params: any[]) => any
 
 export type Progress = [number, string]
 

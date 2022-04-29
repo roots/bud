@@ -65,6 +65,7 @@
     }
   },
   "devDependencies": {
+    "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@roots/bud-build": "workspace:sources/@roots/bud-build",
     "@skypack/package-check": "0.2.2",
     "@types/fs-extra": "9.0.13",

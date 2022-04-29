@@ -12,7 +12,6 @@ import {
 export default class BudTypeScript extends Extension {
   public get typecheck() {
     return this.app.extensions.get('@roots/bud-typescript/typecheck')
-      .module
   }
 
   @bind
@@ -32,7 +31,7 @@ export default class BudTypeScript extends Extension {
       })
       .setRule('ts', {
         test: ({hooks}) => hooks.filter('pattern.ts'),
-        include: ({path}) => [path('@src')],
+        include: [({path}) => path('@src')],
         use: ['babel', 'ts'],
       })
 

@@ -4,7 +4,7 @@ import {Dev} from './dev'
 import {Events} from './events'
 import {Flags} from './flags'
 import {Locations} from './locations'
-import {Controllers, Modules} from './modules'
+import {Modules} from './modules'
 import {Patterns} from './patterns'
 import {Values} from './values'
 
@@ -50,13 +50,4 @@ export namespace Store {
   }
 }
 
-export {
-  Build,
-  Controllers,
-  Dev,
-  Flags,
-  Locations,
-  Modules,
-  Patterns,
-  Values,
-}
+export {Build, Dev, Flags, Locations, Modules, Patterns, Values}

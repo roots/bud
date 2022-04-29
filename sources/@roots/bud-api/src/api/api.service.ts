@@ -88,7 +88,7 @@ export class Api
     }
 
     // execute the callable
-    return await method(...args)
+    return await method.call(this.app, ...args)
   }
 
   /**

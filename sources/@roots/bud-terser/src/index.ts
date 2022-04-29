@@ -4,7 +4,7 @@
 /**
  * Adds terser minification support to Bud
  *
- * @see https://rootss.io/bud
+ * @see https://roots.io/bud
  * @see https://github.com/roots/bud
  *
  * @packageDocumentation

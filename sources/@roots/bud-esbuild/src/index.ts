@@ -73,7 +73,7 @@ export default class BudEsbuild extends Extension<Opts> {
       })
       .setRule('ts', {
         test: ({hooks}) => hooks.filter('pattern.ts'),
-        include: ({path}) => [path('@src')],
+        include: [({path}) => path('@src')],
         use: ['esbuild-ts'],
       })
       .rules.js.setUse(['esbuild-js'])

@@ -44,10 +44,10 @@ export default class BudImagemin extends Extension {
   }
 
   public _encodeOptions: Map<string, any> = new Map([
-    ['mozjpeg', 'auto'],
-    ['webp', 'auto'],
-    ['avif', 'auto'],
-    ['oxipng', 'auto'],
+    ['mozjpeg', {}],
+    ['webp', {}],
+    ['avif', {}],
+    ['oxipng', {}],
   ])
   public get encodeOptions() {
     return this._encodeOptions

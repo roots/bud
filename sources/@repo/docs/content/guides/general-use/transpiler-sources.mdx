@@ -18,15 +18,18 @@ You can be specific about what you want to include for transpilation with someth
 
 ```ts
 bud.build.rules.js.setInclude([
-  bud.path('@src'),
-  bud.path('@modules/some-untranspiled-pkg'),
+  bud => bud.path('@src'),
+  bud => bud.path('@modules/some-untranspiled-pkg'),
 ])
 ```
 
 Or, you can be broad:
 
 ```ts
-bud.build.rules.js.setInclude([bud.path('@src'), bud.path('@modules')])
+bud.build.rules.js.setInclude([
+  bud => bud.path('@src'),
+  bud => bud.path('@modules'),
+])
 ```
 
 ## Restricting sources
@@ -34,7 +37,7 @@ bud.build.rules.js.setInclude([bud.path('@src'), bud.path('@modules')])
 You can also do the opposite and _restrict_ transpiler sources.
 
 ```ts
-bud.build.rules.js.setExclude([bud.path('@src')])
+bud.build.rules.js.setExclude([bud => bud.path('@src')])
 ```
 
 You may use `setInclude` and `setExclude` together.

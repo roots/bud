@@ -14,7 +14,7 @@ class BudDefine extends Extension<
 > {
   @bind
   public async init() {
-    this.options = this.app.env.getPublicEnv()
+    this.setOptions(this.app.env.getPublicEnv())
   }
 
   @bind
