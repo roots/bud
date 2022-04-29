@@ -22,8 +22,12 @@ describe('@roots/bud-compiler', function () {
     expect(impl.handleStats).toBeInstanceOf(Function)
   })
 
-  it('has handleErrors fn', () => {
-    expect(impl.handleErrors).toBeInstanceOf(Function)
+  it('has error handler', () => {
+    expect(impl.onError).toBeInstanceOf(Function)
+  })
+
+  it('has close handler', () => {
+    expect(impl.onClose).toBeInstanceOf(Function)
   })
 
   it('has compile fn', () => {
