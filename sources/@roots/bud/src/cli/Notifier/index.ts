@@ -94,8 +94,8 @@ and ${this.app.compiler.stats.warningsCount} warnings`
    */
   @bind
   public async openBrowser() {
-    this.app.isDevelopment &&
-      open(this.app.server.connection.url.toString())
+    if (this.app.isProduction) return
+    return await open(this.open)
   }
 
   /**
@@ -114,8 +114,6 @@ and ${this.app.compiler.stats.warningsCount} warnings`
         '$VISUAL will be preferred over $EDITOR if both are present',
       )
     }
-
-    this.app.info('opening editor', this.editor)
 
     openEditor(errors, {editor: this.editor})
   }
@@ -162,8 +160,6 @@ and ${this.app.compiler.stats.warningsCount} warnings`
       })
       .filter(({file}) => file)
 
-    this.app.info(parsed)
-
     this.openEditor(parsed)
   }
 
@@ -184,9 +180,11 @@ and ${this.app.compiler.stats.warningsCount} warnings`
     }
 
     try {
-      this.app.context.args.openBrowser &&
-        this.app.compiler.stats.errorsCount &&
-        this.openBrowser()
+      if (
+        this.app.context.args.openBrowser &&
+        !this.app.compiler.stats.errorsCount
+      )
+        await this.openBrowser()
     } catch (err) {
       this.app.warn(err)
     }
