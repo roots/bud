@@ -1,3 +1,2 @@
-import * as yaml from 'yamljs'
-
+import * as yaml from 'js-yaml'
 export {yaml}

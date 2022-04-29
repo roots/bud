@@ -1,5 +1,14 @@
-import {ReactRefreshExtension} from './extension'
-import {reactRefresh} from './reactRefresh'
-import * as entryReducers from './reducers'
+// Copyright © Roots Software Foundation LLC
+// Licensed under the MIT license.
 
-export {entryReducers, reactRefresh, ReactRefreshExtension}
+/**
+ * Adds react-refresh
+ *
+ * @see https://bud.js.org
+ * @see https://github.com/roots/bud
+ *
+ * @packageDocumentation
+ */
+
+import BudReactRefresh from './extension'
+export default BudReactRefresh

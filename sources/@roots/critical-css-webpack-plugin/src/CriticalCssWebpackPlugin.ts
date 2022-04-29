@@ -56,15 +56,6 @@ class CriticalCssWebpackPlugin {
   }
 
   /**
-   * Plugin options
-   *
-   * @defaultValue {@link INIT_OPTIONS}
-   *
-   * @internal
-   */
-  public _options: Options = INIT_OPTIONS
-
-  /**
    * Accessor: get options
    *
    * @public
@@ -95,9 +86,7 @@ class CriticalCssWebpackPlugin {
    *
    * @public
    */
-  public constructor(options?: Options) {
-    Object.assign(this, {options})
-  }
+  public constructor(public _options: Options = INIT_OPTIONS) {}
 
   /**
    * Webpack apply hook
@@ -144,7 +133,7 @@ class CriticalCssWebpackPlugin {
    */
   @bind
   public async processAssets(
-    assets: Webpack.Compilation['assets'],
+    _assets: Webpack.Compilation['assets'],
     callback: () => any,
   ) {
     for (const [entryName, entry] of this.webpack.compilation

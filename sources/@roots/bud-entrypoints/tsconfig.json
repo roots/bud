@@ -4,21 +4,15 @@
     "baseUrl": ".",
     "rootDir": "./src",
     "outDir": "./lib/cjs",
-    "declarationDir": "./types",
-    "types": [
-      "node",
-      "@roots/bud-api",
-      "@roots/bud-framework",
-      "@roots/entrypoints-webpack-plugin"
-    ]
+    "declarationDir": "./types"
   },
   "include": [
-    "src"
+    "./src"
   ],
   "exclude": [
-    "lib",
-    "node_modules",
-    "types"
+    "./lib",
+    "./node_modules",
+    "./types"
   ],
   "references": [
     {

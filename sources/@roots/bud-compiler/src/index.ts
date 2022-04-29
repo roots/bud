@@ -5,7 +5,7 @@
  * The {@link @roots/bud-compiler# | @roots/bud-compiler} package implements the
  * {@link @roots/bud-framework#Compiler | Compiler interface}
  *
- * @see https://roots.io/bud
+ * @see https://bud.js.org
  * @see https://github.com/roots/bud
  *
  *  @packageDocumentation

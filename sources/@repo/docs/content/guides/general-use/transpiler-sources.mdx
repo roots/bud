@@ -1,0 +1,43 @@
+---
+title: Transpiler sources
+description: Module resolution in bud.js
+slug: transpiler-sources
+sidebar_label: Transpiler sources
+sidebar_position: 5
+---
+
+**bud.js** only resolves source code from [the `@src` directory](/guides/general-use/pathing).
+
+Nearly all of the modules you install will be transpiled before they are published. It's almost always a waste to run this code through Babel or whatever other transpiler you may be using.
+
+Nevertheless, some packages expect you to transpile their code as part of your build process. We can do this by updating the matching rule.
+
+## Adding sources
+
+You can be specific about what you want to include for transpilation with something like the following:
+
+```ts
+bud.build.rules.js.setInclude([
+  bud => bud.path('@src'),
+  bud => bud.path('@modules/some-untranspiled-pkg'),
+])
+```
+
+Or, you can be broad:
+
+```ts
+bud.build.rules.js.setInclude([
+  bud => bud.path('@src'),
+  bud => bud.path('@modules'),
+])
+```
+
+## Restricting sources
+
+You can also do the opposite and _restrict_ transpiler sources.
+
+```ts
+bud.build.rules.js.setExclude([bud => bud.path('@src')])
+```
+
+You may use `setInclude` and `setExclude` together.

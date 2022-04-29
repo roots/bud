@@ -1,6 +1,6 @@
 import {Bud, factory} from '@repo/test-kit/bud'
 import {Extensions} from '@roots/bud-extensions'
-import {Extension, Modules} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework'
 import {WebpackPluginInstance} from 'webpack'
 
 describe('Extensions', function () {
@@ -14,13 +14,13 @@ describe('Extensions', function () {
     test: 'foo',
   }
 
-  let mockModule: Extension.Module = {
-    name: '@roots/bud-postcss',
+  let mockModule: Extension = {
+    label: 'mock_extension',
     register: jest.fn(async () => null),
     boot: jest.fn(async () => null),
-    options: jest.fn(() => options),
-    make: jest.fn(() => mockWebpackPlugin),
-    when: jest.fn(() => true),
+    options: options,
+    make: jest.fn(async () => mockWebpackPlugin),
+    when: jest.fn(async () => true),
   }
 
   beforeAll(async () => {
@@ -32,12 +32,14 @@ describe('Extensions', function () {
     expect(extensions).toBeInstanceOf(Extensions)
   })
 
-  it('add fn registers a module', () => {
+  it('add fn registers a module', async () => {
     const extensions: Extensions = new Extensions(bud)
-    extensions.repository = {} as Modules
+    extensions.repository = {} as any
 
-    extensions.add(mockModule)
+    await extensions.add(mockModule)
 
-    expect(extensions.get(mockModule.name)._module).toEqual(mockModule)
+    expect(extensions.get(mockModule.label).options.test).toEqual(
+      mockModule.options.test,
+    )
   })
 })

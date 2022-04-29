@@ -52,8 +52,7 @@
     "react": "17.0.2"
   },
   "dependencies": {
-    "autobind-decorator": "^2.4.0",
-    "tslib": "^2.3.1"
+    "tslib": "2.3.1"
   },
   "peerDependencies": {
     "ink": "^3.0.9",

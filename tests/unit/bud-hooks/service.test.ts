@@ -9,6 +9,7 @@ describe('@roots/bud-hooks', function () {
   beforeAll(async () => {
     bud = await factory()
     hooks = new Hooks(bud)
+    hooks.store = {} as any
   })
 
   it('has an on method', () => {
@@ -37,25 +38,27 @@ describe('@roots/bud-hooks', function () {
 
   it('async registers value', () => {
     const callback = async () => 'bar'
-    hooks.async('build', callback)
-    expect(hooks.repository.build).toStrictEqual([callback])
+    // @ts-ignore
+    hooks.async('build.resolve', callback)
+    expect(hooks.store['build.resolve']).toStrictEqual([callback])
   })
 
   it('filterAsync retrieves value', async () => {
-    const value = await hooks.filterAsync('build')
+    const value = await hooks.filterAsync('build.resolve')
     expect(value).toBe('bar')
   })
 
   it('action registers callable function', async () => {
     const value = jest.fn(async (app: Bud) => null)
+    // @ts-ignore
     hooks.action('event.app.build', value)
-    expect(hooks.repository.event.app.build.pop()).toBe(value)
+    expect(hooks.store['event.app.build'].pop()).toBe(value)
   })
 
   it('fire calls action function', async () => {
     const value = jest.fn(async () => null)
-    hooks.action('event.app.build', value)
-    await hooks.fire('event.app.build')
+    hooks.action('event.build.before', value)
+    await hooks.fire('event.build.before')
     expect(value).toHaveBeenCalled()
   })
 })

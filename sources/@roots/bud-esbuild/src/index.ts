@@ -4,81 +4,88 @@
 /**
  * ESBuild support for Bud projects
  *
- * @see https://roots.io/bud
+ * @see https://bud.js.org
  * @see https://github.com/roots/bud
  *
- * @beta
- * This plugin is much more limited in terms of supporting essential dev-focused features
- * like hot-reloading. It is provided as-is for use in Bud projects. It is not currently a focus
- * of our development efforts.
- *
- * @remarks
- * If you would like to contribute to the development of this plugin (especially if you have experience
- * with module reloading in an ESBuild context), please open an issue on Github.
- * @packageDocumentation
+ * @beta @packageDocumentation
  */
 
-import {Item, Loader, Rule} from '@roots/bud-build'
+import './interface'
+
 import {Extension} from '@roots/bud-framework'
+import {
+  bind,
+  label,
+  options,
+} from '@roots/bud-framework/extension/decorators'
 import {ESBuildMinifyPlugin} from 'esbuild-loader'
 
-import {esbuild} from './bud.esbuild'
-import {features} from './features'
-
-declare module '@roots/bud-framework' {
-  interface Framework {
-    esbuild: esbuild
+type Opts = {
+  minify: {
+    css: boolean
+    include: string | RegExp | Array<string | RegExp>
+    exclude: string | RegExp | Array<string | RegExp>
   }
-
-  interface Modules {
-    '@roots/bud-esbuild': Extension.Module
-    '@roots/bud-esbuild/js': Extension.Module
-    '@roots/bud-esbuild/ts': Extension.Module
+  js: {
+    loader: 'jsx' | 'jsx'
+    target: string
   }
-
-  interface Loaders {
-    'esbuild-js': Loader
-    'esbuild-ts': Loader
-  }
-
-  interface Items {
-    'esbuild-js': Item
-    'esbuild-ts': Item
-  }
-
-  interface Rules {
-    ts: Rule
+  ts: {
+    loader: 'tsx' | 'ts'
+    target: string
+    tsconfigRaw: Record<string, any>
   }
 }
 
-/**
- * ESBuild base extension
- *
- * @beta
- */
-const extension: Extension.Module = {
-  name: '@roots/bud-esbuild',
-
-  options: ({store}) => ({
-    target: store.get('patterns.js'),
-    exclude: store.get('patterns.modules'),
+@label('@roots/bud-esbuild')
+@options<Opts>({
+  minify: app => ({
+    css: true,
+    include: [
+      app.hooks.filter('pattern.js'),
+      app.hooks.filter('pattern.ts'),
+    ],
+    exclude: app.hooks.filter('pattern.modules'),
   }),
+  js: () => ({
+    loader: 'jsx',
+    target: 'es2015',
+  }),
+  ts: ({project}) => ({
+    loader: 'tsx',
+    target: 'es2015',
+    tsconfigRaw:
+      project.get(['config', 'base', 'tsconfig.json', 'module']) ?? null,
+  }),
+})
+export default class BudEsbuild extends Extension<Opts> {
+  @bind
+  public async boot() {
+    this.app.build
+      .setLoader('esbuild', require.resolve('esbuild-loader'))
+      .setItem('esbuild-js', {
+        loader: 'esbuild',
+        options: () => this.options.js,
+      })
+      .setItem('esbuild-ts', {
+        loader: 'esbuild',
+        options: () => this.options.ts,
+      })
+      .setRule('ts', {
+        test: ({hooks}) => hooks.filter('pattern.ts'),
+        include: [({path}) => path('@src')],
+        use: ['esbuild-ts'],
+      })
+      .rules.js.setUse(['esbuild-js'])
 
-  boot: ({build, extensions, hooks}) => {
-    build.setLoader('esbuild', require.resolve('esbuild-loader'))
-
-    Promise.all(
-      features.map(async feature => await extensions.add(feature)),
+    this.app.hooks.on('build.resolve.extensions', ext =>
+      ext.add('.ts').add('.tsx'),
     )
 
-    hooks.on('build.optimization.minimizer', () => [
-      new ESBuildMinifyPlugin(
-        extensions.get('@roots/bud-esbuild').options.all(),
-      ),
-    ])
-  },
-
-  api: {esbuild},
+    this.app.hooks.action('event.build.before', async ({hooks}) => {
+      hooks.on('build.optimization.minimizer', () => [
+        new ESBuildMinifyPlugin(this.options.minify),
+      ])
+    })
+  }
 }
-
-export const {name, boot, options, api} = extension

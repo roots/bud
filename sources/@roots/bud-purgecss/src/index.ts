@@ -13,38 +13,26 @@
  * })
  * ```
  *
- * @see https://roots.io/bud
+ * @see https://bud.js.org
  * @see https://github.com/roots/bud
  *
  * @packageDocumentation
  */
 
-import './bud.env'
+import '@roots/bud-postcss'
 
-import {purgecss} from './bud.purge'
-import {Purge} from './purge.interface'
+import type {Extension} from '@roots/bud-framework'
 
-/**
- * Module name
- *
- * @public
- */
-export const name: Purge['name'] = '@roots/bud-purgecss'
+import * as purge from './purge.interface'
 
-/**
- * Module api
- *
- * @public
- */
-export const api: Purge['api'] = {purgecss}
+declare module '@roots/bud-framework' {
+  interface Bud {
+    purgecss: purge.api
+  }
 
-/**
- * Module registration
- *
- * @public
- */
-export const register: Purge['register'] = async app => {
-  app.api.set('purgecss', purgecss.bind(app))
-  // @ts-ignore
-  app.api.bindFacade('purgecss')
+  interface Modules {
+    '@roots/bud-purgecss': Extension
+  }
 }
+
+export * from './extension'

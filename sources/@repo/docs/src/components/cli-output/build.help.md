@@ -2,16 +2,15 @@ Compile source assets
 
 ━━━ Usage ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-$ @roots/bud build
+$ bud build
 
 ━━━ Options ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   --mode #0                 Compilation mode
   --cache                   Utilize compiler's filesystem cache
-  --ci                      Run in CI mode (disables keyboard input handlers).
   --clean                   Clean artifacts and distributables prior to compilation
   --debug                   Enable debugging mode. Very verbose logging. Writes output files to `@storage` directory
-  --devtool                 Set devtool option
+  --devtool #0              Set devtool option
   --flush                   Force clearing bud internal cache
   --hash                    Hash compiled filenames
   --html                    Generate an html template
@@ -48,4 +47,4 @@ entrypoint at `@src/index.js`.
 ━━━ Examples ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Compile source
-  $ @roots/bud build
+  $ bud build

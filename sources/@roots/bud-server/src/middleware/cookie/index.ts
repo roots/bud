@@ -1,4 +1,4 @@
-import {Framework} from '@roots/bud-framework/src'
+import {Bud} from '@roots/bud-framework/src'
 import cookieParserMiddleware from 'cookie-parser'
 
 /**
@@ -7,7 +7,7 @@ import cookieParserMiddleware from 'cookie-parser'
  * @public
  */
 export interface cookie {
-  (app: Framework): any
+  (app: Bud): any
 }
 
-export const cookie = (app: Framework) => cookieParserMiddleware()
+export const cookie = (_app: Bud) => cookieParserMiddleware()

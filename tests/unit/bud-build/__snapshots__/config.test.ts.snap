@@ -53,8 +53,11 @@ Object {
 
 exports[`bud.build.config has expected default csv rule 1`] = `
 Object {
+  "exclude": Array [
+    StringContaining "node_modules",
+  ],
   "include": Array [
-    StringContaining "src",
+    StringContaining "project",
   ],
   "test": Object {},
   "use": Array [
@@ -80,8 +83,11 @@ Object {
 
 exports[`bud.build.config has expected default html rule 1`] = `
 Object {
+  "exclude": Array [
+    StringContaining "node_modules",
+  ],
   "include": Array [
-    StringContaining "src",
+    StringContaining "project",
   ],
   "test": Object {},
   "use": Array [
@@ -98,7 +104,7 @@ Object {
     "filename": "images/[name][ext]",
   },
   "include": Array [
-    "/srv/bud/tests/util/project/src",
+    StringContaining "project/src",
   ],
   "test": Object {},
   "type": "asset/resource",
@@ -122,8 +128,11 @@ Object {
 
 exports[`bud.build.config has expected default json rule 1`] = `
 Object {
+  "exclude": Array [
+    StringContaining "node_modules",
+  ],
   "include": Array [
-    StringContaining "src",
+    StringContaining "project",
   ],
   "parser": Object {
     "parse": [Function],
@@ -135,6 +144,9 @@ Object {
 
 exports[`bud.build.config has expected default requireEnsure rule 1`] = `
 Object {
+  "exclude": Array [
+    Object {},
+  ],
   "parser": Object {
     "requireEnsure": false,
   },
@@ -148,7 +160,7 @@ Object {
     "filename": "svg/[name][ext]",
   },
   "include": Array [
-    "/srv/bud/tests/util/project/src",
+    StringContaining "project/src",
   ],
   "test": Object {},
   "type": "asset/resource",
@@ -157,8 +169,11 @@ Object {
 
 exports[`bud.build.config has expected default toml rule 1`] = `
 Object {
+  "exclude": Array [
+    StringContaining "node_modules",
+  ],
   "include": Array [
-    StringContaining "src",
+    StringContaining "project",
   ],
   "parser": Object {
     "parse": [Function],
@@ -174,7 +189,7 @@ Object {
     "filename": "images/[name][ext]",
   },
   "include": Array [
-    "/srv/bud/tests/util/project/src",
+    StringContaining "project/src",
   ],
   "test": Object {},
   "type": "asset/resource",
@@ -183,8 +198,11 @@ Object {
 
 exports[`bud.build.config has expected default xml rule 1`] = `
 Object {
+  "exclude": Array [
+    StringContaining "node_modules",
+  ],
   "include": Array [
-    StringContaining "src",
+    StringContaining "project",
   ],
   "test": Object {},
   "use": Array [
@@ -197,14 +215,18 @@ Object {
 
 exports[`bud.build.config has expected default yaml rule 1`] = `
 Object {
-  "include": Array [
-    StringContaining "src",
+  "exclude": Array [
+    StringContaining "node_modules",
   ],
-  "parser": Object {
-    "parse": [Function],
-  },
+  "include": Array [
+    StringContaining "/project",
+  ],
   "test": Object {},
-  "type": "json",
+  "use": Array [
+    Object {
+      "loader": StringContaining "js-yaml-loader",
+    },
+  ],
 }
 `;
 
@@ -220,13 +242,14 @@ Array [
 
 exports[`bud.build.config has expected resolve.extensions default 1`] = `
 Array [
-  ".wasm",
   ".mjs",
+  ".cjs",
   ".js",
   ".jsx",
   ".css",
   ".json",
-  ".toml",
+  ".wasm",
   ".yml",
+  ".toml",
 ]
 `;

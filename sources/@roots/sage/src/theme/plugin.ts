@@ -1,6 +1,6 @@
-import {ThemeJSON} from '@roots/bud-preset-wordpress'
+import type * as ThemeJSON from '@roots/bud-preset-wordpress/types/theme'
 import {bind, fs} from '@roots/bud-support'
-import {Compiler, WebpackPluginInstance} from 'webpack'
+import type {Compiler, WebpackPluginInstance} from 'webpack/types'
 
 /**
  * Plugin options
@@ -11,7 +11,7 @@ export interface Options {
   /**
    * JSON contents
    */
-  settings: ThemeJSON.JSONSchemaForWordPressBlockThemeGlobalSettingsAndStyles['settings']
+  settings: Partial<ThemeJSON.GlobalSettingsAndStyles['settings']>
 
   /**
    * Emit path

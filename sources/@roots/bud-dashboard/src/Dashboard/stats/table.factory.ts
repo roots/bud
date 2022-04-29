@@ -8,7 +8,7 @@ export const make = (data: Array<Array<any>>): string => {
       alignment: 'left',
       wrapWord: true,
       paddingRight: 3,
-      paddingLeft: 1,
+      paddingLeft: 0,
     },
   })
 }

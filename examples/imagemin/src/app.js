@@ -1,10 +1,9 @@
-import owl from './owl.jpeg'
+import thumb from './owl.jpeg'
 
 const target = document.querySelector('body')
 
 target.innerHTML = `
   <div>
-    <h1>Hello from esbuild!</h1>
-    <img src="${owl}" />
+    <img src="${thumb}" />
   </div>
 `

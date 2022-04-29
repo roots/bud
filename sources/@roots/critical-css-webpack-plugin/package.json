@@ -47,18 +47,17 @@
     "@skypack/package-check": "0.2.2",
     "@types/lodash": "4.14.180",
     "@types/node": "16.11.26",
-    "@types/vinyl": "2.0.6",
-    "critical": "4.0.1"
+    "@types/vinyl": "2.0.6"
   },
   "dependencies": {
-    "autobind-decorator": "^2.4.0",
+    "critical": "4.0.1",
     "lodash": "^4.17.21",
     "safe-require": "^1.0.4",
-    "tslib": "^2.3.1",
+    "tslib": "2.3.1",
     "vinyl": "^2.2.1",
-    "webpack": "^5.64.2"
+    "webpack": "5.70.0"
   },
   "peerDependencies": {
-    "critical": "^4.0.1"
+    "critical": "*"
   }
 }

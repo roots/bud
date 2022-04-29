@@ -1,24 +1,18 @@
-import {Extension, Framework} from '@roots/bud-framework'
+import '@roots/bud-api'
 
-import {BudBrotliWebpackPlugin} from './BudBrotliWebpackPlugin'
-import {BudGzipWebpackPlugin} from './BudGzipWebpackPlugin'
+import {Extension} from '@roots/bud-framework'
 
-interface BudCompressionExtension extends Extension.CompilerPlugin {
-  name: '@roots/bud-compress' & Extension.CompilerPlugin['name']
-  boot(app: Framework): any
+import BudBrotliWebpackPlugin from './BudBrotliWebpackPlugin'
+import BudGzipWebpackPlugin from './BudGzipWebpackPlugin'
+
+class BudCompressionExtension extends Extension<any, any> {
+  public label = '@roots/bud-compress'
+  public async boot() {
+    await this.app.extensions.add([
+      BudBrotliWebpackPlugin,
+      BudGzipWebpackPlugin,
+    ])
+  }
 }
 
-const name: BudCompressionExtension['name'] = '@roots/bud-compress'
-
-const boot: BudCompressionExtension['boot'] = async function boot({
-  use,
-}: Framework): Promise<void> {
-  await use([BudBrotliWebpackPlugin, BudGzipWebpackPlugin])
-}
-
-const BudCompressionExtension: BudCompressionExtension = {
-  name,
-  boot,
-}
-
-export {BudCompressionExtension}
+export default BudCompressionExtension

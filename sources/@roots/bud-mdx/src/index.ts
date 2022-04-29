@@ -4,19 +4,19 @@
 /**
  * Adds MDX support to Bud
 
- * @see https://roots.io/bud
+ * @see https://bud.js.org
  * @see https://github.com/roots/bud
  *
  * @packageDocumentation
  */
 
 import {Item, Loader} from '@roots/bud-build'
-import {Extension, Framework} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework'
 
 import {MdxConfig} from './MdxConfig'
 
 declare module '@roots/bud-framework' {
-  interface Framework {
+  interface Bud {
     /**
      * Configure mdx to suit your application needs
      */
@@ -36,7 +36,7 @@ declare module '@roots/bud-framework' {
    * @public @override
    */
   interface Modules {
-    '@roots/bud-mdx': Extension.Module
+    '@roots/bud-mdx': Extension
   }
 
   namespace Store {
@@ -46,21 +46,25 @@ declare module '@roots/bud-framework' {
   }
 }
 
-const extension: Extension.Module = {
-  name: '@roots/bud-mdx',
+const extension: Extension = {
+  label: '@roots/bud-mdx',
 
-  mixin: async app => ({mdx: [MdxConfig, app]}),
+  dependsOn: new Set(['@roots/bud-babel', '@roots/bud-react']),
 
-  boot: (app: Framework) =>
+  register: async (_options, app) => {
+    app.mdx = new MdxConfig(app)
+  },
+
+  boot: async (_, app) =>
     app.hooks
       .on('build.resolve.extensions', ext => ext.add('.md').add('.mdx'))
-      .build.setLoader(`mdx`, require.resolve(`@mdx-js/loader`))
+      .build.setLoader(`mdx`, app.module.resolve(`@mdx-js/loader`))
       .setItem(`mdx`, {loader: `mdx`, options: ({mdx}) => mdx.options})
       .setRule(`mdx`, {
         test: /\.mdx?$/,
-        include: app => [app.path('@src')],
+        include: [app => app.path('@src')],
         use: [`babel`, `mdx`],
       }),
 }
 
-export const {name, boot, mixin} = extension
+export const {label, boot, register} = extension

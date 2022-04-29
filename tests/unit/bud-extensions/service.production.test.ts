@@ -9,6 +9,6 @@ describe('Extensions', function () {
   })
 
   it('[production] bud.extensions.repository matches snapshot', () => {
-    expect(bud.extensions.getKeys().sort()).toMatchSnapshot()
+    expect(Object.keys(bud.extensions.repository).sort()).toMatchSnapshot()
   })
 })

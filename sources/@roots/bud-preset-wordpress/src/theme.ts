@@ -65,7 +65,7 @@ export type StylesPropertiesAndElementsComplete = StylesProperties & {
   elements?: StylesElementsPropertiesComplete
 }
 
-export interface JSONSchemaForWordPressBlockThemeGlobalSettingsAndStyles {
+export interface GlobalSettingsAndStyles {
   /**
    * JSON schema URI for theme.json.
    */

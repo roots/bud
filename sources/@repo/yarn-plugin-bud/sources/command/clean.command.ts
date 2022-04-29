@@ -51,7 +51,9 @@ export class Clean extends Command {
     if (process.env.YARN_RC_FILENAME == 'config/yarnrc.dev.yml') {
       try {
         await this.$(`rm -rf storage/packages/@roots/*`)
-        await this.$(`rm -rf /srv/mocks/yarn/* /srv/mocks/npm/*`)
+        await this.$(
+          `rm -rf ../mocks/yarn/*/dist/**/* ../mocks/npm/*/dist/**/*`,
+        )
       } catch (e) {}
     }
   }

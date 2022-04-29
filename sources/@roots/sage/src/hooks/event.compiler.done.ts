@@ -1,4 +1,4 @@
-import {Framework} from '@roots/bud-framework'
+import {Bud} from '@roots/bud-framework'
 import {fs} from '@roots/bud-support'
 import {ensureDir} from 'fs-extra'
 import {urlToHttpOptions} from 'url'
@@ -14,15 +14,16 @@ const {writeJson} = fs
  *
  * @public
  */
-export default async function (app: Framework) {
+export default async function (app: Bud) {
   try {
     await ensureDir(app.path('@dist'))
 
     await writeJson(app.path('@dist', 'hmr.json'), {
-      dev: urlToHttpOptions(app.hooks.filter('dev.url')) ?? null,
+      dev: urlToHttpOptions(app.server.connection.url) ?? null,
       proxy:
-        urlToHttpOptions(app.hooks.filter('middleware.proxy.target')) ??
-        null,
+        urlToHttpOptions(
+          app.hooks.filter('dev.middleware.proxy.target'),
+        ) ?? null,
       publicPath: app.hooks.filter('build.output.publicPath') ?? null,
     })
   } catch (error) {

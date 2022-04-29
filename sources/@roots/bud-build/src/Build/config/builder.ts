@@ -1,6 +1,5 @@
-import type {Framework} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
 
-import {unwrap as unwrapFn} from './builder.unwrap'
 import {filenameFormat} from './filenameFormat'
 
 /**
@@ -8,23 +7,23 @@ import {filenameFormat} from './filenameFormat'
  *
  * @remarks
  * All hooks in the `build` namespace are initialized here with
- * the exception of `build.cache` which is handled in {@link Framework.cache}
+ * the exception of `build.cache` which is handled in {@link Bud.cache}
  *
- * @param app - the Framework instance
+ * @param app - the Bud instance
  * @returns Promise
  *
  * @public
  */
-export async function build(app: Framework): Promise<void> {
-  /**
-   * App bound unwrap
-   */
-  const unwrap = unwrapFn.bind(app)
-
+export async function build(app: Bud): Promise<void> {
   app.hooks
-    .on('build.cache', () => app.cache.configuration)
+    .on('build.bail', () => app.isProduction)
+    .hooks.on('build.cache', () => app.cache.configuration)
     .hooks.on('build.context', () => app.context.projectDir)
-    .hooks.on('build.mode', app.mode)
+    .hooks.on('build.infrastructureLogging', () => ({
+      console: app.hooks.filter('build.infrastructureLogging.console'),
+      level: app.hooks.filter('build.infrastructureLogging.level'),
+    }))
+    .hooks.on('build.mode', () => app.mode)
     .hooks.on('build.module', () => ({
       noParse: app.hooks.filter('build.module.noParse'),
       rules: app.hooks.filter('build.module.rules'),
@@ -51,6 +50,10 @@ export async function build(app: Framework): Promise<void> {
       path: app.hooks.filter('build.output.path'),
       pathinfo: app.hooks.filter('build.output.pathinfo'),
       publicPath: app.hooks.filter('build.output.publicPath'),
+    }))
+    .hooks.async('build.resolve.alias', async () => ({
+      '@src': app.path('@src'),
+      '@dist': app.path('@dist'),
     }))
     .hooks.on('build.output.assetModuleFilename', () =>
       filenameFormat(app, '[ext]'),
@@ -79,6 +82,7 @@ export async function build(app: Framework): Promise<void> {
 
       return {alias, extensions, modules}
     })
+
     .hooks.async('build.resolve.modules', async (value?: any) => {
       return Array.from(
         new Set([
@@ -91,88 +95,7 @@ export async function build(app: Framework): Promise<void> {
     .hooks.on('build.target', () =>
       app.project.has('manifest.browserslist') &&
       app.project.isArray('manifest.browserslist')
-        ? `browserslist:${app.path('package.json')}`
+        ? `browserslist:${app.path('./package.json')}`
         : undefined,
     )
-    .hooks.on('build.infrastructureLogging', () => ({
-      console: app.hooks.filter('build.infrastructureLogging.console'),
-    }))
-
-  /**
-   * Safe
-   */
-  app.hooks
-    .on('build.bail', unwrap('build.bail'))
-    .hooks.on('build.devtool', unwrap('build.devtool'))
-    .hooks.on('build.loader', unwrap('build.loader'))
-    .hooks.on(
-      'build.module.rules.before',
-      unwrap('build.module.rules.before'),
-    )
-    .hooks.on(
-      'build.module.rules.after',
-      unwrap('build.module.rules.after'),
-    )
-    .hooks.on(
-      'build.module.unsafeCache',
-      unwrap('build.module.unsafeCache'),
-    )
-    .hooks.on('build.module.noParse', unwrap('build.module.noParse'))
-    .hooks.on(
-      'build.infrastructureLogging.level',
-      unwrap('build.infrastructureLogging.level'),
-    )
-    .hooks.on(
-      'build.infrastructureLogging.console',
-      unwrap('build.infrastructureLogging.console'),
-    )
-    .hooks.on('build.node', unwrap('build.node'))
-    .hooks.on(
-      'build.optimization.emitOnErrors',
-      unwrap('build.optimization.emitOnErrors'),
-    )
-    .hooks.on(
-      'build.optimization.minimize',
-      unwrap('build.optimization.minimize'),
-    )
-    .hooks.on(
-      'build.optimization.minimizer',
-      unwrap('build.optimization.minimizer'),
-    )
-    .hooks.on(
-      'build.optimization.moduleIds',
-      unwrap('build.optimization.moduleIds'),
-    )
-    .hooks.on(
-      'build.optimization.removeEmptyChunks',
-      unwrap('build.optimization.removeEmptyChunks'),
-    )
-    .hooks.on(
-      'build.optimization.runtimeChunk',
-      unwrap('build.optimization.runtimeChunk'),
-    )
-    .hooks.on(
-      'build.optimization.splitChunks',
-      unwrap('build.optimization.splitChunks'),
-    )
-    .hooks.on('build.output.clean', unwrap('build.output.clean'))
-    .hooks.on('build.output.pathinfo', unwrap('build.output.pathinfo'))
-    .hooks.on(
-      'build.output.publicPath',
-      unwrap('build.output.publicPath', 'auto'),
-    )
-    .hooks.on('build.parallelism', unwrap('build.parallelism'))
-    .hooks.on('build.performance', unwrap('build.performance'))
-    .hooks.on('build.profile', unwrap('build.profile'))
-    .hooks.async(
-      'build.resolve.alias',
-      unwrap('build.resolve.alias' as any),
-    )
-    .hooks.on(
-      'build.resolve.extensions',
-      unwrap('build.resolve.extensions'),
-    )
-    .hooks.on('build.stats', unwrap('build.stats'))
-    .hooks.on('build.watch', unwrap('build.watch'))
-    .hooks.on('build.watchOptions', unwrap('build.watchOptions'))
 }

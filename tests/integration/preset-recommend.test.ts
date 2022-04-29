@@ -19,9 +19,7 @@ describe('examples/preset-recommend', () => {
   })
 
   it('[app.js] is transpiled', () => {
-    expect(
-      project.assets['app.js'].includes('import'),
-    ).toBeFalsy()
+    expect(project.assets['app.js'].includes('import')).toBeFalsy()
   })
 
   it('[app.css] is transpiled', () => {

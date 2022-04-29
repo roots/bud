@@ -1,8 +1,8 @@
 import * as Framework from '@roots/bud-framework'
 import {bind, chalk, lodash} from '@roots/bud-support'
 
-import * as facade from './facade'
-import * as methods from './methods'
+import * as facade from '../facade'
+import * as methods from '../methods'
 
 const {isEmpty, isFunction} = lodash
 
@@ -15,7 +15,10 @@ const {isEmpty, isFunction} = lodash
  *
  * @public
  */
-export class Api extends Framework.Service implements Framework.Api {
+export class Api
+  extends Framework.ContainerService
+  implements Framework.Api.Service
+{
   /**
    * Queued method calls
    *
@@ -37,14 +40,7 @@ export class Api extends Framework.Service implements Framework.Api {
    */
   @bind
   public async bootstrap() {
-    this.setStore(
-      Object.entries(methods).reduce(
-        (a, [k, v]) => ({...a, [k]: v.bind(this.app)}),
-        {},
-      ),
-    )
-      .getKeys()
-      .map(this.bindFacade)
+    Object.entries(methods).map(([k, v]) => this.bindFacade(k, v))
   }
 
   /**
@@ -62,7 +58,11 @@ export class Api extends Framework.Service implements Framework.Api {
    * @internal
    */
   @bind
-  public bindFacade(name: string) {
+  public bindFacade<K extends `${keyof Api['repository'] & string}`>(
+    name: K,
+    fn: Api['repository'][K],
+  ) {
+    this.set(name, fn.bind(this.app))
     this.app.bindMethod({[`${name}`]: facade.factory(name)})
   }
 
@@ -73,7 +73,7 @@ export class Api extends Framework.Service implements Framework.Api {
    */
   @bind
   public async call(name: string, ...args: any[]) {
-    this.log('log', {
+    this.app.log({
       message: `executing ${chalk.blue(name)}`,
       suffix:
         args && !isEmpty(args) ? this.app.json.stringify(args) : 'none',
@@ -88,7 +88,7 @@ export class Api extends Framework.Service implements Framework.Api {
     }
 
     // execute the callable
-    return await method(...args)
+    return await method.call(this.app, ...args)
   }
 
   /**
@@ -98,49 +98,24 @@ export class Api extends Framework.Service implements Framework.Api {
    */
   @bind
   public async processQueue() {
-    if (!this.queue.length) return
-
-    this.log('await', `Executing ${this.queue.length} enqueued functions`)
-
     await Promise.all(
-      this.queue.map(async ([name, args]) => {
+      this.queue.map(async ([name, args], i) => {
         this.trace.push([name, ...args])
+        delete this.queue[i]
 
         try {
           await this.call(name, ...args)
         } catch (error) {
-          throw new Error(error)
+          this.app.error(
+            `Error calling`,
+            name,
+            `with args`,
+            args,
+            `\nerror:`,
+            error,
+          )
         }
       }),
-    )
-
-    this.queue = []
-  }
-
-  /**
-   * Dump the method call trace
-   *
-   * @public
-   */
-  @bind
-  public dump() {
-    this.app.dump(
-      this.trace.reduce(
-        (a, t) => [
-          ...a,
-          {
-            method: t[0],
-            arguments: isEmpty(t[1]) ? 'none' : t[1],
-          },
-        ],
-        [],
-      ),
-      {
-        prefix: `${this.app.name} config traced calls`,
-        printBasicPrototype: false,
-        callToJSON: true,
-        min: true,
-      },
     )
   }
 }

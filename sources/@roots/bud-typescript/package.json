@@ -32,6 +32,9 @@
   "engines": {
     "node": ">=14"
   },
+  "bud": {
+    "type": "extension"
+  },
   "files": [
     "lib/",
     "types/",
@@ -39,41 +42,53 @@
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
+  "types": "./types/index.d.ts",
   "exports": {
     ".": "./lib/cjs/index.js",
-    "./tsconfig": "./tsconfig/tsconfig.json"
+    "./extension": "./lib/cjs/extension.js",
+    "./typecheck": "./lib/cjs/typecheck/index.js",
+    "./typecheck/extension": "./lib/cjs/typecheck/extension.js"
   },
-  "types": "./types/index.d.ts",
-  "bud": {
-    "type": "extension",
-    "peers": [
-      "@roots/bud-babel"
-    ]
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./types/index.d.ts"
+      ],
+      "extension": [
+        "./types/extension.d.ts"
+      ],
+      "typecheck": [
+        "./types/typecheck/index.d.ts"
+      ],
+      "typecheck/extension": [
+        "./types/typecheck/extension.d.ts"
+      ]
+    }
   },
   "devDependencies": {
-    "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@skypack/package-check": "0.2.2",
     "@types/fork-ts-checker-webpack-plugin": "0.4.5",
-    "@types/node": "16.11.26",
-    "typescript": "4.6.2",
+    "@types/node": "17.0.27",
     "webpack": "5.70.0"
   },
   "dependencies": {
-    "@roots/bud-build": "workspace:sources/@roots/bud-build",
-    "@typescript-eslint/eslint-plugin": "5.15.0",
-    "@typescript-eslint/parser": "5.15.0",
-    "autobind-decorator": "^2.4.0",
-    "fork-ts-checker-webpack-plugin": "^7.0.0",
-    "ts-loader": "^9.2.6",
+    "@babel/core": "^7.16.0",
+    "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
+    "@types/webpack-env": "^1.16.3",
+    "fork-ts-checker-webpack-plugin": "^7.2.6",
+    "ts-loader": "^9.2.8",
     "ts-node": "10.7.0",
-    "tslib": "^2.3.1",
+    "tslib": "2.3.1",
     "typescript": "4.6.2"
   },
   "peerDependencies": {
-    "typescript": "^4.5.5"
+    "ts-node": "*",
+    "typescript": "*"
   },
   "peerDependenciesMeta": {
+    "ts-node": {
+      "optional": true
+    },
     "typescript": {
       "optional": true
     }

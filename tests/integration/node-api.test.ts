@@ -1,59 +1,59 @@
-import execa from "execa";
-import {readFile} from "fs-extra";
-import {join} from "path";
+import {execa} from '@roots/bud-support'
+import {readFile} from 'fs-extra'
+import {join} from 'path'
 
-jest.setTimeout(60000);
+jest.setTimeout(60000)
 
-describe.skip("node-api", () => {
+describe.skip('node-api', () => {
   beforeAll(async () => {
-    await execa("yarn", ["webpack"], {
+    await execa.execa('yarn', ['webpack'], {
       cwd: `${process.cwd()}/examples/node-api`,
-    });
-  });
+    })
+  })
 
-  describe("snapshots", () => {
-    it("package.json", async () => {
+  describe('snapshots', () => {
+    it('package.json', async () => {
       const artifact = (
         await readFile(
-          join(process.cwd(), "examples/node-api/package.json"),
-          "utf8"
+          join(process.cwd(), 'examples/node-api/package.json'),
+          'utf8',
         )
-      ).toString();
+      ).toString()
 
-      expect(artifact).toMatchSnapshot();
-    });
+      expect(artifact).toMatchSnapshot()
+    })
 
-    it("dist/manifest.json", async () => {
+    it('dist/manifest.json', async () => {
       const artifact = await readFile(
-        join(process.cwd(), "examples/node-api/dist/manifest.json")
-      );
+        join(process.cwd(), 'examples/node-api/dist/manifest.json'),
+      )
 
-      expect(artifact.toString()).toMatchSnapshot();
-    });
+      expect(artifact.toString()).toMatchSnapshot()
+    })
 
-    it("dist/app.js", async () => {
+    it('dist/app.js', async () => {
       const artifact = await readFile(
-        join(process.cwd(), "examples/node-api/dist/app.js")
-      );
+        join(process.cwd(), 'examples/node-api/dist/app.js'),
+      )
 
-      expect(artifact.toString()).toMatchSnapshot();
-    });
+      expect(artifact.toString()).toMatchSnapshot()
+    })
 
-    it(".budfiles/bud.webpack.config.js", async () => {
+    it('.budfiles/bud.webpack.config.js', async () => {
       const artifact = (
         await import(
           join(
             process.cwd(),
-            "examples/node-api/.budfiles/bud.webpack.config.js"
+            'examples/node-api/.budfiles/bud.webpack.config.js',
           )
         )
-      ).default();
+      ).default()
 
-      expect(artifact.entry).toMatchSnapshot();
-      expect(artifact.mode).toMatchSnapshot();
-      expect(artifact.optimization).toMatchSnapshot();
-      expect(artifact.bail).toMatchSnapshot();
-      expect(artifact.cache).toMatchSnapshot();
-    });
-  });
-});
+      expect(artifact.entry).toMatchSnapshot()
+      expect(artifact.mode).toMatchSnapshot()
+      expect(artifact.optimization).toMatchSnapshot()
+      expect(artifact.bail).toMatchSnapshot()
+      expect(artifact.cache).toMatchSnapshot()
+    })
+  })
+})

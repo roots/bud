@@ -1,7 +1,7 @@
 {
   "name": "@repo/markdown-kit",
   "private": true,
-  "packageManager": "yarn@3.1.1",
+  "packageManager": "yarn@3.2.0",
   "exports": {
     "./readme": "./readme/index.tsx",
     "./cli-examples": "./cli-examples/index.ts"
