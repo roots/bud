@@ -27,5 +27,5 @@ export function close(callback?: any) {
 
   ctx.hooks.fire('event.app.close')
 
-  callback ? callback() : process.exit()
+  if (callback) callback()
 }

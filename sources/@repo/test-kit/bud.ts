@@ -24,6 +24,10 @@ export const factory = async (options?: Config.Options) => {
     context: {
       ...context,
       ...(options?.context ?? {}),
+      args: {
+        ...(options?.context?.args ?? {}),
+        ci: true,
+      },
     },
     seed: {
       ...seed,

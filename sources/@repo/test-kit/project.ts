@@ -166,8 +166,8 @@ export class Project {
     this.logger.log('building')
 
     this.options.with === 'yarn'
-      ? await this.$(`yarn`, [`bud`, `build`])
-      : await this.$(`node`, [`node_modules/.bin/bud`, `build`])
+      ? await this.$(`yarn`, [`bud`, `build`, `--ci`])
+      : await this.$(`node`, [`node_modules/.bin/bud`, `build`, `--ci`])
   }
 
   /**

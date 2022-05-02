@@ -14,9 +14,8 @@ import {stats} from './stats'
 export class Dashboard extends Service implements Base.Service {
   protected hash: string
 
-  protected render: any
-
   public interval: NodeJS.Timer
+
   public intervalMon: NodeJS.Timer
 
   public progress = new Line()
@@ -29,9 +28,21 @@ export class Dashboard extends Service implements Base.Service {
 
   @bind
   public async register() {
-    this.render = logUpdate.createLogUpdate(this.app.context.stdout)
-    this.interval = setInterval(this.update, 80)
-    this.intervalMon = setInterval(this.monitor, 200)
+    if (!this.app.context.args.ci && !this.app.env.has('TS_JEST')) {
+      this.render = logUpdate.createLogUpdate(this.app.context.stdout)
+      this.interval = setInterval(this.update, 80)
+      this.intervalMon = setInterval(this.monitor, 200)
+
+      this.app.hooks.action('event.app.close', async () => {
+        this.interval?.unref()
+        this.intervalMon?.unref()
+      })
+    }
+  }
+
+  @bind
+  public render(str: string) {
+    this.app.context.stdout.write(str)
   }
 
   @bind
@@ -59,6 +70,11 @@ export class Dashboard extends Service implements Base.Service {
 
   @bind
   public monitor() {
+    if (this.app.context.args.ci || this.app.env.has('TS_JEST')) {
+      this.report && process.stdout.write(this.report)
+      return
+    }
+
     if (this.percent == 100 && this.app.isProduction) {
       this.update()
       this.interval.unref()
