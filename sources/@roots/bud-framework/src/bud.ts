@@ -339,7 +339,6 @@ export abstract class Bud {
   @bind
   public log(...messages: any[]) {
     this.logger?.instance && this.logger.instance.log(...messages)
-
     return this
   }
 

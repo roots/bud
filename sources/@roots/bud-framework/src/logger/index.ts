@@ -39,7 +39,6 @@ export class Logger {
    */
   public constructor(_app: Bud) {
     this._app = () => _app
-
     this.instance = this.makeInstance()
   }
 

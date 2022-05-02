@@ -1,4 +1,4 @@
-import type {StatsCompilation} from 'webpack'
+import {StatsCompilation} from 'webpack'
 
 import type {Service as Base} from '../../service'
 
@@ -8,7 +8,11 @@ import type {Service as Base} from '../../service'
  * @public
  */
 export interface Service extends Base {
+  progress: any
+
   progressCallback(percent: number, scope: string, ...message: any[]): void
+
+  update(): this
 
   /**
    * Render the dashboard
@@ -17,5 +21,5 @@ export interface Service extends Base {
    *
    * @public
    */
-  stats(stats: StatsCompilation): void
+  stats(json: StatsCompilation): this
 }

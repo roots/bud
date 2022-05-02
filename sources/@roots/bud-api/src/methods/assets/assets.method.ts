@@ -5,6 +5,11 @@ import {normalize} from 'path'
 
 import type {method} from './assets.interface'
 
+export const appearsTupled = (request: any): boolean =>
+  isArray(request[0]) && isArray(request[0][0])
+
+export const toWildcard = (pattern: string) => normalize(`${pattern}/**/*`)
+
 export const assets: method = async function assets(
   ...request: Array<
     | string
@@ -38,11 +43,6 @@ export const assets: method = async function assets(
   }
 
   /**
-   * Return a wildcard glob for a given path
-   */
-  const toWildcard = (pattern: string) => normalize(`${pattern}/**/*`)
-
-  /**
    * Replace a leading dot with the project path
    */
   const fromDotRel = (pattern: string) =>
@@ -51,7 +51,7 @@ export const assets: method = async function assets(
   /**
    * Take an input string and return a {@link CopyPlugin.ObjectPattern}
    */
-  const makePatternObject = (input: string): CopyPlugin.ObjectPattern => {
+  function makePatternObject(input: string): CopyPlugin.ObjectPattern {
     /**
      * Process raw user input.
      *
@@ -102,9 +102,7 @@ export const assets: method = async function assets(
     return isString(request) ? makePatternObject(request) : request
   }
 
-  const appearsTupled = isArray(request[0]) && isArray(request[0][0])
-
-  if (appearsTupled) {
+  if (appearsTupled(request)) {
     ctx.extensions.get('copy-webpack-plugin').setOptions(options => ({
       ...(options ?? {}),
       patterns: [

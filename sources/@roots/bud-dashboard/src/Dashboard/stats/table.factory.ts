@@ -7,7 +7,7 @@ export const make = (data: Array<Array<any>>): string => {
     columnDefault: {
       alignment: 'left',
       wrapWord: true,
-      paddingRight: 3,
+      paddingRight: 2,
       paddingLeft: 0,
     },
   })

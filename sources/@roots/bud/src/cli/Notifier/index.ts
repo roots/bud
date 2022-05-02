@@ -55,9 +55,17 @@ export class Notifier {
    * @public
    */
   public get title(): string {
-    return this.app.compiler.stats.errorsCount > 0
-      ? `✖ ${this.app.project.get('manifest.name') ?? this.app.name}`
-      : `✔ ${this.app.project.get('manifest.name') ?? this.app.name}`
+    return this.app.compiler.errors?.length > 0
+      ? `✖ ${
+          this.app.context.manifest.name ??
+          this.app.context.application.name ??
+          this.app.name
+        }`
+      : `✔ ${
+          this.app.context.manifest.name ??
+          this.app.context.application.name ??
+          this.app.name
+        }`
   }
 
   /**
@@ -73,9 +81,23 @@ export class Notifier {
    * @public
    */
   public get message() {
-    return `\
-${this.app.mode} build completed with ${this.app.compiler.stats.errorsCount} errors \
-and ${this.app.compiler.stats.warningsCount} warnings`
+    return [
+      `${this.app.mode} build completed`,
+      this.app.compiler.errors?.length || this.app.compiler.warnings.length
+        ? `with`
+        : ``,
+      this.app.compiler.errors?.length
+        ? `${this.app.compiler.errors.length} errors`
+        : null,
+      this.app.compiler.errors?.length && this.app.compiler.warnings.length
+        ? `and`
+        : ``,
+      this.app.compiler.warnings?.length
+        ? `${this.app.compiler.warnings.length} warnings`
+        : null,
+    ]
+      .filter(Boolean)
+      .join(' ')
   }
 
   /**
@@ -105,17 +127,32 @@ and ${this.app.compiler.stats.warningsCount} warnings`
    */
   @bind
   public openEditor(
-    errors: {file: string; line?: number | null; column?: number | null}[],
+    errors: Array<{
+      file?: string
+      line?: number
+      column?: number
+      message: string
+    }>,
   ) {
     if (!this.editor) {
       return this.app.warn(
-        `can't open in editor\n`,
-        'the --openEditor flag was used but there is no editor indicated by either $EDITOR or $VISUAL environmental variables\n',
+        `Can't open problem file(s) in editor\n`,
+        `The --editor flag was used but there is no editor indicated by either $EDITOR or $VISUAL environmental variables\n`,
         '$VISUAL will be preferred over $EDITOR if both are present',
       )
     }
 
-    openEditor(errors, {editor: this.editor})
+    openEditor(
+      errors.map(error => {
+        if (!error.file) return
+        return {
+          file: this.app.path(error.file as `./`),
+          line: error.line ?? 0,
+          column: error.column ?? 0,
+        }
+      }),
+      {editor: this.editor},
+    )
   }
 
   public get editor() {
@@ -124,43 +161,8 @@ and ${this.app.compiler.stats.warningsCount} warnings`
   }
 
   @bind
-  public editorEvents() {
-    if (!this.app.isProduction) return
-
-    const parsed = (
-      this.app.compiler.stats?.errors ??
-      this.app.compiler.errors ??
-      []
-    )
-      .map(error => {
-        this.app.info(error)
-
-        const [_group, line, column] =
-          error.message?.match(/\((.*)\:(.*)\)/)
-
-        if (
-          error.moduleTrace &&
-          Array.isArray(error.moduleTrace) &&
-          error.moduleTrace.shift()?.originName
-        ) {
-          return {
-            file: error.moduleTrace.shift().originName,
-            column,
-            line,
-          }
-        }
-
-        if (error.moduleName) {
-          return {
-            file: this.app.path(error.moduleName as any),
-            column,
-            line,
-          }
-        }
-      })
-      .filter(({file}) => file)
-
-    this.openEditor(parsed)
+  public async editorEvents() {
+    this.openEditor(this.app.compiler.errors)
   }
 
   /**
@@ -174,15 +176,16 @@ and ${this.app.compiler.stats.warningsCount} warnings`
     this.app.info('cli', 'notify')
 
     try {
-      this.app.context.args.openEditor && this.editorEvents()
+      if (this.app.compiler.errors.length && this.app.context.args.editor)
+        await this.editorEvents()
     } catch (err) {
       this.app.warn(err)
     }
 
     try {
       if (
-        this.app.context.args.openBrowser &&
-        !this.app.compiler.stats.errorsCount
+        this.app.context.args.browser &&
+        !this.app.compiler.errors.length
       )
         await this.openBrowser()
     } catch (err) {

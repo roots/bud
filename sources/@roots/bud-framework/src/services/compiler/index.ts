@@ -33,9 +33,22 @@ interface Service extends Bud.Service {
    *
    * @public
    */
-  stats: StatsCompilation
+  stats: {
+    json: StatsCompilation
+    string: string
+  }
 
-  errors: Array<any>
+  /**
+   * Errors
+   * @public
+   */
+  errors: Array<BudError>
+
+  /**
+   * Errors
+   * @public
+   */
+  warnings: Array<BudError>
 
   /**
    * Returns a {@link WebpackMultiCompiler} instance
@@ -74,6 +87,13 @@ interface Service extends Bud.Service {
   onError(error: any): void
 }
 
+export type BudError = {
+  file: string
+  line: number
+  column: number
+  message: string
+  type: 'syntax' | 'export'
+}
 export type Config = Configuration
 export type Implementation = (...params: any[]) => any
 

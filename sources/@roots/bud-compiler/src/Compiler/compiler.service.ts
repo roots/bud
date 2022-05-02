@@ -6,10 +6,12 @@ import {
   ProgressPlugin,
   Stats,
   StatsCompilation,
-  StatsError,
   webpack,
   WebpackError,
 } from 'webpack'
+
+import * as Reporter from '../Reporter'
+import BudError from '../Reporter/BudError'
 
 const {isFunction} = lodash
 
@@ -40,13 +42,25 @@ export class Compiler extends Service implements Contract.Service {
    * Compilation stats
    * @public
    */
-  public stats: StatsCompilation
+  public stats: {
+    json: StatsCompilation
+    string: string
+  } = {
+    json: null,
+    string: null,
+  }
 
   /**
    * Errors
    * @public
    */
-  public errors: Array<any>
+  public errors: Array<BudError> = []
+
+  /**
+   * Errors
+   * @public
+   */
+  public warnings: Array<BudError> = []
 
   /**
    * Multi-compiler configuration
@@ -110,22 +124,13 @@ export class Compiler extends Service implements Contract.Service {
    */
   @bind
   public async before() {
-    /**
-     * Make config
-     */
     await this.app.build.make()
-
     this.config.push(this.app.build.config)
 
-    /**
-     * If there are {@link Bud.children} instances, iterate through
-     * them and add to `config`
-     */
     await Promise.all(
       this.app.children?.getValues().map(async (instance: Bud) => {
         if (!instance.name) return
         await instance.build.make()
-
         this.config.push(instance.build.config)
       }),
     )
@@ -145,8 +150,6 @@ export class Compiler extends Service implements Contract.Service {
   public async callback(error: Error, stats: Stats & MultiStats) {
     if (error) await this.onError(error)
     if (stats) await this.handleStats(stats)
-
-    this.app.isProduction && this.compilation.close(this.onClose)
   }
 
   /**
@@ -159,10 +162,15 @@ export class Compiler extends Service implements Contract.Service {
   public async handleStats(stats: Stats & MultiStats) {
     if (!stats?.toJson || !isFunction(stats?.toJson)) return
 
-    this.stats = stats.toJson()
-    this.app.dashboard.stats(stats)
+    this.stats.json = stats.toJson()
+    this.stats.string = stats.toString()
 
-    if (this.stats.errorsCount > 0) await this.onError(this.stats.errors)
+    const errorsAndWarnings = Reporter.report(this.app, stats)
+
+    this.errors = errorsAndWarnings.errors
+    this.warnings = errorsAndWarnings.warnings
+    this.app.dashboard.stats(this.stats.json)
+
     await this.app.hooks.fire(`event.compiler.success`)
   }
 
@@ -174,9 +182,9 @@ export class Compiler extends Service implements Contract.Service {
    */
   @bind
   public async onClose(error: WebpackError) {
-    if (error) await this.onError(error)
+    if (error) this.onError(error)
     await this.app.hooks.fire('event.compiler.close')
-    this.app.close()
+    this.app.isProduction && this.app.close()
   }
 
   /**
@@ -186,19 +194,15 @@ export class Compiler extends Service implements Contract.Service {
    * @decorator `@bind`
    */
   @bind
-  public async onError(error: StatsError[] | Error) {
-    this.errors = Array.isArray(error) ? error : [error]
-
+  public async onError(error: BudError[] | Error) {
     this.app.isDevelopment &&
-      this.app.server.enabledMiddleware?.hot?.publish({error})
+      this.app.server.appliedMiddleware?.hot?.publish({error})
 
     await this.app.hooks.fire('event.compiler.error')
 
-    this.app.isProduction &&
-      this.app.error(
-        this.errors
-          .filter(err => err.message)
-          .reduce((str, err) => `${str}\n${err.message}`),
-      )
+    if (this.app.isProduction) {
+      process.exitCode = 1
+      await this.app.close()
+    }
   }
 }

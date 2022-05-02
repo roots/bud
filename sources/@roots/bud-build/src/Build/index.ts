@@ -94,27 +94,23 @@ export class Build extends Bud.Service implements Bud.Build.Service {
         ['target'],
         ['watch'],
         ['watchOptions'],
-      ].map(this.memoMapValue),
+      ].map(async ([propKey, isAsync]: [keyof Configuration, boolean]) => {
+        const propValue =
+          isAsync === true
+            ? await this.app.hooks.filterAsync(`build.${propKey}` as any)
+            : this.app.hooks.filter(`build.${propKey}` as any)
+
+        if (isUndefined(propValue)) return
+
+        Object.assign(this.config, {[propKey]: propValue})
+
+        return Promise.resolve()
+      }),
     )
 
     await this.app.hooks.fire('event.build.after')
 
     return this.config
-  }
-
-  @bind
-  public async memoMapValue([propKey, isAsync]: [
-    keyof Configuration,
-    boolean,
-  ]) {
-    const propValue =
-      isAsync === true
-        ? await this.app.hooks.filterAsync(`build.${propKey}` as any)
-        : this.app.hooks.filter(`build.${propKey}` as any)
-
-    if (isUndefined(propValue)) return
-
-    Object.assign(this.config, {[propKey]: propValue})
   }
 
   /**

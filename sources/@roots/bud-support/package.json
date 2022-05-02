@@ -75,6 +75,7 @@
     "import-from": "4.0.0",
     "json5": "2.2.0",
     "lodash": "4.17.21",
+    "log-update": "5.0.1",
     "nanoid": "3.3.1",
     "open": "8.4.0",
     "open-editor": "4.0.0",

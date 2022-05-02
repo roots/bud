@@ -1,9 +1,9 @@
 import {Dashboard as Base} from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework'
-import {bind, Signale} from '@roots/bud-support'
+import {bind, logUpdate} from '@roots/bud-support'
 import {StatsCompilation} from 'webpack'
 
-import {instance} from './logger'
+import {Line} from './line'
 import {stats} from './stats'
 
 /**
@@ -14,13 +14,31 @@ import {stats} from './stats'
 export class Dashboard extends Service implements Base.Service {
   protected hash: string
 
-  protected jsonStats: StatsCompilation
+  protected render: any
 
-  protected stringStats: string
+  public interval: NodeJS.Timer
+  public intervalMon: NodeJS.Timer
 
-  protected dashboardLogger: Signale = instance
+  public progress = new Line()
 
-  protected progress: [number, string] = [0, ``]
+  protected output: Array<string>
+
+  protected percent: number
+
+  protected report: string
+
+  @bind
+  public async register() {
+    this.render = logUpdate.createLogUpdate(this.app.context.stdout)
+    this.interval = setInterval(this.update, 80)
+    this.intervalMon = setInterval(this.monitor, 200)
+  }
+
+  @bind
+  public update() {
+    this.render(this.report ?? this.progress.frame)
+    return this
+  }
 
   /**
    * Run dashboard
@@ -29,34 +47,23 @@ export class Dashboard extends Service implements Base.Service {
    * @decorator `@bind`
    */
   @bind
-  public stats(compilerStats: StatsCompilation): void {
-    if (!compilerStats) return
+  public stats(json: StatsCompilation): this {
+    this.render.clear()
 
-    this.jsonStats = compilerStats.toJson()
-    this.stringStats = compilerStats.toString()
+    this.report = this.app.context.args.ci
+      ? this.app.compiler.stats.string.trim()
+      : stats.report(json, this.app).join('')
 
-    if (!this.jsonStats) {
-      this.renderCI()
-      return
-    }
-
-    if (this.jsonStats.hash === this.hash) return
-    this.hash = this.jsonStats.hash
-
-    this.app.context.args.ci ? this.renderCI() : this.render()
+    return this
   }
 
   @bind
-  public renderCI() {
-    this.app.context.stdout.write(`\n${this.stringStats}\n`)
-  }
-
-  @bind
-  public render() {
-    try {
-      stats.write(this.jsonStats, this.app)
-    } catch {
-      this.renderCI()
+  public monitor() {
+    if (this.percent == 100 && this.app.isProduction) {
+      this.update()
+      this.interval.unref()
+      this.intervalMon.unref()
+      this.app.close()
     }
   }
 
@@ -67,39 +74,20 @@ export class Dashboard extends Service implements Base.Service {
    * @decorator `@bind`
    */
   @bind
-  public progressCallback(
-    percent: number,
-    scope: string,
-    ...message: any[]
-  ) {
+  public progressCallback(percent: number, scope: string) {
     try {
-      percent = Math.ceil((percent ?? 0) * 100)
-
-      message = (
-        message ? message.flatMap(i => (i ? `${i}`?.trim() : ``)) : []
-      ).reverse()
+      this.percent = Math.ceil((percent ?? 0) * 100)
 
       const stage =
         (scope.includes(`]`) ? scope.split(`]`).pop()?.trim() : scope) ??
         ``
 
-      this.progress = [percent, `${stage} ${message.join(` `)}`]
-
-      const shouldLog = ![
-        !stage,
-        stage === 'cache',
-        stage === 'done',
-        !message?.length,
-      ].includes(true)
-
-      shouldLog &&
-        this.dashboardLogger
-          .scope(
-            `${percent}%`,
-            stage,
-            ...message.splice(0, message.length - 1),
-          )
-          .log(...message)
+      if (percent < 100) {
+        this.progress.complete(false)
+        this.progress.update(stage)
+      } else {
+        this.progress.complete(true)
+      }
     } catch (error) {
       this.app.warn(error)
     }

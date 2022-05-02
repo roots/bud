@@ -88,40 +88,29 @@ export const report = ({
   context: Bud['context']
   compilation: StatsCompilation
 }) => {
-  const assetTable = table.make(
-    assetGroup(assets(compilation)).filter(Boolean),
-  )
+  const output = []
 
   const staticGroup = statics(compilation)
   const staticDisplay = staticGroup.splice(0, 5)
-  const staticTable = table.make(assetGroup(staticDisplay).filter(Boolean))
 
-  return [
-    box.make(
-      `[${count[0]}/${count[1]}] ${compilation.outputPath.replace(
-        context.projectDir,
-        '.',
-      )}`,
-      [
-        assetTable,
-        staticDisplay?.length
-          ? staticGroup.length
-            ? [
-                staticTable,
-                chalk.italic.dim(
-                  `+ ${staticGroup.length} additional static assets\n`,
-                ),
-              ].join('')
-            : staticTable
-          : null,
-      ]
-        .filter(Boolean)
-        .join(''),
-    ),
-  ]
+  output.push(
+    table.make([
+      ...assetGroup(assets(compilation)).filter(Boolean),
+      ...assetGroup(staticDisplay).filter(Boolean),
+    ]),
+  )
+
+  staticGroup.length &&
+    output.push(
+      chalk.italic.dim(
+        `+ ${staticGroup.length} additional static assets\n`,
+      ),
+    )
+
+  return output
 }
 
-export const timing = (app: Bud, compilation: StatsCompilation) => [
+export const timing = (app: Bud, compilation: StatsCompilation) =>
   table.make([
     [
       chalk.hex(theme.magenta)(`duration`),
@@ -131,8 +120,7 @@ export const timing = (app: Bud, compilation: StatsCompilation) => [
           )}`
         : time(compilation.time),
     ],
-  ]),
-]
+  ])
 
 export const summary = (app: Bud, compilation: StatsCompilation) => [
   table.make([
