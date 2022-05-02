@@ -28,16 +28,18 @@ export class Dashboard extends Service implements Base.Service {
 
   @bind
   public async register() {
-    if (!this.app.context.args.ci && !this.app.env.has('TS_JEST')) {
-      this.render = logUpdate.createLogUpdate(this.app.context.stdout)
-      this.interval = setInterval(this.update, 80)
-      this.intervalMon = setInterval(this.monitor, 200)
-
-      this.app.hooks.action('event.app.close', async () => {
-        this.interval?.unref()
-        this.intervalMon?.unref()
-      })
+    if (this.app.context.args.ci || this.app.env.has('TS_JEST')) {
+      return
     }
+
+    this.render = logUpdate.createLogUpdate(this.app.context.stdout)
+    this.interval = setInterval(this.update, 80)
+    this.intervalMon = setInterval(this.monitor, 200)
+
+    this.app.hooks.action('event.app.close', async () => {
+      this.interval?.unref()
+      this.intervalMon?.unref()
+    })
   }
 
   @bind
@@ -59,7 +61,7 @@ export class Dashboard extends Service implements Base.Service {
    */
   @bind
   public stats(json: StatsCompilation): this {
-    this.render.clear()
+    if ((this.render as any).clear) (this.render as any).clear()
 
     this.report = this.app.context.args.ci
       ? this.app.compiler.stats.string.trim()
