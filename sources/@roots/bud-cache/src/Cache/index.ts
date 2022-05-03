@@ -155,4 +155,10 @@ export class Cache extends Service implements Services.Cache.Service {
       .replace(/[^a-z0-9]/gi, `_`)
       .toLowerCase()
   }
+
+  @bind
+  public async clean() {
+    this.app.log('cleaning cache')
+    await fs.removeSync(this.app.path(`@storage/cache`))
+  }
 }

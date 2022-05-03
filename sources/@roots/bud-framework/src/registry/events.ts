@@ -1,7 +1,7 @@
 import {Bud} from '../bud'
 
 export interface Events {
-  'app.close': (app?: Bud) => Promise<unknown>
+  'app.close': (app?: Bud) => any
   'build.before': (app?: Bud) => Promise<unknown>
   'build.after': (app?: Bud) => Promise<unknown>
   'compiler.before': (app?: Bud) => Promise<unknown>

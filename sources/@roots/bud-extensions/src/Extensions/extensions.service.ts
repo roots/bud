@@ -5,7 +5,9 @@ import {
   Modules,
   Service,
 } from '@roots/bud-framework'
-import {bind, chalk} from '@roots/bud-support'
+import {bind, chalk, lodash as _} from '@roots/bud-support'
+
+const {noop} = _
 
 /**
  * Extensions Service
@@ -68,27 +70,22 @@ export class Extensions extends Service implements Contract.Service {
   @bind
   public async injectExtensions() {
     if (this.app.hooks.filter('feature.inject') === false) {
-      this.app.log('injection disabled')
-      return
+      return this.app.log('injection disabled')
     }
 
     this.app.log('injecting extensions')
-    const dependencyKeys = Object.keys({
-      ...(this.app.context.manifest?.devDependencies ?? {}),
-      ...(this.app.context.manifest?.dependencies ?? {}),
-    })
 
     return Promise.all(
-      dependencyKeys.map(async (pkg, i) => {
-        this.app.log('injecting', pkg)
-
+      Object.keys({
+        ...(this.app.context.manifest?.devDependencies ?? {}),
+        ...(this.app.context.manifest?.dependencies ?? {}),
+      }).map(async pkg => {
         try {
-          const manifestPath = await this.app.module.manifestPath(pkg)
-          const manifest = await this.app.module.readManifest(manifestPath)
+          const manifest = await this.app.module
+            .manifestPath(pkg)
+            .then(this.app.module.readManifest)
 
-          if (!manifest?.bud) return
-
-          await this.import(pkg)
+          return manifest.bud ? await this.import(pkg) : noop
         } catch (error) {
           this.app.error(`Error importing`, pkg, `\n`, error)
         }

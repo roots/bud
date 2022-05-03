@@ -21,5 +21,13 @@ export interface Service extends Base {
    *
    * @public
    */
-  stats(json: StatsCompilation): this
+  stats({
+    stats,
+    errors,
+    warnings,
+  }: {
+    stats: StatsCompilation
+    errors: any[]
+    warnings: any[]
+  }): this
 }

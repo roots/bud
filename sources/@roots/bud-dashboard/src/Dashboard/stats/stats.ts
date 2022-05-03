@@ -6,29 +6,30 @@ import * as components from './components'
 import {theme} from './theme'
 import * as webpackMessage from './webpack.message'
 
-export const report = (
-  stats: StatsCompilation,
-  app: Bud,
-): Array<string> => {
+export const report = ({
+  stats,
+  warnings,
+  errors,
+  app,
+}: {
+  stats: StatsCompilation
+  warnings: any
+  errors: any
+  app: Bud
+}): Array<string> => {
   const output = []
 
   const appName = app.context.manifest.name ?? app.name
 
   output.push(
     chalk
-      .hex(app.compiler.errors.length ? theme.red : theme.green)
+      .hex(errors.length ? theme.red : theme.green)
       .underline(
-        `\n${
-          app.compiler.errors.length ? figures.cross : figures.tick
-        } ${appName}\n\n`,
+        `\n${errors.length ? figures.cross : figures.tick} ${appName}\n\n`,
       ),
   )
-
-  app.compiler.errors &&
-    output.push(...app.compiler.errors.map(webpackMessage.makeError))
-
-  app.compiler.warnings &&
-    output.push(...app.compiler.warnings.map(webpackMessage.makeWarning))
+  errors && output.push(...errors.map(webpackMessage.makeError))
+  warnings && output.push(...warnings.map(webpackMessage.makeWarning))
 
   stats?.children?.map((compilation, i) => {
     compilation?.entrypoints &&

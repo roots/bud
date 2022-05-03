@@ -147,9 +147,9 @@ export class Compiler extends Service implements Contract.Service {
    */
   @bind
   @once
-  public async callback(error: Error, stats: Stats & MultiStats) {
-    if (error) await this.onError(error)
-    if (stats) await this.handleStats(stats)
+  public callback(error: Error, stats: Stats & MultiStats) {
+    if (error) this.onError(error)
+    if (stats) this.handleStats(stats)
   }
 
   /**
@@ -159,19 +159,26 @@ export class Compiler extends Service implements Contract.Service {
    * @decorator `@bind`
    */
   @bind
-  public async handleStats(stats: Stats & MultiStats) {
+  public handleStats(stats: Stats & MultiStats) {
     if (!stats?.toJson || !isFunction(stats?.toJson)) return
 
     this.stats.json = stats.toJson()
     this.stats.string = stats.toString()
 
-    const errorsAndWarnings = Reporter.report(this.app, stats)
+    const problemReporter = Reporter.report(this.app, this.stats.json)
+    this.errors = problemReporter.errors
+    this.warnings = problemReporter.warnings
 
-    this.errors = errorsAndWarnings.errors
-    this.warnings = errorsAndWarnings.warnings
-    this.app.dashboard.stats(this.stats.json)
+    this.app.dashboard.stats({
+      stats: this.stats.json,
+      errors: this.errors,
+      warnings: this.warnings,
+    })
 
-    await this.app.hooks.fire(`event.compiler.success`)
+    this.app.hooks.fire(`event.compiler.success`)
+
+    stats.hasErrors() && this.app.cache.clean()
+    this.app.isProduction && this.compilation.close(this.onClose)
   }
 
   /**
@@ -181,10 +188,8 @@ export class Compiler extends Service implements Contract.Service {
    * @decorator `@bind`
    */
   @bind
-  public async onClose(error: WebpackError) {
+  public onClose(error: WebpackError) {
     if (error) this.onError(error)
-    await this.app.hooks.fire('event.compiler.close')
-    this.app.isProduction && this.app.close()
   }
 
   /**
@@ -194,15 +199,11 @@ export class Compiler extends Service implements Contract.Service {
    * @decorator `@bind`
    */
   @bind
-  public async onError(error: BudError[] | Error) {
+  public onError(error: BudError[] | Error) {
     this.app.isDevelopment &&
       this.app.server.appliedMiddleware?.hot?.publish({error})
 
-    await this.app.hooks.fire('event.compiler.error')
-
-    if (this.app.isProduction) {
-      process.exitCode = 1
-      await this.app.close()
-    }
+    this.app.hooks.fire('event.compiler.error')
+    this.app.error(error)
   }
 }

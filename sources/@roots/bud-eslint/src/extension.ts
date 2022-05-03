@@ -7,19 +7,17 @@ import {
   plugin,
 } from '@roots/bud-framework/extension/decorators'
 import EslintPlugin, {Options} from 'eslint-webpack-plugin'
-import {cpus} from 'os'
 
 @label('@roots/bud-eslint')
 @expose('eslint')
 @plugin(EslintPlugin)
-@options({
+@options<Options>({
   extensions: ['js', 'jsx', 'ts', 'tsx', 'vue'],
-  cacheLocation: app => app.path('@storage/cache/eslint.json'),
-  cacheStrategy: 'content',
+  cacheLocation: app => app.path('@storage/cache/eslint'),
   cwd: app => app.path(),
   eslintPath: require.resolve('eslint'),
   resolvePluginsRelativeTo: app => app.path(),
-  threads: Math.max(cpus?.length / 2, 1),
+  threads: false,
 })
 export default class BudEslint extends Extension<Options, EslintPlugin> {
   @bind

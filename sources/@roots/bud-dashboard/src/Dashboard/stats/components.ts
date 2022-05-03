@@ -103,7 +103,7 @@ export const report = ({
   staticGroup.length &&
     output.push(
       chalk.italic.dim(
-        `+ ${staticGroup.length} additional static assets\n`,
+        `+ ${staticGroup.length} additional static assets\n\n`,
       ),
     )
 

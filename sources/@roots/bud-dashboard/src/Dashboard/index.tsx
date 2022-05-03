@@ -4,7 +4,7 @@ import {bind, logUpdate} from '@roots/bud-support'
 import {StatsCompilation} from 'webpack'
 
 import {Line} from './line'
-import {stats} from './stats'
+import {reporter} from './stats'
 
 /**
  * Dashboard service
@@ -60,12 +60,21 @@ export class Dashboard extends Service implements Base.Service {
    * @decorator `@bind`
    */
   @bind
-  public stats(json: StatsCompilation): this {
-    if ((this.render as any).clear) (this.render as any).clear()
+  public stats({
+    stats,
+    errors,
+    warnings,
+  }: {
+    stats: StatsCompilation
+    errors: any
+    warnings: any
+  }): this {
+    const render = this.render as any
+    if (render.clear) render.clear()
 
     this.report = this.app.context.args.ci
       ? this.app.compiler.stats.string.trim()
-      : stats.report(json, this.app).join('')
+      : reporter.report({stats, errors, warnings, app: this.app}).join('')
 
     return this
   }
@@ -81,7 +90,6 @@ export class Dashboard extends Service implements Base.Service {
       this.update()
       this.interval.unref()
       this.intervalMon.unref()
-      this.app.close()
     }
   }
 
