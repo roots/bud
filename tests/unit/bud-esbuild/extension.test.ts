@@ -1,22 +1,31 @@
 import {Bud, factory} from '@repo/test-kit/bud'
 import {Loader} from '@roots/bud-build'
-import * as esbuild from '@roots/bud-esbuild'
+import esbuild from '@roots/bud-esbuild'
 
 describe('@roots/bud-esbuild', () => {
   let bud: Bud
+  let extension: any
+
+  beforeAll(async () => {
+    bud = await factory()
+    await bud.extensions.add(esbuild)
+    extension = bud.extensions.get('@roots/bud-esbuild')
+    await bud.build.make()
+  })
 
   it('has name prop', () => {
-    expect(esbuild.name).toBe('@roots/bud-esbuild')
+    expect(bud.extensions.get('@roots/bud-esbuild').get('label')).toBe(
+      '@roots/bud-esbuild',
+    )
   })
 
   describe('module boot', () => {
-    beforeAll(async () => {
-      bud = await factory()
-      await bud.extensions.add(esbuild)
+    it('has label prop', () => {
+      expect(extension.get('label')).toBe('@roots/bud-esbuild')
     })
 
     it('is a method', () => {
-      expect(esbuild.boot).toBeInstanceOf(Function)
+      expect(extension.boot).toBeInstanceOf(Function)
     })
 
     it('registers js ruleset item', () => {
@@ -27,7 +36,7 @@ describe('@roots/bud-esbuild', () => {
 
     it('registers js ruleset item options', () => {
       expect(bud.build.items['esbuild-js'].getOptions()).toEqual(
-        bud.extensions.get('@roots/bud-esbuild').options.get('js'),
+        extension.getOption('js'),
       )
     })
 
@@ -45,7 +54,7 @@ describe('@roots/bud-esbuild', () => {
 
     it('registers ts ruleset item options', () => {
       expect(bud.build.items['esbuild-ts'].getOptions()).toEqual(
-        bud.extensions.get('@roots/bud-esbuild').options.get('ts'),
+        extension.options.ts,
       )
     })
 
@@ -61,18 +70,12 @@ describe('@roots/bud-esbuild', () => {
   })
 
   describe('module options', () => {
-    beforeAll(async () => {
-      bud = await factory()
-    })
-
     it('is a method', () => {
-      expect(esbuild.options).toBeInstanceOf(Function)
+      expect(extension.options).toBeDefined()
     })
 
     it('yields expected options', async () => {
-      const options = esbuild.options(bud)
-
-      expect(options).toEqual({
+      expect(extension.options).toEqual({
         minify: {
           css: true,
           include: [expect.any(RegExp), expect.any(RegExp)],
@@ -92,13 +95,7 @@ describe('@roots/bud-esbuild', () => {
   })
 
   describe('does its job', () => {
-    beforeAll(async () => {
-      bud = await factory()
-      await bud.extensions.add(esbuild)
-      await bud.build.make()
-    })
-
-    it('only leaves a single minifier', () => {
+    it('single minifier', () => {
       expect(bud.build.config.optimization.minimizer).toHaveLength(1)
     })
 

@@ -10,5 +10,4 @@
  *  @packageDocumentation
  */
 
-export {Controller} from './Controller'
 export {Extensions} from './Extensions'

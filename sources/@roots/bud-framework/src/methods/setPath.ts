@@ -32,21 +32,33 @@ export const setPath: setPath = function (arg1, arg2) {
 
   const input = isString(arg1) ? {[arg1]: arg2} : arg1
 
-  Object.entries(input).map(([key, value]: [`${keyof Locations & string}`, string]) => {
-    !key.startsWith(`@`) &&
-      app.error(
-        `bud paths are required to be prefixed with \`@\`. Please convert \`${key}\` to \`@${key}\``,
-      )
+  Object.entries(input).map(
+    ([key, value]: [
+      `${keyof Locations & string}`,
+      (
+        | `${keyof Locations & string}`
+        | `@file`
+        | `@name`
+        | `${keyof Locations & string}/${string}`
+        | `./${string}`
+        | `/${string}`
+      ),
+    ]) => {
+      !key.startsWith(`@`) &&
+        app.error(
+          `bud paths are required to be prefixed with \`@\`. Please convert \`${key}\` to \`@${key}\``,
+        )
 
-    const absolutePath = app.path(value)
-    !absolutePath.startsWith('/') &&
-      app.error(
-        `internal error: the final result of a bud.setPath transform was not absolute: ${key} => ${value} => ${absolutePath}`,
-      )
+      const absolutePath = app.path(value)
+      !absolutePath.startsWith('/') &&
+        app.error(
+          `internal error: the final result of a bud.setPath transform was not absolute: ${key} => ${value} => ${absolutePath}`,
+        )
 
-    app.hooks.on(`location.${key}`, app.path(value))
-    app.info(`${key} set to ${value}`)
-  })
+      app.hooks.on(`location.${key}`, app.path(value))
+      app.info(`${key} set to ${value}`)
+    },
+  )
 
   return app
 }

@@ -5,15 +5,8 @@
     "rootDir": "./src",
     "outDir": "./lib/cjs",
     "declarationDir": "./types",
-    "types": [
-      "node",
-      "@roots/bud-api",
-      "@roots/bud-framework",
-      "@roots/bud-postcss"
-    ]
   },
-  "include": ["src"],
-  "exclude": ["lib", "node_modules", "types"],
+  "include": ["./src"],
   "references": [
     {
       "path": "./../bud-framework/tsconfig.json"

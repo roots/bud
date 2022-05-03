@@ -20,12 +20,12 @@ import {Extension} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
   interface Modules {
-    '@roots/bud-prettier': Extension.Module
+    '@roots/bud-prettier': Extension
   }
 }
 
-const extension: Extension.Module = {
-  name: '@roots/bud-prettier',
+const extension: Extension = {
+  label: '@roots/bud-prettier',
 }
 
-export const {name} = extension
+export const {label} = extension

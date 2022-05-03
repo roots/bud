@@ -1,24 +1,57 @@
 import {Bud} from '@roots/bud-framework'
+import {chalk, figures} from '@roots/bud-support'
 import {StatsCompilation} from 'webpack'
 
-import * as box from './box.factory'
 import * as components from './components'
 import {theme} from './theme'
 import * as webpackMessage from './webpack.message'
 
-export const write = (stats: {toJson: () => StatsCompilation}, app: Bud) =>
-  stats.toJson().children?.map(compilation => {
-    if (!compilation?.entrypoints) return compilation
+export const report = ({
+  stats,
+  warnings,
+  errors,
+  app,
+}: {
+  stats: StatsCompilation
+  warnings: any
+  errors: any
+  app: Bud
+}): Array<string> => {
+  const output = []
 
-    const output = [
-      ...webpackMessage.mapMessages(compilation.warnings, theme.yellow),
-      ...webpackMessage.mapMessages(compilation.errors, theme.red),
-      box.make('assets', components.report(compilation).join('')),
-      ...components.timing(app, compilation),
-      ...components.summary(app, compilation),
-      ...(app.store.get('features.log') ? components.framework(app) : []),
-    ].join('')
+  const appName = app.context.manifest.name ?? app.name
 
-    // eslint-disable-next-line
-    app.context.stdout.write(`\n${output}\n`)
+  output.push(
+    chalk
+      .hex(errors.length ? theme.red : theme.green)
+      .underline(
+        `\n${errors.length ? figures.cross : figures.tick} ${appName}\n\n`,
+      ),
+  )
+  errors && output.push(...errors.map(webpackMessage.makeError))
+  warnings && output.push(...warnings.map(webpackMessage.makeWarning))
+
+  stats?.children?.map((compilation, i) => {
+    compilation?.entrypoints &&
+      output.push(
+        ...components.report({
+          appName,
+          count: [i + 1, stats?.children?.length ?? 1],
+          context: app.context,
+          compilation,
+        }),
+      )
+
+    output.push(
+      [
+        components.timing(app, compilation),
+        ...components.summary(app, compilation),
+      ].join(''),
+    )
+
+    app.hooks.filter('feature.log') &&
+      output.push(...components.framework(app))
   })
+
+  return output.filter(Boolean)
+}

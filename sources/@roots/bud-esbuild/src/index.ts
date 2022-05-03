@@ -12,66 +12,80 @@
 
 import './interface'
 
-import {Modules} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework'
+import {
+  bind,
+  label,
+  options,
+} from '@roots/bud-framework/extension/decorators'
 import {ESBuildMinifyPlugin} from 'esbuild-loader'
 
-/** @public */
-export type extension = Modules['@roots/bud-esbuild']
-
-/** @public */
-export const name: extension['name'] = '@roots/bud-esbuild'
-
-/** @public */
-export const options: extension['options'] = ({project, store}) => ({
+type Opts = {
   minify: {
-    css: true,
-    include: [store.get('patterns.js'), store.get('patterns.ts')],
-    exclude: store.get('patterns.modules'),
-  },
+    css: boolean
+    include: string | RegExp | Array<string | RegExp>
+    exclude: string | RegExp | Array<string | RegExp>
+  }
   js: {
+    loader: 'jsx' | 'jsx'
+    target: string
+  }
+  ts: {
+    loader: 'tsx' | 'ts'
+    target: string
+    tsconfigRaw: Record<string, any>
+  }
+}
+
+@label('@roots/bud-esbuild')
+@options<Opts>({
+  minify: app => ({
+    css: true,
+    include: [
+      app.hooks.filter('pattern.js'),
+      app.hooks.filter('pattern.ts'),
+    ],
+    exclude: app.hooks.filter('pattern.modules'),
+  }),
+  js: () => ({
     loader: 'jsx',
     target: 'es2015',
-  },
-  ts: {
+  }),
+  ts: ({project}) => ({
     loader: 'tsx',
     target: 'es2015',
     tsconfigRaw:
       project.get(['config', 'base', 'tsconfig.json', 'module']) ?? null,
-  },
+  }),
 })
+export default class BudEsbuild extends Extension<Opts> {
+  @bind
+  public async boot() {
+    this.app.build
+      .setLoader('esbuild', require.resolve('esbuild-loader'))
+      .setItem('esbuild-js', {
+        loader: 'esbuild',
+        options: () => this.options.js,
+      })
+      .setItem('esbuild-ts', {
+        loader: 'esbuild',
+        options: () => this.options.ts,
+      })
+      .setRule('ts', {
+        test: ({hooks}) => hooks.filter('pattern.ts'),
+        include: [({path}) => path('@src')],
+        use: ['esbuild-ts'],
+      })
+      .rules.js.setUse(['esbuild-js'])
 
-/** @public */
-export const boot: extension['boot'] = async ({
-  build,
-  extensions,
-  hooks,
-}) => {
-  build
-    .setLoader('esbuild', require.resolve('esbuild-loader'))
-    .setItem('esbuild-js', {
-      loader: 'esbuild',
-      options: ({extensions}) =>
-        extensions.get('@roots/bud-esbuild').options.get('js'),
-    })
-    .setItem('esbuild-ts', {
-      loader: 'esbuild',
-      options: ({extensions}) =>
-        extensions.get('@roots/bud-esbuild').options.get('ts'),
-    })
-    .setRule('ts', {
-      test: ({store}) => store.get('patterns.ts'),
-      exclude: ({store}) => store.get('patterns.modules'),
-      use: ['esbuild-ts'],
-    })
-    .rules.js.setUse(['esbuild-js'])
+    this.app.hooks.on('build.resolve.extensions', ext =>
+      ext.add('.ts').add('.tsx'),
+    )
 
-  hooks.on('build.resolve.extensions', ext => ext.add('.ts').add('.tsx'))
-
-  hooks.action('event.build.before', async ({hooks}) => {
-    hooks.on('build.optimization.minimizer', () => [
-      new ESBuildMinifyPlugin(
-        extensions.get('@roots/bud-esbuild').options.get('minify'),
-      ),
-    ])
-  })
+    this.app.hooks.action('event.build.before', async ({hooks}) => {
+      hooks.on('build.optimization.minimizer', () => [
+        new ESBuildMinifyPlugin(this.options.minify),
+      ])
+    })
+  }
 }

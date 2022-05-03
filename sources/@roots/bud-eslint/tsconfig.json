@@ -8,12 +8,12 @@
     "declarationDir": "./types",
     "types": [
       "node",
-      "@roots/bud-api",
-      "@roots/bud-framework"
+      "@roots/bud-framework",
+      "@roots/bud-api"
     ]
   },
   "include": [
-    "src"
+    "./src"
   ],
   "references": [
     {

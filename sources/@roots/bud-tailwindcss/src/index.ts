@@ -10,9 +10,7 @@
  * @packageDocumentation
  */
 
-import './typings'
+import './env'
 
-import {BudTailwindCssExtension} from './tailwind.extension'
-
-export const name = BudTailwindCssExtension.label
-export const boot = BudTailwindCssExtension.boot
+import BudTailwindCss from './extension'
+export default BudTailwindCss

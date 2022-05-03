@@ -1,49 +1,48 @@
-import type {Extension} from '@roots/bud-framework'
+import {Bud, Extension} from '@roots/bud-framework'
 import * as Plugin from 'compression-webpack-plugin'
 
 import {BudCompressionExtension} from './'
 
-interface BudGzipWebpackPlugin
-  extends Extension.Plugin<Plugin, BudCompressionExtension.Options> {}
+class BudGzipWebpackPlugin extends Extension<
+  BudCompressionExtension.Options,
+  Plugin
+> {
+  public label = 'compression-webpack-plugin-brotli'
 
-const name: BudGzipWebpackPlugin['name'] = 'bud-gzip-webpack-plugin'
+  public optionsValue = () => ({
+    algorithm: 'brotliCompress',
+    filename: '[name].br[query]',
+    test: /\.js$|\.css$|\.html$|\.htm$/,
+    compressionOptions: {
+      level: 11,
+    },
+    threshold: 10240,
+    minRatio: 0.8,
+    deleteOriginalAssets: false,
+  })
 
-const options: BudGzipWebpackPlugin['options'] = {
-  algorithm: 'gzip',
-  filename: '[name].gz[query]',
-  test: /\.js$|\.css$|\.html$/,
-  compressionOptions: {
-    level: 9,
-  },
-  threshold: 10240,
-  minRatio: 0.8,
-  deleteOriginalAssets: false,
+  public async make() {
+    return new Plugin(this.options)
+  }
+
+  public async when() {
+    return this.app.hooks.filter('feature.gzip')
+  }
+
+  public async register() {
+    this.app.api.bindFacade('gzip', function (options) {
+      const app = this as Bud
+
+      this.app.hooks.on('feature.gzip', true)
+
+      if (options)
+        app.extensions
+          .get('compression-webpack-plugin-gzip')
+          .set('options', options)
+
+      return app
+    })
+  }
 }
 
-const make: BudGzipWebpackPlugin['make'] = options =>
-  new Plugin(options.all())
-
-const api: BudGzipWebpackPlugin['api'] = {
-  gzip: function (options) {
-    this.store.set('features.gzip', true)
-
-    if (options)
-      this.extensions
-        .get('compression-webpack-plugin-gzip')
-        .setOptions(options)
-
-    return this
-  },
-}
-
-const when = ({store}) => store.is('features.gzip', true)
-
-const BudGzipWebpackPlugin: BudGzipWebpackPlugin = {
-  name,
-  options,
-  make,
-  api,
-  when,
-}
-
-export {BudGzipWebpackPlugin}
+export default BudGzipWebpackPlugin

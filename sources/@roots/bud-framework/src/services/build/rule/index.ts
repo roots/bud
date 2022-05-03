@@ -40,7 +40,8 @@ export namespace Rule {
       loader: string
       options?: {[key: string]: any}
     }[]
-    exclude?: RegExp
+    include?: Array<RegExp | string>
+    exclude?: Array<RegExp | string>
     type?: string
     parser?: Parser
     generator?: any
@@ -81,22 +82,22 @@ export interface Rule {
    *
    * @public
    */
-  use?: Array<`${keyof Items & string}`>
+  use?: Array<keyof Items & string>
 
   /**
    * Get the value of `use`
    *
    * @public
    */
-  getUse(): Array<`${keyof Items & string}`>
+  getUse(): Array<keyof Items & string>
 
   /**
    * Set the value of `use`
    *
    * @public
    */
-  setUse(
-    use: ((use: Rule['use'], app: Bud) => Rule['use']) | Rule['use'],
+  setUse<K extends keyof Items & string>(
+    use: ((use: Array<K>, app: Bud) => Array<K>) | Array<K>,
   ): Rule
 
   /**
@@ -104,42 +105,54 @@ export interface Rule {
    *
    * @public
    */
-  exclude?: ((app: Bud) => Array<string | RegExp>) | Array<string | RegExp>
+  exclude?: Array<string | RegExp | ((app: Bud) => string | RegExp)>
 
   /**
    * Get the value of `exclude`
    *
    * @public
    */
-  getExclude(): Array<string | RegExp>
+  getExclude(): Array<string | RegExp | ((app: Bud) => string | RegExp)>
 
   /**
    * Set the value of `exclude`
    *
    * @public
    */
-  setExclude(exclude: Rule['exclude']): Rule
+  setExclude(
+    excludes:
+      | ((
+          excludes: Array<
+            string | RegExp | ((app: Bud) => string | RegExp)
+          >,
+        ) => Array<string | RegExp | ((app: Bud) => string | RegExp)>)
+      | Array<string | RegExp | ((app: Bud) => string | RegExp)>,
+  ): Rule
 
   /**
    * Include paths
    *
    * @public
    */
-  include?: ((app: Bud) => Array<string | RegExp>) | Array<string | RegExp>
+  include?: Array<string | RegExp | ((app: Bud) => string | RegExp)>
 
   /**
    * Get the value of `include`
    *
    * @public
    */
-  getInclude(): Array<string | RegExp>
+  getInclude(): Rule['include']
 
   /**
    * Set the value of `include`
    *
    * @public
    */
-  setInclude(include: Rule['include']): Rule
+  setInclude(
+    value:
+      | ((includes: Rule['include']) => Rule['include'])
+      | Rule['include'],
+  ): Rule
 
   /**
    * Type

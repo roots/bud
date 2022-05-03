@@ -11,7 +11,7 @@ const {isUndefined} = lodash
  * This override should always be first.
  *
  * No reason to handle child instances which are slated
- * to be discarded
+ * to be discarded.
  *
  * @public
  */
@@ -45,9 +45,9 @@ export const config = async (command: BuildCommand) => {
   }
 
   if (!isUndefined(command.manifest)) {
-    command.app.store.set('features.manifest', command.manifest)
+    command.app.hooks.on('feature.manifest', command.manifest)
     command.app.children?.every((_name, child) =>
-      child.store.set('features.manifest', command.manifest),
+      child.hooks.on('feature.manifest', command.manifest),
     )
   }
 
@@ -79,7 +79,7 @@ export const config = async (command: BuildCommand) => {
   if (!isUndefined(command.hash)) {
     await command.app.api.call('hash', command.hash)
     await Promise.all(
-      command.app.children.getEntries().map(async ([_name, child]) => {
+      command.app.children.getValues().map(async child => {
         await child.api.call('hash', command.hash)
       }),
     )
@@ -97,7 +97,7 @@ export const config = async (command: BuildCommand) => {
   if (!isUndefined(command.minimize)) {
     await command.app.api.call('minimize', command.minimize)
     await Promise.all(
-      command.app.children.getEntries().map(async ([_name, child]) => {
+      command.app.children.getValues().map(async child => {
         await child.api.call('minimize', command.minimize)
       }),
     )
@@ -106,7 +106,7 @@ export const config = async (command: BuildCommand) => {
   if (!isUndefined(command.splitChunks)) {
     await command.app.api.call('splitChunks', command.splitChunks)
     await Promise.all(
-      command.app.children.getEntries().map(async ([_name, child]) => {
+      command.app.children.getValues().map(async child => {
         await child.api.call('splitChunks', command.splitChunks)
       }),
     )

@@ -1,9 +1,6 @@
-import {Bud, Build, Extension} from '@roots/bud-framework'
+import {Build} from '@roots/bud-framework'
 
-interface Esbuild extends Extension.Module<options> {
-  name: '@roots/bud-esbuild'
-  options: (app: Bud) => options
-}
+import Esbuild from './'
 
 declare module '@roots/bud-framework' {
   interface Modules {
@@ -21,22 +18,5 @@ declare module '@roots/bud-framework' {
 
   interface Rules {
     ts: Build.Rule
-  }
-}
-
-interface options {
-  minify: {
-    css: boolean
-    include: string | RegExp | Array<string | RegExp>
-    exclude: string | RegExp | Array<string | RegExp>
-  }
-  js: {
-    loader: 'jsx' | 'jsx'
-    target: string
-  }
-  ts: {
-    loader: 'tsx' | 'ts'
-    target: string
-    tsconfigRaw: Record<string, any>
   }
 }

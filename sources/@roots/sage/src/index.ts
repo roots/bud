@@ -10,8 +10,10 @@
  * @packageDocumentation
  */
 
-import './bud.env'
+import './env'
 
-import {Sage} from './sage.preset'
+import Sage from './extension'
+export default Sage
 
-export const {name, boot} = Sage
+import * as client from './client'
+export {client}

@@ -1,27 +1,33 @@
 import {Bud, factory} from '@repo/test-kit/bud'
-import * as Sage from '@roots/sage'
+import Sage from '@roots/sage'
 
 describe('@roots/sage', () => {
   let bud: Bud
+  let instance: Sage
 
   beforeAll(async () => {
     bud = await factory()
     await bud.extensions.add(Sage)
+    instance = new Sage(bud)
   })
 
   it('is registrable', () => {
     expect(bud.extensions.has('@roots/sage')).toBeTruthy()
   })
 
-  it(`has name prop`, () => expect(Sage.name).toBe('@roots/sage'))
+  it(`has label prop`, () => expect(instance.label).toBe('@roots/sage'))
 
-  it(`registers prop: name`, () =>
-    expect(bud.extensions.get('@roots/sage').get('name')).toBe(Sage.name))
+  it(`registers prop: label`, () =>
+    expect(bud.extensions.get('@roots/sage').get('label')).toBe(
+      instance.label,
+    ))
 
-  it(`has boot prop`, () => expect(Sage.boot).toBeInstanceOf(Function))
+  it(`has boot prop`, () => expect(instance.boot).toBeInstanceOf(Function))
 
   it(`registers prop: boot`, () =>
-    expect(bud.extensions.get('@roots/sage').get('boot')).toBe(Sage.boot))
+    expect(
+      JSON.stringify(bud.extensions.get('@roots/sage').get('boot')),
+    ).toBe(JSON.stringify(instance.boot)))
 
   it(`sets aliases`, async () => {
     const aliases = await bud.hooks.filterAsync('build.resolve.alias')

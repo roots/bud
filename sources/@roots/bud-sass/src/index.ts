@@ -7,26 +7,7 @@
  * @packageDocumentation
  */
 
-import type {Item, Loader, Rule} from '@roots/bud-build'
+import './env'
 
-import {extension} from './sass.extension'
-
-declare module '@roots/bud-framework' {
-  interface Modules {
-    '@roots/bud-sass': extension
-  }
-
-  interface Loaders {
-    sass: Loader
-  }
-
-  interface Items {
-    sass: Item
-  }
-
-  interface Rules {
-    sass: Rule
-  }
-}
-
-export const {name, boot, register} = extension
+import BudSass from './extension'
+export default BudSass

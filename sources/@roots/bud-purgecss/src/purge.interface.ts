@@ -6,7 +6,7 @@ import {Bud, Extension} from '@roots/bud-framework'
  * @public
  */
 export interface register {
-  (app: Bud): Promise<void>
+  (options: any, app: Bud): Promise<void>
 }
 
 /**
@@ -28,10 +28,9 @@ export interface api {
   (this: Bud, userOptions: UserOptions): Bud
 }
 
-export interface Purge extends Extension.Module {
+export interface Purge extends Extension {
   name: string
   register: register
-  api: {purgecss: api}
 }
 
 /**

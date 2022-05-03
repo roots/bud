@@ -4,27 +4,13 @@
 /**
  * Adds terser minification support to Bud
  *
- * @see https://rootss.io/bud
+ * @see https://roots.io/bud
  * @see https://github.com/roots/bud
  *
  * @packageDocumentation
  */
 
-import './bud.env'
+import './env'
 
-import {Bud, Extensions} from '@roots/bud-framework'
-import TerserPlugin from 'terser-webpack-plugin/types'
-
-import * as extension from './terser.extension'
-
-export type Options = TerserPlugin.BasePluginOptions
-
-export type Plugin = TerserPlugin
-
-export interface Extension
-  extends Extensions.Plugin<TerserPlugin, TerserPlugin.BasePluginOptions> {
-  name: '@roots/bud-terser'
-  options: (app: Bud) => Options
-}
-
-export const {name, api, options, boot} = extension
+import BudTerser from './extension'
+export default BudTerser

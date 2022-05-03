@@ -1,32 +1,24 @@
-import {Plugin} from './clean-webpack-plugin.dependencies'
-import type {
-  Container,
-  Extension,
-  Options,
-} from './clean-webpack-plugin.interface'
+import {Extension} from '@roots/bud-framework/extension'
+import {
+  label,
+  options,
+  plugin,
+  when,
+} from '@roots/bud-framework/extension/decorators'
+import {
+  CleanWebpackPlugin,
+  Options as PluginOptions,
+} from 'clean-webpack-plugin'
 
-/**
- * @public
- */
-export const name: Extension['name'] = 'clean-webpack-plugin'
-
-/**
- * @public
- */
-export const options: Extension['options'] = {
+@label('clean-webpack-plugin')
+@plugin(CleanWebpackPlugin)
+@when(async (_opt, {hooks}) => hooks.filter('feature.clean'))
+@options({
   cleanStaleWebpackAssets: true,
   protectWebpackAssets: true,
   cleanOnceBeforeBuildPatterns: ['**/*', '!dll'],
-}
-
-/**
- * @public
- */
-export const make: Extension['make'] = (options: Container<Options>) =>
-  new Plugin(options.all())
-
-/**
- * @public
- */
-export const when: Extension['when'] = ({store}) =>
-  store.is('features.clean', true)
+})
+export default class BudClean extends Extension<
+  PluginOptions,
+  CleanWebpackPlugin
+> {}

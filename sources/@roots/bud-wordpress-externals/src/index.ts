@@ -17,12 +17,12 @@
  * @packageDocumentation
  */
 
-import {PluginAdapter} from './PluginAdapter'
+import BudWordPressExternals from './PluginAdapter'
 
 declare module '@roots/bud-framework' {
-  interface Plugins {
-    '@roots/wordpress-externals-webpack-plugin': PluginAdapter
+  interface Modules {
+    '@roots/bud-wordpress-externals': BudWordPressExternals
   }
 }
 
-export const {name, make} = PluginAdapter
+export default BudWordPressExternals

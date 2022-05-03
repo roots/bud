@@ -19,7 +19,10 @@ export interface Service extends ContainerService {
   /**
    * @internal
    */
-  call: (name: string, ...args: any[]) => Promise<void>
+  call<K extends keyof Service['repository']>(
+    name: K,
+    ...args: any
+  ): Promise<void>
 
   /**
    * @internal
@@ -29,5 +32,8 @@ export interface Service extends ContainerService {
   /**
    * @internal
    */
-  bindFacade: (key: `${keyof Service['repository'] & string}`) => void
+  bindFacade<K extends `${keyof Service['repository'] & string}`>(
+    key: K,
+    fn: Service['repository'][K],
+  ): void
 }

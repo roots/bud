@@ -22,18 +22,17 @@ const renderError = (msg: string, name?: string) => {
 /**
  * Create an error handler
  */
-const curryHandler = function (code: number) {
+const curryHandler = function (this: Bud, code: number) {
   const ERROR = code !== 0
 
   const close = () => {
-    process.stdout.write(`\n`)
-
     try {
       ERROR && removeSync(this.path('@storage/cache'))
-    } catch (err) {}
-
-    process.exitCode = code
-    setTimeout(() => process.exit(), 100)
+      this.close()
+    } catch (err) {
+      process.exitCode = code
+      process.exit()
+    }
   }
 
   return (exitMessage: string | Error) => {
@@ -45,7 +44,7 @@ const curryHandler = function (code: number) {
       renderError(`\n${exitMessage}\n`, 'error')
     }
 
-    return close()
+    setTimeout(close, 200).unref()
   }
 }
 

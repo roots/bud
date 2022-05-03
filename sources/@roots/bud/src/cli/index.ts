@@ -77,6 +77,7 @@ const bud = async () => {
     binaryLabel: context.application.label,
     binaryName: context.application.label,
     binaryVersion: context.application.version,
+    enableCapture: true,
     enableColors: true,
   })
 

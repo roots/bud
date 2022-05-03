@@ -33,8 +33,6 @@ export interface lifecycle {
  * @public
  */
 export async function lifecycle(this: Bud): Promise<Bud> {
-  this.logger.instance.time(`building ${this.name}`)
-
   /**
    * Get bindable services
    */
@@ -71,7 +69,7 @@ export async function lifecycle(this: Bud): Promise<Bud> {
       service => service[event],
     )
 
-    if (!eligibleServices.length) return
+    if (!eligibleServices?.length) return
 
     await Promise.all(
       eligibleServices.map(async (service: Service, i) => {
@@ -89,8 +87,6 @@ export async function lifecycle(this: Bud): Promise<Bud> {
       }),
     )
   }, Promise.resolve())
-
-  this.timeEnd(`building ${this.name}`)
 
   return this
 }

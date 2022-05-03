@@ -1,17 +1,19 @@
 import {Bud} from '@roots/bud-framework'
 import {bind, lodash} from '@roots/bud-support'
 
-import {ConfigManifest} from '../../services/Project/project.repository'
+import {ConfigManifest} from '../../services/Project/repository'
 
 const {isFunction, isObject} = lodash
 
 /**
  * User config parser
+ *
  * @public
  */
 class Configuration {
   /**
    * Manifest
+   *
    * @public
    */
   public manifest: Record<
@@ -21,6 +23,7 @@ class Configuration {
 
   /**
    * Class constructor
+   *
    * @public
    */
   public constructor(public app: Bud, public manifests: ConfigManifest) {
@@ -81,10 +84,8 @@ class Configuration {
 export const config = async (app: Bud) => {
   const process = async (manifests: ConfigManifest): Promise<void> => {
     await app.api.processQueue()
-    await app.extensions.processQueue()
     await new Configuration(app, manifests).run()
     await app.api.processQueue()
-    await app.extensions.processQueue()
   }
 
   const baseConfig = app.project.get(`config.base`)

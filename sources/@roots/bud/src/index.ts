@@ -10,7 +10,7 @@
  * @packageDocumentation
  */
 
-import './bud.env'
+import './env'
 
 export {Bud} from './Bud'
 

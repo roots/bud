@@ -2,30 +2,29 @@
 // Licensed under the MIT license.
 
 /**
- * {@link @roots/wordpress-dependencies-webpack-plugin# | @roots/wordpress-dependencies-webpack-plugin} adapter
+ * `@roots/wordpress-dependencies-webpack-plugin` adapter
  *
  * @see https://bud.js.org
  *
  * @packageDocumentation
  */
 
-import type {Extensions} from '@roots/bud-framework'
-import {WordPressDependenciesWebpackPlugin as Plugin} from '@roots/wordpress-dependencies-webpack-plugin'
+import {Extension} from '@roots/bud-framework'
+import {WordPressDependenciesWebpackPlugin} from '@roots/wordpress-dependencies-webpack-plugin'
 
 declare module '@roots/bud-framework' {
-  interface Plugins {
-    '@roots/wordpress-dependencies-webpack-plugin': Extensions.Plugin
+  interface Modules {
+    '@roots/bud-wordpress-dependencies': Extension<
+      null,
+      WordPressDependenciesWebpackPlugin
+    >
   }
 }
 
-/**
- * @public
- */
-export const name: Extensions.Plugin['name'] =
-  '@roots/wordpress-dependencies-webpack-plugin'
+export const label: Extension['label'] =
+  '@roots/bud-wordpress-dependencies'
 
-/**
- * @public
- */
-export const make: Extensions.Plugin<Plugin, null>['make'] = () =>
-  new Plugin()
+export const plugin: Extension<
+  null,
+  WordPressDependenciesWebpackPlugin
+>['plugin'] = WordPressDependenciesWebpackPlugin

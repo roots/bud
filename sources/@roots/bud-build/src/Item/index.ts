@@ -1,9 +1,9 @@
-import {Bud, Build} from '@roots/bud-framework'
+import type {Bud, Build} from '@roots/bud-framework'
 import {bind} from '@roots/bud-support'
 
-import {Base} from '../shared/Base'
+import Base from '../shared/Base'
 
-export namespace Item {
+namespace Item {
   export type ConstructorOptions = Build.Item.ConstructorOptions
 }
 
@@ -12,7 +12,7 @@ export namespace Item {
  *
  * @public
  */
-export class Item extends Base implements Build.Item {
+class Item extends Base implements Build.Item {
   /**
    * Loader
    *
@@ -114,3 +114,5 @@ export class Item extends Base implements Build.Item {
     return output
   }
 }
+
+export {Item as default}

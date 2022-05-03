@@ -76,8 +76,6 @@ export class ResponseInterceptorFactory {
     if (!`${response.getHeader('content-type')}`.startsWith('text/'))
       return buffer
 
-    await this.app.hooks.fire('event.proxy.interceptor')
-
     response.setHeader('x-proxy-by', '@roots/bud')
     response.setHeader('x-bud-proxy-origin', this.url.proxy.origin)
     response.removeHeader('x-http-method-override')
@@ -86,11 +84,16 @@ export class ResponseInterceptorFactory {
       response.cookie(k, v, {domain: null}),
     )
 
+    await this.app.hooks.fire('event.proxy.interceptor')
+
     return this.app.hooks
-      .filter('middleware.proxy.replacements', [])
+      .filter('dev.middleware.proxy.replacements', [])
       .reduce(
         (buffer, [find, replace]: [string | RegExp, string]) =>
-          buffer.replaceAll(find, replace),
+          buffer
+            .split('\n')
+            .map(ln => ln.replaceAll(find, replace))
+            .join('\n'),
         buffer.toString(),
       )
   }

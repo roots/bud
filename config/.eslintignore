@@ -1,12 +1,7 @@
-**/bin
-**/lib
 **/*.json
-**/node_modules
-**/package.json
-**/tsconfig.json
 **/*.d.ts
-examples/*/src/**/*
-examples/*/resources/**/*
-examples/*/bud.config.*
-dev/**/*
-sources/site/**/*
+**/lib
+**/node_modules
+examples
+sources/@repo/docs
+sources/deprecated

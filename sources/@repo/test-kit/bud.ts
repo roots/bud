@@ -1,20 +1,21 @@
+import {REPO_PATH} from '@repo/constants'
 import {Bud, factory as budFactory, makeContext, seed} from '@roots/bud'
+import {Config} from '@roots/bud-framework/types'
 import {join} from 'path'
+
+jest.setTimeout(99999)
 
 export {Bud}
 
-export const repoPath = (path: string) => join(process.cwd(), path)
+export const repoPath = (...path: Array<string>) =>
+  join(REPO_PATH, ...(path ?? []))
 
 export const mockProject = {
   path: repoPath('tests/util/project'),
 }
 
-type Options = {
-  [K in keyof Bud.Options as `${K & string}`]?: any
-}
-
-export const factory = async (options?: Options) => {
-  const context = await makeContext(mockProject.path)
+export const factory = async (options?: Config.Options) => {
+  const context = await makeContext(repoPath('tests/util/project'))
 
   const bud = await budFactory({
     name: 'bud',
@@ -23,14 +24,14 @@ export const factory = async (options?: Options) => {
     context: {
       ...context,
       ...(options?.context ?? {}),
-    },
-    config: {
-      ...seed,
-      ...(options?.config ?? {}),
-      location: {
-        ...seed.location,
-        ...(options?.config?.location ?? {}),
+      args: {
+        ...(options?.context?.args ?? {}),
+        ci: true,
       },
+    },
+    seed: {
+      ...seed,
+      ...(options?.seed ?? {}),
     },
   })
 

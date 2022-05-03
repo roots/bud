@@ -8,7 +8,7 @@ import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import CodeBlock from '@theme/CodeBlock'
 
-**bud.js** is designed to be used as a CLI tool but it is possible to use it in NodeJS directly. 
+**bud.js** is designed to be used as a CLI tool but it is possible to use it in NodeJS directly.
 
 This makes it easier to:
 
@@ -44,10 +44,10 @@ build()
 
 ```ts title='config/build.ts'
 import {factory} from '@roots/bud'
-import type {Framework} from '@roots/bud'
+import type {Bud} from '@roots/bud'
 
 const build = async () => {
-  const app: Framework = await factory()
+  const app: Bud = await factory()
 }
 
 build()

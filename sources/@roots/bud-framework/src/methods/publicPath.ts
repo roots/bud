@@ -8,6 +8,11 @@ export interface publicPath {
 }
 
 /**
+ * Public path
+ *
+ * @remarks
+ * Path from web root to assets
+ *
  * @public
  */
 export const publicPath: publicPath = function (): string {

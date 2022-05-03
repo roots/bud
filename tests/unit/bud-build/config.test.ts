@@ -1,10 +1,7 @@
 import {Bud, factory} from '@repo/test-kit/bud'
 import {seed} from '@roots/bud'
-import {json5, toml, yaml} from '@roots/bud-support'
+import {json5, toml} from '@roots/bud-support'
 import {RuleSetRule} from 'webpack'
-
-/* 3x */
-jest.setTimeout(15000)
 
 describe('bud.build.config', function () {
   let bud: Bud
@@ -64,9 +61,7 @@ describe('bud.build.config', function () {
     expect(
       JSON.stringify(bud.build.config.infrastructureLogging.console),
     ).toStrictEqual(
-      JSON.stringify(
-        bud.maybeCall(seed['build.infrastructureLogging.console']),
-      ),
+      JSON.stringify(seed['build.infrastructureLogging.console'].pop()()),
     )
   })
 
@@ -142,6 +137,7 @@ describe('bud.build.config', function () {
   it('has expected default requireEnsure rule', () => {
     expect(bud.build.config.module.rules[0]).toMatchSnapshot({
       test: /\.[cm]?(jsx?|tsx?)$/,
+      exclude: [/node_modules/],
       parser: {requireEnsure: false},
     })
   })
@@ -223,6 +219,7 @@ describe('bud.build.config', function () {
       },
       test: /\.(png|jpe?g|gif)$/,
       type: 'asset/resource',
+      include: [expect.stringContaining('project/src')],
     })
   })
 
@@ -235,6 +232,7 @@ describe('bud.build.config', function () {
       },
       test: /\.webp$/,
       type: 'asset/resource',
+      include: [expect.stringContaining('project/src')],
     })
   })
 
@@ -247,6 +245,7 @@ describe('bud.build.config', function () {
       generator: {
         filename: 'svg/[name][ext]',
       },
+      include: [expect.stringContaining('project/src')],
     })
   })
 
@@ -264,7 +263,8 @@ describe('bud.build.config', function () {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[7],
     ).toMatchSnapshot({
-      include: [expect.stringContaining('src')],
+      include: [expect.stringContaining('project')],
+      exclude: [expect.stringContaining('node_modules')],
       parser: {parse: json5.parse},
       test: /\.json$/,
       type: 'json',
@@ -275,10 +275,10 @@ describe('bud.build.config', function () {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[8],
     ).toMatchSnapshot({
-      include: [expect.stringContaining('src')],
-      parser: {parse: yaml.parse},
       test: /\.ya?ml$/,
-      type: 'json',
+      include: [expect.stringContaining('/project')],
+      exclude: [expect.stringContaining('node_modules')],
+      use: [{loader: expect.stringContaining('js-yaml-loader')}],
     })
   })
 
@@ -287,7 +287,8 @@ describe('bud.build.config', function () {
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[9],
     ).toMatchSnapshot({
       test: /\.(html?)$/,
-      include: [expect.stringContaining('src')],
+      include: [expect.stringContaining('project')],
+      exclude: [expect.stringContaining('node_modules')],
       use: [
         {
           loader: expect.stringContaining('html-loader/dist/cjs.js'),
@@ -301,7 +302,8 @@ describe('bud.build.config', function () {
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[10],
     ).toMatchSnapshot({
       test: /\.(csv|tsv)$/,
-      include: [expect.stringContaining('src')],
+      include: [expect.stringContaining('project')],
+      exclude: [expect.stringContaining('node_modules')],
       use: [
         {
           loader: expect.stringContaining('csv-loader/index.js'),
@@ -315,7 +317,8 @@ describe('bud.build.config', function () {
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[11],
     ).toMatchSnapshot({
       test: /\.xml$/,
-      include: [expect.stringContaining('src')],
+      include: [expect.stringContaining('project')],
+      exclude: [expect.stringContaining('node_modules')],
       use: [
         {
           loader: expect.stringContaining('/xml-loader/index.js'),
@@ -328,7 +331,8 @@ describe('bud.build.config', function () {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[12],
     ).toMatchSnapshot({
-      include: [expect.stringContaining('src')],
+      include: [expect.stringContaining('project')],
+      exclude: [expect.stringContaining('node_modules')],
       parser: {
         parse: toml.parse,
       },

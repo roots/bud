@@ -13,9 +13,12 @@ export interface close {
 }
 
 /**
- * Exit the program
+ * Gracefully shutdown {@link Bud} and registered {@link Services}
  *
- * @param callback - Callback function to be called before end of run
+ * @example
+ * ```js
+ * bud.close()
+ * ```
  *
  * @public
  */
@@ -24,5 +27,5 @@ export function close(callback?: any) {
 
   ctx.hooks.fire('event.app.close')
 
-  callback ? callback() : process.exit()
+  if (callback) callback()
 }

@@ -5,44 +5,31 @@
     "esModuleInterop": true,
     "rootDir": "./src",
     "outDir": "./lib/cjs",
+    "types": [
+      "@roots/bud-api",
+      "@roots/bud-build",
+      "@roots/bud-cache",
+      "@roots/bud-compiler",
+      "@roots/bud-dashboard",
+      "@roots/bud-extensions",
+      "@roots/bud-framework",
+      "@roots/bud-hooks",
+      "@roots/bud-server",
+    ]
   },
-  "include": ["src/**/*.ts", "src/**/*.json"],
+  "include": ["./src"],
+  "exclude": ["./lib", "./types", "./node_modules"],
   "references": [
-    {
-      "path": "./../bud-framework/tsconfig.json"
-    },
-    {
-      "path": "./../bud-api/tsconfig.json"
-    },
-    {
-      "path": "./../bud-build/tsconfig.json"
-    },
-    {
-      "path": "./../bud-cache/tsconfig.json"
-    },
-    {
-      "path": "./../bud-compiler/tsconfig.json"
-    },
-    {
-      "path": "./../bud-dashboard/tsconfig.json"
-    },
-    {
-      "path": "./../bud-extensions/tsconfig.json"
-    },
-    {
-      "path": "./../bud-hooks/tsconfig.json"
-    },
-    {
-      "path": "./../bud-server/tsconfig.json"
-    },
-    {
-      "path": "./../bud-support/tsconfig.json"
-    },
-    {
-      "path": "./../container/tsconfig.json"
-    },
-    {
-      "path": "./../dependencies/tsconfig.json"
-    }
+    {"path": "./../bud-framework/tsconfig.json"},
+    {"path": "./../bud-api/tsconfig.json"},
+    {"path": "./../bud-build/tsconfig.json"},
+    {"path": "./../bud-cache/tsconfig.json"},
+    {"path": "./../bud-compiler/tsconfig.json"},
+    {"path": "./../bud-dashboard/tsconfig.json"},
+    {"path": "./../bud-extensions/tsconfig.json"},
+    {"path": "./../bud-hooks/tsconfig.json"},
+    {"path": "./../bud-server/tsconfig.json"},
+    {"path": "./../bud-support/tsconfig.json"},
+    {"path": "./../container/tsconfig.json"}
   ]
 }

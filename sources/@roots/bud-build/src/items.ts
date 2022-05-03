@@ -84,9 +84,9 @@ export const file = (app: Bud) =>
     .makeItem()
     .setLoader(`file`)
     .setOptions(app => ({
-      name: app.store.is('features.hash', true)
-        ? app.store.get('hashFormat').concat('.[ext]')
-        : app.store.get('fileFormat').concat('.[ext]'),
+      name: app.hooks.filter('feature.hash')
+        ? app.hooks.filter('value.hashFormat').concat('.[ext]')
+        : app.hooks.filter('value.fileFormat').concat('.[ext]'),
     }))
 
 /**
@@ -109,3 +109,10 @@ export const resolveUrl = (app: Bud) =>
  * @public
  */
 export const xml = (app: Bud) => app.build.makeItem().setLoader(`xml`)
+
+/**
+ * Factory {@link Item} for yml
+ *
+ * @public
+ */
+export const yml = (app: Bud) => app.build.makeItem().setLoader(`yml`)

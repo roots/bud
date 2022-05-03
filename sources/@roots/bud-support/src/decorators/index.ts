@@ -8,6 +8,4 @@ export {
   memo,
   once,
   throttle,
-} from 'helpful-decorators'
-
-export {logProp} from './logProp'
+} from '../external/helpful-decorators'

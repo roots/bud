@@ -1,50 +1,15 @@
+import {Project} from '@repo/test-kit/project'
 import {readFile} from 'fs-extra'
 
-import {Project} from '@repo/test-kit/project'
-
-jest.setTimeout(60000)
-
-describe('examples/imagemin', () => {
-  let project
+const run = pacman => () => {
+  let project: Project
 
   beforeAll(async () => {
-    project = new Project({
+    project = await new Project({
       name: 'imagemin',
-      dir: 'examples/imagemin',
-    })
-
-    await project.setup()
-  })
-
-  describe('package.json', () => {
-    it('matches snapshot', () => {
-      expect(project.packageJson).toMatchSnapshot({
-        name: 'example-imagemin',
-        private: true,
-        browserslist: {
-          production: ['>0.5%', 'not dead', 'not op_mini all'],
-          development: [
-            'last 1 chrome version',
-            'last 1 firefox version',
-            'last 1 safari version',
-          ],
-        },
-        devDependencies: {
-          '@roots/bud': 'workspace:*',
-          '@roots/bud-imagemin': 'workspace:*',
-        },
-      })
-    })
-  })
-
-  describe('app.js', () => {
-    it('has contents', () => {
-      expect(project.assets['app.js'].length).toBeGreaterThan(10)
-    })
-
-    it('matches snapshot', () => {
-      expect(project.assets['app.js'].length).toMatchSnapshot()
-    })
+      dist: 'dist',
+      with: pacman,
+    }).setup()
   })
 
   describe('owl.jpeg', () => {
@@ -54,13 +19,16 @@ describe('examples/imagemin', () => {
         'utf8',
       )
 
-      expect(
-        project.assets['images/owl.jpeg'].length,
-      ).toBeLessThan(original.length)
-
-      expect(project.assets['images/owl.jpeg']).toMatchSnapshot()
+      expect(project.assets['images/owl.jpeg'].length).toBeLessThan(
+        original.length,
+      )
 
       return Promise.resolve()
     })
   })
+}
+
+describe('imagemin', () => {
+  describe('npm', run('npm'))
+  describe('yarn', run('yarn'))
 })

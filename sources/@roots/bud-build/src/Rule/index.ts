@@ -1,11 +1,11 @@
 import {Bud, Build} from '@roots/bud-framework'
 import {bind, lodash} from '@roots/bud-support'
 
-import {Base} from '../shared/Base'
+import Base from '../shared/Base'
 
 const {isFunction, isString} = lodash
 
-export namespace Rule {
+namespace Rule {
   export type ConstructorOptions = Partial<Build.Rule.Options>
 }
 
@@ -14,7 +14,7 @@ export namespace Rule {
  *
  * @public
  */
-export class Rule extends Base implements Build.Rule {
+class Rule extends Base implements Build.Rule {
   /**
    * {@inheritDoc @roots/bud-framework#Rule.Abstract.test}
    *
@@ -136,7 +136,7 @@ export class Rule extends Base implements Build.Rule {
    * @decorator `@bind`
    */
   @bind
-  public getUse(): Array<`${keyof Build.Items & string}`> {
+  public getUse(): Array<`${`${keyof Build.Items & string}`}`> {
     return this.unwrap(this.use)?.filter(isString) ?? []
   }
 
@@ -163,25 +163,34 @@ export class Rule extends Base implements Build.Rule {
   }
 
   /**
-   * Get exclude value
+   * Get include value
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public getInclude(): Array<string | RegExp> {
-    return this.unwrap(this.include)
+  public getInclude(): Rule['include'] {
+    return this.include.map(this.unwrap)
   }
 
   /**
-   * Set exclude value
+   * Set include value
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public setInclude(include: Build.Rule['include']): Rule {
-    this.include = this.wrap(include)
+  public setInclude(
+    includes:
+      | ((includes: Rule['include']) => Rule['include'])
+      | Rule['include'],
+  ): Rule {
+    if (!this.include) this.include = []
+
+    if (typeof includes === 'function')
+      this.include = includes(this.include)
+    else this.include = includes
+
     return this
   }
 
@@ -192,8 +201,8 @@ export class Rule extends Base implements Build.Rule {
    * @decorator `@bind`
    */
   @bind
-  public getExclude(): Array<string | RegExp> {
-    return this.unwrap(this.exclude)
+  public getExclude(): Rule['exclude'] {
+    return this.exclude.map(this.unwrap)
   }
 
   /**
@@ -203,8 +212,17 @@ export class Rule extends Base implements Build.Rule {
    * @decorator `@bind`
    */
   @bind
-  public setExclude(exclude: Build.Rule['exclude']): Rule {
-    this.exclude = this.wrap(exclude)
+  public setExclude(
+    excludes:
+      | ((excludes: Rule['exclude']) => Rule['exclude'])
+      | Rule['exclude'],
+  ): Rule {
+    if (!this.exclude) this.exclude = []
+
+    if (typeof excludes === 'function')
+      this.exclude = excludes(this.exclude)
+    else this.exclude = excludes
+
     return this
   }
 
@@ -264,8 +282,8 @@ export class Rule extends Base implements Build.Rule {
    * @decorator `@bind`
    */
   @bind
-  public toWebpack() {
-    const output = {test: this.getTest()}
+  public toWebpack(): Build.Rule.Output {
+    const output: Build.Rule.Output = {test: this.getTest()}
 
     this.use &&
       Object.assign(output, {
@@ -283,3 +301,5 @@ export class Rule extends Base implements Build.Rule {
     return output
   }
 }
+
+export {Rule as default}

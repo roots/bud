@@ -1,14 +1,10 @@
-import {bind, chalk, lodash} from '@roots/bud-support'
 import {Container} from '@roots/container'
 
 import {Bud} from './bud'
-import {Logger} from './logger'
-
-const {isString, isUndefined} = lodash
 
 /**
  * Service
- * 
+ *
  * @remarks
  * The {@link Service} interface extends {@link Bootstrapper}, which provides {@link @roots/container#Container}
  * and {@link Bud} access
@@ -120,52 +116,6 @@ export class Service {
    * @virtual @public
    */
   public booted?(app: Bud): Promise<any>
-
-  /**
-   * Service scoped logger
-   *
-   * @public
-   */
-  public get logger(): Logger['instance'] {
-    return this.app.logger.instance
-  }
-
-  /**
-   * Log a message
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public log(type: string, ...messages: any[]) {
-    this.app.store.is('features.log', true) &&
-      this.logger[type](
-        ...messages.reduce(
-          (
-            acc,
-            loggedItem: string | {message?: string; suffix?: string},
-          ) => {
-            if (
-              typeof loggedItem !== 'string' &&
-              !isUndefined(loggedItem?.suffix) &&
-              isString(loggedItem?.suffix)
-            ) {
-              loggedItem.suffix = chalk.dim(
-                loggedItem.suffix.replace(
-                  this.app.context.projectDir,
-                  '.',
-                ),
-              )
-            }
-
-            return [...acc, loggedItem]
-          },
-          [],
-        ),
-      )
-
-    return this
-  }
 }
 
 /**
@@ -265,50 +215,4 @@ export class ContainerService<T = any> extends Container<T> {
    * @virtual @public
    */
   public booted?(app: Bud): Promise<any>
-
-  /**
-   * Service scoped logger
-   *
-   * @public
-   */
-  public get logger(): Logger['instance'] {
-    return this.app.logger.instance
-  }
-
-  /**
-   * Log a message
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public log(type: string, ...messages: any[]) {
-    this.app.store.is('features.log', true) &&
-      this.logger[type](
-        ...messages.reduce(
-          (
-            acc,
-            loggedItem: string | {message?: string; suffix?: string},
-          ) => {
-            if (
-              typeof loggedItem !== 'string' &&
-              !isUndefined(loggedItem?.suffix) &&
-              isString(loggedItem?.suffix)
-            ) {
-              loggedItem.suffix = chalk.dim(
-                loggedItem.suffix.replace(
-                  this.app.context.projectDir,
-                  '.',
-                ),
-              )
-            }
-
-            return [...acc, loggedItem]
-          },
-          [],
-        ),
-      )
-
-    return this
-  }
 }

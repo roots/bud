@@ -1,13 +1,13 @@
 import * as Bud from '@roots/bud-framework'
-import {bind, fs, lodash, memo} from '@roots/bud-support'
+import {bind, fs, lodash} from '@roots/bud-support'
 import {isFunction} from 'lodash'
 import type {Configuration} from 'webpack'
 
-import {Item} from '../Item'
+import Item from '../Item'
 import * as items from '../items'
-import {Loader} from '../Loader'
+import Loader from '../Loader'
 import * as loaders from '../loaders'
-import {Rule} from '../Rule'
+import Rule from '../Rule'
 import * as rules from '../rules'
 import * as config from './config'
 
@@ -54,12 +54,7 @@ export class Build extends Bud.Service implements Bud.Build.Service {
    */
   @bind
   public async registered() {
-    this.app.hooks
-      .action('event.build.before', async app => app.time(`build.make`))
-      .hooks.action('event.build.after', async app =>
-        app.timeEnd(`build.make`),
-      )
-      .hooks.action('event.build.after', this.writeFinalConfig)
+    this.app.hooks.action('event.build.after', this.writeFinalConfig)
   }
 
   /**
@@ -74,7 +69,7 @@ export class Build extends Bud.Service implements Bud.Build.Service {
 
     await Promise.all(
       [
-        ['entry', true],
+        ['entry'],
         ['plugins', true],
         ['resolve', true],
         ['bail'],
@@ -99,44 +94,23 @@ export class Build extends Bud.Service implements Bud.Build.Service {
         ['target'],
         ['watch'],
         ['watchOptions'],
-      ]
-        .map(this.memoMap)
-        .filter(Boolean)
-        .map(this.memoMapValue),
+      ].map(async ([propKey, isAsync]: [keyof Configuration, boolean]) => {
+        const propValue =
+          isAsync === true
+            ? await this.app.hooks.filterAsync(`build.${propKey}` as any)
+            : this.app.hooks.filter(`build.${propKey}` as any)
+
+        if (isUndefined(propValue)) return
+
+        Object.assign(this.config, {[propKey]: propValue})
+
+        return Promise.resolve()
+      }),
     )
 
     await this.app.hooks.fire('event.build.after')
 
     return this.config
-  }
-
-  @bind
-  public memoMap(...args: [value: (string | boolean)[]]) {
-    const [[key, ...rest]] = args
-
-    if (!this.app.hooks.has(`build.${key}`)) return false
-
-    const type = rest.length && rest.shift() ? true : false
-    const count = this.app.hooks.count(`build.${key}`)
-
-    return [key, type, count]
-  }
-
-  @bind
-  @memo()
-  public async memoMapValue([propKey, isAsync, _count]: [
-    keyof Configuration,
-    boolean,
-    number,
-  ]) {
-    const propValue =
-      isAsync === true
-        ? await this.app.hooks.filterAsync(`build.${propKey}` as any)
-        : this.app.hooks.filter(`build.${propKey}` as any)
-
-    if (isUndefined(propValue)) return
-
-    Object.assign(this.config, {[propKey]: propValue})
   }
 
   /**

@@ -7,9 +7,7 @@
     "esbenp.prettier-vscode",
     "ms-vscode-remote.remote-containers"
   ],
-  "postCreateCommand": [
-    "yarn"
-  ],
+  "postCreateCommand": ["yarn"],
   "remoteUser": "root",
   "service": "bud",
   "workspaceFolder": "/srv/bud"

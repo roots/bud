@@ -1,9 +1,5 @@
 import {Bud} from '@roots/bud-framework'
-import {
-  json5 as json5Parser,
-  toml as tomlParser,
-  yaml as yamlParser,
-} from '@roots/bud-support'
+import {json5 as json5Parser, toml as tomlParser} from '@roots/bud-support'
 
 /**
  * .js rule
@@ -13,8 +9,8 @@ import {
 export const js = (app: Bud) =>
   app.build
     .makeRule()
-    .setTest(({store}) => store.get('patterns.js'))
-    .setInclude(({path}) => [path('@src')])
+    .setTest(({hooks}) => hooks.filter('pattern.js'))
+    .setInclude([app => app.path('@src')])
     .setUse([])
 
 /**
@@ -25,8 +21,8 @@ export const js = (app: Bud) =>
 export const css = (app: Bud) =>
   app.build
     .makeRule()
-    .setTest(({store}) => store.get('patterns.css'))
-    .setInclude(({path}) => [path('@src')])
+    .setTest(({hooks}) => hooks.filter('pattern.css'))
+    .setInclude([app => app.path('@src')])
     .setUse([`precss`, `css`])
 
 /**
@@ -37,8 +33,8 @@ export const css = (app: Bud) =>
 export const cssModule = (app: Bud) =>
   app.build
     .makeRule()
-    .setTest(({store}) => store.get('patterns.cssModule'))
-    .setInclude(({path}) => [path('@src')])
+    .setTest(({hooks}) => hooks.filter('pattern.cssModule'))
+    .setInclude([app => app.path('@src')])
     .setUse([`precss`, `cssModule`])
 
 /**
@@ -49,13 +45,17 @@ export const cssModule = (app: Bud) =>
 export const image = (app: Bud) =>
   app.build
     .makeRule()
-    .setTest(({store}) => store.get('patterns.image'))
-    .setInclude(({path}) => [path('@src')])
+    .setTest(({hooks}) => hooks.filter('pattern.image'))
+    .setInclude([app => app.path('@src')])
     .setType('asset/resource')
     .setGenerator(app => ({
-      filename: app.store.is('features.hash', true)
-        ? 'images/'.concat(app.store.get('hashFormat')).concat('[ext]')
-        : 'images/'.concat(app.store.get('fileFormat')).concat('[ext]'),
+      filename: app.hooks.filter('feature.hash')
+        ? 'images/'
+            .concat(app.hooks.filter('value.hashFormat'))
+            .concat('[ext]')
+        : 'images/'
+            .concat(app.hooks.filter('value.fileFormat'))
+            .concat('[ext]'),
     }))
 
 /**
@@ -69,13 +69,17 @@ export const image = (app: Bud) =>
 export const webp = (app: Bud) =>
   app.build
     .makeRule()
-    .setTest(({store}) => store.get('patterns.webp'))
-    .setInclude(({path}) => [path('@src')])
+    .setTest(({hooks}) => hooks.filter('pattern.webp'))
+    .setInclude([app => app.path('@src')])
     .setType('asset/resource')
     .setGenerator(app => ({
-      filename: app.store.is('features.hash', true)
-        ? 'images/'.concat(app.store.get('hashFormat')).concat('[ext]')
-        : 'images/'.concat(app.store.get('fileFormat')).concat('[ext]'),
+      filename: app.hooks.filter('feature.hash')
+        ? 'images/'
+            .concat(app.hooks.filter('value.hashFormat'))
+            .concat('[ext]')
+        : 'images/'
+            .concat(app.hooks.filter('value.fileFormat'))
+            .concat('[ext]'),
     }))
 
 /**
@@ -87,13 +91,17 @@ export const webp = (app: Bud) =>
 export const svg = (app: Bud) =>
   app.build
     .makeRule()
-    .setTest(({store}) => store.get('patterns.svg'))
-    .setInclude(({path}) => [path('@src')])
+    .setTest(({hooks}) => hooks.filter('pattern.svg'))
+    .setInclude([app => app.path('@src')])
     .setType('asset/resource')
     .setGenerator(app => ({
-      filename: app.store.is('features.hash', true)
-        ? 'svg/'.concat(app.store.get('hashFormat')).concat('[ext]')
-        : 'svg/'.concat(app.store.get('fileFormat')).concat('[ext]'),
+      filename: app.hooks.filter('feature.hash')
+        ? 'svg/'
+            .concat(app.hooks.filter('value.hashFormat'))
+            .concat('[ext]')
+        : 'svg/'
+            .concat(app.hooks.filter('value.fileFormat'))
+            .concat('[ext]'),
     }))
 
 /**
@@ -105,12 +113,16 @@ export const font = (app: Bud) =>
   app.build
     .makeRule()
     .setType('asset')
-    .setTest(({store}) => store.get('patterns.font'))
-    .setInclude(({path}) => [path('@src')])
+    .setTest(({hooks}) => hooks.filter('pattern.font'))
+    .setInclude([app => app.path('@src')])
     .setGenerator(app => ({
-      filename: app.store.is('features.hash', true)
-        ? 'fonts/'.concat(app.store.get('hashFormat')).concat('[ext]')
-        : 'fonts/'.concat(app.store.get('fileFormat')).concat('[ext]'),
+      filename: app.hooks.filter('feature.hash')
+        ? 'fonts/'
+            .concat(app.hooks.filter('value.hashFormat'))
+            .concat('[ext]')
+        : 'fonts/'
+            .concat(app.hooks.filter('value.fileFormat'))
+            .concat('[ext]'),
     }))
 
 /**
@@ -122,8 +134,9 @@ export const json = (app: Bud) =>
   app.build
     .makeRule()
     .setType('json')
-    .setInclude(({path}) => [path('@src')])
-    .setTest(({store}) => store.get('patterns.json'))
+    .setInclude([app => app.path()])
+    .setExclude([app => app.path('@modules')])
+    .setTest(({hooks}) => hooks.filter('pattern.json'))
     .setParser({parse: json5Parser.parse})
 
 /**
@@ -134,10 +147,10 @@ export const json = (app: Bud) =>
 export const yml = (app: Bud) =>
   app.build
     .makeRule()
-    .setType('json')
-    .setInclude(({path}) => [path('@src')])
-    .setTest(({store}) => store.get('patterns.yml'))
-    .setParser({parse: yamlParser.parse})
+    .setInclude([app => app.path()])
+    .setExclude([app => app.path('@modules')])
+    .setTest(({hooks}) => hooks.filter('pattern.yml'))
+    .setUse(['yml'])
 
 /**
  * Returns {@link Rule} for `.html` handling
@@ -147,8 +160,9 @@ export const yml = (app: Bud) =>
 export const html = (app: Bud) =>
   app.build
     .makeRule()
-    .setInclude(({path}) => [path('@src')])
-    .setTest(({store}) => store.get('patterns.html'))
+    .setInclude([app => app.path()])
+    .setExclude([app => app.path('@modules')])
+    .setTest(({hooks}) => hooks.filter('pattern.html'))
     .setUse([`html`])
 
 /**
@@ -159,8 +173,9 @@ export const html = (app: Bud) =>
 export const csv = (app: Bud) =>
   app.build
     .makeRule()
-    .setInclude(({path}) => [path('@src')])
-    .setTest(({store}) => store.get('patterns.csv'))
+    .setInclude([app => app.path()])
+    .setExclude([app => app.path('@modules')])
+    .setTest(({hooks}) => hooks.filter('pattern.csv'))
     .setUse([`csv`])
 
 /**
@@ -171,8 +186,9 @@ export const csv = (app: Bud) =>
 export const xml = (app: Bud) =>
   app.build
     .makeRule()
-    .setInclude(({path}) => [path('@src')])
-    .setTest(({store}) => store.get('patterns.xml'))
+    .setInclude([app => app.path()])
+    .setExclude([app => app.path('@modules')])
+    .setTest(({hooks}) => hooks.filter('pattern.xml'))
     .setUse([`xml`])
 
 /**
@@ -184,6 +200,7 @@ export const toml = (app: Bud) =>
   app.build
     .makeRule()
     .setType('json')
-    .setInclude(({path}) => [path('@src')])
-    .setTest(({store}) => store.get('patterns.html'))
+    .setInclude([app => app.path()])
+    .setExclude([app => app.path('@modules')])
+    .setTest(({hooks}) => hooks.filter('pattern.html'))
     .setParser({parse: tomlParser.parse})

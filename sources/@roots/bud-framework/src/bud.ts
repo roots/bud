@@ -20,17 +20,17 @@ import {
   Project,
   Server,
   Services,
-  Store,
 } from '.'
 import {lifecycle} from './lifecycle'
 import * as methods from './methods'
+import {Module} from './module'
 import * as Process from './process'
 
 const {isFunction, omit} = lodash
 
 /**
  * {@link Bud} abstract class
- * 
+ *
  * @remarks
  * See `@roots/bud` for an example implementation
  *
@@ -39,8 +39,8 @@ const {isFunction, omit} = lodash
 export abstract class Bud {
   /**
    * {@link Bud} constructor
-   * 
-   * @internal 
+   *
+   * @internal
    * @virtual
    */
   public abstract implementation: Constructor
@@ -94,6 +94,7 @@ export abstract class Bud {
    * True when current instance is the parent instance
    *
    * @readonly
+   * @public
    */
   public get isRoot(): boolean {
     return this.name === this.root.name
@@ -103,6 +104,7 @@ export abstract class Bud {
    * True when current instance is a child instance
    *
    * @readonly
+   * @public
    */
   public get isChild(): boolean {
     return this.name !== this.root.name
@@ -114,7 +116,7 @@ export abstract class Bud {
    * @remarks
    * Is `null` if the current instance is a child instance.
    *
-   * @defaultValue null
+   * @public
    */
   public children: Container<Record<string, Bud>> = null
 
@@ -122,9 +124,10 @@ export abstract class Bud {
    * True when {@link Bud} has children
    *
    * @readonly
+   * @public
    */
   public get hasChildren(): boolean {
-    return this.children?.getEntries().length > 0
+    return this.children?.getEntries()?.length > 0
   }
 
   /**
@@ -184,30 +187,6 @@ export abstract class Bud {
 
   public extensions: Extensions.Service
 
-  /**
-   * Service allowing for fitering {@link Bud} values through callbacks.
-   *
-   * @example Add a new entry to the `webpack.externals` configuration:
-   * ```ts
-   * hooks.on(
-   *   'build/externals',
-   *   externals => ({
-   *     ...externals,
-   *     $: 'jquery',
-   *   })
-   * )
-   * ```
-   *
-   * @example Change the `webpack.output.filename` format:
-   * ```ts
-   * hooks.on(
-   *   'build.output.filename',
-   *   () => '[name].[hash:4]',
-   * )
-   * ```
-   *
-   * @public
-   */
   public hooks: Hooks.Service
 
   /**
@@ -224,12 +203,7 @@ export abstract class Bud {
    */
   public server: Server.Service
 
-  /**
-   * Container service for holding configuration values
-   *
-   * @public
-   */
-  public store: Store
+  public module: Module
 
   /**
    * True when {@link Bud.mode} is `production`
@@ -248,13 +222,6 @@ export abstract class Bud {
   public get isDevelopment(): boolean {
     return this.mode === 'development'
   }
-
-  /**
-   * True if ts-node has been invoked
-   *
-   * @public
-   */
-  public usingTsNode: boolean = false
 
   /**
    * Constructor options
@@ -278,8 +245,7 @@ export abstract class Bud {
     this._mode = this.options.mode
     this._name = this.options.name
 
-    this.store = new Store(this)
-    this.store.setStore(options.config)
+    this.module = new Module(this)
 
     Process.initialize(this)
 
@@ -294,7 +260,12 @@ export abstract class Bud {
 
     Object.entries(methods).map(([key, method]) => {
       if (!isFunction(method)) {
-        this.error(`Bud ctor`, `method "${key}" is not a function`)
+        this.error(
+          'Bud constructor',
+          'method',
+          `"${key}"`,
+          'is not a function',
+        )
       }
 
       this[key] = method.bind(this)
@@ -307,21 +278,15 @@ export abstract class Bud {
 
   public maybeCall: methods.maybeCall = methods.maybeCall.bind(this)
 
-  /**
-   * Gracefully shutdown {@link Bud} and registered {@link Services}
-   *
-   * @example
-   * ```js
-   * bud.close()
-   * ```
-   *
-   * @public
-   */
   public close: methods.close = methods.close.bind(this)
 
   public container: methods.container = methods.container.bind(this)
 
   public get: methods.get = methods.get.bind(this)
+
+  public glob: methods.glob = methods.glob.bind(this)
+
+  public globSync: methods.globSync = methods.globSync.bind(this)
 
   public make: methods.make = methods.make.bind(this)
 
@@ -329,15 +294,9 @@ export abstract class Bud {
 
   public pipe: methods.pipe = methods.pipe.bind(this)
 
-  /**
-   * Public path
-   *
-   * @remarks
-   * Path from web root to assets
-   *
-   * @public
-   */
   public publicPath: methods.publicPath = methods.setPublicPath.bind(this)
+
+  public relPath: methods.relPath = methods.relPath.bind(this)
 
   public setPath: methods.setPath = methods.setPath.bind(this)
 
@@ -356,13 +315,6 @@ export abstract class Bud {
   public when: methods.when = methods.when.bind(this)
 
   public bindMethod: methods.bindMethod = methods.bindMethod.bind(this)
-
-  /**
-   * Adds a class as a property of the Bud
-   *
-   * @public
-   */
-  public mixin: typeof methods.mixin
 
   /**
    * Read and write json files
@@ -387,7 +339,6 @@ export abstract class Bud {
   @bind
   public log(...messages: any[]) {
     this.logger?.instance && this.logger.instance.log(...messages)
-
     return this
   }
 
@@ -437,19 +388,6 @@ export abstract class Bud {
    * @decorator `@bind`
    */
   @bind
-  public time(...messages: any[]) {
-    this.logger?.instance && this.logger.instance.time(...messages)
-
-    return this
-  }
-
-  /**
-   * Log a `warning` level message
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
   public await(...messages: any[]) {
     this.logger?.instance && this.logger.instance.await(...messages)
 
@@ -470,21 +408,8 @@ export abstract class Bud {
   }
 
   /**
-   * Log a `warning` level message
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public timeEnd(...messages: any[]) {
-    this.logger?.instance && this.logger.instance.timeEnd(...messages)
-
-    return this
-  }
-
-  /**
    * Log and display a debug message.
-   * 
+   *
    * @public
    * @decorator `@bind`
    */
@@ -507,7 +432,7 @@ export abstract class Bud {
    * Log and display an error.
    *
    * @remarks
-   * In `production` this error is treated as fatal 
+   * In `production` this error is treated as fatal
    * and will kill the process.
    *
    * @public

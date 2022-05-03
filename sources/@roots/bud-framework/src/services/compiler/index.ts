@@ -1,13 +1,10 @@
 import {
-  Compiler as WebpackCompiler,
   Configuration,
-  MultiCompiler,
   MultiCompiler as WebpackMultiCompiler,
   MultiStats,
   ProgressPlugin,
   Stats,
   StatsCompilation,
-  webpack,
 } from 'webpack'
 
 import * as Bud from '../..'
@@ -22,32 +19,39 @@ import * as Bud from '../..'
  * @public
  */
 interface Service extends Bud.Service {
-  compiler: Compiler
+  implementation: Implementation
 
   /**
    * The compiler instance
    *
    * @public
    */
-  compilation: Compilation
+  compilation: WebpackMultiCompiler
 
   /**
    * Contains compilation stats, if available.
    *
    * @public
    */
-  stats: StatsCompilation
+  stats: {
+    json: StatsCompilation
+    string: string
+  }
 
   /**
-   * Contains compilation progress, if avialable
-   *
+   * Errors
    * @public
    */
-  progress: Progress
+  errors: Array<BudError>
 
   /**
-   * Returns a {@link @roots/bud-Bud#Compiler."instance" | Compiler instance}
-   * when provided with a valid {@link Configuration}
+   * Errors
+   * @public
+   */
+  warnings: Array<BudError>
+
+  /**
+   * Returns a {@link WebpackMultiCompiler} instance
    *
    * @example
    * ```js
@@ -63,7 +67,7 @@ interface Service extends Bud.Service {
    *
    * @public
    */
-  compile(): Promise<MultiCompiler>
+  compile(): Promise<WebpackMultiCompiler>
 
   /**
    * Callback for {@link (Bud:namespace).Hooks | Bud.Hooks} `before` filter
@@ -80,12 +84,18 @@ interface Service extends Bud.Service {
 
   handleStats(stats: Stats & MultiStats): void
 
-  handleErrors(error: Error): void
+  onError(error: any): void
 }
 
+export type BudError = {
+  file: string
+  line: number
+  column: number
+  message: string
+  type: 'syntax' | 'export'
+}
 export type Config = Configuration
-export type Compiler = typeof webpack
-export type Compilation = WebpackCompiler | WebpackMultiCompiler
+export type Implementation = (...params: any[]) => any
 
 export type Progress = [number, string]
 

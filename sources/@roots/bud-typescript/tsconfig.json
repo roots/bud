@@ -8,7 +8,10 @@
     "outDir": "./lib/cjs",
     "declarationDir": "./types",
     "types": [
-      "node"
+      "node",
+      "@roots/bud-framework",
+      "@roots/bud-api",
+      "@roots/bud-babel"
     ]
   },
   "include": [
@@ -20,9 +23,6 @@
     },
     {
       "path": "./../bud-babel/tsconfig.json"
-    },
-    {
-      "path": "./../bud-build/tsconfig.json"
     }
   ]
 }
