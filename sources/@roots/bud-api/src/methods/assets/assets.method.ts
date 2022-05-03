@@ -5,6 +5,11 @@ import {normalize} from 'path'
 
 import type {method} from './assets.interface'
 
+export const appearsTupled = (request: any): boolean =>
+  isArray(request[0]) && isArray(request[0][0])
+
+export const toWildcard = (pattern: string) => normalize(`${pattern}/**/*`)
+
 export const assets: method = async function assets(
   ...request: Array<
     | string
@@ -29,18 +34,13 @@ export const assets: method = async function assets(
    * - a pattern has no segments and does not contain a dot
    */
   const isDirectoryish = (pattern: string) => {
-    if (pattern.endsWith('*')) return false
+    if (pattern.includes('*')) return false
     if (pattern.endsWith('/')) return true
     if (pattern.includes('/') && !pattern.split('/').pop().includes('.'))
       return true
 
     return !pattern.split('/').pop().includes('.')
   }
-
-  /**
-   * Return a wildcard glob for a given path
-   */
-  const toWildcard = (pattern: string) => normalize(`${pattern}/**/*`)
 
   /**
    * Replace a leading dot with the project path
@@ -51,7 +51,7 @@ export const assets: method = async function assets(
   /**
    * Take an input string and return a {@link CopyPlugin.ObjectPattern}
    */
-  const makePatternObject = (input: string): CopyPlugin.ObjectPattern => {
+  function makePatternObject(input: string): CopyPlugin.ObjectPattern {
     /**
      * Process raw user input.
      *
@@ -62,29 +62,10 @@ export const assets: method = async function assets(
       ? fromDotRel(toWildcard(input))
       : fromDotRel(input)
 
-    /**
-     * Test if input starts with a given string
-     */
-    const test = (test: string) => from.startsWith(test)
-
-    /**
-     * Return path that serves as base of request
-     *
-     * @remarks
-     * In order of priority:
-     *  - project `src` path
-     *  - project path
-     *  - raw input
-     */
-    const context = () => {
-      if (test('.')) return ctx.path()
-      if (test('/')) return
-      else return ctx.path('@src')
-    }
-
     return {
       from,
-      context: context(),
+      to: ctx.path('@name'),
+      context: ctx.path('@src'),
       noErrorOnMissing: true,
     }
   }
@@ -109,6 +90,7 @@ export const assets: method = async function assets(
     return {
       from,
       to,
+      context: ctx.path('@src'),
       noErrorOnMissing: true,
     }
   }
@@ -120,9 +102,7 @@ export const assets: method = async function assets(
     return isString(request) ? makePatternObject(request) : request
   }
 
-  const appearsTupled = isArray(request[0]) && isArray(request[0][0])
-
-  if (appearsTupled) {
+  if (appearsTupled(request)) {
     ctx.extensions.get('copy-webpack-plugin').setOptions(options => ({
       ...(options ?? {}),
       patterns: [

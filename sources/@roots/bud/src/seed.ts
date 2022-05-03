@@ -56,7 +56,7 @@ export const seed: Config.Options['seed'] = {
       }
 
       return {
-        Console: require(`console`),
+        Console: require('console'),
         assert: (v, m) => v && infrastructureLogger.instance.info(m),
         // eslint-disable-next-line
         clear: () => null,
@@ -78,7 +78,7 @@ export const seed: Config.Options['seed'] = {
         group: () => null,
         groupCollapsed: () => null,
         groupEnd: () => null,
-        info: infrastructureLogger.instance.info,
+        info: () => null,
         log: infrastructureLogger.instance.log,
         table: (tabularData?: any) =>
           infrastructureLogger.instance.log(table.table(tabularData)),
@@ -133,8 +133,7 @@ export const seed: Config.Options['seed'] = {
     ],
   ],
   'build.module.rules.after': [() => []],
-  'build.stats': [() => false],
-
+  'build.stats': [() => ({preset: 'errors-warnings'})],
   'dev.middleware.enabled': [() => ['dev', 'hot']],
   'dev.url': [() => new URL('http://0.0.0.0:3000')],
 }

@@ -304,12 +304,10 @@ export class Hooks
 
     const retrieved = this.get(id)
 
-    await retrieved.reduce(async (promised, current) => {
-      await promised
-
+    await retrieved.reduce(async (promise, current) => {
+      await promise
       this.app.info(`firing action ${id}`)
-
-      return await current(this.app)
+      return current(this.app)
     }, Promise.resolve())
 
     return this.app

@@ -1,2 +1,2 @@
-import * as stats from './stats'
-export {stats}
+import * as reporter from './stats'
+export {reporter}

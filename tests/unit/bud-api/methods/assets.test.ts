@@ -33,6 +33,7 @@ describe('bud.assets', function () {
       JSON.stringify([
         {
           from: 'images/**/*',
+          to: bud.path('@name'),
           context: bud.path('@src'),
           noErrorOnMissing: true,
         },
@@ -56,11 +57,13 @@ describe('bud.assets', function () {
       JSON.stringify([
         {
           from: 'images/**/*',
+          to: bud.path('@name'),
           context: bud.path('@src'),
           noErrorOnMissing: true,
         },
         {
           from: 'fonts/**/*',
+          to: bud.path('@name'),
           context: bud.path('@src'),
           noErrorOnMissing: true,
         },
@@ -94,11 +97,13 @@ describe('bud.assets', function () {
         {
           from: bud.path('@src/images/**/*'),
           to: bud.path('@dist/images'),
+          context: bud.path('@src'),
           noErrorOnMissing: true,
         },
         {
           from: bud.path('@src/fonts/font.woff'),
           to: bud.path('@dist/fonts/font.woff'),
+          context: bud.path('@src'),
           noErrorOnMissing: true,
         },
       ]),

@@ -35,7 +35,8 @@ describe('@roots/bud-compiler', function () {
   })
 
   it('has stats', () => {
-    expect(impl.stats).toBeUndefined()
+    expect(impl.stats.json).toBeNull()
+    expect(impl.stats.string).toBeNull()
   })
 
   describe('prod compilation', () => {

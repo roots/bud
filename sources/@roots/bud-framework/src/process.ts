@@ -31,7 +31,7 @@ const curryHandler = function (this: Bud, code: number) {
       this.close()
     } catch (err) {
       process.exitCode = code
-      setTimeout(process.exit, 100).unref()
+      process.exit()
     }
   }
 
@@ -44,7 +44,7 @@ const curryHandler = function (this: Bud, code: number) {
       renderError(`\n${exitMessage}\n`, 'error')
     }
 
-    return close()
+    setTimeout(close, 200).unref()
   }
 }
 

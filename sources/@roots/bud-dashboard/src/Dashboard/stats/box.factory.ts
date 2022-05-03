@@ -9,4 +9,4 @@ export const make = (
 ) =>
   `${chalk.hex(options?.color ?? theme.foregroundColor)(
     title,
-  )}\n\n${content}\n\n`
+  )}\n${content}`

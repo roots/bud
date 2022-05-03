@@ -30,7 +30,6 @@ export class Hooks extends Base implements Services.Hooks.Service {
       '@src': bud.path('@src'),
       '@dist': bud.path('@dist'),
     }))
-
     this.on('build.bail', () => bud.isProduction)
     this.on('build.context', () => bud.context.projectDir)
   }

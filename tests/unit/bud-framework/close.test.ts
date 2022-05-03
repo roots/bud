@@ -4,7 +4,7 @@ describe('bud.close', () => {
   let bud: Bud
   let mockCallback = jest.fn(() => null)
 
-  beforeAll(async () => bud = await factory())
+  beforeAll(async () => (bud = await factory()))
 
   it('root.isRoot is false', () => {
     bud.close(mockCallback)

@@ -77,4 +77,6 @@ export interface Service extends BaseService {
    * @public
    */
   filesystemCache: Configuration['cache']
+
+  clean: () => void
 }

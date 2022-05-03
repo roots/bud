@@ -28,7 +28,7 @@ export const seed = (app: Bud) => {
     .hooks.on(`dev.middleware.dev.options.publicPath`, () =>
       app.hooks.filter('build.output.publicPath'),
     )
-    .hooks.on(`dev.middleware.dev.options.stats`, false)
+    .hooks.on(`dev.middleware.dev.options.stats`, 'none')
     .hooks.on(`dev.middleware.dev.options.writeToDisk`, true)
 
     .hooks.on(`dev.middleware.hot.options`, () => ({
