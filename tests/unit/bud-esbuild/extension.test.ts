@@ -14,14 +14,14 @@ describe('@roots/bud-esbuild', () => {
   })
 
   it('has name prop', () => {
-    expect(bud.extensions.get('@roots/bud-esbuild').get('label')).toBe(
+    expect(bud.extensions.get('@roots/bud-esbuild').label).toBe(
       '@roots/bud-esbuild',
     )
   })
 
   describe('module boot', () => {
     it('has label prop', () => {
-      expect(extension.get('label')).toBe('@roots/bud-esbuild')
+      expect(extension.label).toBe('@roots/bud-esbuild')
     })
 
     it('is a method', () => {

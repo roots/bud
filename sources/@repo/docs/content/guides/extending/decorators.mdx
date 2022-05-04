@@ -1,0 +1,43 @@
+---
+title: Decorators
+description: Overview of decorators available to extensions
+sidebar_label: Decorators
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import CodeBlock from '@theme/CodeBlock'
+
+## label
+
+```ts title="extension.ts"
+import {Extension} from '@roots/bud-framework/extension'
+import {label} from '@roots/bud-framework/extension/decorators'
+
+@label('my-extension')
+class MyExtension extends Extension {}
+```
+
+## dependsOn
+
+```ts title="extension.ts"
+import {Extension} from '@roots/bud-framework/extension'
+import {dependsOn, label} from '@roots/bud-framework/extension/decorators'
+
+@label('my-extension')
+@dependsOn(['@roots/bud-postcss'])
+class MyExtension extends Extension {}
+```
+
+### options
+
+## dependsOn
+
+```ts title="extension.ts"
+import {Extension} from '@roots/bud-framework/extension'
+import {options, label} from '@roots/bud-framework/extension/decorators'
+
+@label('my-extension')
+@options({foo: 'bar'})
+class MyExtension extends Extension {}
+```

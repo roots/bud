@@ -14,19 +14,19 @@ describe('@roots/bud-react', () => {
   })
 
   it(`registers prop: label`, () =>
-    expect(bud.extensions.get('@roots/bud-react').get('label')).toBe(
+    expect(bud.extensions.get('@roots/bud-react').label).toBe(
       '@roots/bud-react',
     ))
 
   it(`registers prop: register`, () =>
-    expect(
-      bud.extensions.get('@roots/bud-react').get('register'),
-    ).toBeInstanceOf(Function))
+    expect(bud.extensions.get('@roots/bud-react').register).toBeInstanceOf(
+      Function,
+    ))
 
   it(`registers prop: boot`, () =>
-    expect(
-      bud.extensions.get('@roots/bud-react').get('boot'),
-    ).toBeInstanceOf(Function))
+    expect(bud.extensions.get('@roots/bud-react').boot).toBeInstanceOf(
+      Function,
+    ))
 
   it('regissters fn: react-refresh', async () => {
     expect(bud.reactRefresh).toBeInstanceOf(Function)

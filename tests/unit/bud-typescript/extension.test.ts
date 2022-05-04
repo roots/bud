@@ -17,7 +17,7 @@ describe('@roots/bud-typescript', () => {
   })
 
   it('is labeled', () => {
-    expect(bud.extensions.get('@roots/bud-typescript').get('label')).toBe(
+    expect(bud.extensions.get('@roots/bud-typescript').label).toBe(
       '@roots/bud-typescript',
     )
   })

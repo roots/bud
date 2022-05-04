@@ -1,0 +1,176 @@
+---
+title: Extending
+description: Overview of instantiating Bud directly from Node
+sidebar_label: Extending
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import CodeBlock from '@theme/CodeBlock'
+
+You can add additional functionality to **bud.js**
+
+## Discoverability
+
+If authoring a module, include a `bud` field to mark the module as an extension. This field will be
+checked when resolving project packages. Without this, the extension won't be imported!
+
+```json
+{
+  "name": "my-extension",
+  "bud": {
+    "type": "extension"
+  }
+}
+```
+
+## Extension formats
+
+Extensions can be provided as either a plain JS object or a class.
+
+```ts title="extension.ts"
+const Extension = {
+  register: async(app, options) {}
+}
+```
+
+Extensions writen using JS classes should extend the `Extension` base class (exported from `@roots/bud-framework/extension`).
+
+```ts title="extension.ts"
+import {Extension} from '@roots/bud-framework/extension'
+
+class BudExtension extends Extension {
+  public async register() {}
+}
+```
+
+The rest of this document assumes that extensions are being authored as a class.
+
+## Interface
+
+### label
+
+The extension `label` serves as a handle for other extensions or the user config.
+For a "top-level" extension (listed in the user's `package.json` manifest), the label should match the extension's `package.json` `name` field.
+
+A `label` is not strictly required but extensions without a `label` will have a unique id generated for them. Because this id is generated there is no
+straight forward way to reference the extension from the outside.
+
+```ts title="extension.ts"
+import {Extension} from '@roots/bud-framework/extension'
+
+class MyExtension extends Extension {
+  public label = 'my-extension'
+}
+```
+
+### dependsOn
+
+Extensions may depend on other other extensions (for instance, if you are authoring an extension to add postcss plugins then your extension
+would depend on the presence of `@roots/bud-postcss`). To ensure dependencies are available, you may list their `label`s in a `dependsOn` public property.
+
+The `dependsOn` property is expressed as a `Set`:
+
+```ts title="extension.ts"
+import {Extension} from '@roots/bud-framework/extension'
+
+class MyExtension extends Extension {
+  public label = 'my-extension'
+
+  public dependsOn = new Set(['@roots/bud-postcss'])
+}
+```
+
+### options
+
+Any extension options can be set in the `options` property.
+
+```ts title="extension.ts"
+import {Extension} from '@roots/bud-framework/extension'
+
+class MyExtension extends Extension {
+  public label = 'my-extension'
+
+  public options = {
+    option: 'value',
+  }
+}
+```
+
+The `options` property is treated specially (using `getters` and `setters`).
+
+Each option value can be expressed as either the literal value itself or a function receives the `Bud` object and returns the value.
+
+This is useful when you can't know the value up front (as is the case with user paths):
+
+```ts title="extension.ts"
+import {Bud} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
+
+class MyExtension extends Extension {
+  public label = 'my-extension'
+
+  public options = {
+    option: (app: Bud) => app.path('@src'),
+  }
+}
+```
+
+Now, if the user makes a change to the `@src` path, the reference will be updated in the extension.
+
+The only "gotcha" here is that if you have an extension option which is itself callable, you will need to account for that. It should be as simple
+as wrapping the option in a function.
+
+```ts title="extension.ts"
+import {Bud} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
+
+const callback = (prop: string): string => 'hello, world!'
+
+class MyExtension extends Extension {
+  public label = 'my-extension'
+
+  public options = {
+    option: () => callback,
+  }
+}
+```
+
+Also note, the extension options are **read only**.
+
+There are helpers in the base class to assist you with update options programatically:
+
+#### setOption
+
+```ts title="extension.js"
+extension.setOptions('foo', (app: Bud) => 'could have been a string')
+```
+
+#### setOptions
+
+```ts title="extension.js"
+extension.setOptions({
+  foo: 'literal',
+  bar: (app: Bud) => 'a callback is fine, as well'.
+})
+```
+
+### init
+
+@todo
+
+### register
+
+@todo
+
+### boot
+
+@todo
+
+### make
+
+@todo
+
+### plugin
+
+@todo

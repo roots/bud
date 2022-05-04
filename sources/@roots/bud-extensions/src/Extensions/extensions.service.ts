@@ -47,9 +47,7 @@ export class Extensions extends Service implements Contract.Service {
 
   @bind
   public set<K extends Modules>(value: Modules[K & string]): this {
-    value
-      .get('logger')
-      .log(`setting extension`, chalk.blue(value.get('label')))
+    value.logger.log(`setting extension`, chalk.blue(value.label))
 
     this.repository[value.label] = value
 
@@ -111,7 +109,7 @@ export class Extensions extends Service implements Contract.Service {
 
     const extension = this.instantiate(extensionModule)
 
-    if (this.has(extension.get('label'))) return
+    if (this.has(extension.label)) return
     this.set(extension)
 
     return extension

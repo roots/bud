@@ -13,7 +13,7 @@ describe('@roots/bud-terser', () => {
   })
 
   it('has name prop', () => {
-    expect(extension.get('label')).toBe('@roots/bud-terser')
+    expect(extension.label).toBe('@roots/bud-terser')
   })
 
   it('has options prop', () => {

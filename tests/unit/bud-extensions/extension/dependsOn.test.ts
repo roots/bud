@@ -8,6 +8,7 @@ class MockExtension extends Extension {
 }
 
 @dependsOn(['@roots/bud-babel'])
+// @ts-ignore
 class MockDecoratedExtension extends Extension {
   public label = 'mock-extension'
 }
