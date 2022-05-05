@@ -16,7 +16,7 @@ export const report = ({
   warnings: any
   errors: any
   app: Bud
-}): Array<string> => {
+}): string => {
   const output = []
 
   const appName = app.context.manifest.name ?? app.name
@@ -53,5 +53,5 @@ export const report = ({
       output.push(...components.framework(app))
   })
 
-  return output.filter(Boolean)
+  return output.filter(Boolean).join('')
 }

@@ -106,9 +106,17 @@ export class Compiler extends Service implements Contract.Service {
 
     this.app.isDevelopment &&
       this.compilation.hooks.done.tap(
-        config.shift().name,
-        this.handleStats,
+        `${this.app.name}-dev-handle`,
+        async stats => {
+          this.handleStats(stats as any)
+          return
+        },
       )
+
+    this.compilation.hooks.done.tap(
+      `${this.app.name}-cli-done`,
+      async () => await this.app.hooks.fire('event.compiler.close'),
+    )
 
     new ProgressPlugin(this.app.dashboard.progressCallback).apply(
       this.compilation,
@@ -190,6 +198,7 @@ export class Compiler extends Service implements Contract.Service {
   @bind
   public onClose(error: WebpackError) {
     if (error) this.onError(error)
+    this.app.isProduction && this.app.close()
   }
 
   /**
