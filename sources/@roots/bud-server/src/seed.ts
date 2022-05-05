@@ -65,17 +65,4 @@ export const seed = (app: Bud) => {
     )
     .hooks.on(`dev.watch.files`, new Set([]))
     .hooks.on(`dev.watch.options`, {})
-
-    /**
-     * Proxy interception
-     */
-    .hooks.action(`event.proxy.interceptor`, async app =>
-      app.hooks.on(
-        `dev.middleware.proxy.replacements`,
-        (replacements): Array<[string | RegExp, string]> => [
-          ...(replacements ?? []),
-          [app.hooks.filter('dev.middleware.proxy.target').href, '/'],
-        ],
-      ),
-    )
 }

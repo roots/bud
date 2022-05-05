@@ -68,6 +68,9 @@ export class Compiler extends Service implements Contract.Service {
    */
   public config: Array<Configuration> = []
 
+  public done: boolean = false
+  public compiling: boolean = false
+
   /**
    * Initiates compilation
    *
@@ -175,9 +178,6 @@ export class Compiler extends Service implements Contract.Service {
       warnings: this.warnings,
     })
 
-    this.app.hooks.fire(`event.compiler.success`)
-
-    stats.hasErrors() && this.app.cache.clean()
     this.app.isProduction && this.compilation.close(this.onClose)
   }
 
@@ -203,7 +203,6 @@ export class Compiler extends Service implements Contract.Service {
     this.app.isDevelopment &&
       this.app.server.appliedMiddleware?.hot?.publish({error})
 
-    this.app.hooks.fire('event.compiler.error')
     this.app.error(error)
   }
 }

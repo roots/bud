@@ -34,7 +34,7 @@ export const proxy = (app: Bud) => {
      */
     cookieDomainRewrite: app.hooks.filter(
       `dev.middleware.proxy.options.cookieDomainRewrite`,
-      url.dev.hostname,
+      url.dev.host,
     ),
 
     /**
@@ -42,32 +42,15 @@ export const proxy = (app: Bud) => {
      */
     followRedirects: app.hooks.filter(
       `dev.middleware.proxy.options.followRedirects`,
-      true,
+      false,
     ),
-
-    /**
-     * Headers
-     */
-    headers: {
-      ...app.hooks.filter(`dev.middleware.proxy.options.headers`, {
-        connection: 'keep-alive',
-        'access-control-allow-origin': `*`,
-        'access-control-allow-credentials': `*`,
-        'access-control-allow-methods': `*`,
-      }),
-      'x-proxy-by': '@roots/bud',
-      'x-bud-dev-origin': url.dev.origin,
-      'x-bud-dev-protocol': url.dev.protocol,
-      'x-bud-dev-hostname': url.dev.hostname,
-      'x-bud-proxy-origin': url.proxy.origin,
-    },
 
     /**
      * Host rewrite
      */
     hostRewrite: app.hooks.filter(
       `dev.middleware.proxy.options.hostRewrite`,
-      url.dev.hostname,
+      url.dev.host,
     ),
 
     /**

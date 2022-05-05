@@ -165,9 +165,7 @@ export class Extension<E = any, Plugin = any> {
 
   @bind
   public setOptions?(
-    value:
-      | Options.FuncMap<E>
-      | ((value: Options<E>) => Options.FuncMap<E>),
+    value: Options<E> | ((value: Options<E>) => Options<E>),
   ): this {
     this._options = _.isFunction(value) ? value(this.options) : value
     return this
@@ -183,7 +181,7 @@ export class Extension<E = any, Plugin = any> {
   @bind
   public setOption?<K extends keyof Options.FuncMap<E>>(
     key: K & string,
-    value: Options.FuncMap<E>[K & string],
+    value: Options<E>[K & string],
   ): this {
     this._options[key] = _.isFunction(value) ? value : () => value
     return this

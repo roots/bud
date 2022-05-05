@@ -67,7 +67,7 @@ export class RequestInterceptorFactory {
         ).toJSON(),
       )
     } catch (err) {
-      process.stderr.write(`${err}\n`)
+      this.app.error(`${err}\n`)
     }
   }
 

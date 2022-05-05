@@ -18,6 +18,9 @@ import '@roots/bud-wordpress-externals'
 import '@roots/bud-wordpress-manifests'
 
 declare module '@roots/bud-framework' {
+  interface Bud {
+    wordpress: BudPresetWordPress
+  }
   interface Modules {
     '@roots/bud-preset-wordpress': BudPresetWordPress
   }

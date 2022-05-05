@@ -2,7 +2,9 @@ import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
   dependsOn,
+  expose,
   label,
+  options,
 } from '@roots/bud-framework/extension/decorators'
 
 @label('@roots/bud-preset-wordpress')
@@ -14,19 +16,31 @@ import {
   '@roots/bud-wordpress-dependencies',
   '@roots/bud-wordpress-manifests',
 ])
+@options({replaceLink: true})
+@expose('wordpress')
 export default class BudPresetWordPress extends Extension {
-  public get origin() {
-    return this.app.env.has('WP_HOME') && this.app.env.isString('WP_HOME')
-      ? new URL(this.app.env.get('WP_HOME'))
-      : null
+  protected _origin: URL
+
+  public get origin(): URL {
+    return this._origin
+  }
+  public set origin(origin: string | URL) {
+    this._origin = origin instanceof URL ? origin : new URL(origin)
   }
 
   @bind
-  public async boot() {
+  public async init() {
+    if (!this.app.env.has('WP_HOME') || !this.app.env.isString('WP_HOME'))
+      return
+    this.origin = this.app.env.get('WP_HOME')
+  }
+
+  @bind
+  public async register() {
     if (!this.origin) return
 
     try {
-      this.app.proxy(this.origin)
+      this.proxyOrigin(this.origin)
     } catch (err) {
       this.logger.warn(
         `Tried to set proxy based on value of WP_HOME but failed\n`,
@@ -35,5 +49,14 @@ export default class BudPresetWordPress extends Extension {
         err,
       )
     }
+  }
+
+  @bind
+  public proxyOrigin(origin: string | URL): this {
+    this.origin = origin
+
+    this.app.proxy(this.origin)
+
+    return this
   }
 }

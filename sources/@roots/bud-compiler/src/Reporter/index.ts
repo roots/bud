@@ -4,6 +4,7 @@
 
 import {Bud} from '@roots/bud-framework'
 import {lodash as _} from '@roots/bud-support'
+import {isString} from 'lodash'
 import {StatsCompilation, StatsError} from 'webpack'
 
 import BudError from './BudError'
@@ -16,7 +17,7 @@ export interface BudReport {
 const reporter =
   (app: Bud) =>
   (error: StatsError): Set<BudError> => {
-    if (!error) return null
+    if (!error || !error.message) return null
 
     const reports = new Set<BudError>()
 
@@ -53,10 +54,10 @@ const reporter =
 
     const report = new BudError(error)
 
-    if (error.loc) {
+    if (error.loc && isString(error.loc)) {
       const [column, line] = error.loc.split(':')
-      report.column = Number.parseInt(column)
-      report.line = Number.parseInt(line.split('-').pop())
+      report.column = column ? Number.parseInt(column) : 0
+      report.line = line ? Number.parseInt(line.split('-').pop()) : 0
     }
 
     const captureGroups = [
@@ -65,7 +66,7 @@ const reporter =
       /SyntaxError:\s(?<file>.+?):\s.+\s\((?<line>[0-9]+):(?<column>[0-9]+)\)/,
     ]
     captureGroups.forEach(captureGroup => {
-      error.message?.split('\n').map(message =>
+      report.message?.split('\n').map(message =>
         Object.entries(captureGroup.exec(message)?.groups ?? {})
           .filter(([k, v]) => k && v)
           .map(([key, value]) => {
@@ -143,8 +144,8 @@ export const report = (app: Bud, stats: StatsCompilation): BudReport => {
       .flatMap(set => Array.from(set))
       .filter(Boolean)
       .filter(
-        error =>
-          !result.errors.some(({message}) => error.message === message),
+        ({message: subject}) =>
+          !result.errors.some(({message}) => subject === message),
       )
       .map(error => result.errors.push(error))
 

@@ -2,6 +2,7 @@ import {Bud} from '@roots/bud-framework'
 import {bind} from '@roots/bud-support'
 import * as http from 'http'
 import {responseInterceptor} from 'http-proxy-middleware'
+import {isString, isUndefined} from 'lodash'
 
 import {ApplicationURL} from './url'
 
@@ -15,7 +16,7 @@ interface ServerResponse extends http.ServerResponse {
 export interface ResponseInterceptorFactory {
   interceptor(
     buffer: Buffer,
-    proxyRes: IncomingMessage,
+    proxyResponse: IncomingMessage,
     request: IncomingMessage,
     response: ServerResponse,
   ): Promise<Buffer | string>
@@ -53,7 +54,7 @@ export class ResponseInterceptorFactory {
    * It can be used to modify the response body or the response object.
    *
    * @param buffer - Buffered response
-   * @param proxyRes - Response from the proxy
+   * @param proxyResponse - Response from the proxy
    * @param request - Request from the client
    * @param response - Response from the server
    *
@@ -63,7 +64,7 @@ export class ResponseInterceptorFactory {
   @bind
   public async interceptor(
     buffer: Buffer,
-    proxyRes: IncomingMessage,
+    proxyResponse: IncomingMessage,
     request: IncomingMessage,
     response: ServerResponse,
   ): Promise<Buffer | String> {
@@ -72,19 +73,36 @@ export class ResponseInterceptorFactory {
       request.statusCode,
       response.getHeader('content-type'),
     )
-
     if (!`${response.getHeader('content-type')}`.startsWith('text/'))
       return buffer
 
-    response.setHeader('x-proxy-by', '@roots/bud')
-    response.setHeader('x-bud-proxy-origin', this.url.proxy.origin)
-    response.removeHeader('x-http-method-override')
+    Object.entries(
+      this.app.hooks.filter(`dev.middleware.proxy.options.headers`, {
+        ...response.getHeaders(),
 
-    Object.entries(request.cookies).map(([k, v]) =>
-      response.cookie(k, v, {domain: null}),
-    )
+        'x-proxy-by': '@roots/bud',
+        'x-bud-dev-origin': this.url.dev.origin,
+        'x-bud-dev-protocol': this.url.dev.protocol,
+        'x-bud-dev-hostname': this.url.dev.hostname,
+        'x-bud-proxy-origin': this.url.proxy.origin,
 
-    await this.app.hooks.fire('event.proxy.interceptor')
+        'content-security-policy': undefined,
+        'x-http-method-override': undefined,
+      }),
+    ).map(([k, v]) => {
+      if (isString(k) && isUndefined(v)) {
+        this.app.log('removing header', k)
+        response.removeHeader(k)
+      } else if (isString(k) && !isUndefined(v)) {
+        this.app.log('setting header', k, '=>', v)
+        response.setHeader(k, v)
+      }
+    })
+
+    Object.entries(request.cookies).map(([k, v]) => {
+      this.app.info('setting cookie', k, '=>', v)
+      response.cookie(k, v, {domain: null})
+    })
 
     return this.app.hooks
       .filter('dev.middleware.proxy.replacements', [])

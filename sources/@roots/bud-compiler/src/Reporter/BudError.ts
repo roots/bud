@@ -39,7 +39,7 @@ export default class BudError {
   }
   @bind
   public setFile(file: string | ((file: string) => string)): this {
-    this.file = typeof file === 'function' ? file(this.file) : file
+    this.file = typeof file === 'function' ? file(this.file ?? '') : file
 
     return this
   }
@@ -57,7 +57,7 @@ export default class BudError {
     message: string | ((message: string) => string),
   ): this {
     this.message =
-      typeof message === 'function' ? message(this.message) : message
+      typeof message === 'function' ? message(this.message ?? '') : message
 
     return this
   }
