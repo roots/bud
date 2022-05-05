@@ -9,6 +9,7 @@ $ bud build
   --mode #0                 Compilation mode
   --cache                   Utilize compiler's filesystem cache
   --clean                   Clean artifacts and distributables prior to compilation
+  --ci                      Simple build summaries for CI
   --debug                   Enable debugging mode. Very verbose logging. Writes output files to `@storage` directory
   --devtool #0              Set devtool option
   --flush                   Force clearing bud internal cache
@@ -23,6 +24,8 @@ $ bud build
   --minimize                Minimize compiled assets
   --modules #0              Module resolution path
   --notify                  Enable notfication center messages
+  --browser                 Open browser on successful development build
+  --editor                  Open editor to file containing errors on unsuccessful development build
   --overlay                 Enable error overlay in development mode
   --publicPath #0           public path of emitted assets
   --splitChunks,--vendor    Separate vendor bundle

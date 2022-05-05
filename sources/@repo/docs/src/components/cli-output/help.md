@@ -9,10 +9,10 @@
 
 ━━━ Compile ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  bud build [--mode #0] [--cache] [--clean] [--debug] [--devtool #0] [--flush] [--hash] [--html] [--input,-i #0] [--output,-o #0] [--storage #0] [--indicator] [--log] [--manifest] [--minimize] [--modules #0] [--notify] [--overlay] [--publicPath #0] [--splitChunks,--vendor] [--target,-t #0] [--verbose]
+  bud build [--mode #0] [--cache] [--clean] [--ci] [--debug] [--devtool #0] [--flush] [--hash] [--html] [--input,-i #0] [--output,-o #0] [--storage #0] [--indicator] [--log] [--manifest] [--minimize] [--modules #0] [--notify] [--browser] [--editor] [--overlay] [--publicPath #0] [--splitChunks,--vendor] [--target,-t #0] [--verbose]
     Compile source assets
 
-  bud dev [--cache] [--clean] [--debug] [--devtool #0] [--flush] [--hash] [--html] [--input,-i #0] [--output,-o #0] [--storage #0] [--indicator] [--log] [--manifest] [--minimize] [--modules #0] [--notify] [--overlay] [--publicPath #0] [--splitChunks,--vendor] [--target,-t #0] [--verbose]
+  bud dev [--cache] [--clean] [--ci] [--debug] [--devtool #0] [--flush] [--hash] [--html] [--input,-i #0] [--output,-o #0] [--storage #0] [--indicator] [--log] [--manifest] [--minimize] [--modules #0] [--notify] [--browser] [--editor] [--overlay] [--publicPath #0] [--splitChunks,--vendor] [--target,-t #0] [--verbose]
     Compile and serve source assets
 
 ━━━ Doctor ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
