@@ -165,11 +165,6 @@ export class Notifier {
     )
   }
 
-  @bind
-  public async editorEvents() {
-    this.openEditor(this.app.compiler.errors)
-  }
-
   /**
    * Notifications
    *
