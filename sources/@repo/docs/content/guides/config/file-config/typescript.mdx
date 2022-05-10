@@ -29,10 +29,10 @@ debug. You should save yourself possible headaches and pick a flavor.
 
 ### Annotate your config
 
-You can import the `Framework` type from **@roots/bud**.
+You can import the `Bud` type from **@roots/bud**.
 
 ```ts {1} title='bud.config.ts'
-import type {Framework} from '@roots/bud'
+import type {Bud} from '@roots/bud'
 ```
 
 ### Utilize a default export
@@ -40,10 +40,9 @@ import type {Framework} from '@roots/bud'
 Rather than using `module.exports` syntax, use a default export.
 
 ```ts {3} title='bud.config.ts'
-import type {Framework} from '@roots/bud'
+import type {Bud} from '@roots/bud'
 
-export default (bud: Framework): Framework =>
-  bud.entry('main', 'index.js').template()
+export default (bud: Bud): Bud => bud.entry('main', 'index.js').template()
 ```
 
 That's it!

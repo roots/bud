@@ -85,11 +85,11 @@ bud.hooks.on('build/entry', entrypoints => ({
 ```ts title='@roots/bud-api/types/repository/index.d.ts'
 namespace Repository {
   interface Entry {
-    (this: Framework, name: string, entrypoint: Entry.Value): Framework
+    (this: Bud, name: string, entrypoint: Entry.Value): Bud
   }
 
   interface Entry {
-    (this: Framework, entrypoints: Entry.Input): Framework
+    (this: Bud, entrypoints: Entry.Input): Bud
   }
 
   namespace Entry {
