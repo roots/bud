@@ -8,7 +8,7 @@ import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import CodeBlock from '@theme/CodeBlock'
 
-You can add additional functionality to **bud.js**
+You can add additional functionality to **bud.js** using the extensions API.
 
 ## Discoverability
 
@@ -29,7 +29,7 @@ checked when resolving project packages. Without this, the extension won't be im
 Extensions can be provided as either a plain JS object or a class.
 
 ```ts title="extension.ts"
-const Extension = {
+const MyExtension = {
   register: async(app, options) {}
 }
 ```
@@ -39,12 +39,41 @@ Extensions writen using JS classes should extend the `Extension` base class (exp
 ```ts title="extension.ts"
 import {Extension} from '@roots/bud-framework/extension'
 
-class BudExtension extends Extension {
+class MyExtension extends Extension {
   public async register() {}
 }
 ```
 
 The rest of this document assumes that extensions are being authored as a class.
+
+## Binding extension methods
+
+If your extension method references the class context (`this`), you should bind it to the class instance.
+
+```ts title="extension.ts"
+import {Extension} from '@roots/bud-framework/extension'
+
+class MyExtension extends Extension {
+  public constructor(...params) {
+    super(...params)
+    this.register = this.register.bind(this)
+  }
+
+  public async register() {}
+}
+```
+
+Alternatively, you can use [the `@bind` decorator](/guides/extending/decorators#bind).
+
+```ts title="extension.ts"
+import {Extension} from '@roots/bud-framework/extension'
+import {bind} from '@roots/bud-framework/extension/decorators'
+
+class MyExtension extends Extension {
+  @bind
+  public async register() {}
+}
+```
 
 ## Interface
 
@@ -66,8 +95,8 @@ class MyExtension extends Extension {
 
 ### dependsOn
 
-Extensions may depend on other other extensions (for instance, if you are authoring an extension to add postcss plugins then your extension
-would depend on the presence of `@roots/bud-postcss`). To ensure dependencies are available, you may list their `label`s in a `dependsOn` public property.
+Extensions may depend on other other extensions. For instance, if you are authoring an extension that manages postcss plugins then your extension
+depends on the presence of `@roots/bud-postcss`. To ensure dependencies are available, you may list their `label`s in a `dependsOn` public property.
 
 The `dependsOn` property is expressed as a `Set`:
 
@@ -78,6 +107,20 @@ class MyExtension extends Extension {
   public label = 'my-extension'
 
   public dependsOn = new Set(['@roots/bud-postcss'])
+}
+```
+
+### dependsOnOptional
+
+Extensions may also depend on other extensions on an optional basis. Bud will attempt to register the extension if it is available, otherwise it will silently proceed.
+
+```ts title="extension.ts"
+import {Extension} from '@roots/bud-framework/extension'
+
+class MyExtension extends Extension {
+  public label = 'my-extension'
+
+  public dependsOnOptional = new Set(['@roots/bud-postcss'])
 }
 ```
 
@@ -136,9 +179,7 @@ class MyExtension extends Extension {
 }
 ```
 
-Also note, the extension options are **read only**.
-
-There are helpers in the base class to assist you with update options programatically:
+Also note, the extension options are **read only**. There are helpers in the base class to assist you with update `options`:
 
 #### setOption
 
@@ -157,20 +198,58 @@ extension.setOptions({
 
 ### init
 
-@todo
+Async callback. Called first.
 
 ### register
 
-@todo
+Async callback. Called second.
 
 ### boot
 
-@todo
+Async callback. Called third.
+
+### beforeBuild
+
+Async callback. Called after user configuration has been processed (directly before configuration is constructed and passed to the compiler).
 
 ### make
 
-@todo
+```ts title="extension.ts"
+import {Bud} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
+import {bind} from '@roots/bud-framework/extension/decorators'
+import Plugin from 'some-webpack-plugin'
+
+class MyExtension extends Extension {
+  public label = 'my-extension'
+
+  @bind
+  public async make() {
+    return new Plugin(this.options)
+  }
+
+  public options = {
+    option: (app: Bud) => app.path('@src'),
+  }
+}
+```
 
 ### plugin
 
-@todo
+A plugin constructor. Will be passed the extension options. Used in lieue of [make](#make).
+
+```ts title="extension.ts"
+import {Bud} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
+import Plugin from 'some-webpack-plugin'
+
+class MyExtension extends Extension {
+  public label = 'my-extension'
+
+  public plugin = Plugin
+
+  public options = {
+    option: (app: Bud) => app.path('@src'),
+  }
+}
+```

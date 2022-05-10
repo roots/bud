@@ -4,11 +4,23 @@ description: Overview of decorators available to extensions
 sidebar_label: Decorators
 ---
 
-import Tabs from '@theme/Tabs'
-import TabItem from '@theme/TabItem'
-import CodeBlock from '@theme/CodeBlock'
+There are decorators exported from `@roots/bud-framework/extension/decorators` available.
 
-## label
+## @bind
+
+Bind a class method.
+
+```ts title="extension.ts"
+import {Extension} from '@roots/bud-framework/extension'
+import {bind} from '@roots/bud-framework/extension/decorators'
+
+class MyExtension extends Extension {
+  @bind
+  public myMethod() {}
+}
+```
+
+## @label
 
 ```ts title="extension.ts"
 import {Extension} from '@roots/bud-framework/extension'
@@ -18,7 +30,7 @@ import {label} from '@roots/bud-framework/extension/decorators'
 class MyExtension extends Extension {}
 ```
 
-## dependsOn
+## @dependsOn
 
 ```ts title="extension.ts"
 import {Extension} from '@roots/bud-framework/extension'
@@ -29,9 +41,21 @@ import {dependsOn, label} from '@roots/bud-framework/extension/decorators'
 class MyExtension extends Extension {}
 ```
 
-### options
+## @dependsOnOptional
 
-## dependsOn
+```ts title="extension.ts"
+import {Extension} from '@roots/bud-framework/extension'
+import {
+  dependsOnOptional,
+  label,
+} from '@roots/bud-framework/extension/decorators'
+
+@label('my-extension')
+@dependsOnOptional(['@roots/bud-postcss'])
+class MyExtension extends Extension {}
+```
+
+### @options
 
 ```ts title="extension.ts"
 import {Extension} from '@roots/bud-framework/extension'
@@ -39,5 +63,17 @@ import {options, label} from '@roots/bud-framework/extension/decorators'
 
 @label('my-extension')
 @options({foo: 'bar'})
+class MyExtension extends Extension {}
+```
+
+## @plugin
+
+```ts title="extension.ts"
+import {Extension} from '@roots/bud-framework/extension'
+import {options, label} from '@roots/bud-framework/extension/decorators'
+import PluginConstructor from 'webpack-manifest-plugin'
+
+@label('my-extension')
+@plugin(PluginConstructor)
 class MyExtension extends Extension {}
 ```

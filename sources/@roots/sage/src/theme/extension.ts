@@ -1,7 +1,6 @@
 import {Extension} from '@roots/bud-framework'
 import {
   bind,
-  expose,
   label,
   options,
   plugin,
@@ -52,7 +51,6 @@ export interface Mutator {
 })
 @when(async () => false)
 @plugin(ThemeJsonWebpackPlugin)
-@expose('themeJson')
 export default class ThemeJson extends Extension<
   Options,
   ThemeJsonWebpackPlugin
@@ -86,12 +84,16 @@ export default class ThemeJson extends Extension<
 
   @bind
   public themeJson(
-    input?: Mutator | Partial<WPThemeJson['settings']> | boolean,
+    input?:
+      | Mutator
+      | Container<Partial<WPThemeJson['settings']>>
+      | Partial<WPThemeJson['settings']>
+      | boolean,
     raw?: boolean,
   ) {
-    this.when = async () => _.isUndefined(input) || input !== false
-
     if (!input) return this.app
+
+    this.when = async () => true
 
     const value = _.isFunction(input)
       ? input(
@@ -99,24 +101,25 @@ export default class ThemeJson extends Extension<
             ? this.options.settings
             : this.app.container(this.options.settings),
         )
-      : this.options.settings
+      : _.isBoolean(input)
+      ? this.options.settings
+      : input
 
-    this.options.settings =
-      value instanceof Container ? value.all() : value
+    this.setOption(
+      'settings',
+      value instanceof Container ? value.all() : value,
+    )
 
     return this.app
   }
 
   @bind
   public useTailwindColors() {
-    this.setOptions({
-      path: this.options.path,
-      settings: {
-        ...(this.options.settings ?? {}),
-        color: {
-          ...(this.options.settings.color ?? {}),
-          palette: ThemeJson.tailwind.transformPalette(this.palette),
-        },
+    this.setOption('settings', {
+      ...(this.options.settings ?? {}),
+      color: {
+        ...(this.options.settings?.color ?? {}),
+        palette: ThemeJson.tailwind.transformPalette(this.palette),
       },
     })
 
