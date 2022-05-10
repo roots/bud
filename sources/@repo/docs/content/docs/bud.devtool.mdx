@@ -43,10 +43,7 @@ bud.when(bud.isDevelopment, bud => bud.devtool())
 ```ts title='@roots/bud-api/types/repository/index.d.ts'
 namespace Repository {
   interface Devtool {
-    (
-      this: Framework,
-      devtool?: Webpack.Configuration['devtool'],
-    ): Framework
+    (this: Bud, devtool?: Webpack.Configuration['devtool']): Bud
   }
 }
 ```

@@ -72,7 +72,7 @@ describe('bud.run', function () {
     const data = new URL('http://site.test')
     proxy.call(bud, data)
     expect(bud.hooks.filter('dev.middleware.proxy.replacements')).toEqual(
-      expect.arrayContaining([expect.arrayContaining([data.origin, ''])]),
+      expect.arrayContaining([expect.arrayContaining([data.href, '/'])]),
     )
   })
 

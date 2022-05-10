@@ -1,4 +1,4 @@
-import {bind, chalk} from '@roots/bud-support'
+import {bind} from '@roots/bud-support'
 
 import {Spinner} from './spinner'
 
@@ -12,8 +12,7 @@ export class Line {
   public isComplete: boolean = false
 
   public get icon() {
-    if (!this.spinner) return null
-    if (this.isComplete) return chalk.green(`✔`)
+    if (!this.spinner || this.isComplete) return null
     return this.spinner.frame
   }
 
@@ -27,7 +26,7 @@ export class Line {
 
   @bind
   public update(...text: Array<string>) {
-    this.text = text.join(' ')
+    this.text = text[0] ? text?.join(' ') : null
     return this
   }
 

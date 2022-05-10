@@ -12,7 +12,7 @@ Configure your application's html templates.
 
 ```ts title='template.d.ts'
 type Template = (
-  this: Framework,
+  this: Bud,
   options?: {
     enabled?: boolean
     template?: string
@@ -20,7 +20,7 @@ type Template = (
       [key: string]: string
     }
   },
-) => Framework
+) => Bud
 ```
 
 ## Usage

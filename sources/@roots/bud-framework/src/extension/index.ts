@@ -9,7 +9,7 @@ export class Extension<E = any, Plugin = any> {
   public app?: Bud
 
   public _options?: Options.FuncMap<E> = {}
-  public options?: Options<E> = {}
+  public readonly options?: Options<E> = {}
 
   public meta? = {}
 
@@ -148,29 +148,14 @@ export class Extension<E = any, Plugin = any> {
         }.bind(this))(),
     })
 
-    const initOpts = this.options
-    delete this.options
+    const opts = this.options
 
     Object.defineProperty(this, 'options', {
       get: this.getOptions,
       set: this.setOptions,
     })
 
-    this.options = initOpts
-  }
-
-  @bind
-  public get?<K extends keyof this>(key: K & string): this[K & string] {
-    return this[key]
-  }
-
-  @bind
-  public set?<K extends keyof this>(
-    key: K,
-    value: this[K & string],
-  ): this {
-    _.set(this, key, value)
-    return this
+    this.setOptions(opts)
   }
 
   @bind
@@ -194,11 +179,11 @@ export class Extension<E = any, Plugin = any> {
   }
 
   @bind
-  public setOption?<K extends keyof Options<E>>(
+  public setOption?<K extends keyof Options.FuncMap<E>>(
     key: K & string,
     value: Options<E>[K & string],
   ): this {
-    this.options[key] = value
+    this._options[key] = _.isFunction(value) ? value : () => value
     return this
   }
 

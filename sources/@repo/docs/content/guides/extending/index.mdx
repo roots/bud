@@ -1,0 +1,255 @@
+---
+title: Extending
+description: Overview of instantiating Bud directly from Node
+sidebar_label: Extending
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import CodeBlock from '@theme/CodeBlock'
+
+You can add additional functionality to **bud.js** using the extensions API.
+
+## Discoverability
+
+If authoring a module, include a `bud` field to mark the module as an extension. This field will be
+checked when resolving project packages. Without this, the extension won't be imported!
+
+```json
+{
+  "name": "my-extension",
+  "bud": {
+    "type": "extension"
+  }
+}
+```
+
+## Extension formats
+
+Extensions can be provided as either a plain JS object or a class.
+
+```ts title="extension.ts"
+const MyExtension = {
+  register: async(app, options) {}
+}
+```
+
+Extensions writen using JS classes should extend the `Extension` base class (exported from `@roots/bud-framework/extension`).
+
+```ts title="extension.ts"
+import {Extension} from '@roots/bud-framework/extension'
+
+class MyExtension extends Extension {
+  public async register() {}
+}
+```
+
+The rest of this document assumes that extensions are being authored as a class.
+
+## Binding extension methods
+
+If your extension method references the class context (`this`), you should bind it to the class instance.
+
+```ts title="extension.ts"
+import {Extension} from '@roots/bud-framework/extension'
+
+class MyExtension extends Extension {
+  public constructor(...params) {
+    super(...params)
+    this.register = this.register.bind(this)
+  }
+
+  public async register() {}
+}
+```
+
+Alternatively, you can use [the `@bind` decorator](/guides/extending/decorators#bind).
+
+```ts title="extension.ts"
+import {Extension} from '@roots/bud-framework/extension'
+import {bind} from '@roots/bud-framework/extension/decorators'
+
+class MyExtension extends Extension {
+  @bind
+  public async register() {}
+}
+```
+
+## Interface
+
+### label
+
+The extension `label` serves as a handle for other extensions or the user config.
+For a "top-level" extension (listed in the user's `package.json` manifest), the label should match the extension's `package.json` `name` field.
+
+A `label` is not strictly required but extensions without a `label` will have a unique id generated for them. Because this id is generated there is no
+straight forward way to reference the extension from the outside.
+
+```ts title="extension.ts"
+import {Extension} from '@roots/bud-framework/extension'
+
+class MyExtension extends Extension {
+  public label = 'my-extension'
+}
+```
+
+### dependsOn
+
+Extensions may depend on other other extensions. For instance, if you are authoring an extension that manages postcss plugins then your extension
+depends on the presence of `@roots/bud-postcss`. To ensure dependencies are available, you may list their `label`s in a `dependsOn` public property.
+
+The `dependsOn` property is expressed as a `Set`:
+
+```ts title="extension.ts"
+import {Extension} from '@roots/bud-framework/extension'
+
+class MyExtension extends Extension {
+  public label = 'my-extension'
+
+  public dependsOn = new Set(['@roots/bud-postcss'])
+}
+```
+
+### dependsOnOptional
+
+Extensions may also depend on other extensions on an optional basis. Bud will attempt to register the extension if it is available, otherwise it will silently proceed.
+
+```ts title="extension.ts"
+import {Extension} from '@roots/bud-framework/extension'
+
+class MyExtension extends Extension {
+  public label = 'my-extension'
+
+  public dependsOnOptional = new Set(['@roots/bud-postcss'])
+}
+```
+
+### options
+
+Any extension options can be set in the `options` property.
+
+```ts title="extension.ts"
+import {Extension} from '@roots/bud-framework/extension'
+
+class MyExtension extends Extension {
+  public label = 'my-extension'
+
+  public options = {
+    option: 'value',
+  }
+}
+```
+
+The `options` property is treated specially (using `getters` and `setters`).
+
+Each option value can be expressed as either the literal value itself or a function receives the `Bud` object and returns the value.
+
+This is useful when you can't know the value up front (as is the case with user paths):
+
+```ts title="extension.ts"
+import {Bud} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
+
+class MyExtension extends Extension {
+  public label = 'my-extension'
+
+  public options = {
+    option: (app: Bud) => app.path('@src'),
+  }
+}
+```
+
+Now, if the user makes a change to the `@src` path, the reference will be updated in the extension.
+
+The only "gotcha" here is that if you have an extension option which is itself callable, you will need to account for that. It should be as simple
+as wrapping the option in a function.
+
+```ts title="extension.ts"
+import {Bud} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
+
+const callback = (prop: string): string => 'hello, world!'
+
+class MyExtension extends Extension {
+  public label = 'my-extension'
+
+  public options = {
+    option: () => callback,
+  }
+}
+```
+
+Also note, the extension options are **read only**. There are helpers in the base class to assist you with update `options`:
+
+#### setOption
+
+```ts title="extension.js"
+extension.setOptions('foo', (app: Bud) => 'could have been a string')
+```
+
+#### setOptions
+
+```ts title="extension.js"
+extension.setOptions({
+  foo: 'literal',
+  bar: (app: Bud) => 'a callback is fine, as well'.
+})
+```
+
+### init
+
+Async callback. Called first.
+
+### register
+
+Async callback. Called second.
+
+### boot
+
+Async callback. Called third.
+
+### beforeBuild
+
+Async callback. Called after user configuration has been processed (directly before configuration is constructed and passed to the compiler).
+
+### make
+
+```ts title="extension.ts"
+import {Bud} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
+import {bind} from '@roots/bud-framework/extension/decorators'
+import Plugin from 'some-webpack-plugin'
+
+class MyExtension extends Extension {
+  public label = 'my-extension'
+
+  @bind
+  public async make() {
+    return new Plugin(this.options)
+  }
+
+  public options = {
+    option: (app: Bud) => app.path('@src'),
+  }
+}
+```
+
+### plugin
+
+A plugin constructor. Will be passed the extension options. Used in lieue of [make](#make).
+
+```ts title="extension.ts"
+import {Bud} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
+import Plugin from 'some-webpack-plugin'
+
+class MyExtension extends Extension {
+  public label = 'my-extension'
+
+  public plugin = Plugin
+
+  public options = {
+    option: (app: Bud) => app.path('@src'),
+  }
+}
+```

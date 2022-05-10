@@ -67,5 +67,14 @@ module.exports = {
       ],
     },
     'node-api',
+    {
+      type: 'category',
+      label: 'Extending',
+      link: {
+        type: 'doc',
+        id: 'extending/index',
+      },
+      items: ['extending/decorators'],
+    },
   ],
 }

@@ -17,7 +17,7 @@ describe('bud.provide', function () {
     await bud.api.processQueue()
 
     expect(
-      bud.extensions.get('webpack:provide-plugin').get('options'),
+      bud.extensions.get('webpack:provide-plugin').options,
     ).toStrictEqual({
       $: 'jQuery',
     })

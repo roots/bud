@@ -16,15 +16,21 @@ export class Dashboard extends Service implements Base.Service {
 
   public interval: NodeJS.Timer
 
-  public intervalMon: NodeJS.Timer
-
   public progress = new Line()
 
   protected output: Array<string>
 
   protected percent: number
 
-  protected report: string
+  protected frame: string = ''
+
+  /**
+   * @override
+   */
+  @bind
+  public render(str: string) {
+    this.app.context.stdout.write(str)
+  }
 
   @bind
   public async register() {
@@ -34,22 +40,18 @@ export class Dashboard extends Service implements Base.Service {
 
     this.render = logUpdate.createLogUpdate(this.app.context.stdout)
     this.interval = setInterval(this.update, 80)
-    this.intervalMon = setInterval(this.monitor, 200)
 
-    this.app.hooks.action('event.app.close', async () => {
-      this.interval?.unref()
-      this.intervalMon?.unref()
-    })
-  }
-
-  @bind
-  public render(str: string) {
-    this.app.context.stdout.write(str)
+    this.app.hooks.action('event.app.close', async () =>
+      this.interval.unref(),
+    )
   }
 
   @bind
   public update() {
-    this.render(this.report ?? this.progress.frame)
+    !this.progress.isComplete &&
+      this.progress.frame &&
+      this.render(this.progress.frame)
+
     return this
   }
 
@@ -69,28 +71,15 @@ export class Dashboard extends Service implements Base.Service {
     errors: any
     warnings: any
   }): this {
-    const render = this.render as any
-    if (render.clear) render.clear()
+    this.progress.complete(true)
 
-    this.report = this.app.context.args.ci
+    this.frame = this.app.context.args.ci
       ? this.app.compiler.stats.string.trim()
-      : reporter.report({stats, errors, warnings, app: this.app}).join('')
+      : reporter.report({stats, errors, warnings, app: this.app})
+
+    this.app.context.stdout.write(this.frame)
 
     return this
-  }
-
-  @bind
-  public monitor() {
-    if (this.app.context.args.ci || this.app.env.has('TS_JEST')) {
-      this.report && process.stdout.write(this.report)
-      return
-    }
-
-    if (this.percent == 100 && this.app.isProduction) {
-      this.update()
-      this.interval.unref()
-      this.intervalMon.unref()
-    }
   }
 
   /**
@@ -103,17 +92,14 @@ export class Dashboard extends Service implements Base.Service {
   public progressCallback(percent: number, scope: string) {
     try {
       this.percent = Math.ceil((percent ?? 0) * 100)
+      this.progress.complete(this.percent >= 99)
 
-      const stage =
-        (scope.includes(`]`) ? scope.split(`]`).pop()?.trim() : scope) ??
-        ``
+      const update = scope.includes(`]`)
+        ? scope.split(`]`).pop()?.trim()
+        : scope
 
-      if (percent < 100) {
-        this.progress.complete(false)
-        this.progress.update(stage)
-      } else {
-        this.progress.complete(true)
-      }
+      this.progress.update(`${this.percent}%`, update)
+      this.update()
     } catch (error) {
       this.app.warn(error)
     }

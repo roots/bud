@@ -443,8 +443,7 @@ export abstract class Bud {
     this.logger.instance.error(...messages)
 
     if (this.isProduction) {
-      process.exitCode = 1
-      process.exit()
+      this.close()
     }
   }
 

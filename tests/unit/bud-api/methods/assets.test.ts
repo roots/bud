@@ -49,9 +49,7 @@ describe('bud.assets', function () {
   it('adds variadic assets', async () => {
     await bud.api.call('assets', 'images', 'fonts')
 
-    const options = bud.extensions
-      .get('copy-webpack-plugin')
-      .get('options')
+    const options = bud.extensions.get('copy-webpack-plugin').options
 
     expect(JSON.stringify(options.patterns)).toEqual(
       JSON.stringify([

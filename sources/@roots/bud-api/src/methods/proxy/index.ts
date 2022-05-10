@@ -110,7 +110,7 @@ export const method: method = function (input, replacements) {
         'dev.middleware.proxy.replacements',
         (hookValue): Array<[string | RegExp, string]> => [
           ...(hookValue ?? []),
-          [ctx.hooks.filter('dev.middleware.proxy.target').origin, ''],
+          [ctx.hooks.filter('dev.middleware.proxy.target').href, '/'],
         ],
       )
     : ctx.hooks.on('dev.middleware.proxy.replacements', replacements)

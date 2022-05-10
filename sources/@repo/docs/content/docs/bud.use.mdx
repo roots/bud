@@ -41,7 +41,7 @@ await bud.use(new MyWebpackPlugin())
 ```ts title='@roots/bud-api/types/repository/index.d.ts'
 namespace Repository {
   interface Use {
-    (this: Framework, source: Use.Input): Promise<Framework>
+    (this: Bud, source: Use.Input): Promise<Bud>
   }
 
   namespace Use {

@@ -38,7 +38,7 @@ class BudGzipWebpackPlugin extends Extension<
       if (options)
         app.extensions
           .get('compression-webpack-plugin-gzip')
-          .set('options', options)
+          .setOptions(options)
 
       return app
     })

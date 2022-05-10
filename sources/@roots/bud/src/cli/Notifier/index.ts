@@ -1,5 +1,5 @@
 import {Bud} from '@roots/bud-framework'
-import {bind, open, openEditor} from '@roots/bud-support'
+import {bind, once, open, openEditor} from '@roots/bud-support'
 import {
   Notification,
   NotificationCallback,
@@ -37,6 +37,15 @@ export class Notifier {
       'MacOS',
       'roots-notifier',
     )
+  }
+
+  /**
+   * Get user editor from env
+   * @public
+   */
+  public get editor() {
+    if (this.app.env.has('VISUAL')) return this.app.env.get('VISUAL')
+    if (this.app.env.get('EDITOR')) return this.app.env.get('EDITOR')
   }
 
   /**
@@ -115,6 +124,7 @@ export class Notifier {
    * @decorator `@bind`
    */
   @bind
+  @once
   public async openBrowser() {
     if (this.app.isProduction) return
     return await open(this.open)
@@ -155,21 +165,11 @@ export class Notifier {
     )
   }
 
-  public get editor() {
-    if (this.app.env.has('VISUAL')) return this.app.env.get('VISUAL')
-    if (this.app.env.get('EDITOR')) return this.app.env.get('EDITOR')
-  }
-
-  @bind
-  public async editorEvents() {
-    this.openEditor(this.app.compiler.errors)
-  }
-
   /**
-   * OS level affairs
+   * Notifications
+   *
    * @public
    * @decorator `@bind`
-   * @decorator `@debounce`
    */
   @bind
   public async notify() {
@@ -177,7 +177,7 @@ export class Notifier {
 
     try {
       if (this.app.compiler.errors.length && this.app.context.args.editor)
-        await this.editorEvents()
+        this.openEditor(this.app.compiler.errors)
     } catch (err) {
       this.app.warn(err)
     }

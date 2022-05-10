@@ -10,8 +10,7 @@ describe('bud.define', function () {
   it('adds definitions', async () => {
     await bud.api.call('define', {DEFINED_KEY: 'DEFINED_VALUE'})
     expect(
-      bud.extensions.get('webpack:define-plugin').get('options')
-        .DEFINED_KEY,
+      bud.extensions.get('webpack:define-plugin').options.DEFINED_KEY,
     ).toEqual('DEFINED_VALUE')
   })
 })

@@ -55,18 +55,18 @@ module.exports = app =>
   <TabItem value="ts">
 
 ```ts title='bud.config.ts'
-import type {Framework} from '@roots/bud'
+import type {Bud} from '@roots/bud'
 
-export default (app: Framework): void =>
+export default (app: Bud): void =>
   app
-    .make('theme', async (theme: Framework): Promise<void> => {
+    .make('theme', async (theme: Bud): Promise<void> => {
       theme
         .setPath('@dist', 'dist/theme')
         .entry('theme', ['theme.js', 'theme.css'])
     })
     .make(
       'plugin',
-      async (plugin: Framework): Promise<void> =>
+      async (plugin: Bud): Promise<void> =>
         plugin
           .setPath('@dist', 'dist/plugin')
           .entry('plugin', ['plugin.js', 'plugin.css']),
@@ -112,17 +112,17 @@ module.exports = app => {
   <TabItem value="ts">
 
 ```ts title='bud.config.ts'
-import type {Framework} from '@roots/bud'
+import type {Bud} from '@roots/bud'
 
-export default (app: Framework): void =>
+export default (app: Bud): void =>
   app
     .setPath('@dist', 'dist/global')
-    .make('theme', async (theme: Framework): Promise<void> => {
+    .make('theme', async (theme: Bud): Promise<void> => {
       theme
         .setPath('@dist', 'dist/theme')
         .entry('theme', ['theme.js', 'theme.css'])
     })
-    .make('plugin', async (plugin: Framework): Promise<void> => {
+    .make('plugin', async (plugin: Bud): Promise<void> => {
       plugin
         .setPath('@dist', 'dist/plugin')
         .entry('plugin', ['plugin.js', 'plugin.css'])

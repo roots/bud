@@ -18,7 +18,7 @@ export default class BudInterpolateHtmlPlugin extends Extension<
   public async register() {
     this.setOptions({
       ...this.publicEnv,
-      ...this.app.extensions.get('webpack:define-plugin').get('options'),
+      ...this.app.extensions.get('webpack:define-plugin').options,
     })
   }
 

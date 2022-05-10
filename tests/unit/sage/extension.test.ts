@@ -18,16 +18,14 @@ describe('@roots/sage', () => {
   it(`has label prop`, () => expect(instance.label).toBe('@roots/sage'))
 
   it(`registers prop: label`, () =>
-    expect(bud.extensions.get('@roots/sage').get('label')).toBe(
-      instance.label,
-    ))
+    expect(bud.extensions.get('@roots/sage').label).toBe(instance.label))
 
   it(`has boot prop`, () => expect(instance.boot).toBeInstanceOf(Function))
 
   it(`registers prop: boot`, () =>
-    expect(
-      JSON.stringify(bud.extensions.get('@roots/sage').get('boot')),
-    ).toBe(JSON.stringify(instance.boot)))
+    expect(JSON.stringify(bud.extensions.get('@roots/sage').boot)).toBe(
+      JSON.stringify(instance.boot),
+    ))
 
   it(`sets aliases`, async () => {
     const aliases = await bud.hooks.filterAsync('build.resolve.alias')

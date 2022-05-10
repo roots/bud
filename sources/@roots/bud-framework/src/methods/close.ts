@@ -1,5 +1,3 @@
-import {Bud} from '..'
-
 /**
  * Close interface
  *
@@ -23,9 +21,5 @@ export interface close {
  * @public
  */
 export function close(callback?: any) {
-  const ctx = this as Bud
-
-  ctx.hooks.fire('event.app.close')
-
-  if (callback) callback()
+  callback ? callback() : process.exit()
 }
