@@ -29,15 +29,27 @@ module.exports = {
       type: ['🚀 steward', '💻 dev', '✍🏽 docs'],
     },
     retlehs: {
-      type: ['🚀 steward'],
+      type: ['🚀 steward', '✍🏽 docs'],
     },
     swalkinshaw: {
+      type: ['🚀 steward', '💻 dev', '✍🏽 docs'],
+    },
+    joshuafredrickson: {
+      type: ['💻 dev', '✍🏽 docs'],
+    },
+    alwaysblank: {
       type: ['🚀 steward', '✍🏽 docs'],
+    },
+    alexdanylyschyn: {
+      type: ['💻 dev'],
     },
     clayrisser: {
       type: ['✍🏽 docs'],
     },
     catgofire: {
+      type: ['✍🏽 docs'],
+    },
+    unlocdavid: {
       type: ['✍🏽 docs'],
     },
   },
