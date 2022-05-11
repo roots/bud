@@ -1,7 +1,7 @@
 {
   "name": "@roots/ink-use-style",
   "description": "Themes and styles for React Ink",
-  "version": "0.0.0",
+  "version": "5.8.1",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
