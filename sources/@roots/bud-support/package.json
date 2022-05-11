@@ -63,7 +63,7 @@
     "cli-highlight": "2.1.11",
     "copy-webpack-plugin": "10.2.4",
     "cosmiconfig": "7.0.1",
-    "dotenv": "16.0.0",
+    "dotenv": "16.0.1",
     "dotenv-expand": "8.0.2",
     "execa": "6.1.0",
     "fs-extra": "10.0.1",
