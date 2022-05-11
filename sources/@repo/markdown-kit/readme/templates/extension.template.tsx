@@ -31,8 +31,6 @@ export const Extension = ({
 
     <code lang="shell">yarn add {name} --dev</code>
 
-    <code lang="shell">yarn bud install</code>
-
     <Docs url={projectConfig.url.docs} />
 
     <Community />
