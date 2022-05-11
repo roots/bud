@@ -22,10 +22,6 @@ Install **@roots/bud-wordpress-dependencies** to your project.
 yarn add @roots/bud-wordpress-dependencies --dev
 ```
 
-```shell
-yarn bud install
-```
-
 ## Documentation
 
 For more information on utilizing this package [check out our dedicated docs](https://bud.js.org)
