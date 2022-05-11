@@ -19,7 +19,6 @@ describe('bud', () => {
 
     const isDev = await factory({mode: 'development'})
     expect(isDev.isDevelopment).toEqual(true)
-    await isDev.close()
   })
 
   it('isProduction', async () => {
