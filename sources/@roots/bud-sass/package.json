@@ -73,7 +73,7 @@
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
     "postcss": "8.4.13",
-    "postcss-scss": "4.0.3",
+    "postcss-scss": "4.0.4",
     "sass": "1.49.9",
     "sass-loader": "12.6.0",
     "stylelint-config-recommended-scss": "5.0.2",
