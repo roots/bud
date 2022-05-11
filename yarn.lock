@@ -3826,7 +3826,7 @@ __metadata:
     "@types/lodash": 4.14.180
     "@types/node": 16.11.26
     postcss: 8.4.13
-    postcss-scss: 4.0.3
+    postcss-scss: 4.0.4
     sass: 1.49.9
     sass-loader: 12.6.0
     stylelint-config-recommended-scss: 5.0.2
@@ -18535,12 +18535,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-scss@npm:4.0.3, postcss-scss@npm:^4.0.2":
-  version: 4.0.3
-  resolution: "postcss-scss@npm:4.0.3"
+"postcss-scss@npm:4.0.4, postcss-scss@npm:^4.0.2":
+  version: 4.0.4
+  resolution: "postcss-scss@npm:4.0.4"
   peerDependencies:
     postcss: ^8.3.3
-  checksum: d11110376ce2dcf624426d9edfb49d794d4f628aa4253849e841047761563ac2fe6e79a98aa46f8ed7f687cedd8c475a0956fa5e9e6802f8448ccd6538955b48
+  checksum: b4f240dd5eeb0c21738b673d9caf9a06b9a6db665a5b1c815ee4ca10c4c74a67c54f11cd5a4970dea98475cbb9e6d846e05dd3e48924189c2ecbf1f50cd44aa4
   languageName: node
   linkType: hard
 
