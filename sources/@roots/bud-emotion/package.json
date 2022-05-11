@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-emotion",
-  "version": "0.0.0",
+  "version": "5.8.0",
   "description": "CSS-in-JS support for the @roots/bud framework",
   "homepage": "https://roots.io/bud",
   "repository": {
