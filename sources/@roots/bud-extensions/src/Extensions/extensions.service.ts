@@ -77,17 +77,19 @@ export class Extensions extends Service implements Contract.Service {
       Object.keys({
         ...(this.app.context.manifest?.devDependencies ?? {}),
         ...(this.app.context.manifest?.dependencies ?? {}),
-      }).map(async pkg => {
-        try {
-          const manifest = await this.app.module
-            .manifestPath(pkg)
-            .then(this.app.module.readManifest)
+      })
+        .filter(name => !name.startsWith('@types'))
+        .map(async pkg => {
+          try {
+            const manifest = await this.app.module
+              .manifestPath(pkg)
+              .then(this.app.module.readManifest)
 
-          return manifest.bud ? await this.import(pkg) : noop
-        } catch (error) {
-          this.app.error(`Error importing`, pkg, `\n`, error)
-        }
-      }),
+            return manifest.bud ? await this.import(pkg) : noop
+          } catch (error) {
+            this.app.warn(`Error importing`, pkg, `\n`, error)
+          }
+        }),
     )
   }
 
