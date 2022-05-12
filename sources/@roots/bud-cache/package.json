@@ -49,6 +49,6 @@
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@skypack/package-check": "0.2.2",
     "@types/lodash": "4.14.180",
-    "tslib": "2.3.1"
+    "tslib": "2.4.0"
   }
 }

@@ -3208,7 +3208,7 @@ __metadata:
     react: 17.0.2
     react-dom: 17.0.2
     ts-node: 10.7.0
-    tslib: 2.3.1
+    tslib: 2.4.0
     typescript: 4.6.4
     url-loader: 4.1.1
     webpack: 5.70.0
@@ -3260,7 +3260,7 @@ __metadata:
     helpful-decorators: 2.1.0
     jest: 27.5.1
     json5: 2.2.0
-    tslib: 2.3.1
+    tslib: 2.4.0
   languageName: unknown
   linkType: soft
 
@@ -3279,7 +3279,7 @@ __metadata:
     fs-extra: 10.0.1
     helpful-decorators: 2.1.0
     semver: 7.3.5
-    tslib: 2.3.1
+    tslib: 2.4.0
     typescript: 4.6.4
   languageName: unknown
   linkType: soft
@@ -3296,7 +3296,7 @@ __metadata:
     css-minimizer-webpack-plugin: 3.4.1
     html-webpack-plugin: 5.5.0
     nanoid: 3.3.1
-    tslib: 2.3.1
+    tslib: 2.4.0
     webpack: 5.70.0
   languageName: unknown
   linkType: soft
@@ -3320,7 +3320,7 @@ __metadata:
     "@types/lodash": 4.14.180
     "@types/node": 16.11.26
     babel-loader: ^8.2.3
-    tslib: 2.3.1
+    tslib: 2.4.0
     webpack: 5.70.0
   peerDependencies:
     "@babel/core": "*"
@@ -3373,7 +3373,7 @@ __metadata:
     remark-loader: 4.0.0
     resolve-url-loader: ^5.0.0
     style-loader: ^3.3.1
-    tslib: 2.3.1
+    tslib: 2.4.0
     url-loader: ^4.1.1
     webpack: 5.70.0
     xml-loader: ^1.2.1
@@ -3388,7 +3388,7 @@ __metadata:
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
     "@types/lodash": 4.14.180
-    tslib: 2.3.1
+    tslib: 2.4.0
   languageName: unknown
   linkType: soft
 
@@ -3403,7 +3403,7 @@ __metadata:
     "@types/lodash": 4.14.180
     "@types/node": 16.11.26
     helpful-decorators: 2.1.0
-    tslib: 2.3.1
+    tslib: 2.4.0
     webpack: 5.70.0
   languageName: unknown
   linkType: soft
@@ -3419,7 +3419,7 @@ __metadata:
     "@types/lodash": 4.14.180
     "@types/node": 16.11.26
     compression-webpack-plugin: ^9.0.1
-    tslib: 2.3.1
+    tslib: 2.4.0
     webpack: 5.70.0
   languageName: unknown
   linkType: soft
@@ -3435,7 +3435,7 @@ __metadata:
     "@types/lodash": 4.14.180
     "@types/node": 16.11.26
     critical: 4.0.1
-    tslib: 2.3.1
+    tslib: 2.4.0
   peerDependencies:
     critical: ^4.0.1
   peerDependenciesMeta:
@@ -3452,7 +3452,7 @@ __metadata:
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
     "@types/node": 16.11.26
-    tslib: 2.3.1
+    tslib: 2.4.0
     webpack: 5.70.0
   languageName: unknown
   linkType: soft
@@ -3473,7 +3473,7 @@ __metadata:
     "@types/lodash": 4.14.180
     "@types/node": 16.11.26
     react: 17.0.2
-    tslib: 2.3.1
+    tslib: 2.4.0
   peerDependencies:
     "@babel/core": "*"
     "@emotion/babel-plugin": "*"
@@ -3503,7 +3503,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/lodash": 4.14.180
     "@types/node": 16.11.26
-    tslib: 2.3.1
+    tslib: 2.4.0
   languageName: unknown
   linkType: soft
 
@@ -3519,7 +3519,7 @@ __metadata:
     "@types/lodash": 4.14.180
     "@types/node": 16.11.26
     esbuild-loader: 2.18.0
-    tslib: 2.3.1
+    tslib: 2.4.0
     webpack: 5.70.0
   peerDependencies:
     esbuild-loader: "*"
@@ -3539,7 +3539,7 @@ __metadata:
     "@types/node": 16.11.26
     eslint: 8.11.0
     eslint-webpack-plugin: ^3.1.1
-    tslib: 2.3.1
+    tslib: 2.4.0
     webpack: 5.70.0
   peerDependencies:
     eslint: "*"
@@ -3559,7 +3559,7 @@ __metadata:
     "@types/lodash": 4.14.180
     "@types/node": 16.11.26
     autobind-decorator: 2.4.0
-    tslib: 2.3.1
+    tslib: 2.4.0
     webpack: 5.70.0
   languageName: unknown
   linkType: soft
@@ -3575,7 +3575,7 @@ __metadata:
     "@types/node": 16.11.26
     chokidar: 3.5.3
     http-proxy-middleware: 2.0.4
-    tslib: 2.3.1
+    tslib: 2.4.0
     webpack: 5.70.0
     webpack-dev-middleware: 5.3.1
     webpack-hot-middleware: 2.25.1
@@ -3595,7 +3595,7 @@ __metadata:
     "@types/node": 16.11.26
     autobind-decorator: 2.4.0
     jest: 27.5.1
-    tslib: 2.3.1
+    tslib: 2.4.0
   languageName: unknown
   linkType: soft
 
@@ -3608,7 +3608,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@squoosh/lib": 0.4.0
     image-minimizer-webpack-plugin: ^3.2.3
-    tslib: 2.3.1
+    tslib: 2.4.0
   peerDependencies:
     "@squoosh/lib": "*"
     image-minimizer-webpack-plugin: "*"
@@ -3630,7 +3630,7 @@ __metadata:
     "@types/lodash": 4.14.180
     "@types/node": 16.11.26
     autodll-webpack-plugin: ^0.4.2
-    tslib: 2.3.1
+    tslib: 2.4.0
     webpack: 5.70.0
   peerDependencies:
     autodll-webpack-plugin: "*"
@@ -3654,7 +3654,7 @@ __metadata:
     "@types/node": 16.11.26
     react: 17.0.2
     react-dom: 17.0.2
-    tslib: 2.3.1
+    tslib: 2.4.0
     webpack: 5.70.0
   peerDependencies:
     "@mdx-js/loader": ^1.6.22 || ^2.0.0
@@ -3678,7 +3678,7 @@ __metadata:
     postcss-loader: 6.2.1
     postcss-nested: 5.0.6
     postcss-preset-env: 7.4.2
-    tslib: 2.3.1
+    tslib: 2.4.0
     webpack: 5.70.0
   peerDependencies:
     postcss: "*"
@@ -3710,7 +3710,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/lodash": 4.14.180
     "@types/node": 16.11.26
-    tslib: 2.3.1
+    tslib: 2.4.0
   languageName: unknown
   linkType: soft
 
@@ -3734,7 +3734,7 @@ __metadata:
     "@wordpress/browserslist-config": 4.1.2
     react: 17.0.2
     react-dom: 17.0.2
-    tslib: 2.3.1
+    tslib: 2.4.0
     webpack: 5.70.0
   peerDependencies:
     "@wordpress/browserslist-config": "*"
@@ -3752,7 +3752,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/node": 16.11.26
     prettier: 2.6.0
-    tslib: 2.3.1
+    tslib: 2.4.0
   peerDependencies:
     prettier: "*"
   peerDependenciesMeta:
@@ -3772,7 +3772,7 @@ __metadata:
     "@types/lodash": 4.14.180
     "@types/node": 16.11.26
     postcss: 8.4.13
-    tslib: 2.3.1
+    tslib: 2.4.0
   peerDependencies:
     "@fullhuman/postcss-purgecss": ^4.1.3
   peerDependenciesMeta:
@@ -3802,7 +3802,7 @@ __metadata:
     react-dom: ^17.0.2
     react-hot-loader: ^4.13.0
     react-refresh: ^0.11.0
-    tslib: 2.3.1
+    tslib: 2.4.0
     type-fest: 2.12.2
     webpack: 5.70.0
   peerDependencies:
@@ -3830,7 +3830,7 @@ __metadata:
     sass: 1.49.9
     sass-loader: 12.6.0
     stylelint-config-recommended-scss: 5.0.2
-    tslib: 2.3.1
+    tslib: 2.4.0
     webpack: 5.70.0
   peerDependencies:
     postcss: "*"
@@ -3875,7 +3875,7 @@ __metadata:
     http-proxy-middleware: 2.0.4
     querystring: ^0.2.0
     strip-ansi: ^6.0.0
-    tslib: 2.3.1
+    tslib: 2.4.0
     webpack: 5.70.0
     webpack-dev-middleware: 5.3.1
   languageName: unknown
@@ -3895,7 +3895,7 @@ __metadata:
     "@types/node": 16.11.26
     babel-preset-solid: ^1.2.5
     solid-js: 1.3.13
-    tslib: 2.3.1
+    tslib: 2.4.0
     type-fest: 2.12.2
     webpack: 5.70.0
   peerDependencies:
@@ -3923,7 +3923,7 @@ __metadata:
     stylelint: ^14.5.0
     stylelint-config-standard: ^25.0.0
     stylelint-webpack-plugin: ^3.1.1
-    tslib: 2.3.1
+    tslib: 2.4.0
     webpack: 5.70.0
   peerDependencies:
     stylelint: ^14.5.0
@@ -3991,7 +3991,7 @@ __metadata:
     strip-ansi: 7.0.1
     table: 6.8.0
     toml: 3.0.0
-    tslib: 2.3.1
+    tslib: 2.4.0
     typescript: 4.6.4
     webpack: 5.70.0
     yamljs: 0.3.0
@@ -4011,7 +4011,7 @@ __metadata:
     autoprefixer: ^10.4.0
     postcss: 8.4.13
     tailwindcss: 3.0.23
-    tslib: 2.3.1
+    tslib: 2.4.0
   peerDependencies:
     autoprefixer: "*"
     postcss: "*"
@@ -4035,7 +4035,7 @@ __metadata:
     "@types/lodash": 4.14.180
     "@types/node": 16.11.26
     terser-webpack-plugin: ^5.2.5
-    tslib: 2.3.1
+    tslib: 2.4.0
     webpack: 5.70.0
   languageName: unknown
   linkType: soft
@@ -4053,7 +4053,7 @@ __metadata:
     fork-ts-checker-webpack-plugin: ^7.2.6
     ts-loader: ^9.2.8
     ts-node: 10.7.0
-    tslib: 2.3.1
+    tslib: 2.4.0
     typescript: 4.6.4
     webpack: 5.70.0
   peerDependencies:
@@ -4076,7 +4076,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/node": 16.11.26
     "@vue/compiler-sfc": 3.2.31
-    tslib: 2.3.1
+    tslib: 2.4.0
     vue: 3.2.31
     vue-loader: ^17.0.0
     vue-style-loader: ^4.1.3
@@ -4112,7 +4112,7 @@ __metadata:
     "@types/lodash": 4.14.180
     "@types/node": 16.11.26
     lodash: ^4.17.21
-    tslib: 2.3.1
+    tslib: 2.4.0
   languageName: unknown
   linkType: soft
 
@@ -4125,7 +4125,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/lodash": 4.14.180
     "@types/node": 16.11.26
-    tslib: 2.3.1
+    tslib: 2.4.0
   languageName: unknown
   linkType: soft
 
@@ -4140,7 +4140,7 @@ __metadata:
     "@types/lodash": 4.14.180
     "@types/node": 16.11.26
     jest: 27.5.1
-    tslib: 2.3.1
+    tslib: 2.4.0
   languageName: unknown
   linkType: soft
 
@@ -4172,7 +4172,7 @@ __metadata:
     html-webpack-plugin: ^5.5.0
     mini-css-extract-plugin: ^2.4.5
     node-notifier: 10.0.1
-    tslib: 2.3.1
+    tslib: 2.4.0
     typanion: 3.7.1
     type-fest: ^2.5.4
     webpack: 5.70.0
@@ -4192,7 +4192,7 @@ __metadata:
     "@types/node": 16.11.26
     helpful-decorators: 2.1.0
     lodash: 4.17.21
-    tslib: 2.3.1
+    tslib: 2.4.0
     type-fest: 2.12.2
   languageName: unknown
   linkType: soft
@@ -4208,7 +4208,7 @@ __metadata:
     critical: 4.0.1
     lodash: ^4.17.21
     safe-require: ^1.0.4
-    tslib: 2.3.1
+    tslib: 2.4.0
     vinyl: ^2.2.1
     webpack: 5.70.0
   peerDependencies:
@@ -4224,7 +4224,7 @@ __metadata:
     "@types/lodash": 4.14.180
     "@types/node": 16.11.26
     helpful-decorators: ^2.1.0
-    tslib: 2.3.1
+    tslib: 2.4.0
   languageName: unknown
   linkType: soft
 
@@ -4238,7 +4238,7 @@ __metadata:
     "@types/node": 16.11.26
     helpful-decorators: 2.1.0
     lodash: 4.17.21
-    tslib: 2.3.1
+    tslib: 2.4.0
     webpack: 5.70.0
   peerDependencies:
     webpack: ">=5"
@@ -4276,7 +4276,7 @@ __metadata:
     fs-extra: 10.0.1
     lodash: 4.17.21
     resolve-from: 5.0.0
-    tslib: 2.3.1
+    tslib: 2.4.0
   languageName: unknown
   linkType: soft
 
@@ -4289,7 +4289,7 @@ __metadata:
     "@types/node": 16.11.26
     "@types/prettier": 2.4.4
     "@types/react": 17.0.41
-    tslib: 2.3.1
+    tslib: 2.4.0
   peerDependencies:
     ink: ^3.0.9
     prettier: ^2.3.2
@@ -4307,7 +4307,7 @@ __metadata:
     ink: 3.2.0
     ink-use-stdout-dimensions: 1.0.5
     react: 17.0.2
-    tslib: 2.3.1
+    tslib: 2.4.0
   peerDependencies:
     ink: ^3.0.9
     ink-use-stdout-dimensions: ^1.0.5
@@ -4326,7 +4326,7 @@ __metadata:
     "@types/prettier": 2.4.4
     fs-extra: ^10.0.0
     helpful-decorators: ^2.1.0
-    tslib: 2.3.1
+    tslib: 2.4.0
     webpack: 5.70.0
   languageName: unknown
   linkType: soft
@@ -4341,7 +4341,7 @@ __metadata:
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
     "@types/node": 16.11.26
-    tslib: 2.3.1
+    tslib: 2.4.0
     webpack: 5.70.0
   languageName: unknown
   linkType: soft
@@ -4355,7 +4355,7 @@ __metadata:
     "@types/node": 16.11.26
     helpful-decorators: 2.1.0
     lodash: 4.17.21
-    tslib: 2.3.1
+    tslib: 2.4.0
     webpack: 5.70.0
   languageName: unknown
   linkType: soft
@@ -4366,7 +4366,7 @@ __metadata:
   dependencies:
     "@skypack/package-check": 0.2.2
     lodash: 4.17.21
-    tslib: 2.3.1
+    tslib: 2.4.0
     webpack: 5.70.0
   languageName: unknown
   linkType: soft
@@ -7607,7 +7607,7 @@ __metadata:
     prettier: 2.6.0
     ts-jest: 27.1.4
     ts-node: 10.7.0
-    tslib: 2.3.1
+    tslib: 2.4.0
     typescript: 4.6.4
   languageName: unknown
   linkType: soft
@@ -22247,10 +22247,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:2.3.1, tslib@npm:^2, tslib@npm:^2.0.3, tslib@npm:^2.1.0, tslib@npm:^2.2.0, tslib@npm:^2.3.1":
-  version: 2.3.1
-  resolution: "tslib@npm:2.3.1"
-  checksum: de17a98d4614481f7fcb5cd53ffc1aaf8654313be0291e1bfaee4b4bb31a20494b7d218ff2e15017883e8ea9626599b3b0e0229c18383ba9dce89da2adf15cb9
+"tslib@npm:2.4.0, tslib@npm:^2, tslib@npm:^2.0.3, tslib@npm:^2.1.0, tslib@npm:^2.2.0, tslib@npm:^2.3.1":
+  version: 2.4.0
+  resolution: "tslib@npm:2.4.0"
+  checksum: 8c4aa6a3c5a754bf76aefc38026134180c053b7bd2f81338cb5e5ebf96fefa0f417bff221592bf801077f5bf990562f6264fecbc42cd3309b33872cb6fc3b113
   languageName: node
   linkType: hard
 

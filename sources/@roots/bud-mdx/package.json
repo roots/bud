@@ -62,7 +62,7 @@
     "@roots/bud-build": "workspace:sources/@roots/bud-build",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-react": "workspace:sources/@roots/bud-react",
-    "tslib": "2.3.1"
+    "tslib": "2.4.0"
   },
   "peerDependencies": {
     "@mdx-js/loader": "^1.6.22 || ^2.0.0"
