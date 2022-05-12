@@ -7,7 +7,6 @@
     "declarationDir": "./types",
     "types": [
       "node",
-      "jest",
       "@roots/bud-framework",
       "@roots/container"
     ]
