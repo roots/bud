@@ -76,7 +76,7 @@
     "postcss-scss": "4.0.4",
     "sass": "1.49.9",
     "sass-loader": "12.6.0",
-    "stylelint-config-recommended-scss": "5.0.2",
+    "stylelint-config-recommended-scss": "6.0.0",
     "tslib": "2.4.0"
   },
   "peerDependencies": {
