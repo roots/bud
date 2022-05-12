@@ -46,6 +46,6 @@
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.11.34",
     "tslib": "2.4.0",
-    "webpack": "5.70.0"
+    "webpack": "5.72.1"
   }
 }

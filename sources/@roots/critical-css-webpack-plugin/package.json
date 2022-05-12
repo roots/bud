@@ -55,7 +55,7 @@
     "safe-require": "^1.0.4",
     "tslib": "2.4.0",
     "vinyl": "^2.2.1",
-    "webpack": "5.70.0"
+    "webpack": "5.72.1"
   },
   "peerDependencies": {
     "critical": "*"

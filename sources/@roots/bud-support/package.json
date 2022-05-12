@@ -94,7 +94,7 @@
     "toml": "3.0.0",
     "tslib": "2.4.0",
     "typescript": "4.6.4",
-    "webpack": "5.70.0",
+    "webpack": "5.72.1",
     "yamljs": "0.3.0"
   }
 }

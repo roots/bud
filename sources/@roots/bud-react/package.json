@@ -76,7 +76,7 @@
     "@types/react": "17.0.41",
     "@types/react-dom": "17.0.14",
     "type-fest": "2.12.2",
-    "webpack": "5.70.0"
+    "webpack": "5.72.1"
   },
   "dependencies": {
     "@babel/plugin-syntax-jsx": "^7.16.0",

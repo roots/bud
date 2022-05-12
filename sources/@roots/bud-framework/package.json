@@ -106,7 +106,7 @@
     "@types/node": "16.11.34",
     "chokidar": "3.5.3",
     "http-proxy-middleware": "2.0.4",
-    "webpack": "5.70.0",
+    "webpack": "5.72.1",
     "webpack-dev-middleware": "5.3.1",
     "webpack-hot-middleware": "2.25.1"
   },
