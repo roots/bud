@@ -34,7 +34,7 @@
     "@repo/test-kit": "workspace:sources/@repo/test-kit",
     "@roots/bud-build": "workspace:sources/@roots/bud-build",
     "@types/express": "^4",
-    "@types/jest": "27.4.1",
+    "@types/jest": "27.5.1",
     "@types/node": "16.11.34",
     "@typescript-eslint/eslint-plugin": "5.23.0",
     "@typescript-eslint/parser": "5.23.0",
