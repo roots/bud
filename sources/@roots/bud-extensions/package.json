@@ -48,7 +48,7 @@
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@skypack/package-check": "0.2.2",
-    "@types/lodash": "4.14.180",
+    "@types/lodash": "4.14.182",
     "@types/node": "16.11.34",
     "autobind-decorator": "2.4.0",
     "tslib": "2.4.0",

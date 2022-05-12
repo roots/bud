@@ -102,7 +102,7 @@
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/lodash": "4.14.180",
+    "@types/lodash": "4.14.182",
     "@types/node": "16.11.34",
     "chokidar": "3.5.3",
     "http-proxy-middleware": "2.0.6",
