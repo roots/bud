@@ -13,7 +13,7 @@
     "@types/fs-extra": "9.0.13",
     "fs-extra": "10.0.1",
     "helpful-decorators": "2.1.0",
-    "jest": "27.5.1",
+    "jest": "28.1.0",
     "json5": "2.2.0"
   },
   "dependencies": {
