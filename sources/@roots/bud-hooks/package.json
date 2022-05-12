@@ -51,7 +51,7 @@
     "@skypack/package-check": "0.2.2",
     "@types/jest": "27.4.1",
     "@types/lodash": "4.14.180",
-    "@types/node": "16.11.26",
+    "@types/node": "16.11.34",
     "autobind-decorator": "2.4.0",
     "jest": "27.5.1",
     "tslib": "2.4.0"
