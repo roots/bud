@@ -90,7 +90,7 @@
     "html-loader": "^3.0.1",
     "js-yaml-loader": "1.2.2",
     "mini-css-extract-plugin": "^2.4.5",
-    "pretty-format": "^27.3.1",
+    "pretty-format": "^28.0.0",
     "remark": "^14.0.2",
     "remark-html": "^15.0.0",
     "remark-loader": "4.0.0",
