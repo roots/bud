@@ -3168,7 +3168,7 @@ __metadata:
     "@repo/constants": "workspace:*"
     "@roots/bud-support": "workspace:*"
     "@types/fs-extra": 9.0.13
-    "@vercel/ncc": 0.33.3
+    "@vercel/ncc": 0.33.4
     download-package-tarball: 1.0.7
     fs-extra: 10.0.1
     get-package-json-from-registry: 2.2.2
@@ -5587,14 +5587,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vercel/ncc@npm:0.33.3":
-  version: 0.33.3
-  resolution: "@vercel/ncc@npm:0.33.3"
+"@vercel/ncc@npm:0.33.4":
+  version: 0.33.4
+  resolution: "@vercel/ncc@npm:0.33.4"
   dependencies:
     node-gyp: latest
   bin:
     ncc: dist/ncc/cli.js
-  checksum: 0dd73aae0df395524eac2086e23305672d907fb184a6d85249e39a6246ee1c36848b38334d279b5f8b755d3e8ba32a680043034acd3c0f28d7ec38915335509d
+  checksum: e6093efc3b970c3a64797e4ecefa7e58f22873e34985fc6f53d538032fa94321511edef59f937e6ff292dd30e53b86235968309ca57dae16ee4e6bbfeefaff6e
   languageName: node
   linkType: hard
 
