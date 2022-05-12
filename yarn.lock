@@ -3953,7 +3953,7 @@ __metadata:
     html-entities: ^2.1.0
     http-proxy-middleware: 2.0.4
     querystring: ^0.2.0
-    strip-ansi: ^6.0.0
+    strip-ansi: ^7.0.0
     tslib: 2.4.0
     webpack: 5.72.1
     webpack-dev-middleware: 5.3.1
@@ -21238,7 +21238,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"strip-ansi@npm:7.0.1, strip-ansi@npm:^7.0.1":
+"strip-ansi@npm:7.0.1, strip-ansi@npm:^7.0.0, strip-ansi@npm:^7.0.1":
   version: 7.0.1
   resolution: "strip-ansi@npm:7.0.1"
   dependencies:
