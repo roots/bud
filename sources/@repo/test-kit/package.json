@@ -14,7 +14,7 @@
     "fs-extra": "10.0.1",
     "helpful-decorators": "2.1.0",
     "jest": "28.1.0",
-    "json5": "2.2.0"
+    "json5": "2.2.1"
   },
   "dependencies": {
     "tslib": "2.4.0"
