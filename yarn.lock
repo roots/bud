@@ -3305,7 +3305,7 @@ __metadata:
     "@types/react-reconciler": 0.26.4
     fs-extra: 10.0.1
     helpful-decorators: 2.1.0
-    json5: 2.2.0
+    json5: 2.2.1
     react: 17.0.2
     react-dom: 17.0.2
     react-reconciler: 0.26.2
@@ -3328,7 +3328,7 @@ __metadata:
     fs-extra: 10.0.1
     helpful-decorators: 2.1.0
     jest: 28.1.0
-    json5: 2.2.0
+    json5: 2.2.1
     tslib: 2.4.0
   languageName: unknown
   linkType: soft
@@ -4036,7 +4036,7 @@ __metadata:
     human-readable: 0.2.1
     import-cwd: 3.0.0
     import-from: 4.0.0
-    json5: 2.2.0
+    json5: 2.2.1
     lodash: 4.17.21
     log-update: 5.0.1
     nanoid: 3.3.1
@@ -14823,18 +14823,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"json5@npm:2.2.0":
-  version: 2.2.0
-  resolution: "json5@npm:2.2.0"
-  dependencies:
-    minimist: ^1.2.5
-  bin:
-    json5: lib/cli.js
-  checksum: e88fc5274bb58fc99547baa777886b069d2dd96d9cfc4490b305fd16d711dabd5979e35a4f90873cefbeb552e216b041a304fe56702bedba76e19bc7845f208d
-  languageName: node
-  linkType: hard
-
-"json5@npm:2.x, json5@npm:^2.1.2, json5@npm:^2.2.0, json5@npm:^2.2.1":
+"json5@npm:2.2.1, json5@npm:2.x, json5@npm:^2.1.2, json5@npm:^2.2.0, json5@npm:^2.2.1":
   version: 2.2.1
   resolution: "json5@npm:2.2.1"
   bin:
