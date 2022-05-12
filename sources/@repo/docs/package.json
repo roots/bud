@@ -27,10 +27,10 @@
     ]
   },
   "devDependencies": {
-    "@docusaurus/core": "2.0.0-beta.18",
-    "@docusaurus/module-type-aliases": "2.0.0-beta.18",
-    "@docusaurus/preset-classic": "2.0.0-beta.18",
-    "@docusaurus/remark-plugin-npm2yarn": "2.0.0-beta.18",
+    "@docusaurus/core": "2.0.0-beta.20",
+    "@docusaurus/module-type-aliases": "2.0.0-beta.20",
+    "@docusaurus/preset-classic": "2.0.0-beta.20",
+    "@docusaurus/remark-plugin-npm2yarn": "2.0.0-beta.20",
     "@repo/constants": "workspace:sources/@repo/constants",
     "@svgr/webpack": "6.2.1",
     "@tsconfig/docusaurus": "1.0.5",
