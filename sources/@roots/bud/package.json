@@ -108,7 +108,7 @@
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@roots/container": "workspace:sources/@roots/container",
     "clean-webpack-plugin": "^4.0.0",
-    "clipanion": "3.2.0-rc.10",
+    "clipanion": "3.2.0-rc.11",
     "copy-webpack-plugin": "^10.0.0",
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.4.5",
