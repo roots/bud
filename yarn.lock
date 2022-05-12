@@ -3364,7 +3364,7 @@ __metadata:
     copy-webpack-plugin: 10.2.4
     css-minimizer-webpack-plugin: 3.4.1
     html-webpack-plugin: 5.5.0
-    nanoid: 3.3.1
+    nanoid: 3.3.4
     tslib: 2.4.0
     webpack: 5.72.1
   languageName: unknown
@@ -4044,7 +4044,7 @@ __metadata:
     json5: 2.2.0
     lodash: 4.17.21
     log-update: 5.0.1
-    nanoid: 3.3.1
+    nanoid: 3.3.4
     open: 8.4.0
     open-editor: 4.0.0
     parse-semver: 1.1.1
@@ -16594,16 +16594,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nanoid@npm:3.3.1":
-  version: 3.3.1
-  resolution: "nanoid@npm:3.3.1"
-  bin:
-    nanoid: bin/nanoid.cjs
-  checksum: 4ef0969e1bbe866fc223eb32276cbccb0961900bfe79104fa5abe34361979dead8d0e061410a5c03bc3d47455685adf32c09d6f27790f4a6898fb51f7df7ec86
-  languageName: node
-  linkType: hard
-
-"nanoid@npm:^3.3.3":
+"nanoid@npm:3.3.4, nanoid@npm:^3.3.3":
   version: 3.3.4
   resolution: "nanoid@npm:3.3.4"
   bin:
