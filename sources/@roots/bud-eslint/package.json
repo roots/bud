@@ -64,7 +64,7 @@
     "@skypack/package-check": "0.2.2",
     "@types/lodash": "4.14.180",
     "@types/node": "16.11.34",
-    "webpack": "5.70.0"
+    "webpack": "5.72.1"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
