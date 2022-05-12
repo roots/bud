@@ -47,7 +47,7 @@
     "eslint-plugin-react": "7.29.4",
     "eslint-plugin-react-hooks": "4.3.0",
     "eslint-plugin-simple-import-sort": "7.0.0",
-    "eslint-plugin-tsdoc": "0.2.14",
+    "eslint-plugin-tsdoc": "0.2.16",
     "jest": "28.1.0",
     "prettier": "2.6.0",
     "ts-jest": "28.0.2",
