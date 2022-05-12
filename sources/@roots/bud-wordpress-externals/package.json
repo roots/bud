@@ -53,6 +53,6 @@
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/wordpress-externals-webpack-plugin": "workspace:sources/@roots/wordpress-externals-webpack-plugin",
-    "tslib": "2.3.1"
+    "tslib": "2.4.0"
   }
 }

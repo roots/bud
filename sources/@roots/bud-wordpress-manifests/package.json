@@ -56,6 +56,6 @@
   },
   "dependencies": {
     "@roots/merged-manifest-webpack-plugin": "workspace:sources/@roots/merged-manifest-webpack-plugin",
-    "tslib": "2.3.1"
+    "tslib": "2.4.0"
   }
 }
