@@ -47,7 +47,6 @@ module.exports = async function config() {
       `<rootDir>/node_modules/`,
       `<rootDir>/storage/`,
     ],
-    name: 'bud',
     preset: 'ts-jest',
     rootDir: resolve(__dirname, '../'),
     testEnvironment: 'node',
