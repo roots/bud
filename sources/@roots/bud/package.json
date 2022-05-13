@@ -90,7 +90,7 @@
     "@skypack/package-check": "0.2.2",
     "@types/braces": "3.0.1",
     "@types/fs-extra": "9.0.13",
-    "@types/lodash": "4.14.180",
+    "@types/lodash": "4.14.182",
     "@types/mini-css-extract-plugin": "2.5.0",
     "@types/node": "16.11.34",
     "@types/node-notifier": "8.0.2"
