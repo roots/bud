@@ -3981,7 +3981,7 @@ __metadata:
     "@types/lodash": 4.14.182
     "@types/node": 16.11.35
     babel-preset-solid: ^1.2.5
-    solid-js: 1.3.13
+    solid-js: 1.4.0
     tslib: 2.4.0
     type-fest: 2.12.2
     webpack: 5.72.1
@@ -20804,10 +20804,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"solid-js@npm:1.3.13":
-  version: 1.3.13
-  resolution: "solid-js@npm:1.3.13"
-  checksum: 474c5422ba11df8d92c1a0aa0bb14a4c17d0a934ad75ae49db3c2e68e2bda0920c188cee8912bb95ffe0fc61030d5f1fa6997a91419207eb447466cfb9898a3c
+"solid-js@npm:1.4.0":
+  version: 1.4.0
+  resolution: "solid-js@npm:1.4.0"
+  checksum: 70dfb4e7f1a0cf7955b3a6e80d5d2d86b0892881cf0a7f992081e9d753dfbb145f5792df56a75de2cc056e1b996faeb788a9a71e6fea75cc566ddac9609b6524
   languageName: node
   linkType: hard
 
