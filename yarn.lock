@@ -3838,7 +3838,7 @@ __metadata:
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@skypack/package-check": 0.2.2
     "@types/node": 16.11.35
-    prettier: 2.6.0
+    prettier: 2.6.2
     tslib: 2.4.0
   peerDependencies:
     prettier: "*"
@@ -4039,7 +4039,7 @@ __metadata:
     "@types/express": 4.17.13
     "@types/lodash": 4.14.182
     "@types/node": 16.11.35
-    "@types/prettier": 2.4.4
+    "@types/prettier": 2.6.1
     "@types/safe-json-stringify": 1.1.2
     "@types/signale": 1.4.4
     "@types/yamljs": 0.2.31
@@ -4374,7 +4374,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/lodash": 4.14.182
     "@types/node": 16.11.35
-    "@types/prettier": 2.4.4
+    "@types/prettier": 2.6.1
     "@types/react": 17.0.45
     tslib: 2.4.0
   peerDependencies:
@@ -4410,7 +4410,7 @@ __metadata:
     "@types/fs-extra": 9.0.13
     "@types/lodash": 4.14.182
     "@types/node": 16.11.35
-    "@types/prettier": 2.4.4
+    "@types/prettier": 2.6.1
     fs-extra: ^10.0.0
     helpful-decorators: ^2.1.0
     tslib: 2.4.0
@@ -5270,10 +5270,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/prettier@npm:2.4.4, @types/prettier@npm:^2.1.5":
-  version: 2.4.4
-  resolution: "@types/prettier@npm:2.4.4"
-  checksum: 2c2cc57efd49c7d8907415a72f96c84a6dd8696dd3bf8aa4ca3a667427bebf71cbfbc912673624bdfc935d272d1c008c639cf155f6449315990a4dc110f0d216
+"@types/prettier@npm:2.6.1, @types/prettier@npm:^2.1.5":
+  version: 2.6.1
+  resolution: "@types/prettier@npm:2.6.1"
+  checksum: b25ec46d18129fa40c1a1f42feb7406e8f19901ba5261ba3c71600ad14996ae07b4f4b727a9b83da673948011e59d870fc519166f05b5d49e9ad39db1aea8c93
   languageName: node
   linkType: hard
 
@@ -7689,7 +7689,7 @@ __metadata:
     eslint-plugin-simple-import-sort: 7.0.0
     eslint-plugin-tsdoc: 0.2.16
     jest: 28.1.0
-    prettier: 2.6.0
+    prettier: 2.6.2
     ts-jest: 28.0.2
     ts-node: 10.7.0
     tslib: 2.4.0
@@ -18681,12 +18681,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:2.6.0":
-  version: 2.6.0
-  resolution: "prettier@npm:2.6.0"
+"prettier@npm:2.6.2":
+  version: 2.6.2
+  resolution: "prettier@npm:2.6.2"
   bin:
     prettier: bin-prettier.js
-  checksum: 3e527ad62279676778a8404d18174d7ca2365ada4caba6eebbcdd9907d1187afd3bc6ade5b4e5f5d4549bb9fb71e45ca8930d71500017635524f8fc05bc52e93
+  checksum: 48d08dde8e9fb1f5bccdd205baa7f192e9fc8bc98f86e1b97d919de804e28c806b0e6cc685e4a88211aa7987fa9668f30baae19580d87ced3ed0f2ec6572106f
   languageName: node
   linkType: hard
 
