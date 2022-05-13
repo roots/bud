@@ -48,7 +48,7 @@
     "@types/fs-extra": "9.0.13",
     "@types/lodash": "4.14.182",
     "@types/node": "16.11.35",
-    "@types/prettier": "2.4.4",
+    "@types/prettier": "2.6.1",
     "webpack": "5.72.1"
   },
   "dependencies": {

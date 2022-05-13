@@ -49,7 +49,7 @@
     "@skypack/package-check": "0.2.2",
     "@types/lodash": "4.14.182",
     "@types/node": "16.11.35",
-    "@types/prettier": "2.4.4",
+    "@types/prettier": "2.6.1",
     "@types/react": "17.0.45"
   },
   "peerDependencies": {
