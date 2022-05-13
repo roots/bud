@@ -47,7 +47,7 @@
     "@skypack/package-check": "0.2.2",
     "@types/fs-extra": "9.0.13",
     "@types/lodash": "4.14.182",
-    "@types/node": "16.11.34",
+    "@types/node": "16.11.35",
     "@types/prettier": "2.4.4",
     "webpack": "5.72.1"
   },

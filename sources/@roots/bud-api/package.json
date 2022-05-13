@@ -68,7 +68,7 @@
   "devDependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.11.34",
+    "@types/node": "16.11.35",
     "webpack": "5.72.1"
   },
   "dependencies": {
