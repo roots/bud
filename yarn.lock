@@ -3291,7 +3291,7 @@ __metadata:
     "@types/react": 17.0.41
     "@types/react-dom": 17.0.14
     "@types/react-helmet": 6.1.5
-    "@types/react-reconciler": 0.26.4
+    "@types/react-reconciler": 0.26.6
     "@types/react-router-dom": 5.3.3
     axios: 0.27.2
     clsx: 1.1.1
@@ -3326,7 +3326,7 @@ __metadata:
     "@roots/bud-support": "workspace:*"
     "@types/react": 17.0.41
     "@types/react-dom": 17.0.14
-    "@types/react-reconciler": 0.26.4
+    "@types/react-reconciler": 0.26.6
     fs-extra: 10.1.0
     helpful-decorators: 2.1.0
     json5: 2.2.1
@@ -5323,12 +5323,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-reconciler@npm:0.26.4":
-  version: 0.26.4
-  resolution: "@types/react-reconciler@npm:0.26.4"
+"@types/react-reconciler@npm:0.26.6":
+  version: 0.26.6
+  resolution: "@types/react-reconciler@npm:0.26.6"
   dependencies:
     "@types/react": "*"
-  checksum: 5ebb72f8aa70824b69030ae7f4c21828c0fb5c1cc5873a606eb7f7ac50cf5dd52502edcd32bf1eead2f149d076ee1798c86f1ffaebfa8b31d523343368d351e0
+  checksum: 5c96f40338f2ccc544018610b42f467945450a8448b042ce5a052a3a45820ccd028b1fb65157c99f5889a10cd1e17093252c54c56a002bc64acadd6d5a9e4b08
   languageName: node
   linkType: hard
 
