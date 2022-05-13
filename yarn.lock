@@ -3288,7 +3288,7 @@ __metadata:
     "@svgr/webpack": 6.2.1
     "@tsconfig/docusaurus": 1.0.5
     "@types/node": 16.11.34
-    "@types/react": 17.0.41
+    "@types/react": 17.0.45
     "@types/react-dom": 17.0.14
     "@types/react-helmet": 6.1.5
     "@types/react-reconciler": 0.26.6
@@ -3324,7 +3324,7 @@ __metadata:
     "@repo/logger": "workspace:*"
     "@roots/bud": "workspace:*"
     "@roots/bud-support": "workspace:*"
-    "@types/react": 17.0.41
+    "@types/react": 17.0.45
     "@types/react-dom": 17.0.14
     "@types/react-reconciler": 0.26.6
     fs-extra: 10.1.0
@@ -3816,7 +3816,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/lodash": 4.14.182
     "@types/node": 16.11.34
-    "@types/react": 17.0.41
+    "@types/react": 17.0.45
     "@types/react-dom": 17.0.14
     "@wordpress/browserslist-config": 4.1.2
     react: 17.0.2
@@ -3883,7 +3883,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/babel__core": 7.1.19
     "@types/node": 16.11.34
-    "@types/react": 17.0.41
+    "@types/react": 17.0.45
     "@types/react-dom": 17.0.14
     react: ^17.0.2
     react-dom: ^17.0.2
@@ -4375,7 +4375,7 @@ __metadata:
     "@types/lodash": 4.14.182
     "@types/node": 16.11.34
     "@types/prettier": 2.4.4
-    "@types/react": 17.0.41
+    "@types/react": 17.0.45
     tslib: 2.4.0
   peerDependencies:
     ink: ^3.0.9
@@ -5364,14 +5364,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:17.0.41":
-  version: 17.0.41
-  resolution: "@types/react@npm:17.0.41"
+"@types/react@npm:*, @types/react@npm:17.0.45":
+  version: 17.0.45
+  resolution: "@types/react@npm:17.0.45"
   dependencies:
     "@types/prop-types": "*"
     "@types/scheduler": "*"
     csstype: ^3.0.2
-  checksum: 1b086ec0ea5d666f05e19e0724e41278d27a2ca29a2cd71b9d9ab3fe27dba233806eb728d744e092c9fe9637ac738d8c5a05983cde84d215342949b47ecba2ef
+  checksum: 3cc13a02824c13f6fa4807a83abd065ac1d9943359e76bd995cc7cd2b4148c1176ebd54a30a9f4eb8a0f141ff359d712876f256c4fee707e4290607ef8410b3e
   languageName: node
   linkType: hard
 
