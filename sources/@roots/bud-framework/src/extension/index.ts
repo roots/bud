@@ -54,7 +54,6 @@ export class Extension<E = any, Plugin = any> {
   public async _init?() {
     this.path = await this.app.module.path(this.label)
     if (this.init) {
-      this.logger.log('initializing')
       await this.init(this.options, this.app)
     }
   }
@@ -63,7 +62,6 @@ export class Extension<E = any, Plugin = any> {
   @bind
   public async _register?() {
     if (this.register) {
-      this.logger.log('registering')
       await this.register(this.options, this.app)
     }
   }
@@ -72,7 +70,6 @@ export class Extension<E = any, Plugin = any> {
   @bind
   public async _boot?() {
     if (this.boot) {
-      this.logger.log('booting')
       await this.boot(this.options, this.app)
     }
   }
@@ -81,7 +78,6 @@ export class Extension<E = any, Plugin = any> {
   @bind
   public async _beforeBuild?() {
     if (this.beforeBuild) {
-      this.logger.log('beforeBuild')
       this.app.hooks.action(
         'event.build.before',
         async () => await this.beforeBuild(this.options, this.app),

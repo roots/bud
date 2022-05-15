@@ -45,7 +45,7 @@ class Item extends Base implements Build.Item {
   }
 
   /**
-   * {@inheritDoc @roots/Bud-Bud#Item.Abstract.getLoader}
+   * Get rule set item loader
    *
    * @public
    * @decorator `@bind`
@@ -56,6 +56,8 @@ class Item extends Base implements Build.Item {
   }
 
   /**
+   * Set rule set item loader
+   *
    * @public
    * @decorator `@bind`
    */
@@ -66,6 +68,19 @@ class Item extends Base implements Build.Item {
   }
 
   /**
+   * Get rule set item options
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public getOptions(): Item['options'] {
+    return this.unwrap(this.options)
+  }
+
+  /**
+   * Set rule set item options
+   *
    * @public
    * @decorator `@bind`
    */
@@ -74,12 +89,10 @@ class Item extends Base implements Build.Item {
     this.options = this.wrap(options)
     return this
   }
-  @bind
-  public getOptions(): Item['options'] {
-    return this.unwrap(this.options)
-  }
 
   /**
+   * Merge rule set item options
+   *
    * @public
    * @decorator `@bind`
    */
@@ -95,6 +108,8 @@ class Item extends Base implements Build.Item {
   }
 
   /**
+   * Produce rule set item object for Webpack
+   *
    * @public
    * @decorator `@bind`
    */

@@ -155,9 +155,9 @@ class Rule extends Base implements Build.Rule {
           app: Bud,
         ) => Array<keyof Build.Items & string>),
   ): Rule {
-    this.use =
-      (isFunction(input) ? input(this.getUse() ?? [], this.app) : input) ??
-      []
+    this.use = isFunction(input)
+      ? input(this.getUse() ?? [], this.app)
+      : input
 
     return this
   }
@@ -285,18 +285,19 @@ class Rule extends Base implements Build.Rule {
   public toWebpack(): Build.Rule.Output {
     const output: Build.Rule.Output = {test: this.getTest()}
 
-    this.use &&
-      Object.assign(output, {
-        use: this.getUse().map(item =>
-          this.app.build.items[item].toWebpack(),
-        ),
-      })
     this.include && Object.assign(output, {include: this.getInclude()})
     this.exclude && Object.assign(output, {exclude: this.getExclude()})
     this.type && Object.assign(output, {type: this.getType()})
     this.parser && Object.assign(output, {parser: this.getParser()})
     this.generator &&
       Object.assign(output, {generator: this.getGenerator()})
+
+    this.use &&
+      Object.assign(output, {
+        use: this.getUse()
+          .map(item => this.app.build.items[item])
+          .map(item => item.toWebpack()),
+      })
 
     return output
   }
