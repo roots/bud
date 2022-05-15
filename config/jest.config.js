@@ -57,6 +57,7 @@ module.exports = async function config() {
       `<rootDir>/tests/integration/postcss.test.ts`,
       `<rootDir>/tests/integration/sass.test.ts`,
       `<rootDir>/tests/integration/tailwindcss.test.ts`,
+      `<rootDir>/tests/integration/sass-tailwindcss.test.ts`,
       `<rootDir>/tests/integration/babel.test.ts`,
       `<rootDir>/tests/integration/react.test.ts`,
       `<rootDir>/tests/integration/vue.test.ts`,

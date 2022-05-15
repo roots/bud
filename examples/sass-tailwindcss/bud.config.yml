@@ -1,0 +1,4 @@
+entry:
+  app:
+    - app.scss
+minimize: true
