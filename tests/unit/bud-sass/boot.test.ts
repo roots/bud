@@ -8,7 +8,7 @@ describe('@roots/bud-sass registration', () => {
   beforeAll(async () => {
     bud = await factory()
     await bud.extensions.add(BudPostCss)
-    await new BudSass(bud).boot()
+    await new BudSass(bud).register()
   })
 
   it('adds postcss-scss syntax', () => {

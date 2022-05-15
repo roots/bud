@@ -129,9 +129,14 @@ describe('bud.build.config', function () {
   })
 
   it('has expected plugins', () => {
-    expect(
-      bud.build.config.plugins.map(plugin => plugin.constructor.name),
-    ).toMatchSnapshot()
+    const plugins = bud.build.config.plugins.map(
+      plugin => plugin.constructor.name,
+    )
+    expect(plugins).toContain('EntrypointsWebpackPlugin')
+    expect(plugins).toContain('WebpackManifestPlugin')
+    expect(plugins).toContain('ESLintWebpackPlugin')
+    expect(plugins).toContain('DefinePlugin')
+    expect(plugins).toContain('MiniCssExtractPlugin')
   })
 
   it('has expected default requireEnsure rule', () => {
