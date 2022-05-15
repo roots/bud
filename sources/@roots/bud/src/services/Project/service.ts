@@ -108,7 +108,11 @@ export class Project
 
     await writeFile(
       this.app.path(`@storage`, this.app.name, `profile.json`),
-      this.app.json.stringify(this.repository, null, 2),
+      this.app.json.stringify(
+        omit(this.repository, ['context.env']),
+        null,
+        2,
+      ),
     )
 
     this.app.success({
