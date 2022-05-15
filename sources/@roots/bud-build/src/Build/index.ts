@@ -148,23 +148,28 @@ export class Build extends Bud.Service implements Bud.Build.Service {
   }
 
   /**
-   * Set a rule
+   * Set Rule
    *
-   * @param name - rule key
-   * @param options - rule constructor properties
-   * @returns the rule
+   * @param name - Rule key
+   * @param options - Rule constructor properties
+   * @returns the Rule
    *
    * @public
    * @decorator `@bind`
    */
   @bind
   public setRule(name: string, options?: Bud.Build.Rule.Options): Build {
-    Object.assign(this.rules, {[name]: this.makeRule(options)})
+    const processedOptions = isFunction(options)
+      ? options(this.makeRule())
+      : this.makeRule(options)
+
+    Object.assign(this.rules, {[name]: processedOptions})
 
     return this
   }
+
   /**
-   * Make a rule
+   * Make Rule
    *
    * @param options - rule constructor properties
    * @returns the rule
@@ -178,11 +183,11 @@ export class Build extends Bud.Service implements Bud.Build.Service {
   }
 
   /**
-   * Set a rule
+   * Set Loader
    *
-   * @param name - rule key
-   * @param options - rule constructor properties
-   * @returns the rule
+   * @param name - Loader key
+   * @param options - Loader constructor properties
+   * @returns the Loader
    *
    * @public
    * @decorator `@bind`
@@ -195,7 +200,7 @@ export class Build extends Bud.Service implements Bud.Build.Service {
   }
 
   /**
-   * Make a rule
+   * Make Loader
    *
    * @param options - rule constructor properties
    * @returns the rule
@@ -209,11 +214,11 @@ export class Build extends Bud.Service implements Bud.Build.Service {
   }
 
   /**
-   * Set a rule
+   * Set Item
    *
-   * @param name - rule key
-   * @param options - rule constructor properties
-   * @returns the rule
+   * @param name - Item key
+   * @param options - Item constructor properties
+   * @returns the Item
    *
    * @public
    * @decorator `@bind`
@@ -235,7 +240,7 @@ export class Build extends Bud.Service implements Bud.Build.Service {
   }
 
   /**
-   * Make a rule
+   * Make Item
    *
    * @param options - rule constructor properties
    * @returns the rule

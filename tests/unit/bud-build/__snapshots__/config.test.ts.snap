@@ -230,16 +230,6 @@ Object {
 }
 `;
 
-exports[`bud.build.config has expected plugins 1`] = `
-Array [
-  "DefinePlugin",
-  "WebpackManifestPlugin",
-  "MiniCssExtractPlugin",
-  "ESLintWebpackPlugin",
-  "EntrypointsWebpackPlugin",
-]
-`;
-
 exports[`bud.build.config has expected resolve.extensions default 1`] = `
 Array [
   ".mjs",

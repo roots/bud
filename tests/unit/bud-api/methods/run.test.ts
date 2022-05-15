@@ -19,7 +19,6 @@ describe('bud.run', function () {
   describe('production', () => {
     beforeAll(async () => {
       bud = await factory()
-      bud.close = jest.fn(noop) as any
       bud.compiler = new MockCompiler(bud) as any
     })
 
@@ -38,7 +37,6 @@ describe('bud.run', function () {
   describe('development', () => {
     beforeAll(async () => {
       bud = await factory({mode: 'development'})
-      bud.close = jest.fn(noop) as any
       bud.compiler = new MockCompiler(bud) as any
       bud.server = new MockServer(bud) as any
     })

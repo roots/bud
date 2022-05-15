@@ -34,6 +34,7 @@ export const INTEGRATION_TESTS = [
   'postcss',
   'sass',
   'tailwindcss',
+  'sass-tailwindcss',
   'babel',
   'vue',
   'vue-legacy',

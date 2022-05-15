@@ -17,8 +17,15 @@ type InputRecords = Record<string, Input>
 type InputMap = Map<string, Input>
 type Registry = Map<string, [any, any?] | [Plugin | Processor]>
 
-@label('@roots/bud-postcss')
+/**
+ * PostCSS support extension for `@roots/bud`
+ *
+ * @public
+ * @decorator `@expose`
+ * @decorator `@label`
+ */
 @expose('postcss')
+@label('@roots/bud-postcss')
 export default class BudPostCss extends Extension {
   protected _syntax: string = null
 
@@ -28,6 +35,8 @@ export default class BudPostCss extends Extension {
 
   /**
    * postcss-loader `postcssOptions` accessor
+   *
+   * @public
    */
   protected get postcssOptions() {
     return {
@@ -38,6 +47,8 @@ export default class BudPostCss extends Extension {
 
   /**
    * postcss-loader's `postcssOptions.syntax`
+   *
+   * @public
    */
   public get syntax() {
     return this._syntax
@@ -49,6 +60,7 @@ export default class BudPostCss extends Extension {
   /**
    * postcss-loader's source-map option
    *
+   * @public
    */
   public get sourceMap() {
     return this._sourceMap
@@ -60,6 +72,7 @@ export default class BudPostCss extends Extension {
   /**
    * PostCss plugins
    *
+   * @public
    */
   public get plugins() {
     return this._plugins
@@ -86,6 +99,7 @@ export default class BudPostCss extends Extension {
       name,
       Array.isArray(modulePath) ? modulePath : [modulePath],
     )
+
     return this
   }
 
@@ -181,9 +195,6 @@ export default class BudPostCss extends Extension {
       })
       .rules.css.setUse(['precss', 'css', 'postcss'])
 
-    /**
-     * Configure defaults
-     */
     this.setPlugins(
       new Map([
         ['postcss-import', [this.resolve('postcss-import')]],

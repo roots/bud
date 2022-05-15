@@ -7,14 +7,33 @@ import {
 
 import * as api from './react-refresh/api'
 
+/**
+ * React support extension for `@roots/bud`
+ *
+ * @public
+ * @decorator `@label`
+ * @decorator `@dependsOn`
+ */
 @label('@roots/bud-react')
 @dependsOn(['@roots/bud-babel'])
 export default class BudReact extends Extension {
+  /**
+   * Register extension
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public async register() {
     this.app.api.bindFacade('reactRefresh', api.reactRefresh)
   }
 
+  /**
+   * Boot extension
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public async boot() {
     this.app.babel.setPreset(

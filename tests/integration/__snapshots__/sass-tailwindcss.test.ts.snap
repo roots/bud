@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`sass-tailwindcss npm manifest.json matches snapshot 1`] = `
+Object {
+  "app.css": "app.css",
+  "app.js": "app.js",
+}
+`;
+
+exports[`sass-tailwindcss yarn manifest.json matches snapshot 1`] = `
+Object {
+  "app.css": "app.css",
+  "app.js": "app.js",
+}
+`;

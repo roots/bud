@@ -103,15 +103,20 @@ export class Extensions extends Service implements Contract.Service {
     this.app.log(chalk.dim(`importing ${pkgName}`))
 
     const imported = await import(pkgName)
-    const extensionModule: Extension = imported.default
-      ? imported.default
-      : imported
+    const extensionModule: Extension = imported.default ?? imported
 
     this.app.success(chalk.green(`imported ${pkgName}`))
 
     const extension = this.instantiate(extensionModule)
 
-    if (this.has(extension.label)) return
+    if (extension.dependsOn) {
+      await Promise.all(
+        Array.from(extension.dependsOn).map(
+          async pkg => await this.import(pkg),
+        ),
+      )
+    }
+
     this.set(extension)
 
     return extension
@@ -127,7 +132,6 @@ export class Extensions extends Service implements Contract.Service {
 
     try {
       extension.logger.log(
-        'running',
         chalk.blue(extension.label),
         chalk.cyan(methodName),
       )
