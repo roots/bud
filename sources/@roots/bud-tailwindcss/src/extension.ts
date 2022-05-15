@@ -5,11 +5,23 @@ import {
   label,
 } from '@roots/bud-framework/extension/decorators'
 
+/**
+ * TailwindCSS support for `@roots/bud`
+ *
+ * @public
+ * @decorator `@label`
+ * @decorator `@dependsOn`
+ */
 @label('@roots/bud-tailwindcss')
 @dependsOn(['@roots/bud-postcss'])
 export default class BudTailwindCss extends Extension {
+  /**
+   * Register extension
+   *
+   * @decorator `@bind`
+   */
   @bind
-  public async boot() {
+  public async register() {
     try {
       const {default: tailwindcss} = await this.import('tailwindcss')
       const {default: nesting} = await this.import('tailwindcss/nesting')

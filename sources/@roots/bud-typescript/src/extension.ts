@@ -8,10 +8,16 @@ import {
 
 @label('@roots/bud-typescript')
 @expose('typescript')
-@dependsOn(['@roots/bud-babel', '@roots/bud-typescript/typecheck'])
+@dependsOn(['@roots/bud-babel'])
 export default class BudTypeScript extends Extension {
   public get typecheck() {
     return this.app.extensions.get('@roots/bud-typescript/typecheck')
+  }
+
+  @bind
+  public async init() {
+    const {default: typecheck} = await import('./typecheck')
+    await this.app.extensions.add(typecheck)
   }
 
   @bind

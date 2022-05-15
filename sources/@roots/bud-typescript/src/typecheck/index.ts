@@ -27,6 +27,11 @@ export default class BudTypeCheckPlugin extends Extension<
 > {
   @bind
   public async init() {
-    this.options.typescript.typescriptPath = this.resolve('typescript')
+    const typescriptPath = this.resolve('typescript')
+
+    this.setOptions(options => ({
+      ...options,
+      typescript: {...(options.typescript ?? {}), typescriptPath},
+    }))
   }
 }

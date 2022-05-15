@@ -5,9 +5,24 @@ import {
   label,
 } from '@roots/bud-framework/extension/decorators'
 
+/**
+ * Sass support extension for `@roots/bud-sass`
+ *
+ * @public
+ * @decorator `@label`
+ * @decorator `@dependsOn`
+ */
 @label('@roots/bud-sass')
 @dependsOn(['@roots/bud-postcss'])
 export default class BudSass extends Extension {
+  /**
+   * Sass implementation
+   *
+   * @returns Sass
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public async implementation() {
     try {
@@ -24,6 +39,12 @@ export default class BudSass extends Extension {
     }
   }
 
+  /**
+   * Register extension
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public async register() {
     const implementation = await this.implementation()
@@ -46,10 +67,7 @@ export default class BudSass extends Extension {
         include: [app => app.path('@src')],
         use: [`precss`, `css`, `postcss`, `resolveUrl`, `sass`],
       })
-  }
 
-  @bind
-  public async boot() {
     this.app.postcss.syntax = 'postcss-scss'
   }
 }

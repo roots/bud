@@ -11,11 +11,21 @@ import {Config} from './config'
  */
 @label('@roots/bud-babel')
 export default class BabelExtension extends Extension<any, null> {
-  protected get cacheDirectory() {
+  /**
+   * Babel cache directory
+   *
+   * @public
+   */
+  public get cacheDirectory() {
     return this.app.path(`@storage/cache/babel`)
   }
 
-  protected get env() {
+  /**
+   * Babel env
+   *
+   * @public
+   */
+  public get env() {
     return {
       development: {
         compact: false,
@@ -23,12 +33,23 @@ export default class BabelExtension extends Extension<any, null> {
     }
   }
 
-  protected get root() {
+  /**
+   * Root directory
+   *
+   * @public
+   */
+  public get root() {
     return this.app.path()
   }
 
+  /**
+   * Babel RuleSetItem callback
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
-  protected setRuleSetItem(ruleSetItem: Build.Item) {
+  public setRuleSetItem(ruleSetItem: Build.Item) {
     return ruleSetItem.setLoader('babel').setOptions(() => ({
       cacheDirectory: this.cacheDirectory,
       presets: Object.values(this.app.babel.presets),
@@ -38,12 +59,29 @@ export default class BabelExtension extends Extension<any, null> {
     }))
   }
 
+  /**
+   * Initialize extension
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async init() {
+    Object.assign(this.app, {babel: new Config()})
+  }
+
+  /**
+   * Register extension
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public async register() {
-    this.app.babel = new Config()
+    this.app.build
+      .setLoader('babel', this.resolve('babel-loader'))
+      .setItem('babel', this.setRuleSetItem)
 
-    this.app.build.setLoader('babel', this.resolve('babel-loader'))
-    this.app.build.setItem('babel', this.setRuleSetItem)
     this.app.build.rules.js.setUse(items => ['babel', ...items])
 
     this.app.babel
