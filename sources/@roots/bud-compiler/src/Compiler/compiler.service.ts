@@ -135,16 +135,24 @@ export class Compiler extends Service implements Contract.Service {
    */
   @bind
   public async before() {
-    await this.app.build.make()
-    this.config.push(this.app.build.config)
+    if (!this.app.hasChildren) {
+      await this.app.build.make()
+      this.config.push(this.app.build.config)
+      return this.config
+    }
 
     await Promise.all(
-      this.app.children?.getValues().map(async (instance: Bud) => {
-        if (!instance.name) return
-        await instance.build.make()
-        this.config.push(instance.build.config)
-      }),
+      Object.entries(this.app.children).map(
+        async ([name, instance]: [string, Bud]) => {
+          const config = await instance.build.make()
+          this.app.log(`child config`, name, config)
+          this.config.push(config)
+          return Promise.resolve()
+        },
+      ),
     )
+
+    this.app.log(this.config)
 
     return this.config
   }

@@ -61,28 +61,22 @@ export class Notifier {
 
   /**
    * Notice title
+   *
    * @public
    */
   public get title(): string {
     return this.app.compiler.errors?.length > 0
-      ? `✖ ${
-          this.app.context.manifest.name ??
-          this.app.context.application.name ??
-          this.app.name
-        }`
-      : `✔ ${
-          this.app.context.manifest.name ??
-          this.app.context.application.name ??
-          this.app.name
-        }`
+      ? `✖ ${this.group}`
+      : `✔ ${this.group}`
   }
 
   /**
    * Notice group
+   *
    * @public
    */
   public get group(): string {
-    return this.app.context.manifest.name
+    return this.app.name ?? this.app.context.application.name
   }
 
   /**

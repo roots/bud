@@ -50,7 +50,7 @@ export interface Options {
   /**
    * @internal
    */
-  childOf?: Bud
+  root?: Bud
 
   /**
    * Extensions to be registered

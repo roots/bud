@@ -7,19 +7,23 @@ export interface run {
   (): Promise<void>
 }
 
-export const run: run = async function (): Promise<void> {
-  const ctx = this as Bud
+export interface facade {
+  (): void
+}
 
-  await ctx.hooks.fire('event.run')
+export const run: run = async function (): Promise<void> {
+  const app = this as Bud
+
+  await app.hooks.fire('event.run')
 
   const production = async () => {
-    const compiler = await ctx.compiler.compile()
-    compiler.run(ctx.compiler.callback)
+    const compiler = await app.compiler.compile()
+    compiler.run(app.compiler.callback)
   }
 
   try {
-    ctx.isDevelopment ? await ctx.server.run() : await production()
+    app.isDevelopment ? await app.server.run() : await production()
   } catch (error) {
-    ctx.error(error)
+    app.error(error)
   }
 }

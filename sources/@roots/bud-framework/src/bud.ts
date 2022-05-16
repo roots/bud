@@ -4,7 +4,6 @@ import {
   PrettyFormatOptions,
 } from '@roots/bud-support'
 import {bind, format, highlight, lodash, parsers} from '@roots/bud-support'
-import {Container} from '@roots/container'
 
 import {
   Api,
@@ -24,47 +23,31 @@ import {
 import {lifecycle} from './lifecycle'
 import * as methods from './methods'
 import {Module} from './module'
-import * as Process from './process'
 
-const {isFunction, omit} = lodash
+const {omit} = lodash
 
 /**
- * {@link Bud} abstract class
- *
- * @remarks
- * See `@roots/bud` for an example implementation
+ * Framework abstract
  *
  * @public
  */
 export abstract class Bud {
   /**
-   * {@link Bud} constructor
+   * Options
    *
    * @internal
    * @virtual
    */
-  public abstract implementation: Constructor
+  public options: Config.Options
 
   /**
    * Context
    *
+   * @readonly
    * @public
    */
-  public context: Config.Context
-
-  /**
-   * Name
-   *
-   * @remarks
-   * The name of the parent compiler is used as a base when sourcing configuration files.
-   * So, in an implementation that uses the name `app`, {@link Bud} will be sourcing
-   * `app.config.js`, `app.development.config.js`, etc.
-   *
-   * @public
-   */
-  private _name: string
-  public get name() {
-    return this._name
+  public get context(): Config.Context {
+    return this.options.context
   }
 
   /**
@@ -73,137 +56,33 @@ export abstract class Bud {
    * @remarks
    * Either `production` or `development`.
    *
-   * @defaultValue 'production'
+   * @readonly
+   * @defaultValue `production`
+   * @public
    */
-  private _mode: 'production' | 'development'
   public get mode(): 'development' | 'production' {
-    return this._mode
+    return this.options.mode
+  }
+
+  /**
+   * Name
+   *
+   * @readonly
+   * @public
+   */
+  public get name() {
+    return this.options.name
   }
 
   /**
    * Parent {@link Bud} instance
    *
-   * @remarks
-   * Is `null` if the current instance is the parent instance.
-   *
-   * @defaultValue null
-   */
-  public root: Bud | null = this
-
-  /**
-   * True when current instance is the parent instance
-   *
    * @readonly
    * @public
    */
-  public get isRoot(): boolean {
-    return this.name === this.root.name
+  public get root(): Bud {
+    return this.options.root ?? this
   }
-
-  /**
-   * True when current instance is a child instance
-   *
-   * @readonly
-   * @public
-   */
-  public get isChild(): boolean {
-    return this.name !== this.root.name
-  }
-
-  /**
-   * {@link Container} of {@link Bud} instances
-   *
-   * @remarks
-   * Is `null` if the current instance is a child instance.
-   *
-   * @public
-   */
-  public children: Container<Record<string, Bud>> = null
-
-  /**
-   * True when {@link Bud} has children
-   *
-   * @readonly
-   * @public
-   */
-  public get hasChildren(): boolean {
-    return this.children?.getEntries()?.length > 0
-  }
-
-  /**
-   * Bud services
-   *
-   * @remarks
-   * Can be set directly on the child instance or passed as a property in the {@link Options}.
-   *
-   * @public
-   */
-  public services: Services.Registry
-
-  /**
-   * Macros for assisting with common config tasks
-   *
-   * @public
-   */
-  public api: Api.Service
-
-  /**
-   * Build service
-   *
-   * @public
-   */
-  public build: Build.Service
-
-  /**
-   * Determines cache validity and generates cache keys.
-   *
-   * @public
-   */
-  public cache: Cache.Service
-
-  /**
-   * Compiles configuration and stats/errors/progress reporting.
-   *
-   * @public
-   */
-  public compiler: Compiler.Service
-
-  /**
-   * Presents build progress, stats and errors from {@link Compiler} and {@link Server}
-   * over the CLI.
-   *
-   * @public
-   */
-  public dashboard: Dashboard.Service
-
-  /**
-   * Project information and peer dependency management utilities
-   *
-   * @public
-   */
-  public project: Project.Service
-
-  public env: Env.Service
-
-  public extensions: Extensions.Service
-
-  public hooks: Hooks.Service
-
-  /**
-   * Logging service
-   *
-   * @public
-   */
-  public logger: Logger
-
-  /**
-   * Development server
-   *
-   * @public
-   */
-  public server: Server.Service
-
-  public module: Module
 
   /**
    * True when {@link Bud.mode} is `production`
@@ -224,97 +103,172 @@ export abstract class Bud {
   }
 
   /**
-   * Constructor options
+   * True when current instance is the parent instance
    *
+   * @readonly
    * @public
    */
-  public options: Config.Options
-
-  /**
-   * Class constructor
-   *
-   * @param options - {@link Config.Options}
-   *
-   * @public
-   */
-  public constructor(options: Config.Options) {
-    this.options = options
-
-    this.context = options.context
-
-    this._mode = this.options.mode
-    this._name = this.options.name
-
-    this.module = new Module(this)
-
-    Process.initialize(this)
-
-    if (!options.childOf) {
-      this.children = this.container()
-      this.root = this
-    } else {
-      this.root = options.childOf
-    }
-
-    this.lifecycle = lifecycle.bind(this)
-
-    Object.entries(methods).map(([key, method]) => {
-      if (!isFunction(method)) {
-        this.error(
-          'Bud constructor',
-          'method',
-          `"${key}"`,
-          'is not a function',
-        )
-      }
-
-      this[key] = method.bind(this)
-    })
-
-    this.logger = new Logger(this)
+  public get isRoot(): boolean {
+    return this.root.name === this.name
   }
 
-  public lifecycle: lifecycle = lifecycle.bind(this)
+  /**
+   * True when current instance is a child instance
+   *
+   * @readonly
+   * @public
+   */
+  public get isChild(): boolean {
+    return this.root.name !== this.name
+  }
 
-  public maybeCall: methods.maybeCall = methods.maybeCall.bind(this)
+  /**
+   * {@link Bud} instances
+   *
+   * @public
+   */
+  public children: Record<string, Bud>
 
-  public close: methods.close = methods.close.bind(this)
+  /**
+   * True when {@link Bud} has children
+   *
+   * @readonly
+   * @public
+   */
+  public get hasChildren(): boolean {
+    return Object.entries(this.children).length > 0
+  }
 
-  public container: methods.container = methods.container.bind(this)
+  /**
+   * Bud services
+   *
+   * @public
+   */
+  public services: Services.Registry
 
-  public get: methods.get = methods.get.bind(this)
+  /**
+   * Macros for assisting with common config tasks
+   *
+   * @public
+   */
+  public api: Api.Service
 
-  public glob: methods.glob = methods.glob.bind(this)
+  /**
+   * Config builder service
+   *
+   * @public
+   */
+  public build: Build.Service
 
-  public globSync: methods.globSync = methods.globSync.bind(this)
+  /**
+   * Caching service
+   *
+   * @public
+   */
+  public cache: Cache.Service
 
-  public make: methods.make = methods.make.bind(this)
+  /**
+   * Compiler service
+   *
+   * @public
+   */
+  public compiler: Compiler.Service
 
-  public path: methods.path = methods.path.bind(this)
+  /**
+   * CLI dashboard service.
+   *
+   * @public
+   */
+  public dashboard: Dashboard.Service
 
-  public pipe: methods.pipe = methods.pipe.bind(this)
+  /**
+   * Envvar service
+   *
+   * @public
+   */
+  public env: Env.Service
 
-  public publicPath: methods.publicPath = methods.setPublicPath.bind(this)
+  /**
+   * Extensions service
+   *
+   * @public
+   */
+  public extensions: Extensions.Service
 
-  public relPath: methods.relPath = methods.relPath.bind(this)
+  /**
+   * Hooks service
+   *
+   * @public
+   */
+  public hooks: Hooks.Service
 
-  public setPath: methods.setPath = methods.setPath.bind(this)
+  /**
+   * Project information
+   *
+   * @public
+   */
+  public project: Project.Service
 
-  public setPublicPath: methods.setPublicPath =
-    methods.setPublicPath.bind(this)
+  /**
+   * Logging service
+   *
+   * @public
+   */
+  public logger: Logger
 
-  public sequence: methods.sequence = methods.sequence.bind(this)
+  /**
+   * Import / resolve utility
+   *
+   * @public
+   */
+  public module: Module
 
-  public sequenceSync: methods.sequenceSync =
-    methods.sequenceSync.bind(this)
+  /**
+   * Development server
+   *
+   * @public
+   */
+  public server: Server.Service
 
-  public tap: methods.tap = methods.tap.bind(this)
+  public lifecycle: lifecycle
 
-  public tapAsync: methods.tapAsync = methods.tapAsync.bind(this)
+  public maybeCall: methods.maybeCall
 
-  public when: methods.when = methods.when.bind(this)
+  public close: methods.close
 
-  public bindMethod: methods.bindMethod = methods.bindMethod.bind(this)
+  public container: methods.container
+
+  public get: methods.get
+
+  public glob: methods.glob
+
+  public globSync: methods.globSync
+
+  public make: methods.make
+
+  public path: methods.path
+
+  public pipe: methods.pipe
+
+  public publicPath: methods.publicPath
+
+  public relPath: methods.relPath
+
+  public setPath: methods.setPath
+
+  public setPublicPath: methods.setPublicPath
+
+  public sequence: methods.sequence
+
+  public sequenceSync: methods.sequenceSync
+
+  public tap: methods.tap
+
+  public tapAsync: methods.tapAsync
+
+  public when: methods.when
+
+  public bindMethod: methods.bindMethod
 
   /**
    * Read and write json files
@@ -329,6 +283,27 @@ export abstract class Bud {
    * @public
    */
   public yml: typeof parsers.yml = parsers.yml
+
+  /**
+   * Class constructor
+   *
+   * @public
+   */
+  public constructor(public implementation: Constructor) {
+    this.lifecycle = lifecycle.bind(this)
+  }
+
+  /**
+   * Factory
+   *
+   * @public
+   */
+  public async factory(options?: Config.Options): Promise<Bud> {
+    return await new this.implementation(this.implementation).lifecycle({
+      ...this.options,
+      ...(options ?? {}),
+    })
+  }
 
   /**
    * Log a message
@@ -494,14 +469,23 @@ export abstract class Bud {
    * @public
    */
   public _hrtime: [number, number] = process.hrtime()
+
+  public _hrdone: number
+
+  /**
+   * timer diff
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
   public _hrdiff() {
     const diff = process.hrtime(this._hrtime)
     return diff[0] * 1000 + diff[1] / 1000000
   }
-  public _hrdone: number
 }
 
 /**
  * Bud Constructor
  */
-export type Constructor = new (options: Config.Options) => Bud
+export type Constructor = new (implementation: Constructor) => Bud

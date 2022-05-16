@@ -39,7 +39,7 @@ export async function build(app: Bud): Promise<void> {
     .hooks.on('build.module.rules.oneOf', () =>
       Object.values(app.build.rules).map(rule => rule.toWebpack()),
     )
-    .hooks.on('build.name', app.name)
+    .hooks.on('build.name', () => app.name)
     .hooks.on('build.output', () => ({
       assetModuleFilename: app.hooks.filter(
         'build.output.assetModuleFilename',

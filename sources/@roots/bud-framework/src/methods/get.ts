@@ -1,15 +1,7 @@
-import {lodash} from '@roots/bud-support'
-
 import {Bud} from '..'
 
-const {isFunction} = lodash
-
 export interface get {
-  (this: Bud, name: string, tap?: (app: Bud) => Promise<Bud>): Promise<Bud>
-}
-
-export interface get {
-  (name: string, tap?: (app: Bud) => Promise<Bud>): Promise<Bud>
+  (name: string): Promise<Bud>
 }
 
 /**
@@ -28,19 +20,10 @@ export interface get {
  *
  * @public
  */
-export const get: get = async function (
-  name: string,
-  tap?: (app: Bud) => Promise<Bud>,
-): Promise<Bud> {
-  const ctx = this.root as Bud
+export const get: get = async function (name: string): Promise<Bud> {
+  const ctx = this as Bud
 
-  ctx.log('get request', name)
+  ctx.log('get child instance:', name)
 
-  const instance = ctx.children?.get(name)
-
-  if (tap && isFunction(tap)) {
-    await tap(instance)
-  }
-
-  return instance
+  return ctx.children[name]
 }

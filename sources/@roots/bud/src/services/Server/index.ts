@@ -5,11 +5,4 @@ import {Server as Base} from '@roots/bud-server'
  *
  * @public
  */
-export class Server extends Base {
-  /**
-   * Service ident
-   *
-   * @internal
-   */
-  public ident = 'server'
-}
+export class Server extends Base {}

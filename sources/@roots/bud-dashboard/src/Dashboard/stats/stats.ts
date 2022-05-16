@@ -19,23 +19,26 @@ export const report = ({
 }): string => {
   const output = []
 
-  const appName = app.context.manifest.name ?? app.name
-
-  output.push(
-    chalk
-      .hex(errors.length ? theme.red : theme.green)
-      .underline(
-        `\n${errors.length ? figures.cross : figures.tick} ${appName}\n\n`,
-      ),
-  )
   errors && output.push(...errors.map(webpackMessage.makeError))
   warnings && output.push(...warnings.map(webpackMessage.makeWarning))
 
   stats?.children?.map((compilation, i) => {
+    if (stats.children.length > 1) {
+      output.push(
+        chalk
+          .hex(errors.length ? theme.red : theme.green)
+          .underline(
+            `\n${errors.length ? figures.cross : figures.tick} ${
+              compilation.name
+            }\n\n`,
+          ),
+      )
+    }
+
     compilation?.entrypoints &&
       output.push(
         ...components.report({
-          appName,
+          appName: app.name,
           count: [i + 1, stats?.children?.length ?? 1],
           context: app.context,
           compilation,

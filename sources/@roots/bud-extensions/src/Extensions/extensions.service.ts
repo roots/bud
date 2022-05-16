@@ -19,7 +19,7 @@ export class Extensions extends Service implements Contract.Service {
 
   @bind
   public async booted(): Promise<void> {
-    this.app.options.extensions.map(this.instantiate).map(this.set)
+    ;[...this.app.options.extensions].map(this.instantiate).map(this.set)
 
     await this.injectExtensions()
 

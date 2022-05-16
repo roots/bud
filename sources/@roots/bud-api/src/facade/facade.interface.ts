@@ -11,7 +11,7 @@ import type {minimize} from '../methods/minimize'
 import type {persist} from '../methods/persist'
 import type {provide} from '../methods/provide'
 import type * as proxy from '../methods/proxy'
-import type {run} from '../methods/run'
+import type * as run from '../methods/run'
 import type {runtime} from '../methods/runtime'
 import type * as serve from '../methods/serve'
 import type * as splitChunks from '../methods/splitChunks'
@@ -633,7 +633,7 @@ export class Facade {
    *
    * @public
    */
-  public run: run
+  public run: run.facade
 
   /**
    * Generate a runtime chunk intended to be inlined on the page.

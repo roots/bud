@@ -16,13 +16,13 @@ import {
 const {isString} = lodash
 
 export const entry: method = async function (...input) {
-  const ctx = this as Bud
+  const app = this as Bud
 
   if (input.length > 1 && !isString(input[0])) {
-    ctx.error(
+    app.error(
       'the first parameter in a multi-parameter call to bud.entry must be a string',
     )
-    return ctx
+    return app
   }
 
   if ((input.length == 1 && isString(input[0])) || isArray(input[0])) {
@@ -37,11 +37,11 @@ export const entry: method = async function (...input) {
     isGlobular(request) ? await globAssets.bind(this)(request) : request,
   )
 
-  ctx.hooks.on('build.entry', a =>
+  app.hooks.on('build.entry', a =>
     records.reduce((a, [k, v]) => ({...a, [k]: v}), a),
   )
 
-  return ctx
+  return app
 }
 
 export type {method, facade}

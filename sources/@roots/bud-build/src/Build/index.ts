@@ -266,7 +266,7 @@ export class Build extends Bud.Service implements Bud.Build.Service {
   public async writeFinalConfig(): Promise<void> {
     try {
       const filePath = this.app.path(
-        `@storage/${this.config.name}/webpack.config.js`,
+        `@storage/${this.app.name}/webpack.config.js`,
       )
 
       await ensureFile(filePath)
