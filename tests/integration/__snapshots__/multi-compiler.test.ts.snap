@@ -1,29 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`multi-compiler plugin module map matches snapshot 1`] = `
+exports[`multi-compiler plugin npm manifest.json matches snapshot 1`] = `
 Object {
-  "byName": Object {
-    "plugin": Any<Number>,
-  },
-  "bySource": Object {
-    "0 plugin": Any<Number>,
-  },
-  "usedIds": Array [
-    Any<Number>,
-  ],
+  "plugin.css": "plugin.css",
+  "plugin.js": "plugin.js",
 }
 `;
 
-exports[`multi-compiler theme module map matches snapshot 1`] = `
+exports[`multi-compiler plugin yarn manifest.json matches snapshot 1`] = `
 Object {
-  "byName": Object {
-    "theme": Any<Number>,
-  },
-  "bySource": Object {
-    "0 theme": Any<Number>,
-  },
-  "usedIds": Array [
-    Any<Number>,
-  ],
+  "plugin.css": "plugin.css",
+  "plugin.js": "plugin.js",
+}
+`;
+
+exports[`multi-compiler theme npm manifest.json matches snapshot 1`] = `
+Object {
+  "theme.css": "theme.css",
+  "theme.js": "theme.js",
+}
+`;
+
+exports[`multi-compiler theme yarn manifest.json matches snapshot 1`] = `
+Object {
+  "theme.css": "theme.css",
+  "theme.js": "theme.js",
 }
 `;

@@ -42,6 +42,7 @@ export const INTEGRATION_TESTS = [
   'typescript',
   'imagemin',
   'sage',
+  'multi-compiler',
 ]
 
 /**
