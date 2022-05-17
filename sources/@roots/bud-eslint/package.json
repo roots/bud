@@ -63,7 +63,7 @@
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@types/lodash": "4.14.182",
-    "@types/node": "16.11.35",
+    "@types/node": "16.11.36",
     "webpack": "5.72.1"
   },
   "dependencies": {

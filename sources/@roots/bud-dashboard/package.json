@@ -44,7 +44,7 @@
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.11.35",
+    "@types/node": "16.11.36",
     "tslib": "2.4.0",
     "webpack": "5.72.1"
   }

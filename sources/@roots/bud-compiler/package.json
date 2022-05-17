@@ -50,7 +50,7 @@
     "@roots/bud-support": "workspace:^",
     "@skypack/package-check": "0.2.2",
     "@types/lodash": "4.14.182",
-    "@types/node": "16.11.35",
+    "@types/node": "16.11.36",
     "helpful-decorators": "2.1.0",
     "tslib": "2.4.0",
     "webpack": "5.72.1"
