@@ -50,7 +50,7 @@
   "devDependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.11.35"
+    "@types/node": "16.11.36"
   },
   "dependencies": {
     "prettier": "2.6.2",
