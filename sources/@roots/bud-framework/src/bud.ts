@@ -130,7 +130,7 @@ export abstract class Bud {
   public children: Record<string, Bud>
 
   /**
-   * True when {@link Bud} has children
+   * True when child compilers
    *
    * @readonly
    * @public

@@ -6,7 +6,7 @@ import {Bud} from '../'
  * @internal
  */
 export interface make {
-  (name: string, tap?: (app: Bud) => Bud): Promise<Bud>
+  (name: string, tap?: (app: Bud) => Promise<Bud>): Bud
 }
 
 /**
@@ -16,25 +16,26 @@ export interface make {
  * **make** takes two parameters:
  *
  * - The **name** of the new compiler
- * - An optional callback to use for configuring the compiler.
+ * - Optional: callback to use for configuration
  *
  * @example
  * ```js
- * bud.make('scripts', child => child.entry('app', 'app.js'))
+ * bud.make('scripts', async child => child.entry('app', 'app.js'))
  * ```
  *
  * @public
  */
-export const make: make = async function (name, tap) {
+export const make: make = function (name, tap) {
   const root = this as Bud
 
   root.log(`constructing new instance:`, name)
 
-  root.children[name] = await root.factory({name, root})
-
-  if (tap) {
-    tap(root.children[name])
-  }
+  root.hooks.action('event.config.after', async app => {
+    root.children[name] = await root.factory({name, root})
+    if (tap) {
+      await tap(root.children[name])
+    }
+  })
 
   return root
 }

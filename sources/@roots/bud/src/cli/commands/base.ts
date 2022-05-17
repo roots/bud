@@ -14,18 +14,21 @@ import {Notifier} from '../Notifier'
 export abstract class BaseCommand extends Command {
   /**
    * Context
+   *
    * @public
    */
   public context: Config.Context & BaseContext
 
   /**
    * Application
+   *
    * @public
    */
   public app: Bud
 
   /**
    * Application logger
+   *
    * @public
    */
   public get logger() {
@@ -34,18 +37,19 @@ export abstract class BaseCommand extends Command {
 
   /**
    * Node notifier
+   *
    * @public
    */
   public notifier: Notifier
 
   /**
    * Bootstrap Application
+   *
    * @returns Bud
    */
   @bind
   public async make() {
     this.notifier = new Notifier(this.app)
-
     this.app.hooks.action('event.compiler.close', this.notifier.notify)
 
     try {
@@ -53,6 +57,22 @@ export abstract class BaseCommand extends Command {
     } catch (error) {
       this.app.error(error)
     }
+
+    try {
+      await this.app.hooks.fire('event.config.after')
+    } catch (err) {
+      this.app.error(err)
+    }
+
+    await Promise.all(
+      Object.values(this.app.children ?? {}).map(async instance => {
+        try {
+          await instance.hooks.fire('event.config.after')
+        } catch (err) {
+          instance.error(err)
+        }
+      }),
+    )
 
     return this.app
   }
