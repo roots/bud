@@ -171,19 +171,7 @@ module.exports = async app =>
   )
 ```
 
-Remember that [you must always have a top-level compiler](#limitations).
-
-So, either create a dummy file at `@src/index.js` or ensure at least one compiler has an outer rule:
-
-```ts title='bud.config.compiler-b.js'
-module.exports = async app =>
-    app
-      .setPath('@dist', 'dist/app')
-      .entry('theme', ['theme.js', 'theme.css']),
-  )
-```
-
-## Bud extensions
+## Extensions
 
 By default, all extensions will be applied to all compilers in the project.
 
