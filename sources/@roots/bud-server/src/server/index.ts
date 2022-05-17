@@ -132,14 +132,16 @@ export class Server extends Service implements Base.Service {
   @once
   public async injectScripts() {
     await Promise.all(
-      [this.app, ...this.app.children.getValues()].map(async instance => {
-        await inject(
-          instance,
-          Array.from(
-            instance.hooks.filter('dev.client.scripts') ?? new Set([]),
-          ),
-        )
-      }),
+      [this.app, ...(Object.values(this.app.children) ?? [])].map(
+        async instance => {
+          await inject(
+            instance,
+            Array.from(
+              instance.hooks.filter('dev.client.scripts') ?? new Set([]),
+            ),
+          )
+        },
+      ),
     )
   }
 

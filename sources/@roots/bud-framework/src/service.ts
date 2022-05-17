@@ -6,10 +6,9 @@ import {Bud} from './bud'
  * Service
  *
  * @remarks
- * The {@link Service} interface extends {@link Bootstrapper}, which provides {@link @roots/container#Container}
- * and {@link Bud} access
+ * The {@link Service} interface provides access to the {@link Bud} container.
  *
- * A {@link Service} is tapped through a series of callbacks at different points in the build.
+ * A {@link Service} interfaces with the Framework through a series of callbacks at different points in the build.
  *
  * All of the callbacks are optional:
  *
@@ -19,8 +18,6 @@ import {Bud} from './bud'
  * - {@link Service.registered} is called after all {@link Service.register} callbacks are complete.
  * - {@link Service.boot} is called once all services are registered. It should be safe for Services to reference one another.
  * - {@link Service.booted} is called after all {@link Service.boot} callbacks are complete.
- *
- * @typeParam Repository - {@link Repository} typing, if applicable
  *
  * @public
  */

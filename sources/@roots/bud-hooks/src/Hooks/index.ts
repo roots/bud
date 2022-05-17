@@ -59,7 +59,7 @@ export class Hooks
    *
    * @public
    */
-  public store = {} as Hooks['store']
+  public store: Store = null
 
   /**
    * Class constructor
@@ -67,9 +67,10 @@ export class Hooks
    * @param app - Bud instance
    * @public
    */
-  public constructor(app: Framework.Bud) {
-    super(app)
-    this.store = app.options.seed
+  public async bootstrap(app: Framework.Bud) {
+    this.store = isFunction(app.options.seed)
+      ? {...app.options.seed(app)}
+      : {...app.options.seed}
   }
 
   /**
@@ -91,12 +92,12 @@ export class Hooks
    * @decorator `@bind`
    */
   @bind
-  public set<T extends `${keyof Store & string}`>(
-    path: T,
-    value: Store[T],
+  public set<T extends keyof Store>(
+    path: T & string,
+    value: Store[T & string],
   ): this {
     if (this.store[path])
-      this.store[path] = [...this.store[path], ...value]
+      this.store[path] = [...this.store[path], ...value] as any
     else this.store[path] = value
     return this
   }
@@ -209,7 +210,7 @@ export class Hooks
   ): Registry.Sync[T] {
     if (!this.has(id)) return isFunction(fallback) ? fallback() : fallback
 
-    const result = (this.store[id] ?? []).reduce(
+    const result = ((this.store[id] as any) ?? []).reduce(
       (
         accumulated: Registry.Sync[T],
         current: (value?: Registry.Sync[T]) => Registry.Sync[T],
@@ -240,14 +241,14 @@ export class Hooks
    * @decorator `@bind`
    */
   @bind
-  public async filterAsync<T extends `${keyof Registry.Async & string}`>(
-    id: T,
-    fallback?: Registry.Async[T],
-  ): Promise<Registry.Async[T]> {
+  public async filterAsync<T extends keyof Registry.Async>(
+    id: T & string,
+    fallback?: Registry.Async[T & string],
+  ): Promise<Registry.Async[T & string]> {
     if (!this.has(id))
       return isFunction(fallback) ? await fallback() : fallback
 
-    const result = await (this.store[id] ?? []).reduce(
+    const result = await ((this.store[id] as any) ?? []).reduce(
       async (
         accumulated,
         current?: ((fallback: T) => Promise<T> | Store[T]) | Store[T],

@@ -1,22 +1,20 @@
-import {lodash} from '@roots/bud-support'
-
-import {Bud} from '..'
-import {Service} from '../service'
+import {Bud, Config, Logger} from '..'
+import * as methods from '../methods'
+import {Module} from '../module'
+import * as Process from '../process'
 import {
   DEVELOPMENT_SERVICES,
   LIFECYCLE_EVENTS,
   PARENT_SERVICES,
 } from './constants'
 
-const {isUndefined} = lodash
-
 /**
  * Bootstrap interface
  *
- * @internal
+ * @public
  */
 export interface lifecycle {
-  (this: Bud): Promise<Bud>
+  (this: Bud, options: Config.Options): Promise<Bud>
 }
 
 /**
@@ -32,60 +30,66 @@ export interface lifecycle {
  *
  * @public
  */
-export async function lifecycle(this: Bud): Promise<Bud> {
-  /**
-   * Get bindable services
-   */
-  const validServices = Object.entries(this.options.services).filter(
-    ([name]): boolean => {
-      /**
-       * - No reason to start server for production
-       * - No reason to boot expensive parent services for child compilation instantances
-       */
-      return (this.isProduction && DEVELOPMENT_SERVICES.includes(name)) ||
-        (!this.isRoot && PARENT_SERVICES.includes(name))
-        ? false
-        : true
-    },
-  )
+export async function lifecycle(
+  this: Bud,
+  options: Config.Options,
+): Promise<Bud> {
+  this.options = {...options}
 
-  /**
-   * Initialize services
-   */
-  const initializedServices = validServices
-    .filter(([name]) => isUndefined(this[name]))
+  this.module = new Module(this)
+
+  this.children = {}
+
+  Object.entries(methods).map(([key, method]) => {
+    this[key] = method.bind(this)
+  })
+
+  if (!this.isRoot) Process.initialize(this)
+
+  this.logger = new Logger(this)
+
+  const initialized = Object.entries({...this.options.services})
+    .filter(
+      ([name]) =>
+        this.isDevelopment || !DEVELOPMENT_SERVICES.includes(name),
+    )
+    .filter(([name]) => this.isRoot || !PARENT_SERVICES.includes(name))
     .map(([name, Service]) => {
-      this[name] = new (Service as any)(this)
+      this.log('initializing', name)
+
+      this[name] = new Service(this)
+
       return this[name]
     })
 
-  /**
-   * Service lifecycle
-   */
-  await LIFECYCLE_EVENTS.reduce(async (promised, event, i) => {
+  await LIFECYCLE_EVENTS.reduce(async (promised, event) => {
     await promised
 
-    const eligibleServices = initializedServices.filter(
-      service => service[event],
-    )
-
-    if (!eligibleServices?.length) return
-
     await Promise.all(
-      eligibleServices.map(async (service: Service, i) => {
-        this.await({
-          message: `[${i + 1}/${eligibleServices.length}] ${event}`,
-          suffix: service.constructor.name.toLowerCase(),
-        })
-
-        await service[event](this)
-
-        this.success({
-          message: `[${i + 1}/${eligibleServices.length}] ${event}`,
-          suffix: service.constructor.name.toLowerCase(),
-        })
-      }),
+      initialized
+        .filter(service => service[event])
+        .map(service => [service, service[event].bind(service)])
+        .map(async ([service, callback]) => {
+          try {
+            await callback(this)
+            this.success({
+              message: event,
+              suffix: service.constructor.name.toLowerCase(),
+            })
+          } catch (err) {
+            this.error(
+              `Error executing`,
+              event,
+              `for service`,
+              service.constructor.name.toLowerCase(),
+              `\n`,
+              err,
+            )
+          }
+        }),
     )
+
+    return Promise.resolve()
   }, Promise.resolve())
 
   return this

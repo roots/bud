@@ -47,7 +47,7 @@ export async function factory(overrides?: Config.Options): Promise<Bud> {
     extensions: [...(extensions ?? []), ...(overrides?.extensions ?? [])],
   }
 
-  const project = new Bud(options)
+  const project = await new Bud().lifecycle(options)
 
   process.env.BABEL_ENV = project.mode
   process.env.NODE_ENV = project.mode
@@ -59,5 +59,5 @@ export async function factory(overrides?: Config.Options): Promise<Bud> {
     message: `process.env.BABEL_ENV: ${process.env.BABEL_ENV}`,
   })
 
-  return await project.lifecycle()
+  return project
 }

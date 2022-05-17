@@ -6,20 +6,7 @@ import {Bud} from '../'
  * @internal
  */
 export interface make {
-  (name: string, tap?: (app: Bud) => any): Promise<Bud>
-}
-
-/**
- * Prevent children from making further nested child compilers.
- *
- * @internal
- */
-function handleChildNestingError(this: Bud) {
-  !this.isRoot &&
-    this.error(
-      `\`${this.name}\` is a child compiler but you tried to call make from it. Try \`${this.name}.parent.make\` instead.`,
-      `${this.name}.make`,
-    )
+  (name: string, tap?: (app: Bud) => Promise<Bud>): Bud
 }
 
 /**
@@ -29,40 +16,26 @@ function handleChildNestingError(this: Bud) {
  * **make** takes two parameters:
  *
  * - The **name** of the new compiler
- * - An optional callback to use for configuring the compiler.
+ * - Optional: callback to use for configuration
  *
  * @example
  * ```js
- * bud.make('scripts', child => child.entry('app', 'app.js'))
+ * bud.make('scripts', async child => child.entry('app', 'app.js'))
  * ```
  *
  * @public
  */
-export async function make(
-  name: string,
-  tap?: (app: Bud) => any,
-): Promise<Bud> {
-  const app = this as Bud
+export const make: make = function (name, tap) {
+  const root = this as Bud
 
-  handleChildNestingError.bind(app)()
-  app.logger.instance.fav(`new instance:`, name)
+  root.log(`constructing new instance:`, name)
 
-  const instance = new app.implementation({
-    name,
-    mode: app.mode,
-    childOf: app,
-    seed: app.options.seed,
-    context: app.context,
-    services: app.options.services,
+  root.hooks.action('event.config.after', async app => {
+    root.children[name] = await root.factory({name, root})
+    if (tap) {
+      await tap(root.children[name])
+    }
   })
 
-  await instance.lifecycle()
-
-  instance.hooks.on('build.name', name)
-
-  if (tap) await tap(instance)
-
-  app.children?.set(name, instance)
-
-  return app
+  return root
 }

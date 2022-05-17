@@ -49,9 +49,7 @@ export class Logger {
       secrets: [this.app.context.projectDir, this.app.context.cwd],
       logLevel: this.level,
       types: types(this.app),
-      scope:
-        this.app.context.manifest.name ??
-        this.app.context.application.label,
+      scope: this.app.name ?? this.app.context.application.label,
       ...constructorOverrides,
     })
 
@@ -71,9 +69,8 @@ export class Logger {
     })
 
     instance = instance.scope(
-      this.app.context.application.label,
-      this.app.context.application.version,
-      this.app.context.manifest.name,
+      `${this.app.context.application.label}@${this.app.context.application.version}`,
+      this.app.name,
     )
 
     return instance
