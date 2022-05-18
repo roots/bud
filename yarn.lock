@@ -4261,6 +4261,7 @@ __metadata:
     webpack: 5.72.1
     webpack-cli: ^4.9.1
     webpack-manifest-plugin: ^5.0.0
+    webpack-remove-empty-scripts: 0.8.0
   bin:
     bud: ./bin/bud.js
   languageName: unknown
@@ -6850,6 +6851,13 @@ __metadata:
   version: 0.1.0
   resolution: "ansi-wrap@npm:0.1.0"
   checksum: f24f652a5e450c0561cbc7d298ffa62dcd33c72f9da34fd3c24538dbf82de8fc21b7f924dc30cd9d01360bd2893d1954f0a60eee0550ca629bb148dcbeef5c5b
+  languageName: node
+  linkType: hard
+
+"ansis@npm:^1.3.4":
+  version: 1.3.6
+  resolution: "ansis@npm:1.3.6"
+  checksum: 8d9341558abee49884a34bb4ac3421a1c478a06938f452cbaeec75f6bfa76a8ac24f3e98f3d3a22a9587257e6739ede36fb082af8a004c81814c02a8cff2bf52
   languageName: node
   linkType: hard
 
@@ -21857,6 +21865,14 @@ __metadata:
   languageName: node
   linkType: hard
 
+"test-styles-only@workspace:tests/util/styles-only":
+  version: 0.0.0-use.local
+  resolution: "test-styles-only@workspace:tests/util/styles-only"
+  dependencies:
+    "@roots/bud": "workspace:*"
+  languageName: unknown
+  linkType: soft
+
 "text-extensions@npm:^1.0.0":
   version: 1.9.0
   resolution: "text-extensions@npm:1.9.0"
@@ -23466,6 +23482,17 @@ __metadata:
     clone-deep: ^4.0.1
     wildcard: ^2.0.0
   checksum: 88786ab91013f1bd2a683834ff381be81c245a4b0f63304a5103e90f6653f44dab496a0768287f8531761f8ad957d1f9f3ccb2cb55df0de1bd9ee343e079da26
+  languageName: node
+  linkType: hard
+
+"webpack-remove-empty-scripts@npm:0.8.0":
+  version: 0.8.0
+  resolution: "webpack-remove-empty-scripts@npm:0.8.0"
+  dependencies:
+    ansis: ^1.3.4
+  peerDependencies:
+    webpack: ">=5.32.0"
+  checksum: cf78e7516b18321cd234d5a86231d01403d4393f9e802b8552e150315772adb5889a24a4eb8c067aba0dc831e238513196e59f6225e5bb098d31c2da7be19cc7
   languageName: node
   linkType: hard
 

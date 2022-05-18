@@ -6,7 +6,8 @@ import MiniCssExtractPlugin from './mini-css-extract-plugin'
 import DefineWebpackPlugin from './webpack-define-plugin'
 import HotModuleReplacementPlugin from './webpack-hot-module-replacement-plugin'
 import WebpackManifestPlugin from './webpack-manifest-plugin'
-import BudProvide from './webpack-provide-plugin'
+import ProvidePlugin from './webpack-provide-plugin'
+import RemoveEmptyScriptsPlugin from './webpack-remove-empty-scripts'
 
 /**
  * Built-in extensions factory
@@ -16,11 +17,12 @@ import BudProvide from './webpack-provide-plugin'
  * @public
  */
 export const extensions: Config.Options['extensions'] = [
-  BudProvide,
+  ProvidePlugin,
   DefineWebpackPlugin,
   HotModuleReplacementPlugin,
   CleanWebpackPlugin,
   CopyWebpackPlugin,
   WebpackManifestPlugin,
   MiniCssExtractPlugin,
+  RemoveEmptyScriptsPlugin,
 ]
