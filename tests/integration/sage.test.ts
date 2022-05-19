@@ -13,16 +13,12 @@ const test = (pacman: 'yarn' | 'npm') => () => {
 
   describe('entrypoints.json', () => {
     it('has expected app entries', () => {
-      expect(project.entrypoints.app.js).toBeInstanceOf(Array)
-      expect(project.entrypoints.app.js).toHaveLength(2)
       expect(project.entrypoints.app.css).toBeInstanceOf(Array)
       expect(project.entrypoints.app.css).toHaveLength(1)
       expect(project.entrypoints.app.dependencies).toEqual([])
     })
 
     it('has expected editor entries', () => {
-      expect(project.entrypoints.editor.js).toBeInstanceOf(Array)
-      expect(project.entrypoints.editor.js).toHaveLength(2)
       expect(project.entrypoints.editor.css).toBeInstanceOf(Array)
       expect(project.entrypoints.editor.css).toHaveLength(1)
     })
@@ -70,12 +66,8 @@ const test = (pacman: 'yarn' | 'npm') => () => {
     })
   })
 
-  it('[editor] has contents', () => {
-    expect(project.assets['editor.js'].length).toBeGreaterThan(10)
-  })
-
-  it('[editor] is transpiled', () => {
-    expect(project.assets['editor.js'].includes('import')).toBeFalsy()
+  it('[editor] is not defined', () => {
+    expect(project.assets['editor.js']).toBeUndefined()
   })
 
   it('[editor] css: has contents', () => {
@@ -105,7 +97,6 @@ const test = (pacman: 'yarn' | 'npm') => () => {
   it('[snapshots] public/manifest.json matches expectations', async () => {
     expect(project.manifest['app.js']).toMatch(/app\.[\d|\w]*\.js/)
     expect(project.manifest['app.css']).toMatch(/app\.[\d|\w]*\.css/)
-    expect(project.manifest['editor.js']).toMatch(/editor\.[\d|\w]*\.js/)
     expect(project.manifest['editor.css']).toMatch(/editor\.[\d|\w]*\.css/)
     expect(project.manifest['runtime.js']).toMatch(/runtime\.[\d|\w]*\.js/)
   })
