@@ -57,7 +57,6 @@ export async function factory(overrides?: Config.Options): Promise<Bud> {
       project.env.has('APP_PUBLIC_PATH') &&
         project.env.isString('APP_PUBLIC_PATH'),
       () => project.setPublicPath(project.env.get('APP_PUBLIC_PATH')),
-      () => project.setPublicPath(project.isDevelopment ? '/' : ''),
     )
     .log({
       message: `process.env.NODE_ENV: ${process.env.NODE_ENV}`,
