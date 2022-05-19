@@ -16,7 +16,7 @@ import {
   fileName: 'manifest.json',
   writeToFileEmit: true,
   publicPath: ({hooks}) =>
-    hooks.filter('build.output.publicPath').replace('auto', ''),
+    (hooks.filter('build.output.publicPath') ?? '').replace('auto', ''),
 })
 class BudWebpackManifestPlugin extends Extension<
   Options,
