@@ -8,7 +8,6 @@ exports[`sass npm app.css matches snapshot 1`] = `
 exports[`sass npm manifest.json matches snapshot 1`] = `
 Object {
   "app.css": "app.css",
-  "app.js": "app.js",
 }
 `;
 
@@ -20,6 +19,5 @@ exports[`sass yarn app.css matches snapshot 1`] = `
 exports[`sass yarn manifest.json matches snapshot 1`] = `
 Object {
   "app.css": "app.css",
-  "app.js": "app.js",
 }
 `;
