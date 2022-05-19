@@ -60,7 +60,10 @@ export const seed = (app: Bud) => {
                 'dev.middleware.hot.options.path',
               )}`,
             ),
-          () => src(`proxy-click-interceptor.js`),
+          app =>
+            app.hooks.filter('dev.middleware.enabled').includes('proxy')
+              ? src(`proxy-click-interceptor.js`)
+              : null,
         ]),
     )
     .hooks.on(`dev.watch.files`, new Set([]))
