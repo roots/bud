@@ -21865,14 +21865,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"test-styles-only@workspace:tests/util/styles-only":
-  version: 0.0.0-use.local
-  resolution: "test-styles-only@workspace:tests/util/styles-only"
-  dependencies:
-    "@roots/bud": "workspace:*"
-  languageName: unknown
-  linkType: soft
-
 "text-extensions@npm:^1.0.0":
   version: 1.9.0
   resolution: "text-extensions@npm:1.9.0"
