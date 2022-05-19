@@ -52,6 +52,9 @@ export async function factory(overrides?: Config.Options): Promise<Bud> {
   process.env.BABEL_ENV = project.mode
   process.env.NODE_ENV = project.mode
 
+  project.env.has('APP_PUBLIC_PATH') &&
+    project.setPublicPath(project.env.get('APP_PUBLIC_PATH'))
+
   project.log({
     message: `process.env.NODE_ENV: ${process.env.NODE_ENV}`,
   })
