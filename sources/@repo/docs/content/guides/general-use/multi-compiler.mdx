@@ -20,7 +20,7 @@ It is possible to configure more than one Webpack compiler in a project.
 For a single page app this isn't really that useful. However, for WordPress or a Symfony app &mdash; or anything with potentially
 very different builds for different pages &mdash; it is potentially very useful.
 
-## In practice
+## Creating child instances
 
 To specify a new child instance, we can use [bud.make](/docs/bud.make). It is a function that accepts two parameters: a name for the instance
 (so we can refer to it later), and a callback that is identical to the standard `bud.config.js` module-level function.
@@ -71,62 +71,6 @@ export default (app: Bud): void =>
           .setPath('@dist', 'dist/plugin')
           .entry('plugin', ['plugin.js', 'plugin.css']),
     )
-```
-
-  </TabItem>
-</Tabs>
-
-## Limitations
-
-The outer compiler must be a valid compiler. This means you either need a script, even if it's empty, at `@src/index.js`. Or you need to specify an entrypoint
-for the outer context in `bud.config.js`. Also take care to make sure your paths do not overlap if you are using the `--clean` flag, otherwise the compilers
-will overwrite one another during emit.
-
-<Tabs
-  groupId="lang"
-  defaultValue="ts"
-  values={[
-    {label: 'Javascript', value: 'js'},
-    {label: 'TypeScript', value: 'ts'},
-  ]}>
-  <TabItem value="js">
-
-```js title='bud.config.js'
-module.exports = app => {
-  app
-    .setPath('@dist', 'dist/global')
-    .make('theme', async theme => {
-      theme
-        .setPath('@dist', 'dist/theme')
-        .entry('theme', ['theme.js', 'theme.css']),
-    })
-    .make('plugin', async plugin => {
-      plugin
-        .setPath('@dist', 'dist/plugin')
-        .entry('plugin', ['plugin.js', 'plugin.css']),
-    })
-}
-```
-
-  </TabItem>
-  <TabItem value="ts">
-
-```ts title='bud.config.ts'
-import type {Bud} from '@roots/bud'
-
-export default (app: Bud): void =>
-  app
-    .setPath('@dist', 'dist/global')
-    .make('theme', async (theme: Bud): Promise<void> => {
-      theme
-        .setPath('@dist', 'dist/theme')
-        .entry('theme', ['theme.js', 'theme.css'])
-    })
-    .make('plugin', async (plugin: Bud): Promise<void> => {
-      plugin
-        .setPath('@dist', 'dist/plugin')
-        .entry('plugin', ['plugin.js', 'plugin.css'])
-    })
 ```
 
   </TabItem>
@@ -194,11 +138,9 @@ module.exports = async app => {
 module.exports = async app => {
   app.make('plugin', async plugin => {
     app
-      .use(require('@roots/bud-postcss'))
-      .use(require('@roots/bud-babel'))
       .use(require('@roots/bud-react'))
-
-    app.setPath('@dist', 'dist/app').entry('plugin', ['plugin.css'])
+      .setPath('@dist', 'dist/app')
+      .entry('plugin', ['plugin.css'])
   })
 }
 ```

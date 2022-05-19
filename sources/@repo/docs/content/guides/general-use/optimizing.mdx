@@ -1,0 +1,78 @@
+---
+title: Optimizing
+description: Optimizing compiled assets
+slug: installation
+sidebar_label: Optimizing
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+## Minimizing filesize
+
+Minify css and js output using [bud.minimize](/docs/bud.minimize)
+
+```js {4} title='bud.config.js'
+module.exports = async bud => {
+  bud.minimize()
+}
+```
+
+## Cache busting
+
+Add filename hashing using [bud.hash](/docs/bud.hash)
+
+```js {14} title='bud.config.js'
+module.exports = async bud => bud.hash()
+```
+
+## Create a runtime
+
+We can leverage code splitting using [bud.runtime](/docs/bud.runtime)
+
+```js {15} title='bud.config.js'
+module.exports = async bud => bud.runtime('single')
+```
+
+## Split out vendored code
+
+We'll probably end up with project dependencies. We can use [bud.splitChunks](/docs/bud.splitChunks) to ensure
+they are always packaged separately from our application code.
+
+```js {16} title='bud.config.js'
+module.exports = async bud => bud.splitChunks()
+```
+
+## Optimizing images
+
+Image optimization can be added using the [@roots/bud-imagemin](/extensions/bud-imagemin) extension.
+
+<Tabs
+  groupId="pacman"
+  defaultValue="yarn"
+  values={[
+    {label: 'yarn', value: 'yarn'},
+    {label: 'npm', value: 'npm'},
+  ]}>
+  <TabItem value="yarn">
+
+    yarn add @roots/bud-imagemin --dev
+
+  </TabItem>
+  <TabItem value="npm">
+
+    npm install @roots/bud-imagemin --save-dev
+
+  </TabItem>
+</Tabs>
+
+## Applying optimizations conditionally
+
+Try [bud.when](/docs/bud.when) to simplify conditional statements.
+
+```js {13-20} title='bud.config.js'
+module.exports = async bud =>
+  bud.when(bud.isProduction, bud =>
+    bud.minimize().hash().runtime().splitChunks(),
+  )
+```
