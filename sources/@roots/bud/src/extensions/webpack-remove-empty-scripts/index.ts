@@ -1,18 +1,14 @@
 import {Extension} from '@roots/bud-framework'
 import {
-  bind,
   label,
   plugin,
+  production,
 } from '@roots/bud-framework/extension/decorators'
 import Plugin from 'webpack-remove-empty-scripts'
 
 @label('webpack-remove-empty-scripts')
 @plugin(Plugin)
-class BudRemoveEmptyScripts extends Extension<null, Plugin> {
-  @bind
-  public async when() {
-    return this.app.isProduction
-  }
-}
+@production
+class BudRemoveEmptyScripts extends Extension<null, Plugin> {}
 
 export default BudRemoveEmptyScripts
