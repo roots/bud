@@ -1,4 +1,6 @@
-import {FSWatcher} from 'chokidar'
+import {FSWatcher, WatchOptions} from 'chokidar'
+
+import {Logger} from '../../logger'
 
 /**
  * Watcher
@@ -14,11 +16,43 @@ export interface Watcher {
   instance: FSWatcher
 
   /**
+   * Watch files
+   */
+  files: Set<string>
+
+  /**
+   * Watch options
+   */
+  options: WatchOptions
+
+  /**
+   * Logger
+   *
+   * @public
+   */
+  logger: Logger['instance']
+
+  /**
+   * Get watch options
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  getOptions(): WatchOptions
+
+  /**
    * Get watched files
    *
    * @public
    */
-  getWatchedFiles(): Promise<Array<string>>
+  getFiles(): Array<string>
+
+  /**
+   * Search files
+   *
+   * @public
+   */
+  search(): Promise<Array<string>>
 
   /**
    * Initialize watch files
@@ -26,4 +60,12 @@ export interface Watcher {
    * @public
    */
   watch(): Promise<FSWatcher>
+
+  /**
+   * Watcher callback
+   *
+   * @param path - changed file
+   * @public
+   */
+  watcherCallback(path: string): unknown
 }
