@@ -19,8 +19,10 @@ export const setSvgEmit = ({build}: Bud) =>
  * Not setting an empty string will likely result in duplicative path segments
  * and unresolved assets.
  */
-export const setManifestPublicPath = ({extensions}: Bud) =>
+export const setManifestPublicPath = ({extensions}: Bud) => {
   extensions.get('@roots/bud-entrypoints').setOption('publicPath', '')
+  extensions.get('webpack-manifest-plugin').setOption('publicPath', '')
+}
 
 /**
  * - If publicPath is `/` in production assets will not be locatable by Acorn.
