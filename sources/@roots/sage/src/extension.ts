@@ -15,7 +15,6 @@ export default class Sage extends Extension {
   public async boot() {
     acorn.setSvgEmit(this.app)
     acorn.setManifestPublicPath(this.app)
-    acorn.setPublicPath(this.app)
     acorn.hmrJson(this.app)
 
     await this.app.extensions.add(ThemeJSON)
