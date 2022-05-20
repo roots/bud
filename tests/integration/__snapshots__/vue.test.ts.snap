@@ -2,16 +2,16 @@
 
 exports[`vue npm manifest.json matches snapshot 1`] = `
 Object {
-  "app.css": "app.css",
-  "app.js": "app.js",
-  "index.html": "index.html",
+  "app.css": "/app.css",
+  "app.js": "/app.js",
+  "index.html": "/index.html",
 }
 `;
 
 exports[`vue yarn manifest.json matches snapshot 1`] = `
 Object {
-  "app.css": "app.css",
-  "app.js": "app.js",
-  "index.html": "index.html",
+  "app.css": "/app.css",
+  "app.js": "/app.js",
+  "index.html": "/index.html",
 }
 `;

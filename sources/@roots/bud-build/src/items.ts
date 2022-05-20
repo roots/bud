@@ -63,7 +63,12 @@ export const md = (app: Bud) => app.build.makeItem({loader: 'md'})
  * @public
  */
 export const minicss = (app: Bud) =>
-  app.build.makeItem().setLoader(`minicss`)
+  app.build
+    .makeItem()
+    .setLoader(`minicss`)
+    .setOptions(app => ({
+      publicPath: app.hooks.filter('build.output.publicPath'),
+    }))
 
 /**
  * CSS rule which accounts for env

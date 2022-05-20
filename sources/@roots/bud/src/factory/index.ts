@@ -52,12 +52,18 @@ export async function factory(overrides?: Config.Options): Promise<Bud> {
   process.env.BABEL_ENV = project.mode
   process.env.NODE_ENV = project.mode
 
-  project.log({
-    message: `process.env.NODE_ENV: ${process.env.NODE_ENV}`,
-  })
-  project.log({
-    message: `process.env.BABEL_ENV: ${process.env.BABEL_ENV}`,
-  })
+  project
+    .when(
+      project.env.has('APP_PUBLIC_PATH') &&
+        project.env.isString('APP_PUBLIC_PATH'),
+      () => project.setPublicPath(project.env.get('APP_PUBLIC_PATH')),
+    )
+    .log({
+      message: `process.env.NODE_ENV: ${process.env.NODE_ENV}`,
+    })
+    .log({
+      message: `process.env.BABEL_ENV: ${process.env.BABEL_ENV}`,
+    })
 
   return project
 }

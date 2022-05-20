@@ -54,6 +54,21 @@ module.exports = {
     },
     {
       type: 'category',
+      label: 'General use',
+      link: {
+        type: 'doc',
+        id: 'general-use/index',
+      },
+      items: [
+        'general-use/dynamic-imports',
+        'general-use/hashing',
+        'general-use/optimizing',
+        'general-use/multi-compiler',
+        'general-use/transpiler-sources',
+      ],
+    },
+    {
+      type: 'category',
       label: 'CLI',
       link: {
         type: 'doc',
