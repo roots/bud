@@ -36,10 +36,12 @@ export const inject: inject = async (
         if (!entry) return entrypoints
 
         entry.import = Array.from(
-          new Set([
-            ...injection.map(inject => inject(app)),
-            ...(entry.import ?? []),
-          ]),
+          new Set(
+            [
+              ...injection.map(inject => inject(app)),
+              ...(entry.import ?? []),
+            ].filter(Boolean),
+          ),
         )
 
         return {...entrypoints, [name]: entry}
