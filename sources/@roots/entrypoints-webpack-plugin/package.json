@@ -1,7 +1,7 @@
 {
   "name": "@roots/entrypoints-webpack-plugin",
   "description": "Manifest with assets grouped by entrypoint",
-  "version": "0.0.0",
+  "version": "5.8.5",
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
