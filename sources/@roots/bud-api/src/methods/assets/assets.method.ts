@@ -1,7 +1,7 @@
 import type {Bud} from '@roots/bud-framework'
 import CopyPlugin from 'copy-webpack-plugin'
 import {isArray, isString} from 'lodash'
-import {normalize} from 'path'
+import {join, normalize} from 'path'
 
 import type {method} from './assets.interface'
 
@@ -22,7 +22,7 @@ export const assets: method = async function assets(
    * when destructuring bud even though the context of
    * this function will be bound.
    */
-  const ctx = this as Bud
+  const app = this as Bud
 
   /**
    * We know it's not a directory
@@ -46,7 +46,7 @@ export const assets: method = async function assets(
    * Replace a leading dot with the project path
    */
   const fromDotRel = (pattern: string) =>
-    pattern?.startsWith('./') ? pattern.replace('./', ctx.path()) : pattern
+    pattern?.startsWith('./') ? pattern.replace('./', app.path()) : pattern
 
   /**
    * Take an input string and return a {@link CopyPlugin.ObjectPattern}
@@ -64,8 +64,8 @@ export const assets: method = async function assets(
 
     return {
       from,
-      to: ctx.path('@name'),
-      context: ctx.path('@src'),
+      to: app.path('@name'),
+      context: app.path('@src'),
       noErrorOnMissing: true,
     }
   }
@@ -89,8 +89,8 @@ export const assets: method = async function assets(
 
     return {
       from,
-      to,
-      context: ctx.path('@src'),
+      to: join(to, app.path('@name')),
+      context: app.path('@src'),
       noErrorOnMissing: true,
     }
   }
@@ -103,7 +103,7 @@ export const assets: method = async function assets(
   }
 
   if (appearsTupled(request)) {
-    ctx.extensions.get('copy-webpack-plugin').setOptions(options => ({
+    app.extensions.get('copy-webpack-plugin').setOptions(options => ({
       ...(options ?? {}),
       patterns: [
         ...(options?.patterns ?? []),
@@ -111,13 +111,13 @@ export const assets: method = async function assets(
       ],
     }))
 
-    return ctx
+    return app
   }
 
-  ctx.extensions.get('copy-webpack-plugin').setOptions(options => ({
+  app.extensions.get('copy-webpack-plugin').setOptions(options => ({
     ...(options ?? {}),
     patterns: [...(options?.patterns ?? []), ...request.flat().map(parse)],
   }))
 
-  return ctx
+  return app
 }
