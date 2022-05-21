@@ -13,7 +13,7 @@ You may specify a path to a specific file or use glob syntax to match many files
 
 This function is pretty flexible and accepts a few different ways of specifying what you want to copy.
 
-```ts
+```ts title='bud.config.js'
   (
     ...request: Array<
       | string
@@ -41,9 +41,29 @@ Use a single `string` to copy the entire images directory. Relative to source di
 bud.assets('images')
 ```
 
+### Copying using source/destination tuples
+
+You can also specify the source and destination using a tuple.
+
+The first item in each tuple is the source and the second is the destination:
+
+```js title='bud.config.js'
+bud.assets([
+  ['images', 'images'], // @src/images => @dist/images
+  ['fonts', 'fonts'],
+])
+```
+
+```js title='bud.config.js'
+bud.assets([
+  [bud.path('@src/assets/asset.png'), bud.path('@dist/asset.png')],
+  [bud.path('@src/fonts'), bud.path('@dist/fonts')],
+])
+```
+
 ### Copying using an object
 
-You can specify `CopyPlugin.ObjectPattern` object(s) directly:
+You can specify [`CopyPlugin.ObjectPattern`](https://github.com/webpack-contrib/copy-webpack-plugin#patterns) object(s) directly:
 
 ```js title='bud.config.js'
 bud.assets({
@@ -53,25 +73,12 @@ bud.assets({
 })
 ```
 
-### Copying using source/destination tuples
-
-You can use an array of tuples to specify a set of copy jobs.
-
-The first item in each tuple is the source and the second is the destination:
-
-```js title='bud.config.js'
-bud.assets([
-  [bud.path('@src/assets/asset.png'), bud.path('@dist/asset.png')],
-  [bud.path('@src/fonts'), bud.path('@dist/fonts')],
-])
-```
-
 ### Copying from multiple sources
 
 To specify additional copy sources you can add additional parameters.
 
 ```js title='bud.config.js'
-bud.assets('fonts/**/*.woff', 'images')
+bud.assets('fonts', 'images')
 ```
 
 ```js title='bud.config.js'
@@ -118,8 +125,4 @@ if you are referencing a font file from your stylesheet, the font will already b
 in your distribution. You don't need to manually require it with **bud.assets**, although
 there is probably no real harm in doing so.
 
-[bud.assets](/docs/bud.assets) is specifically for compiling files which are not already included elsewhere.
-
-```
-
-```
+**bud.assets** is specifically for compiling files which are not already included elsewhere.

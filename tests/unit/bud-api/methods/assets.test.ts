@@ -32,7 +32,7 @@ describe('bud.assets', function () {
     expect(JSON.stringify(patterns)).toEqual(
       JSON.stringify([
         {
-          from: 'images/**/*',
+          from: 'images',
           to: bud.path('@name'),
           context: bud.path('@src'),
           noErrorOnMissing: true,
@@ -54,13 +54,13 @@ describe('bud.assets', function () {
     expect(JSON.stringify(options.patterns)).toEqual(
       JSON.stringify([
         {
-          from: 'images/**/*',
+          from: 'images',
           to: bud.path('@name'),
           context: bud.path('@src'),
           noErrorOnMissing: true,
         },
         {
-          from: 'fonts/**/*',
+          from: 'fonts',
           to: bud.path('@name'),
           context: bud.path('@src'),
           noErrorOnMissing: true,
@@ -80,10 +80,7 @@ describe('bud.assets', function () {
   it('adds tupled assets', async () => {
     await bud.api.call('assets', [
       [bud.path('@src/images'), bud.path('@dist/images')],
-      [
-        bud.path('@src/fonts/font.woff'),
-        bud.path('@dist/fonts/font.woff'),
-      ],
+      [bud.path('@src/fonts/font.woff')],
     ])
 
     const patterns = bud.extensions
@@ -93,14 +90,14 @@ describe('bud.assets', function () {
     expect(JSON.stringify(patterns)).toEqual(
       JSON.stringify([
         {
-          from: bud.path('@src/images/**/*'),
-          to: bud.path('@dist/images'),
+          from: bud.path('@src/images'),
+          to: bud.path('@dist/images/@name'),
           context: bud.path('@src'),
           noErrorOnMissing: true,
         },
         {
           from: bud.path('@src/fonts/font.woff'),
-          to: bud.path('@dist/fonts/font.woff'),
+          to: bud.path('@name'),
           context: bud.path('@src'),
           noErrorOnMissing: true,
         },
