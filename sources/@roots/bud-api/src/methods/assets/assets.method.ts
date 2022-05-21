@@ -25,24 +25,6 @@ export const assets: method = async function assets(
   const app = this as Bud
 
   /**
-   * We know it's not a directory
-   * - when it ends with a globstar
-   *
-   * We'll say it's a directory when:
-   * - a pattern ends with `/`
-   * - a pattern has segments and it's last path segment does not contain a `.`
-   * - a pattern has no segments and does not contain a dot
-   */
-  const isDirectoryish = (pattern: string) => {
-    if (pattern.includes('*')) return false
-    if (pattern.endsWith('/')) return true
-    if (pattern.includes('/') && !pattern.split('/').pop().includes('.'))
-      return true
-
-    return !pattern.split('/').pop().includes('.')
-  }
-
-  /**
    * Replace a leading dot with the project path
    */
   const fromDotRel = (pattern: string) =>
@@ -58,14 +40,12 @@ export const assets: method = async function assets(
      * - Replace leading dot with project path
      * - Append wildcard glob to directory requests
      */
-    const from = isDirectoryish(input)
-      ? fromDotRel(toWildcard(input))
-      : fromDotRel(input)
+    const from = fromDotRel(input)
 
     return {
-      from,
+      from: from,
       to: app.path('@name'),
-      context: app.path('@src'),
+      context: input.startsWith('/') ? undefined : app.path('@src'),
       noErrorOnMissing: true,
     }
   }
@@ -76,20 +56,20 @@ export const assets: method = async function assets(
    * @param tuple - [origin, destination]
    * @returns
    */
-  const makeFromTo = ([from, to]: [string, string]) => {
+  const makeFromTo = (input: [string, string]) => {
+    let [from, to] = input
+
     /**
      * Process raw user input.
      *
      * - Replace leading dot with project path
      * - Append wildcard glob to directory requests
      */
-    from = isDirectoryish(from)
-      ? fromDotRel(toWildcard(from))
-      : fromDotRel(from)
+    from = fromDotRel(from)
 
     return {
       from,
-      to: join(to, app.path('@name')),
+      to: to ? join(to, app.path('@name')) : app.path('@name'),
       context: app.path('@src'),
       noErrorOnMissing: true,
     }
