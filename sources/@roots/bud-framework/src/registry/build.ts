@@ -17,6 +17,7 @@ export interface Sync {
   'build.entry': Record<string, EntryObject>
   'build.experiments': Configuration['experiments']
   'build.externals': Configuration['externals']
+  'build.externalsType': Configuration['externalsType']
   'build.infrastructureLogging': Configuration['infrastructureLogging']
   'build.infrastructureLogging.level': Configuration['infrastructureLogging']['level']
   'build.infrastructureLogging.console': Configuration['infrastructureLogging']['console']
@@ -43,7 +44,9 @@ export interface Sync {
   'build.output.assetModuleFilename': Configuration['output']['assetModuleFilename']
   'build.output.chunkFilename': Configuration['output']['chunkFilename']
   'build.output.clean': Configuration['output']['clean']
+  'build.output.environment': Configuration['output']['environment']
   'build.output.filename': Configuration['output']['filename']
+  'build.output.module': Configuration['output']['module']
   'build.output.path': Configuration['output']['path']
   'build.output.pathinfo': Configuration['output']['pathinfo']
   'build.output.publicPath': string
@@ -63,5 +66,6 @@ export interface Async {
   'build.plugins': Array<Extension.PluginInstance>
   'build.resolve': Configuration['resolve']
   'build.resolve.alias': Configuration['resolve']['alias']
+  'build.resolve.aliasFields': Configuration['resolve']['aliasFields']
   'build.resolve.modules': Configuration['resolve']['modules']
 }

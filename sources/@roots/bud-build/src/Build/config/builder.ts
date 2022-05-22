@@ -19,6 +19,7 @@ export async function build(app: Bud): Promise<void> {
     .on('build.bail', () => app.isProduction)
     .hooks.on('build.cache', () => app.cache.configuration)
     .hooks.on('build.context', () => app.context.projectDir)
+    .hooks.on('build.externalsType', 'var')
     .hooks.on('build.infrastructureLogging', () => ({
       console: app.hooks.filter('build.infrastructureLogging.console'),
       level: app.hooks.filter('build.infrastructureLogging.level'),
@@ -46,7 +47,9 @@ export async function build(app: Bud): Promise<void> {
       ),
       chunkFilename: app.hooks.filter('build.output.chunkFilename'),
       clean: app.hooks.filter('build.output.clean'),
+      environment: app.hooks.filter('build.output.environment'),
       filename: app.hooks.filter('build.output.filename'),
+      module: app.hooks.filter('build.output.module'),
       path: app.hooks.filter('build.output.path'),
       pathinfo: app.hooks.filter('build.output.pathinfo'),
       publicPath: app.hooks.filter('build.output.publicPath'),

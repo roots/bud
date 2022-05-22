@@ -78,10 +78,10 @@ export class Extension<E = any, Plugin = any> {
   @bind
   public async _beforeBuild?() {
     if (this.beforeBuild) {
-      this.app.hooks.action(
-        'event.build.before',
-        async () => await this.beforeBuild(this.options, this.app),
-      )
+      this.app.hooks.action('event.build.before', async () => {
+        const enabled = await this.isEnabled()
+        enabled && this.beforeBuild(this.options, this.app)
+      })
     }
   }
   public async beforeBuild?(

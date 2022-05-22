@@ -1,5 +1,6 @@
 import type {Build} from '@roots/bud-framework'
 
+import type BudHttp from './extensions/bud-http-extension'
 import type BudClean from './extensions/clean-webpack-plugin'
 import type BudCopy from './extensions/copy-webpack-plugin'
 import type BudMiniCss from './extensions/mini-css-extract-plugin'
@@ -9,7 +10,12 @@ import type BudManifest from './extensions/webpack-manifest-plugin'
 import type BudProvide from './extensions/webpack-provide-plugin'
 
 declare module '@roots/bud-framework' {
+  interface Bud {
+    http: BudHttp
+  }
+
   interface Modules {
+    'bud-http-extension': BudHttp
     'webpack:define-plugin': BudDefine
     'webpack:provide-plugin': BudProvide
     'webpack:hot-module-replacement-plugin': BudHMR

@@ -78,6 +78,7 @@ export class Build extends Bud.Service implements Bud.Build.Service {
         ['devtool'],
         ['experiments'],
         ['externals'],
+        ['externalsType'],
         ['infrastructureLogging'],
         ['loader'],
         ['mode'],
