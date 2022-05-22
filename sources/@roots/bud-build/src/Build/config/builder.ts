@@ -20,6 +20,27 @@ export async function build(app: Bud): Promise<void> {
     .hooks.on('build.cache', () => app.cache.configuration)
     .hooks.on('build.context', () => app.context.projectDir)
     .hooks.on('build.externalsType', 'var')
+    .hooks.on('build.experiments', () => ({
+      asyncWebAssembly: app.hooks.filter(
+        'build.experiments.asyncWebAssembly',
+      ),
+      backCompat: app.hooks.filter('build.experiments.backCompat'),
+      buildHttp: app.hooks.filter('build.experiments.buildHttp'),
+      cacheUnaffected: app.hooks.filter(
+        'build.experiments.cacheUnaffected',
+      ),
+      css: app.hooks.filter('build.experiments.css'),
+      futureDefaults: app.hooks.filter('build.experiments.futureDefaults'),
+      layers: app.hooks.filter('build.experiments.layers'),
+      lazyCompilation: app.hooks.filter(
+        'build.experiments.lazyCompilation',
+      ),
+      topLevelAwait: app.hooks.filter('build.experiments.topLevelAwait'),
+      outputModule: app.hooks.filter('build.experiments.outputModule'),
+      syncWebAssembly: app.hooks.filter(
+        'build.experiments.syncWebAssembly',
+      ),
+    }))
     .hooks.on('build.infrastructureLogging', () => ({
       console: app.hooks.filter('build.infrastructureLogging.console'),
       level: app.hooks.filter('build.infrastructureLogging.level'),

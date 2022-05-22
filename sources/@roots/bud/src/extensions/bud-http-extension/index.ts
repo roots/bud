@@ -24,7 +24,7 @@ export interface Options {
 @label('bud-http')
 @expose('http')
 @options<Options>({
-  allowedUris: () => [(uri: string) => true],
+  allowedUris: () => ['https://cdn.skypack.dev/'],
   cacheLocation: () => (app: Bud) =>
     app.path('@storage', app.name, 'bud.lock.cache'),
   frozen: () => false,
@@ -208,16 +208,13 @@ export default class Http extends Extension<Options, null> {
    */
   @bind
   public async beforeBuild() {
-    this.app.hooks.on('build.experiments', experiments => ({
-      ...(experiments ?? {}),
-      buildHttp: {
-        allowedUris: this.allowedUris,
-        cacheLocation: this.cacheLocation,
-        frozen: this.frozen,
-        lockfileLocation: this.lockfileLocation,
-        proxy: this.proxy,
-        upgrade: this.upgrade,
-      },
+    this.app.hooks.on('build.experiments.buildHttp', () => ({
+      allowedUris: this.allowedUris,
+      cacheLocation: this.cacheLocation,
+      frozen: this.frozen,
+      lockfileLocation: this.lockfileLocation,
+      proxy: this.proxy,
+      upgrade: this.upgrade,
     }))
   }
 
