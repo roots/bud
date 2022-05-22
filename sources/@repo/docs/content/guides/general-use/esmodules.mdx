@@ -1,0 +1,83 @@
+---
+title: ES Modules
+description: Bundling esmodules
+slug: esm
+sidebar_label: Dynamic imports
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+To output `esm`, you may call
+
+```ts
+app.esm.enable()
+```
+
+Or, set the `build` command's `--esm` flag:
+
+```sh
+bud build --esm
+```
+
+Once set packages can be listed in the `imports` field of `package.json`:
+
+```json
+{
+  // ...
+
+  "imports": {
+    "alpinejs": "https://cdn.skypack.dev/alpinejs",
+    "animejs": "https://cdn.skypack.dev/animejs",
+    "axios": "https://cdn.skypack.dev/axios"
+  }
+}
+```
+
+Imports of these packages will be resolved to the specified URL. This structure
+allows you to use es modules without touching application code.
+
+```ts title="app.ts"
+import Alpine from 'alpinejs' // resolves to `https://cdn.skypack.dev/alpinejs`
+
+window.Alpine = Alpine
+```
+
+## Building http modules
+
+You can build remote packages at compile time, cache the results and even
+generate a lockfile to guarantee deployed code matches your dev environment.
+
+To enable this feature you may call
+
+```ts
+app.build.enable()
+```
+
+Or, set the `build` command's `--buildHttp` flag.
+
+This will generates some additional files in your storage directory. You will
+want to add these files to version control:
+
+```gitignore title=".gitignore"
+!.budfiles/bud/bud.lock
+!.budfiles/bud/bud.lock.cache
+```
+
+When deploying you can use the `--freeze` flag to ensure dependencies are correct.
+`--freeze` will fail if the above files are not available, which is why they must
+be added to version control.
+
+Now any remote imports will be served from the bundle.
+
+Take note that any packages listed under `imports` in `package.json` will still be resolved to the remote resource, so
+you must import from the full URL when using this method:
+
+```ts title="app.js"
+import Alpine from 'https://cdn.skypack.dev/alpinejs'
+
+window.Alpine = Alpine
+```
+
+If you mix-and-match approaches you may end up forcing users to download two copies of the script.
+If using `--buildHttp` it is best to go all-in and avoid using the `imports` mapping entirely.
