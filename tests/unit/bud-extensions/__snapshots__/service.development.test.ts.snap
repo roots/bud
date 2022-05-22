@@ -8,6 +8,8 @@ Array [
   "@roots/bud-postcss",
   "@roots/bud-preset-recommend",
   "@roots/bud-tailwindcss",
+  "bud-esm",
+  "bud-http",
   "clean-webpack-plugin",
   "copy-webpack-plugin",
   "mini-css-extract-plugin",
