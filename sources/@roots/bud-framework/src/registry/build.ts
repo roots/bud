@@ -8,14 +8,33 @@ export interface Sync {
   'build.cache': any
   'build.cache.buildDependencies': Record<string, Array<string>>
   'build.cache.cacheDirectory': string
-  'build.cache.name': string
-  'build.cache.version': string
-  'build.cache.type': 'memory' | 'filesystem'
   'build.cache.managedPaths': Array<string>
+  'build.cache.name': string
+  'build.cache.type': 'memory' | 'filesystem'
+  'build.cache.version': string
   'build.context': Configuration['context']
   'build.devtool': Configuration['devtool']
   'build.entry': Record<string, EntryObject>
   'build.experiments': Configuration['experiments']
+  'build.experiments.asyncWebAssembly': Configuration['experiments']['asyncWebAssembly']
+  'build.experiments.backCompat': Configuration['experiments']['backCompat']
+  'build.experiments.buildHttp': Configuration['experiments']['buildHttp']
+  'build.experiments.buildHttp.allowedUris': Array<
+    (uri: string) => boolean
+  >
+  'build.experiments.buildHttp.cacheLocation': string
+  'build.experiments.buildHttp.frozen': boolean
+  'build.experiments.buildHttp.lockfileLocation': string
+  'build.experiments.buildHttp.proxy': string
+  'build.experiments.buildHttp.upgrade': boolean
+  'build.experiments.cacheUnaffected': Configuration['experiments']['cacheUnaffected']
+  'build.experiments.css': Configuration['experiments']['css']
+  'build.experiments.lazyCompilation': Configuration['experiments']['lazyCompilation']
+  'build.experiments.futureDefaults': Configuration['experiments']['futureDefaults']
+  'build.experiments.layers': Configuration['experiments']['layers']
+  'build.experiments.syncWebAssembly': Configuration['experiments']['syncWebAssembly']
+  'build.experiments.topLevelAwait': Configuration['experiments']['topLevelAwait']
+  'build.experiments.outputModule': Configuration['experiments']['outputModule']
   'build.externals': Configuration['externals']
   'build.externalsType': Configuration['externalsType']
   'build.infrastructureLogging': Configuration['infrastructureLogging']
