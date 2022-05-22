@@ -43,6 +43,8 @@ export interface Sync {
   'build.output': Configuration['output']
   'build.output.assetModuleFilename': Configuration['output']['assetModuleFilename']
   'build.output.chunkFilename': Configuration['output']['chunkFilename']
+  'build.output.chunkFormat': Configuration['output']['chunkFormat']
+  'build.output.chunkLoading': Configuration['output']['chunkLoading']
   'build.output.clean': Configuration['output']['clean']
   'build.output.environment': Configuration['output']['environment']
   'build.output.filename': Configuration['output']['filename']
