@@ -31,10 +31,8 @@ export const config = async (command: BuildCommand) => {
   }
 
   if (!isUndefined(command.buildHttp)) {
-    command.app.esm.enable()
     command.app.http.enable()
     Object.entries(command.app.children).map(([_name, child]) => {
-      child.esm.enable()
       child.http.enable()
     })
   }
