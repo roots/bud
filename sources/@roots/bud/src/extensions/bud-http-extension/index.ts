@@ -208,22 +208,17 @@ export default class Http extends Extension<Options, null> {
    */
   @bind
   public async beforeBuild() {
-    this.app.hooks
-      .on('build.experiments', experiments => ({
-        ...(experiments ?? {}),
-        buildHttp: {
-          allowedUris: this.allowedUris,
-          cacheLocation: this.cacheLocation,
-          frozen: this.frozen,
-          lockfileLocation: this.lockfileLocation,
-          proxy: this.proxy,
-          upgrade: this.upgrade,
-        },
-        outputModule: true,
-      }))
-      .hooks.on('build.output.environment', {module: true})
-      .hooks.on('build.output.module', true)
-      .hooks.on('build.externalsType', 'module')
+    this.app.hooks.on('build.experiments', experiments => ({
+      ...(experiments ?? {}),
+      buildHttp: {
+        allowedUris: this.allowedUris,
+        cacheLocation: this.cacheLocation,
+        frozen: this.frozen,
+        lockfileLocation: this.lockfileLocation,
+        proxy: this.proxy,
+        upgrade: this.upgrade,
+      },
+    }))
   }
 
   /**

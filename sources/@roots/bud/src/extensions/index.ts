@@ -1,5 +1,6 @@
 import {Config} from '@roots/bud-framework'
 
+import BudESMExtension from './bud-esm-extension'
 import BudHttpExtension from './bud-http-extension'
 import CleanWebpackPlugin from './clean-webpack-plugin'
 import CopyWebpackPlugin from './copy-webpack-plugin'
@@ -18,6 +19,7 @@ import RemoveEmptyScriptsPlugin from './webpack-remove-empty-scripts'
  * @public
  */
 export const extensions: Config.Options['extensions'] = [
+  BudESMExtension,
   BudHttpExtension,
   ProvidePlugin,
   DefineWebpackPlugin,

@@ -1,5 +1,6 @@
 import type {Build} from '@roots/bud-framework'
 
+import type BudEsm from './extensions/bud-esm-extension'
 import type BudHttp from './extensions/bud-http-extension'
 import type BudClean from './extensions/clean-webpack-plugin'
 import type BudCopy from './extensions/copy-webpack-plugin'
@@ -11,6 +12,7 @@ import type BudProvide from './extensions/webpack-provide-plugin'
 
 declare module '@roots/bud-framework' {
   interface Bud {
+    esm: BudEsm
     http: BudHttp
   }
 
