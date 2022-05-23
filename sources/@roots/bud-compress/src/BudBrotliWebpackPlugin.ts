@@ -4,7 +4,7 @@ import {
   label,
   plugin,
 } from '@roots/bud-framework/src/extension/decorators'
-import * as Plugin from 'compression-webpack-plugin'
+import Plugin from 'compression-webpack-plugin'
 
 import {BudCompressionExtension} from './'
 
@@ -42,10 +42,7 @@ class BudBrotliWebpackPlugin extends Extension<
   ): Promise<Bud> {
     this.app.hooks.on('feature.brotli', true)
 
-    options &&
-      this.app.extensions
-        .get('compression-webpack-plugin-brotli')
-        .setOptions(options)
+    options && this.setOptions(options)
 
     return this.app
   }

@@ -1,5 +1,7 @@
-import {Bud, Extension} from '@roots/bud-framework'
-import * as Plugin from 'compression-webpack-plugin'
+import {Bud} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
+import {bind} from '@roots/bud-framework/extension/decorators'
+import Plugin from 'compression-webpack-plugin'
 
 import {BudCompressionExtension} from './'
 
@@ -29,19 +31,20 @@ class BudGzipWebpackPlugin extends Extension<
     return this.app.hooks.filter('feature.gzip')
   }
 
+  @bind
   public async register() {
-    this.app.api.bindFacade('gzip', function (options) {
-      const app = this as Bud
+    this.app.api.bindFacade('gzip', this.config)
+  }
 
-      this.app.hooks.on('feature.gzip', true)
+  @bind
+  public async config(
+    options: BudCompressionExtension.Options,
+  ): Promise<Bud> {
+    this.app.hooks.on('feature.gzip', true)
 
-      if (options)
-        app.extensions
-          .get('compression-webpack-plugin-gzip')
-          .setOptions(options)
+    options && this.setOptions(options)
 
-      return app
-    })
+    return this.app
   }
 }
 
