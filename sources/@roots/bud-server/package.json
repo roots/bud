@@ -87,6 +87,6 @@
     "querystring": "^0.2.0",
     "strip-ansi": "^7.0.0",
     "tslib": "2.4.0",
-    "webpack-dev-middleware": "5.3.1"
+    "webpack-dev-middleware": "5.3.3"
   }
 }
