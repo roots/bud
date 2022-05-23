@@ -59,7 +59,7 @@
     "webpack": "5.72.1"
   },
   "dependencies": {
-    "esbuild-loader": "2.18.0",
+    "esbuild-loader": "2.19.0",
     "tslib": "2.4.0"
   },
   "peerDependencies": {
