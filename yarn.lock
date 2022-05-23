@@ -3700,7 +3700,7 @@ __metadata:
     http-proxy-middleware: 2.0.6
     tslib: 2.4.0
     webpack: 5.72.1
-    webpack-dev-middleware: 5.3.1
+    webpack-dev-middleware: 5.3.3
     webpack-hot-middleware: 2.25.1
   languageName: unknown
   linkType: soft
@@ -3991,7 +3991,7 @@ __metadata:
     strip-ansi: ^7.0.0
     tslib: 2.4.0
     webpack: 5.72.1
-    webpack-dev-middleware: 5.3.1
+    webpack-dev-middleware: 5.3.3
   languageName: unknown
   linkType: soft
 
@@ -15797,12 +15797,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"memfs@npm:^3.1.2, memfs@npm:^3.4.1":
-  version: 3.4.1
-  resolution: "memfs@npm:3.4.1"
+"memfs@npm:^3.1.2, memfs@npm:^3.4.1, memfs@npm:^3.4.3":
+  version: 3.4.3
+  resolution: "memfs@npm:3.4.3"
   dependencies:
     fs-monkey: 1.0.3
-  checksum: 6d2f49d447d1be24ff9c747618933784eeb059189bc6a0d77b7a51c7daf06e2d3a74674a2e2ff1520e2c312bf91e719ed37144cf05087379b3ba0aef0b6aa062
+  checksum: c947ef46e2036524ba120cb42fa502fd75dae8d49d0c53e818d3d3780b9a3a47845705cd1cf51eec04c70f1db590ca7b6c7f78dd5a65883bb253fcedf86f412c
   languageName: node
   linkType: hard
 
@@ -23522,18 +23522,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack-dev-middleware@npm:5.3.1, webpack-dev-middleware@npm:^5.3.1":
-  version: 5.3.1
-  resolution: "webpack-dev-middleware@npm:5.3.1"
+"webpack-dev-middleware@npm:5.3.3, webpack-dev-middleware@npm:^5.3.1":
+  version: 5.3.3
+  resolution: "webpack-dev-middleware@npm:5.3.3"
   dependencies:
     colorette: ^2.0.10
-    memfs: ^3.4.1
+    memfs: ^3.4.3
     mime-types: ^2.1.31
     range-parser: ^1.2.1
     schema-utils: ^4.0.0
   peerDependencies:
     webpack: ^4.0.0 || ^5.0.0
-  checksum: 32e36b5893dde4107e5bb758afdc7fc61fd238a62635cb2964ed6b61e363793275a40870479daeae3fa3b87678c1311f44ba7492f6ebf30fe9360f2aab30bae1
+  checksum: dd332cc6da61222c43d25e5a2155e23147b777ff32fdf1f1a0a8777020c072fbcef7756360ce2a13939c3f534c06b4992a4d659318c4a7fe2c0530b52a8a6621
   languageName: node
   linkType: hard
 
