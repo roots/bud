@@ -74,7 +74,7 @@
   "dependencies": {
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "copy-webpack-plugin": "11.0.0",
-    "css-minimizer-webpack-plugin": "3.4.1",
+    "css-minimizer-webpack-plugin": "4.0.0",
     "html-webpack-plugin": "5.5.0",
     "tslib": "2.4.0"
   }
