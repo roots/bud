@@ -11,10 +11,10 @@ You can use **bud.path** to reference a file or directory's absolute path.
 ## Usage
 
 ```ts
-bud.path('src/scripts/components')
+bud.path('@src/scripts/components')
 ```
 
-If you like you can use `./` to make these references clearer:
+If you like you can use `./` to reference project root:
 
 ```ts
 bud.path('./src/scripts/components')
@@ -23,7 +23,7 @@ bud.path('./src/scripts/components')
 You may also choose to deliniate directories with an `Array` of path segments, rather than a `String`:
 
 ```ts
-bud.path('src', 'scripts', 'components')
+bud.path('@src', 'scripts', 'components')
 ```
 
 ## Special path handles
@@ -40,7 +40,7 @@ The following is a table containing `String` values which fulfill a special role
 When one of these handles is used at **the beginning of a path**, the path will be
 prefixed with the corresponding directory.
 
-For example, to reference the `@src` directory:
+For example, to reference the `./src` directory:
 
 ```ts
 bud.path('@src/scripts/components')
