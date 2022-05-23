@@ -11,10 +11,10 @@ body:
         If you have a general question or you're looking for support, please visit [Roots Discourse](https://discourse.roots.io/).
 
         Please attempt the following before filing an issue:
-          - Run bud using the `--no-cache` flag to force modules to recompile from scratch.
-          - Run `bud clean` to remove any stale `.budfiles`.
-          - Run `yarn build` again (even if your problem is not related to the `build` command). This will ensure any submitted files are pertitent to your issue.
-          - If, at this point, `.budfiles/bud/profile.json` or `.budfiles/bud/webpack.config.js` have been emitted, please include them in your issue.
+          - Ensure all `@roots/` packages are using the same version, and are up-to-date.
+          - Run `bud clean` to remove any stale files.
+          - Run bud using the `--no-cache` flag.
+          - If `.budfiles/bud/profile.json` or `.budfiles/bud/webpack.config.js` have been emitted, please include them in your issue.
 
   - type: checkboxes
     id: terms
@@ -73,7 +73,7 @@ body:
       label: What package manager are you using?
       options:
         - yarn classic
-        - yarn berry
+        - yarn 3
         - npm
     validations:
       required: true
