@@ -131,7 +131,7 @@ export class Project
             )
 
           const hasCondition = (condition: string) =>
-            filePath.includes(condition)
+            filePath.split('/').pop().includes(condition)
 
           const hasExtension = (extension: string) =>
             filePath.endsWith(extension)
