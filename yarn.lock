@@ -3417,7 +3417,7 @@ __metadata:
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
     "@types/node": 16.11.36
-    copy-webpack-plugin: 10.2.4
+    copy-webpack-plugin: 11.0.0
     css-minimizer-webpack-plugin: 3.4.1
     html-webpack-plugin: 5.5.0
     tslib: 2.4.0
@@ -4074,7 +4074,7 @@ __metadata:
     chalk: 5.0.1
     chokidar: 3.5.3
     cli-highlight: 2.1.11
-    copy-webpack-plugin: 10.2.4
+    copy-webpack-plugin: 11.0.0
     cosmiconfig: 7.0.1
     dotenv: 16.0.1
     dotenv-expand: 8.0.3
@@ -4282,7 +4282,7 @@ __metadata:
     "@types/node-notifier": 8.0.2
     clean-webpack-plugin: ^4.0.0
     clipanion: 3.2.0-rc.11
-    copy-webpack-plugin: ^10.0.0
+    copy-webpack-plugin: ^11.0.0
     html-webpack-plugin: ^5.5.0
     mini-css-extract-plugin: ^2.4.5
     node-notifier: 10.0.1
@@ -8871,7 +8871,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"copy-webpack-plugin@npm:10.2.4, copy-webpack-plugin@npm:^10.0.0, copy-webpack-plugin@npm:^10.2.4":
+"copy-webpack-plugin@npm:11.0.0, copy-webpack-plugin@npm:^11.0.0":
+  version: 11.0.0
+  resolution: "copy-webpack-plugin@npm:11.0.0"
+  dependencies:
+    fast-glob: ^3.2.11
+    glob-parent: ^6.0.1
+    globby: ^13.1.1
+    normalize-path: ^3.0.0
+    schema-utils: ^4.0.0
+    serialize-javascript: ^6.0.0
+  peerDependencies:
+    webpack: ^5.1.0
+  checksum: df4f8743f003a29ee7dd3d9b1789998a3a99051c92afb2ba2203d3dacfa696f4e757b275560fafb8f206e520a0aa78af34b990324a0e36c2326cefdeef3ca82e
+  languageName: node
+  linkType: hard
+
+"copy-webpack-plugin@npm:^10.2.4":
   version: 10.2.4
   resolution: "copy-webpack-plugin@npm:10.2.4"
   dependencies:
@@ -12220,7 +12236,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"globby@npm:13.1.1":
+"globby@npm:13.1.1, globby@npm:^13.1.1":
   version: 13.1.1
   resolution: "globby@npm:13.1.1"
   dependencies:
