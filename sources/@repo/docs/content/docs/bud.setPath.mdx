@@ -6,38 +6,90 @@ sidebar_label: bud.setPath
 image: 'https://bud.js.org/img/share/docs/bud.setPath.png'
 ---
 
-Configures registered project paths.
-
-Once set, this directory may be utilitized using [bud.path](/docs/bud.path).
-
-## Params
-
-The first is a location registered with the framework:
-
-- `project`
-- `src`
-- `dist`
-- `storage`
-
-It is possible for extensions to register additional locations.
-
-- The second is the path being assigned to this location. If `project` is being defined this path should be absolute. All other paths should be supplied as relative to `project`.
-
-Alternatively, this function may also accept a key-value object, so that multiple locations can be defined at once.
+You can use **bud.setPath** to set a [bud.path](/docs/bud.path) handle.
 
 ## Usage
 
-Define the `src` directory as `scripts` (relative to project root).
-
-```js
-bud.setPath('src', 'scripts')
+```ts
+bud.path('@src/scripts/components')
 ```
 
-Define both the `src` and `dist` directories in one call:
+Use `./` to reference project root:
 
-```js
+```ts
+bud.path('./src/scripts/components')
+```
+
+You may deliniate directories with an `Array` of path segments, rather than a `String`:
+
+```ts
+bud.path('@src', 'scripts', 'components')
+```
+
+## Special path handles
+
+The following is a table containing `String` values which fulfill a special role in the context of the **bud.path** function:
+
+| handle       | description                      | default          |
+| ------------ | -------------------------------- | ---------------- |
+| **@src**     | source directory                 | `./src`          |
+| **@dist**    | destination directory            | `./dist`         |
+| **@storage** | cache/artifact storage directory | `./.budfiles`    |
+| **@modules** | modules directory                | `./node_modules` |
+
+When one of these handles is used at **the beginning of a path**, the path will be
+prefixed with the corresponding directory.
+
+For example, to reference the `@src` directory:
+
+```ts
+bud.path('@src/scripts/components')
+```
+
+You can create your own handles for use in the **bud.path** function. But, the handles in this table are standard.
+Other parts of the bud.js framework or ecosystem may use these handles to reference project directories.
+So, while they may be freely modified as needed, they should not be removed.
+
+### `@file` handle
+
+You may use `@file` anywhere in a bud path to reference the an output filename.
+
+By default the string will resolve to either `[path][name].[contenthash:6][ext]` or `[path][name][ext]`, depending on if hashing is enabled.
+
+### `@name` handle
+
+To reference only the filename, you may use `@name` instead of `@file`.
+
+## Managing **bud.path** handles
+
+**bud.setPath** is used to add or modify path handles. There are only two real rules for path handles:
+
+- A path handle must be unique
+- A path handle must be a `String` which begins with a `@`
+
+To make a reference to the `./src/scripts/components` directory we could write:
+
+```ts
+bud.setPath('@components', '@src/scripts/components')
+```
+
+In the future we can utilize that reference:
+
+```ts
+bud.path('@components') // => './src/scripts/components'
+```
+
+We can redefine the path to source assets like so:
+
+```ts
+bud.setPath('@src', 'sources')
+```
+
+Lastly, we can define multiple paths in a single call by using an object:
+
+```ts
 bud.setPath({
-  src: 'scripts',
-  dist: 'public',
+  '@src': 'sources',
+  '@components': '@src/scripts/components',
 })
 ```
