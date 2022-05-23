@@ -30,37 +30,50 @@
     "node": ">=14"
   },
   "files": [
-    "eslint-config/",
     "lib/",
-    "types/",
-    "template/"
+    "types/"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    ".": "./lib/cjs/index.js",
-    "./eslint-config": "./eslint-config/index.js"
+    ".": {
+      "require": "./lib/cjs/index.js"
+    },
+    "./extension": {
+      "require": "./lib/cjs/extension.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./types/index.d.ts"
+      ],
+      "extension": [
+        "./types/extension.d.ts"
+      ],
+      "env": [
+        "./types/env.d.ts"
+      ]
+    }
   },
   "bud": {
     "type": "extension"
   },
   "devDependencies": {
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@skypack/package-check": "0.2.2",
-    "@types/lodash": "4.14.180",
-    "@types/node": "16.11.26",
-    "webpack": "5.70.0"
+    "@types/lodash": "4.14.182",
+    "@types/node": "16.11.36",
+    "webpack": "5.72.1"
   },
   "dependencies": {
-    "@babel/eslint-parser": "^7.16.5",
-    "eslint": "8.11.0",
-    "eslint-plugin-import": "^2.25.3",
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "eslint": "8.15.0",
     "eslint-webpack-plugin": "^3.1.1",
-    "tslib": "^2.3.1"
+    "tslib": "2.4.0"
   },
   "peerDependencies": {
-    "eslint": "^8.6.0"
+    "eslint": "*"
   },
   "peerDependenciesMeta": {
     "eslint": {

@@ -34,6 +34,9 @@
   "engines": {
     "node": ">=14"
   },
+  "bud": {
+    "type": "extension"
+  },
   "files": [
     "lib/",
     "types/"
@@ -42,21 +45,11 @@
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    ".": {
-      "require": "./lib/cjs/index.js"
-    },
-    "./eslint-config": {
-      "require": "./eslint-config/index.js"
-    },
-    "./extension": {
-      "require": "./lib/cjs/extension.js"
-    },
-    "./react-refresh": {
-      "require": "./lib/cjs/react-refresh/index.js"
-    },
-    "./react-refresh/*": {
-      "require": "./lib/cjs/react-refresh/*.js"
-    }
+    ".": "./lib/cjs/index.js",
+    "./eslint-config": "./eslint-config/index.js",
+    "./extension": "./lib/cjs/extension.js",
+    "./react-refresh": "./lib/cjs/react-refresh/index.js",
+    "./react-refresh/*": "./lib/cjs/react-refresh/*.js"
   },
   "typesVersions": {
     "*": {
@@ -74,34 +67,29 @@
       ]
     }
   },
-  "bud": {
-    "type": "extension",
-    "peers": [
-      "@roots/bud-babel"
-    ]
-  },
   "devDependencies": {
-    "@babel/core": "7.17.8",
+    "@babel/core": "7.17.12",
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
-    "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@skypack/package-check": "0.2.2",
-    "@types/babel__core": "7.1.18",
-    "@types/node": "16.11.26",
-    "@types/react": "17.0.41",
-    "@types/react-dom": "17.0.14",
-    "type-fest": "2.12.1",
-    "webpack": "5.70.0"
+    "@types/babel__core": "7.1.19",
+    "@types/node": "16.11.36",
+    "@types/react": "17.0.45",
+    "@types/react-dom": "17.0.17",
+    "type-fest": "2.12.2",
+    "webpack": "5.72.1"
   },
   "dependencies": {
     "@babel/plugin-syntax-jsx": "^7.16.0",
     "@babel/preset-react": "^7.16.0",
-    "@pmmmwh/react-refresh-webpack-plugin": "0.5.4",
+    "@pmmmwh/react-refresh-webpack-plugin": "0.5.7",
+    "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hot-loader": "^4.13.0",
-    "react-refresh": "^0.11.0",
-    "tslib": "2.3.1"
+    "react-refresh": "^0.13.0",
+    "tslib": "2.4.0"
   },
   "peerDependencies": {
     "react": "^17.0.2",

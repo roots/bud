@@ -1,8 +1,8 @@
 ---
 title: Filename hashing
 description: Enable or disable filename hashing of built assets.
+slug: hashing
 sidebar_label: Filename hashing
-image: 'https://bud.js.org/img/share/guides/general-use__hashing.png'
 ---
 
 import Tabs from '@theme/Tabs'
@@ -29,9 +29,9 @@ module.exports = bud => bud.hash()
   <TabItem value="ts">
 
 ```ts bud.config.ts
-import type {Framework} from '@roots/bud'
+import type {Bud} from '@roots/bud'
 
-export default (bud: Framework) => bud.hash()
+export default (bud: Bud) => bud.hash()
 ```
 
   </TabItem>

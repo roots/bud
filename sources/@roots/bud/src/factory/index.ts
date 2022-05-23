@@ -1,8 +1,10 @@
+import {Config} from '@roots/bud-framework'
+
 import {Bud} from '../Bud'
 import {makeContext} from '../context'
+import {extensions} from '../extensions'
 import {seed} from '../seed'
 import {services} from '../services'
-import {Options} from './options'
 
 /**
  * Create a {@link Bud} instance programatically
@@ -23,10 +25,10 @@ import {Options} from './options'
  *
  * @public
  */
-export async function factory(overrides?: Options): Promise<Bud> {
+export async function factory(overrides?: Config.Options): Promise<Bud> {
   const context = await makeContext()
 
-  const options: Options = {
+  const options: Config.Options = {
     name: 'bud',
     mode: 'production',
     ...(overrides ?? {}),
@@ -34,36 +36,34 @@ export async function factory(overrides?: Options): Promise<Bud> {
       ...context,
       ...(overrides?.context ?? {}),
     },
+    seed: {
+      ...seed,
+      ...(overrides?.seed ?? {}),
+    },
     services: {
       ...services,
       ...(overrides?.services ?? {}),
     },
-    config: {
-      ...seed,
-      ...(overrides?.config ?? {}),
-      location: {
-        ...seed.location,
-        ...(overrides?.config?.location ?? {}),
-      },
-    },
+    extensions: [...(extensions ?? []), ...(overrides?.extensions ?? [])],
   }
 
-  const project = new Bud(options)
+  const project = await new Bud().lifecycle(options)
 
   process.env.BABEL_ENV = project.mode
   process.env.NODE_ENV = project.mode
 
-  project.time(project.name)
+  project
+    .when(
+      project.env.has('APP_PUBLIC_PATH') &&
+        project.env.isString('APP_PUBLIC_PATH'),
+      () => project.setPublicPath(project.env.get('APP_PUBLIC_PATH')),
+    )
+    .log({
+      message: `process.env.NODE_ENV: ${process.env.NODE_ENV}`,
+    })
+    .log({
+      message: `process.env.BABEL_ENV: ${process.env.BABEL_ENV}`,
+    })
 
-  project.log({
-    message: 'process.env.NODE_ENV',
-    suffix: process.env.NODE_ENV,
-  })
-  project.log({
-    message: 'process.env.BABEL_ENV',
-    suffix: process.env.NODE_ENV,
-  })
-
-  await project.lifecycle()
   return project
 }

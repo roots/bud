@@ -1,27 +1,26 @@
-import {Hooks as Contract, Service} from '@roots/bud-framework'
+import {Services} from '@roots/bud-framework'
 import {Hooks as Base} from '@roots/bud-hooks'
-
-import {Bud} from '../../Bud'
+import {bind} from '@roots/bud-support'
 
 /**
  * Hooks service
  *
  * @public
  */
-export class Hooks extends Base implements Contract, Service {
+export class Hooks extends Base implements Services.Hooks.Service {
   /**
-   * Service identifier
+   * Bootstrap service
    *
-   * @internal
+   * @public
+   * @decorator `@bind`
    */
-  public ident: string = 'hooks'
-
-  public constructor(bud: Bud) {
-    super(bud)
-
-    this.on('location.@src', this.app.store.get('location.@src'))
-    this.on('location.@dist', this.app.store.get('location.@dist'))
-    this.on('location.@storage', this.app.store.get('location.@storage'))
-    this.on('location.@modules', this.app.store.get('location.@modules'))
+  @bind
+  public async bootstrapped() {
+    this.async('build.resolve.alias', async () => ({
+      '@src': this.app.path('@src'),
+      '@dist': this.app.path('@dist'),
+    }))
+    this.on('build.bail', () => this.app.isProduction)
+    this.on('build.context', () => this.app.context.projectDir)
   }
 }

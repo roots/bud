@@ -1,13 +1,10 @@
-import {Framework} from '@roots/bud-framework'
+import {Bud} from '@roots/bud-framework'
 import {lodash} from '@roots/bud-support'
 
 const {isNull, isUndefined} = lodash
 
 export interface inject {
-  (
-    app: Framework,
-    injection: Array<(app: Framework) => string>,
-  ): Promise<void>
+  (app: Bud, injection: Array<(app: Bud) => string>): Promise<void>
 }
 
 /**
@@ -17,8 +14,11 @@ export interface inject {
  *
  * @public
  */
-export const inject: inject = async (instance: Framework, injection) => {
-  instance.hooks.on('build.entry', entrypoints => {
+export const inject: inject = async (
+  app: Bud,
+  injection: Array<(app: Bud) => string>,
+): Promise<void> => {
+  app.hooks.on('build.entry', entrypoints => {
     const invalidEntrypoints =
       !entrypoints ||
       isUndefined(entrypoints) ||
@@ -26,10 +26,7 @@ export const inject: inject = async (instance: Framework, injection) => {
       !injection
 
     if (invalidEntrypoints) {
-      instance.warn(
-        `${instance.name} entrypoints are malformed`,
-        `skipping inject`,
-      )
+      app.warn(`${app.name} entrypoints are malformed`, `skipping inject`)
 
       return entrypoints
     }
@@ -39,10 +36,12 @@ export const inject: inject = async (instance: Framework, injection) => {
         if (!entry) return entrypoints
 
         entry.import = Array.from(
-          new Set([
-            ...injection.map(inject => inject(instance)),
-            ...(entry.import ?? []),
-          ]),
+          new Set(
+            [
+              ...injection.map(inject => inject(app)),
+              ...(entry.import ?? []),
+            ].filter(Boolean),
+          ),
         )
 
         return {...entrypoints, [name]: entry}

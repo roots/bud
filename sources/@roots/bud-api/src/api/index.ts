@@ -1,2 +1,2 @@
 export {Api} from './api.service'
-export {Facade} from './facade'
+export {Facade} from '../facade'

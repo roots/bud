@@ -46,12 +46,11 @@
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/lodash": "4.14.180",
-    "@types/node": "16.11.26"
+    "@types/lodash": "4.14.182",
+    "@types/node": "16.11.36"
   },
   "dependencies": {
-    "autobind-decorator": "^2.4.0",
     "helpful-decorators": "^2.1.0",
-    "tslib": "^2.3.1"
+    "tslib": "2.4.0"
   }
 }

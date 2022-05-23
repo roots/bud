@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`typescript npm manifest.json matches snapshot 1`] = `
+Object {
+  "app.js": "/app.js",
+  "index.html": "/index.html",
+}
+`;
+
+exports[`typescript yarn manifest.json matches snapshot 1`] = `
+Object {
+  "app.js": "/app.js",
+  "index.html": "/index.html",
+}
+`;

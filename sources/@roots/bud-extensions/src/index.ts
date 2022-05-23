@@ -4,11 +4,10 @@
 /**
  * The {@link @roots/bud-extensions#} package implements the {@link @roots/bud-framework#Extensions | Extensions interface}
  *
- * @see https://roots.io/bud
+ * @see https://bud.js.org
  * @see https://github.com/roots/bud
  *
  *  @packageDocumentation
  */
 
-export {Controller} from './Controller'
 export {Extensions} from './Extensions'

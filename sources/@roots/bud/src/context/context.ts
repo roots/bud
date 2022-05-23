@@ -1,4 +1,4 @@
-import * as Framework from '@roots/bud-framework'
+import {Config} from '@roots/bud-framework'
 import {BaseContext} from 'clipanion'
 import process from 'node:process'
 import {Readable, Writable} from 'node:stream'
@@ -7,7 +7,7 @@ import {Application} from './application'
 import {Disk} from './disk'
 import {Env} from './env'
 
-export class Context implements Framework.Context, BaseContext {
+export class Context implements Config.Context, BaseContext {
   public args: Record<string, string | boolean | undefined | number> = {}
   public constructor(
     public name: string,

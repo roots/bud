@@ -4,11 +4,10 @@
     "baseUrl": ".",
     "rootDir": "./src",
     "outDir": "./lib/cjs",
-    "declarationDir": "./types"
+    "declarationDir": "./types",
+    "types": ["@roots/bud-framework", "@roots/bud-babel"]
   },
-  "include": [
-    "src"
-  ],
+  "include": ["./src"],
   "references": [
     {
       "path": "./../bud-api/tsconfig.json"

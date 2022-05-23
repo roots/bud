@@ -1,26 +1,24 @@
+import {chalk} from '@roots/bud-support'
+
 import * as box from './box.factory'
+import {theme} from './theme'
 
 export const make = (
-  {message, title}: {message: string; title?: string},
+  {message, file}: {message: string; file?: string},
   color: string,
-) =>
-  box.make(title ?? 'error', message, {
-    margin: {
-      top: 0,
-      bottom: 1,
-      left: 0,
-      right: 0,
-    },
-    padding: {
-      top: 0,
-      bottom: 0,
-      left: 1,
-      right: 1,
-    },
-    borderColor: color,
-  })
+) => box.make(file ?? 'error', message, {color})
+
+export const makeWarning = ({message, file, type}) =>
+  `${chalk.bgHex(theme.foregroundColor).hex(theme.yellow)(
+    type ?? ' WARNING ',
+  )} ${file}\n\n${message}\n\n`
+
+export const makeError = ({message, file, type}) =>
+  `${chalk
+    .bgHex(theme.red)
+    .white(type ?? ' ERROR ')} ${file}\n\n${message}\n\n`
 
 export const mapMessages = (
-  messages: Array<{message: string; title?: string}>,
+  messages: Array<{message: string; file: string}>,
   color: string,
 ) => messages.map(message => make(message, color))

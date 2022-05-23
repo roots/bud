@@ -46,14 +46,14 @@
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@types/fs-extra": "9.0.13",
-    "@types/lodash": "4.14.180",
-    "@types/node": "16.11.26",
-    "@types/prettier": "2.4.4",
-    "webpack": "5.70.0"
+    "@types/lodash": "4.14.182",
+    "@types/node": "16.11.36",
+    "@types/prettier": "2.6.1",
+    "webpack": "5.72.1"
   },
   "dependencies": {
     "fs-extra": "^10.0.0",
     "helpful-decorators": "^2.1.0",
-    "tslib": "^2.3.1"
+    "tslib": "2.4.0"
   }
 }

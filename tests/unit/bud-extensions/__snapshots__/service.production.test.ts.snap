@@ -11,9 +11,10 @@ Array [
   "clean-webpack-plugin",
   "copy-webpack-plugin",
   "mini-css-extract-plugin",
-  "webpack-define-plugin",
-  "webpack-hot-module-replacement-plugin",
   "webpack-manifest-plugin",
-  "webpack-provide-plugin",
+  "webpack-remove-empty-scripts",
+  "webpack:define-plugin",
+  "webpack:hot-module-replacement-plugin",
+  "webpack:provide-plugin",
 ]
 `;

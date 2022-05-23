@@ -1,4 +1,4 @@
-import {Context} from '@roots/bud-framework'
+import {Config} from '@roots/bud-framework'
 import {bind, lodash as _} from '@roots/bud-support'
 import {BaseContext, Command} from 'clipanion'
 
@@ -17,7 +17,7 @@ export abstract class BaseCommand extends Command {
    *
    * @public
    */
-  public context: Context & BaseContext
+  public context: Config.Context & BaseContext
 
   /**
    * Application
@@ -50,23 +50,35 @@ export abstract class BaseCommand extends Command {
   @bind
   public async make() {
     this.notifier = new Notifier(this.app)
-
-    this.app.hooks.action('event.compiler.done', this.notifier.notify)
+    this.app.hooks.action('event.compiler.close', this.notifier.notify)
 
     try {
-      this.logger.time('process user configs')
       await disk.config(this.app)
-      this.logger.timeEnd('process user configs')
     } catch (error) {
-      throw new Error(error)
+      this.app.error(error)
     }
+
+    try {
+      await this.app.hooks.fire('event.config.after')
+    } catch (err) {
+      this.app.error(err)
+    }
+
+    await Promise.all(
+      Object.values(this.app.children ?? {}).map(async instance => {
+        try {
+          await instance.hooks.fire('event.config.after')
+        } catch (err) {
+          instance.error(err)
+        }
+      }),
+    )
 
     return this.app
   }
 
   /**
    * Run the build
-   *
    * @public
    */
   @bind

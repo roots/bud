@@ -1,1 +1,1 @@
-export * as chokidar from 'chokidar'
+export * from 'chokidar'

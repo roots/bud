@@ -1,7 +1,4 @@
-import {INTEGRATION_TESTS, paths, REGISTRY_PROXY} from '@repo/constants'
 import {CommandClass, Option} from 'clipanion'
-import {copy, remove} from 'fs-extra'
-import {bind} from 'helpful-decorators'
 
 import {Command} from './base.command'
 
@@ -68,13 +65,6 @@ export class Test extends Command {
   }
 
   /**
-   * Match
-   *
-   * @internal
-   */
-  public match = Option.String({name: `test matcher`})
-
-  /**
    * Variadic arguments
    *
    * @internal
@@ -82,85 +72,15 @@ export class Test extends Command {
   public passthrough = Option.Proxy({name: `jest params`})
 
   /**
-   * True if setup script should be run
-   *
-   * @internal
-   */
-  public get shouldSetup(): boolean {
-    return this.match === 'all' || this.match.includes('integration')
-  }
-
-  /**
-   * Returns base jest command with match argument and
-   * default flags applied
-   *
-   * @internal
-   */
-  public get jestBase(): string {
-    return this.match === 'all'
-      ? `yarn jest ${DEFAULT_JEST_FLAGS}`
-      : `yarn jest ${this.match} ${DEFAULT_JEST_FLAGS}`
-  }
-
-  /**
    * Execute command
    *
    * @internal
    */
   public async execute() {
-    if (this.shouldSetup) {
-      await INTEGRATION_TESTS.reduce(this.install, Promise.resolve())
-      await Promise.all(INTEGRATION_TESTS.map(this.build))
-    }
-
-    return await this.$(this.withPassthrough(this.jestBase))
-  }
-
-  /**
-   * Install an integration test
-   *
-   * @param example - string
-   *
-   * @internal
-   */
-  @bind
-  public async install(
-    promised: Promise<any>,
-    example: typeof INTEGRATION_TESTS & string,
-  ) {
-    await promised
-
-    await remove(`${paths.mocks}/npm/${example}`)
-    await remove(`${paths.mocks}/yarn/${example}`)
-
-    await copy(`./examples/${example}`, `${paths.mocks}/npm/${example}`)
-    await copy(`./examples/${example}`, `${paths.mocks}/yarn/${example}`)
-
-    await this.$(
-      `cd ${paths.mocks}/yarn/${example} \
-        && yarn cache clean --all \
-        && yarn install --update-checksums --skip-integrity-check \
-                        --registry ${REGISTRY_PROXY} --force`,
+    return await this.$(
+      this.withPassthrough(
+        `node ./node_modules/.bin/jest ${DEFAULT_JEST_FLAGS}`,
+      ),
     )
-
-    await this.$(
-      `cd ${paths.mocks}/npm/${example} \
-        && npm install --registry ${REGISTRY_PROXY}`,
-    )
-  }
-
-  /**
-   * Build an integration test
-   *
-   * @param example - string
-   *
-   * @internal
-   */
-  @bind
-  public async build(example: typeof INTEGRATION_TESTS & string) {
-    await this.$(
-      `cd ${paths.mocks}/yarn/${example} && yarn bud build --log`,
-    )
-    await this.$(`cd ${paths.mocks}/npm/${example} && npx bud build --log`)
   }
 }

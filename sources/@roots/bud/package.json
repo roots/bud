@@ -40,7 +40,6 @@
   },
   "bin": "./bin/bud.js",
   "files": [
-    "assets/",
     "bin/",
     "lib/",
     "types/",
@@ -48,20 +47,52 @@
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
+  "types": "./types/index.d.ts",
   "exports": {
-    ".": {
-      "require": "./lib/cjs/index.js",
-      "import": "./lib/esm/index.js"
+    ".": "./lib/cjs/index.js",
+    "./cli": "./lib/cjs/cli/index.js",
+    "./context": "./lib/cjs/context/index.js",
+    "./context/*": "./lib/cjs/context/*/index.js",
+    "./extensions": "./lib/cjs/extensions/index.js",
+    "./extensions/*": "./lib/cjs/extensions/*/index.js",
+    "./factory": "./lib/cjs/factory/index.js",
+    "./services": "./lib/cjs/services/index.js"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./types/index.d.ts"
+      ],
+      "cli": [
+        "./types/cli/index.d.ts"
+      ],
+      "context": [
+        "./types/context/index.d.ts"
+      ],
+      "context/*": [
+        "./types/context/*.d.ts"
+      ],
+      "extensions": [
+        "./types/extensions/index.d.ts"
+      ],
+      "extensions/*": [
+        "./types/extensions/*/index.d.ts"
+      ],
+      "factory": [
+        "./types/factory/index.d.ts"
+      ],
+      "services": [
+        "./types/services/index.d.ts"
+      ]
     }
   },
-  "types": "./types/index.d.ts",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@types/braces": "3.0.1",
     "@types/fs-extra": "9.0.13",
-    "@types/lodash": "4.14.180",
+    "@types/lodash": "4.14.182",
     "@types/mini-css-extract-plugin": "2.5.0",
-    "@types/node": "16.11.26",
+    "@types/node": "16.11.36",
     "@types/node-notifier": "8.0.2"
   },
   "dependencies": {
@@ -76,19 +107,18 @@
     "@roots/bud-server": "workspace:sources/@roots/bud-server",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@roots/container": "workspace:sources/@roots/container",
-    "@roots/dependencies": "workspace:sources/@roots/dependencies",
     "clean-webpack-plugin": "^4.0.0",
-    "clipanion": "3.2.0-rc.10",
+    "clipanion": "3.2.0-rc.11",
     "copy-webpack-plugin": "^10.0.0",
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.4.5",
     "node-notifier": "10.0.1",
-    "schema-utils": "4.0.0",
-    "tslib": "^2.3.1",
-    "typanion": "3.7.1",
+    "tslib": "2.4.0",
+    "typanion": "3.8.0",
     "type-fest": "^2.5.4",
-    "webpack": "5.70.0",
+    "webpack": "5.72.1",
     "webpack-cli": "^4.9.1",
-    "webpack-manifest-plugin": "^5.0.0"
+    "webpack-manifest-plugin": "^5.0.0",
+    "webpack-remove-empty-scripts": "0.8.0"
   }
 }

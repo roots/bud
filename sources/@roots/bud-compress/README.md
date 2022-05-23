@@ -22,10 +22,6 @@ Install **@roots/bud-compress** to your project.
 yarn add @roots/bud-compress --dev
 ```
 
-```shell
-yarn bud install
-```
-
 ## Documentation
 
 For more information on utilizing this package [check out our dedicated docs](https://bud.js.org)

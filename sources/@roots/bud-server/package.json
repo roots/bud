@@ -44,16 +44,35 @@
     ".": "./lib/cjs/index.js",
     "./client/*": "./lib/cjs/client/*"
   },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./types/index.d.ts"
+      ],
+      "client": [
+        "./types/client/index.d.ts"
+      ],
+      "client/proxy-click-interceptor": [
+        "./types/client/proxy-click-interceptor.d.ts"
+      ],
+      "client/overlay": [
+        "./types/client/overlay/index.d.ts"
+      ],
+      "client/indicator": [
+        "./types/client/indicator/index.d.ts"
+      ]
+    }
+  },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/cookie-parser": "^1",
-    "@types/cors": "^2",
+    "@types/cookie-parser": "1.4.3",
+    "@types/cors": "2.8.12",
     "@types/express": "4.17.13",
-    "@types/lodash": "4.14.180",
-    "@types/node": "16.11.26",
+    "@types/lodash": "4.14.182",
+    "@types/node": "16.11.36",
     "@types/webpack-dev-middleware": "5.0.2",
     "@types/webpack-hot-middleware": "2.25.6",
-    "webpack": "5.70.0"
+    "webpack": "5.72.1"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
@@ -64,10 +83,10 @@
     "cors": "2.8.5",
     "express": "^4.17.1",
     "html-entities": "^2.1.0",
-    "http-proxy-middleware": "2.0.4",
+    "http-proxy-middleware": "2.0.6",
     "querystring": "^0.2.0",
-    "strip-ansi": "^6.0.0",
-    "tslib": "^2.3.1",
+    "strip-ansi": "^7.0.0",
+    "tslib": "2.4.0",
     "webpack-dev-middleware": "5.3.1"
   }
 }

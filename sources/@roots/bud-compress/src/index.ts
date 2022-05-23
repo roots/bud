@@ -4,18 +4,18 @@
 /**
  * Static asset compression extension
  *
- * @see https://roots.io/bud
+ * @see https://bud.js.org
  * @see https://github.com/roots/bud
  *
  * @packageDocumentation
  */
 
-import {BudBrotliWebpackPlugin} from './BudBrotliWebpackPlugin'
-import {BudCompressionExtension} from './BudCompressionExtension'
-import {BudGzipWebpackPlugin} from './BudGzipWebpackPlugin'
+import BudBrotliWebpackPlugin from './BudBrotliWebpackPlugin'
+import BudCompressionExtension from './BudCompressionExtension'
+import BudGzipWebpackPlugin from './BudGzipWebpackPlugin'
 
 declare module '@roots/bud-framework' {
-  interface Framework {
+  interface Bud {
     /**
      * Compress static assets with brotli compression.
      *
@@ -50,21 +50,23 @@ declare module '@roots/bud-framework' {
      *
      * @public
      */
-    brotli(options?: BudCompressionExtension.Options): Framework
+    brotli(options?: BudCompressionExtension.Options): Bud
 
     /**
      * Gzip static assets.
      *
      * @public
      */
-    gzip(options?: BudCompressionExtension.Options): Framework
+    gzip(options?: BudCompressionExtension.Options): Bud
+  }
+
+  interface Flags {
+    gzip: boolean
+    brotli: boolean
   }
 
   interface Modules {
     '@roots/bud-compress': BudCompressionExtension
-  }
-
-  interface Plugins {
     'compression-webpack-plugin-brotli': BudBrotliWebpackPlugin
     'compression-webpack-plugin-gzip': BudGzipWebpackPlugin
   }
@@ -84,4 +86,4 @@ export namespace BudCompressionExtension {
   }
 }
 
-export const {name, boot} = BudCompressionExtension
+export default BudCompressionExtension

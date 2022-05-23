@@ -1,15 +1,15 @@
-import * as Framework from '@roots/bud-framework'
-import {bind, fs, lodash, memo} from '@roots/bud-support'
+import * as Bud from '@roots/bud-framework'
+import {bind, fs, lodash} from '@roots/bud-support'
 import {isFunction} from 'lodash'
 import type {Configuration} from 'webpack'
 
-import {Item} from '../Item'
-import {Loader} from '../Loader'
-import {Rule} from '../Rule'
+import Item from '../Item'
+import * as items from '../items'
+import Loader from '../Loader'
+import * as loaders from '../loaders'
+import Rule from '../Rule'
+import * as rules from '../rules'
 import * as config from './config'
-import * as items from './items'
-import * as loaders from './loaders'
-import * as rules from './rules'
 
 const {isUndefined} = lodash
 const {ensureFile, writeFile} = fs
@@ -19,7 +19,7 @@ const {ensureFile, writeFile} = fs
  *
  * @public
  */
-export class Build extends Framework.Service implements Framework.Build {
+export class Build extends Bud.Service implements Bud.Build.Service {
   /**
    * @public
    */
@@ -30,21 +30,21 @@ export class Build extends Framework.Service implements Framework.Build {
    *
    * @public
    */
-  public loaders: Framework.Loaders
+  public loaders: Bud.Build.Loaders
 
   /**
    * Registered rules
    *
    * @public
    */
-  public rules: Framework.Rules
+  public rules: Bud.Build.Rules
 
   /**
    * Registered items
    *
    * @public
    */
-  public items: Framework.Items
+  public items: Bud.Build.Items
 
   /**
    * Service booted event
@@ -54,12 +54,7 @@ export class Build extends Framework.Service implements Framework.Build {
    */
   @bind
   public async registered() {
-    this.app.hooks
-      .action('event.build.before', async app => app.time(`build.make`))
-      .hooks.action('event.build.after', async app =>
-        app.timeEnd(`build.make`),
-      )
-      .hooks.action('event.build.after', this.writeFinalConfig)
+    this.app.hooks.action('event.build.after', this.writeFinalConfig)
   }
 
   /**
@@ -74,7 +69,7 @@ export class Build extends Framework.Service implements Framework.Build {
 
     await Promise.all(
       [
-        ['entry', true],
+        ['entry'],
         ['plugins', true],
         ['resolve', true],
         ['bail'],
@@ -99,44 +94,23 @@ export class Build extends Framework.Service implements Framework.Build {
         ['target'],
         ['watch'],
         ['watchOptions'],
-      ]
-        .map(this.memoMap)
-        .filter(Boolean)
-        .map(this.memoMapValue),
+      ].map(async ([propKey, isAsync]: [keyof Configuration, boolean]) => {
+        const propValue =
+          isAsync === true
+            ? await this.app.hooks.filterAsync(`build.${propKey}` as any)
+            : this.app.hooks.filter(`build.${propKey}` as any)
+
+        if (isUndefined(propValue)) return
+
+        Object.assign(this.config, {[propKey]: propValue})
+
+        return Promise.resolve()
+      }),
     )
 
     await this.app.hooks.fire('event.build.after')
 
     return this.config
-  }
-
-  @bind
-  public memoMap(...args: [value: (string | boolean)[]]) {
-    const [[key, ...rest]] = args
-
-    if (!this.app.hooks.has(`build.${key}`)) return false
-
-    const type = rest.length && rest.shift() ? true : false
-    const count = this.app.hooks.count(`build.${key}`)
-
-    return [key, type, count]
-  }
-
-  @bind
-  @memo()
-  public async memoMapValue([propKey, isAsync, _count]: [
-    keyof Configuration,
-    boolean,
-    number,
-  ]) {
-    const propValue =
-      isAsync === true
-        ? await this.app.hooks.filterAsync(`build.${propKey}` as any)
-        : this.app.hooks.filter(`build.${propKey}` as any)
-
-    if (isUndefined(propValue)) return
-
-    Object.assign(this.config, {[propKey]: propValue})
   }
 
   /**
@@ -148,7 +122,7 @@ export class Build extends Framework.Service implements Framework.Build {
   @bind
   public async register() {
     const reducer = (
-      a: Framework.Rules | Framework.Items | Framework.Loaders,
+      a: Bud.Build.Rules | Bud.Build.Items | Bud.Build.Loaders,
       [k, v],
     ) => ({
       ...a,
@@ -174,23 +148,28 @@ export class Build extends Framework.Service implements Framework.Build {
   }
 
   /**
-   * Set a rule
+   * Set Rule
    *
-   * @param name - rule key
-   * @param options - rule constructor properties
-   * @returns the rule
+   * @param name - Rule key
+   * @param options - Rule constructor properties
+   * @returns the Rule
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public setRule(name: string, options?: Framework.Rule.Options): Build {
-    Object.assign(this.rules, {[name]: this.makeRule(options)})
+  public setRule(name: string, options?: Bud.Build.Rule.Options): Build {
+    const processedOptions = isFunction(options)
+      ? options(this.makeRule())
+      : this.makeRule(options)
+
+    Object.assign(this.rules, {[name]: processedOptions})
 
     return this
   }
+
   /**
-   * Make a rule
+   * Make Rule
    *
    * @param options - rule constructor properties
    * @returns the rule
@@ -199,16 +178,16 @@ export class Build extends Framework.Service implements Framework.Build {
    * @decorator `@bind`
    */
   @bind
-  public makeRule(options?: Framework.Rule.Options): Rule {
+  public makeRule(options?: Bud.Build.Rule.Options): Rule {
     return new Rule(() => this.app, options)
   }
 
   /**
-   * Set a rule
+   * Set Loader
    *
-   * @param name - rule key
-   * @param options - rule constructor properties
-   * @returns the rule
+   * @param name - Loader key
+   * @param options - Loader constructor properties
+   * @returns the Loader
    *
    * @public
    * @decorator `@bind`
@@ -221,7 +200,7 @@ export class Build extends Framework.Service implements Framework.Build {
   }
 
   /**
-   * Make a rule
+   * Make Loader
    *
    * @param options - rule constructor properties
    * @returns the rule
@@ -235,11 +214,11 @@ export class Build extends Framework.Service implements Framework.Build {
   }
 
   /**
-   * Set a rule
+   * Set Item
    *
-   * @param name - rule key
-   * @param options - rule constructor properties
-   * @returns the rule
+   * @param name - Item key
+   * @param options - Item constructor properties
+   * @returns the Item
    *
    * @public
    * @decorator `@bind`
@@ -248,8 +227,8 @@ export class Build extends Framework.Service implements Framework.Build {
   public setItem(
     name: string,
     options:
-      | ((item: Framework.Item) => Framework.Item)
-      | Framework.Item.ConstructorOptions,
+      | ((item: Bud.Build.Item) => Bud.Build.Item)
+      | Bud.Build.Item.ConstructorOptions,
   ): Build {
     const processedOptions = isFunction(options)
       ? options(this.makeItem())
@@ -261,7 +240,7 @@ export class Build extends Framework.Service implements Framework.Build {
   }
 
   /**
-   * Make a rule
+   * Make Item
    *
    * @param options - rule constructor properties
    * @returns the rule
@@ -287,7 +266,7 @@ export class Build extends Framework.Service implements Framework.Build {
   public async writeFinalConfig(): Promise<void> {
     try {
       const filePath = this.app.path(
-        `@storage/${this.config.name}/webpack.config.js`,
+        `@storage/${this.app.name}/webpack.config.js`,
       )
 
       await ensureFile(filePath)

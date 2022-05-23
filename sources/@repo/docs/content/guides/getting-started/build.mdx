@@ -1,0 +1,29 @@
+---
+title: Build
+sidebar_label: Build
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import CodeBlock from '@theme/CodeBlock'
+
+Use the [`bud build` command](/guides/cli/build) to compile our project.
+
+<Tabs
+  groupId="pacman"
+  defaultValue="yarn"
+  values={[
+    {label: 'yarn', value: 'yarn'},
+    {label: 'npm', value: 'npm'},
+  ]}>
+  <TabItem value="yarn">
+
+    yarn bud build
+
+  </TabItem>
+  <TabItem value="npm">
+
+    npm run bud build
+
+  </TabItem>
+</Tabs>

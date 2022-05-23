@@ -1,0 +1,118 @@
+---
+slug: '5.8.0'
+title: 'Release: 5.8.0'
+description: 'Release notes for bud.js 5.8.0'
+date: 2022-05-10
+author: Kelly Mears
+author_title: Lead developer
+author_url: https://github.com/kellymears
+author_image_url: https://avatars.githubusercontent.com/u/397606?v=4
+tags: [release]
+---
+
+Rebuilt extensions API, flags to open errors in your IDE, and more.
+
+<!--truncate-->
+
+## Heads up
+
+**@roots/bud-eslint**: There is an upstream issue (with eslint-webpack-plugin) which causes the linter to show no errors after the initial compilation, regardless of any violations.
+
+Until this is resolved, you should use `memory` caching. You can enable this with:
+
+```ts file="bud.config.js"
+bud.persist('memory')
+```
+
+This issue is present in earlier versions of **bud.js**.
+
+**@roots/bud-typescript**: The typings for the `Bud` object in **bud.js** have been consolidated under a single interface/namespace: `Bud`.
+If you are using [@roots/bud-typescript], please update your config file and any type declarations to use `Bud` instead of `Framework`.
+
+## Flexible extensions
+
+It is now possible, in extensions which support it, to utilize user-defined dependencies over built-in ones (if they are present in the project `package.json`).
+
+This means that you can now use **Vue 2** instead of **Vue 3**, if desired. This is done by installing the `Vue 2` compatible packages directly. These versions are the ones we currently
+run integration tests for:
+
+```json
+{
+  "devDependencies": {
+    "@roots/bud": "latest",
+    "@roots/bud-vue": "latest"
+  },
+  "dependencies": {
+    "vue": "^2.6.14",
+    "vue-template-compiler": "^2.6.14",
+    "vue-loader": "^15.9.4"
+  }
+}
+```
+
+Check out the [vue legacy example](https://github.com/roots/bud/tree/main/examples/vue-legacy) for a working example of Vue 2 being used with **bud.js**.
+
+In the future, additional extensions will follow suit. Some may already have support (it's simply not being advertised since this is a new feature).
+Note that by utilizing custom versions of packages you are opting in to increased responsibility for your project. We only support what ships with **bud.js** by default.
+
+## bud.proxy url replacements
+
+You can now substitute in or amend the existing string replacements for proxy responses. See the updated documnetation for more details: [bud.proxy](/docs/bud.proxy).
+
+## bud.glob
+
+You can glob for files with [bud.glob](/docs/bud.glob). There is a sync version available as well: [bud.globSync](/docs/bud.globSync).
+
+## `--editor` flag
+
+Pass the `--editor` flag to the `build` command to open errors in your preferred editor.
+It's required for you to have set your preferred editor with either the `EDITOR` or `VISUAL` environment variables.
+If `VISUAL` is set, it will preferred over `EDITOR`.
+
+## `--browser` flag
+
+Pass the `--browser` flag to the `build` command to open the built site in your browser.
+
+## @roots/sage
+
+- [bud.useTailwindColors](https://bud.js.org/extensions/sage#defining-themejson-colors-from-tailwindconfigjs) now supports nested color groups. So, you can do stuff like this:
+
+```js
+{
+  blue: {
+    shade: {
+      hue: {
+        '50': '#add8e6',
+      },
+    },
+    group: {
+      sky: '#87ceeb',
+    },
+  },
+  tomato: '#ff4500',
+}
+```
+
+## @roots/bud-esbuild
+
+This extension got a big overhaul in v5.8.0. Including unit tests! Check out [the updated docs](/extensions/bud-esbuild).
+
+## core
+
+This release is mainly focused on the [@roots/bud-extensions] API. Extensions can now be registered using ES6 classes. But, they can also be passed around as plain objects, as before.
+
+Documentation is still a work-in-progress but has been largely updated to reflect the new API.
+
+## More information
+
+Big shoutout to everyone who contributed to this release. We're so happy to have you here!
+
+- [@kellymears](https://github.com/kellymears)
+- [@alwaysblank](https://github.com/alwaysblank)
+- [@joshuafredrickson](https://github.com/joshuafredrickson)
+- [@retlehs](https://github.com/retlehs)
+
+For more information:
+
+- [Read the release changelog](/releases/5.8.0)
+- [Review the diff to see what's changed](https://github.com/roots/bud/compare/v5.7.7...v5.8.0)

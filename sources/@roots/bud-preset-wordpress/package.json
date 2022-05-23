@@ -28,31 +28,20 @@
   "engines": {
     "node": ">=14"
   },
+  "bud": {
+    "type": "extension"
+  },
   "files": [
-    "eslint-config/",
     "lib/",
     "stylelint-config/",
     "types/"
   ],
-  "bud": {
-    "type": "extension",
-    "peers": [
-      "@roots/bud-babel",
-      "@roots/bud-entrypoints",
-      "@roots/bud-postcss",
-      "@roots/bud-preset-recommend",
-      "@roots/bud-react",
-      "@roots/bud-wordpress-externals",
-      "@roots/bud-wordpress-dependencies",
-      "@roots/bud-wordpress-manifests"
-    ]
-  },
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
     ".": "./lib/cjs/index.js",
-    "./eslint-config": "./eslint-config/index.js",
+    "./extension": "./lib/cjs/extension.js",
     "./stylelint-config": "./stylelint-config/index.js"
   },
   "typesVersions": {
@@ -60,37 +49,38 @@
       ".": [
         "./types/index.d.ts"
       ],
+      "extension": [
+        "./types/extension.d.ts"
+      ],
       "theme": [
         "./types/theme.d.ts"
       ]
     }
   },
   "devDependencies": {
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@skypack/package-check": "0.2.2",
-    "@types/jest": "27.4.1",
-    "@types/lodash": "4.14.180",
-    "@types/node": "16.11.26",
-    "@types/react": "17.0.41",
-    "@types/react-dom": "17.0.14",
-    "jest": "27.5.1",
+    "@types/lodash": "4.14.182",
+    "@types/node": "16.11.36",
+    "@types/react": "17.0.45",
+    "@types/react-dom": "17.0.17",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "webpack": "5.70.0"
+    "webpack": "5.72.1"
   },
   "dependencies": {
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
     "@roots/bud-entrypoints": "workspace:sources/@roots/bud-entrypoints",
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-preset-recommend": "workspace:sources/@roots/bud-preset-recommend",
     "@roots/bud-react": "workspace:sources/@roots/bud-react",
     "@roots/bud-wordpress-dependencies": "workspace:sources/@roots/bud-wordpress-dependencies",
     "@roots/bud-wordpress-externals": "workspace:sources/@roots/bud-wordpress-externals",
     "@roots/bud-wordpress-manifests": "workspace:sources/@roots/bud-wordpress-manifests",
     "@wordpress/browserslist-config": "4.1.2",
-    "tslib": "2.3.1"
+    "tslib": "2.4.0"
   },
   "peerDependencies": {
-    "@wordpress/browserslist-config": "^4.1.0"
+    "@wordpress/browserslist-config": "*"
   },
   "peerDependenciesMeta": {
     "@wordpress/browserslist-config": {

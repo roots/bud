@@ -34,6 +34,9 @@
   "engines": {
     "node": ">=14"
   },
+  "bud": {
+    "type": "extension"
+  },
   "files": [
     "lib/",
     "types/"
@@ -42,40 +45,47 @@
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.js"
+    ".": "./lib/cjs/index.js",
+    "./extension": "./lib/cjs/extension.js"
   },
-  "bud": {
-    "type": "extension",
-    "peers": [
-      "@roots/bud-babel",
-      "@roots/bud-react"
-    ]
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./types/index.d.ts"
+      ],
+      "extension": [
+        "./types/extension.d.ts"
+      ]
+    }
   },
   "devDependencies": {
-    "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/bud-react": "workspace:sources/@roots/bud-react",
     "@skypack/package-check": "0.2.2",
-    "@types/lodash": "4.14.180",
-    "@types/node": "16.11.26",
+    "@types/lodash": "4.14.182",
+    "@types/node": "16.11.36",
     "react": "17.0.2"
   },
   "dependencies": {
+    "@babel/core": "^7.16.0",
     "@emotion/babel-plugin": "^11.7.2",
     "@emotion/css": "^11.7.1",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
-    "autobind-decorator": "^2.4.0",
-    "tslib": "^2.3.1"
+    "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "@roots/bud-react": "workspace:sources/@roots/bud-react",
+    "tslib": "2.4.0"
   },
   "peerDependencies": {
-    "@emotion/babel-plugin": "^11.7.2",
-    "@emotion/css": "^11.7.1",
-    "@emotion/react": "^11.7.1",
-    "@emotion/styled": "^11.6.0"
+    "@babel/core": "*",
+    "@emotion/babel-plugin": "*",
+    "@emotion/css": "*",
+    "@emotion/react": "*",
+    "@emotion/styled": "*"
   },
   "peerDependenciesMeta": {
+    "@babel/core": {
+      "optional": true
+    },
     "@emotion/babel-plugin": {
       "optional": true
     },

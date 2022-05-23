@@ -1,28 +1,34 @@
-import {runIntegrations, test} from '../util/integration'
+import {Project} from '@repo/test-kit/project'
 
-runIntegrations('babel', project => {
-  return [
-    ['app.js has contents', test.assetNotEmpty(project, 'app.js')],
-    [
-      'app.js is transpiled',
-      test.assetDoesNotIncludeImport(project, 'app.js'),
-    ],
-    [
-      'app.js matches snapshot',
-      test.assetMatchesSnapshot(project, 'app.js'),
-    ],
-    ['app.css has contents', test.assetNotEmpty(project, 'app.css')],
-    [
-      'app.css is transpiled',
-      test.assetDoesNotIncludeImport(project, 'app.css'),
-    ],
-    [
-      'app.css matches snapshot',
-      test.assetMatchesSnapshot(project, 'app.css'),
-    ],
-    [
-      'manifest.json matches snapshot',
-      test.manifestMatchesSnapshot(project),
-    ],
-  ]
+const run = pacman => () => {
+  let project: Project
+
+  beforeAll(async () => {
+    project = await new Project({
+      name: 'babel',
+      dist: 'dist',
+      with: pacman,
+    }).setup()
+  })
+
+  describe('app.js', () => {
+    it('has contents', () => {
+      expect(project.assets['app.js'].length).toBeGreaterThan(10)
+    })
+
+    it('is transpiled', () => {
+      expect(project.assets['app.js'].includes('import')).toBeFalsy()
+    })
+  })
+
+  describe('manifest.json', () => {
+    it('matches snapshot', () => {
+      expect(project.manifest).toMatchSnapshot()
+    })
+  })
+}
+
+describe('babel', () => {
+  describe('npm', run('npm'))
+  describe('yarn', run('yarn'))
 })

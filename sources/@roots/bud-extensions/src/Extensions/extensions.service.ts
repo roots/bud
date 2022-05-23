@@ -1,226 +1,245 @@
 import {
   Extension,
-  Extensions as Base,
-  Framework,
+  Extensions as Contract,
+  ModuleDefinitions,
+  Modules,
   Service,
 } from '@roots/bud-framework'
+import {bind, chalk, lodash as _} from '@roots/bud-support'
 
-import {Controller} from '../Controller'
-import {bind} from './extensions.dependencies'
+const {noop} = _
 
 /**
  * Extensions Service
  *
- * @remarks
- * Manages extension controllers
- *
  * @public
  */
-export class Extensions extends Service implements Base {
-  /**
-   * Extensions queued for registration
-   *
-   * @public
-   */
-  public queue = []
+export class Extensions extends Service implements Contract.Service {
+  public repository: Modules = {}
 
-  /**
-   * Controller factory
-   *
-   * @public
-   */
-  public makeController(
-    extension: Extension.Module | Promise<Extension.Module>,
-  ): Controller {
-    const controller = new Controller(this.app, extension)
-    return controller
-  }
-
-  @bind
-  public async setController(extension: Extension.Module): Promise<void> {
-    const controller = this.makeController(extension)
-    this.set(controller.name, controller)
-  }
-
-  /**
-   * @override
-   * @public
-   */
   @bind
   public async booted(): Promise<void> {
-    /**
-     * Handle in-built extensions
-     */
-    await Promise.all(
-      this.getEntries().map(async ([key, extension]) => {
-        this.setController(extension)
-        this.log('success', {message: `${key} instantiated`})
-      }),
-    )
+    ;[...this.app.options.extensions].map(this.instantiate).map(this.set)
 
-    await this.registerExtensions()
-    await this.bootExtensions()
     await this.injectExtensions()
+
+    await this.runAll('_init')
+    await this.runAll('_register')
+    await this.runAll('_boot')
+    await this.runAll('_beforeBuild')
   }
 
-  /**
-   * Inject extension modules
-   *
-   * @public
-   * @decorator `@bind`
-   */
+  @bind
+  public has<K extends keyof Modules>(key: K & string): boolean {
+    return this.repository[key] ? true : false
+  }
+
+  @bind
+  public get<K extends keyof Modules>(key: K & string) {
+    return this.repository[key]
+  }
+
+  @bind
+  public remove<K extends keyof Modules>(key: K & string): this {
+    delete this.repository[key]
+    return this
+  }
+
+  @bind
+  public set<K extends Modules>(value: Modules[K & string]): this {
+    value.logger.log(`setting extension`, chalk.blue(value.label))
+
+    this.repository[value.label] = value
+
+    return this
+  }
+
+  @bind
+  public instantiate<K extends Modules>(
+    extension: Modules[K & string] | ModuleDefinitions[K & string],
+  ): Modules[K & string] {
+    return typeof extension === 'function'
+      ? new extension(this.app)
+      : !(extension instanceof Extension)
+      ? new Extension(this.app).fromObject(extension)
+      : extension
+  }
+
   @bind
   public async injectExtensions() {
-    if (this.app.store.is('features.inject', false)) {
-      this.log('log', 'injection disabled')
-      return
+    if (this.app.hooks.filter('feature.inject') === false) {
+      return this.app.log('injection disabled')
     }
 
-    try {
-      const modules = Object.values(this.app.project.peers.modules)
-        .filter(Boolean)
-        .filter(({bud}) => bud?.type === 'extension')
+    this.app.log('injecting extensions')
 
+    return Promise.all(
+      Object.keys({
+        ...(this.app.context.manifest?.devDependencies ?? {}),
+        ...(this.app.context.manifest?.dependencies ?? {}),
+      })
+        .filter(name => !name.startsWith('@types'))
+        .map(async pkg => {
+          try {
+            const manifest = await this.app.module
+              .manifestPath(pkg)
+              .then(this.app.module.readManifest)
+
+            return manifest.bud ? await this.import(pkg) : noop
+          } catch (error) {
+            this.app.warn(`Error importing`, pkg, `\n`, error)
+          }
+        }),
+    )
+  }
+
+  @bind
+  public async import(
+    input: Record<string, any> | string,
+  ): Promise<Extension> {
+    const pkgName = typeof input !== 'string' ? input.name : input
+    if (this.has(pkgName)) return
+
+    this.app.log(chalk.dim(`importing ${pkgName}`))
+
+    const imported = await import(pkgName)
+    const extensionModule: Extension = imported.default ?? imported
+
+    this.app.success(chalk.green(`imported ${pkgName}`))
+
+    const extension = this.instantiate(extensionModule)
+
+    if (extension.dependsOn) {
       await Promise.all(
-        modules.map(async record => {
-          await this.importExtension(record)
+        Array.from(extension.dependsOn).map(
+          async pkg => await this.import(pkg),
+        ),
+      )
+    }
+
+    this.set(extension)
+
+    return extension
+  }
+
+  @bind
+  public async run<K extends Modules>(
+    extension: Modules[K & string],
+    methodName: '_init' | '_register' | '_boot' | '_beforeBuild' | '_make',
+  ): Promise<this> {
+    if (extension.meta[methodName] === true) return this
+    else extension.meta[methodName] = true
+
+    try {
+      extension.logger.log(
+        chalk.blue(extension.label),
+        chalk.cyan(methodName),
+      )
+      await this.runDependencies(extension, methodName)
+      await extension[methodName]()
+      await this.app.api.processQueue()
+
+      return this
+    } catch (err) {
+      this.app.error(err)
+    }
+  }
+
+  @bind
+  public async runDependencies<K extends Modules>(
+    extension: Modules[K & string],
+    methodName: '_init' | '_register' | '_boot' | '_beforeBuild' | '_make',
+  ): Promise<void> {
+    if (extension.dependsOn && extension.dependsOn.size > 0) {
+      await Promise.all(
+        Array.from(extension.dependsOn).map(async dependency => {
+          try {
+            if (!this.app.extensions.has(dependency)) {
+              extension.logger.log('importing', chalk.blue(dependency))
+              await this.import(dependency)
+            }
+
+            await this.run(this.get(dependency), methodName)
+          } catch (error) {
+            this.app.error(
+              `before calling \`${methodName}\` ${this.get(
+                'label',
+              )} tried to import \`${dependency}\` but encountered an error.`,
+              error,
+            )
+          }
         }),
       )
-
-      await modules.reduce(async (promised: Promise<void>, record) => {
-        await promised
-        await this.registerExtension(this.get(record.name))
-      }, Promise.resolve())
-
-      await modules.reduce(async (promised, record) => {
-        await promised
-        await this.bootExtension(this.get(record.name))
-      }, Promise.resolve())
-    } catch (e) {
-      this.app.error(e)
     }
-  }
 
-  @bind
-  public async importExtension(
-    extension: Record<string, any>,
-  ): Promise<void> {
-    this.log('log', `importing ${extension.name}`)
-    const importedModule = await import(extension.name)
-    const importedExtension: Extension.Module = importedModule.default
-      ? importedModule.default
-      : importedModule
+    if (
+      extension.dependsOnOptional &&
+      extension.dependsOnOptional.size > 0
+    ) {
+      await Promise.all(
+        Array.from(extension.dependsOnOptional).map(async dependency => {
+          try {
+            if (!this.app.extensions.has(dependency)) {
+              extension.logger.log(
+                'attempting to import optional dependency',
+                chalk.blue(dependency),
+              )
+              await this.import(dependency)
+            }
 
-    if (this.has(importedExtension.name)) return
-    await this.setController(importedExtension)
-  }
-
-  /**
-   * @public
-   */
-  @bind
-  public async registerExtension(extension: Controller): Promise<void> {
-    try {
-      if (!extension) return
-      this.app.log('registering', extension.name)
-
-      await extension.mixin()
-      await extension.api()
-      await extension.register()
-    } catch (err) {
-      this.app.log(extension)
-      throw new Error(err)
+            await this.run(this.get(dependency), methodName)
+          } catch (error) {}
+        }),
+      )
     }
   }
 
   /**
+   * Execute a extension lifecycle method on all registered extensions
+   *
    * @public
    */
   @bind
-  public async bootExtension(extension: Controller): Promise<void> {
-    try {
-      if (!extension) return
-      this.app.log('booting', extension.name)
-
-      await extension.boot()
-    } catch (err) {
-      throw new Error(err)
-    }
-  }
-
-  /**
-   * @public
-   */
-  @bind
-  public async registerExtensions(): Promise<void> {
-    this.log('time', 'registering')
-
-    await this.getEntries().reduce(
-      async (promised, [_key, controller]) => {
-        await promised
-        await this.registerExtension(controller)
-      },
-      Promise.resolve(),
+  public async runAll(
+    methodName: '_init' | '_register' | '_boot' | '_beforeBuild' | '_make',
+  ): Promise<Array<void>> {
+    return Promise.all(
+      Object.values(this.repository).map(async extension => {
+        await this.run(extension, methodName)
+      }),
     )
-
-    this.log('timeEnd', 'registering')
   }
 
   /**
+   * Add a {@link Extension} to the extensions repository
+   *
    * @public
+   * @decorator `@bind`
    */
   @bind
-  public async bootExtensions(): Promise<void> {
-    this.log('time', 'booting')
-    await this.getEntries().reduce(async (promised, [key, controller]) => {
+  public async add(input: Extension | Array<Extension>): Promise<void> {
+    const arrayed = Array.isArray(input) ? input : [input]
+
+    await arrayed.reduce(async (promised, rawExtension) => {
       await promised
-      await this.bootExtension(controller)
-    }, Promise.resolve())
 
-    this.log('timeEnd', 'booting')
-  }
+      try {
+        const extension = this.instantiate(rawExtension)
+        if (this.has(extension.label)) return
 
-  /**
-   * Add a {@link Controller} to the container
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async add(extension: Extension.Module): Promise<void> {
-    if (this.has(extension.name)) {
-      this.log('info', `${extension.name} already exists. skipping.`)
-      return
-    }
+        this.set(extension)
 
-    await this.setController(extension)
-    await this.registerExtension(this.get(extension.name))
-    await this.bootExtension(this.get(extension.name))
-  }
+        await this.run(extension, '_init')
+        await this.run(extension, '_register')
+        await this.run(extension, '_boot')
+        await this.run(extension, '_beforeBuild')
 
-  /**
-   * Queue an extension to be added to the container before the build process.
-   *
-   * @remarks
-   * Useful for extensions which cannot be added in an awaitable context (like a user config)
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public enqueue(extension: Extension.Module): Framework {
-    this.queue.push(extension)
-    return this.app
-  }
-
-  /**
-   * @public
-   */
-  @bind
-  public async processQueue(): Promise<void> {
-    if (!this.queue.length) return
-    await Promise.all(this.queue.map(this.add))
-    this.queue = []
+        return Promise.resolve(true)
+      } catch (err) {
+        this.app.error(err)
+        return Promise.reject()
+      }
+    }, Promise.resolve(true))
   }
 
   /**
@@ -233,41 +252,11 @@ export class Extensions extends Service implements Base {
    * @decorator `@bind`
    */
   @bind
-  public async make(): Promise<
-    {
-      [key: string]: any
-      apply: CallableFunction
-    }[]
-  > {
-    this.log('time', 'extensions.make')
-
-    await this.processQueue()
-
-    const plugins = this.getValues()
-      .filter(controller => controller._module.make)
-      .map((controller: Controller) => {
-        const result = controller.make()
-
-        if (!result) {
-          this.log(
-            'log',
-            `${controller.name} will not be used in the compilation`,
-          )
-
-          return result
-        }
-
-        this.log(
-          'success',
-          `${controller.name} will be used in the compilation`,
-        )
-
-        return result
-      })
-      .filter(Boolean)
-
-    this.log('timeEnd', 'extensions.make')
-
-    return plugins
+  public async make(): Promise<Extension.PluginInstance[]> {
+    return await Promise.all(
+      Object.values(this.repository).map(
+        async extension => await extension._make(),
+      ),
+    ).then(res => res.filter(Boolean))
   }
 }

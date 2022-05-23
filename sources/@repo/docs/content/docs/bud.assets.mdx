@@ -1,0 +1,128 @@
+---
+id: bud.assets
+title: bud.assets
+description: Include static assets in your compilation even if they aren't referenced in scripts or stylesheets.
+sidebar_label: bud.assets
+---
+
+Include static assets in your compilation even if they aren't referenced in scripts or stylesheets.
+
+You may specify a path to a specific file or use glob syntax to match many files at once.
+
+## Signature
+
+This function is pretty flexible and accepts a few different ways of specifying what you want to copy.
+
+```ts title='bud.config.js'
+  (
+    ...request: Array<
+      | string
+      | CopyPlugin.ObjectPattern
+      | Array<string | [string, string] | CopyPlugin.ObjectPattern>
+    >
+  ): Bud
+```
+
+## Usage
+
+### Copying a file
+
+Use a single `string` to specify a single file to copy. Relative to source dir.
+
+```js title='bud.config.js'
+bud.assets('images/image.png')
+```
+
+### Copying a directory
+
+Use a single `string` to copy the entire images directory. Relative to source dir.
+
+```js title='bud.config.js'
+bud.assets('images')
+```
+
+### Copying using source/destination tuples
+
+You can also specify the source and destination using a tuple.
+
+The first item in each tuple is the source and the second is the destination:
+
+```js title='bud.config.js'
+bud.assets([
+  ['images', 'images'], // @src/images => @dist/images
+  ['fonts', 'fonts'],
+])
+```
+
+```js title='bud.config.js'
+bud.assets([
+  [bud.path('@src/assets/asset.png'), bud.path('@dist/asset.png')],
+  [bud.path('@src/fonts'), bud.path('@dist/fonts')],
+])
+```
+
+### Copying using an object
+
+You can specify [`CopyPlugin.ObjectPattern`](https://github.com/webpack-contrib/copy-webpack-plugin#patterns) object(s) directly:
+
+```js title='bud.config.js'
+bud.assets({
+  from: bud.path('assets/some-file.svg'),
+  to: bud.path('dist/some-file.svg'),
+  noErrorOnMissing: false,
+})
+```
+
+### Copying from multiple sources
+
+To specify additional copy sources you can add additional parameters.
+
+```js title='bud.config.js'
+bud.assets('fonts', 'images')
+```
+
+```js title='bud.config.js'
+bud.assets(
+  {
+    from: bud.path('@src/images'),
+    to: bud.path('@dist/images'),
+  },
+  {
+    from: bud.path('@src/fonts'),
+    to: bud.path('@dist/fonts'),
+  },
+)
+```
+
+You can also specify using an array, if preferred:
+
+```ts
+bud.assets(['images', 'fonts'])
+```
+
+The one exception to these rules is when using source/destination tuples (`[[from, to], [from, to]]`).
+
+They must always be expressed using one parameter, which is an array.
+
+## Merging existing assets
+
+**bud.assets** can be called multiple times and the results will be merged onto the existing jobs.
+
+```ts
+bud
+  .assets('fonts')
+  .assets({
+    from: bud.path('@src/svg'),
+    to: bud.path('@dist/svg'),
+  })
+  .assets([[bud.path('@src/images'), bud.path('@dest/images')]])
+```
+
+## Additional information
+
+You don't need to import assets which are utilized by your bundled code. For instance,
+if you are referencing a font file from your stylesheet, the font will already be included
+in your distribution. You don't need to manually require it with **bud.assets**, although
+there is probably no real harm in doing so.
+
+**bud.assets** is specifically for compiling files which are not already included elsewhere.

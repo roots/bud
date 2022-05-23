@@ -17,6 +17,7 @@ export class CleanCommand extends BaseCommand {
 
   public async execute() {
     this.app = await factory()
+    await this.make()
     await this.cleanProjectAssets()
   }
 

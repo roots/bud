@@ -1,13 +1,13 @@
 import {Bud, factory} from '@repo/test-kit/bud'
 import {Loader} from '@roots/bud-build'
-import * as BudSass from '@roots/bud-sass/src/index'
+import BudSass from '@roots/bud-sass'
 
 describe('@roots/bud-sass registration', () => {
   let bud: Bud
 
   beforeAll(async () => {
     bud = await factory()
-    await BudSass.register(bud, bud.extensions.logger)
+    await new BudSass(bud).register()
   })
 
   it('adds scss extension', () => {
@@ -37,15 +37,15 @@ describe('@roots/bud-sass registration', () => {
   })
 
   it('sets sass test', () => {
-    expect(bud.build.rules.sass.getTest()).toBe(
-      bud.store.get('patterns.sass'),
+    expect(JSON.stringify(bud.build.rules.sass.getTest())).toStrictEqual(
+      JSON.stringify(bud.hooks.filter('pattern.sass')),
     )
   })
 
   it('includes @src dir', () => {
-    expect(bud.build.rules.sass.getInclude()).toStrictEqual([
+    expect(bud.build.rules.sass.getInclude().pop()).toStrictEqual(
       bud.path('@src'),
-    ])
+    )
   })
 
   it('sets up rulesetuse items', () => {

@@ -1,35 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`sass app.css has contents npm 1`] = `
+exports[`sass npm app.css matches snapshot 1`] = `
 "html,body{padding:0;margin:0}body{background:blue}body div{border:#fff}
 "
 `;
 
-exports[`sass app.css has contents yarn 1`] = `
-"html,body{padding:0;margin:0}body{background:blue}body div{border:#fff}
-"
-`;
-
-exports[`sass app.css matches snapshot npm 1`] = `
-"html,body{padding:0;margin:0}body{background:blue}body div{border:#fff}
-"
-`;
-
-exports[`sass app.css matches snapshot yarn 1`] = `
-"html,body{padding:0;margin:0}body{background:blue}body div{border:#fff}
-"
-`;
-
-exports[`sass manifest.json matches snapshot npm 1`] = `
+exports[`sass npm manifest.json matches snapshot 1`] = `
 Object {
-  "app.css": "app.css",
-  "app.js": "app.js",
+  "app.css": "/app.css",
 }
 `;
 
-exports[`sass manifest.json matches snapshot yarn 1`] = `
+exports[`sass yarn app.css matches snapshot 1`] = `
+"html,body{padding:0;margin:0}body{background:blue}body div{border:#fff}
+"
+`;
+
+exports[`sass yarn manifest.json matches snapshot 1`] = `
 Object {
-  "app.css": "app.css",
-  "app.js": "app.js",
+  "app.css": "/app.css",
 }
 `;

@@ -34,6 +34,9 @@
   "engines": {
     "node": ">=14"
   },
+  "bud": {
+    "type": "extension"
+  },
   "files": [
     "lib/",
     "types/"
@@ -42,28 +45,35 @@
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.js"
+    ".": "./lib/cjs/index.js",
+    "./api": "./lib/cjs/api.js",
+    "./extension": "./lib/cjs/extension.js"
   },
-  "bud": {
-    "type": "extension",
-    "peers": [
-      "@roots/bud-postcss"
-    ]
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./types/index.d.ts"
+      ],
+      "api": [
+        "./types/api.d.ts"
+      ],
+      "extension": [
+        "./types/extension.d.ts"
+      ]
+    }
   },
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "4.1.3",
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
     "@skypack/package-check": "0.2.2",
-    "@types/lodash": "4.14.180",
-    "@types/node": "16.11.26",
-    "postcss": "8.4.12"
+    "@types/lodash": "4.14.182",
+    "@types/node": "16.11.36",
+    "postcss": "8.4.14"
   },
   "dependencies": {
     "@fullhuman/postcss-purgecss": "4.1.3",
-    "autobind-decorator": "^2.4.0",
-    "tslib": "^2.3.1"
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
+    "tslib": "2.4.0"
   },
   "peerDependencies": {
     "@fullhuman/postcss-purgecss": "^4.1.3"

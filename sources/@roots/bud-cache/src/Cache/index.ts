@@ -1,4 +1,4 @@
-import * as Framework from '@roots/bud-framework'
+import {Service, Services} from '@roots/bud-framework'
 import {bind, fs} from '@roots/bud-support'
 import {createHash} from 'crypto'
 
@@ -7,7 +7,7 @@ import {createHash} from 'crypto'
  *
  * @public
  */
-export class Cache extends Framework.Service implements Framework.Cache {
+export class Cache extends Service implements Services.Cache.Service {
   /**
    * Enabled
    *
@@ -154,5 +154,11 @@ export class Cache extends Framework.Service implements Framework.Cache {
       .digest(`base64`)
       .replace(/[^a-z0-9]/gi, `_`)
       .toLowerCase()
+  }
+
+  @bind
+  public async clean() {
+    this.app.log('cleaning cache')
+    await fs.removeSync(this.app.path(`@storage/cache`))
   }
 }

@@ -54,19 +54,16 @@
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@skypack/package-check": "0.2.2",
     "@types/fs-extra": "9.0.13",
-    "@types/lodash": "4.14.180",
-    "@types/node": "16.11.26",
-    "webpack": "5.70.0"
+    "@types/lodash": "4.14.182",
+    "@types/node": "16.11.36",
+    "webpack": "5.72.1"
   },
   "dependencies": {
-    "autobind-decorator": "^2.4.0",
     "esbuild-loader": "2.18.0",
-    "fs-extra": "^10.0.0",
-    "lodash": "^4.17.21",
-    "tslib": "^2.3.1"
+    "tslib": "2.4.0"
   },
   "peerDependencies": {
-    "esbuild-loader": "^2.16.0"
+    "esbuild-loader": "*"
   },
   "peerDependenciesMeta": {
     "esbuild-loader": {

@@ -6,7 +6,7 @@
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": ["DOM", "es2021"],
+    "lib": ["DOM", "DOM.Iterable", "ES2021"],
     "jsx": "react",
     "moduleResolution": "node",
     "noUnusedLocals": true,

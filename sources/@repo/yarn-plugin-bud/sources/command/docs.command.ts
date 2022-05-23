@@ -92,6 +92,8 @@ export class Docs extends Command {
             ./sources/@roots/bud-build/src/index.ts \
             ./sources/@roots/bud-compiler/src/index.ts \
             ./sources/@roots/bud-hooks/src/index.ts \
+            ./sources/@roots/bud-server/src/index.ts \
+            ./sources/@roots/bud/src/index.ts \
             ./sources/@roots/sage/src/index.ts \
             ./sources/@roots/container/src/index.ts`,
       )

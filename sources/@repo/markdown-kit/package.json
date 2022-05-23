@@ -1,7 +1,7 @@
 {
   "name": "@repo/markdown-kit",
   "private": true,
-  "packageManager": "yarn@3.2.0",
+  "packageManager": "yarn@3.2.1",
   "exports": {
     "./readme": "./readme/index.tsx",
     "./cli-examples": "./cli-examples/index.ts"
@@ -11,12 +11,12 @@
     "@repo/logger": "workspace:*",
     "@roots/bud": "workspace:*",
     "@roots/bud-support": "workspace:*",
-    "@types/react": "17.0.41",
-    "@types/react-dom": "17.0.14",
-    "@types/react-reconciler": "0.26.4",
-    "fs-extra": "10.0.1",
+    "@types/react": "17.0.45",
+    "@types/react-dom": "17.0.17",
+    "@types/react-reconciler": "0.26.7",
+    "fs-extra": "10.1.0",
     "helpful-decorators": "2.1.0",
-    "json5": "2.2.0",
+    "json5": "2.2.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-reconciler": "0.26.2"

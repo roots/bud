@@ -1,7 +1,13 @@
 import {projectConfig} from '@repo/constants'
 import React from 'react'
 
-import {Banner, Community, Contributing, Docs, Sponsors} from '../components'
+import {
+  Banner,
+  Community,
+  Contributing,
+  Docs,
+  Sponsors,
+} from '../components'
 
 export const Extension = ({
   name,
@@ -13,15 +19,17 @@ export const Extension = ({
   projectConfig: projectConfig
 }) => (
   <>
-    <Banner name={name} description={description} logo={projectConfig.logo} />
+    <Banner
+      name={name}
+      description={description}
+      logo={projectConfig.logo}
+    />
 
     <h2>Installation</h2>
 
     <p>Install **{name}** to your project.</p>
 
     <code lang="shell">yarn add {name} --dev</code>
-
-    <code lang="shell">yarn bud install</code>
 
     <Docs url={projectConfig.url.docs} />
 

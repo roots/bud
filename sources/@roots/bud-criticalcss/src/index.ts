@@ -8,23 +8,23 @@
  * @beta
  * This extension is under active development. But it should not be considered stable and there may be breaking changes.
  *
- * @see https://roots.io/bud
+ * @see https://bud.js.org
  * @see https://github.com/roots/bud
  *
  * @packageDocumentation
  */
 
-import {BudCriticalCssPlugin} from './BudCriticalCssPlugin'
+import {BudCriticalCss} from './BudCriticalCssPlugin'
 import {critical} from './critical'
 
 declare module '@roots/bud-framework' {
-  interface Framework {
+  interface Bud {
     critical: critical
   }
 
-  interface Plugins {
-    '@roots/bud-criticalcss': BudCriticalCssPlugin
+  interface Modules {
+    '@roots/bud-criticalcss': BudCriticalCss
   }
 }
 
-export default BudCriticalCssPlugin
+export default BudCriticalCss

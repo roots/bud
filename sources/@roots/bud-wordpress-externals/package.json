@@ -40,23 +40,19 @@
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.js"
+    ".": "./lib/cjs/index.js"
   },
   "bud": {
     "type": "extension"
   },
   "devDependencies": {
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@skypack/package-check": "0.2.2",
-    "@types/jest": "27.4.1",
-    "@types/lodash": "4.14.180",
-    "@types/node": "16.11.26",
-    "jest": "27.5.1"
+    "@types/lodash": "4.14.182",
+    "@types/node": "16.11.36"
   },
   "dependencies": {
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/wordpress-externals-webpack-plugin": "workspace:sources/@roots/wordpress-externals-webpack-plugin",
-    "autobind-decorator": "^2.4.0",
-    "tslib": "^2.3.1"
+    "tslib": "2.4.0"
   }
 }

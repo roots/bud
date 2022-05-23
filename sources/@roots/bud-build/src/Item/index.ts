@@ -1,10 +1,10 @@
-import {Framework, Item as Contract, Loader} from '@roots/bud-framework'
+import type {Bud, Build} from '@roots/bud-framework'
 import {bind} from '@roots/bud-support'
 
-import {Base} from '../shared/Base'
+import Base from '../shared/Base'
 
-export namespace Item {
-  export type ConstructorOptions = Contract.ConstructorOptions
+namespace Item {
+  export type ConstructorOptions = Build.Item.ConstructorOptions
 }
 
 /**
@@ -12,28 +12,28 @@ export namespace Item {
  *
  * @public
  */
-export class Item extends Base implements Contract {
+class Item extends Base implements Build.Item {
   /**
    * Loader
    *
    * @public
    */
-  public loader: Contract['loader']
+  public loader: Build.Item['loader']
 
   /**
    * Loader options
    *
    * @public
    */
-  public options: Contract['options']
+  public options: Build.Item['options']
 
   /**
    * Class constructor
    *
-   * @param options - {@link Contract.Options}
+   * @param options - {@link Build.Item.Options}
    */
   public constructor(
-    _app: () => Framework,
+    _app: () => Bud,
     options?: {
       loader?: Item['loader']
       options?: Item['options']
@@ -45,27 +45,42 @@ export class Item extends Base implements Contract {
   }
 
   /**
-   * {@inheritDoc @roots/Framework-Framework#Item.Abstract.getLoader}
+   * Get rule set item loader
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public getLoader(): Loader {
+  public getLoader(): Build.Loader {
     return this.app.build.loaders[this.unwrap(this.loader)]
   }
 
   /**
+   * Set rule set item loader
+   *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public setLoader(loader: Contract['loader']) {
+  public setLoader(loader: Build.Item['loader']) {
     this.loader = loader
     return this
   }
 
   /**
+   * Get rule set item options
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public getOptions(): Item['options'] {
+    return this.unwrap(this.options)
+  }
+
+  /**
+   * Set rule set item options
+   *
    * @public
    * @decorator `@bind`
    */
@@ -74,17 +89,15 @@ export class Item extends Base implements Contract {
     this.options = this.wrap(options)
     return this
   }
-  @bind
-  public getOptions(): Item['options'] {
-    return this.unwrap(this.options)
-  }
 
   /**
+   * Merge rule set item options
+   *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public mergeOptions(options: Contract.Options) {
+  public mergeOptions(options: Build.Item.Options) {
     options = {
       ...(this.getOptions() ?? {}),
       ...options,
@@ -95,15 +108,17 @@ export class Item extends Base implements Contract {
   }
 
   /**
+   * Produce rule set item object for Webpack
+   *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public toWebpack(): Contract.Output {
+  public toWebpack(): Build.Item.Output {
     const loader = this.getLoader()
     if (!loader) this.app.error(loader, `missing`, this)
 
-    const output: Contract.Output = {
+    const output: Build.Item.Output = {
       loader: this.getLoader().getSrc(),
     }
 
@@ -114,3 +129,5 @@ export class Item extends Base implements Contract {
     return output
   }
 }
+
+export {Item as default}

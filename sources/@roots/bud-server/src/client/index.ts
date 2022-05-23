@@ -39,7 +39,7 @@ interface Options extends BaseOptions {
     warn: false,
     name: '',
     overlayWarnings: false,
-    path: '/__hmr',
+    path: '/__bud/hmr',
   }
 
   const options: Options = Object.entries(

@@ -1,27 +1,60 @@
-import {Framework} from '@roots/bud-framework'
+import {Bud} from '@roots/bud-framework'
+import {chalk, figures} from '@roots/bud-support'
 import {StatsCompilation} from 'webpack'
 
-import * as box from './box.factory'
 import * as components from './components'
 import {theme} from './theme'
 import * as webpackMessage from './webpack.message'
 
-export const write = (
-  stats: {toJson: () => StatsCompilation},
-  app: Framework,
-) =>
-  stats.toJson().children?.map(compilation => {
-    if (!compilation?.entrypoints) return compilation
+export const report = ({
+  stats,
+  warnings,
+  errors,
+  app,
+}: {
+  stats: StatsCompilation
+  warnings: any
+  errors: any
+  app: Bud
+}): string => {
+  const output = []
 
-    const output = [
-      ...webpackMessage.mapMessages(compilation.warnings, theme.yellow),
-      ...webpackMessage.mapMessages(compilation.errors, theme.red),
-      box.make('assets', components.report(compilation).join('')),
-      ...components.timing(app, compilation),
-      ...components.summary(app, compilation),
-      ...(app.store.get('features.log') ? components.framework(app) : []),
-    ].join('')
+  errors && output.push(...errors.map(webpackMessage.makeError))
+  warnings && output.push(...warnings.map(webpackMessage.makeWarning))
 
-    // eslint-disable-next-line
-    app.context.stdout.write(`\n${output}\n`)
+  stats?.children?.map((compilation, i) => {
+    if (stats.children.length > 1) {
+      output.push(
+        chalk
+          .hex(errors.length ? theme.red : theme.green)
+          .underline(
+            `\n${errors.length ? figures.cross : figures.tick} ${
+              compilation.name
+            }\n\n`,
+          ),
+      )
+    }
+
+    compilation?.entrypoints &&
+      output.push(
+        ...components.report({
+          appName: app.name,
+          count: [i + 1, stats?.children?.length ?? 1],
+          context: app.context,
+          compilation,
+        }),
+      )
+
+    output.push(
+      [
+        components.timing(app, compilation),
+        ...components.summary(app, compilation),
+      ].join(''),
+    )
+
+    app.hooks.filter('feature.log') &&
+      output.push(...components.framework(app))
   })
+
+  return output.filter(Boolean).join('')
+}

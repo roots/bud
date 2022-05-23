@@ -1,4 +1,4 @@
-import {Framework, Server} from '@roots/bud-framework'
+import {Bud, Server} from '@roots/bud-framework'
 import {bind, chokidar, globby} from '@roots/bud-support'
 
 /**
@@ -15,11 +15,43 @@ export class Watcher implements Server.Watcher {
   public instance: chokidar.FSWatcher
 
   /**
+   * Watch files
+   *
+   * @public
+   */
+  public files: Set<string>
+
+  /**
+   * Watch options
+   *
+   * @public
+   */
+  public options: chokidar.WatchOptions
+
+  /**
+   * Logger
+   *
+   * @public
+   */
+  public logger: Bud['logger']['instance']
+
+  /**
    * Class constructor
    *
    * @param app - Application instance
    */
-  public constructor(public app: Framework) {}
+  public constructor(public app: Bud) {}
+
+  /**
+   * Get watch options
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  public getOptions() {
+    this.options = this.app.hooks.filter('dev.watch.options', {})
+    return this.options
+  }
 
   /**
    * Get watched files
@@ -28,14 +60,44 @@ export class Watcher implements Server.Watcher {
    * @decorator `@bind`
    */
   @bind
-  public async getWatchedFiles(): Promise<Array<string>> {
-    const files = this.app.hooks.filter('dev.watch.files')
-    if (files.size === 0) return []
+  public getFiles(): Array<string> {
+    this.files = this.app.hooks.filter('dev.watch.files')
+    if (!this.files || this.files.size === 0) return []
 
-    return await globby.globby(
-      Array.from(files),
-      this.app.hooks.filter('dev.watch.options'),
+    return Array.from(this.files)
+  }
+
+  /**
+   * Get files
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async search() {
+    return await globby.globby(this.getFiles())
+  }
+
+  /**
+   * Watcher callback
+   *
+   * @param path - changed file
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public watcherCallback(path: string): void {
+    this.logger.log(
+      'edit to',
+      path.replace(this.app.path(), '.'),
+      'triggered reload',
     )
+
+    this.app.server.appliedMiddleware?.hot?.publish({
+      action: 'reload',
+      message: `Detected file change: ${path}. Reloading window.`,
+    })
   }
 
   /**
@@ -46,25 +108,18 @@ export class Watcher implements Server.Watcher {
    */
   @bind
   public async watch(): Promise<Watcher['instance']> {
-    const {info} = this.app.logger.instance.scope('watch')
-    const watchFiles = await this.getWatchedFiles()
+    this.logger = this.app.logger.instance.scope('watch')
+    this.getFiles()
 
-    if (!watchFiles.length) return
+    if (!this.files.size) return
 
-    info(`watching ${watchFiles.length} files for changes`)
+    this.instance = await this.search().then(files =>
+      chokidar
+        .watch(files, this.getOptions())
+        .on('change', this.watcherCallback),
+    )
 
-    this.instance = chokidar.watch(watchFiles).on('change', path => {
-      info(
-        'edit to',
-        path.replace(this.app.path(), '[project]'),
-        'triggered reload',
-      )
-
-      this.app.server.appliedMiddleware?.hot?.publish({
-        action: 'reload',
-        message: `Detected file change: ${path}. Reloading window.`,
-      })
-    })
+    this.logger.log(`watching ${this.files.size} files for changes`)
 
     return this.instance
   }

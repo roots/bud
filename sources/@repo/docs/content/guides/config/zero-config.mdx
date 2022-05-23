@@ -1,0 +1,51 @@
+---
+title: Zero config
+description: The easiest config is no config
+sidebar_label: Zero config
+hide_table_of_contents: true
+---
+
+import Admonition from '@theme/Admonition'
+
+Configuring anything with bud.js is strictly optional.
+
+If you have a simple project that just needs to move a couple scripts from a source
+directory to one for distributables then bud.js is arguably a perfect fit.
+
+## Add or import code in `./src/index.js`
+
+By default, bud.js will try and compile `./src/index.js`. You can treat this module
+as the root of your application.
+
+Do you need to include CSS? Import it in `./src/index.js`. Same for all of your other assets (assuming bud.js supports it, and it probably does).
+
+## Zero config example
+
+It's kind of hard to show what zero-config looks like. But, it's not impossible.
+
+<Admonition type="danger" icon="😳" title="Hey, wait a minute!">
+
+<p>I'll admit that we cheated a little bit and passed two CLI flags:</p>
+
+<ul>
+  <li>
+    <b>--html</b> so that you can see the demo
+  </li>
+  <li>
+    <b>--clean</b> so that the demo's `./dist` folder stays tidy.
+  </li>
+</ul>
+
+</Admonition>
+
+Check out this codepen:
+
+<iframe
+  src="https://codesandbox.io/embed/bud-getting-started-1-hb29vf?fontsize=14&hidenavigation=1&moduleview=1&theme=dark"
+  style={{
+    width: '100%',
+    height: '500px',
+    border: 0,
+    borderRadius: '4px',
+  }}
+></iframe>

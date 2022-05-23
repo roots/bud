@@ -1,17 +1,22 @@
 {
   "name": "@repo/compile-kit",
   "private": true,
-  "packageManager": "yarn@3.2.0",
+  "packageManager": "yarn@3.2.1",
   "exports": {
     "./cjs": "./src/cjs.ts",
     "./esm": "./src/esm.ts",
+    "./vendor": "./src/vendor/index.ts",
     "./options": "./options.ts"
   },
   "devDependencies": {
     "@repo/constants": "workspace:*",
     "@roots/bud-support": "workspace:*",
     "@types/fs-extra": "9.0.13",
-    "@vercel/ncc": "0.33.3",
-    "fs-extra": "10.0.1"
+    "@vercel/ncc": "0.33.4",
+    "download-package-tarball": "1.0.7",
+    "fs-extra": "10.1.0",
+    "get-package-json-from-registry": "2.2.2",
+    "npm-package-arg": "9.0.2",
+    "registry-info": "1.0.0"
   }
 }

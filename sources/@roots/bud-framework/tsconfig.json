@@ -5,10 +5,9 @@
     "rootDir": "./src",
     "outDir": "./lib/cjs",
     "declarationDir": "./types",
-    "esModuleInterop": true,
-    "types": ["node"]
+    "esModuleInterop": true
   },
-  "include": ["src"],
+  "include": ["./src"],
   "references": [
     {"path": "./../container/tsconfig.json"},
     {"path": "./../bud-support/tsconfig.json"}

@@ -22,10 +22,6 @@ Install **@roots/bud-terser** to your project.
 yarn add @roots/bud-terser --dev
 ```
 
-```shell
-yarn bud install
-```
-
 ## Documentation
 
 For more information on utilizing this package [check out our dedicated docs](https://bud.js.org)

@@ -1,0 +1,125 @@
+---
+title: Specifying paths
+description: Working with paths
+slug: pathing
+sidebar_label: Specifying paths
+---
+
+:::tip (Mostly) opt-in
+
+You don't have to use any of the utilities on this page. Except when setting the path for any of the following:
+
+- your source assets directory
+- your distribution directory
+- the directory where **bud.js** writes its cache
+- the `node_modules` directory.
+
+Otherwise, if you would prefer to work with the `node:fs` module, you're good.
+
+:::
+
+## Using bud.path
+
+You can use [bud.path](/docs/bud.path) to easily reference a file or directory's absolute path:
+
+```ts
+bud.path('src/scripts/components')
+```
+
+If you like you can use `./` to make these references clearer:
+
+```ts
+bud.path('./src/scripts/components')
+```
+
+You may also choose to deliniate directories with an `Array` of path segments, rather than a `String`:
+
+```ts
+bud.path('src', 'scripts', 'components')
+```
+
+### @handles
+
+The following is a table containing `String` values which fulfill a special role in **bud.js**:
+
+| handle       | description                      | default          |
+| ------------ | -------------------------------- | ---------------- |
+| **@src**     | source directory                 | `./src`          |
+| **@dist**    | destination directory            | `./dist`         |
+| **@storage** | cache/artifact storage directory | `./.budfiles`    |
+| **@modules** | modules directory                | `./node_modules` |
+
+When one of these handles is used at **the beginning of a path**, the path will be
+prefixed with the corresponding directory.
+
+For example, to reference the **@src** directory:
+
+```ts
+bud.path('@src/scripts/components')
+```
+
+You can create your own handles for use in the **bud.path** function. But, the handles in this table are standard. Other parts of the bud.js framework or ecosystem may use these handles to reference project directories. So, while they may be freely modified as needed, they should not be removed.
+
+### Setting @handles
+
+**bud.setPath** is used to add or modify path handles. There are only two real rules for path handles:
+
+- A path handle must be unique
+- A path handle must be a `String` which begins with a `@`
+
+To make a reference to the `./src/scripts/components` directory we could write:
+
+```ts
+bud.setPath('@components', '@src/scripts/components')
+```
+
+In the future we can utilize that reference:
+
+```ts
+bud.path('@components') // => './src/scripts/components'
+```
+
+We can redefine the path to source assets like so:
+
+```ts
+bud.setPath('@src', 'sources')
+```
+
+Lastly, we can define multiple paths in a single call by using an object:
+
+```ts
+bud.setPath({
+  '@src': 'sources',
+  '@components': '@src/scripts/components',
+})
+```
+
+Note that if we were to change `@src` again that `@components` path would still reference the old value. This is something to be aware of.
+
+## Globbing
+
+> In computer programming, `glob` patterns specify sets of filenames with wildcard characters. For example, the Unix Bash shell command `mv _.txt textfiles/` moves all files with names ending in `.txt` from the current directory to the directory `textfiles`.
+>
+> — [Wikipedia](<https://en.wikipedia.org/wiki/Glob_(programming)#Glob_patterns>)
+
+**bud.js** allows for file globbing with [bud.glob](/docs/bud.glob) and [bud.globSync](/docs/bud.globSync).
+
+The following example will return an array of every `js` file in the project directory:
+
+```ts
+const files = await bud.glob('**/*.js')
+```
+
+If you want to exclude some directory, you can negate a pattern using `!`. And you can combine patterns by appending additional arguments.
+
+```ts
+const files = await bud.glob('**/*.js', '!node_modules')
+```
+
+If you require a sync version, you can use [bud.globSync](/docs/bud.globSync) instead.
+
+```ts
+const files = bud.globSync('**/*.js', '!node_modules')
+```
+
+It's a little less ideal, but it's there if you need it.

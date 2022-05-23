@@ -1,23 +1,21 @@
-import * as BudBabelExtension from '@roots/bud-babel'
-import {Config} from '@roots/bud-babel/src/babel.config'
+import {Bud, factory} from '@repo/test-kit/bud'
+import {Config} from '@roots/bud-babel/config'
+import BudBabelExtension from '@roots/bud-babel/extension'
 
-const RequiredBabel = require('@roots/bud-babel')
-
-describe('@roots/bud-babel', function () {
+describe('@roots/bud-babel', () => {
+  let bud: Bud
   let config: Config
+  let BabelInstance: BudBabelExtension
 
   beforeAll(async () => {
+    bud = await factory()
     config = new Config()
+    BabelInstance = new BudBabelExtension(bud)
   })
 
   it('works with require', () => {
-    expect(Object.keys(RequiredBabel)).toContain('name')
-    expect(Object.keys(RequiredBabel)).toContain('register')
-  })
-
-  it('works with default import', () => {
-    expect(Object.keys(BudBabelExtension)).toContain('name')
-    expect(Object.keys(BudBabelExtension)).toContain('register')
+    expect(BabelInstance.label).toBeDefined()
+    expect(BabelInstance.register).toBeDefined()
   })
 
   it('config class has a setPlugins', () => {
@@ -76,10 +74,7 @@ describe('@roots/bud-babel', function () {
 
     config.plugins = {}
 
-    config.setPlugin('someBabelPlugin', [
-      'someBabelPlugin',
-      {foo: 'bar'},
-    ])
+    config.setPlugin('someBabelPlugin', ['someBabelPlugin', {foo: 'bar'}])
 
     expect(config.plugins).toEqual({
       someBabelPlugin: ['someBabelPlugin', {foo: 'bar'}],
