@@ -107,7 +107,7 @@ export const seed: Config.Options['seed'] = {
   'build.optimization.minimize': [() => false],
   'build.optimization.minimizer': [() => ['...']],
   'build.optimization.removeEmptyChunks': [() => true],
-  'build.parallelism': [() => Math.max(cpus().length - 1, 1)],
+  'build.parallelism': [() => 10 * Math.max(cpus().length - 1, 1)],
   'build.performance': [() => ({hints: false})],
   'build.resolve.extensions': [
     () =>
