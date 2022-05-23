@@ -58,7 +58,7 @@
     "webpack": "5.72.1"
   },
   "dependencies": {
-    "compression-webpack-plugin": "^9.0.1",
+    "compression-webpack-plugin": "^10.0.0",
     "tslib": "2.4.0"
   }
 }

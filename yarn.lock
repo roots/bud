@@ -3541,7 +3541,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/lodash": 4.14.182
     "@types/node": 16.11.36
-    compression-webpack-plugin: ^9.0.1
+    compression-webpack-plugin: ^10.0.0
     tslib: 2.4.0
     webpack: 5.72.1
   languageName: unknown
@@ -8680,15 +8680,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"compression-webpack-plugin@npm:^9.0.1":
-  version: 9.0.1
-  resolution: "compression-webpack-plugin@npm:9.0.1"
+"compression-webpack-plugin@npm:^10.0.0":
+  version: 10.0.0
+  resolution: "compression-webpack-plugin@npm:10.0.0"
   dependencies:
     schema-utils: ^4.0.0
     serialize-javascript: ^6.0.0
   peerDependencies:
     webpack: ^5.1.0
-  checksum: a37d3df023911e705b2edcf250d55dc69eddc8e1abf70e8a1296dd291c344b91082a493ef351626ef6cb42fb6536529f2d67829dcc2f28adf392e0ef3ab25da9
+  checksum: 2ac9079b7ab87141639c62ddbb2820a06f105198e27ef4c3860da3186bdbefc00d1e206969833ce7a4b7b26161ddbec7b8d20d30f9f9c1d494818b9b86f0d5cc
   languageName: node
   linkType: hard
 
