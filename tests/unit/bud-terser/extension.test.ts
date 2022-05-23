@@ -28,13 +28,45 @@ describe('@roots/bud-terser', () => {
         output: {
           ascii_only: true,
           comments: false,
+          preamble: `/**
+  * Minified by @roots/bud
+  */`,
         },
+        sourceMap: 'inline',
       },
     })
   })
 
   it('exposes self @ bud.terser', async () => {
-    await bud.extensions.add([BudTerser])
     expect(bud.terser).toBeInstanceOf(BudTerser)
+  })
+
+  it('bud.terser.comments', async () => {
+    bud.terser.comments(true)
+    expect(bud.terser.options.terserOptions.output.comments).toBe(true)
+  })
+
+  it('bud.terser.dropComments', async () => {
+    bud.terser.dropComments()
+    expect(bud.terser.options.terserOptions.output.comments).toBe(false)
+  })
+
+  it('bud.terser.dropDebugger', async () => {
+    bud.terser.dropDebugger()
+    expect(bud.terser.options.terserOptions.output.debugger).toBe(false)
+  })
+
+  it('bud.terser.dropConsole', async () => {
+    bud.terser.dropConsole()
+    expect(bud.terser.options.terserOptions.compress.drop_console).toBe(
+      true,
+    )
+  })
+
+  it('bud.terser.mangle', async () => {
+    bud.terser.mangle({topLevel: true})
+    expect(bud.terser.options.terserOptions.mangle).toStrictEqual({
+      topLevel: true,
+    })
   })
 })
