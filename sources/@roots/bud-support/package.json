@@ -61,7 +61,7 @@
     "chalk": "5.0.1",
     "chokidar": "3.5.3",
     "cli-highlight": "2.1.11",
-    "copy-webpack-plugin": "10.2.4",
+    "copy-webpack-plugin": "11.0.0",
     "cosmiconfig": "7.0.1",
     "dotenv": "16.0.1",
     "dotenv-expand": "8.0.3",
