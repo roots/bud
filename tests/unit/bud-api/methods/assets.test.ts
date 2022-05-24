@@ -80,7 +80,10 @@ describe('bud.assets', function () {
   it('adds tupled assets', async () => {
     await bud.api.call('assets', [
       [bud.path('@src/images'), bud.path('@dist/images')],
-      [bud.path('@src/fonts/font.woff')],
+      [
+        bud.path('@src/fonts/font.woff'),
+        bud.path('@dist/fonts/font.woff'),
+      ],
     ])
 
     const patterns = bud.extensions
@@ -91,14 +94,12 @@ describe('bud.assets', function () {
       JSON.stringify([
         {
           from: bud.path('@src/images'),
-          to: bud.path('@dist/images/@name'),
-          context: bud.path('@src'),
+          to: bud.path('@dist/images'),
           noErrorOnMissing: true,
         },
         {
           from: bud.path('@src/fonts/font.woff'),
-          to: bud.path('@name'),
-          context: bud.path('@src'),
+          to: bud.path('@dist/fonts/font.woff'),
           noErrorOnMissing: true,
         },
       ]),
