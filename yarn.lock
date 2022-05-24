@@ -4287,7 +4287,7 @@ __metadata:
     mini-css-extract-plugin: ^2.4.5
     node-notifier: 10.0.1
     tslib: 2.4.0
-    typanion: 3.8.0
+    typanion: 3.9.0
     type-fest: ^2.5.4
     webpack: 5.72.1
     webpack-cli: ^4.9.1
@@ -22453,10 +22453,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typanion@npm:3.8.0, typanion@npm:^3.3.0, typanion@npm:^3.8.0":
-  version: 3.8.0
-  resolution: "typanion@npm:3.8.0"
-  checksum: ea3f97072c72efd4f1ac2c8996dad61e2a0810e6e2835f72b1e076e3f4c796666dc5f60af88329f3892173419a114b5d58a7369c16fdc46d76e3d9a55e8c486d
+"typanion@npm:3.9.0, typanion@npm:^3.3.0, typanion@npm:^3.8.0":
+  version: 3.9.0
+  resolution: "typanion@npm:3.9.0"
+  checksum: db635975e86c50399fe019010e489a9adb24a74cd19b15efb1d0f434c7dccd842a9402a6a6d60e8ab6d9f7949fd8604a019802a022427e78dbbe2e74f143527b
   languageName: node
   linkType: hard
 
