@@ -5,7 +5,9 @@ import * as logger from '@repo/logger'
 import {bind, execa} from '@roots/bud-support'
 import {copy, readFile, remove} from 'fs-extra'
 import * as json5 from 'json5'
-import {join} from 'path'
+import {posix} from 'node:path'
+
+const {join} = posix
 
 jest.setTimeout(120000)
 
@@ -208,7 +210,7 @@ export class Project {
   @bind
   public async setManifest() {
     this.manifest = await this.readJson(
-      this.projectPath(`${this.options.dist}/manifest.json`),
+      this.projectPath(join(this.options.dist, 'manifest.json')),
     )
   }
 
@@ -222,9 +224,10 @@ export class Project {
       async (promised: Promise<any>, [name, path]: [string, string]) => {
         const assets = await promised
 
-        logger.log('attempting to read', `${this.options.dist}/${path}`)
+        logger.log('attempting to read', join(this.options.dist, path))
+
         const buffer = await readFile(
-          this.projectPath(`${this.options.dist}/${path}`),
+          this.projectPath(join(this.options.dist, path)),
           'utf8',
         )
 
@@ -245,7 +248,7 @@ export class Project {
   public async setEntrypoints() {
     try {
       const entrypoints = await this.readJson(
-        this.projectPath(`${this.options.dist}/entrypoints.json`),
+        this.projectPath(join(this.options.dist, 'entrypoints.json')),
       )
 
       Object.assign(this, {entrypoints})
@@ -260,7 +263,7 @@ export class Project {
   public async setModules() {
     try {
       const modules = await this.readJson(
-        this.projectPath(join(this.storage, `bud/modules.json`)),
+        this.projectPath(join(this.storage, 'bud', 'modules.json')),
       )
 
       Object.assign(this, {modules})
