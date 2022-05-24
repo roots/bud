@@ -2938,7 +2938,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jest/schemas@npm:^28.0.0, @jest/schemas@npm:^28.0.2":
+"@jest/schemas@npm:^28.0.2":
   version: 28.0.2
   resolution: "@jest/schemas@npm:28.0.2"
   dependencies:
@@ -4078,7 +4078,7 @@ __metadata:
     open-editor: 4.0.0
     parse-semver: 1.1.1
     pkg-up: 4.0.0
-    pretty-format: 28.0.0
+    pretty-format: 28.1.0
     resolve-cwd: 3.0.0
     resolve-from: 5.0.0
     resolve-global: 1.0.0
@@ -18792,15 +18792,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pretty-format@npm:28.0.0":
-  version: 28.0.0
-  resolution: "pretty-format@npm:28.0.0"
+"pretty-format@npm:28.1.0, pretty-format@npm:^28.1.0":
+  version: 28.1.0
+  resolution: "pretty-format@npm:28.1.0"
   dependencies:
-    "@jest/schemas": ^28.0.0
+    "@jest/schemas": ^28.0.2
     ansi-regex: ^5.0.1
     ansi-styles: ^5.0.0
     react-is: ^18.0.0
-  checksum: 37c68f483033c5e1f4640444b944253a275909d3a611c571f74422158a70031d5427d1399c848a62d949fb18cb7b38ad7235ff6d2ec726df4e6277f9481b67cd
+  checksum: c1018099f8f800693449df96c05c243d94e01f7429b6617e1064a1a69b4d715637fc3c579061fbc31548b87d92af74a7933c6eb3856da6f30b29c0ff67004ce0
   languageName: node
   linkType: hard
 
@@ -18812,18 +18812,6 @@ __metadata:
     ansi-styles: ^5.0.0
     react-is: ^17.0.1
   checksum: cf610cffcb793885d16f184a62162f2dd0df31642d9a18edf4ca298e909a8fe80bdbf556d5c9573992c102ce8bf948691da91bf9739bee0ffb6e79c8a8a6e088
-  languageName: node
-  linkType: hard
-
-"pretty-format@npm:^28.1.0":
-  version: 28.1.0
-  resolution: "pretty-format@npm:28.1.0"
-  dependencies:
-    "@jest/schemas": ^28.0.2
-    ansi-regex: ^5.0.1
-    ansi-styles: ^5.0.0
-    react-is: ^18.0.0
-  checksum: c1018099f8f800693449df96c05c243d94e01f7429b6617e1064a1a69b4d715637fc3c579061fbc31548b87d92af74a7933c6eb3856da6f30b29c0ff67004ce0
   languageName: node
   linkType: hard
 
