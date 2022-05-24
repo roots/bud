@@ -1,7 +1,7 @@
 import type {Bud} from '@roots/bud-framework'
 import CopyPlugin from 'copy-webpack-plugin'
 import {isArray, isString} from 'lodash'
-import {join, normalize} from 'path'
+import {normalize} from 'path'
 
 import type {method} from './assets.interface'
 
@@ -34,16 +34,8 @@ export const assets: method = async function assets(
    * Take an input string and return a {@link CopyPlugin.ObjectPattern}
    */
   function makePatternObject(input: string): CopyPlugin.ObjectPattern {
-    /**
-     * Process raw user input.
-     *
-     * - Replace leading dot with project path
-     * - Append wildcard glob to directory requests
-     */
-    const from = fromDotRel(input)
-
     return {
-      from: from,
+      from: fromDotRel(input),
       to: app.path('@name'),
       context: input.startsWith('/') ? undefined : app.path('@src'),
       noErrorOnMissing: true,
@@ -56,24 +48,11 @@ export const assets: method = async function assets(
    * @param tuple - [origin, destination]
    * @returns
    */
-  const makeFromTo = (input: [string, string]) => {
-    let [from, to] = input
-
-    /**
-     * Process raw user input.
-     *
-     * - Replace leading dot with project path
-     * - Append wildcard glob to directory requests
-     */
-    from = fromDotRel(from)
-
-    return {
-      from,
-      to: to ? join(to, app.path('@name')) : app.path('@name'),
-      context: app.path('@src'),
-      noErrorOnMissing: true,
-    }
-  }
+  const makeFromTo = ([from, to]: [string, string]) => ({
+    from,
+    to,
+    noErrorOnMissing: true,
+  })
 
   /**
    * Parse a request item
