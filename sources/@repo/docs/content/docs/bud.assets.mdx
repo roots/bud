@@ -49,17 +49,24 @@ The first item in each tuple is the source and the second is the destination:
 
 ```js title='bud.config.js'
 bud.assets([
-  ['images', 'images'], // @src/images => @dist/images
-  ['fonts', 'fonts'],
-])
-```
-
-```js title='bud.config.js'
-bud.assets([
   [bud.path('@src/assets/asset.png'), bud.path('@dist/asset.png')],
   [bud.path('@src/fonts'), bud.path('@dist/fonts')],
 ])
 ```
+
+For the destination, you may wish to utilize the `@name` handle to automatically reference the hashed filename in `production`.
+
+```js title='bud.config.js'
+bud.assets([[bud.path('@src/fonts'), bud.path('@dist/fonts/@name')]])
+```
+
+You can include the output path along with the name using `@file`. For example, this is the same as above:
+
+```js title='bud.config.js'
+bud.assets([bud.path('@src/fonts'), bud.path('@dist/@file')])
+```
+
+Both `@name` and `@file` work whether you are copying a directory or a single file.
 
 ### Copying using an object
 
@@ -126,3 +133,15 @@ in your distribution. You don't need to manually require it with **bud.assets**,
 there is probably no real harm in doing so.
 
 **bud.assets** is specifically for compiling files which are not already included elsewhere.
+
+## Passing options directly
+
+If, for whatever reason, this API doesn't work for you, you can utilize the extension directly:
+
+```js title="bud.config.js"
+app.extensions.get('copy-webpack-plugin').setOption('patterns', [
+  {
+    from: app.path('@src/images'),
+  },
+])
+```
