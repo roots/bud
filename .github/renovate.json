@@ -1,6 +1,7 @@
 {
   "baseBranches": ["main"],
-  "commitMessageAction": "Bump",
+  "commitMessageAction": "update",
+  "commitMessagePrefix": "📦 deps:",
   "commitMessageTopic": "{{depName}}",
   "extends": ["config:base", "schedule:daily", ":dependencyDashboard"],
   "ignorePaths": ["sources/deprecated/**", "examples/**"],
@@ -10,7 +11,11 @@
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"]
     },
     {
-      "groupName": "yarnpkg monorepo",
+      "groupName": "@babel",
+      "matchPackagePrefixes": ["@babel/"]
+    },
+    {
+      "groupName": "@yarnpkg",
       "matchPackagePrefixes": ["@yarnpkg/"]
     }
   ],
