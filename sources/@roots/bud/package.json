@@ -114,7 +114,7 @@
     "mini-css-extract-plugin": "^2.4.5",
     "node-notifier": "10.0.1",
     "tslib": "2.4.0",
-    "typanion": "3.8.0",
+    "typanion": "3.9.0",
     "type-fest": "^2.5.4",
     "webpack": "5.72.1",
     "webpack-cli": "^4.9.1",
