@@ -179,7 +179,9 @@ export class Extension<E = any, Plugin = any> {
     key: K & string,
     value: Options<E>[K & string],
   ): this {
-    this._options[key] = _.isFunction(value) ? value : () => value
+    this._options[key] = _.isFunction(value)
+      ? value(this.options[key])
+      : () => value
     return this
   }
 

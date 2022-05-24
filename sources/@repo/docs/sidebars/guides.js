@@ -61,9 +61,9 @@ module.exports = {
       },
       items: [
         'general-use/dynamic-imports',
-        'general-use/hashing',
-        'general-use/optimizing',
+        'general-use/extensions',
         'general-use/multi-compiler',
+        'general-use/optimizing',
         'general-use/transpiler-sources',
       ],
     },
