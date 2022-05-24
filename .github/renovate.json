@@ -15,6 +15,15 @@
       "matchPackagePrefixes": ["@babel/"]
     },
     {
+      "groupName": "react",
+      "matchPackagePrefixes": [
+        "react",
+        "react-dom",
+        "@types/react",
+        "react-reconciler"
+      ]
+    },
+    {
       "groupName": "@yarnpkg",
       "matchPackagePrefixes": ["@yarnpkg/"]
     }
