@@ -86,6 +86,28 @@ describe('@roots/bud-postcss', () => {
     )
   })
 
+  it('unsetPlugin return bud.postcss', () => {
+    const returnValue = bud.postcss.setPlugins(
+      new Map([
+        ['bang', ['bop']],
+        ['bong', ['gong']],
+      ]),
+    )
+
+    expect(returnValue).toBeInstanceOf(BudPostCss)
+  })
+
+  it('setPlugins return bud.postcss', () => {
+    const returnValue = bud.postcss.setPlugins(
+      new Map([
+        ['bang', ['bop']],
+        ['bong', ['gong']],
+      ]),
+    )
+
+    expect(returnValue).toBeInstanceOf(BudPostCss)
+  })
+
   it('setPlugin', () => {
     bud.postcss.setPlugins({})
     bud.postcss.setPlugin('postcss-preset-env')
@@ -128,9 +150,9 @@ describe('@roots/bud-postcss', () => {
   it("throws when plugin doesn't exist", () => {
     bud.postcss.setPlugins({})
 
-    expect(() => {
-      bud.postcss.getPluginOptions('no-exist')
-    }).toThrow()
+    try {
+      expect(bud.postcss.getPluginOptions('no-exist')).toThrow()
+    } catch (err) {}
   })
 
   it('registers loader', () => {
