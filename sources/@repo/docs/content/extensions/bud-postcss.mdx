@@ -36,7 +36,7 @@ If you have a postcss config file in your project, that configuration will be us
 
 :::
 
-### postcss.setPlugin
+### Add a plugin
 
 Let's say you want to use [postcss-grid-kiss](https://github.com/sylvainpolletvillard/postcss-grid-kiss). This is an extension that
 lets you write a CSS grid with ascii art (!!):
@@ -69,7 +69,7 @@ The first is the resolvable plugin module name.
 bud.postcss.setPlugin('precss')
 ```
 
-You can use a second parameter to be explicit about where to resolve the plugin from:
+The second parameter to be explicit about where to resolve the plugin from:
 
 ```js
 bud.postcss.setPlugin('precss', bud.path('./directory/dev-plugin.js'))
@@ -84,16 +84,7 @@ bud.postcss.setPlugin('precss', [
 ])
 ```
 
-### postcss.setPluginOptions
-
-Set the options for a postcss plugin. Takes two parameters. The first is the plugin name,
-the second is the options object.
-
-```js
-bud.postcss.setPluginOptions('precss', {optimize: false})
-```
-
-### postcss.setPlugins
+### Set plugins
 
 Add multiple postcss plugins. Takes a single parameter, which is either a plain `Object` or a `Map` using the plugin
 name as keys and the plugin module path and options as values.
@@ -101,18 +92,29 @@ name as keys and the plugin module path and options as values.
 The options can be either a single object or an array of objects.
 
 ```js
-bud.postcss.setPlugins(new Map([
-  ['postcss-import', require.resolve('postcss-import')],
-  ['postcss-preset-env', [
-    require.resolve('postcss-preset-env'),
-    {stage: 1},
-  ],
-])
+bud.postcss.setPlugins(
+  new Map([
+    ['postcss-import', require.resolve('postcss-import')],
+    [
+      'postcss-preset-env',
+      [require.resolve('postcss-preset-env'), {stage: 1}],
+    ],
+  ]),
+)
 ```
 
-### postcss.unsetPlugin
+### Modify plugin options
 
-Remove a plugin.
+You can modify options for a postcss plugin using **postcss.setPluginOptions**. Takes two parameters. The first is the plugin name,
+the second is the options object.
+
+```js
+bud.postcss.setPluginOptions('precss', {optimize: false})
+```
+
+### Remove a plugin
+
+You may remove a plugin with **postcss.unsetPlugin**.
 
 ```js
 bud.postcss.unsetPlugin('postcss-import')
