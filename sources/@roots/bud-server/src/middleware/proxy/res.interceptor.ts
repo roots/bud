@@ -101,7 +101,7 @@ export class ResponseInterceptorFactory {
 
     Object.entries(request.cookies).map(([k, v]) => {
       this.app.info('setting cookie', k, '=>', v)
-      response.cookie(k, v, {domain: null})
+      response.cookie(k, v, {domain: undefined})
     })
 
     return this.app.hooks
