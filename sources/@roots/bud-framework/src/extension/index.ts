@@ -47,6 +47,8 @@ export class Extension<E = any, Plugin = any> {
 
   /**
    * Plugin constructor
+   *
+   * @public
    */
   public plugin?: new (options: Options<E>) => Plugin
 
@@ -54,7 +56,11 @@ export class Extension<E = any, Plugin = any> {
   public async _init?() {
     this.path = await this.app.module.path(this.label)
     if (this.init) {
-      await this.init(this.options, this.app)
+      try {
+        await this.init(this.options, this.app)
+      } catch (error) {
+        this.app.error(this.label, 'init error', '\n', error)
+      }
     }
   }
   public async init?(options: Options<E>, app: Bud): Promise<unknown>
@@ -62,7 +68,11 @@ export class Extension<E = any, Plugin = any> {
   @bind
   public async _register?() {
     if (this.register) {
-      await this.register(this.options, this.app)
+      try {
+        await this.register(this.options, this.app)
+      } catch (error) {
+        this.app.error(this.label, 'register error', '\n', error)
+      }
     }
   }
   public async register?(options: Options<E>, app: Bud): Promise<unknown>
@@ -70,7 +80,11 @@ export class Extension<E = any, Plugin = any> {
   @bind
   public async _boot?() {
     if (this.boot) {
-      await this.boot(this.options, this.app)
+      try {
+        await this.boot(this.options, this.app)
+      } catch (error) {
+        this.app.error(this.label, 'boot error', '\n', error)
+      }
     }
   }
   public async boot?(options?: Options<E>, app?: Bud): Promise<unknown>
@@ -99,7 +113,11 @@ export class Extension<E = any, Plugin = any> {
     if (this.plugin) return new this.plugin(this.options)
     if (this.apply) return this as {apply: any}
 
-    return await this.make()
+    try {
+      return await this.make()
+    } catch (error) {
+      this.app.error(this.label, 'make error', '\n', error)
+    }
   }
   public async make?(options?: Options<E>, app?: Bud): Promise<Plugin>
 
