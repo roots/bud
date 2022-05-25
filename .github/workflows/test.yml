@@ -61,4 +61,7 @@ jobs:
 
       - name: Integration
         run: |
-          docker-compose run --rm bud yarn @bud test integration --coverage --verbose --maxWorkers 50%
+          docker-compose run --rm bud yarn @bud test integration --verbose --maxWorkers 50%
+
+      - name: Coverage report
+        uses: codecov/codecov-action@v2
