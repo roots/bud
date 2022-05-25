@@ -1,2 +1,2 @@
 ignore:
-  - '!sources/@roots/*/src/**/*'
+  - '!sources/@roots/*/src/'
