@@ -36,60 +36,54 @@ If you have a postcss config file in your project, that configuration will be us
 
 :::
 
+**@roots/bud-postcss** stores PostCSS plugins as a `Map`. You can work with this map directly using **bud.postcss.plugins**.
+
+```js
+bud.postcss.plugins.set('postcss-import', [
+  require.resolve('postcss-import'),
+  {...options},
+])
+
+bud.postcss.plugins.get('postcss-import')
+```
+
+There are also several functions designed to simplify managing registered plugins:
+
 ### Add a plugin
 
-Let's say you want to use [postcss-grid-kiss](https://github.com/sylvainpolletvillard/postcss-grid-kiss). This is an extension that
-lets you write a CSS grid with ascii art (!!):
+You can add a plugin with **postcss.setPlugin**. This function takes up to two parameters.
 
-```ascii
-body {
-	grid-kiss:
-		"+-------------------------------+      "
-		"|           header ↑            | 120px"
-		"+-------------------------------+      "
-		"                                       "
-		"+-- 30% ---+  +--- auto --------+      "
-		"| .sidebar |  |       main      | auto "
-		"+----------+  +-----------------+      "
-		"                                       "
-		"+-------------------------------+      "
-		"|              ↓                | 60px "
-		"|         → footer ←            |      "
-		"+-------------------------------+      "
-}
-```
-
-You can do exactly that with `postcss.setPlugin`.
-
-The function takes up to two parameters.
-
-The first is the resolvable plugin module name.
+The first parameter is required. It is the name for the plugin.
+If it is the only parameter being passed, it should be the resolvable plugin module name.
 
 ```js
-bud.postcss.setPlugin('precss')
+bud.postcss.setPlugin('example-postcss-plugin')
 ```
 
-The second parameter to be explicit about where to resolve the plugin from:
+The second parameter is optional. It allows you to specify where the plugin should be resolved from:
 
 ```js
-bud.postcss.setPlugin('precss', bud.path('./directory/dev-plugin.js'))
+bud.postcss.setPlugin(
+  'example-postcss-plugin',
+  bud.path('./directory/example.js'),
+)
 ```
 
-Lastly, you can use a `tuple` alongside the path to set any associated options in one call.
+Lastly, you can use a `tuple` to set any associated options alongside the resolvable path.
 
 ```js
-bud.postcss.setPlugin('precss', [
-  require.resolve('postcss-preset-env'), // the plugin module path
+bud.postcss.setPlugin('example-postcss-plugin', [
+  require.resolve('example-postcss-plugin'), // the plugin module path
   {stage: 1}, // options
 ])
 ```
 
 ### Set plugins
 
-Add multiple postcss plugins. Takes a single parameter, which is either a plain `Object` or a `Map` using the plugin
-name as keys and the plugin module path and options as values.
+Add multiple postcss plugins using **postcss.setPlugins**.
 
-The options can be either a single object or an array of objects.
+This function accepts either a plain `Object` or a `Map` using the plugin
+name as keys and the plugin module path and options as values.
 
 ```js
 bud.postcss.setPlugins(
@@ -105,11 +99,25 @@ bud.postcss.setPlugins(
 
 ### Modify plugin options
 
-You can modify options for a postcss plugin using **postcss.setPluginOptions**. Takes two parameters. The first is the plugin name,
-the second is the options object.
+You can modify options for a postcss plugin using **postcss.setPluginOptions**.
+
+The first parameter is the plugin key and the second is the options object.
 
 ```js
-bud.postcss.setPluginOptions('precss', {optimize: false})
+bud.postcss.setPluginOptions('example-postcss-plugin', {optimize: false})
+```
+
+### Modify plugin path
+
+You can modify the path for a postcss plugin using **postcss.setPluginPath**.
+
+The first parameter is the plugin key and the second is the new path to assign.
+
+```js
+bud.postcss.setPluginPath(
+  'example-postcss-plugin',
+  bud.path('./lib/my-plugin.js'),
+)
 ```
 
 ### Remove a plugin
