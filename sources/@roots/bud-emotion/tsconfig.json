@@ -5,7 +5,7 @@
     "rootDir": "./src",
     "outDir": "./lib/cjs",
     "declarationDir": "./types",
-    "types": ["node", "@roots/bud-babel", "@roots/bud-react"]
+    "types": ["node", "@roots/bud-babel"]
   },
   "include": ["./src"],
   "references": [
@@ -17,9 +17,6 @@
     },
     {
       "path": "./../bud-support/tsconfig.json"
-    },
-    {
-      "path": "./../bud-react/tsconfig.json"
     }
   ]
 }
