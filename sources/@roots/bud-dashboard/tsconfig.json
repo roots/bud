@@ -3,9 +3,9 @@
   "compilerOptions": {
     "baseUrl": ".",
     "rootDir": "./src",
-    "outDir": "./lib/cjs",
+    "outDir": "./lib",
+    "module": "esnext",
     "declarationDir": "./types",
-    "esModuleInterop": true,
     "types": ["node", "@roots/bud-framework"]
   },
   "include": ["./src"],

@@ -41,30 +41,28 @@
     "lib/",
     "types/"
   ],
-  "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.js",
+  "type": "module",
+  "module": "./lib/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    ".": "./lib/cjs/index.js",
-    "./eslint-config": "./eslint-config/index.js",
-    "./extension": "./lib/cjs/extension.js",
-    "./react-refresh": "./lib/cjs/react-refresh/index.js",
-    "./react-refresh/*": "./lib/cjs/react-refresh/*.js"
-  },
-  "typesVersions": {
-    "*": {
-      ".": [
-        "./types/index.d.ts"
-      ],
-      "extension": [
-        "./types/extension.d.ts"
-      ],
-      "react-refresh": [
-        "./types/react-refresh/index.d.ts"
-      ],
-      "react-refresh/*": [
-        "./types/react-refresh/*.d.ts"
-      ]
+    ".": {
+      "types": "./types/index.d.ts",
+      "import": "./lib/index.js"
+    },
+    "./eslint-config": {
+      "import": "./eslint-config/index.js"
+    },
+    "./extension": {
+      "types": "./types/extension.d.ts",
+      "import": "./lib/extension.js"
+    },
+    "./react-refresh": {
+      "types": "./types/react-refresh/index.d.ts",
+      "import": "./lib/react-refresh/index.js"
+    },
+    "./react-refresh/*": {
+      "types": "./types/react-refresh/*.d.ts",
+      "import": "./lib/react-refresh/*.js"
     }
   },
   "devDependencies": {
@@ -72,6 +70,7 @@
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@skypack/package-check": "0.2.2",
     "@types/babel__core": "7.1.19",
+    "@types/lodash-es": "^4",
     "@types/node": "16.11.36",
     "@types/react": "17.0.45",
     "@types/react-dom": "17.0.17",
@@ -84,7 +83,7 @@
     "@pmmmwh/react-refresh-webpack-plugin": "0.5.7",
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/bud-support": "workspace:sources/@roots/bud-support",
+    "lodash-es": "4.17.21",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hot-loader": "^4.13.0",

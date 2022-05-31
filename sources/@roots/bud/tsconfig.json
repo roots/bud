@@ -1,12 +1,13 @@
 {
   "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
-    "declarationDir": "./types",
-    "esModuleInterop": true,
+    "baseUrl": ".",
     "rootDir": "./src",
-    "outDir": "./lib/esm",
+    "outDir": "./lib",
     "module": "esnext",
+    "declarationDir": "./types",
     "types": [
+      "node",
       "@roots/bud-api",
       "@roots/bud-build",
       "@roots/bud-cache",

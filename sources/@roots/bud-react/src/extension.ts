@@ -5,7 +5,7 @@ import {
   label,
 } from '@roots/bud-framework/extension/decorators'
 
-import * as api from './react-refresh/api'
+import * as api from './react-refresh/api.js'
 
 /**
  * React support extension for `@roots/bud`

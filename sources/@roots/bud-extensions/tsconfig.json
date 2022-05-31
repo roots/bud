@@ -3,11 +3,10 @@
   "compilerOptions": {
     "baseUrl": ".",
     "rootDir": "./src",
-    "outDir": "./lib/cjs",
+    "outDir": "./lib",
+    "module": "esnext",
     "declarationDir": "./types",
-    "types": [
-      "node",
-    ]
+    "types": ["node"]
   },
   "include": [
     "./src"

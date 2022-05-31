@@ -1,9 +1,9 @@
 import {Container} from '@roots/container'
-import {boundMethod as bind} from 'autobind-decorator'
-import {get} from 'lodash'
-import * as path from 'path'
+import {bind} from 'helpful-decorators'
+import {get} from 'lodash-es'
+import * as path from 'node:path'
 
-import {FileContainer} from '..'
+import {FileContainer} from '../FileContainer/index.js'
 
 /**
  * FileSystem class

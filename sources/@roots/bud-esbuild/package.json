@@ -38,15 +38,21 @@
     "lib/",
     "types/"
   ],
-  "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.js",
-  "types": "./types/index.d.ts",
-  "exports": {
-    "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.js"
-  },
   "bud": {
     "type": "extension"
+  },
+  "type": "module",
+  "module": "./lib/index.js",
+  "types": "./types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "import": "./lib/index.js"
+    },
+    "./extension": {
+      "types": "./types/extension.d.ts",
+      "import": "./lib/extension.js"
+    }
   },
   "devDependencies": {
     "@roots/bud-api": "workspace:sources/@roots/bud-api",

@@ -38,16 +38,16 @@
     "types/"
   ],
   "type": "module",
-  "module": "./lib/esm/index.js",
+  "module": "./lib/index.js",
   "types": "./types/index.d.ts",
   "exports": {
     ".": {
       "types": "./types/index.d.ts",
-      "import": "./lib/esm/index.js"
+      "import": "./lib/index.js"
     },
     "./service": {
       "types": "./types/service.d.ts",
-      "import": "./lib/esm/service.js"
+      "import": "./lib/service.js"
     }
   },
   "devDependencies": {

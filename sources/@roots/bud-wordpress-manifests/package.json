@@ -32,6 +32,9 @@
   "engines": {
     "node": ">=16"
   },
+  "bud": {
+    "type": "extension"
+  },
   "files": [
     "lib/",
     "types/"
@@ -40,19 +43,19 @@
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.js"
-  },
-  "bud": {
-    "type": "extension"
+    ".": {
+      "types": "./types/index.d.ts",
+      "import": "./lib/esm/index.js"
+    },
+    "./extension": {
+      "types": "./types/extension.d.ts",
+      "import": "./lib/esm/extension.js"
+    }
   },
   "devDependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@skypack/package-check": "0.2.2",
-    "@types/jest": "27.5.1",
-    "@types/lodash": "4.14.182",
-    "@types/node": "16.11.36",
-    "jest": "28.1.0"
+    "@types/node": "16.11.36"
   },
   "dependencies": {
     "@roots/merged-manifest-webpack-plugin": "workspace:sources/@roots/merged-manifest-webpack-plugin",

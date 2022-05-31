@@ -3,7 +3,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "rootDir": "./src",
-    "outDir": "./lib/cjs",
+    "outDir": "./lib",
+    "module": "esnext",
     "declarationDir": "./types",
     "types": [
       "node",
@@ -12,19 +13,15 @@
     ]
   },
   "include": [
-    "src"
+    "./src"
   ],
   "exclude": [
-    "lib",
-    "node_modules",
-    "types"
+    "./lib",
+    "./node_modules",
+    "./types"
   ],
   "references": [
-    {
-      "path": "./../bud-framework/tsconfig.json"
-    },
-    {
-      "path": "./../bud-api/tsconfig.json"
-    }
+    {"path": "./../bud-framework/tsconfig.json"},
+    {"path": "./../bud-api/tsconfig.json"}
   ]
 }

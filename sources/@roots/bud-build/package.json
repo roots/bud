@@ -38,61 +38,50 @@
     "types/"
   ],
   "type": "module",
-  "module": "./lib/esm/index.js",
+  "module": "./lib/index.js",
   "types": "./types/index.d.ts",
   "exports": {
     ".": {
-      "types": "./types/index.d.ts",
-      "import": "./lib/esm/index.js"
+      "import": {
+        "types": "./types/index.d.ts",
+        "default": "./lib/index.js"
+      }
     },
     "./item": {
-      "types": "./types/Item/index.d.ts",
-      "import": "./lib/esm/Item/index.js"
+      "import": {
+        "types": "./types/Item/index.d.ts",
+        "default": "./lib/Item/index.js"
+      }
     },
     "./items": {
-      "types": "./types/items.d.ts",
-      "import": "./lib/esm/items.js"
+      "import": {
+        "types": "./types/items.d.ts",
+        "default": "./lib/items.js"
+      }
     },
     "./loader": {
-      "types": "./types/loader.d.ts",
-      "import": "./lib/esm/loader.js"
+      "import": {
+        "types": "./types/loader.d.ts",
+        "default": "./lib/loader.js"
+      }
     },
     "./loaders": {
-      "types": "./types/loaders.d.ts",
-      "import": "./lib/esm/loaders.js"
+      "import": {
+        "types": "./types/loaders.d.ts",
+        "default": "./lib/loaders.js"
+      }
     },
     "./rule": {
-      "types": "./types/Rule/index.d.ts",
-      "import": "./lib/esm/Rule/index.js"
+      "import": {
+        "types": "./types/Rule/index.d.ts",
+        "default": "./lib/Rule/index.js"
+      }
     },
     "./rules": {
-      "types": "./types/rules.d.ts",
-      "import": "./lib/esm/rules.js"
-    }
-  },
-  "typesVersions": {
-    "*": {
-      ".": [
-        "./types/index.d.ts"
-      ],
-      "./item": [
-        "./types/Item/index.d.ts"
-      ],
-      "./items": [
-        "./types/items.d.ts"
-      ],
-      "./loader": [
-        "./types/loader.d.ts"
-      ],
-      "./loaders": [
-        "./types/loaders.d.ts"
-      ],
-      "./rule": [
-        "./types/Rule/index.d.ts"
-      ],
-      "./rules": [
-        "./types/rules.d.ts"
-      ]
+      "import": {
+        "types": "./types/rules.d.ts",
+        "default": "./lib/rules.js"
+      }
     }
   },
   "devDependencies": {
@@ -106,7 +95,6 @@
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "css-loader": "^6.5.1",
     "csv-loader": "^3.0.3",
     "file-loader": "^6.2.0",

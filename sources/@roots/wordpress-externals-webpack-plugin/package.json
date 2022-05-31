@@ -36,18 +36,20 @@
     "lib/",
     "types/"
   ],
-  "main": "./lib/cjs/index.js",
+  "type": "module",
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.js"
+    ".": {
+      "types": "./types/index.d.ts",
+      "import": "./lib/esm/index.js"
+    }
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2"
   },
   "dependencies": {
-    "lodash": "4.17.21",
+    "lodash-es": "4.17.21",
     "tslib": "2.4.0",
     "webpack": "5.72.1"
   }

@@ -38,93 +38,44 @@
     "types/"
   ],
   "type": "module",
-  "module": "./lib/esm/index.js",
+  "module": "./lib/index.js",
   "types": "./types/index.d.ts",
   "exports": {
     ".": {
-      "import": {
-        "types": "./types/index.d.ts",
-        "default": "./lib/esm/index.js"
-      }
+      "types": "./types/index.d.ts",
+      "import": "./lib/index.js"
     },
     "./bud": {
-      "import": {
-        "types": "./types/bud.d.ts",
-        "default": "./lib/esm/bud.js"
-      }
+      "types": "./types/bud.d.ts",
+      "import": "./lib/bud.js"
     },
     "./extension": {
-      "import": {
-        "types": "./types/extension/index.d.ts",
-        "default": "./lib/esm/extension/index.js"
-      }
+      "types": "./types/extension/index.d.ts",
+      "import": "./lib/extension/index.js"
     },
     "./extension/decorators": {
-      "import": {
-        "types": "./types/extension/decorators/index.d.ts",
-        "default": "./lib/esm/extension/decorators/index.js"
-      }
+      "types": "./types/extension/decorators/index.d.ts",
+      "import": "./lib/extension/decorators/index.js"
     },
     "./extension/decorators/*": {
-      "import": {
-        "types": "./types/extension/decorators/*.d.ts",
-        "default": "./lib/esm/extension/decorators/*.js"
-      }
+      "types": "./types/extension/decorators/*.d.ts",
+      "import": "./lib/extension/decorators/*.js"
     },
     "./methods/*": {
-      "import": {
-        "types": "./types/methods/*.d.ts",
-        "default": "./lib/esm/methods/*.js"
-      }
+      "types": "./types/methods/*.d.ts",
+      "import": "./lib/methods/*.js"
     },
     "./module": {
-      "import": {
-        "types": "./types/module.d.ts",
-        "default": "./lib/esm/module.js"
-      }
+      "types": "./types/module.d.ts",
+      "import": "./lib/module.js"
     },
     "./service": {
-      "import": {
-        "types": "./types/service/index.d.ts",
-        "default": "./lib/esm/service/index.js"
-      }
+      "types": "./types/service/index.d.ts",
+      "import": "./lib/service/index.js"
     },
     "./services/*": {
-      "import": {
-        "types": "./types/services/*/index.d.ts",
-        "default": "./lib/esm/services/*/index.js"
-      }
-    }
-  },
-  "typesVersions": {
-    "*": {
-      ".": [
-        "./types/index.d.ts"
-      ],
-      "bud": [
-        "./types/bud.d.ts"
-      ],
-      "config": [
-        "./types/config/index.d.ts"
-      ],
-      "extension": [
-        "./types/extension/index.d.ts"
-      ],
-      "extension/decorators": [
-        "./types/extension/decorators/index.d.ts"
-      ],
-      "extension/decorators/*": [
-        "./types/extension/decorators/*.d.ts"
-      ],
-      "methods/*": [
-        "./types/methods/*.js"
-      ],
-      "service": [
-        "./types/service.d.ts"
-      ],
-      "services/*": [
-        "./types/services/*/index.d.ts"
-      ]
+      "types": "./types/services/*/index.d.ts",
+      "import": "./lib/services/*/index.js"
     }
   },
   "devDependencies": {
@@ -142,7 +93,6 @@
     "webpack-hot-middleware": "2.25.1"
   },
   "dependencies": {
-    "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@roots/container": "workspace:sources/@roots/container",
     "boxen": "6.2.1",
     "cli-highlight": "2.1.11",

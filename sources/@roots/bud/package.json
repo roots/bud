@@ -46,67 +46,67 @@
   ],
   "bin": "./bin/bud.mjs",
   "type": "module",
-  "module": "./lib/esm/index.js",
+  "module": "./lib/index.js",
   "types": "./types/index.d.ts",
   "exports": {
     ".": {
       "import": {
         "types": "./types/index.d.ts",
-        "default": "./lib/esm/index.js"
+        "default": "./lib/index.js"
       }
     },
     "./cli": {
       "import": {
         "types": "./types/cli/index.d.ts",
-        "default": "./lib/esm/cli/index.js"
+        "default": "./lib/cli/index.js"
       }
     },
     "./cli/commands": {
       "import": {
         "types": "./types/cli/commands/index.d.ts",
-        "default": "./lib/esm/cli/commands/index.js"
+        "default": "./lib/cli/commands/index.js"
       }
     },
     "./cli/commands/*": {
       "import": {
         "types": "./types/cli/commands/*.d.ts",
-        "default": "./lib/esm/cli/commands/*.js"
+        "default": "./lib/cli/commands/*.js"
       }
     },
     "./context": {
       "import": {
         "types": "./types/context/index.d.ts",
-        "default": "./lib/esm/context/index.js"
+        "default": "./lib/context/index.js"
       }
     },
     "./context/*": {
       "import": {
         "types": "./types/context/*.d.ts",
-        "default": "./lib/esm/context/*.js"
+        "default": "./lib/context/*.js"
       }
     },
     "./extensions": {
       "import": {
         "types": "./types/extensions/index.d.ts",
-        "default": "./lib/esm/extensions/index.js"
+        "default": "./lib/extensions/index.js"
       }
     },
     "./extensions/*": {
       "import": {
         "types": "./types/extensions/*/index.d.ts",
-        "default": "./lib/esm/extensions/*/index.js"
+        "default": "./lib/extensions/*/index.js"
       }
     },
     "./factory": {
       "import": {
         "types": "./types/factory/index.d.ts",
-        "default": "./lib/esm/factory/index.js"
+        "default": "./lib/factory/index.js"
       }
     },
     "./services": {
       "import": {
         "types": "./types/services/index.d.ts",
-        "default": "./lib/esm/services/index.js"
+        "default": "./lib/services/index.js"
       }
     }
   },

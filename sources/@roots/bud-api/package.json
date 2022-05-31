@@ -38,48 +38,24 @@
     "types/"
   ],
   "type": "module",
-  "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.js",
+  "module": "./lib/index.js",
   "types": "./types/index.d.ts",
   "exports": {
     ".": {
       "types": "./types/index.d.ts",
-      "import": "./lib/esm/index.js",
-      "require": "./lib/cjs/index.js"
+      "import": "./lib/index.js"
     },
     "./api": {
       "types": "./types/api/index.d.ts",
-      "import": "./lib/esm/api/index.js",
-      "require": "./lib/cjs/api/index.js"
+      "import": "./lib/api/index.js"
     },
     "./methods": {
-      "types": "./types/methods/index.js",
-      "import": "./lib/esm/methods/index.js",
-      "require": "./lib/cjs/methods/index.js"
+      "types": "./types/methods/index.d.ts",
+      "import": "./lib/methods/index.js"
     },
     "./methods/*": {
-      "types": "./types/methods/*/index.js",
-      "import": "./lib/esm/methods/*/index.js",
-      "require": "./lib/cjs/methods/*/index.js"
-    }
-  },
-  "typesVersions": {
-    "*": {
-      ".": [
-        "./types/index.d.ts"
-      ],
-      "api": [
-        "./types/api/index.d.ts"
-      ],
-      "facade": [
-        "./types/facade/index.d.ts"
-      ],
-      "methods": [
-        "./types/methods/index.d.ts"
-      ],
-      "methods/*": [
-        "./types/methods/*/index.d.ts"
-      ]
+      "types": "./types/methods/*/index.d.ts",
+      "import": "./lib/methods/*/index.js"
     }
   },
   "devDependencies": {
@@ -91,7 +67,6 @@
     "webpack": "5.72.1"
   },
   "dependencies": {
-    "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "chalk": "5.0.1",
     "copy-webpack-plugin": "11.0.0",
     "css-minimizer-webpack-plugin": "4.0.0",

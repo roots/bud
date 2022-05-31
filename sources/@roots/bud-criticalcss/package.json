@@ -37,12 +37,12 @@
     "types/"
   ],
   "type": "module",
-  "module": "./lib/esm/index.js",
+  "module": "./lib/index.js",
   "types": "./types/index.d.ts",
   "exports": {
     ".": {
       "types": "./types/index.d.ts",
-      "import": "./lib/esm/index.js"
+      "import": "./lib/index.js"
     }
   },
   "devDependencies": {

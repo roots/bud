@@ -34,20 +34,23 @@
   "engines": {
     "node": ">=16"
   },
+  "bud": {
+    "type": "extension"
+  },
   "files": [
     "lib/",
     "types/"
   ],
   "type": "module",
-  "module": "./lib/esm/index.js",
+  "module": "./lib/index.js",
   "types": "./types/index.d.ts",
   "exports": {
     ".": {
-      "import": "./lib/esm/index.js"
+      "import": {
+        "types": "./types/index.d.ts",
+        "default": "./lib/index.js"
+      }
     }
-  },
-  "bud": {
-    "type": "extension"
   },
   "devDependencies": {
     "@roots/bud-api": "workspace:sources/@roots/bud-api",

@@ -41,36 +41,26 @@
     "types/"
   ],
   "type": "module",
-  "module": "./lib/esm/index.js",
+  "module": "./lib/index.js",
   "types": "./types/index.d.ts",
   "exports": {
     ".": {
-      "types": "./types/index.d.ts",
-      "import": "./lib/esm/index.js"
+      "import": {
+        "types": "./types/index.d.ts",
+        "default": "./lib/index.js"
+      }
     },
     "./extension": {
-      "types": "./types/extension.d.ts",
-      "import": "./lib/esm/extension.js"
+      "import": {
+        "types": "./types/extension.d.ts",
+        "default": "./lib/extension.js"
+      }
     },
     "./config": {
-      "types": "./types/config.d.ts",
-      "import": "./lib/esm/config.js"
-    }
-  },
-  "typesVersions": {
-    "*": {
-      ".": [
-        "./types/index.d.ts"
-      ],
-      "env": [
-        "./types/env.d.ts"
-      ],
-      "extension": [
-        "./types/extension.d.ts"
-      ],
-      "config": [
-        "./types/config.d.ts"
-      ]
+      "import": {
+        "types": "./types/config.d.ts",
+        "default": "./lib/config.js"
+      }
     }
   },
   "devDependencies": {
@@ -90,7 +80,6 @@
     "@babel/plugin-transform-runtime": "^7.16.4",
     "@babel/preset-env": "^7.16.4",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "babel-loader": "^8.2.3",
     "tslib": "2.4.0"
   },

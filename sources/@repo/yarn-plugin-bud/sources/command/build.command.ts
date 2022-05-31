@@ -52,9 +52,6 @@ export class Build extends Command {
     await this.$(
       this.withPassthrough(`yarn tsc -b ${TS_CONFIG_PATH_CJS} --force`),
     )
-    await this.$(
-      this.withPassthrough(`yarn tsc -b ${TS_CONFIG_PATH_ESM} --force`),
-    )
     await this.$(`yarn @bud compile`)
   }
 }

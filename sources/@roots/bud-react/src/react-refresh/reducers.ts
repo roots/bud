@@ -1,5 +1,5 @@
-import {EntryObject} from '@roots/bud-api/methods/entry'
-import {isArray, isString} from 'lodash'
+import {EntryObject} from '@roots/bud-api/types/methods/entry'
+import {isArray, isString} from 'lodash-es'
 
 /**
  * Filter 'react-refresh/runtime' from entrypoint assets

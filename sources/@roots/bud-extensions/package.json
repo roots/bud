@@ -38,19 +38,16 @@
     "types/"
   ],
   "type": "module",
-  "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.js",
+  "module": "./lib/index.js",
   "types": "./types/index.d.ts",
   "exports": {
     ".": {
       "types": "./types/index.d.ts",
-      "import": "./lib/esm/index.js",
-      "require": "./lib/cjs/index.js"
+      "import": "./lib/index.js"
     },
     "./service": {
       "types": "./types/service.d.ts",
-      "import": "./lib/esm/service.js",
-      "require": "./lib/cjs/service.js"
+      "import": "./lib/service.js"
     }
   },
   "devDependencies": {

@@ -3,7 +3,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "rootDir": "./src",
-    "outDir": "./lib/cjs",
+    "outDir": "./lib/esm",
+    "module": "esnext",
     "declarationDir": "./types",
     "types": ["@roots/bud-framework", "@roots/bud-api", "@roots/bud-preset-wordpress", "@roots/bud-tailwindcss"]
   },

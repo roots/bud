@@ -1,9 +1,9 @@
 import {bind} from 'helpful-decorators'
-import {uniq} from 'lodash'
+import {uniq} from 'lodash-es'
 import type * as Webpack from 'webpack'
 import {sources} from 'webpack'
 
-import {InlineEmitter} from './inline.emitter'
+import {InlineEmitter} from './inline.emitter.js'
 
 /**
  * Entrypoints

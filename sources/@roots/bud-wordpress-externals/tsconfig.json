@@ -3,18 +3,12 @@
   "compilerOptions": {
     "baseUrl": ".",
     "rootDir": "./src",
-    "outDir": "./lib/cjs",
+    "outDir": "./lib/esm",
     "declarationDir": "./types"
   },
-  "include": [
-    "src"
-  ],
+  "include": ["./src"],
   "references": [
-    {
-      "path": "./../bud-framework/tsconfig.json"
-    },
-    {
-      "path": "./../wordpress-externals-webpack-plugin/tsconfig.json"
-    }
+    {"path": "./../bud-framework/tsconfig.json"},
+    {"path": "./../wordpress-externals-webpack-plugin/tsconfig.json"}
   ]
 }

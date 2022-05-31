@@ -2,9 +2,9 @@
   "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "esModuleInterop": true,
     "rootDir": "./src",
-    "outDir": "./lib/cjs",
+    "outDir": "./lib",
+    "module": "esnext",
     "declarationDir": "./types",
     "types": [
       "node",

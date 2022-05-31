@@ -34,19 +34,19 @@
     "types/"
   ],
   "type": "module",
-  "module": "./lib/esm/index.js",
+  "module": "./lib/index.js",
   "types": "./types/index.d.ts",
   "exports": {
     ".": {
       "import": {
         "types": "./types/index.d.ts",
-        "default": "./lib/esm/index.js"
+        "default": "./lib/index.js"
       }
     },
     "./service": {
       "import": {
         "types": "./types/service.d.ts",
-        "default": "./lib/esm/service.js"
+        "default": "./lib/service.js"
       }
     }
   },
