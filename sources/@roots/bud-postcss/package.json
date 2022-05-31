@@ -32,7 +32,7 @@
     "postcss"
   ],
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   },
   "bud": {
     "type": "extension"
@@ -41,35 +41,30 @@
     "lib/",
     "types/"
   ],
-  "main": "./lib/cjs/index.js",
+  "type": "module",
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    ".": "./lib/cjs/index.js",
-    "./extension": "./lib/cjs/extension.js"
-  },
-  "typesVersions": {
-    "*": {
-      ".": [
-        "./types/index.d.ts"
-      ],
-      "env": [
-        "./types/env.d.ts"
-      ],
-      "extension": [
-        "./types/extension.d.ts"
-      ]
+    ".": {
+      "types": "./types/index.d.ts",
+      "import": "./lib/esm/index.js"
+    },
+    "./extension": {
+      "types": "./types/extension.d.ts",
+      "import": "./lib/esm/extension.js"
     }
   },
   "devDependencies": {
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@skypack/package-check": "0.2.2",
+    "@types/lodash-es": "^4",
     "@types/node": "16.11.36",
     "@types/signale": "1.4.4",
     "webpack": "5.72.1"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "lodash-es": "4.17.21",
     "postcss": "8.4.14",
     "postcss-import": "14.1.0",
     "postcss-loader": "7.0.0",

@@ -10,6 +10,14 @@ import {
   WebpackManifestPlugin,
 } from 'webpack-manifest-plugin'
 
+/**
+ * `webpack-manifest-plugin` adapter
+ *
+ * @public
+ * @decorator `@label`
+ * @decorator `@plugin`
+ * @decorator `@options`
+ */
 @label('webpack-manifest-plugin')
 @plugin(WebpackManifestPlugin)
 @options({
@@ -18,14 +26,21 @@ import {
   publicPath: ({hooks}) =>
     (hooks.filter('build.output.publicPath') ?? '').replace('auto', ''),
 })
-class BudWebpackManifestPlugin extends Extension<
+export default class BudWebpackManifestPlugin extends Extension<
   Options,
   WebpackManifestPlugin
 > {
+  /**
+   * `when` callback
+   *
+   * @remarks
+   * Returns `feature.manifest` hook result
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public async when() {
     return this.app.hooks.filter('feature.manifest')
   }
 }
-
-export default BudWebpackManifestPlugin

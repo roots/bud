@@ -10,11 +10,11 @@
     ]
   },
   "include": [
-    "src"
+    "./src"
   ],
   "exclude": [
-    "node_modules",
-    "types",
-    "lib"
+    "./node_modules",
+    "./types",
+    "./lib"
   ]
 }

@@ -2,7 +2,7 @@ import {Build} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {bind, label} from '@roots/bud-framework/extension/decorators'
 
-import {Config} from './config'
+import {Config} from './config.js'
 
 /**
  * Babel support for `@roots/bud`
@@ -78,30 +78,38 @@ export default class BabelExtension extends Extension<any, null> {
    */
   @bind
   public async register() {
+    const loader = await this.resolve('babel-loader')
+
     this.app.build
-      .setLoader('babel', this.resolve('babel-loader'))
+      .setLoader('babel', loader)
       .setItem('babel', this.setRuleSetItem)
 
     this.app.build.rules.js.setUse(items => ['babel', ...items])
 
+    const presetEnv = await this.resolve('@babel/preset-env')
+    const restSpread = await this.resolve(
+      '@babel/plugin-proposal-object-rest-spread',
+    )
+    const transformRuntime = await this.resolve(
+      '@babel/plugin-transform-runtime',
+    )
+    const dynamicImport = await this.resolve(
+      '@babel/plugin-syntax-dynamic-import',
+    )
+    const classProperties = await this.resolve(
+      '@babel/plugin-proposal-class-properties',
+    )
+
     this.app.babel
-      .setPresets({
-        '@babel/preset-env': this.resolve('@babel/preset-env'),
-      })
+      .setPresets({'@babel/preset-env': presetEnv})
       .setPlugins({
         '@babel/plugin-transform-runtime': [
-          this.resolve('@babel/plugin-transform-runtime'),
+          transformRuntime,
           {helpers: false},
         ],
-        '@babel/plugin-proposal-object-rest-spread': this.resolve(
-          '@babel/plugin-proposal-object-rest-spread',
-        ),
-        '@babel/plugin-syntax-dynamic-import': this.resolve(
-          '@babel/plugin-syntax-dynamic-import',
-        ),
-        '@babel/plugin-proposal-class-properties': this.resolve(
-          '@babel/plugin-proposal-class-properties',
-        ),
+        '@babel/plugin-proposal-object-rest-spread': restSpread,
+        '@babel/plugin-syntax-dynamic-import': dynamicImport,
+        '@babel/plugin-proposal-class-properties': classProperties,
       })
   }
 }

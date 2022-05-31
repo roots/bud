@@ -1,12 +1,12 @@
-import {Bud, Config, Logger} from '..'
-import * as methods from '../methods'
-import {Module} from '../module'
-import * as Process from '../process'
+import {Bud, Config, Logger} from '../index.js'
+import * as methods from '../methods/index.js'
+import {Module} from '../module.js'
+import * as Process from '../process.js'
 import {
   DEVELOPMENT_SERVICES,
   LIFECYCLE_EVENTS,
   PARENT_SERVICES,
-} from './constants'
+} from './constants.js'
 
 /**
  * Bootstrap interface

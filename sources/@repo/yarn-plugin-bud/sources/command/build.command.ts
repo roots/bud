@@ -1,4 +1,4 @@
-import {TS_CONFIG_PATH} from '@repo/constants'
+import {TS_CONFIG_PATH_CJS, TS_CONFIG_PATH_ESM} from '@repo/constants'
 import {CommandClass, Option} from 'clipanion'
 
 import {Command} from './base.command'
@@ -50,7 +50,10 @@ export class Build extends Command {
    */
   public async execute() {
     await this.$(
-      this.withPassthrough(`yarn tsc -b ${TS_CONFIG_PATH} --force`),
+      this.withPassthrough(`yarn tsc -b ${TS_CONFIG_PATH_CJS} --force`),
+    )
+    await this.$(
+      this.withPassthrough(`yarn tsc -b ${TS_CONFIG_PATH_ESM} --force`),
     )
     await this.$(`yarn @bud compile`)
   }

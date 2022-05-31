@@ -1,11 +1,11 @@
-import {Bud as Base} from '@roots/bud-framework'
+import * as Framework from '@roots/bud-framework'
 
 /**
  * ⚡️ Bud
  *
  * @public
  */
-export class Bud extends Base {
+export default class Bud extends Framework.Bud {
   public constructor() {
     super(Bud)
     this.implementation = Bud

@@ -1,7 +1,7 @@
 import type {Bud, Build} from '@roots/bud-framework'
-import {bind} from '@roots/bud-support'
+import {bind} from 'helpful-decorators'
 
-import Base from '../shared/Base'
+import Base from '../shared/Base.js'
 
 namespace Item {
   export type ConstructorOptions = Build.Item.ConstructorOptions

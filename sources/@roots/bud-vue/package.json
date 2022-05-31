@@ -26,7 +26,7 @@
     "url": "https://github.com/sponsors/roots"
   },
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   },
   "keywords": [
     "bud",
@@ -39,24 +39,17 @@
     "lib/",
     "types/"
   ],
-  "main": "./lib/cjs/index.js",
+  "type": "module",
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    ".": "./lib/cjs/index.js",
-    "./extension": "./lib/cjs/extension.js"
-  },
-  "typesVersions": {
-    "*": {
-      ".": [
-        "./types/index.d.ts"
-      ],
-      "env": [
-        "./types/env.d.ts"
-      ],
-      "extension": [
-        "./types/extension.d.ts"
-      ]
+    ".": {
+      "types": "./types/index.d.ts",
+      "import": "./lib/esm/index.js"
+    },
+    "./extension": {
+      "types": "./types/extension.d.ts",
+      "import": "./lib/esm/extension.js"
     }
   },
   "devDependencies": {
@@ -68,6 +61,7 @@
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@vue/compiler-sfc": "3.2.36",
+    "parse-semver": "1.1.1",
     "tslib": "2.4.0",
     "vue": "3.2.36",
     "vue-loader": "^17.0.0",

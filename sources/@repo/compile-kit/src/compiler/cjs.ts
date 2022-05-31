@@ -25,7 +25,7 @@ export const compileCjs = async pkg => {
 
   try {
     await writeFile(
-      join(paths.root, `sources/${pkg}/lib/cjs/index.js`),
+      join(paths.root, `sources/${pkg}/lib/esm/index.js`),
       out.code,
       'utf8',
     )

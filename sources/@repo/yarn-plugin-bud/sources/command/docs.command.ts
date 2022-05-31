@@ -105,7 +105,7 @@ export class Docs extends Command {
     if (all || this.site) {
       // run cli-examples generator
       await this.$(
-        `yarn ts-node-transpile-only --project ${repo.TS_CONFIG_PATH} ${repo.paths.sources}/@repo/markdown-kit/cli-examples`,
+        `yarn ts-node-transpile-only --project ${repo.TS_CONFIG_PATH_CJS} ${repo.paths.sources}/@repo/markdown-kit/cli-examples`,
       )
 
       /**
@@ -128,7 +128,7 @@ export class Docs extends Command {
        * Build repo readmes
        */
       await this.$(
-        `yarn ts-node-transpile-only --project ${repo.TS_CONFIG_PATH} ${repo.paths.sources}/@repo/markdown-kit/readme`,
+        `yarn ts-node-transpile-only --project ${repo.TS_CONFIG_PATH_CJS} ${repo.paths.sources}/@repo/markdown-kit/readme`,
       )
     }
 

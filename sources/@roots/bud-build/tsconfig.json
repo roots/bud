@@ -3,13 +3,13 @@
   "compilerOptions": {
     "baseUrl": ".",
     "rootDir": "./src",
-    "outDir": "./lib/cjs",
-    "declarationDir": "./types"
+    "outDir": "./lib/esm",
+    "declarationDir": "./types",
+    "module": "esnext",
   },
   "include": ["src"],
   "references": [
     {"path": "./../bud-api/tsconfig.json"},
-    {"path": "./../bud-framework/tsconfig.json"},
-    {"path": "./../bud-support/tsconfig.json"}
+    {"path": "./../bud-framework/tsconfig.json"}
   ]
 }

@@ -1,8 +1,7 @@
 import type {Bud} from '@roots/bud-framework'
-import {lodash} from '@roots/bud-support'
-import {isArray} from 'lodash'
+import {isArray, isString} from 'lodash-es'
 
-import {globAssets} from './globAssets'
+import {globAssets} from './globAssets.js'
 import {
   applyToImports,
   EntryObject,
@@ -11,9 +10,7 @@ import {
   makeEntry,
   method,
   reduceEntry,
-} from './util'
-
-const {isString} = lodash
+} from './util.js'
 
 export const entry: method = async function (...input) {
   const app = this as Bud

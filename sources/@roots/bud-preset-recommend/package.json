@@ -34,7 +34,7 @@
     "bud-preset"
   ],
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   },
   "bud": {
     "type": "extension"
@@ -43,21 +43,17 @@
     "lib/",
     "types/"
   ],
-  "main": "./lib/cjs/index.js",
+  "type": "module",
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    ".": "./lib/cjs/index.js",
-    "./extension": "./lib/cjs/extension.js"
-  },
-  "typesVersions": {
-    "*": {
-      ".": [
-        "./types/index.d.ts"
-      ],
-      "./extension": [
-        "./types/extension.d.ts"
-      ]
+    ".": {
+      "types": "./types/index.d.ts",
+      "import": "./lib/esm/index.js"
+    },
+    "./extension": {
+      "types": "./types/extension.d.ts",
+      "import": "./lib/esm/extension.js"
     }
   },
   "devDependencies": {

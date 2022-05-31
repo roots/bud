@@ -1,9 +1,8 @@
 import {Bud, Build} from '@roots/bud-framework'
-import {bind, lodash} from '@roots/bud-support'
+import {bind} from 'helpful-decorators'
+import {isFunction, isString} from 'lodash-es'
 
-import Base from '../shared/Base'
-
-const {isFunction, isString} = lodash
+import Base from '../shared/Base.js'
 
 namespace Rule {
   export type ConstructorOptions = Partial<Build.Rule.Options>

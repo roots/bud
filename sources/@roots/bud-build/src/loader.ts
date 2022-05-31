@@ -1,6 +1,6 @@
 import {Bud, Build} from '@roots/bud-framework'
 
-import Base from '../shared/Base'
+import Base from './shared/Base.js'
 
 namespace Loader {
   export type ConstructorOptions = string
@@ -11,7 +11,7 @@ namespace Loader {
  *
  * @public
  */
-class Loader extends Base implements Build.Loader {
+export default class Loader extends Base implements Build.Loader {
   /**
    * Factory returning the loader path
    *
@@ -40,5 +40,3 @@ class Loader extends Base implements Build.Loader {
     this.src = src
   }
 }
-
-export {Loader as default}

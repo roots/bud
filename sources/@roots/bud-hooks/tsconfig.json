@@ -7,24 +7,16 @@
     "declarationDir": "./types",
     "types": [
       "node",
-      "@roots/bud-framework",
-      "@roots/container"
+      "@roots/bud-framework"
     ]
   },
   "include": [
-    "src"
+    "./src"
   ],
   "exclude": [
-    "lib",
-    "types",
-    "node_modules"
+    "./lib",
+    "./types",
+    "./node_modules"
   ],
-  "references": [
-    {
-      "path": "./../bud-framework/tsconfig.json"
-    },
-    {
-      "path": "./../container/tsconfig.json"
-    }
-  ]
+  "references": [{"path": "./../bud-framework/tsconfig.json"}]
 }

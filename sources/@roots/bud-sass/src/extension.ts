@@ -47,14 +47,15 @@ export default class BudSass extends Extension {
    */
   @bind
   public async register() {
-    const implementation = await this.implementation()
-
     this.app.hooks.on('build.resolve.extensions', ext =>
       ext.add('.scss').add('.sass'),
     )
 
+    const implementation = await this.implementation()
+    const loader = await this.resolve('sass-loader')
+
     this.app.build
-      .setLoader('sass', this.resolve('sass-loader'))
+      .setLoader('sass', loader)
       .setItem('sass', {
         loader: 'sass',
         options: {
@@ -68,6 +69,6 @@ export default class BudSass extends Extension {
         use: [`precss`, `css`, `postcss`, `resolveUrl`, `sass`],
       })
 
-    this.app.postcss.syntax = 'postcss-scss'
+    if (this.app.postcss) this.app.postcss.syntax = 'postcss-scss'
   }
 }

@@ -12,7 +12,7 @@
     "@repo/constants": "workspace:*",
     "@roots/bud-support": "workspace:*",
     "@types/fs-extra": "9.0.13",
-    "@vercel/ncc": "0.33.4",
+    "@vercel/ncc": "0.34.0",
     "download-package-tarball": "1.0.7",
     "fs-extra": "10.1.0",
     "get-package-json-from-registry": "2.2.2",

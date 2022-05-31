@@ -1,9 +1,7 @@
 import type {Bud, Extension} from '@roots/bud-framework'
-import {lodash} from '@roots/bud-support'
+import {isArray, isFunction} from 'lodash-es'
 
-import {generateName, isPlugin} from './use.utilities'
-
-const {isArray, isFunction} = lodash
+import {generateName, isPlugin} from './use.utilities.js'
 
 export interface use {
   (

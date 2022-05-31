@@ -1,10 +1,13 @@
 import {Bud} from '@roots/bud-framework'
-import {chalk, figures, humanReadable, lodash} from '@roots/bud-support'
+import chalk from 'chalk'
+import figures from 'figures'
+import humanReadable from 'human-readable'
+import lodash from 'lodash-es'
 import {StatsAsset, StatsCompilation} from 'webpack'
 
-import * as box from './box.factory'
-import * as table from './table.factory'
-import {theme} from './theme'
+import * as box from './box.factory.js'
+import * as table from './table.factory.js'
+import {theme} from './theme.js'
 
 const assetColor = (asset: StatsAsset) =>
   asset.info.error

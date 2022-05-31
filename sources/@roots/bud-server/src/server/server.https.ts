@@ -1,9 +1,9 @@
 import {Server} from '@roots/bud-framework'
-import {bind} from '@roots/bud-support'
+import {bind} from 'helpful-decorators'
 import {RequestListener} from 'http'
 import {createServer, Server as HttpsServer} from 'https'
 
-import {BaseServer} from './server.base'
+import {BaseServer} from './server.base.js'
 
 /**
  * HTTPS Server

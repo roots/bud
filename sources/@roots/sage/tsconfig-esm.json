@@ -5,26 +5,12 @@
     "module": "esnext"
   },
   "references": [
-    {
-      "path": "./../bud-framework/tsconfig-esm.json"
-    },
-    {
-      "path": "./../bud-api/tsconfig-esm.json"
-    },
-    {
-      "path": "./../bud-eslint/tsconfig-esm.json"
-    },
-    {
-      "path": "./../bud-preset-wordpress/tsconfig-esm.json"
-    },
-    {
-      "path": "./../bud-prettier/tsconfig-esm.json"
-    },
-    {
-      "path": "./../bud-stylelint/tsconfig-esm.json"
-    },
-    {
-      "path": "./../bud-tailwindcss/tsconfig-esm.json"
-    }
+    {"path": "./../bud-framework/tsconfig-esm.json"},
+    {"path": "./../bud-api/tsconfig-esm.json"},
+    {"path": "./../bud-eslint/tsconfig-esm.json"},
+    {"path": "./../bud-preset-wordpress/tsconfig-esm.json"},
+    {"path": "./../bud-prettier/tsconfig-esm.json"},
+    {"path": "./../bud-stylelint/tsconfig-esm.json"},
+    {"path": "./../bud-tailwindcss/tsconfig-esm.json"}
   ]
 }

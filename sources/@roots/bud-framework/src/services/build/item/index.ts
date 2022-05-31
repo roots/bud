@@ -1,5 +1,5 @@
-import {Bud} from '../../..'
-import {Loader, Loaders} from '..'
+import {Bud} from '../../../bud.js'
+import {Loader, Loaders} from '../index.js'
 
 /**
  * Item interface

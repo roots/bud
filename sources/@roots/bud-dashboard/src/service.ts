@@ -1,10 +1,10 @@
-import {Dashboard as Base} from '@roots/bud-framework'
-import {Service} from '@roots/bud-framework'
-import {bind, logUpdate} from '@roots/bud-support'
+import {Dashboard as Base, Service} from '@roots/bud-framework'
+import {bind} from 'helpful-decorators'
+import * as logUpdate from 'log-update'
 import {StatsCompilation} from 'webpack'
 
-import {Line} from './line'
-import {reporter} from './stats'
+import {Line} from './render/line.js'
+import {reporter} from './render/stats/index.js'
 
 /**
  * Dashboard service
@@ -12,16 +12,39 @@ import {reporter} from './stats'
  * @public
  */
 export class Dashboard extends Service implements Base.Service {
-  protected hash: string
-
+  /**
+   * Interval timer
+   *
+   * @public
+   */
   public interval: NodeJS.Timer
 
+  /**
+   * Progress
+   *
+   * @public
+   */
   public progress = new Line()
 
+  /**
+   * output
+   *
+   * @public
+   */
   protected output: Array<string>
 
+  /**
+   * Current progress percentage
+   *
+   * @public
+   */
   protected percent: number
 
+  /**
+   * Current frame
+   *
+   * @public
+   */
   protected frame: string = ''
 
   /**
@@ -32,6 +55,12 @@ export class Dashboard extends Service implements Base.Service {
     this.app.context.stdout.write(str)
   }
 
+  /**
+   * `register` callback
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public async register() {
     if (this.app.context.args.ci || this.app.env.has('TS_JEST')) {
@@ -46,6 +75,12 @@ export class Dashboard extends Service implements Base.Service {
     )
   }
 
+  /**
+   * Update cli
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public update() {
     !this.progress.isComplete &&

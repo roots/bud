@@ -1,13 +1,28 @@
-import {globby} from '@roots/bud-support'
+import {globby} from 'globby'
 
+/**
+ * Context: disk
+ *
+ * @public
+ */
 export class Disk {
+  /**
+   * Class constructor
+   *
+   * @public
+   */
   public constructor(
     public projectDir: string,
     public config: Record<string, any> = {},
   ) {}
 
+  /**
+   * Find configs
+   *
+   * @public
+   */
   public async findConfigs(): Promise<Disk> {
-    const search = await globby.globby(
+    const search = await globby(
       [
         `*.json`,
         `*.yml`,

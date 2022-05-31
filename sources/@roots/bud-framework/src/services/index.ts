@@ -1,15 +1,15 @@
-import {Service} from '../service'
+import {Service} from '../service.js'
 
-export * as Api from './api'
-export * as Build from './build'
-export * as Cache from './cache'
-export * as Dashboard from './dashboard'
-export * as Env from './env'
-export * as Extensions from './extensions'
-export * as Hooks from './hooks'
-export * as Peers from './peers'
-export * as Project from './project'
-export * as Server from './server'
+export * as Api from './api/index.js'
+export * as Build from './build/index.js'
+export * as Cache from './cache/index.js'
+export * as Dashboard from './dashboard/index.js'
+export * as Env from './env/index.js'
+export * as Extensions from './extensions/index.js'
+export * as Hooks from './hooks/index.js'
+export * as Peers from './peers/index.js'
+export * as Project from './project/index.js'
+export * as Server from './server/index.js'
 
 /**
  * Registered services

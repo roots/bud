@@ -3,67 +3,109 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 
 /**
  * css loader
+ *
+ * @public
  */
-export const css = (app: Bud) =>
-  app.build.makeLoader().setSrc(require.resolve('css-loader'))
+export const css = async (app: Bud): Promise<any> => {
+  const loader = await app.module.resolve('css-loader')
+  return app.build.makeLoader().setSrc(loader)
+}
 
 /**
  * csv loader
- */
-export const csv = (app: Bud) =>
-  app.build.makeLoader().setSrc(require.resolve('csv-loader'))
-
-export const file = (app: Bud) =>
-  app.build.makeLoader().setSrc(require.resolve('file-loader'))
-
-/**
- * Returns {@link Loader} for `html-loader`
+ *
  * @public
  */
-export const html = (app: Bud) =>
-  app.build.makeLoader().setSrc(require.resolve('html-loader'))
+export const csv = async (app: Bud): Promise<any> => {
+  const loader = await app.module.resolve('csv-loader')
+  return app.build.makeLoader().setSrc(loader)
+}
 
 /**
- * Returns {@link Loader} for `remark-loader`
+ * file loader
+ *
  * @public
  */
-export const md = (app: Bud) =>
-  app.build.makeLoader().setSrc(require.resolve('remark-loader'))
+export const file = async (app: Bud): Promise<any> => {
+  const loader = await app.module.resolve('file-loader')
+  return app.build.makeLoader().setSrc(loader)
+}
 
 /**
- * Returns {@link Loader} for `mini-css-extract-plugin.loader`
+ * html-loader
+ *
  * @public
  */
-export const minicss = (app: Bud) =>
-  app.build.makeLoader().setSrc(MiniCssExtractPlugin.loader)
+export const html = async (app: Bud): Promise<any> => {
+  const loader = await app.module.resolve('html-loader')
+  return app.build.makeLoader().setSrc(loader)
+}
 
 /**
- * Returns {@link Loader} for `resolve-url-loader`
+ * remark-loader
+ *
  * @public
  */
-export const resolveUrl = (app: Bud) =>
-  app.build.makeLoader().setSrc(require.resolve('resolve-url-loader'))
+export const remark = async (app: Bud): Promise<any> => {
+  const loader = await app.module.resolve('remark-loader')
+  return app.build.makeLoader().setSrc(loader)
+}
 
 /**
- * Returns {@link Loader} for `style-loader`
+ * `mini-css-extract-plugin.loader`
+ *
  * @public
  */
-export const style = (app: Bud) =>
-  app.build.makeLoader().setSrc(require.resolve('style-loader'))
+export const minicss = async (app: Bud): Promise<any> => {
+  return app.build.makeLoader().setSrc(MiniCssExtractPlugin.loader)
+}
 
 /**
- * Returns {@link Loader} for `url-loader`
+ * resolve-url-loader
+ *
  * @public
  */
-export const url = (app: Bud) =>
-  app.build.makeLoader().setSrc(require.resolve('url-loader'))
+export const resolveUrl = async (app: Bud): Promise<any> => {
+  const loader = await app.module.resolve('resolve-url-loader')
+  return app.build.makeLoader().setSrc(loader)
+}
 
 /**
- * Returns {@link Loader} for `xml-loader`
+ * style-loader
+ *
  * @public
  */
-export const xml = (app: Bud) =>
-  app.build.makeLoader().setSrc(require.resolve('xml-loader'))
+export const style = async (app: Bud): Promise<any> => {
+  const loader = await app.module.resolve('style-loader')
+  return app.build.makeLoader().setSrc(loader)
+}
 
-export const yml = (app: Bud) =>
-  app.build.makeLoader().setSrc(require.resolve('js-yaml-loader'))
+/**
+ * url-loader
+ *
+ * @public
+ */
+export const url = async (app: Bud): Promise<any> => {
+  const loader = await app.module.resolve('url-loader')
+  return app.build.makeLoader().setSrc(loader)
+}
+
+/**
+ * xml-loader
+ *
+ * @public
+ */
+export const xml = async (app: Bud): Promise<any> => {
+  const loader = await app.module.resolve('xml-loader')
+  return app.build.makeLoader().setSrc(loader)
+}
+
+/**
+ * yml-loader
+ *
+ * @public
+ */
+export const yml = async (app: Bud): Promise<any> => {
+  const loader = await app.module.resolve('yml-loader')
+  return app.build.makeLoader().setSrc(loader)
+}

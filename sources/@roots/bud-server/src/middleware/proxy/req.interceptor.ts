@@ -1,8 +1,8 @@
 import {Bud} from '@roots/bud-framework'
-import {bind} from '@roots/bud-support'
+import {bind} from 'helpful-decorators'
 import {ClientRequest, IncomingMessage, ServerResponse} from 'http'
 
-import {ApplicationURL} from './url'
+import {ApplicationURL} from './url.js'
 
 /**
  * Proxy request interceptor

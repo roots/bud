@@ -1,4 +1,4 @@
-import {bind} from '@roots/bud-support'
+import {bind} from 'helpful-decorators'
 
 export type Options = {
   plugins?: Plugin[]
@@ -25,7 +25,7 @@ export interface Registry {
  * ```ts
  * bud.babel.setPreset(
  *   '@babel/preset-env',
- *   require.resolve('@babel/preset-env'),
+ *   bud.module.resolve('@babel/preset-env'),
  * )
  * ```
  *

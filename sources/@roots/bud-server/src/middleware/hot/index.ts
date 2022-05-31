@@ -1,6 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
 
-import webpackHotMiddleware from './webpack-hot-middleware/middleware'
+import webpackHotMiddleware from './webpack-hot-middleware/middleware.js'
 
 /**
  * Hot middleware options

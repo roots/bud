@@ -1,4 +1,4 @@
-import {Options as Opt} from '../types'
+import {Options as Opt} from '../types.js'
 
 export const options =
   <Options = any>(options: Opt.Seed<Options>) =>

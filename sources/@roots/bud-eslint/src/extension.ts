@@ -15,11 +15,28 @@ import EslintPlugin, {Options} from 'eslint-webpack-plugin'
   extensions: ['js', 'jsx', 'ts', 'tsx', 'vue'],
   cacheLocation: app => app.path('@storage/cache/eslint'),
   cwd: app => app.path(),
-  eslintPath: require.resolve('eslint'),
   resolvePluginsRelativeTo: app => app.path(),
   threads: false,
 })
 export default class BudEslint extends Extension<Options, EslintPlugin> {
+  /**
+   * `register` callback
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async register() {
+    const eslintPath = await this.resolve('eslint')
+    this.setOption('eslintPath', eslintPath)
+  }
+
+  /**
+   * auto-fix rule violations
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public fix(fix: boolean = true): this {
     this.setOption('fix', fix)

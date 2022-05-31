@@ -1,17 +1,23 @@
 import {Bud, Server} from '@roots/bud-framework'
 import type {Connection} from '@roots/bud-framework/types/services/server/connection'
-import {bind, Signale} from '@roots/bud-support'
-import {IncomingMessage, Server as HttpServer} from 'http'
-import {Server as HttpsServer} from 'https'
+import {bind} from 'helpful-decorators'
+import {IncomingMessage, Server as HttpServer} from 'node:http'
+import {Server as HttpsServer} from 'node:https'
+import Signale from 'signale'
 import {ServerResponse} from 'webpack-dev-middleware'
 
 /**
  * Node server
+ *
+ * @remarks
+ * Base class. Extended by either `http` or `https` class.
+ *
  * @public
  */
 export abstract class BaseServer implements Connection {
   /**
-   * protocol
+   * Protocol
+   *
    * @virtual
    * @public
    */
@@ -19,6 +25,7 @@ export abstract class BaseServer implements Connection {
 
   /**
    * Create server
+   *
    * @virtual
    * @public
    */
@@ -26,18 +33,21 @@ export abstract class BaseServer implements Connection {
 
   /**
    * Server instance
+   *
    * @public
    */
   public instance: Connection['instance']
 
   /**
    * Logger
+   *
    * @public
    */
-  public logger: Signale
+  public logger: Signale.Signale
 
   /**
    * Port
+   *
    * @public
    */
   public port: number
@@ -54,6 +64,7 @@ export abstract class BaseServer implements Connection {
 
   /**
    * Options
+   *
    * @public
    */
   public get options(): Server.Options {
@@ -62,6 +73,7 @@ export abstract class BaseServer implements Connection {
 
   /**
    * Constructor
+   *
    * @param app - Bud
    * @public
    */
@@ -72,7 +84,8 @@ export abstract class BaseServer implements Connection {
   }
 
   /**
-   * setup
+   * Setup
+   *
    * @public
    * @decorator `@bind`
    */
@@ -83,6 +96,7 @@ export abstract class BaseServer implements Connection {
 
   /**
    * Listen
+   *
    * @public
    * @decorator `@bind`
    */
@@ -99,6 +113,7 @@ export abstract class BaseServer implements Connection {
 
   /**
    * Server listen event
+   *
    * @public
    * @decorator `@bind`
    */
@@ -108,7 +123,8 @@ export abstract class BaseServer implements Connection {
   }
 
   /**
-   * Server request
+   * Server request event
+   *
    * @public
    * @decorator `@bind`
    */
@@ -127,7 +143,8 @@ export abstract class BaseServer implements Connection {
   }
 
   /**
-   * Server error
+   * Server error event
+   *
    * @public
    * @decorator `@bind`
    */

@@ -1,6 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
 
-import {filenameFormat} from './filenameFormat'
+import {filenameFormat} from './filenameFormat.js'
 
 /**
  * Initializes configuration builder hooks

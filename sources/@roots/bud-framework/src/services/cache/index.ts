@@ -1,6 +1,6 @@
 import {Configuration} from 'webpack'
 
-import type {Service as BaseService} from '../../service'
+import type {Service as BaseService} from '../../service.js'
 
 /**
  * Cache service Interface

@@ -31,7 +31,7 @@
     "babel"
   ],
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   },
   "bud": {
     "type": "extension"
@@ -40,13 +40,22 @@
     "lib/",
     "types/"
   ],
-  "main": "./lib/cjs/index.js",
+  "type": "module",
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    ".": "./lib/cjs/index.js",
-    "./extension": "./lib/cjs/extension.js",
-    "./config": "./lib/cjs/config.js"
+    ".": {
+      "types": "./types/index.d.ts",
+      "import": "./lib/esm/index.js"
+    },
+    "./extension": {
+      "types": "./types/extension.d.ts",
+      "import": "./lib/esm/extension.js"
+    },
+    "./config": {
+      "types": "./types/config.d.ts",
+      "import": "./lib/esm/config.js"
+    }
   },
   "typesVersions": {
     "*": {

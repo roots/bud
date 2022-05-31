@@ -12,10 +12,12 @@
 
 import './env'
 
-export {Bud} from './Bud'
+import Bud from './bud.js'
 
-export {makeContext} from './context'
-export {seed} from './seed'
-export {extensions} from './extensions'
-export {services} from './services'
-export {factory} from './factory'
+export {makeContext} from './context/index.js'
+export {seed} from './seed.js'
+export {extensions} from './extensions/index.js'
+export {services} from './services/index.js'
+export {factory} from './factory/index.js'
+
+export {Bud as default}

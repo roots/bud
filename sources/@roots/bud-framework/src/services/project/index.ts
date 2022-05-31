@@ -1,4 +1,4 @@
-import {ContainerService as Base} from '../../service'
+import {ContainerService as Base} from '../../service.js'
 
 /**
  * Peer service interface

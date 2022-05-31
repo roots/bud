@@ -1,15 +1,11 @@
-import {
-  bind,
-  importFrom,
-  lodash,
-  pkgUp,
-  resolveFrom,
-} from '@roots/bud-support'
+import {bind} from 'helpful-decorators'
+import importFrom from 'import-from'
+import {isArray, isString} from 'lodash-es'
 import {dirname} from 'node:path'
+import {pkgUp} from 'pkg-up'
+import resolveFrom from 'resolve-from'
 
 import {Bud} from './bud'
-
-const {isArray, isString} = lodash
 
 /**
  * Module resolver
@@ -71,7 +67,7 @@ export class Module {
   public async manifestPath(
     paths: string | Array<string | [string, string]>,
   ) {
-    return await pkgUp.pkgUp({cwd: this.resolve(paths)})
+    return await pkgUp({cwd: this.resolve(paths)})
   }
 
   /**

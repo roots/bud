@@ -1,7 +1,7 @@
-import {chalk} from '@roots/bud-support'
+import chalk from 'chalk'
 
-import * as box from './box.factory'
-import {theme} from './theme'
+import * as box from './box.factory.js'
+import {theme} from './theme.js'
 
 export const make = (
   {message, file}: {message: string; file?: string},

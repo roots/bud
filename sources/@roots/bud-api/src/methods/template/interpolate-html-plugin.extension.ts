@@ -1,9 +1,8 @@
 import {Extension} from '@roots/bud-framework/extension'
-import {label} from '@roots/bud-framework/extension/decorators'
-import {bind} from '@roots/bud-support'
+import {bind, label} from '@roots/bud-framework/extension/decorators'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 
-import {InterpolateHtmlPlugin} from './interpolate-html-plugin.plugin'
+import {InterpolateHtmlPlugin} from './interpolate-html-plugin.plugin.js'
 
 @label('interpolate-html-plugin')
 export default class BudInterpolateHtmlPlugin extends Extension<

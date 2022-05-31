@@ -27,9 +27,11 @@
     "url": "https://github.com/sponsors/roots"
   },
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   },
   "keywords": [
+    "roots",
+    "bud",
     "container",
     "utility"
   ],
@@ -37,22 +39,30 @@
     "lib/",
     "types/"
   ],
-  "main": "./lib/cjs/index.js",
+  "type": "module",
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.js"
+    ".": {
+      "types": "./types/index.d.ts",
+      "import": "./lib/esm/index.js",
+      "require": "./lib/cjs/index.js"
+    },
+    "./container": {
+      "types": "./types/container.d.ts",
+      "import": "./lib/esm/container.js",
+      "require": "./lib/cjs/container.js"
+    }
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@types/lodash": "4.14.182",
     "@types/node": "16.11.36",
-    "lodash": "4.17.21",
     "type-fest": "2.12.2"
   },
   "dependencies": {
     "helpful-decorators": "2.1.0",
+    "lodash": "4.17.21",
     "tslib": "2.4.0"
   }
 }

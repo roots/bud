@@ -1,17 +1,17 @@
 import * as Bud from '@roots/bud-framework'
-import {bind, fs, lodash} from '@roots/bud-support'
-import {isFunction} from 'lodash'
+import fs from 'fs-extra'
+import {bind} from 'helpful-decorators'
+import {isFunction, isUndefined} from 'lodash-es'
 import type {Configuration} from 'webpack'
 
-import Item from '../Item'
-import * as items from '../items'
-import Loader from '../Loader'
-import * as loaders from '../loaders'
-import Rule from '../Rule'
-import * as rules from '../rules'
-import * as config from './config'
+import Item from '../Item/index.js'
+import * as items from '../items.js'
+import Loader from '../loader.js'
+import * as loaders from '../loaders.js'
+import Rule from '../Rule/index.js'
+import * as rules from '../rules.js'
+import * as config from './config/index.js'
 
-const {isUndefined} = lodash
 const {ensureFile, writeFile} = fs
 
 /**
@@ -30,7 +30,7 @@ export class Build extends Bud.Service implements Bud.Build.Service {
    *
    * @public
    */
-  public loaders: Bud.Build.Loaders
+  public loaders: Bud.Build.Loaders = {}
 
   /**
    * Registered rules
@@ -121,19 +121,21 @@ export class Build extends Bud.Service implements Bud.Build.Service {
    */
   @bind
   public async register() {
-    const reducer = (
-      a: Bud.Build.Rules | Bud.Build.Items | Bud.Build.Loaders,
-      [k, v],
-    ) => ({
-      ...a,
-      [k]: v(this.app),
-    })
+    const reducer = (a: Bud.Build.Rules | Bud.Build.Items, [k, v]) => {
+      const obj = v(this.app)
+      return {...a, [k]: obj}
+    }
 
-    Object.assign(this, {
-      loaders: this.app
+    await Promise.all(
+      this.app
         .container(loaders)
         .getEntries()
-        .reduce(reducer, this.loaders),
+        .map(async ([key, fn]) => {
+          this.loaders[key] = await fn(this.app)
+        }),
+    )
+
+    Object.assign(this, {
       rules: this.app
         .container(rules)
         .getEntries()

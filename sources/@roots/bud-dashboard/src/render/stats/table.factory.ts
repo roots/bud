@@ -1,4 +1,4 @@
-import {table} from '@roots/bud-support'
+import table from 'table'
 
 export const make = (data: Array<Array<any>>): string => {
   return table.table(data, {

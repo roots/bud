@@ -27,38 +27,27 @@
     "eslint"
   ],
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
+  },
+  "bud": {
+    "type": "extension"
   },
   "files": [
     "lib/",
     "types/"
   ],
-  "main": "./lib/cjs/index.js",
+  "type": "module",
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
     ".": {
-      "require": "./lib/cjs/index.js"
+      "types": "./types/index.d.ts",
+      "import": "./lib/esm/index.js"
     },
     "./extension": {
-      "require": "./lib/cjs/extension.js"
+      "types": "./types/extension.d.ts",
+      "import": "./lib/esm/extension.js"
     }
-  },
-  "typesVersions": {
-    "*": {
-      ".": [
-        "./types/index.d.ts"
-      ],
-      "extension": [
-        "./types/extension.d.ts"
-      ],
-      "env": [
-        "./types/env.d.ts"
-      ]
-    }
-  },
-  "bud": {
-    "type": "extension"
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",

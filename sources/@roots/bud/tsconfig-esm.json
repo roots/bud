@@ -5,41 +5,16 @@
     "module": "esnext"
   },
   "references": [
-    {
-      "path": "../bud-framework/tsconfig-esm.json"
-    },
-    {
-      "path": "../bud-api/tsconfig-esm.json"
-    },
-    {
-      "path": "../bud-build/tsconfig-esm.json"
-    },
-    {
-      "path": "../bud-cache/tsconfig-esm.json"
-    },
-    {
-      "path": "../bud-compiler/tsconfig-esm.json"
-    },
-    {
-      "path": "../bud-dashboard/tsconfig-esm.json"
-    },
-    {
-      "path": "../bud-extensions/tsconfig-esm.json"
-    },
-    {
-      "path": "../bud-hooks/tsconfig-esm.json"
-    },
-    {
-      "path": "../bud-server/tsconfig-esm.json"
-    },
-    {
-      "path": "../bud-support/tsconfig-esm.json"
-    },
-    {
-      "path": "../container/tsconfig-esm.json"
-    },
-    {
-      "path": "../dependencies/tsconfig-esm.json"
-    }
+    {"path": "./../bud-framework/tsconfig.json"},
+    {"path": "./../bud-api/tsconfig.json"},
+    {"path": "./../bud-build/tsconfig.json"},
+    {"path": "./../bud-cache/tsconfig.json"},
+    {"path": "./../bud-compiler/tsconfig.json"},
+    {"path": "./../bud-dashboard/tsconfig.json"},
+    {"path": "./../bud-extensions/tsconfig.json"},
+    {"path": "./../bud-hooks/tsconfig.json"},
+    {"path": "./../bud-server/tsconfig.json"},
+    {"path": "./../bud-support/tsconfig.json"},
+    {"path": "./../container/tsconfig.json"}
   ]
 }

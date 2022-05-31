@@ -4,10 +4,8 @@ import {
   expose,
   label,
 } from '@roots/bud-framework/extension/decorators'
-import {lodash} from '@roots/bud-support'
+import {isFunction} from 'lodash-es'
 import {Plugin, Processor} from 'postcss'
-
-const {isFunction} = lodash
 
 type Input =
   | string
@@ -257,12 +255,14 @@ export default class BudPostCss extends Extension {
    */
   @bind
   public async register() {
+    const loader = await this.resolve('postcss-loader')
+
     /**
      * Install postcss-loader, postcss-loader options, and
      * modify the css rule to utilize them.
      */
     this.app.build
-      .setLoader('postcss', this.resolve('postcss-loader'))
+      .setLoader('postcss', loader)
       .setItem('postcss', {
         loader: 'postcss',
         options: () => {
@@ -274,14 +274,18 @@ export default class BudPostCss extends Extension {
       })
       .rules.css.setUse(['precss', 'css', 'postcss'])
 
+    const importPlugin = await this.resolve('postcss-import')
+    const nestedPlugin = await this.resolve('postcss-nested')
+    const presetEnv = await this.resolve('postcss-preset-env')
+
     this.setPlugins(
       new Map([
-        ['postcss-import', [this.resolve('postcss-import')]],
-        ['postcss-nested', [this.resolve('postcss-nested')]],
+        ['postcss-import', [importPlugin]],
+        ['postcss-nested', [nestedPlugin]],
         [
           'postcss-preset-env',
           [
-            this.resolve('postcss-preset-env'),
+            presetEnv,
             {
               stage: 1,
               features: {

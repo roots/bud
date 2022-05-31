@@ -1,12 +1,19 @@
 import {Bud} from '@roots/bud-framework'
-import {bind, once, open, openEditor} from '@roots/bud-support'
+import {bind, once} from 'helpful-decorators'
+import {join} from 'node:path'
 import {
   Notification,
   NotificationCallback,
   NotificationCenter,
 } from 'node-notifier'
-import {join} from 'path'
+import open from 'open'
+import openEditor from 'open-editor'
 
+/**
+ * Notification center
+ *
+ * @public
+ */
 interface NotificationCenter {
   notify(
     notification?: Notification,
@@ -14,6 +21,11 @@ interface NotificationCenter {
   ): NotificationCenter
 }
 
+/**
+ * Notifier
+ *
+ * @public
+ */
 export class Notifier {
   /**
    * Node notifier notification center
@@ -41,6 +53,7 @@ export class Notifier {
 
   /**
    * Get user editor from env
+   *
    * @public
    */
   public get editor() {
@@ -105,6 +118,7 @@ export class Notifier {
 
   /**
    * Open URL
+   *
    * @public
    */
   public get open(): string {
@@ -114,8 +128,10 @@ export class Notifier {
 
   /**
    * Open browser in development
+   *
    * @public
    * @decorator `@bind`
+   * @decorator `@once`
    */
   @bind
   @once
@@ -126,6 +142,7 @@ export class Notifier {
 
   /**
    * Open editor on error
+   *
    * @public
    * @decorator `@bind`
    */
@@ -205,6 +222,7 @@ export class Notifier {
 
   /**
    * node notifier callback
+   *
    * @public
    * @decorator `@bind`
    */

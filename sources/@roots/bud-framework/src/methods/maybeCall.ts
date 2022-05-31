@@ -1,6 +1,6 @@
 import {lodash} from '@roots/bud-support'
 
-import {Bud} from '..'
+import {Bud} from '../bud.js'
 
 const {isFunction} = lodash
 

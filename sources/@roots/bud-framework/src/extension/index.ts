@@ -1,16 +1,51 @@
-import {bind, lodash as _, Signale} from '@roots/bud-support'
+import {bind} from 'helpful-decorators'
+import {has, isFunction} from 'lodash-es'
+import Signale from 'signale'
 
-import {Bud} from '../bud'
-import {Modules} from '../registry'
-import {Options} from './types'
+import {Bud} from '../bud.js'
+import {Modules} from '../registry/index.js'
+import {Options} from './types.js'
 
+/**
+ * Bud extension
+ *
+ * @public
+ */
 export class Extension<E = any, Plugin = any> {
+  /**
+   * Application
+   *
+   * @internal
+   */
   public _app?: () => Bud
+
+  /**
+   * Application accessor
+   *
+   * @public
+   */
   public app?: Bud
 
+  /**
+   * Extension options
+   *
+   * @internal
+   */
   public _options?: Options.FuncMap<E> = {}
+
+  /**
+   * Extension options
+   *
+   * @readonly
+   * @public
+   */
   public readonly options?: Options<E> = {}
 
+  /**
+   * Extension meta
+   *
+   * @public
+   */
   public meta? = {}
 
   /**
@@ -157,7 +192,7 @@ export class Extension<E = any, Plugin = any> {
 
     Object.defineProperty(this, 'logger', {
       get: (() =>
-        function (): Signale {
+        function (): Signale.Signale {
           return logger.scope(this.label ?? 'anonymous extension')
         }.bind(this))(),
     })
@@ -181,7 +216,7 @@ export class Extension<E = any, Plugin = any> {
   public setOptions?(
     value: Options<E> | ((value: Options<E>) => Options<E>),
   ): this {
-    this._options = _.isFunction(value) ? value(this.options) : value
+    this._options = isFunction(value) ? value(this.options) : value
     return this
   }
 
@@ -197,7 +232,7 @@ export class Extension<E = any, Plugin = any> {
     key: K & string,
     value: Options<E>[K & string],
   ): this {
-    this._options[key] = _.isFunction(value)
+    this._options[key] = isFunction(value)
       ? value(this.options[key])
       : () => value
     return this
@@ -210,7 +245,7 @@ export class Extension<E = any, Plugin = any> {
   ): Options.FuncMap<Options<E>> {
     return {
       ...funcMap,
-      [key]: _.isFunction(value) ? value : () => value,
+      [key]: isFunction(value) ? value : () => value,
     }
   }
 
@@ -221,7 +256,7 @@ export class Extension<E = any, Plugin = any> {
   ): Options<E> {
     return {
       ...(options ?? {}),
-      [key]: _.isFunction(value) ? value(this.app) : value,
+      [key]: isFunction(value) ? value(this.app) : value,
     }
   }
 
@@ -236,12 +271,12 @@ export class Extension<E = any, Plugin = any> {
 
   @bind
   public has?<K extends keyof Extension>(key: K): boolean {
-    return _.has(this, key)
+    return has(this, key)
   }
 
   @bind
   public isFunction?<K extends keyof Extension>(key: K): boolean {
-    return _.isFunction(this[key]) ? true : false
+    return isFunction(this[key]) ? true : false
   }
 
   /**

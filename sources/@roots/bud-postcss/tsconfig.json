@@ -3,7 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "rootDir": "./src",
-    "outDir": "./lib/cjs",
+    "outDir": "./lib/esm",
     "declarationDir": "./types",
     "types": ["node", "@roots/bud-api", "@roots/bud-framework"]
   },

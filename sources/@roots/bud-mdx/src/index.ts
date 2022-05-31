@@ -11,9 +11,10 @@
  */
 
 import {Item, Loader} from '@roots/bud-build'
-import {Extension} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
+import {bind} from '@roots/bud-framework/extension/decorators'
 
-import {MdxConfig} from './MdxConfig'
+import {MdxConfig} from './MdxConfig/index.js'
 
 declare module '@roots/bud-framework' {
   interface Bud {
@@ -46,25 +47,29 @@ declare module '@roots/bud-framework' {
   }
 }
 
-const extension: Extension = {
-  label: '@roots/bud-mdx',
+export default class extension extends Extension {
+  public label = '@roots/bud-mdx'
 
-  dependsOn: new Set(['@roots/bud-babel', '@roots/bud-react']),
+  public dependsOn = new Set(['@roots/bud-babel', '@roots/bud-react'])
 
-  register: async (_options, app) => {
-    app.mdx = new MdxConfig(app)
-  },
+  @bind
+  public async register() {
+    this.app.mdx = new MdxConfig(this.app)
+  }
 
-  boot: async (_, app) =>
-    app.hooks
-      .on('build.resolve.extensions', ext => ext.add('.md').add('.mdx'))
-      .build.setLoader(`mdx`, app.module.resolve(`@mdx-js/loader`))
+  public async boot() {
+    this.app.hooks.on('build.resolve.extensions', ext =>
+      ext.add('.md').add('.mdx'),
+    )
+
+    const loader = await this.resolve('@mdx-js/loader')
+    this.app.build
+      .setLoader(`mdx`, loader)
       .setItem(`mdx`, {loader: `mdx`, options: ({mdx}) => mdx.options})
       .setRule(`mdx`, {
         test: /\.mdx?$/,
         include: [app => app.path('@src')],
         use: [`babel`, `mdx`],
-      }),
+      })
+  }
 }
-
-export const {label, boot, register} = extension

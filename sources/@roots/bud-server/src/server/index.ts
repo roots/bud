@@ -1,15 +1,15 @@
 import {Server as Base} from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework'
 import {Connection} from '@roots/bud-framework/types/services/server/connection'
-import {bind, once} from '@roots/bud-support'
 import Express from 'express'
+import {bind, once} from 'helpful-decorators'
 
-import {inject} from '../client/inject'
-import * as middlewareMap from '../middleware'
-import {seed} from '../seed'
-import {Http} from './server.http'
-import {Https} from './server.https'
-import {Watcher} from './server.watcher'
+import {inject} from '../client/inject.js'
+import * as middlewareMap from '../middleware/index.js'
+import {seed} from '../seed.js'
+import {Http} from './server.http.js'
+import {Https} from './server.https.js'
+import {Watcher} from './server.watcher.js'
 
 /**
  * Server service class

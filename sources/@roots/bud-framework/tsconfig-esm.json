@@ -5,11 +5,7 @@
     "module": "esnext"
   },
   "references": [
-    {
-      "path": "./../container/tsconfig-esm.json"
-    },
-    {
-      "path": "./../bud-support/tsconfig-esm.json"
-    }
+    {"path": "./../container/tsconfig-esm.json"},
+    {"path": "./../bud-support/tsconfig-esm.json"}
   ]
 }

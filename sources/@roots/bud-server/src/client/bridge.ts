@@ -230,7 +230,7 @@ function createReporter() {
   }
 }
 
-var processUpdate = require('./process-update')
+var processUpdate = require('./process-update.js')
 
 var customHandler
 var subscribeAllHandler

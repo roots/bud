@@ -1,10 +1,9 @@
 import * as Framework from '@roots/bud-framework'
-import {bind, fs, lodash} from '@roots/bud-support'
+import fs from 'fs-extra'
+import {bind} from 'helpful-decorators'
+import {isFunction, isString, omit} from 'lodash-es'
 
-import {repository} from './repository'
-
-const {isFunction, isString, omit} = lodash
-const {ensureFile, writeFile} = fs
+import {repository} from './repository.js'
 
 /**
  * Project service
@@ -16,11 +15,11 @@ export class Project
   implements Framework.Project.Service
 {
   /**
-   * Repository values
+   * Service values repository
    *
    * @public
    */
-  public repository: repository = repository
+  public repository: repository
 
   /**
    * Service bootstrap event
@@ -29,10 +28,18 @@ export class Project
    * @decorator `@bind`
    */
   public async bootstrap() {
-    this.set(
-      'context',
-      omit(this.app.context, ['stdin', 'stderr', 'stdout']),
-    ).set('publicEnv', this.app.env.getPublicEnv())
+    this.setStore({
+      context: omit(this.app.context, ['stdin', 'stderr', 'stdout']),
+      version: null,
+      config: {
+        development: {},
+        production: {},
+        base: {},
+      },
+      manifest: {},
+      installed: {},
+      publicEnv: this.app.env.getPublicEnv(),
+    })
 
     await this.loadManifest()
   }
@@ -48,7 +55,7 @@ export class Project
     if (!this.app.isRoot) return
 
     try {
-      await ensureFile(
+      await fs.ensureFile(
         this.app.path(`@storage/${this.app.name}/profile.json`),
       )
     } catch (e) {
@@ -81,6 +88,7 @@ export class Project
    * Read manifest from disk
    *
    * @public
+   * @decorator `@bind`
    */
   @bind
   public async loadManifest(): Promise<void> {
@@ -91,15 +99,18 @@ export class Project
   }
 
   /**
+   * Write profile
+   *
    * @public
+   * @decorator `@bind`
    */
   @bind
   public async writeProfile() {
-    await ensureFile(
+    await fs.ensureFile(
       this.app.path(`@storage`, this.app.name, `profile.json`),
     )
 
-    await writeFile(
+    await fs.writeFile(
       this.app.path(`@storage`, this.app.name, `profile.json`),
       this.app.json.stringify(
         omit(this.repository, ['context.env']),
@@ -114,6 +125,12 @@ export class Project
     })
   }
 
+  /**
+   * Search configs
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public async searchConfigs() {
     await Promise.all(
@@ -142,14 +159,22 @@ export class Project
             ? 'development'
             : 'base'
 
-          const rawImport =
-            hasExtension('js') || hasExtension('ts')
-              ? await import(filePath)
-              : hasExtension('yml')
-              ? await this.app.yml.read(filePath)
-              : hasExtension('json')
-              ? await this.app.json.read(filePath)
-              : {}
+          const isDynamicConfig = [
+            'js',
+            'cjs',
+            'mjs',
+            'ts',
+            'cts',
+            'mts',
+          ].filter(hasExtension).length
+
+          const rawImport = isDynamicConfig
+            ? await import(filePath)
+            : hasExtension('yml')
+            ? await this.app.yml.read(filePath)
+            : hasExtension('json')
+            ? await this.app.json.read(filePath)
+            : {}
 
           const processedModule =
             rawImport.default && isFunction(rawImport?.default)

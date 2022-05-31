@@ -1,5 +1,5 @@
-import {Bud} from '../../..'
-import {Items} from '..'
+import {Bud} from '../../../bud.js'
+import {Items} from '../index.js'
 
 /**
  * Loader rule definition

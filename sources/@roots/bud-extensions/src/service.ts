@@ -5,18 +5,31 @@ import {
   Modules,
   Service,
 } from '@roots/bud-framework'
-import {bind, chalk, lodash as _} from '@roots/bud-support'
-
-const {noop} = _
+import chalk from 'chalk'
+import {bind} from 'helpful-decorators'
 
 /**
  * Extensions Service
  *
  * @public
  */
-export class Extensions extends Service implements Contract.Service {
+export default class Extensions
+  extends Service
+  implements Contract.Service
+{
+  /**
+   * Service store
+   *
+   * @public
+   */
   public repository: Modules = {}
 
+  /**
+   * `booted` callback
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public async booted(): Promise<void> {
     ;[...this.app.options.extensions].map(this.instantiate).map(this.set)
@@ -29,22 +42,46 @@ export class Extensions extends Service implements Contract.Service {
     await this.runAll('_beforeBuild')
   }
 
+  /**
+   * Has extension
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public has<K extends keyof Modules>(key: K & string): boolean {
     return this.repository[key] ? true : false
   }
 
+  /**
+   * Get extension
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public get<K extends keyof Modules>(key: K & string) {
     return this.repository[key]
   }
 
+  /**
+   * Remove extension
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public remove<K extends keyof Modules>(key: K & string): this {
     delete this.repository[key]
     return this
   }
 
+  /**
+   * Set extension
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public set<K extends Modules>(value: Modules[K & string]): this {
     value.logger.log(`setting extension`, chalk.blue(value.label))
@@ -54,6 +91,12 @@ export class Extensions extends Service implements Contract.Service {
     return this
   }
 
+  /**
+   * Instantiate a Framework extension class or object
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public instantiate<K extends Modules>(
     extension: Modules[K & string] | ModuleDefinitions[K & string],
@@ -65,6 +108,13 @@ export class Extensions extends Service implements Contract.Service {
       : extension
   }
 
+  /**
+   * Automatically instantiate and register extensions
+   * located from the project `package.json` manifest
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public async injectExtensions() {
     if (this.app.hooks.filter('feature.inject') === false) {
@@ -78,14 +128,15 @@ export class Extensions extends Service implements Contract.Service {
         ...(this.app.context.manifest?.devDependencies ?? {}),
         ...(this.app.context.manifest?.dependencies ?? {}),
       })
-        .filter(name => !name.startsWith('@types'))
+        .filter(
+          name =>
+            !name.startsWith('@types') &&
+            (name.includes('bud-') || name.includes('sage')),
+        )
+
         .map(async pkg => {
           try {
-            const manifest = await this.app.module
-              .manifestPath(pkg)
-              .then(this.app.module.readManifest)
-
-            return manifest.bud ? await this.import(pkg) : noop
+            await this.import(pkg)
           } catch (error) {
             this.app.warn(`Error importing`, pkg, `\n`, error)
           }
@@ -93,11 +144,17 @@ export class Extensions extends Service implements Contract.Service {
     )
   }
 
+  /**
+   * Import an extension
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public async import(
     input: Record<string, any> | string,
   ): Promise<Extension> {
-    const pkgName = typeof input !== 'string' ? input.name : input
+    const pkgName = typeof input !== 'string' ? input.label : input
     if (this.has(pkgName)) return
 
     this.app.log(chalk.dim(`importing ${pkgName}`))
@@ -122,6 +179,19 @@ export class Extensions extends Service implements Contract.Service {
     return extension
   }
 
+  /**
+   * Run an extension lifecycle method
+   *
+   * @remarks
+   * - `_init`
+   * - `_register`
+   * - `_boot`
+   * - `_beforeBuild`
+   * - `_make`
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public async run<K extends Modules>(
     extension: Modules[K & string],
@@ -145,6 +215,16 @@ export class Extensions extends Service implements Contract.Service {
     }
   }
 
+  /**
+   * Run a lifecycle method for an extension's dependencies
+   *
+   * @remarks
+   * Called from {@link Extension.run}. Ensures a method is run for an
+   * extension's dependencies before it is run for the extension itself.
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public async runDependencies<K extends Modules>(
     extension: Modules[K & string],

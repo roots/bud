@@ -1,10 +1,8 @@
 import type {Bud} from '@roots/bud-framework'
-import {lodash} from '@roots/bud-support'
+import {isUndefined} from 'lodash-es'
 
-import * as defaultGroups from './groups'
-import {method} from './splitChunks.interface'
-
-const {isUndefined} = lodash
+import * as defaultGroups from './groups/index.js'
+import {method} from './splitChunks.interface.js'
 
 /**
  * Bundle vendor modules separately from application code.

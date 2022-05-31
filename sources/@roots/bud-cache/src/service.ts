@@ -1,13 +1,17 @@
 import {Service, Services} from '@roots/bud-framework'
-import {bind, fs} from '@roots/bud-support'
-import {createHash} from 'crypto'
+import fs from 'fs-extra'
+import {bind} from 'helpful-decorators'
+import {createHash} from 'node:crypto'
 
 /**
  * Cache service class
  *
  * @public
  */
-export class Cache extends Service implements Services.Cache.Service {
+export default class Cache
+  extends Service
+  implements Services.Cache.Service
+{
   /**
    * Enabled
    *
@@ -157,8 +161,8 @@ export class Cache extends Service implements Services.Cache.Service {
   }
 
   @bind
-  public async clean() {
+  public clean() {
     this.app.log('cleaning cache')
-    await fs.removeSync(this.app.path(`@storage/cache`))
+    fs.removeSync(this.app.path(`@storage/cache`))
   }
 }

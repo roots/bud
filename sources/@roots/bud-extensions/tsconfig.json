@@ -17,12 +17,5 @@
     "./node_modules",
     "./types"
   ],
-  "references": [
-    {
-      "path": "./../bud-framework/tsconfig.json"
-    },
-    {
-      "path": "./../bud-support/tsconfig.json"
-    }
-  ]
+  "references": [{"path": "./../bud-framework/tsconfig.json"}]
 }

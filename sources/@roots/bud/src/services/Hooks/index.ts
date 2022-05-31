@@ -1,6 +1,6 @@
 import {Services} from '@roots/bud-framework'
-import {Hooks as Base} from '@roots/bud-hooks'
-import {bind} from '@roots/bud-support'
+import Base from '@roots/bud-hooks'
+import {bind} from 'helpful-decorators'
 
 /**
  * Hooks service

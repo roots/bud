@@ -1,9 +1,9 @@
-import {
-  boxen,
-  HighlightOptions,
-  PrettyFormatOptions,
-} from '@roots/bud-support'
-import {bind, format, highlight, lodash, parsers} from '@roots/bud-support'
+import {parsers} from '@roots/bud-support'
+import boxen from 'boxen'
+import {highlight, HighlightOptions} from 'cli-highlight'
+import {bind} from 'helpful-decorators'
+import {omit} from 'lodash-es'
+import {format, PrettyFormatOptions} from 'pretty-format'
 
 import {
   Api,
@@ -20,11 +20,9 @@ import {
   Server,
   Services,
 } from '.'
-import {lifecycle} from './lifecycle'
-import * as methods from './methods'
-import {Module} from './module'
-
-const {omit} = lodash
+import {lifecycle} from './lifecycle/index.js'
+import * as methods from './methods/index.js'
+import {Module} from './module.js'
 
 /**
  * Framework abstract

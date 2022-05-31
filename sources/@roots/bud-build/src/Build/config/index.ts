@@ -1,2 +1,2 @@
-import * as builder from './builder'
+import * as builder from './builder.js'
 export {builder}

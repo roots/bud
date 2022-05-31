@@ -1,8 +1,10 @@
-import {bind, chalk, fs} from '@roots/bud-support'
+import chalk from 'chalk'
 import {Command} from 'clipanion'
+import fs from 'fs-extra'
+import {bind} from 'helpful-decorators'
 
-import {factory} from '../../factory'
-import {BaseCommand} from './base'
+import {factory} from '../../factory/index.js'
+import {BaseCommand} from './base.js'
 
 const {ensureDir, remove} = fs
 

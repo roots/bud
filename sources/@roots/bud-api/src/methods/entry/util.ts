@@ -1,7 +1,5 @@
 import type {Bud, Config} from '@roots/bud-framework'
-import {lodash} from '@roots/bud-support'
-
-const {isArray, isString} = lodash
+import {isArray, isString} from 'lodash-es'
 
 export type EntryObject = Config.Entry.EntryObject
 

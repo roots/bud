@@ -1,8 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
-import {lodash} from '@roots/bud-support'
+import {isFunction} from 'lodash-es'
 import {Configuration} from 'webpack'
-
-const {isFunction} = lodash
 
 export interface override {
   (config: Partial<Configuration>): Partial<Configuration>

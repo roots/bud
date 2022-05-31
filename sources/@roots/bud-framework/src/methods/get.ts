@@ -1,4 +1,4 @@
-import {Bud} from '..'
+import {Bud} from '../bud.js'
 
 export interface get {
   (name: string): Promise<Bud>

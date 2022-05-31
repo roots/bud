@@ -4,9 +4,9 @@ export {
   HttpsServerOptions,
   Options,
   OptionsMap,
-} from './connection'
+} from './connection.js'
 
-export * as Middleware from './middleware'
+export * as Middleware from './middleware.js'
 
-export {Server as Service} from './service'
-export {Watcher} from './watcher'
+export {Server as Service} from './service.js'
+export {Watcher} from './watcher.js'

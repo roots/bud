@@ -1,9 +1,6 @@
 import * as Framework from '@roots/bud-framework'
-import {Registry, Store} from '@roots/bud-framework'
-import {bind, lodash} from '@roots/bud-support'
-import {isUndefined} from 'lodash'
-
-const {isFunction} = lodash
+import {bind} from 'helpful-decorators'
+import {isFunction, isUndefined} from 'lodash-es'
 
 /**
  * Hooks and events registry
@@ -50,7 +47,7 @@ const {isFunction} = lodash
  *
  * @public
  */
-export class Hooks
+export default class Hooks
   extends Framework.Service
   implements Framework.Hooks.Service
 {
@@ -59,7 +56,7 @@ export class Hooks
    *
    * @public
    */
-  public store: Store = null
+  public store: Framework.Store = null
 
   /**
    * Class constructor
@@ -80,7 +77,9 @@ export class Hooks
    * @decorator `@bind`
    */
   @bind
-  public get<T extends `${keyof Store & string}`>(path: T): Store[T] {
+  public get<T extends `${keyof Framework.Store & string}`>(
+    path: T,
+  ): Framework.Store[T] {
     if (!this.store[path]) this.store[path] = []
     return this.store[path]
   }
@@ -92,9 +91,9 @@ export class Hooks
    * @decorator `@bind`
    */
   @bind
-  public set<T extends keyof Store>(
+  public set<T extends keyof Framework.Store>(
     path: T & string,
-    value: Store[T & string],
+    value: Framework.Store[T & string],
   ): this {
     if (this.store[path])
       this.store[path] = [...this.store[path], ...value] as any
@@ -107,7 +106,9 @@ export class Hooks
    * to check if a hook has been set somewhere
    */
   @bind
-  public has<T extends `${keyof Store & string}`>(path: T): boolean {
+  public has<T extends `${keyof Framework.Store & string}`>(
+    path: T,
+  ): boolean {
     return !isUndefined(this.store[path]) ? true : false
   }
 
@@ -133,13 +134,17 @@ export class Hooks
    * @decorator `@bind`
    */
   @bind
-  public on<T extends `${keyof Registry.Sync & string}`>(
+  public on<T extends `${keyof Framework.Registry.Sync & string}`>(
     id: T,
     input:
-      | Registry.Sync[T]
-      | ((current?: Registry.Sync[T]) => Registry.Sync[T]),
+      | Framework.Registry.Sync[T]
+      | ((
+          current?: Framework.Registry.Sync[T],
+        ) => Framework.Registry.Sync[T]),
   ): Framework.Bud {
-    const inputFn: (current?: Registry.Sync[T]) => Registry.Sync[T] =
+    const inputFn: (
+      current?: Framework.Registry.Sync[T],
+    ) => Framework.Registry.Sync[T] =
       typeof input === 'function' ? input : () => input
 
     this.app.info(`hooks.on`, id, input)
@@ -170,11 +175,13 @@ export class Hooks
    * @decorator `@bind`
    */
   @bind
-  public async<T extends `${keyof Registry.Async & string}`>(
+  public async<T extends `${keyof Framework.Registry.Async & string}`>(
     id: T,
     input:
-      | Registry.Async[T]
-      | ((current?: Registry.Async[T]) => Promise<Registry.Async[T]>),
+      | Framework.Registry.Async[T]
+      | ((
+          current?: Framework.Registry.Async[T],
+        ) => Promise<Framework.Registry.Async[T]>),
   ): Framework.Bud {
     const inputFn = typeof input === 'function' ? input : async () => input
 
@@ -202,19 +209,23 @@ export class Hooks
    * @decorator `@bind`
    */
   @bind
-  public filter<T extends keyof Registry.Sync & string>(
+  public filter<T extends keyof Framework.Registry.Sync & string>(
     id: T,
     fallback?:
-      | Registry.Sync[T]
-      | ((value?: Registry.Sync[T]) => Registry.Sync[T]),
-  ): Registry.Sync[T] {
+      | Framework.Registry.Sync[T]
+      | ((
+          value?: Framework.Registry.Sync[T],
+        ) => Framework.Registry.Sync[T]),
+  ): Framework.Registry.Sync[T] {
     if (!this.has(id)) return isFunction(fallback) ? fallback() : fallback
 
     const result = ((this.store[id] as any) ?? []).reduce(
       (
-        accumulated: Registry.Sync[T],
-        current: (value?: Registry.Sync[T]) => Registry.Sync[T],
-      ): Registry.Sync[T] => current(accumulated),
+        accumulated: Framework.Registry.Sync[T],
+        current: (
+          value?: Framework.Registry.Sync[T],
+        ) => Framework.Registry.Sync[T],
+      ): Framework.Registry.Sync[T] => current(accumulated),
       isFunction(fallback) ? fallback() : fallback,
     )
 
@@ -241,17 +252,19 @@ export class Hooks
    * @decorator `@bind`
    */
   @bind
-  public async filterAsync<T extends keyof Registry.Async>(
+  public async filterAsync<T extends keyof Framework.Registry.Async>(
     id: T & string,
-    fallback?: Registry.Async[T & string],
-  ): Promise<Registry.Async[T & string]> {
+    fallback?: Framework.Registry.Async[T & string],
+  ): Promise<Framework.Registry.Async[T & string]> {
     if (!this.has(id))
       return isFunction(fallback) ? await fallback() : fallback
 
     const result = await ((this.store[id] as any) ?? []).reduce(
       async (
         accumulated,
-        current?: ((fallback: T) => Promise<T> | Store[T]) | Store[T],
+        current?:
+          | ((fallback: T) => Promise<T> | Framework.Store[T])
+          | Framework.Store[T],
       ) => {
         const next = await accumulated
         return isFunction(current) ? await current(next) : current
@@ -271,7 +284,11 @@ export class Hooks
    * @decorator `@bind`
    */
   @bind
-  public action<T extends keyof Registry.Events & keyof Store & string>(
+  public action<
+    T extends keyof Framework.Registry.Events &
+      keyof Framework.Store &
+      string,
+  >(
     id: T,
     ...actions: Array<(app?: Framework.Bud) => Promise<unknown>>
   ): Framework.Bud {
@@ -299,7 +316,9 @@ export class Hooks
    */
   @bind
   public async fire<
-    T extends keyof Registry.Events & keyof Store & string,
+    T extends keyof Framework.Registry.Events &
+      keyof Framework.Store &
+      string,
   >(id: T): Promise<Framework.Bud> {
     if (!this.has(id)) return
 

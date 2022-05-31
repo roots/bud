@@ -1,8 +1,7 @@
 import type {Env as Base} from '@roots/bud-framework'
 import {ContainerService} from '@roots/bud-framework'
-import {bind, lodash} from '@roots/bud-support'
-
-const {isString} = lodash
+import {bind} from 'helpful-decorators'
+import {isString} from 'lodash-es'
 
 /**
  * Env service

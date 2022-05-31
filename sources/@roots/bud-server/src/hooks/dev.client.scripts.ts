@@ -1,4 +1,4 @@
-import {Bud} from '@roots/bud-framework/src'
+import {Bud} from '@roots/bud-framework'
 
 export const src = (modulePath: string) =>
   `@roots/bud-server/client/${modulePath}`

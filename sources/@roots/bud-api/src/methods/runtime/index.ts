@@ -1,7 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
+import {isUndefined} from 'lodash-es'
 import type {Configuration, EntryObject} from 'webpack'
-
-import {isUndefined} from './runtime.dependencies'
 
 export interface runtime {
   (this: Bud, runtime?: Configuration['optimization']['runtimeChunk']): Bud

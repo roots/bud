@@ -1,5 +1,6 @@
 import type * as ThemeJSON from '@roots/bud-preset-wordpress/types/theme'
-import {bind, fs} from '@roots/bud-support'
+import fs from 'fs-extra'
+import {bind} from 'helpful-decorators'
 import type {Compiler, WebpackPluginInstance} from 'webpack/types'
 
 /**
@@ -10,11 +11,15 @@ import type {Compiler, WebpackPluginInstance} from 'webpack/types'
 export interface Options {
   /**
    * JSON contents
+   *
+   * @public
    */
   settings: Partial<ThemeJSON.GlobalSettingsAndStyles['settings']>
 
   /**
    * Emit path
+   *
+   * @public
    */
   path: string
 }

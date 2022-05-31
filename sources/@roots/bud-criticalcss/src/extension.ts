@@ -4,7 +4,7 @@ import {
   Options,
 } from '@roots/critical-css-webpack-plugin'
 
-import {critical} from './critical'
+import {critical} from './critical.js'
 
 /**
  * Extends bud with critical css
@@ -26,3 +26,5 @@ export const BudCriticalCss: BudCriticalCss = {
   plugin: CriticalCssWebpackPlugin,
   when: async (_, app) => app.isProduction,
 }
+
+export {BudCriticalCss as default}

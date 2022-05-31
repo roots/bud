@@ -1,15 +1,22 @@
 import {bind} from 'helpful-decorators'
-import * as _ from 'lodash'
+import _ from 'lodash'
+import {ValueOf} from 'type-fest'
 
-import type {Repository, ValueOf} from './container.interface'
-import {mergeable} from './utilities'
+import {mergeable} from './utilities.js'
+
+/**
+ * Container repository interface
+ *
+ * @public
+ */
+export interface Repository extends Record<string, any> {}
 
 /**
  * Provides a simple chainable interface for working with collections of data
  *
  * @public
  */
-export class Container<I = any> {
+export default class Container<I = any> {
   /**
    * Identifier
    *
@@ -91,12 +98,7 @@ export class Container<I = any> {
    */
   @bind
   public mergeStore(values: Repository): this {
-    this.setStore({
-      ...this.all(),
-      ...values,
-    })
-
-    return this
+    return this.setStore({...this.all(), ...values})
   }
 
   /**

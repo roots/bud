@@ -14,7 +14,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
   template: 'auto',
   publicPath: app => app.publicPath(),
 })
-class BudHtmlWebpackPlugin extends Extension<
+export default class BudHtmlWebpackPlugin extends Extension<
   HtmlWebpackPlugin.Options,
   HtmlWebpackPlugin
 > {
@@ -23,5 +23,3 @@ class BudHtmlWebpackPlugin extends Extension<
     return this.app.hooks.filter('feature.html')
   }
 }
-
-export default BudHtmlWebpackPlugin

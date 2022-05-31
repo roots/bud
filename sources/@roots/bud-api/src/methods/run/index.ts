@@ -1,5 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
-import {fs} from '@roots/bud-support'
+import fs from 'fs-extra'
 
 export const {ensureDirSync, pathExistsSync} = fs
 

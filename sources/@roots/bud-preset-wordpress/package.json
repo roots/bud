@@ -26,7 +26,7 @@
     "bud-preset"
   ],
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   },
   "bud": {
     "type": "extension"
@@ -36,25 +36,20 @@
     "stylelint-config/",
     "types/"
   ],
-  "main": "./lib/cjs/index.js",
+  "type": "module",
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    ".": "./lib/cjs/index.js",
-    "./extension": "./lib/cjs/extension.js",
-    "./stylelint-config": "./stylelint-config/index.js"
-  },
-  "typesVersions": {
-    "*": {
-      ".": [
-        "./types/index.d.ts"
-      ],
-      "extension": [
-        "./types/extension.d.ts"
-      ],
-      "theme": [
-        "./types/theme.d.ts"
-      ]
+    ".": {
+      "types": "./types/index.d.ts",
+      "import": "./lib/esm/index.js"
+    },
+    "./extension": {
+      "types": "./types/extension.d.ts",
+      "import": "./lib/esm/extension.js"
+    },
+    "./stylelint-config": {
+      "default": "./stylelint-config/index.js"
     }
   },
   "devDependencies": {

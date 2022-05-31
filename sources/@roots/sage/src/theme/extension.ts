@@ -1,4 +1,4 @@
-import {Extension} from '@roots/bud-framework'
+import {Bud, Extension} from '@roots/bud-framework'
 import {
   bind,
   label,
@@ -6,11 +6,12 @@ import {
   plugin,
   when,
 } from '@roots/bud-framework/extension/decorators'
-import {lodash as _} from '@roots/bud-support'
-import {Container} from '@roots/container'
+import type {GlobalSettingsAndStyles as WPThemeJson} from '@roots/bud-preset-wordpress/types/theme'
+import Container from '@roots/container'
+import {isBoolean, isFunction} from 'lodash-es'
 
-import {tailwind, WPThemeJson} from '.'
-import {Options, ThemeJsonWebpackPlugin} from './plugin'
+import {Options, ThemeJsonWebpackPlugin} from './plugin.js'
+import * as tailwind from './tailwind.js'
 
 /**
  * Callback function used to configure wordpress `theme.json`
@@ -27,6 +28,25 @@ export interface Mutator {
     | Container<Partial<WPThemeJson['settings']>>
 }
 
+/**
+ * WP Theme JSON plugin adapter
+ *
+ * @remarks
+ * Produces a WordPress `theme.json`
+ *
+ * @example
+ * ```ts
+ * bud.themeJson(theme =>
+ *   theme.set('color', {})
+ * )
+ * ```
+ *
+ * @public
+ * @decorator `@label`
+ * @decorator `@options`
+ * @decorator `@when`
+ * @decorator `@plugin`
+ */
 @label('wp-theme-json')
 @options({
   path: app => app.path('./theme.json'),
@@ -90,18 +110,18 @@ export default class ThemeJson extends Extension<
       | Partial<WPThemeJson['settings']>
       | boolean,
     raw?: boolean,
-  ) {
+  ): Bud {
     if (!input) return this.app
 
     this.when = async () => true
 
-    const value = _.isFunction(input)
+    const value = isFunction(input)
       ? input(
           raw
             ? this.options.settings
             : this.app.container(this.options.settings),
         )
-      : _.isBoolean(input)
+      : isBoolean(input)
       ? this.options.settings
       : input
 
@@ -114,7 +134,7 @@ export default class ThemeJson extends Extension<
   }
 
   @bind
-  public useTailwindColors() {
+  public useTailwindColors(): Bud {
     this.setOption('settings', {
       ...(this.options.settings ?? {}),
       color: {

@@ -1,6 +1,6 @@
 import {Bud} from '@roots/bud-framework'
 
-import * as clientScripts from './hooks/dev.client.scripts'
+import * as clientScripts from './hooks/dev.client.scripts.js'
 
 /**
  * Initial values

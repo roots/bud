@@ -1,7 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
-import {chalk, lodash} from '@roots/bud-support'
-
-const {isString} = lodash
+import chalk from 'chalk'
+import {isString} from 'lodash-es'
 
 export interface persist {
   (type?: 'memory' | 'filesystem' | false): Bud

@@ -1,10 +1,10 @@
 import * as Framework from '@roots/bud-framework'
-import {bind, chalk, lodash} from '@roots/bud-support'
+import chalk from 'chalk'
+import {bind} from 'helpful-decorators'
+import {isEmpty, isFunction} from 'lodash-es'
 
-import * as facade from '../facade'
-import * as methods from '../methods'
-
-const {isEmpty, isFunction} = lodash
+import * as facade from '../facade/index.js'
+import * as methods from '../methods/index.js'
 
 /**
  * API service

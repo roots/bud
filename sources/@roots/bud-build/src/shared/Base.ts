@@ -1,9 +1,13 @@
 import type {Bud} from '@roots/bud-framework'
-import {bind, lodash} from '@roots/bud-support'
-
-const {isFunction} = lodash
+import {bind} from 'helpful-decorators'
+import {isFunction} from 'lodash-es'
 
 export default class Base {
+  /**
+   * Application getter
+   *
+   * @readonly @public
+   */
   public get app() {
     return this._app()
   }

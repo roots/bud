@@ -36,9 +36,7 @@ export default class BudReact extends Extension {
    */
   @bind
   public async boot() {
-    this.app.babel.setPreset(
-      '@babel/preset-react',
-      this.resolve('@babel/preset-react'),
-    )
+    const preset = await this.resolve('@babel/preset-react')
+    this.app.babel.setPreset('@babel/preset-react', preset)
   }
 }

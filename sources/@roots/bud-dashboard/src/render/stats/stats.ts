@@ -1,10 +1,11 @@
 import {Bud} from '@roots/bud-framework'
-import {chalk, figures} from '@roots/bud-support'
+import chalk from 'chalk'
+import figures from 'figures'
 import {StatsCompilation} from 'webpack'
 
-import * as components from './components'
-import {theme} from './theme'
-import * as webpackMessage from './webpack.message'
+import * as components from './components.js'
+import {theme} from './theme.js'
+import * as webpackMessage from './webpack.message.js'
 
 export const report = ({
   stats,

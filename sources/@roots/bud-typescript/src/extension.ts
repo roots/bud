@@ -26,8 +26,10 @@ export default class BudTypeScript extends Extension {
       ext.add('.ts').add('.tsx'),
     )
 
+    const loader = await this.resolve('ts-loader')
+
     this.app.build
-      .setLoader('ts', this.resolve('ts-loader'))
+      .setLoader('ts', loader)
       .setItem('ts', {
         loader: 'ts',
         options: {

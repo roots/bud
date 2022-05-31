@@ -17,17 +17,20 @@ const fallback = (
 
 /**
  * Build command
+ *
  * @public
  */
 export class BuildCommand extends BaseCommand {
   /**
    * Command paths
+   *
    * @public
    */
   public static paths = [[`build`]]
 
   /**
    * Command usage
+   *
    * @public
    */
   public static usage = Command.Usage({

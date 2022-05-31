@@ -30,7 +30,7 @@
     "bud-extension"
   ],
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   },
   "bud": {
     "type": "extension"
@@ -39,16 +39,21 @@
     "lib/",
     "types/"
   ],
-  "main": "./lib/cjs/index.js",
+  "type": "module",
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.js"
+    ".": {
+      "types": "./types/index.d.ts",
+      "import": "./lib/esm/index.js"
+    },
+    "./extension": {
+      "types": "./types/extension.d.ts",
+      "import": "./lib/esm/extension.js"
+    }
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/lodash": "4.14.182",
     "@types/node": "16.11.36"
   },
   "dependencies": {

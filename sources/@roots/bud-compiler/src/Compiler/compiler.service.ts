@@ -1,30 +1,36 @@
 import {Bud, Compiler as Contract, Service} from '@roots/bud-framework'
-import {bind, lodash, once} from '@roots/bud-support'
-import {
+import {bind, once} from 'helpful-decorators'
+import {isFunction} from 'lodash-es'
+import type {
   Configuration,
   MultiStats,
-  ProgressPlugin,
   Stats,
   StatsCompilation,
-  webpack,
   WebpackError,
 } from 'webpack'
+import Webpack from 'webpack'
 
-import * as Reporter from '../Reporter'
-import BudError from '../Reporter/BudError'
-
-const {isFunction} = lodash
+import BudError from '../Reporter/BudError.js'
+import * as Reporter from '../Reporter/index.js'
 
 /**
  * Wepback compilation controller class
+ *
  * @public
  */
 export class Compiler extends Service implements Contract.Service {
   /**
-   * Compiler
+   * Compiler implementation
+   *
+   * @internal
+   */
+  protected _implementation: Contract.Implementation = Webpack
+
+  /**
+   * Compiler implementation
+   *
    * @public
    */
-  protected _implementation: Contract.Implementation = webpack
   public get implementation(): Contract.Implementation {
     return this._implementation
   }
@@ -34,12 +40,14 @@ export class Compiler extends Service implements Contract.Service {
 
   /**
    * Compiler instance
+   *
    * @public
    */
   public compilation: Contract.Service['compilation']
 
   /**
    * Compilation stats
+   *
    * @public
    */
   public stats: {
@@ -52,18 +60,21 @@ export class Compiler extends Service implements Contract.Service {
 
   /**
    * Errors
+   *
    * @public
    */
   public errors: Array<BudError> = []
 
   /**
-   * Errors
+   * Warnings
+   *
    * @public
    */
   public warnings: Array<BudError> = []
 
   /**
    * Multi-compiler configuration
+   *
    * @public
    */
   public config: Array<Configuration> = []
@@ -91,6 +102,8 @@ export class Compiler extends Service implements Contract.Service {
   }
 
   /**
+   * Invoke compiler
+   *
    * @public
    * @decorator `@bind`
    * @decorator `@once`
@@ -102,7 +115,7 @@ export class Compiler extends Service implements Contract.Service {
   ): Promise<Contract.Service['compilation']> {
     await this.app.hooks.fire('event.compiler.before')
 
-    this.compilation = this.implementation(this.config)
+    this.compilation = this.implementation(config ?? this.config)
 
     this.app.isDevelopment &&
       this.compilation.hooks.done.tap(
@@ -118,7 +131,7 @@ export class Compiler extends Service implements Contract.Service {
       async () => await this.app.hooks.fire('event.compiler.close'),
     )
 
-    new ProgressPlugin(this.app.dashboard.progressCallback).apply(
+    new Webpack.ProgressPlugin(this.app.dashboard.progressCallback).apply(
       this.compilation,
     )
 

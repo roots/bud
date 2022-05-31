@@ -1,8 +1,18 @@
-import {bind} from '@roots/bud-support'
+import {bind} from 'helpful-decorators'
 
-import {Spinner} from './spinner'
+import {Spinner} from './spinner.js'
 
+/**
+ * Line update
+ *
+ * @public
+ */
 export class Line {
+  /**
+   * Text
+   *
+   * @public
+   */
   public text: string
 
   public spinner?: Spinner

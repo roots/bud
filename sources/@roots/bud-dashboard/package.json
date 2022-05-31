@@ -27,25 +27,44 @@
     "bud-framework"
   ],
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   },
   "files": [
     "lib/",
     "types/"
   ],
-  "main": "./lib/cjs/index.js",
+  "type": "module",
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.js"
+    ".": {
+      "import": {
+        "types": "./types/index.d.ts",
+        "default": "./lib/esm/index.js"
+      }
+    },
+    "./service": {
+      "import": {
+        "types": "./types/service.d.ts",
+        "default": "./lib/esm/service.js"
+      }
+    }
   },
   "devDependencies": {
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@skypack/package-check": "0.2.2",
+    "@types/lodash-es": "^4",
     "@types/node": "16.11.36",
     "tslib": "2.4.0",
     "webpack": "5.72.1"
+  },
+  "dependencies": {
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "chalk": "5.0.1",
+    "figures": "4.0.1",
+    "helpful-decorators": "2.1.0",
+    "human-readable": "0.2.1",
+    "lodash-es": "4.17.21",
+    "log-update": "5.0.1",
+    "table": "6.8.0"
   }
 }

@@ -27,7 +27,7 @@
     "url": "https://github.com/sponsors/roots"
   },
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   },
   "keywords": [
     "bud",
@@ -37,14 +37,31 @@
     "lib/",
     "types/"
   ],
+  "type": "module",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    ".": "./lib/cjs/index.js",
-    "./api": "./lib/cjs/api/index.js",
-    "./methods": "./lib/cjs/methods/index.js",
-    "./methods/*": "./lib/cjs/methods/*/index.js"
+    ".": {
+      "types": "./types/index.d.ts",
+      "import": "./lib/esm/index.js",
+      "require": "./lib/cjs/index.js"
+    },
+    "./api": {
+      "types": "./types/api/index.d.ts",
+      "import": "./lib/esm/api/index.js",
+      "require": "./lib/cjs/api/index.js"
+    },
+    "./methods": {
+      "types": "./types/methods/index.js",
+      "import": "./lib/esm/methods/index.js",
+      "require": "./lib/cjs/methods/index.js"
+    },
+    "./methods/*": {
+      "types": "./types/methods/*/index.js",
+      "import": "./lib/esm/methods/*/index.js",
+      "require": "./lib/cjs/methods/*/index.js"
+    }
   },
   "typesVersions": {
     "*": {
@@ -68,14 +85,24 @@
   "devDependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@skypack/package-check": "0.2.2",
+    "@types/fs-extra": "9.0.13",
+    "@types/lodash-es": "^4",
     "@types/node": "16.11.36",
     "webpack": "5.72.1"
   },
   "dependencies": {
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
+    "chalk": "5.0.1",
     "copy-webpack-plugin": "11.0.0",
     "css-minimizer-webpack-plugin": "4.0.0",
+    "fs-extra": "10.1.0",
+    "get-port": "6.1.2",
+    "globby": "13.1.1",
+    "helpful-decorators": "2.1.0",
     "html-webpack-plugin": "5.5.0",
+    "lodash-es": "4.17.21",
+    "nanoid": "3.3.4",
+    "pkg-up": "4.0.0",
     "tslib": "2.4.0"
   }
 }

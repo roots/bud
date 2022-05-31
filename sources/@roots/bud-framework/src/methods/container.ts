@@ -1,4 +1,4 @@
-import {Container} from '@roots/container'
+import * as Pkg from '@roots/container'
 
 /**
  * container function interface
@@ -6,11 +6,11 @@ import {Container} from '@roots/container'
  * @internal
  */
 export interface container<T = any> {
-  <T>(repository?: T): Container<T>
+  <T>(repository?: T): Pkg.Container<T>
 }
 
 /**
- * Create a new {@link Container} instance
+ * Create a new container instance
  *
  * @example
  * ```js
@@ -21,6 +21,10 @@ export interface container<T = any> {
  *
  * @public
  */
-export const container = function <T = any>(repository?: T): Container<T> {
-  return repository ? new Container<T>(repository) : new Container()
+export const container: container = function <T = any>(
+  repository?: T,
+): Pkg.Container<T> {
+  return repository
+    ? new Pkg.Container<T>(repository)
+    : new Pkg.Container()
 }

@@ -12,8 +12,8 @@
 
 import type {Build} from '@roots/bud-framework'
 
-import type {Config} from './config'
-import type BabelExtension from './extension'
+import type {Config} from './config.js'
+import type BabelExtension from './extension.js'
 
 declare module '@roots/bud-framework' {
   interface Bud {

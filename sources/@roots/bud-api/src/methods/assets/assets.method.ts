@@ -1,7 +1,7 @@
 import type {Bud} from '@roots/bud-framework'
 import CopyPlugin from 'copy-webpack-plugin'
-import {isArray, isString} from 'lodash'
-import {normalize} from 'path'
+import {isArray, isString} from 'lodash-es'
+import {normalize} from 'node:path'
 
 import type {method} from './assets.interface'
 

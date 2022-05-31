@@ -46,11 +46,26 @@ export const INTEGRATION_TESTS = [
 ]
 
 /**
- * Base public package tsconfig
+ * Base public package tsconfig (CJS)
  *
  * @public
  */
-export const TS_CONFIG_PATH = join(REPO_PATH, 'config', 'tsconfig.json')
+export const TS_CONFIG_PATH_CJS = join(
+  REPO_PATH,
+  'config',
+  'tsconfig.json',
+)
+
+/**
+ * Base public package tsconfig (ESM)
+ *
+ * @public
+ */
+export const TS_CONFIG_PATH_ESM = join(
+  REPO_PATH,
+  'config',
+  'tsconfig.esm.json',
+)
 
 /**
  * Proxy registry URL

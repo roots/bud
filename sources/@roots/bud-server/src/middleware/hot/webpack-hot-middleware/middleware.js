@@ -1,8 +1,6 @@
 /* eslint-disable no-console */
-module.exports = webpackHotMiddleware
 
-var helpers = require('./helpers')
-var pathMatch = helpers.pathMatch
+import {pathMatch} from './helpers.js'
 
 function webpackHotMiddleware(compiler, opts) {
   opts = opts || {}
@@ -22,12 +20,14 @@ function webpackHotMiddleware(compiler, opts) {
     compiler.plugin('invalid', onInvalid)
     compiler.plugin('done', onDone)
   }
+
   function onInvalid() {
     if (closed) return
     latestStats = null
     if (opts.log) opts.log('webpack building...')
     eventStream.publish({action: 'building'})
   }
+
   function onDone(statsResult) {
     if (closed) return
     // Keep hold of latest stats so they can be propagated to new clients
@@ -44,10 +44,12 @@ function webpackHotMiddleware(compiler, opts) {
       publishStats('sync', latestStats, eventStream)
     }
   }
+
   middleware.publish = function (payload) {
     if (closed) return
     eventStream.publish(payload)
   }
+
   middleware.close = function () {
     if (closed) return
     // Can't remove compiler plugins, so we just set a flag and noop if closed
@@ -56,22 +58,26 @@ function webpackHotMiddleware(compiler, opts) {
     eventStream.close()
     eventStream = null
   }
+
   return middleware
 }
 
 function createEventStream(heartbeat) {
   var clientId = 0
   var clients = {}
+
   function everyClient(fn) {
     Object.keys(clients).forEach(function (id) {
       fn(clients[id])
     })
   }
+
   var interval = setInterval(function heartbeatTick() {
     everyClient(function (client) {
       client.write('data: \uD83D\uDC93\n\n')
     })
   }, heartbeat).unref()
+
   return {
     close: function () {
       clearInterval(interval)
@@ -91,6 +97,7 @@ function createEventStream(heartbeat) {
       }
 
       var isHttp1 = !(parseInt(req.httpVersion) >= 2)
+
       if (isHttp1) {
         req.socket.setKeepAlive(true)
         Object.assign(headers, {
@@ -175,3 +182,5 @@ function buildModuleMap(modules) {
   })
   return map
 }
+
+export default webpackHotMiddleware

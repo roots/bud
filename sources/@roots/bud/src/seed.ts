@@ -1,6 +1,9 @@
 import type {Config} from '@roots/bud-framework'
-import {prettyFormat, Signale, table} from '@roots/bud-support'
-import {cpus} from 'os'
+import Console from 'node:console'
+import {cpus} from 'node:os'
+import {format} from 'pretty-format'
+import Signale from 'signale'
+import {table} from 'table'
 
 /**
  * Bud configuration defaults
@@ -52,13 +55,13 @@ export const seed: Config.Options['seed'] = {
     () => {
       const infrastructureLogger = {
         count: {},
-        instance: new Signale().scope('webpack'),
+        instance: new Signale.Signale().scope('webpack'),
       }
 
       return {
-        Console: require('console'),
-        assert: (v, m) => v && infrastructureLogger.instance.info(m),
-        // eslint-disable-next-line
+        Console: Console as any,
+        assert: (v: any, m: any) =>
+          v && infrastructureLogger.instance.info(m),
         clear: () => null,
         count: (label?: string) => {
           infrastructureLogger.count[label] =
@@ -78,17 +81,17 @@ export const seed: Config.Options['seed'] = {
         group: () => null,
         groupCollapsed: () => null,
         groupEnd: () => null,
-        info: () => null,
+        info: infrastructureLogger.instance.info,
         log: infrastructureLogger.instance.log,
         table: (tabularData?: any) =>
-          infrastructureLogger.instance.log(table.table(tabularData)),
+          infrastructureLogger.instance.log(table(tabularData)),
         time: infrastructureLogger.instance.time,
         timeEnd: infrastructureLogger.instance.timeEnd,
         timeLog: () => null,
         trace: (message, ...params) =>
           infrastructureLogger.instance.log(
             `Trace: `,
-            message ? prettyFormat(message) : ``,
+            message ? format(message) : ``,
             ...params,
           ),
         warn: infrastructureLogger.instance.warn,
