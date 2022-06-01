@@ -1,13 +1,14 @@
 {
   "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
-    "declarationDir": "./types",
-    "esModuleInterop": true,
-    "rootDir": "./src",
-    "outDir": "./lib/cjs",
+    "baseUrl": ".",
+    "rootDir": "src",
+    "outDir": "lib",
+    "module": "esnext",
     "types": ["@roots/bud-framework"]
   },
-  "include": ["./src"],
+  "include": ["src"],
+  "exclude": ["lib", "node_modules"],
   "references": [
     {"path": "./../bud-framework/tsconfig.json"}
   ]

@@ -1,6 +1,6 @@
 import {Bud, Build} from '@roots/bud-framework'
 
-import Base from './shared/Base.js'
+import Base from './shared/base.js'
 
 namespace Loader {
   export type ConstructorOptions = string

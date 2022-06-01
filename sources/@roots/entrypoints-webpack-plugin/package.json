@@ -33,16 +33,19 @@
     "node": ">=16"
   },
   "files": [
-    "lib/",
-    "types/"
+    "lib/"
   ],
   "type": "module",
-  "module": "./lib/esm/index.js",
-  "types": "./types/index.d.ts",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "exports": {
-    ".": {
-      "types": "./types/index.d.ts",
-      "import": "./lib/esm/index.js"
+    ".": "./lib/index.js"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ]
     }
   },
   "devDependencies": {

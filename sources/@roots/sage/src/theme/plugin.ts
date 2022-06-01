@@ -1,4 +1,4 @@
-import type * as ThemeJSON from '@roots/bud-preset-wordpress/types/theme'
+import type * as ThemeJSON from '@roots/bud-preset-wordpress/theme'
 import fs from 'fs-extra'
 import {bind} from 'helpful-decorators'
 import type {Compiler, WebpackPluginInstance} from 'webpack/types'

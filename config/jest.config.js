@@ -23,7 +23,6 @@ module.exports = async function config() {
       'sources/@roots/bud-framework/src/Peers/',
       'sources/@roots/bud-framework/src/Project/',
       'sources/@roots/bud-dashboard/',
-      'sources/@roots/bud-support/',
       'sources/@roots/dependencies/',
       'sources/@roots/filesystem/',
       'sources/@roots/ink-prettier/',

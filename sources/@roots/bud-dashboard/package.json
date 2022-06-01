@@ -30,24 +30,23 @@
     "node": ">=16"
   },
   "files": [
-    "lib/",
-    "types/"
+    "lib/"
   ],
   "type": "module",
   "module": "./lib/index.js",
-  "types": "./types/index.d.ts",
+  "types": "./lib/index.d.ts",
   "exports": {
-    ".": {
-      "import": {
-        "types": "./types/index.d.ts",
-        "default": "./lib/index.js"
-      }
-    },
-    "./service": {
-      "import": {
-        "types": "./types/service.d.ts",
-        "default": "./lib/service.js"
-      }
+    ".": "./lib/index.js",
+    "./service": "./lib/service.js"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ],
+      "service": [
+        "./lib/service.d.ts"
+      ]
     }
   },
   "devDependencies": {

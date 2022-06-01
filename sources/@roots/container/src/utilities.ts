@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import _ from 'lodash-es'
 
 export const mergeable = (thing: unknown): boolean =>
   !_.isString(thing) ||

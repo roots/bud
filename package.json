@@ -11,11 +11,6 @@
   "engines": {
     "node": "^16.15.0"
   },
-  "config": {
-    "commitizen": {
-      "path": "cz-customizable"
-    }
-  },
   "volta": {
     "node": "16.15.0",
     "yarn": "1.22.18"
@@ -27,8 +22,8 @@
       "sources/@repo/*"
     ]
   },
+  "type": "module",
   "devDependencies": {
-    "@commitlint/cli": "17.0.0",
     "@repo/constants": "workspace:*",
     "@repo/logger": "workspace:*",
     "@repo/test-kit": "workspace:sources/@repo/test-kit",
@@ -39,9 +34,6 @@
     "@typescript-eslint/eslint-plugin": "5.26.0",
     "@typescript-eslint/parser": "5.26.0",
     "codecov": "3.8.3",
-    "commitizen": "4.2.4",
-    "commitlint-config-gitmoji": "2.2.5",
-    "cz-customizable": "6.3.0",
     "eslint": "8.16.0",
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-react": "7.29.4",

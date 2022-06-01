@@ -90,5 +90,5 @@ export const paths = {
  *
  * @public
  */
-import projectConfig from '../../../config/monorepo.config'
+import projectConfig from '../../../config/monorepo.config.mjs'
 export {projectConfig}

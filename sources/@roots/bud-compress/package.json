@@ -38,18 +38,19 @@
     "type": "extension"
   },
   "files": [
-    "lib/",
-    "types/"
+    "lib/"
   ],
   "type": "module",
   "module": "./lib/index.js",
-  "types": "./types/index.d.ts",
+  "types": "./lib/index.d.ts",
   "exports": {
-    ".": {
-      "import": {
-        "types": "./types/index.d.ts",
-        "default": "./lib/index.js"
-      }
+    ".": "./lib/index.js"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ]
     }
   },
   "devDependencies": {

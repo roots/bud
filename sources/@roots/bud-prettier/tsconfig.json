@@ -2,24 +2,17 @@
   "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "rootDir": "./src",
-    "outDir": "./lib/cjs",
-    "declarationDir": "./types",
+    "rootDir": "src",
+    "outDir": "lib",
+    "module": "esnext",
     "types": [
       "node",
-      "jest",
       "@roots/bud-api",
       "@roots/bud-framework"
     ]
   },
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "lib",
-    "node_modules",
-    "types"
-  ],
+  "include": ["src"],
+  "exclude": ["lib", "node_modules"],
   "references": [
     {
       "path": "./../bud-api/tsconfig.json"

@@ -10,13 +10,13 @@
  * @packageDocumentation
  */
 
-import {Build} from './Build/index.js'
-import Item from './Item/index.js'
-import * as items from './items.js'
+import * as items from './handlers/items.js'
+import * as loaders from './handlers/loaders.js'
+import * as rules from './handlers/rules.js'
+import Item from './item.js'
 import Loader from './loader.js'
-import * as loaders from './loaders.js'
-import Rule from './Rule/index.js'
-import * as rules from './rules.js'
+import Rule from './rule.js'
+import {Build} from './service.js'
 
 export {
   Build,

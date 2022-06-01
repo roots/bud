@@ -44,23 +44,18 @@
   "module": "./lib/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    ".": {
-      "import": {
-        "types": "./types/index.d.ts",
-        "default": "./lib/index.js"
-      }
-    },
-    "./extension": {
-      "import": {
-        "types": "./types/extension.d.ts",
-        "default": "./lib/extension.js"
-      }
-    },
-    "./config": {
-      "import": {
-        "types": "./types/config.d.ts",
-        "default": "./lib/config.js"
-      }
+    ".": "./lib/index.js",
+    "./extension": "./lib/extension.js",
+    "./config": "./lib/config.js"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./types/index.d.ts"
+      ],
+      "api": [
+        "./types/methods/index.d.ts"
+      ]
     }
   },
   "devDependencies": {

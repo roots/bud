@@ -34,19 +34,27 @@
   "engines": {
     "node": ">=16"
   },
-  "files": [
-    "lib/",
-    "types/"
-  ],
-  "type": "module",
-  "module": "./lib/esm/index.js",
-  "types": "./types/index.d.ts",
-  "exports": {
-    "types": "./types/index.d.ts",
-    "import": "./lib/esm/index.js"
-  },
   "bud": {
     "type": "extension"
+  },
+  "files": [
+    "lib/"
+  ],
+  "type": "module",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": "./lib/index.js"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ],
+      "extension": [
+        "./lib/extension.d.ts"
+      ]
+    }
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",

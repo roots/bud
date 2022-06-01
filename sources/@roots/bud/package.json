@@ -41,73 +41,56 @@
   "files": [
     "bin/",
     "lib/",
-    "types/",
     "vendor/"
   ],
   "bin": "./bin/bud.mjs",
   "type": "module",
   "module": "./lib/index.js",
-  "types": "./types/index.d.ts",
+  "types": "./lib/index.d.ts",
   "exports": {
-    ".": {
-      "import": {
-        "types": "./types/index.d.ts",
-        "default": "./lib/index.js"
-      }
-    },
-    "./cli": {
-      "import": {
-        "types": "./types/cli/index.d.ts",
-        "default": "./lib/cli/index.js"
-      }
-    },
-    "./cli/commands": {
-      "import": {
-        "types": "./types/cli/commands/index.d.ts",
-        "default": "./lib/cli/commands/index.js"
-      }
-    },
-    "./cli/commands/*": {
-      "import": {
-        "types": "./types/cli/commands/*.d.ts",
-        "default": "./lib/cli/commands/*.js"
-      }
-    },
-    "./context": {
-      "import": {
-        "types": "./types/context/index.d.ts",
-        "default": "./lib/context/index.js"
-      }
-    },
-    "./context/*": {
-      "import": {
-        "types": "./types/context/*.d.ts",
-        "default": "./lib/context/*.js"
-      }
-    },
-    "./extensions": {
-      "import": {
-        "types": "./types/extensions/index.d.ts",
-        "default": "./lib/extensions/index.js"
-      }
-    },
-    "./extensions/*": {
-      "import": {
-        "types": "./types/extensions/*/index.d.ts",
-        "default": "./lib/extensions/*/index.js"
-      }
-    },
-    "./factory": {
-      "import": {
-        "types": "./types/factory/index.d.ts",
-        "default": "./lib/factory/index.js"
-      }
-    },
-    "./services": {
-      "import": {
-        "types": "./types/services/index.d.ts",
-        "default": "./lib/services/index.js"
-      }
+    ".": "./lib/index.js",
+    "./cli": "./lib/cli/index.js",
+    "./cli/commands": "./lib/cli/commands/index.js",
+    "./cli/commands/*": "./lib/cli/commands/*.js",
+    "./context": "./lib/context/index.js",
+    "./context/*": "./lib/context/*.js",
+    "./extensions": "./lib/extensions/index.js",
+    "./extensions/*": "./lib/extensions/*/index.js",
+    "./factory": "./lib/factory/index.js",
+    "./services": "./lib/services/index.js"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ],
+      "cli": [
+        "./lib/cli/index.d.ts"
+      ],
+      "cli/commands": [
+        "./lib/cli/commands/index.d.ts"
+      ],
+      "cli/commands/*": [
+        "./lib/cli/commands/*.d.ts"
+      ],
+      "context": [
+        "./lib/context/index.d.ts"
+      ],
+      "context/*": [
+        "./lib/context/*.d.ts"
+      ],
+      "extensions": [
+        "./lib/extensions/index.d.ts"
+      ],
+      "extensions/*": [
+        "./lib/extensions/*/index.d.ts"
+      ],
+      "factory": [
+        "./lib/factory/index.d.ts"
+      ],
+      "services": [
+        "./lib/services/index.d.ts"
+      ]
     }
   },
   "devDependencies": {

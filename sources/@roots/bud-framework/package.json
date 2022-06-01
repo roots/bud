@@ -39,54 +39,61 @@
   ],
   "type": "module",
   "module": "./lib/index.js",
-  "types": "./types/index.d.ts",
+  "types": "./lib/index.d.ts",
   "exports": {
-    ".": {
-      "types": "./types/index.d.ts",
-      "import": "./lib/index.js"
-    },
-    "./bud": {
-      "types": "./types/bud.d.ts",
-      "import": "./lib/bud.js"
-    },
-    "./extension": {
-      "types": "./types/extension/index.d.ts",
-      "import": "./lib/extension/index.js"
-    },
-    "./extension/decorators": {
-      "types": "./types/extension/decorators/index.d.ts",
-      "import": "./lib/extension/decorators/index.js"
-    },
-    "./extension/decorators/*": {
-      "types": "./types/extension/decorators/*.d.ts",
-      "import": "./lib/extension/decorators/*.js"
-    },
-    "./methods/*": {
-      "types": "./types/methods/*.d.ts",
-      "import": "./lib/methods/*.js"
-    },
-    "./module": {
-      "types": "./types/module.d.ts",
-      "import": "./lib/module.js"
-    },
-    "./service": {
-      "types": "./types/service/index.d.ts",
-      "import": "./lib/service/index.js"
-    },
-    "./services/*": {
-      "types": "./types/services/*/index.d.ts",
-      "import": "./lib/services/*/index.js"
+    ".": "./lib/index.js",
+    "./bud": "./lib/bud.js",
+    "./extension": "./lib/extension/index.js",
+    "./extension/decorators": "./lib/extension/decorators/index.js",
+    "./extension/decorators/*": "./lib/extension/decorators/*.js",
+    "./methods/*": "./lib/methods/*.js",
+    "./module": "./lib/module.js",
+    "./service": "./lib/service/index.js",
+    "./services/*": "./lib/services/*/index.js"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ],
+      "bud": [
+        "./lib/bud.d.ts"
+      ],
+      "config": [
+        "./lib/config/index.d.ts"
+      ],
+      "extension": [
+        "./lib/extension/index.d.ts"
+      ],
+      "extension/decorators": [
+        "./lib/extension/decorators/index.d.ts"
+      ],
+      "extension/decorators/*": [
+        "./lib/extension/decorators/*.d.ts"
+      ],
+      "methods/*": [
+        "./lib/methods/*.js"
+      ],
+      "service": [
+        "./lib/service.d.ts"
+      ],
+      "services/*": [
+        "./lib/services/*/index.d.ts"
+      ]
     }
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
+    "@types/express": "4.17.13",
     "@types/fs-extra": "9.0.13",
     "@types/js-yaml": "^4",
     "@types/lodash": "4.14.182",
     "@types/lodash-es": "^4",
     "@types/node": "16.11.36",
+    "@types/safe-json-stringify": "^1",
     "@types/signale": "1.4.4",
     "chokidar": "3.5.3",
+    "express": "4.18.1",
     "http-proxy-middleware": "2.0.6",
     "webpack": "5.72.1",
     "webpack-dev-middleware": "5.3.3",
@@ -108,6 +115,7 @@
     "pkg-up": "4.0.0",
     "pretty-format": "28.1.0",
     "resolve-from": "5.0.0",
+    "safe-json-stringify": "1.2.0",
     "signale": "1.4.0",
     "tslib": "2.4.0"
   }

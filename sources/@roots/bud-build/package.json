@@ -41,47 +41,41 @@
   "module": "./lib/index.js",
   "types": "./types/index.d.ts",
   "exports": {
-    ".": {
-      "import": {
-        "types": "./types/index.d.ts",
-        "default": "./lib/index.js"
-      }
-    },
-    "./item": {
-      "import": {
-        "types": "./types/Item/index.d.ts",
-        "default": "./lib/Item/index.js"
-      }
-    },
-    "./items": {
-      "import": {
-        "types": "./types/items.d.ts",
-        "default": "./lib/items.js"
-      }
-    },
-    "./loader": {
-      "import": {
-        "types": "./types/loader.d.ts",
-        "default": "./lib/loader.js"
-      }
-    },
-    "./loaders": {
-      "import": {
-        "types": "./types/loaders.d.ts",
-        "default": "./lib/loaders.js"
-      }
-    },
-    "./rule": {
-      "import": {
-        "types": "./types/Rule/index.d.ts",
-        "default": "./lib/Rule/index.js"
-      }
-    },
-    "./rules": {
-      "import": {
-        "types": "./types/rules.d.ts",
-        "default": "./lib/rules.js"
-      }
+    ".": "./lib/index.js",
+    "./item": "./lib/item.js",
+    "./items": "./lib/handlers/items.js",
+    "./loader": "./lib/loader.js",
+    "./loaders": "./lib/handlers/loaders.js",
+    "./rule": "./lib/rule.js",
+    "./rules": "./lib/handlers/rules.js",
+    "./service": "./lib/service.js"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./types/index.d.ts"
+      ],
+      "item": [
+        "./types/item.d.ts"
+      ],
+      "items": [
+        "./types/handlers/items.d.ts"
+      ],
+      "loader": [
+        "./types/loader.d.ts"
+      ],
+      "loaders": [
+        "./types/handlers/loaders.d.ts"
+      ],
+      "rule": [
+        "./types/rule.d.ts"
+      ],
+      "rules": [
+        "./types/handlers/rules.d.ts"
+      ],
+      "service": [
+        "./types/service.d.ts"
+      ]
     }
   },
   "devDependencies": {
@@ -109,6 +103,7 @@
     "remark-loader": "4.0.0",
     "resolve-url-loader": "5.0.0",
     "style-loader": "3.3.1",
+    "toml": "3.0.0",
     "tslib": "2.4.0",
     "url-loader": "4.1.1",
     "xml-loader": "1.2.1",

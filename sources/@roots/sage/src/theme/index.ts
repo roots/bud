@@ -1,4 +1,4 @@
-import type {GlobalSettingsAndStyles as WPThemeJson} from '@roots/bud-preset-wordpress/types/theme'
+import type {GlobalSettingsAndStyles as WPThemeJson} from '@roots/bud-preset-wordpress/theme'
 
 import * as Extension from './extension.js'
 import * as Plugin from './plugin.js'

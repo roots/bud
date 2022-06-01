@@ -1,11 +1,12 @@
 {
-  "extends": "./tsconfig.base.json",
+  "extends": "./tsconfig.json",
   "compilerOptions": {
-    "module": "commonjs",
+    "experimentalDecorators": true,
+    "module": "esnext",
     "noEmit": true
   },
   "files": [],
-  "exclude": ["../sources/@roots/*/lib", "../sources/@roots/*/types"],
+  "exclude": ["../sources/@roots/*/lib"],
   "references": [
     {"path": "../sources/@roots/bud/tsconfig.json"},
     {"path": "../sources/@roots/bud-api/tsconfig.json"},
@@ -24,7 +25,6 @@
     {"path": "../sources/@roots/bud-extensions/tsconfig.json"},
     {"path": "../sources/@roots/bud-hooks/tsconfig.json"},
     {"path": "../sources/@roots/bud-imagemin/tsconfig.json"},
-    {"path": "../sources/@roots/bud-library/tsconfig.json"},
     {"path": "../sources/@roots/bud-mdx/tsconfig.json"},
     {"path": "../sources/@roots/bud-postcss/tsconfig.json"},
     {"path": "../sources/@roots/bud-preset-recommend/tsconfig.json"},
@@ -36,7 +36,6 @@
     {"path": "../sources/@roots/bud-server/tsconfig.json"},
     {"path": "../sources/@roots/bud-solid/tsconfig.json"},
     {"path": "../sources/@roots/bud-stylelint/tsconfig.json"},
-    {"path": "../sources/@roots/bud-support/tsconfig.json"},
     {"path": "../sources/@roots/bud-tailwindcss/tsconfig.json"},
     {"path": "../sources/@roots/bud-terser/tsconfig.json"},
     {"path": "../sources/@roots/bud-typescript/tsconfig.json"},
@@ -52,8 +51,6 @@
     {"path": "../sources/@roots/dependencies/tsconfig.json"},
     {"path": "../sources/@roots/entrypoints-webpack-plugin/tsconfig.json"},
     {"path": "../sources/@roots/filesystem/tsconfig.json"},
-    {"path": "../sources/@roots/ink-prettier/tsconfig.json"},
-    {"path": "../sources/@roots/ink-use-style/tsconfig.json"},
     {
       "path": "../sources/@roots/merged-manifest-webpack-plugin/tsconfig.json"
     },

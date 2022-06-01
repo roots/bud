@@ -41,23 +41,29 @@
   },
   "files": [
     "lib/",
-    "types/",
     "stylelint-config/"
   ],
   "type": "module",
-  "module": "./lib/esm/index.js",
-  "types": "./types/index.d.ts",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "exports": {
-    ".": {
-      "types": "./types/index.d.ts",
-      "import": "./lib/esm/index.js"
-    },
-    "./extension": {
-      "types": "./types/extension.d.ts",
-      "import": "./lib/esm/extension.js"
-    },
+    ".": "./lib/index.js",
+    "./extension": "./lib/extension.js",
     "./stylelint-config": "./stylelint-config/default.cjs",
     "./stylelint-config/scss": "./stylelint-config/scss.cjs"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ],
+      "env": [
+        "./lib/env.d.ts"
+      ],
+      "extension": [
+        "./lib/extension.d.ts"
+      ]
+    }
   },
   "devDependencies": {
     "@roots/bud-api": "workspace:sources/@roots/bud-api",

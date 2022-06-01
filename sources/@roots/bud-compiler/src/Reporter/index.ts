@@ -3,7 +3,6 @@
  */
 
 import {Bud} from '@roots/bud-framework'
-import {lodash as _} from '@roots/bud-support'
 import {isString} from 'lodash-es'
 import {StatsCompilation, StatsError} from 'webpack'
 

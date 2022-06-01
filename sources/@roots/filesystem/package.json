@@ -33,20 +33,21 @@
     "node": ">=16"
   },
   "files": [
-    "lib/",
-    "types/"
+    "lib/"
   ],
   "type": "module",
-  "module": "./lib/esm/index.js",
-  "types": "./types/index.d.ts",
+  "module": "./lib/index.d.ts",
   "exports": {
-    ".": {
-      "types": "./types/index.d.ts",
-      "import": "./lib/esm/index.js"
+    ".": "./lib/index.js"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ]
     }
   },
   "devDependencies": {
-    "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@roots/container": "workspace:sources/@roots/container",
     "@skypack/package-check": "0.2.2",
     "@types/lodash": "4.14.182",

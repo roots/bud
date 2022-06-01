@@ -162,10 +162,6 @@
   - sources/@roots/bud-stylelint/*
   - sources/@roots/bud-stylelint/**
 
-'@roots/bud-support':
-  - sources/@roots/bud-support/*
-  - sources/@roots/bud-support/**
-
 '@roots/bud-tailwindcss':
   - sources/@roots/bud-tailwindcss/*
   - sources/@roots/bud-tailwindcss/**
@@ -218,10 +214,6 @@
   - sources/@roots/ink-prettier/*
   - sources/@roots/ink-prettier/**
 
-'@roots/ink-use-style':
-  - sources/@roots/ink-use-style/*
-  - sources/@roots/ink-use-style/**
-
 '@roots/merged-manifest-webpack-plugin':
   - sources/@roots/merged-manifest-webpack-plugin/*
   - sources/@roots/merged-manifest-webpack-plugin/**
@@ -245,3 +237,11 @@
 '@roots/bud-cli':
   - sources/deprecated/bud-cli/*
   - sources/deprecated/bud-cli/**
+
+'@roots/ink-use-style':
+  - sources/deprecated/ink-use-style/*
+  - sources/deprecated/ink-use-style/**
+
+'@roots/bud-support':
+  - sources/deprecated/bud-support/*
+  - sources/deprecated/bud-support/**

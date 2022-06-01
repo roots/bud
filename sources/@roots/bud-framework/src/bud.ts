@@ -1,4 +1,3 @@
-import {parsers} from '@roots/bud-support'
 import boxen from 'boxen'
 import {highlight, HighlightOptions} from 'cli-highlight'
 import {bind} from 'helpful-decorators'
@@ -23,6 +22,8 @@ import {
 import {lifecycle} from './lifecycle/index.js'
 import * as methods from './methods/index.js'
 import {Module} from './module.js'
+import * as json5 from './parsers/json5.js'
+import * as yml from './parsers/yml.js'
 
 /**
  * Framework abstract
@@ -273,14 +274,14 @@ export abstract class Bud {
    *
    * @public
    */
-  public json: typeof parsers.json5 = parsers.json5
+  public json: typeof json5 = json5
 
   /**
    * Read and write yaml files
    *
    * @public
    */
-  public yml: typeof parsers.yml = parsers.yml
+  public yml: typeof yml = yml
 
   /**
    * Class constructor

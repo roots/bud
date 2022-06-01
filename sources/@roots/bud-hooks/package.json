@@ -34,33 +34,23 @@
     "node": ">=16"
   },
   "files": [
-    "lib/",
-    "types/"
+    "lib/"
   ],
   "type": "module",
-  "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.js",
-  "types": "./types/index.d.ts",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "exports": {
-    ".": {
-      "import": {
-        "types": "./types/index.d.ts",
-        "default": "./lib/esm/index.js"
-      },
-      "require": {
-        "types": "./types/index.d.ts",
-        "default": "./lib/cjs/index.js"
-      }
-    },
-    "./service": {
-      "import": {
-        "types": "./types/service.d.ts",
-        "default": "./lib/esm/service.js"
-      },
-      "require": {
-        "types": "./types/service.d.ts",
-        "default": "./lib/cjs/service.js"
-      }
+    ".": "./lib/index.js",
+    "./service": "./lib/service.js"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ],
+      "service": [
+        "./lib/service.d.ts"
+      ]
     }
   },
   "devDependencies": {

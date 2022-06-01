@@ -34,32 +34,34 @@
     "bud-framework"
   ],
   "files": [
-    "lib/",
-    "types/"
+    "lib/"
   ],
   "type": "module",
   "module": "./lib/index.js",
-  "types": "./types/index.d.ts",
+  "types": "./lib/index.d.ts",
   "exports": {
-    ".": {
-      "types": "./types/index.d.ts",
-      "import": "./lib/index.js"
-    },
-    "./api": {
-      "types": "./types/api/index.d.ts",
-      "import": "./lib/api/index.js"
-    },
-    "./methods": {
-      "types": "./types/methods/index.d.ts",
-      "import": "./lib/methods/index.js"
-    },
-    "./methods/*": {
-      "types": "./types/methods/*/index.d.ts",
-      "import": "./lib/methods/*/index.js"
+    ".": "./lib/index.js",
+    "./api": "./lib/api/index.js",
+    "./methods": "./lib/methods/index.js",
+    "./methods/*": "./lib/methods/*/index.js"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ],
+      "api": [
+        "./lib/api/index.d.ts"
+      ],
+      "methods": [
+        "./lib/methods/index.d.ts"
+      ],
+      "methods/*": [
+        "./lib/methods/*.d.ts"
+      ]
     }
   },
   "devDependencies": {
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@skypack/package-check": "0.2.2",
     "@types/fs-extra": "9.0.13",
     "@types/lodash-es": "^4",
@@ -67,6 +69,7 @@
     "webpack": "5.72.1"
   },
   "dependencies": {
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "chalk": "5.0.1",
     "copy-webpack-plugin": "11.0.0",
     "css-minimizer-webpack-plugin": "4.0.0",

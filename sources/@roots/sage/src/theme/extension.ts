@@ -6,7 +6,7 @@ import {
   plugin,
   when,
 } from '@roots/bud-framework/extension/decorators'
-import type {GlobalSettingsAndStyles as WPThemeJson} from '@roots/bud-preset-wordpress/types/theme'
+import type {GlobalSettingsAndStyles as WPThemeJson} from '@roots/bud-preset-wordpress/theme'
 import Container from '@roots/container'
 import {isBoolean, isFunction} from 'lodash-es'
 

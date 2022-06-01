@@ -1,6 +1,7 @@
-const {join} = require('path')
-const {paths} = require('@repo/constants')
+import {paths} from '@repo/constants'
+import {join} from 'node:path'
 
-const config = require(join(paths.config, 'ncc.config.js'))
+const config = async () =>
+  await import(join(paths.config, 'ncc.config.js'))
 
-module.exports = config
+export default config

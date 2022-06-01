@@ -2,29 +2,14 @@
   "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "rootDir": "./src",
-    "outDir": "./lib/cjs",
-    "declarationDir": "./types",
-    "types": [
-      "node",
-      "jest",
-      "@roots/bud-framework"
-    ]
+    "rootDir": "src",
+    "outDir": "lib",
+    "types": ["@roots/bud-framework", "@roots/wordpress-dependencies-webpack-plugin"]
   },
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "lib",
-    "node_modules",
-    "types"
-  ],
+  "include": ["src"],
+  "exclude": ["lib", "node_modules"],
   "references": [
-    {
-      "path": "./../bud-framework/tsconfig.json"
-    },
-    {
-      "path": "./../wordpress-dependencies-webpack-plugin/tsconfig.json"
-    }
+    {"path": "./../bud-framework/tsconfig.json"},
+    {"path": "./../wordpress-dependencies-webpack-plugin/tsconfig.json"}
   ]
 }

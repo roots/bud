@@ -221,9 +221,9 @@ export class Extension<E = any, Plugin = any> {
   }
 
   @bind
-  public getOption?<K extends keyof Options<E>>(
-    key: K & string,
-  ): Options<E>[K & string] {
+  public getOption?<K extends keyof Options<E> & string>(
+    key: K,
+  ): Options<E>[K] {
     return this.options[key]
   }
 
@@ -239,7 +239,7 @@ export class Extension<E = any, Plugin = any> {
   }
 
   @bind
-  protected toOptionsMap?<K extends keyof Options<E>>(
+  protected toOptionsMap?<K extends keyof Options<E> & string>(
     funcMap: Options.FuncMap<Options<E>> = {},
     [key, value]: [K & string, Options<E>[K & string]],
   ): Options.FuncMap<Options<E>> {
@@ -270,12 +270,12 @@ export class Extension<E = any, Plugin = any> {
   }
 
   @bind
-  public has?<K extends keyof Extension>(key: K): boolean {
+  public has?<K extends `${keyof Extension}`>(key: K): boolean {
     return has(this, key)
   }
 
   @bind
-  public isFunction?<K extends keyof Extension>(key: K): boolean {
+  public isFunction?<K extends `${keyof Extension}`>(key: K): boolean {
     return isFunction(this[key]) ? true : false
   }
 

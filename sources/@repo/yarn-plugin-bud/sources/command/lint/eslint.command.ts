@@ -49,7 +49,7 @@ export class Eslint extends Command {
    */
   public async execute() {
     await this.$(
-      `yarn eslint "./sources/@roots/*/src/**/*" --config ./config/eslint.config.js --ignore-path config/.eslintignore --no-error-on-unmatched-pattern`,      
+      `yarn eslint "./sources/@roots/*/src/**/*" --config ./config/eslint.config.cjs --ignore-path config/.eslintignore --no-error-on-unmatched-pattern`,      
     )
   }
 }

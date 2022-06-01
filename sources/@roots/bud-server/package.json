@@ -34,46 +34,32 @@
     "node": ">=16"
   },
   "files": [
-    "lib/",
-    "types/"
+    "lib/"
   ],
   "type": "module",
-  "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.js",
-  "types": "./types/index.d.ts",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "exports": {
-    ".": {
-      "types": "./types/index.d.ts",
-      "import": "./lib/esm/index.js",
-      "require": "./lib/cjs/index.js"
-    },
-    "./service": {
-      "types": "./types/service.d.ts",
-      "import": "./lib/esm/service.js",
-      "require": "./lib/cjs/service.js"
-    },
-    "./client/*": {
-      "types": "./types/client/index.d.ts",
-      "import": "./lib/esm/client/index.js",
-      "require": "./lib/cjs/client/index.js"
-    }
+    ".": "./lib/index.js",
+    "./service": "./lib/service.js",
+    "./client/*": "./lib/client/index.js"
   },
   "typesVersions": {
     "*": {
       ".": [
-        "./types/index.d.ts"
+        "./lib/index.d.ts"
       ],
       "client": [
-        "./types/client/index.d.ts"
+        "./lib/client/index.d.ts"
       ],
       "client/proxy-click-interceptor": [
-        "./types/client/proxy-click-interceptor.d.ts"
+        "./lib/client/proxy-click-interceptor.d.ts"
       ],
       "client/overlay": [
-        "./types/client/overlay/index.d.ts"
+        "./lib/client/overlay/index.d.ts"
       ],
       "client/indicator": [
-        "./types/client/indicator/index.d.ts"
+        "./lib/client/indicator/index.d.ts"
       ]
     }
   },
@@ -92,7 +78,6 @@
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@roots/container": "workspace:sources/@roots/container",
     "ansi-html-community": "0.0.8",
     "chokidar": "3.5.3",

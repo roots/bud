@@ -1,4 +1,4 @@
-import type {GlobalSettingsAndStyles as WPThemeJson} from '@roots/bud-preset-wordpress/types/theme'
+import type {GlobalSettingsAndStyles as WPThemeJson} from '@roots/bud-preset-wordpress/theme'
 import {isString} from 'lodash-es'
 
 export type WordPressColors = WPThemeJson['settings']['color']['palette']

@@ -32,37 +32,37 @@
   "keywords": [
     "roots",
     "bud",
-    "container",
-    "utility"
+    "container"
   ],
   "files": [
-    "lib/",
-    "types/"
+    "lib/"
   ],
   "type": "module",
-  "module": "./lib/esm/index.js",
-  "types": "./types/index.d.ts",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "exports": {
-    ".": {
-      "types": "./types/index.d.ts",
-      "import": "./lib/esm/index.js",
-      "require": "./lib/cjs/index.js"
-    },
-    "./container": {
-      "types": "./types/container.d.ts",
-      "import": "./lib/esm/container.js",
-      "require": "./lib/cjs/container.js"
+    ".": "./lib/index.js",
+    "./container": "./lib/container.js"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ],
+      "container": [
+        "./lib/container.d.ts"
+      ]
     }
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/lodash": "4.14.182",
+    "@types/lodash-es": "^4",
     "@types/node": "16.11.36",
     "type-fest": "2.12.2"
   },
   "dependencies": {
     "helpful-decorators": "2.1.0",
-    "lodash": "4.17.21",
+    "lodash-es": "4.17.21",
     "tslib": "2.4.0"
   }
 }

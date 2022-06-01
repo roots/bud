@@ -1,0 +1,2 @@
+export { readJson, readJsonSync, access, appendFile, chmod, chown, close, copyFile, fchmod, fchown, fdatasync, fstat, fsync, ftruncate, futimes, lchmod, lchown, link, lstat, mkdir, mkdtemp, open, opendir, readdir, readFile, readlink, realpath, rename, rm, rmdir, stat, symlink, truncate, unlink, utimes, writeFile, writeJson, writeJsonSync, remove, removeSync, ensureDir, ensureDirSync, ensureFile, pathExists, pathExistsSync, } from 'fs-extra';
+//# sourceMappingURL=fs-extra.d.ts.map

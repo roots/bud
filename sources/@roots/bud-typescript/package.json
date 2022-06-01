@@ -41,28 +41,27 @@
     "tsconfig/"
   ],
   "type": "module",
-  "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.js",
-  "types": "./types/index.d.ts",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "exports": {
-    ".": "./lib/cjs/index.js",
-    "./extension": "./lib/cjs/extension.js",
-    "./typecheck": "./lib/cjs/typecheck/index.js",
-    "./typecheck/extension": "./lib/cjs/typecheck/extension.js"
+    ".": "./lib/index.js",
+    "./extension": "./lib/extension.js",
+    "./typecheck": "./lib/typecheck/index.js",
+    "./typecheck/extension": "./lib/typecheck/extension.js"
   },
   "typesVersions": {
     "*": {
       ".": [
-        "./types/index.d.ts"
+        "./lib/index.d.ts"
       ],
       "extension": [
-        "./types/extension.d.ts"
+        "./lib/extension.d.ts"
       ],
       "typecheck": [
-        "./types/typecheck/index.d.ts"
+        "./lib/typecheck/index.d.ts"
       ],
       "typecheck/extension": [
-        "./types/typecheck/extension.d.ts"
+        "./lib/typecheck/extension.d.ts"
       ]
     }
   },

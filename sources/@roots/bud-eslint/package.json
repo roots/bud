@@ -33,20 +33,23 @@
     "type": "extension"
   },
   "files": [
-    "lib/",
-    "types/"
+    "lib/"
   ],
   "type": "module",
   "module": "./lib/index.js",
-  "types": "./types/index.d.ts",
+  "types": "./lib/index.d.ts",
   "exports": {
-    ".": {
-      "types": "./types/index.d.ts",
-      "import": "./lib/index.js"
-    },
-    "./extension": {
-      "types": "./types/extension.d.ts",
-      "import": "./lib/extension.js"
+    ".": "./lib/index.js",
+    "./extension": "./lib/extension.js"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.js"
+      ],
+      "extension": [
+        "./lib/extension.js"
+      ]
     }
   },
   "devDependencies": {

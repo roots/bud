@@ -38,31 +38,32 @@
     "type": "extension"
   },
   "files": [
-    "lib/",
-    "types/"
+    "lib/"
   ],
   "type": "module",
   "module": "./lib/index.js",
-  "types": "./types/index.d.ts",
+  "types": "./lib/index.d.ts",
   "exports": {
-    ".": {
-      "types": "./types/index.d.ts",
-      "import": "./lib/index.js"
-    },
-    "./eslint-config": {
-      "import": "./eslint-config/index.js"
-    },
-    "./extension": {
-      "types": "./types/extension.d.ts",
-      "import": "./lib/extension.js"
-    },
-    "./react-refresh": {
-      "types": "./types/react-refresh/index.d.ts",
-      "import": "./lib/react-refresh/index.js"
-    },
-    "./react-refresh/*": {
-      "types": "./types/react-refresh/*.d.ts",
-      "import": "./lib/react-refresh/*.js"
+    ".": "./lib/index.js",
+    "./eslint-config": "./eslint-config/index.js",
+    "./extension": "./lib/extension.js",
+    "./react-refresh": "./lib/react-refresh/index.js",
+    "./react-refresh/*": "./lib/react-refresh/*.js"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ],
+      "extension": [
+        "./lib/extension.d.ts"
+      ],
+      "react-refresh": [
+        "./lib/react-refresh/index.d.ts"
+      ],
+      "react-refresh/*": [
+        "./lib/react-refresh/*.d.ts"
+      ]
     }
   },
   "devDependencies": {
