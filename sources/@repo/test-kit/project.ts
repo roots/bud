@@ -2,9 +2,9 @@
 /* eslint-disable no-console */
 import {paths, REGISTRY_PROXY} from '@repo/constants'
 import * as logger from '@repo/logger'
-import {copy, readFile, remove} from 'fs-extra'
+import fs from 'fs-extra'
 import {bind} from 'helpful-decorators'
-import * as json5 from 'json5'
+import json5 from 'json5'
 import {spawn} from 'node:child_process'
 import {posix} from 'node:path'
 
@@ -144,7 +144,7 @@ export class Project {
     this.logger.log('removing')
 
     try {
-      await remove(this.projectPath())
+      await fs.remove(this.projectPath())
     } catch (e) {
       logger.error(e)
     }
@@ -152,7 +152,7 @@ export class Project {
     this.logger.log('copying')
 
     try {
-      await copy(`./examples/${this.options.name}`, this.projectPath())
+      await fs.copy(`./examples/${this.options.name}`, this.projectPath())
     } catch (e) {
       logger.error(e)
     }
@@ -188,7 +188,7 @@ export class Project {
    */
   @bind
   public async readJson(file: string) {
-    const contentString = await readFile(file)
+    const contentString = await fs.readFile(file)
     return json5.parse(contentString.toString())
   }
 
@@ -225,7 +225,7 @@ export class Project {
       async (assets: Promise<any>, [name, path]: [string, string]) => {
         logger.log('attempting to read', join(this.options.dist, path))
 
-        const buffer = await readFile(
+        const buffer = await fs.readFile(
           this.projectPath(join(this.options.dist, path)),
           'utf8',
         )

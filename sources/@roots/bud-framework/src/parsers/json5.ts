@@ -9,7 +9,7 @@ export const read = async (file: string): Promise<any> => {
 
 export const write = async (file: string, data: any): Promise<void> => {
   const source = json5.stringify(data)
-  await fs.writeFile(file, source)
+  await fs.outputFile(file, source)
 }
 
 export const stringify = jsonStringify
