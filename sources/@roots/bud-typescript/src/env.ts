@@ -1,27 +1,27 @@
-import type * as Build from '@roots/bud-framework/types/services/build'
+import * as Build from "@roots/bud-framework/services/build";
 
-import BudTypeScript from './extension'
-import BudTypeCheckPlugin from './typecheck'
+import BudTypeScript from "./extension";
+import BudTypeCheckPlugin from "./typecheck";
 
-declare module '@roots/bud-framework' {
+declare module "@roots/bud-framework" {
   interface Bud {
-    typescript: BudTypeScript
+    typescript: BudTypeScript;
   }
 
   interface Modules {
-    '@roots/bud-typescript': BudTypeScript
-    '@roots/bud-typescript/typecheck': BudTypeCheckPlugin
+    "@roots/bud-typescript": BudTypeScript;
+    "@roots/bud-typescript/typecheck": BudTypeCheckPlugin;
   }
 
   interface Loaders {
-    ts: Build.Loader
+    ts: Build.Loader;
   }
 
   interface Items {
-    ts: Build.Item
+    ts: Build.Item;
   }
 
   interface Rules {
-    ts: Build.Rule
+    ts: Build.Rule;
   }
 }

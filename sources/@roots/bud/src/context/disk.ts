@@ -29,6 +29,8 @@ export class Disk {
         `*.toml`,
         `*.ts`,
         `*.js`,
+        `*.mjs`,
+        `*.cjs`,
         `*config*`,
         `*rc`,
         `*lint*`,

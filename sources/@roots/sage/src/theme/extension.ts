@@ -87,12 +87,15 @@ export default class ThemeJson extends Extension<
 
   @bind
   public async init() {
-    if (!this.app.context.disk.config['tailwind.config.js']) return
+    const config =
+      this.app.context.disk.config['tailwind.config.js'] ??
+      this.app.context.disk.config['tailwind.config.mjs'] ??
+      this.app.context.disk.config['tailwind.config.cjs']
+
+    if (!config) return
 
     try {
-      this.palette = await ThemeJson.tailwind.getPalette(
-        this.app.path('./tailwind.config.js'),
-      )
+      this.palette = await ThemeJson.tailwind.getPalette(config)
     } catch (error) {}
   }
 
