@@ -1,4 +1,5 @@
 import {Bud} from '../../../bud.js'
+import {Base} from '../base.js'
 import {Loader, Loaders} from '../index.js'
 
 /**
@@ -6,14 +7,7 @@ import {Loader, Loaders} from '../index.js'
  *
  * @public
  */
-export interface Item {
-  /**
-   * The {@link Bud} instance
-   *
-   * @public
-   */
-  get app(): Bud
-
+interface Item extends Base {
   /**
    * Key from {@link Loaders} registry
    *
@@ -31,7 +25,7 @@ export interface Item {
    *
    * @public
    */
-  setLoader(loader: Item['loader']): Item
+  setLoader(loader: Item['loader']): this
 
   /**
    * Get the associated {@link Loader} instance
@@ -52,7 +46,7 @@ export interface Item {
    *
    * @public
    */
-  setOptions(factory: Item.Options | ((app: Bud) => Item.Options)): Item
+  setOptions(factory: Item.Options | ((app: Bud) => Item.Options)): this
 
   /**
    * Get associated {@link Loader} options
@@ -79,7 +73,7 @@ export interface Item {
   toWebpack(): Item.Output
 }
 
-export namespace Item {
+namespace Item {
   /**
    * Item.Options interface
    *
@@ -120,3 +114,5 @@ export namespace Item {
     options?: Item.Options
   }
 }
+
+export {Item as default}

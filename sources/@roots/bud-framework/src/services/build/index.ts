@@ -1,9 +1,9 @@
 import * as Webpack from 'webpack'
 
 import {Service as BaseService} from '../../service.js'
-import {Item} from './item/index.js'
-import {Loader} from './loader/index.js'
-import {Rule} from './rule/index.js'
+import Item from './item/index.js'
+import Loader from './loader/index.js'
+import Rule from './rule/index.js'
 
 /**
  * Build Service interface

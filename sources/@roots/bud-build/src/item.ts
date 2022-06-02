@@ -62,7 +62,7 @@ class Item extends Base implements Build.Item {
    * @decorator `@bind`
    */
   @bind
-  public setLoader(loader: Build.Item['loader']) {
+  public setLoader(loader: Build.Item['loader']): this {
     this.loader = loader
     return this
   }

@@ -1,4 +1,5 @@
 import {Bud} from '../../../bud.js'
+import {Base} from '../base.js'
 import {Items} from '../index.js'
 
 /**
@@ -6,7 +7,7 @@ import {Items} from '../index.js'
  *
  * @public
  */
-export namespace Rule {
+namespace Rule {
   /**
    * File parser interface
    *
@@ -48,14 +49,7 @@ export namespace Rule {
   }>
 }
 
-export interface Rule {
-  /**
-   * The {@link Bud} instance
-   *
-   * @public
-   */
-  app: Bud
-
+interface Rule extends Base {
   /**
    * Test pattern
    *
@@ -226,3 +220,5 @@ export interface Rule {
    */
   toWebpack(): Rule.Output
 }
+
+export {Rule as default}

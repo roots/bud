@@ -251,10 +251,7 @@ export class Build extends Bud.Service implements Bud.Build.Service {
    * @decorator `@bind`
    */
   @bind
-  public makeItem(options?: {
-    options?: Item['options']
-    loader?: Item['loader']
-  }): Item {
+  public makeItem(options?: Partial<Item['options']>): Item {
     return new Item(() => this.app, options)
   }
 
