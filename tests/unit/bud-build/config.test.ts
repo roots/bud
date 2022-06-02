@@ -1,7 +1,5 @@
 import {Bud, factory} from '@repo/test-kit/bud'
 import {seed} from '@roots/bud'
-import json5 from 'json5'
-import toml from 'toml'
 import {RuleSetRule} from 'webpack'
 
 describe('bud.build.config', function () {
@@ -141,209 +139,84 @@ describe('bud.build.config', function () {
   })
 
   it('has expected default requireEnsure rule', () => {
-    expect(bud.build.config.module.rules[0]).toMatchSnapshot({
-      test: /\.[cm]?(jsx?|tsx?)$/,
-      exclude: [/node_modules/],
-      parser: {requireEnsure: false},
-    })
+    expect(bud.build.config.module.rules[0]).toMatchSnapshot()
   })
 
   it('has expected default js rule', () => {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[0],
-    ).toMatchSnapshot({
-      test: /\.(js|jsx)/,
-      include: [expect.stringContaining('src')],
-      use: [
-        {
-          loader: expect.any(String),
-          options: expect.any(Object),
-        },
-      ],
-    })
+    ).toMatchSnapshot()
   })
 
   it('has expected default css rule', () => {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[1],
-    ).toMatchSnapshot({
-      test: /\.css$/,
-      include: [expect.stringContaining('src')],
-      use: [
-        {
-          loader: expect.stringContaining(
-            'mini-css-extract-plugin/dist/loader.js',
-          ),
-        },
-        {
-          loader: expect.stringContaining('css-loader/dist/cjs.js'),
-          options: {
-            importLoaders: 1,
-            sourceMap: false,
-          },
-        },
-        {
-          loader: expect.stringContaining('postcss-loader/dist/cjs.js'),
-          options: {
-            postcssOptions: expect.any(Object),
-          },
-        },
-      ],
-    })
+    ).toMatchSnapshot()
   })
 
   it('has expected default cssModule rule', () => {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[2],
-    ).toMatchSnapshot({
-      test: /\.module.css$/,
-      include: [expect.stringContaining('src')],
-      use: [
-        {
-          loader: expect.stringContaining(
-            'mini-css-extract-plugin/dist/loader.js',
-          ),
-        },
-        {
-          loader: expect.stringContaining('css-loader/dist/cjs.js'),
-          options: {
-            importLoaders: 1,
-            modules: true,
-            sourceMap: false,
-          },
-        },
-      ],
-    })
+    ).toMatchSnapshot()
   })
 
   it('has expected default image rule', () => {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[3],
-    ).toMatchSnapshot({
-      generator: {
-        filename: 'images/[name][ext]',
-      },
-      test: /\.(png|jpe?g|gif)$/,
-      type: 'asset/resource',
-      include: [expect.stringContaining('project/src')],
-    })
+    ).toMatchSnapshot()
   })
 
   it('has expected default webp rule', () => {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[4],
-    ).toMatchSnapshot({
-      generator: {
-        filename: 'images/[name][ext]',
-      },
-      test: /\.webp$/,
-      type: 'asset/resource',
-      include: [expect.stringContaining('project/src')],
-    })
+    ).toMatchSnapshot()
   })
 
   it('has expected default svg rule', () => {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[5],
-    ).toMatchSnapshot({
-      test: /\.svg$/,
-      type: 'asset/resource',
-      generator: {
-        filename: 'svg/[name][ext]',
-      },
-      include: [expect.stringContaining('project/src')],
-    })
+    ).toMatchSnapshot()
   })
 
   it('has expected default font rule', () => {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[6],
-    ).toMatchSnapshot({
-      type: 'asset',
-      include: [expect.stringContaining('src')],
-      generator: {filename: 'fonts/[name][ext]'},
-    })
+    ).toMatchSnapshot()
   })
 
   it('has expected default json rule', () => {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[7],
-    ).toMatchSnapshot({
-      include: [expect.stringContaining('project')],
-      exclude: [expect.stringContaining('node_modules')],
-      parser: {parse: json5.parse},
-      test: /\.json$/,
-      type: 'json',
-    })
+    ).toMatchSnapshot()
   })
 
   it('has expected default yaml rule', () => {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[8],
-    ).toMatchSnapshot({
-      test: /\.ya?ml$/,
-      include: [expect.stringContaining('/project')],
-      exclude: [expect.stringContaining('node_modules')],
-      use: [{loader: expect.stringContaining('js-yaml-loader')}],
-    })
+    ).toMatchSnapshot()
   })
 
   it('has expected default html rule', () => {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[9],
-    ).toMatchSnapshot({
-      test: /\.(html?)$/,
-      include: [expect.stringContaining('project')],
-      exclude: [expect.stringContaining('node_modules')],
-      use: [
-        {
-          loader: expect.stringContaining('html-loader/dist/cjs.js'),
-        },
-      ],
-    })
+    ).toMatchSnapshot()
   })
 
   it('has expected default csv rule', () => {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[10],
-    ).toMatchSnapshot({
-      test: /\.(csv|tsv)$/,
-      include: [expect.stringContaining('project')],
-      exclude: [expect.stringContaining('node_modules')],
-      use: [
-        {
-          loader: expect.stringContaining('csv-loader/index.js'),
-        },
-      ],
-    })
+    ).toMatchSnapshot()
   })
 
   it('has expected default xml rule', () => {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[11],
-    ).toMatchSnapshot({
-      test: /\.xml$/,
-      include: [expect.stringContaining('project')],
-      exclude: [expect.stringContaining('node_modules')],
-      use: [
-        {
-          loader: expect.stringContaining('/xml-loader/index.js'),
-        },
-      ],
-    })
+    ).toMatchSnapshot()
   })
 
   it('has expected default toml rule', () => {
     expect(
       (bud.build.config.module.rules[1] as RuleSetRule).oneOf[12],
-    ).toMatchSnapshot({
-      include: [expect.stringContaining('project')],
-      exclude: [expect.stringContaining('node_modules')],
-      parser: {
-        parse: toml.parse,
-      },
-      test: /\.toml$/,
-      type: 'json',
-    })
+    ).toMatchSnapshot()
   })
 })
