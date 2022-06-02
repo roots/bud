@@ -45,6 +45,7 @@
   "types": "./lib/index.d.ts",
   "exports": {
     ".": "./lib/index.js",
+    "./api": "./lib/api.js",
     "./extension": "./lib/extension.js"
   },
   "typesVersions": {
@@ -52,7 +53,10 @@
       ".": [
         "./lib/index.d.ts"
       ],
-      "./extension": [
+      "api": [
+        "./lib/api.d.ts"
+      ],
+      "extension": [
         "./lib/extension.d.ts"
       ]
     }

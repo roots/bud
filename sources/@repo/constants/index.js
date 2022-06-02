@@ -1,3 +1,4 @@
+import {createRequire} from 'module'
 import {join} from 'path'
 
 /**
@@ -5,7 +6,14 @@ import {join} from 'path'
  *
  * @public
  */
-export const REPO_PATH = __dirname.split('/sources/').shift()
+// @ts-ignore
+export const REPO_PATH = (
+  import.meta?.url && typeof import.meta.url !== 'undefined'
+    ? import.meta.url.replace('file:/', '')
+    : __dirname
+)
+  .split('/sources/')
+  .shift()
 
 /**
  * Repo root manifest path
@@ -85,10 +93,12 @@ export const paths = {
   mocks: join(REPO_PATH, '../mocks'),
 }
 
-/**
- * manifest
- *
- * @public
- */
-import projectConfig from '../../../config/monorepo.config.mjs'
+let projectConfig
+if (typeof import.meta?.url !== 'undefined') {
+  const require = createRequire(import.meta.url)
+  projectConfig = require('../../../config/monorepo.config.cjs')
+} else {
+  projectConfig = require('../../../config/monorepo.config.cjs')
+}
+
 export {projectConfig}

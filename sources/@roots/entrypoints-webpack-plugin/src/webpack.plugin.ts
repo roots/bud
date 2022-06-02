@@ -1,7 +1,6 @@
 import {bind} from 'helpful-decorators'
 import {uniq} from 'lodash-es'
-import type * as Webpack from 'webpack'
-import {sources} from 'webpack'
+import Webpack from 'webpack'
 
 import {InlineEmitter} from './inline.emitter.js'
 
@@ -168,7 +167,7 @@ export class EntrypointsWebpackPlugin {
       ).emitHtmlTags()
 
     Object.assign(this.compilation.assets, {
-      [this.name]: new sources.RawSource(
+      [this.name]: new Webpack.sources.RawSource(
         JSON.stringify(this.assets),
         true,
       ),
@@ -186,9 +185,7 @@ export class EntrypointsWebpackPlugin {
     const type = file.split('.').pop()
 
     if (!this.assets[entry]) {
-      this.assets[entry] = {
-        [type]: null,
-      }
+      this.assets[entry] = {[type]: null}
     }
 
     this.assets[entry] = {
@@ -219,10 +216,7 @@ export class EntrypointsWebpackPlugin {
     const files = []
     for (const chunk of entry.chunks) {
       Array.from(chunk.files).map(file => {
-        files.push({
-          key: chunk.name,
-          file,
-        })
+        files.push({key: chunk.name, file})
       })
     }
 

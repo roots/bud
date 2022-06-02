@@ -1,37 +1,20 @@
 {
   "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
-    "baseUrl": ".",
+    
     "rootDir": "src",
     "outDir": "lib",
-    "module": "esnext",
   },
   "include": ["src"],
   "exclude": ["lib", "types", "node_modules"],
   "references": [
-    {
-      "path": "./../bud-framework/tsconfig.json"
-    },
-    {
-      "path": "./../bud-api/tsconfig.json"
-    },
-    {
-      "path": "./../bud-entrypoints/tsconfig.json"
-    },
-    {
-      "path": "./../bud-preset-recommend/tsconfig.json"
-    },
-    {
-      "path": "./../bud-react/tsconfig.json"
-    },
-    {
-      "path": "./../bud-wordpress-manifests/tsconfig.json"
-    },
-    {
-      "path": "./../bud-wordpress-externals/tsconfig.json"
-    },
-    {
-      "path": "./../bud-wordpress-dependencies/tsconfig.json"
-    }
+    {"path": "./../bud-framework/tsconfig.json"},
+    {"path": "./../bud-api/tsconfig.json"},
+    {"path": "./../bud-entrypoints/tsconfig.json"},
+    {"path": "./../bud-preset-recommend/tsconfig.json"},
+    {"path": "./../bud-react/tsconfig.json"},
+    {"path": "./../bud-wordpress-manifests/tsconfig.json"},
+    {"path": "./../bud-wordpress-externals/tsconfig.json"},
+    {"path": "./../bud-wordpress-dependencies/tsconfig.json"}
   ]
 }

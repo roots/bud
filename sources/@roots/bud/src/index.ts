@@ -10,7 +10,7 @@
  * @packageDocumentation
  */
 
-import './env'
+import './env.js'
 
 import Bud from './bud.js'
 
@@ -20,4 +20,4 @@ export {extensions} from './extensions/index.js'
 export {services} from './services/index.js'
 export {factory} from './factory/index.js'
 
-export {Bud as default}
+export {Bud, Bud as default}

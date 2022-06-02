@@ -1,5 +1,5 @@
 import {Project} from '@repo/test-kit/project'
-import {readFile} from 'fs-extra'
+import fs from 'fs-extra'
 
 const run = pacman => () => {
   let project: Project
@@ -14,7 +14,7 @@ const run = pacman => () => {
 
   describe('owl.jpeg', () => {
     it('is smaller than the original', async () => {
-      const original = await readFile(
+      const original = await fs.readFile(
         `${process.cwd()}/examples/imagemin/src/owl.jpeg`,
         'utf8',
       )

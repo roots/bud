@@ -57,7 +57,7 @@
         "./lib/methods/index.d.ts"
       ],
       "methods/*": [
-        "./lib/methods/*.d.ts"
+        "./lib/methods/*/index.d.ts"
       ]
     }
   },

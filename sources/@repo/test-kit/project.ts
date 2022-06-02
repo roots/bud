@@ -2,9 +2,10 @@
 /* eslint-disable no-console */
 import {paths, REGISTRY_PROXY} from '@repo/constants'
 import * as logger from '@repo/logger'
-import {bind, execa} from '@roots/bud-support'
 import {copy, readFile, remove} from 'fs-extra'
+import {bind} from 'helpful-decorators'
 import * as json5 from 'json5'
+import {spawn} from 'node:child_process'
 import {posix} from 'node:path'
 
 const {join} = posix
@@ -55,7 +56,7 @@ export class Project {
     }
   } = {}
 
-  public manifest = {}
+  public manifest: {[key: string]: any} = {}
 
   public modules: {
     chunks: {
@@ -113,7 +114,7 @@ export class Project {
   @bind
   public async $(bin: string, flags: Array<string>) {
     try {
-      await execa.execa(bin, flags ?? [], {
+      await spawn(bin, flags ?? [], {
         cwd: this.projectPath(),
         shell: true,
       })
@@ -219,11 +220,9 @@ export class Project {
    * @decorator `@bind`
    */
   @bind
-  public async setAssets() {
+  public async setAssets(): Promise<void> {
     this.assets = await Object.entries(this.manifest).reduce(
-      async (promised: Promise<any>, [name, path]: [string, string]) => {
-        const assets = await promised
-
+      async (assets: Promise<any>, [name, path]: [string, string]) => {
         logger.log('attempting to read', join(this.options.dist, path))
 
         const buffer = await readFile(

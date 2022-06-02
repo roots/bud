@@ -1,16 +1,14 @@
-import {Project} from './project'
-
 export const test = {
-  assetNotEmpty: (project: Project, asset: string) => () => {
+  assetNotEmpty: (project, asset) => () => {
     expect(project.assets[asset]).toMatchSnapshot()
   },
-  assetDoesNotIncludeImport: (project: Project, asset: string) => () => {
+  assetDoesNotIncludeImport: (project, asset) => () => {
     expect(project.assets[asset].includes('import')).toBeFalsy()
   },
-  assetMatchesSnapshot: (project: Project, asset: string) => () => {
+  assetMatchesSnapshot: (project, asset) => () => {
     expect(project.assets[asset]).toMatchSnapshot()
   },
-  manifestMatchesSnapshot: (project: Project) => () => {
+  manifestMatchesSnapshot: project => () => {
     expect(project.manifest).toMatchSnapshot()
   },
 }

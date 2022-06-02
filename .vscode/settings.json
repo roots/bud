@@ -7,7 +7,7 @@
     ]
   },
   "eslint.options": {
-    "overrideConfigFile": "config/eslint.config.js",
+    "overrideConfigFile": "config/eslint.config.cjs",
     "ignorePath": "config/.eslintignore"
   },
   "eslint.nodePath": ".yarn/sdks/eslint",
@@ -27,9 +27,6 @@
     "**/Thumbs.db": true,
     "**/node_modules": false
   },
-  "jestrunner.runOptions": ["--verbose"],
-  "jestrunner.changeDirectoryToWorkspaceRoot": true,
-  "jestrunner.configPath": "config/jest.config.js",
   "search.exclude": {
     ".yarn": true,
     ".git": true,
@@ -39,7 +36,7 @@
     "**/node_modules": true,
     "**/.budfiles/**/*": true
   },
-  "prettier.configPath": "config/prettier.config.js",
+  "prettier.configPath": "config/prettier.config.cjs",
   "prettier.ignorePath": "config/.prettierignore",
   "prettier.prettierPath": ".yarn/sdks/prettier",
   "typescript.tsdk": ".yarn/sdks/typescript",

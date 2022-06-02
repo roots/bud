@@ -92,6 +92,8 @@ export class Component extends HTMLElement {
   }
 
   public attributeChangedCallback() {
+    if (document.body?.style) this.documentBodyStyle = document.body.style
+
     if (this.getAttribute('message')) {
       document.body.style.overflow = 'hidden'
 
@@ -101,14 +103,16 @@ export class Component extends HTMLElement {
       return this.setInnerHtml(this.getAttribute('message'))
     }
 
-    document.body.style.overflow = this.documentBodyStyle.overflow
+    if (this.documentBodyStyle?.overflow) {
+      document.body.style.overflow = this.documentBodyStyle.overflow
+    }
 
     this.classList.contains(`${this.name}__visible`) &&
       this.classList.remove(`${this.name}__visible`)
   }
 
   public connectedCallback() {
-    this.documentBodyStyle = document.body.style
+    if (document.body?.style) this.documentBodyStyle = document.body.style
 
     if (this.rendered) return
 

@@ -99,7 +99,7 @@ describe('@roots/bud-esbuild', () => {
       expect(bud.build.config.optimization.minimizer).toHaveLength(1)
     })
 
-    it('registers loader', () => {
+    it.skip('registers loader', () => {
       expect(
         (bud.build.config.module.rules[1] as any).oneOf[0].use[0].loader,
       ).toEqual(expect.stringContaining('esbuild-loader'))

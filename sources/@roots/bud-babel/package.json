@@ -37,12 +37,11 @@
     "type": "extension"
   },
   "files": [
-    "lib/",
-    "types/"
+    "lib/"
   ],
   "type": "module",
   "module": "./lib/index.js",
-  "types": "./types/index.d.ts",
+  "types": "./lib/index.d.ts",
   "exports": {
     ".": "./lib/index.js",
     "./extension": "./lib/extension.js",
@@ -51,10 +50,13 @@
   "typesVersions": {
     "*": {
       ".": [
-        "./types/index.d.ts"
+        "./lib/index.d.ts"
       ],
-      "api": [
-        "./types/methods/index.d.ts"
+      "extension": [
+        "./lib/extension.d.ts"
+      ],
+      "config": [
+        "./lib/config.d.ts"
       ]
     }
   },

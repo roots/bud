@@ -3,7 +3,7 @@
  *
  * @public
  */
-export default {
+module.exports = {
   name: 'bud.js',
   description:
     '⚡️ Lightning fast frontend build tools combining the best parts of Symfony Encore and Laravel Mix',

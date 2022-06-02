@@ -1,5 +1,5 @@
 import {bind} from 'helpful-decorators'
-import Webpack, {sources} from 'webpack'
+import Webpack from 'webpack'
 
 import {Entry} from './webpack.plugin.js'
 
@@ -110,7 +110,7 @@ export class InlineEmitter {
   public emitHtmlTags(): void {
     Object.entries(this.assets).map(([name, asset]) => {
       Object.assign(this.compilation.assets, {
-        [`${name}.html`]: new sources.RawSource(
+        [`${name}.html`]: new Webpack.sources.RawSource(
           Object.entries(asset).reduce(this.inlineReducer, ``),
         ),
       })

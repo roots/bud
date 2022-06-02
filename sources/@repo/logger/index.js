@@ -1,4 +1,4 @@
-import {Signale} from 'signale'
+import Signale from 'signale'
 
 const types = {
   log: {
@@ -18,7 +18,7 @@ const types = {
   },
 }
 
-const logger = new Signale({
+const logger = new Signale.Signale({
   interactive: false,
   types,
 })
@@ -29,8 +29,8 @@ logger.config({
   displayDate: false,
 })
 
-export const make = (options?, config?) => {
-  const logger = new Signale({
+export const make = (options, config) => {
+  const logger = new Signale.Signale({
     types,
     interactive: true,
     ...(options ?? {}),

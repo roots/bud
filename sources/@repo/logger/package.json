@@ -2,8 +2,9 @@
   "name": "@repo/logger",
   "private": true,
   "packageManager": "yarn@3.2.1",
+  "type": "module",
   "exports": {
-    ".": "./index.ts"
+    ".": "./index.js"
   },
   "devDependencies": {
     "signale": "1.4.0"

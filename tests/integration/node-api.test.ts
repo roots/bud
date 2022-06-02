@@ -1,5 +1,5 @@
 import {execa} from '@roots/bud-support'
-import {readFile} from 'fs-extra'
+import fs from 'fs-extra'
 import {join} from 'path'
 
 jest.setTimeout(60000)
@@ -14,7 +14,7 @@ describe.skip('node-api', () => {
   describe('snapshots', () => {
     it('package.json', async () => {
       const artifact = (
-        await readFile(
+        await fs.readFile(
           join(process.cwd(), 'examples/node-api/package.json'),
           'utf8',
         )
@@ -24,7 +24,7 @@ describe.skip('node-api', () => {
     })
 
     it('dist/manifest.json', async () => {
-      const artifact = await readFile(
+      const artifact = await fs.readFile(
         join(process.cwd(), 'examples/node-api/dist/manifest.json'),
       )
 
@@ -32,7 +32,7 @@ describe.skip('node-api', () => {
     })
 
     it('dist/app.js', async () => {
-      const artifact = await readFile(
+      const artifact = await fs.readFile(
         join(process.cwd(), 'examples/node-api/dist/app.js'),
       )
 

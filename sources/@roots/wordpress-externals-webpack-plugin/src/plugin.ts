@@ -1,4 +1,4 @@
-import {Compiler, ExternalsPlugin} from 'webpack/types'
+import Webpack from 'webpack'
 
 import {externals} from './externals.js'
 
@@ -27,7 +27,7 @@ export class WordPressExternals {
    *
    * @public
    */
-  public externals: ExternalsPlugin
+  public externals: Webpack.ExternalsPlugin
 
   /**
    * Class constructor
@@ -35,7 +35,7 @@ export class WordPressExternals {
    * @public
    */
   public constructor() {
-    this.externals = new ExternalsPlugin('window', externals)
+    this.externals = new Webpack.ExternalsPlugin('window', externals)
   }
 
   /**
@@ -43,7 +43,7 @@ export class WordPressExternals {
    *
    * @public
    */
-  public apply(compiler: Compiler): void {
+  public apply(compiler: Webpack.Compiler): void {
     this.externals.apply(compiler)
   }
 }

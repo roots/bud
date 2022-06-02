@@ -1,3 +1,5 @@
+import '@roots/bud-babel'
+
 import {Bud, factory} from '@repo/test-kit/bud'
 import BudReact from '@roots/bud-react'
 
@@ -33,8 +35,8 @@ describe('@roots/bud-react', () => {
   })
 
   it('adds babel plugin', async () => {
-    const babelPresetPath = require.resolve('@babel/preset-react')
-    expect(bud.babel.presets['@babel/preset-react'].shift()).toBe(
+    const babelPresetPath = '@babel/preset-react'
+    expect(bud.babel.presets['@babel/preset-react'].shift()).toContain(
       babelPresetPath,
     )
   })

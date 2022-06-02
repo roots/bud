@@ -47,8 +47,12 @@
   "type": "module",
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
+  "imports": {
+    "#*": "./lib/*.js"
+  },
   "exports": {
     ".": "./lib/index.js",
+    "./bud": "./lib/bud.js",
     "./cli": "./lib/cli/index.js",
     "./cli/commands": "./lib/cli/commands/index.js",
     "./cli/commands/*": "./lib/cli/commands/*.js",
@@ -63,6 +67,9 @@
     "*": {
       ".": [
         "./lib/index.d.ts"
+      ],
+      "bud": [
+        "./lib/bud.d.ts"
       ],
       "cli": [
         "./lib/cli/index.d.ts"
