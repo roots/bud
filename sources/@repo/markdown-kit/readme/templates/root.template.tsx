@@ -7,7 +7,7 @@ import {
   Contributing,
   License,
   Sponsors,
-} from '../components'
+} from '../components/index.js'
 
 export const Body = ({url}) => (
   <>

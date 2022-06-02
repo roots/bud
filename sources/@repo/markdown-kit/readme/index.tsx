@@ -6,8 +6,8 @@ import {cpus} from 'os'
 import path from 'path'
 import React from 'react'
 
-import {render} from './renderer'
-import * as Template from './templates'
+import {render} from './renderer/index.js'
+import * as Template from './templates/index.js'
 
 /**
  * Get the absolute path of a repo file or directory

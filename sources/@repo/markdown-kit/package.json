@@ -2,9 +2,10 @@
   "name": "@repo/markdown-kit",
   "private": true,
   "packageManager": "yarn@3.2.1",
+  "type": "module",
   "exports": {
-    "./readme": "./readme/index.tsx",
-    "./cli-examples": "./cli-examples/index.ts"
+    "./readme": "./compiled/readme/index.js",
+    "./cli-examples": "./compiled/cli-examples/index.js"
   },
   "devDependencies": {
     "@repo/constants": "workspace:*",

@@ -1,0 +1,11 @@
+{
+  "extends": "../../../config/tsconfig.json",
+  "compilerOptions": {
+    "outDir": "compiled",
+    "target": "es2020",
+    "module": "esnext",
+    "jsx": "preserve"
+  },
+  "include": ["cli-examples", "readme"],
+  "exclude": ["compiled", "node_modules"],
+}
