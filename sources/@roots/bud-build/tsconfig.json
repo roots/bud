@@ -4,7 +4,6 @@
     "rootDir": "./src",
     "outDir": "./lib",
     "module": "esnext",
-    "declarationDir": "./types",
     "types": [
       "node", 
       "@roots/bud-framework"

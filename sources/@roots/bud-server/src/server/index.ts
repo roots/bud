@@ -1,6 +1,6 @@
 import {Server as Base} from '@roots/bud-framework'
-import {Service} from '@roots/bud-framework'
-import {Connection} from '@roots/bud-framework/types/services/server/connection'
+import {Service} from '@roots/bud-framework/service'
+import {Connection} from '@roots/bud-framework/services/server'
 import Express from 'express'
 import {bind, once} from 'helpful-decorators'
 

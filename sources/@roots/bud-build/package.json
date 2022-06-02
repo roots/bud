@@ -34,12 +34,11 @@
     "node": ">=16"
   },
   "files": [
-    "lib/",
-    "types/"
+    "lib/"
   ],
   "type": "module",
   "module": "./lib/index.js",
-  "types": "./types/index.d.ts",
+  "types": "./lib/index.d.ts",
   "exports": {
     ".": "./lib/index.js",
     "./item": "./lib/item.js",
@@ -53,28 +52,28 @@
   "typesVersions": {
     "*": {
       ".": [
-        "./types/index.d.ts"
+        "./lib/index.d.ts"
       ],
       "item": [
-        "./types/item.d.ts"
+        "./lib/item.d.ts"
       ],
       "items": [
-        "./types/handlers/items.d.ts"
+        "./lib/handlers/items.d.ts"
       ],
       "loader": [
-        "./types/loader.d.ts"
+        "./lib/loader.d.ts"
       ],
       "loaders": [
-        "./types/handlers/loaders.d.ts"
+        "./lib/handlers/loaders.d.ts"
       ],
       "rule": [
-        "./types/rule.d.ts"
+        "./lib/rule.d.ts"
       ],
       "rules": [
-        "./types/handlers/rules.d.ts"
+        "./lib/handlers/rules.d.ts"
       ],
       "service": [
-        "./types/service.d.ts"
+        "./lib/service.d.ts"
       ]
     }
   },
