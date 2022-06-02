@@ -48,13 +48,13 @@ export const Body = ({url}) => (
     <h2>Getting started</h2>
 
     <p>
-      Check out our [dedicated documentation](
+      Check out [bud.js.org](
       {url.docs.toString()}) to get started.
     </p>
 
     <p>
-      There are also [example implementations available in the /examples
-      directory of this repo]({url.web.toString()}
+      There are [implementations available in the /examples directory of
+      this repo]({url.web.toString()}
       /tree/master/examples).
     </p>
 
@@ -68,6 +68,7 @@ export const Body = ({url}) => (
 | ------------------------------------------------------------------------- | ---------------------------------------------------------------| ------------------------------------------------------------------------------------------------------ |
 | [**@roots/bud-preset-recommend**](/sources/@roots/bud-preset-recommend)  | [📚 Usage](${url.docs}/extensions/presets/bud-preset-recommend) | ![npm](https://img.shields.io/npm/v/@roots/bud-preset-recommend.svg?color=%23525ddc&style=flat-square) |
 | [**@roots/bud-preset-wordpress**](/sources/@roots/bud-preset-wordpress)  |[📚 Usage](${url.docs}/extensions/presets/bud-preset-wordpress)  | ![npm](https://img.shields.io/npm/v/@roots/bud-preset-wordpress.svg?color=%23525ddc&style=flat-square) |
+| [**@roots/sage**](/sources/@roots/sage)  |[📚 Usage](${url.docs}/extensions/presets/sage)  | ![npm](https://img.shields.io/npm/v/@roots/sage.svg?color=%23525ddc&style=flat-square) |
 `}
     </span>
 
@@ -84,7 +85,6 @@ export const Body = ({url}) => (
 | [**@roots/bud-esbuild**](/sources/@roots/bud-esbuild)                               | [📚 Usage](${url.docs}/extensions/bud-esbuild/)                | ![npm](https://img.shields.io/npm/v/@roots/bud-esbuild.svg?color=%23525ddc&style=flat-square)                |
 | [**@roots/bud-eslint**](/sources/@roots/bud-eslint)                                 | [📚 Usage](${url.docs}/extensions/bud-eslint/)                 | ![npm](https://img.shields.io/npm/v/@roots/bud-eslint.svg?color=%23525ddc&style=flat-square)                 |
 | [**@roots/bud-imagemin**](/sources/@roots/bud-imagemin)                             | [📚 Usage](${url.docs}/extensions/bud-imagemin/)               | ![npm](https://img.shields.io/npm/v/@roots/bud-imagemin.svg?color=%23525ddc&style=flat-square)               |
-| [**@roots/bud-library**](/sources/@roots/bud-library)                               | [📚 Usage](${url.docs}/extensions/bud-library/)                | ![npm](https://img.shields.io/npm/v/@roots/bud-library.svg?color=%23525ddc&style=flat-square)                |
 | [**@roots/bud-mdx**](/sources/@roots/bud-mdx)                                       | [📚 Usage](${url.docs}/extensions/bud-mdx/)                    | ![npm](https://img.shields.io/npm/v/@roots/bud-mdx.svg?color=%23525ddc&style=flat-square)                    |
 | [**@roots/bud-postcss**](/sources/@roots/bud-postcss)                               | [📚 Usage](${url.docs}/extensions/bud-postcss/)                | ![npm](https://img.shields.io/npm/v/@roots/bud-postcss.svg?color=%23525ddc&style=flat-square)                |
 | [**@roots/bud-prettier**](/sources/@roots/bud-prettier)                             | [📚 Usage](${url.docs}/extensions/bud-prettier/)               | ![npm](https://img.shields.io/npm/v/@roots/bud-prettier.svg?color=%23525ddc&style=flat-square)               |
@@ -109,6 +109,7 @@ export const Body = ({url}) => (
     </p>
 
     <h2>Want to contribute to bud.js?</h2>
+
     <p>
       Check out [our development guide](https://bud.js.org/dev) to get
       started.

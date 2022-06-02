@@ -1,7 +1,7 @@
 const dracula = require('prism-react-renderer/themes/dracula')
 const github = require('prism-react-renderer/themes/github')
 
-const config = require('../../../../config/monorepo.config')
+const config = require('../../../../config/monorepo.config.cjs')
 
 /**
  * Announcement bar config

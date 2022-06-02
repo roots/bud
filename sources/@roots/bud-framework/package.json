@@ -34,8 +34,7 @@
     "node": ">=16"
   },
   "files": [
-    "lib/",
-    "types/"
+    "lib/"
   ],
   "type": "module",
   "module": "./lib/index.js",
@@ -48,7 +47,7 @@
     "./extension/decorators/*": "./lib/extension/decorators/*.js",
     "./methods/*": "./lib/methods/*.js",
     "./module": "./lib/module.js",
-    "./service": "./lib/service/index.js",
+    "./service": "./lib/service.js",
     "./services/*": "./lib/services/*/index.js"
   },
   "typesVersions": {

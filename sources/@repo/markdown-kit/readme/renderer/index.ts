@@ -1,4 +1,4 @@
-import {writeFile} from 'fs-extra'
+import fs from 'fs-extra'
 import {format} from 'prettier'
 
 import {createElement} from './createElement.js'
@@ -14,7 +14,7 @@ export async function render(element, filePath) {
 
   const result = container.render()
 
-  await writeFile(filePath, format(result, {parser: 'markdown'}), {
+  await fs.writeFile(filePath, format(result, {parser: 'markdown'}), {
     encoding: 'utf8',
   })
 }
