@@ -40,11 +40,6 @@ export default class BudReact extends Extension {
    */
   @bind
   public async boot() {
-    const usesEsbuild =
-      typeof this.resolve('@roots/bud-esbuild') === 'string'
-
-    if (usesEsbuild) return
-
     const preset = this.resolve('@babel/preset-react')
     this.app.babel.setPreset('@babel/preset-react', preset)
   }
