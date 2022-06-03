@@ -26,11 +26,14 @@ export default class BudSass extends Extension {
   @bind
   public async implementation() {
     try {
-      const sass = await this.import('sass')
+      const implementation = await this.import('sass').then(
+        sassImport => sassImport?.default ?? sassImport,
+      )
 
-      this.logger.success('sass imported')
-
-      return sass
+      if (implementation) {
+        this.logger.success('sass imported')
+        return implementation
+      }
     } catch (e) {
       this.logger.error(e)
       throw new Error(
@@ -47,12 +50,8 @@ export default class BudSass extends Extension {
    */
   @bind
   public async register() {
-    this.app.hooks.on('build.resolve.extensions', ext =>
-      ext.add('.scss').add('.sass'),
-    )
-
     const implementation = await this.implementation()
-    const loader = await this.resolve('sass-loader')
+    const loader = this.resolve('sass-loader')
 
     this.app.build
       .setLoader('sass', loader)
@@ -68,7 +67,17 @@ export default class BudSass extends Extension {
         include: [app => app.path('@src')],
         use: [`precss`, `css`, `postcss`, `resolveUrl`, `sass`],
       })
+      .items.resolveUrl.setOptions((_app, options) => ({
+        ...options,
+        sourceMap: true,
+      }))
 
-    if (this.app.postcss) this.app.postcss.syntax = 'postcss-scss'
+    this.app.hooks.on('build.resolve.extensions', ext =>
+      ext.add('.scss').add('.sass'),
+    )
+
+    if (this.app.postcss) {
+      this.app.postcss.syntax = 'postcss-scss'
+    }
   }
 }

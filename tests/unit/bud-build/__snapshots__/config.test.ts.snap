@@ -3,15 +3,15 @@
 exports[`bud.build.config has expected default css rule 1`] = `
 Object {
   "include": Array [
-    "/Users/kellymears/code/roots/bud/tests/util/project/src",
+    "/srv/bud/tests/util/project/src",
   ],
   "test": /\\\\\\.module\\\\\\.css\\$/,
   "use": Array [
     Object {
-      "loader": "/Users/kellymears/code/roots/bud/node_modules/mini-css-extract-plugin/dist/loader.js",
+      "loader": "/srv/bud/node_modules/mini-css-extract-plugin/dist/loader.js",
     },
     Object {
-      "loader": "/Users/kellymears/code/roots/bud/node_modules/css-loader/dist/cjs.js",
+      "loader": "/srv/bud/node_modules/css-loader/dist/cjs.js",
       "options": Object {
         "importLoaders": 1,
         "localIdentName": "[name]__[local]___[hash:base64:5]",
@@ -26,15 +26,15 @@ Object {
 exports[`bud.build.config has expected default cssModule rule 1`] = `
 Object {
   "exclude": Array [
-    "/Users/kellymears/code/roots/bud/tests/util/project/node_modules",
+    "/srv/bud/tests/util/project/node_modules",
   ],
   "include": Array [
-    "/Users/kellymears/code/roots/bud/tests/util/project",
+    "/srv/bud/tests/util/project",
   ],
   "test": /\\\\\\.\\(csv\\|tsv\\)\\$/,
   "use": Array [
     Object {
-      "loader": "/Users/kellymears/code/roots/bud/node_modules/csv-loader/index.js",
+      "loader": "/srv/bud/node_modules/csv-loader/index.js",
     },
   ],
 }
@@ -46,7 +46,7 @@ Object {
     "filename": "images/[name][ext]",
   },
   "include": Array [
-    "/Users/kellymears/code/roots/bud/tests/util/project/src",
+    "/srv/bud/tests/util/project/src",
   ],
   "test": /\\\\\\.webp\\$/,
   "type": "asset/resource",
@@ -56,14 +56,14 @@ Object {
 exports[`bud.build.config has expected default font rule 1`] = `
 Object {
   "include": Array [
-    "/Users/kellymears/code/roots/bud/tests/util/project/src",
+    "/srv/bud/tests/util/project/src",
   ],
   "test": /\\\\\\.\\(cjs\\|mjs\\|jsx\\?\\)\\$/,
   "use": Array [
     Object {
-      "loader": "/Users/kellymears/code/roots/bud/sources/@roots/bud-babel/node_modules/babel-loader/lib/index.js",
+      "loader": "/srv/bud/sources/@roots/bud-babel/node_modules/babel-loader/lib/index.js",
       "options": Object {
-        "cacheDirectory": "/Users/kellymears/code/roots/bud/tests/util/project/.budfiles/cache/babel",
+        "cacheDirectory": "/srv/bud/tests/util/project/.budfiles/cache/babel",
         "env": Object {
           "development": Object {
             "compact": false,
@@ -71,27 +71,27 @@ Object {
         },
         "plugins": Array [
           Array [
-            "/Users/kellymears/code/roots/bud/sources/@roots/bud-babel/node_modules/@babel/plugin-transform-runtime/lib/index.js",
+            "/srv/bud/sources/@roots/bud-babel/node_modules/@babel/plugin-transform-runtime/lib/index.js",
             Object {
               "helpers": false,
             },
           ],
           Array [
-            "/Users/kellymears/code/roots/bud/node_modules/@babel/plugin-proposal-object-rest-spread/lib/index.js",
+            "/srv/bud/node_modules/@babel/plugin-proposal-object-rest-spread/lib/index.js",
           ],
           Array [
-            "/Users/kellymears/code/roots/bud/node_modules/@babel/plugin-syntax-dynamic-import/lib/index.js",
+            "/srv/bud/node_modules/@babel/plugin-syntax-dynamic-import/lib/index.js",
           ],
           Array [
-            "/Users/kellymears/code/roots/bud/node_modules/@babel/plugin-proposal-class-properties/lib/index.js",
+            "/srv/bud/node_modules/@babel/plugin-proposal-class-properties/lib/index.js",
           ],
         ],
         "presets": Array [
           Array [
-            "/Users/kellymears/code/roots/bud/node_modules/@babel/preset-env/lib/index.js",
+            "/srv/bud/node_modules/@babel/preset-env/lib/index.js",
           ],
         ],
-        "root": "/Users/kellymears/code/roots/bud/tests/util/project",
+        "root": "/srv/bud/tests/util/project",
       },
     },
   ],
@@ -101,10 +101,10 @@ Object {
 exports[`bud.build.config has expected default html rule 1`] = `
 Object {
   "exclude": Array [
-    "/Users/kellymears/code/roots/bud/tests/util/project/node_modules",
+    "/srv/bud/tests/util/project/node_modules",
   ],
   "include": Array [
-    "/Users/kellymears/code/roots/bud/tests/util/project",
+    "/srv/bud/tests/util/project",
   ],
   "parser": Object {
     "parse": [Function],
@@ -120,7 +120,7 @@ Object {
     "filename": "fonts/[name][ext]",
   },
   "include": Array [
-    "/Users/kellymears/code/roots/bud/tests/util/project/src",
+    "/srv/bud/tests/util/project/src",
   ],
   "test": /\\\\\\.\\(ttf\\|otf\\|eot\\|woff2\\?\\|ico\\)\\$/,
   "type": "asset",
@@ -130,27 +130,27 @@ Object {
 exports[`bud.build.config has expected default js rule 1`] = `
 Object {
   "include": Array [
-    "/Users/kellymears/code/roots/bud/tests/util/project/src",
+    "/srv/bud/tests/util/project/src",
   ],
   "test": /\\\\\\.css\\$/,
   "use": Array [
     Object {
-      "loader": "/Users/kellymears/code/roots/bud/node_modules/mini-css-extract-plugin/dist/loader.js",
+      "loader": "/srv/bud/node_modules/mini-css-extract-plugin/dist/loader.js",
     },
     Object {
-      "loader": "/Users/kellymears/code/roots/bud/node_modules/css-loader/dist/cjs.js",
+      "loader": "/srv/bud/node_modules/css-loader/dist/cjs.js",
       "options": Object {
         "importLoaders": 1,
         "sourceMap": false,
       },
     },
     Object {
-      "loader": "/Users/kellymears/code/roots/bud/node_modules/postcss-loader/dist/cjs.js",
+      "loader": "/srv/bud/node_modules/postcss-loader/dist/cjs.js",
       "options": Object {
         "postcssOptions": Object {
           "plugins": Array [
             Array [
-              "/Users/kellymears/code/roots/bud/node_modules/postcss-import/index.js",
+              "/srv/bud/node_modules/postcss-import/index.js",
             ],
             Array [
               [Function],
@@ -159,7 +159,7 @@ Object {
               [Function],
             ],
             Array [
-              "/Users/kellymears/code/roots/bud/node_modules/postcss-preset-env/dist/index.cjs",
+              "/srv/bud/node_modules/postcss-preset-env/dist/index.cjs",
               Object {
                 "features": Object {
                   "focus-within-pseudo-class": false,
@@ -179,10 +179,10 @@ Object {
 exports[`bud.build.config has expected default json rule 1`] = `
 Object {
   "exclude": Array [
-    "/Users/kellymears/code/roots/bud/tests/util/project/node_modules",
+    "/srv/bud/tests/util/project/node_modules",
   ],
   "include": Array [
-    "/Users/kellymears/code/roots/bud/tests/util/project",
+    "/srv/bud/tests/util/project",
   ],
   "parser": Object {
     "parse": undefined,
@@ -210,7 +210,7 @@ Object {
     "filename": "images/[name][ext]",
   },
   "include": Array [
-    "/Users/kellymears/code/roots/bud/tests/util/project/src",
+    "/srv/bud/tests/util/project/src",
   ],
   "test": /\\\\\\.\\(png\\|jpe\\?g\\|gif\\|webp\\)\\$/,
   "type": "asset/resource",
@@ -220,15 +220,15 @@ Object {
 exports[`bud.build.config has expected default toml rule 1`] = `
 Object {
   "exclude": Array [
-    "/Users/kellymears/code/roots/bud/tests/util/project/node_modules",
+    "/srv/bud/tests/util/project/node_modules",
   ],
   "include": Array [
-    "/Users/kellymears/code/roots/bud/tests/util/project",
+    "/srv/bud/tests/util/project",
   ],
   "test": /\\\\\\.ya\\?ml\\$/,
   "use": Array [
     Object {
-      "loader": "/Users/kellymears/code/roots/bud/node_modules/yml-loader/index.js",
+      "loader": "/srv/bud/node_modules/yml-loader/index.js",
     },
   ],
 }
@@ -237,15 +237,15 @@ Object {
 exports[`bud.build.config has expected default webp rule 1`] = `
 Object {
   "exclude": Array [
-    "/Users/kellymears/code/roots/bud/tests/util/project/node_modules",
+    "/srv/bud/tests/util/project/node_modules",
   ],
   "include": Array [
-    "/Users/kellymears/code/roots/bud/tests/util/project",
+    "/srv/bud/tests/util/project",
   ],
   "test": /\\\\\\.\\(html\\?\\)\\$/,
   "use": Array [
     Object {
-      "loader": "/Users/kellymears/code/roots/bud/node_modules/html-loader/dist/cjs.js",
+      "loader": "/srv/bud/node_modules/html-loader/dist/cjs.js",
     },
   ],
 }
@@ -254,15 +254,15 @@ Object {
 exports[`bud.build.config has expected default xml rule 1`] = `
 Object {
   "exclude": Array [
-    "/Users/kellymears/code/roots/bud/tests/util/project/node_modules",
+    "/srv/bud/tests/util/project/node_modules",
   ],
   "include": Array [
-    "/Users/kellymears/code/roots/bud/tests/util/project",
+    "/srv/bud/tests/util/project",
   ],
   "test": /\\\\\\.xml\\$/,
   "use": Array [
     Object {
-      "loader": "/Users/kellymears/code/roots/bud/node_modules/xml-loader/index.js",
+      "loader": "/srv/bud/node_modules/xml-loader/index.js",
     },
   ],
 }
@@ -274,7 +274,7 @@ Object {
     "filename": "svg/[name][ext]",
   },
   "include": Array [
-    "/Users/kellymears/code/roots/bud/tests/util/project/src",
+    "/srv/bud/tests/util/project/src",
   ],
   "test": /\\\\\\.svg\\$/,
   "type": "asset/resource",

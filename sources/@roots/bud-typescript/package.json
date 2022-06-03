@@ -46,6 +46,7 @@
   "exports": {
     ".": "./lib/index.js",
     "./extension": "./lib/extension.js",
+    "./tsconfig/tsconfig.json": "./tsconfig/tsconfig.json",
     "./typecheck": "./lib/typecheck/index.js",
     "./typecheck/extension": "./lib/typecheck/extension.js"
   },

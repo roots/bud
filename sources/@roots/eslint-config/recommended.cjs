@@ -4,7 +4,7 @@
  * @public
  */
 module.exports = {
-  extends: ['./defaults'],
+  extends: ['./defaults.cjs'],
   rules: {
     'no-console': 0,
     'comma-dangle': [

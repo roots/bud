@@ -47,7 +47,7 @@
   "exports": {
     ".": "./lib/index.js",
     "./extension": "./lib/extension.js",
-    "./stylelint-config": "./stylelint-config/index.js"
+    "./stylelint-config": "./stylelint-config/index.cjs"
   },
   "typesVersions": {
     "*": {

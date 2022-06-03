@@ -14,7 +14,7 @@
     "moduleResolution": "node",
     "noUnusedLocals": true,
     "removeComments": false,
-    "resolveJsonModule": true,
+    "resolveJsonModule": false,
     "sourceMap": true,
     "skipLibCheck": true,
     "strict": false,

@@ -1,4 +1,5 @@
-import {execa} from '@roots/bud-support'
+import {beforeAll, describe, it, jest} from '@jest/globals'
+import {execa} from 'execa'
 import fs from 'fs-extra'
 import {join} from 'path'
 
@@ -6,7 +7,7 @@ jest.setTimeout(60000)
 
 describe.skip('node-api', () => {
   beforeAll(async () => {
-    await execa.execa('yarn', ['webpack'], {
+    await execa('yarn', ['webpack'], {
       cwd: `${process.cwd()}/examples/node-api`,
     })
   })

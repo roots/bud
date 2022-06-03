@@ -13,6 +13,10 @@
       "last 1 safari version"
     ]
   },
+  "type": "module",
+  "scripts": {
+    "build": "yarn ts-bud build"
+  },
   "devDependencies": {
     "@roots/bud": "0.0.0",
     "@roots/bud-babel": "0.0.0",

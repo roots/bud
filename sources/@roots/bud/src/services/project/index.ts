@@ -177,7 +177,7 @@ export class Project
             : {}
 
           const processedModule =
-            rawImport.default && isFunction(rawImport?.default)
+            rawImport?.default && isFunction(rawImport?.default)
               ? rawImport.default
               : rawImport
 

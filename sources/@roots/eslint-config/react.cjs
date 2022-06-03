@@ -4,7 +4,7 @@
  * @public
  */
 module.exports = {
-  extends: ['./defaults', 'plugin:react/recommended'],
+  extends: ['./defaults.cjs', 'plugin:react/recommended'],
   plugins: ['import', 'react', 'react-hooks', 'jsx-a11y'],
   settings: {
     react: {

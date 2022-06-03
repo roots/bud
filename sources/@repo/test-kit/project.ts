@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
 /* eslint-disable no-console */
+import {jest} from '@jest/globals'
 import {paths, REGISTRY_PROXY} from '@repo/constants'
 import * as logger from '@repo/logger'
+import chalk from 'chalk'
+import {execa} from 'execa'
 import fs from 'fs-extra'
 import {bind} from 'helpful-decorators'
 import json5 from 'json5'
-import {spawn} from 'node:child_process'
 import {posix} from 'node:path'
 
 const {join} = posix
@@ -16,6 +18,7 @@ interface Options {
   name: string
   with: 'yarn' | 'npm'
   dist?: string
+  buildCommand?: [string, Array<string>]
 }
 
 /**
@@ -86,6 +89,7 @@ export class Project {
 
   public constructor(public options: Options) {
     this.dir = join(paths.mocks, this.options.with, this.options.name)
+
     this.logger = logger
       .make({interactive: true})
       .scope(this.options.name, this.options.with)
@@ -114,7 +118,15 @@ export class Project {
   @bind
   public async $(bin: string, flags: Array<string>) {
     try {
-      await spawn(bin, flags ?? [], {
+      this.logger.log(
+        chalk.green(`executing`),
+        chalk.blue(bin),
+        (flags ? flags.map(flag => chalk.magenta(flag)) : []).join(' '),
+        `in`,
+        chalk.yellow(this.projectPath()),
+      )
+
+      await execa(bin, flags ?? [], {
         cwd: this.projectPath(),
         shell: true,
       })
@@ -125,7 +137,7 @@ export class Project {
 
   @bind
   public async yarnInstall() {
-    await this.$(`yarn`, [
+    await this.$('/usr/local/bin/yarn', [
       `install`,
       `--update-checksums`,
       `--skip-integrity-check`,
@@ -168,9 +180,16 @@ export class Project {
   public async build() {
     this.logger.log('building')
 
-    this.options.with === 'yarn'
-      ? await this.$(`yarn`, [`bud`, `build`, `--ci`])
-      : await this.$(`node`, [`node_modules/.bin/bud`, `build`, `--ci`])
+    if (this.options.buildCommand) {
+      await this.$(...this.options.buildCommand)
+      return
+    }
+
+    await this.$(`node`, [
+      join(this.projectPath(), 'node_modules', '.bin', 'bud'),
+      `build`,
+      `--ci`,
+    ])
   }
 
   /**
@@ -188,8 +207,8 @@ export class Project {
    */
   @bind
   public async readJson(file: string) {
-    const contentString = await fs.readFile(file)
-    return json5.parse(contentString.toString())
+    const buffer = await fs.readFile(file)
+    return json5.parse(buffer.toString())
   }
 
   /**
@@ -201,6 +220,7 @@ export class Project {
     const packageJson = await this.readJson(
       this.projectPath('package.json'),
     )
+
     Object.assign(this, {packageJson})
   }
 
@@ -221,21 +241,19 @@ export class Project {
    */
   @bind
   public async setAssets(): Promise<void> {
-    this.assets = await Object.entries(this.manifest).reduce(
-      async (assets: Promise<any>, [name, path]: [string, string]) => {
-        logger.log('attempting to read', join(this.options.dist, path))
+    await Promise.all(
+      Object.entries(this.manifest).map(
+        async ([name, path]: [string, string]) => {
+          logger.log('attempting to read', join(this.options.dist, path))
 
-        const buffer = await fs.readFile(
-          this.projectPath(join(this.options.dist, path)),
-          'utf8',
-        )
+          const buffer = await fs.readFile(
+            join(this.projectPath(), this.options.dist, path),
+          )
 
-        return {
-          ...assets,
-          [name]: buffer.toString(),
-        }
-      },
-      Promise.resolve(),
+          this.assets[name] = buffer.toString()
+        },
+        Promise.resolve({}),
+      ),
     )
   }
 

@@ -43,13 +43,13 @@
     "lib/",
     "vendor/"
   ],
-  "bin": "./bin/bud.mjs",
+  "bin": {
+    "bud": "./bin/bud.mjs",
+    "ts-bud": "./bin/ts-bud.mjs"
+  },
   "type": "module",
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "imports": {
-    "#*": "./lib/*.js"
-  },
   "exports": {
     ".": "./lib/index.js",
     "./bud": "./lib/bud.js",

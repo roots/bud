@@ -4,7 +4,7 @@
  * @public
  */
 module.exports = {
-  extends: ['./react'],
+  extends: ['./react.cjs'],
   env: {
     jquery: true,
   },

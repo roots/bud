@@ -3879,6 +3879,7 @@ __metadata:
     "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@types/fs-extra": 9.0.13
+    chalk: 5.0.1
     execa: 6.1.0
     fs-extra: 10.1.0
     globby: 13.1.1
@@ -4599,12 +4600,10 @@ __metadata:
     "@types/node": 16.11.36
     "@types/tailwindcss": 3.0.10
     autoprefixer: ^10.4.0
-    postcss: 8.4.14
     tailwindcss: 3.0.24
     tslib: 2.4.0
   peerDependencies:
     autoprefixer: "*"
-    postcss: "*"
     tailwindcss: "*"
   peerDependenciesMeta:
     autoprefixer:
@@ -4779,6 +4778,7 @@ __metadata:
     webpack-remove-empty-scripts: 0.8.0
   bin:
     bud: ./bin/bud.mjs
+    ts-bud: ./bin/ts-bud.mjs
   languageName: unknown
   linkType: soft
 

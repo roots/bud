@@ -1,5 +1,7 @@
 /* eslint-disable no-console */
 
+import querystring from 'querystring'
+
 var options = {
   path: '/__bud/hmr',
   timeout: 20 * 1000,
@@ -16,7 +18,6 @@ var options = {
 
 //@ts-ignore
 if (__resourceQuery) {
-  var querystring = require('querystring')
   //@ts-ignore
   var overrides = querystring.parse(__resourceQuery.slice(1))
   setOverrides(overrides)

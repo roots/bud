@@ -40,7 +40,8 @@
   "types": "./lib/index.d.ts",
   "exports": {
     ".": "./lib/index.js",
-    "./extension": "./lib/extension.js"
+    "./extension": "./lib/extension.js",
+    "./stylelint-config": "./stylelint-config/index.cjs"
   },
   "typesVersions": {
     "*": {

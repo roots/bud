@@ -13,7 +13,7 @@
  * @packageDocumentation
  */
 
-import './env'
+import './env.js'
 
-import BudTypeScript from './extension'
+import BudTypeScript from './extension.js'
 export default BudTypeScript

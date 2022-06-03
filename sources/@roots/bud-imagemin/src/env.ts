@@ -1,4 +1,4 @@
-import BudImagemin from './extension'
+import BudImagemin from './extension.js'
 
 declare module '@roots/bud-framework' {
   interface Bud {

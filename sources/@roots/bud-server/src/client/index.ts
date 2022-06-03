@@ -24,7 +24,7 @@ interface Options extends BaseOptions {
 
 ;(async (query: string) => {
   const querystring = await import('querystring')
-  const hmr = await import('./bridge')
+  const hmr = await import('./bridge.js')
 
   const controllers: Array<Controller> = []
 

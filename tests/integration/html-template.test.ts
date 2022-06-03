@@ -1,14 +1,16 @@
+import {beforeAll, describe, it, jest} from '@jest/globals'
 import {Project} from '@repo/test-kit/project'
 
 jest.setTimeout(60000)
 
-describe('examples/html-template', () => {
-  let project
+const run = pacman => () => {
+  let project: Project
 
   beforeAll(async () => {
     project = new Project({
-      name: 'html-template',
-      dir: 'examples/html-template',
+      name: 'emotion',
+      dist: 'dist',
+      with: pacman,
     })
 
     await project.setup()
@@ -25,4 +27,9 @@ describe('examples/html-template', () => {
       expect(project.assets['index.html']).toMatchSnapshot()
     })
   })
+}
+
+describe('html-template', () => {
+  describe('npm', run('npm'))
+  describe('yarn', run('yarn'))
 })

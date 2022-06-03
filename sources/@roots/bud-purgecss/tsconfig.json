@@ -1,10 +1,8 @@
 {
   "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
-    
     "rootDir": "src",
     "outDir": "lib",
-    "module": "esnext",
   },
   "include": ["src"],
   "exclude": ["lib", "types", "node_modules"],

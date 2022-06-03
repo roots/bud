@@ -25,7 +25,11 @@ const tsNode = async (context: Config.Context) => {
   ) {
     try {
       const {register} = await import('ts-node')
-      register({transpileOnly: true})
+      register({
+        esm: true,
+        experimentalResolver: true,
+        transpileOnly: true,
+      })
     } catch (err) {
       context.stderr.write(
         `You must install ts-node in order to configure bud with typescript`,

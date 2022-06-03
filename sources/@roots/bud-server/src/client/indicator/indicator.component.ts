@@ -1,4 +1,4 @@
-import {pulse} from './indicator.pulse'
+import {pulse} from './indicator.pulse.js'
 
 /**
  * Indicator web component

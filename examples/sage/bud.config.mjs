@@ -1,10 +1,4 @@
-/**
- * @typedef {import('@roots/bud').Bud} Bud
- *
- * @param {Bud} app
- */
-
-module.exports = async app => {
+export default async app => {
   app
     .entry({
       app: '**/app.{js,css}',

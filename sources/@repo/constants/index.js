@@ -1,5 +1,5 @@
 import {createRequire} from 'module'
-import {join} from 'path'
+import {join} from 'node:path'
 
 /**
  * Repo root path
@@ -12,7 +12,7 @@ export const REPO_PATH = (
     ? import.meta.url.replace('file:/', '')
     : __dirname
 )
-  .split('/sources/')
+  .split('sources/')
   .shift()
 
 /**
@@ -58,22 +58,7 @@ export const INTEGRATION_TESTS = [
  *
  * @public
  */
-export const TS_CONFIG_PATH_CJS = join(
-  REPO_PATH,
-  'config',
-  'tsconfig.json',
-)
-
-/**
- * Base public package tsconfig (ESM)
- *
- * @public
- */
-export const TS_CONFIG_PATH_ESM = join(
-  REPO_PATH,
-  'config',
-  'tsconfig.esm.json',
-)
+export const TS_CONFIG_PATH = join(REPO_PATH, 'config', 'tsconfig.json')
 
 /**
  * Proxy registry URL
