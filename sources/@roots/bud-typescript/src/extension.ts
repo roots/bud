@@ -22,9 +22,6 @@ export default class BudTypeScript extends Extension {
 
   @bind
   public async register() {
-    const esbuild = this.resolve('@roots/bud-esbuild')
-    if (typeof esbuild === 'string') return
-
     const loader = this.resolve('ts-loader')
 
     this.app.build
