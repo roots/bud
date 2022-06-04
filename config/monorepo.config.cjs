@@ -123,6 +123,7 @@ module.exports = {
       '@roots/sage',
     ],
     library: [
+      '@roots/bud-client',
       '@roots/container',
       '@roots/critical-css-webpack-plugin',
       '@roots/dependencies',

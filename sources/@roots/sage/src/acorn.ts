@@ -36,9 +36,8 @@ export const setPublicPath = ({hooks, isDevelopment}: Bud) =>
  * Write hmr.json when compilation is finalized (only in development)
  * Remove this file when process is exited.
  */
-export const hmrJson = ({isDevelopment, tap}: Bud) =>
-  isDevelopment &&
-  [
-    ({hooks}) => hooks.action('event.compiler.success', eventCompilerDone),
-    ({hooks}) => hooks.action('event.compiler.close', eventCompilerClose),
-  ].map(fn => tap(fn))
+export const hmrJson = ({isDevelopment, hooks}: Bud) =>
+  hooks.action(
+    'event.compiler.success',
+    isDevelopment ? eventCompilerDone : eventCompilerClose,
+  )

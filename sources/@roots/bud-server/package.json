@@ -41,25 +41,12 @@
   "types": "./lib/index.d.ts",
   "exports": {
     ".": "./lib/index.js",
-    "./service": "./lib/service.js",
-    "./client/*": "./lib/client/index.js"
+    "./service": "./lib/service.js"
   },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.d.ts"
-      ],
-      "client": [
-        "./lib/client/index.d.ts"
-      ],
-      "client/proxy-click-interceptor": [
-        "./lib/client/proxy-click-interceptor.d.ts"
-      ],
-      "client/overlay": [
-        "./lib/client/overlay/index.d.ts"
-      ],
-      "client/indicator": [
-        "./lib/client/indicator/index.d.ts"
       ]
     }
   },
@@ -77,8 +64,8 @@
     "webpack": "5.72.1"
   },
   "dependencies": {
+    "@roots/bud-client": "workspace:sources/@roots/bud-client",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/container": "workspace:sources/@roots/container",
     "ansi-html-community": "0.0.8",
     "chokidar": "3.5.3",
     "cookie-parser": "1.4.6",

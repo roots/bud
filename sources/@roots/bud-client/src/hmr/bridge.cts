@@ -1,7 +1,5 @@
 /* eslint-disable no-console */
 
-import querystring from 'querystring'
-
 var options = {
   path: '/__bud/hmr',
   timeout: 20 * 1000,
@@ -9,7 +7,7 @@ var options = {
   reload: false,
   log: true,
   warn: true,
-  name: '',
+  name: 'bud',
   autoConnect: true,
   overlayStyles: {},
   overlayWarnings: false,
@@ -18,6 +16,7 @@ var options = {
 
 //@ts-ignore
 if (__resourceQuery) {
+  var querystring = require('querystring')
   //@ts-ignore
   var overrides = querystring.parse(__resourceQuery.slice(1))
   setOverrides(overrides)
@@ -231,7 +230,7 @@ function createReporter() {
   }
 }
 
-var processUpdate = require('./process-update.js')
+const processUpdate = require('./update')
 
 var customHandler
 var subscribeAllHandler

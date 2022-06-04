@@ -30,6 +30,7 @@
     {"path": "./../sources/@roots/bud-babel/tsconfig.json"},
     {"path": "./../sources/@roots/bud-build/tsconfig.json"},
     {"path": "./../sources/@roots/bud-cache/tsconfig.json"},
+    {"path": "./../sources/@roots/bud-client/tsconfig.json"},
     {"path": "./../sources/@roots/bud-compiler/tsconfig.json"},
     {"path": "./../sources/@roots/bud-compress/tsconfig.json"},
     {"path": "./../sources/@roots/bud-criticalcss/tsconfig.json"},

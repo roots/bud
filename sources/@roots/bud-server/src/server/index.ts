@@ -4,7 +4,7 @@ import {Connection} from '@roots/bud-framework/services/server'
 import Express from 'express'
 import {bind, once} from 'helpful-decorators'
 
-import {inject} from '../client/inject.js'
+import {inject} from '../inject.js'
 import * as middlewareMap from '../middleware/index.js'
 import {seed} from '../seed.js'
 import {Http} from './server.http.js'

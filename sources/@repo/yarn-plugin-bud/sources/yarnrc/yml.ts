@@ -1,4 +1,4 @@
-import fs from 'fs-extra'
+import * as fs from 'fs-extra'
 import * as yml from 'js-yaml'
 import {get, set} from 'lodash'
 

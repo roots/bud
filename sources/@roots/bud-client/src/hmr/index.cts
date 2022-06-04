@@ -24,7 +24,7 @@ interface Options extends BaseOptions {
 
 ;(async (query: string) => {
   const querystring = await import('querystring')
-  const hmr = await import('./bridge.js')
+  const hmr = await import('./bridge.cjs')
 
   const controllers: Array<Controller> = []
 
@@ -37,7 +37,7 @@ interface Options extends BaseOptions {
     reload: false,
     log: false,
     warn: false,
-    name: '',
+    name: 'bud',
     overlayWarnings: false,
     path: '/__bud/hmr',
   }
@@ -50,16 +50,29 @@ interface Options extends BaseOptions {
     return {...a, [k]: v}
   }, FALLBACK_OPTS)
 
+  console.debug(
+    '%cbud.js hmr client',
+    'font-size:14px; font-family: monospace',
+  )
+  console.debug(
+    `%cbud.js resourceQuery ${query}`,
+    'font-size:12px; font-family: monospace',
+  )
+
   hmr.setOptionsAndConnect(options)
 
   if (options['bud.indicator']) {
-    const controllerModule = await import('./indicator/index.js')
+    const controllerModule = await import(
+      '../components/indicator/index.cjs'
+    )
     const controller = await controllerModule.make()
     controller?.update && controllers.push(controller)
   }
 
   if (options['bud.overlay']) {
-    const controllerModule = await import('./overlay/index.js')
+    const controllerModule = await import(
+      '../components/overlay/index.cjs'
+    )
     const controller = await controllerModule.make()
     controller?.update && controllers.push(controller)
   }

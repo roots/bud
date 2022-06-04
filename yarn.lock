@@ -4034,6 +4034,19 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@roots/bud-client@workspace:sources/@roots/bud-client":
+  version: 0.0.0-use.local
+  resolution: "@roots/bud-client@workspace:sources/@roots/bud-client"
+  dependencies:
+    "@skypack/package-check": 0.2.2
+    ansi-html-community: 0.0.8
+    querystring: ^0.2.0
+    strip-ansi: ^7.0.0
+    tslib: 2.4.0
+    webpack: 5.72.1
+  languageName: unknown
+  linkType: soft
+
 "@roots/bud-compiler@workspace:sources/@roots/bud-compiler":
   version: 0.0.0-use.local
   resolution: "@roots/bud-compiler@workspace:sources/@roots/bud-compiler"
@@ -4204,12 +4217,15 @@ __metadata:
   dependencies:
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@skypack/package-check": 0.2.2
+    "@types/fs-extra": 9.0.13
     "@types/lodash": 4.14.182
     "@types/lodash-es": ^4
     "@types/node": 16.11.36
     chalk: 5.0.1
+    fs-extra: 10.1.0
     helpful-decorators: 2.1.0
     lodash-es: 4.17.21
+    pkg-up: 4.0.0
     tslib: 2.4.0
     webpack: 5.72.1
   languageName: unknown
@@ -4504,8 +4520,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-server@workspace:sources/@roots/bud-server"
   dependencies:
+    "@roots/bud-client": "workspace:sources/@roots/bud-client"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
-    "@roots/container": "workspace:sources/@roots/container"
     "@skypack/package-check": 0.2.2
     "@types/cookie-parser": 1.4.3
     "@types/cors": 2.8.12

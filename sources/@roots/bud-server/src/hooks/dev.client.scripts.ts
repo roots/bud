@@ -1,8 +1,5 @@
 import {Bud} from '@roots/bud-framework'
 
-export const src = (modulePath: string) =>
-  `@roots/bud-server/client/${modulePath}`
-
 /**
  * Proxy click interceptor
  *
@@ -13,7 +10,7 @@ export const src = (modulePath: string) =>
  */
 export const proxyClickInterceptor = (app: Bud) =>
   app.hooks.filter('dev.middleware.enabled', []).includes('proxy')
-    ? src(`proxy-click-interceptor.js`)
+    ? `@roots/bud-client/lib/proxy-click-interceptor.cjs`
     : null
 
 /**
@@ -25,13 +22,11 @@ export const proxyClickInterceptor = (app: Bud) =>
  * @public
  */
 export const overlay = (app: Bud) =>
-  src(
-    `index.js?name=${app.name}&bud.overlay=${
-      app.context.args.overlay
-    }&bud.indicator=${app.context.args.indicator}&path=${app.hooks.filter(
-      'dev.middleware.hot.options.path',
-    )}`,
-  )
+  `@roots/bud-client/lib/hmr/index.cjs?name=${app.name}&bud.overlay=${
+    app.context.args.overlay
+  }&bud.indicator=${app.context.args.indicator}&path=${app.hooks.filter(
+    'dev.middleware.hot.options.path',
+  )}`
 
 /**
  * Overlay

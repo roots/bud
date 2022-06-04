@@ -8,10 +8,7 @@ const main = async (proxy = null) => {
     const {headers} = await fetch(window.location.href, {method: 'GET'})
     proxy = new URL(headers.get('x-bud-proxy-origin')).href
   } catch (err) {
-    return console.error(
-      `There was an issue requesting ${window.location.href} (it should be the current page).`,
-      err,
-    )
+    return console.error(err)
   }
 
   try {
@@ -45,7 +42,7 @@ const main = async (proxy = null) => {
     )
   } catch (err) {
     return console.error(
-      `There was a problem replacing hrefs for the proxied server. Exiting script early.`,
+      `There was a problem replacing hrefs in the proxied response. Exiting script early.`,
       err,
     )
   }

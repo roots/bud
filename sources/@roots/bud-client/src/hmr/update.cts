@@ -1,27 +1,31 @@
 /* eslint-disable no-console */
+/* global window __webpack_hash__ */
+
 /**
- * Based heavily on {@link https://github.com/webpack/webpack/blob/c0afdf9c6abc1dd70707c594e473802a566f7b6e/hot/only-dev-server.js}
+ * Based heavily on https://github.com/webpack/webpack/blob/
+ *  c0afdf9c6abc1dd70707c594e473802a566f7b6e/hot/only-dev-server.js
  * Original copyright Tobias Koppers `@sokra` (MIT license)
  */
 
-/* global window __webpack_hash__ */
-
+// @ts-ignore
 if (!module.hot) {
   throw new Error('[HMR] Hot Module Replacement is disabled.')
 }
 
-var hmrDocsUrl = 'https://webpack.js.org/concepts/hot-module-replacement/' // eslint-disable-line max-len
+var hmrDocsUrl = 'https://webpack.js.org/concepts/hot-module-replacement/'
 
-var lastHash
+var lastHash: string
 var failureStatuses = {abort: 1, fail: 1}
 
-function upToDate(hash) {
+function upToDate(hash?: string) {
   if (hash) lastHash = hash
+  // @ts-ignore
   return lastHash == __webpack_hash__
 }
 
 module.exports = function (hash, moduleMap, options) {
   var reload = options.reload
+  // @ts-ignore
   if (!upToDate(hash) && module.hot.status() == 'idle') {
     if (options.log)
       console.log('[HMR] Checking for updates on the server...')
@@ -83,6 +87,7 @@ module.exports = function (hash, moduleMap, options) {
         },
       }
 
+      // @ts-ignore
       var applyResult = module.hot.apply(applyOptions, applyCallback)
       // webpack 2 promise
       if (applyResult && applyResult.then) {
@@ -94,6 +99,7 @@ module.exports = function (hash, moduleMap, options) {
       }
     }
 
+    // @ts-ignore
     var result = module.hot.check(false, cb)
     // webpack 2 promise
     if (result && result.then) {
@@ -145,6 +151,7 @@ module.exports = function (hash, moduleMap, options) {
   }
 
   function handleError(err) {
+    // @ts-ignore
     if (module.hot.status() in failureStatuses) {
       if (options.warn) {
         console.warn('[HMR] Cannot check for update (Full reload needed)')

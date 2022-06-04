@@ -15,5 +15,10 @@ const options: (app: Bud) => any = app =>
  *
  * @public
  */
-export const hot = (app: Bud) =>
-  webpackHotMiddleware(app.compiler.compilation, options(app))
+export const hot = (app: Bud) => {
+  const middlewareOptions = options(app)
+
+  app.log(middlewareOptions)
+
+  return webpackHotMiddleware(app.compiler.compilation, middlewareOptions)
+}

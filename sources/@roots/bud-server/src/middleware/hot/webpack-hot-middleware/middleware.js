@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 
-import {pathMatch} from './helpers.js'
+import {pathMatch} from './helpers.cjs'
 
 function webpackHotMiddleware(compiler, opts) {
   opts = opts || {}

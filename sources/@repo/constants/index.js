@@ -1,5 +1,5 @@
 import {createRequire} from 'module'
-import {join} from 'node:path'
+import {join} from 'path'
 
 /**
  * Repo root path

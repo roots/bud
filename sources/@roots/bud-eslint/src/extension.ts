@@ -8,6 +8,15 @@ import {
 } from '@roots/bud-framework/extension/decorators'
 import EslintPlugin, {Options} from 'eslint-webpack-plugin'
 
+/**
+ * Eslint webpack plugin adapter
+ *
+ * @public
+ * @decorator `@label`
+ * @decorator `@expose`
+ * @decorator `@plugin`
+ * @decorator `@options`
+ */
 @label('@roots/bud-eslint')
 @expose('eslint')
 @plugin(EslintPlugin)
@@ -27,7 +36,7 @@ export default class BudEslint extends Extension<Options, EslintPlugin> {
    */
   @bind
   public async register() {
-    const eslintPath = await this.resolve('eslint')
+    const eslintPath = this.resolve('eslint')
     this.setOption('eslintPath', eslintPath)
   }
 

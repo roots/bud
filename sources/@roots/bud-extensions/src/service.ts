@@ -6,7 +6,11 @@ import {
   Service,
 } from '@roots/bud-framework'
 import chalk from 'chalk'
+import fs from 'fs-extra'
 import {bind} from 'helpful-decorators'
+import {createRequire} from 'node:module'
+import {dirname} from 'node:path/posix'
+import {pkgUp} from 'pkg-up'
 
 /**
  * Extensions Service
@@ -158,6 +162,16 @@ export default class Extensions
     if (this.has(pkgName)) return
 
     this.app.log(chalk.dim(`importing ${pkgName}`))
+
+    const projectRequire = createRequire(this.app.context.projectDir)
+    const cwd = dirname(projectRequire.resolve(pkgName))
+    const manifestPath = await pkgUp({cwd})
+
+    this.app.log(pkgName, cwd, manifestPath)
+    if (!manifestPath) return
+
+    const manifest = await fs.readJson(manifestPath)
+    if (manifest?.bud?.type !== 'extension') return
 
     const imported = await import(pkgName)
     const extensionModule: Extension = imported.default ?? imported

@@ -47,7 +47,7 @@ export class Logger {
   public makeInstance(constructorOverrides = {}, configOverrides = {}) {
     let instance = new Signale.Signale({
       interactive: this.interactive,
-      secrets: [this.app.context.projectDir, this.app.context.cwd],
+      // secrets: [this.app.context.projectDir, this.app.context.cwd],
       logLevel: this.level,
       types: types(this.app),
       scope: this.app.name ?? this.app.context.application.label,
