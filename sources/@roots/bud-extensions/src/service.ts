@@ -8,9 +8,7 @@ import {
 import chalk from 'chalk'
 import fs from 'fs-extra'
 import {bind} from 'helpful-decorators'
-import {createRequire} from 'node:module'
-import {dirname} from 'node:path/posix'
-import {pkgUp} from 'pkg-up'
+import {resolve} from 'import-meta-resolve'
 
 /**
  * Extensions Service
@@ -77,6 +75,7 @@ export default class Extensions
   @bind
   public remove<K extends keyof Modules>(key: K & string): this {
     delete this.repository[key]
+
     return this
   }
 
@@ -161,17 +160,24 @@ export default class Extensions
     const pkgName = typeof input !== 'string' ? input.label : input
     if (this.has(pkgName)) return
 
-    this.app.log(chalk.dim(`importing ${pkgName}`))
+    const manifestPath: string = await resolve(
+      pkgName,
+      import.meta.url,
+    ).then(path =>
+      path
+        .split(pkgName)
+        .shift()
+        .concat(`${pkgName}/package.json`)
+        .replace('file://', ''),
+    )
 
-    const projectRequire = createRequire(this.app.context.projectDir)
-    const cwd = dirname(projectRequire.resolve(pkgName))
-    const manifestPath = await pkgUp({cwd})
-
-    this.app.log(pkgName, cwd, manifestPath)
     if (!manifestPath) return
+    this.app.log(pkgName, '=>', manifestPath)
 
     const manifest = await fs.readJson(manifestPath)
     if (manifest?.bud?.type !== 'extension') return
+
+    if (this.has(pkgName)) return
 
     const imported = await import(pkgName)
     const extensionModule: Extension = imported.default ?? imported

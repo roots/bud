@@ -87,11 +87,8 @@ export default class Vue extends Extension<Options, null> {
 
   @bind
   protected async isVue2() {
-    const manifest = await this.app.module.readManifest([
-      'vue',
-      [this.path, 'vue'],
-    ])
-
+    const manifest = await this.app.module.readManifest('vue')
+    this.logger.log('vue manifest:', manifest)
     return parseSemver(`vue@${manifest.version}`).version.startsWith('2')
   }
 }

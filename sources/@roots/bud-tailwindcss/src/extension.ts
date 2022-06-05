@@ -24,7 +24,9 @@ export default class BudTailwindCss extends Extension {
   public async register() {
     try {
       const {default: tailwindcss} = await this.import('tailwindcss')
-      const {default: nesting} = await this.import('tailwindcss/nesting')
+      const {default: nesting} = await this.import(
+        'tailwindcss/nesting/index.js',
+      )
 
       this.app.postcss.setPlugins({
         'postcss-import': this.app.postcss.plugins.get('postcss-import'),

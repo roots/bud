@@ -47,7 +47,7 @@ type Opts = {
 export default class BudEsbuild extends Extension<Opts> {
   @bind
   public async boot() {
-    const loader = this.resolve('esbuild-loader')
+    const loader = await this.resolve('esbuild-loader')
 
     this.app.build
       .setLoader('esbuild', loader)

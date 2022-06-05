@@ -168,14 +168,7 @@ export default class BudPostCss extends Extension {
    */
   @bind
   public getPluginOptions(plugin: string): Record<string, any> {
-    if (!this.plugins.has(plugin)) {
-      this.app.error(
-        plugin,
-        'options requested but',
-        plugin,
-        'does not exist',
-      )
-    }
+    if (!this.plugins.has(plugin)) this.app.error(plugin, 'does not exist')
 
     return this.plugins.has(plugin) &&
       this.plugins.get(plugin).length &&
@@ -256,6 +249,11 @@ export default class BudPostCss extends Extension {
   @bind
   public async register() {
     const loader = await this.resolve('postcss-loader')
+    const importPlugin = await this.resolve('postcss-import')
+    const nestedPlugin = await this.resolve('postcss-nested')
+    const presetEnv = await this.resolve('postcss-preset-env').then(path =>
+      path.replace('.mjs', '.cjs'),
+    )
 
     /**
      * Install postcss-loader, postcss-loader options, and
@@ -273,10 +271,6 @@ export default class BudPostCss extends Extension {
         },
       })
       .rules.css.setUse(['precss', 'css', 'postcss'])
-
-    const importPlugin = await this.resolve('postcss-import')
-    const nestedPlugin = await this.resolve('postcss-nested')
-    const presetEnv = await this.resolve('postcss-preset-env')
 
     this.setPlugins(
       new Map([

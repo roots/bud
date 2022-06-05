@@ -22,14 +22,15 @@ export default class BudTypeScript extends Extension {
 
   @bind
   public async register() {
-    const loader = this.resolve('ts-loader')
+    const loader = await this.resolve('ts-loader')
+    const compiler = await this.resolve('typescript')
 
     this.app.build
       .setLoader('ts', loader)
       .setItem('ts', {
         loader: 'ts',
         options: {
-          compiler: this.resolve('typescript'),
+          compiler,
           transpileOnly: true,
         },
       })

@@ -1,9 +1,6 @@
 import {bind} from 'helpful-decorators'
-import importFrom from 'import-from'
-import {isArray, isString} from 'lodash-es'
-import {dirname} from 'node:path'
-import {pkgUp} from 'pkg-up'
-import resolveFrom from 'resolve-from'
+import {resolve} from 'import-meta-resolve'
+import {join, relative} from 'node:path/posix'
 
 import {Bud} from './bud'
 
@@ -21,105 +18,64 @@ export class Module {
   public constructor(public app: Bud) {}
 
   /**
+   * Get `package.json` absolute path from a module signifier
+   *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public arr(
-    request: string | Array<string | [string, string]>,
-  ): Array<[string, string]> {
-    return (isString(request) ? [this.app.path(), request] : request).map(
-      req => (isArray(req) ? req : [this.app.path(), req]),
+  public async getManifestPath(pkgName: string) {
+    return await this.resolve(pkgName)
+      .then(path => path.replace('file://', ''))
+      .then(path => relative(this.app.context.projectDir, path))
+      .then(path => path.split(pkgName).shift())
+      .then(path => join(path, pkgName, 'package.json'))
+  }
+
+  /**
+   * Read `package.json` manifest from a module signifier
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async readManifest(signifier: string) {
+    return await this.getManifestPath(signifier).then(async path => {
+      this.app.log(signifier, `manifest resolved to`, path)
+      return await this.app.json.read(path)
+    })
+  }
+
+  /**
+   * Resolve a module path from its signifier
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async resolve(
+    signifier: string,
+    parent?: string,
+  ): Promise<string> {
+    const resolvedPath = await resolve(
+      signifier,
+      parent ? `file://${parent}` : import.meta.url,
     )
+
+    return resolvedPath.replace('file://', '')
   }
 
   /**
-   * @public
-   * @decorator `@bind`
-   */
-  public reduceUntil<T = any>(
-    data: Array<[string, string]>,
-    fn: (...data: [string, string]) => T,
-  ): T {
-    return data.reduce(
-      (a: T, c: [string, string]) => a ?? fn(...c),
-      null,
-    ) as T
-  }
-
-  /**
+   * Import a module from its signifier
+   *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public async path(
-    candidates: string | Array<string | [string, string]>,
-  ) {
-    const manifest = await this.manifestPath(candidates)
-    return dirname(manifest)
-  }
+  public async import<T = any>(importPath: string): Promise<T> {
+    const resolvedPath = await this.resolve(importPath)
+    if (!resolvedPath) return
 
-  /**
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async manifestPath(
-    paths: string | Array<string | [string, string]>,
-  ) {
-    return await pkgUp({cwd: this.resolve(paths)})
-  }
-
-  /**
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async readManifest(
-    paths: string | Array<string | [string, string]>,
-  ) {
-    const manifestPath = await this.manifestPath(paths)
-    return await this.app.json.read(manifestPath)
-  }
-
-  /**
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public resolve(
-    importPaths: string | Array<string | [string, string]>,
-  ): string {
-    return this.reduceUntil<string>(
-      this.arr(importPaths),
-      resolveFrom.silent,
-    )
-  }
-
-  /**
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public import<T = any>(
-    importPaths: string | Array<string | [string, string]>,
-  ): T {
-    const fn = importFrom.silent as (str: string, str2: string) => T
-    return this.reduceUntil<T>(this.arr(importPaths), fn)
-  }
-
-  /**
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public resolvePreferred(
-    name: string,
-    ...importPaths: Array<string>
-  ): string {
-    return this.resolve([
-      name,
-      ...importPaths.map((path: string): [string, string] => [path, name]),
-    ])
+    return await import(resolvedPath)
   }
 }

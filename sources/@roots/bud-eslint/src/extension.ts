@@ -36,7 +36,7 @@ export default class BudEslint extends Extension<Options, EslintPlugin> {
    */
   @bind
   public async register() {
-    const eslintPath = this.resolve('eslint')
+    const eslintPath = await this.resolve('eslint')
     this.setOption('eslintPath', eslintPath)
   }
 

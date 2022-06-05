@@ -51,7 +51,7 @@ export default class BudSass extends Extension {
   @bind
   public async register() {
     const implementation = await this.implementation()
-    const loader = this.resolve('sass-loader')
+    const loader = await this.resolve('sass-loader')
 
     this.app.build
       .setLoader('sass', loader)

@@ -1,12 +1,8 @@
 import type {Bud} from '@roots/bud-framework'
 import type {Options as HtmlOptions} from 'html-webpack-plugin'
-import {posix as path} from 'node:path'
-import {pkgUp} from 'pkg-up'
 
 import BudHtmlWebpackPlugin from './html-webpack-plugin.extension.js'
 import BudInterpolateHtmlPlugin from './interpolate-html-plugin.extension.js'
-
-const {dirname, join} = path
 
 export interface template {
   (userOptions?: Options | boolean): Promise<Bud>
@@ -78,16 +74,6 @@ export const template: template = async function (
 
   app.info('processing html-webpack-plugin options')
   plugins.html.setOptions(userOptions)
-
-  if (!userOptions.template) {
-    const cwd = await app.module.resolve('@roots/bud-support')
-    const manifest = await pkgUp({cwd})
-
-    plugins.html.setOptions(options => ({
-      ...options,
-      template: join(dirname(manifest), 'templates/template.html'),
-    }))
-  }
 
   /**
    * If there were no replacements specified, we're done.

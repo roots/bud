@@ -41,7 +41,10 @@
   "module": "./lib/index.mjs",
   "types": "./lib/hmr.d.cts",
   "exports": {
-    ".": "./lib/index.mjs",
+    ".": {
+      "import": "./lib/index.mjs",
+      "require": "./lib/index.cjs"
+    },
     "./lib/*": "./lib/*"
   },
   "typesVersions": {

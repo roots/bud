@@ -78,18 +78,18 @@ export default class BabelExtension extends Extension<any, null> {
    */
   @bind
   public async register() {
-    const loader = this.resolve('babel-loader')
-    const presetEnv = this.resolve('@babel/preset-env')
-    const restSpread = this.resolve(
+    const loader = await this.resolve('babel-loader')
+    const presetEnv = await this.resolve('@babel/preset-env')
+    const restSpread = await this.resolve(
       '@babel/plugin-proposal-object-rest-spread',
     )
-    const transformRuntime = this.resolve(
+    const transformRuntime = await this.resolve(
       '@babel/plugin-transform-runtime',
     )
-    const dynamicImport = this.resolve(
+    const dynamicImport = await this.resolve(
       '@babel/plugin-syntax-dynamic-import',
     )
-    const classProperties = this.resolve(
+    const classProperties = await this.resolve(
       '@babel/plugin-proposal-class-properties',
     )
 

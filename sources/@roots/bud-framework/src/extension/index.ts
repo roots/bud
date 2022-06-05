@@ -89,7 +89,6 @@ export class Extension<E = any, Plugin = any> {
 
   @bind
   public async _init?() {
-    this.path = await this.app.module.path(this.label)
     if (this.init) {
       try {
         await this.init(this.options, this.app)
@@ -162,11 +161,6 @@ export class Extension<E = any, Plugin = any> {
    * @public
    */
   public apply?: Extension.PluginInstance['apply']
-
-  /**
-   * @public
-   */
-  public path?: string
 
   /**
    * @public
@@ -283,8 +277,8 @@ export class Extension<E = any, Plugin = any> {
    * @public
    */
   @bind
-  public resolve?(packageName: string): string {
-    const result = this.app.module.resolvePreferred(packageName, this.path)
+  public async resolve?(packageName: string): Promise<string> {
+    const result = await this.app.module.resolve(packageName)
     this.logger.log('resolved', packageName, 'to', result)
     return result
   }
@@ -295,7 +289,7 @@ export class Extension<E = any, Plugin = any> {
   @bind
   public async import?<T = any>(packageName: string): Promise<T> {
     try {
-      const result = await import(this.resolve(packageName))
+      const result = await this.app.module.import(packageName)
       this.logger.log('imported', packageName)
       return result
     } catch (error) {
