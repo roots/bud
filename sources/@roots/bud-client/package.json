@@ -37,18 +37,20 @@
     "lib/"
   ],
   "type": "commonjs",
-  "main": "./lib/hmr.cjs",
+  "main": "./lib/index.cjs",
+  "module": "./lib/index.mjs",
   "types": "./lib/hmr.d.cts",
   "exports": {
+    ".": "./lib/index.mjs",
     "./lib/*": "./lib/*"
   },
   "typesVersions": {
     "*": {
       ".": [
-        "./lib/hmr.d.cts"
+        "./lib/index.d.cts"
       ],
       "hmr": [
-        "./lib/hmr.d.cts"
+        "./lib/hmr/index.d.cts"
       ],
       "proxy-click-interceptor": [
         "./lib/proxy-click-interceptor.d.cts"
