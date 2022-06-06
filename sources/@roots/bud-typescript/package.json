@@ -47,8 +47,7 @@
     ".": "./lib/index.js",
     "./extension": "./lib/extension.js",
     "./tsconfig/tsconfig.json": "./tsconfig/tsconfig.json",
-    "./typecheck": "./lib/typecheck/index.js",
-    "./typecheck/extension": "./lib/typecheck/extension.js"
+    "./typecheck": "./lib/typecheck/index.js"
   },
   "typesVersions": {
     "*": {
@@ -60,9 +59,6 @@
       ],
       "typecheck": [
         "./lib/typecheck/index.d.ts"
-      ],
-      "typecheck/extension": [
-        "./lib/typecheck/extension.d.ts"
       ]
     }
   },
