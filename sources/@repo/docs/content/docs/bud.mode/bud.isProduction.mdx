@@ -14,7 +14,7 @@ sidebar_label: bud.isProduction
 Very useful in conditionals:
 
 ```js title='bud.config.js'
-module.exports = bud => bud.isProduction && bud.devtool('source-map')
+export default async bud => bud.isProduction && bud.devtool('source-map')
 ```
 
 Pairs well with [bud.when](/docs/bud.when):

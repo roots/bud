@@ -45,7 +45,7 @@ This is probably my recommended approach. Update `bud.config.js` to `bud.config.
 Update your config function to use the ESM `export` syntax:
 
 ```js
-module.exports = async bud => bud.entry('app', 'index')
+export default async bud => bud.entry('app', 'index')
 ```
 
 becomes:

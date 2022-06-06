@@ -13,13 +13,13 @@ A utility for multi-compiler builds. **bud.get** allows you to reference a named
 Get a compiler:
 
 ```js title='bud.config.js'
-module.exports = bud => bud.get('compiler-name')
+export default async bud => bud.get('compiler-name')
 ```
 
 Once you have a compiler instance you can continue chaining off it.
 
 ```js title='bud.config.js'
-module.exports = bud =>
+export default async bud =>
   bud.get('compiler-name').entry({
     main: ['index.js'],
   })
@@ -28,7 +28,7 @@ module.exports = bud =>
 The parent compiler is accessible using `global` or `parent`.
 
 ```js title='bud.config.js'
-module.exports = bud =>
+export default async bud =>
   bud
     /**
      * Configuring child compiler

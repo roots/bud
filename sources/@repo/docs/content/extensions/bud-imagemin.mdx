@@ -44,7 +44,7 @@ Sans configuration, the image minimizer extension will apply the libSquoosh `'au
 You can set options for an encoder with `imagemin.encode`:
 
 ```ts
-module.exports = bud => {
+export default async bud => {
   bud.imagemin
     /**
      * Set encoder options:
@@ -80,7 +80,7 @@ const options = new Map([
   ['webp', {}],
 ])
 
-module.exports = bud => {
+export default async bud => {
   bud.imagemin.setEncodeOptions(options)
 }
 ```
@@ -90,7 +90,7 @@ module.exports = bud => {
 You can replace libSquoosh with another implementation using `imagemin.setImplementation`:
 
 ```ts
-module.exports = bud => {
+export default async bud => {
   bud.imagemin.setImplementation(MyImplementation)
 }
 ```
@@ -100,7 +100,7 @@ module.exports = bud => {
 You can replace the libSquoosh generator with another implementation using `imagemin.setGeneratorImplementation`:
 
 ```ts
-module.exports = bud => {
+export default async bud => {
   bud.imagemin.setGeneratorImplementation(MyImplementation)
 }
 ```
