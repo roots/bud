@@ -360,7 +360,7 @@ export class Extension<E = any, Plugin = any> {
    * Resolve module using `import.meta.resolve` api
    *
    * @remarks
-   * Currently utilizing `import-meta-resolve` (npm package).
+   * Uses `import-meta-resolve` (npm package).
    * Will transition to node `import.meta.resolve` api when it is marked
    * non-experimental. It currently requires a flag to enable.
    *
@@ -370,6 +370,7 @@ export class Extension<E = any, Plugin = any> {
   @bind
   public async resolve?(signifier: string): Promise<string> {
     const modulePath = await this.app.module.resolve(signifier)
+
     this.logger.log(this.label, 'resolving', signifier, 'to', modulePath)
 
     return modulePath

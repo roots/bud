@@ -72,10 +72,18 @@
     "tslib": "2.4.0"
   },
   "peerDependencies": {
-    "@roots/bud-babel": "*"
+    "@roots/bud-babel": "*",
+    "@roots/bud-entrypoints": "*",
+    "@roots/bud-postcss": "*"
   },
   "peerDependenciesMeta": {
     "@roots/bud-babel": {
+      "optional": true
+    },
+    "@roots/bud-entrypoints": {
+      "optional": true
+    },
+    "@roots/bud-postcss": {
       "optional": true
     }
   }

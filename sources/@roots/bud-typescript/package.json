@@ -78,15 +78,19 @@
     "@types/webpack-env": "^1.16.3",
     "fork-ts-checker-webpack-plugin": "^7.2.6",
     "ts-loader": "^9.2.8",
-    "ts-node": "10.8.0",
+    "ts-node": "^10.8.0",
     "tslib": "2.4.0",
-    "typescript": "4.7.2"
+    "typescript": "^4.7.2"
   },
   "peerDependencies": {
+    "fork-ts-checker-webpack-plugin": "*",
     "ts-node": "*",
     "typescript": "*"
   },
   "peerDependenciesMeta": {
+    "fork-ts-checker-webpack-plugin": {
+      "optional": true
+    },
     "ts-node": {
       "optional": true
     },

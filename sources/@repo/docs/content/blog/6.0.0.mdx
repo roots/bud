@@ -1,0 +1,167 @@
+---
+slug: '6.0.0'
+title: 'Release: 6.0.0'
+description: 'Release notes for bud.js 6.0.0'
+date: 2022-06-06
+author: Kelly Mears
+author_title: Lead developer
+author_url: https://github.com/kellymears
+author_image_url: https://avatars.githubusercontent.com/u/397606?v=4
+tags: [release]
+---
+
+This major release transitions **bud.js** to ESM.
+
+<!--truncate-->
+
+The transition to EcmaScript modules is causing a lot of division and drama in the JS world, at the moment.
+Having just finished transitioning all of the nearly 50 packages that make up the **bud.js** monorepo to use
+ESM I can say in all honesty that I totally get it. It was a very frustrating experience.
+
+Which is to say, whatever problems come up with this release, let's work together as a community to help one another
+get through it. There will be problems. I hope not a lot, but this is the type of transition that happens every twenty
+years, _maybe_. And I can assure you, on the other side of throwing `require` out the window, it feels good to be on the
+future-facing side of a great schism like this one.
+
+I hope the appeal for solidarity wasn't too spooky because the good news is that, for the vast majority of
+**bud.js** users, not much is required here.
+
+See ["that sindresorhus README"](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c) for more context.
+
+## Upgrade guide
+
+There are three paths for JS users.
+
+Things are a litle different for users with configuration files authored in TypeScript, and we'll get to that.
+
+### Keep your config file the same and use the `.cjs` extension
+
+This is the simplest possible path forward. Update `bud.config.js` to `bud.config.cjs`.
+
+### Update your config file to use ESM syntax and use the extension `.mjs`.
+
+This is probably my recommended approach. Update `bud.config.js` to `bud.config.mjs`.
+
+Update your config function to use the ESM `export` syntax:
+
+```js
+module.exports = async bud => bud.entry('app', 'index')
+```
+
+becomes:
+
+```js
+export default async bud => bud.entry('app', 'index')
+```
+
+### Transition your entire project to ESM
+
+This is the most involved approach. There is no way I can cover it fully in this release post. But, I will try to sketch it out:
+
+First, add a `type` field to `package.json` indicating your project is opting in to ESM:
+
+```json
+{
+  "name": "project",
+  "type": "module"
+}
+```
+
+Then update `bud.config.js` to use `export` syntax as described above.
+
+You will also need to update all other files in your project accordingly. Some build tools allow for using `export` syntax. Others do not.
+
+For example, `stylelint` does not support `export`. So you will update `stylelint.config.js` to `stylelint.config.cjs`.
+
+Jest, on the other hand, does support `export`. You will either want to update your jest config file to use ESM `export` syntax or rename it to `jest.config.cjs`.
+
+Check the documentation for each tool. Read up on ESM.
+
+### TypeScript configs
+
+TypeScript 4.7.2 offers two new TypeScript extensions to deal with CJS/ESM compatibility issues: `.cts` and `.mts` (they have their own declaration file extensions as well: `.d.cts` and `.d.mts`).
+
+In general, I'd imagine most TS users already author their `bud.config.ts` file with `export` syntax. If that's the case, you will likely just want to update the file name to `bud.config.mts`.
+
+There is one other problem with TypeScript and ESM: it is not possible to hack `import` at runtime the way we can hack `require` at runtime. **bud.js** uses [ts-node](https://github.com/ts-node)
+to import TS configs when it is available, but with ESM we also need to register an `import` loader so that the config file can be parsed. This can't be done at runtime.
+
+`ts-node` offers a flag to set this up:
+
+```bash
+ts-node --esm --transpileOnly
+```
+
+And **bud.js** offers a `bin` that wraps the standard `bud` command accordingly: `ts-bud`. Use it instead of `bud`.
+
+If this doesn't work for you, or you need to adjust other `ts-node` flags, you may do this yourself:
+
+```sh
+ts-node --esm --transpileOnly ./node_modules/.bin/bud build
+```
+
+### Transitioning from `require`
+
+If you have updated your configuration file to use `export` syntax or you are fully opting in to use `ESM` across your entire project, you will no longer
+be able to `require` modules or packages in your config file.
+
+Users writing in a `bud.config.mts` file (TypeScript) can just `import` the `CJS` module as if
+it were ESM. TypeScript will figure it out. Users writing in a `bud.config.mjs` file are not quite so lucky, but there are still options.
+
+You can use a `dynamic import` instead of a `require`:
+
+```js
+export default async bud => {
+  await import('browsersync-webpack-plugin')
+}
+```
+
+You may find that the code returned from a dynamic `import` is set inside of a property called `default`. You can either test for that or you can use the **bud.js** module
+utility (which will automatically return the value of `default`, if it is set):
+
+```js
+export default async bud => {
+  await bud.module.import('browsersync-webpack-plugin')
+}
+```
+
+The `node:module` interface provides a function `createRequire` that will let you directly require `CommonJS` code like you may be used to.
+[See the nodejs module docs on `createRequire`](https://nodejs.org/api/module.html#modulecreaterequirefilename).
+
+**bud.js** has an instance of the `Require` function available at `bud.module.require` (it's context is the directory containing the project `package.json`):
+
+```js
+export default async bud => {
+  bud.module.require('browser-sync-webpack-plugin')
+
+  // require.resolve works too
+  bud.module.require.resolve('browser-sync-webpack-plugin')
+}
+```
+
+If you just want the path to a module and aren't sure if it is CommonJS or ESM, you can use `bud.module.resolve`:
+
+```js
+export default async bud => {
+  await bud.module.resolve('browser-sync-webpack-plugin')
+}
+```
+
+This functionality is provided using the [`import-meta-resolve`](https://github.com/wooorm/import-meta-resolve) package. In the future we'll use the
+`import.meta.resolve` API directly but right now it is labeled as `experimental` and requires a flag.
+
+## Additional details
+
+- all extensions now provide a predictable export of `./extension`. example: `@roots/bud-react/extension`.
+- all `stylelint` and `eslint` presets are exported with the `.cjs` extension. If your eslint or stylelint config is already using the preset without an extension (as documented) you don't have to do anything. If you are specifying `.js` you will need to update it.
+- the `lib` and `types` directories for all packages have been merged.
+- all published code targets `es2020`. Update to node 16 if you are running an outdated version of node.
+- `@roots/bud-support` is deprecated
+- `@roots/bud-library` is deprecated (just use the standard cache -- it's now better than this extension)
+
+## More information
+
+For more information:
+
+- [Read the release changelog](/releases/6.0.0)
+- [Review the diff to see what's changed](https://github.com/roots/bud/compare/v5.8.0...v6.0.0)
