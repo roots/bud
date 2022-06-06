@@ -1,12 +1,12 @@
-import {Bud, Config, Logger} from '..'
-import * as methods from '../methods'
-import {Module} from '../module'
-import * as Process from '../process'
+import {Bud, Config, Logger} from '../index.js'
+import * as methods from '../methods/index.js'
+import {Module} from '../module.js'
+import * as Process from '../process.js'
 import {
   DEVELOPMENT_SERVICES,
   LIFECYCLE_EVENTS,
   PARENT_SERVICES,
-} from './constants'
+} from './constants.js'
 
 /**
  * Bootstrap interface
@@ -36,8 +36,6 @@ export async function lifecycle(
 ): Promise<Bud> {
   this.options = {...options}
 
-  this.module = new Module(this)
-
   this.children = {}
 
   Object.entries(methods).map(([key, method]) => {
@@ -47,6 +45,7 @@ export async function lifecycle(
   if (!this.isRoot) Process.initialize(this)
 
   this.logger = new Logger(this)
+  this.module = new Module(this)
 
   const initialized = Object.entries({...this.options.services})
     .filter(

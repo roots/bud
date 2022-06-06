@@ -1,3 +1,3 @@
-import domReady from './dom-ready'
+import domReady from './dom-ready.js'
 
 export {domReady}

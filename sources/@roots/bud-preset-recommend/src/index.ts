@@ -10,7 +10,7 @@
  * @packageDocumentation
  */
 
-import './env'
+import './env.js'
 
-import BudPresetRecommend from './extension'
+import BudPresetRecommend from './extension.js'
 export default BudPresetRecommend

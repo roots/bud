@@ -11,4 +11,6 @@
  *  @packageDocumentation
  */
 
-export {Compiler} from './Compiler/compiler.service'
+import {Compiler} from './compiler.service.js'
+
+export {Compiler, Compiler as Service, Compiler as default}

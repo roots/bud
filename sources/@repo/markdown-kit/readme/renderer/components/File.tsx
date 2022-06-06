@@ -1,4 +1,4 @@
-import {readFileSync} from 'fs-extra'
+import fs from 'fs-extra'
 
 export class File {
   public props
@@ -8,9 +8,6 @@ export class File {
   }
 
   public render() {
-    return readFileSync(
-      `${process.cwd()}/${this.props.path}`,
-      'utf8',
-    )
+    return fs.readFileSync(`${process.cwd()}/${this.props.path}`, 'utf8')
   }
 }

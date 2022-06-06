@@ -1,12 +1,9 @@
 import {Bud} from '@roots/bud-framework'
-import {fs} from '@roots/bud-support'
-import {ensureDir} from 'fs-extra'
-import {urlToHttpOptions} from 'url'
-
-const {writeJson} = fs
+import fs from 'fs-extra'
+import {urlToHttpOptions} from 'node:url'
 
 /**
- * Event compiler done hook
+ * `event.compiler.done` callback
  *
  * @remarks
  * Generates and emits `hmr.json` with proxy/dev server information
@@ -16,9 +13,9 @@ const {writeJson} = fs
  */
 export default async function (app: Bud) {
   try {
-    await ensureDir(app.path('@dist'))
+    await fs.ensureDir(app.path('@dist'))
 
-    await writeJson(app.path('@dist', 'hmr.json'), {
+    await fs.writeJson(app.path('@dist', 'hmr.json'), {
       dev: urlToHttpOptions(app.server.connection.url) ?? null,
       proxy:
         urlToHttpOptions(

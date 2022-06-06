@@ -1,4 +1,4 @@
-import {Bud} from '../bud'
+import {Bud} from '../bud.js'
 
 export interface Events {
   'app.close': (app?: Bud) => any

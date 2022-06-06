@@ -1,12 +1,12 @@
 import {EntrypointsWebpackPlugin} from '@roots/entrypoints-webpack-plugin'
-import {Chunk} from 'webpack'
+import Webpack from 'webpack'
 
 describe('entrypoints.json', () => {
   it('should get chunk file list', () => {
     const entrypoints = new EntrypointsWebpackPlugin({
       publicPath: '/public/',
     })
-    const chonk = new Chunk()
+    const chonk = new Webpack.Chunk()
     chonk.files = new Set(['foo.js', 'bar.js'])
     const files = entrypoints.getEntrypointFiles({
       chunks: [chonk],

@@ -1,3 +1,6 @@
+import '@roots/bud-postcss'
+
+import {describe, expect, it} from '@jest/globals'
 import {Bud, factory} from '@repo/test-kit/bud'
 import BudTailwindCssExtension from '@roots/bud-tailwindcss'
 

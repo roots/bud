@@ -16,22 +16,21 @@ export default class BudTypeScript extends Extension {
 
   @bind
   public async init() {
-    const {default: typecheck} = await import('./typecheck')
+    const {default: typecheck} = await import('./typecheck/index.js')
     await this.app.extensions.add(typecheck)
   }
 
   @bind
   public async register() {
-    this.app.hooks.on('build.resolve.extensions', ext =>
-      ext.add('.ts').add('.tsx'),
-    )
+    const loader = await this.resolve('ts-loader')
+    const compiler = await this.resolve('typescript')
 
     this.app.build
-      .setLoader('ts', this.resolve('ts-loader'))
+      .setLoader('ts', loader)
       .setItem('ts', {
         loader: 'ts',
         options: {
-          compiler: this.resolve('typescript'),
+          compiler,
           transpileOnly: true,
         },
       })
@@ -42,5 +41,9 @@ export default class BudTypeScript extends Extension {
       })
 
     this.app.build.rules.js.setUse(['babel', 'ts'])
+
+    this.app.hooks.on('build.resolve.extensions', ext =>
+      ext.add('.ts').add('.tsx'),
+    )
   }
 }

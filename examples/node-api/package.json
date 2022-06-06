@@ -13,9 +13,10 @@
       "last 1 safari version"
     ]
   },
+  "type": "module",
   "devDependencies": {
     "@roots/bud": "latest",
     "@roots/bud-babel": "latest",
-    "webpack": "5.70.0"
+    "webpack": "5.73.0"
   }
 }

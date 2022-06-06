@@ -7,6 +7,9 @@ import {Command} from './base.command'
 const tsConfig = join(paths.config, 'tsconfig.json')
 const ncc = join(paths.sources, `@repo/compile-kit/src/cjs`)
 
+const tsConfigEsm = join(paths.config, 'tsconfig.esm.json')
+const nccEsm = join(paths.sources, `@repo/compile-kit/src/esm`)
+
 export class Compile extends Command {
   /**
    * Command name

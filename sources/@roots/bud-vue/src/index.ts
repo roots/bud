@@ -10,7 +10,7 @@
  * @packageDocumentation
  */
 
-import './env'
+import './env.js'
 
-import Vue from './extension'
+import Vue from './extension.js'
 export default Vue

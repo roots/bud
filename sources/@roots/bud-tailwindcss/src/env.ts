@@ -1,4 +1,4 @@
-import BudTailwindCss from './extension'
+import BudTailwindCss from './extension.js'
 
 declare module '@roots/bud-framework' {
   interface Modules {

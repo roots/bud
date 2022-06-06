@@ -1,9 +1,8 @@
 import {Bud} from '@roots/bud-framework'
-import {bind, lodash} from '@roots/bud-support'
+import {bind} from 'helpful-decorators'
+import {isFunction, isObject} from 'lodash-es'
 
-import {ConfigManifest} from '../../services/Project/repository'
-
-const {isFunction, isObject} = lodash
+import {ConfigManifest} from '../../services/project/repository.js'
 
 /**
  * User config parser
@@ -35,11 +34,13 @@ class Configuration {
         })
 
     Object.keys(this.manifest).map(k =>
-      this.app.info({message: `Processing config: ${k}`}),
+      this.app.info({message: `Received config: ${k}`}),
     )
   }
 
   /**
+   * Process configuration
+   *
    * @public
    * @decorator `@bind`
    */
@@ -47,6 +48,8 @@ class Configuration {
   public async run(): Promise<void> {
     await Promise.all(
       Object.entries(this.manifest).map(async ([name, config]) => {
+        this.app.info({message: `Processing config: ${name}`})
+
         if (!isFunction(config) && !isObject(config))
           return this.app.error(
             `bud tried to parse ${
@@ -62,9 +65,10 @@ class Configuration {
   }
 
   /**
+   * Process static configuration
+   *
    * @public
    * @decorator `@bind`
-   * @decorator `@log`
    */
   @bind
   public async processStatic(config: Record<string, any>): Promise<void> {
@@ -79,6 +83,8 @@ class Configuration {
 }
 
 /**
+ * Process dynamic configuration
+ *
  * @public
  */
 export const config = async (app: Bud) => {

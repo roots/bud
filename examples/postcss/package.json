@@ -1,6 +1,7 @@
 {
   "name": "example-postcss",
   "private": true,
+  "type": "module",
   "browserslist": {
     "production": [
       ">0.5%",

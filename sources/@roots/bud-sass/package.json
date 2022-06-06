@@ -32,50 +32,48 @@
     "sass"
   ],
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   },
   "bud": {
     "type": "extension"
   },
   "files": [
     "lib/",
-    "types/",
     "stylelint-config/"
   ],
-  "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.js",
-  "types": "./types/index.d.ts",
+  "type": "module",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "exports": {
-    ".": "./lib/cjs/index.js",
-    "./extension": "./lib/cjs/extension.js",
-    "./stylelint-config": "./stylelint-config/index.js"
+    ".": "./lib/index.js",
+    "./extension": "./lib/extension.js",
+    "./stylelint-config": "./stylelint-config/index.cjs"
   },
   "typesVersions": {
     "*": {
       ".": [
-        "./types/index.d.ts"
+        "./lib/index.d.ts"
       ],
       "env": [
-        "./types/env.d.ts"
+        "./lib/env.d.ts"
       ],
       "extension": [
-        "./types/extension.d.ts"
+        "./lib/extension.d.ts"
       ]
     }
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/lodash": "4.14.182",
     "@types/node": "16.11.36",
     "webpack": "5.72.1"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
-    "postcss-scss": "4.0.4",
-    "sass": "1.52.1",
-    "sass-loader": "13.0.0",
-    "stylelint-config-recommended-scss": "6.0.0",
+    "postcss-scss": "^4.0.4",
+    "sass": "^1.52.1",
+    "sass-loader": "^13.0.0",
+    "stylelint-config-recommended-scss": "^6.0.0",
     "tslib": "2.4.0"
   },
   "peerDependencies": {

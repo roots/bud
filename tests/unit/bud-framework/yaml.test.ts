@@ -8,7 +8,9 @@ describe('bud.yml', () => {
       expect(read).toBeInstanceOf(Function)
     })
     it('reads yml', async () => {
-      const manifest = await read(join(paths.root, '.yarnrc.yml'))
+      const manifest: Record<string, any> = await read(
+        join(paths.root, '.yarnrc.yml'),
+      )
       expect(manifest.enableTelemetry).toBe(false)
     })
   })

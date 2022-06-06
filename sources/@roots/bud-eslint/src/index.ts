@@ -10,7 +10,7 @@
  * @packageDocumentation
  */
 
-import './env'
+import './env.js'
 
-import BudEslint from './extension'
+import BudEslint from './extension.js'
 export default BudEslint

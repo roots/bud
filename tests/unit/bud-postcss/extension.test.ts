@@ -1,6 +1,6 @@
+import {beforeAll, describe, expect, it} from '@jest/globals'
 import {Bud, factory} from '@repo/test-kit/bud'
 import BudPostCss from '@roots/bud-postcss'
-import {resolve} from 'path'
 
 describe('@roots/bud-postcss', () => {
   let bud: Bud
@@ -119,29 +119,25 @@ describe('@roots/bud-postcss', () => {
   })
 
   it('setPlugin (arr)', () => {
-    bud.postcss.setPlugins({})
-    bud.postcss.setPlugin(
-      'postcss-preset-env',
-      require.resolve('postcss-preset-env'),
-    )
+    const signifier = 'postcss-preset-env'
 
-    expect(bud.postcss.plugins.get('postcss-preset-env')).toEqual(
-      expect.arrayContaining([
-        expect.stringContaining('postcss-preset-env/'),
-      ]),
+    bud.postcss.setPlugins({})
+    bud.postcss.setPlugin(signifier, signifier)
+
+    expect(bud.postcss.plugins.get(signifier)).toEqual(
+      expect.arrayContaining([expect.stringContaining(signifier)]),
     )
   })
 
   it('setPlugin (arr w/options)', () => {
-    bud.postcss.setPlugins({})
-    bud.postcss.setPlugin('postcss-preset-env', [
-      require.resolve('postcss-preset-env'),
-      {option: 'value'},
-    ])
+    const signifier = 'postcss-preset-env'
 
-    expect(bud.postcss.plugins.get('postcss-preset-env')).toEqual(
+    bud.postcss.setPlugins({})
+    bud.postcss.setPlugin(signifier, [signifier, {option: 'value'}])
+
+    expect(bud.postcss.plugins.get(signifier)).toEqual(
       expect.arrayContaining([
-        expect.stringContaining('postcss-preset-env/'),
+        expect.stringContaining(signifier),
         expect.objectContaining({option: 'value'}),
       ]),
     )

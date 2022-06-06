@@ -1,11 +1,11 @@
 import * as Framework from '@roots/bud-framework'
 
-import {Application} from './application'
-import {Context} from './context'
-import {Dir} from './dir'
-import {Disk} from './disk'
-import {Env} from './env'
-import {Manifest} from './manifest'
+import {Application} from './application.js'
+import {Context} from './context.js'
+import {Dir} from './dir.js'
+import {Disk} from './disk.js'
+import {Env} from './env.js'
+import {Manifest} from './manifest.js'
 
 /**
  * Context factory

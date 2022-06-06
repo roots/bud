@@ -1,12 +1,18 @@
-import {dotenv, dotenvExpand} from '@roots/bud-support'
+import dotenv from 'dotenv'
+import {expand} from 'dotenv-expand'
 import {join} from 'node:path'
 
 /**
- * Env context
+ * Context: env
+ *
  * @public
  */
 export class Env {
-  /** @public */
+  /**
+   * Env dictionary
+   *
+   * @public
+   */
   [key: string]: string | undefined
 
   /**
@@ -22,13 +28,13 @@ export class Env {
     })
 
     const get = (path: string) => {
-      const {parsed, error} = dotenv.config({path})
-      if (error || !parsed) return
+      const env = dotenv.config({path})
+      if (!env?.parsed || env?.error) return
 
-      const expanded = dotenvExpand(parsed)
+      const expanded = expand(env)
       if (!expanded) return
 
-      Object.entries(expanded).map(([k, v]) => {
+      Object.entries(expanded.parsed).map(([k, v]) => {
         values[k] = v
       })
     }

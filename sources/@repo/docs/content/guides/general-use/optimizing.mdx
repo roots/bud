@@ -13,7 +13,7 @@ import TabItem from '@theme/TabItem'
 Minify css and js output using [bud.minimize](/docs/bud.minimize)
 
 ```js {4} title='bud.config.js'
-module.exports = async bud => {
+export default async bud => {
   bud.minimize()
 }
 ```
@@ -23,7 +23,7 @@ module.exports = async bud => {
 Add filename hashing using [bud.hash](/docs/bud.hash)
 
 ```js {14} title='bud.config.js'
-module.exports = async bud => bud.hash()
+export default async bud => bud.hash()
 ```
 
 ## Create a runtime
@@ -31,7 +31,7 @@ module.exports = async bud => bud.hash()
 We can leverage code splitting using [bud.runtime](/docs/bud.runtime)
 
 ```js {15} title='bud.config.js'
-module.exports = async bud => bud.runtime('single')
+export default async bud => bud.runtime('single')
 ```
 
 ## Split out vendored code
@@ -40,7 +40,7 @@ We'll probably end up with project dependencies. We can use [bud.splitChunks](/d
 they are always packaged separately from our application code.
 
 ```js {16} title='bud.config.js'
-module.exports = async bud => bud.splitChunks()
+export default async bud => bud.splitChunks()
 ```
 
 ## Optimizing images
@@ -71,7 +71,7 @@ Image optimization can be added using the [@roots/bud-imagemin](/extensions/bud-
 Try [bud.when](/docs/bud.when) to simplify conditional statements.
 
 ```js {13-20} title='bud.config.js'
-module.exports = async bud =>
+export default async bud =>
   bud.when(bud.isProduction, bud =>
     bud.minimize().hash().runtime().splitChunks(),
   )

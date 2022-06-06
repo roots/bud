@@ -18,5 +18,5 @@ declare module '@roots/bud-framework' {
   }
 }
 
-import BudSolid from './extension'
+import BudSolid from './extension.js'
 export default BudSolid

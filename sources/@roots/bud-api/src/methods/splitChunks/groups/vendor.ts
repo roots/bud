@@ -9,15 +9,14 @@ export const chunks = 'all'
  * Cache group test
  *
  * @remarks
- * Hot reload scripts, bud utilities, ansi parsers, loaders.. stuff
- * that probably has nothing to do with the app
+ * Node modules code
  *
  * @public
  */
 export const test: RegExp = /[\\/]node_modules[\\/]/
 
 /**
- * vendor cache group name
+ * `vendor` cache group name
  *
  * @remarks
  * in the format of `vendor/[chunk].[chunk].js`

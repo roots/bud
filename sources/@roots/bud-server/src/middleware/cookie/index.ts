@@ -1,4 +1,4 @@
-import {Bud} from '@roots/bud-framework/src'
+import {Bud} from '@roots/bud-framework'
 import cookieParserMiddleware from 'cookie-parser'
 
 /**

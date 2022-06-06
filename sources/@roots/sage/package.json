@@ -30,7 +30,7 @@
     "sage"
   ],
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   },
   "bud": {
     "type": "extension"
@@ -38,45 +38,52 @@
   "files": [
     "stylelint-config/",
     "tsconfig/",
-    "lib/",
-    "types/"
+    "lib/"
   ],
-  "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.js",
-  "types": "./types/index.d.ts",
+  "type": "module",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "exports": {
-    ".": "./lib/cjs/index.js",
-    "./client": "./lib/cjs/client/index.js",
-    "./client/dom-ready": "./lib/cjs/client/dom-ready.js",
-    "./theme": "./lib/cjs/theme/index.js",
-    "./stylelint-config": "./stylelint-config/index.js"
+    ".": "./lib/index.js",
+    "./extension": "./lib/extension.js",
+    "./client": "./lib/client/index.js",
+    "./client/dom-ready": "./lib/client/dom-ready.js",
+    "./theme": "./lib/theme/index.js",
+    "./stylelint-config": "./stylelint-config/index.cjs"
   },
   "typesVersions": {
     "*": {
       ".": [
-        "./types/index.d.ts"
+        "./lib/index.d.ts"
       ],
       "client": [
-        "./types/client/index.d.ts"
+        "./lib/client/index.d.ts"
       ],
       "client/dom-ready": [
-        "./types/client/dom-ready.d.ts"
+        "./lib/client/dom-ready.d.ts"
+      ],
+      "extension": [
+        "./lib/extension.d.ts"
       ],
       "theme": [
-        "./types/theme/index.d.ts"
+        "./lib/theme/index.d.ts"
       ]
     }
   },
   "devDependencies": {
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@skypack/package-check": "0.2.2",
+    "@types/fs-extra": "9.0.13",
+    "@types/lodash-es": "^4",
     "@types/node": "16.11.36",
     "webpack": "5.72.1"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-preset-wordpress": "workspace:sources/@roots/bud-preset-wordpress",
-    "@roots/bud-support": "workspace:sources/@roots/bud-support",
+    "fs-extra": "10.1.0",
+    "helpful-decorators": "2.1.0",
+    "lodash-es": "4.17.21",
     "tslib": "2.4.0"
   }
 }

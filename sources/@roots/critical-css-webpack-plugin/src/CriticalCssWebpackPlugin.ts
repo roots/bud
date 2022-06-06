@@ -1,10 +1,10 @@
-import {boundMethod as bind} from 'autobind-decorator'
 import critical from 'critical'
+import {bind} from 'helpful-decorators'
 import safeRequire from 'safe-require'
 import vinyl from 'vinyl'
 import * as Webpack from 'webpack'
 
-import type {Options} from './interface'
+import type {Options} from './interface.js'
 
 /**
  * HtmlWebpackPlugin

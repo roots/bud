@@ -32,21 +32,30 @@
     "esbuild"
   ],
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   },
   "files": [
-    "lib/",
-    "types/"
+    "lib/"
   ],
-  "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.js",
-  "types": "./types/index.d.ts",
-  "exports": {
-    "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.js"
-  },
   "bud": {
     "type": "extension"
+  },
+  "type": "module",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": "./lib/index.js",
+    "./extension": "./lib/extension.js"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ],
+      "extension": [
+        "./lib/extension.d.ts"
+      ]
+    }
   },
   "devDependencies": {
     "@roots/bud-api": "workspace:sources/@roots/bud-api",

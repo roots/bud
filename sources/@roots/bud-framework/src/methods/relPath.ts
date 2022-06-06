@@ -1,6 +1,6 @@
 import {relative} from 'node:path'
 
-import {Bud} from '..'
+import {Bud} from '../bud.js'
 
 export interface relPath {
   (...parts: [string, string] | [string]): string

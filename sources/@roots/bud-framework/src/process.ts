@@ -1,22 +1,12 @@
-import {boxen, fs} from '@roots/bud-support'
+import fs from 'fs-extra'
 
-import {Bud} from './'
-
-const {removeSync} = fs
+import {Bud} from './bud.js'
 
 /**
  * Render error
  */
 const renderError = (msg: string, name?: string) => {
-  process.stderr.write(
-    boxen(`\n${msg}\n`, {
-      title: name ?? 'error',
-      borderStyle: 'bold',
-      borderColor: 'red',
-      padding: 1,
-      margin: 1,
-    }),
-  )
+  process.stderr.write(`\n${msg}\n`)
 }
 
 /**
@@ -27,7 +17,7 @@ const curryHandler = function (this: Bud, code: number) {
 
   const close = () => {
     try {
-      ERROR && removeSync(this.path('@storage/cache'))
+      ERROR && fs.removeSync(this.path('@storage/cache'))
       this.close()
     } catch (err) {
       process.exitCode = code

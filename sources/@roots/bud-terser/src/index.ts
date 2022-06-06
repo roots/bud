@@ -10,7 +10,7 @@
  * @packageDocumentation
  */
 
-import './env'
+import './env.js'
 
-import BudTerser from './extension'
+import BudTerser from './extension.js'
 export default BudTerser

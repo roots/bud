@@ -2,21 +2,36 @@
   "name": "@repo/test-kit",
   "packageManager": "yarn@3.2.1",
   "private": true,
+  "type": "module",
   "exports": {
-    "./bud": "./bud.ts",
-    "./project": "./project.ts",
-    "./moduleNameMapper": "./moduleNameMapper.js"
+    "./bud": "./compiled/bud.js",
+    "./integration": "./compiled/integration.js",
+    "./project": "./compiled/project.js"
+  },
+  "typesVersions": {
+    "*": {
+      "bud": [
+        "./compiled/bud.d.ts"
+      ],
+      "integration": [
+        "./compiled/integration.d.ts"
+      ],
+      "project": [
+        "./compiled/project.d.ts"
+      ]
+    }
   },
   "devDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
-    "@roots/bud-support": "link:sources/@roots/bud-support/lib/index.js",
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@types/fs-extra": "9.0.13",
+    "chalk": "5.0.1",
+    "execa": "6.1.0",
     "fs-extra": "10.1.0",
+    "globby": "13.1.1",
     "helpful-decorators": "2.1.0",
     "jest": "28.1.0",
-    "json5": "2.2.1"
-  },
-  "dependencies": {
+    "json5": "2.2.1",
     "tslib": "2.4.0"
   }
 }

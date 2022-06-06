@@ -1,24 +1,13 @@
 {
   "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
-    "baseUrl": ".",
-    "rootDir": "./src",
-    "outDir": "./lib/cjs",
-    "declarationDir": "./types",
-    "esModuleInterop": true,
-    "types": ["node"]
+    
+    "rootDir": "src",
+    "outDir": "lib",
+    "module": "esnext",
+    "types": ["node", "@roots/bud-framework"]
   },
   "include": ["src"],
-  "exclude": ["lib", "node_modules", "types"],
-  "references": [
-    {
-      "path": "./../bud-framework/tsconfig.json"
-    },
-    {
-      "path": "./../bud-support/tsconfig.json"
-    },
-    {
-      "path": "./../ink-use-style/tsconfig.json"
-    }
-  ]
+  "exclude": ["lib", "node_modules"],
+  "references": [{"path": "./../bud-framework/tsconfig.json"}]
 }

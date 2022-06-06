@@ -10,14 +10,22 @@
  * @packageDocumentation
  */
 
-export {Build} from './Build'
+import * as items from './handlers/items.js'
+import * as loaders from './handlers/loaders.js'
+import * as rules from './handlers/rules.js'
+import Item from './item.js'
+import Loader from './loader.js'
+import Rule from './rule.js'
+import {Build} from './service.js'
 
-import Item from './Item'
-import Loader from './Loader'
-import Rule from './Rule'
-
-export {Loader, Item, Rule}
-
-export * as items from './items'
-export * as loaders from './loaders'
-export * as rules from './rules'
+export {
+  Build,
+  Build as Service,
+  Build as default,
+  Loader,
+  Item,
+  Rule,
+  items,
+  loaders,
+  rules,
+}

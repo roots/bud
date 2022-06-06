@@ -4,13 +4,13 @@ import {
   label,
   plugin,
 } from '@roots/bud-framework/extension/decorators'
-import {DefinePlugin} from 'webpack'
+import Webpack from 'webpack'
 
 @label('webpack:define-plugin')
-@plugin(DefinePlugin)
-class BudDefine extends Extension<
-  Record<string, DefinePlugin['definitions']>,
-  DefinePlugin
+@plugin(Webpack.DefinePlugin)
+export default class BudDefine extends Extension<
+  Record<string, Webpack.DefinePlugin['definitions']>,
+  Webpack.DefinePlugin
 > {
   @bind
   public async init() {
@@ -22,5 +22,3 @@ class BudDefine extends Extension<
     return this.options && Object.keys(this.options).length > 0
   }
 }
-
-export default BudDefine

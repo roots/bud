@@ -1,2 +1,2 @@
-export {factory} from './facade.factory'
-export {Facade} from './facade.interface'
+export {factory} from './facade.factory.js'
+export {Facade} from './facade.interface.js'

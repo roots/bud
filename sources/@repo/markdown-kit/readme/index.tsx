@@ -1,13 +1,13 @@
 import {paths, projectConfig} from '@repo/constants'
 import {log, logger} from '@repo/logger'
-import {readJson} from 'fs-extra'
-import {chunk} from 'lodash'
+import fs from 'fs-extra'
+import {chunk} from 'lodash-es'
 import {cpus} from 'os'
 import path from 'path'
 import React from 'react'
 
-import {render} from './renderer'
-import * as Template from './templates'
+import {render} from './renderer/index.js'
+import * as Template from './templates/index.js'
 
 /**
  * Get the absolute path of a repo file or directory
@@ -36,7 +36,9 @@ const writeReadme = async (
 async function getReadmeProps(
   packageName: string,
 ): Promise<Record<string, any>> {
-  const json = await readJson(getPackagePath(packageName, 'package.json'))
+  const json = await fs.readJson(
+    getPackagePath(packageName, 'package.json'),
+  )
   return {...json, projectConfig}
 }
 

@@ -1,6 +1,6 @@
 import {Bud} from '@roots/bud-framework'
 
-import * as clientScripts from './hooks/dev.client.scripts'
+import * as clientScripts from './hooks/dev.client.scripts.js'
 
 /**
  * Initial values
@@ -35,7 +35,6 @@ export const seed = (app: Bud) => {
       log: app.hooks.filter('dev.middleware.hot.options.log'),
       heartbeat: app.hooks.filter('dev.middleware.hot.options.heartbeat'),
     }))
-
     .hooks.on(`dev.middleware.hot.options.path`, () => `/__bud/hmr`)
     .hooks.on(
       `dev.middleware.hot.options.log`,

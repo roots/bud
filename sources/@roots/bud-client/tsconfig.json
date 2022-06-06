@@ -1,0 +1,19 @@
+{
+  "extends": "../../../config/tsconfig.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "rootDir": "src",
+    "outDir": "lib",
+    "target": "es6"
+  },
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "lib",
+    "node_modules"
+  ],
+  "references": [
+    {"path": "./../bud/tsconfig.json"},
+  ]
+}

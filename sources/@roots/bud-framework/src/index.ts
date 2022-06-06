@@ -11,25 +11,25 @@
  * @packageDocumentation
  */
 
-import {Bud} from './bud'
-import * as Config from './config'
-import {Logger} from './logger'
-import {ContainerService, Service} from './service'
-import * as Services from './services'
-import * as Api from './services/api'
-import * as Build from './services/build'
-import * as Cache from './services/cache'
-import * as Compiler from './services/compiler'
-import * as Dashboard from './services/dashboard'
-import * as Env from './services/env'
-import * as Extensions from './services/extensions'
-import * as Hooks from './services/hooks'
-import * as Peers from './services/peers'
-import * as Project from './services/project'
-import * as Server from './services/server'
+import {Bud} from './bud.js'
+import * as Config from './config/index.js'
+import {Logger} from './logger/index.js'
+import {ContainerService, Service} from './service.js'
+import * as Services from './services/index.js'
+import * as Api from './services/api/index.js'
+import * as Build from './services/build/index.js'
+import * as Cache from './services/cache/index.js'
+import * as Compiler from './services/compiler/index.js'
+import * as Dashboard from './services/dashboard/index.js'
+import * as Env from './services/env/index.js'
+import * as Extensions from './services/extensions/index.js'
+import * as Hooks from './services/hooks/index.js'
+import * as Peers from './services/peers/index.js'
+import * as Project from './services/project/index.js'
+import * as Server from './services/server/index.js'
 
-export * from './extension'
-import {Registry} from './registry'
+export * from './extension/index.js'
+import {Registry} from './registry/index.js'
 
 export {Bud, ContainerService, Service}
 
@@ -59,14 +59,14 @@ export {
 //
 
 export type Mode = 'production' | 'development'
-export {Locations} from './registry/locations'
+export {Locations} from './registry/locations.js'
 export {
   Modules,
   Definitions as ModuleDefinitions,
-} from './registry/modules'
-export {Flags} from './registry/flags'
-export {Events} from './registry/events'
-export {Patterns} from './registry/patterns'
-export {Dev} from './registry/dev'
-export {Values} from './registry/values'
-export {Store} from './registry'
+} from './registry/modules.js'
+export {Flags} from './registry/flags.js'
+export {Events} from './registry/events.js'
+export {Patterns} from './registry/patterns.js'
+export {Dev} from './registry/dev.js'
+export {Values} from './registry/values.js'
+export {Store} from './registry/index.js'

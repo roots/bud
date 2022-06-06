@@ -31,88 +31,86 @@
     "bud-framework"
   ],
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   },
   "files": [
-    "lib/",
-    "types/"
+    "lib/"
   ],
-  "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.js",
-  "types": "./types/index.d.ts",
+  "type": "module",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "exports": {
-    ".": {
-      "require": "./lib/cjs/index.js"
-    },
-    "./bud": {
-      "require": "./lib/cjs/bud.js"
-    },
-    "./extension": {
-      "require": "./lib/cjs/extension/index.js"
-    },
-    "./extension/decorators": {
-      "require": "./lib/cjs/extension/decorators/index.js"
-    },
-    "./extension/decorators/*": {
-      "require": "./lib/cjs/extension/decorators/*.js"
-    },
-    "./methods/*": {
-      "require": "./lib/cjs/methods/*.js"
-    },
-    "./module": {
-      "require": "./lib/cjs/module.js"
-    },
-    "./service": {
-      "require": "./lib/cjs/service.js"
-    },
-    "./services/*": {
-      "require": "./lib/cjs/services/*/index.js"
-    }
+    ".": "./lib/index.js",
+    "./bud": "./lib/bud.js",
+    "./extension": "./lib/extension/index.js",
+    "./extension/decorators": "./lib/extension/decorators/index.js",
+    "./extension/decorators/*": "./lib/extension/decorators/*.js",
+    "./methods/*": "./lib/methods/*.js",
+    "./module": "./lib/module.js",
+    "./service": "./lib/service.js",
+    "./services/*": "./lib/services/*/index.js"
   },
   "typesVersions": {
     "*": {
       ".": [
-        "./types/index.d.ts"
+        "./lib/index.d.ts"
       ],
       "bud": [
-        "./types/bud.d.ts"
+        "./lib/bud.d.ts"
       ],
       "config": [
-        "./types/config/index.d.ts"
+        "./lib/config/index.d.ts"
       ],
       "extension": [
-        "./types/extension/index.d.ts"
+        "./lib/extension/index.d.ts"
       ],
       "extension/decorators": [
-        "./types/extension/decorators/index.d.ts"
+        "./lib/extension/decorators/index.d.ts"
       ],
       "extension/decorators/*": [
-        "./types/extension/decorators/*.d.ts"
+        "./lib/extension/decorators/*.d.ts"
       ],
       "methods/*": [
-        "./types/methods/*.js"
+        "./lib/methods/*.js"
       ],
       "service": [
-        "./types/service.d.ts"
+        "./lib/service.d.ts"
       ],
       "services/*": [
-        "./types/services/*/index.d.ts"
+        "./lib/services/*/index.d.ts"
       ]
     }
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
+    "@types/express": "4.17.13",
+    "@types/fs-extra": "9.0.13",
+    "@types/js-yaml": "^4",
     "@types/lodash": "4.14.182",
+    "@types/lodash-es": "^4",
     "@types/node": "16.11.36",
+    "@types/safe-json-stringify": "^1",
+    "@types/signale": "1.4.4",
     "chokidar": "3.5.3",
+    "express": "4.18.1",
     "http-proxy-middleware": "2.0.6",
     "webpack": "5.72.1",
     "webpack-dev-middleware": "5.3.3",
     "webpack-hot-middleware": "2.25.1"
   },
   "dependencies": {
-    "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@roots/container": "workspace:sources/@roots/container",
+    "figures": "4.0.1",
+    "fs-extra": "10.1.0",
+    "globby": "13.1.1",
+    "helpful-decorators": "2.1.0",
+    "import-meta-resolve": "2.0.2",
+    "js-yaml": "4.1.0",
+    "json5": "2.2.1",
+    "lodash-es": "4.17.21",
+    "pretty-format": "28.1.0",
+    "safe-json-stringify": "1.2.0",
+    "signale": "1.4.0",
     "tslib": "2.4.0"
   }
 }

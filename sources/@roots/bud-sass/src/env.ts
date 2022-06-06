@@ -1,6 +1,6 @@
 import type {Build} from '@roots/bud-framework'
 
-import type BudSass from './extension'
+import type BudSass from './extension.js'
 
 declare module '@roots/bud-framework' {
   interface Modules {

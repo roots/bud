@@ -10,10 +10,10 @@
  * @packageDocumentation
  */
 
-import './env'
+import './env.js'
 
-import Sage from './extension'
+import Sage from './extension.js'
 export default Sage
 
-import * as client from './client'
+import * as client from './client/index.js'
 export {client}

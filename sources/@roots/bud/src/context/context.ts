@@ -3,9 +3,9 @@ import {BaseContext} from 'clipanion'
 import process from 'node:process'
 import {Readable, Writable} from 'node:stream'
 
-import {Application} from './application'
-import {Disk} from './disk'
-import {Env} from './env'
+import {Application} from './application.js'
+import {Disk} from './disk.js'
+import {Env} from './env.js'
 
 export class Context implements Config.Context, BaseContext {
   public args: Record<string, string | boolean | undefined | number> = {}

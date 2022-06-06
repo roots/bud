@@ -35,9 +35,9 @@
 
 ## Getting started
 
-Check out our [dedicated documentation](https://bud.js.org) to get started.
+Check out [bud.js.org](https://bud.js.org) to get started.
 
-There are also [example implementations available in the /examples directory of this repo](https://github.com/roots/bud/tree/master/examples).
+There are [implementations available in the /examples directory of this repo](https://github.com/roots/bud/tree/master/examples).
 
 ## Available modules
 
@@ -47,6 +47,7 @@ There are also [example implementations available in the /examples directory of 
 | ----------------------------------------------------------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
 | [**@roots/bud-preset-recommend**](/sources/@roots/bud-preset-recommend) | [📚 Usage](https://bud.js.org/extensions/presets/bud-preset-recommend) | ![npm](https://img.shields.io/npm/v/@roots/bud-preset-recommend.svg?color=%23525ddc&style=flat-square) |
 | [**@roots/bud-preset-wordpress**](/sources/@roots/bud-preset-wordpress) | [📚 Usage](https://bud.js.org/extensions/presets/bud-preset-wordpress) | ![npm](https://img.shields.io/npm/v/@roots/bud-preset-wordpress.svg?color=%23525ddc&style=flat-square) |
+| [**@roots/sage**](/sources/@roots/sage)                                 | [📚 Usage](https://bud.js.org/extensions/presets/sage)                 | ![npm](https://img.shields.io/npm/v/@roots/sage.svg?color=%23525ddc&style=flat-square)                 |
 
 ### Extensions
 
@@ -60,7 +61,6 @@ There are also [example implementations available in the /examples directory of 
 | [**@roots/bud-esbuild**](/sources/@roots/bud-esbuild)                               | [📚 Usage](https://bud.js.org/extensions/bud-esbuild/)                | ![npm](https://img.shields.io/npm/v/@roots/bud-esbuild.svg?color=%23525ddc&style=flat-square)                |
 | [**@roots/bud-eslint**](/sources/@roots/bud-eslint)                                 | [📚 Usage](https://bud.js.org/extensions/bud-eslint/)                 | ![npm](https://img.shields.io/npm/v/@roots/bud-eslint.svg?color=%23525ddc&style=flat-square)                 |
 | [**@roots/bud-imagemin**](/sources/@roots/bud-imagemin)                             | [📚 Usage](https://bud.js.org/extensions/bud-imagemin/)               | ![npm](https://img.shields.io/npm/v/@roots/bud-imagemin.svg?color=%23525ddc&style=flat-square)               |
-| [**@roots/bud-library**](/sources/@roots/bud-library)                               | [📚 Usage](https://bud.js.org/extensions/bud-library/)                | ![npm](https://img.shields.io/npm/v/@roots/bud-library.svg?color=%23525ddc&style=flat-square)                |
 | [**@roots/bud-mdx**](/sources/@roots/bud-mdx)                                       | [📚 Usage](https://bud.js.org/extensions/bud-mdx/)                    | ![npm](https://img.shields.io/npm/v/@roots/bud-mdx.svg?color=%23525ddc&style=flat-square)                    |
 | [**@roots/bud-postcss**](/sources/@roots/bud-postcss)                               | [📚 Usage](https://bud.js.org/extensions/bud-postcss/)                | ![npm](https://img.shields.io/npm/v/@roots/bud-postcss.svg?color=%23525ddc&style=flat-square)                |
 | [**@roots/bud-prettier**](/sources/@roots/bud-prettier)                             | [📚 Usage](https://bud.js.org/extensions/bud-prettier/)               | ![npm](https://img.shields.io/npm/v/@roots/bud-prettier.svg?color=%23525ddc&style=flat-square)               |

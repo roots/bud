@@ -1,3 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`examples/preset-recommend [app.css] is transpiled 1`] = `"h2 .class{margin-top:5rem}"`;
+exports[`preset-recommend npm examples/preset-recommend [app.css] is transpiled 1`] = `"h2 .class{margin-top:5rem}"`;
+
+exports[`preset-recommend yarn examples/preset-recommend [app.css] is transpiled 1`] = `"h2 .class{margin-top:5rem}"`;

@@ -1,4 +1,4 @@
-import {Service as BaseService} from '../..'
+import {Service as BaseService} from '../../index.js'
 
 /**
  * Peer dependencies manager

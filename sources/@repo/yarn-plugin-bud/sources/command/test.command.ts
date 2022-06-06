@@ -79,7 +79,7 @@ export class Test extends Command {
   public async execute() {
     return await this.$(
       this.withPassthrough(
-        `node ./node_modules/.bin/jest ${DEFAULT_JEST_FLAGS}`,
+        `yarn node --experimental-vm-modules $(yarn bin jest) ${DEFAULT_JEST_FLAGS}`,
       ),
     )
   }

@@ -1,4 +1,4 @@
-import {bind} from '@roots/bud-support'
+import {bind} from 'helpful-decorators'
 import {StatsError} from 'webpack'
 
 export default class BudError {

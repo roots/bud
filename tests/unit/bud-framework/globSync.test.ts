@@ -1,4 +1,3 @@
-import {logger} from '@repo/logger'
 import {Bud, factory} from '@repo/test-kit/bud'
 
 describe('bud.globSync', () => {

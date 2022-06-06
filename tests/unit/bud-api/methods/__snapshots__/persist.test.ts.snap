@@ -5,7 +5,7 @@ Object {
   "bud": Array [
     StringContaining "package.json",
     StringContaining ".eslintrc.js",
-    StringContaining "bud.config.js",
+    StringContaining "bud.config.cjs",
     StringContaining "docker-compose.yml",
     StringContaining "tailwind.config.js",
     StringContaining "tsconfig.json",

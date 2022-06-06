@@ -1,4 +1,4 @@
-import {purgecss} from './api'
+import {purgecss} from './api.js'
 
 export const label = '@roots/bud-purgecss'
 

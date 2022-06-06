@@ -1,10 +1,10 @@
 // Copyright © Roots Software Foundation LLC
 // Licensed under the MIT license.
 
-import * as fs from 'fs-extra'
+import fs from 'fs-extra'
 import {bind} from 'helpful-decorators'
-import * as path from 'path'
-import * as Webpack from 'webpack'
+import path from 'node:path'
+import Webpack from 'webpack'
 
 /**
  * Merged Manifest Webpack Plugin

@@ -1,7 +1,12 @@
-import {Bud} from '@roots/bud'
-import {pathExistsSync, removeSync} from 'fs-extra'
+import {Bud} from '@roots/bud-framework'
+import fs from 'fs-extra'
 
+/**
+ * `event.compiler.close` callback
+ *
+ * @public
+ */
 export default async function (app: Bud) {
   const path = app.path('@dist', 'hmr.json')
-  pathExistsSync(path) && removeSync(path)
+  fs.pathExistsSync(path) && fs.removeSync(path)
 }

@@ -10,9 +10,7 @@ import {
 export default class BudSolid extends Extension {
   @bind
   public async boot() {
-    this.app.babel.setPreset(
-      'babel-preset-solid',
-      this.resolve('babel-preset-solid'),
-    )
+    const preset = await this.resolve('babel-preset-solid')
+    this.app.babel.setPreset('babel-preset-solid', preset)
   }
 }

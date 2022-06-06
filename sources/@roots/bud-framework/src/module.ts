@@ -1,15 +1,9 @@
-import {
-  bind,
-  importFrom,
-  lodash,
-  pkgUp,
-  resolveFrom,
-} from '@roots/bud-support'
-import {dirname} from 'node:path'
+import {bind, memo} from 'helpful-decorators'
+import {resolve} from 'import-meta-resolve'
+import {createRequire} from 'module'
+import {join, relative} from 'node:path'
 
 import {Bud} from './bud'
-
-const {isArray, isString} = lodash
 
 /**
  * Module resolver
@@ -18,112 +12,124 @@ const {isArray, isString} = lodash
  */
 export class Module {
   /**
+   * Node require
+   *
+   * @public
+   */
+  public require: NodeRequire
+
+  /**
    * Class constructor
    *
    * @public
    */
-  public constructor(public app: Bud) {}
+  public constructor(public app: Bud) {
+    this.app.log('projectDir', this.app.context.projectDir)
+    this.app.log('process.cwd', process.cwd())
+
+    this.require = createRequire(this.app.context.projectDir)
+  }
 
   /**
+   * Get `package.json` absolute path from a module signifier
+   *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public arr(
-    request: string | Array<string | [string, string]>,
-  ): Array<[string, string]> {
-    return (isString(request) ? [this.app.path(), request] : request).map(
-      req => (isArray(req) ? req : [this.app.path(), req]),
+  @memo()
+  public async getDirectory(signifier: string, parent?: string) {
+    return await this.resolve(signifier, parent)
+      .then(path => path.replace('file://', ''))
+      .then(this.require.resolve)
+      .then(path => relative(parent ?? this.app.context.projectDir, path))
+      .then(path => path.split(signifier).shift())
+      .then(path => join(this.app.path(), path, signifier))
+  }
+
+  /**
+   * Get `package.json` absolute path from a module signifier
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  @memo()
+  public async getManifestPath(pkgName: string) {
+    return await this.getDirectory(pkgName).then(dir =>
+      join(dir, 'package.json'),
     )
   }
 
   /**
-   * @public
-   * @decorator `@bind`
-   */
-  public reduceUntil<T = any>(
-    data: Array<[string, string]>,
-    fn: (...data: [string, string]) => T,
-  ): T {
-    return data.reduce(
-      (a: T, c: [string, string]) => a ?? fn(...c),
-      null,
-    ) as T
-  }
-
-  /**
+   * Read `package.json` manifest from a module signifier
+   *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public async path(
-    candidates: string | Array<string | [string, string]>,
-  ) {
-    const manifest = await this.manifestPath(candidates)
-    return dirname(manifest)
+  @memo()
+  public async readManifest(signifier: string) {
+    return await this.getManifestPath(signifier).then(async path => {
+      this.app.log(signifier, `manifest resolved to`, path)
+
+      return await this.app.json.read(path)
+    })
   }
 
   /**
+   * Resolve a module path from its signifier
+   *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public async manifestPath(
-    paths: string | Array<string | [string, string]>,
-  ) {
-    return await pkgUp.pkgUp({cwd: this.resolve(paths)})
+  @memo()
+  public async resolve(
+    signifier: string,
+    parent?: string,
+  ): Promise<string> {
+    try {
+      const resolvedPath = await resolve(
+        signifier,
+        parent ? `file://${parent}` : import.meta.url,
+      )
+
+      return resolvedPath.replace('file://', '')
+    } catch (err) {
+      this.app.error('bud.module.resolve err', signifier, err)
+    }
   }
 
   /**
+   * Resolve CJS
+   *
+   * @param signifier - package name
+   * @param parent - path to resolve from
+   *
+   * @decorator `@bind`
+   */
+  @bind
+  @memo()
+  public async resolveCjs(signifier: string, parent?: string) {
+    if (parent) {
+      const require = createRequire(`file://${parent}`)
+      return require.resolve(signifier)
+    }
+
+    return this.require.resolve(signifier)
+  }
+
+  /**
+   * Import a module from its signifier
+   *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public async readManifest(
-    paths: string | Array<string | [string, string]>,
-  ) {
-    const manifestPath = await this.manifestPath(paths)
-    return await this.app.json.read(manifestPath)
-  }
-
-  /**
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public resolve(
-    importPaths: string | Array<string | [string, string]>,
-  ): string {
-    return this.reduceUntil<string>(
-      this.arr(importPaths),
-      resolveFrom.silent,
-    )
-  }
-
-  /**
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public import<T = any>(
-    importPaths: string | Array<string | [string, string]>,
-  ): T {
-    const fn = importFrom.silent as (str: string, str2: string) => T
-    return this.reduceUntil<T>(this.arr(importPaths), fn)
-  }
-
-  /**
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public resolvePreferred(
-    name: string,
-    ...importPaths: Array<string>
-  ): string {
-    return this.resolve([
-      name,
-      ...importPaths.map((path: string): [string, string] => [path, name]),
-    ])
+  @memo()
+  public async import<T = any>(signifier: string): Promise<T> {
+    const result = await import(signifier)
+    return result?.default ?? result
   }
 }

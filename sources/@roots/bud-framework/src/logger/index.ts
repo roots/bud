@@ -1,7 +1,8 @@
-import {bind, Signale} from '@roots/bud-support'
+import {bind} from 'helpful-decorators'
+import Signale from 'signale'
 
-import type {Bud} from '..'
-import {LEVEL, types} from './logger.constants'
+import type {Bud} from '../bud.js'
+import {LEVEL, types} from './logger.constants.js'
 
 /**
  * Logger service
@@ -20,7 +21,7 @@ export class Logger {
    *
    * @public
    */
-  public instance: Signale
+  public instance: Signale.Signale
 
   public get level() {
     if (!this.app.context.args.log) return LEVEL.ERROR
@@ -44,9 +45,9 @@ export class Logger {
 
   @bind
   public makeInstance(constructorOverrides = {}, configOverrides = {}) {
-    let instance = new Signale({
+    let instance = new Signale.Signale({
       interactive: this.interactive,
-      secrets: [this.app.context.projectDir, this.app.context.cwd],
+      // secrets: [this.app.context.projectDir, this.app.context.cwd],
       logLevel: this.level,
       types: types(this.app),
       scope: this.app.name ?? this.app.context.application.label,
@@ -68,11 +69,9 @@ export class Logger {
       ...configOverrides,
     })
 
-    instance = instance.scope(
+    return instance.scope(
       `${this.app.context.application.label}@${this.app.context.application.version}`,
       this.app.name,
     )
-
-    return instance
   }
 }

@@ -10,4 +10,4 @@
  * @packageDocumentation
  */
 
-export {WordPressExternals} from './plugin'
+export {WordPressExternals} from './plugin.js'
