@@ -36,8 +36,6 @@ export async function lifecycle(
 ): Promise<Bud> {
   this.options = {...options}
 
-  this.module = new Module(this)
-
   this.children = {}
 
   Object.entries(methods).map(([key, method]) => {
@@ -47,6 +45,7 @@ export async function lifecycle(
   if (!this.isRoot) Process.initialize(this)
 
   this.logger = new Logger(this)
+  this.module = new Module(this)
 
   const initialized = Object.entries({...this.options.services})
     .filter(

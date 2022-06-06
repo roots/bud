@@ -1,4 +1,3 @@
-import boxen from 'boxen'
 import fs from 'fs-extra'
 
 import {Bud} from './bud.js'
@@ -7,15 +6,7 @@ import {Bud} from './bud.js'
  * Render error
  */
 const renderError = (msg: string, name?: string) => {
-  process.stderr.write(
-    boxen(`\n${msg}\n`, {
-      title: name ?? 'error',
-      borderStyle: 'bold',
-      borderColor: 'red',
-      padding: 1,
-      margin: 1,
-    }),
-  )
+  process.stderr.write(`\n${msg}\n`)
 }
 
 /**

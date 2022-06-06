@@ -6,9 +6,7 @@ import {
   Service,
 } from '@roots/bud-framework'
 import chalk from 'chalk'
-import fs from 'fs-extra'
 import {bind} from 'helpful-decorators'
-import {resolve} from 'import-meta-resolve'
 
 /**
  * Extensions Service
@@ -124,27 +122,46 @@ export default class Extensions
       return this.app.log('injection disabled')
     }
 
-    this.app.log('injecting extensions')
+    this.app.log('injecting extensions...')
 
-    return Promise.all(
-      Object.keys({
-        ...(this.app.context.manifest?.devDependencies ?? {}),
-        ...(this.app.context.manifest?.dependencies ?? {}),
-      })
-        .filter(
-          name =>
-            !name.startsWith('@types') &&
-            (name.includes('bud-') || name.includes('sage')),
-        )
+    await Object.keys({
+      ...(this.app.context.manifest?.devDependencies ?? {}),
+      ...(this.app.context.manifest?.dependencies ?? {}),
+    })
+      .filter(signifier => !signifier.startsWith('@types'))
+      .filter(
+        signifier =>
+          signifier.startsWith('@roots') || signifier.includes('bud-'),
+      )
+      .filter(
+        signifier =>
+          ![
+            '@roots/bud',
+            '@roots/bud-api',
+            '@roots/bud-build',
+            '@roots/bud-cache',
+            '@roots/bud-client',
+            '@roots/bud-compiler',
+            '@roots/bud-dashboard',
+            '@roots/bud-extensions',
+            '@roots/bud-framework',
+            '@roots/bud-hooks',
+            '@roots/bud-server',
+            '@roots/container',
+          ].includes(signifier),
+      )
+      .filter(signifier => !this.has(signifier))
+      .reduce(async (promised: Promise<any>, signifier): Promise<any> => {
+        await promised
 
-        .map(async pkg => {
-          try {
-            await this.import(pkg)
-          } catch (error) {
-            this.app.warn(`Error importing`, pkg, `\n`, error)
-          }
-        }),
-    )
+        try {
+          this.app.log('...importing', signifier)
+
+          await this.import(signifier)
+        } catch (error) {
+          this.app.warn(`Error importing`, signifier, `\n`, error)
+        }
+      }, Promise.resolve())
   }
 
   /**
@@ -154,47 +171,37 @@ export default class Extensions
    * @decorator `@bind`
    */
   @bind
-  public async import(
-    input: Record<string, any> | string,
-  ): Promise<Extension> {
-    const pkgName = typeof input !== 'string' ? input.label : input
-    if (this.has(pkgName)) return
+  public async import(signifier: string): Promise<Extension> {
+    if (this.has(signifier)) return
 
-    const manifestPath: string = await resolve(
-      pkgName,
-      import.meta.url,
-    ).then(path =>
-      path
-        .split(pkgName)
-        .shift()
-        .concat(`${pkgName}/package.json`)
-        .replace('file://', ''),
-    )
+    const extension = await this.app.module.import(signifier)
+    const instance = this.instantiate(extension)
+    !this.has(signifier) && this.set(instance)
 
-    if (!manifestPath) return
-    this.app.log(pkgName, '=>', manifestPath)
+    instance.dependsOn &&
+      (await Array.from(instance.dependsOn)
+        .filter(signifier => !this.has(signifier))
+        .reduce(
+          async (promised: Promise<any>, signifier): Promise<any> => {
+            await promised
+            await this.import(signifier)
+          },
+          Promise.resolve(),
+        ))
 
-    const manifest = await fs.readJson(manifestPath)
-    if (manifest?.bud?.type !== 'extension') return
+    instance.dependsOnOptional &&
+      (await Array.from(instance.dependsOnOptional)
+        .filter(signifier => !this.has(signifier))
+        .reduce(
+          async (promised: Promise<any>, signifier): Promise<any> => {
+            await promised
 
-    if (this.has(pkgName)) return
-
-    const imported = await import(pkgName)
-    const extensionModule: Extension = imported.default ?? imported
-
-    this.app.success(chalk.green(`imported ${pkgName}`))
-
-    const extension = this.instantiate(extensionModule)
-
-    if (extension.dependsOn) {
-      await Promise.all(
-        Array.from(extension.dependsOn).map(
-          async pkg => await this.import(pkg),
-        ),
-      )
-    }
-
-    this.set(extension)
+            try {
+              await this.import(signifier)
+            } catch (err) {}
+          },
+          Promise.resolve(),
+        ))
 
     return extension
   }
@@ -226,7 +233,9 @@ export default class Extensions
         chalk.cyan(methodName),
       )
       await this.runDependencies(extension, methodName)
+
       await extension[methodName]()
+
       await this.app.api.processQueue()
 
       return this
@@ -251,24 +260,26 @@ export default class Extensions
     methodName: '_init' | '_register' | '_boot' | '_beforeBuild' | '_make',
   ): Promise<void> {
     if (extension.dependsOn && extension.dependsOn.size > 0) {
-      await Promise.all(
-        Array.from(extension.dependsOn).map(async dependency => {
+      await Array.from(extension.dependsOn).reduce(
+        async (
+          promised: Promise<any>,
+          signifier: string,
+        ): Promise<any> => {
+          await promised
+
           try {
-            if (!this.app.extensions.has(dependency)) {
-              extension.logger.log('importing', chalk.blue(dependency))
-              await this.import(dependency)
+            if (!this.has(signifier)) {
+              extension.logger.log('importing', chalk.blue(signifier))
+              await this.import(signifier)
             }
 
-            await this.run(this.get(dependency), methodName)
+            if (!this.get(signifier).meta[methodName])
+              await this.run(this.get(signifier), methodName)
           } catch (error) {
-            this.app.error(
-              `before calling \`${methodName}\` ${this.get(
-                'label',
-              )} tried to import \`${dependency}\` but encountered an error.`,
-              error,
-            )
+            this.app.error(error)
           }
-        }),
+        },
+        Promise.resolve(),
       )
     }
 
@@ -276,10 +287,12 @@ export default class Extensions
       extension.dependsOnOptional &&
       extension.dependsOnOptional.size > 0
     ) {
-      await Promise.all(
-        Array.from(extension.dependsOnOptional).map(async dependency => {
+      await Array.from(extension.dependsOnOptional).reduce(
+        async (promised, dependency) => {
+          await promised
+
           try {
-            if (!this.app.extensions.has(dependency)) {
+            if (!this.has(dependency)) {
               extension.logger.log(
                 'attempting to import optional dependency',
                 chalk.blue(dependency),
@@ -289,7 +302,8 @@ export default class Extensions
 
             await this.run(this.get(dependency), methodName)
           } catch (error) {}
-        }),
+        },
+        Promise.resolve(),
       )
     }
   }
@@ -298,15 +312,18 @@ export default class Extensions
    * Execute a extension lifecycle method on all registered extensions
    *
    * @public
+   * @decorator `@bind`
    */
   @bind
   public async runAll(
     methodName: '_init' | '_register' | '_boot' | '_beforeBuild' | '_make',
-  ): Promise<Array<void>> {
-    return Promise.all(
-      Object.values(this.repository).map(async extension => {
+  ): Promise<any> {
+    return await Object.values(this.repository).reduce(
+      async (promised, extension) => {
+        await promised
         await this.run(extension, methodName)
-      }),
+      },
+      Promise.resolve(),
     )
   }
 
@@ -320,11 +337,11 @@ export default class Extensions
   public async add(input: Extension | Array<Extension>): Promise<void> {
     const arrayed = Array.isArray(input) ? input : [input]
 
-    await arrayed.reduce(async (promised, rawExtension) => {
+    await arrayed.reduce(async (promised, extensionObject) => {
       await promised
 
       try {
-        const extension = this.instantiate(rawExtension)
+        const extension = this.instantiate(extensionObject)
         if (this.has(extension.label)) return
 
         this.set(extension)
@@ -332,14 +349,13 @@ export default class Extensions
         await this.run(extension, '_init')
         await this.run(extension, '_register')
         await this.run(extension, '_boot')
-        await this.run(extension, '_beforeBuild')
 
-        return Promise.resolve(true)
+        return Promise.resolve()
       } catch (err) {
         this.app.error(err)
         return Promise.reject()
       }
-    }, Promise.resolve(true))
+    }, Promise.resolve())
   }
 
   /**
@@ -357,6 +373,6 @@ export default class Extensions
       Object.values(this.repository).map(
         async extension => await extension._make(),
       ),
-    ).then(res => res.filter(Boolean))
+    ).then(result => result.filter(Boolean))
   }
 }

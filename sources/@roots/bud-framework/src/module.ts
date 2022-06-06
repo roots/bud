@@ -1,6 +1,7 @@
-import {bind} from 'helpful-decorators'
+import {bind, memo} from 'helpful-decorators'
 import {resolve} from 'import-meta-resolve'
-import {join, relative} from 'node:path/posix'
+import {createRequire} from 'module'
+import {join, relative} from 'node:path'
 
 import {Bud} from './bud'
 
@@ -11,11 +12,23 @@ import {Bud} from './bud'
  */
 export class Module {
   /**
+   * Node require
+   *
+   * @public
+   */
+  public require: NodeRequire
+
+  /**
    * Class constructor
    *
    * @public
    */
-  public constructor(public app: Bud) {}
+  public constructor(public app: Bud) {
+    this.app.log('projectDir', this.app.context.projectDir)
+    this.app.log('process.cwd', process.cwd())
+
+    this.require = createRequire(this.app.context.projectDir)
+  }
 
   /**
    * Get `package.json` absolute path from a module signifier
@@ -24,12 +37,28 @@ export class Module {
    * @decorator `@bind`
    */
   @bind
-  public async getManifestPath(pkgName: string) {
-    return await this.resolve(pkgName)
+  @memo()
+  public async getDirectory(signifier: string, parent?: string) {
+    return await this.resolve(signifier, parent)
       .then(path => path.replace('file://', ''))
-      .then(path => relative(this.app.context.projectDir, path))
-      .then(path => path.split(pkgName).shift())
-      .then(path => join(path, pkgName, 'package.json'))
+      .then(this.require.resolve)
+      .then(path => relative(parent ?? this.app.context.projectDir, path))
+      .then(path => path.split(signifier).shift())
+      .then(path => join(this.app.path(), path, signifier))
+  }
+
+  /**
+   * Get `package.json` absolute path from a module signifier
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  @memo()
+  public async getManifestPath(pkgName: string) {
+    return await this.getDirectory(pkgName).then(dir =>
+      join(dir, 'package.json'),
+    )
   }
 
   /**
@@ -39,9 +68,11 @@ export class Module {
    * @decorator `@bind`
    */
   @bind
+  @memo()
   public async readManifest(signifier: string) {
     return await this.getManifestPath(signifier).then(async path => {
       this.app.log(signifier, `manifest resolved to`, path)
+
       return await this.app.json.read(path)
     })
   }
@@ -53,16 +84,40 @@ export class Module {
    * @decorator `@bind`
    */
   @bind
+  @memo()
   public async resolve(
     signifier: string,
     parent?: string,
   ): Promise<string> {
-    const resolvedPath = await resolve(
-      signifier,
-      parent ? `file://${parent}` : import.meta.url,
-    )
+    try {
+      const resolvedPath = await resolve(
+        signifier,
+        parent ? `file://${parent}` : import.meta.url,
+      )
 
-    return resolvedPath.replace('file://', '')
+      return resolvedPath.replace('file://', '')
+    } catch (err) {
+      this.app.error('bud.module.resolve err', signifier, err)
+    }
+  }
+
+  /**
+   * Resolve CJS
+   *
+   * @param signifier - package name
+   * @param parent - path to resolve from
+   *
+   * @decorator `@bind`
+   */
+  @bind
+  @memo()
+  public async resolveCjs(signifier: string, parent?: string) {
+    if (parent) {
+      const require = createRequire(`file://${parent}`)
+      return require.resolve(signifier)
+    }
+
+    return this.require.resolve(signifier)
   }
 
   /**
@@ -72,10 +127,9 @@ export class Module {
    * @decorator `@bind`
    */
   @bind
-  public async import<T = any>(importPath: string): Promise<T> {
-    const resolvedPath = await this.resolve(importPath)
-    if (!resolvedPath) return
-
-    return await import(resolvedPath)
+  @memo()
+  public async import<T = any>(signifier: string): Promise<T> {
+    const result = await import(signifier)
+    return result?.default ?? result
   }
 }

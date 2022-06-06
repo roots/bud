@@ -5,11 +5,8 @@ module.exports = async app =>
       replace: {
         TITLE: 'Demo',
         DESCRIPTION: 'html templating example',
+        EXAMPLE: '#root content',
       },
       favicon: 'public/favicon.ico',
     })
-    .define({
-      TITLE: 'Demo',
-      DESCRIPTION: 'html templating example',
-    })
-    .entry('app', 'index.js')
+    .entry('app', '@src/index')

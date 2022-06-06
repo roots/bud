@@ -1,9 +1,7 @@
 import type {Config} from '@roots/bud-framework'
 import Console from 'node:console'
 import {cpus} from 'node:os'
-import {format} from 'pretty-format'
 import Signale from 'signale'
-import {table} from 'table'
 
 /**
  * Bud configuration defaults
@@ -83,15 +81,14 @@ export const seed: Config.Options['seed'] = {
         groupEnd: () => null,
         info: infrastructureLogger.instance.info,
         log: infrastructureLogger.instance.log,
-        table: (tabularData?: any) =>
-          infrastructureLogger.instance.log(table(tabularData)),
+        table: () => null,
         time: infrastructureLogger.instance.time,
         timeEnd: infrastructureLogger.instance.timeEnd,
         timeLog: () => null,
         trace: (message, ...params) =>
           infrastructureLogger.instance.log(
             `Trace: `,
-            message ? format(message) : ``,
+            message ?? ``,
             ...params,
           ),
         warn: infrastructureLogger.instance.warn,

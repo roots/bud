@@ -1,5 +1,3 @@
-import boxen from 'boxen'
-import {highlight, HighlightOptions} from 'cli-highlight'
 import {bind} from 'helpful-decorators'
 import {omit} from 'lodash-es'
 import {format, PrettyFormatOptions} from 'pretty-format'
@@ -391,14 +389,12 @@ export abstract class Bud {
   public debug(...messages: any[]) {
     // eslint-disable-next-line no-console
     this.context.stdout.write(
-      `${highlight(
-        format(messages, {
-          callToJSON: false,
-          maxDepth: 8,
-          printFunctionName: false,
-          escapeString: false,
-        }),
-      )}`,
+      format(messages, {
+        callToJSON: false,
+        maxDepth: 8,
+        printFunctionName: false,
+        escapeString: false,
+      }),
     )
   }
 
@@ -427,7 +423,7 @@ export abstract class Bud {
   @bind
   public dump(
     obj: any,
-    options?: PrettyFormatOptions & HighlightOptions & {prefix: string},
+    options?: PrettyFormatOptions & {prefix: string},
   ): Bud {
     if (!this.context.args.verbose) return
 
@@ -438,25 +434,13 @@ export abstract class Bud {
     ])
 
     this.context.stdout.write(
-      boxen(
-        highlight(
-          format(obj, {
-            callToJSON: false,
-            maxDepth: 8,
-            printFunctionName: false,
-            escapeString: false,
-            ...prettyFormatOptions,
-          }),
-          {
-            language: options?.language ?? 'typescript',
-            ignoreIllegals: options?.ignoreIllegals ?? true,
-          },
-        ),
-        {
-          title: options.prefix ?? 'object dump',
-          borderStyle: 'round',
-        },
-      ),
+      format(obj, {
+        callToJSON: false,
+        maxDepth: 8,
+        printFunctionName: false,
+        escapeString: false,
+        ...prettyFormatOptions,
+      }),
     )
 
     return this

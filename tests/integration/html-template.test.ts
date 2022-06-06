@@ -8,7 +8,7 @@ const run = pacman => () => {
 
   beforeAll(async () => {
     project = new Project({
-      name: 'emotion',
+      name: 'html-template',
       dist: 'dist',
       with: pacman,
     })

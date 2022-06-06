@@ -16,17 +16,16 @@ import {
 @dependsOn(['@roots/bud-postcss'])
 export default class BudTailwindCss extends Extension {
   /**
-   * Register extension
+   * `register` callback
    *
+   * @public
    * @decorator `@bind`
    */
   @bind
   public async register() {
     try {
-      const {default: tailwindcss} = await this.import('tailwindcss')
-      const {default: nesting} = await this.import(
-        'tailwindcss/nesting/index.js',
-      )
+      const tailwindcss = await this.resolve('tailwindcss')
+      const nesting = await this.resolve('tailwindcss/nesting/index.js')
 
       this.app.postcss.setPlugins({
         'postcss-import': this.app.postcss.plugins.get('postcss-import'),

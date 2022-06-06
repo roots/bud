@@ -42,5 +42,7 @@ export default async function config() {
       '<rootDir>/tests/__mocks__',
       '<rootDir>/cache/verdaccio',
     ],
+    testTimeout: 60000,
+    slowTestThreshold: 30000,
   }
 }

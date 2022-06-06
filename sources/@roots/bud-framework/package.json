@@ -100,8 +100,6 @@
   },
   "dependencies": {
     "@roots/container": "workspace:sources/@roots/container",
-    "boxen": "6.2.1",
-    "cli-highlight": "2.1.11",
     "figures": "4.0.1",
     "fs-extra": "10.1.0",
     "globby": "13.1.1",

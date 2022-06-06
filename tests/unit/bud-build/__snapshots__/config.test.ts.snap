@@ -61,7 +61,7 @@ Object {
   "test": /\\\\\\.\\(cjs\\|mjs\\|jsx\\?\\)\\$/,
   "use": Array [
     Object {
-      "loader": "/srv/bud/sources/@roots/bud-babel/node_modules/babel-loader/lib/index.js",
+      "loader": "/srv/bud/node_modules/babel-loader/lib/index.js",
       "options": Object {
         "cacheDirectory": "/srv/bud/tests/util/project/.budfiles/cache/babel",
         "env": Object {
@@ -71,7 +71,7 @@ Object {
         },
         "plugins": Array [
           Array [
-            "/srv/bud/sources/@roots/bud-babel/node_modules/@babel/plugin-transform-runtime/lib/index.js",
+            "/srv/bud/node_modules/@babel/plugin-transform-runtime/lib/index.js",
             Object {
               "helpers": false,
             },
@@ -153,10 +153,10 @@ Object {
               "/srv/bud/node_modules/postcss-import/index.js",
             ],
             Array [
-              [Function],
+              "/srv/bud/node_modules/tailwindcss/nesting/index.js",
             ],
             Array [
-              [Function],
+              "/srv/bud/node_modules/tailwindcss/lib/index.js",
             ],
             Array [
               "/srv/bud/node_modules/postcss-preset-env/dist/index.cjs",

@@ -27,7 +27,7 @@ describe('bud.build.config', function () {
     expect(cache.buildDependencies.bud).toEqual([
       expect.stringContaining('package.json'),
       expect.stringContaining('.eslintrc.js'),
-      expect.stringContaining('bud.config.js'),
+      expect.stringContaining('bud.config.cjs'),
       expect.stringContaining('docker-compose.yml'),
       expect.stringContaining('tailwind.config.js'),
       expect.stringContaining('tsconfig.json'),

@@ -62,7 +62,6 @@
   "devDependencies": {
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@skypack/package-check": "0.2.2",
-    "@types/lodash": "4.14.182",
     "@types/node": "16.11.36"
   },
   "dependencies": {
@@ -71,5 +70,13 @@
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
     "tslib": "2.4.0"
+  },
+  "peerDependencies": {
+    "@roots/bud-babel": "*"
+  },
+  "peerDependenciesMeta": {
+    "@roots/bud-babel": {
+      "optional": true
+    }
   }
 }

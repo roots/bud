@@ -67,7 +67,7 @@ export default class BabelExtension extends Extension<any, null> {
    */
   @bind
   public async init() {
-    Object.assign(this.app, {babel: new Config()})
+    this.app.babel = new Config()
   }
 
   /**

@@ -80,7 +80,6 @@
     "html-webpack-plugin": "5.5.0",
     "lodash-es": "4.17.21",
     "nanoid": "3.3.4",
-    "pkg-up": "4.0.0",
     "tslib": "2.4.0"
   }
 }
