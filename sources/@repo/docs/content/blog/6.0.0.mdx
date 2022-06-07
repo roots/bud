@@ -100,15 +100,28 @@ If this doesn't work for you, or you need to adjust other `ts-node` flags, you m
 ts-node --esm --transpileOnly ./node_modules/.bin/bud build
 ```
 
-### Transitioning from `require`
+### Updating `require` statements to `import`
 
-If you have updated your configuration file to use `export` syntax or you are fully opting in to use `ESM` across your entire project, you will no longer
+If you are writing a config file with `.mjs` or you have opted in with `"type": "module"`, you will no longer
 be able to `require` modules or packages in your config file.
 
-Users writing in a `bud.config.mts` file (TypeScript) can just `import` the `CJS` module as if
-it were ESM. TypeScript will figure it out. Users writing in a `bud.config.mjs` file are not quite so lucky, but there are still options.
+You can convert `require` statements to use `import` without worrying about it too much:
 
-You can use a `dynamic import` instead of a `require`:
+```js
+const value = require('browsersync-webpack-plugin')
+```
+
+becomes:
+
+```js
+import value from 'browsersync-webpack-plugin'
+```
+
+### Importing ESM from CommonJS
+
+Importing ESM from CommonJS is a little less straight forward than the other way around.
+
+You'll need to use a dynamic `import` statement:
 
 ```js
 export default async bud => {
@@ -116,8 +129,11 @@ export default async bud => {
 }
 ```
 
-You may find that the code returned from a dynamic `import` is set inside of a property called `default`. You can either test for that or you can use the **bud.js** module
-utility (which will automatically return the value of `default`, if it is set):
+In these cases you may find that the code returned from a dynamic `import` is set inside of a property called `default`.
+
+### Using the `bud.module` helper utility
+
+If you wish you may use `bud.module.import` instead of `import` (which will automatically return the value of `default`, if it is set):
 
 ```js
 export default async bud => {
@@ -139,7 +155,7 @@ export default async bud => {
 }
 ```
 
-If you just want the path to a module and aren't sure if it is CommonJS or ESM, you can use `bud.module.resolve`:
+If you just want the path to a module and aren't sure if it is CommonJS or ESM, you may use `bud.module.resolve`:
 
 ```js
 export default async bud => {
@@ -157,7 +173,7 @@ This functionality is provided using the [`import-meta-resolve`](https://github.
 - the `lib` and `types` directories for all packages have been merged.
 - all published code targets `es2020`. Update to node 16 if you are running an outdated version of node.
 - `@roots/bud-support` is deprecated
-- `@roots/bud-library` is deprecated (just use the standard cache -- it's now better than this extension)
+- `@roots/bud-library` is deprecated (just [use the standard cache](/docs/bud.persist) -- it's now better than this extension)
 
 ## More information
 
