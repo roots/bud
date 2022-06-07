@@ -39,12 +39,16 @@
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "exports": {
-    ".": "./lib/index.js"
+    ".": "./lib/index.js",
+    "./plugin": "./lib/plugin.js"
   },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.d.ts"
+      ],
+      "plugin": [
+        "./lib/plugin.d.ts"
       ]
     }
   },
@@ -55,7 +59,7 @@
   },
   "dependencies": {
     "critical": "4.0.1",
-    "safe-require": "^1.0.4",
+    "html-webpack-plugin": "^5.5.0",
     "tslib": "2.4.0",
     "vinyl": "^2.2.1",
     "webpack": "5.72.1"

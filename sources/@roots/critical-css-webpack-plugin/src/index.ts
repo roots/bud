@@ -4,6 +4,8 @@
  * @packageDocumentation
  */
 
-export {CriticalCssWebpackPlugin} from './CriticalCssWebpackPlugin.js'
+import {Options} from './interface.js'
+import CriticalCssWebpackPlugin from './plugin.js'
 
-export type {Options} from './interface.js'
+export default CriticalCssWebpackPlugin
+export {Options}
