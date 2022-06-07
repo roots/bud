@@ -1,6 +1,6 @@
 import {Build} from '@roots/bud-framework'
 
-import Esbuild from './index.js'
+import Esbuild from './extension.js'
 
 declare module '@roots/bud-framework' {
   interface Modules {

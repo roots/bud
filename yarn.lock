@@ -4019,13 +4019,10 @@ __metadata:
   dependencies:
     "@roots/bud-api": "workspace:sources/@roots/bud-api"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
-    "@roots/container": "workspace:sources/@roots/container"
     "@skypack/package-check": 0.2.2
-    "@types/lodash": 4.14.182
     "@types/node": 16.11.36
     compression-webpack-plugin: ^10.0.0
     tslib: 2.4.0
-    webpack: 5.72.1
   languageName: unknown
   linkType: soft
 
@@ -4125,8 +4122,6 @@ __metadata:
     "@roots/bud-build": "workspace:sources/@roots/bud-build"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@skypack/package-check": 0.2.2
-    "@types/fs-extra": 9.0.13
-    "@types/lodash": 4.14.182
     "@types/node": 16.11.36
     esbuild-loader: 2.19.0
     tslib: 2.4.0
@@ -4473,10 +4468,7 @@ __metadata:
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@skypack/package-check": 0.2.2
     "@types/cookie-parser": 1.4.3
-    "@types/cors": 2.8.12
     "@types/express": 4.17.13
-    "@types/lodash": 4.14.182
-    "@types/lodash-es": ^4
     "@types/node": 16.11.36
     "@types/signale": 1.4.4
     "@types/webpack-dev-middleware": 5.0.2
@@ -4484,16 +4476,12 @@ __metadata:
     ansi-html-community: 0.0.8
     chokidar: 3.5.3
     cookie-parser: 1.4.6
-    cors: 2.8.5
     express: 4.18.1
     globby: 13.1.1
     helpful-decorators: 2.1.0
-    html-entities: ^2.1.0
     http-proxy-middleware: 2.0.6
     lodash-es: 4.17.21
-    querystring: ^0.2.0
     signale: 1.4.0
-    strip-ansi: ^7.0.0
     tslib: 2.4.0
     webpack: 5.72.1
     webpack-dev-middleware: 5.3.3
@@ -4542,14 +4530,16 @@ __metadata:
     stylelint-config-standard: ^25.0.0
     stylelint-webpack-plugin: ^3.1.1
     tslib: 2.4.0
-    webpack: 5.72.1
   peerDependencies:
-    stylelint: ^14.5.0
-    stylelint-config-standard: ^25.0.0
+    stylelint: "*"
+    stylelint-config-standard: "*"
+    stylelint-webpack-plugin: "*"
   peerDependenciesMeta:
     stylelint:
       optional: true
     stylelint-config-standard:
+      optional: true
+    stylelint-webpack-plugin:
       optional: true
   languageName: unknown
   linkType: soft
@@ -5334,13 +5324,6 @@ __metadata:
   dependencies:
     "@types/express": "*"
   checksum: f390f3af1b1711190dee2c2ecd9af33af81fbde8d81ee820dadb6fe1e0d80c3faba40af37c6ed36fb88b04b64870f6a021f7e9edceecd17c42fe22abe0af5005
-  languageName: node
-  linkType: hard
-
-"@types/cors@npm:2.8.12":
-  version: 2.8.12
-  resolution: "@types/cors@npm:2.8.12"
-  checksum: 8c45f112c7d1d2d831b4b266f2e6ed33a1887a35dcbfe2a18b28370751fababb7cd045e745ef84a523c33a25932678097bf79afaa367c6cb3fa0daa7a6438257
   languageName: node
   linkType: hard
 
@@ -9104,16 +9087,6 @@ __metadata:
   version: 1.0.3
   resolution: "core-util-is@npm:1.0.3"
   checksum: 9de8597363a8e9b9952491ebe18167e3b36e7707569eed0ebf14f8bba773611376466ae34575bca8cfe3c767890c859c74056084738f09d4e4a6f902b2ad7d99
-  languageName: node
-  linkType: hard
-
-"cors@npm:2.8.5":
-  version: 2.8.5
-  resolution: "cors@npm:2.8.5"
-  dependencies:
-    object-assign: ^4
-    vary: ^1
-  checksum: ced838404ccd184f61ab4fdc5847035b681c90db7ac17e428f3d81d69e2989d2b680cc254da0e2554f5ed4f8a341820a1ce3d1c16b499f6e2f47a1b9b07b5006
   languageName: node
   linkType: hard
 
@@ -16603,7 +16576,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"object-assign@npm:^4, object-assign@npm:^4.0.1, object-assign@npm:^4.1.0, object-assign@npm:^4.1.1":
+"object-assign@npm:^4.0.1, object-assign@npm:^4.1.0, object-assign@npm:^4.1.1":
   version: 4.1.1
   resolution: "object-assign@npm:4.1.1"
   checksum: fcc6e4ea8c7fe48abfbb552578b1c53e0d194086e2e6bbbf59e0a536381a292f39943c6e9628af05b5528aa5e3318bb30d6b2e53cadaf5b8fe9e12c4b69af23f
@@ -22594,7 +22567,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vary@npm:^1, vary@npm:~1.1.2":
+"vary@npm:~1.1.2":
   version: 1.1.2
   resolution: "vary@npm:1.1.2"
   checksum: ae0123222c6df65b437669d63dfa8c36cee20a504101b2fcd97b8bf76f91259c17f9f2b4d70a1e3c6bbcee7f51b28392833adb6b2770b23b01abec84e369660b

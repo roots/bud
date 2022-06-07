@@ -45,19 +45,22 @@
   "types": "./lib/index.d.ts",
   "exports": {
     ".": "./lib/index.js",
-    "./config": "./config/index.cjs"
+    "./config": "./config/index.cjs",
+    "./extension": "./lib/extension.js"
   },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.d.ts"
+      ],
+      "extension": [
+        "./lib/extension.d.ts"
       ]
     }
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.11.36",
-    "webpack": "5.72.1"
+    "@types/node": "16.11.36"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
@@ -67,14 +70,18 @@
     "tslib": "2.4.0"
   },
   "peerDependencies": {
-    "stylelint": "^14.5.0",
-    "stylelint-config-standard": "^25.0.0"
+    "stylelint": "*",
+    "stylelint-config-standard": "*",
+    "stylelint-webpack-plugin": "*"
   },
   "peerDependenciesMeta": {
     "stylelint": {
       "optional": true
     },
     "stylelint-config-standard": {
+      "optional": true
+    },
+    "stylelint-webpack-plugin": {
       "optional": true
     }
   }
