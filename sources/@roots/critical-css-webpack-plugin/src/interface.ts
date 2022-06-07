@@ -5,76 +5,65 @@
  */
 export interface Options {
   /**
-   * Critical CSS options
+   * Html source string
    *
    * @public
    */
-  criticalOptions?: {
-    /**
-     * Html source string
-     *
-     * @public
-     */
-    src?: string
+  src?: string
 
-    /**
-     * Html source string
-     *
-     * @public
-     */
-    html?: string
+  /**
+   * Html source string
+   *
+   * @public
+   */
+  html?: string
 
-    /**
-     * Base directory
-     *
-     * @public
-     */
-    base?: string
+  /**
+   * Base directory
+   *
+   * @public
+   */
+  base?: string
 
-    /**
-     * Viewport width
-     *
-     * @public
-     */
-    width?: number
+  /**
+   * Viewport width
+   *
+   * @public
+   */
+  width?: number
 
-    /**
-     * Viewport height
-     *
-     * @public
-     */
-    height?: number
+  /**
+   * Viewport height
+   *
+   * @public
+   */
+  height?: number
 
-    /**
-     * Extract critical
-     *
-     * @public
-     */
-    extract?: boolean
+  /**
+   * Extract critical
+   *
+   * @public
+   */
+  extract?: boolean
 
-    /**
-     * Ignore CSS rules
-     *
-     * @public
-     */
-    ignore?: {
-      atrule: string[]
-      rule: RegExp[]
-      decl: (node: any, value: any) => boolean
-    }
+  /**
+   * Ignore CSS rules
+   *
+   * @public
+   */
+  ignore?: {
+    atrule: string[]
+    rule: RegExp[]
+    decl: (node: any, value: any) => boolean
   }
 
   /**
-   * Extract inlined styles from referenced stylesheets
+   * Options for node server request
+   *
+   * @remarks
+   * Request handled by `got`
    *
    * @public
    */
-  hash?: boolean
-
-  /**
-   * Replace var with inlined CSS
-   *
-   * @public
-   */
-  replace?: string
+  request?: any
 }

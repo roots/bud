@@ -4770,7 +4770,7 @@ __metadata:
     "@types/node": 16.11.36
     "@types/vinyl": 2.0.6
     critical: 4.0.1
-    safe-require: ^1.0.4
+    html-webpack-plugin: ^5.5.0
     tslib: 2.4.0
     vinyl: ^2.2.1
     webpack: 5.72.1
@@ -19890,13 +19890,6 @@ __metadata:
   version: 1.2.0
   resolution: "safe-json-stringify@npm:1.2.0"
   checksum: 5bb32db6d6a3ceb3752df51f4043a412419cd3d4fcd5680a865dfa34cd7e575ba659c077d13f52981ced084061df9c75c7fb12e391584d4264e6914c1cd3d216
-  languageName: node
-  linkType: hard
-
-"safe-require@npm:^1.0.4":
-  version: 1.0.4
-  resolution: "safe-require@npm:1.0.4"
-  checksum: 78c1b96671f3bb05f40c962fe7b9cc55f3a4053b665b2a01e9356d065b7b9934b26d5c93f70bbccb9dde0c9b5b20e23cac5c45a69459e78a965d6b5c3fee1777
   languageName: node
   linkType: hard
 
