@@ -5,7 +5,7 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
-import {parseSemver} from '@roots/bud-support'
+import parseSemver from 'parse-semver'
 import type {Configuration, RuleSetRule} from 'webpack'
 
 type Aliases = Configuration['resolve']['alias']
@@ -32,7 +32,7 @@ export default class Vue extends Extension<Options, null> {
 
   @bind
   public async addLoader() {
-    const loader = this.resolve('vue-loader')
+    const loader = await this.resolve('vue-loader')
     const {VueLoaderPlugin: Plugin} = await this.import('vue-loader')
 
     this.app.build.setLoader('vue', loader)
@@ -44,9 +44,16 @@ export default class Vue extends Extension<Options, null> {
     })
   }
 
+  /**
+   * Add `vue-style-loader`
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public async addStyleLoader() {
-    this.app.build.setLoader('vue-style', this.resolve('vue-style-loader'))
+    const loader = await this.resolve('vue-style-loader')
+    this.app.build.setLoader('vue-style', loader)
     this.app.build.setItem('vue-style', {loader: 'vue-style'})
     this.app.build.rules.css.setUse(items => ['vue-style', ...items])
     this.app.build.rules.sass?.setUse(items => ['vue-style', ...items])
@@ -80,11 +87,8 @@ export default class Vue extends Extension<Options, null> {
 
   @bind
   protected async isVue2() {
-    const manifest = await this.app.module.readManifest([
-      'vue',
-      [this.path, 'vue'],
-    ])
-
+    const manifest = await this.app.module.readManifest('vue')
+    this.logger.log('vue manifest:', manifest)
     return parseSemver(`vue@${manifest.version}`).version.startsWith('2')
   }
 }

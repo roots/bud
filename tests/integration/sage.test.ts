@@ -1,3 +1,4 @@
+import {beforeAll, describe, it} from '@jest/globals'
 import {Project} from '@repo/test-kit/project'
 
 const test = (pacman: 'yarn' | 'npm') => () => {

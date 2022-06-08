@@ -30,29 +30,29 @@
     "bud-extension"
   ],
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   },
   "files": [
-    "babel.js",
-    "defaults.js",
-    "react.js",
-    "recommended.js",
-    "sage.js",
-    "typescript.js",
-    "wordpress.js"
+    "babel.cjs",
+    "defaults.cjs",
+    "react.cjs",
+    "recommended.cjs",
+    "sage.cjs",
+    "typescript.cjs",
+    "wordpress.cjs"
   ],
-  "main": "./defaults.js",
-  "module": "./defaults.js",
+  "main": "./defaults.cjs",
+  "module": "./defaults.cjs",
   "types": "./types.d.ts",
   "exports": {
-    ".": "./defaults.js",
-    "./defaults": "./defaults.js",
-    "./babel": "./babel.js",
-    "./recommended": "./recommended.js",
-    "./typescript": "./typescript.js",
-    "./react": "./react.js",
-    "./wordpress": "./wordpress.js",
-    "./sage": "./sage.js"
+    ".": "./defaults.cjs",
+    "./defaults": "./defaults.cjs",
+    "./babel": "./babel.cjs",
+    "./recommended": "./recommended.cjs",
+    "./typescript": "./typescript.cjs",
+    "./react": "./react.cjs",
+    "./wordpress": "./wordpress.cjs",
+    "./sage": "./sage.cjs"
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2"
@@ -60,7 +60,7 @@
   "dependencies": {
     "@babel/eslint-parser": "^7.16.5",
     "@typescript-eslint/eslint-plugin": "^5.10.1",
-    "@typescript-eslint/parser": "5.23.0",
+    "@typescript-eslint/parser": "5.26.0",
     "eslint": "^7.32.0 || ^8.2.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.25.3",

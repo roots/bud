@@ -1,9 +1,18 @@
 {
   "name": "test-empty",
   "private": true,
-  "browserslist": [
-    "extends @wordpress/browserslist-config"
-  ],
+  "browserslist": {
+    "production": [
+      ">0.5%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
   "devDependencies": {
     "@roots/bud": "workspace:*",
     "@roots/bud-eslint": "workspace:*",

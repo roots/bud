@@ -10,14 +10,40 @@ import {
   Options as PluginOptions,
 } from 'clean-webpack-plugin'
 
+/**
+ * `clean-webpack-plugin` adapter
+ *
+ * @public
+ * @decorator `@label`
+ * @decorator `@plugin`
+ * @decorator `@options`
+ * @decorator `@when`
+ */
 @label('clean-webpack-plugin')
 @plugin(CleanWebpackPlugin)
-@when(async (_opt, {hooks}) => hooks.filter('feature.clean'))
 @options({
+  /**
+   * Clean stale assets
+   *
+   * @public
+   */
   cleanStaleWebpackAssets: true,
+
+  /**
+   * Protect webpack assets from accidental deletion
+   *
+   * @public
+   */
   protectWebpackAssets: true,
-  cleanOnceBeforeBuildPatterns: ['**/*', '!dll'],
+
+  /**
+   * Clean before path patterns
+   *
+   * @public
+   */
+  cleanOnceBeforeBuildPatterns: ['**/*'],
 })
+@when(async (_opt, {hooks}) => hooks.filter('feature.clean'))
 export default class BudClean extends Extension<
   PluginOptions,
   CleanWebpackPlugin

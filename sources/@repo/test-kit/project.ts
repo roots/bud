@@ -1,11 +1,16 @@
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
 /* eslint-disable no-console */
+import {jest} from '@jest/globals'
 import {paths, REGISTRY_PROXY} from '@repo/constants'
 import * as logger from '@repo/logger'
-import {bind, execa} from '@roots/bud-support'
-import {copy, readFile, remove} from 'fs-extra'
-import * as json5 from 'json5'
-import {join} from 'path'
+import chalk from 'chalk'
+import {execa} from 'execa'
+import fs from 'fs-extra'
+import {bind} from 'helpful-decorators'
+import json5 from 'json5'
+import {posix} from 'node:path'
+
+const {join} = posix
 
 jest.setTimeout(120000)
 
@@ -13,6 +18,7 @@ interface Options {
   name: string
   with: 'yarn' | 'npm'
   dist?: string
+  buildCommand?: [string, Array<string>]
 }
 
 /**
@@ -53,7 +59,7 @@ export class Project {
     }
   } = {}
 
-  public manifest = {}
+  public manifest: {[key: string]: any} = {}
 
   public modules: {
     chunks: {
@@ -83,6 +89,7 @@ export class Project {
 
   public constructor(public options: Options) {
     this.dir = join(paths.mocks, this.options.with, this.options.name)
+
     this.logger = logger
       .make({interactive: true})
       .scope(this.options.name, this.options.with)
@@ -111,7 +118,15 @@ export class Project {
   @bind
   public async $(bin: string, flags: Array<string>) {
     try {
-      await execa.execa(bin, flags ?? [], {
+      this.logger.log(
+        chalk.green(`executing`),
+        chalk.blue(bin),
+        (flags ? flags.map(flag => chalk.magenta(flag)) : []).join(' '),
+        `in`,
+        chalk.yellow(this.projectPath()),
+      )
+
+      await execa(bin, flags ?? [], {
         cwd: this.projectPath(),
         shell: true,
       })
@@ -122,7 +137,7 @@ export class Project {
 
   @bind
   public async yarnInstall() {
-    await this.$(`yarn`, [
+    await this.$('/usr/local/bin/yarn', [
       `install`,
       `--update-checksums`,
       `--skip-integrity-check`,
@@ -141,7 +156,7 @@ export class Project {
     this.logger.log('removing')
 
     try {
-      await remove(this.projectPath())
+      await fs.remove(this.projectPath())
     } catch (e) {
       logger.error(e)
     }
@@ -149,7 +164,7 @@ export class Project {
     this.logger.log('copying')
 
     try {
-      await copy(`./examples/${this.options.name}`, this.projectPath())
+      await fs.copy(`./examples/${this.options.name}`, this.projectPath())
     } catch (e) {
       logger.error(e)
     }
@@ -165,9 +180,16 @@ export class Project {
   public async build() {
     this.logger.log('building')
 
-    this.options.with === 'yarn'
-      ? await this.$(`yarn`, [`bud`, `build`, `--ci`])
-      : await this.$(`node`, [`node_modules/.bin/bud`, `build`, `--ci`])
+    if (this.options.buildCommand) {
+      await this.$(...this.options.buildCommand)
+      return
+    }
+
+    await this.$(`node`, [
+      join(this.projectPath(), 'node_modules', '.bin', 'bud'),
+      `build`,
+      `--ci`,
+    ])
   }
 
   /**
@@ -185,8 +207,8 @@ export class Project {
    */
   @bind
   public async readJson(file: string) {
-    const contentString = await readFile(file)
-    return json5.parse(contentString.toString())
+    const buffer = await fs.readFile(file)
+    return json5.parse(buffer.toString())
   }
 
   /**
@@ -198,6 +220,7 @@ export class Project {
     const packageJson = await this.readJson(
       this.projectPath('package.json'),
     )
+
     Object.assign(this, {packageJson})
   }
 
@@ -208,7 +231,7 @@ export class Project {
   @bind
   public async setManifest() {
     this.manifest = await this.readJson(
-      this.projectPath(`${this.options.dist}/manifest.json`),
+      this.projectPath(join(this.options.dist, 'manifest.json')),
     )
   }
 
@@ -217,23 +240,20 @@ export class Project {
    * @decorator `@bind`
    */
   @bind
-  public async setAssets() {
-    this.assets = await Object.entries(this.manifest).reduce(
-      async (promised: Promise<any>, [name, path]: [string, string]) => {
-        const assets = await promised
+  public async setAssets(): Promise<void> {
+    await Promise.all(
+      Object.entries(this.manifest).map(
+        async ([name, path]: [string, string]) => {
+          logger.log('attempting to read', join(this.options.dist, path))
 
-        logger.log('attempting to read', `${this.options.dist}/${path}`)
-        const buffer = await readFile(
-          this.projectPath(`${this.options.dist}/${path}`),
-          'utf8',
-        )
+          const buffer = await fs.readFile(
+            join(this.projectPath(), this.options.dist, path),
+          )
 
-        return {
-          ...assets,
-          [name]: buffer.toString(),
-        }
-      },
-      Promise.resolve(),
+          this.assets[name] = buffer.toString()
+        },
+        Promise.resolve({}),
+      ),
     )
   }
 
@@ -245,7 +265,7 @@ export class Project {
   public async setEntrypoints() {
     try {
       const entrypoints = await this.readJson(
-        this.projectPath(`${this.options.dist}/entrypoints.json`),
+        this.projectPath(join(this.options.dist, 'entrypoints.json')),
       )
 
       Object.assign(this, {entrypoints})
@@ -260,7 +280,7 @@ export class Project {
   public async setModules() {
     try {
       const modules = await this.readJson(
-        this.projectPath(join(this.storage, `bud/modules.json`)),
+        this.projectPath(join(this.storage, 'bud', 'modules.json')),
       )
 
       Object.assign(this, {modules})

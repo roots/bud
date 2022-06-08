@@ -17,6 +17,8 @@ import '@roots/bud-wordpress-dependencies'
 import '@roots/bud-wordpress-externals'
 import '@roots/bud-wordpress-manifests'
 
+import BudPresetWordPress from './extension.js'
+
 declare module '@roots/bud-framework' {
   interface Bud {
     wordpress: BudPresetWordPress
@@ -26,5 +28,4 @@ declare module '@roots/bud-framework' {
   }
 }
 
-import BudPresetWordPress from './extension'
 export default BudPresetWordPress

@@ -21,5 +21,9 @@ export interface close {
  * @public
  */
 export function close(callback?: any) {
+  if (this.env.has('TS_JEST')) {
+    return callback && callback()
+  }
+
   callback ? callback() : process.exit()
 }

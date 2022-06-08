@@ -1,1 +1,1 @@
-export {Service} from './extensions.service'
+export {Service} from './extensions.service.js'

@@ -10,7 +10,7 @@
  * @packageDocumentation
  */
 
-import './env'
+import './env.js'
 
-import BudReact from './extension'
+import BudReact from './extension.js'
 export default BudReact

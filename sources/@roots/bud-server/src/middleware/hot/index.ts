@@ -1,6 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
 
-import webpackHotMiddleware from './webpack-hot-middleware/middleware'
+import webpackHotMiddleware from './webpack-hot-middleware/middleware.js'
 
 /**
  * Hot middleware options
@@ -15,5 +15,10 @@ const options: (app: Bud) => any = app =>
  *
  * @public
  */
-export const hot = (app: Bud) =>
-  webpackHotMiddleware(app.compiler.compilation, options(app))
+export const hot = (app: Bud) => {
+  const middlewareOptions = options(app)
+
+  app.log(middlewareOptions)
+
+  return webpackHotMiddleware(app.compiler.compilation, middlewareOptions)
+}

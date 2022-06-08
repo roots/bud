@@ -7,7 +7,7 @@ import {
   Contributing,
   Docs,
   Sponsors,
-} from '../components'
+} from '../components/index.js'
 
 export const Extension = ({
   name,

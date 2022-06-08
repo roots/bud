@@ -1,0 +1,11 @@
+ignore:
+  - '!sources/@roots/*/src/'
+coverage:
+  status:
+    project:
+      default:
+        target: auto
+        threshold: 0%
+        base: auto
+        informational: true
+        only_pulls: false

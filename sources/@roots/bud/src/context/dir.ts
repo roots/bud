@@ -1,13 +1,16 @@
-import {bind, fs, pkgUp} from '@roots/bud-support'
+import fs from 'fs-extra'
+import {bind} from 'helpful-decorators'
 import {dirname, join} from 'node:path'
+import {pkgUp} from 'pkg-up'
 
 export class Dir {
-  public project: string
+  public project?: string
 
   public constructor(public cwd?: string) {}
 
   public set(dir: 'cwd' | 'project', path: string): this {
     this[dir] = path
+
     return this
   }
 
@@ -31,7 +34,7 @@ export class Dir {
     await this.setProject(this.cwd)
     if (this.project) return this
 
-    await pkgUp.pkgUp({cwd: this.cwd}).then(dirname).then(this.setProject)
+    await pkgUp({cwd: this.cwd}).then(dirname).then(this.setProject)
     if (!this.project) {
       throw new Error(
         `Could not find project root (from cwd: ${this.cwd})`,

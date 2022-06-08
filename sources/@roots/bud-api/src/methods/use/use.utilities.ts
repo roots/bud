@@ -1,7 +1,6 @@
 import {Extension} from '@roots/bud-framework'
-import {lodash, nanoid} from '@roots/bud-support'
-
-const {isEqual, isFunction} = lodash
+import {isEqual, isFunction} from 'lodash-es'
+import {nanoid} from 'nanoid'
 
 /**
  * Returns true if extensions appears to be a Plugin constructor

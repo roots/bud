@@ -1,0 +1,73 @@
+{
+  "name": "@roots/bud-client",
+  "description": "Client scripts for @roots/bud",
+  "version": "0.0.0",
+  "homepage": "https://roots.io/bud",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "sources/@roots/bud-client"
+  },
+  "contributors": [
+    {
+      "name": "kellymears",
+      "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "QWp6t",
+      "url": "https://github.com/QWp6t"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/roots/bud/issues"
+  },
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "keywords": [
+    "bud",
+    "bud-framework"
+  ],
+  "engines": {
+    "node": ">=16"
+  },
+  "files": [
+    "lib/"
+  ],
+  "type": "commonjs",
+  "main": "./lib/index.cjs",
+  "module": "./lib/index.mjs",
+  "types": "./lib/hmr.d.cts",
+  "exports": {
+    ".": {
+      "import": "./lib/index.mjs",
+      "require": "./lib/index.cjs"
+    },
+    "./lib/*": "./lib/*"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.cts"
+      ],
+      "hmr": [
+        "./lib/hmr/index.d.cts"
+      ],
+      "proxy-click-interceptor": [
+        "./lib/proxy-click-interceptor.d.cts"
+      ]
+    }
+  },
+  "devDependencies": {
+    "@skypack/package-check": "0.2.2",
+    "webpack": "5.72.1"
+  },
+  "dependencies": {
+    "ansi-html-community": "0.0.8",
+    "querystring": "^0.2.0",
+    "strip-ansi": "^7.0.0",
+    "tslib": "2.4.0"
+  }
+}

@@ -43,9 +43,9 @@ export class Prettier extends Command {
    */
   public async execute() {
     await this.$(
-      `yarn prettier ./sources/@roots/*/src/**/* --config ./config/prettier.config.js --write --ignore-unknown --no-error-on-unmatched-pattern`,
-      `yarn prettier ./sources/@roots/*/lib/**/* --config ./config/prettier.config.js --write --ignore-unknown --no-error-on-unmatched-pattern`,
-      `yarn prettier ./sources/@roots/*/types/**/*.d.ts --config ./config/prettier.config.js --write --ignore-unknown --no-error-on-unmatched-pattern`,
+      `yarn prettier ./sources/@roots/*/src/**/* --config ./config/prettier.config.cjs --write --ignore-unknown --no-error-on-unmatched-pattern`,
+      `yarn prettier ./sources/@roots/*/lib/**/* --config ./config/prettier.config.cjs --write --ignore-unknown --no-error-on-unmatched-pattern`,
+      `yarn prettier ./sources/@roots/*/types/**/*.d.ts --config ./config/prettier.config.cjs --write --ignore-unknown --no-error-on-unmatched-pattern`,
     )
   }
 }

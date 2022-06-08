@@ -32,33 +32,47 @@
     "brotli"
   ],
   "engines": {
-    "node": ">=14"
-  },
-  "files": [
-    "lib/",
-    "types/"
-  ],
-  "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.js",
-  "types": "./types/index.d.ts",
-  "exports": {
-    "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.js"
+    "node": ">=16"
   },
   "bud": {
     "type": "extension"
   },
+  "files": [
+    "lib/"
+  ],
+  "type": "module",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": "./lib/index.js",
+    "./extension": "./lib/extension.js",
+    "./brotli": "./lib/brotli.js",
+    "./gzip": "./lib/gzip.js"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ],
+      "extension": [
+        "./lib/extension.d.ts"
+      ],
+      "brotli": [
+        "./lib/brotli.d.ts"
+      ],
+      "gzip": [
+        "./lib/gzip.d.ts"
+      ]
+    }
+  },
   "devDependencies": {
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/container": "workspace:sources/@roots/container",
     "@skypack/package-check": "0.2.2",
-    "@types/lodash": "4.14.182",
-    "@types/node": "16.11.36",
-    "webpack": "5.72.1"
+    "@types/node": "16.11.36"
   },
   "dependencies": {
-    "compression-webpack-plugin": "^9.0.1",
+    "compression-webpack-plugin": "^10.0.0",
     "tslib": "2.4.0"
   }
 }

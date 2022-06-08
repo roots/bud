@@ -1,10 +1,8 @@
 import {Bud} from '@roots/bud-framework'
-import {lodash} from '@roots/bud-support'
 import CssMinimizer from 'css-minimizer-webpack-plugin'
+import {isUndefined} from 'lodash-es'
 
-import {cssMinimizerOptions} from './minimize.constants'
-
-const {isUndefined} = lodash
+import {cssMinimizerOptions} from './minimize.constants.js'
 
 /**
  * Minimize function interface

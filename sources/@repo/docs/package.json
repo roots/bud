@@ -42,8 +42,8 @@
     "@types/react-router-dom": "5.3.3",
     "file-loader": "6.2.0",
     "raw-loader": "4.0.2",
-    "ts-node": "10.7.0",
-    "typescript": "4.6.4",
+    "ts-node": "10.8.0",
+    "typescript": "4.7.2",
     "url-loader": "4.1.1",
     "webpack": "5.72.1"
   },

@@ -1,13 +1,12 @@
 /**
- * Based in part on {@link https://github.com/facebook/create-react-app/blob/5fc8350c89ff730cdfd067bbd86a90dab393d21b/packages/react-dev-utils/formatWebpackMessages.js#L65-L73}
+ * Based in part on {@link https://github.com/facebook/create-react-app/blob/5fc8350c89ff730cdfd067bbd86a90dab393d21b/packages/react-dev-utils/formatWebpackMessages.js}
  */
 
 import {Bud} from '@roots/bud-framework'
-import {lodash as _} from '@roots/bud-support'
-import {isString} from 'lodash'
+import {isString} from 'lodash-es'
 import {StatsCompilation, StatsError} from 'webpack'
 
-import BudError from './BudError'
+import BudError from './BudError.js'
 
 export interface BudReport {
   errors: Array<BudError>
@@ -24,6 +23,7 @@ const reporter =
     /**
      * Eslint groups all errors under one error..
      */
+
     const captureEslint =
       /\x1B\[0m\x1B\[4m(?<file>.+)\x1B\[24m\x1B\[0m\n\x1B\[0m  (?<message>\x1B\[2m(?<line>[0-9]+):(?<column>[0-9]+)\x1B\[22m  \x1B\[31merror\x1B\[39m .*)/
 

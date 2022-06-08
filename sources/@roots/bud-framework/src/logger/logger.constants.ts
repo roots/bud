@@ -1,6 +1,6 @@
-import {figures} from '@roots/bud-support'
+import figures from 'figures'
 
-import {Bud} from '..'
+import {Bud} from '../index.js'
 
 /**
  * Instance configuration

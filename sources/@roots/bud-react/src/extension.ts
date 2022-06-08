@@ -1,11 +1,11 @@
 import {Extension} from '@roots/bud-framework'
 import {
   bind,
-  dependsOn,
+  dependsOnOptional,
   label,
 } from '@roots/bud-framework/extension/decorators'
 
-import * as api from './react-refresh/api'
+import * as api from './react-refresh/api.js'
 
 /**
  * React support extension for `@roots/bud`
@@ -15,7 +15,11 @@ import * as api from './react-refresh/api'
  * @decorator `@dependsOn`
  */
 @label('@roots/bud-react')
-@dependsOn(['@roots/bud-babel'])
+@dependsOnOptional([
+  '@roots/bud-babel',
+  '@roots/bud-esbuild',
+  '@roots/bud-typescript',
+])
 export default class BudReact extends Extension {
   /**
    * Register extension
@@ -36,9 +40,7 @@ export default class BudReact extends Extension {
    */
   @bind
   public async boot() {
-    this.app.babel.setPreset(
-      '@babel/preset-react',
-      this.resolve('@babel/preset-react'),
-    )
+    const preset = await this.resolve('@babel/preset-react')
+    this.app.babel.setPreset('@babel/preset-react', preset)
   }
 }

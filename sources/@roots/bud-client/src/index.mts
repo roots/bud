@@ -1,0 +1,5 @@
+/**
+ * Default export
+ */
+
+export default {}

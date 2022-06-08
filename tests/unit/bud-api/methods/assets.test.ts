@@ -32,7 +32,7 @@ describe('bud.assets', function () {
     expect(JSON.stringify(patterns)).toEqual(
       JSON.stringify([
         {
-          from: 'images/**/*',
+          from: 'images',
           to: bud.path('@name'),
           context: bud.path('@src'),
           noErrorOnMissing: true,
@@ -54,13 +54,13 @@ describe('bud.assets', function () {
     expect(JSON.stringify(options.patterns)).toEqual(
       JSON.stringify([
         {
-          from: 'images/**/*',
+          from: 'images',
           to: bud.path('@name'),
           context: bud.path('@src'),
           noErrorOnMissing: true,
         },
         {
-          from: 'fonts/**/*',
+          from: 'fonts',
           to: bud.path('@name'),
           context: bud.path('@src'),
           noErrorOnMissing: true,
@@ -93,15 +93,13 @@ describe('bud.assets', function () {
     expect(JSON.stringify(patterns)).toEqual(
       JSON.stringify([
         {
-          from: bud.path('@src/images/**/*'),
+          from: bud.path('@src/images'),
           to: bud.path('@dist/images'),
-          context: bud.path('@src'),
           noErrorOnMissing: true,
         },
         {
           from: bud.path('@src/fonts/font.woff'),
           to: bud.path('@dist/fonts/font.woff'),
-          context: bud.path('@src'),
           noErrorOnMissing: true,
         },
       ]),

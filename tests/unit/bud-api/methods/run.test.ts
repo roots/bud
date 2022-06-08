@@ -1,7 +1,8 @@
+import {beforeAll, describe, expect, it, jest} from '@jest/globals'
 import {Bud, factory} from '@repo/test-kit/bud'
 import {run} from '@roots/bud-api/methods/run'
 import {Service} from '@roots/bud-framework'
-import {noop} from 'lodash'
+import {noop} from 'lodash-es'
 
 class MockCompiler extends Service {
   public compile = jest.fn(() => ({run: this.run}))

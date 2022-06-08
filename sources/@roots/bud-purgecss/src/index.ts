@@ -23,7 +23,7 @@ import '@roots/bud-postcss'
 
 import type {Extension} from '@roots/bud-framework'
 
-import * as purge from './purge.interface'
+import * as purge from './purge.interface.js'
 
 declare module '@roots/bud-framework' {
   interface Bud {
@@ -35,4 +35,4 @@ declare module '@roots/bud-framework' {
   }
 }
 
-export * from './extension'
+export * from './extension.js'

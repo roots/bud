@@ -1,16 +1,51 @@
-import {bind, lodash as _, Signale} from '@roots/bud-support'
+import {bind} from 'helpful-decorators'
+import {has, isFunction} from 'lodash-es'
+import Signale from 'signale'
 
-import {Bud} from '../bud'
-import {Modules} from '../registry'
-import {Options} from './types'
+import {Bud} from '../bud.js'
+import {Modules} from '../registry/index.js'
+import {Options} from './types.js'
 
+/**
+ * Bud extension
+ *
+ * @public
+ */
 export class Extension<E = any, Plugin = any> {
+  /**
+   * Application
+   *
+   * @internal
+   */
   public _app?: () => Bud
+
+  /**
+   * Application accessor
+   *
+   * @public
+   */
   public app?: Bud
 
+  /**
+   * Extension options
+   *
+   * @internal
+   */
   public _options?: Options.FuncMap<E> = {}
+
+  /**
+   * Extension options
+   *
+   * @readonly
+   * @public
+   */
   public readonly options?: Options<E> = {}
 
+  /**
+   * Extension meta
+   *
+   * @public
+   */
   public meta? = {}
 
   /**
@@ -46,62 +81,69 @@ export class Extension<E = any, Plugin = any> {
   public when?(options: Options<E>, app: Bud): Promise<boolean>
 
   /**
-   * Plugin constructor
+   * @public
    */
-  public plugin?: new (options: Options<E>) => Plugin
+  public logger?: Bud['logger']['instance']
 
-  @bind
-  public async _init?() {
-    this.path = await this.app.module.path(this.label)
-    if (this.init) {
-      await this.init(this.options, this.app)
-    }
-  }
+  /**
+   * `init` callback
+   *
+   * @param options - Extension options
+   * @param app - Bud instance
+   *
+   * @public
+   */
   public async init?(options: Options<E>, app: Bud): Promise<unknown>
 
-  @bind
-  public async _register?() {
-    if (this.register) {
-      await this.register(this.options, this.app)
-    }
-  }
+  /**
+   * `register` callback
+   *
+   * @param options - Extension options
+   * @param app - Bud instance
+   *
+   * @public
+   */
   public async register?(options: Options<E>, app: Bud): Promise<unknown>
 
-  @bind
-  public async _boot?() {
-    if (this.boot) {
-      await this.boot(this.options, this.app)
-    }
-  }
+  /**
+   * `boot` callback
+   *
+   * @param options - Extension options
+   * @param app - Bud instance
+   *
+   * @public
+   */
   public async boot?(options?: Options<E>, app?: Bud): Promise<unknown>
 
-  @bind
-  public async _beforeBuild?() {
-    if (this.beforeBuild) {
-      this.app.hooks.action('event.build.before', async () => {
-        const enabled = await this.isEnabled()
-        enabled && this.beforeBuild(this.options, this.app)
-      })
-    }
-  }
+  /**
+   * `beforeBuild` callback
+   *
+   * @param options - Extension options
+   * @param app - Bud instance
+   *
+   * @public
+   */
   public async beforeBuild?(
     options: Options<E>,
     app?: Bud,
   ): Promise<unknown>
 
-  @bind
-  public async _make?() {
-    const enabled = await this.isEnabled()
-
-    if (enabled === false || (!this.make && !this.apply && !this.plugin))
-      return false
-
-    if (this.plugin) return new this.plugin(this.options)
-    if (this.apply) return this as {apply: any}
-
-    return await this.make()
-  }
+  /**
+   * `make` callback
+   *
+   * @param options - Extension options
+   * @param app - Bud instance
+   *
+   * @public
+   */
   public async make?(options?: Options<E>, app?: Bud): Promise<Plugin>
+
+  /**
+   * Plugin constructor
+   *
+   * @public
+   */
+  public plugin?: new (options: Options<E>) => Plugin
 
   /**
    * Compiler plugin `apply` method
@@ -111,16 +153,8 @@ export class Extension<E = any, Plugin = any> {
   public apply?: Extension.PluginInstance['apply']
 
   /**
-   * @public
-   */
-  public path?: string
-
-  /**
-   * @public
-   */
-  public logger?: Bud['logger']['instance']
-
-  /**
+   * Class constructor
+   *
    * @public
    */
   public constructor(_app: Bud) {
@@ -139,7 +173,7 @@ export class Extension<E = any, Plugin = any> {
 
     Object.defineProperty(this, 'logger', {
       get: (() =>
-        function (): Signale {
+        function (): Signale.Signale {
           return logger.scope(this.label ?? 'anonymous extension')
         }.bind(this))(),
     })
@@ -155,6 +189,83 @@ export class Extension<E = any, Plugin = any> {
   }
 
   @bind
+  public async _init?() {
+    if (this.init) {
+      try {
+        await this.init(this.options, this.app)
+        this.meta['_init'] = true
+      } catch (error) {
+        this.logger.error('error on init', '\n', error)
+        this.app.error('error in', this.label)
+      }
+    }
+  }
+
+  @bind
+  public async _register?() {
+    if (this.register) {
+      try {
+        if (this.init && !this.meta['_init']) await this._init()
+      } catch (err) {
+        this.logger.error(this.label, 'register => init error', '\n')
+      }
+      try {
+        await this.register(this.options, this.app)
+        this.meta['_register'] = true
+      } catch (error) {
+        this.logger.error('error on register', '\n', error)
+        this.app.error('error in', this.label)
+      }
+    }
+  }
+
+  @bind
+  public async _boot?() {
+    if (this.boot) {
+      try {
+        if (this.init && !this.meta['_init']) await this._init()
+        if (this.register && !this.meta['_register'])
+          await this._register()
+      } catch (err) {
+        this.logger.error(this.label, 'register => init error', '\n')
+      }
+      try {
+        await this.boot(this.options, this.app)
+        this.meta['_boot'] = true
+      } catch (error) {
+        this.app.error(this.label, 'boot error', '\n', error)
+      }
+    }
+  }
+
+  @bind
+  public async _beforeBuild?() {
+    if (this.beforeBuild) {
+      this.app.hooks.action(
+        'event.build.before',
+        async () => await this.beforeBuild(this.options, this.app),
+      )
+    }
+  }
+
+  @bind
+  public async _make?() {
+    const enabled = await this.isEnabled()
+
+    if (enabled === false || (!this.make && !this.apply && !this.plugin))
+      return false
+
+    if (this.plugin) return new this.plugin(this.options)
+    if (this.apply) return this as {apply: any}
+
+    try {
+      return await this.make()
+    } catch (error) {
+      this.app.error(this.label, 'make error', '\n', error)
+    }
+  }
+
+  @bind
   public getOptions?(): Options<E> {
     return Object.entries(this._options).reduce(this.fromOptionsMap, {})
   }
@@ -163,14 +274,14 @@ export class Extension<E = any, Plugin = any> {
   public setOptions?(
     value: Options<E> | ((value: Options<E>) => Options<E>),
   ): this {
-    this._options = _.isFunction(value) ? value(this.options) : value
+    this._options = isFunction(value) ? value(this.options) : value
     return this
   }
 
   @bind
-  public getOption?<K extends keyof Options<E>>(
-    key: K & string,
-  ): Options<E>[K & string] {
+  public getOption?<K extends keyof Options<E> & string>(
+    key: K,
+  ): Options<E>[K] {
     return this.options[key]
   }
 
@@ -179,18 +290,21 @@ export class Extension<E = any, Plugin = any> {
     key: K & string,
     value: Options<E>[K & string],
   ): this {
-    this._options[key] = _.isFunction(value) ? value : () => value
+    this._options[key] = isFunction(value)
+      ? value(this.options[key])
+      : () => value
+
     return this
   }
 
   @bind
-  protected toOptionsMap?<K extends keyof Options<E>>(
+  protected toOptionsMap?<K extends keyof Options<E> & string>(
     funcMap: Options.FuncMap<Options<E>> = {},
     [key, value]: [K & string, Options<E>[K & string]],
   ): Options.FuncMap<Options<E>> {
     return {
       ...funcMap,
-      [key]: _.isFunction(value) ? value : () => value,
+      [key]: isFunction(value) ? value : () => value,
     }
   }
 
@@ -201,7 +315,7 @@ export class Extension<E = any, Plugin = any> {
   ): Options<E> {
     return {
       ...(options ?? {}),
-      [key]: _.isFunction(value) ? value(this.app) : value,
+      [key]: isFunction(value) ? value(this.app) : value,
     }
   }
 
@@ -214,45 +328,108 @@ export class Extension<E = any, Plugin = any> {
     return this
   }
 
+  /**
+   * Returns true if extension property is set
+   *
+   * @param key - property name
+   * @returns true if property exists on extension
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
-  public has?<K extends keyof Extension>(key: K): boolean {
-    return _.has(this, key)
-  }
-
-  @bind
-  public isFunction?<K extends keyof Extension>(key: K): boolean {
-    return _.isFunction(this[key]) ? true : false
+  public has?<K extends `${keyof Extension}`>(key: K): boolean {
+    return has(this, key)
   }
 
   /**
+   * Returns true if extension property is set and is a function
+   *
+   * @param key - property name
+   * @returns true if property exists on extension
+   *
    * @public
+   * @decorator `@bind`
    */
   @bind
-  public resolve?(packageName: string): string {
-    const result = this.app.module.resolvePreferred(packageName, this.path)
-    this.logger.log('resolved', packageName, 'to', result)
-    return result
+  public isFunction?<K extends `${keyof Extension}`>(key: K): boolean {
+    return this.has(key) && isFunction(this[key]) ? true : false
   }
 
   /**
+   * Resolve module using `import.meta.resolve` api
+   *
+   * @remarks
+   * Uses `import-meta-resolve` (npm package).
+   * Will transition to node `import.meta.resolve` api when it is marked
+   * non-experimental. It currently requires a flag to enable.
+   *
    * @public
+   * @decorator `@bind`
    */
   @bind
-  public async import?<T = any>(packageName: string): Promise<T> {
+  public async resolve?(signifier: string): Promise<string> {
+    const modulePath = await this.app.module.resolve(signifier)
+
+    this.logger.log(this.label, 'resolving', signifier, 'to', modulePath)
+
+    return modulePath
+  }
+
+  /**
+   * Resolve CJS with `require.resolve` API
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async resolveCjs?(signifier: string): Promise<string> {
+    const modulePath = await this.app.module.resolveCjs(signifier)
+    this.logger.log(
+      this.label,
+      'resolving cjs module',
+      signifier,
+      'to',
+      modulePath,
+    )
+
+    return modulePath
+  }
+
+  /**
+   * Import ESM module
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async import?<T = any>(signifier: string): Promise<T> {
     try {
-      const result = await import(this.resolve(packageName))
-      this.logger.log('imported', packageName)
-      return result
+      const result = await import(signifier)
+      this.logger.success('imported', signifier)
+      return result?.default ?? result ?? null
     } catch (error) {
       this.app.error(error)
     }
   }
 
+  /**
+   * Disable extension
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public disable?() {
     this.when = async () => false
   }
 
+  /**
+   * Enable extension
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public enable?() {
     this.when = async () => true
@@ -262,6 +439,7 @@ export class Extension<E = any, Plugin = any> {
    * Value determining if the extension should be utilized
    *
    * @public
+   * @decorator `@bind`
    */
   @bind
   public async isEnabled?(): Promise<boolean> {
@@ -269,6 +447,15 @@ export class Extension<E = any, Plugin = any> {
     return true
   }
 
+  /**
+   * Alias for `.app`
+   *
+   * @remarks
+   * Utility to make it easier to chain config fn calls
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public done?(): Bud {
     return this.app

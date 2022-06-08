@@ -1,3 +1,4 @@
+import {beforeAll, describe, expect, it} from '@jest/globals'
 import * as console from '@repo/logger'
 import {Bud, factory, mockProject, repoPath} from '@repo/test-kit/bud'
 
@@ -7,7 +8,9 @@ describe('mock project', () => {
   beforeAll(async () => (bud = await factory()))
 
   it('repoPath matches repo root', async () => {
-    expect(repoPath('tests/unit/tests')).toBe(__dirname)
+    expect(repoPath('tests/unit/tests')).toEqual(
+      expect.stringContaining('tests/unit/tests'),
+    )
   })
 
   it('mockProject.path matches project path', async () => {

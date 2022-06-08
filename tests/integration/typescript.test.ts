@@ -8,6 +8,7 @@ const run = pacman => () => {
       name: 'typescript',
       dist: 'dist',
       with: pacman,
+      buildCommand: ['./node_modules/.bin/ts-bud', ['build', '--ci']],
     }).setup()
   })
 

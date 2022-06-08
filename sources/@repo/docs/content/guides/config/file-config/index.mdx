@@ -13,9 +13,12 @@ most likely the best pick for most **bud.js** projects.
 
 ## The basics
 
-- A bud.js config file must include `bud.config` in the filename.
+- A **bud.js** config file must include `bud.config` in the filename.
 - The file exports a single function which receives an instance of **bud**.
 - The function can be async.
+- If using `require`, the file should be named with the `.cjs` extension
+- If using `import`, the file should be named with the `.mjs` extension
+- If the project has opted-in to ESM with `{"type": "module"}`, the file can be named with the `.js` extension.
 
 Here is a super minimal example, to give you an idea:
 
@@ -29,7 +32,7 @@ Here is a super minimal example, to give you an idea:
   <TabItem value="js">
 
 ```js title='bud.config.js'
-module.exports = async bud => bud.entry('app', 'app.js')
+export default async bud => bud.entry('app', 'app.js')
 ```
 
   </TabItem>
@@ -38,9 +41,7 @@ module.exports = async bud => bud.entry('app', 'app.js')
 ```ts title='bud.config.ts'
 import {Bud} from '@roots/bud'
 
-export default async function (bud: Bud) {
-  bud.entry('app', 'app.js')
-}
+export default async (bud: Bud) => bud.entry('app', 'app.js')
 ```
 
   </TabItem>

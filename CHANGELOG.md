@@ -1,6 +1,80 @@
 # Changelog
 
-For more information on any given release check the corresponding [bud.js.org `release` tag](https://bud.js.org/blog/tags/release)
+For more information on a release check the corresponding [bud.js.org `release` tag](https://bud.js.org/blog/tags/release)
+
+## 5.8.7 (2022-05)
+
+- 🛼 improve(patch): improve @roots/bud-terser extension in https://github.com/roots/bud/pull/1431
+- 🐛 fix(patch): fix error when development or production is in path in https://github.com/roots/bud/pull/1432
+
+## 5.8.6 (2022-05-23)
+
+- 🛼 improve(patch): @roots/sage: allow for use of app.setPublicPath in https://github.com/roots/bud/pull/1423
+- 🐛 fix(patch): include hash with bud.assets calls in https://github.com/roots/bud/pull/1424
+
+## 5.8.5 (2022-05-20)
+
+- 🛼 improve(patch): hard code `/_bud/hmr` path in https://github.com/roots/bud/pull/1418
+- 🛼 improve(patch): public path in https://github.com/roots/bud/pull/1420
+  - prevent fatal error with webpack-manifest-plugin if build.output.publicPath is undefined
+  - set public path based on APP_PUBLIC_PATH envvar (if present)
+  - explicitly set public path for mini-css loader
+- 🛼 improve(patch): improve watcher in https://github.com/roots/bud/pull/1419
+
+## 5.8.4 (2022-05-19)
+
+- 🐛 fix(patch): do not emit empty js assets in https://github.com/roots/bud/pull/1417
+- 📦 Bump babel monorepo to v7.17.12 in https://github.com/roots/bud/pull/1414
+
+## 5.8.3 (2022-05-17)
+
+- 🚑 fix(patch): multi-instance compatibility in https://github.com/roots/bud/pull/1412
+
+## 5.8.2 (2022-05-16)
+
+- 🚑 fix(patch): instantiate nested extensions in https://github.com/roots/bud/commit/9bd07900c5b98b00b835d53e1dcd4a17e6ee5c1b
+
+## 5.8.1 (2022-05-12)
+
+- 🚑 fix(patch): call user config before bud clean
+- 🚑 fix(patch): allow extensions import failure https://github.com/roots/bud/releases#1349
+
+## 5.8.0 (2022-05-10)
+
+- 🛼 improve: bud.entry #1303
+- ✨ feature: auto-open browser/editor on dev build final #1315
+- 🛼 improve: @roots/bud-esbuild extension #1327
+- 🛼 improve(minor): allow custom dependencies #1328
+- 🛼 improve(minor): allow prototypal extensions #1335
+- ✨ feat(patch): support nested tailwindcss color groups #1341
+
+## 5.7.0 (2022-03-25)
+
+- 🛼 improve: client dev scripts (#1293)
+- 🛼 improve: bud.config (#1287)
+- 🩹 fix: remove rules section from bud-tailwindcss base stylelint config (#1239) props @alexdanylyschyn
+- 🩹 fix: add scss stylelint rules for tailwindcss (#1288) props @joshuafredrickson
+- 🩹 fix: indicator/hmr errors (#1248)
+- 🩹 fix: bud.terser (#1285)
+- 🩹 fix: babel root (#1284)
+- 🩹 fix: bud.alias (#1283)
+- 🩹 fix: error logging (#1290)
+
+## 5.6.0 (2022-03-15)
+
+- ✨ feature: add discourse topic release workflow by @retlehs in https://github.com/roots/bud/pull/1234
+  Improvements
+- 🛼 improve: build, cache, compiler by @kellymears in https://github.com/roots/bud/pull/1229
+- 🩹 fix: docs fouc by @kellymears in https://github.com/roots/bud/pull/1222
+- 🩹 fix: macos notifier by @kellymears in https://github.com/roots/bud/pull/1236
+  Features
+
+## 5.5.0 (2022-03-04)
+
+- 🎉 feature: ssl support by @strarsis & @kellymears in https://github.com/roots/bud/pull/1069
+- 🎉 feature: @roots/sage theme.json support by @kellymears in https://github.com/roots/bud/pull/1199
+  Fixes
+- 🩹 fix: disable selector-id-pattern in Sage config by @joshuafredrickson in https://github.com/roots/bud/pull/1209
 
 ## 5.4.0 (2022-02-22)
 
@@ -148,7 +222,7 @@ You no longer need to explicitly require an extension in your configuration file
 - New notification center integration (MacOS only)
 - Dashboard warnings and errors are now better displayed in the console.
 
-## Fixed
+### Fixed
 
 - **bud.proxy** - fixed proxy interceptor
 - **bud.serve** - fixed development server public path
@@ -158,10 +232,4 @@ You no longer need to explicitly require an extension in your configuration file
 
 - `@roots/bud-typings` has been deprecated.
 - Added [`@roots/yarn-plugin-kjo`](https://github.com/roots/bud/tree/main/dev/@bud) to provide utilities in the `yarn @bud` namespace.
-
-## Extension specific notes
-
-The following notes only apply to specific extensions:
-
-- [`@roots/bud-tailwindcss`](https://github.com/roots/bud/tree/main/sources/@roots/bud-tailwindcss) - updated to version 3.
 - [`@roots/bud-sass`](https://github.com/roots/bud/tree/main/sources/@roots/bud-sass) - uses `postcss-scss` to avoid syntax conflicts between sass and postcss.

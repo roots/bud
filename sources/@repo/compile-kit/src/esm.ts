@@ -1,19 +1,21 @@
 import {error, log} from '@repo/logger'
-import {chunk} from 'lodash'
-import {cpus} from 'os'
+import {chunk} from 'lodash-es'
+import {cpus} from 'node:os'
 
-import * as config from '../ncc.config'
-import {compileEsm} from './compiler/esm'
+import config from '../ncc.config.js'
+import {compileEsm} from './compiler/esm.js'
 
 const packageArgument = process.argv[2]
 
 const run = async () => {
   const size = cpus().length / 2 ?? 1
   log(`chunk size`, size)
+
+  const compilerConfig = await config()
   try {
     return packageArgument !== 'all'
       ? await compileEsm(packageArgument)
-      : await chunk(config.packages, size).reduce(
+      : await chunk(compilerConfig.packages, size).reduce(
           async (promised, chunk) => {
             await promised
             await Promise.all(chunk.map(compileEsm))

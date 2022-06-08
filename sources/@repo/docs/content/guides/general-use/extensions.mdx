@@ -1,0 +1,90 @@
+---
+title: Extensions
+description: Interacting with extensions
+slug: extensions
+sidebar_label: Extensions
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+Most of the first party **bud.js** extensions expose a friendly API to use when configuring your build.
+But, there is also a more direct way to interact with them which you may find useful:
+
+## Get an extension reference
+
+You may get an extension instance with `bud.extensions.get`:
+
+```js title="bud.config.js"
+bud.extensions.get('copy-webpack-plugin')
+```
+
+From there you can do a lot of different things:
+
+## Manually enable or disable an extension
+
+Call `enable` to enable an extension:
+
+```js title="bud.config.js"
+bud.extensions.get('webpack-clean-plugin').enable()
+```
+
+Or `disable` to disable it:
+
+```js title="bud.config.js"
+bud.extensions.get('webpack-clean-plugin').disable()
+```
+
+## Set options
+
+Call `setOptions` to set any registered `options` directly:
+
+```js title="bud.config.js"
+bud.extensions.get('copy-webpack-plugin').setOptions({
+  patterns: [{from: bud.path('@src/images')}],
+})
+```
+
+`setOptions` also takes a callback which is passed the current options:
+
+```js title="bud.config.js"
+bud.extensions.get('copy-webpack-plugin').setOptions(options => ({
+  ...options,
+  patterns: [{from: bud.path('@src/images')}],
+}))
+```
+
+## Set an option
+
+Call `setOption` if you only need to set a single option and don't want to have to handle
+merging existing options:
+
+```js title="bud.config.js"
+bud.extensions
+  .get('copy-webpack-plugin')
+  .setOption('patterns', [{from: bud.path('@src/images')}])
+```
+
+Like `setOptions`, you can also utilize a callback here:
+
+```js title="bud.config.js"
+bud.extensions
+  .get('copy-webpack-plugin')
+  .setOption('patterns', patterns => [
+    ...patterns,
+    {from: bud.path('@src/images')},
+  ])
+```
+
+## Register an extension
+
+Extensions included in `package.json` are automatically instantiated. You can also add extensions using [`bud.use`](/docs/bud.use).
+But, again, you can choose to use the bud extensions API directly in order to register an extension, if desired:
+
+```js title="bud.config.js"
+const Plugin = require('some-webpack-plugin')
+await bud.extensions.add(new Plugin())
+```
+
+**bud.js extensions are a superset of Webpack plugins**.
+This means that you can add basically any Webpack plugin as demonstrated above.

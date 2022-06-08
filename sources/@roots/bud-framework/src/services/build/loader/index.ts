@@ -1,4 +1,5 @@
-import {Bud} from '../../..'
+import {Bud} from '../../../bud.js'
+import {Base} from '../base.js'
 
 /**
  * Loader interface
@@ -9,13 +10,7 @@ import {Bud} from '../../..'
  *
  * @public
  */
-export interface Loader {
-  /**
-   * Application instance
-   * @public
-   */
-  app: Bud
-
+interface Loader extends Base {
   /**
    * Loader source factory
    * @public
@@ -35,6 +30,8 @@ export interface Loader {
   getSrc(): string
 }
 
-export namespace Loader {
+namespace Loader {
   export type Constructor = string | ((app: Bud) => string)
 }
+
+export {Loader as default}

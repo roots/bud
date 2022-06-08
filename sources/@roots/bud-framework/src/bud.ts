@@ -1,9 +1,6 @@
-import {
-  boxen,
-  HighlightOptions,
-  PrettyFormatOptions,
-} from '@roots/bud-support'
-import {bind, format, highlight, lodash, parsers} from '@roots/bud-support'
+import {bind} from 'helpful-decorators'
+import {omit} from 'lodash-es'
+import {format, PrettyFormatOptions} from 'pretty-format'
 
 import {
   Api,
@@ -20,11 +17,11 @@ import {
   Server,
   Services,
 } from '.'
-import {lifecycle} from './lifecycle'
-import * as methods from './methods'
-import {Module} from './module'
-
-const {omit} = lodash
+import {lifecycle} from './lifecycle/index.js'
+import * as methods from './methods/index.js'
+import {Module} from './module.js'
+import * as json5 from './parsers/json5.js'
+import * as yml from './parsers/yml.js'
 
 /**
  * Framework abstract
@@ -275,14 +272,14 @@ export abstract class Bud {
    *
    * @public
    */
-  public json: typeof parsers.json5 = parsers.json5
+  public json: typeof json5 = json5
 
   /**
    * Read and write yaml files
    *
    * @public
    */
-  public yml: typeof parsers.yml = parsers.yml
+  public yml: typeof yml = yml
 
   /**
    * Class constructor
@@ -392,14 +389,12 @@ export abstract class Bud {
   public debug(...messages: any[]) {
     // eslint-disable-next-line no-console
     this.context.stdout.write(
-      `${highlight(
-        format(messages, {
-          callToJSON: false,
-          maxDepth: 8,
-          printFunctionName: false,
-          escapeString: false,
-        }),
-      )}`,
+      format(messages, {
+        callToJSON: false,
+        maxDepth: 8,
+        printFunctionName: false,
+        escapeString: false,
+      }),
     )
   }
 
@@ -428,7 +423,7 @@ export abstract class Bud {
   @bind
   public dump(
     obj: any,
-    options?: PrettyFormatOptions & HighlightOptions & {prefix: string},
+    options?: PrettyFormatOptions & {prefix: string},
   ): Bud {
     if (!this.context.args.verbose) return
 
@@ -439,25 +434,13 @@ export abstract class Bud {
     ])
 
     this.context.stdout.write(
-      boxen(
-        highlight(
-          format(obj, {
-            callToJSON: false,
-            maxDepth: 8,
-            printFunctionName: false,
-            escapeString: false,
-            ...prettyFormatOptions,
-          }),
-          {
-            language: options?.language ?? 'typescript',
-            ignoreIllegals: options?.ignoreIllegals ?? true,
-          },
-        ),
-        {
-          title: options.prefix ?? 'object dump',
-          borderStyle: 'round',
-        },
-      ),
+      format(obj, {
+        callToJSON: false,
+        maxDepth: 8,
+        printFunctionName: false,
+        escapeString: false,
+        ...prettyFormatOptions,
+      }),
     )
 
     return this

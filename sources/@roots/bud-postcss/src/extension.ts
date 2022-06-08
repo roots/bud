@@ -4,6 +4,7 @@ import {
   expose,
   label,
 } from '@roots/bud-framework/extension/decorators'
+import {isFunction} from 'lodash-es'
 import {Plugin, Processor} from 'postcss'
 
 type Input =
@@ -82,25 +83,14 @@ export default class BudPostCss extends Extension {
   }
 
   /**
-   * Set a plugin
-   *
-   * @param name - plugin handle
-   * @param plugin - the plugin object or a tuple of plugin and options
-   * @returns the bud.postcss instance
+   * Get plugins
    *
    * @public
-   * @decorator `@bind` - binds the method to the class instance
+   * @decorator `@bind`
    */
   @bind
-  public setPlugin(name: string, plugin?: Input): this {
-    const modulePath = plugin ?? [name]
-
-    this.plugins.set(
-      name,
-      Array.isArray(modulePath) ? modulePath : [modulePath],
-    )
-
-    return this
+  public getPlugins() {
+    return this.plugins
   }
 
   /**
@@ -110,7 +100,7 @@ export default class BudPostCss extends Extension {
    * @returns the bud.postcss instance
    *
    * @public
-   * @decorator `@bind` - binds the method to the class instance
+   * @decorator `@bind`
    */
   @bind
   public setPlugins(plugins: InputRecords | InputMap | InputList): this {
@@ -130,19 +120,61 @@ export default class BudPostCss extends Extension {
   }
 
   /**
+   * Set a plugin
+   *
+   * @param name - plugin handle
+   * @param plugin - the plugin object or a tuple of plugin and options
+   * @returns the bud.postcss instance
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public setPlugin(name: string, plugin?: Input): this {
+    const modulePath = plugin ?? [name]
+
+    this.plugins.set(
+      name,
+      Array.isArray(modulePath) ? modulePath : [modulePath],
+    )
+
+    return this
+  }
+
+  /**
    * Remove a plugin
    *
    * @param plugin - handle of plugin to remove
    * @returns the bud.postcss instance
    *
    * @public
-   * @decorator `@bind` - binds the method to the class instance
+   * @decorator `@bind`
    */
   @bind
   public unsetPlugin(plugin: string) {
     this.plugins.has(plugin) && this.plugins.delete(plugin)
 
     return this
+  }
+
+  /**
+   * Get plugin options
+   *
+   * @param plugin - handle of plugin to modify options of
+   * @returns the plugin options
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public getPluginOptions(plugin: string): Record<string, any> {
+    if (!this.plugins.has(plugin)) this.app.error(plugin, 'does not exist')
+
+    return this.plugins.has(plugin) &&
+      this.plugins.get(plugin).length &&
+      this.plugins.get(plugin).length > 1
+      ? this.plugins.get(plugin).pop()
+      : {}
   }
 
   /**
@@ -153,19 +185,57 @@ export default class BudPostCss extends Extension {
    * @returns the bud.postcss instance
    *
    * @public
-   * @decorator `@bind` - binds the method to the class instance
+   * @decorator `@bind`
    */
   @bind
   public setPluginOptions(
     plugin: string,
-    options: Record<string, any>,
+    options:
+      | Record<string, any>
+      | ((options: Record<string, any>) => Record<string, any>),
   ): this {
+    if (!this.plugins.has(plugin)) {
+      this.app.error(plugin, 'does not exist')
+    }
+
     this.plugins.set(plugin, [
-      this.plugins.has(plugin) && this.plugins.get(plugin)?.length
-        ? this.plugins.get(plugin).shift()
-        : this.plugins.get(plugin),
-      options,
+      this.getPluginPath(plugin),
+      isFunction(options)
+        ? options(this.getPluginOptions(plugin))
+        : options,
     ])
+
+    return this
+  }
+
+  /**
+   * Get plugin path
+   *
+   * @param plugin - handle of plugin to modify options of
+   * @returns the plugin path
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public getPluginPath(plugin: string): string {
+    return this.plugins.has(plugin) && this.plugins.get(plugin)?.length
+      ? [...this.plugins.get(plugin)].shift()
+      : this.plugins.get(plugin)
+  }
+
+  /**
+   * Set plugin path
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public setPluginPath(plugin: string, path: string): this {
+    const target = this.plugins.get(plugin)
+    const hasOptions = target.length && target.length > 1
+
+    this.setPlugin(plugin, hasOptions ? [path, target.pop()] : [path])
 
     return this
   }
@@ -174,16 +244,23 @@ export default class BudPostCss extends Extension {
    * Extension registration
    *
    * @public
-   * @decorator `@bind` - binds the method to the class instance
+   * @decorator `@bind`
    */
   @bind
   public async register() {
+    const loader = await this.resolve('postcss-loader')
+    const importPlugin = await this.resolve('postcss-import')
+    const nestedPlugin = await this.resolve('postcss-nested')
+    const presetEnv = await this.resolve('postcss-preset-env').then(path =>
+      path.replace('.mjs', '.cjs'),
+    )
+
     /**
      * Install postcss-loader, postcss-loader options, and
      * modify the css rule to utilize them.
      */
     this.app.build
-      .setLoader('postcss', this.resolve('postcss-loader'))
+      .setLoader('postcss', loader)
       .setItem('postcss', {
         loader: 'postcss',
         options: () => {
@@ -197,12 +274,12 @@ export default class BudPostCss extends Extension {
 
     this.setPlugins(
       new Map([
-        ['postcss-import', [this.resolve('postcss-import')]],
-        ['postcss-nested', [this.resolve('postcss-nested')]],
+        ['postcss-import', [importPlugin]],
+        ['postcss-nested', [nestedPlugin]],
         [
           'postcss-preset-env',
           [
-            this.resolve('postcss-preset-env'),
+            presetEnv,
             {
               stage: 1,
               features: {

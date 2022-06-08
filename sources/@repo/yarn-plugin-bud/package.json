@@ -1,7 +1,7 @@
 {
   "name": "@repo/yarn-plugin-bud",
   "private": true,
-  "packageManager": "yarn@3.2.0",
+  "packageManager": "yarn@3.2.1",
   "main": "./sources/index.ts",
   "scripts": {
     "build": "builder build plugin"
@@ -18,7 +18,7 @@
     "fs-extra": "10.1.0",
     "semver": "7.3.7",
     "tslib": "2.4.0",
-    "typescript": "4.6.4"
+    "typescript": "4.7.2"
   },
   "dependencies": {
     "helpful-decorators": "2.1.0"

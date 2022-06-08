@@ -1,19 +1,43 @@
-import {bind, chalk} from '@roots/bud-support'
+import chalk from 'chalk'
 import {Command} from 'clipanion'
+import {bind} from 'helpful-decorators'
 import webpackcli from 'webpack-cli'
 
 import {factory} from '../../factory/index.js'
 import {BaseCommand} from './base.js'
 
 /**
- * @internal
+ * `bud doctor` command
+ *
+ * @public
  */
 export class DoctorCommand extends BaseCommand {
+  /**
+   * Wepback interface
+   *
+   * @public
+   */
   public webpack: {validate: (conf: any) => any}
+
+  /**
+   * Webpack CLI interface
+   *
+   * @public
+   */
   public webpackCLI: webpackcli
 
+  /**
+   * Command paths
+   *
+   * @public
+   */
   public static paths = [[`doctor`]]
 
+  /**
+   * Command usage
+   *
+   * @public
+   */
   public static usage = Command.Usage({
     category: `Doctor`,
     description: `Check compiled configuration against webpack`,
@@ -22,6 +46,11 @@ export class DoctorCommand extends BaseCommand {
     ],
   })
 
+  /**
+   * Command execute
+   *
+   * @public
+   */
   public async execute() {
     this.webpackCLI = new webpackcli()
     this.webpack = await this.webpackCLI.loadWebpack()

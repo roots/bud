@@ -1,8 +1,6 @@
-import {lodash} from '@roots/bud-support'
+import {isBoolean, isFunction} from 'lodash-es'
 
-import type {Bud} from '../'
-
-const {isFunction, isBoolean} = lodash
+import type {Bud} from '../bud.js'
 
 /**
  * @public

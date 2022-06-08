@@ -185,7 +185,8 @@ export abstract class Command extends BaseCommand {
             cwd: project.cwd,
           })
 
-          if (code !== 0) throw new Error(`${task} failed with code ${code}`)
+          if (code !== 0)
+            throw new Error(`${task} failed with code ${code}`)
         } catch (e) {
           await this.errorHandler(e)
         }

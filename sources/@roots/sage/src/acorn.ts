@@ -1,7 +1,7 @@
 import {Bud} from '@roots/bud-framework'
 
-import eventCompilerClose from './hooks/event.compiler.close'
-import eventCompilerDone from './hooks/event.compiler.done'
+import eventCompilerClose from './hooks/event.compiler.close.js'
+import eventCompilerDone from './hooks/event.compiler.done.js'
 
 /**
  * Override output directory for svg assets
@@ -36,9 +36,8 @@ export const setPublicPath = ({hooks, isDevelopment}: Bud) =>
  * Write hmr.json when compilation is finalized (only in development)
  * Remove this file when process is exited.
  */
-export const hmrJson = ({isDevelopment, tap}: Bud) =>
-  isDevelopment &&
-  [
-    ({hooks}) => hooks.action('event.compiler.success', eventCompilerDone),
-    ({hooks}) => hooks.action('event.compiler.close', eventCompilerClose),
-  ].map(fn => tap(fn))
+export const hmrJson = ({isDevelopment, hooks}: Bud) =>
+  hooks.action(
+    'event.compiler.success',
+    isDevelopment ? eventCompilerDone : eventCompilerClose,
+  )

@@ -1,7 +1,7 @@
 import {WatchOptions} from 'chokidar'
 
-import {Bud} from '../bud'
-import * as Server from '../services/server'
+import {Bud} from '../bud.js'
+import * as Server from '../services/server/index.js'
 
 export interface Dev {
   /**
@@ -20,6 +20,7 @@ export interface Dev {
    * Files which trigger a full browser reload
    */
   'dev.watch.files': Set<string>
+
   /**
    * FS.Watcher options
    * @public

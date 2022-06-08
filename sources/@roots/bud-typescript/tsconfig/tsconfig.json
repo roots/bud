@@ -24,5 +24,8 @@
     "skipLibCheck": true,
     "strictNullChecks": false,
     "suppressImplicitAnyIndexErrors": true
+  },
+  "ts-node": {
+    "esm": true
   }
 }

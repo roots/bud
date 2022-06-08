@@ -31,7 +31,7 @@ export class Build extends Command {
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
     description: `build project packages`,
-    examples: [[`build packages as commonjs`, `yarn @bud build`]],
+    examples: [[`build packages`, `yarn @bud build`]],
   }
 
   /**
@@ -52,6 +52,5 @@ export class Build extends Command {
     await this.$(
       this.withPassthrough(`yarn tsc -b ${TS_CONFIG_PATH} --force`),
     )
-    await this.$(`yarn @bud compile`)
   }
 }

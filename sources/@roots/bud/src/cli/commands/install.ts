@@ -1,13 +1,27 @@
-import {chalk} from '@roots/bud-support'
+import chalk from 'chalk'
 
 import {BaseCommand} from './base.js'
 
 /**
+ * `bud install` command
+ *
+ * @deprecated This command was deprecated in 5.3.0
+ *
  * @public
  */
 export class InstallCommand extends BaseCommand {
+  /**
+   * Command paths
+   *
+   * @public
+   */
   public static paths = [[`install`], [`init`]]
 
+  /**
+   * Command execute
+   *
+   * @public
+   */
   public async execute() {
     this.context.stdout.write(
       chalk.red(`bud install / bud init is deprecated\n`),

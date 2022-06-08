@@ -1,13 +1,11 @@
-import {lodash} from '@roots/bud-support'
 import {Command, Option} from 'clipanion'
+import {isUndefined} from 'lodash-es'
 import * as t from 'typanion'
 
 import {factory} from '../../factory/index.js'
 import {seed} from '../../seed.js'
 import * as overrides from '../config/override.config.js'
 import {BaseCommand} from './base.js'
-
-const {isUndefined} = lodash
 
 const fallback = (
   test: any | undefined,
@@ -17,17 +15,20 @@ const fallback = (
 
 /**
  * Build command
+ *
  * @public
  */
 export class BuildCommand extends BaseCommand {
   /**
    * Command paths
+   *
    * @public
    */
   public static paths = [[`build`]]
 
   /**
    * Command usage
+   *
    * @public
    */
   public static usage = Command.Usage({

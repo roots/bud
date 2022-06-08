@@ -1,6 +1,6 @@
 import type {Build, Extension} from '@roots/bud-framework'
 
-import type Vue from './extension'
+import type Vue from './extension.js'
 
 declare module '@roots/bud-framework' {
   interface Modules {

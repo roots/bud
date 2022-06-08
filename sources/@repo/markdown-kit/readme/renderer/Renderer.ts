@@ -1,6 +1,6 @@
 import Reconciler from 'react-reconciler'
 
-import {createElement} from './createElement'
+import {createElement} from './createElement.js'
 
 const HostConfig: any = {
   appendInitialChild(instance, child) {

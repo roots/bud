@@ -1,8 +1,6 @@
-import {lodash} from '@roots/bud-support'
+import {isFunction, isString} from 'lodash-es'
 
-import type {Bud} from '..'
-
-const {isFunction, isString} = lodash
+import type {Bud} from '../bud.js'
 
 /**
  * @public
@@ -12,9 +10,10 @@ export interface setPublicPath {
 }
 
 /**
- * By default it is assumed that assets are served from webroot (`/`).
- * You can use this method to replace this value for apps served from
- * a subdirectory.
+ * Set the application public path (e.g. `/assets`)
+ *
+ * @remarks
+ * The default public path is `/`
  *
  * @example
  * Set the default path using a string
@@ -31,6 +30,8 @@ export interface setPublicPath {
  *   return `web/assets/${publicPath}`
  * })
  * ```
+ *
+ * @see {@link https://bud.js.org/docs/bud.setPublicPath}
  *
  * @public
  */

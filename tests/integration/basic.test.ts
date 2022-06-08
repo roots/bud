@@ -1,3 +1,5 @@
+import {beforeAll, describe, it} from '@jest/globals'
+import {logger} from '@repo/logger'
 import {Project} from '@repo/test-kit/project'
 
 const run = pacman => () => {
@@ -12,6 +14,8 @@ const run = pacman => () => {
   })
 
   describe('main.js', () => {
+    logger.info(project)
+
     it('has contents', () => {
       expect(project.assets['main.js'].length).toBeGreaterThan(10)
     })

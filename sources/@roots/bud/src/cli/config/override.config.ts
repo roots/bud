@@ -1,8 +1,6 @@
-import {lodash} from '@roots/bud-support'
+import {isUndefined} from 'lodash-es'
 
 import {BuildCommand} from '../commands/build.js'
-
-const {isUndefined} = lodash
 
 /**
  * --target override

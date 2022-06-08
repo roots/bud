@@ -1,7 +1,7 @@
 import type {Bud} from '@roots/bud-framework'
 import CopyPlugin from 'copy-webpack-plugin'
-import {isArray, isString} from 'lodash'
-import {normalize} from 'path'
+import {isArray, isString} from 'lodash-es'
+import {normalize} from 'node:path'
 
 import type {method} from './assets.interface'
 
@@ -22,50 +22,22 @@ export const assets: method = async function assets(
    * when destructuring bud even though the context of
    * this function will be bound.
    */
-  const ctx = this as Bud
-
-  /**
-   * We know it's not a directory
-   * - when it ends with a globstar
-   *
-   * We'll say it's a directory when:
-   * - a pattern ends with `/`
-   * - a pattern has segments and it's last path segment does not contain a `.`
-   * - a pattern has no segments and does not contain a dot
-   */
-  const isDirectoryish = (pattern: string) => {
-    if (pattern.includes('*')) return false
-    if (pattern.endsWith('/')) return true
-    if (pattern.includes('/') && !pattern.split('/').pop().includes('.'))
-      return true
-
-    return !pattern.split('/').pop().includes('.')
-  }
+  const app = this as Bud
 
   /**
    * Replace a leading dot with the project path
    */
   const fromDotRel = (pattern: string) =>
-    pattern?.startsWith('./') ? pattern.replace('./', ctx.path()) : pattern
+    pattern?.startsWith('./') ? pattern.replace('./', app.path()) : pattern
 
   /**
    * Take an input string and return a {@link CopyPlugin.ObjectPattern}
    */
   function makePatternObject(input: string): CopyPlugin.ObjectPattern {
-    /**
-     * Process raw user input.
-     *
-     * - Replace leading dot with project path
-     * - Append wildcard glob to directory requests
-     */
-    const from = isDirectoryish(input)
-      ? fromDotRel(toWildcard(input))
-      : fromDotRel(input)
-
     return {
-      from,
-      to: ctx.path('@name'),
-      context: ctx.path('@src'),
+      from: fromDotRel(input),
+      to: app.path('@name'),
+      context: input.startsWith('/') ? undefined : app.path('@src'),
       noErrorOnMissing: true,
     }
   }
@@ -76,24 +48,11 @@ export const assets: method = async function assets(
    * @param tuple - [origin, destination]
    * @returns
    */
-  const makeFromTo = ([from, to]: [string, string]) => {
-    /**
-     * Process raw user input.
-     *
-     * - Replace leading dot with project path
-     * - Append wildcard glob to directory requests
-     */
-    from = isDirectoryish(from)
-      ? fromDotRel(toWildcard(from))
-      : fromDotRel(from)
-
-    return {
-      from,
-      to,
-      context: ctx.path('@src'),
-      noErrorOnMissing: true,
-    }
-  }
+  const makeFromTo = ([from, to]: [string, string]) => ({
+    from,
+    to,
+    noErrorOnMissing: true,
+  })
 
   /**
    * Parse a request item
@@ -103,7 +62,7 @@ export const assets: method = async function assets(
   }
 
   if (appearsTupled(request)) {
-    ctx.extensions.get('copy-webpack-plugin').setOptions(options => ({
+    app.extensions.get('copy-webpack-plugin').setOptions(options => ({
       ...(options ?? {}),
       patterns: [
         ...(options?.patterns ?? []),
@@ -111,13 +70,13 @@ export const assets: method = async function assets(
       ],
     }))
 
-    return ctx
+    return app
   }
 
-  ctx.extensions.get('copy-webpack-plugin').setOptions(options => ({
+  app.extensions.get('copy-webpack-plugin').setOptions(options => ({
     ...(options ?? {}),
     patterns: [...(options?.patterns ?? []), ...request.flat().map(parse)],
   }))
 
-  return ctx
+  return app
 }

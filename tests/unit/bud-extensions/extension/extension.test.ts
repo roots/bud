@@ -1,4 +1,4 @@
-import {log} from '@repo/logger'
+import {beforeAll, beforeEach, describe, it, jest} from '@jest/globals'
 import {Bud, factory} from '@repo/test-kit/bud'
 import {Extension} from '@roots/bud-framework/extension'
 
@@ -17,9 +17,9 @@ class MockExtension extends Extension {
     callback: () => () => 'value',
   }
 
-  public init = mockInit
-  public register = mockRegister
-  public boot = mockBoot
+  public init: any = mockInit
+  public register: any = mockRegister
+  public boot: any = mockBoot
 }
 
 const resetExtensions = bud => {
@@ -38,20 +38,20 @@ describe('extension', function () {
   })
 
   it('is registrable', async () => {
-    await bud.extensions.add(MockExtension)
+    await bud.extensions.add(MockExtension as any)
     expect(Object.keys(bud.extensions.repository).pop()).toBe(
       'mock-extension',
     )
   })
 
   it('init', async () => {
-    bud.extensions.set(new MockExtension(bud))
+    bud.extensions.set(new MockExtension(bud) as any)
     await bud.extensions.run(bud.extensions.get('mock-extension'), '_init')
     expect(mockInit).toHaveBeenCalled()
   })
 
   it('register', async () => {
-    bud.extensions.set(new MockExtension(bud))
+    bud.extensions.set(new MockExtension(bud) as any)
     await bud.extensions.run(
       bud.extensions.get('mock-extension'),
       '_register',
@@ -60,19 +60,19 @@ describe('extension', function () {
   })
 
   it('boot', async () => {
-    bud.extensions.set(new MockExtension(bud))
+    bud.extensions.set(new MockExtension(bud) as any)
     await bud.extensions.run(bud.extensions.get('mock-extension'), '_boot')
     expect(mockBoot).toHaveBeenCalled()
   })
 
   it('boot', async () => {
-    bud.extensions.set(new MockExtension(bud))
+    bud.extensions.set(new MockExtension(bud) as any)
     await bud.extensions.run(bud.extensions.get('mock-extension'), '_boot')
     expect(mockBoot).toHaveBeenCalled()
   })
 
   it('options', async () => {
-    bud.extensions.set(new MockExtension(bud))
+    bud.extensions.set(new MockExtension(bud) as any)
     expect(bud.extensions.get('mock-extension').options).toEqual(
       expect.objectContaining({
         foo: 'bar',
@@ -86,7 +86,7 @@ describe('extension', function () {
   })
 
   it('setOption', async () => {
-    bud.extensions.set(new MockExtension(bud))
+    bud.extensions.set(new MockExtension(bud) as any)
 
     const instance = bud.extensions.get('mock-extension')
 
@@ -107,7 +107,7 @@ describe('extension', function () {
   })
 
   it('setOptions', async () => {
-    bud.extensions.set(new MockExtension(bud))
+    bud.extensions.set(new MockExtension(bud) as any)
 
     const instance = bud.extensions.get('mock-extension')
 
@@ -123,7 +123,7 @@ describe('extension', function () {
   })
 
   it('setOptions (callback)', async () => {
-    bud.extensions.set(new MockExtension(bud))
+    bud.extensions.set(new MockExtension(bud) as any)
 
     const instance = bud.extensions.get('mock-extension')
 
@@ -142,7 +142,7 @@ describe('extension', function () {
   })
 
   it('setOptions 2 (callback)', async () => {
-    bud.extensions.set(new MockExtension(bud))
+    bud.extensions.set(new MockExtension(bud) as any)
 
     const instance = bud.extensions.get('mock-extension')
 

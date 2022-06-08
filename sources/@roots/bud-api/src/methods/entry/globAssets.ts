@@ -1,10 +1,10 @@
-import {globby} from '@roots/bud-support'
+import {globby} from 'globby'
 
 export async function globAssets(search: string): Promise<Array<string>> {
   try {
     this.log(`search`, search)
 
-    const results = await globby.globby(search, {cwd: this.path('@src')})
+    const results = await globby(search, {cwd: this.path('@src')})
     this.log(`results`, results)
 
     if (!results.length) {

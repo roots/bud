@@ -10,4 +10,6 @@
  *  @packageDocumentation
  */
 
-export {Dashboard} from './Dashboard'
+import {Dashboard} from './service.js'
+
+export {Dashboard, Dashboard as Service, Dashboard as default}

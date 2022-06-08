@@ -1,4 +1,4 @@
-import {readFile, writeFile} from 'fs-extra'
+import * as fs from 'fs-extra'
 import * as yml from 'js-yaml'
 import {get, set} from 'lodash'
 
@@ -45,7 +45,7 @@ export class Yml {
    * @internal
    */
   public async read(): Promise<Yml> {
-    const source = await readFile(this.path, 'utf8')
+    const source = await fs.readFile(this.path, 'utf8')
     this.data = yml.load(source, {json: true})
     this.log(`read from disk`)
 
@@ -59,7 +59,7 @@ export class Yml {
    */
   public async write(): Promise<Yml> {
     const source = yml.dump(this.data)
-    await writeFile(this.path, source, 'utf8')
+    await fs.writeFile(this.path, source, 'utf8')
     this.log(`written to disk`)
 
     return this
