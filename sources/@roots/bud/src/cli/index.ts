@@ -24,6 +24,7 @@ const tsNode = async (context: Config.Context) => {
     ).length
   ) {
     try {
+      // @ts-ignore
       const {register} = await import('ts-node')
       register({
         esm: true,

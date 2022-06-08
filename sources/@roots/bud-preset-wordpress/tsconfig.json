@@ -1,12 +1,22 @@
 {
   "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
-    
     "rootDir": "src",
     "outDir": "lib",
+    "types": [
+      "node",
+      "@roots/bud-framework",
+      "@roots/bud-api",
+      "@roots/bud-entrypoints",
+      "@roots/bud-preset-recommend",
+      "@roots/bud-react",
+      "@roots/bud-wordpress-manifests",
+      "@roots/bud-wordpress-externals",
+      "@roots/bud-wordpress-dependencies"
+    ]
   },
   "include": ["src"],
-  "exclude": ["lib", "types", "node_modules"],
+  "exclude": ["lib", "node_modules"],
   "references": [
     {"path": "./../bud-framework/tsconfig.json"},
     {"path": "./../bud-api/tsconfig.json"},

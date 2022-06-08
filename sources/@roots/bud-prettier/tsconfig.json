@@ -7,7 +7,6 @@
     "module": "esnext",
     "types": [
       "node",
-      "@roots/bud-api",
       "@roots/bud-framework"
     ]
   },

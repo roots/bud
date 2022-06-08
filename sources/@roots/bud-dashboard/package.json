@@ -52,9 +52,9 @@
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@types/lodash-es": "^4",
-    "@types/node": "16.11.36",
+    "@types/node": "16.11.39",
     "tslib": "2.4.0",
-    "webpack": "5.72.1"
+    "webpack": "5.73.0"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",

@@ -55,10 +55,16 @@
     "./sage": "./sage.cjs"
   },
   "devDependencies": {
-    "@skypack/package-check": "0.2.2"
+    "@babel/core": "^7.18.2",
+    "@skypack/package-check": "0.2.2",
+    "@types/babel__core": "^7.1.19",
+    "@types/node": "16.11.39",
+    "@types/prettier": "2.6.2",
+    "eslint": "8.17.0",
+    "prettier": "2.6.2"
   },
   "dependencies": {
-    "@babel/eslint-parser": "7.16.5",
+    "@babel/eslint-parser": "7.18.2",
     "@typescript-eslint/eslint-plugin": "5.26.0",
     "@typescript-eslint/parser": "5.26.0",
     "eslint-config-prettier": "8.5.0",

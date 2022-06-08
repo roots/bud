@@ -16,7 +16,8 @@
  * @packageDocumentation
  */
 
-import {Extension} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
+import {label} from '@roots/bud-framework/extension/decorators'
 
 declare module '@roots/bud-framework' {
   interface Modules {
@@ -24,8 +25,5 @@ declare module '@roots/bud-framework' {
   }
 }
 
-const extension: Extension = {
-  label: '@roots/bud-prettier',
-}
-
-export const {label} = extension
+@label('@roots/bud-prettier')
+export default class BudPrettier extends Extension {}

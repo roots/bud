@@ -62,12 +62,13 @@
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "webpack": "5.72.1"
+    "@types/node": "16.11.39",
+    "webpack": "5.73.0"
   },
   "dependencies": {
     "ansi-html-community": "0.0.8",
-    "querystring": "^0.2.0",
-    "strip-ansi": "^7.0.0",
+    "querystring": "^0.2.1",
+    "strip-ansi": "7.0.1",
     "tslib": "2.4.0"
   }
 }
