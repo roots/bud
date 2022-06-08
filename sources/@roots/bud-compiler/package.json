@@ -54,7 +54,7 @@
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@skypack/package-check": "0.2.2",
     "@types/lodash": "4.14.182",
-    "@types/lodash-es": "^4",
+    "@types/lodash-es": "4.17.6",
     "@types/node": "16.11.36",
     "helpful-decorators": "2.1.0",
     "tslib": "2.4.0",

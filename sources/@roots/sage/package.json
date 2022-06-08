@@ -74,7 +74,7 @@
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@skypack/package-check": "0.2.2",
     "@types/fs-extra": "9.0.13",
-    "@types/lodash-es": "^4",
+    "@types/lodash-es": "4.17.6",
     "@types/node": "16.11.36",
     "webpack": "5.72.1"
   },
