@@ -1,14 +1,19 @@
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
-  dependsOn,
   expose,
   label,
 } from '@roots/bud-framework/extension/decorators'
 
+/**
+ * Extension enabling ESM compilation output
+ *
+ * @public
+ * @decorator `@label`
+ * @decorator `@expose`
+ */
 @label('esm')
 @expose('esm')
-@dependsOn(['bud-http'])
 export default class Esm extends Extension {
   /**
    * `beforeBuild` callback

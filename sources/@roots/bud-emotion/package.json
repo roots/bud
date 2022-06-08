@@ -71,7 +71,7 @@
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-react": "workspace:sources/@roots/bud-react",
-    "tslib": "^2.4.0"
+    "tslib": "2.4.0"
   },
   "peerDependencies": {
     "@emotion/babel-plugin": "*",

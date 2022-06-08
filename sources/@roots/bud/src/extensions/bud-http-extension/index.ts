@@ -8,6 +8,11 @@ import {
 } from '@roots/bud-framework/extension/decorators'
 import {isFunction, isUndefined} from 'lodash-es'
 
+/**
+ * `esm-http` extension options
+ *
+ * @public
+ */
 export interface Options {
   allowedUris?: (
     app: Bud,
@@ -19,6 +24,14 @@ export interface Options {
   upgrade: (app: Bud) => boolean
 }
 
+/**
+ * Extension enabling remote module caching, version locking, etc.
+ *
+ * @public
+ * @decorator `@label`
+ * @decorator `@expose`
+ * @decorator `@options`
+ */
 @label('esm-http')
 @expose('http')
 @options<Options>({

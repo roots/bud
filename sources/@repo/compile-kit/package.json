@@ -10,7 +10,7 @@
     "./options": "./options.ts"
   },
   "devDependencies": {
-    "@repo/constants": "workspace:*",
+    "@repo/constants": "workspace:sources/@repo/constants",
     "@types/fs-extra": "9.0.13",
     "@types/lodash-es": "^4",
     "@vercel/ncc": "0.34.0",

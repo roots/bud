@@ -58,15 +58,14 @@
     "@skypack/package-check": "0.2.2"
   },
   "dependencies": {
-    "@babel/eslint-parser": "^7.16.5",
-    "@typescript-eslint/eslint-plugin": "^5.10.1",
+    "@babel/eslint-parser": "7.16.5",
+    "@typescript-eslint/eslint-plugin": "5.26.0",
     "@typescript-eslint/parser": "5.26.0",
-    "eslint": "^7.32.0 || ^8.2.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-import": "^2.25.3",
+    "eslint-config-prettier": "8.5.0",
+    "eslint-plugin-import": "2.26.0",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-react": "^7.27.1",
-    "eslint-plugin-react-hooks": "^4.3.0"
+    "eslint-plugin-react": "7.29.4",
+    "eslint-plugin-react-hooks": "4.5.0"
   }
 }

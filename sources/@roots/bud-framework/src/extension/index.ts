@@ -188,6 +188,12 @@ export class Extension<E = any, Plugin = any> {
     this.setOptions(opts)
   }
 
+  /**
+   * `init` callback handler
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public async _init?() {
     if (this.init) {
@@ -201,6 +207,12 @@ export class Extension<E = any, Plugin = any> {
     }
   }
 
+  /**
+   * `register` callback handler
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public async _register?() {
     if (this.register) {
@@ -219,6 +231,12 @@ export class Extension<E = any, Plugin = any> {
     }
   }
 
+  /**
+   * `boot` callback handler
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public async _boot?() {
     if (this.boot) {
@@ -238,16 +256,29 @@ export class Extension<E = any, Plugin = any> {
     }
   }
 
+  /**
+   * `beforeBuild` callback handler
+   *
+   * @public
+   */
   @bind
   public async _beforeBuild?() {
-    if (this.beforeBuild) {
-      this.app.hooks.action(
-        'event.build.before',
-        async () => await this.beforeBuild(this.options, this.app),
-      )
-    }
+    const enabled = await this.isEnabled()
+
+    if (!this.beforeBuild || enabled === false) return false
+
+    this.app.hooks.action(
+      'event.build.before',
+      async () => await this.beforeBuild(this.options, this.app),
+    )
   }
 
+  /**
+   * `make` callback handler
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public async _make?() {
     const enabled = await this.isEnabled()
@@ -265,11 +296,23 @@ export class Extension<E = any, Plugin = any> {
     }
   }
 
+  /**
+   * Get extension options
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public getOptions?(): Options<E> {
     return Object.entries(this._options).reduce(this.fromOptionsMap, {})
   }
 
+  /**
+   * Set extension options
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public setOptions?(
     value: Options<E> | ((value: Options<E>) => Options<E>),
@@ -278,6 +321,12 @@ export class Extension<E = any, Plugin = any> {
     return this
   }
 
+  /**
+   * Get extension option
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public getOption?<K extends keyof Options<E> & string>(
     key: K,
@@ -285,6 +334,12 @@ export class Extension<E = any, Plugin = any> {
     return this.options[key]
   }
 
+  /**
+   * Set extension option
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public setOption?<K extends keyof Options.FuncMap<E>>(
     key: K & string,
@@ -297,6 +352,12 @@ export class Extension<E = any, Plugin = any> {
     return this
   }
 
+  /**
+   * Normalize options to functions
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   protected toOptionsMap?<K extends keyof Options<E> & string>(
     funcMap: Options.FuncMap<Options<E>> = {},
@@ -308,6 +369,12 @@ export class Extension<E = any, Plugin = any> {
     }
   }
 
+  /**
+   * Get options from function map
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   protected fromOptionsMap?<K extends keyof Options<E>>(
     options: Options<E>,
@@ -319,6 +386,12 @@ export class Extension<E = any, Plugin = any> {
     }
   }
 
+  /**
+   * Assign properties from an object
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public fromObject?(extensionObject: Extension): this {
     Object.entries(extensionObject).map(([k, v]) => {

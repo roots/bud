@@ -55,7 +55,7 @@
     "@types/node": "16.11.36"
   },
   "dependencies": {
-    "helpful-decorators": "^2.1.0",
+    "helpful-decorators": "2.1.0",
     "tslib": "2.4.0"
   }
 }
