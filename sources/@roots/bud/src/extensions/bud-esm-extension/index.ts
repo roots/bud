@@ -6,7 +6,7 @@ import {
   label,
 } from '@roots/bud-framework/extension/decorators'
 
-@label('bud-esm')
+@label('esm')
 @expose('esm')
 @dependsOn(['bud-http'])
 export default class Esm extends Extension {

@@ -6,9 +6,7 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
-import {lodash} from '@roots/bud-support'
-
-const {isFunction, isUndefined} = lodash
+import {isFunction, isUndefined} from 'lodash-es'
 
 export interface Options {
   allowedUris?: (
@@ -21,7 +19,7 @@ export interface Options {
   upgrade: (app: Bud) => boolean
 }
 
-@label('bud-http')
+@label('esm-http')
 @expose('http')
 @options<Options>({
   allowedUris: () => ['https://cdn.skypack.dev/'],
