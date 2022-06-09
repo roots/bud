@@ -7,6 +7,7 @@ import {
   options,
 } from '@roots/bud-framework/extension/decorators'
 import {isFunction, isUndefined} from 'lodash-es'
+import Webpack from 'webpack'
 
 /**
  * `esm-http` extension options
@@ -227,6 +228,20 @@ export default class Http extends Extension<Options, null> {
       proxy: this.proxy,
       upgrade: this.upgrade,
     }))
+
+    await this.app.extensions.add({
+      label: 'normal-module-skypack',
+      make: async () =>
+        new Webpack.NormalModuleReplacementPlugin(
+          /cdn:(\.*)/,
+          resource => {
+            resource.request = resource.request.replace(
+              /cdn:/,
+              `https://cdn.skypack.dev/`,
+            )
+          },
+        ),
+    })
   }
 
   /**
