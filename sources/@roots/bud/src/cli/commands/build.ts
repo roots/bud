@@ -49,15 +49,10 @@ export class BuildCommand extends BaseCommand {
   })
 
   /**
-   * --mode
+   * --buildHttp
    */
-  public mode = Option.String(`--mode`, 'production', {
-    description: `Compilation mode`,
-    validator: t.isOneOf([
-      t.isLiteral('production'),
-      t.isLiteral('development'),
-    ]),
-    env: 'BUILD_MODE',
+  public buildHttp = Option.Boolean('--buildHttp', undefined, {
+    description: 'build modules from http URLs',
   })
 
   /**
@@ -135,6 +130,27 @@ export class BuildCommand extends BaseCommand {
     ]),
   })
 
+  /*
+   * --dist
+   */
+  public dist = Option.String(`--output,-o`, undefined, {
+    description: 'Distribution directory (relative to project)',
+  })
+
+  /**
+   * --esm
+   */
+  public esm = Option.Boolean('--esm', undefined, {
+    description: 'build as es modules',
+  })
+
+  /**
+   * --freeze
+   */
+  public freeze = Option.Boolean('--freeze', undefined, {
+    description: 'bud.http: freeze module lockfile',
+  })
+
   /**
    * --flush
    */
@@ -165,17 +181,22 @@ export class BuildCommand extends BaseCommand {
   })
 
   /**
+   * --mode
+   */
+  public mode = Option.String(`--mode`, 'production', {
+    description: `Compilation mode`,
+    validator: t.isOneOf([
+      t.isLiteral('production'),
+      t.isLiteral('development'),
+    ]),
+    env: 'BUILD_MODE',
+  })
+
+  /**
    * --src
    */
   public src = Option.String(`--input,-i`, undefined, {
     description: 'Source directory (relative to project)',
-  })
-
-  /*
-   * --dist
-   */
-  public dist = Option.String(`--output,-o`, undefined, {
-    description: 'Distribution directory (relative to project)',
   })
 
   /**
@@ -293,16 +314,19 @@ export class BuildCommand extends BaseCommand {
         `the --dashboard and --no-dashboard flags are deprecated and will be removed in a future release.\n`,
       )
     ;[
+      'buildHttp',
       'cache',
       'ci',
       'clean',
       'debug',
       'devtool',
+      'esm',
       'flush',
       'hash',
       'html',
       'indicator',
       'inject',
+      'freeze',
       'log',
       'manifest',
       'minimize',

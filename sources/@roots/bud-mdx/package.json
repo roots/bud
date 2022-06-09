@@ -59,13 +59,13 @@
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@types/lodash": "4.14.182",
-    "@types/node": "16.11.36",
+    "@types/node": "16.11.39",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "webpack": "5.72.1"
+    "webpack": "5.73.0"
   },
   "dependencies": {
-    "@mdx-js/loader": "^2.0.0",
+    "@mdx-js/loader": "^2.1.1",
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
     "@roots/bud-build": "workspace:sources/@roots/bud-build",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",

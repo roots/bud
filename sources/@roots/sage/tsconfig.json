@@ -4,7 +4,7 @@
     
     "rootDir": "src",
     "outDir": "lib",
-    "types": ["@roots/bud-framework", "@roots/bud-api", "@roots/bud-preset-wordpress", "@roots/bud-tailwindcss"]
+    "types": ["@roots/bud-framework", "@roots/bud-api", "@roots/bud-preset-wordpress"]
   },
   "include": ["src"],
   "exclude": ["lib", "node_modules"],
