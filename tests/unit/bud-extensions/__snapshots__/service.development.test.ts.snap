@@ -10,6 +10,8 @@ Array [
   "@roots/bud-tailwindcss",
   "clean-webpack-plugin",
   "copy-webpack-plugin",
+  "esm",
+  "esm-http",
   "mini-css-extract-plugin",
   "webpack-manifest-plugin",
   "webpack-remove-empty-scripts",

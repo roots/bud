@@ -1,3 +1,5 @@
+import {expect} from '@jest/globals'
+
 export const test = {
   assetNotEmpty: (project, asset) => () => {
     expect(project.assets[asset]).toMatchSnapshot()

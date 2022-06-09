@@ -28,6 +28,27 @@ export const config = async (command: BuildCommand) => {
     )
   }
 
+  if (!isUndefined(command.buildHttp)) {
+    command.app.http.enable()
+    Object.entries(command.app.children).map(([_name, child]) => {
+      child.http.enable()
+    })
+  }
+
+  if (!isUndefined(command.esm)) {
+    command.app.esm.enable()
+    Object.entries(command.app.children).map(([_name, child]) =>
+      child.esm.enable(),
+    )
+  }
+
+  if (!isUndefined(command.freeze)) {
+    command.app.http.freeze()
+    Object.entries(command.app.children).map(([_name, child]) =>
+      child.http.freeze(),
+    )
+  }
+
   if (!isUndefined(command.dist)) {
     command.app.setPath('@dist', command.dist)
     Object.entries(command.app.children).map(([_name, child]) =>

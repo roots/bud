@@ -4,13 +4,20 @@ import {Bud} from '@roots/bud-framework'
  * Filename
  *
  * @param app - Bud
- * @param ext - Filename extension
+ * @param extension - Filename extension
  *
  * @returns filename format
  *
  * @public
  */
-export const filenameFormat = (app: Bud, ext?: string) =>
-  app.hooks.filter('feature.hash')
-    ? app.hooks.filter('value.hashFormat').concat(ext ?? '.js')
-    : app.hooks.filter('value.fileFormat').concat(ext ?? '.js')
+export const filenameFormat = (app: Bud, extension?: string): string => {
+  if (!extension) {
+    extension = app.hooks.filter('build.experiments.outputModule')
+      ? '.mjs'
+      : '.js'
+  }
+
+  return app.hooks.filter('feature.hash')
+    ? app.hooks.filter('value.hashFormat').concat(extension)
+    : app.hooks.filter('value.fileFormat').concat(extension)
+}

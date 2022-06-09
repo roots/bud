@@ -39,7 +39,6 @@ export default class Extensions
     await this.runAll('_init')
     await this.runAll('_register')
     await this.runAll('_boot')
-    await this.runAll('_beforeBuild')
   }
 
   /**

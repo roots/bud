@@ -13,7 +13,7 @@ export class Prettier extends Command {
    *
    * @internal
    */
-  public name = 'lint'
+  public name = 'prettier'
 
   /**
    * Command paths

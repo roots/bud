@@ -3,6 +3,7 @@
   "compilerOptions": {
     "outDir": "compiled",
     "types": [
+      "node",
       "jest",
       "@roots/bud",
       "@roots/bud-framework"

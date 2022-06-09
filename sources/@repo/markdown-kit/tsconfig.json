@@ -4,6 +4,7 @@
     "outDir": "compiled",
     "target": "es2020",
     "module": "esnext",
+    "types": ["node"]
   },
   "files": ["./types/index.d.ts"],
   "include": ["cli-examples", "readme"],

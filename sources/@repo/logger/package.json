@@ -7,6 +7,7 @@
     ".": "./index.js"
   },
   "devDependencies": {
+    "@types/node": "16.11.39",
     "signale": "1.4.0"
   }
 }
