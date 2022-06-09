@@ -66,6 +66,7 @@
   },
   "dependencies": {
     "ansi-html-community": "0.0.8",
+    "helpful-decorators": "2.1.0",
     "querystring": "^0.2.0",
     "strip-ansi": "^7.0.0",
     "tslib": "2.4.0"
