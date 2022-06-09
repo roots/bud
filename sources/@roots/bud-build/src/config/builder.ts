@@ -20,6 +20,7 @@ export async function build(app: Bud): Promise<void> {
     .hooks.on('build.cache', () => app.cache.configuration)
     .hooks.on('build.context', () => app.context.projectDir)
     .hooks.on('build.externalsType', 'var')
+    .hooks.on('build.experiments.buildHttp', undefined)
     .hooks.on('build.experiments', () => ({
       asyncWebAssembly: app.hooks.filter(
         'build.experiments.asyncWebAssembly',
@@ -86,6 +87,7 @@ export async function build(app: Bud): Promise<void> {
     .hooks.on('build.output.chunkLoading', () => 'jsonp')
     .hooks.on('build.output.filename', () => filenameFormat(app))
     .hooks.on('build.output.chunkFormat', () => 'array-push')
+    .hooks.on('build.output.module', () => false)
     .hooks.on('build.output.path', () => app.path('@dist'))
     .hooks.on('build.optimization', () => ({
       emitOnErrors: app.hooks.filter('build.optimization.emitOnErrors'),

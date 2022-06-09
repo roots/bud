@@ -1,5 +1,5 @@
 import {bind} from 'helpful-decorators'
-import {has, isFunction} from 'lodash-es'
+import {has, isBoolean, isFunction} from 'lodash-es'
 import Signale from 'signale'
 
 import {Bud} from '../bud.js'
@@ -118,15 +118,9 @@ export class Extension<E = any, Plugin = any> {
   /**
    * `beforeBuild` callback
    *
-   * @param options - Extension options
-   * @param app - Bud instance
-   *
    * @public
    */
-  public async beforeBuild?(
-    options: Options<E>,
-    app?: Bud,
-  ): Promise<unknown>
+  public async beforeBuild?(): Promise<unknown>
 
   /**
    * `make` callback
@@ -265,12 +259,9 @@ export class Extension<E = any, Plugin = any> {
   public async _beforeBuild?() {
     const enabled = await this.isEnabled()
 
-    if (!this.beforeBuild || enabled === false) return false
+    if (!this.beforeBuild || enabled === false) return
 
-    this.app.hooks.action(
-      'event.build.before',
-      async () => await this.beforeBuild(this.options, this.app),
-    )
+    await this.beforeBuild()
   }
 
   /**
@@ -516,7 +507,12 @@ export class Extension<E = any, Plugin = any> {
    */
   @bind
   public async isEnabled?(): Promise<boolean> {
-    if (this.when) return await this.when(this.options ?? {}, this.app)
+    if (this.when && isFunction(this.when))
+      return await this.when(this.options ?? {}, this.app)
+
+    if (this.when && isBoolean(this.when))
+      return this.when as unknown as boolean
+
     return true
   }
 

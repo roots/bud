@@ -71,7 +71,7 @@
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@skypack/package-check": "0.2.2",
     "@types/babel__core": "^7.1.19",
-    "@types/lodash-es": "^4",
+    "@types/lodash-es": "4.17.6",
     "@types/node": "16.11.39",
     "@types/react": "17.0.45",
     "@types/react-dom": "17.0.17",

@@ -105,7 +105,7 @@
     "@types/braces": "3.0.1",
     "@types/fs-extra": "9.0.13",
     "@types/lodash": "4.14.182",
-    "@types/lodash-es": "^4",
+    "@types/lodash-es": "4.17.6",
     "@types/mini-css-extract-plugin": "2.5.0",
     "@types/node": "16.11.39",
     "@types/node-notifier": "8.0.2",
