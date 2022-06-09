@@ -66,6 +66,7 @@ export class Component extends HTMLElement {
         align-content: center;
         flex-direction: column;
         transition: all 0.2s ease-in-out;
+        z-index: 9999;
       }
       .${this.name} > div {
         align-items: center;
