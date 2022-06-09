@@ -19,6 +19,29 @@ export async function build(app: Bud): Promise<void> {
     .on('build.bail', () => app.isProduction)
     .hooks.on('build.cache', () => app.cache.configuration)
     .hooks.on('build.context', () => app.context.projectDir)
+    .hooks.on('build.externalsType', 'var')
+    .hooks.on('build.experiments.buildHttp', undefined)
+    .hooks.on('build.experiments', () => ({
+      asyncWebAssembly: app.hooks.filter(
+        'build.experiments.asyncWebAssembly',
+      ),
+      backCompat: app.hooks.filter('build.experiments.backCompat'),
+      buildHttp: app.hooks.filter('build.experiments.buildHttp'),
+      cacheUnaffected: app.hooks.filter(
+        'build.experiments.cacheUnaffected',
+      ),
+      css: app.hooks.filter('build.experiments.css'),
+      futureDefaults: app.hooks.filter('build.experiments.futureDefaults'),
+      layers: app.hooks.filter('build.experiments.layers'),
+      lazyCompilation: app.hooks.filter(
+        'build.experiments.lazyCompilation',
+      ),
+      topLevelAwait: app.hooks.filter('build.experiments.topLevelAwait'),
+      outputModule: app.hooks.filter('build.experiments.outputModule'),
+      syncWebAssembly: app.hooks.filter(
+        'build.experiments.syncWebAssembly',
+      ),
+    }))
     .hooks.on('build.infrastructureLogging', () => ({
       console: app.hooks.filter('build.infrastructureLogging.console'),
       level: app.hooks.filter('build.infrastructureLogging.level'),
@@ -46,7 +69,9 @@ export async function build(app: Bud): Promise<void> {
       ),
       chunkFilename: app.hooks.filter('build.output.chunkFilename'),
       clean: app.hooks.filter('build.output.clean'),
+      environment: app.hooks.filter('build.output.environment'),
       filename: app.hooks.filter('build.output.filename'),
+      module: app.hooks.filter('build.output.module'),
       path: app.hooks.filter('build.output.path'),
       pathinfo: app.hooks.filter('build.output.pathinfo'),
       publicPath: app.hooks.filter('build.output.publicPath'),
@@ -59,7 +84,10 @@ export async function build(app: Bud): Promise<void> {
       filenameFormat(app, '[ext]'),
     )
     .hooks.on('build.output.chunkFilename', () => filenameFormat(app))
+    .hooks.on('build.output.chunkLoading', () => 'jsonp')
     .hooks.on('build.output.filename', () => filenameFormat(app))
+    .hooks.on('build.output.chunkFormat', () => 'array-push')
+    .hooks.on('build.output.module', () => false)
     .hooks.on('build.output.path', () => app.path('@dist'))
     .hooks.on('build.optimization', () => ({
       emitOnErrors: app.hooks.filter('build.optimization.emitOnErrors'),

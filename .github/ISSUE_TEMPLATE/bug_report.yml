@@ -8,12 +8,13 @@ body:
     attributes:
       value: |
         This form is for reporting technical issues.
+
         If you have a general question or you're looking for support, please visit [Roots Discourse](https://discourse.roots.io/).
 
         Please attempt the following before filing an issue:
-          - Ensure all `@roots/` packages are using the same version, and are up-to-date.
+          - Ensure all `@roots/*` packages are using the same version, and are up-to-date.
           - Run `bud clean` to remove any stale files.
-          - Run bud using the `--no-cache` flag.
+          - Run `bud build` using the `--no-cache` flag.
           - If `.budfiles/bud/profile.json` or `.budfiles/bud/webpack.config.js` have been emitted, please include them in your issue.
 
   - type: checkboxes

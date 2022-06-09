@@ -12,8 +12,8 @@ describe('bud.experiments', function () {
   })
 
   it('enables build.config.experiments', async () => {
-    await bud.api.call('experiments', 'lazyCompilation', true)
-    const output = bud.hooks.filter('build.experiments')
-    expect(output).toEqual({lazyCompilation: true})
+    await bud.api.call('experiments', {lazyCompilation: true})
+    const output = bud.hooks.filter('build.experiments.lazyCompilation')
+    expect(output).toBeTruthy()
   })
 })

@@ -5,5 +5,8 @@
   "type": "module",
   "exports": {
     ".": "./index.js"
+  },
+  "devDependencies": {
+    "@types/node": "16.11.39"
   }
 }

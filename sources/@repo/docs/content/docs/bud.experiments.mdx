@@ -1,0 +1,38 @@
+---
+slug: bud.experiments
+title: bud.experiments
+description: Makes a variable/module available throughout the entire application.
+sidebar_label: bud.experiments
+---
+
+:::warning
+
+These settings are obviously experimental. If you're using `bud.experiments` and you bump into a problem please ensure that
+**bud.js** is doing something wrong before opening an issue in the roots/bud repository. Consider accompanying your issue with
+a PR that implements the change you would like to see.
+
+:::
+
+:::info
+
+If you want to configure `buildHttp` you should consider using [the `bud.http` interface](/guides/general-use/esmodules).
+
+:::
+
+:::info
+
+If you want to configure `outputModule` you should consider using [the `bud.esm` interface](/guides/general-use/esmodules).
+
+:::
+
+Opt-in and configure [experimental webpack settings](https://webpack.js.org/configuration/experiments/#experiments).
+
+## Usage
+
+Opt-in to `lazyCompilation`:
+
+```js
+bud.experiments({
+  lazyCompilation: true,
+})
+```
