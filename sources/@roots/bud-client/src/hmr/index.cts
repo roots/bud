@@ -50,16 +50,8 @@ interface Options extends BaseOptions {
     return {...a, [k]: v}
   }, FALLBACK_OPTS)
 
-  console.debug(
-    '%cbud.js hmr client',
-    'font-size:14px; font-family: monospace',
-  )
-  console.debug(
-    `%cbud.js resourceQuery ${query}`,
-    'font-size:12px; font-family: monospace',
-  )
-
   hmr.setOptionsAndConnect(options)
+  console.info(options)
 
   if (options['bud.indicator']) {
     const controllerModule = await import(
@@ -67,6 +59,8 @@ interface Options extends BaseOptions {
     )
     const controller = await controllerModule.make()
     controller?.update && controllers.push(controller)
+
+    console.info(controllers)
   }
 
   if (options['bud.overlay']) {
@@ -75,11 +69,13 @@ interface Options extends BaseOptions {
     )
     const controller = await controllerModule.make()
     controller?.update && controllers.push(controller)
+
+    console.info(controllers)
   }
 
   hmr.subscribeAll(payload => {
     if (!payload) return
-    console.table(payload)
+    console.info(payload)
 
     payload.warnings?.map(console.warn)
     payload.errors?.map(console.error)
