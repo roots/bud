@@ -4202,7 +4202,7 @@ __metadata:
     "@types/fs-extra": 9.0.13
     "@types/lodash": 4.14.182
     "@types/node": 16.11.36
-    "@types/prettier": 2.6.1
+    "@types/prettier": 2.6.3
     fs-extra: ^10.0.0
     helpful-decorators: ^2.1.0
     tslib: 2.4.0
@@ -5068,10 +5068,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/prettier@npm:2.6.1, @types/prettier@npm:^2.1.5":
-  version: 2.6.1
-  resolution: "@types/prettier@npm:2.6.1"
-  checksum: b25ec46d18129fa40c1a1f42feb7406e8f19901ba5261ba3c71600ad14996ae07b4f4b727a9b83da673948011e59d870fc519166f05b5d49e9ad39db1aea8c93
+"@types/prettier@npm:2.6.3, @types/prettier@npm:^2.1.5":
+  version: 2.6.3
+  resolution: "@types/prettier@npm:2.6.3"
+  checksum: e1836699ca189fff6d2a73dc22e028b6a6f693ed1180d5998ac29fa197caf8f85aa92cb38db642e4a370e616b451cb5722ad2395dab11c78e025a1455f37d1f0
   languageName: node
   linkType: hard
 
