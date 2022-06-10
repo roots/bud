@@ -1,0 +1,17 @@
+{
+  "extends": "../../../config/tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "lib",
+  },
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "lib",
+    "node_modules"
+  ],
+  "references": [
+    {"path": "./../bud/tsconfig.json"},
+  ]
+}

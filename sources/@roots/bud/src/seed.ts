@@ -98,7 +98,7 @@ export const seed: Config.Options['seed'] = {
       }
     },
   ],
-  'build.module.noParse': [() => /jquery|lodash/],
+  'build.module.noParse': [() => undefined],
   'build.module.unsafeCache': [() => false],
   'build.node': [() => false],
   'build.output.pathinfo': [() => false],
