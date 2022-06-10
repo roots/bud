@@ -5,8 +5,7 @@
     "outDir": "lib",
   },
   "include": [
-    "src/**/*.cts",
-    "src/**/*.mts"
+    "src"
   ],
   "exclude": [
     "lib",

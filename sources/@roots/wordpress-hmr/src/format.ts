@@ -3,7 +3,7 @@ import {
   unregisterFormatType,
 } from '@wordpress/rich-text'
 
-import * as editor from './editor.cjs'
+import * as editor from './editor.js'
 
 export const register = ({name, settings}) =>
   registerFormatType(name, settings)

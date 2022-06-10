@@ -1,6 +1,6 @@
 import {isFunction, noop} from 'lodash-es'
 
-import {Cache} from './cache.cjs'
+import {Cache} from './cache.js'
 
 export const load = ({
   getContext,

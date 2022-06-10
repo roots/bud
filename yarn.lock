@@ -3849,8 +3849,32 @@ __metadata:
     tslib: 2.4.0
     webpack: 5.73.0
   peerDependencies:
+    "@roots/bud-babel": "*"
+    "@roots/bud-entrypoints": "*"
+    "@roots/bud-framework": "*"
+    "@roots/bud-preset-recommend": "*"
+    "@roots/bud-react": "*"
+    "@roots/bud-wordpress-dependencies": "*"
+    "@roots/bud-wordpress-externals": "*"
+    "@roots/bud-wordpress-manifests": "*"
     "@wordpress/browserslist-config": "*"
   peerDependenciesMeta:
+    "@roots/bud-babel":
+      optional: true
+    "@roots/bud-entrypoints":
+      optional: true
+    "@roots/bud-framework":
+      optional: true
+    "@roots/bud-preset-recommend":
+      optional: true
+    "@roots/bud-react":
+      optional: true
+    "@roots/bud-wordpress-dependencies":
+      optional: true
+    "@roots/bud-wordpress-externals":
+      optional: true
+    "@roots/bud-wordpress-manifests":
+      optional: true
     "@wordpress/browserslist-config":
       optional: true
   languageName: unknown

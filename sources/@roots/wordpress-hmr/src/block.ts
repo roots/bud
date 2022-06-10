@@ -8,7 +8,7 @@ import {
 import {dispatch, select} from '@wordpress/data'
 import {addFilter, removeFilter} from '@wordpress/hooks'
 
-import * as editor from './editor.cjs'
+import * as editor from './editor.js'
 
 /**
  * Register block

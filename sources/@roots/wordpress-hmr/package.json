@@ -32,36 +32,35 @@
     "lib/"
   ],
   "type": "module",
-  "main": "./lib/index.cjs",
-  "module": "./lib/index.mjs",
-  "types": "./lib/index.d.cts",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "exports": {
-    ".": "./lib/index.cjs",
-    "./block": "./lib/block.cjs",
-    "./cache": "./lib/cache.cjs",
-    "./editor": "./lib/editor.cjs",
-    "./format": "./lib/format.cjs",
-    "./plugin": "./lib/plugin.cjs"
+    ".": "./lib/index.js",
+    "./block": "./lib/block.js",
+    "./cache": "./lib/cache.js",
+    "./editor": "./lib/editor.js",
+    "./format": "./lib/format.js",
+    "./plugin": "./lib/plugin.js"
   },
   "typesVersions": {
     "*": {
       ".": [
-        "./lib/index.d.cts"
+        "./lib/index.d.ts"
       ],
       "block": [
-        "./lib/block.d.cts"
+        "./lib/block.d.ts"
       ],
       "cache": [
-        "./lib/cache.d.cts"
+        "./lib/cache.d.ts"
       ],
       "editor": [
-        "./lib/editor.d.cts"
+        "./lib/editor.d.ts"
       ],
       "format": [
-        "./lib/format.d.cts"
+        "./lib/format.d.ts"
       ],
       "plugin": [
-        "./lib/plugin.d.cts"
+        "./lib/plugin.d.ts"
       ]
     }
   },
