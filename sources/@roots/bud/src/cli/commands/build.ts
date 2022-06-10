@@ -49,13 +49,6 @@ export class BuildCommand extends BaseCommand {
   })
 
   /**
-   * --buildHttp
-   */
-  public buildHttp = Option.Boolean('--buildHttp', undefined, {
-    description: 'build modules from http URLs',
-  })
-
-  /**
    * --cache
    */
   public cache = Option.String(`--cache`, undefined, {
@@ -145,10 +138,10 @@ export class BuildCommand extends BaseCommand {
   })
 
   /**
-   * --freeze
+   * --immutable
    */
-  public freeze = Option.Boolean('--freeze', undefined, {
-    description: 'bud.http: freeze module lockfile',
+  public immutable = Option.Boolean('--immutable', undefined, {
+    description: 'bud.http: immutable module lockfile',
   })
 
   /**
@@ -314,7 +307,6 @@ export class BuildCommand extends BaseCommand {
         `the --dashboard and --no-dashboard flags are deprecated and will be removed in a future release.\n`,
       )
     ;[
-      'buildHttp',
       'cache',
       'ci',
       'clean',
@@ -326,7 +318,7 @@ export class BuildCommand extends BaseCommand {
       'html',
       'indicator',
       'inject',
-      'freeze',
+      'immutable',
       'log',
       'manifest',
       'minimize',
