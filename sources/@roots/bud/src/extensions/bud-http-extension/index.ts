@@ -266,7 +266,7 @@ export default class Http extends Extension<Options, null> {
         label: `budpack-${cdnKey}`,
         make: async () =>
           new Webpack.NormalModuleReplacementPlugin(
-            RegExp(`${cdnKey}:(\.*)`),
+            RegExp(`${cdnKey}:(\\.*)`),
             resource => {
               resource.request = resource.request.replace(
                 RegExp(`${cdnKey}:`),
