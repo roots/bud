@@ -3465,12 +3465,8 @@ __metadata:
     "@emotion/styled": ^11.8.1
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
-    "@roots/bud-react": "workspace:sources/@roots/bud-react"
     "@skypack/package-check": 0.2.2
-    "@types/babel__core": ^7.1.19
-    "@types/lodash": 4.14.182
     "@types/node": 16.11.39
-    react: 17.0.2
     tslib: 2.4.0
   peerDependencies:
     "@emotion/babel-plugin": "*"
@@ -4327,7 +4323,7 @@ __metadata:
   resolution: "@roots/wordpress-hmr@workspace:sources/@roots/wordpress-hmr"
   dependencies:
     "@skypack/package-check": 0.2.2
-    "@types/lodash-es": ^4
+    "@types/lodash-es": 4.17.6
     "@types/node": 16.11.39
     "@types/react": 17.0.45
     "@types/wordpress__blocks": ^11
@@ -5057,7 +5053,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lodash-es@npm:4.17.6, @types/lodash-es@npm:^4":
+"@types/lodash-es@npm:4.17.6":
   version: 4.17.6
   resolution: "@types/lodash-es@npm:4.17.6"
   dependencies:
