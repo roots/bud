@@ -1,5 +1,5 @@
 import {Bud} from '@roots/bud-framework'
-import {chalk} from '@roots/bud-support'
+import chalk from 'chalk'
 
 /**
  * @internal

@@ -1,0 +1,23 @@
+{
+  "extends": "../../../config/tsconfig.json",
+  "compilerOptions": {
+    "outDir": "compiled",
+    "target": "es2020",
+    "module": "esnext",
+    "types": ["node"]
+  },
+  "files": ["./types/index.d.ts"],
+  "include": ["cli-examples", "readme"],
+  "exclude": ["compiled", "node_modules"],
+  "references": [
+    {"path": "./../../@roots/bud-framework/tsconfig.json"},
+    {"path": "./../../@roots/bud-api/tsconfig.json"},
+    {"path": "./../../@roots/bud-build/tsconfig.json"},
+    {"path": "./../../@roots/bud-cache/tsconfig.json"},
+    {"path": "./../../@roots/bud-compiler/tsconfig.json"},
+    {"path": "./../../@roots/bud-dashboard/tsconfig.json"},
+    {"path": "./../../@roots/bud-extensions/tsconfig.json"},
+    {"path": "./../../@roots/bud-hooks/tsconfig.json"},
+    {"path": "./../../@roots/bud-server/tsconfig.json"}
+  ]
+}

@@ -1,14 +1,11 @@
-import {lodash} from '@roots/bud-support'
-
-import {WPThemeJson} from '.'
+import type {GlobalSettingsAndStyles as WPThemeJson} from '@roots/bud-preset-wordpress/theme'
+import {isString} from 'lodash-es'
 
 export type WordPressColors = WPThemeJson['settings']['color']['palette']
 
 export interface TailwindColors {
   [key: string]: string | TailwindColors
 }
-
-const {isString} = lodash
 
 /**
  * Get color palette from a tailwind config file

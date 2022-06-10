@@ -1,5 +1,7 @@
 import {Bud, Server} from '@roots/bud-framework'
-import {bind, chokidar, globby} from '@roots/bud-support'
+import chokidar from 'chokidar'
+import {globby} from 'globby'
+import {bind} from 'helpful-decorators'
 
 /**
  * FS Watcher
@@ -75,7 +77,7 @@ export class Watcher implements Server.Watcher {
    */
   @bind
   public async search() {
-    return await globby.globby(this.getFiles())
+    return await globby(this.getFiles())
   }
 
   /**

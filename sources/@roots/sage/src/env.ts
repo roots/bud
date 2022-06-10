@@ -1,5 +1,5 @@
-import Sage from './extension'
-import ThemeJSON from './theme/extension'
+import Sage from './extension.js'
+import ThemeJSON from './theme/extension.js'
 
 declare module '@roots/bud-framework' {
   interface Bud {

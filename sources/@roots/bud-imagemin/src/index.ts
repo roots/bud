@@ -10,7 +10,7 @@
  * @packageDocumentation
  */
 
-import './env'
+import './env.js'
 
-import BudImagemin from './extension'
+import BudImagemin from './extension.js'
 export default BudImagemin

@@ -13,9 +13,6 @@
       "last 1 safari version"
     ]
   },
-  "bud": {
-    "inject": false
-  },
   "devDependencies": {
     "@roots/bud": "latest",
     "@roots/bud-criticalcss": "latest",

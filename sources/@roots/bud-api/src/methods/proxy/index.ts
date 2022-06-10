@@ -1,7 +1,5 @@
 import type {Bud, Server} from '@roots/bud-framework'
-import {lodash} from '@roots/bud-support'
-
-const {isBoolean, isString, isNumber, isUndefined} = lodash
+import {isBoolean, isNumber, isString, isUndefined} from 'lodash-es'
 
 /**
  * Enables proxy middleware

@@ -34,7 +34,7 @@ Let's add an `images` directory to our project and make sure to include at least
 [**bud.assets**](/docs/bud.assets) takes an array of assets we want copied, which is how we'll specify our image.
 
 ```js {8} title='bud.config.js'
-module.exports = bud =>
+export default async bud =>
   bud
     .use(require('@roots/bud-babel'))
     .entry({
@@ -51,7 +51,7 @@ If we have more than one image in that directory and we want to copy all of them
 like be much faster & more maintable to copy the entire directory, which [**bud.assets**](/docs/bud.assets) supports.
 
 ```js {8} title='bud.config.js'
-module.exports = bud =>
+export default async bud =>
   bud
     .use(require('@roots/bud-babel'))
     .entry({
@@ -67,7 +67,7 @@ module.exports = bud =>
 [bud.assets](/docs/bud.assets) also supports glob matching in case we want to copy only assets that match a particular pattern:
 
 ```js {8} title='bud.config.js'
-module.exports = bud =>
+export default async bud =>
   bud
     .use(require('@roots/bud-babel'))
     .entry({

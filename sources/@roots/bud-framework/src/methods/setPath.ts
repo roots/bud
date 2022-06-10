@@ -1,8 +1,6 @@
-import {lodash} from '@roots/bud-support'
+import {isString} from 'lodash-es'
 
-import {Bud, Locations} from '..'
-
-const {isString} = lodash
+import {Bud, Locations} from '../index.js'
 
 export interface setPath {
   <T extends `${keyof Locations & string}`>(

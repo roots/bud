@@ -1,10 +1,10 @@
 import {Config} from '@roots/bud-framework'
-import {bind, lodash as _} from '@roots/bud-support'
 import {BaseContext, Command} from 'clipanion'
+import {bind} from 'helpful-decorators'
 
-import {Bud} from '../../Bud'
-import * as disk from '../config/disk.config'
-import {Notifier} from '../Notifier'
+import Bud from '../../bud.js'
+import * as disk from '../config/disk.config.js'
+import {Notifier} from '../notifier/index.js'
 
 /**
  * Base command

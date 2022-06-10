@@ -1,5 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
-import {fs, getPort} from '@roots/bud-support'
+import fs from 'fs-extra'
+import getPort from 'get-port'
 import Https from 'https'
 import Http from 'https'
 

@@ -1,15 +1,15 @@
 import {Config} from '@roots/bud-framework'
-import {execa} from '@roots/bud-support'
 import {Builtins, Cli} from 'clipanion'
+import {execa} from 'execa'
 import {platform} from 'node:os'
 import {join} from 'node:path'
 
-import {makeContext} from '../context'
-import {BuildCommand} from './commands/build'
-import {CleanCommand} from './commands/clean'
-import {DevCommand} from './commands/dev'
-import {DoctorCommand} from './commands/doctor'
-import {InstallCommand} from './commands/install'
+import {makeContext} from '../context/index.js'
+import {BuildCommand} from './commands/build.js'
+import {CleanCommand} from './commands/clean.js'
+import {DevCommand} from './commands/dev.js'
+import {DoctorCommand} from './commands/doctor.js'
+import {InstallCommand} from './commands/install.js'
 
 /**
  * Register ts-node if available
@@ -24,8 +24,13 @@ const tsNode = async (context: Config.Context) => {
     ).length
   ) {
     try {
+      // @ts-ignore
       const {register} = await import('ts-node')
-      register({transpileOnly: true})
+      register({
+        esm: true,
+        experimentalResolver: true,
+        transpileOnly: true,
+      })
     } catch (err) {
       context.stderr.write(
         `You must install ts-node in order to configure bud with typescript`,
@@ -53,7 +58,7 @@ const notifier = async (context: Config.Context) => {
         'roots-notifier',
       )
 
-      await execa.execa(`chmod`, [`u+x`, notifierPath])
+      await execa(`chmod`, [`u+x`, notifierPath])
     } catch (err) {}
   }
 }

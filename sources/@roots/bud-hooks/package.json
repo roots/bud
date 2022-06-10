@@ -31,26 +31,37 @@
     "bud-framework"
   ],
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   },
   "files": [
-    "lib/",
-    "types/"
+    "lib/"
   ],
-  "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.js",
-  "types": "./types/index.d.ts",
+  "type": "module",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "exports": {
-    "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.js"
+    ".": "./lib/index.js",
+    "./service": "./lib/service.js"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ],
+      "service": [
+        "./lib/service.d.ts"
+      ]
+    }
   },
   "devDependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.11.36"
+    "@types/lodash-es": "4.17.6",
+    "@types/node": "16.11.39"
   },
   "dependencies": {
-    "@roots/bud-support": "workspace:sources/@roots/bud-support",
+    "helpful-decorators": "2.1.0",
+    "lodash-es": "4.17.21",
     "tslib": "2.4.0"
   }
 }

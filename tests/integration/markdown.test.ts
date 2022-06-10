@@ -1,14 +1,14 @@
+import {beforeAll, describe, it} from '@jest/globals'
 import {Project} from '@repo/test-kit/project'
 
-jest.setTimeout(60000)
-
-describe.skip('examples/markdown', () => {
+const run = pacman => () => {
   let project
 
   beforeAll(async () => {
     project = new Project({
       name: 'markdown',
-      dir: 'examples/markdown',
+      dist: 'dist',
+      with: pacman,
     })
 
     await project.setup()
@@ -20,9 +20,12 @@ describe.skip('examples/markdown', () => {
     })
 
     it('is transpiled', () => {
-      expect(
-        project.assets['app.js'].includes('import'),
-      ).toBeFalsy()
+      expect(project.assets['app.js'].includes('import')).toBeFalsy()
     })
   })
+}
+
+describe('markdown', () => {
+  describe('npm', run('npm'))
+  describe('yarn', run('yarn'))
 })

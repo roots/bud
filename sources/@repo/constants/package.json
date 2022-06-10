@@ -2,7 +2,11 @@
   "name": "@repo/constants",
   "packageManager": "yarn@3.2.1",
   "private": true,
+  "type": "module",
   "exports": {
-    ".": "./index.ts"
+    ".": "./index.js"
+  },
+  "devDependencies": {
+    "@types/node": "16.11.39"
   }
 }

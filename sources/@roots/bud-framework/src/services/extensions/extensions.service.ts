@@ -1,5 +1,5 @@
-import {Extension, Modules} from '../..'
-import {Service as BaseService} from '../../service'
+import {Extension, Modules} from '../../index.js'
+import {Service as BaseService} from '../../service.js'
 
 /**
  * Container service for {@link Bud} extensions.

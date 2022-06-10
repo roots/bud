@@ -1,0 +1,91 @@
+{
+  "name": "@roots/bud-library",
+  "version": "0.0.0",
+  "description": "Adds dynamic link library support to Bud",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud",
+    "directory": "sources/@roots/bud-library"
+  },
+  "license": "MIT",
+  "contributors": [
+    {
+      "name": "kellymears",
+      "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "QWp6t",
+      "url": "https://github.com/QWp6t"
+    }
+  ],
+  "bugs": {
+    "url": "https://github.com/roots/bud/issues"
+  },
+  "keywords": [
+    "bud",
+    "bud-extension"
+  ],
+  "engines": {
+    "node": ">=16"
+  },
+  "files": [
+    "lib/",
+    "types/"
+  ],
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "types": "./types/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./lib/cjs/index.js"
+    },
+    "./env": {
+      "require": "./lib/cjs/env.js"
+    },
+    "./extension": {
+      "require": "./lib/cjs/extension.js"
+    },
+    "./factory": {
+      "require": "./lib/cjs/factory.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./types/index.d.ts"
+      ],
+      "env": [
+        "./types/env.d.ts"
+      ],
+      "extension": [
+        "./types/extension.d.ts"
+      ],
+      "factory": [
+        "./types/factory.d.ts"
+      ]
+    }
+  },
+  "bud": {
+    "type": "extension"
+  },
+  "devDependencies": {
+    "@roots/bud-api": "workspace:sources/@roots/bud-api",
+    "@skypack/package-check": "0.2.2",
+    "@types/lodash": "4.14.182",
+    "@types/node": "16.11.36",
+    "webpack": "5.72.1"
+  },
+  "dependencies": {
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "autodll-webpack-plugin": "^0.4.2",
+    "tslib": "2.4.0"
+  },
+  "peerDependencies": {
+    "autodll-webpack-plugin": "*"
+  },
+  "peerDependenciesMeta": {
+    "autodll-webpack-plugin": {
+      "optional": true
+    }
+  }
+}

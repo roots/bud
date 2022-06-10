@@ -3,11 +3,6 @@
   "version": "0.0.0",
   "description": "Frontend build tools combining the best parts of Symfony Encore and Laravel Mix",
   "homepage": "https://roots.io/bud",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/roots/bud.git",
-    "directory": "sources/@roots/bud"
-  },
   "contributors": [
     {
       "name": "kellymears",
@@ -23,6 +18,11 @@
     }
   ],
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "sources/@roots/bud"
+  },
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
   },
@@ -36,53 +36,67 @@
     "webpack"
   ],
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   },
-  "bin": "./bin/bud.js",
   "files": [
     "bin/",
     "lib/",
-    "types/",
     "vendor/"
   ],
-  "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.js",
-  "types": "./types/index.d.ts",
+  "bin": {
+    "bud": "./bin/bud.mjs",
+    "ts-bud": "./bin/ts-bud.mjs"
+  },
+  "type": "module",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "exports": {
-    ".": "./lib/cjs/index.js",
-    "./cli": "./lib/cjs/cli/index.js",
-    "./context": "./lib/cjs/context/index.js",
-    "./context/*": "./lib/cjs/context/*/index.js",
-    "./extensions": "./lib/cjs/extensions/index.js",
-    "./extensions/*": "./lib/cjs/extensions/*/index.js",
-    "./factory": "./lib/cjs/factory/index.js",
-    "./services": "./lib/cjs/services/index.js"
+    ".": "./lib/index.js",
+    "./bud": "./lib/bud.js",
+    "./cli": "./lib/cli/index.js",
+    "./cli/commands": "./lib/cli/commands/index.js",
+    "./cli/commands/*": "./lib/cli/commands/*.js",
+    "./context": "./lib/context/index.js",
+    "./context/*": "./lib/context/*.js",
+    "./extensions": "./lib/extensions/index.js",
+    "./extensions/*": "./lib/extensions/*/index.js",
+    "./factory": "./lib/factory/index.js",
+    "./services": "./lib/services/index.js"
   },
   "typesVersions": {
     "*": {
       ".": [
-        "./types/index.d.ts"
+        "./lib/index.d.ts"
+      ],
+      "bud": [
+        "./lib/bud.d.ts"
       ],
       "cli": [
-        "./types/cli/index.d.ts"
+        "./lib/cli/index.d.ts"
+      ],
+      "cli/commands": [
+        "./lib/cli/commands/index.d.ts"
+      ],
+      "cli/commands/*": [
+        "./lib/cli/commands/*.d.ts"
       ],
       "context": [
-        "./types/context/index.d.ts"
+        "./lib/context/index.d.ts"
       ],
       "context/*": [
-        "./types/context/*.d.ts"
+        "./lib/context/*.d.ts"
       ],
       "extensions": [
-        "./types/extensions/index.d.ts"
+        "./lib/extensions/index.d.ts"
       ],
       "extensions/*": [
-        "./types/extensions/*/index.d.ts"
+        "./lib/extensions/*/index.d.ts"
       ],
       "factory": [
-        "./types/factory/index.d.ts"
+        "./lib/factory/index.d.ts"
       ],
       "services": [
-        "./types/services/index.d.ts"
+        "./lib/services/index.d.ts"
       ]
     }
   },
@@ -91,9 +105,11 @@
     "@types/braces": "3.0.1",
     "@types/fs-extra": "9.0.13",
     "@types/lodash": "4.14.182",
+    "@types/lodash-es": "4.17.6",
     "@types/mini-css-extract-plugin": "2.5.0",
-    "@types/node": "16.11.36",
-    "@types/node-notifier": "8.0.2"
+    "@types/node": "16.11.39",
+    "@types/node-notifier": "8.0.2",
+    "@types/signale": "1.4.4"
   },
   "dependencies": {
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
@@ -105,19 +121,28 @@
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-hooks": "workspace:sources/@roots/bud-hooks",
     "@roots/bud-server": "workspace:sources/@roots/bud-server",
-    "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "@roots/container": "workspace:sources/@roots/container",
+    "chalk": "5.0.1",
     "clean-webpack-plugin": "^4.0.0",
     "clipanion": "3.2.0-rc.11",
-    "copy-webpack-plugin": "^11.0.0",
-    "html-webpack-plugin": "^5.5.0",
+    "copy-webpack-plugin": "11.0.0",
+    "dotenv": "16.0.1",
+    "dotenv-expand": "8.0.3",
+    "execa": "6.1.0",
+    "fs-extra": "10.1.0",
+    "globby": "13.1.1",
+    "helpful-decorators": "2.1.0",
+    "html-webpack-plugin": "5.5.0",
+    "lodash-es": "4.17.21",
     "mini-css-extract-plugin": "^2.4.5",
     "node-notifier": "10.0.1",
+    "open": "8.4.0",
+    "open-editor": "4.0.0",
+    "pkg-up": "4.0.0",
+    "signale": "1.4.0",
     "tslib": "2.4.0",
     "typanion": "3.9.0",
-    "type-fest": "^2.5.4",
-    "webpack": "5.72.1",
-    "webpack-cli": "^4.9.1",
+    "webpack": "5.73.0",
+    "webpack-cli": "^4.9.2",
     "webpack-manifest-plugin": "^5.0.0",
     "webpack-remove-empty-scripts": "0.8.0"
   }

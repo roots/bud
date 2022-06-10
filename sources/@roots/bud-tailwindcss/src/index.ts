@@ -10,7 +10,7 @@
  * @packageDocumentation
  */
 
-import './env'
+import './env.js'
 
-import BudTailwindCss from './extension'
+import BudTailwindCss from './extension.js'
 export default BudTailwindCss

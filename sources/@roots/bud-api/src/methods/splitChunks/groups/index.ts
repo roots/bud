@@ -7,7 +7,7 @@
  *
  * @public
  */
-export * as bud from './bud'
+export * as bud from './bud.js'
 
 /**
  * vendor cache group
@@ -17,4 +17,4 @@ export * as bud from './bud'
  *
  * @public
  */
-export * as vendor from './vendor'
+export * as vendor from './vendor.js'

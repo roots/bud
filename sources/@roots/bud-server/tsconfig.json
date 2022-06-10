@@ -1,24 +1,17 @@
 {
   "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
-    "allowJs": true,
-    "baseUrl": ".",
-    "rootDir": "./src",
-    "outDir": "./lib/cjs",
-    "declarationDir": "./types",
-    "lib": ["DOM", "DOM.Iterable", "ES2021"],
-    "sourceMap": false
+    "rootDir": "src",
+    "outDir": "lib"
   },
-  "include": ["src"],
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "lib",
+    "node_modules"
+  ],
   "references": [
-    {
-      "path": "./../bud-api/tsconfig.json"
-    },
-    {
-      "path": "./../bud-framework/tsconfig.json"
-    },
-    {
-      "path": "./../bud-support/tsconfig.json"
-    }
-  ]
+    {"path": "./../bud-framework/tsconfig.json"},
+  ],
 }

@@ -10,10 +10,10 @@
  * @packageDocumentation
  */
 
-import {Api, Facade} from './api'
+import {Api, Facade} from './api/index.js'
 
 declare module '@roots/bud-framework' {
   interface Bud extends Facade {}
 }
 
-export {Api, Facade}
+export {Api, Api as Service, Api as default, Facade}

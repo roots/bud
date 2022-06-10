@@ -7,7 +7,7 @@
  * @packageDocumentation
  */
 
-import './env'
+import './env.js'
 
-import BudSass from './extension'
+import BudSass from './extension.js'
 export default BudSass

@@ -1,13 +1,11 @@
-import {lodash} from '@roots/bud-support'
 import {Command, Option} from 'clipanion'
+import {isUndefined} from 'lodash-es'
 import * as t from 'typanion'
 
 import {factory} from '../../factory/index.js'
 import {seed} from '../../seed.js'
 import * as overrides from '../config/override.config.js'
 import {BaseCommand} from './base.js'
-
-const {isUndefined} = lodash
 
 const fallback = (
   test: any | undefined,
@@ -17,17 +15,20 @@ const fallback = (
 
 /**
  * Build command
+ *
  * @public
  */
 export class BuildCommand extends BaseCommand {
   /**
    * Command paths
+   *
    * @public
    */
   public static paths = [[`build`]]
 
   /**
    * Command usage
+   *
    * @public
    */
   public static usage = Command.Usage({
@@ -45,18 +46,6 @@ export class BuildCommand extends BaseCommand {
       look for an entrypoint at \`@src/index.js\`.
     `,
     examples: [[`Compile source`, `$0 build`]],
-  })
-
-  /**
-   * --mode
-   */
-  public mode = Option.String(`--mode`, 'production', {
-    description: `Compilation mode`,
-    validator: t.isOneOf([
-      t.isLiteral('production'),
-      t.isLiteral('development'),
-    ]),
-    env: 'BUILD_MODE',
   })
 
   /**
@@ -134,6 +123,27 @@ export class BuildCommand extends BaseCommand {
     ]),
   })
 
+  /*
+   * --dist
+   */
+  public dist = Option.String(`--output,-o`, undefined, {
+    description: 'Distribution directory (relative to project)',
+  })
+
+  /**
+   * --esm
+   */
+  public esm = Option.Boolean('--esm', undefined, {
+    description: 'build as es modules',
+  })
+
+  /**
+   * --immutable
+   */
+  public immutable = Option.Boolean('--immutable', undefined, {
+    description: 'bud.http: immutable module lockfile',
+  })
+
   /**
    * --flush
    */
@@ -164,17 +174,22 @@ export class BuildCommand extends BaseCommand {
   })
 
   /**
+   * --mode
+   */
+  public mode = Option.String(`--mode`, 'production', {
+    description: `Compilation mode`,
+    validator: t.isOneOf([
+      t.isLiteral('production'),
+      t.isLiteral('development'),
+    ]),
+    env: 'BUILD_MODE',
+  })
+
+  /**
    * --src
    */
   public src = Option.String(`--input,-i`, undefined, {
     description: 'Source directory (relative to project)',
-  })
-
-  /*
-   * --dist
-   */
-  public dist = Option.String(`--output,-o`, undefined, {
-    description: 'Distribution directory (relative to project)',
   })
 
   /**
@@ -297,11 +312,13 @@ export class BuildCommand extends BaseCommand {
       'clean',
       'debug',
       'devtool',
+      'esm',
       'flush',
       'hash',
       'html',
       'indicator',
       'inject',
+      'immutable',
       'log',
       'manifest',
       'minimize',

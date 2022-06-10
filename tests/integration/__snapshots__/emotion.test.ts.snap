@@ -1,3 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`examples/emotion app.js is transpiled 1`] = `"\\"use strict\\";(self.webpackChunkexample_emotion=self.webpackChunkexample_emotion||[]).push([[143],{888:function(e,t,n){var o=n(784),a=n(316),r=n(805),s=n(798),l=(0,r.Z)(\\"img\\",{target:\\"e15ohheo0\\"})({name:\\"ewzjik\\",styles:\\"@keyframes App-logo-spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}height:30vmin;pointer-events:none;margin-bottom:2rem;animation:App-logo-spin infinite 20s linear\\"}),m=function(){return o.createElement(\\"div\\",{className:\\"App\\"},o.createElement(\\"div\\",{className:\\"header\\"},o.createElement(l,{src:s,className:\\"logo\\",alt:\\"logo\\"}),\\"Edit \\",o.createElement(\\"code\\",null,\\"src/components/App.js\\"),\\" and save to reload\\"))};(0,a.render)(o.createElement(m,null),document.getElementById(\\"root\\"))},798:function(e,t,n){e.exports=n.p+\\"svg/logo.svg\\"}},function(e){e.O(0,[329],(function(){return 888,e(e.s=888)})),e.O()}]);"`;
+exports[`emotion npm manifest.json matches snapshot 1`] = `
+Object {
+  "app.js": "/app.js",
+  "index.html": "/index.html",
+  "runtime.js": "/runtime.js",
+  "svg/logo.svg": "/svg/logo.svg",
+  "vendor/app.js": "/vendor/app.js",
+}
+`;
+
+exports[`emotion yarn manifest.json matches snapshot 1`] = `
+Object {
+  "app.js": "/app.js",
+  "index.html": "/index.html",
+  "runtime.js": "/runtime.js",
+  "svg/logo.svg": "/svg/logo.svg",
+  "vendor/app.js": "/vendor/app.js",
+}
+`;

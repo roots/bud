@@ -28,48 +28,44 @@
     "solid-js"
   ],
   "engines": {
-    "node": ">=14"
-  },
-  "bud": {
-    "type": "extension"
+    "node": ">=16"
   },
   "files": [
-    "lib/",
-    "types/"
+    "lib/"
   ],
-  "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.js",
-  "types": "./types/index.d.ts",
+  "type": "module",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "exports": {
-    ".": "./lib/cjs/index.js",
-    "./extension": "./lib/cjs/extension.js"
+    ".": "./lib/index.js",
+    "./extension": "./lib/extension.js"
   },
   "typesVersions": {
     "*": {
       ".": [
-        "./types/index.d.ts"
+        "./lib/index.d.ts"
       ],
       "extension": [
-        "./types/extension.d.ts"
+        "./lib/extension.d.ts"
       ]
     }
   },
   "devDependencies": {
-    "@babel/core": "7.18.0",
+    "@babel/core": "^7.18.2",
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@skypack/package-check": "0.2.2",
+    "@types/babel__core": "^7.1.19",
     "@types/lodash": "4.14.182",
-    "@types/node": "16.11.36",
-    "solid-js": "1.4.2",
-    "type-fest": "2.12.2",
-    "webpack": "5.72.1"
+    "@types/node": "16.11.39",
+    "type-fest": "2.13.0",
+    "webpack": "5.73.0"
   },
   "dependencies": {
     "@babel/plugin-syntax-jsx": "7.17.12",
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "babel-preset-solid": "^1.2.5",
-    "solid-js": "^1.1.7",
+    "babel-preset-solid": "1.4.2",
+    "solid-js": "1.4.3",
     "tslib": "2.4.0"
   },
   "peerDependencies": {

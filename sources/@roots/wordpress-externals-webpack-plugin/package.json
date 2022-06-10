@@ -30,25 +30,31 @@
     "wordpress"
   ],
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   },
   "files": [
-    "lib/",
-    "types/"
+    "lib/"
   ],
-  "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.js",
-  "types": "./types/index.d.ts",
+  "type": "module",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "exports": {
-    "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.js"
+    ".": "./lib/index.js"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ]
+    }
   },
   "devDependencies": {
-    "@skypack/package-check": "0.2.2"
+    "@skypack/package-check": "0.2.2",
+    "@types/node": "16.11.39"
   },
   "dependencies": {
-    "lodash": "4.17.21",
+    "lodash-es": "4.17.21",
     "tslib": "2.4.0",
-    "webpack": "5.72.1"
+    "webpack": "5.73.0"
   }
 }

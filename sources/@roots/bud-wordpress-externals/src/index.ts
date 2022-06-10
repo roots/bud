@@ -17,7 +17,7 @@
  * @packageDocumentation
  */
 
-import BudWordPressExternals from './PluginAdapter'
+import BudWordPressExternals from './extension.js'
 
 declare module '@roots/bud-framework' {
   interface Modules {

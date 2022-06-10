@@ -8,5 +8,5 @@
  * @packageDocumentation
  */
 
-export {EntrypointsWebpackPlugin} from './webpack.plugin'
-export type {Entry, Options} from './webpack.plugin'
+export {EntrypointsWebpackPlugin} from './webpack.plugin.js'
+export type {Entry, Options} from './webpack.plugin.js'

@@ -3,43 +3,15 @@
 exports[`bud.build.config has expected default css rule 1`] = `
 Object {
   "include": Array [
-    StringContaining "src",
+    "/srv/bud/tests/util/project/src",
   ],
-  "test": Object {},
+  "test": /\\\\\\.module\\\\\\.css\\$/,
   "use": Array [
     Object {
-      "loader": StringContaining "mini-css-extract-plugin/dist/loader.js",
+      "loader": "/srv/bud/node_modules/mini-css-extract-plugin/dist/loader.js",
     },
     Object {
-      "loader": StringContaining "css-loader/dist/cjs.js",
-      "options": Object {
-        "importLoaders": 1,
-        "sourceMap": false,
-      },
-    },
-    Object {
-      "loader": StringContaining "postcss-loader/dist/cjs.js",
-      "options": Object {
-        "postcssOptions": Any<Object>,
-        "sourceMap": true,
-      },
-    },
-  ],
-}
-`;
-
-exports[`bud.build.config has expected default cssModule rule 1`] = `
-Object {
-  "include": Array [
-    StringContaining "src",
-  ],
-  "test": Object {},
-  "use": Array [
-    Object {
-      "loader": StringContaining "mini-css-extract-plugin/dist/loader.js",
-    },
-    Object {
-      "loader": StringContaining "css-loader/dist/cjs.js",
+      "loader": "/srv/bud/node_modules/css-loader/dist/cjs.js",
       "options": Object {
         "importLoaders": 1,
         "localIdentName": "[name]__[local]___[hash:base64:5]",
@@ -51,76 +23,154 @@ Object {
 }
 `;
 
-exports[`bud.build.config has expected default csv rule 1`] = `
+exports[`bud.build.config has expected default cssModule rule 1`] = `
 Object {
   "exclude": Array [
-    StringContaining "node_modules",
+    "/srv/bud/tests/util/project/node_modules",
   ],
   "include": Array [
-    StringContaining "project",
+    "/srv/bud/tests/util/project",
   ],
-  "test": Object {},
+  "test": /\\\\\\.\\(csv\\|tsv\\)\\$/,
   "use": Array [
     Object {
-      "loader": StringContaining "csv-loader/index.js",
+      "loader": "/srv/bud/node_modules/csv-loader/index.js",
     },
   ],
 }
 `;
 
-exports[`bud.build.config has expected default font rule 1`] = `
+exports[`bud.build.config has expected default csv rule 1`] = `
 Object {
   "generator": Object {
-    "filename": "fonts/[name][ext]",
+    "filename": "images/[name][ext]",
   },
   "include": Array [
-    StringContaining "src",
+    "/srv/bud/tests/util/project/src",
   ],
-  "test": /\\\\\\.\\(ttf\\|otf\\|eot\\|woff2\\?\\|ico\\)\\$/,
-  "type": "asset",
+  "test": /\\\\\\.webp\\$/,
+  "type": "asset/resource",
+}
+`;
+
+exports[`bud.build.config has expected default font rule 1`] = `
+Object {
+  "include": Array [
+    "/srv/bud/tests/util/project/src",
+  ],
+  "test": /\\\\\\.\\(cjs\\|mjs\\|jsx\\?\\)\\$/,
+  "use": Array [
+    Object {
+      "loader": "/srv/bud/node_modules/babel-loader/lib/index.js",
+      "options": Object {
+        "cacheDirectory": "/srv/bud/tests/util/project/.budfiles/cache/babel",
+        "env": Object {
+          "development": Object {
+            "compact": false,
+          },
+        },
+        "plugins": Array [
+          Array [
+            "/srv/bud/node_modules/@babel/plugin-transform-runtime/lib/index.js",
+            Object {
+              "helpers": false,
+            },
+          ],
+          Array [
+            "/srv/bud/node_modules/@babel/plugin-proposal-object-rest-spread/lib/index.js",
+          ],
+          Array [
+            "/srv/bud/node_modules/@babel/plugin-syntax-dynamic-import/lib/index.js",
+          ],
+          Array [
+            "/srv/bud/node_modules/@babel/plugin-proposal-class-properties/lib/index.js",
+          ],
+        ],
+        "presets": Array [
+          Array [
+            "/srv/bud/node_modules/@babel/preset-env/lib/index.js",
+          ],
+        ],
+        "root": "/srv/bud/tests/util/project",
+      },
+    },
+  ],
 }
 `;
 
 exports[`bud.build.config has expected default html rule 1`] = `
 Object {
   "exclude": Array [
-    StringContaining "node_modules",
+    "/srv/bud/tests/util/project/node_modules",
   ],
   "include": Array [
-    StringContaining "project",
+    "/srv/bud/tests/util/project",
   ],
-  "test": Object {},
-  "use": Array [
-    Object {
-      "loader": StringContaining "html-loader/dist/cjs.js",
-    },
-  ],
+  "parser": Object {
+    "parse": [Function],
+  },
+  "test": /\\\\\\.\\(html\\?\\)\\$/,
+  "type": "json",
 }
 `;
 
 exports[`bud.build.config has expected default image rule 1`] = `
 Object {
   "generator": Object {
-    "filename": "images/[name][ext]",
+    "filename": "fonts/[name][ext]",
   },
   "include": Array [
-    StringContaining "project/src",
+    "/srv/bud/tests/util/project/src",
   ],
-  "test": Object {},
-  "type": "asset/resource",
+  "test": /\\\\\\.\\(ttf\\|otf\\|eot\\|woff2\\?\\|ico\\)\\$/,
+  "type": "asset",
 }
 `;
 
 exports[`bud.build.config has expected default js rule 1`] = `
 Object {
   "include": Array [
-    StringContaining "src",
+    "/srv/bud/tests/util/project/src",
   ],
-  "test": Object {},
+  "test": /\\\\\\.css\\$/,
   "use": Array [
     Object {
-      "loader": Any<String>,
-      "options": Any<Object>,
+      "loader": "/srv/bud/node_modules/mini-css-extract-plugin/dist/loader.js",
+    },
+    Object {
+      "loader": "/srv/bud/node_modules/css-loader/dist/cjs.js",
+      "options": Object {
+        "importLoaders": 1,
+        "sourceMap": false,
+      },
+    },
+    Object {
+      "loader": "/srv/bud/node_modules/postcss-loader/dist/cjs.js",
+      "options": Object {
+        "postcssOptions": Object {
+          "plugins": Array [
+            Array [
+              "/srv/bud/node_modules/postcss-import/index.js",
+            ],
+            Array [
+              "/srv/bud/node_modules/tailwindcss/nesting/index.js",
+            ],
+            Array [
+              "/srv/bud/node_modules/tailwindcss/lib/index.js",
+            ],
+            Array [
+              "/srv/bud/node_modules/postcss-preset-env/dist/index.cjs",
+              Object {
+                "features": Object {
+                  "focus-within-pseudo-class": false,
+                },
+                "stage": 1,
+              },
+            ],
+          ],
+        },
+        "sourceMap": true,
+      },
     },
   ],
 }
@@ -129,15 +179,15 @@ Object {
 exports[`bud.build.config has expected default json rule 1`] = `
 Object {
   "exclude": Array [
-    StringContaining "node_modules",
+    "/srv/bud/tests/util/project/node_modules",
   ],
   "include": Array [
-    StringContaining "project",
+    "/srv/bud/tests/util/project",
   ],
   "parser": Object {
-    "parse": [Function],
+    "parse": undefined,
   },
-  "test": Object {},
+  "test": /\\\\\\.json\\$/,
   "type": "json",
 }
 `;
@@ -145,24 +195,24 @@ Object {
 exports[`bud.build.config has expected default requireEnsure rule 1`] = `
 Object {
   "exclude": Array [
-    Object {},
+    /node_modules/,
   ],
   "parser": Object {
     "requireEnsure": false,
   },
-  "test": Object {},
+  "test": /\\\\\\.\\(cjs\\|mjs\\|jsx\\?\\)\\$/,
 }
 `;
 
 exports[`bud.build.config has expected default svg rule 1`] = `
 Object {
   "generator": Object {
-    "filename": "svg/[name][ext]",
+    "filename": "images/[name][ext]",
   },
   "include": Array [
-    StringContaining "project/src",
+    "/srv/bud/tests/util/project/src",
   ],
-  "test": Object {},
+  "test": /\\\\\\.\\(png\\|jpe\\?g\\|gif\\|webp\\)\\$/,
   "type": "asset/resource",
 }
 `;
@@ -170,44 +220,49 @@ Object {
 exports[`bud.build.config has expected default toml rule 1`] = `
 Object {
   "exclude": Array [
-    StringContaining "node_modules",
+    "/srv/bud/tests/util/project/node_modules",
   ],
   "include": Array [
-    StringContaining "project",
+    "/srv/bud/tests/util/project",
   ],
-  "parser": Object {
-    "parse": [Function],
-  },
-  "test": Object {},
-  "type": "json",
+  "test": /\\\\\\.ya\\?ml\\$/,
+  "use": Array [
+    Object {
+      "loader": "/srv/bud/node_modules/yml-loader/index.js",
+    },
+  ],
 }
 `;
 
 exports[`bud.build.config has expected default webp rule 1`] = `
 Object {
-  "generator": Object {
-    "filename": "images/[name][ext]",
-  },
-  "include": Array [
-    StringContaining "project/src",
+  "exclude": Array [
+    "/srv/bud/tests/util/project/node_modules",
   ],
-  "test": Object {},
-  "type": "asset/resource",
+  "include": Array [
+    "/srv/bud/tests/util/project",
+  ],
+  "test": /\\\\\\.\\(html\\?\\)\\$/,
+  "use": Array [
+    Object {
+      "loader": "/srv/bud/node_modules/html-loader/dist/cjs.js",
+    },
+  ],
 }
 `;
 
 exports[`bud.build.config has expected default xml rule 1`] = `
 Object {
   "exclude": Array [
-    StringContaining "node_modules",
+    "/srv/bud/tests/util/project/node_modules",
   ],
   "include": Array [
-    StringContaining "project",
+    "/srv/bud/tests/util/project",
   ],
-  "test": Object {},
+  "test": /\\\\\\.xml\\$/,
   "use": Array [
     Object {
-      "loader": StringContaining "/xml-loader/index.js",
+      "loader": "/srv/bud/node_modules/xml-loader/index.js",
     },
   ],
 }
@@ -215,18 +270,14 @@ Object {
 
 exports[`bud.build.config has expected default yaml rule 1`] = `
 Object {
-  "exclude": Array [
-    StringContaining "node_modules",
-  ],
+  "generator": Object {
+    "filename": "svg/[name][ext]",
+  },
   "include": Array [
-    StringContaining "/project",
+    "/srv/bud/tests/util/project/src",
   ],
-  "test": Object {},
-  "use": Array [
-    Object {
-      "loader": StringContaining "js-yaml-loader",
-    },
-  ],
+  "test": /\\\\\\.svg\\$/,
+  "type": "asset/resource",
 }
 `;
 

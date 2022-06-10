@@ -10,7 +10,5 @@
  * @packageDocumentation
  */
 
-import './env'
-
-import BudEmotion from './extension'
+import BudEmotion from './extension.js'
 export default BudEmotion

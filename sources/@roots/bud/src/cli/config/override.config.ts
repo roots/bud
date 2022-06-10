@@ -1,8 +1,6 @@
-import {lodash} from '@roots/bud-support'
+import {isUndefined} from 'lodash-es'
 
 import {BuildCommand} from '../commands/build.js'
-
-const {isUndefined} = lodash
 
 /**
  * --target override
@@ -27,6 +25,20 @@ export const config = async (command: BuildCommand) => {
     command.app.setPath('@src', command.src)
     Object.entries(command.app.children).map(([_name, child]) =>
       child.setPath('@src', command.src),
+    )
+  }
+
+  if (!isUndefined(command.esm)) {
+    command.app.esm.enable()
+    Object.entries(command.app.children).map(([_name, child]) =>
+      child.esm.enable(),
+    )
+  }
+
+  if (!isUndefined(command.immutable)) {
+    command.app.cdn.freeze()
+    Object.entries(command.app.children).map(([_name, child]) =>
+      child.cdn.freeze(),
     )
   }
 

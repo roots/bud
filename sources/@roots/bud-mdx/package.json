@@ -32,32 +32,40 @@
     "mdx"
   ],
   "engines": {
-    "node": ">=14"
-  },
-  "files": [
-    "lib/",
-    "types/"
-  ],
-  "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.js",
-  "types": "./types/index.d.ts",
-  "exports": {
-    "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.js"
+    "node": ">=16"
   },
   "bud": {
     "type": "extension"
   },
+  "files": [
+    "lib/"
+  ],
+  "type": "module",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": "./lib/index.js"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ],
+      "extension": [
+        "./lib/extension.d.ts"
+      ]
+    }
+  },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@types/lodash": "4.14.182",
-    "@types/node": "16.11.36",
+    "@types/node": "16.11.39",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "webpack": "5.72.1"
+    "webpack": "5.73.0"
   },
   "dependencies": {
-    "@mdx-js/loader": "^2.0.0",
+    "@mdx-js/loader": "^2.1.1",
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
     "@roots/bud-build": "workspace:sources/@roots/bud-build",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",

@@ -10,7 +10,7 @@
  * @packageDocumentation
  */
 
-import './env'
+import './env.js'
 
-import BabelExtension from './extension'
+import BabelExtension from './extension.js'
 export default BabelExtension

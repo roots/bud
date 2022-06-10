@@ -10,7 +10,7 @@
  * @packageDocumentation
  */
 
-import './env'
+import './env.js'
 
-import BudPostCss from './extension'
+import BudPostCss from './extension.js'
 export default BudPostCss

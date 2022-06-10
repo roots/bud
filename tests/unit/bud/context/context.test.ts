@@ -11,7 +11,9 @@ describe('unit', function () {
     it('has expected context.disk', () => {
       expect(bud.context.disk.config).toStrictEqual({
         '.eslintrc.js': expect.stringContaining('project/.eslintrc.js'),
-        'bud.config.js': expect.stringContaining('project/bud.config.js'),
+        'bud.config.cjs': expect.stringContaining(
+          'project/bud.config.cjs',
+        ),
         'docker-compose.yml': expect.stringContaining(
           'project/docker-compose.yml',
         ),

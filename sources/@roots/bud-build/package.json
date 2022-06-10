@@ -31,72 +31,82 @@
     "bud-framework"
   ],
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   },
   "files": [
-    "lib/",
-    "types/"
+    "lib/"
   ],
-  "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.js",
-  "types": "./types/index.d.ts",
+  "type": "module",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "exports": {
-    ".": "./lib/cjs/index.js",
-    "./item": "./lib/cjs/Item/index.js",
-    "./items": "./lib/cjs/items.js",
-    "./loader": "./lib/cjs/Loader/index.js",
-    "./loaders": "./lib/cjs/loaders.js",
-    "./rule": "./lib/cjs/Rule/index.js",
-    "./rules": "./lib/cjs/rules.js"
+    ".": "./lib/index.js",
+    "./item": "./lib/item.js",
+    "./items": "./lib/handlers/items.js",
+    "./loader": "./lib/loader.js",
+    "./loaders": "./lib/handlers/loaders.js",
+    "./rule": "./lib/rule.js",
+    "./rules": "./lib/handlers/rules.js",
+    "./service": "./lib/service.js"
   },
   "typesVersions": {
     "*": {
       ".": [
-        "./types/index.d.ts"
+        "./lib/index.d.ts"
       ],
-      "./item": [
-        "./types/Item/index.d.ts"
+      "item": [
+        "./lib/item.d.ts"
       ],
-      "./items": [
-        "./types/items.d.ts"
+      "items": [
+        "./lib/handlers/items.d.ts"
       ],
-      "./loader": [
-        "./types/Loader/index.d.ts"
+      "loader": [
+        "./lib/loader.d.ts"
       ],
-      "./loaders": [
-        "./types/loaders.d.ts"
+      "loaders": [
+        "./lib/handlers/loaders.d.ts"
       ],
-      "./rule": [
-        "./types/Rule/index.d.ts"
+      "rule": [
+        "./lib/rule.d.ts"
       ],
-      "./rules": [
-        "./types/rules.d.ts"
+      "rules": [
+        "./lib/handlers/rules.d.ts"
+      ],
+      "service": [
+        "./lib/service.d.ts"
       ]
     }
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
+    "@types/fs-extra": "9.0.13",
     "@types/lodash": "4.14.182",
+    "@types/lodash-es": "4.17.6",
     "@types/mini-css-extract-plugin": "2.5.0",
-    "@types/node": "16.11.36",
-    "webpack": "5.72.1"
+    "@types/node": "16.11.39",
+    "webpack": "5.73.0"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "css-loader": "^6.5.1",
     "csv-loader": "^3.0.3",
     "file-loader": "^6.2.0",
+    "fs-extra": "10.1.0",
+    "helpful-decorators": "2.1.0",
     "html-loader": "^3.0.1",
     "js-yaml-loader": "1.2.2",
+    "json5": "2.2.1",
+    "lodash-es": "4.17.21",
     "mini-css-extract-plugin": "^2.4.5",
-    "remark": "^14.0.2",
-    "remark-html": "^15.0.0",
+    "remark": "14.0.2",
+    "remark-html": "15.0.0",
     "remark-loader": "4.0.0",
-    "resolve-url-loader": "^5.0.0",
-    "style-loader": "^3.3.1",
+    "resolve-url-loader": "5.0.0",
+    "style-loader": "3.3.1",
+    "toml": "3.0.0",
     "tslib": "2.4.0",
-    "url-loader": "^4.1.1",
-    "xml-loader": "^1.2.1"
+    "url-loader": "4.1.1",
+    "xml-loader": "1.2.1",
+    "yml-loader": "2.1.0"
   }
 }

@@ -1,7 +1,8 @@
 import {paths} from '@repo/constants'
-import {execa, stripAnsi} from '@roots/bud-support'
-import {writeFile} from 'fs-extra'
+import {execa} from 'execa'
+import fs from 'fs-extra'
 import {join} from 'path'
+import stripAnsi from 'strip-ansi'
 
 const main = async () => {
   await Promise.all([
@@ -17,7 +18,7 @@ const main = async () => {
  * Write terminal output to docusaurus mdx
  */
 const generateMarkdown = async (args: string[]) => {
-  const {stdout} = await execa.execa('yarn', [
+  const {stdout} = await execa('yarn', [
     `workspace`,
     `@repo/markdown-kit`,
     `run`,
@@ -39,7 +40,7 @@ const generateMarkdown = async (args: string[]) => {
     name,
   )
 
-  await writeFile(path, content)
+  await fs.writeFile(path, content)
 }
 
 main()

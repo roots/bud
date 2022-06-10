@@ -1,12 +1,12 @@
-import {Bud} from '../bud'
-import * as Build from './build'
-import {Dev} from './dev'
-import {Events} from './events'
-import {Flags} from './flags'
-import {Locations} from './locations'
-import {Modules} from './modules'
-import {Patterns} from './patterns'
-import {Values} from './values'
+import {Bud} from '../bud.js'
+import * as Build from './build.js'
+import {Dev} from './dev.js'
+import {Events} from './events.js'
+import {Flags} from './flags.js'
+import {Locations} from './locations.js'
+import {Modules} from './modules.js'
+import {Patterns} from './patterns.js'
+import {Values} from './values.js'
 
 export interface Registry
   extends Registry.Sync,

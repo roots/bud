@@ -4,10 +4,8 @@ import {
   expose,
   label,
 } from '@roots/bud-framework/extension/decorators'
-import {lodash} from '@roots/bud-support'
+import {isFunction} from 'lodash-es'
 import {Plugin, Processor} from 'postcss'
-
-const {isFunction} = lodash
 
 type Input =
   | string
@@ -170,14 +168,7 @@ export default class BudPostCss extends Extension {
    */
   @bind
   public getPluginOptions(plugin: string): Record<string, any> {
-    if (!this.plugins.has(plugin)) {
-      this.app.error(
-        plugin,
-        'options requested but',
-        plugin,
-        'does not exist',
-      )
-    }
+    if (!this.plugins.has(plugin)) this.app.error(plugin, 'does not exist')
 
     return this.plugins.has(plugin) &&
       this.plugins.get(plugin).length &&
@@ -257,12 +248,19 @@ export default class BudPostCss extends Extension {
    */
   @bind
   public async register() {
+    const loader = await this.resolve('postcss-loader')
+    const importPlugin = await this.resolve('postcss-import')
+    const nestedPlugin = await this.resolve('postcss-nested')
+    const presetEnv = await this.resolve('postcss-preset-env').then(path =>
+      path.replace('.mjs', '.cjs'),
+    )
+
     /**
      * Install postcss-loader, postcss-loader options, and
      * modify the css rule to utilize them.
      */
     this.app.build
-      .setLoader('postcss', this.resolve('postcss-loader'))
+      .setLoader('postcss', loader)
       .setItem('postcss', {
         loader: 'postcss',
         options: () => {
@@ -276,12 +274,12 @@ export default class BudPostCss extends Extension {
 
     this.setPlugins(
       new Map([
-        ['postcss-import', [this.resolve('postcss-import')]],
-        ['postcss-nested', [this.resolve('postcss-nested')]],
+        ['postcss-import', [importPlugin]],
+        ['postcss-nested', [nestedPlugin]],
         [
           'postcss-preset-env',
           [
-            this.resolve('postcss-preset-env'),
+            presetEnv,
             {
               stage: 1,
               features: {

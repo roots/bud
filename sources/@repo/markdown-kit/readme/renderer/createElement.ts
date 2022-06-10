@@ -14,7 +14,7 @@ import {
   P,
   Span,
   Strong,
-} from './components'
+} from './components/index.js'
 
 export function createElement(type, props?, root?) {
   const COMPONENTS = {
@@ -83,7 +83,5 @@ export function createElement(type, props?, root?) {
     },
   }
 
-  return COMPONENTS[type]
-    ? COMPONENTS[type]()
-    : COMPONENTS.default()
+  return COMPONENTS[type] ? COMPONENTS[type]() : COMPONENTS.default()
 }

@@ -30,7 +30,7 @@
     "bud-extension"
   ],
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   },
   "bud": {
     "type": "extension"
@@ -40,52 +40,58 @@
     "types/",
     "tsconfig/"
   ],
-  "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.js",
-  "types": "./types/index.d.ts",
+  "type": "module",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "exports": {
-    ".": "./lib/cjs/index.js",
-    "./extension": "./lib/cjs/extension.js",
-    "./typecheck": "./lib/cjs/typecheck/index.js",
-    "./typecheck/extension": "./lib/cjs/typecheck/extension.js"
+    ".": "./lib/index.js",
+    "./extension": "./lib/extension.js",
+    "./tsconfig/tsconfig.json": "./tsconfig/tsconfig.json",
+    "./typecheck": "./lib/typecheck/index.js"
   },
   "typesVersions": {
     "*": {
       ".": [
-        "./types/index.d.ts"
+        "./lib/index.d.ts"
       ],
       "extension": [
-        "./types/extension.d.ts"
+        "./lib/extension.d.ts"
       ],
       "typecheck": [
-        "./types/typecheck/index.d.ts"
-      ],
-      "typecheck/extension": [
-        "./types/typecheck/extension.d.ts"
+        "./lib/typecheck/index.d.ts"
       ]
     }
   },
   "devDependencies": {
+    "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@skypack/package-check": "0.2.2",
     "@types/fork-ts-checker-webpack-plugin": "0.4.5",
-    "@types/node": "17.0.27",
-    "webpack": "5.72.1"
+    "@types/node": "16.11.39",
+    "webpack": "5.73.0"
   },
   "dependencies": {
-    "@babel/core": "^7.16.0",
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
-    "@types/webpack-env": "^1.16.3",
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "@types/webpack-env": "^1.17.0",
     "fork-ts-checker-webpack-plugin": "^7.2.6",
-    "ts-loader": "^9.2.8",
-    "ts-node": "10.8.0",
+    "ts-loader": "^9.3.0",
+    "ts-node": "10.8.1",
     "tslib": "2.4.0",
-    "typescript": "4.6.4"
+    "typescript": "4.7.3"
   },
   "peerDependencies": {
+    "fork-ts-checker-webpack-plugin": "*",
+    "ts-loader": "*",
     "ts-node": "*",
     "typescript": "*"
   },
   "peerDependenciesMeta": {
+    "fork-ts-checker-webpack-plugin": {
+      "optional": true
+    },
+    "ts-loader": {
+      "optional": true
+    },
     "ts-node": {
       "optional": true
     },

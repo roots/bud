@@ -10,5 +10,5 @@
  * @packageDocumentation
  */
 
-export {FileContainer} from './FileContainer'
-export {FileSystem} from './FileSystem'
+export {FileContainer} from './FileContainer/index.js'
+export {FileSystem} from './FileSystem/index.js'

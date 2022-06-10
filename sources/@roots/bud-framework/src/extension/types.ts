@@ -1,4 +1,4 @@
-import {Bud} from '../bud'
+import {Bud} from '../bud.js'
 
 export type Options<T = any> = {
   [K in keyof T as `${K & string}`]?: T[K]

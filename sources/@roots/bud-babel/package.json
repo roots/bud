@@ -31,36 +31,32 @@
     "babel"
   ],
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   },
   "bud": {
     "type": "extension"
   },
   "files": [
-    "lib/",
-    "types/"
+    "lib/"
   ],
-  "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.js",
-  "types": "./types/index.d.ts",
+  "type": "module",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "exports": {
-    ".": "./lib/cjs/index.js",
-    "./extension": "./lib/cjs/extension.js",
-    "./config": "./lib/cjs/config.js"
+    ".": "./lib/index.js",
+    "./extension": "./lib/extension.js",
+    "./config": "./lib/config.js"
   },
   "typesVersions": {
     "*": {
       ".": [
-        "./types/index.d.ts"
-      ],
-      "env": [
-        "./types/env.d.ts"
+        "./lib/index.d.ts"
       ],
       "extension": [
-        "./types/extension.d.ts"
+        "./lib/extension.d.ts"
       ],
       "config": [
-        "./types/config.d.ts"
+        "./lib/config.d.ts"
       ]
     }
   },
@@ -70,19 +66,19 @@
     "@skypack/package-check": "0.2.2",
     "@types/fs-extra": "9.0.13",
     "@types/lodash": "4.14.182",
-    "@types/node": "16.11.36",
-    "webpack": "5.72.1"
+    "@types/node": "16.11.39",
+    "webpack": "5.73.0"
   },
   "dependencies": {
-    "@babel/core": "^7.16.0",
-    "@babel/plugin-proposal-class-properties": "^7.16.0",
-    "@babel/plugin-proposal-object-rest-spread": "^7.16.0",
+    "@babel/core": "^7.18.2",
+    "@babel/plugin-proposal-class-properties": "^7.17.12",
+    "@babel/plugin-proposal-object-rest-spread": "^7.18.0",
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
-    "@babel/plugin-transform-runtime": "^7.16.4",
-    "@babel/preset-env": "^7.16.4",
+    "@babel/plugin-transform-runtime": "^7.18.2",
+    "@babel/preset-env": "^7.18.2",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "babel-loader": "^8.2.3",
+    "babel-loader": "^8.2.5",
+    "helpful-decorators": "2.1.0",
     "tslib": "2.4.0"
   },
   "peerDependencies": {
@@ -92,8 +88,7 @@
     "@babel/plugin-syntax-dynamic-import": "*",
     "@babel/plugin-transform-runtime": "*",
     "@babel/preset-env": "*",
-    "babel-loader": "*",
-    "babel-plugin-add-module-exports": "*"
+    "babel-loader": "*"
   },
   "peerDependenciesMeta": {
     "@babel/core": {
@@ -115,9 +110,6 @@
       "optional": true
     },
     "babel-loader": {
-      "optional": true
-    },
-    "babel-plugin-add-module-exports": {
       "optional": true
     }
   }

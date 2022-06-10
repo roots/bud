@@ -30,31 +30,36 @@
     "filesystem"
   ],
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   },
   "files": [
-    "lib/",
-    "types/"
+    "lib/"
   ],
-  "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.js",
-  "types": "./types/index.d.ts",
+  "type": "module",
+  "module": "./lib/index.d.ts",
   "exports": {
-    "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.js"
+    ".": "./lib/index.js"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ]
+    }
   },
   "devDependencies": {
-    "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@roots/container": "workspace:sources/@roots/container",
     "@skypack/package-check": "0.2.2",
-    "@types/lodash": "4.14.182",
-    "@types/node": "16.11.36",
+    "@types/lodash-es": "4.17.6",
+    "@types/node": "16.11.39",
     "autobind-decorator": "2.4.0",
     "fs-extra": "10.1.0",
-    "lodash": "4.17.21",
     "resolve-from": "5.0.0"
   },
   "dependencies": {
+    "globby": "13.1.1",
+    "helpful-decorators": "2.1.0",
+    "lodash-es": "4.17.21",
     "tslib": "2.4.0"
   }
 }

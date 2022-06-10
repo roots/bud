@@ -1,6 +1,6 @@
 import {join, resolve, sep as slash} from 'node:path'
 
-import {Bud, Locations} from '..'
+import {Bud, Locations} from '../index.js'
 
 type AbsolutePath = `/${string}`
 type RelativePath = `./${string}`

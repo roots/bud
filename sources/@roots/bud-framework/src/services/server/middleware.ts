@@ -2,7 +2,7 @@ import {Options as ProxyOptions} from 'http-proxy-middleware'
 import {Options as WebpackDevMiddlewareOptions} from 'webpack-dev-middleware'
 import WebpackHotMiddleware from 'webpack-hot-middleware'
 
-import {Bud} from '../..'
+import {Bud} from '../../index.js'
 
 export {ProxyOptions}
 

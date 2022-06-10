@@ -1,7 +1,7 @@
 import {bind} from 'helpful-decorators'
 import Webpack from 'webpack'
 
-import * as wpPkgs from './packages'
+import * as wpPkgs from './packages.js'
 
 interface Manifest {
   [key: string]: any

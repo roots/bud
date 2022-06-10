@@ -1,6 +1,6 @@
-import {Container} from '@roots/container'
+import Container from '@roots/container'
 
-import {Bud} from './bud'
+import {Bud} from './bud.js'
 
 /**
  * Service

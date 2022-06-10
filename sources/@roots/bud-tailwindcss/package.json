@@ -34,55 +34,52 @@
     "bud-extension"
   ],
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   },
   "bud": {
     "type": "extension"
   },
   "files": [
     "lib/",
-    "types/",
     "stylelint-config/"
   ],
-  "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.js",
-  "types": "./types/index.d.ts",
+  "type": "module",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "exports": {
-    ".": "./lib/cjs/index.js",
-    "./extension": "./lib/cjs/extension.js",
-    "./stylelint-config": "./stylelint-config/default.js",
-    "./stylelint-config/scss": "./stylelint-config/scss.js"
+    ".": "./lib/index.js",
+    "./extension": "./lib/extension.js",
+    "./stylelint-config": "./stylelint-config/default.cjs",
+    "./stylelint-config/scss": "./stylelint-config/scss.cjs"
   },
   "typesVersions": {
     "*": {
       ".": [
-        "./types/index.d.ts"
+        "./lib/index.d.ts"
       ],
       "env": [
-        "./types/env.d.ts"
+        "./lib/env.d.ts"
       ],
-      "./extension": [
-        "./types/extension.d.ts"
+      "extension": [
+        "./lib/extension.d.ts"
       ]
     }
   },
   "devDependencies": {
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.11.36",
+    "@types/node": "16.11.39",
     "@types/tailwindcss": "3.0.10"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
     "autoprefixer": "^10.4.0",
-    "postcss": "8.4.14",
-    "tailwindcss": "3.0.24",
+    "tailwindcss": "^3.0.24",
     "tslib": "2.4.0"
   },
   "peerDependencies": {
     "autoprefixer": "*",
-    "postcss": "*",
     "tailwindcss": "*"
   },
   "peerDependenciesMeta": {

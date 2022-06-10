@@ -1,37 +1,30 @@
 {
   "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
-    "baseUrl": ".",
-    "rootDir": "./src",
-    "outDir": "./lib/cjs",
-    "declarationDir": "./types"
+    "rootDir": "src",
+    "outDir": "lib",
+    "types": [
+      "node",
+      "@roots/bud-framework",
+      "@roots/bud-api",
+      "@roots/bud-entrypoints",
+      "@roots/bud-preset-recommend",
+      "@roots/bud-react",
+      "@roots/bud-wordpress-manifests",
+      "@roots/bud-wordpress-externals",
+      "@roots/bud-wordpress-dependencies"
+    ]
   },
-  "include": ["./src"],
-  "exclude": ["./lib", "./types", "./node_modules"],
+  "include": ["src"],
+  "exclude": ["lib", "node_modules"],
   "references": [
-    {
-      "path": "./../bud-framework/tsconfig.json"
-    },
-    {
-      "path": "./../bud-api/tsconfig.json"
-    },
-    {
-      "path": "./../bud-entrypoints/tsconfig.json"
-    },
-    {
-      "path": "./../bud-preset-recommend/tsconfig.json"
-    },
-    {
-      "path": "./../bud-react/tsconfig.json"
-    },
-    {
-      "path": "./../bud-wordpress-manifests/tsconfig.json"
-    },
-    {
-      "path": "./../bud-wordpress-externals/tsconfig.json"
-    },
-    {
-      "path": "./../bud-wordpress-dependencies/tsconfig.json"
-    }
+    {"path": "./../bud-framework/tsconfig.json"},
+    {"path": "./../bud-api/tsconfig.json"},
+    {"path": "./../bud-entrypoints/tsconfig.json"},
+    {"path": "./../bud-preset-recommend/tsconfig.json"},
+    {"path": "./../bud-react/tsconfig.json"},
+    {"path": "./../bud-wordpress-manifests/tsconfig.json"},
+    {"path": "./../bud-wordpress-externals/tsconfig.json"},
+    {"path": "./../bud-wordpress-dependencies/tsconfig.json"}
   ]
 }

@@ -102,7 +102,7 @@ export class Lint extends Command {
       ...[
         ...(this.eslint
           ? [
-              `yarn eslint "./sources/@roots/*/src/**/*" --config ./config/eslint.config.js --ignore-path config/.eslintignore --no-error-on-unmatched-pattern`,
+              `yarn eslint "./sources/@roots/*/src/**/*" --config ./config/eslint.config.cjs --ignore-path config/.eslintignore --no-error-on-unmatched-pattern`,
             ]
           : []),
         this.skypack
@@ -114,12 +114,12 @@ export class Lint extends Command {
     if (this.prettier) {
       await this.$(
         ...[
-          `yarn prettier ./sources/@roots/*/src/**/* --config ./config/prettier.config.js --write --ignore-unknown --no-error-on-unmatched-pattern`,
+          `yarn prettier ./sources/@roots/*/src/**/* --config ./config/prettier.config.cjs --write --ignore-unknown --no-error-on-unmatched-pattern`,
           this.lib
-            ? `yarn prettier ./sources/@roots/*/lib/**/* --config ./config/prettier.config.js --write --ignore-unknown --no-error-on-unmatched-pattern`
+            ? `yarn prettier ./sources/@roots/*/lib/**/* --config ./config/prettier.config.cjs --write --ignore-unknown --no-error-on-unmatched-pattern`
             : null,
           this.types
-            ? `yarn prettier ./sources/@roots/*/types/**/*.d.ts --config ./config/prettier.config.js --write --ignore-unknown --no-error-on-unmatched-pattern`
+            ? `yarn prettier ./sources/@roots/*/types/**/*.d.ts --config ./config/prettier.config.cjs --write --ignore-unknown --no-error-on-unmatched-pattern`
             : null,
         ].filter(Boolean),
       )

@@ -36,8 +36,8 @@ In this example we're creating two instances of bud: one for `theme` code and an
   ]}>
   <TabItem value="js">
 
-```js title='bud.config.js'
-module.exports = app =>
+```js title="bud.config.mjs"
+export default async app =>
   app
     .make('theme', async theme =>
       theme
@@ -54,7 +54,7 @@ module.exports = app =>
   </TabItem>
   <TabItem value="ts">
 
-```ts title='bud.config.ts'
+```ts title='bud.config.mts'
 import type {Bud} from '@roots/bud'
 
 export default (app: Bud): void =>
@@ -97,8 +97,8 @@ $ yarn bud build --target theme --target plugin
 
 To keep your project well organized, you might consider using multiple bud configuration files to separate compilers.
 
-```ts title='bud.config.theme.js'
-module.exports = async app =>
+```ts title='bud.config.theme.mjs'
+export default async app =>
   app.make('theme', async theme =>
     theme
       .setPath('@dist', app.path('dist/theme'))
@@ -106,8 +106,8 @@ module.exports = async app =>
   )
 ```
 
-```ts title='bud.config.plugin.js'
-module.exports = async app =>
+```ts title='bud.config.plugin.mjs'
+export default async app =>
   app.make('plugin', async plugin =>
     plugin
       .setPath('@dist', app.path('dist/plugin'))
@@ -123,8 +123,8 @@ You can use the `--no-inject` flag to prevent any extensions from being register
 
 In that case you will need to manually register the extensions you want to use per compiler:
 
-```ts title='bud.config.compiler-a.js'
-module.exports = async app => {
+```ts title='bud.config.compiler-a.mjs'
+export default async app => {
   app.make('theme', async theme => {
     app
       .use(require('@roots/bud-postcss'))
@@ -134,8 +134,8 @@ module.exports = async app => {
 }
 ```
 
-```ts title='bud.config.compiler-b.js'
-module.exports = async app => {
+```ts title='bud.config.compiler-b.mjs'
+export default async app => {
   app.make('plugin', async plugin => {
     app
       .use(require('@roots/bud-react'))
@@ -153,8 +153,8 @@ This matters when you want to configure an extension (like [@roots/bud-postcss](
 
 ### 1. Use `bud.extensions.add` to register the extension asyncronously
 
-```ts title='bud.config.extensions.js'
-module.exports = async app => {
+```ts title='bud.config.extensions.mjs'
+export default async app => {
   app.make('plugin', async plugin => {
     await app.extensions.add(require('@roots/bud-postcss'))
     plugin.postcss.setPluginOption('postcss-preset-env', {stage: 0})
@@ -164,13 +164,13 @@ module.exports = async app => {
 
 ### 2. Create a separate config file used to explicitly configure extensions
 
-```ts title='bud.config.plugin.js'
+```ts title='bud.config.plugin.mjs'
 app.make('plugin', async plugin => {
   plugin.use(require('@roots/bud-postcss'))
 })
 ```
 
-```ts title='bud.config.extensions.js'
+```ts title='bud.config.extensions.mjs'
 app.get('plugin', async plugin => {
   plugin.postcss.setPluginOption('postcss-preset-env', {stage: 0})
 })

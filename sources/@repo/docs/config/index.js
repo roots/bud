@@ -1,6 +1,6 @@
 const {join, resolve} = require('path')
 
-const config = require('../../../../config/monorepo.config')
+const config = require('../../../../config/monorepo.config.cjs')
 const themeConfig = require('./docusaurus.theme')
 
 const presetClassic = require.resolve('@docusaurus/preset-classic')
@@ -8,8 +8,7 @@ const pluginBlog = require.resolve('@docusaurus/plugin-content-blog')
 const pluginDocs = require.resolve('@docusaurus/plugin-content-docs')
 const pluginSearch = require.resolve('docusaurus-lunr-search')
 
-const docsPath = (path) =>
-  resolve(__dirname, '..', path ?? '')
+const docsPath = path => resolve(__dirname, '..', path ?? '')
 
 const sidebarPath = docsPath('sidebars/docs.js')
 

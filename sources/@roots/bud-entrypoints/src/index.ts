@@ -16,5 +16,5 @@ declare module '@roots/bud-framework' {
   }
 }
 
-import BudEntrypoints from './extension'
+import BudEntrypoints from './extension.js'
 export default BudEntrypoints

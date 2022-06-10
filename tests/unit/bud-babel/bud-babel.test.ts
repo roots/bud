@@ -13,7 +13,7 @@ describe('@roots/bud-babel', () => {
     BabelInstance = new BudBabelExtension(bud)
   })
 
-  it('works with require', () => {
+  it('object property checks', () => {
     expect(BabelInstance.label).toBeDefined()
     expect(BabelInstance.register).toBeDefined()
   })
@@ -40,6 +40,17 @@ describe('@roots/bud-babel', () => {
 
   it('config class has a setPluginOptions', () => {
     expect(config.setPresetOptions).toBeInstanceOf(Function)
+  })
+
+  it('bud.babel.setPresets functions', () => {
+    config.presets = {}
+
+    const value: Record<string, [string, any]> = {
+      '@babel/preset-env': ['@babel/preset-env', {foo: 'bar'}],
+    }
+    config.setPresets(value)
+
+    expect(config.presets).toEqual(value)
   })
 
   it('bud.babel.setPreset functions', () => {

@@ -1,4 +1,4 @@
-import {Bud} from '..'
+import {Bud} from '../bud.js'
 
 /**
  * Pipe callback

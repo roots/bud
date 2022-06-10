@@ -1,6 +1,6 @@
-import {globby} from '@roots/bud-support'
+import {globby, globbySync} from 'globby'
 
-import {Bud} from '..'
+import {Bud} from '../bud.js'
 
 export interface globSync {
   (...searches: Array<Array<string> | string>): Array<string>
@@ -25,7 +25,7 @@ export const globSync: globSync = function (...searches) {
     const paths = searches.flatMap(search => transformPaths(app, search))
     app.info(`glob (sync)`, `[paths]`, paths)
 
-    const results = globby.globbySync(paths)
+    const results = globbySync(paths)
     app.info(`glob (sync)`, `[results]`, results)
 
     return results
@@ -49,7 +49,7 @@ export const glob: glob = async function (...searches) {
     const paths = searches.flatMap(search => transformPaths(app, search))
     app.info(`glob (async)`, `[paths]`, paths)
 
-    const results = await globby.globby(paths)
+    const results = await globby(paths)
     app.info(`glob (sync)`, `[results]`, results)
 
     return results

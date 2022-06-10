@@ -5,8 +5,8 @@ import {
   label,
 } from '@roots/bud-framework/extension/decorators'
 
-import * as acorn from './acorn'
-import ThemeJSON from './theme/extension'
+import * as acorn from './acorn.js'
+import ThemeJSON from './theme/extension.js'
 
 @label('@roots/sage')
 @dependsOn(['@roots/bud-preset-wordpress'])

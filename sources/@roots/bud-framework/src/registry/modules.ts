@@ -1,4 +1,4 @@
-import {Extension} from '../extension'
+import {Extension} from '../extension/index.js'
 
 export interface Modules {
   [key: string]: Extension<any, any>

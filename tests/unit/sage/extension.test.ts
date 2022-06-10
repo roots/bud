@@ -45,4 +45,8 @@ describe('@roots/sage', () => {
       'single',
     )
   })
+
+  it(`registers @roots/bud-babel`, async () => {
+    expect(bud.extensions.has('@roots/bud-babel')).toBeTruthy()
+  })
 })

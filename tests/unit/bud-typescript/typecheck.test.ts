@@ -19,16 +19,18 @@ describe('@roots/bud-typescript/typecheck', () => {
   })
 
   it('has expected default options', () => {
-    expect(bud.typescript.typecheck.options).toStrictEqual({
-      async: false,
-      typescript: {
-        typescriptPath: require.resolve('typescript'),
-        diagnosticOptions: {
-          semantic: true,
-          syntactic: true,
-        },
-      },
-    })
+    expect(bud.typescript.typecheck.options).toEqual(
+      expect.objectContaining({
+        async: false,
+        typescript: expect.objectContaining({
+          typescriptPath: expect.stringContaining('typescript'),
+          diagnosticOptions: expect.objectContaining({
+            semantic: true,
+            syntactic: true,
+          }),
+        }),
+      }),
+    )
   })
 
   describe('bud.typescript', () => {

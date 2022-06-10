@@ -1,6 +1,6 @@
 import purgePlugin from '@fullhuman/postcss-purgecss'
 
-import * as purge from './purge.interface'
+import * as purge from './purge.interface.js'
 
 /**
  * Purge unused CSS from compiled stylesheets

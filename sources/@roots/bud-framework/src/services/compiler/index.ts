@@ -7,7 +7,7 @@ import {
   StatsCompilation,
 } from 'webpack'
 
-import * as Bud from '../..'
+import * as Bud from '../../index.js'
 
 /**
  * Compiler service interface

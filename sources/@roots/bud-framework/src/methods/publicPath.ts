@@ -1,4 +1,4 @@
-import type {Bud} from '../'
+import type {Bud} from '../bud.js'
 
 /**
  * @public

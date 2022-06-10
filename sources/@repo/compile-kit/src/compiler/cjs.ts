@@ -3,7 +3,7 @@ import {log} from '@repo/logger'
 import {writeFile} from 'fs-extra'
 import {join} from 'path'
 
-import * as config from '../../ncc.config'
+import config from '../../ncc.config'
 import {ncc} from './ncc'
 
 /**
@@ -19,13 +19,15 @@ import {ncc} from './ncc'
 export const compileCjs = async pkg => {
   log(`compiling`, pkg)
 
+  const compilerConfig = await config()
+
   const out = await ncc(join(paths.root, `sources/${pkg}/src/index.ts`), {
-    ...config.options,
+    ...compilerConfig.options,
   })
 
   try {
     await writeFile(
-      join(paths.root, `sources/${pkg}/lib/cjs/index.js`),
+      join(paths.root, `sources/${pkg}/lib/esm/index.js`),
       out.code,
       'utf8',
     )
