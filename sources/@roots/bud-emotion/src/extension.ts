@@ -10,7 +10,6 @@ import {
  *
  * @public
  * @decorator `@label`
- * @decorator `@dependsOn`
  * @decorator `@dependsOnOptional`
  */
 @label('@roots/bud-emotion')

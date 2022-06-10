@@ -63,7 +63,7 @@
   "devDependencies": {
     "@babel/core": "^7.18.2",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.11.36"
+    "@types/node": "16.11.39"
   },
   "dependencies": {
     "@emotion/babel-plugin": "^11.9.2",
