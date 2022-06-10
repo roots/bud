@@ -26,46 +26,64 @@ export interface Options {
 }
 
 /**
- * Extension enabling remote module caching, version locking, etc.
+ * Include remote modules in compilation
  *
  * @public
  * @decorator `@label`
  * @decorator `@expose`
  * @decorator `@options`
  */
-@label('esm-http')
-@expose('http')
+@label('cdn')
+@expose('cdn')
 @options<Options>({
-  allowedUris: () => ['https://cdn.skypack.dev/'],
+  allowedUris: () => [(uri: string) => true],
   cacheLocation: () => (app: Bud) =>
     app.path('@storage', app.name, 'modules'),
   frozen: () => false,
   lockfileLocation: (app: Bud): string =>
     app.path('@storage', app.name, 'bud.lock'),
   proxy: (app: Bud) => app.env.get('HTTP_PROXY'),
-  upgrade: (app: Bud) => true,
+  upgrade: () => true,
 })
-export default class Http extends Extension<Options, null> {
+export default class Cdn extends Extension<Options, null> {
   /**
-   * CDN mapping
+   * CDN manifest key to URL mapping
    *
    * @public
    */
-  public cdn = new Map([['skypack', 'https://cdn.skypack.dev/']])
+  public sources = new Map<string, string>([
+    ['gist', 'https://gist.githubusercontent.com/'],
+    ['github', 'https://raw.githubusercontent.com/'],
+    ['unpkg', 'https://unpkg.com/'],
+    ['skypack', 'https://cdn.skypack.dev/'],
+  ])
+
+  /**
+   * Whether to cache modules locally
+   *
+   * @public
+   */
+  public cacheEnabled = true
+
+  /**
+   * Disable local caching of modules
+   *
+   * @public
+   */
+  @bind
+  public disableCache(): this {
+    this.cacheEnabled = false
+    return this
+  }
 
   /**
    * Register CDN
    *
    * @public
    */
-  public registerCdn(name: string, url: string): this {
-    this.cdn.set(name, url)
-    this.setOption(
-      'allowedUris',
-      // @ts-ignore
-      (uris: Array<string>): Array<string> => [...(uris ?? []), url],
-    )
-
+  @bind
+  public registerSource(name: string, url: string): this {
+    this.sources.set(name, url)
     return this
   }
 
@@ -77,7 +95,14 @@ export default class Http extends Extension<Options, null> {
   public get allowedUris(): Array<
     string | RegExp | ((uri: string) => boolean)
   > {
-    return this.app.maybeCall(this.getOption('allowedUris'))
+    return Array.from(
+      new Set(
+        [
+          ...this.app.maybeCall(this.getOption('allowedUris')),
+          ...this.sources.values(),
+        ].filter(Boolean),
+      ),
+    )
   }
   public set allowedUris(
     value:
@@ -237,7 +262,7 @@ export default class Http extends Extension<Options, null> {
 
   @bind
   public async register() {
-    for (const cdnKey of this.cdn.keys()) {
+    for (const cdnKey of this.sources.keys()) {
       if (this.app.project.has(`manifest.${cdnKey}`)) this.enable()
     }
   }
@@ -252,53 +277,58 @@ export default class Http extends Extension<Options, null> {
   public async beforeBuild() {
     this.app.hooks.on('build.experiments.buildHttp', () => ({
       allowedUris: this.allowedUris,
-      cacheLocation: this.cacheLocation,
+      cacheLocation: this.cacheEnabled ? this.cacheLocation : false,
       frozen: this.frozen,
       lockfileLocation: this.lockfileLocation,
       proxy: this.proxy,
       upgrade: this.upgrade,
     }))
 
-    for (const [cdnKey, cdnUrl] of this.cdn.entries()) {
-      if (!this.app.project.has(`manifest.${cdnKey}`)) break
+    for (const source of this.sources.entries()) {
+      const cdn = {
+        ident: source[0],
+        url: source[1],
+        schema: `${source[0]}:`,
+      }
 
       await this.app.extensions.add({
-        label: `budpack-${cdnKey}`,
+        label: `bud-cdn-${cdn.ident}`,
         make: async () =>
           new Webpack.NormalModuleReplacementPlugin(
-            RegExp(`${cdnKey}:(\\.*)`),
-            resource => {
-              resource.request = resource.request.replace(
-                RegExp(`${cdnKey}:`),
-                cdnUrl,
-              )
+            new RegExp(`^${cdn.schema}`),
+            result => {
+              result.request = result.request.replace(cdn.schema, cdn.url)
             },
           ),
       })
 
-      const manifest = this.app.project.get(`manifest.${cdnKey}`)
+      if (this.app.project.has(`manifest.${cdn.ident}`)) {
+        const manifest = this.app.project.get(`manifest.${cdn.ident}`)
+        const imports = Array.isArray(manifest)
+          ? manifest.map(signifier => [signifier, signifier])
+          : Object.entries(manifest).map(([base, params]) => [
+              base,
+              `${base}@${params}`,
+            ])
 
-      const imports = Array.isArray(manifest)
-        ? manifest.map(signifier => [signifier, signifier])
-        : Object.entries(manifest).map(([signifier, version]) => [
-            signifier,
-            `${signifier}@${version}`,
-          ])
-
-      await Promise.all(
-        imports.map(async ([signifier, resolution]) => {
-          await this.app.extensions.add({
-            label: `budpack-${cdnKey}-${resolution}`,
-            make: async () =>
-              new Webpack.NormalModuleReplacementPlugin(
-                RegExp(signifier),
-                resource => {
-                  resource.request = `${cdnUrl}${resolution}`
-                },
-              ),
-          })
-        }),
-      )
+        await Promise.all(
+          imports.map(async ([signifier, remotePath]) => {
+            await this.app.extensions.add({
+              label: `bud-cdn-${cdn.ident}-${remotePath}`,
+              make: async () =>
+                new Webpack.NormalModuleReplacementPlugin(
+                  new RegExp(`^${signifier}`),
+                  result => {
+                    result.request = result.request.replace(
+                      signifier,
+                      [cdn.url, remotePath].join(''),
+                    )
+                  },
+                ),
+            })
+          }),
+        )
+      }
     }
   }
 
@@ -310,6 +340,6 @@ export default class Http extends Extension<Options, null> {
    */
   @bind
   public async when() {
-    return false
+    return true
   }
 }

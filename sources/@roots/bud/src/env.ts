@@ -1,7 +1,7 @@
 import type {Build} from '@roots/bud-framework'
 
-import type BudESM from './extensions/bud-esm-extension/index.js'
-import type BudHttp from './extensions/bud-http-extension/index.js'
+import type BudCDN from './extensions/bud-cdn/index.js'
+import type BudESM from './extensions/bud-esm/index.js'
 import type BudClean from './extensions/clean-webpack-plugin/index.js'
 import type BudCopy from './extensions/copy-webpack-plugin/index.js'
 import type BudMiniCss from './extensions/mini-css-extract-plugin/index.js'
@@ -12,12 +12,13 @@ import type BudProvide from './extensions/webpack-provide-plugin/index.js'
 
 declare module '@roots/bud-framework' {
   interface Bud {
+    cdn: BudCDN
     esm: BudESM
-    http: BudHttp
   }
 
   interface Modules {
-    'bud-http-extension': BudHttp
+    cdn: BudCDN
+    esm: BudESM
     'webpack:define-plugin': BudDefine
     'webpack:provide-plugin': BudProvide
     'webpack:hot-module-replacement-plugin': BudHMR
