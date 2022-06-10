@@ -1,7 +1,7 @@
 import {Config} from '@roots/bud-framework'
 
-import BudESMExtension from './bud-esm-extension/index.js'
-import BudHttpExtension from './bud-http-extension/index.js'
+import CDNExtension from './bud-cdn/index.js'
+import ESMExtension from './bud-esm/index.js'
 import CleanWebpackPlugin from './clean-webpack-plugin/index.js'
 import CopyWebpackPlugin from './copy-webpack-plugin/index.js'
 import MiniCssExtractPlugin from './mini-css-extract-plugin/index.js'
@@ -19,8 +19,8 @@ import RemoveEmptyScriptsPlugin from './webpack-remove-empty-scripts/index.js'
  * @public
  */
 export const extensions: Config.Options['extensions'] = [
-  BudESMExtension,
-  BudHttpExtension,
+  ESMExtension,
+  CDNExtension,
   ProvidePlugin,
   DefineWebpackPlugin,
   HotModuleReplacementPlugin,

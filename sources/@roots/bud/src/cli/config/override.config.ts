@@ -28,13 +28,6 @@ export const config = async (command: BuildCommand) => {
     )
   }
 
-  if (!isUndefined(command.buildHttp)) {
-    command.app.http.enable()
-    Object.entries(command.app.children).map(([_name, child]) => {
-      child.http.enable()
-    })
-  }
-
   if (!isUndefined(command.esm)) {
     command.app.esm.enable()
     Object.entries(command.app.children).map(([_name, child]) =>
@@ -42,10 +35,10 @@ export const config = async (command: BuildCommand) => {
     )
   }
 
-  if (!isUndefined(command.freeze)) {
-    command.app.http.freeze()
+  if (!isUndefined(command.immutable)) {
+    command.app.cdn.freeze()
     Object.entries(command.app.children).map(([_name, child]) =>
-      child.http.freeze(),
+      child.cdn.freeze(),
     )
   }
 

@@ -24,7 +24,7 @@
     "helpful-decorators": "2.1.0"
   },
   "volta": {
-    "node": "16.15.0",
+    "node": "16.15.1",
     "yarn": "1.22.18"
   }
 }
