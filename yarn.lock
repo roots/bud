@@ -230,7 +230,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/core@npm:^7.11.6, @babel/core@npm:^7.12.3, @babel/core@npm:^7.15.5, @babel/core@npm:^7.17.10, @babel/core@npm:^7.18.2":
+"@babel/core@npm:7.18.2, @babel/core@npm:^7.11.6, @babel/core@npm:^7.12.3, @babel/core@npm:^7.15.5, @babel/core@npm:^7.17.10, @babel/core@npm:^7.18.2":
   version: 7.18.2
   resolution: "@babel/core@npm:7.18.2"
   dependencies:
@@ -1620,16 +1620,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.1.2, @babel/runtime@npm:^7.10.2, @babel/runtime@npm:^7.10.3, @babel/runtime@npm:^7.12.1, @babel/runtime@npm:^7.12.13, @babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.13.10, @babel/runtime@npm:^7.15.4, @babel/runtime@npm:^7.16.3, @babel/runtime@npm:^7.17.9, @babel/runtime@npm:^7.7.2, @babel/runtime@npm:^7.8.4":
-  version: 7.17.9
-  resolution: "@babel/runtime@npm:7.17.9"
-  dependencies:
-    regenerator-runtime: ^0.13.4
-  checksum: 4d56bdb82890f386d5a57c40ef985a0ed7f0a78f789377a2d0c3e8826819e0f7f16ba0fe906d9b2241c5f7ca56630ef0653f5bb99f03771f7b87ff8af4bf5fe3
-  languageName: node
-  linkType: hard
-
-"@babel/runtime@npm:^7.14.8, @babel/runtime@npm:^7.16.0, @babel/runtime@npm:^7.9.2":
+"@babel/runtime@npm:^7.1.2, @babel/runtime@npm:^7.10.2, @babel/runtime@npm:^7.10.3, @babel/runtime@npm:^7.12.1, @babel/runtime@npm:^7.12.13, @babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.13.10, @babel/runtime@npm:^7.14.8, @babel/runtime@npm:^7.15.4, @babel/runtime@npm:^7.16.0, @babel/runtime@npm:^7.16.3, @babel/runtime@npm:^7.17.9, @babel/runtime@npm:^7.7.2, @babel/runtime@npm:^7.8.4, @babel/runtime@npm:^7.9.2":
   version: 7.18.3
   resolution: "@babel/runtime@npm:7.18.3"
   dependencies:
@@ -3458,7 +3449,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-emotion@workspace:sources/@roots/bud-emotion"
   dependencies:
-    "@babel/core": ^7.18.2
+    "@babel/core": 7.18.2
     "@emotion/babel-plugin": ^11.9.2
     "@emotion/css": ^11.9.0
     "@emotion/react": ^11.9.0
@@ -3807,7 +3798,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-react@workspace:sources/@roots/bud-react"
   dependencies:
-    "@babel/core": ^7.18.2
+    "@babel/core": 7.18.2
     "@babel/preset-react": ^7.17.12
     "@pmmmwh/react-refresh-webpack-plugin": ^0.5.7
     "@roots/bud-api": "workspace:sources/@roots/bud-api"
@@ -3905,7 +3896,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-solid@workspace:sources/@roots/bud-solid"
   dependencies:
-    "@babel/core": ^7.18.2
+    "@babel/core": 7.18.2
     "@babel/plugin-syntax-jsx": 7.17.12
     "@roots/bud-api": "workspace:sources/@roots/bud-api"
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel"
@@ -4220,7 +4211,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/eslint-config@workspace:sources/@roots/eslint-config"
   dependencies:
-    "@babel/core": ^7.18.2
+    "@babel/core": 7.18.2
     "@babel/eslint-parser": 7.18.2
     "@skypack/package-check": 0.2.2
     "@types/babel__core": ^7.1.19
