@@ -95,20 +95,6 @@ export const file = (app: Bud) =>
     }))
 
 /**
- * Factory {@link Item} resolve-url
- *
- * @public
- */
-export const resolveUrl = (app: Bud) =>
-  app.build
-    .makeItem()
-    .setLoader(`resolveUrl`)
-    .setOptions(({path, hooks}) => ({
-      root: path('@src'),
-      sourceMap: hooks.filter('build.devtool') ? true : false,
-    }))
-
-/**
  * Factory {@link Item} for xml
  *
  * @public

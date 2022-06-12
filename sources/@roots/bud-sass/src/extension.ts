@@ -13,7 +13,7 @@ import {
  * @decorator `@dependsOn`
  */
 @label('@roots/bud-sass')
-@dependsOn(['@roots/bud-postcss'])
+@dependsOn(['@roots/bud-postcss', '@roots/bud-sass/resolve-url'])
 export default class BudSass extends Extension {
   /**
    * Sass implementation
@@ -37,7 +37,9 @@ export default class BudSass extends Extension {
     } catch (e) {
       this.logger.error(e)
       throw new Error(
-        'sass not found. Install it with `yarn add sass --dev` or `npm i sass --save-dev`. This may be a problem with bud; please let us know what you experienced by filing an issue at https://github.com/roots/bud',
+        'sass not found. Install it with `yarn add sass --dev` or `npm i sass --save-dev`. \
+        This may be a problem with bud; please let us know what \
+        you experienced by filing an issue at https://github.com/roots/bud',
       )
     }
   }
@@ -67,10 +69,11 @@ export default class BudSass extends Extension {
         include: [app => app.path('@src')],
         use: [`precss`, `css`, `postcss`, `resolveUrl`, `sass`],
       })
-      .items.resolveUrl.setOptions((_app, options) => ({
-        ...options,
-        sourceMap: true,
-      }))
+
+    this.app.build.items.resolveUrl.setOptions((_app, options) => ({
+      ...options,
+      sourceMap: true,
+    }))
 
     this.app.hooks.on('build.resolve.extensions', ext =>
       ext.add('.scss').add('.sass'),

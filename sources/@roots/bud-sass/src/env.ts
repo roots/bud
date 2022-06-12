@@ -8,10 +8,12 @@ declare module '@roots/bud-framework' {
   }
 
   interface Loaders {
+    resolveUrl: Build.Loader
     sass: Build.Loader
   }
 
   interface Items {
+    resolveUrl: Build.Item
     sass: Build.Item
   }
 

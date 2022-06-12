@@ -61,32 +61,12 @@ export const minicss = async (app: Bud): Promise<any> => {
 }
 
 /**
- * resolve-url-loader
- *
- * @public
- */
-export const resolveUrl = async (app: Bud): Promise<any> => {
-  const loader = await app.module.resolve('resolve-url-loader')
-  return app.build.makeLoader().setSrc(loader)
-}
-
-/**
  * style-loader
  *
  * @public
  */
 export const style = async (app: Bud): Promise<any> => {
   const loader = await app.module.resolve('style-loader')
-  return app.build.makeLoader().setSrc(loader)
-}
-
-/**
- * url-loader
- *
- * @public
- */
-export const url = async (app: Bud): Promise<any> => {
-  const loader = await app.module.resolve('url-loader')
   return app.build.makeLoader().setSrc(loader)
 }
 
