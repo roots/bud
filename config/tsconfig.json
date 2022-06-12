@@ -18,7 +18,7 @@
     "sourceMap": true,
     "skipLibCheck": true,
     "strict": false,
-    "target": "es2020",
+    "target": "es2021",
     "types": ["node", "jest", "react", "express", "webpack"]
   },
   "files": [],
@@ -76,8 +76,12 @@
       "path": "./../sources/@roots/merged-manifest-webpack-plugin/tsconfig.json"
     },
     {"path": "./../sources/@roots/sage/tsconfig.json"},
-    {"path": "./../sources/@roots/wordpress-dependencies-webpack-plugin/tsconfig.json"},
-    {"path": "./../sources/@roots/wordpress-externals-webpack-plugin/tsconfig.json"},
+    {
+      "path": "./../sources/@roots/wordpress-dependencies-webpack-plugin/tsconfig.json"
+    },
+    {
+      "path": "./../sources/@roots/wordpress-externals-webpack-plugin/tsconfig.json"
+    },
     {"path": "./../sources/@roots/wordpress-hmr/tsconfig.json"}
   ]
 }

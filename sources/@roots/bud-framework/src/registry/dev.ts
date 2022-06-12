@@ -1,7 +1,7 @@
-import {WatchOptions} from 'chokidar'
+import type {WatchOptions} from 'chokidar'
 
-import {Bud} from '../bud.js'
-import * as Server from '../services/server/index.js'
+import type {Bud} from '../bud.js'
+import type * as Server from '../services/server/index.js'
 
 export interface Dev {
   /**

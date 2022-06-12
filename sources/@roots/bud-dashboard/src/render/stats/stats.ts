@@ -18,7 +18,7 @@ export const report = ({
   errors: any
   app: Bud
 }): string => {
-  const output = []
+  const output = [`\n`]
 
   errors && output.push(...errors.map(webpackMessage.makeError))
   warnings && output.push(...warnings.map(webpackMessage.makeWarning))

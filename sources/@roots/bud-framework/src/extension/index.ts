@@ -1,10 +1,23 @@
 import {bind} from 'helpful-decorators'
 import {has, isBoolean, isFunction} from 'lodash-es'
-import Signale from 'signale'
+import type Signale from 'signale'
 
-import {Bud} from '../bud.js'
-import {Modules} from '../registry/index.js'
-import {Options} from './types.js'
+import type {Bud} from '../bud.js'
+import type {Modules} from '../registry/index.js'
+
+export type Options<T = any> = {
+  [K in keyof T as `${K & string}`]?: T[K]
+}
+
+export namespace Options {
+  export type FuncMap<T = any> = Options<{
+    [K in keyof T as `${K & string}`]?: (app?: Bud) => T[K]
+  }>
+
+  export type Seed<T = any> = Options<{
+    [K in keyof T as `${K & string}`]?: ((app?: Bud) => T[K]) | T[K]
+  }>
+}
 
 /**
  * Bud extension
@@ -484,7 +497,7 @@ export class Extension<E = any, Plugin = any> {
    * @decorator `@bind`
    */
   @bind
-  public disable?() {
+  public disable() {
     this.when = async () => false
   }
 
@@ -495,7 +508,7 @@ export class Extension<E = any, Plugin = any> {
    * @decorator `@bind`
    */
   @bind
-  public enable?() {
+  public enable() {
     this.when = async () => true
   }
 
@@ -506,7 +519,7 @@ export class Extension<E = any, Plugin = any> {
    * @decorator `@bind`
    */
   @bind
-  public async isEnabled?(): Promise<boolean> {
+  public async isEnabled(): Promise<boolean> {
     if (this.when && isFunction(this.when))
       return await this.when(this.options ?? {}, this.app)
 

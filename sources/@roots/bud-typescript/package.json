@@ -72,6 +72,8 @@
   "dependencies": {
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "@swc-node/register": "1.5.1",
+    "@swc/core": "1.2.198",
     "@types/webpack-env": "^1.17.0",
     "fork-ts-checker-webpack-plugin": "^7.2.6",
     "ts-loader": "^9.3.0",
@@ -80,12 +82,20 @@
     "typescript": "4.7.3"
   },
   "peerDependencies": {
+    "@swc-node/register": "*",
+    "@swc/core": "*",
     "fork-ts-checker-webpack-plugin": "*",
     "ts-loader": "*",
     "ts-node": "*",
     "typescript": "*"
   },
   "peerDependenciesMeta": {
+    "@swc-node/register": {
+      "optional": true
+    },
+    "@swc/core": {
+      "optional": true
+    },
     "fork-ts-checker-webpack-plugin": {
       "optional": true
     },

@@ -20,8 +20,7 @@ import {
 import {lifecycle} from './lifecycle/index.js'
 import * as methods from './methods/index.js'
 import {Module} from './module.js'
-import * as json5 from './parsers/json5.js'
-import * as yml from './parsers/yml.js'
+import * as parsers from './parsers/index.js'
 
 /**
  * Framework abstract
@@ -136,95 +135,30 @@ export abstract class Bud {
     return Object.entries(this.children).length > 0
   }
 
-  /**
-   * Bud services
-   *
-   * @public
-   */
   public services: Services.Registry
 
-  /**
-   * Macros for assisting with common config tasks
-   *
-   * @public
-   */
   public api: Api.Service
 
-  /**
-   * Config builder service
-   *
-   * @public
-   */
   public build: Build.Service
 
-  /**
-   * Caching service
-   *
-   * @public
-   */
   public cache: Cache.Service
 
-  /**
-   * Compiler service
-   *
-   * @public
-   */
   public compiler: Compiler.Service
 
-  /**
-   * CLI dashboard service.
-   *
-   * @public
-   */
   public dashboard: Dashboard.Service
 
-  /**
-   * Envvar service
-   *
-   * @public
-   */
   public env: Env.Service
 
-  /**
-   * Extensions service
-   *
-   * @public
-   */
   public extensions: Extensions.Service
 
-  /**
-   * Hooks service
-   *
-   * @public
-   */
   public hooks: Hooks.Service
 
-  /**
-   * Project information
-   *
-   * @public
-   */
   public project: Project.Service
 
-  /**
-   * Logging service
-   *
-   * @public
-   */
   public logger: Logger
 
-  /**
-   * Import / resolve utility
-   *
-   * @public
-   */
   public module: Module
 
-  /**
-   * Development server
-   *
-   * @public
-   */
   public server: Server.Service
 
   public lifecycle: lifecycle
@@ -251,6 +185,8 @@ export abstract class Bud {
 
   public relPath: methods.relPath
 
+  public run: methods.run
+
   public setPath: methods.setPath
 
   public setPublicPath: methods.setPublicPath
@@ -267,19 +203,9 @@ export abstract class Bud {
 
   public bindMethod: methods.bindMethod
 
-  /**
-   * Read and write json files
-   *
-   * @public
-   */
-  public json: typeof json5 = json5
+  public json: typeof parsers.json5 = parsers.json5
 
-  /**
-   * Read and write yaml files
-   *
-   * @public
-   */
-  public yml: typeof yml = yml
+  public yml: typeof parsers.yml = parsers.yml
 
   /**
    * Class constructor

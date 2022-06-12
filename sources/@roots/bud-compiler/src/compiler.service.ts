@@ -1,4 +1,5 @@
-import {Bud, Compiler as Contract, Service} from '@roots/bud-framework'
+import type {Bud, Compiler as Contract} from '@roots/bud-framework'
+import {Service} from '@roots/bud-framework'
 import {bind, once} from 'helpful-decorators'
 import {isFunction} from 'lodash-es'
 import type {

@@ -1,5 +1,5 @@
-import {Bud, Extension, Mode, Service} from '../index.js'
-import {Context} from './context.js'
+import type {Bud, Extension, Mode, Service} from '../index.js'
+import type {Context} from './context.js'
 
 /**
  * Constructor options

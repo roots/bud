@@ -63,7 +63,7 @@ export class Dashboard extends Service implements Base.Service {
    */
   @bind
   public async register() {
-    if (this.app.context.args.ci || this.app.env.has('TS_JEST')) {
+    if (this.app.context.args.ci || this.app.env.has('JEST_WORKER_ID')) {
       return
     }
 

@@ -10,7 +10,7 @@ describe('unit', function () {
       })
 
       test('TS_JEST env present', () => {
-        expect(impl.TS_JEST).toBe('1')
+        expect(impl.JEST_WORKER_ID).toEqual(expect.any(String))
       })
     })
   })

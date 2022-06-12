@@ -1,8 +1,8 @@
 import {Bud} from '@roots/bud-framework'
 import chalk from 'chalk'
-import figures from 'figures'
+import figures, {mainSymbols} from 'figures'
 import humanReadable from 'human-readable'
-import lodash from 'lodash-es'
+import lodash, {truncate} from 'lodash-es'
 import {StatsAsset, StatsCompilation} from 'webpack'
 
 import * as box from './box.factory.js'
@@ -32,12 +32,20 @@ const assetIcon = (asset: StatsAsset) =>
 export const status = (asset: StatsAsset) =>
   chalk.hex(assetColor(asset))(assetIcon(asset))
 
-export const name = (asset: StatsAsset) =>
-  chalk.hex(!asset.emitted ? theme.dim : theme.foregroundColor)(
-    asset.info.hotModuleReplacement
-      ? asset.name.split(`.`)[0]
-      : asset.name,
+export const name = (asset: StatsAsset) => {
+  const fullAssetName = asset.info.hotModuleReplacement
+    ? asset.name.split(`.`)[0]
+    : asset.name
+
+  const assetName = truncate(fullAssetName, {
+    length: process.stdout.columns < 80 ? process.stdout.columns / 2 : 50,
+    omission: mainSymbols.ellipsis,
+  })
+
+  return chalk.hex(!asset.emitted ? theme.dim : theme.foregroundColor)(
+    assetName,
   )
+}
 
 export const chunk = (asset: StatsAsset) =>
   chalk.hex(assetColor(asset))(

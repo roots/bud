@@ -1,4 +1,7 @@
+import {isString} from 'lodash-es'
+
 import {Bud} from '../bud.js'
+import {Options} from '../config/options.js'
 
 /**
  * make function interface
@@ -6,7 +9,7 @@ import {Bud} from '../bud.js'
  * @internal
  */
 export interface make {
-  (name: string, tap?: (app: Bud) => Promise<Bud>): Bud
+  (seed: string | Options, tap?: (app: Bud) => Promise<Bud>): Bud
 }
 
 /**
@@ -25,15 +28,19 @@ export interface make {
  *
  * @public
  */
-export const make: make = function (name, tap) {
-  const root = this as Bud
+export const make: make = function (seed, tap) {
+  const current = this as Bud
+  const root = current.root
 
-  root.log(`constructing new instance:`, name)
+  const options = isString(seed) ? {name: seed, root} : {...seed, root}
+
+  root.log(`constructing new instance:`, options.name)
 
   root.hooks.action('event.config.after', async app => {
-    root.children[name] = await root.factory({name, root})
+    root.children[options.name] = await root.factory(options)
+
     if (tap) {
-      await tap(root.children[name])
+      await tap(root.children[options.name])
     }
   })
 

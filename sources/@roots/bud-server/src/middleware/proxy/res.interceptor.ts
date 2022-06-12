@@ -1,4 +1,4 @@
-import {Bud} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
 import {bind} from 'helpful-decorators'
 import * as http from 'http'
 import {responseInterceptor} from 'http-proxy-middleware'

@@ -1,4 +1,4 @@
-import {
+import type {
   Configuration,
   MultiCompiler as WebpackMultiCompiler,
   MultiStats,
@@ -7,7 +7,7 @@ import {
   StatsCompilation,
 } from 'webpack'
 
-import * as Bud from '../../index.js'
+import type * as Bud from '../../index.js'
 
 /**
  * Compiler service interface

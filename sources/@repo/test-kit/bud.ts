@@ -1,6 +1,6 @@
 import * as CONSTANTS from '@repo/constants'
 import {Bud, factory as budFactory, makeContext, seed} from '@roots/bud'
-import {Config} from '@roots/bud-framework'
+import type {Config} from '@roots/bud-framework'
 import {join} from 'node:path'
 
 export const repoPath = (...path: Array<string>) =>

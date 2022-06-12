@@ -1,13 +1,13 @@
-import {Bud} from '../../../bud.js'
-import {Base} from '../base.js'
-import {Loader, Loaders} from '../index.js'
+import type {Bud} from '../../../bud.js'
+import type {Base} from '../base.js'
+import type {Loader, Loaders} from '../index.js'
 
 /**
  * Item interface
  *
  * @public
  */
-interface Item extends Base {
+export interface Item extends Base {
   /**
    * Key from {@link Loaders} registry
    *
@@ -73,7 +73,7 @@ interface Item extends Base {
   toWebpack(): Item.Output
 }
 
-namespace Item {
+export namespace Item {
   /**
    * Item.Options interface
    *
@@ -114,5 +114,3 @@ namespace Item {
     options?: Item.Options
   }
 }
-
-export {Item as default}

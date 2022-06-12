@@ -35,7 +35,7 @@ const tsNode = async (context: Config.Context) => {
       context.stderr.write(
         `You must install ts-node in order to configure bud with typescript`,
       )
-      context.stderr.write(err)
+      context.stderr.write(JSON.stringify(err))
     }
   }
 }
