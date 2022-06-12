@@ -17,32 +17,27 @@ class MockServer extends Service {
 describe('bud.run', function () {
   let bud: Bud
 
+  it('is a function', () => {
+    expect(JSON.stringify(run)).toEqual(JSON.stringify(bud.run))
+  })
+
   describe('production', () => {
-    beforeAll(async () => {
+    it('summons compiler', async () => {
       bud = await factory()
       bud.compiler = new MockCompiler(bud) as any
-    })
 
-    it('is a function', () => {
-      expect(JSON.stringify(run)).toEqual(
-        JSON.stringify(bud.api.get('run')),
-      )
-    })
-
-    it('summons compiler', async () => {
       await run.call(bud)
+
       expect((bud.compiler as any).run).toHaveBeenCalled()
     })
   })
 
   describe('development', () => {
-    beforeAll(async () => {
+    it('summons server', async () => {
       bud = await factory({mode: 'development'})
       bud.compiler = new MockCompiler(bud) as any
       bud.server = new MockServer(bud) as any
-    })
 
-    it('summon server in dev', async () => {
       await run.call(bud)
       expect((bud.server as any).run).toHaveBeenCalled()
     })
