@@ -1,13 +1,9 @@
 import {Item, Loader} from '@roots/bud-build'
-import {Extension} from '@roots/bud-framework/extension'
 
 import BudMDX from './extension.js'
 
 declare module '@roots/bud-framework' {
   interface Bud {
-    /**
-     * Configure mdx to suit your application needs
-     */
     mdx: BudMDX
   }
 
@@ -19,17 +15,11 @@ declare module '@roots/bud-framework' {
     mdx: Item
   }
 
-  /**
-   * {@inheritDoc @roots/bud-framework#Modules}
-   * @public @override
-   */
-  interface Modules {
-    '@roots/bud-mdx': Extension
+  interface Patterns {
+    mdx: RegExp
   }
 
-  namespace Store {
-    interface Repository {
-      'patterns.mdx': RegExp
-    }
+  interface Modules {
+    '@roots/bud-mdx': BudMDX
   }
 }

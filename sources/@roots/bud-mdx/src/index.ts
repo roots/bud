@@ -12,5 +12,5 @@
 
 import './env.js'
 
-import BudMDX from './extension'
+import BudMDX from './extension.js'
 export default BudMDX
