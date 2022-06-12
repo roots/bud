@@ -38,6 +38,10 @@ Things are a litle different for users with configuration files authored in Type
 
 This is the simplest possible path forward. Update `bud.config.js` to `bud.config.cjs`.
 
+Caveat: you cannot `require` code from `@roots/bud` or any first-party extension. Mostly **bud.js** is structured so
+this isn't a normal use case, but if you are using a require statement you'll want to read up on
+[how to import esm from commonjs](#importing-esm-from-commonjs).
+
 ### Update your config file to use ESM syntax and use the extension `.mjs`.
 
 This is probably my recommended approach. Update `bud.config.js` to `bud.config.mjs`.
@@ -119,9 +123,9 @@ import value from 'browsersync-webpack-plugin'
 
 ### Importing ESM from CommonJS
 
-Importing ESM from CommonJS is a little less straight forward than the other way around.
+Importing ESM from CommonJS is a little less straight forward than the other way around. This is one of the reasons we recommend converting your config to `.mjs`.
 
-You'll need to use a dynamic `import` statement:
+The easiest way is to use a dynamic `import` statement. The biggest difference is that a dynamic import is asynchronous, whereas require is sync.
 
 ```js
 export default async bud => {
@@ -179,5 +183,4 @@ This functionality is provided using the [`import-meta-resolve`](https://github.
 
 For more information:
 
-- [Read the release changelog](/releases/6.0.0)
 - [Review the diff to see what's changed](https://github.com/roots/bud/compare/v5.8.0...v6.0.0)
