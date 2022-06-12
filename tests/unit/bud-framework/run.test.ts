@@ -1,7 +1,7 @@
 import {describe, expect, it, jest} from '@jest/globals'
 import {Bud, factory} from '@repo/test-kit/bud'
-import {run} from '@roots/bud-api/methods/run'
-import {Service} from '@roots/bud-framework'
+import {run} from '@roots/bud-framework/methods/run'
+import {Service} from '@roots/bud-framework/service'
 import {noop} from 'lodash-es'
 
 class MockCompiler extends Service {
