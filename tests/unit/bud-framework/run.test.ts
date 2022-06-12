@@ -1,12 +1,12 @@
-import {beforeAll, describe, expect, it, jest} from '@jest/globals'
+import {describe, expect, it, jest} from '@jest/globals'
 import {Bud, factory} from '@repo/test-kit/bud'
 import {run} from '@roots/bud-api/methods/run'
 import {Service} from '@roots/bud-framework'
 import {noop} from 'lodash-es'
 
 class MockCompiler extends Service {
-  public compile = jest.fn(() => ({run: this.run}))
-  public run = jest.fn(noop)
+  public compile = jest.fn(() => ({run: this.invoke}))
+  public invoke = jest.fn(noop)
   public callback = jest.fn(noop)
 }
 
@@ -17,7 +17,8 @@ class MockServer extends Service {
 describe('bud.run', function () {
   let bud: Bud
 
-  it('is a function', () => {
+  it('is a function', async () => {
+    bud = await factory()
     expect(JSON.stringify(run)).toEqual(JSON.stringify(bud.run))
   })
 
@@ -27,8 +28,7 @@ describe('bud.run', function () {
       bud.compiler = new MockCompiler(bud) as any
 
       await run.call(bud)
-
-      expect((bud.compiler as any).run).toHaveBeenCalled()
+      expect((bud.compiler as any).invoke).toHaveBeenCalled()
     })
   })
 
