@@ -27,7 +27,6 @@
     "noEmit": true,
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
-    "strict": true,
     "types": [
       "@roots/bud",
       "@roots/bud-api",

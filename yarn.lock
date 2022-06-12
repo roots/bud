@@ -4045,8 +4045,6 @@ __metadata:
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@skypack/package-check": 0.2.2
-    "@swc-node/register": 1.5.1
-    "@swc/core": 1.2.198
     "@types/fork-ts-checker-webpack-plugin": 0.4.5
     "@types/node": 16.11.39
     "@types/webpack-env": ^1.17.0
@@ -4057,17 +4055,11 @@ __metadata:
     typescript: 4.7.3
     webpack: 5.73.0
   peerDependencies:
-    "@swc-node/register": "*"
-    "@swc/core": "*"
     fork-ts-checker-webpack-plugin: "*"
     ts-loader: "*"
     ts-node: "*"
     typescript: "*"
   peerDependenciesMeta:
-    "@swc-node/register":
-      optional: true
-    "@swc/core":
-      optional: true
     fork-ts-checker-webpack-plugin:
       optional: true
     ts-loader:
@@ -4665,40 +4657,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@swc-node/core@npm:^1.9.0":
-  version: 1.9.0
-  resolution: "@swc-node/core@npm:1.9.0"
-  dependencies:
-    "@swc/core": ^1.2.172
-  checksum: 6fb86ce83456443ecd1f5be423fcaa72a144dbc925b4db5a2213179be93c5bfb4d7d1572c05cd9052a2f06612285e1562ccb1f9f77a8c5829dfb46c0e3fa84a1
-  languageName: node
-  linkType: hard
-
-"@swc-node/register@npm:1.5.1":
-  version: 1.5.1
-  resolution: "@swc-node/register@npm:1.5.1"
-  dependencies:
-    "@swc-node/core": ^1.9.0
-    "@swc-node/sourcemap-support": ^0.2.0
-    colorette: ^2.0.16
-    debug: ^4.3.4
-    pirates: ^4.0.5
-    tslib: ^2.4.0
-  peerDependencies:
-    typescript: ">= 4.3"
-  checksum: d4e4442e850bfd2416fcdf9b4a22afdcacde5bbb7c0ff21f5a3336ea3211c046805d7fadf8fbec1ab9f65b64eea07ef91cdc5d91792ba9c9045098bf8ba4c096
-  languageName: node
-  linkType: hard
-
-"@swc-node/sourcemap-support@npm:^0.2.0":
-  version: 0.2.0
-  resolution: "@swc-node/sourcemap-support@npm:0.2.0"
-  dependencies:
-    source-map-support: ^0.5.21
-  checksum: b202ada28394f1b4127a98f3ad3cde9e46f0a3b1e9e80580c2ac7fd52d246b3bfe78dc8fc3e1ceb96bf4fc572687cc5d1cfc67ceb44aefb0fceaad40684d27c9
-  languageName: node
-  linkType: hard
-
 "@swc/core-android-arm-eabi@npm:1.2.199":
   version: 1.2.199
   resolution: "@swc/core-android-arm-eabi@npm:1.2.199"
@@ -4790,7 +4748,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@swc/core@npm:1.2.198, @swc/core@npm:^1.2.172":
+"@swc/core@npm:1.2.198":
   version: 1.2.198
   resolution: "@swc/core@npm:1.2.198"
   dependencies:
@@ -8930,13 +8888,6 @@ __metadata:
   version: 2.0.16
   resolution: "colorette@npm:2.0.16"
   checksum: cd55596a3a2d1071c1a28eee7fd8a5387593ff1bd10a3e8d0a6221499311fe34a9f2b9272d77c391e0e003dcdc8934fb2f8d106e7ef1f7516f8060c901d41a27
-  languageName: node
-  linkType: hard
-
-"colorette@npm:^2.0.16":
-  version: 2.0.17
-  resolution: "colorette@npm:2.0.17"
-  checksum: 693a56d816846e0e213f92c8061b65eb5025030b28a113f90c539fe34c860abc41132c03599af26bcbc213170a31bac1bf2d4c535ccad5ac7b5cb3248f9d98a8
   languageName: node
   linkType: hard
 
@@ -17605,13 +17556,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pirates@npm:^4.0.5":
-  version: 4.0.5
-  resolution: "pirates@npm:4.0.5"
-  checksum: c9994e61b85260bec6c4fc0307016340d9b0c4f4b6550a957afaaff0c9b1ad58fbbea5cfcf083860a25cb27a375442e2b0edf52e2e1e40e69934e08dcc52d227
-  languageName: node
-  linkType: hard
-
 "pkg-conf@npm:^2.1.0":
   version: 2.1.0
   resolution: "pkg-conf@npm:2.1.0"
@@ -20756,7 +20700,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"source-map-support@npm:^0.5.21, source-map-support@npm:~0.5.20":
+"source-map-support@npm:~0.5.20":
   version: 0.5.21
   resolution: "source-map-support@npm:0.5.21"
   dependencies:
