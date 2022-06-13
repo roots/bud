@@ -1,4 +1,3 @@
-import {projectConfig} from '@repo/constants'
 import React from 'react'
 
 import {
@@ -119,7 +118,7 @@ export const Body = ({url}) => (
   </>
 )
 
-export const Root = (props: projectConfig) => (
+export const Root = (props: any) => (
   <>
     <Banner {...props} />
     <Body {...props} />

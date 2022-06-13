@@ -1,7 +1,7 @@
-import {Options as Opt} from '../types.js'
+import type {Options} from '../index.js'
 
 export const options =
-  <Options = any>(options: Opt.Seed<Options>) =>
+  <Options = any>(options: Options.Seed<Options>) =>
   <Type extends {new (...args: any[]): any}>(constructor: Type) =>
     class extends constructor {
       public constructor(...args: any[]) {

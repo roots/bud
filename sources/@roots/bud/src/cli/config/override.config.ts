@@ -1,6 +1,6 @@
 import {isUndefined} from 'lodash-es'
 
-import {BuildCommand} from '../commands/build.js'
+import type {BuildCommand} from '../commands/build.js'
 
 /**
  * --target override

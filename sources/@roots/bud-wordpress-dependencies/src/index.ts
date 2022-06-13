@@ -9,22 +9,7 @@
  * @packageDocumentation
  */
 
-import {Extension} from '@roots/bud-framework'
-import {WordPressDependenciesWebpackPlugin} from '@roots/wordpress-dependencies-webpack-plugin'
+import './env.js'
 
-declare module '@roots/bud-framework' {
-  interface Modules {
-    '@roots/bud-wordpress-dependencies': Extension<
-      null,
-      WordPressDependenciesWebpackPlugin
-    >
-  }
-}
-
-export const label: Extension['label'] =
-  '@roots/bud-wordpress-dependencies'
-
-export const plugin: Extension<
-  null,
-  WordPressDependenciesWebpackPlugin
->['plugin'] = WordPressDependenciesWebpackPlugin
+import BudWordPressDependencies from './extension.js'
+export default BudWordPressDependencies

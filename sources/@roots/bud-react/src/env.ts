@@ -1,6 +1,6 @@
-import BudReact from './extension.js'
-import {reactRefresh} from './react-refresh/api.js'
-import BudReactRefresh from './react-refresh/extension.js'
+import type BudReact from './extension.js'
+import type {reactRefresh} from './react-refresh/api.js'
+import type BudReactRefresh from './react-refresh/extension.js'
 
 declare module '@roots/bud-framework' {
   interface Bud {

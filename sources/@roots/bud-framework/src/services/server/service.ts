@@ -1,7 +1,7 @@
-import {Service} from '../../service.js'
-import {Connection} from './connection.js'
-import * as Middleware from './middleware.js'
-import {Watcher} from './watcher.js'
+import type {Service} from '../../service.js'
+import type {Connection} from './connection.js'
+import type * as Middleware from './middleware.js'
+import type {Watcher} from './watcher.js'
 
 export {Connection}
 export {Middleware}

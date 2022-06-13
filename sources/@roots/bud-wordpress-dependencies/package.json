@@ -42,12 +42,16 @@
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "exports": {
-    ".": "./lib/index.js"
+    ".": "./lib/index.js",
+    "./extension": "./lib/extension.js"
   },
   "typesVersions": {
     "*": {
       ".": [
-        "./lib/index.js"
+        "./lib/index.d.ts"
+      ],
+      "extension": [
+        "./lib/extension.d.ts"
       ]
     }
   },

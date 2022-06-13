@@ -1,12 +1,14 @@
-import {Bud, factory} from '@repo/test-kit/bud'
+import {beforeAll, beforeEach, describe, expect, it} from '@jest/globals'
+import {factory} from '@repo/test-kit/bud'
+import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {options} from '@roots/bud-framework/extension/decorators'
 
-const resetExtensions = bud => {
-  bud.extensions.repository = {}
-}
+describe('Extension', () => {
+  const resetExtensions = bud => {
+    bud.extensions.repository = {}
+  }
 
-describe('Extension', function () {
   describe('options', () => {
     let bud: Bud
 
@@ -37,7 +39,7 @@ describe('Extension', function () {
     it('adds options with function wrappers', async () => {
       const mockOptions = {
         foo: 'bar',
-        bar: (app: Bud) => bud.name,
+        bar: () => bud.name,
       }
 
       class MockExtension extends Extension {
@@ -61,6 +63,7 @@ describe('Extension', function () {
       }
 
       @options(opts)
+      // @ts-ignore
       class MockDecoratedExtension extends Extension {
         public label = 'mock-extension'
       }

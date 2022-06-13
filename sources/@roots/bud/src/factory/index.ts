@@ -1,4 +1,4 @@
-import {Config} from '@roots/bud-framework'
+import type {Config} from '@roots/bud-framework'
 
 import Bud from '../bud.js'
 import {makeContext} from '../context/index.js'

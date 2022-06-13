@@ -1,5 +1,5 @@
 import {paths} from '@repo/constants'
-import {read, write} from '@roots/bud-framework/methods/yaml'
+import {read, write} from '@roots/bud-framework/parsers/yml'
 import {join} from 'node:path'
 
 describe('bud.yml', () => {
@@ -9,7 +9,7 @@ describe('bud.yml', () => {
     })
     it('reads yml', async () => {
       const manifest: Record<string, any> = await read(
-        join(paths.root, '.yarnrc.yml'),
+        join(process.cwd(), '.yarnrc.yml'),
       )
       expect(manifest.enableTelemetry).toBe(false)
     })

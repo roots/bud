@@ -5,7 +5,7 @@ import {Extension} from '@roots/bud-framework'
 import {WebpackPluginInstance} from 'webpack'
 
 describe('Extensions', function () {
-  let bud: Bud = null
+  let bud: Bud
 
   let mockWebpackPlugin: WebpackPluginInstance = {
     apply: jest.fn(),
@@ -15,7 +15,7 @@ describe('Extensions', function () {
     test: 'foo',
   }
 
-  let mockModule: Extension = {
+  let mockModule: any = {
     label: 'mock_extension',
     register: jest.fn(async () => null),
     boot: jest.fn(async () => null),
@@ -39,7 +39,7 @@ describe('Extensions', function () {
 
     await extensions.add(mockModule)
 
-    expect(extensions.get(mockModule.label).options.test).toEqual(
+    expect(extensions.get(mockModule.label).options?.test).toEqual(
       mockModule.options.test,
     )
   })

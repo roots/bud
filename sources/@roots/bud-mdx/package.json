@@ -44,7 +44,8 @@
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "exports": {
-    ".": "./lib/index.js"
+    ".": "./lib/index.js",
+    "./extension": "./lib/extension.js"
   },
   "typesVersions": {
     "*": {
@@ -73,10 +74,26 @@
     "tslib": "2.4.0"
   },
   "peerDependencies": {
-    "@mdx-js/loader": "^1.6.22 || ^2.0.0"
+    "@mdx-js/loader": "*",
+    "@roots/bud-babel": "*",
+    "@roots/bud-build": "*",
+    "@roots/bud-framework": "*",
+    "@roots/bud-react": "*"
   },
   "peerDependenciesMeta": {
     "@mdx-js/loader": {
+      "optional": true
+    },
+    "@roots/bud-babel": {
+      "optional": true
+    },
+    "@roots/bud-build": {
+      "optional": true
+    },
+    "@roots/bud-framework": {
+      "optional": true
+    },
+    "@roots/bud-react": {
       "optional": true
     }
   }

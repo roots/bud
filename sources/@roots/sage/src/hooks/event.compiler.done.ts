@@ -1,4 +1,4 @@
-import {Bud} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
 import fs from 'fs-extra'
 import {urlToHttpOptions} from 'node:url'
 

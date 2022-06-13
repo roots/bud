@@ -3,14 +3,6 @@ import {dirname} from 'node:path'
 import {fileURLToPath} from 'node:url'
 import {pkgUp} from 'pkg-up'
 
-export interface Application {
-  name: string
-  label: string
-  version: string
-  dependencies: Record<string, string>
-  devDependencies: Record<string, string>
-}
-
 /**
  * Application context
  *

@@ -1,7 +1,7 @@
 import {bind} from 'helpful-decorators'
 import Webpack from 'webpack'
 
-import {Entry} from './webpack.plugin.js'
+import type {Entry} from './webpack.plugin.js'
 
 /**
  * Emits inline html for each entrypoint

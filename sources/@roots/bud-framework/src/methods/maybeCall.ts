@@ -1,8 +1,6 @@
-import lodash from 'lodash-es'
+import {isFunction} from 'lodash-es'
 
-import {Bud} from '../bud.js'
-
-const {isFunction} = lodash
+import type {Bud} from '../bud.js'
 
 /**
  * @internal

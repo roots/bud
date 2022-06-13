@@ -15,7 +15,6 @@ export {minimize} from './minimize/index.js'
 export {persist} from './persist/index.js'
 export {provide} from './provide/index.js'
 export {method as proxy} from './proxy/index.js'
-export {run} from './run/index.js'
 export {runtime} from './runtime/index.js'
 export {method as serve} from './serve/index.js'
 export {

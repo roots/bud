@@ -35,7 +35,6 @@ declare module '@roots/bud-framework' {
     html: Build.Loader
     md: Build.Loader
     minicss: Build.Loader
-    resolveUrl: Build.Loader
     style: Build.Loader
     url: Build.Loader
     xml: Build.Loader
@@ -52,7 +51,6 @@ declare module '@roots/bud-framework' {
     font: Build.Item
     html: Build.Item
     md: Build.Item
-    resolveUrl: Build.Item
     raw: Build.Item
     xml: Build.Item
   }

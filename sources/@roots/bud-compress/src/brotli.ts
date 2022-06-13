@@ -7,7 +7,7 @@ import {
 } from '@roots/bud-framework/src/extension/decorators'
 import Plugin from 'compression-webpack-plugin'
 
-import {Options} from './extension.js'
+import type {Options} from './extension.js'
 
 /**
  * Bud compression extension brotli adapter

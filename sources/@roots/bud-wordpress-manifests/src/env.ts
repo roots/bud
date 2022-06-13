@@ -1,4 +1,4 @@
-import BudMergedManifest from './extension.js'
+import type BudMergedManifest from './extension.js'
 
 declare module '@roots/bud-framework' {
   interface Modules {

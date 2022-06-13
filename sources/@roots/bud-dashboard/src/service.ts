@@ -1,7 +1,7 @@
 import {Dashboard as Base, Service} from '@roots/bud-framework'
 import {bind} from 'helpful-decorators'
 import * as logUpdate from 'log-update'
-import {StatsCompilation} from 'webpack'
+import type {StatsCompilation} from 'webpack'
 
 import {Line} from './render/line.js'
 import {reporter} from './render/stats/index.js'
@@ -63,7 +63,7 @@ export class Dashboard extends Service implements Base.Service {
    */
   @bind
   public async register() {
-    if (this.app.context.args.ci || this.app.env.has('TS_JEST')) {
+    if (this.app.context.args.ci || this.app.env.has('JEST_WORKER_ID')) {
       return
     }
 

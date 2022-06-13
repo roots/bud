@@ -1,4 +1,4 @@
-import {Bud} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
@@ -8,7 +8,7 @@ import {
 } from '@roots/bud-framework/extension/decorators'
 import Plugin from 'compression-webpack-plugin'
 
-import {Options} from './extension.js'
+import type {Options} from './extension.js'
 
 /**
  * Bud compression extension gzip adapter

@@ -45,7 +45,7 @@ describe('@roots/bud-postcss', () => {
     bud.postcss.setPlugins(new Map([['bang', ['bop']]]))
 
     bud.postcss.setPluginOptions('bang', {})
-    expect(bud.postcss.plugins.get('bang').pop()).toStrictEqual({})
+    expect(bud.postcss.plugins.get('bang')?.pop()).toStrictEqual({})
   })
 
   it('setPluginOptions (callback)', () => {
@@ -72,7 +72,7 @@ describe('@roots/bud-postcss', () => {
 
     bud.postcss.setPluginPath('bang', 'newPath')
 
-    expect(bud.postcss.plugins.get('bang').shift()).toStrictEqual(
+    expect(bud.postcss.plugins.get('bang')?.shift()).toStrictEqual(
       'newPath',
     )
   })
@@ -152,18 +152,18 @@ describe('@roots/bud-postcss', () => {
   })
 
   it('registers loader', () => {
-    expect(bud.build.loaders.postcss.getSrc()).toContain(
+    expect(bud.build.loaders.postcss?.getSrc()).toContain(
       'postcss-loader/dist/cjs.js',
     )
   })
 
   it('registers item', () => {
-    expect(bud.build.items.postcss.getLoader().getSrc()).toContain(
+    expect(bud.build.items.postcss?.getLoader().getSrc()).toContain(
       'postcss-loader/dist/cjs.js',
     )
   })
 
   it('added to css rule', () => {
-    expect(bud.build.rules.css.getUse()).toContain('postcss')
+    expect(bud.build.rules.css?.getUse()).toContain('postcss')
   })
 })

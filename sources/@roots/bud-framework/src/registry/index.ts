@@ -1,12 +1,12 @@
-import {Bud} from '../bud.js'
-import * as Build from './build.js'
-import {Dev} from './dev.js'
-import {Events} from './events.js'
-import {Flags} from './flags.js'
-import {Locations} from './locations.js'
-import {Modules} from './modules.js'
-import {Patterns} from './patterns.js'
-import {Values} from './values.js'
+import type {Bud} from '../bud.js'
+import type * as Build from './build.js'
+import type {Dev} from './dev.js'
+import type {Events} from './events.js'
+import type {Flags} from './flags.js'
+import type {Locations} from './locations.js'
+import type {Modules} from './modules.js'
+import type {Patterns} from './patterns.js'
+import type {Values} from './values.js'
 
 export interface Registry
   extends Registry.Sync,
@@ -50,4 +50,4 @@ export namespace Store {
   }
 }
 
-export {Build, Dev, Flags, Locations, Modules, Patterns, Values}
+export type {Build, Dev, Flags, Locations, Modules, Patterns, Values}

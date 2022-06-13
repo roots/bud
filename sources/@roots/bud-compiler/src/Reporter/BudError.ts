@@ -1,5 +1,5 @@
 import {bind} from 'helpful-decorators'
-import {StatsError} from 'webpack'
+import type {StatsError} from 'webpack'
 
 export default class BudError {
   public file: string

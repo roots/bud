@@ -1,4 +1,4 @@
-import {StatsCompilation} from 'webpack'
+import type {StatsCompilation} from 'webpack'
 
 import type {Service as Base} from '../../service.js'
 

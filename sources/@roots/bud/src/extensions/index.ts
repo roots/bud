@@ -1,4 +1,4 @@
-import {Config} from '@roots/bud-framework'
+import type {Config} from '@roots/bud-framework'
 
 import CDNExtension from './bud-cdn/index.js'
 import ESMExtension from './bud-esm/index.js'

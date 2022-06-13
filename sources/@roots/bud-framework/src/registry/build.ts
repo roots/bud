@@ -1,7 +1,7 @@
-import {Configuration, RuleSetRule} from 'webpack'
+import type {Configuration, RuleSetRule} from 'webpack'
 
-import {EntryObject} from '../config/entry/index.js'
-import {Extension} from '../extension/index.js'
+import type {EntryObject} from '../config/entry/index.js'
+import type {Extension} from '../extension/index.js'
 
 export interface Sync {
   'build.bail': boolean

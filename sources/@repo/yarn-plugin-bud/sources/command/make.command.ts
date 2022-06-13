@@ -46,7 +46,7 @@ export class Make extends Command {
 
     await this.$(
       'yarn @bud lint',
-      'yarn @bud test all --coverage --verbose --maxWorkers=50%',
+      'yarn @bud test all --verbose --maxWorkers=50%',
     )
 
     await this.$('yarn @bud docs')

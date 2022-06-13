@@ -1,6 +1,6 @@
 import {bind} from 'helpful-decorators'
 import stripAnsi = require('strip-ansi')
-import Webpack = require('webpack')
+import type Webpack from 'webpack'
 
 interface Payload {
   hash: string

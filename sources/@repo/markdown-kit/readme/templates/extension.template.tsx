@@ -1,4 +1,3 @@
-import {projectConfig} from '@repo/constants'
 import React from 'react'
 
 import {
@@ -16,7 +15,7 @@ export const Extension = ({
 }: {
   name: string
   description: string
-  projectConfig: projectConfig
+  projectConfig: any
 }) => (
   <>
     <Banner

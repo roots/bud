@@ -45,10 +45,12 @@
     "./extension": "./lib/extension/index.js",
     "./extension/decorators": "./lib/extension/decorators/index.js",
     "./extension/decorators/*": "./lib/extension/decorators/*.js",
+    "./methods": "./lib/methods/index.js",
     "./methods/*": "./lib/methods/*.js",
     "./module": "./lib/module.js",
-    "./service": "./lib/service.js",
-    "./services/*": "./lib/services/*/index.js"
+    "./parsers": "./lib/parsers/index.js",
+    "./parsers/*": "./lib/parsers/*.js",
+    "./service": "./lib/service.js"
   },
   "typesVersions": {
     "*": {
@@ -70,8 +72,17 @@
       "extension/decorators/*": [
         "./lib/extension/decorators/*.d.ts"
       ],
+      "methods": [
+        "./lib/methods/index.d.ts"
+      ],
       "methods/*": [
-        "./lib/methods/*.js"
+        "./lib/methods/*.d.ts"
+      ],
+      "parsers": [
+        "./lib/parsers/index.d.ts"
+      ],
+      "parsers/*": [
+        "./lib/parsers/*.d.ts"
       ],
       "service": [
         "./lib/service.d.ts"

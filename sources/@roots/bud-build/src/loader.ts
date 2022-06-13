@@ -1,4 +1,4 @@
-import {Bud, Build} from '@roots/bud-framework'
+import type {Bud, Build} from '@roots/bud-framework'
 
 import Base from './shared/base.js'
 

@@ -1,5 +1,4 @@
-import {paths} from '@repo/constants'
-import {read, write} from '@roots/bud-framework/methods/json5'
+import {read, write} from '@roots/bud-framework/parsers/json5'
 import {join} from 'node:path'
 
 describe('bud.json', () => {
@@ -8,7 +7,7 @@ describe('bud.json', () => {
       expect(read).toBeInstanceOf(Function)
     })
     it('reads json', async () => {
-      const manifest = await read(join(paths.root, 'package.json'))
+      const manifest = await read(join(process.cwd(), 'package.json'))
       expect(manifest.name).toBe('bud')
     })
   })

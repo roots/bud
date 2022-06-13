@@ -1,4 +1,4 @@
-import {Extension} from '../index.js'
+import type {Extension} from '../index.js'
 
 export const when =
   (when: Extension['when']) =>

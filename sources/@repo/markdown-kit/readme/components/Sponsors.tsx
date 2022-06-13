@@ -1,7 +1,6 @@
-import {projectConfig} from '@repo/constants'
 import React from 'react'
 
-export const Sponsors = (props: {sponsors: projectConfig['sponsors']}) => (
+export const Sponsors = (props: {sponsors: any}) => (
   <>
     <h2>Sponsors</h2>
 

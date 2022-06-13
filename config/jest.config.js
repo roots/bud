@@ -3,30 +3,17 @@
  */
 export default async function config() {
   return {
-    coverageDirectory: 'storage/coverage',
-    collectCoverageFrom: [
-      'sources/@roots/**/src/**/*.{ts,tsx}',
-      '!sources/@roots/**/src/**/*.dependencies.{ts,tsx}',
-      '!sources/@roots/bud/src/cli/**/*.{ts,tsx}',
-      '!sources/@roots/**/*.d.ts',
-      '!storage/',
-      '!node_modules/',
-    ],
-    coveragePathIgnorePatterns: [
-      'sources/@roots/bud-dashboard/',
-      'sources/@roots/dependencies/',
-      'sources/@roots/filesystem/',
-    ],
-    preset: 'ts-jest/presets/default-esm',
-    extensionsToTreatAsEsm: ['.ts'],
-    globals: {
-      'ts-jest': {
-        useESM: true,
-      },
-    },
+    extensionsToTreatAsEsm: ['.ts', '.tsx'],
     moduleDirectories: ['node_modules'],
+    /* @prettier-ignore */
     moduleNameMapper: {
+      /**
+       * Jest doesn't understand ts with es modules
+       */
       '^(\\.{1,2}/.*)\\.js$': '$1',
+      /**
+       * Jest doesn't understand # in import maps
+       */
       '#ansi-styles':
         '<rootDir>/node_modules/chalk/source/vendor/ansi-styles/index.js',
       '#supports-color':
@@ -34,6 +21,7 @@ export default async function config() {
     },
     modulePathIgnorePatterns: ['<rootDir>/.yarn', '<rootDir>/storage'],
     rootDir: '../',
+    slowTestThreshold: 30000,
     testEnvironment: 'node',
     testMatch: [`<rootDir>/tests/**/*.test.ts`],
     testPathIgnorePatterns: [
@@ -43,6 +31,24 @@ export default async function config() {
       '<rootDir>/cache/verdaccio',
     ],
     testTimeout: 60000,
-    slowTestThreshold: 30000,
+    transform: {
+      '^.+\\.(c|m)?(t|j)sx?$': [
+        '@swc/jest',
+        {
+          jsc: {
+            parser: {
+              syntax: 'typescript',
+              jsx: true,
+              dynamicImport: true,
+              optionalChaining: true,
+              decorators: true,
+              importMeta: true,
+            },
+            target: 'es2021',
+          },
+          sourceMaps: true,
+        },
+      ],
+    },
   }
 }

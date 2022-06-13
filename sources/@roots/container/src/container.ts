@@ -1,6 +1,6 @@
 import {bind} from 'helpful-decorators'
 import _ from 'lodash-es'
-import {ValueOf} from 'type-fest'
+import type {ValueOf} from 'type-fest'
 
 import {mergeable} from './utilities.js'
 

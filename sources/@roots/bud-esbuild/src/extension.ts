@@ -6,7 +6,7 @@ import {
 } from '@roots/bud-framework/extension/decorators'
 import {ESBuildMinifyPlugin} from 'esbuild-loader'
 
-type Options = {
+export interface Options {
   minify: {
     css: boolean
     include: string | RegExp | Array<string | RegExp>
@@ -82,11 +82,17 @@ export default class BudEsbuild extends Extension<Options> {
     this.app.hooks.on('build.resolve.extensions', ext =>
       ext.add('.ts').add('.tsx'),
     )
+  }
 
-    this.app.hooks.action('event.build.before', async ({hooks}) => {
-      hooks.on('build.optimization.minimizer', () => [
-        new ESBuildMinifyPlugin(this.options.minify),
-      ])
-    })
+  /**
+   * `beforeBuild` callback
+   *
+   * @public
+   */
+  @bind
+  public async beforeBuild() {
+    this.app.hooks.on('build.optimization.minimizer', () => [
+      new ESBuildMinifyPlugin(this.options.minify),
+    ])
   }
 }

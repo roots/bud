@@ -1,4 +1,4 @@
-import {Bud} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
 
 import * as clientScripts from './hooks/dev.client.scripts.js'
 

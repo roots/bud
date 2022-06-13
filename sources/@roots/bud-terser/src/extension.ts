@@ -5,7 +5,7 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
-import type TerserPlugin from 'terser-webpack-plugin'
+import TerserPlugin from 'terser-webpack-plugin'
 
 type Options = TerserPlugin.BasePluginOptions & {
   minify?: TerserPlugin.MinimizerImplementation<any>
@@ -52,6 +52,20 @@ export default class Terser extends Extension<Options> {
   }
   public set terserOptions(terserOptions: Options['terserOptions']) {
     this.setOption('terserOptions', terserOptions)
+  }
+
+  /**
+   * `beforeBuild` callback
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async beforeBuild() {
+    this.app.hooks.on('build.optimization.minimizer', minimizer => {
+      minimizer.push(new TerserPlugin(this.options))
+      return minimizer.filter(item => item !== '...')
+    })
   }
 
   /**
@@ -106,7 +120,7 @@ export default class Terser extends Extension<Options> {
   }
 
   /**
-   * Output comments
+   * Output debugger statements
    *
    * @public
    * @decorator `@bind`
@@ -125,7 +139,7 @@ export default class Terser extends Extension<Options> {
   }
 
   /**
-   * Drop comments
+   * Drop debugger statements
    *
    * @public
    * @decorator `@bind`
@@ -138,7 +152,7 @@ export default class Terser extends Extension<Options> {
   }
 
   /**
-   * Mangle
+   * Mangle output
    *
    * @public
    * @decorator `@bind`
@@ -151,34 +165,5 @@ export default class Terser extends Extension<Options> {
     }
 
     return this
-  }
-
-  /**
-   * `beforeBuild` callback
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async beforeBuild() {
-    const {default: TerserPlugin} = await this.import(
-      'terser-webpack-plugin',
-    )
-
-    this.app.hooks.on('build.optimization.minimizer', minimizer => {
-      minimizer.push(new TerserPlugin(this.options))
-      return minimizer.filter(item => item !== '...')
-    })
-  }
-
-  /**
-   * `when` callback
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async when() {
-    return this.app.hooks.filter('build.optimization.minimize')
   }
 }

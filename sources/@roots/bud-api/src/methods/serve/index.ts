@@ -1,8 +1,8 @@
 import type {Bud} from '@roots/bud-framework'
 import fs from 'fs-extra'
 import getPort from 'get-port'
-import Https from 'https'
-import Http from 'https'
+import type Https from 'node:https'
+import type Http from 'node:https'
 
 /**
  * Specification object

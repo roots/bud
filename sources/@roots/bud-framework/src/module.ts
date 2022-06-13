@@ -3,7 +3,7 @@ import {resolve} from 'import-meta-resolve'
 import {createRequire} from 'module'
 import {join, relative} from 'node:path'
 
-import {Bud} from './bud'
+import type {Bud} from './bud'
 
 /**
  * Module resolver

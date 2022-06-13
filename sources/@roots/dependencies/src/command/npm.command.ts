@@ -1,6 +1,6 @@
 import {bind} from 'helpful-decorators'
 
-import {IDependencyManager} from '../'
+import type {IDependencyManager} from '../'
 import {Command} from './base.command'
 
 /**
