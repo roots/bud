@@ -132,6 +132,7 @@ module.exports = {
       '@roots/merged-manifest-webpack-plugin',
       '@roots/wordpress-dependencies-webpack-plugin',
       '@roots/wordpress-externals-webpack-plugin',
+      '@roots/wordpress-hmr',
     ],
   },
 }

@@ -7,24 +7,20 @@
 </p>
 
 <h1 align="center">
-  <strong>@roots/bud-server</strong>
+  <strong>@roots/wordpress-hmr</strong>
 </h1>
 
 <p align="center">
-  Development server for @roots/bud
+  WordPress HMR scripts
 </p>
 
 ## Installation
 
-Install **@roots/bud-server** to your project.
+Install **@roots/wordpress-hmr** to your project.
 
 ```shell
-yarn add @roots/bud-server --dev
+yarn add @roots/wordpress-hmr --dev
 ```
-
-## Documentation
-
-For more information on utilizing this package [check out our dedicated docs](https://bud.js.org)
 
 ## Community
 
