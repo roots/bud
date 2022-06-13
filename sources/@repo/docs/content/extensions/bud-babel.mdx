@@ -20,10 +20,10 @@ import {Install} from '@site/src/docs/Install'
 
 [@roots/bud-babel](/extensions/bud-babel) comes configured with:
 
-- @babel/preset-env
-- @babel/plugin-transform-runtime
-- @babel/plugin-proposal-object-rest-spread
-- @babel/plugin-syntax-dynamic-import
+- [@babel/preset-env](https://babeljs.io/docs/en/babel-preset-env)
+- [@babel/plugin-transform-runtime](https://babeljs.io/docs/en/babel-plugin-transform-runtime)
+- [@babel/plugin-proposal-object-rest-spread](https://babeljs.io/docs/en/babel-plugin-proposal-object-rest-spread)
+- [@babel/plugin-syntax-dynamic-import](https://babeljs.io/docs/en/babel-plugin-syntax-dynamic-import)
 
 If this works for you, great! No need to keep reading. But, if you need something more specialized, there is a configuration utility registered by `@roots/bud-babel` designed to help you out.
 
@@ -31,31 +31,31 @@ If this works for you, great! No need to keep reading. But, if you need somethin
 
 See what presets are registered:
 
-```js title='bud.config.js'
+```js title='bud.config.mjs'
 console.dir(app.babel.presets)
 ```
 
 Add preset:
 
-```js title='bud.config.js'
+```js title='bud.config.mjs'
 app.babel.setPreset('@babel/preset-env')
 ```
 
 Remove preset:
 
-```js title='bud.config.js'
+```js title='bud.config.mjs'
 app.babel.unsetPreset('@babel/preset-env')
 ```
 
 Fully override presets:
 
-```js title='bud.config.js'
+```js title='bud.config.mjs'
 app.babel.setPresets(['@babel/preset-env'])
 ```
 
 Override any preset options:
 
-```js title='bud.config.js'
+```js title='bud.config.mjs'
 app.babel.setPresetOptions('@babel/preset-env', {
   useBuiltIns: 'entry',
 })
@@ -67,19 +67,19 @@ Plugins has nearly the exact same API already demonstrated by the `presets` docs
 
 Add a plugin:
 
-```js title='bud.config.js'
+```js title='bud.config.mjs'
 app.babel.setPlugin('@babel/plugin-transform-runtime')
 ```
 
 Add a plugin with options:
 
-```ts title='bud.config.js'
+```ts title='bud.config.mjs'
 app.babel.setPlugin(['@babel/plugin-transform-runtime', {helpers: false}])
 ```
 
 Fully override plugins:
 
-```ts title='bud.config.js'
+```ts title='bud.config.mjs'
 app.babel.setPlugins([
   '@babel/plugin-transform-runtime',
   '@babel/plugin-proposal-object-rest-spread',
@@ -89,13 +89,13 @@ app.babel.setPlugins([
 
 Remove a plugin:
 
-```ts title='bud.config.js'
+```ts title='bud.config.mjs'
 app.babel.unsetPlugin('@babel/plugin-transform-runtime')
 ```
 
 Override any plugin options:
 
-```js title='bud.config.js'
+```js title='bud.config.mjs'
 app.babel.setPluginOptions('@babel/plugin-transform-runtime', {
   helpers: false,
 })
@@ -103,21 +103,18 @@ app.babel.setPluginOptions('@babel/plugin-transform-runtime', {
 
 ## Configuring babel-loader
 
-Merge options with existing options by passing the options to merge along with the framework instance:
+Merge options with existing options:
 
-```js title='bud.config.js'
-app.build.items['babel'].mergeOptions(
-  {
-    cacheDirectory: ({path}) => path('project', 'tmp'),
-  },
-  bud,
-)
+```js title='bud.config.mjs'
+app.build.items.babel.mergeOptions({
+  cacheDirectory: ({path}) => path('project', 'tmp'),
+})
 ```
 
 Override loader options directly:
 
-```js title='bud.config.js'
-app.build.items['babel'].setOptions({
+```js title='bud.config.mjs'
+app.build.items.babel.setOptions({
   cacheDirectory: ({path}) => path('project', 'tmp'),
   presets: Object.values(babel.presets),
   plugins: Object.values(babel.plugins),
@@ -128,8 +125,8 @@ When using `setOptions`, you must include the plugins and presets (as demonstrat
 
 If you intend to override those callbacks, you need to pass those options along yourself (or use `mergeOptions`):
 
-```js title='bud.config.js'
-app.build.items['babel'].setOptions({
+```js title='bud.config.mjs'
+app.build.items.babel.setOptions({
   cacheDirectory: ({path}) => path('project', 'tmp'),
   presets: ['@babel/preset-env'],
   plugins: [
@@ -144,17 +141,12 @@ app.build.items['babel'].setOptions({
 
 There are babel specific linting rules that you will probably want in your project.
 
-As a courtesy, a base configuration is provided in `@roots/bud-babel/eslint-config`.
+You may use the babel preset exported by `@roots/eslint-config` if it suits you.
 
-You may use it in conjunction with `@roots/bud-eslint/config` for a complete linting configuration.
-
-```js
+```js title=".eslintrc.cjs"
 module.exports = {
   root: true,
-  extends: [
-    require.resolve('@roots/bud-eslint/config'),
-    require.resolve('@roots/bud-babel/eslint-config'),
-  ],
+  extends: ['@roots/eslint-config/babel'],
   rules: {},
 }
 ```

@@ -60,7 +60,6 @@ module.exports = {
         id: 'general-use/index',
       },
       items: [
-        'general-use/building-skypack',
         'general-use/dynamic-imports',
         'general-use/esmodules',
         'general-use/extensions',

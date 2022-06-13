@@ -124,10 +124,12 @@ You can use the `--no-inject` flag to prevent any extensions from being register
 In that case you will need to manually register the extensions you want to use per compiler:
 
 ```ts title='bud.config.compiler-a.mjs'
+import BudPostCSS from '@roots/bud-postcss/extension'
+
 export default async app => {
   app.make('theme', async theme => {
     app
-      .use(require('@roots/bud-postcss'))
+      .use(BudPostCSS)
       .setPath('@dist', 'dist/app')
       .entry('theme', ['theme.css'])
   })
@@ -135,10 +137,12 @@ export default async app => {
 ```
 
 ```ts title='bud.config.compiler-b.mjs'
+import BudReact from '@roots/bud-react/extension'
+
 export default async app => {
   app.make('plugin', async plugin => {
     app
-      .use(require('@roots/bud-react'))
+      .use(BudReact)
       .setPath('@dist', 'dist/app')
       .entry('plugin', ['plugin.css'])
   })

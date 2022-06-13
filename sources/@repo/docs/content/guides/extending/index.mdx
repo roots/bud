@@ -14,7 +14,7 @@ You can add additional functionality to **bud.js** using the extensions API.
 
 We recommend authoring bud extensions with ES Modules.
 
-```json
+```json title="package.json"
 {
   "name": "my-extension",
   "type": "module"
@@ -24,7 +24,7 @@ We recommend authoring bud extensions with ES Modules.
 Include a `bud` field to mark the module as an extension. This field will be
 checked when resolving project packages. Without this, the extension won't be imported!
 
-```json
+```json title="package.json"
 {
   "name": "my-extension",
   "type": "module",
@@ -36,7 +36,7 @@ checked when resolving project packages. Without this, the extension won't be im
 
 Last requirement is to export your extension as the `default` export from an `./extension` export:
 
-```json
+```json title="package.json"
 {
   "name": "my-extension",
   "type": "module",
