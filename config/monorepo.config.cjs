@@ -102,7 +102,6 @@ module.exports = {
       '@roots/bud-esbuild',
       '@roots/bud-eslint',
       '@roots/bud-imagemin',
-      '@roots/bud-library',
       '@roots/bud-mdx',
       '@roots/bud-postcss',
       '@roots/bud-preset-recommend',

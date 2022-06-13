@@ -163,7 +163,7 @@ const navbar = {
 const prism = {
   additionalLanguages: ['php'],
   darkTheme: dracula,
-  theme: github,
+  theme: dracula,
 }
 
 module.exports = {
