@@ -1,0 +1,80 @@
+---
+title: '@roots/wordpress-hmr'
+description: HMR utilities for WordPress block editor development
+hide_table_of_contents: true
+show_title: true
+---
+
+# @roots/wordpress-hmr
+
+This package both registers blocks and handles hot reloading them.
+
+## installation
+
+```npm2yarn
+
+npm install @roots/wordpress-hmr --dev
+
+```
+
+## Usage
+
+Given this project structure:
+
+```
+src
+├── blocks
+│   └── blockname
+│       ├── Edit.tsx
+│       ├── Save.tsx
+│       └── index.tsx
+├── index.ts
+```
+
+### **./src/index.ts**
+
+The path passed to `require.context` should contain all of the blocks, organized by directory.
+
+```ts
+import {load} from '@roots/wordpress/blocks'
+
+load(
+  () => require.context('./blocks', true, /index\..*$/),
+  (context, load) => module?.hot?.accept(context.id, load),
+)
+```
+
+You can adjust the directory (`./blocks`) and matcher for default filename (the regular expression).
+
+The syntax is kind of gnarly but because of the way `require.context` works (a webpack thing), there is no way to ponyfill it. Both of those callbacks must be defined at the root of the block imports.
+
+### ./src/blocks/blockname/index.ts
+
+Each block `index` file should export a `name` and settings:
+
+```ts
+import {__} from '@wordpress/i18n'
+
+import {Edit} from '@blocks/blockname/Edit'
+import {Save} from '@blocks/blockname/Save'
+import {webpackIco, Icon} from '@components/Icon'
+
+export const name = PLUGIN_NS
+
+export const settings = {
+  edit: Edit,
+  save: Save,
+  category: 'media',
+  title: 'Icon block',
+  icon: <Icon src={webpackIco} />,
+  example: {
+    attributes: {
+      content: __('Howdy'),
+    },
+  },
+}
+```
+
+## Props
+
+Credit to [kadamwhite/block-editor-hmr](https://github.com/kadamwhite/block-editor-hmr) for the starting point.

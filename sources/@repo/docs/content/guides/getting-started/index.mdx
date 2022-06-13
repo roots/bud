@@ -11,40 +11,34 @@ import {Card} from '@site/src/components/Card'
   <Hero title="Getting started" subtitle="Working with bud.js" />
 </div>
 
-<div className="row margin-bottom--lg">
-  <div className="col">
+<div className="row">
+  <div className="col margin-bottom--md">
     <Card
       title="Configure"
-      description={<p>Create a <strong>bud.config.mjs</strong> file to detail your project needs</p>}
+      description={<span>Create a <strong>bud.config.mjs</strong> file to detail your project needs</span>}
       links={[
         ['Read more', '/guides/getting-started/configure'],
       ]}
     />
   </div>
 
-  <div className="col">
-    <Card
-      title="Production workflow"
-      description="Running a build"
-      links={[
-        ['Read more', '/guides/getting-started/build'],
-      ]}
-    />
-  </div>
+<div className="col margin-bottom--md">
+  <Card
+    title="Production workflow"
+    description="Running a build"
+    links={[['Read more', '/guides/getting-started/build']]}
+  />
 </div>
 
-<div className="row">
-  <div className="col">
-    <Card
-      title="Development workflow"
-      description="Starting the dev server"
-      links={[
-        ['Read more', '/guides/getting-started/develop'],
-      ]}
-    />
-  </div>
+<div className="col margin-bottom--md">
+  <Card
+    title="Development workflow"
+    description="Starting the dev server"
+    links={[['Read more', '/guides/getting-started/develop']]}
+  />
+</div>
 
-  <div className="col">
+  <div className="col margin-bottom--md">
     <Card
       title="Installing extensions"
       description="Adding additional features with package installs"

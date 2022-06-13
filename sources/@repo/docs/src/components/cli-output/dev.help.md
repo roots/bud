@@ -11,11 +11,13 @@ $ bud dev
   --ci                      Simple build summaries for CI
   --debug                   Enable debugging mode. Very verbose logging. Writes output files to `@storage` directory
   --devtool #0              Set devtool option
+  --output,-o #0            Distribution directory (relative to project)
+  --esm                     build as es modules
+  --immutable               bud.http: immutable module lockfile
   --flush                   Force clearing bud internal cache
   --hash                    Hash compiled filenames
   --html                    Generate an html template
   --input,-i #0             Source directory (relative to project)
-  --output,-o #0            Distribution directory (relative to project)
   --storage #0              Storage directory (relative to project)
   --indicator               Enable development status indicator
   --log                     Enable logging

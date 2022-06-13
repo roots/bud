@@ -1,14 +1,14 @@
 ---
-title: Configure
+title: Configuring bud.js
 sidebar_label: Configure
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-:::tip
+:::info Tip
 
-Hey, did you know? [No configuration is needed](/guides/config/zero-config) as long you have something at **src/index.js**.
+You might not need to configure anything. As long as the root of your application is located at **src/index.js** you should be able to run a build _without a config file_.
 
 :::
 
@@ -18,7 +18,7 @@ Depending on whether your project is built with CommonJS or ES Modules, the file
 
 <Tabs
   groupId="lang"
-  defaultValue="cjs"
+  defaultValue="esm"
   values={[
     {label: 'ESM', value: 'esm'},
     {label: 'CJS', value: 'cjs'},

@@ -8,9 +8,9 @@ import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import CodeBlock from '@theme/CodeBlock'
 
-Compile remote modules as if they were local. Import code from a gist or transpile a single module from a beta branch of a github repo. Import modules for fun and/or profit from `skypack` or `unpkg`.
+You can build remote packages at compile time, serve them locally, and generate a lockfile to guarantee deployed dependencies match your development environment.
 
-Ships with following sources:
+Ships with following sources, but you can add more:
 
 - `skypack`
 - `gist`
@@ -21,13 +21,13 @@ Ships with following sources:
 
 Use any registered source as a key in `package.json` to map imports to it. It can be done with either an object or an array:
 
-```json
+```json title="package.json"
 "skypack": [
   "alpinejs"
 ]
 ```
 
-```json
+```json title="package.json"
 "skypack": {
   "alpinejs": "3.10.0"
 }
@@ -35,7 +35,7 @@ Use any registered source as a key in `package.json` to map imports to it. It ca
 
 If the CDN supports it you can pass params in addition to the version:
 
-```json
+```json title="package.json"
 "skypack": {
   "alpinejs": "latest?dist=es2015"
 }
@@ -47,7 +47,7 @@ Once set you can import from `'alpinejs'` anywhere in your application source an
 
 It isn't required to set up an import map to bring in a module. You can also import from a registered remote using its schema:
 
-```ts
+```ts title="app.js"
 import lodash from 'skypack:lodash'
 import Gist from 'gist:kellymears/a9ab48c40a6f757a8814301e2dea7582/raw/55807c18a2e84246f99486f385dcf2e8ec07e0e9/module-import-test.js'
 import Confetti from 'github:catdad/canvas-confetti/master/src/confetti.js'
@@ -58,13 +58,13 @@ import * as preact from 'unpkg:preact'
 
 You can add your own sources
 
-```ts
+```ts title="bud.config.mjs"
 app.cdn.setSource('localhost', 'https://localhost:8080/')
 ```
 
 If you want to remove a source it's easy to access the mapping directly:
 
-```ts
+```ts title="bud.config.mjs"
 app.cdn.sources.delete('gist')
 ```
 
