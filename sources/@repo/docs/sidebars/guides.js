@@ -64,6 +64,7 @@ module.exports = {
         'general-use/extensions',
         'general-use/multi-compiler',
         'general-use/optimizing',
+        'general-use/remote-sources',
         'general-use/transpiler-sources',
       ],
     },

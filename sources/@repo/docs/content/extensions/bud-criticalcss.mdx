@@ -1,7 +1,7 @@
 ---
 title: '@roots/bud-criticalcss'
 description: Generate above-the-fold CSS
-sidebar_label: '🔴 @roots/bud-criticalcss'
+sidebar_label: '🟡 @roots/bud-criticalcss'
 ---
 
 import Tabs from '@theme/Tabs'
@@ -21,3 +21,61 @@ For more information on this technique check out this [web.dev article](https://
 ## Installation
 
 <Install packages="@roots/bud-criticalcss" />
+
+## Generating critical styles
+
+First, call `bud.critical` and specify either
+a URL or path to the html critical can use to generate styles from.
+
+From a URL:
+
+```ts title="bud.config.mjs"
+bud.critical({
+  src: 'http://example.test',
+})
+```
+
+From a path:
+
+```ts title="bud.config.mjs"
+bud.critical({
+  src: bud.path('./path/to/index.html'),
+})
+```
+
+Alternatively, you can also use raw html as a string:
+
+```ts title="bud.config.mjs"
+bud.critical({
+  html: `<html>...</html>`,
+})
+```
+
+## Allowing insecure https requests
+
+If you are using `https` and your cert isn't 100% legit you will want to loosen the
+default request options:
+
+```ts title="bud.config.mjs"
+bud.critical({
+  src: 'http://example.test',
+  request: {https: {rejectUnauthorized: false}},
+})
+```
+
+## Add the css
+
+The extracted styles will be emitted as a stylesheet to `critical/*.css`.
+
+Inline the contents in the `head` of your response.
+
+If you're using WordPress you might want to do something like this:
+
+```php
+  <!-- ...head -->
+  <?php wp_head(); ?>
+  <?php if (realpath(__DIR__ . '/public/critical/app.css')) echo "<style>" . file_get_contents(__DIR__ . '/public/critical/app.css') . "</style>"; ?>
+</head>
+```
+
+Or, write a function and call it. Whatever works.
