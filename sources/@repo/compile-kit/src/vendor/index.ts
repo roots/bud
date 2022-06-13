@@ -1,4 +1,3 @@
-import {paths} from '@repo/constants'
 import {error, log} from '@repo/logger'
 import downloadTarball from 'download-package-tarball'
 import getPackage from 'get-package-json-from-registry'
@@ -12,7 +11,7 @@ export const vendor = async ({pkgArgument, dirArgument}) => {
     dist: {tarball},
   } = pkg
 
-  const dir = join(paths.sources, dirArgument, 'vendor')
+  const dir = join(process.cwd(), dirArgument)
 
   try {
     log(`downloading ${pkgArgument} to ${dir}`)

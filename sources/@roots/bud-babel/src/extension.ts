@@ -1,4 +1,4 @@
-import {Build} from '@roots/bud-framework'
+import type {Build} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {bind, label} from '@roots/bud-framework/extension/decorators'
 

@@ -2,9 +2,9 @@
  * Based in part on {@link https://github.com/facebook/create-react-app/blob/5fc8350c89ff730cdfd067bbd86a90dab393d21b/packages/react-dev-utils/formatWebpackMessages.js}
  */
 
-import {Bud} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
 import {isString} from 'lodash-es'
-import {StatsCompilation, StatsError} from 'webpack'
+import type {StatsCompilation, StatsError} from 'webpack'
 
 import BudError from './BudError.js'
 

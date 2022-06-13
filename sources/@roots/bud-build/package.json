@@ -81,10 +81,10 @@
     "@skypack/package-check": "0.2.2",
     "@types/fs-extra": "9.0.13",
     "@types/lodash": "4.14.182",
-    "@types/lodash-es": "^4",
+    "@types/lodash-es": "4.17.6",
     "@types/mini-css-extract-plugin": "2.5.0",
-    "@types/node": "16.11.36",
-    "webpack": "5.72.1"
+    "@types/node": "16.11.39",
+    "webpack": "5.73.0"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
@@ -94,17 +94,15 @@
     "fs-extra": "10.1.0",
     "helpful-decorators": "2.1.0",
     "html-loader": "^3.0.1",
-    "js-yaml-loader": "1.2.2",
+    "json5": "2.2.1",
     "lodash-es": "4.17.21",
     "mini-css-extract-plugin": "^2.4.5",
     "remark": "14.0.2",
     "remark-html": "15.0.0",
     "remark-loader": "4.0.0",
-    "resolve-url-loader": "5.0.0",
     "style-loader": "3.3.1",
     "toml": "3.0.0",
     "tslib": "2.4.0",
-    "url-loader": "4.1.1",
     "xml-loader": "1.2.1",
     "yml-loader": "2.1.0"
   }

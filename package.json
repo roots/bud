@@ -12,43 +12,43 @@
     "node": "^16.15.0"
   },
   "volta": {
-    "node": "16.15.0",
+    "node": "16.15.1",
     "yarn": "1.22.18"
   },
   "workspaces": {
     "packages": [
       "sources/@roots/*",
-      "tests/util/project",
-      "sources/@repo/*"
+      "sources/@repo/*",
+      "tests/util/project"
     ]
   },
   "type": "module",
   "devDependencies": {
-    "@repo/constants": "workspace:*",
-    "@repo/logger": "workspace:*",
-    "@repo/test-kit": "workspace:*",
+    "@repo/constants": "workspace:sources/@repo/constants",
+    "@repo/logger": "workspace:sources/@repo/logger",
+    "@repo/test-kit": "workspace:sources/@repo/test-kit",
+    "@swc/core": "1.2.198",
+    "@swc/jest": "0.2.21",
     "@types/express": "4.17.13",
-    "@types/jest": "27.5.1",
-    "@types/lodash-es": "^4",
-    "@types/node": "16.11.36",
+    "@types/jest": "28.1.1",
+    "@types/lodash-es": "4.17.6",
+    "@types/node": "16.11.39",
     "@typescript-eslint/eslint-plugin": "5.26.0",
     "@typescript-eslint/parser": "5.26.0",
-    "codecov": "3.8.3",
-    "eslint": "8.16.0",
+    "eslint": "8.17.0",
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-react": "7.29.4",
     "eslint-plugin-react-hooks": "4.5.0",
     "eslint-plugin-simple-import-sort": "7.0.0",
     "eslint-plugin-tsdoc": "0.2.16",
     "import-meta-resolve": "2.0.2",
-    "jest": "28.1.0",
+    "jest": "28.1.1",
     "json5": "2.2.1",
     "lodash-es": "4.17.21",
     "prettier": "2.6.2",
-    "toml": "3.0.0",
-    "ts-jest": "28.0.3",
-    "ts-node": "10.8.0",
+    "syncpack": "8.0.0",
+    "ts-node": "10.8.1",
     "tslib": "2.4.0",
-    "typescript": "4.7.2"
+    "typescript": "4.7.3"
   }
 }

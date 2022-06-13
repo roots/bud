@@ -1,0 +1,13 @@
+{
+  "jsc": {
+    "parser": {
+      "syntax": "typescript",
+      "jsx": true,
+      "dynamicImport": true,
+      "optionalChaining": true,
+      "decorators": true,
+      "importMeta": true
+    },
+    "target": "es2021"
+  }
+}

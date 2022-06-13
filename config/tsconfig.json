@@ -7,6 +7,8 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
+    "importHelpers": true,
+    "importsNotUsedAsValues": "error",
     "forceConsistentCasingInFileNames": true,
     "lib": ["DOM", "DOM.Iterable", "ES2021"],
     "jsx": "react",
@@ -18,7 +20,7 @@
     "sourceMap": true,
     "skipLibCheck": true,
     "strict": false,
-    "target": "es2020",
+    "target": "es2021",
     "types": ["node", "jest", "react", "express", "webpack"]
   },
   "files": [],
@@ -81,6 +83,10 @@
     },
     {
       "path": "./../sources/@roots/wordpress-externals-webpack-plugin/tsconfig.json"
-    }
-  ]
+    },
+    {"path": "./../sources/@roots/wordpress-hmr/tsconfig.json"}
+  ],
+  "ts-node": {
+    "swc": true
+  }
 }

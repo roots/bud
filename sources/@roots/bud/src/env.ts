@@ -1,5 +1,7 @@
 import type {Build} from '@roots/bud-framework'
 
+import type BudCDN from './extensions/bud-cdn/index.js'
+import type BudESM from './extensions/bud-esm/index.js'
 import type BudClean from './extensions/clean-webpack-plugin/index.js'
 import type BudCopy from './extensions/copy-webpack-plugin/index.js'
 import type BudMiniCss from './extensions/mini-css-extract-plugin/index.js'
@@ -9,7 +11,14 @@ import type BudManifest from './extensions/webpack-manifest-plugin/index.js'
 import type BudProvide from './extensions/webpack-provide-plugin/index.js'
 
 declare module '@roots/bud-framework' {
+  interface Bud {
+    cdn: BudCDN
+    esm: BudESM
+  }
+
   interface Modules {
+    cdn: BudCDN
+    esm: BudESM
     'webpack:define-plugin': BudDefine
     'webpack:provide-plugin': BudProvide
     'webpack:hot-module-replacement-plugin': BudHMR
@@ -26,7 +35,6 @@ declare module '@roots/bud-framework' {
     html: Build.Loader
     md: Build.Loader
     minicss: Build.Loader
-    resolveUrl: Build.Loader
     style: Build.Loader
     url: Build.Loader
     xml: Build.Loader
@@ -43,7 +51,6 @@ declare module '@roots/bud-framework' {
     font: Build.Item
     html: Build.Item
     md: Build.Item
-    resolveUrl: Build.Item
     raw: Build.Item
     xml: Build.Item
   }

@@ -1,4 +1,4 @@
-import BudEslint from './extension.js'
+import type BudEslint from './extension.js'
 
 declare module '@roots/bud-framework' {
   interface Bud {

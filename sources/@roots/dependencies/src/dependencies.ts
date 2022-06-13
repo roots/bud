@@ -1,6 +1,6 @@
 import {spawnSync} from 'child_process'
 
-import {IDependencyManager} from './'
+import type {IDependencyManager} from './'
 import {Npm} from './command'
 import {Yarn} from './command'
 

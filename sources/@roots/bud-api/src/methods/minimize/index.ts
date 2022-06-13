@@ -1,4 +1,4 @@
-import {Bud} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
 import CssMinimizer from 'css-minimizer-webpack-plugin'
 import {isUndefined} from 'lodash-es'
 

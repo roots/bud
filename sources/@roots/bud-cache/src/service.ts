@@ -1,4 +1,5 @@
 import {Service, Services} from '@roots/bud-framework'
+import type {Context} from '@roots/bud-framework/src/config'
 import fs from 'fs-extra'
 import {bind} from 'helpful-decorators'
 import {createHash} from 'node:crypto'
@@ -63,12 +64,12 @@ export default class Cache
    *
    * @public
    */
-  public get buildDependencies(): Record<string, Array<string>> {
+  public get buildDependencies(): any {
     return {
       bud: Object.values(this.app.context.disk.config),
     }
   }
-  public set buildDependencies(deps: Record<string, Array<string>>) {
+  public set buildDependencies(deps: Context['disk']['config']) {
     this.app.context.disk.config = deps
   }
 

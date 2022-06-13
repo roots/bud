@@ -57,10 +57,6 @@ export class Test extends Command {
         `@bud test integration --verbose`,
         `run integration tests with jest verbose flag`,
       ],
-      [
-        `@bud test integration --coverage --verbose`,
-        `run integration tests with jest coverage and verbose flags`,
-      ],
     ],
   }
 

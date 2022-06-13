@@ -5,5 +5,15 @@
   "type": "module",
   "exports": {
     ".": "./index.js"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./index.d.ts"
+      ]
+    }
+  },
+  "devDependencies": {
+    "@types/node": "16.11.39"
   }
 }

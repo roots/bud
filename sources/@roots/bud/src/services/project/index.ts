@@ -3,7 +3,7 @@ import fs from 'fs-extra'
 import {bind} from 'helpful-decorators'
 import {isFunction, isString, omit} from 'lodash-es'
 
-import {repository} from './repository.js'
+import type {repository} from './repository.js'
 
 /**
  * Project service

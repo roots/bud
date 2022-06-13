@@ -1,4 +1,4 @@
-import {Bud} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
 
 export interface ConfigItem {
   fileName: string

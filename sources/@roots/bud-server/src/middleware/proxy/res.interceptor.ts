@@ -1,10 +1,10 @@
-import {Bud} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
 import {bind} from 'helpful-decorators'
-import * as http from 'http'
+import type * as http from 'http'
 import {responseInterceptor} from 'http-proxy-middleware'
 import {isString, isUndefined} from 'lodash-es'
 
-import {ApplicationURL} from './url.js'
+import type {ApplicationURL} from './url.js'
 
 interface IncomingMessage extends http.IncomingMessage {
   cookies: any

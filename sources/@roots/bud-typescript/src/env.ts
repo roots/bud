@@ -1,7 +1,7 @@
-import * as Build from '@roots/bud-framework/services/build'
+import type * as Build from '@roots/bud-framework/services/build'
 
-import BudTypeScript from './extension.js'
-import BudTypeCheckPlugin from './typecheck/index.js'
+import type BudTypeScript from './extension.js'
+import type BudTypeCheckPlugin from './typecheck/index.js'
 
 declare module '@roots/bud-framework' {
   interface Bud {

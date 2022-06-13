@@ -3,6 +3,7 @@
 
 coverage
 storage
+.swc
 
 **/*.log
 **/lib

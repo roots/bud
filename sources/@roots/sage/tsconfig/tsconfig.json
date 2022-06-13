@@ -2,10 +2,13 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "display": "Sage",
   "compilerOptions": {
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "module": "ESNext",
-    "target": "ES5",
-
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
+    ],
+    "module": "esnext",
+    "target": "esnext",
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
@@ -14,14 +17,23 @@
     "jsx": "preserve",
     "moduleResolution": "node",
     "paths": {
-      "@scripts/*": ["resources/scripts/*"],
-      "@styles/*": ["resources/styles/*"]
+      "@scripts/*": [
+        "resources/scripts/*"
+      ],
+      "@styles/*": [
+        "resources/styles/*"
+      ]
     },
     "noEmit": true,
     "noFallthroughCasesInSwitch": true,
-    "resolveJsonModule": true,
     "skipLibCheck": true,
-    "strict": true,
-    "types": ["@roots/bud", "@roots/sage", "@roots/bud-typescript", "webpack-env"]
+    "types": [
+      "@roots/bud",
+      "@roots/bud-api",
+      "@roots/bud-preset-wordpress",
+      "@roots/sage",
+      "@roots/bud-typescript",
+      "webpack-env"
+    ]
   }
 }

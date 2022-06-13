@@ -1,6 +1,6 @@
-import {Bud} from '../../bud.js'
-import * as Framework from '../../index.js'
-import {Registry, Store} from '../../registry/index.js'
+import type {Bud} from '../../bud.js'
+import type * as Framework from '../../index.js'
+import type {Registry, Store} from '../../registry/index.js'
 
 /**
  * Assign and filter callback to values.

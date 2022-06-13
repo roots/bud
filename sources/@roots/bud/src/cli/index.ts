@@ -1,4 +1,4 @@
-import {Config} from '@roots/bud-framework'
+import type {Config} from '@roots/bud-framework'
 import {Builtins, Cli} from 'clipanion'
 import {execa} from 'execa'
 import {platform} from 'node:os'
@@ -24,6 +24,7 @@ const tsNode = async (context: Config.Context) => {
     ).length
   ) {
     try {
+      // @ts-ignore
       const {register} = await import('ts-node')
       register({
         esm: true,
@@ -34,7 +35,7 @@ const tsNode = async (context: Config.Context) => {
       context.stderr.write(
         `You must install ts-node in order to configure bud with typescript`,
       )
-      context.stderr.write(err)
+      context.stderr.write(JSON.stringify(err))
     }
   }
 }

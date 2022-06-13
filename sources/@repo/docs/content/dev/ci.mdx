@@ -30,7 +30,7 @@ running this script outside of the container _will publish the package_.
 docker-compose run --rm bud yarn install --immutable \
   && docker-compose run --rm bud yarn @bud lint --skypack --eslint \
   && docker-compose run --rm bud yarn @bud release --tag latest \
-  && docker-compose run --rm bud yarn @bud test unit --coverage --maxWorkers 50% \
+  && docker-compose run --rm bud yarn @bud test unit --maxWorkers 50% \
   && docker-compose run --rm bud yarn @bud test integration --maxWorkers 50%
 ```
 
@@ -41,7 +41,7 @@ docker-compose run --rm bud yarn install --immutable \
 yarn install --immutable \
   && yarn @bud lint --skypack --eslint \
   && yarn @bud release --tag latest \
-  && yarn @bud test unit --coverage --maxWorkers 50% \
+  && yarn @bud test unit --maxWorkers 50% \
   && yarn @bud test integration --maxWorkers 50%
 ```
 

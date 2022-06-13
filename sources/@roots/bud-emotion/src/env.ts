@@ -1,4 +1,4 @@
-import BudEmotion from './extension.js'
+import type BudEmotion from './extension.js'
 
 declare module '@roots/bud-framework' {
   interface Modules {

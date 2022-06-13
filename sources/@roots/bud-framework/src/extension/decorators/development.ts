@@ -2,7 +2,7 @@
  * Extension to be run in `development` mode
  *
  * @remarks
- * Class decorator
+ * Extension decorator
  *
  * @public
  */

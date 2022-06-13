@@ -1,4 +1,4 @@
-import {Bud} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
 
 /**
  * .css handler factory
@@ -92,20 +92,6 @@ export const file = (app: Bud) =>
       name: app.hooks.filter('feature.hash')
         ? app.hooks.filter('value.hashFormat').concat('.[ext]')
         : app.hooks.filter('value.fileFormat').concat('.[ext]'),
-    }))
-
-/**
- * Factory {@link Item} resolve-url
- *
- * @public
- */
-export const resolveUrl = (app: Bud) =>
-  app.build
-    .makeItem()
-    .setLoader(`resolveUrl`)
-    .setOptions(({path, hooks}) => ({
-      root: path('@src'),
-      sourceMap: hooks.filter('build.devtool') ? true : false,
     }))
 
 /**

@@ -50,8 +50,8 @@
   "devDependencies": {
     "@roots/container": "workspace:sources/@roots/container",
     "@skypack/package-check": "0.2.2",
-    "@types/lodash-es": "^4",
-    "@types/node": "16.11.36",
+    "@types/lodash-es": "4.17.6",
+    "@types/node": "16.11.39",
     "autobind-decorator": "2.4.0",
     "fs-extra": "10.1.0",
     "resolve-from": "5.0.0"

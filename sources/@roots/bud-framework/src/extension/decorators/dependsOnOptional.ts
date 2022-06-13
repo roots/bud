@@ -1,4 +1,4 @@
-import {Modules} from '../../registry/modules.js'
+import type {Modules} from '../../registry/modules.js'
 
 export const dependsOnOptional =
   (dependsOnOptional: Array<`${keyof Modules & string}`>) =>

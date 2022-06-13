@@ -15,8 +15,6 @@
   },
   "devDependencies": {
     "@roots/bud": "latest",
-    "@roots/bud-mdx": "latest",
-    "@roots/bud-preset-recommend": "latest",
-    "@roots/bud-react": "latest"
+    "@roots/bud-mdx": "latest"
   }
 }

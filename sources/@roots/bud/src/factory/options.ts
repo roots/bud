@@ -1,4 +1,4 @@
-import {Config} from '@roots/bud-framework'
+import type {Config} from '@roots/bud-framework'
 
 import {extensions} from '../extensions/index.js'
 import {seed} from '../seed.js'

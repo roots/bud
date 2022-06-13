@@ -1,7 +1,7 @@
-import {Bud} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
 import chalk from 'chalk'
 import figures from 'figures'
-import {StatsCompilation} from 'webpack'
+import type {StatsCompilation} from 'webpack'
 
 import * as components from './components.js'
 import {theme} from './theme.js'
@@ -18,7 +18,7 @@ export const report = ({
   errors: any
   app: Bud
 }): string => {
-  const output = []
+  const output = [`\n`]
 
   errors && output.push(...errors.map(webpackMessage.makeError))
   warnings && output.push(...warnings.map(webpackMessage.makeWarning))

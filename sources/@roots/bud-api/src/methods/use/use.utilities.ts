@@ -1,4 +1,4 @@
-import {Extension} from '@roots/bud-framework'
+import type {Extension} from '@roots/bud-framework/extension'
 import {isEqual, isFunction} from 'lodash-es'
 import {nanoid} from 'nanoid'
 

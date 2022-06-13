@@ -1,9 +1,10 @@
-import stripAnsi from 'strip-ansi'
-import {StatsError} from 'webpack'
+import {bind} from 'helpful-decorators'
+import stripAnsi = require('strip-ansi')
+import type Webpack from 'webpack'
 
 interface Payload {
   hash: string
-  errors: Array<StatsError>
+  errors: Array<Webpack.StatsError>
 }
 
 /**
@@ -32,7 +33,7 @@ export class Controller {
       (a, c) => `${a}
         <div>
           <span>${c?.title ?? 'Compilation error'}</span>
-          <pre>${stripAnsi(c?.message) ?? ''}</pre>
+          <pre>${stripAnsi.default(c?.message) ?? ''}</pre>
         </div>`,
       ``,
     )
@@ -51,6 +52,7 @@ export class Controller {
    * Update element
    * @public
    */
+  @bind
   public update(payload: Payload): void {
     this.payload = payload
     this.element.setAttribute('message', this.message ?? ``)

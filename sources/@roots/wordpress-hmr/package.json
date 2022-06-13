@@ -1,0 +1,86 @@
+{
+  "name": "@roots/wordpress-hmr",
+  "description": "WordPress HMR scripts",
+  "version": "0.0.0",
+  "homepage": "https://roots.io/bud",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "sources/@roots/wordpress-hmr"
+  },
+  "contributors": [
+    {
+      "name": "kellymears",
+      "url": "https://github.com/kellymears"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/roots/bud/issues"
+  },
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "keywords": [
+    "wordpress"
+  ],
+  "engines": {
+    "node": ">=16"
+  },
+  "files": [
+    "lib/"
+  ],
+  "type": "module",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": "./lib/index.js",
+    "./block": "./lib/block.js",
+    "./cache": "./lib/cache.js",
+    "./editor": "./lib/editor.js",
+    "./format": "./lib/format.js",
+    "./plugin": "./lib/plugin.js"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ],
+      "block": [
+        "./lib/block.d.ts"
+      ],
+      "cache": [
+        "./lib/cache.d.ts"
+      ],
+      "editor": [
+        "./lib/editor.d.ts"
+      ],
+      "format": [
+        "./lib/format.d.ts"
+      ],
+      "plugin": [
+        "./lib/plugin.d.ts"
+      ]
+    }
+  },
+  "devDependencies": {
+    "@skypack/package-check": "0.2.2",
+    "@types/lodash-es": "4.17.6",
+    "@types/node": "16.11.39",
+    "@types/react": "17.0.45",
+    "@types/wordpress__blocks": "^11",
+    "@types/wordpress__data": "^6",
+    "webpack": "5.73.0"
+  },
+  "dependencies": {
+    "@wordpress/blocks": "11.9.0",
+    "@wordpress/data": "6.10.0",
+    "@wordpress/hooks": "3.10.0",
+    "@wordpress/plugins": "4.8.0",
+    "@wordpress/rich-text": "5.8.0",
+    "lodash-es": "4.17.21",
+    "react": "17.0.2",
+    "tslib": "2.4.0"
+  }
+}

@@ -10,13 +10,19 @@ import {
  *
  * @public
  * @decorator `@label`
- * @decorator `@dependsOn`
+ * @decorator `@dependsOnOptional`
  */
 @label('@roots/bud-emotion')
-@dependsOn(['@roots/bud-babel', '@roots/bud-react'])
+@dependsOn(['@roots/bud-babel'])
 export default class BudEmotion extends Extension {
+  /**
+   * `beforeBuild` callback
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
-  public async boot() {
+  public async beforeBuild() {
     const plugin = await this.resolve('@emotion/babel-plugin')
     this.app.babel.setPlugin('@emotion/babel-plugin', plugin)
   }

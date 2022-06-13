@@ -42,18 +42,22 @@
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "exports": {
-    ".": "./lib/index.js"
+    ".": "./lib/index.js",
+    "./extension": "./lib/extension.js"
   },
   "typesVersions": {
     "*": {
       ".": [
-        "./lib/index.js"
+        "./lib/index.d.ts"
+      ],
+      "extension": [
+        "./lib/extension.d.ts"
       ]
     }
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.11.36"
+    "@types/node": "16.11.39"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",

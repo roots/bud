@@ -1,6 +1,6 @@
 import fs from 'fs-extra'
 
-import {Bud} from './bud.js'
+import type {Bud} from './bud.js'
 
 /**
  * Render error

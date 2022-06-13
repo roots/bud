@@ -20,7 +20,7 @@ export class Vendor extends Command {
 
   public async execute() {
     await this.$(
-      `yarn ts-node --project ${tsConfig} ${vendor} ${this.request}`,
+      `yarn ts-node-esm --project ${tsConfig} ${vendor} ${this.request}`,
     )
   }
 }

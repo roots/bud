@@ -1,4 +1,4 @@
-import {Bud} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
 import {bind, once} from 'helpful-decorators'
 import {join} from 'node:path'
 import {

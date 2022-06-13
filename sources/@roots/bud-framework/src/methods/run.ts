@@ -1,14 +1,12 @@
-import type {Bud} from '@roots/bud-framework'
-import fs from 'fs-extra'
+import type {Bud} from '../bud'
 
-export const {ensureDirSync, pathExistsSync} = fs
-
+/**
+ * Run the build
+ *
+ * @public
+ */
 export interface run {
   (): Promise<void>
-}
-
-export interface facade {
-  (): void
 }
 
 export const run: run = async function (): Promise<void> {
@@ -16,13 +14,15 @@ export const run: run = async function (): Promise<void> {
 
   await app.hooks.fire('event.run')
 
+  const development = app.server?.run
+
   const production = async () => {
     const compiler = await app.compiler.compile()
     compiler.run(app.compiler.callback)
   }
 
   try {
-    app.isDevelopment ? await app.server.run() : await production()
+    app.isDevelopment ? await development() : await production()
   } catch (error) {
     app.error(error)
   }

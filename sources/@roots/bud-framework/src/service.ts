@@ -1,6 +1,6 @@
 import Container from '@roots/container'
 
-import {Bud} from './bud.js'
+import type {Bud} from './bud.js'
 
 /**
  * Service

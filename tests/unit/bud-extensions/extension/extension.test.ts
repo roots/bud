@@ -1,5 +1,6 @@
 import {beforeAll, beforeEach, describe, it, jest} from '@jest/globals'
-import {Bud, factory} from '@repo/test-kit/bud'
+import {factory} from '@repo/test-kit/bud'
+import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 
 const mockInit = jest.fn()
@@ -90,8 +91,10 @@ describe('extension', function () {
 
     const instance = bud.extensions.get('mock-extension')
 
+    // @ts-ignore
     instance.setOption('fn', 'baz')
 
+    // @ts-ignore
     expect(instance.getOption('fn')).toBe('baz')
 
     expect(bud.extensions.get('mock-extension').options).toEqual(
@@ -111,8 +114,9 @@ describe('extension', function () {
 
     const instance = bud.extensions.get('mock-extension')
 
+    // @ts-ignore
     instance.setOptions({changed: 'options'})
-
+    // @ts-ignore
     expect(instance.getOption('changed')).toBe('options')
 
     expect(bud.extensions.get('mock-extension').options).toEqual(
@@ -126,7 +130,7 @@ describe('extension', function () {
     bud.extensions.set(new MockExtension(bud) as any)
 
     const instance = bud.extensions.get('mock-extension')
-
+    // @ts-ignore
     instance.setOptions(opts => {
       expect(opts).toEqual(
         expect.objectContaining({
@@ -145,12 +149,12 @@ describe('extension', function () {
     bud.extensions.set(new MockExtension(bud) as any)
 
     const instance = bud.extensions.get('mock-extension')
-
+    // @ts-ignore
     instance.setOptions(opts => ({
       ...opts,
       changed: 'options',
     }))
-
+    // @ts-ignore
     expect(instance.getOption('changed')).toBe('options')
 
     expect(bud.extensions.get('mock-extension').options).toEqual(

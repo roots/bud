@@ -162,7 +162,7 @@ if (typeof window !== 'undefined') {
 }
 
 function createReporter() {
-  var strip = require('strip-ansi')
+  var {default: strip} = require('strip-ansi')
 
   var overlay
 

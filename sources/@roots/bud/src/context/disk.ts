@@ -13,7 +13,7 @@ export class Disk {
    */
   public constructor(
     public projectDir: string,
-    public config: Record<string, any> = {},
+    public config: Record<string, string> = {},
   ) {}
 
   /**
@@ -50,7 +50,7 @@ export class Disk {
     this.config = search.reduce(
       (configs: Record<string, string>, filePath: string) => ({
         ...configs,
-        [`${filePath.split(`${this.projectDir}/`).pop()}`]: filePath,
+        [`${filePath.replace(`${this.projectDir}/`, '')}`]: filePath,
       }),
       this.config,
     )

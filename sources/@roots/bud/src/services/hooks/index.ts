@@ -1,4 +1,4 @@
-import {Services} from '@roots/bud-framework'
+import type {Services} from '@roots/bud-framework'
 import Base from '@roots/bud-hooks'
 import {bind} from 'helpful-decorators'
 

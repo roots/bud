@@ -1,13 +1,13 @@
-import {Bud} from '../../../bud.js'
-import {Base} from '../base.js'
-import {Items} from '../index.js'
+import type {Bud} from '../../../bud.js'
+import type {Base} from '../base.js'
+import type {Items} from '../index.js'
 
 /**
  * Loader rule definition
  *
  * @public
  */
-namespace Rule {
+export namespace Rule {
   /**
    * File parser interface
    *
@@ -49,7 +49,7 @@ namespace Rule {
   }>
 }
 
-interface Rule extends Base {
+export interface Rule extends Base {
   /**
    * Test pattern
    *
@@ -220,5 +220,3 @@ interface Rule extends Base {
    */
   toWebpack(): Rule.Output
 }
-
-export {Rule as default}

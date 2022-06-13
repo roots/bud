@@ -26,6 +26,10 @@ export class Component extends HTMLElement {
     return this.getAttribute('message')
   }
 
+  public constructor() {
+    super()
+  }
+
   /**
    * Render component
    *
@@ -62,6 +66,7 @@ export class Component extends HTMLElement {
         align-content: center;
         flex-direction: column;
         transition: all 0.2s ease-in-out;
+        z-index: 9999;
       }
       .${this.name} > div {
         align-items: center;
@@ -92,7 +97,8 @@ export class Component extends HTMLElement {
   }
 
   public attributeChangedCallback() {
-    if (document.body?.style) this.documentBodyStyle = document.body.style
+    if (!this.documentBodyStyle)
+      this.documentBodyStyle = document.body?.style
 
     if (this.getAttribute('message')) {
       document.body.style.overflow = 'hidden'
@@ -103,7 +109,7 @@ export class Component extends HTMLElement {
       return this.setInnerHtml(this.getAttribute('message'))
     }
 
-    if (this.documentBodyStyle?.overflow) {
+    if (this.documentBodyStyle?.overflow && document?.body?.style) {
       document.body.style.overflow = this.documentBodyStyle.overflow
     }
 

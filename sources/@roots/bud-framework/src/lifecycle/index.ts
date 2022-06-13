@@ -1,4 +1,5 @@
-import {Bud, Config, Logger} from '../index.js'
+import type {Bud, Config} from '../index.js'
+import {Logger} from '../logger/index.js'
 import * as methods from '../methods/index.js'
 import {Module} from '../module.js'
 import * as Process from '../process.js'

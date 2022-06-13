@@ -1,4 +1,4 @@
-import {Bud, Build} from '@roots/bud-framework'
+import type {Bud, Build} from '@roots/bud-framework'
 import {bind} from 'helpful-decorators'
 import {isFunction, isString} from 'lodash-es'
 

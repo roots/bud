@@ -6,7 +6,7 @@ import {
 } from '@roots/bud-framework/extension/decorators'
 import {ESBuildMinifyPlugin} from 'esbuild-loader'
 
-type Opts = {
+export interface Options {
   minify: {
     css: boolean
     include: string | RegExp | Array<string | RegExp>
@@ -23,8 +23,15 @@ type Opts = {
   }
 }
 
+/**
+ * Bud esbuild extension
+ *
+ * @public
+ * @decorator `@label`
+ * @decorator `@options`
+ */
 @label('@roots/bud-esbuild')
-@options<Opts>({
+@options<Options>({
   minify: app => ({
     css: true,
     include: [
@@ -44,7 +51,13 @@ type Opts = {
       project.get(['config', 'base', 'tsconfig.json', 'module']) ?? null,
   }),
 })
-export default class BudEsbuild extends Extension<Opts> {
+export default class BudEsbuild extends Extension<Options> {
+  /**
+   * `boot` callback
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public async boot() {
     const loader = await this.resolve('esbuild-loader')
@@ -69,11 +82,17 @@ export default class BudEsbuild extends Extension<Opts> {
     this.app.hooks.on('build.resolve.extensions', ext =>
       ext.add('.ts').add('.tsx'),
     )
+  }
 
-    this.app.hooks.action('event.build.before', async ({hooks}) => {
-      hooks.on('build.optimization.minimizer', () => [
-        new ESBuildMinifyPlugin(this.options.minify),
-      ])
-    })
+  /**
+   * `beforeBuild` callback
+   *
+   * @public
+   */
+  @bind
+  public async beforeBuild() {
+    this.app.hooks.on('build.optimization.minimizer', () => [
+      new ESBuildMinifyPlugin(this.options.minify),
+    ])
   }
 }

@@ -23,7 +23,7 @@ import '@roots/bud-postcss'
 
 import type {Extension} from '@roots/bud-framework'
 
-import * as purge from './purge.interface.js'
+import type * as purge from './purge.interface.js'
 
 declare module '@roots/bud-framework' {
   interface Bud {

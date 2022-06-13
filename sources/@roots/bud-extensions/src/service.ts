@@ -39,7 +39,6 @@ export default class Extensions
     await this.runAll('_init')
     await this.runAll('_register')
     await this.runAll('_boot')
-    await this.runAll('_beforeBuild')
   }
 
   /**
@@ -131,12 +130,12 @@ export default class Extensions
       .filter(signifier => !signifier.startsWith('@types'))
       .filter(
         signifier =>
-          signifier.startsWith('@roots') || signifier.includes('bud-'),
+          signifier.startsWith('@roots/bud-') ||
+          signifier.startsWith('@roots/sage'),
       )
       .filter(
         signifier =>
           ![
-            '@roots/bud',
             '@roots/bud-api',
             '@roots/bud-build',
             '@roots/bud-cache',
@@ -147,7 +146,6 @@ export default class Extensions
             '@roots/bud-framework',
             '@roots/bud-hooks',
             '@roots/bud-server',
-            '@roots/container',
           ].includes(signifier),
       )
       .filter(signifier => !this.has(signifier))

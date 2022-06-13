@@ -1,4 +1,4 @@
-import {Bud} from '../../bud.js'
+import type {Bud} from '../../bud.js'
 
 export const expose =
   (propName: `${keyof Bud & string}`) =>

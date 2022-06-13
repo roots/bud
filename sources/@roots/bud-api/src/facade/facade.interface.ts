@@ -11,7 +11,6 @@ import type {minimize} from '../methods/minimize/index.js'
 import type {persist} from '../methods/persist/index.js'
 import type {provide} from '../methods/provide/index.js'
 import type * as proxy from '../methods/proxy/index.js'
-import type * as run from '../methods/run/index.js'
 import type {runtime} from '../methods/runtime/index.js'
 import type * as serve from '../methods/serve/index.js'
 import type * as splitChunks from '../methods/splitChunks/index.js'
@@ -622,18 +621,6 @@ export class Facade {
    * @public
    */
   public proxy: proxy.facade
-
-  /**
-   * Run the build
-   *
-   * @example
-   * ```js
-   * bud.run()
-   * ```
-   *
-   * @public
-   */
-  public run: run.facade
 
   /**
    * Generate a runtime chunk intended to be inlined on the page.

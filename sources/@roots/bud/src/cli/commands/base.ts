@@ -1,8 +1,8 @@
-import {Config} from '@roots/bud-framework'
+import type {Config} from '@roots/bud-framework'
 import {BaseContext, Command} from 'clipanion'
 import {bind} from 'helpful-decorators'
 
-import Bud from '../../bud.js'
+import type Bud from '../../bud.js'
 import * as disk from '../config/disk.config.js'
 import {Notifier} from '../notifier/index.js'
 
@@ -50,6 +50,7 @@ export abstract class BaseCommand extends Command {
   @bind
   public async make() {
     this.notifier = new Notifier(this.app)
+
     this.app.hooks.action('event.compiler.close', this.notifier.notify)
 
     try {
@@ -79,10 +80,12 @@ export abstract class BaseCommand extends Command {
 
   /**
    * Run the build
+   *
    * @public
+   * @decorator `@bind`
    */
   @bind
   public async run() {
-    await this.app.api.call('run')
+    await this.app.run()
   }
 }

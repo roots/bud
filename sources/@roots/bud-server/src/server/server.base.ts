@@ -1,10 +1,10 @@
-import {Bud, Server} from '@roots/bud-framework'
+import type {Bud, Server} from '@roots/bud-framework'
 import type {Connection} from '@roots/bud-framework/services/server'
 import {bind} from 'helpful-decorators'
-import {IncomingMessage, Server as HttpServer} from 'node:http'
-import {Server as HttpsServer} from 'node:https'
-import Signale from 'signale'
-import {ServerResponse} from 'webpack-dev-middleware'
+import type {IncomingMessage, Server as HttpServer} from 'node:http'
+import type {Server as HttpsServer} from 'node:https'
+import type Signale from 'signale'
+import type {ServerResponse} from 'webpack-dev-middleware'
 
 /**
  * Node server

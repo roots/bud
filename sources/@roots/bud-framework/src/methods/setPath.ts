@@ -1,6 +1,7 @@
 import {isString} from 'lodash-es'
 
-import {Bud, Locations} from '../index.js'
+import type {Bud} from '../bud.js'
+import type {Locations} from '../registry/locations.js'
 
 export interface setPath {
   <T extends `${keyof Locations & string}`>(

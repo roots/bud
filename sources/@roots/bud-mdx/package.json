@@ -44,7 +44,8 @@
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "exports": {
-    ".": "./lib/index.js"
+    ".": "./lib/index.js",
+    "./extension": "./lib/extension.js"
   },
   "typesVersions": {
     "*": {
@@ -59,13 +60,13 @@
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@types/lodash": "4.14.182",
-    "@types/node": "16.11.36",
+    "@types/node": "16.11.39",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "webpack": "5.72.1"
+    "webpack": "5.73.0"
   },
   "dependencies": {
-    "@mdx-js/loader": "^2.0.0",
+    "@mdx-js/loader": "^2.1.1",
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
     "@roots/bud-build": "workspace:sources/@roots/bud-build",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
@@ -73,10 +74,26 @@
     "tslib": "2.4.0"
   },
   "peerDependencies": {
-    "@mdx-js/loader": "^1.6.22 || ^2.0.0"
+    "@mdx-js/loader": "*",
+    "@roots/bud-babel": "*",
+    "@roots/bud-build": "*",
+    "@roots/bud-framework": "*",
+    "@roots/bud-react": "*"
   },
   "peerDependenciesMeta": {
     "@mdx-js/loader": {
+      "optional": true
+    },
+    "@roots/bud-babel": {
+      "optional": true
+    },
+    "@roots/bud-build": {
+      "optional": true
+    },
+    "@roots/bud-framework": {
+      "optional": true
+    },
+    "@roots/bud-react": {
       "optional": true
     }
   }
