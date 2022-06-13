@@ -1,6 +1,6 @@
-import {FSWatcher, WatchOptions} from 'chokidar'
+import type {FSWatcher, WatchOptions} from 'chokidar'
 
-import {Logger} from '../../logger/index.js'
+import type {Logger} from '../../logger/index.js'
 
 /**
  * Watcher

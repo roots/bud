@@ -1,4 +1,4 @@
-import {Bud} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
 import * as json5Parser from 'json5'
 import * as tomlParser from 'toml'
 

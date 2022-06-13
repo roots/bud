@@ -1,4 +1,4 @@
-import BudTerser from './extension.js'
+import type BudTerser from './extension.js'
 
 declare module '@roots/bud-framework' {
   interface Bud {

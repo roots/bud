@@ -1,4 +1,4 @@
-import BudPresetRecommend from './extension.js'
+import type BudPresetRecommend from './extension.js'
 
 declare module '@roots/bud-framework' {
   interface Modules {

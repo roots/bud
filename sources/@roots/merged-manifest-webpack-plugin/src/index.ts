@@ -4,7 +4,7 @@
 import fs from 'fs-extra'
 import {bind} from 'helpful-decorators'
 import path from 'node:path'
-import Webpack from 'webpack'
+import type Webpack from 'webpack'
 
 /**
  * Merged Manifest Webpack Plugin

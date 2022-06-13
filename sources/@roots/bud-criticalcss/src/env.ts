@@ -1,5 +1,5 @@
-import {critical} from './critical.js'
-import Extension from './extension.js'
+import type {critical} from './critical.js'
+import type Extension from './extension.js'
 
 declare module '@roots/bud-framework' {
   interface Bud {

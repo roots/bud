@@ -1,4 +1,4 @@
-import {Service} from '../service.js'
+import type {Service} from '../service.js'
 import type * as Api from './api/index.js'
 import type * as Build from './build/index.js'
 import type * as Cache from './cache/index.js'

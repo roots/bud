@@ -1,5 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
-import CopyPlugin from 'copy-webpack-plugin'
+import type CopyPlugin from 'copy-webpack-plugin'
 
 export interface facade {
   (

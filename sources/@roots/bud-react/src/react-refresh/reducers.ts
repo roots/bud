@@ -1,4 +1,4 @@
-import {EntryObject} from '@roots/bud-api/methods/entry'
+import type {EntryObject} from '@roots/bud-api/methods/entry'
 import {isArray, isString} from 'lodash-es'
 
 /**

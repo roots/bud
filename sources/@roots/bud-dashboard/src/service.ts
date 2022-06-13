@@ -1,7 +1,7 @@
 import {Dashboard as Base, Service} from '@roots/bud-framework'
 import {bind} from 'helpful-decorators'
 import * as logUpdate from 'log-update'
-import {StatsCompilation} from 'webpack'
+import type {StatsCompilation} from 'webpack'
 
 import {Line} from './render/line.js'
 import {reporter} from './render/stats/index.js'

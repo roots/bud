@@ -5,7 +5,7 @@ import {
   label,
 } from '@roots/bud-framework/extension/decorators'
 import {isFunction} from 'lodash-es'
-import {Plugin, Processor} from 'postcss'
+import type {Plugin, Processor} from 'postcss'
 
 type Input =
   | string

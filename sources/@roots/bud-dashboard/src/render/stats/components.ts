@@ -1,9 +1,9 @@
-import {Bud} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
 import chalk from 'chalk'
 import figures, {mainSymbols} from 'figures'
 import humanReadable from 'human-readable'
 import lodash, {truncate} from 'lodash-es'
-import {StatsAsset, StatsCompilation} from 'webpack'
+import type {StatsAsset, StatsCompilation} from 'webpack'
 
 import * as box from './box.factory.js'
 import * as table from './table.factory.js'

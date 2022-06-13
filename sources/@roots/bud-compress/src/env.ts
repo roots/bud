@@ -1,6 +1,7 @@
-import BudBrotliWebpackPlugin from './brotli.js'
-import BudCompressionExtension, {Options} from './extension.js'
-import BudGzipWebpackPlugin from './gzip.js'
+import type BudBrotliWebpackPlugin from './brotli.js'
+import type BudCompressionExtension from './extension.js'
+import type {Options} from './extension.js'
+import type BudGzipWebpackPlugin from './gzip.js'
 
 declare module '@roots/bud-framework' {
   interface Bud {

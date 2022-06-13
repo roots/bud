@@ -1,7 +1,7 @@
 import {isString} from 'lodash-es'
 
-import {Bud} from '../bud.js'
-import {Options} from '../config/options.js'
+import type {Bud} from '../bud.js'
+import type {Options} from '../config/options.js'
 
 /**
  * make function interface

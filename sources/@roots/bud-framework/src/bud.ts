@@ -2,7 +2,7 @@ import {bind} from 'helpful-decorators'
 import {omit} from 'lodash-es'
 import {format, PrettyFormatOptions} from 'pretty-format'
 
-import {
+import type {
   Api,
   Build,
   Cache,
@@ -18,8 +18,8 @@ import {
   Services,
 } from '.'
 import {lifecycle} from './lifecycle/index.js'
-import * as methods from './methods/index.js'
-import {Module} from './module.js'
+import type * as methods from './methods/index.js'
+import type {Module} from './module.js'
 import * as parsers from './parsers/index.js'
 
 /**

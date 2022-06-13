@@ -1,4 +1,4 @@
-import {Bud, Server} from '@roots/bud-framework'
+import type {Bud, Server} from '@roots/bud-framework'
 import chokidar from 'chokidar'
 import {globby} from 'globby'
 import {bind} from 'helpful-decorators'

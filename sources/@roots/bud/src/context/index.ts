@@ -1,4 +1,4 @@
-import * as Framework from '@roots/bud-framework'
+import type * as Framework from '@roots/bud-framework'
 
 import {Application} from './application.js'
 import {Context} from './context.js'

@@ -1,6 +1,6 @@
-import {Item, Loader} from '@roots/bud-build'
+import type {Item, Loader} from '@roots/bud-build'
 
-import BudMDX from './extension.js'
+import type BudMDX from './extension.js'
 
 declare module '@roots/bud-framework' {
   interface Bud {

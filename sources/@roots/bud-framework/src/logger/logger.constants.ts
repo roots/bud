@@ -1,6 +1,6 @@
 import figures from 'figures'
 
-import {Bud} from '../index.js'
+import type {Bud} from '../bud.js'
 
 /**
  * Instance configuration

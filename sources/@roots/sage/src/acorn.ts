@@ -1,4 +1,4 @@
-import {Bud} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
 
 import eventCompilerClose from './hooks/event.compiler.close.js'
 import eventCompilerDone from './hooks/event.compiler.done.js'

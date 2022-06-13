@@ -1,6 +1,6 @@
 import fs from 'fs-extra'
 
-import {Disk} from './disk.js'
+import type {Disk} from './disk.js'
 
 /**
  * Context: project manifest

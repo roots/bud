@@ -11,7 +11,7 @@ import type {
 } from 'webpack'
 import Webpack from 'webpack'
 
-import BudError from './Reporter/BudError.js'
+import type BudError from './Reporter/BudError.js'
 import * as Reporter from './Reporter/index.js'
 
 /**

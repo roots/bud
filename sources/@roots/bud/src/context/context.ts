@@ -1,11 +1,11 @@
-import {Config} from '@roots/bud-framework'
-import {BaseContext} from 'clipanion'
+import type {Config} from '@roots/bud-framework'
+import type {BaseContext} from 'clipanion'
 import process from 'node:process'
-import {Readable, Writable} from 'node:stream'
+import type {Readable, Writable} from 'node:stream'
 
-import {Application} from './application.js'
-import {Disk} from './disk.js'
-import {Env} from './env.js'
+import type {Application} from './application.js'
+import type {Disk} from './disk.js'
+import type {Env} from './env.js'
 
 export class Context implements Config.Context, BaseContext {
   public args: Record<string, string | boolean | undefined | number> = {}

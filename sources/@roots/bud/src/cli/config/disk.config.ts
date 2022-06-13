@@ -1,8 +1,8 @@
-import {Bud} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
 import {bind} from 'helpful-decorators'
 import {isFunction, isObject} from 'lodash-es'
 
-import {ConfigManifest} from '../../services/project/repository.js'
+import type {ConfigManifest} from '../../services/project/repository.js'
 
 /**
  * User config parser

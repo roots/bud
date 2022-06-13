@@ -1,8 +1,8 @@
-import {Config} from '@roots/bud-framework'
+import type {Config} from '@roots/bud-framework'
 import {BaseContext, Command} from 'clipanion'
 import {bind} from 'helpful-decorators'
 
-import Bud from '../../bud.js'
+import type Bud from '../../bud.js'
 import * as disk from '../config/disk.config.js'
 import {Notifier} from '../notifier/index.js'
 

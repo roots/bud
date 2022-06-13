@@ -1,4 +1,5 @@
-import * as Bud from '@roots/bud-framework'
+import type * as Bud from '@roots/bud-framework'
+import {Service} from '@roots/bud-framework/service'
 import fs from 'fs-extra'
 import {bind} from 'helpful-decorators'
 import {isFunction, isUndefined} from 'lodash-es'
@@ -19,7 +20,7 @@ const {ensureFile, writeFile} = fs
  *
  * @public
  */
-export class Build extends Bud.Service implements Bud.Build.Service {
+export class Build extends Service implements Bud.Build.Service {
   /**
    * @public
    */

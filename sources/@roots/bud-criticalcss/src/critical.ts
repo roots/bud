@@ -1,5 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
-import {Options} from '@roots/critical-css-webpack-plugin'
+import type {Options} from '@roots/critical-css-webpack-plugin'
 
 /**
  * Extract critical CSS

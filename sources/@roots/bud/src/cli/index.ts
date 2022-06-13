@@ -1,4 +1,4 @@
-import {Config} from '@roots/bud-framework'
+import type {Config} from '@roots/bud-framework'
 import {Builtins, Cli} from 'clipanion'
 import {execa} from 'execa'
 import {platform} from 'node:os'

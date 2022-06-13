@@ -1,12 +1,12 @@
-import {
+import type {
   Server as HttpServer,
   ServerOptions as HttpServerOptions,
 } from 'http'
-import {
+import type {
   Server as HttpsServer,
   ServerOptions as HttpsServerOptions,
 } from 'https'
-import {IncomingMessage, ServerResponse} from 'webpack-dev-middleware'
+import type {IncomingMessage, ServerResponse} from 'webpack-dev-middleware'
 
 export {HttpsServerOptions}
 export {HttpServerOptions}
