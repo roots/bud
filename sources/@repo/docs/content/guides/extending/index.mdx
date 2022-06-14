@@ -10,16 +10,42 @@ import CodeBlock from '@theme/CodeBlock'
 
 You can add additional functionality to **bud.js** using the extensions API.
 
-## Discoverability
+## Packaging
 
-If authoring a module, include a `bud` field to mark the module as an extension. This field will be
-checked when resolving project packages. Without this, the extension won't be imported!
+We recommend authoring bud extensions with ES Modules.
 
-```json
+```json title="package.json"
 {
   "name": "my-extension",
+  "type": "module"
+}
+```
+
+Include a `bud` field to mark the module as an extension. This field will be
+checked when resolving project packages. Without this, the extension won't be imported!
+
+```json title="package.json"
+{
+  "name": "my-extension",
+  "type": "module",
   "bud": {
     "type": "extension"
+  }
+}
+```
+
+Last requirement is to export your extension as the `default` export from an `./extension` export:
+
+```json title="package.json"
+{
+  "name": "my-extension",
+  "type": "module",
+  "bud": {
+    "type": "extension"
+  },
+  "exports": {
+    ".": "./lib/index.js",
+    "./extension": "./lib/extension.js"
   }
 }
 ```
@@ -44,7 +70,7 @@ class MyExtension extends Extension {
 }
 ```
 
-The rest of this document assumes that extensions are being authored as a class.
+The rest of this document assumes that extensions are being authored as a class and are being exported from an ESM package.
 
 ## Binding extension methods
 
@@ -53,7 +79,7 @@ If your extension method references the class context (`this`), you should bind 
 ```ts title="extension.ts"
 import {Extension} from '@roots/bud-framework/extension'
 
-class MyExtension extends Extension {
+export default class MyExtension extends Extension {
   public constructor(...params) {
     super(...params)
     this.register = this.register.bind(this)
@@ -69,7 +95,7 @@ Alternatively, you can use [the `@bind` decorator](/guides/extending/decorators#
 import {Extension} from '@roots/bud-framework/extension'
 import {bind} from '@roots/bud-framework/extension/decorators'
 
-class MyExtension extends Extension {
+export default class MyExtension extends Extension {
   @bind
   public async register() {}
 }
@@ -88,7 +114,7 @@ straight forward way to reference the extension from the outside.
 ```ts title="extension.ts"
 import {Extension} from '@roots/bud-framework/extension'
 
-class MyExtension extends Extension {
+export default class MyExtension extends Extension {
   public label = 'my-extension'
 }
 ```
@@ -103,7 +129,7 @@ The `dependsOn` property is expressed as a `Set`:
 ```ts title="extension.ts"
 import {Extension} from '@roots/bud-framework/extension'
 
-class MyExtension extends Extension {
+export default class MyExtension extends Extension {
   public label = 'my-extension'
 
   public dependsOn = new Set(['@roots/bud-postcss'])
@@ -117,7 +143,7 @@ Extensions may also depend on other extensions on an optional basis. Bud will at
 ```ts title="extension.ts"
 import {Extension} from '@roots/bud-framework/extension'
 
-class MyExtension extends Extension {
+export default class MyExtension extends Extension {
   public label = 'my-extension'
 
   public dependsOnOptional = new Set(['@roots/bud-postcss'])
@@ -131,7 +157,7 @@ Any extension options can be set in the `options` property.
 ```ts title="extension.ts"
 import {Extension} from '@roots/bud-framework/extension'
 
-class MyExtension extends Extension {
+export default class MyExtension extends Extension {
   public label = 'my-extension'
 
   public options = {
@@ -150,7 +176,7 @@ This is useful when you can't know the value up front (as is the case with user 
 import {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 
-class MyExtension extends Extension {
+export default class MyExtension extends Extension {
   public label = 'my-extension'
 
   public options = {
@@ -170,7 +196,7 @@ import {Extension} from '@roots/bud-framework/extension'
 
 const callback = (prop: string): string => 'hello, world!'
 
-class MyExtension extends Extension {
+export default class MyExtension extends Extension {
   public label = 'my-extension'
 
   public options = {
@@ -220,7 +246,7 @@ import {Extension} from '@roots/bud-framework/extension'
 import {bind} from '@roots/bud-framework/extension/decorators'
 import Plugin from 'some-webpack-plugin'
 
-class MyExtension extends Extension {
+export default class MyExtension extends Extension {
   public label = 'my-extension'
 
   @bind
@@ -243,7 +269,7 @@ import {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import Plugin from 'some-webpack-plugin'
 
-class MyExtension extends Extension {
+export default class MyExtension extends Extension {
   public label = 'my-extension'
 
   public plugin = Plugin

@@ -21,7 +21,7 @@ bud.extensions.get('copy-webpack-plugin')
 
 From there you can do a lot of different things:
 
-## Manually enable or disable an extension
+## Enable or disable an extension
 
 Call `enable` to enable an extension:
 
@@ -82,9 +82,18 @@ Extensions included in `package.json` are automatically instantiated. You can al
 But, again, you can choose to use the bud extensions API directly in order to register an extension, if desired:
 
 ```js title="bud.config.mjs"
-const Plugin = require('some-webpack-plugin')
-await bud.extensions.add(new Plugin())
+import BudMDX from '@roots/bud-mdx/extension'
+export default async app => {
+  await bud.extensions.add(BudMDX)
+}
 ```
 
 **bud.js extensions are a superset of Webpack plugins**.
 This means that you can add basically any Webpack plugin as demonstrated above.
+
+```js title="bud.config.mjs"
+import BrowserSyncWebpackPlugin from 'browser-sync-webpack-plugin'
+export default async app => {
+  await bud.extensions.add(new BrowserSyncWebpackPlugin({...options}))
+}
+```

@@ -1,7 +1,7 @@
 const {join, resolve} = require('path')
 
 const config = require('../../../../config/monorepo.config.cjs')
-const themeConfig = require('./docusaurus.theme')
+const themeConfig = require('./docusaurus.theme.cjs')
 
 const presetClassic = require.resolve('@docusaurus/preset-classic')
 const pluginBlog = require.resolve('@docusaurus/plugin-content-blog')

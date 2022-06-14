@@ -22,14 +22,14 @@ The fastest way to get going is calling the [factory](https://bud.js.org/dev/api
 
 <Tabs
   groupId="lang"
-  defaultValue="ts"
+  defaultValue="mts"
   values={[
-    {label: 'Javascript', value: 'js'},
-    {label: 'TypeScript', value: 'ts'},
+    {label: 'Javascript', value: 'mjs'},
+    {label: 'TypeScript', value: 'mts'},
   ]}>
-  <TabItem value="js">
+  <TabItem value="mjs">
 
-```js title='config/build.js'
+```js title='config/build.mjs'
 const {factory} = require('@roots/bud')
 
 const build = async () => {
@@ -40,9 +40,9 @@ build()
 ```
 
   </TabItem>
-  <TabItem value="ts">
+  <TabItem value="mts">
 
-```ts title='config/build.ts'
+```ts title='config/build.mts'
 import {factory} from '@roots/bud'
 import type {Bud} from '@roots/bud'
 

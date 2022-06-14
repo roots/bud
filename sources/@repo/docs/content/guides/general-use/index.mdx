@@ -6,7 +6,7 @@ description: Guide on general usage of Bud
 import {Card} from '@site/src/components/Card'
 
 <div className="row">
-  <div className="col">
+  <div className="col margin-bottom--md">
     <Card
       title="TS configuration"
       description="You can use TypeScript to configure your build for a better developer experience"
@@ -14,35 +14,33 @@ import {Card} from '@site/src/components/Card'
     />
   </div>
 
-  <div className="col">
-    <Card
-      title="Static configuration"
-      description={
-        <span>
-          Bud supports static configurations authored in{' '}
-          <strong>json5</strong> and <strong>yml</strong>.
-        </span>
-      }
-      links={[['Learn more', '/guides/config/file-config/static']]}
-    />
-  </div>
+<div className="col  margin-bottom--md">
+  <Card
+    title="Static configuration"
+    description={
+      <span>
+        Bud supports static configurations authored in{' '}
+        <strong>json5</strong> and <strong>yml</strong>.
+      </span>
+    }
+    links={[['Learn more', '/guides/config/file-config/static']]}
+  />
 </div>
 
-<div className="row margin-top--lg">
-  <div className="col">
-    <Card
-      title="Environment specific configurations"
-      description={
-        <span>
-          Create separate config files for <strong>dev</strong> and{' '}
-          <strong>production</strong>.
-        </span>
-      }
-      links={[['Learn more', '/guides/config/file-config/env']]}
-    />
-  </div>
+<div className="col  margin-bottom--md">
+  <Card
+    title="Environment specific configurations"
+    description={
+      <span>
+        Create separate config files for <strong>dev</strong> and{' '}
+        <strong>production</strong>.
+      </span>
+    }
+    links={[['Learn more', '/guides/config/file-config/env']]}
+  />
+</div>
 
-  <div className="col">
+  <div className="col  margin-bottom--md">
     <Card
       title="Multiple compilers"
       description={

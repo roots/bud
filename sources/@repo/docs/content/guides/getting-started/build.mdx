@@ -9,21 +9,14 @@ import CodeBlock from '@theme/CodeBlock'
 
 Use the [`bud build` command](/guides/cli/build) to compile our project.
 
-<Tabs
-  groupId="pacman"
-  defaultValue="yarn"
-  values={[
-    {label: 'yarn', value: 'yarn'},
-    {label: 'npm', value: 'npm'},
-  ]}>
-  <TabItem value="yarn">
+```bash npm2yarn
+npm run bud build
+```
 
-    yarn bud build
+## Note for TypeScript users
 
-  </TabItem>
-  <TabItem value="npm">
+TypeScript users should use the `ts-bud build` command instead.
 
-    npm run bud build
-
-  </TabItem>
-</Tabs>
+```bash npm2yarn
+npm run ts-bud build
+```

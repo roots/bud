@@ -7,24 +7,20 @@
 </p>
 
 <h1 align="center">
-  <strong>@roots/bud-server</strong>
+  <strong>@roots/bud-client</strong>
 </h1>
 
 <p align="center">
-  Development server for @roots/bud
+  Client scripts for @roots/bud
 </p>
 
 ## Installation
 
-Install **@roots/bud-server** to your project.
+Install **@roots/bud-client** to your project.
 
 ```shell
-yarn add @roots/bud-server --dev
+yarn add @roots/bud-client --dev
 ```
-
-## Documentation
-
-For more information on utilizing this package [check out our dedicated docs](https://bud.js.org)
 
 ## Community
 

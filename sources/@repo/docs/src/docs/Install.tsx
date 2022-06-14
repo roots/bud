@@ -17,6 +17,7 @@ export const Install = ({packages}: {packages: string}) => (
         {`yarn add ${packages} --dev`}
       </CodeBlock>
     </TabItem>
+
     <TabItem value="npm">
       <CodeBlock className="language-shell">
         {`npm install ${packages} --save-dev`}

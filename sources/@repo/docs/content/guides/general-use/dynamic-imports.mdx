@@ -10,7 +10,7 @@ import TabItem from '@theme/TabItem'
 
 Dynamic imports are a great way to keep bundle size minimal for users. A dynamic import looks like this:
 
-```ts
+```ts title="app.js"
 export const caller = async () => {
   const component = await import('./component')
   component.doThing()
@@ -25,7 +25,7 @@ The most straight-forward way to set it is using [bud.setPublicPath](/docs/bud.s
 
 Example for [@roots/sage](/extensions/sage) users:
 
-```ts
+```ts title="bud.config.mjs"
 bud.setPublicPath('/app/themes/sage/public/')
 ```
 
@@ -33,7 +33,7 @@ bud.setPublicPath('/app/themes/sage/public/')
 
 You may also set the public path using [bud.entry](/docs/bud.entry):
 
-```ts
+```ts title="bud.config.mjs"
 bud.entry({
   app: {
     import: ['@src/app.js', '@src/app.css'],

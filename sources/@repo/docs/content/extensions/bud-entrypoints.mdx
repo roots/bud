@@ -2,7 +2,6 @@
 title: '@roots/bud-entrypoints'
 description: 'Manifest with assets grouped by entrypoint and filetype'
 sidebar_label: '🟢 @roots/bud-entrypoints'
-image: 'https://bud.js.org/img/share/extensions/bud-entrypoints.png'
 ---
 
 import Tabs from '@theme/Tabs'
@@ -22,7 +21,7 @@ Assets are broken down by entrypoint and then filetype.
 
 If a runtime is being generated it should always be the first item in the `js` array.
 
-```json
+```json title="entrypoints.json"
 {
   "entrypoint-a": {
     "js": ["runtime.js", "entrypoint-a.js"],

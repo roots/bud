@@ -1,44 +1,60 @@
 ---
-title: Configure
+title: Configuring bud.js
 sidebar_label: Configure
 ---
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-:::tip
+:::info Tip
 
-Hey, did you know? [No configuration is needed](/guides/config/zero-config) as long you have something at **src/index.js**.
+You might not need to configure anything. As long as the root of your application is located at **src/index.js** you should be able to run a build _without a config file_.
 
 :::
 
-Create a file titled **bud.config.js** file in the project root.
+The bud config file exports a single function that will instruct **bud.js** what to do in order to build our project.
 
-This file exports a single function that will tell **bud.js** what to do in order to build our project.
+Depending on whether your project is built with CommonJS or ES Modules, the file will use a different extension.
 
 <Tabs
   groupId="lang"
-  defaultValue="js"
+  defaultValue="esm"
   values={[
-    {label: 'Javascript', value: 'js'},
-    {label: 'TypeScript', value: 'ts'},
+    {label: 'ESM', value: 'esm'},
+    {label: 'CJS', value: 'cjs'},
+    {label: 'TS', value: 'mts'},
   ]}>
-  <TabItem value="js">
+  <TabItem value="esm">
 
-```js title='bud.config.js'
-export default async bud => bud.template()
+To use `import`/`export` syntax and take advantage of ESM-only packages, we recommend using the `.mjs` extension.
+
+```js title='bud.config.mjs'
+export default async bud => bud.entry('app', 'index.js')
 ```
 
   </TabItem>
-  <TabItem value="ts">
+  <TabItem value="cjs">
 
-```ts title='bud.config.ts'
+To use CommonJS syntax (like `require`) use the `.cjs` extension.
+
+```js title='bud.config.cjs'
+module.exports = async bud => bud.entry('app', 'index.js')
+```
+
+  </TabItem>
+  <TabItem value="mts">
+
+If authoring your config file in TypeScript, use the `.mts` extension.
+
+This requires the installation of either the [@roots/bud-esbuild](/extensions/bud-esbuild) or [@roots/bud-typescript](/extensions/bud-typescript) extension.
+
+```ts title='bud.config.mts'
 import type {Bud} from '@roots/bud'
 
-export default async function (bud: Bud): void {
-  bud.template()
-}
+export default async (bud: Bud) => bud.entry()
 ```
 
   </TabItem>
 </Tabs>
+
+If your project is ESM (`"type": "module"` in package.json), you may use `.js` or `.ts` instead of `.mjs` or `.mts`.

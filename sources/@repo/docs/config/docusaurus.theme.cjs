@@ -9,8 +9,8 @@ const config = require('../../../../config/monorepo.config.cjs')
  * @public
  */
 const announcementBar = {
-  id: 'announcementBar-2', // Increment on change
-  content: `🧹 We're working hard to get the docs up to date with Bud v5. Thanks for your understanding!`,
+  id: 'announcementBar-3', // Increment on change
+  content: `✨ v6.0.0 has been released! <a href="/blog/6.0.0">Read the announcement post for guidance on upgrading</a>`,
 }
 
 /**
@@ -35,10 +35,6 @@ const footer = {
         {
           label: 'Extensions',
           to: '/extensions/',
-        },
-        {
-          label: 'Releases',
-          to: '/releases/',
         },
       ],
     },
@@ -167,7 +163,7 @@ const navbar = {
 const prism = {
   additionalLanguages: ['php'],
   darkTheme: dracula,
-  theme: github,
+  theme: dracula,
 }
 
 module.exports = {

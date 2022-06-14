@@ -43,14 +43,15 @@
 }
 
 .markdown a {
-  color: var(--ifm-link-color);  
+  color: var(--ifm-link-color);
   font-weight: bold;
   border-bottom: 2px solid transparent;
-  transition: all var(--ifm-transition-fast) var(--ifm-transition-timing-default);
+  transition: all var(--ifm-transition-fast)
+    var(--ifm-transition-timing-default);
 }
 
 .markdown a::before {
-  content: "";
+  content: '';
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -58,7 +59,8 @@
   color: var(--ifm-link-color);
   stroke: var(--ifm-link-color);
   text-decoration: var(--ifm-link-decoration);
-  transition: all var(--ifm-transition-fast) var(--ifm-transition-timing-default);
+  transition: all var(--ifm-transition-fast)
+    var(--ifm-transition-timing-default);
   display: inline-block;
 }
 
@@ -71,16 +73,15 @@
 .markdown a[href^="http"]::before,
 .markdown a[href^="https://"]::before
 {
-  content: "";
+  content: '';
   width: 12px;
   height: 12px;
   margin-right: 2px;
   background-image: var(--icon-external);
 }
 
-.markdown a[href^="/dev/api/"]::before
-{
-  content: "";
+.markdown a[href^='/dev/api/']::before {
+  content: '';
   width: 12px;
   height: 12px;
   margin-right: 2px;
@@ -89,10 +90,9 @@
 
 .markdown a[href^="https://github.com/"]::before
 {
-  content: "";
+  content: '';
   width: 12px;
   height: 12px;
   margin-right: 2px;
   background-image: var(--icon-code) !important;
 }
-

@@ -1,0 +1,83 @@
+---
+title: Remote sources
+description: Use remote sources as though they were installed modules
+sidebar_label: Remote sources
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import CodeBlock from '@theme/CodeBlock'
+
+You can build remote packages at compile time, serve them locally, and generate a lockfile to guarantee deployed dependencies match your development environment.
+
+Ships with following sources, but you can add more:
+
+- `skypack`
+- `gist`
+- `github`
+- `unpkg`
+
+## Import mapping
+
+Use any registered source as a key in `package.json` to map imports to it. It can be done with either an object or an array:
+
+```json title="package.json"
+"skypack": [
+  "alpinejs"
+]
+```
+
+```json title="package.json"
+"skypack": {
+  "alpinejs": "3.10.0"
+}
+```
+
+If the CDN supports it you can pass params in addition to the version:
+
+```json title="package.json"
+"skypack": {
+  "alpinejs": "latest?dist=es2015"
+}
+```
+
+Once set you can import from `'alpinejs'` anywhere in your application source and the remote source will be compiled with it (as if the module were local).
+
+## `[source]:` schema
+
+It isn't required to set up an import map to bring in a module. You can also import from a registered remote using its schema:
+
+```ts title="app.js"
+import lodash from 'skypack:lodash'
+import Gist from 'gist:kellymears/a9ab48c40a6f757a8814301e2dea7582/raw/55807c18a2e84246f99486f385dcf2e8ec07e0e9/module-import-test.js'
+import Confetti from 'github:catdad/canvas-confetti/master/src/confetti.js'
+import * as preact from 'unpkg:preact'
+```
+
+## Setting custom sources
+
+You can add your own sources
+
+```ts title="bud.config.mjs"
+app.cdn.setSource('localhost', 'https://localhost:8080/')
+```
+
+If you want to remove a source it's easy to access the mapping directly:
+
+```ts title="bud.config.mjs"
+app.cdn.sources.delete('gist')
+```
+
+## Module caching
+
+Modules are by default cached to `.budfiles/[compiler name]/modules/[source ident]/[module]`. This means that after the initial download you won't need to hit up the CDN again.
+
+To disable this behavior use `cdn.disableCache()`.
+
+## Module versioning
+
+The current version & an SHA512 of the remote resource is stored at `.budfiles/[compiler name]/bud.lock`.
+
+Module versions are updated and a new source is cached when the remote changes, by default. To disable this behavior try `bud.cdn.setUpgrade(false)`.
+
+You can prevent version upgrades during deployment with the `--immutable` flag or by calling `cdn.freeze()`. If you use this feature you must include the lockfile and module cache in version control. The build will obviously fail if the lockfile/cache is set as frozen but is not available.

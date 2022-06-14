@@ -102,7 +102,6 @@ module.exports = {
       '@roots/bud-esbuild',
       '@roots/bud-eslint',
       '@roots/bud-imagemin',
-      '@roots/bud-library',
       '@roots/bud-mdx',
       '@roots/bud-postcss',
       '@roots/bud-preset-recommend',
@@ -133,6 +132,7 @@ module.exports = {
       '@roots/merged-manifest-webpack-plugin',
       '@roots/wordpress-dependencies-webpack-plugin',
       '@roots/wordpress-externals-webpack-plugin',
+      '@roots/wordpress-hmr',
     ],
   },
 }
