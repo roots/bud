@@ -1,6 +1,7 @@
 {
   "name": "@roots/bud-support",
   "version": "0.0.0",
+  "private": true,
   "description": "👨🏽‍🍳 Internal packages for @roots/bud",
   "homepage": "https://roots.io/bud",
   "repository": {
