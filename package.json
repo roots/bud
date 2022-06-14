@@ -24,9 +24,6 @@
   },
   "type": "module",
   "devDependencies": {
-    "@repo/constants": "workspace:sources/@repo/constants",
-    "@repo/logger": "workspace:sources/@repo/logger",
-    "@repo/test-kit": "workspace:sources/@repo/test-kit",
     "@swc/core": "1.2.198",
     "@swc/jest": "0.2.21",
     "@types/express": "4.17.13",

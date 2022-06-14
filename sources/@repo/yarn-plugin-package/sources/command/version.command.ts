@@ -27,7 +27,7 @@ export class Version extends Command {
    *
    * @internal
    */
-  public static paths: CommandClass['paths'] = [[`@bud`, `version`]]
+  public static paths: CommandClass['paths'] = [[`package`, `get`]]
 
   /**
    * Command usage
@@ -35,8 +35,8 @@ export class Version extends Command {
    * @internal
    */
   public static usage: CommandClass['usage'] = {
-    category: `@bud`,
-    description: `bump version of public packages`,
+    category: `package`,
+    description: `,
     examples: [[`yarn @bud version x.y.z`, `Bump packages to x.y.z`]],
   }
 
@@ -52,7 +52,7 @@ export class Version extends Command {
     }
 
     await this.$(
-      `yarn workspaces foreach --no-private package set version ${this.version}`,
+      `yarn workspaces foreach --no-private exec npm version ${this.version}`,
     )
   }
 }
