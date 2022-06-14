@@ -52,7 +52,7 @@ export class Version extends Command {
     }
 
     await this.$(
-      `yarn workspaces foreach --no-private exec npm version ${this.version}`,
+      `yarn workspaces foreach --no-private package set version ${this.version}`,
     )
   }
 }
