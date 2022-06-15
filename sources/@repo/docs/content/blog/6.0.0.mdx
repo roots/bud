@@ -92,18 +92,31 @@ Check the documentation for each tool. Read up on ESM.
 
 ## TypeScript guide
 
+### Update config to either `bud.config.mts` or `bud.config.cts`
+
 TypeScript 4.7.2 offers two new TypeScript extensions to deal with CJS/ESM compatibility issues: `.cts` and `.mts` (they have their own declaration file extensions as well: `.d.cts` and `.d.mts`).
 
 In general, I'd imagine most TS users already author their `bud.config.ts` file with `export` syntax. If that's the case, you will likely just want to update the file name to `bud.config.mts`.
 
-There is one other problem with TypeScript and ESM: it is not possible to hack `import` at runtime the way we can hack `require` at runtime.
+### Use `ts-bud` instead of `bud`
 
-**bud.js** uses [ts-node](https://github.com/typestrong/ts-node)
-to import TS configs when it is available, but with ESM we also need to register an `import` loader so that the config file can be parsed. This can't be done at runtime.
+:::danger Known issue
+
+**`bud.typescript.typecheck.enable()` will die when using `ts-bud`**
+
+It is unclear what the problem is as of right now ([see #1480](https://github.com/roots/bud/issues/1480)). **In order to enable typechecking you must author your config file in JS until this is resolved.**
+
+:::
+
+**Due to the way ESM modules are loaded you'll need to use `ts-bud` instead of `bud` when running cli commands.** Explanation follows:
+
+A problem with TypeScript and ESM: it is not possible to hack `import` at runtime the way we can hack `require` at runtime.
+
+**bud.js** uses [ts-node](https://github.com/typestrong/ts-node) to import TS configs when it is available, but with ESM we also need to register an `import` loader so that the config file can be parsed. This can't be done at runtime.
 
 [ts-node](https://github.com/typestrong/ts-node) offers a flag to set this up:
 
-```bash
+```bash title="shell"
 ts-node --esm --transpileOnly
 ```
 
@@ -111,7 +124,7 @@ And **bud.js** offers a `bin` that wraps the standard `bud` command accordingly:
 
 If this doesn't work for you, or you need to adjust other `ts-node` flags, you may do this yourself:
 
-```sh
+```sh title="shell"
 ts-node --esm --transpileOnly ./node_modules/.bin/bud build
 ```
 
@@ -128,13 +141,13 @@ be able to `require` modules or packages in your config file.
 
 The great news is that it's totally possible import CommonJS from an ES Module, so you can convert `require` statements to use `import` without worrying about it too much:
 
-```js
+```js title="bud.config.cjs"
 const value = require('browsersync-webpack-plugin')
 ```
 
 becomes:
 
-```js
+```js title="bud.config.mjs"
 import value from 'browsersync-webpack-plugin'
 ```
 
@@ -150,8 +163,8 @@ Importing ESM from CommonJS is a little less straight forward than the other way
 
 The easiest way is to use a dynamic `import` statement. The biggest difference is that a dynamic import is asynchronous, whereas require is sync.
 
-```js
-export default async bud => {
+```js title="bud.config.cjs"
+module.exports = async bud => {
   await import('browsersync-webpack-plugin')
 }
 ```
@@ -162,8 +175,8 @@ In these cases you may find that the code returned from a dynamic `import` is se
 
 If you wish you may use `bud.module.import` instead of `import` (which will automatically return the value of `default`, if it is set):
 
-```js
-export default async bud => {
+```js title="bud.config.cjs"
+module.exports = async bud => {
   await bud.module.import('browsersync-webpack-plugin')
 }
 ```
@@ -173,7 +186,7 @@ The `node:module` interface provides a function `createRequire` that will let yo
 
 **bud.js** has an instance of the `Require` function available at `bud.module.require` (it's context is the directory containing the project `package.json`):
 
-```js
+```js title="bud.config.mjs"
 export default async bud => {
   bud.module.require('browser-sync-webpack-plugin')
 
@@ -184,7 +197,7 @@ export default async bud => {
 
 If you just want the path to a module and aren't sure if it is CommonJS or ESM, you may use `bud.module.resolve`:
 
-```js
+```js title="bud.config.mjs"
 export default async bud => {
   await bud.module.resolve('browser-sync-webpack-plugin')
 }

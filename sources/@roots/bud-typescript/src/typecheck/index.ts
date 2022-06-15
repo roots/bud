@@ -31,7 +31,10 @@ export default class BudTypeCheckPlugin extends Extension<
 
     this.setOptions(options => ({
       ...options,
-      typescript: {...(options.typescript ?? {}), typescriptPath},
+      typescript: {
+        ...(options.typescript ?? {}),
+        typescriptPath,
+      },
     }))
   }
 }

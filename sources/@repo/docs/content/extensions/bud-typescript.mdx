@@ -6,6 +6,9 @@ import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import {Install} from '@site/src/docs/Install'
 
+import Usage from '@site/../../@roots/bud-typescript/docs/usage.mdx'
+import Typechecking from '@site/../../@roots/bud-typescript/docs/typechecking.mdx'
+
 # @roots/bud-typescript
 
 [TypeScript](https://typescript.org) support can be added by installing the **@roots/bud-typescript** extension.
@@ -14,30 +17,10 @@ import {Install} from '@site/src/docs/Install'
 
 <Install packages="@roots/bud-typescript" />
 
+## Usage
+
+<Usage />
+
 ## Enable Typechecking
 
-:::info
-
-This step is optional but recommended.
-
-:::
-
-By default TypeScript files will only be compiled to JS during builds.
-If you also want typechecking, you can enable it in your bud configuration:
-
-```js
-bud.typecheck()
-```
-
-## Configuration
-
-Beyond that, general ts configuration is handled using a standard **tsconfig.json** in your project root. See [the TypeScript docs on tsconfig.json](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html) for more information.
-
-There is a base tsconfig available for you to extend:
-
-```json
-{
-  "extends": "@roots/bud-typescript/tsconfig/tsconfig.json",
-  "compilerOptions": {}
-}
-```
+<Typechecking />
