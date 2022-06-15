@@ -36,8 +36,8 @@
     "type": "extension"
   },
   "files": [
+    "docs/",
     "lib/",
-    "types/",
     "tsconfig/"
   ],
   "type": "module",
