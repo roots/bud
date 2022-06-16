@@ -24,7 +24,7 @@
   },
   "type": "module",
   "devDependencies": {
-    "@swc/core": "1.2.198",
+    "@swc/core": "1.2.203",
     "@swc/jest": "0.2.21",
     "@types/express": "4.17.13",
     "@types/jest": "28.1.1",
