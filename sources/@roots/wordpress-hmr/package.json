@@ -74,11 +74,11 @@
     "webpack": "5.73.0"
   },
   "dependencies": {
-    "@wordpress/blocks": "11.9.0",
-    "@wordpress/data": "6.10.0",
-    "@wordpress/hooks": "3.10.0",
-    "@wordpress/plugins": "4.8.0",
-    "@wordpress/rich-text": "5.8.0",
+    "@wordpress/blocks": "11.10.0",
+    "@wordpress/data": "6.11.0",
+    "@wordpress/hooks": "3.11.0",
+    "@wordpress/plugins": "4.9.0",
+    "@wordpress/rich-text": "5.9.0",
     "lodash-es": "4.17.21",
     "react": "17.0.2",
     "tslib": "2.4.0"
