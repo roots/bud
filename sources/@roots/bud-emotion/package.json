@@ -61,7 +61,7 @@
     }
   },
   "devDependencies": {
-    "@babel/core": "7.18.2",
+    "@babel/core": "7.18.5",
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.11.39",
     "@types/react": "17.0.45",
