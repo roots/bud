@@ -50,6 +50,7 @@
     "./client": "./lib/client/index.js",
     "./client/dom-ready": "./lib/client/dom-ready.js",
     "./wp-theme-json": "./lib/wp-theme-json/extension.js",
+    "./wp-theme-json/tailwind": "./lib/wp-theme-json/tailwind/index.js",
     "./stylelint-config": "./stylelint-config/index.cjs"
   },
   "typesVersions": {
@@ -71,6 +72,9 @@
       ],
       "wp-theme-json": [
         "./lib/wp-theme-json/extension.d.ts"
+      ],
+      "wp-theme-json/tailwind": [
+        "./lib/wp-theme-json/tailwind/index.d.ts"
       ]
     }
   },

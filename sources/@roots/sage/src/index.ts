@@ -12,5 +12,8 @@
 
 import './env.js'
 
+import * as client from './client/index.js'
 import Sage from './sage/extension.js'
+
 export default Sage
+export {client}
