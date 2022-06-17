@@ -1,18 +1,18 @@
-import type {Bud} from '@roots/bud-framework'
+import type {Bud, Build} from '@roots/bud-framework'
 import {bind} from 'helpful-decorators'
 import {isFunction} from 'lodash-es'
 
-export default class Base {
+export default class Base implements Build.Base {
   /**
    * Application getter
    *
    * @readonly @public
    */
-  public get app() {
+  public get app(): Bud {
     return this._app()
   }
 
-  public constructor(public _app: () => Bud) {}
+  public constructor(protected _app: () => Bud) {}
 
   @bind
   public wrap<T = any>(input: T | ((app: Bud) => T)): (app: Bud) => T {

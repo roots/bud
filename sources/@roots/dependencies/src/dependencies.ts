@@ -1,8 +1,8 @@
 import {spawnSync} from 'child_process'
 
-import type {IDependencyManager} from './'
-import {Npm} from './command'
-import {Yarn} from './command'
+import {Npm} from './command/index.js'
+import {Yarn} from './command/index.js'
+import type {IDependencyManager} from './index.js'
 
 export class Dependencies {
   /**

@@ -60,7 +60,9 @@ export default class Vue extends Extension<Options, null> {
   }
 
   @bind
-  public moduleRulesBefore(ruleset: Array<RuleSetRule>) {
+  public moduleRulesBefore(
+    ruleset: Array<RuleSetRule>,
+  ): Array<RuleSetRule> {
     const rule = this.app.build.makeRule({
       test: this.app.hooks.filter('pattern.vue'),
       use: items => [`vue`, ...items],

@@ -1,5 +1,5 @@
 import {Service, Services} from '@roots/bud-framework'
-import type {Context} from '@roots/bud-framework/src/config'
+import type {Context} from '@roots/bud-framework/config'
 import fs from 'fs-extra'
 import {bind} from 'helpful-decorators'
 import {createHash} from 'node:crypto'

@@ -20,7 +20,7 @@ const {ensureFile, writeFile} = fs
  *
  * @public
  */
-export class Build extends Service implements Bud.Build.Service {
+export default class Build extends Service implements Bud.Build.Service {
   /**
    * @public
    */
@@ -31,7 +31,7 @@ export class Build extends Service implements Bud.Build.Service {
    *
    * @public
    */
-  public loaders: Bud.Build.Loaders = {}
+  public loaders: Bud.Build.Loaders
 
   /**
    * Registered rules
@@ -119,35 +119,38 @@ export class Build extends Service implements Bud.Build.Service {
   /**
    * Service register event
    *
+   * @remarks
+   * `loaders`, `items`, and `rules` are instantiated dumbly
+   * because it is painful to think about how to map the typings..
+   *
    * @public
    * @decorator `@bind`
    */
   @bind
   public async register() {
-    const reducer = (a: Bud.Build.Rules | Bud.Build.Items, [k, v]) => {
-      const obj = v(this.app)
-      return {...a, [k]: obj}
-    }
-
     await Promise.all(
-      this.app
-        .container(loaders)
-        .getEntries()
-        .map(async ([key, fn]) => {
-          this.loaders[key] = await fn(this.app)
-        }),
+      Object.entries(loaders).map(async ([key, loaderFactory]) => {
+        const value = await loaderFactory(this.app)
+        if (!this.loaders) this.loaders = {[key]: value}
+        else this.loaders[key] = value
+      }),
     )
 
-    Object.assign(this, {
-      rules: this.app
-        .container(rules)
-        .getEntries()
-        .reduce(reducer, this.rules),
-      items: this.app
-        .container(items)
-        .getEntries()
-        .reduce(reducer, this.items),
-    })
+    await Promise.all(
+      Object.entries(items).map(async ([key, itemFactory]) => {
+        const value = await itemFactory(this.app)
+        if (!this.items) this.items = {[key]: value}
+        else this.items[key] = value
+      }),
+    )
+
+    await Promise.all(
+      Object.entries(rules).map(async ([key, ruleFactory]) => {
+        const value = await ruleFactory(this.app)
+        if (!this.rules) this.rules = {[key]: value}
+        else this.rules[key] = value
+      }),
+    )
 
     await config.builder.build(this.app)
   }
@@ -163,7 +166,7 @@ export class Build extends Service implements Bud.Build.Service {
    * @decorator `@bind`
    */
   @bind
-  public setRule(name: string, options?: Bud.Build.Rule.Options): Build {
+  public setRule(name: string, options?: Bud.Build.Rule.Options): this {
     const processedOptions = isFunction(options)
       ? options(this.makeRule())
       : this.makeRule(options)
@@ -198,7 +201,7 @@ export class Build extends Service implements Bud.Build.Service {
    * @decorator `@bind`
    */
   @bind
-  public setLoader(name: string, options: string): Build {
+  public setLoader(name: string, options: string): this {
     Object.assign(this.loaders, {[name]: this.makeLoader(options)})
 
     return this
@@ -234,7 +237,7 @@ export class Build extends Service implements Bud.Build.Service {
     options:
       | ((item: Bud.Build.Item) => Bud.Build.Item)
       | Bud.Build.Item.ConstructorOptions,
-  ): Build {
+  ): this {
     const processedOptions = isFunction(options)
       ? options(this.makeItem())
       : this.makeItem(options)

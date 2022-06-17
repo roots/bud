@@ -1,11 +1,12 @@
-import type {Bud} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework/bud'
+import type {Item} from '@roots/bud-framework/services/build'
 
 /**
- * .css handler factory
+ * CSS loader
  *
  * @public
  */
-export const css = (app: Bud) =>
+export const css = async (app: Bud): Promise<Item> =>
   app.build
     .makeItem()
     .setLoader(`css`)
@@ -15,11 +16,11 @@ export const css = (app: Bud) =>
     }))
 
 /**
- * .css handler factory
+ * CSS module loader
  *
  * @public
  */
-export const cssModule = (app: Bud) =>
+export const cssModule = async (app: Bud): Promise<Item> =>
   app.build
     .makeItem()
     .setLoader(`css`)
@@ -31,38 +32,43 @@ export const cssModule = (app: Bud) =>
     }))
 
 /**
- * .csv handler factory
+ * CSV loader
  *
  * @public
  */
-export const csv = (app: Bud) => app.build.makeItem().setLoader(`csv`)
+export const csv = async (app: Bud): Promise<Item> =>
+  app.build.makeItem().setLoader(`csv`)
 
 /**
- * .html handler factory
+ * HTML loader
  *
  * @public
  */
-export const html = (app: Bud) => app.build.makeItem().setLoader(`html`)
+export const html = async (app: Bud): Promise<Item> =>
+  app.build.makeItem().setLoader(`html`)
 
 /**
- * Factory {@link Item} for style
+ * Style loader
  *
  * @public
  */
-export const style = (app: Bud) => app.build.makeItem().setLoader(`style`)
+export const style = async (app: Bud): Promise<Item> =>
+  app.build.makeItem().setLoader(`style`)
 
 /**
- * Factory {@link Item} for markdown
+ * Markdown loader
  *
  * @public
  */
-export const md = (app: Bud) => app.build.makeItem({loader: 'md'})
+export const md = async (app: Bud): Promise<Item> =>
+  app.build.makeItem({loader: 'md'})
 
 /**
- * Factory {@link Item} for minicss-extract-plugin
+ * MiniCss loader
+ *
  * @public
  */
-export const minicss = (app: Bud) =>
+export const minicss = async (app: Bud): Promise<Item> =>
   app.build
     .makeItem()
     .setLoader(`minicss`)
@@ -71,20 +77,27 @@ export const minicss = (app: Bud) =>
     }))
 
 /**
- * CSS rule which accounts for env
- * @public
- */
-export const precss = (app: Bud) =>
-  app.build.makeItem().setLoader(app.isProduction ? `minicss` : `style`)
-
-export const raw = ({build}: Bud) => build.makeItem().setLoader(`raw`)
-
-/**
- * Factory {@link Item} for file
+ * `minicss` in production and `style` in development
  *
  * @public
  */
-export const file = (app: Bud) =>
+export const precss = async ({build, isProduction}: Bud): Promise<Item> =>
+  build.makeItem().setLoader(isProduction ? `minicss` : `style`)
+
+/**
+ * Raw loader
+ *
+ * @public
+ */
+export const raw = async ({build}: Bud): Promise<Item> =>
+  build.makeItem().setLoader(`raw`)
+
+/**
+ * File loader
+ *
+ * @public
+ */
+export const file = async (app: Bud): Promise<Item> =>
   app.build
     .makeItem()
     .setLoader(`file`)
@@ -95,15 +108,17 @@ export const file = (app: Bud) =>
     }))
 
 /**
- * Factory {@link Item} for xml
+ * Xml loader
  *
  * @public
  */
-export const xml = (app: Bud) => app.build.makeItem().setLoader(`xml`)
+export const xml = async (app: Bud): Promise<Item> =>
+  app.build.makeItem().setLoader(`xml`)
 
 /**
- * Factory {@link Item} for yml
+ * Yml loader
  *
  * @public
  */
-export const yml = (app: Bud) => app.build.makeItem().setLoader(`yml`)
+export const yml = async (app: Bud): Promise<Item> =>
+  app.build.makeItem().setLoader(`yml`)

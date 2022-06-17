@@ -6,7 +6,8 @@ import {
   options,
   plugin,
 } from '@roots/bud-framework/extension/decorators'
-import EslintPlugin, {Options} from 'eslint-webpack-plugin'
+import type {Options} from 'eslint-webpack-plugin'
+import EslintPlugin from 'eslint-webpack-plugin'
 
 /**
  * Eslint webpack plugin adapter
