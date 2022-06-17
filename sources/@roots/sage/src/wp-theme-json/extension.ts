@@ -69,7 +69,6 @@ export interface Mutator {
       dropCap: false,
     },
   },
-  customTemplates: Array<{name: string, title: string, postTypes: Array<string>}>,
 })
 @when(async () => false)
 @plugin(ThemeJsonWebpackPlugin)
