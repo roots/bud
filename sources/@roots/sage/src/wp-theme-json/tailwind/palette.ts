@@ -18,12 +18,6 @@ export interface TailwindColors {
 export interface getPalette {
   (path: string): Promise<TailwindColors>
 }
-export const getPalette: getPalette = async (path: string) => {
-  const tailwindImport = await import(path)
-  const tailwind = tailwindImport?.default ?? tailwindImport
-
-  return tailwind?.theme?.extend?.colors ?? {}
-}
 
 /**
  * Make a color name from a color label
@@ -36,10 +30,6 @@ export const getPalette: getPalette = async (path: string) => {
 interface name {
   (label: Array<string>): string
 }
-const name: name = label =>
-  label
-    .map(label => `${label.charAt(0).toUpperCase()}${label.slice(1)}`)
-    .join(' ')
 
 /**
  * Make a theme.json palette.color item from a slug and a color
@@ -51,11 +41,6 @@ const name: name = label =>
 export interface transform {
   (slug: Array<string>, color: string): WordPressColors[any]
 }
-export const transform: transform = (slug, color) => ({
-  name: name(slug),
-  slug: slug.join('-').toLowerCase(),
-  color: color.toLowerCase(),
-})
 
 /**
  * TailwindCSS palette entry to WordPress palette entries
@@ -68,6 +53,36 @@ export interface toWordPressEntries {
     Array<string>,
   ]): WordPressColors
 }
+
+/**
+ * Transform tailwindcss palette to wordpress theme.json palette
+ *
+ * @param palette - from tailwindcss
+ *
+ * @public
+ */
+export interface transformPalette {
+  (palette: TailwindColors): WordPressColors
+}
+
+export const getPalette: getPalette = async (path: string) => {
+  const tailwindImport = await import(path)
+  const tailwind = tailwindImport?.default ?? tailwindImport
+
+  return tailwind?.theme?.extend?.colors ?? {}
+}
+
+const name: name = label =>
+  label
+    .map(label => `${label.charAt(0).toUpperCase()}${label.slice(1)}`)
+    .join(' ')
+
+export const transform: transform = (slug, color) => ({
+  name: name(slug),
+  slug: slug.join('-').toLowerCase(),
+  color: color.toLowerCase(),
+})
+
 export const toWordPressEntries: toWordPressEntries = ([entry, path]: [
   [string, string | TailwindColors],
   Array<string>,
@@ -85,16 +100,6 @@ export const toWordPressEntries: toWordPressEntries = ([entry, path]: [
   return [transform([...path, name], value)]
 }
 
-/**
- * Transform tailwindcss palette to wordpress theme.json palette
- *
- * @param palette - from tailwindcss
- *
- * @public
- */
-export interface transformPalette {
-  (palette: TailwindColors): WordPressColors
-}
 export const transformPalette: transformPalette = (
   palette: TailwindColors,
 ) =>
