@@ -13,18 +13,12 @@
     "@roots/bud": "workspace:sources/@roots/bud",
     "@types/node": "16.11.39",
     "@types/prettier": "2.6.2",
-    "@types/react": "17.0.45",
-    "@types/react-dom": "17.0.17",
-    "@types/react-reconciler": "0.26.7",
     "execa": "6.1.0",
     "fs-extra": "10.1.0",
+    "handlebars": "4.7.7",
     "helpful-decorators": "2.1.0",
     "json5": "2.2.1",
     "lodash-es": "4.17.21",
-    "prettier": "2.6.2",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "react-reconciler": "0.26.2",
-    "strip-ansi": "7.0.1"
+    "prettier": "2.6.2"
   }
 }

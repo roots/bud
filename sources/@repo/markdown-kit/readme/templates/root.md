@@ -1,81 +1,45 @@
-import React from 'react'
+{{>banner}}
 
-import {
-  Banner,
-  Community,
-  Contributing,
-  License,
-  Sponsors,
-} from '../components/index.js'
+## Features
 
-export const Body = ({url}) => (
-  <>
-    <h2>Features</h2>
+- Zero config by default (seriously, you don&rsquo;t even _need_ a
+  config file).
+- Modular by design. Use only what you need.
+- Easily implementable multi-compiler support.
+- Heckin&rsquo; fast.
+- Luxury dev tooling including semi-automated dependency management.
+- Supports configuration with TypeScript.
+- Customizable and extensible. Add new features. Swap our core
+  components with your own.
 
-    <li>
-      Zero config by default (seriously, you don&rsquo;t even _need_ a
-      config file).
-    </li>
-    <li>Modular by design. Use only what you need.</li>
-    <li>Easily implementable multi-compiler support.</li>
-    <li>Heckin&rsquo; fast.</li>
-    <li>
-      Luxury dev tooling including semi-automated dependency management.
-    </li>
-    <li>Supports configuration with TypeScript.</li>
-    <li>
-      Customizable and extensible. Add new features. Swap our core
-      components with your own.
-    </li>
+<img
+  src="https://raw.githubusercontent.com/roots/bud/main/sources/@repo/docs/static/casts/babel-build--cache.svg"
+  title="bud.js build"
+/>
 
-    <br />
+{{>requirements}}
 
-    <img
-      src="https://raw.githubusercontent.com/roots/bud/main/sources/@repo/docs/static/casts/babel-build--cache.svg"
-      title="bud.js build"
-    />
+## Getting started
 
-    <h2>Requirements</h2>
+Check out [bud.js.org](https://bud.js.org/) to get started.
 
-    <li>Node 16+</li>
-    <li>yarn 1.22 or higher</li>
-    <li>npm 8.3 or higher</li>
-    <li>
-      Windows users must run bud.js under the Windows Subsystem for Linux.
-    </li>
+There are [implementations available in the /examples directory of
+this repo](https://github.com/roots/bud/tree/master/examples).
 
-    <h2>Getting started</h2>
+## Available modules
 
-    <p>
-      Check out [bud.js.org](
-      {url.docs.toString()}) to get started.
-    </p>
+## Presets
 
-    <p>
-      There are [implementations available in the /examples directory of
-      this repo]({url.web.toString()}
-      /tree/master/examples).
-    </p>
+| Name                                                                    | Usage                                                           | Latest                                                                                                 |
+| ----------------------------------------------------------------------- | --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| [**@roots/bud-preset-recommend**](/sources/@roots/bud-preset-recommend) | [📚 Usage](${url.docs}/extensions/presets/bud-preset-recommend) | ![npm](https://img.shields.io/npm/v/@roots/bud-preset-recommend.svg?color=%23525ddc&style=flat-square) |
+| [**@roots/bud-preset-wordpress**](/sources/@roots/bud-preset-wordpress) | [📚 Usage](${url.docs}/extensions/presets/bud-preset-wordpress) | ![npm](https://img.shields.io/npm/v/@roots/bud-preset-wordpress.svg?color=%23525ddc&style=flat-square) |
+| [**@roots/sage**](/sources/@roots/sage)                                 | [📚 Usage](${url.docs}/extensions/presets/sage)                 | ![npm](https://img.shields.io/npm/v/@roots/sage.svg?color=%23525ddc&style=flat-square)                 |
 
-    <h2>Available modules</h2>
+### Extensions
 
-    <h3>Presets</h3>
-
-    <span>
-      {`
-| Name                                                                      | Usage                                                          | Latest                                                                                                 |
-| ------------------------------------------------------------------------- | ---------------------------------------------------------------| ------------------------------------------------------------------------------------------------------ |
-| [**@roots/bud-preset-recommend**](/sources/@roots/bud-preset-recommend)  | [📚 Usage](${url.docs}/extensions/presets/bud-preset-recommend) | ![npm](https://img.shields.io/npm/v/@roots/bud-preset-recommend.svg?color=%23525ddc&style=flat-square) |
-| [**@roots/bud-preset-wordpress**](/sources/@roots/bud-preset-wordpress)  |[📚 Usage](${url.docs}/extensions/presets/bud-preset-wordpress)  | ![npm](https://img.shields.io/npm/v/@roots/bud-preset-wordpress.svg?color=%23525ddc&style=flat-square) |
-| [**@roots/sage**](/sources/@roots/sage)  |[📚 Usage](${url.docs}/extensions/presets/sage)  | ![npm](https://img.shields.io/npm/v/@roots/sage.svg?color=%23525ddc&style=flat-square) |
-`}
-    </span>
-
-    <h3>Extensions</h3>
-    <span>
-      {`
-| Name                                                                                 | Usage                                                                   | Latest                                                                                                       |
-| ------------------------------------------------------------------------------------ | ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| Name                                                                                | Usage                                                          | Latest                                                                                                       |
+| ----------------------------------------------------------------------------------- | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
 | [**@roots/bud-babel**](/sources/@roots/bud-babel)                                   | [📚 Usage](${url.docs}/extensions/bud-babel/)                  | ![npm](https://img.shields.io/npm/v/@roots/bud-babel.svg?color=%23525ddc&style=flat-square)                  |
 | [**@roots/bud-compress**](/sources/@roots/bud-compress)                             | [📚 Usage](${url.docs}/extensions/bud-compress/)               | ![npm](https://img.shields.io/npm/v/@roots/bud-compress.svg?color=%23525ddc&style=flat-square)               |
 | [**@roots/bud-criticalcss**](/sources/@roots/bud-criticalcss)                       | [📚 Usage](${url.docs}/extensions/bud-criticalcss/)            | ![npm](https://img.shields.io/npm/v/@roots/bud-criticalcss.svg?color=%23525ddc&style=flat-square)            |
@@ -99,31 +63,14 @@ export const Body = ({url}) => (
 | [**@roots/bud-wordpress-dependencies**](/sources/@roots/bud-wordpress-dependencies) | [📚 Usage](${url.docs}/extensions/bud-wordpress-dependencies/) | ![npm](https://img.shields.io/npm/v/@roots/bud-wordpress-dependencies.svg?color=%23525ddc&style=flat-square) |
 | [**@roots/bud-wordpress-externals**](/sources/@roots/bud-wordpress-externals)       | [📚 Usage](${url.docs}/extensions/bud-wordpress-externals/)    | ![npm](https://img.shields.io/npm/v/@roots/bud-wordpress-externals.svg?color=%23525ddc&style=flat-square)    |
 | [**@roots/bud-wordpress-manifests**](/sources/@roots/bud-wordpress-manifests)       | [📚 Usage](${url.docs}/extensions/bud-wordpress-manifests/)    | ![npm](https://img.shields.io/npm/v/@roots/bud-wordpress-manifests.svg?color=%23525ddc&style=flat-square)    |
-`}
-    </span>
 
-    <p>
-      Have you produced a Bud extension and want to share it here? Please,
-      create an issue sharing information about your project.
-    </p>
+Have you produced a Bud extension and want to share it here? Please,
+create an issue sharing information about your project.
 
-    <h2>Want to contribute to bud.js?</h2>
+{{>contributing}}
 
-    <p>
-      Check out [our development guide](https://bud.js.org/dev) to get
-      started.
-    </p>
+{{>license}}
 
-    <License />
-  </>
-)
+{{>community}}
 
-export const Root = (props: any) => (
-  <>
-    <Banner {...props} />
-    <Body {...props} />
-    <Community />
-    <Contributing />
-    <Sponsors {...props} />
-  </>
-)
+{{>sponsors}}
