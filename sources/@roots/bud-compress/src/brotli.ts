@@ -4,7 +4,7 @@ import {
   label,
   options,
   plugin,
-} from '@roots/bud-framework/src/extension/decorators'
+} from '@roots/bud-framework/extension/decorators'
 import Plugin from 'compression-webpack-plugin'
 
 import type {Options} from './extension.js'

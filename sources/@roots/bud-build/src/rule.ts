@@ -4,18 +4,16 @@ import {isFunction, isString} from 'lodash-es'
 
 import Base from './shared/base.js'
 
-namespace Rule {
-  export type ConstructorOptions = Partial<Build.Rule.Options>
-}
+export type ConstructorOptions = Partial<Build.Rule.Options>
 
 /**
  * Bud Rule
  *
  * @public
  */
-class Rule extends Base implements Build.Rule {
+export default class Rule extends Base implements Build.Rule {
   /**
-   * {@inheritDoc @roots/bud-framework#Rule.Abstract.test}
+   * Rule test
    *
    * @public
    */
@@ -66,7 +64,10 @@ class Rule extends Base implements Build.Rule {
    *
    * @public
    */
-  public constructor(_app: () => Bud, options?: Build.Rule.Options) {
+  public constructor(
+    protected _app: () => Bud,
+    options?: Build.Rule.Options,
+  ) {
     super(_app)
 
     if (!options) return
@@ -100,7 +101,7 @@ class Rule extends Base implements Build.Rule {
    * @decorator `@bind`
    */
   @bind
-  public setTest(test: Rule['test']): Rule {
+  public setTest(test: Rule['test']): this {
     this.test = this.wrap(test)
     return this
   }
@@ -123,7 +124,7 @@ class Rule extends Base implements Build.Rule {
    * @decorator `@bind`
    */
   @bind
-  public setParser(parser: Build.Rule['parser']): Rule {
+  public setParser(parser: Build.Rule['parser']): this {
     this.parser = this.wrap(parser)
     return this
   }
@@ -153,7 +154,7 @@ class Rule extends Base implements Build.Rule {
           use: Array<keyof Build.Items & string>,
           app: Bud,
         ) => Array<keyof Build.Items & string>),
-  ): Rule {
+  ): this {
     this.use = isFunction(input)
       ? input(this.getUse() ?? [], this.app)
       : input
@@ -183,7 +184,7 @@ class Rule extends Base implements Build.Rule {
     includes:
       | ((includes: Rule['include']) => Rule['include'])
       | Rule['include'],
-  ): Rule {
+  ): this {
     if (!this.include) this.include = []
 
     if (typeof includes === 'function')
@@ -215,7 +216,7 @@ class Rule extends Base implements Build.Rule {
     excludes:
       | ((excludes: Rule['exclude']) => Rule['exclude'])
       | Rule['exclude'],
-  ): Rule {
+  ): this {
     if (!this.exclude) this.exclude = []
 
     if (typeof excludes === 'function')
@@ -243,7 +244,7 @@ class Rule extends Base implements Build.Rule {
    * @decorator `@bind`
    */
   @bind
-  public setType(type): Rule {
+  public setType(type): this {
     this.type = this.wrap(type)
     return this
   }
@@ -266,7 +267,7 @@ class Rule extends Base implements Build.Rule {
    * @decorator `@bind`
    */
   @bind
-  public setGenerator(generator: Build.Rule['generator']): Rule {
+  public setGenerator(generator: Build.Rule['generator']): this {
     this.generator = this.wrap(generator)
     return this
   }
@@ -301,5 +302,3 @@ class Rule extends Base implements Build.Rule {
     return output
   }
 }
-
-export {Rule as default}

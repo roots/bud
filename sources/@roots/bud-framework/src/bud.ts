@@ -3,8 +3,6 @@ import {omit} from 'lodash-es'
 import {format, PrettyFormatOptions} from 'pretty-format'
 
 import type {
-  Api,
-  Build,
   Cache,
   Compiler,
   Config,
@@ -16,11 +14,13 @@ import type {
   Project,
   Server,
   Services,
-} from '.'
+} from './index.js'
 import {lifecycle} from './lifecycle/index.js'
 import type * as methods from './methods/index.js'
 import type {Module} from './module.js'
 import * as parsers from './parsers/index.js'
+import type {Service as Api} from './services/api/index.js'
+import type {Service as Build} from './services/build/index.js'
 
 /**
  * Framework abstract
@@ -137,9 +137,9 @@ export abstract class Bud {
 
   public services: Services.Registry
 
-  public api: Api.Service
+  public api: Api
 
-  public build: Build.Service
+  public build: Build
 
   public cache: Cache.Service
 

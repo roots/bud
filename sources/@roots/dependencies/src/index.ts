@@ -10,8 +10,8 @@
  * @packageDocumentation
  */
 
-export {Npm, Yarn} from './command'
-export {Dependencies} from './dependencies'
+export {Npm, Yarn} from './command/index.js'
+export {Dependencies} from './dependencies.js'
 
 interface Install {
   (

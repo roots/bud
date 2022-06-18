@@ -1,4 +1,5 @@
-import type {Bud} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework/bud'
+import type {Rule} from '@roots/bud-framework/services/build'
 import * as json5Parser from 'json5'
 import * as tomlParser from 'toml'
 
@@ -7,7 +8,7 @@ import * as tomlParser from 'toml'
  *
  * @public
  */
-export const js = (app: Bud) =>
+export const js = async (app: Bud): Promise<Rule> =>
   app.build
     .makeRule()
     .setTest(({hooks}) => hooks.filter('pattern.js'))
@@ -19,7 +20,7 @@ export const js = (app: Bud) =>
  *
  * @public
  */
-export const css = (app: Bud) =>
+export const css = async (app: Bud): Promise<Rule> =>
   app.build
     .makeRule()
     .setTest(({hooks}) => hooks.filter('pattern.css'))
@@ -31,7 +32,7 @@ export const css = (app: Bud) =>
  *
  * @public
  */
-export const cssModule = (app: Bud) =>
+export const cssModule = async (app: Bud): Promise<Rule> =>
   app.build
     .makeRule()
     .setTest(({hooks}) => hooks.filter('pattern.cssModule'))
@@ -43,7 +44,7 @@ export const cssModule = (app: Bud) =>
  *
  * @public
  */
-export const image = (app: Bud) =>
+export const image = async (app: Bud): Promise<Rule> =>
   app.build
     .makeRule()
     .setTest(({hooks}) => hooks.filter('pattern.image'))
@@ -67,7 +68,7 @@ export const image = (app: Bud) =>
  *
  * @public
  */
-export const webp = (app: Bud) =>
+export const webp = async (app: Bud): Promise<Rule> =>
   app.build
     .makeRule()
     .setTest(({hooks}) => hooks.filter('pattern.webp'))
@@ -89,7 +90,7 @@ export const webp = (app: Bud) =>
  *
  * @public
  */
-export const svg = (app: Bud) =>
+export const svg = async (app: Bud): Promise<Rule> =>
   app.build
     .makeRule()
     .setTest(({hooks}) => hooks.filter('pattern.svg'))
@@ -110,7 +111,7 @@ export const svg = (app: Bud) =>
  *
  * @public
  */
-export const font = (app: Bud) =>
+export const font = async (app: Bud): Promise<Rule> =>
   app.build
     .makeRule()
     .setType('asset')
@@ -131,7 +132,7 @@ export const font = (app: Bud) =>
  *
  * @public
  */
-export const json = (app: Bud) =>
+export const json = async (app: Bud): Promise<Rule> =>
   app.build
     .makeRule()
     .setType('json')
@@ -145,7 +146,7 @@ export const json = (app: Bud) =>
  *
  * @public
  */
-export const yml = (app: Bud) =>
+export const yml = async (app: Bud): Promise<Rule> =>
   app.build
     .makeRule()
     .setInclude([app => app.path()])
@@ -158,7 +159,7 @@ export const yml = (app: Bud) =>
  *
  * @public
  */
-export const html = (app: Bud) =>
+export const html = async (app: Bud): Promise<Rule> =>
   app.build
     .makeRule()
     .setInclude([app => app.path()])
@@ -171,7 +172,7 @@ export const html = (app: Bud) =>
  *
  * @public
  */
-export const csv = (app: Bud) =>
+export const csv = async (app: Bud): Promise<Rule> =>
   app.build
     .makeRule()
     .setInclude([app => app.path()])
@@ -184,7 +185,7 @@ export const csv = (app: Bud) =>
  *
  * @public
  */
-export const xml = (app: Bud) =>
+export const xml = async (app: Bud): Promise<Rule> =>
   app.build
     .makeRule()
     .setInclude([app => app.path()])
@@ -197,7 +198,7 @@ export const xml = (app: Bud) =>
  *
  * @public
  */
-export const toml = (app: Bud) =>
+export const toml = async (app: Bud): Promise<Rule> =>
   app.build
     .makeRule()
     .setType('json')
