@@ -53,8 +53,30 @@ async function getReadmeProps(
     log(packages)
     await Promise.all(
       packages.map(async pkg => {
+        const parts = await globby([
+          `${pkg}/docs/*.mdx`,
+          `${pkg}/docs/*.md`,
+        ]).then(async (mdfiles: Array<string>) => {
+          return await mdfiles.reduce(async (promised, current) => {
+            const all = await promised
+            const content = await fs
+              .readFile(current, 'utf-8')
+              .then(String)
+            return [
+              ...all,
+              `## ${current.split('/').pop().split('.').shift()} 
+${content}
+`,
+            ]
+          }, Promise.resolve([]))
+        })
+
         const data = await getReadmeProps(`@roots/${pkg.split('/').pop()}`)
-        await renderer.render(templates.core, `${pkg}/readme.md`, data)
+
+        await renderer.render(templates.core, `${pkg}/readme.md`, {
+          ...data,
+          parts,
+        })
       }),
     )
   })

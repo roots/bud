@@ -8,6 +8,10 @@ Install **{{name}}** to your project.
 yarn add {{name}} --dev
 ```
 
+{{#each parts}}
+{{{this}}}
+{{/each}}
+
 {{>contributing}}
 
 {{>license}}
