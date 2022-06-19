@@ -1,5 +1,3 @@
-## Community
-
 Keep track of development and community news.
 
 - Join us on Roots Slack by becoming a [GitHub

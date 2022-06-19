@@ -1,3 +1,1 @@
-## Licensing
-
-Bud is licensed MIT.
+{{name}} is licensed under MIT.

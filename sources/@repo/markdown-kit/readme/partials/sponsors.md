@@ -1,7 +1,4 @@
-## Sponsors
-
-Help support our open-source development efforts by [becoming a
-patron](https://www.patreon.com/rootsdev).
+Help support our open-source development efforts by [becoming a patron](https://www.patreon.com/rootsdev).
 
 {{#each projectConfig.sponsors}}
 <a href="{{this.url}}">

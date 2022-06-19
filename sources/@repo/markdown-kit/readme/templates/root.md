@@ -1,30 +1,23 @@
 {{>banner}}
 
-## Features
+## What is bud.js?
 
-- Zero config by default (seriously, you don&rsquo;t even _need_ a
-  config file).
-- Modular by design. Use only what you need.
-- Easily implementable multi-compiler support.
-- Heckin&rsquo; fast.
-- Luxury dev tooling including semi-automated dependency management.
-- Supports configuration with TypeScript.
-- Customizable and extensible. Add new features. Swap our core
-  components with your own.
+{{>what}}
 
 <img
   src="https://raw.githubusercontent.com/roots/bud/main/sources/@repo/docs/static/casts/babel-build--cache.svg"
   title="bud.js build"
 />
 
+## Requirements
+
 {{>requirements}}
 
 ## Getting started
 
-Check out [bud.js.org](https://bud.js.org/) to get started.
+Check out [bud.js.org](https://bud.js.org/) and the [Getting Started guide](https://bud.js.org/guides/getting-started).
 
-There are [implementations available in the /examples directory of
-this repo](https://github.com/roots/bud/tree/master/examples).
+There are many example [implementations available in the /examples directory of this repo](https://github.com/roots/bud/tree/master/examples), including projects written using both CommonJS and ESM.
 
 ## Available modules
 
@@ -64,13 +57,20 @@ this repo](https://github.com/roots/bud/tree/master/examples).
 | [**@roots/bud-wordpress-externals**](/sources/@roots/bud-wordpress-externals)       | [📚 Usage](${url.docs}/extensions/bud-wordpress-externals/)    | ![npm](https://img.shields.io/npm/v/@roots/bud-wordpress-externals.svg?color=%23525ddc&style=flat-square)    |
 | [**@roots/bud-wordpress-manifests**](/sources/@roots/bud-wordpress-manifests)       | [📚 Usage](${url.docs}/extensions/bud-wordpress-manifests/)    | ![npm](https://img.shields.io/npm/v/@roots/bud-wordpress-manifests.svg?color=%23525ddc&style=flat-square)    |
 
-Have you produced a Bud extension and want to share it here? Please,
-create an issue sharing information about your project.
+Have you produced a Bud extension and want to share it here? Please, create an issue sharing information about your project.
+
+## Contributing
 
 {{>contributing}}
 
+## License
+
 {{>license}}
 
+## Community
+
 {{>community}}
+
+## Sponsors
 
 {{>sponsors}}
