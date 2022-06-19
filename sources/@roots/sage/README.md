@@ -18,15 +18,25 @@
 
 Install **@roots/sage** to your project.
 
-```shell
+Yarn:
+
+```sh
 yarn add @roots/sage --dev
+```
+
+npm:
+
+```sh
+npm install @roots/sage --save-dev
 ```
 
 ## Usage
 
+Documentation for this package is available on [bud.js.org](https://bud.js.org/extensions/sage). It may include additional context and information not available in this README.
+
 ### Eslint
 
-Install the [`@roots/bud-eslint` extension](/extensions/bud-eslint):
+Install the [`@roots/bud-eslint` extension](https://bud.js.org/extensions/bud-eslint):
 
 ```sh npm2yarn
 yarn add @roots/bud-eslint --dev
@@ -163,13 +173,11 @@ module.exports = {
 
 Contributions are welcome from everyone.
 
-We have [contribution
-guidelines](https://github.com/roots/guidelines/blob/master/CONTRIBUTING.md)
-to help you get started.
+We have [contribution guidelines](https://github.com/roots/guidelines/blob/master/CONTRIBUTING.md) to help you get started.
 
-## Licensing
+## License
 
-Bud is licensed MIT.
+@roots/sage is licensed under MIT.
 
 ## Community
 
@@ -184,8 +192,7 @@ Keep track of development and community news.
 
 ## Sponsors
 
-Help support our open-source development efforts by [becoming a
-patron](https://www.patreon.com/rootsdev).
+Help support our open-source development efforts by [becoming a patron](https://www.patreon.com/rootsdev).
 
 <a href="https://k-m.com/">
 <img src="https://cdn.roots.io/app/uploads/km-digital.svg" alt="KM Digital" width="200" height="150"/>
