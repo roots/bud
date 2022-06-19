@@ -47,8 +47,10 @@ async function getReadmeProps(
 
   const templates = await renderer.getTemplates()
   const data = await getReadmeProps('@roots/bud')
-  log(templates.root, `${REPO_PATH}/readme.md`, data)
-  await renderer.render(templates.root, `${REPO_PATH}/readme.md`, data)
+  await renderer.render(templates.root, `${REPO_PATH}/readme.md`, {
+    ...data,
+    name: 'bud.js',
+  })
 
   await globby(`${REPO_PATH}/sources/@roots/*`, {
     onlyDirectories: true,
@@ -78,7 +80,7 @@ async function getReadmeProps(
 
             return [
               ...all,
-              `### ${title} 
+              `### ${title}
 ${content}
 `,
             ]
