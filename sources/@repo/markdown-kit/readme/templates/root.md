@@ -54,6 +54,8 @@ There are many example [implementations available in the /examples directory of 
 
 Have you produced a bud.js extension and want to share it here? Please, create an issue sharing information about your project.
 
+For more information on authoring your own extension [consult the documentation](https://bud.js.org/guides/extending/) and the source code of the extensions in this repository.
+
 ## Contributing
 
 {{>contributing}}

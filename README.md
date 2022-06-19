@@ -6,7 +6,7 @@
   <img alt="Follow Roots" src="https://img.shields.io/twitter/follow/rootswp.svg?color=%23525ddc&style=flat-square" />
 </p>
 
-<h1 align="center"><strong>@roots/bud</strong></h1>
+<h1 align="center"><strong>bud.js</strong></h1>
 
 <p align="center">
   Frontend build tools combining the best parts of Symfony Encore and Laravel Mix
@@ -16,7 +16,11 @@
 
 ## What is bud.js?
 
-**bud.js** is a javascript build framework with add-on support for Babel, React, PostCSS, Sass, Typescript, esbuild, ESLint, Prettier, and more.
+**bud.js** is a web-focused build tool with add-on support for Babel, React, PostCSS, Sass, Typescript, esbuild, ESLint, Prettier, and more.
+
+The standard **bud.js** compiler leverages webpack, but is open to being extended to support other build tools. In the future, we hope to provide support for alternatives.
+
+**bud.js** is written in TypeScript but fully supports projects written in vanilla JavaScript.
 
 ### Goals
 
@@ -29,55 +33,15 @@
 
 ### Features
 
-- Zero config by default (seriously, you don&rsquo;t even _need_ a config file).
+- Zero config by default. [Example codesandbox](https://codesandbox.io/s/github/roots/bud/tree/main/examples/basic).
 - Modular by design. Use only what you need.
-- Easily implementable multi-compiler support.
+- Multi-compiler support.
 - Heckin&rsquo; fast.
-- Luxury dev tooling including semi-automated dependency management.
-- Supports configuration with TypeScript.
+- Lux developer tooling and semi-automated dependency management.
+- Support for configuration files authored with TypeScript, JSON, YML, CJS and ESM.
+- Support for CDNs like skypack and unpkg. [See documentation on using remote sources](https://bud.js.org/guides/general-use/remote-sources).
+- Support for outputting Ecmascript modules (experimental). [See documentation on using ESM output](https://bud.js.org/guides/general-use/esmodules).
 - Customizable and extensible. Add new features. Swap our core components with your own.
-
-### Comparison
-
-| Feature                           | Laravel Mix | Symfony Encore | bud.js |
-| :-------------------------------- | :---------- | :------------- | :----- |
-| ESNext compatible                 | ❌          | ❌             | ✅     |
-| Zero config                       | ❌          | ❌             | ✅     |
-| Typed                             | 🤷🏼‍♂️          | ❌             | ✅     |
-| Multi-compiler                    | ❌          | ✅             | ✅     |
-| Modular                           | ❌          | ❌             | ✅     |
-| TS config                         | ❌          | ❌             | ✅     |
-| YML config                        | ❌          | ❌             | ✅     |
-| JS config                         | ✅          | ✅             | ✅     |
-| JSON config                       | ❌          | ❌             | ✅     |
-| Compatible with webpack CLI       | ❌          | ✅             | ✅     |
-| Babel support                     | ✅          | ✅             | ✅     |
-| React support                     | ✅          | ✅             | ✅     |
-| Vue support                       | ✅          | ✅             | ✅     |
-| Sass support                      | ✅          | ✅             | ✅     |
-| PostCSS support                   | ✅          | ✅             | ✅     |
-| Stylus support                    | ✅          | ✅             | ❌     |
-| Typescript support                | ✅          | ✅             | ✅     |
-| LESS support                      | ✅          | ✅             | ❌     |
-| Emotion support                   | ❌          | ❌             | ✅     |
-| Markdown support                  | ❌          | ❌             | ✅     |
-| MDX support                       | ❌          | ❌             | ✅     |
-| esbuild support                   | ❌          | ❌             | ✅     |
-| Loader config API                 | ❌          | ✅             | ✅     |
-| Rule config API                   | ❌          | ✅             | ✅     |
-| Plugin config API                 | ❌          | ✅             | ✅     |
-| WordPress specific support        | ❌          | ❌             | ✅     |
-| Laravel specific support          | ✅          | ❌             | ❌     |
-| Symfony specific support          | ❌          | ✅             | ❌     |
-| Dependency management CLI tooling | ❌          | ❌             | ✅     |
-<<<<<<< HEAD
-=======
-
-<img
-  src="https://raw.githubusercontent.com/roots/bud/main/sources/@repo/docs/static/casts/babel-build--cache.svg"
-  title="bud.js build"
-/>
->>>>>>> origin/main
 
 ## Requirements
 
@@ -88,11 +52,7 @@
 
 ## Getting started
 
-<<<<<<< HEAD
 Check out [bud.js.org](https://bud.js.org) and the [Getting Started guide](https://bud.js.org/guides/getting-started).
-=======
-Check out [bud.js.org](https://bud.js.org/) and the [Getting Started guide](https://bud.js.org/guides/getting-started).
->>>>>>> origin/main
 
 There are many example [implementations available in the /examples directory of this repo](https://github.com/roots/bud/tree/master/examples), including projects written using both CommonJS and ESM.
 
@@ -100,7 +60,6 @@ There are many example [implementations available in the /examples directory of 
 
 ## Presets
 
-<<<<<<< HEAD
 | Name                                                                                                          | Usage                                                                  | Latest                                                                                                 |
 | ------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
 | [**@roots/bud-preset-recommend**](https://github.com/roots/bud/tree/main/sources/@roots/bud-preset-recommend) | [📚 Usage](https://bud.js.org/extensions/presets/bud-preset-recommend) | ![npm](https://img.shields.io/npm/v/@roots/bud-preset-recommend.svg?color=%23525ddc&style=flat-square) |
@@ -136,43 +95,8 @@ There are many example [implementations available in the /examples directory of 
 | [**@roots/bud-wordpress-manifests**](https://github.com/roots/bud/tree/main/sources/@roots/bud-wordpress-manifests)       | [📚 Usage](https://bud.js.org/extensions/bud-wordpress-manifests/)    | ![npm](https://img.shields.io/npm/v/@roots/bud-wordpress-manifests.svg?color=%23525ddc&style=flat-square)    |
 
 Have you produced a bud.js extension and want to share it here? Please, create an issue sharing information about your project.
-=======
-| Name                                                                    | Usage                                                           | Latest                                                                                                 |
-| ----------------------------------------------------------------------- | --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| [**@roots/bud-preset-recommend**](/sources/@roots/bud-preset-recommend) | [📚 Usage](${url.docs}/extensions/presets/bud-preset-recommend) | ![npm](https://img.shields.io/npm/v/@roots/bud-preset-recommend.svg?color=%23525ddc&style=flat-square) |
-| [**@roots/bud-preset-wordpress**](/sources/@roots/bud-preset-wordpress) | [📚 Usage](${url.docs}/extensions/presets/bud-preset-wordpress) | ![npm](https://img.shields.io/npm/v/@roots/bud-preset-wordpress.svg?color=%23525ddc&style=flat-square) |
-| [**@roots/sage**](/sources/@roots/sage)                                 | [📚 Usage](${url.docs}/extensions/presets/sage)                 | ![npm](https://img.shields.io/npm/v/@roots/sage.svg?color=%23525ddc&style=flat-square)                 |
 
-### Extensions
-
-| Name                                                                                | Usage                                                          | Latest                                                                                                       |
-| ----------------------------------------------------------------------------------- | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| [**@roots/bud-babel**](/sources/@roots/bud-babel)                                   | [📚 Usage](${url.docs}/extensions/bud-babel/)                  | ![npm](https://img.shields.io/npm/v/@roots/bud-babel.svg?color=%23525ddc&style=flat-square)                  |
-| [**@roots/bud-compress**](/sources/@roots/bud-compress)                             | [📚 Usage](${url.docs}/extensions/bud-compress/)               | ![npm](https://img.shields.io/npm/v/@roots/bud-compress.svg?color=%23525ddc&style=flat-square)               |
-| [**@roots/bud-criticalcss**](/sources/@roots/bud-criticalcss)                       | [📚 Usage](${url.docs}/extensions/bud-criticalcss/)            | ![npm](https://img.shields.io/npm/v/@roots/bud-criticalcss.svg?color=%23525ddc&style=flat-square)            |
-| [**@roots/bud-emotion**](/sources/@roots/bud-emotion)                               | [📚 Usage](${url.docs}/extensions/bud-emotion/)                | ![npm](https://img.shields.io/npm/v/@roots/bud-emotion.svg?color=%23525ddc&style=flat-square)                |
-| [**@roots/bud-entrypoints**](/sources/@roots/bud-entrypoints)                       | [📚 Usage](${url.docs}/extensions/bud-entrypoints/)            | ![npm](https://img.shields.io/npm/v/@roots/bud-entrypoints.svg?color=%23525ddc&style=flat-square)            |
-| [**@roots/bud-esbuild**](/sources/@roots/bud-esbuild)                               | [📚 Usage](${url.docs}/extensions/bud-esbuild/)                | ![npm](https://img.shields.io/npm/v/@roots/bud-esbuild.svg?color=%23525ddc&style=flat-square)                |
-| [**@roots/bud-eslint**](/sources/@roots/bud-eslint)                                 | [📚 Usage](${url.docs}/extensions/bud-eslint/)                 | ![npm](https://img.shields.io/npm/v/@roots/bud-eslint.svg?color=%23525ddc&style=flat-square)                 |
-| [**@roots/bud-imagemin**](/sources/@roots/bud-imagemin)                             | [📚 Usage](${url.docs}/extensions/bud-imagemin/)               | ![npm](https://img.shields.io/npm/v/@roots/bud-imagemin.svg?color=%23525ddc&style=flat-square)               |
-| [**@roots/bud-mdx**](/sources/@roots/bud-mdx)                                       | [📚 Usage](${url.docs}/extensions/bud-mdx/)                    | ![npm](https://img.shields.io/npm/v/@roots/bud-mdx.svg?color=%23525ddc&style=flat-square)                    |
-| [**@roots/bud-postcss**](/sources/@roots/bud-postcss)                               | [📚 Usage](${url.docs}/extensions/bud-postcss/)                | ![npm](https://img.shields.io/npm/v/@roots/bud-postcss.svg?color=%23525ddc&style=flat-square)                |
-| [**@roots/bud-prettier**](/sources/@roots/bud-prettier)                             | [📚 Usage](${url.docs}/extensions/bud-prettier/)               | ![npm](https://img.shields.io/npm/v/@roots/bud-prettier.svg?color=%23525ddc&style=flat-square)               |
-| [**@roots/bud-purgecss**](/sources/@roots/bud-purgecss)                             | [📚 Usage](${url.docs}/extensions/bud-purgecss/)               | ![npm](https://img.shields.io/npm/v/@roots/bud-purgecss.svg?color=%23525ddc&style=flat-square)               |
-| [**@roots/bud-react**](/sources/@roots/bud-react)                                   | [📚 Usage](${url.docs}/extensions/bud-react/)                  | ![npm](https://img.shields.io/npm/v/@roots/bud-react.svg?color=%23525ddc&style=flat-square)                  |
-| [**@roots/bud-sass**](/sources/@roots/bud-sass)                                     | [📚 Usage](${url.docs}/extensions/bud-sass/)                   | ![npm](https://img.shields.io/npm/v/@roots/bud-sass.svg?color=%23525ddc&style=flat-square)                   |
-| [**@roots/bud-solid**](/sources/@roots/bud-solid)                                   | [📚 Usage](${url.docs}/extensions/bud-solid/)                  | ![npm](https://img.shields.io/npm/v/@roots/bud-solid.svg?color=%23525ddc&style=flat-square)                  |
-| [**@roots/bud-stylelint**](/sources/@roots/bud-stylelint)                           | [📚 Usage](${url.docs}/extensions/bud-stylelint/)              | ![npm](https://img.shields.io/npm/v/@roots/bud-stylelint.svg?color=%23525ddc&style=flat-square)              |
-| [**@roots/bud-tailwindcss**](/sources/@roots/bud-tailwindcss)                       | [📚 Usage](${url.docs}/extensions/bud-tailwindcss/)            | ![npm](https://img.shields.io/npm/v/@roots/bud-tailwindcss.svg?color=%23525ddc&style=flat-square)            |
-| [**@roots/bud-terser**](/sources/@roots/bud-terser)                                 | [📚 Usage](${url.docs}/extensions/bud-terser/)                 | ![npm](https://img.shields.io/npm/v/@roots/bud-terser.svg?color=%23525ddc&style=flat-square)                 |
-| [**@roots/bud-typescript**](/sources/@roots/bud-typescript)                         | [📚 Usage](${url.docs}/extensions/bud-typescript/)             | ![npm](https://img.shields.io/npm/v/@roots/bud-typescript.svg?color=%23525ddc&style=flat-square)             |
-| [**@roots/bud-vue**](/sources/@roots/bud-vue)                                       | [📚 Usage](${url.docs}/extensions/bud-vue/)                    | ![npm](https://img.shields.io/npm/v/@roots/bud-vue.svg?color=%23525ddc&style=flat-square)                    |
-| [**@roots/bud-wordpress-dependencies**](/sources/@roots/bud-wordpress-dependencies) | [📚 Usage](${url.docs}/extensions/bud-wordpress-dependencies/) | ![npm](https://img.shields.io/npm/v/@roots/bud-wordpress-dependencies.svg?color=%23525ddc&style=flat-square) |
-| [**@roots/bud-wordpress-externals**](/sources/@roots/bud-wordpress-externals)       | [📚 Usage](${url.docs}/extensions/bud-wordpress-externals/)    | ![npm](https://img.shields.io/npm/v/@roots/bud-wordpress-externals.svg?color=%23525ddc&style=flat-square)    |
-| [**@roots/bud-wordpress-manifests**](/sources/@roots/bud-wordpress-manifests)       | [📚 Usage](${url.docs}/extensions/bud-wordpress-manifests/)    | ![npm](https://img.shields.io/npm/v/@roots/bud-wordpress-manifests.svg?color=%23525ddc&style=flat-square)    |
-
-Have you produced a Bud extension and want to share it here? Please, create an issue sharing information about your project.
->>>>>>> origin/main
+For more information on authoring your own extension [consult the documentation](https://bud.js.org/guides/extending/) and the source code of the extensions in this repository.
 
 ## Contributing
 
@@ -182,7 +106,7 @@ We have [contribution guidelines](https://github.com/roots/guidelines/blob/maste
 
 ## License
 
-@roots/bud is licensed under MIT.
+bud.js is licensed under MIT.
 
 ## Community
 
