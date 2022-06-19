@@ -2,6 +2,7 @@ import {paths, projectConfig, REPO_PATH} from '@repo/constants'
 import {log} from '@repo/logger'
 import fs from 'fs-extra'
 import {globby} from 'globby'
+import {camelCase, startCase} from 'lodash-es'
 import path from 'path'
 
 import * as renderer from './renderer/index.js'
@@ -42,6 +43,8 @@ async function getReadmeProps(
  */
 ;(async function writeReadmeFiles() {
   await renderer.registerPartials()
+  await renderer.registerHelpers()
+
   const templates = await renderer.getTemplates()
   const data = await getReadmeProps('@roots/bud')
   log(templates.root, `${REPO_PATH}/readme.md`, data)
@@ -53,18 +56,29 @@ async function getReadmeProps(
     log(packages)
     await Promise.all(
       packages.map(async pkg => {
-        const parts = await globby([
+        const usage = await globby([
           `${pkg}/docs/*.mdx`,
           `${pkg}/docs/*.md`,
         ]).then(async (mdfiles: Array<string>) => {
-          return await mdfiles.reduce(async (promised, current) => {
+          return await mdfiles.sort().reduce(async (promised, current) => {
             const all = await promised
             const content = await fs
               .readFile(current, 'utf-8')
               .then(String)
+
+            const title = startCase(
+              camelCase(
+                current
+                  .split('/')
+                  .pop()
+                  .replace(/\.mdx?/, '')
+                  .replace(/^\d\d-/, ''),
+              ),
+            )
+
             return [
               ...all,
-              `## ${current.split('/').pop().split('.').shift()} 
+              `### ${title} 
 ${content}
 `,
             ]
@@ -75,7 +89,7 @@ ${content}
 
         await renderer.render(templates.core, `${pkg}/readme.md`, {
           ...data,
-          parts,
+          usage,
         })
       }),
     )

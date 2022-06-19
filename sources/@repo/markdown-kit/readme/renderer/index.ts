@@ -26,6 +26,15 @@ export async function registerPartials() {
   hb.registerPartial(partials)
 }
 
+export async function registerHelpers() {
+  hb.registerHelper('dotPath', function (context, options) {
+    return `${options.fn(this).replace(/\./, options.data.root.name)}`
+  })
+  hb.registerHelper('raw', function (options) {
+    return options.fn(this)
+  })
+}
+
 export async function getTemplates(): Promise<
   Record<string, hb.TemplateDelegate>
 > {

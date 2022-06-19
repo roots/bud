@@ -8,7 +8,9 @@ Install **{{name}}** to your project.
 yarn add {{name}} --dev
 ```
 
-{{#each parts}}
+## Usage
+
+{{#each usage}}
 {{{this}}}
 {{/each}}
 
