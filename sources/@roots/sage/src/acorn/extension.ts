@@ -23,9 +23,33 @@ export default class Acorn extends Extension {
     /**
      * Override output directory for svg assets
      *
-     * `@roots/bud-build` places them, by default, in `svg/`
+     * `@roots/bud-build` places them, by default, in `@dist/svg/`
      */
     this.app.build.rules.svg.setGenerator(this.svgGenerator)
+
+    /**
+     * Override output directory for css
+     *
+     * @remarks
+     * `@roots/bud-build` emits css to `@dist`
+     */
+    this.app.extensions
+      .get('mini-css-extract-plugin')
+      .setOption(
+        'filename',
+        this.app.relPath('./styles/@name').replace('[ext]', '.css'),
+      )
+
+    /**
+     * Override output directory for js
+     *
+     * @remarks
+     * `@roots/bud-build` emits js to `@dist`
+     */
+    this.app.hooks.on(
+      'build.output.filename',
+      this.app.relPath('./scripts/@name').replace('[ext]', '.js'),
+    )
 
     /**
      * Write hmr.json when compilation is finalized (only in development)
