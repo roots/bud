@@ -225,9 +225,12 @@ export default class Hooks
         current: (
           value?: Framework.Registry.Sync[T],
         ) => Framework.Registry.Sync[T],
-      ): Framework.Registry.Sync[T] => current(accumulated),
+      ): Framework.Registry.Sync[T] =>
+        isFunction(current) ? current(accumulated) : current,
       isFunction(fallback) ? fallback() : fallback,
     )
+
+    this.set(id, [result])
 
     this.app.info(`hooks.filter`, id, result)
 
@@ -327,7 +330,7 @@ export default class Hooks
     await retrieved.reduce(async (promise, current) => {
       await promise
       this.app.info(`firing action ${id}`)
-      return current(this.app)
+      return isFunction(current) ? current(this.app) : current
     }, Promise.resolve())
 
     return this.app

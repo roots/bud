@@ -1,5 +1,5 @@
-#!/usr/bin/env -S ts-node --esm --transpileOnly
+#!/usr/bin/env -S ts-node --esm --transpileOnly --skipProject --cwdMode
 
 (async () => {
-  await import('./bud.mjs')
+  await import('../lib/cli/index.js');
 })()
