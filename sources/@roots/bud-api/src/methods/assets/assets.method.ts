@@ -4,21 +4,21 @@ import {isArray, isString} from 'lodash-es'
 
 export interface facade {
   (
-    ...request: Array<
+    request: Array<
       | string
       | CopyPlugin.ObjectPattern
       | Array<string | [string, string] | CopyPlugin.ObjectPattern>
-    >
+    >,
   ): Bud
 }
 
 export interface method {
   (
-    ...request: Array<
+    request: Array<
       | string
       | CopyPlugin.ObjectPattern
       | Array<string | [string, string] | CopyPlugin.ObjectPattern>
-    >
+    >,
   ): Promise<Bud>
 }
 
