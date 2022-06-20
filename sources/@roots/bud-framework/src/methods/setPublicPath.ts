@@ -1,5 +1,3 @@
-import {isFunction, isString} from 'lodash-es'
-
 import type {Bud} from '../bud.js'
 
 /**
@@ -36,13 +34,9 @@ export interface setPublicPath {
  * @public
  */
 export const setPublicPath: setPublicPath = function (publicPath) {
-  this as Bud
+  const app = this as Bud
 
-  isString(publicPath) &&
-    this.hooks.on('build.output.publicPath', () => publicPath)
+  app.hooks.on('build.output.publicPath', publicPath)
 
-  isFunction(publicPath) &&
-    this.hooks.on('build.output.publicPath', publicPath)
-
-  return this
+  return app
 }

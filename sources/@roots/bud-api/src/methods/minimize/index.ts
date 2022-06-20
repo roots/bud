@@ -1,8 +1,8 @@
-import type {Bud} from '@roots/bud-framework'
-import CssMinimizer from 'css-minimizer-webpack-plugin'
-import {isUndefined} from 'lodash-es'
+import type { Bud } from "@roots/bud-framework";
+import CssMinimizer from "css-minimizer-webpack-plugin";
+import { isUndefined } from "lodash-es";
 
-import {cssMinimizerOptions} from './minimize.constants.js'
+import { cssMinimizerOptions } from "./minimize.constants.js";
 
 /**
  * Minimize function interface
@@ -13,7 +13,7 @@ import {cssMinimizerOptions} from './minimize.constants.js'
  * @public
  */
 export interface minimize {
-  (enabled?: boolean, options?: {css: any}): Bud
+  (enabled?: boolean, options?: { css: any }): Bud;
 }
 
 /**
@@ -42,26 +42,26 @@ export interface minimize {
  *
  * @public
  */
-export const minimize: minimize = function (input?, options?: {css: any}) {
-  const app = this as Bud
+export const minimize: minimize = function (input?, options?: { css: any }) {
+  const app = this as Bud;
 
   if (input === false) {
-    app.hooks.on('build.optimization.minimize', false)
+    app.hooks.on("build.optimization.minimize", false);
   }
 
   if (isUndefined(input) || input === true) {
-    app.hooks.on('build.optimization.minimize', true)
+    app.hooks.on("build.optimization.minimize", true);
   }
 
-  app.hooks.on('build.optimization.minimizer', minimizer => {
+  app.hooks.on("build.optimization.minimizer", (minimizer) => {
     return [
       ...(minimizer ?? []),
       new CssMinimizer({
         ...cssMinimizerOptions,
         ...(options?.css ?? {}),
       }),
-    ]
-  })
+    ];
+  });
 
-  return app
-}
+  return app;
+};

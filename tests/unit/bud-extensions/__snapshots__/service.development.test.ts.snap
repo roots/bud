@@ -3,6 +3,7 @@
 exports[`Extensions [development] bud.extensions.repository options matches snapshot 1`] = `
 Array [
   "@roots/bud-babel",
+  "@roots/bud-cache/invalidate-cache",
   "@roots/bud-entrypoints",
   "@roots/bud-eslint",
   "@roots/bud-postcss",
