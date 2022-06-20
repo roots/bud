@@ -28,28 +28,30 @@ export default class Acorn extends Extension {
     this.app.build.rules.svg.setGenerator(this.svgGenerator)
 
     /**
-     * Override output directory for css
+     * Organize emitted scripts and styles by entrypoint
+     * using directories
      *
      * @remarks
-     * `@roots/bud-build` emits css to `@dist`
+     * An entrypoint specified with:
+     * bud.entry('app', ['app.css', 'app.js'])
+     *
+     * Will be emitted like this:
+     * - `@dist/app/entry.css`
+     * - `@dist/app/entry.js`
      */
-    this.app.extensions
-      .get('mini-css-extract-plugin')
-      .setOption(
-        'filename',
-        this.app.relPath('./styles/@name').replace('[ext]', '.css'),
-      )
+    this.app.hooks.action('event.build.after', async () => {
+      if (!this.app.build.config.entry) return
 
-    /**
-     * Override output directory for js
-     *
-     * @remarks
-     * `@roots/bud-build` emits js to `@dist`
-     */
-    this.app.hooks.on(
-      'build.output.filename',
-      this.app.relPath('./scripts/@name').replace('[ext]', '.js'),
-    )
+      this.app.build.config.entry = Object.entries(
+        this.app.build.config.entry,
+      ).reduce(
+        (a, [k, v]) => ({
+          ...a,
+          [`${k.includes('/') ? k : `${k}/entry`}`]: v,
+        }),
+        {},
+      )
+    })
 
     /**
      * Write hmr.json when compilation is finalized (only in development)
