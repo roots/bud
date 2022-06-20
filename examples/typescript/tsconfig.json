@@ -1,6 +1,15 @@
 {
   "extends": "@roots/bud-typescript/tsconfig/tsconfig.json",
   "compilerOptions": {
-    "module": "esnext"
-  }
+    "baseUrl": "./",
+    "rootDir": "./",
+    "module": "esnext",
+    "target": "esnext",
+    "paths": {
+      "@src/*": ["src/*"]
+    },
+    "types": ["@roots/bud", "@roots/bud-typescript"]
+  },
+  "include": ["src", "types"],
+  "exclude": ["dist"]
 }
