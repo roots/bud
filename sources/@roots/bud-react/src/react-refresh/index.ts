@@ -10,5 +10,5 @@
  * @packageDocumentation
  */
 
-import BudReactRefresh from './extension'
+import BudReactRefresh from './extension.js'
 export default BudReactRefresh

@@ -2,7 +2,25 @@ import type {Bud} from '@roots/bud-framework'
 import type CopyPlugin from 'copy-webpack-plugin'
 import {isArray, isString} from 'lodash-es'
 
-import type {method} from './assets.interface'
+export interface facade {
+  (
+    ...request: Array<
+      | string
+      | CopyPlugin.ObjectPattern
+      | Array<string | [string, string] | CopyPlugin.ObjectPattern>
+    >
+  ): Bud
+}
+
+export interface method {
+  (
+    ...request: Array<
+      | string
+      | CopyPlugin.ObjectPattern
+      | Array<string | [string, string] | CopyPlugin.ObjectPattern>
+    >
+  ): Promise<Bud>
+}
 
 export const appearsTupled = (request: any): boolean =>
   isArray(request) && isArray(request[0])

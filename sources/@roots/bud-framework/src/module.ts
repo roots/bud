@@ -3,7 +3,7 @@ import {resolve} from 'import-meta-resolve'
 import {createRequire} from 'module'
 import {join, relative} from 'node:path'
 
-import type {Bud} from './bud'
+import type {Bud} from './bud.js'
 
 /**
  * Module resolver
@@ -26,7 +26,6 @@ export class Module {
   public constructor(public app: Bud) {
     this.app.log('projectDir', this.app.context.projectDir)
     this.app.log('process.cwd', process.cwd())
-
     this.require = createRequire(this.app.context.projectDir)
   }
 

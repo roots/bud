@@ -1,6 +1,7 @@
 import type * as Webpack from 'webpack'
 
 import type {Service as BaseService} from '../../service.js'
+import type {Base} from './base.js'
 import type {Item} from './item/index.js'
 import type {Loader} from './loader/index.js'
 import type {Rule} from './rule/index.js'
@@ -133,7 +134,7 @@ export interface Service extends BaseService {
  * @virtual @public
  */
 export interface Loaders extends Partial<Record<string, Loader>> {}
-export {Loader}
+export type {Loader}
 
 /**
  * Registered {@link Item} instances
@@ -141,7 +142,7 @@ export {Loader}
  * @virtual @public
  */
 export interface Items extends Partial<Record<string, Item>> {}
-export {Item}
+export type {Item}
 
 /**
  * Registered {@link Rule} instances
@@ -149,6 +150,8 @@ export {Item}
  * @virtual @public
  */
 export interface Rules extends Partial<Record<string, Rule>> {}
-export {Rule}
+export type {Rule}
 
-export {Service as Build}
+export type {Base}
+
+export type {Service as Build}

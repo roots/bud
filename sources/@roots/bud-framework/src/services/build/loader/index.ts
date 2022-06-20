@@ -30,6 +30,4 @@ export interface Loader extends Base {
   getSrc(): string
 }
 
-export namespace Loader {
-  export type Constructor = string | ((app: Bud) => string)
-}
+export type Constructor = string | ((app: Bud) => string)

@@ -7,7 +7,7 @@ import {
   when,
 } from '@roots/bud-framework/extension/decorators'
 import Plugin from 'fork-ts-checker-webpack-plugin'
-import type {ForkTsCheckerWebpackPluginOptions as Options} from 'fork-ts-checker-webpack-plugin/lib/plugin-options'
+import type {ForkTsCheckerWebpackPluginOptions as Options} from 'fork-ts-checker-webpack-plugin/lib/plugin-options.js'
 
 @label('@roots/bud-typescript/typecheck')
 @plugin(Plugin)

@@ -69,7 +69,7 @@ export interface Rule extends Base {
    *
    * @public
    */
-  setTest(test: Rule['test']): Rule
+  setTest(test: Rule['test']): this
 
   /**
    * Use item
@@ -92,7 +92,7 @@ export interface Rule extends Base {
    */
   setUse<K extends keyof Items & string>(
     use: ((use: Array<K>, app: Bud) => Array<K>) | Array<K>,
-  ): Rule
+  ): this
 
   /**
    * Use item
@@ -121,7 +121,7 @@ export interface Rule extends Base {
           >,
         ) => Array<string | RegExp | ((app: Bud) => string | RegExp)>)
       | Array<string | RegExp | ((app: Bud) => string | RegExp)>,
-  ): Rule
+  ): this
 
   /**
    * Include paths
@@ -135,7 +135,7 @@ export interface Rule extends Base {
    *
    * @public
    */
-  getInclude(): Rule['include']
+  getInclude(): this['include']
 
   /**
    * Set the value of `include`
@@ -146,7 +146,7 @@ export interface Rule extends Base {
     value:
       | ((includes: Rule['include']) => Rule['include'])
       | Rule['include'],
-  ): Rule
+  ): this
 
   /**
    * Type
@@ -167,7 +167,7 @@ export interface Rule extends Base {
    *
    * @public
    */
-  setType(type: Rule['type']): Rule
+  setType(type: Rule['type']): this
 
   /**
    * Parser
@@ -188,7 +188,7 @@ export interface Rule extends Base {
    *
    * @public
    */
-  setParser(parser: ((app: Bud) => Rule.Parser) | Rule.Parser): Rule
+  setParser(parser: ((app: Bud) => Rule.Parser) | Rule.Parser): this
 
   /**
    * Generator
@@ -211,7 +211,7 @@ export interface Rule extends Base {
    */
   setGenerator(
     Generator: ((app: Bud) => Rule['generator']) | Rule['generator'],
-  ): Rule
+  ): this
 
   /**
    * Returns final RuleSetRule

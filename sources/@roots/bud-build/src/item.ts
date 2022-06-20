@@ -3,9 +3,7 @@ import {bind} from 'helpful-decorators'
 
 import Base from './shared/base.js'
 
-namespace Item {
-  export type ConstructorOptions = Build.Item.ConstructorOptions
-}
+export type ConstructorOptions = Build.Item.ConstructorOptions
 
 /**
  * Item class

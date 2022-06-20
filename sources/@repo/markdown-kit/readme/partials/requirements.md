@@ -1,0 +1,4 @@
+- Node 16+
+- yarn 1.22 or higher
+- npm 8.3 or higher
+- Windows users must run **bud.js** under the Windows Subsystem for Linux.

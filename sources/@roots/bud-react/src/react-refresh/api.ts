@@ -1,4 +1,4 @@
-import type {ReactRefreshPluginOptions} from '@pmmmwh/react-refresh-webpack-plugin/types/lib/types'
+import type {ReactRefreshPluginOptions as Options} from '@pmmmwh/react-refresh-webpack-plugin/types/lib/types'
 import type {Bud} from '@roots/bud-framework'
 import {isFunction} from 'lodash-es'
 
@@ -34,7 +34,7 @@ import * as reduceEntries from './reducers.js'
  * @public
  */
 export interface reactRefresh {
-  (options?: ReactRefreshPluginOptions): Promise<Bud>
+  (options?: Options): Promise<Bud>
 }
 
 export interface reactRefresh {
@@ -42,7 +42,7 @@ export interface reactRefresh {
 }
 
 export const reactRefresh: reactRefresh = async function (
-  userOptions?: ReactRefreshPluginOptions | boolean,
+  userOptions?: Options | boolean,
 ) {
   const ctx = this as Bud
 

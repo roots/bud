@@ -1,7 +1,7 @@
 import {bind} from 'helpful-decorators'
 
-import type {IDependencyManager} from '../'
-import {Command} from './base.command'
+import type {IDependencyManager} from '../index.js'
+import {Command} from './base.command.js'
 
 /**
  * Yarn command

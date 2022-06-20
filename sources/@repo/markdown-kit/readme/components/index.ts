@@ -1,6 +1,0 @@
-export {Banner} from './Banner.js'
-export {Community} from './Community.js'
-export {Contributing} from './Contributing.js'
-export {Docs} from './Docs.js'
-export {License} from './License.js'
-export {Sponsors} from './Sponsors.js'
