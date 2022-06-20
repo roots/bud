@@ -1,6 +1,5 @@
 import type * as Bud from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework/service'
-import fs from 'fs-extra'
 import {bind} from 'helpful-decorators'
 import {isFunction, isUndefined} from 'lodash-es'
 import type {Configuration} from 'webpack'
@@ -12,8 +11,6 @@ import * as rules from './handlers/rules.js'
 import Item from './item.js'
 import Loader from './loader.js'
 import Rule from './rule.js'
-
-const {ensureFile, writeFile} = fs
 
 /**
  * Webpack configuration builder class
@@ -46,17 +43,6 @@ export default class Build extends Service implements Bud.Build.Service {
    * @public
    */
   public items: Bud.Build.Items
-
-  /**
-   * Service booted event
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async registered() {
-    this.app.hooks.action('event.build.after', this.writeFinalConfig)
-  }
 
   /**
    * Make webpack configuration
@@ -259,32 +245,5 @@ export default class Build extends Service implements Bud.Build.Service {
   @bind
   public makeItem(options?: Partial<Item['options']>): Item {
     return new Item(() => this.app, options)
-  }
-
-  /**
-   * Write final configuration to storage directory
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async writeFinalConfig(): Promise<void> {
-    try {
-      const filePath = this.app.path(
-        `@storage/${this.app.name}/webpack.config.js`,
-      )
-
-      await ensureFile(filePath)
-      await writeFile(
-        filePath,
-        `module.exports = ${this.app.json.stringify(
-          this.config,
-          null,
-          2,
-        )}`,
-      )
-    } catch (error) {
-      this.app.error(`failed to write webpack.config.json`)
-    }
   }
 }
