@@ -1,21 +1,18 @@
 import type {Bud} from '@roots/bud-framework'
 import type CopyPlugin from 'copy-webpack-plugin'
 import {isArray, isString} from 'lodash-es'
-import {normalize} from 'node:path'
 
 import type {method} from './assets.interface'
 
 export const appearsTupled = (request: any): boolean =>
-  isArray(request[0]) && isArray(request[0][0])
-
-export const toWildcard = (pattern: string) => normalize(`${pattern}/**/*`)
+  isArray(request) && isArray(request[0])
 
 export const assets: method = async function assets(
-  ...request: Array<
+  request: Array<
     | string
     | CopyPlugin.ObjectPattern
     | Array<string | [string, string] | CopyPlugin.ObjectPattern>
-  >
+  >,
 ): Promise<Bud> {
   /**
    * tsc will complain about `this` context being lost
@@ -25,20 +22,15 @@ export const assets: method = async function assets(
   const app = this as Bud
 
   /**
-   * Replace a leading dot with the project path
-   */
-  const fromDotRel = (pattern: string) =>
-    pattern?.startsWith('./') ? pattern.replace('./', app.path()) : pattern
-
-  /**
    * Take an input string and return a {@link CopyPlugin.ObjectPattern}
    */
-  function makePatternObject(input: string): CopyPlugin.ObjectPattern {
+  function makePatternObject(from: string): CopyPlugin.ObjectPattern {
     return {
-      from: fromDotRel(input),
-      to: app.path('@name'),
-      context: input.startsWith('/') ? undefined : app.path('@src'),
+      from: from.startsWith('/') ? from : app.path(`@src`, from),
+      to: app.path(`@dist`, from, `@file`),
+      context: app.path('@src'),
       noErrorOnMissing: true,
+      toType: 'template',
     }
   }
 
@@ -48,34 +40,60 @@ export const assets: method = async function assets(
    * @param tuple - [origin, destination]
    * @returns
    */
-  const makeFromTo = ([from, to]: [string, string]) => ({
-    from,
-    to,
-    noErrorOnMissing: true,
-  })
+  const makeFromTo = ([from, to]: [string, string]) => {
+    to = to ?? from
+    return {
+      from: from.startsWith('/') ? from : app.path(`@src`, from),
+      to: to.startsWith('/') ? to : app.path(`@dist`, to, `@file`),
+      context: app.path('@src'),
+      noErrorOnMissing: true,
+      toType: 'template',
+    }
+  }
 
   /**
    * Parse a request item
    */
-  const parse = (request: string | CopyPlugin.ObjectPattern) => {
-    return isString(request) ? makePatternObject(request) : request
+  const parse = (
+    request: string | [string, string] | CopyPlugin.ObjectPattern,
+  ) => {
+    return isString(request)
+      ? makePatternObject(request)
+      : isArray(request)
+      ? makeFromTo(request)
+      : request
   }
 
-  if (appearsTupled(request)) {
+  /**
+   * Handle string request
+   */
+  if (isString(request)) {
     app.extensions.get('copy-webpack-plugin').setOptions(options => ({
       ...(options ?? {}),
-      patterns: [
-        ...(options?.patterns ?? []),
-        ...request.flat().map(makeFromTo),
-      ],
+      patterns: [...(options?.patterns ?? []), parse(request)],
     }))
 
     return app
   }
 
+  /**
+   * Handle object request
+   */
+  if (!isArray(request)) {
+    app.extensions.get('copy-webpack-plugin').setOptions(options => ({
+      ...(options ?? {}),
+      request,
+    }))
+
+    return app
+  }
+
+  /**
+   * Handle arrayed request
+   */
   app.extensions.get('copy-webpack-plugin').setOptions(options => ({
     ...(options ?? {}),
-    patterns: [...(options?.patterns ?? []), ...request.flat().map(parse)],
+    patterns: [...(options?.patterns ?? []), ...request.map(parse)],
   }))
 
   return app
