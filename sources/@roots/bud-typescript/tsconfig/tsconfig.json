@@ -1,31 +1,28 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "display": "@roots/bud-typescript",
-
+  "display": "Bud",
   "compilerOptions": {
-    "allowSyntheticDefaultImports": false,
-    "target": "es5",
-    "downlevelIteration": true,
-    "importHelpers": true,
-    "sourceMap": true,
-    "module": "CommonJS",
-    "moduleResolution": "node",
-    "jsx": "react",
-    "allowJs": false,
-    "checkJs": false,
-    "lib": ["dom", "es2015", "es2016", "es2017", "esnext"],
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
+    ],
+    "module": "esnext",
+    "target": "esnext",
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "experimentalDecorators": true,
-    "noImplicitAny": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "noUnusedLocals": true,
-    "skipLibCheck": true,
-    "strictNullChecks": false,
-    "suppressImplicitAnyIndexErrors": true
-  },
-  "ts-node": {
-    "esm": true
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "moduleResolution": "node",
+    "noFallthroughCasesInSwitch": true,
+    "outDir": "dist",
+    "paths": {
+      "@src/*": [
+        "src/*"
+      ]
+    },
+    "skipLibCheck": true
   }
 }

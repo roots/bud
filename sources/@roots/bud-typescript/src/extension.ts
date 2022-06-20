@@ -4,35 +4,32 @@ import {
   dependsOn,
   expose,
   label,
+  options,
 } from '@roots/bud-framework/extension/decorators'
 
 @label('@roots/bud-typescript')
 @expose('typescript')
-@dependsOn(['@roots/bud-babel'])
+@options({
+  transpileOnly: true,
+})
+@dependsOn(['@roots/bud-babel', '@roots/bud-typescript/typecheck'])
 export default class BudTypeScript extends Extension {
   public get typecheck() {
     return this.app.extensions.get('@roots/bud-typescript/typecheck')
   }
 
-  @bind
-  public async init() {
-    const {default: typecheck} = await import('./typecheck/index.js')
-    await this.app.extensions.add(typecheck)
+  @bind public async init() {
+    this.setOption('context', this.app.path('./'))
   }
 
-  @bind
-  public async register() {
+  @bind public async register() {
     const loader = await this.resolve('ts-loader')
-    const compiler = await this.resolve('typescript')
 
     this.app.build
       .setLoader('ts', loader)
       .setItem('ts', {
         loader: 'ts',
-        options: {
-          compiler,
-          transpileOnly: true,
-        },
+        options: this.getOptions,
       })
       .setRule('ts', {
         test: ({hooks}) => hooks.filter('pattern.ts'),
