@@ -1,0 +1,13 @@
+{
+  "name": "workbench-1480",
+  "private": true,
+  "scripts": {
+    "bud": "../../node_modules/.bin/ts-bud",
+    "replay": "replay-node --exec yarn ts-node --esm --transpileOnly --skipProject ../../node_modules/lib/cli/index.js build"
+  },
+  "devDependencies": {
+    "@roots/bud": "workspace:sources/@roots/bud",
+    "@roots/bud-typescript": "workspace:sources/@roots/bud-typescript",
+    "ts-node": "10.8.1"
+  }
+}
