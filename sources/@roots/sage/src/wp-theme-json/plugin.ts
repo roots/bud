@@ -1,7 +1,8 @@
 import type * as ThemeJSON from '@roots/bud-preset-wordpress/theme'
 import fs from 'fs-extra'
 import {bind} from 'helpful-decorators'
-import type {Compiler, WebpackPluginInstance} from 'webpack/types'
+import {omit} from 'lodash-es'
+import type {Compiler, WebpackPluginInstance} from 'webpack'
 
 /**
  * Plugin options
@@ -14,7 +15,9 @@ export interface Options {
    *
    * @public
    */
-  settings: Partial<ThemeJSON.GlobalSettingsAndStyles['settings']>
+  settings?: Partial<ThemeJSON.GlobalSettingsAndStyles['settings']>
+
+  customTemplates?: ThemeJSON.GlobalSettingsAndStyles['customTemplates']
 
   /**
    * Emit path
@@ -50,7 +53,7 @@ export class ThemeJsonWebpackPlugin implements WebpackPluginInstance {
         __generated__: '⚠️ This file is generated. Do not edit.',
         $schema: 'https://schemas.wp.org/trunk/theme.json',
         version: 2,
-        settings: this.options.settings,
+        ...omit(this.options, 'path'),
       },
       null,
       2,

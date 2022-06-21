@@ -1,18 +1,21 @@
 /**
  * Calls once document has loaded.
  *
+ * @remarks
+ * Callback function may be async or sync
+ *
  * @param onReady - callback function
  * @returns void
  *
  * @public
  */
 interface domReady {
-  (onReady: () => void): void
+  (onReady: () => unknown | (() => Promise<unknown>)): void
 }
 
 const domReady: domReady = onReady => {
-  window.requestAnimationFrame(function check() {
-    document.body ? onReady() : window.requestAnimationFrame(check)
+  window.requestAnimationFrame(async function check() {
+    document.body ? await onReady() : window.requestAnimationFrame(check)
   })
 }
 

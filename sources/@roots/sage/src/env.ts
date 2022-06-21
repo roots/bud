@@ -1,5 +1,6 @@
-import type Sage from './extension.js'
-import type ThemeJSON from './theme/extension.js'
+import type Acorn from './acorn/extension.js'
+import type Sage from './sage/extension.js'
+import type ThemeJSON from './wp-theme-json/extension.js'
 
 declare module '@roots/bud-framework' {
   interface Bud {
@@ -50,17 +51,7 @@ declare module '@roots/bud-framework' {
      *
      * @public
      */
-    themeJson: ThemeJSON['themeJson']
-
-    /**
-     * Use extended tailwind colors as theme.json colors
-     *
-     * @example
-     * app.useTailwindColors()
-     *
-     * @public
-     */
-    useTailwindColors: ThemeJSON['useTailwindColors']
+    wpjson: ThemeJSON
   }
 
   interface Locations {
@@ -75,6 +66,7 @@ declare module '@roots/bud-framework' {
 
   interface Modules {
     '@roots/sage': Sage
+    '@roots/sage/acorn': Acorn
     'wp-theme-json': ThemeJSON
   }
 }

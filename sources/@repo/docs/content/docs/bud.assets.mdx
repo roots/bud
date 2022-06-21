@@ -15,7 +15,7 @@ This function is pretty flexible and accepts a few different ways of specifying 
 
 ```ts title='bud.config.js'
   (
-    ...request: Array<
+    request: Array<
       | string
       | CopyPlugin.ObjectPattern
       | Array<string | [string, string] | CopyPlugin.ObjectPattern>
@@ -84,12 +84,12 @@ bud.assets({
 
 To specify additional copy sources you can add additional parameters.
 
-```js title='bud.config.js'
-bud.assets('fonts', 'images')
+```ts title='bud.config.mjs'
+bud.assets(['images', 'fonts'])
 ```
 
-```js title='bud.config.js'
-bud.assets(
+```js title='bud.config.mjs'
+bud.assets([
   {
     from: bud.path('@src/images'),
     to: bud.path('@dist/images'),
@@ -98,24 +98,14 @@ bud.assets(
     from: bud.path('@src/fonts'),
     to: bud.path('@dist/fonts'),
   },
-)
+])
 ```
-
-You can also specify using an array, if preferred:
-
-```ts
-bud.assets(['images', 'fonts'])
-```
-
-The one exception to these rules is when using source/destination tuples (`[[from, to], [from, to]]`).
-
-They must always be expressed using one parameter, which is an array.
 
 ## Merging existing assets
 
 **bud.assets** can be called multiple times and the results will be merged onto the existing jobs.
 
-```ts
+```js title='bud.config.mjs'
 bud
   .assets('fonts')
   .assets({

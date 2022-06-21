@@ -5,21 +5,28 @@ import {
   label,
 } from '@roots/bud-framework/extension/decorators'
 
-import * as acorn from './acorn.js'
-import ThemeJSON from './theme/extension.js'
-
+/**
+ * roots/sage support extension
+ *
+ * @public
+ * @decorator `@label`
+ * @decorator `@dependsOn`
+ */
 @label('@roots/sage')
-@dependsOn(['@roots/bud-preset-wordpress'])
+@dependsOn([
+  '@roots/sage/acorn',
+  '@roots/sage/wp-theme-json',
+  '@roots/bud-preset-wordpress',
+])
 export default class Sage extends Extension {
+  /**
+   * `boot` callback
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public async boot() {
-    acorn.setSvgEmit(this.app)
-    acorn.setManifestPublicPath(this.app)
-    acorn.setPublicPath(this.app)
-    acorn.hmrJson(this.app)
-
-    await this.app.extensions.add(ThemeJSON)
-
     this.app
       .setPath({
         '@src': 'resources',

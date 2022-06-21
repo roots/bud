@@ -46,16 +46,21 @@
   "types": "./lib/index.d.ts",
   "exports": {
     ".": "./lib/index.js",
-    "./extension": "./lib/extension.js",
+    "./acorn": "./lib/acorn/extension.js",
+    "./extension": "./lib/sage/extension.js",
     "./client": "./lib/client/index.js",
     "./client/dom-ready": "./lib/client/dom-ready.js",
-    "./theme": "./lib/theme/index.js",
+    "./wp-theme-json": "./lib/wp-theme-json/extension.js",
+    "./wp-theme-json/tailwind": "./lib/wp-theme-json/tailwind/index.js",
     "./stylelint-config": "./stylelint-config/index.cjs"
   },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.d.ts"
+      ],
+      "acorn": [
+        "./lib/acorn.d.ts"
       ],
       "client": [
         "./lib/client/index.d.ts"
@@ -64,10 +69,13 @@
         "./lib/client/dom-ready.d.ts"
       ],
       "extension": [
-        "./lib/extension.d.ts"
+        "./lib/sage/extension.d.ts"
       ],
-      "theme": [
-        "./lib/theme/index.d.ts"
+      "wp-theme-json": [
+        "./lib/wp-theme-json/extension.d.ts"
+      ],
+      "wp-theme-json/tailwind": [
+        "./lib/wp-theme-json/tailwind/index.d.ts"
       ]
     }
   },

@@ -25,47 +25,19 @@ describe('bud.assets', function () {
   it('adds arrayed assets', async () => {
     await bud.api.call('assets', ['images'])
 
-    const patterns = bud.extensions
+    // @ts-ignore
+    const [pattern] = bud.extensions
       .get('copy-webpack-plugin')
       .getOption('patterns')
 
-    expect(JSON.stringify(patterns)).toEqual(
-      JSON.stringify([
-        {
-          from: 'images',
-          to: bud.path('@name'),
-          context: bud.path('@src'),
-          noErrorOnMissing: true,
-        },
-      ]),
-    )
-  })
-
-  /**
-   * ```ts
-   * bud.assets('assets', 'more-assets')
-   * ```
-   */
-  it('adds variadic assets', async () => {
-    await bud.api.call('assets', 'images', 'fonts')
-
-    const options = bud.extensions.get('copy-webpack-plugin').options
-
-    expect(JSON.stringify(options.patterns)).toEqual(
-      JSON.stringify([
-        {
-          from: 'images',
-          to: bud.path('@name'),
-          context: bud.path('@src'),
-          noErrorOnMissing: true,
-        },
-        {
-          from: 'fonts',
-          to: bud.path('@name'),
-          context: bud.path('@src'),
-          noErrorOnMissing: true,
-        },
-      ]),
+    expect(pattern).toEqual(
+      expect.objectContaining({
+        from: expect.stringContaining('images'),
+        to: expect.stringContaining('dist/images/[path][name][ext]'),
+        context: expect.stringContaining('src'),
+        toType: 'template',
+        noErrorOnMissing: true,
+      }),
     )
   })
 
@@ -86,23 +58,28 @@ describe('bud.assets', function () {
       ],
     ])
 
-    const patterns = bud.extensions
+    // @ts-ignore
+    const [pattern1, pattern2] = bud.extensions
       .get('copy-webpack-plugin')
       .getOption('patterns')
 
-    expect(JSON.stringify(patterns)).toEqual(
-      JSON.stringify([
-        {
-          from: bud.path('@src/images'),
-          to: bud.path('@dist/images'),
-          noErrorOnMissing: true,
-        },
-        {
-          from: bud.path('@src/fonts/font.woff'),
-          to: bud.path('@dist/fonts/font.woff'),
-          noErrorOnMissing: true,
-        },
-      ]),
+    expect(pattern1).toEqual(
+      expect.objectContaining({
+        from: bud.path('@src/images'),
+        to: bud.path('@dist/images'),
+        context: expect.stringContaining('src'),
+        toType: 'template',
+        noErrorOnMissing: true,
+      }),
+    )
+    expect(pattern2).toEqual(
+      expect.objectContaining({
+        from: bud.path('@src/fonts/font.woff'),
+        to: bud.path('@dist/fonts/font.woff'),
+        context: expect.stringContaining('src'),
+        toType: 'template',
+        noErrorOnMissing: true,
+      }),
     )
   })
 
@@ -122,10 +99,11 @@ describe('bud.assets', function () {
 
     await bud.api.call('assets', input)
 
-    const patterns = bud.extensions
+    // @ts-ignore
+    const [pattern] = bud.extensions
       .get('copy-webpack-plugin')
       .getOption('patterns')
 
-    expect(JSON.stringify(patterns)).toEqual(JSON.stringify([input]))
+    expect(pattern).toEqual(expect.objectContaining(input))
   })
 })

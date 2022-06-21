@@ -1,6 +1,7 @@
-import {Bud, Extension} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework'
 import {
   bind,
+  expose,
   label,
   options,
   plugin,
@@ -11,7 +12,7 @@ import Container from '@roots/container'
 import {isBoolean, isFunction} from 'lodash-es'
 
 import {Options, ThemeJsonWebpackPlugin} from './plugin.js'
-import * as tailwind from './tailwind.js'
+import * as tailwind from './tailwind/index.js'
 
 /**
  * Callback function used to configure wordpress `theme.json`
@@ -47,7 +48,7 @@ export interface Mutator {
  * @decorator `@when`
  * @decorator `@plugin`
  */
-@label('wp-theme-json')
+@label('@roots/sage/wp-theme-json')
 @options({
   path: app => app.path('./theme.json'),
   settings: {
@@ -71,18 +72,42 @@ export interface Mutator {
 })
 @when(async () => false)
 @plugin(ThemeJsonWebpackPlugin)
+@expose('wpjson')
 export default class ThemeJson extends Extension<
   Options,
   ThemeJsonWebpackPlugin
 > {
   protected static tailwind = tailwind
 
-  protected _palette: tailwind.TailwindColors
+  protected _palette: tailwind.palette.TailwindColors
   protected get palette() {
     return this._palette
   }
   protected set palette(palette) {
     this._palette = palette
+  }
+  protected _fontFamily: tailwind.fontFamily.TailwindFonts
+  protected get fontFamily() {
+    return this._fontFamily
+  }
+  protected set fontFamily(fontFamily) {
+    this._fontFamily = fontFamily
+  }
+
+  protected _fontSize: tailwind.fontSize.TailwindSize
+  protected get fontSize() {
+    return this._fontSize
+  }
+  protected set fontSize(fontSize) {
+    this._fontSize = fontSize
+  }
+
+  protected _template: Array<{name; title; postTypes}>
+  protected get template() {
+    return this._template
+  }
+  protected set template(template) {
+    this._template = template
   }
 
   @bind
@@ -95,26 +120,28 @@ export default class ThemeJson extends Extension<
     if (!config) return
 
     try {
-      this.palette = await ThemeJson.tailwind.getPalette(config)
+      this.palette = await ThemeJson.tailwind.palette.getPalette(config)
     } catch (error) {}
+    try {
+      this.fontFamily = await ThemeJson.tailwind.fontFamily.getFonts(
+        config,
+      )
+    } catch (error) {}
+    try {
+      this.fontSize = await ThemeJson.tailwind.fontSize.getFontSize(config)
+    } catch (err) {}
   }
 
   @bind
-  public async register() {
-    this.app.api.bindFacade('themeJson', this.themeJson)
-    this.app.api.bindFacade('useTailwindColors', this.useTailwindColors)
-  }
-
-  @bind
-  public themeJson(
+  public settings(
     input?:
       | Mutator
       | Container<Partial<WPThemeJson['settings']>>
       | Partial<WPThemeJson['settings']>
       | boolean,
     raw?: boolean,
-  ): Bud {
-    if (!input) return this.app
+  ): this {
+    if (!input) return this
 
     this.when = async () => true
 
@@ -133,19 +160,49 @@ export default class ThemeJson extends Extension<
       value instanceof Container ? value.all() : value,
     )
 
-    return this.app
+    return this
   }
 
   @bind
-  public useTailwindColors(): Bud {
+  public useTailwindColors(): this {
     this.setOption('settings', {
       ...(this.options.settings ?? {}),
       color: {
         ...(this.options.settings?.color ?? {}),
-        palette: ThemeJson.tailwind.transformPalette(this.palette),
+        palette: ThemeJson.tailwind.palette.transformPalette(this.palette),
       },
     })
 
-    return this.app
+    return this
+  }
+
+  @bind
+  public useTailwindFontFamily(): this {
+    this.setOption('settings', {
+      ...(this.options.settings ?? {}),
+      typography: {
+        ...(this.options.settings.typography ?? {}),
+        fontFamilies: ThemeJson.tailwind.fontFamily.transformFonts(
+          this.fontFamily,
+        ),
+      },
+    })
+
+    return this
+  }
+
+  @bind
+  public useTailwindFontSize(): this {
+    this.setOption('settings', {
+      ...(this.options.settings ?? {}),
+      typography: {
+        ...(this.options.settings.typography ?? {}),
+        fontSizes: ThemeJson.tailwind.fontSize.transformFonts(
+          this.fontSize,
+        ),
+      },
+    })
+
+    return this
   }
 }

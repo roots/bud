@@ -1,13 +1,12 @@
 {
   "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
-    
-    "rootDir": "src",
-    "outDir": "lib",
+    "rootDir": "./src",
+    "outDir": "./lib",
     "types": ["@roots/bud-framework", "@roots/bud-api", "@roots/bud-preset-wordpress"]
   },
-  "include": ["src"],
-  "exclude": ["lib", "node_modules"],
+  "include": ["./src"],
+  "exclude": ["./lib", "./node_modules"],
   "references": [
     {"path": "./../bud-framework/tsconfig.json"},
     {"path": "./../bud-api/tsconfig.json"},

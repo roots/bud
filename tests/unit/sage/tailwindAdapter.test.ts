@@ -1,7 +1,7 @@
-import {tailwind} from '@roots/sage/theme'
+import * as tailwind from '@roots/sage/wp-theme-json/tailwind'
 
 describe('themeJson tailwind adapter', () => {
-  const mockPalette: tailwind.TailwindColors = {
+  const mockPalette: tailwind.palette.TailwindColors = {
     blue: {
       shade: {
         hue: {
@@ -16,7 +16,7 @@ describe('themeJson tailwind adapter', () => {
   }
 
   it('transformsPalette', () => {
-    expect(tailwind.transformPalette(mockPalette)).toStrictEqual([
+    expect(tailwind.palette.transformPalette(mockPalette)).toStrictEqual([
       {
         name: 'Blue Shade Hue 50',
         slug: 'blue-shade-hue-50',
