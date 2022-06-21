@@ -70,7 +70,7 @@
     "@types/node": "16.11.41",
     "@types/react": "17.0.45",
     "@types/wordpress__blocks": "^11",
-    "@types/wordpress__data": "^6",
+    "@types/wordpress__data": "6.0.1",
     "webpack": "5.73.0"
   },
   "dependencies": {
