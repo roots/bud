@@ -4,21 +4,21 @@ import {isArray, isString} from 'lodash-es'
 
 export interface facade {
   (
-    request: Array<
+    request:
       | string
+      | [string, string]
       | CopyPlugin.ObjectPattern
-      | Array<string | [string, string] | CopyPlugin.ObjectPattern>
-    >,
+      | Array<string | [string, string] | CopyPlugin.ObjectPattern>,
   ): Bud
 }
 
 export interface method {
   (
-    request: Array<
+    request:
       | string
+      | [string, string]
       | CopyPlugin.ObjectPattern
-      | Array<string | [string, string] | CopyPlugin.ObjectPattern>
-    >,
+      | Array<string | [string, string] | CopyPlugin.ObjectPattern>,
   ): Promise<Bud>
 }
 
@@ -26,11 +26,11 @@ export const appearsTupled = (request: any): boolean =>
   isArray(request) && isArray(request[0])
 
 export const assets: method = async function assets(
-  request: Array<
+  request:
     | string
+    | [string, string]
     | CopyPlugin.ObjectPattern
-    | Array<string | [string, string] | CopyPlugin.ObjectPattern>
-  >,
+    | Array<string | [string, string] | CopyPlugin.ObjectPattern>,
 ): Promise<Bud> {
   /**
    * tsc will complain about `this` context being lost

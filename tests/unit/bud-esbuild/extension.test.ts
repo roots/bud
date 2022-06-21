@@ -78,7 +78,11 @@ describe('@roots/bud-esbuild', () => {
       expect(extension.options).toEqual({
         minify: {
           css: true,
-          include: [expect.any(RegExp), expect.any(RegExp)],
+          include: [
+            expect.any(RegExp),
+            expect.any(RegExp),
+            expect.any(RegExp),
+          ],
           exclude: expect.any(RegExp),
         },
         js: {

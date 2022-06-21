@@ -99,6 +99,7 @@ export async function build(app: Bud): Promise<void> {
     .hooks.on('build.recordsPath', () =>
       app.path(`@storage/${app.name}/modules.json`),
     )
+    .hooks.on('build.optimization.emitOnErrors', () => app.isDevelopment)
     .hooks.async('build.resolve', async () => {
       const alias = await app.hooks.filterAsync('build.resolve.alias')
       const extensions = Array.from(

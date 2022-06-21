@@ -1,5 +1,6 @@
 import {Extension} from '@roots/bud-framework/extension'
 import {bind, label} from '@roots/bud-framework/extension/decorators'
+import fs from 'fs-extra'
 
 import eventCompilerClose from './hooks/event.compiler.close.js'
 import eventCompilerDone from './hooks/event.compiler.done.js'
@@ -28,39 +29,27 @@ export default class Acorn extends Extension {
     this.app.build.rules.svg.setGenerator(this.svgGenerator)
 
     /**
-     * Organize emitted scripts and styles by entrypoint
-     * using directories
-     *
-     * @remarks
-     * An entrypoint specified with:
-     * bud.entry('app', ['app.css', 'app.js'])
-     *
-     * Will be emitted like this:
-     * - `@dist/app/entry.css`
-     * - `@dist/app/entry.js`
-     */
-    this.app.hooks.action('event.build.after', async () => {
-      if (!this.app.build.config.entry) return
-
-      this.app.build.config.entry = Object.entries(
-        this.app.build.config.entry,
-      ).reduce(
-        (a, [k, v]) => ({
-          ...a,
-          [`${k.includes('/') ? k : `${k}/entry`}`]: v,
-        }),
-        {},
-      )
-    })
-
-    /**
      * Write hmr.json when compilation is finalized (only in development)
      * Remove this file when process is exited.
      */
-    this.app.hooks.action(
-      'event.compiler.success',
-      this.app.isDevelopment ? eventCompilerDone : eventCompilerClose,
-    )
+    if (this.app.isProduction) {
+      fs.pathExists(this.app.path('@dist', 'hmr.json')) &&
+        (await fs.remove(this.app.path('@dist', 'hmr.json')))
+    } else {
+      this.app.hooks.action('event.compiler.close', eventCompilerDone)
+      this.app.hooks.action('event.app.close', eventCompilerClose)
+    }
+
+    /**
+     * - If publicPath is `/` in production assets will not be locatable by Acorn.
+     * - If publicPath is `''` in development bud's dev server will implode.
+     * - If publicPath is the actual publicPath acorn will double up the path segments.
+     */
+    this.app.hooks.action('event.config.after', async () => {
+      this.app.hooks.on('build.output.publicPath', publicPath =>
+        this.app.isDevelopment ? `/` : publicPath,
+      )
+    })
 
     /**
      * Tell Acorn that assets have no `publicPath` even if bud is using one internally.

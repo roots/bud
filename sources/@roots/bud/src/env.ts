@@ -1,3 +1,13 @@
+import '@roots/bud-api'
+import '@roots/bud-build'
+import '@roots/bud-cache'
+import '@roots/bud-compiler'
+import '@roots/bud-dashboard'
+import '@roots/bud-extensions'
+import '@roots/bud-framework'
+import '@roots/bud-hooks'
+import '@roots/bud-server'
+
 import type {Build} from '@roots/bud-framework'
 
 import type BudCDN from './extensions/bud-cdn/index.js'

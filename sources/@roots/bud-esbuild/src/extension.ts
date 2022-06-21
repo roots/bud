@@ -35,6 +35,7 @@ export interface Options {
   minify: app => ({
     css: true,
     include: [
+      app.hooks.filter('pattern.css'),
       app.hooks.filter('pattern.js'),
       app.hooks.filter('pattern.ts'),
     ],
