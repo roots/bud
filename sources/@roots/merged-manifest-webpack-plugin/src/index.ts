@@ -4,6 +4,7 @@
 import fs from 'fs-extra'
 import {bind} from 'helpful-decorators'
 import path from 'node:path'
+import type {Stats} from 'webpack'
 import type Webpack from 'webpack'
 
 /**
@@ -29,21 +30,22 @@ export class MergedManifestWebpackPlugin {
   public dir: string
 
   /**
-   * @public
-   */
-  public path: string
-
-  /**
+   * Output file
+   *
    * @public
    */
   public file = 'entrypoints.json'
 
   /**
+   * Entrypoints manifest
+   *
    * @public
    */
   public entrypointsName = 'entrypoints.json'
 
   /**
+   * WordPress manifest
+   *
    * @public
    */
   public wordpressName = 'wordpress.json'
@@ -70,7 +72,6 @@ export class MergedManifestWebpackPlugin {
   @bind
   public apply(compiler: Webpack.Compiler): void {
     this.dir = compiler.options.output.path
-    this.path = path.resolve(this.dir, this.file)
 
     compiler.hooks.done.tapAsync(this.plugin, this.done)
   }
@@ -79,10 +80,13 @@ export class MergedManifestWebpackPlugin {
    * @public
    */
   @bind
-  public async done(_compilation, callback): Promise<CallableFunction> {
-    if (!this.isBuildable()) {
+  public async done(stats: Stats, callback): Promise<CallableFunction> {
+    // No emit
+    if (!stats.toJson().assets.filter(asset => asset.emitted).length)
       return callback()
-    }
+
+    // Missing manifests
+    if (!this.isBuildable()) return callback()
 
     /**
      * Read manifests.
@@ -107,16 +111,22 @@ export class MergedManifestWebpackPlugin {
        * Reduce aggregate manifest and write to file.
        */
       await fs.outputFile(
-        this.path,
+        this.manifestPath(this.file),
         this.format(
           Object.entries(entrypointsManifest).reduce(
-            (acc, [key, value]) => ({
-              ...acc,
-              [key]: {
-                ...value,
-                ...{dependencies: wordpressManifest[key]},
-              },
-            }),
+            (acc, [key, value]) => {
+              key = key.endsWith(`/entry`)
+                ? key.replace(`/entry`, ``)
+                : key
+
+              return {
+                ...acc,
+                [key]: {
+                  ...value,
+                  ...{dependencies: wordpressManifest[key]},
+                },
+              }
+            },
             {},
           ),
         ),
