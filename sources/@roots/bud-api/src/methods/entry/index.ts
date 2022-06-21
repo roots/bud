@@ -35,10 +35,7 @@ export const entry: method = async function (...input) {
   )
 
   app.hooks.on('build.entry', a =>
-    records.reduce((a, [k, v]) => {
-      k = k.includes('/') ? k : `${k}/entry`
-      return {...a, [k]: v}
-    }, a),
+    records.reduce((a, [k, v]) => ({...a, [k]: v}), a),
   )
 
   return app

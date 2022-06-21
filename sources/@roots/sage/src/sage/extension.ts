@@ -27,6 +27,9 @@ export default class Sage extends Extension {
    */
   @bind
   public async boot() {
+    /**
+     * Set paths
+     */
     this.app
       .setPath({
         '@src': 'resources',
@@ -51,5 +54,31 @@ export default class Sage extends Extension {
         () => this.app.minimize().hash().runtime('single'),
         () => this.app.devtool(),
       )
+
+    /**
+     * Organize emitted scripts and styles by entrypoint
+     * using directories
+     *
+     * @remarks
+     * An entrypoint specified with:
+     * bud.entry('app', ['app.css', 'app.js'])
+     *
+     * Will be emitted like this:
+     * - `@dist/app/entry.css`
+     * - `@dist/app/entry.js`
+     */
+    this.app.hooks.action('event.build.after', async () => {
+      if (!this.app.build.config.entry) return
+
+      this.app.build.config.entry = Object.entries(
+        this.app.build.config.entry,
+      ).reduce(
+        (a, [k, v]) => ({
+          ...a,
+          [`${k.includes('/') ? k : `${k}/entry`}`]: v,
+        }),
+        {},
+      )
+    })
   }
 }
