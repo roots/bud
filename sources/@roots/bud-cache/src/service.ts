@@ -4,6 +4,8 @@ import fs from 'fs-extra'
 import {bind} from 'helpful-decorators'
 import {createHash} from 'node:crypto'
 
+import InvalidateCacheExtension from './invalidate-cache-extension/index.js'
+
 /**
  * Cache service class
  *
@@ -136,16 +138,27 @@ export default class Cache
     }
   }
 
-  @bind
-  public async boot() {
+  /**
+   * `register` callback
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind public async register() {
+    await this.app.extensions.add(InvalidateCacheExtension)
+  }
+
+  /**
+   * `boot` callback
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind public async boot() {
     this.type = 'filesystem'
     this.cacheDirectory = this.app.path(`@storage/cache/webpack`)
     this.managedPaths = [this.app.path(`@modules`)]
     this.name = `${this.app.name}.${this.app.mode}`
-
-    if (this.app.context.args.flush === true) {
-      await fs.remove(this.app.path(`@storage/cache`))
-    }
 
     const args = Object.entries(this.app.context.args)
       .filter(([k, v]) => v !== undefined)
@@ -161,9 +174,7 @@ export default class Cache
       .toLowerCase()
   }
 
-  @bind
-  public clean() {
-    this.app.log('cleaning cache')
+  @bind public clean() {
     fs.removeSync(this.app.path(`@storage/cache`))
   }
 }

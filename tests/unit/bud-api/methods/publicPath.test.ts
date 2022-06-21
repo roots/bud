@@ -1,3 +1,4 @@
+import {log} from '@repo/logger'
 import {Bud, factory} from '@repo/test-kit/bud'
 
 describe('bud.publicPath', function () {
@@ -14,7 +15,7 @@ describe('bud.publicPath', function () {
 
   it('publicPath: returns the correct default publicPath', () => {
     expect(bud.publicPath()).toEqual('/')
-    expect(bud.publicPath()).toEqual(bud.build.config.output.publicPath)
+    expect(bud.publicPath()).toEqual(bud.build.config.output?.publicPath)
   })
 
   it('setPublicPath: is a function', () => {
@@ -27,8 +28,10 @@ describe('bud.publicPath', function () {
     // @ts-ignore
     bud.setPublicPath(newPath)
 
+    log(bud.hooks.store['build.output.publicPath'])
+
     await bud.build.make()
 
-    expect(bud.build.config.output.publicPath).toEqual(newPath)
+    expect(bud.build.config.output?.publicPath).toEqual(newPath)
   })
 })

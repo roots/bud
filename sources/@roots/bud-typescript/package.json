@@ -63,13 +63,13 @@
     }
   },
   "devDependencies": {
-    "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@skypack/package-check": "0.2.2",
     "@types/fork-ts-checker-webpack-plugin": "0.4.5",
     "@types/node": "16.11.39",
     "webpack": "5.73.0"
   },
   "dependencies": {
+    "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@types/webpack-env": "^1.17.0",

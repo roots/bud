@@ -99,4 +99,10 @@ export const config = async (app: Bud) => {
 
   const modeSpecific = app.project.get(`config.${app.mode}`)
   await process(modeSpecific)
+
+  try {
+    await app.hooks.fire('event.config.after')
+  } catch (err) {
+    app.error(err)
+  }
 }

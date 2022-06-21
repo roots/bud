@@ -23460,6 +23460,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"workbench-1480@workspace:workbench/1480":
+  version: 0.0.0-use.local
+  resolution: "workbench-1480@workspace:workbench/1480"
+  dependencies:
+    "@roots/bud": "workspace:sources/@roots/bud"
+    "@roots/bud-typescript": "workspace:sources/@roots/bud-typescript"
+    ts-node: 10.8.1
+  languageName: unknown
+  linkType: soft
+
 "wrap-ansi@npm:^5.1.0":
   version: 5.1.0
   resolution: "wrap-ansi@npm:5.1.0"

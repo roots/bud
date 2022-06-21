@@ -1,7 +1,5 @@
 import type {Config} from '@roots/bud-framework'
-import Console from 'node:console'
 import {cpus} from 'node:os'
-import Signale from 'signale'
 
 /**
  * Bud configuration defaults
@@ -49,55 +47,6 @@ export const seed: Config.Options['seed'] = {
   'location.@storage': [() => '.budfiles'],
 
   'build.infrastructureLogging.level': [(): 'none' => 'none'],
-  'build.infrastructureLogging.console': [
-    () => {
-      const infrastructureLogger = {
-        count: {},
-        instance: new Signale.Signale().scope('webpack'),
-      }
-
-      return {
-        Console: Console as any,
-        assert: (v: any, m: any) =>
-          v && infrastructureLogger.instance.info(m),
-        clear: () => null,
-        count: (label?: string) => {
-          infrastructureLogger.count[label] =
-            infrastructureLogger.count[label] + 1
-
-          infrastructureLogger.instance.info(
-            `${label}: ${infrastructureLogger.count[label]}`,
-          )
-        },
-        countReset: (label?: string) => {
-          infrastructureLogger.count[label] = 0
-        },
-        debug: infrastructureLogger.instance.debug,
-        dir: infrastructureLogger.instance.info,
-        dirxml: infrastructureLogger.instance.info,
-        error: infrastructureLogger.instance.error,
-        group: () => null,
-        groupCollapsed: () => null,
-        groupEnd: () => null,
-        info: infrastructureLogger.instance.info,
-        log: infrastructureLogger.instance.log,
-        table: () => null,
-        time: infrastructureLogger.instance.time,
-        timeEnd: infrastructureLogger.instance.timeEnd,
-        timeLog: () => null,
-        trace: (message, ...params) =>
-          infrastructureLogger.instance.log(
-            `Trace: `,
-            message ?? ``,
-            ...params,
-          ),
-        warn: infrastructureLogger.instance.warn,
-        profile: () => null,
-        profileEnd: () => null,
-        timeStamp: () => null,
-      }
-    },
-  ],
   'build.module.noParse': [() => undefined],
   'build.module.unsafeCache': [() => false],
   'build.node': [() => false],

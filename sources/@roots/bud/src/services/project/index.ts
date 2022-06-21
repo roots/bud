@@ -123,6 +123,24 @@ export class Project
       message: 'write profile',
       suffix: this.app.path(`@storage`, this.app.name, `profile.json`),
     })
+
+    try {
+      const filePath = this.app.path(
+        `@storage/${this.app.name}/webpack.config.js`,
+      )
+
+      await fs.ensureFile(filePath)
+      await fs.writeFile(
+        filePath,
+        `module.exports = ${this.app.json.stringify(
+          this.app.build.config,
+          null,
+          2,
+        )}`,
+      )
+    } catch (error) {
+      this.app.error(`failed to write webpack.config.json`)
+    }
   }
 
   /**

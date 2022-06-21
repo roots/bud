@@ -41,11 +41,12 @@ describe('@roots/bud-typescript/typecheck', () => {
 
     it('typecheck.enable', async () => {
       bud.typescript.typecheck.enable()
-      const status = await bud.extensions
-        .get('@roots/bud-typescript/typecheck')
-        .isEnabled()
+      // @ts-ignore
+      const status = bud.extensions
+        .get('@roots/bud-typescript')
+        .getOption('transpileOnly')
 
-      expect(status).toBeTruthy()
+      expect(status).toBe(false)
     })
 
     it('typecheck.disable', async () => {

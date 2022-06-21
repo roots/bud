@@ -10,6 +10,13 @@
  * @packageDocumentation
  */
 
+import type InvalidateCacheExtension from './invalidate-cache-extension/index.js'
 import Cache from './service.js'
+
+declare module '@roots/bud-framework' {
+  interface Modules {
+    '@roots/bud-cache/invalidate-cache': InvalidateCacheExtension
+  }
+}
 
 export {Cache, Cache as Service, Cache as default}

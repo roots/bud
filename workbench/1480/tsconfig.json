@@ -4,7 +4,6 @@
     "baseUrl": "./",
     "rootDir": "./",
     "module": "esnext",
-    "target": "esnext",
     "paths": {
       "@src/*": ["src/*"]
     },

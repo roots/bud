@@ -123,7 +123,6 @@ export class Compiler extends Service implements Contract.Service {
         `${this.app.name}-dev-handle`,
         async stats => {
           this.handleStats(stats as any)
-          return
         },
       )
 
@@ -219,7 +218,7 @@ export class Compiler extends Service implements Contract.Service {
    */
   @bind
   public onClose(error: WebpackError) {
-    if (error) this.onError(error)
+    if (error) return this.onError(error)
     this.app.isProduction && this.app.close()
   }
 
