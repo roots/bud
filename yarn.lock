@@ -4398,7 +4398,7 @@ __metadata:
     "@types/node": 16.11.41
     "@types/react": 17.0.45
     "@types/wordpress__blocks": ^11
-    "@types/wordpress__data": ^6
+    "@types/wordpress__data": 6.0.1
     "@wordpress/blocks": 11.10.0
     "@wordpress/data": 6.11.0
     "@wordpress/hooks": 3.11.0
@@ -5705,13 +5705,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/wordpress__data@npm:*, @types/wordpress__data@npm:^6":
-  version: 6.0.0
-  resolution: "@types/wordpress__data@npm:6.0.0"
+"@types/wordpress__data@npm:*, @types/wordpress__data@npm:6.0.1":
+  version: 6.0.1
+  resolution: "@types/wordpress__data@npm:6.0.1"
   dependencies:
     "@types/react": "*"
     redux: ^4.1.0
-  checksum: 9f7fa477cbec385fd2f936d4f68c21057facdd614048721204523e5c4692bcb4e168f578cdfc0fb591194bc6e65339bba3573ed99684310311190fab2d10ea4d
+  checksum: c515639f523162dd15c8c85ed1f88eb33db436f495e406cf3428a704d69775ceb0fa85c88b9a9f572d7436a3c4bb9c0ee7c1c09909fb614dc637d551c7012f1c
   languageName: node
   linkType: hard
 
