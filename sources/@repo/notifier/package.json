@@ -2,6 +2,6 @@
   "name": "@repo/notifier",
   "private": true,
   "devDependencies": {
-    "@types/node": "16.11.39"
+    "@types/node": "16.11.41"
   }
 }
