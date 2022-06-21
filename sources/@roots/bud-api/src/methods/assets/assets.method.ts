@@ -100,7 +100,7 @@ export const assets: method = async function assets(
   if (!isArray(request)) {
     app.extensions.get('copy-webpack-plugin').setOptions(options => ({
       ...(options ?? {}),
-      request,
+      patterns: [...(options?.patterns ?? []), request],
     }))
 
     return app
