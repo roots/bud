@@ -17,14 +17,14 @@ const test = (pacman: 'yarn' | 'npm') => () => {
 
   describe('entrypoints.json', () => {
     it('has expected app entries', () => {
-      expect(project.entrypoints['app/entry'].css).toBeInstanceOf(Array)
-      expect(project.entrypoints['app/entry'].css).toHaveLength(1)
-      expect(project.entrypoints['app/entry'].dependencies).toEqual([])
+      expect(project.entrypoints['app'].css).toBeInstanceOf(Array)
+      expect(project.entrypoints['app'].css).toHaveLength(1)
+      expect(project.entrypoints['app'].dependencies).toEqual([])
     })
 
     it('has expected editor entries', () => {
-      expect(project.entrypoints['editor/entry'].css).toBeInstanceOf(Array)
-      expect(project.entrypoints['editor/entry'].css).toHaveLength(1)
+      expect(project.entrypoints['editor'].css).toBeInstanceOf(Array)
+      expect(project.entrypoints['editor'].css).toHaveLength(1)
     })
   })
 
