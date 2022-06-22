@@ -1,45 +1,51 @@
 import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
-  bind,
+  expose,
   label,
   options,
   plugin,
-  production,
+  when,
 } from '@roots/bud-framework/extension/decorators'
 import CriticalCssWebpackPlugin, {
   Options,
 } from '@roots/critical-css-webpack-plugin'
 
-import {critical} from './critical.js'
-
 /**
  * Adds critical css webpack plugin to compilation
  *
+ * @example
+ * Configure plugin options:
+ *
+ * ```ts
+ * bud.critical.setOptions({
+ *  src: 'https://example.test',
+ * })
+ * ```
+ *
+ * @example
+ * Enable conditionally for production:
+ *
+ * ```ts
+ * bud.when(bud.isProduction, bud.critical.enable)
+ * ```
+ *
  * @public
  * @decorator `@label`
+ * @decorator `@expose`
  * @decorator `@plugin`
  * @decorator `@options`
- * @decorator `@production`
+ * @decorator `@pwhen`
  */
 @label('@roots/bud-criticalcss')
+@expose('critical')
 @plugin(CriticalCssWebpackPlugin)
 @options<Options>({
   base: (app: Bud) => app.publicPath() ?? '/',
+  request: {https: {rejectUnauthorized: false}},
 })
-@production
+@when(async () => false)
 export default class BudCriticalCss extends Extension<
   Options,
   CriticalCssWebpackPlugin
-> {
-  /**
-   * `register` callback
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async register() {
-    this.app.api.bindFacade('critical', critical)
-  }
-}
+> {}
