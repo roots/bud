@@ -51,7 +51,10 @@ export default class Extensions
    * @decorator `@bind`
    */
   @bind
-  public has<K extends keyof Modules>(key: K & string): boolean {
+  public has<K extends keyof Modules>(
+    key: K & string,
+    ...iterable: any[]
+  ): boolean {
     return this.repository[key] ? true : false
   }
 
@@ -87,10 +90,8 @@ export default class Extensions
    */
   @bind
   public set<K extends Modules>(value: Modules[K & string]): this {
-    value.logger.log(`setting extension`, chalk.blue(value.label))
-
+    value.logger.log(`setting`)
     this.repository[value.label] = value
-
     return this
   }
 
@@ -113,30 +114,17 @@ export default class Extensions
       : extension
   }
 
-  /**
-   * Automatically instantiate and register extensions
-   * located from the project `package.json` manifest
-   *
-   * @public
-   * @decorator `@bind`
-   */
   @bind
-  public async injectExtensions() {
-    if (this.app.hooks.filter('feature.inject') === false) {
-      return this.app.log('injection disabled')
-    }
-
-    this.app.log('injecting extensions...')
-
-    await Object.keys({
-      ...(this.app.context.manifest?.devDependencies ?? {}),
-      ...(this.app.context.manifest?.dependencies ?? {}),
-    })
-      .filter(signifier => !signifier.startsWith('@types'))
+  protected filterApplicableExtensions(
+    extensions: Array<string>,
+  ): Array<string> {
+    return extensions
+      .filter(signifier => !this.has(signifier))
       .filter(
         signifier =>
           signifier.startsWith('@roots/bud-') ||
-          signifier.startsWith('@roots/sage'),
+          signifier.startsWith('@roots/sage') ||
+          signifier.startsWith('bud-'),
       )
       .filter(
         signifier =>
@@ -153,18 +141,49 @@ export default class Extensions
             '@roots/bud-server',
           ].includes(signifier),
       )
-      .filter(signifier => !this.has(signifier))
-      .reduce(async (promised: Promise<any>, signifier): Promise<any> => {
-        await promised
+      .filter(
+        signifier =>
+          !this.app.context.manifest.bud?.denylist ||
+          !this.app.context.manifest.bud?.denylist.includes(signifier),
+      )
+      .filter(
+        signifier =>
+          !this.app.context.manifest.bud?.allowlist ||
+          this.app.context.manifest.bud?.allowlist.includes(signifier),
+      )
+  }
 
-        try {
-          this.app.log('...importing', signifier)
+  /**
+   * Automatically instantiate and register extensions
+   * located from the project `package.json` manifest
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async injectExtensions() {
+    if (this.app.hooks.filter('feature.inject') === false) {
+      return this.app.log('injection disabled')
+    }
 
-          await this.import(signifier)
-        } catch (error) {
-          this.app.warn(`Error importing`, signifier, `\n`, error)
-        }
-      }, Promise.resolve())
+    this.app.log('injecting extensions...')
+
+    await this.filterApplicableExtensions(
+      Object.keys({
+        ...(this.app.context.manifest?.devDependencies ?? {}),
+        ...(this.app.context.manifest?.dependencies ?? {}),
+      }),
+    ).reduce(async (promised: Promise<any>, signifier): Promise<any> => {
+      await promised
+
+      try {
+        this.app.log('...importing', signifier)
+
+        await this.import(signifier)
+      } catch (error) {
+        this.app.warn(`Error importing`, signifier, `\n`, error)
+      }
+    }, Promise.resolve())
   }
 
   /**
@@ -175,36 +194,29 @@ export default class Extensions
    */
   @bind
   public async import(signifier: string): Promise<Extension> {
-    if (this.has(signifier)) return
+    if (!this.filterApplicableExtensions([signifier]).length) return
 
     const extension = await this.app.module.import(signifier)
     const instance = this.instantiate(extension)
-    !this.has(signifier) && this.set(instance)
+    this.set(instance)
 
     instance.dependsOn &&
-      (await Array.from(instance.dependsOn)
-        .filter(signifier => !this.has(signifier))
-        .reduce(
-          async (promised: Promise<any>, signifier): Promise<any> => {
-            await promised
-            await this.import(signifier)
-          },
-          Promise.resolve(),
-        ))
+      (await this.filterApplicableExtensions(
+        Array.from(instance.dependsOn),
+      ).reduce(async (promised: Promise<any>, signifier): Promise<any> => {
+        await promised
+        await this.import(signifier)
+      }, Promise.resolve()))
 
     instance.dependsOnOptional &&
-      (await Array.from(instance.dependsOnOptional)
-        .filter(signifier => !this.has(signifier))
-        .reduce(
-          async (promised: Promise<any>, signifier): Promise<any> => {
-            await promised
-
-            try {
-              await this.import(signifier)
-            } catch (err) {}
-          },
-          Promise.resolve(),
-        ))
+      (await this.filterApplicableExtensions(
+        Array.from(instance.dependsOnOptional),
+      ).reduce(async (promised: Promise<any>, signifier): Promise<any> => {
+        try {
+          await promised
+          await this.import(signifier)
+        } catch (err) {}
+      }, Promise.resolve()))
 
     return extension
   }

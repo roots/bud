@@ -25,7 +25,7 @@ describe('@roots/bud-esbuild', () => {
   })
 
   it('is a method', () => {
-    expect(extension.boot).toBeInstanceOf(Function)
+    expect(extension.register).toBeInstanceOf(Function)
   })
 
   it('registers js ruleset item', () => {

@@ -21,7 +21,10 @@ import type {Service as BaseService} from '../../service.js'
 export interface Service extends BaseService {
   repository: Modules
 
-  has<K extends keyof Modules>(key: K & string): boolean
+  has<K extends keyof Modules>(
+    key: K & string,
+    ...iterable: any[]
+  ): boolean
 
   get<K extends keyof Modules>(key: K & string): Modules[K & string]
 

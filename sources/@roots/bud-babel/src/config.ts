@@ -1,5 +1,5 @@
 import {bind} from '@roots/bud-framework/extension/decorators'
-import {isUndefined} from 'lodash'
+import {isUndefined} from 'lodash-es'
 
 /**
  * Babel transpiler options

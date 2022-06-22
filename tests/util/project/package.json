@@ -13,6 +13,11 @@
       "last 1 safari version"
     ]
   },
+  "bud": {
+    "denylist": [
+      "@roots/bud-esbuild"
+    ]
+  },
   "devDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-eslint": "workspace:sources/@roots/bud-eslint",
