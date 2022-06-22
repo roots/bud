@@ -1,10 +1,13 @@
 import {
   Extension,
   Extensions as Contract,
-  ModuleDefinitions,
   Modules,
   Service,
 } from '@roots/bud-framework'
+import type {
+  ApplyPlugin,
+  ExtensionLiteral,
+} from '@roots/bud-framework/src/extension'
 import chalk from 'chalk'
 import {bind} from 'helpful-decorators'
 
@@ -99,7 +102,9 @@ export default class Extensions
    */
   @bind
   public instantiate<K extends Modules>(
-    extension: Modules[K & string] | ModuleDefinitions[K & string],
+    extension:
+      | (new (...args: any[]) => Modules[K & string])
+      | ExtensionLiteral,
   ): Modules[K & string] {
     return typeof extension === 'function'
       ? new extension(this.app)
@@ -226,11 +231,14 @@ export default class Extensions
     else extension.meta[methodName] = true
 
     try {
+      await this.runDependencies(extension, methodName)
+
+      if (!extension[methodName.replace('_', '')]) return this
+
       extension.logger.log(
         chalk.blue(extension.label),
         chalk.cyan(methodName),
       )
-      await this.runDependencies(extension, methodName)
 
       await extension[methodName]()
 
@@ -332,7 +340,12 @@ export default class Extensions
    * @decorator `@bind`
    */
   @bind
-  public async add(input: Extension | Array<Extension>): Promise<void> {
+  public async add(
+    input:
+      | (new (...args: any[]) => Extension)
+      | ExtensionLiteral
+      | Array<(new (...args: any[]) => Extension) | ExtensionLiteral>,
+  ): Promise<void> {
     const arrayed = Array.isArray(input) ? input : [input]
 
     await arrayed.reduce(async (promised, extensionObject) => {
@@ -366,11 +379,14 @@ export default class Extensions
    * @decorator `@bind`
    */
   @bind
-  public async make(): Promise<Extension.PluginInstance[]> {
+  public async make(): Promise<ApplyPlugin[]> {
     return await Promise.all(
       Object.values(this.repository).map(
         async extension => await extension._make(),
       ),
-    ).then(result => result.filter(Boolean))
+    ).then(
+      (result: Array<ApplyPlugin>): Array<ApplyPlugin> =>
+        result.filter(Boolean),
+    )
   }
 }

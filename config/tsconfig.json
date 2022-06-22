@@ -21,7 +21,15 @@
     "skipLibCheck": true,
     "strict": false,
     "target": "es2021",
-    "types": ["node", "jest", "react", "express", "webpack"]
+    "types": [
+      "node",
+      "jest",
+      "react",
+      "express",
+      "webpack",
+      "@roots/bud",
+      "@roots/bud-framework"
+    ]
   },
   "files": [],
   "references": [
@@ -60,18 +68,30 @@
     {"path": "./../sources/@roots/bud-terser/tsconfig.json"},
     {"path": "./../sources/@roots/bud-typescript/tsconfig.json"},
     {"path": "./../sources/@roots/bud-vue/tsconfig.json"},
-    {"path": "./../sources/@roots/bud-wordpress-dependencies/tsconfig.json"},
+    {
+      "path": "./../sources/@roots/bud-wordpress-dependencies/tsconfig.json"
+    },
     {"path": "./../sources/@roots/bud-wordpress-externals/tsconfig.json"},
     {"path": "./../sources/@roots/bud-wordpress-manifests/tsconfig.json"},
     {"path": "./../sources/@roots/container/tsconfig.json"},
-    {"path": "./../sources/@roots/critical-css-webpack-plugin/tsconfig.json"},
+    {
+      "path": "./../sources/@roots/critical-css-webpack-plugin/tsconfig.json"
+    },
     {"path": "./../sources/@roots/dependencies/tsconfig.json"},
-    {"path": "./../sources/@roots/entrypoints-webpack-plugin/tsconfig.json"},
+    {
+      "path": "./../sources/@roots/entrypoints-webpack-plugin/tsconfig.json"
+    },
     {"path": "./../sources/@roots/filesystem/tsconfig.json"},
-    {"path": "./../sources/@roots/merged-manifest-webpack-plugin/tsconfig.json"},
+    {
+      "path": "./../sources/@roots/merged-manifest-webpack-plugin/tsconfig.json"
+    },
     {"path": "./../sources/@roots/sage/tsconfig.json"},
-    {"path": "./../sources/@roots/wordpress-dependencies-webpack-plugin/tsconfig.json"},
-    {"path": "./../sources/@roots/wordpress-externals-webpack-plugin/tsconfig.json"},
+    {
+      "path": "./../sources/@roots/wordpress-dependencies-webpack-plugin/tsconfig.json"
+    },
+    {
+      "path": "./../sources/@roots/wordpress-externals-webpack-plugin/tsconfig.json"
+    },
     {"path": "./../sources/@roots/wordpress-hmr/tsconfig.json"}
   ],
   "ts-node": {

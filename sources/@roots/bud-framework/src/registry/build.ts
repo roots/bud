@@ -1,7 +1,7 @@
 import type {Configuration, RuleSetRule} from 'webpack'
 
 import type {EntryObject} from '../config/entry/index.js'
-import type {Extension} from '../extension/index.js'
+import type {ApplyPlugin} from '../extension/index.js'
 
 export interface Sync {
   'build.bail': boolean
@@ -84,7 +84,7 @@ export interface Sync {
 }
 
 export interface Async {
-  'build.plugins': Array<Extension.PluginInstance>
+  'build.plugins': Array<ApplyPlugin>
   'build.resolve': Configuration['resolve']
   'build.resolve.alias': Configuration['resolve']['alias']
   'build.resolve.aliasFields': Configuration['resolve']['aliasFields']

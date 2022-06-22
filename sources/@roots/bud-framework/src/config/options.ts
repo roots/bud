@@ -57,5 +57,5 @@ export interface Options {
    *
    * @public
    */
-  extensions?: Array<Extension | Extension.Constructor>
+  extensions?: Array<Extension | (new (...args: any[]) => Extension)>
 }

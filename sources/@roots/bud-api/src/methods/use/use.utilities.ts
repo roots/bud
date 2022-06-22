@@ -1,4 +1,4 @@
-import type {Extension} from '@roots/bud-framework/extension'
+import type {Constructor, Extension} from '@roots/bud-framework/extension'
 import {isEqual, isFunction} from 'lodash-es'
 import {nanoid} from 'nanoid'
 
@@ -16,7 +16,7 @@ import {nanoid} from 'nanoid'
  *
  * @internal
  */
-export const isPlugin = (extension: Extension.Constructor): boolean =>
+export const isPlugin = (extension: Constructor): boolean =>
   extension.apply &&
   isFunction(extension.apply) &&
   !isEqual(extension.apply.toString(), '[native code]')
@@ -36,7 +36,7 @@ export const isPlugin = (extension: Extension.Constructor): boolean =>
  * @internal
  */
 export const hasValidConstructorName = (
-  input: Extension | Extension.Constructor,
+  input: Extension | Constructor,
 ): boolean =>
   input?.constructor?.name &&
   typeof input.constructor.name == 'string' &&
@@ -59,5 +59,5 @@ export const hasValidConstructorName = (
  *
  * @internal
  */
-export const generateName = (input: Extension | Extension.Constructor) =>
+export const generateName = (input: Extension | Constructor) =>
   hasValidConstructorName(input) ? input.constructor.name : nanoid(4)

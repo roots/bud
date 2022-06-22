@@ -1,28 +1,30 @@
 import {Extension} from '@roots/bud-framework'
 import {
   bind,
-  dependsOnOptional,
+  dependsOn,
   label,
 } from '@roots/bud-framework/extension/decorators'
 
 import * as api from './react-refresh/api.js'
 
 /**
- * React support extension for `@roots/bud`
+ * `BudReact` adds the `@babel/preset-react` preset to the babel configuration
+ *
+ * @remarks
+ * `@roots/bud-babel` provides the babel configuration
  *
  * @public
  * @decorator `@label`
  * @decorator `@dependsOn`
  */
 @label('@roots/bud-react')
-@dependsOnOptional([
-  '@roots/bud-babel',
-  '@roots/bud-esbuild',
-  '@roots/bud-typescript',
-])
+@dependsOn(['@roots/bud-babel'])
 export default class BudReact extends Extension {
   /**
    * Register extension
+   *
+   * @remarks
+   * Binding the reactRefresh api to the bud api.
    *
    * @public
    * @decorator `@bind`
@@ -34,6 +36,9 @@ export default class BudReact extends Extension {
 
   /**
    * Boot extension
+   *
+   * @remarks
+   * Adding the babel preset react to the babel config.
    *
    * @public
    * @decorator `@bind`

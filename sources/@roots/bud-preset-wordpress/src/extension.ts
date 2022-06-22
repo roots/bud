@@ -11,7 +11,6 @@ import {
 @dependsOn([
   '@roots/bud-entrypoints',
   '@roots/bud-preset-recommend',
-  '@roots/bud-react',
   '@roots/bud-wordpress-externals',
   '@roots/bud-wordpress-dependencies',
   '@roots/bud-wordpress-manifests',
@@ -37,6 +36,11 @@ export default class BudPresetWordPress extends Extension {
 
   @bind
   public async register() {
+    if (!this.app.extensions.has('@roots/bud-esbuild')) {
+      const {default: react} = await import('@roots/bud-react')
+      await this.app.extensions.add(react)
+    }
+
     if (!this.origin) return
 
     try {
