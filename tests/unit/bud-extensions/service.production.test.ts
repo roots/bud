@@ -1,7 +1,7 @@
 import {Bud, factory} from '@repo/test-kit/bud'
 
 describe('Extensions', function () {
-  let bud: Bud = null
+  let bud: Bud
 
   beforeAll(async () => {
     bud = await factory()

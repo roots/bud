@@ -10,7 +10,27 @@
  * @packageDocumentation
  */
 
-import './env.js'
-
+import type {Config} from './config.js'
 import BabelExtension from './extension.js'
+
+declare module '@roots/bud-framework' {
+  interface Bud {
+    babel: Config
+  }
+
+  interface Modules {
+    '@roots/bud-babel': BabelExtension
+  }
+
+  namespace Build {
+    interface Loaders {
+      babel: Build.Loader
+    }
+
+    interface Items {
+      babel: Build.Item
+    }
+  }
+}
+
 export default BabelExtension
