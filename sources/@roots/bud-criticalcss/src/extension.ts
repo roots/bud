@@ -35,7 +35,7 @@ import CriticalCssWebpackPlugin, {
  * @decorator `@expose`
  * @decorator `@plugin`
  * @decorator `@options`
- * @decorator `@pwhen`
+ * @decorator `@when`
  */
 @label('@roots/bud-criticalcss')
 @expose('critical')
