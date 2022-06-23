@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-client",
   "description": "Client scripts for @roots/bud",
-  "version": "0.0.0",
+  "version": "6.1.0",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
