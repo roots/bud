@@ -1,9 +1,11 @@
 import {bind} from 'helpful-decorators'
 import {has, isBoolean, isFunction} from 'lodash-es'
 import type Signale from 'signale'
+import type {Compiler} from 'webpack'
 
 import type {Bud} from '../bud.js'
 import type {Modules} from '../registry/index.js'
+import type {ApplyPluginConstructor} from './decorators/plugin.js'
 
 export type Options<T = any> = {
   [K in keyof T as `${K & string}`]?: T[K]
@@ -20,31 +22,62 @@ export namespace Options {
 }
 
 /**
+ * Webpack plugin.
+ *
+ * @public
+ */
+export interface ApplyPlugin {
+  /**
+   * Loose defined
+   *
+   * @public
+   */
+  [key: string]: any
+
+  /**
+   * Apply callback
+   *
+   * @see {@link https://webpack.js.org/contribute/writing-a-plugin/#basic-plugin-architecture}
+   *
+   * @public
+   */
+  apply: (compiler?: Compiler) => unknown
+}
+
+export interface Constructor {
+  new (...args: [Bud]): Extension
+}
+
+export type ExtensionLiteral = {
+  [K in keyof Extension]?: Extension[K]
+}
+
+/**
  * Bud extension
  *
  * @public
  */
-export class Extension<E = any, Plugin = any> {
+export class Extension<E = any, Plugin extends ApplyPlugin = any> {
   /**
    * Application
    *
    * @internal
    */
-  public _app?: () => Bud
+  public _app: () => Bud
 
   /**
    * Application accessor
    *
    * @public
    */
-  public app?: Bud
+  public app: Bud
 
   /**
    * Extension options
    *
    * @internal
    */
-  public _options?: Options.FuncMap<E> = {}
+  public _options: Options.FuncMap<E> = {}
 
   /**
    * Extension options
@@ -52,21 +85,26 @@ export class Extension<E = any, Plugin = any> {
    * @readonly
    * @public
    */
-  public readonly options?: Options<E> = {}
+  public readonly options: Options<E> = {}
 
   /**
    * Extension meta
    *
    * @public
    */
-  public meta? = {}
+  public meta = {}
 
   /**
    * The module name
    *
    * @public
    */
-  public label?: keyof Modules & string
+  public label: keyof Modules & string
+
+  /**
+   * @public
+   */
+  public logger: Bud['logger']['instance']
 
   /**
    * Depends on
@@ -92,11 +130,6 @@ export class Extension<E = any, Plugin = any> {
    * @public
    */
   public when?(options: Options<E>, app: Bud): Promise<boolean>
-
-  /**
-   * @public
-   */
-  public logger?: Bud['logger']['instance']
 
   /**
    * `init` callback
@@ -150,14 +183,14 @@ export class Extension<E = any, Plugin = any> {
    *
    * @public
    */
-  public plugin?: new (options: Options<E>) => Plugin
+  public plugin?: ApplyPluginConstructor
 
   /**
    * Compiler plugin `apply` method
    *
    * @public
    */
-  public apply?: Extension.PluginInstance['apply']
+  public apply?: ApplyPlugin['apply']
 
   /**
    * Class constructor
@@ -202,7 +235,7 @@ export class Extension<E = any, Plugin = any> {
    * @decorator `@bind`
    */
   @bind
-  public async _init?() {
+  public async _init() {
     if (this.init) {
       try {
         await this.init(this.options, this.app)
@@ -221,7 +254,7 @@ export class Extension<E = any, Plugin = any> {
    * @decorator `@bind`
    */
   @bind
-  public async _register?() {
+  public async _register() {
     if (this.register) {
       try {
         if (this.init && !this.meta['_init']) await this._init()
@@ -245,7 +278,7 @@ export class Extension<E = any, Plugin = any> {
    * @decorator `@bind`
    */
   @bind
-  public async _boot?() {
+  public async _boot() {
     if (this.boot) {
       try {
         if (this.init && !this.meta['_init']) await this._init()
@@ -269,7 +302,7 @@ export class Extension<E = any, Plugin = any> {
    * @public
    */
   @bind
-  public async _beforeBuild?() {
+  public async _beforeBuild() {
     const enabled = await this.isEnabled()
 
     if (!this.beforeBuild || enabled === false) return
@@ -284,7 +317,7 @@ export class Extension<E = any, Plugin = any> {
    * @decorator `@bind`
    */
   @bind
-  public async _make?() {
+  public async _make() {
     const enabled = await this.isEnabled()
 
     if (enabled === false || (!this.make && !this.apply && !this.plugin))
@@ -307,7 +340,7 @@ export class Extension<E = any, Plugin = any> {
    * @decorator `@bind`
    */
   @bind
-  public getOptions?(): Options<E> {
+  public getOptions(): Options<E> {
     return Object.entries(this._options).reduce(this.fromOptionsMap, {})
   }
 
@@ -318,7 +351,7 @@ export class Extension<E = any, Plugin = any> {
    * @decorator `@bind`
    */
   @bind
-  public setOptions?(
+  public setOptions(
     value: Options<E> | ((value: Options<E>) => Options<E>),
   ): this {
     this._options = isFunction(value) ? value(this.options) : value
@@ -332,7 +365,7 @@ export class Extension<E = any, Plugin = any> {
    * @decorator `@bind`
    */
   @bind
-  public getOption?<K extends keyof Options<E> & string>(
+  public getOption<K extends keyof Options<E> & string>(
     key: K,
   ): Options<E>[K] {
     return this.options[key]
@@ -345,7 +378,7 @@ export class Extension<E = any, Plugin = any> {
    * @decorator `@bind`
    */
   @bind
-  public setOption?<K extends keyof Options.FuncMap<E>>(
+  public setOption<K extends keyof Options.FuncMap<E>>(
     key: K & string,
     value: Options<E>[K & string],
   ): this {
@@ -363,7 +396,7 @@ export class Extension<E = any, Plugin = any> {
    * @decorator `@bind`
    */
   @bind
-  protected toOptionsMap?<K extends keyof Options<E> & string>(
+  public toOptionsMap<K extends keyof Options<E> & string>(
     funcMap: Options.FuncMap<Options<E>> = {},
     [key, value]: [K & string, Options<E>[K & string]],
   ): Options.FuncMap<Options<E>> {
@@ -380,7 +413,7 @@ export class Extension<E = any, Plugin = any> {
    * @decorator `@bind`
    */
   @bind
-  protected fromOptionsMap?<K extends keyof Options<E>>(
+  public fromOptionsMap<K extends keyof Options<E>>(
     options: Options<E>,
     [key, value]: [K & string, Options<E>[K & string]],
   ): Options<E> {
@@ -397,7 +430,7 @@ export class Extension<E = any, Plugin = any> {
    * @decorator `@bind`
    */
   @bind
-  public fromObject?(extensionObject: Extension): this {
+  public fromObject(extensionObject: ExtensionLiteral): this {
     Object.entries(extensionObject).map(([k, v]) => {
       this[k] = v
     })
@@ -415,7 +448,7 @@ export class Extension<E = any, Plugin = any> {
    * @decorator `@bind`
    */
   @bind
-  public has?<K extends `${keyof Extension}`>(key: K): boolean {
+  public has<K extends `${keyof Extension}`>(key: K): boolean {
     return has(this, key)
   }
 
@@ -429,7 +462,7 @@ export class Extension<E = any, Plugin = any> {
    * @decorator `@bind`
    */
   @bind
-  public isFunction?<K extends `${keyof Extension}`>(key: K): boolean {
+  public isFunction<K extends `${keyof Extension}`>(key: K): boolean {
     return this.has(key) && isFunction(this[key]) ? true : false
   }
 
@@ -445,30 +478,10 @@ export class Extension<E = any, Plugin = any> {
    * @decorator `@bind`
    */
   @bind
-  public async resolve?(signifier: string): Promise<string> {
+  public async resolve(signifier: string): Promise<string> {
     const modulePath = await this.app.module.resolve(signifier)
 
     this.logger.log(this.label, 'resolving', signifier, 'to', modulePath)
-
-    return modulePath
-  }
-
-  /**
-   * Resolve CJS with `require.resolve` API
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async resolveCjs?(signifier: string): Promise<string> {
-    const modulePath = await this.app.module.resolveCjs(signifier)
-    this.logger.log(
-      this.label,
-      'resolving cjs module',
-      signifier,
-      'to',
-      modulePath,
-    )
 
     return modulePath
   }
@@ -480,7 +493,7 @@ export class Extension<E = any, Plugin = any> {
    * @decorator `@bind`
    */
   @bind
-  public async import?<T = any>(signifier: string): Promise<T> {
+  public async import<T = any>(signifier: string): Promise<T> {
     try {
       const result = await import(signifier)
       this.logger.success('imported', signifier)
@@ -539,31 +552,7 @@ export class Extension<E = any, Plugin = any> {
    * @decorator `@bind`
    */
   @bind
-  public done?(): Bud {
+  public done(): Bud {
     return this.app
-  }
-}
-
-export namespace Extension {
-  export interface Constructor {
-    new (...args: any[]): Extension
-  }
-
-  export type Definition = Constructor
-
-  /**
-   * Compiler plugin interface
-   *
-   * @public
-   */
-  export interface PluginInstance {
-    [key: string]: any
-
-    /**
-     * Apply method
-     *
-     * @public
-     */
-    apply?: CallableFunction
   }
 }

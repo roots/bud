@@ -1,6 +1,7 @@
 import {Bud, factory} from '@repo/test-kit/bud'
 import {Loader} from '@roots/bud-build'
 import esbuild from '@roots/bud-esbuild'
+import {isArray, isUndefined} from 'lodash-es'
 
 describe('@roots/bud-esbuild', () => {
   let bud: Bud
@@ -19,54 +20,71 @@ describe('@roots/bud-esbuild', () => {
     )
   })
 
-  describe('module boot', () => {
-    it('has label prop', () => {
-      expect(extension.label).toBe('@roots/bud-esbuild')
-    })
+  it('has label prop', () => {
+    expect(extension.label).toBe('@roots/bud-esbuild')
+  })
 
-    it('is a method', () => {
-      expect(extension.boot).toBeInstanceOf(Function)
-    })
+  it('is a method', () => {
+    expect(extension.register).toBeInstanceOf(Function)
+  })
 
-    it('registers js ruleset item', () => {
-      expect(bud.build.rules.js.getUse()).toEqual([
-        expect.stringContaining('esbuild-js'),
-      ])
-    })
+  it('registers js ruleset item', () => {
+    if (isUndefined(bud.build.rules.js)) {
+      throw new Error()
+    }
+    expect(bud.build.rules.js.getUse()).toEqual([
+      expect.stringContaining('esbuild-js'),
+    ])
+  })
 
-    it('registers js ruleset item options', () => {
-      expect(bud.build.items['esbuild-js'].getOptions()).toEqual(
-        extension.getOption('js'),
-      )
-    })
+  it('registers js ruleset item options', () => {
+    if (isUndefined(bud.build.items['esbuild-js'])) {
+      throw new Error()
+    }
+    expect(bud.build.items['esbuild-js'].getOptions()).toEqual(
+      extension.getOption('js'),
+    )
+  })
 
-    it('resolves the esbuild loader', () => {
-      expect(bud.build.items['esbuild-js'].getLoader()).toBeInstanceOf(
-        Loader,
-      )
-    })
+  it('resolves the esbuild loader', () => {
+    if (isUndefined(bud.build.items['esbuild-js'])) {
+      throw new Error()
+    }
 
-    it('registers ts ruleset item', () => {
-      expect(bud.build.rules.ts.getUse()).toEqual([
-        expect.stringContaining('esbuild-ts'),
-      ])
-    })
+    expect(bud.build.items['esbuild-js'].getLoader()).toBeInstanceOf(
+      Loader,
+    )
+  })
 
-    it('registers ts ruleset item options', () => {
-      expect(bud.build.items['esbuild-ts'].getOptions()).toEqual(
-        extension.options.ts,
-      )
-    })
+  it('registers ts ruleset item', () => {
+    if (isUndefined(bud.build.rules['ts'])) {
+      throw new Error()
+    }
+    expect(bud.build.rules.ts.getUse()).toEqual([
+      expect.stringContaining('esbuild-ts'),
+    ])
+  })
 
-    it('resolves the esbuild loader', () => {
-      expect(bud.build.items['esbuild-ts'].getLoader()).toBeInstanceOf(
-        Loader,
-      )
-    })
+  it('registers ts ruleset item options', () => {
+    if (isUndefined(bud.build.items['esbuild-ts'])) {
+      throw new Error()
+    }
+    expect(bud.build.items['esbuild-ts'].getOptions()).toEqual(
+      extension.options.ts,
+    )
+  })
 
-    it('registers esbuild loader', () => {
-      expect(bud.build.loaders.esbuild).toBeInstanceOf(Loader)
-    })
+  it('resolves the esbuild loader', () => {
+    if (isUndefined(bud.build.items['esbuild-ts'])) {
+      throw new Error()
+    }
+    expect(bud.build.items['esbuild-ts'].getLoader()).toBeInstanceOf(
+      Loader,
+    )
+  })
+
+  it('registers esbuild loader', () => {
+    expect(bud.build.loaders.esbuild).toBeInstanceOf(Loader)
   })
 
   describe('module options', () => {
@@ -100,10 +118,14 @@ describe('@roots/bud-esbuild', () => {
 
   describe('does its job', () => {
     it('single minifier', () => {
+      if (isUndefined(bud.build.config.optimization)) throw new Error()
       expect(bud.build.config.optimization.minimizer).toHaveLength(1)
     })
 
     it.skip('registers loader', () => {
+      if (isUndefined(bud.build.config.module)) throw new Error()
+      if (!isArray(bud.build.config.module.rules)) throw new Error()
+
       expect(
         (bud.build.config.module.rules[1] as any).oneOf[0].use[0].loader,
       ).toEqual(expect.stringContaining('esbuild-loader'))

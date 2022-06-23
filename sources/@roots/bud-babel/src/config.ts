@@ -1,16 +1,49 @@
-import {bind} from 'helpful-decorators'
+import {bind} from '@roots/bud-framework/extension/decorators'
+import {isUndefined} from 'lodash-es'
 
+/**
+ * Babel transpiler options
+ *
+ * @public
+ */
 export type Options = {
   plugins?: Plugin[]
   config?: boolean | string
 }
 
+/**
+ * Normalized babel plugin
+ *
+ * @remarks
+ * Expressed as a tuple of `[name, options]`
+ *
+ * @public
+ */
 export type NormalizedPlugin = [any, Record<string, any>]
 
+/**
+ * Babel plugin value
+ *
+ * @see https://babeljs.io/docs/en/plugins
+ *
+ * @public
+ */
 export type Plugin = string | NormalizedPlugin | CallableFunction
 
+/**
+ * Registrable plugin value
+ *
+ * @see https://babeljs.io/docs/en/plugins#using-a-plugin
+ *
+ * @public
+ */
 export type Registrable = string | NormalizedPlugin
 
+/**
+ * Plugins and presets registry interface
+ *
+ * @public
+ */
 export interface Registry {
   [key: string]: [string, any?]
 }
@@ -25,7 +58,7 @@ export interface Registry {
  * ```ts
  * bud.babel.setPreset(
  *   '@babel/preset-env',
- *   bud.module.resolve('@babel/preset-env'),
+ *   (await bud.babel.resolve('@babel/preset-env')),
  * )
  * ```
  *
@@ -54,6 +87,7 @@ export class Config {
    * @returns The babel configuration class
    *
    * @public
+   * @decorator `@bind`
    */
   @bind
   public setPreset(name: string, preset: [string, any] | string): this {
@@ -66,6 +100,15 @@ export class Config {
     return this
   }
 
+  /**
+   * Set babel presets
+   *
+   * @remarks
+   * Completely overrides existing registry
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public setPresets(presets: {
     [key: string]: [string, any] | string
@@ -86,19 +129,49 @@ export class Config {
     return this
   }
 
+  /**
+   * Remove a babel preset
+   *
+   * @param preset - preset name
+   * @returns The babel configuration class
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public unsetPreset(preset: string) {
-    this.presets[preset] && delete this.presets[preset]
+    if (!isUndefined(this.presets[preset]))
+      this.presets[preset] = undefined
+
     return this
   }
 
+  /**
+   * Set options on a babel preset
+   *
+   * @param preset - preset name
+   * @param options - preset options
+   * @returns The babel configuration class
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public setPresetOptions(preset: string, options: any): this {
     this.presets[preset] = [this.presets[preset].shift(), options]
-
     return this
   }
 
+  /**
+   * Set a babel plugin
+   *
+   * @param name - babel plugin name
+   * @param plugin - path to the babel plugin or the plugin itself
+   * @returns The babel configuration class
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public setPlugin(name: string, plugin: [any, any] | string): this {
     if (Array.isArray(plugin)) {
@@ -110,6 +183,15 @@ export class Config {
     return this
   }
 
+  /**
+   * Set babel presets
+   *
+   * @remarks
+   * Completely overrides existingplugins  registry
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public setPlugins(plugins: {[key: string]: [any, any] | string}): this {
     this.plugins = Object.entries(plugins).reduce(
@@ -128,16 +210,36 @@ export class Config {
     return this
   }
 
+  /**
+   * Remove a babel plugin
+   *
+   * @param plugin - plugin name
+   * @returns The babel configuration class
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public unsetPlugin(plugin: string) {
-    this.plugins[plugin] && delete this.plugins[plugin]
+    if (!isUndefined(this.plugins[plugin]))
+      this.plugins[plugin] = undefined
+
     return this
   }
 
+  /**
+   * Set options on a babel plugin
+   *
+   * @param plugin - plugin name
+   * @param options - plugin options
+   * @returns The babel configuration class
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public setPluginOptions(plugin: string, options: any): this {
     this.plugins[plugin] = [this.plugins[plugin].shift(), options]
-
     return this
   }
 }

@@ -78,7 +78,7 @@
     "@babel/preset-env": "^7.18.2",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "babel-loader": "^8.2.5",
-    "helpful-decorators": "2.1.0",
+    "lodash-es": "4.17.21",
     "tslib": "2.4.0"
   },
   "peerDependencies": {

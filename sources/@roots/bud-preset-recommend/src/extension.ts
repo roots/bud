@@ -1,10 +1,39 @@
 import {Extension} from '@roots/bud-framework/extension'
-import {dependsOn, label} from '@roots/bud-framework/extension/decorators'
+import {
+  dependsOn,
+  dependsOnOptional,
+  label,
+} from '@roots/bud-framework/extension/decorators'
 
+/**
+ * Recommended preset configuration for `@roots/bud` projects
+ *
+ * @remarks
+ * Will try to use `@roots/bud-esbuild` if it is available
+ * and fallback on `@roots/bud-babel` (which comes included)
+ * if esbuild extension is not available.
+ *
+ * @public
+ * @decorator `@label`
+ * @decorator `@dependsOn`
+ * @decorator `@dependsOnOptional`
+ */
 @label('@roots/bud-preset-recommend')
-@dependsOn([
-  '@roots/bud-babel',
-  '@roots/bud-entrypoints',
-  '@roots/bud-postcss',
-])
-export default class BudPresetRecommend extends Extension {}
+@dependsOn(['@roots/bud-entrypoints', '@roots/bud-postcss'])
+@dependsOnOptional(['@roots/bud-esbuild'])
+export default class BudPresetRecommend extends Extension {
+  /**
+   * `register` callback
+   *
+   * @remarks
+   * If `@roots/bud-esbuild` is not an active extension
+   * the preset will register `@roots/bud-babel`
+   *
+   * @public
+   */
+  public async register() {
+    if (!this.app.extensions.has('@roots/bud-esbuild')) {
+      await this.app.extensions.add(await this.import('@roots/bud-babel'))
+    }
+  }
+}

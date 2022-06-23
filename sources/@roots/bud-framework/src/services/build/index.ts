@@ -7,7 +7,7 @@ import type {Loader} from './loader/index.js'
 import type {Rule} from './rule/index.js'
 
 /**
- * Build Service interface
+ * Build Service
  *
  * @remarks
  * Generates a {@link Build.config} and acts as a repository for {@link Rule} {@link Item}
@@ -133,7 +133,7 @@ export interface Service extends BaseService {
  *
  * @virtual @public
  */
-export interface Loaders extends Partial<Record<string, Loader>> {}
+export interface Loaders extends Record<string, Loader> {}
 export type {Loader}
 
 /**
@@ -141,7 +141,7 @@ export type {Loader}
  *
  * @virtual @public
  */
-export interface Items extends Partial<Record<string, Item>> {}
+export interface Items extends Record<string, Item> {}
 export type {Item}
 
 /**
@@ -149,7 +149,7 @@ export type {Item}
  *
  * @virtual @public
  */
-export interface Rules extends Partial<Record<string, Rule>> {}
+export interface Rules extends Record<string, Rule> {}
 export type {Rule}
 
 export type {Base}

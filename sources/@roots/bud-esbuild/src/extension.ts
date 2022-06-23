@@ -6,16 +6,41 @@ import {
 } from '@roots/bud-framework/extension/decorators'
 import {ESBuildMinifyPlugin} from 'esbuild-loader'
 
+/**
+ * Esbuild options
+ *
+ * @public
+ */
 export interface Options {
+  /**
+   * Minify settings
+   * @public
+   */
   minify: {
+    /**
+     * Esbuild should minify CSS
+     * @public
+     */
     css: boolean
+    /**
+     * Patterns to be minified
+     */
     include: string | RegExp | Array<string | RegExp>
+    /**
+     * Patterns to be excluded from minimization
+     */
     exclude: string | RegExp | Array<string | RegExp>
   }
+  /**
+   * JS settings
+   */
   js: {
     loader: 'jsx' | 'jsx'
     target: string
   }
+  /**
+   *TS settings
+   */
   ts: {
     loader: 'tsx' | 'ts'
     target: string
@@ -24,7 +49,7 @@ export interface Options {
 }
 
 /**
- * Bud esbuild extension
+ * `BudEsbuild` configures Bud to process JS and TS with esbuild-loader
  *
  * @public
  * @decorator `@label`
@@ -60,7 +85,7 @@ export default class BudEsbuild extends Extension<Options> {
    * @decorator `@bind`
    */
   @bind
-  public async boot() {
+  public async register() {
     const loader = await this.resolve('esbuild-loader')
 
     this.app.build
@@ -87,6 +112,9 @@ export default class BudEsbuild extends Extension<Options> {
 
   /**
    * `beforeBuild` callback
+   *
+   * @remarks
+   *
    *
    * @public
    */

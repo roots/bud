@@ -10,7 +10,12 @@
  * @packageDocumentation
  */
 
-import './env.js'
-
 import BudPresetRecommend from './extension.js'
+
+declare module '@roots/bud-framework' {
+  interface Modules {
+    '@roots/bud-preset-recommend': BudPresetRecommend
+  }
+}
+
 export default BudPresetRecommend

@@ -7,7 +7,7 @@
  * @see https://bud.js.org
  * @see https://github.com/roots/bud
  *
- * @beta @packageDocumentation
+ * @packageDocumentation
  */
 
 import './env.js'

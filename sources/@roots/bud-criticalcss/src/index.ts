@@ -14,7 +14,16 @@
  * @packageDocumentation
  */
 
-import './env.js'
-
 import BudCriticalCssExtension from './extension.js'
+
+declare module '@roots/bud-framework' {
+  interface Bud {
+    critical: BudCriticalCssExtension
+  }
+
+  interface Modules {
+    '@roots/bud-criticalcss': BudCriticalCssExtension
+  }
+}
+
 export default BudCriticalCssExtension

@@ -1,4 +1,10 @@
-import type {Extension, Modules} from '../../index.js'
+import type {
+  ApplyPlugin,
+  Constructor,
+  Extension,
+  ExtensionLiteral,
+} from '../../extension/index.js'
+import type {Modules} from '../../index.js'
 import type {Service as BaseService} from '../../service.js'
 
 /**
@@ -15,7 +21,10 @@ import type {Service as BaseService} from '../../service.js'
 export interface Service extends BaseService {
   repository: Modules
 
-  has<K extends keyof Modules>(key: K & string): boolean
+  has<K extends keyof Modules>(
+    key: K & string,
+    ...iterable: any[]
+  ): boolean
 
   get<K extends keyof Modules>(key: K & string): Modules[K & string]
 
@@ -29,11 +38,11 @@ export interface Service extends BaseService {
    * @public
    */
   add(
-    extension:
-      | Extension.Constructor
-      | Partial<Extension>
-      | Array<Extension.Constructor | Partial<Extension>>,
-  ): Promise<unknown>
+    input:
+      | Constructor
+      | ExtensionLiteral
+      | Array<Constructor | ExtensionLiteral>,
+  ): Promise<void>
 
   import(input: Record<string, any> | string): Promise<Extension>
 
@@ -63,5 +72,5 @@ export interface Service extends BaseService {
    *
    * @public
    */
-  make(): Promise<Array<Extension.PluginInstance>>
+  make(): Promise<Array<ApplyPlugin>>
 }

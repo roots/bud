@@ -58,10 +58,12 @@ export interface Options {
   }
 
   /**
-   * Options for node server request
+   * Node server request options
    *
    * @remarks
-   * Request handled by `got`
+   * Uses sindresorhus/got for request parsing
+   *
+   * @see https://github.com/sindresorhus/got/blob/main/documentation/2-options.md
    *
    * @public
    */

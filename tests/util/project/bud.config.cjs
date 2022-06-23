@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
 /* eslint-disable tsdoc/syntax */
 // @ts-check
 
@@ -12,6 +13,7 @@ module.exports = async app => {
         import: '**/app.{js,css}',
       },
     })
+
     .copy(['src/images/**/*'])
     .template({template: 'src/index.html'})
     .devtool(false)

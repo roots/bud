@@ -1,10 +1,13 @@
 import {
   Extension,
   Extensions as Contract,
-  ModuleDefinitions,
   Modules,
   Service,
 } from '@roots/bud-framework'
+import type {
+  ApplyPlugin,
+  ExtensionLiteral,
+} from '@roots/bud-framework/src/extension'
 import chalk from 'chalk'
 import {bind} from 'helpful-decorators'
 
@@ -48,7 +51,10 @@ export default class Extensions
    * @decorator `@bind`
    */
   @bind
-  public has<K extends keyof Modules>(key: K & string): boolean {
+  public has<K extends keyof Modules>(
+    key: K & string,
+    ...iterable: any[]
+  ): boolean {
     return this.repository[key] ? true : false
   }
 
@@ -84,10 +90,8 @@ export default class Extensions
    */
   @bind
   public set<K extends Modules>(value: Modules[K & string]): this {
-    value.logger.log(`setting extension`, chalk.blue(value.label))
-
+    value.logger.log(`setting`)
     this.repository[value.label] = value
-
     return this
   }
 
@@ -99,13 +103,54 @@ export default class Extensions
    */
   @bind
   public instantiate<K extends Modules>(
-    extension: Modules[K & string] | ModuleDefinitions[K & string],
+    extension:
+      | (new (...args: any[]) => Modules[K & string])
+      | ExtensionLiteral,
   ): Modules[K & string] {
     return typeof extension === 'function'
       ? new extension(this.app)
       : !(extension instanceof Extension)
       ? new Extension(this.app).fromObject(extension)
       : extension
+  }
+
+  @bind
+  protected filterApplicableExtensions(
+    extensions: Array<string>,
+  ): Array<string> {
+    return extensions
+      .filter(signifier => !this.has(signifier))
+      .filter(
+        signifier =>
+          signifier.startsWith('@roots/bud-') ||
+          signifier.startsWith('@roots/sage') ||
+          signifier.startsWith('bud-'),
+      )
+      .filter(
+        signifier =>
+          ![
+            '@roots/bud-api',
+            '@roots/bud-build',
+            '@roots/bud-cache',
+            '@roots/bud-client',
+            '@roots/bud-compiler',
+            '@roots/bud-dashboard',
+            '@roots/bud-extensions',
+            '@roots/bud-framework',
+            '@roots/bud-hooks',
+            '@roots/bud-server',
+          ].includes(signifier),
+      )
+      .filter(
+        signifier =>
+          !this.app.context.manifest.bud?.denylist ||
+          !this.app.context.manifest.bud?.denylist.includes(signifier),
+      )
+      .filter(
+        signifier =>
+          !this.app.context.manifest.bud?.allowlist ||
+          this.app.context.manifest.bud?.allowlist.includes(signifier),
+      )
   }
 
   /**
@@ -123,43 +168,22 @@ export default class Extensions
 
     this.app.log('injecting extensions...')
 
-    await Object.keys({
-      ...(this.app.context.manifest?.devDependencies ?? {}),
-      ...(this.app.context.manifest?.dependencies ?? {}),
-    })
-      .filter(signifier => !signifier.startsWith('@types'))
-      .filter(
-        signifier =>
-          signifier.startsWith('@roots/bud-') ||
-          signifier.startsWith('@roots/sage'),
-      )
-      .filter(
-        signifier =>
-          ![
-            '@roots/bud-api',
-            '@roots/bud-build',
-            '@roots/bud-cache',
-            '@roots/bud-client',
-            '@roots/bud-compiler',
-            '@roots/bud-dashboard',
-            '@roots/bud-extensions',
-            '@roots/bud-framework',
-            '@roots/bud-hooks',
-            '@roots/bud-server',
-          ].includes(signifier),
-      )
-      .filter(signifier => !this.has(signifier))
-      .reduce(async (promised: Promise<any>, signifier): Promise<any> => {
-        await promised
+    await this.filterApplicableExtensions(
+      Object.keys({
+        ...(this.app.context.manifest?.devDependencies ?? {}),
+        ...(this.app.context.manifest?.dependencies ?? {}),
+      }),
+    ).reduce(async (promised: Promise<any>, signifier): Promise<any> => {
+      await promised
 
-        try {
-          this.app.log('...importing', signifier)
+      try {
+        this.app.log('...importing', signifier)
 
-          await this.import(signifier)
-        } catch (error) {
-          this.app.warn(`Error importing`, signifier, `\n`, error)
-        }
-      }, Promise.resolve())
+        await this.import(signifier)
+      } catch (error) {
+        this.app.warn(`Error importing`, signifier, `\n`, error)
+      }
+    }, Promise.resolve())
   }
 
   /**
@@ -170,36 +194,29 @@ export default class Extensions
    */
   @bind
   public async import(signifier: string): Promise<Extension> {
-    if (this.has(signifier)) return
+    if (!this.filterApplicableExtensions([signifier]).length) return
 
     const extension = await this.app.module.import(signifier)
     const instance = this.instantiate(extension)
-    !this.has(signifier) && this.set(instance)
+    this.set(instance)
 
     instance.dependsOn &&
-      (await Array.from(instance.dependsOn)
-        .filter(signifier => !this.has(signifier))
-        .reduce(
-          async (promised: Promise<any>, signifier): Promise<any> => {
-            await promised
-            await this.import(signifier)
-          },
-          Promise.resolve(),
-        ))
+      (await this.filterApplicableExtensions(
+        Array.from(instance.dependsOn),
+      ).reduce(async (promised: Promise<any>, signifier): Promise<any> => {
+        await promised
+        await this.import(signifier)
+      }, Promise.resolve()))
 
     instance.dependsOnOptional &&
-      (await Array.from(instance.dependsOnOptional)
-        .filter(signifier => !this.has(signifier))
-        .reduce(
-          async (promised: Promise<any>, signifier): Promise<any> => {
-            await promised
-
-            try {
-              await this.import(signifier)
-            } catch (err) {}
-          },
-          Promise.resolve(),
-        ))
+      (await this.filterApplicableExtensions(
+        Array.from(instance.dependsOnOptional),
+      ).reduce(async (promised: Promise<any>, signifier): Promise<any> => {
+        try {
+          await promised
+          await this.import(signifier)
+        } catch (err) {}
+      }, Promise.resolve()))
 
     return extension
   }
@@ -226,11 +243,14 @@ export default class Extensions
     else extension.meta[methodName] = true
 
     try {
+      await this.runDependencies(extension, methodName)
+
+      if (!extension[methodName.replace('_', '')]) return this
+
       extension.logger.log(
         chalk.blue(extension.label),
         chalk.cyan(methodName),
       )
-      await this.runDependencies(extension, methodName)
 
       await extension[methodName]()
 
@@ -332,7 +352,12 @@ export default class Extensions
    * @decorator `@bind`
    */
   @bind
-  public async add(input: Extension | Array<Extension>): Promise<void> {
+  public async add(
+    input:
+      | (new (...args: any[]) => Extension)
+      | ExtensionLiteral
+      | Array<(new (...args: any[]) => Extension) | ExtensionLiteral>,
+  ): Promise<void> {
     const arrayed = Array.isArray(input) ? input : [input]
 
     await arrayed.reduce(async (promised, extensionObject) => {
@@ -366,11 +391,14 @@ export default class Extensions
    * @decorator `@bind`
    */
   @bind
-  public async make(): Promise<Extension.PluginInstance[]> {
+  public async make(): Promise<ApplyPlugin[]> {
     return await Promise.all(
       Object.values(this.repository).map(
         async extension => await extension._make(),
       ),
-    ).then(result => result.filter(Boolean))
+    ).then(
+      (result: Array<ApplyPlugin>): Array<ApplyPlugin> =>
+        result.filter(Boolean),
+    )
   }
 }

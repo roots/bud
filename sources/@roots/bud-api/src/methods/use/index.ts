@@ -1,4 +1,9 @@
-import type {Bud, Extension} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
+import type {
+  Constructor,
+  Extension,
+  ExtensionLiteral,
+} from '@roots/bud-framework/extension'
 import {isArray, isFunction} from 'lodash-es'
 
 import {generateName, isPlugin} from './use.utilities.js'
@@ -7,8 +12,9 @@ export interface use {
   (
     source:
       | Extension
-      | Extension.Constructor
-      | Array<Extension | Extension.Constructor>,
+      | Constructor
+      | ExtensionLiteral
+      | Array<Extension | Constructor | ExtensionLiteral>,
   ): Promise<Bud>
 }
 
@@ -16,8 +22,9 @@ export interface facade {
   (
     source:
       | Extension
-      | Extension.Constructor
-      | Array<Extension | Extension.Constructor>,
+      | Constructor
+      | ExtensionLiteral
+      | Array<Extension | Constructor | ExtensionLiteral>,
   ): Bud
 }
 
@@ -25,7 +32,7 @@ export const use: use = async function (source): Promise<Bud> {
   const bud = this as Bud
 
   const addExtension = async (
-    source: Extension | Extension.Constructor,
+    source: Extension | Constructor | ExtensionLiteral,
   ): Promise<Bud> => {
     if (!source) {
       bud.error(`extension source is not defined`)
@@ -34,7 +41,7 @@ export const use: use = async function (source): Promise<Bud> {
     let instance
 
     if (isFunction(source)) {
-      instance = new (source as Extension.Constructor)(bud)
+      instance = new (source as Constructor)(bud)
     } else instance = source
 
     if (!instance.label) {
