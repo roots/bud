@@ -78,37 +78,30 @@ export default class BabelExtension extends Extension<any, null> {
    */
   @bind
   public async register() {
-    const loader = await this.resolve('babel-loader')
-    const presetEnv = await this.resolve('@babel/preset-env')
-    const restSpread = await this.resolve(
-      '@babel/plugin-proposal-object-rest-spread',
-    )
-    const transformRuntime = await this.resolve(
-      '@babel/plugin-transform-runtime',
-    )
-    const dynamicImport = await this.resolve(
-      '@babel/plugin-syntax-dynamic-import',
-    )
-    const classProperties = await this.resolve(
-      '@babel/plugin-proposal-class-properties',
-    )
-
     this.app.build
-      .setLoader('babel', loader)
+      .setLoader('babel', await this.resolve('babel-loader'))
       .setItem('babel', this.setRuleSetItem)
 
     this.app.build.rules.js.setUse(items => ['babel', ...items])
 
     this.app.babel
-      .setPresets({'@babel/preset-env': presetEnv})
+      .setPresets({
+        '@babel/preset-env': await this.resolve('@babel/preset-env'),
+      })
       .setPlugins({
         '@babel/plugin-transform-runtime': [
-          transformRuntime,
+          await this.resolve('@babel/plugin-transform-runtime'),
           {helpers: false},
         ],
-        '@babel/plugin-proposal-object-rest-spread': restSpread,
-        '@babel/plugin-syntax-dynamic-import': dynamicImport,
-        '@babel/plugin-proposal-class-properties': classProperties,
+        '@babel/plugin-proposal-object-rest-spread': await this.resolve(
+          '@babel/plugin-proposal-object-rest-spread',
+        ),
+        '@babel/plugin-syntax-dynamic-import': await this.resolve(
+          '@babel/plugin-syntax-dynamic-import',
+        ),
+        '@babel/plugin-proposal-class-properties': await this.resolve(
+          '@babel/plugin-proposal-class-properties',
+        ),
       })
   }
 }

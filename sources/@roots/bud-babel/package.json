@@ -70,14 +70,14 @@
     "webpack": "5.73.0"
   },
   "dependencies": {
-    "@babel/core": "^7.18.2",
-    "@babel/plugin-proposal-class-properties": "^7.17.12",
-    "@babel/plugin-proposal-object-rest-spread": "^7.18.0",
-    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
-    "@babel/plugin-transform-runtime": "^7.18.2",
-    "@babel/preset-env": "^7.18.2",
+    "@babel/core": "7.18.5",
+    "@babel/plugin-proposal-class-properties": "7.17.12",
+    "@babel/plugin-proposal-object-rest-spread": "7.18.0",
+    "@babel/plugin-syntax-dynamic-import": "7.8.3",
+    "@babel/plugin-transform-runtime": "7.18.2",
+    "@babel/preset-env": "7.18.2",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "babel-loader": "^8.2.5",
+    "babel-loader": "8.2.5",
     "lodash-es": "4.17.21",
     "tslib": "2.4.0"
   },

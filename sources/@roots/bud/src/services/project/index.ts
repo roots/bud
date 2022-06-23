@@ -1,7 +1,7 @@
 import * as Framework from '@roots/bud-framework'
 import fs from 'fs-extra'
-import {bind} from 'helpful-decorators'
-import {isFunction, isString, omit} from 'lodash-es'
+import {bind, once} from 'helpful-decorators'
+import {isString, omit} from 'lodash-es'
 
 import type {repository} from './repository.js'
 
@@ -45,25 +45,6 @@ export class Project
   }
 
   /**
-   * Service register event
-   *
-   * @internal
-   * @decorator `@bind`
-   */
-  @bind
-  public async register() {
-    if (!this.app.isRoot) return
-
-    try {
-      await fs.ensureFile(
-        this.app.path(`@storage/${this.app.name}/profile.json`),
-      )
-    } catch (e) {
-      this.app.error(e)
-    }
-  }
-
-  /**
    * Service boot event
    *
    * @internal
@@ -92,10 +73,7 @@ export class Project
    */
   @bind
   public async loadManifest(): Promise<void> {
-    this.set('manifest', this.app.context.manifest).merge('installed', {
-      ...(this.get('manifest.devDependencies') ?? {}),
-      ...(this.get('manifest.dependencies') ?? {}),
-    })
+    this.set('manifest', this.app.context.manifest)
   }
 
   /**
@@ -103,41 +81,53 @@ export class Project
    *
    * @public
    * @decorator `@bind`
+   * @decorator `@once`
    */
   @bind
+  @once
   public async writeProfile() {
-    await fs.ensureFile(
-      this.app.path(`@storage`, this.app.name, `profile.json`),
-    )
-
-    await fs.writeFile(
-      this.app.path(`@storage`, this.app.name, `profile.json`),
-      this.app.json.stringify(
-        omit(this.repository, ['context.env']),
-        null,
-        2,
-      ),
-    )
-
-    this.app.success({
-      message: 'write profile',
-      suffix: this.app.path(`@storage`, this.app.name, `profile.json`),
-    })
-
     try {
-      const filePath = this.app.path(
-        `@storage/${this.app.name}/webpack.config.js`,
+      const path = this.app.path(`@storage`, this.app.name, `profile.json`)
+
+      await fs.ensureFile(path)
+      await fs.writeFile(
+        path,
+        this.app.json.stringify(
+          omit(this.repository, ['context.env']),
+          null,
+          2,
+        ),
       )
 
-      await fs.ensureFile(filePath)
+      this.app.success({
+        message: 'profile written',
+        suffix: path,
+      })
+    } catch (error) {
+      this.app.error(`failed to write profile`)
+    }
+
+    try {
+      const path = this.app.path(
+        `@storage`,
+        this.app.name,
+        `webpack.config.js`,
+      )
+
+      await fs.ensureFile(path)
       await fs.writeFile(
-        filePath,
+        path,
         `module.exports = ${this.app.json.stringify(
           this.app.build.config,
           null,
           2,
         )}`,
       )
+
+      this.app.success({
+        message: 'webpack.config.js written',
+        suffix: path,
+      })
     } catch (error) {
       this.app.error(`failed to write webpack.config.json`)
     }
@@ -153,57 +143,56 @@ export class Project
   public async searchConfigs() {
     await Promise.all(
       Object.entries(this.app.context.disk.config).map(
-        async ([fileName, filePath]) => {
-          const doYouEvenGoHere =
-            !filePath ||
-            !isString(filePath) ||
-            !fileName ||
-            !isString(fileName)
+        async ([name, path]) => {
+          try {
+            const hasCondition = (condition: string) =>
+              path.split('/').pop().includes(condition)
 
-          if (doYouEvenGoHere)
-            throw new Error(
-              `File object with no path or filename received from context.disk.config by project.service`,
-            )
+            const hasExtension = (extension: string) =>
+              path.endsWith(extension)
 
-          const hasCondition = (condition: string) =>
-            filePath.split('/').pop().includes(condition)
+            const invalid =
+              !path || !isString(path) || !name || !isString(name)
 
-          const hasExtension = (extension: string) =>
-            filePath.endsWith(extension)
+            if (invalid) {
+              throw new Error(
+                `File object with no path or name received from context.disk.config by project.service`,
+              )
+            }
 
-          const condition = hasCondition('production')
-            ? 'production'
-            : hasCondition('development')
-            ? 'development'
-            : 'base'
+            const condition = hasCondition('production')
+              ? 'production'
+              : hasCondition('development')
+              ? 'development'
+              : 'base'
 
-          const isDynamicConfig = [
-            'js',
-            'cjs',
-            'mjs',
-            'ts',
-            'cts',
-            'mts',
-          ].filter(hasExtension).length
+            const isDynamicConfig = [
+              'js',
+              'cjs',
+              'mjs',
+              'ts',
+              'cts',
+              'mts',
+            ].filter(hasExtension).length
 
-          const rawImport = isDynamicConfig
-            ? await import(filePath)
-            : hasExtension('yml')
-            ? await this.app.yml.read(filePath)
-            : hasExtension('json')
-            ? await this.app.json.read(filePath)
-            : {}
+            const importedConfig = isDynamicConfig
+              ? await this.app.module.import(path)
+              : hasExtension('yml')
+              ? await this.app.yml.read(path)
+              : hasExtension('json')
+              ? await this.app.json.read(path)
+              : {}
 
-          const processedModule =
-            rawImport?.default && isFunction(rawImport?.default)
-              ? rawImport.default
-              : rawImport
+            this.set(['config', condition, name], {
+              name: name,
+              path: path,
+              module: importedConfig,
+            })
+          } catch (err) {
+            this.app.warn(`error importing config`, name, `from`, path)
 
-          this.set(['config', condition, fileName], {
-            name: fileName,
-            path: filePath,
-            module: processedModule,
-          })
+            this.app.warn(err)
+          }
         },
       ),
     )
