@@ -142,10 +142,8 @@ export const summary = (app: Bud, compilation: StatsCompilation) => [
       chalk.hex(theme.foregroundColor)(compilation.hash),
     ],
     [
-      chalk.hex(theme.magenta)('bud'),
-      chalk.hex(theme.foregroundColor)(
-        app.project.get('installed.@roots/bud'),
-      ),
+      chalk.hex(theme.magenta)(app.context.application.name),
+      chalk.hex(theme.foregroundColor)(app.context.application.version),
       chalk.hex(theme.magenta)('webpack'),
       chalk.hex(theme.foregroundColor)(compilation.version),
     ],

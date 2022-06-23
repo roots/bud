@@ -19,7 +19,14 @@ import {Install} from '@site/src/docs/Install'
 - Supports `.js`, `.jsx`, `.ts`, `.tsx` files.
 - Does not support typechecking.
 
-## Adding typechcking
+## Typechecking
+
+:::danger Incompatible with TypeScript config files
+
+**bud.js** requires **ts-node** in order to parse configuration files authored in TypeScript at build time. Unfortunately, fork-ts-checker-webpack-plugin is Incompatible
+with this setup. You'll need to author your configuration file without TypeScript support.
+
+:::
 
 Typechecking can be added with [fork-ts-checker-webpack-plugin](https://www.npmjs.com/package/fork-ts-checker-webpack-plugin).
 

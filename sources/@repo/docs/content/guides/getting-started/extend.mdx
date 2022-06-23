@@ -10,7 +10,7 @@ We'll work through adding [**@roots/bud-babel**](/extensions/bud-babel) to a con
 
 All extensions have pretty much the same workflow.
 
-### Step 1: Install
+## Step 1: Install
 
 <Tabs
   defaultValue="yarn"
@@ -30,9 +30,12 @@ All extensions have pretty much the same workflow.
   </TabItem>
 </Tabs>
 
-### There isn't a step 2, really.
+## There isn't a step 2, really.
 
 Your scripts will now be transpiled with babel.
+
+Bud extensions are automatically utilized in a build if they are listed under the `devDependencies` or `dependencies` field of `package.json`.
+They are also automatically utilized when marked as a dep of another extension.
 
 You can see for yourself by modifying `src/index.js` so that it contains some fancy stuff:
 
@@ -53,3 +56,15 @@ console.log(cool.sayHello())
 Run a build and check `dist/main.js`. You should find the class declaration has been transpiled away.
 
 Check out the [extensions docs](/extensions) for an overview of what extensions are available to install.
+
+## `bud.denylist`
+
+You can add a `bud.denylist` field to `package.json` to prevent certain extensions from being registered.
+
+```json title="package.json"
+{
+  "bud": {
+    "denylist": ["@roots/bud-criticalcss"]
+  }
+}
+```
