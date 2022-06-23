@@ -3535,12 +3535,16 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/node": 16.11.41
     esbuild-loader: 2.19.0
+    ts-node: 10.8.1
     tslib: 2.4.0
     webpack: 5.73.0
   peerDependencies:
     esbuild-loader: "*"
+    ts-node: "*"
   peerDependenciesMeta:
     esbuild-loader:
+      optional: true
+    ts-node:
       optional: true
   languageName: unknown
   linkType: soft
