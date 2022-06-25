@@ -10,7 +10,18 @@
  * @packageDocumentation
  */
 
-import './env.js'
-
 import BudReact from './extension.js'
+import type BudReactRefresh from './react-refresh/extension.js'
+
+declare module '@roots/bud-framework' {
+  interface Bud {
+    react: BudReact
+  }
+
+  interface Modules {
+    '@roots/bud-react': BudReact
+    '@roots/bud-react/react-refresh': BudReactRefresh
+  }
+}
+
 export default BudReact

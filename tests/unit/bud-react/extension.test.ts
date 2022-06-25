@@ -31,7 +31,7 @@ describe('@roots/bud-react', () => {
     ))
 
   it('regissters fn: react-refresh', async () => {
-    expect(bud.reactRefresh).toBeInstanceOf(Function)
+    expect(bud.react.refresh).toBeInstanceOf(Function)
   })
 
   it('adds babel plugin', async () => {

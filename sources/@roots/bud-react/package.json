@@ -45,7 +45,6 @@
   "types": "./lib/index.d.ts",
   "exports": {
     ".": "./lib/index.js",
-    "./eslint-config": "./eslint-config/index.js",
     "./extension": "./lib/extension.js",
     "./react-refresh": "./lib/react-refresh/index.js",
     "./react-refresh/*": "./lib/react-refresh/*.js"
