@@ -23,7 +23,7 @@ import {isBoolean, isUndefined} from 'lodash-es'
  */
 @label('@roots/bud-react')
 @dependsOn(['@roots/bud-react/react-refresh'])
-@dependsOnOptional(['@roots/bud-esbuild'])
+@dependsOnOptional(['@roots/bud-esbuild', '@roots/bud-swc'])
 @expose('react')
 export default class BudReact extends Extension {
   /**
@@ -38,7 +38,11 @@ export default class BudReact extends Extension {
    */
   @bind
   public async register() {
-    if (this.app.extensions.has('@roots/bud-esbuild')) return
+    if (
+      this.app.extensions.has('@roots/bud-esbuild') ||
+      this.app.extensions.has('@roots/bud-swc')
+    )
+      return
 
     const BudBabel = await this.import('@roots/bud-babel')
     await this.app.extensions.add(BudBabel)
@@ -58,6 +62,7 @@ export default class BudReact extends Extension {
   public async boot() {
     if (
       this.app.extensions.has('@roots/bud-esbuild') ||
+      this.app.extensions.has('@roots/bud-swc') ||
       !this.app.extensions.has('@roots/bud-babel')
     )
       return
