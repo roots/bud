@@ -16,10 +16,7 @@ type Options = TerserPlugin.BasePluginOptions & {
 }
 
 /**
- * Bud Terser extension
- *
- * @remarks
- * Offers a more comprehensive terser API than bud core.
+ * Terser extension
  *
  * @public
  * @decorator `@label`
