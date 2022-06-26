@@ -54,17 +54,35 @@ export interface Service extends BaseService {
   injectExtensions(): unknown
 
   runAll(
-    methodName: '_init' | '_register' | '_boot' | '_beforeBuild' | '_make',
+    methodName:
+      | '_init'
+      | '_register'
+      | '_boot'
+      | '_afterConfig'
+      | '_beforeBuild'
+      | '_make',
   ): Promise<Array<void>>
 
   run<K extends Modules>(
     extension: Modules[K & string],
-    methodName: '_init' | '_register' | '_boot' | '_beforeBuild' | '_make',
+    methodName:
+      | '_init'
+      | '_register'
+      | '_boot'
+      | '_afterConfig'
+      | '_beforeBuild'
+      | '_make',
   ): Promise<this>
 
   runDependencies<K extends Modules>(
     extension: Modules[K & string],
-    methodName: '_init' | '_register' | '_boot' | '_beforeBuild' | '_make',
+    methodName:
+      | '_init'
+      | '_register'
+      | '_boot'
+      | '_afterConfig'
+      | '_beforeBuild'
+      | '_make',
   ): Promise<void>
 
   /**

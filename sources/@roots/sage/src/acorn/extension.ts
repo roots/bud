@@ -36,8 +36,8 @@ export default class Acorn extends Extension {
       fs.pathExists(this.app.path('@dist', 'hmr.json')) &&
         (await fs.remove(this.app.path('@dist', 'hmr.json')))
     } else {
-      this.app.hooks.action('event.compiler.close', eventCompilerDone)
-      this.app.hooks.action('event.app.close', eventCompilerClose)
+      this.app.hooks.action('compiler.close', eventCompilerDone)
+      this.app.hooks.action('app.close', eventCompilerClose)
     }
 
     /**
@@ -45,7 +45,7 @@ export default class Acorn extends Extension {
      * - If publicPath is `''` in development bud's dev server will implode.
      * - If publicPath is the actual publicPath acorn will double up the path segments.
      */
-    this.app.hooks.action('event.config.after', async () => {
+    this.app.hooks.action('config.after', async () => {
       this.app.hooks.on('build.output.publicPath', publicPath =>
         this.app.isDevelopment ? `/` : publicPath,
       )

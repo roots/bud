@@ -7,6 +7,7 @@ import {
   dependsOnOptional,
   expose,
   label,
+  options,
 } from '@roots/bud-framework/extension/decorators'
 import {isBoolean, isUndefined} from 'lodash-es'
 
@@ -20,18 +21,24 @@ import {isBoolean, isUndefined} from 'lodash-es'
  * @public
  * @decorator `@label`
  * @decorator `@dependsOn`
+ * @decorator `@dependsOnOptional`
+ * @decorator `@options`
+ * @decorator `@expose`
  */
 @label('@roots/bud-react')
 @dependsOn(['@roots/bud-react/react-refresh'])
 @dependsOnOptional(['@roots/bud-esbuild', '@roots/bud-swc'])
+@options({
+  babel: true,
+})
 @expose('react')
 export default class BudReact extends Extension {
   /**
    * `register` callback
    *
    * @remarks
-   * Registers the`@roots/bud-babel` extension if `@roots/bud-esbuild` is not
-   * already registered.
+   * Registers the`@roots/bud-babel` extension if
+   * a more specialty transpiler is not already registered.
    *
    * @public
    * @decorator `@bind`
@@ -41,11 +48,9 @@ export default class BudReact extends Extension {
     if (
       this.app.extensions.has('@roots/bud-esbuild') ||
       this.app.extensions.has('@roots/bud-swc')
-    )
-      return
-
-    const BudBabel = await this.import('@roots/bud-babel')
-    await this.app.extensions.add(BudBabel)
+    ) {
+      this.setOption('babel', false)
+    }
   }
 
   /**
@@ -59,16 +64,24 @@ export default class BudReact extends Extension {
    * @decorator `@bind`
    */
   @bind
-  public async boot() {
-    if (
-      this.app.extensions.has('@roots/bud-esbuild') ||
-      this.app.extensions.has('@roots/bud-swc') ||
-      !this.app.extensions.has('@roots/bud-babel')
-    )
-      return
+  public async afterConfig() {
+    if (!this.options.babel) return
+    await this.ensureBabelIsLoaded()
 
     const Preset = await this.resolve('@babel/preset-react')
     this.app.babel.setPreset('@babel/preset-react', Preset)
+  }
+
+  /**
+   * Ensure babel extension is loaded
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async ensureBabelIsLoaded() {
+    if (this.app.extensions.has('@roots/bud-babel')) return
+    await this.app.extensions.add(await this.import('@roots/bud-babel'))
   }
 
   /**
@@ -106,7 +119,7 @@ export default class BudReact extends Extension {
   @bind
   public refresh(userOptions?: Options | boolean): this {
     this.app.hooks.action(
-      'event.config.after',
+      'config.after',
       this.makeReactRefreshCallback(userOptions),
     )
 

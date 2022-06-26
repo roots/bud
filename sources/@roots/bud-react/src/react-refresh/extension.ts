@@ -31,28 +31,36 @@ export default class BudReactRefresh extends Extension<
   Options,
   RefreshPlugin
 > {
+  public transform?: Extension
+
+  public setTransform(extension: Extension) {
+    this.transform = extension
+  }
+
   /**
-   * `beforeBuild` callback
+   * `afterConfig` callback
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public async beforeBuild() {
-    if (!this.app.isDevelopment) return
+  public async afterConfig() {
     this.app.hooks.on('build.entry', reduceEntries.add)
 
-    if (
-      this.app.extensions.has('@roots/bud-esbuild') ||
-      this.app.extensions.has('@roots/bud-swc') ||
-      (this.app.extensions.has('@roots/bud-typescript') &&
-        !this.app.extensions.get('@roots/bud-typescript').options.babel)
-    )
-      return
+    if (!this.transform) {
+      const useTSC =
+        this.app.extensions.has('@roots/bud-typescript') &&
+        !this.app.extensions.get('@roots/bud-typescript').options.babel
 
-    this.app.babel.setPlugin(
-      'react-refresh/babel',
-      await this.resolve('react-refresh/babel'),
-    )
+      this.setTransform(
+        await this.import(
+          useTSC
+            ? '@roots/bud-react/typescript-refresh'
+            : '@roots/bud-react/babel-refresh',
+        ),
+      )
+    }
+
+    await this.app.extensions.add(this.transform)
   }
 }

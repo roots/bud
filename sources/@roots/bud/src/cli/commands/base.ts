@@ -51,7 +51,7 @@ export abstract class BaseCommand extends Command {
   public async make() {
     this.notifier = new Notifier(this.app)
 
-    this.app.hooks.action('event.compiler.after', async () => {
+    this.app.hooks.action('compiler.after', async () => {
       this.app.compiler.compilation.hooks.done.tap(
         'bud-cli-notifier',
         this.notifier.notify,
@@ -67,7 +67,7 @@ export abstract class BaseCommand extends Command {
     await Promise.all(
       Object.values(this.app.children ?? {}).map(async instance => {
         try {
-          await instance.hooks.fire('event.config.after')
+          await instance.hooks.fire('config.after')
         } catch (err) {
           instance.error(err)
         }

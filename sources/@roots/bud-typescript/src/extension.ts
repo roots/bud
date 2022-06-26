@@ -21,7 +21,6 @@ import {isUndefined} from 'lodash-es'
 @expose('typescript')
 @options({
   babel: true,
-  reactFastRefresh: true,
   loader: {
     transpileOnly: true,
   },
@@ -39,26 +38,15 @@ export default class BudTypeScript extends Extension {
   }
 
   /**
-   * Disable or enable babel transforms
+   * Disable or enable babel
    *
    * @public
    * @decorator `@bind`
    */
-  @bind public useBabel(enable?: boolean): this {
+  @bind
+  public useBabel(enable?: boolean): this {
     if (isUndefined(enable)) this.setOption('babel', true)
     this.setOption('babel', enable)
-    return this
-  }
-
-  /**
-   * Disable or enable react fast refresh in isDevelopment
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind public reactFastRefresh(enable?: boolean): this {
-    if (isUndefined(enable)) this.setOption('reactFastRefresh', true)
-    this.setOption('reactFastRefresh', enable)
     return this
   }
 
@@ -68,8 +56,10 @@ export default class BudTypeScript extends Extension {
    * @public
    * @decorator `@bind`
    */
-  @bind public async register() {
+  @bind
+  public async register() {
     this.setOption('context', this.app.path('./'))
+
     this.app.hooks.on('build.resolve.extensions', extensions =>
       extensions.add('.ts').add('.tsx'),
     )
@@ -81,9 +71,8 @@ export default class BudTypeScript extends Extension {
    * @public
    * @decorator `@bind`
    */
-  @bind public async beforeBuild() {
-    await this.reactConcerns()
-
+  @bind
+  public async beforeBuild() {
     this.app.build
       .setLoader('ts', await this.resolve('ts-loader'))
       .setItem('ts', {
@@ -99,40 +88,5 @@ export default class BudTypeScript extends Extension {
     this.app.build.rules.js.setUse(
       [this.options.babel ? 'babel' : null, 'ts'].filter(Boolean),
     )
-
-    this.logger.log(this.app.build.items.ts.getOptions())
-  }
-
-  /**
-   * JSX/TSX specific configuration
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind public async reactConcerns() {
-    if (
-      this.options.reactFastRefresh === false || // opted out
-      this.options.babel === true || // uses babel
-      !this.app.extensions.has('@roots/bud-react') // not react
-    )
-      return
-
-    /**
-     * Lazy import in case this isn't needed
-     */
-    const ReactRefreshTypescript = await this.import(
-      'react-refresh-typescript',
-    )
-
-    this.setOption('loader', options => ({
-      ...(options ?? {}),
-      getCustomTransformers: () => ({
-        before: [
-          this.app.isDevelopment && ReactRefreshTypescript(),
-        ].filter(Boolean),
-      }),
-    }))
-
-    this.logger.log('loader options:', this.options.loader)
   }
 }

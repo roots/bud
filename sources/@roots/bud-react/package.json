@@ -45,14 +45,19 @@
   "types": "./lib/index.d.ts",
   "exports": {
     ".": "./lib/index.js",
+    "./babel-refresh": "./lib/babel-refresh/index.js",
     "./extension": "./lib/extension.js",
     "./react-refresh": "./lib/react-refresh/index.js",
-    "./react-refresh/*": "./lib/react-refresh/*.js"
+    "./react-refresh/*": "./lib/react-refresh/*.js",
+    "./typescript-refresh": "./lib/typescript-refresh/index.js"
   },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.d.ts"
+      ],
+      "babel-refresh": [
+        "./lib/babel-refresh/index.d.ts"
       ],
       "extension": [
         "./lib/extension.d.ts"
@@ -62,6 +67,9 @@
       ],
       "react-refresh/*": [
         "./lib/react-refresh/*.d.ts"
+      ],
+      "typescript-refresh": [
+        "./lib/typescript-refresh/index.d.ts"
       ]
     }
   },

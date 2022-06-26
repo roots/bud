@@ -1,5 +1,5 @@
 import {bind} from 'helpful-decorators'
-import {has, isBoolean, isFunction} from 'lodash-es'
+import {has, isBoolean, isFunction, isUndefined} from 'lodash-es'
 import type Signale from 'signale'
 import type {Compiler} from 'webpack'
 
@@ -162,6 +162,13 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
   public async boot?(options?: Options<E>, app?: Bud): Promise<unknown>
 
   /**
+   * `afterConfig` callback
+   *
+   * @public
+   */
+  public async afterConfig?(): Promise<unknown>
+
+  /**
    * `beforeBuild` callback
    *
    * @public
@@ -236,15 +243,19 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
    */
   @bind
   public async _init() {
-    if (this.init) {
-      try {
-        await this.init(this.options, this.app)
-        this.meta['_init'] = true
-      } catch (error) {
-        this.logger.error('error on init', '\n', error)
-        this.app.error('error in', this.label)
-      }
+    if (isUndefined(this.init)) return
+
+    await this.app.hooks.fire(`${this.label}/init/before`)
+
+    try {
+      await this.init(this.options, this.app)
+      this.meta['_init'] = true
+    } catch (error) {
+      this.logger.error('error on init', '\n', error)
+      this.app.error('error in', this.label)
     }
+
+    await this.app.hooks.fire(`${this.label}/init/after`)
   }
 
   /**
@@ -255,20 +266,24 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
    */
   @bind
   public async _register() {
-    if (this.register) {
-      try {
-        if (this.init && !this.meta['_init']) await this._init()
-      } catch (err) {
-        this.logger.error(this.label, 'register => init error', '\n')
-      }
-      try {
-        await this.register(this.options, this.app)
-        this.meta['_register'] = true
-      } catch (error) {
-        this.logger.error('error on register', '\n', error)
-        this.app.error('error in', this.label)
-      }
+    if (isUndefined(this.register)) return
+
+    await this.app.hooks.fire(`${this.label}/register/before`)
+
+    try {
+      if (this.init && !this.meta['_init']) await this._init()
+    } catch (err) {
+      this.logger.error(this.label, 'register => init error', '\n')
     }
+    try {
+      await this.register(this.options, this.app)
+      this.meta['_register'] = true
+    } catch (error) {
+      this.logger.error('error on register', '\n', error)
+      this.app.error('error in', this.label)
+    }
+
+    await this.app.hooks.fire(`${this.label}/register/after`)
   }
 
   /**
@@ -279,21 +294,24 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
    */
   @bind
   public async _boot() {
-    if (this.boot) {
-      try {
-        if (this.init && !this.meta['_init']) await this._init()
-        if (this.register && !this.meta['_register'])
-          await this._register()
-      } catch (err) {
-        this.logger.error(this.label, 'register => init error', '\n')
-      }
-      try {
-        await this.boot(this.options, this.app)
-        this.meta['_boot'] = true
-      } catch (error) {
-        this.app.error(this.label, 'boot error', '\n', error)
-      }
+    if (isUndefined(this.boot)) return
+
+    await this.app.hooks.fire(`${this.label}/boot/before`)
+
+    try {
+      if (this.init && !this.meta['_init']) await this._init()
+      if (this.register && !this.meta['_register']) await this._register()
+    } catch (err) {
+      this.logger.error(this.label, 'register => init error', '\n')
     }
+    try {
+      await this.boot(this.options, this.app)
+      this.meta['_boot'] = true
+    } catch (error) {
+      this.app.error(this.label, 'boot error', '\n', error)
+    }
+
+    await this.app.hooks.fire(`${this.label}/boot/after`)
   }
 
   /**
@@ -304,10 +322,26 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
   @bind
   public async _beforeBuild() {
     const enabled = await this.isEnabled()
+    if (isUndefined(this.beforeBuild) || enabled === false) return
 
-    if (!this.beforeBuild || enabled === false) return
-
+    await this.app.hooks.fire(`${this.label}/beforeBuild/before`)
     await this.beforeBuild()
+    await this.app.hooks.fire(`${this.label}/beforeBuild/after`)
+  }
+
+  /**
+   * `beforeBuild` callback handler
+   *
+   * @public
+   */
+  @bind
+  public async _afterConfig() {
+    const enabled = await this.isEnabled()
+    if (isUndefined(this.afterConfig) || enabled === false) return
+
+    await this.app.hooks.fire(`${this.label}/afterConfig/before`)
+    await this.afterConfig()
+    await this.app.hooks.fire(`${this.label}/afterConfig/after`)
   }
 
   /**
@@ -320,9 +354,15 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
   public async _make() {
     const enabled = await this.isEnabled()
 
-    if (enabled === false || (!this.make && !this.apply && !this.plugin))
+    if (
+      enabled === false ||
+      (isUndefined(this.make) &&
+        isUndefined(this.apply) &&
+        isUndefined(this.plugin))
+    )
       return false
 
+    await this.app.hooks.fire(`${this.label}/make/before`)
     if (this.plugin) return new this.plugin(this.options)
     if (this.apply) return this as {apply: any}
 
@@ -331,6 +371,7 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
     } catch (error) {
       this.app.error(this.label, 'make error', '\n', error)
     }
+    await this.app.hooks.fire(`${this.label}/make/after`)
   }
 
   /**
