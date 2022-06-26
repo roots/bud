@@ -42,6 +42,9 @@ type Options = TerserPlugin.BasePluginOptions & {
     output: {
       comments: false,
       ascii_only: true,
+      preamble: `/**
+  * Minified by @roots/bud
+  */`,
     },
   },
 })
@@ -82,16 +85,7 @@ export default class Terser extends Extension<Options> {
       const {esbuildMinify} = await import('terser-webpack-plugin')
       this.setOption('minify', esbuildMinify)
     }
-  }
 
-  /**
-   * `beforeBuild` callback
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async beforeBuild() {
     this.app.hooks.on('build.optimization.minimizer', minimizer => {
       minimizer.push(new TerserPlugin(this.options))
       return minimizer.filter(item => item !== '...')

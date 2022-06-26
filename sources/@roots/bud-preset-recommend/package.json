@@ -40,7 +40,8 @@
     "type": "extension"
   },
   "files": [
-    "lib/"
+    "lib/",
+    "src/"
   ],
   "type": "module",
   "module": "./lib/index.js",

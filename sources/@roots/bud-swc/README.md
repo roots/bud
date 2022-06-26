@@ -6,28 +6,28 @@
   <img alt="Follow Roots" src="https://img.shields.io/twitter/follow/rootswp.svg?color=%23525ddc&style=flat-square" />
 </p>
 
-<h1 align="center"><strong>@roots/bud-esbuild</strong></h1>
+<h1 align="center"><strong>@roots/bud-swc</strong></h1>
 
 <p align="center">
-  ESBuild transpilation extension for Bud projects
+  SWC transpilation extension for Bud projects
 </p>
 
 ---
 
 ## Installation
 
-Install **@roots/bud-esbuild** to your project.
+Install **@roots/bud-swc** to your project.
 
 Yarn:
 
 ```sh
-yarn add @roots/bud-esbuild --dev
+yarn add @roots/bud-swc --dev
 ```
 
 npm:
 
 ```sh
-npm install @roots/bud-esbuild --save-dev
+npm install @roots/bud-swc --save-dev
 ```
 
 ## Usage
@@ -40,7 +40,7 @@ We have [contribution guidelines](https://github.com/roots/guidelines/blob/maste
 
 ## License
 
-@roots/bud-esbuild is licensed under MIT.
+@roots/bud-swc is licensed under MIT.
 
 ## Community
 

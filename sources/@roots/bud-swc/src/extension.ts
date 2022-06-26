@@ -29,9 +29,6 @@ export default class BudSWC extends Extension {
       .tapAsync(this.registerSWC)
   }
 
-  @bind
-  public async beforeBuild() {}
-
   /**
    * Register SWC with the build service
    *
