@@ -10,8 +10,17 @@ import {
 } from '@roots/bud-framework/extension/decorators'
 import TerserPlugin from 'terser-webpack-plugin'
 
-type Options = TerserPlugin.BasePluginOptions & {
+/**
+ * `terser-webpack-plugin` options
+ *
+ * @public
+ */
+export type Options = TerserPlugin.BasePluginOptions & {
   minify?: TerserPlugin.MinimizerImplementation<any>
+  include: RegExp
+  exclude: RegExp
+  extractComments: boolean
+  parallel: boolean
   terserOptions?: TerserPlugin.MinimizerOptions<any>
 }
 
@@ -26,7 +35,7 @@ type Options = TerserPlugin.BasePluginOptions & {
 @label('@roots/bud-terser')
 @dependsOnOptional(['@roots/bud-swc'])
 @expose('terser')
-@options({
+@options<Options>({
   include: (bud: Bud) => bud.hooks.filter('pattern.js'),
   exclude: (bud: Bud) => bud.hooks.filter('pattern.modules'),
   extractComments: false,
