@@ -1,9 +1,12 @@
+import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
+  dependsOnOptional,
   expose,
   label,
   options,
+  production,
 } from '@roots/bud-framework/extension/decorators'
 import TerserPlugin from 'terser-webpack-plugin'
 
@@ -24,10 +27,13 @@ type Options = TerserPlugin.BasePluginOptions & {
  * @decorator `@options`
  */
 @label('@roots/bud-terser')
+@dependsOnOptional(['@roots/bud-esbuild', '@roots/bud-swc'])
 @expose('terser')
 @options({
-  include: app => app.hooks.filter('pattern.js'),
+  include: (bud: Bud) => bud.hooks.filter('pattern.js'),
+  exclude: (bud: Bud) => bud.hooks.filter('pattern.modules'),
   extractComments: false,
+  parallel: true,
   terserOptions: {
     compress: false,
     mangle: {
@@ -36,13 +42,10 @@ type Options = TerserPlugin.BasePluginOptions & {
     output: {
       comments: false,
       ascii_only: true,
-      preamble: `/**
-  * Minified by @roots/bud
-  */`,
     },
-    sourceMap: 'inline',
   },
 })
+@production
 export default class Terser extends Extension<Options> {
   /**
    * Terser options getter/setter
@@ -52,6 +55,33 @@ export default class Terser extends Extension<Options> {
   }
   public set terserOptions(terserOptions: Options['terserOptions']) {
     this.setOption('terserOptions', terserOptions)
+  }
+
+  public get isSWC() {
+    return this.app.extensions.has('@roots/bud-swc')
+  }
+
+  public get isEsbuild() {
+    return this.app.extensions.has('@roots/bud-esbuild')
+  }
+
+  /**
+   * `register` callback
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async register() {
+    if (this.isSWC) {
+      const {swcMinify} = await import('terser-webpack-plugin')
+      this.setOption('minify', swcMinify)
+    }
+
+    if (this.isEsbuild) {
+      const {esbuildMinify} = await import('terser-webpack-plugin')
+      this.setOption('minify', esbuildMinify)
+    }
   }
 
   /**

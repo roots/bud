@@ -112,6 +112,7 @@ module.exports = {
       '@roots/bud-sass',
       '@roots/bud-solid',
       '@roots/bud-stylelint',
+      '@roots/bud-swc',
       '@roots/bud-tailwindcss',
       '@roots/bud-terser',
       '@roots/bud-typescript',
