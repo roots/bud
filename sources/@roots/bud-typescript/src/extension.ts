@@ -70,6 +70,9 @@ export default class BudTypeScript extends Extension {
    */
   @bind public async register() {
     this.setOption('context', this.app.path('./'))
+    this.app.hooks.on('build.resolve.extensions', extensions =>
+      extensions.add('.ts').add('.tsx'),
+    )
   }
 
   /**
