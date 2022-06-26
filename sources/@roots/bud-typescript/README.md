@@ -32,30 +32,7 @@ npm install @roots/bud-typescript --save-dev
 
 ## Usage
 
-### Typechecking
-
-:::info
-
-This step is optional but recommended.
-
-:::
-
-:::danger Known issue
-
-**`bud.typescript.typecheck.enable()` will die when using `ts-bud`**
-
-It is unclear what the problem is as of right now ([see #1480](https://github.com/roots/bud/issues/1480)). **In order to enable typechecking you must author your config file in JS until this is resolved.**
-
-:::
-
-By default TypeScript files will only be compiled to JS during builds.
-If you also want typechecking, you can enable it in your bud configuration:
-
-```js title="bud.config.mjs"
-bud.typescript.typecheck.enable();
-```
-
-### Usage
+### Config
 
 If you are authoring your config file in TypeScript you must use the `ts-bud` command instead of `bud`.
 
@@ -67,6 +44,47 @@ There is a base tsconfig available for you to extend:
 {
   "extends": "@roots/bud-typescript/tsconfig/tsconfig.json"
 }
+```
+
+### Typechecking
+
+By default TypeScript files will only be compiled to JS during builds.
+If you also want typechecking, you can enable it in your bud configuration:
+
+```js title="bud.config.mjs"
+bud.typescript.typecheck.enable();
+```
+
+You may wish to configure typechecking only in production so that your development
+experience stays snappy:
+
+```js title="bud.config.mjs"
+bud.isProduction && bud.typescript.typecheck.enable();
+```
+
+### Babel
+
+By default, `@roots/bud-typescript` will pass code to `@roots/bud-babel` for further transforms.
+
+To disable babel and only use tsc:
+
+```ts
+bud.typescript.useBabel(false);
+```
+
+If you aren't using babel make sure your `tsconfig.json` is set up appropriately.
+
+In particular, React users likely want to set `jsx` to `react`.
+
+### React Fast Refresh
+
+If you aren't using babel the extension will automatically
+enable the `react-refresh-typescript` transformer.
+
+To disable this behavior:
+
+```ts
+bud.typescript.reactFastRefresh(false);
 ```
 
 ## Contributing

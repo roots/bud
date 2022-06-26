@@ -39,7 +39,20 @@ export default class BudReactRefresh extends Extension<
    */
   @bind
   public async beforeBuild() {
-    this.app.isDevelopment &&
-      this.app.hooks.on('build.entry', reduceEntries.add)
+    if (!this.app.isDevelopment) return
+    this.app.hooks.on('build.entry', reduceEntries.add)
+
+    if (
+      this.app.extensions.has('@roots/bud-esbuild') ||
+      this.app.extensions.has('@roots/bud-swc') ||
+      (this.app.extensions.has('@roots/bud-typescript') &&
+        !this.app.extensions.get('@roots/bud-typescript').options.babel)
+    )
+      return
+
+    this.app.babel.setPlugin(
+      'react-refresh/babel',
+      await this.resolve('react-refresh/babel'),
+    )
   }
 }
