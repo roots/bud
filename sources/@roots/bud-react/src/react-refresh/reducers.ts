@@ -1,5 +1,5 @@
 import type {EntryObject} from '@roots/bud-api/methods/entry'
-import {isArray, isString} from 'lodash-es'
+import {isArray, isNull, isString, isUndefined} from 'lodash-es'
 
 /**
  * Filter 'react-refresh/runtime' from entrypoint assets
@@ -20,6 +20,10 @@ const filterAssetsArray = (assets: Array<string>) =>
 export function add(
   entries: Record<string, EntryObject>,
 ): Record<string, EntryObject> {
+  const missing = !entries || isUndefined(entries) || isNull(entries)
+  const fallback = {app: {import: ['index']}}
+  entries = missing ? fallback : entries
+
   return Object.entries(entries).reduce((all, [name, assets]) => {
     if (isString(assets)) {
       return {...all, [name]: ['react-refresh/runtime', assets]}
