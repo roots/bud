@@ -23,34 +23,37 @@ module.exports = {
   },
   contributors: {
     kellymears: {
-      type: ['🚀 steward', '💻 dev', '✍🏽 docs'],
+      type: ['🚀 steward', '💻 dev', '📕 docs'],
     },
     qwp6t: {
-      type: ['🚀 steward', '💻 dev', '✍🏽 docs'],
+      type: ['🚀 steward', '💻 dev', '📕 docs'],
     },
     retlehs: {
-      type: ['🚀 steward', '✍🏽 docs'],
+      type: ['🚀 steward', '📕 docs'],
     },
     swalkinshaw: {
-      type: ['🚀 steward', '💻 dev', '✍🏽 docs'],
+      type: ['🚀 steward', '💻 dev', '📕 docs'],
     },
     joshuafredrickson: {
-      type: ['💻 dev', '✍🏽 docs'],
+      type: ['💻 dev', '📕 docs'],
     },
     alwaysblank: {
-      type: ['🚀 steward', '✍🏽 docs'],
+      type: ['🚀 steward', '📕 docs'],
     },
     alexdanylyschyn: {
       type: ['💻 dev'],
     },
     clayrisser: {
-      type: ['✍🏽 docs'],
+      type: ['📕 docs'],
     },
     catgofire: {
-      type: ['✍🏽 docs'],
+      type: ['📕 docs'],
     },
     unlocdavid: {
-      type: ['✍🏽 docs'],
+      type: ['📕 docs'],
+    },
+    robrecord: {
+      type: ['📕 docs'],
     },
   },
   sponsors: [
