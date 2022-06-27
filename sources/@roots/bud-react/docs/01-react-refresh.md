@@ -36,15 +36,19 @@ If you are using `@roots/bud-typescript` and have configured it to not use babel
 bud.typescript.useBabel(false)
 ```
 
-then the `react-refresh-typescript` transformer will be automatically enabled. To disable this:
+then `react-refresh-typescript` transformer will be automatically enabled. To disable this:
 
 ```ts
 bud.react.refresh.disable()
 ```
 
+If you are using `babel` then fast refresh will be handled by babel (it is the best supported of all options).
+
 #### SWC
 
-This is not currently supported but will be in the near future.
+By default, fast refresh is enabled in `development` when using SWC.
+
+If you are using a custom `.swcrc` file you will need to supply your own configuration.
 
 #### ESBuild
 

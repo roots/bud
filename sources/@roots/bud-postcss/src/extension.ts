@@ -248,38 +248,16 @@ export default class BudPostCss extends Extension {
    */
   @bind
   public async register() {
-    const loader = await this.resolve('postcss-loader')
-    const importPlugin = await this.resolve('postcss-import')
-    const nestedPlugin = await this.resolve('postcss-nested')
-    const presetEnv = await this.resolve('postcss-preset-env').then(path =>
-      path.replace('.mjs', '.cjs'),
-    )
-
-    /**
-     * Install postcss-loader, postcss-loader options, and
-     * modify the css rule to utilize them.
-     */
-    this.app.build
-      .setLoader('postcss', loader)
-      .setItem('postcss', {
-        loader: 'postcss',
-        options: () => {
-          return {
-            postcssOptions: this.postcssOptions,
-            sourceMap: this.sourceMap,
-          }
-        },
-      })
-      .rules.css.setUse(['precss', 'css', 'postcss'])
-
     this.setPlugins(
       new Map([
-        ['postcss-import', [importPlugin]],
-        ['postcss-nested', [nestedPlugin]],
+        ['postcss-import', [await this.resolve('postcss-import')]],
+        ['postcss-nested', [await this.resolve('postcss-nested')]],
         [
           'postcss-preset-env',
           [
-            presetEnv,
+            await this.resolve('postcss-preset-env').then(path =>
+              path.replace('.mjs', '.cjs'),
+            ),
             {
               stage: 1,
               features: {
@@ -290,5 +268,23 @@ export default class BudPostCss extends Extension {
         ],
       ]),
     )
+
+    /**
+     * Register postcss-loader
+     */
+    this.app.build
+      .setLoader('postcss', await this.resolve('postcss-loader'))
+      .setItem('postcss', {
+        loader: 'postcss',
+        options: () => {
+          return {
+            postcssOptions: this.postcssOptions,
+            sourceMap: this.sourceMap,
+          }
+        },
+      })
+
+    this.app.build.rules.css.setUse(items => [...items, 'postcss'])
+    this.app.build.rules.cssModule.setUse(items => [...items, 'postcss'])
   }
 }

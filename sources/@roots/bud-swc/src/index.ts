@@ -15,6 +15,10 @@ import type {Build} from '@roots/bud-framework'
 import BudSWC from './extension.js'
 
 declare module '@roots/bud-framework' {
+  interface Bud {
+    swc: BudSWC
+  }
+
   interface Modules {
     '@roots/bud-swc': BudSWC
   }

@@ -32,7 +32,6 @@ export class BuildCommand extends BaseCommand {
    * @public
    */
   public static usage = Command.Usage({
-    category: `Compile`,
     description: `Compile source assets`,
     details: `
       \`bud build\` compiles source assets from the \`@src\` directory to the \`@dist\` directory.
@@ -336,6 +335,8 @@ export class BuildCommand extends BaseCommand {
     ].map(arg => {
       this.context.args[arg] = fallback(this[arg], this[arg], null)
     })
+
+    if (isUndefined(this.ci)) this.context.args.ci = false
 
     this.app = await factory({
       name: 'bud',
