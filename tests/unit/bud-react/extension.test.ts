@@ -2,8 +2,11 @@ import '@roots/bud-babel'
 
 import {Bud, factory} from '@repo/test-kit/bud'
 import BudReact from '@roots/bud-react'
+import BudReactRefresh from '@roots/bud-react/react-refresh/extension'
 
-describe('@roots/bud-react', () => {
+const extensionIdentifier = '@roots/bud-react'
+
+describe(extensionIdentifier, () => {
   let bud: Bud
 
   beforeAll(async () => {
@@ -12,32 +15,20 @@ describe('@roots/bud-react', () => {
   })
 
   it('is registrable', () => {
-    expect(bud.extensions.has('@roots/bud-react')).toBeTruthy()
+    expect(bud.extensions.has(extensionIdentifier)).toBeTruthy()
   })
 
   it(`registers prop: label`, () =>
-    expect(bud.extensions.get('@roots/bud-react').label).toBe(
-      '@roots/bud-react',
+    expect(bud.extensions.get(extensionIdentifier).label).toBe(
+      extensionIdentifier,
     ))
 
-  it(`registers prop: register`, () =>
-    expect(bud.extensions.get('@roots/bud-react').register).toBeInstanceOf(
-      Function,
-    ))
-
-  it(`registers prop: boot`, () =>
-    expect(bud.extensions.get('@roots/bud-react').boot).toBeInstanceOf(
-      Function,
-    ))
+  it(`registers prop: afterConfig`, () =>
+    expect(
+      bud.extensions.get(extensionIdentifier).afterConfig,
+    ).toBeInstanceOf(Function))
 
   it('regissters fn: react-refresh', async () => {
-    expect(bud.reactRefresh).toBeInstanceOf(Function)
-  })
-
-  it('adds babel plugin', async () => {
-    const babelPresetPath = '@babel/preset-react'
-    expect(bud.babel.presets['@babel/preset-react'].shift()).toContain(
-      babelPresetPath,
-    )
+    expect(bud.react.refresh).toBeInstanceOf(BudReactRefresh)
   })
 })

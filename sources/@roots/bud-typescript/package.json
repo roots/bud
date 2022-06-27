@@ -74,6 +74,7 @@
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@types/webpack-env": "^1.17.0",
     "fork-ts-checker-webpack-plugin": "^7.2.6",
+    "react-refresh-typescript": "2.0.5",
     "ts-loader": "^9.3.0",
     "ts-node": "10.8.1",
     "tslib": "2.4.0",
@@ -81,12 +82,16 @@
   },
   "peerDependencies": {
     "fork-ts-checker-webpack-plugin": "*",
+    "react-refresh-typescript": "*",
     "ts-loader": "*",
     "ts-node": "*",
     "typescript": "*"
   },
   "peerDependenciesMeta": {
     "fork-ts-checker-webpack-plugin": {
+      "optional": true
+    },
+    "react-refresh-typescript": {
       "optional": true
     },
     "ts-loader": {

@@ -67,7 +67,7 @@ export default class Sage extends Extension {
      * - `@dist/app/entry.css`
      * - `@dist/app/entry.js`
      */
-    this.app.hooks.action('event.build.after', async () => {
+    this.app.hooks.action('build.after', async () => {
       if (!this.app.build.config.entry) return
 
       this.app.build.config.entry = Object.entries(

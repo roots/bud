@@ -78,12 +78,6 @@ export default class BabelExtension extends Extension<any, null> {
    */
   @bind
   public async register() {
-    this.app.build
-      .setLoader('babel', await this.resolve('babel-loader'))
-      .setItem('babel', this.setRuleSetItem)
-
-    this.app.build.rules.js.setUse(items => ['babel', ...items])
-
     this.app.babel
       .setPresets({
         '@babel/preset-env': await this.resolve('@babel/preset-env'),
@@ -103,5 +97,11 @@ export default class BabelExtension extends Extension<any, null> {
           '@babel/plugin-proposal-class-properties',
         ),
       })
+
+    this.app.build
+      .setLoader('babel', await this.resolve('babel-loader'))
+      .setItem('babel', this.setRuleSetItem)
+
+    this.app.build.rules.js.setUse(items => ['babel', ...items])
   }
 }

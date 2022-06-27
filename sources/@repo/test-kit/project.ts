@@ -126,12 +126,21 @@ export class Project {
         chalk.yellow(this.projectPath()),
       )
 
-      await execa(bin, flags ?? [], {
+      const child = execa(bin, flags ?? [], {
         cwd: this.projectPath(),
         shell: true,
       })
+
+      child.stdout.on('data', message =>
+        this.logger.info(message.toString()),
+      )
+      child.stderr.on('data', message =>
+        this.logger.error(message.toString()),
+      )
+
+      await child
     } catch (error) {
-      logger.error(error)
+      this.logger.error(error)
     }
   }
 

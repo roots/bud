@@ -6,41 +6,87 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
+import {isUndefined} from 'lodash-es'
 
+/**
+ * BudTypeScript configures the TypeScript compiler
+ *
+ * @public
+ * @decorator `@label`
+ * @decorator `@expose`
+ * @decorator `@options`
+ * @decorator `@dependsOn`
+ */
 @label('@roots/bud-typescript')
 @expose('typescript')
 @options({
-  transpileOnly: true,
+  babel: true,
+  loader: {
+    transpileOnly: true,
+  },
 })
 @dependsOn(['@roots/bud-babel', '@roots/bud-typescript/typecheck'])
 export default class BudTypeScript extends Extension {
+  /**
+   * Typechecking controls
+   *
+   * @public
+   * @decorator `@bind`
+   */
   public get typecheck() {
     return this.app.extensions.get('@roots/bud-typescript/typecheck')
   }
 
-  @bind public async init() {
-    this.setOption('context', this.app.path('./'))
+  /**
+   * Disable or enable babel
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public useBabel(enable?: boolean): this {
+    if (isUndefined(enable)) this.setOption('babel', true)
+    this.setOption('babel', enable)
+    return this
   }
 
-  @bind public async register() {
-    const loader = await this.resolve('ts-loader')
+  /**
+   * `register` callback
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async register() {
+    this.setOption('context', this.app.path('./'))
 
+    this.app.hooks.on('build.resolve.extensions', extensions =>
+      extensions.add('.ts').add('.tsx'),
+    )
+  }
+
+  /**
+   * `beforeBuild` callback
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async beforeBuild() {
     this.app.build
-      .setLoader('ts', loader)
+      .setLoader('ts', await this.resolve('ts-loader'))
       .setItem('ts', {
         loader: 'ts',
-        options: this.getOptions,
+        options: () => this.options.loader,
       })
       .setRule('ts', {
         test: ({hooks}) => hooks.filter('pattern.ts'),
         include: [({path}) => path('@src')],
-        use: ['babel', 'ts'],
+        use: [this.options.babel ? 'babel' : null, 'ts'].filter(Boolean),
       })
 
-    this.app.build.rules.js.setUse(['babel', 'ts'])
-
-    this.app.hooks.on('build.resolve.extensions', ext =>
-      ext.add('.ts').add('.tsx'),
+    this.app.build.rules.js.setUse(
+      [this.options.babel ? 'babel' : null, 'ts'].filter(Boolean),
     )
   }
 }

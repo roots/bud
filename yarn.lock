@@ -4084,6 +4084,7 @@ __metadata:
     "@types/node": 16.11.41
     "@types/webpack-env": ^1.17.0
     fork-ts-checker-webpack-plugin: ^7.2.6
+    react-refresh-typescript: 2.0.5
     ts-loader: ^9.3.0
     ts-node: 10.8.1
     tslib: 2.4.0
@@ -4091,11 +4092,14 @@ __metadata:
     webpack: 5.73.0
   peerDependencies:
     fork-ts-checker-webpack-plugin: "*"
+    react-refresh-typescript: "*"
     ts-loader: "*"
     ts-node: "*"
     typescript: "*"
   peerDependenciesMeta:
     fork-ts-checker-webpack-plugin:
+      optional: true
+    react-refresh-typescript:
       optional: true
     ts-loader:
       optional: true
@@ -19213,6 +19217,16 @@ __metadata:
     react-loadable: "*"
     webpack: ">=4.41.1 || 5.x"
   checksum: 1cf7ceb488d329a5be15f891dae16727fb7ade08ef57826addd21e2c3d485e2440259ef8be94f4d54e9afb4bcbd2fcc22c3c5bad92160c9c06ae6ba7b5562497
+  languageName: node
+  linkType: hard
+
+"react-refresh-typescript@npm:2.0.5":
+  version: 2.0.5
+  resolution: "react-refresh-typescript@npm:2.0.5"
+  peerDependencies:
+    react-refresh: 0.10.x || 0.11.x || 0.12.x || 0.13.x
+    typescript: ^4
+  checksum: 04b1765280a828e9c989c024fff71ce8290d2374c28bd05a063eed741b660b2820b5223694eec2e2aa5a78b3f8200891fbb6bd6ec17bc8a3d4e1a231c7edae35
   languageName: node
   linkType: hard
 

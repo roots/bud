@@ -1,4 +1,5 @@
 import type {Bud} from '../bud.js'
+import type {Modules} from './modules.js'
 
 export interface Events {
   'app.close': (app?: Bud) => any
@@ -16,10 +17,19 @@ export interface Events {
   'server.listen': (app?: Bud) => Promise<unknown>
   'server.after': (app?: Bud) => Promise<unknown>
   'proxy.interceptor': (app?: Bud) => Promise<unknown>
+  [
+    key: `${keyof Modules & string}/${
+      | 'init'
+      | 'register'
+      | 'boot'
+      | 'beforeBuild'
+      | 'afterConfig'
+      | 'make'}/${'before' | 'after'}`
+  ]: (app?: Bud) => Promise<unknown>
 }
 
 export namespace Events {
   export type HookMap = {
-    [K in keyof Events as `event.${K & string}`]: Events[K]
+    [K in keyof Events as `${K & string}`]: Events[K]
   }
 }

@@ -1,0 +1,11 @@
+By default, `@roots/bud-typescript` will pass code to `@roots/bud-babel` for further transforms.
+
+To disable babel and only use tsc:
+
+```ts
+bud.typescript.useBabel(false)
+```
+
+If you aren't using babel make sure your `tsconfig.json` is set up appropriately.
+
+In particular, React users likely want to set `jsx` to `react`.
