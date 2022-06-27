@@ -27,10 +27,10 @@ export default class BudBabelRefresh extends Extension {
    */
   @bind
   public async init() {
-    const react = this.app.extensions.get('@roots/bud-react')
-    if (!react.options.babel) return
+    this.logger.log('Registering react-refresh-babel transformer')
 
-    await react.ensureBabelIsLoaded()
+    if (!this.app.react.useBabel) return
+    await this.app.react.ensureBabelIsLoaded()
 
     this.app.babel.setPlugin(
       'react-refresh/babel',
