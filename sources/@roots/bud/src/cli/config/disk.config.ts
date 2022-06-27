@@ -101,7 +101,8 @@ export const config = async (app: Bud) => {
   await process(modeSpecific)
 
   try {
-    await app.hooks.fire('event.config.after')
+    await app.hooks.fire('config.after')
+    await app.extensions.runAll('_afterConfig')
   } catch (err) {
     app.error(err)
   }

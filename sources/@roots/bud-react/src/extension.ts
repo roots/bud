@@ -1,51 +1,85 @@
-import {Extension} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
   dependsOn,
+  dependsOnOptional,
+  expose,
   label,
+  options,
 } from '@roots/bud-framework/extension/decorators'
+import {isUndefined} from 'lodash-es'
 
-import * as api from './react-refresh/api.js'
+import type BudReactRefresh from './react-refresh/index.js'
 
 /**
  * `BudReact` adds the `@babel/preset-react` preset to the babel configuration
+ * and registers the `@roots/bud-react/react-refresh` extension
  *
  * @remarks
- * `@roots/bud-babel` provides the babel configuration
+ * If `@roots/bud-esbuild` or `@roots/bud-swc` is registered, the babel preset registration is skipped
  *
  * @public
  * @decorator `@label`
  * @decorator `@dependsOn`
+ * @decorator `@dependsOnOptional`
+ * @decorator `@options`
+ * @decorator `@expose`
  */
 @label('@roots/bud-react')
-@dependsOn(['@roots/bud-babel'])
+@dependsOn(['@roots/bud-react/react-refresh'])
+@dependsOnOptional(['@roots/bud-esbuild', '@roots/bud-swc'])
+@options({babel: undefined})
+@expose('react')
 export default class BudReact extends Extension {
   /**
-   * Register extension
+   * Use babel
    *
-   * @remarks
-   * Binding the reactRefresh api to the bud api.
-   *
+   * @readonly
    * @public
-   * @decorator `@bind`
    */
-  @bind
-  public async register() {
-    this.app.api.bindFacade('reactRefresh', api.reactRefresh)
+  public get useBabel(): boolean {
+    if (!isUndefined(this.options.babel)) return true
+
+    if (this.app.extensions.has('@roots/bud-typescript')) {
+      return this.app.extensions.get('@roots/bud-typescript').options.babel
+    }
+
+    return true
+  }
+
+  public get refresh(): BudReactRefresh {
+    return this.app.extensions.get('@roots/bud-react/react-refresh')
   }
 
   /**
-   * Boot extension
+   * `afterConfig` callback
    *
    * @remarks
-   * Adding the babel preset react to the babel config.
+   * Adds the `@babel/preset-react` preset to babel if `@roots/bud-esbuild` is not
+   * registered and `@roots/bud-babel` is available.
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public async boot() {
-    const preset = await this.resolve('@babel/preset-react')
-    this.app.babel.setPreset('@babel/preset-react', preset)
+  public async afterConfig() {
+    if (!this.useBabel) return
+
+    await this.ensureBabelIsLoaded()
+
+    const Preset = await this.resolve('@babel/preset-react')
+    this.app.babel.setPreset('@babel/preset-react', Preset)
+  }
+
+  /**
+   * Ensure babel extension is loaded
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async ensureBabelIsLoaded() {
+    if (this.app.extensions.has('@roots/bud-babel')) return
+    await this.app.extensions.add(await this.import('@roots/bud-babel'))
   }
 }

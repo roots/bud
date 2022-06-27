@@ -95,14 +95,14 @@ export class Server extends Service implements Base.Service {
   @once
   public async boot(): Promise<void> {
     this.app.hooks.action(
-      'event.server.before',
+      'server.before',
       this.setConnection,
       this.injectScripts,
       this.app.compiler.compile,
       this.applyMiddleware,
     )
 
-    this.app.hooks.action('event.server.after', this.watcher.watch)
+    this.app.hooks.action('server.after', this.watcher.watch)
   }
 
   /**
@@ -167,11 +167,11 @@ export class Server extends Service implements Base.Service {
    */
   @bind
   public async run() {
-    await this.app.hooks.fire('event.server.before')
+    await this.app.hooks.fire('server.before')
 
     await this.connection.createServer(this.application)
     await this.connection.listen()
 
-    await this.app.hooks.fire('event.server.after')
+    await this.app.hooks.fire('server.after')
   }
 }

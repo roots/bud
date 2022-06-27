@@ -56,13 +56,10 @@ export class Project
 
     await this.searchConfigs()
 
-    this.app.hooks.action(
-      'event.build.after',
-      async (app: Framework.Bud) => {
-        await app.hooks.fire('event.project.write')
-        await this.writeProfile()
-      },
-    )
+    this.app.hooks.action('build.after', async (app: Framework.Bud) => {
+      await app.hooks.fire('project.write')
+      await this.writeProfile()
+    })
   }
 
   /**

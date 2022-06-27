@@ -237,7 +237,13 @@ export default class Extensions
   @bind
   public async run<K extends Modules>(
     extension: Modules[K & string],
-    methodName: '_init' | '_register' | '_boot' | '_beforeBuild' | '_make',
+    methodName:
+      | '_init'
+      | '_register'
+      | '_boot'
+      | '_afterConfig'
+      | '_beforeBuild'
+      | '_make',
   ): Promise<this> {
     if (extension.meta[methodName] === true) return this
     else extension.meta[methodName] = true
@@ -275,7 +281,13 @@ export default class Extensions
   @bind
   public async runDependencies<K extends Modules>(
     extension: Modules[K & string],
-    methodName: '_init' | '_register' | '_boot' | '_beforeBuild' | '_make',
+    methodName:
+      | '_init'
+      | '_register'
+      | '_boot'
+      | '_afterConfig'
+      | '_beforeBuild'
+      | '_make',
   ): Promise<void> {
     if (extension.dependsOn && extension.dependsOn.size > 0) {
       await Array.from(extension.dependsOn).reduce(
@@ -334,7 +346,13 @@ export default class Extensions
    */
   @bind
   public async runAll(
-    methodName: '_init' | '_register' | '_boot' | '_beforeBuild' | '_make',
+    methodName:
+      | '_init'
+      | '_register'
+      | '_boot'
+      | '_afterConfig'
+      | '_beforeBuild'
+      | '_make',
   ): Promise<any> {
     return await Object.values(this.repository).reduce(
       async (promised, extension) => {

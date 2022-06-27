@@ -36,7 +36,7 @@ export const make: make = function (seed, tap) {
 
   root.log(`constructing new instance:`, options.name)
 
-  root.hooks.action('event.config.after', async app => {
+  root.hooks.action('config.after', async app => {
     root.children[options.name] = await root.factory(options)
 
     if (tap) {

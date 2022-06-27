@@ -30,7 +30,7 @@ export default class InvalidateCacheExtension extends Extension {
       await fs.remove(this.app.path(`@storage/cache`))
     }
 
-    this.app.hooks.action('event.compiler.after', async () => {
+    this.app.hooks.action('compiler.after', async () => {
       this.app.compiler.compilation.hooks.done.tap(
         this.label,
         async compiler => {

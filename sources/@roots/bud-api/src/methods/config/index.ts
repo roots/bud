@@ -18,7 +18,7 @@ export const config: config = function (input): Bud {
       'config input must pass a callback function that returns a webpack configuration',
     )
 
-  ctx.hooks.action('event.build.after', async app => {
+  ctx.hooks.action('build.after', async app => {
     app.build.config = isFunction(input)
       ? input(app.build.config)
       : {
