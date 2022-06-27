@@ -17,17 +17,18 @@ export const inject: inject = async (
   injection: Array<(app: Bud) => string>,
 ): Promise<void> => {
   app.hooks.on('build.entry', entrypoints => {
-    const invalidEntrypoints =
-      !entrypoints ||
-      isUndefined(entrypoints) ||
-      isNull(entrypoints) ||
-      !injection
+    if (!injection) return
 
-    if (invalidEntrypoints) {
-      app.warn(`${app.name} entrypoints are malformed`, `skipping inject`)
+    const missing =
+      !entrypoints || isUndefined(entrypoints) || isNull(entrypoints)
 
-      return entrypoints
-    }
+    entrypoints = missing
+      ? {
+          app: {
+            import: ['index'],
+          },
+        }
+      : entrypoints
 
     return Object.entries(entrypoints).reduce(
       (entrypoints, [name, entry]) => {
