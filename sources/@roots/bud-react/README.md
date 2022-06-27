@@ -43,19 +43,19 @@ For usage guidance, consult [the react-refresh-webpack-plugin API documentation]
 To enable react-refresh:
 
 ```ts
-bud.react.refresh(true);
+bud.react.refresh.enable();
 ```
 
 To disable react-refresh:
 
 ```ts
-bud.react.refresh(false);
+bud.react.refresh.disable();
 ```
 
-Any react-refresh-webpack-plugin options can can be passed using an object:
+Any react-refresh-webpack-plugin options can can be passed using an object to `bud.react.refresh.configure`:
 
 ```ts
-bud.react.refresh({ forceEnable: true });
+bud.react.refresh.configure({ forceEnable: true });
 ```
 
 Again, consult the [react-refresh-webpack-plugin documentation for guidance on how these options work](https://github.com/pmmmwh/react-refresh-webpack-plugin/blob/main/docs/API.md#reactrefreshpluginoptions).
@@ -63,25 +63,6 @@ Again, consult the [react-refresh-webpack-plugin documentation for guidance on h
 ### react-refresh compatibility
 
 react-refresh is fully compatible with `@roots/bud-babel`. This is the integration that is supported out-of-the-box.
-
-#### SWC
-
-If you have installed `@roots/bud-swc`, the swc transpiler should automatically enable react-refresh in `development`.
-
-If you are using a custom .swcrc file you will need to handle this on your own.
-
-```json
-{
-  jsc: {
-    transform: {
-      react: {
-        development: isDevelopment,
-        refresh: isDevelopment,
-      },
-    },
-  },
-}
-```
 
 #### TypeScript
 
@@ -91,11 +72,15 @@ If you are using `@roots/bud-typescript` and have configured it to not use babel
 bud.typescript.useBabel(false);
 ```
 
-`@roots/bud-typescript` will automatically enable the `react-refresh-typescript` transformer. To disable this:
+then the `react-refresh-typescript` transformer will be automatically enabled. To disable this:
 
 ```ts
-bud.typescript.reactFastRefresh(false);
+bud.react.refresh.disable();
 ```
+
+#### SWC
+
+This is not currently supported but will be in the near future.
 
 #### ESBuild
 

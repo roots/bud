@@ -78,14 +78,7 @@ In particular, React users likely want to set `jsx` to `react`.
 
 ### React Fast Refresh
 
-If you aren't using babel the extension will automatically
-enable the `react-refresh-typescript` transformer.
-
-To disable this behavior:
-
-```ts
-bud.typescript.reactFastRefresh(false);
-```
+If you are using `@roots/bud-react` and have disabled babel the `react-refresh-typescript` transformer will automatically be used.
 
 ## Contributing
 
