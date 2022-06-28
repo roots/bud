@@ -67,7 +67,10 @@ export class Dashboard extends Service implements Base.Service {
       return
     }
 
-    this.render = logUpdate.createLogUpdate(this.app.context.stdout)
+    this.render = logUpdate.createLogUpdate(process.stdout, {
+      showCursor: false,
+    })
+
     this.interval = setInterval(this.update, 80)
     this.app.hooks.action('app.close', async () => this.interval.unref())
   }

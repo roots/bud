@@ -11,6 +11,7 @@ import {CleanCommand} from './commands/clean.js'
 import {DevCommand} from './commands/dev.js'
 import {DoctorCommand} from './commands/doctor.js'
 import {InstallCommand} from './commands/install.js'
+import {TypecheckCommand} from './commands/typecheck.js'
 
 /**
  * Ensure notifier permissions (macOS)
@@ -65,6 +66,7 @@ const bud = async () => {
   application.register(DevCommand)
   application.register(DoctorCommand)
   application.register(InstallCommand)
+  application.register(TypecheckCommand)
 
   application.runExit(process.argv.slice(2), context)
 }

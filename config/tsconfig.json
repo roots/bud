@@ -56,6 +56,7 @@
     {"path": "./../sources/@roots/bud-server/tsconfig.json"},
     {"path": "./../sources/@roots/bud-solid/tsconfig.json"},
     {"path": "./../sources/@roots/bud-stylelint/tsconfig.json"},
+    {"path": "./../sources/@roots/bud-swc/tsconfig.json"},
     {"path": "./../sources/@roots/bud-tailwindcss/tsconfig.json"},
     {"path": "./../sources/@roots/bud-terser/tsconfig.json"},
     {"path": "./../sources/@roots/bud-typescript/tsconfig.json"},

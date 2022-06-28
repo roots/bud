@@ -6,89 +6,61 @@
   <img alt="Follow Roots" src="https://img.shields.io/twitter/follow/rootswp.svg?color=%23525ddc&style=flat-square" />
 </p>
 
-<h1 align="center"><strong>@roots/bud-react</strong></h1>
+<h1 align="center"><strong>@roots/bud-swc</strong></h1>
 
 <p align="center">
-  React support for @roots/bud projects.
+  SWC transpilation extension for Bud projects
 </p>
 
 ---
 
 ## Installation
 
-Install **@roots/bud-react** to your project.
+Install **@roots/bud-swc** to your project.
 
 Yarn:
 
 ```sh
-yarn add @roots/bud-react --dev
+yarn add @roots/bud-swc --dev
 ```
 
 npm:
 
 ```sh
-npm install @roots/bud-react --save-dev
+npm install @roots/bud-swc --save-dev
 ```
 
 ## Usage
 
-### React Refresh
+### Configuration
 
-`@roots/bud-react` enables [react-refresh](https://www.npmjs.com/package/react-refresh) in development automatically. It uses [@pmmmwh/react-refresh-webpack-plugin](https://github.com/pmmmwh/react-refresh-webpack-plugin).
+You have two options for configuring SWC:
 
-For usage guidance, consult [the react-refresh-webpack-plugin API documentation](https://github.com/pmmmwh/react-refresh-webpack-plugin/blob/main/docs/API.md).
+### bud.swc
 
-### Configuring react-refresh
-
-To enable react-refresh:
+You may use `bud.swc` api in your bud configuration file:
 
 ```ts
-bud.react.refresh.enable();
+bud.swc.setOptions({
+  jsc: {
+    // ...,
+  },
+});
 ```
 
-To disable react-refresh:
+### .swcrc
 
-```ts
-bud.react.refresh.disable();
-```
+You may also use a standard `.swcrc` config file in the root of your project.
 
-Any react-refresh-webpack-plugin options can can be passed using an object to `bud.react.refresh.configure`:
+### Typechecking
 
-```ts
-bud.react.refresh.configure({ forceEnable: true });
-```
+`@roots/bud-swc` does not currently support typechecking during compilation.
 
-Again, consult the [react-refresh-webpack-plugin documentation for guidance on how these options work](https://github.com/pmmmwh/react-refresh-webpack-plugin/blob/main/docs/API.md#reactrefreshpluginoptions).
+Our recommendation is to run typechecking as a separate process. You can use the `bud typecheck` command or even use `tsc` directly: `tsc --noEmit`.
 
-### react-refresh compatibility
+You could also add the `fork-ts-webpack-plugin` in your bud configuration. This approach conflicts with bud.config files authored in typescript.
 
-react-refresh is fully compatible with `@roots/bud-babel`. This is the integration that is supported out-of-the-box.
-
-#### TypeScript
-
-If you are using `@roots/bud-typescript` and have configured it to not use babel:
-
-```ts
-bud.typescript.useBabel(false);
-```
-
-then `react-refresh-typescript` transformer will be automatically enabled. To disable this:
-
-```ts
-bud.react.refresh.disable();
-```
-
-If you are using `babel` then fast refresh will be handled by babel (it is the best supported of all options).
-
-#### SWC
-
-By default, fast refresh is enabled in `development` when using SWC.
-
-If you are using a custom `.swcrc` file you will need to supply your own configuration.
-
-#### ESBuild
-
-There isn't currently any support for esbuild mentioned in the react-refresh-webpack-plugin documentation.
+Subscribe to [swc-project/swc#571](https://github.com/swc-project/swc/issues/571) for more information on where swc-project is at with its typecheck implementation.
 
 ## Contributing
 
@@ -98,7 +70,7 @@ We have [contribution guidelines](https://github.com/roots/guidelines/blob/maste
 
 ## License
 
-@roots/bud-react is licensed under MIT.
+@roots/bud-swc is licensed under MIT.
 
 ## Community
 

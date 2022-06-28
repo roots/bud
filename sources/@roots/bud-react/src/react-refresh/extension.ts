@@ -65,6 +65,8 @@ export default class BudReactRefresh extends Extension<
         await this.import(
           this.app.react.useBabel
             ? '@roots/bud-react/babel-refresh'
+            : this.app.extensions.has('@roots/bud-swc')
+            ? '@roots/bud-react/swc-refresh'
             : '@roots/bud-react/typescript-refresh',
         ),
       )

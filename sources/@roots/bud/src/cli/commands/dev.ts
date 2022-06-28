@@ -31,7 +31,6 @@ export class DevCommand extends BuildCommand {
    * @public
    */
   public static usage = Command.Usage({
-    category: `Compile`,
     description: `Compile and serve source assets`,
     examples: [
       [`Start dev server and compile assets in dev mode`, `$0 dev`],

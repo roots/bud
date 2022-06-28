@@ -1,4 +1,5 @@
 import {bind} from 'helpful-decorators'
+import {isString} from 'lodash-es'
 
 import {Spinner} from './spinner.js'
 
@@ -36,7 +37,7 @@ export class Line {
 
   @bind
   public update(...text: Array<string>) {
-    this.text = text[0] ? text?.join(' ') : null
+    this.text = text.some(i => !isString(i)) ? null : text?.join(' ')
     return this
   }
 

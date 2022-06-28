@@ -9,7 +9,7 @@ import {
  * Recommended preset configuration for `@roots/bud` projects
  *
  * @remarks
- * Will try to use `@roots/bud-esbuild` if it is available
+ * Will try to use faster compiler if available
  * and fallback on `@roots/bud-babel` (which comes included)
  * if esbuild extension is not available.
  *
@@ -20,7 +20,7 @@ import {
  */
 @label('@roots/bud-preset-recommend')
 @dependsOn(['@roots/bud-entrypoints', '@roots/bud-postcss'])
-@dependsOnOptional(['@roots/bud-esbuild'])
+@dependsOnOptional(['@roots/bud-esbuild', '@roots/bud-swc'])
 export default class BudPresetRecommend extends Extension {
   /**
    * `register` callback
@@ -32,8 +32,12 @@ export default class BudPresetRecommend extends Extension {
    * @public
    */
   public async register() {
-    if (!this.app.extensions.has('@roots/bud-esbuild')) {
-      await this.app.extensions.add(await this.import('@roots/bud-babel'))
-    }
+    if (
+      this.app.extensions.has('@roots/bud-esbuild') ||
+      this.app.extensions.has('@roots/bud-swc')
+    )
+      return
+
+    await this.app.extensions.add(await this.import('@roots/bud-babel'))
   }
 }

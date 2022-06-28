@@ -12,7 +12,6 @@ export class CleanCommand extends BaseCommand {
   public static paths = [[`clean`]]
 
   public static usage = Command.Usage({
-    category: `Clean`,
     description: `Clean project artifacts and caches`,
     examples: [[`Clean artifacts/caches`, `$0 clean`]],
   })

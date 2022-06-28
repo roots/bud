@@ -1,41 +1,42 @@
 {
-  "name": "@roots/bud-terser",
+  "name": "@roots/bud-swc",
   "version": "0.0.0",
-  "description": "Adds terser support to Bud",
+  "description": "SWC transpilation extension for Bud projects",
+  "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
-    "url": "https://github.com/roots/bud",
-    "directory": "sources/@roots/bud-terser"
+    "url": "https://github.com/roots/bud.git",
+    "directory": "sources/@roots/bud-swc"
   },
   "contributors": [
     {
       "name": "kellymears",
       "url": "https://github.com/kellymears"
-    },
-    {
-      "name": "QWp6t",
-      "url": "https://github.com/QWp6t"
     }
   ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
   },
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
   "keywords": [
     "bud",
     "bud-extension",
-    "terser"
+    "swc"
   ],
   "engines": {
     "node": ">=16"
-  },
-  "bud": {
-    "type": "extension"
   },
   "files": [
     "lib/",
     "src/"
   ],
+  "bud": {
+    "type": "extension"
+  },
   "type": "module",
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -54,14 +55,32 @@
     }
   },
   "devDependencies": {
+    "@roots/bud-build": "workspace:sources/@roots/bud-build",
     "@skypack/package-check": "0.2.2",
-    "@types/lodash": "4.14.182",
     "@types/node": "16.11.41",
     "webpack": "5.73.0"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "terser-webpack-plugin": "^5.3.3",
+    "@swc/core": "1.2.205",
+    "swc-loader": "0.2.3",
+    "ts-node": "10.8.1",
     "tslib": "2.4.0"
+  },
+  "peerDependencies": {
+    "@swc/core": "*",
+    "swc-loader": "*",
+    "ts-node": "*"
+  },
+  "peerDependenciesMeta": {
+    "@swc/core": {
+      "optional": true
+    },
+    "swc-loader": {
+      "optional": true
+    },
+    "ts-node": {
+      "optional": true
+    }
   }
 }

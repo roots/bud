@@ -21,6 +21,8 @@ describe('@roots/bud-terser', () => {
     expect(extension.options).toStrictEqual({
       extractComments: false,
       include: /\.(cjs|mjs|jsx?)$/,
+      exclude: /(node_modules|bower_components)/,
+      parallel: true,
       terserOptions: {
         compress: false,
         mangle: {
@@ -33,7 +35,6 @@ describe('@roots/bud-terser', () => {
   * Minified by @roots/bud
   */`,
         },
-        sourceMap: 'inline',
       },
     })
   })

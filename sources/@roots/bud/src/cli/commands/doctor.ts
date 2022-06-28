@@ -39,7 +39,6 @@ export class DoctorCommand extends BaseCommand {
    * @public
    */
   public static usage = Command.Usage({
-    category: `Doctor`,
     description: `Check compiled configuration against webpack`,
     examples: [
       [`Check compiled configuration against webpack`, `$0 doctor`],

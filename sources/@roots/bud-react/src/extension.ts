@@ -38,15 +38,23 @@ export default class BudReact extends Extension {
    * @public
    */
   public get useBabel(): boolean {
-    if (!isUndefined(this.options.babel)) return true
+    if (!isUndefined(this.options.babel)) return this.options.babel
 
     if (this.app.extensions.has('@roots/bud-typescript')) {
       return this.app.extensions.get('@roots/bud-typescript').options.babel
     }
 
+    if (this.app.extensions.has('@roots/bud-swc')) return false
+
     return true
   }
 
+  /**
+   * Accessor for `@roots/bud-react/react-refresh`
+   *
+   * @readonly
+   * @public
+   */
   public get refresh(): BudReactRefresh {
     return this.app.extensions.get('@roots/bud-react/react-refresh')
   }

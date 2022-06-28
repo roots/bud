@@ -13,6 +13,7 @@
 import type BudBabelRefresh from './babel-refresh'
 import BudReact from './extension.js'
 import type BudReactRefresh from './react-refresh/extension.js'
+import type BudSWCRefresh from './swc-refresh/extension.js'
 import type BudTypeScriptRefresh from './typescript-refresh/extension.js'
 
 declare module '@roots/bud-framework' {
@@ -24,6 +25,7 @@ declare module '@roots/bud-framework' {
     '@roots/bud-react': BudReact
     '@roots/bud-react/babel-refresh': BudBabelRefresh
     '@roots/bud-react/react-refresh': BudReactRefresh
+    '@roots/bud-react/swc-refresh': BudSWCRefresh
     '@roots/bud-react/typescript-refresh': BudTypeScriptRefresh
   }
 }

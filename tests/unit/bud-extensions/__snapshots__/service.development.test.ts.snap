@@ -9,6 +9,7 @@ Array [
   "@roots/bud-postcss",
   "@roots/bud-preset-recommend",
   "@roots/bud-tailwindcss",
+  "@roots/bud-terser",
   "cdn",
   "clean-webpack-plugin",
   "copy-webpack-plugin",

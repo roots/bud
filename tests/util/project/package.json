@@ -15,7 +15,8 @@
   },
   "bud": {
     "denylist": [
-      "@roots/bud-esbuild"
+      "@roots/bud-esbuild",
+      "@roots/bud-swc"
     ]
   },
   "devDependencies": {

@@ -1,4 +1,5 @@
 import type {Config} from '@roots/bud-framework'
+import BudTerser from '@roots/bud-terser'
 
 import CDNExtension from './bud-cdn/index.js'
 import ESMExtension from './bud-esm/index.js'
@@ -19,6 +20,7 @@ import RemoveEmptyScriptsPlugin from './webpack-remove-empty-scripts/index.js'
  * @public
  */
 export const extensions: Config.Options['extensions'] = [
+  BudTerser,
   ESMExtension,
   CDNExtension,
   ProvidePlugin,

@@ -49,6 +49,7 @@
     "./extension": "./lib/extension.js",
     "./react-refresh": "./lib/react-refresh/index.js",
     "./react-refresh/*": "./lib/react-refresh/*.js",
+    "./swc-refresh": "./lib/swc-refresh/index.js",
     "./typescript-refresh": "./lib/typescript-refresh/index.js"
   },
   "typesVersions": {
@@ -68,6 +69,9 @@
       "react-refresh/*": [
         "./lib/react-refresh/*.d.ts"
       ],
+      "swc-refresh": [
+        "./lib/swc-refresh/index.d.ts"
+      ],
       "typescript-refresh": [
         "./lib/typescript-refresh/index.d.ts"
       ]
@@ -76,6 +80,8 @@
   "devDependencies": {
     "@babel/core": "7.18.5",
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
+    "@roots/bud-swc": "workspace:sources/@roots/bud-swc",
+    "@roots/bud-typescript": "workspace:sources/@roots/bud-typescript",
     "@skypack/package-check": "0.2.2",
     "@types/babel__core": "^7.1.19",
     "@types/lodash-es": "4.17.6",
