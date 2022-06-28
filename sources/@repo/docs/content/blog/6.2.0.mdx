@@ -1,0 +1,94 @@
+---
+slug: '6.2.0'
+title: 'Release: 6.2.0'
+description: 'Release notes for bud.js 6.2.0'
+date: 2022-06-22
+author: Kelly Mears
+author_title: Lead developer
+author_url: https://github.com/kellymears
+author_image_url: https://avatars.githubusercontent.com/u/397606?v=4
+tags: [release]
+---
+
+import CodeBlock from '@theme/CodeBlock'
+
+<!--truncate-->
+
+## swc support
+
+This release adds support for [swc](https://swc.rs). To try it out install `@roots/bud-swc`. Hopefully it "just works" out of the box for you, but
+[check out the docs](https://bud.js.org/extensions/bud-swc) for details on [how to configure swc](https://bud.js.org/extensions/bud-swc#configuration) for your project.
+
+If you have the extension installed `@roots/bud` will privilege it over `@roots/bud-babel` when it is available. So, you really can give it a go by just adding `@roots/bud-swc` to your project dependencies when upgrading.
+
+The swc project claims upwards of _a 70x performance improvement over babel_. I don't see that in testing (MacOS ARM arch), but it is definitely faster (~20%).
+
+I hear the difference is particularly pronounced in WSL2, although my means to test that is limited. Let me know how it goes!
+
+## `@roots/bud-react`: fast refresh enabled by default
+
+For `typescript`, `swc` and `babel` projects, react fast refresh is now enabled by default.
+
+:::danger breaking change
+
+If you are configuring fast-refresh using `bud.reactRefresh()` you will need to update your call to use the new API.
+
+Change this:
+
+```ts
+bud.reactRefresh(true)
+```
+
+to this:
+
+```ts
+bud.react.refresh.enable()
+```
+
+:::
+
+If you don't want react fast refresh then you can disable it with:
+
+```ts
+bud.react.refresh.disable()
+```
+
+## `@roots/bud-typescript`: babel is now optional
+
+Depending on your project you may be able to use typescript without babel. Why not try it and find out?
+
+```ts
+bud.typescript.useBabel(false)
+```
+
+If you disable babel react-refresh will be enabled using the `react-refresh-typescript` compiler plugin instead.
+
+## `@roots/bud-terser`: now a core extension
+
+If you have installed this extension directly to your project you can remove it.
+
+If you are using the new SWC extension terser will automatically be configured to use the swc minifier.
+
+## core: zero config hmr
+
+There was an issue with client scripts not being injected in zero configuration setups (more specifically: any setup that didn't explicitly set entrypoints with [bud.entry](https://bud.js.org/docs/bud.entry)).
+It's been corrected; see [#1506](https://github.com/roots/bud/pull/1506) for details
+
+## core: `bud typecheck` command
+
+TypeScript users can call `bud typecheck` to run typechecking outside of compilation. There are a couple requirements, at least for this initial effort:
+
+- You must have `typescript` installed
+- You must have a `tsconfig.json` in your project root
+
+This is honestly not much more than a `tsc --noEmit` alias right now.
+
+But, it might be useful for you as-is and it will get better and more useful in future releases.
+
+## Docs corrections
+
+Thanks to [@robrecord](https://github.com/robrecord) for a nice set of documentation fixes.
+
+## More information
+
+For more information [review the diff to see what's changed](https://github.com/roots/bud/compare/v6.1.0...v6.2.0).
