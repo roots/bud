@@ -682,24 +682,23 @@ export class Facade {
  * Register an extension or set of extensions
  *
  * @remarks
- * This function is used to register an extension or set of extensions.
+ * Registers one or more:
  *
- *  - If the extension is a webpack plugin, it will be registered as a webpack plugin
- *
- *  - If the extension is an array of extensions, they will be registered as webpack plugins
+ * - {@link Extension}
+ * - {@link ExtensionLiteral}
+ * - {@link Constructor}
+ * - {@link ApplyPlugin}
  *
  * @example
- * Add packaged bud extensions
+ * Register Constructor
  *
  * ```ts
- * bud.use([
- *   require('@roots/bud-babel'),
- *   require('@roots/bud-react'),
- * ])
+ * import React from '@roots/bud-react'
+ * bud.use(React)
  * ```
  *
  * @example
- * Add a bud extension inline
+ * Register extension from object literal
 
  * ```ts
  * bud.use({
@@ -709,7 +708,7 @@ export class Facade {
  * ```
  *
  * @example
- * Add a webpack plugin inline
+ * Add a compiler plugin inline
  *
  * ```ts
  * bud.use(new MyWebpackPlugin())

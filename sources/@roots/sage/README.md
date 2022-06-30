@@ -34,26 +34,42 @@ npm install @roots/sage --save-dev
 
 Documentation for this package is available on [bud.js.org](https://bud.js.org/extensions/sage). It may include additional context and information not available in this README.
 
-### Eslint
+### Included Extensions
 
-Install the [`@roots/bud-eslint` extension](https://bud.js.org/extensions/bud-eslint):
+The @roots/sage extension depends on [@roots/bud-preset-wordpress](https://bud.js.org/extensions/bud-preset-wordpress) which in turn depends on [@roots/bud-preset-recommend](https://bud.js.org/extensions/bud-preset-recommend).
+
+All told, these are the extensions which are installed as peers of @roots/sage:
+
+| Extension                                                               | Description                                                    |
+| ----------------------------------------------------------------------- | -------------------------------------------------------------- |
+| [@roots/bud-babel](https://bud.js.org/extensions/bud-babel)             | Babel transpiler                                               |
+| [@roots/bud-entrypoints](https://bud.js.org/extensions/bud-entrypoints) | Emits `entrypoints.json` manifest                              |
+| [@roots/bud-postcss](https://bud.js.org/extensions/bud-postcss)         | PostCSS transpiler                                             |
+| [@roots/bud-react](https://bud.js.org/extensions/bud-react)             | React support                                                  |
+| @roots/bud-wordpress-dependencies                                       | emits `wordpress.json` manifest                                |
+| @roots/bud-wordpress-externals                                          | Externalizes references to code provided by `window.wp`        |
+| @roots/bud-wordpress-manifests                                          | Combines the `entrypoints.json` and `wordpress.json` manifests |
+
+### Using With Eslint
+
+Install the [@roots/bud-eslint](https://bud.js.org/extensions/bud-eslint) and the [@roots/eslint-config] preset package:
 
 ```sh npm2yarn
-yarn add @roots/bud-eslint --dev
+yarn add @roots/bud-eslint @roots/eslint-config --dev
 ```
 
-Next, in your theme directory create a `eslint.config.js` file and include the Sage default eslint config:
+Then, in your theme directory create a `eslint.config.cjs` file and include the Sage default eslint config:
 
-```ts
+```ts title="eslint.config.cjs"
 module.exports = {
   root: true,
   extends: ["@roots/eslint-config/sage"],
 };
 ```
 
-### Stylelint
+### Using With Stylelint
 
-Install the [`@roots/bud-stylelint` extension](/extensions/bud-sass):
+Install the [@roots/bud-stylelint extension](https://bud.js.org/extensions/bud-stylelint):
 
 ```sh npm2yarn
 yarn add @roots/bud-stylelint --dev
@@ -61,7 +77,7 @@ yarn add @roots/bud-stylelint --dev
 
 Next, in your theme directory create a `.stylelintrc.js` file and include the Sage default stylelint config:
 
-```ts
+```ts title="bud.config.mjs"
 module.exports = {
   extends: ["@roots/sage/stylelint-config"],
   rules: {
@@ -70,89 +86,93 @@ module.exports = {
 };
 ```
 
-### Tailwind
+### Managing Theme Json
 
-If generating `theme.json` with the `themeJson` function, you can define the `theme.json` `color.palette` option from values found in `tailwind.config.js`.
+You can manage [WordPress' `theme.json` config file](https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-json/) from the context of your bud config using `bud.wptheme`.
 
-```ts title="bud.config.js"
-app.wpjson.useTailwindColors().enable();
+### Enabling `theme.json` support
+
+In order to emit the file you will need to enable the feature:
+
+```ts title="bud.config.mjs"
+bud.wpjson.enable();
 ```
 
-This only works with colors defined under the `theme.extend.colors` key in `tailwind.config.js`:
+### Managing generic `theme.json` values
 
-```ts title="tailwind.config.js"
-module.exports = {
-  content: ["./app/**/*.php", "./resources/**/*.{php,vue,js}"],
-  theme: {
-    extend: {
-      colors: {
-        primary: "#525ddc",
-      },
-    },
-  },
-  variants: {
-    extend: {},
-  },
-  plugins: [],
-};
+You can use `setOption` from the bud.js extensions API to set `theme.json` values:
+
+```ts title="bud.config.mjs"
+bud.wpjson.setOption("customTemplates", []).enable();
 ```
 
-### Theme Json
+### Managing the `settings` field
 
-You can generate a `theme.json` during build using the `themeJson` function provided by Sage.
+Most `theme.json` configuration centers around the `settings` property. You can modify these values using a fluent
+container interface exposed by `bud.wpjson.settings`.
 
-Shown with defaults:
-
-```ts title="bud.config.js"
-app.wptheme.settings({
-  color: {
-    custom: false,
-    customGradient: false,
-  },
-  custom: {
-    spacing: {},
-    typography: { "font-size": {}, "line-height": {} },
-  },
-  spacing: {
-    padding: true,
-    units: ["px", "%", "em", "rem", "vw", "vh"],
-  },
-  typography: {
-    customFontSize: false,
-    dropCap: false,
-  },
-});
+```ts title="bud.config.mjs"
+bud.wptheme
+  .settings((theme) =>
+    theme
+      .set("typography.customFontSizes", true)
+      .set("typography.fontWeight", false)
+      .merge("spacing.units", ["px", "%", "em"])
+  )
+  .enable();
 ```
 
-If you just want to modify the defaults rather than provide your own entirely, you can do so with a function.
+### Using tailwindcss config values
 
-By default, the callback will supply you with a container of the default `theme.json` values:
+If you use tailwindcss in your project there are several opt-in helpers that allow you to generate `theme.json`
+values directly from your tailwind config.
 
-```ts title="bud.config.js"
-app.wptheme.settings((theme) => {
-  theme.set("typography.customFontSize", true);
-  return theme;
-});
+:::caution
+
+This only works if the values are literally expressed in your config. Your config is not processed by postcss before theme.json is emitted.
+
+:::
+
+#### wpjson.useTailwindColors
+
+Convert `theme.extends.colors` to a `theme.json` palette.
+
+```ts title="bud.config.mjs"
+bud.wpjson.useTailwindColors().enable();
 ```
 
-If preferred, you can request a normal object by passing `true` as an optional second parameter:
+#### wpjson.useTailwindFontSize()
 
-```ts title="bud.config.js"
-app.wptheme.settings(
-  (theme) => ({
-    ...theme,
-    typography: {
-      ...theme.typography,
-      customFontSize: true,
-    },
-  }),
-  true
-);
+Emits values from `theme.extends.fontSize` as the `typography.fontSizes` property of `theme.json`.
+
+```ts title="bud.config.mjs"
+bud.wpjson.useTailwindFontSize().enable();
 ```
 
-### With Sass
+#### wpjson.useTailwindFontFamily()
 
-Install the [`@roots/bud-sass` extension](/extensions/bud-sass):
+Emits values from `theme.extends.fontFamily` as the `typography.fontFamilies` property of `theme.json`.
+
+```ts title="bud.config.mjs"
+bud.wpjson.useTailwindFontFamily().enable();
+```
+
+### In combination
+
+Lastly, know that you can use any of these methods in combination:
+
+```ts title="bud.config.mjs"
+bud.wpjson
+  .useTailwindColors()
+  .useTailwindFontSize()
+  .useTailwindFontFamily()
+  .setOption("typography.fontWeight", false)
+  .enable();
+```
+
+### Using With Sass
+
+Install the [@roots/bud-sass extension](https://bud.js.org/extensions/bud-sass):
 
 ```sh npm2yarn
 yarn add @roots/bud-sass --dev
@@ -160,12 +180,9 @@ yarn add @roots/bud-sass --dev
 
 If using stylelint you will need to configure it for sass:
 
-```ts
+```ts file="stylelint.config.cjs"
 module.exports = {
   extends: ["@roots/sage/stylelint-config", "@roots/bud-sass/stylelint-config"],
-  rules: {
-    "color-no-invalid-hex": true,
-  },
 };
 ```
 

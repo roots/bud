@@ -1,0 +1,34 @@
+---
+title: 'Managing theme.json'
+description: 'Managing theme.json from a bud configuration file'
+sidebar_label: 'Managing theme.json'
+sidebar_order: 5
+hide_table_of_contents: true
+---
+
+import ThemeJson from '@site/../../@roots/sage/docs/05-managing-theme.json.mdx'
+
+<ThemeJson />
+
+:::info
+
+`bud.wpjson` methods don't return `bud`. You can't just continue chaining your config calls after using them.
+
+You should either use [bud.tap](https://bud.js.org/docs/bud.tap):
+
+```ts
+bud
+  .setPublicPath('/app/themes/sage/public/')
+  .tap(bud => bud.wpjson.useTailwindColors().enable())
+  .serve(3000) // chain continues
+```
+
+or, break the chain:
+
+```ts
+bud.setPublicPath('/app/themes/sage/public/')
+bud.wpjson.useTailwindColors().enable()
+bud.serve(3000) // c
+```
+
+:::

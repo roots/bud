@@ -1,5 +1,4 @@
 const dracula = require('prism-react-renderer/themes/dracula')
-const github = require('prism-react-renderer/themes/github')
 
 const config = require('../../../../config/monorepo.config.cjs')
 
@@ -9,8 +8,8 @@ const config = require('../../../../config/monorepo.config.cjs')
  * @public
  */
 const announcementBar = {
-  id: 'announcementBar-3', // Increment on change
-  content: `✨ v6.0.0 has been released! <a href="/blog/6.0.0">Read the announcement post for guidance on upgrading</a>`,
+  id: 'announcementBar-4', // Increment on change
+  content: `🚀 SWC support and more in v6.2.0. <a href="/blog/tags/v-6">Release notes available here</a>`,
 }
 
 /**
