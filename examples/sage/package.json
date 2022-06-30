@@ -2,7 +2,7 @@
   "name": "example-sage",
   "private": true,
   "browserslist": [
-    "extends @wordpress/browserslist-config"
+    "extends @roots/browserslist-config/modern"
   ],
   "devDependencies": {
     "@roots/bud": "latest",

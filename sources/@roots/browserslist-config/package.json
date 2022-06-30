@@ -1,0 +1,45 @@
+{
+  "name": "@roots/browserslist-config",
+  "version": "0.0.0",
+  "description": "Roots standard browserslist-config",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "sources/@roots/bud-typescript"
+  },
+  "bugs": {
+    "url": "https://github.com/roots/bud/issues"
+  },
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "license": "MIT",
+  "contributors": [
+    {
+      "name": "kellymears",
+      "url": "https://github.com/kellymears"
+    }
+  ],
+  "keywords": [
+    "roots",
+    "browserslist"
+  ],
+  "engines": {
+    "node": ">=16"
+  },
+  "files": [
+    "index.cjs",
+    "modern.cjs"
+  ],
+  "main": "./index.cjs",
+  "module": "./index.cjs",
+  "types": "./types.d.ts",
+  "exports": {
+    ".": "./index.cjs",
+    "./modern": "./modern.cjs"
+  },
+  "devDependencies": {
+    "@skypack/package-check": "0.2.2"
+  }
+}
