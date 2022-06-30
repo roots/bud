@@ -16,6 +16,8 @@
     "@yarnpkg/shell": "3.2.2",
     "clipanion": "3.2.0-rc.11",
     "fs-extra": "10.1.0",
+    "js-yaml": "4.1.0",
+    "lodash": "4.17.21",
     "semver": "7.3.7",
     "tslib": "2.4.0",
     "typescript": "4.7.3"

@@ -34,12 +34,21 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - name: Release v${{ github.event.inputs.version }}
-        env:
-          NPM_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
-          YARN_RC_FILENAME: '.yarnrc.yml'
+      - name: set npmAuthToken
         run: |
-          docker-compose run bud yarn @bud release --tag latest --version ${{ github.event.inputs.version }}
+          yarn config set npmAuthToken ${{ secrets.NODE_AUTH_TOKEN }}
+
+      - name: Set npmPublishRegistry
+        run: |
+          yarn config set npmPublishRegistry https://registry.npmjs.org/
+
+      - name: Set npmRegistryServer
+        run: |
+          yarn config set npmRegistryServer https://registry.npmjs.org/
+
+      - name: Release v${{ github.event.inputs.version }}
+        run: |
+          yarn @bud release --tag latest --version ${{ github.event.inputs.version }}
 
       - name: Configure Git
         run: |

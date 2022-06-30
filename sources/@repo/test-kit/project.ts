@@ -131,16 +131,9 @@ export class Project {
         shell: true,
       })
 
-      child.stdout.on('data', message =>
-        this.logger.info(message.toString()),
-      )
-      child.stderr.on('data', message =>
-        this.logger.error(message.toString()),
-      )
-
       await child
     } catch (error) {
-      this.logger.error(error)
+      throw new Error(error)
     }
   }
 
@@ -160,26 +153,17 @@ export class Project {
   public async npmInstall() {
     await this.$(`npm`, [`install`, `--registry`, REGISTRY_PROXY])
   }
+
   @bind
   public async install() {
-    this.logger.log('removing')
-
     try {
       await fs.remove(this.projectPath())
-    } catch (e) {
-      logger.error(e)
-    }
-
-    this.logger.log('copying')
-
+    } catch (e) {}
     try {
       await fs.copy(`./examples/${this.options.name}`, this.projectPath())
-    } catch (e) {
-      logger.error(e)
-    }
+    } catch (e) {}
 
     this.logger.log('installing')
-
     this.options.with === 'yarn'
       ? await this.yarnInstall()
       : await this.npmInstall()
@@ -263,6 +247,11 @@ export class Project {
         },
         Promise.resolve({}),
       ),
+    )
+
+    this.logger.log(
+      'assets:',
+      chalk.dim(JSON.stringify(this.assets, null, 2)),
     )
   }
 

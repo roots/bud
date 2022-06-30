@@ -12,6 +12,7 @@ import {Publish} from './publish.command'
 import {Release} from './release.command'
 import {Test} from './test.command'
 import {Vendor} from './vendor.command'
+import {Verdaccio} from './verdaccio.command'
 import {Version} from './version.command'
 
 export const Commands = {
@@ -29,5 +30,6 @@ export const Commands = {
   Syncpack,
   Test,
   Vendor,
+  Verdaccio,
   Version,
 }
