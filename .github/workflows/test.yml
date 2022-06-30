@@ -49,7 +49,7 @@ jobs:
 
       - name: Start verdaccio
         run: |
-          pm2 start verdaccio -- -l localhost:4873
+          pm2 start verdaccio --config ./config/verdaccio/config.yaml -- -l localhost:4873
 
       - name: Setup
         run: |
