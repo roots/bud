@@ -43,6 +43,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
+      - name: Install verdaccio
+        run: |
+          npm install -g verdaccio pm2
+
+      - name: Start verdaccio
+        run: |
+          pm2 start verdaccio -- -l localhost:4873
+
       - name: Setup
         run: |
           yarn install --immutable
