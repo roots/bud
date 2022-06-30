@@ -1,6 +1,7 @@
 ---
 title: Configuring bud.js
 sidebar_label: Configure
+hide_table_of_contents: true
 ---
 
 import Tabs from '@theme/Tabs'
@@ -46,7 +47,7 @@ module.exports = async bud => bud.entry('app', 'index.js')
 
 If authoring your config file in TypeScript, use the `.mts` extension.
 
-This requires the installation of either the [@roots/bud-esbuild](/extensions/bud-esbuild) or [@roots/bud-typescript](/extensions/bud-typescript) extension.
+This requires the installation of an extension that provides TypeScript support such as [@roots/bud-swc](/extensions/bud-swc), [@roots/bud-esbuild](/extensions/bud-esbuild) or [@roots/bud-typescript](/extensions/bud-typescript).
 
 ```ts title='bud.config.mts'
 import type {Bud} from '@roots/bud'
