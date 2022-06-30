@@ -1,3 +1,6 @@
+/**
+ * Browserslist targeting most current browser releases
+ */
 module.exports = {
   production: ['>0.5%', 'not dead', 'not op_mini all'],
   development: [

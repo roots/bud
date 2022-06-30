@@ -1,5 +1,5 @@
 /**
- * Roots browserslist-config
+ * Browserslist default
  */
 module.exports = {
   production: [
@@ -12,8 +12,6 @@ module.exports = {
     'last 2 ios versions',
     'last 2 edge versions',
     'last 2 opera versions',
-    'not dead',
-    'not op_mini all',
   ],
   development: [
     'last 1 chrome version',
