@@ -24,7 +24,7 @@ Object {
 exports[`sage npm [snapshots] package.json is unchanged 1`] = `
 Object {
   "browserslist": Array [
-    "extends @wordpress/browserslist-config",
+    "extends @roots/browserslist-config/current",
   ],
   "devDependencies": Object {
     "@roots/bud": "latest",
@@ -64,7 +64,7 @@ Object {
 exports[`sage yarn [snapshots] package.json is unchanged 1`] = `
 Object {
   "browserslist": Array [
-    "extends @wordpress/browserslist-config",
+    "extends @roots/browserslist-config/current",
   ],
   "devDependencies": Object {
     "@roots/bud": "latest",

@@ -1,3 +1,4 @@
+import {paths} from '@repo/constants'
 import Signale from 'signale'
 
 const types = {
@@ -18,17 +19,6 @@ const types = {
   },
 }
 
-const logger = new Signale.Signale({
-  interactive: false,
-  types,
-})
-
-logger.config({
-  displayFilename: true,
-  displayTimestamp: false,
-  displayDate: false,
-})
-
 export const make = (options, config) => {
   const logger = new Signale.Signale({
     types,
@@ -36,13 +26,16 @@ export const make = (options, config) => {
     ...(options ?? {}),
   })
   logger.config({
+    types,
     displayFilename: false,
     displayTimestamp: false,
     displayDate: false,
     ...(config ?? {}),
+    secrets: [paths.root, process.cwd()],
   })
+
   return logger
 }
 
-export {logger}
+export const logger = make()
 export const {log, error, debug, info, warn, success} = logger

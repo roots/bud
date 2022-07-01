@@ -1,0 +1,14 @@
+enableMessageNames: false
+
+enableTelemetry: false
+
+nodeLinker: node-modules
+
+npmPublishAccess: public
+
+npmPublishRegistry: 'http://localhost:4873'
+
+npmRegistryServer: 'http://localhost:4873'
+
+unsafeHttpWhitelist:
+  - localhost

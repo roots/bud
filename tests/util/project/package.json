@@ -1,11 +1,9 @@
 {
   "name": "test-empty",
   "private": true,
-  "browserslist": {
-    "browserslist": [
-      "@roots/browserslist-config/modern"
-    ]
-  },
+  "browserslist": [
+    "extends @roots/browserslist-config/current"
+  ],
   "bud": {
     "denylist": [
       "@roots/bud-esbuild",

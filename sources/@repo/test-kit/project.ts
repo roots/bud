@@ -119,16 +119,12 @@ export class Project {
   public async $(bin: string, flags: Array<string>) {
     try {
       this.logger.log(
-        chalk.green(`executing`),
         chalk.blue(bin),
-        (flags ? flags.map(flag => chalk.magenta(flag)) : []).join(' '),
-        `in`,
-        chalk.yellow(this.projectPath()),
+        chalk.magenta((flags ?? []).join(' ')),
       )
 
       const child = execa(bin, flags ?? [], {
         cwd: this.projectPath(),
-        shell: true,
       })
 
       await child
@@ -139,14 +135,12 @@ export class Project {
 
   @bind
   public async yarnInstall() {
-    await this.$('/usr/local/bin/yarn', [
-      `install`,
-      `--update-checksums`,
-      `--skip-integrity-check`,
-      `--registry`,
-      REGISTRY_PROXY,
-      `--force`,
-    ])
+    await fs.ensureFile(this.projectPath('yarn.lock'))
+    await fs.copy(
+      join(paths.sources, '@repo', 'test-kit', '.yarnrc.stub.yml'),
+      this.projectPath('.yarnrc.yml'),
+    )
+    await this.$('yarn', [`install`])
   }
 
   @bind
@@ -163,7 +157,6 @@ export class Project {
       await fs.copy(`./examples/${this.options.name}`, this.projectPath())
     } catch (e) {}
 
-    this.logger.log('installing')
     this.options.with === 'yarn'
       ? await this.yarnInstall()
       : await this.npmInstall()
@@ -237,8 +230,6 @@ export class Project {
     await Promise.all(
       Object.entries(this.manifest).map(
         async ([name, path]: [string, string]) => {
-          logger.log('attempting to read', join(this.options.dist, path))
-
           const buffer = await fs.readFile(
             join(this.projectPath(), this.options.dist, path),
           )
@@ -247,11 +238,6 @@ export class Project {
         },
         Promise.resolve({}),
       ),
-    )
-
-    this.logger.log(
-      'assets:',
-      chalk.dim(JSON.stringify(this.assets, null, 2)),
     )
   }
 

@@ -43,14 +43,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - name: Install verdaccio
-        run: |
-          npm install -g verdaccio pm2
-
-      - name: Start verdaccio
-        run: |
-          pm2 start verdaccio -- --config ./config/verdaccio/config.yaml
-
       - name: Setup
         run: |
           yarn install --immutable
@@ -65,11 +57,8 @@ jobs:
 
       - name: Unit
         run: |
-          yarn @bud test unit --verbose --maxWorkers 50%
+          yarn @bud test unit --verbose --maxWorkers 2
 
       - name: Integration
         run: |
-          yarn @bud test integration --verbose --maxWorkers 50%
-
-      - name: Coverage report
-        uses: codecov/codecov-action@v2
+          yarn @bud test integration --verbose --maxWorkers 2

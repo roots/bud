@@ -2,7 +2,7 @@
   "name": "example-sage",
   "private": true,
   "browserslist": [
-    "extends @roots/browserslist-config/modern"
+    "extends @roots/browserslist-config/current"
   ],
   "devDependencies": {
     "@roots/bud": "latest",
