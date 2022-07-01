@@ -1,3 +1,5 @@
+enableImmutableInstalls: false
+
 enableMessageNames: false
 
 enableTelemetry: false
