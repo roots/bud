@@ -32,6 +32,16 @@ npm install @roots/browserslist-config --save-dev
 
 ## Usage
 
+### Configs
+
+| Export                             | Description                                                                                    |
+| ---------------------------------- | ---------------------------------------------------------------------------------------------- |
+| @roots/browserslist-config         | Largely targets >1%. Similar to @wordpress/browserslist-config                                 |
+| @roots/browserslist-config/broad   | Largely targets the last 3 versions of major browsers. Similar to @shopify/browserslist-config |
+| @roots/browserslist-config/current | Targets the last 1 version of each major browser. Similar to @facebook/docusaurus              |
+
+All configurations target the most recent version of `firefox`, `chrome` and `safari` in when the NODE_ENV is `development`.
+
 ## Contributing
 
 Contributions are welcome from everyone.
