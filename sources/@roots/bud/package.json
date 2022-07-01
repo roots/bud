@@ -113,6 +113,7 @@
     "@types/signale": "1.4.4"
   },
   "dependencies": {
+    "@roots/browserslist-config": "workspace:sources/@roots/browserslist-config",
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@roots/bud-build": "workspace:sources/@roots/bud-build",
     "@roots/bud-cache": "workspace:sources/@roots/bud-cache",
@@ -149,6 +150,7 @@
     "webpack-remove-empty-scripts": "0.8.0"
   },
   "peerDependencies": {
+    "@roots/browserslist-config": "*",
     "@roots/bud-api": "*",
     "@roots/bud-build": "*",
     "@roots/bud-cache": "*",
@@ -160,6 +162,9 @@
     "@roots/bud-server": "*"
   },
   "peerDependenciesMeta": {
+    "@roots/browserslist-config": {
+      "optional": true
+    },
     "@roots/bud-api": {
       "optional": true
     },

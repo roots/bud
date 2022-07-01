@@ -43,25 +43,30 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
+      - name: Install verdaccio
+        run: |
+          npm install -g verdaccio pm2
+
+      - name: Start verdaccio
+        run: |
+          pm2 start verdaccio -- --config ./config/verdaccio/config.yaml
+
       - name: Setup
         run: |
-          docker-compose run --rm bud yarn install --immutable
+          yarn install --immutable
 
       - name: Lint
         run: |
-          docker-compose run --rm bud yarn @bud lint --skypack --eslint
+          yarn @bud lint --skypack --eslint
 
       - name: Publish
         run: |
-          docker-compose run --rm bud yarn @bud release --tag latest
+          yarn @bud release --tag latest
 
       - name: Unit
         run: |
-          docker-compose run --rm bud yarn @bud test unit --verbose --maxWorkers 50%
+          yarn @bud test unit --verbose --maxWorkers 2
 
       - name: Integration
         run: |
-          docker-compose run --rm bud yarn @bud test integration --verbose --maxWorkers 50%
-
-      - name: Coverage report
-        uses: codecov/codecov-action@v2
+          yarn @bud test integration --verbose --maxWorkers 2

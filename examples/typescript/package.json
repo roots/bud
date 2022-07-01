@@ -1,28 +1,18 @@
 {
   "name": "example-typescript",
   "private": true,
-  "browserslist": {
-    "production": [
-      ">0.5%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
+  "browserslist": [
+    "extends @roots/browserslist-config"
+  ],
   "type": "module",
   "scripts": {
     "build": "yarn ts-bud build"
   },
   "devDependencies": {
+    "@roots/browserslist-config": "0.0.0",
     "@roots/bud": "0.0.0",
     "@roots/bud-babel": "0.0.0",
-    "@roots/bud-typescript": "0.0.0"
-  },
-  "dependencies": {
+    "@roots/bud-typescript": "0.0.0",
     "@types/webpack-env": "latest"
   }
 }

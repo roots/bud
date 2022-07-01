@@ -1,19 +1,11 @@
 {
   "name": "example-markdown",
   "private": true,
-  "browserslist": {
-    "production": [
-      ">0.5%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
+  "browserslist": [
+    "extends @roots/browserslist-config/current"
+  ],
   "devDependencies": {
+    "@roots/browserslist-config": "latest",
     "@roots/bud": "latest",
     "@roots/bud-mdx": "latest"
   }

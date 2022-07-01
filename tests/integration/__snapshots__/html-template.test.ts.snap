@@ -4,19 +4,11 @@ exports[`html-template npm index.html is the correct html 1`] = `"<!doctype html
 
 exports[`html-template npm package.json matches snapshot 1`] = `
 Object {
-  "browserslist": Object {
-    "development": Array [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version",
-    ],
-    "production": Array [
-      ">0.5%",
-      "not dead",
-      "not op_mini all",
-    ],
-  },
+  "browserslist": Array [
+    "extends @roots/browserslist-config/current",
+  ],
   "devDependencies": Object {
+    "@roots/browserslist-config": "latest",
     "@roots/bud": "latest",
   },
   "name": "example-template",
@@ -28,19 +20,11 @@ exports[`html-template yarn index.html is the correct html 1`] = `"<!doctype htm
 
 exports[`html-template yarn package.json matches snapshot 1`] = `
 Object {
-  "browserslist": Object {
-    "development": Array [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version",
-    ],
-    "production": Array [
-      ">0.5%",
-      "not dead",
-      "not op_mini all",
-    ],
-  },
+  "browserslist": Array [
+    "extends @roots/browserslist-config/current",
+  ],
   "devDependencies": Object {
+    "@roots/browserslist-config": "latest",
     "@roots/bud": "latest",
   },
   "name": "example-template",

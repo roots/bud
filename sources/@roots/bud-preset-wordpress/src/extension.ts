@@ -7,6 +7,8 @@ import {
   options,
 } from '@roots/bud-framework/extension/decorators'
 
+import BudBrowsersListCheck from './browserslist-check/extension.js'
+
 @label('@roots/bud-preset-wordpress')
 @dependsOn([
   '@roots/bud-entrypoints',
@@ -36,6 +38,12 @@ export default class BudPresetWordPress extends Extension {
 
   @bind
   public async register() {
+    /**
+     * This extension should be removed in a future release.
+     * Added in 6.2.1.
+     */
+    await this.app.extensions.add(BudBrowsersListCheck)
+
     if (!this.app.extensions.has('@roots/bud-esbuild')) {
       const {default: react} = await import('@roots/bud-react')
       await this.app.extensions.add(react)

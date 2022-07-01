@@ -1,0 +1,38 @@
+---
+slug: '6.2.1'
+title: 'Release: 6.2.1'
+description: 'Release notes for bud.js 6.2.1'
+date: 2022-07-01
+author: Kelly Mears
+author_title: Lead developer
+author_url: https://github.com/kellymears
+author_image_url: https://avatars.githubusercontent.com/u/397606?v=4
+tags: [release]
+---
+
+import CodeBlock from '@theme/CodeBlock'
+
+<!--truncate-->
+
+## @roots/browserslist-config
+
+Build tooling flagged that `@wordpress/browserslist-config` was licensed in a way that is not compatible with bud's overall licensing ideals.
+
+Accordingly, we are now publishing our own browserslist config: `@roots/browserslist-config`. It provides a choice of three configurations. Select whichever is the best fit for your project and audience:
+
+| Export                             | Description                                                                            |
+| ---------------------------------- | -------------------------------------------------------------------------------------- |
+| @roots/browserslist-config         | >1%. Similar to @wordpress/browserslist-config                                         |
+| @roots/browserslist-config/current | >.5%. Similar to @facebook/docusaurus' default                                         |
+| @roots/browserslist-config/broad   | Targets the last 3 versions of major browsers. Similar to @shopify/browserslist-config |
+
+All configurations target the most recent version of `firefox`, `chrome` and `safari` when the NODE_ENV is `development`.
+
+## Upgrading to bud.js 6.2.1
+
+If you are using `@wordpress/browserslist-config` in your project (check the `browserslist` field of `package.json` if you aren't sure) you will need to either:
+
+- Update the `browserslist` field with a config from the table above.
+- Install `@wordpress/browserslist-config` as a project dependency.
+
+`@wordpress/browserslist-config` is no longer a dependency of bud.js, so you must do one of those two things or else you will experience build errors.

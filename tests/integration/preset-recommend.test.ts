@@ -33,5 +33,6 @@ const test = (pacman: 'yarn' | 'npm') => () => {
 
 describe('preset-recommend', () => {
   describe('yarn', test('yarn'))
+
   describe('npm', test('npm'))
 })

@@ -119,66 +119,43 @@ export class Project {
   public async $(bin: string, flags: Array<string>) {
     try {
       this.logger.log(
-        chalk.green(`executing`),
         chalk.blue(bin),
-        (flags ? flags.map(flag => chalk.magenta(flag)) : []).join(' '),
-        `in`,
-        chalk.yellow(this.projectPath()),
+        chalk.magenta((flags ?? []).join(' ')),
       )
 
       const child = execa(bin, flags ?? [], {
         cwd: this.projectPath(),
-        shell: true,
       })
-
-      child.stdout.on('data', message =>
-        this.logger.info(message.toString()),
-      )
-      child.stderr.on('data', message =>
-        this.logger.error(message.toString()),
-      )
 
       await child
     } catch (error) {
-      this.logger.error(error)
+      throw new Error(error)
     }
   }
 
   @bind
   public async yarnInstall() {
-    await this.$('/usr/local/bin/yarn', [
-      `install`,
-      `--update-checksums`,
-      `--skip-integrity-check`,
-      `--registry`,
-      REGISTRY_PROXY,
-      `--force`,
-    ])
+    await fs.ensureFile(this.projectPath('yarn.lock'))
+    await fs.copy(
+      join(paths.sources, '@repo', 'test-kit', '.yarnrc.stub.yml'),
+      this.projectPath('.yarnrc.yml'),
+    )
+    await this.$('yarn', [`install`])
   }
 
   @bind
   public async npmInstall() {
     await this.$(`npm`, [`install`, `--registry`, REGISTRY_PROXY])
   }
+
   @bind
   public async install() {
-    this.logger.log('removing')
-
     try {
       await fs.remove(this.projectPath())
-    } catch (e) {
-      logger.error(e)
-    }
-
-    this.logger.log('copying')
-
+    } catch (e) {}
     try {
       await fs.copy(`./examples/${this.options.name}`, this.projectPath())
-    } catch (e) {
-      logger.error(e)
-    }
-
-    this.logger.log('installing')
+    } catch (e) {}
 
     this.options.with === 'yarn'
       ? await this.yarnInstall()
@@ -253,8 +230,6 @@ export class Project {
     await Promise.all(
       Object.entries(this.manifest).map(
         async ([name, path]: [string, string]) => {
-          logger.log('attempting to read', join(this.options.dist, path))
-
           const buffer = await fs.readFile(
             join(this.projectPath(), this.options.dist, path),
           )

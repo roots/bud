@@ -65,7 +65,7 @@ export const TS_CONFIG_PATH = join(REPO_PATH, 'config', 'tsconfig.json')
  *
  * @public
  */
-export const REGISTRY_PROXY = 'http://verdaccio:4873'
+export const REGISTRY_PROXY = 'http://localhost:4873'
 
 /**
  * Repo paths
@@ -75,7 +75,7 @@ export const paths = {
   config: join(REPO_PATH, 'config'),
   sources: join(REPO_PATH, 'sources'),
   tests: join(REPO_PATH, 'tests'),
-  mocks: join(REPO_PATH, '../mocks'),
+  mocks: join(REPO_PATH, './storage/mocks'),
 }
 
 let projectConfig
