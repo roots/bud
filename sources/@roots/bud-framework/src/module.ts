@@ -96,7 +96,7 @@ export class Module {
 
       return resolvedPath.replace('file://', '')
     } catch (err) {
-      this.app.error('bud.module.resolve err', signifier, err)
+      throw new Error(err)
     }
   }
 

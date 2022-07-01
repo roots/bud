@@ -3785,6 +3785,8 @@ __metadata:
     "@types/node": 16.11.41
     "@types/react": 17.0.45
     "@types/react-dom": 17.0.17
+    chalk: 5.0.1
+    lodash-es: 4.17.21
     react: 17.0.2
     react-dom: 17.0.2
     tslib: 2.4.0
@@ -4202,6 +4204,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud@workspace:sources/@roots/bud"
   dependencies:
+    "@roots/browserslist-config": "workspace:sources/@roots/browserslist-config"
     "@roots/bud-api": "workspace:sources/@roots/bud-api"
     "@roots/bud-build": "workspace:sources/@roots/bud-build"
     "@roots/bud-cache": "workspace:sources/@roots/bud-cache"
@@ -4246,6 +4249,7 @@ __metadata:
     webpack-manifest-plugin: ^5.0.0
     webpack-remove-empty-scripts: 0.8.0
   peerDependencies:
+    "@roots/browserslist-config": "*"
     "@roots/bud-api": "*"
     "@roots/bud-build": "*"
     "@roots/bud-cache": "*"
@@ -4256,6 +4260,8 @@ __metadata:
     "@roots/bud-hooks": "*"
     "@roots/bud-server": "*"
   peerDependenciesMeta:
+    "@roots/browserslist-config":
+      optional: true
     "@roots/bud-api":
       optional: true
     "@roots/bud-build":
@@ -23543,6 +23549,7 @@ __metadata:
   resolution: "workbench-1480@workspace:workbench/1480"
   dependencies:
     "@roots/bud": "workspace:sources/@roots/bud"
+    "@roots/bud-preset-wordpress": "workspace:sources/@roots/bud-preset-wordpress"
     "@roots/bud-typescript": "workspace:sources/@roots/bud-typescript"
     ts-node: 10.8.1
   languageName: unknown

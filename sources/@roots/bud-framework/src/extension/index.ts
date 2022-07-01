@@ -540,7 +540,7 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
       this.logger.success('imported', signifier)
       return result?.default ?? result ?? null
     } catch (error) {
-      this.app.error(error)
+      throw new Error(error)
     }
   }
 
