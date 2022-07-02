@@ -8,40 +8,53 @@ import {
 import parseSemver from 'parse-semver'
 import type {Configuration, RuleSetRule} from 'webpack'
 
-type Aliases = Configuration['resolve']['alias']
 type Options = {runtimeOnly: boolean}
 
 /**
  * Vue support
  *
  * @public
+ * @decorator `@label`
+ * @decorator `@options`
+ * @decorator `@dependsOnOptional`
  */
 @label('@roots/bud-vue')
 @options({runtimeOnly: true})
 @dependsOnOptional(['@roots/bud-postcss', '@roots/bud-sass'])
 export default class Vue extends Extension<Options, null> {
+  /**
+   * `boot` callback
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public async boot() {
-    await this.addLoader()
-    await this.addStyleLoader()
+    await this.addLoader().then(this.addStyleLoader)
 
     this.app.hooks.on('build.module.rules.before', this.moduleRulesBefore)
     this.app.hooks.on('build.resolve.extensions', ext => ext.add('.vue'))
     this.app.hooks.async('build.resolve.alias', this.resolveAlias)
   }
 
+  /**
+   * Add `vue-loader`
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
-  public async addLoader() {
-    const loader = await this.resolve('vue-loader')
-    const {VueLoaderPlugin: Plugin} = await this.import('vue-loader')
-
-    this.app.build.setLoader('vue', loader)
+  public async addLoader(): Promise<this> {
+    this.app.build.setLoader('vue', await this.resolve('vue-loader'))
     this.app.build.setItem('vue', {loader: 'vue'})
 
+    const {VueLoaderPlugin: Plugin} = await this.import('vue-loader')
     await this.app.extensions.add({
       label: 'vue-loader-plugin',
       plugin: Plugin,
     })
+
+    return this
   }
 
   /**
@@ -51,14 +64,26 @@ export default class Vue extends Extension<Options, null> {
    * @decorator `@bind`
    */
   @bind
-  public async addStyleLoader() {
-    const loader = await this.resolve('vue-style-loader')
-    this.app.build.setLoader('vue-style', loader)
+  public async addStyleLoader(): Promise<this> {
+    this.app.build.setLoader(
+      'vue-style',
+      await this.resolve('vue-style-loader'),
+    )
     this.app.build.setItem('vue-style', {loader: 'vue-style'})
+
     this.app.build.rules.css.setUse(items => ['vue-style', ...items])
     this.app.build.rules.sass?.setUse(items => ['vue-style', ...items])
+    this.app.build.items.precss.setOptions({esModule: false})
+
+    return this
   }
 
+  /**
+   * `build.module.rules.before` callback
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public moduleRulesBefore(
     ruleset: Array<RuleSetRule>,
@@ -71,8 +96,14 @@ export default class Vue extends Extension<Options, null> {
     return [...(ruleset ?? []), rule.toWebpack()]
   }
 
+  /**
+   * `build.resolve.alias` callback
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
-  public async resolveAlias(aliases: Aliases) {
+  public async resolveAlias(aliases: Configuration['resolve']['alias']) {
     const isVue2 = await this.isVue2()
 
     isVue2 &&
@@ -87,6 +118,12 @@ export default class Vue extends Extension<Options, null> {
     return Object.assign(aliases, {vue})
   }
 
+  /**
+   * Returns true if user has installed a 2.x.x version of vue
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   protected async isVue2() {
     const manifest = await this.app.module.readManifest('vue')

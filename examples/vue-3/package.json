@@ -7,7 +7,6 @@
   "devDependencies": {
     "@roots/browserslist-config": "latest",
     "@roots/bud": "latest",
-    "@roots/bud-postcss": "latest",
     "@roots/bud-sass": "latest",
     "@roots/bud-vue": "latest"
   }

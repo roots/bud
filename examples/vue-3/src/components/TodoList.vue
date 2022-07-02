@@ -1,70 +1,94 @@
 <template>
-  <div>
-    <BaseInputText
-      v-model="newTodoText"
-      placeholder="New todo"
-      @keydown.enter="addTodo"
-    />
-    <ul v-if="todos.length">
-      <TodoListItem
-        v-for="todo in todos"
-        :key="todo.id"
-        :todo="todo"
-        @remove="removeTodo"
-      />
-    </ul>
-    <p v-else>
-      Nothing left in the list. Add a new todo in the input above.
-    </p>
+  <h1>Todo App</h1>
+
+  <input
+    type="text"
+    v-model="todo"
+    placeholder="Type item and hit enter"
+    @keyup.enter="addTodo"
+  />
+
+  <ul>
+    <li v-for="todo in todos" :key="todo.id">
+      <input type="checkbox" v-model="todo.completed" />
+      {{ todo.title }}
+    </li>
+  </ul>
+
+  <div class="total">
+    <span>Completed: {{ numberOfCompletedTodos }}</span>
   </div>
 </template>
 
 <script>
-import BaseInputText from './BaseInputText.vue'
-import TodoListItem from './TodoListItem.vue'
-
-let nextTodoId = 1
-
+import {computed, ref, watch} from 'vue'
 export default {
-  components: {
-    BaseInputText,
-    TodoListItem,
-  },
-  data() {
-    return {
-      newTodoText: '',
-      todos: [
-        {
-          id: nextTodoId++,
-          text: 'Learn Vue',
-        },
-        {
-          id: nextTodoId++,
-          text: 'Learn about single-file components',
-        },
-        {
-          id: nextTodoId++,
-          text: 'Fall in love',
-        },
-      ],
-    }
-  },
-  methods: {
-    addTodo() {
-      const trimmedText = this.newTodoText.trim()
-      if (trimmedText) {
-        this.todos.push({
-          id: nextTodoId++,
-          text: trimmedText,
-        })
-        this.newTodoText = ''
-      }
-    },
-    removeTodo(idToRemove) {
-      this.todos = this.todos.filter(todo => {
-        return todo.id !== idToRemove
+  setup() {
+    let id = 0
+
+    const todo = ref('')
+    const todos = ref([])
+
+    const numberOfCompletedTodos = computed(
+      () => todos.value.filter(todo => todo.completed).length,
+    )
+
+    const addTodo = () => {
+      todos.value.push({
+        id: id,
+        title: todo.value.trim(),
+        completed: false,
       })
-    },
+
+      todo.value = ''
+
+      id++
+    }
+
+    watch(
+      todos,
+      newValue => {
+        console.log(`New value: ${newValue.length}`)
+      },
+      {deep: true},
+    )
+
+    return {
+      todo,
+      todos,
+      addTodo,
+      numberOfCompletedTodos,
+    }
   },
 }
 </script>
+
+<style lang="scss" scoped>
+@import '../variables.scss';
+
+h1 {
+  text-align: center;
+  color: $vue-green;
+}
+
+.total {
+  text-align: center;
+  width: 100%;
+  margin-top: 2rem;
+}
+
+input[type='text'] {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid $vue-blue;
+}
+
+ul {
+  margin-top: 2rem;
+  padding-left: 0;
+
+  li {
+    list-style-type: none;
+  }
+}
+</style>
