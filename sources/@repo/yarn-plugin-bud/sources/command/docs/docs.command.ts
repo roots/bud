@@ -2,7 +2,7 @@ import * as repo from '@repo/constants'
 import {CommandClass, Option} from 'clipanion'
 import {copy} from 'fs-extra'
 
-import {Command} from './base.command'
+import {Command} from '../base.command'
 
 /**
  * Docs command class
@@ -15,7 +15,7 @@ export class Docs extends Command {
    *
    * @internal
    */
-  public name = 'docs'
+  public static label = '@bud docs'
 
   /**
    * Command paths
@@ -31,13 +31,12 @@ export class Docs extends Command {
    */
   public static usage: CommandClass['usage'] = {
     category: '@bud',
-    description:
-      'build docs and readme files. no flags builds everything. running with the --site flag will also build api docs.',
+    description: 'build docs and readme.',
     examples: [
       ['build all', 'yarn @bud docs'],
       ['build api documentation', 'yarn @bud docs --api'],
       ['build api documentation and site files', 'yarn @bud docs --site'],
-      ['build readme files', 'yarn docs --readme'],
+      ['build readme files', 'yarn @bud docs --readme'],
     ],
   }
 
@@ -84,10 +83,13 @@ export class Docs extends Command {
         `typedoc \
           --out ./sources/@repo/docs/content/dev/api \
           --tsconfig ./config/tsconfig.json \
-          --entryPointStrategy expand \
           --entryPoints \
-            ./sources/@roots/bud/src/index.ts \
             ./sources/@roots/bud-framework/src/index.ts \
+            ./sources/@roots/bud-framework/src/extension/index.ts \
+            ./sources/@roots/bud-framework/src/methods/index.ts \
+            ./sources/@roots/bud-framework/src/services/index.ts \
+            ./sources/@roots/bud/src/index.ts \
+            ./sources/@roots/bud/src/cli/index.ts \
             ./sources/@roots/bud-api/src/index.ts \
             ./sources/@roots/bud-build/src/index.ts \
             ./sources/@roots/bud-compiler/src/index.ts \

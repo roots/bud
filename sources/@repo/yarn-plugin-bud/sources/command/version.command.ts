@@ -9,18 +9,11 @@ import {Command} from './base.command'
  */
 export class Version extends Command {
   /**
-   * version (positional)
-   *
-   * @internal
-   */
-  public version = Option.String()
-
-  /**
    * Command name
    *
    * @internal
    */
-  public name = 'version'
+  public static label = '@bud version'
 
   /**
    * Command paths
@@ -37,8 +30,15 @@ export class Version extends Command {
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
     description: `bump version of public packages`,
-    examples: [[`yarn @bud version x.y.z`, `Bump packages to x.y.z`]],
+    examples: [[`Bump packages to x.y.z`, `yarn @bud version x.y.z`]],
   }
+
+  /**
+   * version (positional)
+   *
+   * @internal
+   */
+  public version = Option.String()
 
   /**
    * execute command

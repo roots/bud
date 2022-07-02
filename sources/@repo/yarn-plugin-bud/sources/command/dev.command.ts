@@ -12,7 +12,7 @@ export class Dev extends Command {
    *
    * @internal
    */
-  public name = 'dev'
+  public static label = '@bud dev'
 
   /**
    * Command paths
@@ -29,13 +29,21 @@ export class Dev extends Command {
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
     description: `develop project code`,
-    examples: [[`dev`, `yarn @bud dev`]],
+    examples: [
+      [`run tsc, docusaurus & jest in watch mode`, `yarn @bud dev`],
+    ],
   }
 
   /**
    * @public
    */
   public async execute() {
-    await this.$(`yarn @bud tsc`, `yarn @bud test all --watch`)
+    await this.$(`yarn @bud tsc`)
+
+    await this.$(
+      `yarn @bud tsc --watch`,
+      `yarn @bud test unit --verbose --watch`,
+      `yarn @bud docs dev`,
+    )
   }
 }

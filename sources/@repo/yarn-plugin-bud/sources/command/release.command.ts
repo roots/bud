@@ -23,25 +23,7 @@ export class Release extends Command {
    *
    * @internal
    */
-  public name = 'release npm'
-
-  /**
-   * --version flag
-   *
-   * @internal
-   */
-  public version = Option.String(`-v,--version`, null, {
-    description: `version`,
-  })
-
-  /**
-   * --tag flag
-   *
-   * @internal
-   */
-  public tag = Option.String(`-t,--tag`, null, {
-    description: `tag`,
-  })
+  public static label = '@bud release'
 
   /**
    * Command paths
@@ -60,11 +42,29 @@ export class Release extends Command {
     description: `Do a release.`,
     examples: [
       [
-        `yarn @bud release --version x.y.z --tag latest`,
         `Bump packages to x.y.z and publish`,
+        `yarn @bud release --version x.y.z --tag latest`,
       ],
     ],
   }
+
+  /**
+   * --version flag
+   *
+   * @internal
+   */
+  public version = Option.String(`-v,--version`, null, {
+    description: `version`,
+  })
+
+  /**
+   * --tag flag
+   *
+   * @internal
+   */
+  public tag = Option.String(`-t,--tag`, null, {
+    description: `tag`,
+  })
 
   /**
    * Returns true if tagged `latest`
@@ -162,6 +162,7 @@ export class Release extends Command {
     await this.wipeProxyDb()
 
     this.log('Installing')
+
     await this.$(`yarn install --immutable`)
 
     await this.checkTagIsValid()

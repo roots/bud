@@ -20,7 +20,7 @@ export class Test extends Command {
    *
    * @internal
    */
-  public name = `test`
+  public static label = `@bud test`
 
   /**
    * Command paths
@@ -36,22 +36,10 @@ export class Test extends Command {
    */
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
-    description: `run unit and integration tests`,
+    description: `run tests`,
     examples: [
-      [`@bud test unit`, `run unit tests`],
-      [`@bud test integration`, `run integration tests`],
-      [
-        `@bud test integration/sage`,
-        `run integration test on mock sage project`,
-      ],
-      [
-        `@bud test integration/vue`,
-        `run integration test on mock vue project`,
-      ],
-      [
-        `@bud test integration --verbose`,
-        `run integration tests with jest verbose flag`,
-      ],
+      [`run unit tests`, `yarn @bud test unit`],
+      [`run integration tests`, `yarn @bud test integration`],
     ],
   }
 

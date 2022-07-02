@@ -4,13 +4,18 @@ import {join} from 'path'
 
 import {Command} from './base.command'
 
+/**
+ * `@bud tsc` command
+ *
+ * @internal
+ */
 export class Tsc extends Command {
   /**
    * Command name
    *
    * @internal
    */
-  public name = 'tsc'
+  public static label = '@bud tsc'
 
   /**
    * Command paths
@@ -44,7 +49,17 @@ export class Tsc extends Command {
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
     description: `Run the typescript compiler`,
-    examples: [[`Run the typescript compiler`, `yarn @bud tsc`]],
+    examples: [
+      [`run the typescript compiler`, `yarn @bud tsc`],
+      [
+        'run the typescript compiler in watch mode',
+        'yarn @bud tsc --watch',
+      ],
+      [
+        'run the typescript compiler with forced rebuild (no incremental compilation)',
+        'yarn @bud tsc --force',
+      ],
+    ],
   }
 
   /**
