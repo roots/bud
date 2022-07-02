@@ -132,7 +132,7 @@
     "dotenv-expand": "8.0.3",
     "execa": "6.1.0",
     "fs-extra": "10.1.0",
-    "globby": "13.1.1",
+    "globby": "13.1.2",
     "helpful-decorators": "2.1.0",
     "html-webpack-plugin": "5.5.0",
     "lodash-es": "4.17.21",
