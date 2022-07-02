@@ -20,10 +20,7 @@ export class Eslint extends Command {
    *
    * @internal
    */
-  public static paths: CommandClass['paths'] = [
-    [`@bud`, `eslint`],
-    [`@bud`, `lint`, `eslint`],
-  ]
+  public static paths: CommandClass['paths'] = [[`@bud`, `lint`, `eslint`]]
 
   /**
    * Command usage
@@ -32,14 +29,8 @@ export class Eslint extends Command {
    */
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
-    description: `lint repo files. run all linters by passing no flags.`,
-    examples: [
-      [`run all linters`, `yarn @bud lint`],
-      [`run prettier`, `yarn @bud lint --prettier`],
-      [`run eslint`, `yarn @bud lint eslint`],
-      [`run skypack`, `yarn @bud lint --skypack`],
-      [`lint on type definitions as well`, `yarn @bud lint --types`],
-    ],
+    description: `run eslint`,
+    examples: [[`run eslint`, `yarn @bud eslint`]],
   }
 
   /**
@@ -49,7 +40,7 @@ export class Eslint extends Command {
    */
   public async execute() {
     await this.$(
-      `yarn eslint "./sources/@roots/*/src/**/*" --config ./config/eslint.config.cjs --ignore-path config/.eslintignore --no-error-on-unmatched-pattern`,      
+      `yarn eslint "./sources/@roots/*/src/**/*" --config ./config/eslint.config.cjs --ignore-path config/.eslintignore --no-error-on-unmatched-pattern`,
     )
   }
 }

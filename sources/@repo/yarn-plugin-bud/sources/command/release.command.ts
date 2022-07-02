@@ -196,6 +196,8 @@ export class Release extends Command {
    * @internal
    */
   public async publish() {
-    await this.$(`yarn @bud publish --tag ${this.tag}`)
+    await this.$(
+      `yarn workspaces foreach --no-private npm publish --access public --tag ${this.tag}`,
+    )
   }
 }

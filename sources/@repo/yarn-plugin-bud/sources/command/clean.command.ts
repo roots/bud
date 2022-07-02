@@ -31,7 +31,7 @@ export class Clean extends Command {
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
     description: `clean project artifacts`,
-    examples: [[`delete yarn cache`, `yarn @bud clean`]],
+    examples: [[`clean project artifacts`, `yarn @bud clean`]],
   }
 
   /**
@@ -40,7 +40,6 @@ export class Clean extends Command {
    * @internal
    */
   public async execute() {
-    await this.$(`yarn cache clean --all`)
     try {
       await this.$(`rm -rf **/.budfiles`)
       await this.$(`rm -rf **/node_modules/*`)
@@ -48,17 +47,10 @@ export class Clean extends Command {
       await this.$(`rm -rf ${repo.paths.sources}/@roots/*/types/*`)
     } catch (e) {}
 
-    if (process.env.YARN_RC_FILENAME == 'config/yarnrc.dev.yml') {
-      try {
-        await this.$(`rm -rf storage/packages/@roots/*`)
-        await this.$(
-          `rm -rf ../mocks/yarn/*/dist/**/* ../mocks/npm/*/dist/**/*`,
-        )
-      } catch (e) {}
-    }
-  }
-
-  public async errorHandler(e: string) {
-    process.stdout.write(`[non-fatal] ${e}`)
+    try {
+      await this.$(`rm -rf storage/packages/@roots/*`)
+      await this.$(`rm -rf storage/packages/npm/*`)
+      await this.$(`rm -rf storage/mocks/*`)
+    } catch (e) {}
   }
 }

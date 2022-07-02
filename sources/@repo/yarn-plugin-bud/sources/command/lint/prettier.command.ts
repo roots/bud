@@ -21,7 +21,6 @@ export class Prettier extends Command {
    * @internal
    */
   public static paths: CommandClass['paths'] = [
-    [`@bud`, `prettier`],
     [`@bud`, `lint`, `prettier`],
   ]
 
@@ -31,7 +30,7 @@ export class Prettier extends Command {
    * @internal
    */
   public static usage: CommandClass['usage'] = {
-    category: `@bud`,
+    category: `lint`,
     description: `lint repo files. run all linters by passing no flags.`,
     examples: [[`run prettier`, `yarn @bud lint prettier`]],
   }

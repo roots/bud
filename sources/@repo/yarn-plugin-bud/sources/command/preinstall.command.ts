@@ -35,7 +35,7 @@ export class Preinstall extends Command {
     try {
       await ensureFile(`${process.cwd()}/storage/yarn.lock`)
     } catch (e) {
-      this.errorHandler(e)
+      this.err(e)
     }
 
     await execute(

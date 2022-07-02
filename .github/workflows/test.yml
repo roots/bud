@@ -51,9 +51,17 @@ jobs:
         run: |
           yarn install --immutable
 
-      - name: Lint
+      - name: Eslint
         run: |
-          yarn @bud lint --skypack --eslint
+          yarn @bud lint eslint
+
+      - name: skypack
+        run: |
+          yarn @bud lint skypack
+
+      - name: syncpack
+        run: |
+          yarn @bud lint syncpack
 
       - name: Publish
         run: |
