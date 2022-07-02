@@ -43,9 +43,20 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
+      - name: Create temp directory
+        run: |
+          mkdir storage \
+          && mkdir storage/tmp \
+          && touch storage/tmp/yarn.lock
+
       - name: Install verdaccio
         run: |
-          docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
+          npm install -g verdaccio pm2
+        working-directory: ./storage/tmp
+
+      - name: Start verdaccio
+        run: |
+          pm2 start verdaccio -- --config ./config/verdaccio/config.yaml
 
       - name: Install
         run: |
