@@ -7,13 +7,13 @@ import {Command} from '../base.command'
  *
  * @internal
  */
-export class Skypack extends Command {
+export class LintExports extends Command {
   /**
    * Command name
    *
    * @internal
    */
-  public name = 'skypack'
+  public static label = '@bud lint exports'
 
   /**
    * Command paths
@@ -21,7 +21,7 @@ export class Skypack extends Command {
    * @internal
    */
   public static paths: CommandClass['paths'] = [
-    [`@bud`, `lint`, `skypack`],
+    [`@bud`, `lint`, `exports`],
   ]
 
   /**
@@ -30,10 +30,10 @@ export class Skypack extends Command {
    * @internal
    */
   public static usage: CommandClass['usage'] = {
-    category: `lint`,
+    category: `@bud`,
     description: `lint published package module exports`,
     examples: [
-      [`lint package.json module exports`, `yarn @bud lint skypack`],
+      [`lint package.json module exports`, `yarn @bud lint exports`],
     ],
   }
 

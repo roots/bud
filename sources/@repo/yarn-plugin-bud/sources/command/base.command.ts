@@ -1,11 +1,7 @@
 import {BaseCommand} from '@yarnpkg/cli'
 import {Configuration, Manifest, Project} from '@yarnpkg/core'
 import {execute} from '@yarnpkg/shell'
-import {Option} from 'clipanion'
 import {bind} from 'helpful-decorators'
-
-import {YarnRC} from '../yarnrc/yarnrc'
-import {Yml} from '../yarnrc/yml'
 
 /**
  * Base class
@@ -19,15 +15,6 @@ export abstract class Command extends BaseCommand {
    * @internal
    */
   public name: string
-
-  /**
-   * --dry-run flag
-   *
-   * @internal
-   */
-  public dryRun = Option.Boolean('--dry-run', false, {
-    description: 'log output to console',
-  })
 
   /**
    * Variadic arguments
@@ -44,16 +31,6 @@ export abstract class Command extends BaseCommand {
   @bind
   public async getManifest(): Promise<Manifest> {
     return await Manifest.tryFind(this.context.cwd)
-  }
-
-  /**
-   * Get yarnrc helper
-   *
-   * @internal
-   */
-  @bind
-  public async getYarnYml(): Promise<Yml> {
-    return await YarnRC.find(this.context)
   }
 
   /**
@@ -115,8 +92,6 @@ export abstract class Command extends BaseCommand {
   /**
    * Logs message to process.stderr
    *
-   * @param message - message to log
-   *
    * @internal
    */
   @bind
@@ -125,16 +100,8 @@ export abstract class Command extends BaseCommand {
     process.stderr.write(
       `[${label}] ${typeof error === 'string' ? error : error.message}\n`,
     )
-  }
 
-  /**
-   * Execute a dry run
-   *
-   * @internal
-   */
-  @bind
-  public async _dry(...tasks: Array<string>): Promise<void> {
-    tasks.forEach(task => this.log(JSON.stringify(task)))
+    process.exit(1)
   }
 
   /**
@@ -154,14 +121,12 @@ export abstract class Command extends BaseCommand {
         this.log(task)
 
         try {
-          const code = await execute(task, [], {
-            cwd: project.cwd,
-          })
+          const code = await execute(task, [], {cwd: project.cwd})
 
           if (code !== 0)
             throw new Error(`${task} failed with code ${code}`)
         } catch (e) {
-          await this.err(e)
+          this.err(e)
         }
       }),
     )

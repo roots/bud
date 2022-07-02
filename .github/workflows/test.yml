@@ -51,26 +51,30 @@ jobs:
         run: |
           yarn install
 
-      - name: Eslint
+      - name: Lint (dependencies)
         run: |
-          yarn @bud lint eslint
+          yarn @bud lint dependencies
 
-      - name: skypack
+      - name: Lint (syntax)
         run: |
-          yarn @bud lint skypack
+          yarn @bud lint
 
-      - name: syncpack
+      - name: Lint (style)
         run: |
-          yarn @bud lint syncpack
+          yarn @bud format --no-fix
 
-      - name: Publish
+      - name: Lint (module exports)
+        run: |
+          yarn @bud lint exports
+
+      - name: Do test release
         run: |
           yarn @bud release --tag latest
 
-      - name: Unit
+      - name: Test (unit)
         run: |
           yarn @bud test unit --verbose --maxWorkers 2
 
-      - name: Integration
+      - name: Test (integration)
         run: |
           yarn @bud test integration --verbose --maxWorkers 2

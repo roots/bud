@@ -3,17 +3,17 @@ import {CommandClass} from 'clipanion'
 import {Command} from '../base.command'
 
 /**
- * Syncpack command class
+ * `@bud lint dependencies` command class
  *
  * @internal
  */
-export class Syncpack extends Command {
+export class LintDependencies extends Command {
   /**
    * Command name
    *
    * @internal
    */
-  public name = 'syncpack'
+  public static label = '@bud lint dependencies'
 
   /**
    * Command paths
@@ -21,7 +21,7 @@ export class Syncpack extends Command {
    * @internal
    */
   public static paths: CommandClass['paths'] = [
-    [`@bud`, `lint`, `syncpack`],
+    [`@bud`, `lint`, `dependencies`],
   ]
 
   /**
@@ -30,9 +30,11 @@ export class Syncpack extends Command {
    * @internal
    */
   public static usage: CommandClass['usage'] = {
-    category: `lint`,
-    description: `ensure packages are synced across repo`,
-    examples: [[`run syncpack`, `yarn @bud lint syncpack`]],
+    category: `@bud`,
+    description: `ensure packages are synced`,
+    examples: [
+      [`lint dependency versions`, `yarn @bud lint dependencies`],
+    ],
   }
 
   /**
