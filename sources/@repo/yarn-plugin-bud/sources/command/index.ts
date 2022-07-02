@@ -8,11 +8,11 @@ import {Lint} from './lint/lint.command'
 import {Prettier} from './lint/prettier.command'
 import {Syncpack} from './lint/syncpack.command'
 import {Make} from './make.command'
+import {Preinstall} from './preinstall.command'
 import {Publish} from './publish.command'
 import {Release} from './release.command'
 import {Test} from './test.command'
 import {Vendor} from './vendor.command'
-import {Verdaccio} from './verdaccio.command'
 import {Version} from './version.command'
 
 export const Commands = {
@@ -30,6 +30,6 @@ export const Commands = {
   Syncpack,
   Test,
   Vendor,
-  Verdaccio,
+  Preinstall,
   Version,
 }
