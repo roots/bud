@@ -88,19 +88,6 @@ export abstract class Command extends BaseCommand {
   }
 
   /**
-   * Returns true if process is being run in a container
-   *
-   * @returns boolean
-   *
-   * @internal
-   * @decorator `@bind`
-   */
-  @bind
-  public isContainerized() {
-    return typeof process.env.BUD_ENV !== 'undefined'
-  }
-
-  /**
    * Append passthrough arguments to the command
    *
    * @internal
@@ -110,22 +97,6 @@ export abstract class Command extends BaseCommand {
     return this.passthrough.length
       ? this.passthrough.reduce((a, c) => (!c ? `${a}` : `${a} ${c}`), str)
       : str
-  }
-
-  /**
-   * Called on error.
-   *
-   * @remarks
-   * Unless overriden, the base class is set to immediately exit the process on error.
-   *
-   * @param message - message to log
-   *
-   * @internal
-   */
-  @bind
-  public async errorHandler(e: string) {
-    this.err(e)
-    process.exit(1)
   }
 
   /**
@@ -149,9 +120,11 @@ export abstract class Command extends BaseCommand {
    * @internal
    */
   @bind
-  public err(message: string): void {
+  public err(error: string | Error): void {
     const label = this.name ?? '@bud'
-    process.stderr.write(`[${label}] ${message}\n`)
+    process.stderr.write(
+      `[${label}] ${typeof error === 'string' ? error : error.message}\n`,
+    )
   }
 
   /**
@@ -161,7 +134,7 @@ export abstract class Command extends BaseCommand {
    */
   @bind
   public async _dry(...tasks: Array<string>): Promise<void> {
-    tasks.forEach(this.log)
+    tasks.forEach(task => this.log(JSON.stringify(task)))
   }
 
   /**
@@ -171,7 +144,7 @@ export abstract class Command extends BaseCommand {
    * @internal
    */
   @bind
-  public async _$(...tasks: Array<string>): Promise<void> {
+  public async $(...tasks: Array<string>): Promise<void> {
     const project = await this.getProject()
 
     await Promise.all(
@@ -188,22 +161,9 @@ export abstract class Command extends BaseCommand {
           if (code !== 0)
             throw new Error(`${task} failed with code ${code}`)
         } catch (e) {
-          await this.errorHandler(e)
+          await this.err(e)
         }
       }),
     )
-  }
-
-  /**
-   * Execute a shell command or series of shell commands
-   *
-   * @remarks
-   * Commands are executed in parallel
-   *
-   * @internal
-   */
-  @bind
-  public async $(...tasks: Array<string>): Promise<void> {
-    this.dryRun ? await this._dry(...tasks) : await this._$(...tasks)
   }
 }

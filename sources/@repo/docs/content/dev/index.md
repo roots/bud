@@ -15,27 +15,17 @@ You can [reference API documentation here](https://bud.js.org/dev/api/).
 
 ## Installation
 
-Before install we need to have [verdaccio](https://verdaccio.org/) available locally over port 4873.
-
-Either install verdaccio globally:
-
 ```sh
-yarn global add verdaccio
-pm2 start verdaccio -- --config ./config/verdaccio/config.yaml
-```
-
-or, run it with docker:
-
-```sh
-docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
-```
-
-With that done, you can then proceed with installing and building the repo packages:
-
-```sh
+yarn @bud preinstall
 yarn
 yarn @bud build
 ```
+
+`yarn @bud preinstall` will install pm2 and verdaccio globally and then start verdaccio with pm2.
+
+To stop verdaccio run `pm2 stop verdaccio`.
+
+If you don't want to install these packages globally you can start the `verdaccio/verdaccio` docker image and skip `yarn @bud preinstall`.
 
 ## Setup
 

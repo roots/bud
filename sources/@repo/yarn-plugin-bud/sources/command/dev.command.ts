@@ -21,8 +21,6 @@ export class Dev extends Command {
    */
   public static paths: CommandClass['paths'] = [[`@bud`, `dev`]]
 
-  public ts = join(paths.config, 'tsconfig.json')
-
   /**
    * Command usage
    *
@@ -34,17 +32,10 @@ export class Dev extends Command {
     examples: [[`dev`, `yarn @bud dev`]],
   }
 
-  public test = Option.Boolean('Run tests in watch mode alongside tsc')
-
   /**
    * @public
    */
   public async execute() {
-    await this.$(`yarn ts-node --project ${this.ts} ${ncc}`)
-
-    await this.$(
-      `yarn tsc -b ${this.ts} --watch`,
-      this.test ? `yarn @bud test all --watch` : ``,
-    )
+    await this.$(`yarn @bud tsc`, `yarn @bud test all --watch`)
   }
 }

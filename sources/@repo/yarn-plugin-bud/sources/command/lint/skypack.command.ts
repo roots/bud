@@ -3,17 +3,17 @@ import {CommandClass} from 'clipanion'
 import {Command} from '../base.command'
 
 /**
- * Syncpack command class
+ * Skypack command class
  *
  * @internal
  */
-export class Syncpack extends Command {
+export class Skypack extends Command {
   /**
    * Command name
    *
    * @internal
    */
-  public name = 'syncpack'
+  public name = 'skypack'
 
   /**
    * Command paths
@@ -21,7 +21,7 @@ export class Syncpack extends Command {
    * @internal
    */
   public static paths: CommandClass['paths'] = [
-    [`@bud`, `lint`, `syncpack`],
+    [`@bud`, `lint`, `skypack`],
   ]
 
   /**
@@ -31,8 +31,10 @@ export class Syncpack extends Command {
    */
   public static usage: CommandClass['usage'] = {
     category: `lint`,
-    description: `ensure packages are synced across repo`,
-    examples: [[`run syncpack`, `yarn @bud lint syncpack`]],
+    description: `lint published package module exports`,
+    examples: [
+      [`lint package.json module exports`, `yarn @bud lint skypack`],
+    ],
   }
 
   /**
@@ -42,7 +44,7 @@ export class Syncpack extends Command {
    */
   public async execute() {
     await this.$(
-      `yarn syncpack list-mismatches --config ./config/syncpack.config.cjs`,
+      `yarn workspaces foreach --no-private exec yarn run package-check`,
     )
   }
 }

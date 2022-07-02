@@ -25,10 +25,6 @@ jobs:
         with:
           node-version: ${{matrix.node}}
 
-      - name: Install verdaccio
-        run: |
-          yarn global add verdaccio pm2
-
       - name: Checkout
         uses: actions/checkout@v3
         with:
@@ -47,17 +43,25 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - name: Start verdaccio
+      - name: Preinstall
         run: |
-          pm2 start verdaccio -- --config ./config/verdaccio/config.yaml
+          yarn @bud preinstall
 
-      - name: Setup
+      - name: Install
         run: |
           yarn install --immutable
 
-      - name: Lint
+      - name: Eslint
         run: |
-          yarn @bud lint --skypack --eslint
+          yarn @bud lint eslint
+
+      - name: skypack
+        run: |
+          yarn @bud lint skypack
+
+      - name: syncpack
+        run: |
+          yarn @bud lint syncpack
 
       - name: Publish
         run: |
