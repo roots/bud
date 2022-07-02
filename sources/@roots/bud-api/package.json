@@ -75,7 +75,7 @@
     "css-minimizer-webpack-plugin": "4.0.0",
     "fs-extra": "10.1.0",
     "get-port": "6.1.2",
-    "globby": "13.1.1",
+    "globby": "13.1.2",
     "helpful-decorators": "2.1.0",
     "html-webpack-plugin": "5.5.0",
     "lodash-es": "4.17.21",

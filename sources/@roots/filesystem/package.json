@@ -57,7 +57,7 @@
     "resolve-from": "5.0.0"
   },
   "dependencies": {
-    "globby": "13.1.1",
+    "globby": "13.1.2",
     "helpful-decorators": "2.1.0",
     "lodash-es": "4.17.21",
     "tslib": "2.4.0"
