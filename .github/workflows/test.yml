@@ -20,15 +20,19 @@ jobs:
     runs-on: ${{matrix.platform}}
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
       - name: Setup
         uses: actions/setup-node@v3
         with:
           node-version: ${{matrix.node}}
+
+      - name: Install verdaccio
+        run: |
+          yarn global add verdaccio pm2
+
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Cache
         id: yarn-cache-dir-path
@@ -42,11 +46,6 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
-
-      - name: Install verdaccio
-        run: |
-          npm install verdaccio --location global
-          npm install pm2 --location global
 
       - name: Start verdaccio
         run: |
