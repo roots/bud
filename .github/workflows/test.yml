@@ -45,14 +45,13 @@ jobs:
 
       - name: Create temp directory
         run: |
-          mkdir storage \
-          && mkdir storage/tmp \
-          && touch storage/tmp/yarn.lock
+          mkdir storage/inits \
+          && touch storage/init/yarn.lock
 
       - name: Install verdaccio
         run: |
           npm install -g verdaccio pm2
-        working-directory: ./storage/tmp
+        working-directory: ./storage/init
 
       - name: Start verdaccio
         run: |
