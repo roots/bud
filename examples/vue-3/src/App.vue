@@ -1,18 +1,9 @@
 <template>
-  <div id="app">
-    <h1>My Todo App!</h1>
-    <TodoList />
-  </div>
+  <TodoList />
 </template>
 
-<script>
+<script setup>
 import TodoList from './components/TodoList.vue'
-
-export default {
-  components: {
-    TodoList,
-  },
-}
 </script>
 
 <style lang="scss">
@@ -32,9 +23,5 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: $vue-blue;
-}
-
-h1 {
-  text-align: center;
 }
 </style>
