@@ -50,7 +50,7 @@ jobs:
 
       - name: Install verdaccio
         run: |
-          npm install -g verdaccio pm2
+          npm install --location=global  verdaccio pm2
         working-directory: ./storage/init
 
       - name: Start verdaccio
