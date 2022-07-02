@@ -43,19 +43,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - name: Create temp directory
+      - name: Preinstall
         run: |
-          mkdir storage/init \
-          && touch storage/init/yarn.lock
-
-      - name: Install verdaccio
-        run: |
-          npm install --location=global  verdaccio pm2
-        working-directory: ./storage/init
-
-      - name: Start verdaccio
-        run: |
-          pm2 start verdaccio -- --config ./config/verdaccio/config.yaml
+          yarn @bud preinstall
 
       - name: Install
         run: |
