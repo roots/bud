@@ -25,10 +25,6 @@ jobs:
         with:
           node-version: ${{matrix.node}}
 
-      - name: Install verdaccio
-        run: |
-          yarn global add verdaccio pm2
-
       - name: Checkout
         uses: actions/checkout@v3
         with:
@@ -47,11 +43,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - name: Start verdaccio
+      - name: Install verdaccio
         run: |
-          pm2 start verdaccio -- --config ./config/verdaccio/config.yaml
+          docker run -it --rm --name verdaccio -p 4873:4873 verdaccio/verdaccio
 
-      - name: Setup
+      - name: Install
         run: |
           yarn install --immutable
 
