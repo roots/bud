@@ -45,7 +45,7 @@ jobs:
 
       - name: Create temp directory
         run: |
-          mkdir storage/inits \
+          mkdir storage/init \
           && touch storage/init/yarn.lock
 
       - name: Install verdaccio
