@@ -159,6 +159,7 @@ export class Config {
   @bind
   public setPresetOptions(preset: string, options: any): this {
     this.presets[preset] = [this.presets[preset].shift(), options]
+    console.log("foo bar")
     return this
   }
 

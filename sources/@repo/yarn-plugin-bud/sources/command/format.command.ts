@@ -53,7 +53,7 @@ export class Format extends Command {
   public async execute() {
     await this.$(
       `yarn prettier ./sources/@roots/*/src/**/* ${
-        this.fix ? '--write' : ''
+        this.fix ? '--write' : '--check'
       } --config ./config/prettier.config.cjs --ignore-unknown --no-error-on-unmatched-pattern`,
     )
   }
