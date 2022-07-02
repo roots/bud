@@ -51,19 +51,19 @@ jobs:
         run: |
           yarn install
 
-      - name: Lint dependencies
+      - name: Lint (dependencies)
         run: |
           yarn @bud lint dependencies
 
-      - name: Lint syntax
+      - name: Lint (syntax)
         run: |
           yarn @bud lint
 
-      - name: Lint style
+      - name: Lint (style)
         run: |
-          yarn @bud lint exports
+          yarn @bud format --no-fix
 
-      - name: Lint exports
+      - name: Lint (module exports)
         run: |
           yarn @bud lint exports
 
@@ -71,10 +71,10 @@ jobs:
         run: |
           yarn @bud release --tag latest
 
-      - name: Unit test
+      - name: Test (unit)
         run: |
           yarn @bud test unit --verbose --maxWorkers 2
 
-      - name: Integration test
+      - name: Test (integration)
         run: |
           yarn @bud test integration --verbose --maxWorkers 2
