@@ -69,7 +69,7 @@
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.11.41",
-    "@types/tailwindcss": "3.0.10"
+    "@types/tailwindcss": "3.0.11"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
