@@ -49,7 +49,7 @@ jobs:
 
       - name: Install
         run: |
-          yarn install --immutable
+          yarn install
 
       - name: Eslint
         run: |
