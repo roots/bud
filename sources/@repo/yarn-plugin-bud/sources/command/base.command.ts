@@ -100,6 +100,8 @@ export abstract class Command extends BaseCommand {
     process.stderr.write(
       `[${label}] ${typeof error === 'string' ? error : error.message}\n`,
     )
+
+    process.exit(1)
   }
 
   /**
