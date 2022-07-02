@@ -45,8 +45,7 @@ jobs:
 
       - name: Install verdaccio
         run: |
-          npm install verdaccio --location global
-          npm install pm2 --location global
+          npm --prefix / install -g verdaccio pm2
 
       - name: Start verdaccio
         run: |
