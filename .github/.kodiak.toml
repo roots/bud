@@ -1,0 +1,13 @@
+version = 1
+
+[merge]
+automerge_label = "🚀"
+
+[merge.automerge_dependencies]
+versions = ["minor", "patch"]
+usernames = ["renovate"]
+
+[merge.message]
+title = "pull_request_title"
+body = "pull_request_body"
+strip_html_comments = true

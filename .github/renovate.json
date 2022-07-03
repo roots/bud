@@ -4,15 +4,17 @@
   "commitMessagePrefix": "📦 deps:",
   "commitMessageTopic": "{{depName}}",
   "extends": ["config:base", "schedule:daily", ":dependencyDashboard"],
-  "ignorePaths": ["sources/deprecated/**", "examples/**"],
+  "ignorePaths": ["sources/deprecated/**", "examples/**", "workbench/**"],
   "packageRules": [
     {
       "automerge": true,
-      "matchUpdateTypes": ["minor", "patch", "pin", "digest"]
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "addLabels": ["🚀"]
     },
     {
       "groupName": "@babel",
-      "matchPackagePrefixes": ["@babel/"]
+      "matchPackagePrefixes": ["@babel/"],
+      "addLabels": ["🚀"]
     },
     {
       "groupName": "react",
@@ -21,11 +23,13 @@
         "react-dom",
         "@types/react",
         "react-reconciler"
-      ]
+      ],
+      "addLabels": ["🚀"]
     },
     {
       "groupName": "@yarnpkg",
-      "matchPackagePrefixes": ["@yarnpkg/"]
+      "matchPackagePrefixes": ["@yarnpkg/"],
+      "addLabels": ["🚀"]
     }
   ],
   "postUpdateOptions": ["yarnDedupeHighest"],
