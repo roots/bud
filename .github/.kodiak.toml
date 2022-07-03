@@ -1,7 +1,7 @@
 version = 1
 
 [merge]
-automerge_label = "🚀"
+automerge_label = "🚀!"
 
 [merge.automerge_dependencies]
 versions = ["minor", "patch"]
