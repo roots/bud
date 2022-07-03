@@ -136,11 +136,21 @@ export class Project {
   @bind
   public async yarnInstall() {
     await fs.ensureFile(this.projectPath('yarn.lock'))
+    await fs.remove(this.projectPath('yarn.lock'))
+    await fs.ensureFile(this.projectPath('yarn.lock'))
+
     await fs.copy(
       join(paths.sources, '@repo', 'test-kit', '.yarnrc.stub.yml'),
       this.projectPath('.yarnrc.yml'),
     )
-    await this.$('yarn', [`install`])
+    await this.$('yarn', ['cache', 'clean', '--all'])
+    await this.$('yarn', [
+      `install`,
+      '--update-checksums',
+      '--skip-integrity-check',
+      '--registry',
+      REGISTRY_PROXY,
+    ])
   }
 
   @bind
@@ -174,7 +184,6 @@ export class Project {
     await this.$(`node`, [
       join(this.projectPath(), 'node_modules', '.bin', 'bud'),
       `build`,
-      `--ci`,
     ])
   }
 

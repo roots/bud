@@ -58,7 +58,12 @@ export default class BudReactRefresh extends Extension<
   @bind
   public async afterConfig() {
     this.logger.log('Injecting react-refresh/client scripts')
-    this.app.hooks.on('build.entry', reduceEntries.add)
+    if (!this.app.hasChildren)
+      this.app.hooks.on('build.entry', reduceEntries.add)
+    else
+      Object.values(this.app.children).forEach(instance =>
+        instance.hooks.on('build.entry', reduceEntries.add),
+      )
 
     if (!this.transformExtension) {
       this.setTransformExtension(

@@ -132,7 +132,7 @@ export abstract class Bud {
    * @public
    */
   public get hasChildren(): boolean {
-    return Object.entries(this.children).length > 0
+    return Object.values(this.children).length > 0
   }
 
   public services: Services.Registry

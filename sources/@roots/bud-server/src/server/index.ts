@@ -1,4 +1,4 @@
-import type {Server as Base} from '@roots/bud-framework'
+import type {Bud, Server as Base} from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework/service'
 import type {Connection} from '@roots/bud-framework/services/server'
 import Express from 'express'
@@ -131,18 +131,17 @@ export class Server extends Service implements Base.Service {
   @bind
   @once
   public async injectScripts() {
-    await Promise.all(
-      [this.app, ...(Object.values(this.app.children) ?? [])].map(
-        async instance => {
-          await inject(
-            instance,
-            Array.from(
-              instance.hooks.filter('dev.client.scripts') ?? new Set([]),
-            ),
-          )
-        },
-      ),
-    )
+    const injectOn = (instance: Bud): unknown =>
+      inject(
+        instance,
+        Array.from(
+          instance.hooks.filter('dev.client.scripts') ?? new Set([]),
+        ),
+      )
+
+    this.app.hasChildren
+      ? Object.values(this.app.children).map(injectOn)
+      : injectOn(this.app)
   }
 
   /**

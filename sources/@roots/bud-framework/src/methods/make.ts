@@ -32,7 +32,9 @@ export const make: make = function (seed, tap) {
   const current = this as Bud
   const root = current.root
 
-  const options = isString(seed) ? {name: seed, root} : {...seed, root}
+  const options = isString(seed)
+    ? {name: seed, dir: root.path('/'), root}
+    : {...seed, root}
 
   root.log(`constructing new instance:`, options.name)
 

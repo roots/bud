@@ -1,45 +1,21 @@
-import fs from 'fs-extra'
 import {bind} from 'helpful-decorators'
-import {dirname, join} from 'node:path'
-import {pkgUp} from 'pkg-up'
 
 export class Dir {
-  public project?: string
-
-  public constructor(public cwd?: string) {}
-
-  public set(dir: 'cwd' | 'project', path: string): this {
-    this[dir] = path
-
-    return this
-  }
-
-  public async check(path: string): Promise<string | false> {
-    const exists = await fs.pathExists(path)
-    return exists ? path : false
-  }
+  public constructor(public project: string) {}
 
   @bind
-  public async setProject(path: string): Promise<this> {
-    const check = await this.check(join(path, 'package.json'))
-    if (check) this.project = dirname(check)
+  public setProject(path: string): this {
+    this.project = path
+
     return this
   }
 
   @bind
   public async find(): Promise<Dir> {
-    const cwd = await this.check(this.cwd)
-    if (!cwd) throw new Error(`cwd not accessible: ${this.cwd}`)
+    if (!this.project)
+      throw new Error(`project not accessible: ${this.project}`)
 
-    await this.setProject(this.cwd)
     if (this.project) return this
-
-    await pkgUp({cwd: this.cwd}).then(dirname).then(this.setProject)
-    if (!this.project) {
-      throw new Error(
-        `Could not find project root (from cwd: ${this.cwd})`,
-      )
-    }
 
     return this
   }

@@ -30,7 +30,7 @@ const makeContext = async (
 
   return new Context(
     application.name?.split(`@roots/`).pop() ?? 'bud',
-    dir.cwd,
+    dir.project,
     dir.project,
     manifest,
     disk,

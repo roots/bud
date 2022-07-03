@@ -1,5 +1,6 @@
 import dotenv from 'dotenv'
 import {expand} from 'dotenv-expand'
+import {isUndefined} from 'lodash-es'
 import {join} from 'node:path'
 
 /**
@@ -23,9 +24,11 @@ export class Env {
   public constructor(baseDirectory: string) {
     let values = {}
 
-    Object.entries(process.env).map(([k, v]) => {
-      values[k] = v
-    })
+    Object.entries(process.env)
+      .filter(v => !isUndefined(v))
+      .map(([k, v]) => {
+        values[k] = v
+      })
 
     const get = (path: string) => {
       const env = dotenv.config({path})
