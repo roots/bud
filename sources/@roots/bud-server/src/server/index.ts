@@ -77,6 +77,8 @@ export class Server extends Service implements Base.Service {
   @bind
   @once
   public async register(): Promise<void> {
+    if (!this.app.isDevelopment) return
+
     seed(this.app)
 
     this.application = this.express()
@@ -94,6 +96,8 @@ export class Server extends Service implements Base.Service {
   @bind
   @once
   public async boot(): Promise<void> {
+    if (!this.app.isDevelopment) return
+
     this.app.hooks.action(
       'server.before',
       this.setConnection,
@@ -131,11 +135,13 @@ export class Server extends Service implements Base.Service {
   @bind
   @once
   public async injectScripts() {
+    this.app.log('injecting client scripts')
+
     const injectOn = (instance: Bud): unknown =>
       inject(
         instance,
         Array.from(
-          instance.hooks.filter('dev.client.scripts') ?? new Set([]),
+          this.app.hooks.filter('dev.client.scripts') ?? new Set([]),
         ),
       )
 
