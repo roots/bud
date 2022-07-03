@@ -1,5 +1,6 @@
 # secret
 .env
+!tests/unit/bud/context/**/.env
 
 coverage
 storage
