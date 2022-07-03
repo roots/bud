@@ -10,6 +10,7 @@ Array [
   "@roots/bud-preset-recommend",
   "@roots/bud-tailwindcss",
   "@roots/bud-terser",
+  "@roots/bud-terser/css-minimizer",
   "cdn",
   "clean-webpack-plugin",
   "copy-webpack-plugin",
