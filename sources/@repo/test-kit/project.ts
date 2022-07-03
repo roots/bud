@@ -143,7 +143,7 @@ export class Project {
       join(paths.sources, '@repo', 'test-kit', '.yarnrc.stub.yml'),
       this.projectPath('.yarnrc.yml'),
     )
-    await this.$('yarn', ['cache', 'clean', '--all'])
+
     await this.$('yarn', [
       `install`,
       '--update-checksums',
