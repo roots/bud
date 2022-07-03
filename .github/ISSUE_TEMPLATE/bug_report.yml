@@ -12,6 +12,7 @@ body:
         If you have a general question or you're looking for support, please visit [Roots Discourse](https://discourse.roots.io/).
 
         Please attempt the following before filing an issue:
+          - Try running `yarn bud doctor`
           - Ensure all `@roots/*` packages are using the same version, and are up-to-date.
           - Run `bud clean` to remove any stale files.
           - Run `bud build` using the `--no-cache` flag.
@@ -28,6 +29,14 @@ body:
           required: true
         - label: This is not a personal support request that should be posted on the [Roots Discourse](https://discourse.roots.io/) community
           required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the issue
+      placeholder: A clear and concise description of what the bug is.
+    validations:
+      required: true
 
   - type: textarea
     id: expected-behavior
@@ -64,7 +73,7 @@ body:
     attributes:
       label: version
       description: Please provide the output of `bud --version`
-      placeholder: '@roots/bud/5.0.0 darwin-arm64 node-v16.13.1'
+      placeholder: 'x.y.z'
     validations:
       required: true
 
@@ -74,7 +83,7 @@ body:
       label: What package manager are you using?
       options:
         - yarn classic
-        - yarn 3
+        - yarn
         - npm
     validations:
       required: true
@@ -85,16 +94,6 @@ body:
       label: version
       description: What version are you using? (`yarn -v` or `npm -v`)
       placeholder: '3.1.1'
-
-  - type: checkboxes
-    id: pnpm
-    attributes:
-      label: Are you using pnpm?
-      options:
-        - label: 'yes'
-          required: false
-        - label: 'no'
-          required: false
 
   - type: textarea
     id: logs
