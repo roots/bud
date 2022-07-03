@@ -1,5 +1,5 @@
 import dotenv from 'dotenv'
-import {expand} from 'dotenv-expand'
+import dotenvExpand from 'dotenv-expand'
 import {isUndefined} from 'lodash-es'
 import {join} from 'node:path'
 
@@ -18,38 +18,68 @@ export class Env {
 
   /**
    * Constructor
-   * @param baseDirectory -- nearest directory containing package.json from root
+   *
    * @public
    */
-  public constructor(baseDirectory: string) {
-    let values = {}
+  public constructor(path: string) {
+    /**
+     * Apply envvar records to class instance
+     *
+     * @param obj - Envvar records
+     * @returns
+     */
+    const apply = (obj: Record<string, any>) =>
+      obj &&
+      Object.entries(obj)
+        .filter(([k, v]) => !isUndefined(k) && !isUndefined(v))
+        .map(([k, v]: [string, string]) => {
+          this[k] = v
+        })
 
-    Object.entries(process.env)
-      .filter(v => !isUndefined(v))
-      .map(([k, v]) => {
-        values[k] = v
-      })
-
-    const get = (path: string) => {
+    /**
+     * Apply values from .env path
+     */
+    const applyEnvFromPath = (path: string) => {
       const env = dotenv.config({path})
-      if (!env?.parsed || env?.error) return
+      if (!env || !env?.parsed || env?.error) return
 
-      const expanded = expand(env)
-      if (!expanded) return
-
-      Object.entries(expanded.parsed).map(([k, v]) => {
-        values[k] = v
-      })
+      apply(env.parsed)
+      return env
     }
 
-    baseDirectory.split('/').reduce((a, c) => {
-      const next = join(a, c)
-      get(join(next, '.env'))
-      return next
-    }, `/`)
+    /**
+     * Apply expanded values from path
+     */
+    const applyExpandedEnvFromPath = (path: string) => {
+      const env = applyEnvFromPath(path)
+      if (!env || !env?.parsed || env?.error) return
 
-    Object.entries(values).map(([k, v]: [string, string]) => {
-      this[k] = v
-    })
+      const expanded = dotenvExpand.expand({parsed: env.parsed})
+      if (!expanded?.parsed) return
+
+      apply(expanded.parsed)
+    }
+
+    /**
+     * Apply process env
+     */
+    apply(process.env)
+
+    /**
+     * Apply env
+     */
+    path
+      .split('/')
+      .slice(0, -1)
+      .reduce((a, c) => {
+        const next = join(a, c)
+        applyEnvFromPath(join(next, '.env'))
+        return next
+      }, `/`)
+
+    /**
+     * Expand .env values in immediate directory
+     */
+    applyExpandedEnvFromPath(join(path, '.env'))
   }
 }

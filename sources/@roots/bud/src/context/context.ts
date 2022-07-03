@@ -9,9 +9,9 @@ import type {Env} from './env.js'
 
 export class Context implements Config.Context, BaseContext {
   public args: Record<string, string | boolean | undefined | number> = {}
+
   public constructor(
     public name: string,
-    public cwd: string,
     public projectDir: string,
     public manifest: Record<string, any>,
     public disk: Disk,

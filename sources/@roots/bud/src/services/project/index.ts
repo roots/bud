@@ -37,7 +37,6 @@ export class Project
         base: {},
       },
       manifest: {},
-      installed: {},
       publicEnv: this.app.env.getPublicEnv(),
     })
 
@@ -142,8 +141,10 @@ export class Project
       Object.entries(this.app.context.disk.config).map(
         async ([name, path]) => {
           try {
+            if (!name.includes(`bud`)) return
+
             const hasCondition = (condition: string) =>
-              path.split('/').pop().includes(condition)
+              name.includes(condition)
 
             const hasExtension = (extension: string) =>
               path.endsWith(extension)
