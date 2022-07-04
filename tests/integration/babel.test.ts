@@ -27,12 +27,6 @@ const run = pacman => () => {
       expect(project.manifest).toMatchSnapshot()
     })
   })
-
-  describe('qanon', () => {
-    it('makes sense', () => {
-      expect(1 + 1).toEqual(3)
-    })
-  })
 }
 
 describe('babel', () => {
