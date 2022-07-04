@@ -60,7 +60,7 @@
     "@types/babel__core": "^7.1.19",
     "@types/node": "16.11.41",
     "@types/prettier": "2.6.2",
-    "eslint": "8.17.0",
+    "eslint": "8.19.0",
     "prettier": "2.6.2"
   },
   "dependencies": {
