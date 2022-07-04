@@ -14,5 +14,5 @@ title = "pull_request_title"
 body = "pull_request_body"
 strip_html_comments = true
 
-[update.autoupdate_label]
+[update]
 autoupdate_label = "♻️!"
