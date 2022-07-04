@@ -136,8 +136,6 @@ export class Project {
   @bind
   public async yarnInstall() {
     await fs.ensureFile(this.projectPath('yarn.lock'))
-    await fs.remove(this.projectPath('yarn.lock'))
-    await fs.ensureFile(this.projectPath('yarn.lock'))
 
     await fs.copy(
       join(paths.sources, '@repo', 'test-kit', '.yarnrc.stub.yml'),
@@ -150,6 +148,7 @@ export class Project {
       '--skip-integrity-check',
       '--registry',
       REGISTRY_PROXY,
+      `--no-lockfile`,
     ])
   }
 

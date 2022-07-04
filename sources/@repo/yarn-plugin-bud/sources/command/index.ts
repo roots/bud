@@ -4,11 +4,12 @@ import {Compile} from './compile.command'
 import {Dev} from './dev.command'
 import {DocsDev} from './docs/dev.command'
 import {Docs} from './docs/docs.command'
-import {Format} from './format.command'
 import {Lint} from './lint.command'
 import {LintDependencies} from './lint/dependencies.command'
 import {LintExports} from './lint/exports.command'
-import {Preinstall} from './preinstall.command'
+import {Format} from './lint/format.command'
+import {RegistryStart} from './registry/start.command'
+import {RegistryStop} from './registry/stop.command'
 import {Release} from './release.command'
 import {Test} from './test.command'
 import {Tsc} from './tsc.command'
@@ -26,7 +27,8 @@ export const Commands = {
   Lint,
   LintDependencies,
   LintExports,
-  Preinstall,
+  RegistryStart,
+  RegistryStop,
   Release,
   Test,
   Tsc,

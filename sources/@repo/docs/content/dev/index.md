@@ -16,48 +16,105 @@ You can [reference API documentation here](https://bud.js.org/dev/api/).
 ## Installation
 
 ```sh
-yarn @bud preinstall
 yarn
-yarn @bud build
 ```
-
-`yarn @bud preinstall` will install pm2 and verdaccio globally and then start verdaccio with pm2.
-
-To stop verdaccio run `pm2 stop verdaccio`.
-
-If you don't want to install these packages globally you can start the `verdaccio/verdaccio` docker image and skip `yarn @bud preinstall`.
 
 ## Setup
 
 Generally speaking, you will probably want to use vscode and utilize the recommended extensions. Not mandatory, but definitely recommended.
 
-## Integration testing
+## Building
 
-Before running integration tests you must release and publish the code to the verdaccio registry.
+You can start up tsc, jest and docusaurus in `--watch` mode with one command:
 
 ```sh
-yarn @bud release --tag latest
+yarn @bud dev
 ```
 
-Once the release command finalizes, you can run the integration tests:
+You can also just build the packages and exit with:
+
+```sh
+yarn @bud tsc
+```
+
+## Testing
+
+Unit and integration tests are run with swc-jest.
+
+Most tests are stored in `tests/`.
+
+### Unit testing
+
+```sh
+yarn @bud test unit  --verbose
+```
+
+### Integration testing
 
 ```sh
 yarn @bud test integration --verbose
 ```
 
-In addition to the integration test suite you can also try out the locally published version of the release in any project in your dev environment using the `--registry` flag:
+## Linting
 
+Run eslint:
+
+```sh
+yarn @bud lint
+yarn @bud lint --fix
 ```
+
+Run prettier:
+
+```sh
+yarn @bud lint format
+yarn @bud lint format --fix
+```
+
+Check for public packages which depend on different versions of the same package:
+
+```sh
+yarn @bud lint dependencies
+```
+
+Validate public package exports with skypack cli:
+
+```sh
+yarn @bud lint exports
+```
+
+## Using the local registry
+
+### Starting the registry
+
+You can try out the locally published version of code by starting the registry:
+
+```sh
+yarn @bud registry start
+```
+
+### Publishing to the registry
+
+With the registry running, cut a release:
+
+```sh
+yarn @bud release --tag latest
+```
+
+### Using the registry
+
+After the release finishes, you can install it to any project in your dev environment using the `--registry` flag:
+
+```sh
 yarn add @roots/bud@latest --dev --registry http://localhost:4873
 ```
 
 If you want to make a change and try it again, rerun `yarn @bud release --tag latest`. Don't worry about incrementing versions, the integration command will delete the old packages before publishing again.
 
-## Unit testing
+### Stopping the registry
 
 ```sh
-yarn @bud build
-yarn @bud test unit --verbose
+yarn @bud registry stop
 ```
 
 ## Documentation

@@ -2,9 +2,10 @@
 .env
 !tests/unit/bud/context/**/.env
 
+.swc
+
 coverage
 storage
-.swc
 
 **/*.log
 **/lib

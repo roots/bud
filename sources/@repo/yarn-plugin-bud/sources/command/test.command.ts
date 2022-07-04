@@ -1,13 +1,9 @@
+/* eslint-disable no-console */
+import {execute} from '@yarnpkg/shell'
 import {CommandClass, Option} from 'clipanion'
+import {ensureDir, ensureFile, remove, rmdir} from 'fs-extra'
 
 import {Command} from './base.command'
-
-/**
- * Default jest flags
- *
- * @internal
- */
-const DEFAULT_JEST_FLAGS = `--config ./config/jest.config.js`
 
 /**
  * Run tests
@@ -51,15 +47,53 @@ export class Test extends Command {
   public passthrough = Option.Proxy({name: `jest params`})
 
   /**
+   * Integration tests are running
+   *
+   * @internal
+   */
+  public get isIntegration() {
+    return (
+      !this.passthrough ||
+      this.passthrough.length === 0 ||
+      this.passthrough.filter(arg => arg.includes('integration')).length >
+        0
+    )
+  }
+
+  /**
    * Execute command
    *
    * @internal
    */
   public async execute() {
-    return await this.$(
-      this.withPassthrough(
-        `yarn node --experimental-vm-modules $(yarn bin jest) ${DEFAULT_JEST_FLAGS}`,
-      ),
-    )
+    if (this.isIntegration) {
+      await this.tryExecuting(`yarn`, [`@bud`, `registry`, `start`])
+    }
+
+    await this.tryExecuting(`yarn`, [
+      `node`,
+      `--experimental-vm-modules`,
+      `./node_modules/.bin/jest`,
+      `--config`,
+      `./config/jest.config.js`,
+      ...(this.passthrough ?? []),
+    ])
+
+    if (this.isIntegration) {
+      await this.tryExecuting(`yarn`, [`@bud`, `registry`, `stop`])
+    }
+  }
+
+  /**
+   * Try executing a shell command
+   *
+   * @internal
+   */
+  public async tryExecuting(bin: string, args: string[], opts: any = {}) {
+    try {
+      await execute(bin, args, opts)
+    } catch (e) {
+      console.error(e)
+    }
   }
 }
