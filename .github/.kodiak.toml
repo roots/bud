@@ -2,6 +2,7 @@ version = 1
 
 [merge]
 automerge_label = "🚀!"
+method = "squash"
 
 [merge.automerge_dependencies]
 versions = ["minor", "patch"]
