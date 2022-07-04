@@ -43,10 +43,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - name: Preinstall
-        run: |
-          yarn @bud preinstall
-
       - name: Install
         run: |
           yarn install
@@ -66,10 +62,6 @@ jobs:
       - name: Lint (module exports)
         run: |
           yarn @bud lint exports
-
-      - name: Do test release
-        run: |
-          yarn @bud release --tag latest
 
       - name: Test (unit)
         run: |
