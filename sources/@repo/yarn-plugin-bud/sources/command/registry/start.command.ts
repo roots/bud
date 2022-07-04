@@ -50,6 +50,7 @@ export class RegistryStart extends Command {
       await ensureFile(`${process.cwd()}/storage/yarn.lock`)
       await ensureDir(`${process.cwd()}/storage/mocks`)
       await remove(`${process.cwd()}/storage/mocks`)
+      this.log('integration tests directory cleaned')
     } catch (e) {}
 
     await this.tryExecuting(
@@ -57,6 +58,7 @@ export class RegistryStart extends Command {
       [`install`, `--location=global`, `pm2`, `verdaccio`],
       {cwd: `${process.cwd()}/storage` as any},
     )
+    this.log('made pm2 and verdaccio globally available')
 
     await this.tryExecuting(`pm2`, [
       `start`,
@@ -64,6 +66,7 @@ export class RegistryStart extends Command {
       `--`,
       `--config=./config/verdaccio/config.yaml`,
     ])
+    this.log('started verdaccio')
 
     await this.tryExecuting(`yarn`, [
       `config`,
@@ -88,8 +91,10 @@ export class RegistryStart extends Command {
     ])
 
     await this.tryExecuting(`yarn`, [`install`])
+    this.log('installed via registry')
 
     await this.tryExecuting(`yarn`, [`@bud`, `release`, `--tag`, `latest`])
+    this.log('released to registry')
   }
 
   /**

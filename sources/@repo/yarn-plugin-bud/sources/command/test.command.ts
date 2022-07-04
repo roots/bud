@@ -70,7 +70,7 @@ export class Test extends Command {
       await this.tryExecuting(`yarn`, [`@bud`, `registry`, `start`])
     }
 
-    await this.tryExecuting(`yarn`, [
+    const code = await this.tryExecuting(`yarn`, [
       `node`,
       `--experimental-vm-modules`,
       `./node_modules/.bin/jest`,
@@ -78,6 +78,10 @@ export class Test extends Command {
       `./config/jest.config.js`,
       ...(this.passthrough ?? []),
     ])
+
+    if (code !== 0) {
+      throw new Error('❌ test spec failed')
+    }
 
     await this.teardown()
   }
@@ -89,11 +93,12 @@ export class Test extends Command {
    */
   public async tryExecuting(bin: string, args: string[], opts: any = {}) {
     try {
-      await execute(bin, args, opts)
+      const code = await execute(bin, args, opts)
+      if (code !== 0) await this.teardown()
+      return code
     } catch (e) {
-      console.error(e)
       await this.teardown()
-      process.exit(1)
+      throw new Error(e)
     }
   }
 

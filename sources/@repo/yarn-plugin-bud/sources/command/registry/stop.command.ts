@@ -48,32 +48,23 @@ export class RegistryStop extends Command {
   public async execute() {
     try {
       await execute(`pm2`, [`stop`, `verdaccio`])
+      this.log('registry stopped')
+
       await execute(`pm2`, ['delete', 'verdaccio'])
-    } catch (e) {
-      console.error(e)
-    }
+      this.log('registry deleted')
+    } catch (e) {}
 
     try {
       await execute(`yarn`, [`config`, `unset`, `unsafeHttpWhitelist`])
       await execute(`yarn`, [`config`, `unset`, `npmPublishRegistry`])
       await execute(`yarn`, [`config`, `unset`, `npmRegistryServer`])
-    } catch (e) {
-      console.error(e)
-    }
+    } catch (e) {}
 
     try {
       await ensureDir(`${process.cwd()}/storage/mocks`)
       await remove(`${process.cwd()}/storage/mocks`)
       await remove(`${process.cwd()}/storage/yarn.lock`)
-    } catch (e) {
-      console.error(e)
-    }
-
-    try {
-      await execute(`yarn`, [`install`])
-      await execute(`yarn`, [`@bud`, `tsc`])
-    } catch (e) {
-      console.error(e)
-    }
+      this.log('filesystem cleaned')
+    } catch (e) {}
   }
 }
