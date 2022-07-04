@@ -18,7 +18,7 @@ export async function build(app: Bud): Promise<void> {
   app.hooks
     .on('build.bail', () => app.isProduction)
     .hooks.on('build.cache', () => app.cache.configuration)
-    .hooks.on('build.context', () => app.context.projectDir)
+    .hooks.on('build.context', () => app.context.dir)
     .hooks.on('build.externalsType', 'var')
     .hooks.on('build.experiments.buildHttp', undefined)
     .hooks.on('build.experiments', () => ({

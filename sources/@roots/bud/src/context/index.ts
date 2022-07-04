@@ -2,7 +2,6 @@ import type * as Framework from '@roots/bud-framework'
 
 import {Application} from './application.js'
 import {Context} from './context.js'
-import {Dir} from './dir.js'
 import {Disk} from './disk.js'
 import {Env} from './env.js'
 import {Manifest} from './manifest.js'
@@ -21,16 +20,14 @@ import {Manifest} from './manifest.js'
 export const makeContext = async (
   rootDirectory = process.cwd(),
 ): Promise<Framework.Config.Context> => {
-  const dir = await new Dir(rootDirectory).find()
-
   const application = await new Application().find()
-  const env = new Env(dir.project)
-  const disk = await new Disk(dir.project).findConfigs()
+  const env = new Env(rootDirectory)
+  const disk = await new Disk(rootDirectory).findConfigs()
   const manifest = await new Manifest(disk).read()
 
   return new Context(
     application.name?.split(`@roots/`).pop() ?? 'bud',
-    dir.project,
+    rootDirectory,
     manifest,
     disk,
     application,
@@ -38,4 +35,4 @@ export const makeContext = async (
   )
 }
 
-export {Application, Context, Dir, Env, Manifest}
+export {Application, Context, Env, Manifest}

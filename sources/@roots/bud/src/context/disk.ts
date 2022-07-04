@@ -12,7 +12,7 @@ export class Disk {
    * @public
    */
   public constructor(
-    public projectDir: string,
+    public dir: string,
     public config: Record<string, string> = {},
   ) {}
 
@@ -40,7 +40,7 @@ export class Disk {
       ],
       {
         absolute: true,
-        cwd: this.projectDir,
+        cwd: this.dir,
         dot: true,
         gitignore: true,
         onlyFiles: true,
@@ -50,7 +50,7 @@ export class Disk {
     this.config = search.reduce(
       (configs: Record<string, string>, filePath: string) => ({
         ...configs,
-        [`${filePath.replace(`${this.projectDir}/`, '')}`]: filePath,
+        [`${filePath.replace(`${this.dir}/`, '')}`]: filePath,
       }),
       this.config,
     )

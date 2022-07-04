@@ -17,7 +17,7 @@ interface Options {
    */
   context?: {
     cwd: string
-    projectDir: string
+    dir: string
     manifest: Record<string, any>
     application: {
       name: string

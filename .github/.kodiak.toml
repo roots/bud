@@ -2,6 +2,7 @@ version = 1
 
 [merge]
 automerge_label = "🚀!"
+block_on_neutral_required_check_runs = true
 method = "squash"
 
 [merge.automerge_dependencies]
@@ -12,3 +13,6 @@ usernames = ["renovate"]
 title = "pull_request_title"
 body = "pull_request_body"
 strip_html_comments = true
+
+[update.autoupdate_label]
+autoupdate_label = "♻️!"

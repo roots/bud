@@ -12,7 +12,7 @@ export class Context implements Config.Context, BaseContext {
 
   public constructor(
     public name: string,
-    public projectDir: string,
+    public dir: string,
     public manifest: Record<string, any>,
     public disk: Disk,
     public application: Application,
