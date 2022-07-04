@@ -36,7 +36,7 @@
     "eslint": "8.17.0",
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-react": "7.29.4",
-    "eslint-plugin-react-hooks": "4.5.0",
+    "eslint-plugin-react-hooks": "4.6.0",
     "eslint-plugin-simple-import-sort": "7.0.0",
     "eslint-plugin-tsdoc": "0.2.16",
     "import-meta-resolve": "2.0.2",
