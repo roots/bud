@@ -7,7 +7,7 @@ const theme = pacman => () => {
   beforeAll(async () => {
     project = await new Project({
       name: 'multi-compiler',
-      dist: 'dist/theme',
+      dist: 'theme/dist',
       with: pacman,
     }).setup()
   })
@@ -18,7 +18,7 @@ const theme = pacman => () => {
     })
 
     it('is transpiled', () => {
-      expect(project.assets['theme.js'].includes('import')).toBeFalsy()
+      expect(project.assets['theme.js'].includes('import ')).toBeFalsy()
     })
   })
 
@@ -35,7 +35,7 @@ const plugin = pacman => () => {
   beforeAll(async () => {
     project = await new Project({
       name: 'multi-compiler',
-      dist: 'dist/plugin',
+      dist: 'plugin/dist',
       with: pacman,
     }).setup()
   })
@@ -46,7 +46,7 @@ const plugin = pacman => () => {
     })
 
     it('is transpiled', () => {
-      expect(project.assets['plugin.js'].includes('import')).toBeFalsy()
+      expect(project.assets['plugin.js'].includes('import ')).toBeFalsy()
     })
   })
 

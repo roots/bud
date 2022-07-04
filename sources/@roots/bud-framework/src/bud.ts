@@ -39,12 +39,9 @@ export abstract class Bud {
   /**
    * Context
    *
-   * @readonly
    * @public
    */
-  public get context(): Config.Context {
-    return this.options.context
-  }
+  public context: Config.Context
 
   /**
    * Compilation mode
@@ -225,6 +222,7 @@ export abstract class Bud {
     return await new this.implementation(this.implementation).lifecycle({
       ...this.options,
       ...(options ?? {}),
+      context: {...this.context},
     })
   }
 

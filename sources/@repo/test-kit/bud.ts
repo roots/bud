@@ -16,6 +16,7 @@ export const factory = async (options?: Config.Options) => {
   const bud = await budFactory({
     name: 'bud',
     mode: 'production',
+    dir: repoPath('tests/util/project'),
     ...(options ?? {}),
     context: {
       ...context,

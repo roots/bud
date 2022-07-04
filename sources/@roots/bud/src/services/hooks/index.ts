@@ -21,6 +21,6 @@ export class Hooks extends Base implements Services.Hooks.Service {
       '@dist': this.app.path('@dist'),
     }))
     this.on('build.bail', () => this.app.isProduction)
-    this.on('build.context', () => this.app.context.projectDir)
+    this.on('build.context', () => this.app.context.dir)
   }
 }

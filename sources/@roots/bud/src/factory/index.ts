@@ -29,9 +29,6 @@ export async function factory(overrides?: Config.Options): Promise<Bud> {
     mergeOptions(context, overrides),
   )
 
-  process.env.BABEL_ENV = project.mode
-  process.env.NODE_ENV = project.mode
-
   project
     .when(
       project.env.has('APP_PUBLIC_PATH') &&
