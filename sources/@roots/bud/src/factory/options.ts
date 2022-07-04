@@ -10,6 +10,7 @@ export const mergeOptions: (
 ) => Config.Options = (context, overrides) => ({
   name: 'bud',
   mode: 'production',
+  dir: process.cwd(),
   ...(overrides ?? {}),
   context: {
     ...context,

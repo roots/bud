@@ -22,7 +22,7 @@ export const makeContext = async (
 ): Promise<Framework.Config.Context> => {
   const application = await new Application().find()
   const env = new Env(rootDirectory)
-  const disk = await new Disk(rootDirectory).findConfigs()
+  const disk = await new Disk().findConfigs(rootDirectory)
   const manifest = await new Manifest(disk).read()
 
   return new Context(

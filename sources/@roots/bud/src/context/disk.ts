@@ -11,17 +11,14 @@ export class Disk {
    *
    * @public
    */
-  public constructor(
-    public dir: string,
-    public config: Record<string, string> = {},
-  ) {}
+  public constructor(public config: Record<string, string> = {}) {}
 
   /**
    * Find configs
    *
    * @public
    */
-  public async findConfigs(): Promise<Disk> {
+  public async findConfigs(dir: string): Promise<Disk> {
     const search = await globby(
       [
         `*.json`,
@@ -40,7 +37,7 @@ export class Disk {
       ],
       {
         absolute: true,
-        cwd: this.dir,
+        cwd: dir,
         dot: true,
         gitignore: true,
         onlyFiles: true,
@@ -50,7 +47,7 @@ export class Disk {
     this.config = search.reduce(
       (configs: Record<string, string>, filePath: string) => ({
         ...configs,
-        [`${filePath.replace(`${this.dir}/`, '')}`]: filePath,
+        [`${filePath.replace(`${dir}/`, '')}`]: filePath,
       }),
       this.config,
     )

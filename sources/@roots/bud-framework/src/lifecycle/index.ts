@@ -1,3 +1,5 @@
+import {omit} from 'lodash-es'
+
 import type {Bud, Config} from '../index.js'
 import {Logger} from '../logger/index.js'
 import * as methods from '../methods/index.js'
@@ -35,9 +37,11 @@ export async function lifecycle(
   this: Bud,
   options: Config.Options,
 ): Promise<Bud> {
-  this.options = {...options}
-
   this.children = {}
+  this.options = omit({...options}, 'context')
+  this.context = {...options.context, dir: options.dir}
+
+  process.env.NODE_ENV = options.mode
 
   Object.entries(methods).map(([key, method]) => {
     this[key] = method.bind(this)
