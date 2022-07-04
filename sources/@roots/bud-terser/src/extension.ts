@@ -2,11 +2,12 @@ import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
+  dependsOn,
   dependsOnOptional,
   expose,
   label,
   options,
-  production,
+  when,
 } from '@roots/bud-framework/extension/decorators'
 import TerserPlugin from 'terser-webpack-plugin'
 
@@ -33,6 +34,7 @@ export type Options = TerserPlugin.BasePluginOptions & {
  * @decorator `@options`
  */
 @label('@roots/bud-terser')
+@dependsOn(['@roots/bud-terser/css-minimizer'])
 @dependsOnOptional(['@roots/bud-swc'])
 @expose('terser')
 @options<Options>({
@@ -54,7 +56,7 @@ export type Options = TerserPlugin.BasePluginOptions & {
     },
   },
 })
-@production
+@when(async () => false)
 export default class Terser extends Extension<Options> {
   /**
    * Terser options getter/setter

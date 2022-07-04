@@ -2,7 +2,6 @@ import type {Readable, Writable} from 'node:stream'
 
 export interface Context {
   name: string
-  cwd: string
   projectDir: string
   manifest: Record<string, any>
   application: {

@@ -1,7 +1,6 @@
 import fs from 'fs-extra'
-import {dirname} from 'node:path'
+import {dirname, resolve} from 'node:path'
 import {fileURLToPath} from 'node:url'
-import {pkgUp} from 'pkg-up'
 
 /**
  * Application context
@@ -31,11 +30,20 @@ export class Application {
   public version: string
 
   /**
+   * Manifest path
+   *
+   * @public
+   */
+  public manifestPath: string
+
+  /**
    * Application directory
    *
    * @public
    */
-  public dir: string
+  public get dir(): string {
+    return dirname(this.manifestPath)
+  }
 
   public get dirname(): string {
     const filename = fileURLToPath(import.meta.url)
@@ -47,14 +55,17 @@ export class Application {
    *
    * @public
    */
-  public async find(): Promise<Application> {
-    const manifestPath = await pkgUp({cwd: this.dirname})
+  public async find(): Promise<this> {
+    this.manifestPath = resolve(`${this.dirname}/../../package.json`)
+    return await this.handleFindResults(this.manifestPath)
+  }
 
-    this.dir = dirname(manifestPath)
+  public async handleFindResults(path: string): Promise<this> {
+    const manifest = await fs.readJson(path)
 
-    const manifest = await fs.readJson(manifestPath)
-
-    Object.entries(manifest).map(([k, v]) => (this[k] = v))
+    Object.entries(manifest).map(([k, v]) => {
+      this[k] = v
+    })
 
     this.label = this.name.split('/').pop()
 

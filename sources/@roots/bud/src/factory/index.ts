@@ -24,7 +24,7 @@ import {mergeOptions} from './options.js'
  * @public
  */
 export async function factory(overrides?: Config.Options): Promise<Bud> {
-  const context = await makeContext()
+  const context = await makeContext(overrides.dir ?? process.cwd())
   const project = await new Bud().lifecycle(
     mergeOptions(context, overrides),
   )

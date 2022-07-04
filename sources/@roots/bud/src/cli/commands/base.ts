@@ -64,16 +64,6 @@ export abstract class BaseCommand extends Command {
       this.app.error(error)
     }
 
-    await Promise.all(
-      Object.values(this.app.children ?? {}).map(async instance => {
-        try {
-          await instance.hooks.fire('config.after')
-        } catch (err) {
-          instance.error(err)
-        }
-      }),
-    )
-
     return this.app
   }
 

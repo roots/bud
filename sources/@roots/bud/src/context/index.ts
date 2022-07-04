@@ -13,15 +13,15 @@ import {Manifest} from './manifest.js'
  * @remarks
  * @see {@link https://mael.dev/clipanion/docs/contexts}
  *
- * @param rootDir - project directory
+ * @param rootDirectory - project directory
  * @returns {@link Context}
  *
  * @public
  */
-const makeContext = async (
-  rootDir = process.cwd(),
+export const makeContext = async (
+  rootDirectory = process.cwd(),
 ): Promise<Framework.Config.Context> => {
-  const dir = await new Dir(rootDir).find()
+  const dir = await new Dir(rootDirectory).find()
 
   const application = await new Application().find()
   const env = new Env(dir.project)
@@ -30,7 +30,6 @@ const makeContext = async (
 
   return new Context(
     application.name?.split(`@roots/`).pop() ?? 'bud',
-    dir.cwd,
     dir.project,
     manifest,
     disk,
@@ -40,4 +39,3 @@ const makeContext = async (
 }
 
 export {Application, Context, Dir, Env, Manifest}
-export {makeContext}

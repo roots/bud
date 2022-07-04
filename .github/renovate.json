@@ -9,12 +9,12 @@
     {
       "automerge": true,
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
-      "addLabels": ["🚀"]
+      "addLabels": ["🚀!"]
     },
     {
       "groupName": "@babel",
       "matchPackagePrefixes": ["@babel/"],
-      "addLabels": ["🚀"]
+      "addLabels": ["🚀!"]
     },
     {
       "groupName": "react",
@@ -24,12 +24,12 @@
         "@types/react",
         "react-reconciler"
       ],
-      "addLabels": ["🚀"]
+      "addLabels": ["🚀!"]
     },
     {
       "groupName": "@yarnpkg",
       "matchPackagePrefixes": ["@yarnpkg/"],
-      "addLabels": ["🚀"]
+      "addLabels": ["🚀!"]
     }
   ],
   "postUpdateOptions": ["yarnDedupeHighest"],

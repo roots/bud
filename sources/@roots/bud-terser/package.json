@@ -41,12 +41,16 @@
   "types": "./lib/index.d.ts",
   "exports": {
     ".": "./lib/index.js",
-    "./extension": "./lib/extension.js"
+    "./extension": "./lib/extension.js",
+    "./css-minimizer": "./lib/css-minimizer/extension.js"
   },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.d.ts"
+      ],
+      "css-minimizer": [
+        "./lib/css-minimizer/extension.d.ts"
       ],
       "extension": [
         "./lib/extension.d.ts"
@@ -61,6 +65,7 @@
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "css-minimizer-webpack-plugin": "4.0.0",
     "terser-webpack-plugin": "^5.3.3",
     "tslib": "2.4.0"
   }

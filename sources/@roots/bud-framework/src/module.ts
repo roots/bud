@@ -24,8 +24,6 @@ export class Module {
    * @public
    */
   public constructor(public app: Bud) {
-    this.app.log('projectDir', this.app.context.projectDir)
-    this.app.log('process.cwd', process.cwd())
     this.require = createRequire(this.app.context.projectDir)
   }
 

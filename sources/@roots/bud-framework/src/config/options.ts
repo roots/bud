@@ -53,6 +53,13 @@ export interface Options {
   root?: Bud
 
   /**
+   * Directory
+   *
+   * @public
+   */
+  dir?: string
+
+  /**
    * Extensions to be registered
    *
    * @public

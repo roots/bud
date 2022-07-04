@@ -21,10 +21,9 @@ export const sequence = async function (
 ): Promise<Bud> {
   const app = this as Bud
 
-  await fns.reduce(async (next, fn) => {
-    const current = await next
-    await fn.call(this, app)
-    return current
+  await fns.reduce(async (_promised, fn) => {
+    await fn(app)
+    return Promise.resolve()
   }, Promise.resolve())
 
   return app
