@@ -1,6 +1,6 @@
 import {CommandClass, Option} from 'clipanion'
 
-import {Command} from './base.command'
+import {Command} from '../base.command'
 
 /**
  * Format command class
@@ -13,7 +13,7 @@ export class Format extends Command {
    *
    * @internal
    */
-  public static label = '@bud format'
+  public static label = '@bud lint format'
 
   /**
    * Command paths

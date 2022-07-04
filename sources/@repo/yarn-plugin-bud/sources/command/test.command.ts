@@ -1,13 +1,9 @@
+/* eslint-disable no-console */
+import {execute} from '@yarnpkg/shell'
 import {CommandClass, Option} from 'clipanion'
+import {ensureDir, ensureFile, remove, rmdir} from 'fs-extra'
 
 import {Command} from './base.command'
-
-/**
- * Default jest flags
- *
- * @internal
- */
-const DEFAULT_JEST_FLAGS = `--config ./config/jest.config.js`
 
 /**
  * Run tests
@@ -51,15 +47,69 @@ export class Test extends Command {
   public passthrough = Option.Proxy({name: `jest params`})
 
   /**
+   * Integration tests are running
+   *
+   * @internal
+   */
+  public get isIntegration() {
+    return (
+      !this.passthrough ||
+      this.passthrough.length === 0 ||
+      this.passthrough.filter(arg => arg.includes('integration')).length >
+        0
+    )
+  }
+
+  /**
    * Execute command
    *
    * @internal
    */
   public async execute() {
-    return await this.$(
-      this.withPassthrough(
-        `yarn node --experimental-vm-modules $(yarn bin jest) ${DEFAULT_JEST_FLAGS}`,
-      ),
-    )
+    if (this.isIntegration) {
+      await this.tryExecuting(`yarn`, [`@bud`, `registry`, `start`])
+    }
+
+    const code = await this.tryExecuting(`yarn`, [
+      `node`,
+      `--experimental-vm-modules`,
+      `./node_modules/.bin/jest`,
+      `--config`,
+      `./config/jest.config.js`,
+      ...(this.passthrough ?? []),
+    ])
+
+    if (code !== 0) {
+      throw new Error('❌ test spec failed')
+    }
+
+    await this.teardown()
+  }
+
+  /**
+   * Try executing a shell command
+   *
+   * @internal
+   */
+  public async tryExecuting(bin: string, args: string[], opts: any = {}) {
+    try {
+      const code = await execute(bin, args, opts)
+      if (code !== 0) await this.teardown()
+      return code
+    } catch (e) {
+      await this.teardown()
+      throw new Error(e)
+    }
+  }
+
+  /**
+   * Teardown infrastructure
+   *
+   * @internal
+   */
+  public async teardown() {
+    if (this.isIntegration) {
+      await execute(`yarn`, [`@bud`, `registry`, `stop`])
+    }
   }
 }
