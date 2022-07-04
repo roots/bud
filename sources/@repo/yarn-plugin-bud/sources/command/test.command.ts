@@ -104,7 +104,7 @@ export class Test extends Command {
    */
   public async teardown() {
     if (this.isIntegration) {
-      await this.tryExecuting(`yarn`, [`@bud`, `registry`, `stop`])
+      await execute(`yarn`, [`@bud`, `registry`, `stop`])
     }
   }
 }
