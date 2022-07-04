@@ -79,9 +79,7 @@ export class Test extends Command {
       ...(this.passthrough ?? []),
     ])
 
-    if (this.isIntegration) {
-      await this.tryExecuting(`yarn`, [`@bud`, `registry`, `stop`])
-    }
+    await this.teardown()
   }
 
   /**
@@ -94,6 +92,19 @@ export class Test extends Command {
       await execute(bin, args, opts)
     } catch (e) {
       console.error(e)
+      await this.teardown()
+      process.exit(1)
+    }
+  }
+
+  /**
+   * Teardown infrastructure
+   *
+   * @internal
+   */
+  public async teardown() {
+    if (this.isIntegration) {
+      await this.tryExecuting(`yarn`, [`@bud`, `registry`, `stop`])
     }
   }
 }
