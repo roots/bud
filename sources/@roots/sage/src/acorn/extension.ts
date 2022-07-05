@@ -31,20 +31,22 @@ export default class Acorn extends Extension {
      * Write hmr.json when compilation is finalized (only in development)
      * Remove this file when process is exited.
      */
-    if (this.app.isProduction) {
-      const hasHmr = await fs.pathExists(
-        this.app.path('@dist', 'hmr.json'),
-      )
-      if (hasHmr) await fs.remove(this.app.path('@dist', 'hmr.json'))
-    } else {
-      this.app.hooks.action('compiler.close', eventCompilerDone)
-    }
+    this.app.when(
+      this.app.isProduction,
+      async () => {
+        const hasHmr = await fs.pathExists(
+          this.app.path('@dist', 'hmr.json'),
+        )
+        if (hasHmr) await fs.remove(this.app.path('@dist', 'hmr.json'))
+      },
+      async () => {
+        this.app.hooks.action('compiler.close', eventCompilerDone)
+      },
+    )
 
     /**
      * Public path shenanigans
      */
-    this.app.setPublicPath('../')
-
     this.app.isDevelopment &&
       this.app.hooks.action('config.after', async () => {
         this.app.setPublicPath('/')

@@ -1,0 +1,17 @@
+{
+  "name": "@workbench/sage-default",
+  "private": true,
+  "browserslist": [
+    "extends @roots/browserslist-config/current"
+  ],
+  "devDependencies": {
+    "@roots/bud": "workspace:*",
+    "@roots/browserslist-config/current": "workspace:*",
+    "@roots/bud-eslint": "workspace:*",
+    "@roots/bud-prettier": "workspace:*",
+    "@roots/bud-stylelint": "workspace:*",
+    "@roots/bud-tailwindcss": "workspace:*",
+    "@roots/eslint-config": "workspace:*",
+    "@roots/sage": "workspace:*"
+  }
+}

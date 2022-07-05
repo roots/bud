@@ -19,7 +19,7 @@
     "packages": [
       "sources/@roots/*",
       "sources/@repo/*",
-      "workbench/*",
+      "workbench/**",
       "tests/util/project"
     ]
   },
