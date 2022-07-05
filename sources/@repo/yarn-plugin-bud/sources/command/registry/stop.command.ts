@@ -56,8 +56,18 @@ export class RegistryStop extends Command {
 
     try {
       await execute(`yarn`, [`config`, `unset`, `unsafeHttpWhitelist`])
-      await execute(`yarn`, [`config`, `unset`, `npmPublishRegistry`])
-      await execute(`yarn`, [`config`, `unset`, `npmRegistryServer`])
+      await execute(`yarn`, [
+        `config`,
+        `set`,
+        `npmPublishRegistry`,
+        `https://registry.npmjs.org`,
+      ])
+      await execute(`yarn`, [
+        `config`,
+        `set`,
+        `npmRegistryServer`,
+        `https://registry.npmjs.org`,
+      ])
     } catch (e) {}
 
     try {
