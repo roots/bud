@@ -2,7 +2,6 @@ import {Extension} from '@roots/bud-framework/extension'
 import {bind, label} from '@roots/bud-framework/extension/decorators'
 import fs from 'fs-extra'
 
-import eventCompilerClose from './hooks/event.compiler.close.js'
 import eventCompilerDone from './hooks/event.compiler.done.js'
 
 /**
@@ -33,34 +32,28 @@ export default class Acorn extends Extension {
      * Remove this file when process is exited.
      */
     if (this.app.isProduction) {
-      fs.pathExists(this.app.path('@dist', 'hmr.json')) &&
-        (await fs.remove(this.app.path('@dist', 'hmr.json')))
+      const hasHmr = await fs.pathExists(
+        this.app.path('@dist', 'hmr.json'),
+      )
+      if (hasHmr) await fs.remove(this.app.path('@dist', 'hmr.json'))
     } else {
       this.app.hooks.action('compiler.close', eventCompilerDone)
-      this.app.hooks.action('app.close', eventCompilerClose)
     }
 
     /**
-     * - If publicPath is `/` in production assets will not be locatable by Acorn.
-     * - If publicPath is `''` in development bud's dev server will implode.
-     * - If publicPath is the actual publicPath acorn will double up the path segments.
+     * Public path shenanigans
      */
-    this.app.hooks.action('config.after', async () => {
-      this.app.hooks.on('build.output.publicPath', publicPath =>
-        this.app.isDevelopment ? `/` : publicPath,
-      )
-    })
+    this.app.setPublicPath('../')
 
-    /**
-     * Tell Acorn that assets have no `publicPath` even if bud is using one internally.
-     * Acorn does its own `pulicPath` processing.
-     *
-     * Not setting an empty string will likely result in duplicative path segments
-     * and unresolved assets.
-     */
+    this.app.isDevelopment &&
+      this.app.hooks.action('config.after', async () => {
+        this.app.setPublicPath('/')
+      })
+
     this.app.extensions
       .get('@roots/bud-entrypoints')
       .setOption('publicPath', '')
+
     this.app.extensions
       .get('webpack-manifest-plugin')
       .setOption('publicPath', '')
