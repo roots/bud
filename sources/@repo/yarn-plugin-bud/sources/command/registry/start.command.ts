@@ -93,6 +93,8 @@ export class RegistryStart extends Command {
     await this.tryExecuting(`yarn`, [`install`])
     this.log('installed via registry')
 
+    await this.tryExecuting(`yarn`, [`@bud`, `tsc`, `--force`])
+
     await this.tryExecuting(`yarn`, [`@bud`, `release`, `--tag`, `latest`])
     this.log('released to registry')
   }
