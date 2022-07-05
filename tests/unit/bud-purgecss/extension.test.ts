@@ -44,16 +44,7 @@ describe('@roots/bud-purgecss', () => {
     it('adds the purgecss plugin to the postcss repository', () => {
       purgecss.bind(bud)({content: ['**/*.html']})
 
-      expect(
-        bud.postcss.plugins.has('@fullhuman/postcss-purgecss'),
-      ).toBeTruthy()
-
-      const plugin = bud.postcss.plugins.get(
-        '@fullhuman/postcss-purgecss',
-      )[0]
-
-      expect(plugin.OnceExit).toBeInstanceOf(Function)
-      expect(plugin.postcssPlugin).toBe('postcss-purgecss')
+      expect(bud.postcss.plugins.has('purgecss')).toBe(true)
     })
   })
 })

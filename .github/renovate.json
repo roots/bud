@@ -8,13 +8,11 @@
   "packageRules": [
     {
       "automerge": true,
-      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
-      "addLabels": ["🚀!"]
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"]
     },
     {
       "groupName": "@babel",
-      "matchPackagePrefixes": ["@babel/"],
-      "addLabels": ["🚀!"]
+      "matchPackagePrefixes": ["@babel/"]
     },
     {
       "groupName": "react",
@@ -23,13 +21,11 @@
         "react-dom",
         "@types/react",
         "react-reconciler"
-      ],
-      "addLabels": ["🚀!"]
+      ]
     },
     {
       "groupName": "@yarnpkg",
-      "matchPackagePrefixes": ["@yarnpkg/"],
-      "addLabels": ["🚀!"]
+      "matchPackagePrefixes": ["@yarnpkg/"]
     }
   ],
   "postUpdateOptions": ["yarnDedupeHighest"],

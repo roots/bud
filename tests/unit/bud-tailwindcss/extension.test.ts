@@ -29,11 +29,6 @@ describe('@roots/bud-tailwindcss', () => {
     await bud.extensions.add(BudTailwindCssExtension)
     const plugins = [...bud.postcss.plugins.keys()]
 
-    expect(plugins).toEqual([
-      'postcss-import',
-      'tailwindcss-nesting',
-      'tailwindcss',
-      'postcss-preset-env',
-    ])
+    expect(plugins).toContain('tailwindcss')
   })
 })

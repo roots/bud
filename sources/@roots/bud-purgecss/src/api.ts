@@ -22,10 +22,7 @@ import type * as purge from './purge.interface.js'
 export const purgecss: purge.api = function (
   userOptions: purge.UserOptions,
 ) {
-  this.postcss.setPlugin(
-    '@fullhuman/postcss-purgecss',
-    purgePlugin(userOptions),
-  )
+  this.postcss.setPlugin('purgecss', purgePlugin(userOptions))
 
   return this
 }

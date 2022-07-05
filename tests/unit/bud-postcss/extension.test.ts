@@ -27,6 +27,7 @@ describe('@roots/bud-postcss', () => {
   })
 
   it('setPlugins from map', () => {
+    bud.postcss.plugins.clear()
     bud.postcss.setPlugins(new Map([['bang', ['bop']]]))
 
     expect(bud.postcss.getPlugins()).toStrictEqual(
@@ -109,22 +110,22 @@ describe('@roots/bud-postcss', () => {
   })
 
   it('setPlugin', () => {
-    bud.postcss.setPlugins({})
-    bud.postcss.setPlugin('postcss-preset-env')
-    expect(bud.postcss.plugins.get('postcss-preset-env')).toEqual(
-      expect.arrayContaining([
-        expect.stringContaining('postcss-preset-env'),
-      ]),
+    bud.postcss.plugins.clear()
+
+    bud.postcss.setPlugin('boop')
+
+    expect(bud.postcss.plugins.get('boop')).toEqual(
+      expect.arrayContaining([expect.stringContaining('boop')]),
     )
   })
 
   it('setPlugin (arr)', () => {
     const signifier = 'postcss-preset-env'
 
-    bud.postcss.setPlugins({})
-    bud.postcss.setPlugin(signifier, signifier)
+    bud.postcss.plugins.clear()
+    bud.postcss.setPlugin('env', signifier)
 
-    expect(bud.postcss.plugins.get(signifier)).toEqual(
+    expect(bud.postcss.plugins.get('env')).toEqual(
       expect.arrayContaining([expect.stringContaining(signifier)]),
     )
   })
@@ -132,10 +133,10 @@ describe('@roots/bud-postcss', () => {
   it('setPlugin (arr w/options)', () => {
     const signifier = 'postcss-preset-env'
 
-    bud.postcss.setPlugins({})
-    bud.postcss.setPlugin(signifier, [signifier, {option: 'value'}])
+    bud.postcss.plugins.clear()
+    bud.postcss.setPlugin('env', [signifier, {option: 'value'}])
 
-    expect(bud.postcss.plugins.get(signifier)).toEqual(
+    expect(bud.postcss.plugins.get('env')).toEqual(
       expect.arrayContaining([
         expect.stringContaining(signifier),
         expect.objectContaining({option: 'value'}),
@@ -144,7 +145,7 @@ describe('@roots/bud-postcss', () => {
   })
 
   it("throws when plugin doesn't exist", () => {
-    bud.postcss.setPlugins({})
+    bud.postcss.plugins.clear()
 
     try {
       expect(bud.postcss.getPluginOptions('no-exist')).toThrow()
