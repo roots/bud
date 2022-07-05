@@ -17,12 +17,38 @@ For more context on how this might be useful check out [the guide on multi-compi
 
 **bud.make** is an asyncronous function that takes two parameters:
 
-- The **name** of the new compiler
+- The **name** of the new compiler, or an [**options**](#options) object to be used when constructing the new instance.
 - An optional callback to use for configuring the compiler.
+
+Example specified with a **name**:
 
 ```js
 bud.make('scripts', async child => child.entry('app', 'app.js'))
 ```
+
+Example specified with **options** object:
+
+```ts
+bud.make(
+  {
+    name: 'compiler-a',
+    dir: bud.path('./compiler-a'),
+  },
+  config => {},
+)
+```
+
+## Options
+
+| Property   | Value                                   |
+| ---------- | --------------------------------------- |
+| name       | Compiler name                           |
+| dir        | Compiler base directory (absolute path) |
+| mode       | `development` or `production`           |
+| context    | Context                                 |
+| seed       | Initializing values                     |
+| services   | Service classes                         |
+| extensions | Extension classes                       |
 
 Related:
 

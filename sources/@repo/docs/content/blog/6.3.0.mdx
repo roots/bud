@@ -1,7 +1,7 @@
 ---
-slug: '6.2.1'
-title: 'Release: 6.2.1'
-description: 'Release notes for bud.js 6.2.1'
+slug: '6.3.0'
+title: 'Release: 6.3.0'
+description: 'Release notes for bud.js 6.3.0'
 date: 2022-07-01
 author: Kelly Mears
 author_title: Lead developer
@@ -18,7 +18,7 @@ import CodeBlock from '@theme/CodeBlock'
 
 Build tooling flagged that `@wordpress/browserslist-config` was licensed in a way that is not compatible with bud's overall licensing ideals.
 
-Accordingly, we are now publishing our own browserslist config: `@roots/browserslist-config`. It provides a choice of three configurations. Select whichever is the best fit for your project and audience:
+Accordingly, we are now publishing a roots standard browserslist config: `@roots/browserslist-config`. It provides a choice of three configurations. Select whichever is the best fit for your project and audience:
 
 | Export                             | Description                                                                            |
 | ---------------------------------- | -------------------------------------------------------------------------------------- |
@@ -28,7 +28,27 @@ Accordingly, we are now publishing our own browserslist config: `@roots/browsers
 
 All configurations target the most recent version of `firefox`, `chrome` and `safari` when the NODE_ENV is `development`.
 
-## Upgrading to bud.js 6.2.1
+## Fix: @roots/bud-vue
+
+A small configuration issues in the @roots/bud-vue extension has been fixed. Returns `@roots/bud-vue` to the zero-config ideal.
+
+## Improvement: env expansion now only applied to project `.env` values
+
+**bud.js** still sources envvars from process and its path, but will no longer attempt to expand values outside of bud root.
+
+This could cause issues if `${` and other such character strings were used in another context.
+
+## Improvement: multi-compiler root directory
+
+You can now pass an overrides object to `bud.make`'s first parameter, which will be merged with the default object. This is particularly useful for setting a root directory, but it takes any options from `bud.factory` (if you want to override extensions, for instance).
+
+This documentation has a ways to go, but the [bud.make](https://bud.js.org/docs/bud.make) docs have been updated with more information and an example of this new fn signature.
+
+## Documentation: Improved `@roots/bud-postcss` docs
+
+Lots more information has been added to the [@roots/bud-postcss documentation](https://bud.js.org/extensions/bud-postcss).
+
+## Upgrading to bud.js 6.3.0
 
 If you are using `@wordpress/browserslist-config` in your project (check the `browserslist` field of `package.json` if you aren't sure) you will need to either:
 

@@ -9,7 +9,7 @@ const config = require('../../../../config/monorepo.config.cjs')
  */
 const announcementBar = {
   id: 'announcementBar-4', // Increment on change
-  content: `🚀 SWC support and more in v6.2.0. <a href="/blog/tags/v-6">Release notes available here</a>`,
+  content: `🚀 SWC support and more in v6.3.0. <a href="/blog/tags/v-6">Release notes for v6.x.x releases available here</a>`,
 }
 
 /**
