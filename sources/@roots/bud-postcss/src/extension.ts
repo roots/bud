@@ -4,7 +4,7 @@ import {
   expose,
   label,
 } from '@roots/bud-framework/extension/decorators'
-import {isFunction} from 'lodash-es'
+import {isFunction, isUndefined} from 'lodash-es'
 import type {Plugin, Processor} from 'postcss'
 
 type Input =
@@ -13,10 +13,10 @@ type Input =
   | Processor
   | [string | Plugin | Processor, any?]
 
-type InputList = Array<string>
+type InputList = Array<string | [string, any?]>
 type InputRecords = Record<string, Input>
 type InputMap = Map<string, Input>
-type Registry = Map<string, [any, any?] | [Plugin | Processor]>
+type Registry = Map<string, [string | Plugin | Processor, any?]>
 
 /**
  * PostCSS support extension for `@roots/bud`
@@ -28,10 +28,25 @@ type Registry = Map<string, [any, any?] | [Plugin | Processor]>
 @expose('postcss')
 @label('@roots/bud-postcss')
 export default class BudPostCss extends Extension {
+  /**
+   * Syntax
+   *
+   * @public
+   */
   protected _syntax: string = null
 
+  /**
+   * Source map
+   *
+   * @public
+   */
   protected _sourceMap: boolean = true
 
+  /**
+   * Plugins registry
+   *
+   * @public
+   */
   protected readonly _plugins: Registry = new Map([])
 
   /**
@@ -40,14 +55,45 @@ export default class BudPostCss extends Extension {
    * @public
    */
   protected get postcssOptions() {
+    const plugins = this.app.hooks.filter(
+      'postcss.plugins',
+      this.postcssPluginsHooksCallback,
+    )
+
     return {
       ...(this.syntax ? {syntax: this.syntax} : {}),
-      ...(this.plugins.size ? {plugins: [...this.plugins.values()]} : {}),
+      plugins,
     }
   }
 
   /**
-   * postcss-loader's `postcssOptions.syntax`
+   * Callback which returns plugins as they will be given to postcss
+   *
+   */
+  @bind
+  public postcssPluginsHooksCallback() {
+    let plugins = []
+
+    if (!this.plugins.size) return null
+
+    this.plugins.has('import') && plugins.push(this.plugins.get('import'))
+
+    this.plugins.has('nesting') &&
+      plugins.push(this.plugins.get('nesting'))
+
+    Array.from(this.plugins.entries())
+      .filter(([k, v]) => !['import', 'nesting', 'env'].includes(k))
+      .forEach(([k, v]) => plugins.push(v))
+
+    this.plugins.has('env') && plugins.push(this.plugins.get('env'))
+
+    this.logger.log('final postcss plugins:', ...plugins)
+
+    return plugins.filter(Boolean)
+  }
+
+  /**
+   * postcss-loader's `postcssOptions.syntax` accessor
    *
    * @public
    */
@@ -59,11 +105,30 @@ export default class BudPostCss extends Extension {
   }
 
   /**
-   * postcss-loader's source-map option
+   * Get postcss-loader's `syntax` option
    *
    * @public
    */
-  public get sourceMap() {
+  public getSyntax(): string {
+    return this.syntax
+  }
+
+  /**
+   * Set postcss-loader's `syntax` option
+   *
+   * @public
+   */
+  public setSyntax(syntax: string): this {
+    this.syntax = syntax
+    return this
+  }
+
+  /**
+   * postcss-loader's source-map option accessor
+   *
+   * @public
+   */
+  public get sourceMap(): boolean {
     return this._sourceMap
   }
   public set sourceMap(sourceMap: boolean) {
@@ -71,15 +136,31 @@ export default class BudPostCss extends Extension {
   }
 
   /**
-   * PostCss plugins
+   * Get postcss-loader's source-map option
+   *
+   * @public
+   */
+  public getSourceMap(): boolean {
+    return this._sourceMap
+  }
+
+  /**
+   * Set postcss-loader's source-map option
+   *
+   * @public
+   */
+  public setSourceMap(sourceMap: boolean): this {
+    this.sourceMap = sourceMap
+    return this
+  }
+
+  /**
+   * PostCss plugins accessor
    *
    * @public
    */
   public get plugins() {
     return this._plugins
-  }
-  public set plugins(plugins: Registry) {
-    plugins.forEach((v, k) => this._plugins.set(k, v))
   }
 
   /**
@@ -104,18 +185,26 @@ export default class BudPostCss extends Extension {
    */
   @bind
   public setPlugins(plugins: InputRecords | InputMap | InputList): this {
-    this._plugins.clear()
+    const pluginMap = (plugin: string | [string, any?]): [string, any?] =>
+      Array.isArray(plugin) ? plugin : [plugin]
 
-    const pluginMap: InputMap = Array.isArray(plugins)
-      ? new Map(plugins.map(plugin => [plugin, plugin]))
-      : plugins instanceof Map
-      ? plugins
-      : new Map(Object.entries(plugins))
+    const setPlugin = (plugin: [string, any?]): unknown =>
+      this._plugins.set(...plugin)
 
-    pluginMap.forEach((v, k) => {
-      this._plugins.set(k, Array.isArray(v) ? v : [v])
-    })
+    if (Array.isArray(plugins)) {
+      plugins.map(pluginMap).forEach(setPlugin)
+      return this
+    }
 
+    if (plugins instanceof Map) {
+      Array.from(plugins.entries()).forEach(([k, v]) => {
+        this.setPlugin(k, v)
+      })
+
+      return this
+    }
+
+    Object.entries(plugins).map(pluginMap).forEach(setPlugin)
     return this
   }
 
@@ -131,13 +220,17 @@ export default class BudPostCss extends Extension {
    */
   @bind
   public setPlugin(name: string, plugin?: Input): this {
-    const modulePath = plugin ?? [name]
+    if (isUndefined(plugin)) {
+      this._plugins.set(name, [name])
+      return this
+    }
 
-    this.plugins.set(
-      name,
-      Array.isArray(modulePath) ? modulePath : [modulePath],
-    )
+    if (Array.isArray(plugin)) {
+      this._plugins.set(name, plugin)
+      return this
+    }
 
+    this._plugins.set(name, [plugin])
     return this
   }
 
@@ -248,38 +341,30 @@ export default class BudPostCss extends Extension {
    */
   @bind
   public async register() {
-    this.setPlugins(
-      new Map([
-        ['postcss-import', [await this.resolve('postcss-import')]],
-        ['postcss-nested', [await this.resolve('postcss-nested')]],
-        [
-          'postcss-preset-env',
-          [
-            await this.resolve('postcss-preset-env').then(path =>
-              path.replace('.mjs', '.cjs'),
-            ),
-            {
-              stage: 1,
-              features: {
-                'focus-within-pseudo-class': false,
-              },
-            },
-          ],
-        ],
-      ]),
-    )
+    this.setPlugins({
+      import: await this.resolve('postcss-import'),
+      nesting: await this.resolve('postcss-nested'),
+      env: [
+        await this.resolve('postcss-preset-env').then(path =>
+          path.replace('.mjs', '.cjs'),
+        ),
+        {
+          stage: 1,
+          features: {
+            'focus-within-pseudo-class': false,
+          },
+        },
+      ],
+    })
 
-    /**
-     * Register postcss-loader
-     */
     this.app.build
       .setLoader('postcss', await this.resolve('postcss-loader'))
       .setItem('postcss', {
         loader: 'postcss',
         options: () => {
           return {
-            postcssOptions: this.postcssOptions,
             sourceMap: this.sourceMap,
+            postcssOptions: this.postcssOptions,
           }
         },
       })

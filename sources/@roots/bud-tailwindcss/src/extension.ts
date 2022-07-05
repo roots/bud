@@ -27,14 +27,7 @@ export default class BudTailwindCss extends Extension {
       const tailwindcss = await this.resolve('tailwindcss')
       const nesting = await this.resolve('tailwindcss/nesting/index.js')
 
-      this.app.postcss.setPlugins({
-        'postcss-import': this.app.postcss.plugins.get('postcss-import'),
-        'tailwindcss-nesting': [nesting],
-        tailwindcss: [tailwindcss],
-        'postcss-preset-env': this.app.postcss.plugins.get(
-          'postcss-preset-env',
-        ),
-      })
+      this.app.postcss.setPlugins({nesting, tailwindcss})
 
       this.logger.success('postcss configured for tailwindcss')
     } catch (message) {

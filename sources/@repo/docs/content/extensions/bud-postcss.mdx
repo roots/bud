@@ -4,10 +4,6 @@ description: 'postcss support for bud.js projects'
 sidebar_label: '🟢 @roots/bud-postcss'
 ---
 
-import Tabs from '@theme/Tabs'
-import TabItem from '@theme/TabItem'
-import CodeBlock from '@theme/CodeBlock'
-
 import {Install} from '@site/src/docs/Install'
 
 [PostCSS](https://postcss.org) can be added by installing the **@roots/bud-postcss** extension.
@@ -18,109 +14,156 @@ import {Install} from '@site/src/docs/Install'
 
 ## Configuration
 
-By default, **@roots/bud-postcss** includes:
+By default, **@roots/bud-postcss** includes the following plugins, registered with postcss in this order:
 
-- [postcss-import](https://github.com/postcss/postcss-import)
-- [postcss-nested](https://github.com/postcss/postcss-nested)
-- [postcss-preset-env](https://preset-env.cssdb.org/)
+| Order | Key       | Plugin                                                      |
+| ----- | --------- | ----------------------------------------------------------- |
+| 1.    | 'import'  | [postcss-import](https://github.com/postcss/postcss-import) |
+| 2.    | 'nesting' | [postcss-nested](https://github.com/postcss/postcss-nested) |
+| 3.    | 'env'     | [postcss-preset-env](https://preset-env.cssdb.org/)         |
 
 If this works for you, great! No need to keep reading. But, should you need something more specialized,
-you can configure it in your bud config file or a [postcss.config.js[ file in your project's root directory.
+you can configure it in your bud config file or a postcss.config.js file in your project's root directory.
 
-:::info
+Any additional plugins you may want to add will be added between `nesting` and `env`.
+This is, generally, what you want, but there instructions included below for overriding this behavior.
 
-If you have a postcss config file in your project, that configuration will be used instead of the defaults provided by this extension.
+## Add a plugin
 
-:::
-
-**@roots/bud-postcss** stores PostCSS plugins as a `Map`. You can work with this map directly using **bud.postcss.plugins**.
-
-```js
-bud.postcss.plugins.set('postcss-import', [
-  require.resolve('postcss-import'),
-  {...options},
-])
-
-bud.postcss.plugins.get('postcss-import')
-```
-
-There are also several functions designed to simplify managing registered plugins:
-
-### Add a plugin
-
-You can add a plugin with **postcss.setPlugin**. This function takes up to two parameters.
+You can add a plugin with **bud.postcss.setPlugin**. This function takes up to two parameters.
 
 The first parameter is required. It is the name for the plugin.
-If it is the only parameter being passed, it should be the resolvable plugin module name.
+If it is the only parameter being passed, it should be the module signifier.
 
-```js
+```mjs title="bud.config.mjs"
 bud.postcss.setPlugin('example-postcss-plugin')
 ```
 
-The second parameter is optional. It allows you to specify where the plugin should be resolved from:
+The second parameter is optional and multivariate.
 
-```js
+Use a string to specify the plugin's resolvable path:
+
+```mjs title="bud.config.mjs"
 bud.postcss.setPlugin(
   'example-postcss-plugin',
   bud.path('./directory/example.js'),
 )
 ```
 
-Lastly, you can use a `tuple` to set any associated options alongside the resolvable path.
+Use an array to set any associated options alongside the resolvable path.
 
-```js
+```mjs title="bud.config.mjs"
 bud.postcss.setPlugin('example-postcss-plugin', [
-  require.resolve('example-postcss-plugin'), // the plugin module path
-  {stage: 1}, // options
+  bud.path('./directory/example.js'),
+  {stage: 1},
 ])
 ```
 
-### Set plugins
+## Override plugin options
 
-Add multiple postcss plugins using **postcss.setPlugins**.
-
-This function accepts either a plain `Object` or a `Map` using the plugin
-name as keys and the plugin module path and options as values.
-
-```js
-bud.postcss.setPlugins(
-  new Map([
-    ['postcss-import', require.resolve('postcss-import')],
-    [
-      'postcss-preset-env',
-      [require.resolve('postcss-preset-env'), {stage: 1}],
-    ],
-  ]),
-)
-```
-
-### Modify plugin options
-
-You can modify options for a postcss plugin using **postcss.setPluginOptions**.
+You can modify options for a plugin using **bud.postcss.setPluginOptions**.
 
 The first parameter is the plugin key and the second is the options object.
 
-```js
+```mjs title="bud.config.mjs"
 bud.postcss.setPluginOptions('example-postcss-plugin', {optimize: false})
 ```
 
-### Modify plugin path
+## Override plugin resolution
 
-You can modify the path for a postcss plugin using **postcss.setPluginPath**.
+You can modify the path for a postcss plugin using **bud.postcss.setPluginPath**.
 
 The first parameter is the plugin key and the second is the new path to assign.
 
-```js
+```mjs title="bud.config.mjs"
 bud.postcss.setPluginPath(
   'example-postcss-plugin',
   bud.path('./lib/my-plugin.js'),
 )
 ```
 
-### Remove a plugin
+## Add multiple plugins
 
-You may remove a plugin with **postcss.unsetPlugin**.
+You can add multiple postcss plugins using **bud.postcss.setPlugins**.
 
-```js
-bud.postcss.unsetPlugin('postcss-import')
+### Using an object
+
+```mjs title="bud.config.mjs"
+bud.postcss.setPlugins({
+  ['tailwindcss']: await bud.module.resolve('tailwindcss'),
+  ['nesting']: await bud.module.resolve('tailwindcss/nesting/index.js'),
+})
 ```
+
+### Using a Map
+
+```mjs title="bud.config.mjs"
+bud.postcss.setPlugins(
+  new Map([])
+    .set('tailwindcss', await bud.module.resolve('tailwindcss'))
+    .set('nesting', [
+      await bud.module.resolve('tailwindcss/nesting/index.js'),
+    ]),
+)
+```
+
+### Using an array
+
+```mjs title="bud.config.mjs"
+bud.postcss.setPlugins([
+  ['tailwindcss', await bud.module.resolve('tailwindcss')],
+  ['nesting', await bud.module.resolve('tailwindcss/nesting/index.js')],
+])
+```
+
+## Remove a plugin
+
+You may remove a plugin with **bud.postcss.unsetPlugin**.
+
+```mjs title="bud.config.mjs"
+bud.postcss.unsetPlugin('import')
+```
+
+## Plugin ordering
+
+**@roots/bud-postcss** loosely attempts to enforce a particular plugin load order.
+
+It will always attempt to load plugins as follows:
+
+| Order | Description                     | Default              |
+| ----- | ------------------------------- | -------------------- |
+| 1     | `import` implementation         | `postcss-import`     |
+| 2     | `nesting` implementation        | `postcss-nested`     |
+| ...3  | all other plugins as registered | none                 |
+| 4     | `env` implementation            | `postcss-preset-env` |
+
+The reason bud.js gets so hands-on here is to provide a reasonable default which people can build on without needing to splice in their own plugins manually.
+If this is a problem for your project, the most direct way to override this is to hook a function to `postcss.plugins` which returns an array of plugin values:
+
+```mjs title="bud.config.mjs"
+bud.hooks.on('postcss.plugins', () => {
+  return [
+    bud.postcss.get('import'),
+    // ... plugins, in the order you wish to load them
+  ]
+})
+```
+
+## Working with the plugin registry directly
+
+**@roots/bud-postcss** stores PostCSS plugins as a `Map`. You can work with this `Map` directly using **bud.postcss.plugins**.
+
+```mjs title="bud.config.mjs"
+bud.postcss.plugins.set('import', [
+  await module.resolve('postcss-import'),
+  {...options},
+])
+
+bud.postcss.plugins.get('import')
+
+bud.postcss.plugins.delete('import')
+
+bud.postcss.plugins.clear()
+```
+
+When you `get` something, you can hopefully rely on it being a `tuple` with the plugin in the first position and the options in the second. The plugin might be a string (resolveable path) or a module.
