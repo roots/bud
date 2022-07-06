@@ -51,7 +51,6 @@ export const seed: Config.Options['seed'] = {
   'build.module.unsafeCache': [() => false],
   'build.node': [() => false],
   'build.output.pathinfo': [() => false],
-  'build.output.publicPath': [() => '/'],
   'build.optimization.minimize': [() => false],
   'build.optimization.minimizer': [() => ['...']],
   'build.optimization.removeEmptyChunks': [() => true],

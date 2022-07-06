@@ -6,7 +6,6 @@
   ],
   "devDependencies": {
     "@roots/bud": "workspace:*",
-    "@roots/browserslist-config/current": "workspace:*",
     "@roots/bud-eslint": "workspace:*",
     "@roots/bud-prettier": "workspace:*",
     "@roots/bud-stylelint": "workspace:*",

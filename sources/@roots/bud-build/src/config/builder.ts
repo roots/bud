@@ -87,6 +87,7 @@ export async function build(app: Bud): Promise<void> {
     .hooks.on('build.output.chunkFormat', () => 'array-push')
     .hooks.on('build.output.module', () => undefined)
     .hooks.on('build.output.path', () => app.path('@dist'))
+    .hooks.on('build.output.publicPath', () => 'auto')
     .hooks.on('build.optimization', () => ({
       emitOnErrors: app.hooks.filter('build.optimization.emitOnErrors'),
       minimize: app.hooks.filter('build.optimization.minimize'),

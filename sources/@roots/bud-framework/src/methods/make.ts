@@ -46,11 +46,16 @@ export const make: make = function (seed, tap) {
       await root.children[options.name].api.processQueue()
     }
 
+    await Promise.all(
+      Object.values(root.children[options.name].services)
+        .filter(service => isFunction(service.afterConfig))
+        .map(async service => {
+          await service.afterConfig(root.children[options.name])
+        }),
+    )
+
     await root.children[options.name].hooks.fire('config.after')
     root.children[options.name].success('config after hook fired')
-
-    await root.children[options.name].extensions.runAll('_afterConfig')
-    root.children[options.name].success('extensions afterConfig applied')
   })
 
   root.log(`child prepped:`, options.name)

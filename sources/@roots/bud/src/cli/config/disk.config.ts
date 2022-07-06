@@ -101,8 +101,14 @@ export const config = async (app: Bud) => {
   await process(modeSpecific)
 
   try {
+    await Promise.all(
+      Object.values(app.services)
+        .filter(service => isFunction(service.afterConfig))
+        .map(async service => {
+          await service.afterConfig(app)
+        }),
+    )
     await app.hooks.fire('config.after')
-    await app.extensions.runAll('_afterConfig')
   } catch (err) {
     app.error(err)
   }
