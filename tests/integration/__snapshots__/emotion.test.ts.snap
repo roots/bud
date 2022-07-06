@@ -2,20 +2,20 @@
 
 exports[`emotion npm manifest.json matches snapshot 1`] = `
 Object {
-  "app.js": "/app.js",
-  "index.html": "/index.html",
-  "runtime.js": "/runtime.js",
-  "svg/logo.svg": "/svg/logo.svg",
-  "vendor/app.js": "/vendor/app.js",
+  "app.js": "app.js",
+  "index.html": "index.html",
+  "runtime.js": "runtime.js",
+  "svg/logo.svg": "svg/logo.svg",
+  "vendor/app.js": "vendor/app.js",
 }
 `;
 
 exports[`emotion yarn manifest.json matches snapshot 1`] = `
 Object {
-  "app.js": "/app.js",
-  "index.html": "/index.html",
-  "runtime.js": "/runtime.js",
-  "svg/logo.svg": "/svg/logo.svg",
-  "vendor/app.js": "/vendor/app.js",
+  "app.js": "app.js",
+  "index.html": "index.html",
+  "runtime.js": "runtime.js",
+  "svg/logo.svg": "svg/logo.svg",
+  "vendor/app.js": "vendor/app.js",
 }
 `;

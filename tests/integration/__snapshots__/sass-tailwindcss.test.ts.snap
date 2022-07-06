@@ -2,12 +2,12 @@
 
 exports[`sass-tailwindcss npm manifest.json matches snapshot 1`] = `
 Object {
-  "app.css": "/app.css",
+  "app.css": "app.css",
 }
 `;
 
 exports[`sass-tailwindcss yarn manifest.json matches snapshot 1`] = `
 Object {
-  "app.css": "/app.css",
+  "app.css": "app.css",
 }
 `;
