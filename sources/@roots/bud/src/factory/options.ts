@@ -6,7 +6,7 @@ import {services} from '../services/index.js'
 
 export const mergeOptions: (
   context: Config.Context,
-  overrides?: Config.Options,
+  overrides?: Partial<Config.Options>,
 ) => Config.Options = (context, overrides) => ({
   name: 'bud',
   mode: 'production',
@@ -15,6 +15,10 @@ export const mergeOptions: (
   context: {
     ...context,
     ...(overrides?.context ?? {}),
+    args: {
+      ...(context.args ?? {}),
+      ...(overrides?.context?.args ?? {}),
+    },
   },
   seed: {
     ...seed,
