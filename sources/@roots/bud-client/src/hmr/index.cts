@@ -51,7 +51,6 @@ interface Options extends BaseOptions {
   }, FALLBACK_OPTS)
 
   hmr.setOptionsAndConnect(options)
-  console.info(options)
 
   if (options['bud.indicator']) {
     const controllerModule = await import(
@@ -59,8 +58,6 @@ interface Options extends BaseOptions {
     )
     const controller = await controllerModule.make()
     controller?.update && controllers.push(controller)
-
-    console.info(controllers)
   }
 
   if (options['bud.overlay']) {
@@ -69,16 +66,10 @@ interface Options extends BaseOptions {
     )
     const controller = await controllerModule.make()
     controller?.update && controllers.push(controller)
-
-    console.info(controllers)
   }
 
   hmr.subscribeAll(payload => {
     if (!payload) return
-    console.info(payload)
-
-    payload.warnings?.map(console.warn)
-    payload.errors?.map(console.error)
 
     controllers.map(controller => controller.update(payload))
 

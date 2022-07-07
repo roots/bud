@@ -8,7 +8,7 @@ import {cpus} from 'node:os'
  */
 export const seed: Config.Options['seed'] = {
   'feature.cache': [() => true],
-  'feature.clean': [() => false],
+  'feature.clean': [() => true],
   'feature.hash': [() => false],
   'feature.html': [() => false],
   'feature.inject': [() => true],
@@ -50,7 +50,6 @@ export const seed: Config.Options['seed'] = {
   'build.module.noParse': [() => undefined],
   'build.module.unsafeCache': [() => false],
   'build.node': [() => false],
-  'build.output.pathinfo': [() => false],
   'build.optimization.minimize': [() => false],
   'build.optimization.minimizer': [() => ['...']],
   'build.optimization.removeEmptyChunks': [() => true],

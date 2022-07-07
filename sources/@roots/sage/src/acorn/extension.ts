@@ -1,6 +1,5 @@
 import {Extension} from '@roots/bud-framework/extension'
 import {bind, label} from '@roots/bud-framework/extension/decorators'
-import fs from 'fs-extra'
 
 import eventCompilerDone from './hooks/event.compiler.done.js'
 
@@ -28,13 +27,10 @@ export default class Acorn extends Extension {
     this.app.build.rules.svg.setGenerator(this.svgGenerator)
 
     /**
-     * Write hmr.json when compilation is finalized (only in development)
-     * Remove this file when process is exited.
+     * Write hmr.json
      */
-
-    if (this.app.isProduction)
-      await fs.remove(this.app.path('@dist', 'hmr.json'))
-    else this.app.hooks.action('compiler.close', eventCompilerDone)
+    this.app.isDevelopment &&
+      this.app.hooks.action('compiler.close', eventCompilerDone)
   }
 
   /**
@@ -42,8 +38,6 @@ export default class Acorn extends Extension {
    */
   @bind
   public async afterConfig() {
-    if (this.app.isDevelopment) this.app.setPublicPath('/')
-
     this.app.extensions
       .get('@roots/bud-entrypoints')
       .setOption('publicPath', '')

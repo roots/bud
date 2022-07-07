@@ -130,6 +130,10 @@ export default class Build extends Service implements Bud.Build.Service {
       }),
     )
 
+    this.items.precss = this.app.isProduction
+      ? this.items.minicss
+      : this.items.style
+
     await Promise.all(
       Object.entries(rules).map(async ([key, ruleFactory]) => {
         const value = await ruleFactory(this.app)

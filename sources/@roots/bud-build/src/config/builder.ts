@@ -81,9 +81,13 @@ export async function build(app: Bud): Promise<void> {
     .hooks.on('build.output.assetModuleFilename', () =>
       filenameFormat(app, '[ext]'),
     )
-    .hooks.on('build.output.chunkFilename', () => filenameFormat(app))
-    .hooks.on('build.output.chunkLoading', () => 'jsonp')
-    .hooks.on('build.output.filename', () => filenameFormat(app))
+    .hooks.on(
+      'build.output.clean',
+      () =>
+        app.hooks.filter('feature.clean') !== false && app.isProduction,
+    )
+    .hooks.on('build.output.chunkFilename', () => 'js/dynamic/[id].js')
+    .hooks.on('build.output.filename', () => `js/${filenameFormat(app)}`)
     .hooks.on('build.output.chunkFormat', () => 'array-push')
     .hooks.on('build.output.module', () => undefined)
     .hooks.on('build.output.path', () => app.path('@dist'))

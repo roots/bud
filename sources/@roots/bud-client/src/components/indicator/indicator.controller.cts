@@ -22,6 +22,7 @@ export class Controller {
   public constructor() {
     this.node = document.createElement('bud-activity-indicator')
     document.body && document.body.appendChild(this.node)
+    this.update = this.update.bind(this)
   }
 
   /**
