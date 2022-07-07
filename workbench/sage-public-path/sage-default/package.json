@@ -5,12 +5,12 @@
     "extends @roots/browserslist-config/current"
   ],
   "devDependencies": {
-    "@roots/bud": "workspace:*",
-    "@roots/bud-eslint": "workspace:*",
-    "@roots/bud-prettier": "workspace:*",
-    "@roots/bud-stylelint": "workspace:*",
-    "@roots/bud-tailwindcss": "workspace:*",
-    "@roots/eslint-config": "workspace:*",
-    "@roots/sage": "workspace:*"
+    "@roots/bud": "workspace:sources/@roots/bud",
+    "@roots/bud-eslint": "workspace:sources/@roots/bud-eslint",
+    "@roots/bud-prettier": "workspace:sources/@roots/bud-prettier",
+    "@roots/bud-stylelint": "workspace:sources/@roots/bud-stylelint",
+    "@roots/bud-tailwindcss": "workspace:sources/@roots/bud-tailwindcss",
+    "@roots/eslint-config": "workspace:sources/@roots/eslint-config",
+    "@roots/sage": "workspace:sources/@roots/sage"
   }
 }

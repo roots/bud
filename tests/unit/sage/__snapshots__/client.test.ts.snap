@@ -3,5 +3,6 @@
 exports[`@roots/sage @roots/sage/client 1`] = `
 Object {
   "domReady": [Function],
+  "lazy": [Function],
 }
 `;

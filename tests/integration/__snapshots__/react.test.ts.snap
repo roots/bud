@@ -5,7 +5,7 @@ Object {
   "app.css": "css/app.css",
   "app.js": "js/app.js",
   "index.html": "index.html",
-  "js/bundle/935.js": "js/bundle/935.js",
+  "js/935.js": "js/935.js",
   "runtime.js": "js/runtime.js",
   "svg/logo.svg": "svg/logo.svg",
 }
@@ -16,7 +16,7 @@ Object {
   "app.css": "css/app.css",
   "app.js": "js/app.js",
   "index.html": "index.html",
-  "js/bundle/935.js": "js/bundle/935.js",
+  "js/935.js": "js/935.js",
   "runtime.js": "js/runtime.js",
   "svg/logo.svg": "svg/logo.svg",
 }
