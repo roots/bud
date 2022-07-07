@@ -3409,7 +3409,6 @@ __metadata:
   dependencies:
     "@skypack/package-check": 0.2.2
     "@types/node": 16.11.41
-    helpful-decorators: 2.1.0
     querystring: ^0.2.1
     strip-ansi: 7.0.1
     tslib: 2.4.0
