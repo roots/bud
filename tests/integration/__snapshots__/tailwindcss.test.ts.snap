@@ -2,16 +2,16 @@
 
 exports[`tailwindcss npm manifest.json matches snapshot 1`] = `
 Object {
-  "app.css": "app.css",
-  "app.js": "app.js",
+  "app.css": "css/app.css",
+  "app.js": "js/app.js",
   "index.html": "index.html",
 }
 `;
 
 exports[`tailwindcss yarn manifest.json matches snapshot 1`] = `
 Object {
-  "app.css": "app.css",
-  "app.js": "app.js",
+  "app.css": "css/app.css",
+  "app.js": "js/app.js",
   "index.html": "index.html",
 }
 `;

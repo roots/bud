@@ -2,12 +2,12 @@
 
 exports[`basic npm manifest.json matches snapshot 1`] = `
 Object {
-  "main.js": "main.js",
+  "main.js": "js/main.js",
 }
 `;
 
 exports[`basic yarn manifest.json matches snapshot 1`] = `
 Object {
-  "main.js": "main.js",
+  "main.js": "js/main.js",
 }
 `;
