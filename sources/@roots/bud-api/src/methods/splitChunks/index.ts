@@ -57,19 +57,13 @@ export const method: method = function (options) {
     ctx.hooks.on('build.optimization.splitChunks', () => ({
       chunks: 'all',
       automaticNameDelimiter: `/`,
+      minSize: 0,
       cacheGroups: {
-        defaultVendors: {
+        vendor: {
           idHint: 'vendor',
-          filename: 'js/bundle/[name].js',
+          filename: 'js/bundle/vendor/[name].js',
           test: /[\\/]node_modules[\\/]/,
-          priority: -10,
-          reuseExistingChunk: true,
-        },
-        default: {
-          filename: 'js/bundle/[name].js',
-          minChunks: 2,
           priority: -20,
-          reuseExistingChunk: true,
         },
       },
     }))
@@ -86,6 +80,5 @@ export const method: method = function (options) {
    * hook themselves.
    */
   ctx.hooks.on('build.optimization.splitChunks', options)
-
   return ctx
 }
