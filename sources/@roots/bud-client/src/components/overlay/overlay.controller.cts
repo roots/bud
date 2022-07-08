@@ -1,4 +1,3 @@
-import {bind} from 'helpful-decorators'
 import stripAnsi = require('strip-ansi')
 import type Webpack from 'webpack'
 
@@ -46,13 +45,13 @@ export class Controller {
   public constructor() {
     this.element = document.createElement('bud-error')
     document.body && document.body.appendChild(this.element)
+    this.update = this.update.bind(this)
   }
 
   /**
    * Update element
    * @public
    */
-  @bind
   public update(payload: Payload): void {
     this.payload = payload
     this.element.setAttribute('message', this.message ?? ``)

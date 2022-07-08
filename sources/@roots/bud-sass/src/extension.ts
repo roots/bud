@@ -2,6 +2,7 @@ import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
   dependsOn,
+  dependsOnOptional,
   label,
 } from '@roots/bud-framework/extension/decorators'
 
@@ -13,56 +14,24 @@ import {
  * @decorator `@dependsOn`
  */
 @label('@roots/bud-sass')
-@dependsOn(['@roots/bud-postcss', '@roots/bud-sass/resolve-url'])
+@dependsOn(['@roots/bud-sass/resolve-url'])
+@dependsOnOptional(['@roots/bud-postcss'])
 export default class BudSass extends Extension {
   /**
-   * Sass implementation
-   *
-   * @returns Sass
+   * `afterConfig` callback
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public async implementation() {
-    try {
-      const implementation = await this.import('sass').then(
-        sassImport => sassImport?.default ?? sassImport,
-      )
-
-      if (implementation) {
-        this.logger.success('sass imported')
-        return implementation
-      }
-    } catch (e) {
-      this.logger.error(e)
-      throw new Error(
-        'sass not found. Install it with `yarn add sass --dev` or `npm i sass --save-dev`. \
-        This may be a problem with bud; please let us know what \
-        you experienced by filing an issue at https://github.com/roots/bud',
-      )
-    }
-  }
-
-  /**
-   * Register extension
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async register() {
-    const implementation = await this.implementation()
-    const loader = await this.resolve('sass-loader')
+  public async afterConfig() {
+    const implementation = await this.import('sass')
 
     this.app.build
-      .setLoader('sass', loader)
+      .setLoader('sass', await this.resolve('sass-loader'))
       .setItem('sass', {
         loader: 'sass',
-        options: {
-          implementation,
-          sourceMap: true,
-        },
+        options: {implementation, sourceMap: true},
       })
       .setRule('sass', {
         test: app => app.hooks.filter('pattern.sass'),

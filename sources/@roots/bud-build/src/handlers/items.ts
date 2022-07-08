@@ -9,9 +9,11 @@ import type {Item} from '@roots/bud-framework/services/build'
 export const css = async (app: Bud): Promise<Item> =>
   app.build
     .makeItem()
-    .setLoader(`css`)
-    .setOptions(({hooks}) => ({
-      importLoaders: 1,
+    .setLoader('css')
+    .setOptions(({build, hooks}) => ({
+      esModule: false,
+      importLoaders: build.rules.css.getUse().length - 2,
+      modules: false,
       sourceMap: hooks.filter('build.devtool') ? true : false,
     }))
 
@@ -23,9 +25,10 @@ export const css = async (app: Bud): Promise<Item> =>
 export const cssModule = async (app: Bud): Promise<Item> =>
   app.build
     .makeItem()
-    .setLoader(`css`)
-    .setOptions(({hooks}) => ({
-      importLoaders: 1,
+    .setLoader('css')
+    .setOptions(({build, hooks}) => ({
+      esModule: true,
+      importLoaders: build.rules.cssModule.getUse().length - 2,
       localIdentName: '[name]__[local]___[hash:base64:5]',
       modules: true,
       sourceMap: hooks.filter('build.devtool') ? true : false,
@@ -37,7 +40,7 @@ export const cssModule = async (app: Bud): Promise<Item> =>
  * @public
  */
 export const csv = async (app: Bud): Promise<Item> =>
-  app.build.makeItem().setLoader(`csv`)
+  app.build.makeItem().setLoader('csv')
 
 /**
  * HTML loader
@@ -45,7 +48,7 @@ export const csv = async (app: Bud): Promise<Item> =>
  * @public
  */
 export const html = async (app: Bud): Promise<Item> =>
-  app.build.makeItem().setLoader(`html`)
+  app.build.makeItem().setLoader('html')
 
 /**
  * Style loader
@@ -53,7 +56,7 @@ export const html = async (app: Bud): Promise<Item> =>
  * @public
  */
 export const style = async (app: Bud): Promise<Item> =>
-  app.build.makeItem().setLoader(`style`)
+  app.build.makeItem().setLoader('style')
 
 /**
  * Markdown loader
@@ -71,18 +74,10 @@ export const md = async (app: Bud): Promise<Item> =>
 export const minicss = async (app: Bud): Promise<Item> =>
   app.build
     .makeItem()
-    .setLoader(`minicss`)
+    .setLoader('minicss')
     .setOptions(app => ({
       publicPath: app.hooks.filter('build.output.publicPath'),
     }))
-
-/**
- * `minicss` in production and `style` in development
- *
- * @public
- */
-export const precss = async ({build, isProduction}: Bud): Promise<Item> =>
-  build.makeItem().setLoader(isProduction ? `minicss` : `style`)
 
 /**
  * Raw loader

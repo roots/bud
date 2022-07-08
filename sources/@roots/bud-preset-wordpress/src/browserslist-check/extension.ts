@@ -50,15 +50,16 @@ ${c.red.bold(
           const postcss: any = this.app.extensions.get(
             '@roots/bud-postcss',
           )
-          if (postcss.plugins.has('postcss-preset-env'))
+          if (postcss.plugins.has('env')) {
             this.app.context.stdout.write(`\
 │
 ├──  🩹 Setting \`postcss-preset-env\` \`browsers\` target to '>%1'
 `)
-          postcss.setPluginOptions('postcss-preset-env', options => ({
-            ...(options ?? {}),
-            browsers: '>1%',
-          }))
+            postcss.setPluginOptions('env', options => ({
+              ...(options ?? {}),
+              browsers: '>1%',
+            }))
+          }
         }
 
         if (this.app.extensions.has('@roots/bud-babel')) {

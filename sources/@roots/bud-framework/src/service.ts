@@ -6,18 +6,9 @@ import type {Bud} from './bud.js'
  * Service
  *
  * @remarks
- * The {@link Service} interface provides access to the {@link Bud} container.
+ * The Service interface provides access to the {@link Bud} container.
  *
- * A {@link Service} interfaces with the Framework through a series of callbacks at different points in the build.
- *
- * All of the callbacks are optional:
- *
- * - {@link Service.bootstrap} is called when the Service is instantiated (but before all services are guaranteed to be instantiated).
- * - {@link Service.bootstrapped} is called once all Services have been instantiated.
- * - {@link Service.register} is intended for Services to register functionalities, modules, and bind functions and classes.
- * - {@link Service.registered} is called after all {@link Service.register} callbacks are complete.
- * - {@link Service.boot} is called once all services are registered. It should be safe for Services to reference one another.
- * - {@link Service.booted} is called after all {@link Service.boot} callbacks are complete.
+ * A Service interfaces with the Framework through a series of callbacks at different points in the build.
  *
  * @public
  */
@@ -26,6 +17,12 @@ export class Service {
    * @internal @readonly
    */
   public _app: () => Bud
+
+  /**
+   * After config callback
+   * @public
+   */
+  public afterConfig?(app: Bud): Promise<unknown>
 
   /**
    * Access {@link Bud}
@@ -58,9 +55,8 @@ export class Service {
    * Lifecycle method: bootstrapped
    *
    * @remarks
-   * Called once all {@link Service} instances are available.
-   *
-   * @param app - {@link Bud}
+   * Called once all Service instances are available
+
    *
    * @virtual @public
    */
@@ -70,9 +66,8 @@ export class Service {
    * Lifecycle method: register
    *
    * @remarks
-   * Intended for {@link Service} instances to register functionalities, modules, and bind functions and classes to the {@link Bud}
-   *
-   * @param app - {@link Bud}
+   * Intended for Service instances to register functionalities, modules,
+   * and bind functions to {@link Bud}
    *
    * @virtual @public
    */
@@ -82,9 +77,8 @@ export class Service {
    * Lifecycle method: registered
    *
    * @remarks
-   * `registered` is called after all {@link Service.register} callbacks are complete.
-   *
-   * @param app - {@link Bud}
+   * `registered` is called after `register` is complete
+
    *
    * @virtual @public
    */
@@ -94,9 +88,8 @@ export class Service {
    * Lifecycle method: boot
    *
    * @remarks
-   * `boot` is called once all services are registered. It should be safe for Services to reference one another.
-   *
-   * @param app - {@link Bud}
+   * `boot` is called once all services are registered.
+
    *
    * @virtual @public
    */
@@ -106,9 +99,8 @@ export class Service {
    * Lifecycle method: booted
    *
    * @remarks
-   * `booted` is called after all {@link Service.boot} callbacks are complete.
-   *
-   * @param app - {@link Bud}
+   * `booted` is called after `boot`
+
    *
    * @virtual @public
    */
@@ -136,6 +128,7 @@ export class ContainerService<T = any> extends Container<T> {
 
   /**
    * Class constructor
+   *
    * @public
    */
   public constructor(app: Bud) {
@@ -157,9 +150,7 @@ export class ContainerService<T = any> extends Container<T> {
    * Lifecycle method: bootstrapped
    *
    * @remarks
-   * Called once all {@link Service} instances are available.
-   *
-   * @param app - {@link Bud}
+   * Called once all Service instances are available
    *
    * @virtual @public
    */
@@ -169,9 +160,8 @@ export class ContainerService<T = any> extends Container<T> {
    * Lifecycle method: register
    *
    * @remarks
-   * Intended for {@link Service} instances to register functionalities, modules, and bind functions and classes to the {@link Bud}
-   *
-   * @param app - {@link Bud}
+   * Method for Service instances to register functionalities, modules,
+   * and bind functions to {@link Bud}
    *
    * @virtual @public
    */
@@ -181,9 +171,7 @@ export class ContainerService<T = any> extends Container<T> {
    * Lifecycle method: registered
    *
    * @remarks
-   * `registered` is called after all {@link Service.register} callbacks are complete.
-   *
-   * @param app - {@link Bud}
+   * `registered` is called after `register` callback is processed
    *
    * @virtual @public
    */
@@ -193,9 +181,7 @@ export class ContainerService<T = any> extends Container<T> {
    * Lifecycle method: boot
    *
    * @remarks
-   * `boot` is called once all services are registered. It should be safe for Services to reference one another.
-   *
-   * @param app - {@link Bud}
+   * `boot` is called once all services are registered.
    *
    * @virtual @public
    */
@@ -205,9 +191,8 @@ export class ContainerService<T = any> extends Container<T> {
    * Lifecycle method: booted
    *
    * @remarks
-   * `booted` is called after all {@link Service.boot} callbacks are complete.
-   *
-   * @param app - {@link Bud}
+   * `booted` is called after `boot` callback is processed
+
    *
    * @virtual @public
    */

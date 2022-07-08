@@ -28,9 +28,7 @@ import MiniCssPlugin, {PluginOptions} from 'mini-css-extract-plugin'
    * @public
    */
   filename: (app: Bud) =>
-    app.hooks.filter('feature.hash') && app.isProduction
-      ? app.hooks.filter('value.hashFormat').concat('.css')
-      : app.hooks.filter('value.fileFormat').concat('.css'),
+    `css/${app.path('@name').replace('[ext]', '.css')}`,
 
   /**
    * css chunk output filename
@@ -41,9 +39,7 @@ import MiniCssPlugin, {PluginOptions} from 'mini-css-extract-plugin'
    * @public
    */
   chunkFilename: (app: Bud) =>
-    app.hooks.filter('feature.hash') && app.isProduction
-      ? app.hooks.filter('value.hashFormat').concat('.css')
-      : app.hooks.filter('value.fileFormat').concat('.css'),
+    `css/${app.path('@name').replace('[ext]', '.bundle.css')}`,
 })
 @production
 export default class MiniCssExtract extends Extension<

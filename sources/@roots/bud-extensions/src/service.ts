@@ -45,6 +45,17 @@ export default class Extensions
   }
 
   /**
+   * `afterConfig` callback
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async afterConfig(): Promise<void> {
+    await this.runAll('_afterConfig')
+  }
+
+  /**
    * Has extension
    *
    * @public

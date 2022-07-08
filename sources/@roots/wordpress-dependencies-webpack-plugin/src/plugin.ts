@@ -96,10 +96,6 @@ export class WordPressDependenciesWebpackPlugin {
   @bind
   public processAssets(assets: Webpack.Compilation['assets']) {
     this.compilation.entrypoints.forEach(entry => {
-      entry.name = entry.name.endsWith('/entry')
-        ? entry.name.replace('/entry', '')
-        : entry.name
-
       this.manifest[entry.name] = []
 
       for (const chunk of entry.chunks) {
