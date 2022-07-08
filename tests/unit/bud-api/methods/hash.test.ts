@@ -15,7 +15,7 @@ describe('bud.hash', function () {
 
   it('enables hashing when called', async () => {
     expect(bud.build.config.output.filename).toEqual(
-      '[name].[contenthash:6].js',
+      'js/[name].[contenthash:6].js',
     )
   })
 })

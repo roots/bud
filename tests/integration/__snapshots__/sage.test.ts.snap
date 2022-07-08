@@ -3,15 +3,15 @@
 exports[`sage npm [snapshots] module map matches snapshot 1`] = `
 Object {
   "byName": Object {
-    "app/entry": 286,
-    "editor/entry": 227,
+    "app": 143,
+    "editor": 189,
     "runtime": Any<Number>,
   },
   "bySource": Object {
-    "0 app/entry": Any<Number>,
-    "0 editor/entry": Any<Number>,
-    "1 app/entry": Any<Number>,
-    "1 editor/entry": Any<Number>,
+    "0 app": Any<Number>,
+    "0 editor": Any<Number>,
+    "1 app": Any<Number>,
+    "1 editor": Any<Number>,
   },
   "usedIds": Array [
     Any<Number>,
@@ -43,15 +43,15 @@ Object {
 exports[`sage yarn [snapshots] module map matches snapshot 1`] = `
 Object {
   "byName": Object {
-    "app/entry": 286,
-    "editor/entry": 227,
+    "app": 143,
+    "editor": 189,
     "runtime": Any<Number>,
   },
   "bySource": Object {
-    "0 app/entry": Any<Number>,
-    "0 editor/entry": Any<Number>,
-    "1 app/entry": Any<Number>,
-    "1 editor/entry": Any<Number>,
+    "0 app": Any<Number>,
+    "0 editor": Any<Number>,
+    "1 app": Any<Number>,
+    "1 editor": Any<Number>,
   },
   "usedIds": Array [
     Any<Number>,

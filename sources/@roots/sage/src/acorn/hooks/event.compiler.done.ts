@@ -13,7 +13,7 @@ import {urlToHttpOptions} from 'node:url'
  */
 export default async function (app: Bud) {
   try {
-    await fs.ensureDir(app.path('@dist'))
+    await fs.ensureFile(app.path('@dist/hmr.json'))
 
     await fs.writeJson(app.path('@dist', 'hmr.json'), {
       dev: urlToHttpOptions(app.server.connection.url) ?? null,

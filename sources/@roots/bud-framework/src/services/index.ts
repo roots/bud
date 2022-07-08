@@ -24,8 +24,8 @@ export type {
 }
 
 /**
- * Registered services
+ * Service registry
  *
  * @virtual @public
  */
-export interface Registry extends Partial<Record<string, Service>> {}
+export interface Registry extends Record<string, Service> {}

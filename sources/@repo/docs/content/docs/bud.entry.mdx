@@ -64,7 +64,7 @@ You can specify assets using [fast-glob syntax](https://git.io/JkGbw).
 You may also specify entrypoints using the `build/entry` [hook](/docs/bud.hooks/).
 
 ```js title='bud.config.js'
-bud.hooks.on('build/entry', {
+bud.hooks.on('build.entry', {
   app: ['app.js', 'app.css'],
   admin: ['admin.js', 'admin.css'],
 })
@@ -73,7 +73,7 @@ bud.hooks.on('build/entry', {
 This will completely override whatever is defined. If you want to augment the existing definition you can do so with spread syntax.
 
 ```js title='bud.config.js'
-bud.hooks.on('build/entry', entrypoints => ({
+bud.hooks.on('build.entry', entrypoints => ({
   ...entrypoints,
   app: ['app.js', 'app.css'],
   admin: ['admin.js', 'admin.css'],

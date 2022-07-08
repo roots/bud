@@ -1,28 +1,28 @@
-import { Bud, factory } from "@repo/test-kit/bud";
+import {Bud, factory} from '@repo/test-kit/bud'
 
-describe("bud.minimize", function () {
-  let bud: Bud;
+describe('bud.minimize', function () {
+  let bud: Bud
 
   beforeAll(async () => {
-    bud = await factory();
-  });
+    bud = await factory()
+  })
 
-  it("is a function", () => {
-    expect(bud.minimize).toBeInstanceOf(Function);
-  });
+  it('is a function', () => {
+    expect(bud.minimize).toBeInstanceOf(Function)
+  })
 
-  it("enables minimizing when called", async () => {
-    bud.minimize();
-    await bud.build.make();
+  it('enables minimizing when called', async () => {
+    bud.minimize()
+    await bud.build.make()
 
-    expect(bud.build.config.optimization?.minimize).toEqual(true);
-  });
+    expect(bud.build.config.optimization?.minimize).toEqual(true)
+  })
 
-  it("disables minimizing when false is passed as param", async () => {
-    bud.minimize(false);
+  it('disables minimizing when false is passed as param', async () => {
+    bud.minimize(false)
 
-    await bud.build.make();
+    await bud.build.make()
 
-    expect(bud.build.config.optimization?.minimize).toEqual(false);
-  });
-});
+    expect(bud.build.config.optimization?.minimize).toEqual(false)
+  })
+})

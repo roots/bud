@@ -67,6 +67,8 @@ export interface Sync {
   'build.output.clean': Configuration['output']['clean']
   'build.output.environment': Configuration['output']['environment']
   'build.output.filename': Configuration['output']['filename']
+  'build.output.hotUpdateChunkFilename': Configuration['output']['hotUpdateChunkFilename']
+  'build.output.hotUpdateMainFilename': Configuration['output']['hotUpdateMainFilename']
   'build.output.module': Configuration['output']['module']
   'build.output.path': Configuration['output']['path']
   'build.output.pathinfo': Configuration['output']['pathinfo']

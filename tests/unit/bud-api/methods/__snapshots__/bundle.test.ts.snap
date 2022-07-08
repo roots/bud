@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`bud.bundle sets from arrayed string 1`] = `
+Object {
+  "automaticNameDelimiter": "/",
+  "cacheGroups": Object {
+    "react": Object {
+      "filename": "js/bundle/react/[name].js",
+      "idHint": "react",
+      "priority": -10,
+      "test": /\\[\\\\/\\]\\(react\\|react-dom\\)\\[\\\\/\\]/,
+    },
+  },
+  "chunks": "all",
+  "minSize": 0,
+}
+`;
+
+exports[`bud.bundle sets from string 1`] = `
+Object {
+  "automaticNameDelimiter": "/",
+  "cacheGroups": Object {
+    "react": Object {
+      "filename": "js/bundle/react/[name].js",
+      "idHint": "react",
+      "priority": -10,
+      "test": /\\[\\\\/\\]\\(react\\)\\[\\\\/\\]/,
+    },
+  },
+  "chunks": "all",
+  "minSize": 0,
+}
+`;

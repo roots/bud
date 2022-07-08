@@ -1,18 +1,17 @@
 import {Bud, factory} from '@repo/test-kit/bud'
 
-describe.skip('bud.splitChunks', function () {
+describe('bud.splitChunks', () => {
   let bud: Bud
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     bud = await factory()
-  })
-
-  beforeEach(() => {
     bud.hooks.on('build.optimization.splitChunks', undefined)
   })
 
-  it('sets default options when called', () => {
+  it('sets default options when called', async () => {
     bud.splitChunks()
+
+    await bud.api.processQueue()
 
     expect(
       bud.hooks.filter('build.optimization.splitChunks'),
@@ -30,6 +29,8 @@ describe.skip('bud.splitChunks', function () {
 
     await bud.api.processQueue()
 
-    expect(bud.hooks.filter('build.optimization.splitChunks')).toBe(param)
+    expect(
+      bud.hooks.filter('build.optimization.splitChunks'),
+    ).toMatchSnapshot()
   })
 })

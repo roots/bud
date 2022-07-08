@@ -2,14 +2,14 @@
 
 exports[`vue (legacy) npm manifest.json matches snapshot 1`] = `
 Object {
-  "app.js": "/app.js",
-  "index.html": "/index.html",
+  "app.js": "js/app.js",
+  "index.html": "index.html",
 }
 `;
 
 exports[`vue (legacy) yarn manifest.json matches snapshot 1`] = `
 Object {
-  "app.js": "/app.js",
-  "index.html": "/index.html",
+  "app.js": "js/app.js",
+  "index.html": "index.html",
 }
 `;

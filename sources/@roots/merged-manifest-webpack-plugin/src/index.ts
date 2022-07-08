@@ -115,10 +115,6 @@ export class MergedManifestWebpackPlugin {
         this.format(
           Object.entries(entrypointsManifest).reduce(
             (acc, [key, value]) => {
-              key = key.endsWith(`/entry`)
-                ? key.replace(`/entry`, ``)
-                : key
-
               return {
                 ...acc,
                 [key]: {

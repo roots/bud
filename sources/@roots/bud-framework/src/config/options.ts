@@ -1,4 +1,5 @@
-import type {Bud, Extension, Mode, Service} from '../index.js'
+import type {Bud, Extension, Mode, Services} from '../index.js'
+import type {Service} from '../service.js'
 import type {Context} from './context.js'
 
 /**
@@ -45,7 +46,10 @@ export interface Options {
    *
    * @public
    */
-  services?: Record<string, new (...params: Array<any>) => Service>
+  services?: Record<
+    keyof Services.Registry & string,
+    new (...args: any[]) => Service
+  >
 
   /**
    * @internal

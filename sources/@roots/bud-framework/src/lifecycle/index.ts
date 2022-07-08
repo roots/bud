@@ -1,10 +1,11 @@
-import {omit} from 'lodash-es'
+import {isFunction, omit} from 'lodash-es'
 
-import type {Bud, Config} from '../index.js'
+import type {Bud, Config, Services} from '../index.js'
 import {Logger} from '../logger/index.js'
 import * as methods from '../methods/index.js'
 import {Module} from '../module.js'
 import * as Process from '../process.js'
+import type {Service} from '../service.js'
 import {
   DEVELOPMENT_SERVICES,
   LIFECYCLE_EVENTS,
@@ -52,30 +53,36 @@ export async function lifecycle(
   this.logger = new Logger(this)
   this.module = new Module(this)
 
-  const initialized = Object.entries({...this.options.services})
+  this.services = Object.entries({...options.services})
     .filter(
       ([name]) =>
         this.isDevelopment || !DEVELOPMENT_SERVICES.includes(name),
     )
     .filter(([name]) => this.isRoot || !PARENT_SERVICES.includes(name))
-    .map(([name, Service]) => {
-      this.log('initializing', name)
+    .map(
+      ([name, Service]): [keyof Services.Registry & string, Service] => {
+        this.log('initializing', name)
 
-      this[name] = new Service(this)
+        this[name] = new Service(this)
 
-      return this[name]
-    })
+        return [name, this[name]]
+      },
+    )
+    .reduce((a, [k, v]): Services.Registry => ({...a, [k]: v}), {})
 
   await LIFECYCLE_EVENTS.reduce(async (promised, event) => {
     await promised
 
     await Promise.all(
-      initialized
-        .filter(service => service[event])
-        .map(service => [service, service[event].bind(service)])
-        .map(async ([service, callback]) => {
+      Object.keys(this.services)
+        .filter(service => isFunction(this[service][event]))
+        .map(service => [
+          service,
+          this[service][event].bind(this[service]),
+        ])
+        .map(async ([service, serviceLifecycleMethod]) => {
           try {
-            await callback(this)
+            await serviceLifecycleMethod(this)
             this.success({
               message: event,
               suffix: service.constructor.name.toLowerCase(),

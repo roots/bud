@@ -1,5 +1,3 @@
-import type {Config} from '@roots/bud-framework'
-
 import Bud from '../bud.js'
 import {makeContext} from '../context/index.js'
 import {mergeOptions} from './options.js'
@@ -23,7 +21,7 @@ import {mergeOptions} from './options.js'
  *
  * @public
  */
-export async function factory(overrides?: Config.Options): Promise<Bud> {
+export async function factory(overrides?: any): Promise<Bud> {
   const context = await makeContext(overrides.dir ?? process.cwd())
   const project = await new Bud().lifecycle(
     mergeOptions(context, overrides),

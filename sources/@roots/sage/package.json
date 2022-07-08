@@ -50,6 +50,7 @@
     "./extension": "./lib/sage/extension.js",
     "./client": "./lib/client/index.js",
     "./client/dom-ready": "./lib/client/dom-ready.js",
+    "./client/lazy": "./lib/client/lazy.js",
     "./wp-theme-json": "./lib/wp-theme-json/extension.js",
     "./wp-theme-json/tailwind": "./lib/wp-theme-json/tailwind/index.js",
     "./stylelint-config": "./stylelint-config/index.cjs"
@@ -67,6 +68,9 @@
       ],
       "client/dom-ready": [
         "./lib/client/dom-ready.d.ts"
+      ],
+      "client/lazy": [
+        "./lib/client/lazy.d.ts"
       ],
       "extension": [
         "./lib/sage/extension.d.ts"

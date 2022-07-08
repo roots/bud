@@ -1,5 +1,6 @@
 import type * as alias from '../methods/alias/index.js'
 import type * as assets from '../methods/assets/index.js'
+import type * as bundle from '../methods/bundle/index.js'
 import type {config} from '../methods/config/index.js'
 import type {define} from '../methods/define/index.js'
 import type * as devtool from '../methods/devtool/index.js'
@@ -184,6 +185,7 @@ export class Facade {
    * @public
    */
   public define: define
+
   /**
    * Enable filename hashing of built assets.
    *
@@ -195,6 +197,20 @@ export class Facade {
    * @public
    */
   public autoload: define
+
+  /**
+   * Create a module chunk.
+   *
+   * @example
+   * Create an `alpine` chunk
+   *
+   * ```js
+   * bud.chunk('alpine', 'alpine')
+   * ```
+   *
+   * @public
+   */
+  public bundle: bundle.method
 
   /**
    * Configure sourcemaps
