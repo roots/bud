@@ -3612,7 +3612,7 @@ __metadata:
     globby: 13.1.2
     helpful-decorators: 2.1.0
     http-proxy-middleware: 2.0.6
-    import-meta-resolve: 2.0.2
+    import-meta-resolve: 2.0.3
     js-yaml: 4.1.0
     json5: 2.2.1
     lodash-es: 4.17.21
@@ -8209,7 +8209,7 @@ __metadata:
     eslint-plugin-react-hooks: 4.6.0
     eslint-plugin-simple-import-sort: 7.0.0
     eslint-plugin-tsdoc: 0.2.16
-    import-meta-resolve: 2.0.2
+    import-meta-resolve: 2.0.3
     jest: 28.1.1
     json5: 2.2.1
     lodash-es: 4.17.21
@@ -13497,12 +13497,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"import-meta-resolve@npm:2.0.2":
-  version: 2.0.2
-  resolution: "import-meta-resolve@npm:2.0.2"
+"import-meta-resolve@npm:2.0.3":
+  version: 2.0.3
+  resolution: "import-meta-resolve@npm:2.0.3"
   dependencies:
     builtins: ^5.0.0
-  checksum: 9fa17417eb80254cf42667d39936b0031ad970398dc0f7ebf6010cfa9bfe49cb90413d00c23be69cde6759415cec9e5ccc1bb32bd620b743e7c77d78beb02b6e
+  checksum: 3a0cc2f50b04e766712a7c60f1136c89c2d0cdd49bbbf8b810a6f1b0985cd3e897988d99bf6ce46103589806e6ba3e0d12b68f1e6bb51032beef3a2c2defd52e
   languageName: node
   linkType: hard
 
