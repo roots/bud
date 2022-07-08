@@ -1,15 +1,14 @@
 import {Bud, factory} from '@repo/test-kit/bud'
 
-describe('bud.splitChunks', () => {
+describe('bud.bundle', () => {
   let bud: Bud
 
   beforeEach(async () => {
     bud = await factory()
-    bud.hooks.on('build.optimization.splitChunks', undefined)
   })
 
-  it('sets default options when called', async () => {
-    bud.splitChunks()
+  it('sets from string', async () => {
+    bud.bundle('react')
 
     await bud.api.processQueue()
 
@@ -18,14 +17,8 @@ describe('bud.splitChunks', () => {
     ).toMatchSnapshot()
   })
 
-  it('sets options when passed as parameters', async () => {
-    const param = {
-      cacheGroups: {
-        chunks: 'all',
-      },
-    }
-
-    bud.splitChunks(param)
+  it('sets from arrayed string', async () => {
+    bud.bundle('react', ['react', 'react-dom'])
 
     await bud.api.processQueue()
 
