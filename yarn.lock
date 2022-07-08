@@ -4450,7 +4450,7 @@ __metadata:
     "@types/lodash-es": 4.17.6
     "@types/node": 16.11.41
     "@types/react": 17.0.45
-    "@types/wordpress__blocks": ^11
+    "@types/wordpress__blocks": 11.0.3
     "@types/wordpress__data": 6.0.1
     "@wordpress/blocks": 11.11.0
     "@wordpress/data": 6.12.0
@@ -5737,15 +5737,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/wordpress__blocks@npm:^11":
-  version: 11.0.1
-  resolution: "@types/wordpress__blocks@npm:11.0.1"
+"@types/wordpress__blocks@npm:11.0.3":
+  version: 11.0.3
+  resolution: "@types/wordpress__blocks@npm:11.0.3"
   dependencies:
     "@types/react": "*"
     "@types/wordpress__components": "*"
     "@types/wordpress__data": "*"
     "@wordpress/element": ^4.0.0
-  checksum: 1c12cbf2702139fdf9fa3395d589196256d964b5347a59aba12705daec3db7b25f7b2ce9b7cad69472909268491a04a54d25b15f025b666d13b02cb801cfd542
+  checksum: cc0f81a8638a53852384dc9459d5f56fe313eab272b7d5f9361920f2c24cb0af108003073ac082a4fe46ef020acf6a9029059cb05635caab6039b8c9475b73de
   languageName: node
   linkType: hard
 
