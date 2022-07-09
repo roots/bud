@@ -11,7 +11,6 @@ export const css = async (app: Bud): Promise<Item> =>
     .makeItem()
     .setLoader('css')
     .setOptions(({build, hooks}) => ({
-      esModule: false,
       importLoaders: build.rules.css.getUse().length - 2,
       modules: false,
       sourceMap: hooks.filter('build.devtool') ? true : false,
