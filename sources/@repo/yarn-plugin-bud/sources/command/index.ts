@@ -4,6 +4,7 @@ import {Compile} from './compile.command'
 import {Dev} from './dev.command'
 import {DocsDev} from './docs/dev.command'
 import {Docs} from './docs/docs.command'
+import {Info} from './info.command'
 import {Lint} from './lint.command'
 import {LintDependencies} from './lint/dependencies.command'
 import {LintExports} from './lint/exports.command'
@@ -27,6 +28,7 @@ export const Commands = {
   Docs,
   DocsDev,
   Format,
+  Info,
   Lint,
   LintDependencies,
   LintExports,
