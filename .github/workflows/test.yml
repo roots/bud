@@ -43,42 +43,45 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - name: Install
+      - name: yarn install
         run: |
           yarn install
 
-      - name: Lint (dependencies)
+      - name: yarn @bud lint dependencies
         run: |
           yarn @bud lint dependencies
 
-      - name: Lint (syntax)
+      - name: yarn @bud lint
         run: |
           yarn @bud lint
 
-      - name: Lint (style)
+      - name: yarn @bud format
         run: |
           yarn @bud format --no-fix
 
-      - name: Lint (module exports)
+      - name: yarn @bud lint exports
         run: |
           yarn @bud lint exports
 
-      - name: Registry install
-        run: |
-          yarn @bud registry install
-
-      - name: Registry start
-        run: |
-          yarn @bud registry start
-
-      - name: Test (unit)
+      - name: yarn @bud test run unit
         run: |
           yarn @bud test run unit --verbose --maxWorkers 2
 
-      - name: Test (integration)
+      - name: yarn @bud registry install
+        run: |
+          yarn @bud registry install
+      - name: yarn @bud registry start
+        run: |
+          yarn @bud registry start
+
+      - name: yarn @bud test run integration
         run: |
           yarn @bud test run integration --verbose --maxWorkers 2
 
-      - name: Test (e2e)
+      - name: yarn @bud test run e2e/js
         run: |
-          yarn @bud test run e2e --verbose --maxWorkers 2
+          yarn @bud test run e2e/js --verbose --maxWorkers 2
+
+      - name: yarn @bud test run e2e/css
+        run: |
+          yarn @bud test run e2e/css --verbose --maxWorkers 2
