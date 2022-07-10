@@ -47,6 +47,10 @@ jobs:
         run: |
           yarn install
 
+      - name: yarn @bud build
+        run: |
+          yarn @bud build
+
       - name: yarn @bud lint dependencies
         run: |
           yarn @bud lint dependencies
