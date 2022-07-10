@@ -17,7 +17,7 @@ exports[`hmr css has indicator component 1`] = `
         border-radius: 50%;
       }
 
-
+      
   .bud-activity-indicator__success {
     transform: scale(1);
     background: rgba(4, 120, 87, 1);
@@ -42,7 +42,7 @@ exports[`hmr css has indicator component 1`] = `
     }
   }
 
-
+      
   .bud-activity-indicator__error {
     transform: scale(1);
     background: rgba(220, 38, 38, 1);
@@ -67,7 +67,7 @@ exports[`hmr css has indicator component 1`] = `
     }
   }
 
-
+      
   .bud-activity-indicator__warning {
     transform: scale(1);
     background: rgba(252, 211, 77, 1);
@@ -92,7 +92,7 @@ exports[`hmr css has indicator component 1`] = `
     }
   }
 
-
+      
   .bud-activity-indicator__pending {
     transform: scale(1);
     background: rgba(59, 130, 246, 1);
