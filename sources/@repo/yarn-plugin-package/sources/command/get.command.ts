@@ -17,8 +17,18 @@ export abstract class Get extends Command {
    */
   public static paths: CommandClass['paths'] = [['package', 'get']]
 
+  /**
+   * The property to get
+   *
+   * @internal
+   */
   public property = Option.String()
 
+  /**
+   * Command execute
+   *
+   * @internal
+   */
   public async execute() {
     const json = await fs.readJson(`${this.context.cwd}/package.json`)
     const value = get(json, this.property)

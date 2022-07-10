@@ -1,6 +1,6 @@
+/* eslint-disable no-console */
 import {describe, expect, it, jest} from '@jest/globals'
-import {paths, REPO_PATH} from '@repo/constants/.'
-import {logger} from '@repo/logger'
+import {paths} from '@repo/constants/.'
 import {execa, ExecaChildProcess} from 'execa'
 import fs from 'fs-extra'
 import {join} from 'path'
@@ -8,12 +8,9 @@ import {Browser, chromium, Page} from 'playwright'
 
 jest.setTimeout(100000)
 
-describe('babel hmr', () => {
+describe('hmr css', () => {
   let browser: Browser
   let page: Page
-
-  let {error} = logger.scope('bud e2e')
-
   let devProcess: ExecaChildProcess
 
   beforeAll(done => {
@@ -27,12 +24,11 @@ describe('babel hmr', () => {
           devProcess = execa('node', ['./node_modules/.bin/bud', 'dev'], {
             cwd: join(paths.mocks, 'yarn', 'babel'),
           })
-
           devProcess.stdout?.on('data', () => {
-            setTimeout(done, 2000)
+            setTimeout(done, 2000).unref()
           })
         } catch (e) {
-          error(e)
+          console.error(e)
         }
       })
   })
@@ -44,21 +40,33 @@ describe('babel hmr', () => {
 
   beforeEach(async () => {
     page = await browser.newPage()
+    await page.goto('http://0.0.0.0:3000/')
   })
 
   afterEach(async () => {
     await page.close()
   })
 
-  it('hot updates css', async () => {
-    await page.goto('http://0.0.0.0:3000/')
+  it('has indicator component', async () => {
+    const indicator = await page.$('bud-activity-indicator')
 
+    const warnings = await indicator?.getAttribute('has-warnings')
+    expect(warnings).toBe('0')
+
+    const errors = await indicator?.getAttribute('has-errors')
+    expect(errors).toBe('0')
+
+    const html = await page?.innerHTML('bud-activity-indicator')
+    expect(html).toMatchSnapshot()
+  })
+
+  it('hot updates css', async () => {
     const app = await page.$('.app')
     const color = await app?.evaluate(el => {
       return window.getComputedStyle(el).getPropertyValue('background')
     })
 
-    expect(color).toBe(
+    expect(color).toMatchSnapshot(
       'rgb(88, 19, 213) none repeat scroll 0% 0% / auto padding-box border-box',
     )
 
@@ -94,19 +102,9 @@ body {
           return window.getComputedStyle(el).getPropertyValue('background')
         })
 
-        expect(color).toBe(
+        expect(color).toMatchSnapshot(
           'rgb(0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box',
         )
       })
-
-    const html = await page.innerHTML('html')
-    await fs.writeFile(
-      `${REPO_PATH}/storage/screenshots/babel-hot-css.html`,
-      html,
-    )
-
-    await page.screenshot({
-      path: `${REPO_PATH}/storage/screenshots/babel-hot-css.jpg`,
-    })
   })
 })

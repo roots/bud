@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`basic hmr has indicator component 1`] = `
+exports[`hmr js has indicator component 1`] = `
 "
     <style>
       .bud-activity-indicator {
@@ -127,4 +127,17 @@ exports[`basic hmr has indicator component 1`] = `
       }
     </style>
     "
+`;
+
+exports[`hmr js hot updates js 1`] = `
+Array [
+  "init",
+]
+`;
+
+exports[`hmr js hot updates js 2`] = `
+Array [
+  "init",
+  "hot",
+]
 `;

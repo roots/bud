@@ -51,7 +51,7 @@ export class TestRun extends Command {
    * @internal
    */
   public async execute() {
-    const code = await this.tryExecuting(`yarn`, [
+    await this.tryExecuting(`yarn`, [
       `node`,
       `--experimental-vm-modules`,
       `./node_modules/.bin/jest`,
@@ -59,23 +59,5 @@ export class TestRun extends Command {
       `./config/jest.config.js`,
       ...(this.passthrough ?? []),
     ])
-
-    if (code !== 0) {
-      throw new Error('❌ test spec failed')
-    }
-  }
-
-  /**
-   * Try executing a shell command
-   *
-   * @internal
-   */
-  public async tryExecuting(bin: string, args: string[], opts: any = {}) {
-    try {
-      const code = await execute(bin, args, opts)
-      return code
-    } catch (e) {
-      throw new Error(e)
-    }
   }
 }

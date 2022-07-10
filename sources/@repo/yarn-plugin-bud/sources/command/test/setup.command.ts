@@ -43,17 +43,4 @@ export class TestSetup extends Command {
   public async execute() {
     await this.tryExecuting(`yarn`, [`@bud`, `registry`, `start`])
   }
-
-  /**
-   * Try executing a shell command
-   *
-   * @internal
-   */
-  public async tryExecuting(bin: string, args: string[], opts: any = {}) {
-    try {
-      await execute(bin, args, opts)
-    } catch (e) {
-      throw new Error(e)
-    }
-  }
 }

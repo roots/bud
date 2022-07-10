@@ -1,6 +1,6 @@
+/* eslint-disable no-console */
 import {describe, expect, it, jest} from '@jest/globals'
-import {paths, REPO_PATH} from '@repo/constants/.'
-import {logger} from '@repo/logger'
+import {paths} from '@repo/constants'
 import {execa, ExecaChildProcess} from 'execa'
 import fs from 'fs-extra'
 import {join} from 'path'
@@ -8,12 +8,9 @@ import {Browser, chromium, Page} from 'playwright'
 
 jest.setTimeout(100000)
 
-describe('basic hmr', () => {
+describe('hmr js', () => {
   let browser: Browser
   let page: Page
-
-  let {error} = logger.scope('bud e2e')
-
   let devProcess: ExecaChildProcess
 
   beforeAll(done => {
@@ -32,11 +29,11 @@ describe('basic hmr', () => {
             },
           )
 
-          devProcess.stdout?.on('data', data => {
-            setTimeout(done, 2000)
+          devProcess.stdout?.on('data', () => {
+            setTimeout(done, 2000).unref()
           })
         } catch (e) {
-          error(e)
+          console.error(e)
         }
       })
   })
@@ -48,6 +45,7 @@ describe('basic hmr', () => {
 
   beforeEach(async () => {
     page = await browser.newPage()
+    await page.goto('http://0.0.0.0:3000/')
   })
 
   afterEach(async () => {
@@ -55,13 +53,11 @@ describe('basic hmr', () => {
   })
 
   it('readied up', async () => {
-    await page.goto('http://0.0.0.0:3000/')
     const title = await page.title()
     expect(title).toBe('Webpack App')
   })
 
   it('has indicator component', async () => {
-    await page.goto('http://0.0.0.0:3000/')
     const indicator = await page.$('bud-activity-indicator')
 
     const warnings = await indicator?.getAttribute('has-warnings')
@@ -76,13 +72,13 @@ describe('basic hmr', () => {
 
   it('hot updates js', async () => {
     await page.waitForTimeout(1000)
-    await page.goto('http://0.0.0.0:3000/')
 
     const body = await page.$('body')
     const classList = await body?.getProperty('classList')
     const classes = await classList?.jsonValue()
 
     expect(Object.values(classes)).toContain('init')
+    expect(Object.values(classes)).toMatchSnapshot()
 
     await fs
       .writeFile(
@@ -102,15 +98,7 @@ module?.hot?.accept()
         const classList = await body?.getProperty('classList')
         const classes = await classList?.jsonValue()
         expect(Object.values(classes)).toContain('hot')
+        expect(Object.values(classes)).toMatchSnapshot()
       })
-
-    const html = await page.innerHTML('html')
-    await fs.writeFile(
-      `${REPO_PATH}/storage/screenshots/basic-hot-js.html`,
-      html,
-    )
-    await page.screenshot({
-      path: `${REPO_PATH}/storage/screenshots/basic-hot-js.jpg`,
-    })
   })
 })

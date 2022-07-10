@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-import {execute} from '@yarnpkg/shell'
 import {CommandClass} from 'clipanion'
 
 import {Command} from '../base.command'
@@ -43,6 +41,6 @@ export class TestTeardown extends Command {
    * @internal
    */
   public async execute() {
-    await execute(`yarn`, [`@bud`, `registry`, `stop`])
+    await this.tryExecuting(`yarn`, [`@bud`, `registry`, `stop`])
   }
 }
