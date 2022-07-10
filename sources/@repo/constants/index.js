@@ -75,7 +75,7 @@ export const paths = {
   config: join(REPO_PATH, 'config'),
   sources: join(REPO_PATH, 'sources'),
   tests: join(REPO_PATH, 'tests'),
-  mocks: join(REPO_PATH, './storage/mocks'),
+  mocks: join(REPO_PATH, 'storage/mocks'),
 }
 
 let projectConfig

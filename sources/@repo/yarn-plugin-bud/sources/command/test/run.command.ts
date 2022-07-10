@@ -1,0 +1,81 @@
+/* eslint-disable no-console */
+import {execute} from '@yarnpkg/shell'
+import {CommandClass, Option} from 'clipanion'
+
+import {Command} from '../base.command'
+
+/**
+ * Run tests
+ *
+ * @internal
+ */
+export class TestRun extends Command {
+  /**
+   * Command name
+   *
+   * @internal
+   */
+  public static label = `@bud test`
+
+  /**
+   * Command paths
+   *
+   * @internal
+   */
+  public static paths: CommandClass['paths'] = [[`@bud`, `test`, `run`]]
+
+  /**
+   * Command usage
+   *
+   * @internal
+   */
+  public static usage: CommandClass['usage'] = {
+    category: `@bud`,
+    description: `run tests`,
+    examples: [
+      [`run unit tests`, `yarn @bud test unit`],
+      [`run integration tests`, `yarn @bud test integration`],
+    ],
+  }
+
+  /**
+   * Variadic arguments
+   *
+   * @internal
+   */
+  public passthrough = Option.Proxy({name: `jest params`})
+
+  /**
+   * Execute command
+   *
+   * @internal
+   */
+  public async execute() {
+    const code = await this.tryExecuting(`yarn`, [
+      `node`,
+      `--experimental-vm-modules`,
+      `./node_modules/.bin/jest`,
+      `--config`,
+      `./config/jest.config.js`,
+      ...(this.passthrough ?? []),
+    ])
+
+    if (code !== 0) {
+      throw new Error('❌ test spec failed')
+    }
+  }
+
+  /**
+   * Try executing a shell command
+   *
+   * @internal
+   */
+  public async tryExecuting(bin: string, args: string[], opts: any = {}) {
+    try {
+      const code = await execute(bin, args, opts)
+      return code
+    } catch (e) {
+      throw new Error(e)
+    }
+  }
+}

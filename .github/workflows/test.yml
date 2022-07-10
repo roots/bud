@@ -63,14 +63,22 @@ jobs:
         run: |
           yarn @bud lint exports
 
-      - name: Build
+      - name: Registry install
         run: |
-          yarn @bud build
+          yarn @bud registry install
+
+      - name: Registry start
+        run: |
+          yarn @bud registry start
 
       - name: Test (unit)
         run: |
-          yarn @bud test unit --verbose --maxWorkers 2
+          yarn @bud test run unit --verbose --maxWorkers 2
 
       - name: Test (integration)
         run: |
-          yarn @bud test integration --verbose --maxWorkers 2
+          yarn @bud test run integration --verbose --maxWorkers 2
+
+      - name: Test (e2e)
+        run: |
+          yarn @bud test run e2e --verbose --maxWorkers 2
