@@ -17657,7 +17657,7 @@ __metadata:
 
 "playwright-core@npm:1.23.2":
   version: 1.23.2
-  resolution: "playwright-core@npm:1.23.2::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fplaywright-core%2F-%2Fplaywright-core-1.23.2.tgz"
+  resolution: "playwright-core@npm:1.23.2"
   bin:
     playwright: cli.js
   checksum: 7e5c7adbc436c68e5de8535508746c2734393f77948c08ff1df7d21eaa518cd00d82f49c936b2776be6958dc2d7f18985582d72690ffeee7a59006267e22a391
@@ -17666,7 +17666,7 @@ __metadata:
 
 "playwright@npm:1.23.2":
   version: 1.23.2
-  resolution: "playwright@npm:1.23.2::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fplaywright%2F-%2Fplaywright-1.23.2.tgz"
+  resolution: "playwright@npm:1.23.2"
   dependencies:
     playwright-core: 1.23.2
   bin:
