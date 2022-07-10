@@ -6570,34 +6570,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@workbench/sage-default@workspace:workbench/sage-public-path/sage-default":
-  version: 0.0.0-use.local
-  resolution: "@workbench/sage-default@workspace:workbench/sage-public-path/sage-default"
-  dependencies:
-    "@roots/bud": "workspace:sources/@roots/bud"
-    "@roots/bud-eslint": "workspace:sources/@roots/bud-eslint"
-    "@roots/bud-prettier": "workspace:sources/@roots/bud-prettier"
-    "@roots/bud-stylelint": "workspace:sources/@roots/bud-stylelint"
-    "@roots/bud-tailwindcss": "workspace:sources/@roots/bud-tailwindcss"
-    "@roots/eslint-config": "workspace:sources/@roots/eslint-config"
-    "@roots/sage": "workspace:sources/@roots/sage"
-  languageName: unknown
-  linkType: soft
-
-"@workbench/sage-explicit@workspace:workbench/sage-public-path/sage-explicit":
-  version: 0.0.0-use.local
-  resolution: "@workbench/sage-explicit@workspace:workbench/sage-public-path/sage-explicit"
-  dependencies:
-    "@roots/bud": "workspace:sources/@roots/bud"
-    "@roots/bud-eslint": "workspace:sources/@roots/bud-eslint"
-    "@roots/bud-prettier": "workspace:sources/@roots/bud-prettier"
-    "@roots/bud-stylelint": "workspace:sources/@roots/bud-stylelint"
-    "@roots/bud-tailwindcss": "workspace:sources/@roots/bud-tailwindcss"
-    "@roots/eslint-config": "workspace:sources/@roots/eslint-config"
-    "@roots/sage": "workspace:sources/@roots/sage"
-  languageName: unknown
-  linkType: soft
-
 "@xtuc/ieee754@npm:^1.2.0":
   version: 1.2.0
   resolution: "@xtuc/ieee754@npm:1.2.0"
@@ -8198,6 +8170,7 @@ __metadata:
     "@swc/core": 1.2.210
     "@swc/jest": 0.2.21
     "@types/express": 4.17.13
+    "@types/fs-extra": 9.0.13
     "@types/jest": 28.1.2
     "@types/lodash-es": 4.17.6
     "@types/node": 16.11.41
@@ -8209,10 +8182,13 @@ __metadata:
     eslint-plugin-react-hooks: 4.6.0
     eslint-plugin-simple-import-sort: 7.0.0
     eslint-plugin-tsdoc: 0.2.16
+    execa: 6.1.0
+    fs-extra: 10.1.0
     import-meta-resolve: 2.0.3
     jest: 28.1.1
     json5: 2.2.1
     lodash-es: 4.17.21
+    playwright: 1.23.2
     prettier: 2.6.2
     syncpack: 8.0.0
     ts-node: 10.8.1
@@ -17679,6 +17655,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"playwright-core@npm:1.23.2":
+  version: 1.23.2
+  resolution: "playwright-core@npm:1.23.2"
+  bin:
+    playwright: cli.js
+  checksum: 7e5c7adbc436c68e5de8535508746c2734393f77948c08ff1df7d21eaa518cd00d82f49c936b2776be6958dc2d7f18985582d72690ffeee7a59006267e22a391
+  languageName: node
+  linkType: hard
+
+"playwright@npm:1.23.2":
+  version: 1.23.2
+  resolution: "playwright@npm:1.23.2"
+  dependencies:
+    playwright-core: 1.23.2
+  bin:
+    playwright: cli.js
+  checksum: 19b32fcc77375366643ac45009dd5a6d25a6a64258aa11da6030fd7bc6bf54366f3740fd7886ed5b03860ac48c4278b7cbd1483e924e3367ad2d3434efe57358
+  languageName: node
+  linkType: hard
+
 "plugin-error@npm:^1.0.1":
   version: 1.0.1
   resolution: "plugin-error@npm:1.0.1"
@@ -23565,17 +23561,6 @@ __metadata:
   checksum: 2a44b2788165d0a3de71fd517d4880a8e20ea3a82c080ce46e294f0b68b69a2e49cff5f99c600e275c698a90d12c5ea32aff06c311f0db2eb3f1201f3e7b2a04
   languageName: node
   linkType: hard
-
-"workbench-1480@workspace:workbench/1480":
-  version: 0.0.0-use.local
-  resolution: "workbench-1480@workspace:workbench/1480"
-  dependencies:
-    "@roots/bud": "workspace:sources/@roots/bud"
-    "@roots/bud-preset-wordpress": "workspace:sources/@roots/bud-preset-wordpress"
-    "@roots/bud-typescript": "workspace:sources/@roots/bud-typescript"
-    ts-node: 10.8.1
-  languageName: unknown
-  linkType: soft
 
 "wrap-ansi@npm:^5.1.0":
   version: 5.1.0

@@ -43,34 +43,49 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - name: Install
+      - name: yarn install
         run: |
           yarn install
 
-      - name: Lint (dependencies)
-        run: |
-          yarn @bud lint dependencies
-
-      - name: Lint (syntax)
-        run: |
-          yarn @bud lint
-
-      - name: Lint (style)
-        run: |
-          yarn @bud format --no-fix
-
-      - name: Lint (module exports)
-        run: |
-          yarn @bud lint exports
-
-      - name: Build
+      - name: yarn @bud build
         run: |
           yarn @bud build
 
-      - name: Test (unit)
+      - name: yarn @bud lint dependencies
         run: |
-          yarn @bud test unit --verbose --maxWorkers 2
+          yarn @bud lint dependencies
 
-      - name: Test (integration)
+      - name: yarn @bud lint
         run: |
-          yarn @bud test integration --verbose --maxWorkers 2
+          yarn @bud lint
+
+      - name: yarn @bud format
+        run: |
+          yarn @bud format --no-fix
+
+      - name: yarn @bud lint exports
+        run: |
+          yarn @bud lint exports
+
+      - name: yarn @bud test run unit
+        run: |
+          yarn @bud test run unit --verbose --maxWorkers 2
+
+      - name: yarn @bud registry install
+        run: |
+          yarn @bud registry install
+      - name: yarn @bud registry start
+        run: |
+          yarn @bud registry start
+
+      - name: yarn @bud test run integration
+        run: |
+          yarn @bud test run integration --verbose --maxWorkers 2
+
+      - name: yarn @bud test run e2e/js
+        run: |
+          yarn @bud test run e2e/js --verbose --maxWorkers 2
+
+      - name: yarn @bud test run e2e/css
+        run: |
+          yarn @bud test run e2e/css --verbose --maxWorkers 2

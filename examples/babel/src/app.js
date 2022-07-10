@@ -1,8 +1,3 @@
-import './demo'
+document.querySelector('.app')?.classList.add('init')
 
-/**
- * Accept module updates
- *
- * @see https://webpack.js.org/api/hot-module-replacement
- */
-import.meta.webpackHot.accept(console.error)
+module?.hot?.accept()

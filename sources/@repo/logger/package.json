@@ -6,6 +6,13 @@
   "exports": {
     ".": "./index.js"
   },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./index.d.ts"
+      ]
+    }
+  },
   "devDependencies": {
     "@types/node": "16.11.41",
     "signale": "1.4.0"

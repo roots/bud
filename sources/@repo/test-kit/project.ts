@@ -158,7 +158,7 @@ export class Project {
   }
 
   @bind
-  public async install() {
+  public async install(): Promise<this> {
     try {
       await fs.remove(this.projectPath())
     } catch (e) {}
@@ -169,6 +169,8 @@ export class Project {
     this.options.with === 'yarn'
       ? await this.yarnInstall()
       : await this.npmInstall()
+
+    return this
   }
 
   @bind
@@ -184,6 +186,8 @@ export class Project {
       join(this.projectPath(), 'node_modules', '.bin', 'bud'),
       `build`,
     ])
+
+    return this
   }
 
   /**

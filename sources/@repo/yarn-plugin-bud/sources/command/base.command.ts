@@ -79,8 +79,6 @@ export abstract class Command extends BaseCommand {
   /**
    * Logs message to process.stdout
    *
-   * @param message - message to log
-   *
    * @internal
    */
   @bind
@@ -107,7 +105,6 @@ export abstract class Command extends BaseCommand {
   /**
    * Execute a series of tasks
    *
-   * @param tasks - Any number of string commands
    * @internal
    */
   @bind
@@ -122,7 +119,6 @@ export abstract class Command extends BaseCommand {
 
         try {
           const code = await execute(task, [], {cwd: project.cwd})
-
           if (code !== 0)
             throw new Error(`${task} failed with code ${code}`)
         } catch (e) {
@@ -130,5 +126,22 @@ export abstract class Command extends BaseCommand {
         }
       }),
     )
+  }
+
+  /**
+   * Try executing a shell command
+   *
+   * @internal
+   */
+  public async tryExecuting(bin: string, args: string[], opts: any = {}) {
+    try {
+      const code = await execute(bin, args, opts)
+      if (code !== 0) {
+        throw new Error(`❌ ${bin} ${args.join(` `)} failed`)
+      }
+      return code
+    } catch (e) {
+      throw new Error(e)
+    }
   }
 }

@@ -46,20 +46,6 @@ export class RegistryStart extends Command {
    * @internal
    */
   public async execute() {
-    try {
-      await ensureFile(`${process.cwd()}/storage/yarn.lock`)
-      await ensureDir(`${process.cwd()}/storage/mocks`)
-      await remove(`${process.cwd()}/storage/mocks`)
-      this.log('integration tests directory cleaned')
-    } catch (e) {}
-
-    await this.tryExecuting(
-      `npm`,
-      [`install`, `--location=global`, `pm2`, `verdaccio`],
-      {cwd: `${process.cwd()}/storage` as any},
-    )
-    this.log('made pm2 and verdaccio globally available')
-
     await this.tryExecuting(`pm2`, [
       `start`,
       `verdaccio`,
@@ -109,8 +95,6 @@ export class RegistryStart extends Command {
       await execute(bin, args, opts)
     } catch (e) {
       console.error(e)
-      console.info('bailing out 💥')
-      await execute(`yarn`, [`@bud`, `registry`, `stop`])
     }
   }
 }
