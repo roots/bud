@@ -67,7 +67,7 @@
   },
   "dependencies": {
     "esbuild-loader": "2.19.0",
-    "ts-node": "10.8.1",
+    "ts-node": "10.8.2",
     "tslib": "2.4.0"
   },
   "peerDependencies": {
