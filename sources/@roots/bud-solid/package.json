@@ -65,7 +65,7 @@
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "babel-preset-solid": "1.4.6",
-    "solid-js": "1.4.3",
+    "solid-js": "1.4.7",
     "tslib": "2.4.0"
   },
   "peerDependencies": {
