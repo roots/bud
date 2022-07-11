@@ -3195,14 +3195,14 @@ __metadata:
     "@repo/logger": "workspace:sources/@repo/logger"
     "@roots/bud": "workspace:sources/@roots/bud"
     "@types/node": 16.11.41
-    "@types/prettier": 2.6.2
+    "@types/prettier": 2.6.3
     execa: 6.1.0
     fs-extra: 10.1.0
     handlebars: 4.7.7
     helpful-decorators: 2.1.0
     json5: 2.2.1
     lodash-es: 4.17.21
-    prettier: 2.6.2
+    prettier: 2.7.1
   languageName: unknown
   linkType: soft
 
@@ -3825,7 +3825,7 @@ __metadata:
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@skypack/package-check": 0.2.2
     "@types/node": 16.11.41
-    prettier: 2.6.2
+    prettier: 2.7.1
     tslib: 2.4.0
   peerDependencies:
     prettier: "*"
@@ -4349,7 +4349,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/babel__core": ^7.1.19
     "@types/node": 16.11.41
-    "@types/prettier": 2.6.2
+    "@types/prettier": 2.6.3
     "@typescript-eslint/eslint-plugin": 5.26.0
     "@typescript-eslint/parser": 5.26.0
     eslint: 8.19.0
@@ -4359,7 +4359,7 @@ __metadata:
     eslint-plugin-prettier: ^4.0.0
     eslint-plugin-react: 7.30.1
     eslint-plugin-react-hooks: 4.6.0
-    prettier: 2.6.2
+    prettier: 2.7.1
   languageName: unknown
   linkType: soft
 
@@ -5470,10 +5470,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/prettier@npm:2.6.2, @types/prettier@npm:^2.1.5":
-  version: 2.6.2
-  resolution: "@types/prettier@npm:2.6.2"
-  checksum: b1b0aadc2a325bcbf0040abd1f75de8cc08dd4a203c43c18dbb209c9e53b3e1c5c72faf82b7868302487f5cd0721c9ec26ee7e3fabd986d8066aba284196bd6d
+"@types/prettier@npm:2.6.3, @types/prettier@npm:^2.1.5":
+  version: 2.6.3
+  resolution: "@types/prettier@npm:2.6.3"
+  checksum: e1836699ca189fff6d2a73dc22e028b6a6f693ed1180d5998ac29fa197caf8f85aa92cb38db642e4a370e616b451cb5722ad2395dab11c78e025a1455f37d1f0
   languageName: node
   linkType: hard
 
@@ -8189,7 +8189,7 @@ __metadata:
     json5: 2.2.1
     lodash-es: 4.17.21
     playwright: 1.23.2
-    prettier: 2.6.2
+    prettier: 2.7.1
     syncpack: 8.0.0
     ts-node: 10.8.1
     tslib: 2.4.0
@@ -18650,12 +18650,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:2.6.2":
-  version: 2.6.2
-  resolution: "prettier@npm:2.6.2"
+"prettier@npm:2.7.1":
+  version: 2.7.1
+  resolution: "prettier@npm:2.7.1"
   bin:
     prettier: bin-prettier.js
-  checksum: 48d08dde8e9fb1f5bccdd205baa7f192e9fc8bc98f86e1b97d919de804e28c806b0e6cc685e4a88211aa7987fa9668f30baae19580d87ced3ed0f2ec6572106f
+  checksum: 55a4409182260866ab31284d929b3cb961e5fdb91fe0d2e099dac92eaecec890f36e524b4c19e6ceae839c99c6d7195817579cdffc8e2c80da0cb794463a748b
   languageName: node
   linkType: hard
 
