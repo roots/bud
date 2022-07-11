@@ -64,7 +64,7 @@
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@swc/core": "1.2.211",
     "swc-loader": "0.2.3",
-    "ts-node": "10.8.1",
+    "ts-node": "10.8.2",
     "tslib": "2.4.0"
   },
   "peerDependencies": {
