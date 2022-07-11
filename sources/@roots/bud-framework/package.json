@@ -99,7 +99,7 @@
     "@types/js-yaml": "4.0.5",
     "@types/lodash": "4.14.182",
     "@types/lodash-es": "4.17.6",
-    "@types/node": "16.11.41",
+    "@types/node": "16.11.43",
     "@types/safe-json-stringify": "1.1.2",
     "@types/signale": "1.4.4",
     "chokidar": "3.5.3",
