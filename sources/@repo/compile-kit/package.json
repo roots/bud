@@ -18,7 +18,7 @@
     "download-package-tarball": "1.0.7",
     "fs-extra": "10.1.0",
     "get-package-json-from-registry": "2.2.2",
-    "npm-package-arg": "9.0.2",
+    "npm-package-arg": "9.1.0",
     "registry-info": "1.0.0"
   },
   "dependencies": {

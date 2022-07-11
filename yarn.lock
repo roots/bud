@@ -3133,7 +3133,7 @@ __metadata:
     fs-extra: 10.1.0
     get-package-json-from-registry: 2.2.2
     lodash-es: 4.17.21
-    npm-package-arg: 9.0.2
+    npm-package-arg: 9.1.0
     registry-info: 1.0.0
   languageName: unknown
   linkType: soft
@@ -16796,14 +16796,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"npm-package-arg@npm:9.0.2":
-  version: 9.0.2
-  resolution: "npm-package-arg@npm:9.0.2"
+"npm-package-arg@npm:9.1.0":
+  version: 9.1.0
+  resolution: "npm-package-arg@npm:9.1.0"
   dependencies:
     hosted-git-info: ^5.0.0
+    proc-log: ^2.0.1
     semver: ^7.3.5
     validate-npm-package-name: ^4.0.0
-  checksum: 07828f330f611214a0aa1e87f402b30b3dc90388671470ad8dc1551f28b0cb886f1f75fa7c37e894a9598640a555c05643642994ecacb9a6c68f655e571968f7
+  checksum: 277c21477731a4f1e31bde36f0db5f5470deb2a008db2aaf1b015d588b23cb225c75f90291ea241235e86682a03de972bbe69fc805c921a786ea9616955990b9
   languageName: node
   linkType: hard
 
@@ -18712,6 +18713,13 @@ __metadata:
   version: 1.28.0
   resolution: "prismjs@npm:1.28.0"
   checksum: bde93fb2beb45b7243219fc53855f59ee54b3fa179f315e8f9d66244d756ef984462e10561bbdc6713d3d7e051852472d7c284f5794a8791eeaefea2fb910b16
+  languageName: node
+  linkType: hard
+
+"proc-log@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "proc-log@npm:2.0.1"
+  checksum: f6f23564ff759097db37443e6e2765af84979a703d2c52c1b9df506ee9f87caa101ba49d8fdc115c1a313ec78e37e8134704e9069e6a870f3499d98bb24c436f
   languageName: node
   linkType: hard
 
