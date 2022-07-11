@@ -3376,7 +3376,7 @@ __metadata:
     lodash-es: 4.17.21
     mini-css-extract-plugin: ^2.4.5
     remark: 14.0.2
-    remark-html: 15.0.0
+    remark-html: 15.0.1
     remark-loader: 5.0.0
     style-loader: 3.3.1
     toml: 3.0.0
@@ -19695,16 +19695,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"remark-html@npm:15.0.0":
-  version: 15.0.0
-  resolution: "remark-html@npm:15.0.0"
+"remark-html@npm:15.0.1":
+  version: 15.0.1
+  resolution: "remark-html@npm:15.0.1"
   dependencies:
     "@types/mdast": ^3.0.0
     hast-util-sanitize: ^4.0.0
     hast-util-to-html: ^8.0.0
     mdast-util-to-hast: ^12.0.0
     unified: ^10.0.0
-  checksum: 731360b464ae42711f4f7b66c65a3d5c98445f803f0b7a8e8fbbb3031a1edf81f4c0527b6bfa308cbae49a864231a15bbeaf0cc0987e71b3c7b803f54ddf2b49
+  checksum: da9a7ee71b470d21d4d74eb841fd6c340396ebe3e7488fc70d5471bf25bcaf2cb0a25a5d034ead1f1ac9612df2f703705acfd16e6f6b60696f40b788abf2b174
   languageName: node
   linkType: hard
 
