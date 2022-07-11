@@ -98,7 +98,7 @@
     "lodash-es": "4.17.21",
     "mini-css-extract-plugin": "^2.4.5",
     "remark": "14.0.2",
-    "remark-html": "15.0.0",
+    "remark-html": "15.0.1",
     "remark-loader": "5.0.0",
     "style-loader": "3.3.1",
     "toml": "3.0.0",
