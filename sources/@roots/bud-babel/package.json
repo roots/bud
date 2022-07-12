@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-babel",
-  "version": "0.0.0",
+  "version": "6.3.1",
   "description": "Adds babel support to @roots/bud",
   "repository": {
     "type": "git",
