@@ -3166,7 +3166,7 @@ __metadata:
     axios: 0.27.2
     clsx: 1.2.1
     docusaurus-lunr-search: 2.1.15
-    file-loader: 6.2.0
+    file-loader: ^6.2.0
     raw-loader: 4.0.2
     react: 17.0.2
     react-dom: 17.0.2
@@ -11747,7 +11747,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"file-loader@npm:6.2.0, file-loader@npm:^6.2.0":
+"file-loader@npm:^6.2.0":
   version: 6.2.0
   resolution: "file-loader@npm:6.2.0"
   dependencies:
