@@ -1,6 +1,5 @@
 /* eslint-disable no-console */
 import {paths} from '@repo/constants'
-import {execSync} from 'child_process'
 import {CommandClass} from 'clipanion'
 import {realpath} from 'fs-extra'
 

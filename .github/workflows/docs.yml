@@ -35,11 +35,14 @@ jobs:
       - name: Install tsdoc
         run: npm install tsdoc --global
 
-      - name: Install repo
-        run: yarn
+      - name: yarn install
+        run: yarn install
 
-      - name: Build docs
-        run: yarn @bud docs --api --site
+      - name: yarn @bud build
+        run: yarn @bud build
+
+      - name: yarn @bud docs
+        run: yarn @bud docs
 
       - name: Deploy to netlify
         uses: netlify/actions/cli@master

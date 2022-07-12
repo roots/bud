@@ -4,6 +4,7 @@ import {Compile} from './compile.command'
 import {Dev} from './dev.command'
 import {DocsDev} from './docs/dev.command'
 import {Docs} from './docs/docs.command'
+import {DocsNetlify} from './docs/netlify.command'
 import {Info} from './info.command'
 import {Lint} from './lint.command'
 import {LintDependencies} from './lint/dependencies.command'
@@ -28,6 +29,7 @@ export const Commands = {
   Dev,
   Docs,
   DocsDev,
+  DocsNetlify,
   Format,
   Info,
   Lint,
