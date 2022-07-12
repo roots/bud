@@ -5,10 +5,6 @@ automerge_label = "🚀!"
 block_on_neutral_required_check_runs = true
 method = "squash"
 
-[merge.automerge_dependencies]
-versions = ["minor", "patch"]
-usernames = ["renovate"]
-
 [merge.message]
 title = "pull_request_title"
 body = "pull_request_body"

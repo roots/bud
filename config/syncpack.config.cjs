@@ -5,7 +5,7 @@
  */
 module.exports = {
   dev: true,
-  filter: '.',
+  filter: '^(?!@roots/).*$',
   indent: '  ',
   overrides: true,
   peer: false,

@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import {paths} from '@repo/constants'
 import {CommandClass} from 'clipanion'
+import {ensureDir, readJson, remove, writeJson} from 'fs-extra'
 
 import {Command} from '../base.command'
 
@@ -9,7 +10,7 @@ import {Command} from '../base.command'
  *
  * @internal
  */
-export class RegistryInstall extends Command {
+export class RegistryClean extends Command {
   /**
    * Command name
    *
@@ -40,8 +41,19 @@ export class RegistryInstall extends Command {
   }
 
   public async execute() {
-    await this.tryExecuting(`npm`, [`install`, `pm2`, `verdaccio`], {
-      cwd: `${paths.root}/storage` as any,
-    })
+    try {
+      const verdaccioDb = await readJson(
+        `${paths.root}/storage/.verdaccio-db.json`,
+      )
+      verdaccioDb.list = []
+      await writeJson(
+        `${paths.root}/storage/.verdaccio-db.json`,
+        verdaccioDb,
+      )
+      await ensureDir(`${paths.root}/storage/packages`)
+      await remove(`${paths.root}/storage/packages`)
+    } catch (e) {
+      throw new Error(e)
+    }
   }
 }

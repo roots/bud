@@ -105,5 +105,8 @@
     "tslib": "2.4.0",
     "xml-loader": "1.2.1",
     "yml-loader": "2.1.0"
+  },
+  "volta": {
+    "extends": "../../../package.json"
   }
 }

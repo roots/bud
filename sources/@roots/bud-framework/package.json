@@ -123,5 +123,8 @@
     "safe-json-stringify": "1.2.0",
     "signale": "1.4.0",
     "tslib": "2.4.0"
+  },
+  "volta": {
+    "extends": "../../../package.json"
   }
 }

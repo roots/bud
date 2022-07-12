@@ -112,5 +112,8 @@
     "babel-loader": {
       "optional": true
     }
+  },
+  "volta": {
+    "extends": "../../../package.json"
   }
 }

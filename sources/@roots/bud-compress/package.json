@@ -75,5 +75,8 @@
   "dependencies": {
     "compression-webpack-plugin": "^10.0.0",
     "tslib": "2.4.0"
+  },
+  "volta": {
+    "extends": "../../../package.json"
   }
 }

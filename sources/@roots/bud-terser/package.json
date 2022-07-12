@@ -68,5 +68,8 @@
     "css-minimizer-webpack-plugin": "4.0.0",
     "terser-webpack-plugin": "^5.3.3",
     "tslib": "2.4.0"
+  },
+  "volta": {
+    "extends": "../../../package.json"
   }
 }

@@ -3,5 +3,8 @@
   "private": true,
   "devDependencies": {
     "@types/node": "16.11.43"
+  },
+  "volta": {
+    "extends": "../../../package.json"
   }
 }

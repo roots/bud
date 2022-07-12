@@ -74,5 +74,8 @@
     "signale": "1.4.0",
     "tslib": "2.4.0",
     "webpack-dev-middleware": "5.3.3"
+  },
+  "volta": {
+    "extends": "../../../package.json"
   }
 }

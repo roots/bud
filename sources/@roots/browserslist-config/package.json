@@ -41,5 +41,8 @@
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2"
+  },
+  "volta": {
+    "extends": "../../../package.json"
   }
 }

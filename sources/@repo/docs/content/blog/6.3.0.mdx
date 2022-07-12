@@ -14,54 +14,40 @@ import CodeBlock from '@theme/CodeBlock'
 
 <!--truncate-->
 
-## @roots/browserslist-config
+## ✨ Roots browserslist
 
-`@wordpress/browserslist-config` is licensed in a way that is not compatible with bud's overall licensing ideals.
+**@wordpress/browserslist-config** is licensed in a way that is not compatible with bud's overall licensing ideals. Accordingly, we're offering a drop-in replacement: **@roots/browserslist-config**.
 
-Accordingly, we are now publishing a roots standard browserslist config: `@roots/browserslist-config`. It provides a choice of three configurations. Select whichever is the best fit for your project and audience:
+:::info sage
 
-| Export                             | Description                                                                            |
-| ---------------------------------- | -------------------------------------------------------------------------------------- |
-| @roots/browserslist-config         | >1%. Similar to @wordpress/browserslist-config                                         |
-| @roots/browserslist-config/current | >.5%. Similar to @facebook/docusaurus' default                                         |
-| @roots/browserslist-config/broad   | Targets the last 3 versions of major browsers. Similar to @shopify/browserslist-config |
+Either covert your browserslist config to use **@roots/browserslist-config** or install **@wordpress/browserslist-config** as a dependency.
 
-All configurations target the most recent version of `firefox`, `chrome` and `safari` when the NODE_ENV is `development`.
+:::
 
-## Fix: @roots/bud-vue
+There are three configurations available, pick the one most suited to your requirements:
 
-A small configuration issues in the @roots/bud-vue extension has been fixed. Returns `@roots/bud-vue` to the zero-config ideal.
+| Export                                 | Target          | Description                                   |
+| :------------------------------------- | :-------------- | :-------------------------------------------- |
+| **@roots/browserslist-config**         | >1% usage       | Similar to **@wordpress/browserslist-config** |
+| **@roots/browserslist-config/current** | >.5% usage      | Similar to **@facebook/docusaurus**           |
+| **@roots/browserslist-config/broad**   | last 3 versions | Similar to **@shopify/browserslist-config**   |
 
-## Improvement: env expansion now only applied to project `.env` values
+## ✨ Simpler postcss config
 
-**bud.js** still sources envvars from process and its path, but will no longer attempt to expand values outside of bud root.
+:::note
 
-This could cause issues if `${` and other such character strings were used in bud's path without being escaped.
+<details>
+<summary>If you are addressing the default plugins by their handle you will need to update it</summary>
 
-## Improvement: multi-compiler root directory
+- `postcss-import` becomes `import`
+- `postcss-nesting` becomes `nesting`
+- `postcss-preset-env` becomes `env`
 
-You can now pass an overrides object to `bud.make`'s first parameter, which will be merged with the default object. This is particularly useful for setting a root directory, but it takes any options from `bud.factory` (if you want to override extensions, for instance).
+[More information added to docs](https://bud.js.org/extensions/bud-postcss)
 
-This documentation has a ways to go, but the [bud.make](https://bud.js.org/docs/bud.make) docs have been updated with more information and an example of this new fn signature.
+</details>
 
-## Improvement: `@roots/bud-postcss`
-
-Short version:
-
-If you want to add `some-example-plugin` to your project, you can now do this:
-
-```js
-bud.postcss.setPlugin('example-postcss-plugin')
-```
-
-And you'll wind up with this:
-
-- `postcss-import`
-- `postcss-nesting`
-- `some-example-plugin`
-- `postcss-preset-env`
-
-Longer version:
+:::
 
 Essentially 100% of postcss users want three things from postcss: `@import`, nesting, and the arcane magic that is `postcss-preset-env`. Some want more, but none want less. And out of that 100%, pretty much 100% of them want the plugins in that order.
 
@@ -69,47 +55,45 @@ That 100% figure is absolutely a fabrication, but I do think there is something 
 
 Nobody wants nesting before import because it just doesn't work. Everything goes sideways _immediately_. You probably have an `@import` right at the top and postcss has no way to know what to do with it.
 
-So, that basic asusmption is kind of locked down now (at least by default &mdash; [check the docs for information on how to override](https://bud.js.org/extensions/bud-postcss)). This is how the config syntax got easier. When you set a plugin or a set of plugins they'll get slotted in _before_ `env` and after
-`import` and `nesting`.
+So, that basic ordering is locked down now (at least by default &mdash; [check the docs for information on how to override](https://bud.js.org/extensions/bud-postcss)). The result is that its much simpler to play with the baseline config without breaking everything.
 
-I mean, look how carefree `@roots/bud-tailwindcss` gets to be now:
+<details>
+  <summary>
+    Example: add <strong>some-example-plugin</strong>
+  </summary>
+  <CodeBlock language="ts" title="bud.config.mjs">
+    {`bud.postcss.setPlugin('example-postcss-plugin')`}
+  </CodeBlock>
+</details>
 
-```ts
-const tailwindcss = await this.resolve('tailwindcss')
-const nesting = await this.resolve('tailwindcss/nesting/index.js')
+<details>
+  <summary>
+    Example: modify <strong>postcss-preset-env</strong> options
+  </summary>
+  <CodeBlock language="ts" title="bud.config.mjs">
+    {`bud.postcss.setPluginOptions('env', {
+  features: {
+    customProperties: false,
+  },
+})`}
+  </CodeBlock>
+</details>
 
-this.app.postcss.setPlugins({nesting, tailwindcss})
-```
+## ✨ Better bundles
 
-That's actually all the extension really does, at the moment. It's great.
+It's pretty passe to just go throwing the entirety of `node_modules` into a `vendor.js` file with [bud.splitChunks](https://bud.js.org/docs/bud.splitChunks).
 
-Tons of information has been added to the [@roots/bud-postcss documentation](https://bud.js.org/extensions/bud-postcss).
+Why not be cool and target only the dependencies that benefit from it?
 
-## `@roots/sage/client/lazy`
+Introducing a better, simpler way to code split: **bud.bundle**.
 
-This is a fun client import for @roots/sage users:
-
-```ts
-import lazy from '@roots/sage/client/lazy'
-
-const makeConfetti = async () => {
-  await lazy(import('skypack:canvas-confetti'), confetti => confetti())
-}
-```
-
-`import()` is statically analyzed so you have to call it as above. But it saves you from having to destructure the module. Using it with the `skypack` cdn is optional and just for demonstration.
-
-## bud.bundle
-
-It's pretty passe to just go throwing the entirety of node_modules into a `vendor.js` file with `splitChunks`. Why not be cool and make separate chunks for each of the dependencies that really need it?
-
-```ts
+```ts title="bud.config.mjs"
 bud.bundle('react')
 ```
 
-Or, assign a name to some dependencies you always use together:
+Or, group some dependencies you always use together:
 
-```ts
+```ts title="bud.config.mjs"
 bud.bundle('react', ['react', 'react-dom'])
 ```
 
@@ -118,7 +102,37 @@ Nice chunk!
 You're not restricted to `node_modules`, use your own code with it too, if you want. The only rule is that the chunk members are being addressed by directory. So, to match your own code you need to make a directory for it.
 You can always use `bud.splitChunks` if you need more control than that.
 
-## Public path
+## 🩹 Safer env expansion
+
+**bud.js** still sources envvars from process and its path, but will no longer attempt to expand values outside of the `.env` found in the project root directory.
+
+This could cause issues if `${` and other such character strings were used in bud's path without being escaped.
+
+## 💭 Extension specific notes
+
+### ✨ @roots/sage: dynamic imports
+
+If you're using **@roots/sage**, you should try doing a dynamic import with `@roots/sage/client/lazy`:
+
+```ts title="src/index.js"
+import lazy from '@roots/sage/client/lazy'
+
+const makeConfetti = async () => {
+  await lazy(import('canvas-confetti'), confetti => confetti())
+}
+```
+
+:::info `lazy(import(`, really?
+
+`import` is statically analyzed so we can't ponyfill it. Even so, it's still less cumbersome. Not to mention the util is priced at $0.
+
+:::
+
+### 🩹 @roots/bud-vue: scoped styles
+
+A small configuration issue in the @roots/bud-vue extension has been fixed and scoped stylesheets should no longer make total destroy.
+
+## 💭 Notes on public path
 
 I'm just going to come out and say it: if you are not serving from web root you should specify a public path.
 
@@ -141,15 +155,6 @@ it as "if you want to use dynamic imports", but it will be simplifying to just a
 
 I think it is a reasonable requirement and certainly a common one. And, for what it's worth, I'm afraid to take the L train, too.
 
-## Upgrading to bud.js 6.3.0
+## Release information
 
-If you are using `@wordpress/browserslist-config` in your project (check the `browserslist` field of `package.json` if you aren't sure) you will need to either:
-
-- Update the `browserslist` field with a config from the table above.
-- Install `@wordpress/browserslist-config` as a project dependency.
-
-`@wordpress/browserslist-config` is no longer a dependency of bud.js, so you must do one of those two things or else you will experience build errors.
-
-```
-
-```
+For more information [review the diff to see what's changed](https://github.com/roots/bud/compare/v6.2.0...v6.3.0).

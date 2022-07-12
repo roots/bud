@@ -96,5 +96,8 @@
     "@roots/bud-react": {
       "optional": true
     }
+  },
+  "volta": {
+    "extends": "../../../package.json"
   }
 }

@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "pm2": "^5.2.0",
+    "verdaccio": "^5.13.1"
+  }
+}

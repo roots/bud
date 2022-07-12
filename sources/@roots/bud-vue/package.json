@@ -94,5 +94,8 @@
     "vue-template-compiler": {
       "optional": true
     }
+  },
+  "volta": {
+    "extends": "../../../package.json"
   }
 }

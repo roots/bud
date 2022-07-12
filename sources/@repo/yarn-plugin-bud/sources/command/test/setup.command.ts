@@ -1,6 +1,6 @@
-/* eslint-disable no-console */
-import {execute} from '@yarnpkg/shell'
+import {REPO_PATH} from '@repo/constants/.'
 import {CommandClass} from 'clipanion'
+import {ensureDir, ensureFile, remove} from 'fs-extra'
 
 import {Command} from '../base.command'
 

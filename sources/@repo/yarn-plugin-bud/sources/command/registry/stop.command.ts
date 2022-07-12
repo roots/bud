@@ -1,7 +1,8 @@
 /* eslint-disable no-console */
+import {paths} from '@repo/constants'
 import {execute} from '@yarnpkg/shell'
 import {CommandClass} from 'clipanion'
-import {ensureDir, remove} from 'fs-extra'
+import {ensureDir, realpath, remove} from 'fs-extra'
 
 import {Command} from '../base.command'
 
@@ -35,9 +36,7 @@ export class RegistryStop extends Command {
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
     description: `stop verdaccio registry`,
-    examples: [
-      [`stop verdaccio server on 4873`, `yarn @bud registry stop`],
-    ],
+    examples: [[`stop verdaccio server`, `yarn @bud registry stop`]],
   }
 
   /**
@@ -47,11 +46,22 @@ export class RegistryStop extends Command {
    */
   public async execute() {
     try {
-      await execute(`pm2`, [`stop`, `verdaccio`])
-      this.log('registry stopped')
+      const pm2BinaryAvailable = await realpath(
+        `${paths.root}/storage/node_modules/pm2/bin/pm2`,
+      )
 
-      await execute(`pm2`, ['delete', 'verdaccio'])
-      this.log('registry deleted')
+      if (!pm2BinaryAvailable) {
+        return
+      }
+
+      await this.tryExecuting(`yarn`, [`@bud`, `pm2`, `stop`, `verdaccio`])
+
+      await this.tryExecuting(`yarn`, [
+        `@bud`,
+        `pm2`,
+        'delete',
+        'verdaccio',
+      ])
     } catch (e) {}
 
     try {
@@ -68,13 +78,6 @@ export class RegistryStop extends Command {
         `npmRegistryServer`,
         `https://registry.npmjs.org`,
       ])
-    } catch (e) {}
-
-    try {
-      await ensureDir(`${process.cwd()}/storage/mocks`)
-      await remove(`${process.cwd()}/storage/mocks`)
-      await remove(`${process.cwd()}/storage/yarn.lock`)
-      this.log('filesystem cleaned')
     } catch (e) {}
   }
 }

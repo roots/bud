@@ -87,5 +87,8 @@
     "@roots/bud-postcss": {
       "optional": true
     }
+  },
+  "volta": {
+    "extends": "../../../package.json"
   }
 }

@@ -81,5 +81,8 @@
     "@fullhuman/postcss-purgecss": {
       "optional": true
     }
+  },
+  "volta": {
+    "extends": "../../../package.json"
   }
 }

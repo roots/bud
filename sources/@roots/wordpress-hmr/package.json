@@ -82,5 +82,8 @@
     "lodash-es": "4.17.21",
     "react": "17.0.2",
     "tslib": "2.4.0"
+  },
+  "volta": {
+    "extends": "../../../package.json"
   }
 }

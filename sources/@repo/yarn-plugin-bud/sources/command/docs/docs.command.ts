@@ -80,24 +80,25 @@ export class Docs extends Command {
        * Generate API docs
        */
       await this.$(
-        `typedoc \
-          --out ./sources/@repo/docs/content/dev/api \
-          --tsconfig ./config/tsconfig.json \
-          --entryPoints \
-            ./sources/@roots/bud-framework/src/index.ts \
-            ./sources/@roots/bud-framework/src/extension/index.ts \
-            ./sources/@roots/bud-framework/src/methods/index.ts \
-            ./sources/@roots/bud-framework/src/services/index.ts \
-            ./sources/@roots/bud/src/index.ts \
-            ./sources/@roots/bud/src/cli/index.ts \
-            ./sources/@roots/bud-api/src/index.ts \
-            ./sources/@roots/bud-build/src/index.ts \
-            ./sources/@roots/bud-compiler/src/index.ts \
-            ./sources/@roots/bud-hooks/src/index.ts \
-            ./sources/@roots/bud-server/src/index.ts \
-            ./sources/@roots/bud/src/index.ts \
-            ./sources/@roots/sage/src/index.ts \
-            ./sources/@roots/container/src/index.ts`,
+        `\
+typedoc \
+\ --out ./sources/@repo/docs/content/dev/api \
+\ --tsconfig ./config/tsconfig.json \
+\ --entryPoints \
+\ ./sources/@roots/bud-framework/src/index.ts \
+\ ./sources/@roots/bud-framework/src/extension/index.ts \
+\ ./sources/@roots/bud-framework/src/methods/index.ts \
+\ ./sources/@roots/bud-framework/src/services/index.ts \
+\ ./sources/@roots/bud/src/index.ts \
+\ ./sources/@roots/bud/src/cli/index.ts \
+\ ./sources/@roots/bud-api/src/index.ts \
+\ ./sources/@roots/bud-build/src/index.ts \
+\ ./sources/@roots/bud-compiler/src/index.ts \
+\ ./sources/@roots/bud-hooks/src/index.ts \
+\ ./sources/@roots/bud-server/src/index.ts \
+\ ./sources/@roots/bud/src/index.ts \
+\ ./sources/@roots/container/src/index.ts \
+\ ./sources/@roots/sage/src/index.ts`,
       )
     }
 

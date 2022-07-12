@@ -75,5 +75,8 @@
     "image-minimizer-webpack-plugin": {
       "optional": true
     }
+  },
+  "volta": {
+    "extends": "../../../package.json"
   }
 }

@@ -99,5 +99,8 @@
     "@roots/bud-babel": {
       "optional": true
     }
+  },
+  "volta": {
+    "extends": "../../../package.json"
   }
 }

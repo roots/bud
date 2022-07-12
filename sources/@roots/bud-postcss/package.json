@@ -95,5 +95,8 @@
     "postcss-preset-env": {
       "optional": true
     }
+  },
+  "volta": {
+    "extends": "../../../package.json"
   }
 }
