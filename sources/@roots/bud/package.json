@@ -191,5 +191,8 @@
     "@roots/bud-server": {
       "optional": true
     }
+  },
+  "volta": {
+    "extends": "../../../package.json"
   }
 }

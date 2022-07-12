@@ -144,8 +144,6 @@ export class Project {
 
     await this.$('yarn', [
       `install`,
-      '--update-checksums',
-      '--skip-integrity-check',
       '--registry',
       REGISTRY_PROXY,
       `--no-lockfile`,

@@ -20,5 +20,8 @@
     "json5": "2.2.1",
     "lodash-es": "4.17.21",
     "prettier": "2.7.1"
+  },
+  "volta": {
+    "extends": "../../../package.json"
   }
 }

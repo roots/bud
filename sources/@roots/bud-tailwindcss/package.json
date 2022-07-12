@@ -92,5 +92,8 @@
     "tailwindcss": {
       "optional": true
     }
+  },
+  "volta": {
+    "extends": "../../../package.json"
   }
 }

@@ -106,5 +106,8 @@
     "stylelint-config-recommended-scss": {
       "optional": true
     }
+  },
+  "volta": {
+    "extends": "../../../package.json"
   }
 }

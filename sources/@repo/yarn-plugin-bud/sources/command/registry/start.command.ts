@@ -1,7 +1,5 @@
 /* eslint-disable no-console */
-import {execute} from '@yarnpkg/shell'
 import {CommandClass} from 'clipanion'
-import {ensureDir, ensureFile, remove} from 'fs-extra'
 
 import {Command} from '../base.command'
 
@@ -35,9 +33,7 @@ export class RegistryStart extends Command {
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
     description: `start verdaccio registry`,
-    examples: [
-      [`start verdaccio server on 4873`, `yarn @bud registry start`],
-    ],
+    examples: [[`start verdaccio server`, `yarn @bud registry start`]],
   }
 
   /**
@@ -46,7 +42,9 @@ export class RegistryStart extends Command {
    * @internal
    */
   public async execute() {
-    await this.tryExecuting(`pm2`, [
+    await this.tryExecuting(`yarn`, [
+      `@bud`,
+      `pm2`,
       `start`,
       `verdaccio`,
       `--`,
@@ -83,18 +81,5 @@ export class RegistryStart extends Command {
 
     await this.tryExecuting(`yarn`, [`@bud`, `release`, `--tag`, `latest`])
     this.log('released to registry')
-  }
-
-  /**
-   * Attempt to execute a shell command
-   *
-   * @public
-   */
-  public async tryExecuting(bin: string, args: string[], opts: any = {}) {
-    try {
-      await execute(bin, args, opts)
-    } catch (e) {
-      console.error(e)
-    }
   }
 }

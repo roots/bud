@@ -22,7 +22,10 @@ export class TestRun extends Command {
    *
    * @internal
    */
-  public static paths: CommandClass['paths'] = [[`@bud`, `test`, `run`]]
+  public static paths: CommandClass['paths'] = [
+    [`@bud`, `test`, `run`],
+    [`@bud`, `test`],
+  ]
 
   /**
    * Command usage
@@ -33,6 +36,7 @@ export class TestRun extends Command {
     category: `@bud`,
     description: `run tests`,
     examples: [
+      [`run e2e tests`, `yarn @bud test e2e`],
       [`run unit tests`, `yarn @bud test unit`],
       [`run integration tests`, `yarn @bud test integration`],
     ],

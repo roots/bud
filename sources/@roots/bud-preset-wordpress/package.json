@@ -120,5 +120,8 @@
     "@roots/bud-wordpress-manifests": {
       "optional": true
     }
+  },
+  "volta": {
+    "extends": "../../../package.json"
   }
 }

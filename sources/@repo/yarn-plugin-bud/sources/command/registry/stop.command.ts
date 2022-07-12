@@ -35,9 +35,7 @@ export class RegistryStop extends Command {
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
     description: `stop verdaccio registry`,
-    examples: [
-      [`stop verdaccio server on 4873`, `yarn @bud registry stop`],
-    ],
+    examples: [[`stop verdaccio server`, `yarn @bud registry stop`]],
   }
 
   /**
@@ -47,11 +45,14 @@ export class RegistryStop extends Command {
    */
   public async execute() {
     try {
-      await execute(`pm2`, [`stop`, `verdaccio`])
-      this.log('registry stopped')
+      await this.tryExecuting(`yarn`, [`@bud`, `pm2`, `stop`, `verdaccio`])
 
-      await execute(`pm2`, ['delete', 'verdaccio'])
-      this.log('registry deleted')
+      await this.tryExecuting(`yarn`, [
+        `@bud`,
+        `pm2`,
+        'delete',
+        'verdaccio',
+      ])
     } catch (e) {}
 
     try {

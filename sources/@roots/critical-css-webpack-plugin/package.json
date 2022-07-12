@@ -66,5 +66,8 @@
   },
   "peerDependencies": {
     "critical": "*"
+  },
+  "volta": {
+    "extends": "../../../package.json"
   }
 }

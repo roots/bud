@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-import {execute} from '@yarnpkg/shell'
 import {CommandClass} from 'clipanion'
 
 import {Command} from '../base.command'

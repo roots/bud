@@ -27,7 +27,7 @@ export class Info extends Command {
 
   public get hasPm2() {
     try {
-      execSync('pm2 -v')
+      execSync('yarn pm2 -v')
       return true
     } catch (e) {
       return false
@@ -49,12 +49,7 @@ export class Info extends Command {
       .trim()
       .split('\n')
       .filter(ln => {
-        return (
-          ln.startsWith('runtime') ||
-          ln.startsWith('package-manager') ||
-          ln.startsWith('package pm2') ||
-          ln.startsWith('package verdaccio')
-        )
+        return ln.startsWith('runtime') || ln.startsWith('package-manager')
       })
       .map(ln =>
         '- '.concat(
@@ -63,9 +58,7 @@ export class Info extends Command {
             .shift()
             .split(' (current')
             .shift()
-            .replace('runtime ', '')
-            .replace('package-manager ', '')
-            .replace('package  ', ''),
+            .replace('runtime ', ''),
         ),
       )
       .join('\n')
@@ -89,15 +82,15 @@ export class Info extends Command {
   }
 
   public get pm2() {
-    return execSync('pm2 ls').toString().trim()
+    return execSync('yarn pm2 ls').toString().trim()
   }
 
   public get verdaccio() {
-    return execSync('verdaccio --version').toString().trim()
+    return execSync('yarn verdaccio --version').toString().trim()
   }
 
   public get logs() {
-    return execSync('pm2 logs --out --lines 5 --nostream')
+    return execSync('yarn pm2 logs --out --lines 5 --nostream')
       .toString()
       .trim()
       .split('\n')
@@ -114,7 +107,10 @@ export class Info extends Command {
   }
 
   public get pm2Version() {
-    return execSync('pm2 --version').toString().trim().replace('v', '')
+    return execSync('yarn pm2 --version')
+      .toString()
+      .trim()
+      .replace('v', '')
   }
 
   public get nodeVersion() {

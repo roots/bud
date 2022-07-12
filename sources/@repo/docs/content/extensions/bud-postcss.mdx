@@ -35,7 +35,7 @@ You can add a plugin with **bud.postcss.setPlugin**. This function takes up to t
 The first parameter is required. It is the name for the plugin.
 If it is the only parameter being passed, it should be the module signifier.
 
-```mjs title="bud.config.mjs"
+```js title="bud.config.mjs"
 bud.postcss.setPlugin('example-postcss-plugin')
 ```
 
@@ -43,7 +43,7 @@ The second parameter is optional and multivariate.
 
 Use a string to specify the plugin's resolvable path:
 
-```mjs title="bud.config.mjs"
+```js title="bud.config.mjs"
 bud.postcss.setPlugin(
   'example-postcss-plugin',
   bud.path('./directory/example.js'),
@@ -52,7 +52,7 @@ bud.postcss.setPlugin(
 
 Use an array to set any associated options alongside the resolvable path.
 
-```mjs title="bud.config.mjs"
+```js title="bud.config.mjs"
 bud.postcss.setPlugin('example-postcss-plugin', [
   bud.path('./directory/example.js'),
   {stage: 1},
@@ -65,7 +65,7 @@ You can modify options for a plugin using **bud.postcss.setPluginOptions**.
 
 The first parameter is the plugin key and the second is the options object.
 
-```mjs title="bud.config.mjs"
+```js title="bud.config.mjs"
 bud.postcss.setPluginOptions('example-postcss-plugin', {optimize: false})
 ```
 
@@ -75,7 +75,7 @@ You can modify the path for a postcss plugin using **bud.postcss.setPluginPath**
 
 The first parameter is the plugin key and the second is the new path to assign.
 
-```mjs title="bud.config.mjs"
+```js title="bud.config.mjs"
 bud.postcss.setPluginPath(
   'example-postcss-plugin',
   bud.path('./lib/my-plugin.js'),
@@ -88,7 +88,7 @@ You can add multiple postcss plugins using **bud.postcss.setPlugins**.
 
 ### Using an object
 
-```mjs title="bud.config.mjs"
+```js title="bud.config.mjs"
 bud.postcss.setPlugins({
   ['tailwindcss']: await bud.module.resolve('tailwindcss'),
   ['nesting']: await bud.module.resolve('tailwindcss/nesting/index.js'),
@@ -97,7 +97,7 @@ bud.postcss.setPlugins({
 
 ### Using a Map
 
-```mjs title="bud.config.mjs"
+```js title="bud.config.mjs"
 bud.postcss.setPlugins(
   new Map([])
     .set('tailwindcss', await bud.module.resolve('tailwindcss'))
@@ -109,7 +109,7 @@ bud.postcss.setPlugins(
 
 ### Using an array
 
-```mjs title="bud.config.mjs"
+```js title="bud.config.mjs"
 bud.postcss.setPlugins([
   ['tailwindcss', await bud.module.resolve('tailwindcss')],
   ['nesting', await bud.module.resolve('tailwindcss/nesting/index.js')],
@@ -120,7 +120,7 @@ bud.postcss.setPlugins([
 
 You may remove a plugin with **bud.postcss.unsetPlugin**.
 
-```mjs title="bud.config.mjs"
+```js title="bud.config.mjs"
 bud.postcss.unsetPlugin('import')
 ```
 
@@ -140,7 +140,7 @@ It will always attempt to load plugins in this order:
 The reason bud.js gets so hands-on here is to provide a reasonable default which people can build on without needing to splice in their own plugins manually.
 If this is a problem for your project, the most direct way to override this is to hook a function to `postcss.plugins` which returns an array of plugin values:
 
-```mjs title="bud.config.mjs"
+```js title="bud.config.mjs"
 bud.hooks.on('postcss.plugins', () => {
   return [
     bud.postcss.get('import'),
@@ -153,7 +153,7 @@ bud.hooks.on('postcss.plugins', () => {
 
 **@roots/bud-postcss** stores PostCSS plugins as a `Map`. You can work with this `Map` directly using **bud.postcss.plugins**.
 
-```mjs title="bud.config.mjs"
+```js title="bud.config.mjs"
 bud.postcss.plugins.set('import', [
   await module.resolve('postcss-import'),
   {...options},

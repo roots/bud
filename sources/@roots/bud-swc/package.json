@@ -82,5 +82,8 @@
     "ts-node": {
       "optional": true
     }
+  },
+  "volta": {
+    "extends": "../../../package.json"
   }
 }
