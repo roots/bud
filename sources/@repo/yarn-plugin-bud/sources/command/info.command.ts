@@ -66,7 +66,7 @@ export class Info extends Command {
 
   public get hasVerdaccio() {
     try {
-      execSync('yarn @bud pm2 verdaccio')
+      execSync('yarn @bud pm2 verdaccio --version')
       return true
     } catch (e) {
       return false
@@ -147,25 +147,13 @@ export class Info extends Command {
 |_.__/ \\__._|\\__._|
 `)
     if (this.hasVolta) {
-      process.stdout.write(`
-⚡ toolchain:
-
-${this.voltaList}
-`)
+      process.stdout.write(`\n${this.voltaList}\n`)
     } else {
       process.stdout.write(`
-installed:
-
 - node@${this.nodeVersion} (required: ${this.requiredNode})
 - yarn@${this.yarn} 
 - npm@${this.npm} (required: ${this.requiredNpm})
-${this.hasPm2 ? `- pm2@v${this.pm2Version}` : ``}
-${this.hasVerdaccio ? `- verdaccio@${this.verdaccio}` : ``}`)
-      process.stdout.write(
-        `It is recommended to use volta when working with bud. See: https://volta.sh.
-        Easy install: \`curl https://get.volta.sh | bash\`
-`,
-      )
+`)
     }
 
     if (this.nodeVersion !== this.requiredNode)
@@ -189,13 +177,10 @@ ${this.gitLog}
 
     if (this.hasPm2 && this.hasVerdaccio) {
       process.stdout.write(`
-pm2:
-
 ${this.pm2}
-
-logs:
-
 ${this.logs}`)
     }
+
+    this.context.stdout.write(`\n\n`)
   }
 }

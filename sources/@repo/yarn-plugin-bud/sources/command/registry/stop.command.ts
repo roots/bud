@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 import {paths} from '@repo/constants'
 import {execute} from '@yarnpkg/shell'
-import {execSync} from 'child_process'
 import {CommandClass} from 'clipanion'
 import {ensureDir, realpath, remove} from 'fs-extra'
 
@@ -79,12 +78,6 @@ export class RegistryStop extends Command {
         `npmRegistryServer`,
         `https://registry.npmjs.org`,
       ])
-    } catch (e) {}
-
-    try {
-      await ensureDir(`${process.cwd()}/storage/packages`)
-      await remove(`${process.cwd()}/storage/packages`)
-      this.log('filesystem cleaned')
     } catch (e) {}
   }
 }

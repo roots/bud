@@ -1,11 +1,15 @@
 import {Plugin} from '@yarnpkg/core'
+import {execute} from '@yarnpkg/shell'
 
 import {Commands} from './command'
 
 const plugin: Plugin = {
   hooks: {
-    afterAllInstalled: () => {
-      process.stdout.write(`\nWhat a great install, am I right?\n`)
+    afterAllInstalled: async () => {
+      await execute('yarn', ['@bud', 'info'], {
+        stdin: process.stdin,
+        stdout: process.stdout,
+      })
     },
   },
 
