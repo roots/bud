@@ -74,9 +74,14 @@ jobs:
       - name: yarn @bud registry install
         run: |
           yarn @bud registry install
+
       - name: yarn @bud registry start
         run: |
           yarn @bud registry start
+
+      - name: yarn @bud release --tag latest
+        run: |
+          yarn @bud release --tag latest
 
       - name: yarn @bud test run integration
         run: |
