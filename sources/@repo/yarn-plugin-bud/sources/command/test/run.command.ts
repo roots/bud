@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
-import {execute} from '@yarnpkg/shell'
+import {REPO_PATH} from '@repo/constants'
 import {CommandClass, Option} from 'clipanion'
+import {ensureDir, ensureFile, remove} from 'fs-extra'
 
 import {Command} from '../base.command'
 
@@ -55,6 +56,13 @@ export class TestRun extends Command {
    * @internal
    */
   public async execute() {
+    if (this.passthrough.includes('integration')) {
+      await ensureFile(`${REPO_PATH}/storage/yarn.lock`)
+      await ensureDir(`${REPO_PATH}/storage/mocks`)
+      await remove(`${REPO_PATH}/storage/mocks`)
+      this.log('integration tests directory cleaned')
+    }
+
     await this.tryExecuting(`yarn`, [
       `node`,
       `--experimental-vm-modules`,

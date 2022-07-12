@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
-import {REPO_PATH} from '@repo/constants'
+import {paths} from '@repo/constants'
 import {CommandClass} from 'clipanion'
-import {ensureDir, ensureFile, remove} from 'fs-extra'
 
 import {Command} from '../base.command'
 
@@ -41,15 +40,8 @@ export class RegistryInstall extends Command {
   }
 
   public async execute() {
-    try {
-      await ensureFile(`${REPO_PATH}/storage/yarn.lock`)
-      await ensureDir(`${REPO_PATH}/storage/mocks`)
-      await remove(`${REPO_PATH}/storage/mocks`)
-      this.log('integration tests directory cleaned')
-    } catch (e) {}
-
     await this.tryExecuting(`npm`, [`install`, `pm2`, `verdaccio`], {
-      cwd: `${REPO_PATH}/storage` as any,
+      cwd: `${paths.root}/storage` as any,
     })
   }
 }

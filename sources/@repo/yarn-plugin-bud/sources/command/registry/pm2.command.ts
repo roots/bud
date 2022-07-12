@@ -1,8 +1,7 @@
 /* eslint-disable no-console */
-import {REPO_PATH} from '@repo/constants'
-import {execute} from '@yarnpkg/shell'
+import {paths} from '@repo/constants'
 import {CommandClass, Option} from 'clipanion'
-import {ensureDir, ensureFile, realpath} from 'fs-extra'
+import {realpath} from 'fs-extra'
 
 import {Command} from '../base.command'
 
@@ -46,16 +45,19 @@ export class Pm2 extends Command {
 
   public async execute() {
     const pm2BinaryAvailable = await realpath(
-      `${REPO_PATH}/storage/node_modules/pm2/bin/pm2`,
+      `${paths.root}/storage/node_modules/pm2/bin/pm2`,
     )
 
     if (!pm2BinaryAvailable) {
       await this.tryExecuting(`yarn`, [`@bud`, `registry`, `install`])
     }
 
-    await this.tryExecuting(`node`, [
-      `${REPO_PATH}/storage/node_modules/pm2/bin/pm2`,
-      ...this.passthrough,
-    ])
+    await this.tryExecuting(
+      `node`,
+      [
+        `${paths.root}/storage/node_modules/pm2/bin/pm2`,
+        ...(this.passthrough ?? []),
+      ].filter(Boolean),
+    )
   }
 }

@@ -1,5 +1,8 @@
 /* eslint-disable no-console */
+import {paths} from '@repo/constants'
+import {execSync} from 'child_process'
 import {CommandClass} from 'clipanion'
+import {realpath} from 'fs-extra'
 
 import {Command} from '../base.command'
 
@@ -42,15 +45,22 @@ export class RegistryStart extends Command {
    * @internal
    */
   public async execute() {
+    const pm2BinaryAvailable = await realpath(
+      `${paths.root}/storage/node_modules/pm2/bin/pm2`,
+    )
+
+    if (!pm2BinaryAvailable) {
+      await this.tryExecuting(`yarn`, [`@bud`, `registry`, `install`])
+    }
+
     await this.tryExecuting(`yarn`, [
       `@bud`,
       `pm2`,
       `start`,
-      `verdaccio`,
+      `${paths.root}/storage/node_modules/.bin/verdaccio`,
       `--`,
-      `--config=./config/verdaccio/config.yaml`,
+      `--config=${paths.root}/config/verdaccio/config.yaml`,
     ])
-    this.log('started verdaccio')
 
     await this.tryExecuting(`yarn`, [
       `config`,
@@ -59,27 +69,17 @@ export class RegistryStart extends Command {
       `--json`,
       `["0.0.0.0","localhost"]`,
     ])
-
     await this.tryExecuting(`yarn`, [
       `config`,
       `set`,
       `npmPublishRegistry`,
       `http://0.0.0.0:4873`,
     ])
-
     await this.tryExecuting(`yarn`, [
       `config`,
       `set`,
       `npmRegistryServer`,
       `http://0.0.0.0:4873`,
     ])
-
-    await this.tryExecuting(`yarn`, [`install`])
-    this.log('installed via registry')
-
-    await this.tryExecuting(`yarn`, [`@bud`, `tsc`, `--force`])
-
-    await this.tryExecuting(`yarn`, [`@bud`, `release`, `--tag`, `latest`])
-    this.log('released to registry')
   }
 }

@@ -5,7 +5,9 @@
 .swc
 
 coverage
-storage
+storage/**/*
+!storage/yarn.lock
+!storage/package.json
 
 **/*.log
 **/lib

@@ -1,7 +1,9 @@
 /* eslint-disable no-console */
+import {paths} from '@repo/constants'
 import {execute} from '@yarnpkg/shell'
+import {execSync} from 'child_process'
 import {CommandClass} from 'clipanion'
-import {ensureDir, remove} from 'fs-extra'
+import {ensureDir, realpath, remove} from 'fs-extra'
 
 import {Command} from '../base.command'
 
@@ -45,6 +47,14 @@ export class RegistryStop extends Command {
    */
   public async execute() {
     try {
+      const pm2BinaryAvailable = await realpath(
+        `${paths.root}/storage/node_modules/pm2/bin/pm2`,
+      )
+
+      if (!pm2BinaryAvailable) {
+        return
+      }
+
       await this.tryExecuting(`yarn`, [`@bud`, `pm2`, `stop`, `verdaccio`])
 
       await this.tryExecuting(`yarn`, [
@@ -72,9 +82,8 @@ export class RegistryStop extends Command {
     } catch (e) {}
 
     try {
-      await ensureDir(`${process.cwd()}/storage/mocks`)
-      await remove(`${process.cwd()}/storage/mocks`)
-      await remove(`${process.cwd()}/storage/yarn.lock`)
+      await ensureDir(`${process.cwd()}/storage/packages`)
+      await remove(`${process.cwd()}/storage/packages`)
       this.log('filesystem cleaned')
     } catch (e) {}
   }
