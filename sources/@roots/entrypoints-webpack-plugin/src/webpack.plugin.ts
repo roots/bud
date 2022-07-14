@@ -2,7 +2,7 @@ import {bind} from 'helpful-decorators'
 import {uniq} from 'lodash-es'
 import Webpack from 'webpack'
 
-import {InlineEmitter} from './inline.emitter.js'
+import {HtmlEmitter} from './html.emitter.js'
 
 /**
  * Entrypoints
@@ -54,7 +54,7 @@ export interface Options {
  * by entrypoint and then filetype.
  *
  * @example
- * ```
+ * ```js
  * import {EntrypointsWebpackPlugin} from '@roots/entrypoints-webpack-plugin'
  *
  * const config = {
@@ -160,11 +160,11 @@ export class EntrypointsWebpackPlugin {
     })
 
     this.options.emitHtml &&
-      new InlineEmitter(
+      new HtmlEmitter(
         this.compilation,
         this.assets,
         this.options.publicPath,
-      ).emitHtmlTags()
+      ).emit()
 
     Object.assign(this.compilation.assets, {
       [this.name]: new Webpack.sources.RawSource(
