@@ -45,6 +45,8 @@ export default class Acorn extends Extension {
     this.app.extensions
       .get('webpack-manifest-plugin')
       .setOption('publicPath', '')
+
+    this.app.isDevelopment && this.app.setPublicPath('/')
   }
 
   /**

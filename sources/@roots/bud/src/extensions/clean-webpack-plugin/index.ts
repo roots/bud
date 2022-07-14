@@ -43,7 +43,10 @@ import {
    */
   cleanOnceBeforeBuildPatterns: ['**/*'],
 })
-@when(async (_opt, {hooks}) => hooks.filter('feature.clean'))
+@when(
+  async (_opt, {hooks, isProduction}) =>
+    hooks.filter('feature.clean') && isProduction,
+)
 export default class BudClean extends Extension<
   PluginOptions,
   CleanWebpackPlugin
