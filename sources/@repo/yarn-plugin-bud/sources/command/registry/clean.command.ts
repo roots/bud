@@ -1,7 +1,8 @@
 /* eslint-disable no-console */
 import {paths} from '@repo/constants'
 import {CommandClass} from 'clipanion'
-import {ensureDir, readJson, remove, writeJson} from 'fs-extra'
+import {ensureDir, pathExists, readJson, remove, writeJson} from 'fs-extra'
+import {join} from 'path'
 
 import {Command} from '../base.command'
 
@@ -16,7 +17,7 @@ export class RegistryClean extends Command {
    *
    * @internal
    */
-  public static label = '@bud registry install'
+  public static label = '@bud registry clean'
 
   /**
    * Command paths
@@ -24,7 +25,7 @@ export class RegistryClean extends Command {
    * @internal
    */
   public static paths: CommandClass['paths'] = [
-    [`@bud`, `registry`, `install`],
+    [`@bud`, `registry`, `clean`],
   ]
 
   /**
@@ -34,24 +35,38 @@ export class RegistryClean extends Command {
    */
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
-    description: `install pm2 & verdaccio`,
+    description: `clean previously published packages`,
     examples: [
-      [`install pm2 and verdaccio`, `yarn @bud registry install`],
+      [`clean previously published packages`, `yarn @bud registry clean`],
     ],
   }
 
   public async execute() {
     try {
-      const verdaccioDb = await readJson(
-        `${paths.root}/storage/.verdaccio-db.json`,
+      const dirty = await pathExists(
+        join(paths.root, 'storage', 'packages'),
       )
-      verdaccioDb.list = []
-      await writeJson(
-        `${paths.root}/storage/.verdaccio-db.json`,
-        verdaccioDb,
+
+      if (dirty) {
+        await ensureDir(join(paths.root, 'storage', 'packages'))
+        await remove(join(paths.root, 'storage', 'packages'))
+      }
+
+      const verdaccioDbExists = await pathExists(
+        join(paths.root, 'storage', '.verdaccio-db.json'),
       )
-      await ensureDir(`${paths.root}/storage/packages`)
-      await remove(`${paths.root}/storage/packages`)
+
+      if (verdaccioDbExists) {
+        const verdaccioDb = await readJson(
+          join(paths.root, 'storage', '.verdaccio-db.json'),
+        )
+        verdaccioDb.list = []
+
+        await writeJson(
+          `${paths.root}/storage/.verdaccio-db.json`,
+          verdaccioDb,
+        )
+      }
     } catch (e) {
       throw new Error(e)
     }
