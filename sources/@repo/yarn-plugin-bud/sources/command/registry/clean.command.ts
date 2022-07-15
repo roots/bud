@@ -43,14 +43,8 @@ export class RegistryClean extends Command {
 
   public async execute() {
     try {
-      const dirty = await pathExists(
-        join(paths.root, 'storage', 'packages'),
-      )
-
-      if (dirty) {
-        await ensureDir(join(paths.root, 'storage', 'packages'))
-        await remove(join(paths.root, 'storage', 'packages'))
-      }
+      await ensureDir(join(paths.root, 'storage', 'packages'))
+      await remove(join(paths.root, 'storage', 'packages'))
 
       const verdaccioDbExists = await pathExists(
         join(paths.root, 'storage', '.verdaccio-db.json'),

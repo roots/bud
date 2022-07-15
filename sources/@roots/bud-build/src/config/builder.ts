@@ -20,7 +20,6 @@ export async function build(app: Bud): Promise<void> {
     .hooks.on('build.cache', () => app.cache.configuration)
     .hooks.on('build.context', () => app.context.dir)
     .hooks.on('build.externalsType', 'var')
-    .hooks.on('build.experiments.buildHttp', undefined)
     .hooks.on('build.experiments', () => ({
       asyncWebAssembly: app.hooks.filter(
         'build.experiments.asyncWebAssembly',
@@ -66,8 +65,6 @@ export async function build(app: Bud): Promise<void> {
         'build.output.assetModuleFilename',
       ),
       chunkFilename: app.hooks.filter('build.output.chunkFilename'),
-      chunkFormat: app.hooks.filter('build.output.chunkFormat'),
-      chunkLoading: app.hooks.filter('build.output.chunkLoading'),
       clean: app.hooks.filter('build.output.clean'),
       environment: app.hooks.filter('build.output.environment'),
       filename: app.hooks.filter('build.output.filename'),
@@ -83,14 +80,11 @@ export async function build(app: Bud): Promise<void> {
     .hooks.on('build.output.assetModuleFilename', () =>
       filenameFormat(app, '[ext]'),
     )
-    .hooks.on(
-      'build.output.clean',
-      () =>
-        app.hooks.filter('feature.clean') !== false && app.isProduction,
-    )
     .hooks.on('build.output.chunkFilename', () => 'js/dynamic/[id].js')
     .hooks.on('build.output.filename', () => `js/${filenameFormat(app)}`)
-    .hooks.on('build.output.module', () => undefined)
+    .hooks.on('build.output.path', () => app.path('@dist'))
+    .hooks.on('build.output.chunkFilename', () => 'js/dynamic/[id].js')
+    .hooks.on('build.output.filename', () => `js/${filenameFormat(app)}`)
     .hooks.on('build.output.path', () => app.path('@dist'))
     .hooks.on('build.output.publicPath', () => 'auto')
     .hooks.on('build.optimization', () => ({

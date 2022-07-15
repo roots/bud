@@ -96,12 +96,12 @@ export default class Cdn extends Extension<Options, null> {
     string | RegExp | ((uri: string) => boolean)
   > {
     return Array.from(
-      new Set(
-        [
-          ...this.app.maybeCall(this.getOption('allowedUris')),
-          ...this.sources.values(),
-        ].filter(Boolean),
-      ),
+      new Set([
+        ...(this.app.maybeCall(this.getOption('allowedUris')) ?? []),
+        ...(this.sources.values() ?? []),
+      ]),
+    ).filter(
+      v => typeof v === 'string' || v instanceof RegExp || isFunction(v),
     )
   }
   public set allowedUris(

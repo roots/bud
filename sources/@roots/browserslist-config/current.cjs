@@ -1,11 +1,10 @@
 /**
  * Browserslist targeting most current browser releases
  */
-module.exports = {
-  production: ['>0.5%', 'not dead', 'not op_mini all'],
-  development: [
-    'last 1 chrome version',
-    'last 1 firefox version',
-    'last 1 safari version',
-  ],
-}
+module.exports = [
+  '> 1%',
+  'last 2 versions',
+  'not dead',
+  'not op_mini all',
+  'supports es6-module-dynamic-import',
+]

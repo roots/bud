@@ -110,21 +110,6 @@ export class Server extends Service implements Base.Service {
   }
 
   /**
-   * `afterConfig` callback
-   */
-  @bind
-  @once
-  public async afterConfig() {
-    if (
-      this.app.publicPath() === '' ||
-      this.app.publicPath() === 'auto' ||
-      typeof this.app.publicPath() !== 'string'
-    ) {
-      this.app.setPublicPath('/')
-    }
-  }
-
-  /**
    * Set connection
    * @public
    * @decorator `@bind`
