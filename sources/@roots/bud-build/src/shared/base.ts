@@ -12,6 +12,11 @@ export default class Base implements Build.Base {
     return this._app()
   }
 
+  /**
+   * Constructor
+   *
+   * @public
+   */
   public constructor(protected _app: () => Bud) {}
 
   @bind

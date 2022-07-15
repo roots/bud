@@ -29,17 +29,6 @@ import MiniCssPlugin, {PluginOptions} from 'mini-css-extract-plugin'
    */
   filename: (app: Bud) =>
     `css/${app.path('@name').replace('[ext]', '.css')}`,
-
-  /**
-   * css chunk output filename
-   *
-   * @param app - Bud
-   * @returns chunk filename
-   *
-   * @public
-   */
-  chunkFilename: (app: Bud) =>
-    `css/${app.path('@name').replace('[ext]', '.bundle.css')}`,
 })
 @production
 export default class MiniCssExtract extends Extension<

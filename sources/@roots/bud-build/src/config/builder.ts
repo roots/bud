@@ -86,6 +86,7 @@ export async function build(app: Bud): Promise<void> {
     .hooks.on('build.output.chunkFilename', () => 'js/dynamic/[id].js')
     .hooks.on('build.output.filename', () => `js/${filenameFormat(app)}`)
     .hooks.on('build.output.path', () => app.path('@dist'))
+    .hooks.on('build.output.publicPath', () => 'auto')
     .hooks.on('build.optimization', () => ({
       emitOnErrors: app.hooks.filter('build.optimization.emitOnErrors'),
       minimize: app.hooks.filter('build.optimization.minimize'),
