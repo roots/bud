@@ -25,11 +25,7 @@ export default class Esm extends Extension {
   public async beforeBuild() {
     this.app.hooks
       .on('build.experiments.outputModule', true)
-      .hooks.on('build.output.chunkLoading', 'import')
-      .hooks.on('build.output.chunkFormat', 'module')
-      .hooks.on('build.output.environment', {module: true})
       .hooks.on('build.output.module', true)
-      .hooks.on('build.externalsType', 'module')
 
     this.app.project.has('manifest.imports') &&
       this.app.externals(this.app.project.get('manifest.imports'))
