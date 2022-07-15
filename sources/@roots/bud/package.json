@@ -124,6 +124,8 @@
     "@roots/bud-hooks": "workspace:sources/@roots/bud-hooks",
     "@roots/bud-server": "workspace:sources/@roots/bud-server",
     "@roots/bud-terser": "workspace:sources/@roots/bud-terser",
+    "browserslist": "latest",
+    "caniuse-lite": "latest",
     "chalk": "5.0.1",
     "clean-webpack-plugin": "^4.0.0",
     "clipanion": "3.2.0-rc.11",
@@ -158,7 +160,9 @@
     "@roots/bud-extensions": "*",
     "@roots/bud-framework": "*",
     "@roots/bud-hooks": "*",
-    "@roots/bud-server": "*"
+    "@roots/bud-server": "*",
+    "browserslist": "*",
+    "caniuse-lite": "*"
   },
   "peerDependenciesMeta": {
     "@roots/browserslist-config": {
@@ -189,6 +193,12 @@
       "optional": true
     },
     "@roots/bud-server": {
+      "optional": true
+    },
+    "browserslist": {
+      "optional": true
+    },
+    "caniuse-lite": {
       "optional": true
     }
   },
