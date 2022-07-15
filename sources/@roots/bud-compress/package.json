@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-compress",
-  "version": "0.0.0",
+  "version": "6.3.2",
   "description": "Adds gzip and brotli compression to Bud",
   "repository": {
     "type": "git",
