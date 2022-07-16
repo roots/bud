@@ -8,13 +8,20 @@ export interface pulse {
  */
 export const pulse = (
   name: string,
-  color: [number, number, number],
+  color: [number, number, number, number],
 ): string => `
   .${name} {
-    transform: scale(1);
-    background: rgba(${color[0]}, ${color[1]}, ${color[2]}, 1);
-    box-shadow: 0 0 0 0 rgba(${color[0]}, ${color[1]}, ${color[2]}, 1);
+    box-shadow: 0 0 0 0 rgba(${color[0]}, ${color[1]}, ${color[2]}, ${color[3]});
     animation: ${name}__pulse 2s infinite;
+    transition: all 0.4s ease-in-out;
+  }
+
+  .${name}:not(.show) {
+    background-color: rgba(${color[0]}, ${color[1]}, ${color[2]}, 0);
+  }
+
+  .${name}.show {
+    background-color: rgba(${color[0]}, ${color[1]}, ${color[2]}, ${color[3]});
   }
 
   @keyframes ${name}__pulse {

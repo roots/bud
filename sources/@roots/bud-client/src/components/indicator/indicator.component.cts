@@ -18,6 +18,14 @@ export class Component extends HTMLElement {
   public name: string = `bud-activity-indicator`
 
   /**
+   * Root div querySelector selector
+   * @public
+   */
+  public get selector() {
+    return `.${this.name}`
+  }
+
+  /**
    * Timer
    * @public
    */
@@ -49,50 +57,59 @@ export class Component extends HTMLElement {
    * Status indicator colors
    * @public
    */
-  public colors: Record<string, [number, number, number]> = {
-    success: [4, 120, 87],
-    error: [220, 38, 38],
-    warn: [252, 211, 77],
-    pending: [59, 130, 246],
+  public colors: Record<string, [number, number, number, number]> = {
+    success: [4, 120, 87, 1],
+    error: [220, 38, 38, 1],
+    warn: [252, 211, 77, 1],
+    pending: [59, 130, 246, 1],
   }
 
   /**
    * Render status indicator
    * @public
    */
-  public render() {
-    this.classList.add(this.name)
-
-    this.innerHTML = `
+  public renderShadow() {
+    const container = document.createElement('div')
+    container.classList.add(this.name)
+    container.innerHTML = `
     <style>
-      .${this.name} {
-        position: fixed;
-        width: 10px;
-        height: 10px;
-        left: 10px;
-        bottom: 10px;
-        z-index: 9998;
-        margin: 10px;
-        padding: 5px;
-        transition: opacity ease 1500ms;
-        pointer-events: none;
-        border-radius: 50%;
-      }
+    .bud-activity-indicator {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      left: 10px;
+      bottom: 10px;
+      z-index: 9999;
+      margin: 5px;
+      padding: 5px;
+      -webkit-transition:
+        all .6s ease-in-out,
+      transition:
+        all .6s ease-in-out;
+      animation-fill-mode: forwards;
+      pointer-events: none;
+      border-radius: 50%;
+      transform: scale(0);
+      opacity: 0;
+    }
 
-      ${pulse(`${this.name}__success`, this.colors.success)}
-      ${pulse(`${this.name}__error`, this.colors.error)}
-      ${pulse(`${this.name}__warning`, this.colors.warn)}
-      ${pulse(`${this.name}__pending`, this.colors.pending)}
+    .show {
+      opacity: 1;
+      background-color: rgba(255, 255, 255, 1);
+      transform: scale(1);
+      transition:
+        all .6s ease-in-out;
+    }
 
-      .${this.name}__visible {
-        opacity: 1;
-      }
+    ${pulse(`success`, this.colors.success)}
+    ${pulse(`error`, this.colors.error)}
+    ${pulse(`warning`, this.colors.warn)}
+    ${pulse(`pending`, this.colors.pending)}
 
-      .${this.name}__hidden {
-        opacity: 0;
-      }
     </style>
     `
+
+    this.attachShadow({mode: 'open'}).appendChild(container)
   }
 
   /**
@@ -100,9 +117,8 @@ export class Component extends HTMLElement {
    * @public
    */
   public show() {
-    clearTimeout(this.hideTimeout)
-
-    this.classList.remove(`${this.name}__hidden`)
+    this.hideTimeout && clearTimeout(this.hideTimeout)
+    this.shadowRoot.querySelector(this.selector).classList.add('show')
   }
 
   /**
@@ -110,13 +126,7 @@ export class Component extends HTMLElement {
    */
   public hide() {
     this.hideTimeout = setTimeout(() => {
-      this.classList.remove(
-        `${this.name}__error`,
-        `${this.name}__warning`,
-        `${this.name}__success`,
-        `${this.name}__pending`,
-      )
-      this.classList.add(`${this.name}__hidden`)
+      this.shadowRoot.querySelector(this.selector).classList.remove('show')
     }, 2000)
   }
 
@@ -127,13 +137,11 @@ export class Component extends HTMLElement {
   public onPending() {
     this.show()
 
-    this.classList.remove(
-      `${this.name}__error`,
-      `${this.name}__warning`,
-      `${this.name}__success`,
-    )
+    this.shadowRoot
+      .querySelector(this.selector)
+      .classList.remove(`error`, `warning`, `success`)
 
-    this.classList.add(`${this.name}__pending`)
+    this.shadowRoot.querySelector(this.selector).classList.add('pending')
 
     this.hide()
   }
@@ -145,13 +153,11 @@ export class Component extends HTMLElement {
   public onSuccess() {
     this.show()
 
-    this.classList.remove(
-      `${this.name}__error`,
-      `${this.name}__warning`,
-      `${this.name}__pending`,
-    )
+    this.shadowRoot
+      .querySelector(this.selector)
+      .classList.remove(`error`, `warning`, `pending`)
 
-    this.classList.add(`${this.name}__success`)
+    this.shadowRoot.querySelector(this.selector).classList.add(`success`)
 
     this.hide()
   }
@@ -163,13 +169,10 @@ export class Component extends HTMLElement {
   public onError() {
     this.show()
 
-    this.classList.remove(
-      `${this.name}__warning`,
-      `${this.name}__success`,
-      `${this.name}__pending`,
-    )
-
-    this.classList.add(`${this.name}__error`)
+    this.shadowRoot
+      .querySelector(this.selector)
+      .classList.remove(`warning`, `success`, `pending`)
+    this.shadowRoot.querySelector(this.selector).classList.add(`error`)
   }
 
   /**
@@ -179,20 +182,18 @@ export class Component extends HTMLElement {
   public onWarning() {
     this.show()
 
-    this.classList.remove(
-      `${this.name}__error`,
-      `${this.name}__success`,
-      `${this.name}__pending`,
-    )
+    this.shadowRoot
+      .querySelector(this.selector)
+      .classList.remove(`error`, `success`, `pending`)
 
-    this.classList.add(`${this.name}__warning`)
+    this.shadowRoot.querySelector(this.selector).classList.add(`warning`)
   }
 
-  /**
-   * Update status
-   * @public
-   */
-  public update() {
+  public static get observedAttributes() {
+    return ['has-errors', 'has-warnings', 'action']
+  }
+
+  public attributeChangedCallback() {
     if (this.payload?.errors?.length) return this.onError()
     if (this.payload?.warnings?.length) return this.onWarning()
     if (
@@ -207,17 +208,10 @@ export class Component extends HTMLElement {
     )
       return this.onPending()
   }
-  public static get observedAttributes() {
-    return ['has-errors', 'has-warnings', 'action']
-  }
-
-  public attributeChangedCallback() {
-    this.update()
-  }
 
   public connectedCallback() {
     if (!this.rendered) {
-      this.render()
+      this.renderShadow()
       this.rendered = true
     }
   }
