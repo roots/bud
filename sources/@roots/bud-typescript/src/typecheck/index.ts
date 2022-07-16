@@ -9,7 +9,7 @@ import {
 import Plugin from 'fork-ts-checker-webpack-plugin'
 import type {ForkTsCheckerWebpackPluginOptions as Options} from 'fork-ts-checker-webpack-plugin/lib/plugin-options.js'
 
-@label('@roots/bud-typescript/typecheck')
+@label(`@roots/bud-typescript/typecheck`)
 @plugin(Plugin)
 @options<Options>({
   async: false,
@@ -18,7 +18,7 @@ import type {ForkTsCheckerWebpackPluginOptions as Options} from 'fork-ts-checker
       semantic: true,
       syntactic: true,
     },
-    mode: 'readonly',
+    mode: `readonly`,
   },
 })
 @when(async () => false)
@@ -33,18 +33,18 @@ export default class BudTypeCheckPlugin extends Extension<
    */
   @bind public async enable(state: boolean = true) {
     this.app.extensions
-      .get('@roots/bud-typescript')
-      .setOption('transpileOnly', !state)
+      .get(`@roots/bud-typescript`)
+      .setOption(`transpileOnly`, !state)
 
     this.logger.log(
       `transpileOnly set to ${this.app.extensions
-        .get('@roots/bud-typescript')
-        .getOption('transpileOnly')}`,
+        .get(`@roots/bud-typescript`)
+        .getOption(`transpileOnly`)}`,
     )
   }
 
   @bind public async init() {
-    const typescriptPath = await this.resolve('typescript')
+    const typescriptPath = await this.resolve(`typescript`)
 
     this.setOptions(options => ({
       ...options,

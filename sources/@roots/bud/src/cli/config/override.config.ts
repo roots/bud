@@ -22,9 +22,9 @@ export const config = async (command: BuildCommand) => {
   !isUndefined(command.target) && target(command)
 
   if (!isUndefined(command.src)) {
-    command.app.setPath('@src', command.src)
+    command.app.setPath(`@src`, command.src)
     Object.entries(command.app.children).map(([_name, child]) =>
-      child.setPath('@src', command.src),
+      child.setPath(`@src`, command.src),
     )
   }
 
@@ -43,9 +43,9 @@ export const config = async (command: BuildCommand) => {
   }
 
   if (!isUndefined(command.dist)) {
-    command.app.setPath('@dist', command.dist)
+    command.app.setPath(`@dist`, command.dist)
     Object.entries(command.app.children).map(([_name, child]) =>
-      child.setPath('@dist', command.dist),
+      child.setPath(`@dist`, command.dist),
     )
   }
 
@@ -57,9 +57,9 @@ export const config = async (command: BuildCommand) => {
   }
 
   if (!isUndefined(command.manifest)) {
-    command.app.hooks.on('feature.manifest', command.manifest)
+    command.app.hooks.on(`feature.manifest`, command.manifest)
     Object.entries(command.app.children).map(([_name, child]) =>
-      child.hooks.on('feature.manifest', command.manifest),
+      child.hooks.on(`feature.manifest`, command.manifest),
     )
   }
 
@@ -73,53 +73,53 @@ export const config = async (command: BuildCommand) => {
   }
 
   if (!isUndefined(command.clean)) {
-    command.app.hooks.on('build.output.clean', true)
+    command.app.hooks.on(`build.output.clean`, true)
     Object.entries(command.app.children).map(([_name, child]) => {
-      child.hooks.on('build.output.clean', true)
+      child.hooks.on(`build.output.clean`, true)
     })
   }
 
   if (!isUndefined(command.devtool)) {
-    await command.app.api.call('devtool', command.devtool)
+    await command.app.api.call(`devtool`, command.devtool)
     await Promise.all(
       Object.entries(command.app.children).map(async ([_name, child]) => {
-        await child.api.call('devtool', command.devtool)
+        await child.api.call(`devtool`, command.devtool)
       }),
     )
   }
 
   if (!isUndefined(command.hash)) {
-    await command.app.api.call('hash', command.hash)
+    await command.app.api.call(`hash`, command.hash)
     await Promise.all(
       Object.values(command.app.children).map(async child => {
-        await child.api.call('hash', command.hash)
+        await child.api.call(`hash`, command.hash)
       }),
     )
   }
 
   if (!isUndefined(command.html)) {
-    await command.app.api.call('template', command.html)
+    await command.app.api.call(`template`, command.html)
     await Promise.all(
       Object.entries(command.app.children).map(async ([_name, child]) => {
-        await child.api.call('template', command.html)
+        await child.api.call(`template`, command.html)
       }),
     )
   }
 
   if (!isUndefined(command.minimize)) {
-    await command.app.api.call('minimize', command.minimize)
+    await command.app.api.call(`minimize`, command.minimize)
     await Promise.all(
       Object.values(command.app.children).map(async child => {
-        await child.api.call('minimize', command.minimize)
+        await child.api.call(`minimize`, command.minimize)
       }),
     )
   }
 
   if (!isUndefined(command.splitChunks)) {
-    await command.app.api.call('splitChunks', command.splitChunks)
+    await command.app.api.call(`splitChunks`, command.splitChunks)
     await Promise.all(
       Object.values(command.app.children).map(async child => {
-        await child.api.call('splitChunks', command.splitChunks)
+        await child.api.call(`splitChunks`, command.splitChunks)
       }),
     )
   }

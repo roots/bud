@@ -39,9 +39,9 @@ export default class Extensions
 
     await this.injectExtensions()
 
-    await this.runAll('_init')
-    await this.runAll('_register')
-    await this.runAll('_boot')
+    await this.runAll(`_init`)
+    await this.runAll(`_register`)
+    await this.runAll(`_boot`)
   }
 
   /**
@@ -52,7 +52,7 @@ export default class Extensions
    */
   @bind
   public async afterConfig(): Promise<void> {
-    await this.runAll('_afterConfig')
+    await this.runAll(`_afterConfig`)
   }
 
   /**
@@ -118,7 +118,7 @@ export default class Extensions
       | (new (...args: any[]) => Modules[K & string])
       | ExtensionLiteral,
   ): Modules[K & string] {
-    return typeof extension === 'function'
+    return typeof extension === `function`
       ? new extension(this.app)
       : !(extension instanceof Extension)
       ? new Extension(this.app).fromObject(extension)
@@ -133,23 +133,23 @@ export default class Extensions
       .filter(signifier => !this.has(signifier))
       .filter(
         signifier =>
-          signifier.startsWith('@roots/bud-') ||
-          signifier.startsWith('@roots/sage') ||
-          signifier.startsWith('bud-'),
+          signifier.startsWith(`@roots/bud-`) ||
+          signifier.startsWith(`@roots/sage`) ||
+          signifier.startsWith(`bud-`),
       )
       .filter(
         signifier =>
           ![
-            '@roots/bud-api',
-            '@roots/bud-build',
-            '@roots/bud-cache',
-            '@roots/bud-client',
-            '@roots/bud-compiler',
-            '@roots/bud-dashboard',
-            '@roots/bud-extensions',
-            '@roots/bud-framework',
-            '@roots/bud-hooks',
-            '@roots/bud-server',
+            `@roots/bud-api`,
+            `@roots/bud-build`,
+            `@roots/bud-cache`,
+            `@roots/bud-client`,
+            `@roots/bud-compiler`,
+            `@roots/bud-dashboard`,
+            `@roots/bud-extensions`,
+            `@roots/bud-framework`,
+            `@roots/bud-hooks`,
+            `@roots/bud-server`,
           ].includes(signifier),
       )
       .filter(
@@ -173,11 +173,11 @@ export default class Extensions
    */
   @bind
   public async injectExtensions() {
-    if (this.app.hooks.filter('feature.inject') === false) {
-      return this.app.log('injection disabled')
+    if (this.app.hooks.filter(`feature.inject`) === false) {
+      return this.app.log(`injection disabled`)
     }
 
-    this.app.log('injecting extensions...')
+    this.app.log(`injecting extensions...`)
 
     await this.filterApplicableExtensions(
       Object.keys({
@@ -188,7 +188,7 @@ export default class Extensions
       await promised
 
       try {
-        this.app.log('...importing', signifier)
+        this.app.log(`...importing`, signifier)
 
         await this.import(signifier)
       } catch (error) {
@@ -262,7 +262,7 @@ export default class Extensions
     try {
       await this.runDependencies(extension, methodName)
 
-      if (!extension[methodName.replace('_', '')]) return this
+      if (!extension[methodName.replace(`_`, ``)]) return this
 
       extension.logger.log(
         chalk.blue(extension.label),
@@ -310,7 +310,7 @@ export default class Extensions
 
           try {
             if (!this.has(signifier)) {
-              extension.logger.log('importing', chalk.blue(signifier))
+              extension.logger.log(`importing`, chalk.blue(signifier))
               await this.import(signifier)
             }
 
@@ -335,7 +335,7 @@ export default class Extensions
           try {
             if (!this.has(dependency)) {
               extension.logger.log(
-                'attempting to import optional dependency',
+                `attempting to import optional dependency`,
                 chalk.blue(dependency),
               )
               await this.import(dependency)
@@ -398,9 +398,9 @@ export default class Extensions
 
         this.set(extension)
 
-        await this.run(extension, '_init')
-        await this.run(extension, '_register')
-        await this.run(extension, '_boot')
+        await this.run(extension, `_init`)
+        await this.run(extension, `_register`)
+        await this.run(extension, `_boot`)
 
         return Promise.resolve()
       } catch (err) {

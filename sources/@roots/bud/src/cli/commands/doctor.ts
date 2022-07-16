@@ -56,8 +56,8 @@ export class DoctorCommand extends BaseCommand {
     this.webpackCLI = new webpackcli()
     this.webpack = await this.webpackCLI.loadWebpack()
     this.context.stdout.write(`\nChecking configuration...\n\n`)
-    await this.checkConfiguration('production')
-    await this.checkConfiguration('development')
+    await this.checkConfiguration(`production`)
+    await this.checkConfiguration(`development`)
     this.context.stdout.write(`\n\nChecking dependencies...\n\n`)
     await this.checkDependencies()
 
@@ -95,11 +95,11 @@ export class DoctorCommand extends BaseCommand {
       const conf = await app.compiler.before()
 
       if (!conf) {
-        app.error('config not returned from bud compiler.')
+        app.error(`config not returned from bud compiler.`)
       }
 
       if (!Array.isArray(conf)) {
-        app.error('compiler did not return an array')
+        app.error(`compiler did not return an array`)
       }
 
       this.webpack.validate(conf)
@@ -135,7 +135,7 @@ export class DoctorCommand extends BaseCommand {
       ...(app.context.manifest.dependencies ?? {}),
       ...(app.context.manifest.devDependencies ?? {}),
     })
-      .filter(([name]) => name.startsWith('@roots/'))
+      .filter(([name]) => name.startsWith(`@roots/`))
       .map(([k, v]) => {
         if (v !== app.context.application.version) {
           this.context.stderr.write(chalk.red(`version mismatch\n`))

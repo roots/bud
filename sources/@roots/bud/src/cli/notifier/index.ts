@@ -42,12 +42,12 @@ export class Notifier {
   public get binary() {
     return join(
       this.app.context.application.dir,
-      'vendor',
-      'mac.no-index',
-      'roots-notifier.app',
-      'Contents',
-      'MacOS',
-      'roots-notifier',
+      `vendor`,
+      `mac.no-index`,
+      `roots-notifier.app`,
+      `Contents`,
+      `MacOS`,
+      `roots-notifier`,
     )
   }
 
@@ -57,8 +57,8 @@ export class Notifier {
    * @public
    */
   public get editor() {
-    if (this.app.env.has('VISUAL')) return this.app.env.get('VISUAL')
-    if (this.app.env.get('EDITOR')) return this.app.env.get('EDITOR')
+    if (this.app.env.has(`VISUAL`)) return this.app.env.get(`VISUAL`)
+    if (this.app.env.get(`EDITOR`)) return this.app.env.get(`EDITOR`)
   }
 
   /**
@@ -113,7 +113,7 @@ export class Notifier {
         : null,
     ]
       .filter(Boolean)
-      .join(' ')
+      .join(` `)
   }
 
   /**
@@ -159,7 +159,7 @@ export class Notifier {
       return this.app.warn(
         `Can't open problem file(s) in editor\n`,
         `The --editor flag was used but there is no editor indicated by either $EDITOR or $VISUAL environmental variables\n`,
-        '$VISUAL will be preferred over $EDITOR if both are present',
+        `$VISUAL will be preferred over $EDITOR if both are present`,
       )
     }
 
@@ -184,7 +184,7 @@ export class Notifier {
    */
   @bind
   public async notify() {
-    this.app.info('cli', 'notify')
+    this.app.info(`cli`, `notify`)
 
     try {
       if (this.app.compiler.errors.length && this.app.context.args.editor)

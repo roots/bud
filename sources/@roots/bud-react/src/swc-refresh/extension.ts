@@ -16,7 +16,7 @@ import {
  * @decorator `@label`
  * @decorator `@development`
  */
-@label('@roots/bud-react/swc-refresh')
+@label(`@roots/bud-react/swc-refresh`)
 @development
 export default class BudSWCRefresh extends Extension {
   /**
@@ -44,7 +44,7 @@ export default class BudSWCRefresh extends Extension {
     await (this.app as any).swc.hasRC().then(hasRc => {
       if (hasRc) return
 
-      this.logger.log('Registering swc react-refresh transformer')
+      this.logger.log(`Registering swc react-refresh transformer`)
       ;(this.app as any).swc.setOptions(options => ({
         ...options,
         transform: {

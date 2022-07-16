@@ -16,7 +16,7 @@ import {
  * @decorator `@label`
  * @decorator `@development`
  */
-@label('@roots/bud-react/typescript-refresh')
+@label(`@roots/bud-react/typescript-refresh`)
 @development
 export default class BudTypeScriptRefresh extends Extension {
   /**
@@ -41,13 +41,13 @@ export default class BudTypeScriptRefresh extends Extension {
    */
   @bind
   public async registerTransform() {
-    this.logger.log('Registering react-refresh-typescript transformer')
+    this.logger.log(`Registering react-refresh-typescript transformer`)
 
-    const transform = await this.import('react-refresh-typescript')
+    const transform = await this.import(`react-refresh-typescript`)
 
     this.app.extensions
-      .get('@roots/bud-typescript')
-      .setOption('loader', options => ({
+      .get(`@roots/bud-typescript`)
+      .setOption(`loader`, options => ({
         ...(options ?? {}),
         getCustomTransformers: {before: [transform()]},
       }))

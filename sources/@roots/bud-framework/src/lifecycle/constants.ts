@@ -4,12 +4,12 @@
  * @public
  */
 export const LIFECYCLE_EVENTS = [
-  'bootstrap',
-  'bootstrapped',
-  'register',
-  'registered',
-  'boot',
-  'booted',
+  `bootstrap`,
+  `bootstrapped`,
+  `register`,
+  `registered`,
+  `boot`,
+  `booted`,
 ]
 
 /**
@@ -18,9 +18,9 @@ export const LIFECYCLE_EVENTS = [
  * @public
  */
 export const PARENT_SERVICES: (string | number)[] = [
-  'compiler',
-  'dashboard',
-  'server',
+  `compiler`,
+  `dashboard`,
+  `server`,
 ]
 
 /**
@@ -28,4 +28,4 @@ export const PARENT_SERVICES: (string | number)[] = [
  *
  * @public
  */
-export const DEVELOPMENT_SERVICES: (string | number)[] = ['server']
+export const DEVELOPMENT_SERVICES: (string | number)[] = [`server`]

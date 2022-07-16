@@ -34,7 +34,7 @@ export class Component extends HTMLElement {
    * @public
    */
   public get hasErrors(): boolean {
-    return this.getAttribute('has-errors') == 'true'
+    return this.getAttribute(`has-errors`) == `true`
   }
 
   /**
@@ -42,7 +42,7 @@ export class Component extends HTMLElement {
    * @public
    */
   public get hasWarnings(): boolean {
-    return this.getAttribute('has-warnings') == 'true'
+    return this.getAttribute(`has-warnings`) == `true`
   }
 
   /**
@@ -198,17 +198,17 @@ export class Component extends HTMLElement {
     if (
       !this.payload?.errors?.length &&
       !this.payload?.warnings?.length &&
-      this.payload.action == 'built'
+      this.payload.action == `built`
     )
       return this.onSuccess()
     if (
-      this.payload?.action == 'building' ||
-      this.payload?.action == 'sync'
+      this.payload?.action == `building` ||
+      this.payload?.action == `sync`
     )
       return this.onPending()
   }
   public static get observedAttributes() {
-    return ['has-errors', 'has-warnings', 'action']
+    return [`has-errors`, `has-warnings`, `action`]
   }
 
   public attributeChangedCallback() {

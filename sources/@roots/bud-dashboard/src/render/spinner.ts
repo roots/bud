@@ -1,9 +1,9 @@
 import process from 'node:process'
 
 export const spinnerFrames =
-  process.platform === 'win32'
-    ? ['-', '\\', '|', '/']
-    : ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏']
+  process.platform === `win32`
+    ? [`-`, `\\`, `|`, `/`]
+    : [`⠋`, `⠙`, `⠹`, `⠸`, `⠼`, `⠴`, `⠦`, `⠧`, `⠇`, `⠏`]
 
 export class Spinner {
   public current: number = 0

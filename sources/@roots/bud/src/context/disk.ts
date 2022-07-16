@@ -47,7 +47,7 @@ export class Disk {
     this.config = search.reduce(
       (configs: Record<string, string>, filePath: string) => ({
         ...configs,
-        [`${filePath.replace(`${dir}/`, '')}`]: filePath,
+        [`${filePath.replace(`${dir}/`, ``)}`]: filePath,
       }),
       this.config,
     )

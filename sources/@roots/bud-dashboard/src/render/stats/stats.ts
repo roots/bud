@@ -50,12 +50,12 @@ export const report = ({
       [
         components.timing(app, compilation),
         ...components.summary(app, compilation),
-      ].join(''),
+      ].join(``),
     )
 
-    app.hooks.filter('feature.log') &&
+    app.hooks.filter(`feature.log`) &&
       output.push(...components.framework(app))
   })
 
-  return output.filter(Boolean).join('')
+  return output.filter(Boolean).join(``)
 }

@@ -5,8 +5,8 @@
  */
 module.exports = {
   dev: true,
-  filter: '^(?!@roots/).*$',
-  indent: '  ',
+  filter: `^(?!@roots/).*$`,
+  indent: `  `,
   overrides: true,
   peer: false,
   pnpmOverrides: true,
@@ -14,11 +14,11 @@ module.exports = {
   resolutions: true,
   workspace: true,
   semverGroups: [],
-  semverRange: '',
+  semverRange: ``,
   versionGroups: [
     {
-      dependencies: ['**'],
-      packages: ['@repo/docs'],
+      dependencies: [`**`],
+      packages: [`@repo/docs`],
     },
   ],
 }

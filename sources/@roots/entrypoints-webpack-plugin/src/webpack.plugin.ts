@@ -71,7 +71,7 @@ export class EntrypointsWebpackPlugin {
    * @public
    */
   protected plugin = {
-    name: 'EntrypointsManifestPlugin',
+    name: `EntrypointsManifestPlugin`,
     stage: Infinity,
   }
 
@@ -80,7 +80,7 @@ export class EntrypointsWebpackPlugin {
    *
    * @public
    */
-  public name: string = 'entrypoints.json'
+  public name: string = `entrypoints.json`
 
   /**
    * Webpack compiler instance
@@ -125,9 +125,9 @@ export class EntrypointsWebpackPlugin {
     this.options.publicPath =
       this.options.publicPath ??
       (this.compiler.options.output.publicPath as string) ??
-      ''
+      ``
 
-    this.options.publicPath = this.options.publicPath.replace('auto', '')
+    this.options.publicPath = this.options.publicPath.replace(`auto`, ``)
 
     this.compiler.hooks.thisCompilation.tap(
       this.plugin,
@@ -153,7 +153,7 @@ export class EntrypointsWebpackPlugin {
   public processAssets() {
     this.compilation.entrypoints.forEach(entry => {
       this.getEntrypointFiles(entry)
-        .filter(({file}) => !file.includes('hot-update'))
+        .filter(({file}) => !file.includes(`hot-update`))
         .map(({key, file}) => {
           this.addToManifest({key, entry: entry.name, file})
         })
@@ -182,7 +182,7 @@ export class EntrypointsWebpackPlugin {
    */
   @bind
   public addToManifest({key = null, entry, file}) {
-    const type = file.split('.').pop()
+    const type = file.split(`.`).pop()
 
     if (!this.assets[entry]) {
       this.assets[entry] = {[type]: null}
@@ -191,7 +191,7 @@ export class EntrypointsWebpackPlugin {
     this.assets[entry] = {
       ...this.assets[entry],
       [type]:
-        this.options.type === 'object' && key
+        this.options.type === `object` && key
           ? {
               ...(this.assets[entry][type] ?? {}),
               [key]: this.options.publicPath.concat(file),

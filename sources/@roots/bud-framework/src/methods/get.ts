@@ -23,7 +23,7 @@ export interface get {
 export const get: get = async function (name: string): Promise<Bud> {
   const ctx = this as Bud
 
-  ctx.log('get child instance:', name)
+  ctx.log(`get child instance:`, name)
 
   return ctx.children[name]
 }

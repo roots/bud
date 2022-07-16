@@ -27,7 +27,7 @@ export interface Options {
  * @public
  * @decorator `@label`
  */
-@label('@roots/bud-compress')
+@label(`@roots/bud-compress`)
 export default class BudCompressionExtension extends Extension<any, any> {
   /**
    * `register` callback

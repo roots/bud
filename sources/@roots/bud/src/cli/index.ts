@@ -19,16 +19,16 @@ import {TypecheckCommand} from './commands/typecheck.js'
  * @public
  */
 const notifier = async (context: Config.Context) => {
-  if (platform() === 'darwin') {
+  if (platform() === `darwin`) {
     try {
       const notifierPath = join(
         context.application.dir,
-        'vendor',
-        'mac.no-index',
-        'roots-notifier.app',
-        'Contents',
-        'MacOS',
-        'roots-notifier',
+        `vendor`,
+        `mac.no-index`,
+        `roots-notifier.app`,
+        `Contents`,
+        `MacOS`,
+        `roots-notifier`,
       )
 
       await execa(`chmod`, [`u+x`, notifierPath])

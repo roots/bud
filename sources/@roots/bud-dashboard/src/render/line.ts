@@ -28,7 +28,7 @@ export class Line {
   }
 
   public get frame() {
-    return this.icon ? [this.icon, this.text].join(' ') : this.text
+    return this.icon ? [this.icon, this.text].join(` `) : this.text
   }
 
   public constructor(spinner = true) {
@@ -37,7 +37,7 @@ export class Line {
 
   @bind
   public update(...text: Array<string>) {
-    this.text = text.some(i => !isString(i)) ? null : text?.join(' ')
+    this.text = text.some(i => !isString(i)) ? null : text?.join(` `)
     return this
   }
 

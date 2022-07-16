@@ -8,8 +8,8 @@ export const mergeOptions: (
   context: Config.Context,
   overrides?: Partial<Config.Options>,
 ) => Config.Options = (context, overrides) => ({
-  name: 'bud',
-  mode: 'production',
+  name: `bud`,
+  mode: `production`,
   dir: process.cwd(),
   ...(overrides ?? {}),
   context: {

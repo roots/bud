@@ -48,9 +48,9 @@ export interface Mutator {
  * @decorator `@when`
  * @decorator `@plugin`
  */
-@label('@roots/sage/wp-theme-json')
+@label(`@roots/sage/wp-theme-json`)
 @options({
-  path: app => app.path('./theme.json'),
+  path: app => app.path(`./theme.json`),
   settings: {
     color: {
       custom: false,
@@ -62,7 +62,7 @@ export interface Mutator {
     },
     spacing: {
       padding: true,
-      units: ['px', '%', 'em', 'rem', 'vw', 'vh'],
+      units: [`px`, `%`, `em`, `rem`, `vw`, `vh`],
     },
     typography: {
       customFontSize: false,
@@ -72,7 +72,7 @@ export interface Mutator {
 })
 @when(async () => false)
 @plugin(ThemeJsonWebpackPlugin)
-@expose('wpjson')
+@expose(`wpjson`)
 export default class ThemeJson extends Extension<
   Options,
   ThemeJsonWebpackPlugin
@@ -113,9 +113,9 @@ export default class ThemeJson extends Extension<
   @bind
   public async init() {
     const config =
-      this.app.context.disk.config['tailwind.config.js'] ??
-      this.app.context.disk.config['tailwind.config.mjs'] ??
-      this.app.context.disk.config['tailwind.config.cjs']
+      this.app.context.disk.config[`tailwind.config.js`] ??
+      this.app.context.disk.config[`tailwind.config.mjs`] ??
+      this.app.context.disk.config[`tailwind.config.cjs`]
 
     if (!config) return
 
@@ -156,7 +156,7 @@ export default class ThemeJson extends Extension<
       : input
 
     this.setOption(
-      'settings',
+      `settings`,
       value instanceof Container ? value.all() : value,
     )
 
@@ -165,7 +165,7 @@ export default class ThemeJson extends Extension<
 
   @bind
   public useTailwindColors(): this {
-    this.setOption('settings', {
+    this.setOption(`settings`, {
       ...(this.options.settings ?? {}),
       color: {
         ...(this.options.settings?.color ?? {}),
@@ -178,7 +178,7 @@ export default class ThemeJson extends Extension<
 
   @bind
   public useTailwindFontFamily(): this {
-    this.setOption('settings', {
+    this.setOption(`settings`, {
       ...(this.options.settings ?? {}),
       typography: {
         ...(this.options.settings.typography ?? {}),
@@ -193,7 +193,7 @@ export default class ThemeJson extends Extension<
 
   @bind
   public useTailwindFontSize(): this {
-    this.setOption('settings', {
+    this.setOption(`settings`, {
       ...(this.options.settings ?? {}),
       typography: {
         ...(this.options.settings.typography ?? {}),

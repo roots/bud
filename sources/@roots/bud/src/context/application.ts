@@ -67,7 +67,7 @@ export class Application {
       this[k] = v
     })
 
-    this.label = this.name.split('/').pop()
+    this.label = this.name.split(`/`).pop()
 
     return this
   }

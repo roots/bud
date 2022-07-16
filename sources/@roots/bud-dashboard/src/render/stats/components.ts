@@ -64,7 +64,7 @@ export const hot = (compilation: StatsCompilation) =>
 export const statics = (compilation: StatsCompilation) => {
   const list = compilation.assets.filter(
     asset =>
-      ![`js`, `css`].includes(asset.name.split('.').pop()) &&
+      ![`js`, `css`].includes(asset.name.split(`.`).pop()) &&
       !asset.name?.includes(`hot-update`),
   )
 
@@ -75,12 +75,12 @@ export const assets = (compilation: StatsCompilation) =>
   compilation.assets.filter(
     asset =>
       asset.name?.endsWith(`.css`) ||
-      (asset.name?.endsWith(`.js`) && !asset.name?.includes('hot-update')),
+      (asset.name?.endsWith(`.js`) && !asset.name?.includes(`hot-update`)),
   ) ?? []
 
 export const time = (time: StatsAsset['time'] & string) =>
   humanReadable.durationFormatter({
-    allowMultiples: ['s', 'ms'],
+    allowMultiples: [`s`, `ms`],
   })(time)
 
 export const assetGroup = (assets: StatsCompilation['assets']) =>
@@ -125,7 +125,7 @@ export const timing = (app: Bud, compilation: StatsCompilation) =>
   table.make([
     [
       chalk.hex(theme.magenta)(`duration`),
-      app.mode === 'production'
+      app.mode === `production`
         ? `${time(app._hrdone + compilation.time)} ${chalk.dim(
             `(${time(app._hrdone)} + ${time(compilation.time)})`,
           )}`
@@ -144,14 +144,14 @@ export const summary = (app: Bud, compilation: StatsCompilation) => [
     [
       chalk.hex(theme.magenta)(app.context.application.name),
       chalk.hex(theme.foregroundColor)(app.context.application.version),
-      chalk.hex(theme.magenta)('webpack'),
+      chalk.hex(theme.magenta)(`webpack`),
       chalk.hex(theme.foregroundColor)(compilation.version),
     ],
     [
-      chalk.hex(theme.magenta)('node'),
+      chalk.hex(theme.magenta)(`node`),
       chalk.hex(theme.foregroundColor)(process.versions.node),
-      '',
-      '',
+      ``,
+      ``,
     ],
   ]),
   ...(app.isDevelopment
@@ -161,10 +161,10 @@ export const summary = (app: Bud, compilation: StatsCompilation) => [
             chalk.hex(theme.magenta)(`server url:`),
             app.server.connection.url.toString(),
           ],
-          app.hooks.filter('dev.middleware.enabled').includes('proxy')
+          app.hooks.filter(`dev.middleware.enabled`).includes(`proxy`)
             ? [
-                chalk.hex(theme.magenta)('proxy url:'),
-                app.hooks.filter('dev.middleware.proxy.target').toString(),
+                chalk.hex(theme.magenta)(`proxy url:`),
+                app.hooks.filter(`dev.middleware.proxy.target`).toString(),
               ]
             : [``, ``],
         ]),
@@ -174,36 +174,36 @@ export const summary = (app: Bud, compilation: StatsCompilation) => [
 
 export const development = (app: Bud) => [
   box.make(
-    'development',
+    `development`,
     table.make([
       [
-        chalk.hex(theme.magenta)('server'),
+        chalk.hex(theme.magenta)(`server`),
         app.server.connection.url.toString(),
       ],
-      app.hooks.filter('dev.middleware.enabled')?.includes('proxy')
+      app.hooks.filter(`dev.middleware.enabled`)?.includes(`proxy`)
         ? [
-            chalk.hex(theme.magenta)('proxy'),
-            app.hooks.filter('dev.middleware.proxy.target')?.toString(),
+            chalk.hex(theme.magenta)(`proxy`),
+            app.hooks.filter(`dev.middleware.proxy.target`)?.toString(),
           ]
-        : ['', ''],
+        : [``, ``],
     ]),
   ),
 ]
 
 export const framework = (app: Bud) => [
   box.make(
-    'rules',
+    `rules`,
     table.make(
       Object.entries(app.build.rules).map(([type, rule]) => [
         chalk.hex(theme.magenta)(type),
         [...rule.getUse()?.map(use => chalk.hex(theme.cyan)(`\`${use}\``))]
           .reverse()
-          .join(', '),
+          .join(`, `),
       ]),
     ),
   ),
   box.make(
-    'cache',
+    `cache`,
     table.make([
       [
         chalk.hex(theme.magenta)(`type`),
@@ -216,7 +216,7 @@ export const framework = (app: Bud) => [
     ]),
   ),
   box.make(
-    'extensions',
+    `extensions`,
     table.make(
       lodash
         .chunk(Object.values(app.extensions.repository), 2)

@@ -27,7 +27,7 @@ const reporter =
     const captureEslint =
       /\x1B\[0m\x1B\[4m(?<file>.+)\x1B\[24m\x1B\[0m\n\x1B\[0m  (?<message>\x1B\[2m(?<line>[0-9]+):(?<column>[0-9]+)\x1B\[22m  \x1B\[31merror\x1B\[39m .*)/
 
-    error.message.split('\x1B[0m\x1B[0m\n').forEach((str: string) => {
+    error.message.split(`\x1B[0m\x1B[0m\n`).forEach((str: string) => {
       const groups = captureEslint.exec(str)?.groups
       if (!groups?.file) return
 
@@ -36,12 +36,12 @@ const reporter =
       Object.entries(groups)
         .filter(([k, v]) => k && v)
         .map(([key, value]) => {
-          app.info('eslint capture key value:', key, value)
+          app.info(`eslint capture key value:`, key, value)
           report[key] = value
         })
 
       report.hasFile() &&
-        report.setFile(file => file.replace(app.path(), '.'))
+        report.setFile(file => file.replace(app.path(), `.`))
 
       reports.add(report)
     })
@@ -55,9 +55,9 @@ const reporter =
     const report = new BudError(error)
 
     if (error.loc && isString(error.loc)) {
-      const [column, line] = error.loc.split(':')
+      const [column, line] = error.loc.split(`:`)
       report.column = column ? Number.parseInt(column) : 0
-      report.line = line ? Number.parseInt(line.split('-').pop()) : 0
+      report.line = line ? Number.parseInt(line.split(`-`).pop()) : 0
     }
 
     const captureGroups = [
@@ -66,7 +66,7 @@ const reporter =
       /SyntaxError:\s(?<file>.+?):\s.+\s\((?<line>[0-9]+):(?<column>[0-9]+)\)/,
     ]
     captureGroups.forEach(captureGroup => {
-      report.message?.split('\n').map(message =>
+      report.message?.split(`\n`).map(message =>
         Object.entries(captureGroup.exec(message)?.groups ?? {})
           .filter(([k, v]) => k && v)
           .map(([key, value]) => {
@@ -83,9 +83,9 @@ const reporter =
     report
       .setMessage(message =>
         message
-          .split('\n')
+          .split(`\n`)
           .filter(str => !/Module [A-z ]+\(from/.test(str))
-          .join('\n'),
+          .join(`\n`),
       )
       .setMessage(message =>
         message
@@ -105,19 +105,19 @@ const reporter =
             /^.*export '(.+?)' \(imported as '(.+?)'\) was not found in '(.+?)'.*$/gm,
             `Attempted import error: '$1' is not exported from '$3' (imported as '$2').`,
           )
-          .replace(/^\s*at\s((?!webpack:).)*:\d+:\d+[\s)]*(\n|$)/gm, '')
-          .replace(/^\s*at\s<anonymous>(\n|$)/gm, ''),
+          .replace(/^\s*at\s((?!webpack:).)*:\d+:\d+[\s)]*(\n|$)/gm, ``)
+          .replace(/^\s*at\s<anonymous>(\n|$)/gm, ``),
       )
       .setMessage(message =>
         message
-          .split('-- inner error --\n')
+          .split(`-- inner error --\n`)
           .shift()
-          .replaceAll(app.path(), '.')
+          .replaceAll(app.path(), `.`)
           .trim(),
       )
 
     report.hasFile() &&
-      report.setFile(file => file.replace(app.path(), '.'))
+      report.setFile(file => file.replace(app.path(), `.`))
 
     reports.add(report)
 

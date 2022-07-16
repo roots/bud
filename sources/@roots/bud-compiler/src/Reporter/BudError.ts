@@ -13,8 +13,8 @@ export default class BudError {
     if (!statsError) return
 
     this.source =
-      statsError?.moduleName?.split('!').pop() ??
-      statsError?.moduleIdentifier?.split('!').pop() ??
+      statsError?.moduleName?.split(`!`).pop() ??
+      statsError?.moduleIdentifier?.split(`!`).pop() ??
       null
     this.setFile(this.source)
     this.message = statsError?.message ?? null
@@ -22,7 +22,7 @@ export default class BudError {
 
   @bind
   public hasType() {
-    return typeof this.type === 'string'
+    return typeof this.type === `string`
   }
   @bind
   public getType(): this['type'] {
@@ -39,13 +39,13 @@ export default class BudError {
   }
   @bind
   public setFile(file: string | ((file: string) => string)): this {
-    this.file = typeof file === 'function' ? file(this.file ?? '') : file
+    this.file = typeof file === `function` ? file(this.file ?? ``) : file
 
     return this
   }
   @bind
   public hasFile() {
-    return typeof this.file === 'string'
+    return typeof this.file === `string`
   }
 
   @bind
@@ -57,13 +57,13 @@ export default class BudError {
     message: string | ((message: string) => string),
   ): this {
     this.message =
-      typeof message === 'function' ? message(this.message ?? '') : message
+      typeof message === `function` ? message(this.message ?? ``) : message
 
     return this
   }
   @bind
   public hasMessage() {
-    return typeof this.message === 'string'
+    return typeof this.message === `string`
   }
 
   @bind
@@ -72,7 +72,7 @@ export default class BudError {
   }
   @bind
   public setLine(line: number | string): this {
-    this.line = typeof line === 'string' ? Number.parseInt(line) : line
+    this.line = typeof line === `string` ? Number.parseInt(line) : line
 
     return this
   }
@@ -88,7 +88,7 @@ export default class BudError {
   @bind
   public setColumn(column: number | string): this {
     this.column =
-      typeof column === 'string' ? Number.parseInt(column) : column
+      typeof column === `string` ? Number.parseInt(column) : column
 
     return this
   }

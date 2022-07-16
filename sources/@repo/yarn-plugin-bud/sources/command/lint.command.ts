@@ -48,7 +48,7 @@ export class Lint extends Command {
   public async execute() {
     await this.$(
       this.withPassthrough(
-        `yarn eslint "./sources/@roots/*/src/**/*" --config ./config/eslint.config.cjs --ignore-path config/.eslintignore --no-error-on-unmatched-pattern`,
+        `yarn eslint "./sources/@roots/*/src/**/*" "./sources/@repo/*/src/**/*" "./config/**/*" --config ./config/eslint.config.cjs --ignore-path config/.eslintignore --no-error-on-unmatched-pattern`,
       ),
     )
   }

@@ -67,19 +67,19 @@ export const path: path = function (base, ...segments) {
   const fileHandles = (pathString: string): string =>
     pathString
       .replace(
-        '@file',
-        app.hooks.filter('feature.hash')
-          ? '[path][name].[contenthash:6][ext]'
-          : '[path][name][ext]',
+        `@file`,
+        app.hooks.filter(`feature.hash`)
+          ? `[path][name].[contenthash:6][ext]`
+          : `[path][name][ext]`,
       )
       .replace(
-        '@name',
-        app.hooks.filter('feature.hash')
-          ? '[name].[contenthash:6][ext]'
-          : '[name][ext]',
+        `@name`,
+        app.hooks.filter(`feature.hash`)
+          ? `[name].[contenthash:6][ext]`
+          : `[name][ext]`,
       )
 
-  if (base === '@file' || base === '@name') return fileHandles(base)
+  if (base === `@file` || base === `@name`) return fileHandles(base)
   base = fileHandles(base) as any
   segments = segments.map(fileHandles)
 

@@ -17,10 +17,10 @@ import StylelintWebpackPlugin, {Options} from 'stylelint-webpack-plugin'
  * @decorator `@options`
  * @decorator `@expose`
  */
-@label('@roots/bud-stylelint')
+@label(`@roots/bud-stylelint`)
 @plugin(StylelintWebpackPlugin)
-@options({context: app => app.path('@src')})
-@expose('stylelint')
+@options({context: app => app.path(`@src`)})
+@expose(`stylelint`)
 export default class BudStylelintWebpackPlugin extends Extension<
   Options,
   StylelintWebpackPlugin

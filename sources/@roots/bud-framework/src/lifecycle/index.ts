@@ -39,7 +39,7 @@ export async function lifecycle(
   options: Config.Options,
 ): Promise<Bud> {
   this.children = {}
-  this.options = omit({...options}, 'context')
+  this.options = omit({...options}, `context`)
   this.context = {...options.context, dir: options.dir}
 
   process.env.NODE_ENV = options.mode
@@ -61,7 +61,7 @@ export async function lifecycle(
     .filter(([name]) => this.isRoot || !PARENT_SERVICES.includes(name))
     .map(
       ([name, Service]): [keyof Services.Registry & string, Service] => {
-        this.log('initializing', name)
+        this.log(`initializing`, name)
 
         this[name] = new Service(this)
 

@@ -13,7 +13,7 @@ export class WordPressExternals {
    *
    * @public
    */
-  public name = 'WordPressExternalsWebpackPlugin'
+  public name = `WordPressExternalsWebpackPlugin`
 
   /**
    * Plugin stage
@@ -35,7 +35,7 @@ export class WordPressExternals {
    * @public
    */
   public constructor() {
-    this.externals = new Webpack.ExternalsPlugin('window', externals)
+    this.externals = new Webpack.ExternalsPlugin(`window`, externals)
   }
 
   /**

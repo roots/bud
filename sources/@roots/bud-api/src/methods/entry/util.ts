@@ -46,7 +46,7 @@ const normalEntry = (entry: RawValue): NormalValue => {
  * @public
  */
 export const isGlobular = (str: string) =>
-  ['*', '{', '}', ','].filter(c => str.includes(c))?.length > 0
+  [`*`, `{`, `}`, `,`].filter(c => str.includes(c))?.length > 0
 
 /**
  * @public

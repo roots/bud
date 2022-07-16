@@ -4,7 +4,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 
 import {InterpolateHtmlPlugin} from './interpolate-html-plugin.plugin.js'
 
-@label('interpolate-html-plugin')
+@label(`interpolate-html-plugin`)
 export default class BudInterpolateHtmlPlugin extends Extension<
   Record<string, RegExp>,
   InterpolateHtmlPlugin
@@ -17,7 +17,7 @@ export default class BudInterpolateHtmlPlugin extends Extension<
   public async register() {
     this.setOptions({
       ...this.publicEnv,
-      ...this.app.extensions.get('webpack:define-plugin').options,
+      ...this.app.extensions.get(`webpack:define-plugin`).options,
     })
   }
 

@@ -5,8 +5,8 @@ type ElementTuple = [HTMLCollectionOf<Target>, any]
 
 const main = async (proxy = null) => {
   try {
-    const {headers} = await fetch(window.location.href, {method: 'GET'})
-    proxy = new URL(headers.get('x-bud-proxy-origin')).href
+    const {headers} = await fetch(window.location.href, {method: `GET`})
+    proxy = new URL(headers.get(`x-bud-proxy-origin`)).href
   } catch (err) {
     return console.error(err)
   }
@@ -15,8 +15,8 @@ const main = async (proxy = null) => {
     setInterval(
       () =>
         [
-          [document.getElementsByTagName('a'), 'href'],
-          [document.getElementsByTagName('link'), 'href'],
+          [document.getElementsByTagName(`a`), `href`],
+          [document.getElementsByTagName(`link`), `href`],
         ]
           .map(
             ([elements, attribute]: ElementTuple): [
@@ -27,15 +27,15 @@ const main = async (proxy = null) => {
           .forEach(([elements, attribute]: [Array<Target>, any]) =>
             elements
               .filter(el => el.hasAttribute(attribute))
-              .filter(el => !el.hasAttribute('__bud_processed'))
+              .filter(el => !el.hasAttribute(`__bud_processed`))
               .filter(el => el.getAttribute(attribute).startsWith(proxy))
               .map(el => {
                 const value = el.getAttribute(attribute)
                 console.info(
                   `replacing ${attribute} on ${el.tagName} with value of ${value}`,
                 )
-                el.setAttribute(attribute, value.replace(proxy, '/'))
-                el.setAttribute('__bud_processed', '')
+                el.setAttribute(attribute, value.replace(proxy, `/`))
+                el.setAttribute(`__bud_processed`, ``)
               }),
           ),
       1000,

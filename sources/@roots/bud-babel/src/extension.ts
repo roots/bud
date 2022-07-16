@@ -9,7 +9,7 @@ import {Config} from './config.js'
  *
  * @public
  */
-@label('@roots/bud-babel')
+@label(`@roots/bud-babel`)
 export default class BabelExtension extends Extension<any, null> {
   /**
    * Babel cache directory
@@ -50,7 +50,7 @@ export default class BabelExtension extends Extension<any, null> {
    */
   @bind
   public setRuleSetItem(ruleSetItem: Build.Item) {
-    return ruleSetItem.setLoader('babel').setOptions(() => ({
+    return ruleSetItem.setLoader(`babel`).setOptions(() => ({
       cacheDirectory: this.cacheDirectory,
       presets: Object.values(this.app.babel.presets),
       plugins: Object.values(this.app.babel.plugins),
@@ -80,28 +80,28 @@ export default class BabelExtension extends Extension<any, null> {
   public async register() {
     this.app.babel
       .setPresets({
-        '@babel/preset-env': await this.resolve('@babel/preset-env'),
+        '@babel/preset-env': await this.resolve(`@babel/preset-env`),
       })
       .setPlugins({
         '@babel/plugin-transform-runtime': [
-          await this.resolve('@babel/plugin-transform-runtime'),
+          await this.resolve(`@babel/plugin-transform-runtime`),
           {helpers: false},
         ],
         '@babel/plugin-proposal-object-rest-spread': await this.resolve(
-          '@babel/plugin-proposal-object-rest-spread',
+          `@babel/plugin-proposal-object-rest-spread`,
         ),
         '@babel/plugin-syntax-dynamic-import': await this.resolve(
-          '@babel/plugin-syntax-dynamic-import',
+          `@babel/plugin-syntax-dynamic-import`,
         ),
         '@babel/plugin-proposal-class-properties': await this.resolve(
-          '@babel/plugin-proposal-class-properties',
+          `@babel/plugin-proposal-class-properties`,
         ),
       })
 
     this.app.build
-      .setLoader('babel', await this.resolve('babel-loader'))
-      .setItem('babel', this.setRuleSetItem)
+      .setLoader(`babel`, await this.resolve(`babel-loader`))
+      .setItem(`babel`, this.setRuleSetItem)
 
-    this.app.build.rules.js.setUse(items => ['babel', ...items])
+    this.app.build.rules.js.setUse(items => [`babel`, ...items])
   }
 }

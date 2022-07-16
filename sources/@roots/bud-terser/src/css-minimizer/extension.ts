@@ -16,12 +16,12 @@ import Plugin from 'css-minimizer-webpack-plugin'
  * @decorator `@expose`
  * @decorator `@options`
  */
-@label('@roots/bud-terser/css-minimizer')
-@expose('minimizeCss')
+@label(`@roots/bud-terser/css-minimizer`)
+@expose(`minimizeCss`)
 @options({
   minimizerOptions: {
     preset: [
-      'default',
+      `default`,
       {
         discardComments: {
           removeAll: true,
@@ -40,7 +40,7 @@ export default class BudMinimizeCSS extends Extension {
    */
   @bind
   public async beforeBuild() {
-    this.app.hooks.on('build.optimization.minimizer', minimizer => {
+    this.app.hooks.on(`build.optimization.minimizer`, minimizer => {
       minimizer.push(new Plugin(this.options))
       return minimizer
     })

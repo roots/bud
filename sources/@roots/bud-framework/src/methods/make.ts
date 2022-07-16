@@ -33,16 +33,16 @@ export const make: make = function (seed, tap) {
   const root = current.root
 
   const options = isString(seed)
-    ? {name: seed, dir: root.path('/'), root}
+    ? {name: seed, dir: root.path(`/`), root}
     : {...seed, root}
 
-  root.hooks.action('config.after', async () => {
+  root.hooks.action(`config.after`, async () => {
     root.children[options.name] = await root.factory(options)
-    root.children[options.name].success('constructed')
+    root.children[options.name].success(`constructed`)
 
     if (isFunction(tap)) {
       await tap(root.children[options.name])
-      root.children[options.name].success('configuration applied')
+      root.children[options.name].success(`configuration applied`)
       await root.children[options.name].api.processQueue()
     }
 
@@ -54,8 +54,8 @@ export const make: make = function (seed, tap) {
         }),
     )
 
-    await root.children[options.name].hooks.fire('config.after')
-    root.children[options.name].success('config after hook fired')
+    await root.children[options.name].hooks.fire(`config.after`)
+    root.children[options.name].success(`config after hook fired`)
   })
 
   root.log(`child prepped:`, options.name)

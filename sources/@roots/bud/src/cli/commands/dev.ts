@@ -16,7 +16,7 @@ export class DevCommand extends BuildCommand {
    *
    * @public
    */
-  public mode: 'development' = 'development'
+  public mode: 'development' = `development`
 
   /**
    * Command paths

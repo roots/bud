@@ -83,7 +83,7 @@ export abstract class Bud {
    * @public
    */
   public get isProduction(): boolean {
-    return this.mode === 'production'
+    return this.mode === `production`
   }
 
   /**
@@ -92,7 +92,7 @@ export abstract class Bud {
    * @public
    */
   public get isDevelopment(): boolean {
-    return this.mode === 'development'
+    return this.mode === `development`
   }
 
   /**
@@ -352,9 +352,9 @@ export abstract class Bud {
     if (!this.context.args.verbose) return
 
     const prettyFormatOptions = omit(options, [
-      'prefix',
-      'language',
-      'ignoreIllegals',
+      `prefix`,
+      `language`,
+      `ignoreIllegals`,
     ])
 
     this.context.stdout.write(

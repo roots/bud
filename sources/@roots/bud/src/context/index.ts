@@ -26,7 +26,7 @@ export const makeContext = async (
   const manifest = await new Manifest(disk).read()
 
   return new Context(
-    application.name?.split(`@roots/`).pop() ?? 'bud',
+    application.name?.split(`@roots/`).pop() ?? `bud`,
     rootDirectory,
     manifest,
     disk,

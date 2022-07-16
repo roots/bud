@@ -36,7 +36,7 @@ export class HtmlEmitter {
   @bind
   public getCompiledAsset(file: string) {
     const raw =
-      this.compilation.assets[file.replace(this.publicPath, '')]?.source()
+      this.compilation.assets[file.replace(this.publicPath, ``)]?.source()
 
     return raw instanceof Buffer ? raw.toString() : raw
   }
@@ -52,10 +52,10 @@ export class HtmlEmitter {
     acc: string,
     [type, files]: [string, Array<string>],
   ): string {
-    if (['js', 'mjs'].includes(type))
+    if ([`js`, `mjs`].includes(type))
       return files.reduce(this.scriptReducer, acc)
 
-    if (type === 'css') return files.reduce(this.styleReducer, acc)
+    if (type === `css`) return files.reduce(this.styleReducer, acc)
 
     return acc
   }
@@ -68,7 +68,7 @@ export class HtmlEmitter {
    */
   @bind
   public styleReducer(acc: string, file: string): string {
-    return [acc, `<link rel="stylesheet" href="${file}" />`].join('\n')
+    return [acc, `<link rel="stylesheet" href="${file}" />`].join(`\n`)
   }
 
   /**
@@ -80,8 +80,8 @@ export class HtmlEmitter {
   @bind
   public scriptReducer(acc: string, src: string): string {
     const attributes: Record<string, boolean | string> = {
-      type: src.endsWith('.mjs') ? 'module' : false,
-      src: !src.includes('runtime') ? src : false,
+      type: src.endsWith(`.mjs`) ? `module` : false,
+      src: !src.includes(`runtime`) ? src : false,
       defer: true,
       async: true,
     }
@@ -90,9 +90,9 @@ export class HtmlEmitter {
       acc,
       this.makeScript(
         attributes,
-        src.includes('runtime') ? this.getCompiledAsset(src) : null,
+        src.includes(`runtime`) ? this.getCompiledAsset(src) : null,
       ),
-    ].join('\n')
+    ].join(`\n`)
   }
 
   /**
@@ -104,18 +104,18 @@ export class HtmlEmitter {
   @bind
   public makeScript(
     attributes: Record<string, boolean | string>,
-    inner: string = '',
+    inner: string = ``,
   ): string {
-    inner = inner ? `\n\t${inner}\n` : ''
+    inner = inner ? `\n\t${inner}\n` : ``
 
     const stringyAttributes = attributes
       ? Object.entries(attributes)
-          .filter(([, v]) => typeof v !== 'undefined' && v !== false)
+          .filter(([, v]) => typeof v !== `undefined` && v !== false)
           .map(([k, v]) => (v === true ? k : `${k}="${v}"`))
           .reduce((acc, v) => [...acc, v], [])
           .filter(Boolean)
-          .join(' ')
-      : ''
+          .join(` `)
+      : ``
 
     return `<script ${stringyAttributes}>${inner}</script>`
   }

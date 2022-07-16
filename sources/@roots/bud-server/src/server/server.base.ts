@@ -68,7 +68,7 @@ export abstract class BaseServer implements Connection {
    * @public
    */
   public get options(): Server.Options {
-    return this.app.hooks.filter('dev.options')
+    return this.app.hooks.filter(`dev.options`)
   }
 
   /**
@@ -91,7 +91,7 @@ export abstract class BaseServer implements Connection {
    */
   @bind
   public async setup() {
-    this.url = this.app.hooks.filter('dev.url')
+    this.url = this.app.hooks.filter(`dev.url`)
   }
 
   /**
@@ -106,9 +106,9 @@ export abstract class BaseServer implements Connection {
       .listen({
         port: Number(this.url.port),
       })
-      .on('listening', this.onListening)
-      .on('request', this.onRequest)
-      .on('error', this.onError)
+      .on(`listening`, this.onListening)
+      .on(`request`, this.onRequest)
+      .on(`error`, this.onError)
   }
 
   /**
@@ -136,7 +136,7 @@ export abstract class BaseServer implements Connection {
     this.logger.log(
       `[${response.statusCode}]`,
       request.url,
-      response.statusMessage ?? '',
+      response.statusMessage ?? ``,
     )
 
     return response

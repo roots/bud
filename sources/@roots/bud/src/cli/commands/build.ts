@@ -54,12 +54,12 @@ export class BuildCommand extends BaseCommand {
     description: `Utilize compiler's filesystem cache`,
     tolerateBoolean: true,
     validator: t.isOneOf([
-      t.isLiteral('filesystem'),
-      t.isLiteral('memory'),
+      t.isLiteral(`filesystem`),
+      t.isLiteral(`memory`),
       t.isLiteral(true),
       t.isLiteral(false),
     ]),
-    env: 'BUILD_CACHE',
+    env: `BUILD_CACHE`,
   })
 
   /**
@@ -85,7 +85,7 @@ export class BuildCommand extends BaseCommand {
 
   public debug = Option.Boolean(`--debug`, false, {
     description:
-      'Enable debugging mode. Very verbose logging. Writes output files to `@storage` directory',
+      `Enable debugging mode. Very verbose logging. Writes output files to \`@storage\` directory`,
   })
 
   /**
@@ -95,30 +95,30 @@ export class BuildCommand extends BaseCommand {
     description: `Set devtool option`,
     validator: t.isOneOf([
       t.isLiteral(false),
-      t.isLiteral('eval'),
-      t.isLiteral('eval-cheap-source-map'),
-      t.isLiteral('eval-cheap-module-source-map'),
-      t.isLiteral('eval-source-map'),
-      t.isLiteral('cheap-source-map'),
-      t.isLiteral('cheap-module-source-map'),
-      t.isLiteral('source-map'),
-      t.isLiteral('inline-cheap-source-map'),
-      t.isLiteral('inline-cheap-module-source-map'),
-      t.isLiteral('inline-source-map'),
-      t.isLiteral('eval-nosources-cheap-source-map'),
-      t.isLiteral('eval-nosources-cheap-modules-source-map'),
-      t.isLiteral('eval-nosources-source-map'),
-      t.isLiteral('inline-nosources-cheap-source-map'),
-      t.isLiteral('inline-nosources-cheap-module-source-map'),
-      t.isLiteral('inline-nosources-source-map'),
-      t.isLiteral('nosources-cheap-source-map'),
-      t.isLiteral('nosources-cheap-module-source-map'),
-      t.isLiteral('hidden-nosources-cheap-source-map'),
-      t.isLiteral('hidden-nosources-cheap-module-source-map'),
-      t.isLiteral('hidden-nosources-source-map'),
-      t.isLiteral('hidden-cheap-source-map'),
-      t.isLiteral('hidden-cheap-module-source-map'),
-      t.isLiteral('hidden-source-map'),
+      t.isLiteral(`eval`),
+      t.isLiteral(`eval-cheap-source-map`),
+      t.isLiteral(`eval-cheap-module-source-map`),
+      t.isLiteral(`eval-source-map`),
+      t.isLiteral(`cheap-source-map`),
+      t.isLiteral(`cheap-module-source-map`),
+      t.isLiteral(`source-map`),
+      t.isLiteral(`inline-cheap-source-map`),
+      t.isLiteral(`inline-cheap-module-source-map`),
+      t.isLiteral(`inline-source-map`),
+      t.isLiteral(`eval-nosources-cheap-source-map`),
+      t.isLiteral(`eval-nosources-cheap-modules-source-map`),
+      t.isLiteral(`eval-nosources-source-map`),
+      t.isLiteral(`inline-nosources-cheap-source-map`),
+      t.isLiteral(`inline-nosources-cheap-module-source-map`),
+      t.isLiteral(`inline-nosources-source-map`),
+      t.isLiteral(`nosources-cheap-source-map`),
+      t.isLiteral(`nosources-cheap-module-source-map`),
+      t.isLiteral(`hidden-nosources-cheap-source-map`),
+      t.isLiteral(`hidden-nosources-cheap-module-source-map`),
+      t.isLiteral(`hidden-nosources-source-map`),
+      t.isLiteral(`hidden-cheap-source-map`),
+      t.isLiteral(`hidden-cheap-module-source-map`),
+      t.isLiteral(`hidden-source-map`),
     ]),
   })
 
@@ -126,21 +126,21 @@ export class BuildCommand extends BaseCommand {
    * --dist
    */
   public dist = Option.String(`--output,-o`, undefined, {
-    description: 'Distribution directory (relative to project)',
+    description: `Distribution directory (relative to project)`,
   })
 
   /**
    * --esm
    */
-  public esm = Option.Boolean('--esm', undefined, {
-    description: 'build as es modules',
+  public esm = Option.Boolean(`--esm`, undefined, {
+    description: `build as es modules`,
   })
 
   /**
    * --immutable
    */
-  public immutable = Option.Boolean('--immutable', undefined, {
-    description: 'bud.http: immutable module lockfile',
+  public immutable = Option.Boolean(`--immutable`, undefined, {
+    description: `bud.http: immutable module lockfile`,
   })
 
   /**
@@ -154,99 +154,99 @@ export class BuildCommand extends BaseCommand {
    * --hash
    */
   public hash = Option.Boolean(`--hash`, undefined, {
-    description: 'Hash compiled filenames',
+    description: `Hash compiled filenames`,
   })
 
   /**
    * --html
    */
   public html = Option.Boolean(`--html`, undefined, {
-    description: 'Generate an html template',
+    description: `Generate an html template`,
   })
 
   /**
    * --inject
    */
   public inject = Option.Boolean(`--inject`, undefined, {
-    description: 'Automatically inject extensions',
+    description: `Automatically inject extensions`,
     hidden: true,
   })
 
   /**
    * --mode
    */
-  public mode = Option.String(`--mode`, 'production', {
+  public mode = Option.String(`--mode`, `production`, {
     description: `Compilation mode`,
     validator: t.isOneOf([
-      t.isLiteral('production'),
-      t.isLiteral('development'),
+      t.isLiteral(`production`),
+      t.isLiteral(`development`),
     ]),
-    env: 'BUILD_MODE',
+    env: `BUILD_MODE`,
   })
 
   /**
    * --src
    */
   public src = Option.String(`--input,-i`, undefined, {
-    description: 'Source directory (relative to project)',
+    description: `Source directory (relative to project)`,
   })
 
   /**
    * --storage
    */
   public storage = Option.String(`--storage`, undefined, {
-    description: 'Storage directory (relative to project)',
-    env: 'BUILD_PATH_STORAGE',
+    description: `Storage directory (relative to project)`,
+    env: `BUILD_PATH_STORAGE`,
   })
 
   /**
    * --indicator
    */
   public indicator = Option.Boolean(`--indicator`, true, {
-    description: 'Enable development status indicator',
+    description: `Enable development status indicator`,
   })
 
   /**
    * --log
    */
   public log = Option.Boolean(`--log`, undefined, {
-    description: 'Enable logging',
+    description: `Enable logging`,
   })
 
   /**
    * --manifest
    */
   public manifest = Option.Boolean(`--manifest`, undefined, {
-    description: 'Generate a manifest of compiled assets',
+    description: `Generate a manifest of compiled assets`,
   })
 
   /**
    * --minimize
    */
   public minimize = Option.Boolean(`--minimize`, undefined, {
-    description: 'Minimize compiled assets',
+    description: `Minimize compiled assets`,
   })
 
   /**
    * --modules
    */
   public modules = Option.String(`--modules`, undefined, {
-    description: 'Module resolution path',
-    env: 'BUILD_PATH_MODULES',
+    description: `Module resolution path`,
+    env: `BUILD_PATH_MODULES`,
   })
 
   /**
    * --notify
    */
   public notify = Option.Boolean(`--notify`, true, {
-    description: 'Enable notfication center messages',
+    description: `Enable notfication center messages`,
   })
 
   /**
    * --notify
    */
   public browser = Option.Boolean(`--browser`, false, {
-    description: 'Open browser on successful development build',
+    description: `Open browser on successful development build`,
   })
 
   /**
@@ -254,22 +254,22 @@ export class BuildCommand extends BaseCommand {
    */
   public editor = Option.Boolean(`--editor`, false, {
     description:
-      'Open editor to file containing errors on unsuccessful development build',
+      `Open editor to file containing errors on unsuccessful development build`,
   })
 
   /**
    * --overlay
    */
   public overlay = Option.Boolean(`--overlay`, true, {
-    description: 'Enable error overlay in development mode',
+    description: `Enable error overlay in development mode`,
   })
 
   /**
    * --publicPath
    */
   public publicPath = Option.String(`--publicPath`, undefined, {
-    description: 'public path of emitted assets',
-    env: 'APP_PUBLIC_PATH',
+    description: `public path of emitted assets`,
+    env: `APP_PUBLIC_PATH`,
   })
 
   /**
@@ -279,7 +279,7 @@ export class BuildCommand extends BaseCommand {
     `--splitChunks,--vendor`,
     undefined,
     {
-      description: 'Separate vendor bundle',
+      description: `Separate vendor bundle`,
     },
   )
 
@@ -287,14 +287,14 @@ export class BuildCommand extends BaseCommand {
    * --target
    */
   public target = Option.Array(`--target,-t`, undefined, {
-    description: 'Limit compilation to particular compilers',
+    description: `Limit compilation to particular compilers`,
   })
 
   /**
    * --verbose
    */
   public verbose = Option.Boolean(`--verbose`, false, {
-    description: 'Set logging level',
+    description: `Set logging level`,
   })
 
   /**
@@ -306,32 +306,32 @@ export class BuildCommand extends BaseCommand {
         `the --dashboard and --no-dashboard flags are deprecated and will be removed in a future release.\n`,
       )
     ;[
-      'cache',
-      'ci',
-      'clean',
-      'debug',
-      'devtool',
-      'esm',
-      'flush',
-      'hash',
-      'html',
-      'indicator',
-      'inject',
-      'immutable',
-      'log',
-      'manifest',
-      'minimize',
-      'mode',
-      'modules',
-      'notify',
-      'overlay',
-      'browser',
-      'editor',
-      'publicPath',
-      'src',
-      'splitChunks',
-      'target',
-      'verbose',
+      `cache`,
+      `ci`,
+      `clean`,
+      `debug`,
+      `devtool`,
+      `esm`,
+      `flush`,
+      `hash`,
+      `html`,
+      `indicator`,
+      `inject`,
+      `immutable`,
+      `log`,
+      `manifest`,
+      `minimize`,
+      `mode`,
+      `modules`,
+      `notify`,
+      `overlay`,
+      `browser`,
+      `editor`,
+      `publicPath`,
+      `src`,
+      `splitChunks`,
+      `target`,
+      `verbose`,
     ].map(arg => {
       this.context.args[arg] = fallback(this[arg], this[arg], null)
     })
@@ -339,49 +339,49 @@ export class BuildCommand extends BaseCommand {
     if (isUndefined(this.ci)) this.context.args.ci = false
 
     this.app = await factory({
-      name: 'bud',
+      name: `bud`,
       mode: this.mode,
       context: this.context,
       seed: {
         'build.output.publicPath': fallback(
           this.publicPath,
           [() => this.publicPath],
-          seed['build.output.publicPath'],
+          seed[`build.output.publicPath`],
         ),
         'feature.inject': fallback(
           this.inject,
           [() => this.inject],
-          seed['feature.inject'],
+          seed[`feature.inject`],
         ),
         'feature.log': fallback(
           this.log,
           [() => this.log],
-          seed['feature.log'],
+          seed[`feature.log`],
         ),
         'feature.manifest': fallback(
           this.manifest,
           [() => this.manifest],
-          seed['feature.manifest'],
+          seed[`feature.manifest`],
         ),
         'location.@src': fallback(
           this.src,
           [() => this.src],
-          seed['location.@src'],
+          seed[`location.@src`],
         ),
         'location.@dist': fallback(
           this.dist,
           [() => this.dist],
-          seed['location.@dist'],
+          seed[`location.@dist`],
         ),
         'location.@storage': fallback(
           this.storage,
           [() => this.storage],
-          seed['location.@storage'],
+          seed[`location.@storage`],
         ),
         'location.@modules': fallback(
           this.modules,
           [() => this.modules],
-          seed['location.@modules'],
+          seed[`location.@modules`],
         ),
       },
     })

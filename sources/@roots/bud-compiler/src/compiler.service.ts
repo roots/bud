@@ -114,7 +114,7 @@ export class Compiler extends Service implements Contract.Service {
   public async invoke(
     config: Array<Configuration>,
   ): Promise<Contract.Service['compilation']> {
-    await this.app.hooks.fire('compiler.before')
+    await this.app.hooks.fire(`compiler.before`)
 
     this.compilation = this.implementation(config ?? this.config)
 
@@ -128,14 +128,14 @@ export class Compiler extends Service implements Contract.Service {
 
     this.compilation.hooks.done.tap(
       `${this.app.name}-cli-done`,
-      async () => await this.app.hooks.fire('compiler.close'),
+      async () => await this.app.hooks.fire(`compiler.close`),
     )
 
     new Webpack.ProgressPlugin(this.app.dashboard.progressCallback).apply(
       this.compilation,
     )
 
-    await this.app.hooks.fire('compiler.after')
+    await this.app.hooks.fire(`compiler.after`)
 
     return this.compilation
   }

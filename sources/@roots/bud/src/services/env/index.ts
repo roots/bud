@@ -43,7 +43,7 @@ export class Env extends ContainerService implements Base.Service {
    */
   @bind
   public transformPublicEnv([rawKey, rawValue]: [string, string]) {
-    const interpolated = rawKey.replace('PUBLIC_', '')
+    const interpolated = rawKey.replace(`PUBLIC_`, ``)
 
     const value = isString(rawValue)
       ? rawValue
@@ -59,6 +59,6 @@ export class Env extends ContainerService implements Base.Service {
    */
   @bind
   public filterPublicEnv([key]: [string, string]) {
-    return key.startsWith('PUBLIC_')
+    return key.startsWith(`PUBLIC_`)
   }
 }

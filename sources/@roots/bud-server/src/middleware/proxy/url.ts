@@ -30,7 +30,7 @@ export class ApplicationURL {
    * @public
    */
   public get proxy(): URL {
-    return this.app.hooks.filter('dev.middleware.proxy.target')
+    return this.app.hooks.filter(`dev.middleware.proxy.target`)
   }
 
   /**

@@ -20,7 +20,7 @@ export class Controller {
    * @public
    */
   public constructor() {
-    this.node = document.createElement('bud-activity-indicator')
+    this.node = document.createElement(`bud-activity-indicator`)
     document.body && document.body.appendChild(this.node)
     this.update = this.update.bind(this)
   }
@@ -31,7 +31,7 @@ export class Controller {
    */
   public update(payload) {
     this.node.payload = payload
-    this.node.setAttribute('has-warnings', payload.errors?.length)
-    this.node.setAttribute('has-errors', payload.warnings?.length)
+    this.node.setAttribute(`has-warnings`, payload.errors?.length)
+    this.node.setAttribute(`has-errors`, payload.warnings?.length)
   }
 }

@@ -187,7 +187,7 @@ export default class Rule extends Base implements Build.Rule {
   ): this {
     if (!this.include) this.include = []
 
-    if (typeof includes === 'function')
+    if (typeof includes === `function`)
       this.include = includes(this.include)
     else this.include = includes
 
@@ -219,7 +219,7 @@ export default class Rule extends Base implements Build.Rule {
   ): this {
     if (!this.exclude) this.exclude = []
 
-    if (typeof excludes === 'function')
+    if (typeof excludes === `function`)
       this.exclude = excludes(this.exclude)
     else this.exclude = excludes
 

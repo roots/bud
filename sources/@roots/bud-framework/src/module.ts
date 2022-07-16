@@ -37,7 +37,7 @@ export class Module {
   @memo()
   public async getDirectory(signifier: string, parent?: string) {
     return await this.resolve(signifier, parent)
-      .then(path => path.replace('file://', ''))
+      .then(path => path.replace(`file://`, ``))
       .then(this.require.resolve)
       .then(path => relative(parent ?? this.app.root.context.dir, path))
       .then(path => path.split(signifier).shift())
@@ -54,7 +54,7 @@ export class Module {
   @memo()
   public async getManifestPath(pkgName: string) {
     return await this.getDirectory(pkgName).then(dir =>
-      join(dir, 'package.json'),
+      join(dir, `package.json`),
     )
   }
 
@@ -92,7 +92,7 @@ export class Module {
         parent ? `file://${parent}` : import.meta.url,
       )
 
-      return resolvedPath.replace('file://', '')
+      return resolvedPath.replace(`file://`, ``)
     } catch (err) {
       throw new Error(err)
     }

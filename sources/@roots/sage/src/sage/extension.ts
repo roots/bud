@@ -12,11 +12,11 @@ import {
  * @decorator `@label`
  * @decorator `@dependsOn`
  */
-@label('@roots/sage')
+@label(`@roots/sage`)
 @dependsOn([
-  '@roots/sage/acorn',
-  '@roots/sage/wp-theme-json',
-  '@roots/bud-preset-wordpress',
+  `@roots/sage/acorn`,
+  `@roots/sage/wp-theme-json`,
+  `@roots/bud-preset-wordpress`,
 ])
 export default class Sage extends Extension {
   /**
@@ -32,25 +32,25 @@ export default class Sage extends Extension {
      */
     this.app
       .setPath({
-        '@src': 'resources',
-        '@dist': 'public',
-        '@resources': '@src',
-        '@public': '@dist',
-        '@fonts': '@src/fonts',
-        '@images': '@src/images',
-        '@scripts': '@src/scripts',
-        '@styles': '@src/styles',
-        '@views': '@src/views',
+        '@src': `resources`,
+        '@dist': `public`,
+        '@resources': `@src`,
+        '@public': `@dist`,
+        '@fonts': `@src/fonts`,
+        '@images': `@src/images`,
+        '@scripts': `@src/scripts`,
+        '@styles': `@src/styles`,
+        '@views': `@src/views`,
       })
       .alias({
-        '@fonts': this.app.path('@fonts'),
-        '@images': this.app.path('@images'),
-        '@scripts': this.app.path('@scripts'),
-        '@styles': this.app.path('@styles'),
+        '@fonts': this.app.path(`@fonts`),
+        '@images': this.app.path(`@images`),
+        '@scripts': this.app.path(`@scripts`),
+        '@styles': this.app.path(`@styles`),
       })
       .when(
         this.app.isProduction,
-        () => this.app.minimize().hash().runtime('single').splitChunks(),
+        () => this.app.minimize().hash().runtime(`single`).splitChunks(),
         () => this.app.devtool(),
       )
   }

@@ -9,7 +9,7 @@ export const externals: externals = function (externals) {
   this as Bud
 
   this.hooks.on(
-    'build.externals',
+    `build.externals`,
     (existant: Configuration['externals']) =>
       ({
         ...(existant as any),

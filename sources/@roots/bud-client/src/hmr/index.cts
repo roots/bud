@@ -23,46 +23,46 @@ interface Options extends BaseOptions {
 }
 
 ;(async (query: string) => {
-  const querystring = await import('querystring')
-  const hmr = await import('./bridge.cjs')
+  const querystring = await import(`querystring`)
+  const hmr = await import(`./bridge.cjs`)
 
   const controllers: Array<Controller> = []
 
   const FALLBACK_OPTS: Options = {
-    ['bud.overlay']: true,
-    ['bud.indicator']: true,
+    [`bud.overlay`]: true,
+    [`bud.indicator`]: true,
     autoConnect: false,
     timeout: 20 * 1000,
     overlay: false,
     reload: false,
     log: false,
     warn: false,
-    name: 'bud',
+    name: `bud`,
     overlayWarnings: false,
-    path: '/__bud/hmr',
+    path: `/__bud/hmr`,
   }
 
   const options: Options = Object.entries(
     querystring.parse(query.slice(1)),
   ).reduce((a: Options, [k, v]: [keyof Options, any]) => {
-    if (v === 'true') v = true
-    if (v === 'false') v = false
+    if (v === `true`) v = true
+    if (v === `false`) v = false
     return {...a, [k]: v}
   }, FALLBACK_OPTS)
 
   hmr.setOptionsAndConnect(options)
 
-  if (options['bud.indicator']) {
+  if (options[`bud.indicator`]) {
     const controllerModule = await import(
-      '../components/indicator/index.cjs'
+      `../components/indicator/index.cjs`
     )
     const controller = await controllerModule.make()
     controller?.update && controllers.push(controller)
   }
 
-  if (options['bud.overlay']) {
+  if (options[`bud.overlay`]) {
     const controllerModule = await import(
-      '../components/overlay/index.cjs'
+      `../components/overlay/index.cjs`
     )
     const controller = await controllerModule.make()
     controller?.update && controllers.push(controller)
@@ -73,7 +73,7 @@ interface Options extends BaseOptions {
 
     controllers.map(controller => controller.update(payload))
 
-    if (payload.action === 'reload') window.location.reload()
+    if (payload.action === `reload`) window.location.reload()
   })
 })(
   // @ts-ignore

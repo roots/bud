@@ -1,23 +1,23 @@
 module.exports = {
-  arrowParens: 'avoid',
+  arrowParens: `avoid`,
   bracketSpacing: false,
   tabWidth: 2,
   printWidth: 75,
   singleQuote: true,
   useTabs: false,
-  trailingComma: 'all',
+  trailingComma: `all`,
   semi: false,
   overrides: [
     {
-      files: '*.mdx',
+      files: `*.mdx`,
       options: {
-        parser: 'mdx',
+        parser: `mdx`,
       },
     },
     {
-      files: '*.d.ts',
+      files: `*.d.ts`,
       options: {
-        parser: 'typescript',
+        parser: `typescript`,
       },
     },
   ],

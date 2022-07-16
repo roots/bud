@@ -29,9 +29,9 @@ export async function factory(overrides?: any): Promise<Bud> {
 
   project
     .when(
-      project.env.has('APP_PUBLIC_PATH') &&
-        project.env.isString('APP_PUBLIC_PATH'),
-      () => project.setPublicPath(project.env.get('APP_PUBLIC_PATH')),
+      project.env.has(`APP_PUBLIC_PATH`) &&
+        project.env.isString(`APP_PUBLIC_PATH`),
+      () => project.setPublicPath(project.env.get(`APP_PUBLIC_PATH`)),
     )
     .log({
       message: `process.env.NODE_ENV: ${process.env.NODE_ENV}`,

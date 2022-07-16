@@ -52,37 +52,37 @@ export default class Build extends Service implements Bud.Build.Service {
    */
   @bind
   public async make(): Promise<Configuration> {
-    await this.app.extensions.runAll('_beforeBuild')
-    await this.app.hooks.fire('build.before')
+    await this.app.extensions.runAll(`_beforeBuild`)
+    await this.app.hooks.fire(`build.before`)
 
     await Promise.all(
       [
-        ['entry'],
-        ['plugins', true],
-        ['resolve', true],
-        ['bail'],
-        ['cache'],
-        ['context'],
-        ['devtool'],
-        ['experiments'],
-        ['externals'],
-        ['externalsType'],
-        ['infrastructureLogging'],
-        ['loader'],
-        ['mode'],
-        ['module'],
-        ['name'],
-        ['node'],
-        ['output'],
-        ['optimization'],
-        ['parallelism'],
-        ['performance'],
-        ['profile'],
-        ['recordsPath'],
-        ['stats'],
-        ['target'],
-        ['watch'],
-        ['watchOptions'],
+        [`entry`],
+        [`plugins`, true],
+        [`resolve`, true],
+        [`bail`],
+        [`cache`],
+        [`context`],
+        [`devtool`],
+        [`experiments`],
+        [`externals`],
+        [`externalsType`],
+        [`infrastructureLogging`],
+        [`loader`],
+        [`mode`],
+        [`module`],
+        [`name`],
+        [`node`],
+        [`output`],
+        [`optimization`],
+        [`parallelism`],
+        [`performance`],
+        [`profile`],
+        [`recordsPath`],
+        [`stats`],
+        [`target`],
+        [`watch`],
+        [`watchOptions`],
       ].map(async ([propKey, isAsync]: [keyof Configuration, boolean]) => {
         const propValue =
           isAsync === true
@@ -97,7 +97,7 @@ export default class Build extends Service implements Bud.Build.Service {
       }),
     )
 
-    await this.app.hooks.fire('build.after')
+    await this.app.hooks.fire(`build.after`)
 
     return this.config
   }

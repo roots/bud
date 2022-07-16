@@ -18,13 +18,13 @@ import {
  * @decorator `@plugin`
  * @decorator `@options`
  */
-@label('webpack-manifest-plugin')
+@label(`webpack-manifest-plugin`)
 @plugin(WebpackManifestPlugin)
 @options({
-  fileName: 'manifest.json',
+  fileName: `manifest.json`,
   writeToFileEmit: true,
   publicPath: ({hooks}) =>
-    (hooks.filter('build.output.publicPath') ?? '').replace('auto', ''),
+    (hooks.filter(`build.output.publicPath`) ?? ``).replace(`auto`, ``),
 })
 export default class BudWebpackManifestPlugin extends Extension<
   Options,
@@ -41,6 +41,6 @@ export default class BudWebpackManifestPlugin extends Extension<
    */
   @bind
   public async when() {
-    return this.app.hooks.filter('feature.manifest')
+    return this.app.hooks.filter(`feature.manifest`)
   }
 }

@@ -31,8 +31,8 @@ export class Controller {
     return this.payload.errors?.reduce(
       (a, c) => `${a}
         <div>
-          <span>${c?.title ?? 'Compilation error'}</span>
-          <pre>${stripAnsi.default(c?.message) ?? ''}</pre>
+          <span>${c?.title ?? `Compilation error`}</span>
+          <pre>${stripAnsi.default(c?.message) ?? ``}</pre>
         </div>`,
       ``,
     )
@@ -43,7 +43,7 @@ export class Controller {
    * @public
    */
   public constructor() {
-    this.element = document.createElement('bud-error')
+    this.element = document.createElement(`bud-error`)
     document.body && document.body.appendChild(this.element)
     this.update = this.update.bind(this)
   }
@@ -54,6 +54,6 @@ export class Controller {
    */
   public update(payload: Payload): void {
     this.payload = payload
-    this.element.setAttribute('message', this.message ?? ``)
+    this.element.setAttribute(`message`, this.message ?? ``)
   }
 }

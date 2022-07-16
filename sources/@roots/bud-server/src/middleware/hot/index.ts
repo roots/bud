@@ -8,7 +8,7 @@ import webpackHotMiddleware from './webpack-hot-middleware/middleware.js'
  * @public
  */
 const options: (app: Bud) => any = app =>
-  app.hooks.filter('dev.middleware.hot.options')
+  app.hooks.filter(`dev.middleware.hot.options`)
 
 /**
  * Hot middleware factory

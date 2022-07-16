@@ -3,7 +3,7 @@ import {bind, label} from '@roots/bud-framework/extension/decorators'
 import c from 'chalk'
 import {isUndefined} from 'lodash-es'
 
-@label('@roots/bud-preset-wordpress/browserslist-check')
+@label(`@roots/bud-preset-wordpress/browserslist-check`)
 export default class BudBrowsersListCheck extends Extension {
   public items: Array<string> = []
 
@@ -24,11 +24,11 @@ export default class BudBrowsersListCheck extends Extension {
 
     if (
       this.items.some(item =>
-        item.endsWith('@wordpress/browserslist-config'),
+        item.endsWith(`@wordpress/browserslist-config`),
       )
     ) {
       try {
-        await this.import('@wordpress/browserslist-config')
+        await this.import(`@wordpress/browserslist-config`)
       } catch (e) {
         this.app.context.stdout.write(`
 ${c.red.bold(
@@ -44,33 +44,33 @@ ${c.red.bold(
 ├──  🩹 Setting the compiler build target to \`web\`
 `)
 
-        this.app.hooks.on('build.target', 'web')
+        this.app.hooks.on(`build.target`, `web`)
 
-        if (this.app.extensions.has('@roots/bud-postcss')) {
+        if (this.app.extensions.has(`@roots/bud-postcss`)) {
           const postcss: any = this.app.extensions.get(
-            '@roots/bud-postcss',
+            `@roots/bud-postcss`,
           )
-          if (postcss.plugins.has('env')) {
+          if (postcss.plugins.has(`env`)) {
             this.app.context.stdout.write(`\
 │
 ├──  🩹 Setting \`postcss-preset-env\` \`browsers\` target to '>%1'
 `)
-            postcss.setPluginOptions('env', options => ({
+            postcss.setPluginOptions(`env`, options => ({
               ...(options ?? {}),
-              browsers: '>1%',
+              browsers: `>1%`,
             }))
           }
         }
 
-        if (this.app.extensions.has('@roots/bud-babel')) {
+        if (this.app.extensions.has(`@roots/bud-babel`)) {
           const babel: any = (this.app as any).babel
-          if (!isUndefined(babel.presets['@babel/preset-env'])) {
+          if (!isUndefined(babel.presets[`@babel/preset-env`])) {
             this.app.context.stdout.write(`\
 │
 ├──  🩹 Setting \`@babel/preset-env\` \`browsers\` target to '>%1'
 `)
-            babel.setPresetOptions('@babel/preset-env', {
-              targets: ['>1%'],
+            babel.setPresetOptions(`@babel/preset-env`, {
+              targets: [`>1%`],
             })
           }
 
@@ -85,7 +85,7 @@ ${c.red.bold(
             plugins: Object.values(babel.plugins),
             env: babel.env,
             root: babel.root,
-            targets: ['>1%'],
+            targets: [`>1%`],
           })
         }
 

@@ -50,10 +50,10 @@ export class ThemeJsonWebpackPlugin implements WebpackPluginInstance {
   public get settings(): string {
     return JSON.stringify(
       {
-        __generated__: '⚠️ This file is generated. Do not edit.',
-        $schema: 'https://schemas.wp.org/trunk/theme.json',
+        __generated__: `⚠️ This file is generated. Do not edit.`,
+        $schema: `https://schemas.wp.org/trunk/theme.json`,
         version: 2,
-        ...omit(this.options, 'path'),
+        ...omit(this.options, `path`),
       },
       null,
       2,
@@ -94,7 +94,7 @@ export class ThemeJsonWebpackPlugin implements WebpackPluginInstance {
   @bind
   public async done() {
     try {
-      await fs.writeFile(this.path, this.settings, 'utf8')
+      await fs.writeFile(this.path, this.settings, `utf8`)
     } catch (err) {
       throw new Error(err)
     }

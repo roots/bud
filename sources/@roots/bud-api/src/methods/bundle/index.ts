@@ -26,9 +26,9 @@ export const method: method = function (name, matcher) {
 
   const test = compose(matcher ?? name, normalizeMatcher, makeTest)
 
-  ctx.hooks.on('build.optimization.splitChunks', splitChunks => ({
+  ctx.hooks.on(`build.optimization.splitChunks`, splitChunks => ({
     ...(splitChunks ?? {
-      chunks: 'all',
+      chunks: `all`,
       automaticNameDelimiter: `/`,
       minSize: 0,
     }),

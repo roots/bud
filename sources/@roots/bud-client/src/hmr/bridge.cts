@@ -1,13 +1,13 @@
 /* eslint-disable no-console */
 
 var options = {
-  path: '/__bud/hmr',
+  path: `/__bud/hmr`,
   timeout: 20 * 1000,
   overlay: true,
   reload: false,
   log: true,
   warn: true,
-  name: 'bud',
+  name: `bud`,
   autoConnect: true,
   overlayStyles: {},
   overlayWarnings: false,
@@ -16,19 +16,19 @@ var options = {
 
 //@ts-ignore
 if (__resourceQuery) {
-  var querystring = require('querystring')
+  var querystring = require(`querystring`)
   //@ts-ignore
   var overrides = querystring.parse(__resourceQuery.slice(1))
   setOverrides(overrides)
 }
 
-if (typeof window === 'undefined') {
+if (typeof window === `undefined`) {
   // do nothing
-} else if (typeof window.EventSource === 'undefined') {
+} else if (typeof window.EventSource === `undefined`) {
   console.warn(
-    "webpack-hot-middleware's client requires EventSource to work. " +
-      'You should include a polyfill if you want to support this browser: ' +
-      'https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events#Tools',
+    `webpack-hot-middleware's client requires EventSource to work. ` +
+      `You should include a polyfill if you want to support this browser: ` +
+      `https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events#Tools`,
   )
 } else {
   if (options.autoConnect) {
@@ -38,18 +38,18 @@ if (typeof window === 'undefined') {
 
 function setOverrides(overrides) {
   if (overrides.autoConnect)
-    options.autoConnect = overrides.autoConnect == 'true'
+    options.autoConnect = overrides.autoConnect == `true`
   if (overrides.path) options.path = overrides.path
   if (overrides.timeout) options.timeout = overrides.timeout
-  if (overrides.overlay) options.overlay = overrides.overlay !== 'false'
-  if (overrides.reload) options.reload = overrides.reload !== 'false'
-  if (overrides.noInfo && overrides.noInfo !== 'false') {
+  if (overrides.overlay) options.overlay = overrides.overlay !== `false`
+  if (overrides.reload) options.reload = overrides.reload !== `false`
+  if (overrides.noInfo && overrides.noInfo !== `false`) {
     options.log = false
   }
   if (overrides.name) {
     options.name = overrides.name
   }
-  if (overrides.quiet && overrides.quiet !== 'false') {
+  if (overrides.quiet && overrides.quiet !== `false`) {
     options.log = false
     options.warn = false
   }
@@ -65,7 +65,7 @@ function setOverrides(overrides) {
     options.overlayStyles = JSON.parse(overrides.overlayStyles)
 
   if (overrides.overlayWarnings) {
-    options.overlayWarnings = overrides.overlayWarnings == 'true'
+    options.overlayWarnings = overrides.overlayWarnings == `true`
   }
 }
 
@@ -90,7 +90,7 @@ function EventSourceWrapper() {
   }
 
   function handleOnline() {
-    if (options.log) console.log('[HMR] connected')
+    if (options.log) console.log(`[HMR] connected`)
     lastActivity = new Date()
   }
 
@@ -135,14 +135,14 @@ function connect() {
   getEventSourceWrapper().addMessageListener(handleMessage)
 
   function handleMessage(event) {
-    if (event.data == '\uD83D\uDC93') {
+    if (event.data == `\uD83D\uDC93`) {
       return
     }
     try {
       processMessage(JSON.parse(event.data))
     } catch (ex) {
       if (options.warn) {
-        console.warn('Invalid HMR message: ' + event.data + '\n' + ex)
+        console.warn(`Invalid HMR message: ` + event.data + `\n` + ex)
       }
     }
   }
@@ -152,9 +152,9 @@ function connect() {
 // in case the client is being used by multiple bundles
 // we only want to report once.
 // all the errors will go to all clients
-var singletonKey = '__webpack_hot_middleware_reporter__'
+var singletonKey = `__webpack_hot_middleware_reporter__`
 var reporter
-if (typeof window !== 'undefined') {
+if (typeof window !== `undefined`) {
   if (!window[singletonKey]) {
     window[singletonKey] = createReporter()
   }
@@ -162,23 +162,23 @@ if (typeof window !== 'undefined') {
 }
 
 function createReporter() {
-  var {default: strip} = require('strip-ansi')
+  var {default: strip} = require(`strip-ansi`)
 
   var overlay
 
   var styles = {
-    errors: 'color: #ff0000;',
-    warnings: 'color: #999933;',
+    errors: `color: #ff0000;`,
+    warnings: `color: #999933;`,
   }
   var previousProblems = null
   function log(type, obj) {
     var newProblems = obj[type]
       .map(function (problem) {
-        var isNested = typeof problem === 'object'
+        var isNested = typeof problem === `object`
         var message = isNested ? problem.message : problem
         return strip(message)
       })
-      .join('\n')
+      .join(`\n`)
     if (previousProblems == newProblems) {
       return
     } else {
@@ -186,20 +186,20 @@ function createReporter() {
     }
 
     var style = styles[type]
-    var name = obj.name ? "'" + obj.name + "' " : ''
+    var name = obj.name ? `'` + obj.name + `' ` : ``
     var title =
-      '[HMR] bundle ' + name + 'has ' + obj[type].length + ' ' + type
+      `[HMR] bundle ` + name + `has ` + obj[type].length + ` ` + type
     // NOTE: console.warn or console.error will print the stack trace
     // which isn't helpful here, so using console.log to escape it.
     if (console.group && console.groupEnd) {
-      console.group('%c' + title, style)
-      console.log('%c' + newProblems, style)
+      console.group(`%c` + title, style)
+      console.log(`%c` + newProblems, style)
       console.groupEnd()
     } else {
       console.log(
-        '%c' + title + '\n\t%c' + newProblems.replace(/\n/g, '\n\t'),
-        style + 'font-weight: bold;',
-        style + 'font-weight: normal;',
+        `%c` + title + `\n\t%c` + newProblems.replace(/\n/g, `\n\t`),
+        style + `font-weight: bold;`,
+        style + `font-weight: normal;`,
       )
     }
   }
@@ -213,7 +213,7 @@ function createReporter() {
         log(type, obj)
       }
       if (overlay) {
-        if (options.overlayWarnings || type === 'errors') {
+        if (options.overlayWarnings || type === `errors`) {
           overlay.showProblems(type, obj[type])
           return false
         }
@@ -230,43 +230,43 @@ function createReporter() {
   }
 }
 
-const processUpdate = require('./update')
+const processUpdate = require(`./update`)
 
 var customHandler
 var subscribeAllHandler
 function processMessage(obj) {
   switch (obj.action) {
-    case 'building':
+    case `building`:
       if (options.log) {
         console.log(
-          '[HMR] bundle ' +
-            (obj.name ? "'" + obj.name + "' " : '') +
-            'rebuilding',
+          `[HMR] bundle ` +
+            (obj.name ? `'` + obj.name + `' ` : ``) +
+            `rebuilding`,
         )
       }
       break
-    case 'built':
+    case `built`:
       if (options.log) {
         console.log(
-          '[HMR] bundle ' +
-            (obj.name ? "'" + obj.name + "' " : '') +
-            'rebuilt in ' +
+          `[HMR] bundle ` +
+            (obj.name ? `'` + obj.name + `' ` : ``) +
+            `rebuilt in ` +
             obj.time +
-            'ms',
+            `ms`,
         )
       }
     // fall through
-    case 'sync':
+    case `sync`:
       if (obj.name && options.name && obj.name !== options.name) {
         return
       }
       var applyUpdate = true
       if (obj.errors.length > 0) {
-        if (reporter) reporter.problems('errors', obj)
+        if (reporter) reporter.problems(`errors`, obj)
         applyUpdate = false
       } else if (obj.warnings.length > 0) {
         if (reporter) {
-          var overlayShown = reporter.problems('warnings', obj)
+          var overlayShown = reporter.problems(`warnings`, obj)
           applyUpdate = overlayShown
         }
       } else {

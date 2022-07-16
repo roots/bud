@@ -1,4 +1,4 @@
-var parse = require('url').parse
+var parse = require(`url`).parse
 
 exports.pathMatch = function (url, path) {
   try {

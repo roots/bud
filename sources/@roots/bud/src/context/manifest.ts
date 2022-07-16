@@ -21,6 +21,6 @@ export class Manifest {
    * @public
    */
   public async read() {
-    return await fs.readJson(this.disk.config['package.json'], 'utf8')
+    return await fs.readJson(this.disk.config[`package.json`], `utf8`)
   }
 }

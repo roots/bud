@@ -6,7 +6,7 @@ import {
 } from '@roots/bud-framework/extension/decorators'
 import Webpack from 'webpack'
 
-@label('webpack:define-plugin')
+@label(`webpack:define-plugin`)
 @plugin(Webpack.DefinePlugin)
 export default class BudDefine extends Extension<
   Record<string, any>,

@@ -4,7 +4,7 @@ export async function globAssets(search: string): Promise<Array<string>> {
   try {
     this.log(`search`, search)
 
-    const results = await globby(search, {cwd: this.path('@src')})
+    const results = await globby(search, {cwd: this.path(`@src`)})
     this.log(`results`, results)
 
     if (!results.length) {
@@ -12,7 +12,7 @@ export async function globAssets(search: string): Promise<Array<string>> {
         `bud.entry found no files matching ${JSON.stringify(
           search,
         )}. check your config for errors. files should be specified relative to ${this.path(
-          '@src',
+          `@src`,
         )}. fast glob syntax can be referenced here https://git.io/JkGbw`,
       )
     }

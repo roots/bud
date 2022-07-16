@@ -1,4 +1,6 @@
 **/*.json
+**/*.yml
+**/*.yaml
 **/*.d.ts
 **/lib
 **/node_modules

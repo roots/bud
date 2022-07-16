@@ -36,8 +36,8 @@ export class TypecheckCommand extends BaseCommand {
    */
   public async execute() {
     this.app = await factory({
-      name: 'bud',
-      mode: 'production',
+      name: `bud`,
+      mode: `production`,
       context: {
         ...this.context,
         args: {
@@ -48,7 +48,7 @@ export class TypecheckCommand extends BaseCommand {
     })
 
     const hasTsConfig = await fs.pathExists(
-      this.app.path('./tsconfig.json'),
+      this.app.path(`./tsconfig.json`),
     )
     if (!hasTsConfig) {
       this.app.error(
@@ -56,14 +56,14 @@ export class TypecheckCommand extends BaseCommand {
       )
     }
 
-    const check = execa('tsc', ['--noEmit'], {cwd: this.app.path('./')})
+    const check = execa(`tsc`, [`--noEmit`], {cwd: this.app.path(`./`)})
 
     this.context.stdout.write(`checking types\n`)
 
-    check.stdout.on('data', message => {
+    check.stdout.on(`data`, message => {
       this.context.stdout.write(message.toString())
     })
-    check.stderr.on('data', message => {
+    check.stderr.on(`data`, message => {
       this.app.error(message.toString())
     })
 

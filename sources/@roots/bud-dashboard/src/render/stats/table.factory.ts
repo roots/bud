@@ -2,10 +2,10 @@ import table from 'table'
 
 export const make = (data: Array<Array<any>>): string => {
   return table.table(data, {
-    border: table.getBorderCharacters('void'),
+    border: table.getBorderCharacters(`void`),
     singleLine: true,
     columnDefault: {
-      alignment: 'left',
+      alignment: `left`,
       wrapWord: true,
       paddingRight: 2,
       paddingLeft: 0,

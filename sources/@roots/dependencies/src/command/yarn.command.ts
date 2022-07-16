@@ -20,11 +20,11 @@ export class Yarn extends Command implements IDependencyManager {
   ): Promise<any> {
     return Yarn.execute(
       onMessage ?? this.onMessage,
-      'yarn',
-      'add',
+      `yarn`,
+      `add`,
       ...Yarn.normalizeDependencies(dependencies),
-      dev ? '--dev' : null,
-      '--cwd',
+      dev ? `--dev` : null,
+      `--cwd`,
       this.path,
     )
   }
@@ -39,10 +39,10 @@ export class Yarn extends Command implements IDependencyManager {
   ): Promise<any> {
     return Yarn.execute(
       onMessage ?? this.onMessage,
-      'yarn',
-      'remove',
+      `yarn`,
+      `remove`,
       ...Yarn.normalizeDependencies(dependencies),
-      '--cwd',
+      `--cwd`,
       this.path,
     )
   }

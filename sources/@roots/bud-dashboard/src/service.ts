@@ -45,7 +45,7 @@ export class Dashboard extends Service implements Base.Service {
    *
    * @public
    */
-  protected frame: string = ''
+  protected frame: string = ``
 
   /**
    * @override
@@ -63,7 +63,7 @@ export class Dashboard extends Service implements Base.Service {
    */
   @bind
   public async register() {
-    if (this.app.context.args.ci || this.app.env.has('JEST_WORKER_ID')) {
+    if (this.app.context.args.ci || this.app.env.has(`JEST_WORKER_ID`)) {
       return
     }
 
@@ -72,7 +72,7 @@ export class Dashboard extends Service implements Base.Service {
     })
 
     this.interval = setInterval(this.update, 80)
-    this.app.hooks.action('app.close', async () => this.interval.unref())
+    this.app.hooks.action(`app.close`, async () => this.interval.unref())
   }
 
   /**

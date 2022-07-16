@@ -19,7 +19,7 @@ import {nanoid} from 'nanoid'
 export const isPlugin = (extension: Constructor): boolean =>
   extension.apply &&
   isFunction(extension.apply) &&
-  !isEqual(extension.apply.toString(), '[native code]')
+  !isEqual(extension.apply.toString(), `[native code]`)
 
 /**
  * Returns true if extensions appears to have a valid name
@@ -39,9 +39,9 @@ export const hasValidConstructorName = (
   input: Extension | Constructor,
 ): boolean =>
   input?.constructor?.name &&
-  typeof input.constructor.name == 'string' &&
-  input.constructor.name !== 'default' &&
-  input.constructor.name !== 'Object'
+  typeof input.constructor.name == `string` &&
+  input.constructor.name !== `default` &&
+  input.constructor.name !== `Object`
 
 /**
  * Generates a unique name for extensions which do not

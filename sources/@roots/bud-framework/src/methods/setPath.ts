@@ -49,7 +49,7 @@ export const setPath: setPath = function (arg1, arg2) {
         )
 
       const absolutePath = app.path(value)
-      !absolutePath.startsWith('/') &&
+      !absolutePath.startsWith(`/`) &&
         app.error(
           `internal error: the final result of a bud.setPath transform was not absolute: ${key} => ${value} => ${absolutePath}`,
         )

@@ -69,17 +69,17 @@ export class Env {
      * Apply env
      */
     path
-      .split('/')
+      .split(`/`)
       .slice(0, -1)
       .reduce((a, c) => {
         const next = join(a, c)
-        applyEnvFromPath(join(next, '.env'))
+        applyEnvFromPath(join(next, `.env`))
         return next
       }, `/`)
 
     /**
      * Expand .env values in immediate directory
      */
-    applyExpandedEnvFromPath(join(path, '.env'))
+    applyExpandedEnvFromPath(join(path, `.env`))
   }
 }

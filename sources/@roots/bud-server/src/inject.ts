@@ -16,7 +16,7 @@ export const inject: inject = (
   app: Bud,
   injection: Array<(app: Bud) => string>,
 ): void => {
-  app.hooks.on('build.entry', entrypoints => {
+  app.hooks.on(`build.entry`, entrypoints => {
     if (!injection) return
 
     if (app.isRoot) {
@@ -26,7 +26,7 @@ export const inject: inject = (
       entrypoints = missing
         ? {
             app: {
-              import: ['index'],
+              import: [`index`],
             },
           }
         : entrypoints

@@ -23,7 +23,7 @@ export class Component extends HTMLElement {
   public documentBodyStyle: any
 
   public get message() {
-    return this.getAttribute('message')
+    return this.getAttribute(`message`)
   }
 
   public constructor() {
@@ -88,25 +88,25 @@ export class Component extends HTMLElement {
         overflow-x: scroll;
       }
     </style>
-    ${content ?? ''}
+    ${content ?? ``}
   `
   }
 
   public static get observedAttributes() {
-    return ['message']
+    return [`message`]
   }
 
   public attributeChangedCallback() {
     if (!this.documentBodyStyle)
       this.documentBodyStyle = document.body?.style
 
-    if (this.getAttribute('message')) {
-      document.body.style.overflow = 'hidden'
+    if (this.getAttribute(`message`)) {
+      document.body.style.overflow = `hidden`
 
       !this.classList.contains(`${this.name}__visible`) &&
         this.classList.add(`${this.name}__visible`)
 
-      return this.setInnerHtml(this.getAttribute('message'))
+      return this.setInnerHtml(this.getAttribute(`message`))
     }
 
     if (this.documentBodyStyle?.overflow && document?.body?.style) {

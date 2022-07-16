@@ -51,7 +51,7 @@ export class Api
   @bind
   public async registered() {
     await this.processQueue()
-    this.app.hooks.action('build.before', this.processQueue)
+    this.app.hooks.action(`build.before`, this.processQueue)
   }
 
   /**
@@ -76,7 +76,7 @@ export class Api
     this.app.log({
       message: `executing ${chalk.blue(name)}`,
       suffix:
-        args && !isEmpty(args) ? this.app.json.stringify(args) : 'none',
+        args && !isEmpty(args) ? this.app.json.stringify(args) : `none`,
     })
 
     // get a reference to the callable

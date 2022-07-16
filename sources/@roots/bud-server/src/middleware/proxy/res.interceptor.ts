@@ -71,16 +71,16 @@ export class ResponseInterceptorFactory {
     this.app.info(
       request.url,
       request.statusCode,
-      response.getHeader('content-type'),
+      response.getHeader(`content-type`),
     )
-    if (!`${response.getHeader('content-type')}`.startsWith('text/'))
+    if (!`${response.getHeader(`content-type`)}`.startsWith(`text/`))
       return buffer
 
     Object.entries(
       this.app.hooks.filter(`dev.middleware.proxy.options.headers`, {
         ...response.getHeaders(),
 
-        'x-proxy-by': '@roots/bud',
+        'x-proxy-by': `@roots/bud`,
         'x-bud-dev-origin': this.url.dev.origin,
         'x-bud-dev-protocol': this.url.dev.protocol,
         'x-bud-dev-hostname': this.url.dev.hostname,
@@ -91,27 +91,27 @@ export class ResponseInterceptorFactory {
       }),
     ).map(([k, v]) => {
       if (isString(k) && isUndefined(v)) {
-        this.app.log('removing header', k)
+        this.app.log(`removing header`, k)
         response.removeHeader(k)
       } else if (isString(k) && !isUndefined(v)) {
-        this.app.log('setting header', k, '=>', v)
+        this.app.log(`setting header`, k, `=>`, v)
         response.setHeader(k, v)
       }
     })
 
     Object.entries(request.cookies).map(([k, v]) => {
-      this.app.info('setting cookie', k, '=>', v)
+      this.app.info(`setting cookie`, k, `=>`, v)
       response.cookie(k, v, {domain: undefined})
     })
 
     return this.app.hooks
-      .filter('dev.middleware.proxy.replacements', [])
+      .filter(`dev.middleware.proxy.replacements`, [])
       .reduce(
         (buffer, [find, replace]: [string | RegExp, string]) =>
           buffer
-            .split('\n')
+            .split(`\n`)
             .map(ln => ln.replaceAll(find, replace))
-            .join('\n'),
+            .join(`\n`),
         buffer.toString(),
       )
   }
