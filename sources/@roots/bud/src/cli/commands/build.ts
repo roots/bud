@@ -84,8 +84,7 @@ export class BuildCommand extends BaseCommand {
   })
 
   public debug = Option.Boolean(`--debug`, false, {
-    description:
-      `Enable debugging mode. Very verbose logging. Writes output files to \`@storage\` directory`,
+    description: `Enable debugging mode. Very verbose logging. Writes output files to \`@storage\` directory`,
   })
 
   /**
@@ -253,8 +252,7 @@ export class BuildCommand extends BaseCommand {
    * --notify
    */
   public editor = Option.Boolean(`--editor`, false, {
-    description:
-      `Open editor to file containing errors on unsuccessful development build`,
+    description: `Open editor to file containing errors on unsuccessful development build`,
   })
 
   /**

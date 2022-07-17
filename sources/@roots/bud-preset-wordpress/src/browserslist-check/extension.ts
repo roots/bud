@@ -47,9 +47,8 @@ ${c.red.bold(
         this.app.hooks.on(`build.target`, `web`)
 
         if (this.app.extensions.has(`@roots/bud-postcss`)) {
-          const postcss: any = this.app.extensions.get(
-            `@roots/bud-postcss`,
-          )
+          const postcss: any =
+            this.app.extensions.get(`@roots/bud-postcss`)
           if (postcss.plugins.has(`env`)) {
             this.app.context.stdout.write(`\
 │
