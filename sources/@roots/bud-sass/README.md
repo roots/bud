@@ -32,6 +32,51 @@ npm install @roots/bud-sass --save-dev
 
 ## Usage
 
+### Basics
+
+After installation, sass will automatically preprocess any `.scss` or `.sass` modules in your project with sass.
+
+Additionally, if [@roots/bud-postcss](https://bud.js.org/extensions/bud-postcss) is available, postcss will be applied to your `.scss` and `.sass` source files.
+
+If you are using [@roots/bud-preset-recommend](https://bud.js.org/extensions/bud-preset-recommend), [@roots/bud-preset-wordpress](https://bud.js.org/extensions/bud-preset-wordpress), or [@roots/sage](https://bud.js.org/extensions/sage) then postcss is automatically applied.
+
+### Global Imports
+
+Use the `bud.sass.importGlobal` function to ensure a module is made available throughout your sass stylesheets, regardless of scope.
+
+```ts
+bud.sass.importGlobal("@src/styles/variables");
+```
+
+If you have more than one stylesheet to import, you may use an array:
+
+```ts
+bud.sass.importGlobal([
+  "@src/styles/variables",
+  "@src/styles/mixins",
+  "@src/styles/functions",
+]);
+```
+
+### Global Values
+
+Use the `bud.sass.registerGlobal` function to ensure global styles are made available throughout your sass stylesheets, regardless of scope.
+
+This function differs from `bud.sass.importGlobal` in that it can be passed arbitrary values.
+
+```ts
+bud.sass.registerGlobal("$foo: rgba(0, 0, 0, 1);");
+```
+
+If you want to divide these values up using an array, you may do so.
+
+```ts
+bud.sass.registerGlobal([
+  "$foo: rgba(0, 0, 0, 1);",
+  "$bar: rgba(255, 255, 255, 1);",
+]);
+```
+
 ## Contributing
 
 Contributions are welcome from everyone.

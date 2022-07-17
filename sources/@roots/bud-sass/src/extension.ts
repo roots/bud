@@ -43,7 +43,10 @@ export default class BudSass extends Extension {
   public async afterConfig() {
     this.app.build
       .setLoader('sass', await this.resolve('sass-loader'))
-      .setItem('sass', {loader: 'sass', options: this.options})
+      .setItem('sass', {
+        loader: 'sass',
+        options: this.options,
+      })
       .setRule('sass', {
         test: app => app.hooks.filter('pattern.sass'),
         include: [app => app.path('@src')],
@@ -62,5 +65,47 @@ export default class BudSass extends Extension {
     if (this.app.postcss) {
       this.app.postcss.syntax = 'postcss-scss'
     }
+  }
+
+  /**
+   * Register global stylsheet
+   *
+   * @remarks
+   * Used to register styles which are included globally
+   *
+   * @example
+   * ```ts
+   * bud.sass.registerGlobal(`$primary-color: #ff0000;`)
+   * ```
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public registerGlobal(data: string | Array<string>): this {
+    data = Array.isArray(data) ? data : [data]
+    return this.setOption('additionalData', value =>
+      [value ?? null, ...data].filter(Boolean).join('\n'),
+    )
+  }
+
+  /**
+   * Import a partial globally
+   *
+   * @remarks
+   * Used to import a partial globally (such as a `variables.scss` file)
+   *
+   * @example
+   * ```ts
+   * bud.sass.importPartial()
+   * ```
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public importGlobal(data: string | Array<string>): this {
+    data = Array.isArray(data) ? data : [data]
+    return this.registerGlobal(data.map(item => `@import "${item}";`))
   }
 }

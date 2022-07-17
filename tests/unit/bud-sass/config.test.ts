@@ -4,7 +4,7 @@ import BudSass from '@roots/bud-sass'
 describe('@roots/bud-sass registration', () => {
   let bud: Bud
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     bud = await factory()
     await bud.extensions.add(BudSass)
   })
@@ -24,6 +24,10 @@ describe('@roots/bud-sass registration', () => {
   })
 
   it('uses configured values', async () => {
+    bud.sass.setOption(
+      'additionalData',
+      `@import "@styles/common/variables";`,
+    )
     await bud.extensions.runAll('_afterConfig')
     expect(bud.build.items.sass.getOptions().additionalData).toBe(
       `@import "@styles/common/variables";`,
