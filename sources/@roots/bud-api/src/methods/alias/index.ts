@@ -1,31 +1,34 @@
 import type {Bud} from '@roots/bud-framework'
 import type {Configuration} from 'webpack'
 
+interface AliasObject {
+  [key: string]: string | false | string[]
+}
+
 export interface facade {
-  (alias: Configuration['resolve']['alias']): Bud
+  (
+    ...input:
+      | [AliasObject & Configuration['resolve']['alias']]
+      | [string, string | false | string[]]
+  ): Bud
 }
 
 export interface alias {
-  (alias: Configuration['resolve']['alias']): Promise<Bud>
+  (
+    ...input:
+      | [AliasObject & Configuration['resolve']['alias']]
+      | [string, string | false | string[]]
+  ): Promise<Bud>
 }
 
-export const alias: alias = async function (input) {
+export const alias: alias = async function (...input) {
   const app = this as Bud
 
-  input = Object.entries(input).reduce((a, [k, v]) => {
-    if (v.startsWith('@')) {
-      return {...a, [k]: app.path(v)}
-    }
-
-    if (!v.startsWith('/')) {
-      return {...a, [k]: app.path(v)}
-    }
-
-    return {...a, [k]: v}
-  }, {})
+  const records: AliasObject =
+    typeof input[0] === 'string' ? {[input[0]]: input[1]} : input[0]
 
   app.hooks.async('build.resolve.alias', async aliases => {
-    return {...(aliases ?? {}), ...(input ?? {})}
+    return {...(aliases ?? {}), ...(records ?? {})}
   })
 
   return app
