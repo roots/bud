@@ -8,7 +8,7 @@
   },
   "devDependencies": {
     "@types/fs-extra": "9.0.13",
-    "@types/node": "16.11.43",
+    "@types/node": "16.11.45",
     "@yarnpkg/builder": "3.2.2",
     "@yarnpkg/cli": "3.2.1",
     "@yarnpkg/core": "3.2.2",
