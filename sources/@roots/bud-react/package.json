@@ -78,7 +78,7 @@
     }
   },
   "devDependencies": {
-    "@babel/core": "7.18.6",
+    "@babel/core": "7.18.9",
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@roots/bud-swc": "workspace:sources/@roots/bud-swc",
     "@roots/bud-typescript": "workspace:sources/@roots/bud-typescript",
