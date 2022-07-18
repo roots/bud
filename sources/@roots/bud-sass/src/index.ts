@@ -12,6 +12,9 @@ import type {Build} from '@roots/bud-framework'
 import BudSass from './extension.js'
 
 declare module '@roots/bud-framework' {
+  interface Bud {
+    sass: BudSass
+  }
   interface Modules {
     '@roots/bud-sass': BudSass
   }
