@@ -1,0 +1,106 @@
+---
+slug: '6.3.3'
+title: 'Release: 6.3.3'
+description: 'Release notes for bud.js 6.3.3'
+date: 2022-07-18
+author: Kelly Mears
+author_title: Lead developer
+author_url: https://github.com/kellymears
+author_image_url: https://avatars.githubusercontent.com/u/397606?v=4
+tags: [release]
+---
+
+<!--truncate-->
+
+## 🩹 Fix: extensions api inconsistencies
+
+This is only relevant if you are writing an extension for bud.js.
+
+All extension lifecycle methods now have a single signature:
+
+```ts
+interface Method {
+  (bud: Bud, options: Options): Promise<unknown>
+}
+```
+
+This applies to: `init`, `register`, `boot`, `afterConfig`, `beforeBuild`, `make`, `apply` and `when`.
+
+## ✨ Improve: `@roots/bud-sass` configuration options
+
+The [documentation for @roots/bud-sass](https://bud.js.org/extensions/bud-sass) has been updated.
+
+### Global Imports
+
+Use the `bud.sass.importGlobal` function to make a scss module available throughout your stylesheets, regardless of scope.
+
+```ts
+bud.sass.importGlobal('@src/styles/variables')
+```
+
+If you have more than one stylesheet to import, you may use an array:
+
+```ts
+bud.sass.importGlobal([
+  '@src/styles/variables',
+  '@src/styles/mixins',
+  '@src/styles/functions',
+])
+```
+
+### Global Values
+
+Use the `bud.sass.registerGlobal` function to ensure global styles are made available throughout your sass stylesheets, regardless of scope.
+
+This function differs from `bud.sass.importGlobal` in that it can be passed arbitrary values.
+
+```ts
+bud.sass.registerGlobal('$foo: rgba(0, 0, 0, 1);')
+```
+
+If you want to divide these values up using an array, you may do so.
+
+```ts
+bud.sass.registerGlobal([
+  '$foo: rgba(0, 0, 0, 1);',
+  '$bar: rgba(255, 255, 255, 1);',
+])
+```
+
+### bud.alias improvements
+
+Resolved some inconsistencies between the function typings, documentation and implementation.
+
+You are now able to use an array of values for an alias.The first resolvable
+module found will be used, checking in the order of the supplied array.
+
+Example:
+
+```ts
+bud.alias('@app', [
+  bud.path('@src/scripts/app'),
+  bud.path('@src/scripts/utils'),
+])
+```
+
+Check [the updated documentation for bud.alias](https://bud.js.org/docs/bud.alias).
+
+### Improved overlay and indicator web components
+
+The hmr status indicator and client overlay are now using the shadow dom to more or less fully separate
+their styles from page styles.
+
+All of the [@roots/bud-client](https://github.com/roots/bud/tree/main/sources/@roots/bud-client) scripts remain dependency free.
+
+## Release information
+
+- 🩹 fix(patch): correct extensions api inconsistencies (#1582)
+- ✨ improve(patch): improve sass configuration api (#1580)
+- ✨ improve(patch): bud.alias (#1581)
+- ✨ improve(patch): use shadowdom for client (#1578)
+
+For more information [review the diff to see what's changed](https://github.com/roots/bud/compare/v6.3.2...v6.3.3).
+
+```
+
+```
