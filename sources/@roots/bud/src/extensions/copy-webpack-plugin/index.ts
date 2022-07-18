@@ -19,7 +19,7 @@ import CopyWebpackPlugin, {PluginOptions} from 'copy-webpack-plugin'
 @label('copy-webpack-plugin')
 @plugin(CopyWebpackPlugin)
 @options<PluginOptions>({patterns: []})
-@when(async options => options.patterns?.length > 0)
+@when(async (_app, options) => options.patterns?.length > 0)
 export default class BudCopyPlugin extends Extension<
   PluginOptions,
   CopyWebpackPlugin

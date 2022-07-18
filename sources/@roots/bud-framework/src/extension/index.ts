@@ -13,11 +13,11 @@ export type Options<T = any> = {
 
 export namespace Options {
   export type FuncMap<T = any> = Options<{
-    [K in keyof T as `${K & string}`]?: (app?: Bud) => T[K]
+    [K in keyof T as `${K & string}`]?: (app: Bud) => T[K]
   }>
 
   export type Seed<T = any> = Options<{
-    [K in keyof T as `${K & string}`]?: ((app?: Bud) => T[K]) | T[K]
+    [K in keyof T as `${K & string}`]?: ((app: Bud) => T[K]) | T[K]
   }>
 }
 
@@ -129,7 +129,7 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
    *
    * @public
    */
-  public when?(options: Options<E>, app: Bud): Promise<boolean>
+  public when?(app: Bud, options?: Options<E>): Promise<boolean>
 
   /**
    * `init` callback
@@ -139,7 +139,7 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
    *
    * @public
    */
-  public async init?(options: Options<E>, app: Bud): Promise<unknown>
+  public async init?(app: Bud, options?: Options<E>): Promise<unknown>
 
   /**
    * `register` callback
@@ -149,7 +149,7 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
    *
    * @public
    */
-  public async register?(options: Options<E>, app: Bud): Promise<unknown>
+  public async register?(app: Bud, options?: Options<E>): Promise<unknown>
 
   /**
    * `boot` callback
@@ -159,21 +159,27 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
    *
    * @public
    */
-  public async boot?(options?: Options<E>, app?: Bud): Promise<unknown>
+  public async boot?(app: Bud, options?: Options<E>): Promise<unknown>
 
   /**
    * `afterConfig` callback
    *
    * @public
    */
-  public async afterConfig?(): Promise<unknown>
+  public async afterConfig?(
+    app: Bud,
+    options?: Options<E>,
+  ): Promise<unknown>
 
   /**
    * `beforeBuild` callback
    *
    * @public
    */
-  public async beforeBuild?(): Promise<unknown>
+  public async beforeBuild?(
+    app: Bud,
+    options?: Options<E>,
+  ): Promise<unknown>
 
   /**
    * `make` callback
@@ -183,7 +189,7 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
    *
    * @public
    */
-  public async make?(options?: Options<E>, app?: Bud): Promise<Plugin>
+  public async make?(app: Bud, options?: Options<E>): Promise<Plugin>
 
   /**
    * Plugin constructor
@@ -248,7 +254,7 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
     await this.app.hooks.fire(`${this.label}/init/before`)
 
     try {
-      await this.init(this.options, this.app)
+      await this.init(this.app, this.options)
       this.meta['_init'] = true
     } catch (error) {
       this.logger.error('error on init', '\n', error)
@@ -276,7 +282,7 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
       this.logger.error(this.label, 'register => init error', '\n')
     }
     try {
-      await this.register(this.options, this.app)
+      await this.register(this.app, this.options)
       this.meta['_register'] = true
     } catch (error) {
       this.logger.error('error on register', '\n', error)
@@ -305,7 +311,7 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
       this.logger.error(this.label, 'register => init error', '\n')
     }
     try {
-      await this.boot(this.options, this.app)
+      await this.boot(this.app, this.options)
       this.meta['_boot'] = true
     } catch (error) {
       this.app.error(this.label, 'boot error', '\n', error)
@@ -325,7 +331,7 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
     if (isUndefined(this.beforeBuild) || enabled === false) return
 
     await this.app.hooks.fire(`${this.label}/beforeBuild/before`)
-    await this.beforeBuild()
+    await this.beforeBuild(this.app, this.options)
     await this.app.hooks.fire(`${this.label}/beforeBuild/after`)
   }
 
@@ -340,7 +346,7 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
     if (isUndefined(this.afterConfig) || enabled === false) return
 
     await this.app.hooks.fire(`${this.label}/afterConfig/before`)
-    await this.afterConfig()
+    await this.afterConfig(this.app, this.options)
     await this.app.hooks.fire(`${this.label}/afterConfig/after`)
   }
 
@@ -367,7 +373,7 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
     if (this.apply) return this as {apply: any}
 
     try {
-      return await this.make()
+      return await this.make(this.app, this.options)
     } catch (error) {
       this.app.error(this.label, 'make error', '\n', error)
     }
@@ -575,7 +581,7 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
   @bind
   public async isEnabled(): Promise<boolean> {
     if (this.when && isFunction(this.when))
-      return await this.when(this.options ?? {}, this.app)
+      return await this.when(this.app, this.options)
 
     if (this.when && isBoolean(this.when))
       return this.when as unknown as boolean

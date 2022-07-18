@@ -6,7 +6,7 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
-import {isFunction, isUndefined} from 'lodash-es'
+import {isFunction, isString, isUndefined} from 'lodash-es'
 import Webpack from 'webpack'
 
 /**
@@ -15,14 +15,12 @@ import Webpack from 'webpack'
  * @public
  */
 export interface Options {
-  allowedUris?: (
-    app: Bud,
-  ) => Array<string | RegExp | ((uri: string) => boolean)>
-  cacheLocation: (app: Bud) => false | string
-  frozen: (app: Bud) => boolean
-  lockfileLocation: (app: Bud) => string
-  proxy: (app: Bud) => string
-  upgrade: (app: Bud) => boolean
+  allowedUris?: Array<string | RegExp | ((uri: string) => boolean)>
+  cacheLocation: false | string
+  frozen: boolean
+  lockfileLocation: string
+  proxy: string
+  upgrade: boolean
 }
 
 /**
@@ -36,14 +34,13 @@ export interface Options {
 @label('cdn')
 @expose('cdn')
 @options<Options>({
-  allowedUris: () => [(uri: string) => true],
-  cacheLocation: () => (app: Bud) =>
-    app.path('@storage', app.name, 'modules'),
-  frozen: () => false,
+  allowedUris: [(uri: string) => true],
+  cacheLocation: (app: Bud) => app.path('@storage', app.name, 'modules'),
+  frozen: false,
   lockfileLocation: (app: Bud): string =>
     app.path('@storage', app.name, 'bud.lock'),
-  proxy: (app: Bud) => app.env.get('HTTP_PROXY'),
-  upgrade: () => true,
+  proxy: ({env}) => env.isString('HTTP_PROXY') && env.get('HTTP_PROXY'),
+  upgrade: true,
 })
 export default class Cdn extends Extension<Options, null> {
   /**
@@ -109,7 +106,7 @@ export default class Cdn extends Extension<Options, null> {
       | Array<string | RegExp | ((uri: string) => boolean)>
       | Options['allowedUris'],
   ) {
-    this.setOption('allowedUris', isFunction(value) ? value : () => value)
+    this.setOption('allowedUris', value)
   }
 
   /**
@@ -123,10 +120,7 @@ export default class Cdn extends Extension<Options, null> {
   public set cacheLocation(
     value: string | false | Options['cacheLocation'],
   ) {
-    this.setOption(
-      'cacheLocation',
-      isFunction(value) ? value : () => value,
-    )
+    this.setOption('cacheLocation', value)
   }
 
   /**
@@ -138,7 +132,7 @@ export default class Cdn extends Extension<Options, null> {
     return this.app.maybeCall(this.getOption('frozen'))
   }
   public set frozen(value: boolean) {
-    this.setOption('frozen', isFunction(value) ? value : () => value)
+    this.setOption('frozen', value)
   }
 
   /**
@@ -152,10 +146,7 @@ export default class Cdn extends Extension<Options, null> {
   public set lockfileLocation(
     value: string | Options['lockfileLocation'],
   ) {
-    this.setOption(
-      'lockfileLocation',
-      isFunction(value) ? value : () => value,
-    )
+    this.setOption('lockfileLocation', value)
   }
 
   /**
@@ -167,7 +158,7 @@ export default class Cdn extends Extension<Options, null> {
     return this.app.maybeCall(this.getOption('proxy'))
   }
   public set proxy(value: string | Options['proxy']) {
-    this.setOption('proxy', isFunction(value) ? value : () => value)
+    this.setOption('proxy', value)
   }
 
   /**
@@ -179,7 +170,7 @@ export default class Cdn extends Extension<Options, null> {
     return this.app.maybeCall(this.getOption('upgrade'))
   }
   public set upgrade(value: boolean | Options['upgrade']) {
-    this.setOption('upgrade', isFunction(value) ? value : () => value)
+    this.setOption('upgrade', value)
   }
 
   /**
@@ -280,7 +271,7 @@ export default class Cdn extends Extension<Options, null> {
       cacheLocation: this.cacheEnabled ? this.cacheLocation : false,
       frozen: this.frozen,
       lockfileLocation: this.lockfileLocation,
-      proxy: this.proxy,
+      proxy: isString(this.proxy) ? this.proxy : undefined,
       upgrade: this.upgrade,
     }))
 
@@ -330,16 +321,5 @@ export default class Cdn extends Extension<Options, null> {
         )
       }
     }
-  }
-
-  /**
-   * `when` callback
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async when() {
-    return true
   }
 }
