@@ -44,7 +44,7 @@ import {
   cleanOnceBeforeBuildPatterns: ['**/*'],
 })
 @when(
-  async (_opt, {hooks, isProduction}) =>
+  async ({hooks, isProduction}) =>
     hooks.filter('feature.clean') && isProduction,
 )
 export default class BudClean extends Extension<

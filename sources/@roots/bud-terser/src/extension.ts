@@ -1,4 +1,3 @@
-import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
@@ -38,8 +37,8 @@ export type Options = TerserPlugin.BasePluginOptions & {
 @dependsOnOptional(['@roots/bud-swc'])
 @expose('terser')
 @options<Options>({
-  include: (bud: Bud) => bud.hooks.filter('pattern.js'),
-  exclude: (bud: Bud) => bud.hooks.filter('pattern.modules'),
+  include: ({hooks}) => hooks.filter('pattern.js'),
+  exclude: ({hooks}) => hooks.filter('pattern.modules'),
   extractComments: false,
   parallel: true,
   terserOptions: {

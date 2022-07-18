@@ -28,7 +28,7 @@ export const production = <Type extends {new (...args: any[]): any}>(
      * @returns `true` when mode is `production`
      * @public
      */
-    public when() {
-      return this.app.isProduction
+    public when({isProduction}) {
+      return isProduction
     }
   }

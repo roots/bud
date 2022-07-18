@@ -4,47 +4,30 @@ import * as extension from '@roots/bud-purgecss'
 import {purgecss} from '@roots/bud-purgecss/api'
 
 describe('@roots/bud-purgecss', () => {
-  describe('purgecss extension', () => {
-    it('has name prop', () => {
-      expect(extension.label).toBe('@roots/bud-purgecss')
-    })
-    it('has a registration method', () => {
-      expect(extension.register).toBeInstanceOf(Function)
-    })
+  let bud: Bud
+  beforeEach(async () => {
+    bud = await factory()
+    await bud.build.make()
+    await bud.extensions.add(postcss)
   })
 
-  describe('register', () => {
-    let bud: Bud
-
-    beforeAll(async () => {
-      bud = await factory()
-      await bud.build.make()
-      await bud.extensions.add(postcss)
-    })
-
-    it('has a registration method', async () => {
-      await (extension as any).register(null, bud)
-      expect(bud.purgecss).toBeInstanceOf(Function)
-    })
+  it('should have a name prop', () => {
+    expect(extension.label).toBe('@roots/bud-purgecss')
+  })
+  it('should have a register method', () => {
+    expect(extension.register).toBeInstanceOf(Function)
   })
 
-  describe('bud.purgecss', () => {
-    let bud: Bud
+  it('should register bud.purgecss', async () => {
+    bud = await factory()
+    await bud.build.make()
+    await bud.extensions.add(postcss)
+    await extension.register(bud)
+    expect(bud.purgecss).toBeInstanceOf(Function)
+  })
 
-    beforeAll(async () => {
-      bud = await factory()
-      await bud.build.make()
-      await bud.extensions.add(postcss)
-    })
-
-    it('is a fn', () => {
-      expect(purgecss).toBeInstanceOf(Function)
-    })
-
-    it('adds the purgecss plugin to the postcss repository', () => {
-      purgecss.bind(bud)({content: ['**/*.html']})
-
-      expect(bud.postcss.plugins.has('purgecss')).toBe(true)
-    })
+  it('should add plugin to the postcss plugins repository', () => {
+    purgecss.bind(bud)({content: ['**/*.html']})
+    expect(bud.postcss.plugins.has('purgecss')).toBe(true)
   })
 })

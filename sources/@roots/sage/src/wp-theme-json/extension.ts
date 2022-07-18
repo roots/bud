@@ -50,7 +50,7 @@ export interface Mutator {
  */
 @label('@roots/sage/wp-theme-json')
 @options({
-  path: app => app.path('./theme.json'),
+  path: ({path}) => path('./theme.json'),
   settings: {
     color: {
       custom: false,

@@ -57,36 +57,10 @@ class MyExtension extends Extension {
 
 The rest of this document assumes that extensions are being authored as a class and are being exported from an ESM package.
 
-## Binding extension methods
-
-If your extension method references the class context (`this`), you should bind it to the class instance.
-
-```ts title="extension.ts"
-import {Extension} from '@roots/bud-framework/extension'
-
-export default class MyExtension extends Extension {
-  public constructor(...params) {
-    super(...params)
-    this.register = this.register.bind(this)
-  }
-
-  public async register() {}
-}
-```
-
-Alternatively, you can use [the `@bind` decorator](/guides/extending/decorators#bind).
-
-```ts title="extension.ts"
-import {Extension} from '@roots/bud-framework/extension'
-import {bind} from '@roots/bud-framework/extension/decorators'
-
-export default class MyExtension extends Extension {
-  @bind
-  public async register() {}
-}
-```
-
 ## Interface
+
+Any extension method from the Extension base class prefixed with an underscore should be considered private. This method needs to be public
+for compatibility with class decorators, but it is not intended to be used as a public method. These methods can and will change without notice.
 
 ### label
 
@@ -172,8 +146,8 @@ export default class MyExtension extends Extension {
 
 Now, if the user makes a change to the `@src` path, the reference will be updated in the extension.
 
-The only "gotcha" here is that if you have an extension option which is itself callable, you will need to account for that. It should be as simple
-as wrapping the option in a function.
+The only "gotcha" here is that if you have an extension option which is itself callable, you will need to account for that. Otherwise, bud will try to call the
+option fn.
 
 ```ts title="extension.ts"
 import {Bud} from '@roots/bud-framework'
@@ -211,31 +185,87 @@ extension.setOptions({
 
 Async callback. Called first. Useful to avoid needing to deal with `super` and the constructor.
 
-This method has an internal wrapper prefixed with an underscore: `_init`. This method needs to be public
-for compatibility with any class decorators, but it is not intended to be used as a public method.
+```ts title="extension.ts"
+import {Bud} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
+
+export default class MyExtension extends Extension {
+  public label = 'bud-extension'
+
+  public async init(app, options) {
+    // do something
+  }
+}
+```
 
 ### register
 
 Async callback. Try to do things in this method, when possible.
 
-This method has an internal wrapper prefixed with an underscore: `_register`. This method needs to be public
-for compatibility with any class decorators, but it is not intended to be used as a public method.
+```ts title="extension.ts"
+import {Bud} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
+
+export default class MyExtension extends Extension {
+  public label = 'bud-extension'
+
+  public async register(app, options) {
+    // do something
+  }
+}
+```
 
 ### boot
 
 Async callback. Called after `register`. Good for business which requires another
 extension to have already had `register` called on it.
 
-This method has an internal wrapper prefixed with an underscore: `_boot`. This method needs to be public
-for compatibility with any class decorators, but it is not intended to be used as a public method.
+```ts title="extension.ts"
+import {Bud} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
+
+export default class MyExtension extends Extension {
+  public label = 'bud-extension'
+
+  public async boot(app, options) {
+    // do something
+  }
+}
+```
+
+### afterConfig
+
+Async callback. Called after user configuration has been processed.
+
+```ts title="extension.ts"
+import {Bud} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
+
+export default class MyExtension extends Extension {
+  public label = 'bud-extension'
+
+  public async afterConfig(app, options) {
+    // do something
+  }
+}
+```
 
 ### beforeBuild
 
-Async callback. Called after user configuration has been processed (directly before
-configuration is constructed and passed to the compiler).
+Async callback. Called directly before configuration is constructed and passed to the compiler).
 
-This method has an internal wrapper prefixed with an underscore: `_beforeBuild`. This method needs to be public
-for compatibility with any class decorators, but it is not intended to be used as a public method.
+```ts title="extension.ts"
+import {Bud} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
+
+export default class MyExtension extends Extension {
+  public label = 'bud-extension'
+
+  public async beforeBuild(app, options) {
+    // do something
+  }
+}
+```
 
 ### make
 
@@ -321,5 +351,19 @@ export default class MyExtension extends Extension {
 ### apply
 
 An `apply` method indicates to **bud.js** that the extension is doing double duty as a compiler plugin and a bud extension.
+
+```ts title="extension.ts"
+import {Bud} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
+import Plugin from 'some-webpack-plugin'
+
+export default class MyExtension extends Extension {
+  public label = 'bud-extension'
+
+  public apply() {
+    // see webpack documentation. this is treated exactly the same as a pure webpack plugin.
+  }
+}
+```
 
 When present **bud.js** will pass the extension itself to the compiler's `plugin` array.

@@ -30,6 +30,7 @@ export default class BudTypeCheckPlugin extends Extension<
    * Enable typechecking
    *
    * @override {@link Extension.enable}
+   * @decorator `@bind`
    */
   @bind public async enable(state: boolean = true) {
     this.app.extensions
@@ -43,6 +44,12 @@ export default class BudTypeCheckPlugin extends Extension<
     )
   }
 
+  /**
+   * `init` callback
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind public async init() {
     const typescriptPath = await this.resolve('typescript')
 

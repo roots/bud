@@ -1,3 +1,4 @@
+import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {bind, label} from '@roots/bud-framework/extension/decorators'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
@@ -33,7 +34,7 @@ export default class BudInterpolateHtmlPlugin extends Extension<
    * @public
    */
   @bind
-  public async when(options: Record<string, RegExp>) {
+  public async when(_app: Bud, options: Record<string, RegExp>) {
     return options ? true : false
   }
 }
