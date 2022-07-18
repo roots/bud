@@ -9,13 +9,13 @@ description: Register shorthand for resolving modules.
 **Aliases must be absolute**, so it makes sense to use [bud.path](/docs/bud.path) when defining them:
 
 ```ts
-bud.alias('components', bud.path('@src/components'))
+bud.alias('@components', bud.path('@src/components'))
 ```
 
 Now, in application scripts or stylesheets you can use that alias in import statements to reference the components directory:
 
 ```ts
-import {Dropdown} from 'components/dropdown'
+import {Dropdown} from '@components/dropdown'
 ```
 
 You can also use them in .css files:
@@ -26,11 +26,20 @@ You can also use them in .css files:
 }
 ```
 
+## Predefined aliases
+
+Out-of-the-box you can reference your source directory with `@src` and output directory with `@dist`.
+
+| alias | bud.path | filesystem path  |
+| :---- | :------- | :--------------- |
+| @src  | @src     | `[project]/src`  |
+| @dist | @dist    | `[project]/dist` |
+
 ## Naming aliases
 
 The naming of **bud.alias** handles is not restrictive the way it is with [bud.path](/docs/bud.path). You are free to start an alias with any character you like.
 
-One popular convention is to reference the source directory with a lone `@`:
+One popular convention is to reference the source directory with `@`:
 
 ```ts
 bud.alias('@', bud.path('@src'))
