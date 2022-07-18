@@ -83,7 +83,18 @@ bud.alias('@app', [
 ])
 ```
 
-Check [the updated documentation for bud.alias](https://bud.js.org/docs/bud.alias).
+Finally, you may now also pass `false` to ignore a specific module import:
+
+You can do this with a signifier or a path:
+
+```ts
+bud.alias({
+  'ignored-module': false,
+  [bud.path('./ignored-module')]: false,
+})
+```
+
+For those who remember: this basically replaces `null-loader`.
 
 ## ✨ Improve: overlay and indicator web components
 
