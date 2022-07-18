@@ -25,7 +25,7 @@
   },
   "type": "module",
   "devDependencies": {
-    "@swc/core": "1.2.215",
+    "@swc/core": "1.2.218",
     "@swc/jest": "0.2.21",
     "@types/express": "4.17.13",
     "@types/fs-extra": "9.0.13",
