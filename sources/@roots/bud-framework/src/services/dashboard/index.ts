@@ -12,8 +12,6 @@ export interface Service extends Base {
 
   progressCallback(percent: number, scope: string, ...message: any[]): void
 
-  update(): this
-
   /**
    * Render the dashboard
    *

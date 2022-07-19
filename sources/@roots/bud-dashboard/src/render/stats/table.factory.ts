@@ -6,7 +6,7 @@ export const make = (data: Array<Array<any>>): string => {
     singleLine: true,
     columnDefault: {
       alignment: 'left',
-      wrapWord: true,
+      wrapWord: false,
       paddingRight: 2,
       paddingLeft: 0,
     },

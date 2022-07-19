@@ -1,9 +1,5 @@
 /* eslint-disable no-console */
-import type {Config} from '@roots/bud-framework'
 import {Builtins, Cli} from 'clipanion'
-import {execa} from 'execa'
-import {platform} from 'node:os'
-import {join} from 'node:path'
 
 import {makeContext} from '../context/index.js'
 import {BuildCommand} from './commands/build.js'
@@ -12,29 +8,7 @@ import {DevCommand} from './commands/dev.js'
 import {DoctorCommand} from './commands/doctor.js'
 import {InstallCommand} from './commands/install.js'
 import {TypecheckCommand} from './commands/typecheck.js'
-
-/**
- * Ensure notifier permissions (macOS)
- * @param context - application context
- * @public
- */
-const notifier = async (context: Config.Context) => {
-  if (platform() === 'darwin') {
-    try {
-      const notifierPath = join(
-        context.application.dir,
-        'vendor',
-        'mac.no-index',
-        'roots-notifier.app',
-        'Contents',
-        'MacOS',
-        'roots-notifier',
-      )
-
-      await execa(`chmod`, [`u+x`, notifierPath])
-    } catch (err) {}
-  }
-}
+import ensureNotifierPermissions from './notifier/ensureNotifierPermissions.js'
 
 /**
  * Run Bud CLI
@@ -44,16 +18,17 @@ const notifier = async (context: Config.Context) => {
 const bud = async () => {
   /**
    * Execution context
+   *
    * @see {@link https://mael.dev/clipanion/docs/contexts}
    */
   const context = await makeContext()
-  await notifier(context)
+
+  await ensureNotifierPermissions(context)
 
   const application = new Cli({
     binaryLabel: context.application.label,
     binaryName: context.application.label,
     binaryVersion: context.application.version,
-    enableCapture: false,
     enableColors: true,
   })
 

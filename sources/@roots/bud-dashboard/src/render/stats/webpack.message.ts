@@ -16,7 +16,7 @@ export const makeWarning = ({message, file, type}) =>
 export const makeError = ({message, file, type}) =>
   `${chalk
     .bgHex(theme.red)
-    .white(type ?? ' ERROR ')} ${file}\n\n${message}\n\n`
+    .white(type ?? ' ERROR ')} ${file}\n${message}\n`
 
 export const mapMessages = (
   messages: Array<{message: string; file: string}>,

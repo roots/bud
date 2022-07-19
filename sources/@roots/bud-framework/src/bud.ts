@@ -312,7 +312,7 @@ export abstract class Bud {
   @bind
   public debug(...messages: any[]) {
     // eslint-disable-next-line no-console
-    this.context.stdout.write(
+    console.error(
       format(messages, {
         callToJSON: false,
         maxDepth: 8,
@@ -357,7 +357,7 @@ export abstract class Bud {
       'ignoreIllegals',
     ])
 
-    this.context.stdout.write(
+    console.log(
       format(obj, {
         callToJSON: false,
         maxDepth: 8,

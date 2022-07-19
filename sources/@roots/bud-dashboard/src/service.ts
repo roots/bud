@@ -1,10 +1,13 @@
+/* eslint-disable no-console */
 import {Dashboard as Base, Service} from '@roots/bud-framework'
+import chalk from 'chalk'
 import {bind} from 'helpful-decorators'
-import * as logUpdate from 'log-update'
+import {MultiProgressBars} from 'multi-progress-bars'
+import readline from 'node:readline'
 import type {StatsCompilation} from 'webpack'
 
-import {Line} from './render/line.js'
 import {reporter} from './render/stats/index.js'
+import {theme} from './theme.js'
 
 /**
  * Dashboard service
@@ -17,43 +20,9 @@ export class Dashboard extends Service implements Base.Service {
    *
    * @public
    */
-  public interval: NodeJS.Timer
+  public progress: MultiProgressBars
 
-  /**
-   * Progress
-   *
-   * @public
-   */
-  public progress = new Line()
-
-  /**
-   * output
-   *
-   * @public
-   */
-  protected output: Array<string>
-
-  /**
-   * Current progress percentage
-   *
-   * @public
-   */
-  protected percent: number
-
-  /**
-   * Current frame
-   *
-   * @public
-   */
-  protected frame: string = ''
-
-  /**
-   * @override
-   */
-  @bind
-  public render(str: string) {
-    this.app.context.stdout.write(str)
-  }
+  public lastHash: string = ''
 
   /**
    * `register` callback
@@ -62,32 +31,19 @@ export class Dashboard extends Service implements Base.Service {
    * @decorator `@bind`
    */
   @bind
-  public async register() {
-    if (this.app.context.args.ci || this.app.env.has('JEST_WORKER_ID')) {
-      return
-    }
-
-    this.render = logUpdate.createLogUpdate(process.stdout, {
-      showCursor: false,
+  public async bootstrap() {
+    this.progress = new MultiProgressBars({
+      initMessage: '',
+      anchor: 'bottom',
+      border: true,
     })
 
-    this.interval = setInterval(this.update, 80)
-    this.app.hooks.action('app.close', async () => this.interval.unref())
-  }
-
-  /**
-   * Update cli
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public update() {
-    !this.progress.isComplete &&
-      this.progress.frame &&
-      this.render(this.progress.frame)
-
-    return this
+    this.progress.addTask('build', {
+      message: 'initializing',
+      type: 'percentage',
+      percentage: 0,
+      barTransformFn: bar => chalk.hex(theme.foregroundColor)(bar),
+    })
   }
 
   /**
@@ -106,13 +62,23 @@ export class Dashboard extends Service implements Base.Service {
     errors: any
     warnings: any
   }): this {
-    this.progress.complete(true)
+    if (!stats) return this
+    if (stats.hash == this.lastHash) return this
+    this.lastHash = stats.hash
 
-    this.frame = this.app.context.args.ci
-      ? this.app.compiler.stats.string.trim()
-      : reporter.report({stats, errors, warnings, app: this.app})
+    if (this.app.context.args.ci) {
+      console.log(this.app.compiler.stats.string.trim())
+      return this
+    }
 
-    this.app.context.stdout.write(this.frame)
+    const blank = '\n'.repeat(process.stdout.rows * 0.66)
+    console.log(blank)
+
+    readline.cursorTo(process.stdout, 0, 0)
+    readline.cursorTo(process.stderr, 0, 0)
+
+    readline.clearScreenDown(process.stdout)
+    reporter.report({stats, errors, warnings, app: this.app})
 
     return this
   }
@@ -124,17 +90,38 @@ export class Dashboard extends Service implements Base.Service {
    * @decorator `@bind`
    */
   @bind
-  public progressCallback(percent: number, scope: string) {
+  public progressCallback(
+    percent: number,
+    scope: string,
+    ...message: any[]
+  ): void {
     try {
-      this.percent = Math.ceil((percent ?? 0) * 100)
-      this.progress.complete(this.percent >= 99)
-
       const update = scope.includes(`]`)
         ? scope.split(`]`).pop()?.trim()
         : scope
 
-      this.progress.update(`${this.percent}%`, update)
-      this.update()
+      if (percent !== 1) {
+        this.progress.updateTask('build', {
+          percentage: percent,
+          barTransformFn: bar => chalk.hex(theme.foregroundColor)(bar),
+          message: update ? `${update} ${message.join(' ')}`.trim() : '',
+        })
+      } else if (this.app.compiler.stats?.json?.errorsCount > 0) {
+        this.progress.updateTask('build', {
+          barTransformFn: bar => chalk.hex(theme.red)(bar),
+          percentage: 1,
+        })
+      } else if (this.app.compiler.stats?.json?.errorsCount === 0) {
+        this.progress.updateTask('build', {
+          barTransformFn: bar => chalk.hex(theme.green)(bar),
+          percentage: 1,
+        })
+      } else {
+        this.progress.updateTask('build', {
+          barTransformFn: bar => chalk.hex(theme.foregroundColor)(bar),
+          percentage: 1,
+        })
+      }
     } catch (error) {
       this.app.warn(error)
     }

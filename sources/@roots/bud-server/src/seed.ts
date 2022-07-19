@@ -36,10 +36,7 @@ export const seed = (app: Bud) => {
       heartbeat: app.hooks.filter('dev.middleware.hot.options.heartbeat'),
     }))
     .hooks.on(`dev.middleware.hot.options.path`, () => `/__bud/hmr`)
-    .hooks.on(
-      `dev.middleware.hot.options.log`,
-      app.logger.instance.scope('hot').info,
-    )
+    .hooks.on(`dev.middleware.hot.options.log`, false)
     .hooks.on(`dev.middleware.hot.options.heartbeat`, 2000)
     .hooks.on(`dev.client.scripts`, clientScripts.callback)
     .hooks.on(`dev.watch.files`, new Set([]))

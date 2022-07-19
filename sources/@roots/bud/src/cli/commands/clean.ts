@@ -17,6 +17,7 @@ export class CleanCommand extends BaseCommand {
     examples: [[`Clean artifacts/caches`, `$0 clean`]],
   })
 
+  @bind
   public async execute() {
     try {
       this.app = await factory({
@@ -47,19 +48,11 @@ export class CleanCommand extends BaseCommand {
   public async cleanProjectAssets() {
     this.context.stdout.write('clearing artifacts\n')
 
-    try {
-      this.context.stdout.write(`emptying ${this.app.path('@storage')}\n`)
+    this.app.close()
+  }
 
-      await ensureDir(this.app.path('@storage'))
-      await remove(this.app.path('@storage'))
-
-      this.context.stdout.write(
-        chalk.green(`✔ emptying ${this.app.path('@storage')}\n`),
-      )
-    } catch (err) {
-      this.context.stderr.write(chalk.red(err))
-    }
-
+  @bind
+  public async cleanDist() {
     try {
       this.context.stdout.write(`emptying ${this.app.path('@dist')}\n`)
 
@@ -71,7 +64,23 @@ export class CleanCommand extends BaseCommand {
     } catch (err) {
       this.app.error(err)
     }
+  }
 
-    this.app.close()
+  @bind
+  public async cleanCache() {
+    try {
+      this.context.stdout.write(
+        `emptying ${this.app.relPath('@storage/cache')}\n`,
+      )
+
+      await ensureDir(this.app.path('@storage/cache'))
+      await remove(this.app.path('@storage/cache'))
+
+      this.context.stdout.write(
+        chalk.green(`✔ emptying ${this.app.path('@storage/cache')}\n`),
+      )
+    } catch (err) {
+      this.context.stderr.write(chalk.red(err))
+    }
   }
 }

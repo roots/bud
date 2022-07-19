@@ -5,7 +5,6 @@ import type {StatsCompilation} from 'webpack'
 
 import * as components from './components.js'
 import {theme} from './theme.js'
-import * as webpackMessage from './webpack.message.js'
 
 export const report = ({
   stats,
@@ -18,44 +17,42 @@ export const report = ({
   errors: any
   app: Bud
 }): string => {
-  const output = [`\n`]
+  errors
+    .map(error => error.message)
+    .map(err => console.log(err.concat('\n')))
+  warnings
+    .map(error => error.message)
+    .map(err => console.log(err.concat('\n')))
 
-  errors && output.push(...errors.map(webpackMessage.makeError))
-  warnings && output.push(...warnings.map(webpackMessage.makeWarning))
+  if (errors && errors?.length > 0) return ''
 
   stats?.children?.map((compilation, i) => {
-    if (stats.children.length > 1) {
-      output.push(
-        chalk
-          .hex(errors.length ? theme.red : theme.green)
-          .underline(
-            `\n${errors.length ? figures.cross : figures.tick} ${
-              compilation.name
-            }\n\n`,
-          ),
-      )
-    }
+    console.log(
+      chalk
+        .hex(errors.length ? theme.red : theme.green)
+        .underline(
+          `\n${errors.length ? figures.cross : figures.tick} ${
+            compilation.name
+          }\n`,
+        ),
+    )
 
     compilation?.entrypoints &&
-      output.push(
-        ...components.report({
+      components
+        .report({
           appName: app.name,
           count: [i + 1, stats?.children?.length ?? 1],
           context: app.context,
           compilation,
-        }),
-      )
+        })
+        .filter(output => output && output !== '')
+        .map(i => console.log(i))
 
-    output.push(
-      [
-        components.timing(app, compilation),
-        ...components.summary(app, compilation),
-      ].join(''),
-    )
+    console.log(components.summary(app, compilation).join(''))
 
     app.hooks.filter('feature.log') &&
-      output.push(...components.framework(app))
+      console.log(...components.framework(app))
   })
 
-  return output.filter(Boolean).join('')
+  return ''
 }

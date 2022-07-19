@@ -79,7 +79,7 @@ export const seed: Config.Options['seed'] = {
     ],
   ],
   'build.module.rules.after': [() => []],
-  'build.stats': [() => ({preset: 'errors-warnings'})],
+  'build.stats': [() => ({preset: 'errors-only'})],
   'dev.middleware.enabled': [() => ['dev', 'hot']],
   'dev.url': [() => new URL('http://0.0.0.0:3000')],
 }

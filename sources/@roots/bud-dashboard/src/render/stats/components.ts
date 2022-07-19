@@ -133,62 +133,72 @@ export const timing = (app: Bud, compilation: StatsCompilation) =>
     ],
   ])
 
-export const summary = (app: Bud, compilation: StatsCompilation) => [
-  table.make([
-    [
-      chalk.hex(theme.magenta)(`mode`),
-      chalk.hex(theme.foregroundColor)(app.mode),
-      chalk.hex(theme.magenta)(`hash`),
-      chalk.hex(theme.foregroundColor)(compilation.hash),
-    ],
-    [
-      chalk.hex(theme.magenta)(app.context.application.name),
-      chalk.hex(theme.foregroundColor)(app.context.application.version),
-      chalk.hex(theme.magenta)('webpack'),
-      chalk.hex(theme.foregroundColor)(compilation.version),
-    ],
-    [
-      chalk.hex(theme.magenta)('node'),
-      chalk.hex(theme.foregroundColor)(process.versions.node),
-      '',
-      '',
-    ],
-  ]),
-  ...(app.isDevelopment
-    ? [
-        table.make([
-          [
-            chalk.hex(theme.magenta)(`server url:`),
-            app.server.connection.url.toString(),
-          ],
-          app.hooks.filter('dev.middleware.enabled').includes('proxy')
-            ? [
-                chalk.hex(theme.magenta)('proxy url:'),
-                app.hooks.filter('dev.middleware.proxy.target').toString(),
-              ]
-            : [``, ``],
-        ]),
-      ]
-    : []),
-]
-
-export const development = (app: Bud) => [
-  box.make(
-    'development',
+export const summary = (app: Bud, compilation: StatsCompilation) =>
+  [
     table.make([
       [
-        chalk.hex(theme.magenta)('server'),
-        app.server.connection.url.toString(),
+        chalk.hex(theme.magenta)(`mode`),
+        chalk.hex(theme.foregroundColor)(app.mode),
+        chalk.hex(theme.magenta)(`hash`),
+        chalk.hex(theme.foregroundColor)(compilation.hash),
       ],
-      app.hooks.filter('dev.middleware.enabled')?.includes('proxy')
-        ? [
-            chalk.hex(theme.magenta)('proxy'),
-            app.hooks.filter('dev.middleware.proxy.target')?.toString(),
-          ]
-        : ['', ''],
+      [
+        chalk.hex(theme.magenta)(app.context.application.name),
+        chalk.hex(theme.foregroundColor)(app.context.application.version),
+        chalk.hex(theme.magenta)('webpack'),
+        chalk.hex(theme.foregroundColor)(compilation.version),
+      ],
+      [
+        chalk.hex(theme.magenta)('node'),
+        chalk.hex(theme.foregroundColor)(process.versions.node),
+        '',
+        '',
+      ],
     ]),
-  ),
-]
+    ...(app.isDevelopment
+      ? [
+          table.make(
+            [
+              [
+                chalk.hex(theme.magenta)(`server url:`),
+                app.server.connection.url.toString(),
+              ],
+              app.hooks.filter('dev.middleware.enabled').includes('proxy')
+                ? [
+                    chalk.hex(theme.magenta)('proxy url:'),
+                    app.hooks
+                      .filter('dev.middleware.proxy.target')
+                      .toString(),
+                  ]
+                : null,
+            ].filter(Boolean),
+          ),
+        ]
+      : []),
+  ].filter(Boolean)
+
+export const development = (app: Bud) =>
+  [
+    box.make(
+      'development',
+      table.make(
+        [
+          [
+            chalk.hex(theme.magenta)('server'),
+            app.server.connection.url.toString(),
+          ],
+          app.hooks.filter('dev.middleware.enabled')?.includes('proxy')
+            ? [
+                chalk.hex(theme.magenta)('proxy'),
+                app.hooks
+                  .filter('dev.middleware.proxy.target')
+                  ?.toString(),
+              ]
+            : null,
+        ].filter(Boolean),
+      ),
+    ),
+  ].filter(Boolean)
 
 export const framework = (app: Bud) => [
   box.make(
