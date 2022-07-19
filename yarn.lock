@@ -9903,7 +9903,7 @@ __metadata:
     syncpack: 8.2.4
     ts-node: 10.9.1
     tslib: 2.4.0
-    typedoc: 0.23.7
+    typedoc: 0.23.8
     typescript: 4.7.4
   languageName: unknown
   linkType: soft
@@ -28924,9 +28924,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typedoc@npm:0.23.7":
-  version: 0.23.7
-  resolution: "typedoc@npm:0.23.7"
+"typedoc@npm:0.23.8":
+  version: 0.23.8
+  resolution: "typedoc@npm:0.23.8"
   dependencies:
     lunr: ^2.3.9
     marked: ^4.0.16
@@ -28936,7 +28936,7 @@ __metadata:
     typescript: 4.6.x || 4.7.x
   bin:
     typedoc: bin/typedoc
-  checksum: 70e4462602a989c51657111db8689947d7ac0e938b2edee1045b279808c56a6ffd2d42ed0f8080645e28bc8c84f82cb3faec54ea5cc5b5fd62d2fc4ea4548297
+  checksum: 99568e5df15781def0761d9876a86883bb58cb5318c258be965628626cc33737cd605640de2a9397f6722bccaed70aeb1e68c5f390b03ac7e8a17da9f091f906
   languageName: node
   linkType: hard
 
