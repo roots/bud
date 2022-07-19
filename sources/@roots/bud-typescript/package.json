@@ -74,7 +74,7 @@
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@types/webpack-env": "^1.17.0",
     "fork-ts-checker-webpack-plugin": "^7.2.6",
-    "react-refresh-typescript": "2.0.5",
+    "react-refresh-typescript": "2.0.7",
     "ts-loader": "^9.3.0",
     "ts-node": "10.9.1",
     "tslib": "2.4.0",

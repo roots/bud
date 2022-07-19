@@ -4193,10 +4193,10 @@ __metadata:
     "@svgr/webpack": 6.2.1
     "@tsconfig/docusaurus": 1.0.6
     "@types/node": 16.11.45
-    "@types/react": 17.0.45
+    "@types/react": 17.0.47
     "@types/react-dom": 17.0.17
     "@types/react-helmet": 6.1.5
-    "@types/react-reconciler": 0.26.7
+    "@types/react-reconciler": 0.28.0
     "@types/react-router-dom": 5.3.3
     axios: 0.27.2
     clsx: 1.2.1
@@ -4537,7 +4537,7 @@ __metadata:
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@skypack/package-check": 0.2.2
     "@types/node": 16.11.45
-    "@types/react": 17.0.45
+    "@types/react": 17.0.47
     react: 17.0.2
     tslib: 2.4.0
   peerDependencies:
@@ -4816,7 +4816,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/lodash": 4.14.182
     "@types/node": 16.11.45
-    "@types/react": 17.0.45
+    "@types/react": 17.0.47
     "@types/react-dom": 17.0.17
     chalk: 5.0.1
     lodash-es: 4.17.21
@@ -4909,13 +4909,13 @@ __metadata:
     "@types/babel__core": 7.1.19
     "@types/lodash-es": 4.17.6
     "@types/node": 16.11.45
-    "@types/react": 17.0.45
+    "@types/react": 17.0.47
     "@types/react-dom": 17.0.17
     lodash-es: 4.17.21
     react: 17.0.2
     react-dom: 17.0.2
     react-hot-loader: ^4.13.0
-    react-refresh: ^0.13.0
+    react-refresh: ^0.14.0
     tslib: 2.4.0
     type-fest: 2.16.0
     webpack: 5.73.0
@@ -5136,7 +5136,7 @@ __metadata:
     "@types/node": 16.11.45
     "@types/webpack-env": ^1.17.0
     fork-ts-checker-webpack-plugin: ^7.2.6
-    react-refresh-typescript: 2.0.5
+    react-refresh-typescript: 2.0.7
     ts-loader: ^9.3.0
     ts-node: 10.9.1
     tslib: 2.4.0
@@ -5495,7 +5495,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/lodash-es": 4.17.6
     "@types/node": 16.11.45
-    "@types/react": 17.0.45
+    "@types/react": 17.0.47
     "@types/wordpress__blocks": 11.0.3
     "@types/wordpress__data": 6.0.1
     "@wordpress/blocks": 11.11.0
@@ -6685,12 +6685,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-reconciler@npm:0.26.7":
-  version: 0.26.7
-  resolution: "@types/react-reconciler@npm:0.26.7"
+"@types/react-reconciler@npm:0.28.0":
+  version: 0.28.0
+  resolution: "@types/react-reconciler@npm:0.28.0"
   dependencies:
     "@types/react": "*"
-  checksum: 4122d2b08580f775d0aeae9bd10b68248f894096ed14c0ebbc143ef712e21b159e89d0c628bd95dd3329947fc1ee94a0cb1d2d32b32b1d5d225e70030e91e58f
+  checksum: d7b3f870a9c2c0f6f9c27e3fedd4cb495bd377312d856ee846475152e8a817b032e47f8d349ec2a51a95be5c674a288288173ef658e469369d6fec1f77159cbb
   languageName: node
   linkType: hard
 
@@ -6726,14 +6726,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:17.0.45, @types/react@npm:^17, @types/react@npm:^17.0.37":
-  version: 17.0.45
-  resolution: "@types/react@npm:17.0.45"
+"@types/react@npm:*, @types/react@npm:17.0.47, @types/react@npm:^17, @types/react@npm:^17.0.37":
+  version: 17.0.47
+  resolution: "@types/react@npm:17.0.47"
   dependencies:
     "@types/prop-types": "*"
     "@types/scheduler": "*"
     csstype: ^3.0.2
-  checksum: 3cc13a02824c13f6fa4807a83abd065ac1d9943359e76bd995cc7cd2b4148c1176ebd54a30a9f4eb8a0f141ff359d712876f256c4fee707e4290607ef8410b3e
+  checksum: 2e7fe0eb630cb77da03b6da308c58728c01b38e878118e9ff5cd8045181c8d4f32dc936e328f46a62cadb56e1fe4c5a911b5113584f93a99e1f35df7f059246b
   languageName: node
   linkType: hard
 
@@ -25012,20 +25012,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-refresh-typescript@npm:2.0.5":
-  version: 2.0.5
-  resolution: "react-refresh-typescript@npm:2.0.5"
+"react-refresh-typescript@npm:2.0.7":
+  version: 2.0.7
+  resolution: "react-refresh-typescript@npm:2.0.7"
   peerDependencies:
-    react-refresh: 0.10.x || 0.11.x || 0.12.x || 0.13.x
+    react-refresh: 0.10.x || 0.11.x || 0.12.x || 0.13.x || 0.14.x
     typescript: ^4
-  checksum: 04b1765280a828e9c989c024fff71ce8290d2374c28bd05a063eed741b660b2820b5223694eec2e2aa5a78b3f8200891fbb6bd6ec17bc8a3d4e1a231c7edae35
+  checksum: a95a44f7e72b7b1de001d400c004b3d1adf22ca72cd335efeda13a0a7e154e476cd113105fbbd7413122147ce4f7fff0e4308b0c19ea13947a3665a4314fd629
   languageName: node
   linkType: hard
 
-"react-refresh@npm:^0.13.0":
-  version: 0.13.0
-  resolution: "react-refresh@npm:0.13.0"
-  checksum: 1cf2b87ed99e1d388aa3923078bc30cd3ce43ee86e8936944e961d3643c6e85da41ebed6a0996e8bdad75a0d2ce3b7e10638b45018231380d4a174f63a451f75
+"react-refresh@npm:^0.14.0":
+  version: 0.14.0
+  resolution: "react-refresh@npm:0.14.0"
+  checksum: dc69fa8c993df512f42dd0f1b604978ae89bd747c0ed5ec595c0cc50d535fb2696619ccd98ae28775cc01d0a7c146a532f0f7fb81dc22e1977c242a4912312f4
   languageName: node
   linkType: hard
 
