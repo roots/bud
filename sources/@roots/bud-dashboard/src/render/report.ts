@@ -1,12 +1,10 @@
 /* eslint-disable no-console */
 import type {Bud} from '@roots/bud-framework'
 import chalk from 'chalk'
-import lodash from 'lodash-es'
 import type {StatsCompilation} from 'webpack'
 
 import {theme} from '../theme.js'
 import * as assets from './assets.js'
-import * as box from './components/box.factory.js'
 import * as table from './components/table.factory.js'
 
 export const report = ({
@@ -36,26 +34,7 @@ export const report = ({
     )
 }
 
-export const timing = (app: Bud, compilation: StatsCompilation) => {
-  console.log(
-    table.make([
-      [
-        chalk.hex(theme.magenta)(`duration`),
-        app.mode === 'production'
-          ? `${assets.time(app._hrdone + compilation.time)} ${chalk.dim(
-              `(${assets.time(app._hrdone)} + ${assets.time(
-                compilation.time,
-              )})`,
-            )}`
-          : assets.time(compilation.time),
-      ],
-    ]),
-  )
-}
-
 export const summary = (app: Bud, compilation: StatsCompilation) => {
-  timing(app, compilation)
-
   console.log(
     table.make([
       [
@@ -97,48 +76,3 @@ export const summary = (app: Bud, compilation: StatsCompilation) => {
       ),
     )
 }
-
-export const framework = (app: Bud) => [
-  box.make(
-    'rules',
-    table.make(
-      Object.entries(app.build.rules).map(([type, rule]) => [
-        chalk.hex(theme.magenta)(type),
-        [...rule.getUse()?.map(use => chalk.hex(theme.cyan)(`\`${use}\``))]
-          .reverse()
-          .join(', '),
-      ]),
-    ),
-  ),
-  box.make(
-    'cache',
-    table.make([
-      [
-        chalk.hex(theme.magenta)(`type`),
-        chalk.hex(theme.foregroundColor)(`filesystem`),
-      ],
-      [
-        chalk.hex(theme.magenta)(`ident`),
-        chalk.hex(theme.foregroundColor)(app.cache.version),
-      ],
-    ]),
-  ),
-  box.make(
-    'extensions',
-    table.make(
-      lodash
-        .chunk(Object.values(app.extensions.repository), 2)
-        .map(chunk =>
-          [
-            ...chunk.map(
-              extension =>
-                `${chalk.hex(theme.cyan)(
-                  `\`${extension.label?.toLowerCase()}\``,
-                )}`,
-            ),
-            ...Array(1).fill(``),
-          ].slice(0, 2),
-        ),
-    ),
-  ),
-]

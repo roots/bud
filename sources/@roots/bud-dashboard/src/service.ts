@@ -3,7 +3,6 @@ import {Dashboard as Base, Service} from '@roots/bud-framework'
 import chalk from 'chalk'
 import {bind} from 'helpful-decorators'
 import {MultiProgressBars} from 'multi-progress-bars'
-import readline from 'node:readline'
 import type {StatsCompilation} from 'webpack'
 
 import * as reporter from './render/reporter.js'
@@ -22,6 +21,11 @@ export class Dashboard extends Service implements Base.Service {
    */
   public progress: MultiProgressBars
 
+  /**
+   * Last hash
+   *
+   * @public
+   */
   public lastHash: string = null
 
   /**
@@ -31,19 +35,17 @@ export class Dashboard extends Service implements Base.Service {
    * @decorator `@bind`
    */
   @bind
-  public async bootstrap() {
-    this.progress = new MultiProgressBars({
-      initMessage: '',
-      anchor: 'bottom',
+  public async register() {
+    this.app.hooks.action('compiler.after', async () => {
+      if (this.app.context.args.ci) return
 
-      border: true,
-    })
-
-    this.progress.addTask('build', {
-      message: 'initializing',
-      type: 'percentage',
-      percentage: 0,
-      barTransformFn: bar => chalk.hex(theme.foregroundColor)(bar),
+      this.progress = new MultiProgressBars({
+        initMessage: '',
+        border: true,
+        anchor: 'top',
+        footer: true,
+        header: true,
+      })
     })
   }
 
@@ -65,28 +67,26 @@ export class Dashboard extends Service implements Base.Service {
   }): this {
     if (!stats) return this
     if (stats.hash == this.lastHash) return this
-    this.lastHash = stats.hash
 
     if (this.app.context.args.ci) {
-      process.stdout.write(this.app.compiler.stats.string.trim())
+      console.log(`\n${this.app.compiler.stats.string.trim()}\n`)
       return this
     }
 
-    const blank = '\n'.repeat(process.stdout.rows * 0.66)
-    console.log(blank)
+    this.app.logger.instance.enable()
 
-    readline.cursorTo(process.stdout, 0, 0)
-    readline.cursorTo(process.stderr, 0, 0)
+    this.progress.updateTask('build', {percentage: 1})
 
-    readline.clearScreenDown(process.stdout)
     reporter.render({
       stats,
       errors,
       warnings,
       app: this.app,
     })
+
     this.progress.updateTask('build', {percentage: 1})
 
+    this.lastHash = stats.hash
     return this
   }
 
@@ -103,6 +103,16 @@ export class Dashboard extends Service implements Base.Service {
     ...message: any[]
   ): void {
     try {
+      if (this.app.context.args.ci) return
+
+      if (!this.progress.getIndex('build')) {
+        this.progress.addTask('build', {
+          type: 'percentage',
+          percentage: 0,
+          barTransformFn: bar => chalk.hex(theme.foregroundColor)(bar),
+        })
+      }
+
       const update = scope.includes(`]`)
         ? scope.split(`]`).pop()?.trim()
         : scope

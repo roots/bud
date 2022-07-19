@@ -47,7 +47,5 @@ export const render = ({
       })
 
     components.summary(app, compilation)
-
-    app.hooks.filter('feature.log') && components.framework(app)
   })
 }
