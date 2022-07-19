@@ -9,6 +9,7 @@ export const make = (data: Array<Array<any>>): string => {
       wrapWord: false,
       paddingRight: 2,
       paddingLeft: 0,
+      verticalAlignment: 'middle',
     },
   })
 }

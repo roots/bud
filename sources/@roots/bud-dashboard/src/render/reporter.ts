@@ -1,12 +1,13 @@
+/* eslint-disable no-console */
 import type {Bud} from '@roots/bud-framework'
 import chalk from 'chalk'
 import figures from 'figures'
 import type {StatsCompilation} from 'webpack'
 
-import * as components from './components.js'
-import {theme} from './theme.js'
+import {theme} from '../theme.js'
+import * as components from './report.js'
 
-export const report = ({
+export const render = ({
   stats,
   warnings,
   errors,
@@ -16,15 +17,16 @@ export const report = ({
   warnings: any
   errors: any
   app: Bud
-}): string => {
+}): void => {
   errors
     .map(error => error.message)
     .map(err => console.log(err.concat('\n')))
+
   warnings
     .map(error => error.message)
     .map(err => console.log(err.concat('\n')))
 
-  if (errors && errors?.length > 0) return ''
+  if (errors && errors?.length > 0) return
 
   stats?.children?.map((compilation, i) => {
     console.log(
@@ -38,21 +40,14 @@ export const report = ({
     )
 
     compilation?.entrypoints &&
-      components
-        .report({
-          appName: app.name,
-          count: [i + 1, stats?.children?.length ?? 1],
-          context: app.context,
-          compilation,
-        })
-        .filter(output => output && output !== '')
-        .map(i => console.log(i))
+      components.report({
+        app,
+        count: [i + 1, stats?.children?.length ?? 1],
+        compilation,
+      })
 
-    console.log(components.summary(app, compilation).join(''))
+    components.summary(app, compilation)
 
-    app.hooks.filter('feature.log') &&
-      console.log(...components.framework(app))
+    app.hooks.filter('feature.log') && components.framework(app)
   })
-
-  return ''
 }

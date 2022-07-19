@@ -6,7 +6,7 @@ import {MultiProgressBars} from 'multi-progress-bars'
 import readline from 'node:readline'
 import type {StatsCompilation} from 'webpack'
 
-import {reporter} from './render/stats/index.js'
+import * as reporter from './render/reporter.js'
 import {theme} from './theme.js'
 
 /**
@@ -22,7 +22,7 @@ export class Dashboard extends Service implements Base.Service {
    */
   public progress: MultiProgressBars
 
-  public lastHash: string = ''
+  public lastHash: string = null
 
   /**
    * `register` callback
@@ -35,6 +35,7 @@ export class Dashboard extends Service implements Base.Service {
     this.progress = new MultiProgressBars({
       initMessage: '',
       anchor: 'bottom',
+
       border: true,
     })
 
@@ -67,7 +68,7 @@ export class Dashboard extends Service implements Base.Service {
     this.lastHash = stats.hash
 
     if (this.app.context.args.ci) {
-      console.log(this.app.compiler.stats.string.trim())
+      process.stdout.write(this.app.compiler.stats.string.trim())
       return this
     }
 
@@ -78,7 +79,13 @@ export class Dashboard extends Service implements Base.Service {
     readline.cursorTo(process.stderr, 0, 0)
 
     readline.clearScreenDown(process.stdout)
-    reporter.report({stats, errors, warnings, app: this.app})
+    reporter.render({
+      stats,
+      errors,
+      warnings,
+      app: this.app,
+    })
+    this.progress.updateTask('build', {percentage: 1})
 
     return this
   }
@@ -91,7 +98,7 @@ export class Dashboard extends Service implements Base.Service {
    */
   @bind
   public progressCallback(
-    percent: number,
+    percentage: number,
     scope: string,
     ...message: any[]
   ): void {
@@ -100,26 +107,20 @@ export class Dashboard extends Service implements Base.Service {
         ? scope.split(`]`).pop()?.trim()
         : scope
 
-      if (percent !== 1) {
+      this.progress.updateTask('build', {percentage})
+
+      if (percentage !== 1) {
         this.progress.updateTask('build', {
-          percentage: percent,
           barTransformFn: bar => chalk.hex(theme.foregroundColor)(bar),
           message: update ? `${update} ${message.join(' ')}`.trim() : '',
         })
       } else if (this.app.compiler.stats?.json?.errorsCount > 0) {
         this.progress.updateTask('build', {
           barTransformFn: bar => chalk.hex(theme.red)(bar),
-          percentage: 1,
         })
       } else if (this.app.compiler.stats?.json?.errorsCount === 0) {
         this.progress.updateTask('build', {
           barTransformFn: bar => chalk.hex(theme.green)(bar),
-          percentage: 1,
-        })
-      } else {
-        this.progress.updateTask('build', {
-          barTransformFn: bar => chalk.hex(theme.foregroundColor)(bar),
-          percentage: 1,
         })
       }
     } catch (error) {

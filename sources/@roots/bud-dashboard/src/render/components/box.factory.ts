@@ -1,6 +1,6 @@
 import chalk from 'chalk'
 
-import {theme} from './theme.js'
+import {theme} from '../../theme.js'
 
 export const make = (
   title: string,
