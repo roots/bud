@@ -80,9 +80,6 @@ export class Compiler extends Service implements Contract.Service {
    */
   public config: Array<Configuration> = []
 
-  public done: boolean = false
-  public compiling: boolean = false
-
   /**
    * Initiates compilation
    *
@@ -96,8 +93,6 @@ export class Compiler extends Service implements Contract.Service {
   @once
   public async compile() {
     this.config = await this.before()
-    this.app._hrdone = this.app._hrdiff()
-
     this.compilation = await this.invoke(this.config)
     return this.compilation
   }

@@ -27,6 +27,7 @@ export class Project
    * @internal
    * @decorator `@bind`
    */
+  @bind
   public async bootstrap() {
     this.setStore({
       context: omit(this.app.context, ['stdin', 'stderr', 'stdout']),
@@ -51,7 +52,8 @@ export class Project
    */
   @bind
   public async boot() {
-    if (!this.app.isRoot) return
+    if (!this.app.isRoot && this.app.path() === this.app.root.path())
+      return
 
     await this.searchConfigs()
 
@@ -82,6 +84,8 @@ export class Project
   @bind
   @once
   public async writeProfile() {
+    if (!this.app.context.args.debug) return
+
     try {
       const path = this.app.path(`@storage`, this.app.name, `profile.json`)
 
@@ -134,8 +138,10 @@ export class Project
    *
    * @public
    * @decorator `@bind`
+   * @decorator `@once`
    */
   @bind
+  @once
   public async searchConfigs() {
     await Promise.all(
       Object.entries(this.app.context.disk.config).map(

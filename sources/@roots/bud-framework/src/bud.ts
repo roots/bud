@@ -310,16 +310,22 @@ export abstract class Bud {
    * @decorator `@bind`
    */
   @bind
-  public debug(...messages: any[]) {
-    // eslint-disable-next-line no-console
-    console.error(
-      format(messages, {
-        callToJSON: false,
-        maxDepth: 8,
-        printFunctionName: false,
-        escapeString: false,
-      }),
-    )
+  public debug(...messages: any[]): this {
+    process.stdout.write('\n')
+
+    messages.map(message => {
+      process.stdout.write(
+        format(message, {
+          callToJSON: false,
+          maxDepth: 8,
+          printFunctionName: false,
+          escapeString: false,
+        }),
+      )
+      process.stdout.write('\n')
+    })
+
+    return this
   }
 
   /**
@@ -337,6 +343,7 @@ export abstract class Bud {
     this.logger.instance.error(...messages)
 
     if (this.isProduction) {
+      process.exitCode = 1
       this.close()
     }
   }
@@ -357,7 +364,8 @@ export abstract class Bud {
       'ignoreIllegals',
     ])
 
-    console.log(
+    process.stdout.write('\n')
+    process.stdout.write(
       format(obj, {
         callToJSON: false,
         maxDepth: 8,
@@ -366,29 +374,9 @@ export abstract class Bud {
         ...prettyFormatOptions,
       }),
     )
+    process.stdout.write('\n')
 
     return this
-  }
-
-  /**
-   * timer util
-   *
-   * @public
-   */
-  public _hrtime: [number, number] = process.hrtime()
-
-  public _hrdone: number
-
-  /**
-   * timer diff
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public _hrdiff() {
-    const diff = process.hrtime(this._hrtime)
-    return diff[0] * 1000 + diff[1] / 1000000
   }
 }
 
