@@ -1,7 +1,6 @@
 import type {Bud, Compiler as Contract} from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework'
 import {bind, once} from 'helpful-decorators'
-import {isFunction} from 'lodash-es'
 import type {
   Configuration,
   MultiStats,
@@ -10,9 +9,6 @@ import type {
   WebpackError,
 } from 'webpack'
 import Webpack from 'webpack'
-
-import type BudError from './Reporter/BudError.js'
-import * as Reporter from './Reporter/index.js'
 
 /**
  * Wepback compilation controller class
@@ -51,30 +47,10 @@ export class Compiler extends Service implements Contract.Service {
    *
    * @public
    */
-  public stats: {
-    json: StatsCompilation
-    string: string
-  } = {
-    json: null,
-    string: null,
-  }
+  public stats: StatsCompilation = null
 
   /**
-   * Errors
-   *
-   * @public
-   */
-  public errors: Array<BudError> = []
-
-  /**
-   * Warnings
-   *
-   * @public
-   */
-  public warnings: Array<BudError> = []
-
-  /**
-   * Multi-compiler configuration
+   * Configuration
    *
    * @public
    */
@@ -117,6 +93,7 @@ export class Compiler extends Service implements Contract.Service {
       this.compilation.hooks.done.tap(
         `${this.app.name}-dev-handle`,
         async stats => {
+          this.app.debug(stats)
           this.handleStats(stats as any)
         },
       )
@@ -187,22 +164,9 @@ export class Compiler extends Service implements Contract.Service {
    */
   @bind
   public handleStats(stats: Stats & MultiStats) {
-    if (!stats?.toJson || !isFunction(stats?.toJson)) return
-
-    this.stats.json = stats.toJson()
-    this.stats.string = stats.toString()
-
-    const problemReporter = Reporter.report(this.app, this.stats.json)
-    this.errors = problemReporter.errors
-    this.warnings = problemReporter.warnings
-
-    this.app.dashboard.stats({
-      stats: this.stats.json,
-      errors: this.errors,
-      warnings: this.warnings,
-    })
-
-    this.app.isProduction && this.compilation.close(this.onClose)
+    if (!stats) return
+    this.stats = stats
+    this.app.dashboard.stats({stats})
   }
 
   /**
@@ -224,7 +188,7 @@ export class Compiler extends Service implements Contract.Service {
    * @decorator `@bind`
    */
   @bind
-  public onError(error: BudError[] | Error) {
+  public onError(error: Error) {
     this.app.isDevelopment &&
       this.app.server.appliedMiddleware?.hot?.publish({error})
 

@@ -62,6 +62,15 @@ export class Notifier {
   }
 
   /**
+   * compilation stats accessor
+   *
+   * @public
+   */
+  public get jsonStats() {
+    return this.app.compiler.stats?.toJson() ?? {}
+  }
+
+  /**
    * Class constructor
    *
    * @public
@@ -78,7 +87,7 @@ export class Notifier {
    * @public
    */
   public get title(): string {
-    return this.app.compiler.errors?.length > 0
+    return this.app.compiler.stats?.toJson()?.errors?.length > 0
       ? `✖ ${this.group}`
       : `✔ ${this.group}`
   }
@@ -99,18 +108,17 @@ export class Notifier {
   public get message() {
     return [
       `${this.app.mode} build completed`,
-      this.app.compiler.errors?.length || this.app.compiler.warnings.length
-        ? `with`
-        : ``,
-      this.app.compiler.errors?.length
-        ? `${this.app.compiler.errors.length} errors`
-        : null,
-      this.app.compiler.errors?.length && this.app.compiler.warnings.length
-        ? `and`
-        : ``,
-      this.app.compiler.warnings?.length
-        ? `${this.app.compiler.warnings.length} warnings`
-        : null,
+      (this.jsonStats.errors?.length || this.jsonStats.warnings?.length) &&
+        `with`,
+      this.jsonStats.errors?.length &&
+        `${this.jsonStats.errors.length} errors`,
+
+      this.jsonStats.errors?.length &&
+        this.jsonStats.warnings?.length &&
+        `and`,
+
+      this.jsonStats.warnings?.length &&
+        `${this.jsonStats.warnings.length} warnings`,
     ]
       .filter(Boolean)
       .join(' ')
@@ -187,17 +195,14 @@ export class Notifier {
     this.app.info('cli', 'notify')
 
     try {
-      if (this.app.compiler.errors.length && this.app.context.args.editor)
-        this.openEditor(this.app.compiler.errors)
+      if (this.jsonStats.errors?.length && this.app.context.args.editor)
+        this.openEditor(this.jsonStats.errors)
     } catch (err) {
       this.app.warn(err)
     }
 
     try {
-      if (
-        this.app.context.args.browser &&
-        !this.app.compiler.errors.length
-      )
+      if (this.app.context.args.browser && !this.jsonStats.errors?.length)
         await this.openBrowser()
     } catch (err) {
       this.app.warn(err)

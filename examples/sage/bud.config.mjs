@@ -6,6 +6,6 @@ export default async app => {
     })
     .copy('images')
     .watch(['resources/views/*.blade.php'])
-    .serve('http://example.test:3000')
+    .serve(3000)
     .proxy('http://example.test')
 }

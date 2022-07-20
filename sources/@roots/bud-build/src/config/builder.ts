@@ -119,6 +119,7 @@ export async function build(app: Bud): Promise<void> {
         ]),
       )
     })
+    .hooks.on('build.stats', 'errors-warnings')
     .hooks.on('build.target', () =>
       app.project.has('manifest.browserslist')
         ? `browserslist:${app.root.path('./package.json')}`

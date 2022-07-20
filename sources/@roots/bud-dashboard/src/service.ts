@@ -1,12 +1,10 @@
 /* eslint-disable no-console */
 import {Dashboard as Base, Service} from '@roots/bud-framework'
-import chalk from 'chalk'
-import {bind} from 'helpful-decorators'
+import {bind, once} from 'helpful-decorators'
 import {MultiProgressBars} from 'multi-progress-bars'
 import type {StatsCompilation} from 'webpack'
 
 import * as reporter from './render/reporter.js'
-import {theme} from './theme.js'
 
 /**
  * Dashboard service
@@ -26,7 +24,7 @@ export class Dashboard extends Service implements Base.Service {
    *
    * @public
    */
-  public lastHash: string = null
+  public lastHash: string
 
   /**
    * `register` callback
@@ -35,17 +33,20 @@ export class Dashboard extends Service implements Base.Service {
    * @decorator `@bind`
    */
   @bind
+  @once
   public async register() {
-    this.app.hooks.action('compiler.after', async () => {
-      if (this.app.context.args.ci) return
+    this.progress = new MultiProgressBars({
+      initMessage: '',
+      border: true,
+      anchor: 'top',
+      footer: true,
+      header: false,
+    })
 
-      this.progress = new MultiProgressBars({
-        initMessage: '',
-        border: true,
-        anchor: 'top',
-        footer: true,
-        header: true,
-      })
+    this.progress.addTask('build', {
+      message: 'initializing',
+      type: 'percentage',
+      percentage: 0,
     })
   }
 
@@ -56,37 +57,25 @@ export class Dashboard extends Service implements Base.Service {
    * @decorator `@bind`
    */
   @bind
-  public stats({
-    stats,
-    errors,
-    warnings,
-  }: {
-    stats: StatsCompilation
-    errors: any
-    warnings: any
-  }): this {
+  public stats({stats}: {stats: StatsCompilation}): this {
     if (!stats) return this
-    if (stats.hash == this.lastHash) return this
 
     if (this.app.context.args.ci) {
-      console.log(`\n${this.app.compiler.stats.string.trim()}\n`)
+      console.log(stats?.toString())
+      this.app.isProduction &&
+        this.app.compiler.compilation.close(() => this.app.close())
+
       return this
     }
 
-    this.app.logger.instance.enable()
+    const json: StatsCompilation = stats.toJson()
+    if (!json) return this
 
-    this.progress.updateTask('build', {percentage: 1})
+    reporter.render({stats, app: this.app})
 
-    reporter.render({
-      stats,
-      errors,
-      warnings,
-      app: this.app,
-    })
+    this.app.isProduction &&
+      this.app.compiler.compilation.close(() => this.app.close())
 
-    this.progress.updateTask('build', {percentage: 1})
-
-    this.lastHash = stats.hash
     return this
   }
 
@@ -102,36 +91,22 @@ export class Dashboard extends Service implements Base.Service {
     scope: string,
     ...message: any[]
   ): void {
+    if (this.app.context.args.ci) return
+
     try {
-      if (this.app.context.args.ci) return
-
-      if (!this.progress.getIndex('build')) {
-        this.progress.addTask('build', {
-          type: 'percentage',
-          percentage: 0,
-          barTransformFn: bar => chalk.hex(theme.foregroundColor)(bar),
-        })
-      }
-
       const update = scope.includes(`]`)
         ? scope.split(`]`).pop()?.trim()
         : scope
 
-      this.progress.updateTask('build', {percentage})
+      if (typeof percentage === 'number') {
+        this.progress.updateTask('build', {percentage})
 
-      if (percentage !== 1) {
-        this.progress.updateTask('build', {
-          barTransformFn: bar => chalk.hex(theme.foregroundColor)(bar),
-          message: update ? `${update} ${message.join(' ')}`.trim() : '',
-        })
-      } else if (this.app.compiler.stats?.json?.errorsCount > 0) {
-        this.progress.updateTask('build', {
-          barTransformFn: bar => chalk.hex(theme.red)(bar),
-        })
-      } else if (this.app.compiler.stats?.json?.errorsCount === 0) {
-        this.progress.updateTask('build', {
-          barTransformFn: bar => chalk.hex(theme.green)(bar),
-        })
+        if (percentage !== 1) {
+          this.progress.updateTask('build', {
+            percentage,
+            message: update ? `${update} ${message.join(' ')}`.trim() : '',
+          })
+        }
       }
     } catch (error) {
       this.app.warn(error)

@@ -5,12 +5,12 @@
     "extends @roots/browserslist-config/current"
   ],
   "devDependencies": {
-    "@roots/bud": "latest",
-    "@roots/bud-eslint": "latest",
-    "@roots/bud-prettier": "latest",
-    "@roots/bud-stylelint": "latest",
-    "@roots/bud-tailwindcss": "latest",
-    "@roots/eslint-config": "latest",
-    "@roots/sage": "latest"
+    "@roots/bud": "0.0.0",
+    "@roots/bud-eslint": "0.0.0",
+    "@roots/bud-prettier": "0.0.0",
+    "@roots/bud-stylelint": "0.0.0",
+    "@roots/bud-tailwindcss": "0.0.0",
+    "@roots/eslint-config": "0.0.0",
+    "@roots/sage": "0.0.0"
   }
 }

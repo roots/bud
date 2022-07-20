@@ -1,5 +1,4 @@
 import {beforeAll, describe, it} from '@jest/globals'
-import {log} from '@repo/logger'
 import {Project} from '@repo/test-kit/project'
 
 const test = (pacman: 'yarn' | 'npm') => () => {
@@ -11,8 +10,6 @@ const test = (pacman: 'yarn' | 'npm') => () => {
       dist: 'public',
       with: pacman,
     }).setup()
-
-    log(project.entrypoints)
   })
 
   describe('entrypoints.json', () => {

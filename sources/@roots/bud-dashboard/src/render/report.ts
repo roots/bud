@@ -5,7 +5,7 @@ import type {StatsCompilation} from 'webpack'
 
 import {theme} from '../theme.js'
 import * as assets from './assets.js'
-import * as table from './components/table.factory.js'
+import * as table from './table.js'
 
 export const report = ({
   app,

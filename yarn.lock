@@ -4464,7 +4464,6 @@ __metadata:
     "@types/lodash-es": 4.17.6
     "@types/node": 16.11.45
     helpful-decorators: 2.1.0
-    lodash-es: 4.17.21
     tslib: 2.4.0
     webpack: 5.73.0
   languageName: unknown
@@ -4521,6 +4520,7 @@ __metadata:
     table: 6.8.0
     tslib: 2.4.0
     webpack: 5.73.0
+    webpack-messages: 2.0.4
   languageName: unknown
   linkType: soft
 
@@ -11166,6 +11166,13 @@ __metadata:
   version: 2.15.3
   resolution: "consola@npm:2.15.3"
   checksum: 8ef7a09b703ec67ac5c389a372a33b6dc97eda6c9876443a60d76a3076eea0259e7f67a4e54fd5a52f97df73690822d090cf8b7e102b5761348afef7c6d03e28
+  languageName: node
+  linkType: hard
+
+"console-clear@npm:^1.0.0":
+  version: 1.1.1
+  resolution: "console-clear@npm:1.1.1::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fconsole-clear%2F-%2Fconsole-clear-1.1.1.tgz"
+  checksum: 3cdf152667034a0a213fa4265201c2a99a4c97854fc66fad4cf0caaef2b7215eee2b8f387cd3e385075109ea9b67e0a600f0c78371fc055e11993a5490a2511a
   languageName: node
   linkType: hard
 
@@ -19078,6 +19085,13 @@ __metadata:
   version: 4.1.4
   resolution: "kleur@npm:4.1.4"
   checksum: 7f6db36e378045dec14acd3cbf0b1e59130c09e984ee8b8ce56dd2d2257cfff90389c1e8f8b19bd09dd5d241080566a814b4ccd99fdcef91f59ef93ec33c8a44
+  languageName: node
+  linkType: hard
+
+"kleur@npm:^3.0.0":
+  version: 3.0.3
+  resolution: "kleur@npm:3.0.3::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fkleur%2F-%2Fkleur-3.0.3.tgz"
+  checksum: df82cd1e172f957bae9c536286265a5cdbd5eeca487cb0a3b2a7b41ef959fc61f8e7c0e9aeea9c114ccf2c166b6a8dd45a46fd619c1c569d210ecd2765ad5169
   languageName: node
   linkType: hard
 
@@ -30215,6 +30229,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"webpack-format-messages@npm:^2.0.0":
+  version: 2.0.6
+  resolution: "webpack-format-messages@npm:2.0.6::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fwebpack-format-messages%2F-%2Fwebpack-format-messages-2.0.6.tgz"
+  dependencies:
+    kleur: ^3.0.0
+  checksum: 4af43eec8f3bf4540374b85c90c0d9adc8e28854ce0d46b3ce3406d44123e25bb3cf820a335eaf8d41ac01a45ab0ec88999f583115e135ddaf1cdb7dba45df2d
+  languageName: node
+  linkType: hard
+
 "webpack-hot-middleware@npm:2.25.1":
   version: 2.25.1
   resolution: "webpack-hot-middleware@npm:2.25.1"
@@ -30246,6 +30269,17 @@ __metadata:
     clone-deep: ^4.0.1
     wildcard: ^2.0.0
   checksum: 88786ab91013f1bd2a683834ff381be81c245a4b0f63304a5103e90f6653f44dab496a0768287f8531761f8ad957d1f9f3ccb2cb55df0de1bd9ee343e079da26
+  languageName: node
+  linkType: hard
+
+"webpack-messages@npm:2.0.4":
+  version: 2.0.4
+  resolution: "webpack-messages@npm:2.0.4::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fwebpack-messages%2F-%2Fwebpack-messages-2.0.4.tgz"
+  dependencies:
+    console-clear: ^1.0.0
+    kleur: ^3.0.0
+    webpack-format-messages: ^2.0.0
+  checksum: a0f12266fb9351d8cb2a7ac0a064184e9a0f1e3fe19783a1bef4621e2509d87e7817696a1c7d8e3676308af9fe0745f58caaeba1dd0d30efb866c2597d72445c
   languageName: node
   linkType: hard
 

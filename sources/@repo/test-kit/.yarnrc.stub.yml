@@ -8,11 +8,12 @@ nodeLinker: node-modules
 
 npmPublishAccess: public
 
-npmPublishRegistry: 'http://localhost:4873'
+npmPublishRegistry: 'http://0.0.0.0:4873'
 
-npmRegistryServer: 'http://localhost:4873'
+npmRegistryServer: 'http://0.0.0.0:4873'
 
 unsafeHttpWhitelist:
-  - localhost
+  - locahost
+  - 0.0.0.0
 
 yarnPath: ../../../../.yarn/releases/yarn-1.23.0-20220130.1630.cjs
