@@ -65,7 +65,7 @@ export class BuildCommand extends BaseCommand {
   /**
    * --clean
    */
-  public clean = Option.Boolean(`--clean`, undefined, {
+  public clean = Option.Boolean(`--clean`, true, {
     description: `Clean artifacts and distributables prior to compilation`,
   })
 
@@ -81,11 +81,6 @@ export class BuildCommand extends BaseCommand {
    */
   public dashboard = Option.Boolean(`--dashboard`, undefined, {
     hidden: true,
-  })
-
-  public debug = Option.Boolean(`--debug`, false, {
-    description:
-      'Enable debugging mode. Very verbose logging. Writes output files to `@storage` directory',
   })
 
   /**
@@ -187,7 +182,7 @@ export class BuildCommand extends BaseCommand {
   /**
    * --src
    */
-  public src = Option.String(`--input,-i`, undefined, {
+  public input = Option.String(`--input,-i`, undefined, {
     description: 'Source directory (relative to project)',
   })
 
@@ -309,7 +304,6 @@ export class BuildCommand extends BaseCommand {
       'cache',
       'ci',
       'clean',
-      'debug',
       'devtool',
       'esm',
       'flush',
@@ -328,7 +322,7 @@ export class BuildCommand extends BaseCommand {
       'browser',
       'editor',
       'publicPath',
-      'src',
+      'input',
       'splitChunks',
       'target',
       'verbose',
@@ -348,6 +342,7 @@ export class BuildCommand extends BaseCommand {
           [() => this.publicPath],
           seed['build.output.publicPath'],
         ),
+        'feature.clean': fallback(this.clean, [() => this.clean], true),
         'feature.inject': fallback(
           this.inject,
           [() => this.inject],
@@ -364,8 +359,8 @@ export class BuildCommand extends BaseCommand {
           seed['feature.manifest'],
         ),
         'location.@src': fallback(
-          this.src,
-          [() => this.src],
+          this.input,
+          [() => this.input],
           seed['location.@src'],
         ),
         'location.@dist': fallback(
