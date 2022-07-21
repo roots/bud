@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import {Dashboard as Base, Service} from '@roots/bud-framework'
+import figures from 'figures'
 import {bind, once} from 'helpful-decorators'
 import {MultiProgressBars} from 'multi-progress-bars'
 import type {StatsCompilation} from 'webpack'
@@ -35,14 +36,20 @@ export class Dashboard extends Service implements Base.Service {
   @bind
   @once
   public async register() {
+    if (this.app.context.args.ci) return
+
     this.progress = new MultiProgressBars({
       initMessage: '',
-      border: true,
+      border: false,
       anchor: 'top',
       footer: true,
       header: false,
+      persist: true,
     })
 
+    this.progress.setHeader(
+      figures.ellipsis.concat(` `).concat(this.app.name),
+    )
     this.progress.addTask('build', {
       message: 'initializing',
       type: 'percentage',
@@ -57,24 +64,23 @@ export class Dashboard extends Service implements Base.Service {
    * @decorator `@bind`
    */
   @bind
-  public stats({stats}: {stats: StatsCompilation}): this {
+  public async stats({
+    stats,
+  }: {
+    stats: StatsCompilation
+  }): Promise<unknown> {
     if (!stats) return this
 
     if (this.app.context.args.ci) {
       console.log(stats?.toString())
-      this.app.isProduction &&
-        this.app.compiler.compilation.close(() => this.app.close())
-
       return this
     }
 
     const json: StatsCompilation = stats.toJson()
+
     if (!json) return this
 
-    reporter.render({stats, app: this.app})
-
-    this.app.isProduction &&
-      this.app.compiler.compilation.close(() => this.app.close())
+    await reporter.render({stats, app: this.app})
 
     return this
   }
@@ -98,15 +104,16 @@ export class Dashboard extends Service implements Base.Service {
         ? scope.split(`]`).pop()?.trim()
         : scope
 
-      if (typeof percentage === 'number') {
-        this.progress.updateTask('build', {percentage})
-
-        if (percentage !== 1) {
-          this.progress.updateTask('build', {
-            percentage,
-            message: update ? `${update} ${message.join(' ')}`.trim() : '',
-          })
-        }
+      if (percentage !== 1) {
+        this.progress.updateTask('build', {
+          percentage,
+          message: update ? `${update} ${message.join(' ')}`.trim() : '',
+        })
+      } else {
+        this.progress.updateTask('build', {
+          percentage,
+          message: 'built',
+        })
       }
     } catch (error) {
       this.app.warn(error)

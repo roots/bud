@@ -19,5 +19,5 @@ export interface Service extends Base {
    *
    * @public
    */
-  stats({stats}: {stats: StatsCompilation}): this
+  stats({stats}: {stats: StatsCompilation}): Promise<unknown>
 }

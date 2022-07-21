@@ -11171,7 +11171,7 @@ __metadata:
 
 "console-clear@npm:^1.0.0":
   version: 1.1.1
-  resolution: "console-clear@npm:1.1.1::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fconsole-clear%2F-%2Fconsole-clear-1.1.1.tgz"
+  resolution: "console-clear@npm:1.1.1"
   checksum: 3cdf152667034a0a213fa4265201c2a99a4c97854fc66fad4cf0caaef2b7215eee2b8f387cd3e385075109ea9b67e0a600f0c78371fc055e11993a5490a2511a
   languageName: node
   linkType: hard
@@ -19088,14 +19088,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"kleur@npm:^3.0.0":
-  version: 3.0.3
-  resolution: "kleur@npm:3.0.3::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fkleur%2F-%2Fkleur-3.0.3.tgz"
-  checksum: df82cd1e172f957bae9c536286265a5cdbd5eeca487cb0a3b2a7b41ef959fc61f8e7c0e9aeea9c114ccf2c166b6a8dd45a46fd619c1c569d210ecd2765ad5169
-  languageName: node
-  linkType: hard
-
-"kleur@npm:^3.0.3":
+"kleur@npm:^3.0.0, kleur@npm:^3.0.3":
   version: 3.0.3
   resolution: "kleur@npm:3.0.3"
   checksum: df82cd1e172f957bae9c536286265a5cdbd5eeca487cb0a3b2a7b41ef959fc61f8e7c0e9aeea9c114ccf2c166b6a8dd45a46fd619c1c569d210ecd2765ad5169
@@ -30231,7 +30224,7 @@ __metadata:
 
 "webpack-format-messages@npm:^2.0.0":
   version: 2.0.6
-  resolution: "webpack-format-messages@npm:2.0.6::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fwebpack-format-messages%2F-%2Fwebpack-format-messages-2.0.6.tgz"
+  resolution: "webpack-format-messages@npm:2.0.6"
   dependencies:
     kleur: ^3.0.0
   checksum: 4af43eec8f3bf4540374b85c90c0d9adc8e28854ce0d46b3ce3406d44123e25bb3cf820a335eaf8d41ac01a45ab0ec88999f583115e135ddaf1cdb7dba45df2d
@@ -30274,7 +30267,7 @@ __metadata:
 
 "webpack-messages@npm:2.0.4":
   version: 2.0.4
-  resolution: "webpack-messages@npm:2.0.4::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fwebpack-messages%2F-%2Fwebpack-messages-2.0.4.tgz"
+  resolution: "webpack-messages@npm:2.0.4"
   dependencies:
     console-clear: ^1.0.0
     kleur: ^3.0.0
