@@ -10,7 +10,9 @@ import * as components from './report.js'
 
 export const compilationMapFactory =
   (app, stats) => async (compilation, i) => {
-    app.dashboard.log(
+    let out = []
+
+    out.push(
       chalk.hex(stats?.errors?.length ? theme.red : theme.green)(
         `${stats?.errors?.length ? figures.cross : figures.tick} ${
           app.name
@@ -19,27 +21,40 @@ export const compilationMapFactory =
     )
 
     stats.errorsCount &&
-      app.dashboard.log(
+      out.push(
         stats.errors
           .filter(str => !str.moduleIdentifier)
           .map(format.formatMessage)
+          .filter(Boolean)
           .join('\n'),
       )
 
     stats.warningsCount &&
-      app.dashboard.log(
-        stats.warnings.map(format.formatMessage).join('\n'),
-      )
+      out.push(stats.warnings.map(format.formatMessage).join('\n'))
 
     !stats.errorsCount &&
       compilation?.entrypoints &&
-      components.report({
-        app,
-        count: [i + 1, compilation?.stats?.children?.length ?? 1],
-        compilation,
-      })
+      out.push(
+        components
+          .report({
+            app,
+            count: [i + 1, compilation?.stats?.children?.length ?? 1],
+            compilation,
+          })
+          .flat()
+          .filter(Boolean)
+          .join('\n'),
+      )
 
-    components.summary(app, compilation)
+    out.push(
+      components
+        .summary(app, compilation)
+        .flat()
+        .filter(Boolean)
+        .join('\n'),
+    )
+
+    return out.join('\n')
   }
 
 export const render = async ({
@@ -57,5 +72,7 @@ export const render = async ({
     stats?.children?.map(
       async (child, i) => await renderCompilation(child, i),
     ),
-  )
+  ).then(res => {
+    app.dashboard.log(...res)
+  })
 }

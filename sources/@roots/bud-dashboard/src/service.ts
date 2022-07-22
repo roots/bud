@@ -29,13 +29,7 @@ export class Dashboard extends Service implements Base.Service {
   public lastHash: string
 
   public log(...strings: Array<string>): void {
-    this.app.context.stdout.write(
-      strings
-        .map(str => str.split('\n'))
-        .flat()
-        .map(str => ` ${str}\n`)
-        .join(''),
-    )
+    this.app.context.stdout.write(strings.join(''))
   }
 
   /**
@@ -49,8 +43,6 @@ export class Dashboard extends Service implements Base.Service {
   public async register() {
     if (this.app.context.args.ci) return
 
-    this.log('\n')
-
     if (!this.app.context.args.ci) {
       this.progress = new Progress.MultiBar(
         {
@@ -62,6 +54,8 @@ export class Dashboard extends Service implements Base.Service {
         Progress.Presets.shades_grey,
       )
     }
+
+    this.log('\n')
   }
 
   /**
