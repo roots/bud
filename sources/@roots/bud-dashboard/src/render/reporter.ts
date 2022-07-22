@@ -51,12 +51,10 @@ export const render = async ({
 }) => {
   if (!stats) return
 
-  const json = stats?.toJson()
-
-  const renderCompilation = compilationMapFactory(app, stats?.toJson())
+  const renderCompilation = compilationMapFactory(app, stats)
 
   await Promise.all(
-    json?.children?.map(
+    stats?.children?.map(
       async (child, i) => await renderCompilation(child, i),
     ),
   )

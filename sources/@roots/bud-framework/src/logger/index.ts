@@ -50,7 +50,6 @@ export class Logger {
       // secrets: [this.app.context.dir, this.app.context.cwd],
       logLevel: this.level,
       types: types(this.app),
-      stream: this.app.context.stdout as any,
       scope: this.app.name ?? this.app.context.application.label,
       ...constructorOverrides,
     })
