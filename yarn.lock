@@ -4597,7 +4597,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/bud-eslint@0.0.0, @roots/bud-eslint@workspace:sources/@roots/bud-eslint":
+"@roots/bud-eslint@workspace:sources/@roots/bud-eslint":
   version: 0.0.0-use.local
   resolution: "@roots/bud-eslint@workspace:sources/@roots/bud-eslint"
   dependencies:
@@ -4857,7 +4857,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/bud-prettier@0.0.0, @roots/bud-prettier@workspace:sources/@roots/bud-prettier":
+"@roots/bud-prettier@workspace:sources/@roots/bud-prettier":
   version: 0.0.0-use.local
   resolution: "@roots/bud-prettier@workspace:sources/@roots/bud-prettier"
   dependencies:
@@ -5031,7 +5031,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/bud-stylelint@0.0.0, @roots/bud-stylelint@workspace:sources/@roots/bud-stylelint":
+"@roots/bud-stylelint@workspace:sources/@roots/bud-stylelint":
   version: 0.0.0-use.local
   resolution: "@roots/bud-stylelint@workspace:sources/@roots/bud-stylelint"
   dependencies:
@@ -5084,7 +5084,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/bud-tailwindcss@0.0.0, @roots/bud-tailwindcss@workspace:sources/@roots/bud-tailwindcss":
+"@roots/bud-tailwindcss@workspace:sources/@roots/bud-tailwindcss":
   version: 0.0.0-use.local
   resolution: "@roots/bud-tailwindcss@workspace:sources/@roots/bud-tailwindcss"
   dependencies:
@@ -5235,7 +5235,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/bud@0.0.0, @roots/bud@workspace:sources/@roots/bud":
+"@roots/bud@workspace:sources/@roots/bud":
   version: 0.0.0-use.local
   resolution: "@roots/bud@workspace:sources/@roots/bud"
   dependencies:
@@ -5387,7 +5387,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/eslint-config@0.0.0, @roots/eslint-config@workspace:sources/@roots/eslint-config":
+"@roots/eslint-config@workspace:sources/@roots/eslint-config":
   version: 0.0.0-use.local
   resolution: "@roots/eslint-config@workspace:sources/@roots/eslint-config"
   dependencies:
@@ -5443,7 +5443,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/sage@0.0.0, @roots/sage@workspace:sources/@roots/sage":
+"@roots/sage@workspace:sources/@roots/sage":
   version: 0.0.0-use.local
   resolution: "@roots/sage@workspace:sources/@roots/sage"
   dependencies:
@@ -14177,20 +14177,6 @@ __metadata:
   checksum: f6f487ad2198aa41d878fa31452f1a3c00958f46e9019286ff4787c84aac329332ab45c9cdc8c445928fc6d7ded294b9e005a7fce9426488518017831b272780
   languageName: node
   linkType: hard
-
-"example-sage@workspace:examples/sage":
-  version: 0.0.0-use.local
-  resolution: "example-sage@workspace:examples/sage"
-  dependencies:
-    "@roots/bud": 0.0.0
-    "@roots/bud-eslint": 0.0.0
-    "@roots/bud-prettier": 0.0.0
-    "@roots/bud-stylelint": 0.0.0
-    "@roots/bud-tailwindcss": 0.0.0
-    "@roots/eslint-config": 0.0.0
-    "@roots/sage": 0.0.0
-  languageName: unknown
-  linkType: soft
 
 "execa@npm:6.1.0, execa@npm:^6.0.0":
   version: 6.1.0
