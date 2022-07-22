@@ -10,6 +10,8 @@ import type {Service as Base} from '../../service.js'
 export interface Service extends Base {
   progress: any
 
+  log(...strings: Array<string>): unknown
+
   progressCallback(percent: number, scope: string, ...message: any[]): void
 
   /**

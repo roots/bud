@@ -4509,9 +4509,11 @@ __metadata:
   dependencies:
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@skypack/package-check": 0.2.2
+    "@types/cli-progress": ^3
     "@types/lodash-es": 4.17.6
     "@types/node": 16.11.45
     chalk: 5.0.1
+    cli-progress: 3.11.2
     figures: 4.0.1
     helpful-decorators: 2.1.0
     human-readable: 0.2.1
@@ -4596,7 +4598,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/bud-eslint@workspace:sources/@roots/bud-eslint":
+"@roots/bud-eslint@workspace:*, @roots/bud-eslint@workspace:sources/@roots/bud-eslint":
   version: 0.0.0-use.local
   resolution: "@roots/bud-eslint@workspace:sources/@roots/bud-eslint"
   dependencies:
@@ -4856,7 +4858,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/bud-prettier@workspace:sources/@roots/bud-prettier":
+"@roots/bud-prettier@workspace:*, @roots/bud-prettier@workspace:sources/@roots/bud-prettier":
   version: 0.0.0-use.local
   resolution: "@roots/bud-prettier@workspace:sources/@roots/bud-prettier"
   dependencies:
@@ -5030,7 +5032,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/bud-stylelint@workspace:sources/@roots/bud-stylelint":
+"@roots/bud-stylelint@workspace:*, @roots/bud-stylelint@workspace:sources/@roots/bud-stylelint":
   version: 0.0.0-use.local
   resolution: "@roots/bud-stylelint@workspace:sources/@roots/bud-stylelint"
   dependencies:
@@ -5083,7 +5085,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/bud-tailwindcss@workspace:sources/@roots/bud-tailwindcss":
+"@roots/bud-tailwindcss@workspace:*, @roots/bud-tailwindcss@workspace:sources/@roots/bud-tailwindcss":
   version: 0.0.0-use.local
   resolution: "@roots/bud-tailwindcss@workspace:sources/@roots/bud-tailwindcss"
   dependencies:
@@ -5234,7 +5236,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/bud@workspace:sources/@roots/bud":
+"@roots/bud@workspace:*, @roots/bud@workspace:sources/@roots/bud":
   version: 0.0.0-use.local
   resolution: "@roots/bud@workspace:sources/@roots/bud"
   dependencies:
@@ -5386,7 +5388,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/eslint-config@workspace:sources/@roots/eslint-config":
+"@roots/eslint-config@workspace:*, @roots/eslint-config@workspace:sources/@roots/eslint-config":
   version: 0.0.0-use.local
   resolution: "@roots/eslint-config@workspace:sources/@roots/eslint-config"
   dependencies:
@@ -5442,7 +5444,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/sage@workspace:sources/@roots/sage":
+"@roots/sage@workspace:*, @roots/sage@workspace:sources/@roots/sage":
   version: 0.0.0-use.local
   resolution: "@roots/sage@workspace:sources/@roots/sage"
   dependencies:
@@ -6164,6 +6166,15 @@ __metadata:
     "@types/node": "*"
     "@types/responselike": "*"
   checksum: 667d25808dbf46fe104d6f029e0281ff56058d50c7c1b9182774b3e38bb9c1124f56e4c367ba54f92dbde2d1cc573f26eb0e9748710b2822bc0fd1e5498859c6
+  languageName: node
+  linkType: hard
+
+"@types/cli-progress@npm:^3":
+  version: 3.11.0
+  resolution: "@types/cli-progress@npm:3.11.0"
+  dependencies:
+    "@types/node": "*"
+  checksum: d4401622333e888925b47c5d5bb0b89dddae17cc020f909a64ad7275b326bf3c6e9cd467f625a197fd958a1e49220d32f4a2b0bf2948fee330c719a9b985674e
   languageName: node
   linkType: hard
 
@@ -10599,7 +10610,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cli-progress@npm:^3.7.0":
+"cli-progress@npm:3.11.2, cli-progress@npm:^3.7.0":
   version: 3.11.2
   resolution: "cli-progress@npm:3.11.2"
   dependencies:
@@ -14167,6 +14178,20 @@ __metadata:
   checksum: f6f487ad2198aa41d878fa31452f1a3c00958f46e9019286ff4787c84aac329332ab45c9cdc8c445928fc6d7ded294b9e005a7fce9426488518017831b272780
   languageName: node
   linkType: hard
+
+"example-sage@workspace:examples/sage":
+  version: 0.0.0-use.local
+  resolution: "example-sage@workspace:examples/sage"
+  dependencies:
+    "@roots/bud": "workspace:*"
+    "@roots/bud-eslint": "workspace:*"
+    "@roots/bud-prettier": "workspace:*"
+    "@roots/bud-stylelint": "workspace:*"
+    "@roots/bud-tailwindcss": "workspace:*"
+    "@roots/eslint-config": "workspace:*"
+    "@roots/sage": "workspace:*"
+  languageName: unknown
+  linkType: soft
 
 "execa@npm:6.1.0, execa@npm:^6.0.0":
   version: 6.1.0

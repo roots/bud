@@ -1,11 +1,13 @@
 /* eslint-disable no-console */
 import {Dashboard as Base, Service} from '@roots/bud-framework'
-import figures from 'figures'
+import chalk from 'chalk'
+import Progress from 'cli-progress'
 import {bind, once} from 'helpful-decorators'
-import {MultiProgressBars} from 'multi-progress-bars'
+import {toInteger} from 'lodash-es'
 import type {StatsCompilation} from 'webpack'
 
 import * as reporter from './render/reporter.js'
+import {theme} from './theme.js'
 
 /**
  * Dashboard service
@@ -18,7 +20,7 @@ export class Dashboard extends Service implements Base.Service {
    *
    * @public
    */
-  public progress: MultiProgressBars
+  public progress: Progress.SingleBar
 
   /**
    * Last hash
@@ -26,6 +28,13 @@ export class Dashboard extends Service implements Base.Service {
    * @public
    */
   public lastHash: string
+
+  public log(...strings: Array<string>): void {
+    strings
+      .map(str => str.split('\n'))
+      .flat()
+      .map(str => this.app.context.stdout.write(` ${str}\n`))
+  }
 
   /**
    * `register` callback
@@ -38,23 +47,30 @@ export class Dashboard extends Service implements Base.Service {
   public async register() {
     if (this.app.context.args.ci) return
 
-    this.progress = new MultiProgressBars({
-      initMessage: '',
-      border: false,
-      anchor: 'top',
-      footer: true,
-      header: false,
-      persist: true,
-    })
+    this.log('')
 
-    this.progress.setHeader(
-      figures.ellipsis.concat(` `).concat(this.app.name),
-    )
-    this.progress.addTask('build', {
-      message: 'initializing',
-      type: 'percentage',
-      percentage: 0,
-    })
+    if (!this.app.context.args.ci) {
+      this.progress = new Progress.SingleBar(
+        {
+          format:
+            '{scope} ' +
+            chalk.hex(theme.foregroundColor)('{bar}') +
+            ' {percentage}%',
+          linewrap: true,
+          hideCursor: false,
+          emptyOnZero: true,
+          forceRedraw: false,
+          fps: 60,
+          stream: this.app.context.stdout,
+          autopadding: false,
+        },
+        Progress.Presets.shades_classic,
+      )
+
+      this.app.hooks.action('build.after', async () => {
+        this.progress.start(100, 0, {scope: 'initializing'})
+      })
+    }
   }
 
   /**
@@ -71,8 +87,10 @@ export class Dashboard extends Service implements Base.Service {
   }): Promise<unknown> {
     if (!stats) return this
 
+    this.log('\n')
+
     if (this.app.context.args.ci) {
-      console.log(stats?.toString())
+      this.log(stats?.toString())
       return this
     }
 
@@ -81,6 +99,12 @@ export class Dashboard extends Service implements Base.Service {
     if (!json) return this
 
     await reporter.render({stats, app: this.app})
+
+    if (this.app.isProduction) {
+      this.app.compiler.compilation.running
+        ? this.app.compiler.compilation.close(() => this.app.close())
+        : this.app.close()
+    }
 
     return this
   }
@@ -91,31 +115,12 @@ export class Dashboard extends Service implements Base.Service {
    * @public
    */
   @bind
-  public progressCallback(
-    percentage: number,
-    scope: string,
-    ...message: any[]
-  ): void {
-    if (this.app.context.args.ci) return
+  public progressCallback(percentage: number, scope: string): void {
+    if (!percentage || !scope || this.app.context.args.ci) return
 
-    try {
-      const update = scope.includes(`]`)
-        ? scope.split(`]`).pop()?.trim()
-        : scope
-
-      if (percentage !== 1) {
-        this.progress.updateTask('build', {
-          percentage,
-          message: update ? `${update} ${message.join(' ')}`.trim() : '',
-        })
-      } else {
-        this.progress.updateTask('build', {
-          percentage,
-          message: 'built',
-        })
-      }
-    } catch (error) {
-      this.app.warn(error)
-    }
+    percentage = toInteger(percentage * 100)
+    scope = scope.split(']').splice(1).join('')
+    if (percentage)
+      this.progress.update(percentage >= 95 ? 100 : percentage, {scope})
   }
 }

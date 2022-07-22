@@ -10,16 +10,16 @@ import * as components from './report.js'
 
 export const compilationMapFactory =
   (app, stats) => async (compilation, i) => {
-    app.dashboard.progress.setHeader(
+    app.dashboard.log(
       chalk.hex(stats?.errors?.length ? theme.red : theme.green)(
         `${stats?.errors?.length ? figures.cross : figures.tick} ${
           app.name
-        }`,
+        }\n`,
       ),
     )
 
     stats.errorsCount &&
-      console.log(
+      app.dashboard.log(
         stats.errors
           .filter(str => !str.moduleIdentifier)
           .map(format.formatMessage)
@@ -27,7 +27,9 @@ export const compilationMapFactory =
       )
 
     stats.warningsCount &&
-      console.log(stats.warnings.map(format.formatMessage).join('\n'))
+      app.dashboard.log(
+        stats.warnings.map(format.formatMessage).join('\n'),
+      )
 
     !stats.errorsCount &&
       compilation?.entrypoints &&
@@ -57,15 +59,5 @@ export const render = async ({
     json?.children?.map(
       async (child, i) => await renderCompilation(child, i),
     ),
-  ).then(() => {
-    app.dashboard.progress.updateTask('build', {
-      barTransformFn: json.errorsCount
-        ? chalk.hex(theme.red)
-        : json.warningsCount
-        ? chalk.hex(theme.yellow)
-        : chalk.hex(theme.green),
-    })
-
-    console.log()
-  })
+  )
 }

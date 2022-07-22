@@ -51,6 +51,7 @@
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
+    "@types/cli-progress": "^3",
     "@types/lodash-es": "4.17.6",
     "@types/node": "16.11.45",
     "tslib": "2.4.0",
@@ -59,6 +60,7 @@
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "chalk": "5.0.1",
+    "cli-progress": "3.11.2",
     "figures": "4.0.1",
     "helpful-decorators": "2.1.0",
     "human-readable": "0.2.1",

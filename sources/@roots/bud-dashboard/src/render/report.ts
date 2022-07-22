@@ -19,7 +19,7 @@ export const report = ({
   const staticGroup = assets.statics(compilation)
   const staticDisplay = staticGroup.splice(0, 5)
 
-  console.log(
+  app.dashboard.log(
     table.make([
       ...assets.group(assets.assets(compilation)).filter(Boolean),
       ...assets.group(staticDisplay).filter(Boolean),
@@ -27,7 +27,7 @@ export const report = ({
   )
 
   staticGroup.length &&
-    console.log(
+    app.dashboard.log(
       chalk.italic.dim(
         `+ ${staticGroup.length} additional static assets\n\n`,
       ),
@@ -35,7 +35,7 @@ export const report = ({
 }
 
 export const summary = (app: Bud, compilation: StatsCompilation) => {
-  console.log(
+  app.dashboard.log(
     table.make([
       [
         chalk.hex(theme.magenta)(`mode`),
@@ -59,7 +59,7 @@ export const summary = (app: Bud, compilation: StatsCompilation) => {
   )
 
   app.isDevelopment &&
-    console.log(
+    app.dashboard.log(
       table.make(
         [
           [
