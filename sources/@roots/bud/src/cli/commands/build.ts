@@ -65,7 +65,7 @@ export class BuildCommand extends BaseCommand {
   /**
    * --clean
    */
-  public clean = Option.Boolean(`--clean`, true, {
+  public clean = Option.Boolean(`--clean`, undefined, {
     description: `Clean artifacts and distributables prior to compilation`,
   })
 
@@ -342,7 +342,6 @@ export class BuildCommand extends BaseCommand {
           [() => this.publicPath],
           seed['build.output.publicPath'],
         ),
-        'feature.clean': fallback(this.clean, [() => this.clean], true),
         'feature.inject': fallback(
           this.inject,
           [() => this.inject],

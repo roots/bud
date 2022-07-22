@@ -70,7 +70,7 @@ export async function lifecycle(
     )
     .reduce((a, [k, v]): Services.Registry => ({...a, [k]: v}), {})
 
-  await LIFECYCLE_EVENTS.reduce(async (promised, event, i) => {
+  await LIFECYCLE_EVENTS.reduce(async (promised, event) => {
     await promised
 
     await Promise.all(
@@ -80,7 +80,7 @@ export async function lifecycle(
           service,
           this[service][event].bind(this[service]),
         ])
-        .map(async ([service, serviceLifecycleMethod], i) => {
+        .map(async ([service, serviceLifecycleMethod]) => {
           try {
             await serviceLifecycleMethod(this)
 

@@ -43,7 +43,7 @@ export async function build(app: Bud): Promise<void> {
     }))
     .hooks.on('build.infrastructureLogging', () => ({
       console: app.hooks.filter('build.infrastructureLogging.console'),
-      level: app.hooks.filter('build.infrastructureLogging.level', 'none'),
+      level: app.hooks.filter('build.infrastructureLogging.level'),
     }))
     .hooks.on('build.mode', () => app.mode)
     .hooks.on('build.module', () => ({
@@ -119,7 +119,6 @@ export async function build(app: Bud): Promise<void> {
         ]),
       )
     })
-    .hooks.on('build.stats', 'errors-warnings')
     .hooks.on('build.target', () =>
       app.project.has('manifest.browserslist')
         ? `browserslist:${app.root.path('./package.json')}`

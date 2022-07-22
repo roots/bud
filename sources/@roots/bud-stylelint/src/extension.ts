@@ -19,14 +19,7 @@ import StylelintWebpackPlugin, {Options} from 'stylelint-webpack-plugin'
  */
 @label('@roots/bud-stylelint')
 @plugin(StylelintWebpackPlugin)
-@options<Options>({
-  context: app => app.path('@src'),
-  cache: true,
-  cacheLocation: app => app.path('@storage/cache/stylelint'),
-  emitError: false,
-  emitWarning: false,
-  formatter: 'string',
-})
+@options({context: app => app.path('@src')})
 @expose('stylelint')
 export default class BudStylelintWebpackPlugin extends Extension<
   Options,

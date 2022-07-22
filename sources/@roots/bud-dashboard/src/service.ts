@@ -89,7 +89,6 @@ export class Dashboard extends Service implements Base.Service {
    * Progress callback
    *
    * @public
-   * @decorator `@bind`
    */
   @bind
   public progressCallback(
