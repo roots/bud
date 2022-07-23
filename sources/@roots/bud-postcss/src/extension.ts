@@ -3,6 +3,7 @@ import {
   bind,
   expose,
   label,
+  once,
 } from '@roots/bud-framework/extension/decorators'
 import {isFunction, isUndefined} from 'lodash-es'
 import type {Plugin, Processor} from 'postcss'
@@ -86,8 +87,6 @@ export default class BudPostCss extends Extension {
       .forEach(([k, v]) => plugins.push(v))
 
     this.plugins.has('env') && plugins.push(this.plugins.get('env'))
-
-    this.logger.log('final postcss plugins:', ...plugins)
 
     return plugins.filter(Boolean)
   }
@@ -338,8 +337,10 @@ export default class BudPostCss extends Extension {
    *
    * @public
    * @decorator `@bind`
+   * @decorator `@once`
    */
   @bind
+  @once
   public async register() {
     this.setPlugins({
       import: await this.resolve('postcss-import'),

@@ -8,7 +8,6 @@ import type {
   ApplyPlugin,
   ExtensionLiteral,
 } from '@roots/bud-framework/src/extension'
-import chalk from 'chalk'
 import {bind} from 'helpful-decorators'
 
 /**
@@ -26,6 +25,19 @@ export default class Extensions
    * @public
    */
   public repository: Modules = {}
+
+  /**
+-   * Modules on which an import
+-   * attempt was made and failed
+-   *
+-   * @remarks
+-   * This doesn't mean an error, per se. This should only
+-   * be used in the text of trying to import `optionalDependencies`
+-   * of a given extension module.
+-   *
+-   * @public
+-   */
+  public unresolvable = new Set()
 
   /**
    * `booted` callback
@@ -101,7 +113,6 @@ export default class Extensions
    */
   @bind
   public set<K extends Modules>(value: Modules[K & string]): this {
-    value.logger.log(`setting`)
     this.repository[value.label] = value
     return this
   }
@@ -205,18 +216,28 @@ export default class Extensions
    */
   @bind
   public async import(signifier: string): Promise<Extension> {
-    if (!this.filterApplicableExtensions([signifier]).length) return
+    if (
+      this.has(signifier) ||
+      !this.filterApplicableExtensions([signifier]).length
+    )
+      return
 
     const extension = await this.app.module.import(signifier)
     const instance = this.instantiate(extension)
-    this.set(instance)
 
     instance.dependsOn &&
       (await this.filterApplicableExtensions(
         Array.from(instance.dependsOn),
       ).reduce(async (promised: Promise<any>, signifier): Promise<any> => {
         await promised
+        if (this.has(signifier)) return
+
         await this.import(signifier)
+
+        if (!this.has(signifier)) {
+          this.unresolvable.add(signifier)
+          this.app.error(`missing dependency`, signifier)
+        }
       }, Promise.resolve()))
 
     instance.dependsOnOptional &&
@@ -225,9 +246,17 @@ export default class Extensions
       ).reduce(async (promised: Promise<any>, signifier): Promise<any> => {
         try {
           await promised
+
+          if (this.has(signifier) || this.unresolvable.has(signifier))
+            return
+
           await this.import(signifier)
+
+          if (!this.has(signifier)) this.unresolvable.add(signifier)
         } catch (err) {}
       }, Promise.resolve()))
+
+    this.set(instance)
 
     return extension
   }
@@ -264,11 +293,6 @@ export default class Extensions
 
       if (!extension[methodName.replace('_', '')]) return this
 
-      extension.logger.log(
-        chalk.blue(extension.label),
-        chalk.cyan(methodName),
-      )
-
       await extension[methodName]()
 
       await this.app.api.processQueue()
@@ -291,7 +315,7 @@ export default class Extensions
    */
   @bind
   public async runDependencies<K extends Modules>(
-    extension: Modules[K & string],
+    extension: Modules[K & string] | (keyof Modules & string),
     methodName:
       | '_init'
       | '_register'
@@ -300,6 +324,9 @@ export default class Extensions
       | '_beforeBuild'
       | '_make',
   ): Promise<void> {
+    extension =
+      typeof extension === 'string' ? this.get(extension) : extension
+
     if (extension.dependsOn && extension.dependsOn.size > 0) {
       await Array.from(extension.dependsOn).reduce(
         async (
@@ -309,10 +336,7 @@ export default class Extensions
           await promised
 
           try {
-            if (!this.has(signifier)) {
-              extension.logger.log('importing', chalk.blue(signifier))
-              await this.import(signifier)
-            }
+            if (!this.has(signifier)) await this.import(signifier)
 
             if (!this.get(signifier).meta[methodName])
               await this.run(this.get(signifier), methodName)
@@ -333,14 +357,7 @@ export default class Extensions
           await promised
 
           try {
-            if (!this.has(dependency)) {
-              extension.logger.log(
-                'attempting to import optional dependency',
-                chalk.blue(dependency),
-              )
-              await this.import(dependency)
-            }
-
+            if (!this.has(dependency)) await this.import(dependency)
             await this.run(this.get(dependency), methodName)
           } catch (error) {}
         },
