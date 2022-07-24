@@ -1,6 +1,6 @@
 {
   "name": "bud",
-  "packageManager": "yarn@3.2.1",
+  "packageManager": "yarn@3.2.2",
   "private": true,
   "description": "⚡️ Lightning fast frontend build tools combining the best parts of Symfony Encore and Laravel Mix",
   "repository": {
