@@ -93,7 +93,7 @@
     "file-loader": "^6.2.0",
     "fs-extra": "10.1.0",
     "helpful-decorators": "2.1.0",
-    "html-loader": "^3.0.1",
+    "html-loader": "^4.0.0",
     "json5": "2.2.1",
     "lodash-es": "4.17.21",
     "mini-css-extract-plugin": "^2.4.5",
