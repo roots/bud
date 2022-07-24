@@ -40,20 +40,46 @@ export class Controller {
 
   /**
    * Class constructor
+   *
    * @public
    */
   public constructor() {
-    this.element = document.createElement('bud-error')
-    document.body && document.body.appendChild(this.element)
     this.update = this.update.bind(this)
+    this.element = document.createElement('bud-error')
   }
 
   /**
-   * Update element
+   * Append `bud-error` element to the DOM
+   *
+   * @public
+   */
+  public createError() {
+    !document.body.querySelector('bud-error') &&
+      document.body?.appendChild(this.element)
+  }
+
+  /**
+   * Remove `bud-error` element from the DOM (if present)
+   *
+   * @public
+   */
+  public removeError() {
+    document.body.querySelector('bud-error')?.remove()
+  }
+
+  /**
+   * Update DOM
+   *
    * @public
    */
   public update(payload: Payload): void {
     this.payload = payload
     this.element.setAttribute('message', this.message ?? ``)
+
+    if (this.payload.errors.length) {
+      return this.createError()
+    }
+
+    this.removeError()
   }
 }
