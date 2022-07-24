@@ -1,4 +1,4 @@
-import {bind} from 'helpful-decorators'
+import {bind, once} from 'helpful-decorators'
 
 import {dependsOn} from './dependsOn.js'
 import {dependsOnOptional} from './dependsOnOptional.js'
@@ -18,6 +18,7 @@ export {
   development,
   expose,
   label,
+  once,
   options,
   plugin,
   production,
