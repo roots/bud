@@ -4409,7 +4409,7 @@ __metadata:
     file-loader: ^6.2.0
     fs-extra: 10.1.0
     helpful-decorators: 2.1.0
-    html-loader: ^3.0.1
+    html-loader: ^4.0.0
     json5: 2.2.1
     lodash-es: 4.17.21
     mini-css-extract-plugin: ^2.4.5
@@ -16597,15 +16597,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"html-loader@npm:^3.0.1":
-  version: 3.0.1
-  resolution: "html-loader@npm:3.0.1"
+"html-loader@npm:^4.0.0":
+  version: 4.1.0
+  resolution: "html-loader@npm:4.1.0"
   dependencies:
-    html-minifier-terser: ^6.0.2
-    parse5: ^6.0.1
+    html-minifier-terser: ^6.1.0
+    parse5: ^7.0.0
   peerDependencies:
     webpack: ^5.0.0
-  checksum: 9963912f20c14ac2303d262778ea230e66bb7953db004ae55787a55ae4baecc350ce6ddb89ff8bdf5d3cf715ee8460545c2d2109304be3246bbad2123f7c9a57
+  checksum: d544cecb0588a3efd096b24be8f8e008afdf60c22e2c3186d56c107966698e18f38016f794561d0291c010ebf358aea04f5091a6be09c576c269118e066c8317
   languageName: node
   linkType: hard
 
@@ -22773,7 +22773,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"parse5@npm:6.0.1, parse5@npm:^6.0.0, parse5@npm:^6.0.1":
+"parse5@npm:6.0.1, parse5@npm:^6.0.0":
   version: 6.0.1
   resolution: "parse5@npm:6.0.1"
   checksum: 7d569a176c5460897f7c8f3377eff640d54132b9be51ae8a8fa4979af940830b2b0c296ce75e5bd8f4041520aadde13170dbdec44889975f906098ea0002f4bd
