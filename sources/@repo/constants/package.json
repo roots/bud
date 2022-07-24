@@ -1,6 +1,6 @@
 {
   "name": "@repo/constants",
-  "packageManager": "yarn@3.2.1",
+  "packageManager": "yarn@3.2.2",
   "private": true,
   "type": "module",
   "exports": {
