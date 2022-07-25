@@ -20,6 +20,14 @@ export default class BudProvide extends Extension<
   Webpack.ProvidePlugin
 > {
   /**
+   * `register` callback
+   */
+  @bind
+  public async register() {
+    this.setOptions(this.app.env.getPublicEnv())
+  }
+
+  /**
    * `when` callback
    *
    * @remarks
