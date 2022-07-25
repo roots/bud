@@ -50,8 +50,6 @@ interface Options extends BaseOptions {
     return {...a, [k]: v}
   }, FALLBACK_OPTS)
 
-  hmr.setOptionsAndConnect(options)
-
   if (options['bud.indicator']) {
     const controllerModule = await import(
       '../components/indicator/index.cjs'
@@ -68,13 +66,13 @@ interface Options extends BaseOptions {
     controller?.update && controllers.push(controller)
   }
 
-  hmr.subscribeAll(payload => {
+  hmr.setOptionsAndConnect(payload => {
     if (!payload) return
 
     controllers.map(controller => controller.update(payload))
 
     if (payload.action === 'reload') window.location.reload()
-  })
+  }, options)
 })(
   // @ts-ignore
   __resourceQuery as string,

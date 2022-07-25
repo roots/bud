@@ -19,6 +19,11 @@ export class Component extends HTMLElement {
     return this.getAttribute('message')
   }
 
+  public constructor() {
+    super()
+    this.renderShadow()
+  }
+
   public renderShadow(): void {
     const container = document.createElement('div')
     container.classList.add('overlay')
@@ -162,6 +167,5 @@ export class Component extends HTMLElement {
 
   public connectedCallback() {
     if (document.body?.style) this.documentBodyStyle = document.body.style
-    this.renderShadow()
   }
 }

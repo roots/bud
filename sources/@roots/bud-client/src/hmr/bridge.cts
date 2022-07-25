@@ -1,17 +1,15 @@
 /* eslint-disable no-console */
 
-var options = {
+const options = {
   path: '/__bud/hmr',
   timeout: 20 * 1000,
-  overlay: true,
   reload: false,
-  log: true,
-  warn: true,
   name: 'bud',
-  autoConnect: true,
-  overlayStyles: {},
-  overlayWarnings: false,
-  ansiColors: {},
+}
+
+const styles = {
+  errors: 'color: #ff0000;',
+  warnings: 'color: #999933;',
 }
 
 //@ts-ignore
@@ -30,42 +28,20 @@ if (typeof window === 'undefined') {
       'You should include a polyfill if you want to support this browser: ' +
       'https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events#Tools',
   )
-} else {
-  if (options.autoConnect) {
-    connect()
-  }
 }
 
 function setOverrides(overrides) {
-  if (overrides.autoConnect)
-    options.autoConnect = overrides.autoConnect == 'true'
   if (overrides.path) options.path = overrides.path
   if (overrides.timeout) options.timeout = overrides.timeout
-  if (overrides.overlay) options.overlay = overrides.overlay !== 'false'
-  if (overrides.reload) options.reload = overrides.reload !== 'false'
-  if (overrides.noInfo && overrides.noInfo !== 'false') {
-    options.log = false
-  }
+  if (overrides.reload) options.reload = overrides.reload === true
+
   if (overrides.name) {
     options.name = overrides.name
-  }
-  if (overrides.quiet && overrides.quiet !== 'false') {
-    options.log = false
-    options.warn = false
   }
 
   if (overrides.dynamicPublicPath) {
     // @ts-ignore
     options.path = __webpack_public_path__ + options.path
-  }
-
-  if (overrides.ansiColors)
-    options.ansiColors = JSON.parse(overrides.ansiColors)
-  if (overrides.overlayStyles)
-    options.overlayStyles = JSON.parse(overrides.overlayStyles)
-
-  if (overrides.overlayWarnings) {
-    options.overlayWarnings = overrides.overlayWarnings == 'true'
   }
 }
 
@@ -90,15 +66,15 @@ function EventSourceWrapper() {
   }
 
   function handleOnline() {
-    if (options.log) console.log('[HMR] connected')
+    console.log('[bud] connected')
     lastActivity = new Date()
   }
 
   function handleMessage(event) {
     lastActivity = new Date()
-    for (var i = 0; i < listeners.length; i++) {
-      listeners[i](event)
-    }
+    if (!listeners?.length || !event) return
+
+    listeners?.forEach(listener => listener(event))
   }
 
   function handleDisconnect() {
@@ -138,13 +114,10 @@ function connect() {
     if (event.data == '\uD83D\uDC93') {
       return
     }
+
     try {
       processMessage(JSON.parse(event.data))
-    } catch (ex) {
-      if (options.warn) {
-        console.warn('Invalid HMR message: ' + event.data + '\n' + ex)
-      }
-    }
+    } catch (ex) {}
   }
 }
 
@@ -152,8 +125,10 @@ function connect() {
 // in case the client is being used by multiple bundles
 // we only want to report once.
 // all the errors will go to all clients
-var singletonKey = '__webpack_hot_middleware_reporter__'
-var reporter
+const singletonKey = '__webpack_hot_middleware_reporter__'
+
+let reporter
+
 if (typeof window !== 'undefined') {
   if (!window[singletonKey]) {
     window[singletonKey] = createReporter()
@@ -162,33 +137,32 @@ if (typeof window !== 'undefined') {
 }
 
 function createReporter() {
-  var {default: strip} = require('strip-ansi')
+  const {default: strip} = require('strip-ansi')
 
-  var overlay
+  let previousProblems = null
 
-  var styles = {
-    errors: 'color: #ff0000;',
-    warnings: 'color: #999933;',
-  }
-  var previousProblems = null
   function log(type, obj) {
-    var newProblems = obj[type]
+    const newProblems = obj[type]
       .map(function (problem) {
         var isNested = typeof problem === 'object'
         var message = isNested ? problem.message : problem
         return strip(message)
       })
       .join('\n')
+
     if (previousProblems == newProblems) {
       return
     } else {
       previousProblems = newProblems
     }
 
-    var style = styles[type]
-    var name = obj.name ? "'" + obj.name + "' " : ''
-    var title =
-      '[HMR] bundle ' + name + 'has ' + obj[type].length + ' ' + type
+    const style = styles[type]
+    const name = obj.name ? "'" + obj.name + "' " : ''
+    const count = obj[type]?.length
+
+    if (!count) return
+
+    var title = '[bud] bundle ' + name + 'has ' + count + ' ' + type
     // NOTE: console.warn or console.error will print the stack trace
     // which isn't helpful here, so using console.log to escape it.
     if (console.group && console.groupEnd) {
@@ -209,62 +183,36 @@ function createReporter() {
       previousProblems = null
     },
     problems: function (type, obj) {
-      if (options.warn) {
-        log(type, obj)
-      }
-      if (overlay) {
-        if (options.overlayWarnings || type === 'errors') {
-          overlay.showProblems(type, obj[type])
-          return false
-        }
-        overlay.clear()
-      }
+      log(type, obj)
       return true
     },
-    success: function () {
-      if (overlay) overlay.clear()
-    },
-    useCustomOverlay: function (customOverlay) {
-      overlay = customOverlay
-    },
+    success: function () {},
   }
 }
 
 const processUpdate = require('./update')
 
 var customHandler
-var subscribeAllHandler
+let subscribeAllHandler
+
 function processMessage(obj) {
   switch (obj.action) {
     case 'building':
-      if (options.log) {
-        console.log(
-          '[HMR] bundle ' +
-            (obj.name ? "'" + obj.name + "' " : '') +
-            'rebuilding',
-        )
-      }
+      console.log('[bud] rebuilding')
       break
     case 'built':
-      if (options.log) {
-        console.log(
-          '[HMR] bundle ' +
-            (obj.name ? "'" + obj.name + "' " : '') +
-            'rebuilt in ' +
-            obj.time +
-            'ms',
-        )
-      }
-    // fall through
+      console.log('[bud] rebuilt in ' + obj.time + 'ms')
     case 'sync':
       if (obj.name && options.name && obj.name !== options.name) {
         return
       }
+
       var applyUpdate = true
-      if (obj.errors.length > 0) {
+
+      if (obj.errors?.length > 0) {
         if (reporter) reporter.problems('errors', obj)
         applyUpdate = false
-      } else if (obj.warnings.length > 0) {
+      } else if (obj.warnings?.length > 0) {
         if (reporter) {
           var overlayShown = reporter.problems('warnings', obj)
           applyUpdate = overlayShown
@@ -285,24 +233,11 @@ function processMessage(obj) {
       }
   }
 
-  if (subscribeAllHandler) {
-    subscribeAllHandler(obj)
-  }
+  subscribeAllHandler && subscribeAllHandler(obj)
 }
 
-export function subscribeAll(handler) {
+export function setOptionsAndConnect(handler, overrides) {
   subscribeAllHandler = handler
-}
-
-export function subscribe(handler) {
-  customHandler = handler
-}
-
-export function useCustomOverlay(customOverlay) {
-  if (reporter) reporter.useCustomOverlay(customOverlay)
-}
-
-export function setOptionsAndConnect(overrides) {
   setOverrides(overrides)
   connect()
 }
