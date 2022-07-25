@@ -14,7 +14,16 @@ export default class BudDefine extends Extension<
 > {
   @bind
   public async init() {
-    this.setOptions(this.app.env.getPublicEnv())
+    if (!this.app.env.getPublicEnv()) return
+    this.setOptions(
+      Object.entries(this.app.env.getPublicEnv()).reduce(
+        (values, [key, value]) => ({
+          ...values,
+          [key]: JSON.stringify(value),
+        }),
+        {},
+      ),
+    )
   }
 
   /**

@@ -42,11 +42,7 @@ export class Env extends ContainerService implements Base.Service {
    */
   @bind
   public transformPublicEnv([rawKey, rawValue]: [string, string]) {
-    const interpolated = rawKey.replace('PUBLIC_', '')
-
-    const value = JSON.stringify(rawValue)
-
-    return [interpolated, value]
+    return [rawKey.replace('PUBLIC_', ''), rawValue]
   }
 
   /**
