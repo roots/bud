@@ -1,7 +1,6 @@
 import type {Env as Base} from '@roots/bud-framework'
 import {ContainerService} from '@roots/bud-framework'
 import {bind} from 'helpful-decorators'
-import {isString} from 'lodash-es'
 
 /**
  * Env service
@@ -45,9 +44,7 @@ export class Env extends ContainerService implements Base.Service {
   public transformPublicEnv([rawKey, rawValue]: [string, string]) {
     const interpolated = rawKey.replace('PUBLIC_', '')
 
-    const value = isString(rawValue)
-      ? rawValue
-      : this.app.json.stringify(rawValue)
+    const value = JSON.stringify(rawValue)
 
     return [interpolated, value]
   }
