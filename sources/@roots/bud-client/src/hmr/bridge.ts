@@ -5,14 +5,17 @@
  */
 
 import * as eventSource from './eventsource.js'
+import type {Options, Payload} from './index.js'
 import * as options from './options.js'
 import update from './update.js'
 
-let handler: (payload: any) => unknown
-export const setHandler = (fn: (payload: any) => unknown) => (handler = fn)
+let handler: (payload: Payload) => unknown
 
-export const connect = options => {
-  eventSource.get(options).addMessageListener(event => {
+export const setHandler = (fn: (payload: Payload) => unknown) =>
+  (handler = fn)
+
+export const connect = (options: Options) => {
+  eventSource.get(options).addMessageListener((event: MessageEvent) => {
     if (event.data == '\uD83D\uDC93') return
 
     try {
@@ -21,8 +24,8 @@ export const connect = options => {
 
       update(payload.hash, payload.modules, options)
       handler(payload)
-    } catch (ex) {
-      console.info(ex)
+    } catch (e) {
+      console.error(e)
     }
   })
 }

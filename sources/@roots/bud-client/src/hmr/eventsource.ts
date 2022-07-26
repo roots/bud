@@ -9,10 +9,11 @@ declare global {
   }
 }
 
+let eventSourceInstance: EventSource
+
 export const create = (options: Options) => {
-  let source
-  let lastActivity = new Date()
-  let listeners = []
+  let lastActivity: Date = new Date()
+  let listeners: Array<((ev: MessageEvent) => any) | null> = []
 
   init()
 
@@ -24,10 +25,10 @@ export const create = (options: Options) => {
   }, options.timeout / 2)
 
   function init() {
-    source = new window.EventSource(options.path)
-    source.onopen = handleOnline
-    source.onerror = handleDisconnect
-    source.onmessage = handleMessage
+    eventSourceInstance = new window.EventSource(options.path)
+    eventSourceInstance.onopen = handleOnline
+    eventSourceInstance.onerror = handleDisconnect
+    eventSourceInstance.onmessage = handleMessage
   }
 
   function handleOnline() {
@@ -35,27 +36,34 @@ export const create = (options: Options) => {
     lastActivity = new Date()
   }
 
-  function handleMessage(event) {
+  function handleMessage(payload: MessageEvent) {
     lastActivity = new Date()
-    if (!listeners?.length || !event) return
 
-    listeners?.forEach(listener => listener(event))
+    if (!listeners?.length || !payload) return
+
+    listeners?.forEach(listener =>
+      typeof listener === 'function' ? listener(payload) : null,
+    )
   }
 
   function handleDisconnect() {
     clearInterval(timer)
-    source.close()
+    eventSourceInstance.close()
     setTimeout(init, options.timeout)
   }
 
   return {
-    addMessageListener: function (fn) {
+    addMessageListener: function (fn: (ev: MessageEvent) => unknown) {
       listeners.push(fn)
     },
   }
 }
 
-export const get = options => {
+export const get = (
+  options: Options,
+): {
+  addMessageListener: (fn: (ev: MessageEvent) => unknown) => unknown
+} => {
   if (!window.__whmEventSourceWrapper) {
     window.__whmEventSourceWrapper = {}
   }

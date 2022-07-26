@@ -11,20 +11,24 @@ declare global {
   }
 }
 
-interface Controller {
-  update: (payload) => void
+export interface Payload {
+  action: 'reload' | 'sync' | 'building' | 'built'
+  hash?: string
+  time?: number
+  errors?: Array<string>
+  warnings?: Array<string>
+  message?: string
 }
 
-interface BaseOptions {
+export interface Controller {
+  update: (payload: Payload) => void
+}
+
+export interface Options {
   timeout: number
   reload: boolean
   name: string
   path: string
-}
-
-interface Options extends BaseOptions {
-  'bud.overlay': boolean
-  'bud.indicator': boolean
 }
 
 import * as bridge from './bridge.js'
@@ -44,8 +48,6 @@ This browser requires a polyfill: https://developer.mozilla.org/en-US/docs/Web/A
   const controllers: Array<Controller> = []
 
   const FALLBACK_OPTS: Options = {
-    ['bud.overlay']: true,
-    ['bud.indicator']: true,
     timeout: 20 * 1000,
     reload: false,
     name: 'bud',
@@ -76,7 +78,7 @@ This browser requires a polyfill: https://developer.mozilla.org/en-US/docs/Web/A
     controller?.update && controllers.push(controller)
   }
 
-  bridge.setHandler(payload => {
+  bridge.setHandler((payload: Payload) => {
     if (!payload) return
     if (payload.action === 'reload') window.location.reload()
     controllers.map(controller => controller.update(payload))
@@ -87,5 +89,3 @@ This browser requires a polyfill: https://developer.mozilla.org/en-US/docs/Web/A
 }
 
 run(__resourceQuery)
-
-export {Options}
