@@ -76,7 +76,7 @@ export class Controller {
     this.payload = payload
     this.element.setAttribute('message', this.message ?? ``)
 
-    if (this.payload.errors.length) {
+    if (this.payload.errors?.length) {
       return this.createError()
     }
 
