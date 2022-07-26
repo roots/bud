@@ -1,6 +1,16 @@
 /* eslint-disable no-console */
 /* global __resourceQuery */
 
+declare global {
+  const __resourceQuery: string
+
+  interface Window {
+    __webpack_hash__: string
+    __whmEventSourceWrapper: any
+    __webpack_public_path__: string
+  }
+}
+
 interface Controller {
   update: (payload) => void
 }
@@ -23,6 +33,15 @@ interface Options extends BaseOptions {
 }
 
 ;(async (query: string) => {
+  if (typeof window === 'undefined') {
+    return
+  } else if (typeof window.EventSource === 'undefined') {
+    return console.error(`\
+The hot middleware client requires EventSource to work.
+This browser requires a polyfill: https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events#Tools,
+`)
+  }
+
   const querystring = await import('querystring')
   const hmr = await import('./bridge.cjs')
 
@@ -73,7 +92,6 @@ interface Options extends BaseOptions {
 
     if (payload.action === 'reload') window.location.reload()
   }, options)
-})(
-  // @ts-ignore
-  __resourceQuery as string,
-)
+})(__resourceQuery)
+
+export {}

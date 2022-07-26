@@ -40,7 +40,9 @@ module.exports = function (hash, moduleMap, options) {
         ignoreDeclined: true,
         ignoreErrored: true,
         onUnaccepted: function (data) {
+          // reload window
           console.info(data)
+          window.location.reload()
         },
         onDeclined: function (data) {
           console.info(data)
@@ -53,10 +55,10 @@ module.exports = function (hash, moduleMap, options) {
       // @ts-ignore
       const applyResult = module.hot.apply(applyOptions, applyCallback)
       if (applyResult && applyResult.then) {
-        // HotModuleReplacement.runtime.js refers to the result as `outdatedModules`
-        applyResult.then(function (outdatedModules) {
+        applyResult.then(outdatedModules => {
           applyCallback(null, outdatedModules)
         })
+
         applyResult.catch(applyCallback)
       }
     }
