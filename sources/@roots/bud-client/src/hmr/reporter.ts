@@ -42,4 +42,4 @@ class Reporter {
   }
 }
 
-module.exports = Reporter
+export {Reporter as default}

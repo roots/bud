@@ -16,14 +16,9 @@ interface Controller {
 }
 
 interface BaseOptions {
-  autoConnect: boolean
   timeout: number
-  overlay: boolean
   reload: boolean
-  log: boolean
-  warn: boolean
   name: string
-  overlayWarnings: boolean
   path: string
 }
 
@@ -32,7 +27,9 @@ interface Options extends BaseOptions {
   'bud.indicator': boolean
 }
 
-;(async (query: string) => {
+import * as bridge from './bridge.js'
+
+const run = async (query: string) => {
   if (typeof window === 'undefined') {
     return
   } else if (typeof window.EventSource === 'undefined') {
@@ -43,21 +40,15 @@ This browser requires a polyfill: https://developer.mozilla.org/en-US/docs/Web/A
   }
 
   const querystring = await import('querystring')
-  const hmr = await import('./bridge.cjs')
 
   const controllers: Array<Controller> = []
 
   const FALLBACK_OPTS: Options = {
     ['bud.overlay']: true,
     ['bud.indicator']: true,
-    autoConnect: false,
     timeout: 20 * 1000,
-    overlay: false,
     reload: false,
-    log: false,
-    warn: false,
     name: 'bud',
-    overlayWarnings: false,
     path: '/__bud/hmr',
   }
 
@@ -85,13 +76,16 @@ This browser requires a polyfill: https://developer.mozilla.org/en-US/docs/Web/A
     controller?.update && controllers.push(controller)
   }
 
-  hmr.setOptionsAndConnect(payload => {
+  bridge.setHandler(payload => {
     if (!payload) return
-
-    controllers.map(controller => controller.update(payload))
-
     if (payload.action === 'reload') window.location.reload()
-  }, options)
-})(__resourceQuery)
+    controllers.map(controller => controller.update(payload))
+  })
+
+  bridge.options.set(options)
+  bridge.connect(bridge.options.get())
+}
+
+run(__resourceQuery)
 
 export {}

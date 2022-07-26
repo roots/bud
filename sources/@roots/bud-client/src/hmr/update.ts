@@ -6,6 +6,10 @@
  * Original copyright Tobias Koppers `@sokra` (MIT license)
  */
 
+declare global {
+  const __webpack_hash__: string
+}
+
 // @ts-ignore
 if (!module.hot) {
   throw new Error('[bud] hmr is unavailable')
@@ -15,11 +19,10 @@ let lastHash: string
 
 function upToDate(hash?: string) {
   if (hash) lastHash = hash
-  // @ts-ignore
   return lastHash == __webpack_hash__
 }
 
-module.exports = function (hash, moduleMap, options) {
+export default function (hash, moduleMap, options) {
   // @ts-ignore
   if (!upToDate(hash) && module.hot.status() == 'idle') {
     check()
@@ -31,7 +34,6 @@ module.exports = function (hash, moduleMap, options) {
 
       const applyCallback = function (applyErr, renewedModules) {
         if (applyErr) return
-
         if (!upToDate()) check()
       }
 

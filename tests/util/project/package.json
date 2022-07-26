@@ -14,7 +14,6 @@
     "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-eslint": "workspace:sources/@roots/bud-eslint",
     "@roots/bud-preset-recommend": "workspace:sources/@roots/bud-preset-recommend",
-    "@roots/bud-react": "workspace:sources/@roots/bud-react",
     "@roots/bud-tailwindcss": "workspace:sources/@roots/bud-tailwindcss"
   },
   "volta": {

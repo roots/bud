@@ -8,7 +8,7 @@ declare global {
   }
 }
 
-export const createEventSource = options => {
+export const create = options => {
   let source
   let lastActivity = new Date()
   let listeners = []
@@ -54,14 +54,13 @@ export const createEventSource = options => {
   }
 }
 
-export const getEventSource = options => {
+export const get = options => {
   if (!window.__whmEventSourceWrapper) {
     window.__whmEventSourceWrapper = {}
   }
 
   if (!window.__whmEventSourceWrapper[options.path]) {
-    window.__whmEventSourceWrapper[options.path] =
-      createEventSource(options)
+    window.__whmEventSourceWrapper[options.path] = create(options)
   }
 
   return window.__whmEventSourceWrapper[options.path]

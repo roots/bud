@@ -115,7 +115,6 @@ export default class BudEsbuild extends Extension<Options> {
    *
    * @remarks
    *
-   *
    * @public
    */
   @bind
