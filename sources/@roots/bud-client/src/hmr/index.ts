@@ -88,4 +88,4 @@ This browser requires a polyfill: https://developer.mozilla.org/en-US/docs/Web/A
 
 run(__resourceQuery)
 
-export {}
+export {Options}

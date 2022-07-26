@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import type {Options} from './'
 
 declare global {
   interface Window {
@@ -8,7 +9,7 @@ declare global {
   }
 }
 
-export const create = options => {
+export const create = (options: Options) => {
   let source
   let lastActivity = new Date()
   let listeners = []

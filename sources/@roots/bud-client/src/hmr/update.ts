@@ -57,21 +57,22 @@ export default function (hash, moduleMap, options) {
       // @ts-ignore
       const applyResult = module.hot.apply(applyOptions, applyCallback)
       if (applyResult && applyResult.then) {
-        applyResult.then(outdatedModules => {
-          applyCallback(null, outdatedModules)
-        })
-
-        applyResult.catch(applyCallback)
+        applyResult
+          .then(outdatedModules => {
+            applyCallback(null, outdatedModules)
+          })
+          .catch(applyCallback)
       }
     }
 
     // @ts-ignore
     const result = module.hot.check(false, callback)
     if (result && result.then) {
-      result.then(function (updatedModules) {
-        callback(null, updatedModules)
-      })
-      result.catch(callback)
+      result
+        .then(function (updatedModules) {
+          callback(null, updatedModules)
+        })
+        .catch(callback)
     }
   }
 }
