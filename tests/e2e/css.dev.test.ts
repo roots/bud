@@ -50,13 +50,7 @@ describe('hmr css', () => {
 
   it('has indicator component', async () => {
     const indicator = await page.$('bud-activity-indicator')
-
-    const warnings = await indicator?.getAttribute('has-warnings')
-    expect(warnings).toBe('0')
-
-    const errors = await indicator?.getAttribute('has-errors')
-    expect(errors).toBe('0')
-
+    expect(indicator).toBeTruthy()
     const html = await page?.innerHTML('bud-activity-indicator')
     expect(html).toMatchSnapshot()
   })
