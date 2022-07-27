@@ -54,3 +54,9 @@ const main = async (proxy = null) => {
       ? await main()
       : window.requestAnimationFrame(ready)
   }))()
+
+// @ts-ignore
+if (module?.hot) {
+  // @ts-ignore
+  module.hot.accept()
+}

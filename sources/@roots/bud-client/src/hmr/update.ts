@@ -40,13 +40,11 @@ export default function (hash, moduleMap, options) {
       }
 
       const applyOptions = {
-        ignoreUnaccepted: true,
+        ignoreUnaccepted: false,
         ignoreDeclined: true,
         ignoreErrored: true,
         onUnaccepted: function (data) {
-          // reload window
           console.info(data)
-          window.location.reload()
         },
         onDeclined: function (data) {
           console.info(data)

@@ -89,3 +89,9 @@ This browser requires a polyfill: https://developer.mozilla.org/en-US/docs/Web/A
 }
 
 run(__resourceQuery)
+
+// @ts-ignore
+if (module?.hot) {
+  // @ts-ignore
+  module.hot.accept()
+}

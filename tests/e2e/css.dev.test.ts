@@ -24,8 +24,9 @@ describe('hmr css', () => {
           devProcess = execa('node', ['./node_modules/.bin/bud', 'dev'], {
             cwd: join(paths.mocks, 'yarn', 'babel'),
           })
+
           devProcess.stdout?.on('data', () => {
-            setTimeout(done, 2000).unref()
+            setTimeout(done, 1000).unref()
           })
         } catch (e) {
           console.error(e)

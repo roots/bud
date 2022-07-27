@@ -15,8 +15,6 @@ export const create = (options: Options) => {
   let lastActivity: Date = new Date()
   let listeners: Array<((ev: MessageEvent) => any) | null> = []
 
-  init()
-
   let timer = setInterval(function () {
     // @ts-ignore
     if (new Date() - lastActivity > options.timeout) {
@@ -51,6 +49,8 @@ export const create = (options: Options) => {
     eventSourceInstance.close()
     setTimeout(init, options.timeout)
   }
+
+  init()
 
   return {
     addMessageListener: function (fn: (ev: MessageEvent) => unknown) {
