@@ -30,7 +30,7 @@ describe('hmr js', () => {
           )
 
           devProcess.stdout?.on('data', () => {
-            setTimeout(done, 2000).unref()
+            done()
           })
         } catch (e) {
           console.error(e)
@@ -49,19 +49,12 @@ describe('hmr js', () => {
   })
 
   afterEach(async () => {
-    await page.close()
+    await page?.close()
   })
 
   it('readied up', async () => {
     const title = await page.title()
     expect(title).toBe('Webpack App')
-  })
-
-  it('has indicator component', async () => {
-    const indicator = await page.$('bud-activity-indicator')
-    expect(indicator).toBeTruthy()
-    const html = await page?.innerHTML('bud-activity-indicator')
-    expect(html).toMatchSnapshot()
   })
 
   it('hot updates js', async () => {

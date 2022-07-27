@@ -26,7 +26,7 @@ describe('hmr css', () => {
           })
 
           devProcess.stdout?.on('data', () => {
-            setTimeout(done, 1000).unref()
+            done()
           })
         } catch (e) {
           console.error(e)
@@ -45,14 +45,7 @@ describe('hmr css', () => {
   })
 
   afterEach(async () => {
-    await page.close()
-  })
-
-  it('has indicator component', async () => {
-    const indicator = await page.$('bud-activity-indicator')
-    expect(indicator).toBeTruthy()
-    const html = await page?.innerHTML('bud-activity-indicator')
-    expect(html).toMatchSnapshot()
+    await page?.close()
   })
 
   it('hot updates css', async () => {
