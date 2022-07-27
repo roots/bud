@@ -29,9 +29,12 @@ export interface Options {
   reload: boolean
   name: string
   path: string
+  indicator: boolean
+  overlay: boolean
 }
 
 import * as bridge from './bridge.js'
+import * as options from './options.js'
 
 const run = async (query: string) => {
   if (typeof window === 'undefined') {
@@ -43,34 +46,19 @@ This browser requires a polyfill: https://developer.mozilla.org/en-US/docs/Web/A
 `)
   }
 
-  const querystring = await import('querystring')
-
   const controllers: Array<Controller> = []
 
-  const FALLBACK_OPTS: Options = {
-    timeout: 20 * 1000,
-    reload: false,
-    name: 'bud',
-    path: '/__bud/hmr',
-  }
+  options.parseQuery(query)
 
-  const options: Options = Object.entries(
-    querystring.parse(query.slice(1)),
-  ).reduce((a: Options, [k, v]: [keyof Options, any]) => {
-    if (v === 'true') v = true
-    if (v === 'false') v = false
-    return {...a, [k]: v}
-  }, FALLBACK_OPTS)
-
-  if (options['bud.indicator']) {
+  if (options.get().indicator) {
     const controllerModule = await import(
-      '../components/indicator/index.cjs'
+      '../components/indicator/index.js'
     )
     const controller = await controllerModule.make()
     controller?.update && controllers.push(controller)
   }
 
-  if (options['bud.overlay']) {
+  if (options.get().overlay) {
     const controllerModule = await import(
       '../components/overlay/index.cjs'
     )
@@ -84,8 +72,7 @@ This browser requires a polyfill: https://developer.mozilla.org/en-US/docs/Web/A
     controllers.map(controller => controller.update(payload))
   })
 
-  bridge.options.set(options)
-  bridge.connect(bridge.options.get())
+  bridge.connect(options.get())
 }
 
 run(__resourceQuery)

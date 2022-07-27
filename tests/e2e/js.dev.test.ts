@@ -39,8 +39,8 @@ describe('hmr js', () => {
   })
 
   afterAll(async () => {
-    devProcess.kill()
-    await browser.close()
+    devProcess?.kill()
+    await browser?.close()
   })
 
   beforeEach(async () => {
@@ -58,9 +58,10 @@ describe('hmr js', () => {
   })
 
   it('hot updates js', async () => {
-    await page.waitForTimeout(1000)
+    await page.waitForTimeout(2000)
 
     const body = await page.$('body')
+
     const classList = await body?.getProperty('classList')
     const classes = await classList?.jsonValue()
 
@@ -79,9 +80,7 @@ module?.hot?.accept()
 `,
       )
       .then(async () => {
-        await page.waitForTimeout(1000)
-
-        const body = await page.$('body')
+        await page?.waitForTimeout(2000)
         const classList = await body?.getProperty('classList')
         const classes = await classList?.jsonValue()
         expect(Object.values(classes)).toContain('hot')

@@ -1,5 +1,5 @@
-import {Component} from './indicator.component.cjs'
-import {Controller} from './indicator.controller.cjs'
+import {Component} from './indicator.component.js'
+import {Controller} from './indicator.controller.js'
 
 export const make = async (): Promise<{update: (data) => void}> => {
   if (customElements.get('bud-activity-indicator')) return

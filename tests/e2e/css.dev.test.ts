@@ -35,8 +35,8 @@ describe('hmr css', () => {
   })
 
   afterAll(async () => {
-    devProcess.kill()
-    await browser.close()
+    devProcess?.kill()
+    await browser?.close()
   })
 
   beforeEach(async () => {
@@ -49,6 +49,8 @@ describe('hmr css', () => {
   })
 
   it('hot updates css', async () => {
+    await page.waitForTimeout(2000)
+
     const app = await page.$('.app')
     const color = await app?.evaluate(el => {
       return window.getComputedStyle(el).getPropertyValue('background')
@@ -84,7 +86,8 @@ body {
 `,
       )
       .then(async () => {
-        await page.waitForTimeout(1000)
+        await page.waitForTimeout(2000)
+
         const app = await page.$('.app')
         const color = await app?.evaluate(el => {
           return window.getComputedStyle(el).getPropertyValue('background')

@@ -6,7 +6,6 @@
 
 import * as eventSource from './eventsource.js'
 import type {Options, Payload} from './index.js'
-import * as options from './options.js'
 import update from './update.js'
 
 let handler: (payload: Payload) => unknown
@@ -29,5 +28,3 @@ export const connect = (options: Options) => {
     }
   })
 }
-
-export {options}

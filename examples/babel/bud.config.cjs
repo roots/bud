@@ -1,6 +1,6 @@
 module.exports = async app => {
   app
-    .entry('app', '*.{js,css}')
+    .entry('app', ['app.js', 'global.css'])
     .template({template: app.path('./public/index.html')})
     .when(app.isProduction, app => {
       app.splitChunks().minimize().runtime('single')
