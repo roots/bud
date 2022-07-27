@@ -92,7 +92,7 @@ export class Module {
         parent ? `file://${parent}` : import.meta.url,
       )
 
-      return resolvedPath.replace('file://', '')
+      return resolvedPath.replace('file://', '').replace(/%20/g, ' ')
     } catch (err) {
       throw new Error(err)
     }
