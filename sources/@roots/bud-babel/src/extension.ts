@@ -49,23 +49,6 @@ export default class BabelExtension extends Extension<any, null> {
    * @decorator `@bind`
    */
   @bind
-  public setLoader() {
-    return ruleSetItem.setLoader('babel').setOptions(() => ({
-      cacheDirectory: this.cacheDirectory,
-      presets: Object.values(this.app.babel.presets),
-      plugins: Object.values(this.app.babel.plugins),
-      env: this.env,
-      root: this.root,
-    }))
-  }
-
-  /**
-   * Babel RuleSetItem callback
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
   public setRuleSetItem(ruleSetItem: Build.Item) {
     return ruleSetItem.setLoader('babel').setOptions(() => ({
       cacheDirectory: this.cacheDirectory,
@@ -141,6 +124,11 @@ export default class BabelExtension extends Extension<any, null> {
         '@babel/plugin-syntax-dynamic-import',
         dynamicImport,
       )
+
+    const loader = await this.resolve('babel-loader', import.meta.url)
+    if (!loader) {
+      return this.logger.error('Babel loader not found')
+    }
 
     this.app.build
       .setLoader('babel', loader)
