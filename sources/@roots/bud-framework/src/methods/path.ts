@@ -1,4 +1,4 @@
-import {join, resolve, sep as slash} from 'node:path'
+import {join, normalize, resolve, sep} from 'node:path'
 
 import type {Bud, Locations} from '../index.js'
 
@@ -12,18 +12,19 @@ type FileHandle = `@name` | `@file`
  * Transform `@alias` path
  *
  * @param app - Bud instance
- * @param base - Path segment
+ * @param base - Path segment(s)
  * @returns string
  *
  * @public
  */
-export interface parseAlias {
-  (app: Bud, base: Handle | HandleSlashPath): string
-}
-
-export const parseAlias: parseAlias = (app, base) => {
-  /* Normalize base path to an array of path segments */
-  let [ident, ...parts] = base.includes(slash) ? base.split(slash) : [base]
+export const parseAlias: (app: Bud, ...base: Array<string>) => string = (
+  app,
+  ...base
+) => {
+  /* Flatten and normalize input value */
+  let [ident, ...parts] = base
+    .map(path => (path.includes(sep) ? path.split(sep) : [path]))
+    .flat()
 
   /* If there is no match for ident there is a problem */
   !app.hooks.has(`location.${ident as keyof Locations}`) &&
@@ -35,7 +36,7 @@ export const parseAlias: parseAlias = (app, base) => {
   ident = app.hooks.filter(`location.${ident as Handle}`)
 
   /* If segments were passed, resolve */
-  return join(ident, ...(parts ?? []))
+  return normalize(join(ident, ...(parts ?? [])))
 }
 
 /**
@@ -64,7 +65,7 @@ export const path: path = function (base, ...segments) {
   /* Exit early with context.dir if no path was passed */
   if (!base) return app.context.dir
 
-  const fileHandles = (pathString: string): string =>
+  const handles = (pathString: string): string =>
     pathString
       .replace(
         '@file',
@@ -79,16 +80,17 @@ export const path: path = function (base, ...segments) {
           : '[name][ext]',
       )
 
-  if (base === '@file' || base === '@name') return fileHandles(base)
-  base = fileHandles(base) as any
-  segments = segments.map(fileHandles)
+  if (base === '@file' || base === '@name') return handles(base)
+
+  base = handles(base) as any
+  segments = segments.map(handles)
 
   /* Parse `@` aliases. Should return an absolute path */
-  if (base.startsWith(`@`)) base = parseAlias(app, base as any) as any
+  if (base.startsWith(`@`)) base = parseAlias(app, base) as any
 
   /* Resolve any base path that isn't already absolute */
   if (!base.startsWith(`/`)) base = resolve(app.context.dir, base) as any
 
   /* If segments were passed, resolve them against base */
-  return resolve(base, ...(segments ?? []))
+  return normalize(resolve(base, ...(segments ?? [])))
 }

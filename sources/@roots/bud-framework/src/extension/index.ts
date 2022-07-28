@@ -517,16 +517,24 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
    * @decorator `@bind`
    */
   @bind
-  public async resolve(signifier: string): Promise<string> {
-    const modulePath = await this.app.module.resolve(signifier)
+  public async resolve(
+    signifier: string,
+    parent?: string,
+  ): Promise<string> {
+    let modulePath: string
+
+    modulePath = await this.app.module.resolve(signifier)
+
     if (!modulePath) {
-      this.app.error('resolve error', `${signifier} not found`)
+      modulePath = await this.app.module.resolve(signifier, parent)
+    }
+    if (!modulePath) {
+      this.logger.error('unresolvable:', signifier)
     }
 
     this.logger.log(
-      'resolving',
       signifier,
-      'to',
+      '=>',
       modulePath.replace(this.app.path(), '.'),
     )
 
