@@ -1,7 +1,7 @@
 import {bind, memo} from 'helpful-decorators'
 import {resolve} from 'import-meta-resolve'
 import {createRequire} from 'module'
-import {join, relative} from 'node:path'
+import {join, normalize, relative} from 'node:path'
 
 import type {Bud} from './bud.js'
 
@@ -91,10 +91,12 @@ export class Module {
 
     try {
       const resolvedPath = await resolve(signifier, context)
-      return resolvedPath.replace('file://', '').replace(/%20/g, ' ')
+      const normalized = normalize(
+        resolvedPath.replace('file://', '').replace(/%20/g, ' '),
+      )
+      return normalized
     } catch (err) {
-      this.app.error(signifier, 'not resolvable', `(context: ${context})`)
-      return ''
+      this.app.info(signifier, 'not resolvable', `(context: ${context})`)
     }
   }
 
