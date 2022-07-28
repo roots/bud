@@ -63,7 +63,7 @@
   "devDependencies": {
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.11.45"
+    "@types/node": "16.11.46"
   },
   "dependencies": {
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
