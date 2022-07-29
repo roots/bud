@@ -2,7 +2,7 @@
   "name": "@repo/notifier",
   "private": true,
   "devDependencies": {
-    "@types/node": "16.11.45"
+    "@types/node": "16.11.46"
   },
   "volta": {
     "extends": "../../../package.json"
