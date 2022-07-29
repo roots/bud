@@ -16,7 +16,7 @@ import {DEVELOPMENT_SERVICES, PARENT_SERVICES} from './constants.js'
  */
 const makeServiceFilter =
   (app: Bud) =>
-  ([name, Service]): Boolean =>
+  ([name, ...iterable]): Boolean =>
     (app.isDevelopment || !DEVELOPMENT_SERVICES.includes(name)) &&
     (app.isRoot || !PARENT_SERVICES.includes(name))
 
@@ -31,9 +31,12 @@ const makeServiceInitializer = (app: Bud) => {
     keyof Services.Registry & string,
     Service,
   ] => {
-    app.log('initializing', name)
-
-    app[name] = new Service(app)
+    try {
+      app[name] = new Service(app)
+      app.success(name)
+    } catch (err) {
+      app.log(`error creating`, name).error(err)
+    }
 
     return [name, app[name]]
   }
@@ -67,7 +70,7 @@ export const execute = (app: Bud, options: Config.Options) => {
   /* copy options object */
   app.options = omit({...options}, 'context')
 
-  /* construct context object */
+  /* copy context object */
   app.context = {...options.context, dir: options.dir}
 
   /* bind framework methods */
@@ -75,7 +78,7 @@ export const execute = (app: Bud, options: Config.Options) => {
     app[key] = method.bind(app)
   })
 
-  /**setup process */
+  /* setup process */
   if (app.isRoot) {
     process.env.NODE_ENV = options.mode
     Process.initialize(app)
@@ -86,6 +89,8 @@ export const execute = (app: Bud, options: Config.Options) => {
 
   /* initialize module */
   app.module = new Module(app)
+
+  app.log('initializing services')
 
   /* initialize services */
   app.services = Object.entries({...options.services})

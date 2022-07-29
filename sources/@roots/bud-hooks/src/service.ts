@@ -63,7 +63,9 @@ export default class Hooks
    *
    * @param app - Bud instance
    * @public
+   * @decorator `@bind`
    */
+  @bind
   public async bootstrap(app: Framework.Bud) {
     this.store = isFunction(app.options.seed)
       ? {...app.options.seed(app)}

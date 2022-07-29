@@ -13,22 +13,22 @@ export interface lifecycle {
   (this: Bud, options: Config.Options): Promise<Bud>
 }
 
-const makeServiceEventMapper =
+const getServiceFilterFn = (event: string) => service =>
+  isFunction(service[event])
+
+const getServiceEventMapperFn =
   (app: Bud, event: string) =>
-  async ([ident, fn]) => {
+  async ([service, fn]) => {
     try {
       await fn(app)
-      app.success(event, ident)
+      app.success(`${event}:`, service.constructor.name)
     } catch (err) {
-      app.warn(`Error executing`, event, `for`, ident).error(err)
+      app.warn(`error executing`, event, `for`, service).error(err)
     }
   }
 
-const makeServiceToTuple = (event: string) => service =>
+const getServiceAsTupleMapperFn = (event: string) => service =>
   [service, service[event]]
-
-const makeServiceEventFilter = (event: string) => service =>
-  isFunction(service[event])
 
 /**
  * Initializes and binds service lifecycle methods
@@ -49,15 +49,14 @@ export async function lifecycle(
 ): Promise<Bud> {
   bootstrap.execute(this, options)
 
-  await LIFECYCLE_EVENTS.reduce(async (promised, event) => {
-    if (promised) await promised
-
+  await LIFECYCLE_EVENTS.reduce(async (_promised, event) => {
     await Promise.all(
       Object.values(this.services)
-        .filter(makeServiceEventFilter(event))
-        .map(makeServiceToTuple(event))
-        .map(makeServiceEventMapper(this, event)),
+        .filter(getServiceFilterFn(event))
+        .map(getServiceAsTupleMapperFn(event))
+        .map(getServiceEventMapperFn(this, event)),
     )
+
     return Promise.resolve()
   }, Promise.resolve())
 
