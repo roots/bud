@@ -27,6 +27,7 @@ export class Project
    * @internal
    * @decorator `@bind`
    */
+  @bind
   public async bootstrap() {
     this.setStore({
       context: omit(this.app.context, ['stdin', 'stderr', 'stdout']),
@@ -136,6 +137,7 @@ export class Project
    * @decorator `@bind`
    */
   @bind
+  @once
   public async searchConfigs() {
     await Promise.all(
       Object.entries(this.app.context.disk.config).map(
