@@ -22,21 +22,22 @@ export class Api
   /**
    * Queued method calls
    *
-   * @internal
+   * @public
    */
   public queue: Array<[string, ...any[]]> = []
 
   /**
    * Trace of all method calls
    *
-   * @internal
+   * @public
    */
   public trace: Array<[string, ...any[]]> = []
 
   /**
-   * Service bootstrap event
+   * `bootstrap` callback
    *
-   * @internal
+   * @public
+   * @decorator `@bind`
    */
   @bind
   public async bootstrap() {
@@ -44,9 +45,10 @@ export class Api
   }
 
   /**
-   * Service registered event
+   * `registered` callback
    *
-   * @internal
+   * @public
+   * @decorator `@bind`
    */
   @bind
   public async registered() {
@@ -55,13 +57,24 @@ export class Api
   }
 
   /**
-   * @internal
+   * Bind a synchronous facade for use in configs
+   *
+   * @public
+   * @decorator `@bind`
    */
   @bind
-  public bindFacade<K extends `${keyof Api['repository'] & string}`>(
-    name: K,
+  public bindFacade<K extends keyof Api['repository']>(
+    name: K & string,
     fn: Api['repository'][K],
   ) {
+    // check if the callable exists
+    if (!isFunction(fn)) {
+      this.app.error(
+        `bud.api.bindFacade error`,
+        `${name} is not a function`,
+      )
+    }
+
     this.set(name, fn.bind(this.app))
     this.app.bindMethod({[`${name}`]: facade.factory(name)})
   }
@@ -70,31 +83,32 @@ export class Api
    * Call an api method directly
    *
    * @public
+   * @decorator `@bind`
    */
   @bind
   public async call(name: string, ...args: any[]) {
-    this.app.log({
-      message: `executing ${chalk.blue(name)}`,
-      suffix:
-        args && !isEmpty(args) ? this.app.json.stringify(args) : 'none',
-    })
+    this.app.log(
+      chalk.blue(name),
+      args && !isEmpty(args)
+        ? this.app.json.stringify(args)
+        : '(no arguments passed)',
+    )
 
-    // get a reference to the callable
-    const method = this.get(name)
-
-    // check if the callable exists
-    if (!isFunction(method)) {
-      throw new Error(`${name} is not a method`)
+    if (!this.has(name) || !this.isFunction(name)) {
+      this.app.error(
+        `bud.api.bindFacade error`,
+        `${name} is not a function`,
+      )
     }
 
-    // execute the callable
-    return await method.call(this.app, ...args)
+    return await this.get(name).call(this.app, ...args)
   }
 
   /**
    * Execute all queued method calls
    *
    * @public
+   * @decorator `@bind`
    */
   @bind
   public async processQueue() {
