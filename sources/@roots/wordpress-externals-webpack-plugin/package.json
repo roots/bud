@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.11.46"
+    "@types/node": "16.11.47"
   },
   "dependencies": {
     "lodash-es": "4.17.21",
