@@ -1,3 +1,4 @@
+import {beforeEach, describe, expect, it} from '@jest/globals'
 import {Bud, factory} from '@repo/test-kit/bud'
 
 import {assets} from './assets.method'
@@ -26,17 +27,15 @@ describe('bud.assets', function () {
 
     expect(
       bud.extensions.get('copy-webpack-plugin').getOption('patterns'),
-    ).toMatchSnapshot(
-      expect.arrayContaining([
-        expect.objectContaining({
-          from: expect.stringContaining('images'),
-          to: expect.stringContaining('dist/images/[path][name][ext]'),
-          context: expect.stringContaining('src'),
-          toType: 'template',
-          noErrorOnMissing: true,
-        }),
-      ]),
-    )
+    ).toMatchSnapshot([
+      {
+        from: expect.stringContaining('images'),
+        to: expect.stringContaining('dist/images/[path][name][ext]'),
+        context: expect.stringContaining('src'),
+        toType: 'template',
+        noErrorOnMissing: true,
+      },
+    ])
   })
 
   it('should add jobs when passed an array of tuples', async () => {
@@ -53,25 +52,26 @@ describe('bud.assets', function () {
       .getOption('patterns')
       ?.slice(0, 2)
 
-    expect(patterns).toMatchSnapshot(
-      expect.arrayContaining([
-        expect.objectContaining({
-          from: bud.path('@src/images'),
-          to: bud.path('@dist/images'),
-          context: expect.stringContaining('src'),
-          toType: 'template',
-          noErrorOnMissing: true,
-        }),
-
-        expect.objectContaining({
-          from: bud.path('@src/fonts/font.woff'),
-          to: bud.path('@dist/fonts/font.woff'),
-          context: expect.stringContaining('src'),
-          toType: 'template',
-          noErrorOnMissing: true,
-        }),
-      ]),
-    )
+    expect(patterns).toMatchSnapshot([
+      {
+        from: expect.stringMatching(/tests\/util\/project\/src\/images$/),
+        to: expect.stringMatching(/tests\/util\/project\/dist\/images$/),
+        context: expect.stringContaining('src'),
+        toType: 'template',
+        noErrorOnMissing: true,
+      },
+      {
+        from: expect.stringMatching(
+          /tests\/util\/project\/src\/fonts\/font.woff$/,
+        ),
+        to: expect.stringMatching(
+          /tests\/util\/project\/dist\/fonts\/font.woff$/,
+        ),
+        context: expect.stringContaining('src'),
+        toType: 'template',
+        noErrorOnMissing: true,
+      },
+    ])
   })
 
   it('should add jobs when passed an object', async () => {
@@ -86,13 +86,9 @@ describe('bud.assets', function () {
       .get('copy-webpack-plugin')
       .getOption('patterns')
 
-    expect(patterns).toMatchSnapshot(
-      expect.arrayContaining([
-        expect.objectContaining({
-          from: bud.path('@src/images'),
-          to: bud.path('@dist/images'),
-        }),
-      ]),
-    )
+    expect(patterns?.pop()).toMatchSnapshot({
+      from: expect.stringMatching(/tests\/util\/project\/src\/images$/),
+      to: expect.stringMatching(/tests\/util\/project\/dist\/images$/),
+    })
   })
 })
