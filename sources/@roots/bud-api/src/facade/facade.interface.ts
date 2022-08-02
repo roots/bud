@@ -415,6 +415,12 @@ export class Facade {
    * })
    * ```
    *
+   *
+   * @deprecated
+   * Use `entry` method
+   *
+   * @see {@link https://bud.js.org/docs/bud.entry}
+   *
    * @public
    */
   public js: entryFacade
@@ -480,6 +486,11 @@ export class Facade {
    *  },
    * })
    * ```
+   *
+   * @deprecated
+   * Use `entry` method
+   *
+   * @see {@link https://bud.js.org/docs/bud.entry}
    *
    * @public
    */
