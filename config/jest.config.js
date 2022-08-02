@@ -23,7 +23,7 @@ export default async function config() {
     rootDir: '../',
     slowTestThreshold: 30000,
     testEnvironment: 'node',
-    testMatch: [`<rootDir>/tests/**/*.test.ts`],
+    testMatch: [`<rootDir>/**/*.test.ts`],
     testPathIgnorePatterns: [
       '<rootDir>/build/',
       '<rootDir>/node_modules/',
@@ -31,6 +31,11 @@ export default async function config() {
       '<rootDir>/cache/verdaccio',
     ],
     testTimeout: 60000,
+    collectCoverageFrom: [
+      '<rootDir>/sources/@roots/*/src/**/*.ts',
+      '!**/*.interface.ts',
+    ],
+    coverageProvider: 'v8',
     transform: {
       '^.+\\.(c|m)?(t|j)sx?$': [
         '@swc/jest',

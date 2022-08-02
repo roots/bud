@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`bud.assets should add job when passed an array of strings 1`] = `
+Array [
+  Object {
+    "context": "/Users/kellymears/code/git/roots/bud/tests/util/project/src",
+    "from": "/Users/kellymears/code/git/roots/bud/tests/util/project/src/images",
+    "noErrorOnMissing": true,
+    "to": "/Users/kellymears/code/git/roots/bud/tests/util/project/dist/images/[path][name][ext]",
+    "toType": "template",
+  },
+]
+`;
+
+exports[`bud.assets should add jobs when passed an array of tuples 1`] = `
+Array [
+  Object {
+    "context": "/Users/kellymears/code/git/roots/bud/tests/util/project/src",
+    "from": "/Users/kellymears/code/git/roots/bud/tests/util/project/src/images",
+    "noErrorOnMissing": true,
+    "to": "/Users/kellymears/code/git/roots/bud/tests/util/project/dist/images",
+    "toType": "template",
+  },
+  Object {
+    "context": "/Users/kellymears/code/git/roots/bud/tests/util/project/src",
+    "from": "/Users/kellymears/code/git/roots/bud/tests/util/project/src/fonts/font.woff",
+    "noErrorOnMissing": true,
+    "to": "/Users/kellymears/code/git/roots/bud/tests/util/project/dist/fonts/font.woff",
+    "toType": "template",
+  },
+]
+`;
+
+exports[`bud.assets should add jobs when passed an object 1`] = `
+Array [
+  Object {
+    "from": "/Users/kellymears/code/git/roots/bud/tests/util/project/src/images",
+    "to": "/Users/kellymears/code/git/roots/bud/tests/util/project/dist/images",
+  },
+]
+`;

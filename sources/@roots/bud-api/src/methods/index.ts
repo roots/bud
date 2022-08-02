@@ -5,7 +5,7 @@ export {
   config as webpackConfig,
   config as override,
 } from './config/index.js'
-export {method as bundle} from './bundle/index.js'
+export {bundle} from './bundle/bundle.method.js'
 export {define} from './define/index.js'
 export {devtool} from './devtool/index.js'
 export {entry} from './entry/index.js'

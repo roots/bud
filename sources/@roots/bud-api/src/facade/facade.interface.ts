@@ -1,6 +1,6 @@
 import type * as alias from '../methods/alias/index.js'
 import type * as assets from '../methods/assets/index.js'
-import type * as bundle from '../methods/bundle/index.js'
+import type * as bundle from '../methods/bundle/bundle.method.js'
 import type {config} from '../methods/config/index.js'
 import type {define} from '../methods/define/index.js'
 import type * as devtool from '../methods/devtool/index.js'
@@ -142,6 +142,7 @@ export class Facade {
    * @public
    */
   public config: config
+
   /**
    * Modify the generated webpack config prior to compilation.
    *
@@ -205,7 +206,7 @@ export class Facade {
    * Create an `alpine` chunk
    *
    * ```js
-   * bud.chunk('alpine', 'alpine')
+   * bud.chunk('alpine')
    * ```
    *
    * @public
@@ -415,6 +416,12 @@ export class Facade {
    * })
    * ```
    *
+   *
+   * @deprecated
+   * Use `entry` method
+   *
+   * @see {@link https://bud.js.org/docs/bud.entry}
+   *
    * @public
    */
   public js: entryFacade
@@ -480,6 +487,11 @@ export class Facade {
    *  },
    * })
    * ```
+   *
+   * @deprecated
+   * Use `entry` method
+   *
+   * @see {@link https://bud.js.org/docs/bud.entry}
    *
    * @public
    */
