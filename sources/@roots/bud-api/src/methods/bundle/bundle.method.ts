@@ -2,6 +2,18 @@ import type {Bud} from '@roots/bud-framework'
 import {isRegExp, isString} from 'lodash-es'
 import {join, sep} from 'node:path'
 
+/**
+ * Create a module chunk
+ *
+ * @example
+ * Create an `alpine` chunk
+ *
+ * ```js
+ * bud.bundle('alpine')
+ * ```
+ *
+ * @public
+ */
 export interface method {
   (name: string, matcher?: string | Array<string> | RegExp): Bud
 }
@@ -23,30 +35,33 @@ export const bundle: method = function (name, matcher) {
 
   const test = normalize(matcher ?? name)
 
-  ctx.hooks.on('build.optimization.splitChunks', splitChunks => ({
-    ...(splitChunks ?? {
+  ctx.hooks.on('build.optimization.splitChunks', splitChunks => {
+    const template = ctx.hooks.filter('feature.hash')
+      ? `[name].[contenthash].js`
+      : `[name].js`
+
+    const filename = join(`js`, `bundle`, name, template)
+
+    const existing = splitChunks ?? {
       chunks: 'all',
       automaticNameDelimiter: sep,
       minSize: 0,
-    }),
+    }
+    const cacheGroups = existing?.cacheGroups ?? {}
 
-    cacheGroups: {
-      ...(splitChunks?.cacheGroups ?? {}),
-      [name]: {
-        idHint: name,
-        filename: join(
-          `js`,
-          `bundle`,
-          name,
-          ctx.hooks.filter('feature.hash')
-            ? `[name].[contenthash].js`
-            : `[name].js`,
-        ),
-        test,
-        priority: -10,
+    return {
+      ...existing,
+      cacheGroups: {
+        ...cacheGroups,
+        [name]: {
+          idHint: name,
+          filename,
+          test,
+          priority: -10,
+        },
       },
-    },
-  }))
+    }
+  })
 
   return ctx
 }

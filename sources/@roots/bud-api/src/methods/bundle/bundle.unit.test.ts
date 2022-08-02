@@ -20,7 +20,15 @@ describe('bud.bundle', () => {
     ).toMatchSnapshot()
   })
 
-  it('should set the bundle using a regular expression', async () => {
+  it('should set the bundle using a string name and a string test', async () => {
+    await instance('react', 'react').api.processQueue()
+
+    expect(
+      bud.hooks.filter('build.optimization.splitChunks'),
+    ).toMatchSnapshot()
+  })
+
+  it('should set the bundle using a string name and regular expression test', async () => {
     await instance('react', /react/).api.processQueue()
 
     expect(
@@ -28,7 +36,7 @@ describe('bud.bundle', () => {
     ).toMatchSnapshot()
   })
 
-  it('should set the bundle using an array of strings', async () => {
+  it('should set the bundle using a string name and array of strings test', async () => {
     await instance('react', ['react', 'react-dom']).api.processQueue()
 
     expect(
