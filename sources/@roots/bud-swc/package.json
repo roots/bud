@@ -62,7 +62,7 @@
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@swc/core": "1.2.220",
+    "@swc/core": "1.2.223",
     "swc-loader": "0.2.3",
     "ts-node": "10.9.1",
     "tslib": "2.4.0"
