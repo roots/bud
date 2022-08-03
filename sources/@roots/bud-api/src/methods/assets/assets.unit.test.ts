@@ -1,7 +1,7 @@
 import {beforeEach, describe, expect, it} from '@jest/globals'
 import {Bud, factory} from '@repo/test-kit/bud'
 
-import {assets} from './assets.method'
+import {assets} from './assets.method.js'
 
 describe('bud.assets', function () {
   let bud: Bud
@@ -12,14 +12,12 @@ describe('bud.assets', function () {
     instance = assets.bind(bud)
   })
 
-  describe('expectations', () => {
-    it('should be a function', () => {
-      expect(bud.assets).toBeInstanceOf(Function)
-    })
+  it('should be a function', () => {
+    expect(assets).toBeInstanceOf(Function)
+  })
 
-    it('should have copy-webpack-plugin available', () => {
-      expect(bud.extensions.has('copy-webpack-plugin')).toBeTruthy()
-    })
+  it('should have copy-webpack-plugin available', () => {
+    expect(bud.extensions.has('copy-webpack-plugin')).toBeTruthy()
   })
 
   it('should add job when passed an array of strings', async () => {

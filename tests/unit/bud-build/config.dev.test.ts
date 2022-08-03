@@ -1,9 +1,6 @@
 import {beforeAll, describe, expect, it, jest} from '@jest/globals'
 import {Bud, factory} from '@repo/test-kit/bud'
 
-/* 3x */
-jest.setTimeout(15000)
-
 describe('[dev] bud.build.config', function () {
   let bud: Bud
 

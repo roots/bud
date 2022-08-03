@@ -1,7 +1,8 @@
 /* eslint-disable no-console */
-import {REPO_PATH} from '@repo/constants'
+import {paths} from '@repo/constants'
 import {CommandClass, Option} from 'clipanion'
 import {ensureDir, ensureFile, remove} from 'fs-extra'
+import {join} from 'path/posix'
 
 import {Command} from '../base.command'
 
@@ -23,10 +24,7 @@ export class TestRun extends Command {
    *
    * @internal
    */
-  public static paths: CommandClass['paths'] = [
-    [`@bud`, `test`, `run`],
-    [`@bud`, `test`],
-  ]
+  public static paths: CommandClass['paths'] = [[`@bud`, `test`]]
 
   /**
    * Command usage
@@ -57,18 +55,18 @@ export class TestRun extends Command {
    */
   public async execute() {
     if (this.passthrough.includes('integration')) {
-      await ensureFile(`${REPO_PATH}/storage/yarn.lock`)
-      await ensureDir(`${REPO_PATH}/storage/mocks`)
-      await remove(`${REPO_PATH}/storage/mocks`)
+      await ensureFile(join(paths.root, `storage/yarn.lock`))
+      await ensureDir(join(paths.root, `storage/mocks`))
+      await remove(join(paths.root, `storage/mocks`))
       this.log('integration tests directory cleaned')
     }
 
     await this.tryExecuting(`yarn`, [
       `node`,
       `--experimental-vm-modules`,
-      `./node_modules/.bin/jest`,
+      join(paths.root, `node_modules/.bin/jest`),
       `--config`,
-      `./config/jest.config.js`,
+      join(paths.root, `config/jest.config.js`),
       ...(this.passthrough ?? []),
     ])
   }

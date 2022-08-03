@@ -1,5 +1,5 @@
 import {Bud, factory} from '@repo/test-kit/bud'
-import {provide as provideMethod} from '@roots/bud-api/methods'
+import {provide as provideMethod} from '@roots/bud-api/methods/provide'
 
 describe('bud.provide', () => {
   let bud: Bud

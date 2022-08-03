@@ -3,7 +3,7 @@ import chalk from 'chalk'
 import {bind} from 'helpful-decorators'
 import {isEmpty, isFunction} from 'lodash-es'
 
-import * as facade from '../facade/index.js'
+import {factory} from '../facade/facade.factory.js'
 import * as methods from '../methods/index.js'
 
 /**
@@ -76,7 +76,7 @@ export class Api
     }
 
     this.set(name, fn.bind(this.app))
-    this.app.bindMethod({[`${name}`]: facade.factory(name)})
+    this.app.bindMethod({[`${name}`]: factory(name)})
   }
 
   /**
