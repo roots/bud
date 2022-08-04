@@ -81,7 +81,7 @@ export const test = () => {
     await browser.close()
   })
 
-  it('has expected page title', async () => {
+  it('is accessible, has intiial body classes and adds new body classes after updating src/index.js', async () => {
     const title = await page.title()
     expect(title).toBe('Webpack App')
 
