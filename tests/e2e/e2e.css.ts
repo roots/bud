@@ -2,11 +2,13 @@
 
 import {expect, it} from '@jest/globals'
 import {paths} from '@repo/constants'
-import * as logger from '@repo/logger'
+import * as repoLogger from '@repo/logger'
 import {execa, ExecaChildProcess} from 'execa'
 import fs from 'fs-extra'
 import {join} from 'path'
 import {Browser, chromium, Page} from 'playwright'
+
+const logger = repoLogger.make({interactive: false}).scope('e2e', 'babel')
 
 const reset = async () =>
   fs.writeFile(
@@ -64,55 +66,91 @@ export const test = () => {
   let browser: Browser
   let page: Page
   let devProcess: ExecaChildProcess
+  let ready = false
 
   beforeAll(done => {
-    chromium
-      .launch()
-      .then(instance => {
-        browser = instance
-      })
-      .then(async () => {
-        try {
-          devProcess = execa('node', ['./node_modules/.bin/bud', 'dev'], {
-            cwd: join(paths.mocks, 'yarn', 'babel'),
-          })
+    logger.await('initializing dev process')
 
-          devProcess.stdout?.on('data', data => {
-            data.toString().includes('webpack built bud') && done()
-          })
-          devProcess.stderr?.on('data', data => {
-            logger.error(data.toString())
-            throw new Error(data.toString())
-          })
-        } catch (e) {
-          console.error(e)
-        }
-      })
+    try {
+      chromium
+        .launch()
+        .then(instance => {
+          browser = instance
+        })
+        .then(async () => {
+          try {
+            devProcess = execa(
+              'node',
+              ['./node_modules/.bin/bud', 'dev', '--log'],
+              {
+                cwd: join(paths.mocks, 'yarn', 'babel'),
+              },
+            )
+
+            devProcess.stdout?.on('data', data => {
+              const output = data.toString()
+
+              output.includes(`[http]`) &&
+                logger.log(output.replace('\n', ''))
+
+              if (output.includes('duration') && ready !== true) {
+                logger.success('dev process ready')
+                ready = true
+                done()
+              }
+            })
+
+            devProcess.stderr?.on('data', data => {
+              throw new Error(data.toString())
+            })
+          } catch (e) {
+            throw new Error(e)
+          }
+        })
+    } catch (e) {
+      logger.error(e)
+    }
   })
 
   afterAll(async () => {
-    devProcess.kill('SIGQUIT')
-    await page.close()
-    await browser.close()
+    try {
+      devProcess.kill('SIGQUIT')
+      await page.close()
+      await browser.close()
+    } catch (e) {
+      await reset()
+      throw new Error(e)
+    }
     await reset()
   })
 
   beforeEach(async () => {
-    page = await browser.newPage()
-    await page.goto('http://0.0.0.0:3005/')
-  })
-
-  afterEach(async () => {
-    await page.close()
+    try {
+      page = await browser.newPage()
+      await page.goto('http://0.0.0.0:3005/')
+    } catch (e) {
+      await reset()
+      throw new Error(e)
+    }
     await reset()
   })
 
-  it('has page title: `Webpack App`', async () => {
+  afterEach(async () => {
+    try {
+      await page.close()
+    } catch (e) {
+      await reset()
+      throw new Error(e)
+    }
+    await reset()
+  })
+
+  it('should have page title: `Webpack App`', async () => {
     const title = await page.title()
     expect(title).toBe('Webpack App')
   })
 
-  it('has expected baseline', async () => {
+  it('should have expected initial markup', async () => {
     const app = await page.$('.app')
     expect(app).toBeTruthy()
 
@@ -124,7 +162,7 @@ export const test = () => {
     )
   })
 
-  it('hot update css', async () => {
+  it('should hot update when src/global.css is modified', async () => {
     await update()
     await page.waitForTimeout(3000)
 
