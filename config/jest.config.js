@@ -56,16 +56,16 @@ export default async function config() {
       {
         displayName: 'e2e',
         ...base,
-        testMatch: ['<rootDir>/tests/e2e/**/*.test.ts'],
-        testTimeout: 60000,
-        slowTestThreshold: 60000,
+        testMatch: ['**/tests/e2e/**/*.test.ts'],
+        testTimeout: 120000,
+        slowTestThreshold: 120000,
       },
       {
         displayName: 'integration',
         ...base,
-        testMatch: ['<rootDir>/tests/integration/**/*.test.ts'],
-        testTimeout: 120000,
-        slowTestThreshold: 120000,
+        testMatch: ['**/tests/integration/**/*.test.ts'],
+        testTimeout: 240000,
+        slowTestThreshold: 240000,
       },
       {
         ...base,
