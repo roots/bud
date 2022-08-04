@@ -1,14 +1,13 @@
 /* eslint-disable no-console */
-import {describe, expect, it, jest} from '@jest/globals'
-import {paths} from '@repo/constants'
+
+import {expect, it} from '@jest/globals'
+import {paths} from '@repo/constants/.'
 import {execa, ExecaChildProcess} from 'execa'
 import fs from 'fs-extra'
 import {join} from 'path'
 import {Browser, chromium, Page} from 'playwright'
 
-jest.setTimeout(100000)
-
-describe('hmr js', () => {
+export const test = () => {
   let browser: Browser
   let page: Page
   let devProcess: ExecaChildProcess
@@ -21,14 +20,9 @@ describe('hmr js', () => {
       })
       .then(async () => {
         try {
-          devProcess = execa(
-            'node',
-            ['./node_modules/.bin/bud', 'dev', '--html'],
-            {
-              cwd: join(paths.mocks, 'yarn', 'basic'),
-            },
-          )
-
+          devProcess = execa('node', ['./node_modules/.bin/bud', 'dev'], {
+            cwd: join(paths.mocks, 'yarn', 'babel'),
+          })
           devProcess.stdout?.on('data', () => {
             setTimeout(done, 2000).unref()
           })
@@ -52,11 +46,6 @@ describe('hmr js', () => {
     await page.close()
   })
 
-  it('readied up', async () => {
-    const title = await page.title()
-    expect(title).toBe('Webpack App')
-  })
-
   it('has indicator component', async () => {
     const indicator = await page.$('bud-activity-indicator')
 
@@ -70,35 +59,51 @@ describe('hmr js', () => {
     expect(html).toMatchSnapshot()
   })
 
-  it('hot updates js', async () => {
-    await page.waitForTimeout(1000)
+  it('hot updates css', async () => {
+    const app = await page.$('.app')
+    const color = await app?.evaluate(el => {
+      return window.getComputedStyle(el).getPropertyValue('background')
+    })
 
-    const body = await page.$('body')
-    const classList = await body?.getProperty('classList')
-    const classes = await classList?.jsonValue()
-
-    expect(Object.values(classes)).toContain('init')
-    expect(Object.values(classes)).toMatchSnapshot()
+    expect(color).toMatchSnapshot(
+      'rgb(88, 19, 213) none repeat scroll 0% 0% / auto padding-box border-box',
+    )
 
     await fs
       .writeFile(
-        join(paths.mocks, 'yarn', 'basic', 'src', 'index.js'),
+        join(paths.mocks, 'yarn', 'babel', 'src', 'global.css'),
         `\
-import './styles.css'
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
 
-document.querySelector('body')?.classList.add('hot')
-
-module?.hot?.accept()
+.app {
+  align-items: center;
+  background: rgb(0,0,0);
+  color: white;
+  display: flex;
+  font-family: sans-serif;
+  height: 100vh;
+  justify-content: center;
+  letter-spacing: 0.2em;
+  text-align: center;
+  text-transform: uppercase;
+  width: 100vw;
+}
 `,
       )
       .then(async () => {
         await page.waitForTimeout(1000)
+        const app = await page.$('.app')
+        const color = await app?.evaluate(el => {
+          return window.getComputedStyle(el).getPropertyValue('background')
+        })
 
-        const body = await page.$('body')
-        const classList = await body?.getProperty('classList')
-        const classes = await classList?.jsonValue()
-        expect(Object.values(classes)).toContain('hot')
-        expect(Object.values(classes)).toMatchSnapshot()
+        expect(color).toMatchSnapshot(
+          'rgb(0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box',
+        )
       })
   })
-})
+}

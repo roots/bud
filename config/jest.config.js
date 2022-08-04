@@ -1,11 +1,14 @@
 import {paths} from '@repo/constants'
 
+/**
+ * Base jest configuration
+ */
 const base = {
   extensionsToTreatAsEsm: ['.ts', '.tsx'],
   moduleDirectories: ['node_modules'],
   moduleNameMapper: {
     /**
-     * Jest doesn't understand ts with es modules
+     * Jest doesn't understand .js extension with es modules
      */
     '^(\\.{1,2}/.*)\\.js$': '$1',
     /**
@@ -17,7 +20,6 @@ const base = {
       '<rootDir>/node_modules/chalk/source/vendor/supports-color/index.js',
   },
   modulePathIgnorePatterns: ['<rootDir>/.yarn', '<rootDir>/storage'],
-  reporters: ['default', 'github-actions'],
   rootDir: paths.root,
   testEnvironment: 'node',
   testPathIgnorePatterns: [
@@ -50,43 +52,44 @@ const base = {
 /**
  * Jest configuration
  */
-export default async function config() {
-  return {
-    projects: [
-      {
-        displayName: 'e2e',
-        ...base,
-        testMatch: ['**/tests/e2e/**/*.test.ts'],
-        testTimeout: 120000,
-        slowTestThreshold: 120000,
-      },
-      {
-        displayName: 'integration',
-        ...base,
-        testMatch: ['**/tests/integration/**/*.test.ts'],
-        testTimeout: 240000,
-        slowTestThreshold: 240000,
-      },
-      {
-        ...base,
-        displayName: 'unit',
-        collectCoverage: true,
-        collectCoverageFrom: ['sources/**/*{ts,tsx}'],
-        coveragePathIgnorePatterns: [
-          '/node_modules/',
-          '/vendor/',
-          '/lib/',
-          '/@repo/',
-          '/tests/',
-        ],
-        coverageProvider: 'v8',
-        extensionsToTreatAsEsm: ['.ts', '.tsx'],
-        testMatch: [
-          '**/sources/@roots/*/src/**/*.test.ts',
-          '**/tests/unit/**/*.test.ts',
-        ],
-        verbose: true,
-      },
-    ],
-  }
-}
+export default async () => ({
+  projects: [
+    {
+      displayName: 'e2e',
+      ...base,
+      reporters: ['default'],
+      testMatch: ['**/tests/e2e/**/*.test.ts'],
+      testTimeout: 120000,
+      slowTestThreshold: 120000,
+    },
+    {
+      displayName: 'integration',
+      ...base,
+      reporters: ['default'],
+      testMatch: ['**/tests/integration/**/*.test.ts'],
+      testTimeout: 240000,
+      slowTestThreshold: 240000,
+    },
+    {
+      displayName: 'unit',
+      ...base,
+      collectCoverage: true,
+      collectCoverageFrom: ['sources/**/*{ts,tsx}'],
+      coveragePathIgnorePatterns: [
+        '/node_modules/',
+        '/vendor/',
+        '/lib/',
+        '/@repo/',
+        '/tests/',
+      ],
+      coverageProvider: 'v8',
+      extensionsToTreatAsEsm: ['.ts', '.tsx'],
+      reporters: ['default', 'github-actions'],
+      testMatch: [
+        '**/sources/@roots/*/src/**/*.test.ts',
+        '**/tests/unit/**/*.test.ts',
+      ],
+      verbose: true,
+    },
+  ],
+})
