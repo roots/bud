@@ -5,6 +5,7 @@ module.exports = async app => {
     .when(app.isProduction, app => {
       app.splitChunks().minimize().runtime('single')
     })
+    .serve(3005)
 
     .babel.setPresets({
       '@babel/preset-env': require.resolve('@babel/preset-env'),

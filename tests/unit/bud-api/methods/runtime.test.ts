@@ -24,16 +24,16 @@ describe.skip('bud.runtime', function () {
   it('can be passed a custom runtimeChunk config', () => {
     bud.runtime('single')
 
-    expect(
-      bud.hooks.filter('build.optimization.runtimeChunk'),
-    ).toEqual('single')
+    expect(bud.hooks.filter('build.optimization.runtimeChunk')).toEqual(
+      'single',
+    )
   })
 
   it('disables runtimeChunk when passed a boolean false', () => {
     bud.runtime(false)
 
-    expect(
-      bud.hooks.filter('build.optimization.runtimeChunk'),
-    ).toEqual(false)
+    expect(bud.hooks.filter('build.optimization.runtimeChunk')).toEqual(
+      false,
+    )
   })
 })

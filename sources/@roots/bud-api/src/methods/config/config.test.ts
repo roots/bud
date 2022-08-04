@@ -1,5 +1,7 @@
+import {describe, expect, it} from '@jest/globals'
 import {Bud, factory} from '@repo/test-kit/bud'
-import {config} from '@roots/bud-api/methods/config'
+
+import {config} from './config.method.js'
 
 describe('bud.config', function () {
   let bud: Bud
@@ -8,36 +10,33 @@ describe('bud.config', function () {
     bud = await factory()
   })
 
-  it('is a function', () => {
+  it('should be a function', () => {
     expect(config).toBeInstanceOf(Function)
   })
 
-  it('returns bud', () => {
+  it('should return bud', () => {
     expect(config.call(bud, {})).toBeInstanceOf(Bud)
   })
 
-  it('throws with no input', () => {
+  it('should throw with no input', () => {
     expect(() => config.call(bud)).toThrow()
   })
 
-  it('obj conf', async () => {
-    config.call(bud, {
-      entry: 'foo',
-    })
+  it('should accept object configuration', async () => {
+    config.call(bud, {entry: 'foo'})
 
     const result = await bud.build.make()
-
-    expect(result.entry).toBe('foo')
+    expect(result.entry).toEqual('foo')
   })
 
-  it('fn conf', async () => {
+  it('should accept a callback function', async () => {
     config.call(bud, conf => ({
       ...conf,
       entry: undefined,
     }))
 
     const result = await bud.build.make()
-
     expect(result.entry).toBeUndefined()
+    expect(result.context).toEqual(expect.stringContaining('tests/util'))
   })
 })

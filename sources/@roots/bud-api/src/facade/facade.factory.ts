@@ -1,5 +1,4 @@
 import type {Bud} from '@roots/bud-framework'
-import chalk from 'chalk'
 
 /**
  * @internal
@@ -21,11 +20,5 @@ export interface factory {
 export const factory: factory = (name: string): facade =>
   function facade(...args: any[]): Bud {
     this.api.queue.push([name, args])
-
-    this.log({
-      message: `facade added to queue: ${chalk.cyan(name)}`,
-      suffix: this.json.stringify(args),
-    })
-
     return this
   }

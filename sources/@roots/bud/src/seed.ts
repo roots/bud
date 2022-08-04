@@ -1,4 +1,4 @@
-import type {Config} from '@roots/bud-framework'
+import type * as Config from '@roots/bud-framework/config'
 import {cpus} from 'node:os'
 
 /**

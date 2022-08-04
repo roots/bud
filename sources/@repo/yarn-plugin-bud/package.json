@@ -9,7 +9,7 @@
   "devDependencies": {
     "@repo/constants": "workspace:sources/@repo/constants",
     "@types/fs-extra": "9.0.13",
-    "@types/node": "16.11.45",
+    "@types/node": "16.11.47",
     "@yarnpkg/builder": "3.2.3",
     "@yarnpkg/cli": "3.2.2",
     "@yarnpkg/core": "3.2.3",
@@ -29,7 +29,7 @@
   },
   "volta": {
     "node": "16.16.0",
-    "npm": "8.15.0",
+    "npm": "8.16.0",
     "yarn": "1.22.19"
   }
 }
