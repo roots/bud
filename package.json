@@ -14,7 +14,7 @@
   "volta": {
     "node": "16.16.0",
     "yarn": "1.22.19",
-    "npm": "8.15.0"
+    "npm": "8.16.0"
   },
   "workspaces": {
     "packages": [
@@ -25,7 +25,7 @@
   },
   "type": "module",
   "devDependencies": {
-    "@swc/core": "1.2.220",
+    "@swc/core": "1.2.223",
     "@swc/jest": "0.2.22",
     "@types/express": "4.17.13",
     "@types/fs-extra": "9.0.13",
