@@ -1,0 +1,37 @@
+---
+title: Getting started
+description: ⚡️ Lightning fast frontend build tools combining the best parts of Symfony Encore and Laravel Mix
+sidebar_label: Getting started
+---
+
+import {Hero} from '@site/src/components/Hero'
+import {Card} from '@site/src/components/Card'
+
+**bud.js** is a web-focused build tool with add-on support for Babel, React, PostCSS, Sass, Typescript, esbuild, ESLint, Prettier, and more.
+
+The standard bud.js compiler leverages webpack, but is open to being extended to support other build tools.
+
+bud.js is written in TypeScript but fully supports projects written in vanilla JavaScript.
+
+## Requirements
+
+<div className="card">
+  <div className="card__body">
+    <ul>
+      <li>node 16+</li>
+      <li>yarn 1.22 or higher</li>
+      <li>npm 8.3 or higher</li>
+      <li>Windows users must use Windows Subsystem for Linux</li>
+    </ul>
+  </div>
+</div>
+
+## Installation
+
+Add **@roots/bud** as a development dependency using your choice of pacakge manager.
+
+```bash npm2yarn
+npm install @roots/bud --save-dev
+```
+
+When installing extensions make sure that the extension version is compatible with bud core. In general, all dependencies with the `@roots` namespace should share the same version.

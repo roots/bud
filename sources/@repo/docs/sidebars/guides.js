@@ -1,18 +1,7 @@
 module.exports = {
   sidebar: [
-    {
-      type: 'category',
-      label: 'Overview',
-      link: {
-        type: 'doc',
-        id: 'overview/index',
-      },
-      items: [
-        'overview/what-is-bud',
-        'overview/installation',
-        'overview/requirements',
-      ],
-    },
+    'index',
+    'configure',
     {
       type: 'category',
       label: 'Getting started',
@@ -20,6 +9,7 @@ module.exports = {
         type: 'doc',
         id: 'getting-started/index',
       },
+      collapsed: false,
       items: [
         'getting-started/configure',
         'getting-started/build',
@@ -83,7 +73,6 @@ module.exports = {
         'cli/bud-doctor',
       ],
     },
-    'node-api',
     {
       type: 'category',
       label: 'Extending',
