@@ -87,10 +87,6 @@ jobs:
         run: |
           yarn @bud test run integration --verbose --maxWorkers 2
 
-      - name: yarn @bud test run e2e/js
+      - name: yarn @bud test run e2e
         run: |
-          yarn @bud test run e2e/js --verbose --maxWorkers 2
-
-      - name: yarn @bud test run e2e/css
-        run: |
-          yarn @bud test run e2e/css --verbose --maxWorkers 2
+          yarn @bud test run e2e --verbose --maxWorkers 2

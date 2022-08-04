@@ -61,6 +61,8 @@
     "./context/*": "./lib/context/*.js",
     "./extensions": "./lib/extensions/index.js",
     "./extensions/*": "./lib/extensions/*/index.js",
+    "./methods": "./lib/methods/index.js",
+    "./methods/*": "./lib/methods/*.js",
     "./factory": "./lib/factory/index.js",
     "./services": "./lib/services/index.js"
   },
