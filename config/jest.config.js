@@ -4,6 +4,8 @@ import {paths} from '@repo/constants'
  * Base jest configuration
  */
 const base = {
+  coverageProvider: 'v8',
+  collectCoverageFrom: ['sources/**/*{ts,tsx}'],
   extensionsToTreatAsEsm: ['.ts', '.tsx'],
   moduleDirectories: ['node_modules'],
   moduleNameMapper: {
@@ -26,8 +28,10 @@ const base = {
     '<rootDir>/build/',
     '<rootDir>/node_modules/',
     '<rootDir>/tests/__mocks__',
-    '<rootDir>/cache/verdaccio',
+    '<rootDir>/storage/',
   ],
+  testTimeout: 240000,
+  slowTestThreshold: 240000,
   transform: {
     '^.+\\.(c|m)?(t|j)sx?$': [
       '@swc/jest',
@@ -47,34 +51,31 @@ const base = {
       },
     ],
   },
+  verbose: true,
 }
 
 /**
  * Jest configuration
  */
 export default async () => ({
+  ...base,
   projects: [
     {
-      displayName: 'e2e',
       ...base,
+      displayName: 'e2e',
       reporters: ['default'],
       testMatch: ['**/tests/e2e/**/*.test.ts'],
-      testTimeout: 120000,
-      slowTestThreshold: 120000,
     },
     {
-      displayName: 'integration',
       ...base,
+      displayName: 'integration',
       reporters: ['default'],
       testMatch: ['**/tests/integration/**/*.test.ts'],
-      testTimeout: 240000,
-      slowTestThreshold: 240000,
     },
     {
-      displayName: 'unit',
       ...base,
+      displayName: 'unit',
       collectCoverage: true,
-      collectCoverageFrom: ['sources/**/*{ts,tsx}'],
       coveragePathIgnorePatterns: [
         '/node_modules/',
         '/vendor/',
@@ -82,14 +83,11 @@ export default async () => ({
         '/@repo/',
         '/tests/',
       ],
-      coverageProvider: 'v8',
-      extensionsToTreatAsEsm: ['.ts', '.tsx'],
       reporters: ['default', 'github-actions'],
       testMatch: [
         '**/sources/@roots/*/src/**/*.test.ts',
         '**/tests/unit/**/*.test.ts',
       ],
-      verbose: true,
     },
   ],
 })

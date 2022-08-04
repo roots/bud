@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`css has expected baseline: rgb(88, 19, 213) none repeat scroll 0% 0% / auto padding-box border-box 1`] = `"rgb(88, 19, 213) none repeat scroll 0% 0% / auto padding-box border-box"`;
+
+exports[`css hot update css: rgb(0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box 1`] = `"rgb(0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box"`;
