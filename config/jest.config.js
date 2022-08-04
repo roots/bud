@@ -82,8 +82,8 @@ export default async function config() {
         coverageProvider: 'v8',
         extensionsToTreatAsEsm: ['.ts', '.tsx'],
         testMatch: [
-          '<rootDir>/sources/@roots/*/src/**/*.unit.test.ts',
-          '<rootDir>/tests/unit/**/*.test.ts',
+          '**/sources/@roots/*/src/**/*.test.ts',
+          '**/tests/unit/**/*.test.ts',
         ],
         verbose: true,
       },

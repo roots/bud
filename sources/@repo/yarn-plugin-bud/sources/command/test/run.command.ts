@@ -41,12 +41,17 @@ export class TestRun extends Command {
     ],
   }
 
+  public select = Option.String({
+    name: 'selectProjects',
+    required: true,
+  })
+
   /**
    * Variadic arguments
    *
    * @internal
    */
-  public passthrough = Option.Proxy({name: `jest params`})
+  public passthrough = Option.Proxy({name: `jest passthrough options`})
 
   /**
    * Execute command
@@ -67,6 +72,8 @@ export class TestRun extends Command {
       join(paths.root, `node_modules/.bin/jest`),
       `--config`,
       join(paths.root, `config/jest.config.js`),
+      `--selectProjects`,
+      this.select,
       ...(this.passthrough ?? []),
     ])
   }
