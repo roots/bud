@@ -21,7 +21,7 @@ export const callback = () => new Set([overlay, proxyClickInterceptor])
  */
 export const proxyClickInterceptor = (app: Bud) =>
   app.hooks.filter('dev.middleware.enabled', []).includes('proxy')
-    ? `@roots/bud-client/lib/proxy-click-interceptor.cjs`
+    ? `@roots/bud-client/lib/proxy-click-interceptor.js`
     : null
 
 /**
@@ -33,7 +33,7 @@ export const proxyClickInterceptor = (app: Bud) =>
  * @public
  */
 export const overlay = (app: Bud) =>
-  `@roots/bud-client/lib/hmr/index.cjs?name=${app.name}&bud.overlay=${
+  `@roots/bud-client/lib/hmr/index.js?name=${app.name}&bud.overlay=${
     isUndefined(app.context.args.overlay)
       ? 'true'
       : app.context.args.overlay
