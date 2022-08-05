@@ -5,7 +5,7 @@
  *
  * @public
  */
-export class HMREvents extends EventSource {
+export class Events extends EventSource {
   /**
    * Timer (for timeout)
    * @public
@@ -46,15 +46,11 @@ export class HMREvents extends EventSource {
    * Singleton constructor
    * @public
    */
-  public static make = (options: Options): HMREvents => {
-    if (!window.bud)
-      window.bud = {
-        hmr: {},
-      }
+  public static make = (options: Options): Events => {
+    if (!window.bud) window.bud = {hmr: {}}
 
     if (!window.bud.hmr[options.path]) {
-      window.bud.hmr[options.path] = new HMREvents(options)
-      return window.bud.hmr[options.path]
+      window.bud.hmr[options.path] = new Events(options)
     }
 
     return window.bud.hmr[options.path]
@@ -64,7 +60,7 @@ export class HMREvents extends EventSource {
    * EventSource `onopen` handler
    * @public
    */
-  public onopen = function (this: HMREvents, ev?: Event) {
+  public onopen = function (this: Events, ev?: Event) {
     console.log('[bud] connected')
     this.lastActivity = new Date()
   }
@@ -75,6 +71,7 @@ export class HMREvents extends EventSource {
    */
   public onmessage = function (payload: MessageEvent) {
     this.lastActivity = new Date()
+    if (!payload) return
 
     if (!this.listeners?.length || !payload) return
 
@@ -87,10 +84,10 @@ export class HMREvents extends EventSource {
    * EventSource `onerror` handler
    * @public
    */
-  public onerror = function (this: HMREvents, ev?: Event) {
+  public onerror = function (this: Events, ev?: Event) {
     clearInterval(this.timer)
     this.close()
-    setTimeout(() => HMREvents.make(this.options), this.options.timeout)
+    setTimeout(() => Events.make(this.options), this.options.timeout)
   }
 
   /**

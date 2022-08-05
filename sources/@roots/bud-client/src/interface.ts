@@ -1,14 +1,7 @@
-declare module global {
-  interface Window {
-    bud: typeof bud
-    __webpack_public_path__: string
-  }
-}
-
 var __resourceQuery: string
 var __webpack_hash__: string
 var bud: {
-  hmr?: Record<string, HMREvents>
+  hmr?: Record<string, Events>
 }
 var module: NodeJS.Module & {
   hot?: {
@@ -19,7 +12,14 @@ var module: NodeJS.Module & {
   }
 }
 
-declare interface HMREvents extends EventSource {
+declare module global {
+  interface Window {
+    bud: typeof bud
+    __webpack_public_path__: string
+  }
+}
+
+declare interface Events extends EventSource {
   timer: NodeJS.Timer
   lastActivity: Date
   options: Options
