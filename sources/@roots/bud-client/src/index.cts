@@ -1,5 +1,0 @@
-/**
- * Default export
- */
-
-module.exports = {}

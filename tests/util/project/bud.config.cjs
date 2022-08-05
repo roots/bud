@@ -9,13 +9,11 @@
 module.exports = async app => {
   app
     .entry({
-      app: {
-        import: '**/app.{js,css}',
-      },
+      app: ['scripts/app.js', 'styles/app.css'],
     })
 
     .copy(['src/images/**/*'])
-    .template({template: 'src/index.html'})
+    .template({template: 'src/index.html', cache: true})
     .devtool(false)
     .watch('src/index.html')
 }

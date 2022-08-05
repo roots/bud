@@ -1,10 +1,4 @@
-import stripAnsi = require('strip-ansi')
-import type Webpack from 'webpack'
-
-interface Payload {
-  hash: string
-  errors: Array<Webpack.StatsError>
-}
+import stripAnsi from 'strip-ansi'
 
 /**
  * Overlay controller
@@ -32,7 +26,7 @@ export class Controller {
       (a, c) => `${a}
         <div>
           <span>${c?.title ?? 'Compilation error'}</span>
-          <pre>${stripAnsi.default(c?.message) ?? ''}</pre>
+          <pre>${stripAnsi(c?.message) ?? ''}</pre>
         </div>`,
       ``,
     )

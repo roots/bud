@@ -1,5 +1,3 @@
-import type {Payload} from '../../hmr'
-
 /**
  * Activity indicator controller
  * @public
