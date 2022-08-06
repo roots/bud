@@ -45,11 +45,6 @@ export interface Dev {
   'dev.middleware.dev.options.stats': Server.Middleware.Available['dev']['options']['stats']
   'dev.middleware.dev.options.writeToDisk': Server.Middleware.Available['dev']['options']['writeToDisk']
 
-  'dev.middleware.hot.options': Server.Middleware.Available['hot']['options']
-  'dev.middleware.hot.options.heartbeat': Server.Middleware.Available['hot']['options']['heartbeat']
-  'dev.middleware.hot.options.log': Server.Middleware.Available['hot']['options']['log']
-  'dev.middleware.hot.options.path': Server.Middleware.Available['hot']['options']['path']
-
   'dev.middleware.proxy.options': Server.Middleware.Available['proxy']['options']
   'dev.middleware.proxy.options.autoRewrite': Server.Middleware.Available['proxy']['options']['autoRewrite']
   'dev.middleware.proxy.options.changeOrigin': Server.Middleware.Available['proxy']['options']['changeOrigin']

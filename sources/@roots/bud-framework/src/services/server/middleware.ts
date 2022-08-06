@@ -1,6 +1,5 @@
 import type {Options as ProxyOptions} from 'http-proxy-middleware'
 import type {Options as WebpackDevMiddlewareOptions} from 'webpack-dev-middleware'
-import type WebpackHotMiddleware from 'webpack-hot-middleware'
 
 import type {Bud} from '../../index.js'
 
@@ -25,7 +24,7 @@ export type Middleware<V extends 'options' | 'factory'> = {
  */
 export interface Available {
   dev?: Definition<WebpackDevMiddlewareOptions<any, any>>
-  hot?: Definition<WebpackHotMiddleware.MiddlewareOptions>
+  hot?: Definition<null>
   cookie?: Definition<null>
   proxy?: Definition<ProxyOptions>
 }
