@@ -4941,6 +4941,7 @@ __metadata:
     "@roots/bud-client": "workspace:sources/@roots/bud-client"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@skypack/package-check": 0.2.2
+    "@types/connect": ^3
     "@types/cookie-parser": 1.4.3
     "@types/express": 4.17.13
     "@types/node": 16.11.47
@@ -4949,6 +4950,7 @@ __metadata:
     "@types/webpack-hot-middleware": 2.25.6
     ansi-html-community: 0.0.8
     chokidar: 3.5.3
+    connect: 3.7.0
     cookie-parser: 1.4.6
     express: 4.18.1
     globby: 13.1.2
@@ -6170,6 +6172,15 @@ __metadata:
 "@types/connect@npm:*":
   version: 3.4.35
   resolution: "@types/connect@npm:3.4.35"
+  dependencies:
+    "@types/node": "*"
+  checksum: fe81351470f2d3165e8b12ce33542eef89ea893e36dd62e8f7d72566dfb7e448376ae962f9f3ea888547ce8b55a40020ca0e01d637fab5d99567673084542641
+  languageName: node
+  linkType: hard
+
+"@types/connect@npm:^3":
+  version: 3.4.35
+  resolution: "@types/connect@npm:3.4.35::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2F%40types%252fconnect%2F-%2Fconnect-3.4.35.tgz"
   dependencies:
     "@types/node": "*"
   checksum: fe81351470f2d3165e8b12ce33542eef89ea893e36dd62e8f7d72566dfb7e448376ae962f9f3ea888547ce8b55a40020ca0e01d637fab5d99567673084542641
@@ -11162,6 +11173,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"connect@npm:3.7.0":
+  version: 3.7.0
+  resolution: "connect@npm:3.7.0::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fconnect%2F-%2Fconnect-3.7.0.tgz"
+  dependencies:
+    debug: 2.6.9
+    finalhandler: 1.1.2
+    parseurl: ~1.3.3
+    utils-merge: 1.0.1
+  checksum: 96e1c4effcf219b065c7823e57351c94366d2e2a6952fa95e8212bffb35c86f1d5a3f9f6c5796d4cd3a5fdda628368b1c3cc44bf19c66cfd68fe9f9cab9177e2
+  languageName: node
+  linkType: hard
+
 "consola@npm:^2.15.3":
   version: 2.15.3
   resolution: "consola@npm:2.15.3"
@@ -14823,6 +14846,21 @@ __metadata:
   version: 3.0.0
   resolution: "filter-obj@npm:3.0.0"
   checksum: 93bee3cecc2bbd87cb9d786c4ba2ea36fbad5d237aec991deed419dcc892020dd46d0a77c982224ef45d922b1573c77be1588274b9d524c7389ccf8d1a91c330
+  languageName: node
+  linkType: hard
+
+"finalhandler@npm:1.1.2":
+  version: 1.1.2
+  resolution: "finalhandler@npm:1.1.2::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Ffinalhandler%2F-%2Ffinalhandler-1.1.2.tgz"
+  dependencies:
+    debug: 2.6.9
+    encodeurl: ~1.0.2
+    escape-html: ~1.0.3
+    on-finished: ~2.3.0
+    parseurl: ~1.3.3
+    statuses: ~1.5.0
+    unpipe: ~1.0.0
+  checksum: 617880460c5138dd7ccfd555cb5dde4d8f170f4b31b8bd51e4b646bb2946c30f7db716428a1f2882d730d2b72afb47d1f67cc487b874cb15426f95753a88965e
   languageName: node
   linkType: hard
 
@@ -22053,6 +22091,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"on-finished@npm:~2.3.0":
+  version: 2.3.0
+  resolution: "on-finished@npm:2.3.0::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fon-finished%2F-%2Fon-finished-2.3.0.tgz"
+  dependencies:
+    ee-first: 1.1.1
+  checksum: 1db595bd963b0124d6fa261d18320422407b8f01dc65863840f3ddaaf7bcad5b28ff6847286703ca53f4ec19595bd67a2f1253db79fc4094911ec6aa8df1671b
+  languageName: node
+  linkType: hard
+
 "on-headers@npm:^1.0.0, on-headers@npm:~1.0.2":
   version: 1.0.2
   resolution: "on-headers@npm:1.0.2"
@@ -27246,6 +27293,13 @@ __metadata:
 "statuses@npm:>= 1.4.0 < 2, statuses@npm:>= 1.5.0 < 2":
   version: 1.5.0
   resolution: "statuses@npm:1.5.0"
+  checksum: c469b9519de16a4bb19600205cffb39ee471a5f17b82589757ca7bd40a8d92ebb6ed9f98b5a540c5d302ccbc78f15dc03cc0280dd6e00df1335568a5d5758a5c
+  languageName: node
+  linkType: hard
+
+"statuses@npm:~1.5.0":
+  version: 1.5.0
+  resolution: "statuses@npm:1.5.0::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fstatuses%2F-%2Fstatuses-1.5.0.tgz"
   checksum: c469b9519de16a4bb19600205cffb39ee471a5f17b82589757ca7bd40a8d92ebb6ed9f98b5a540c5d302ccbc78f15dc03cc0280dd6e00df1335568a5d5758a5c
   languageName: node
   linkType: hard
