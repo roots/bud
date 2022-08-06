@@ -4,14 +4,9 @@
     "rootDir": "src",
     "outDir": "lib"
   },
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "lib",
-    "node_modules"
-  ],
+  "include": ["src"],
+  "exclude": ["lib", "node_modules", "**/*.test.ts", "**/__snapshots__"],
   "references": [
-    {"path": "./../bud-framework/tsconfig.json"},
-  ],
+    {"path": "./../bud-framework/tsconfig.json"}
+  ]
 }

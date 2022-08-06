@@ -7,9 +7,9 @@ import {bind, once} from 'helpful-decorators'
 import {inject} from '../inject.js'
 import * as middlewareMap from '../middleware/index.js'
 import {seed} from '../seed.js'
-import {Http} from './server.http.js'
-import {Https} from './server.https.js'
-import {Watcher} from './server.watcher.js'
+import {Http} from '../server/server.http.js'
+import {Https} from '../server/server.https.js'
+import {Watcher} from '../server/server.watcher.js'
 
 /**
  * Server service class
@@ -21,12 +21,6 @@ export class Server extends Service implements Base.Service {
    * @public
    */
   public application: Express.Application
-
-  /**
-   * Express instance
-   * @public
-   */
-  public express = Express
 
   /**
    * Watcher instance
@@ -69,7 +63,8 @@ export class Server extends Service implements Base.Service {
   > = {}
 
   /**
-   * Register service
+   * `register` callback
+   *
    * @public
    * @decorator `@bind`
    * @decorator `@once`
@@ -79,16 +74,16 @@ export class Server extends Service implements Base.Service {
   public async register(): Promise<void> {
     if (!this.app.isDevelopment) return
 
-    seed(this.app)
-
-    this.application = this.express()
+    this.application = Express()
     this.application.set('x-powered-by', false)
-
     this.watcher = new Watcher(this.app)
+
+    seed(this.app)
   }
 
   /**
-   * Boot service
+   * `boot` callback
+   *
    * @public
    * @decorator `@bind`
    * @decorator `@once`
@@ -96,17 +91,15 @@ export class Server extends Service implements Base.Service {
   @bind
   @once
   public async boot(): Promise<void> {
-    if (!this.app.isDevelopment) return
-
-    this.app.hooks.action(
-      'server.before',
-      this.setConnection,
-      this.injectScripts,
-      this.app.compiler.compile,
-      this.applyMiddleware,
-    )
-
-    this.app.hooks.action('server.after', this.watcher.watch)
+    this.app.hooks
+      .action(
+        'server.before',
+        this.setConnection,
+        this.injectScripts,
+        this.app.compiler.compile,
+        this.applyMiddleware,
+      )
+      .hooks.action('server.after', this.watcher.watch)
   }
 
   /**
@@ -118,12 +111,15 @@ export class Server extends Service implements Base.Service {
   @bind
   @once
   public async setConnection() {
-    this.connection =
-      this.app.hooks.filter('dev.url').protocol === 'https:'
-        ? new Https(this.app)
-        : new Http(this.app)
+    const isHttps = this.app.hooks.filter('dev.url').protocol === 'https:'
+
+    this.connection = isHttps ? new Https(this.app) : new Http(this.app)
+
+    this.app.log('server instantiated')
 
     await this.connection.setup()
+
+    this.app.log('server initialized')
   }
 
   /**

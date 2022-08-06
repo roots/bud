@@ -17,7 +17,8 @@ export interface dev
 }
 
 export const dev = (app: Bud) =>
-  WebpackDevMiddleware(
-    app.compiler.compilation,
-    app.hooks.filter(`dev.middleware.dev.options`),
-  )
+  WebpackDevMiddleware(app.compiler.compilation, {
+    ...app.hooks.filter(`dev.middleware.dev.options`),
+    stats: 'none',
+    writeToDisk: true,
+  })

@@ -9,7 +9,7 @@
 module.exports = async app => {
   app
     .entry({
-      app: ['scripts/app.js', 'styles/app.css'],
+      app: ['scripts/app', 'styles/app'],
     })
 
     .copy(['src/images/**/*'])
