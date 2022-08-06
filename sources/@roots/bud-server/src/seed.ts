@@ -29,18 +29,6 @@ export const seed = (app: Bud) => {
     )
     .hooks.on(`dev.middleware.dev.options.stats`, 'none')
     .hooks.on(`dev.middleware.dev.options.writeToDisk`, true)
-
-    .hooks.on(`dev.middleware.hot.options`, () => ({
-      path: app.hooks.filter('dev.middleware.hot.options.path'),
-      log: app.hooks.filter('dev.middleware.hot.options.log'),
-      heartbeat: app.hooks.filter('dev.middleware.hot.options.heartbeat'),
-    }))
-    .hooks.on(`dev.middleware.hot.options.path`, () => `/__bud/hmr`)
-    .hooks.on(
-      `dev.middleware.hot.options.log`,
-      app.logger.instance.scope('hot').info,
-    )
-    .hooks.on(`dev.middleware.hot.options.heartbeat`, 2000)
     .hooks.on(`dev.client.scripts`, clientScripts.callback)
     .hooks.on(`dev.watch.files`, new Set([]))
     .hooks.on(`dev.watch.options`, {})

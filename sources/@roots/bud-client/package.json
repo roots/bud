@@ -36,8 +36,8 @@
   "files": [
     "lib/"
   ],
+  "type": "commonjs",
   "main": "./lib/index.js",
-  "module": "./lib/index.mjs",
   "types": "./lib/index.d.ts",
   "exports": {
     ".": "./lib/index.js",
@@ -48,11 +48,8 @@
       ".": [
         "./lib/index.d.cts"
       ],
-      "client": [
-        "./lib/client/index.d.cts"
-      ],
-      "proxy-click-interceptor": [
-        "./lib/proxy-click-interceptor.d.cts"
+      "./lib/*": [
+        "./lib/*.d.cts"
       ]
     }
   },

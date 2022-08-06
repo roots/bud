@@ -1,10 +1,7 @@
 /* eslint-disable no-console */
 /* global window __webpack_hash__ */
 
-/**
- * Based heavily on https://github.com/webpack/webpack/blob/c0afdf9c6abc1dd70707c594e473802a566f7b6e/hot/only-dev-server.js
- * Original copyright Tobias Koppers `@sokra` (MIT license)
- */
+import type {StatsCompilation} from 'webpack'
 
 import * as options from '../options.js'
 import * as cache from './cache.js'
@@ -16,7 +13,7 @@ import * as cache from './cache.js'
 export const check = () => {
   module.hot
     .check(false, update)
-    ?.then(modules => update(null, modules))
+    ?.then((modules: StatsCompilation['modules']) => update(null, modules))
     ?.catch(update)
 }
 
@@ -24,7 +21,10 @@ export const check = () => {
  * HMR apply callback
  * @public
  */
-export const apply = (error?: Error, modules?: Array<unknown>) => {
+export const apply = (
+  error?: Error,
+  modules?: StatsCompilation['modules'],
+) => {
   if (error) {
     options.get('log') && console.error(error)
     options.get('reload') && window.location.reload()
@@ -47,7 +47,10 @@ export const apply = (error?: Error, modules?: Array<unknown>) => {
  * HMR update callback
  * @public
  */
-export const update = (error: Error, modules?: Array<unknown>) => {
+export const update = (
+  error: Error,
+  modules?: StatsCompilation['modules'],
+) => {
   if (error) {
     options.get('log') && console.error(error)
     options.get('reload') && window.location.reload()
@@ -85,6 +88,6 @@ export const update = (error: Error, modules?: Array<unknown>) => {
       },
       apply,
     )
-    ?.then(modules => apply(null, modules))
+    ?.then((modules: StatsCompilation['modules']) => apply(null, modules))
     ?.catch(apply)
 }

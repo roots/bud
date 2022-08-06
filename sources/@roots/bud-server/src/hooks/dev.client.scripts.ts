@@ -41,8 +41,4 @@ export const overlay = (app: Bud) =>
     isUndefined(app.context.args.indicator)
       ? 'true'
       : app.context.args.indicator
-  }&path=${
-    isUndefined(app.hooks.filter('dev.middleware.hot.options.path'))
-      ? `/__bud/hmr`
-      : app.hooks.filter('dev.middleware.hot.options.path')
   }`

@@ -46,7 +46,7 @@ export class Events extends EventSource {
    * Singleton constructor
    * @public
    */
-  public static make = (options: Options): Events => {
+  public static make(options: Options): Events {
     if (!window.bud) window.bud = {hmr: {}}
 
     if (!window.bud.hmr[options.path]) {
@@ -94,18 +94,23 @@ export class Events extends EventSource {
    * EventSource `addMessageListener` handler
    * @public
    */
-  public addMessageListener(fn: (ev: MessageEvent) => unknown) {
-    this.listeners.push(fn)
+  public addMessageListener(
+    callback: (ev: MessageEvent) => unknown,
+  ): this {
+    this.listeners.push(callback)
+    return this
   }
 
   /**
    * Check if timed out
    * @public
    */
-  public checkTimeout() {
+  public checkTimeout(): this {
     // @ts-ignore
     if (new Date() - this.lastActivity > this.options.timeout) {
       this.onerror()
     }
+
+    return this
   }
 }

@@ -24,8 +24,8 @@ declare interface Events extends EventSource {
   lastActivity: Date
   options: Options
   listeners: Array<((ev: MessageEvent) => any) | null>
-  checkTimeout(): void
-  addMessageListener(fn: (ev: MessageEvent) => unknown): void
+  checkTimeout(): this
+  addMessageListener(fn: (ev: MessageEvent) => unknown): this
 }
 
 declare interface Payload {

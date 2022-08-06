@@ -33,4 +33,4 @@ const isStale = (hash?: Payload['hash']) => {
   return hash !== window.__webpack_hash__
 }
 
-export {hash, failed, setFailed, isStale}
+export {hash, setHash, failed, setFailed, isStale}
