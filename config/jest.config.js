@@ -82,6 +82,10 @@ export default async () => ({
         '/lib/',
         '/@repo/',
         '/tests/',
+        '/__mocks__/',
+        'spec.ts$',
+        '.js$',
+        '/deprecated/',
       ],
       reporters: ['default', 'github-actions'],
       testMatch: [

@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 
-import type {Bud} from '@roots/bud-framework/src/bud.js'
+import type {Bud} from '@roots/bud-framework'
 import type {RequestHandler} from 'express'
 import type {Compiler, MultiCompiler, StatsCompilation} from 'webpack'
 
@@ -13,15 +13,15 @@ let latestStats = null
 let closed = false
 let logger: Bud['logger']['instance']
 
-export const makeMiddleware = (app: Bud) => {
+export default (app: Bud) => {
   logger = app.logger.makeInstance()
   logger.scope('hot middleware')
   logger.enable()
 
-  return middleware(app.compiler.compilation)
+  return makeHandler(app.compiler.compilation)
 }
 
-const middleware = (compiler: Compiler | MultiCompiler) => {
+export const makeHandler = (compiler: Compiler | MultiCompiler) => {
   const stream = new HotEventStream()
 
   const onInvalid = () => {
@@ -47,8 +47,6 @@ const middleware = (compiler: Compiler | MultiCompiler) => {
     stream.handle(req, res)
 
     if (latestStats) {
-      // Explicitly not passing in `log` fn as we don't want to log again on
-      // the server
       publish('sync', latestStats, stream)
     }
   }
@@ -69,7 +67,7 @@ const middleware = (compiler: Compiler | MultiCompiler) => {
   return middleware
 }
 
-const publish = (
+export const publish = (
   action: Payload['action'],
   statsCompilation: StatsCompilation,
   stream: HotEventStream,
@@ -108,7 +106,7 @@ const publish = (
   })
 }
 
-const collectCompilations = (
+export const collectCompilations = (
   stats: StatsCompilation,
 ): Array<StatsCompilation> => {
   // Stats has modules, single bundle

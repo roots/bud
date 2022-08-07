@@ -10,7 +10,7 @@ export const mockProject = {
   path: repoPath('tests/util/project'),
 }
 
-export const factory = async (options?: Config.Options) => {
+export const factory = async (options?: Config.Options): Promise<Bud> => {
   const context = await makeContext(repoPath('tests/util/project'))
 
   const bud = await budFactory({
@@ -23,6 +23,7 @@ export const factory = async (options?: Config.Options) => {
       ...(options?.context ?? {}),
       args: {
         ...(options?.context?.args ?? {}),
+        cache: false,
         ci: true,
       },
     },

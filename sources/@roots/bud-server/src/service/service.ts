@@ -5,7 +5,7 @@ import Express from 'express'
 import {bind, once} from 'helpful-decorators'
 
 import {inject} from '../inject.js'
-import * as middlewareMap from '../middleware/index.js'
+import * as middlewareMap from '../middleware/middleware.js'
 import {seed} from '../seed.js'
 import {Http} from '../server/server.http.js'
 import {Https} from '../server/server.https.js'
@@ -71,7 +71,7 @@ export class Server extends Service implements Base.Service {
    */
   @bind
   @once
-  public async register(): Promise<void> {
+  public async register() {
     if (!this.app.isDevelopment) return
 
     this.application = Express()
@@ -90,7 +90,7 @@ export class Server extends Service implements Base.Service {
    */
   @bind
   @once
-  public async boot(): Promise<void> {
+  public async boot() {
     this.app.hooks
       .action(
         'server.before',

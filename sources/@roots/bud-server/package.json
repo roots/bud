@@ -41,12 +41,15 @@
   "types": "./lib/index.d.ts",
   "exports": {
     ".": "./lib/index.js",
-    "./service": "./lib/service.js"
+    "./service": "./lib/service/service.js"
   },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.d.ts"
+      ],
+      "service": [
+        "./lib/service/servide.d.ts"
       ]
     }
   },
