@@ -13,7 +13,6 @@ module.exports = async app => {
         import: '**/app.{js,css}',
       },
     })
-
     .template({template: 'src/index.html'})
     .devtool(false)
     .watch('src/index.html')

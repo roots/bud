@@ -4,7 +4,7 @@ import humanReadable from 'human-readable'
 import {truncate} from 'lodash-es'
 import type {StatsAsset, StatsCompilation} from 'webpack'
 
-import {theme} from '../theme.js'
+import {theme} from './theme.js'
 
 export const color = (asset: StatsAsset) =>
   asset.info.error
@@ -26,8 +26,7 @@ export const icon = (asset: StatsAsset) =>
     ? figures.warning
     : figures.circleDotted
 
-export const status = (asset: StatsAsset) =>
-  chalk.hex(color(asset))(icon(asset))
+export const status = (asset: StatsAsset) => icon(asset)
 
 export const name = (asset: StatsAsset) => {
   const fullAssetName = asset.info.hotModuleReplacement
@@ -78,7 +77,7 @@ export const assets = (compilation: StatsCompilation) =>
 export const time = (time: StatsAsset['time'] & string) =>
   humanReadable.durationFormatter({
     allowMultiples: ['s', 'ms'],
-  })(time)
+  })(time) as string
 
 export const group = (assets: StatsCompilation['assets']) =>
   assets?.length

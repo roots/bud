@@ -3,9 +3,9 @@ import type {Bud} from '@roots/bud-framework'
 import chalk from 'chalk'
 import type {StatsCompilation} from 'webpack'
 
-import {theme} from '../theme.js'
 import * as assets from './assets.js'
 import * as table from './table.js'
+import {theme} from './theme.js'
 
 export const report = ({
   app,
@@ -38,7 +38,7 @@ export const report = ({
   return out
 }
 
-export const summary = (app: Bud, compilation: StatsCompilation) => {
+export const Summary = (app: Bud, compilation: StatsCompilation) => {
   let out = []
 
   out.push(
