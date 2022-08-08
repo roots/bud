@@ -1,4 +1,4 @@
-import type {FSWatcher, WatchOptions} from 'chokidar'
+import type {FSWatcher, WatchOptions} from 'node:fs'
 
 import type {Logger} from '../../logger/index.js'
 

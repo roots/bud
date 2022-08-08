@@ -1,18 +1,12 @@
 import type {Bud} from '@roots/bud-framework'
 import {isNull, isUndefined} from 'lodash-es'
 
-export interface inject {
-  (app: Bud, injection: Array<(app: Bud) => string>): void
-}
-
 /**
- * Injects webpack entrypoints with HMR client scripts.
- *
- * Filters on `webpack.entry`
+ * Inject webpack entrypoints with client scripts
  *
  * @public
  */
-export const inject: inject = (
+export const inject = (
   app: Bud,
   injection: Array<(app: Bud) => string>,
 ): void => {

@@ -7,4 +7,4 @@ const init = () =>
 
 init()
 
-module?.hot?.accept('./components/main.js', init)
+module?.hot?.accept()

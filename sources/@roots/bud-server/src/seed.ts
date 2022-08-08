@@ -14,10 +14,6 @@ export const seed = (app: Bud) => {
       publicPath: app.hooks.filter(
         `dev.middleware.dev.options.publicPath`,
       ),
-      stats: app.hooks.filter(`dev.middleware.dev.options.stats`),
-      writeToDisk: app.hooks.filter(
-        `dev.middleware.dev.options.writeToDisk`,
-      ),
     }))
     .hooks.on(`dev.middleware.dev.options.headers`, {
       'Access-Control-Allow-Origin': '*',
