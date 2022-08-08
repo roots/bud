@@ -2,15 +2,23 @@
 import type {Bud} from '@roots/bud-framework'
 import chalk from 'chalk'
 import figures from 'figures'
-import {Box, render, Spacer, Text} from 'ink'
-import Link from 'ink-link'
-import {networkInterfaces} from 'node:os'
+import {durationFormatter, sizeFormatter} from 'human-readable'
+import {Box, render, Text} from 'ink'
+import {relative} from 'node:path/posix'
 import React from 'react'
-import type {StatsCompilation} from 'webpack'
+import type {StatsChunkGroup, StatsCompilation} from 'webpack'
 import {formatMessage} from 'webpack-format-messages'
 
-import * as formatAssets from './assets.js'
-import {theme} from './theme.js'
+import {Server} from './server.js'
+import * as theme from './theme.js'
+
+const VERT = figures.lineVertical
+const SPACE = `\u{200A}`
+
+const formatDuration = durationFormatter({
+  allowMultiples: ['s', 'ms'],
+})
+const formatSize = sizeFormatter()
 
 const Errors = ({errors}: {errors: StatsCompilation['errors']}) => {
   const formatted = errors
@@ -20,7 +28,10 @@ const Errors = ({errors}: {errors: StatsCompilation['errors']}) => {
       message
         .replace('\t', '')
         .split('\n')
-        .map(ln => `${chalk.dim(`│`)}  ${ln.replace(process.cwd(), '.')}`)
+        .map(
+          ln =>
+            `${chalk.dim(VERT)}${SPACE}${ln.replace(process.cwd(), '.')}`,
+        )
         .join('\n'),
     ) as Array<string>
 
@@ -31,8 +42,8 @@ const Errors = ({errors}: {errors: StatsCompilation['errors']}) => {
       {formatted?.map((error: string, index) => (
         <Box key={index} flexDirection="column">
           <Box flexDirection="row">
-            <Text dimColor>├─ </Text>
-            <Text color={theme.red}>{figures.cross} error</Text>
+            <Text dimColor>├─{SPACE}</Text>
+            <Text color={theme.color.red}>{figures.cross} error</Text>
           </Box>
 
           <Box flexDirection="column">
@@ -56,7 +67,7 @@ const Warnings = ({
       message
         .replace('\t', '')
         .split('\n')
-        .map(ln => `${chalk.dim(`│`)}  ${ln.replace(process.cwd(), '.')}`)
+        .map(ln => `${chalk.dim(VERT)}  ${ln.replace(process.cwd(), '.')}`)
         .join('\n'),
     ) as Array<string>
 
@@ -67,8 +78,8 @@ const Warnings = ({
       {formatted?.map((warning: string, index) => (
         <Box key={index} flexDirection="column">
           <Box flexDirection="row">
-            <Text dimColor>├─ </Text>
-            <Text color={theme.yellow}>{figures.cross} warning</Text>
+            <Text dimColor>├─{SPACE}</Text>
+            <Text color={theme.color.yellow}>{figures.cross} warning</Text>
           </Box>
 
           <Box flexDirection="column">
@@ -80,159 +91,183 @@ const Warnings = ({
   )
 }
 
-const Asset = ({status, minWidth, name, size, emitted}) => {
+const Asset = ({
+  minWidth,
+  name,
+  size,
+}: {
+  minWidth: number
+  name: string
+  size?: number
+}) => {
   return (
     <Box flexDirection="row">
-      <Box marginRight={1}>
-        <Text dimColor>├─</Text>
-      </Box>
-
-      <Box marginRight={1} minWidth={minWidth}>
-        <Text color={emitted ? 'white' : 'dimColor'}>{name}</Text>
-      </Box>
-
       <Box>
-        <Text>{size}</Text>
+        <Text dimColor>{SPACE}</Text>
       </Box>
+
+      <Box minWidth={minWidth}>
+        <Text dimColor>
+          {name}
+          {SPACE}
+        </Text>
+      </Box>
+
+      {size && size > 0 && (
+        <Box>
+          <Text dimColor>{formatSize(size) as string}</Text>
+        </Box>
+      )}
     </Box>
   )
 }
 
-const Assets = ({compilation}: {compilation: StatsCompilation}) => {
-  let assets = compilation.assets
-    .filter(
-      asset =>
-        asset.name?.endsWith(`.css`) ||
-        (asset.name?.endsWith(`.js`) &&
-          !asset.name?.includes('hot-update')),
-    )
-    .filter(Boolean)
-    .map(asset => ({
-      ...asset,
-      status: formatAssets.status(asset),
-      name: asset.name,
-      size: formatAssets.size(asset),
-    }))
+const Chunk = ({chunk}: {chunk: StatsChunkGroup}) => {
+  const dynamicChunks = chunk.assets.filter(
+    asset =>
+      ['js', 'css'].includes(asset.name.split('.').pop()) &&
+      !asset.name?.includes(`hot-update`),
+  )
 
-  const minWidth = assets.reduce((longest, asset) => {
+  const minWidth = dynamicChunks.reduce((longest, asset) => {
     return asset.name?.length > longest ? asset.name.length : longest
   }, 0)
 
   return (
     <Box flexDirection="column">
-      {assets.map((asset, index) => (
-        <Asset key={index} {...asset} minWidth={minWidth} />
+      {dynamicChunks?.map((asset, index) => (
+        <Box key={index} flexDirection="row">
+          <Text dimColor>
+            {VERT}
+            {SPACE}
+            {SPACE}
+            {index === dynamicChunks.length - 1 ? `└─` : '├─'}
+          </Text>
+          <Asset {...asset} minWidth={minWidth + 1} />
+        </Box>
       ))}
     </Box>
   )
 }
 
-const Server = ({app}: {app: Bud}) => {
-  const {protocol, port, hostname: internal} = app.server.connection.url
-
-  const external = Object.values(networkInterfaces())
-    .flat()
-    .find(i => i?.family === 'IPv4' && !i?.internal)?.address
-
-  const formatUrl = (host: string) => `${protocol}//${host}:${port}`
-
-  return (
-    <Box flexDirection="column">
-      <Box flexDirection="row">
-        <Box marginRight={1}>
-          <Text dimColor>internal:</Text>
-        </Box>
-        <Box>
-          {/* @ts-ignore */}
-          <Link url={formatUrl(internal)}>
-            <Text>{formatUrl(internal)}</Text>
-          </Link>
-        </Box>
-      </Box>
-
-      <Box flexDirection="row">
-        <Box marginRight={1}>
-          <Text dimColor>external:</Text>
-        </Box>
-        <Box>
-          {/* @ts-ignore */}
-          <Link url={formatUrl(external)}>
-            <Text>{formatUrl(external)}</Text>
-          </Link>
-        </Box>
-      </Box>
-
-      <Box marginTop={1}>
-        <Text>
-          ...watching project sources
-          {app.server.watcher?.files?.size && (
-            <Text dimColor>
-              {' '}
-              (and {app.server.watcher.files.size} other{' '}
-              {app.server.watcher.files.size > 1 ? 'files' : 'file'})
-            </Text>
-          )}
-        </Text>
-      </Box>
-    </Box>
-  )
-}
-
-const Name = ({
-  name,
-  color,
-  hash,
-}: {
-  color: string
-  figure: string
-  name: string
-  hash: string
-}) => {
-  const width = name.length + hash.length + 4
-
-  return (
-    <Box
-      flexDirection="row"
-      width={width}
-      justifyContent="flex-start"
-      marginBottom={1}
-    >
-      <Text color={color}>{name}</Text>
-      <Spacer />
-      <Text dimColor>({hash})</Text>
-    </Box>
-  )
-}
-
-const Compilation = ({
-  stats,
-  app,
-}: {
-  stats: StatsCompilation
-  app: Bud
-}) => {
+const Compilation = ({stats}: {stats: StatsCompilation}) => {
   if (!stats) return
+
+  const namedChunks = Object.values(stats?.namedChunkGroups)
+  const staticChunks = stats.assets.filter(
+    asset =>
+      ![`js`, `css`].includes(asset.name.split('.').pop()) &&
+      !asset.name?.includes(`hot-update`),
+  )
+  const displayedStaticChunks = staticChunks.splice(0, 5)
+
+  const minWidth = chunks =>
+    chunks.reduce((longest, asset) => {
+      return asset.name?.length > longest ? asset.name.length : longest
+    }, 0) + 1
 
   return (
     <Box flexDirection="column" marginBottom={1}>
-      <Name
-        color={stats.errorsCount ? theme.red : theme.green}
-        figure={stats?.errorsCount ? figures.cross : figures.tick}
-        name={app.name}
-        hash={stats.hash}
-      />
       <Errors errors={stats.errors} />
       <Warnings warnings={stats.warnings} />
-      {stats?.errorsCount === 0 && <Assets compilation={stats} />}
-      <Box>
-        <Text dimColor>│</Text>
-      </Box>
-      <Box flexDirection="row">
-        <Box marginRight={1}>
-          <Text dimColor>└─</Text>
+
+      <Box flexDirection="column">
+        {namedChunks.map((chunk, id) => {
+          return (
+            <Box key={id} flexDirection="column">
+              <Box flexDirection="row">
+                <Text dimColor>
+                  {id === namedChunks.length - 1 ? `├─` : `└─`}
+                  {SPACE}
+                </Text>
+
+                <Text
+                  color={
+                    stats?.errorsCount > 0
+                      ? theme.color.dim
+                      : theme.color.foregroundColor
+                  }
+                >
+                  {chunk.name} ({formatSize(chunk.assetsSize) as string})
+                </Text>
+              </Box>
+
+              <Chunk chunk={chunk} />
+            </Box>
+          )
+        })}
+
+        <Text dimColor>{VERT}</Text>
+
+        <Box flexDirection="row">
+          <Text dimColor>
+            {`├─`}
+            {SPACE}
+          </Text>
+
+          <Text
+            color={
+              stats?.errorsCount > 0
+                ? theme.color.dim
+                : theme.color.foregroundColor
+            }
+          >
+            static
+          </Text>
         </Box>
 
-        <Text dimColor>compiled in {formatAssets.time(stats?.time)}</Text>
+        {displayedStaticChunks?.map((asset, index) => {
+          return (
+            <Box key={index} flexDirection="column">
+              <Box key={index} flexDirection="row">
+                <Text dimColor>
+                  {VERT}
+                  {SPACE}
+                  {SPACE}
+                  {index !== displayedStaticChunks.length - 1
+                    ? `├─`
+                    : staticChunks?.length === 0
+                    ? `└─`
+                    : `├─`}
+                </Text>
+
+                <Asset
+                  {...asset}
+                  minWidth={minWidth(displayedStaticChunks)}
+                />
+              </Box>
+            </Box>
+          )
+        })}
+        {staticChunks.length > 0 && (
+          <Box flexDirection="row">
+            <Text dimColor>
+              {VERT}
+              {SPACE}
+              {SPACE}
+              {'└─'}
+            </Text>
+            <Text dimColor>
+              {SPACE}
+              {figures.ellipsis}
+            </Text>
+          </Box>
+        )}
+      </Box>
+
+      <Box>
+        <Text dimColor>│{SPACE}</Text>
+      </Box>
+
+      <Box flexDirection="row">
+        <Box>
+          <Text dimColor>└─{SPACE}</Text>
+        </Box>
+
+        <Text dimColor>
+          compiled {stats?.modules?.length} modules in{' '}
+          {formatDuration(stats?.time) as string}
+        </Text>
       </Box>
     </Box>
   )
@@ -245,10 +280,48 @@ export const renderResults = ({
   stats: StatsCompilation
   app: Bud
 }) => {
+  const color = (compilation: StatsCompilation) =>
+    compilation?.errorsCount > 0
+      ? theme.color.red
+      : compilation?.warningsCount > 0
+      ? theme.color.yellow
+      : theme.color.green
+
+  const emitCount = stats =>
+    stats?.assets?.filter(asset => asset.emitted).length ?? 0
+
   render(
     <Box flexDirection="column" marginTop={1}>
       {stats?.children?.map((compilation, i) => (
-        <Compilation key={i} stats={compilation} app={app} />
+        <Box key={i} flexDirection="column">
+          <Box flexDirection="row">
+            <Text color={color(compilation)}>
+              {compilation?.errorsCount > 0
+                ? figures.cross
+                : figures.circleFilled}
+            </Text>
+
+            <Text color={color(compilation)}>
+              {SPACE}./{relative(process.cwd(), compilation.outputPath)}
+            </Text>
+
+            <Text color={color(compilation)} dimColor>
+              {SPACE}[{compilation.hash}]
+            </Text>
+
+            <Text color={color(compilation)} dimColor>
+              {SPACE}[{i + 1}/{stats?.children.length}]
+            </Text>
+          </Box>
+
+          <Text>{SPACE}</Text>
+          <Text color={theme.color.cyan}>
+            {figures.info} {emitCount(compilation)} assets emitted{' '}
+          </Text>
+          <Text dimColor>{figures.lineVerticalDashed7}</Text>
+
+          <Compilation stats={compilation} />
+        </Box>
       ))}
 
       {app.mode === 'development' && (

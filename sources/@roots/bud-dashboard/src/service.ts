@@ -4,8 +4,6 @@ import {bind} from 'helpful-decorators'
 import {toInteger} from 'lodash-es'
 import type {StatsCompilation} from 'webpack'
 
-import * as reporter from './render/reporter.js'
-
 /**
  * Dashboard service
  *
@@ -34,7 +32,6 @@ export class Dashboard extends Service implements Base.Service {
    */
   @bind
   public log(...strings: Array<string>): void {
-    !strings[0].startsWith('\n') && strings.unshift('\n')
     this.app.context.stdout.write(strings.join(''))
   }
 
@@ -56,12 +53,17 @@ export class Dashboard extends Service implements Base.Service {
       this.log(compilationStats?.toString())
       return this
     }
-
-    const stats: StatsCompilation = compilationStats.toJson()
-    if (!stats || stats.hash === this.lastHash) return this
-    this.lastHash = stats.hash
-
-    reporter.renderResults({stats, app: this.app})
+    try {
+      const outputComponents = await import('./render/reporter.js')
+      const stats: StatsCompilation = compilationStats.toJson()
+      if (!stats || stats.hash === this.lastHash) return this
+      this.lastHash = stats.hash
+      outputComponents.renderResults({stats, app: this.app})
+    } catch (error) {
+      this.log(error)
+      this.log(compilationStats?.toString())
+      return this
+    }
 
     if (this.app.isProduction) {
       this.app.compiler.compilation.running
