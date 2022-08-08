@@ -1,6 +1,5 @@
 import {bind} from 'helpful-decorators'
 import {has, isBoolean, isFunction, isUndefined} from 'lodash-es'
-import type Signale from 'signale'
 import type {Compiler} from 'webpack'
 
 import type {Bud} from '../bud.js'
@@ -218,17 +217,10 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
     })
 
     Object.defineProperty(this, 'app', {
-      get: (() =>
-        function (): Bud {
-          return this._app()
-        }.bind(this))(),
+      get: (): Bud => this._app(),
     })
-
     Object.defineProperty(this, 'logger', {
-      get: (() =>
-        function (): Signale.Signale {
-          return logger.scope(this.label ?? 'anonymous extension')
-        }.bind(this))(),
+      get: () => logger.scope(this.label ?? 'anonymous extension'),
     })
 
     const opts = this.options
@@ -257,7 +249,7 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
       await this.init(this.app, this.options)
       this.meta['_init'] = true
     } catch (error) {
-      this.logger.error('error on init', '\n', error)
+      this.logger.error(error)
       this.app.error('error in', this.label)
     }
 
@@ -525,10 +517,26 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
    * @decorator `@bind`
    */
   @bind
-  public async resolve(signifier: string): Promise<string> {
-    const modulePath = await this.app.module.resolve(signifier)
+  public async resolve(
+    signifier: string,
+    parent?: string,
+  ): Promise<string> {
+    let modulePath: string
 
-    this.logger.log(this.label, 'resolving', signifier, 'to', modulePath)
+    modulePath = await this.app.module.resolve(signifier)
+
+    if (!modulePath) {
+      modulePath = await this.app.module.resolve(signifier, parent)
+    }
+    if (!modulePath) {
+      this.logger.error('unresolvable:', signifier)
+    }
+
+    this.logger.log(
+      signifier,
+      '=>',
+      modulePath.replace(this.app.path(), '.'),
+    )
 
     return modulePath
   }

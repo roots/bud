@@ -61,6 +61,8 @@
     "./context/*": "./lib/context/*.js",
     "./extensions": "./lib/extensions/index.js",
     "./extensions/*": "./lib/extensions/*/index.js",
+    "./methods": "./lib/methods/index.js",
+    "./methods/*": "./lib/methods/*.js",
     "./factory": "./lib/factory/index.js",
     "./services": "./lib/services/index.js"
   },
@@ -108,7 +110,7 @@
     "@types/lodash": "4.14.182",
     "@types/lodash-es": "4.17.6",
     "@types/mini-css-extract-plugin": "2.5.0",
-    "@types/node": "16.11.45",
+    "@types/node": "16.11.47",
     "@types/node-notifier": "8.0.2",
     "@types/signale": "1.4.4"
   },

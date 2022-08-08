@@ -1,4 +1,4 @@
-import type {Config} from '@roots/bud-framework'
+import type * as Config from '@roots/bud-framework/config'
 import {BaseContext, Command} from 'clipanion'
 import {bind} from 'helpful-decorators'
 

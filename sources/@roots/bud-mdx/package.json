@@ -60,7 +60,7 @@
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@types/lodash": "4.14.182",
-    "@types/node": "16.11.45",
+    "@types/node": "16.11.47",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "webpack": "5.73.0"

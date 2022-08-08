@@ -34,7 +34,7 @@ export interface Options {
 @label('cdn')
 @expose('cdn')
 @options<Options>({
-  allowedUris: [(uri: string) => true],
+  allowedUris: [],
   cacheLocation: (app: Bud) => app.path('@storage', app.name, 'modules'),
   frozen: false,
   lockfileLocation: (app: Bud): string =>

@@ -1,6 +1,6 @@
 {
   "name": "@repo/constants",
-  "packageManager": "yarn@3.2.1",
+  "packageManager": "yarn@3.2.2",
   "private": true,
   "type": "module",
   "exports": {
@@ -14,7 +14,7 @@
     }
   },
   "devDependencies": {
-    "@types/node": "16.11.45"
+    "@types/node": "16.11.47"
   },
   "volta": {
     "extends": "../../../package.json"

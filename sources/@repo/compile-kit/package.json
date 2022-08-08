@@ -1,7 +1,7 @@
 {
   "name": "@repo/compile-kit",
   "private": true,
-  "packageManager": "yarn@3.2.1",
+  "packageManager": "yarn@3.2.2",
   "type": "module",
   "exports": {
     "./cjs": "./src/cjs.ts",
@@ -13,7 +13,7 @@
     "@repo/constants": "workspace:sources/@repo/constants",
     "@types/fs-extra": "9.0.13",
     "@types/lodash-es": "4.17.6",
-    "@types/node": "16.11.45",
+    "@types/node": "16.11.47",
     "@vercel/ncc": "0.34.0",
     "download-package-tarball": "1.0.7",
     "fs-extra": "10.1.0",

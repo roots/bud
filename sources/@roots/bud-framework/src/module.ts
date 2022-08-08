@@ -1,7 +1,7 @@
 import {bind, memo} from 'helpful-decorators'
 import {resolve} from 'import-meta-resolve'
 import {createRequire} from 'module'
-import {join, relative} from 'node:path'
+import {join, normalize, relative} from 'node:path'
 
 import type {Bud} from './bud.js'
 
@@ -41,7 +41,7 @@ export class Module {
       .then(this.require.resolve)
       .then(path => relative(parent ?? this.app.root.context.dir, path))
       .then(path => path.split(signifier).shift())
-      .then(path => join(this.app.path(), path, signifier))
+      .then(path => this.app.path(path as any, signifier))
   }
 
   /**
@@ -86,35 +86,18 @@ export class Module {
     signifier: string,
     parent?: string,
   ): Promise<string> {
+    const context =
+      parent ?? `file://${this.app.root.path('./package.json')}`
+
     try {
-      const resolvedPath = await resolve(
-        signifier,
-        parent ? `file://${parent}` : import.meta.url,
+      const resolvedPath = await resolve(signifier, context)
+      const normalized = normalize(
+        resolvedPath.replace('file://', '').replace(/%20/g, ' '),
       )
-
-      return resolvedPath.replace('file://', '')
+      return normalized
     } catch (err) {
-      throw new Error(err)
+      this.app.info(signifier, 'not resolvable', `(context: ${context})`)
     }
-  }
-
-  /**
-   * Resolve CJS
-   *
-   * @param signifier - package name
-   * @param parent - path to resolve from
-   *
-   * @decorator `@bind`
-   */
-  @bind
-  @memo()
-  public async resolveCjs(signifier: string, parent?: string) {
-    if (parent) {
-      const require = createRequire(`file://${parent}`)
-      return require.resolve(signifier)
-    }
-
-    return this.require.resolve(signifier)
   }
 
   /**
@@ -125,8 +108,19 @@ export class Module {
    */
   @bind
   @memo()
-  public async import<T = any>(signifier: string): Promise<T> {
-    const result = await import(signifier)
+  public async import<T = any>(
+    signifier: string,
+    context?: string,
+  ): Promise<T> {
+    if (!context)
+      context = `file://${this.app.root.path('./package.json')}`
+    const modulePath = await this.resolve(signifier, context)
+    const result = await import(modulePath)
+    if (!result) {
+      this.app.error(signifier, 'not found')
+      return {} as T
+    }
+
     return result?.default ?? result
   }
 }

@@ -1,27 +1,48 @@
-import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {bind, label} from '@roots/bud-framework/extension/decorators'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 
 import {InterpolateHtmlPlugin} from './interpolate-html-plugin.plugin.js'
 
+/**
+ * BudInterpolateHTMLPlugin
+ *
+ * @public
+ * @decorator `@label`
+ */
 @label('interpolate-html-plugin')
 export default class BudInterpolateHtmlPlugin extends Extension<
   Record<string, RegExp>,
   InterpolateHtmlPlugin
 > {
+  /**
+   * public env accessor
+   *
+   * @public
+   */
   public get publicEnv() {
     return this.app.env.getPublicEnv() ?? {}
   }
 
+  /**
+   * `afterConfig` callback
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
-  public async register() {
-    this.setOptions({
-      ...this.publicEnv,
-      ...this.app.extensions.get('webpack:define-plugin').options,
+  public async afterConfig() {
+    Object.entries(this.app.env.getPublicEnv()).map(([key, value]) => {
+      this.setOption(key, value)
     })
   }
 
+  /**
+   * `make` callback
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public async make() {
     return new InterpolateHtmlPlugin(
@@ -31,10 +52,13 @@ export default class BudInterpolateHtmlPlugin extends Extension<
   }
 
   /**
+   * `when` callback
+   *
    * @public
+   * @decorator `@bind`
    */
   @bind
-  public async when(_app: Bud, options: Record<string, RegExp>) {
-    return options ? true : false
+  public async when() {
+    return this.options ? true : false
   }
 }

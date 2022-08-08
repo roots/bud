@@ -1,7 +1,7 @@
 {
   "name": "@repo/logger",
   "private": true,
-  "packageManager": "yarn@3.2.1",
+  "packageManager": "yarn@3.2.2",
   "type": "module",
   "exports": {
     ".": "./index.js"
@@ -14,7 +14,7 @@
     }
   },
   "devDependencies": {
-    "@types/node": "16.11.45",
+    "@types/node": "16.11.47",
     "signale": "1.4.0"
   },
   "volta": {
