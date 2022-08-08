@@ -10,7 +10,10 @@ module.exports = async app => {
   app
     .entry({
       app: {
-        import: '**/app.{js,css}',
+        import: '**/app.js',
+      },
+      styles: {
+        import: ['index.html', '**/app.css', '**/app.js'],
       },
     })
     .template({template: 'src/index.html'})
