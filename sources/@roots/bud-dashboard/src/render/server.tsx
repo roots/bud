@@ -5,7 +5,7 @@ import Link from 'ink-link'
 import {networkInterfaces} from 'node:os'
 import React from 'react'
 
-import * as theme from './theme.js'
+import * as theme from './format.js'
 
 const external = Object.values(networkInterfaces())
   .flat()
