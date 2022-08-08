@@ -66,22 +66,21 @@ export default class BudReactRefresh extends Extension<
       )
 
     if (!this.transformExtension) {
-      this.setTransformExtension(
-        await this.import(
-          this.app.react.useBabel
-            ? '@roots/bud-react/babel-refresh'
-            : this.app.extensions.has('@roots/bud-swc')
-            ? '@roots/bud-react/swc-refresh'
-            : '@roots/bud-react/typescript-refresh',
-        ),
-      )
+      const signifier = this.app.react.useBabel
+        ? '@roots/bud-react/babel-refresh'
+        : this.app.extensions.has('@roots/bud-swc')
+        ? '@roots/bud-react/swc-refresh'
+        : '@roots/bud-react/typescript-refresh'
+
+      const transformExtension = await this.import(signifier)
+      await this.app.extensions.add(transformExtension)
+      this.setTransformExtension(this.app.extensions.get(signifier))
     }
 
     this.logger.log(
       'Registering transformer',
       this.transformExtension.label,
     )
-    await this.app.extensions.add(this.transformExtension)
   }
 
   /**

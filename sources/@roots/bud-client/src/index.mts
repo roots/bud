@@ -1,5 +1,1 @@
-/**
- * Default export
- */
-
-export default {}
+import './index.js'

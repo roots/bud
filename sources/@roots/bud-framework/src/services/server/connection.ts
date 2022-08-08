@@ -1,12 +1,13 @@
 import type {
+  IncomingMessage,
   Server as HttpServer,
   ServerOptions as HttpServerOptions,
-} from 'http'
+  ServerResponse,
+} from 'node:http'
 import type {
   Server as HttpsServer,
   ServerOptions as HttpsServerOptions,
-} from 'https'
-import type {IncomingMessage, ServerResponse} from 'webpack-dev-middleware'
+} from 'node:https'
 
 export {HttpsServerOptions}
 export {HttpServerOptions}

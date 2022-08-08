@@ -1,4 +1,4 @@
-import {pulse} from './indicator.pulse.cjs'
+import {pulse} from './indicator.pulse.js'
 
 /**
  * Indicator web component
@@ -32,12 +32,6 @@ export class Component extends HTMLElement {
   public hideTimeout: NodeJS.Timer
 
   /**
-   * hmr status payload
-   * @public
-   */
-  public payload: any
-
-  /**
    * Get accessor: has errors
    * @public
    */
@@ -62,6 +56,15 @@ export class Component extends HTMLElement {
     error: [220, 38, 38, 1],
     warn: [252, 211, 77, 1],
     pending: [59, 130, 246, 1],
+  }
+
+  /**
+   * Class constructor
+   * @public
+   */
+  public constructor() {
+    super()
+    this.renderShadow()
   }
 
   /**
@@ -194,25 +197,20 @@ export class Component extends HTMLElement {
   }
 
   public attributeChangedCallback() {
-    if (this.payload?.errors?.length) return this.onError()
-    if (this.payload?.warnings?.length) return this.onWarning()
+    if (this.hasAttribute('has-errors')) return this.onError()
+    if (this.hasAttribute('has-warnings')) return this.onWarning()
+
     if (
-      !this.payload?.errors?.length &&
-      !this.payload?.warnings?.length &&
-      this.payload.action == 'built'
+      !this.hasAttribute('has-errors') &&
+      !this.hasAttribute('has-warnings') &&
+      this.getAttribute('action') === 'built'
     )
       return this.onSuccess()
+
     if (
-      this.payload?.action == 'building' ||
-      this.payload?.action == 'sync'
+      this.getAttribute('action') == 'building' ||
+      this.getAttribute('action') == 'sync'
     )
       return this.onPending()
-  }
-
-  public connectedCallback() {
-    if (!this.rendered) {
-      this.renderShadow()
-      this.rendered = true
-    }
   }
 }

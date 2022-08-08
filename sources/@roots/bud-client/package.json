@@ -36,27 +36,22 @@
   "files": [
     "lib/"
   ],
-  "type": "commonjs",
-  "main": "./lib/index.cjs",
-  "module": "./lib/index.mjs",
-  "types": "./lib/hmr.d.cts",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "exports": {
     ".": {
       "import": "./lib/index.mjs",
-      "require": "./lib/index.cjs"
+      "require": "./lib/index.js"
     },
     "./lib/*": "./lib/*"
   },
   "typesVersions": {
     "*": {
       ".": [
-        "./lib/index.d.cts"
+        "./lib/index.d.ts"
       ],
-      "hmr": [
-        "./lib/hmr/index.d.cts"
-      ],
-      "proxy-click-interceptor": [
-        "./lib/proxy-click-interceptor.d.cts"
+      "./lib/*": [
+        "./lib/*.d.ts"
       ]
     }
   },
@@ -66,7 +61,6 @@
     "webpack": "5.73.0"
   },
   "dependencies": {
-    "querystring": "^0.2.1",
     "strip-ansi": "7.0.1",
     "tslib": "2.4.0"
   },

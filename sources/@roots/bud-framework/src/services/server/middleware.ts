@@ -1,12 +1,19 @@
-import type {Options as ProxyOptions} from 'http-proxy-middleware'
-import type {Options as WebpackDevMiddlewareOptions} from 'webpack-dev-middleware'
-import type WebpackHotMiddleware from 'webpack-hot-middleware'
+import type HttpProxy from 'http-proxy-middleware'
 
 import type {Bud} from '../../index.js'
 
-export {ProxyOptions}
+export interface ProxyOptions extends HttpProxy.Options {}
 
-export {WebpackDevMiddlewareOptions}
+export interface DevOptions {
+  mimeTypes?: {
+    [key: string]: string
+  }
+  writeToDisk?: boolean | ((targetPath: string) => boolean)
+  methods?: string
+  headers?: Record<string, string>
+  publicPath?: string
+  index?: string | boolean
+}
 
 /**
  * Middleware
@@ -24,8 +31,8 @@ export type Middleware<V extends 'options' | 'factory'> = {
  * @public
  */
 export interface Available {
-  dev?: Definition<WebpackDevMiddlewareOptions<any, any>>
-  hot?: Definition<WebpackHotMiddleware.MiddlewareOptions>
+  dev?: Definition<DevOptions>
+  hot?: Definition<null>
   cookie?: Definition<null>
   proxy?: Definition<ProxyOptions>
 }

@@ -7,6 +7,6 @@
  * @packageDocumentation
  */
 
-import {Server} from './server/index.js'
+import {Server} from './service/service.js'
 
 export {Server, Server as Service, Server as default}

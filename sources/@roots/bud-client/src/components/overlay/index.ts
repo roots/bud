@@ -1,5 +1,5 @@
-import {Component} from './overlay.component.cjs'
-import {Controller} from './overlay.controller.cjs'
+import {Component} from './overlay.component.js'
+import {Controller} from './overlay.controller.js'
 
 export const make = async (): Promise<{update: (data) => void}> => {
   if (customElements.get('bud-error')) return
