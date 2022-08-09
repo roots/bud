@@ -18,7 +18,7 @@ export async function build(app: Bud): Promise<void> {
   app.hooks
     .on('build.bail', () => app.isProduction)
     .hooks.on('build.cache', () => app.cache.configuration)
-    .hooks.on('build.context', () => app.context.dir)
+    .hooks.on('build.context', () => app.context.basedir)
     .hooks.on('build.externalsType', 'var')
     .hooks.on('build.experiments', () => ({
       asyncWebAssembly: app.hooks.filter(
@@ -59,7 +59,7 @@ export async function build(app: Bud): Promise<void> {
     .hooks.on('build.module.rules.oneOf', () =>
       Object.values(app.build.rules).map(rule => rule.toWebpack()),
     )
-    .hooks.on('build.name', () => app.name)
+    .hooks.on('build.name', () => app.label)
     .hooks.on('build.output', () => ({
       assetModuleFilename: app.hooks.filter(
         'build.output.assetModuleFilename',
@@ -97,7 +97,7 @@ export async function build(app: Bud): Promise<void> {
     }))
     .hooks.async('build.plugins', async () => await app.extensions.make())
     .hooks.on('build.recordsPath', () =>
-      app.path(`@storage/${app.name}/modules.json`),
+      app.path(`@storage/${app.label}/modules.json`),
     )
     .hooks.on('build.optimization.emitOnErrors', () => app.isDevelopment)
     .hooks.async('build.resolve', async () => {

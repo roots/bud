@@ -1,5 +1,5 @@
 import * as CONSTANTS from '@repo/constants'
-import {Bud, factory as budFactory, makeContext, seed} from '@roots/bud'
+import {Bud, context, factory as budFactory, seed} from '@roots/bud'
 import type {Config} from '@roots/bud-framework'
 import {join} from 'node:path'
 
@@ -11,21 +11,18 @@ export const mockProject = {
 }
 
 export const factory = async (options?: Config.Options): Promise<Bud> => {
-  const context = await makeContext(repoPath('tests/util/project'))
+  const ctx = await context.get(repoPath('tests/util/project'))
 
   const bud = await budFactory({
-    name: 'bud',
+    label: 'bud',
     mode: 'production',
-    dir: repoPath('tests/util/project'),
+    basedir: repoPath('tests/util/project'),
+    ...ctx,
     ...(options ?? {}),
-    context: {
-      ...context,
-      ...(options?.context ?? {}),
-      args: {
-        ...(options?.context?.args ?? {}),
-        cache: false,
-        ci: true,
-      },
+    args: {
+      ...(options?.args ?? {}),
+      cache: false,
+      ci: true,
     },
     seed: {
       ...seed,

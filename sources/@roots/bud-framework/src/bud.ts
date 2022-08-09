@@ -63,8 +63,8 @@ export abstract class Bud {
    * @readonly
    * @public
    */
-  public get name() {
-    return this.options.name
+  public get label() {
+    return this.options.label
   }
 
   /**
@@ -102,7 +102,7 @@ export abstract class Bud {
    * @public
    */
   public get isRoot(): boolean {
-    return this.root.name === this.name
+    return this.root.label === this.label
   }
 
   /**
@@ -112,7 +112,7 @@ export abstract class Bud {
    * @public
    */
   public get isChild(): boolean {
-    return this.root.name !== this.name
+    return this.root.label !== this.label
   }
 
   /**
@@ -218,11 +218,10 @@ export abstract class Bud {
    *
    * @public
    */
-  public async factory(options?: Config.Options): Promise<Bud> {
+  public async factory(context?: Config.Options): Promise<Bud> {
     return await new this.implementation(this.implementation).lifecycle({
-      ...this.options,
-      ...(options ?? {}),
-      context: {...this.context},
+      ...this.context,
+      ...(context ?? {}),
     })
   }
 

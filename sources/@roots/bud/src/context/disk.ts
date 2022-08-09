@@ -1,4 +1,5 @@
 import {globby} from 'globby'
+import {basename, join, normalize} from 'node:path/posix'
 
 /**
  * Context: disk
@@ -6,12 +7,7 @@ import {globby} from 'globby'
  * @public
  */
 export class Disk {
-  /**
-   * Class constructor
-   *
-   * @public
-   */
-  public constructor(public config: Record<string, string> = {}) {}
+  public config: Record<string, string> = null
 
   /**
    * Find configs
@@ -19,21 +15,14 @@ export class Disk {
    * @public
    */
   public async findConfigs(dir: string): Promise<Disk> {
+    if (this.config) return this
+
     const search = await globby(
       [
-        `*.json`,
-        `*.yml`,
-        `*.toml`,
-        `*.ts`,
-        `*.js`,
-        `*.mjs`,
-        `*.cjs`,
-        `*config*`,
+        `*.{cts,mts,ts,cjs,mjs,js,json,toml,yml}`,
         `*rc`,
-        `*lint*`,
-        `package.json`,
-        `config/*.{ts,js,json,yml}`,
-        `!node_modules/**/*`,
+        join('config', '*.{cts,mts,ts,cjs,mjs,js,json,toml,yml}'),
+        join('config', '*rc'),
       ],
       {
         absolute: true,
@@ -47,7 +36,7 @@ export class Disk {
     this.config = search.reduce(
       (configs: Record<string, string>, filePath: string) => ({
         ...configs,
-        [`${filePath.replace(`${dir}/`, '')}`]: filePath,
+        [basename(normalize(filePath))]: normalize(filePath),
       }),
       this.config,
     )

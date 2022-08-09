@@ -11,7 +11,6 @@ module.exports = async app => {
     .entry({
       app: ['scripts/app', 'styles/app'],
     })
-
     .copy(['src/images/**/*'])
     .template({template: 'src/index.html', cache: true})
     .devtool(false)

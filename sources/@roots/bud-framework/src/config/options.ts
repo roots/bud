@@ -7,22 +7,15 @@ import type {Context} from './context.js'
  *
  * @public
  */
-export interface Options {
-  /**
-   * Application context
-   *
-   * @public
-   */
-  context?: Context
-
+export interface Options extends Partial<Context> {
   /**
    * name
    *
-   * @defaultValue `bud`
+   * @defaultValue `default`
    *
    * @public
    */
-  name?: string
+  label?: string
 
   /**
    * Build mode
@@ -46,9 +39,11 @@ export interface Options {
    *
    * @public
    */
-  services?: Record<
-    keyof Services.Registry & string,
-    new (...args: any[]) => Service
+  services?: Partial<
+    Record<
+      keyof Services.Registry & string,
+      new (...args: any[]) => Service
+    >
   >
 
   /**
@@ -61,7 +56,7 @@ export interface Options {
    *
    * @public
    */
-  dir?: string
+  basedir?: string
 
   /**
    * Extensions to be registered
@@ -69,4 +64,11 @@ export interface Options {
    * @public
    */
   extensions?: Array<Extension | (new (...args: any[]) => Extension)>
+
+  /**
+   * Application (bud)
+   *
+   * @public
+   */
+  application?: any
 }

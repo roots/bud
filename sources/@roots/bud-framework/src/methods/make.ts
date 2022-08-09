@@ -33,32 +33,32 @@ export const make: make = function (seed, tap) {
   const root = current.root
 
   const options = isString(seed)
-    ? {name: seed, dir: root.path('/'), root}
+    ? {label: seed, dir: root.path('/'), root}
     : {...seed, root}
 
   root.hooks.action('config.after', async () => {
-    root.children[options.name] = await root.factory(options)
-    root.children[options.name].success('constructed')
+    root.children[options.label] = await root.factory(options)
+    root.children[options.label].success('constructed')
 
     if (isFunction(tap)) {
-      await tap(root.children[options.name])
-      root.children[options.name].success('configuration applied')
-      await root.children[options.name].api.processQueue()
+      await tap(root.children[options.label])
+      root.children[options.label].success('configuration applied')
+      await root.children[options.label].api.processQueue()
     }
 
     await Promise.all(
-      Object.values(root.children[options.name].services)
+      Object.values(root.children[options.label].services)
         .filter(service => isFunction(service.afterConfig))
         .map(async service => {
-          await service.afterConfig(root.children[options.name])
+          await service.afterConfig(root.children[options.label])
         }),
     )
 
-    await root.children[options.name].hooks.fire('config.after')
-    root.children[options.name].success('config after hook fired')
+    await root.children[options.label].hooks.fire('config.after')
+    root.children[options.label].success('config after hook fired')
   })
 
-  root.log(`child prepped:`, options.name)
+  root.log(`child prepped:`, options.label)
 
   return root
 }

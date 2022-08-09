@@ -87,7 +87,11 @@ export class Project
     if (!this.app.context.args.debug) return
 
     try {
-      const path = this.app.path(`@storage`, this.app.name, `profile.json`)
+      const path = this.app.path(
+        `@storage`,
+        this.app.label,
+        `profile.json`,
+      )
 
       await fs.ensureFile(path)
       await fs.writeFile(
@@ -110,7 +114,7 @@ export class Project
     try {
       const path = this.app.path(
         `@storage`,
-        this.app.name,
+        this.app.label,
         `webpack.config.js`,
       )
 

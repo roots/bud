@@ -158,7 +158,7 @@ export default class Cache
     this.type = 'filesystem'
     this.cacheDirectory = this.app.path(`@storage/cache/webpack`)
     this.managedPaths = [this.app.path(`@modules`)]
-    this.name = `${this.app.name}.${this.app.mode}`
+    this.name = `${this.app.label}.${this.app.mode}`
 
     const args = Object.entries(this.app.context.args)
       .filter(([k, v]) => v !== undefined)

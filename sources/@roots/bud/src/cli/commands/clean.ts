@@ -18,13 +18,11 @@ export class CleanCommand extends BaseCommand {
   })
 
   @bind
-  public async execute() {
+  public async runCommand() {
     try {
       this.app = await factory({
-        context: {
-          args: {
-            ci: true,
-          },
+        args: {
+          ci: true,
         },
       })
     } catch (e) {

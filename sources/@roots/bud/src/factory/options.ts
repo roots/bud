@@ -5,20 +5,17 @@ import {seed} from '../seed.js'
 import {services} from '../services/index.js'
 
 export const mergeOptions: (
-  context: Config.Context,
+  context: Partial<Config.Options>,
   overrides?: Partial<Config.Options>,
 ) => Config.Options = (context, overrides) => ({
-  name: 'bud',
+  name: 'default',
   mode: 'production',
-  dir: process.cwd(),
+  basedir: process.cwd(),
+  ...context,
   ...(overrides ?? {}),
-  context: {
-    ...context,
-    ...(overrides?.context ?? {}),
-    args: {
-      ...(context.args ?? {}),
-      ...(overrides?.context?.args ?? {}),
-    },
+  args: {
+    ...(context.args ?? {}),
+    ...(overrides?.args ?? {}),
   },
   seed: {
     ...seed,

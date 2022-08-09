@@ -1,5 +1,5 @@
 import fs from 'fs-extra'
-import {dirname, resolve} from 'node:path'
+import {dirname, join, resolve, sep} from 'node:path/posix'
 import {fileURLToPath} from 'node:url'
 
 /**
@@ -9,18 +9,18 @@ import {fileURLToPath} from 'node:url'
  */
 export class Application {
   /**
-   * Application name
-   *
-   * @public
-   */
-  public name: string
-
-  /**
    * Application label
    *
    * @public
    */
   public label: string
+
+  /**
+   * Application directory
+   *
+   * @public
+   */
+  public basedir: string
 
   /**
    * Application version
@@ -37,14 +37,10 @@ export class Application {
   public manifestPath: string
 
   /**
-   * Application directory
+   * Basename
    *
    * @public
    */
-  public get dir(): string {
-    return dirname(this.manifestPath)
-  }
-
   public get dirname(): string {
     const filename = fileURLToPath(import.meta.url)
     return dirname(filename)
@@ -56,7 +52,10 @@ export class Application {
    * @public
    */
   public async find(): Promise<this> {
-    this.manifestPath = resolve(`${this.dirname}/../../package.json`)
+    this.manifestPath = resolve(
+      join(this.dirname, '..', '..', 'package.json'),
+    )
+
     return await this.handleFindResults(this.manifestPath)
   }
 
@@ -67,7 +66,8 @@ export class Application {
       this[k] = v
     })
 
-    this.label = this.name.split('/').pop()
+    this.label = manifest.name.split(sep).pop()
+    this.basedir = dirname(this.manifestPath)
 
     return this
   }

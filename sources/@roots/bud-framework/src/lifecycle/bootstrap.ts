@@ -71,7 +71,12 @@ export const execute = (app: Bud, options: Config.Options) => {
   app.options = omit({...options}, 'context')
 
   /* copy context object */
-  app.context = {...options.context, dir: options.dir}
+  if (!options.label) throw new Error('context.label is required')
+  Object.assign(app, {
+    context: {
+      ...options,
+    },
+  })
 
   /* bind framework methods */
   Object.entries(methods).map(([key, method]) => {

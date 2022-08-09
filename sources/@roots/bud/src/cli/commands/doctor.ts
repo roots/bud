@@ -52,7 +52,7 @@ export class DoctorCommand extends BaseCommand {
    *
    * @public
    */
-  public async execute() {
+  public async runCommand() {
     this.webpackCLI = new webpackcli()
     this.webpack = await this.webpackCLI.loadWebpack()
     this.context.stdout.write(`\nChecking configuration...\n\n`)
@@ -70,10 +70,8 @@ export class DoctorCommand extends BaseCommand {
 
     try {
       app = await factory({
-        context: {
-          args: {
-            ci: true,
-          },
+        args: {
+          ci: true,
         },
         mode,
       })
@@ -123,10 +121,8 @@ export class DoctorCommand extends BaseCommand {
 
     try {
       app = await factory({
-        context: {
-          args: {
-            ci: true,
-          },
+        args: {
+          ci: true,
         },
       })
     } catch (e) {}

@@ -1,10 +1,12 @@
 import type * as Config from '@roots/bud-framework/config'
 import {BaseContext, Command} from 'clipanion'
 import {bind} from 'helpful-decorators'
+import {Box, render, Text} from 'ink'
+import React from 'react'
 
 import type Bud from '../../bud.js'
+import {Notifier} from '../../notifier/index.js'
 import * as disk from '../config/disk.config.js'
-import {Notifier} from '../notifier/index.js'
 
 /**
  * Base command
@@ -35,12 +37,32 @@ export abstract class BaseCommand extends Command {
     return this.app.logger.instance
   }
 
+  public abstract runCommand(): Promise<unknown>
+
   /**
    * Node notifier
    *
    * @public
    */
   public notifier: Notifier
+
+  public render = render
+
+  /**
+   * Execute command
+   *
+   * @public
+   */
+  public async execute() {
+    this.render(
+      <Box marginBottom={1} justifyContent="flex-start">
+        <Text>
+          <Text dimColor>$ bud</Text> <Text>{this.path.join(' ')} </Text>
+        </Text>
+      </Box>,
+    )
+    await this.runCommand()
+  }
 
   /**
    * Bootstrap Application

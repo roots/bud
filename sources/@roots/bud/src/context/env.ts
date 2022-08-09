@@ -1,7 +1,54 @@
 import dotenv from 'dotenv'
 import dotenvExpand from 'dotenv-expand'
 import {isUndefined} from 'lodash-es'
-import {join} from 'node:path'
+import {join, sep} from 'node:path/posix'
+
+/**
+ * Apply envvar records to class instance
+ *
+ * @param obj - Envvar records
+ * @returns
+ */
+const filterUndefined = (
+  obj: Record<string, string>,
+): Record<string, string> => {
+  if (!obj) return {}
+
+  return Object.entries(obj)
+    .filter(([k, v]) => ![k, v].map(isUndefined).length)
+    .reduce(
+      (values: Record<string, string>, [k, v]: [string, string]) => ({
+        ...values,
+        [k]: v,
+      }),
+      {},
+    )
+}
+
+/**
+ * Apply values from .env path
+ */
+const getEnvFromPath = (path: string): Record<string, string> => {
+  const env = dotenv.config({path})
+  if (!env || !env?.parsed || env?.error) return
+  return filterUndefined(env.parsed)
+}
+
+/**
+ * Apply expanded values from path
+ */
+const getExpandedEnvFromPath = (path: string): Record<string, any> => {
+  const env = getEnvFromPath(path)
+  const expanded = dotenvExpand.expand({parsed: env})
+  if (!expanded || !expanded?.parsed || expanded?.error) return {}
+
+  return filterUndefined(
+    Object.entries(expanded.parsed).reduce(
+      (a: Record<string, any>, [k, v]) => ({...a, [k]: JSON.stringify(v)}),
+      {},
+    ),
+  )
+}
 
 /**
  * Context: env
@@ -14,7 +61,7 @@ export class Env {
    *
    * @public
    */
-  [key: string]: string | undefined
+  [key: string]: any
 
   /**
    * Constructor
@@ -23,63 +70,31 @@ export class Env {
    */
   public constructor(path: string) {
     /**
-     * Apply envvar records to class instance
-     *
-     * @param obj - Envvar records
-     * @returns
-     */
-    const apply = (obj: Record<string, any>) =>
-      obj &&
-      Object.entries(obj)
-        .filter(([k, v]) => !isUndefined(k) && !isUndefined(v))
-        .map(([k, v]: [string, string]) => {
-          this[k] = v
-        })
-
-    /**
-     * Apply values from .env path
-     */
-    const applyEnvFromPath = (path: string) => {
-      const env = dotenv.config({path})
-      if (!env || !env?.parsed || env?.error) return
-
-      apply(env.parsed)
-      return env
-    }
-
-    /**
-     * Apply expanded values from path
-     */
-    const applyExpandedEnvFromPath = (path: string) => {
-      const env = applyEnvFromPath(path)
-      if (!env || !env?.parsed || env?.error) return
-
-      const expanded = dotenvExpand.expand({parsed: env.parsed})
-      if (!expanded?.parsed) return
-
-      apply(expanded.parsed)
-    }
-
-    /**
      * Apply process env
      */
-    apply(process.env)
+    Object.assign(this, filterUndefined(process.env))
 
     /**
-     * Apply env
+     * Apply .env & .env.local values in path
      */
     path
-      .split('/')
+      .split(sep)
       .slice(0, -1)
       .reduce((a, c) => {
         const next = join(a, c)
-        applyEnvFromPath(join(next, '.env'))
+        Object.assign(this, {
+          ...getEnvFromPath(join(a, c, '.env')),
+          ...getEnvFromPath(join(a, c, '.env.local')),
+        })
         return next
-      }, `/`)
+      }, sep)
 
     /**
-     * Expand .env values in immediate directory
+     * Expand .env & .env.local values in project root
      */
-    applyExpandedEnvFromPath(join(path, '.env'))
+    Object.assign(this, {
+      ...getExpandedEnvFromPath(join(path, '.env')),
+      ...getExpandedEnvFromPath(join(path, '.env.local')),
+    })
   }
 }

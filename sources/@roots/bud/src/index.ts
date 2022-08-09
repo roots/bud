@@ -14,7 +14,7 @@ import './env.js'
 
 import Bud from './bud.js'
 
-export {makeContext} from './context/index.js'
+export * as context from './context/index.js'
 export {seed} from './seed.js'
 export {extensions} from './extensions/index.js'
 export {services} from './services/index.js'

@@ -1,16 +1,10 @@
 import type {Readable, Writable} from 'node:stream'
 
 export interface Context {
-  name: string
-  dir: string
-  manifest: Record<string, any>
-  application: {
-    name: string
-    label: string
-    version: string
-    dir: string
-  }
-  args: Record<
+  label?: string
+  basedir?: string
+  manifest?: Record<string, any>
+  args?: Record<
     string,
     | string
     | boolean
@@ -18,8 +12,13 @@ export interface Context {
     | number
     | Array<string | boolean | number>
   >
-  disk: {
-    config: Record<string, any>
+  disk?: {
+    config?: Record<string, any>
+  }
+  application: {
+    label: string
+    version: string
+    basedir: string
   }
   env: Record<string, string | undefined>
   stdin: Readable

@@ -11,8 +11,8 @@ export class Context implements Config.Context, BaseContext {
   public args: Record<string, string | boolean | undefined | number> = {}
 
   public constructor(
-    public name: string,
-    public dir: string,
+    public label: string,
+    public basedir: string,
     public manifest: Record<string, any>,
     public disk: Disk,
     public application: Application,

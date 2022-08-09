@@ -24,7 +24,7 @@ export class Module {
    * @public
    */
   public constructor(public app: Bud) {
-    this.require = createRequire(this.app.root.context.dir)
+    this.require = createRequire(this.app.root.context.basedir)
   }
 
   /**
@@ -39,7 +39,9 @@ export class Module {
     return await this.resolve(signifier, parent)
       .then(path => path.replace('file://', ''))
       .then(this.require.resolve)
-      .then(path => relative(parent ?? this.app.root.context.dir, path))
+      .then(path =>
+        relative(parent ?? this.app.root.context.basedir, path),
+      )
       .then(path => path.split(signifier).shift())
       .then(path => this.app.path(path as any, signifier))
   }

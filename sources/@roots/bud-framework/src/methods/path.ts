@@ -62,8 +62,8 @@ export interface path {
 export const path: path = function (base, ...segments) {
   const app = this as Bud
 
-  /* Exit early with context.dir if no path was passed */
-  if (!base) return app.context.dir
+  /* Exit early with context.basedir if no path was passed */
+  if (!base) return app.context.basedir
 
   const handles = (pathString: string): string =>
     pathString
@@ -89,7 +89,8 @@ export const path: path = function (base, ...segments) {
   if (base.startsWith(`@`)) base = parseAlias(app, base) as any
 
   /* Resolve any base path that isn't already absolute */
-  if (!base.startsWith(`/`)) base = resolve(app.context.dir, base) as any
+  if (!base.startsWith(`/`))
+    base = resolve(app.context.basedir, base) as any
 
   /* If segments were passed, resolve them against base */
   return normalize(resolve(base, ...(segments ?? [])))

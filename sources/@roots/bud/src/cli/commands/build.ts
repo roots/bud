@@ -295,7 +295,7 @@ export class BuildCommand extends BaseCommand {
   /**
    * Execute command
    */
-  public async execute() {
+  public async runCommand() {
     if (!isUndefined(this.dashboard))
       this.context.stdout.write(
         `the --dashboard and --no-dashboard flags are deprecated and will be removed in a future release.\n`,
@@ -333,9 +333,9 @@ export class BuildCommand extends BaseCommand {
     if (isUndefined(this.ci)) this.context.args.ci = false
 
     this.app = await factory({
-      name: 'bud',
+      label: 'default',
       mode: this.mode,
-      context: this.context,
+      ...this.context,
       seed: {
         'build.output.publicPath': fallback(
           this.publicPath,
