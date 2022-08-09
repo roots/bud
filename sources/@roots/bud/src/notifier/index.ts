@@ -41,7 +41,7 @@ export class Notifier {
    */
   public get binary() {
     return join(
-      this.app.context.application.basedir,
+      this.app.context.bud.basedir,
       'vendor',
       'mac.no-index',
       'roots-notifier.app',
@@ -98,7 +98,7 @@ export class Notifier {
    * @public
    */
   public get group(): string {
-    return this.app.label ?? this.app.context.application.label
+    return this.app.label ?? this.app.context.bud.label
   }
 
   /**

@@ -27,10 +27,7 @@ const bud = async () => {
    */
   const ctx = await context.get(process.cwd())
 
-  const application = cli.get(
-    ctx.application.label,
-    ctx.application.version,
-  )
+  const application = cli.get(ctx.bud.label, ctx.bud.version)
 
   await ensureNotifierPermissions(ctx)
 

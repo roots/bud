@@ -107,22 +107,24 @@ const test = (pacman: 'yarn' | 'npm') => () => {
   })
 
   it('[snapshots] module map matches snapshot', async () => {
-    expect(project.modules.chunks).toMatchSnapshot({
-      byName: {
-        runtime: expect.any(Number),
-      },
-      bySource: {
-        '0 app': expect.any(Number),
-        '0 editor': expect.any(Number),
-        '1 app': expect.any(Number),
-        '1 editor': expect.any(Number),
-      },
-      usedIds: [
-        expect.any(Number),
-        expect.any(Number),
-        expect.any(Number),
-      ],
-    })
+    expect(project.modules.chunks).toMatchSnapshot(
+      expect.objectContaining({
+        byName: expect.objectContaining({
+          runtime: expect.any(Number),
+        }),
+        bySource: expect.objectContaining({
+          '0 app': expect.any(Number),
+          '0 editor': expect.any(Number),
+          '1 app': expect.any(Number),
+          '1 editor': expect.any(Number),
+        }),
+        usedIds: expect.arrayContaining([
+          expect.any(Number),
+          expect.any(Number),
+          expect.any(Number),
+        ]),
+      }),
+    )
   })
 }
 

@@ -50,7 +50,7 @@ export class Logger {
       // secrets: [this.app.context.basedir, this.app.context.cwd],
       logLevel: this.level,
       types: types(this.app),
-      scope: this.app.label ?? this.app.context.application.label,
+      scope: this.app.label ?? this.app.context.bud.label,
       ...constructorOverrides,
     })
 
@@ -70,7 +70,7 @@ export class Logger {
     })
 
     return instance.scope(
-      `${this.app.context.application.label}@${this.app.context.application.version}`,
+      `${this.app.context.bud.label}@${this.app.context.bud.version}`,
       this.app.label,
     )
   }

@@ -1,5 +1,3 @@
-import {omit} from 'lodash-es'
-
 import type {Bud, Config, Services} from '../index.js'
 import {Logger} from '../logger/index.js'
 import * as methods from '../methods/index.js'
@@ -63,20 +61,13 @@ const makeServiceReducer =
  *
  * @returns void
  */
-export const execute = (app: Bud, options: Config.Options) => {
+export const execute = (app: Bud, context: Config.Context) => {
   /* reset children */
   app.children = {}
 
-  /* copy options object */
-  app.options = omit({...options}, 'context')
-
   /* copy context object */
-  if (!options.label) throw new Error('context.label is required')
-  Object.assign(app, {
-    context: {
-      ...options,
-    },
-  })
+  if (!context.label) throw new Error('context.label is required')
+  app.context = {...context}
 
   /* bind framework methods */
   Object.entries(methods).map(([key, method]) => {
@@ -85,7 +76,7 @@ export const execute = (app: Bud, options: Config.Options) => {
 
   /* setup process */
   if (app.isRoot) {
-    process.env.NODE_ENV = options.mode
+    process.env.NODE_ENV = context.mode
     Process.initialize(app)
   }
 
@@ -98,7 +89,7 @@ export const execute = (app: Bud, options: Config.Options) => {
   app.log('initializing services')
 
   /* initialize services */
-  app.services = Object.entries({...options.services})
+  app.services = Object.entries({...context.services})
     .filter(makeServiceFilter(app))
     .map(makeServiceInitializer(app))
     .reduce(makeServiceReducer(app), {})

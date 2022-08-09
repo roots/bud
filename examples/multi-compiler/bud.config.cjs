@@ -39,7 +39,7 @@ module.exports = async app => {
   app.make(
     {
       name: 'theme',
-      dir: app.path('./theme'),
+      basedir: app.path('./theme'),
     },
     async theme => theme.entry('theme', ['theme.js', 'theme.css']),
   )
@@ -51,7 +51,7 @@ module.exports = async app => {
   app.make(
     {
       name: 'plugin',
-      dir: app.path('./plugin'),
+      basedir: app.path('./plugin'),
     },
     async plugin => plugin.entry('plugin', ['plugin.js', 'plugin.css']),
   )

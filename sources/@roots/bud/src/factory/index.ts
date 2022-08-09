@@ -24,23 +24,16 @@ import {mergeOptions} from './options.js'
  * @public
  */
 export async function factory(
-  overrides?: Partial<Config.Options>,
+  overrides?: Partial<Config.Context>,
 ): Promise<Bud> {
   const ctx = await context.get(overrides.basedir ?? process.cwd())
   const project = await new Bud().lifecycle(mergeOptions(ctx, overrides))
 
-  project
-    .when(
-      project.env.has('APP_PUBLIC_PATH') &&
-        project.env.isString('APP_PUBLIC_PATH'),
-      () => project.setPublicPath(project.env.get('APP_PUBLIC_PATH')),
-    )
-    .log({
-      message: `process.env.NODE_ENV: ${process.env.NODE_ENV}`,
-    })
-    .log({
-      message: `process.env.BABEL_ENV: ${process.env.BABEL_ENV}`,
-    })
+  project.when(
+    project.env.has('APP_PUBLIC_PATH') &&
+      project.env.isString('APP_PUBLIC_PATH'),
+    () => project.setPublicPath(project.env.get('APP_PUBLIC_PATH')),
+  )
 
   return project
 }

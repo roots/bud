@@ -11,12 +11,12 @@ import {join} from 'node:path'
  * @public
  */
 export default async function ensureNotifierPermissions(
-  context: Partial<Config.Options>,
+  context: Partial<Config.Context>,
 ) {
   if (platform() === 'darwin') {
     try {
       const notifierPath = join(
-        context.application.basedir,
+        context.bud.basedir,
         'vendor',
         'mac.no-index',
         'roots-notifier.app',

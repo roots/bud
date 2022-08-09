@@ -10,23 +10,30 @@ export const mockProject = {
   path: repoPath('tests/util/project'),
 }
 
-export const factory = async (options?: Config.Options): Promise<Bud> => {
+export const factory = async (
+  overrides?: Partial<Config.Context>,
+): Promise<Bud> => {
   const ctx = await context.get(repoPath('tests/util/project'))
 
   const bud = await budFactory({
-    label: 'bud',
+    ...ctx,
+    label: 'bud-test',
     mode: 'production',
     basedir: repoPath('tests/util/project'),
-    ...ctx,
-    ...(options ?? {}),
+    ...(overrides ?? {}),
     args: {
-      ...(options?.args ?? {}),
       cache: false,
       ci: true,
+      ...(overrides?.args ?? {}),
     },
+    manifest: {
+      ...ctx.manifest,
+      ...(overrides?.manifest ?? {}),
+    },
+    extensions: [...ctx.extensions, ...(overrides?.extensions ?? [])],
     seed: {
       ...seed,
-      ...(options?.seed ?? {}),
+      ...(overrides?.seed ?? {}),
     },
   })
 

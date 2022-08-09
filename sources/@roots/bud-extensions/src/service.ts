@@ -47,9 +47,9 @@ export default class Extensions
    */
   @bind
   public async booted(): Promise<void> {
-    ;[...this.app.options.extensions].map(this.instantiate).map(this.set)
-
-    await this.injectExtensions()
+    await Promise.all(
+      this.app.context.extensions.filter(Boolean).map(this.import),
+    )
 
     await this.runAll('_init')
     await this.runAll('_register')
@@ -137,32 +137,8 @@ export default class Extensions
   }
 
   @bind
-  protected filterApplicableExtensions(
-    extensions: Array<string>,
-  ): Array<string> {
+  public filterApplicableExtensions(extensions: Array<string>) {
     return extensions
-      .filter(signifier => !this.has(signifier))
-      .filter(
-        signifier =>
-          signifier.startsWith('@roots/bud-') ||
-          signifier.startsWith('@roots/sage') ||
-          signifier.startsWith('bud-'),
-      )
-      .filter(
-        signifier =>
-          ![
-            '@roots/bud-api',
-            '@roots/bud-build',
-            '@roots/bud-cache',
-            '@roots/bud-client',
-            '@roots/bud-compiler',
-            '@roots/bud-dashboard',
-            '@roots/bud-extensions',
-            '@roots/bud-framework',
-            '@roots/bud-hooks',
-            '@roots/bud-server',
-          ].includes(signifier),
-      )
       .filter(
         signifier =>
           !this.app.context.manifest.bud?.denylist ||
@@ -176,39 +152,6 @@ export default class Extensions
   }
 
   /**
-   * Automatically instantiate and register extensions
-   * located from the project `package.json` manifest
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async injectExtensions() {
-    if (this.app.hooks.filter('feature.inject') === false) {
-      return this.app.log('injection disabled')
-    }
-
-    this.app.log('injecting extensions...')
-
-    await this.filterApplicableExtensions(
-      Object.keys({
-        ...(this.app.context.manifest?.devDependencies ?? {}),
-        ...(this.app.context.manifest?.dependencies ?? {}),
-      }),
-    ).reduce(async (promised: Promise<any>, signifier): Promise<any> => {
-      await promised
-
-      try {
-        this.app.log('...importing', signifier)
-
-        await this.import(signifier)
-      } catch (error) {
-        this.app.warn(`Error importing`, signifier, `\n`, error)
-      }
-    }, Promise.resolve())
-  }
-
-  /**
    * Import an extension
    *
    * @public
@@ -218,19 +161,22 @@ export default class Extensions
   public async import(signifier: string): Promise<Extension> {
     if (
       this.has(signifier) ||
+      this.unresolvable.has(signifier) ||
       !this.filterApplicableExtensions([signifier]).length
     )
       return
 
+    this.app.log('importing', signifier)
+
     const extension = await this.app.module.import(signifier)
     const instance = this.instantiate(extension)
 
-    instance.dependsOn &&
-      (await this.filterApplicableExtensions(
+    if (instance.dependsOn) {
+      await this.filterApplicableExtensions(
         Array.from(instance.dependsOn),
       ).reduce(async (promised: Promise<any>, signifier): Promise<any> => {
         await promised
-        if (this.has(signifier)) return
+        if (this.has(signifier) || this.unresolvable.has(signifier)) return
 
         await this.import(signifier)
 
@@ -238,10 +184,11 @@ export default class Extensions
           this.unresolvable.add(signifier)
           this.app.error(`missing dependency`, signifier)
         }
-      }, Promise.resolve()))
+      }, Promise.resolve())
+    }
 
-    instance.dependsOnOptional &&
-      (await this.filterApplicableExtensions(
+    if (instance.dependsOnOptional) {
+      await this.filterApplicableExtensions(
         Array.from(instance.dependsOnOptional),
       ).reduce(async (promised: Promise<any>, signifier): Promise<any> => {
         try {
@@ -254,7 +201,35 @@ export default class Extensions
 
           if (!this.has(signifier)) this.unresolvable.add(signifier)
         } catch (err) {}
-      }, Promise.resolve()))
+      }, Promise.resolve())
+    }
+
+    if (instance.optIn) {
+      await this.filterApplicableExtensions(
+        Array.from(instance.optIn),
+      ).reduce(async (promised: Promise<any>, signifier): Promise<any> => {
+        try {
+          await promised
+
+          if (
+            this.has(signifier) ||
+            this.unresolvable.has(signifier) ||
+            ![
+              ...(Object.keys(this.app.context.manifest.devDependencies) ??
+                []),
+              ...(Object.keys(this.app.context.manifest.dependencies) ??
+                []),
+            ].includes(signifier)
+          ) {
+            return
+          }
+
+          await this.import(signifier)
+
+          if (!this.has(signifier)) this.unresolvable.add(signifier)
+        } catch (err) {}
+      }, Promise.resolve())
+    }
 
     this.set(instance)
 
@@ -411,7 +386,8 @@ export default class Extensions
 
       try {
         const extension = this.instantiate(extensionObject)
-        if (this.has(extension.label)) return
+        if (!extension || (extension.label && this.has(extension.label)))
+          return
 
         this.set(extension)
 

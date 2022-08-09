@@ -28453,7 +28453,6 @@ __metadata:
     "@roots/bud-eslint": "workspace:sources/@roots/bud-eslint"
     "@roots/bud-preset-recommend": "workspace:sources/@roots/bud-preset-recommend"
     "@roots/bud-tailwindcss": "workspace:sources/@roots/bud-tailwindcss"
-    "@roots/bud-typescript": "workspace:sources/@roots/bud-typescript"
   languageName: unknown
   linkType: soft
 

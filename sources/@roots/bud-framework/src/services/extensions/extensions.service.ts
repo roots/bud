@@ -46,13 +46,6 @@ export interface Service extends BaseService {
 
   import(input: Record<string, any> | string): Promise<Extension>
 
-  /**
-   * Install and register discovered extensions
-   *
-   * @public
-   */
-  injectExtensions(): unknown
-
   runAll(
     methodName:
       | '_init'

@@ -68,11 +68,11 @@ export default class Cache
    */
   public get buildDependencies(): any {
     return {
-      bud: Object.values(this.app.context.disk.config),
+      bud: Object.values(this.app.context.config),
     }
   }
-  public set buildDependencies(deps: Context['disk']['config']) {
-    this.app.context.disk.config = deps
+  public set buildDependencies(deps: Context['config']) {
+    this.app.context.config = deps
   }
 
   /**
@@ -166,9 +166,7 @@ export default class Cache
       .join(`.`)
 
     this.version = createHash(`sha1`)
-      .update(
-        this.app.json.stringify([this.app.context.disk.config, args]),
-      )
+      .update(this.app.json.stringify([this.app.context.config, args]))
       .digest(`base64`)
       .replace(/[^a-z0-9]/gi, `_`)
       .toLowerCase()

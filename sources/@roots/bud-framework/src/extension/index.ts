@@ -120,6 +120,13 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
   public dependsOnOptional?: Set<`${keyof Modules & string}`>
 
   /**
+   * Depends on (optional)
+   *
+   * @public
+   */
+  public optIn?: Set<`${keyof Modules & string}`>
+
+  /**
    * Boolean or a function returning a boolean indicating if the {@link Extension} should be utilized.
    *
    * @remarks

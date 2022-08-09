@@ -9,7 +9,7 @@ describe('bud.yml', () => {
     })
     it('reads yml', async () => {
       const manifest: Record<string, any> = await read(
-        join(process.cwd(), '.yarnrc.yml'),
+        join(paths.root, '.yarnrc.yml'),
       )
       expect(manifest.enableTelemetry).toBe(false)
     })

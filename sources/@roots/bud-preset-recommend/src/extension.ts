@@ -1,8 +1,8 @@
 import {Extension} from '@roots/bud-framework/extension'
 import {
   dependsOn,
-  dependsOnOptional,
   label,
+  optIn,
 } from '@roots/bud-framework/extension/decorators'
 
 /**
@@ -16,11 +16,11 @@ import {
  * @public
  * @decorator `@label`
  * @decorator `@dependsOn`
- * @decorator `@dependsOnOptional`
+ * @decorator `@optIn`
  */
 @label('@roots/bud-preset-recommend')
 @dependsOn(['@roots/bud-entrypoints', '@roots/bud-postcss'])
-@dependsOnOptional(['@roots/bud-esbuild', '@roots/bud-swc'])
+@optIn(['@roots/bud-esbuild', '@roots/bud-swc'])
 export default class BudPresetRecommend extends Extension {
   /**
    * `register` callback

@@ -29,14 +29,6 @@ import type {Service as Build} from './services/build/index.js'
  */
 export abstract class Bud {
   /**
-   * Options
-   *
-   * @internal
-   * @virtual
-   */
-  public options: Config.Options
-
-  /**
    * Context
    *
    * @public
@@ -54,7 +46,7 @@ export abstract class Bud {
    * @public
    */
   public get mode(): 'development' | 'production' {
-    return this.options.mode
+    return this.context.mode
   }
 
   /**
@@ -64,7 +56,7 @@ export abstract class Bud {
    * @public
    */
   public get label() {
-    return this.options.label
+    return this.context.label
   }
 
   /**
@@ -74,7 +66,7 @@ export abstract class Bud {
    * @public
    */
   public get root(): Bud {
-    return this.options.root ?? this
+    return this.context.root ?? this
   }
 
   /**
@@ -218,7 +210,7 @@ export abstract class Bud {
    *
    * @public
    */
-  public async factory(context?: Config.Options): Promise<Bud> {
+  public async factory(context?: Partial<Config.Context>): Promise<Bud> {
     return await new this.implementation(this.implementation).lifecycle({
       ...this.context,
       ...(context ?? {}),

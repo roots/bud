@@ -1,14 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`bud.persist sets buildDependencies 1`] = `
-Object {
-  "bud": Array [
-    StringContaining "package.json",
-    StringContaining ".eslintrc.js",
-    StringContaining "bud.config.cjs",
-    StringContaining "docker-compose.yml",
-    StringContaining "tailwind.config.js",
-    StringContaining "tsconfig.json",
-  ],
-}
+Array [
+  "/Users/kellymears/code/git/roots/bud/tests/util/project/.eslintrc.js",
+  "/Users/kellymears/code/git/roots/bud/tests/util/project/bud.config.cjs",
+  "/Users/kellymears/code/git/roots/bud/tests/util/project/docker-compose.yml",
+  "/Users/kellymears/code/git/roots/bud/tests/util/project/package.json",
+  "/Users/kellymears/code/git/roots/bud/tests/util/project/tailwind.config.js",
+  "/Users/kellymears/code/git/roots/bud/tests/util/project/tsconfig.json",
+]
 `;

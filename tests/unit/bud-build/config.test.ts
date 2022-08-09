@@ -22,14 +22,16 @@ describe('bud.build.config', function () {
 
     expect(cache.type).toStrictEqual('filesystem')
 
-    expect(cache.buildDependencies.bud).toEqual([
-      expect.stringContaining('package.json'),
-      expect.stringContaining('.eslintrc.js'),
-      expect.stringContaining('bud.config.cjs'),
-      expect.stringContaining('docker-compose.yml'),
-      expect.stringContaining('tailwind.config.js'),
-      expect.stringContaining('tsconfig.json'),
-    ])
+    expect(cache.buildDependencies.bud).toEqual(
+      expect.arrayContaining([
+        expect.stringContaining('package.json'),
+        expect.stringContaining('.eslintrc.js'),
+        expect.stringContaining('bud.config.cjs'),
+        expect.stringContaining('docker-compose.yml'),
+        expect.stringContaining('tailwind.config.js'),
+        expect.stringContaining('tsconfig.json'),
+      ]),
+    )
 
     expect(cache.cacheDirectory).toStrictEqual(
       expect.stringContaining('.budfiles/cache/webpack'),
@@ -59,7 +61,7 @@ describe('bud.build.config', function () {
   })
 
   it('has expected name default', () => {
-    expect(bud.build.config.name).toEqual('bud')
+    expect(bud.build.config.name).toEqual('bud-test')
   })
 
   it('has expected node default', () => {

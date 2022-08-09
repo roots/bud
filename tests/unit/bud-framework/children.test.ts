@@ -8,7 +8,7 @@ describe('@roots/bud-framework child', () => {
   })
 
   it("root compiler's name is this", () => {
-    expect(bud.name).toBe('bud')
+    expect(bud.label).toBe('bud-test')
   })
 
   it('root.isRoot is false', () => {
