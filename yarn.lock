@@ -4477,6 +4477,7 @@ __metadata:
     "@types/lodash-es": 4.17.6
     "@types/node": 16.11.47
     "@types/react": ^18
+    chalk: 5.0.1
     figures: 4.0.1
     helpful-decorators: 2.1.0
     human-readable: 0.2.1

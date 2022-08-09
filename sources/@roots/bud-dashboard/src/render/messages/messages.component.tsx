@@ -1,3 +1,4 @@
+import chalk from 'chalk'
 import {Box, Text} from 'ink'
 import React from 'react'
 import type {StatsCompilation} from 'webpack'
@@ -21,15 +22,12 @@ const Messages = ({
     ?.map(formatMessage)
     ?.map((message: string) =>
       message
-        .replace('\t', '')
+        .replace(/^\t/g, '')
         .split('\n')
-        .map((ln, id) => (
-          <Text key={id}>
-            {VERT}
-            {SPACE}
-            {ln.replace(process.cwd(), '.')}
-          </Text>
-        ))
+        .map(
+          (ln, id) =>
+            `${chalk.dim(VERT)}${SPACE}${ln.replace(process.cwd(), '.')}`,
+        )
         .join('\n'),
     )
 

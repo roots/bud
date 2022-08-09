@@ -39,7 +39,7 @@ export const Server = ({app}: {app: Bud}) => {
   return (
     <Box flexDirection="column">
       <Box flexDirection="row">
-        <Text color={theme.color.cyan}>{figures.info} dev server</Text>
+        <Text color={theme.color.cyan}>{figures.info} dev</Text>
       </Box>
 
       <Text dimColor>{figures.lineVerticalDashed7}</Text>
@@ -84,16 +84,24 @@ export const Server = ({app}: {app: Bud}) => {
         </Box>
       </Box>
 
-      <Box marginTop={1}>
+      <Box
+        marginTop={1}
+        minWidth="100%"
+        flexDirection="row"
+        justifyContent="space-between"
+      >
         <Text>
           {figures.ellipsis} watching project sources
           {app.server.watcher?.files?.size && (
             <Text dimColor>
               {' '}
               (and {app.server.watcher.files.size} other{' '}
-              {app.server.watcher.files.size > 1 ? 'files' : 'file'})
+              {app.server.watcher.files.size > 1 ? 'files' : 'file'}){' '}
             </Text>
           )}
+        </Text>
+        <Text>
+          {figures.info} <Text dimColor>ctrl+c to exit</Text>
         </Text>
       </Box>
     </Box>

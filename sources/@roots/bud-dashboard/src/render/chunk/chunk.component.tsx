@@ -7,10 +7,12 @@ const Chunk = ({
   assets,
   final,
   indent,
+  emitted,
 }: {
-  assets: Array<{name: string}>
+  assets: Array<{name: string; emitted: boolean}>
   final?: boolean
   indent?: any
+  emitted?: boolean
 }) => {
   const minWidth = assets?.reduce((longest, asset) => {
     return asset.name?.length > longest ? asset.name.length : longest
@@ -22,9 +24,10 @@ const Chunk = ({
         <Asset
           key={index}
           {...asset}
+          emitted={asset.emitted && emitted}
           minWidth={minWidth + 1}
-          indent={indent}
           final={index == assets.length - 1}
+          indent={[!final]}
         />
       ))}
     </Box>

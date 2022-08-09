@@ -12,9 +12,9 @@ module.exports = async app => {
       app: ['scripts/app', 'styles/app'],
     })
 
-    .copy(['src/images/**/*'])
+    .copy(['images'])
     .template({template: 'src/index.html', cache: true})
     .devtool(false)
-    .watch('src/index.html')
+    .watch(['index.html', 'images'])
     .serve(3015)
 }

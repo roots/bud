@@ -41,4 +41,4 @@ export const overlay = (app: Bud) =>
     isUndefined(app.context.args.indicator)
       ? 'true'
       : app.context.args.indicator
-  }`
+  }&reload=${app.context.args['reload']}`
