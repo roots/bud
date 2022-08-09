@@ -92,7 +92,7 @@ export const Server = ({app}: {app: Bud}) => {
       >
         <Text>
           {figures.ellipsis} watching project sources
-          {app.server.watcher?.files?.size && (
+          {app.server.watcher?.files?.size > 0 && (
             <Text dimColor>
               {' '}
               (and {app.server.watcher.files.size} other{' '}
