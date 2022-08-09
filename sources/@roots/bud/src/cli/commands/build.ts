@@ -326,6 +326,7 @@ export class BuildCommand extends BaseCommand {
       'splitChunks',
       'target',
       'verbose',
+      'watch',
     ].map(arg => {
       this.context.args[arg] = fallback(this[arg], this[arg], null)
     })

@@ -1,4 +1,4 @@
-import {Command} from 'clipanion'
+import {Command, Option} from 'clipanion'
 
 import {BuildCommand} from './build.js'
 
@@ -17,6 +17,14 @@ export class DevCommand extends BuildCommand {
    * @public
    */
   public mode: 'development' = 'development'
+
+  /**
+   * --minimize
+   */
+  public reload = Option.Boolean(`--reload-on-error`, true, {
+    description:
+      'Reload the browser when HMR encounters unaccepted modules',
+  })
 
   /**
    * Command paths

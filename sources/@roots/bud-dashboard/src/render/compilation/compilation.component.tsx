@@ -8,13 +8,7 @@ import Chunk from '../chunk/chunk.component.js'
 import ChunkGroup from '../chunk/chunkgroup.component.js'
 import Space from '../display/space.component.js'
 import Title from '../display/title.component.js'
-import {
-  color,
-  colorFromCompilation,
-  duration,
-  SPACE,
-  VERT,
-} from '../format.js'
+import {color, colorFromCompilation, duration, SPACE} from '../format.js'
 import Messages from '../messages/messages.component.js'
 
 const Compilation = ({
@@ -24,20 +18,36 @@ const Compilation = ({
   stats: StatsCompilation
   id: number
 }) => {
-  if (!stats) return
+  if (!stats?.entrypoints) return null
 
-  const namedChunks = Object.values(stats?.namedChunkGroups)
+  const enrich = (asset: any) => {
+    const assetModule = stats?.assets?.find(a => a.name === asset.name)
 
-  const staticAssets = stats?.assets?.filter(
-    asset =>
-      ![`js`, `css`].includes(asset.name.split('.').pop()) &&
-      !asset.name?.includes(`hot-update`),
-  )
+    const {emitted, cached, type, info} = assetModule
+
+    return {
+      ...asset,
+      emitted,
+      cached,
+      type,
+      info,
+    }
+  }
+
+  const entrypoints = Object.values(stats?.entrypoints).map(entrypoint => {
+    entrypoint.assets = entrypoint.assets.map(enrich)
+    return entrypoint
+  })
+
+  const staticAssets = stats?.assets
+    ?.filter(
+      asset =>
+        ![`js`, `css`].includes(asset.name.split('.').pop()) &&
+        !asset.name?.includes(`hot-update`),
+    )
+    .map(enrich)
 
   const hiddenStaticAssets = staticAssets.splice(5)
-
-  const statusColor =
-    stats?.errorsCount > 0 ? color.red : color.foregroundColor
 
   const compilationColor = colorFromCompilation(stats)
 
@@ -80,19 +90,20 @@ const Compilation = ({
 
       <Box flexDirection="column">
         <Title>
-          <Text color={statusColor}>chunks</Text>
+          <Text color={compilationColor}>entrypoints</Text>
         </Title>
 
-        {namedChunks.map((chunk, id) => (
+        {entrypoints.map((chunk, id) => (
           <Box key={id} flexDirection="column">
             <ChunkGroup
-              emitted={chunk.emitted}
-              assetsSize={chunk.assetsSize}
               assets={chunk.assets}
               name={chunk.name}
               indent={[true]}
-              color={statusColor}
-              final={id == namedChunks.length - 1}
+              emitted={chunk.emitted && stats?.errorsCount === 0}
+              color={
+                stats?.errorsCount > 0 ? color.dim : color.foregroundColor
+              }
+              final={id == entrypoints.length - 1}
             />
           </Box>
         ))}
@@ -104,28 +115,29 @@ const Compilation = ({
 
       <Box flexDirection="column">
         <Title>
-          <Text color={statusColor}>statics</Text>
+          <Text color={compilationColor}>assets</Text>
         </Title>
 
-        <Chunk assets={staticAssets} indent={[true]} />
+        <Chunk
+          assets={staticAssets}
+          emitted={stats?.errorsCount === 0}
+          indent={[true]}
+        />
+
+        <Space>
+          <Text> </Text>
+        </Space>
 
         {hiddenStaticAssets.length > 0 && (
-          <Box flexDirection="row">
-            <Text dimColor>
-              {VERT}
-              {SPACE}
-              {SPACE}
-              {'└─'}
-            </Text>
-
+          <Space>
             <Text dimColor>
               {SPACE}
               {figures.ellipsis}
               {SPACE}
               {hiddenStaticAssets.length}
-              {SPACE}additional assets
+              {SPACE}additional assets not shown
             </Text>
-          </Box>
+          </Space>
         )}
       </Box>
 
@@ -134,7 +146,7 @@ const Compilation = ({
       </Space>
 
       <Title final={true}>
-        <Text color={statusColor} dimColor>
+        <Text color={compilationColor} dimColor>
           compiled {stats?.modules?.length} modules in{' '}
           {duration(stats?.time) as string}
         </Text>

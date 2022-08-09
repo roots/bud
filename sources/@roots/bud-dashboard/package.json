@@ -60,6 +60,7 @@
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "chalk": "5.0.1",
     "figures": "4.0.1",
     "helpful-decorators": "2.1.0",
     "human-readable": "0.2.1",

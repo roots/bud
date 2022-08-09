@@ -13,19 +13,23 @@ export const renderResults = ({
   stats: StatsCompilation
   app: Bud
 }) => {
+  const compilations = (
+    stats?.children?.length ? [stats, ...stats?.children] : [stats]
+  ).filter(
+    stats =>
+      stats?.namedChunkGroups &&
+      Object.values(stats?.namedChunkGroups).length > 0,
+  )
+
   render(
-    <Box flexDirection="column" marginTop={1}>
-      {stats?.children?.map((compilation, id) => (
+    <Box flexDirection="column" marginY={1}>
+      {compilations.map((compilation, id) => (
         <Box key={id} flexDirection="column">
           <Compilation id={id} stats={compilation} />
         </Box>
       ))}
 
-      {app.mode === 'development' && (
-        <Box>
-          <Server app={app} />
-        </Box>
-      )}
+      {app.mode === 'development' && <Server app={app} />}
     </Box>,
   )
 }

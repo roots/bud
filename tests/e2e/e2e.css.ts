@@ -90,10 +90,10 @@ export const test = () => {
             devProcess.stdout?.on('data', data => {
               const output = data.toString()
 
-              output.includes(`[http]`) &&
-                logger.log(output.replace('\n', ''))
-
-              if (output.includes('duration') && ready !== true) {
+              if (
+                output.includes('… watching project sources') &&
+                ready !== true
+              ) {
                 logger.success('dev process ready')
                 ready = true
                 done()
