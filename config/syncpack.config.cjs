@@ -22,7 +22,7 @@ module.exports = {
     },
     {
       dependencies: ['@types/react', 'react', 'react-dom'],
-      packages: ['@roots/bud-dashboard'],
+      packages: ['@roots/bud-dashboard', '@roots/bud'],
     },
   ],
 }
