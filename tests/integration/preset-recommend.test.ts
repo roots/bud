@@ -7,9 +7,8 @@ const run = pacman => () => {
 
     beforeAll(async () => {
       project = await new Project({
-        name: 'preset-recommend',
+        label: '@examples/preset-recommend',
         with: pacman,
-        dist: 'dist',
       }).setup()
     })
 

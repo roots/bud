@@ -1,5 +1,5 @@
 {
-  "name": "example-imagemin",
+  "name": "@examples/imagemin",
   "private": true,
   "browserslist": [
     "extends @roots/browserslist-config/current"

@@ -9,6 +9,9 @@ import Env from './env.js'
 import Extensions from './extensions.js'
 import Manifest from './manifest.js'
 
+let skippedCache: boolean = false
+let clearedCache: boolean = false
+
 /**
  * Context factory
  *
@@ -36,6 +39,9 @@ export const get = async (
       !process.env.CI &&
       !process.env.JEST_WORKER_ID &&
       !process.env.BUD_TEST_ENV &&
+      !process.argv.includes('--no-cache') &&
+      !process.argv.includes('--flush') &&
+      !process.argv.includes('--clean') &&
       cache.has('context.basedir') &&
       cache.get('context.basedir') === basedir &&
       cache.has('context.bud.version') &&
@@ -48,6 +54,16 @@ export const get = async (
       cache.get('context.manifest') == manifest.data
     ) {
       return cache.get('context')
+    }
+
+    skippedCache = true
+
+    if (
+      process.argv.includes('--flush') ||
+      process.argv.includes('--clean')
+    ) {
+      clearedCache = true
+      cache.clear()
     }
 
     const extensions = await new Extensions(manifest.data).find()
@@ -69,3 +85,5 @@ export const get = async (
     throw new Error(error)
   }
 }
+
+export {clearedCache, skippedCache}

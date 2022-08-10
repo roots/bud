@@ -1,4 +1,5 @@
 import {Command, Option} from 'clipanion'
+import {bind} from 'helpful-decorators'
 import {isUndefined} from 'lodash-es'
 import * as t from 'typanion'
 
@@ -295,6 +296,7 @@ export class BuildCommand extends BaseCommand {
   /**
    * Execute command
    */
+  @bind
   public async runCommand() {
     if (!isUndefined(this.dashboard))
       this.context.stdout.write(
@@ -334,7 +336,9 @@ export class BuildCommand extends BaseCommand {
     if (isUndefined(this.ci)) this.context.args.ci = false
 
     this.app = await factory({
+      label: 'default',
       mode: this.mode,
+      ...this.context,
       seed: {
         'build.output.publicPath': fallback(
           this.publicPath,

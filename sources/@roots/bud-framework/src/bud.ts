@@ -46,7 +46,7 @@ export abstract class Bud {
    * @public
    */
   public get mode(): 'development' | 'production' {
-    return this.context.mode
+    return this.context.mode ?? 'production'
   }
 
   /**

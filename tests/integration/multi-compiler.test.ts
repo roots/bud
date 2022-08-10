@@ -6,7 +6,7 @@ const theme = pacman => () => {
 
   beforeAll(async () => {
     project = await new Project({
-      name: 'multi-compiler',
+      label: '@examples/multi-compiler',
       dist: 'theme/dist',
       with: pacman,
     }).setup()
@@ -34,7 +34,7 @@ const plugin = pacman => () => {
 
   beforeAll(async () => {
     project = await new Project({
-      name: 'multi-compiler',
+      label: '@examples/multi-compiler',
       dist: 'plugin/dist',
       with: pacman,
     }).setup()

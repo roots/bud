@@ -1,4 +1,4 @@
-import {Bud, factory, mockProject} from '@repo/test-kit/bud'
+import {Bud, factory, repoPath} from '@repo/test-kit/bud'
 import {resolve} from 'path'
 
 const NEW_PATH = `foo`
@@ -32,10 +32,10 @@ describe('bud.setPath', function () {
     bud.setPath(value)
 
     expect(bud.path('@src')).toEqual(
-      resolve(mockProject.path, value['@src']),
+      resolve(repoPath('tests/util/project'), value['@src']),
     )
     expect(bud.path('@dist')).toEqual(
-      resolve(mockProject.path, value['@dist']),
+      resolve(repoPath('tests/util/project'), value['@dist']),
     )
   })
 })

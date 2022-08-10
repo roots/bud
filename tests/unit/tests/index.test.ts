@@ -1,3 +1,5 @@
+import {repoPath} from '@repo/test-kit/bud'
+
 describe('test environment sanity checks', () => {
   it('should run a test without errors', () => {
     expect(true).toBe(true)
@@ -11,5 +13,19 @@ describe('test environment sanity checks', () => {
 
   it('should have JEST_WORKER_ID defined', () => {
     expect(process.env.JEST_WORKER_ID).toBeDefined()
+  })
+
+  it('should skip cache', async () => {
+    const pkg = await import('@roots/bud/context')
+    await pkg.get(repoPath('tests/util/project'))
+
+    expect(pkg.skippedCache).toBe(true)
+  })
+
+  it('should skip cache', async () => {
+    const pkg = await import('@roots/bud/context')
+    const context = await pkg.get(repoPath('tests/util/project'))
+
+    expect(context.label).toBe('@tests/project')
   })
 })

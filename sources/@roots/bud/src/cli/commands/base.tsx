@@ -46,7 +46,27 @@ export abstract class BaseCommand extends Command {
    */
   public notifier: Notifier
 
-  public render = render
+  /**
+   * Render ink component and immediately unmount
+   *
+   * @param box - Ink box
+   * @returns
+   */
+  @bind
+  public renderOnce(box: React.ReactElement) {
+    return this.render(box).unmount(0)
+  }
+
+  /**
+   * Render ink component
+   *
+   * @param box - Ink box
+   * @returns
+   */
+  @bind
+  public render(box: React.ReactElement) {
+    return render(box)
+  }
 
   /**
    * Execute command
@@ -54,13 +74,14 @@ export abstract class BaseCommand extends Command {
    * @public
    */
   public async execute() {
-    this.render(
-      <Box marginBottom={1} justifyContent="flex-start">
+    this.renderOnce(
+      <Box marginY={1} justifyContent="flex-start">
         <Text>
           <Text dimColor>$ bud</Text> <Text>{this.path.join(' ')} </Text>
         </Text>
       </Box>,
     )
+
     await this.runCommand()
   }
 

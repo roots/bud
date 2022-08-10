@@ -1,5 +1,5 @@
 {
-  "name": "example-template",
+  "name": "@examples/template",
   "private": true,
   "browserslist": [
     "extends @roots/browserslist-config/current"

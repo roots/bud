@@ -15,7 +15,7 @@ const {join} = posix
 jest.setTimeout(120000)
 
 interface Options {
-  name: string
+  label: string
   with: 'yarn' | 'npm'
   dist?: string
   buildCommand?: [string, Array<string>]
@@ -43,12 +43,6 @@ interface Options {
  * @internal
  */
 export class Project {
-  public name: string
-
-  public mode: 'dev' | 'production' = 'production'
-
-  public storage: string = '.budfiles'
-
   public assets = {}
 
   public entrypoints: {
@@ -66,11 +60,6 @@ export class Project {
       byName: any
       bySource: any
     }
-  } = {
-    chunks: {
-      byName: null,
-      bySource: null,
-    },
   }
 
   public packageJson: Record<string, any> = {}
@@ -88,11 +77,12 @@ export class Project {
   public logger: typeof logger.logger
 
   public constructor(public options: Options) {
-    this.dir = join(paths.mocks, this.options.with, this.options.name)
+    this.dir = join(paths.mocks, this.options.with, this.options.label)
+    this.options.dist = this.options.dist ?? 'dist'
 
     this.logger = logger
-      .make({interactive: true})
-      .scope(this.options.name, this.options.with)
+      .make({interactive: false})
+      .scope(this.options.label, this.options.with)
   }
 
   /**
@@ -166,7 +156,10 @@ export class Project {
       await fs.remove(this.projectPath())
     } catch (e) {}
     try {
-      await fs.copy(`./examples/${this.options.name}`, this.projectPath())
+      await fs.copy(
+        `./examples/${this.options.label.replace('@examples/', '')}`,
+        this.projectPath(),
+      )
     } catch (e) {}
 
     this.options.with === 'yarn'
@@ -281,7 +274,7 @@ export class Project {
     try {
       const modules = await this.readJson(
         this.projectPath(
-          join(this.storage, `example-${this.name}`, 'modules.json'),
+          join('.budfiles', this.options.label, 'modules.json'),
         ),
       )
 

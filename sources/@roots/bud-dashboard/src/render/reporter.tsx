@@ -4,6 +4,7 @@ import React from 'react'
 import type {StatsCompilation} from 'webpack'
 
 import Compilation from './compilation/compilation.component.js'
+import {color} from './format.js'
 import {Server} from './server.js'
 
 export const renderResults = ({
@@ -22,9 +23,11 @@ export const renderResults = ({
   )
 
   render(
-    <Box flexDirection="column" marginY={1}>
+    <Box flexDirection="column">
       <Box marginBottom={1}>
-        <Text bold>{app.context.manifest.label}</Text>
+        <Text bold color={color.cyan}>
+          {app.label}
+        </Text>
       </Box>
 
       {compilations.map((compilation, id) => (

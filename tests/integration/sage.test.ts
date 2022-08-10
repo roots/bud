@@ -6,7 +6,7 @@ const test = (pacman: 'yarn' | 'npm') => () => {
 
   beforeAll(async () => {
     project = await new Project({
-      name: 'sage',
+      label: '@examples/sage',
       dist: 'public',
       with: pacman,
     }).setup()
@@ -106,23 +106,12 @@ const test = (pacman: 'yarn' | 'npm') => () => {
     )
   })
 
-  it('[snapshots] module map matches snapshot', async () => {
-    expect(project.modules).toMatchSnapshot(
+  it('[snapshots] module named chunks matches snapshot', async () => {
+    expect(project.modules.chunks.byName).toEqual(
       expect.objectContaining({
-        byName: expect.objectContaining({
-          runtime: expect.any(Number),
-        }),
-        bySource: expect.objectContaining({
-          '0 app': expect.any(Number),
-          '0 editor': expect.any(Number),
-          '1 app': expect.any(Number),
-          '1 editor': expect.any(Number),
-        }),
-        usedIds: expect.arrayContaining([
-          expect.any(Number),
-          expect.any(Number),
-          expect.any(Number),
-        ]),
+        app: expect.any(Number),
+        editor: expect.any(Number),
+        runtime: expect.any(Number),
       }),
     )
   })

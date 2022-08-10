@@ -16,4 +16,4 @@ unsafeHttpWhitelist:
   - locahost
   - 0.0.0.0
 
-yarnPath: ../../../../.yarn/releases/yarn-1.23.0-20220130.1630.cjs
+yarnPath: ../../../../../.yarn/releases/yarn-1.23.0-20220130.1630.cjs
