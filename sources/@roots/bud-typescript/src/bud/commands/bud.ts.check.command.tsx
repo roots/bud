@@ -20,7 +20,7 @@ export class BudTSCheckCommand extends BaseCommand {
    * @public
    */
   public static usage = Command.Usage({
-    category: `Typecheck`,
+    category: `@roots/bud-typescript`,
     description: `Typecheck source`,
   })
 
@@ -32,7 +32,6 @@ export class BudTSCheckCommand extends BaseCommand {
   @bind
   public async runCommand() {
     this.app = await factory({
-      label: 'default',
       mode: 'production',
       ...this.context,
       args: {

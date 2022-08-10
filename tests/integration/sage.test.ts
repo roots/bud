@@ -31,7 +31,7 @@ const test = (pacman: 'yarn' | 'npm') => () => {
     })
 
     it('is transpiled', () => {
-      expect(project.assets['runtime.js'].includes('import')).toBeFalsy()
+      expect(project.assets['runtime.js'].includes('import ')).toBeFalsy()
     })
   })
 
@@ -41,7 +41,7 @@ const test = (pacman: 'yarn' | 'npm') => () => {
     })
 
     it('is transpiled', () => {
-      expect(project.assets['app.js'].includes('import')).toBeFalsy()
+      expect(project.assets['app.js'].includes('import ')).toBeFalsy()
     })
   })
 
@@ -107,7 +107,7 @@ const test = (pacman: 'yarn' | 'npm') => () => {
   })
 
   it('[snapshots] module map matches snapshot', async () => {
-    expect(project.modules.chunks).toMatchSnapshot(
+    expect(project.modules).toMatchSnapshot(
       expect.objectContaining({
         byName: expect.objectContaining({
           runtime: expect.any(Number),

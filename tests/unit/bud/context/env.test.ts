@@ -19,7 +19,7 @@ describe('unit', function () {
       })
 
       test('process env', () => {
-        expect(env.JEST_WORKER_ID).toEqual(expect.any(String))
+        expect(env.JEST_WORKER_ID).toBeDefined()
       })
 
       test('expand .env', () => {

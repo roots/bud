@@ -4,7 +4,7 @@ import {globby} from 'globby'
 import {resolve} from 'import-meta-resolve'
 import {dirname, join} from 'node:path/posix'
 
-import cache from '../context/cache.js'
+import getCache from '../context/cache.js'
 import type * as cli from './app.js'
 
 export class Commands {
@@ -16,6 +16,7 @@ export class Commands {
   private constructor(context: Partial<Context>, application: cli.Cli) {
     this.context = context
     this.application = application
+    this.cache = getCache(context.basedir)
   }
 
   public static get(application: cli.Cli, context: Partial<Context>) {
@@ -27,18 +28,18 @@ export class Commands {
   }
 
   public async getCommands() {
-    if (cache.has('cli.extension.paths')) {
-      return cache.get('cli.extension.paths')
+    if (this.cache.has('cli.extension.paths')) {
+      return this.cache.get('cli.extension.paths')
     }
 
     const resolvedExtensionPaths = await this.getRegistrationModulePaths()
 
-    cache.set(
+    this.cache.set(
       'cli.extension.paths',
       resolvedExtensionPaths.filter(Boolean),
     )
 
-    return cache.get('cli.extension.paths')
+    return this.cache.get('cli.extension.paths')
   }
 
   public async getRegistrationModulePaths(): Promise<Array<any>> {

@@ -29,30 +29,37 @@
  * }
  * ```
  */
-module.exports = async app => {
+module.exports = async project => {
   /**
-   * Make `theme` workspace in `./theme`
-   * and setup entrypoints
-   *
-   * Files will be output to `./theme/dist`
+   * This is the standard project context.
    */
-  app.make(
-    {
-      name: 'theme',
-      basedir: app.path('./theme'),
-    },
-    async theme => theme.entry('theme', ['theme.js', 'theme.css']),
-  )
+  project
 
-  /**
-   * Make plugin workspace in `./plugin`
-   * and setup entrypoints
-   */
-  app.make(
-    {
-      name: 'plugin',
-      basedir: app.path('./plugin'),
-    },
-    async plugin => plugin.entry('plugin', ['plugin.js', 'plugin.css']),
-  )
+    /**
+     * Make `theme` workspace in `./theme`
+     * and setup entrypoints
+     *
+     * Files will be output to `./theme/dist`
+     */
+    .make(
+      {
+        label: 'theme',
+        basedir: project.path('./theme'),
+      },
+      async theme => theme.entry('theme', ['theme.js', 'theme.css']),
+    )
+
+    /**
+     * Make plugin workspace in `./plugin`
+     * and setup entrypoints
+     *
+     * Files will be output to `./plugin/dist`
+     */
+    .make(
+      {
+        label: 'plugin',
+        basedir: project.path('./plugin'),
+      },
+      async plugin => plugin.entry('plugin', ['plugin.js', 'plugin.css']),
+    )
 }

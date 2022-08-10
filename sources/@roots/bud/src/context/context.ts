@@ -8,6 +8,8 @@ import type Manifest from './manifest.js'
 export default class Context implements Partial<Options.Context> {
   public args: Record<string, string | boolean | undefined | number> = {}
 
+  public label: string
+
   public constructor(
     public basedir: string,
     public manifest: Manifest['data'],
@@ -16,5 +18,7 @@ export default class Context implements Partial<Options.Context> {
     public env: Options.Context['env'],
     public extensions: Extensions['data'],
     public colorDepth: number = 256,
-  ) {}
+  ) {
+    this.label = this.manifest.name ?? 'default'
+  }
 }

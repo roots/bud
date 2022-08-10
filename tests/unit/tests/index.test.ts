@@ -8,4 +8,8 @@ describe('test environment sanity checks', () => {
       setTimeout(() => resolve(expect(true).toBe(true)), 10),
     )
   })
+
+  it('should have JEST_WORKER_ID defined', () => {
+    expect(process.env.JEST_WORKER_ID).toBeDefined()
+  })
 })

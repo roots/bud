@@ -1,5 +1,7 @@
 import config from 'conf'
+import {sep} from 'node:path/posix'
 
-const cache = new config()
-
-export default cache
+export default (basedir: string) =>
+  new config({
+    configName: `bud-${basedir.replace(sep, '.')}`,
+  })

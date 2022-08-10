@@ -23,14 +23,13 @@ export default class Extensions {
     extensions
       .filter(
         signifier =>
-          signifier.startsWith('@roots/bud') ||
+          signifier.startsWith('@roots/bud-') ||
           signifier.startsWith('@roots/sage') ||
-          signifier.startsWith('bud'),
+          signifier.startsWith('bud-'),
       )
       .filter(
         signifier =>
           ![
-            '@roots/bud',
             '@roots/bud-api',
             '@roots/bud-build',
             '@roots/bud-cache',

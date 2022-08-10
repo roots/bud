@@ -6025,6 +6025,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tests/project@workspace:tests/util/project":
+  version: 0.0.0-use.local
+  resolution: "@tests/project@workspace:tests/util/project"
+  dependencies:
+    "@roots/bud": "workspace:sources/@roots/bud"
+    "@roots/bud-eslint": "workspace:sources/@roots/bud-eslint"
+    "@roots/bud-preset-recommend": "workspace:sources/@roots/bud-preset-recommend"
+    "@roots/bud-tailwindcss": "workspace:sources/@roots/bud-tailwindcss"
+  languageName: unknown
+  linkType: soft
+
 "@tootallnate/once@npm:1":
   version: 1.1.2
   resolution: "@tootallnate/once@npm:1.1.2"
@@ -28445,17 +28456,6 @@ __metadata:
   checksum: 1d0426bcb602f29cc87561feb8067b2f84d92ef954756714eeb8593cb4c69192297fd8b8a0dc6d64caedd510fb04be790a7c321ccbf67e51eaed8e9cf16d35e8
   languageName: node
   linkType: hard
-
-"test-empty@workspace:tests/util/project":
-  version: 0.0.0-use.local
-  resolution: "test-empty@workspace:tests/util/project"
-  dependencies:
-    "@roots/bud": "workspace:sources/@roots/bud"
-    "@roots/bud-eslint": "workspace:sources/@roots/bud-eslint"
-    "@roots/bud-preset-recommend": "workspace:sources/@roots/bud-preset-recommend"
-    "@roots/bud-tailwindcss": "workspace:sources/@roots/bud-tailwindcss"
-  languageName: unknown
-  linkType: soft
 
 "test-exclude@npm:^6.0.0":
   version: 6.0.0

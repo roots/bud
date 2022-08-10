@@ -61,7 +61,7 @@ describe('bud.build.config', function () {
   })
 
   it('has expected name default', () => {
-    expect(bud.build.config.name).toEqual('bud-test')
+    expect(bud.build.config.name).toEqual('@tests/project')
   })
 
   it('has expected node default', () => {

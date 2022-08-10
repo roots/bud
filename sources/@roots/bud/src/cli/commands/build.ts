@@ -334,9 +334,7 @@ export class BuildCommand extends BaseCommand {
     if (isUndefined(this.ci)) this.context.args.ci = false
 
     this.app = await factory({
-      label: 'default',
       mode: this.mode,
-      ...this.context,
       seed: {
         'build.output.publicPath': fallback(
           this.publicPath,

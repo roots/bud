@@ -10,16 +10,16 @@ import type {Config} from '../index.js'
  * @internal
  */
 export interface make {
-  (seed: string | Partial<Context>, tap?: (app: Bud) => Promise<Bud>): Bud
+  (ident: string | Partial<Context>, tap?: (app: Bud) => Promise<Bud>): Bud
 }
 
 /**
- * Instantiate a child instance and add to {@link Bud.children} container
+ * Create a child instance and register with root instance
  *
  * @remarks
- * **make** takes two parameters:
+ * **bud.make** takes two parameters:
  *
- * - The **name** of the new compiler
+ * - The **label** for the new compiler
  * - Optional: callback to use for configuration
  *
  * @example
@@ -29,13 +29,13 @@ export interface make {
  *
  * @public
  */
-export const make: make = function (seed, tap) {
+export const make: make = function (ident, tap) {
   const current = this as Bud
   const root = current.root
 
-  const context: Partial<Config.Context> = isString(seed)
-    ? {label: seed, basedir: root.path('/'), root}
-    : {...seed, root}
+  const context: Partial<Config.Context> = isString(ident)
+    ? {label: ident, basedir: root.path('/'), root}
+    : {...ident, root}
 
   root.hooks.action('config.after', async () => {
     root.children[context.label] = await root.factory(context)

@@ -13,17 +13,17 @@ export const mockProject = {
 export const factory = async (
   overrides?: Partial<Config.Context>,
 ): Promise<Bud> => {
+  process.env.BUD_TEST_ENV = 'true'
+
   const ctx = await context.get(repoPath('tests/util/project'))
 
   const bud = await budFactory({
     ...ctx,
-    label: 'bud-test',
     mode: 'production',
-    basedir: repoPath('tests/util/project'),
     ...(overrides ?? {}),
     args: {
+      ...(ctx.args ?? {}),
       cache: false,
-      ci: true,
       ...(overrides?.args ?? {}),
     },
     manifest: {

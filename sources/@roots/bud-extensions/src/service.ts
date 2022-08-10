@@ -198,7 +198,6 @@ export default class Extensions
             return
 
           await this.import(signifier)
-
           if (!this.has(signifier)) this.unresolvable.add(signifier)
         } catch (err) {}
       }, Promise.resolve())
@@ -215,17 +214,18 @@ export default class Extensions
             this.has(signifier) ||
             this.unresolvable.has(signifier) ||
             ![
-              ...(Object.keys(this.app.context.manifest.devDependencies) ??
-                []),
-              ...(Object.keys(this.app.context.manifest.dependencies) ??
-                []),
+              ...(this.app.context.manifest.devDependencies
+                ? Object.keys(this.app.context.manifest.devDependencies)
+                : []),
+              ...(this.app.context.manifest.dependencies
+                ? Object.keys(this.app.context.manifest.dependencies)
+                : []),
             ].includes(signifier)
           ) {
             return
           }
 
           await this.import(signifier)
-
           if (!this.has(signifier)) this.unresolvable.add(signifier)
         } catch (err) {}
       }, Promise.resolve())

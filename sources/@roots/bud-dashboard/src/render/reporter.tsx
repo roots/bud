@@ -1,5 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
-import {Box, render} from 'ink'
+import {Box, render, Text} from 'ink'
 import React from 'react'
 import type {StatsCompilation} from 'webpack'
 
@@ -23,6 +23,10 @@ export const renderResults = ({
 
   render(
     <Box flexDirection="column" marginY={1}>
+      <Box marginBottom={1}>
+        <Text bold>{app.context.manifest.label}</Text>
+      </Box>
+
       {compilations.map((compilation, id) => (
         <Box key={id} flexDirection="column">
           <Compilation id={id} stats={compilation} />

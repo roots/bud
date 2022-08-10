@@ -1,5 +1,5 @@
 {
-  "name": "test-empty",
+  "name": "@tests/project",
   "private": true,
   "browserslist": [
     "extends @roots/browserslist-config/current"

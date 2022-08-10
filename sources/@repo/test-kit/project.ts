@@ -116,7 +116,7 @@ export class Project {
   }
 
   @bind
-  public async $(bin: string, flags: Array<string>) {
+  public async $(bin: string, flags: Array<string>, log?: boolean) {
     try {
       this.logger.log(
         chalk.blue(bin),
@@ -126,6 +126,11 @@ export class Project {
       const child = execa(bin, flags ?? [], {
         cwd: this.projectPath(),
       })
+
+      if (log) {
+        child.stdout.on('data', data => this.logger.log(data.toString()))
+        child.stderr.on('data', data => this.logger.error(data.toString()))
+      }
 
       await child
     } catch (error) {
@@ -180,10 +185,11 @@ export class Project {
       return
     }
 
-    await this.$(`node`, [
-      join(this.projectPath(), 'node_modules', '.bin', 'bud'),
-      `build`,
-    ])
+    await this.$(
+      `node`,
+      [join(this.projectPath(), 'node_modules', '.bin', 'bud'), `build`],
+      true,
+    )
 
     return this
   }
@@ -274,7 +280,9 @@ export class Project {
   public async setModules() {
     try {
       const modules = await this.readJson(
-        this.projectPath(join(this.storage, 'bud', 'modules.json')),
+        this.projectPath(
+          join(this.storage, `example-${this.name}`, 'modules.json'),
+        ),
       )
 
       Object.assign(this, {modules})
