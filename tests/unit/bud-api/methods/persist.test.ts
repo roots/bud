@@ -31,7 +31,7 @@ describe('bud.persist', function () {
   })
 
   it('sets buildDependencies', async () => {
-    expect(bud.cache.buildDependencies.bud).toMatchSnapshot(
+    expect(bud.cache.buildDependencies.bud.sort()).toEqual(
       expect.arrayContaining([
         expect.stringContaining('package.json'),
         expect.stringContaining('.eslintrc.js'),
