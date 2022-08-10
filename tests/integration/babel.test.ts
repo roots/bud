@@ -6,8 +6,7 @@ const run = pacman => () => {
 
   beforeAll(async () => {
     project = await new Project({
-      name: 'babel',
-      dist: 'dist',
+      label: '@examples/babel',
       with: pacman,
     }).setup()
   })

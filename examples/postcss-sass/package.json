@@ -1,5 +1,5 @@
 {
-  "name": "example-postcss-sass",
+  "name": "@examples/postcss-sass",
   "private": true,
   "browserslist": [
     "extends @roots/browserslist-config/current"

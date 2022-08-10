@@ -1,7 +1,7 @@
 import type {Bud} from '../bud.js'
 
 export interface get {
-  (name: string): Promise<Bud>
+  (label: string): Bud
 }
 
 /**
@@ -12,18 +12,15 @@ export interface get {
  *
  * @example
  * ```js
- * const name = 'plugin'
- * const tapFn = plugin => plugin.entry('main', 'main.js')
- *
- * bud.get(name, tapFn)
+ * bud.get(label)
  * ```
  *
  * @public
  */
-export const get: get = async function (name: string): Promise<Bud> {
+export const get: get = function (label: string): Bud {
   const ctx = this as Bud
 
-  ctx.log('get child instance:', name)
+  ctx.log('get child instance:', label)
 
-  return ctx.children[name]
+  return ctx.children[label]
 }

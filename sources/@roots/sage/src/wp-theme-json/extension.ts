@@ -113,9 +113,9 @@ export default class ThemeJson extends Extension<
   @bind
   public async init() {
     const config =
-      this.app.context.disk.config['tailwind.config.js'] ??
-      this.app.context.disk.config['tailwind.config.mjs'] ??
-      this.app.context.disk.config['tailwind.config.cjs']
+      this.app.context.config['tailwind.config.js'] ??
+      this.app.context.config['tailwind.config.mjs'] ??
+      this.app.context.config['tailwind.config.cjs']
 
     if (!config) return
 

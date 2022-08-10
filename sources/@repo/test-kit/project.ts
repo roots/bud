@@ -15,7 +15,7 @@ const {join} = posix
 jest.setTimeout(120000)
 
 interface Options {
-  name: string
+  label: string
   with: 'yarn' | 'npm'
   dist?: string
   buildCommand?: [string, Array<string>]
@@ -43,12 +43,6 @@ interface Options {
  * @internal
  */
 export class Project {
-  public name: string
-
-  public mode: 'dev' | 'production' = 'production'
-
-  public storage: string = '.budfiles'
-
   public assets = {}
 
   public entrypoints: {
@@ -66,11 +60,6 @@ export class Project {
       byName: any
       bySource: any
     }
-  } = {
-    chunks: {
-      byName: null,
-      bySource: null,
-    },
   }
 
   public packageJson: Record<string, any> = {}
@@ -88,11 +77,12 @@ export class Project {
   public logger: typeof logger.logger
 
   public constructor(public options: Options) {
-    this.dir = join(paths.mocks, this.options.with, this.options.name)
+    this.dir = join(paths.mocks, this.options.with, this.options.label)
+    this.options.dist = this.options.dist ?? 'dist'
 
     this.logger = logger
-      .make({interactive: true})
-      .scope(this.options.name, this.options.with)
+      .make({interactive: false})
+      .scope(this.options.label, this.options.with)
   }
 
   /**
@@ -116,7 +106,7 @@ export class Project {
   }
 
   @bind
-  public async $(bin: string, flags: Array<string>) {
+  public async $(bin: string, flags: Array<string>, log?: boolean) {
     try {
       this.logger.log(
         chalk.blue(bin),
@@ -126,6 +116,11 @@ export class Project {
       const child = execa(bin, flags ?? [], {
         cwd: this.projectPath(),
       })
+
+      if (log) {
+        child.stdout.on('data', data => this.logger.log(data.toString()))
+        child.stderr.on('data', data => this.logger.error(data.toString()))
+      }
 
       await child
     } catch (error) {
@@ -161,7 +156,10 @@ export class Project {
       await fs.remove(this.projectPath())
     } catch (e) {}
     try {
-      await fs.copy(`./examples/${this.options.name}`, this.projectPath())
+      await fs.copy(
+        `./examples/${this.options.label.replace('@examples/', '')}`,
+        this.projectPath(),
+      )
     } catch (e) {}
 
     this.options.with === 'yarn'
@@ -180,10 +178,11 @@ export class Project {
       return
     }
 
-    await this.$(`node`, [
-      join(this.projectPath(), 'node_modules', '.bin', 'bud'),
-      `build`,
-    ])
+    await this.$(
+      `node`,
+      [join(this.projectPath(), 'node_modules', '.bin', 'bud'), `build`],
+      true,
+    )
 
     return this
   }
@@ -274,7 +273,9 @@ export class Project {
   public async setModules() {
     try {
       const modules = await this.readJson(
-        this.projectPath(join(this.storage, 'bud', 'modules.json')),
+        this.projectPath(
+          join('.budfiles', this.options.label, 'modules.json'),
+        ),
       )
 
       Object.assign(this, {modules})

@@ -6,7 +6,7 @@ import {cpus} from 'node:os'
  *
  * @public
  */
-export const seed: Config.Options['seed'] = {
+export const seed: Config.Context['seed'] = {
   'feature.cache': [() => true],
   'feature.clean': [() => true],
   'feature.hash': [() => false],

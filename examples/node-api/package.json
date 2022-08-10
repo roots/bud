@@ -1,5 +1,5 @@
 {
-  "name": "example-node-api",
+  "name": "@examples/node-api",
   "private": true,
   "browserslist": [
     "extends @roots/browserslist-config/current"

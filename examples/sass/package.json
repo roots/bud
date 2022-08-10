@@ -1,5 +1,5 @@
 {
-  "name": "example-sass",
+  "name": "@examples/sass",
   "private": true,
   "browserslist": {
     "production": [

@@ -91,14 +91,14 @@ export class Compiler extends Service implements Contract.Service {
 
     this.app.isDevelopment &&
       this.compilation.hooks.done.tap(
-        `${this.app.name}-dev-handle`,
+        `${this.app.label}-dev-handle`,
         async stats => {
           this.handleStats(stats as any)
         },
       )
 
     this.compilation.hooks.done.tap(
-      `${this.app.name}-cli-done`,
+      `${this.app.label}-cli-done`,
       async () => {
         await this.app.hooks.fire('compiler.close')
       },

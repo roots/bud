@@ -52,7 +52,7 @@ export class DoctorCommand extends BaseCommand {
    *
    * @public
    */
-  public async execute() {
+  public async runCommand() {
     this.webpackCLI = new webpackcli()
     this.webpack = await this.webpackCLI.loadWebpack()
     this.context.stdout.write(`\nChecking configuration...\n\n`)
@@ -70,10 +70,8 @@ export class DoctorCommand extends BaseCommand {
 
     try {
       app = await factory({
-        context: {
-          args: {
-            ci: true,
-          },
+        args: {
+          ci: true,
         },
         mode,
       })
@@ -123,10 +121,8 @@ export class DoctorCommand extends BaseCommand {
 
     try {
       app = await factory({
-        context: {
-          args: {
-            ci: true,
-          },
+        args: {
+          ci: true,
         },
       })
     } catch (e) {}
@@ -137,14 +133,14 @@ export class DoctorCommand extends BaseCommand {
     })
       .filter(([name]) => name.startsWith('@roots/'))
       .map(([k, v]) => {
-        if (v !== app.context.application.version) {
+        if (v !== app.context.bud.version) {
           this.context.stderr.write(chalk.red(`version mismatch\n`))
           this.context.stderr.write(
             `${k} is not running on the same version as bud core.\n`,
           )
           this.context.stderr.write(
             `bud is on ${chalk.green(
-              app.context.application.version,
+              app.context.bud.version,
             )} but ${k} is on ${chalk.yellow(v)}.\n\n`,
           )
         }

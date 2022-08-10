@@ -1,5 +1,5 @@
 {
-  "name": "example-vue-legacy",
+  "name": "@examples/vue-legacy",
   "private": true,
   "browserslist": [
     "extends @roots/browserslist-config/current"

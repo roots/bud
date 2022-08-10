@@ -9,9 +9,8 @@ const test = (pacman: 'yarn' | 'npm') => () => {
 
     beforeAll(async () => {
       project = new Project({
-        name: 'purgecss',
+        label: '@examples/purgecss',
         with: pacman,
-        dist: 'dist',
       })
 
       await project.setup()

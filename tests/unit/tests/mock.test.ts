@@ -19,11 +19,11 @@ describe('mock project', () => {
 
   it('has the expected context', async () => {
     console.log('mock path', mockProject.path)
-    expect(bud.context.dir).toBe(mockProject.path)
+    expect(bud.context.basedir).toBe(mockProject.path)
   })
 
   it('has the expected env', async () => {
     console.log('mock path', mockProject.path)
-    expect(bud.context.dir).toBe(mockProject.path)
+    expect(bud.context.basedir).toBe(mockProject.path)
   })
 })

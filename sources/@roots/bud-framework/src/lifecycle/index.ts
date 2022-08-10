@@ -10,7 +10,7 @@ import {LIFECYCLE_EVENTS} from './constants.js'
  * @public
  */
 export interface lifecycle {
-  (this: Bud, options: Config.Options): Promise<Bud>
+  (this: Bud, context: Partial<Config.Context>): Promise<Bud>
 }
 
 const getServiceFilterFn = (event: string) => service =>
@@ -45,9 +45,9 @@ const getServiceAsTupleMapperFn = (event: string) => service =>
  */
 export async function lifecycle(
   this: Bud,
-  options: Config.Options,
+  context: Config.Context,
 ): Promise<Bud> {
-  bootstrap.execute(this, options)
+  bootstrap.execute(this, context)
 
   await LIFECYCLE_EVENTS.reduce(async (_promised, event) => {
     await Promise.all(

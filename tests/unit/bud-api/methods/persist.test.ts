@@ -31,16 +31,16 @@ describe('bud.persist', function () {
   })
 
   it('sets buildDependencies', async () => {
-    expect(bud.cache.buildDependencies).toMatchSnapshot({
-      bud: [
+    expect(bud.cache.buildDependencies.bud).toMatchSnapshot(
+      expect.arrayContaining([
         expect.stringContaining('package.json'),
         expect.stringContaining('.eslintrc.js'),
         expect.stringContaining('bud.config.cjs'),
         expect.stringContaining('docker-compose.yml'),
         expect.stringContaining('tailwind.config.js'),
         expect.stringContaining('tsconfig.json'),
-      ],
-    })
+      ]),
+    )
   })
 
   it('set managedPaths', async () => {

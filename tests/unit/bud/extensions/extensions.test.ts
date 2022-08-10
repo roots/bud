@@ -1,4 +1,4 @@
-import {extensions} from '@roots/bud/extensions'
+import extensions from '@roots/bud/extensions'
 
 describe('@roots/bud', () => {
   describe('extensions', () => {

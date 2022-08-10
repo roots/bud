@@ -1,16 +1,15 @@
 import type {Readable, Writable} from 'node:stream'
 
+import type {Bud} from '../bud.js'
+
 export interface Context {
-  name: string
-  dir: string
-  manifest: Record<string, any>
-  application: {
-    name: string
-    label: string
-    version: string
-    dir: string
-  }
-  args: Record<
+  label?: string
+  root?: Bud
+  basedir?: string
+  bud?: Record<string, any>
+  manifest?: Record<string, any>
+  mode?: 'development' | 'production'
+  args?: Record<
     string,
     | string
     | boolean
@@ -18,10 +17,11 @@ export interface Context {
     | number
     | Array<string | boolean | number>
   >
-  disk: {
-    config: Record<string, any>
-  }
-  env: Record<string, string | undefined>
+  config?: Record<string, any>
+  extensions?: Array<string>
+  services?: Record<string, any>
+  seed?: Record<string, any>
+  env?: Record<string, string | undefined>
   stdin: Readable
   stdout: Writable
   stderr: Writable

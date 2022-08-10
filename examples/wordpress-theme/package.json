@@ -1,5 +1,5 @@
 {
-  "name": "example-wordpress-theme",
+  "name": "@examples/wordpress-theme",
   "private": true,
   "browserslist": [
     "extends @roots/browserslist-config/current"

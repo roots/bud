@@ -1,5 +1,5 @@
 {
-  "name": "example-markdown",
+  "name": "@examples/markdown",
   "private": true,
   "browserslist": [
     "extends @roots/browserslist-config/current"

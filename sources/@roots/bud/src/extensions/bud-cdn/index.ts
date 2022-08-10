@@ -35,10 +35,10 @@ export interface Options {
 @expose('cdn')
 @options<Options>({
   allowedUris: [],
-  cacheLocation: (app: Bud) => app.path('@storage', app.name, 'modules'),
+  cacheLocation: (app: Bud) => app.path('@storage', app.label, 'modules'),
   frozen: false,
   lockfileLocation: (app: Bud): string =>
-    app.path('@storage', app.name, 'bud.lock'),
+    app.path('@storage', app.label, 'bud.lock'),
   proxy: ({env}) => env.isString('HTTP_PROXY') && env.get('HTTP_PROXY'),
   upgrade: true,
 })

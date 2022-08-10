@@ -59,16 +59,13 @@ const Compilation = ({
         </Text>
 
         <Text color={compilationColor}>
+          {SPACE}
           {SPACE}./
           {relative(process.cwd(), stats.outputPath)}
         </Text>
 
-        <Text color={compilationColor} dimColor>
+        <Text dimColor>
           {SPACE}[{stats.hash}]
-        </Text>
-
-        <Text color={compilationColor} dimColor>
-          {SPACE}[{id + 1}/{stats?.children.length}]
         </Text>
       </Box>
 
@@ -128,7 +125,7 @@ const Compilation = ({
           <Text> </Text>
         </Space>
 
-        {hiddenStaticAssets.length > 0 && (
+        {hiddenStaticAssets?.length > 0 ? (
           <Space>
             <Text dimColor>
               {SPACE}
@@ -138,7 +135,7 @@ const Compilation = ({
               {SPACE}additional assets not shown
             </Text>
           </Space>
-        )}
+        ) : null}
       </Box>
 
       <Space>
@@ -146,7 +143,7 @@ const Compilation = ({
       </Space>
 
       <Title final={true}>
-        <Text color={compilationColor} dimColor>
+        <Text dimColor>
           compiled {stats?.modules?.length} modules in{' '}
           {duration(stats?.time) as string}
         </Text>

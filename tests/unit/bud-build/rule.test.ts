@@ -2,7 +2,7 @@ import {Bud, factory} from '@repo/test-kit/bud'
 import {Rule} from '@roots/bud-build'
 
 describe('Build Rule', function () {
-  let bud: Bud = null
+  let bud: Bud
 
   beforeAll(async () => {
     bud = await factory()

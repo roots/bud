@@ -1,5 +1,5 @@
 {
-  "name": "example-multi",
+  "name": "@examples/multi",
   "private": true,
   "browserslist": [
     "extends @roots/browserslist-config/current"

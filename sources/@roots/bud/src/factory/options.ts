@@ -1,24 +1,19 @@
 import type {Config} from '@roots/bud-framework'
 
-import {extensions} from '../extensions/index.js'
+import extensions from '../extensions/index.js'
 import {seed} from '../seed.js'
 import {services} from '../services/index.js'
 
 export const mergeOptions: (
-  context: Config.Context,
-  overrides?: Partial<Config.Options>,
-) => Config.Options = (context, overrides) => ({
-  name: 'bud',
+  context: Partial<Config.Context>,
+  overrides?: Partial<Config.Context>,
+) => Partial<Config.Context> = (context, overrides) => ({
   mode: 'production',
-  dir: process.cwd(),
+  ...context,
   ...(overrides ?? {}),
-  context: {
-    ...context,
-    ...(overrides?.context ?? {}),
-    args: {
-      ...(context.args ?? {}),
-      ...(overrides?.context?.args ?? {}),
-    },
+  args: {
+    ...(context.args ?? {}),
+    ...(overrides?.args ?? {}),
   },
   seed: {
     ...seed,
@@ -28,5 +23,7 @@ export const mergeOptions: (
     ...services,
     ...(overrides?.services ?? {}),
   },
-  extensions: [...(extensions ?? []), ...(overrides?.extensions ?? [])],
+  extensions: [...extensions, ...(overrides?.extensions ?? [])].filter(
+    Boolean,
+  ),
 })

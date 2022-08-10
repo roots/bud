@@ -6,8 +6,7 @@ const run = pacman => () => {
 
   beforeAll(async () => {
     project = await new Project({
-      name: 'vue-legacy',
-      dist: 'dist',
+      label: '@examples/vue-legacy',
       with: pacman,
     }).setup()
   })

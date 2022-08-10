@@ -33,7 +33,7 @@ export const proxyClickInterceptor = (app: Bud) =>
  * @public
  */
 export const overlay = (app: Bud) =>
-  `@roots/bud-client/lib/index.js?name=${app.name}&bud.overlay=${
+  `@roots/bud-client/lib/index.js?name=${app.label}&bud.overlay=${
     isUndefined(app.context.args.overlay)
       ? 'true'
       : app.context.args.overlay

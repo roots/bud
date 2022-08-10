@@ -11,7 +11,7 @@ Object {
     "@roots/browserslist-config": "latest",
     "@roots/bud": "latest",
   },
-  "name": "example-template",
+  "name": "@examples/template",
   "private": true,
 }
 `;
@@ -27,7 +27,7 @@ Object {
     "@roots/browserslist-config": "latest",
     "@roots/bud": "latest",
   },
-  "name": "example-template",
+  "name": "@examples/template",
   "private": true,
 }
 `;

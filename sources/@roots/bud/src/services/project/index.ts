@@ -87,7 +87,11 @@ export class Project
     if (!this.app.context.args.debug) return
 
     try {
-      const path = this.app.path(`@storage`, this.app.name, `profile.json`)
+      const path = this.app.path(
+        `@storage`,
+        this.app.label,
+        `profile.json`,
+      )
 
       await fs.ensureFile(path)
       await fs.writeFile(
@@ -110,7 +114,7 @@ export class Project
     try {
       const path = this.app.path(
         `@storage`,
-        this.app.name,
+        this.app.label,
         `webpack.config.js`,
       )
 
@@ -144,61 +148,59 @@ export class Project
   @once
   public async searchConfigs() {
     await Promise.all(
-      Object.entries(this.app.context.disk.config).map(
-        async ([name, path]) => {
-          try {
-            if (!name.includes(`bud`)) return
+      Object.entries(this.app.context.config).map(async ([name, path]) => {
+        try {
+          if (!name.includes(`bud`)) return
 
-            const hasCondition = (condition: string) =>
-              name.includes(condition)
+          const hasCondition = (condition: string) =>
+            name.includes(condition)
 
-            const hasExtension = (extension: string) =>
-              path.endsWith(extension)
+          const hasExtension = (extension: string) =>
+            path.endsWith(extension)
 
-            const invalid =
-              !path || !isString(path) || !name || !isString(name)
+          const invalid =
+            !path || !isString(path) || !name || !isString(name)
 
-            if (invalid) {
-              throw new Error(
-                `File object with no path or name received from context.disk.config by project.service`,
-              )
-            }
-
-            const condition = hasCondition('production')
-              ? 'production'
-              : hasCondition('development')
-              ? 'development'
-              : 'base'
-
-            const isDynamicConfig = [
-              'js',
-              'cjs',
-              'mjs',
-              'ts',
-              'cts',
-              'mts',
-            ].filter(hasExtension).length
-
-            const importedConfig = isDynamicConfig
-              ? await this.app.module.import(path)
-              : hasExtension('yml')
-              ? await this.app.yml.read(path)
-              : hasExtension('json')
-              ? await this.app.json.read(path)
-              : {}
-
-            this.set(['config', condition, name], {
-              name: name,
-              path: path,
-              module: importedConfig,
-            })
-          } catch (err) {
-            this.app.warn(`error importing config`, name, `from`, path)
-
-            this.app.warn(err)
+          if (invalid) {
+            throw new Error(
+              `File object with no path or name received from context.config by project.service`,
+            )
           }
-        },
-      ),
+
+          const condition = hasCondition('production')
+            ? 'production'
+            : hasCondition('development')
+            ? 'development'
+            : 'base'
+
+          const isDynamicConfig = [
+            'js',
+            'cjs',
+            'mjs',
+            'ts',
+            'cts',
+            'mts',
+          ].filter(hasExtension).length
+
+          const importedConfig = isDynamicConfig
+            ? await this.app.module.import(path)
+            : hasExtension('yml')
+            ? await this.app.yml.read(path)
+            : hasExtension('json')
+            ? await this.app.json.read(path)
+            : {}
+
+          this.set(['config', condition, name], {
+            name: name,
+            path: path,
+            module: importedConfig,
+          })
+        } catch (err) {
+          this.app.warn(`error importing config`, name, `from`, path)
+
+          this.app.warn(err)
+        }
+      }),
     )
   }
 }

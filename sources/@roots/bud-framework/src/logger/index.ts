@@ -47,10 +47,10 @@ export class Logger {
   public makeInstance(constructorOverrides = {}, configOverrides = {}) {
     let instance = new Signale.Signale({
       interactive: this.interactive,
-      // secrets: [this.app.context.dir, this.app.context.cwd],
+      // secrets: [this.app.context.basedir, this.app.context.cwd],
       logLevel: this.level,
       types: types(this.app),
-      scope: this.app.name ?? this.app.context.application.label,
+      scope: this.app.label ?? this.app.context.bud.label,
       ...constructorOverrides,
     })
 
@@ -70,8 +70,8 @@ export class Logger {
     })
 
     return instance.scope(
-      `${this.app.context.application.label}@${this.app.context.application.version}`,
-      this.app.name,
+      `${this.app.context.bud.label}@${this.app.context.bud.version}`,
+      this.app.label,
     )
   }
 }

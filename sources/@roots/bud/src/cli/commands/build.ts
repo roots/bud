@@ -1,4 +1,5 @@
 import {Command, Option} from 'clipanion'
+import {bind} from 'helpful-decorators'
 import {isUndefined} from 'lodash-es'
 import * as t from 'typanion'
 
@@ -295,7 +296,8 @@ export class BuildCommand extends BaseCommand {
   /**
    * Execute command
    */
-  public async execute() {
+  @bind
+  public async runCommand() {
     if (!isUndefined(this.dashboard))
       this.context.stdout.write(
         `the --dashboard and --no-dashboard flags are deprecated and will be removed in a future release.\n`,
@@ -334,9 +336,9 @@ export class BuildCommand extends BaseCommand {
     if (isUndefined(this.ci)) this.context.args.ci = false
 
     this.app = await factory({
-      name: 'bud',
+      label: 'default',
       mode: this.mode,
-      context: this.context,
+      ...this.context,
       seed: {
         'build.output.publicPath': fallback(
           this.publicPath,

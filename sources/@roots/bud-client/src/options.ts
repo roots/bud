@@ -5,7 +5,7 @@
 let data: Options = {
   timeout: 20 * 1000,
   reload: true,
-  name: 'bud',
+  name: 'default',
   debug: true,
   log: true,
   path: '/__bud/hmr',

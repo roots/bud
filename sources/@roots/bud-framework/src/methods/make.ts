@@ -1,7 +1,8 @@
 import {isFunction, isString} from 'lodash-es'
 
 import type {Bud} from '../bud.js'
-import type {Options} from '../config/options.js'
+import type {Context} from '../config/context.js'
+import type {Config} from '../index.js'
 
 /**
  * make function interface
@@ -9,16 +10,16 @@ import type {Options} from '../config/options.js'
  * @internal
  */
 export interface make {
-  (seed: string | Options, tap?: (app: Bud) => Promise<Bud>): Bud
+  (ident: string | Partial<Context>, tap?: (app: Bud) => Promise<Bud>): Bud
 }
 
 /**
- * Instantiate a child instance and add to {@link Bud.children} container
+ * Create a child instance and register with root instance
  *
  * @remarks
- * **make** takes two parameters:
+ * **bud.make** takes two parameters:
  *
- * - The **name** of the new compiler
+ * - The **label** for the new compiler
  * - Optional: callback to use for configuration
  *
  * @example
@@ -28,37 +29,37 @@ export interface make {
  *
  * @public
  */
-export const make: make = function (seed, tap) {
+export const make: make = function (ident, tap) {
   const current = this as Bud
   const root = current.root
 
-  const options = isString(seed)
-    ? {name: seed, dir: root.path('/'), root}
-    : {...seed, root}
+  const context: Partial<Config.Context> = isString(ident)
+    ? {label: ident, basedir: root.path('/'), root}
+    : {...ident, root}
 
   root.hooks.action('config.after', async () => {
-    root.children[options.name] = await root.factory(options)
-    root.children[options.name].success('constructed')
+    root.children[context.label] = await root.factory(context)
+    root.children[context.label].success('constructed')
 
     if (isFunction(tap)) {
-      await tap(root.children[options.name])
-      root.children[options.name].success('configuration applied')
-      await root.children[options.name].api.processQueue()
+      await tap(root.children[context.label])
+      root.children[context.label].success('configuration applied')
+      await root.children[context.label].api.processQueue()
     }
 
     await Promise.all(
-      Object.values(root.children[options.name].services)
+      Object.values(root.children[context.label].services)
         .filter(service => isFunction(service.afterConfig))
         .map(async service => {
-          await service.afterConfig(root.children[options.name])
+          await service.afterConfig(root.children[context.label])
         }),
     )
 
-    await root.children[options.name].hooks.fire('config.after')
-    root.children[options.name].success('config after hook fired')
+    await root.children[context.label].hooks.fire('config.after')
+    root.children[context.label].success('config after hook fired')
   })
 
-  root.log(`child prepped:`, options.name)
+  root.log(`child prepped:`, context.label)
 
   return root
 }
