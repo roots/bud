@@ -30,8 +30,6 @@ const base = {
     '<rootDir>/tests/__mocks__',
     '<rootDir>/storage/',
   ],
-  testTimeout: 240000,
-  slowTestThreshold: 240000,
   transform: {
     '^.+\\.(c|m)?(t|j)sx?$': [
       '@swc/jest',
@@ -63,12 +61,16 @@ export default async () => ({
     {
       ...base,
       displayName: 'e2e',
+      testTimeout: 3 * 60 * 1000,
+      slowTestThreshold: 3 * 60 * 1000,
       reporters: ['default'],
       testMatch: ['**/tests/e2e/**/*.test.ts'],
     },
     {
       ...base,
       displayName: 'integration',
+      testTimeout: 2 * 60 * 1000,
+      slowTestThreshold: 2 * 60 * 1000,
       reporters: ['default'],
       testMatch: ['**/tests/integration/**/*.test.ts'],
     },
@@ -87,6 +89,8 @@ export default async () => ({
         '.js$',
         '/deprecated/',
       ],
+      testTimeout: 3 * 60 * 1000,
+      slowTestThreshold: 3 * 60 * 1000,
       reporters: ['default', 'github-actions'],
       testMatch: [
         '**/sources/@roots/*/src/**/*.test.ts',
