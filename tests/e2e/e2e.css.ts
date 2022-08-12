@@ -72,46 +72,38 @@ export const test = () => {
   beforeAll(done => {
     logger.await('initializing dev process')
 
-    try {
-      chromium
-        .launch()
-        .then(instance => {
-          browser = instance
-        })
-        .then(async () => {
-          try {
-            devProcess = execa(
-              'node',
-              ['./node_modules/.bin/bud', 'dev', '--no-cache'],
-              {
-                cwd: join(paths.mocks, 'yarn', '@examples', 'babel'),
-              },
-            )
+    chromium
+      .launch()
+      .then(instance => {
+        browser = instance
+      })
+      .then(async () => {
+        devProcess = execa(
+          'node',
+          ['./node_modules/.bin/bud', 'dev', '--no-cache'],
+          {
+            cwd: join(paths.mocks, 'yarn', '@examples', 'babel'),
+          },
+        )
 
-            devProcess.stdout?.on('data', data => {
-              const output = data.toString()
-              logger.log(output)
+        devProcess.stdout?.on('data', data => {
+          const output = data.toString()
+          logger.log(output)
 
-              if (
-                output.includes('watching project sources') &&
-                ready !== true
-              ) {
-                logger.success('dev process ready')
-                ready = true
-                done()
-              }
-            })
-
-            devProcess.stderr?.on('data', data => {
-              logger.error(data.toString())
-            })
-          } catch (e) {
-            throw new Error(e)
+          if (
+            output.includes('watching project sources') &&
+            ready !== true
+          ) {
+            logger.success('dev process ready')
+            ready = true
+            done()
           }
         })
-    } catch (e) {
-      throw new Error(e)
-    }
+
+        devProcess.stderr?.on('data', data => {
+          logger.error(data.toString())
+        })
+      })
   })
 
   afterAll(async () => {
@@ -121,7 +113,7 @@ export const test = () => {
       await browser?.close()
       devProcess.kill('SIGQUIT')
     } catch (e) {
-      throw new Error(e)
+      logger.error(e)
     }
   })
 
@@ -131,16 +123,16 @@ export const test = () => {
       page = await browser.newPage()
       await page.goto('http://0.0.0.0:3005/')
     } catch (e) {
-      throw new Error(e)
+      logger.error(e)
     }
   })
 
   afterEach(async () => {
     try {
       await reset()
-      await page.close()
+      await page?.close()
     } catch (e) {
-      throw new Error(e)
+      logger.error(e)
     }
   })
 
