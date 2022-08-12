@@ -67,9 +67,9 @@ jobs:
         run: |
           yarn @bud lint exports
 
-      - name: yarn @bud test run unit
+      - name: yarn @bud test unit
         run: |
-          yarn @bud test run unit --verbose --maxWorkers 2
+          yarn @bud test unit --verbose --maxWorkers 2
 
       - name: yarn @bud registry install
         run: |
@@ -83,10 +83,10 @@ jobs:
         run: |
           yarn @bud release --tag latest
 
-      - name: yarn @bud test run integration
+      - name: yarn @bud test integration
         run: |
-          yarn @bud test run integration --verbose --maxWorkers 2
+          yarn @bud test integration --verbose --maxWorkers 2
 
-      - name: yarn @bud test run e2e
+      - name: yarn @bud test e2e
         run: |
-          yarn @bud test run e2e --verbose --maxWorkers 2
+          yarn @bud test e2e --verbose --maxWorkers 2
