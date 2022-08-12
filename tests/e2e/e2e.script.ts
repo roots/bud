@@ -8,11 +8,12 @@ import fs from 'fs-extra'
 import {join} from 'path'
 import {Browser, chromium, Page} from 'playwright'
 
-const logger = repoLogger.make({interactive: false}).scope('e2e', 'basic')
+const logger = repoLogger.make({interactive: false}).scope('e2e', 'babel')
+logger.enable()
 
 const reset = async () =>
   fs.writeFile(
-    join(paths.mocks, 'yarn', 'basic', 'src', 'index.js'),
+    join(paths.mocks, 'yarn', '@examples', 'basic', 'src', 'index.js'),
     `\
 import './styles.css'
 
@@ -24,7 +25,7 @@ module?.hot?.accept()
 
 const update = async () =>
   fs.writeFile(
-    join(paths.mocks, 'yarn', 'basic', 'src', 'index.js'),
+    join(paths.mocks, 'yarn', '@examples', 'basic', 'src', 'index.js'),
     `\
 import './styles.css'
 
@@ -41,80 +42,71 @@ export const test = () => {
   let ready = false
 
   beforeAll(done => {
-    logger.await('initializing dev process')
+    logger.log('setting up')
 
-    try {
-      chromium
-        .launch()
-        .then(instance => {
-          browser = instance
-        })
-        .then(async () => {
-          try {
-            devProcess = execa(
-              'node',
-              ['./node_modules/.bin/bud', 'dev', '--html', '--log'],
-              {
-                cwd: join(paths.mocks, 'yarn', 'basic'),
-              },
-            )
+    chromium
+      .launch()
+      .then(instance => {
+        browser = instance
+      })
+      .then(async () => {
+        logger.log('initializing dev process')
 
-            devProcess.stdout?.on('data', data => {
-              const output = data.toString()
+        devProcess = execa(
+          'node',
+          ['./node_modules/.bin/bud', 'dev', '--html', '--no-cache'],
+          {
+            cwd: join(paths.mocks, 'yarn', '@examples', 'basic'),
+          },
+        )
 
-              if (
-                output.includes('… watching project sources') &&
-                ready !== true
-              ) {
-                logger.success('dev process ready')
-                ready = true
-                done()
-              }
-            })
+        devProcess.stdout?.on('data', data => {
+          const output = data.toString()
+          logger.log(output)
 
-            devProcess.stderr?.on('data', data => {
-              logger.error(data.toString())
-            })
-          } catch (e) {
-            throw new Error(e)
+          if (
+            output.includes('watching project sources') &&
+            ready !== true
+          ) {
+            ready = true
+            done()
           }
         })
-    } catch (e) {
-      logger.error(e)
-    }
+
+        devProcess.stderr?.on('data', data => {
+          logger.error(data.toString())
+        })
+      })
   })
 
   afterAll(async () => {
     try {
+      await reset()
+      await page?.close()
+      await browser?.close()
       devProcess.kill('SIGQUIT')
-      await page.close()
-      await browser.close()
     } catch (e) {
       logger.error(e)
     }
-
-    await reset()
   })
 
   beforeEach(async () => {
     try {
+      await reset()
       page = await browser.newPage()
       await page.goto('http://0.0.0.0:3000/')
     } catch (e) {
       logger.error(e)
     }
-
-    await reset()
   })
 
   afterEach(async () => {
     try {
-      await page.close()
+      await reset()
+      await page?.close()
     } catch (e) {
       logger.error(e)
     }
-
-    await reset()
   })
 
   it('should have page title: `Webpack App`', async () => {

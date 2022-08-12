@@ -66,15 +66,16 @@ export class TestRun extends Command {
       this.log('integration tests directory cleaned')
     }
 
-    await this.tryExecuting(`yarn`, [
-      `node`,
-      `--experimental-vm-modules`,
-      join(paths.root, `node_modules/.bin/jest`),
-      `--config`,
-      join(paths.root, `config/jest.config.js`),
-      `--selectProjects`,
-      this.select,
-      ...(this.passthrough ?? []),
-    ])
+    await this.$(
+      this.withPassthrough(
+        `yarn node --experimental-vm-modules ${join(
+          paths.root,
+          `node_modules/.bin/jest`,
+        )} --config ${join(
+          paths.root,
+          `config/jest.config.js`,
+        )} --selectProjects ${this.select} --verbose `,
+      ),
+    )
   }
 }

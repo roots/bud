@@ -9,10 +9,11 @@ import {join} from 'path'
 import {Browser, chromium, Page} from 'playwright'
 
 const logger = repoLogger.make({interactive: false}).scope('e2e', 'babel')
+logger.enable()
 
 const reset = async () =>
   fs.writeFile(
-    join(paths.mocks, 'yarn', 'babel', 'src', 'global.css'),
+    join(paths.mocks, 'yarn', '@examples', 'babel', 'src', 'global.css'),
     `\
 html,
 body {
@@ -38,7 +39,7 @@ body {
 
 const update = async () =>
   fs.writeFile(
-    join(paths.mocks, 'yarn', 'babel', 'src', 'global.css'),
+    join(paths.mocks, 'yarn', '@examples', 'babel', 'src', 'global.css'),
     `\
 html,
 body {
@@ -81,17 +82,18 @@ export const test = () => {
           try {
             devProcess = execa(
               'node',
-              ['./node_modules/.bin/bud', 'dev', '--log'],
+              ['./node_modules/.bin/bud', 'dev', '--no-cache'],
               {
-                cwd: join(paths.mocks, 'yarn', 'babel'),
+                cwd: join(paths.mocks, 'yarn', '@examples', 'babel'),
               },
             )
 
             devProcess.stdout?.on('data', data => {
               const output = data.toString()
+              logger.log(output)
 
               if (
-                output.includes('… watching project sources') &&
+                output.includes('watching project sources') &&
                 ready !== true
               ) {
                 logger.success('dev process ready')
@@ -101,48 +103,45 @@ export const test = () => {
             })
 
             devProcess.stderr?.on('data', data => {
-              throw new Error(data.toString())
+              logger.error(data.toString())
             })
           } catch (e) {
             throw new Error(e)
           }
         })
     } catch (e) {
-      logger.error(e)
+      throw new Error(e)
     }
   })
 
   afterAll(async () => {
     try {
-      devProcess.kill('SIGQUIT')
-      await page.close()
-      await browser.close()
-    } catch (e) {
       await reset()
+      await page?.close()
+      await browser?.close()
+      devProcess.kill('SIGQUIT')
+    } catch (e) {
       throw new Error(e)
     }
-    await reset()
   })
 
   beforeEach(async () => {
     try {
+      await reset()
       page = await browser.newPage()
       await page.goto('http://0.0.0.0:3005/')
     } catch (e) {
-      await reset()
       throw new Error(e)
     }
-    await reset()
   })
 
   afterEach(async () => {
     try {
+      await reset()
       await page.close()
     } catch (e) {
-      await reset()
       throw new Error(e)
     }
-    await reset()
   })
 
   it('should have page title: `Webpack App`', async () => {
