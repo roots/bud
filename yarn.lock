@@ -4475,7 +4475,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/cli-progress": ^3
     "@types/lodash-es": 4.17.6
-    "@types/node": 16.11.47
+    "@types/node": 16.11.48
     "@types/react": ^18
     chalk: 5.0.1
     figures: 4.0.1
@@ -6609,13 +6609,6 @@ __metadata:
   version: 17.0.27
   resolution: "@types/node@npm:17.0.27"
   checksum: 6645ca813c24dcb9893729ed6f87a9e415d6df03cb3e1ececa3a03ca845d3324c3808b4dc79c08a4b3c7d1ccd515e6d7e004db9c9123c9333e963675238e39fc
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:16.11.47":
-  version: 16.11.47
-  resolution: "@types/node@npm:16.11.47"
-  checksum: 26811000753fd1bb9a90a563fc72942ac3ad5d5b6c97609a090c1e24210e040597ba060e55a7a46cb22cc84dafee112d741f45652139c6166e8ce0c970b4f05a
   languageName: node
   linkType: hard
 
