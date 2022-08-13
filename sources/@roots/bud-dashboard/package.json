@@ -52,7 +52,7 @@
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@types/lodash-es": "4.17.6",
-    "@types/node": "16.11.47",
+    "@types/node": "16.11.48",
     "tslib": "2.4.0",
     "webpack": "5.73.0"
   },
