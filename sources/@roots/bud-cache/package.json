@@ -58,14 +58,14 @@
     "@skypack/package-check": "0.2.2",
     "@types/fs-extra": "9.0.13",
     "@types/lodash": "4.14.182",
-    "@types/lodash-es": "4.17.6",
-    "tslib": "2.4.0"
+    "@types/lodash-es": "4.17.6"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "fs-extra": "10.1.0",
     "helpful-decorators": "2.1.0",
-    "lodash-es": "4.17.21"
+    "lodash-es": "4.17.21",
+    "tslib": "2.4.0"
   },
   "volta": {
     "extends": "../../../package.json"

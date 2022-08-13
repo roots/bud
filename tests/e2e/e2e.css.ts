@@ -8,6 +8,9 @@ import fs from 'fs-extra'
 import {join} from 'path'
 import {Browser, chromium, Page} from 'playwright'
 
+import copy from './util/copy'
+import install from './util/install'
+
 const reset = async () =>
   fs.writeFile(
     join(paths.mocks, 'yarn', '@examples', 'babel', 'src', 'global.css'),
@@ -64,16 +67,15 @@ export const test = () => {
   let browser: Browser
   let page: Page
   let devProcess: ExecaChildProcess
-  let ready = false
 
   beforeAll(done => {
-    logger.await('initializing dev process')
-
     chromium
       .launch()
       .then(instance => {
         browser = instance
       })
+      .then(copy('babel'))
+      .then(install('babel'))
       .then(async () => {
         devProcess = execa(
           'node',
@@ -87,12 +89,7 @@ export const test = () => {
           const output = data.toString()
           logger.log(output)
 
-          if (
-            output.includes('watching project sources') &&
-            ready !== true
-          ) {
-            logger.success('dev process ready')
-            ready = true
+          if (output.includes('watching project sources')) {
             done()
           }
         })
@@ -104,33 +101,19 @@ export const test = () => {
   })
 
   afterAll(async () => {
-    try {
-      await reset()
-      await page?.close()
-      await browser?.close()
-      devProcess.kill('SIGQUIT')
-    } catch (e) {
-      logger.error(e)
-    }
+    await browser?.close()
+    devProcess.kill('SIGQUIT')
   })
 
   beforeEach(async () => {
-    try {
-      await reset()
-      page = await browser.newPage()
-      await page?.goto('http://0.0.0.0:3005/')
-    } catch (e) {
-      logger.error(e)
-    }
+    await reset()
+    page = await browser.newPage()
+    await page?.goto('http://0.0.0.0:3005/')
   })
 
   afterEach(async () => {
-    try {
-      await reset()
-      await page?.close()
-    } catch (e) {
-      logger.error(e)
-    }
+    await reset()
+    await page?.close()
   })
 
   it('should have page title: `Webpack App`', async () => {

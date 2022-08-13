@@ -17,13 +17,20 @@ export const mergeOptions: (
   },
   seed: {
     ...seed,
+    ...(context.seed ?? {}),
     ...(overrides?.seed ?? {}),
   },
   services: {
     ...services,
+    ...(context?.services ?? {}),
     ...(overrides?.services ?? {}),
   },
-  extensions: [...extensions, ...(overrides?.extensions ?? [])].filter(
-    Boolean,
-  ),
+  extensions: [
+    ...extensions,
+    ...(context?.extensions ?? []),
+    ...(overrides?.extensions ?? []),
+  ].filter(Boolean),
+  stdout: overrides?.stdout ?? context?.stdout ?? process.stdout,
+  stderr: overrides?.stderr ?? context?.stderr ?? process.stderr,
+  stdin: overrides?.stdin ?? context?.stdin ?? process.stdin,
 })

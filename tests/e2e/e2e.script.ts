@@ -8,6 +8,9 @@ import fs from 'fs-extra'
 import {join} from 'path'
 import {Browser, chromium, Page} from 'playwright'
 
+import copy from './util/copy'
+import install from './util/install'
+
 const reset = async () =>
   fs.writeFile(
     join(paths.mocks, 'yarn', '@examples', 'basic', 'src', 'index.js'),
@@ -36,16 +39,15 @@ export const test = () => {
   let browser: Browser
   let page: Page
   let devProcess: ExecaChildProcess
-  let ready = false
 
   beforeAll(done => {
-    logger.log('setting up')
-
     chromium
       .launch()
       .then(instance => {
         browser = instance
       })
+      .then(copy('basic'))
+      .then(install('basic'))
       .then(async () => {
         logger.log('initializing dev process')
 
@@ -61,11 +63,7 @@ export const test = () => {
           const output = data.toString()
           logger.log(output)
 
-          if (
-            output.includes('watching project sources') &&
-            ready !== true
-          ) {
-            ready = true
+          if (output.includes('watching project sources')) {
             done()
           }
         })
@@ -77,33 +75,18 @@ export const test = () => {
   })
 
   afterAll(async () => {
-    try {
-      await reset()
-      await page?.close()
-      await browser?.close()
-      devProcess.kill('SIGQUIT')
-    } catch (e) {
-      logger.error(e)
-    }
+    await browser?.close()
+    devProcess?.kill('SIGQUIT')
   })
 
   beforeEach(async () => {
-    try {
-      await reset()
-      page = await browser.newPage()
-      await page.goto('http://0.0.0.0:3000/')
-    } catch (e) {
-      logger.error(e)
-    }
+    await reset()
+    page = await browser.newPage()
+    await page.goto('http://0.0.0.0:3000/')
   })
 
   afterEach(async () => {
-    try {
-      await reset()
-      await page?.close()
-    } catch (e) {
-      logger.error(e)
-    }
+    await page?.close()
   })
 
   it('should have page title: `Webpack App`', async () => {
