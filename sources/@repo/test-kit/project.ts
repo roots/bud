@@ -3,7 +3,6 @@
 import {jest} from '@jest/globals'
 import {paths, REGISTRY_PROXY} from '@repo/constants'
 import * as logger from '@repo/logger'
-import chalk from 'chalk'
 import {execa, ExecaChildProcess} from 'execa'
 import fs from 'fs-extra'
 import {bind} from 'helpful-decorators'
@@ -67,16 +66,23 @@ export class Project {
 
   /**
    * dir
+   *
    * @public
    */
   public dir: string
 
   /**
    * logger
+   *
    * @public
    */
   public logger: typeof logger.logger
 
+  /**
+   * Class constructor
+   *
+   * @public
+   */
   public constructor(public options: Options) {
     this.dir = join(paths.mocks, this.options.with, this.options.label)
     this.options.dist = this.options.dist ?? 'dist'
@@ -87,6 +93,8 @@ export class Project {
   }
 
   /**
+   * setup project
+   *
    * @public
    * @decorator `@bind`
    */
