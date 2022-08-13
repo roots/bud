@@ -110,11 +110,6 @@ export class Project {
     flags: Array<string>,
   ): Promise<ExecaChildProcess> {
     try {
-      this.logger.log(
-        chalk.blue(bin),
-        chalk.magenta((flags ?? []).join(' ')),
-      )
-
       const child = execa(bin, flags ?? [], {
         cwd: this.projectPath(),
       })
