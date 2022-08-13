@@ -61,8 +61,8 @@ export default async () => ({
     {
       ...base,
       displayName: 'e2e',
-      testTimeout: 3 * 60 * 1000,
-      slowTestThreshold: 3 * 60 * 1000,
+      testTimeout: 6 * 60 * 1000,
+      slowTestThreshold: 6 * 60 * 1000,
       reporters: ['default'],
       testMatch: ['**/tests/e2e/**/*.test.ts'],
     },
