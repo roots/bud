@@ -6614,7 +6614,7 @@ __metadata:
 
 "@types/node@npm:16.11.47":
   version: 16.11.47
-  resolution: "@types/node@npm:16.11.47::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2F%40types%252fnode%2F-%2Fnode-16.11.47.tgz"
+  resolution: "@types/node@npm:16.11.47"
   checksum: 26811000753fd1bb9a90a563fc72942ac3ad5d5b6c97609a090c1e24210e040597ba060e55a7a46cb22cc84dafee112d741f45652139c6166e8ce0c970b4f05a
   languageName: node
   linkType: hard
