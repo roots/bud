@@ -4138,7 +4138,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@repo/constants@workspace:sources/@repo/constants":
+"@repo/constants@workspace:*, @repo/constants@workspace:sources/@repo/constants":
   version: 0.0.0-use.local
   resolution: "@repo/constants@workspace:sources/@repo/constants"
   dependencies:
@@ -4179,7 +4179,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@repo/logger@workspace:sources/@repo/logger":
+"@repo/logger@workspace:*, @repo/logger@workspace:sources/@repo/logger":
   version: 0.0.0-use.local
   resolution: "@repo/logger@workspace:sources/@repo/logger"
   dependencies:
@@ -4215,7 +4215,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@repo/test-kit@workspace:sources/@repo/test-kit":
+"@repo/test-kit@workspace:*, @repo/test-kit@workspace:sources/@repo/test-kit":
   version: 0.0.0-use.local
   resolution: "@repo/test-kit@workspace:sources/@repo/test-kit"
   dependencies:
@@ -9956,6 +9956,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "bud@workspace:."
   dependencies:
+    "@jest/globals": 28.1.3
+    "@repo/constants": "workspace:*"
+    "@repo/logger": "workspace:*"
+    "@repo/test-kit": "workspace:*"
     "@swc/core": 1.2.223
     "@swc/jest": 0.2.22
     "@types/express": 4.17.13

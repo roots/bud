@@ -2,14 +2,11 @@
 
 import {expect, it} from '@jest/globals'
 import {paths} from '@repo/constants'
-import * as repoLogger from '@repo/logger'
+import {logger} from '@repo/logger'
 import {execa, ExecaChildProcess} from 'execa'
 import fs from 'fs-extra'
 import {join} from 'path'
 import {Browser, chromium, Page} from 'playwright'
-
-const logger = repoLogger.make({interactive: false}).scope('e2e', 'babel')
-logger.enable()
 
 const reset = async () =>
   fs.writeFile(

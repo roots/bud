@@ -69,7 +69,7 @@ jobs:
 
       - name: yarn @bud test unit
         run: |
-          yarn @bud test unit --verbose --maxWorkers 2
+          yarn @bud test unit
 
       - name: yarn @bud registry install
         run: |
@@ -85,8 +85,8 @@ jobs:
 
       - name: yarn @bud test integration
         run: |
-          yarn @bud test integration --verbose --maxWorkers 2
+          yarn @bud test integration
 
       - name: yarn @bud test e2e
         run: |
-          yarn @bud test e2e --verbose --maxWorkers 2
+          yarn @bud test e2e
