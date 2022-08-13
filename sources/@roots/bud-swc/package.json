@@ -57,12 +57,12 @@
   "devDependencies": {
     "@roots/bud-build": "workspace:sources/@roots/bud-build",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.11.47",
+    "@types/node": "16.11.48",
     "webpack": "5.73.0"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@swc/core": "1.2.223",
+    "@swc/core": "1.2.228",
     "swc-loader": "0.2.3",
     "ts-node": "10.9.1",
     "tslib": "2.4.0"

@@ -110,7 +110,7 @@
     "@types/lodash": "4.14.182",
     "@types/lodash-es": "4.17.6",
     "@types/mini-css-extract-plugin": "2.5.0",
-    "@types/node": "16.11.47",
+    "@types/node": "16.11.48",
     "@types/node-notifier": "8.0.2",
     "@types/react": "^18",
     "@types/signale": "1.4.4"
