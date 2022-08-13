@@ -58,7 +58,7 @@
     "@babel/core": "7.18.10",
     "@skypack/package-check": "0.2.2",
     "@types/babel__core": "7.1.19",
-    "@types/node": "16.11.47",
+    "@types/node": "16.11.48",
     "@types/prettier": "2.6.4",
     "eslint": "8.19.0",
     "prettier": "2.7.1"
