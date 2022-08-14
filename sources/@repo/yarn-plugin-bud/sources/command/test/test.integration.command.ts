@@ -65,7 +65,7 @@ export class TestIntegration extends Command {
         paths.root,
         `config/jest.config.js`,
       )} --selectProjects integration --verbose --testTimeout ${
-        60 * 1000
+        120 * 1000
       }`,
     )
   }
