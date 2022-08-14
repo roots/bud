@@ -19,6 +19,7 @@ const copy = (designator: string) => async () => {
     join(paths.root, 'storage', 'mocks', 'yarn', '@examples', designator),
     options,
   )
+
   const file = await fs.readFile(
     join(paths.sources, '@repo', 'test-kit', '.yarnrc.stub.yml'),
     'utf8',

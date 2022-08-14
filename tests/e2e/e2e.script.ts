@@ -84,7 +84,7 @@ export const test = () => {
 
   afterAll(async () => {
     await browser?.close()
-    devProcess?.kill('SIGQUIT')
+    devProcess?.kill('SIGINT')
   })
 
   beforeEach(async () => {

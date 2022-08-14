@@ -98,6 +98,8 @@ export const test = () => {
           devProcess.stderr?.on('data', data => {
             logger.error(data.toString())
           })
+
+          await devProcess
         })
     } catch (error) {
       throw new Error(error)
@@ -106,7 +108,7 @@ export const test = () => {
 
   afterAll(async () => {
     await browser?.close()
-    devProcess.kill('SIGQUIT')
+    devProcess.kill('SIGINT')
   })
 
   beforeEach(async () => {
