@@ -41,42 +41,26 @@ let devProcess: ExecaChildProcess
 
 export const test = () => {
   beforeAll(done => {
-    try {
-      chromium
-        .launch()
-        .then(instance => {
-          browser = instance
-        })
-        .then(copy('basic'))
-        .then(install('basic'))
-        .then(async () => {
-          try {
-            logger.log('initializing dev process')
+    chromium
+      .launch()
+      .then(instance => {
+        browser = instance
+      })
+      .then(copy('basic'))
+      .then(install('basic'))
+      .then(async () => {
+        logger.log('initializing dev process')
 
-            devProcess = execa(
-              'node',
-              ['./node_modules/.bin/bud', 'dev', '--html', '--no-cache'],
-              {
-                cwd: join(paths.mocks, 'yarn', '@examples', 'basic'),
-              },
-            )
+        devProcess = execa(
+          'node',
+          ['./node_modules/.bin/bud', 'dev', '--html', '--no-cache'],
+          {
+            cwd: join(paths.mocks, 'yarn', '@examples', 'basic'),
+          },
+        )
 
-            devProcess.stdout?.on('data', data => {
-              const output: string = data.toString()
-              logger.log(output)
-              output.split('\n').some(ln => ln.includes('◉')) && done()
-            })
-
-            devProcess.stderr?.on('data', data => {
-              logger.error(data.toString())
-            })
-          } catch (error) {
-            logger.error(error)
-          }
-        })
-    } catch (error) {
-      throw new Error(error)
-    }
+        setTimeout(done, 5000)
+      })
   })
 
   afterAll(async () => {

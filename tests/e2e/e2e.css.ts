@@ -69,36 +69,24 @@ export const test = () => {
   let devProcess: ExecaChildProcess
 
   beforeAll(done => {
-    try {
-      chromium
-        .launch()
-        .then(instance => {
-          browser = instance
-        })
-        .then(copy('babel'))
-        .then(install('babel'))
-        .then(async () => {
-          devProcess = execa(
-            'node',
-            ['./node_modules/.bin/bud', 'dev', '--no-cache'],
-            {
-              cwd: join(paths.mocks, 'yarn', '@examples', 'babel'),
-            },
-          )
+    chromium
+      .launch()
+      .then(instance => {
+        browser = instance
+      })
+      .then(copy('babel'))
+      .then(install('babel'))
+      .then(async () => {
+        devProcess = execa(
+          'node',
+          ['./node_modules/.bin/bud', 'dev', '--no-cache'],
+          {
+            cwd: join(paths.mocks, 'yarn', '@examples', 'babel'),
+          },
+        )
 
-          devProcess.stdout?.on('data', data => {
-            const output: string = data.toString()
-            logger.log(output)
-            output.split('\n').some(ln => ln.includes('◉')) && done()
-          })
-
-          devProcess.stderr?.on('data', data => {
-            logger.error(data.toString())
-          })
-        })
-    } catch (error) {
-      throw new Error(error)
-    }
+        setTimeout(done, 5000)
+      })
   })
 
   afterAll(async () => {
