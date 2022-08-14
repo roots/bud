@@ -35,43 +35,51 @@ module?.hot?.accept()
 `,
   )
 
+let browser: Browser
+let page: Page
+let devProcess: ExecaChildProcess
+
 export const test = () => {
-  let browser: Browser
-  let page: Page
-  let devProcess: ExecaChildProcess
-
   beforeAll(done => {
-    chromium
-      .launch()
-      .then(instance => {
-        browser = instance
-      })
-      .then(copy('basic'))
-      .then(install('basic'))
-      .then(async () => {
-        logger.log('initializing dev process')
+    try {
+      chromium
+        .launch()
+        .then(instance => {
+          browser = instance
+        })
+        .then(copy('basic'))
+        .then(install('basic'))
+        .then(async () => {
+          try {
+            logger.log('initializing dev process')
 
-        devProcess = execa(
-          'node',
-          ['./node_modules/.bin/bud', 'dev', '--html', '--no-cache'],
-          {
-            cwd: join(paths.mocks, 'yarn', '@examples', 'basic'),
-          },
-        )
+            devProcess = execa(
+              'node',
+              ['./node_modules/.bin/bud', 'dev', '--html', '--no-cache'],
+              {
+                cwd: join(paths.mocks, 'yarn', '@examples', 'basic'),
+              },
+            )
 
-        devProcess.stdout?.on('data', data => {
-          const output = data.toString()
-          logger.log(output)
+            devProcess.stdout?.on('data', data => {
+              const output: string = data.toString()
+              logger.log(output)
 
-          if (output.includes('watching project sources')) {
-            done()
+              if (output.split('\n').some(ln => ln.includes('◉'))) {
+                done()
+              }
+            })
+
+            devProcess.stderr?.on('data', data => {
+              logger.error(data.toString())
+            })
+          } catch (error) {
+            logger.error(error)
           }
         })
-
-        devProcess.stderr?.on('data', data => {
-          logger.error(data.toString())
-        })
-      })
+    } catch (error) {
+      throw new Error(error)
+    }
   })
 
   afterAll(async () => {

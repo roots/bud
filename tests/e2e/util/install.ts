@@ -27,7 +27,7 @@ const install = (designator: string) => async () => {
     logger.log(data.toString())
   })
 
-  return await install
+  await install
 }
 
 export default install

@@ -69,35 +69,39 @@ export const test = () => {
   let devProcess: ExecaChildProcess
 
   beforeAll(done => {
-    chromium
-      .launch()
-      .then(instance => {
-        browser = instance
-      })
-      .then(copy('babel'))
-      .then(install('babel'))
-      .then(async () => {
-        devProcess = execa(
-          'node',
-          ['./node_modules/.bin/bud', 'dev', '--no-cache'],
-          {
-            cwd: join(paths.mocks, 'yarn', '@examples', 'babel'),
-          },
-        )
-
-        devProcess.stdout?.on('data', data => {
-          const output = data.toString()
-          logger.log(output)
-
-          if (output.includes('watching project sources')) {
-            done()
-          }
+    try {
+      chromium
+        .launch()
+        .then(instance => {
+          browser = instance
         })
+        .then(copy('babel'))
+        .then(install('babel'))
+        .then(async () => {
+          devProcess = execa(
+            'node',
+            ['./node_modules/.bin/bud', 'dev', '--no-cache'],
+            {
+              cwd: join(paths.mocks, 'yarn', '@examples', 'babel'),
+            },
+          )
 
-        devProcess.stderr?.on('data', data => {
-          logger.error(data.toString())
+          devProcess.stdout?.on('data', data => {
+            const output: string = data.toString()
+            logger.log(output)
+
+            if (output.split('\n').some(ln => ln.includes('◉'))) {
+              done()
+            }
+          })
+
+          devProcess.stderr?.on('data', data => {
+            logger.error(data.toString())
+          })
         })
-      })
+    } catch (error) {
+      throw new Error(error)
+    }
   })
 
   afterAll(async () => {
