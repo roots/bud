@@ -1,4 +1,4 @@
-name: Build & Test
+name: test (format)
 
 on:
   pull_request:
@@ -66,27 +66,3 @@ jobs:
       - name: yarn @bud lint exports
         run: |
           yarn @bud lint exports
-
-      - name: yarn @bud test unit
-        run: |
-          yarn @bud test unit
-
-      - name: yarn @bud registry install
-        run: |
-          yarn @bud registry install
-
-      - name: yarn @bud registry start
-        run: |
-          yarn @bud registry start
-
-      - name: yarn @bud release --tag latest
-        run: |
-          yarn @bud release --tag latest
-
-      - name: yarn @bud test integration
-        run: |
-          yarn @bud test integration
-
-      - name: yarn @bud test e2e
-        run: |
-          yarn @bud test e2e

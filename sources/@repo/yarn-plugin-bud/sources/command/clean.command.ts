@@ -40,17 +40,18 @@ export class Clean extends Command {
    * @internal
    */
   public async execute() {
-    try {
-      await this.$(`rm -rf **/.budfiles`)
-      await this.$(`rm -rf **/node_modules/*`)
-      await this.$(`rm -rf ${repo.paths.sources}/@roots/*/lib/*`)
-      await this.$(`rm -rf ${repo.paths.sources}/@roots/*/types/*`)
-    } catch (e) {}
-
-    try {
-      await this.$(`rm -rf storage/packages/@roots/*`)
-      await this.$(`rm -rf storage/packages/npm/*`)
-      await this.$(`rm -rf storage/mocks/*`)
-    } catch (e) {}
+    await this.$(
+      `rm -rf **/.budfiles`,
+      `rm -rf ${repo.paths.root}node_modules`,
+      `rm -rf ${repo.paths.sources}@roots/*/lib`,
+      `rm -rf ${repo.paths.sources}@roots/*/node_modules`,
+      `rm -rf ${repo.paths.sources}@roots/*/types`,
+      `rm -rf ${repo.paths.sources}**/.tsbuildinfo`,
+      `rm -rf ${repo.paths.root}storage/packages`,
+      `rm -rf ${repo.paths.root}storage/mocks`,
+      `rm -rf ${repo.paths.root}storage/node_modules`,
+      `rm -rf ${repo.paths.root}storage/yarn`,
+      `rm -rf ${repo.paths.root}storage/.verdaccio-db.json`,
+    )
   }
 }

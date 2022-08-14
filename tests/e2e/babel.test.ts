@@ -1,8 +1,7 @@
 /* eslint-disable no-console */
 
-import {expect, it} from '@jest/globals'
+import {describe, expect, it} from '@jest/globals'
 import {paths} from '@repo/constants'
-import {logger} from '@repo/logger'
 import {execa, ExecaChildProcess} from 'execa'
 import fs from 'fs-extra'
 import {join} from 'path'
@@ -63,46 +62,47 @@ body {
 `,
   )
 
-export const test = () => {
+describe('html output of examples/babel', () => {
   let browser: Browser
   let page: Page
   let devProcess: ExecaChildProcess
 
   beforeAll(done => {
-    chromium
-      .launch()
-      .then(instance => {
-        browser = instance
-      })
-      .then(copy('babel'))
+    copy('babel')
       .then(install('babel'))
       .then(async () => {
         devProcess = execa(
           'node',
           ['./node_modules/.bin/bud', 'dev', '--no-cache'],
-          {
-            cwd: join(paths.mocks, 'yarn', '@examples', 'babel'),
-          },
+          {cwd: join(paths.mocks, 'yarn', '@examples', 'babel')},
         )
+        devProcess.stdout?.pipe(process.stdout)
 
         setTimeout(done, 5000)
+
+        await devProcess.catch(err => {
+          process.stderr.write(JSON.stringify(err))
+        })
       })
   })
 
   afterAll(async () => {
-    await browser?.close()
-    devProcess.kill('SIGINT')
+    devProcess?.kill('SIGINT')
   })
 
   beforeEach(async () => {
     await reset()
-    page = await browser.newPage()
-    await page?.goto('http://0.0.0.0:3005/')
+
+    await chromium.launch().then(async instance => {
+      browser = instance
+      page = await browser.newPage()
+      await page?.goto('http://0.0.0.0:3005/')
+    })
   })
 
   afterEach(async () => {
-    await reset()
     await page?.close()
+    await browser?.close()
   })
 
   it('should have page title: `Webpack App`', async () => {
@@ -136,4 +136,4 @@ export const test = () => {
       'rgb(0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box',
     )
   })
-}
+})

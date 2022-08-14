@@ -8,7 +8,7 @@ const options = {
   recursive: true,
 }
 
-const copy = (designator: string) => async () => {
+const copy = async (designator: string) => {
   logger.log(`copying @examples/${designator}`)
 
   await fs.remove(
@@ -24,6 +24,7 @@ const copy = (designator: string) => async () => {
     join(paths.sources, '@repo', 'test-kit', '.yarnrc.stub.yml'),
     'utf8',
   )
+
   await fs.outputFile(
     join(
       paths.root,
@@ -36,6 +37,8 @@ const copy = (designator: string) => async () => {
     ),
     file,
   )
+
+  return
 }
 
 export default copy

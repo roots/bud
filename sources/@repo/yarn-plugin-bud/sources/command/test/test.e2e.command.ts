@@ -11,7 +11,7 @@ import {Command} from '../base.command'
  *
  * @internal
  */
-export class TestRun extends Command {
+export class TestE2E extends Command {
   /**
    * Command name
    *
@@ -24,7 +24,7 @@ export class TestRun extends Command {
    *
    * @internal
    */
-  public static paths: CommandClass['paths'] = [[`@bud`, `test`]]
+  public static paths: CommandClass['paths'] = [[`@bud`, `test`, `e2e`]]
 
   /**
    * Command usage
@@ -33,18 +33,9 @@ export class TestRun extends Command {
    */
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
-    description: `run tests`,
-    examples: [
-      [`run e2e tests`, `yarn @bud test e2e`],
-      [`run unit tests`, `yarn @bud test unit`],
-      [`run integration tests`, `yarn @bud test integration`],
-    ],
+    description: `run e2e tests`,
+    examples: [[`run e2e tests`, `yarn @bud test e2e`]],
   }
-
-  public select = Option.String({
-    name: 'selectProjects',
-    required: true,
-  })
 
   /**
    * Variadic arguments
@@ -59,13 +50,6 @@ export class TestRun extends Command {
    * @internal
    */
   public async execute() {
-    if (this.passthrough.includes('integration')) {
-      await ensureFile(join(paths.root, `storage/yarn.lock`))
-      await ensureDir(join(paths.root, `storage/mocks`))
-      await remove(join(paths.root, `storage/mocks`))
-      this.log('integration tests directory cleaned')
-    }
-
     await this.$(
       `yarn node --experimental-vm-modules ${join(
         paths.root,
@@ -73,8 +57,8 @@ export class TestRun extends Command {
       )} ${this.passthrough ?? ''} --config ${join(
         paths.root,
         `config/jest.config.js`,
-      )} --selectProjects ${this.select} --verbose ${
-        process.env.CI ? '--runInBand' : ''
+      )} --selectProjects e2e --verbose --runInBand --testTimeout ${
+        60 * 1000
       }`,
     )
   }

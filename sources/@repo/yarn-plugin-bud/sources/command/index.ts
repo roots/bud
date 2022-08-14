@@ -1,4 +1,5 @@
 import {Bud} from './bud.command'
+import {CI} from './ci.command'
 import {Clean} from './clean.command'
 import {Compile} from './compile.command'
 import {Dev} from './dev.command'
@@ -16,9 +17,10 @@ import {Pm2} from './registry/pm2.command'
 import {RegistryStart} from './registry/start.command'
 import {RegistryStop} from './registry/stop.command'
 import {Release} from './release.command'
-import {TestRun} from './test/run.command'
-import {TestSetup} from './test/setup.command'
-import {TestTeardown} from './test/teardown.command'
+import {TestRun} from './test/test.command'
+import {TestE2E} from './test/test.e2e.command'
+import {TestIntegration} from './test/test.integration.command'
+import {TestUnit} from './test/test.unit.command'
 import {Tsc} from './tsc.command'
 import {Vendor} from './vendor.command'
 import {Version} from './version.command'
@@ -26,6 +28,7 @@ import {Version} from './version.command'
 export const Commands = {
   Bud,
   Clean,
+  CI,
   Compile,
   Dev,
   Docs,
@@ -42,9 +45,10 @@ export const Commands = {
   RegistryStart,
   RegistryStop,
   Release,
+  TestE2E,
+  TestIntegration,
+  TestUnit,
   TestRun,
-  TestSetup,
-  TestTeardown,
   Tsc,
   Vendor,
   Version,

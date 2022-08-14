@@ -31,6 +31,8 @@ const base = {
     '<rootDir>/tests/__mocks__',
     '<rootDir>/storage/',
   ],
+  slowTestThreshold: 10,
+  testTimeout: 60 * 1000,
 
   /**
    * `@swc/jest` transformer

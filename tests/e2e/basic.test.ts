@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 
-import {expect, it} from '@jest/globals'
+import {describe, expect, it} from '@jest/globals'
 import {paths} from '@repo/constants'
 import {logger} from '@repo/logger'
 import {execa, ExecaChildProcess} from 'execa'
@@ -39,43 +39,42 @@ let browser: Browser
 let page: Page
 let devProcess: ExecaChildProcess
 
-export const test = () => {
+describe('html output of examples/basic', () => {
   beforeAll(done => {
-    chromium
-      .launch()
-      .then(instance => {
-        browser = instance
-      })
-      .then(copy('basic'))
+    copy('basic')
       .then(install('basic'))
       .then(async () => {
-        logger.log('initializing dev process')
-
         devProcess = execa(
           'node',
           ['./node_modules/.bin/bud', 'dev', '--html', '--no-cache'],
-          {
-            cwd: join(paths.mocks, 'yarn', '@examples', 'basic'),
-          },
+          {cwd: join(paths.mocks, 'yarn', '@examples', 'basic')},
         )
+        devProcess.stdout?.pipe(process.stdout)
 
         setTimeout(done, 5000)
+
+        await devProcess.catch(err => {
+          process.stderr.write(JSON.stringify(err))
+        })
       })
   })
 
   afterAll(async () => {
-    await browser?.close()
     devProcess?.kill('SIGINT')
   })
 
   beforeEach(async () => {
     await reset()
-    page = await browser.newPage()
-    await page.goto('http://0.0.0.0:3000/')
+    await chromium.launch().then(async instance => {
+      browser = instance
+      page = await browser.newPage()
+      await page?.goto('http://0.0.0.0:3000/')
+    })
   })
 
   afterEach(async () => {
     await page?.close()
+    await browser?.close()
   })
 
   it('should have page title: `Webpack App`', async () => {
@@ -95,4 +94,4 @@ export const test = () => {
     const hot = await page.$('.hot')
     expect(hot).toBeTruthy()
   })
-}
+})
