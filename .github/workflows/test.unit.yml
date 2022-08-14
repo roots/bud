@@ -1,4 +1,4 @@
-name: Build & Test
+name: test (unit)
 
 on:
   pull_request:
@@ -50,22 +50,6 @@ jobs:
       - name: yarn @bud build
         run: |
           yarn @bud build
-
-      - name: yarn @bud lint dependencies
-        run: |
-          yarn @bud lint dependencies
-
-      - name: yarn @bud lint
-        run: |
-          yarn @bud lint
-
-      - name: yarn @bud format
-        run: |
-          yarn @bud format --no-fix
-
-      - name: yarn @bud lint exports
-        run: |
-          yarn @bud lint exports
 
       - name: yarn @bud test unit
         run: |
