@@ -27,7 +27,7 @@ export const initialize = (app: Bud) => {
     // kill-9
     .on('SIGTERM', makeHandler(app, 0))
 
-    // ctrl-c
+    // keyboard quit event
     .on('SIGQUIT', makeHandler(app, 0))
 
     // exit with errors
@@ -41,8 +41,6 @@ export const initialize = (app: Bud) => {
  * Create an error handler
  */
 function makeHandler(app: Bud, code: number) {
-  const ERROR = code !== 0
-
   const close = () => {
     process.exitCode = code
 
@@ -59,13 +57,15 @@ function makeHandler(app: Bud, code: number) {
         app.compiler.compilation.close(() => app.close())
       }
     } catch (err) {
+      renderError(err.message)
       process.exitCode = 2
-      process.exit()
     }
+
+    process.exit()
   }
 
   return (exitMessage: string | Error) => {
-    if (!ERROR) return close()
+    if (process.exitCode === 0) return close()
     renderError(
       exitMessage instanceof Error ? exitMessage.message : exitMessage,
     )

@@ -28,9 +28,7 @@ export const parseAlias: (app: Bud, ...base: Array<string>) => string = (
 
   /* If there is no match for ident there is a problem */
   !app.hooks.has(`location.${ident as keyof Locations}`) &&
-    app.error(
-      `\`${ident}\` is not a registered path. It must be defined with bud.setPath`,
-    )
+    app.error(`\`${ident}\` is not a registered path`)
 
   /* Replace base path */
   ident = app.hooks.filter(`location.${ident as Handle}`)

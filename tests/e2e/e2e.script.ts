@@ -64,10 +64,7 @@ export const test = () => {
             devProcess.stdout?.on('data', data => {
               const output: string = data.toString()
               logger.log(output)
-
-              if (output.split('\n').some(ln => ln.includes('◉'))) {
-                done()
-              }
+              output.split('\n').some(ln => ln.includes('◉')) && done()
             })
 
             devProcess.stderr?.on('data', data => {
