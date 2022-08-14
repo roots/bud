@@ -67,15 +67,15 @@ export class TestRun extends Command {
     }
 
     await this.$(
-      this.withPassthrough(
-        `yarn node --experimental-vm-modules ${join(
-          paths.root,
-          `node_modules/.bin/jest`,
-        )} --config ${join(
-          paths.root,
-          `config/jest.config.js`,
-        )} --selectProjects ${this.select} --verbose `,
-      ),
+      `yarn node --experimental-vm-modules ${join(
+        paths.root,
+        `node_modules/.bin/jest`,
+      )} ${this.passthrough ?? ''} --config ${join(
+        paths.root,
+        `config/jest.config.js`,
+      )} --selectProjects ${this.select} --verbose ${
+        process.env.CI ? '--runInBand' : ''
+      }`,
     )
   }
 }
