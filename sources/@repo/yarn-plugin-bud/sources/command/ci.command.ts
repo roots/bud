@@ -54,4 +54,8 @@ export class CI extends Command {
     await this.$(`yarn @bud test integration`)
     await this.$(`yarn @bud test e2e`)
   }
+
+  public async err(error: Error) {
+    this.log(error.message)
+  }
 }

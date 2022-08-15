@@ -103,15 +103,14 @@ export const method: method = function (input, replacements) {
   /**
    * Handle URL replacements
    */
-  isUndefined(replacements)
-    ? ctx.hooks.on(
-        'dev.middleware.proxy.replacements',
-        (hookValue): Array<[string | RegExp, string]> => [
-          ...(hookValue ?? []),
-          [ctx.hooks.filter('dev.middleware.proxy.target').href, '/'],
-        ],
-      )
-    : ctx.hooks.on('dev.middleware.proxy.replacements', replacements)
+  replacements = isUndefined(replacements)
+    ? (hookValue): Array<[string | RegExp, string]> => [
+        ...(hookValue ?? []),
+        [ctx.hooks.filter('dev.middleware.proxy.target').href, '/'],
+      ]
+    : replacements
+
+  ctx.hooks.on('dev.middleware.proxy.replacements', replacements)
 
   /**
    * Return bud interface

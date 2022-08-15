@@ -4,8 +4,7 @@ import {isUndefined} from 'lodash-es'
 /**
  * Overlay
  *
- * @param app - Bud instance
- * @returns set of client scripts
+ * @returns Set of client script callbacks
  *
  * @public
  */
@@ -19,10 +18,16 @@ export const callback = () => new Set([overlay, proxyClickInterceptor])
  *
  * @public
  */
-export const proxyClickInterceptor = (app: Bud) =>
-  app.hooks.filter('dev.middleware.enabled', []).includes('proxy')
-    ? `@roots/bud-client/lib/proxy-click-interceptor.js`
-    : null
+export const proxyClickInterceptor = (app: Bud) => {
+  if (!app.hooks.filter('dev.middleware.enabled', []).includes('proxy'))
+    return null
+
+  const params = new URLSearchParams({
+    href: app.hooks.filter('dev.middleware.proxy.target').href,
+  })
+
+  return `@roots/bud-client/lib/proxy-click-interceptor.js?${params.toString()}`
+}
 
 /**
  * Overlay
@@ -32,13 +37,19 @@ export const proxyClickInterceptor = (app: Bud) =>
  *
  * @public
  */
-export const overlay = (app: Bud) =>
-  `@roots/bud-client/lib/index.js?name=${app.label}&bud.overlay=${
-    isUndefined(app.context.args.overlay)
+export const overlay = (app: Bud) => {
+  const params = new URLSearchParams({
+    name: app.label,
+    indicator: isUndefined(app.context.args.indicator)
       ? 'true'
-      : app.context.args.overlay
-  }&bud.indicator=${
-    isUndefined(app.context.args.indicator)
+      : app.context.args.indicator.toString(),
+    overlay: isUndefined(app.context.args.overlay)
       ? 'true'
-      : app.context.args.indicator
-  }&reload=${app.context.args['reload']}`
+      : app.context.args.overlay.toString(),
+    reload: isUndefined(app.context.args.reload)
+      ? 'true'
+      : app.context.args.reload.toString(),
+  })
+
+  return `@roots/bud-client/lib/index.js?${params.toString()}`
+}

@@ -9,6 +9,7 @@ import type {ApplicationURL} from './url.js'
 interface IncomingMessage extends http.IncomingMessage {
   cookies: any
 }
+
 interface ServerResponse extends http.ServerResponse {
   cookie: any
 }
@@ -107,10 +108,10 @@ export class ResponseInterceptorFactory {
     return this.app.hooks
       .filter('dev.middleware.proxy.replacements', [])
       .reduce(
-        (buffer, [find, replace]: [string | RegExp, string]) =>
+        (buffer: string, [find, replace]: [string | RegExp, string]) =>
           buffer
             .split('\n')
-            .map(ln => ln.replaceAll(find, replace))
+            .map((ln: string) => ln.replaceAll(find, replace))
             .join('\n'),
         buffer.toString(),
       )

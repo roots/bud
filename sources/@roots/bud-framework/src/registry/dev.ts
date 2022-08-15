@@ -18,6 +18,7 @@ export interface Dev {
 
   /**
    * Files which trigger a full browser reload
+   * @public
    */
   'dev.watch.files': Set<string>
 
@@ -42,6 +43,12 @@ export interface Dev {
   'dev.middleware.dev.options': Server.Middleware.Available['dev']['options']
   'dev.middleware.dev.options.headers': Server.Middleware.Available['dev']['options']['headers']
   'dev.middleware.dev.options.publicPath': Server.Middleware.Available['dev']['options']['publicPath']
+
+  /**
+   * Proxy URL paths
+   * @public
+   */
+  'dev.middleware.proxy.paths': Array<string>
 
   'dev.middleware.proxy.options': Server.Middleware.Available['proxy']['options']
   'dev.middleware.proxy.options.autoRewrite': Server.Middleware.Available['proxy']['options']['autoRewrite']
