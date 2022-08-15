@@ -8,11 +8,11 @@ import type {Service as Base} from '../../service.js'
  * @public
  */
 export interface Service extends Base {
-  progress: any
+  percentage: number
+
+  log(...strings: Array<string>): unknown
 
   progressCallback(percent: number, scope: string, ...message: any[]): void
-
-  update(): this
 
   /**
    * Render the dashboard
@@ -21,13 +21,5 @@ export interface Service extends Base {
    *
    * @public
    */
-  stats({
-    stats,
-    errors,
-    warnings,
-  }: {
-    stats: StatsCompilation
-    errors: any[]
-    warnings: any[]
-  }): this
+  stats({stats}: {stats: StatsCompilation}): Promise<unknown>
 }

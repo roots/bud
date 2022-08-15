@@ -1,5 +1,5 @@
 {
-  "name": "example-sass-tailwindcss",
+  "name": "@examples/sass-tailwindcss",
   "private": true,
   "browserslist": [
     "extends @roots/browserslist-config/current"

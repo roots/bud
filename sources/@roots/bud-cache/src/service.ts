@@ -68,11 +68,11 @@ export default class Cache
    */
   public get buildDependencies(): any {
     return {
-      bud: Object.values(this.app.context.disk.config),
+      bud: Object.values(this.app.context.config),
     }
   }
-  public set buildDependencies(deps: Context['disk']['config']) {
-    this.app.context.disk.config = deps
+  public set buildDependencies(deps: Context['config']) {
+    this.app.context.config = deps
   }
 
   /**
@@ -158,7 +158,7 @@ export default class Cache
     this.type = 'filesystem'
     this.cacheDirectory = this.app.path(`@storage/cache/webpack`)
     this.managedPaths = [this.app.path(`@modules`)]
-    this.name = `${this.app.name}.${this.app.mode}`
+    this.name = `${this.app.label}.${this.app.mode}`
 
     const args = Object.entries(this.app.context.args)
       .filter(([k, v]) => v !== undefined)
@@ -166,9 +166,7 @@ export default class Cache
       .join(`.`)
 
     this.version = createHash(`sha1`)
-      .update(
-        this.app.json.stringify([this.app.context.disk.config, args]),
-      )
+      .update(this.app.json.stringify([this.app.context.config, args]))
       .digest(`base64`)
       .replace(/[^a-z0-9]/gi, `_`)
       .toLowerCase()

@@ -49,6 +49,7 @@ export declare const paths: {
   root: string
   config: string
   sources: string
+  storage: string
   tests: string
   mocks: string
 }

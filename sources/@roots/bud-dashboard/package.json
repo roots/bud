@@ -51,8 +51,10 @@
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
+    "@types/cli-progress": "^3",
     "@types/lodash-es": "4.17.6",
     "@types/node": "16.11.48",
+    "@types/react": "^18",
     "tslib": "2.4.0",
     "webpack": "5.73.0"
   },
@@ -62,9 +64,12 @@
     "figures": "4.0.1",
     "helpful-decorators": "2.1.0",
     "human-readable": "0.2.1",
+    "ink": "3.2.0",
+    "ink-link": "2.0.0",
+    "ink-spinner": "4.0.3",
     "lodash-es": "4.17.21",
-    "log-update": "5.0.1",
-    "table": "6.8.0"
+    "react": "18.2.0",
+    "webpack-messages": "2.0.4"
   },
   "volta": {
     "extends": "../../../package.json"

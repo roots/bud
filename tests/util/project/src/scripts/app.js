@@ -1,10 +1,10 @@
-import {main} from './components/main'
+import { main } from "./components/main";
 
 const init = () =>
   window.requestAnimationFrame(function ready() {
-    return document.body ? main() : window.requestAnimationFrame(ready)
-  })
+    return document.body ? main() : window.requestAnimationFrame(ready);
+  });
 
-init()
+init();
 
-module?.hot?.accept()
+module?.hot?.accept();

@@ -67,9 +67,9 @@ export default class Hooks
    */
   @bind
   public async bootstrap(app: Framework.Bud) {
-    this.store = isFunction(app.options.seed)
-      ? {...app.options.seed(app)}
-      : {...app.options.seed}
+    this.store = isFunction(app.context.seed)
+      ? {...app.context.seed(app)}
+      : {...app.context.seed}
   }
 
   /**

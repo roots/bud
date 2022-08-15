@@ -5,8 +5,7 @@ const run = pacman => () => {
 
   beforeAll(async () => {
     project = await new Project({
-      name: 'typescript',
-      dist: 'dist',
+      label: '@examples/typescript',
       with: pacman,
       buildCommand: ['./node_modules/.bin/ts-bud', ['build', '--ci']],
     }).setup()

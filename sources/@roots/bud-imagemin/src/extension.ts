@@ -84,6 +84,7 @@ export default class BudImagemin extends Extension {
       },
     },
   ])
+
   public get generator() {
     return this._generator
   }
@@ -100,7 +101,7 @@ export default class BudImagemin extends Extension {
    * @public
    */
   @bind
-  public async boot() {
+  public async afterConfig() {
     this.app.hooks.on('build.optimization.minimizer', minimizer => [
       ...(minimizer ?? []),
       new ImageMinimizerPlugin({

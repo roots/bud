@@ -1,26 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`sage npm [snapshots] module map matches snapshot 1`] = `
-Object {
-  "byName": Object {
-    "app": 143,
-    "editor": 189,
-    "runtime": Any<Number>,
-  },
-  "bySource": Object {
-    "0 app": Any<Number>,
-    "0 editor": Any<Number>,
-    "1 app": Any<Number>,
-    "1 editor": Any<Number>,
-  },
-  "usedIds": Array [
-    Any<Number>,
-    Any<Number>,
-    Any<Number>,
-  ],
-}
-`;
-
 exports[`sage npm [snapshots] package.json is unchanged 1`] = `
 Object {
   "browserslist": Array [
@@ -35,29 +14,8 @@ Object {
     "@roots/eslint-config": "latest",
     "@roots/sage": "latest",
   },
-  "name": "example-sage",
+  "name": "@examples/sage",
   "private": true,
-}
-`;
-
-exports[`sage yarn [snapshots] module map matches snapshot 1`] = `
-Object {
-  "byName": Object {
-    "app": 143,
-    "editor": 189,
-    "runtime": Any<Number>,
-  },
-  "bySource": Object {
-    "0 app": Any<Number>,
-    "0 editor": Any<Number>,
-    "1 app": Any<Number>,
-    "1 editor": Any<Number>,
-  },
-  "usedIds": Array [
-    Any<Number>,
-    Any<Number>,
-    Any<Number>,
-  ],
 }
 `;
 
@@ -75,7 +33,7 @@ Object {
     "@roots/eslint-config": "latest",
     "@roots/sage": "latest",
   },
-  "name": "example-sage",
+  "name": "@examples/sage",
   "private": true,
 }
 `;

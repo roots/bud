@@ -22,6 +22,7 @@ const base = {
       '<rootDir>/node_modules/chalk/source/vendor/supports-color/index.js',
   },
   modulePathIgnorePatterns: ['<rootDir>/.yarn', '<rootDir>/storage'],
+  reporters: ['default', 'github-actions'],
   rootDir: paths.root,
   testEnvironment: 'node',
   testPathIgnorePatterns: [
@@ -30,8 +31,14 @@ const base = {
     '<rootDir>/tests/__mocks__',
     '<rootDir>/storage/',
   ],
-  testTimeout: 240000,
-  slowTestThreshold: 240000,
+  slowTestThreshold: 10,
+  testTimeout: 60 * 1000,
+
+  /**
+   * `@swc/jest` transformer
+   *
+   * @see {@link https://swc.rs/docs/usage/jest}
+   */
   transform: {
     '^.+\\.(c|m)?(t|j)sx?$': [
       '@swc/jest',
@@ -63,13 +70,11 @@ export default async () => ({
     {
       ...base,
       displayName: 'e2e',
-      reporters: ['default'],
       testMatch: ['**/tests/e2e/**/*.test.ts'],
     },
     {
       ...base,
       displayName: 'integration',
-      reporters: ['default'],
       testMatch: ['**/tests/integration/**/*.test.ts'],
     },
     {
@@ -87,7 +92,6 @@ export default async () => ({
         '.js$',
         '/deprecated/',
       ],
-      reporters: ['default', 'github-actions'],
       testMatch: [
         '**/sources/@roots/*/src/**/*.test.ts',
         '**/tests/unit/**/*.test.ts',

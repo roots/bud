@@ -1,5 +1,5 @@
 {
-  "name": "example-postcss",
+  "name": "@examples/postcss",
   "private": true,
   "type": "module",
   "browserslist": [

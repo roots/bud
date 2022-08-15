@@ -1,5 +1,5 @@
 {
-  "name": "example-solid",
+  "name": "@examples/solid",
   "private": true,
   "browserslist": [
     "extends @roots/browserslist-config/current"

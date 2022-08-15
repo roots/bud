@@ -22,7 +22,7 @@ export class InstallCommand extends BaseCommand {
    *
    * @public
    */
-  public async execute() {
+  public async runCommand() {
     this.context.stdout.write(
       chalk.red(`bud install / bud init is deprecated\n`),
     )

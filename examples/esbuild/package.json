@@ -1,5 +1,5 @@
 {
-  "name": "example-esbuild",
+  "name": "@examples/esbuild",
   "private": true,
   "browserslist": [
     "extends @roots/browserslist-config/current"

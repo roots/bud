@@ -5,16 +5,12 @@
   "type": "module",
   "exports": {
     "./bud": "./compiled/bud.js",
-    "./integration": "./compiled/integration.js",
     "./project": "./compiled/project.js"
   },
   "typesVersions": {
     "*": {
       "bud": [
         "./compiled/bud.d.ts"
-      ],
-      "integration": [
-        "./compiled/integration.d.ts"
       ],
       "project": [
         "./compiled/project.d.ts"

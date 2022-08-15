@@ -21,11 +21,8 @@ const target = (command: BuildCommand) =>
 export const config = async (command: BuildCommand) => {
   !isUndefined(command.target) && target(command)
 
-  if (!isUndefined(command.src)) {
-    command.app.setPath('@src', command.src)
-    Object.entries(command.app.children).map(([_name, child]) =>
-      child.setPath('@src', command.src),
-    )
+  if (!isUndefined(command.input)) {
+    command.app.setPath('@src', command.input)
   }
 
   if (!isUndefined(command.esm)) {
@@ -44,9 +41,7 @@ export const config = async (command: BuildCommand) => {
 
   if (!isUndefined(command.dist)) {
     command.app.setPath('@dist', command.dist)
-    Object.entries(command.app.children).map(([_name, child]) =>
-      child.setPath('@dist', command.dist),
-    )
+    Object.entries(command.app.children)
   }
 
   if (!isUndefined(command.publicPath)) {

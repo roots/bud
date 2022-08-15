@@ -33,22 +33,7 @@ interface Service extends Bud.Service {
    *
    * @public
    */
-  stats: {
-    json: StatsCompilation
-    string: string
-  }
-
-  /**
-   * Errors
-   * @public
-   */
-  errors: Array<BudError>
-
-  /**
-   * Errors
-   * @public
-   */
-  warnings: Array<BudError>
+  stats: StatsCompilation
 
   /**
    * Returns a {@link WebpackMultiCompiler} instance

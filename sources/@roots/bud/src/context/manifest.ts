@@ -1,26 +1,33 @@
 import fs from 'fs-extra'
+import {bind} from 'helpful-decorators'
 
-import type {Disk} from './disk.js'
+import type Config from './config.js'
 
 /**
  * Context: project manifest
  *
  * @public
  */
-export class Manifest {
+export default class Manifest {
+  public data: Record<string, any> = {}
+
   /**
    * Class constructor
    *
    * @public
    */
-  public constructor(public disk: Disk) {}
+  public constructor(public config: Config['data']) {}
 
   /**
    * Read manifest
    *
    * @public
    */
+  @bind
   public async read() {
-    return await fs.readJson(this.disk.config['package.json'], 'utf8')
+    if (!this.config['package.json']) return this
+
+    this.data = await fs.readJson(this.config['package.json'], 'utf8')
+    return this
   }
 }

@@ -1,5 +1,5 @@
 {
-  "name": "example-sage",
+  "name": "@examples/sage",
   "private": true,
   "browserslist": [
     "extends @roots/browserslist-config/current"

@@ -1,5 +1,4 @@
 import {beforeAll, describe, it} from '@jest/globals'
-import {log} from '@repo/logger'
 import {Project} from '@repo/test-kit/project'
 
 const test = (pacman: 'yarn' | 'npm') => () => {
@@ -7,12 +6,10 @@ const test = (pacman: 'yarn' | 'npm') => () => {
 
   beforeAll(async () => {
     project = await new Project({
-      name: 'sage',
+      label: '@examples/sage',
       dist: 'public',
       with: pacman,
     }).setup()
-
-    log(project.entrypoints)
   })
 
   describe('entrypoints.json', () => {
@@ -34,7 +31,7 @@ const test = (pacman: 'yarn' | 'npm') => () => {
     })
 
     it('is transpiled', () => {
-      expect(project.assets['runtime.js'].includes('import')).toBeFalsy()
+      expect(project.assets['runtime.js'].includes('import ')).toBeFalsy()
     })
   })
 
@@ -44,7 +41,7 @@ const test = (pacman: 'yarn' | 'npm') => () => {
     })
 
     it('is transpiled', () => {
-      expect(project.assets['app.js'].includes('import')).toBeFalsy()
+      expect(project.assets['app.js'].includes('import ')).toBeFalsy()
     })
   })
 
@@ -109,23 +106,14 @@ const test = (pacman: 'yarn' | 'npm') => () => {
     )
   })
 
-  it('[snapshots] module map matches snapshot', async () => {
-    expect(project.modules.chunks).toMatchSnapshot({
-      byName: {
+  it('[snapshots] module named chunks matches snapshot', async () => {
+    expect(project.modules.chunks.byName).toEqual(
+      expect.objectContaining({
+        app: expect.any(Number),
+        editor: expect.any(Number),
         runtime: expect.any(Number),
-      },
-      bySource: {
-        '0 app': expect.any(Number),
-        '0 editor': expect.any(Number),
-        '1 app': expect.any(Number),
-        '1 editor': expect.any(Number),
-      },
-      usedIds: [
-        expect.any(Number),
-        expect.any(Number),
-        expect.any(Number),
-      ],
-    })
+      }),
+    )
   })
 }
 

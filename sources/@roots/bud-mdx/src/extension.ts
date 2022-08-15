@@ -1,15 +1,3 @@
-// Copyright © Roots Software Foundation LLC
-// Licensed under the MIT license.
-
-/**
- * Adds MDX support to Bud
-
- * @see https://bud.js.org
- * @see https://github.com/roots/bud
- *
- * @packageDocumentation
- */
-
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
@@ -18,6 +6,11 @@ import {
   options,
 } from '@roots/bud-framework/extension/decorators'
 
+/**
+ * MDX2 support for `@roots/bud`
+ *
+ * @public
+ */
 @label('@roots/bud-mdx')
 @dependsOn(['@roots/bud-babel', '@roots/bud-react'])
 @options({
@@ -55,7 +48,7 @@ export default class BudMDX extends Extension {
    * `boot` callback
    */
   @bind
-  public async boot() {
+  public async afterConfig() {
     this.app.hooks.on('build.resolve.extensions', ext =>
       ext.add('.md').add('.mdx'),
     )

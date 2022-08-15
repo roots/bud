@@ -29,14 +29,6 @@ import type {Service as Build} from './services/build/index.js'
  */
 export abstract class Bud {
   /**
-   * Options
-   *
-   * @internal
-   * @virtual
-   */
-  public options: Config.Options
-
-  /**
    * Context
    *
    * @public
@@ -54,7 +46,7 @@ export abstract class Bud {
    * @public
    */
   public get mode(): 'development' | 'production' {
-    return this.options.mode
+    return this.context.mode ?? 'production'
   }
 
   /**
@@ -63,8 +55,8 @@ export abstract class Bud {
    * @readonly
    * @public
    */
-  public get name() {
-    return this.options.name
+  public get label() {
+    return this.context.label
   }
 
   /**
@@ -74,7 +66,7 @@ export abstract class Bud {
    * @public
    */
   public get root(): Bud {
-    return this.options.root ?? this
+    return this.context.root ?? this
   }
 
   /**
@@ -102,7 +94,7 @@ export abstract class Bud {
    * @public
    */
   public get isRoot(): boolean {
-    return this.root.name === this.name
+    return this.root.label === this.label
   }
 
   /**
@@ -112,7 +104,7 @@ export abstract class Bud {
    * @public
    */
   public get isChild(): boolean {
-    return this.root.name !== this.name
+    return this.root.label !== this.label
   }
 
   /**
@@ -218,11 +210,10 @@ export abstract class Bud {
    *
    * @public
    */
-  public async factory(options?: Config.Options): Promise<Bud> {
+  public async factory(context?: Partial<Config.Context>): Promise<Bud> {
     return await new this.implementation(this.implementation).lifecycle({
-      ...this.options,
-      ...(options ?? {}),
-      context: {...this.context},
+      ...this.context,
+      ...(context ?? {}),
     })
   }
 
@@ -310,16 +301,22 @@ export abstract class Bud {
    * @decorator `@bind`
    */
   @bind
-  public debug(...messages: any[]) {
-    // eslint-disable-next-line no-console
-    this.context.stdout.write(
-      format(messages, {
-        callToJSON: false,
-        maxDepth: 8,
-        printFunctionName: false,
-        escapeString: false,
-      }),
-    )
+  public debug(...messages: any[]): this {
+    process.stdout.write('\n')
+
+    messages.map(message => {
+      process.stdout.write(
+        format(message, {
+          callToJSON: false,
+          maxDepth: 8,
+          printFunctionName: false,
+          escapeString: false,
+        }),
+      )
+      process.stdout.write('\n')
+    })
+
+    return this
   }
 
   /**
@@ -337,6 +334,7 @@ export abstract class Bud {
     this.logger.instance.error(...messages)
 
     if (this.isProduction) {
+      process.exitCode = 1
       this.close()
     }
   }
@@ -357,7 +355,8 @@ export abstract class Bud {
       'ignoreIllegals',
     ])
 
-    this.context.stdout.write(
+    process.stdout.write('\n')
+    process.stdout.write(
       format(obj, {
         callToJSON: false,
         maxDepth: 8,
@@ -366,29 +365,9 @@ export abstract class Bud {
         ...prettyFormatOptions,
       }),
     )
+    process.stdout.write('\n')
 
     return this
-  }
-
-  /**
-   * timer util
-   *
-   * @public
-   */
-  public _hrtime: [number, number] = process.hrtime()
-
-  public _hrdone: number
-
-  /**
-   * timer diff
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public _hrdiff() {
-    const diff = process.hrtime(this._hrtime)
-    return diff[0] * 1000 + diff[1] / 1000000
   }
 }
 

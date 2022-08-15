@@ -20,5 +20,9 @@ module.exports = {
       dependencies: ['**'],
       packages: ['@repo/docs'],
     },
+    {
+      dependencies: ['@types/react', 'react', 'react-dom'],
+      packages: ['@roots/bud-dashboard', '@roots/bud'],
+    },
   ],
 }

@@ -3,8 +3,7 @@
 import {jest} from '@jest/globals'
 import {paths, REGISTRY_PROXY} from '@repo/constants'
 import * as logger from '@repo/logger'
-import chalk from 'chalk'
-import {execa} from 'execa'
+import {execa, ExecaChildProcess} from 'execa'
 import fs from 'fs-extra'
 import {bind} from 'helpful-decorators'
 import json5 from 'json5'
@@ -15,9 +14,10 @@ const {join} = posix
 jest.setTimeout(120000)
 
 interface Options {
-  name: string
+  label: string
   with: 'yarn' | 'npm'
   dist?: string
+  mode?: 'development' | 'production'
   buildCommand?: [string, Array<string>]
 }
 
@@ -43,12 +43,6 @@ interface Options {
  * @internal
  */
 export class Project {
-  public name: string
-
-  public mode: 'dev' | 'production' = 'production'
-
-  public storage: string = '.budfiles'
-
   public assets = {}
 
   public entrypoints: {
@@ -66,36 +60,41 @@ export class Project {
       byName: any
       bySource: any
     }
-  } = {
-    chunks: {
-      byName: null,
-      bySource: null,
-    },
   }
 
   public packageJson: Record<string, any> = {}
 
   /**
    * dir
+   *
    * @public
    */
   public dir: string
 
   /**
    * logger
+   *
    * @public
    */
   public logger: typeof logger.logger
 
+  /**
+   * Class constructor
+   *
+   * @public
+   */
   public constructor(public options: Options) {
-    this.dir = join(paths.mocks, this.options.with, this.options.name)
+    this.dir = join(paths.mocks, this.options.with, this.options.label)
+    this.options.dist = this.options.dist ?? 'dist'
 
     this.logger = logger
-      .make({interactive: true})
-      .scope(this.options.name, this.options.with)
+      .make({interactive: false})
+      .scope(this.options.label, this.options.with)
   }
 
   /**
+   * setup project
+   *
    * @public
    * @decorator `@bind`
    */
@@ -110,24 +109,21 @@ export class Project {
     await this.setModules()
     await this.setEntrypoints()
 
-    this.logger.success('setup complete')
-
     return this
   }
 
   @bind
-  public async $(bin: string, flags: Array<string>) {
+  public async $(
+    bin: string,
+    flags: Array<string>,
+  ): Promise<ExecaChildProcess> {
     try {
-      this.logger.log(
-        chalk.blue(bin),
-        chalk.magenta((flags ?? []).join(' ')),
-      )
-
       const child = execa(bin, flags ?? [], {
         cwd: this.projectPath(),
       })
 
-      await child
+      child.stderr.on('data', data => this.logger.error(data.toString()))
+      return child
     } catch (error) {
       throw new Error(error)
     }
@@ -161,7 +157,10 @@ export class Project {
       await fs.remove(this.projectPath())
     } catch (e) {}
     try {
-      await fs.copy(`./examples/${this.options.name}`, this.projectPath())
+      await fs.copy(
+        `./examples/${this.options.label.replace('@examples/', '')}`,
+        this.projectPath(),
+      )
     } catch (e) {}
 
     this.options.with === 'yarn'
@@ -173,16 +172,18 @@ export class Project {
 
   @bind
   public async build() {
-    this.logger.log('building')
-
     if (this.options.buildCommand) {
       await this.$(...this.options.buildCommand)
       return
     }
 
     await this.$(`node`, [
-      join(this.projectPath(), 'node_modules', '.bin', 'bud'),
-      `build`,
+      this.projectPath('node_modules', '.bin', 'bud'),
+      this.options.mode
+        ? this.options.mode === 'production'
+          ? `build`
+          : 'dev'
+        : 'build',
     ])
 
     return this
@@ -193,8 +194,8 @@ export class Project {
    * @decorator `@bind`
    */
   @bind
-  public projectPath(file?: string) {
-    return join(this.dir, file ?? '')
+  public projectPath(...file: Array<string>) {
+    return join(this.dir, ...file)
   }
 
   /**
@@ -227,7 +228,7 @@ export class Project {
   @bind
   public async setManifest() {
     this.manifest = await this.readJson(
-      this.projectPath(join(this.options.dist, 'manifest.json')),
+      this.projectPath(this.options.dist, 'manifest.json'),
     )
   }
 
@@ -241,7 +242,7 @@ export class Project {
       Object.entries(this.manifest).map(
         async ([name, path]: [string, string]) => {
           const buffer = await fs.readFile(
-            join(this.projectPath(), this.options.dist, path),
+            this.projectPath(this.options.dist, path),
           )
 
           this.assets[name] = buffer.toString()
@@ -274,7 +275,9 @@ export class Project {
   public async setModules() {
     try {
       const modules = await this.readJson(
-        this.projectPath(join(this.storage, 'bud', 'modules.json')),
+        this.projectPath(
+          join('.budfiles', this.options.label, 'modules.json'),
+        ),
       )
 
       Object.assign(this, {modules})

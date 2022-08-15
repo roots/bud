@@ -30,30 +30,6 @@ export const ROOT_MANIFEST_PATH = join(REPO_PATH, 'package.json')
 export const STORAGE_PATH = join(REPO_PATH, 'storage')
 
 /**
- * Enabled integration tests
- *
- * @remarks
- * This should be a part of jest config (once all integration tests are rewritten for verdaccio)
- *
- * @public
- */
-export const INTEGRATION_TESTS = [
-  'basic',
-  'postcss',
-  'sass',
-  'tailwindcss',
-  'sass-tailwindcss',
-  'babel',
-  'vue',
-  'vue-legacy',
-  'react',
-  'typescript',
-  'imagemin',
-  'sage',
-  'multi-compiler',
-]
-
-/**
  * Base public package tsconfig (CJS)
  *
  * @public
@@ -75,7 +51,8 @@ export const paths = {
   config: join(REPO_PATH, 'config'),
   sources: join(REPO_PATH, 'sources'),
   tests: join(REPO_PATH, 'tests'),
-  mocks: join(REPO_PATH, 'storage/mocks'),
+  storage: join(REPO_PATH, 'storage'),
+  mocks: join(REPO_PATH, 'storage', 'mocks'),
 }
 
 let projectConfig

@@ -1,5 +1,5 @@
 {
-  "name": "example-typescript",
+  "name": "@examples/typescript",
   "private": true,
   "browserslist": [
     "extends @roots/browserslist-config"

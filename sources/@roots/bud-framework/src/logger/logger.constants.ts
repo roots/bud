@@ -96,7 +96,6 @@ export const types: (app: Bud) => Record<string, Type> = app => ({
     color: 'cyan',
     label: 'pending',
     logLevel: LEVEL.STANDARD,
-    stream: process.stdout,
   },
   note: {
     badge: figures.bullet,

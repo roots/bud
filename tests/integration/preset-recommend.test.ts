@@ -1,20 +1,15 @@
-import {beforeAll, describe, it, jest} from '@jest/globals'
+import {beforeAll, describe, it} from '@jest/globals'
 import {Project} from '@repo/test-kit/project'
 
-jest.setTimeout(60000)
-
-const test = (pacman: 'yarn' | 'npm') => () => {
+const run = pacman => () => {
   describe('examples/preset-recommend', () => {
     let project: Project
 
     beforeAll(async () => {
-      project = new Project({
-        name: 'preset-recommend',
+      project = await new Project({
+        label: '@examples/preset-recommend',
         with: pacman,
-        dist: 'dist',
-      })
-
-      await project.setup()
+      }).setup()
     })
 
     it('[app.js] has contents', () => {
@@ -32,7 +27,7 @@ const test = (pacman: 'yarn' | 'npm') => () => {
 }
 
 describe('preset-recommend', () => {
-  describe('yarn', test('yarn'))
+  describe('yarn', run('yarn'))
 
-  describe('npm', test('npm'))
+  describe('npm', run('npm'))
 })

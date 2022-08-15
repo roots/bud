@@ -1,5 +1,5 @@
 {
-  "name": "example-purgecss",
+  "name": "@examples/purgecss",
   "private": true,
   "browserslist": [
     "extends @roots/browserslist-config/current"

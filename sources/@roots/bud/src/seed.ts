@@ -6,7 +6,7 @@ import {cpus} from 'node:os'
  *
  * @public
  */
-export const seed: Config.Options['seed'] = {
+export const seed: Config.Context['seed'] = {
   'feature.cache': [() => true],
   'feature.clean': [() => true],
   'feature.hash': [() => false],
@@ -79,7 +79,7 @@ export const seed: Config.Options['seed'] = {
     ],
   ],
   'build.module.rules.after': [() => []],
-  'build.stats': [() => ({preset: 'errors-warnings'})],
+  'build.stats': [() => ({preset: 'errors-only'})],
   'dev.middleware.enabled': [() => ['dev', 'hot']],
   'dev.url': [() => new URL('http://0.0.0.0:3000')],
 }

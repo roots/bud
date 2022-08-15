@@ -1,23 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`react npm manifest.json matches snapshot 1`] = `
-Object {
-  "app.css": "css/app.css",
-  "app.js": "js/app.js",
-  "index.html": "index.html",
-  "js/935.js": "js/935.js",
-  "runtime.js": "js/runtime.js",
-  "svg/logo.svg": "svg/logo.svg",
-}
-`;
+exports[`react npm app.js should be present in the manifest 1`] = `"js/app.js"`;
 
-exports[`react yarn manifest.json matches snapshot 1`] = `
-Object {
-  "app.css": "css/app.css",
-  "app.js": "js/app.js",
-  "index.html": "index.html",
-  "js/935.js": "js/935.js",
-  "runtime.js": "js/runtime.js",
-  "svg/logo.svg": "svg/logo.svg",
-}
-`;
+exports[`react npm index.html should be present in the manifest 1`] = `"index.html"`;
+
+exports[`react npm runtime.js should be present in the manifest 1`] = `"js/runtime.js"`;
+
+exports[`react npm svg/logo.svg should be present in the manifest 1`] = `"svg/logo.svg"`;
+
+exports[`react yarn app.js should be present in the manifest 1`] = `"js/app.js"`;
+
+exports[`react yarn index.html should be present in the manifest 1`] = `"index.html"`;
+
+exports[`react yarn runtime.js should be present in the manifest 1`] = `"js/runtime.js"`;
+
+exports[`react yarn svg/logo.svg should be present in the manifest 1`] = `"svg/logo.svg"`;

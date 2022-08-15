@@ -1,5 +1,5 @@
 import * as CONSTANTS from '@repo/constants'
-import {Bud, factory as budFactory, makeContext, seed} from '@roots/bud'
+import {Bud, context, factory as budFactory, seed} from '@roots/bud'
 import type {Config} from '@roots/bud-framework'
 import {join} from 'node:path'
 
@@ -10,26 +10,30 @@ export const mockProject = {
   path: repoPath('tests/util/project'),
 }
 
-export const factory = async (options?: Config.Options): Promise<Bud> => {
-  const context = await makeContext(repoPath('tests/util/project'))
+export const factory = async (
+  overrides?: Partial<Config.Context>,
+): Promise<Bud> => {
+  process.env.BUD_TEST_ENV = 'true'
+
+  const ctx = await context.get(repoPath('tests/util/project'))
 
   const bud = await budFactory({
-    name: 'bud',
+    ...ctx,
     mode: 'production',
-    dir: repoPath('tests/util/project'),
-    ...(options ?? {}),
-    context: {
-      ...context,
-      ...(options?.context ?? {}),
-      args: {
-        ...(options?.context?.args ?? {}),
-        cache: false,
-        ci: true,
-      },
+    ...(overrides ?? {}),
+    args: {
+      ...(ctx.args ?? {}),
+      cache: false,
+      ...(overrides?.args ?? {}),
     },
+    manifest: {
+      ...ctx.manifest,
+      ...(overrides?.manifest ?? {}),
+    },
+    extensions: [...ctx.extensions, ...(overrides?.extensions ?? [])],
     seed: {
       ...seed,
-      ...(options?.seed ?? {}),
+      ...(overrides?.seed ?? {}),
     },
   })
 

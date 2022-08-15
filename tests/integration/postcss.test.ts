@@ -6,9 +6,8 @@ const test = (pacman: 'yarn' | 'npm') => () => {
 
   beforeAll(async () => {
     project = await new Project({
-      name: 'postcss',
+      label: '@examples/postcss',
       with: pacman,
-      dist: 'dist',
     }).setup()
   })
 

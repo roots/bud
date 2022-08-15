@@ -1,23 +1,17 @@
-import {log} from '@repo/logger'
-import {Env} from '@roots/bud/context/env'
-import {dirname, join} from 'node:path'
+import {paths} from '@repo/constants'
+import Env from '@roots/bud/context/env'
+import {join} from 'node:path'
+
+const path = join(paths.root, 'tests', 'unit', 'bud', 'context', 'mock')
 
 describe('unit', function () {
   describe('context', () => {
     describe('env', () => {
-      let env: Env
-
-      const path = join(
-        process.cwd(),
-        'tests',
-        'unit',
-        'bud',
-        'context',
-        'mock',
-      )
+      let env: Record<string, any>
 
       beforeAll(() => {
         env = new Env(path)
+        env = env.data
       })
 
       test('.env env', () => {
@@ -25,7 +19,7 @@ describe('unit', function () {
       })
 
       test('process env', () => {
-        expect(env.JEST_WORKER_ID).toEqual(expect.any(String))
+        expect(env.JEST_WORKER_ID).toBeDefined()
       })
 
       test('expand .env', () => {

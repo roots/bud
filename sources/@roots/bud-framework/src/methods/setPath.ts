@@ -45,7 +45,7 @@ export const setPath: setPath = function (arg1, arg2) {
     ]) => {
       !key.startsWith(`@`) &&
         app.error(
-          `bud paths are required to be prefixed with \`@\`. Please convert \`${key}\` to \`@${key}\``,
+          `bud path keys should start with \`@\`. Please change \`${key}\` to \`@${key}\``,
         )
 
       const absolutePath = app.path(value)

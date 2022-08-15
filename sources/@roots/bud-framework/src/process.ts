@@ -1,42 +1,4 @@
-import fs from 'fs-extra'
-
 import type {Bud} from './bud.js'
-
-/**
- * Render error
- */
-const renderError = (msg: string, name?: string) => {
-  process.stderr.write(`\n${msg}\n`)
-}
-
-/**
- * Create an error handler
- */
-const curryHandler = function (this: Bud, code: number) {
-  const ERROR = code !== 0
-
-  const close = () => {
-    try {
-      ERROR && fs.removeSync(this.path('@storage/cache'))
-      this.close()
-    } catch (err) {
-      process.exitCode = code
-      process.exit()
-    }
-  }
-
-  return (exitMessage: string | Error) => {
-    if (!ERROR) return close()
-
-    if (exitMessage instanceof Error) {
-      renderError(exitMessage.message, exitMessage.name)
-    } else {
-      renderError(`\n${exitMessage}\n`, 'error')
-    }
-
-    setTimeout(close, 200).unref()
-  }
-}
 
 /**
  * Registers a callback for all kinds of application shutdown events.
@@ -50,27 +12,70 @@ const curryHandler = function (this: Bud, code: number) {
  * @public
  */
 export const initialize = (app: Bud) => {
-  const makeHandler = curryHandler.bind(app)
-
   process
     // only works when there is no task running
-    // because we have a server always listening port, this handler will NEVER execute
-    .on('beforeExit', makeHandler(0))
+    .on('beforeExit', makeHandler(app, 0))
 
     // only works when the process normally exits
-    // on windows, ctrl-c will not trigger this handler (it is unnormal)
+    // on windows, ctrl-c will not trigger this handler
     // unless you listen on 'SIGINT'
-    .on('exit', makeHandler(0))
+    .on('exit', makeHandler(app, 0))
 
     // catch ctrl-c, so that event 'exit' always works
-    .on('SIGINT', makeHandler(0))
+    .on('SIGINT', makeHandler(app, 0))
 
     // kill-9
-    .on('SIGTERM', makeHandler(0))
+    .on('SIGTERM', makeHandler(app, 0))
+
+    // keyboard quit event
+    .on('SIGQUIT', makeHandler(app, 0))
 
     // exit with errors
-    .on('uncaughtException', makeHandler(1))
+    .on('uncaughtException', makeHandler(app, 1))
 
     // exit with errors
-    .on('unhandledRejection', makeHandler(1))
+    .on('unhandledRejection', makeHandler(app, 1))
+}
+
+/**
+ * Create an error handler
+ */
+function makeHandler(app: Bud, code: number) {
+  const close = () => {
+    process.exitCode = code
+
+    try {
+      app.isDevelopment &&
+        app.server?.connection?.instance?.removeAllListeners().unref()
+    } catch (err) {
+      renderError(err.message)
+      process.exitCode = 3
+    }
+
+    try {
+      if (app.compiler?.compilation?.running) {
+        app.compiler.compilation.close(() => app.close())
+      }
+    } catch (err) {
+      renderError(err.message)
+      process.exitCode = 2
+    }
+
+    process.exit()
+  }
+
+  return (exitMessage: string | Error) => {
+    if (process.exitCode === 0) return close()
+    renderError(
+      exitMessage instanceof Error ? exitMessage.message : exitMessage,
+    )
+    setTimeout(close, 200).unref()
+  }
+}
+
+/**
+ * Render error
+ */
+function renderError(msg: string, name?: string) {
+  process.stderr.write(`\n${msg}\n`)
 }

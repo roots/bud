@@ -1,10 +1,8 @@
+/* eslint-disable no-console */
 import {Dashboard as Base, Service} from '@roots/bud-framework'
 import {bind} from 'helpful-decorators'
-import * as logUpdate from 'log-update'
+import {toInteger} from 'lodash-es'
 import type {StatsCompilation} from 'webpack'
-
-import {Line} from './render/line.js'
-import {reporter} from './render/stats/index.js'
 
 /**
  * Dashboard service
@@ -13,81 +11,28 @@ import {reporter} from './render/stats/index.js'
  */
 export class Dashboard extends Service implements Base.Service {
   /**
-   * Interval timer
+   * Last hash
    *
    * @public
    */
-  public interval: NodeJS.Timer
+  public lastHash: string
 
   /**
-   * Progress
+   * Build progress
    *
    * @public
    */
-  public progress = new Line()
+  public percentage: number = 0
 
   /**
-   * output
-   *
-   * @public
-   */
-  protected output: Array<string>
-
-  /**
-   * Current progress percentage
-   *
-   * @public
-   */
-  protected percent: number
-
-  /**
-   * Current frame
-   *
-   * @public
-   */
-  protected frame: string = ''
-
-  /**
-   * @override
-   */
-  @bind
-  public render(str: string) {
-    this.app.context.stdout.write(str)
-  }
-
-  /**
-   * `register` callback
+   * log to stdout
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public async register() {
-    if (this.app.context.args.ci || this.app.env.has('JEST_WORKER_ID')) {
-      return
-    }
-
-    this.render = logUpdate.createLogUpdate(process.stdout, {
-      showCursor: false,
-    })
-
-    this.interval = setInterval(this.update, 80)
-    this.app.hooks.action('app.close', async () => this.interval.unref())
-  }
-
-  /**
-   * Update cli
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public update() {
-    !this.progress.isComplete &&
-      this.progress.frame &&
-      this.render(this.progress.frame)
-
-    return this
+  public log(...strings: Array<string>): void {
+    this.app.context.stdout.write(strings.join(''))
   }
 
   /**
@@ -97,22 +42,34 @@ export class Dashboard extends Service implements Base.Service {
    * @decorator `@bind`
    */
   @bind
-  public stats({
-    stats,
-    errors,
-    warnings,
+  public async stats({
+    stats: compilationStats,
   }: {
     stats: StatsCompilation
-    errors: any
-    warnings: any
-  }): this {
-    this.progress.complete(true)
+  }): Promise<this> {
+    if (!compilationStats) return this
 
-    this.frame = this.app.context.args.ci
-      ? this.app.compiler.stats.string.trim()
-      : reporter.report({stats, errors, warnings, app: this.app})
+    if (this.app.context.args.ci) {
+      this.log(compilationStats?.toString())
+      return this
+    }
+    try {
+      const outputComponents = await import('./render/reporter.js')
+      const stats: StatsCompilation = compilationStats.toJson()
+      if (!stats || stats.hash === this.lastHash) return this
+      this.lastHash = stats.hash
+      outputComponents.renderResults({stats, app: this.app})
+    } catch (error) {
+      this.log(error)
+      this.log(compilationStats?.toString())
+      return this
+    }
 
-    this.app.context.stdout.write(this.frame)
+    if (this.app.isProduction) {
+      this.app.compiler.compilation.running
+        ? this.app.compiler.compilation.close(() => this.app.close())
+        : this.app.close()
+    }
 
     return this
   }
@@ -124,19 +81,8 @@ export class Dashboard extends Service implements Base.Service {
    * @decorator `@bind`
    */
   @bind
-  public progressCallback(percent: number, scope: string) {
-    try {
-      this.percent = Math.ceil((percent ?? 0) * 100)
-      this.progress.complete(this.percent >= 99)
-
-      const update = scope.includes(`]`)
-        ? scope.split(`]`).pop()?.trim()
-        : scope
-
-      this.progress.update(`${this.percent}%`, update)
-      this.update()
-    } catch (error) {
-      this.app.warn(error)
-    }
+  public progressCallback(percentage: number): void {
+    if (!percentage || this.app.context.args.ci) return
+    this.percentage = toInteger(percentage * 100)
   }
 }

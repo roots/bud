@@ -14,7 +14,11 @@ export abstract class Set extends Command {
 
   public prop = Option.String()
 
-  public value = Option.String()
+  public _value = Option.String()
+
+  public get value() {
+    return JSON.parse(this._value)
+  }
 
   public async execute() {
     this.context.stdout.write(

@@ -6,8 +6,7 @@ const run = pacman => () => {
 
   beforeAll(async () => {
     project = new Project({
-      name: 'markdown',
-      dist: 'dist',
+      label: '@examples/markdown',
       with: pacman,
     })
 

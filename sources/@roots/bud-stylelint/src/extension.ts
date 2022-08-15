@@ -6,7 +6,7 @@ import {
   options,
   plugin,
 } from '@roots/bud-framework/extension/decorators'
-import StylelintWebpackPlugin, {Options} from 'stylelint-webpack-plugin'
+import StylelintPlugin from 'stylelint-webpack-plugin'
 
 /**
  * Bud stylelint extension
@@ -18,12 +18,12 @@ import StylelintWebpackPlugin, {Options} from 'stylelint-webpack-plugin'
  * @decorator `@expose`
  */
 @label('@roots/bud-stylelint')
-@plugin(StylelintWebpackPlugin)
-@options({context: app => app.path('@src')})
+@plugin(StylelintPlugin)
+@options<StylelintPlugin.Options>({context: app => app.path('@src')})
 @expose('stylelint')
 export default class BudStylelintWebpackPlugin extends Extension<
-  Options,
-  StylelintWebpackPlugin
+  StylelintPlugin.Options,
+  StylelintPlugin
 > {
   /**
    * Fail build on stylelint error
