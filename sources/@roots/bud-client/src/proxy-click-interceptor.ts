@@ -5,7 +5,8 @@ type Target = HTMLAnchorElement | HTMLLinkElement | HTMLFormElement
 type ElementTuple = [HTMLCollectionOf<Target>, any]
 
 const main = async (proxy: string = null) => {
-  proxy = proxy ?? new URLSearchParams(__resourceQuery).get('proxy')
+  proxy = proxy ?? new URLSearchParams(__resourceQuery).get('href')
+  proxy = decodeURI(proxy)
 
   try {
     setInterval(
@@ -26,11 +27,10 @@ const main = async (proxy: string = null) => {
               .filter(el => !el.hasAttribute('__bud_processed'))
               .filter(el => el.getAttribute(attribute).startsWith(proxy))
               .map(el => {
-                const value = el.getAttribute(attribute)
-                console.info(
-                  `replacing ${attribute} on ${el.tagName} with value of ${value}`,
-                )
-                el.setAttribute(attribute, value.replace(proxy, '/'))
+                const value = el
+                  .getAttribute(attribute)
+                  .replace(proxy, '/')
+                el.setAttribute(attribute, value)
                 el.toggleAttribute('__bud_processed')
               }),
           ),
@@ -38,7 +38,7 @@ const main = async (proxy: string = null) => {
     )
   } catch (err) {
     return console.error(
-      `There was a problem replacing hrefs in the proxied response. Exiting script early.`,
+      `[bud] there was a problem replacing hrefs in the proxied response.`,
       err,
     )
   }

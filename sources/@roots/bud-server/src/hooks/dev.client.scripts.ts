@@ -22,10 +22,10 @@ export const proxyClickInterceptor = (app: Bud) => {
   if (!app.hooks.filter('dev.middleware.enabled', []).includes('proxy'))
     return null
 
-  const params = new URLSearchParams({
-    href: app.hooks.filter('dev.middleware.proxy.target').href,
-  })
+  const target = app.hooks.filter('dev.middleware.proxy.target')
+  if (!target?.href) return null
 
+  const params = new URLSearchParams({href: target.href})
   return `@roots/bud-client/lib/proxy-click-interceptor.js?${params.toString()}`
 }
 
