@@ -1,0 +1,104 @@
+---
+slug: '6.4.0'
+title: 'Release: 6.4.0'
+description: 'Release notes for bud.js 6.4.0'
+date: 2022-08-15
+author: Kelly Mears
+author_title: Lead developer
+author_url: https://github.com/kellymears
+author_image_url: https://avatars.githubusercontent.com/u/397606?v=4
+tags: [release]
+---
+
+<!--truncate-->
+
+## ✨ Improve: bud.js hot reloading (middleware & client packages)
+
+Internally, bud.js has fully replaced `webpack-hot-middleware` and its associated client scripts.
+
+What you can expect:
+
+- If you have an error in your code that fully breaks hot module reloading the client
+  will automatically perform a full page reload.
+- The HMR client is now a singleton assigned to `window.bud.hmr`.
+- You should have far fewer duplicate log messages about module updates.
+- **Known issue**: Initial page load will include a request for a json file with a 404 status.
+  This doesn't seem to effect anything negatively.
+
+## ✨ Improve: bud.js proxy url replacement
+
+This script is a lot more flexible.
+
+The `find` string is now set with a url query parameter: `@roots/bud-client/lib/proxy-client-interceptor.js?find=http://example.com`.
+
+Optionally, it can also be imported and called directly:
+
+```js
+import * as proxyClientInterceptor from '@roots/bud-client/lib/proxy-client-interceptor.js'
+proxyClientInterceptor.intercept('http://example.com')
+```
+
+## ✨ Improve: bud package discovery is now cached
+
+When initializing, bud.js will cache any found packages. Depending on the number of installed extensions, this can be a pretty
+big reduction in initial load time, mainly from a greatly decreased number of filesystem operations.
+
+The cache is automatically invalidated if there is a change made to `package.json`, environment variables, or any
+discovered config files (bud, or otherwise). This can be better tuned in the future so that the cache hits more often.
+
+You can run without the cache using the `--no-cache` flag. The cache can be invalidated with `--flush`. The cache is also not used
+if bud is being run with jest, or if the there is a `CI` environment variable present.
+
+## ✨ Improve: extensions can now register `bud` cli commands
+
+So far, only one extension is taking advantage of this. With `@roots/bud-typescript` installed
+you can run typechecks on your codebase with tsc using the `bud ts check` subcommand.
+
+```sh
+yarn bud ts check
+```
+
+Previously this command was registered in `@roots/bud`, which wasn't ideal.
+
+## ✨ Improve: build summary output
+
+It's a lot nicer, especially for multi-compiler builds.
+
+```sh
+$ bud dev
+
+sage
+
+◉   ./public  [b387aa2df1fd5ccbe50f]
+╷
+├─ entrypoints
+│   ├─ app
+│   │   └─ js/app.js       223.36 kB
+│   └─editor
+│       └─ js/editor.js     210.7 kB
+│
+├─ assets
+│   ├─ images/roots.svg     1.15 kB
+│   ├─ manifest.json      212 bytes
+│   └─entrypoints.json    61 bytes
+│
+└─ compiled 123 modules in 148ms
+
+ℹ dev
+╷
+├─ proxying: http://v2.acorn.lndo.site
+├─ internal: http://localhost:3000
+└─ external: http://192.168.194.103:3000
+
+… watching project sources (and 2 other files)   ℹ ctrl+c to exit
+```
+
+- Is labeled (can be useful if running builds in parallel with yarn/npm workspaces).
+- Indicates the directory being emitted to (also handy for identification purposes).
+- Includes the oft-requested "external IP" for use checking the app over LAN.
+- Is visually grouped by entrypoint.
+- Makes it much clearer
+
+## ℹ️ Release information
+
+For more information [review the diff to see what's changed](https://github.com/roots/bud/compare/v6.3.4...v6.3.5).
