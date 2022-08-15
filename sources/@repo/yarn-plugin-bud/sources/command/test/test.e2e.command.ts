@@ -51,15 +51,17 @@ export class TestE2E extends Command {
    */
   public async execute() {
     await this.$(
-      `yarn node --experimental-vm-modules ${join(
-        paths.root,
-        `node_modules/.bin/jest`,
-      )} ${this.passthrough ?? ''} --config ${join(
-        paths.root,
-        `config/jest.config.js`,
-      )} --selectProjects e2e --verbose --runInBand --testTimeout ${
-        60 * 1000
-      }`,
+      this.withPassthrough(
+        `yarn node --experimental-vm-modules ${join(
+          paths.root,
+          `node_modules/.bin/jest`,
+        )} --config ${join(
+          paths.root,
+          `config/jest.config.js`,
+        )} --selectProjects e2e --verbose --runInBand --testTimeout ${
+          60 * 1000
+        }`,
+      ),
     )
   }
 }

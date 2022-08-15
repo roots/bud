@@ -51,13 +51,15 @@ export class TestUnit extends Command {
    */
   public async execute() {
     await this.$(
-      `yarn node --experimental-vm-modules ${join(
-        paths.root,
-        `node_modules/.bin/jest`,
-      )} ${this.passthrough ?? ''} --config ${join(
-        paths.root,
-        `config/jest.config.js`,
-      )} --selectProjects unit --verbose --coverage`,
+      this.withPassthrough(
+        `yarn node --experimental-vm-modules ${join(
+          paths.root,
+          `node_modules/.bin/jest`,
+        )} --config ${join(
+          paths.root,
+          `config/jest.config.js`,
+        )} --selectProjects unit --verbose --coverage`,
+      ),
     )
   }
 }

@@ -58,15 +58,17 @@ export class TestIntegration extends Command {
     this.log('integration tests directory cleaned')
 
     await this.$(
-      `yarn node --experimental-vm-modules ${join(
-        paths.root,
-        `node_modules/.bin/jest`,
-      )} ${this.passthrough ?? ''} --config ${join(
-        paths.root,
-        `config/jest.config.js`,
-      )} --selectProjects integration --verbose --testTimeout ${
-        120 * 1000
-      }`,
+      this.withPassthrough(
+        `yarn node --experimental-vm-modules ${join(
+          paths.root,
+          `node_modules/.bin/jest`,
+        )} --config ${join(
+          paths.root,
+          `config/jest.config.js`,
+        )} --selectProjects integration --verbose --testTimeout ${
+          120 * 1000
+        }`,
+      ),
     )
   }
 }
