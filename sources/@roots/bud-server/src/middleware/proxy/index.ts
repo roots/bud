@@ -109,5 +109,8 @@ export const proxy = (app: Bud) => {
     target: app.hooks.filter('dev.middleware.proxy.target', url.proxy),
   }
 
-  return createProxyMiddleware(['**', '!/__bud/**'], options)
+  return createProxyMiddleware(
+    app.hooks.filter('dev.middleware.proxy.paths', ['**', '!/__bud/**']),
+    app.hooks.filter('dev.middleware.proxy.options', options),
+  )
 }
