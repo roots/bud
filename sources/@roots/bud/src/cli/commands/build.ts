@@ -85,6 +85,13 @@ export class BuildCommand extends BaseCommand {
   })
 
   /**
+   * --debug
+   */
+  public debug = Option.Boolean(`--debug`, false, {
+    description: `Write debug files to storage directory`,
+  })
+
+  /**
    * --devtool
    */
   public devtool = Option.String(`--devtool`, undefined, {
@@ -306,6 +313,7 @@ export class BuildCommand extends BaseCommand {
       'cache',
       'ci',
       'clean',
+      'debug',
       'devtool',
       'esm',
       'flush',

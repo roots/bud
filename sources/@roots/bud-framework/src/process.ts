@@ -45,6 +45,15 @@ function makeHandler(app: Bud, code: number) {
     process.exitCode = code
 
     try {
+      app.dashboard?.instance?.unmount()
+    } catch (error) {
+      app.info('Dashboard unmount error', error)
+      app.info(
+        'This might not be a problem, as the dashboard will unmount itself, so there is a race condition here.',
+      )
+    }
+
+    try {
       app.isDevelopment &&
         app.server?.connection?.instance?.removeAllListeners().unref()
     } catch (err) {

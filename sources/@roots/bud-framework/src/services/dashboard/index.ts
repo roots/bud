@@ -8,6 +8,8 @@ import type {Service as Base} from '../../service.js'
  * @public
  */
 export interface Service extends Base {
+  instance: any
+
   percentage: number
 
   log(...strings: Array<string>): unknown
