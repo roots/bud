@@ -44,12 +44,8 @@ export const get = async (
       !process.argv.includes('--clean') &&
       cache.has('context.basedir') &&
       cache.get('context.basedir') === basedir &&
-      cache.has('context.bud.version') &&
-      cache.get('context.bud.version') == bud.data.version &&
       cache.has('context.config') &&
       cache.get('context.config') == config.data &&
-      cache.has('context.env') &&
-      cache.get('context.env') == env.data &&
       cache.has('context.manifest') &&
       cache.get('context.manifest') == manifest.data
     ) {
@@ -58,10 +54,7 @@ export const get = async (
 
     skippedCache = true
 
-    if (
-      process.argv.includes('--flush') ||
-      process.argv.includes('--clean')
-    ) {
+    if (process.argv.includes('--flush')) {
       clearedCache = true
       cache.clear()
     }

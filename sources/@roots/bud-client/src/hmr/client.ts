@@ -22,14 +22,9 @@ export const check = () => {
  * @public
  */
 export const apply = (
-  error?: Error,
+  _error?: Error,
   modules?: StatsCompilation['modules'],
 ) => {
-  if (error) {
-    options.get('log') && console.error(error)
-    options.get('reload') && window.location.reload()
-    return
-  }
   if (!modules) return
 
   if (cache.isStale()) check()
@@ -48,13 +43,9 @@ export const apply = (
  * @public
  */
 export const update = (
-  error: Error,
+  _error: Error,
   modules?: StatsCompilation['modules'],
 ) => {
-  if (error) {
-    options.get('log') && console.error(error)
-    options.get('reload') && window.location.reload()
-  }
   if (!modules) return
 
   module.hot
