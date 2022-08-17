@@ -92,6 +92,13 @@ export class BuildCommand extends BaseCommand {
   })
 
   /**
+   * --debug
+   */
+  public debug = Option.Boolean(`--debug`, false, {
+    description: `Write debug files to storage directory`,
+  })
+
+  /**
    * --devtool
    */
   public devtool = Option.String(`--devtool`, undefined, {
@@ -256,8 +263,7 @@ export class BuildCommand extends BaseCommand {
    * --notify
    */
   public editor = Option.Boolean(`--editor`, false, {
-    description:
-      `Open editor to file containing errors on unsuccessful development build`,
+    description: `Open editor to file containing errors on unsuccessful development build`,
   })
 
   /**

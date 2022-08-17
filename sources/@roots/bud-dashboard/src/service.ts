@@ -2,6 +2,7 @@
 import {Dashboard as Base, Service} from '@roots/bud-framework'
 import {bind} from 'helpful-decorators'
 import type * as Ink from 'ink'
+import type * as Ink from 'ink'
 import {toInteger} from 'lodash-es'
 import type {StatsCompilation} from 'webpack'
 
@@ -11,6 +12,12 @@ import type {StatsCompilation} from 'webpack'
  * @public
  */
 export class Dashboard extends Service implements Base.Service {
+  /**
+   * Ink instance
+   * @public
+   */
+  public instance: Ink.Instance
+
   /**
    * Ink instance
    * @public
