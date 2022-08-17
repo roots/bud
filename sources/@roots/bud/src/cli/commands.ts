@@ -2,7 +2,9 @@
 import type {Context} from '@roots/bud-framework/src/config'
 import {globby} from 'globby'
 import {resolve} from 'import-meta-resolve'
+import {isString} from 'lodash-es'
 import {dirname, join} from 'node:path/posix'
+import {fileURLToPath} from 'node:url'
 
 import getCache from '../context/cache.js'
 import type * as cli from './app.js'
@@ -55,7 +57,7 @@ export class Commands {
     return Object.keys({
       ...(this.context.manifest.dependencies ?? {}),
       ...(this.context.manifest.devDependencies ?? {}),
-    })
+    }).filter(signifier => !signifier.startsWith(`@types`))
   }
 
   /**
@@ -63,23 +65,25 @@ export class Commands {
    */
   public async findExtensionCommandPaths(paths: Array<string>) {
     return await Promise.all(
-      paths.map(async path =>
-        globby(
-          join(
-            dirname(path.replace(`file://`, ``)),
-            join(`bud`, `commands`, `index.js`),
-          ),
+      paths
+        .map(dirname)
+        .map(async path =>
+          globby(join(path, join(`bud`, `commands`, `index.js`))),
         ),
-      ),
     ).then(results => results.flat())
   }
 
   public async resolveExtensionCommandPaths(paths: Array<string>) {
     return await Promise.all(
-      paths.map(path => resolve(path, import.meta.url)),
-    ).then(paths =>
-      paths.filter(Boolean).map(path => path.replace(`file://`, ``)),
-    )
+      paths.map(async path => {
+        try {
+          return resolve(path, import.meta.url)
+        } catch (err) {
+          console.warn(err)
+          return false
+        }
+      }),
+    ).then(paths => paths.filter(isString).map(fileURLToPath))
   }
 
   /**
@@ -100,9 +104,15 @@ export class Commands {
   ): Promise<any> {
     try {
       return await Promise.all(
-        paths.map(async path =>
-          import(path).then(({default: register}) => register),
-        ),
+        paths.map(async path => {
+          try {
+            return await import(path).then(
+              ({default: register}) => register,
+            )
+          } catch (error) {
+            throw new Error(error)
+          }
+        }),
       )
     } catch (error) {
       console.warn(error)
