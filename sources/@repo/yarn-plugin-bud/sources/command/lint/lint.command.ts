@@ -1,6 +1,6 @@
 import {CommandClass, Option} from 'clipanion'
 
-import {Command} from './base.command'
+import {Command} from '../base.command'
 
 /**
  * Lint command class
@@ -47,9 +47,15 @@ export class Lint extends Command {
    */
   public async execute() {
     await this.$(
-      this.withPassthrough(
-        `yarn eslint "./sources/*/*/src/**/*.{ts,tsx,js,jsx}" "./sources/*/*/sources/**/*.{ts,tsx,js,jsx}" "./tests/**/*.{ts,tsx,js,jsx}" --config ./config/eslint.config.cjs --no-error-on-unmatched-pattern`,
-      ),
+      this.withPassthrough(`\
+yarn eslint\
+  "./sources/*/*/src/**/*.{ts,tsx,js,jsx}"\
+  "./sources/*/*/sources/**/*.{ts,tsx,js,jsx}"\
+  "./tests/**/*.{ts,tsx,js,jsx}"\
+  "./config/**/*.{ts,tsx,js,jsx}"\
+  --config ./config/eslint.config.cjs\
+  --no-error-on-unmatched-pattern\
+`),
     )
   }
 }
