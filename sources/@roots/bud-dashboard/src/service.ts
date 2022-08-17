@@ -18,12 +18,6 @@ export class Dashboard extends Service implements Base.Service {
   public instance: Ink.Instance
 
   /**
-   * Ink instance
-   * @public
-   */
-  public instance: Ink.Instance
-
-  /**
    * Last hash
    *
    * @public
