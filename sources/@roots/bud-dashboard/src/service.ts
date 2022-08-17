@@ -2,7 +2,6 @@
 import {Dashboard as Base, Service} from '@roots/bud-framework'
 import {bind} from 'helpful-decorators'
 import type * as Ink from 'ink'
-import type * as Ink from 'ink'
 import {toInteger} from 'lodash-es'
 import type {StatsCompilation} from 'webpack'
 
