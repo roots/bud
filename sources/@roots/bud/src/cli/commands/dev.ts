@@ -22,8 +22,7 @@ export class DevCommand extends BuildCommand {
    * --minimize
    */
   public reload = Option.Boolean(`--reload-on-error`, true, {
-    description:
-      `Reload the browser when HMR encounters unaccepted modules`,
+    description: `Reload the browser when HMR encounters unaccepted modules`,
   })
 
   /**
