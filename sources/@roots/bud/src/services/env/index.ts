@@ -42,7 +42,7 @@ export class Env extends ContainerService implements Base.Service {
    */
   @bind
   public transformPublicEnv([rawKey, rawValue]: [string, string]) {
-    return [rawKey.replace('PUBLIC_', ''), rawValue]
+    return [rawKey.replace(`PUBLIC_`, ``), rawValue]
   }
 
   /**
@@ -52,6 +52,6 @@ export class Env extends ContainerService implements Base.Service {
    */
   @bind
   public filterPublicEnv([key]: [string, string]) {
-    return key.startsWith('PUBLIC_')
+    return key.startsWith(`PUBLIC_`)
   }
 }

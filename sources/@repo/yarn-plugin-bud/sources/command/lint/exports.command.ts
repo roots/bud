@@ -13,7 +13,7 @@ export class LintExports extends Command {
    *
    * @internal
    */
-  public static label = '@bud lint exports'
+  public static label = `@bud lint exports`
 
   /**
    * Command paths

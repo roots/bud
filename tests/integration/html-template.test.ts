@@ -8,27 +8,27 @@ const run = pacman => () => {
 
   beforeAll(async () => {
     project = new Project({
-      label: '@examples/html-template',
+      label: `@examples/html-template`,
       with: pacman,
     })
 
     await project.setup()
   })
 
-  describe('package.json', () => {
-    it('matches snapshot', () => {
+  describe(`package.json`, () => {
+    it(`matches snapshot`, () => {
       expect(project.packageJson).toMatchSnapshot()
     })
   })
 
-  describe('index.html', () => {
-    it('is the correct html', () => {
-      expect(project.assets['index.html']).toMatchSnapshot()
+  describe(`index.html`, () => {
+    it(`is the correct html`, () => {
+      expect(project.assets[`index.html`]).toMatchSnapshot()
     })
   })
 }
 
-describe('html-template', () => {
-  describe('npm', run('npm'))
-  describe('yarn', run('yarn'))
+describe(`html-template`, () => {
+  describe(`npm`, run(`npm`))
+  describe(`yarn`, run(`yarn`))
 })

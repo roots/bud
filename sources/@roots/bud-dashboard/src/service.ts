@@ -39,7 +39,7 @@ export class Dashboard extends Service implements Base.Service {
    */
   @bind
   public log(...strings: Array<string>): void {
-    this.app.context.stdout.write(strings.join(''))
+    this.app.context.stdout.write(strings.join(``))
   }
 
   /**
@@ -62,7 +62,7 @@ export class Dashboard extends Service implements Base.Service {
     }
 
     try {
-      const {renderDashboard} = await import('./render/renderer.js')
+      const {renderDashboard} = await import(`./render/renderer.js`)
       const stats: StatsCompilation = compilationStats.toJson()
       if (!stats || stats.hash === this.lastHash) return this
       this.lastHash = stats.hash

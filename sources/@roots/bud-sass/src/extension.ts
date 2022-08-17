@@ -16,10 +16,10 @@ import {
  * @decorator `@dependsOn`
  * @decorator `@dependsOnOptional`
  */
-@label('@roots/bud-sass')
-@expose('sass')
-@dependsOn(['@roots/bud-sass/resolve-url'])
-@dependsOnOptional(['@roots/bud-postcss'])
+@label(`@roots/bud-sass`)
+@expose(`sass`)
+@dependsOn([`@roots/bud-sass/resolve-url`])
+@dependsOnOptional([`@roots/bud-postcss`])
 export default class BudSass extends Extension {
   /**
    * `register` callback
@@ -29,7 +29,7 @@ export default class BudSass extends Extension {
    */
   @bind
   public async register() {
-    const implementation = await this.import('sass')
+    const implementation = await this.import(`sass`)
     this.setOptions({implementation, sourceMap: true})
   }
 
@@ -42,14 +42,14 @@ export default class BudSass extends Extension {
   @bind
   public async afterConfig() {
     this.app.build
-      .setLoader('sass', await this.resolve('sass-loader'))
-      .setItem('sass', {
-        loader: 'sass',
+      .setLoader(`sass`, await this.resolve(`sass-loader`))
+      .setItem(`sass`, {
+        loader: `sass`,
         options: this.options,
       })
-      .setRule('sass', {
-        test: app => app.hooks.filter('pattern.sass'),
-        include: [app => app.path('@src')],
+      .setRule(`sass`, {
+        test: app => app.hooks.filter(`pattern.sass`),
+        include: [app => app.path(`@src`)],
         use: [`precss`, `css`, `postcss`, `resolveUrl`, `sass`],
       })
 
@@ -58,12 +58,12 @@ export default class BudSass extends Extension {
       sourceMap: true,
     }))
 
-    this.app.hooks.on('build.resolve.extensions', ext =>
-      ext.add('.scss').add('.sass'),
+    this.app.hooks.on(`build.resolve.extensions`, ext =>
+      ext.add(`.scss`).add(`.sass`),
     )
 
     if (this.app.postcss) {
-      this.app.postcss.syntax = 'postcss-scss'
+      this.app.postcss.syntax = `postcss-scss`
     }
   }
 
@@ -84,8 +84,8 @@ export default class BudSass extends Extension {
   @bind
   public registerGlobal(data: string | Array<string>): this {
     data = Array.isArray(data) ? data : [data]
-    return this.setOption('additionalData', value =>
-      [value ?? null, ...data].filter(Boolean).join('\n'),
+    return this.setOption(`additionalData`, value =>
+      [value ?? null, ...data].filter(Boolean).join(`\n`),
     )
   }
 

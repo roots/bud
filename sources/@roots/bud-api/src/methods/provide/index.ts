@@ -9,7 +9,7 @@ export const provide: provide = function (
 ) {
   const app = this as Bud
 
-  app.extensions.get('webpack:provide-plugin').setOptions(options => {
+  app.extensions.get(`webpack:provide-plugin`).setOptions(options => {
     Object.entries(packages).forEach(([key, alias]) => {
       ;(Array.isArray(alias) ? alias : [alias]).forEach(alias => {
         options[alias] = key

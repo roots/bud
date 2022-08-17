@@ -16,18 +16,18 @@ export class Info extends Command {
    *
    * @internal
    */
-  public static label = '@bud info'
+  public static label = `@bud info`
 
   /**
    * Command paths
    *
    * @internal
    */
-  public static paths: CommandClass['paths'] = [['@bud', 'info']]
+  public static paths: CommandClass['paths'] = [[`@bud`, `info`]]
 
   public get hasPm2() {
     try {
-      execSync('yarn @bud pm2 --version')
+      execSync(`yarn @bud pm2 --version`)
       return true
     } catch (e) {
       return false
@@ -36,7 +36,7 @@ export class Info extends Command {
 
   public get hasVolta() {
     try {
-      execSync('volta -v')
+      execSync(`volta -v`)
       return true
     } catch (e) {
       return false
@@ -44,29 +44,29 @@ export class Info extends Command {
   }
 
   public get voltaList() {
-    return execSync('volta list')
+    return execSync(`volta list`)
       .toString()
       .trim()
-      .split('\n')
+      .split(`\n`)
       .filter(ln => {
-        return ln.startsWith('runtime') || ln.startsWith('package-manager')
+        return ln.startsWith(`runtime`) || ln.startsWith(`package-manager`)
       })
       .map(ln =>
-        '- '.concat(
+        `- `.concat(
           ln
-            .split(' / ')
+            .split(` / `)
             .shift()
-            .split(' (current')
+            .split(` (current`)
             .shift()
-            .replace('runtime ', ''),
+            .replace(`runtime `, ``),
         ),
       )
-      .join('\n')
+      .join(`\n`)
   }
 
   public get hasVerdaccio() {
     try {
-      execSync('yarn @bud pm2 verdaccio --version')
+      execSync(`yarn @bud pm2 verdaccio --version`)
       return true
     } catch (e) {
       return false
@@ -74,28 +74,28 @@ export class Info extends Command {
   }
 
   public get head() {
-    return execSync('git rev-parse HEAD').toString().trim()
+    return execSync(`git rev-parse HEAD`).toString().trim()
   }
 
   public get branch() {
-    return execSync('git rev-parse --abbrev-ref HEAD').toString().trim()
+    return execSync(`git rev-parse --abbrev-ref HEAD`).toString().trim()
   }
 
   public get pm2() {
-    return execSync('yarn @bud pm2 ls').toString().trim()
+    return execSync(`yarn @bud pm2 ls`).toString().trim()
   }
 
   public get verdaccio() {
-    return execSync('yarn @bud pm2 verdaccio --version').toString().trim()
+    return execSync(`yarn @bud pm2 verdaccio --version`).toString().trim()
   }
 
   public get logs() {
-    return execSync('yarn @bud pm2 logs --out --lines 5 --nostream')
+    return execSync(`yarn @bud pm2 logs --out --lines 5 --nostream`)
       .toString()
       .trim()
-      .split('\n')
+      .split(`\n`)
       .splice(2)
-      .join('\n')
+      .join(`\n`)
   }
 
   public get requiredNode() {
@@ -107,22 +107,22 @@ export class Info extends Command {
   }
 
   public get pm2Version() {
-    return execSync('yarn @bud pm2 --version')
+    return execSync(`yarn @bud pm2 --version`)
       .toString()
       .trim()
-      .replace('v', '')
+      .replace(`v`, ``)
   }
 
   public get nodeVersion() {
-    return process.version.replace('v', '')
+    return process.version.replace(`v`, ``)
   }
 
   public get yarn() {
-    return execSync('yarn -v').toString().trim().replace('v', '')
+    return execSync(`yarn -v`).toString().trim().replace(`v`, ``)
   }
 
   public get npm() {
-    return execSync('npm -v').toString().trim().replace('v', '')
+    return execSync(`npm -v`).toString().trim().replace(`v`, ``)
   }
 
   public get gitLog() {

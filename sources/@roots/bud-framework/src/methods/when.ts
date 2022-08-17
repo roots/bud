@@ -49,17 +49,17 @@ export function when(
   const ctx = this as Bud
 
   if (!isBoolean(test) && !isFunction(test)) {
-    ctx.error('[when] test must be a boolean or a function')
+    ctx.error(`[when] test must be a boolean or a function`)
   }
 
   const result = ctx.maybeCall(test)
 
   if (!isBoolean(result)) {
-    ctx.error('[when] test function must return a boolean')
+    ctx.error(`[when] test function must return a boolean`)
   }
 
   if (!isFunction(trueCase)) {
-    ctx.error('[when] true case is required and must be a function')
+    ctx.error(`[when] true case is required and must be a function`)
   }
 
   result ? trueCase(this) : isFunction(falseCase) && falseCase(this)

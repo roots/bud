@@ -83,7 +83,7 @@ export abstract class Command extends BaseCommand {
    */
   @bind
   public log(message: string): void {
-    const label = this.name ?? '@bud'
+    const label = this.name ?? `@bud`
     process.stdout.write(`[${label}] ${message}\n`)
   }
 
@@ -94,9 +94,9 @@ export abstract class Command extends BaseCommand {
    */
   @bind
   public err(error: string | Error): void {
-    const label = this.name ?? '@bud'
+    const label = this.name ?? `@bud`
     process.stderr.write(
-      `[${label}] ${typeof error === 'string' ? error : error.message}\n`,
+      `[${label}] ${typeof error === `string` ? error : error.message}\n`,
     )
 
     process.exit(1)

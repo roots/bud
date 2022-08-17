@@ -4,12 +4,12 @@ import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {options} from '@roots/bud-framework/extension/decorators'
 
-describe('Extension', () => {
+describe(`Extension`, () => {
   const resetExtensions = bud => {
     bud.extensions.repository = {}
   }
 
-  describe('options', () => {
+  describe(`options`, () => {
     let bud: Bud
 
     beforeAll(async () => {
@@ -20,56 +20,56 @@ describe('Extension', () => {
       resetExtensions(bud)
     })
 
-    it('adds options', async () => {
+    it(`adds options`, async () => {
       const mockOptions = {
-        foo: 'bar',
+        foo: `bar`,
       }
 
       class MockExtension extends Extension {
-        public label = 'mock-extension'
+        public label = `mock-extension`
         public options = mockOptions
       }
 
       await bud.extensions.add(MockExtension)
-      expect(bud.extensions.get('mock-extension').options).toStrictEqual(
+      expect(bud.extensions.get(`mock-extension`).options).toStrictEqual(
         mockOptions,
       )
     })
 
-    it('adds options with function wrappers', async () => {
+    it(`adds options with function wrappers`, async () => {
       const mockOptions = {
-        foo: 'bar',
+        foo: `bar`,
         bar: () => bud.name,
       }
 
       class MockExtension extends Extension {
-        public label = 'mock-extension'
+        public label = `mock-extension`
         public options = mockOptions
       }
 
       await bud.extensions.add(MockExtension)
-      expect(bud.extensions.get('mock-extension').options).toStrictEqual({
+      expect(bud.extensions.get(`mock-extension`).options).toStrictEqual({
         ...mockOptions,
-        bar: 'bud',
+        bar: `bud`,
       })
-      expect(bud.extensions.get('mock-extension')._options).toStrictEqual(
+      expect(bud.extensions.get(`mock-extension`)._options).toStrictEqual(
         mockOptions,
       )
     })
 
-    it('adds options (decorated)', async () => {
+    it(`adds options (decorated)`, async () => {
       const opts = {
-        decorated: 'bar',
+        decorated: `bar`,
       }
 
       @options(opts)
       // @ts-ignore
       class MockDecoratedExtension extends Extension {
-        public label = 'mock-extension'
+        public label = `mock-extension`
       }
 
       await bud.extensions.add(MockDecoratedExtension)
-      const initializedOpts = bud.extensions.get('mock-extension').options
+      const initializedOpts = bud.extensions.get(`mock-extension`).options
       expect(initializedOpts).toStrictEqual(opts)
     })
   })

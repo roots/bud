@@ -13,7 +13,7 @@ export class Format extends Command {
    *
    * @internal
    */
-  public static label = '@bud lint format'
+  public static label = `@bud lint format`
 
   /**
    * Command paths
@@ -41,8 +41,8 @@ export class Format extends Command {
    *
    * @internal
    */
-  public fix = Option.Boolean('-f,--fix', true, {
-    description: 'fix',
+  public fix = Option.Boolean(`-f,--fix`, true, {
+    description: `fix`,
   })
 
   /**
@@ -53,7 +53,7 @@ export class Format extends Command {
   public async execute() {
     await this.$(
       `yarn prettier ./sources/@roots/*/src/**/* ${
-        this.fix ? '--write' : '--check'
+        this.fix ? `--write` : `--check`
       } --config ./config/prettier.config.cjs --ignore-unknown --no-error-on-unmatched-pattern`,
     )
   }

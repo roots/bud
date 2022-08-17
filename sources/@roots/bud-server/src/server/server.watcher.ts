@@ -51,7 +51,7 @@ export class Watcher implements Server.Watcher {
    * @decorator `@bind`
    */
   public getOptions() {
-    this.options = this.app.hooks.filter('dev.watch.options', {})
+    this.options = this.app.hooks.filter(`dev.watch.options`, {})
     return this.options
   }
 
@@ -63,7 +63,7 @@ export class Watcher implements Server.Watcher {
    */
   @bind
   public getFiles(): Array<string> {
-    this.files = this.app.hooks.filter('dev.watch.files')
+    this.files = this.app.hooks.filter(`dev.watch.files`)
     if (!this.files || this.files.size === 0) return []
 
     return Array.from(this.files)
@@ -91,13 +91,13 @@ export class Watcher implements Server.Watcher {
   @bind
   public watcherCallback(path: string): void {
     this.logger.log(
-      'edit to',
-      path.replace(this.app.path(), '.'),
-      'triggered reload',
+      `edit to`,
+      path.replace(this.app.path(), `.`),
+      `triggered reload`,
     )
 
     this.app.server.appliedMiddleware?.hot?.publish({
-      action: 'reload',
+      action: `reload`,
       message: `Detected file change: ${path}. Reloading window.`,
     })
   }
@@ -110,7 +110,7 @@ export class Watcher implements Server.Watcher {
    */
   @bind
   public async watch(): Promise<Watcher['instance']> {
-    this.logger = this.app.logger.instance.scope('watch')
+    this.logger = this.app.logger.instance.scope(`watch`)
     this.getFiles()
 
     if (!this.files.size) return
@@ -118,7 +118,7 @@ export class Watcher implements Server.Watcher {
     this.instance = await this.search().then(files =>
       chokidar
         .watch(files, this.getOptions())
-        .on('change', this.watcherCallback),
+        .on(`change`, this.watcherCallback),
     )
 
     this.logger.log(`watching ${this.files.size} files for changes`)

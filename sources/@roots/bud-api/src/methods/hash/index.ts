@@ -7,10 +7,10 @@ export interface hash {
 export const hash: hash = function (enabled = true) {
   this as Bud
 
-  this.hooks.on('feature.hash', enabled)
+  this.hooks.on(`feature.hash`, enabled)
 
   this.success({
-    message: `file hashing ${enabled ? 'enabled' : 'disabled'}`,
+    message: `file hashing ${enabled ? `enabled` : `disabled`}`,
   })
 
   return this

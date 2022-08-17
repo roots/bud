@@ -19,7 +19,7 @@ export class MergedManifestWebpackPlugin {
    * @public
    */
   public plugin = {
-    name: 'MergedManifestPlugin',
+    name: `MergedManifestPlugin`,
   }
 
   /**
@@ -34,21 +34,21 @@ export class MergedManifestWebpackPlugin {
    *
    * @public
    */
-  public file = 'entrypoints.json'
+  public file = `entrypoints.json`
 
   /**
    * Entrypoints manifest
    *
    * @public
    */
-  public entrypointsName = 'entrypoints.json'
+  public entrypointsName = `entrypoints.json`
 
   /**
    * WordPress manifest
    *
    * @public
    */
-  public wordpressName = 'wordpress.json'
+  public wordpressName = `wordpress.json`
 
   /**
    * Plugin constructor

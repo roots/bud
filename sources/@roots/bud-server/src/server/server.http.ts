@@ -21,7 +21,7 @@ export class Http extends BaseServer implements Server.Connection {
    *
    * @public
    */
-  public protocol: 'http:' = 'http:'
+  public protocol: 'http:' = `http:`
 
   /**
    * createServer

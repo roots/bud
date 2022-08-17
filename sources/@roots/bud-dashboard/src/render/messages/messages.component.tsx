@@ -22,13 +22,13 @@ const Messages = ({
     ?.map(formatMessage)
     ?.map((message: string) =>
       message
-        .replace(/^\t/g, '')
-        .split('\n')
+        .replace(/^\t/g, ``)
+        .split(`\n`)
         .map(
           (ln, id) =>
-            `${chalk.dim(VERT)}${SPACE}${ln.replace(process.cwd(), '.')}`,
+            `${chalk.dim(VERT)}${SPACE}${ln.replace(process.cwd(), `.`)}`,
         )
-        .join('\n'),
+        .join(`\n`),
     )
 
   if (!formatted) return null

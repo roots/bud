@@ -36,7 +36,7 @@ export interface setPublicPath {
 export const setPublicPath: setPublicPath = function (publicPath) {
   const app = this as Bud
 
-  app.hooks.on('build.output.publicPath', publicPath)
+  app.hooks.on(`build.output.publicPath`, publicPath)
 
   return app
 }

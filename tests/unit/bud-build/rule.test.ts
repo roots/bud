@@ -1,33 +1,33 @@
 import {Bud, factory} from '@repo/test-kit/bud'
 import {Rule} from '@roots/bud-build'
 
-describe('Build Rule', function () {
+describe(`Build Rule`, function () {
   let bud: Bud
 
   beforeAll(async () => {
     bud = await factory()
   })
 
-  it('is constructable', () => {
+  it(`is constructable`, () => {
     const rule = {test: /.foo$/}
     expect(new Rule(() => bud, rule)).toBeInstanceOf(Rule)
   })
 
-  it('make', () => {
+  it(`make`, () => {
     const rule = {test: /.foo$/}
     expect(new Rule(() => bud, rule).toWebpack()).toEqual({
       test: /.foo$/,
     })
   })
 
-  it('getUse', () => {
+  it(`getUse`, () => {
     const input = [`md`]
     const rule = new Rule(() => bud, {test: /.foo$/, use: input})
 
     expect(rule.getUse()).toEqual(input)
   })
 
-  it('setUse', () => {
+  it(`setUse`, () => {
     const input = [`raw`, `md`]
     const rule = new Rule(() => bud, {test: /.foo$/})
     rule.setUse(input)
@@ -35,14 +35,14 @@ describe('Build Rule', function () {
     expect(rule.use).toEqual(input)
   })
 
-  it('getTest', () => {
+  it(`getTest`, () => {
     const input = /.foo$/
     const rule = new Rule(() => bud, {test: input})
 
     expect(rule.getTest()).toEqual(input)
   })
 
-  it('setTest', () => {
+  it(`setTest`, () => {
     const input = () => /.js$/
     const rule = new Rule(() => bud, {test: /.foo$/})
     rule.setTest(input)
@@ -50,7 +50,7 @@ describe('Build Rule', function () {
     expect(rule.test).toEqual(input)
   })
 
-  it('getExclude', () => {
+  it(`getExclude`, () => {
     const definition = {
       test: /.foo$/,
       exclude: [/.bar$/],
@@ -61,7 +61,7 @@ describe('Build Rule', function () {
     expect(rule.exclude).toEqual(definition.exclude)
   })
 
-  it('setExclude from fn', () => {
+  it(`setExclude from fn`, () => {
     const rule = new Rule(() => bud, {test: /.foo$/})
 
     const mutationFn = () => [/.js$/]
@@ -70,7 +70,7 @@ describe('Build Rule', function () {
     expect(rule.getExclude()).toEqual([/.js$/])
   })
 
-  it('setExclude from obj', () => {
+  it(`setExclude from obj`, () => {
     const rule = new Rule(() => bud, {test: /.foo$/})
 
     const mutation = [/.js$/]

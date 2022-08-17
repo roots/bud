@@ -13,7 +13,7 @@ import Webpack from 'webpack'
  * @decorator `@label`
  * @decorator `@plugin`
  */
-@label('webpack:provide-plugin')
+@label(`webpack:provide-plugin`)
 @plugin(Webpack.ProvidePlugin)
 export default class BudProvide extends Extension<
   Record<string, any>,

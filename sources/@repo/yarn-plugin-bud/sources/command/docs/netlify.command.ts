@@ -13,7 +13,7 @@ export class DocsNetlify extends Command {
    *
    * @internal
    */
-  public static label = '@bud netlify'
+  public static label = `@bud netlify`
 
   /**
    * Command paths
@@ -21,8 +21,8 @@ export class DocsNetlify extends Command {
    * @internal
    */
   public static paths: CommandClass['paths'] = [
-    ['@bud', 'netlify'],
-    ['@bud', 'docs', 'netlify'],
+    [`@bud`, `netlify`],
+    [`@bud`, `docs`, `netlify`],
   ]
 
   /**
@@ -31,9 +31,9 @@ export class DocsNetlify extends Command {
    * @internal
    */
   public static usage: CommandClass['usage'] = {
-    category: '@bud',
-    description: 'netlify alias',
-    examples: [['run commands on netlify-cli', 'yarn @bud netlify']],
+    category: `@bud`,
+    description: `netlify alias`,
+    examples: [[`run commands on netlify-cli`, `yarn @bud netlify`]],
   }
 
   /**

@@ -30,12 +30,12 @@ export const apply = (
   if (cache.isStale()) check()
 
   if (cache.failed) {
-    options.get('log') && console.warn('[bud] update failed')
-    options.get('reload') && window.location.reload()
+    options.get(`log`) && console.warn(`[bud] update failed`)
+    options.get(`reload`) && window.location.reload()
     return
   }
 
-  options.get('log') && console.log('[bud] update applied')
+  options.get(`log`) && console.log(`[bud] update applied`)
 }
 
 /**
@@ -55,24 +55,24 @@ export const update = (
         ignoreDeclined: true,
         ignoreErrored: true,
         onUnaccepted: () => {
-          options.get('log') &&
+          options.get(`log`) &&
             console.warn(
-              '[bud] unaccepted module(s). full page reload needed',
+              `[bud] unaccepted module(s). full page reload needed`,
             )
 
           cache.setFailed()
         },
         onDeclined: () => {
-          options.get('log') &&
+          options.get(`log`) &&
             console.warn(
-              '[bud] declined module(s). full page reload needed',
+              `[bud] declined module(s). full page reload needed`,
             )
 
           cache.setFailed()
         },
         onErrored: () => {
-          options.get('log') &&
-            console.warn('[bud] hmr error. full page reload needed')
+          options.get(`log`) &&
+            console.warn(`[bud] hmr error. full page reload needed`)
 
           cache.setFailed()
         },

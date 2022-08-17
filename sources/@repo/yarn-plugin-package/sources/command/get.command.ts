@@ -15,7 +15,7 @@ export abstract class Get extends Command {
    *
    * @internal
    */
-  public static paths: CommandClass['paths'] = [['package', 'get']]
+  public static paths: CommandClass['paths'] = [[`package`, `get`]]
 
   /**
    * The property to get

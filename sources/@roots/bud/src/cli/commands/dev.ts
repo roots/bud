@@ -16,14 +16,13 @@ export class DevCommand extends BuildCommand {
    *
    * @public
    */
-  public mode: 'development' = 'development'
+  public mode: 'development' = `development`
 
   /**
    * --minimize
    */
   public reload = Option.Boolean(`--reload-on-error`, true, {
-    description:
-      'Reload the browser when HMR encounters unaccepted modules',
+    description: `Reload the browser when HMR encounters unaccepted modules`,
   })
 
   /**

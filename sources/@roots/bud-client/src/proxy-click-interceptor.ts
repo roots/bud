@@ -8,7 +8,7 @@ window.requestAnimationFrame(async function ready() {
   const params = new URLSearchParams(__resourceQuery)
 
   if (!params) return
-  const href = params.get('href')
+  const href = params.get(`href`)
 
   if (!href) return
   const origin = decodeURI(href)

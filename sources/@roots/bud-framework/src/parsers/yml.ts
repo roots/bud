@@ -2,7 +2,7 @@ import fs from 'fs-extra'
 import yaml from 'js-yaml'
 
 export const read = async (file: string): Promise<any> => {
-  const source = await fs.readFile(file, 'utf8')
+  const source = await fs.readFile(file, `utf8`)
   return yaml.load(source)
 }
 

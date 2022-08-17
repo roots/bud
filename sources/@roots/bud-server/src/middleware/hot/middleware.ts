@@ -7,7 +7,7 @@ import type {Compiler, MultiCompiler, StatsCompilation} from 'webpack'
 import type {Payload} from './payload.js'
 import {HotEventStream} from './stream.js'
 
-const middlewarePath = '__bud/hmr'
+const middlewarePath = `__bud/hmr`
 
 let latestStats = null
 let closed = false
@@ -15,7 +15,7 @@ let logger: Bud['logger']['instance']
 
 export default (app: Bud) => {
   logger = app.logger.makeInstance()
-  logger.scope('hot middleware')
+  logger.scope(`hot middleware`)
   logger.enable()
 
   return makeHandler(app.compiler.compilation)
@@ -27,17 +27,17 @@ export const makeHandler = (compiler: Compiler | MultiCompiler) => {
   const onInvalid = () => {
     if (closed) return
     latestStats = null
-    stream.publish({action: 'building'})
+    stream.publish({action: `building`})
   }
 
   const onDone = (stats: StatsCompilation) => {
     if (closed) return
     latestStats = stats
-    publish('built', latestStats, stream)
+    publish(`built`, latestStats, stream)
   }
 
-  compiler.hooks.invalid.tap('bud-hot-middleware', onInvalid)
-  compiler.hooks.done.tap('bud-hot-middleware', onDone)
+  compiler.hooks.invalid.tap(`bud-hot-middleware`, onInvalid)
+  compiler.hooks.done.tap(`bud-hot-middleware`, onDone)
 
   const middleware: RequestHandler = function (req, res, next) {
     if (closed) return next()
@@ -47,7 +47,7 @@ export const makeHandler = (compiler: Compiler | MultiCompiler) => {
     stream.handle(req, res)
 
     if (latestStats) {
-      publish('sync', latestStats, stream)
+      publish(`sync`, latestStats, stream)
     }
   }
 
@@ -85,14 +85,14 @@ export const publish = (
   )
 
   bundles.forEach((stats: StatsCompilation) => {
-    const name: string = stats.name ?? statsCompilation.name ?? 'unnamed'
+    const name: string = stats.name ?? statsCompilation.name ?? `unnamed`
 
     const modules: Record<string, string> = stats.modules?.reduce(
       (modules, module) => ({...modules, [module.id]: module.name}),
       {},
     )
 
-    logger.log('built', name, `(${stats.hash})`, 'in', `${stats.time}ms`)
+    logger.log(`built`, name, `(${stats.hash})`, `in`, `${stats.time}ms`)
 
     stream.publish({
       name,

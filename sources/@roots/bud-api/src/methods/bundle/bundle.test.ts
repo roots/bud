@@ -3,7 +3,7 @@ import {Bud, factory} from '@repo/test-kit/bud'
 
 import {bundle} from './bundle.method.js'
 
-describe('bud.bundle', () => {
+describe(`bud.bundle`, () => {
   let bud: Bud
   let instance: typeof bundle
 
@@ -12,48 +12,48 @@ describe('bud.bundle', () => {
     instance = bundle.bind(bud)
   })
 
-  it('should set the bundle using a string', async () => {
-    await instance('react').api.processQueue()
+  it(`should set the bundle using a string`, async () => {
+    await instance(`react`).api.processQueue()
 
     expect(
-      bud.hooks.filter('build.optimization.splitChunks'),
+      bud.hooks.filter(`build.optimization.splitChunks`),
     ).toMatchSnapshot()
   })
 
-  it('should set the bundle using a string name and a string test', async () => {
-    await instance('react', 'react').api.processQueue()
+  it(`should set the bundle using a string name and a string test`, async () => {
+    await instance(`react`, `react`).api.processQueue()
 
     expect(
-      bud.hooks.filter('build.optimization.splitChunks'),
+      bud.hooks.filter(`build.optimization.splitChunks`),
     ).toMatchSnapshot()
   })
 
-  it('should set the bundle using a string name and regular expression test', async () => {
-    await instance('react', /react/).api.processQueue()
+  it(`should set the bundle using a string name and regular expression test`, async () => {
+    await instance(`react`, /react/).api.processQueue()
 
     expect(
-      bud.hooks.filter('build.optimization.splitChunks'),
+      bud.hooks.filter(`build.optimization.splitChunks`),
     ).toMatchSnapshot()
   })
 
-  it('should set the bundle using a string name and array of strings test', async () => {
-    await instance('react', ['react', 'react-dom']).api.processQueue()
+  it(`should set the bundle using a string name and array of strings test`, async () => {
+    await instance(`react`, [`react`, `react-dom`]).api.processQueue()
 
     expect(
-      bud.hooks.filter('build.optimization.splitChunks'),
+      bud.hooks.filter(`build.optimization.splitChunks`),
     ).toMatchSnapshot()
   })
 
-  describe('when hashing is enabled', () => {
-    it('should include the hash in the `filename` property', async () => {
-      await instance('react', ['react', 'react-dom'])
+  describe(`when hashing is enabled`, () => {
+    it(`should include the hash in the \`filename\` property`, async () => {
+      await instance(`react`, [`react`, `react-dom`])
         .hash()
         .api.processQueue()
 
       expect(
-        bud.hooks.filter('build.optimization.splitChunks').cacheGroups
+        bud.hooks.filter(`build.optimization.splitChunks`).cacheGroups
           .react.filename,
-      ).toMatchSnapshot('js/bundle/react/[name].[contenthash].js')
+      ).toMatchSnapshot(`js/bundle/react/[name].[contenthash].js`)
     })
   })
 })

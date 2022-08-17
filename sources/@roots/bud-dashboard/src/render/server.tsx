@@ -9,11 +9,11 @@ import * as theme from './format.js'
 
 const external = Object.values(networkInterfaces())
   .flat()
-  .find(i => i?.family === 'IPv4' && !i?.internal)?.address
+  .find(i => i?.family === `IPv4` && !i?.internal)?.address
 
 const formatUrl = (host: string, protocol, port) =>
-  `${protocol}//${host === '0.0.0.0' ? 'localhost' : host}${
-    ['80', '8080'].includes(port) ? '' : `:${port}`
+  `${protocol}//${host === `0.0.0.0` ? `localhost` : host}${
+    [`80`, `8080`].includes(port) ? `` : `:${port}`
   }`
 
 const getServer = (app: Bud) => {
@@ -26,7 +26,7 @@ const getServer = (app: Bud) => {
 }
 
 const getProxy = (app: Bud) => {
-  const proxy = app.hooks.filter('dev.middleware.proxy.target')
+  const proxy = app.hooks.filter(`dev.middleware.proxy.target`)
   if (!proxy) return false
 
   return formatUrl(proxy.hostname, proxy.protocol, proxy.port)
@@ -94,9 +94,9 @@ export const Server = ({app}: {app: Bud}) => {
           {figures.ellipsis} watching project sources
           {app.server.watcher?.files?.size > 0 && (
             <Text dimColor>
-              {' '}
-              (and {app.server.watcher.files.size} other{' '}
-              {app.server.watcher.files.size > 1 ? 'files' : 'file'}){' '}
+              {` `}
+              (and {app.server.watcher.files.size} other{` `}
+              {app.server.watcher.files.size > 1 ? `files` : `file`}){` `}
             </Text>
           )}
         </Text>

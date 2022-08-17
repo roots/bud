@@ -16,7 +16,7 @@ import {
  * @decorator `@label`
  * @decorator `@development`
  */
-@label('@roots/bud-react/babel-refresh')
+@label(`@roots/bud-react/babel-refresh`)
 @development
 export default class BudBabelRefresh extends Extension {
   /**
@@ -27,14 +27,14 @@ export default class BudBabelRefresh extends Extension {
    */
   @bind
   public async init() {
-    this.logger.log('Registering react-refresh-babel transformer')
+    this.logger.log(`Registering react-refresh-babel transformer`)
 
     if (!this.app.react.useBabel) return
     await this.app.react.ensureBabelIsLoaded()
 
     this.app.babel.setPlugin(
-      'react-refresh/babel',
-      await this.resolve('react-refresh/babel'),
+      `react-refresh/babel`,
+      await this.resolve(`react-refresh/babel`),
     )
   }
 }

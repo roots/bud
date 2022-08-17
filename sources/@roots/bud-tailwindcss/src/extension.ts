@@ -12,8 +12,8 @@ import {
  * @decorator `@label`
  * @decorator `@dependsOn`
  */
-@label('@roots/bud-tailwindcss')
-@dependsOn(['@roots/bud-postcss'])
+@label(`@roots/bud-tailwindcss`)
+@dependsOn([`@roots/bud-postcss`])
 export default class BudTailwindCss extends Extension {
   /**
    * `register` callback
@@ -24,12 +24,12 @@ export default class BudTailwindCss extends Extension {
   @bind
   public async register() {
     try {
-      const tailwindcss = await this.resolve('tailwindcss')
-      const nesting = await this.resolve('tailwindcss/nesting/index.js')
+      const tailwindcss = await this.resolve(`tailwindcss`)
+      const nesting = await this.resolve(`tailwindcss/nesting/index.js`)
 
       this.app.postcss.setPlugins({nesting, tailwindcss})
 
-      this.logger.success('postcss configured for tailwindcss')
+      this.logger.success(`postcss configured for tailwindcss`)
     } catch (message) {
       this.logger.error(message)
     }

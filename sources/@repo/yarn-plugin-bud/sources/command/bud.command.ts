@@ -14,7 +14,7 @@ export class Bud extends Command {
    *
    * @internal
    */
-  public static label = '@bud'
+  public static label = `@bud`
 
   /**
    * Command paths

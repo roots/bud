@@ -39,22 +39,22 @@ export const get = async (
       !process.env.CI &&
       !process.env.JEST_WORKER_ID &&
       !process.env.BUD_TEST_ENV &&
-      !process.argv.includes('--no-cache') &&
-      !process.argv.includes('--flush') &&
-      !process.argv.includes('--clean') &&
-      cache.has('context.basedir') &&
-      cache.get('context.basedir') === basedir &&
-      cache.has('context.config') &&
-      cache.get('context.config') == config.data &&
-      cache.has('context.manifest') &&
-      cache.get('context.manifest') == manifest.data
+      !process.argv.includes(`--no-cache`) &&
+      !process.argv.includes(`--flush`) &&
+      !process.argv.includes(`--clean`) &&
+      cache.has(`context.basedir`) &&
+      cache.get(`context.basedir`) === basedir &&
+      cache.has(`context.config`) &&
+      cache.get(`context.config`) == config.data &&
+      cache.has(`context.manifest`) &&
+      cache.get(`context.manifest`) == manifest.data
     ) {
-      return cache.get('context')
+      return cache.get(`context`)
     }
 
     skippedCache = true
 
-    if (process.argv.includes('--flush')) {
+    if (process.argv.includes(`--flush`)) {
       clearedCache = true
       cache.clear()
     }
@@ -70,8 +70,8 @@ export const get = async (
       extensions.data,
     )
 
-    cache.reset('context')
-    cache.set('context', ctx)
+    cache.reset(`context`)
+    cache.set(`context`, ctx)
 
     return ctx
   } catch (error) {

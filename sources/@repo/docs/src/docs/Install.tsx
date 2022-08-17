@@ -8,8 +8,8 @@ export const Install = ({packages}: {packages: string}) => (
     defaultValue="yarn"
     groupId="pacman"
     values={[
-      {label: 'yarn', value: 'yarn'},
-      {label: 'npm', value: 'npm'},
+      {label: `yarn`, value: `yarn`},
+      {label: `npm`, value: `npm`},
     ]}
   >
     <TabItem value="yarn">

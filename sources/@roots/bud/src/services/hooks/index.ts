@@ -16,11 +16,11 @@ export class Hooks extends Base implements Services.Hooks.Service {
    */
   @bind
   public async bootstrapped() {
-    this.async('build.resolve.alias', async () => ({
-      '@src': this.app.path('@src'),
-      '@dist': this.app.path('@dist'),
+    this.async(`build.resolve.alias`, async () => ({
+      '@src': this.app.path(`@src`),
+      '@dist': this.app.path(`@dist`),
     }))
-    this.on('build.bail', () => this.app.isProduction)
-    this.on('build.context', () => this.app.context.basedir)
+    this.on(`build.bail`, () => this.app.isProduction)
+    this.on(`build.context`, () => this.app.context.basedir)
   }
 }

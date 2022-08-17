@@ -14,7 +14,7 @@ import Plugin from 'webpack-remove-empty-scripts'
  * @decorator `@plugin`
  * @decorator `@production`
  */
-@label('webpack-remove-empty-scripts')
+@label(`webpack-remove-empty-scripts`)
 @plugin(Plugin)
 @production
 export default class BudRemoveEmptyScripts extends Extension<

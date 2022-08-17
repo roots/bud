@@ -8,7 +8,7 @@ export const mergeOptions: (
   context: Partial<Config.Context>,
   overrides?: Partial<Config.Context>,
 ) => Partial<Config.Context> = (context, overrides) => ({
-  mode: 'production',
+  mode: `production`,
   ...context,
   ...(overrides ?? {}),
   args: {

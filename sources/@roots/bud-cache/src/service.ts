@@ -29,10 +29,10 @@ export default class Cache
    */
   protected _name: string
   public get name(): string {
-    return this.app.hooks.filter('build.cache.name')
+    return this.app.hooks.filter(`build.cache.name`)
   }
   public set name(name: string) {
-    this.app.hooks.on('build.cache.name', name)
+    this.app.hooks.on(`build.cache.name`, name)
   }
 
   /**
@@ -108,7 +108,7 @@ export default class Cache
    */
   public get configuration() {
     if (this.enabled === false) return this.enabled
-    return this.type === 'memory' ? this.memoryCache : this.filesystemCache
+    return this.type === `memory` ? this.memoryCache : this.filesystemCache
   }
 
   /**
@@ -155,7 +155,7 @@ export default class Cache
    * @decorator `@bind`
    */
   @bind public async boot() {
-    this.type = 'filesystem'
+    this.type = `filesystem`
     this.cacheDirectory = this.app.path(`@storage/cache/webpack`)
     this.managedPaths = [this.app.path(`@modules`)]
     this.name = `${this.app.label}.${this.app.mode}`

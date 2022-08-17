@@ -13,15 +13,15 @@ import {urlToHttpOptions} from 'node:url'
  */
 export default async function (app: Bud) {
   try {
-    await fs.ensureFile(app.path('@dist/hmr.json'))
+    await fs.ensureFile(app.path(`@dist/hmr.json`))
 
-    await fs.writeJson(app.path('@dist', 'hmr.json'), {
+    await fs.writeJson(app.path(`@dist`, `hmr.json`), {
       dev: urlToHttpOptions(app.server.connection.url) ?? null,
       proxy:
         urlToHttpOptions(
-          app.hooks.filter('dev.middleware.proxy.target'),
+          app.hooks.filter(`dev.middleware.proxy.target`),
         ) ?? null,
-      publicPath: app.hooks.filter('build.output.publicPath') ?? null,
+      publicPath: app.hooks.filter(`build.output.publicPath`) ?? null,
     })
   } catch (error) {
     app.error(error)

@@ -30,9 +30,9 @@ export async function factory(
   const project = await new Bud().lifecycle(mergeOptions(ctx, overrides))
 
   project.when(
-    project.env.has('APP_PUBLIC_PATH') &&
-      project.env.isString('APP_PUBLIC_PATH'),
-    () => project.setPublicPath(project.env.get('APP_PUBLIC_PATH')),
+    project.env.has(`APP_PUBLIC_PATH`) &&
+      project.env.isString(`APP_PUBLIC_PATH`),
+    () => project.setPublicPath(project.env.get(`APP_PUBLIC_PATH`)),
   )
 
   return project

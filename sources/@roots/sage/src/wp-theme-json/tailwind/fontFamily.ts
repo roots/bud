@@ -75,9 +75,9 @@ const name: name = label =>
 export const transform: transform = ([slug, fontFamily]: [
   string,
   string,
-]) => ({name: fontFamily.split(',').shift(), slug, fontFamily})
+]) => ({name: fontFamily.split(`,`).shift(), slug, fontFamily})
 
 export const transformFonts: transformFonts = (fonts: TailwindFonts) =>
   Object.entries(fonts ?? {})
-    .map(([k, v]) => [k, Array.isArray(v) ? v.join(' ') : v])
+    .map(([k, v]) => [k, Array.isArray(v) ? v.join(` `) : v])
     .map(transform)

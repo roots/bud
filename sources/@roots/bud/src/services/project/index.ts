@@ -30,7 +30,7 @@ export class Project
   @bind
   public async bootstrap() {
     this.setStore({
-      context: omit(this.app.context, ['stdin', 'stderr', 'stdout']),
+      context: omit(this.app.context, [`stdin`, `stderr`, `stdout`]),
       version: null,
       config: {
         development: {},
@@ -57,8 +57,8 @@ export class Project
 
     await this.searchConfigs()
 
-    this.app.hooks.action('build.after', async (app: Framework.Bud) => {
-      await app.hooks.fire('project.write')
+    this.app.hooks.action(`build.after`, async (app: Framework.Bud) => {
+      await app.hooks.fire(`project.write`)
       await this.writeProfile()
     })
   }
@@ -71,7 +71,7 @@ export class Project
    */
   @bind
   public async loadManifest(): Promise<void> {
-    this.set('manifest', this.app.context.manifest)
+    this.set(`manifest`, this.app.context.manifest)
   }
 
   /**
@@ -97,14 +97,14 @@ export class Project
       await fs.writeFile(
         path,
         this.app.json.stringify(
-          omit(this.repository, ['context.env']),
+          omit(this.repository, [`context.env`]),
           null,
           2,
         ),
       )
 
       this.app.success({
-        message: 'profile written',
+        message: `profile written`,
         suffix: path,
       })
     } catch (error) {
@@ -129,7 +129,7 @@ export class Project
       )
 
       this.app.success({
-        message: 'webpack.config.js written',
+        message: `webpack.config.js written`,
         suffix: path,
       })
     } catch (error) {
@@ -167,30 +167,30 @@ export class Project
             )
           }
 
-          const condition = hasCondition('production')
-            ? 'production'
-            : hasCondition('development')
-            ? 'development'
-            : 'base'
+          const condition = hasCondition(`production`)
+            ? `production`
+            : hasCondition(`development`)
+            ? `development`
+            : `base`
 
           const isDynamicConfig = [
-            'js',
-            'cjs',
-            'mjs',
-            'ts',
-            'cts',
-            'mts',
+            `js`,
+            `cjs`,
+            `mjs`,
+            `ts`,
+            `cts`,
+            `mts`,
           ].filter(hasExtension).length
 
           const importedConfig = isDynamicConfig
             ? await this.app.module.import(path)
-            : hasExtension('yml')
+            : hasExtension(`yml`)
             ? await this.app.yml.read(path)
-            : hasExtension('json')
+            : hasExtension(`json`)
             ? await this.app.json.read(path)
             : {}
 
-          this.set(['config', condition, name], {
+          this.set([`config`, condition, name], {
             name: name,
             path: path,
             module: importedConfig,

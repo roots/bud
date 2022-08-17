@@ -10,7 +10,7 @@ import {Command} from './base.command'
  * @internal
  */
 export abstract class Set extends Command {
-  public static paths: CommandClass['paths'] = [['package', 'set']]
+  public static paths: CommandClass['paths'] = [[`package`, `set`]]
 
   public prop = Option.String()
 

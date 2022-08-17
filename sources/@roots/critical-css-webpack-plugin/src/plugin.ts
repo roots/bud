@@ -36,7 +36,7 @@ export default class CriticalCssWebpackPlugin {
    * @public
    */
   public plugin = {
-    name: 'CriticalCssWebpackPlugin',
+    name: `CriticalCssWebpackPlugin`,
     stage: Webpack.Compilation.PROCESS_ASSETS_STAGE_DERIVED,
   }
 
@@ -115,7 +115,7 @@ export default class CriticalCssWebpackPlugin {
 
     await Promise.all(
       Object.entries(assets).map(async ([entryIdent, entryValue]) => {
-        if (!entryIdent.endsWith('.css')) return
+        if (!entryIdent.endsWith(`.css`)) return
 
         const asset = this.webpack.compilation.getAsset(entryIdent)
 
@@ -138,7 +138,7 @@ export default class CriticalCssWebpackPlugin {
             )
 
             this.webpack.compilation.emitAsset(
-              `critical/${asset.name.split('.').shift().concat('.css')}`,
+              `critical/${asset.name.split(`.`).shift().concat(`.css`)}`,
               new Webpack.sources.RawSource(css),
               asset.info,
             )

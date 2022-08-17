@@ -10,7 +10,7 @@ import {isArray, isNull, isString, isUndefined} from 'lodash-es'
  * @internal
  */
 const filterAssetsArray = (assets: Array<string>) =>
-  assets.filter(imports => imports !== 'react-refresh/runtime')
+  assets.filter(imports => imports !== `react-refresh/runtime`)
 
 /**
  * Adds react-refresh client script to each entrypoint
@@ -21,24 +21,24 @@ export function add(
   entries: Record<string, EntryObject>,
 ): Record<string, EntryObject> {
   const missing = !entries || isUndefined(entries) || isNull(entries)
-  const fallback = {app: {import: ['index']}}
+  const fallback = {app: {import: [`index`]}}
   entries = missing ? fallback : entries
 
   return Object.entries(entries).reduce((all, [name, assets]) => {
     if (isString(assets)) {
-      return {...all, [name]: ['react-refresh/runtime', assets]}
+      return {...all, [name]: [`react-refresh/runtime`, assets]}
     }
 
-    if (isArray(assets) && !assets.includes('react-refresh/runtime')) {
-      assets.unshift('react-refresh/runtime')
+    if (isArray(assets) && !assets.includes(`react-refresh/runtime`)) {
+      assets.unshift(`react-refresh/runtime`)
     }
 
     if (
       assets?.import &&
       isArray(assets?.import) &&
-      !assets.import.includes('react-refresh/runtime')
+      !assets.import.includes(`react-refresh/runtime`)
     ) {
-      assets.import.unshift('react-refresh/runtime')
+      assets.import.unshift(`react-refresh/runtime`)
     }
 
     return {...all, [name]: assets}
@@ -54,15 +54,15 @@ export function remove(
   entries: Record<string, EntryObject>,
 ): Record<string, EntryObject> {
   return Object.entries(entries).reduce((all, [name, assets]) => {
-    if (isString(assets) && assets === 'react-refresh/runtime') {
+    if (isString(assets) && assets === `react-refresh/runtime`) {
       return all
     }
 
-    if (isArray(assets) && assets.includes('react-refresh/runtime')) {
+    if (isArray(assets) && assets.includes(`react-refresh/runtime`)) {
       return {...all, [name]: filterAssetsArray(assets)}
     }
 
-    new Set(['dependOn', 'import']).forEach(key => {
+    new Set([`dependOn`, `import`]).forEach(key => {
       if (!assets[key]) return
       assets[key] = filterAssetsArray(assets[key])
     })

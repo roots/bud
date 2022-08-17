@@ -34,16 +34,16 @@ export const make: make = function (ident, tap) {
   const root = current.root
 
   const context: Partial<Config.Context> = isString(ident)
-    ? {label: ident, basedir: root.path('/'), root}
+    ? {label: ident, basedir: root.path(`/`), root}
     : {...ident, root}
 
-  root.hooks.action('config.after', async () => {
+  root.hooks.action(`config.after`, async () => {
     root.children[context.label] = await root.factory(context)
-    root.children[context.label].success('constructed')
+    root.children[context.label].success(`constructed`)
 
     if (isFunction(tap)) {
       await tap(root.children[context.label])
-      root.children[context.label].success('configuration applied')
+      root.children[context.label].success(`configuration applied`)
       await root.children[context.label].api.processQueue()
     }
 
@@ -55,8 +55,8 @@ export const make: make = function (ident, tap) {
         }),
     )
 
-    await root.children[context.label].hooks.fire('config.after')
-    root.children[context.label].success('config after hook fired')
+    await root.children[context.label].hooks.fire(`config.after`)
+    root.children[context.label].success(`config after hook fired`)
   })
 
   root.log(`child prepped:`, context.label)

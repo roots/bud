@@ -3,7 +3,7 @@ import BudPostCss from '@roots/bud-postcss'
 import BudSass from '@roots/bud-sass'
 import BudResolveUrl from '@roots/bud-sass/resolve-url'
 
-describe('@roots/bud-sass sets postcss syntax', () => {
+describe(`@roots/bud-sass sets postcss syntax`, () => {
   let bud: Bud
 
   beforeAll(async () => {
@@ -13,7 +13,7 @@ describe('@roots/bud-sass sets postcss syntax', () => {
     await new BudSass(bud).afterConfig()
   })
 
-  it('adds postcss-scss syntax', () => {
-    expect(bud.postcss.syntax).toBe('postcss-scss')
+  it(`adds postcss-scss syntax`, () => {
+    expect(bud.postcss.syntax).toBe(`postcss-scss`)
   })
 })

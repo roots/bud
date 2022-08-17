@@ -39,23 +39,23 @@ export const template: template = async function (
   const app = this as Bud
 
   if (userOptions === false) {
-    app.hooks.on('feature.html', false)
+    app.hooks.on(`feature.html`, false)
     return app
   }
 
-  app.hooks.on('feature.html', true)
+  app.hooks.on(`feature.html`, true)
 
   /**
    * Add {@link BudHtmlWebpackPlugin} if it isn't already added
    */
-  if (!app.extensions.has('html-webpack-plugin')) {
+  if (!app.extensions.has(`html-webpack-plugin`)) {
     await app.extensions.add(BudHtmlWebpackPlugin)
   }
 
   /**
    * Add {@link BudInterpolateHtmlPlugin} if it isn't already added
    */
-  if (!app.extensions.has('interpolate-html-plugin')) {
+  if (!app.extensions.has(`interpolate-html-plugin`)) {
     await app.extensions.add(BudInterpolateHtmlPlugin)
   }
 
@@ -68,11 +68,11 @@ export const template: template = async function (
    * Plugin references
    */
   const plugins = {
-    html: app.extensions.get('html-webpack-plugin'),
-    interpolate: app.extensions.get('interpolate-html-plugin'),
+    html: app.extensions.get(`html-webpack-plugin`),
+    interpolate: app.extensions.get(`interpolate-html-plugin`),
   }
 
-  app.info('processing html-webpack-plugin options')
+  app.info(`processing html-webpack-plugin options`)
   plugins.html.setOptions(userOptions)
 
   /**
@@ -80,7 +80,7 @@ export const template: template = async function (
    */
   if (!userOptions.replace) return app
 
-  app.info('processing bud-interpolate-html-plugin options')
+  app.info(`processing bud-interpolate-html-plugin options`)
   plugins.interpolate.setOptions(userOptions.replace)
 
   return app

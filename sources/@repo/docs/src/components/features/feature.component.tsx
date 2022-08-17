@@ -8,7 +8,7 @@ export interface Props {
 
 export const Component = ({title, description}: Props) => {
   return (
-    <div className={clsx('col col--4')}>
+    <div className={clsx(`col col--4`)}>
       <div className="text--center padding-horiz--md">
         <h3>{title}</h3>
         <p>{description}</p>

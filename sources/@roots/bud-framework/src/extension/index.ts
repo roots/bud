@@ -220,19 +220,19 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
     this._app = () => _app
 
     const logger = _app.logger.makeInstance({
-      scope: this.label ?? 'anonymous extension',
+      scope: this.label ?? `anonymous extension`,
     })
 
-    Object.defineProperty(this, 'app', {
+    Object.defineProperty(this, `app`, {
       get: (): Bud => this._app(),
     })
-    Object.defineProperty(this, 'logger', {
-      get: () => logger.scope(this.label ?? 'anonymous extension'),
+    Object.defineProperty(this, `logger`, {
+      get: () => logger.scope(this.label ?? `anonymous extension`),
     })
 
     const opts = this.options
 
-    Object.defineProperty(this, 'options', {
+    Object.defineProperty(this, `options`, {
       get: this.getOptions,
       set: this.setOptions,
     })
@@ -254,10 +254,10 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
 
     try {
       await this.init(this.app, this.options)
-      this.meta['_init'] = true
+      this.meta[`_init`] = true
     } catch (error) {
       this.logger.error(error)
-      this.app.error('error in', this.label)
+      this.app.error(`error in`, this.label)
     }
 
     await this.app.hooks.fire(`${this.label}/init/after`)
@@ -276,16 +276,16 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
     await this.app.hooks.fire(`${this.label}/register/before`)
 
     try {
-      if (this.init && !this.meta['_init']) await this._init()
+      if (this.init && !this.meta[`_init`]) await this._init()
     } catch (err) {
-      this.logger.error(this.label, 'register => init error', '\n')
+      this.logger.error(this.label, `register => init error`, `\n`)
     }
     try {
       await this.register(this.app, this.options)
-      this.meta['_register'] = true
+      this.meta[`_register`] = true
     } catch (error) {
-      this.logger.error('error on register', '\n', error)
-      this.app.error('error in', this.label)
+      this.logger.error(`error on register`, `\n`, error)
+      this.app.error(`error in`, this.label)
     }
 
     await this.app.hooks.fire(`${this.label}/register/after`)
@@ -304,16 +304,16 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
     await this.app.hooks.fire(`${this.label}/boot/before`)
 
     try {
-      if (this.init && !this.meta['_init']) await this._init()
-      if (this.register && !this.meta['_register']) await this._register()
+      if (this.init && !this.meta[`_init`]) await this._init()
+      if (this.register && !this.meta[`_register`]) await this._register()
     } catch (err) {
-      this.logger.error(this.label, 'register => init error', '\n')
+      this.logger.error(this.label, `register => init error`, `\n`)
     }
     try {
       await this.boot(this.app, this.options)
-      this.meta['_boot'] = true
+      this.meta[`_boot`] = true
     } catch (error) {
-      this.app.error(this.label, 'boot error', '\n', error)
+      this.app.error(this.label, `boot error`, `\n`, error)
     }
 
     await this.app.hooks.fire(`${this.label}/boot/after`)
@@ -374,7 +374,7 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
     try {
       return await this.make(this.app, this.options)
     } catch (error) {
-      this.app.error(this.label, 'make error', '\n', error)
+      this.app.error(this.label, `make error`, `\n`, error)
     }
     await this.app.hooks.fire(`${this.label}/make/after`)
   }
@@ -536,13 +536,13 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
       modulePath = await this.app.module.resolve(signifier, parent)
     }
     if (!modulePath) {
-      this.logger.error('unresolvable:', signifier)
+      this.logger.error(`unresolvable:`, signifier)
     }
 
     this.logger.log(
       signifier,
-      '=>',
-      modulePath.replace(this.app.path(), '.'),
+      `=>`,
+      modulePath.replace(this.app.path(), `.`),
     )
 
     return modulePath
@@ -558,7 +558,7 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
   public async import<T = any>(signifier: string): Promise<T> {
     try {
       const result = await import(signifier)
-      this.logger.success('imported', signifier)
+      this.logger.success(`imported`, signifier)
       return result?.default ?? result ?? null
     } catch (error) {
       throw new Error(error)

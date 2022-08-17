@@ -25,9 +25,9 @@ export const alias: alias = async function (...input) {
   const app = this as Bud
 
   const records: AliasObject =
-    typeof input[0] === 'string' ? {[input[0]]: input[1]} : input[0]
+    typeof input[0] === `string` ? {[input[0]]: input[1]} : input[0]
 
-  app.hooks.async('build.resolve.alias', async aliases => {
+  app.hooks.async(`build.resolve.alias`, async aliases => {
     return {...(aliases ?? {}), ...(records ?? {})}
   })
 

@@ -15,7 +15,7 @@ let failed: boolean = false
  * @public
  */
 const setFailed = (state?: boolean) => {
-  failed = typeof state === 'undefined' ? true : state
+  failed = typeof state === `undefined` ? true : state
 }
 
 /**

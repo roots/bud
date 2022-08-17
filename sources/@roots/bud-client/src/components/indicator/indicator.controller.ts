@@ -26,7 +26,7 @@ export class Controller {
    * @public
    */
   public constructor() {
-    this.node = document.createElement('bud-activity-indicator')
+    this.node = document.createElement(`bud-activity-indicator`)
     this.update = this.update.bind(this)
   }
 
@@ -36,8 +36,8 @@ export class Controller {
    * @public
    */
   public addNode() {
-    if (document.body.querySelector('bud-activity-indicator')) {
-      if (typeof this.timer.unref === 'function') this.timer.unref()
+    if (document.body.querySelector(`bud-activity-indicator`)) {
+      if (typeof this.timer.unref === `function`) this.timer.unref()
       this.removeNode()
     }
 
@@ -51,7 +51,7 @@ export class Controller {
    * @public
    */
   public removeNode() {
-    document.body.querySelector('bud-activity-indicator')?.remove()
+    document.body.querySelector(`bud-activity-indicator`)?.remove()
   }
 
   /**
@@ -60,16 +60,16 @@ export class Controller {
    */
   public update(payload: Payload) {
     this.node.toggleAttribute(
-      'has-errors',
+      `has-errors`,
       payload.errors?.length ? true : false,
     )
 
     this.node.toggleAttribute(
-      'has-warnings',
+      `has-warnings`,
       payload.warnings?.length ? true : false,
     )
 
-    this.node.setAttribute('action', payload.action)
+    this.node.setAttribute(`action`, payload.action)
 
     this.addNode()
   }

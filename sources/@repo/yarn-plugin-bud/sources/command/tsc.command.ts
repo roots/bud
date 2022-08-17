@@ -15,7 +15,7 @@ export class Tsc extends Command {
    *
    * @internal
    */
-  public static label = '@bud tsc'
+  public static label = `@bud tsc`
 
   /**
    * Command paths
@@ -32,7 +32,7 @@ export class Tsc extends Command {
    *
    * @internal
    */
-  public tsconfig = join(paths.config, 'tsconfig.json')
+  public tsconfig = join(paths.config, `tsconfig.json`)
 
   /**
    * Variadic arguments
@@ -52,12 +52,12 @@ export class Tsc extends Command {
     examples: [
       [`run the typescript compiler`, `yarn @bud tsc`],
       [
-        'run the typescript compiler in watch mode',
-        'yarn @bud tsc --watch',
+        `run the typescript compiler in watch mode`,
+        `yarn @bud tsc --watch`,
       ],
       [
-        'run the typescript compiler with forced rebuild (no incremental compilation)',
-        'yarn @bud tsc --force',
+        `run the typescript compiler with forced rebuild (no incremental compilation)`,
+        `yarn @bud tsc --force`,
       ],
     ],
   }

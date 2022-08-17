@@ -1,38 +1,38 @@
 import {Bud, factory} from '@repo/test-kit/bud'
 
-describe.skip('bud.runtime', function () {
+describe.skip(`bud.runtime`, function () {
   let bud: Bud
 
   beforeAll(async () => {
     bud = await factory()
   })
 
-  it('is a function', () => {
+  it(`is a function`, () => {
     expect(bud.runtime).toBeInstanceOf(Function)
   })
 
-  it('enables runtime when called', () => {
-    bud.runtime({name: 'test'})
+  it(`enables runtime when called`, () => {
+    bud.runtime({name: `test`})
 
     const runtimeChunk = bud.hooks.filter(
-      'build.optimization.runtimeChunk',
+      `build.optimization.runtimeChunk`,
     ) as {name: string}
 
     expect(runtimeChunk.name).toEqual(`test`)
   })
 
-  it('can be passed a custom runtimeChunk config', () => {
-    bud.runtime('single')
+  it(`can be passed a custom runtimeChunk config`, () => {
+    bud.runtime(`single`)
 
-    expect(bud.hooks.filter('build.optimization.runtimeChunk')).toEqual(
-      'single',
+    expect(bud.hooks.filter(`build.optimization.runtimeChunk`)).toEqual(
+      `single`,
     )
   })
 
-  it('disables runtimeChunk when passed a boolean false', () => {
+  it(`disables runtimeChunk when passed a boolean false`, () => {
     bud.runtime(false)
 
-    expect(bud.hooks.filter('build.optimization.runtimeChunk')).toEqual(
+    expect(bud.hooks.filter(`build.optimization.runtimeChunk`)).toEqual(
       false,
     )
   })

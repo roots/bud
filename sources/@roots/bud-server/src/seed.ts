@@ -16,12 +16,12 @@ export const seed = (app: Bud) => {
       ),
     }))
     .hooks.on(`dev.middleware.dev.options.headers`, {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Headers': '*',
-      'x-powered-by': '@roots/bud',
+      'Access-Control-Allow-Origin': `*`,
+      'Access-Control-Allow-Headers': `*`,
+      'x-powered-by': `@roots/bud`,
     })
     .hooks.on(`dev.middleware.dev.options.publicPath`, () =>
-      app.hooks.filter('build.output.publicPath'),
+      app.hooks.filter(`build.output.publicPath`),
     )
     .hooks.on(`dev.client.scripts`, clientScripts.callback)
     .hooks.on(`dev.watch.files`, new Set([]))

@@ -14,27 +14,27 @@ import type {Bud} from './bud.js'
 export const initialize = (app: Bud) => {
   process
     // only works when there is no task running
-    .on('beforeExit', makeHandler(app, 0))
+    .on(`beforeExit`, makeHandler(app, 0))
 
     // only works when the process normally exits
     // on windows, ctrl-c will not trigger this handler
     // unless you listen on 'SIGINT'
-    .on('exit', makeHandler(app, 0))
+    .on(`exit`, makeHandler(app, 0))
 
     // catch ctrl-c, so that event 'exit' always works
-    .on('SIGINT', makeHandler(app, 0))
+    .on(`SIGINT`, makeHandler(app, 0))
 
     // kill-9
-    .on('SIGTERM', makeHandler(app, 0))
+    .on(`SIGTERM`, makeHandler(app, 0))
 
     // keyboard quit event
-    .on('SIGQUIT', makeHandler(app, 0))
+    .on(`SIGQUIT`, makeHandler(app, 0))
 
     // exit with errors
-    .on('uncaughtException', makeHandler(app, 1))
+    .on(`uncaughtException`, makeHandler(app, 1))
 
     // exit with errors
-    .on('unhandledRejection', makeHandler(app, 1))
+    .on(`unhandledRejection`, makeHandler(app, 1))
 }
 
 /**
@@ -47,9 +47,9 @@ function makeHandler(app: Bud, code: number) {
     try {
       app.dashboard?.instance?.unmount()
     } catch (error) {
-      app.info('Dashboard unmount error', error)
+      app.info(`Dashboard unmount error`, error)
       app.info(
-        'This might not be a problem, as the dashboard will unmount itself, so there is a race condition here.',
+        `This might not be a problem, as the dashboard will unmount itself, so there is a race condition here.`,
       )
     }
 

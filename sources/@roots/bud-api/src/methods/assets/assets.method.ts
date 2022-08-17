@@ -44,11 +44,11 @@ export const assets: method = async function assets(
    */
   function makePatternObject(from: string): CopyPlugin.ObjectPattern {
     return {
-      from: from.startsWith('/') ? from : app.path(`@src`, from),
+      from: from.startsWith(`/`) ? from : app.path(`@src`, from),
       to: app.path(`@dist`, from, `@file`),
-      context: app.path('@src'),
+      context: app.path(`@src`),
       noErrorOnMissing: true,
-      toType: 'template',
+      toType: `template`,
     }
   }
 
@@ -61,11 +61,11 @@ export const assets: method = async function assets(
   const makeFromTo = ([from, to]: [string, string]) => {
     to = to ?? from
     return {
-      from: from.startsWith('/') ? from : app.path(`@src`, from),
-      to: to.startsWith('/') ? to : app.path(`@dist`, to, `@file`),
-      context: app.path('@src'),
+      from: from.startsWith(`/`) ? from : app.path(`@src`, from),
+      to: to.startsWith(`/`) ? to : app.path(`@dist`, to, `@file`),
+      context: app.path(`@src`),
       noErrorOnMissing: true,
-      toType: 'template',
+      toType: `template`,
     }
   }
 
@@ -86,7 +86,7 @@ export const assets: method = async function assets(
    * Handle string request
    */
   if (isString(request)) {
-    app.extensions.get('copy-webpack-plugin').setOptions(options => ({
+    app.extensions.get(`copy-webpack-plugin`).setOptions(options => ({
       ...(options ?? {}),
       patterns: [...(options?.patterns ?? []), parse(request)],
     }))
@@ -98,7 +98,7 @@ export const assets: method = async function assets(
    * Handle object request
    */
   if (!isArray(request)) {
-    app.extensions.get('copy-webpack-plugin').setOptions(options => ({
+    app.extensions.get(`copy-webpack-plugin`).setOptions(options => ({
       ...(options ?? {}),
       patterns: [...(options?.patterns ?? []), request],
     }))
@@ -109,7 +109,7 @@ export const assets: method = async function assets(
   /**
    * Handle arrayed request
    */
-  app.extensions.get('copy-webpack-plugin').setOptions(options => ({
+  app.extensions.get(`copy-webpack-plugin`).setOptions(options => ({
     ...(options ?? {}),
     patterns: [...(options?.patterns ?? []), ...request.map(parse)],
   }))
