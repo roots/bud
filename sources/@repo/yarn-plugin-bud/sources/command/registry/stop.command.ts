@@ -17,7 +17,7 @@ export class RegistryStop extends Command {
    *
    * @internal
    */
-  public static label = '@bud registry stop'
+  public static label = `@bud registry stop`
 
   /**
    * Command paths
@@ -59,8 +59,8 @@ export class RegistryStop extends Command {
       await this.tryExecuting(`yarn`, [
         `@bud`,
         `pm2`,
-        'delete',
-        'verdaccio',
+        `delete`,
+        `verdaccio`,
       ])
     } catch (e) {}
 

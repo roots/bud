@@ -15,6 +15,6 @@ export class YarnRC {
    * @internal
    */
   public static async find(context: CommandContext) {
-    return await new Yml(join(context.cwd, '.yarnrc.yml')).read()
+    return await new Yml(join(context.cwd, `.yarnrc.yml`)).read()
   }
 }

@@ -16,7 +16,7 @@ export class Pm2 extends Command {
    *
    * @internal
    */
-  public static label = '@bud pm2'
+  public static label = `@bud pm2`
 
   /**
    * Command paths

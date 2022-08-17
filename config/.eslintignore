@@ -1,6 +1,0 @@
-**/*.json
-**/*.d.ts
-**/lib
-**/node_modules
-examples
-sources/deprecated

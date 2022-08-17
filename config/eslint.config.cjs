@@ -14,15 +14,11 @@ module.exports = {
   ],
   parserOptions: {
     ecmaVersion: 2021,
-    ecmaFeatures: {
-      jsx: true,
-    },
+    ecmaFeatures: {jsx: true},
     sourceType: `module`,
   },
   settings: {
-    react: {
-      version: `detect`,
-    },
+    react: {version: `detect`},
   },
   extends: [`plugin:react/recommended`],
   ignorePatterns: [
@@ -30,19 +26,19 @@ module.exports = {
     `**/*.d.ts`,
     `**/lib/**/*`,
     `**/node_modules/**/*`,
+    `examples/**/*`,
     `sources/@repo/docs/build/**/*`,
+    `sources/deprecated/**/*`,
     `sources/@repo/docs/content/dev/api/**/*`,
     `**/dist`,
     `storage/**/*`,
   ],
   rules: {
     [`@typescript-eslint/explicit-member-accessibility`]: ERROR,
-    '@typescript-eslint/quotes': [
+    [`@typescript-eslint/quotes`]: [
       ERROR,
       `backtick`,
-      {
-        avoidEscape: true,
-      },
+      {avoidEscape: true},
     ],
     [`arrow-body-style`]: OFF,
     [`comma-dangle`]: [
@@ -67,9 +63,7 @@ module.exports = {
   overrides: [
     {
       files: [`examples/**/*.js`],
-      rules: {
-        [`tsdoc/syntax`]: `off`,
-      },
+      rules: {[`tsdoc/syntax`]: OFF},
     },
   ],
 }

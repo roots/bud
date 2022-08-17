@@ -15,14 +15,14 @@ export class Docs extends Command {
    *
    * @internal
    */
-  public static label = '@bud docs'
+  public static label = `@bud docs`
 
   /**
    * Command paths
    *
    * @internal
    */
-  public static paths: CommandClass['paths'] = [['@bud', 'docs']]
+  public static paths: CommandClass['paths'] = [[`@bud`, `docs`]]
 
   /**
    * Command usage
@@ -30,13 +30,13 @@ export class Docs extends Command {
    * @internal
    */
   public static usage: CommandClass['usage'] = {
-    category: '@bud',
-    description: 'build docs and readme.',
+    category: `@bud`,
+    description: `build docs and readme.`,
     examples: [
-      ['build all', 'yarn @bud docs'],
-      ['build api documentation', 'yarn @bud docs --api'],
-      ['build api documentation and site files', 'yarn @bud docs --site'],
-      ['build readme files', 'yarn @bud docs --readme'],
+      [`build all`, `yarn @bud docs`],
+      [`build api documentation`, `yarn @bud docs --api`],
+      [`build api documentation and site files`, `yarn @bud docs --site`],
+      [`build readme files`, `yarn @bud docs --readme`],
     ],
   }
 
@@ -45,8 +45,8 @@ export class Docs extends Command {
    *
    * @internal
    */
-  public api = Option.Boolean('-a,--api', false, {
-    description: 'build api docs',
+  public api = Option.Boolean(`-a,--api`, false, {
+    description: `build api docs`,
   })
 
   /**
@@ -54,8 +54,8 @@ export class Docs extends Command {
    *
    * @internal
    */
-  public site = Option.Boolean('-s,--site', false, {
-    description: 'build site files',
+  public site = Option.Boolean(`-s,--site`, false, {
+    description: `build site files`,
   })
 
   /**
@@ -63,8 +63,8 @@ export class Docs extends Command {
    *
    * @internal
    */
-  public readme = Option.Boolean('-r,--readme', false, {
-    description: 'build readme files',
+  public readme = Option.Boolean(`-r,--readme`, false, {
+    description: `build readme files`,
   })
 
   /**

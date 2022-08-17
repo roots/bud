@@ -13,14 +13,14 @@ export class DocsDev extends Command {
    *
    * @internal
    */
-  public static label = '@bud docs dev'
+  public static label = `@bud docs dev`
 
   /**
    * Command paths
    *
    * @internal
    */
-  public static paths: CommandClass['paths'] = [['@bud', 'docs', 'dev']]
+  public static paths: CommandClass['paths'] = [[`@bud`, `docs`, `dev`]]
 
   /**
    * Command usage
@@ -28,9 +28,9 @@ export class DocsDev extends Command {
    * @internal
    */
   public static usage: CommandClass['usage'] = {
-    category: '@bud',
-    description: 'develop docs',
-    examples: [['develop docs', 'yarn @bud docs dev']],
+    category: `@bud`,
+    description: `develop docs`,
+    examples: [[`develop docs`, `yarn @bud docs dev`]],
   }
 
   /**

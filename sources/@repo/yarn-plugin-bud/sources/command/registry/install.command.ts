@@ -15,7 +15,7 @@ export class RegistryInstall extends Command {
    *
    * @internal
    */
-  public static label = '@bud registry install'
+  public static label = `@bud registry install`
 
   /**
    * Command paths

@@ -4,7 +4,7 @@ import {join} from 'path'
 
 import {Command} from './base.command'
 
-const tsConfig = join(paths.config, 'tsconfig.json')
+const tsConfig = join(paths.config, `tsconfig.json`)
 const vendor = join(paths.sources, `@repo/compile-kit/src/vendor/index.ts`)
 
 /**
@@ -18,7 +18,7 @@ export class Vendor extends Command {
    *
    * @internal
    */
-  public static label = '@bud vendor'
+  public static label = `@bud vendor`
 
   /**
    * Command paths

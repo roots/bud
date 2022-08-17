@@ -14,7 +14,7 @@ export class CI extends Command {
    *
    * @internal
    */
-  public static label = '@bud ci'
+  public static label = `@bud ci`
 
   /**
    * Command paths
