@@ -95,7 +95,7 @@
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@types/fs-extra": "9.0.13",
-    "@types/http-proxy": "^1",
+    "@types/http-proxy": "1.17.9",
     "@types/js-yaml": "4.0.5",
     "@types/lodash": "4.14.182",
     "@types/lodash-es": "4.17.6",
