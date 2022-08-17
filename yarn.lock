@@ -1786,7 +1786,7 @@ __metadata:
 
 "@csstools/postcss-cascade-layers@npm:^1.0.5":
   version: 1.0.5
-  resolution: "@csstools/postcss-cascade-layers@npm:1.0.5::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2F%40csstools%252fpostcss-cascade-layers%2F-%2Fpostcss-cascade-layers-1.0.5.tgz"
+  resolution: "@csstools/postcss-cascade-layers@npm:1.0.5"
   dependencies:
     "@csstools/selector-specificity": ^2.0.2
     postcss-selector-parser: ^6.0.10
@@ -1798,7 +1798,7 @@ __metadata:
 
 "@csstools/postcss-color-function@npm:^1.1.1":
   version: 1.1.1
-  resolution: "@csstools/postcss-color-function@npm:1.1.1::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2F%40csstools%252fpostcss-color-function%2F-%2Fpostcss-color-function-1.1.1.tgz"
+  resolution: "@csstools/postcss-color-function@npm:1.1.1"
   dependencies:
     "@csstools/postcss-progressive-custom-properties": ^1.1.0
     postcss-value-parser: ^4.2.0
@@ -1810,7 +1810,7 @@ __metadata:
 
 "@csstools/postcss-font-format-keywords@npm:^1.0.1":
   version: 1.0.1
-  resolution: "@csstools/postcss-font-format-keywords@npm:1.0.1::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2F%40csstools%252fpostcss-font-format-keywords%2F-%2Fpostcss-font-format-keywords-1.0.1.tgz"
+  resolution: "@csstools/postcss-font-format-keywords@npm:1.0.1"
   dependencies:
     postcss-value-parser: ^4.2.0
   peerDependencies:
@@ -1821,7 +1821,7 @@ __metadata:
 
 "@csstools/postcss-hwb-function@npm:^1.0.2":
   version: 1.0.2
-  resolution: "@csstools/postcss-hwb-function@npm:1.0.2::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2F%40csstools%252fpostcss-hwb-function%2F-%2Fpostcss-hwb-function-1.0.2.tgz"
+  resolution: "@csstools/postcss-hwb-function@npm:1.0.2"
   dependencies:
     postcss-value-parser: ^4.2.0
   peerDependencies:
@@ -1832,7 +1832,7 @@ __metadata:
 
 "@csstools/postcss-ic-unit@npm:^1.0.1":
   version: 1.0.1
-  resolution: "@csstools/postcss-ic-unit@npm:1.0.1::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2F%40csstools%252fpostcss-ic-unit%2F-%2Fpostcss-ic-unit-1.0.1.tgz"
+  resolution: "@csstools/postcss-ic-unit@npm:1.0.1"
   dependencies:
     "@csstools/postcss-progressive-custom-properties": ^1.1.0
     postcss-value-parser: ^4.2.0
@@ -1844,7 +1844,7 @@ __metadata:
 
 "@csstools/postcss-is-pseudo-class@npm:^2.0.7":
   version: 2.0.7
-  resolution: "@csstools/postcss-is-pseudo-class@npm:2.0.7::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2F%40csstools%252fpostcss-is-pseudo-class%2F-%2Fpostcss-is-pseudo-class-2.0.7.tgz"
+  resolution: "@csstools/postcss-is-pseudo-class@npm:2.0.7"
   dependencies:
     "@csstools/selector-specificity": ^2.0.0
     postcss-selector-parser: ^6.0.10
@@ -1856,7 +1856,7 @@ __metadata:
 
 "@csstools/postcss-nested-calc@npm:^1.0.0":
   version: 1.0.0
-  resolution: "@csstools/postcss-nested-calc@npm:1.0.0::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2F%40csstools%252fpostcss-nested-calc%2F-%2Fpostcss-nested-calc-1.0.0.tgz"
+  resolution: "@csstools/postcss-nested-calc@npm:1.0.0"
   dependencies:
     postcss-value-parser: ^4.2.0
   peerDependencies:
@@ -1867,7 +1867,7 @@ __metadata:
 
 "@csstools/postcss-normalize-display-values@npm:^1.0.1":
   version: 1.0.1
-  resolution: "@csstools/postcss-normalize-display-values@npm:1.0.1::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2F%40csstools%252fpostcss-normalize-display-values%2F-%2Fpostcss-normalize-display-values-1.0.1.tgz"
+  resolution: "@csstools/postcss-normalize-display-values@npm:1.0.1"
   dependencies:
     postcss-value-parser: ^4.2.0
   peerDependencies:
@@ -1878,7 +1878,7 @@ __metadata:
 
 "@csstools/postcss-oklab-function@npm:^1.1.1":
   version: 1.1.1
-  resolution: "@csstools/postcss-oklab-function@npm:1.1.1::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2F%40csstools%252fpostcss-oklab-function%2F-%2Fpostcss-oklab-function-1.1.1.tgz"
+  resolution: "@csstools/postcss-oklab-function@npm:1.1.1"
   dependencies:
     "@csstools/postcss-progressive-custom-properties": ^1.1.0
     postcss-value-parser: ^4.2.0
@@ -1901,7 +1901,7 @@ __metadata:
 
 "@csstools/postcss-stepped-value-functions@npm:^1.0.1":
   version: 1.0.1
-  resolution: "@csstools/postcss-stepped-value-functions@npm:1.0.1::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2F%40csstools%252fpostcss-stepped-value-functions%2F-%2Fpostcss-stepped-value-functions-1.0.1.tgz"
+  resolution: "@csstools/postcss-stepped-value-functions@npm:1.0.1"
   dependencies:
     postcss-value-parser: ^4.2.0
   peerDependencies:
@@ -1912,7 +1912,7 @@ __metadata:
 
 "@csstools/postcss-text-decoration-shorthand@npm:^1.0.0":
   version: 1.0.0
-  resolution: "@csstools/postcss-text-decoration-shorthand@npm:1.0.0::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2F%40csstools%252fpostcss-text-decoration-shorthand%2F-%2Fpostcss-text-decoration-shorthand-1.0.0.tgz"
+  resolution: "@csstools/postcss-text-decoration-shorthand@npm:1.0.0"
   dependencies:
     postcss-value-parser: ^4.2.0
   peerDependencies:
@@ -1923,7 +1923,7 @@ __metadata:
 
 "@csstools/postcss-trigonometric-functions@npm:^1.0.2":
   version: 1.0.2
-  resolution: "@csstools/postcss-trigonometric-functions@npm:1.0.2::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2F%40csstools%252fpostcss-trigonometric-functions%2F-%2Fpostcss-trigonometric-functions-1.0.2.tgz"
+  resolution: "@csstools/postcss-trigonometric-functions@npm:1.0.2"
   dependencies:
     postcss-value-parser: ^4.2.0
   peerDependencies:
@@ -1934,26 +1934,16 @@ __metadata:
 
 "@csstools/postcss-unset-value@npm:^1.0.2":
   version: 1.0.2
-  resolution: "@csstools/postcss-unset-value@npm:1.0.2::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2F%40csstools%252fpostcss-unset-value%2F-%2Fpostcss-unset-value-1.0.2.tgz"
+  resolution: "@csstools/postcss-unset-value@npm:1.0.2"
   peerDependencies:
     postcss: ^8.2
   checksum: 3facdae154d6516ffd964f7582696f406465f11cf8dead503e0afdfecc99ebc25638ab2830affce4516131aa2db004458a235e439f575b04e9ef72ad82f55835
   languageName: node
   linkType: hard
 
-"@csstools/selector-specificity@npm:^2.0.0, @csstools/selector-specificity@npm:^2.0.1":
+"@csstools/selector-specificity@npm:^2.0.0, @csstools/selector-specificity@npm:^2.0.1, @csstools/selector-specificity@npm:^2.0.2":
   version: 2.0.2
   resolution: "@csstools/selector-specificity@npm:2.0.2"
-  peerDependencies:
-    postcss: ^8.2
-    postcss-selector-parser: ^6.0.10
-  checksum: a2045a27276a6cfe645b6e212afc217d9a43174ea7a1fa1ab8918d5a0ace72380fbd9837fe1920c547985c11a9070dc48c5c80d483d3f581ddf7aa688204d44f
-  languageName: node
-  linkType: hard
-
-"@csstools/selector-specificity@npm:^2.0.2":
-  version: 2.0.2
-  resolution: "@csstools/selector-specificity@npm:2.0.2::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2F%40csstools%252fselector-specificity%2F-%2Fselector-specificity-2.0.2.tgz"
   peerDependencies:
     postcss: ^8.2
     postcss-selector-parser: ^6.0.10
@@ -8484,7 +8474,7 @@ __metadata:
 
 "acorn-node@npm:^1.8.2":
   version: 1.8.2
-  resolution: "acorn-node@npm:1.8.2::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Facorn-node%2F-%2Facorn-node-1.8.2.tgz"
+  resolution: "acorn-node@npm:1.8.2"
   dependencies:
     acorn: ^7.0.0
     acorn-walk: ^7.0.0
@@ -9023,7 +9013,7 @@ __metadata:
 
 "arg@npm:^5.0.2":
   version: 5.0.2
-  resolution: "arg@npm:5.0.2::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Farg%2F-%2Farg-5.0.2.tgz"
+  resolution: "arg@npm:5.0.2"
   checksum: 6c69ada1a9943d332d9e5382393e897c500908d91d5cb735a01120d5f71daf1b339b7b8980cbeaba8fd1afc68e658a739746179e4315a26e8a28951ff9930078
   languageName: node
   linkType: hard
@@ -9388,7 +9378,7 @@ __metadata:
 
 "autoprefixer@npm:^10.4.8":
   version: 10.4.8
-  resolution: "autoprefixer@npm:10.4.8::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fautoprefixer%2F-%2Fautoprefixer-10.4.8.tgz"
+  resolution: "autoprefixer@npm:10.4.8"
   dependencies:
     browserslist: ^4.21.3
     caniuse-lite: ^1.0.30001373
@@ -9981,7 +9971,7 @@ __metadata:
 
 "browserslist@npm:^4.21.3":
   version: 4.21.3
-  resolution: "browserslist@npm:4.21.3::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fbrowserslist%2F-%2Fbrowserslist-4.21.3.tgz"
+  resolution: "browserslist@npm:4.21.3"
   dependencies:
     caniuse-lite: ^1.0.30001370
     electron-to-chromium: ^1.4.202
@@ -10339,7 +10329,7 @@ __metadata:
 
 "caniuse-lite@npm:^1.0.30001370, caniuse-lite@npm:^1.0.30001373":
   version: 1.0.30001378
-  resolution: "caniuse-lite@npm:1.0.30001378::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fcaniuse-lite%2F-%2Fcaniuse-lite-1.0.30001378.tgz"
+  resolution: "caniuse-lite@npm:1.0.30001378"
   checksum: 19f1774da1f62d393ddde55dc091eb3e4f5c5b0ce43f9a9d20e75307a0f329cf8591c836a35a9f6f9fd7c27db7a75e0682245a194acec2e2ba1bc25ef1c3300c
   languageName: node
   linkType: hard
@@ -11987,7 +11977,7 @@ __metadata:
 
 "cssdb@npm:^7.0.0":
   version: 7.0.0
-  resolution: "cssdb@npm:7.0.0::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fcssdb%2F-%2Fcssdb-7.0.0.tgz"
+  resolution: "cssdb@npm:7.0.0"
   checksum: ae7e91fc812647ae542b1a7c737a8c517e6ea8b7811e165a503061a3cd999b4577852e84ed54d7010517923576a7fc5f0bceddb9eae40b160fa268dd3dc29fe7
   languageName: node
   linkType: hard
@@ -12802,7 +12792,7 @@ __metadata:
 
 "detective@npm:^5.2.1":
   version: 5.2.1
-  resolution: "detective@npm:5.2.1::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fdetective%2F-%2Fdetective-5.2.1.tgz"
+  resolution: "detective@npm:5.2.1"
   dependencies:
     acorn-node: ^1.8.2
     defined: ^1.0.0
@@ -13284,7 +13274,7 @@ __metadata:
 
 "electron-to-chromium@npm:^1.4.202":
   version: 1.4.222
-  resolution: "electron-to-chromium@npm:1.4.222::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Felectron-to-chromium%2F-%2Felectron-to-chromium-1.4.222.tgz"
+  resolution: "electron-to-chromium@npm:1.4.222"
   checksum: acae758e1cfb647cfaa7ac662200e3d2c15a66c50da999cac2c08e98908e61c276c4ef336e0f9d0f42d75b68f08cdc4efe6cb7b8031cfe5aed47645ebd07632c
   languageName: node
   linkType: hard
@@ -19494,7 +19484,7 @@ __metadata:
 
 "lilconfig@npm:^2.0.6":
   version: 2.0.6
-  resolution: "lilconfig@npm:2.0.6::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Flilconfig%2F-%2Flilconfig-2.0.6.tgz"
+  resolution: "lilconfig@npm:2.0.6"
   checksum: 40a3cd72f103b1be5975f2ac1850810b61d4053e20ab09be8d3aeddfe042187e1ba70b4651a7e70f95efa1642e7dc8b2ae395b317b7d7753b241b43cef7c0f7d
   languageName: node
   linkType: hard
@@ -23583,7 +23573,7 @@ __metadata:
 
 "postcss-attribute-case-insensitive@npm:^5.0.2":
   version: 5.0.2
-  resolution: "postcss-attribute-case-insensitive@npm:5.0.2::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fpostcss-attribute-case-insensitive%2F-%2Fpostcss-attribute-case-insensitive-5.0.2.tgz"
+  resolution: "postcss-attribute-case-insensitive@npm:5.0.2"
   dependencies:
     postcss-selector-parser: ^6.0.10
   peerDependencies:
@@ -23617,7 +23607,7 @@ __metadata:
 
 "postcss-color-functional-notation@npm:^4.2.4":
   version: 4.2.4
-  resolution: "postcss-color-functional-notation@npm:4.2.4::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fpostcss-color-functional-notation%2F-%2Fpostcss-color-functional-notation-4.2.4.tgz"
+  resolution: "postcss-color-functional-notation@npm:4.2.4"
   dependencies:
     postcss-value-parser: ^4.2.0
   peerDependencies:
@@ -23639,7 +23629,7 @@ __metadata:
 
 "postcss-color-rebeccapurple@npm:^7.1.1":
   version: 7.1.1
-  resolution: "postcss-color-rebeccapurple@npm:7.1.1::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fpostcss-color-rebeccapurple%2F-%2Fpostcss-color-rebeccapurple-7.1.1.tgz"
+  resolution: "postcss-color-rebeccapurple@npm:7.1.1"
   dependencies:
     postcss-value-parser: ^4.2.0
   peerDependencies:
@@ -23709,7 +23699,7 @@ __metadata:
 
 "postcss-dir-pseudo-class@npm:^6.0.5":
   version: 6.0.5
-  resolution: "postcss-dir-pseudo-class@npm:6.0.5::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fpostcss-dir-pseudo-class%2F-%2Fpostcss-dir-pseudo-class-6.0.5.tgz"
+  resolution: "postcss-dir-pseudo-class@npm:6.0.5"
   dependencies:
     postcss-selector-parser: ^6.0.10
   peerDependencies:
@@ -23779,7 +23769,7 @@ __metadata:
 
 "postcss-double-position-gradients@npm:^3.1.2":
   version: 3.1.2
-  resolution: "postcss-double-position-gradients@npm:3.1.2::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fpostcss-double-position-gradients%2F-%2Fpostcss-double-position-gradients-3.1.2.tgz"
+  resolution: "postcss-double-position-gradients@npm:3.1.2"
   dependencies:
     "@csstools/postcss-progressive-custom-properties": ^1.1.0
     postcss-value-parser: ^4.2.0
@@ -23833,7 +23823,7 @@ __metadata:
 
 "postcss-gap-properties@npm:^3.0.5":
   version: 3.0.5
-  resolution: "postcss-gap-properties@npm:3.0.5::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fpostcss-gap-properties%2F-%2Fpostcss-gap-properties-3.0.5.tgz"
+  resolution: "postcss-gap-properties@npm:3.0.5"
   peerDependencies:
     postcss: ^8.2
   checksum: aed559d6d375203a08a006c9ae8cf5ae90d9edaec5cadd20fe65c1b8ce63c2bc8dfe752d4331880a6e24a300541cde61058be790b7bd9b5d04d470c250fbcd39
@@ -23857,7 +23847,7 @@ __metadata:
 
 "postcss-image-set-function@npm:^4.0.7":
   version: 4.0.7
-  resolution: "postcss-image-set-function@npm:4.0.7::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fpostcss-image-set-function%2F-%2Fpostcss-image-set-function-4.0.7.tgz"
+  resolution: "postcss-image-set-function@npm:4.0.7"
   dependencies:
     postcss-value-parser: ^4.2.0
   peerDependencies:
@@ -23866,22 +23856,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-import@npm:14.1.0":
+"postcss-import@npm:14.1.0, postcss-import@npm:^14.1.0":
   version: 14.1.0
   resolution: "postcss-import@npm:14.1.0"
-  dependencies:
-    postcss-value-parser: ^4.0.0
-    read-cache: ^1.0.0
-    resolve: ^1.1.7
-  peerDependencies:
-    postcss: ^8.0.0
-  checksum: cd45d406e90f67cdab9524352e573cc6b4462b790934a05954e929a6653ebd31288ceebc8ce3c3ed7117ae672d9ebbec57df0bceec0a56e9b259c2e71d47ca86
-  languageName: node
-  linkType: hard
-
-"postcss-import@npm:^14.1.0":
-  version: 14.1.0
-  resolution: "postcss-import@npm:14.1.0::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fpostcss-import%2F-%2Fpostcss-import-14.1.0.tgz"
   dependencies:
     postcss-value-parser: ^4.0.0
     read-cache: ^1.0.0
@@ -23914,7 +23891,7 @@ __metadata:
 
 "postcss-lab-function@npm:^4.2.1":
   version: 4.2.1
-  resolution: "postcss-lab-function@npm:4.2.1::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fpostcss-lab-function%2F-%2Fpostcss-lab-function-4.2.1.tgz"
+  resolution: "postcss-lab-function@npm:4.2.1"
   dependencies:
     "@csstools/postcss-progressive-custom-properties": ^1.1.0
     postcss-value-parser: ^4.2.0
@@ -24124,7 +24101,7 @@ __metadata:
 
 "postcss-nesting@npm:^10.1.10":
   version: 10.1.10
-  resolution: "postcss-nesting@npm:10.1.10::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fpostcss-nesting%2F-%2Fpostcss-nesting-10.1.10.tgz"
+  resolution: "postcss-nesting@npm:10.1.10"
   dependencies:
     "@csstools/selector-specificity": ^2.0.0
     postcss-selector-parser: ^6.0.10
@@ -24254,7 +24231,7 @@ __metadata:
 
 "postcss-overflow-shorthand@npm:^3.0.4":
   version: 3.0.4
-  resolution: "postcss-overflow-shorthand@npm:3.0.4::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fpostcss-overflow-shorthand%2F-%2Fpostcss-overflow-shorthand-3.0.4.tgz"
+  resolution: "postcss-overflow-shorthand@npm:3.0.4"
   dependencies:
     postcss-value-parser: ^4.2.0
   peerDependencies:
@@ -24274,7 +24251,7 @@ __metadata:
 
 "postcss-place@npm:^7.0.5":
   version: 7.0.5
-  resolution: "postcss-place@npm:7.0.5::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fpostcss-place%2F-%2Fpostcss-place-7.0.5.tgz"
+  resolution: "postcss-place@npm:7.0.5"
   dependencies:
     postcss-value-parser: ^4.2.0
   peerDependencies:
@@ -24285,7 +24262,7 @@ __metadata:
 
 "postcss-preset-env@npm:7.8.0":
   version: 7.8.0
-  resolution: "postcss-preset-env@npm:7.8.0::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fpostcss-preset-env%2F-%2Fpostcss-preset-env-7.8.0.tgz"
+  resolution: "postcss-preset-env@npm:7.8.0"
   dependencies:
     "@csstools/postcss-cascade-layers": ^1.0.5
     "@csstools/postcss-color-function": ^1.1.1
@@ -24344,7 +24321,7 @@ __metadata:
 
 "postcss-pseudo-class-any-link@npm:^7.1.6":
   version: 7.1.6
-  resolution: "postcss-pseudo-class-any-link@npm:7.1.6::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fpostcss-pseudo-class-any-link%2F-%2Fpostcss-pseudo-class-any-link-7.1.6.tgz"
+  resolution: "postcss-pseudo-class-any-link@npm:7.1.6"
   dependencies:
     postcss-selector-parser: ^6.0.10
   peerDependencies:
@@ -24423,7 +24400,7 @@ __metadata:
 
 "postcss-selector-not@npm:^6.0.1":
   version: 6.0.1
-  resolution: "postcss-selector-not@npm:6.0.1::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fpostcss-selector-not%2F-%2Fpostcss-selector-not-6.0.1.tgz"
+  resolution: "postcss-selector-not@npm:6.0.1"
   dependencies:
     postcss-selector-parser: ^6.0.10
   peerDependencies:
@@ -24521,7 +24498,7 @@ __metadata:
 
 "postcss@npm:8.4.16":
   version: 8.4.16
-  resolution: "postcss@npm:8.4.16::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fpostcss%2F-%2Fpostcss-8.4.16.tgz"
+  resolution: "postcss@npm:8.4.16"
   dependencies:
     nanoid: ^3.3.4
     picocolors: ^1.0.0
@@ -26291,7 +26268,7 @@ __metadata:
 
 "resolve@npm:^1.22.1":
   version: 1.22.1
-  resolution: "resolve@npm:1.22.1::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fresolve%2F-%2Fresolve-1.22.1.tgz"
+  resolution: "resolve@npm:1.22.1"
   dependencies:
     is-core-module: ^2.9.0
     path-parse: ^1.0.7
@@ -26340,7 +26317,7 @@ __metadata:
 
 "resolve@patch:resolve@^1.22.1#~builtin<compat/resolve>":
   version: 1.22.1
-  resolution: "resolve@patch:resolve@npm%3A1.22.1%3A%3A__archiveUrl=http%253A%252F%252Flocalhost%253A4873%252Fresolve%252F-%252Fresolve-1.22.1.tgz#~builtin<compat/resolve>::version=1.22.1&hash=07638b"
+  resolution: "resolve@patch:resolve@npm%3A1.22.1#~builtin<compat/resolve>::version=1.22.1&hash=07638b"
   dependencies:
     is-core-module: ^2.9.0
     path-parse: ^1.0.7
@@ -28404,7 +28381,7 @@ __metadata:
 
 "tailwindcss@npm:^3.1.8":
   version: 3.1.8
-  resolution: "tailwindcss@npm:3.1.8::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Ftailwindcss%2F-%2Ftailwindcss-3.1.8.tgz"
+  resolution: "tailwindcss@npm:3.1.8"
   dependencies:
     arg: ^5.0.2
     chokidar: ^3.5.3
@@ -29819,7 +29796,7 @@ __metadata:
 
 "update-browserslist-db@npm:^1.0.5":
   version: 1.0.5
-  resolution: "update-browserslist-db@npm:1.0.5::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fupdate-browserslist-db%2F-%2Fupdate-browserslist-db-1.0.5.tgz"
+  resolution: "update-browserslist-db@npm:1.0.5"
   dependencies:
     escalade: ^3.1.1
     picocolors: ^1.0.0
