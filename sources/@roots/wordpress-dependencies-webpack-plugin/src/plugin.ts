@@ -15,7 +15,7 @@ export class WordPressDependenciesWebpackPlugin {
    * @public
    */
   public plugin = {
-    name: 'WordPressDependenciesWebpackPlugin',
+    name: `WordPressDependenciesWebpackPlugin`,
     stage: Infinity,
   }
 
@@ -43,7 +43,7 @@ export class WordPressDependenciesWebpackPlugin {
    * @public
    */
   public constructor(options?: {fileName: string}) {
-    this.fileName = options?.fileName ?? 'wordpress.json'
+    this.fileName = options?.fileName ?? `wordpress.json`
   }
 
   /**

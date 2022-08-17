@@ -16,7 +16,7 @@ export class Component extends HTMLElement {
   public documentBodyStyle: any
 
   public get message() {
-    return this.getAttribute('message')
+    return this.getAttribute(`message`)
   }
 
   public constructor() {
@@ -25,8 +25,8 @@ export class Component extends HTMLElement {
   }
 
   public renderShadow(): void {
-    const container = document.createElement('div')
-    container.classList.add('overlay')
+    const container = document.createElement(`div`)
+    container.classList.add(`overlay`)
     container.innerHTML = `
       <style>
         .overlay {
@@ -136,24 +136,24 @@ export class Component extends HTMLElement {
       <div class="messages"></div>
     `
 
-    this.attachShadow({mode: 'open'}).appendChild(container)
+    this.attachShadow({mode: `open`}).appendChild(container)
   }
 
   public static get observedAttributes() {
-    return ['message']
+    return [`message`]
   }
 
   public attributeChangedCallback() {
     if (!this.documentBodyStyle)
       this.documentBodyStyle = document.body?.style
 
-    if (this.getAttribute('message')) {
-      document.body.style.overflow = 'hidden'
+    if (this.getAttribute(`message`)) {
+      document.body.style.overflow = `hidden`
 
-      this.shadowRoot.querySelector('.overlay').classList.add(`visible`)
+      this.shadowRoot.querySelector(`.overlay`).classList.add(`visible`)
 
-      this.shadowRoot.querySelector('.messages').innerHTML =
-        this.getAttribute('message')
+      this.shadowRoot.querySelector(`.messages`).innerHTML =
+        this.getAttribute(`message`)
 
       return
     }
@@ -162,7 +162,7 @@ export class Component extends HTMLElement {
       document.body.style.overflow = this.documentBodyStyle.overflow
     }
 
-    this.shadowRoot.querySelector('.overlay').classList.remove(`visible`)
+    this.shadowRoot.querySelector(`.overlay`).classList.remove(`visible`)
   }
 
   public connectedCallback() {

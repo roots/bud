@@ -25,11 +25,11 @@ import type BudReactRefresh from './react-refresh/index.js'
  * @decorator `@options`
  * @decorator `@expose`
  */
-@label('@roots/bud-react')
-@dependsOn(['@roots/bud-react/react-refresh'])
-@dependsOnOptional(['@roots/bud-esbuild', '@roots/bud-swc'])
+@label(`@roots/bud-react`)
+@dependsOn([`@roots/bud-react/react-refresh`])
+@dependsOnOptional([`@roots/bud-esbuild`, `@roots/bud-swc`])
 @options({babel: undefined})
-@expose('react')
+@expose(`react`)
 export default class BudReact extends Extension {
   /**
    * Use babel
@@ -40,11 +40,11 @@ export default class BudReact extends Extension {
   public get useBabel(): boolean {
     if (!isUndefined(this.options.babel)) return this.options.babel
 
-    if (this.app.extensions.has('@roots/bud-typescript')) {
-      return this.app.extensions.get('@roots/bud-typescript').options.babel
+    if (this.app.extensions.has(`@roots/bud-typescript`)) {
+      return this.app.extensions.get(`@roots/bud-typescript`).options.babel
     }
 
-    if (this.app.extensions.has('@roots/bud-swc')) return false
+    if (this.app.extensions.has(`@roots/bud-swc`)) return false
 
     return true
   }
@@ -56,7 +56,7 @@ export default class BudReact extends Extension {
    * @public
    */
   public get refresh(): BudReactRefresh {
-    return this.app.extensions.get('@roots/bud-react/react-refresh')
+    return this.app.extensions.get(`@roots/bud-react/react-refresh`)
   }
 
   /**
@@ -75,8 +75,8 @@ export default class BudReact extends Extension {
 
     await this.ensureBabelIsLoaded()
 
-    const Preset = await this.resolve('@babel/preset-react')
-    this.app.babel.setPreset('@babel/preset-react', Preset)
+    const Preset = await this.resolve(`@babel/preset-react`)
+    this.app.babel.setPreset(`@babel/preset-react`, Preset)
   }
 
   /**
@@ -87,7 +87,7 @@ export default class BudReact extends Extension {
    */
   @bind
   public async ensureBabelIsLoaded() {
-    if (this.app.extensions.has('@roots/bud-babel')) return
-    await this.app.extensions.add(await this.import('@roots/bud-babel'))
+    if (this.app.extensions.has(`@roots/bud-babel`)) return
+    await this.app.extensions.add(await this.import(`@roots/bud-babel`))
   }
 }

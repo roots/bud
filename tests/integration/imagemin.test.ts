@@ -7,19 +7,19 @@ const run = pacman => () => {
 
   beforeAll(async () => {
     project = await new Project({
-      label: '@examples/imagemin',
+      label: `@examples/imagemin`,
       with: pacman,
     }).setup()
   })
 
-  describe('owl.jpeg', () => {
-    it('is smaller than the original', async () => {
+  describe(`owl.jpeg`, () => {
+    it(`is smaller than the original`, async () => {
       const original = await fs.readFile(
         `${process.cwd()}/examples/imagemin/src/owl.jpeg`,
-        'utf8',
+        `utf8`,
       )
 
-      expect(project.assets['images/owl.jpeg'].length).toBeLessThan(
+      expect(project.assets[`images/owl.jpeg`].length).toBeLessThan(
         original.length,
       )
 
@@ -28,7 +28,7 @@ const run = pacman => () => {
   })
 }
 
-describe('imagemin', () => {
-  describe('npm', run('npm'))
-  describe('yarn', run('yarn'))
+describe(`imagemin`, () => {
+  describe(`npm`, run(`npm`))
+  describe(`yarn`, run(`yarn`))
 })

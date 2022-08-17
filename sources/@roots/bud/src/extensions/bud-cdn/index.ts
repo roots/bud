@@ -31,15 +31,15 @@ export interface Options {
  * @decorator `@expose`
  * @decorator `@options`
  */
-@label('cdn')
-@expose('cdn')
+@label(`cdn`)
+@expose(`cdn`)
 @options<Options>({
   allowedUris: [],
-  cacheLocation: (app: Bud) => app.path('@storage', app.label, 'modules'),
+  cacheLocation: (app: Bud) => app.path(`@storage`, app.label, `modules`),
   frozen: false,
   lockfileLocation: (app: Bud): string =>
-    app.path('@storage', app.label, 'bud.lock'),
-  proxy: ({env}) => env.isString('HTTP_PROXY') && env.get('HTTP_PROXY'),
+    app.path(`@storage`, app.label, `bud.lock`),
+  proxy: ({env}) => env.isString(`HTTP_PROXY`) && env.get(`HTTP_PROXY`),
   upgrade: true,
 })
 export default class Cdn extends Extension<Options, null> {
@@ -49,10 +49,10 @@ export default class Cdn extends Extension<Options, null> {
    * @public
    */
   public sources = new Map<string, string>([
-    ['gist', 'https://gist.githubusercontent.com/'],
-    ['github', 'https://raw.githubusercontent.com/'],
-    ['unpkg', 'https://unpkg.com/'],
-    ['skypack', 'https://cdn.skypack.dev/'],
+    [`gist`, `https://gist.githubusercontent.com/`],
+    [`github`, `https://raw.githubusercontent.com/`],
+    [`unpkg`, `https://unpkg.com/`],
+    [`skypack`, `https://cdn.skypack.dev/`],
   ])
 
   /**
@@ -94,11 +94,11 @@ export default class Cdn extends Extension<Options, null> {
   > {
     return Array.from(
       new Set([
-        ...(this.app.maybeCall(this.getOption('allowedUris')) ?? []),
+        ...(this.app.maybeCall(this.getOption(`allowedUris`)) ?? []),
         ...(this.sources.values() ?? []),
       ]),
     ).filter(
-      v => typeof v === 'string' || v instanceof RegExp || isFunction(v),
+      v => typeof v === `string` || v instanceof RegExp || isFunction(v),
     )
   }
   public set allowedUris(
@@ -106,7 +106,7 @@ export default class Cdn extends Extension<Options, null> {
       | Array<string | RegExp | ((uri: string) => boolean)>
       | Options['allowedUris'],
   ) {
-    this.setOption('allowedUris', value)
+    this.setOption(`allowedUris`, value)
   }
 
   /**
@@ -115,12 +115,12 @@ export default class Cdn extends Extension<Options, null> {
    * @public
    */
   public get cacheLocation(): string | false {
-    return this.app.maybeCall(this.getOption('cacheLocation'))
+    return this.app.maybeCall(this.getOption(`cacheLocation`))
   }
   public set cacheLocation(
     value: string | false | Options['cacheLocation'],
   ) {
-    this.setOption('cacheLocation', value)
+    this.setOption(`cacheLocation`, value)
   }
 
   /**
@@ -129,10 +129,10 @@ export default class Cdn extends Extension<Options, null> {
    * @public
    */
   public get frozen(): boolean {
-    return this.app.maybeCall(this.getOption('frozen'))
+    return this.app.maybeCall(this.getOption(`frozen`))
   }
   public set frozen(value: boolean) {
-    this.setOption('frozen', value)
+    this.setOption(`frozen`, value)
   }
 
   /**
@@ -141,12 +141,12 @@ export default class Cdn extends Extension<Options, null> {
    * @public
    */
   public get lockfileLocation(): string {
-    return this.app.maybeCall(this.getOption('lockfileLocation'))
+    return this.app.maybeCall(this.getOption(`lockfileLocation`))
   }
   public set lockfileLocation(
     value: string | Options['lockfileLocation'],
   ) {
-    this.setOption('lockfileLocation', value)
+    this.setOption(`lockfileLocation`, value)
   }
 
   /**
@@ -155,10 +155,10 @@ export default class Cdn extends Extension<Options, null> {
    * @public
    */
   public get proxy(): string {
-    return this.app.maybeCall(this.getOption('proxy'))
+    return this.app.maybeCall(this.getOption(`proxy`))
   }
   public set proxy(value: string | Options['proxy']) {
-    this.setOption('proxy', value)
+    this.setOption(`proxy`, value)
   }
 
   /**
@@ -167,10 +167,10 @@ export default class Cdn extends Extension<Options, null> {
    * @public
    */
   public get upgrade(): boolean {
-    return this.app.maybeCall(this.getOption('upgrade'))
+    return this.app.maybeCall(this.getOption(`upgrade`))
   }
   public set upgrade(value: boolean | Options['upgrade']) {
-    this.setOption('upgrade', value)
+    this.setOption(`upgrade`, value)
   }
 
   /**
@@ -266,7 +266,7 @@ export default class Cdn extends Extension<Options, null> {
    */
   @bind
   public async beforeBuild() {
-    this.app.hooks.on('build.experiments.buildHttp', () => ({
+    this.app.hooks.on(`build.experiments.buildHttp`, () => ({
       allowedUris: this.allowedUris,
       cacheLocation: this.cacheEnabled ? this.cacheLocation : false,
       frozen: this.frozen,
@@ -312,7 +312,7 @@ export default class Cdn extends Extension<Options, null> {
                   result => {
                     result.request = result.request.replace(
                       signifier,
-                      [cdn.url, remotePath].join(''),
+                      [cdn.url, remotePath].join(``),
                     )
                   },
                 ),

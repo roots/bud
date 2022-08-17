@@ -36,7 +36,7 @@ export class Component extends HTMLElement {
    * @public
    */
   public get hasErrors(): boolean {
-    return this.getAttribute('has-errors') == 'true'
+    return this.getAttribute(`has-errors`) == `true`
   }
 
   /**
@@ -44,7 +44,7 @@ export class Component extends HTMLElement {
    * @public
    */
   public get hasWarnings(): boolean {
-    return this.getAttribute('has-warnings') == 'true'
+    return this.getAttribute(`has-warnings`) == `true`
   }
 
   /**
@@ -72,7 +72,7 @@ export class Component extends HTMLElement {
    * @public
    */
   public renderShadow() {
-    const container = document.createElement('div')
+    const container = document.createElement(`div`)
     container.classList.add(this.name)
     container.innerHTML = `
     <style>
@@ -112,7 +112,7 @@ export class Component extends HTMLElement {
     </style>
     `
 
-    this.attachShadow({mode: 'open'}).appendChild(container)
+    this.attachShadow({mode: `open`}).appendChild(container)
   }
 
   /**
@@ -121,7 +121,7 @@ export class Component extends HTMLElement {
    */
   public show() {
     this.hideTimeout && clearTimeout(this.hideTimeout)
-    this.shadowRoot.querySelector(this.selector).classList.add('show')
+    this.shadowRoot.querySelector(this.selector).classList.add(`show`)
   }
 
   /**
@@ -129,7 +129,7 @@ export class Component extends HTMLElement {
    */
   public hide() {
     this.hideTimeout = setTimeout(() => {
-      this.shadowRoot.querySelector(this.selector).classList.remove('show')
+      this.shadowRoot.querySelector(this.selector).classList.remove(`show`)
     }, 2000)
   }
 
@@ -144,7 +144,7 @@ export class Component extends HTMLElement {
       .querySelector(this.selector)
       .classList.remove(`error`, `warning`, `success`)
 
-    this.shadowRoot.querySelector(this.selector).classList.add('pending')
+    this.shadowRoot.querySelector(this.selector).classList.add(`pending`)
 
     this.hide()
   }
@@ -193,23 +193,23 @@ export class Component extends HTMLElement {
   }
 
   public static get observedAttributes() {
-    return ['has-errors', 'has-warnings', 'action']
+    return [`has-errors`, `has-warnings`, `action`]
   }
 
   public attributeChangedCallback() {
-    if (this.hasAttribute('has-errors')) return this.onError()
-    if (this.hasAttribute('has-warnings')) return this.onWarning()
+    if (this.hasAttribute(`has-errors`)) return this.onError()
+    if (this.hasAttribute(`has-warnings`)) return this.onWarning()
 
     if (
-      !this.hasAttribute('has-errors') &&
-      !this.hasAttribute('has-warnings') &&
-      this.getAttribute('action') === 'built'
+      !this.hasAttribute(`has-errors`) &&
+      !this.hasAttribute(`has-warnings`) &&
+      this.getAttribute(`action`) === `built`
     )
       return this.onSuccess()
 
     if (
-      this.getAttribute('action') == 'building' ||
-      this.getAttribute('action') == 'sync'
+      this.getAttribute(`action`) == `building` ||
+      this.getAttribute(`action`) == `sync`
     )
       return this.onPending()
   }

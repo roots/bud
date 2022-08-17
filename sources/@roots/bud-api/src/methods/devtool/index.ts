@@ -10,11 +10,11 @@ export interface facade {
 }
 
 export const devtool: devtool = async function (
-  input = 'cheap-module-source-map',
+  input = `cheap-module-source-map`,
 ) {
   const app = this as Bud
 
-  app.hooks.on('build.devtool', () => input)
+  app.hooks.on(`build.devtool`, () => input)
 
   app.log({message: `devtool set: ${input}`})
 

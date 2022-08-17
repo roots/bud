@@ -32,7 +32,7 @@ export default class Bud {
   public async find(): Promise<this> {
     this.data.dirname = dirname(fileURLToPath(import.meta.url))
     this.data.manifestPath = resolve(
-      join(this.data.dirname, '..', '..', 'package.json'),
+      join(this.data.dirname, `..`, `..`, `package.json`),
     )
     await this.handleFindResults(this.data.manifestPath)
     return this

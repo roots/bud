@@ -9,7 +9,7 @@ import {
   Options,
 } from '@roots/entrypoints-webpack-plugin'
 
-@label('@roots/bud-entrypoints')
+@label(`@roots/bud-entrypoints`)
 @options({emitHtml: false})
 @plugin(EntrypointsWebpackPlugin)
 export default class BudEntrypointsExtension extends Extension<

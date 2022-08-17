@@ -14,8 +14,8 @@ export const enableMiddlewareHookCallback = (
   middleware: Array<keyof Server.Middleware.Available>,
 ): Array<keyof Server.Middleware.Available> => [
   ...(disableMiddlewareHookCallback(middleware) ?? []),
-  'cookie',
-  'proxy',
+  `cookie`,
+  `proxy`,
 ]
 /**
  * Disable proxy middleware
@@ -30,7 +30,7 @@ export const disableMiddlewareHookCallback = (
   middleware: Array<keyof Server.Middleware.Available>,
 ): Array<keyof Server.Middleware.Available> =>
   middleware?.filter(
-    middleware => middleware !== 'proxy' && middleware !== 'cookie',
+    middleware => middleware !== `proxy` && middleware !== `cookie`,
   ) ?? []
 
 /**
@@ -71,7 +71,7 @@ export const method: method = function (input, replacements) {
    * User proxy request from a port #
    */
   isNumber(input) &&
-    ctx.hooks.on('dev.middleware.proxy.target', url => {
+    ctx.hooks.on(`dev.middleware.proxy.target`, url => {
       url.port = `${input}`
       return url
     })
@@ -80,25 +80,25 @@ export const method: method = function (input, replacements) {
    * User proxy request from a string
    */
   isString(input) &&
-    ctx.hooks.on('dev.middleware.proxy.target', new URL(input))
+    ctx.hooks.on(`dev.middleware.proxy.target`, new URL(input))
 
   /**
    * User proxy request from a URL
    */
   input instanceof URL &&
-    ctx.hooks.on('dev.middleware.proxy.target', input)
+    ctx.hooks.on(`dev.middleware.proxy.target`, input)
 
   /**
    * User proxy request as a boolean
    */
   isBoolean(input)
     ? ctx.hooks.on(
-        'dev.middleware.enabled',
+        `dev.middleware.enabled`,
         input
           ? enableMiddlewareHookCallback
           : disableMiddlewareHookCallback,
       )
-    : ctx.hooks.on('dev.middleware.enabled', enableMiddlewareHookCallback)
+    : ctx.hooks.on(`dev.middleware.enabled`, enableMiddlewareHookCallback)
 
   /**
    * Handle URL replacements
@@ -106,11 +106,11 @@ export const method: method = function (input, replacements) {
   replacements = isUndefined(replacements)
     ? (hookValue): Array<[string | RegExp, string]> => [
         ...(hookValue ?? []),
-        [ctx.hooks.filter('dev.middleware.proxy.target').href, '/'],
+        [ctx.hooks.filter(`dev.middleware.proxy.target`).href, `/`],
       ]
     : replacements
 
-  ctx.hooks.on('dev.middleware.proxy.replacements', replacements)
+  ctx.hooks.on(`dev.middleware.proxy.replacements`, replacements)
 
   /**
    * Return bud interface

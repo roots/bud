@@ -3,7 +3,7 @@ import {Loader} from '@roots/bud-build'
 import BudSass from '@roots/bud-sass'
 import ResolveUrl from '@roots/bud-sass/resolve-url'
 
-describe('@roots/bud-sass registration', () => {
+describe(`@roots/bud-sass registration`, () => {
   let bud: Bud
 
   beforeAll(async () => {
@@ -12,45 +12,45 @@ describe('@roots/bud-sass registration', () => {
     await new BudSass(bud).afterConfig()
   })
 
-  it('adds scss extension', () => {
+  it(`adds scss extension`, () => {
     expect(
-      Array.from(bud.hooks.filter('build.resolve.extensions')),
-    ).toContain('.scss')
+      Array.from(bud.hooks.filter(`build.resolve.extensions`)),
+    ).toContain(`.scss`)
   })
 
-  it('adds sass extension', () => {
+  it(`adds sass extension`, () => {
     expect(
-      Array.from(bud.hooks.filter('build.resolve.extensions')),
-    ).toContain('.sass')
+      Array.from(bud.hooks.filter(`build.resolve.extensions`)),
+    ).toContain(`.sass`)
   })
 
-  it('adds sass loader', () => {
+  it(`adds sass loader`, () => {
     expect(bud.build.loaders.sass?.getSrc()).toEqual(
-      expect.stringContaining('sass-loader'),
+      expect.stringContaining(`sass-loader`),
     )
   })
 
-  it('adds sass ruleset item', () => {
+  it(`adds sass ruleset item`, () => {
     expect(bud.build.items.sass?.getLoader()).toBeInstanceOf(Loader)
   })
 
-  it('adds sass rule', () => {
-    expect(bud.build.rules.sass?.getUse()).toContain('sass')
+  it(`adds sass rule`, () => {
+    expect(bud.build.rules.sass?.getUse()).toContain(`sass`)
   })
 
-  it('sets sass test', () => {
+  it(`sets sass test`, () => {
     expect(JSON.stringify(bud.build.rules.sass?.getTest())).toStrictEqual(
-      JSON.stringify(bud.hooks.filter('pattern.sass')),
+      JSON.stringify(bud.hooks.filter(`pattern.sass`)),
     )
   })
 
-  it('includes @src dir', () => {
+  it(`includes @src dir`, () => {
     expect(bud.build.rules.sass?.getInclude()?.pop()).toStrictEqual(
-      bud.path('@src'),
+      bud.path(`@src`),
     )
   })
 
-  it('sets up rulesetuse items', () => {
+  it(`sets up rulesetuse items`, () => {
     expect(bud.build.rules.sass?.getUse()).toEqual([
       expect.stringContaining(`precss`),
       expect.stringContaining(`css`),

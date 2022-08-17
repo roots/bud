@@ -12,8 +12,8 @@ import {
  * @decorator `@label`
  * @decorator `@expose`
  */
-@label('esm')
-@expose('esm')
+@label(`esm`)
+@expose(`esm`)
 export default class Esm extends Extension {
   /**
    * `beforeBuild` callback
@@ -24,11 +24,11 @@ export default class Esm extends Extension {
   @bind
   public async beforeBuild() {
     this.app.hooks
-      .on('build.experiments.outputModule', true)
-      .hooks.on('build.output.module', true)
+      .on(`build.experiments.outputModule`, true)
+      .hooks.on(`build.output.module`, true)
 
-    this.app.project.has('manifest.imports') &&
-      this.app.externals(this.app.project.get('manifest.imports'))
+    this.app.project.has(`manifest.imports`) &&
+      this.app.externals(this.app.project.get(`manifest.imports`))
   }
 
   /**

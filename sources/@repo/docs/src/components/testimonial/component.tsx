@@ -21,7 +21,7 @@ export default function Testimony({
   date,
 }: Props): JSX.Element {
   return (
-    <div className={clsx('card', styles.tweet)}>
+    <div className={clsx(`card`, styles.tweet)}>
       <div className="card__header">
         <div className="avatar">
           <img
@@ -35,7 +35,7 @@ export default function Testimony({
           <div className="avatar__intro">
             <div className={styles.tweet}>
               <div>
-                <strong>{name}</strong>{' '}
+                <strong>{name}</strong>{` `}
                 <span className={styles.tweetMeta}>@{handle}</span>
               </div>
             </div>

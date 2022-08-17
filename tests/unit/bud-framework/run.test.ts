@@ -14,16 +14,16 @@ class MockServer extends Service {
   public run = jest.fn(noop)
 }
 
-describe('bud.run', function () {
+describe(`bud.run`, function () {
   let bud: Bud
 
-  it('is a function', async () => {
+  it(`is a function`, async () => {
     bud = await factory()
     expect(JSON.stringify(run)).toEqual(JSON.stringify(bud.run))
   })
 
-  describe('production', () => {
-    it('summons compiler', async () => {
+  describe(`production`, () => {
+    it(`summons compiler`, async () => {
       bud = await factory()
       bud.compiler = new MockCompiler(bud) as any
 
@@ -32,9 +32,9 @@ describe('bud.run', function () {
     })
   })
 
-  describe('development', () => {
-    it('summons server', async () => {
-      bud = await factory({mode: 'development'})
+  describe(`development`, () => {
+    it(`summons server`, async () => {
+      bud = await factory({mode: `development`})
       bud.compiler = new MockCompiler(bud) as any
       bud.server = new MockServer(bud) as any
 

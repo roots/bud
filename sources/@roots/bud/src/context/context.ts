@@ -19,6 +19,6 @@ export default class Context implements Partial<Options.Context> {
     public extensions: Extensions['data'],
     public colorDepth: number = 256,
   ) {
-    this.label = this.manifest.name ?? 'default'
+    this.label = this.manifest.name ?? `default`
   }
 }

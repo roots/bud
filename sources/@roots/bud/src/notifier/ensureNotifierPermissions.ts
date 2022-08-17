@@ -13,16 +13,16 @@ import {join} from 'node:path'
 export default async function ensureNotifierPermissions(
   context: Partial<Config.Context>,
 ) {
-  if (platform() === 'darwin') {
+  if (platform() === `darwin`) {
     try {
       const notifierPath = join(
         context.bud.basedir,
-        'vendor',
-        'mac.no-index',
-        'roots-notifier.app',
-        'Contents',
-        'MacOS',
-        'roots-notifier',
+        `vendor`,
+        `mac.no-index`,
+        `roots-notifier.app`,
+        `Contents`,
+        `MacOS`,
+        `roots-notifier`,
       )
 
       await execa(`chmod`, [`u+x`, notifierPath])

@@ -15,9 +15,9 @@ import fs from 'fs-extra'
  * @decorator `@label`
  * @decorator `@options`
  */
-@label('@roots/bud-swc')
+@label(`@roots/bud-swc`)
 @options({parseMap: false})
-@expose('swc')
+@expose(`swc`)
 export default class BudSWC extends Extension {
   /**
    * `register` callback
@@ -27,8 +27,8 @@ export default class BudSWC extends Extension {
    */
   @bind
   public async register() {
-    this.app.hooks.on('build.resolve.extensions', ext =>
-      ext.add('.ts').add('.tsx'),
+    this.app.hooks.on(`build.resolve.extensions`, ext =>
+      ext.add(`.ts`).add(`.tsx`),
     )
   }
 
@@ -61,7 +61,7 @@ export default class BudSWC extends Extension {
             ...(options.jsc ?? {}),
             parser: {
               ...(options.jsc?.parser ?? {}),
-              syntax: 'typescript',
+              syntax: `typescript`,
               jsx: true,
               tsx: true,
               decorators: false,
@@ -72,22 +72,22 @@ export default class BudSWC extends Extension {
       })
       .finally(async () => {
         bud.build
-          .setLoader('swc', await this.resolve('swc-loader'))
-          .setItem('swc', {
-            loader: 'swc',
+          .setLoader(`swc`, await this.resolve(`swc-loader`))
+          .setItem(`swc`, {
+            loader: `swc`,
             options: this.options,
           })
-          .setRule('ts', {
-            test: ({hooks}) => hooks.filter('pattern.ts'),
-            include: [({path}) => path('@src')],
-            use: ['swc'],
+          .setRule(`ts`, {
+            test: ({hooks}) => hooks.filter(`pattern.ts`),
+            include: [({path}) => path(`@src`)],
+            use: [`swc`],
           })
-          .rules.js.setUse(['swc'])
+          .rules.js.setUse([`swc`])
       })
   }
 
   @bind
   public async hasRC() {
-    return await fs.pathExists(this.app.path('./.swcrc'))
+    return await fs.pathExists(this.app.path(`./.swcrc`))
   }
 }

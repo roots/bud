@@ -15,12 +15,12 @@ export interface HotEventStream {
  * @public
  */
 const headers = {
-  'Access-Control-Allow-Origin': '*',
-  'Content-Type': 'text/event-stream;charset=utf-8',
-  'Cache-Control': 'no-cache, no-transform',
+  'Access-Control-Allow-Origin': `*`,
+  'Content-Type': `text/event-stream;charset=utf-8`,
+  'Cache-Control': `no-cache, no-transform`,
   // While behind nginx, event stream should not be buffered:
   // http://nginx.org/docs/http/ngx_http_proxy_module.html#proxy_buffering
-  'X-Accel-Buffering': 'no',
+  'X-Accel-Buffering': `no`,
 }
 
 /**
@@ -71,7 +71,7 @@ export class HotEventStream {
     this.interval = setInterval(
       () =>
         tapClients(client => {
-          client.write('data: \uD83D\uDC93\n\n')
+          client.write(`data: \uD83D\uDC93\n\n`)
         }),
       updateInterval,
     ).unref()
@@ -95,14 +95,14 @@ export class HotEventStream {
     if (isHttp1) {
       req.socket.setKeepAlive(true)
       Object.assign(headers, {
-        Connection: 'keep-alive',
+        Connection: `keep-alive`,
       })
     }
 
     res.writeHead(200, headers)
-    res.write('\n')
+    res.write(`\n`)
 
-    req.on('close', () => {
+    req.on(`close`, () => {
       if (!res.writableEnded) res.end()
       clients[id] = undefined
     })
@@ -114,7 +114,7 @@ export class HotEventStream {
    */
   public publish(payload: Partial<Payload>) {
     tapClients(client => {
-      client.write('data: ' + JSON.stringify(payload) + '\n\n')
+      client.write(`data: ` + JSON.stringify(payload) + `\n\n`)
     })
   }
 

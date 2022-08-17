@@ -19,10 +19,10 @@ export const callback = () => new Set([overlay, proxyClickInterceptor])
  * @public
  */
 export const proxyClickInterceptor = (app: Bud) => {
-  if (!app.hooks.filter('dev.middleware.enabled', []).includes('proxy'))
+  if (!app.hooks.filter(`dev.middleware.enabled`, []).includes(`proxy`))
     return null
 
-  const target = app.hooks.filter('dev.middleware.proxy.target')
+  const target = app.hooks.filter(`dev.middleware.proxy.target`)
   if (!target?.href) return null
 
   const params = new URLSearchParams({href: target.href})
@@ -41,13 +41,13 @@ export const overlay = (app: Bud) => {
   const params = new URLSearchParams({
     name: app.label,
     indicator: isUndefined(app.context.args.indicator)
-      ? 'true'
+      ? `true`
       : app.context.args.indicator.toString(),
     overlay: isUndefined(app.context.args.overlay)
-      ? 'true'
+      ? `true`
       : app.context.args.overlay.toString(),
     reload: isUndefined(app.context.args.reload)
-      ? 'true'
+      ? `true`
       : app.context.args.reload.toString(),
   })
 

@@ -27,6 +27,7 @@
     "**/Thumbs.db": true,
     "**/node_modules": false
   },
+  "jestrunner.configPath": "config/jest.config.js",
   "search.exclude": {
     ".yarn": true,
     ".git": true,

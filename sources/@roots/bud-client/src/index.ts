@@ -13,9 +13,9 @@ import * as options from './options'
  * @public
  */
 const environmentIsSupported = async () => {
-  if (typeof window === 'undefined') return false
+  if (typeof window === `undefined`) return false
 
-  if (typeof window.EventSource === 'undefined') {
+  if (typeof window.EventSource === `undefined`) {
     console.error(`\
 The hot middleware client requires EventSource to work.
 This browser requires a polyfill: https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events#Tools,
@@ -24,7 +24,7 @@ This browser requires a polyfill: https://developer.mozilla.org/en-US/docs/Web/A
   }
 
   if (!module?.hot) {
-    console.error('[bud] hmr is unavailable')
+    console.error(`[bud] hmr is unavailable`)
     return false
   }
 
@@ -49,15 +49,15 @@ const initialize = async () => {
   hmr.events
     .make(options.get())
     .addMessageListener((event: MessageEvent) => {
-      if (event.data == '\uD83D\uDC93') return // heartbeat
+      if (event.data == `\uD83D\uDC93`) return // heartbeat
 
       const payload = JSON.parse(event.data)
-      if (payload.action === 'reload') window.location.reload()
+      if (payload.action === `reload`) window.location.reload()
 
       components.controllers.map(controller => controller.update(payload))
 
       hmr.cache.isStale(payload.hash) &&
-        module.hot.status() === 'idle' &&
+        module.hot.status() === `idle` &&
         hmr.client.check()
     })
 }

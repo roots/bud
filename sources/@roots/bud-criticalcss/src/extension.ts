@@ -37,11 +37,11 @@ import CriticalCssWebpackPlugin, {
  * @decorator `@options`
  * @decorator `@when`
  */
-@label('@roots/bud-criticalcss')
-@expose('critical')
+@label(`@roots/bud-criticalcss`)
+@expose(`critical`)
 @plugin(CriticalCssWebpackPlugin)
 @options<Options>({
-  base: (app: Bud) => app.publicPath() ?? '/',
+  base: (app: Bud) => app.publicPath() ?? `/`,
   request: {https: {rejectUnauthorized: false}},
 })
 @when(async () => false)

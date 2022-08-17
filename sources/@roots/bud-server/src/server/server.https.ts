@@ -20,7 +20,7 @@ export class Https extends BaseServer implements Server.Connection {
    * Https protocol
    * @public
    */
-  public protocol: 'https:' = 'https:'
+  public protocol: 'https:' = `https:`
 
   /**
    * Has options

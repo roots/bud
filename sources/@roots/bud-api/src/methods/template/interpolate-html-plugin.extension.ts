@@ -10,7 +10,7 @@ import {InterpolateHtmlPlugin} from './interpolate-html-plugin.plugin.js'
  * @public
  * @decorator `@label`
  */
-@label('interpolate-html-plugin')
+@label(`interpolate-html-plugin`)
 export default class BudInterpolateHtmlPlugin extends Extension<
   Record<string, RegExp>,
   InterpolateHtmlPlugin

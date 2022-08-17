@@ -96,15 +96,15 @@ export const method: Serve = async function (
 
   if (!app.isDevelopment) return app
 
-  const current = app.hooks.filter('dev.url')
+  const current = app.hooks.filter(`dev.url`)
 
-  if (Array.isArray(input) || typeof input === 'number') {
+  if (Array.isArray(input) || typeof input === `number`) {
     current.port = await requestPort(app, current, input)
 
-    return app.hooks.on('dev.url', current)
+    return app.hooks.on(`dev.url`, current)
   }
 
-  if (input instanceof URL || typeof input === 'string') {
+  if (input instanceof URL || typeof input === `string`) {
     const url = input instanceof URL ? input : new URL(input)
 
     url.port = await requestPort(
@@ -113,7 +113,7 @@ export const method: Serve = async function (
       Number(url.port ?? current.port),
     )
 
-    return app.hooks.on('dev.url', url)
+    return app.hooks.on(`dev.url`, url)
   }
 
   await assignSpec(app, current, input)
@@ -129,7 +129,7 @@ const assignSpec = async (app: Bud, url: URL, spec: Specification) => {
   if (!spec.options) spec.options = {}
 
   if ([spec.ssl, spec.cert, spec.key].filter(Boolean).length > 0) {
-    url.protocol = 'https:'
+    url.protocol = `https:`
   }
 
   if (spec.cert) spec.options.cert = await fs.readFile(spec.cert)
@@ -142,8 +142,8 @@ const assignSpec = async (app: Bud, url: URL, spec: Specification) => {
 
   if (spec.host) url.hostname = spec.host
 
-  spec.options && app.hooks.on('dev.options', spec.options)
-  app.hooks.on('dev.url', url)
+  spec.options && app.hooks.on(`dev.options`, spec.options)
+  app.hooks.on(`dev.url`, url)
 }
 
 /**

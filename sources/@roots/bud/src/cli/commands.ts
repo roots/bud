@@ -28,18 +28,18 @@ export class Commands {
   }
 
   public async getCommands() {
-    if (this.cache.has('cli.extension.paths')) {
-      return this.cache.get('cli.extension.paths')
+    if (this.cache.has(`cli.extension.paths`)) {
+      return this.cache.get(`cli.extension.paths`)
     }
 
     const resolvedExtensionPaths = await this.getRegistrationModulePaths()
 
     this.cache.set(
-      'cli.extension.paths',
+      `cli.extension.paths`,
       resolvedExtensionPaths.filter(Boolean),
     )
 
-    return this.cache.get('cli.extension.paths')
+    return this.cache.get(`cli.extension.paths`)
   }
 
   public async getRegistrationModulePaths(): Promise<Array<any>> {
@@ -66,8 +66,8 @@ export class Commands {
       paths.map(async path =>
         globby(
           join(
-            dirname(path.replace('file://', '')),
-            join('bud', 'commands', 'index.js'),
+            dirname(path.replace(`file://`, ``)),
+            join(`bud`, `commands`, `index.js`),
           ),
         ),
       ),
@@ -78,7 +78,7 @@ export class Commands {
     return await Promise.all(
       paths.map(path => resolve(path, import.meta.url)),
     ).then(paths =>
-      paths.filter(Boolean).map(path => path.replace('file://', '')),
+      paths.filter(Boolean).map(path => path.replace(`file://`, ``)),
     )
   }
 

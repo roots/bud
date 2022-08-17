@@ -11,69 +11,69 @@ export default () => {
   let instance: Server
 
   beforeAll(async () => {
-    bud = await factory({mode: 'development'})
+    bud = await factory({mode: `development`})
     instance = new Server(bud)
   })
 
-  it('should be an instance of Server', () => {
+  it(`should be an instance of Server`, () => {
     expect(instance).toBeInstanceOf(Server)
   })
 
-  it('should have run method', () => {
+  it(`should have run method`, () => {
     expect(instance.run).toBeInstanceOf(Function)
   })
 
-  it('should have availableMiddleware property', async () => {
+  it(`should have availableMiddleware property`, async () => {
     expect(instance.availableMiddleware).toMatchSnapshot()
   })
 
-  it('should have enabledMiddleware property', async () => {
+  it(`should have enabledMiddleware property`, async () => {
     expect(instance.enabledMiddleware).toMatchSnapshot()
   })
 
-  describe('in development', () => {
+  describe(`in development`, () => {
     let development: Bud
     let instance: Server
 
     beforeAll(async () => {
-      development = await factory({mode: 'development'})
+      development = await factory({mode: `development`})
       instance = new Server(development)
       await instance.register()
       await instance.boot()
     })
 
-    it('should have an application property that is an express application', async () => {
-      expect(instance.application).toHaveProperty('set')
-      expect(instance.application).toHaveProperty('get')
-      expect(instance.application).toHaveProperty('listen')
+    it(`should have an application property that is an express application`, async () => {
+      expect(instance.application).toHaveProperty(`set`)
+      expect(instance.application).toHaveProperty(`get`)
+      expect(instance.application).toHaveProperty(`listen`)
     })
 
-    it('should have a watcher property', async () => {
+    it(`should have a watcher property`, async () => {
       expect(instance.watcher).toBeInstanceOf(Watcher)
     })
 
-    it('should have expected defaults', async () => {
-      expect(instance.app.hooks.filter('dev.url')).toMatchSnapshot()
+    it(`should have expected defaults`, async () => {
+      expect(instance.app.hooks.filter(`dev.url`)).toMatchSnapshot()
       expect(
-        instance.app.hooks.filter('dev.watch.files'),
+        instance.app.hooks.filter(`dev.watch.files`),
       ).toMatchSnapshot()
       expect(
-        instance.app.hooks.filter('dev.watch.options'),
+        instance.app.hooks.filter(`dev.watch.options`),
       ).toMatchSnapshot()
       expect(
-        instance.app.hooks.filter('dev.client.scripts'),
+        instance.app.hooks.filter(`dev.client.scripts`),
       ).toMatchSnapshot()
     })
   })
 
-  describe('in production', () => {
+  describe(`in production`, () => {
     let production: Bud
 
     beforeAll(async () => {
-      production = await factory({mode: 'production'})
+      production = await factory({mode: `production`})
     })
 
-    it('should not be defined', () => {
+    it(`should not be defined`, () => {
       expect(production.server).toBeUndefined()
     })
   })

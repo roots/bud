@@ -4,7 +4,7 @@ import {Bud, factory} from '@repo/test-kit/bud'
 import BudReact from '@roots/bud-react'
 import BudReactRefresh from '@roots/bud-react/react-refresh/extension'
 
-const extensionIdentifier = '@roots/bud-react'
+const extensionIdentifier = `@roots/bud-react`
 
 describe(extensionIdentifier, () => {
   let bud: Bud
@@ -14,7 +14,7 @@ describe(extensionIdentifier, () => {
     await bud.extensions.add(BudReact)
   })
 
-  it('is registrable', () => {
+  it(`is registrable`, () => {
     expect(bud.extensions.has(extensionIdentifier)).toBeTruthy()
   })
 
@@ -28,7 +28,7 @@ describe(extensionIdentifier, () => {
       bud.extensions.get(extensionIdentifier).afterConfig,
     ).toBeInstanceOf(Function))
 
-  it('regissters fn: react-refresh', async () => {
+  it(`regissters fn: react-refresh`, async () => {
     expect(bud.react.refresh).toBeInstanceOf(BudReactRefresh)
   })
 })

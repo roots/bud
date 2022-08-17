@@ -7,11 +7,11 @@ import {
 } from '@roots/bud-framework/extension/decorators'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 
-@label('html-webpack-plugin')
+@label(`html-webpack-plugin`)
 @plugin(HtmlWebpackPlugin)
 @options<HtmlWebpackPlugin.Options>({
   inject: true,
-  template: 'auto',
+  template: `auto`,
   publicPath: app => app.publicPath(),
 })
 export default class BudHtmlWebpackPlugin extends Extension<
@@ -20,6 +20,6 @@ export default class BudHtmlWebpackPlugin extends Extension<
 > {
   @bind
   public async when() {
-    return this.app.hooks.filter('feature.html')
+    return this.app.hooks.filter(`feature.html`)
   }
 }

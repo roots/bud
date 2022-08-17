@@ -8,8 +8,8 @@ import ImageMinimizerPlugin, {
   Generator,
 } from 'image-minimizer-webpack-plugin'
 
-@label('@roots/bud-imagemin')
-@expose('imagemin')
+@label(`@roots/bud-imagemin`)
+@expose(`imagemin`)
 export default class BudImagemin extends Extension {
   public _implementation = ImageMinimizerPlugin.squooshMinify
   public get implementation() {
@@ -44,10 +44,10 @@ export default class BudImagemin extends Extension {
   }
 
   public _encodeOptions: Map<string, any> = new Map([
-    ['mozjpeg', {}],
-    ['webp', {}],
-    ['avif', {}],
-    ['oxipng', {}],
+    [`mozjpeg`, {}],
+    [`webp`, {}],
+    [`avif`, {}],
+    [`oxipng`, {}],
   ])
   public get encodeOptions() {
     return this._encodeOptions
@@ -63,10 +63,10 @@ export default class BudImagemin extends Extension {
   @bind
   public encode(key: string, value: any): BudImagemin {
     key =
-      key === 'jpeg' || key === 'jpg'
-        ? 'mozjpeg'
-        : key === 'png'
-        ? 'oxipng'
+      key === `jpeg` || key === `jpg`
+        ? `mozjpeg`
+        : key === `png`
+        ? `oxipng`
         : key
 
     this.encodeOptions.set(key, value)
@@ -75,11 +75,11 @@ export default class BudImagemin extends Extension {
 
   public _generator: Set<Generator<any>> = new Set([
     {
-      preset: 'webp',
+      preset: `webp`,
       implementation: this.generatorImplementation,
       options: {
         encodeOptions: {
-          webp: this.encodeOptions.get('webp'),
+          webp: this.encodeOptions.get(`webp`),
         },
       },
     },
@@ -102,7 +102,7 @@ export default class BudImagemin extends Extension {
    */
   @bind
   public async afterConfig() {
-    this.app.hooks.on('build.optimization.minimizer', minimizer => [
+    this.app.hooks.on(`build.optimization.minimizer`, minimizer => [
       ...(minimizer ?? []),
       new ImageMinimizerPlugin({
         minimizer: {

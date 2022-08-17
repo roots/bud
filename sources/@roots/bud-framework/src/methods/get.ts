@@ -20,7 +20,7 @@ export interface get {
 export const get: get = function (label: string): Bud {
   const ctx = this as Bud
 
-  ctx.log('get child instance:', label)
+  ctx.log(`get child instance:`, label)
 
   return ctx.children[label]
 }

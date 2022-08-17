@@ -13,7 +13,7 @@ import install from './util/install'
 
 const reset = async () =>
   fs.writeFile(
-    join(paths.mocks, 'yarn', '@examples', 'basic', 'src', 'index.js'),
+    join(paths.mocks, `yarn`, `@examples`, `basic`, `src`, `index.js`),
     `\
 import './styles.css'
 
@@ -25,7 +25,7 @@ module?.hot?.accept()
 
 const update = async () =>
   fs.writeFile(
-    join(paths.mocks, 'yarn', '@examples', 'basic', 'src', 'index.js'),
+    join(paths.mocks, `yarn`, `@examples`, `basic`, `src`, `index.js`),
     `\
 import './styles.css'
 
@@ -39,15 +39,15 @@ let browser: Browser
 let page: Page
 let devProcess: ExecaChildProcess
 
-describe('html output of examples/basic', () => {
+describe(`html output of examples/basic`, () => {
   beforeAll(done => {
-    copy('basic')
-      .then(install('basic'))
+    copy(`basic`)
+      .then(install(`basic`))
       .then(async () => {
         devProcess = execa(
-          'node',
-          ['./node_modules/.bin/bud', 'dev', '--html', '--no-cache'],
-          {cwd: join(paths.mocks, 'yarn', '@examples', 'basic')},
+          `node`,
+          [`./node_modules/.bin/bud`, `dev`, `--html`, `--no-cache`],
+          {cwd: join(paths.mocks, `yarn`, `@examples`, `basic`)},
         )
         devProcess.stdout?.pipe(process.stdout)
 
@@ -60,7 +60,7 @@ describe('html output of examples/basic', () => {
   })
 
   afterAll(async () => {
-    devProcess?.kill('SIGINT')
+    devProcess?.kill(`SIGINT`)
   })
 
   beforeEach(async () => {
@@ -68,7 +68,7 @@ describe('html output of examples/basic', () => {
     await chromium.launch().then(async instance => {
       browser = instance
       page = await browser.newPage()
-      await page?.goto('http://0.0.0.0:3000/')
+      await page?.goto(`http://0.0.0.0:3000/`)
     })
   })
 
@@ -77,21 +77,21 @@ describe('html output of examples/basic', () => {
     await browser?.close()
   })
 
-  it('should have page title: `Webpack App`', async () => {
+  it(`should have page title: \`Webpack App\``, async () => {
     const title = await page.title()
-    expect(title).toBe('Webpack App')
+    expect(title).toBe(`Webpack App`)
   })
 
-  it('should have expected initial markup', async () => {
-    const init = await page.$('.init')
+  it(`should have expected initial markup`, async () => {
+    const init = await page.$(`.init`)
     expect(init).toBeTruthy()
   })
 
-  it('should add new body class after updating src/index.js', async () => {
+  it(`should add new body class after updating src/index.js`, async () => {
     await update()
     await page.waitForTimeout(3000)
 
-    const hot = await page.$('.hot')
+    const hot = await page.$(`.hot`)
     expect(hot).toBeTruthy()
   })
 })

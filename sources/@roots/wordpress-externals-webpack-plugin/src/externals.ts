@@ -20,38 +20,38 @@ export type PackageMapEntry = [string, Record<string, string>]
  * Packages in the `@wordpress` namespace which
  * should not be considered as external
  */
-const OMIT_PACKAGE_MATCHES = ['@wordpress/icons', '@wordpress/interface']
+const OMIT_PACKAGE_MATCHES = [`@wordpress/icons`, `@wordpress/interface`]
 
 /**
  * Pkg map
  */
 const packageMap = new Map([
   [
-    'jquery',
+    `jquery`,
     {
-      window: join(['jQuery'], '.'),
-      enqueue: 'jquery',
+      window: join([`jQuery`], `.`),
+      enqueue: `jquery`,
     },
   ],
   [
-    'lodash',
+    `lodash`,
     {
-      window: join(['lodash'], '.'),
-      enqueue: 'lodash',
+      window: join([`lodash`], `.`),
+      enqueue: `lodash`,
     },
   ],
   [
-    'react',
+    `react`,
     {
-      window: join(['React'], '.'),
-      enqueue: 'react',
+      window: join([`React`], `.`),
+      enqueue: `react`,
     },
   ],
   [
-    'react-dom',
+    `react-dom`,
     {
-      window: join(['ReactDOM'], '.'),
-      enqueue: 'react-dom',
+      window: join([`ReactDOM`], `.`),
+      enqueue: `react-dom`,
     },
   ],
 ])
@@ -80,7 +80,7 @@ export const isProvided: (
     return false
 
   return (
-    packageName.includes('@wordpress') ||
+    packageName.includes(`@wordpress`) ||
     Array.from(packageMap.keys()).includes(packageName)
   )
 }
@@ -95,8 +95,8 @@ export const transform = (packageName: string): any => {
 
   if (isProvided(packageName)) {
     return {
-      window: ['wp', camelize(transformedPackageName)],
-      enqueue: join(['wp', transformedPackageName], '-'),
+      window: [`wp`, camelize(transformedPackageName)],
+      enqueue: join([`wp`, transformedPackageName], `-`),
     }
   }
 }

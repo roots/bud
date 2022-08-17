@@ -23,23 +23,23 @@ export default class Extensions {
     extensions
       .filter(
         signifier =>
-          signifier.startsWith('@roots/bud-') ||
-          signifier.startsWith('@roots/sage') ||
-          signifier.startsWith('bud-'),
+          signifier.startsWith(`@roots/bud-`) ||
+          signifier.startsWith(`@roots/sage`) ||
+          signifier.startsWith(`bud-`),
       )
       .filter(
         signifier =>
           ![
-            '@roots/bud-api',
-            '@roots/bud-build',
-            '@roots/bud-cache',
-            '@roots/bud-client',
-            '@roots/bud-compiler',
-            '@roots/bud-dashboard',
-            '@roots/bud-extensions',
-            '@roots/bud-framework',
-            '@roots/bud-hooks',
-            '@roots/bud-server',
+            `@roots/bud-api`,
+            `@roots/bud-build`,
+            `@roots/bud-cache`,
+            `@roots/bud-client`,
+            `@roots/bud-compiler`,
+            `@roots/bud-dashboard`,
+            `@roots/bud-extensions`,
+            `@roots/bud-framework`,
+            `@roots/bud-hooks`,
+            `@roots/bud-server`,
           ].includes(signifier),
       )
       .filter(

@@ -25,5 +25,5 @@ declare module '@roots/bud-framework' {
   }
 }
 
-@label('@roots/bud-prettier')
+@label(`@roots/bud-prettier`)
 export default class BudPrettier extends Extension {}

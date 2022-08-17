@@ -7,31 +7,31 @@ const run = pacman => () => {
 
   beforeAll(async () => {
     project = await new Project({
-      label: '@examples/basic',
+      label: `@examples/basic`,
       with: pacman,
     }).setup()
   })
 
-  describe('main.js', () => {
+  describe(`main.js`, () => {
     logger.info(project)
 
-    it('has contents', () => {
-      expect(project.assets['main.js'].length).toBeGreaterThan(10)
+    it(`has contents`, () => {
+      expect(project.assets[`main.js`].length).toBeGreaterThan(10)
     })
 
-    it('is transpiled', () => {
-      expect(project.assets['main.js'].includes('import')).toBeFalsy()
+    it(`is transpiled`, () => {
+      expect(project.assets[`main.js`].includes(`import`)).toBeFalsy()
     })
   })
 
-  describe('manifest.json', () => {
-    it('matches snapshot', () => {
+  describe(`manifest.json`, () => {
+    it(`matches snapshot`, () => {
       expect(project.manifest).toMatchSnapshot()
     })
   })
 }
 
-describe('basic', () => {
-  describe('npm', run('npm'))
-  describe('yarn', run('yarn'))
+describe(`basic`, () => {
+  describe(`npm`, run(`npm`))
+  describe(`yarn`, run(`yarn`))
 })

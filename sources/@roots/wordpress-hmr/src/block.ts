@@ -42,8 +42,8 @@ let selected = null
  * Before update
  */
 const before = () => {
-  selected = select('core/block-editor').getSelectedBlockClientId()
-  dispatch('core/block-editor').clearSelectedBlock()
+  selected = select(`core/block-editor`).getSelectedBlockClientId()
+  dispatch(`core/block-editor`).clearSelectedBlock()
 }
 
 /**
@@ -53,19 +53,19 @@ const after = (changed?: Array<{name: string}>) => {
   if (!changed?.length) return
 
   const allBlocks = select(
-    'core/block-editor',
+    `core/block-editor`,
   ).getBlocks() as Array<BlockInstance>
   const modifiedBlocks = changed.map(module => module.name)
 
   allBlocks.forEach(({name, clientId}) => {
     if (modifiedBlocks.includes(name)) {
-      dispatch('core/block-editor').selectBlock(clientId)
+      dispatch(`core/block-editor`).selectBlock(clientId)
     }
   })
 
   selected
-    ? dispatch('core/block-editor').selectBlock(selected)
-    : dispatch('core/block-editor').clearSelectedBlock()
+    ? dispatch(`core/block-editor`).selectBlock(selected)
+    : dispatch(`core/block-editor`).clearSelectedBlock()
   selected = null
 }
 

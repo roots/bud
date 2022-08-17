@@ -27,7 +27,7 @@ const App = ({
       </Box>
     ))}
 
-    {app.mode === 'development' && <Server app={app} />}
+    {app.mode === `development` && <Server app={app} />}
   </Box>
 )
 

@@ -35,15 +35,15 @@ export const bundle: method = function (name, matcher) {
 
   const test = normalize(matcher ?? name)
 
-  ctx.hooks.on('build.optimization.splitChunks', splitChunks => {
-    const template = ctx.hooks.filter('feature.hash')
+  ctx.hooks.on(`build.optimization.splitChunks`, splitChunks => {
+    const template = ctx.hooks.filter(`feature.hash`)
       ? `[name].[contenthash].js`
       : `[name].js`
 
     const filename = join(`js`, `bundle`, name, template)
 
     const existing = splitChunks ?? {
-      chunks: 'all',
+      chunks: `all`,
       automaticNameDelimiter: sep,
       minSize: 0,
     }

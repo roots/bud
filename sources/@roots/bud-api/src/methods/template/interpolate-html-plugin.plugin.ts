@@ -30,7 +30,7 @@ export class InterpolateHtmlPlugin {
   @bind
   public apply(compiler: Compiler): void {
     compiler.hooks.compilation.tap(
-      'InterpolateHtmlPlugin',
+      `InterpolateHtmlPlugin`,
       this.modifyHtmlWebpackPluginOptions,
     )
   }
@@ -44,11 +44,11 @@ export class InterpolateHtmlPlugin {
   @bind
   public modifyHtmlWebpackPluginOptions(compilation: Compilation): void {
     HtmlWebpackPlugin.getHooks(compilation).afterTemplateExecution.tap(
-      'InterpolateHtmlPlugin',
+      `InterpolateHtmlPlugin`,
       (data: any) => {
         Object.entries(this.replacements).forEach(([key, value]) => {
           data.html = data.html.replaceAll(
-            new RegExp(`%${key}%`, 'g'),
+            new RegExp(`%${key}%`, `g`),
             value,
           )
         })

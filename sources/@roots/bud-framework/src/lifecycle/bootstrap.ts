@@ -66,7 +66,7 @@ export const execute = (app: Bud, context: Config.Context) => {
   app.children = {}
 
   /* copy context object */
-  if (!context.label) throw new Error('context.label is required')
+  if (!context.label) throw new Error(`context.label is required`)
   app.context = {...context}
 
   /* bind framework methods */
@@ -86,7 +86,7 @@ export const execute = (app: Bud, context: Config.Context) => {
   /* initialize module */
   app.module = new Module(app)
 
-  app.log('initializing services')
+  app.log(`initializing services`)
 
   /* initialize services */
   app.services = Object.entries({...context.services})

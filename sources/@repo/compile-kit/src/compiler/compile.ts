@@ -12,11 +12,11 @@ export const compile = async ([input, output]: [
   string,
 ]): Promise<void> => {
   const {default: config} = await import(
-    '../../../../../config/ncc.config.mjs'
+    `../../../../../config/ncc.config.mjs`
   )
 
   try {
     const {code} = await ncc(join(paths.sources, input), config)
-    await fs.outputFile(join(paths.sources, output), code, 'utf8')
+    await fs.outputFile(join(paths.sources, output), code, `utf8`)
   } catch (err) {}
 }

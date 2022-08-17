@@ -9,11 +9,11 @@ import type {Item} from '@roots/bud-framework/services/build'
 export const css = async (app: Bud): Promise<Item> =>
   app.build
     .makeItem()
-    .setLoader('css')
+    .setLoader(`css`)
     .setOptions(({build, hooks}) => ({
       importLoaders: build.rules.css.getUse().length - 2,
       modules: false,
-      sourceMap: hooks.filter('build.devtool') ? true : false,
+      sourceMap: hooks.filter(`build.devtool`) ? true : false,
     }))
 
 /**
@@ -24,13 +24,13 @@ export const css = async (app: Bud): Promise<Item> =>
 export const cssModule = async (app: Bud): Promise<Item> =>
   app.build
     .makeItem()
-    .setLoader('css')
+    .setLoader(`css`)
     .setOptions(({build, hooks}) => ({
       esModule: true,
       importLoaders: build.rules.cssModule.getUse().length - 2,
-      localIdentName: '[name]__[local]___[hash:base64:5]',
+      localIdentName: `[name]__[local]___[hash:base64:5]`,
       modules: true,
-      sourceMap: hooks.filter('build.devtool') ? true : false,
+      sourceMap: hooks.filter(`build.devtool`) ? true : false,
     }))
 
 /**
@@ -39,7 +39,7 @@ export const cssModule = async (app: Bud): Promise<Item> =>
  * @public
  */
 export const csv = async (app: Bud): Promise<Item> =>
-  app.build.makeItem().setLoader('csv')
+  app.build.makeItem().setLoader(`csv`)
 
 /**
  * HTML loader
@@ -47,7 +47,7 @@ export const csv = async (app: Bud): Promise<Item> =>
  * @public
  */
 export const html = async (app: Bud): Promise<Item> =>
-  app.build.makeItem().setLoader('html')
+  app.build.makeItem().setLoader(`html`)
 
 /**
  * Style loader
@@ -55,7 +55,7 @@ export const html = async (app: Bud): Promise<Item> =>
  * @public
  */
 export const style = async (app: Bud): Promise<Item> =>
-  app.build.makeItem().setLoader('style')
+  app.build.makeItem().setLoader(`style`)
 
 /**
  * Markdown loader
@@ -63,7 +63,7 @@ export const style = async (app: Bud): Promise<Item> =>
  * @public
  */
 export const md = async (app: Bud): Promise<Item> =>
-  app.build.makeItem({loader: 'md'})
+  app.build.makeItem({loader: `md`})
 
 /**
  * MiniCss loader
@@ -73,9 +73,9 @@ export const md = async (app: Bud): Promise<Item> =>
 export const minicss = async (app: Bud): Promise<Item> =>
   app.build
     .makeItem()
-    .setLoader('minicss')
+    .setLoader(`minicss`)
     .setOptions(app => ({
-      publicPath: app.hooks.filter('build.output.publicPath'),
+      publicPath: app.hooks.filter(`build.output.publicPath`),
     }))
 
 /**
@@ -96,9 +96,9 @@ export const file = async (app: Bud): Promise<Item> =>
     .makeItem()
     .setLoader(`file`)
     .setOptions(app => ({
-      name: app.hooks.filter('feature.hash')
-        ? app.hooks.filter('value.hashFormat').concat('.[ext]')
-        : app.hooks.filter('value.fileFormat').concat('.[ext]'),
+      name: app.hooks.filter(`feature.hash`)
+        ? app.hooks.filter(`value.hashFormat`).concat(`.[ext]`)
+        : app.hooks.filter(`value.fileFormat`).concat(`.[ext]`),
     }))
 
 /**
