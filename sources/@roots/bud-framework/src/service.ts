@@ -19,10 +19,12 @@ export class Service {
   public _app: () => Bud
 
   /**
-   * After config callback
+   * Service label
+   *
    * @public
+   * @virtual
    */
-  public afterConfig?(app: Bud): Promise<unknown>
+  public static label: string
 
   /**
    * Access {@link Bud}
@@ -105,6 +107,18 @@ export class Service {
    * @virtual @public
    */
   public booted?(app: Bud): Promise<any>
+
+  /**
+   * After config callback
+   * @public
+   */
+  public afterConfig?(app: Bud): Promise<unknown>
+
+  /**
+   * After config callback
+   * @public
+   */
+  public beforeBuild?(app: Bud): Promise<unknown>
 }
 
 /**

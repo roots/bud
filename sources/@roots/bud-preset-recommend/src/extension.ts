@@ -1,5 +1,6 @@
 import {Extension} from '@roots/bud-framework/extension'
 import {
+  bind,
   dependsOn,
   label,
   optIn,
@@ -31,6 +32,7 @@ export default class BudPresetRecommend extends Extension {
    *
    * @public
    */
+  @bind
   public async register() {
     if (
       this.app.extensions.has(`@roots/bud-esbuild`) ||

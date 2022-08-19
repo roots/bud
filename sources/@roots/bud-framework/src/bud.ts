@@ -46,7 +46,7 @@ export abstract class Bud {
    * @public
    */
   public get mode(): 'development' | 'production' {
-    return this.context.mode ?? `production`
+    return this.context.mode
   }
 
   /**
@@ -75,7 +75,7 @@ export abstract class Bud {
    * @public
    */
   public get isProduction(): boolean {
-    return this.mode === `production`
+    return this.mode == `production`
   }
 
   /**
@@ -84,7 +84,7 @@ export abstract class Bud {
    * @public
    */
   public get isDevelopment(): boolean {
-    return this.mode === `development`
+    return this.mode == `development`
   }
 
   /**
@@ -124,7 +124,7 @@ export abstract class Bud {
     return Object.values(this.children).length > 0
   }
 
-  public services: Services.Registry
+  public services: Services.Registry = {}
 
   public api: Api
 

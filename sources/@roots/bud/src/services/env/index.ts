@@ -7,7 +7,14 @@ import {bind} from 'helpful-decorators'
  *
  * @public
  */
-export class Env extends ContainerService implements Base.Service {
+export default class Env extends ContainerService implements Base.Service {
+  /**
+   * Service label
+   *
+   * @public
+   */
+  public static label = `env`
+
   /**
    * Bootstrap event callback
    *

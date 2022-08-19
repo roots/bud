@@ -19,6 +19,13 @@ import Rule from './rule.js'
  */
 export default class Build extends Service implements Bud.Build.Service {
   /**
+   * Service label
+   *
+   * @public
+   */
+  public static label = `build`
+
+  /**
    * @public
    */
   public config: Partial<Configuration> = {}

@@ -28,6 +28,7 @@ export default class Manifest {
     if (!this.config[`package.json`]) return this
 
     this.data = await fs.readJson(this.config[`package.json`], `utf8`)
+
     return this
   }
 }

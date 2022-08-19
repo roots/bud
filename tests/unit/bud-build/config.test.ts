@@ -22,7 +22,7 @@ describe(`bud.build.config`, function () {
 
     expect(cache.type).toStrictEqual(`filesystem`)
 
-    expect(cache.buildDependencies.bud).toEqual(
+    expect(cache.buildDependencies.config).toEqual(
       expect.arrayContaining([
         expect.stringContaining(`package.json`),
         expect.stringContaining(`.eslintrc.js`),
@@ -34,12 +34,8 @@ describe(`bud.build.config`, function () {
     )
 
     expect(cache.cacheDirectory).toStrictEqual(
-      expect.stringContaining(`.budfiles/cache/webpack`),
+      expect.stringContaining(`.budfiles/@tests/project/cache/production`),
     )
-
-    expect(cache.managedPaths).toStrictEqual([
-      expect.stringContaining(`node_modules`),
-    ])
 
     expect(cache.version).toStrictEqual(expect.any(String))
   })

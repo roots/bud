@@ -20,6 +20,13 @@ export default class Extensions
   implements Contract.Service
 {
   /**
+   * Service label
+   *
+   * @public
+   */
+  public static label = `extensions`
+
+  /**
    * Service store
    *
    * @public
@@ -65,6 +72,14 @@ export default class Extensions
   @bind
   public async afterConfig(): Promise<void> {
     await this.runAll(`_afterConfig`)
+  }
+
+  /**
+   * `beforeBuild` callback
+   */
+  @bind
+  public async beforeBuild(): Promise<void> {
+    await this.runAll(`_beforeBuild`)
   }
 
   /**
@@ -394,8 +409,6 @@ export default class Extensions
         await this.run(extension, `_init`)
         await this.run(extension, `_register`)
         await this.run(extension, `_boot`)
-
-        return Promise.resolve()
       } catch (err) {
         this.app.error(err)
         return Promise.reject()

@@ -52,6 +52,13 @@ export default class Hooks
   implements Framework.Hooks.Service
 {
   /**
+   * Service label
+   *
+   * @public
+   */
+  public static label = `hooks`
+
+  /**
    * Hooks store
    *
    * @public

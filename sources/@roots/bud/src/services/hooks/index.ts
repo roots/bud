@@ -7,7 +7,14 @@ import {bind} from 'helpful-decorators'
  *
  * @public
  */
-export class Hooks extends Base implements Services.Hooks.Service {
+export default class Hooks extends Base implements Services.Hooks.Service {
+  /**
+   * Service label
+   *
+   * @public
+   */
+  public static label = `hooks`
+
   /**
    * Bootstrap service
    *

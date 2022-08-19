@@ -6,19 +6,16 @@ import {isString} from 'lodash-es'
 import {dirname, join} from 'node:path/posix'
 import {fileURLToPath} from 'node:url'
 
-import getCache from '../context/cache.js'
 import type * as cli from './app.js'
 
 export class Commands {
   public application: cli.Cli
   public context: Partial<Context>
   public static instance: Commands
-  public cache: any
 
   private constructor(context: Partial<Context>, application: cli.Cli) {
     this.context = context
     this.application = application
-    this.cache = getCache(context.basedir)
   }
 
   public static get(application: cli.Cli, context: Partial<Context>) {
@@ -30,18 +27,8 @@ export class Commands {
   }
 
   public async getCommands() {
-    if (this.cache.has(`cli.extension.paths`)) {
-      return this.cache.get(`cli.extension.paths`)
-    }
-
     const resolvedExtensionPaths = await this.getRegistrationModulePaths()
-
-    this.cache.set(
-      `cli.extension.paths`,
-      resolvedExtensionPaths.filter(Boolean),
-    )
-
-    return this.cache.get(`cli.extension.paths`)
+    return resolvedExtensionPaths.filter(Boolean)
   }
 
   public async getRegistrationModulePaths(): Promise<Array<any>> {

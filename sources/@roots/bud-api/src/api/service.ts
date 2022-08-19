@@ -20,6 +20,13 @@ export class Api
   implements Framework.Api.Service
 {
   /**
+   * Service label
+   *
+   * @public
+   */
+  public static label = `api`
+
+  /**
    * Queued method calls
    *
    * @public

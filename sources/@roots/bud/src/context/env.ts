@@ -9,6 +9,13 @@ import {join, sep} from 'node:path/posix'
  */
 export default class Env {
   /**
+   * Service label
+   *
+   * @public
+   */
+  public static label = `env`
+
+  /**
    * Env dictionary
    *
    * @public
