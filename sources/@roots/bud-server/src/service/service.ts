@@ -17,6 +17,13 @@ import {Watcher} from '../server/server.watcher.js'
  */
 export class Server extends Service implements Base.Service {
   /**
+   * Service label
+   *
+   * @public
+   */
+  public static label = `server`
+
+  /**
    * Express instance
    * @public
    */

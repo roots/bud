@@ -2,7 +2,6 @@
 import {Dashboard as Base, Service} from '@roots/bud-framework'
 import {bind} from 'helpful-decorators'
 import type * as Ink from 'ink'
-import {toInteger} from 'lodash-es'
 import type {StatsCompilation} from 'webpack'
 
 /**
@@ -11,6 +10,13 @@ import type {StatsCompilation} from 'webpack'
  * @public
  */
 export class Dashboard extends Service implements Base.Service {
+  /**
+   * Service label
+   *
+   * @public
+   */
+  public static label = `dashboard`
+
   /**
    * Ink instance
    * @public
@@ -63,7 +69,9 @@ export class Dashboard extends Service implements Base.Service {
 
     try {
       const {renderDashboard} = await import(`./render/renderer.js`)
+
       const stats: StatsCompilation = compilationStats.toJson()
+
       if (!stats || stats.hash === this.lastHash) return this
       this.lastHash = stats.hash
       this.instance = renderDashboard({
@@ -73,31 +81,8 @@ export class Dashboard extends Service implements Base.Service {
     } catch (error) {
       this.log(error)
       this.log(compilationStats?.toString())
-      return this
-    }
-
-    if (this.app.isProduction) {
-      await this.instance?.waitUntilExit().then(() => {
-        this.app.compiler.compilation.running
-          ? this.app.compiler.compilation.close(() =>
-              setTimeout(this.app.close, 200),
-            )
-          : setTimeout(this.app.close, 200)
-      })
     }
 
     return this
-  }
-
-  /**
-   * Progress callback
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public progressCallback(percentage: number): void {
-    if (!percentage || this.app.context.args.ci) return
-    this.percentage = toInteger(percentage * 100)
   }
 }

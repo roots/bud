@@ -1,4 +1,4 @@
-import {repoPath} from '@repo/test-kit/bud'
+import {factory} from '@repo/test-kit/bud'
 
 describe(`test environment sanity checks`, () => {
   it(`should run a test without errors`, () => {
@@ -15,17 +15,8 @@ describe(`test environment sanity checks`, () => {
     expect(process.env.JEST_WORKER_ID).toBeDefined()
   })
 
-  it(`should skip cache`, async () => {
-    const pkg = await import(`@roots/bud/context`)
-    await pkg.get(repoPath(`tests/util/project`))
-
-    expect(pkg.skippedCache).toBe(true)
-  })
-
-  it(`should skip cache`, async () => {
-    const pkg = await import(`@roots/bud/context`)
-    const context = await pkg.get(repoPath(`tests/util/project`))
-
-    expect(context.label).toBe(`@tests/project`)
+  it(`bud mock should be banning @roots/bud-swc`, async () => {
+    const bud = await factory({mode: `production`})
+    expect(bud.extensions.repository).not.toHaveProperty(`@roots/bud-swc`)
   })
 })

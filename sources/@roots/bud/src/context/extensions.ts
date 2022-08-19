@@ -2,7 +2,19 @@ import type {Context} from '@roots/bud-framework/config'
 import {bind} from 'helpful-decorators'
 
 export default class Extensions {
-  public data: Array<string> = []
+  public data: Array<string> = [
+    `@roots/bud-terser/extension`,
+    `@roots/bud/extensions/bud-cdn`,
+    `@roots/bud/extensions/bud-esm`,
+    `@roots/bud/extensions/clean-webpack-plugin`,
+    `@roots/bud/extensions/webpack-provide-plugin`,
+    `@roots/bud/extensions/webpack-remove-empty-scripts`,
+    `@roots/bud/extensions/webpack-manifest-plugin`,
+    `@roots/bud/extensions/webpack-hot-module-replacement-plugin`,
+    `@roots/bud/extensions/webpack-define-plugin`,
+    `@roots/bud/extensions/mini-css-extract-plugin`,
+    `@roots/bud/extensions/copy-webpack-plugin`,
+  ]
 
   public constructor(public manifest: Context['manifest']) {}
 
@@ -45,12 +57,12 @@ export default class Extensions {
       .filter(
         signifier =>
           !this.manifest.bud?.denylist ||
-          !this.manifest.bud?.denylist.includes(signifier),
+          !this.manifest.bud.denylist.includes(signifier),
       )
       .filter(
         signifier =>
           !this.manifest.bud?.allowlist ||
-          this.manifest.bud?.allowlist.includes(signifier),
+          this.manifest.bud.allowlist.includes(signifier),
       )
       .map(signifier => this.data.push(signifier))
   }

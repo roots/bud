@@ -10,10 +10,17 @@ import type {repository} from './repository.js'
  *
  * @public
  */
-export class Project
+export default class Project
   extends Framework.ContainerService
   implements Framework.Project.Service
 {
+  /**
+   * Service label
+   *
+   * @public
+   */
+  public static label = `project`
+
   /**
    * Service values repository
    *

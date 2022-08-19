@@ -17,10 +17,10 @@ export const LIFECYCLE_EVENTS = [
  *
  * @public
  */
-export const PARENT_SERVICES: (string | number)[] = [
-  `compiler`,
-  `dashboard`,
-  `server`,
+export const PARENT_SERVICES: Array<string> = [
+  `@roots/bud-compiler`,
+  `@roots/bud-dashboard`,
+  `@roots/bud-server`,
 ]
 
 /**
@@ -28,4 +28,4 @@ export const PARENT_SERVICES: (string | number)[] = [
  *
  * @public
  */
-export const DEVELOPMENT_SERVICES: (string | number)[] = [`server`]
+export const DEVELOPMENT_SERVICES: Array<string> = [`@roots/bud-server`]

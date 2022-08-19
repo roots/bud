@@ -31,7 +31,7 @@ describe(`bud.persist`, function () {
   })
 
   it(`sets buildDependencies`, async () => {
-    expect(bud.cache.buildDependencies.bud.sort()).toEqual(
+    expect(bud.cache.buildDependencies.config.sort()).toEqual(
       expect.arrayContaining([
         expect.stringContaining(`package.json`),
         expect.stringContaining(`.eslintrc.js`),
@@ -41,10 +41,6 @@ describe(`bud.persist`, function () {
         expect.stringContaining(`tsconfig.json`),
       ]),
     )
-  })
-
-  it(`set managedPaths`, async () => {
-    expect(bud.cache.managedPaths).toEqual([bud.path(`@modules`)])
   })
 
   it(`disables caching`, async () => {

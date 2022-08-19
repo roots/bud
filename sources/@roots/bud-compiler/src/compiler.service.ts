@@ -17,6 +17,13 @@ import Webpack from 'webpack'
  */
 export class Compiler extends Service implements Contract.Service {
   /**
+   * Service label
+   *
+   * @public
+   */
+  public static label = `compiler`
+
+  /**
    * Compiler implementation
    *
    * @internal
@@ -92,9 +99,7 @@ export class Compiler extends Service implements Contract.Service {
     this.app.isDevelopment &&
       this.compilation.hooks.done.tap(
         `${this.app.label}-dev-handle`,
-        async stats => {
-          this.handleStats(stats as any)
-        },
+        this.handleStats,
       )
 
     this.compilation.hooks.done.tap(
@@ -102,10 +107,6 @@ export class Compiler extends Service implements Contract.Service {
       async () => {
         await this.app.hooks.fire(`compiler.close`)
       },
-    )
-
-    new Webpack.ProgressPlugin(this.app.dashboard.progressCallback).apply(
-      this.compilation,
     )
 
     await this.app.hooks.fire(`compiler.after`)

@@ -6,7 +6,6 @@ import type * as Dashboard from './dashboard/index.js'
 import type * as Env from './env/index.js'
 import type * as Extensions from './extensions/index.js'
 import type * as Hooks from './hooks/index.js'
-import type * as Peers from './peers/index.js'
 import type * as Project from './project/index.js'
 import type * as Server from './server/index.js'
 
@@ -18,7 +17,6 @@ export type {
   Env,
   Extensions,
   Hooks,
-  Peers,
   Project,
   Server,
 }

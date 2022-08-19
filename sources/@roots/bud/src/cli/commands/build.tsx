@@ -87,7 +87,7 @@ export class BuildCommand extends BaseCommand {
   /**
    * --debug
    */
-  public debug = Option.Boolean(`--debug`, false, {
+  public debug = Option.Boolean(`--debug`, undefined, {
     description: `Write debug files to storage directory`,
   })
 
@@ -304,6 +304,8 @@ export class BuildCommand extends BaseCommand {
    */
   @bind
   public async runCommand() {
+    this.context.mode = this.mode
+
     if (!isUndefined(this.dashboard))
       this.context.stdout.write(
         `the --dashboard and --no-dashboard flags are deprecated and will be removed in a future release.\n`,
@@ -340,11 +342,7 @@ export class BuildCommand extends BaseCommand {
       this.context.args[arg] = fallback(this[arg], this[arg], null)
     })
 
-    if (isUndefined(this.ci)) this.context.args.ci = false
-
     this.app = await factory({
-      label: `default`,
-      mode: this.mode,
       ...this.context,
       seed: {
         'build.output.publicPath': fallback(

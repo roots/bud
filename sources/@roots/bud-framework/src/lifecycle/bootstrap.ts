@@ -1,9 +1,8 @@
-import type {Bud, Config, Services} from '../index.js'
+import type {Bud, Config} from '../index.js'
 import {Logger} from '../logger/index.js'
 import * as methods from '../methods/index.js'
 import {Module} from '../module.js'
 import * as Process from '../process.js'
-import type {Service} from '../service.js'
 import {DEVELOPMENT_SERVICES, PARENT_SERVICES} from './constants.js'
 
 /**
@@ -14,44 +13,21 @@ import {DEVELOPMENT_SERVICES, PARENT_SERVICES} from './constants.js'
  */
 const makeServiceFilter =
   (app: Bud) =>
-  ([name, ...iterable]): Boolean =>
-    (app.isDevelopment || !DEVELOPMENT_SERVICES.includes(name)) &&
-    (app.isRoot || !PARENT_SERVICES.includes(name))
+  (signifier: string, ...rest: Array<unknown>): Boolean =>
+    (app.isDevelopment || !DEVELOPMENT_SERVICES.includes(signifier)) &&
+    (app.isRoot || !PARENT_SERVICES.includes(signifier))
 
-/**
- * Create initializer for services
- *
- * @param app - Bud instance
- * @returns map fn
- */
-const makeServiceInitializer = (app: Bud) => {
-  return ([name, Service]): [
-    keyof Services.Registry & string,
-    Service,
-  ] => {
-    try {
-      app[name] = new Service(app)
-      app.success(name)
-    } catch (err) {
-      app.log(`error creating`, name).error(err)
-    }
+const makeServiceImport =
+  (app: Bud) =>
+  async (signifier: string, ...rest: Array<unknown>): Promise<void> => {
+    const {default: imported} = await import(signifier)
+    if (app.services[imported.label]) return
 
-    return [name, app[name]]
+    const instance = new imported(app)
+    app.logger.instance.log(`imported`, imported.label, instance)
+    app.services[imported.label] = instance
+    app[imported.label] = app.services[imported.label]
   }
-}
-
-/**
- * Create reducer for services
- *
- * @param _app - Bud instance
- * @returns reduce fn
- */
-const makeServiceReducer =
-  (_app: Bud) =>
-  <T extends keyof Bud>(
-    a: Partial<Services.Registry>,
-    [k, v]: [T, Services.Registry[T]],
-  ): Services.Registry => ({...a, [k]: v})
 
 /**
  * Bootstrap application
@@ -61,7 +37,7 @@ const makeServiceReducer =
  *
  * @returns void
  */
-export const execute = (app: Bud, context: Config.Context) => {
+export const execute = async (app: Bud, context: Config.Context) => {
   /* reset children */
   app.children = {}
 
@@ -86,11 +62,11 @@ export const execute = (app: Bud, context: Config.Context) => {
   /* initialize module */
   app.module = new Module(app)
 
-  app.log(`initializing services`)
-
   /* initialize services */
-  app.services = Object.entries({...context.services})
-    .filter(makeServiceFilter(app))
-    .map(makeServiceInitializer(app))
-    .reduce(makeServiceReducer(app), {})
+  app.log(`initializing services`)
+  await Promise.all(
+    app.context.services
+      .filter(makeServiceFilter(app))
+      .map(makeServiceImport(app)),
+  )
 }

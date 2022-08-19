@@ -1,4 +1,4 @@
-import {beforeAll, describe, expect, it, jest} from '@jest/globals'
+import {describe, expect, it, jest} from '@jest/globals'
 import {Bud, factory} from '@repo/test-kit/bud'
 import {Container} from '@roots/container'
 import {noop} from 'lodash-es'
@@ -6,11 +6,8 @@ import {noop} from 'lodash-es'
 describe(`bud`, () => {
   let bud: Bud
 
-  beforeAll(async () => {
+  it(`mode`, async () => {
     bud = await factory()
-  })
-
-  it(`mode`, () => {
     expect(bud.mode).toEqual(`production`)
   })
 

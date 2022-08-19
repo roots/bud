@@ -23,7 +23,7 @@ import EslintPlugin from 'eslint-webpack-plugin'
 @plugin(EslintPlugin)
 @options<Options>({
   extensions: [`js`, `jsx`, `ts`, `tsx`, `vue`],
-  cacheLocation: app => app.path(`@storage/cache/eslint`),
+  cacheLocation: app => app.path(`@storage`, app.label, `cache`, `eslint`),
   cwd: app => app.path(),
   resolvePluginsRelativeTo: app => app.path(),
   threads: false,

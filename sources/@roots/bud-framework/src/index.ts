@@ -28,7 +28,6 @@ import type * as Dashboard from './services/dashboard/index.js'
 import type * as Env from './services/env/index.js'
 import type * as Extensions from './services/extensions/index.js'
 import type * as Hooks from './services/hooks/index.js'
-import type * as Peers from './services/peers/index.js'
 import type * as Project from './services/project/index.js'
 import type * as Server from './services/server/index.js'
 
@@ -63,7 +62,6 @@ export type {
   Modules,
   ModuleDefinitions,
   Patterns,
-  Peers,
   Project,
   Registry,
   Server,

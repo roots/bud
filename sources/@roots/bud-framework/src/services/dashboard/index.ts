@@ -10,11 +10,7 @@ import type {Service as Base} from '../../service.js'
 export interface Service extends Base {
   instance: any
 
-  percentage: number
-
   log(...strings: Array<string>): unknown
-
-  progressCallback(percent: number, scope: string, ...message: any[]): void
 
   /**
    * Render the dashboard
