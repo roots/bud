@@ -29,7 +29,7 @@ What you can expect:
 
 This script is a lot more flexible.
 
-The `find` string is now set with a url query parameter: `@roots/bud-client/lib/proxy-client-interceptor.js?href=http://example.com`.
+The "needle" string is now set with a url query parameter: `@roots/bud-client/lib/proxy-client-interceptor.js?href=http://example.com`.
 
 Optionally, it can also be imported and called directly:
 
@@ -37,17 +37,6 @@ Optionally, it can also be imported and called directly:
 import intercept from '@roots/bud-client/lib/intercept.js'
 intercept('http://example.com') // replace `href="http://example.com"` with `href="/"`
 ```
-
-## ✨ Improve: bud package discovery is now cached
-
-When initializing, bud.js will cache any found packages. Depending on the number of installed extensions, this can be a pretty
-big reduction in initial load time, mainly from a greatly decreased number of filesystem operations.
-
-The cache is automatically invalidated if there is a change made to `package.json`, environment variables, or any
-discovered config files (bud, or otherwise). This can be better tuned in the future so that the cache hits more often.
-
-You can run without the cache using the `--no-cache` flag. The cache can be invalidated with `--flush`. The cache is also not used
-if bud is being run with jest, or if the there is a `CI` environment variable present.
 
 ## ✨ Improve: extensions can now register `bud` cli commands
 
@@ -60,44 +49,83 @@ yarn bud ts check
 
 Previously this command was registered in `@roots/bud`, which wasn't ideal.
 
-## ✨ Improve: build summary output
+## ✨ Improve: bud cli
 
-It's a lot nicer, especially for multi-compiler builds.
+- [Enhanced build summary](#enhanced-build-summary)
+- [--debug flag](#--debug-flag)
+
+### Enhanced build summary
+
+Here's what you can expect:
 
 ```sh
-$ bud dev
+$ bud build
 
 sage
 
-◉   ./public  [b387aa2df1fd5ccbe50f]
-╷
+◉   ./public  [f3a3c400ffcd71efbad3]
+│
 ├─ entrypoints
-│   ├─ app
-│   │   └─ js/app.js        223.36 kB
-│   └─editor
-│       └─ js/editor.js      210.7 kB
+│  ├─ app
+│  │   └─ js/app.js    308.98 kB
+│  └─ editor
+│      └─ js/editor.js    252.02 kB
 │
 ├─ assets
-│   ├─ images/roots.svg     1.15 kB
-│   ├─ manifest.json      212 bytes
-│   └─entrypoints.json    61 bytes
+│  ├─ fonts/public-sans-v11-latin-700italic.woff2    13.76 kB
+│  ├─ fonts/public-sans-v11-latin-italic.woff2       13.73 kB
+│  ├─ fonts/public-sans-v11-latin-700.woff2          13.39 kB
+│  └─ fonts/public-sans-v11-latin-300.woff2          13.32 kB
 │
-└─ compiled 123 modules in 148ms
+│   …  4  additional assets not shown
+│
+└─ compiled 174 modules in 212ms
 
 ℹ dev
-╷
-├─ proxying: http://v2.acorn.lndo.site
-├─ internal: http://localhost:3000
-└─ external: http://192.168.194.103:3000
+│
+├─ proxying: https://roots.test
+├─ internal: http://localhost:58398
+└─ external: http://192.168.194.103:58398
 
-… watching project sources (and 2 other files)   ℹ ctrl+c to exit
+… watching project sources (and 2 other files)
 ```
 
-- Is labeled (can be useful if running builds in parallel with yarn/npm workspaces).
+Some of the changes you may notice:
+
+- Labeled (can be useful if running builds in parallel with yarn/npm workspaces).
 - Indicates the directory being emitted to (also handy for identification purposes).
-- Includes the oft-requested "external IP" for use checking the app over LAN.
-- Is visually grouped by entrypoint.
-- Now less confusing to quit than vim
+- Includes the oft-requested "external IP" for use over LAN.
+- Visually grouped by entrypoint
+- Improved display of compiler error messages
+- Improved display of compiler warning messages
+
+### `--debug` flag
+
+The `bud build`, `bud build production` and `bud build development` commands now take a `--debug` flag.
+
+In earlier versions of bud.js a snapshot of the finalized webpack configuration and a snapshot of bud.js state was always
+stored prior to compilation. If your project is working correctly this is just needless fs overhead.
+
+## ✨ Improve: builds now labeled by package.json `name` field
+
+In earlier versions of bud.js the `bud.label` property was always set to `bud` (for the parent compiler). Now, it will be set to the `name` field
+of your project (as set in `package.json`).
+
+In addition to the clear output summary labeling (see above), you should also find that logs are better labeled now:
+
+```
+[bud@6.4.0] [my-project] › importing @roots/bud-terser/css-minimizer
+```
+
+If you're looking through `.budfiles` you'll see that build artifacts are broken down by compiler label as well:
+
+```
+❯ tree .budfiles
+.budfiles
+└── my-project
+     └── cache
+          └── development
+```
 
 ## ℹ️ Release information
 
