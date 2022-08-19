@@ -4,7 +4,7 @@ import {join} from 'path'
 
 import {Command} from './base.command'
 
-const tsConfig = join(paths.config, 'tsconfig.json')
+const tsConfig = join(paths.config, `tsconfig.json`)
 const ncc = join(paths.sources, `@repo/compile-kit/src/cjs`)
 
 /**
@@ -18,7 +18,7 @@ export class Compile extends Command {
    *
    * @internal
    */
-  public static label = '@bud compile'
+  public static label = `@bud compile`
 
   /**
    * Command paths
@@ -46,7 +46,7 @@ export class Compile extends Command {
    *
    * @internal
    */
-  public package = Option.String('package to transpile', 'all')
+  public package = Option.String(`package to transpile`, `all`)
 
   /**
    * Command execute

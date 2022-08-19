@@ -20,11 +20,11 @@ export class Npm extends Command implements IDependencyManager {
   ): Promise<any> {
     return Npm.execute(
       onMessage ?? this.onMessage,
-      'npm',
-      'install',
+      `npm`,
+      `install`,
       ...Npm.normalizeDependencies(dependencies),
-      dev ? '--dev' : null,
-      '--cwd',
+      dev ? `--dev` : null,
+      `--cwd`,
       this.path,
     )
   }
@@ -39,10 +39,10 @@ export class Npm extends Command implements IDependencyManager {
   ): Promise<any> {
     return Npm.execute(
       onMessage ?? this.onMessage,
-      'npm',
-      'uninstall',
+      `npm`,
+      `uninstall`,
       ...Npm.normalizeDependencies(dependencies),
-      '--prefix',
+      `--prefix`,
       this.path,
     )
   }

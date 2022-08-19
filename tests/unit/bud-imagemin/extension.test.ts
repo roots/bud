@@ -2,24 +2,24 @@ import {beforeAll, describe, expect, it} from '@jest/globals'
 import {Bud, factory} from '@repo/test-kit/bud'
 import imagemin from '@roots/bud-imagemin'
 
-describe('@roots/bud-imagemin', () => {
+describe(`@roots/bud-imagemin`, () => {
   let bud: Bud
 
-  describe('module register', () => {
+  describe(`module register`, () => {
     beforeAll(async () => {
       bud = await factory()
       await bud.extensions.add(imagemin)
     })
 
-    it('exposes class through imagemin prop', () => {
+    it(`exposes class through imagemin prop`, () => {
       expect(bud.imagemin).toBeInstanceOf(imagemin)
     })
-    it('setImplementation', () => {
+    it(`setImplementation`, () => {
       expect(bud.imagemin.setImplementation).toBeInstanceOf(Function)
     })
-    it('setImplementation', () => {
-      bud.imagemin.setImplementation('test' as any)
-      expect(bud.imagemin.getImplementation()).toBe('test')
+    it(`setImplementation`, () => {
+      bud.imagemin.setImplementation(`test` as any)
+      expect(bud.imagemin.getImplementation()).toBe(`test`)
     })
   })
 })

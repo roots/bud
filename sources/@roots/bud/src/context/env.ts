@@ -9,6 +9,13 @@ import {join, sep} from 'node:path/posix'
  */
 export default class Env {
   /**
+   * Service label
+   *
+   * @public
+   */
+  public static label = `env`
+
+  /**
    * Env dictionary
    *
    * @public
@@ -88,8 +95,8 @@ export default class Env {
 
         this.data = {
           ...this.data,
-          ...getEnvFromPath(join(a, c, '.env')),
-          ...getEnvFromPath(join(a, c, '.env.local')),
+          ...getEnvFromPath(join(a, c, `.env`)),
+          ...getEnvFromPath(join(a, c, `.env.local`)),
         }
 
         return next
@@ -100,8 +107,8 @@ export default class Env {
      */
     this.data = {
       ...this.data,
-      ...getExpandedEnvFromPath(join(basedir, '.env')),
-      ...getExpandedEnvFromPath(join(basedir, '.env.local')),
+      ...getExpandedEnvFromPath(join(basedir, `.env`)),
+      ...getExpandedEnvFromPath(join(basedir, `.env.local`)),
     }
   }
 }

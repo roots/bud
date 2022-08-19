@@ -1,6 +1,6 @@
 import {Bud, factory} from '@repo/test-kit/bud'
 
-describe('bud.hash', function () {
+describe(`bud.hash`, function () {
   let bud: Bud
 
   beforeAll(async () => {
@@ -9,13 +9,13 @@ describe('bud.hash', function () {
     await bud.build.make()
   })
 
-  it('is a function', () => {
+  it(`is a function`, () => {
     expect(bud.hash).toBeInstanceOf(Function)
   })
 
-  it('enables hashing when called', async () => {
+  it(`enables hashing when called`, async () => {
     expect(bud.build.config.output.filename).toEqual(
-      'js/[name].[contenthash:6].js',
+      `js/[name].[contenthash:6].js`,
     )
   })
 })

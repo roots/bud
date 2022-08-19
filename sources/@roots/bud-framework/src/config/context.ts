@@ -19,7 +19,7 @@ export interface Context {
   >
   config?: Record<string, any>
   extensions?: Array<string>
-  services?: Record<string, any>
+  services?: Array<string>
   seed?: Record<string, any>
   env?: Record<string, string | undefined>
   stdin: Readable

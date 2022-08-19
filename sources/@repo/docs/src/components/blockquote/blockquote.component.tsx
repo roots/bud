@@ -6,7 +6,7 @@ export const Component = ({children, cite, src}) => {
       <p>{children}</p>
       <cite>
         <span>
-          &mdash; <a href={src ?? '#'}>{cite}</a>
+          &mdash; <a href={src ?? `#`}>{cite}</a>
         </span>
       </cite>
     </blockquote>

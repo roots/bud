@@ -4,14 +4,14 @@ import {Extension} from '@roots/bud-framework/extension'
 import {dependsOn} from '@roots/bud-framework/extension/decorators'
 
 class MockExtension extends Extension {
-  public label = 'mock-extension'
-  public dependsOn = new Set(['@roots/bud-babel'])
+  public label = `mock-extension`
+  public dependsOn = new Set([`@roots/bud-babel`])
 }
 
-@dependsOn(['@roots/bud-babel'])
+@dependsOn([`@roots/bud-babel`])
 // @ts-ignore
 class MockDecoratedExtension extends Extension {
-  public label = 'mock-extension'
+  public label = `mock-extension`
 }
 
 const resetExtensions = (bud: Bud) => {
@@ -19,8 +19,8 @@ const resetExtensions = (bud: Bud) => {
   bud.extensions.repository = {}
 }
 
-describe.skip('Extension', function () {
-  describe('dependsOn', () => {
+describe.skip(`Extension`, function () {
+  describe(`dependsOn`, () => {
     let bud: Bud
 
     beforeAll(async () => {
@@ -31,17 +31,17 @@ describe.skip('Extension', function () {
       resetExtensions(bud)
     })
 
-    it('adds dependencies', async () => {
+    it(`adds dependencies`, async () => {
       await bud.extensions.add(MockExtension)
       expect(Object.keys(bud.extensions.repository)).toStrictEqual(
-        expect.arrayContaining(['@roots/bud-babel', 'mock-extension']),
+        expect.arrayContaining([`@roots/bud-babel`, `mock-extension`]),
       )
     })
 
-    it('adds dependencies (decorated)', async () => {
+    it(`adds dependencies (decorated)`, async () => {
       await bud.extensions.add(MockDecoratedExtension)
       expect(Object.keys(bud.extensions.repository)).toStrictEqual(
-        expect.arrayContaining(['@roots/bud-babel', 'mock-extension']),
+        expect.arrayContaining([`@roots/bud-babel`, `mock-extension`]),
       )
     })
   })

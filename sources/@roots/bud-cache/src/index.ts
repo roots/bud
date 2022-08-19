@@ -19,4 +19,4 @@ declare module '@roots/bud-framework' {
   }
 }
 
-export {Cache, Cache as Service, Cache as default}
+export default Cache

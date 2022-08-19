@@ -11,8 +11,8 @@ import * as tomlParser from 'toml'
 export const js = async (app: Bud): Promise<Rule> =>
   app.build
     .makeRule()
-    .setTest(({hooks}) => hooks.filter('pattern.js'))
-    .setInclude([app => app.path('@src')])
+    .setTest(({hooks}) => hooks.filter(`pattern.js`))
+    .setInclude([app => app.path(`@src`)])
     .setUse([])
 
 /**
@@ -23,8 +23,8 @@ export const js = async (app: Bud): Promise<Rule> =>
 export const css = async (app: Bud): Promise<Rule> =>
   app.build
     .makeRule()
-    .setTest(({hooks}) => hooks.filter('pattern.css'))
-    .setInclude([app => app.path('@src')])
+    .setTest(({hooks}) => hooks.filter(`pattern.css`))
+    .setInclude([app => app.path(`@src`)])
     .setUse([`precss`, `css`])
 
 /**
@@ -35,8 +35,8 @@ export const css = async (app: Bud): Promise<Rule> =>
 export const cssModule = async (app: Bud): Promise<Rule> =>
   app.build
     .makeRule()
-    .setTest(({hooks}) => hooks.filter('pattern.cssModule'))
-    .setInclude([app => app.path('@src')])
+    .setTest(({hooks}) => hooks.filter(`pattern.cssModule`))
+    .setInclude([app => app.path(`@src`)])
     .setUse([`precss`, `cssModule`])
 
 /**
@@ -47,17 +47,17 @@ export const cssModule = async (app: Bud): Promise<Rule> =>
 export const image = async (app: Bud): Promise<Rule> =>
   app.build
     .makeRule()
-    .setTest(({hooks}) => hooks.filter('pattern.image'))
-    .setInclude([app => app.path('@src')])
-    .setType('asset/resource')
+    .setTest(({hooks}) => hooks.filter(`pattern.image`))
+    .setInclude([app => app.path(`@src`)])
+    .setType(`asset/resource`)
     .setGenerator(app => ({
-      filename: app.hooks.filter('feature.hash')
-        ? 'images/'
-            .concat(app.hooks.filter('value.hashFormat'))
-            .concat('[ext]')
-        : 'images/'
-            .concat(app.hooks.filter('value.fileFormat'))
-            .concat('[ext]'),
+      filename: app.hooks.filter(`feature.hash`)
+        ? `images/`
+            .concat(app.hooks.filter(`value.hashFormat`))
+            .concat(`[ext]`)
+        : `images/`
+            .concat(app.hooks.filter(`value.fileFormat`))
+            .concat(`[ext]`),
     }))
 
 /**
@@ -71,17 +71,17 @@ export const image = async (app: Bud): Promise<Rule> =>
 export const webp = async (app: Bud): Promise<Rule> =>
   app.build
     .makeRule()
-    .setTest(({hooks}) => hooks.filter('pattern.webp'))
-    .setInclude([app => app.path('@src')])
-    .setType('asset/resource')
+    .setTest(({hooks}) => hooks.filter(`pattern.webp`))
+    .setInclude([app => app.path(`@src`)])
+    .setType(`asset/resource`)
     .setGenerator(app => ({
-      filename: app.hooks.filter('feature.hash')
-        ? 'images/'
-            .concat(app.hooks.filter('value.hashFormat'))
-            .concat('[ext]')
-        : 'images/'
-            .concat(app.hooks.filter('value.fileFormat'))
-            .concat('[ext]'),
+      filename: app.hooks.filter(`feature.hash`)
+        ? `images/`
+            .concat(app.hooks.filter(`value.hashFormat`))
+            .concat(`[ext]`)
+        : `images/`
+            .concat(app.hooks.filter(`value.fileFormat`))
+            .concat(`[ext]`),
     }))
 
 /**
@@ -93,17 +93,17 @@ export const webp = async (app: Bud): Promise<Rule> =>
 export const svg = async (app: Bud): Promise<Rule> =>
   app.build
     .makeRule()
-    .setTest(({hooks}) => hooks.filter('pattern.svg'))
-    .setInclude([app => app.path('@src')])
-    .setType('asset/resource')
+    .setTest(({hooks}) => hooks.filter(`pattern.svg`))
+    .setInclude([app => app.path(`@src`)])
+    .setType(`asset/resource`)
     .setGenerator(app => ({
-      filename: app.hooks.filter('feature.hash')
-        ? 'svg/'
-            .concat(app.hooks.filter('value.hashFormat'))
-            .concat('[ext]')
-        : 'svg/'
-            .concat(app.hooks.filter('value.fileFormat'))
-            .concat('[ext]'),
+      filename: app.hooks.filter(`feature.hash`)
+        ? `svg/`
+            .concat(app.hooks.filter(`value.hashFormat`))
+            .concat(`[ext]`)
+        : `svg/`
+            .concat(app.hooks.filter(`value.fileFormat`))
+            .concat(`[ext]`),
     }))
 
 /**
@@ -114,17 +114,17 @@ export const svg = async (app: Bud): Promise<Rule> =>
 export const font = async (app: Bud): Promise<Rule> =>
   app.build
     .makeRule()
-    .setType('asset')
-    .setTest(({hooks}) => hooks.filter('pattern.font'))
-    .setInclude([app => app.path('@src')])
+    .setType(`asset`)
+    .setTest(({hooks}) => hooks.filter(`pattern.font`))
+    .setInclude([app => app.path(`@src`)])
     .setGenerator(app => ({
-      filename: app.hooks.filter('feature.hash')
-        ? 'fonts/'
-            .concat(app.hooks.filter('value.hashFormat'))
-            .concat('[ext]')
-        : 'fonts/'
-            .concat(app.hooks.filter('value.fileFormat'))
-            .concat('[ext]'),
+      filename: app.hooks.filter(`feature.hash`)
+        ? `fonts/`
+            .concat(app.hooks.filter(`value.hashFormat`))
+            .concat(`[ext]`)
+        : `fonts/`
+            .concat(app.hooks.filter(`value.fileFormat`))
+            .concat(`[ext]`),
     }))
 
 /**
@@ -135,10 +135,10 @@ export const font = async (app: Bud): Promise<Rule> =>
 export const json = async (app: Bud): Promise<Rule> =>
   app.build
     .makeRule()
-    .setType('json')
+    .setType(`json`)
     .setInclude([app => app.path()])
-    .setExclude([app => app.path('@modules')])
-    .setTest(({hooks}) => hooks.filter('pattern.json'))
+    .setExclude([app => app.path(`@modules`)])
+    .setTest(({hooks}) => hooks.filter(`pattern.json`))
     .setParser({parse: json5Parser.parse})
 
 /**
@@ -150,9 +150,9 @@ export const yml = async (app: Bud): Promise<Rule> =>
   app.build
     .makeRule()
     .setInclude([app => app.path()])
-    .setExclude([app => app.path('@modules')])
-    .setTest(({hooks}) => hooks.filter('pattern.yml'))
-    .setUse(['yml'])
+    .setExclude([app => app.path(`@modules`)])
+    .setTest(({hooks}) => hooks.filter(`pattern.yml`))
+    .setUse([`yml`])
 
 /**
  * Returns {@link Rule} for `.html` handling
@@ -163,8 +163,8 @@ export const html = async (app: Bud): Promise<Rule> =>
   app.build
     .makeRule()
     .setInclude([app => app.path()])
-    .setExclude([app => app.path('@modules')])
-    .setTest(({hooks}) => hooks.filter('pattern.html'))
+    .setExclude([app => app.path(`@modules`)])
+    .setTest(({hooks}) => hooks.filter(`pattern.html`))
     .setUse([`html`])
 
 /**
@@ -176,8 +176,8 @@ export const csv = async (app: Bud): Promise<Rule> =>
   app.build
     .makeRule()
     .setInclude([app => app.path()])
-    .setExclude([app => app.path('@modules')])
-    .setTest(({hooks}) => hooks.filter('pattern.csv'))
+    .setExclude([app => app.path(`@modules`)])
+    .setTest(({hooks}) => hooks.filter(`pattern.csv`))
     .setUse([`csv`])
 
 /**
@@ -189,8 +189,8 @@ export const xml = async (app: Bud): Promise<Rule> =>
   app.build
     .makeRule()
     .setInclude([app => app.path()])
-    .setExclude([app => app.path('@modules')])
-    .setTest(({hooks}) => hooks.filter('pattern.xml'))
+    .setExclude([app => app.path(`@modules`)])
+    .setTest(({hooks}) => hooks.filter(`pattern.xml`))
     .setUse([`xml`])
 
 /**
@@ -201,8 +201,8 @@ export const xml = async (app: Bud): Promise<Rule> =>
 export const toml = async (app: Bud): Promise<Rule> =>
   app.build
     .makeRule()
-    .setType('json')
+    .setType(`json`)
     .setInclude([app => app.path()])
-    .setExclude([app => app.path('@modules')])
-    .setTest(({hooks}) => hooks.filter('pattern.html'))
+    .setExclude([app => app.path(`@modules`)])
+    .setTest(({hooks}) => hooks.filter(`pattern.html`))
     .setParser({parse: tomlParser.parse})

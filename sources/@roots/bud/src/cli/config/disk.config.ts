@@ -28,7 +28,7 @@ class Configuration {
   public constructor(public app: Bud, public manifests: ConfigManifest) {
     manifests &&
       Object.values(manifests)
-        .filter(config => config?.name?.includes('bud.config'))
+        .filter(config => config?.name?.includes(`bud.config`))
         .map(config => {
           this.manifest[config.name] = config.module
         })
@@ -53,7 +53,7 @@ class Configuration {
         if (!isFunction(config) && !isObject(config))
           return this.app.error(
             `bud tried to parse ${
-              name ?? 'unknown file'
+              name ?? `unknown file`
             } but it doesn't seem to be a function or an object config`,
           )
 
@@ -108,7 +108,7 @@ export const config = async (app: Bud) => {
           await service.afterConfig(app)
         }),
     )
-    await app.hooks.fire('config.after')
+    await app.hooks.fire(`config.after`)
   } catch (err) {
     app.error(err)
   }

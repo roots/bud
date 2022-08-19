@@ -61,7 +61,7 @@ export class FileContainer extends Container {
    */
   @bind
   public setDisk(glob: string[]): this {
-    globbySync(glob ?? ['*', '**/*', '!vendor', '!node_modules'], {
+    globbySync(glob ?? [`*`, `**/*`, `!vendor`, `!node_modules`], {
       onlyFiles: false,
       cwd: this._baseDir,
       expandDirectories: true,
@@ -173,7 +173,7 @@ export class FileContainer extends Container {
    */
   @bind
   public read(key: string): string {
-    return this.fs.readFileSync(this.get(key), 'utf8')
+    return this.fs.readFileSync(this.get(key), `utf8`)
   }
 
   /**

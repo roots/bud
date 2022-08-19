@@ -9,7 +9,7 @@ export const ExternalLink = () => {
       data-icon="external-link-alt"
       role="img"
       width={14}
-      style={{marginLeft: '0.4rem'}}
+      style={{marginLeft: `0.4rem`}}
       viewBox="0 0 512 512"
       className="svg-inline--fa fa-external-link-alt fa-w-16 fa-3x"
     >

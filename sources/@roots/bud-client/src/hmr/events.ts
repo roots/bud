@@ -61,7 +61,7 @@ export class Events extends EventSource {
    * @public
    */
   public onopen = function (this: Events, ev?: Event) {
-    console.log('[bud] connected')
+    console.log(`[bud] connected`)
     this.lastActivity = new Date()
   }
 
@@ -76,7 +76,7 @@ export class Events extends EventSource {
     if (!this.listeners?.length || !payload) return
 
     this.listeners?.forEach(listener =>
-      typeof listener === 'function' ? listener(payload) : null,
+      typeof listener === `function` ? listener(payload) : null,
     )
   }
 

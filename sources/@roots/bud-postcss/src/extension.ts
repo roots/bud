@@ -26,8 +26,8 @@ type Registry = Map<string, [string | Plugin | Processor, any?]>
  * @decorator `@expose`
  * @decorator `@label`
  */
-@expose('postcss')
-@label('@roots/bud-postcss')
+@expose(`postcss`)
+@label(`@roots/bud-postcss`)
 export default class BudPostCss extends Extension {
   /**
    * Syntax
@@ -57,7 +57,7 @@ export default class BudPostCss extends Extension {
    */
   protected get postcssOptions() {
     const plugins = this.app.hooks.filter(
-      'postcss.plugins',
+      `postcss.plugins`,
       this.postcssPluginsHooksCallback,
     )
 
@@ -77,16 +77,16 @@ export default class BudPostCss extends Extension {
 
     if (!this.plugins.size) return null
 
-    this.plugins.has('import') && plugins.push(this.plugins.get('import'))
+    this.plugins.has(`import`) && plugins.push(this.plugins.get(`import`))
 
-    this.plugins.has('nesting') &&
-      plugins.push(this.plugins.get('nesting'))
+    this.plugins.has(`nesting`) &&
+      plugins.push(this.plugins.get(`nesting`))
 
     Array.from(this.plugins.entries())
-      .filter(([k, v]) => !['import', 'nesting', 'env'].includes(k))
+      .filter(([k, v]) => ![`import`, `nesting`, `env`].includes(k))
       .forEach(([k, v]) => plugins.push(v))
 
-    this.plugins.has('env') && plugins.push(this.plugins.get('env'))
+    this.plugins.has(`env`) && plugins.push(this.plugins.get(`env`))
 
     return plugins.filter(Boolean)
   }
@@ -260,7 +260,7 @@ export default class BudPostCss extends Extension {
    */
   @bind
   public getPluginOptions(plugin: string): Record<string, any> {
-    if (!this.plugins.has(plugin)) this.app.error(plugin, 'does not exist')
+    if (!this.plugins.has(plugin)) this.app.error(plugin, `does not exist`)
 
     return this.plugins.has(plugin) &&
       this.plugins.get(plugin).length &&
@@ -287,7 +287,7 @@ export default class BudPostCss extends Extension {
       | ((options: Record<string, any>) => Record<string, any>),
   ): this {
     if (!this.plugins.has(plugin)) {
-      this.app.error(plugin, 'does not exist')
+      this.app.error(plugin, `does not exist`)
     }
 
     this.plugins.set(plugin, [
@@ -343,11 +343,11 @@ export default class BudPostCss extends Extension {
   @once
   public async register() {
     this.setPlugins({
-      import: await this.resolve('postcss-import'),
-      nesting: await this.resolve('postcss-nested'),
+      import: await this.resolve(`postcss-import`),
+      nesting: await this.resolve(`postcss-nested`),
       env: [
-        await this.resolve('postcss-preset-env').then(path =>
-          path.replace('.mjs', '.cjs'),
+        await this.resolve(`postcss-preset-env`).then(path =>
+          path.replace(`.mjs`, `.cjs`),
         ),
         {
           stage: 1,
@@ -359,9 +359,9 @@ export default class BudPostCss extends Extension {
     })
 
     this.app.build
-      .setLoader('postcss', await this.resolve('postcss-loader'))
-      .setItem('postcss', {
-        loader: 'postcss',
+      .setLoader(`postcss`, await this.resolve(`postcss-loader`))
+      .setItem(`postcss`, {
+        loader: `postcss`,
         options: () => {
           return {
             sourceMap: this.sourceMap,
@@ -370,7 +370,7 @@ export default class BudPostCss extends Extension {
         },
       })
 
-    this.app.build.rules.css.setUse(items => [...items, 'postcss'])
-    this.app.build.rules.cssModule.setUse(items => [...items, 'postcss'])
+    this.app.build.rules.css.setUse(items => [...items, `postcss`])
+    this.app.build.rules.cssModule.setUse(items => [...items, `postcss`])
   }
 }

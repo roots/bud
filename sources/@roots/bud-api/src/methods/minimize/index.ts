@@ -43,15 +43,15 @@ export const minimize: minimize = function (enabled: boolean = true) {
   const app = this as Bud
 
   if (enabled === false) {
-    app.hooks.on('build.optimization.minimize', false)
-    app.extensions.get('@roots/bud-terser').disable()
-    app.extensions.get('@roots/bud-terser/css-minimizer').disable()
+    app.hooks.on(`build.optimization.minimize`, false)
+    app.extensions.get(`@roots/bud-terser`).disable()
+    app.extensions.get(`@roots/bud-terser/css-minimizer`).disable()
   }
 
   if (isUndefined(enabled) || enabled === true) {
-    app.hooks.on('build.optimization.minimize', true)
-    app.extensions.get('@roots/bud-terser').enable()
-    app.extensions.get('@roots/bud-terser/css-minimizer').enable()
+    app.hooks.on(`build.optimization.minimize`, true)
+    app.extensions.get(`@roots/bud-terser`).enable()
+    app.extensions.get(`@roots/bud-terser/css-minimizer`).enable()
   }
 
   return app

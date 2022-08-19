@@ -26,8 +26,8 @@ export default class Config {
       [
         `*.{cts,mts,ts,cjs,mjs,js,json,toml,yml}`,
         `*rc`,
-        join('config', '*.{cts,mts,ts,cjs,mjs,js,json,toml,yml}'),
-        join('config', '*rc'),
+        join(`config`, `*.{cts,mts,ts,cjs,mjs,js,json,toml,yml}`),
+        join(`config`, `*rc`),
       ],
       {
         absolute: true,

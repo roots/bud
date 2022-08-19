@@ -1,68 +1,65 @@
-import {beforeAll, describe, expect, it, jest} from '@jest/globals'
+import {describe, expect, it, jest} from '@jest/globals'
 import {Bud, factory} from '@repo/test-kit/bud'
 import {Container} from '@roots/container'
 import {noop} from 'lodash-es'
 
-describe('bud', () => {
+describe(`bud`, () => {
   let bud: Bud
 
-  beforeAll(async () => {
+  it(`mode`, async () => {
     bud = await factory()
+    expect(bud.mode).toEqual(`production`)
   })
 
-  it('mode', () => {
-    expect(bud.mode).toEqual('production')
-  })
-
-  it('isDevelopment', async () => {
-    const isNotDev = await factory({mode: 'production'})
+  it(`isDevelopment`, async () => {
+    const isNotDev = await factory({mode: `production`})
     expect(isNotDev.isDevelopment).toEqual(false)
 
-    const isDev = await factory({mode: 'development'})
+    const isDev = await factory({mode: `development`})
     expect(isDev.isDevelopment).toEqual(true)
   })
 
-  it('isProduction', async () => {
-    const isNotProduction = await factory({mode: 'development'})
+  it(`isProduction`, async () => {
+    const isNotProduction = await factory({mode: `development`})
     expect(isNotProduction.isProduction).toEqual(false)
 
-    const isProduction = await factory({mode: 'production'})
+    const isProduction = await factory({mode: `production`})
     expect(isProduction.isProduction).toEqual(true)
   })
 
-  it('maybeCall processes a literal value', done => {
+  it(`maybeCall processes a literal value`, done => {
     expect(bud.maybeCall(true)).toEqual(true)
     done()
   })
 
-  it('maybeCall processes a fn', done => {
+  it(`maybeCall processes a fn`, done => {
     expect(bud.maybeCall(() => true)).toEqual(true)
     done()
   })
 
-  it('maybeCall passes bud as a param', done => {
+  it(`maybeCall passes bud as a param`, done => {
     expect(bud.maybeCall(bud => bud)).toEqual(bud)
     done()
   })
 
-  it('container is instance of @roots/container', done => {
+  it(`container is instance of @roots/container`, done => {
     expect(bud.container()).toBeInstanceOf(Container)
     done()
   })
 
-  it('tap calls fn and returns instance of Bud', done => {
+  it(`tap calls fn and returns instance of Bud`, done => {
     const fn = jest.fn()
     expect(bud.tap(fn)).toBeInstanceOf(Bud)
     expect(fn).toHaveBeenCalledTimes(1)
     done()
   })
 
-  it('tap passes an instance of Bud', done => {
+  it(`tap passes an instance of Bud`, done => {
     bud.tap(app => expect(app).toBeInstanceOf(Bud))
     done()
   })
 
-  it('tap can bind a function to Bud', done => {
+  it(`tap can bind a function to Bud`, done => {
     bud.tap(function () {
       expect(this).not.toBeInstanceOf(Bud)
     }, false)
@@ -79,7 +76,7 @@ describe('bud', () => {
     done()
   })
 
-  it('sequence calls fns', async () => {
+  it(`sequence calls fns`, async () => {
     await bud.sequence([
       async bud => {
         expect(bud).toBeInstanceOf(Bud)
@@ -90,7 +87,7 @@ describe('bud', () => {
     ])
   })
 
-  it('pipe passes value through fn chain', done => {
+  it(`pipe passes value through fn chain`, done => {
     const cb1 = app => app
     const cb2 = app => app
 
@@ -101,7 +98,7 @@ describe('bud', () => {
     done()
   })
 
-  it('when calls fns conditionally', done => {
+  it(`when calls fns conditionally`, done => {
     const whenTrue = jest.fn((app: Bud) => {})
     bud.when(() => true, whenTrue)
     expect(whenTrue).toHaveBeenCalledTimes(1)
@@ -113,7 +110,7 @@ describe('bud', () => {
     done()
   })
 
-  it('has close fn', () => {
+  it(`has close fn`, () => {
     expect(bud.close).toBeInstanceOf(Function)
   })
 })

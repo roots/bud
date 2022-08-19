@@ -42,7 +42,7 @@ const Compilation = ({
   const staticAssets = stats?.assets
     ?.filter(
       asset =>
-        ![`js`, `css`].includes(asset.name.split('.').pop()) &&
+        ![`js`, `css`].includes(asset.name.split(`.`).pop()) &&
         !asset.name?.includes(`hot-update`),
     )
     .map(enrich)
@@ -144,7 +144,7 @@ const Compilation = ({
 
       <Title final={true}>
         <Text dimColor>
-          compiled {stats?.modules?.length} modules in{' '}
+          compiled {stats?.modules?.length} modules in{` `}
           {duration(stats?.time) as string}
         </Text>
       </Title>

@@ -33,7 +33,7 @@ export class Yml {
    */
   public log(message: string): void {
     process.stdout.write(
-      `[${this.path.replace(process.cwd(), '')}] ${message}\n`,
+      `[${this.path.replace(process.cwd(), ``)}] ${message}\n`,
     )
   }
 
@@ -45,7 +45,7 @@ export class Yml {
    * @internal
    */
   public async read(): Promise<Yml> {
-    const source = await fs.readFile(this.path, 'utf8')
+    const source = await fs.readFile(this.path, `utf8`)
     this.data = yml.load(source, {json: true})
     this.log(`read from disk`)
 
@@ -59,7 +59,7 @@ export class Yml {
    */
   public async write(): Promise<Yml> {
     const source = yml.dump(this.data)
-    await fs.writeFile(this.path, source, 'utf8')
+    await fs.writeFile(this.path, source, `utf8`)
     this.log(`written to disk`)
 
     return this

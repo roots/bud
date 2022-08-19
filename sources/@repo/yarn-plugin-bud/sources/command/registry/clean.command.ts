@@ -17,7 +17,7 @@ export class RegistryClean extends Command {
    *
    * @internal
    */
-  public static label = '@bud registry clean'
+  public static label = `@bud registry clean`
 
   /**
    * Command paths
@@ -43,16 +43,16 @@ export class RegistryClean extends Command {
 
   public async execute() {
     try {
-      await ensureDir(join(paths.root, 'storage', 'packages'))
-      await remove(join(paths.root, 'storage', 'packages'))
+      await ensureDir(join(paths.root, `storage`, `packages`))
+      await remove(join(paths.root, `storage`, `packages`))
 
       const verdaccioDbExists = await pathExists(
-        join(paths.root, 'storage', '.verdaccio-db.json'),
+        join(paths.root, `storage`, `.verdaccio-db.json`),
       )
 
       if (verdaccioDbExists) {
         const verdaccioDb = await readJson(
-          join(paths.root, 'storage', '.verdaccio-db.json'),
+          join(paths.root, `storage`, `.verdaccio-db.json`),
         )
         verdaccioDb.list = []
 

@@ -13,11 +13,5 @@
 import './env.js'
 
 import Bud from './bud.js'
-import extensions from './extensions/index.js'
 
-export * as context from './context/index.js'
-export {seed} from './seed.js'
-export {services} from './services/index.js'
-export {factory} from './factory/index.js'
-
-export {Bud, Bud as default, extensions}
+export {Bud, Bud as default}

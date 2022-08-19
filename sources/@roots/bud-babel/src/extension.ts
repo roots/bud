@@ -9,7 +9,7 @@ import {Config} from './config.js'
  *
  * @public
  */
-@label('@roots/bud-babel')
+@label(`@roots/bud-babel`)
 export default class BabelExtension extends Extension<any, null> {
   /**
    * Babel cache directory
@@ -17,7 +17,7 @@ export default class BabelExtension extends Extension<any, null> {
    * @public
    */
   public get cacheDirectory() {
-    return this.app.path(`@storage/cache/babel`)
+    return this.app.path(`@storage`, this.app.label, `cache`, `babel`)
   }
 
   /**
@@ -50,7 +50,7 @@ export default class BabelExtension extends Extension<any, null> {
    */
   @bind
   public setRuleSetItem(ruleSetItem: Build.Item) {
-    return ruleSetItem.setLoader('babel').setOptions(() => ({
+    return ruleSetItem.setLoader(`babel`).setOptions(() => ({
       cacheDirectory: this.cacheDirectory,
       presets: Object.values(this.app.babel.presets),
       plugins: Object.values(this.app.babel.plugins),
@@ -80,60 +80,60 @@ export default class BabelExtension extends Extension<any, null> {
   @bind
   public async register() {
     const presetEnv = await this.resolve(
-      '@babel/preset-env',
+      `@babel/preset-env`,
       import.meta.url,
     )
-    if (presetEnv) this.app.babel.setPreset('@babel/preset-env', presetEnv)
+    if (presetEnv) this.app.babel.setPreset(`@babel/preset-env`, presetEnv)
 
     const transformRuntime = await this.resolve(
-      '@babel/plugin-transform-runtime',
+      `@babel/plugin-transform-runtime`,
       import.meta.url,
     )
     transformRuntime &&
-      this.app.babel.setPlugin('@babel/plugin-transform-runtime', [
+      this.app.babel.setPlugin(`@babel/plugin-transform-runtime`, [
         transformRuntime,
         {helpers: false},
       ])
 
     const objectRestSpread = await this.resolve(
-      '@babel/plugin-proposal-object-rest-spread',
+      `@babel/plugin-proposal-object-rest-spread`,
       import.meta.url,
     )
     objectRestSpread &&
       this.app.babel.setPlugin(
-        '@babel/plugin-proposal-object-rest-spread',
+        `@babel/plugin-proposal-object-rest-spread`,
         objectRestSpread,
       )
 
     const classProperties = await this.resolve(
-      '@babel/plugin-proposal-class-properties',
+      `@babel/plugin-proposal-class-properties`,
       import.meta.url,
     )
     classProperties &&
       this.app.babel.setPlugin(
-        '@babel/plugin-proposal-class-properties',
+        `@babel/plugin-proposal-class-properties`,
         classProperties,
       )
 
     const dynamicImport = await this.resolve(
-      '@babel/plugin-syntax-dynamic-import',
+      `@babel/plugin-syntax-dynamic-import`,
       import.meta.url,
     )
     dynamicImport &&
       this.app.babel.setPlugin(
-        '@babel/plugin-syntax-dynamic-import',
+        `@babel/plugin-syntax-dynamic-import`,
         dynamicImport,
       )
 
-    const loader = await this.resolve('babel-loader', import.meta.url)
+    const loader = await this.resolve(`babel-loader`, import.meta.url)
     if (!loader) {
-      return this.logger.error('Babel loader not found')
+      return this.logger.error(`Babel loader not found`)
     }
 
     this.app.build
-      .setLoader('babel', loader)
-      .setItem('babel', this.setRuleSetItem)
+      .setLoader(`babel`, loader)
+      .setItem(`babel`, this.setRuleSetItem)
 
-    this.app.build.rules.js.setUse(items => ['babel', ...items])
+    this.app.build.rules.js.setUse(items => [`babel`, ...items])
   }
 }

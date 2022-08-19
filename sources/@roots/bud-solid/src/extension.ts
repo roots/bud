@@ -5,12 +5,12 @@ import {
   label,
 } from '@roots/bud-framework/extension/decorators'
 
-@label('@roots/bud-solid')
-@dependsOn(['@roots/bud-babel'])
+@label(`@roots/bud-solid`)
+@dependsOn([`@roots/bud-babel`])
 export default class BudSolid extends Extension {
   @bind
   public async boot() {
-    const preset = await this.resolve('babel-preset-solid')
-    this.app.babel.setPreset('babel-preset-solid', preset)
+    const preset = await this.resolve(`babel-preset-solid`)
+    this.app.babel.setPreset(`babel-preset-solid`, preset)
   }
 }

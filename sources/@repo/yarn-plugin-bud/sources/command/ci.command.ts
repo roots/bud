@@ -14,7 +14,7 @@ export class CI extends Command {
    *
    * @internal
    */
-  public static label = '@bud ci'
+  public static label = `@bud ci`
 
   /**
    * Command paths
@@ -53,5 +53,9 @@ export class CI extends Command {
     await this.$(`yarn @bud release --tag latest`)
     await this.$(`yarn @bud test integration`)
     await this.$(`yarn @bud test e2e`)
+  }
+
+  public async err(error: Error) {
+    this.log(error.message)
   }
 }

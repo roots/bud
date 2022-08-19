@@ -55,7 +55,7 @@ export class TestIntegration extends Command {
     await ensureFile(join(paths.root, `storage/yarn.lock`))
     await ensureDir(join(paths.root, `storage/mocks`))
     await remove(join(paths.root, `storage/mocks`))
-    this.log('integration tests directory cleaned')
+    this.log(`integration tests directory cleaned`)
 
     await this.$(
       this.withPassthrough(

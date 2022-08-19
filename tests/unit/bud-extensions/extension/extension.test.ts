@@ -8,14 +8,14 @@ const mockRegister = jest.fn()
 const mockBoot = jest.fn()
 
 class MockExtension extends Extension {
-  public label = 'mock-extension'
+  public label = `mock-extension`
   public options = {
-    foo: 'bar',
+    foo: `bar`,
     obj: {
-      inner: 'value',
+      inner: `value`,
     },
-    fn: () => 'value',
-    callback: () => () => 'value',
+    fn: () => `value`,
+    callback: () => () => `value`,
   }
 
   public init: any = mockInit
@@ -27,7 +27,7 @@ const resetExtensions = bud => {
   bud.extensions.repository = {}
 }
 
-describe('extension', function () {
+describe(`extension`, function () {
   let bud: Bud
 
   beforeAll(async () => {
@@ -38,138 +38,138 @@ describe('extension', function () {
     resetExtensions(bud)
   })
 
-  it('is registrable', async () => {
+  it(`is registrable`, async () => {
     await bud.extensions.add(MockExtension as any)
     expect(Object.keys(bud.extensions.repository).pop()).toBe(
-      'mock-extension',
+      `mock-extension`,
     )
   })
 
-  it('init', async () => {
+  it(`init`, async () => {
     bud.extensions.set(new MockExtension(bud) as any)
-    await bud.extensions.run(bud.extensions.get('mock-extension'), '_init')
+    await bud.extensions.run(bud.extensions.get(`mock-extension`), `_init`)
     expect(mockInit).toHaveBeenCalled()
   })
 
-  it('register', async () => {
+  it(`register`, async () => {
     bud.extensions.set(new MockExtension(bud) as any)
     await bud.extensions.run(
-      bud.extensions.get('mock-extension'),
-      '_register',
+      bud.extensions.get(`mock-extension`),
+      `_register`,
     )
     expect(mockRegister).toHaveBeenCalled()
   })
 
-  it('boot', async () => {
+  it(`boot`, async () => {
     bud.extensions.set(new MockExtension(bud) as any)
-    await bud.extensions.run(bud.extensions.get('mock-extension'), '_boot')
+    await bud.extensions.run(bud.extensions.get(`mock-extension`), `_boot`)
     expect(mockBoot).toHaveBeenCalled()
   })
 
-  it('boot', async () => {
+  it(`boot`, async () => {
     bud.extensions.set(new MockExtension(bud) as any)
-    await bud.extensions.run(bud.extensions.get('mock-extension'), '_boot')
+    await bud.extensions.run(bud.extensions.get(`mock-extension`), `_boot`)
     expect(mockBoot).toHaveBeenCalled()
   })
 
-  it('options', async () => {
+  it(`options`, async () => {
     bud.extensions.set(new MockExtension(bud) as any)
-    expect(bud.extensions.get('mock-extension').options).toEqual(
+    expect(bud.extensions.get(`mock-extension`).options).toEqual(
       expect.objectContaining({
-        foo: 'bar',
+        foo: `bar`,
         obj: expect.objectContaining({
-          inner: 'value',
+          inner: `value`,
         }),
-        fn: 'value',
+        fn: `value`,
         callback: expect.any(Function),
       }),
     )
   })
 
-  it('setOption', async () => {
+  it(`setOption`, async () => {
     bud.extensions.set(new MockExtension(bud) as any)
 
-    const instance = bud.extensions.get('mock-extension')
+    const instance = bud.extensions.get(`mock-extension`)
 
     // @ts-ignore
-    instance.setOption('fn', 'baz')
+    instance.setOption(`fn`, `baz`)
 
     // @ts-ignore
-    expect(instance.getOption('fn')).toBe('baz')
+    expect(instance.getOption(`fn`)).toBe(`baz`)
 
-    expect(bud.extensions.get('mock-extension').options).toEqual(
+    expect(bud.extensions.get(`mock-extension`).options).toEqual(
       expect.objectContaining({
-        foo: 'bar',
+        foo: `bar`,
         obj: expect.objectContaining({
-          inner: 'value',
+          inner: `value`,
         }),
-        fn: 'baz',
+        fn: `baz`,
         callback: expect.any(Function),
       }),
     )
   })
 
-  it('setOptions', async () => {
+  it(`setOptions`, async () => {
     bud.extensions.set(new MockExtension(bud) as any)
 
-    const instance = bud.extensions.get('mock-extension')
+    const instance = bud.extensions.get(`mock-extension`)
 
     // @ts-ignore
-    instance.setOptions({changed: 'options'})
+    instance.setOptions({changed: `options`})
     // @ts-ignore
-    expect(instance.getOption('changed')).toBe('options')
+    expect(instance.getOption(`changed`)).toBe(`options`)
 
-    expect(bud.extensions.get('mock-extension').options).toEqual(
+    expect(bud.extensions.get(`mock-extension`).options).toEqual(
       expect.objectContaining({
-        changed: 'options',
+        changed: `options`,
       }),
     )
   })
 
-  it('setOptions (callback)', async () => {
+  it(`setOptions (callback)`, async () => {
     bud.extensions.set(new MockExtension(bud) as any)
 
-    const instance = bud.extensions.get('mock-extension')
+    const instance = bud.extensions.get(`mock-extension`)
     // @ts-ignore
     instance.setOptions(opts => {
       expect(opts).toEqual(
         expect.objectContaining({
-          foo: 'bar',
+          foo: `bar`,
           obj: expect.objectContaining({
-            inner: 'value',
+            inner: `value`,
           }),
-          fn: 'value',
+          fn: `value`,
           callback: expect.any(Function),
         }),
       )
     })
   })
 
-  it('setOptions 2 (callback)', async () => {
+  it(`setOptions 2 (callback)`, async () => {
     bud.extensions.set(new MockExtension(bud) as any)
 
-    const instance = bud.extensions.get('mock-extension')
+    const instance = bud.extensions.get(`mock-extension`)
     // @ts-ignore
     instance.setOptions(opts => ({
       ...opts,
-      changed: 'options',
+      changed: `options`,
     }))
     // @ts-ignore
-    expect(instance.getOption('changed')).toBe('options')
+    expect(instance.getOption(`changed`)).toBe(`options`)
 
-    expect(bud.extensions.get('mock-extension').options).toEqual(
+    expect(bud.extensions.get(`mock-extension`).options).toEqual(
       instance.options,
     )
 
-    expect(bud.extensions.get('mock-extension').options).toEqual(
+    expect(bud.extensions.get(`mock-extension`).options).toEqual(
       expect.objectContaining({
-        foo: 'bar',
+        foo: `bar`,
         obj: expect.objectContaining({
-          inner: 'value',
+          inner: `value`,
         }),
-        fn: 'value',
-        callback: 'value',
-        changed: 'options',
+        fn: `value`,
+        callback: `value`,
+        changed: `options`,
       }),
     )
   })

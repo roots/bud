@@ -12,7 +12,7 @@ export class Dev extends Command {
    *
    * @internal
    */
-  public static label = '@bud dev'
+  public static label = `@bud dev`
 
   /**
    * Command paths

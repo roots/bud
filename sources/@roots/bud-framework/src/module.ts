@@ -37,7 +37,7 @@ export class Module {
   @memo()
   public async getDirectory(signifier: string, parent?: string) {
     return await this.resolve(signifier, parent)
-      .then(path => path.replace('file://', ''))
+      .then(path => path.replace(`file://`, ``))
       .then(this.require.resolve)
       .then(path =>
         relative(parent ?? this.app.root.context.basedir, path),
@@ -56,7 +56,7 @@ export class Module {
   @memo()
   public async getManifestPath(pkgName: string) {
     return await this.getDirectory(pkgName).then(dir =>
-      join(dir, 'package.json'),
+      join(dir, `package.json`),
     )
   }
 
@@ -89,16 +89,16 @@ export class Module {
     parent?: string,
   ): Promise<string> {
     const context =
-      parent ?? `file://${this.app.root.path('./package.json')}`
+      parent ?? `file://${this.app.root.path(`./package.json`)}`
 
     try {
       const resolvedPath = await resolve(signifier, context)
       const normalized = normalize(
-        resolvedPath.replace('file://', '').replace(/%20/g, ' '),
+        resolvedPath.replace(`file://`, ``).replace(/%20/g, ` `),
       )
       return normalized
     } catch (err) {
-      this.app.info(signifier, 'not resolvable', `(context: ${context})`)
+      this.app.info(signifier, `not resolvable`, `(context: ${context})`)
     }
   }
 
@@ -115,11 +115,11 @@ export class Module {
     context?: string,
   ): Promise<T> {
     if (!context)
-      context = `file://${this.app.root.path('./package.json')}`
+      context = `file://${this.app.root.path(`./package.json`)}`
     const modulePath = await this.resolve(signifier, context)
     const result = await import(modulePath)
     if (!result) {
-      this.app.error(signifier, 'not found')
+      this.app.error(signifier, `not found`)
       return {} as T
     }
 

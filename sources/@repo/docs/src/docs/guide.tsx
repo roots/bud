@@ -10,15 +10,15 @@ export const Guide = () => {
     <section className={clsx(styles.section)}>
       <div className="container">
         <div
-          className={clsx('row', 'margin-bottom--lg', 'margin-top--lg')}
+          className={clsx(`row`, `margin-bottom--lg`, `margin-top--lg`)}
         >
           <div className="col col--6">
             <div className="col-demo">
               <header>
                 <h2
                   className={clsx(
-                    'margin-bottom--lg',
-                    'text--left',
+                    `margin-bottom--lg`,
+                    `text--left`,
                     styles.featureHeading,
                   )}
                 >
@@ -30,7 +30,7 @@ export const Guide = () => {
         </div>
 
         <div
-          className={clsx('row', 'margin-bottom--lg', 'margin-top--lg')}
+          className={clsx(`row`, `margin-bottom--lg`, `margin-top--lg`)}
         >
           <div className="col col--6">
             <div className="col-demo">
@@ -54,7 +54,7 @@ export const Guide = () => {
           </div>
         </div>
 
-        <div className={clsx('row', 'margin-top--lg')}>
+        <div className={clsx(`row`, `margin-top--lg`)}>
           <div className="col col--6">
             <div className="col-demo">
               <header>
@@ -63,7 +63,7 @@ export const Guide = () => {
                 <p>
                   Checkmate... Do you have any idea how long it takes those
                   cups to decompose. Hey, take a look at the earthlings.
-                  Goodbye!{' '}
+                  Goodbye!{` `}
                 </p>
               </header>
             </div>
@@ -80,7 +80,7 @@ export const Guide = () => {
           </div>
         </div>
 
-        <div className={clsx('row', 'margin-top--lg')}>
+        <div className={clsx(`row`, `margin-top--lg`)}>
           <div className="col col--6">
             <div className="col-demo">
               <header>

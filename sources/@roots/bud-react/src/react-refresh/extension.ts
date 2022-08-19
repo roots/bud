@@ -25,7 +25,7 @@ import * as reduceEntries from './reducers.js'
  * @decorator `@options`
  * @decorator `@development`
  */
-@label('@roots/bud-react/react-refresh')
+@label(`@roots/bud-react/react-refresh`)
 @plugin(RefreshPlugin)
 @options({overlay: false})
 @development
@@ -57,20 +57,20 @@ export default class BudReactRefresh extends Extension<
    */
   @bind
   public async afterConfig() {
-    this.logger.log('Injecting react-refresh/client scripts')
+    this.logger.log(`Injecting react-refresh/client scripts`)
     if (!this.app.hasChildren)
-      this.app.hooks.on('build.entry', reduceEntries.add)
+      this.app.hooks.on(`build.entry`, reduceEntries.add)
     else
       Object.values(this.app.children).forEach(instance =>
-        instance.hooks.on('build.entry', reduceEntries.add),
+        instance.hooks.on(`build.entry`, reduceEntries.add),
       )
 
     if (!this.transformExtension) {
       const signifier = this.app.react.useBabel
-        ? '@roots/bud-react/babel-refresh'
-        : this.app.extensions.has('@roots/bud-swc')
-        ? '@roots/bud-react/swc-refresh'
-        : '@roots/bud-react/typescript-refresh'
+        ? `@roots/bud-react/babel-refresh`
+        : this.app.extensions.has(`@roots/bud-swc`)
+        ? `@roots/bud-react/swc-refresh`
+        : `@roots/bud-react/typescript-refresh`
 
       const transformExtension = await this.import(signifier)
       await this.app.extensions.add(transformExtension)
@@ -78,7 +78,7 @@ export default class BudReactRefresh extends Extension<
     }
 
     this.logger.log(
-      'Registering transformer',
+      `Registering transformer`,
       this.transformExtension.label,
     )
   }
@@ -118,7 +118,7 @@ export default class BudReactRefresh extends Extension<
   @bind
   public configure(userOptions?: Options | boolean): this {
     this.app.hooks.action(
-      'config.after',
+      `config.after`,
       this.makeReactRefreshCallback(userOptions),
     )
 

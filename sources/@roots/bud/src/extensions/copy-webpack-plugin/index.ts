@@ -16,7 +16,7 @@ import CopyWebpackPlugin, {PluginOptions} from 'copy-webpack-plugin'
  * @decorator `@options`
  * @decorator `@when`
  */
-@label('copy-webpack-plugin')
+@label(`copy-webpack-plugin`)
 @plugin(CopyWebpackPlugin)
 @options<PluginOptions>({patterns: []})
 @when(async (_app, options) => options.patterns?.length > 0)

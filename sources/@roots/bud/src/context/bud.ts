@@ -12,13 +12,11 @@ export default class Bud {
   public data: {
     label: string
     basedir: string
-    dirname: string
     version: string
     manifestPath: string
   } = {
     label: null,
     basedir: null,
-    dirname: null,
     version: null,
     manifestPath: null,
   }
@@ -30,9 +28,9 @@ export default class Bud {
    */
   @bind
   public async find(): Promise<this> {
-    this.data.dirname = dirname(fileURLToPath(import.meta.url))
+    this.data.basedir = dirname(fileURLToPath(import.meta.url))
     this.data.manifestPath = resolve(
-      join(this.data.dirname, '..', '..', 'package.json'),
+      join(this.data.basedir, `..`, `..`, `package.json`),
     )
     await this.handleFindResults(this.data.manifestPath)
     return this
@@ -47,12 +45,10 @@ export default class Bud {
   public async handleFindResults(path: string): Promise<this> {
     const manifest = await fs.readJson(path)
 
+    this.data.label = manifest.name.split(sep).pop()
     Object.entries(manifest).map(([k, v]) => {
       this.data[k] = v
     })
-
-    this.data.label = manifest.name.split(sep).pop()
-    this.data.basedir = dirname(this.data.manifestPath)
 
     return this
   }

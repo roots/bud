@@ -17,11 +17,11 @@ import type {Options} from './extension.js'
  * @decorator `@plugin`
  * @decorator `@options`
  */
-@label('@roots/bud-compress/brotli')
+@label(`@roots/bud-compress/brotli`)
 @plugin(Plugin)
 @options<Options>({
-  algorithm: 'brotliCompress',
-  filename: '[name].br[query]',
+  algorithm: `brotliCompress`,
+  filename: `[name].br[query]`,
   test: /\.js$|\.css$|\.html$|\.htm$/,
   compressionOptions: {level: 11},
   threshold: 10240,
@@ -37,7 +37,7 @@ export default class BudBrotli extends Extension<Options, Plugin> {
    */
   @bind
   public async register() {
-    this.app.api.bindFacade('brotli', this.config)
+    this.app.api.bindFacade(`brotli`, this.config)
   }
 
   /**
@@ -48,7 +48,7 @@ export default class BudBrotli extends Extension<Options, Plugin> {
    */
   @bind
   public async config(options: Options): Promise<Bud> {
-    this.app.hooks.on('feature.brotli', true)
+    this.app.hooks.on(`feature.brotli`, true)
 
     options && this.setOptions(options)
 
@@ -65,6 +65,6 @@ export default class BudBrotli extends Extension<Options, Plugin> {
    */
   @bind
   public async when() {
-    return this.app.hooks.filter('feature.brotli')
+    return this.app.hooks.filter(`feature.brotli`)
   }
 }

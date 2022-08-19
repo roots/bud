@@ -17,7 +17,7 @@ export const proxy = (app: Bud) => {
 
   const options: Options = {
     autoRewrite: app.hooks.filter(
-      'dev.middleware.proxy.options.autoRewrite',
+      `dev.middleware.proxy.options.autoRewrite`,
       true,
     ),
 
@@ -64,7 +64,7 @@ export const proxy = (app: Bud) => {
     /**
      * Log provider
      */
-    logProvider: () => app.logger.instance.scope('proxy'),
+    logProvider: () => app.logger.instance.scope(`proxy`),
 
     /**
      * Proxy request handler
@@ -87,7 +87,7 @@ export const proxy = (app: Bud) => {
      */
     protocolRewrite: app.hooks.filter(
       `dev.middleware.proxy.options.protocolRewrite`,
-      url.dev.protocol === 'https:' ? 'https' : null,
+      url.dev.protocol === `https:` ? `https` : null,
     ),
 
     /**
@@ -106,8 +106,11 @@ export const proxy = (app: Bud) => {
     /**
      * Target
      */
-    target: app.hooks.filter('dev.middleware.proxy.target', url.proxy),
+    target: app.hooks.filter(`dev.middleware.proxy.target`, url.proxy),
   }
 
-  return createProxyMiddleware(['**', '!/__bud/**'], options)
+  return createProxyMiddleware(
+    app.hooks.filter(`dev.middleware.proxy.paths`, [`**`, `!/__bud/**`]),
+    app.hooks.filter(`dev.middleware.proxy.options`, options),
+  )
 }

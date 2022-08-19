@@ -1,5 +1,6 @@
 import {Extension} from '@roots/bud-framework/extension'
 import {
+  bind,
   dependsOn,
   label,
   optIn,
@@ -18,9 +19,9 @@ import {
  * @decorator `@dependsOn`
  * @decorator `@optIn`
  */
-@label('@roots/bud-preset-recommend')
-@dependsOn(['@roots/bud-entrypoints', '@roots/bud-postcss'])
-@optIn(['@roots/bud-esbuild', '@roots/bud-swc'])
+@label(`@roots/bud-preset-recommend`)
+@dependsOn([`@roots/bud-entrypoints`, `@roots/bud-postcss`])
+@optIn([`@roots/bud-esbuild`, `@roots/bud-swc`])
 export default class BudPresetRecommend extends Extension {
   /**
    * `register` callback
@@ -31,13 +32,14 @@ export default class BudPresetRecommend extends Extension {
    *
    * @public
    */
+  @bind
   public async register() {
     if (
-      this.app.extensions.has('@roots/bud-esbuild') ||
-      this.app.extensions.has('@roots/bud-swc')
+      this.app.extensions.has(`@roots/bud-esbuild`) ||
+      this.app.extensions.has(`@roots/bud-swc`)
     )
       return
 
-    await this.app.extensions.add(await this.import('@roots/bud-babel'))
+    await this.app.extensions.add(await this.import(`@roots/bud-babel`))
   }
 }

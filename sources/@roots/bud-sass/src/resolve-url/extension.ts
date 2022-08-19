@@ -1,7 +1,7 @@
 import {Extension} from '@roots/bud-framework/extension'
 import {label} from '@roots/bud-framework/extension/decorators'
 
-@label('@roots/bud-sass/resolve-url')
+@label(`@roots/bud-sass/resolve-url`)
 export default class BudResolveUrl extends Extension {
   /**
    * Factory {@link Item} resolve-url
@@ -9,14 +9,14 @@ export default class BudResolveUrl extends Extension {
    * @public
    */
   public async register() {
-    const loader = await this.resolve('resolve-url-loader')
+    const loader = await this.resolve(`resolve-url-loader`)
 
-    this.app.build.setLoader('resolveUrl', loader)
-    this.app.build.setItem('resolveUrl', {
-      loader: 'resolveUrl',
+    this.app.build.setLoader(`resolveUrl`, loader)
+    this.app.build.setItem(`resolveUrl`, {
+      loader: `resolveUrl`,
       options: ({path, hooks}) => ({
-        root: path('@src'),
-        sourceMap: hooks.filter('build.devtool') ? true : false,
+        root: path(`@src`),
+        sourceMap: hooks.filter(`build.devtool`) ? true : false,
       }),
     })
   }

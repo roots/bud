@@ -14,7 +14,7 @@ import fs from 'fs-extra'
  * @public
  * @decorator `@label`
  */
-@label('@roots/bud-cache/invalidate-cache')
+@label(`@roots/bud-cache/invalidate-cache`)
 export default class InvalidateCacheExtension extends Extension {
   /**
    * `register` callback
@@ -24,18 +24,22 @@ export default class InvalidateCacheExtension extends Extension {
    */
   @bind public async register() {
     const invalidate = await fs.pathExists(
-      this.app.path(`@storage/cache/invalidate`),
+      this.app.path(`@storage`, `cache`, `invalidate`),
     )
+
     if (this.app.context.args.flush === true || invalidate) {
       await fs.remove(this.app.path(`@storage/cache`))
     }
 
-    this.app.hooks.action('compiler.after', async () => {
+    this.app.hooks.action(`compiler.after`, async () => {
       this.app.compiler.compilation.hooks.done.tap(
         this.label,
         async compiler => {
           if (!compiler.hasErrors()) return
-          await fs.ensureFile(this.app.path(`@storage/cache/invalidate`))
+
+          await fs.ensureFile(
+            this.app.path(`@storage`, `cache`, `invalidate`),
+          )
         },
       )
     })

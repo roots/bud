@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import {Dashboard as Base, Service} from '@roots/bud-framework'
 import {bind} from 'helpful-decorators'
-import {toInteger} from 'lodash-es'
+import type * as Ink from 'ink'
 import type {StatsCompilation} from 'webpack'
 
 /**
@@ -10,6 +10,19 @@ import type {StatsCompilation} from 'webpack'
  * @public
  */
 export class Dashboard extends Service implements Base.Service {
+  /**
+   * Service label
+   *
+   * @public
+   */
+  public static label = `dashboard`
+
+  /**
+   * Ink instance
+   * @public
+   */
+  public instance: Ink.Instance
+
   /**
    * Last hash
    *
@@ -32,7 +45,7 @@ export class Dashboard extends Service implements Base.Service {
    */
   @bind
   public log(...strings: Array<string>): void {
-    this.app.context.stdout.write(strings.join(''))
+    this.app.context.stdout.write(strings.join(``))
   }
 
   /**
@@ -53,36 +66,23 @@ export class Dashboard extends Service implements Base.Service {
       this.log(compilationStats?.toString())
       return this
     }
+
     try {
-      const outputComponents = await import('./render/reporter.js')
+      const {renderDashboard} = await import(`./render/renderer.js`)
+
       const stats: StatsCompilation = compilationStats.toJson()
+
       if (!stats || stats.hash === this.lastHash) return this
       this.lastHash = stats.hash
-      outputComponents.renderResults({stats, app: this.app})
+      this.instance = renderDashboard({
+        stats,
+        app: this.app,
+      })
     } catch (error) {
       this.log(error)
       this.log(compilationStats?.toString())
-      return this
-    }
-
-    if (this.app.isProduction) {
-      this.app.compiler.compilation.running
-        ? this.app.compiler.compilation.close(() => this.app.close())
-        : this.app.close()
     }
 
     return this
-  }
-
-  /**
-   * Progress callback
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public progressCallback(percentage: number): void {
-    if (!percentage || this.app.context.args.ci) return
-    this.percentage = toInteger(percentage * 100)
   }
 }

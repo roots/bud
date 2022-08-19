@@ -46,7 +46,7 @@ export abstract class Bud {
    * @public
    */
   public get mode(): 'development' | 'production' {
-    return this.context.mode ?? 'production'
+    return this.context.mode
   }
 
   /**
@@ -75,7 +75,7 @@ export abstract class Bud {
    * @public
    */
   public get isProduction(): boolean {
-    return this.mode === 'production'
+    return this.mode == `production`
   }
 
   /**
@@ -84,7 +84,7 @@ export abstract class Bud {
    * @public
    */
   public get isDevelopment(): boolean {
-    return this.mode === 'development'
+    return this.mode == `development`
   }
 
   /**
@@ -124,7 +124,7 @@ export abstract class Bud {
     return Object.values(this.children).length > 0
   }
 
-  public services: Services.Registry
+  public services: Services.Registry = {}
 
   public api: Api
 
@@ -302,7 +302,7 @@ export abstract class Bud {
    */
   @bind
   public debug(...messages: any[]): this {
-    process.stdout.write('\n')
+    process.stdout.write(`\n`)
 
     messages.map(message => {
       process.stdout.write(
@@ -313,7 +313,7 @@ export abstract class Bud {
           escapeString: false,
         }),
       )
-      process.stdout.write('\n')
+      process.stdout.write(`\n`)
     })
 
     return this
@@ -350,12 +350,12 @@ export abstract class Bud {
     if (!this.context.args.verbose) return
 
     const prettyFormatOptions = omit(options, [
-      'prefix',
-      'language',
-      'ignoreIllegals',
+      `prefix`,
+      `language`,
+      `ignoreIllegals`,
     ])
 
-    process.stdout.write('\n')
+    process.stdout.write(`\n`)
     process.stdout.write(
       format(obj, {
         callToJSON: false,
@@ -365,7 +365,7 @@ export abstract class Bud {
         ...prettyFormatOptions,
       }),
     )
-    process.stdout.write('\n')
+    process.stdout.write(`\n`)
 
     return this
   }

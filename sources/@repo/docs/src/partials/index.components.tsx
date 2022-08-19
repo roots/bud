@@ -19,7 +19,7 @@ export const Mast = () => {
   const {siteConfig} = useDocusaurusContext()
 
   return (
-    <header className={clsx('hero hero--primary', styles.heroBanner)}>
+    <header className={clsx(`hero hero--primary`, styles.heroBanner)}>
       <div className="container">
         <h1 className="hero__title">
           Bud is a beautiful way to build your CSS and JS
@@ -34,7 +34,7 @@ export const Mast = () => {
             className="button button--outline button--lg"
             to="/guides/getting-started/"
           >
-            Get started{'  '}→
+            Get started{`  `}→
           </Link>
         </div>
       </div>
@@ -56,15 +56,15 @@ export const Testimonials = () => {
       <div className="container">
         <h2
           className={clsx(
-            'margin-bottom--lg',
-            'text--center',
+            `margin-bottom--lg`,
+            `text--center`,
             styles.featureHeading,
           )}
         >
           🎉 Success stories
         </h2>
 
-        <div className={clsx('row', styles.testimonialsSection)}>
+        <div className={clsx(`row`, styles.testimonialsSection)}>
           {testimonialColumns.map((testimonials, i) => (
             <div className="col col--4" key={i}>
               {testimonials.map(testimony => (
@@ -80,10 +80,10 @@ export const Testimonials = () => {
 
 export const Features = () => {
   useEffect(() => {
-    document.querySelectorAll('table td').forEach(td => {
-      if (td.textContent == '✅') td.classList.add(styles.success)
-      if (td.textContent == '❌') td.classList.add(styles.error)
-      if (td.textContent == 'partial') td.classList.add(styles.warning)
+    document.querySelectorAll(`table td`).forEach(td => {
+      if (td.textContent == `✅`) td.classList.add(styles.success)
+      if (td.textContent == `❌`) td.classList.add(styles.error)
+      if (td.textContent == `partial`) td.classList.add(styles.warning)
     })
   }, [])
 

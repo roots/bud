@@ -52,6 +52,13 @@ export default class Hooks
   implements Framework.Hooks.Service
 {
   /**
+   * Service label
+   *
+   * @public
+   */
+  public static label = `hooks`
+
+  /**
    * Hooks store
    *
    * @public
@@ -147,7 +154,7 @@ export default class Hooks
     const inputFn: (
       current?: Framework.Registry.Sync[T],
     ) => Framework.Registry.Sync[T] =
-      typeof input === 'function' ? input : () => input
+      typeof input === `function` ? input : () => input
 
     this.app.info(`hooks.on`, id, input)
     this.set(id, [inputFn])
@@ -185,7 +192,7 @@ export default class Hooks
           current?: Framework.Registry.Async[T],
         ) => Promise<Framework.Registry.Async[T]>),
   ): Framework.Bud {
-    const inputFn = typeof input === 'function' ? input : async () => input
+    const inputFn = typeof input === `function` ? input : async () => input
 
     this.app.info(`hooks.async`, id, input)
     this.set(id, [inputFn as any])

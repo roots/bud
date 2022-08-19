@@ -1,5 +1,4 @@
 import {Service, Services} from '@roots/bud-framework'
-import type {Context} from '@roots/bud-framework/config'
 import fs from 'fs-extra'
 import {bind} from 'helpful-decorators'
 import {createHash} from 'node:crypto'
@@ -16,6 +15,13 @@ export default class Cache
   implements Services.Cache.Service
 {
   /**
+   * Service label
+   *
+   * @public
+   */
+  public static label = `cache`
+
+  /**
    * Enabled
    *
    * @public
@@ -27,12 +33,11 @@ export default class Cache
    *
    * @public
    */
-  protected _name: string
   public get name(): string {
-    return this.app.hooks.filter('build.cache.name')
+    return this.app.hooks.filter(`build.cache.name`)
   }
   public set name(name: string) {
-    this.app.hooks.on('build.cache.name', name)
+    this.app.hooks.on(`build.cache.name`, name)
   }
 
   /**
@@ -40,12 +45,11 @@ export default class Cache
    *
    * @public
    */
-  protected _type: 'memory' | 'filesystem'
   public get type(): 'memory' | 'filesystem' {
-    return this._type
+    return this.app.hooks.filter(`build.cache.type`)
   }
   public set type(type: 'memory' | 'filesystem') {
-    this._type = type
+    this.app.hooks.on(`build.cache.type`, type)
   }
 
   /**
@@ -53,12 +57,11 @@ export default class Cache
    *
    * @public
    */
-  protected _version: string
   public get version(): string {
-    return this._version
+    return this.app.hooks.filter(`build.cache.version`)
   }
   public set version(version: string) {
-    this._version = version
+    this.app.hooks.on(`build.cache.version`, version)
   }
 
   /**
@@ -68,11 +71,12 @@ export default class Cache
    */
   public get buildDependencies(): any {
     return {
-      bud: Object.values(this.app.context.config),
+      config: Object.values(this.app.context.config),
     }
   }
-  public set buildDependencies(deps: Context['config']) {
-    this.app.context.config = deps
+
+  public set buildDependencies(deps: Array<string>) {
+    this.app.context.config.push(...deps)
   }
 
   /**
@@ -80,25 +84,11 @@ export default class Cache
    *
    * @public
    */
-  protected _cacheDirectory: string
   public get cacheDirectory(): string {
-    return this._cacheDirectory
+    return this.app.hooks.filter(`build.cache.cacheDirectory`)
   }
   public set cacheDirectory(directory: string) {
-    this._cacheDirectory = directory
-  }
-
-  /**
-   * Managed paths
-   *
-   * @public
-   */
-  protected _managedPaths: Array<string>
-  public get managedPaths(): Array<string> {
-    return this._managedPaths
-  }
-  public set managedPaths(paths: Array<string>) {
-    this._managedPaths = paths
+    this.app.hooks.on(`build.cache.cacheDirectory`, directory)
   }
 
   /**
@@ -108,7 +98,7 @@ export default class Cache
    */
   public get configuration() {
     if (this.enabled === false) return this.enabled
-    return this.type === 'memory' ? this.memoryCache : this.filesystemCache
+    return this.type == `memory` ? this.memoryCache : this.filesystemCache
   }
 
   /**
@@ -131,10 +121,14 @@ export default class Cache
     return {
       name: this.name,
       type: this.type,
-      version: this.version,
+      store: `pack` as `pack`,
+      allowCollectingMemory: true,
       cacheDirectory: this.cacheDirectory,
-      managedPaths: this.managedPaths,
       buildDependencies: this.buildDependencies,
+      idleTimeout: 10000,
+      idleTimeoutForInitialStore: 0,
+      profile: true,
+      version: this.version,
     }
   }
 
@@ -144,7 +138,8 @@ export default class Cache
    * @public
    * @decorator `@bind`
    */
-  @bind public async register() {
+  @bind
+  public async register() {
     await this.app.extensions.add(InvalidateCacheExtension)
   }
 
@@ -154,11 +149,16 @@ export default class Cache
    * @public
    * @decorator `@bind`
    */
-  @bind public async boot() {
-    this.type = 'filesystem'
-    this.cacheDirectory = this.app.path(`@storage/cache/webpack`)
-    this.managedPaths = [this.app.path(`@modules`)]
-    this.name = `${this.app.label}.${this.app.mode}`
+  @bind
+  public async boot() {
+    this.name = `webpack`
+    this.type = `filesystem`
+    this.cacheDirectory = this.app.path(
+      `@storage`,
+      this.app.label,
+      `cache`,
+      this.app.mode,
+    )
 
     const args = Object.entries(this.app.context.args)
       .filter(([k, v]) => v !== undefined)
@@ -172,7 +172,8 @@ export default class Cache
       .toLowerCase()
   }
 
-  @bind public clean() {
-    fs.removeSync(this.app.path(`@storage/cache`))
+  @bind
+  public flush() {
+    fs.removeSync(this.cacheDirectory)
   }
 }

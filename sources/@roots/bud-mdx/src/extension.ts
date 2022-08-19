@@ -11,8 +11,8 @@ import {
  *
  * @public
  */
-@label('@roots/bud-mdx')
-@dependsOn(['@roots/bud-babel', '@roots/bud-react'])
+@label(`@roots/bud-mdx`)
+@dependsOn([`@roots/bud-babel`, `@roots/bud-react`])
 @options({
   remarkPlugins: {},
   rehypePlugins: {},
@@ -22,11 +22,11 @@ export default class BudMDX extends Extension {
    * Get registered remark plugins.
    */
   public get remarkPlugins(): Record<string, any> {
-    return Object.values(this.getOption('remarkPlugins'))
+    return Object.values(this.getOption(`remarkPlugins`))
   }
   public set remarkPlugins(dictionary: Record<string, any>) {
-    this.setOption('remarkPlugins', {
-      ...this.getOption('remarkPlugins'),
+    this.setOption(`remarkPlugins`, {
+      ...this.getOption(`remarkPlugins`),
       ...dictionary,
     })
   }
@@ -35,11 +35,11 @@ export default class BudMDX extends Extension {
    * Get registered rehype plugins.
    */
   public get rehypePlugins(): Record<string, any> {
-    return Object.values(this.getOption('rehypePlugins'))
+    return Object.values(this.getOption(`rehypePlugins`))
   }
   public set rehypePlugins(dictionary: Record<string, any>) {
-    this.setOption('rehypePlugins', {
-      ...this.getOption('rehypePlugins'),
+    this.setOption(`rehypePlugins`, {
+      ...this.getOption(`rehypePlugins`),
       ...dictionary,
     })
   }
@@ -49,25 +49,25 @@ export default class BudMDX extends Extension {
    */
   @bind
   public async afterConfig() {
-    this.app.hooks.on('build.resolve.extensions', ext =>
-      ext.add('.md').add('.mdx'),
+    this.app.hooks.on(`build.resolve.extensions`, ext =>
+      ext.add(`.md`).add(`.mdx`),
     )
 
-    const loader = await this.resolve('@mdx-js/loader')
+    const loader = await this.resolve(`@mdx-js/loader`)
 
     this.app.build
-      .setLoader('mdx', loader)
-      .setItem('mdx', {
-        loader: 'mdx',
+      .setLoader(`mdx`, loader)
+      .setItem(`mdx`, {
+        loader: `mdx`,
         options: () => ({
           rehypePlugins: this.rehypePlugins,
           remarkPlugins: this.remarkPlugins,
         }),
       })
-      .setRule('mdx', {
+      .setRule(`mdx`, {
         test: /\.mdx?$/,
-        include: [app => app.path('@src')],
-        use: ['babel', 'mdx'],
+        include: [app => app.path(`@src`)],
+        use: [`babel`, `mdx`],
       })
   }
 }

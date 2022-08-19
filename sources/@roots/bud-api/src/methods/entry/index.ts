@@ -17,13 +17,13 @@ export const entry: method = async function (...input) {
 
   if (input.length > 1 && !isString(input[0])) {
     app.error(
-      'the first parameter in a multi-parameter call to bud.entry must be a string',
+      `the first parameter in a multi-parameter call to bud.entry must be a string`,
     )
     return app
   }
 
   if ((input.length == 1 && isString(input[0])) || isArray(input[0])) {
-    input = ['default', input[0]]
+    input = [`default`, input[0]]
   }
 
   const normal = isString(input[0])
@@ -34,7 +34,7 @@ export const entry: method = async function (...input) {
     isGlobular(request) ? await globAssets.bind(this)(request) : request,
   )
 
-  app.hooks.on('build.entry', a =>
+  app.hooks.on(`build.entry`, a =>
     records.reduce((a, [k, v]) => ({...a, [k]: v}), a),
   )
 

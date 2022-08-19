@@ -18,11 +18,11 @@ import type {Options} from './extension.js'
  * @decorator `@plugin`
  * @decorator `@options`
  */
-@label('@roots/bud-compress/gzip')
+@label(`@roots/bud-compress/gzip`)
 @plugin(Plugin)
 @options({
-  algorithm: 'brotliCompress',
-  filename: '[name].br[query]',
+  algorithm: `brotliCompress`,
+  filename: `[name].br[query]`,
   test: /\.js$|\.css$|\.html$|\.htm$/,
   compressionOptions: {level: 11},
   threshold: 10240,
@@ -38,7 +38,7 @@ export default class BudGzip extends Extension<Options, Plugin> {
    */
   @bind
   public async register() {
-    this.app.api.bindFacade('gzip', this.config)
+    this.app.api.bindFacade(`gzip`, this.config)
   }
 
   /**
@@ -49,7 +49,7 @@ export default class BudGzip extends Extension<Options, Plugin> {
    */
   @bind
   public async config(options: Options): Promise<Bud> {
-    this.app.hooks.on('feature.gzip', true)
+    this.app.hooks.on(`feature.gzip`, true)
 
     options && this.setOptions(options)
 
@@ -66,6 +66,6 @@ export default class BudGzip extends Extension<Options, Plugin> {
    */
   @bind
   public async when() {
-    return this.app.hooks.filter('feature.gzip')
+    return this.app.hooks.filter(`feature.gzip`)
   }
 }

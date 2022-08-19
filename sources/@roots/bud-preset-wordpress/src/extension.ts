@@ -9,16 +9,16 @@ import {
 
 import BudBrowsersListCheck from './browserslist-check/extension.js'
 
-@label('@roots/bud-preset-wordpress')
+@label(`@roots/bud-preset-wordpress`)
 @dependsOn([
-  '@roots/bud-entrypoints',
-  '@roots/bud-preset-recommend',
-  '@roots/bud-wordpress-externals',
-  '@roots/bud-wordpress-dependencies',
-  '@roots/bud-wordpress-manifests',
+  `@roots/bud-entrypoints`,
+  `@roots/bud-preset-recommend`,
+  `@roots/bud-wordpress-externals`,
+  `@roots/bud-wordpress-dependencies`,
+  `@roots/bud-wordpress-manifests`,
 ])
 @options({replaceLink: true})
-@expose('wordpress')
+@expose(`wordpress`)
 export default class BudPresetWordPress extends Extension {
   protected _origin: URL
 
@@ -31,9 +31,9 @@ export default class BudPresetWordPress extends Extension {
 
   @bind
   public async init() {
-    if (!this.app.env.has('WP_HOME') || !this.app.env.isString('WP_HOME'))
+    if (!this.app.env.has(`WP_HOME`) || !this.app.env.isString(`WP_HOME`))
       return
-    this.origin = this.app.env.get('WP_HOME')
+    this.origin = this.app.env.get(`WP_HOME`)
   }
 
   @bind
@@ -44,8 +44,8 @@ export default class BudPresetWordPress extends Extension {
      */
     await this.app.extensions.add(BudBrowsersListCheck)
 
-    if (!this.app.extensions.has('@roots/bud-esbuild')) {
-      const {default: react} = await import('@roots/bud-react')
+    if (!this.app.extensions.has(`@roots/bud-esbuild`)) {
+      const {default: react} = await import(`@roots/bud-react`)
       await this.app.extensions.add(react)
     }
 

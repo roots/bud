@@ -16,7 +16,7 @@ import MiniCssPlugin, {PluginOptions} from 'mini-css-extract-plugin'
  * @decorator `@options`
  * @decorator `@production`
  */
-@label('mini-css-extract-plugin')
+@label(`mini-css-extract-plugin`)
 @plugin(MiniCssPlugin)
 @options({
   /**
@@ -28,7 +28,7 @@ import MiniCssPlugin, {PluginOptions} from 'mini-css-extract-plugin'
    * @public
    */
   filename: (app: Bud) =>
-    `css/${app.path('@name').replace('[ext]', '.css')}`,
+    `css/${app.path(`@name`).replace(`[ext]`, `.css`)}`,
 })
 @production
 export default class MiniCssExtract extends Extension<

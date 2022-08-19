@@ -75,11 +75,11 @@ export const getPalette: getPalette = async (path: string) => {
 const name: name = label =>
   label
     .map(label => `${label.charAt(0).toUpperCase()}${label.slice(1)}`)
-    .join(' ')
+    .join(` `)
 
 export const transform: transform = (slug, color) => ({
   name: name(slug),
-  slug: slug.join('-').toLowerCase(),
+  slug: slug.join(`-`).toLowerCase(),
   color: color.toLowerCase(),
 })
 

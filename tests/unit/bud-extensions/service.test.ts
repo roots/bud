@@ -3,7 +3,7 @@ import {Bud, factory} from '@repo/test-kit/bud'
 import {Extensions} from '@roots/bud-extensions'
 import {WebpackPluginInstance} from 'webpack'
 
-describe('Extensions', function () {
+describe(`Extensions`, function () {
   let bud: Bud
 
   let mockWebpackPlugin: WebpackPluginInstance = {
@@ -11,11 +11,11 @@ describe('Extensions', function () {
   }
 
   let options = {
-    test: 'foo',
+    test: `foo`,
   }
 
   let mockModule: any = {
-    label: 'mock_extension',
+    label: `mock_extension`,
     register: jest.fn(async () => null),
     boot: jest.fn(async () => null),
     options: options,
@@ -27,12 +27,12 @@ describe('Extensions', function () {
     bud = await factory()
   })
 
-  it('is constructable', () => {
+  it(`is constructable`, () => {
     const extensions: Extensions = new Extensions(bud)
     expect(extensions).toBeInstanceOf(Extensions)
   })
 
-  it('add fn registers a module', async () => {
+  it(`add fn registers a module`, async () => {
     const extensions: Extensions = new Extensions(bud)
     extensions.repository = {} as any
 

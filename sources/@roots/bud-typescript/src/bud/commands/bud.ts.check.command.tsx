@@ -32,7 +32,7 @@ export class BudTSCheckCommand extends BaseCommand {
   @bind
   public async runCommand() {
     this.app = await factory({
-      mode: 'production',
+      mode: `production`,
       ...this.context,
       args: {
         ...this.context.args,
@@ -41,7 +41,7 @@ export class BudTSCheckCommand extends BaseCommand {
     })
 
     const hasTsConfig = await fs.pathExists(
-      this.app.path('./tsconfig.json'),
+      this.app.path(`./tsconfig.json`),
     )
 
     if (!hasTsConfig) {
@@ -51,21 +51,21 @@ export class BudTSCheckCommand extends BaseCommand {
     }
 
     try {
-      const check = execa('tsc', ['--noEmit'])
+      const check = execa(`tsc`, [`--noEmit`])
 
       this.context.stdout.write(`checking types\n`)
 
-      check.stdout.on('data', message => {
+      check.stdout.on(`data`, message => {
         this.context.stdout.write(message.toString())
       })
-      check.stderr.on('data', message => {
+      check.stderr.on(`data`, message => {
         this.app.error(message.toString())
       })
 
       await check
     } catch (error) {
       this.context.stderr.write(
-        [chalk.bgRed.whiteBright('error'), 'bud ts check'].join(' '),
+        [chalk.bgRed.whiteBright(`error`), `bud ts check`].join(` `),
       )
       this.context.stderr.write(`\n${error.message}\n`)
       return

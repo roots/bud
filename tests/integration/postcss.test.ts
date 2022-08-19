@@ -6,27 +6,27 @@ const test = (pacman: 'yarn' | 'npm') => () => {
 
   beforeAll(async () => {
     project = await new Project({
-      label: '@examples/postcss',
+      label: `@examples/postcss`,
       with: pacman,
     }).setup()
   })
 
-  describe('main.css', () => {
-    it('has contents', () => {
-      expect(project.assets['app.css'].length).toBeGreaterThan(10)
+  describe(`main.css`, () => {
+    it(`has contents`, () => {
+      expect(project.assets[`app.css`].length).toBeGreaterThan(10)
     })
 
-    it('is transpiled', () => {
-      expect(project.assets['app.css'].includes('@import')).toBeFalsy()
+    it(`is transpiled`, () => {
+      expect(project.assets[`app.css`].includes(`@import`)).toBeFalsy()
     })
 
-    it('successfully used @import', () => {
-      expect(project.assets['app.css'].includes('h2')).toBeTruthy()
+    it(`successfully used @import`, () => {
+      expect(project.assets[`app.css`].includes(`h2`)).toBeTruthy()
     })
   })
 }
 
-describe('postcss', () => {
-  describe('yarn', test('yarn'))
-  describe('npm', test('npm'))
+describe(`postcss`, () => {
+  describe(`yarn`, test(`yarn`))
+  describe(`npm`, test(`npm`))
 })

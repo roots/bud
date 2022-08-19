@@ -15,7 +15,7 @@ export class Clean extends Command {
    *
    * @internal
    */
-  public static label = '@bud clean'
+  public static label = `@bud clean`
 
   /**
    * Command paths

@@ -1,11 +1,12 @@
-import {factory} from '@roots/bud'
+import {factory} from '@roots/bud/factory'
 
-describe('bud', () => {
-  it('name options', async () => {
+describe(`bud`, () => {
+  it(`name options`, async () => {
     const bud = await factory({
-      label: 'foo',
+      label: `foo`,
+      mode: `production`,
     })
 
-    expect(bud.label).toBe('foo')
+    expect(bud.label).toBe(`foo`)
   })
 })

@@ -19,7 +19,7 @@ import {
  * @decorator `@options`
  * @decorator `@when`
  */
-@label('clean-webpack-plugin')
+@label(`clean-webpack-plugin`)
 @plugin(CleanWebpackPlugin)
 @options({
   /**
@@ -41,11 +41,11 @@ import {
    *
    * @public
    */
-  cleanOnceBeforeBuildPatterns: ['**/*'],
+  cleanOnceBeforeBuildPatterns: [`**/*`],
 })
 @when(
   async ({hooks, isProduction}) =>
-    hooks.filter('feature.clean') && isProduction,
+    hooks.filter(`feature.clean`) && isProduction,
 )
 export default class BudClean extends Extension<
   PluginOptions,

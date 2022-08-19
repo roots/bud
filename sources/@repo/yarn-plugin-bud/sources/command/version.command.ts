@@ -13,7 +13,7 @@ export class Version extends Command {
    *
    * @internal
    */
-  public static label = '@bud version'
+  public static label = `@bud version`
 
   /**
    * Command paths

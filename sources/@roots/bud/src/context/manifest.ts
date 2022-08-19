@@ -25,9 +25,10 @@ export default class Manifest {
    */
   @bind
   public async read() {
-    if (!this.config['package.json']) return this
+    if (!this.config[`package.json`]) return this
 
-    this.data = await fs.readJson(this.config['package.json'], 'utf8')
+    this.data = await fs.readJson(this.config[`package.json`], `utf8`)
+
     return this
   }
 }

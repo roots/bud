@@ -7,8 +7,7 @@
     ]
   },
   "eslint.options": {
-    "overrideConfigFile": "config/eslint.config.cjs",
-    "ignorePath": "config/.eslintignore"
+    "overrideConfigFile": "config/eslint.config.cjs"
   },
   "eslint.nodePath": ".yarn/sdks/eslint",
   "eslint.validate": ["javascript", "typescript"],
@@ -27,6 +26,7 @@
     "**/Thumbs.db": true,
     "**/node_modules": false
   },
+  "jestrunner.configPath": "config/jest.config.js",
   "search.exclude": {
     ".yarn": true,
     ".git": true,

@@ -18,7 +18,7 @@ export interface publicPath {
 export const publicPath: publicPath = function (): string {
   const ctx = this as Bud
 
-  const value = ctx.hooks.filter('build.output.publicPath')
+  const value = ctx.hooks.filter(`build.output.publicPath`)
 
   return value
 }

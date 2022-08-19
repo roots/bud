@@ -55,7 +55,7 @@
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/connect": "^3",
+    "@types/connect": "3.4.35",
     "@types/cookie-parser": "1.4.3",
     "@types/express": "4.17.13",
     "@types/node": "16.11.48",

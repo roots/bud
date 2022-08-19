@@ -12,7 +12,7 @@ export interface run {
 export const run: run = async function (): Promise<void> {
   const app = this as Bud
 
-  await app.hooks.fire('run')
+  await app.hooks.fire(`run`)
 
   const development = app.server?.run
 

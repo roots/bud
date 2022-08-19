@@ -1,7 +1,7 @@
 import {Bud, factory} from '@repo/test-kit/bud'
 import {provide as provideMethod} from '@roots/bud-api/methods/provide'
 
-describe('bud.provide', () => {
+describe(`bud.provide`, () => {
   let bud: Bud
   let provide: provideMethod
 
@@ -10,21 +10,21 @@ describe('bud.provide', () => {
     provide = provideMethod.bind(bud)
   })
 
-  it('should be a function', () => {
+  it(`should be a function`, () => {
     expect(provide).toBeInstanceOf(Function)
     expect(bud.provide).toBeInstanceOf(Function)
   })
 
-  it('should modify webpack-provide-plugin options', async () => {
-    bud.provide({jquery: ['$', 'jQuery']})
+  it(`should modify webpack-provide-plugin options`, async () => {
+    bud.provide({jquery: [`$`, `jQuery`]})
 
     await bud.api.processQueue()
 
     expect(
-      bud.extensions.get('webpack:provide-plugin').options,
+      bud.extensions.get(`webpack:provide-plugin`).options,
     ).toStrictEqual({
-      jQuery: 'jquery',
-      $: 'jquery',
+      jQuery: `jquery`,
+      $: `jquery`,
     })
   })
 })

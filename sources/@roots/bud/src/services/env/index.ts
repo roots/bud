@@ -7,7 +7,14 @@ import {bind} from 'helpful-decorators'
  *
  * @public
  */
-export class Env extends ContainerService implements Base.Service {
+export default class Env extends ContainerService implements Base.Service {
+  /**
+   * Service label
+   *
+   * @public
+   */
+  public static label = `env`
+
   /**
    * Bootstrap event callback
    *
@@ -42,7 +49,7 @@ export class Env extends ContainerService implements Base.Service {
    */
   @bind
   public transformPublicEnv([rawKey, rawValue]: [string, string]) {
-    return [rawKey.replace('PUBLIC_', ''), rawValue]
+    return [rawKey.replace(`PUBLIC_`, ``), rawValue]
   }
 
   /**
@@ -52,6 +59,6 @@ export class Env extends ContainerService implements Base.Service {
    */
   @bind
   public filterPublicEnv([key]: [string, string]) {
-    return key.startsWith('PUBLIC_')
+    return key.startsWith(`PUBLIC_`)
   }
 }

@@ -9,7 +9,7 @@ import eventCompilerDone from './hooks/event.compiler.done.js'
  * @public
  * @decorator `@label`
  */
-@label('@roots/sage/acorn')
+@label(`@roots/sage/acorn`)
 export default class Acorn extends Extension {
   /**
    * `register` callback
@@ -30,7 +30,7 @@ export default class Acorn extends Extension {
      * Write hmr.json
      */
     this.app.isDevelopment &&
-      this.app.hooks.action('compiler.close', eventCompilerDone)
+      this.app.hooks.action(`compiler.close`, eventCompilerDone)
   }
 
   /**
@@ -39,14 +39,14 @@ export default class Acorn extends Extension {
   @bind
   public async afterConfig() {
     this.app.extensions
-      .get('@roots/bud-entrypoints')
-      .setOption('publicPath', '')
+      .get(`@roots/bud-entrypoints`)
+      .setOption(`publicPath`, ``)
 
     this.app.extensions
-      .get('webpack-manifest-plugin')
-      .setOption('publicPath', '')
+      .get(`webpack-manifest-plugin`)
+      .setOption(`publicPath`, ``)
 
-    this.app.isDevelopment && this.app.setPublicPath('/')
+    this.app.isDevelopment && this.app.setPublicPath(`/`)
   }
 
   /**
@@ -57,6 +57,6 @@ export default class Acorn extends Extension {
    */
   @bind
   public svgGenerator({path, relPath}) {
-    return {filename: relPath(path('@dist'), path('@dist/images/@name'))}
+    return {filename: relPath(path(`@dist`), path(`@dist/images/@name`))}
   }
 }

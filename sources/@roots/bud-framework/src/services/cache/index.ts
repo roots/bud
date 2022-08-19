@@ -51,13 +51,6 @@ export interface Service extends BaseService {
   cacheDirectory: string
 
   /**
-   * Managed paths
-   *
-   * @public
-   */
-  managedPaths: Array<string>
-
-  /**
    * Cache configuration
    *
    * @public
@@ -78,5 +71,5 @@ export interface Service extends BaseService {
    */
   filesystemCache: Configuration['cache']
 
-  clean: () => void
+  flush: () => void
 }

@@ -14,7 +14,7 @@ export const Component = () => {
       <div className="row">
         {Object.entries(manifest.contributors).map(
           ([user, info], id) => (
-            <div key={id} className={clsx('col col--3')}>
+            <div key={id} className={clsx(`col col--3`)}>
               <Contributor.Component id={user} {...info} />
             </div>
           ),

@@ -22,7 +22,7 @@ export default class Container<I = any> {
    *
    * @public
    */
-  public ident?: string = 'container'
+  public ident?: string = `container`
 
   /**
    * The container store
@@ -74,7 +74,7 @@ export default class Container<I = any> {
   @bind
   public setStore(repository: Repository): this {
     if (_.isUndefined(repository)) {
-      throw new Error('Repository cannot be empty')
+      throw new Error(`Repository cannot be empty`)
     }
 
     this.repository = repository

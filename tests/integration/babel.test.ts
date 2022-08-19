@@ -6,29 +6,29 @@ const run = pacman => () => {
 
   beforeAll(async () => {
     project = await new Project({
-      label: '@examples/babel',
+      label: `@examples/babel`,
       with: pacman,
     }).setup()
   })
 
-  describe('app.js', () => {
-    it('has contents', () => {
-      expect(project.assets['app.js'].length).toBeGreaterThan(10)
+  describe(`app.js`, () => {
+    it(`has contents`, () => {
+      expect(project.assets[`app.js`].length).toBeGreaterThan(10)
     })
 
-    it('is transpiled', () => {
-      expect(project.assets['app.js'].includes('import')).toBeFalsy()
+    it(`is transpiled`, () => {
+      expect(project.assets[`app.js`].includes(`import`)).toBeFalsy()
     })
   })
 
-  describe('manifest.json', () => {
-    it('matches snapshot', () => {
+  describe(`manifest.json`, () => {
+    it(`matches snapshot`, () => {
       expect(project.manifest).toMatchSnapshot()
     })
   })
 }
 
-describe('babel', () => {
-  describe('npm', run('npm'))
-  describe('yarn', run('yarn'))
+describe(`babel`, () => {
+  describe(`npm`, run(`npm`))
+  describe(`yarn`, run(`yarn`))
 })

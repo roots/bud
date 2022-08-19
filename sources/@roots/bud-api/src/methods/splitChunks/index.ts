@@ -45,7 +45,7 @@ export const method: method = function (options) {
    * will omit it from the configuration entirely.
    */
   if (options === false) {
-    ctx.hooks.on('build.optimization.splitChunks', () => false)
+    ctx.hooks.on(`build.optimization.splitChunks`, () => false)
     return ctx
   }
 
@@ -54,14 +54,14 @@ export const method: method = function (options) {
    * cache groups are added to the build
    */
   if (options === true || isUndefined(options)) {
-    ctx.hooks.on('build.optimization.splitChunks', () => ({
-      chunks: 'all',
+    ctx.hooks.on(`build.optimization.splitChunks`, () => ({
+      chunks: `all`,
       automaticNameDelimiter: `/`,
       minSize: 0,
       cacheGroups: {
         vendor: {
-          idHint: 'vendor',
-          filename: 'js/bundle/vendor/[name].js',
+          idHint: `vendor`,
+          filename: `js/bundle/vendor/[name].js`,
           test: /[\\/]node_modules[\\/]/,
           priority: -20,
         },
@@ -79,6 +79,6 @@ export const method: method = function (options) {
    * For deeper merging the user can call `build.optimization.splitChunks`
    * hook themselves.
    */
-  ctx.hooks.on('build.optimization.splitChunks', options)
+  ctx.hooks.on(`build.optimization.splitChunks`, options)
   return ctx
 }

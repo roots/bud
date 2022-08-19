@@ -17,6 +17,13 @@ import {Watcher} from '../server/server.watcher.js'
  */
 export class Server extends Service implements Base.Service {
   /**
+   * Service label
+   *
+   * @public
+   */
+  public static label = `server`
+
+  /**
    * Express instance
    * @public
    */
@@ -45,7 +52,7 @@ export class Server extends Service implements Base.Service {
    * @public
    */
   public get enabledMiddleware(): Base.Service['enabledMiddleware'] {
-    return this.app.hooks.filter('dev.middleware.enabled').reduce(
+    return this.app.hooks.filter(`dev.middleware.enabled`).reduce(
       (enabled, key) => ({
         ...enabled,
         [key]: this.availableMiddleware[key],
@@ -75,7 +82,7 @@ export class Server extends Service implements Base.Service {
     if (!this.app.isDevelopment) return
 
     this.application = Express()
-    this.application.set('x-powered-by', false)
+    this.application.set(`x-powered-by`, false)
     this.watcher = new Watcher(this.app)
 
     seed(this.app)
@@ -93,13 +100,13 @@ export class Server extends Service implements Base.Service {
   public async boot() {
     this.app.hooks
       .action(
-        'server.before',
+        `server.before`,
         this.setConnection,
         this.injectScripts,
         this.app.compiler.compile,
         this.applyMiddleware,
       )
-      .hooks.action('server.after', this.watcher.watch)
+      .hooks.action(`server.after`, this.watcher.watch)
   }
 
   /**
@@ -111,15 +118,15 @@ export class Server extends Service implements Base.Service {
   @bind
   @once
   public async setConnection() {
-    const isHttps = this.app.hooks.filter('dev.url').protocol === 'https:'
+    const isHttps = this.app.hooks.filter(`dev.url`).protocol === `https:`
 
     this.connection = isHttps ? new Https(this.app) : new Http(this.app)
 
-    this.app.log('server instantiated')
+    this.app.log(`server instantiated`)
 
     await this.connection.setup()
 
-    this.app.log('server initialized')
+    this.app.log(`server initialized`)
   }
 
   /**
@@ -131,13 +138,13 @@ export class Server extends Service implements Base.Service {
   @bind
   @once
   public async injectScripts() {
-    this.app.log('injecting client scripts')
+    this.app.log(`injecting client scripts`)
 
     const injectOn = (instance: Bud): unknown =>
       inject(
         instance,
         Array.from(
-          this.app.hooks.filter('dev.client.scripts') ?? new Set([]),
+          this.app.hooks.filter(`dev.client.scripts`) ?? new Set([]),
         ),
       )
 
@@ -168,11 +175,11 @@ export class Server extends Service implements Base.Service {
    */
   @bind
   public async run() {
-    await this.app.hooks.fire('server.before')
+    await this.app.hooks.fire(`server.before`)
 
     await this.connection.createServer(this.application)
     await this.connection.listen()
 
-    await this.app.hooks.fire('server.after')
+    await this.app.hooks.fire(`server.after`)
   }
 }

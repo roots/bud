@@ -29,7 +29,7 @@
     "@repo/constants": "workspace:sources/@repo/constants",
     "@repo/logger": "workspace:sources/@repo/logger",
     "@repo/test-kit": "workspace:sources/@repo/test-kit",
-    "@swc/core": "1.2.228",
+    "@swc/core": "1.2.237",
     "@swc/jest": "0.2.22",
     "@types/express": "4.17.13",
     "@types/fs-extra": "9.0.13",

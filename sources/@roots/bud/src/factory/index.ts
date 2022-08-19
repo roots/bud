@@ -26,14 +26,16 @@ import {mergeOptions} from './options.js'
 export async function factory(
   overrides?: Partial<Config.Context>,
 ): Promise<Bud> {
-  const ctx = await context.get(overrides.basedir ?? process.cwd())
-  const project = await new Bud().lifecycle(mergeOptions(ctx, overrides))
+  const basedir = overrides?.basedir ?? process.cwd()
 
-  project.when(
-    project.env.has('APP_PUBLIC_PATH') &&
-      project.env.isString('APP_PUBLIC_PATH'),
-    () => project.setPublicPath(project.env.get('APP_PUBLIC_PATH')),
+  const ctx = await context.get(basedir)
+  const instance = await new Bud().lifecycle(mergeOptions(ctx, overrides))
+
+  instance.when(
+    instance.env.has(`APP_PUBLIC_PATH`) &&
+      instance.env.isString(`APP_PUBLIC_PATH`),
+    () => instance.setPublicPath(instance.env.get(`APP_PUBLIC_PATH`)),
   )
 
-  return project
+  return instance
 }

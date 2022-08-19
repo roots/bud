@@ -47,10 +47,6 @@ jobs:
         run: |
           yarn install
 
-      - name: yarn @bud build
-        run: |
-          yarn @bud build
-
       - name: yarn @bud test unit
         run: |
           yarn @bud test unit --runInBand --coverage

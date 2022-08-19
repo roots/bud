@@ -20,6 +20,13 @@ export class Api
   implements Framework.Api.Service
 {
   /**
+   * Service label
+   *
+   * @public
+   */
+  public static label = `api`
+
+  /**
    * Queued method calls
    *
    * @public
@@ -53,7 +60,7 @@ export class Api
   @bind
   public async registered() {
     await this.processQueue()
-    this.app.hooks.action('build.before', this.processQueue)
+    this.app.hooks.action(`build.before`, this.processQueue)
   }
 
   /**
@@ -91,7 +98,7 @@ export class Api
       chalk.blue(name),
       args && !isEmpty(args)
         ? this.app.json.stringify(args)
-        : '(no arguments passed)',
+        : `(no arguments passed)`,
     )
 
     if (!this.has(name) || !this.isFunction(name)) {

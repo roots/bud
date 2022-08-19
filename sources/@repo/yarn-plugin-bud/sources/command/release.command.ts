@@ -23,7 +23,7 @@ export class Release extends Command {
    *
    * @internal
    */
-  public static label = '@bud release'
+  public static label = `@bud release`
 
   /**
    * Command paths
@@ -80,7 +80,7 @@ export class Release extends Command {
 
     if (!this.tag) {
       const [prerelease] = parse(this.version).prerelease
-      this.tag = `${prerelease ?? 'latest'}`
+      this.tag = `${prerelease ?? `latest`}`
     }
 
     if (this.version) {

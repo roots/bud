@@ -12,28 +12,28 @@ const copy = async (designator: string) => {
   logger.log(`copying @examples/${designator}`)
 
   await fs.remove(
-    join(paths.root, 'storage', 'mocks', 'yarn', '@examples', designator),
+    join(paths.root, `storage`, `mocks`, `yarn`, `@examples`, designator),
   )
   await fs.copy(
-    join(paths.root, 'examples', designator),
-    join(paths.root, 'storage', 'mocks', 'yarn', '@examples', designator),
+    join(paths.root, `examples`, designator),
+    join(paths.root, `storage`, `mocks`, `yarn`, `@examples`, designator),
     options,
   )
 
   const file = await fs.readFile(
-    join(paths.sources, '@repo', 'test-kit', '.yarnrc.stub.yml'),
-    'utf8',
+    join(paths.sources, `@repo`, `test-kit`, `.yarnrc.stub.yml`),
+    `utf8`,
   )
 
   await fs.outputFile(
     join(
       paths.root,
-      'storage',
-      'mocks',
-      'yarn',
-      '@examples',
+      `storage`,
+      `mocks`,
+      `yarn`,
+      `@examples`,
       designator,
-      '.yarnrc.yml',
+      `.yarnrc.yml`,
     ),
     file,
   )

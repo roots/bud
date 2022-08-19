@@ -5,10 +5,10 @@
 let data: Options = {
   timeout: 20 * 1000,
   reload: true,
-  name: 'default',
+  name: `default`,
   debug: true,
   log: true,
-  path: '/__bud/hmr',
+  path: `/__bud/hmr`,
   indicator: true,
   overlay: true,
 }
@@ -31,8 +31,8 @@ const get = (key?: string) => (key ? data[key] : data)
 const setFromParameters = (query: string): Options =>
   (data = Object.entries(new URLSearchParams(query)).reduce(
     (a: Options, [k, v]: [keyof Options, any]) => {
-      if (v === 'true') v = true
-      if (v === 'false') v = false
+      if (v === `true`) v = true
+      if (v === `false`) v = false
       return {...a, [k]: v}
     },
 

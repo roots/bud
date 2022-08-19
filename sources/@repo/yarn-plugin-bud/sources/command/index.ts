@@ -7,16 +7,17 @@ import {DocsDev} from './docs/dev.command'
 import {Docs} from './docs/docs.command'
 import {DocsNetlify} from './docs/netlify.command'
 import {Info} from './info.command'
-import {Lint} from './lint.command'
 import {LintDependencies} from './lint/dependencies.command'
 import {LintExports} from './lint/exports.command'
 import {Format} from './lint/format.command'
+import {Lint} from './lint/lint.command'
 import {RegistryClean} from './registry/clean.command'
 import {RegistryInstall} from './registry/install.command'
 import {Pm2} from './registry/pm2.command'
 import {RegistryStart} from './registry/start.command'
 import {RegistryStop} from './registry/stop.command'
 import {Release} from './release.command'
+import {RunCommand} from './run.command'
 import {TestRun} from './test/test.command'
 import {TestE2E} from './test/test.e2e.command'
 import {TestIntegration} from './test/test.integration.command'
@@ -45,6 +46,7 @@ export const Commands = {
   RegistryStart,
   RegistryStop,
   Release,
+  RunCommand,
   TestE2E,
   TestIntegration,
   TestUnit,

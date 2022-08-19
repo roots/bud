@@ -20,6 +20,13 @@ export default class Extensions
   implements Contract.Service
 {
   /**
+   * Service label
+   *
+   * @public
+   */
+  public static label = `extensions`
+
+  /**
    * Service store
    *
    * @public
@@ -51,9 +58,9 @@ export default class Extensions
       this.app.context.extensions.filter(Boolean).map(this.import),
     )
 
-    await this.runAll('_init')
-    await this.runAll('_register')
-    await this.runAll('_boot')
+    await this.runAll(`_init`)
+    await this.runAll(`_register`)
+    await this.runAll(`_boot`)
   }
 
   /**
@@ -64,7 +71,15 @@ export default class Extensions
    */
   @bind
   public async afterConfig(): Promise<void> {
-    await this.runAll('_afterConfig')
+    await this.runAll(`_afterConfig`)
+  }
+
+  /**
+   * `beforeBuild` callback
+   */
+  @bind
+  public async beforeBuild(): Promise<void> {
+    await this.runAll(`_beforeBuild`)
   }
 
   /**
@@ -129,7 +144,7 @@ export default class Extensions
       | (new (...args: any[]) => Modules[K & string])
       | ExtensionLiteral,
   ): Modules[K & string] {
-    return typeof extension === 'function'
+    return typeof extension === `function`
       ? new extension(this.app)
       : !(extension instanceof Extension)
       ? new Extension(this.app).fromObject(extension)
@@ -166,7 +181,7 @@ export default class Extensions
     )
       return
 
-    this.app.log('importing', signifier)
+    this.app.log(`importing`, signifier)
 
     const extension = await this.app.module.import(signifier)
     const instance = this.instantiate(extension)
@@ -266,7 +281,7 @@ export default class Extensions
     try {
       await this.runDependencies(extension, methodName)
 
-      if (!extension[methodName.replace('_', '')]) return this
+      if (!extension[methodName.replace(`_`, ``)]) return this
 
       await extension[methodName]()
 
@@ -300,7 +315,7 @@ export default class Extensions
       | '_make',
   ): Promise<void> {
     extension =
-      typeof extension === 'string' ? this.get(extension) : extension
+      typeof extension === `string` ? this.get(extension) : extension
 
     if (extension.dependsOn && extension.dependsOn.size > 0) {
       await Array.from(extension.dependsOn).reduce(
@@ -391,11 +406,9 @@ export default class Extensions
 
         this.set(extension)
 
-        await this.run(extension, '_init')
-        await this.run(extension, '_register')
-        await this.run(extension, '_boot')
-
-        return Promise.resolve()
+        await this.run(extension, `_init`)
+        await this.run(extension, `_register`)
+        await this.run(extension, `_boot`)
       } catch (err) {
         this.app.error(err)
         return Promise.reject()

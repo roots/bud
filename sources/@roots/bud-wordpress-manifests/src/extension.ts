@@ -18,7 +18,7 @@ export default class BudMergedManifestAdapter extends Extension<
   {},
   MergedManifestWebpackPlugin
 > {
-  public label = '@roots/bud-wordpress-manifests'
+  public label = `@roots/bud-wordpress-manifests`
   public async make() {
     return new MergedManifestWebpackPlugin()
   }

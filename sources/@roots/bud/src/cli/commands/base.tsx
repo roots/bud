@@ -54,7 +54,7 @@ export abstract class BaseCommand extends Command {
    */
   @bind
   public renderOnce(box: React.ReactElement) {
-    return this.render(box).unmount(0)
+    return this.render(box).unmount()
   }
 
   /**
@@ -77,7 +77,7 @@ export abstract class BaseCommand extends Command {
     this.renderOnce(
       <Box marginY={1} justifyContent="flex-start">
         <Text>
-          <Text dimColor>$ bud</Text> <Text>{this.path.join(' ')} </Text>
+          <Text dimColor>$ bud</Text> <Text>{this.path.join(` `)} </Text>
         </Text>
       </Box>,
     )
@@ -94,9 +94,9 @@ export abstract class BaseCommand extends Command {
   public async make() {
     this.notifier = new Notifier(this.app)
 
-    this.app.hooks.action('compiler.after', async () => {
+    this.app.hooks.action(`compiler.after`, async () => {
       this.app.compiler.compilation.hooks.done.tap(
-        'bud-cli-notifier',
+        `bud-cli-notifier`,
         this.notifier.notify,
       )
     })

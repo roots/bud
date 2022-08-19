@@ -47,7 +47,7 @@ export async function lifecycle(
   this: Bud,
   context: Config.Context,
 ): Promise<Bud> {
-  bootstrap.execute(this, context)
+  await bootstrap.execute(this, context)
 
   await LIFECYCLE_EVENTS.reduce(async (_promised, event) => {
     await Promise.all(

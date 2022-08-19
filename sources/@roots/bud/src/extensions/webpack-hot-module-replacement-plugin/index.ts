@@ -14,7 +14,7 @@ import Webpack from 'webpack'
  * @decorator `@plugin`
  * @decorator `@development`
  */
-@label('webpack:hot-module-replacement-plugin')
+@label(`webpack:hot-module-replacement-plugin`)
 @plugin(Webpack.HotModuleReplacementPlugin)
 @development
 export default class BudHMR extends Extension<
