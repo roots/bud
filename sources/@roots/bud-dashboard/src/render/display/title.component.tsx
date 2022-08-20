@@ -1,7 +1,7 @@
 import {Box, Text} from 'ink'
 import React from 'react'
 
-import {SPACE, VERT} from '../format.js'
+import {VERT} from '../format.js'
 
 const Title = ({
   children,
@@ -15,9 +15,9 @@ const Title = ({
   return (
     <Box flexDirection="row">
       <Text dimColor>
-        {indent.map(indent => `${indent ? VERT : ``}${SPACE}${SPACE}`)}
+        {indent.map(indent => `${indent ? VERT : ``}  `)}
         {final ? `└─` : `├─`}
-        {SPACE}
+        {` `}
       </Text>
 
       {children}

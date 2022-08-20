@@ -8,7 +8,7 @@ import Chunk from '../chunk/chunk.component.js'
 import ChunkGroup from '../chunk/chunkgroup.component.js'
 import Space from '../display/space.component.js'
 import Title from '../display/title.component.js'
-import {color, colorFromCompilation, duration, SPACE} from '../format.js'
+import {color, colorFromCompilation, duration, VERT} from '../format.js'
 import Messages from '../messages/messages.component.js'
 
 const Compilation = ({
@@ -40,6 +40,7 @@ const Compilation = ({
   })
 
   const staticAssets = stats?.assets
+    ?.filter(asset => asset.emitted)
     ?.filter(
       asset =>
         ![`js`, `css`].includes(asset.name.split(`.`).pop()) &&
@@ -58,18 +59,18 @@ const Compilation = ({
           {stats?.errorsCount > 0 ? figures.cross : figures.circleFilled}
         </Text>
 
+        <Text>{` `}</Text>
+
         <Text color={compilationColor}>
-          {SPACE}
-          {SPACE}./
-          {relative(process.cwd(), stats.outputPath)}
+          ./{relative(process.cwd(), stats.outputPath)}
         </Text>
 
-        <Text dimColor>
-          {SPACE}[{stats.hash}]
-        </Text>
+        <Text>{` `}</Text>
+
+        <Text dimColor>[{stats.hash}]</Text>
       </Box>
 
-      <Text dimColor>{figures.lineVerticalDashed7}</Text>
+      <Text dimColor>{VERT}</Text>
 
       <Messages
         type="error"
@@ -96,9 +97,13 @@ const Compilation = ({
               assets={chunk.assets}
               name={chunk.name}
               indent={[true]}
-              emitted={chunk.emitted && stats?.errorsCount === 0}
+              emitted={chunk.emitted}
               color={
-                stats?.errorsCount > 0 ? color.dim : color.foregroundColor
+                stats?.errorsCount > 0
+                  ? color.red
+                  : stats?.warningsCount > 0
+                  ? color.yellow
+                  : color.foregroundColor
               }
               final={id == entrypoints.length - 1}
             />
@@ -110,33 +115,36 @@ const Compilation = ({
         </Space>
       </Box>
 
-      <Box flexDirection="column">
-        <Title>
-          <Text color={compilationColor}>assets</Text>
-        </Title>
+      {staticAssets.length > 0 ? (
+        <Box flexDirection="column">
+          <Title>
+            <Text color={compilationColor}>assets</Text>
+          </Title>
 
-        <Chunk
-          assets={staticAssets}
-          emitted={stats?.errorsCount === 0}
-          indent={[true]}
-        />
+          <Chunk assets={staticAssets} indent={[true]} />
 
-        <Space>
-          <Text> </Text>
-        </Space>
-
-        {hiddenStaticAssets?.length > 0 ? (
           <Space>
-            <Text dimColor>
-              {SPACE}
-              {figures.ellipsis}
-              {SPACE}
-              {hiddenStaticAssets.length}
-              {SPACE}additional assets not shown
-            </Text>
+            <Text> </Text>
           </Space>
-        ) : null}
-      </Box>
+
+          {hiddenStaticAssets?.length > 0 ? (
+            <Space>
+              <Text dimColor>
+                {` `}
+                {figures.ellipsis}
+                {` `}
+                {hiddenStaticAssets.length}
+                {` `}
+                additional asset(s) not shown
+              </Text>
+            </Space>
+          ) : (
+            <Space>
+              <Text> </Text>
+            </Space>
+          )}
+        </Box>
+      ) : null}
 
       <Space>
         <Text> </Text>

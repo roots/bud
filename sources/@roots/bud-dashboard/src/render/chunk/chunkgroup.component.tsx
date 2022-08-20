@@ -25,19 +25,21 @@ const ChunkGroup = ({
       <Box flexDirection="row">
         <Title indent={indent} final={final}>
           <Text color={color}>{name}</Text>
+          {!emitted && <Text dimColor> (not emitted) </Text>}
         </Title>
       </Box>
 
-      {assets.map((asset, index) => (
-        <Asset
-          key={index}
-          {...asset}
-          emitted={emitted}
-          minWidth={longestAssetNameLength(assets) + 1}
-          final={index == assets?.length - 1}
-          indent={[true, !final]}
-        />
-      ))}
+      {emitted &&
+        assets.map((asset, index) => (
+          <Asset
+            key={index}
+            {...asset}
+            emitted={emitted}
+            minWidth={longestAssetNameLength(assets) + 1}
+            final={index == assets?.length - 1}
+            indent={[true, !final]}
+          />
+        ))}
     </Box>
   )
 }

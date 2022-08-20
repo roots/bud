@@ -123,6 +123,7 @@ export class BuildCommand extends BaseCommand {
       t.isLiteral(`hidden-cheap-module-source-map`),
       t.isLiteral(`hidden-source-map`),
     ]),
+    env: `BUILD_DEVTOOL`,
   })
 
   /*
@@ -130,6 +131,7 @@ export class BuildCommand extends BaseCommand {
    */
   public dist = Option.String(`--output,-o`, undefined, {
     description: `Distribution directory (relative to project)`,
+    env: `BUILD_PATH_OUTPUT`,
   })
 
   /**
@@ -192,6 +194,7 @@ export class BuildCommand extends BaseCommand {
    */
   public input = Option.String(`--input,-i`, undefined, {
     description: `Source directory (relative to project)`,
+    env: `BUILD_PATH_INPUT`,
   })
 
   /**

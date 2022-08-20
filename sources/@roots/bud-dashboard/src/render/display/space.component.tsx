@@ -1,7 +1,7 @@
 import {Box, Text} from 'ink'
 import React from 'react'
 
-import {SPACE, VERT} from '../format.js'
+import {VERT} from '../format.js'
 
 const Space = ({
   children,
@@ -14,9 +14,8 @@ const Space = ({
       {arrayedChildren.map((Child, index) => (
         <Box key={index} flexDirection="row">
           <Text dimColor>
-            {!final ? VERT : SPACE}
-            {SPACE}
-            {SPACE}
+            {!final ? VERT : ` `}
+            {` `}
           </Text>
 
           {Child}

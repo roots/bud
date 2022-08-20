@@ -20,16 +20,18 @@ const Chunk = ({
 
   return (
     <Box flexDirection="column">
-      {assets?.map((asset, index) => (
-        <Asset
-          key={index}
-          {...asset}
-          emitted={asset.emitted && emitted}
-          minWidth={minWidth + 1}
-          final={index == assets.length - 1}
-          indent={[!final]}
-        />
-      ))}
+      {assets
+        ?.filter(asset => asset.emitted)
+        ?.map((asset, index) => (
+          <Asset
+            key={index}
+            {...asset}
+            emitted={asset.emitted && emitted}
+            minWidth={minWidth + 1}
+            final={index == assets.length - 1}
+            indent={[!final]}
+          />
+        ))}
     </Box>
   )
 }

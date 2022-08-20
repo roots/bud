@@ -1,7 +1,9 @@
 import chalk from 'chalk'
-import {Command} from 'clipanion'
+import {Command, Option} from 'clipanion'
 import fs from 'fs-extra'
 import {bind} from 'helpful-decorators'
+import {Box, Text} from 'ink'
+import React from 'react'
 
 import {factory} from '../../factory/index.js'
 import * as disk from '../config/disk.config.js'
@@ -15,6 +17,14 @@ export class CleanCommand extends BaseCommand {
   public static usage = Command.Usage({
     description: `Clean project artifacts and caches`,
     examples: [[`Clean artifacts/caches`, `$0 clean`]],
+  })
+
+  public storage = Option.Boolean(`@storage`, false, {
+    description: `empty @storage`,
+  })
+
+  public dist = Option.Boolean(`@dist`, false, {
+    description: `empty @dist`,
   })
 
   @bind
@@ -39,43 +49,39 @@ export class CleanCommand extends BaseCommand {
       await this.app.compiler.before()
     } catch (e) {}
 
-    await this.cleanProjectAssets()
-  }
-
-  @bind
-  public async cleanProjectAssets() {
-    this.context.stdout.write(`clearing artifacts\n`)
-
-    this.app.close()
+    if (this.storage || (!this.storage && !this.dist)) {
+      await this.cleanStorage()
+    }
+    if (this.dist || (!this.storage && !this.dist)) {
+      await this.cleanDist()
+    }
   }
 
   @bind
   public async cleanDist() {
     try {
-      this.context.stdout.write(`emptying ${this.app.path(`@dist`)}\n`)
-
       await remove(this.app.path(`@dist`))
 
-      this.context.stdout.write(
-        chalk.green(`✔ emptying ${this.app.path(`@dist`)}\n`),
+      this.renderOnce(
+        <Box>
+          <Text color="green">✔ emptied {this.app.path(`@dist`)}</Text>
+        </Box>,
       )
     } catch (err) {
-      this.app.error(err)
+      this.context.stderr.write(chalk.red(err))
     }
   }
 
   @bind
-  public async cleanCache() {
+  public async cleanStorage() {
     try {
-      this.context.stdout.write(
-        `emptying ${this.app.relPath(`@storage/cache`)}\n`,
-      )
+      await ensureDir(this.app.path(`@storage`))
+      await remove(this.app.path(`@storage`))
 
-      await ensureDir(this.app.path(`@storage/cache`))
-      await remove(this.app.path(`@storage/cache`))
-
-      this.context.stdout.write(
-        chalk.green(`✔ emptying ${this.app.path(`@storage/cache`)}\n`),
+      this.renderOnce(
+        <Box>
+          <Text color="green">✔ emptied {this.app.path(`@storage`)}</Text>
+        </Box>,
       )
     } catch (err) {
       this.context.stderr.write(chalk.red(err))

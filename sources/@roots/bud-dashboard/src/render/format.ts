@@ -3,7 +3,7 @@ import {durationFormatter, sizeFormatter} from 'human-readable'
 import type {StatsChunkGroup, StatsCompilation} from 'webpack'
 
 export const VERT = figures.lineVertical
-export const SPACE = `\u{200A}`
+export const SPACE = ` `
 
 export const color = {
   dim: `#8f908d`,
