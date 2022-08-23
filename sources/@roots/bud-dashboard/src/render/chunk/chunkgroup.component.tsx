@@ -6,40 +6,37 @@ import {longestAssetNameLength} from '../format.js'
 import Asset from './asset.component.js'
 
 const ChunkGroup = ({
-  name,
-  assets,
   indent,
   color,
   final,
-  emitted,
+  ...chunk
 }: {
-  name: string
-  assets: Array<any>
+  name?: string
+  assets?: Array<any>
   indent: Array<boolean>
   color: string
   final: boolean
   emitted?: boolean
+  cached?: boolean
 }) => {
   return (
     <Box flexDirection="column">
       <Box flexDirection="row">
         <Title indent={indent} final={final}>
-          <Text color={color}>{name}</Text>
-          {!emitted && <Text dimColor> (not emitted) </Text>}
+          {chunk?.name && <Text color={color}>{chunk.name}</Text>}
         </Title>
       </Box>
 
-      {emitted &&
-        assets.map((asset, index) => (
-          <Asset
-            key={index}
-            {...asset}
-            emitted={emitted}
-            minWidth={longestAssetNameLength(assets) + 1}
-            final={index == assets?.length - 1}
-            indent={[true, !final]}
-          />
-        ))}
+      {chunk.assets?.map((asset, index) => (
+        <Asset
+          key={index}
+          {...asset}
+          emitted={chunk.emitted}
+          minWidth={longestAssetNameLength(chunk.assets) + 1}
+          final={index == chunk.assets?.length - 1}
+          indent={[true, !final]}
+        />
+      ))}
     </Box>
   )
 }

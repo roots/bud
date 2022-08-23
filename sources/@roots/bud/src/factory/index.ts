@@ -1,8 +1,26 @@
 import type {Config} from '@roots/bud-framework'
+import {dirname} from 'node:path'
+import {fileURLToPath} from 'node:url'
 
 import Bud from '../bud.js'
 import * as context from '../context/index.js'
+import {config} from './config.js'
 import {mergeOptions} from './options.js'
+
+/**
+ * Cached instances
+ *
+ * @public
+ */
+let instances: Array<Bud> = []
+
+const get = (basedir?: string) => {
+  basedir = basedir ?? dirname(fileURLToPath(import.meta.url))
+  const cached = instances.find(
+    instance => instance.context.basedir === basedir,
+  )
+  return cached
+}
 
 /**
  * Create a {@link Bud} instance programatically
@@ -24,18 +42,47 @@ import {mergeOptions} from './options.js'
  * @public
  */
 export async function factory(
-  overrides?: Partial<Config.Context>,
+  overrides?: Config.Overrides,
+  skipCache = false,
 ): Promise<Bud> {
-  const basedir = overrides?.basedir ?? process.cwd()
+  const basedir =
+    overrides?.basedir ?? dirname(fileURLToPath(import.meta.url))
+
+  if (skipCache !== true) {
+    const cached = instances.find(
+      instance => instance.context.basedir === basedir,
+    )
+
+    if (cached) {
+      cached.log(`using cached instance`)
+      return cached
+    }
+  }
 
   const ctx = await context.get(basedir)
-  const instance = await new Bud().lifecycle(mergeOptions(ctx, overrides))
 
-  instance.when(
-    instance.env.has(`APP_PUBLIC_PATH`) &&
-      instance.env.isString(`APP_PUBLIC_PATH`),
-    () => instance.setPublicPath(instance.env.get(`APP_PUBLIC_PATH`)),
-  )
+  Array.isArray(overrides?.extensions) &&
+    overrides.extensions
+      .filter(extension => !ctx?.extensions.includes(extension))
+      .map(extension => ctx.extensions.push(extension))
+
+  Array.isArray(overrides?.services) &&
+    overrides.services
+      .filter(service => !ctx?.services.includes(service))
+      .map(service => ctx.services.push(service))
+
+  const options = mergeOptions(ctx, overrides)
+  const instance = await new Bud().lifecycle(options)
+
+  instances.push(instance)
+
+  try {
+    await config(instance)
+  } catch (error) {
+    instance.error(error)
+  }
 
   return instance
 }
+
+export {get, instances}

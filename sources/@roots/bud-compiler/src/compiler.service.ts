@@ -2,7 +2,7 @@ import type {Bud, Compiler as Contract} from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework'
 import {bind, once} from 'helpful-decorators'
 import type {
-  Configuration,
+  MultiCompiler,
   MultiStats,
   Stats,
   StatsCompilation,
@@ -28,26 +28,14 @@ export class Compiler extends Service implements Contract.Service {
    *
    * @internal
    */
-  protected _implementation: Contract.Implementation = Webpack
-
-  /**
-   * Compiler implementation
-   *
-   * @public
-   */
-  public get implementation(): Contract.Implementation {
-    return this._implementation
-  }
-  public set implementation(implementation: Contract.Implementation) {
-    this._implementation = implementation
-  }
+  public implementation: typeof Webpack.webpack = Webpack.webpack
 
   /**
    * Compiler instance
    *
    * @public
    */
-  public compilation: Contract.Service['compilation']
+  public instance: MultiCompiler = null
 
   /**
    * Compilation stats
@@ -61,7 +49,7 @@ export class Compiler extends Service implements Contract.Service {
    *
    * @public
    */
-  public config: Array<Configuration> = []
+  public config: Array<unknown> = []
 
   /**
    * Initiates compilation
@@ -74,74 +62,58 @@ export class Compiler extends Service implements Contract.Service {
    */
   @bind
   @once
-  public async compile() {
-    this.config = await this.before()
-    this.compilation = await this.invoke(this.config)
-    return this.compilation
-  }
+  public async compile(): Promise<Contract.Service['instance']> {
+    this.config = []
+    this.app.log(`bud.compiler.compile called`)
 
-  /**
-   * Invoke compiler
-   *
-   * @public
-   * @decorator `@bind`
-   * @decorator `@once`
-   */
-  @bind
-  @once
-  public async invoke(
-    config: Array<Configuration>,
-  ): Promise<Contract.Service['compilation']> {
-    await this.app.hooks.fire(`compiler.before`)
+    try {
+      await this.app.hooks.fire(`compiler.before`)
 
-    this.compilation = this.implementation(config ?? this.config)
+      if (!this.app.hasChildren) {
+        this.app.log(`no children found, processing parent instance`)
+        const config = await this.app.build.make()
+        this.app.log(config)
+        this.config.push(this.app.build.config)
+        return
+      }
+
+      await Promise.all(
+        Object.values(this.app.children).map(async (child: Bud) => {
+          const config = await child.build.make()
+          this.app.log(`child config`, child.label, child.build.config)
+          this.config.push(config)
+          return Promise.resolve()
+        }),
+      )
+    } catch (error) {
+      this.app.error(error)
+    }
+
+    if (this.app.context.args.dry === true) {
+      const output = this.app.json.stringify(this.config)
+      this.app.log(`final config`, output)
+      return
+    }
+
+    this.app.log(`instantiating compiler implementation`, this.config)
+
+    Webpack.validate(this.config)
+    this.instance = Webpack.webpack(this.config)
 
     this.app.isDevelopment &&
-      this.compilation.hooks.done.tap(
+      this.instance.hooks.done.tap(
         `${this.app.label}-dev-handle`,
         this.handleStats,
       )
 
-    this.compilation.hooks.done.tap(
+    this.instance.hooks.done.tap(
       `${this.app.label}-cli-done`,
       async () => {
         await this.app.hooks.fire(`compiler.close`)
       },
     )
 
-    await this.app.hooks.fire(`compiler.after`)
-
-    return this.compilation
-  }
-
-  /**
-   * Returns final webpack configuration
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async before() {
-    if (!this.app.hasChildren) {
-      await this.app.build.make()
-      this.config.push(this.app.build.config)
-      return this.config
-    }
-
-    await Promise.all(
-      Object.entries(this.app.children).map(
-        async ([name, instance]: [string, Bud]) => {
-          const config = await instance.build.make()
-          this.app.log(`child config`, name, config)
-          this.config.push(config)
-          return Promise.resolve()
-        },
-      ),
-    )
-
-    this.app.log(this.config)
-
-    return this.config
+    return this.instance
   }
 
   /**

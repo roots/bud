@@ -1,4 +1,5 @@
-import type {Item, Loader} from '@roots/bud-build'
+import type Item from '@roots/bud-build/item'
+import type Loader from '@roots/bud-build/loader'
 
 import type BudMDX from './extension.js'
 

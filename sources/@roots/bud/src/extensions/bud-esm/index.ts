@@ -16,13 +16,13 @@ import {
 @expose(`esm`)
 export default class Esm extends Extension {
   /**
-   * `beforeBuild` callback
+   * `buildBefore` callback
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public async beforeBuild() {
+  public async buildBefore() {
     this.app.hooks
       .on(`build.experiments.outputModule`, true)
       .hooks.on(`build.output.module`, true)

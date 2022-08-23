@@ -111,14 +111,14 @@ export default class BudEsbuild extends Extension<Options> {
   }
 
   /**
-   * `beforeBuild` callback
+   * `buildBefore` callback
    *
    * @remarks
    *
    * @public
    */
   @bind
-  public async beforeBuild() {
+  public async buildBefore() {
     this.app.hooks.on(`build.optimization.minimizer`, () => [
       new ESBuildMinifyPlugin(this.options.minify),
     ])

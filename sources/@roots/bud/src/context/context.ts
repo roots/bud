@@ -1,6 +1,7 @@
 import type {Config as Options} from '@roots/bud-framework'
 import {get, set} from 'lodash-es'
 
+import Args from './args.js'
 import BudContext from './bud.js'
 import Config from './config.js'
 import Env from './env.js'
@@ -11,15 +12,18 @@ import Services from './services.js'
 let cache: Record<string, Context> = {}
 
 export default class Context {
-  public data: Partial<Options.Context> = {
-    args: {},
-  }
+  public data: Options.Context = {} as Options.Context
 
-  public get(key: string): any {
+  public get<K extends keyof Options.Context & string>(
+    key: K,
+  ): Options.Context[K] {
     return get(this.data, key)
   }
 
-  public set(key: string, value: any) {
+  public set<K extends keyof Options.Context & string>(
+    key: K,
+    value: Options.Context[K],
+  ) {
     set(this.data, key, value)
   }
 
@@ -30,22 +34,20 @@ export default class Context {
 
     const instance = new Context()
 
+    instance.set(`args`, new Args().data)
     instance.set(`basedir`, basedir)
-
-    await new BudContext().find().then(({data}) => {
-      instance.set(`bud`, data)
-    })
-
     instance.set(`env`, new Env(basedir).data)
 
     await new Config().find(basedir).then(({data}) => {
       instance.set(`config`, data)
     })
-
-    const manifest = await new Manifest(instance.get(`config`)).read()
-    instance.set(`manifest`, manifest.data)
-    instance.set(`label`, instance.get(`manifest.name`))
-
+    await new BudContext().find().then(({data}) => {
+      instance.set(`bud`, data)
+    })
+    await new Manifest(instance.get(`config`)).read().then(({data}) => {
+      instance.set(`manifest`, data)
+      instance.set(`label`, data.name)
+    })
     await new Extensions(instance.get(`manifest`))
       .find()
       .then(({data}) => {

@@ -13,27 +13,25 @@ describe(`bud.watch`, function () {
     expect(bud.watch).toBeInstanceOf(Function)
   })
 
-  it(`sets watch files`, async () => {
-    await bud.api.call(`watch`, `1/*.js`)
+  it(`should have expected default values`, async () => {
+    const value = bud.hooks.filter(`dev.watch.files`)
+    if (!(value instanceof Set))
+      throw new Error(`watch files should be a set`)
 
-    expect(
-      Array.from(bud.hooks.filter(`dev.watch.files`)),
-    ).toMatchSnapshot([`1/*.js`])
-  })
-
-  it(`sets watch files`, async () => {
-    await bud.api.call(`watch`, [`2/*.js`])
-
-    expect(
-      Array.from(bud.hooks.filter(`dev.watch.files`)),
-    ).toMatchSnapshot([`1/*.js`, `2/*.js`])
+    expect(Array.from(value)).toMatchSnapshot(
+      expect.arrayContaining([`index.html`, `images`]),
+    )
   })
 
   it(`merges watch files`, async () => {
-    await bud.api.call(`watch`, `3/*.js`)
+    await bud.api.call(`watch`, `1/*.js`)
 
-    expect(Array.from(bud.hooks.filter(`dev.watch.files`)).length).toEqual(
-      3,
+    const value = bud.hooks.filter(`dev.watch.files`)
+    if (!(value instanceof Set))
+      throw new Error(`watch files should be a set`)
+
+    expect(Array.from(value)).toMatchSnapshot(
+      expect.arrayContaining([`index.html`, `images`, `1/*.js`]),
     )
   })
 })

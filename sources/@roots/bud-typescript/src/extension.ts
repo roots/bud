@@ -66,13 +66,13 @@ export default class BudTypeScript extends Extension {
   }
 
   /**
-   * `afterConfig` callback
+   * `configAfter` callback
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public async afterConfig() {
+  public async configAfter() {
     this.app.build
       .setLoader(`ts`, await this.resolve(`ts-loader`))
       .setItem(`ts`, {

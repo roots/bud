@@ -18,7 +18,7 @@ export default (app: Bud) => {
   logger.scope(`hot middleware`)
   logger.enable()
 
-  return makeHandler(app.compiler.compilation)
+  return makeHandler(app.compiler.instance)
 }
 
 export const makeHandler = (compiler: Compiler | MultiCompiler) => {

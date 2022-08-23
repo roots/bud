@@ -1,74 +1,74 @@
-import type {Bud, Build} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework/bud'
 import {bind} from 'helpful-decorators'
 import {isFunction, isString} from 'lodash-es'
 
-import Base from './shared/base.js'
+import type Build from '../service'
+import Base from '../shared/base.js'
+import type {Instance, Options, Output, Parser} from './rule.interface'
 
-export type ConstructorOptions = Partial<Build.Rule.Options>
+export {Instance, Options, Output, Parser}
 
 /**
  * Bud Rule
  *
  * @public
  */
-export default class Rule extends Base implements Build.Rule {
+export default class extends Base implements Instance {
   /**
    * Rule test
    *
    * @public
    */
-  public test: Build.Rule['test']
+  public declare test: Instance['test']
 
   /**
    * {@inheritDoc @roots/bud-framework#Rule.Abstract.use}
    *
    * @public
    */
-  public use?: Array<keyof Build.Items & string>
+  public declare use?: Array<keyof Build['items'] & string>
 
   /**
    * Include paths
    */
-  public include?: Build.Rule['include']
+  public include?: Instance['include']
 
   /**
    * {@inheritDoc @roots/bud-framework#Rule.Abstract.exclude}
    *
    * @public
    */
-  public exclude?: Build.Rule['exclude']
+  public exclude?: Instance['exclude']
 
   /**
    * {@inheritDoc @roots/bud-framework#Rule.Abstract."type"}
    *
    * @public
    */
-  public type?: Build.Rule['type']
+  public type?: Instance['type']
 
   /**
    * Generator factory
    *
    * @public
    */
-  public parser?: Build.Rule['parser']
+  public parser?: Instance['parser']
 
   /**
    * Generator factory
    *
    * @public
    */
-  public generator?: Build.Rule['generator']
+  public generator?: Instance['generator']
 
   /**
    * Class constructor
    *
    * @public
    */
-  public constructor(
-    protected _app: () => Bud,
-    options?: Build.Rule.Options,
-  ) {
+  public constructor(_app: () => Bud, options?: Options) {
     super(_app)
+    this._app = _app
 
     if (!options) return
 
@@ -101,8 +101,9 @@ export default class Rule extends Base implements Build.Rule {
    * @decorator `@bind`
    */
   @bind
-  public setTest(test: Rule['test']): this {
+  public setTest(test: Instance['test']): this {
     this.test = this.wrap(test)
+    this.app.log(`rule modified`, this.test)
     return this
   }
 
@@ -113,7 +114,7 @@ export default class Rule extends Base implements Build.Rule {
    * @decorator `@bind`
    */
   @bind
-  public getParser(): Build.Rule.Parser {
+  public getParser(): Parser {
     return this.unwrap(this.parser)
   }
 
@@ -124,7 +125,7 @@ export default class Rule extends Base implements Build.Rule {
    * @decorator `@bind`
    */
   @bind
-  public setParser(parser: Build.Rule['parser']): this {
+  public setParser(parser: Instance['parser']): this {
     this.parser = this.wrap(parser)
     return this
   }
@@ -136,7 +137,7 @@ export default class Rule extends Base implements Build.Rule {
    * @decorator `@bind`
    */
   @bind
-  public getUse(): Array<`${`${keyof Build.Items & string}`}`> {
+  public getUse(): Array<`${`${keyof Build['items'] & string}`}`> {
     return this.unwrap(this.use)?.filter(isString) ?? []
   }
 
@@ -149,15 +150,17 @@ export default class Rule extends Base implements Build.Rule {
   @bind
   public setUse(
     input:
-      | Array<keyof Build.Items & string>
+      | Array<keyof Build['items'] & string>
       | ((
-          use: Array<keyof Build.Items & string>,
+          use: Array<keyof Build['items'] & string>,
           app: Bud,
-        ) => Array<keyof Build.Items & string>),
+        ) => Array<keyof Build['items'] & string>),
   ): this {
     this.use = isFunction(input)
       ? input(this.getUse() ?? [], this.app)
       : input
+
+    this.app.log(this.use)
 
     return this
   }
@@ -169,7 +172,7 @@ export default class Rule extends Base implements Build.Rule {
    * @decorator `@bind`
    */
   @bind
-  public getInclude(): Rule['include'] {
+  public getInclude(): Instance['include'] {
     return this.include.map(this.unwrap)
   }
 
@@ -182,8 +185,8 @@ export default class Rule extends Base implements Build.Rule {
   @bind
   public setInclude(
     includes:
-      | ((includes: Rule['include']) => Rule['include'])
-      | Rule['include'],
+      | ((includes: Instance['include']) => Instance['include'])
+      | Instance['include'],
   ): this {
     if (!this.include) this.include = []
 
@@ -201,7 +204,7 @@ export default class Rule extends Base implements Build.Rule {
    * @decorator `@bind`
    */
   @bind
-  public getExclude(): Rule['exclude'] {
+  public getExclude(): Instance['exclude'] {
     return this.exclude.map(this.unwrap)
   }
 
@@ -214,8 +217,8 @@ export default class Rule extends Base implements Build.Rule {
   @bind
   public setExclude(
     excludes:
-      | ((excludes: Rule['exclude']) => Rule['exclude'])
-      | Rule['exclude'],
+      | ((excludes: Instance['exclude']) => Instance['exclude'])
+      | Instance['exclude'],
   ): this {
     if (!this.exclude) this.exclude = []
 
@@ -245,7 +248,7 @@ export default class Rule extends Base implements Build.Rule {
    */
   @bind
   public setType(type): this {
-    this.type = this.wrap(type)
+    this.type = type
     return this
   }
 
@@ -267,7 +270,7 @@ export default class Rule extends Base implements Build.Rule {
    * @decorator `@bind`
    */
   @bind
-  public setGenerator(generator: Build.Rule['generator']): this {
+  public setGenerator(generator: Instance['generator']): this {
     this.generator = this.wrap(generator)
     return this
   }
@@ -282,8 +285,8 @@ export default class Rule extends Base implements Build.Rule {
    * @decorator `@bind`
    */
   @bind
-  public toWebpack(): Build.Rule.Output {
-    const output: Build.Rule.Output = {test: this.getTest()}
+  public toWebpack(): Output {
+    const output: Output = {test: this.getTest()}
 
     this.include && Object.assign(output, {include: this.getInclude()})
     this.exclude && Object.assign(output, {exclude: this.getExclude()})

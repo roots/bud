@@ -5,7 +5,6 @@ import {bind} from 'helpful-decorators'
 import webpackcli from 'webpack-cli'
 
 import {factory} from '../../factory/index.js'
-import * as disk from '../config/disk.config.js'
 import {BaseCommand} from './base.js'
 
 /**
@@ -80,17 +79,8 @@ export class DoctorCommand extends BaseCommand {
     }
 
     try {
-      await disk.config(app)
-    } catch (error) {
-      app.error(error)
-    }
-
-    try {
-      await app.compiler.before()
-    } catch (e) {}
-
-    try {
-      const conf = await app.compiler.before()
+      await app.run()
+      const conf = app.compiler.config
 
       if (!conf) {
         app.error(`config not returned from bud compiler.`)

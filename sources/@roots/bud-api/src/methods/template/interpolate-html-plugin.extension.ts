@@ -25,13 +25,13 @@ export default class BudInterpolateHtmlPlugin extends Extension<
   }
 
   /**
-   * `afterConfig` callback
+   * `configAfter` callback
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public async afterConfig() {
+  public async configAfter() {
     Object.entries(this.app.env.getPublicEnv()).map(([key, value]) => {
       this.setOption(key, value)
     })

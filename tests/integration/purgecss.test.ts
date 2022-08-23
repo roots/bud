@@ -1,7 +1,5 @@
-import {beforeAll, describe, it, jest} from '@jest/globals'
+import {beforeAll, describe, it} from '@jest/globals'
 import {Project} from '@repo/test-kit/project'
-
-jest.setTimeout(60000)
 
 const test = (pacman: 'yarn' | 'npm') => () => {
   describe(`examples/purgecss`, () => {

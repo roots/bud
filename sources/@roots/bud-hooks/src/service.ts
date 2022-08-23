@@ -1,6 +1,7 @@
 import * as Framework from '@roots/bud-framework'
 import {bind} from 'helpful-decorators'
 import {isFunction, isUndefined} from 'lodash-es'
+import {format} from 'pretty-format'
 
 /**
  * Hooks and events registry
@@ -74,9 +75,12 @@ export default class Hooks
    */
   @bind
   public async bootstrap(app: Framework.Bud) {
-    this.store = isFunction(app.context.seed)
-      ? {...app.context.seed(app)}
-      : {...app.context.seed}
+    this.store = {
+      ...Object.entries(app.context.seed).reduce(
+        (a, [k, v]) => ({...a, [k]: [v]}),
+        {},
+      ),
+    }
   }
 
   /**
@@ -143,7 +147,7 @@ export default class Hooks
    * @decorator `@bind`
    */
   @bind
-  public on<T extends `${keyof Framework.Registry.Sync & string}`>(
+  public on<T extends keyof Framework.Registry.Sync & string>(
     id: T,
     input:
       | Framework.Registry.Sync[T]
@@ -151,13 +155,24 @@ export default class Hooks
           current?: Framework.Registry.Sync[T],
         ) => Framework.Registry.Sync[T]),
   ): Framework.Bud {
-    const inputFn: (
-      current?: Framework.Registry.Sync[T],
-    ) => Framework.Registry.Sync[T] =
-      typeof input === `function` ? input : () => input
+    this.app.info(`hooks.on`, id, input)
+
+    if (!isFunction(input)) this.store[id] = [input]
+    else if (this.has(id)) this.store[id].push(input)
+    else this.store[id] = [isFunction(input) ? input : () => input]
 
     this.app.info(`hooks.on`, id, input)
-    this.set(id, [inputFn])
+
+    return this.app
+  }
+
+  @bind
+  public fromMap<SyncMap extends Framework.Registry.Sync>(map: {
+    [K in keyof SyncMap as `${K & string}`]:
+      | SyncMap[K]
+      | ((current?: SyncMap[K]) => SyncMap[K])
+  }): Framework.Bud {
+    Object.entries(map).map(([k, v]: any) => this.on(k, v))
 
     return this.app
   }
@@ -220,25 +235,24 @@ export default class Hooks
   @bind
   public filter<T extends keyof Framework.Registry.Sync & string>(
     id: T,
-    fallback?:
-      | Framework.Registry.Sync[T]
-      | ((
-          value?: Framework.Registry.Sync[T],
-        ) => Framework.Registry.Sync[T]),
+    fallback?: Framework.Registry.Sync[T],
   ): Framework.Registry.Sync[T] {
-    if (!this.has(id)) return isFunction(fallback) ? fallback() : fallback
+    if (!this.has(id)) return fallback
 
-    const result = ((this.store[id] as any) ?? []).reduce(
+    const result = (
+      (Array.isArray(this.get(id))
+        ? this.get(id)
+        : ([this.get(id)] as any)) ?? []
+    ).reduce(
       (
         accumulated: Framework.Registry.Sync[T],
         current: (
           value?: Framework.Registry.Sync[T],
         ) => Framework.Registry.Sync[T],
-      ): Framework.Registry.Sync[T] => current(accumulated),
-      isFunction(fallback) ? fallback() : fallback,
+      ): Framework.Registry.Sync[T] =>
+        isFunction(current) ? current(accumulated) : current,
+      fallback,
     )
-
-    this.app.info(`hooks.filter`, id, result)
 
     return result
   }
@@ -281,8 +295,6 @@ export default class Hooks
       fallback,
     )
 
-    this.app.info(`hooks.filterAsync`, id, result)
-
     return result
   }
 
@@ -301,11 +313,9 @@ export default class Hooks
     id: T,
     ...actions: Array<(app?: Framework.Bud) => Promise<unknown>>
   ): Framework.Bud {
-    const value = this.store[id] ?? []
+    const value = this.get(id)
 
     actions.forEach(action => value.push(action as any))
-
-    this.app.info({message: `registering action: ${id}`})
 
     this.set(id, value)
 
@@ -329,15 +339,17 @@ export default class Hooks
       keyof Framework.Store &
       string,
   >(id: T): Promise<Framework.Bud> {
-    if (!this.has(id)) return
+    if (!this.has(id) || this.get(id).length > 0) return
+    const value = this.get(id)
 
-    const retrieved = this.get(id)
+    this.app.info(`firing action ${id}`, format(value))
 
-    await retrieved.reduce(async (promise, current) => {
-      await promise
-      this.app.info(`firing action ${id}`)
-      return current(this.app)
-    }, Promise.resolve())
+    await value
+      .reduce(async (promise, current, index) => {
+        await promise
+        await current(this.app)
+      }, Promise.resolve())
+      .then(() => (this.store[id] = []))
 
     return this.app
   }

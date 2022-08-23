@@ -15,12 +15,12 @@ export interface Registry
 
 export namespace Registry {
   export interface Sync
-    extends Build.Sync,
-      Dev,
-      Flags.HookMap,
-      Locations.HookMap,
-      Patterns.HookMap,
-      Values {}
+    extends Partial<Build.Sync>,
+      Partial<Dev>,
+      Partial<Flags.HookMap>,
+      Partial<Locations.HookMap>,
+      Partial<Patterns.HookMap>,
+      Partial<Values> {}
 
   export type Async = Build.Async
 
@@ -28,19 +28,21 @@ export namespace Registry {
 }
 
 export interface Store
-  extends Store.SyncCallbackMap,
-    Store.AsyncCallbackMap,
-    Store.EventsCallbackMap {}
+  extends Partial<Store.SyncCallbackMap>,
+    Partial<Store.AsyncCallbackMap>,
+    Partial<Store.EventsCallbackMap> {}
 
 export namespace Store {
   export type SyncCallbackMap = {
     [K in keyof Registry.Sync as `${K & string}`]: Array<
-      (current?: Registry.Sync[K]) => Registry.Sync[K]
+      (current?: Registry.Sync[K]) => Registry.Sync[K] | Registry.Sync[K]
     >
   }
   export type AsyncCallbackMap = {
     [K in keyof Registry.Async as `${K & string}`]: Array<
-      (current?: Registry.Async[K]) => Promise<Registry.Async[K]>
+      (
+        current?: Registry.Async[K],
+      ) => Promise<Registry.Async[K]> | Registry.Async[K]
     >
   }
   export type EventsCallbackMap = {

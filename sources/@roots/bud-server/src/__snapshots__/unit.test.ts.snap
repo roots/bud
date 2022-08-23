@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`@roots/bud-server @roots/bud-server/service in development should have expected defaults 1`] = `"http://0.0.0.0:3000/"`;
+exports[`@roots/bud-server @roots/bud-server/service in development should have expected defaults 1`] = `"http://0.0.0.0:3015/"`;
 
 exports[`@roots/bud-server @roots/bud-server/service in development should have expected defaults 2`] = `Set {}`;
 
@@ -28,3 +28,16 @@ Object {
   "hot": [Function],
 }
 `;
+
+exports[`@roots/bud-server @roots/bud-server/service should have expected defaults 1`] = `"http://0.0.0.0:50064/"`;
+
+exports[`@roots/bud-server @roots/bud-server/service should have expected defaults 2`] = `
+Set {
+  "index.html",
+  "images",
+}
+`;
+
+exports[`@roots/bud-server @roots/bud-server/service should have expected defaults 3`] = `undefined`;
+
+exports[`@roots/bud-server @roots/bud-server/service should have expected defaults 4`] = `undefined`;

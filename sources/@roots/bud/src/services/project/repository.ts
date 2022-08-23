@@ -1,4 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
+import type {Context} from '@roots/bud-framework/src/config'
 
 export interface ConfigItem {
   fileName: string
@@ -13,10 +14,9 @@ export interface ConfigManifest {
 }
 
 export interface repository {
-  version: string
+  context: Partial<Context>
   config: ConfigManifest
-  manifest: Record<string, any>
-  installed: Record<string, string>
+  publicEnv: Record<string, string>
 }
 
 /**
@@ -25,12 +25,11 @@ export interface repository {
  * @public
  */
 export const repository: repository = {
-  version: null,
+  context: {},
   config: {
     development: {},
     production: {},
     base: {},
   },
-  manifest: {},
-  installed: {},
+  publicEnv: {},
 }

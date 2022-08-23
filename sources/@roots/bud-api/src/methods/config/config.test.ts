@@ -1,4 +1,4 @@
-import {describe, expect, it} from '@jest/globals'
+import {beforeEach, describe, expect, it} from '@jest/globals'
 import {Bud, factory} from '@repo/test-kit/bud'
 
 import {config} from './config.method.js'
@@ -6,7 +6,7 @@ import {config} from './config.method.js'
 describe(`bud.config`, function () {
   let bud: Bud
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     bud = await factory()
   })
 
@@ -24,7 +24,6 @@ describe(`bud.config`, function () {
 
   it(`should accept object configuration`, async () => {
     config.call(bud, {entry: `foo`})
-
     const result = await bud.build.make()
     expect(result.entry).toEqual(`foo`)
   })

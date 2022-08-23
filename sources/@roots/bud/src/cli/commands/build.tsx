@@ -1,18 +1,9 @@
 import {Command, Option} from 'clipanion'
 import {bind} from 'helpful-decorators'
-import {isUndefined} from 'lodash-es'
 import * as t from 'typanion'
 
 import {factory} from '../../factory/index.js'
-import {seed} from '../../seed.js'
-import * as overrides from '../config/override.config.js'
 import {BaseCommand} from './base.js'
-
-const fallback = (
-  test: any | undefined,
-  value: any | undefined,
-  fallback: any,
-) => (isUndefined(test) ? fallback : value)
 
 /**
  * Build command
@@ -49,6 +40,13 @@ export class BuildCommand extends BaseCommand {
   })
 
   /**
+   * --browser
+   */
+  public browser = Option.Boolean(`--browser`, undefined, {
+    description: `Open browser on successful development build`,
+  })
+
+  /**
    * --cache
    */
   public cache = Option.String(`--cache`, undefined, {
@@ -60,14 +58,7 @@ export class BuildCommand extends BaseCommand {
       t.isLiteral(true),
       t.isLiteral(false),
     ]),
-    env: `BUILD_CACHE`,
-  })
-
-  /**
-   * --clean
-   */
-  public clean = Option.Boolean(`--clean`, undefined, {
-    description: `Clean artifacts and distributables prior to compilation`,
+    env: `APP_CACHE`,
   })
 
   /**
@@ -78,10 +69,10 @@ export class BuildCommand extends BaseCommand {
   })
 
   /**
-   * --dashboard
+   * --clean
    */
-  public dashboard = Option.Boolean(`--dashboard`, undefined, {
-    hidden: true,
+  public clean = Option.Boolean(`--clean`, undefined, {
+    description: `Clean artifacts and distributables prior to compilation`,
   })
 
   /**
@@ -123,15 +114,14 @@ export class BuildCommand extends BaseCommand {
       t.isLiteral(`hidden-cheap-module-source-map`),
       t.isLiteral(`hidden-source-map`),
     ]),
-    env: `BUILD_DEVTOOL`,
+    env: `APP_DEVTOOL`,
   })
 
-  /*
-   * --dist
+  /**
+   * --notify
    */
-  public dist = Option.String(`--output,-o`, undefined, {
-    description: `Distribution directory (relative to project)`,
-    env: `BUILD_PATH_OUTPUT`,
+  public editor = Option.Boolean(`--editor`, undefined, {
+    description: `Open editor to file containing errors on unsuccessful development build`,
   })
 
   /**
@@ -139,13 +129,6 @@ export class BuildCommand extends BaseCommand {
    */
   public esm = Option.Boolean(`--esm`, undefined, {
     description: `build as es modules`,
-  })
-
-  /**
-   * --immutable
-   */
-  public immutable = Option.Boolean(`--immutable`, undefined, {
-    description: `bud.http: immutable module lockfile`,
   })
 
   /**
@@ -165,8 +148,23 @@ export class BuildCommand extends BaseCommand {
   /**
    * --html
    */
-  public html = Option.Boolean(`--html`, undefined, {
+  public html = Option.String(`--html`, undefined, {
     description: `Generate an html template`,
+    tolerateBoolean: true,
+  })
+
+  /**
+   * --immutable
+   */
+  public immutable = Option.Boolean(`--immutable`, undefined, {
+    description: `bud.http: immutable module lockfile`,
+  })
+
+  /**
+   * --indicator
+   */
+  public indicator = Option.Boolean(`--indicator`, undefined, {
+    description: `Enable development status indicator`,
   })
 
   /**
@@ -178,38 +176,31 @@ export class BuildCommand extends BaseCommand {
   })
 
   /**
+   * --input
+   */
+  public input = Option.String(`--input,-i,--src`, undefined, {
+    description: `Source directory (relative to project)`,
+    env: `APP_PATH_INPUT`,
+  })
+
+  /*
+   * --dist
+   */
+  public output = Option.String(`--output,-o,--dist`, undefined, {
+    description: `Distribution directory (relative to project)`,
+    env: `APP_PATH_OUTPUT`,
+  })
+
+  /**
    * --mode
    */
-  public mode = Option.String(`--mode`, `production`, {
+  public mode = Option.String(`--mode`, undefined, {
     description: `Compilation mode`,
     validator: t.isOneOf([
       t.isLiteral(`production`),
       t.isLiteral(`development`),
     ]),
-    env: `BUILD_MODE`,
-  })
-
-  /**
-   * --src
-   */
-  public input = Option.String(`--input,-i`, undefined, {
-    description: `Source directory (relative to project)`,
-    env: `BUILD_PATH_INPUT`,
-  })
-
-  /**
-   * --storage
-   */
-  public storage = Option.String(`--storage`, undefined, {
-    description: `Storage directory (relative to project)`,
-    env: `BUILD_PATH_STORAGE`,
-  })
-
-  /**
-   * --indicator
-   */
-  public indicator = Option.Boolean(`--indicator`, true, {
-    description: `Enable development status indicator`,
+    env: `APP_MODE`,
   })
 
   /**
@@ -234,38 +225,16 @@ export class BuildCommand extends BaseCommand {
   })
 
   /**
-   * --modules
-   */
-  public modules = Option.String(`--modules`, undefined, {
-    description: `Module resolution path`,
-    env: `BUILD_PATH_MODULES`,
-  })
-
-  /**
    * --notify
    */
-  public notify = Option.Boolean(`--notify`, true, {
+  public notify = Option.Boolean(`--notify`, undefined, {
     description: `Enable notfication center messages`,
-  })
-
-  /**
-   * --notify
-   */
-  public browser = Option.Boolean(`--browser`, false, {
-    description: `Open browser on successful development build`,
-  })
-
-  /**
-   * --notify
-   */
-  public editor = Option.Boolean(`--editor`, false, {
-    description: `Open editor to file containing errors on unsuccessful development build`,
   })
 
   /**
    * --overlay
    */
-  public overlay = Option.Boolean(`--overlay`, true, {
+  public overlay = Option.Boolean(`--overlay`, undefined, {
     description: `Enable error overlay in development mode`,
   })
 
@@ -275,6 +244,13 @@ export class BuildCommand extends BaseCommand {
   public publicPath = Option.String(`--publicPath`, undefined, {
     description: `public path of emitted assets`,
     env: `APP_PUBLIC_PATH`,
+  })
+
+  /**
+   * --reload
+   */
+  public reload = Option.Boolean(`--reload`, undefined, {
+    description: `Reload browser on unrecoverable error`,
   })
 
   /**
@@ -289,6 +265,14 @@ export class BuildCommand extends BaseCommand {
   )
 
   /**
+   * --storage
+   */
+  public storage = Option.String(`--storage`, undefined, {
+    description: `Storage directory (relative to project)`,
+    env: `APP_PATH_STORAGE`,
+  })
+
+  /**
    * --target
    */
   public target = Option.Array(`--target,-t`, undefined, {
@@ -296,9 +280,9 @@ export class BuildCommand extends BaseCommand {
   })
 
   /**
-   * --verbose
+   * --level
    */
-  public verbose = Option.Boolean(`--verbose`, false, {
+  public level = Option.Array<Boolean>(`-v`, undefined, {
     description: `Set logging level`,
   })
 
@@ -307,92 +291,39 @@ export class BuildCommand extends BaseCommand {
    */
   @bind
   public async runCommand() {
-    this.context.mode = this.mode
+    this.context.args = {
+      browser: this.browser,
+      cache: this.cache,
+      ci: this.ci,
+      clean: this.clean,
+      debug: this.debug,
+      devtool: this.devtool,
+      dry: this.dry,
+      output: this.output,
+      editor: this.editor,
+      esm: this.esm,
+      flush: this.flush,
+      hash: this.hash,
+      html: this.html,
+      immutable: this.immutable,
+      indicator: this.indicator,
+      input: this.input,
+      level: this.level,
+      log: this.log,
+      manifest: this.manifest,
+      minimize: this.minimize,
+      mode: this.mode,
+      notify: this.notify,
+      overlay: this.overlay,
+      publicPath: this.publicPath,
+      reload: this.reload,
+      splitChunks: this.splitChunks,
+      target: this.target,
+    }
 
-    if (!isUndefined(this.dashboard))
-      this.context.stdout.write(
-        `the --dashboard and --no-dashboard flags are deprecated and will be removed in a future release.\n`,
-      )
-    ;[
-      `cache`,
-      `ci`,
-      `clean`,
-      `debug`,
-      `devtool`,
-      `esm`,
-      `flush`,
-      `hash`,
-      `html`,
-      `indicator`,
-      `inject`,
-      `immutable`,
-      `log`,
-      `manifest`,
-      `minimize`,
-      `mode`,
-      `modules`,
-      `notify`,
-      `overlay`,
-      `browser`,
-      `editor`,
-      `publicPath`,
-      `input`,
-      `splitChunks`,
-      `target`,
-      `verbose`,
-      `watch`,
-    ].map(arg => {
-      this.context.args[arg] = fallback(this[arg], this[arg], null)
-    })
-
-    this.app = await factory({
-      ...this.context,
-      seed: {
-        'build.output.publicPath': fallback(
-          this.publicPath,
-          [() => this.publicPath],
-          seed[`build.output.publicPath`],
-        ),
-        'feature.inject': fallback(
-          this.inject,
-          [() => this.inject],
-          seed[`feature.inject`],
-        ),
-        'feature.log': fallback(
-          this.log,
-          [() => this.log],
-          seed[`feature.log`],
-        ),
-        'feature.manifest': fallback(
-          this.manifest,
-          [() => this.manifest],
-          seed[`feature.manifest`],
-        ),
-        'location.@src': fallback(
-          this.input,
-          [() => this.input],
-          seed[`location.@src`],
-        ),
-        'location.@dist': fallback(
-          this.dist,
-          [() => this.dist],
-          seed[`location.@dist`],
-        ),
-        'location.@storage': fallback(
-          this.storage,
-          [() => this.storage],
-          seed[`location.@storage`],
-        ),
-        'location.@modules': fallback(
-          this.modules,
-          [() => this.modules],
-          seed[`location.@modules`],
-        ),
-      },
-    })
+    this.app = await factory(this.context)
 
     await this.make()
-    await overrides.config(this)
-    await this.run()
+    await this.app.run()
   }
 }

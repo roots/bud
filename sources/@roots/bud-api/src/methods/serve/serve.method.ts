@@ -96,7 +96,10 @@ export const method: Serve = async function (
 
   if (!app.isDevelopment) return app
 
-  const current = app.hooks.filter(`dev.url`)
+  const current = app.hooks.filter(
+    `dev.url`,
+    new URL(`http://0.0.0.0:3000`),
+  )
 
   if (Array.isArray(input) || typeof input === `number`) {
     current.port = await requestPort(app, current, input)

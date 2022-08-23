@@ -12,12 +12,12 @@ describe(`bud.template`, function () {
       expect(bud.template).toBeInstanceOf(Function)
     })
 
-    it(`html-webpack-plugin not set`, () => {
-      expect(bud.extensions.has(`html-webpack-plugin`)).toBe(false)
+    it(`html-webpack-plugin is set`, () => {
+      expect(bud.extensions.has(`html-webpack-plugin`)).toBe(true)
     })
 
-    it(`interpolate-html-plugin not set`, () => {
-      expect(bud.extensions.has(`interpolate-html-plugin`)).toBe(false)
+    it(`interpolate-html-plugin is set`, () => {
+      expect(bud.extensions.has(`interpolate-html-plugin`)).toBe(true)
     })
   })
 

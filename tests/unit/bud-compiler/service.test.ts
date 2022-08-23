@@ -15,7 +15,7 @@ describe(`@roots/bud-compiler`, function () {
   })
 
   it(`has before fn`, () => {
-    expect(impl.before).toBeInstanceOf(Function)
+    expect(impl.beforeCompiler).toBeInstanceOf(Function)
   })
 
   it(`has handleStats fn`, () => {
@@ -40,23 +40,25 @@ describe(`@roots/bud-compiler`, function () {
   })
 
   describe(`prod compilation`, () => {
-    let prodBud: Bud
+    let bud: Bud
 
     beforeEach(async () => {
-      prodBud = await factory()
+      bud = await factory()
     })
 
     afterEach(done => {
-      prodBud.close(done)
+      bud.close(done)
     })
 
     it(`compiles`, async () => {
-      const compilation = await prodBud.compiler.compile()
-      expect(compilation.outputPath).toBe(prodBud.path(`@dist`))
+      await bud.hooks.fire(`config.after`)
+      const compilation = await bud.compiler.compile()
+      expect(compilation.outputPath).toBe(bud.path(`@dist`))
     })
 
     it(`is a single compiler array`, async () => {
-      const compilation = await prodBud.compiler.compile()
+      await bud.hooks.fire(`config.after`)
+      const compilation = await bud.compiler.compile()
       expect(compilation.compilers).toHaveLength(1)
     })
   })

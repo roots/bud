@@ -20,19 +20,10 @@ export default class Extensions {
 
   @bind
   public async find() {
-    this.filterApplicableExtensions(
-      Object.keys({
-        ...(this.manifest?.devDependencies ?? {}),
-        ...(this.manifest?.dependencies ?? {}),
-      }),
-    )
-
-    return this
-  }
-
-  @bind
-  public filterApplicableExtensions(extensions: Array<string>) {
-    extensions
+    Object.keys({
+      ...(this.manifest?.devDependencies ?? {}),
+      ...(this.manifest?.dependencies ?? {}),
+    })
       .filter(
         signifier =>
           signifier.startsWith(`@roots/bud-`) ||
@@ -65,5 +56,7 @@ export default class Extensions {
           this.manifest.bud.allowlist.includes(signifier),
       )
       .map(signifier => this.data.push(signifier))
+
+    return this
   }
 }

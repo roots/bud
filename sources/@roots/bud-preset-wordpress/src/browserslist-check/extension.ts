@@ -8,7 +8,7 @@ export default class BudBrowsersListCheck extends Extension {
   public items: Array<string> = []
 
   @bind
-  public async beforeBuild() {
+  public async buildBefore() {
     if (!this.app.context.manifest.browserslist) return
 
     this.app.context.manifest.browserslist?.production &&

@@ -1,8 +1,8 @@
 import type {Bud} from '@roots/bud-framework'
 import {bind} from 'helpful-decorators'
-import {isFunction, isObject} from 'lodash-es'
+import {isFunction} from 'lodash-es'
 
-import type {ConfigManifest} from '../../services/project/repository.js'
+import type {ConfigManifest} from '../services/project/repository.js'
 
 /**
  * User config parser
@@ -32,10 +32,6 @@ class Configuration {
         .map(config => {
           this.manifest[config.name] = config.module
         })
-
-    Object.keys(this.manifest).map(k =>
-      this.app.info({message: `Received config: ${k}`}),
-    )
   }
 
   /**
@@ -48,14 +44,7 @@ class Configuration {
   public async run(): Promise<void> {
     await Promise.all(
       Object.entries(this.manifest).map(async ([name, config]) => {
-        this.app.info({message: `Processing config: ${name}`})
-
-        if (!isFunction(config) && !isObject(config))
-          return this.app.error(
-            `bud tried to parse ${
-              name ?? `unknown file`
-            } but it doesn't seem to be a function or an object config`,
-          )
+        this.app.info(`processing config:`, name)
 
         isFunction(config)
           ? await config(this.app)
@@ -75,7 +64,6 @@ class Configuration {
     await Promise.all(
       Object.entries(config).map(async ([key, value]) => {
         const request = this.app[key]
-
         if (isFunction(request)) await request(value)
       }),
     )
@@ -101,13 +89,6 @@ export const config = async (app: Bud) => {
   await process(modeSpecific)
 
   try {
-    await Promise.all(
-      Object.values(app.services)
-        .filter(service => isFunction(service.afterConfig))
-        .map(async service => {
-          await service.afterConfig(app)
-        }),
-    )
     await app.hooks.fire(`config.after`)
   } catch (err) {
     app.error(err)

@@ -1,4 +1,5 @@
 import {isString} from 'lodash-es'
+import {normalize} from 'node:path'
 
 import type {Bud} from '../bud.js'
 import type {Locations} from '../registry/locations.js'
@@ -14,7 +15,13 @@ export interface setPath {
  * Set a {@link Locations} value
  *
  * @remarks
- * All {@link Locations} values should be relative to the project directory
+ * All values should be relative to the project directory.
+ *
+ * @example
+ * Set project path
+ * ```js
+ * bud.setPath('/app/absolute/path/')
+ * ```
  *
  * @example
  * ```js
@@ -28,6 +35,11 @@ export interface setPath {
  */
 export const setPath: setPath = function (arg1, arg2) {
   const app = this as Bud
+
+  if (isString(arg1) && !arg2) {
+    Object.assign(app.context, {basedir: normalize(arg1)})
+    return app
+  }
 
   const input = isString(arg1) ? {[arg1]: arg2} : arg1
 

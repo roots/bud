@@ -75,11 +75,6 @@ export const template: template = async function (
   app.info(`processing html-webpack-plugin options`)
   plugins.html.setOptions(userOptions)
 
-  /**
-   * If there were no replacements specified, we're done.
-   */
-  if (!userOptions.replace) return app
-
   app.info(`processing bud-interpolate-html-plugin options`)
   plugins.interpolate.setOptions(userOptions.replace)
 

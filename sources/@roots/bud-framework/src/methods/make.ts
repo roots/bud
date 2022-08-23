@@ -1,8 +1,7 @@
-import {isFunction, isString} from 'lodash-es'
+import {isString} from 'lodash-es'
 
 import type {Bud} from '../bud.js'
-import type {Context} from '../config/context.js'
-import type {Config} from '../index.js'
+import type {Context, Overrides} from '../config/context.js'
 
 /**
  * make function interface
@@ -10,7 +9,10 @@ import type {Config} from '../index.js'
  * @internal
  */
 export interface make {
-  (ident: string | Partial<Context>, tap?: (app: Bud) => Promise<Bud>): Bud
+  (
+    ident: string | Overrides,
+    tap?: (app: Bud) => Promise<unknown>,
+  ): Promise<Bud>
 }
 
 /**
@@ -29,37 +31,25 @@ export interface make {
  *
  * @public
  */
-export const make: make = function (ident, tap) {
+export const make: make = async function (props, tap) {
   const current = this as Bud
   const root = current.root
 
-  const context: Partial<Config.Context> = isString(ident)
-    ? {label: ident, basedir: root.path(`/`), root}
-    : {...ident, root}
+  const context: Context = isString(props)
+    ? {...root.context, label: props, basedir: root.path(), root}
+    : {...root.context, ...props, root}
 
-  root.hooks.action(`config.after`, async () => {
-    root.children[context.label] = await root.factory(context)
-    root.children[context.label].success(`constructed`)
+  root.log(`instantiating child:`, context.label)
 
-    if (isFunction(tap)) {
-      await tap(root.children[context.label])
-      root.children[context.label].success(`configuration applied`)
-      await root.children[context.label].api.processQueue()
-    }
+  const child = await root.factory(context)
 
-    await Promise.all(
-      Object.values(root.children[context.label].services)
-        .filter(service => isFunction(service.afterConfig))
-        .map(async service => {
-          await service.afterConfig(root.children[context.label])
-        }),
-    )
+  if (tap) {
+    await tap(child)
+    await child.hooks.fire(`config.after`)
+  }
 
-    await root.children[context.label].hooks.fire(`config.after`)
-    root.children[context.label].success(`config after hook fired`)
-  })
-
-  root.log(`child prepped:`, context.label)
+  if (!root.children) root.children = {}
+  root.children[context.label] = child
 
   return root
 }

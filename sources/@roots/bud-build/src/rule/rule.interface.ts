@@ -1,55 +1,49 @@
-import type {Bud} from '../../../bud.js'
-import type {Base} from '../base.js'
-import type {Items} from '../index.js'
+import type {Bud} from '@roots/bud-framework/lib/bud'
+
+import type Build from '../service.js'
+import type Base from '../shared/base.js'
 
 /**
- * Loader rule definition
+ * File parser interface
  *
  * @public
  */
-export namespace Rule {
-  /**
-   * File parser interface
-   *
-   * @public
-   */
-  export interface Parser extends Record<string, any> {}
+export interface Parser extends Record<string, any> {}
 
-  /**
-   * Options interface
-   *
-   * @public
-   */
-  export type Options = {
-    test?: Rule['test']
-    use?: Rule['use'] | ((use: Rule['use']) => Rule['use'])
-    include?: Rule['include']
-    exclude?: Rule['exclude']
-    type?: Rule['type']
-    parser?: Rule['parser']
-    generator?: Rule['generator']
-  }
-
-  /**
-   * Output
-   *
-   * @public
-   */
-  export type Output = Partial<{
-    test?: RegExp
-    use?: {
-      loader: string
-      options?: {[key: string]: any}
-    }[]
-    include?: Array<RegExp | string>
-    exclude?: Array<RegExp | string>
-    type?: string
-    parser?: Parser
-    generator?: any
-  }>
+/**
+ * Options interface
+ *
+ * @public
+ */
+export type Options = {
+  test?: Instance['test']
+  use?: Instance['use'] | ((use: Instance['use']) => Instance['use'])
+  include?: Instance['include']
+  exclude?: Instance['exclude']
+  type?: Instance['type']
+  parser?: Instance['parser']
+  generator?: Instance['generator']
 }
 
-export interface Rule extends Base {
+/**
+ * Output
+ *
+ * @public
+ */
+export type Output = Partial<{
+  test?: RegExp
+  use?: {
+    loader: string
+    options?: {[key: string]: any}
+  }[]
+  include?: Array<RegExp | string>
+  exclude?: Array<RegExp | string>
+  type?: string
+  parser?: Parser
+  generator?: any
+}>
+
+export interface Instance extends Base {
   /**
    * Test pattern
    *
@@ -69,28 +63,28 @@ export interface Rule extends Base {
    *
    * @public
    */
-  setTest(test: Rule['test']): this
+  setTest(test: Instance['test']): this
 
   /**
    * Use item
    *
    * @public
    */
-  use?: Array<keyof Items & string>
+  use?: Array<keyof Build['items'] & string>
 
   /**
    * Get the value of `use`
    *
    * @public
    */
-  getUse(): Array<keyof Items & string>
+  getUse(): Array<keyof Build['items'] & string>
 
   /**
    * Set the value of `use`
    *
    * @public
    */
-  setUse<K extends keyof Items & string>(
+  setUse<K extends keyof Build['items'] & string>(
     use: ((use: Array<K>, app: Bud) => Array<K>) | Array<K>,
   ): this
 
@@ -144,8 +138,8 @@ export interface Rule extends Base {
    */
   setInclude(
     value:
-      | ((includes: Rule['include']) => Rule['include'])
-      | Rule['include'],
+      | ((includes: Instance['include']) => Instance['include'])
+      | Instance['include'],
   ): this
 
   /**
@@ -167,28 +161,28 @@ export interface Rule extends Base {
    *
    * @public
    */
-  setType(type: Rule['type']): this
+  setType(type: Instance['type']): this
 
   /**
    * Parser
    *
    * @public
    */
-  parser?: ((app: Bud) => Rule.Parser) | Rule.Parser
+  parser?: ((app: Bud) => Parser) | Parser
 
   /**
    * Get the value of `parser`
    *
    * @public
    */
-  getParser(): Rule.Parser
+  getParser(): Parser
 
   /**
    * Set the value of `parser`
    *
    * @public
    */
-  setParser(parser: ((app: Bud) => Rule.Parser) | Rule.Parser): this
+  setParser(parser: ((app: Bud) => Parser) | Parser): this
 
   /**
    * Generator
@@ -210,7 +204,9 @@ export interface Rule extends Base {
    * @public
    */
   setGenerator(
-    Generator: ((app: Bud) => Rule['generator']) | Rule['generator'],
+    Generator:
+      | ((app: Bud) => Instance['generator'])
+      | Instance['generator'],
   ): this
 
   /**
@@ -218,5 +214,5 @@ export interface Rule extends Base {
    *
    * @public
    */
-  toWebpack(): Rule.Output
+  toWebpack(): Output
 }

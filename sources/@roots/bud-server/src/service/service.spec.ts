@@ -1,7 +1,5 @@
 import {beforeAll, describe, expect, it} from '@jest/globals'
-import {logger} from '@repo/logger'
 import {Bud, factory} from '@repo/test-kit/bud'
-import Express from 'express'
 
 import {Watcher} from '../server/server.watcher'
 import {Server} from './service'
@@ -13,6 +11,11 @@ export default () => {
   beforeAll(async () => {
     bud = await factory({mode: `development`})
     instance = new Server(bud)
+    await instance.register()
+    await instance.boot()
+    await bud.run()
+
+    expect(bud.mode).toBe(`development`)
   })
 
   it(`should be an instance of Server`, () => {
@@ -31,50 +34,20 @@ export default () => {
     expect(instance.enabledMiddleware).toMatchSnapshot()
   })
 
-  describe(`in development`, () => {
-    let development: Bud
-    let instance: Server
-
-    beforeAll(async () => {
-      development = await factory({mode: `development`})
-      instance = new Server(development)
-      await instance.register()
-      await instance.boot()
-    })
-
-    it(`should have an application property that is an express application`, async () => {
-      expect(instance.application).toHaveProperty(`set`)
-      expect(instance.application).toHaveProperty(`get`)
-      expect(instance.application).toHaveProperty(`listen`)
-    })
-
-    it(`should have a watcher property`, async () => {
-      expect(instance.watcher).toBeInstanceOf(Watcher)
-    })
-
-    it(`should have expected defaults`, async () => {
-      expect(instance.app.hooks.filter(`dev.url`)).toMatchSnapshot()
-      expect(
-        instance.app.hooks.filter(`dev.watch.files`),
-      ).toMatchSnapshot()
-      expect(
-        instance.app.hooks.filter(`dev.watch.options`),
-      ).toMatchSnapshot()
-      expect(
-        instance.app.hooks.filter(`dev.client.scripts`),
-      ).toMatchSnapshot()
-    })
+  it(`should have an application property that is an express application`, async () => {
+    expect(instance.application).toHaveProperty(`set`)
+    expect(instance.application).toHaveProperty(`get`)
+    expect(instance.application).toHaveProperty(`listen`)
   })
 
-  describe(`in production`, () => {
-    let production: Bud
+  it(`should have a watcher property`, async () => {
+    expect(instance.watcher).toBeInstanceOf(Watcher)
+  })
 
-    beforeAll(async () => {
-      production = await factory({mode: `production`})
-    })
-
-    it(`should not be defined`, () => {
-      expect(production.server).toBeUndefined()
-    })
+  it(`should have expected defaults`, async () => {
+    expect(bud.hooks.filter(`dev.url`)).toMatchSnapshot()
+    expect(bud.hooks.filter(`dev.watch.files`)).toMatchSnapshot()
+    expect(bud.hooks.filter(`dev.watch.options`)).toMatchSnapshot()
+    expect(bud.hooks.filter(`dev.client.scripts`)).toMatchSnapshot()
   })
 }

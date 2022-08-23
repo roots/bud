@@ -38,7 +38,7 @@ describe(`@roots/bud-react`, () => {
       bud = await factory({mode: `development`})
       await bud.extensions.add([BudReact])
 
-      await bud.extensions.runAll(`_afterConfig`)
+      await bud.hooks.fire(`config.after`)
       await bud.build.make()
 
       // @ts-ignore

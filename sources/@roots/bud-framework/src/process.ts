@@ -62,8 +62,8 @@ function makeHandler(app: Bud, code: number) {
     }
 
     try {
-      if (app.compiler?.compilation?.running) {
-        app.compiler.compilation.close(() => app.close())
+      if (app.compiler?.instance?.running) {
+        app.compiler.instance.close(() => app.close())
       }
     } catch (err) {
       renderError(err.message)

@@ -6,7 +6,6 @@ import {Box, Text} from 'ink'
 import React from 'react'
 
 import {factory} from '../../factory/index.js'
-import * as disk from '../config/disk.config.js'
 import {BaseCommand} from './base.js'
 
 const {ensureDir, remove} = fs
@@ -40,13 +39,7 @@ export class CleanCommand extends BaseCommand {
     }
 
     try {
-      await disk.config(this.app)
-    } catch (error) {
-      this.app.error(error)
-    }
-
-    try {
-      await this.app.compiler.before()
+      await this.app.run()
     } catch (e) {}
 
     if (this.storage || (!this.storage && !this.dist)) {

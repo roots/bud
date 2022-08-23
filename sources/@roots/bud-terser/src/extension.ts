@@ -88,13 +88,13 @@ export default class Terser extends Extension<Options> {
   }
 
   /**
-   * `beforeBuild` callback
+   * `buildBefore` callback
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public async beforeBuild() {
+  public async buildBefore() {
     this.app.hooks.on(`build.optimization.minimizer`, minimizer => {
       minimizer.push(new TerserPlugin(this.options))
       return minimizer

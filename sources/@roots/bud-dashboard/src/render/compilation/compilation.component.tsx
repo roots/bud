@@ -94,10 +94,8 @@ const Compilation = ({
         {entrypoints.map((chunk, id) => (
           <Box key={id} flexDirection="column">
             <ChunkGroup
-              assets={chunk.assets}
-              name={chunk.name}
               indent={[true]}
-              emitted={chunk.emitted}
+              {...chunk}
               color={
                 stats?.errorsCount > 0
                   ? color.red

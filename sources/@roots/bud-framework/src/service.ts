@@ -112,13 +112,31 @@ export class Service {
    * After config callback
    * @public
    */
-  public afterConfig?(app: Bud): Promise<unknown>
+  public configAfter?(app: Bud): Promise<unknown>
 
   /**
-   * After config callback
+   * Before build service
    * @public
    */
-  public beforeBuild?(app: Bud): Promise<unknown>
+  public buildBefore?(app: Bud): Promise<unknown>
+
+  /**
+   * After build service
+   * @public
+   */
+  public buildAfter?(app: Bud): Promise<unknown>
+
+  /**
+   * Before Compiler service
+   * @public
+   */
+  public compilerBefore?(app: Bud): Promise<unknown>
+
+  /**
+   * After Compiler service
+   * @public
+   */
+  public compilerAfter?(app: Bud): Promise<unknown>
 }
 
 /**

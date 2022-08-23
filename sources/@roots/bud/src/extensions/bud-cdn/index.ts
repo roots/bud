@@ -259,13 +259,13 @@ export default class Cdn extends Extension<Options, null> {
   }
 
   /**
-   * `beforeBuild` callback
+   * `buildBefore` callback
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public async beforeBuild() {
+  public async buildBefore() {
     this.app.hooks.on(`build.experiments.buildHttp`, () => ({
       allowedUris: this.allowedUris,
       cacheLocation: this.cacheEnabled ? this.cacheLocation : false,

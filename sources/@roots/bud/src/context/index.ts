@@ -16,7 +16,7 @@ import Context from './context.js'
  */
 export const get = async (
   basedir: string,
-): Promise<Partial<Bud.Config.Context>> => {
+): Promise<Bud.Config.Context> => {
   const context = await Context.make(basedir)
   return context.data
 }

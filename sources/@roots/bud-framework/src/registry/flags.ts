@@ -1,12 +1,5 @@
 export interface Flags {
   /**
-   * Enable caching
-   *
-   * @public
-   */
-  cache: boolean
-
-  /**
    * Clean dist directory prior to compilation
    *
    * @public

@@ -17,7 +17,13 @@ export default class BabelExtension extends Extension<any, null> {
    * @public
    */
   public get cacheDirectory() {
-    return this.app.path(`@storage`, this.app.label, `cache`, `babel`)
+    return this.app.path(
+      `@storage`,
+      this.app.label,
+      `cache`,
+      this.app.mode,
+      `babel`,
+    )
   }
 
   /**

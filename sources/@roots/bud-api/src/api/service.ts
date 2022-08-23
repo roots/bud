@@ -60,6 +60,7 @@ export class Api
   @bind
   public async registered() {
     await this.processQueue()
+    this.app.hooks.action(`config.after`, this.processQueue)
     this.app.hooks.action(`build.before`, this.processQueue)
   }
 

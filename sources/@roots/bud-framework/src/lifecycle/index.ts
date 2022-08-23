@@ -1,6 +1,8 @@
-import {isFunction} from 'lodash-es'
+import {isFunction, isUndefined} from 'lodash-es'
 
 import type {Bud, Config} from '../index.js'
+import type {Service} from '../service.js'
+import * as args from './args.js'
 import * as bootstrap from './bootstrap.js'
 import {LIFECYCLE_EVENTS} from './constants.js'
 
@@ -12,6 +14,8 @@ import {LIFECYCLE_EVENTS} from './constants.js'
 export interface lifecycle {
   (this: Bud, context: Partial<Config.Context>): Promise<Bud>
 }
+
+const getServiceInstances = (app: Bud) => (service: string) => app[service]
 
 const getServiceFilterFn = (event: string) => service =>
   isFunction(service[event])
@@ -47,11 +51,12 @@ export async function lifecycle(
   this: Bud,
   context: Config.Context,
 ): Promise<Bud> {
-  await bootstrap.execute(this, context)
+  await bootstrap.execute(this, {...context})
 
   await LIFECYCLE_EVENTS.reduce(async (_promised, event) => {
     await Promise.all(
-      Object.values(this.services)
+      this.services
+        .map(getServiceInstances(this))
         .filter(getServiceFilterFn(event))
         .map(getServiceAsTupleMapperFn(event))
         .map(getServiceEventMapperFn(this, event)),
@@ -59,6 +64,48 @@ export async function lifecycle(
 
     return Promise.resolve()
   }, Promise.resolve())
+
+  this.services
+    .map((service: string): Service => this[service])
+    .filter(Boolean)
+    .map(service => {
+      !isUndefined(service.configAfter) &&
+        this.hooks.action(`config.after`, service.configAfter) &&
+        this.info(
+          service.constructor.name,
+          `configAfter method registered to hook`,
+        )
+
+      !isUndefined(service.buildBefore) &&
+        this.hooks.action(`build.before`, service.buildBefore) &&
+        this.info(
+          service.constructor.name,
+          `buildBefore method registered to hook`,
+        )
+
+      !isUndefined(service.buildAfter) &&
+        this.hooks.action(`build.after`, service.buildAfter) &&
+        this.info(
+          service.constructor.name,
+          `buildAfter method registered to hook`,
+        )
+
+      !isUndefined(service.compilerBefore) &&
+        this.hooks.action(`compiler.before`, service.compilerBefore) &&
+        this.info(
+          service.constructor.name,
+          `compilerBefore method registered to hook`,
+        )
+
+      !isUndefined(service.compilerAfter) &&
+        this.hooks.action(`compiler.after`, service.compilerAfter) &&
+        this.info(
+          service.constructor.name,
+          `compilerAfter method registered to hook`,
+        )
+    })
+
+  this.hooks.action(`build.before`, args.buildBefore)
 
   return this
 }

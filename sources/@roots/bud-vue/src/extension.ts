@@ -22,19 +22,29 @@ type Options = {runtimeOnly: boolean}
 @options({runtimeOnly: true})
 @dependsOnOptional([`@roots/bud-postcss`, `@roots/bud-sass`])
 export default class Vue extends Extension<Options, null> {
+  public loader: string
+
+  @bind
+  public async register() {
+    this.loader = await this.resolve(`vue-loader`)
+  }
+
   /**
-   * `boot` callback
+   * `afterConfig` callback
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public async boot() {
+  public async afterConfig() {
     await this.addLoader().then(this.addStyleLoader)
 
-    this.app.hooks.on(`build.module.rules.before`, this.moduleRulesBefore)
-    this.app.hooks.on(`build.resolve.extensions`, ext => ext.add(`.vue`))
-    this.app.hooks.async(`build.resolve.alias`, this.resolveAlias)
+    this.app.hooks
+      .fromMap({
+        [`build.module.rules.before`]: this.moduleRulesBefore,
+        [`build.resolve.extensions`]: ext => ext.add(`.vue`),
+      })
+      .hooks.async(`build.resolve.alias`, this.resolveAlias)
   }
 
   /**
@@ -45,7 +55,7 @@ export default class Vue extends Extension<Options, null> {
    */
   @bind
   public async addLoader(): Promise<this> {
-    this.app.build.setLoader(`vue`, await this.resolve(`vue-loader`))
+    this.app.build.setLoader(`vue`, this.loader)
     this.app.build.setItem(`vue`, {loader: `vue`})
 
     const {VueLoaderPlugin: Plugin} = await this.import(`vue-loader`)
@@ -70,7 +80,6 @@ export default class Vue extends Extension<Options, null> {
       await this.resolve(`vue-style-loader`),
     )
     this.app.build.setItem(`vue-style`, {loader: `vue-style`})
-
     this.app.build.rules.css.setUse(items => [`vue-style`, ...items])
     this.app.build.rules.sass?.setUse(items => [`vue-style`, ...items])
     this.app.build.items.precss.setOptions({esModule: false})

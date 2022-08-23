@@ -19,12 +19,13 @@ export interface Events {
   'proxy.interceptor': (app?: Bud) => Promise<unknown>
   [
     key: `${keyof Modules & string}/${
-      | 'init'
-      | 'register'
-      | 'boot'
-      | 'beforeBuild'
-      | 'afterConfig'
-      | 'make'}/${'before' | 'after'}`
+      | `init`
+      | `register`
+      | `boot`
+      | `buildBefore`
+      | `buildAfter`
+      | `configAfter`
+      | `make`}/${`before` | `after`}`
   ]: (app?: Bud) => Promise<unknown>
 }
 

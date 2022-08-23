@@ -18,18 +18,20 @@ describe(`bud.serve`, function () {
 
   it(`sets URL from string`, async () => {
     await serve(`http://example.com`)
-    expect(bud.hooks.filter(`dev.url`).hostname).toBe(`example.com`)
+    expect((bud.hooks.filter(`dev.url`) as URL).hostname).toBe(
+      `example.com`,
+    )
   })
 
   it(`sets URL from number`, async () => {
     const port = 6969
     await serve(port)
-    expect(bud.hooks.filter(`dev.url`).port).toBe(port.toString())
+    expect((bud.hooks.filter(`dev.url`) as URL).port).toBe(port.toString())
   })
 
   it(`sets URL from URL`, async () => {
     await serve(new URL(`http://example.org:9696`))
-    expect(bud.hooks.filter(`dev.url`).origin).toBe(
+    expect((bud.hooks.filter(`dev.url`) as URL).origin).toBe(
       `http://example.org:9696`,
     )
   })

@@ -17,7 +17,7 @@ export default class Base implements Build.Base {
    *
    * @public
    */
-  public constructor(protected _app: () => Bud) {}
+  public constructor(protected _app?: () => Bud) {}
 
   @bind
   public wrap<T = any>(input: T | ((app: Bud) => T)): (app: Bud) => T {

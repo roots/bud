@@ -31,7 +31,7 @@ import type {Registry, Store} from '../../registry/index.js'
  * @public
  */
 export interface Service extends Framework.Service {
-  store: Store
+  store: Partial<Store>
 
   /**
    * hook getter
@@ -58,7 +58,7 @@ export interface Service extends Framework.Service {
   has(path: string): boolean
 
   /**
-   * Register a function to modify a filtered value
+   * Register a function or value to modify or replace a filtered value
    *
    * @example
    * ```js
@@ -78,6 +78,25 @@ export interface Service extends Framework.Service {
   ): Framework.Bud
 
   /**
+   * Register a recordset of functions or values to modify or replace existing values
+   *
+   * @example
+   * ```js
+   * app.hooks.fromMap({
+   *  'namespace.name.value': 'replaced by this string',
+   * 'namespace.name.value2': value => value.push('modified by this string'),
+   * })
+   * ```
+   *
+   * @public
+   */
+  fromMap<SyncMap extends Registry.Sync>(map: {
+    [K in keyof SyncMap as `${K & string}`]:
+      | SyncMap[K]
+      | ((current?: SyncMap[K]) => SyncMap[K])
+  }): Framework.Bud
+
+  /**
    * Register an async function to filter a value.
    *
    * @example
@@ -90,12 +109,12 @@ export interface Service extends Framework.Service {
    *
    * @public
    */
-  async<T extends `${keyof Registry.Async & string}`>(
+  async<T extends keyof Registry.Async & string>(
     id: T,
     input:
       | Registry.Async[T]
-      | ((current?: Registry.Async[T]) => Promise<Registry.Async[T]>),
-  ): Framework.Bud
+      | ((value: Registry.Async[T]) => Promise<Registry.Async[T]>),
+  ): Bud
 
   /**
    * Filter a value

@@ -35,8 +35,8 @@ export const tap: tap = function (
   bound: boolean = true,
 ): Bud {
   const app = this
-
-  fn.call(bound ? app : null, app)
+  const thisValue = bound ? app : null
+  fn.call(thisValue, app)
 
   return app
 }

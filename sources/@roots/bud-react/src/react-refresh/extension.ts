@@ -50,13 +50,13 @@ export default class BudReactRefresh extends Extension<
   }
 
   /**
-   * `afterConfig` callback
+   * `configAfter` callback
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public async afterConfig() {
+  public async configAfter() {
     this.logger.log(`Injecting react-refresh/client scripts`)
     if (!this.app.hasChildren)
       this.app.hooks.on(`build.entry`, reduceEntries.add)

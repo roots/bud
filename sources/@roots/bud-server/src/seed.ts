@@ -9,13 +9,7 @@ import * as clientScripts from './hooks/dev.client.scripts.js'
  */
 export const seed = (app: Bud) => {
   app.hooks
-    .on(`dev.middleware.dev.options`, () => ({
-      headers: app.hooks.filter(`dev.middleware.dev.options.headers`),
-      publicPath: app.hooks.filter(
-        `dev.middleware.dev.options.publicPath`,
-      ),
-    }))
-    .hooks.on(`dev.middleware.dev.options.headers`, {
+    .on(`dev.middleware.dev.options.headers`, {
       'Access-Control-Allow-Origin': `*`,
       'Access-Control-Allow-Headers': `*`,
       'x-powered-by': `@roots/bud`,
@@ -26,4 +20,6 @@ export const seed = (app: Bud) => {
     .hooks.on(`dev.client.scripts`, clientScripts.callback)
     .hooks.on(`dev.watch.files`, new Set([]))
     .hooks.on(`dev.watch.options`, {})
+    .hooks.on(`dev.middleware.enabled`, [`dev`, `hot`])
+    .hooks.on(`dev.url`, new URL(`http://0.0.0.0:3000`))
 }

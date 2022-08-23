@@ -34,13 +34,13 @@ export default class BudSass extends Extension {
   }
 
   /**
-   * `afterConfig` callback
+   * `configAfter` callback
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public async afterConfig() {
+  public async configAfter() {
     this.app.build
       .setLoader(`sass`, await this.resolve(`sass-loader`))
       .setItem(`sass`, {

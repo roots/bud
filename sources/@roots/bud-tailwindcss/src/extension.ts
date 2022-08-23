@@ -16,13 +16,13 @@ import {
 @dependsOn([`@roots/bud-postcss`])
 export default class BudTailwindCss extends Extension {
   /**
-   * `register` callback
+   * `configAfter` callback
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public async register() {
+  public async configAfter() {
     try {
       const tailwindcss = await this.resolve(`tailwindcss`)
       const nesting = await this.resolve(`tailwindcss/nesting/index.js`)

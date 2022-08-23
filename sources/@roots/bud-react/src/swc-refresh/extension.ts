@@ -20,7 +20,7 @@ import {
 @development
 export default class BudSWCRefresh extends Extension {
   /**
-   * `beforeBuild` callback
+   * `buildBefore` callback
    *
    * @public
    * @decorator `@bind`
@@ -28,7 +28,7 @@ export default class BudSWCRefresh extends Extension {
   @bind
   public async init() {
     this.app.hooks.action(
-      `@roots/bud-swc/beforeBuild/after`,
+      `@roots/bud-swc/buildBefore/after`,
       this.registerTransform,
     )
   }

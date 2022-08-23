@@ -13,7 +13,9 @@ export const watch: watch = function (...input) {
   const app = this as Bud
 
   app.hooks.on(`dev.watch.files`, files =>
-    input.flat().reduce((files, file) => files.add(file), files),
+    input
+      .flat()
+      .reduce((files, file) => files.add(file), files ?? new Set([])),
   )
 
   return app

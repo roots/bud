@@ -1,5 +1,5 @@
 import {bind} from 'helpful-decorators'
-import {omit} from 'lodash-es'
+import {isNull, isUndefined, omit} from 'lodash-es'
 import {format, PrettyFormatOptions} from 'pretty-format'
 
 import type {
@@ -45,8 +45,8 @@ export abstract class Bud {
    * @defaultValue `production`
    * @public
    */
-  public get mode(): 'development' | 'production' {
-    return this.context.mode
+  public get mode(): `development` | `production` {
+    return this.context.mode ?? `production`
   }
 
   /**
@@ -121,10 +121,14 @@ export abstract class Bud {
    * @public
    */
   public get hasChildren(): boolean {
-    return Object.values(this.children).length > 0
+    return (
+      !isUndefined(this.children) &&
+      !isNull(this.children) &&
+      Object.entries(this.children).length > 0
+    )
   }
 
-  public services: Services.Registry = {}
+  public services: Array<keyof Services.Registry> = []
 
   public api: Api
 
@@ -210,11 +214,10 @@ export abstract class Bud {
    *
    * @public
    */
-  public async factory(context?: Partial<Config.Context>): Promise<Bud> {
-    return await new this.implementation(this.implementation).lifecycle({
-      ...this.context,
-      ...(context ?? {}),
-    })
+  public async factory(context: Config.Context): Promise<Bud> {
+    return await new this.implementation(this.implementation).lifecycle(
+      context,
+    )
   }
 
   /**
@@ -347,16 +350,13 @@ export abstract class Bud {
     obj: any,
     options?: PrettyFormatOptions & {prefix: string},
   ): Bud {
-    if (!this.context.args.verbose) return
-
     const prettyFormatOptions = omit(options, [
       `prefix`,
       `language`,
       `ignoreIllegals`,
     ])
 
-    process.stdout.write(`\n`)
-    process.stdout.write(
+    this.logger.instance.debug(
       format(obj, {
         callToJSON: false,
         maxDepth: 8,
@@ -365,7 +365,6 @@ export abstract class Bud {
         ...prettyFormatOptions,
       }),
     )
-    process.stdout.write(`\n`)
 
     return this
   }

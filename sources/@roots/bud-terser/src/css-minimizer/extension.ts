@@ -33,13 +33,13 @@ import Plugin from 'css-minimizer-webpack-plugin'
 @when(async () => false)
 export default class BudMinimizeCSS extends Extension {
   /**
-   * `beforeBuild` callback
+   * `buildBefore` callback
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public async beforeBuild() {
+  public async buildBefore() {
     this.app.hooks.on(`build.optimization.minimizer`, minimizer => {
       minimizer.push(new Plugin(this.options))
       return minimizer

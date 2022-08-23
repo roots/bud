@@ -41,6 +41,9 @@ export default class BudWebpackManifestPlugin extends Extension<
    */
   @bind
   public async when() {
-    return this.app.hooks.filter(`feature.manifest`)
+    return (
+      this.app.hooks.filter(`feature.manifest`) &&
+      this.app.context.args.manifest !== false
+    )
   }
 }

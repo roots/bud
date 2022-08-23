@@ -10,7 +10,7 @@ export type ConstructorOptions = Build.Item.ConstructorOptions
  *
  * @public
  */
-class Item extends Base implements Build.Item {
+class Item extends Base {
   /**
    * Loader
    *
@@ -31,13 +31,14 @@ class Item extends Base implements Build.Item {
    * @param options - {@link Build.Item.Options}
    */
   public constructor(
-    _app: () => Bud,
+    protected _app: () => Bud,
     options?: {
       loader?: Item['loader']
       options?: Item['options']
     },
   ) {
     super(_app)
+
     options?.loader && this.setLoader(options.loader)
     options?.options && this.setOptions(options.options)
   }
@@ -84,7 +85,7 @@ class Item extends Base implements Build.Item {
    */
   @bind
   public setOptions(options: Item['options']) {
-    this.options = this.wrap(options)
+    this.options = options
     return this
   }
 
@@ -96,12 +97,11 @@ class Item extends Base implements Build.Item {
    */
   @bind
   public mergeOptions(options: Build.Item.Options) {
-    options = {
+    this.setOptions({
       ...(this.getOptions() ?? {}),
       ...options,
-    }
+    })
 
-    this.setOptions(options)
     return this
   }
 

@@ -60,7 +60,7 @@ export default class BudReact extends Extension {
   }
 
   /**
-   * `afterConfig` callback
+   * `configAfter` callback
    *
    * @remarks
    * Adds the `@babel/preset-react` preset to babel if `@roots/bud-esbuild` is not
@@ -70,7 +70,7 @@ export default class BudReact extends Extension {
    * @decorator `@bind`
    */
   @bind
-  public async afterConfig() {
+  public async configAfter() {
     if (!this.useBabel) return
 
     await this.ensureBabelIsLoaded()

@@ -62,6 +62,8 @@ export class Dashboard extends Service implements Base.Service {
   }): Promise<this> {
     if (!compilationStats) return this
 
+    this.app.log(`\n`)
+
     if (this.app.context.args.ci) {
       this.log(compilationStats?.toString())
       return this
