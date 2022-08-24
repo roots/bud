@@ -12,7 +12,6 @@ export default () => {
     bud = await factory({mode: `development`})
     instance = new Server(bud)
     await instance.register()
-    await instance.boot()
     await bud.run()
 
     expect(bud.mode).toBe(`development`)
@@ -42,12 +41,5 @@ export default () => {
 
   it(`should have a watcher property`, async () => {
     expect(instance.watcher).toBeInstanceOf(Watcher)
-  })
-
-  it(`should have expected defaults`, async () => {
-    expect(bud.hooks.filter(`dev.url`)).toMatchSnapshot()
-    expect(bud.hooks.filter(`dev.watch.files`)).toMatchSnapshot()
-    expect(bud.hooks.filter(`dev.watch.options`)).toMatchSnapshot()
-    expect(bud.hooks.filter(`dev.client.scripts`)).toMatchSnapshot()
   })
 }

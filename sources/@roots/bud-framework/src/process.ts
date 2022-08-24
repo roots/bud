@@ -61,22 +61,14 @@ function makeHandler(app: Bud, code: number) {
       process.exitCode = 3
     }
 
-    try {
-      if (app.compiler?.instance?.running) {
-        app.compiler.instance.close(() => app.close())
-      }
-    } catch (err) {
-      renderError(err.message)
-      process.exitCode = 2
-    }
-
     process.exit()
   }
 
-  return (exitMessage: string | Error) => {
+  return (code: string | Error) => {
     if (process.exitCode === 0) return close()
+
     renderError(
-      exitMessage instanceof Error ? exitMessage.message : exitMessage,
+      code instanceof Error ? code.message : `exiting with code ${code}\n`,
     )
     setTimeout(close, 200).unref()
   }

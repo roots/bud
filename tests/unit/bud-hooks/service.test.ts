@@ -1,6 +1,6 @@
 import {beforeAll, describe, expect, it, jest} from '@jest/globals'
 import {Bud, factory} from '@repo/test-kit/bud'
-import {Hooks} from '@roots/bud-hooks'
+import Hooks from '@roots/bud-hooks'
 
 describe(`@roots/bud-hooks`, function () {
   let bud: Bud
@@ -52,14 +52,14 @@ describe(`@roots/bud-hooks`, function () {
   it(`action registers callable function`, async () => {
     const value = jest.fn(async (app: Bud) => null)
     // @ts-ignore
-    hooks.action(`event.app.build`, value)
-    expect(hooks.store[`event.app.build`].pop()).toBe(value)
+    hooks.action(`app.build`, value)
+    expect(hooks.store[`app.build`].pop()).toBe(value)
   })
 
   it(`fire calls action function`, async () => {
     const value = jest.fn(async () => null)
-    hooks.action(`event.build.before`, value)
-    await hooks.fire(`event.build.before`)
+    hooks.action(`build.before`, value)
+    await hooks.fire(`build.before`)
     expect(value).toHaveBeenCalled()
   })
 })

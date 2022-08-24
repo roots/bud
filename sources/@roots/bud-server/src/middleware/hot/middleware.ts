@@ -16,7 +16,6 @@ let logger: Bud['logger']['instance']
 export default (app: Bud) => {
   logger = app.logger.makeInstance()
   logger.scope(`hot middleware`)
-  logger.enable()
 
   return makeHandler(app.compiler.instance)
 }

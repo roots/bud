@@ -1,5 +1,5 @@
 import {Bud, factory} from '@repo/test-kit/bud'
-import {Loader} from '@roots/bud-build'
+import Loader from '@roots/bud-build/loader'
 import BudSass from '@roots/bud-sass'
 import ResolveUrl from '@roots/bud-sass/resolve-url'
 
@@ -9,18 +9,22 @@ describe(`@roots/bud-sass registration`, () => {
   beforeAll(async () => {
     bud = await factory()
     await new ResolveUrl(bud).register()
-    await new BudSass(bud).afterConfig()
+    await new BudSass(bud).configAfter()
   })
 
   it(`adds scss extension`, () => {
     expect(
-      Array.from(bud.hooks.filter(`build.resolve.extensions`)),
+      Array.from(
+        bud.hooks.filter(`build.resolve.extensions`) as Set<string>,
+      ),
     ).toContain(`.scss`)
   })
 
   it(`adds sass extension`, () => {
     expect(
-      Array.from(bud.hooks.filter(`build.resolve.extensions`)),
+      Array.from(
+        bud.hooks.filter(`build.resolve.extensions`) as Set<string>,
+      ),
     ).toContain(`.sass`)
   })
 

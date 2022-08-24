@@ -1,10 +1,9 @@
 import {isFunction, isUndefined} from 'lodash-es'
 
 import type {Bud, Config} from '../index.js'
-import type {Service} from '../service.js'
-import * as args from './args.js'
-import * as bootstrap from './bootstrap.js'
+import {bootstrap} from './bootstrap.js'
 import {LIFECYCLE_EVENTS} from './constants.js'
+import {override} from './init.js'
 
 /**
  * Lifecycle interface
@@ -14,25 +13,6 @@ import {LIFECYCLE_EVENTS} from './constants.js'
 export interface lifecycle {
   (this: Bud, context: Partial<Config.Context>): Promise<Bud>
 }
-
-const getServiceInstances = (app: Bud) => (service: string) => app[service]
-
-const getServiceFilterFn = (event: string) => service =>
-  isFunction(service[event])
-
-const getServiceEventMapperFn =
-  (app: Bud, event: string) =>
-  async ([service, fn]) => {
-    try {
-      await fn(app)
-      app.success(`${event}:`, service.constructor.name)
-    } catch (err) {
-      app.warn(`error executing`, event, `for`, service).error(err)
-    }
-  }
-
-const getServiceAsTupleMapperFn = (event: string) => service =>
-  [service, service[event]]
 
 /**
  * Initializes and binds service lifecycle methods
@@ -51,61 +31,77 @@ export async function lifecycle(
   this: Bud,
   context: Config.Context,
 ): Promise<Bud> {
-  await bootstrap.execute(this, {...context})
+  await bootstrap.bind(this)({...context})
 
-  await LIFECYCLE_EVENTS.reduce(async (_promised, event) => {
+  await LIFECYCLE_EVENTS.reduce(async (promised, event) => {
+    await promised
+
     await Promise.all(
-      this.services
-        .map(getServiceInstances(this))
-        .filter(getServiceFilterFn(event))
-        .map(getServiceAsTupleMapperFn(event))
-        .map(getServiceEventMapperFn(this, event)),
+      this.services.map(async service => {
+        if (!isFunction(this[service][event])) return
+        try {
+          await this[service][event](this)
+          this.success(`${event}:`, service)
+        } catch (err) {
+          this.warn(`error executing`, event, `for`, service).error(err)
+        }
+      }),
     )
-
-    return Promise.resolve()
   }, Promise.resolve())
 
-  this.services
-    .map((service: string): Service => this[service])
-    .filter(Boolean)
-    .map(service => {
-      !isUndefined(service.configAfter) &&
-        this.hooks.action(`config.after`, service.configAfter) &&
-        this.info(
-          service.constructor.name,
-          `configAfter method registered to hook`,
-        )
+  this.services.map(service => {
+    !isUndefined(this[service].configAfter) &&
+      this.hooks.action(
+        `config.after`,
+        this[service].configAfter.bind(this[service]),
+      ) &&
+      this.info(
+        this[service].constructor.name,
+        `configAfter method registered`,
+      )
 
-      !isUndefined(service.buildBefore) &&
-        this.hooks.action(`build.before`, service.buildBefore) &&
-        this.info(
-          service.constructor.name,
-          `buildBefore method registered to hook`,
-        )
+    !isUndefined(this[service].buildBefore) &&
+      this.hooks.action(
+        `build.before`,
+        this[service].buildBefore.bind(this[service]),
+      ) &&
+      this.info(
+        this[service].constructor.name,
+        `buildBefore method registered`,
+      )
 
-      !isUndefined(service.buildAfter) &&
-        this.hooks.action(`build.after`, service.buildAfter) &&
-        this.info(
-          service.constructor.name,
-          `buildAfter method registered to hook`,
-        )
+    !isUndefined(this[service].buildAfter) &&
+      this.hooks.action(
+        `build.after`,
+        this[service].buildAfter.bind(this[service]),
+      ) &&
+      this.info(
+        this[service].constructor.name,
+        `buildAfter method registered`,
+      )
 
-      !isUndefined(service.compilerBefore) &&
-        this.hooks.action(`compiler.before`, service.compilerBefore) &&
-        this.info(
-          service.constructor.name,
-          `compilerBefore method registered to hook`,
-        )
+    !isUndefined(this[service].compilerBefore) &&
+      this.hooks.action(
+        `compiler.before`,
+        this[service].compilerBefore.bind(this[service]),
+      ) &&
+      this.info(
+        this[service].constructor.name,
+        `compilerBefore method registered`,
+      )
 
-      !isUndefined(service.compilerAfter) &&
-        this.hooks.action(`compiler.after`, service.compilerAfter) &&
-        this.info(
-          service.constructor.name,
-          `compilerAfter method registered to hook`,
-        )
-    })
+    !isUndefined(this[service].compilerAfter) &&
+      this.hooks.action(
+        `compiler.after`,
+        this[service].compilerAfter.bind(this[service]),
+      ) &&
+      this.info(
+        this[service].constructor.name,
+        `compilerAfter method registered`,
+      )
+  })
 
-  this.hooks.action(`build.before`, args.buildBefore)
+  this.hooks.action(`config.after`, override)
 
   return this
 }

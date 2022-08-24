@@ -3,8 +3,8 @@ import {Logger} from '../logger/index.js'
 import * as methods from '../methods/index.js'
 import {Module} from '../module.js'
 import * as Process from '../process.js'
-import * as args from './args.js'
 import {DEVELOPMENT_SERVICES, PARENT_SERVICES} from './constants.js'
+import {initialize} from './init.js'
 
 /**
  * Create filter for validating services
@@ -21,8 +21,8 @@ const filterServices =
 const importServices =
   (app: Bud) =>
   async (signifier: string): Promise<void> => {
-    const {default: imported} = await import(signifier)
-    if (app.services[imported.label]) return
+    const pkg = await import(signifier)
+    const imported = pkg?.default ?? pkg
     app[imported.label] = new imported(app)
 
     app.log(`imported`, imported.label)
@@ -39,37 +39,42 @@ const importServices =
  *
  * @returns void
  */
-export const execute = async (app: Bud, context: Config.Context) => {
-  app.context = args.bootstrap({...context})
+export const bootstrap = async function (
+  this: Bud,
+  context: Config.Context,
+) {
+  this.context = {
+    ...context,
+  }
 
   /* copy context object */
-  if (!app.context.label) throw new Error(`options.label is required`)
+  if (!this.context.label) throw new Error(`options.label is required`)
 
   /* root specific */
   if (!context.root) {
     process.env.NODE_ENV = context.mode
-    Process.initialize(app)
+    Process.initialize(this)
   }
 
   /* bind framework methods */
   Object.entries(methods).map(([key, method]) => {
-    app[key] = method.bind(app)
+    this[key] = method.bind(this)
   })
 
   /* initialize logger */
-  app.logger = new Logger(app)
+  this.logger = new Logger(this)
 
-  app.info(`initial context`, app.context)
+  this.log(`initial context`, this.context)
 
   /* initialize module */
-  app.module = new Module(app)
+  this.module = new Module(this)
 
   /* initialize services */
   await Promise.all(
-    app.context.services
-      .filter(filterServices(app))
-      .map(importServices(app)),
+    this.context.services
+      .filter(filterServices(this))
+      .map(importServices(this)),
   )
 
-  return app
+  return initialize(this)
 }

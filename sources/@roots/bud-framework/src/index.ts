@@ -43,8 +43,6 @@ import type {Dev} from './registry/dev.js'
 import type {Values} from './registry/values.js'
 import type {Store} from './registry/index.js'
 
-import type {Registry} from './registry/index.js'
-
 export type {
   Api,
   Build,
@@ -63,7 +61,6 @@ export type {
   ModuleDefinitions,
   Patterns,
   Project,
-  Registry,
   Server,
   Services,
   Store,

@@ -7,8 +7,8 @@ import * as config from './config/builder.js'
 import * as items from './handlers/items.js'
 import * as loaders from './handlers/loaders.js'
 import * as rules from './handlers/rules.js'
-import Item from './item.js'
-import Loader from './loader.js'
+import Item from './item/item.js'
+import Loader from './loader/loader.js'
 import * as Rule from './rule/rule.js'
 
 /**
@@ -152,8 +152,6 @@ export default class Build extends Service {
         this.loaders[key] = value as Loader
       }),
     )
-
-    await config.build(this.app)
   }
 
   /**

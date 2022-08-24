@@ -36,7 +36,26 @@ export abstract class BaseCommand extends Command {
     return this.app.logger.instance
   }
 
-  public dry = Option.Boolean(`--dry`, false, {})
+  /**
+   * -- dry
+   */
+  public dry = Option.Boolean(`--dry`, false, {
+    description: `Run without webpack or server process`,
+  })
+
+  /**
+   * --level
+   */
+  public level = Option.Array<Boolean>(`-v`, undefined, {
+    description: `Set logging level`,
+  })
+
+  /**
+   * --log
+   */
+  public log = Option.Boolean(`--log`, undefined, {
+    description: `Enable logging`,
+  })
 
   public abstract runCommand(): Promise<unknown>
 
@@ -55,7 +74,7 @@ export abstract class BaseCommand extends Command {
    */
   @bind
   public renderOnce(box: React.ReactElement) {
-    return this.render(box).unmount()
+    return this.log !== false && this.render(box).unmount()
   }
 
   /**
@@ -66,7 +85,7 @@ export abstract class BaseCommand extends Command {
    */
   @bind
   public render(box: React.ReactElement) {
-    return render(box)
+    return this.log !== false && render(box)
   }
 
   /**

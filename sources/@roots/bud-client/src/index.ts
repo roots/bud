@@ -56,6 +56,10 @@ const initialize = async () => {
 
       components.controllers.map(controller => controller.update(payload))
 
+      if (hmr.cache.initial) {
+        hmr.cache.setInitial(false)
+        return
+      }
       hmr.cache.isStale(payload.hash) &&
         module.hot.status() === `idle` &&
         hmr.client.check()

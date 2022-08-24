@@ -19,14 +19,14 @@ export default class extends Base implements Instance {
    *
    * @public
    */
-  public declare test: Instance['test']
+  public test: Instance['test']
 
   /**
    * {@inheritDoc @roots/bud-framework#Rule.Abstract.use}
    *
    * @public
    */
-  public declare use?: Array<keyof Build['items'] & string>
+  public use?: Array<keyof Build['items'] & string>
 
   /**
    * Include paths

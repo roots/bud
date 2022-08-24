@@ -4,58 +4,52 @@ export interface Flags {
    *
    * @public
    */
-  clean: boolean
+  'feature.clean': boolean
 
   /**
    * Hash emitted filenames
    *
    * @public
    */
-  hash: boolean
+  'feature.hash': boolean
 
   /**
    * Emit an html file during compilation
    *
    * @public
    */
-  html: boolean
+  'feature.html': boolean
 
   /**
    * Automatically register installed extensions
    *
    * @public
    */
-  inject: boolean
+  'feature.inject': boolean
 
   /**
    * Log build status informatino to the terminal
    *
    * @public
    */
-  log: boolean
+  'feature.log': boolean
 
   /**
    * Emit a manifest.json with references to emitted assets
    *
    * @public
    */
-  manifest: boolean
+  'feature.manifest': boolean
 
   /**
    * @public
    */
-  runtimeChunk: boolean
+  'feature.runtimeChunk': boolean
 
   /**
    * Enable code splitting
    *
    * @public
    */
-  splitChunks: boolean
-}
-
-export namespace Flags {
-  export type HookMap = {
-    [K in keyof Flags as `feature.${K & string}`]: Flags[K]
-  }
+  'feature.splitChunks': boolean
 }

@@ -1,14 +1,7 @@
 import type {Bud, Compiler as Contract} from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework'
-import {bind, once} from 'helpful-decorators'
-import type {
-  MultiCompiler,
-  MultiStats,
-  Stats,
-  StatsCompilation,
-  WebpackError,
-} from 'webpack'
-import Webpack from 'webpack'
+import {bind} from 'helpful-decorators'
+import type {MultiCompiler, MultiStats, Stats, WebpackError} from 'webpack'
 
 /**
  * Wepback compilation controller class
@@ -28,28 +21,23 @@ export class Compiler extends Service implements Contract.Service {
    *
    * @internal
    */
-  public implementation: typeof Webpack.webpack = Webpack.webpack
+  public implementation: Contract.Service[`implementation`]
 
-  /**
-   * Compiler instance
-   *
-   * @public
-   */
-  public instance: MultiCompiler = null
+  public instance: Contract.Service[`instance`]
 
   /**
    * Compilation stats
    *
    * @public
    */
-  public stats: StatsCompilation = null
+  public stats: Contract.Service[`stats`]
 
   /**
    * Configuration
    *
    * @public
    */
-  public config: Array<unknown> = []
+  public config: Contract.Service[`config`] = []
 
   /**
    * Initiates compilation
@@ -61,44 +49,29 @@ export class Compiler extends Service implements Contract.Service {
    * @decorator `@once`
    */
   @bind
-  @once
-  public async compile(): Promise<Contract.Service['instance']> {
+  public async compile(): Promise<MultiCompiler> {
+    this.implementation = await this.app.module.import(`webpack`)
     this.config = []
-    this.app.log(`bud.compiler.compile called`)
 
-    try {
-      await this.app.hooks.fire(`compiler.before`)
-
-      if (!this.app.hasChildren) {
-        this.app.log(`no children found, processing parent instance`)
-        const config = await this.app.build.make()
-        this.app.log(config)
-        this.config.push(this.app.build.config)
-        return
-      }
-
+    if (!this.app.hasChildren) {
+      this.app.log(`no children found, processing parent instance`)
+      const config = await this.app.build.make()
+      this.config.push(config)
+    } else {
       await Promise.all(
         Object.values(this.app.children).map(async (child: Bud) => {
           const config = await child.build.make()
           this.app.log(`child config`, child.label, child.build.config)
           this.config.push(config)
-          return Promise.resolve()
         }),
       )
-    } catch (error) {
-      this.app.error(error)
     }
 
-    if (this.app.context.args.dry === true) {
-      const output = this.app.json.stringify(this.config)
-      this.app.log(`final config`, output)
-      return
-    }
+    await this.app.hooks.fire(`compiler.before`)
 
-    this.app.log(`instantiating compiler implementation`, this.config)
+    if (this.app.context.args.dry) return
 
-    Webpack.validate(this.config)
-    this.instance = Webpack.webpack(this.config)
+    this.instance = this.implementation(this.config)
 
     this.app.isDevelopment &&
       this.instance.hooks.done.tap(
@@ -109,7 +82,7 @@ export class Compiler extends Service implements Contract.Service {
     this.instance.hooks.done.tap(
       `${this.app.label}-cli-done`,
       async () => {
-        await this.app.hooks.fire(`compiler.close`)
+        await this.app.hooks.fire(`compiler.close`).catch(this.app.error)
       },
     )
 
@@ -124,7 +97,6 @@ export class Compiler extends Service implements Contract.Service {
    * @decorator `@once`
    */
   @bind
-  @once
   public callback(error: Error, stats: Stats & MultiStats) {
     if (error) this.onError(error)
     if (stats) this.handleStats(stats)

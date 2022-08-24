@@ -110,7 +110,7 @@ export default class BudReactRefresh extends Extension<
    * ```
    *
    * @remarks
-   * Configuration takes place during the `event.config.after` event
+   * Configuration takes place during the `config.after` event
    *
    * @public
    * @decorator `@bind`

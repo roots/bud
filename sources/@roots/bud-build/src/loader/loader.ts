@@ -1,6 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
 
-import Base from './shared/base.js'
+import Base from '../shared/base.js'
 
 namespace Loader {
   export type ConstructorOptions = string
@@ -18,7 +18,7 @@ export default class Loader extends Base {
    *
    * @public
    */
-  public declare src: string | ((app: Bud) => string)
+  public src: string | ((app: Bud) => string)
 
   /**
    * Class constructor

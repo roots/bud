@@ -1,7 +1,6 @@
 import {isUndefined} from 'lodash-es'
 
 import type {Bud} from '../bud'
-import type {Context} from '../config'
 
 /**
  * --target override
@@ -26,46 +25,6 @@ const target = (app: Bud) =>
  */
 const isset = (value: unknown): boolean => !isUndefined(value)
 
-export const bootstrap = (context: Context): Context => {
-  if (isset(context.args.publicPath))
-    context.seed[`build.output.publicPath`] = context.args.publicPath
-  else if (isset(context.manifest.bud?.publicPath))
-    context.seed[`build.output.publicPath`] =
-      context.manifest.bud.publicPath
-
-  if (isset(context.args.input))
-    context.seed[`location.@src`] = context.args.input
-  else if (isset(context.manifest.bud?.paths?.[`@src`]))
-    context.seed[`location.@src`] = context.manifest.bud.paths[`@src`]
-
-  if (isset(context.args.output))
-    context.seed[`location.@dist`] = context.args.output
-  else if (isset(context.manifest.bud?.paths?.[`@dist`]))
-    context.seed[`location.@dist`] = context.manifest.bud.paths[`@dist`]
-
-  if (isset(context.args.storage))
-    context.seed[`location.@storage`] = context.args.storage
-  else if (isset(context.manifest.bud?.paths?.[`@storage`]))
-    context.seed[`location.@storage`] =
-      context.manifest.bud.paths[`@storage`]
-
-  if (
-    isset(context.manifest.bud?.cache) &&
-    isUndefined(context.args.cache)
-  )
-    context.args.cache = context.manifest.bud.cache
-
-  if (isset(context.args.mode))
-    context.seed[`build.mode`] = context.args.mode
-
-  if (isset(context.args.clean))
-    context.seed[`feature.clean`] = context.args.clean
-  else if (isset(context.manifest.bud?.clean))
-    context.seed[`feature.clean`] = context.manifest.bud.clean
-
-  return {...context}
-}
-
 /**
  * Override build with args set via CLI
  *
@@ -73,8 +32,6 @@ export const bootstrap = (context: Context): Context => {
  */
 export const buildBefore = async (app: Bud) => {
   if (isset(app.context.args.target) && !target(app)) return
-
-  app.log(`processing cli overrides`, app.context.args)
 
   if (isset(app.context.args.input)) {
     app.setPath(`@src`, app.context.args.input)

@@ -7,14 +7,12 @@ import BudReact from '@roots/bud-react'
 import BudTypeScript from '@roots/bud-typescript'
 
 describe(`@roots/bud-react`, () => {
-  let bud: Bud
-
   describe(`with babel`, () => {
     it(`uses babel transformer by default`, async () => {
-      bud = await factory({mode: `development`})
+      const bud = await factory({mode: `development`})
       await bud.extensions.add([BudReact])
 
-      await bud.extensions.runAll(`_afterConfig`)
+      await bud.extensions.runAll(`_configAfter`)
       await bud.build.make()
 
       expect(bud.extensions.has(`@roots/bud-react/babel-refresh`)).toBe(
@@ -23,10 +21,10 @@ describe(`@roots/bud-react`, () => {
     })
 
     it(`uses babel transformer if @roots/bud-typescript uses babel`, async () => {
-      bud = await factory({mode: `development`})
+      const bud = await factory({mode: `development`})
       await bud.extensions.add([BudTypeScript, BudReact])
 
-      await bud.extensions.runAll(`_afterConfig`)
+      await bud.extensions.runAll(`_configAfter`)
       await bud.build.make()
 
       expect(bud.extensions.has(`@roots/bud-react/babel-refresh`)).toBe(
@@ -35,10 +33,12 @@ describe(`@roots/bud-react`, () => {
     })
 
     it(`injects entrypoints`, async () => {
-      bud = await factory({mode: `development`})
-      await bud.extensions.add([BudReact])
+      const bud = await factory({
+        mode: `development`,
+        extensions: [`@roots/bud-react`],
+      })
+      expect(bud.extensions.has(`@roots/bud-react`)).toBe(true)
 
-      await bud.hooks.fire(`config.after`)
       await bud.build.make()
 
       // @ts-ignore
@@ -48,10 +48,10 @@ describe(`@roots/bud-react`, () => {
     })
 
     it(`adds babel plugin`, async () => {
-      bud = await factory({mode: `development`})
-      await bud.extensions.add([BudReact])
-
-      await bud.extensions.runAll(`_afterConfig`)
+      const bud = await factory({
+        mode: `development`,
+        extensions: [`@roots/bud-react`],
+      })
       await bud.build.make()
 
       expect(bud.babel.plugins[`react-refresh/babel`].shift()).toEqual(

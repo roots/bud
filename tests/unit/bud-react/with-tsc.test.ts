@@ -17,7 +17,7 @@ describe(`@roots/bud-react`, () => {
       await bud.extensions.add([BudTypeScript, BudReact])
 
       bud.typescript.useBabel(false)
-      await bud.extensions.runAll(`_afterConfig`)
+      await bud.extensions.runAll(`_configAfter`)
       await bud.build.make()
 
       expect(
@@ -29,7 +29,7 @@ describe(`@roots/bud-react`, () => {
       bud = await factory({mode: `development`})
       await bud.extensions.add([BudReact])
 
-      await bud.extensions.runAll(`_afterConfig`)
+      await bud.extensions.runAll(`_configAfter`)
       await bud.build.make()
 
       // @ts-ignore

@@ -10,6 +10,7 @@ describe(`bud.assets`, function () {
   beforeEach(async () => {
     bud = await factory()
     assetsFn = assets.bind(bud)
+    bud.extensions.get(`copy-webpack-plugin`).setOption(`patterns`, [])
   })
 
   it(`should be a function`, () => {
@@ -21,23 +22,23 @@ describe(`bud.assets`, function () {
   })
 
   it(`should add job when passed an array of strings`, async () => {
-    await assetsFn([`images`])
-
-    expect(
-      bud.extensions.get(`copy-webpack-plugin`).getOption(`patterns`),
-    ).toMatchSnapshot(
-      expect.arrayContaining([
-        expect.objectContaining({
-          from: expect.stringContaining(`images`),
-          to: expect.stringMatching(
-            /dist\/images\/\[path\]\[name\]\[ext\]$/,
-          ),
-          context: expect.stringContaining(`src`),
-          toType: `template`,
-          noErrorOnMissing: true,
-        }),
-      ]),
-    )
+    await assetsFn([`images`]).finally(() => {
+      expect(
+        bud.extensions.get(`copy-webpack-plugin`).options.patterns,
+      ).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            from: expect.stringContaining(`images`),
+            to: expect.stringMatching(
+              /dist\/images\/\[path\]\[name\]\[ext\]$/,
+            ),
+            context: expect.stringContaining(`src`),
+            toType: `template`,
+            noErrorOnMissing: true,
+          }),
+        ]),
+      )
+    })
   })
 
   it(`should add jobs when passed an array of tuples`, async () => {
@@ -49,34 +50,29 @@ describe(`bud.assets`, function () {
       ],
     ])
 
-    const patterns = bud.extensions
-      .get(`copy-webpack-plugin`)
-      .getOption(`patterns`)
-      ?.slice(0, 2)
-
-    expect(patterns).toMatchSnapshot(
-      expect.arrayContaining([
-        expect.objectContaining({
-          from: expect.stringMatching(
-            /tests\/util\/project\/src\/images$/,
-          ),
-          to: expect.stringMatching(/tests\/util\/project\/dist\/images$/),
-          context: expect.stringContaining(`src`),
-          toType: `template`,
-          noErrorOnMissing: true,
-        }),
-        expect.objectContaining({
-          from: expect.stringMatching(
-            /tests\/util\/project\/src\/fonts\/font.woff$/,
-          ),
-          to: expect.stringMatching(
-            /tests\/util\/project\/dist\/fonts\/font.woff$/,
-          ),
-          context: expect.stringContaining(`src`),
-          toType: `template`,
-          noErrorOnMissing: true,
-        }),
-      ]),
+    const [patterna, patternb] = bud.extensions.get(`copy-webpack-plugin`)
+      .options.patterns as any
+    expect(patterna).toEqual(
+      expect.objectContaining({
+        from: expect.stringMatching(/tests\/util\/project\/src\/images$/),
+        to: expect.stringMatching(/tests\/util\/project\/dist\/images$/),
+        context: expect.stringMatching(/src$/),
+        toType: `template`,
+        noErrorOnMissing: true,
+      }),
+    )
+    expect(patternb).toEqual(
+      expect.objectContaining({
+        from: expect.stringMatching(
+          /tests\/util\/project\/src\/fonts\/font.woff$/,
+        ),
+        to: expect.stringMatching(
+          /tests\/util\/project\/dist\/fonts\/font.woff$/,
+        ),
+        context: expect.stringContaining(`src`),
+        toType: `template`,
+        noErrorOnMissing: true,
+      }),
     )
   })
 
@@ -92,7 +88,7 @@ describe(`bud.assets`, function () {
       .get(`copy-webpack-plugin`)
       .getOption(`patterns`)
 
-    expect(patterns?.pop()).toMatchSnapshot(
+    expect(patterns?.pop()).toEqual(
       expect.objectContaining({
         from: expect.stringMatching(/tests\/util\/project\/src\/images$/),
         to: expect.stringMatching(/tests\/util\/project\/dist\/images$/),

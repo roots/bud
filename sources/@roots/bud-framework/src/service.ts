@@ -14,17 +14,17 @@ import type {Bud} from './bud.js'
  */
 export class Service {
   /**
-   * @internal @readonly
-   */
-  public _app: () => Bud
-
-  /**
    * Service label
    *
    * @public
    * @virtual
    */
   public static label: string
+
+  /**
+   * @internal @readonly
+   */
+  public _app: () => Bud
 
   /**
    * Access {@link Bud}
@@ -102,7 +102,6 @@ export class Service {
    *
    * @remarks
    * `booted` is called after `boot`
-
    *
    * @virtual @public
    */

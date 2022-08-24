@@ -13,7 +13,7 @@ describe(`@roots/bud-sass registration`, () => {
     it(`should import a partial`, async () => {
       bud.sass.importGlobal(`@styles/common/variables`)
 
-      await bud.extensions.runAll(`_afterConfig`)
+      await bud.extensions.runAll(`_configAfter`)
       expect(bud.build.items.sass.getOptions().additionalData).toBe(
         `@import "@styles/common/variables";`,
       )
@@ -25,7 +25,7 @@ describe(`@roots/bud-sass registration`, () => {
         `@styles/common/mixins`,
       ])
 
-      await bud.extensions.runAll(`_afterConfig`)
+      await bud.extensions.runAll(`_configAfter`)
 
       expect(bud.build.items.sass.getOptions().additionalData).toBe(
         `@import "@styles/common/variables";\n@import "@styles/common/mixins";`,

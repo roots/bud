@@ -1,6 +1,15 @@
 import type {Bud} from '../../bud.js'
 import type * as Framework from '../../index.js'
-import type {Registry, Store} from '../../registry/index.js'
+import type {
+  Async,
+  AsyncCallback,
+  AsyncStore,
+  EventsStore,
+  Store,
+  Sync,
+  SyncCallback,
+  SyncStore,
+} from '../../registry/index.js'
 
 /**
  * Assign and filter callback to values.
@@ -34,22 +43,6 @@ export interface Service extends Framework.Service {
   store: Partial<Store>
 
   /**
-   * hook getter
-   *
-   * @internal
-   * @decorator `@bind`
-   */
-  get<T extends `${keyof Store & string}`>(path: T): Store[T]
-
-  /**
-   * hook setter
-   *
-   * @internal
-   * @decorator `@bind`
-   */
-  set<T extends `${keyof Store & string}`>(path: T, value: Store[T]): this
-
-  /**
    * hook setter
    *
    * @internal
@@ -70,11 +63,9 @@ export interface Service extends Framework.Service {
    *
    * @public
    */
-  on<T extends `${keyof Registry.Sync & keyof Store & string}`>(
+  on<T extends keyof Sync & string>(
     id: T,
-    input:
-      | Registry.Sync[T]
-      | ((current?: Registry.Sync[T]) => Registry.Sync[T]),
+    input: SyncCallback[T],
   ): Framework.Bud
 
   /**
@@ -90,11 +81,7 @@ export interface Service extends Framework.Service {
    *
    * @public
    */
-  fromMap<SyncMap extends Registry.Sync>(map: {
-    [K in keyof SyncMap as `${K & string}`]:
-      | SyncMap[K]
-      | ((current?: SyncMap[K]) => SyncMap[K])
-  }): Framework.Bud
+  fromMap(map: Partial<SyncCallback>): Framework.Bud
 
   /**
    * Register an async function to filter a value.
@@ -109,11 +96,9 @@ export interface Service extends Framework.Service {
    *
    * @public
    */
-  async<T extends keyof Registry.Async & string>(
+  async<T extends keyof AsyncCallback & string>(
     id: T,
-    input:
-      | Registry.Async[T]
-      | ((value: Registry.Async[T]) => Promise<Registry.Async[T]>),
+    value: AsyncCallback[T],
   ): Bud
 
   /**
@@ -129,10 +114,10 @@ export interface Service extends Framework.Service {
    *
    * @public
    */
-  filter<T extends `${keyof Registry.Sync & string}`>(
+  filter<T extends keyof SyncStore>(
     id: T,
-    fallback?: Registry.Sync[T],
-  ): Registry.Sync[T]
+    callback?: SyncCallback[T],
+  ): Sync[T]
 
   /**
    * Async version of hook.filter
@@ -150,27 +135,27 @@ export interface Service extends Framework.Service {
    *
    * @public
    */
-  filterAsync<T extends `${keyof Registry.Async & string}`>(
+  filterAsync<T extends keyof AsyncStore>(
     id: T,
-    fallback?: Registry.Async[T],
-  ): Promise<Registry.Async[T]>
+    fallback?: Async[T],
+  ): Promise<Async[T]>
 
   /**
    * Execute an action
    *
    * @public
    */
-  fire<T extends `${keyof Registry.Events & string}`>(
+  fire<T extends `${keyof EventsStore & string}`>(
     id: T,
   ): Promise<Framework.Bud>
 
   /**
-   * Registry callback to an action handler
+   * Store callback to an action handler
    *
    * @public
    */
-  action<T extends `${keyof Registry.Events & string}`>(
+  action<T extends keyof EventsStore & string>(
     id: T,
-    ...action: Array<(app?: Bud) => Promise<unknown>>
+    ...actions: EventsStore[T]
   ): Bud
 }

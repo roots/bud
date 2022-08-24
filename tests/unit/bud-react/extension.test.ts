@@ -23,9 +23,9 @@ describe(extensionIdentifier, () => {
       extensionIdentifier,
     ))
 
-  it(`registers prop: afterConfig`, () =>
+  it(`registers prop: configAfter`, () =>
     expect(
-      bud.extensions.get(extensionIdentifier).afterConfig,
+      bud.extensions.get(extensionIdentifier).configAfter,
     ).toBeInstanceOf(Function))
 
   it(`regissters fn: react-refresh`, async () => {

@@ -1,18 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`@roots/bud-server @roots/bud-server/service in development should have expected defaults 1`] = `"http://0.0.0.0:3015/"`;
-
-exports[`@roots/bud-server @roots/bud-server/service in development should have expected defaults 2`] = `Set {}`;
-
-exports[`@roots/bud-server @roots/bud-server/service in development should have expected defaults 3`] = `Object {}`;
-
-exports[`@roots/bud-server @roots/bud-server/service in development should have expected defaults 4`] = `
-Set {
-  [Function],
-  [Function],
-}
-`;
-
 exports[`@roots/bud-server @roots/bud-server/service should have availableMiddleware property 1`] = `
 Object {
   "cookie": [Function],
@@ -28,16 +15,3 @@ Object {
   "hot": [Function],
 }
 `;
-
-exports[`@roots/bud-server @roots/bud-server/service should have expected defaults 1`] = `"http://0.0.0.0:50064/"`;
-
-exports[`@roots/bud-server @roots/bud-server/service should have expected defaults 2`] = `
-Set {
-  "index.html",
-  "images",
-}
-`;
-
-exports[`@roots/bud-server @roots/bud-server/service should have expected defaults 3`] = `undefined`;
-
-exports[`@roots/bud-server @roots/bud-server/service should have expected defaults 4`] = `undefined`;

@@ -36,8 +36,9 @@ export default class Vue extends Extension<Options, null> {
    * @decorator `@bind`
    */
   @bind
-  public async afterConfig() {
-    await this.addLoader().then(this.addStyleLoader)
+  public async boot() {
+    await this.addLoader()
+    await this.addStyleLoader()
 
     this.app.hooks
       .fromMap({

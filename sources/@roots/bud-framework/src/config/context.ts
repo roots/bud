@@ -1,7 +1,6 @@
 import type {Readable, Writable} from 'node:stream'
 
 import type {Bud} from '../bud.js'
-import type {Registry} from '../registry/index'
 
 export interface BaseContext {
   label: string
@@ -69,7 +68,6 @@ export interface BaseContext {
   config: Record<string, any>
   extensions: Array<string>
   services: Array<string>
-  seed: Partial<Registry>
   env: Record<string, string | undefined>
 }
 

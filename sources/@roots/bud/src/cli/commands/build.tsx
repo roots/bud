@@ -204,13 +204,6 @@ export class BuildCommand extends BaseCommand {
   })
 
   /**
-   * --log
-   */
-  public log = Option.Boolean(`--log`, undefined, {
-    description: `Enable logging`,
-  })
-
-  /**
    * --manifest
    */
   public manifest = Option.Boolean(`--manifest`, undefined, {
@@ -277,13 +270,6 @@ export class BuildCommand extends BaseCommand {
    */
   public target = Option.Array(`--target,-t`, undefined, {
     description: `Limit compilation to particular compilers`,
-  })
-
-  /**
-   * --level
-   */
-  public level = Option.Array<Boolean>(`-v`, undefined, {
-    description: `Set logging level`,
   })
 
   /**

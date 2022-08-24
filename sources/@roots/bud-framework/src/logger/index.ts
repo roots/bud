@@ -1,5 +1,5 @@
 import {bind} from 'helpful-decorators'
-import {isEqual, isUndefined} from 'lodash-es'
+import isEqual from 'lodash-es/isEqual.js'
 import Signale, {SignaleConfig, SignaleOptions} from 'signale'
 
 import type {Bud} from '../bud.js'
@@ -35,8 +35,14 @@ export class Logger {
       case 4:
         return LEVEL[`vvvv`]
       default:
-        return LEVEL[`vvv`]
+      // fallthrough
     }
+
+    if (this.app.context.args.log === true) {
+      return LEVEL[`vvv`]
+    }
+
+    return LEVEL[`vv`]
   }
 
   public scope: Array<string>
@@ -62,9 +68,7 @@ export class Logger {
   ) {
     let instance = new Signale.Signale({
       logLevel: this.level,
-      disabled:
-        isUndefined(this.app.context.args.log) ||
-        isEqual(this.app.context.args.log, false),
+      disabled: isEqual(this.app.context.args.log, false),
       scope: this.app.label ?? this.app.context.bud.label,
       types,
       ...constructorOverrides,

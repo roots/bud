@@ -28,9 +28,3 @@ export interface Events {
       | `make`}/${`before` | `after`}`
   ]: (app?: Bud) => Promise<unknown>
 }
-
-export namespace Events {
-  export type HookMap = {
-    [K in keyof Events as `${K & string}`]: Events[K]
-  }
-}

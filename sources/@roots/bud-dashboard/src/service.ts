@@ -60,7 +60,8 @@ export class Dashboard extends Service implements Base.Service {
   }: {
     stats: StatsCompilation
   }): Promise<this> {
-    if (!compilationStats) return this
+    if (!compilationStats || this.app.context.args.log === false)
+      return this
 
     this.app.log(`\n`)
 

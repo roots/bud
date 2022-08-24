@@ -50,15 +50,4 @@ export default class BudInterpolateHtmlPlugin extends Extension<
       this.options,
     )
   }
-
-  /**
-   * `when` callback
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async when() {
-    return this.options ? true : false
-  }
 }

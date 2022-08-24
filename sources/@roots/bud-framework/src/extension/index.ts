@@ -84,7 +84,7 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
    * @readonly
    * @public
    */
-  public readonly options: Options<E> = {}
+  public readonly options: Options<E>
 
   /**
    * Extension meta
@@ -242,7 +242,7 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
           ),
     })
 
-    const opts = this.options
+    const opts = this.options ?? {}
 
     Object.defineProperty(this, `options`, {
       get: this.getOptions,
@@ -451,7 +451,7 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
   public setOptions(
     value: Options<E> | ((value: Options<E>) => Options<E>),
   ): this {
-    this._options = isFunction(value) ? value(this.options) : value
+    this._options = isFunction(value) ? value(this.options ?? {}) : value
     return this
   }
 
@@ -479,6 +479,7 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
     key: K & string,
     value: Options<E>[K & string],
   ): this {
+    if (!this._options) this._options = {}
     this._options[key] = isFunction(value)
       ? value(this.options[key])
       : () => value

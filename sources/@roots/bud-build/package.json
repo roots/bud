@@ -41,11 +41,11 @@
   "types": "./lib/index.d.ts",
   "exports": {
     ".": "./lib/index.js",
-    "./item": "./lib/item.js",
+    "./item": "./lib/item/item.js",
     "./items": "./lib/handlers/items.js",
-    "./loader": "./lib/loader.js",
+    "./loader": "./lib/loader/loader.js",
     "./loaders": "./lib/handlers/loaders.js",
-    "./rule": "./lib/rule.js",
+    "./rule": "./lib/rule/rule.js",
     "./rules": "./lib/handlers/rules.js",
     "./service": "./lib/service.js"
   },
@@ -55,19 +55,19 @@
         "./lib/index.d.ts"
       ],
       "item": [
-        "./lib/item.d.ts"
+        "./lib/item/item.d.ts"
       ],
       "items": [
         "./lib/handlers/items.d.ts"
       ],
       "loader": [
-        "./lib/loader.d.ts"
+        "./lib/loader/loader.d.ts"
       ],
       "loaders": [
         "./lib/handlers/loaders.d.ts"
       ],
       "rule": [
-        "./lib/rule.d.ts"
+        "./lib/rule/rule.d.ts"
       ],
       "rules": [
         "./lib/handlers/rules.d.ts"
