@@ -2,10 +2,9 @@
 
 import {describe, expect, it} from '@jest/globals'
 import {paths} from '@repo/constants'
-import {logger} from '@repo/logger'
 import {execa, ExecaChildProcess} from 'execa'
 import fs from 'fs-extra'
-import {join} from 'path'
+import {join} from 'node:path'
 import {Browser, chromium, Page} from 'playwright'
 
 import copy from './util/copy'
@@ -46,7 +45,12 @@ describe(`html output of examples/basic`, () => {
       .then(async () => {
         devProcess = execa(
           `node`,
-          [`./node_modules/.bin/bud`, `dev`, `--html`, `--no-cache`],
+          [
+            join(`node_modules`, `.bin`, `bud`),
+            `dev`,
+            `--html`,
+            `--no-cache`,
+          ],
           {cwd: join(paths.mocks, `yarn`, `@examples`, `basic`)},
         )
         devProcess.stdout?.pipe(process.stdout)
@@ -65,6 +69,7 @@ describe(`html output of examples/basic`, () => {
 
   beforeEach(async () => {
     await reset()
+
     await chromium.launch().then(async instance => {
       browser = instance
       page = await browser.newPage()
@@ -89,7 +94,7 @@ describe(`html output of examples/basic`, () => {
 
   it(`should add new body class after updating src/index.js`, async () => {
     await update()
-    await page.waitForTimeout(3000)
+    await page.waitForTimeout(6000)
 
     const hot = await page.$(`.hot`)
     expect(hot).toBeTruthy()

@@ -124,7 +124,7 @@ describe(`html output of examples/babel`, () => {
 
   it(`should hot update when src/global.css is modified`, async () => {
     await update()
-    await page.waitForTimeout(3000)
+    await page.waitForTimeout(6000)
 
     const app = await page.$(`.app`)
     expect(app).toBeTruthy()
@@ -132,6 +132,7 @@ describe(`html output of examples/babel`, () => {
     const color = await app?.evaluate(el => {
       return window.getComputedStyle(el).getPropertyValue(`background`)
     })
+
     expect(color).toMatchSnapshot(
       `rgb(0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box`,
     )
