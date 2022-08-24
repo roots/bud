@@ -97,7 +97,7 @@ export const initialize = (app: Bud): Bud => {
     [`build.optimization.removeEmptyChunks`]: true,
     [`build.output.chunkFilename`]: () => `js/dynamic/[id].js`,
     [`build.output.filename`]: () => `js/${filenameFormat(app)}`,
-    [`build.output.path`]: () => app.path(`dist`),
+    [`build.output.path`]: () => app.path(`@dist`),
     [`build.output.publicPath`]: `auto`,
     [`build.parallelism`]: 10 * Math.max(cpus().length - 1, 1),
     [`build.performance`]: {hints: false},
