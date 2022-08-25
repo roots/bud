@@ -5,7 +5,7 @@ export interface watch {
     /**
      * Watched files
      */
-    ...files: Array<string | Array<string>>
+    files: Array<string | Array<string>>,
   ): Bud
 }
 
