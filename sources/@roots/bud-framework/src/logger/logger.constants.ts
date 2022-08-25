@@ -1,11 +1,12 @@
 import figures from 'figures'
+import type {SignaleConfig} from 'signale'
 
 /**
  * Instance configuration
  *
  * @internal
  */
-export const configDefaults: any = {
+export const configDefaults: SignaleConfig = {
   displayScope: true,
   displayBadge: true,
   displayDate: false,

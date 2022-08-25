@@ -77,14 +77,14 @@ export class Api
   ) {
     // check if the callable exists
     if (!isFunction(fn)) {
-      this.app.error(
+      this.app.fatal(
         `bud.api.bindFacade error`,
         `${name} is not a function`,
       )
     }
 
     this.set(name, fn.bind(this.app))
-    this.app.bindMethod({[`${name}`]: factory(name)})
+    this.app.bindMethod({[name]: factory(name)})
   }
 
   /**
@@ -128,14 +128,7 @@ export class Api
         try {
           await this.call(name, ...args)
         } catch (error) {
-          this.app.error(
-            `Error calling`,
-            name,
-            `with args`,
-            args,
-            `\nerror:`,
-            error,
-          )
+          this.app.error(`Error calling`, name, error)
         }
       }),
     )

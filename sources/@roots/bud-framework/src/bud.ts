@@ -1,6 +1,7 @@
+import {highlight} from 'cli-highlight'
 import {bind} from 'helpful-decorators'
-import {isNull, isUndefined, omit} from 'lodash-es'
-import {format, PrettyFormatOptions} from 'pretty-format'
+import {isFunction, isNull, isString, isUndefined} from 'lodash-es'
+import {format} from 'pretty-format'
 
 import type {
   Cache,
@@ -15,10 +16,13 @@ import type {
   Server,
   Services,
 } from './index.js'
-import {lifecycle} from './lifecycle/index.js'
+import {bootstrap} from './lifecycle/bootstrap.js'
+import {LIFECYCLE_EVENT_MAP} from './lifecycle/index.js'
+import {override} from './lifecycle/init.js'
 import type * as methods from './methods/index.js'
 import type {Module} from './module.js'
 import * as parsers from './parsers/index.js'
+import type {EventsStore} from './registry/index.js'
 import type {Service as Api} from './services/api/index.js'
 import type {Service as Build} from './services/build/index.js'
 
@@ -27,13 +31,15 @@ import type {Service as Build} from './services/build/index.js'
  *
  * @public
  */
-export abstract class Bud {
+export class Bud {
   /**
    * Context
    *
    * @public
    */
   public context: Config.Context
+
+  public implementation: Constructor
 
   /**
    * Compilation mode
@@ -154,8 +160,6 @@ export abstract class Bud {
 
   public server: Server.Service
 
-  public lifecycle: lifecycle
-
   public maybeCall: methods.maybeCall
 
   public close: methods.close
@@ -167,8 +171,6 @@ export abstract class Bud {
   public glob: methods.glob
 
   public globSync: methods.globSync
-
-  public make: methods.make
 
   public path: methods.path
 
@@ -201,22 +203,96 @@ export abstract class Bud {
   public yml: typeof parsers.yml = parsers.yml
 
   /**
-   * Class constructor
+   * Creates a child with `bud.create` but returns the parent instance
    *
    * @public
    */
-  public constructor(public implementation: Constructor) {
-    this.lifecycle = lifecycle.bind(this)
+  public async make(
+    request: Config.Overrides | string,
+    tap?: (app: Bud) => Promise<unknown>,
+  ) {
+    if (!this.isRoot)
+      return this.fatal(
+        `Child instances should be produced from the root context`,
+      )
+
+    let context: Config.Context
+
+    if (isString(request))
+      context = {
+        ...this.context,
+        label: request,
+        root: this,
+      }
+    else context = {...this.context, ...request, root: this}
+
+    if (this.children && this.children[context.label]) {
+      this.log(`returning requested child instance:`, context.label)
+      return this.children[context.label]
+    }
+
+    this.log(`instantiating bud`, context)
+    const child = await new Bud().lifecycle(context)
+
+    if (!this.children) this.children = {[context.label]: child}
+    else this.children[context.label] = child
+
+    if (tap) await tap(this.children[context.label])
+    await this.children[context.label].hooks.fire(`config.after`)
+
+    return this
   }
 
-  /**
-   * Factory
-   *
-   * @public
-   */
-  public async factory(context: Config.Context): Promise<Bud> {
-    return await new this.implementation(this.implementation).lifecycle(
-      context,
+  @bind
+  public async lifecycle(context: Config.Context): Promise<Bud> {
+    await bootstrap.bind(this)({...context})
+
+    Object.entries(LIFECYCLE_EVENT_MAP).map(
+      ([eventHandle, callbackName]) =>
+        this.services
+          .map(service => [service, this[service]])
+          .map(([label, service]) => {
+            if (!isFunction(service[callbackName])) return
+            this.hooks.action(
+              eventHandle as keyof EventsStore,
+              service[callbackName].bind(service),
+            )
+            this.log(
+              `registered service callback:`,
+              `${label}.${callbackName}`,
+            )
+          }),
+    )
+
+    await [
+      `bootstrap`,
+      `bootstrapped`,
+      `register`,
+      `registered`,
+      `boot`,
+      `booted`,
+    ].reduce(async (promised, event: keyof EventsStore) => {
+      await promised
+      this.log(
+        `calling`,
+        this.hooks.store[event].length,
+        `events registered to`,
+        event,
+      )
+      await this.hooks.fire(event)
+    }, Promise.resolve())
+
+    this.hooks.action(`config.after`, override)
+
+    return this
+  }
+
+  @bind
+  private formatLogMessages(messages: any[]) {
+    return messages.map(message =>
+      typeof message !== `string`
+        ? highlight(format(message))
+        : message.replace(this.context.basedir, `.`),
     )
   }
 
@@ -228,14 +304,13 @@ export abstract class Bud {
    */
   @bind
   public log(...messages: any[]) {
-    this.logger?.instance &&
-      this.logger.instance.log(
-        ...messages.map(msg =>
-          typeof msg !== `string`
-            ? msg
-            : msg.replace(this.context.basedir, `.`),
-        ),
-      )
+    if (
+      !this.logger?.instance ||
+      this.context.args.level?.length < 3 ||
+      this.context.args.log === false
+    )
+      return this
+    this.logger.instance.log(...this.formatLogMessages(messages))
     return this
   }
 
@@ -247,15 +322,13 @@ export abstract class Bud {
    */
   @bind
   public info(...messages: any[]) {
-    this.logger?.instance &&
-      this.logger.instance.info(
-        ...messages.map(msg =>
-          typeof msg !== `string`
-            ? msg
-            : msg.replace(this.context.basedir, `.`),
-        ),
-      )
-
+    if (
+      !this.logger?.instance ||
+      this.context.args.level?.length < 4 ||
+      this.context.args.log === false
+    )
+      return this
+    this.logger.instance.info(...this.formatLogMessages(messages))
     return this
   }
 
@@ -267,15 +340,13 @@ export abstract class Bud {
    */
   @bind
   public success(...messages: any[]) {
-    this.logger?.instance &&
-      this.logger.instance.success(
-        ...messages.map(msg =>
-          typeof msg !== `string`
-            ? msg
-            : msg.replace(this.context.basedir, `.`),
-        ),
-      )
-
+    if (
+      !this.logger?.instance ||
+      this.context.args.level?.length < 3 ||
+      this.context.args.log === false
+    )
+      return this
+    this.logger.instance.success(...this.formatLogMessages(messages))
     return this
   }
 
@@ -287,85 +358,13 @@ export abstract class Bud {
    */
   @bind
   public warn(...messages: any[]) {
-    this.logger?.instance &&
-      this.logger.instance.warn(
-        ...messages.map(msg =>
-          typeof msg !== `string`
-            ? msg
-            : msg.replace(this.context.basedir, `.`),
-        ),
-      )
-
+    if (!this.logger?.instance) return this
+    this.logger.instance.warn(...this.formatLogMessages(messages))
     return this
   }
 
   /**
-   * Log a `warning` level message
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public await(...messages: any[]) {
-    this.logger?.instance &&
-      this.logger.instance.await(
-        ...messages.map(msg =>
-          typeof msg !== `string`
-            ? msg
-            : msg.replace(this.context.basedir, `.`),
-        ),
-      )
-
-    return this
-  }
-
-  /**
-   * Log a `warning` level message
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public complete(...messages: any[]) {
-    this.logger?.instance &&
-      this.logger.instance.complete(
-        ...messages.map(msg =>
-          typeof msg !== `string`
-            ? msg
-            : msg.replace(this.context.basedir, `.`),
-        ),
-      )
-
-    return this
-  }
-
-  /**
-   * Log and display a debug message.
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public debug(...messages: any[]): this {
-    process.stdout.write(`\n`)
-
-    messages.map(message => {
-      process.stdout.write(
-        format(message, {
-          callToJSON: false,
-          maxDepth: 8,
-          printFunctionName: false,
-          escapeString: false,
-        }),
-      )
-      process.stdout.write(`\n`)
-    })
-
-    return this
-  }
-
-  /**
-   * Log and display an error.
+   * Log an error.
    *
    * @remarks
    * In `production` this error is treated as fatal
@@ -376,7 +375,8 @@ export abstract class Bud {
    */
   @bind
   public error(...messages: any[]) {
-    this.logger.instance.error(...messages)
+    if (!this.logger?.instance) return this
+    this.logger.instance.error(...this.formatLogMessages(messages))
 
     if (this.isProduction) {
       process.exitCode = 1
@@ -385,34 +385,26 @@ export abstract class Bud {
   }
 
   /**
-   * Dump object and return Bud
+   * Log and display an error.
+   *
+   * @remarks
+   * This will always kill the process
+   *
+   * @public
+   * @decorator `@bind`
+   * @throws fatal error
    */
   @bind
-  public dump(
-    obj: any,
-    options?: PrettyFormatOptions & {prefix: string},
-  ): Bud {
-    const prettyFormatOptions = omit(options, [
-      `prefix`,
-      `language`,
-      `ignoreIllegals`,
-    ])
+  public fatal(...messages: any[]) {
+    if (!this.logger?.instance) return this
 
-    this.logger.instance.debug(
-      format(obj, {
-        callToJSON: false,
-        maxDepth: 8,
-        printFunctionName: false,
-        escapeString: false,
-        ...prettyFormatOptions,
-      }),
-    )
-
-    return this
+    this.logger.instance.error(...this.formatLogMessages(messages))
+    process.exitCode = 1
+    process.exit()
   }
 }
 
 /**
  * Bud Constructor
  */
-export type Constructor = new (implementation: Constructor) => Bud
+export type Constructor = new () => Bud

@@ -70,6 +70,7 @@ export class Logger {
       logLevel: this.level,
       disabled: isEqual(this.app.context.args.log, false),
       scope: this.app.label ?? this.app.context.bud.label,
+      stream: this.app.context.stdout as any,
       types,
       ...constructorOverrides,
     })

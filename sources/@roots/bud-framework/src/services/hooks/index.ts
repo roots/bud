@@ -102,6 +102,21 @@ export interface Service extends Framework.Service {
   ): Bud
 
   /**
+   * Register a recordset of functions or values to modify or replace existing values
+   *
+   * @example
+   * ```js
+   * app.hooks.fromAsyncMap({
+   *  'namespace.name.value': 'replaced by this string',
+   * 'namespace.name.value2': async value => value.push('modified by this string'),
+   * })
+   * ```
+   *
+   * @public
+   */
+  fromAsyncMap(map: AsyncCallback): Bud
+
+  /**
    * Filter a value
    *
    * @example

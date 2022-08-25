@@ -6,7 +6,7 @@ import type {EventsStore} from '../registry/index.js'
 import {bootstrap} from './bootstrap.js'
 import {override} from './init.js'
 
-const LIFECYCLE_EVENT_MAP = {
+export const LIFECYCLE_EVENT_MAP = {
   bootstrap: `bootstrap`,
   bootstrapped: `bootstrapped`,
   register: `register`,
@@ -26,7 +26,7 @@ const LIFECYCLE_EVENT_MAP = {
  * @public
  */
 export interface lifecycle {
-  (this: Bud, context: Partial<Config.Context>): Promise<Bud>
+  (context: Partial<Config.Context>, bud: Bud): Promise<Bud>
 }
 
 /**
@@ -43,24 +43,21 @@ export interface lifecycle {
  * @public
  */
 export async function lifecycle(
-  this: Bud,
   context: Config.Context,
+  bud: Bud,
 ): Promise<Bud> {
-  await bootstrap.bind(this)({...context})
+  await bootstrap.bind(bud)({...context})
 
   Object.entries(LIFECYCLE_EVENT_MAP).map(([eventHandle, callbackName]) =>
-    this.services
-      .map(service => [service, this[service]])
+    bud.services
+      .map(service => [service, bud[service]])
       .map(([label, service]) => {
         if (!isFunction(service[callbackName])) return
-        this.hooks.action(
+        bud.hooks.action(
           eventHandle as keyof EventsStore,
           service[callbackName].bind(service),
         )
-        this.log(
-          `registered service callback:`,
-          `${label}.${callbackName}`,
-        )
+        bud.log(`registered service callback:`, `${label}.${callbackName}`)
       }),
   )
 
@@ -73,16 +70,16 @@ export async function lifecycle(
     `booted`,
   ].reduce(async (promised, event: keyof EventsStore) => {
     await promised
-    this.log(
+    bud.log(
       `calling`,
-      this.hooks.store[event].length,
+      bud.hooks.store[event].length,
       `events registered to`,
       event,
     )
-    await this.hooks.fire(event)
+    await bud.hooks.fire(event)
   }, Promise.resolve())
 
-  this.hooks.action(`config.after`, override)
+  bud.hooks.action(`config.after`, override)
 
-  return this
+  return bud
 }

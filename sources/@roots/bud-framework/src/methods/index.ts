@@ -3,7 +3,6 @@ import {close} from './close.js'
 import {container} from './container.js'
 import {get} from './get.js'
 import {glob, globSync} from './glob.js'
-import {make} from './make.js'
 import {maybeCall} from './maybeCall.js'
 import {path} from './path.js'
 import {pipe} from './pipe.js'
@@ -23,7 +22,6 @@ export {
   get,
   glob,
   globSync,
-  make,
   maybeCall,
   path,
   pipe,

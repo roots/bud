@@ -13,7 +13,6 @@ import {Service} from '@roots/bud-framework/service'
 import type {Service as HooksInterface} from '@roots/bud-framework/services/hooks'
 import {bind} from 'helpful-decorators'
 import {isFunction, isUndefined} from 'lodash-es'
-import {format} from 'pretty-format'
 
 /**
  * Hooks and events registry
@@ -113,8 +112,6 @@ export default class Hooks extends Service implements HooksInterface {
     if (!isFunction(input)) this.store[id] = [() => input]
     else if (this.has(id)) this.store[id].push(input)
     else this.store[id] = [input]
-
-    this.app.info(`hooks.on`, id, input)
     return this.app
   }
 
@@ -210,8 +207,6 @@ export default class Hooks extends Service implements HooksInterface {
       fallback,
     )
 
-    this.app.info(`hooks.filter`, id, result)
-
     return result
   }
 
@@ -251,8 +246,6 @@ export default class Hooks extends Service implements HooksInterface {
       fallback,
     )
 
-    this.app.info(`hooks.filterAsync`, id, result)
-
     return result
   }
 
@@ -269,8 +262,6 @@ export default class Hooks extends Service implements HooksInterface {
   ): Bud {
     if (!this.has(id)) this.store[id] = []
     this.store[id].push(...actions)
-
-    this.app.info(`registering action: ${id}`)
 
     return this.app
   }
@@ -290,9 +281,9 @@ export default class Hooks extends Service implements HooksInterface {
   public async fire<T extends keyof EventsStore & string>(
     id: T,
   ): Promise<Bud> {
-    const value = (this.store[id] ?? []) as any
+    if (!this.store[id] || this.store[id]?.length === 0) return this.app
 
-    this.app.info(`firing action ${id}`, format(value))
+    const value = this.store[id] as any
 
     await value
       .reduce(async (promise, action) => {
@@ -300,12 +291,17 @@ export default class Hooks extends Service implements HooksInterface {
         try {
           this.app.info(`calling`, id, action)
           await action(this.app)
+          this.app.success(id, `completed without errors`, action)
         } catch (error) {
           this.app.error(error)
         }
       }, Promise.resolve())
+      .catch(error => this.app.error(error))
       .finally(() => {
-        this.app.info(`finished. clearing registered actions`, id)
+        this.app.success(
+          `${id} action completed without errors. clearing registered actions`,
+          id,
+        )
         this.store[id] = []
       })
 

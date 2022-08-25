@@ -68,13 +68,13 @@ export default class Build extends Service {
           Object.entries(obj).map(async ([prop, factory]) => {
             const value = await factory(this.app)
             if (isUndefined(value)) return
-            this.app.log(prop, `=>`, value)
+            this.app.success(`built`, prop).info(prop, `=>`, value)
             this.config[prop] = value
           }),
         ),
     )
 
-    this.app.info(`configuration built`, this.config)
+    this.app.success(`configuration successfully built`)
 
     await this.app.hooks.fire(`build.after`)
     return this.config
