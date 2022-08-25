@@ -197,6 +197,16 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
     options?: Options<E>,
   ): Promise<unknown>
 
+  public async compilerBefore?(
+    app: Bud,
+    options?: Options<E>,
+  ): Promise<unknown>
+
+  public async compilerAfter?(
+    app: Bud,
+    options?: Options<E>,
+  ): Promise<unknown>
+
   /**
    * `make` callback
    *
@@ -385,19 +395,18 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
   @bind
   public async _make() {
     this.logger.info(`trying to make`, this.label)
-    const enabled = await this.isEnabled()
 
     if (
       isUndefined(this.make) &&
       isUndefined(this.apply) &&
       isUndefined(this.plugin)
     ) {
-      this.logger.log(`${this.label} is not a compiler plugin`)
       return false
     }
 
+    const enabled = await this.isEnabled()
     if (enabled === false) {
-      this.logger.log(`${this.label} is disabled`)
+      this.logger.info(`${this.label} is disabled`)
       return false
     }
 
@@ -410,21 +419,18 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
     try {
       if (this.plugin) return new this.plugin(this.options)
     } catch (err) {
-      this.logger.error(
-        `error instantiating plugin`,
-        `with options`,
-        this.options,
-        err,
-      )
+      this.logger.error(`error instantiating plugin`, err)
     }
-    if (this.apply) return this as {apply: any}
 
     try {
-      return await this.make(this.app, this.options)
+      let value: ApplyPlugin
+      if (this.apply) value = this as {apply: any}
+      else value = await this.make(this.app, this.options)
+      await this.app.hooks.fire(`${this.label}/make/after`)
+      return value
     } catch (error) {
       this.app.error(this.label, `make error`, `\n`, error)
     }
-    await this.app.hooks.fire(`${this.label}/make/after`)
   }
 
   /**

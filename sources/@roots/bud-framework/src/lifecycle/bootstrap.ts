@@ -25,11 +25,31 @@ const importServices =
     const imported = pkg?.default ?? pkg
     app[imported.label] = new imported(app)
 
-    app.log(`imported`, imported.label)
+    app.log(`imported service:`, imported.label)
     app.info(imported.label, app[imported.label])
 
     app.services.push(imported.label)
   }
+
+const initializeLoggerAndReportContext = (app: Bud) => {
+  /* initialize logger */
+  app.logger = new Logger(app)
+
+  app.success(`logger ready`)
+
+  Object.entries(app.context.args)
+    .filter(([k, v]) => v !== undefined)
+    .map(([k, v]) => app.log(`argument received`, k, `=>`, v))
+
+  app.log(`basedir:`, app.context.basedir)
+
+  app.context.extensions.map(extension =>
+    app.log(`discovered extension:`, extension),
+  )
+  app.context.manifest.bud?.denylist?.map(value =>
+    app.log(`ignoring extension:`, value),
+  )
+}
 
 /**
  * Bootstrap application
@@ -43,9 +63,7 @@ export const bootstrap = async function (
   this: Bud,
   context: Config.Context,
 ) {
-  this.context = {
-    ...context,
-  }
+  this.context = {...context}
 
   /* copy context object */
   if (!this.context.label) throw new Error(`options.label is required`)
@@ -61,10 +79,7 @@ export const bootstrap = async function (
     this[key] = method.bind(this)
   })
 
-  /* initialize logger */
-  this.logger = new Logger(this)
-
-  this.log(`initial context`, this.context)
+  initializeLoggerAndReportContext(this)
 
   /* initialize module */
   this.module = new Module(this)

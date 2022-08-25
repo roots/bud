@@ -103,7 +103,6 @@ export default class extends Base implements Instance {
   @bind
   public setTest(test: Instance['test']): this {
     this.test = this.wrap(test)
-    this.app.log(`rule modified`, this.test)
     return this
   }
 
@@ -159,8 +158,6 @@ export default class extends Base implements Instance {
     this.use = isFunction(input)
       ? input(this.getUse() ?? [], this.app)
       : input
-
-    this.app.log(this.use)
 
     return this
   }

@@ -1,9 +1,24 @@
-import {isFunction, isUndefined} from 'lodash-es'
+import {isFunction} from 'lodash-es'
 
-import type {Bud, Config} from '../index.js'
+import type {Bud} from '../bud.js'
+import type * as Config from '../config/index.js'
+import type {EventsStore} from '../registry/index.js'
 import {bootstrap} from './bootstrap.js'
-import {LIFECYCLE_EVENTS} from './constants.js'
 import {override} from './init.js'
+
+const LIFECYCLE_EVENT_MAP = {
+  bootstrap: `bootstrap`,
+  bootstrapped: `bootstrapped`,
+  register: `register`,
+  registered: `registered`,
+  boot: `boot`,
+  booted: `booted`,
+  [`config.after`]: `configAfter`,
+  [`compiler.before`]: `compilerBefore`,
+  [`build.before`]: `buildBefore`,
+  [`build.after`]: `buildAfter`,
+  [`compiler.after`]: `compilerAfter`,
+}
 
 /**
  * Lifecycle interface
@@ -33,73 +48,39 @@ export async function lifecycle(
 ): Promise<Bud> {
   await bootstrap.bind(this)({...context})
 
-  await LIFECYCLE_EVENTS.reduce(async (promised, event) => {
-    await promised
-
-    await Promise.all(
-      this.services.map(async service => {
-        if (!isFunction(this[service][event])) return
-        try {
-          await this[service][event](this)
-          this.success(`${event}:`, service)
-        } catch (err) {
-          this.warn(`error executing`, event, `for`, service).error(err)
-        }
+  Object.entries(LIFECYCLE_EVENT_MAP).map(([eventHandle, callbackName]) =>
+    this.services
+      .map(service => [service, this[service]])
+      .map(([label, service]) => {
+        if (!isFunction(service[callbackName])) return
+        this.hooks.action(
+          eventHandle as keyof EventsStore,
+          service[callbackName].bind(service),
+        )
+        this.log(
+          `registered service callback:`,
+          `${label}.${callbackName}`,
+        )
       }),
+  )
+
+  await [
+    `bootstrap`,
+    `bootstrapped`,
+    `register`,
+    `registered`,
+    `boot`,
+    `booted`,
+  ].reduce(async (promised, event: keyof EventsStore) => {
+    await promised
+    this.log(
+      `calling`,
+      this.hooks.store[event].length,
+      `events registered to`,
+      event,
     )
+    await this.hooks.fire(event)
   }, Promise.resolve())
-
-  this.services.map(service => {
-    !isUndefined(this[service].configAfter) &&
-      this.hooks.action(
-        `config.after`,
-        this[service].configAfter.bind(this[service]),
-      ) &&
-      this.info(
-        this[service].constructor.name,
-        `configAfter method registered`,
-      )
-
-    !isUndefined(this[service].buildBefore) &&
-      this.hooks.action(
-        `build.before`,
-        this[service].buildBefore.bind(this[service]),
-      ) &&
-      this.info(
-        this[service].constructor.name,
-        `buildBefore method registered`,
-      )
-
-    !isUndefined(this[service].buildAfter) &&
-      this.hooks.action(
-        `build.after`,
-        this[service].buildAfter.bind(this[service]),
-      ) &&
-      this.info(
-        this[service].constructor.name,
-        `buildAfter method registered`,
-      )
-
-    !isUndefined(this[service].compilerBefore) &&
-      this.hooks.action(
-        `compiler.before`,
-        this[service].compilerBefore.bind(this[service]),
-      ) &&
-      this.info(
-        this[service].constructor.name,
-        `compilerBefore method registered`,
-      )
-
-    !isUndefined(this[service].compilerAfter) &&
-      this.hooks.action(
-        `compiler.after`,
-        this[service].compilerAfter.bind(this[service]),
-      ) &&
-      this.info(
-        this[service].constructor.name,
-        `compilerAfter method registered`,
-      )
-  })
 
   this.hooks.action(`config.after`, override)
 

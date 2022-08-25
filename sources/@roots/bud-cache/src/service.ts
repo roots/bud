@@ -168,7 +168,10 @@ export default class Cache
       .replace(/[^a-z0-9]/gi, `_`)
       .toLowerCase()
 
-    this.app.log(`finalized cache config`, this.configuration)
+    this.app.success(`cache initialized`)
+    if (this.app.context.args.cache === false) {
+      this.app.log(`cache is disabled with a contextual argument`)
+    }
   }
 
   @bind

@@ -64,7 +64,7 @@ export const types = {
     logLevel: LEVEL[`vvvv`],
   },
   log: {
-    badge: figures.pointer,
+    badge: ``,
     color: `blue`,
     label: `log`,
     logLevel: LEVEL[`vvv`],

@@ -1,36 +1,6 @@
 import {isUndefined} from 'lodash-es'
-import {cpus} from 'node:os'
 
 import type {Bud} from '../bud'
-
-/**
- * Returns true if the given value is neither null nor undefined.
- *
- * @public
- */
-const isset = (value: unknown): boolean => !isUndefined(value)
-
-/**
- * Filename
- *
- * @param app - Bud
- * @param extension - Filename extension
- *
- * @returns filename format
- *
- * @public
- */
-export const filenameFormat = (app: Bud, extension?: string): string => {
-  if (!extension) {
-    extension = app.hooks.filter(`build.experiments.outputModule`)
-      ? `.mjs`
-      : `.js`
-  }
-
-  return app.hooks.filter(`feature.hash`)
-    ? app.hooks.filter(`value.hashFormat`).concat(extension)
-    : app.hooks.filter(`value.fileFormat`).concat(extension)
-}
 
 /**
  * Initializes hooks
@@ -78,20 +48,8 @@ export const initialize = (app: Bud): Bud => {
     [`location.@modules`]: `node_modules`,
 
     [`build.bail`]: app.isProduction,
-    [`build.cache`]: () => app.cache.configuration,
-    [`build.context`]: () => app.context.basedir,
-    [`build.externalsType`]: `var`,
-    [`build.mode`]: () => app.mode,
-    [`build.module.rules.before`]: [],
-    [`build.module.rules.after`]: [],
-    [`build.module.rules.oneOf`]: () =>
-      Object.values(app.build.rules).map(rule => rule.toWebpack()),
-    [`build.name`]: () => app.label,
     [`build.output.assetModuleFilename`]: () =>
       filenameFormat(app, `[ext]`),
-    [`build.infrastructureLogging.level`]: `none`,
-    [`build.module.unsafeCache`]: false,
-    [`build.node`]: false,
     [`build.optimization.emitOnErrors`]: () => app.isDevelopment,
     [`build.optimization.minimize`]: false,
     [`build.optimization.removeEmptyChunks`]: true,
@@ -99,10 +57,6 @@ export const initialize = (app: Bud): Bud => {
     [`build.output.filename`]: () => `js/${filenameFormat(app)}`,
     [`build.output.path`]: () => app.path(`@dist`),
     [`build.output.publicPath`]: `auto`,
-    [`build.parallelism`]: 10 * Math.max(cpus().length - 1, 1),
-    [`build.performance`]: {hints: false},
-    [`build.recordsPath`]: () =>
-      app.path(`@storage`, app.label, `modules.json`),
     [`build.resolve.extensions`]: new Set([
       `.mjs`,
       `.cjs`,
@@ -197,4 +151,33 @@ export const override = async (app: Bud): Promise<Bud> => {
   }
 
   return app
+}
+
+/**
+ * Returns true if the given value is neither null nor undefined.
+ *
+ * @public
+ */
+const isset = (value: unknown): boolean => !isUndefined(value)
+
+/**
+ * Filename
+ *
+ * @param app - Bud
+ * @param extension - Filename extension
+ *
+ * @returns filename format
+ *
+ * @public
+ */
+export const filenameFormat = (app: Bud, extension?: string): string => {
+  if (!extension) {
+    extension = app.hooks.filter(`build.experiments.outputModule`)
+      ? `.mjs`
+      : `.js`
+  }
+
+  return app.hooks.filter(`feature.hash`)
+    ? app.hooks.filter(`value.hashFormat`).concat(extension)
+    : app.hooks.filter(`value.fileFormat`).concat(extension)
 }

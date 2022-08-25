@@ -3,7 +3,7 @@ import {bind} from 'helpful-decorators'
 import {isFunction, isUndefined} from 'lodash-es'
 import type {Configuration} from 'webpack'
 
-import * as config from './config/builder.js'
+import type {ValueFactory} from './config/builder.js'
 import * as items from './handlers/items.js'
 import * as loaders from './handlers/loaders.js'
 import * as rules from './handlers/rules.js'
@@ -60,59 +60,23 @@ export default class Build extends Service {
       this.app.error(error)
     }
 
-    await Promise.all(
-      [
-        [`entry`],
-        [`plugins`, true],
-        [`resolve`, true],
-        [`bail`],
-        [`cache`],
-        [`context`],
-        [`devtool`],
-        [`experiments`],
-        [`externals`],
-        [`externalsType`],
-        [`infrastructureLogging`],
-        [`loader`],
-        [`mode`],
-        [`module`],
-        [`name`],
-        [`node`],
-        [`output`],
-        [`optimization`],
-        [`parallelism`],
-        [`performance`],
-        [`profile`],
-        [`recordsPath`],
-        [`stats`],
-        [`target`],
-        [`watch`],
-        [`watchOptions`],
-      ].map(async ([propKey, isAsync]: [keyof Configuration, boolean]) => {
-        const propValue = config[propKey]
-          ? await config[propKey](this.app)
-          : isAsync === true
-          ? await this.app.hooks.filterAsync(`build.${propKey}` as any)
-          : this.app.hooks.filter(`build.${propKey}` as any)
-
-        this.app.info(
-          propKey,
-          `generated value`,
-          `=>`,
-          propValue,
-          `async?`,
-          isAsync ?? false,
-        )
-        if (isUndefined(propValue)) return
-
-        this.config[propKey as any] = propValue as any
-      }),
+    await import(`./config/builder.js`).then(
+      async (obj: {
+        [K in keyof Configuration as `${K & string}`]: ValueFactory<K>
+      }) =>
+        await Promise.all(
+          Object.entries(obj).map(async ([prop, factory]) => {
+            const value = await factory(this.app)
+            if (isUndefined(value)) return
+            this.app.log(prop, `=>`, value)
+            this.config[prop] = value
+          }),
+        ),
     )
 
-    this.app.log(`configuration built`, this.config)
+    this.app.info(`configuration built`, this.config)
 
     await this.app.hooks.fire(`build.after`)
-
     return this.config
   }
 

@@ -3,6 +3,12 @@ import type {Modules} from './modules.js'
 
 export interface Events {
   'app.close': (app?: Bud) => any
+  bootstrap: (app?: Bud) => Promise<unknown>
+  bootstrapped: (app?: Bud) => Promise<unknown>
+  register: (app?: Bud) => Promise<unknown>
+  registered: (app?: Bud) => Promise<unknown>
+  boot: (app?: Bud) => Promise<unknown>
+  booted: (app?: Bud) => Promise<unknown>
   'build.before': (app?: Bud) => Promise<unknown>
   'build.after': (app?: Bud) => Promise<unknown>
   'compiler.before': (app?: Bud) => Promise<unknown>

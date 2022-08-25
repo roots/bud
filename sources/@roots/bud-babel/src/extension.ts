@@ -66,18 +66,6 @@ export default class BabelExtension extends Extension<any, null> {
   }
 
   /**
-   * Initialize extension
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async init() {
-    this.app.babel = new Config()
-    process.env.BABEL_ENV = this.app.mode
-  }
-
-  /**
    * Register extension
    *
    * @public
@@ -85,6 +73,9 @@ export default class BabelExtension extends Extension<any, null> {
    */
   @bind
   public async register() {
+    this.app.babel = new Config()
+    process.env.BABEL_ENV = this.app.mode
+
     const presetEnv = await this.resolve(
       `@babel/preset-env`,
       import.meta.url,

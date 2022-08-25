@@ -1,66 +1,70 @@
 import type {Bud} from '@roots/bud-framework'
+import {cpus} from 'os'
+import type {Configuration} from 'webpack'
 
-export const bail = async app =>
-  app.hooks.filter(`build.bail`, app.isProduction)
-
-export const cache = async app =>
-  app.hooks.filter(`build.cache`, app.cache.configuration)
-
+export {bail} from './bail.js'
+export {cache} from './cache.js'
+export {context} from './context.js'
 export {experiments} from './experiments.js'
-
-export const infrastructureLogging = async app =>
-  app.hooks.filter(`build.infrastructureLogging`, {
-    console: app.hooks.filter(`build.infrastructureLogging.console`),
-    level: app.hooks.filter(`build.infrastructureLogging.level`),
-  })
-
+export {infrastructureLogging} from './infrastructureLogging.js'
 export {module} from './module.js'
+export {optimization} from './optimization.js'
+export {output} from './output.js'
+export {resolve} from './resolve.js'
 
-export const node = async app =>
-  app.hooks.filter(`build.output.node`, false)
-
-export const optimization = async app =>
-  app.hooks.filter(`build.optimization`, {
-    emitOnErrors: app.hooks.filter(`build.optimization.emitOnErrors`),
-    minimize: app.hooks.filter(`build.optimization.minimize`),
-    minimizer: app.hooks.filter(`build.optimization.minimizer`, [`...`]),
-    moduleIds: app.hooks.filter(`build.optimization.moduleIds`),
-    runtimeChunk: app.hooks.filter(`build.optimization.runtimeChunk`),
-    splitChunks: app.hooks.filter(`build.optimization.splitChunks`),
-  })
-
-export const output = async app =>
-  app.hooks.filter(`build.output`, {
-    assetModuleFilename: app.hooks.filter(
-      `build.output.assetModuleFilename`,
-    ),
-    chunkFilename: app.hooks.filter(`build.output.chunkFilename`),
-    clean: app.hooks.filter(`build.output.clean`),
-    environment: app.hooks.filter(`build.output.environment`),
-    filename: app.hooks.filter(`build.output.filename`),
-    module: app.hooks.filter(`build.output.module`),
-    path: app.hooks.filter(`build.output.path`),
-    pathinfo: app.hooks.filter(`build.output.pathinfo`),
-    publicPath: app.hooks.filter(`build.output.publicPath`),
-  })
-
-export const resolve = async (app: Bud) => {
-  const alias = await app.hooks.filterAsync(
-    `build.resolve.alias`,
-    undefined,
-  )
-
-  const extensions = Array.from(
-    app.hooks.filter(`build.resolve.extensions`),
-  )
-
-  const modules = await app.hooks.filterAsync(`build.resolve.modules`)
-
-  return await app.hooks.filterAsync(`build.resolve`, {
-    alias,
-    extensions,
-    modules,
-  })
+export interface ValueFactory<T extends keyof B, B = Configuration> {
+  (app: Bud): Promise<B[T]>
 }
 
-export const target = async app => app.hooks.filter(`build.target`)
+export const entry: ValueFactory<`entry`> = async app =>
+  app.hooks.filter(`build.entry`)
+
+export const externals: ValueFactory<`externals`> = async app =>
+  app.hooks.filter(`build.externals`)
+
+export const externalsType: ValueFactory<`externalsType`> = async app =>
+  app.hooks.filter(`build.externalsType`, `var`)
+
+export const loader: ValueFactory<`loader`> = async app =>
+  app.hooks.filter(`build.loader`)
+
+export const mode: ValueFactory<`mode`> = async app =>
+  app.hooks.filter(`build.mode`, app.mode)
+
+export const name: ValueFactory<`name`> = async app =>
+  app.hooks.filter(`build.name`, app.label)
+
+export const node: ValueFactory<`node`> = async app =>
+  app.hooks.filter(`build.node`, false)
+
+export const parallelism: ValueFactory<`parallelism`> = async app =>
+  app.hooks.filter(
+    `build.parallelism`,
+    10 * Math.max(cpus().length - 1, 1),
+  )
+
+export const performance: ValueFactory<`performance`> = async app =>
+  app.hooks.filter(`build.performance`, {hints: false})
+
+export const plugins: ValueFactory<`plugins`> = async app =>
+  await app.extensions.make()
+
+export const profile: ValueFactory<`profile`> = async app =>
+  app.hooks.filter(`build.profile`)
+
+export const recordsPath: ValueFactory<`recordsPath`> = async app =>
+  app.hooks.filter(
+    `build.recordsPath`,
+    app.path(`@storage`, app.label, `modules.json`),
+  )
+
+export const stats: ValueFactory<`stats`> = async app =>
+  app.hooks.filter(`build.stats`, {preset: `errors-only`})
+
+export const target: ValueFactory<`target`> = async app =>
+  app.hooks.filter(
+    `build.target`,
+    app.project.has(`manifest.browserslist`)
+      ? `browserslist:${app.root.path(`package.json`)}`
+      : `web`,
+  )

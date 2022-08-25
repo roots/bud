@@ -50,18 +50,21 @@ export class Compiler extends Service implements Contract.Service {
    */
   @bind
   public async compile(): Promise<MultiCompiler> {
-    this.implementation = await this.app.module.import(`webpack`)
+    const webpack = await import(`webpack`)
+    this.implementation = webpack.default
+    this.app.log(`imported webpack`, webpack.version)
+
     this.config = []
 
     if (!this.app.hasChildren) {
-      this.app.log(`no children found, processing parent instance`)
+      this.app.info(`no children found, processing parent instance`)
       const config = await this.app.build.make()
       this.config.push(config)
     } else {
       await Promise.all(
         Object.values(this.app.children).map(async (child: Bud) => {
           const config = await child.build.make()
-          this.app.log(`child config`, child.label, child.build.config)
+          this.app.info(`child config`, child.label, child.build.config)
           this.config.push(config)
         }),
       )
@@ -69,7 +72,18 @@ export class Compiler extends Service implements Contract.Service {
 
     await this.app.hooks.fire(`compiler.before`)
 
-    if (this.app.context.args.dry) return
+    try {
+      // @ts-ignore
+      this.implementation.validate(this.config)
+      this.app.success(`webpack configuration is valid`)
+    } catch (error) {
+      this.app.error(`webpack validation error`, error)
+    }
+
+    if (this.app.context.args.dry) {
+      this.app.log(`running in dry mode. exiting early.`)
+      return
+    }
 
     this.instance = this.implementation(this.config)
 

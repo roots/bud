@@ -1,11 +1,6 @@
-import type {Bud} from '@roots/bud-framework'
-import type {Configuration} from 'webpack'
+import type {ValueFactory} from './builder'
 
-interface experiments {
-  (app: Bud): Promise<Configuration['experiments']>
-}
-
-export const experiments: experiments = async (app: Bud) =>
+export const experiments: ValueFactory<`experiments`> = async app =>
   app.hooks.filter(`build.experiments`, {
     asyncWebAssembly: app.hooks.filter(
       `build.experiments.asyncWebAssembly`,

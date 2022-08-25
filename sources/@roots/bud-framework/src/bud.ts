@@ -228,7 +228,14 @@ export abstract class Bud {
    */
   @bind
   public log(...messages: any[]) {
-    this.logger?.instance && this.logger.instance.log(...messages)
+    this.logger?.instance &&
+      this.logger.instance.log(
+        ...messages.map(msg =>
+          typeof msg !== `string`
+            ? msg
+            : msg.replace(this.context.basedir, `.`),
+        ),
+      )
     return this
   }
 
@@ -240,7 +247,14 @@ export abstract class Bud {
    */
   @bind
   public info(...messages: any[]) {
-    this.logger?.instance && this.logger.instance.info(...messages)
+    this.logger?.instance &&
+      this.logger.instance.info(
+        ...messages.map(msg =>
+          typeof msg !== `string`
+            ? msg
+            : msg.replace(this.context.basedir, `.`),
+        ),
+      )
 
     return this
   }
@@ -253,7 +267,14 @@ export abstract class Bud {
    */
   @bind
   public success(...messages: any[]) {
-    this.logger?.instance && this.logger.instance.success(...messages)
+    this.logger?.instance &&
+      this.logger.instance.success(
+        ...messages.map(msg =>
+          typeof msg !== `string`
+            ? msg
+            : msg.replace(this.context.basedir, `.`),
+        ),
+      )
 
     return this
   }
@@ -266,7 +287,14 @@ export abstract class Bud {
    */
   @bind
   public warn(...messages: any[]) {
-    this.logger?.instance && this.logger.instance.warn(...messages)
+    this.logger?.instance &&
+      this.logger.instance.warn(
+        ...messages.map(msg =>
+          typeof msg !== `string`
+            ? msg
+            : msg.replace(this.context.basedir, `.`),
+        ),
+      )
 
     return this
   }
@@ -279,7 +307,14 @@ export abstract class Bud {
    */
   @bind
   public await(...messages: any[]) {
-    this.logger?.instance && this.logger.instance.await(...messages)
+    this.logger?.instance &&
+      this.logger.instance.await(
+        ...messages.map(msg =>
+          typeof msg !== `string`
+            ? msg
+            : msg.replace(this.context.basedir, `.`),
+        ),
+      )
 
     return this
   }
@@ -292,7 +327,14 @@ export abstract class Bud {
    */
   @bind
   public complete(...messages: any[]) {
-    this.logger?.instance && this.logger.instance.complete(...messages)
+    this.logger?.instance &&
+      this.logger.instance.complete(
+        ...messages.map(msg =>
+          typeof msg !== `string`
+            ? msg
+            : msg.replace(this.context.basedir, `.`),
+        ),
+      )
 
     return this
   }
