@@ -52,8 +52,13 @@ export const initialize = (app: Bud): Bud =>
       'build.context': () => app.context.basedir,
       'build.externalsType': `var`,
       'build.mode': () => app.mode,
-      'build.module.rules.before': [],
-      'build.module.rules.after': [],
+      'build.module.rules.before': () => [
+        {
+          include: [app.path(`@src`)],
+          parser: {requireEnsure: false},
+        },
+      ],
+      'build.module.rules.after': () => [],
       'build.module.rules.oneOf': () =>
         Object.values(app.build.rules).map(rule => rule.toWebpack()),
       'build.name': () => app.label,

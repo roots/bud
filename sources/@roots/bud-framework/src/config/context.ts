@@ -10,7 +10,8 @@ export interface BaseContext {
   manifest: Record<string, any>
   mode: 'development' | 'production'
   args: Partial<{
-    browser: boolean
+    basedir: string
+    browser: string | boolean
     cache: `filesystem` | `memory` | true | false
     ci: boolean
     clean: boolean

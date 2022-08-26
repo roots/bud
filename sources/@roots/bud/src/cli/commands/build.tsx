@@ -1,8 +1,8 @@
+import type {Context} from '@roots/bud-framework/src/config/context.js'
 import {Command, Option} from 'clipanion'
 import {bind} from 'helpful-decorators'
 import * as t from 'typanion'
 
-import {factory} from '../../factory/index.js'
 import {BaseCommand} from './base.js'
 
 /**
@@ -13,14 +13,12 @@ import {BaseCommand} from './base.js'
 export class BuildCommand extends BaseCommand {
   /**
    * Command paths
-   *
    * @public
    */
   public static paths = [[`build`]]
 
   /**
    * Command usage
-   *
    * @public
    */
   public static usage = Command.Usage({
@@ -36,15 +34,33 @@ export class BuildCommand extends BaseCommand {
       If you run this command without a bud configuration file \`bud\` will
       look for an entrypoint at \`@src/index.js\`.
     `,
-    examples: [[`Compile source`, `$0 build`]],
+    examples: [[`compile source assets`, `$0 build`]],
   })
 
   /**
-   * --browser
+   * (dev only) browser
+   * @virtual
+   * @public
    */
-  public browser = Option.Boolean(`--browser`, undefined, {
-    description: `Open browser on successful development build`,
-  })
+  public browser?: boolean | string
+  /**
+   * (dev only) reload
+   * @virtual
+   * @public
+   */
+  public reload?: boolean
+  /**
+   * (dev only) overlay
+   * @virtual
+   * @public
+   */
+  public overlay?: boolean
+  /**
+   * (dev only) indicator
+   * @virtual
+   * @public
+   */
+  public indicator?: boolean
 
   /**
    * --cache
@@ -161,13 +177,6 @@ export class BuildCommand extends BaseCommand {
   })
 
   /**
-   * --indicator
-   */
-  public indicator = Option.Boolean(`--indicator`, undefined, {
-    description: `Enable development status indicator`,
-  })
-
-  /**
    * --inject
    */
   public inject = Option.Boolean(`--inject`, undefined, {
@@ -192,18 +201,6 @@ export class BuildCommand extends BaseCommand {
   })
 
   /**
-   * --mode
-   */
-  public mode = Option.String(`--mode`, undefined, {
-    description: `Compilation mode`,
-    validator: t.isOneOf([
-      t.isLiteral(`production`),
-      t.isLiteral(`development`),
-    ]),
-    env: `APP_MODE`,
-  })
-
-  /**
    * --manifest
    */
   public manifest = Option.Boolean(`--manifest`, undefined, {
@@ -225,25 +222,11 @@ export class BuildCommand extends BaseCommand {
   })
 
   /**
-   * --overlay
-   */
-  public overlay = Option.Boolean(`--overlay`, undefined, {
-    description: `Enable error overlay in development mode`,
-  })
-
-  /**
    * --publicPath
    */
   public publicPath = Option.String(`--publicPath`, undefined, {
     description: `public path of emitted assets`,
     env: `APP_PUBLIC_PATH`,
-  })
-
-  /**
-   * --reload
-   */
-  public reload = Option.Boolean(`--reload`, undefined, {
-    description: `Reload browser on unrecoverable error`,
   })
 
   /**
@@ -266,25 +249,18 @@ export class BuildCommand extends BaseCommand {
   })
 
   /**
-   * --target
+   * Context args object
+   *
+   * @public
    */
-  public target = Option.Array(`--target,-t`, undefined, {
-    description: `Limit compilation to particular compilers`,
-  })
-
-  /**
-   * Execute command
-   */
-  @bind
-  public async runCommand() {
-    this.context.args = {
+  public get args(): Context[`args`] {
+    return {
       browser: this.browser,
       cache: this.cache,
       ci: this.ci,
       clean: this.clean,
       debug: this.debug,
       devtool: this.devtool,
-      dry: this.dry,
       output: this.output,
       editor: this.editor,
       esm: this.esm,
@@ -294,8 +270,6 @@ export class BuildCommand extends BaseCommand {
       immutable: this.immutable,
       indicator: this.indicator,
       input: this.input,
-      level: this.level,
-      log: this.log,
       manifest: this.manifest,
       minimize: this.minimize,
       mode: this.mode,
@@ -306,10 +280,13 @@ export class BuildCommand extends BaseCommand {
       splitChunks: this.splitChunks,
       target: this.target,
     }
+  }
 
-    this.app = await factory(this.context)
-
-    await this.make()
+  /**
+   * Execute command
+   */
+  @bind
+  public async runCommand() {
     await this.app.run()
   }
 }

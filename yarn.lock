@@ -5252,6 +5252,7 @@ __metadata:
     caniuse-lite: latest
     chalk: 5.0.1
     clean-webpack-plugin: ^4.0.0
+    cli-highlight: 2.1.11
     clipanion: 3.2.0-rc.11
     conf: 10.2.0
     copy-webpack-plugin: 11.0.0
@@ -5263,12 +5264,14 @@ __metadata:
     helpful-decorators: 2.1.0
     html-webpack-plugin: 5.5.0
     ink: 3.2.0
+    ink-syntax-highlight: 1.0.1
+    ink-text-input: 4.0.3
     lodash-es: 4.17.21
     mini-css-extract-plugin: ^2.4.5
     node-notifier: 10.0.1
     open: 8.4.0
     open-editor: 4.0.0
-    react: 18.2.0
+    react: 17.0.2
     signale: 1.4.0
     tslib: 2.4.0
     typanion: 3.9.0
@@ -10730,7 +10733,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cli-highlight@npm:2.1.11":
+"cli-highlight@npm:2.1.11, cli-highlight@npm:^2.1.9":
   version: 2.1.11
   resolution: "cli-highlight@npm:2.1.11"
   dependencies:
@@ -17377,6 +17380,31 @@ __metadata:
     ink: ">=3.0.5"
     react: ">=16.8.2"
   checksum: d3785d688dd1ba19fb7a850b7a2c1dd8b2d06e4c77e6a7cc6c5bbd366a5a721e9ea45d036447016a9028f7519994077ce603a60a43a495e17b7b443b8a513ddc
+  languageName: node
+  linkType: hard
+
+"ink-syntax-highlight@npm:1.0.1":
+  version: 1.0.1
+  resolution: "ink-syntax-highlight@npm:1.0.1"
+  dependencies:
+    cli-highlight: ^2.1.9
+  peerDependencies:
+    ink: ^3.0.0-4
+    react: ^16.8.2
+  checksum: a82bba40d7b17f77de1c0b312867cf19904c55ea75b8b172203c3869b4cd08b845619eb40d1b36b3bd0272305d0cf5f8f8c0aea2f4655018c33172f62c448bc5
+  languageName: node
+  linkType: hard
+
+"ink-text-input@npm:4.0.3":
+  version: 4.0.3
+  resolution: "ink-text-input@npm:4.0.3"
+  dependencies:
+    chalk: ^4.1.0
+    type-fest: ^0.15.1
+  peerDependencies:
+    ink: ^3.0.0-3
+    react: ^16.5.2 || ^17.0.0
+  checksum: 2d309ec8ca386010d467822e317389e3c60b764fd04091df063a45c31f43104fd9f4a4e71a928a2c3c3cca461a9b8a526e90439616760f0f3726507132abbac5
   languageName: node
   linkType: hard
 
@@ -29263,6 +29291,13 @@ __metadata:
   version: 0.13.1
   resolution: "type-fest@npm:0.13.1"
   checksum: e6bf2e3c449f27d4ef5d56faf8b86feafbc3aec3025fc9a5fbe2db0a2587c44714521f9c30d8516a833c8c506d6263f5cc11267522b10c6ccdb6cc55b0a9d1c4
+  languageName: node
+  linkType: hard
+
+"type-fest@npm:^0.15.1":
+  version: 0.15.1
+  resolution: "type-fest@npm:0.15.1"
+  checksum: a1a0cdbd7f802d9784324f185df055739e97424ecb60914e9025574a4bc07e4a063c152e4510ebf5989de8a263220de1f6b5cf1b05f0b333dbd5b21d9b4a271b
   languageName: node
   linkType: hard
 

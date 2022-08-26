@@ -257,10 +257,10 @@ export class Bud {
               eventHandle as keyof EventsStore,
               service[callbackName].bind(service),
             )
-            this.log(
+            this.success(
               `registered service callback:`,
               `${label}.${callbackName}`,
-            )
+            ).info(service[callbackName])
           }),
     )
 
@@ -273,13 +273,16 @@ export class Bud {
       `booted`,
     ].reduce(async (promised, event: keyof EventsStore) => {
       await promised
-      this.log(
-        `calling`,
-        this.hooks.store[event].length,
-        `events registered to`,
-        event,
-      )
-      await this.hooks.fire(event)
+      await this.hooks
+        .fire(event)
+        .catch(error => this.error(`error on`, event, error))
+        .finally(() =>
+          this.success(
+            `called all events registered to`,
+            `'${event}'`,
+            `lifecycle event`,
+          ),
+        )
     }, Promise.resolve())
 
     this.hooks.action(`config.after`, override)

@@ -7,6 +7,7 @@ import type Context from './context'
  */
 export default class Args {
   public data: Context['data']['args'] = {
+    basedir: undefined,
     browser: undefined,
     cache: undefined,
     ci: undefined,

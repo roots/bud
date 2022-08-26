@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import type * as Bud from '@roots/bud-framework'
+import {resolve} from 'node:path'
 
 import Context from './context.js'
 
@@ -17,6 +18,7 @@ import Context from './context.js'
 export const get = async (
   basedir: string,
 ): Promise<Bud.Config.Context> => {
+  basedir = resolve(process.cwd(), basedir)
   const context = await Context.make(basedir)
   return context.data
 }

@@ -1,9 +1,11 @@
+import {omit} from 'lodash-es'
+
 import type {Bud, Config} from '../index.js'
 import {Logger} from '../logger/index.js'
 import * as methods from '../methods/index.js'
 import {Module} from '../module.js'
 import * as Process from '../process.js'
-import {DEVELOPMENT_SERVICES, PARENT_SERVICES} from './constants.js'
+import {DEVELOPMENT_SERVICES, PARENT_SERVICES} from './index.js'
 import {initialize} from './init.js'
 
 /**
@@ -25,8 +27,8 @@ const importServices =
     const imported = pkg?.default ?? pkg
     app[imported.label] = new imported(app)
 
-    app.log(`imported service:`, imported.label)
-    app.info(imported.label, app[imported.label])
+    app.success(`imported`, imported.label)
+    app.info(app[imported.label])
 
     app.services.push(imported.label)
   }
@@ -37,18 +39,9 @@ const initializeLoggerAndReportContext = (app: Bud) => {
 
   app.success(`logger ready`)
 
-  Object.entries(app.context.args)
+  Object.entries(omit(app.context, `stdout`, `stdin`, `stderr`))
     .filter(([k, v]) => v !== undefined)
-    .map(([k, v]) => app.log(`argument received`, k, `=>`, v))
-
-  app.log(`basedir:`, app.context.basedir)
-
-  app.context.extensions.map(extension =>
-    app.log(`discovered extension:`, extension),
-  )
-  app.context.manifest.bud?.denylist?.map(value =>
-    app.log(`ignoring extension:`, value),
-  )
+    .map(([k, v]) => app.info(`context`, k, `=>`, v))
 }
 
 /**
