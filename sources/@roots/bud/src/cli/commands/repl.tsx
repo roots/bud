@@ -1,6 +1,6 @@
 import {highlight} from 'cli-highlight'
 import {Command, Option} from 'clipanion'
-import {Box, Spacer, Text} from 'ink'
+import {Box, Text} from 'ink'
 import {UncontrolledTextInput} from 'ink-text-input'
 import {format} from 'pretty-format'
 import React, {useState} from 'react'
@@ -48,7 +48,6 @@ export class ReplCommand extends BaseCommand {
 
   /**
    * Command execute
-   *
    * @public
    */
   public async runCommand() {
@@ -60,65 +59,58 @@ export class ReplCommand extends BaseCommand {
 }
 
 const Repl = ({app, indent, depth}) => {
-  const [query, setQuery] = useState(``)
   const [result, setResult] = useState(``)
-  const [processing, setProcessing] = useState(false)
 
   const makeFn = value => eval(`async (bud) => ${value};`)
 
   const processResults = raw => {
-    if (raw) {
-      setResult(
-        highlight(
-          format(raw, {
-            indent: parseInt(indent),
-            maxDepth: parseInt(depth),
-          }),
-        ),
-      )
-    } else {
-      setProcessing(false)
+    if (raw === undefined) {
       setResult(`undefined`)
+      return
     }
+
+    setResult(
+      highlight(
+        format(raw, {
+          indent: parseInt(indent),
+          maxDepth: parseInt(depth),
+        }),
+      ),
+    )
   }
 
   // @ts-ignore
   const onSubmit = async value => {
     if (!value) return
-    setQuery(value)
     setResult(`processing`)
 
-    const raw = makeFn(value)(app)
-    processResults(raw)
-    raw.then(async results => {
-      processResults(results)
-      await app.api.processQueue()
-    })
+    try {
+      const raw = makeFn(value)(app)
+      processResults(raw)
+
+      raw.then(async results => {
+        processResults(results)
+        await app.api.processQueue()
+      })
+    } catch (err) {}
   }
 
   return (
     <Box marginBottom={1} flexDirection="column">
+      <Box flexDirection="row" justifyContent="flex-start" marginTop={1}>
+        <Text>async (bud) {`=> `}</Text>
+        <UncontrolledTextInput
+          placeholder="app.build.config"
+          onSubmit={onSubmit}
+        />
+      </Box>
+
       <Box
         flexDirection="column"
         justifyContent="flex-start"
         marginTop={1}
       >
-        <Text>
-          {query}
-          {query !== `` ? ` =>\n` : `\n`}
-        </Text>
-        <Spacer />
-        <Text>{processing ? `processing` : result}</Text>
-      </Box>
-
-      <Box flexDirection="row" justifyContent="flex-start" marginTop={1}>
-        <Text>
-          async (bud) {`=>`} {` `}
-        </Text>
-        <UncontrolledTextInput
-          placeholder="app.build.config"
-          onSubmit={onSubmit}
-        />
+        <Text>{result}</Text>
       </Box>
     </Box>
   )

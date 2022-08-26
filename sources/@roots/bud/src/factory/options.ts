@@ -6,11 +6,11 @@ export const mergeOptions: (
 ) => Config.Context = (context, overrides) => {
   return {
     ...context,
-    ...overrides,
-    basedir: overrides?.basedir ?? context?.basedir ?? process.cwd(),
+    ...(overrides ?? {}),
+    basedir: overrides?.basedir ?? context.basedir ?? process.cwd(),
     label:
       overrides?.label ??
-      context?.label ??
+      context.label ??
       context.manifest?.name ??
       `default`,
     mode:
@@ -22,7 +22,7 @@ export const mergeOptions: (
     root: overrides?.root ?? undefined,
     args: {
       ...context.args,
-      ...overrides.args,
+      ...(overrides?.args ?? {}),
     },
     extensions: Array.from(
       new Set([...context.extensions, ...(overrides?.extensions ?? [])]),

@@ -1,5 +1,3 @@
-import Console from 'console'
-
 import type {ValueFactory} from './builder'
 
 export const infrastructureLogging: ValueFactory<
@@ -8,7 +6,7 @@ export const infrastructureLogging: ValueFactory<
   app.hooks.filter(`build.infrastructureLogging`, {
     console: app.hooks.filter(
       `build.infrastructureLogging.console`,
-      Console,
+      undefined,
     ),
     level: app.hooks.filter(`build.infrastructureLogging.level`, `none`),
   })

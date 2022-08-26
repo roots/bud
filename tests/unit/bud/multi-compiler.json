@@ -1,0 +1,325 @@
+{
+	"basedir": "/Users/kellymears/code/git/roots/bud/tests/unit/bud/multi-compiler",
+	"args": {
+		"basedir": "/Users/kellymears/code/git/roots/bud/tests/unit/bud/multi-compiler",
+		"contextCache": true,
+		"clearContextCache": false
+	},
+	"env": {
+		"AUTOJUMP_ERROR_PATH": "/Users/kellymears/Library/autojump/errors.log",
+		"_VOLTA_TOOL_RECURSION": "1",
+		"STARSHIP_SHELL": "zsh",
+		"MANPATH": "/opt/homebrew/share/man::",
+		"TERM_PROGRAM": "iTerm.app",
+		"PROJECT_CWD": "/Users/kellymears/code/git/roots/bud",
+		"FNM_LOGLEVEL": "info",
+		"INIT_CWD": "/Users/kellymears/code/git/roots/bud",
+		"PYENV_ROOT": "/Users/kellymears/.config/.pyenv",
+		"AUTOJUMP_SOURCED": "1",
+		"TERM": "xterm-256color",
+		"SHELL": "/bin/zsh",
+		"FNM_NODE_DIST_MIRROR": "https://nodejs.org/dist",
+		"TMPDIR": "/var/folders/gr/5x08y7js5_3dbd_cd03f39sh0000gn/T/",
+		"HOMEBREW_REPOSITORY": "/opt/homebrew",
+		"TERM_PROGRAM_VERSION": "3.5.0beta6",
+		"CARGO_ROOT": "/Users/kellymears/.config/.cargo",
+		"ZPFX": "/Users/kellymears/.local/share/zinit/polaris",
+		"ZDOTDIR": "/Users/kellymears/.config/.zsh",
+		"VOLTA_HOME": "/Users/kellymears/.config/.volta",
+		"TERM_SESSION_ID": "w0t0p0:794617AF-E833-4C58-9499-52CC8B451EA5",
+		"PNPM_HOME": "/Users/kellymears/Library/pnpm",
+		"PMSPEC": "0uUpiPsf",
+		"USER": "kellymears",
+		"COMMAND_MODE": "unix2003",
+		"SSH_AUTH_SOCK": "/private/tmp/com.apple.launchd.6ywaTGLmDG/Listeners",
+		"__CF_USER_TEXT_ENCODING": "0x1F5:0x0:0x0",
+		"npm_execpath": "/private/var/folders/gr/5x08y7js5_3dbd_cd03f39sh0000gn/T/xfs-abe4478d/yarn",
+		"CONFIG": "/Users/kellymears/.config",
+		"FNM_VERSION_FILE_STRATEGY": "local",
+		"FNM_ARCH": "arm64",
+		"TERMINFO_DIRS": "/Applications/iTerm.app/Contents/Resources/terminfo:/usr/share/terminfo",
+		"PATH": "/private/var/folders/gr/5x08y7js5_3dbd_cd03f39sh0000gn/T/xfs-abe4478d:/Users/kellymears/.config/.volta/tools/image/npm/8.16.0/bin:/Users/kellymears/.config/.volta/tools/image/yarn/1.22.19/bin:/Users/kellymears/.config/.volta/tools/image/node/16.16.0/bin:/Users/kellymears/Library/pnpm:/Users/kellymears/.bun/bin:/Users/kellymears/Library/Caches/fnm_multishells/17439_1661539188167/bin:/Users/kellymears/.yarn/bin:/Users/kellymears/.config/yarn/global/node_modules/.bin:/Users/kellymears/.config/.pyenv/shims:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/kellymears/.config/.volta/bin:/Users/kellymears/.local/share/zinit/polaris/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion Tech Preview.app/Contents/Public:/usr/local/MacGPG2/bin:/Library/Apple/usr/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Users/kellymears/.bin:/Users/kellymears/.config/.pyenv/bin:/Users/kellymears/.config/.composer/vendor/bin:/Users/kellymears/.config/.cargo/bin",
+		"npm_package_json": "/Users/kellymears/code/git/roots/bud/package.json",
+		"STARSHIP_CONFIG": "/Users/kellymears/.dotfiles/starship.toml",
+		"LaunchInstanceID": "5176878F-67E9-4B88-976C-F0915B5B88D6",
+		"__CFBundleIdentifier": "com.googlecode.iterm2",
+		"PWD": "/Users/kellymears/code/git/roots/bud",
+		"EDITOR": "nano",
+		"npm_package_name": "bud",
+		"LANG": "en_US.UTF-8",
+		"ITERM_PROFILE": "Default",
+		"XPC_FLAGS": "0x0",
+		"FNM_MULTISHELL_PATH": "/Users/kellymears/Library/Caches/fnm_multishells/17439_1661539188167",
+		"npm_package_version": "",
+		"XPC_SERVICE_NAME": "0",
+		"GPG_TTY": "/dev/ttys000",
+		"SHLVL": "1",
+		"HOME": "/Users/kellymears",
+		"COLORFGBG": "15;0",
+		"LC_TERMINAL_VERSION": "3.5.0beta6",
+		"ZSH_CACHE_DIR": "/Users/kellymears/.cache/zinit",
+		"HOMEBREW_PREFIX": "/opt/homebrew",
+		"FNM_DIR": "/Users/kellymears/.fnm",
+		"CARROT_FONT_AWESOME_TOKEN": "1A38E2C9-010D-474B-8269-693FEDCFB7FE",
+		"ITERM_SESSION_ID": "w0t0p0:794617AF-E833-4C58-9499-52CC8B451EA5",
+		"STARSHIP_SESSION_KEY": "8244278072781815",
+		"LOGNAME": "kellymears",
+		"VISUAL": "code",
+		"BERRY_BIN_FOLDER": "/private/var/folders/gr/5x08y7js5_3dbd_cd03f39sh0000gn/T/xfs-abe4478d",
+		"BUN_INSTALL": "/Users/kellymears/.bun",
+		"npm_config_user_agent": "yarn/3.2.2 npm/? node/v16.16.0 darwin arm64",
+		"INFOPATH": "/opt/homebrew/share/info:",
+		"HOMEBREW_CELLAR": "/opt/homebrew/Cellar",
+		"LC_TERMINAL": "iTerm2",
+		"COMPOSER_HOME": "/Users/kellymears/.config/.composer",
+		"SECURITYSESSIONID": "186a4",
+		"HOMEBREW_NO_ENV_HINTS": "true",
+		"npm_node_execpath": "/private/var/folders/gr/5x08y7js5_3dbd_cd03f39sh0000gn/T/xfs-abe4478d/node",
+		"COLORTERM": "truecolor",
+		"NODE_ENV": "test",
+		"JEST_WORKER_ID": "1",
+		"FORCE_COLOR": "1"
+	},
+	"bud": {
+		"label": "bud",
+		"basedir": "/Users/kellymears/code/git/roots/bud/sources/@roots/bud/lib/context",
+		"version": "0.0.0",
+		"manifestPath": "/Users/kellymears/code/git/roots/bud/sources/@roots/bud/package.json",
+		"name": "@roots/bud",
+		"description": "Frontend build tools combining the best parts of Symfony Encore and Laravel Mix",
+		"homepage": "https://roots.io/bud",
+		"contributors": [
+			{
+				"name": "kellymears",
+				"url": "https://github.com/kellymears"
+			},
+			{
+				"name": "QWp6t",
+				"url": "https://github.com/QWp6t"
+			},
+			{
+				"name": "clayrisser",
+				"url": "https://github.com/clayrisser"
+			}
+		],
+		"license": "MIT",
+		"repository": {
+			"type": "git",
+			"url": "https://github.com/roots/bud.git",
+			"directory": "sources/@roots/bud"
+		},
+		"bugs": {
+			"url": "https://github.com/roots/bud/issues"
+		},
+		"funding": {
+			"type": "github sponsors",
+			"url": "https://github.com/sponsors/roots"
+		},
+		"keywords": [
+			"bud",
+			"roots",
+			"webpack"
+		],
+		"engines": {
+			"node": ">=16"
+		},
+		"files": [
+			"bin/",
+			"docs/",
+			"lib/",
+			"vendor/"
+		],
+		"bin": {
+			"bud": "./bin/bud.mjs",
+			"ts-bud": "./bin/ts-bud.mjs"
+		},
+		"type": "module",
+		"module": "./lib/index.js",
+		"types": "./lib/index.d.ts",
+		"exports": {
+			".": "./lib/index.js",
+			"./bud": "./lib/bud.js",
+			"./cli": "./lib/cli/index.js",
+			"./cli/commands": "./lib/cli/commands/index.js",
+			"./cli/commands/*": "./lib/cli/commands/*.js",
+			"./context": "./lib/context/index.js",
+			"./context/*": "./lib/context/*.js",
+			"./extensions": "./lib/extensions/index.js",
+			"./extensions/*": "./lib/extensions/*/index.js",
+			"./factory": "./lib/factory/index.js",
+			"./services/*": "./lib/services/*/index.js"
+		},
+		"typesVersions": {
+			"*": {
+				".": [
+					"./lib/index.d.ts"
+				],
+				"bud": [
+					"./lib/bud.d.ts"
+				],
+				"cli": [
+					"./lib/cli/index.d.ts"
+				],
+				"cli/commands": [
+					"./lib/cli/commands/index.d.ts"
+				],
+				"cli/commands/*": [
+					"./lib/cli/commands/*.d.ts"
+				],
+				"context": [
+					"./lib/context/index.d.ts"
+				],
+				"context/*": [
+					"./lib/context/*.d.ts"
+				],
+				"extensions": [
+					"./lib/extensions/index.d.ts"
+				],
+				"extensions/*": [
+					"./lib/extensions/*/index.d.ts"
+				],
+				"factory": [
+					"./lib/factory/index.d.ts"
+				],
+				"services/*": [
+					"./lib/services/*/index.d.ts"
+				]
+			}
+		},
+		"devDependencies": {
+			"@skypack/package-check": "0.2.2",
+			"@types/braces": "3.0.1",
+			"@types/fs-extra": "9.0.13",
+			"@types/lodash": "4.14.182",
+			"@types/lodash-es": "4.17.6",
+			"@types/mini-css-extract-plugin": "2.5.0",
+			"@types/node": "16.11.48",
+			"@types/node-notifier": "8.0.2",
+			"@types/react": "^18",
+			"@types/signale": "1.4.4"
+		},
+		"dependencies": {
+			"@roots/browserslist-config": "workspace:sources/@roots/browserslist-config",
+			"@roots/bud-api": "workspace:sources/@roots/bud-api",
+			"@roots/bud-build": "workspace:sources/@roots/bud-build",
+			"@roots/bud-cache": "workspace:sources/@roots/bud-cache",
+			"@roots/bud-compiler": "workspace:sources/@roots/bud-compiler",
+			"@roots/bud-dashboard": "workspace:sources/@roots/bud-dashboard",
+			"@roots/bud-extensions": "workspace:sources/@roots/bud-extensions",
+			"@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+			"@roots/bud-hooks": "workspace:sources/@roots/bud-hooks",
+			"@roots/bud-server": "workspace:sources/@roots/bud-server",
+			"@roots/bud-terser": "workspace:sources/@roots/bud-terser",
+			"browserslist": "latest",
+			"caniuse-lite": "latest",
+			"chalk": "5.0.1",
+			"clean-webpack-plugin": "^4.0.0",
+			"cli-highlight": "2.1.11",
+			"clipanion": "3.2.0-rc.11",
+			"conf": "10.2.0",
+			"copy-webpack-plugin": "11.0.0",
+			"dotenv": "16.0.1",
+			"dotenv-expand": "8.0.3",
+			"execa": "6.1.0",
+			"fs-extra": "10.1.0",
+			"globby": "13.1.2",
+			"helpful-decorators": "2.1.0",
+			"html-webpack-plugin": "5.5.0",
+			"ink": "3.2.0",
+			"ink-text-input": "4.0.3",
+			"lodash-es": "4.17.21",
+			"mini-css-extract-plugin": "^2.4.5",
+			"node-notifier": "10.0.1",
+			"open": "8.4.0",
+			"open-editor": "4.0.0",
+			"react": "18.2.0",
+			"signale": "1.4.0",
+			"tslib": "2.4.0",
+			"typanion": "3.9.0",
+			"webpack": "5.73.0",
+			"webpack-cli": "^4.9.2",
+			"webpack-manifest-plugin": "^5.0.0",
+			"webpack-remove-empty-scripts": "0.8.1"
+		},
+		"peerDependencies": {
+			"@roots/browserslist-config": "*",
+			"@roots/bud-api": "*",
+			"@roots/bud-build": "*",
+			"@roots/bud-cache": "*",
+			"@roots/bud-compiler": "*",
+			"@roots/bud-dashboard": "*",
+			"@roots/bud-extensions": "*",
+			"@roots/bud-framework": "*",
+			"@roots/bud-hooks": "*",
+			"@roots/bud-server": "*",
+			"browserslist": "*",
+			"caniuse-lite": "*"
+		},
+		"peerDependenciesMeta": {
+			"@roots/browserslist-config": {
+				"optional": true
+			},
+			"@roots/bud-api": {
+				"optional": true
+			},
+			"@roots/bud-build": {
+				"optional": true
+			},
+			"@roots/bud-cache": {
+				"optional": true
+			},
+			"@roots/bud-compiler": {
+				"optional": true
+			},
+			"@roots/bud-dashboard": {
+				"optional": true
+			},
+			"@roots/bud-extensions": {
+				"optional": true
+			},
+			"@roots/bud-framework": {
+				"optional": true
+			},
+			"@roots/bud-hooks": {
+				"optional": true
+			},
+			"@roots/bud-server": {
+				"optional": true
+			},
+			"browserslist": {
+				"optional": true
+			},
+			"caniuse-lite": {
+				"optional": true
+			}
+		},
+		"volta": {
+			"extends": "../../../package.json"
+		}
+	},
+	"extensions": [
+		"@roots/bud-terser/extension",
+		"@roots/bud/extensions/bud-cdn",
+		"@roots/bud/extensions/bud-esm",
+		"@roots/bud/extensions/clean-webpack-plugin",
+		"@roots/bud/extensions/webpack-provide-plugin",
+		"@roots/bud/extensions/webpack-remove-empty-scripts",
+		"@roots/bud/extensions/webpack-manifest-plugin",
+		"@roots/bud/extensions/webpack-hot-module-replacement-plugin",
+		"@roots/bud/extensions/webpack-define-plugin",
+		"@roots/bud/extensions/mini-css-extract-plugin",
+		"@roots/bud/extensions/copy-webpack-plugin"
+	],
+	"services": [
+		"@roots/bud/services/env",
+		"@roots/bud/services/hooks",
+		"@roots/bud-api",
+		"@roots/bud-build",
+		"@roots/bud-cache",
+		"@roots/bud-compiler",
+		"@roots/bud-dashboard",
+		"@roots/bud-extensions",
+		"@roots/bud-server",
+		"@roots/bud/services/project"
+	]
+}

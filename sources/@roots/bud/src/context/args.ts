@@ -1,4 +1,6 @@
-import type Context from './context'
+import type {Context} from '@roots/bud-framework/config'
+
+import * as argv from './argv.js'
 
 /**
  * Application args
@@ -6,12 +8,14 @@ import type Context from './context'
  * @public
  */
 export default class Args {
-  public data: Context['data']['args'] = {
-    basedir: undefined,
+  public data: Context['args'] = {
+    basedir: argv.basedir,
     browser: undefined,
     cache: undefined,
     ci: undefined,
     clean: undefined,
+    contextCache: !argv.noContextCache,
+    clearContextCache: argv.clearContextCache,
     debug: undefined,
     devtool: undefined,
     dry: undefined,
@@ -35,5 +39,9 @@ export default class Args {
     reload: undefined,
     splitChunks: undefined,
     target: undefined,
+  }
+
+  public constructor(basedir: string) {
+    this.data.basedir = basedir
   }
 }

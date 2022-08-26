@@ -7,7 +7,7 @@ export interface BaseContext {
   root?: Bud
   basedir: string
   bud: Record<string, any>
-  manifest: Record<string, any>
+  manifest?: Record<string, any>
   mode: 'development' | 'production'
   args: Partial<{
     basedir: string
@@ -15,6 +15,8 @@ export interface BaseContext {
     cache: `filesystem` | `memory` | true | false
     ci: boolean
     clean: boolean
+    clearContextCache: boolean
+    contextCache: boolean
     debug: boolean
     devtool:
       | false

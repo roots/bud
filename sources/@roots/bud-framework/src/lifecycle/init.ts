@@ -121,7 +121,7 @@ export const initialize = (app: Bud): Bud =>
 export const override = async (app: Bud): Promise<Bud> => {
   if (isset(app.context.args.publicPath))
     app.hooks.on(`build.output.publicPath`, app.context.args.publicPath)
-  else if (isset(app.context.manifest.bud?.publicPath))
+  else if (isset(app.context.manifest?.bud?.publicPath))
     app.hooks.on(
       `build.output.publicPath`,
       app.context.manifest.bud.publicPath,
@@ -129,35 +129,35 @@ export const override = async (app: Bud): Promise<Bud> => {
 
   if (isset(app.context.args.input))
     app.hooks.on(`location.@src`, app.context.args.input)
-  else if (isset(app.context.manifest.bud?.paths?.[`@src`]))
+  else if (isset(app.context.manifest?.bud?.paths?.[`@src`]))
     app.hooks.on(`location.@src`, app.context.manifest.bud.paths[`@src`])
 
   if (isset(app.context.args.output))
     app.hooks.on(`location.@dist`, app.context.args.output)
-  else if (isset(app.context.manifest.bud?.paths?.[`@dist`]))
+  else if (isset(app.context.manifest?.bud?.paths?.[`@dist`]))
     app.hooks.on(`location.@dist`, app.context.manifest.bud.paths[`@dist`])
 
   if (isset(app.context.args.storage))
     app.hooks.on(`location.@storage`, app.context.args.storage)
-  else if (isset(app.context.manifest.bud?.paths?.[`@storage`]))
+  else if (isset(app.context.manifest?.bud?.paths?.[`@storage`]))
     app.hooks.on(
       `location.@storage`,
-      app.context.manifest.bud.paths[`@storage`],
+      app.context.manifest?.bud.paths[`@storage`],
     )
 
   if (
-    isset(app.context.manifest.bud?.cache) &&
+    isset(app.context.manifest?.bud?.cache) &&
     isUndefined(app.context.args.cache)
   )
-    app.context.args.cache = app.context.manifest.bud.cache
+    app.context.args.cache = app.context.manifest?.bud.cache
 
   if (isset(app.context.args.mode))
     app.hooks.on(`build.mode`, app.context.args.mode)
 
   if (isset(app.context.args.clean))
     app.hooks.on(`feature.clean`, app.context.args.clean)
-  else if (isset(app.context.manifest.bud?.clean))
-    app.hooks.on(`feature.clean`, app.context.manifest.bud.clean)
+  else if (isset(app.context.manifest?.bud?.clean))
+    app.hooks.on(`feature.clean`, app.context.manifest?.bud.clean)
 
   if (isset(app.context.args.html)) {
     await app.api.call(`template`)

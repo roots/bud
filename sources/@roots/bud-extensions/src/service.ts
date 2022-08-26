@@ -164,13 +164,13 @@ export default class Extensions
     return extensions
       .filter(
         signifier =>
-          !this.app.context.manifest.bud?.denylist ||
-          !this.app.context.manifest.bud?.denylist.includes(signifier),
+          !this.app.context.manifest?.bud?.denylist ||
+          !this.app.context.manifest?.bud?.denylist.includes(signifier),
       )
       .filter(
         signifier =>
-          !this.app.context.manifest.bud?.allowlist ||
-          this.app.context.manifest.bud?.allowlist.includes(signifier),
+          !this.app.context.manifest?.bud?.allowlist ||
+          this.app.context.manifest?.bud?.allowlist.includes(signifier),
       )
   }
 
@@ -237,10 +237,10 @@ export default class Extensions
             this.has(signifier) ||
             this.unresolvable.has(signifier) ||
             ![
-              ...(this.app.context.manifest.devDependencies
+              ...(this.app.context.manifest?.devDependencies
                 ? Object.keys(this.app.context.manifest.devDependencies)
                 : []),
-              ...(this.app.context.manifest.dependencies
+              ...(this.app.context.manifest?.dependencies
                 ? Object.keys(this.app.context.manifest.dependencies)
                 : []),
             ].includes(signifier)

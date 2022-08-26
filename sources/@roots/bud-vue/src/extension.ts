@@ -98,12 +98,13 @@ export default class Vue extends Extension<Options, null> {
   public moduleRulesBefore(
     ruleset: Array<RuleSetRule>,
   ): Array<RuleSetRule> {
-    const rule = this.app.build.makeRule({
-      test: this.app.hooks.filter(`pattern.vue`),
-      use: items => [`vue`, ...items],
-    })
+    const rule = this.app.build
+      .makeRule()
+      .setTest(({hooks}) => hooks.filter(`pattern.vue`))
+      .setInclude([app => app.path(`@src`)])
+      .setUse(items => [`vue`, ...items])
 
-    return [...(ruleset ?? []), rule.toWebpack()]
+    return [rule.toWebpack(), ...(ruleset ?? [])]
   }
 
   /**

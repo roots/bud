@@ -1,3 +1,4 @@
+import * as argv from '../context/argv.js'
 import * as context from '../context/index.js'
 import ensureNotifierPermissions from '../notifier/ensureNotifierPermissions.js'
 import * as cli from './app.js'
@@ -9,10 +10,9 @@ import {DoctorCommand} from './commands/doctor.js'
 import {InstallCommand} from './commands/install.js'
 import {ReplCommand} from './commands/repl.js'
 import {ViewCommand} from './commands/view.js'
+import {WebpackCommand} from './commands/webpack.js'
 
 let initialized: boolean = false
-
-let args: Array<string> = process.argv.slice(2)
 
 /**
  * Run Bud CLI
@@ -28,12 +28,7 @@ const bud = async () => {
    *
    * @see {@link https://mael.dev/clipanion/docs/contexts}
    */
-  const basedirFind = args.findIndex(arg => arg == `--basedir`)
-  const basedir =
-    basedirFind !== -1 ? args[basedirFind + 1] : process.cwd()
-
-  const ctx = await context.get(basedir)
-
+  const ctx = await context.get(argv.basedir)
   const application = cli.get(ctx.bud.label, ctx.bud.version)
 
   await ensureNotifierPermissions(ctx)
@@ -49,6 +44,7 @@ const bud = async () => {
   application.register(InstallCommand)
   application.register(ReplCommand)
   application.register(ViewCommand)
+  application.register(WebpackCommand)
 
   await Commands.get(application, ctx)
     .getCommands()
@@ -58,7 +54,7 @@ const bud = async () => {
         await Promise.all(fns.map(async fn => await fn(application))),
     )
 
-  application.runExit(args, {
+  application.runExit(argv.args, {
     ...ctx,
     stdin: process.stdin,
     stdout: process.stdout,

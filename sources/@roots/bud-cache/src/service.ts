@@ -72,7 +72,7 @@ export default class Cache
    */
   public get buildDependencies(): any {
     return {
-      config: Object.values(this.app.context.config),
+      config: Object.values(this.app.context.config).map(({path}) => path),
     }
   }
 

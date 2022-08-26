@@ -92,8 +92,8 @@ export class DoctorCommand extends BaseCommand {
   @bind
   public async checkDependencies() {
     const mismatches = Object.entries({
-      ...(this.app.context.manifest.dependencies ?? {}),
-      ...(this.app.context.manifest.devDependencies ?? {}),
+      ...(this.app.context.manifest?.dependencies ?? {}),
+      ...(this.app.context.manifest?.devDependencies ?? {}),
     })
       .filter(([name]) => name.startsWith(`@roots/`))
       .filter(([k, v]) => v !== this.app.context.bud.version)

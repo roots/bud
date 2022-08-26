@@ -64,6 +64,26 @@ export abstract class BaseCommand extends Command {
   })
 
   /**
+   * --clear-context-cache
+   * @public
+   */
+  public clearContextCache = Option.Boolean(
+    `--clear-context-cache`,
+    true,
+    {
+      description: `clear cached bud context`,
+    },
+  )
+
+  /**
+   * Base directory
+   * @public
+   */
+  public contextCache = Option.Boolean(`--context-cache`, true, {
+    description: `allow caching of bud context`,
+  })
+
+  /**
    * -- dry
    */
   public dry = Option.Boolean(`--dry`, false, {
@@ -85,13 +105,6 @@ export abstract class BaseCommand extends Command {
   })
 
   /**
-   * --target
-   */
-  public target = Option.Array(`--target,-t`, undefined, {
-    description: `Limit compilation to particular compilers`,
-  })
-
-  /**
    * --mode
    */
   public mode = Option.String(`--mode`, undefined, {
@@ -103,9 +116,22 @@ export abstract class BaseCommand extends Command {
     env: `APP_MODE`,
   })
 
+  /**
+   * --target
+   */
+  public target = Option.Array(`--target,-t`, undefined, {
+    description: `Limit compilation to particular compilers`,
+  })
+
+  /**
+   * Base arguments
+   * @public
+   */
   public get baseArgs() {
     return {
       basedir: this.basedir,
+      clearContextCache: this.clearContextCache,
+      contextCache: this.contextCache,
       dry: this.dry,
       level: this.level,
       log: this.log,
@@ -144,8 +170,11 @@ export abstract class BaseCommand extends Command {
   public async execute() {
     this.context = {
       ...this.context,
-      basedir: this.context.basedir,
-      mode: this.args.mode ?? this.context.mode,
+      basedir:
+        this.args?.basedir ??
+        this.baseArgs.basedir ??
+        this.context.basedir,
+      mode: this.args?.mode ?? this.baseArgs.mode ?? this.context.mode,
       args: {
         ...this.context.args,
         ...this.baseArgs,

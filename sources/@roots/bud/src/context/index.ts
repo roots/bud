@@ -20,5 +20,5 @@ export const get = async (
 ): Promise<Bud.Config.Context> => {
   basedir = resolve(process.cwd(), basedir)
   const context = await Context.make(basedir)
-  return context.data
+  return context
 }

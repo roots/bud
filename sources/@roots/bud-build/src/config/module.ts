@@ -19,14 +19,7 @@ const getRules = async (
 ): Promise<Configuration['module']['rules']> => {
   const rules = []
 
-  rules.push(
-    ...app.hooks.filter(`build.module.rules.before`, [
-      {
-        include: [app.path(`@src`)],
-        parser: {requireEnsure: false},
-      },
-    ]),
-  )
+  rules.push(...(app.hooks.filter(`build.module.rules.before`) ?? []))
 
   rules.push({
     oneOf: app.hooks.filter(
@@ -35,7 +28,7 @@ const getRules = async (
     ),
   })
 
-  rules.push(...app.hooks.filter(`build.module.rules.after`, []))
+  rules.push(...(app.hooks.filter(`build.module.rules.after`) ?? []))
 
   return rules
 }

@@ -5,8 +5,42 @@ import {Logger} from '../logger/index.js'
 import * as methods from '../methods/index.js'
 import {Module} from '../module.js'
 import * as Process from '../process.js'
-import {DEVELOPMENT_SERVICES, PARENT_SERVICES} from './index.js'
 import {initialize} from './init.js'
+
+/**
+ * Services which are only instantiated in the parent compiler context.
+ *
+ * @public
+ */
+export const PARENT_SERVICES: Array<string> = [
+  `@roots/bud-compiler`,
+  `@roots/bud-dashboard`,
+  `@roots/bud-server`,
+]
+
+/**
+ * Services which are only instantiated in development
+ *
+ * @public
+ */
+export const DEVELOPMENT_SERVICES: Array<string> = [`@roots/bud-server`]
+
+/**
+ * Mapped hooks to callbacks
+ */
+export const LIFECYCLE_EVENT_MAP = {
+  bootstrap: `bootstrap`,
+  bootstrapped: `bootstrapped`,
+  register: `register`,
+  registered: `registered`,
+  boot: `boot`,
+  booted: `booted`,
+  [`config.after`]: `configAfter`,
+  [`compiler.before`]: `compilerBefore`,
+  [`build.before`]: `buildBefore`,
+  [`build.after`]: `buildAfter`,
+  [`compiler.after`]: `compilerAfter`,
+}
 
 /**
  * Create filter for validating services

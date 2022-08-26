@@ -1,8 +1,7 @@
 import type {Config} from '@roots/bud-framework'
-import {dirname} from 'node:path'
-import {fileURLToPath} from 'node:url'
 
 import Bud from '../bud.js'
+import {basedir} from '../context/argv.js'
 import * as context from '../context/index.js'
 import {config} from './config.js'
 import {mergeOptions} from './options.js'
@@ -14,11 +13,15 @@ import {mergeOptions} from './options.js'
  */
 let instances: Array<Bud> = []
 
-const get = (basedir?: string) => {
-  basedir = basedir ?? dirname(fileURLToPath(import.meta.url))
+const get = async (dir?: string) => {
+  const projectPath = dir ?? basedir
+
   const cached = instances.find(
-    instance => instance.context.basedir === basedir,
+    instance => instance.context.basedir === projectPath,
   )
+
+  if (!cached) return await factory()
+
   return cached
 }
 
@@ -45,12 +48,11 @@ export async function factory(
   overrides?: Config.Overrides,
   skipCache = false,
 ): Promise<Bud> {
-  const basedir =
-    overrides?.basedir ?? dirname(fileURLToPath(import.meta.url))
+  const projectPath = overrides?.basedir ?? basedir
 
   if (skipCache !== true) {
     const cached = instances.find(
-      instance => instance.context.basedir === basedir,
+      instance => instance.context.basedir === projectPath,
     )
 
     if (cached) {
@@ -59,7 +61,7 @@ export async function factory(
     }
   }
 
-  const ctx = await context.get(basedir)
+  const ctx = await context.get(projectPath)
 
   Array.isArray(overrides?.extensions) &&
     overrides.extensions

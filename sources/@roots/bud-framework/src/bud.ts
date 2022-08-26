@@ -16,8 +16,7 @@ import type {
   Server,
   Services,
 } from './index.js'
-import {bootstrap} from './lifecycle/bootstrap.js'
-import {LIFECYCLE_EVENT_MAP} from './lifecycle/index.js'
+import {bootstrap, LIFECYCLE_EVENT_MAP} from './lifecycle/bootstrap.js'
 import {override} from './lifecycle/init.js'
 import type * as methods from './methods/index.js'
 import type {Module} from './module.js'
