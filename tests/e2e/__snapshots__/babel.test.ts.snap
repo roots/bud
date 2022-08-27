@@ -1,5 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`html output of examples/babel should have expected initial markup: rgb(88, 19, 213) none repeat scroll 0% 0% / auto padding-box border-box 1`] = `"rgb(88, 19, 213) none repeat scroll 0% 0% / auto padding-box border-box"`;
-
 exports[`html output of examples/babel should hot update when src/global.css is modified: rgb(0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box 1`] = `"rgb(0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box"`;
+
+exports[`html output of examples/babel should hot update when src/global.css is modified: rgb(88, 19, 213) none repeat scroll 0% 0% / auto padding-box border-box 1`] = `"rgb(88, 19, 213) none repeat scroll 0% 0% / auto padding-box border-box"`;
