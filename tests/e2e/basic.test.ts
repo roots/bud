@@ -65,11 +65,8 @@ describe(`html output of examples/basic`, () => {
   beforeEach(async () => {
     await reset()
 
-    await chromium.launch().then(async instance => {
-      browser = instance
-      page = await browser.newPage()
-      await page?.goto(`http://localhost:3000/`)
-    })
+    browser = await chromium.launch()
+    page = await browser?.newPage()
   })
 
   afterEach(async () => {
@@ -78,16 +75,16 @@ describe(`html output of examples/basic`, () => {
   })
 
   it(`should have page title: \`Webpack App\``, async () => {
+    await page?.goto(`http://0.0.0.0:3000/`)
     const title = await page.title()
     expect(title).toBe(`Webpack App`)
   })
 
-  it(`should have expected initial markup`, async () => {
+  it(`should add new body class after updating src/index.js`, async () => {
+    await page?.goto(`http://0.0.0.0:3000/`)
     const init = await page.$(`.init`)
     expect(init).toBeTruthy()
-  })
 
-  it(`should add new body class after updating src/index.js`, async () => {
     await update()
     await page.waitForTimeout(12000)
 
