@@ -15,14 +15,14 @@ let processContext: Record<string, FrameworkContext> = {}
 export default class Context {
   public data: Conf<FrameworkContext>
 
-  private constructor(basedir: string) {
-    this.data = new cache<FrameworkContext>({configName: basedir})
+  private constructor() {
+    this.data = new cache<FrameworkContext>()
   }
 
   public static async make(basedir: string): Promise<FrameworkContext> {
     if (processContext[basedir]) return processContext[basedir]
 
-    const instance = new Context(basedir)
+    const instance = new Context()
 
     instance.data.set(`basedir`, basedir)
     instance.data.set(`args`, new Args(basedir).data)

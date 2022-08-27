@@ -23,6 +23,7 @@ export const dev = (app: Bud) =>
       headers: app.hooks.filter(`dev.middleware.dev.options.headers`),
       publicPath: app.hooks.filter(
         `dev.middleware.dev.options.publicPath`,
+        app.hooks.filter(`build.output.publicPath`),
       ),
     }),
   )

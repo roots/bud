@@ -19,6 +19,10 @@ export const mergeOptions: (
       context?.mode ??
       context?.args?.mode ??
       `production`,
+    manifest: {
+      ...(context?.manifest ?? {}),
+      ...(overrides?.manifest ?? {}),
+    },
     root: overrides?.root ?? undefined,
     args: {
       ...context.args,
