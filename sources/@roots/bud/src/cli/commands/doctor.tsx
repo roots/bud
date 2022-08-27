@@ -1,4 +1,4 @@
-import {Command} from 'clipanion'
+import {Command, Option} from 'clipanion'
 import {bind} from 'helpful-decorators'
 import {Box, Text} from 'ink'
 import React from 'react'
@@ -20,20 +20,46 @@ export class DoctorCommand extends BaseCommand {
   public static paths = [[`doctor`]]
 
   /**
-   * Set CI to true
-   */
-  public dry = true
-
-  /**
    * Command usage
    *
    * @public
    */
   public static usage = Command.Usage({
     description: `Check compiled configuration against webpack`,
+    details: `\
+The \`bud doctor\` command will:
+
+1. validate the \`production\` configuration with \`webpack\`
+
+\`webpack\` exports a \`validate\` function which is used by this command to verify that
+the configuration matches the \`webpack\` configuration schema.
+
+2. check the \`dependencies\` and \`devDependencies\` in the \`package.json\` file.
+
+In general, \`bud.js\` dependencies should be kept at the same version. This script doesn't account
+for a lot of edge cases so it might return a false positive.
+`,
     examples: [
       [`Check compiled configuration against webpack`, `$0 doctor`],
     ],
+  })
+
+  /**
+   * --basedir
+   * @public
+   */
+  public basedir = Option.String(`--basedir,--cwd`, undefined, {
+    description: `project base directory`,
+    hidden: true,
+  })
+
+  /**
+   * -- dry
+   * @public
+   */
+  public dry = Option.Boolean(`--dry`, true, {
+    description: `Run without webpack or server process`,
+    hidden: true,
   })
 
   /**

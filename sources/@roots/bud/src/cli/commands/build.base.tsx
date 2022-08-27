@@ -22,14 +22,10 @@ export class BuildCommand extends BaseCommand {
    * @public
    */
   public static usage = Command.Usage({
+    category: `build`,
     description: `Compile source assets`,
-    details: `
-      \`bud build\` compiles source assets from the \`@src\` directory to the \`@dist\` directory.
-
-      Any boolean options can be negated by prefixing the flag with \`--no-\`. You can also pass a boolean
-      value. Example: \`--no-cache\` and \`--cache false\` are equivalent.
-
-      By default, the \`@src\` directory is \`[project]/src\`. You can override this with the \`-i\` flag.
+    details: `\
+      \`bud build production\` compiles source assets in \`production\` mode.
 
       If you run this command without a bud configuration file \`bud\` will
       look for an entrypoint at \`@src/index.js\`.

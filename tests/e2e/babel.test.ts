@@ -96,7 +96,7 @@ describe(`html output of examples/babel`, () => {
     await chromium.launch().then(async instance => {
       browser = instance
       page = await browser.newPage()
-      await page?.goto(`http://0.0.0.0:3005/`)
+      await page?.goto(`http://localhost:3005/`)
     })
   })
 

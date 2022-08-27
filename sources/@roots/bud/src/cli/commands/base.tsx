@@ -61,6 +61,8 @@ export abstract class BaseCommand extends Command {
    */
   public basedir = Option.String(`--basedir,--cwd`, undefined, {
     description: `project base directory`,
+    env: `APP_BASE_DIR`,
+    hidden: true,
   })
 
   /**
@@ -72,6 +74,7 @@ export abstract class BaseCommand extends Command {
     true,
     {
       description: `clear cached bud context`,
+      hidden: true,
     },
   )
 
@@ -81,6 +84,7 @@ export abstract class BaseCommand extends Command {
    */
   public contextCache = Option.Boolean(`--context-cache`, true, {
     description: `allow caching of bud context`,
+    hidden: true,
   })
 
   /**
@@ -88,6 +92,7 @@ export abstract class BaseCommand extends Command {
    */
   public dry = Option.Boolean(`--dry`, false, {
     description: `Run without webpack or server process`,
+    hidden: true,
   })
 
   /**
@@ -95,6 +100,7 @@ export abstract class BaseCommand extends Command {
    */
   public level = Option.Array<Boolean>(`-v`, undefined, {
     description: `Set logging level`,
+    hidden: true,
   })
 
   /**
@@ -102,6 +108,7 @@ export abstract class BaseCommand extends Command {
    */
   public log = Option.Boolean(`--log`, undefined, {
     description: `Enable logging`,
+    hidden: true,
   })
 
   /**
@@ -114,6 +121,7 @@ export abstract class BaseCommand extends Command {
       t.isLiteral(`development`),
     ]),
     env: `APP_MODE`,
+    hidden: true,
   })
 
   /**
@@ -121,6 +129,7 @@ export abstract class BaseCommand extends Command {
    */
   public target = Option.Array(`--target,-t`, undefined, {
     description: `Limit compilation to particular compilers`,
+    hidden: true,
   })
 
   /**

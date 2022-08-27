@@ -3,9 +3,10 @@ import * as context from '../context/index.js'
 import ensureNotifierPermissions from '../notifier/ensureNotifierPermissions.js'
 import * as cli from './app.js'
 import {Commands} from './commands.js'
-import {BuildCommand} from './commands/build.js'
+import {BuildCommand} from './commands/build.base.js'
+import {BuildDevelopmentCommand} from './commands/build.development.js'
+import {BuildProductionCommand} from './commands/build.production.js'
 import {CleanCommand} from './commands/clean.js'
-import {DevCommand} from './commands/dev.js'
 import {DoctorCommand} from './commands/doctor.js'
 import {InstallCommand} from './commands/install.js'
 import {ReplCommand} from './commands/repl.js'
@@ -38,8 +39,9 @@ const bud = async () => {
   application.register(cli.Builtins.VersionCommand)
 
   application.register(BuildCommand)
+  application.register(BuildDevelopmentCommand)
+  application.register(BuildProductionCommand)
   application.register(CleanCommand)
-  application.register(DevCommand)
   application.register(DoctorCommand)
   application.register(InstallCommand)
   application.register(ReplCommand)

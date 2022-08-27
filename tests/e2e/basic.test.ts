@@ -73,7 +73,7 @@ describe(`html output of examples/basic`, () => {
     await chromium.launch().then(async instance => {
       browser = instance
       page = await browser.newPage()
-      await page?.goto(`http://0.0.0.0:3000/`)
+      await page?.goto(`http://localhost:3000/`)
     })
   })
 

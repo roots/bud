@@ -44,8 +44,6 @@ export class ReplCommand extends BaseCommand {
     tolerateBoolean: false,
   })
 
-  public subject = Option.String({name: `subject`, required: false})
-
   /**
    * Command execute
    * @public

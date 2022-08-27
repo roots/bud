@@ -22,7 +22,7 @@ export class WebpackCommand extends BaseCommand {
    */
   public static usage = Command.Usage({
     description: `Webpack CLI passthrough`,
-    examples: [[`View webpack usage information`, `$0 webpack --help`]],
+    examples: [[`View webpack usage information`, `$0 webpack -- --help`]],
   })
 
   public options = Option.Rest({name: `webpack positionals and options`})
