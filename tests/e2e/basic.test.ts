@@ -94,7 +94,7 @@ describe(`html output of examples/basic`, () => {
 
   it(`should add new body class after updating src/index.js`, async () => {
     await update()
-    await page.waitForTimeout(6000)
+    await page.waitForTimeout(12000)
 
     const hot = await page.$(`.hot`)
     expect(hot).toBeTruthy()

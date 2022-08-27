@@ -124,7 +124,7 @@ describe(`html output of examples/babel`, () => {
 
   it(`should hot update when src/global.css is modified`, async () => {
     await update()
-    await page.waitForTimeout(6000)
+    await page.waitForTimeout(12000)
 
     const app = await page.$(`.app`)
     expect(app).toBeTruthy()
