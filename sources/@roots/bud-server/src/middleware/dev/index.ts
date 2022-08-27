@@ -21,9 +21,12 @@ export const dev = (app: Bud) =>
     app.compiler.instance,
     app.hooks.filter(`dev.middleware.dev.options`, {
       headers: app.hooks.filter(`dev.middleware.dev.options.headers`),
+      index: app.hooks.filter(`dev.middleware.dev.options.index`),
       publicPath: app.hooks.filter(
         `dev.middleware.dev.options.publicPath`,
-        app.hooks.filter(`build.output.publicPath`),
+      ),
+      writeToDisk: app.hooks.filter(
+        `dev.middleware.dev.options.writeToDisk`,
       ),
     }),
   )

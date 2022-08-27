@@ -7,7 +7,7 @@ import type {Compiler, MultiCompiler, StatsCompilation} from 'webpack'
 import type {Payload} from './payload.js'
 import {HotEventStream} from './stream.js'
 
-const middlewarePath = `__bud/hmr`
+const middlewarePath = `/__bud/hmr`
 
 let latestStats = null
 let closed = false

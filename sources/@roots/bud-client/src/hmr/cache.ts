@@ -14,7 +14,7 @@ let failed: boolean = false
 
 /**
  * Set initial
- * @param state
+ * @public
  */
 const setInitial = (state?: boolean) => {
   initial = state

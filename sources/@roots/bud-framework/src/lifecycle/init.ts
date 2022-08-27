@@ -19,8 +19,10 @@ export const initialize = (app: Bud): Bud =>
       'feature.manifest': true,
       'feature.runtimeChunk': false,
       'feature.splitChunks': false,
+
       'value.fileFormat': `[name]`,
       'value.hashFormat': `[name].[contenthash:6]`,
+
       'pattern.js': /\.(cjs|mjs|jsx?)$/,
       'pattern.ts': /\.(tsx?)$/,
       'pattern.sass': /\.(scss|sass)$/,
@@ -94,6 +96,7 @@ export const initialize = (app: Bud): Bud =>
         app.project.has(`manifest.browserslist`)
           ? `browserslist:${app.root.path(`package.json`)}`
           : `web`,
+      'dev.middleware.dev.options.writeToDisk': true,
       'dev.middleware.dev.options.publicPath': () =>
         app.hooks.filter(`build.output.publicPath`),
       'dev.middleware.dev.options.headers': {
@@ -131,6 +134,8 @@ export const override = async (app: Bud): Promise<Bud> => {
     app.hooks.on(`location.@src`, app.context.args.input)
   else if (isset(app.context.manifest?.bud?.paths?.[`@src`]))
     app.hooks.on(`location.@src`, app.context.manifest.bud.paths[`@src`])
+  else if (app.env.has(`APP_SRC_PATH`))
+    app.hooks.on(`location.@src`, app.env.get(`APP_SRC_PATH`))
 
   if (isset(app.context.args.output))
     app.hooks.on(`location.@dist`, app.context.args.output)

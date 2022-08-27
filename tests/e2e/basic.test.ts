@@ -45,12 +45,7 @@ describe(`html output of examples/basic`, () => {
       .then(async () => {
         devProcess = execa(
           `node`,
-          [
-            join(`node_modules`, `.bin`, `bud`),
-            `dev`,
-            `--html`,
-            `--no-cache`,
-          ],
+          [`./node_modules/.bin/bud`, `dev`, `--no-cache`, `--html`],
           {cwd: join(paths.mocks, `yarn`, `@examples`, `basic`)},
         )
         devProcess.stdout?.pipe(process.stdout)

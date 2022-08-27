@@ -5,14 +5,12 @@ import type {Bud} from '../../index.js'
 export interface ProxyOptions extends HttpProxy.Options {}
 
 export interface DevOptions {
-  mimeTypes?: {
-    [key: string]: string
-  }
-  writeToDisk?: boolean | ((targetPath: string) => boolean)
-  methods?: string
   headers?: Record<string, string>
-  publicPath?: string
   index?: string | boolean
+  methods?: string
+  mimeTypes?: {[key: string]: string}
+  publicPath?: string
+  writeToDisk?: boolean | ((targetPath: string) => boolean)
 }
 
 /**
