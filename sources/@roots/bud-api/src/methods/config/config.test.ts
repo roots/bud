@@ -7,7 +7,7 @@ describe(`bud.config`, function () {
   let bud: Bud
 
   beforeEach(async () => {
-    bud = await factory()
+    bud = await factory({args: {dry: true}})
   })
 
   it(`should be a function`, () => {

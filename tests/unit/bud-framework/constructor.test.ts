@@ -5,6 +5,7 @@ describe(`bud`, () => {
     const bud = await factory({
       label: `foo`,
       mode: `production`,
+      args: {dry: true},
     })
 
     expect(bud.label).toBe(`foo`)

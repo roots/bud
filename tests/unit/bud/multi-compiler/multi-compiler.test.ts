@@ -16,6 +16,7 @@ describe(`multi-compiler`, () => {
           `bud`,
           `multi-compiler`,
         ),
+        args: {dry: true},
       }).then(async bud => {
         /**
          * Make `theme` workspace in `./theme` and setup entrypoints
