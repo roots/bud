@@ -1,5 +1,6 @@
 import {beforeEach, describe, expect, it} from '@jest/globals'
 import {Bud, factory} from '@repo/test-kit/bud'
+import type {Configuration} from 'webpack'
 
 import {config} from './config.method.js'
 
@@ -8,6 +9,10 @@ describe(`bud.config`, function () {
 
   beforeEach(async () => {
     bud = await factory({args: {dry: true}})
+  })
+
+  afterEach(async () => {
+    bud.close()
   })
 
   it(`should be a function`, () => {
@@ -29,12 +34,10 @@ describe(`bud.config`, function () {
   })
 
   it(`should accept a callback function`, async () => {
-    config.call(bud, conf => ({
-      ...conf,
-      entry: undefined,
-    }))
+    const result = await config
+      .bind(bud)(conf => ({...conf, entry: undefined}))
+      .build.make()
 
-    const result = await bud.build.make()
     expect(result.entry).toBeUndefined()
     expect(result.context).toEqual(expect.stringContaining(`tests/util`))
   })

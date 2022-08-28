@@ -18,9 +18,7 @@ describe(`bud.watch`, function () {
     if (!(value instanceof Set))
       throw new Error(`watch files should be a set`)
 
-    expect(Array.from(value)).toMatchSnapshot(
-      expect.arrayContaining([`index.html`, `images`]),
-    )
+    expect(Array.from(value)).toMatchSnapshot(expect.arrayContaining([]))
   })
 
   it(`merges watch files`, async () => {
@@ -31,7 +29,7 @@ describe(`bud.watch`, function () {
       throw new Error(`watch files should be a set`)
 
     expect(Array.from(value)).toMatchSnapshot(
-      expect.arrayContaining([`index.html`, `images`, `1/*.js`]),
+      expect.arrayContaining([`1/*.js`]),
     )
   })
 })

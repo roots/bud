@@ -3,7 +3,7 @@ import {Bud, factory} from '@repo/test-kit/bud'
 
 import {assets} from './assets.method.js'
 
-describe(`bud.assets`, function () {
+describe(`bud.assets`, () => {
   let bud: Bud
   let assetsFn: typeof assets
 
@@ -52,6 +52,7 @@ describe(`bud.assets`, function () {
 
     const [patterna, patternb] = bud.extensions.get(`copy-webpack-plugin`)
       .options.patterns as any
+
     expect(patterna).toEqual(
       expect.objectContaining({
         from: expect.stringMatching(/tests\/util\/project\/src\/images$/),

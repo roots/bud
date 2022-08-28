@@ -47,6 +47,7 @@ const get = async (dir?: string) => {
 export async function factory(
   overrides?: Config.Overrides,
   skipCache = false,
+  skipConfig = false,
 ): Promise<Bud> {
   const projectPath = overrides?.basedir ?? basedir
 
@@ -78,10 +79,12 @@ export async function factory(
 
   instances.push(instance)
 
-  try {
-    await config(instance)
-  } catch (error) {
-    instance.error(error)
+  if (skipConfig !== true) {
+    try {
+      await config(instance)
+    } catch (error) {
+      instance.error(error)
+    }
   }
 
   return instance

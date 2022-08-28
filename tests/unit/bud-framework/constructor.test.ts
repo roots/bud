@@ -1,13 +1,8 @@
-import {factory} from '@roots/bud/factory'
+import {factory} from '@repo/test-kit/bud'
 
 describe(`bud`, () => {
   it(`name options`, async () => {
-    const bud = await factory({
-      label: `foo`,
-      mode: `production`,
-      args: {dry: true},
-    })
-
+    const bud = await factory({label: `foo`})
     expect(bud.label).toBe(`foo`)
   })
 })

@@ -12,6 +12,10 @@ describe(`bud.bundle`, () => {
     instance = bundle.bind(bud)
   })
 
+  afterEach(async () => {
+    bud.close()
+  })
+
   it(`should set the bundle using a string`, async () => {
     await instance(`react`).api.processQueue()
 

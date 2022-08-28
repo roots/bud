@@ -2,15 +2,8 @@
 
 exports[`bud.watch merges watch files 1`] = `
 Array [
-  "index.html",
-  "images",
   "1/*.js",
 ]
 `;
 
-exports[`bud.watch should have expected default values 1`] = `
-Array [
-  "index.html",
-  "images",
-]
-`;
+exports[`bud.watch should have expected default values 1`] = `Array []`;

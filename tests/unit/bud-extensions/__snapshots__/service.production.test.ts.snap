@@ -15,8 +15,6 @@ Array [
   "clean-webpack-plugin",
   "copy-webpack-plugin",
   "esm",
-  "html-webpack-plugin",
-  "interpolate-html-plugin",
   "mini-css-extract-plugin",
   "webpack-manifest-plugin",
   "webpack-remove-empty-scripts",

@@ -1,6 +1,6 @@
 import {paths} from '@repo/constants'
+import {factory} from '@repo/test-kit/bud'
 import {Bud} from '@roots/bud'
-import {factory} from '@roots/bud/factory'
 import {join} from 'path'
 
 describe(`multi-compiler`, () => {
@@ -16,41 +16,41 @@ describe(`multi-compiler`, () => {
           `bud`,
           `multi-compiler`,
         ),
-        args: {dry: true},
-      }).then(async bud => {
-        /**
-         * Make `theme` workspace in `./theme` and setup entrypoints
-         * Files will be output to `./theme/dist`
-         */
-        await bud.make(
-          {
-            label: `theme`,
-            basedir: bud.path(`theme`),
-          },
-          async theme => theme.entry(`theme`, [`theme.js`, `theme.css`]),
-        )
-
-        /**
-         * Make plugin workspace in `./plugin` and setup entrypoints
-         * Files will be output to `./plugin/dist`
-         */
-        await bud.make(
-          {
-            label: `plugin`,
-            basedir: bud.path(`plugin`),
-          },
-          async plugin =>
-            plugin.entry(`plugin`, [`plugin.js`, `plugin.css`]),
-        )
-
-        return bud
       })
+
+      /**
+       * Make `theme` workspace in `./theme` and setup entrypoints
+       * Files will be output to `./theme/dist`
+       */
+      await bud.make(
+        {
+          label: `theme`,
+          basedir: bud.path(`theme`),
+        },
+        async theme => theme.entry(`theme`, [`theme.js`, `theme.css`]),
+      )
+
+      /**
+       * Make plugin workspace in `./plugin` and setup entrypoints
+       * Files will be output to `./plugin/dist`
+       */
+      await bud.make(
+        {
+          label: `plugin`,
+          basedir: bud.path(`plugin`),
+        },
+        async plugin =>
+          plugin.entry(`plugin`, [`plugin.js`, `plugin.css`]),
+      )
+
+      return bud
     } catch (error) {
       throw new Error(error)
     }
   })
 
   it(`string matches /theme\/src$/`, async () => {
+    // @ts-ignore
     expect(bud.get(`theme`).path(`@src`)).toEqual(
       expect.stringMatching(/theme\/src$/),
     )

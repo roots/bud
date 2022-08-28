@@ -33,10 +33,13 @@ describe(`@roots/bud-react`, () => {
     })
 
     it(`injects entrypoints`, async () => {
-      const bud = await factory({
-        mode: `development`,
-        extensions: [`@roots/bud-react`],
-      })
+      const bud = await factory(
+        {
+          mode: `development`,
+          extensions: [`@roots/bud-react`],
+        },
+        true,
+      )
       expect(bud.extensions.has(`@roots/bud-react`)).toBe(true)
 
       await bud.build.make()
@@ -48,10 +51,13 @@ describe(`@roots/bud-react`, () => {
     })
 
     it(`adds babel plugin`, async () => {
-      const bud = await factory({
-        mode: `development`,
-        extensions: [`@roots/bud-react`],
-      })
+      const bud = await factory(
+        {
+          mode: `development`,
+          extensions: [`@roots/bud-react`],
+        },
+        true,
+      )
       await bud.build.make()
 
       expect(bud.babel.plugins[`react-refresh/babel`].shift()).toEqual(
