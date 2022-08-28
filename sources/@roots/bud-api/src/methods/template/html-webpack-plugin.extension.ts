@@ -20,6 +20,6 @@ export default class BudHtmlWebpackPlugin extends Extension<
 > {
   @bind
   public async when() {
-    return this.app.hooks.filter(`feature.html`)
+    return this.app.hooks.filter(`feature.html`, true)
   }
 }

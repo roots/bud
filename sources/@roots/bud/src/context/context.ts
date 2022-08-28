@@ -1,61 +1,69 @@
-import type {Config as Options} from '@roots/bud-framework'
-import {get, set} from 'lodash-es'
+/* eslint-disable no-console */
+import type {Context as FrameworkContext} from '@roots/bud-framework/config'
+import type Conf from 'conf'
+import cache from 'conf'
 
+import Args from './args.js'
 import BudContext from './bud.js'
 import Config from './config.js'
 import Env from './env.js'
 import Extensions from './extensions.js'
-import Manifest from './manifest.js'
 import Services from './services.js'
 
-let cache: Record<string, Context> = {}
+let processContext: Record<string, FrameworkContext> = {}
 
 export default class Context {
-  public data: Partial<Options.Context> = {
-    args: {},
+  public data: Conf<FrameworkContext>
+
+  private constructor() {
+    this.data = new cache<FrameworkContext>()
   }
 
-  public get(key: string): any {
-    return get(this.data, key)
-  }
-
-  public set(key: string, value: any) {
-    set(this.data, key, value)
-  }
-
-  private constructor() {}
-
-  public static async make(basedir: string): Promise<Context> {
-    if (cache[basedir]) return cache[basedir]
+  public static async make(basedir: string): Promise<FrameworkContext> {
+    if (processContext[basedir]) return processContext[basedir]
 
     const instance = new Context()
 
-    instance.set(`basedir`, basedir)
+    instance.data.set(`basedir`, basedir)
+    instance.data.set(`args`, new Args(basedir).data)
+    instance.data.set(`env`, new Env(basedir).data)
+
+    if (instance.data.get(`args.clearContextCache`)) instance.data.clear()
+
+    const config: Config = await new Config().find(
+      instance.data.get(`basedir`),
+    )
+
+    config.data[`package.json`] &&
+      instance.data.set(`manifest`, config.data[`package.json`].module)
+
+    if (
+      instance.data.has(`bud`) &&
+      instance.data.has(`manifest`) &&
+      !instance.data.get(`args.clearContextCache`) &&
+      instance.data.get(`args.contextCache`)
+    ) {
+      processContext[basedir] = {
+        ...instance.data.store,
+        config: config.data,
+      }
+      return processContext[basedir]
+    }
 
     await new BudContext().find().then(({data}) => {
-      instance.set(`bud`, data)
+      instance.data.set(`bud`, data)
     })
 
-    instance.set(`env`, new Env(basedir).data)
-
-    await new Config().find(basedir).then(({data}) => {
-      instance.set(`config`, data)
-    })
-
-    const manifest = await new Manifest(instance.get(`config`)).read()
-    instance.set(`manifest`, manifest.data)
-    instance.set(`label`, instance.get(`manifest.name`))
-
-    await new Extensions(instance.get(`manifest`))
+    await new Extensions(instance.data.get(`manifest`))
       .find()
       .then(({data}) => {
-        instance.set(`extensions`, data)
+        instance.data.set(`extensions`, data)
       })
 
-    instance.set(`services`, Services.data)
+    instance.data.set(`services`, Services.data)
 
-    cache[basedir] = instance
+    processContext[basedir] = {...instance.data.store, config: config.data}
 
-    return instance
+    return processContext[basedir]
   }
 }

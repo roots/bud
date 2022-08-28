@@ -78,7 +78,7 @@ describe(`html output of examples/babel`, () => {
         )
         devProcess.stdout?.pipe(process.stdout)
 
-        setTimeout(done, 5000)
+        setTimeout(done, 10000)
 
         await devProcess.catch(err => {
           process.stderr.write(JSON.stringify(err))
@@ -93,11 +93,8 @@ describe(`html output of examples/babel`, () => {
   beforeEach(async () => {
     await reset()
 
-    await chromium.launch().then(async instance => {
-      browser = instance
-      page = await browser.newPage()
-      await page?.goto(`http://0.0.0.0:3005/`)
-    })
+    browser = await chromium.launch()
+    page = await browser?.newPage()
   })
 
   afterEach(async () => {
@@ -105,12 +102,12 @@ describe(`html output of examples/babel`, () => {
     await browser?.close()
   })
 
-  it(`should have page title: \`Webpack App\``, async () => {
+  it(`should hot update when src/global.css is modified`, async () => {
+    await page?.goto(`http://0.0.0.0:3005/`)
+
     const title = await page.title()
     expect(title).toBe(`Webpack App`)
-  })
 
-  it(`should have expected initial markup`, async () => {
     const app = await page.$(`.app`)
     expect(app).toBeTruthy()
 
@@ -120,19 +117,14 @@ describe(`html output of examples/babel`, () => {
     expect(color).toMatchSnapshot(
       `rgb(88, 19, 213) none repeat scroll 0% 0% / auto padding-box border-box`,
     )
-  })
 
-  it(`should hot update when src/global.css is modified`, async () => {
     await update()
-    await page.waitForTimeout(3000)
+    await page.waitForTimeout(12000)
 
-    const app = await page.$(`.app`)
-    expect(app).toBeTruthy()
-
-    const color = await app?.evaluate(el => {
+    const color2 = await app?.evaluate(el => {
       return window.getComputedStyle(el).getPropertyValue(`background`)
     })
-    expect(color).toMatchSnapshot(
+    expect(color2).toMatchSnapshot(
       `rgb(0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box`,
     )
   })

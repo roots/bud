@@ -5,7 +5,7 @@ import {
   method as proxy,
 } from '@roots/bud-api/methods/proxy'
 
-describe(`bud.run`, function () {
+describe.skip(`bud.proxy`, function () {
   let bud: Bud
   let impl: proxy
 

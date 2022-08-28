@@ -2,9 +2,9 @@ import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
   dependsOn,
-  dependsOnOptional,
   expose,
   label,
+  optIn,
   options,
 } from '@roots/bud-framework/extension/decorators'
 import {isUndefined} from 'lodash-es'
@@ -27,7 +27,7 @@ import type BudReactRefresh from './react-refresh/index.js'
  */
 @label(`@roots/bud-react`)
 @dependsOn([`@roots/bud-react/react-refresh`])
-@dependsOnOptional([`@roots/bud-esbuild`, `@roots/bud-swc`])
+@optIn([`@roots/bud-esbuild`, `@roots/bud-swc`])
 @options({babel: undefined})
 @expose(`react`)
 export default class BudReact extends Extension {
@@ -60,7 +60,7 @@ export default class BudReact extends Extension {
   }
 
   /**
-   * `afterConfig` callback
+   * `configAfter` callback
    *
    * @remarks
    * Adds the `@babel/preset-react` preset to babel if `@roots/bud-esbuild` is not
@@ -70,7 +70,7 @@ export default class BudReact extends Extension {
    * @decorator `@bind`
    */
   @bind
-  public async afterConfig() {
+  public async configAfter() {
     if (!this.useBabel) return
 
     await this.ensureBabelIsLoaded()

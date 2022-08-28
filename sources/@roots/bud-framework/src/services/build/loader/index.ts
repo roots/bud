@@ -11,6 +11,8 @@ import type {Base} from '../base.js'
  * @public
  */
 export interface Loader extends Base {
+  app: Bud
+
   /**
    * Loader source factory
    * @public

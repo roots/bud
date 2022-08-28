@@ -1,3 +1,4 @@
+import {beforeEach, describe, expect, it, jest} from '@jest/globals'
 import {Bud, factory} from '@repo/test-kit/bud'
 
 describe(`@roots/bud-framework child`, () => {
@@ -8,24 +9,24 @@ describe(`@roots/bud-framework child`, () => {
   })
 
   it("root compiler's name should be `@tests/project`", () => {
-    expect(bud.label).toBe(`@tests/project`)
+    try {
+      expect(bud.label).toBe(`@tests/project`)
+    } catch (error) {
+      throw new Error(error)
+    }
   })
 
   it(`root compiler's isRoot prop should be true`, () => {
-    expect(bud.isRoot).toBe(true)
+    try {
+      expect(bud.isRoot).toBe(true)
+    } catch (error) {
+      throw new Error(error)
+    }
   })
 
   it(`should produce child with self at root`, async () => {
-    bud.make(`@tests/project-child`)
-    await bud.hooks.fire(`config.after`)
-    const child = bud.get(`@tests/project-child`)
-    expect(child.root).toBe(bud)
-  })
-
-  it(`should produce child with isRoot false`, async () => {
-    bud.make(`@tests/project-child`)
-    await bud.hooks.fire(`config.after`)
-    const child = bud.get(`@tests/project-child`)
-    expect(child.isRoot).toBe(false)
+    const callback = jest.fn(async (app: Bud) => null)
+    await bud.make(`@tests/project-child`, callback)
+    expect(callback).toHaveBeenCalledTimes(1)
   })
 })

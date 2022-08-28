@@ -85,7 +85,7 @@ export class Project {
    */
   public constructor(public options: Options) {
     this.dir = join(paths.mocks, this.options.with, this.options.label)
-    this.options.dist = this.options.dist ?? 'dist'
+    this.options.dist = this.options.dist ?? `dist`
 
     this.logger = logger
       .make({interactive: false})
@@ -122,7 +122,7 @@ export class Project {
         cwd: this.projectPath(),
       })
 
-      child.stderr.on('data', data => this.logger.error(data.toString()))
+      child.stderr.on(`data`, data => this.logger.error(data.toString()))
       return child
     } catch (error) {
       throw new Error(error)
@@ -131,16 +131,16 @@ export class Project {
 
   @bind
   public async yarnInstall() {
-    await fs.ensureFile(this.projectPath('yarn.lock'))
+    await fs.ensureFile(this.projectPath(`yarn.lock`))
 
     await fs.copy(
-      join(paths.sources, '@repo', 'test-kit', '.yarnrc.stub.yml'),
-      this.projectPath('.yarnrc.yml'),
+      join(paths.sources, `@repo`, `test-kit`, `.yarnrc.stub.yml`),
+      this.projectPath(`.yarnrc.yml`),
     )
 
-    await this.$('yarn', [
+    await this.$(`yarn`, [
       `install`,
-      '--registry',
+      `--registry`,
       REGISTRY_PROXY,
       `--no-lockfile`,
     ])
@@ -158,12 +158,12 @@ export class Project {
     } catch (e) {}
     try {
       await fs.copy(
-        `./examples/${this.options.label.replace('@examples/', '')}`,
+        `./examples/${this.options.label.replace(`@examples/`, ``)}`,
         this.projectPath(),
       )
     } catch (e) {}
 
-    this.options.with === 'yarn'
+    this.options.with === `yarn`
       ? await this.yarnInstall()
       : await this.npmInstall()
 
@@ -178,12 +178,12 @@ export class Project {
     }
 
     await this.$(`node`, [
-      this.projectPath('node_modules', '.bin', 'bud'),
+      this.projectPath(`node_modules`, `.bin`, `bud`),
       this.options.mode
-        ? this.options.mode === 'production'
+        ? this.options.mode === `production`
           ? `build`
-          : 'dev'
-        : 'build',
+          : `dev`
+        : `build`,
     ])
 
     return this
@@ -215,7 +215,7 @@ export class Project {
   @bind
   public async setPackageJson() {
     const packageJson = await this.readJson(
-      this.projectPath('package.json'),
+      this.projectPath(`package.json`),
     )
 
     Object.assign(this, {packageJson})
@@ -228,7 +228,7 @@ export class Project {
   @bind
   public async setManifest() {
     this.manifest = await this.readJson(
-      this.projectPath(this.options.dist, 'manifest.json'),
+      this.projectPath(this.options.dist, `manifest.json`),
     )
   }
 
@@ -260,7 +260,7 @@ export class Project {
   public async setEntrypoints() {
     try {
       const entrypoints = await this.readJson(
-        this.projectPath(join(this.options.dist, 'entrypoints.json')),
+        this.projectPath(join(this.options.dist, `entrypoints.json`)),
       )
 
       Object.assign(this, {entrypoints})
@@ -276,7 +276,7 @@ export class Project {
     try {
       const modules = await this.readJson(
         this.projectPath(
-          join('.budfiles', this.options.label, 'modules.json'),
+          join(`.budfiles`, this.options.label, `modules.json`),
         ),
       )
 

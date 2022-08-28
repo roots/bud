@@ -64,22 +64,30 @@ export default class Extensions
   }
 
   /**
-   * `afterConfig` callback
+   * `configAfter` callback
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public async afterConfig(): Promise<void> {
-    await this.runAll(`_afterConfig`)
+  public async configAfter(): Promise<void> {
+    await this.runAll(`_configAfter`)
   }
 
   /**
-   * `beforeBuild` callback
+   * `buildBefore` callback
    */
   @bind
-  public async beforeBuild(): Promise<void> {
-    await this.runAll(`_beforeBuild`)
+  public async buildBefore(): Promise<void> {
+    await this.runAll(`_buildBefore`)
+  }
+
+  /**
+   * `buildBefore` callback
+   */
+  @bind
+  public async buildAfter(): Promise<void> {
+    await this.runAll(`_buildAfter`)
   }
 
   /**
@@ -156,13 +164,13 @@ export default class Extensions
     return extensions
       .filter(
         signifier =>
-          !this.app.context.manifest.bud?.denylist ||
-          !this.app.context.manifest.bud?.denylist.includes(signifier),
+          !this.app.context.manifest?.bud?.denylist ||
+          !this.app.context.manifest?.bud?.denylist.includes(signifier),
       )
       .filter(
         signifier =>
-          !this.app.context.manifest.bud?.allowlist ||
-          this.app.context.manifest.bud?.allowlist.includes(signifier),
+          !this.app.context.manifest?.bud?.allowlist ||
+          this.app.context.manifest?.bud?.allowlist.includes(signifier),
       )
   }
 
@@ -229,10 +237,10 @@ export default class Extensions
             this.has(signifier) ||
             this.unresolvable.has(signifier) ||
             ![
-              ...(this.app.context.manifest.devDependencies
+              ...(this.app.context.manifest?.devDependencies
                 ? Object.keys(this.app.context.manifest.devDependencies)
                 : []),
-              ...(this.app.context.manifest.dependencies
+              ...(this.app.context.manifest?.dependencies
                 ? Object.keys(this.app.context.manifest.dependencies)
                 : []),
             ].includes(signifier)
@@ -258,7 +266,7 @@ export default class Extensions
    * - `_init`
    * - `_register`
    * - `_boot`
-   * - `_beforeBuild`
+   * - `_buildBefore`
    * - `_make`
    *
    * @public
@@ -271,8 +279,9 @@ export default class Extensions
       | '_init'
       | '_register'
       | '_boot'
-      | '_afterConfig'
-      | '_beforeBuild'
+      | '_configAfter'
+      | '_buildBefore'
+      | '_buildAfter'
       | '_make',
   ): Promise<this> {
     if (extension.meta[methodName] === true) return this
@@ -310,8 +319,9 @@ export default class Extensions
       | '_init'
       | '_register'
       | '_boot'
-      | '_afterConfig'
-      | '_beforeBuild'
+      | '_configAfter'
+      | '_buildBefore'
+      | '_buildAfter'
       | '_make',
   ): Promise<void> {
     extension =
@@ -368,8 +378,9 @@ export default class Extensions
       | '_init'
       | '_register'
       | '_boot'
-      | '_afterConfig'
-      | '_beforeBuild'
+      | '_configAfter'
+      | '_buildBefore'
+      | '_buildAfter'
       | '_make',
   ): Promise<any> {
     return await Object.values(this.repository).reduce(

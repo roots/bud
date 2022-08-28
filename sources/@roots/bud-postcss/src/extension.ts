@@ -56,23 +56,6 @@ export default class BudPostCss extends Extension {
    * @public
    */
   protected get postcssOptions() {
-    const plugins = this.app.hooks.filter(
-      `postcss.plugins`,
-      this.postcssPluginsHooksCallback,
-    )
-
-    return {
-      ...(this.syntax ? {syntax: this.syntax} : {}),
-      plugins,
-    }
-  }
-
-  /**
-   * Callback which returns plugins as they will be given to postcss
-   *
-   */
-  @bind
-  public postcssPluginsHooksCallback() {
     let plugins = []
 
     if (!this.plugins.size) return null
@@ -88,7 +71,10 @@ export default class BudPostCss extends Extension {
 
     this.plugins.has(`env`) && plugins.push(this.plugins.get(`env`))
 
-    return plugins.filter(Boolean)
+    return {
+      ...(this.syntax ? {syntax: this.syntax} : {}),
+      plugins: plugins.filter(Boolean),
+    }
   }
 
   /**
@@ -362,15 +348,16 @@ export default class BudPostCss extends Extension {
       .setLoader(`postcss`, await this.resolve(`postcss-loader`))
       .setItem(`postcss`, {
         loader: `postcss`,
-        options: () => {
-          return {
-            sourceMap: this.sourceMap,
-            postcssOptions: this.postcssOptions,
-          }
-        },
+        options: () => ({
+          sourceMap: this.sourceMap,
+          postcssOptions: this.postcssOptions,
+        }),
       })
 
-    this.app.build.rules.css.setUse(items => [...items, `postcss`])
-    this.app.build.rules.cssModule.setUse(items => [...items, `postcss`])
+    this.app.build.rules.css.setUse(items => [...(items ?? []), `postcss`])
+    this.app.build.rules.cssModule.setUse(items => [
+      ...(items ?? []),
+      `postcss`,
+    ])
   }
 }

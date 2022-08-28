@@ -16,7 +16,7 @@ export default class Manifest {
    *
    * @public
    */
-  public constructor(public config: Config['data']) {}
+  public constructor(public config: Config) {}
 
   /**
    * Read manifest
@@ -27,7 +27,11 @@ export default class Manifest {
   public async read() {
     if (!this.config[`package.json`]) return this
 
-    this.data = await fs.readJson(this.config[`package.json`], `utf8`)
+    this.data = await fs.readJson(
+      this.config.data[`package.json`].path,
+      `utf8`,
+    )
+    this.config.data[`package.json`].module = this.data
 
     return this
   }

@@ -1,5 +1,4 @@
 import {BaseCommand} from '@roots/bud/cli/commands/base'
-import {factory} from '@roots/bud/factory'
 import chalk from 'chalk'
 import {Command} from 'clipanion'
 import {execa} from 'execa'
@@ -24,6 +23,16 @@ export class BudTSCheckCommand extends BaseCommand {
     description: `Typecheck source`,
   })
 
+  public dry = true
+
+  public get args() {
+    return {
+      ...this.context.args,
+      dry: true,
+      mode: `production` as `production`,
+    }
+  }
+
   /**
    * Command execute
    *
@@ -31,15 +40,6 @@ export class BudTSCheckCommand extends BaseCommand {
    */
   @bind
   public async runCommand() {
-    this.app = await factory({
-      mode: `production`,
-      ...this.context,
-      args: {
-        ...this.context.args,
-        ci: true,
-      },
-    })
-
     const hasTsConfig = await fs.pathExists(
       this.app.path(`./tsconfig.json`),
     )

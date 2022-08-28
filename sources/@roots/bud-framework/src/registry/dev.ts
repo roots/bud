@@ -42,7 +42,9 @@ export interface Dev {
 
   'dev.middleware.dev.options': Server.Middleware.Available['dev']['options']
   'dev.middleware.dev.options.headers': Server.Middleware.Available['dev']['options']['headers']
+  'dev.middleware.dev.options.index': Server.Middleware.Available['dev']['options']['index']
   'dev.middleware.dev.options.publicPath': Server.Middleware.Available['dev']['options']['publicPath']
+  'dev.middleware.dev.options.writeToDisk': Server.Middleware.Available['dev']['options']['writeToDisk']
 
   /**
    * Proxy URL paths

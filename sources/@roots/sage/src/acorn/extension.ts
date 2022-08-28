@@ -34,10 +34,10 @@ export default class Acorn extends Extension {
   }
 
   /**
-   * `afterConfig` callback
+   * `configAfter` callback
    */
   @bind
-  public async afterConfig() {
+  public async configAfter() {
     this.app.extensions
       .get(`@roots/bud-entrypoints`)
       .setOption(`publicPath`, ``)

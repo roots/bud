@@ -1,6 +1,7 @@
 import {Service, Services} from '@roots/bud-framework'
 import fs from 'fs-extra'
 import {bind} from 'helpful-decorators'
+import {isUndefined} from 'lodash-es'
 import {createHash} from 'node:crypto'
 
 import InvalidateCacheExtension from './invalidate-cache-extension/index.js'
@@ -71,7 +72,7 @@ export default class Cache
    */
   public get buildDependencies(): any {
     return {
-      config: Object.values(this.app.context.config),
+      config: Object.values(this.app.context.config).map(({path}) => path),
     }
   }
 
@@ -97,7 +98,7 @@ export default class Cache
    * @public
    */
   public get configuration() {
-    if (this.enabled === false) return this.enabled
+    if (this.enabled !== true) return false
     return this.type == `memory` ? this.memoryCache : this.filesystemCache
   }
 
@@ -107,9 +108,7 @@ export default class Cache
    * @public
    */
   public get memoryCache() {
-    return {
-      type: this.type,
-    }
+    return true
   }
 
   /**
@@ -133,32 +132,30 @@ export default class Cache
   }
 
   /**
-   * `register` callback
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async register() {
-    await this.app.extensions.add(InvalidateCacheExtension)
-  }
-
-  /**
    * `boot` callback
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public async boot() {
-    this.name = `webpack`
-    this.type = `filesystem`
-    this.cacheDirectory = this.app.path(
-      `@storage`,
-      this.app.label,
-      `cache`,
-      this.app.mode,
-    )
+  public async booted() {
+    await this.app.extensions.add(InvalidateCacheExtension)
+
+    this.enabled =
+      isUndefined(this.app.context.args.cache) ||
+      this.app.context.args.cache !== false
+
+    this.type =
+      isUndefined(this.app.context.args.cache) ||
+      (this.app.context.args.cache !== false &&
+        this.app.context.args.cache !== `memory`)
+        ? `filesystem`
+        : `memory`
+
+    this.app.context.args.cache === `memory` ? `memory` : `filesystem`
+
+    this.name = `${this.app.label}/cache/${this.app.mode}/webpack`
+    this.cacheDirectory = this.app.path(`@storage`)
 
     const args = Object.entries(this.app.context.args)
       .filter(([k, v]) => v !== undefined)
@@ -170,6 +167,11 @@ export default class Cache
       .digest(`base64`)
       .replace(/[^a-z0-9]/gi, `_`)
       .toLowerCase()
+
+    this.app.success(`cache initialized`)
+    if (this.app.context.args.cache === false) {
+      this.app.log(`cache is disabled with a contextual argument`)
+    }
   }
 
   @bind

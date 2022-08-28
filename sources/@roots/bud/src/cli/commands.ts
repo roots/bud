@@ -42,8 +42,8 @@ export class Commands {
    */
   public getProjectDependencySignifiers(): Array<string> {
     return Object.keys({
-      ...(this.context.manifest.dependencies ?? {}),
-      ...(this.context.manifest.devDependencies ?? {}),
+      ...(this.context.manifest?.dependencies ?? {}),
+      ...(this.context.manifest?.devDependencies ?? {}),
     }).filter(signifier => !signifier.startsWith(`@types`))
   }
 

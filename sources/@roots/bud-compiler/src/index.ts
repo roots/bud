@@ -13,4 +13,4 @@
 
 import {Compiler} from './compiler.service.js'
 
-export {Compiler, Compiler as Service, Compiler as default}
+export default Compiler

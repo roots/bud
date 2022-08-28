@@ -1,8 +1,9 @@
 import {bind} from 'helpful-decorators'
-import Signale from 'signale'
+import isEqual from 'lodash-es/isEqual.js'
+import Signale, {SignaleConfig, SignaleOptions} from 'signale'
 
 import type {Bud} from '../bud.js'
-import {LEVEL, types} from './logger.constants.js'
+import {configDefaults, LEVEL, types} from './logger.constants.js'
 
 /**
  * Logger service
@@ -24,14 +25,27 @@ export class Logger {
   public instance: Signale.Signale
 
   public get level() {
-    if (!this.app.context.args.log) return LEVEL.ERROR
-    if (!this.app.context.args.verbose) return LEVEL.STANDARD
-    return LEVEL.VERBOSE
+    switch (this.app.context.args.level?.length) {
+      case 1:
+        return LEVEL[`v`]
+      case 2:
+        return LEVEL[`vv`]
+      case 3:
+        return LEVEL[`vvv`]
+      case 4:
+        return LEVEL[`vvvv`]
+      default:
+      // fallthrough
+    }
+
+    if (this.app.context.args.log === true) {
+      return LEVEL[`vvv`]
+    }
+
+    return LEVEL[`vv`]
   }
 
-  public get interactive() {
-    return this.level === LEVEL.ERROR
-  }
+  public scope: Array<string>
 
   /**
    * Class constructor
@@ -40,38 +54,32 @@ export class Logger {
    */
   public constructor(_app: Bud) {
     this._app = () => _app
+    this.scope = [
+      `${this.app.context.bud.label}@${this.app.context.bud.version}`,
+      this.app.label,
+    ]
     this.instance = this.makeInstance()
   }
 
   @bind
-  public makeInstance(constructorOverrides = {}, configOverrides = {}) {
+  public makeInstance(
+    constructorOverrides: SignaleOptions = {},
+    configOverrides: SignaleConfig = {},
+  ) {
     let instance = new Signale.Signale({
-      interactive: this.interactive,
-      // secrets: [this.app.context.basedir, this.app.context.cwd],
       logLevel: this.level,
-      types: types(this.app),
+      disabled: isEqual(this.app.context.args.log, false),
       scope: this.app.label ?? this.app.context.bud.label,
+      stream: this.app.context.stdout as any,
+      types,
       ...constructorOverrides,
     })
 
     instance.config({
-      displayScope: true,
-      displayBadge: true,
-      displayDate: false,
-      displayFilename: false,
-      displayLabel: false,
-      displayTimestamp: false,
-      underlineLabel: false,
-      underlineMessage: false,
-      underlinePrefix: false,
-      underlineSuffix: false,
-      uppercaseLabel: false,
+      ...configDefaults,
       ...configOverrides,
     })
 
-    return instance.scope(
-      `${this.app.context.bud.label}@${this.app.context.bud.version}`,
-      this.app.label,
-    )
+    return instance.scope(...this.scope)
   }
 }

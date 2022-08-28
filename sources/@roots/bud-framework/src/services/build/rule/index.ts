@@ -22,7 +22,7 @@ export namespace Rule {
    */
   export type Options = {
     test?: Rule['test']
-    use?: Rule['use'] | ((use: Rule['use'], app: Bud) => Rule['use'])
+    use?: Rule['use'] | ((use: Rule['use']) => Rule['use'])
     include?: Rule['include']
     exclude?: Rule['exclude']
     type?: Rule['type']

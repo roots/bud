@@ -1,9 +1,24 @@
+import '@roots/bud-framework/lib/registry'
+
 import type BudBrotliWebpackPlugin from './brotli.js'
 import type BudCompressionExtension from './extension.js'
 import type {Options} from './extension.js'
 import type BudGzipWebpackPlugin from './gzip.js'
 
+declare module '@roots/bud-framework/lib/registry' {
+  interface Flags {
+    'feature.gzip': boolean
+    'feature.brotli': boolean
+  }
+}
+
 declare module '@roots/bud-framework' {
+  interface Modules {
+    '@roots/bud-compress': BudCompressionExtension
+    '@roots/bud-compress/brotli': BudBrotliWebpackPlugin
+    '@roots/bud-compress/gzip': BudGzipWebpackPlugin
+  }
+
   interface Bud {
     /**
      * Compress static assets with brotli compression.
@@ -47,16 +62,5 @@ declare module '@roots/bud-framework' {
      * @public
      */
     gzip(options?: Options): Bud
-  }
-
-  interface Flags {
-    gzip: boolean
-    brotli: boolean
-  }
-
-  interface Modules {
-    '@roots/bud-compress': BudCompressionExtension
-    '@roots/bud-compress/brotli': BudBrotliWebpackPlugin
-    '@roots/bud-compress/gzip': BudGzipWebpackPlugin
   }
 }

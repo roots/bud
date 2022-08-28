@@ -40,11 +40,11 @@ export interface ApplyPlugin {
    *
    * @public
    */
-  apply: (compiler?: Compiler) => unknown
+  apply: (compiler: Compiler) => unknown
 }
 
 export interface Constructor {
-  new (...args: [Bud]): Extension
+  new (...args: [Bud]): Extension | ApplyPlugin
 }
 
 export type ExtensionLiteral = {
@@ -84,7 +84,7 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
    * @readonly
    * @public
    */
-  public readonly options: Options<E> = {}
+  public readonly options: Options<E>
 
   /**
    * Extension meta
@@ -168,21 +168,41 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
   public async boot?(app: Bud, options?: Options<E>): Promise<unknown>
 
   /**
-   * `afterConfig` callback
+   * `configAfter` callback
    *
    * @public
    */
-  public async afterConfig?(
+  public async configAfter?(
     app: Bud,
     options?: Options<E>,
   ): Promise<unknown>
 
   /**
-   * `beforeBuild` callback
+   * `buildBefore` callback
    *
    * @public
    */
-  public async beforeBuild?(
+  public async buildBefore?(
+    app: Bud,
+    options?: Options<E>,
+  ): Promise<unknown>
+
+  /**
+   * `buildAfter` callback
+   *
+   * @public
+   */
+  public async buildAfter?(
+    app: Bud,
+    options?: Options<E>,
+  ): Promise<unknown>
+
+  public async compilerBefore?(
+    app: Bud,
+    options?: Options<E>,
+  ): Promise<unknown>
+
+  public async compilerAfter?(
     app: Bud,
     options?: Options<E>,
   ): Promise<unknown>
@@ -219,18 +239,20 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
   public constructor(_app: Bud) {
     this._app = () => _app
 
-    const logger = _app.logger.makeInstance({
-      scope: this.label ?? `anonymous extension`,
-    })
-
     Object.defineProperty(this, `app`, {
       get: (): Bud => this._app(),
     })
     Object.defineProperty(this, `logger`, {
-      get: () => logger.scope(this.label ?? `anonymous extension`),
+      get: () =>
+        _app.logger
+          .makeInstance()
+          .scope(
+            ...this.app.logger.scope,
+            this.label ?? `anonymous extension`,
+          ),
     })
 
-    const opts = this.options
+    const opts = this.options ?? {}
 
     Object.defineProperty(this, `options`, {
       get: this.getOptions,
@@ -320,33 +342,48 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
   }
 
   /**
-   * `beforeBuild` callback handler
+   * `buildBefore` callback handler
    *
    * @public
    */
   @bind
-  public async _beforeBuild() {
+  public async _buildBefore() {
     const enabled = await this.isEnabled()
-    if (isUndefined(this.beforeBuild) || enabled === false) return
+    if (isUndefined(this.buildBefore) || enabled === false) return
 
-    await this.app.hooks.fire(`${this.label}/beforeBuild/before`)
-    await this.beforeBuild(this.app, this.options)
-    await this.app.hooks.fire(`${this.label}/beforeBuild/after`)
+    await this.app.hooks.fire(`${this.label}/buildBefore/before`)
+    await this.buildBefore(this.app, this.options)
+    await this.app.hooks.fire(`${this.label}/buildBefore/after`)
   }
 
   /**
-   * `beforeBuild` callback handler
+   * `buildAfter` callback handler
    *
    * @public
    */
   @bind
-  public async _afterConfig() {
+  public async _buildAfter() {
     const enabled = await this.isEnabled()
-    if (isUndefined(this.afterConfig) || enabled === false) return
+    if (isUndefined(this.buildAfter) || enabled === false) return
 
-    await this.app.hooks.fire(`${this.label}/afterConfig/before`)
-    await this.afterConfig(this.app, this.options)
-    await this.app.hooks.fire(`${this.label}/afterConfig/after`)
+    await this.app.hooks.fire(`${this.label}/buildAfter/after`)
+    await this.buildAfter(this.app, this.options)
+    await this.app.hooks.fire(`${this.label}/buildAfter/after`)
+  }
+
+  /**
+   * `configAfter` callback handler
+   *
+   * @public
+   */
+  @bind
+  public async _configAfter() {
+    const enabled = await this.isEnabled()
+    if (isUndefined(this.configAfter) || enabled === false) return
+
+    await this.app.hooks.fire(`${this.label}/configAfter/before`)
+    await this.configAfter(this.app, this.options)
+    await this.app.hooks.fire(`${this.label}/configAfter/after`)
   }
 
   /**
@@ -357,26 +394,43 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
    */
   @bind
   public async _make() {
-    const enabled = await this.isEnabled()
+    this.logger.info(`trying to make`, this.label)
 
     if (
-      enabled === false ||
-      (isUndefined(this.make) &&
-        isUndefined(this.apply) &&
-        isUndefined(this.plugin))
-    )
+      isUndefined(this.make) &&
+      isUndefined(this.apply) &&
+      isUndefined(this.plugin)
+    ) {
       return false
+    }
 
-    await this.app.hooks.fire(`${this.label}/make/before`)
-    if (this.plugin) return new this.plugin(this.options)
-    if (this.apply) return this as {apply: any}
+    const enabled = await this.isEnabled()
+    if (enabled === false) {
+      this.logger.info(`${this.label} is disabled`)
+      return false
+    }
 
     try {
-      return await this.make(this.app, this.options)
+      await this.app.hooks.fire(`${this.label}/make/before`)
+    } catch (err) {
+      this.logger.error(`error on`, `${this.label}/make/before`, err)
+    }
+
+    try {
+      if (this.plugin) return new this.plugin(this.options)
+    } catch (err) {
+      this.logger.error(`error instantiating plugin`, err)
+    }
+
+    try {
+      let value: ApplyPlugin
+      if (this.apply) value = this as {apply: any}
+      else value = await this.make(this.app, this.options)
+      await this.app.hooks.fire(`${this.label}/make/after`)
+      return value
     } catch (error) {
       this.app.error(this.label, `make error`, `\n`, error)
     }
-    await this.app.hooks.fire(`${this.label}/make/after`)
   }
 
   /**
@@ -387,7 +441,10 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
    */
   @bind
   public getOptions(): Options<E> {
-    return Object.entries(this._options).reduce(this.fromOptionsMap, {})
+    return Object.entries(this._options ?? {}).reduce(
+      this.fromOptionsMap,
+      {},
+    )
   }
 
   /**
@@ -400,7 +457,7 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
   public setOptions(
     value: Options<E> | ((value: Options<E>) => Options<E>),
   ): this {
-    this._options = isFunction(value) ? value(this.options) : value
+    this._options = isFunction(value) ? value(this.options ?? {}) : value
     return this
   }
 
@@ -428,6 +485,7 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
     key: K & string,
     value: Options<E>[K & string],
   ): this {
+    if (!this._options) this._options = {}
     this._options[key] = isFunction(value)
       ? value(this.options[key])
       : () => value

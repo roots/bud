@@ -26,4 +26,14 @@ export type {
  *
  * @virtual @public
  */
-export interface Registry extends Record<string, Service> {}
+export interface Registry extends Record<string, Service> {
+  api: Api.Service
+  build: Build.Service
+  cache: Cache.Service
+  dashboard: Dashboard.Service
+  env: Env.Service
+  extensions: Extensions.Service
+  hooks: Hooks.Service
+  project: Project.Service
+  server: Server.Service
+}

@@ -9,8 +9,8 @@ describe(`bud.devtool`, function () {
     expect(bud.devtool).toBeInstanceOf(Function)
   })
 
-  it(`is not defined by default`, async () => {
-    expect(bud.hooks.filter(`build.devtool`)).toBeUndefined()
+  it(`is false by default`, async () => {
+    expect(bud.hooks.filter(`build.devtool`)).toBeFalsy()
   })
 
   it(`enables default when called`, async () => {

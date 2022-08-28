@@ -3,7 +3,7 @@ import {join, normalize, resolve, sep} from 'node:path'
 import type {Bud, Locations} from '../index.js'
 
 type AbsolutePath = `/${string}`
-type RelativePath = `./${string}`
+type RelativePath = `${string}`
 type Handle = `${keyof Locations & string}`
 type HandleSlashPath = `${Handle}/${string}`
 type FileHandle = `@name` | `@file`
@@ -87,7 +87,7 @@ export const path: path = function (base, ...segments) {
   if (base.startsWith(`@`)) base = parseAlias(app, base) as any
 
   /* Resolve any base path that isn't already absolute */
-  if (!base.startsWith(`/`))
+  if (!base.startsWith(sep))
     base = resolve(app.context.basedir, base) as any
 
   /* If segments were passed, resolve them against base */

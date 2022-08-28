@@ -16,9 +16,8 @@ const environmentIsSupported = async () => {
   if (typeof window === `undefined`) return false
 
   if (typeof window.EventSource === `undefined`) {
-    console.error(`\
-The hot middleware client requires EventSource to work.
-This browser requires a polyfill: https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events#Tools,
+    console.error(`[bud] The hot middleware client requires EventSource to work. \
+This browser requires a polyfill: https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events#Tools \
 `)
     return false
   }
@@ -39,8 +38,11 @@ This browser requires a polyfill: https://developer.mozilla.org/en-US/docs/Web/A
 const initialize = async () => {
   if (!environmentIsSupported()) return
 
+  console.log(__resourceQuery)
+
   /* Set client options from URL params */
   options.setFromParameters(__resourceQuery)
+  console.log(options.data)
 
   /* Instantiate indicator, overlay */
   await components.make()
@@ -56,6 +58,10 @@ const initialize = async () => {
 
       components.controllers.map(controller => controller.update(payload))
 
+      if (hmr.cache.initial) {
+        hmr.cache.setInitial(false)
+        return
+      }
       hmr.cache.isStale(payload.hash) &&
         module.hot.status() === `idle` &&
         hmr.client.check()

@@ -4,12 +4,11 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 
 describe(`bud.use`, function () {
   let bud: Bud
+  let HTMLWebpackInstance = new HtmlWebpackPlugin()
 
   beforeAll(async () => {
     bud = await factory()
-  })
 
-  beforeEach(async () => {
     bud.extensions.repository = {} as any // reset extensions
 
     bud.use({
@@ -43,11 +42,11 @@ describe(`bud.use`, function () {
   it(`registers an anonymous extension`, async () => {
     bud.use({options: {}})
     await bud.api.processQueue()
-    expect(Object.keys(bud.extensions.repository).length).toEqual(2)
+    expect(Object.keys(bud.extensions.repository).length).toEqual(5)
   })
 
   it(`registers a webpack plugin`, async () => {
-    bud.use(new HtmlWebpackPlugin())
+    bud.use(HTMLWebpackInstance)
     await bud.api.processQueue()
     expect(bud.extensions.has(`HtmlWebpackPlugin`)).toBe(true)
   })
@@ -55,19 +54,18 @@ describe(`bud.use`, function () {
   it(`registers an inline webpack plugin`, async () => {
     bud.use({apply() {}})
     await bud.api.processQueue()
-    expect(Object.keys(bud.extensions.repository).length).toEqual(2)
+    expect(Object.keys(bud.extensions.repository).length).toEqual(7)
   })
 
   it(`registers an imported webpack plugin`, async () => {
-    bud.use(new HtmlWebpackPlugin())
+    bud.use(HTMLWebpackInstance)
     await bud.api.processQueue()
     expect(bud.extensions.has(`HtmlWebpackPlugin`)).toBe(true)
   })
 
   it(`registers multiple extensions`, async () => {
-    bud.use([Babel, new HtmlWebpackPlugin()])
+    bud.use([Babel, HTMLWebpackInstance])
     await bud.api.processQueue()
-
     expect(bud.extensions.has(`@roots/bud-babel`)).toBe(true)
     expect(bud.extensions.has(`HtmlWebpackPlugin`)).toBe(true)
   })

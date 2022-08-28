@@ -21,7 +21,7 @@ export interface close {
  * @public
  */
 export function close(callback?: any) {
-  if (this.env.has(`JEST_WORKER_ID`)) {
+  if (process.env.JEST_WORKER_ID) {
     return callback && callback()
   }
 

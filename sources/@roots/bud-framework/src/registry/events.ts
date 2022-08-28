@@ -3,6 +3,12 @@ import type {Modules} from './modules.js'
 
 export interface Events {
   'app.close': (app?: Bud) => any
+  bootstrap: (app?: Bud) => Promise<unknown>
+  bootstrapped: (app?: Bud) => Promise<unknown>
+  register: (app?: Bud) => Promise<unknown>
+  registered: (app?: Bud) => Promise<unknown>
+  boot: (app?: Bud) => Promise<unknown>
+  booted: (app?: Bud) => Promise<unknown>
   'build.before': (app?: Bud) => Promise<unknown>
   'build.after': (app?: Bud) => Promise<unknown>
   'compiler.before': (app?: Bud) => Promise<unknown>
@@ -19,17 +25,12 @@ export interface Events {
   'proxy.interceptor': (app?: Bud) => Promise<unknown>
   [
     key: `${keyof Modules & string}/${
-      | 'init'
-      | 'register'
-      | 'boot'
-      | 'beforeBuild'
-      | 'afterConfig'
-      | 'make'}/${'before' | 'after'}`
+      | `init`
+      | `register`
+      | `boot`
+      | `buildBefore`
+      | `buildAfter`
+      | `configAfter`
+      | `make`}/${`before` | `after`}`
   ]: (app?: Bud) => Promise<unknown>
-}
-
-export namespace Events {
-  export type HookMap = {
-    [K in keyof Events as `${K & string}`]: Events[K]
-  }
 }

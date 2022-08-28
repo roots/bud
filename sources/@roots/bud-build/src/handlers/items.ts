@@ -10,10 +10,10 @@ export const css = async (app: Bud): Promise<Item> =>
   app.build
     .makeItem()
     .setLoader(`css`)
-    .setOptions(({build, hooks}) => ({
-      importLoaders: build.rules.css.getUse().length - 2,
+    .setOptions(() => ({
+      importLoaders: app.build.rules.css.getUse().length - 2,
       modules: false,
-      sourceMap: hooks.filter(`build.devtool`) ? true : false,
+      sourceMap: app.hooks.filter(`build.devtool`) ? true : false,
     }))
 
 /**

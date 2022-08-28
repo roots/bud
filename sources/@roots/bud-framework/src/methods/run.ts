@@ -12,18 +12,12 @@ export interface run {
 export const run: run = async function (): Promise<void> {
   const app = this as Bud
 
-  await app.hooks.fire(`run`)
-
-  const development = app.server?.run
-
   const production = async () => {
-    const compiler = await app.compiler.compile()
-    compiler.run(app.compiler.callback)
+    const instance = await app.compiler.compile()
+    if (app.context.args.dry) return
+
+    instance.run(app.compiler.callback)
   }
 
-  try {
-    app.isDevelopment ? await development() : await production()
-  } catch (error) {
-    app.error(error)
-  }
+  app.isDevelopment ? await app.server.run() : await production()
 }

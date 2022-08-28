@@ -49,21 +49,21 @@ export interface Service extends BaseService {
    *
    * @public
    */
-  loaders: Loaders
+  loaders: Record<string, Loader>
 
   /**
    * Arrayed {@link Item} instances
    *
    * @public
    */
-  items: Items
+  items: Record<string, Item>
 
   /**
    * Arrayed {@link Rule} instances
    *
    * @public
    */
-  rules: Rules
+  rules: Record<string, Rule>
 
   /**
    * Compiler configuration

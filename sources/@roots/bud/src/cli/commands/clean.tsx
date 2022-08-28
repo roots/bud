@@ -5,8 +5,6 @@ import {bind} from 'helpful-decorators'
 import {Box, Text} from 'ink'
 import React from 'react'
 
-import {factory} from '../../factory/index.js'
-import * as disk from '../config/disk.config.js'
 import {BaseCommand} from './base.js'
 
 const {ensureDir, remove} = fs
@@ -27,26 +25,19 @@ export class CleanCommand extends BaseCommand {
     description: `empty @dist`,
   })
 
+  /**
+   * Set CI to true
+   */
+  public dry = true
+
+  public get args() {
+    return {...this.context.args, dry: true}
+  }
+
   @bind
   public async runCommand() {
     try {
-      this.app = await factory({
-        args: {
-          ci: true,
-        },
-      })
-    } catch (e) {
-      this.app.error(`error constructing app`)
-    }
-
-    try {
-      await disk.config(this.app)
-    } catch (error) {
-      this.app.error(error)
-    }
-
-    try {
-      await this.app.compiler.before()
+      await this.app.run()
     } catch (e) {}
 
     if (this.storage || (!this.storage && !this.dist)) {

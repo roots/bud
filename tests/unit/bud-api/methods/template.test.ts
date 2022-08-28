@@ -12,11 +12,11 @@ describe(`bud.template`, function () {
       expect(bud.template).toBeInstanceOf(Function)
     })
 
-    it(`html-webpack-plugin not set`, () => {
+    it(`html-webpack-plugin is not set by default`, () => {
       expect(bud.extensions.has(`html-webpack-plugin`)).toBe(false)
     })
 
-    it(`interpolate-html-plugin not set`, () => {
+    it(`interpolate-html-plugin is not set by default`, () => {
       expect(bud.extensions.has(`interpolate-html-plugin`)).toBe(false)
     })
   })
@@ -56,10 +56,6 @@ describe(`bud.template`, function () {
 
     beforeAll(async () => {
       bud = await factory()
-    })
-
-    afterAll(done => {
-      bud.close(done)
     })
 
     it(`can be disabled`, async () => {

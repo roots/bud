@@ -1,3 +1,5 @@
+let initial = true
+
 /**
  * Last hash received
  * @public
@@ -9,6 +11,14 @@ let hash: string
  * @public
  */
 let failed: boolean = false
+
+/**
+ * Set initial
+ * @public
+ */
+const setInitial = (state?: boolean) => {
+  initial = state
+}
 
 /**
  * Set fail state
@@ -33,4 +43,4 @@ const isStale = (hash?: Payload['hash']) => {
   return hash !== window.__webpack_hash__
 }
 
-export {hash, setHash, failed, setFailed, isStale}
+export {hash, initial, setInitial, setHash, failed, setFailed, isStale}

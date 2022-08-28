@@ -1,9 +1,46 @@
-import type {Bud, Config} from '../index.js'
+import {omit} from 'lodash-es'
+
+import {Bud, Config} from '../index.js'
 import {Logger} from '../logger/index.js'
 import * as methods from '../methods/index.js'
 import {Module} from '../module.js'
 import * as Process from '../process.js'
-import {DEVELOPMENT_SERVICES, PARENT_SERVICES} from './constants.js'
+import {initialize} from './init.js'
+
+/**
+ * Services which are only instantiated in the parent compiler context.
+ *
+ * @public
+ */
+export const PARENT_SERVICES: Array<string> = [
+  `@roots/bud-compiler`,
+  `@roots/bud-dashboard`,
+  `@roots/bud-server`,
+]
+
+/**
+ * Services which are only instantiated in development
+ *
+ * @public
+ */
+export const DEVELOPMENT_SERVICES: Array<string> = [`@roots/bud-server`]
+
+/**
+ * Mapped hooks to callbacks
+ */
+export const LIFECYCLE_EVENT_MAP = {
+  bootstrap: `bootstrap`,
+  bootstrapped: `bootstrapped`,
+  register: `register`,
+  registered: `registered`,
+  boot: `boot`,
+  booted: `booted`,
+  [`config.after`]: `configAfter`,
+  [`compiler.before`]: `compilerBefore`,
+  [`build.before`]: `buildBefore`,
+  [`build.after`]: `buildAfter`,
+  [`compiler.after`]: `compilerAfter`,
+}
 
 /**
  * Create filter for validating services
@@ -11,62 +48,75 @@ import {DEVELOPMENT_SERVICES, PARENT_SERVICES} from './constants.js'
  * @param app - Bud instance
  * @returns filter fn
  */
-const makeServiceFilter =
+const filterServices =
   (app: Bud) =>
-  (signifier: string, ...rest: Array<unknown>): Boolean =>
+  (signifier: string): Boolean =>
     (app.isDevelopment || !DEVELOPMENT_SERVICES.includes(signifier)) &&
     (app.isRoot || !PARENT_SERVICES.includes(signifier))
 
-const makeServiceImport =
+const importServices =
   (app: Bud) =>
-  async (signifier: string, ...rest: Array<unknown>): Promise<void> => {
-    const {default: imported} = await import(signifier)
-    if (app.services[imported.label]) return
+  async (signifier: string): Promise<void> => {
+    const pkg = await import(signifier)
+    const imported = pkg?.default ?? pkg
+    app[imported.label] = new imported(app)
 
-    const instance = new imported(app)
-    app.logger.instance.log(`imported`, imported.label, instance)
-    app.services[imported.label] = instance
-    app[imported.label] = app.services[imported.label]
+    app.success(`imported`, imported.label)
+    app.info(app[imported.label])
+
+    app.services.push(imported.label)
   }
+
+const initializeLoggerAndReportContext = (app: Bud) => {
+  /* initialize logger */
+  app.logger = new Logger(app)
+
+  app.success(`logger ready`)
+
+  Object.entries(omit(app.context, `stdout`, `stdin`, `stderr`))
+    .filter(([k, v]) => v !== undefined)
+    .map(([k, v]) => app.info(`context`, k, `=>`, v))
+}
 
 /**
  * Bootstrap application
  *
  * @param app - Bud instance
- * @param options - Bud options
+ * @param context - Bud context
  *
  * @returns void
  */
-export const execute = async (app: Bud, context: Config.Context) => {
-  /* reset children */
-  app.children = {}
+export const bootstrap = async function (
+  this: Bud,
+  context: Config.Context,
+) {
+  this.context = {...context}
 
   /* copy context object */
-  if (!context.label) throw new Error(`context.label is required`)
-  app.context = {...context}
+  if (!this.context.label) throw new Error(`options.label is required`)
+
+  /* root specific */
+  if (!(context.root instanceof Bud)) {
+    process.env.NODE_ENV = context.mode
+    Process.initialize(this)
+  }
 
   /* bind framework methods */
   Object.entries(methods).map(([key, method]) => {
-    app[key] = method.bind(app)
+    this[key] = method.bind(this)
   })
 
-  /* setup process */
-  if (app.isRoot) {
-    process.env.NODE_ENV = context.mode
-    Process.initialize(app)
-  }
-
-  /* initialize logger */
-  app.logger = new Logger(app)
+  initializeLoggerAndReportContext(this)
 
   /* initialize module */
-  app.module = new Module(app)
+  this.module = new Module(this)
 
   /* initialize services */
-  app.log(`initializing services`)
   await Promise.all(
-    app.context.services
-      .filter(makeServiceFilter(app))
-      .map(makeServiceImport(app)),
+    this.context.services
+      .filter(filterServices(this))
+      .map(importServices(this)),
   )
+
+  return initialize(this)
 }

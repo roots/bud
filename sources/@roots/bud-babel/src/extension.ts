@@ -17,7 +17,13 @@ export default class BabelExtension extends Extension<any, null> {
    * @public
    */
   public get cacheDirectory() {
-    return this.app.path(`@storage`, this.app.label, `cache`, `babel`)
+    return this.app.path(
+      `@storage`,
+      this.app.label,
+      `cache`,
+      this.app.mode,
+      `babel`,
+    )
   }
 
   /**
@@ -60,18 +66,6 @@ export default class BabelExtension extends Extension<any, null> {
   }
 
   /**
-   * Initialize extension
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async init() {
-    this.app.babel = new Config()
-    process.env.BABEL_ENV = this.app.mode
-  }
-
-  /**
    * Register extension
    *
    * @public
@@ -79,6 +73,9 @@ export default class BabelExtension extends Extension<any, null> {
    */
   @bind
   public async register() {
+    this.app.babel = new Config()
+    process.env.BABEL_ENV = this.app.mode
+
     const presetEnv = await this.resolve(
       `@babel/preset-env`,
       import.meta.url,

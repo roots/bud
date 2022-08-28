@@ -27,7 +27,7 @@ const resetExtensions = bud => {
   bud.extensions.repository = {}
 }
 
-describe(`extension`, function () {
+describe.skip(`extension`, function () {
   let bud: Bud
 
   beforeAll(async () => {

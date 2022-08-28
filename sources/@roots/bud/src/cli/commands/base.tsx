@@ -1,12 +1,13 @@
 import type * as Config from '@roots/bud-framework/config'
-import {BaseContext, Command} from 'clipanion'
+import {BaseContext, Command, Option} from 'clipanion'
 import {bind} from 'helpful-decorators'
 import {Box, render, Text} from 'ink'
 import React from 'react'
+import * as t from 'typanion'
 
 import type Bud from '../../bud.js'
+import {factory} from '../../factory/index.js'
 import {Notifier} from '../../notifier/index.js'
-import * as disk from '../config/disk.config.js'
 
 /**
  * Base command
@@ -14,6 +15,8 @@ import * as disk from '../config/disk.config.js'
  * @public
  */
 export abstract class BaseCommand extends Command {
+  public abstract runCommand(): Promise<unknown>
+
   /**
    * Context
    *
@@ -29,6 +32,21 @@ export abstract class BaseCommand extends Command {
   public app: Bud
 
   /**
+   * Node notifier
+   *
+   * @public
+   */
+  public notifier: Notifier
+
+  /**
+   * @virtual
+   * @public
+   */
+  public get args(): Config.Context[`args`] {
+    return {}
+  }
+
+  /**
    * Application logger
    *
    * @public
@@ -37,14 +55,99 @@ export abstract class BaseCommand extends Command {
     return this.app.logger.instance
   }
 
-  public abstract runCommand(): Promise<unknown>
-
   /**
-   * Node notifier
-   *
+   * Base directory
    * @public
    */
-  public notifier: Notifier
+  public basedir = Option.String(`--basedir,--cwd`, undefined, {
+    description: `project base directory`,
+    env: `APP_BASE_DIR`,
+    hidden: true,
+  })
+
+  /**
+   * --clear-context-cache
+   * @public
+   */
+  public clearContextCache = Option.Boolean(
+    `--clear-context-cache`,
+    true,
+    {
+      description: `clear cached bud context`,
+      hidden: true,
+    },
+  )
+
+  /**
+   * Base directory
+   * @public
+   */
+  public contextCache = Option.Boolean(`--context-cache`, true, {
+    description: `allow caching of bud context`,
+    hidden: true,
+  })
+
+  /**
+   * -- dry
+   */
+  public dry = Option.Boolean(`--dry`, false, {
+    description: `Run without webpack or server process`,
+    hidden: true,
+  })
+
+  /**
+   * --level
+   */
+  public level = Option.Array<Boolean>(`-v`, undefined, {
+    description: `Set logging level`,
+    hidden: true,
+  })
+
+  /**
+   * --log
+   */
+  public log = Option.Boolean(`--log`, undefined, {
+    description: `Enable logging`,
+    hidden: true,
+  })
+
+  /**
+   * --mode
+   */
+  public mode = Option.String(`--mode`, undefined, {
+    description: `Compilation mode`,
+    validator: t.isOneOf([
+      t.isLiteral(`production`),
+      t.isLiteral(`development`),
+    ]),
+    env: `APP_MODE`,
+    hidden: true,
+  })
+
+  /**
+   * --target
+   */
+  public target = Option.Array(`--target,-t`, undefined, {
+    description: `Limit compilation to particular compilers`,
+    hidden: true,
+  })
+
+  /**
+   * Base arguments
+   * @public
+   */
+  public get baseArgs() {
+    return {
+      basedir: this.basedir,
+      clearContextCache: this.clearContextCache,
+      contextCache: this.contextCache,
+      dry: this.dry,
+      level: this.level,
+      log: this.log,
+      mode: this.mode,
+      target: this.target,
+    }
+  }
 
   /**
    * Render ink component and immediately unmount
@@ -54,7 +157,7 @@ export abstract class BaseCommand extends Command {
    */
   @bind
   public renderOnce(box: React.ReactElement) {
-    return this.render(box).unmount()
+    return this.log !== false && this.render(box).unmount()
   }
 
   /**
@@ -65,7 +168,7 @@ export abstract class BaseCommand extends Command {
    */
   @bind
   public render(box: React.ReactElement) {
-    return render(box)
+    return this.log !== false && render(box)
   }
 
   /**
@@ -74,15 +177,42 @@ export abstract class BaseCommand extends Command {
    * @public
    */
   public async execute() {
+    this.context = {
+      ...this.context,
+      basedir:
+        this.args?.basedir ??
+        this.baseArgs.basedir ??
+        this.context.basedir,
+      mode: this.args?.mode ?? this.baseArgs.mode ?? this.context.mode,
+      args: {
+        ...this.context.args,
+        ...this.baseArgs,
+        ...(this.args ?? {}),
+      },
+    }
+
     this.renderOnce(
       <Box marginY={1} justifyContent="flex-start">
         <Text>
-          <Text dimColor>$ bud</Text> <Text>{this.path.join(` `)} </Text>
+          <Text dimColor>$ bud</Text>
+          {` `}
+          <Text>{process.argv.splice(2).join(` `)} </Text>
         </Text>
       </Box>,
     )
 
-    await this.runCommand()
+    this.app = await factory(this.context)
+
+    if (this.runCommand) await this.runCommand()
+
+    this.notifier = new Notifier(this.app)
+
+    this.app.hooks.action(`compiler.after`, async () => {
+      this.app.compiler.instance.hooks.done.tap(
+        `bud-cli-notifier`,
+        this.notifier.notify,
+      )
+    })
   }
 
   /**
@@ -92,32 +222,6 @@ export abstract class BaseCommand extends Command {
    */
   @bind
   public async make() {
-    this.notifier = new Notifier(this.app)
-
-    this.app.hooks.action(`compiler.after`, async () => {
-      this.app.compiler.compilation.hooks.done.tap(
-        `bud-cli-notifier`,
-        this.notifier.notify,
-      )
-    })
-
-    try {
-      await disk.config(this.app)
-    } catch (error) {
-      this.app.error(error)
-    }
-
     return this.app
-  }
-
-  /**
-   * Run the build
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async run() {
-    await this.app.run()
   }
 }

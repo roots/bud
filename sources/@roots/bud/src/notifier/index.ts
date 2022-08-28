@@ -145,7 +145,11 @@ export class Notifier {
   @bind
   @once
   public async openBrowser() {
-    return await open(this.open)
+    return await open(this.open, {
+      app: isString(this.app.context.args.browser)
+        ? {name: this.app.context.args.browser}
+        : undefined,
+    })
   }
 
   /**

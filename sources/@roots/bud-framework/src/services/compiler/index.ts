@@ -26,7 +26,9 @@ interface Service extends Bud.Service {
    *
    * @public
    */
-  compilation: WebpackMultiCompiler
+  instance: WebpackMultiCompiler
+
+  config: Array<Configuration>
 
   /**
    * Contains compilation stats, if available.
@@ -53,17 +55,6 @@ interface Service extends Bud.Service {
    * @public
    */
   compile(): Promise<WebpackMultiCompiler>
-
-  /**
-   * Callback for {@link (Bud:namespace).Hooks | Bud.Hooks} `before` filter
-   *
-   * @remarks
-   * Parses {@link (Bud:namespace).Build.config} instances and generates
-   * final input for {@link (Compiler:interface).compile | Compiler.compile}
-   *
-   * @public
-   */
-  before(): any
 
   callback(error: Error, stats: Stats & MultiStats): void
 

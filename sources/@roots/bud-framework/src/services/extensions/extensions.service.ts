@@ -51,8 +51,8 @@ export interface Service extends BaseService {
       | '_init'
       | '_register'
       | '_boot'
-      | '_afterConfig'
-      | '_beforeBuild'
+      | '_configAfter'
+      | '_buildBefore'
       | '_make',
   ): Promise<Array<void>>
 
@@ -62,8 +62,8 @@ export interface Service extends BaseService {
       | '_init'
       | '_register'
       | '_boot'
-      | '_afterConfig'
-      | '_beforeBuild'
+      | '_configAfter'
+      | '_buildBefore'
       | '_make',
   ): Promise<this>
 
@@ -73,8 +73,8 @@ export interface Service extends BaseService {
       | '_init'
       | '_register'
       | '_boot'
-      | '_afterConfig'
-      | '_beforeBuild'
+      | '_configAfter'
+      | '_buildBefore'
       | '_make',
   ): Promise<void>
 

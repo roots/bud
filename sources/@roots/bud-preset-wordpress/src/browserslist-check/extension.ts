@@ -8,19 +8,19 @@ export default class BudBrowsersListCheck extends Extension {
   public items: Array<string> = []
 
   @bind
-  public async beforeBuild() {
-    if (!this.app.context.manifest.browserslist) return
+  public async buildBefore() {
+    if (!this.app.context.manifest?.browserslist) return
 
-    this.app.context.manifest.browserslist?.production &&
+    this.app.context.manifest?.browserslist?.production &&
       this.items.push(...this.app.context.manifest.browserslist.production)
 
-    this.app.context.manifest.browserslist?.development &&
+    this.app.context.manifest?.browserslist?.development &&
       this.items.push(
-        ...this.app.context.manifest.browserslist.development,
+        ...this.app.context.manifest?.browserslist.development,
       )
 
-    Array.isArray(this.app.context.manifest.browserslist) &&
-      this.items.push(...this.app.context.manifest.browserslist)
+    Array.isArray(this.app.context.manifest?.browserslist) &&
+      this.items.push(...this.app.context.manifest?.browserslist)
 
     if (
       this.items.some(item =>

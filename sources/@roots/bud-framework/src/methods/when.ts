@@ -1,4 +1,4 @@
-import {isBoolean, isFunction} from 'lodash-es'
+import {isArray, isFunction} from 'lodash-es'
 
 import type {Bud} from '../bud.js'
 
@@ -7,9 +7,12 @@ import type {Bud} from '../bud.js'
  */
 export interface when {
   (
-    test: ((app: Bud) => boolean) | boolean,
-    trueCase: (app: Bud) => any,
-    falseCase?: (app: Bud) => any,
+    test:
+      | ((app: Bud) => boolean)
+      | boolean
+      | Array<((app: Bud) => boolean) | boolean>,
+    trueCase: ((app: Bud) => any) | Array<(app: Bud) => any>,
+    falseCase?: ((app: Bud) => any) | Array<(app: Bud) => any>,
   ): Bud
 }
 
@@ -42,27 +45,31 @@ export interface when {
  * @public
  */
 export function when(
-  test: ((app: Bud) => boolean) | boolean,
-  trueCase: (app: Bud) => any,
-  falseCase?: (app: Bud) => any,
+  test:
+    | ((app: Bud) => boolean)
+    | boolean
+    | Array<((app: Bud) => boolean) | boolean>,
+  trueCase: ((app: Bud) => any) | Array<(app: Bud) => any>,
+  falseCase?: ((app: Bud) => any) | Array<(app: Bud) => any>,
 ): Bud {
   const ctx = this as Bud
 
-  if (!isBoolean(test) && !isFunction(test)) {
-    ctx.error(`[when] test must be a boolean or a function`)
+  const callTestCase = value => {
+    const unwrapped = ctx.maybeCall(value)
+    const iterableValue = isArray(unwrapped) ? unwrapped : [unwrapped]
+    return iterableValue.every(
+      v => (isFunction(v) ? ctx.maybeCall(v) : v) === true,
+    )
   }
 
-  const result = ctx.maybeCall(test)
+  const callMatchedCase = (
+    value: ((app: Bud) => any) | Array<(app: Bud) => any>,
+  ) =>
+    (isArray(value) ? value : [value])
+      .filter(v => isFunction(v))
+      .map(value => ctx.tap(value))
 
-  if (!isBoolean(result)) {
-    ctx.error(`[when] test function must return a boolean`)
-  }
-
-  if (!isFunction(trueCase)) {
-    ctx.error(`[when] true case is required and must be a function`)
-  }
-
-  result ? trueCase(this) : isFunction(falseCase) && falseCase(this)
+  callMatchedCase(callTestCase(test) ? trueCase : falseCase)
 
   return this
 }

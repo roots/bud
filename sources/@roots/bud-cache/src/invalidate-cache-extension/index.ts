@@ -39,7 +39,7 @@ export default class InvalidateCacheExtension extends Extension {
     }
 
     this.app.hooks.action(`compiler.after`, async () => {
-      this.app.compiler.compilation.hooks.done.tap(
+      this.app.compiler.instance.hooks.done.tap(
         this.label,
         async compiler => {
           if (!compiler.hasErrors()) return

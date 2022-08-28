@@ -48,7 +48,7 @@ export default class BudMDX extends Extension {
    * `boot` callback
    */
   @bind
-  public async afterConfig() {
+  public async configAfter() {
     this.app.hooks.on(`build.resolve.extensions`, ext =>
       ext.add(`.md`).add(`.mdx`),
     )
