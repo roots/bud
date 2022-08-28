@@ -14,7 +14,7 @@ export const run: run = async function (): Promise<void> {
 
   const production = async () => {
     const instance = await app.compiler.compile()
-    if (app.context.args.dry) return app.close()
+    if (app.context.args.dry) return
 
     instance.run(app.compiler.callback)
   }

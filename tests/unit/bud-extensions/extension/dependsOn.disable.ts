@@ -31,6 +31,8 @@ describe.skip(`Extension`, function () {
       resetExtensions(bud)
     })
 
+    afterAll(async () => bud.close())
+
     it(`adds dependencies`, async () => {
       await bud.extensions.add(MockExtension)
       expect(Object.keys(bud.extensions.repository)).toStrictEqual(

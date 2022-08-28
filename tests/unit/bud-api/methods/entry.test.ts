@@ -3,8 +3,13 @@ import {Bud, factory} from '@repo/test-kit/bud'
 describe(`bud.entry`, function () {
   let bud: Bud
 
-  beforeAll(async () => (bud = await factory()))
-  beforeEach(() => bud.hooks.on(`build.entry`, {}))
+  beforeAll(async () => {
+    bud = await factory()
+  })
+
+  beforeEach(() => {
+    bud.hooks.store[`build.entry`] = [() => ({})]
+  })
 
   it(`sets an entrypoint using (string, string) fn signature`, async () => {
     await bud.api.call(`entry`, `app`, `scripts/app.js`)

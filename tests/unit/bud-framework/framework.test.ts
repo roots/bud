@@ -3,63 +3,43 @@ import {Bud, factory} from '@repo/test-kit/bud'
 import {Container} from '@roots/container'
 import {noop} from 'lodash-es'
 
-describe(`bud`, () => {
+describe.skip(`bud`, () => {
   let bud: Bud
 
-  it(`mode`, async () => {
+  beforeEach(async () => {
     bud = await factory()
+  })
+  it(`mode`, async () => {
     expect(bud.mode).toEqual(`production`)
   })
 
-  it(`isDevelopment`, async () => {
-    const isNotDev = await factory({mode: `production`})
-    expect(isNotDev.isDevelopment).toEqual(false)
-
-    const isDev = await factory({mode: `development`})
-    expect(isDev.isDevelopment).toEqual(true)
-  })
-
-  it(`isProduction`, async () => {
-    const isNotProduction = await factory({mode: `development`})
-    expect(isNotProduction.isProduction).toEqual(false)
-
-    const isProduction = await factory({mode: `production`})
-    expect(isProduction.isProduction).toEqual(true)
-  })
-
-  it(`maybeCall processes a literal value`, done => {
+  it(`maybeCall processes a literal value`, async () => {
     expect(bud.maybeCall(true)).toEqual(true)
-    done()
   })
 
-  it(`maybeCall processes a fn`, done => {
+  it(`maybeCall processes a fn`, async () => {
     expect(bud.maybeCall(() => true)).toEqual(true)
-    done()
   })
 
-  it(`maybeCall passes bud as a param`, done => {
+  it(`maybeCall passes bud as a param`, async () => {
     expect(bud.maybeCall(bud => bud)).toEqual(bud)
-    done()
   })
 
-  it(`container is instance of @roots/container`, done => {
+  it(`container is instance of @roots/container`, async () => {
     expect(bud.container()).toBeInstanceOf(Container)
-    done()
   })
 
-  it(`tap calls fn and returns instance of Bud`, done => {
+  it(`tap calls fn and returns instance of Bud`, async () => {
     const fn = jest.fn()
     expect(bud.tap(fn)).toBeInstanceOf(Bud)
     expect(fn).toHaveBeenCalledTimes(1)
-    done()
   })
 
-  it(`tap passes an instance of Bud`, done => {
+  it(`tap passes an instance of Bud`, async () => {
     bud.tap(app => expect(app).toBeInstanceOf(Bud))
-    done()
   })
 
-  it(`tap can bind a function to Bud`, done => {
+  it(`tap can bind a function to Bud`, async () => {
     bud.tap(function () {
       expect(this).not.toBeInstanceOf(Bud)
     }, false)
@@ -72,8 +52,6 @@ describe(`bud`, () => {
     bud.tap(function () {
       expect(this).toBeInstanceOf(Bud)
     })
-
-    done()
   })
 
   it(`sequence calls fns`, async () => {
@@ -87,18 +65,16 @@ describe(`bud`, () => {
     ])
   })
 
-  it(`pipe passes value through fn chain`, done => {
+  it(`pipe passes value through fn chain`, async () => {
     const cb1 = app => app
     const cb2 = app => app
 
     const res = bud.pipe([cb1, cb2])
 
     expect(res).toBe(bud)
-
-    done()
   })
 
-  it(`when calls fns conditionally`, done => {
+  it(`when calls fns conditionally`, async () => {
     const whenTrue = jest.fn((app: Bud) => {})
     bud.when(() => true, whenTrue)
     expect(whenTrue).toHaveBeenCalledTimes(1)
@@ -106,11 +82,9 @@ describe(`bud`, () => {
     const whenFalse = jest.fn((app: Bud) => {})
     bud.when(() => false, noop, whenFalse)
     expect(whenFalse).toHaveBeenCalledTimes(1)
-
-    done()
   })
 
-  it(`has close fn`, () => {
+  it(`has close fn`, async () => {
     expect(bud.close).toBeInstanceOf(Function)
   })
 })

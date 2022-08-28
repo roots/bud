@@ -11,10 +11,6 @@ describe(`bud.config`, function () {
     bud = await factory({args: {dry: true}})
   })
 
-  afterEach(async () => {
-    bud.close()
-  })
-
   it(`should be a function`, () => {
     expect(config).toBeInstanceOf(Function)
   })

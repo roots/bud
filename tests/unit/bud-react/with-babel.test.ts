@@ -2,7 +2,7 @@ import '@roots/bud-babel'
 import '@roots/bud-react'
 import '@roots/bud-typescript'
 
-import {Bud, factory} from '@repo/test-kit/bud'
+import {factory} from '@repo/test-kit/bud'
 import BudReact from '@roots/bud-react'
 import BudTypeScript from '@roots/bud-typescript'
 
@@ -18,6 +18,8 @@ describe(`@roots/bud-react`, () => {
       expect(bud.extensions.has(`@roots/bud-react/babel-refresh`)).toBe(
         true,
       )
+
+      bud.close()
     })
 
     it(`uses babel transformer if @roots/bud-typescript uses babel`, async () => {
@@ -30,6 +32,8 @@ describe(`@roots/bud-react`, () => {
       expect(bud.extensions.has(`@roots/bud-react/babel-refresh`)).toBe(
         true,
       )
+
+      bud.close()
     })
 
     it(`injects entrypoints`, async () => {
@@ -48,6 +52,8 @@ describe(`@roots/bud-react`, () => {
       expect(bud.build.config.entry.app.import).toContain(
         `react-refresh/runtime`,
       )
+
+      bud.close()
     })
 
     it(`adds babel plugin`, async () => {
@@ -63,6 +69,8 @@ describe(`@roots/bud-react`, () => {
       expect(bud.babel.plugins[`react-refresh/babel`].shift()).toEqual(
         expect.stringContaining(`react-refresh/babel.js`),
       )
+
+      bud.close()
     })
   })
 })

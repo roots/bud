@@ -1,6 +1,6 @@
 import {omit} from 'lodash-es'
 
-import type {Bud, Config} from '../index.js'
+import {Bud, Config} from '../index.js'
 import {Logger} from '../logger/index.js'
 import * as methods from '../methods/index.js'
 import {Module} from '../module.js'
@@ -96,7 +96,7 @@ export const bootstrap = async function (
   if (!this.context.label) throw new Error(`options.label is required`)
 
   /* root specific */
-  if (!context.root) {
+  if (!(context.root instanceof Bud)) {
     process.env.NODE_ENV = context.mode
     Process.initialize(this)
   }

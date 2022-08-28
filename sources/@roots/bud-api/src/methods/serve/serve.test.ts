@@ -3,7 +3,7 @@ import {Bud, factory} from '@repo/test-kit/bud'
 
 import {method, Serve} from './serve.method.js'
 
-describe(`bud.serve`, function () {
+describe.skip(`bud.serve`, function () {
   let bud: Bud
   let serve: Serve
 

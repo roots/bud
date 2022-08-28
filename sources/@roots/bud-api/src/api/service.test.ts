@@ -7,7 +7,7 @@ describe(`Api`, () => {
   let bud: Bud
   let instance: Api
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     bud = await factory()
     instance = new Api(bud)
   })

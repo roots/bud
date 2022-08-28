@@ -22,23 +22,22 @@ describe(`bud.assets`, () => {
   })
 
   it(`should add job when passed an array of strings`, async () => {
-    await assetsFn([`images`]).finally(() => {
-      expect(
-        bud.extensions.get(`copy-webpack-plugin`).options.patterns,
-      ).toEqual(
-        expect.arrayContaining([
-          expect.objectContaining({
-            from: expect.stringContaining(`images`),
-            to: expect.stringMatching(
-              /dist\/images\/\[path\]\[name\]\[ext\]$/,
-            ),
-            context: expect.stringContaining(`src`),
-            toType: `template`,
-            noErrorOnMissing: true,
-          }),
-        ]),
-      )
-    })
+    await assetsFn([`images`])
+    expect(
+      bud.extensions.get(`copy-webpack-plugin`).options.patterns,
+    ).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          from: expect.stringContaining(`images`),
+          to: expect.stringMatching(
+            /dist\/images\/\[path\]\[name\]\[ext\]$/,
+          ),
+          context: expect.stringContaining(`src`),
+          toType: `template`,
+          noErrorOnMissing: true,
+        }),
+      ]),
+    )
   })
 
   it(`should add jobs when passed an array of tuples`, async () => {

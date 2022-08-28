@@ -7,46 +7,33 @@ describe(`multi-compiler`, () => {
   let bud: Bud
 
   beforeAll(async () => {
-    try {
-      bud = await factory({
-        basedir: join(
-          paths.root,
-          `tests`,
-          `unit`,
-          `bud`,
-          `multi-compiler`,
-        ),
-      })
+    bud = await factory({
+      basedir: join(paths.root, `tests`, `unit`, `bud`, `multi-compiler`),
+    })
 
-      /**
-       * Make `theme` workspace in `./theme` and setup entrypoints
-       * Files will be output to `./theme/dist`
-       */
-      await bud.make(
-        {
-          label: `theme`,
-          basedir: bud.path(`theme`),
-        },
-        async theme => theme.entry(`theme`, [`theme.js`, `theme.css`]),
-      )
+    /**
+     * Make `theme` workspace in `./theme` and setup entrypoints
+     * Files will be output to `./theme/dist`
+     */
+    await bud.make(
+      {
+        label: `theme`,
+        basedir: bud.path(`theme`),
+      },
+      async theme => theme.entry(`theme`, [`theme.js`, `theme.css`]),
+    )
 
-      /**
-       * Make plugin workspace in `./plugin` and setup entrypoints
-       * Files will be output to `./plugin/dist`
-       */
-      await bud.make(
-        {
-          label: `plugin`,
-          basedir: bud.path(`plugin`),
-        },
-        async plugin =>
-          plugin.entry(`plugin`, [`plugin.js`, `plugin.css`]),
-      )
-
-      return bud
-    } catch (error) {
-      throw new Error(error)
-    }
+    /**
+     * Make plugin workspace in `./plugin` and setup entrypoints
+     * Files will be output to `./plugin/dist`
+     */
+    await bud.make(
+      {
+        label: `plugin`,
+        basedir: bud.path(`plugin`),
+      },
+      async plugin => plugin.entry(`plugin`, [`plugin.js`, `plugin.css`]),
+    )
   })
 
   it(`string matches /theme\/src$/`, async () => {
@@ -78,11 +65,8 @@ describe(`multi-compiler`, () => {
   })
 
   it(`has theme entry`, async () => {
-    try {
-      await bud.get(`theme`).build.make()
-    } catch (error) {
-      throw new Error(error)
-    }
+    await bud.get(`theme`).build.make()
+
     expect(bud.get(`theme`).build.config.entry).toEqual(
       expect.objectContaining({
         theme: expect.objectContaining({

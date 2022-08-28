@@ -58,10 +58,6 @@ describe(`bud.template`, function () {
       bud = await factory()
     })
 
-    afterAll(done => {
-      bud.close(done)
-    })
-
     it(`can be disabled`, async () => {
       await bud.api.call(`template`, false)
       expect(bud.hooks.filter(`feature.html`)).toEqual(false)

@@ -5,20 +5,20 @@ import BudTerser from '@roots/bud-terser'
 
 describe(`@roots/bud-terser`, () => {
   let bud: Bud
-  let extension: Modules['@roots/bud-terser']
 
   beforeAll(async () => {
     bud = await factory()
+    // @ts-ignore
+    bud.extensions.repository = {}
     await bud.extensions.add(BudTerser)
-    extension = bud.extensions.get(`@roots/bud-terser`)
   })
 
   it(`has label prop`, () => {
-    expect(extension.label).toBe(`@roots/bud-terser`)
+    expect(bud.terser.label).toBe(`@roots/bud-terser`)
   })
 
   it(`has options prop`, () => {
-    expect(extension.options).toStrictEqual({
+    expect(bud.terser.options).toStrictEqual({
       extractComments: false,
       include: /\.(cjs|mjs|jsx?)$/,
       exclude: /(node_modules|bower_components)/,

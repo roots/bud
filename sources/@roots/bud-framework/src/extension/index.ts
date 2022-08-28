@@ -40,11 +40,11 @@ export interface ApplyPlugin {
    *
    * @public
    */
-  apply: (compiler?: Compiler) => unknown
+  apply: (compiler: Compiler) => unknown
 }
 
 export interface Constructor {
-  new (...args: [Bud]): Extension
+  new (...args: [Bud]): Extension | ApplyPlugin
 }
 
 export type ExtensionLiteral = {
