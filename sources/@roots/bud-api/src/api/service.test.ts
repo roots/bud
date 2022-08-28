@@ -1,15 +1,23 @@
-import {beforeEach, describe, expect, it} from '@jest/globals'
-import {Bud, factory} from '@repo/test-kit/bud'
+import {describe, expect, it, jest} from '@jest/globals'
+import type {Bud} from '@roots/bud'
 
 import {Api} from './service'
 
+const mockBud = {
+  bindMethod: jest.fn(() => null),
+  hooks: {
+    action: jest.fn(() => null),
+  },
+  log: jest.fn(() => null),
+  error: jest.fn(() => null),
+  fatal: jest.fn(() => null),
+} as unknown as Bud
+
 describe(`Api`, () => {
-  let bud: Bud
   let instance: Api
 
   beforeAll(async () => {
-    bud = await factory()
-    instance = new Api(bud)
+    instance = new Api(mockBud)
   })
 
   it(`should have a method bootstrap()`, async () => {

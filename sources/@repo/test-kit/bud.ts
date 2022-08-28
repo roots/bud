@@ -2,9 +2,10 @@ import {jest} from '@jest/globals'
 import {paths} from '@repo/constants'
 import Bud from '@roots/bud'
 import {factory as makeInstance} from '@roots/bud/factory'
-import type {Compiler, Config} from '@roots/bud-framework'
+import type {Config} from '@roots/bud-framework'
 import {join} from 'node:path'
-import type {Configuration} from 'webpack'
+
+jest.mock(`@roots/bud-compiler`)
 
 export const repoPath = (...path: Array<string>) =>
   join(paths.root, ...(path ?? []))
@@ -12,15 +13,6 @@ export const repoPath = (...path: Array<string>) =>
 export const mockProject = {
   path: repoPath(`tests`, `util`, `project`),
 }
-
-const compile = jest.fn(async function () {})
-const compiler: (app: any) => Compiler.Service = app =>
-  ({
-    app: app,
-    config: {} as Configuration[],
-    compile,
-    isMock: true,
-  } as unknown as Compiler.Service)
 
 export const factory = async (
   overrides?: Partial<Config.Context>,
@@ -41,8 +33,6 @@ export const factory = async (
     true,
     !useConfig,
   )
-
-  bud.compiler = compiler(bud)
 
   return bud
 }
