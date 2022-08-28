@@ -78,7 +78,7 @@ describe(`html output of examples/babel`, () => {
         )
         devProcess.stdout?.pipe(process.stdout)
 
-        setTimeout(done, 5000)
+        setTimeout(done, 10000)
 
         await devProcess.catch(err => {
           process.stderr.write(JSON.stringify(err))
