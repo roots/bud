@@ -27,6 +27,7 @@ export const DEVELOPMENT_SERVICES: Array<string> = [`@roots/bud-server`]
 
 /**
  * Mapped hooks to callbacks
+ * @public
  */
 export const LIFECYCLE_EVENT_MAP = {
   bootstrap: `bootstrap`,
@@ -43,18 +44,32 @@ export const LIFECYCLE_EVENT_MAP = {
 }
 
 /**
+ * Bind framework methods
+ * @public
+ */
+const bindFrameworkMethods = (app: Bud) =>
+  Object.entries(methods).map(([key, method]) => {
+    app[key] = method.bind(app)
+  })
+
+/**
  * Create filter for validating services
  *
  * @param app - Bud instance
  * @returns filter fn
  */
-const filterServices =
+const filterFrameworkServices =
   (app: Bud) =>
   (signifier: string): Boolean =>
     (app.isDevelopment || !DEVELOPMENT_SERVICES.includes(signifier)) &&
     (app.isRoot || !PARENT_SERVICES.includes(signifier))
 
-const importServices =
+/**
+ * Import and bind framework services
+ *
+ * @public
+ */
+const importAndBindFrameworkServices =
   (app: Bud) =>
   async (signifier: string): Promise<void> => {
     const pkg = await import(signifier)
@@ -67,6 +82,10 @@ const importServices =
     app.services.push(imported.label)
   }
 
+/**
+ * Initialize logger and log initial context
+ * @public
+ */
 const initializeLoggerAndReportContext = (app: Bud) => {
   /* initialize logger */
   app.logger = new Logger(app)
@@ -81,7 +100,7 @@ const initializeLoggerAndReportContext = (app: Bud) => {
 /**
  * Bootstrap application
  *
- * @param app - Bud instance
+ * @param this - Bud instance
  * @param context - Bud context
  *
  * @returns void
@@ -97,25 +116,22 @@ export const bootstrap = async function (
 
   /* root specific */
   if (!(context.root instanceof Bud)) {
+    // eslint-disable-next-line n/no-process-env
     process.env.NODE_ENV = context.mode
     Process.initialize(this)
   }
 
-  /* bind framework methods */
-  Object.entries(methods).map(([key, method]) => {
-    this[key] = method.bind(this)
-  })
-
+  bindFrameworkMethods(this)
   initializeLoggerAndReportContext(this)
 
-  /* initialize module */
+  /* initialize module class */
   this.module = new Module(this)
 
   /* initialize services */
   await Promise.all(
     this.context.services
-      .filter(filterServices(this))
-      .map(importServices(this)),
+      .filter(filterFrameworkServices(this))
+      .map(importAndBindFrameworkServices(this)),
   )
 
   return initialize(this)

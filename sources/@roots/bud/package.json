@@ -36,7 +36,7 @@
     "webpack"
   ],
   "engines": {
-    "node": ">=16"
+    "node": ">=16.0.0"
   },
   "files": [
     "bin/",
@@ -102,6 +102,7 @@
     }
   },
   "devDependencies": {
+    "@jest/globals": "29.0.1",
     "@skypack/package-check": "0.2.2",
     "@types/braces": "3.0.1",
     "@types/fs-extra": "9.0.13",
@@ -140,6 +141,7 @@
     "globby": "13.1.2",
     "helpful-decorators": "2.1.0",
     "html-webpack-plugin": "5.5.0",
+    "import-meta-resolve": "2.1.0",
     "ink": "3.2.0",
     "ink-text-input": "4.0.3",
     "lodash-es": "4.17.21",
@@ -147,6 +149,7 @@
     "node-notifier": "10.0.1",
     "open": "8.4.0",
     "open-editor": "4.0.0",
+    "pretty-format": "29.0.1",
     "react": "18.2.0",
     "signale": "1.4.0",
     "tslib": "2.4.0",

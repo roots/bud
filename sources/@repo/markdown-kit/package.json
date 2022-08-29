@@ -8,6 +8,7 @@
     "./cli-examples": "./compiled/cli-examples/index.js"
   },
   "devDependencies": {
+    "@jest/globals": "29.0.1",
     "@repo/constants": "workspace:sources/@repo/constants",
     "@repo/logger": "workspace:sources/@repo/logger",
     "@roots/bud": "workspace:sources/@roots/bud",

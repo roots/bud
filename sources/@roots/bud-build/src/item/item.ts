@@ -114,7 +114,7 @@ class Item extends Base {
   @bind
   public toWebpack(): Build.Item.Output {
     const loader = this.getLoader()
-    if (!loader) this.app.error(loader, `missing`, this)
+    if (!loader) this.app.error(`missing loader ${loader}`)
 
     const output: Build.Item.Output = {
       loader: this.getLoader().getSrc(),

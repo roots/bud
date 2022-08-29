@@ -77,10 +77,7 @@ export class Api
   ) {
     // check if the callable exists
     if (!isFunction(fn)) {
-      this.app.fatal(
-        `bud.api.bindFacade error`,
-        `${name} is not a function`,
-      )
+      this.app.fatal(`bud.api.bindFacade error: ${name} is not a function`)
     }
 
     this.set(name, fn.bind(this.app))

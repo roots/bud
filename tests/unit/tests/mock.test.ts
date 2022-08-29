@@ -13,11 +13,6 @@ describe(`mock project`, () => {
     )
   })
 
-  it(`compiler is mocked`, async () => {
-    // @ts-ignore
-    expect(bud.compiler.isMock).toEqual(true)
-  })
-
   it(`mockProject.path matches project path`, async () => {
     expect(mockProject.path).toBe(repoPath(`tests/util/project`))
   })

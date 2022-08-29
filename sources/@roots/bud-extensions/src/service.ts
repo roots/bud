@@ -186,10 +186,12 @@ export default class Extensions
       this.has(signifier) ||
       this.unresolvable.has(signifier) ||
       !this.filterApplicableExtensions([signifier]).length
-    )
+    ) {
+      this.app.info(signifier, `extension is not importable`)
       return
+    }
 
-    this.app.log(`importing`, signifier)
+    this.app.info(`importing`, signifier)
 
     const extension = await this.app.module.import(signifier)
     const instance = this.instantiate(extension)
@@ -255,6 +257,8 @@ export default class Extensions
     }
 
     this.set(instance)
+
+    this.app.success(instance.label, `imported and instantiated`)
 
     return extension
   }

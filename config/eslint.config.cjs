@@ -11,6 +11,7 @@ module.exports = {
     `react-hooks`,
     `simple-import-sort`,
     `tsdoc`,
+    `eslint-plugin-n`,
   ],
   parserOptions: {
     ecmaVersion: 2021,
@@ -19,8 +20,23 @@ module.exports = {
   },
   settings: {
     react: {version: `detect`},
+    n: {
+      convertPath: {
+        [`sources/@roots/**/*.ts`]: [`^./(.+?).js$`, `./$1.ts`],
+      },
+      tryExtensions: [
+        `.ts`,
+        `.tsx`,
+        `.cts`,
+        `.mts`,
+        `.js`,
+        `.jsx`,
+        `.cjs`,
+        `.mjs`,
+      ],
+    },
   },
-  extends: [`plugin:react/recommended`],
+  extends: [`plugin:react/recommended`, `plugin:n/recommended-module`],
   ignorePatterns: [
     `**/*.json`,
     `**/*.d.ts`,
@@ -30,6 +46,7 @@ module.exports = {
     `sources/@repo/docs/build/**/*`,
     `sources/deprecated/**/*`,
     `sources/@repo/docs/content/dev/api/**/*`,
+    `tests/util/**/*`,
     `**/dist`,
     `storage/**/*`,
   ],
@@ -53,6 +70,15 @@ module.exports = {
     ],
     [`no-console`]: ERROR,
     [`no-extra-semi`]: OFF,
+    [`n/callback-return`]: ERROR,
+    [`n/no-missing-import`]: OFF,
+    [`n/no-process-env`]: ERROR,
+    [`n/no-unsupported-features/es-syntax`]: [
+      ERROR,
+      {ignores: [`modules`], version: `>=16.0.0`},
+    ],
+    [`n/no-missing-import`]: OFF,
+    [`n/no-path-concat`]: ERROR,
     [`react/prop-types`]: OFF,
     [`react/react-in-jsx-scope`]: ERROR,
     [`react-hooks/rules-of-hooks`]: ERROR,
@@ -64,6 +90,13 @@ module.exports = {
     {
       files: [`examples/**/*.js`],
       rules: {[`tsdoc/syntax`]: OFF},
+    },
+    {
+      files: [`tests/**/*`, `**/*.spec.ts`, `**/*.test.ts`],
+      rules: {
+        [`n/no-extraneous-import`]: OFF,
+        [`n/no-unpublished-import`]: OFF,
+      },
     },
   ],
 }

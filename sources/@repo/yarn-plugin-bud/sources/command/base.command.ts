@@ -95,11 +95,9 @@ export abstract class Command extends BaseCommand {
   @bind
   public err(error: string | Error): void {
     const label = this.name ?? `@bud`
-    process.stderr.write(
+    throw Error(
       `[${label}] ${typeof error === `string` ? error : error.message}\n`,
     )
-
-    process.exit(1)
   }
 
   /**

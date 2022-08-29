@@ -284,6 +284,7 @@ export default class Hooks extends Service implements HooksInterface {
     if (!this.store[id] || this.store[id]?.length === 0) return this.app
 
     const value = this.store[id] as any
+    const length = value.length
 
     await value
       .reduce(async (promise, action) => {
@@ -291,7 +292,6 @@ export default class Hooks extends Service implements HooksInterface {
         try {
           this.app.info(`calling`, id, action)
           await action(this.app)
-          this.app.success(id, `completed without errors`, action)
         } catch (error) {
           this.app.error(error)
         }
@@ -299,8 +299,7 @@ export default class Hooks extends Service implements HooksInterface {
       .catch(error => this.app.error(error))
       .finally(() => {
         this.app.success(
-          `${id} action completed without errors. clearing registered actions`,
-          id,
+          `${length} actions registered to '${id}' completed without errors`,
         )
         this.store[id] = []
       })

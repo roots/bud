@@ -2,6 +2,7 @@ import type {Bud} from '@roots/bud-framework/bud'
 import figures from 'figures'
 import {Box, Text} from 'ink'
 import Link from 'ink-link'
+import {isString} from 'lodash-es'
 import {networkInterfaces} from 'node:os'
 import React from 'react'
 
@@ -11,9 +12,9 @@ const external = Object.values(networkInterfaces())
   .flat()
   .find(i => i?.family === `IPv4` && !i?.internal)?.address
 
-const formatUrl = (host: string, protocol, port) =>
+const formatUrl = (host: string, protocol: string, port: string) =>
   `${protocol}//${host === `0.0.0.0` ? `localhost` : host}${
-    [`80`, `8080`].includes(port) ? `` : `:${port}`
+    !isString(port) || [``, `80`, `8080`].includes(port) ? `` : `:${port}`
   }`
 
 const getServer = (app: Bud) => {
