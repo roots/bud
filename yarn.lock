@@ -8134,7 +8134,7 @@ __metadata:
 
 "@yarnpkg/cli@npm:3.2.3":
   version: 3.2.3
-  resolution: "@yarnpkg/cli@npm:3.2.3::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2F%40yarnpkg%252fcli%2F-%2Fcli-3.2.3.tgz"
+  resolution: "@yarnpkg/cli@npm:3.2.3"
   dependencies:
     "@yarnpkg/core": ^3.2.4
     "@yarnpkg/fslib": ^2.7.1
@@ -8250,7 +8250,7 @@ __metadata:
 
 "@yarnpkg/core@npm:^3.2.4":
   version: 3.2.4
-  resolution: "@yarnpkg/core@npm:3.2.4::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2F%40yarnpkg%252fcore%2F-%2Fcore-3.2.4.tgz"
+  resolution: "@yarnpkg/core@npm:3.2.4"
   dependencies:
     "@arcanis/slice-ansi": ^1.1.1
     "@types/semver": ^7.1.0
@@ -8310,7 +8310,7 @@ __metadata:
 
 "@yarnpkg/extensions@npm:^1.1.1":
   version: 1.1.1
-  resolution: "@yarnpkg/extensions@npm:1.1.1::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2F%40yarnpkg%252fextensions%2F-%2Fextensions-1.1.1.tgz"
+  resolution: "@yarnpkg/extensions@npm:1.1.1"
   peerDependencies:
     "@yarnpkg/core": ^3.2.4
   checksum: b6cc472f6e961b4247f8705ae91e03d7a44ff086b1eacb06c3890f5345e8ffd8407bc195e927e74b226f26bed1f15bd25130748d4f4359880c1eb845eec33ea4
@@ -8329,7 +8329,7 @@ __metadata:
 
 "@yarnpkg/fslib@npm:^2.7.1":
   version: 2.7.1
-  resolution: "@yarnpkg/fslib@npm:2.7.1::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2F%40yarnpkg%252ffslib%2F-%2Ffslib-2.7.1.tgz"
+  resolution: "@yarnpkg/fslib@npm:2.7.1"
   dependencies:
     "@yarnpkg/libzip": ^2.2.4
     tslib: ^1.13.0
@@ -8391,7 +8391,7 @@ __metadata:
 
 "@yarnpkg/plugin-compat@npm:^3.1.5":
   version: 3.1.5
-  resolution: "@yarnpkg/plugin-compat@npm:3.1.5::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2F%40yarnpkg%252fplugin-compat%2F-%2Fplugin-compat-3.1.5.tgz"
+  resolution: "@yarnpkg/plugin-compat@npm:3.1.5"
   dependencies:
     "@yarnpkg/extensions": ^1.1.1
   peerDependencies:
@@ -8418,7 +8418,7 @@ __metadata:
 
 "@yarnpkg/plugin-dlx@npm:^3.1.4":
   version: 3.1.4
-  resolution: "@yarnpkg/plugin-dlx@npm:3.1.4::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2F%40yarnpkg%252fplugin-dlx%2F-%2Fplugin-dlx-3.1.4.tgz"
+  resolution: "@yarnpkg/plugin-dlx@npm:3.1.4"
   dependencies:
     "@yarnpkg/fslib": ^2.7.1
     "@yarnpkg/json-proxy": ^2.1.1
@@ -8456,7 +8456,7 @@ __metadata:
 
 "@yarnpkg/plugin-essentials@npm:^3.2.2":
   version: 3.2.2
-  resolution: "@yarnpkg/plugin-essentials@npm:3.2.2::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2F%40yarnpkg%252fplugin-essentials%2F-%2Fplugin-essentials-3.2.2.tgz"
+  resolution: "@yarnpkg/plugin-essentials@npm:3.2.2"
   dependencies:
     "@yarnpkg/fslib": ^2.7.1
     "@yarnpkg/json-proxy": ^2.1.1
@@ -8508,7 +8508,7 @@ __metadata:
 
 "@yarnpkg/plugin-git@npm:^2.6.2":
   version: 2.6.2
-  resolution: "@yarnpkg/plugin-git@npm:2.6.2::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2F%40yarnpkg%252fplugin-git%2F-%2Fplugin-git-2.6.2.tgz"
+  resolution: "@yarnpkg/plugin-git@npm:2.6.2"
   dependencies:
     "@types/semver": ^7.1.0
     "@yarnpkg/fslib": ^2.7.1
@@ -8565,7 +8565,7 @@ __metadata:
 
 "@yarnpkg/plugin-init@npm:^3.1.4":
   version: 3.1.4
-  resolution: "@yarnpkg/plugin-init@npm:3.1.4::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2F%40yarnpkg%252fplugin-init%2F-%2Fplugin-init-3.1.4.tgz"
+  resolution: "@yarnpkg/plugin-init@npm:3.1.4"
   dependencies:
     "@yarnpkg/fslib": ^2.7.1
     clipanion: 3.2.0-rc.4
@@ -8613,7 +8613,7 @@ __metadata:
 
 "@yarnpkg/plugin-nm@npm:^3.1.4":
   version: 3.1.4
-  resolution: "@yarnpkg/plugin-nm@npm:3.1.4::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2F%40yarnpkg%252fplugin-nm%2F-%2Fplugin-nm-3.1.4.tgz"
+  resolution: "@yarnpkg/plugin-nm@npm:3.1.4"
   dependencies:
     "@yarnpkg/fslib": ^2.7.1
     "@yarnpkg/libzip": ^2.2.4
@@ -8653,7 +8653,7 @@ __metadata:
 
 "@yarnpkg/plugin-npm-cli@npm:^3.2.2":
   version: 3.2.2
-  resolution: "@yarnpkg/plugin-npm-cli@npm:3.2.2::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2F%40yarnpkg%252fplugin-npm-cli%2F-%2Fplugin-npm-cli-3.2.2.tgz"
+  resolution: "@yarnpkg/plugin-npm-cli@npm:3.2.2"
   dependencies:
     "@yarnpkg/fslib": ^2.7.1
     clipanion: 3.2.0-rc.4
@@ -8704,7 +8704,7 @@ __metadata:
 
 "@yarnpkg/plugin-pack@npm:^3.1.3":
   version: 3.1.3
-  resolution: "@yarnpkg/plugin-pack@npm:3.1.3::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2F%40yarnpkg%252fplugin-pack%2F-%2Fplugin-pack-3.1.3.tgz"
+  resolution: "@yarnpkg/plugin-pack@npm:3.1.3"
   dependencies:
     "@yarnpkg/fslib": ^2.7.1
     clipanion: 3.2.0-rc.4
@@ -8735,7 +8735,7 @@ __metadata:
 
 "@yarnpkg/plugin-patch@npm:^3.2.3":
   version: 3.2.3
-  resolution: "@yarnpkg/plugin-patch@npm:3.2.3::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2F%40yarnpkg%252fplugin-patch%2F-%2Fplugin-patch-3.2.3.tgz"
+  resolution: "@yarnpkg/plugin-patch@npm:3.2.3"
   dependencies:
     "@yarnpkg/fslib": ^2.7.1
     "@yarnpkg/libzip": ^2.2.4
@@ -8769,7 +8769,7 @@ __metadata:
 
 "@yarnpkg/plugin-pnp@npm:^3.2.3":
   version: 3.2.3
-  resolution: "@yarnpkg/plugin-pnp@npm:3.2.3::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2F%40yarnpkg%252fplugin-pnp%2F-%2Fplugin-pnp-3.2.3.tgz"
+  resolution: "@yarnpkg/plugin-pnp@npm:3.2.3"
   dependencies:
     "@types/semver": ^7.1.0
     "@yarnpkg/fslib": ^2.7.1
@@ -8805,7 +8805,7 @@ __metadata:
 
 "@yarnpkg/plugin-pnpm@npm:^1.1.2":
   version: 1.1.2
-  resolution: "@yarnpkg/plugin-pnpm@npm:1.1.2::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2F%40yarnpkg%252fplugin-pnpm%2F-%2Fplugin-pnpm-1.1.2.tgz"
+  resolution: "@yarnpkg/plugin-pnpm@npm:1.1.2"
   dependencies:
     "@yarnpkg/fslib": ^2.7.1
     "@yarnpkg/plugin-pnp": ^3.2.3
@@ -8836,7 +8836,7 @@ __metadata:
 
 "@yarnpkg/plugin-stage@npm:^3.1.3":
   version: 3.1.3
-  resolution: "@yarnpkg/plugin-stage@npm:3.1.3::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2F%40yarnpkg%252fplugin-stage%2F-%2Fplugin-stage-3.1.3.tgz"
+  resolution: "@yarnpkg/plugin-stage@npm:3.1.3"
   dependencies:
     "@yarnpkg/fslib": ^2.7.1
     clipanion: 3.2.0-rc.4
@@ -8860,7 +8860,7 @@ __metadata:
 
 "@yarnpkg/pnp@npm:^3.2.3":
   version: 3.2.3
-  resolution: "@yarnpkg/pnp@npm:3.2.3::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2F%40yarnpkg%252fpnp%2F-%2Fpnp-3.2.3.tgz"
+  resolution: "@yarnpkg/pnp@npm:3.2.3"
   dependencies:
     "@types/node": ^13.7.0
     "@yarnpkg/fslib": ^2.7.1
@@ -8889,7 +8889,7 @@ __metadata:
 
 "@yarnpkg/shell@npm:^3.2.4":
   version: 3.2.4
-  resolution: "@yarnpkg/shell@npm:3.2.4::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2F%40yarnpkg%252fshell%2F-%2Fshell-3.2.4.tgz"
+  resolution: "@yarnpkg/shell@npm:3.2.4"
   dependencies:
     "@yarnpkg/fslib": ^2.7.1
     "@yarnpkg/parsers": ^2.5.1
@@ -10530,7 +10530,6 @@ __metadata:
     eslint: 8.19.0
     eslint-plugin-import: 2.26.0
     eslint-plugin-n: 15.2.5
-    eslint-plugin-node: 11.1.0
     eslint-plugin-react: 7.30.1
     eslint-plugin-react-hooks: 4.6.0
     eslint-plugin-simple-import-sort: 7.0.0
@@ -10625,7 +10624,7 @@ __metadata:
 
 "builtins@npm:^5.0.1":
   version: 5.0.1
-  resolution: "builtins@npm:5.0.1::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fbuiltins%2F-%2Fbuiltins-5.0.1.tgz"
+  resolution: "builtins@npm:5.0.1"
   dependencies:
     semver: ^7.0.0
   checksum: 66d204657fe36522822a95b288943ad11b58f5eaede235b11d8c4edaa28ce4800087d44a2681524c340494aadb120a0068011acabe99d30e8f11a7d826d83515
@@ -11363,7 +11362,7 @@ __metadata:
 
 "clipanion@npm:3.2.0-rc.4":
   version: 3.2.0-rc.4
-  resolution: "clipanion@npm:3.2.0-rc.4::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fclipanion%2F-%2Fclipanion-3.2.0-rc.4.tgz"
+  resolution: "clipanion@npm:3.2.0-rc.4"
   dependencies:
     typanion: ^3.3.1
   peerDependencies:
@@ -14521,21 +14520,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-es@npm:^3.0.0":
-  version: 3.0.1
-  resolution: "eslint-plugin-es@npm:3.0.1"
-  dependencies:
-    eslint-utils: ^2.0.0
-    regexpp: ^3.0.0
-  peerDependencies:
-    eslint: ">=4.19.1"
-  checksum: e57592c52301ee8ddc296ae44216df007f3a870bcb3be8d1fbdb909a1d3a3efe3fa3785de02066f9eba1d6466b722d3eb3cc3f8b75b3cf6a1cbded31ac6298e4
-  languageName: node
-  linkType: hard
-
 "eslint-plugin-es@npm:^4.1.0":
   version: 4.1.0
-  resolution: "eslint-plugin-es@npm:4.1.0::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Feslint-plugin-es%2F-%2Feslint-plugin-es-4.1.0.tgz"
+  resolution: "eslint-plugin-es@npm:4.1.0"
   dependencies:
     eslint-utils: ^2.0.0
     regexpp: ^3.0.0
@@ -14592,7 +14579,7 @@ __metadata:
 
 "eslint-plugin-n@npm:15.2.5":
   version: 15.2.5
-  resolution: "eslint-plugin-n@npm:15.2.5::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Feslint-plugin-n%2F-%2Feslint-plugin-n-15.2.5.tgz"
+  resolution: "eslint-plugin-n@npm:15.2.5"
   dependencies:
     builtins: ^5.0.1
     eslint-plugin-es: ^4.1.0
@@ -14605,22 +14592,6 @@ __metadata:
   peerDependencies:
     eslint: ">=7.0.0"
   checksum: 3be265957b3dda6a049841803335c17689cf98a4b3859eeed3e57b44850b241e7d20640890b2dea7e83816c938fc16274bf78d370f571e211d00d9a3c513f281
-  languageName: node
-  linkType: hard
-
-"eslint-plugin-node@npm:11.1.0":
-  version: 11.1.0
-  resolution: "eslint-plugin-node@npm:11.1.0"
-  dependencies:
-    eslint-plugin-es: ^3.0.0
-    eslint-utils: ^2.0.0
-    ignore: ^5.1.1
-    minimatch: ^3.0.4
-    resolve: ^1.10.1
-    semver: ^6.1.0
-  peerDependencies:
-    eslint: ">=5.16.0"
-  checksum: 5804c4f8a6e721f183ef31d46fbe3b4e1265832f352810060e0502aeac7de034df83352fc88643b19641bb2163f2587f1bd4119aff0fd21e8d98c57c450e013b
   languageName: node
   linkType: hard
 
@@ -18351,7 +18322,7 @@ __metadata:
 
 "is-core-module@npm:^2.10.0":
   version: 2.10.0
-  resolution: "is-core-module@npm:2.10.0::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fis-core-module%2F-%2Fis-core-module-2.10.0.tgz"
+  resolution: "is-core-module@npm:2.10.0"
   dependencies:
     has: ^1.0.3
   checksum: 0f3f77811f430af3256fa7bbc806f9639534b140f8ee69476f632c3e1eb4e28a38be0b9d1b8ecf596179c841b53576129279df95e7051d694dac4ceb6f967593
@@ -27123,7 +27094,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"resolve@npm:^1.10.1, resolve@npm:^1.22.1":
+"resolve@npm:^1.22.1":
   version: 1.22.1
   resolution: "resolve@npm:1.22.1"
   dependencies:
@@ -27172,7 +27143,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"resolve@patch:resolve@^1.10.1#~builtin<compat/resolve>, resolve@patch:resolve@^1.22.1#~builtin<compat/resolve>":
+"resolve@patch:resolve@^1.22.1#~builtin<compat/resolve>":
   version: 1.22.1
   resolution: "resolve@patch:resolve@npm%3A1.22.1#~builtin<compat/resolve>::version=1.22.1&hash=07638b"
   dependencies:
@@ -27646,7 +27617,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:6.3.0, semver@npm:^6.0.0, semver@npm:^6.1.0, semver@npm:^6.1.1, semver@npm:^6.1.2, semver@npm:^6.2.0, semver@npm:^6.3.0":
+"semver@npm:6.3.0, semver@npm:^6.0.0, semver@npm:^6.1.1, semver@npm:^6.1.2, semver@npm:^6.2.0, semver@npm:^6.3.0":
   version: 6.3.0
   resolution: "semver@npm:6.3.0"
   bin:
