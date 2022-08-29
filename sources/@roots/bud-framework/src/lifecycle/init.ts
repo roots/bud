@@ -56,6 +56,7 @@ export const initialize = (app: Bud): Bud =>
       'build.mode': () => app.mode,
       'build.module.rules.before': () => [
         {
+          test: app.hooks.filter(`pattern.js`),
           include: [app.path(`@src`)],
           parser: {requireEnsure: false},
         },

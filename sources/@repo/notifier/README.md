@@ -2,9 +2,7 @@
 
 This is a fork of [julienXX/terminal-notifier](https://github.com/julienXX/terminal-notifier/releases) intended for use in [Roots](https://roots.io) projects.
 
-To sign a release you need an active Apple developer account and a copy of xcode.
-
-Original terminal-notifier README contents included below.
+To sign a release you need an active Apple developer account and a copy of Xcode.
 
 ## terminal-notifier
 

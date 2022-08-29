@@ -2,6 +2,7 @@ import {bind, memo} from 'helpful-decorators'
 import {resolve} from 'import-meta-resolve'
 import {createRequire} from 'module'
 import {join, normalize, relative} from 'node:path'
+import {fileURLToPath, pathToFileURL} from 'url'
 
 import type {Bud} from './bud.js'
 
@@ -37,7 +38,6 @@ export class Module {
   @memo()
   public async getDirectory(signifier: string, parent?: string) {
     return await this.resolve(signifier, parent)
-      .then(path => path.replace(`file://`, ``))
       .then(this.require.resolve)
       .then(path =>
         relative(parent ?? this.app.root.context.basedir, path),
@@ -86,17 +86,16 @@ export class Module {
   @memo()
   public async resolve(
     signifier: string,
-    parent?: string,
+    context?: string | URL,
   ): Promise<string> {
-    const context =
-      parent ?? `file://${this.app.root.path(`./package.json`)}`
+    context = this.makeContextURL(context)
 
     try {
-      const resolvedPath = await resolve(signifier, context)
-      const normalized = normalize(
-        resolvedPath.replace(`file://`, ``).replace(/%20/g, ` `),
+      const resolvedPath = await resolve(
+        signifier,
+        context as unknown as string,
       )
-      return normalized
+      return normalize(fileURLToPath(resolvedPath))
     } catch (err) {
       this.app.info(signifier, `not resolvable`, `(context: ${context})`)
     }
@@ -112,10 +111,10 @@ export class Module {
   @memo()
   public async import<T = any>(
     signifier: string,
-    context?: string,
+    context?: URL | string,
   ): Promise<T> {
-    if (!context)
-      context = `file://${this.app.root.path(`./package.json`)}`
+    context = this.makeContextURL(context)
+
     const modulePath = await this.resolve(signifier, context)
     const result = await import(modulePath)
     if (!result) {
@@ -124,5 +123,16 @@ export class Module {
     }
 
     return result?.default ?? result
+  }
+
+  @bind
+  private makeContextURL(context?: string | URL) {
+    context = context ?? this.app.root.path(`package.json`)
+
+    return context instanceof URL
+      ? context
+      : pathToFileURL(
+          !context ? this.app.root.path(`package.json`) : context,
+        )
   }
 }
