@@ -1,3 +1,8 @@
+/* eslint-disable n/no-process-exit */
+import chalk from 'chalk'
+import {error, log} from 'console'
+import figures from 'figures'
+
 import type {Bud} from './bud.js'
 
 /**
@@ -13,9 +18,6 @@ import type {Bud} from './bud.js'
  */
 export const initialize = (app: Bud) => {
   process
-    // only works when there is no task running
-    .on(`beforeExit`, makeHandler(app, 0))
-
     // only works when the process normally exits
     // on windows, ctrl-c will not trigger this handler
     // unless you listen on 'SIGINT'
@@ -40,43 +42,21 @@ export const initialize = (app: Bud) => {
 /**
  * Create an error handler
  */
-function makeHandler(app: Bud, code: number) {
-  const close = () => {
+const makeHandler = (app: Bud, code: number) => {
+  const logMessage = app.logger?.instance?.log ?? log
+  const logError = app.logger?.instance?.error ?? error
+
+  return () => {
     process.exitCode = code
 
-    try {
-      app.dashboard?.instance?.unmount()
-    } catch (error) {
-      app.info(`Dashboard unmount error`, error)
-      app.info(
-        `This might not be a problem, as the dashboard will unmount itself, so there is a race condition here.`,
-      )
+    app.close()
+
+    if (process.exitCode === 0) {
+      logMessage(chalk.gray(`${figures.tick} process exited normally\n`))
+      process.exit(process.exitCode)
     }
 
-    try {
-      app.isDevelopment &&
-        app.server?.connection?.instance?.removeAllListeners().unref()
-    } catch (err) {
-      renderError(err.message)
-      process.exitCode = 3
-    }
-
-    process.exit()
+    logError(`${figures.cross} exiting with code ${code}\n`)
+    process.exit(process.exitCode)
   }
-
-  return (code: string | Error) => {
-    if (process.exitCode === 0) return close()
-
-    renderError(
-      code instanceof Error ? code.message : `exiting with code ${code}\n`,
-    )
-    setTimeout(close, 200).unref()
-  }
-}
-
-/**
- * Render error
- */
-function renderError(msg: string, name?: string) {
-  process.stderr.write(`\n${msg}\n`)
 }

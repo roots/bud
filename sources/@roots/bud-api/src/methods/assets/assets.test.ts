@@ -43,10 +43,10 @@ describe(`bud.assets`, () => {
 
   it(`should add jobs when passed an array of tuples`, async () => {
     await assetsFn([
-      [bud.path(`@src/images`), bud.path(`@dist/images`)],
+      [bud.path(`@src`, `images`), bud.path(`@dist`, `images`)],
       [
-        bud.path(`@src/fonts/font.woff`),
-        bud.path(`@dist/fonts/font.woff`),
+        bud.path(`@src`, `fonts`, `font.woff`),
+        bud.path(`@dist`, `fonts`, `font.woff`),
       ],
     ])
 
@@ -80,8 +80,8 @@ describe(`bud.assets`, () => {
 
   it(`should add jobs when passed an object`, async () => {
     const input = {
-      from: bud.path(`@src/images`),
-      to: bud.path(`@dist/images`),
+      from: bud.path(`@src`, `images`),
+      to: bud.path(`@dist`, `images`),
     }
 
     await assetsFn(input)
@@ -100,8 +100,8 @@ describe(`bud.assets`, () => {
 
   it(`should apply options overrides`, async () => {
     const input = {
-      from: bud.path(`@src/images`),
-      to: bud.path(`@dist/images`),
+      from: bud.path(`@src`, `images`),
+      to: bud.path(`@dist`, `images`),
     }
     const overrides: Partial<CopyPlugin.ObjectPattern> = {toType: `file`}
     await assetsFn(input, overrides)

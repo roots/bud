@@ -594,13 +594,16 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
       modulePath = await this.app.module.resolve(signifier, parent)
     }
     if (!modulePath) {
-      this.logger.error(`unresolvable:`, signifier)
+      this.app.error(this.label, `unresolvable:`, signifier)
     }
 
     this.logger.log(
+      `resolved`,
       signifier,
       `=>`,
-      modulePath.replace(this.app.path(), `.`),
+      modulePath
+        ?.replace(this.app.path(), `.`)
+        .replace(/(.*)\/node_modules\/(.*)/, `$2`),
     )
 
     return modulePath

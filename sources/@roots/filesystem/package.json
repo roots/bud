@@ -48,6 +48,7 @@
     }
   },
   "devDependencies": {
+    "@jest/globals": "29.0.1",
     "@roots/container": "workspace:sources/@roots/container",
     "@skypack/package-check": "0.2.2",
     "@types/lodash-es": "4.17.6",

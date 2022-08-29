@@ -79,6 +79,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.18.10",
+    "@jest/globals": "29.0.1",
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@roots/bud-swc": "workspace:sources/@roots/bud-swc",
     "@roots/bud-typescript": "workspace:sources/@roots/bud-typescript",

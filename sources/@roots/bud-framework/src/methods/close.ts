@@ -1,3 +1,5 @@
+import {isFunction} from 'lodash-es'
+
 /**
  * Close interface
  *
@@ -21,9 +23,22 @@ export interface close {
  * @public
  */
 export function close(callback?: any) {
-  if (process.env.JEST_WORKER_ID) {
-    return callback && callback()
+  try {
+    this.isDevelopment &&
+      isFunction(this.server?.connection?.instance?.removeAllListeners) &&
+      this.server.connection.instance.removeAllListeners().unref()
+  } catch (error) {
+    this.error(error)
   }
 
-  callback ? callback() : process.exit()
+  try {
+    this.dashboard?.instance?.unmount()
+  } catch (error) {
+    this.info(`Dashboard unmount error`, error)
+    this.info(
+      `This might not be a problem, as the dashboard will unmount itself, so there is a race condition here.`,
+    )
+  }
+
+  callback && callback()
 }

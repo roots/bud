@@ -80,6 +80,7 @@ export default class Env {
     /**
      * Apply process env
      */
+    // eslint-disable-next-line n/no-process-env
     Object.entries(filterUndefined(process.env)).map(([k, v]) => {
       this.data[k] = v
     })

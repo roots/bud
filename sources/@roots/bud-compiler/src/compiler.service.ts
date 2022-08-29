@@ -52,7 +52,7 @@ export class Compiler extends Service implements Contract.Service {
   public async compile(): Promise<MultiCompiler> {
     const webpack = await import(`webpack`)
     this.implementation = webpack.default
-    this.app.log(`imported webpack`, webpack.version)
+    this.app.log(`imported webpack`, webpack.default.version)
 
     this.config = []
 
@@ -71,14 +71,6 @@ export class Compiler extends Service implements Contract.Service {
     }
 
     await this.app.hooks.fire(`compiler.before`)
-
-    try {
-      // @ts-ignore
-      this.implementation.validate(this.config)
-      this.app.success(`webpack configuration is valid`)
-    } catch (error) {
-      this.app.error(`webpack validation error`, error)
-    }
 
     if (this.app.context.args.dry) {
       this.app.log(`running in dry mode. exiting early.`)

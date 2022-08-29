@@ -16,7 +16,5 @@ export const devtool: devtool = async function (
 
   app.hooks.on(`build.devtool`, () => input)
 
-  app.log({message: `devtool set: ${input}`})
-
   return this
 }

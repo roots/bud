@@ -1,7 +1,5 @@
-import {highlight} from 'cli-highlight'
 import {bind} from 'helpful-decorators'
 import {isFunction, isNull, isString, isUndefined} from 'lodash-es'
-import {format} from 'pretty-format'
 
 import type {
   Cache,
@@ -275,13 +273,6 @@ export class Bud {
       await this.hooks
         .fire(event)
         .catch(error => this.error(`error on`, event, error))
-        .finally(() =>
-          this.success(
-            `called all events registered to`,
-            `'${event}'`,
-            `lifecycle event`,
-          ),
-        )
     }, Promise.resolve())
 
     this.hooks.action(`config.after`, override)
@@ -292,9 +283,12 @@ export class Bud {
   @bind
   private formatLogMessages(messages: any[]) {
     return messages.map(message =>
-      typeof message !== `string`
-        ? highlight(format(message))
-        : message.replace(this.context.basedir, `.`),
+      (typeof message !== `string`
+        ? this.json.stringify(message)
+        : message
+      )
+        ?.replaceAll(this.context.basedir, `.`)
+        .replaceAll(/(.*)\s(.*)\/node_modules\/(.*)/g, `$1 $3`),
     )
   }
 
@@ -376,14 +370,14 @@ export class Bud {
    * @decorator `@bind`
    */
   @bind
-  public error(...messages: any[]) {
-    if (!this.logger?.instance) return this
-    this.logger.instance.error(...this.formatLogMessages(messages))
+  public error(...messages: Array<any>): Bud {
+    if (this.isProduction)
+      this.fatal(messages.map(msg => this.json.stringify(msg)).join(`\n`)) // throws error
 
-    if (this.isProduction) {
-      process.exitCode = 1
-      this.close()
-    }
+    if (this.logger?.instance)
+      this.logger.instance.error(...this.formatLogMessages(messages))
+
+    return this
   }
 
   /**
@@ -397,12 +391,8 @@ export class Bud {
    * @throws fatal error
    */
   @bind
-  public fatal(...messages: any[]) {
-    if (!this.logger?.instance) return this
-
-    this.logger.instance.error(...this.formatLogMessages(messages))
-    process.exitCode = 1
-    process.exit()
+  public fatal(error: string) {
+    this.logger.instance.fatal(error)
   }
 }
 

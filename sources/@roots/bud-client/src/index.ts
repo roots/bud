@@ -38,11 +38,8 @@ This browser requires a polyfill: https://developer.mozilla.org/en-US/docs/Web/A
 const initialize = async () => {
   if (!environmentIsSupported()) return
 
-  console.log(__resourceQuery)
-
   /* Set client options from URL params */
   options.setFromParameters(__resourceQuery)
-  console.log(options.data)
 
   /* Instantiate indicator, overlay */
   await components.make()

@@ -62,6 +62,7 @@
     }
   },
   "devDependencies": {
+    "@jest/globals": "29.0.1",
     "@skypack/package-check": "0.2.2",
     "@types/fs-extra": "9.0.13",
     "@types/lodash-es": "4.17.6",

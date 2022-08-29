@@ -1,3 +1,4 @@
+/* eslint-disable n/no-process-env */
 import {spawnSync} from 'child_process'
 
 import {Npm} from './command/index.js'
