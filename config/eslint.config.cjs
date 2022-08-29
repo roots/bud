@@ -11,7 +11,7 @@ module.exports = {
     `react-hooks`,
     `simple-import-sort`,
     `tsdoc`,
-    `eslint-plugin-node`,
+    `eslint-plugin-n`,
   ],
   parserOptions: {
     ecmaVersion: 2021,

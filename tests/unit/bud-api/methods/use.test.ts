@@ -1,4 +1,4 @@
-/* eslint-disable node/no-extraneous-import */
+/* eslint-disable n/no-extraneous-import */
 import {Bud, factory} from '@repo/test-kit/bud'
 import Babel from '@roots/bud-babel'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
