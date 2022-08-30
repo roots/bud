@@ -28,11 +28,13 @@ export default class Bud {
    */
   @bind
   public async find(): Promise<this> {
-    this.data.basedir = dirname(fileURLToPath(import.meta.url))
+    const resolvedPath = dirname(fileURLToPath(import.meta.url))
     this.data.manifestPath = resolve(
-      join(this.data.basedir, `..`, `..`, `package.json`),
+      join(resolvedPath, `..`, `..`, `package.json`),
     )
+    this.data.basedir = dirname(resolve(this.data.manifestPath))
     await this.handleFindResults(this.data.manifestPath)
+
     return this
   }
 

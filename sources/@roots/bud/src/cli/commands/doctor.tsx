@@ -4,14 +4,14 @@ import {Box, Text} from 'ink'
 import React from 'react'
 import webpack from 'webpack'
 
-import {BaseCommand} from './base.js'
+import BaseCommand from './base.js'
 
 /**
  * `bud doctor` command
  *
  * @public
  */
-export class DoctorCommand extends BaseCommand {
+export default class DoctorCommand extends BaseCommand {
   /**
    * Command paths
    *

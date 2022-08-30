@@ -1,6 +1,6 @@
 import type * as Config from '@roots/bud-framework/config'
 import {BaseContext, Command, Option} from 'clipanion'
-import {bind} from 'helpful-decorators'
+import {bind, once} from 'helpful-decorators'
 import {Box, render, Text} from 'ink'
 import React from 'react'
 import * as t from 'typanion'
@@ -14,7 +14,7 @@ import {Notifier} from '../../notifier/index.js'
  *
  * @public
  */
-export abstract class BaseCommand extends Command {
+export default abstract class BaseCommand extends Command {
   public abstract runCommand(): Promise<unknown>
 
   /**
@@ -125,6 +125,13 @@ export abstract class BaseCommand extends Command {
   })
 
   /**
+   * --notify
+   */
+  public notify = Option.Boolean(`--notify`, true, {
+    description: `Enable notfication center messages`,
+  })
+
+  /**
    * --target
    */
   public target = Option.Array(`--target,-t`, undefined, {
@@ -145,6 +152,7 @@ export abstract class BaseCommand extends Command {
       level: this.level,
       log: this.log,
       mode: this.mode,
+      notify: this.notify,
       target: this.target,
     }
   }
@@ -176,6 +184,8 @@ export abstract class BaseCommand extends Command {
    *
    * @public
    */
+  @bind
+  @once
   public async execute() {
     this.context = {
       ...this.context,
@@ -193,11 +203,7 @@ export abstract class BaseCommand extends Command {
 
     this.renderOnce(
       <Box marginY={1} justifyContent="flex-start">
-        <Text>
-          <Text dimColor>$ bud</Text>
-          {` `}
-          <Text>{process.argv.splice(2).join(` `)} </Text>
-        </Text>
+        <Text dimColor>$ bud {process.argv.splice(2).join(` `)} </Text>
       </Box>,
     )
 
@@ -205,23 +211,6 @@ export abstract class BaseCommand extends Command {
 
     if (this.runCommand) await this.runCommand()
 
-    this.notifier = new Notifier(this.app)
-
-    this.app.hooks.action(`compiler.after`, async () => {
-      this.app.compiler.instance.hooks.done.tap(
-        `bud-cli-notifier`,
-        this.notifier.notify,
-      )
-    })
-  }
-
-  /**
-   * Bootstrap Application
-   *
-   * @returns Bud
-   */
-  @bind
-  public async make() {
-    return this.app
+    this.app.hooks.action(`compiler.close`, new Notifier(this.app).notify)
   }
 }

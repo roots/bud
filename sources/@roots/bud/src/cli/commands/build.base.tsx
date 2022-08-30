@@ -3,14 +3,14 @@ import {Command, Option} from 'clipanion'
 import {bind} from 'helpful-decorators'
 import * as t from 'typanion'
 
-import {BaseCommand} from './base.js'
+import BaseCommand from './base.js'
 
 /**
  * Build command
  *
  * @public
  */
-export class BuildCommand extends BaseCommand {
+export default class BuildCommand extends BaseCommand {
   /**
    * Command paths
    * @public
@@ -208,13 +208,6 @@ export class BuildCommand extends BaseCommand {
    */
   public minimize = Option.Boolean(`--minimize`, undefined, {
     description: `Minimize compiled assets`,
-  })
-
-  /**
-   * --notify
-   */
-  public notify = Option.Boolean(`--notify`, undefined, {
-    description: `Enable notfication center messages`,
   })
 
   /**

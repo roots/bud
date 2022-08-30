@@ -5,11 +5,11 @@ import {bind} from 'helpful-decorators'
 import {Box, Text} from 'ink'
 import React from 'react'
 
-import {BaseCommand} from './base.js'
+import BaseCommand from './base.js'
 
 const {ensureDir, remove} = fs
 
-export class CleanCommand extends BaseCommand {
+export default class CleanCommand extends BaseCommand {
   public static paths = [[`clean`]]
 
   public static usage = Command.Usage({

@@ -6,14 +6,14 @@ import {format} from 'pretty-format'
 import React, {useState} from 'react'
 
 import type Bud from '../../bud.js'
-import {BaseCommand} from './base.js'
+import BaseCommand from './base.js'
 
 /**
  * `bud repl` command
  *
  * @public
  */
-export class ReplCommand extends BaseCommand {
+export default class ReplCommand extends BaseCommand {
   /**
    * Command paths
    * @public

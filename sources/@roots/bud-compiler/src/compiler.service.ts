@@ -79,6 +79,8 @@ export class Compiler extends Service implements Contract.Service {
 
     this.instance = this.implementation(this.config)
 
+    await this.app.hooks.fire(`compiler.after`)
+
     this.app.isDevelopment &&
       this.instance.hooks.done.tap(
         `${this.app.label}-dev-handle`,
@@ -87,9 +89,8 @@ export class Compiler extends Service implements Contract.Service {
 
     this.instance.hooks.done.tap(
       `${this.app.label}-cli-done`,
-      async () => {
-        await this.app.hooks.fire(`compiler.close`).catch(this.app.error)
-      },
+      async () =>
+        await this.app.hooks.fire(`compiler.close`).catch(this.app.error),
     )
 
     return this.instance
