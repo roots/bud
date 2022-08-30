@@ -25,7 +25,9 @@ export class Module {
    * @public
    */
   public constructor(public app: Bud) {
-    this.require = createRequire(this.app.root.context.basedir)
+    this.require = createRequire(
+      this.makeContextURL(this.app.root.context.basedir),
+    )
   }
 
   /**
@@ -110,7 +112,7 @@ export class Module {
   @memo()
   public async import<T = any>(
     signifier: string,
-    context?: URL | string,
+    context?: URL | URL | string,
   ): Promise<T> {
     context = this.makeContextURL(context)
 
@@ -124,8 +126,14 @@ export class Module {
     return result?.default ?? result
   }
 
+  /**
+   * Make context URL
+   *
+   * @param context  - context directory
+   * @returns
+   */
   @bind
-  private makeContextURL(context?: string | URL) {
+  protected makeContextURL(context?: string | URL): URL {
     context = context ?? this.app.root.path(`package.json`)
 
     return context instanceof URL

@@ -18,15 +18,12 @@ export const initialize = (app: Bud): void => {
   process
     // exit with errors
     .on(`uncaughtException`, makeHandler(app, 1))
-
     // exit with errors
     .on(`unhandledRejection`, makeHandler(app, 1))
-
     // only works when the process normally exits
     // on windows, ctrl-c will not trigger this handler
     // unless you listen on 'SIGINT'
     .on(`exit`, makeHandler(app, 0))
-
     // only works when the process normally exits
     .on(`SIGINT`, process.exit)
 }
