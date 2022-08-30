@@ -13,11 +13,7 @@ const Space = ({
     <Box flexDirection="column">
       {arrayedChildren.map((Child, index) => (
         <Box key={index} flexDirection="row">
-          <Text dimColor>
-            {!final ? VERT : ` `}
-            {` `}
-          </Text>
-
+          <Text dimColor>{!final ? VERT : `  `}</Text>
           {Child}
         </Box>
       ))}

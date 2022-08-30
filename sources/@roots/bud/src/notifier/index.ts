@@ -9,7 +9,7 @@ import {
 } from 'node-notifier'
 import open from 'open'
 import openEditor from 'open-editor'
-import type {MultiStats} from 'webpack'
+import type {MultiStats, StatsError} from 'webpack'
 
 /**
  * Notification center
@@ -169,13 +169,11 @@ export class Notifier {
     }
 
     /* Webpack error messages are rough stuff */
-    const parseError = error => {
-      const file =
-        error.moduleName ??
-        error.message
-          .replace(this.app.path(), `.`)
-          .match(/\.\/(.+\.\w*)/)
-          .shift()
+    const parseError = (error: StatsError) => {
+      const file = (error?.moduleName ?? error?.message)
+        .replace(this.app.path(), `.`)
+        .match(/\.\/(.+\.\w*)/)
+        .shift()
 
       if (!file) return
 
@@ -193,7 +191,11 @@ export class Notifier {
       }
     }
 
-    const parsedErrors = errors
+    const parsedErrors: Array<{
+      file: string
+      line: number
+      column: number
+    }> = errors
       .map(parseError)
       .filter(Boolean)
       .reduce(
@@ -201,7 +203,7 @@ export class Notifier {
         [],
       )
 
-    if (parsedErrors.length === 0) return
+    if (parsedErrors?.length === 0) return
     openEditor(parsedErrors, {editor: this.editor})
   }
 

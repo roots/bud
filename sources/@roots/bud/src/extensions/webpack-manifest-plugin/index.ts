@@ -1,4 +1,4 @@
-import {Extension} from '@roots/bud-framework'
+import {Bud, Extension} from '@roots/bud-framework'
 import {
   bind,
   label,
@@ -23,7 +23,7 @@ import {
 @options({
   fileName: `manifest.json`,
   writeToFileEmit: true,
-  publicPath: ({hooks}) =>
+  publicPath: ({hooks}: Bud) =>
     (hooks.filter(`build.output.publicPath`) ?? ``).replace(`auto`, ``),
 })
 export default class BudWebpackManifestPlugin extends Extension<

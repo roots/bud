@@ -225,7 +225,7 @@ export class Bud {
 
     if (this.children && this.children[context.label]) {
       this.log(`returning requested child instance:`, context.label)
-      return this.children[context.label]
+      return this.get(context.label)
     }
 
     this.log(`instantiating bud`, context)
@@ -234,8 +234,8 @@ export class Bud {
     if (!this.children) this.children = {[context.label]: child}
     else this.children[context.label] = child
 
-    if (tap) await tap(this.children[context.label])
-    await this.children[context.label].hooks.fire(`config.after`)
+    if (tap) await tap(this.get(context.label))
+    await this.get(context.label).hooks.fire(`config.after`)
 
     return this
   }

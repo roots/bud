@@ -23,7 +23,7 @@ const App = ({
 
     {compilations.map((compilation, id) => (
       <Box key={id} flexDirection="column">
-        <Compilation id={id} stats={compilation} />
+        <Compilation id={id} stats={compilation} context={app.context} />
       </Box>
     ))}
 

@@ -5,6 +5,7 @@ import {UncontrolledTextInput} from 'ink-text-input'
 import {format} from 'pretty-format'
 import React, {useState} from 'react'
 
+import type Bud from '../../bud.js'
 import {BaseCommand} from './base.js'
 
 /**
@@ -56,12 +57,18 @@ export class ReplCommand extends BaseCommand {
   }
 }
 
-const Repl = ({app, indent, depth}) => {
+interface ReplProps {
+  app: Bud
+  indent: string
+  depth: string
+}
+
+const Repl = ({app, indent, depth}: ReplProps) => {
   const [result, setResult] = useState(``)
 
-  const makeFn = value => eval(`async (bud) => ${value};`)
+  const makeFn = (value: string) => eval(`async (bud) => ${value};`)
 
-  const processResults = raw => {
+  const processResults = (raw: unknown) => {
     if (raw === undefined) {
       setResult(`undefined`)
       return
@@ -86,7 +93,7 @@ const Repl = ({app, indent, depth}) => {
       const raw = makeFn(value)(app)
       processResults(raw)
 
-      raw.then(async results => {
+      raw.then(async (results: unknown) => {
         processResults(results)
         await app.api.processQueue()
       })

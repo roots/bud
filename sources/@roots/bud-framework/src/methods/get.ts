@@ -1,11 +1,11 @@
-import type {Bud} from '../bud.js'
+import type {Bud} from '../bud'
 
 export interface get {
-  (label: string): Bud
+  (label: string, tap?: (bud: Bud) => Bud): Bud
 }
 
 /**
- * Returns {@link Bud} instance from the {@link Bud.children} {@link Container}
+ * Returns {@link Bud} instance from {@link Bud.children}
  *
  * @remarks
  * An optional {@link tap} function can be provided to configure the {@link Bud} instance.
@@ -17,10 +17,15 @@ export interface get {
  *
  * @public
  */
-export const get: get = function (label: string): Bud {
-  const ctx = this as Bud
+export const get: get = function (label, tap) {
+  const {isRoot, root, warn} = this as Bud
 
-  ctx.log(`get child instance:`, label)
+  !isRoot &&
+    warn(`not root instance. returning from the context of ${root.label}`)
 
-  return ctx.children[label]
+  !root.children[label] && root.fatal(`${label} instance not found`) // throws
+
+  root.success(`returning child instance:`, label)
+
+  return root.children[label]
 }

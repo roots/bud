@@ -21,15 +21,15 @@ const Asset = ({
 }) => {
   return (
     <Title indent={indent} final={final}>
-      <Box minWidth={minWidth} marginRight={2}>
+      <Box minWidth={minWidth} marginRight={1}>
         <Text>{name}</Text>
       </Box>
 
-      {size && size > 0 ? (
-        <Box minWidth={9} justifyContent="flex-end">
-          <Text dimColor>{formatSize(size) as string}</Text>
+      {size && size > 0 && (
+        <Box minWidth={10} justifyContent="flex-end">
+          <Text dimColor>{(formatSize(size) as string).trim()}</Text>
         </Box>
-      ) : null}
+      )}
     </Title>
   )
 }
