@@ -2,13 +2,13 @@ import {Box, Text} from 'ink'
 import React from 'react'
 
 import Title from '../display/title.component.js'
-import {longestAssetNameLength} from '../format.js'
 import Asset from './asset.component.js'
 
 const ChunkGroup = ({
   indent,
   color,
   final,
+  minWidth,
   ...chunk
 }: {
   name?: string
@@ -16,6 +16,7 @@ const ChunkGroup = ({
   indent: Array<boolean>
   color: string
   final: boolean
+  minWidth?: number
   emitted?: boolean
   cached?: boolean
 }) => {
@@ -32,7 +33,7 @@ const ChunkGroup = ({
           key={index}
           {...asset}
           emitted={chunk.emitted}
-          minWidth={longestAssetNameLength(chunk.assets) + 1}
+          minWidth={minWidth}
           final={index == chunk.assets?.length - 1}
           indent={[true, !final]}
         />

@@ -47,10 +47,10 @@ export const glob: glob = async function (...searches) {
 
   try {
     const paths = searches.flatMap(search => transformPaths(app, search))
-    app.info(`glob (async)`, `[paths]`, paths)
+    app.info(`glob (async)`, ...paths)
 
     const results = await globby(paths)
-    app.info(`glob (sync)`, `[results]`, results)
+    app.success(`glob (sync)`, ...results)
 
     return results
   } catch (error) {
@@ -60,5 +60,5 @@ export const glob: glob = async function (...searches) {
 
 const transformPaths = (app: Bud, search: Array<string> | string) =>
   Array.isArray(search)
-    ? search.map(item => app.path(item as `./${string}`))
-    : app.path(search as `./${string}`)
+    ? search.map(item => app.path(item))
+    : app.path(search)

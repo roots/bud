@@ -1,23 +1,23 @@
 import {Box} from 'ink'
 import React from 'react'
+import type {StatsAsset} from 'webpack'
 
+import {longestAssetNameLength} from '../format.js'
 import Asset from './asset.component.js'
 
 const Chunk = ({
   assets,
   final,
   indent,
+  minWidth,
   emitted,
 }: {
-  assets: Array<{name: string; emitted: boolean}>
+  assets: Array<StatsAsset>
   final?: boolean
+  minWidth?: number
   indent?: any
   emitted?: boolean
 }) => {
-  const minWidth = assets?.reduce((longest, asset) => {
-    return asset.name?.length > longest ? asset.name.length : longest
-  }, 0)
-
   return (
     <Box flexDirection="column">
       {assets
@@ -27,7 +27,7 @@ const Chunk = ({
             key={index}
             {...asset}
             emitted={asset.emitted && emitted}
-            minWidth={minWidth + 1}
+            minWidth={longestAssetNameLength(assets)}
             final={index == assets.length - 1}
             indent={[!final]}
           />

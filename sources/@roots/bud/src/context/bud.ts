@@ -46,9 +46,7 @@ export default class Bud {
     const manifest = await fs.readJson(path)
 
     this.data.label = manifest.name.split(sep).pop()
-    Object.entries(manifest).map(([k, v]) => {
-      this.data[k] = v
-    })
+    this.data.version = manifest.version
 
     return this
   }

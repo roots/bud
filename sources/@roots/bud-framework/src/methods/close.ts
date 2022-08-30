@@ -1,5 +1,7 @@
 import {isFunction} from 'lodash-es'
 
+import type {Bud} from '../bud.js'
+
 /**
  * Close interface
  *
@@ -23,22 +25,28 @@ export interface close {
  * @public
  */
 export function close(callback?: any) {
+  const application = this as Bud
+
   try {
-    this.isDevelopment &&
-      isFunction(this.server?.connection?.instance?.removeAllListeners) &&
-      this.server.connection.instance.removeAllListeners().unref()
+    application.isDevelopment &&
+      isFunction(
+        application.server?.connection?.instance?.removeAllListeners,
+      ) &&
+      application.server.connection.instance.removeAllListeners().unref()
   } catch (error) {
-    this.error(error)
+    application.error(error)
   }
 
   try {
-    this.dashboard?.instance?.unmount()
+    application.dashboard?.instance?.unmount()
   } catch (error) {
-    this.info(`Dashboard unmount error`, error)
-    this.info(
+    application.info(
+      `Dashboard unmount error\n`,
+      error,
+      `\n`,
       `This might not be a problem, as the dashboard will unmount itself, so there is a race condition here.`,
     )
   }
 
-  callback && callback()
+  return callback && callback()
 }

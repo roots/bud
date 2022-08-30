@@ -38,7 +38,6 @@ export class Module {
   @memo()
   public async getDirectory(signifier: string, parent?: string) {
     return await this.resolve(signifier, parent)
-      .then(this.require.resolve)
       .then(path =>
         relative(parent ?? this.app.root.context.basedir, path),
       )

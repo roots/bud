@@ -15,9 +15,8 @@ const Title = ({
   return (
     <Box flexDirection="row">
       <Text dimColor>
-        {indent.map(indent => `${indent ? VERT : ``}  `)}
-        {final ? `└─` : `├─`}
-        {` `}
+        {indent.map(indent => (indent ? `${VERT} ` : `  `))}
+        {final ? `└─ ` : `├─ `}
       </Text>
 
       {children}
