@@ -1,7 +1,7 @@
 import type {Bud} from '../bud'
 
 export interface get {
-  (label: string, tap?: (bud: Bud) => Promise<Bud>): Promise<Bud>
+  (label: string, tap?: (bud: Bud) => Bud): Bud
 }
 
 /**
@@ -17,7 +17,7 @@ export interface get {
  *
  * @public
  */
-export const get: get = async function (label: string): Promise<Bud> {
+export const get: get = function (label, tap) {
   const {isRoot, root, warn} = this as Bud
 
   !isRoot &&
