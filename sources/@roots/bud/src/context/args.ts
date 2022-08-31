@@ -14,8 +14,6 @@ export default class Args {
     cache: undefined,
     ci: undefined,
     clean: undefined,
-    contextCache: !argv.noContextCache,
-    clearContextCache: argv.clearContextCache,
     debug: undefined,
     devtool: undefined,
     dry: undefined,

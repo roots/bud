@@ -15,8 +15,6 @@ export interface BaseContext {
     cache: `filesystem` | `memory` | true | false
     ci: boolean
     clean: boolean
-    clearContextCache: boolean
-    contextCache: boolean
     debug: boolean
     devtool:
       | false

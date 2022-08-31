@@ -17,5 +17,5 @@ import Context from './context.js'
  */
 export const get = async (basedir: string): Promise<Options.Context> => {
   basedir = resolve(process.cwd(), basedir)
-  return await Context.make(basedir)
+  return await new Context().make(basedir)
 }

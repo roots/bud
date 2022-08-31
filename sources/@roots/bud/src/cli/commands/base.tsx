@@ -66,28 +66,6 @@ export default abstract class BaseCommand extends Command {
   })
 
   /**
-   * --clear-context-cache
-   * @public
-   */
-  public clearContextCache = Option.Boolean(
-    `--clear-context-cache`,
-    true,
-    {
-      description: `clear cached bud context`,
-      hidden: true,
-    },
-  )
-
-  /**
-   * Base directory
-   * @public
-   */
-  public contextCache = Option.Boolean(`--context-cache`, true, {
-    description: `allow caching of bud context`,
-    hidden: true,
-  })
-
-  /**
    * -- dry
    */
   public dry = Option.Boolean(`--dry`, false, {
@@ -146,8 +124,6 @@ export default abstract class BaseCommand extends Command {
   public get baseArgs() {
     return {
       basedir: this.basedir,
-      clearContextCache: this.clearContextCache,
-      contextCache: this.contextCache,
       dry: this.dry,
       level: this.level,
       log: this.log,
