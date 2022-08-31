@@ -1,7 +1,7 @@
 export default class Services {
   public static data: Array<string> = [
     `@roots/bud/services/env`,
-    `@roots/bud/services/hooks`,
+    `@roots/bud-hooks`,
     `@roots/bud-api`,
     `@roots/bud-build`,
     `@roots/bud-cache`,

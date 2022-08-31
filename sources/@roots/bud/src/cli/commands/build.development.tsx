@@ -1,13 +1,13 @@
 import {Command, Option} from 'clipanion'
 
-import {BuildCommand} from './build.base.js'
+import BuildCommand from './build.base.js'
 
 /**
  * `bud build development` command
  *
  * @public
  */
-export class BuildDevelopmentCommand extends BuildCommand {
+export default class BuildDevelopmentCommand extends BuildCommand {
   /**
    * Command paths
    *

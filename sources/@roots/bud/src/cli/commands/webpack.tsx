@@ -2,14 +2,14 @@ import {Command, Option} from 'clipanion'
 import {execa} from 'execa'
 import {join, resolve} from 'node:path'
 
-import {BaseCommand} from './base.js'
+import BaseCommand from './base.js'
 
 /**
  * `bud webpack` command
  *
  * @public
  */
-export class WebpackCommand extends BaseCommand {
+export default class WebpackCommand extends BaseCommand {
   /**
    * Command paths
    * @public

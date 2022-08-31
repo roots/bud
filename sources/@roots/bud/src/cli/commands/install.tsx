@@ -1,6 +1,6 @@
 import chalk from 'chalk'
 
-import {BaseCommand} from './base.js'
+import BaseCommand from './base.js'
 
 /**
  * `bud install` command
@@ -9,7 +9,7 @@ import {BaseCommand} from './base.js'
  *
  * @public
  */
-export class InstallCommand extends BaseCommand {
+export default class InstallCommand extends BaseCommand {
   /**
    * Command paths
    *

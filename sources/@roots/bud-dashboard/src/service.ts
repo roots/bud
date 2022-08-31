@@ -82,8 +82,8 @@ export class Dashboard extends Service implements Base.Service {
         app: this.app,
       })
     } catch (error) {
-      this.log(error)
       this.log(compilationStats?.toString())
+      this.app.error(error)
     }
 
     return this

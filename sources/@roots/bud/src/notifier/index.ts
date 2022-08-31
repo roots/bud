@@ -1,7 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
-import {bind, debounce, once} from 'helpful-decorators'
+import {bind, once} from 'helpful-decorators'
 import {isString} from 'lodash-es'
-import {join} from 'node:path/posix'
 import {
   Notification,
   NotificationCallback,
@@ -9,7 +8,9 @@ import {
 } from 'node-notifier'
 import open from 'open'
 import openEditor from 'open-editor'
-import type {MultiStats, StatsError} from 'webpack'
+import type {StatsCompilation, StatsError} from 'webpack'
+
+import {notifierPath} from './notifierPath.js'
 
 /**
  * Notification center
@@ -37,23 +38,6 @@ export class Notifier {
   public notificationCenter: NotificationCenter
 
   /**
-   * Binary path
-   *
-   * @public
-   */
-  public get binary() {
-    return join(
-      this.app.context.bud.basedir,
-      `vendor`,
-      `mac.no-index`,
-      `roots-notifier.app`,
-      `Contents`,
-      `MacOS`,
-      `roots-notifier`,
-    )
-  }
-
-  /**
    * Get user editor from env
    *
    * @public
@@ -68,7 +52,7 @@ export class Notifier {
    *
    * @public
    */
-  public get jsonStats() {
+  public get jsonStats(): StatsCompilation {
     return this.app.compiler.stats?.toJson() ?? {}
   }
 
@@ -79,7 +63,7 @@ export class Notifier {
    */
   public constructor(public app: Bud) {
     this.notificationCenter = new NotificationCenter({
-      customPath: this.binary,
+      customPath: notifierPath,
     })
   }
 
@@ -89,9 +73,7 @@ export class Notifier {
    * @public
    */
   public get title(): string {
-    return this.app.compiler.stats?.toJson()?.errors?.length > 0
-      ? `✖ ${this.group}`
-      : `✔ ${this.group}`
+    return this.group
   }
 
   /**
@@ -100,7 +82,7 @@ export class Notifier {
    * @public
    */
   public get group(): string {
-    return this.app.label ?? this.app.context.bud.label
+    return this.app.label
   }
 
   /**
@@ -108,22 +90,9 @@ export class Notifier {
    * @public
    */
   public get message() {
-    return [
-      `${this.app.mode} build completed`,
-      (this.jsonStats.errors?.length || this.jsonStats.warnings?.length) &&
-        `with`,
-      this.jsonStats.errors?.length &&
-        `${this.jsonStats.errors.length} errors`,
-
-      this.jsonStats.errors?.length &&
-        this.jsonStats.warnings?.length &&
-        `and`,
-
-      this.jsonStats.warnings?.length &&
-        `${this.jsonStats.warnings.length} warnings`,
-    ]
-      .filter(Boolean)
-      .join(` `)
+    return this.jsonStats?.errors?.length > 0
+      ? `Compiled with errors`
+      : `Compiled without errors`
   }
 
   /**
@@ -214,11 +183,10 @@ export class Notifier {
    * @decorator `@bind`
    */
   @bind
-  @debounce(1000)
-  public async notify(stats: MultiStats) {
-    const errors = stats.toJson().errors
+  public async notify() {
+    this.app.info(`notification center called`)
 
-    this.app.info(`cli`, `notify`)
+    const errors = this.jsonStats.errors
 
     try {
       if (errors?.length && this.app.context.args.editor)
@@ -234,20 +202,17 @@ export class Notifier {
       this.app.warn(err)
     }
 
-    try {
-      this.app.context.args.notify &&
-        this.notificationCenter.notify(
-          {
-            title: this.title,
-            message: this.message,
-            // @ts-ignore
-            group: this.group,
-            open: this.open,
-          },
-          this.callback,
-        )
-    } catch (err) {
-      this.app.warn(err)
+    if (this.app.context.args.notify !== false) {
+      this.notificationCenter.notify(
+        {
+          title: this.title,
+          message: this.message,
+          // @ts-ignore
+          group: this.group,
+          open: this.open,
+        },
+        this.callback,
+      )
     }
   }
 

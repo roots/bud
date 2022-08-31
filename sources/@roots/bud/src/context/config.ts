@@ -8,7 +8,11 @@ import {basename, join, normalize} from 'node:path/posix'
 interface ConfigFileDescription {
   name: string
   path: string
-  condition: `production` | `development` | `base`
+  bud: boolean
+  local: boolean
+  dynamic: boolean
+  extension: string | null
+  type: `production` | `development` | `base`
   module: any
 }
 
@@ -24,6 +28,16 @@ export default class Config {
    * @public
    */
   public data: Record<string, ConfigFileDescription> = {}
+
+  public static hasExtension(path: string, extension: string) {
+    return path.endsWith(extension)
+  }
+
+  public static isDynamicConfig(path: string) {
+    return [`js`, `cjs`, `mjs`, `ts`, `cts`, `mts`].some(
+      (extension: string) => path.endsWith(extension),
+    )
+  }
 
   /**
    * Find configs
@@ -50,12 +64,17 @@ export default class Config {
 
     results?.map((filePath: string) => {
       const name = basename(normalize(filePath))
+      const extension = name.split(`.`).pop()
       const path = normalize(filePath)
 
       set(this.data, [`${name}`], {
         name,
         path,
-        condition: name.includes(`production`)
+        extension,
+        local: name.includes(`local`),
+        dynamic: Config.isDynamicConfig(path),
+        bud: name.includes(`bud`),
+        type: name.includes(`production`)
           ? `production`
           : name.includes(`development`)
           ? `development`
@@ -67,40 +86,22 @@ export default class Config {
       Object.entries(this.data).map(
         async ([name, description]: [string, ConfigFileDescription]) => {
           try {
-            if (!name.includes(`bud`) && name !== `package.json`) return
-
-            const hasExtension = (extension: string) =>
-              description.path.endsWith(extension)
-
-            const isDynamicConfig = [
-              `js`,
-              `cjs`,
-              `mjs`,
-              `ts`,
-              `cts`,
-              `mts`,
-            ].filter(hasExtension).length
-
-            if (isDynamicConfig) {
+            if (description.dynamic) {
               const dynamicConfig = await import(description.path)
-              set(
-                this.data,
-                [name, `module`],
-                dynamicConfig.default ?? dynamicConfig,
-              )
+              set(this.data, [name, `module`], dynamicConfig)
             }
 
-            if (hasExtension(`json`)) {
+            if (description.extension === `json`) {
               const jsonConfig = await json.read(description.path)
               set(this.data, [name, `module`], jsonConfig)
             }
 
-            if (hasExtension(`yml`)) {
+            if (description.extension === `yml`) {
               const ymlConfig = await yml.read(description.path)
               set(this.data, [name, `module`], ymlConfig)
             }
           } catch (err) {
-            process.stderr.write(err?.message ?? err)
+            throw err
           }
         },
       ),

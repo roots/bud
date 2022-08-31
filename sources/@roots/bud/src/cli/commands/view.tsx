@@ -6,14 +6,14 @@ import {format} from 'pretty-format'
 import React from 'react'
 import {Fragment} from 'react'
 
-import {BaseCommand} from './base.js'
+import BaseCommand from './base.js'
 
 /**
  * `bud view` command
  *
  * @public
  */
-export class ViewCommand extends BaseCommand {
+export default class ViewCommand extends BaseCommand {
   /**
    * Command paths
    * @public

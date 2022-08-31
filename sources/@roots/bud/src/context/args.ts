@@ -33,7 +33,7 @@ export default class Args {
     manifest: undefined,
     minimize: undefined,
     mode: undefined,
-    notify: undefined,
+    notify: true,
     overlay: undefined,
     publicPath: undefined,
     reload: undefined,
