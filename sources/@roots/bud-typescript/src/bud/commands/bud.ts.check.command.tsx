@@ -1,4 +1,4 @@
-import {BaseCommand} from '@roots/bud/cli/commands/base'
+import BaseCommand from '@roots/bud/cli/commands/base'
 import chalk from 'chalk'
 import {Command} from 'clipanion'
 import {execa} from 'execa'
@@ -20,7 +20,13 @@ export class BudTSCheckCommand extends BaseCommand {
    */
   public static usage = Command.Usage({
     category: `@roots/bud-typescript`,
-    description: `Typecheck source`,
+    description: `Typecheck application source code`,
+    details: `
+      This command runs the \`tsc\` command with the \`--noEmit\` flag.
+
+      It is required that a \`tsconfig.json\` file exists in the project root.
+    `,
+    examples: [[`bud ts check`, `Typecheck application source`]],
   })
 
   public dry = true

@@ -8,7 +8,7 @@ import {
 } from 'node-notifier'
 import open from 'open'
 import openEditor from 'open-editor'
-import type {StatsError} from 'webpack'
+import type {StatsCompilation, StatsError} from 'webpack'
 
 import {notifierPath} from './notifierPath.js'
 
@@ -52,7 +52,7 @@ export class Notifier {
    *
    * @public
    */
-  public get jsonStats() {
+  public get jsonStats(): StatsCompilation {
     return this.app.compiler.stats?.toJson() ?? {}
   }
 
@@ -73,9 +73,7 @@ export class Notifier {
    * @public
    */
   public get title(): string {
-    return this.app.compiler.stats?.toJson()?.errors?.length > 0
-      ? `✖ ${this.group}`
-      : `✔ ${this.group}`
+    return this.group
   }
 
   /**
@@ -92,22 +90,9 @@ export class Notifier {
    * @public
    */
   public get message() {
-    return [
-      `${this.app.mode} build completed`,
-      (this.jsonStats.errors?.length || this.jsonStats.warnings?.length) &&
-        `with`,
-      this.jsonStats.errors?.length &&
-        `${this.jsonStats.errors.length} errors`,
-
-      this.jsonStats.errors?.length &&
-        this.jsonStats.warnings?.length &&
-        `and`,
-
-      this.jsonStats.warnings?.length &&
-        `${this.jsonStats.warnings.length} warnings`,
-    ]
-      .filter(Boolean)
-      .join(` `)
+    return this.jsonStats?.errors?.length > 0
+      ? `Compiled with errors`
+      : `Compiled without errors`
   }
 
   /**
