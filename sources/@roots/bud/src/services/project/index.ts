@@ -82,7 +82,7 @@ export default class Project
       const path = this.app.path(
         `@storage`,
         this.app.label,
-        `webpack.config.snap`,
+        `webpack.config.dump`,
       )
 
       await fs.ensureFile(path)
@@ -93,7 +93,7 @@ export default class Project
         suffix: path,
       })
     } catch (error) {
-      this.app.error(`failed to write webpack.config.json`)
+      this.app.error(`failed to write webpack.config.dump`)
     }
   }
 }

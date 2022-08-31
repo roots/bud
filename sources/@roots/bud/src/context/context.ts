@@ -10,7 +10,7 @@ import Env from './env.js'
 import Extensions from './extensions.js'
 import Services from './services.js'
 
-let processContext: Record<string, FrameworkContext> = {}
+let contexts: Record<string, FrameworkContext> = {}
 
 export default class Context {
   public data: Conf<FrameworkContext>
@@ -20,7 +20,7 @@ export default class Context {
   }
 
   public static async make(basedir: string): Promise<FrameworkContext> {
-    if (processContext[basedir]) return processContext[basedir]
+    if (contexts[basedir]) return contexts[basedir]
 
     const instance = new Context()
 
@@ -43,11 +43,11 @@ export default class Context {
       !instance.data.get(`args.clearContextCache`) &&
       instance.data.get(`args.contextCache`)
     ) {
-      processContext[basedir] = {
+      contexts[basedir] = {
         ...instance.data.store,
         config: config.data,
       }
-      return processContext[basedir]
+      return contexts[basedir]
     }
 
     await new BudContext().find().then(({data}) => {
@@ -62,8 +62,8 @@ export default class Context {
 
     instance.data.set(`services`, Services.data)
 
-    processContext[basedir] = {...instance.data.store, config: config.data}
+    contexts[basedir] = {...instance.data.store, config: config.data}
 
-    return processContext[basedir]
+    return contexts[basedir]
   }
 }

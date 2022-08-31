@@ -1,4 +1,3 @@
-import fs from 'fs-extra'
 import {bind} from 'helpful-decorators'
 
 import type Config from './config.js'
@@ -25,13 +24,8 @@ export default class Manifest {
    */
   @bind
   public async read() {
-    if (!this.config[`package.json`]) return this
-
-    this.data = await fs.readJson(
-      this.config.data[`package.json`].path,
-      `utf8`,
-    )
-    this.config.data[`package.json`].module = this.data
+    if (!this.config.data[`package.json`]) return this
+    this.data = this.config.data[`package.json`].module
 
     return this
   }

@@ -22,16 +22,18 @@ class Configuration {
    * @decorator `@bind`
    */
   @bind
-  public async run(description: any): Promise<void> {
+  public async run(description: any): Promise<unknown> {
     this.app
       .log(`processing configuration`, description.name)
       .info(description)
 
-    isFunction(description.module)
-      ? await description.module(this.app)
-      : await this.runStatic(description.module)
-
-    await this.app.api.processQueue()
+    if (description.dynamic) {
+      const callback = description.module?.default ?? description.module
+      this.app.log(callback)
+      return await callback(this.app)
+    } else {
+      return await this.processStaticConfiguration(description)
+    }
   }
 
   /**
@@ -41,11 +43,15 @@ class Configuration {
    * @decorator `@bind`
    */
   @bind
-  public async runStatic(config: Record<string, any>): Promise<void> {
-    this.app.info(`configuration is static`)
+  public async processStaticConfiguration(
+    description: Record<string, any>,
+  ): Promise<unknown> {
+    this.app.info(
+      `${description.name} is being processed as a static config`,
+    )
 
-    await Promise.all(
-      Object.entries(config).map(async ([key, value]) => {
+    return await Promise.all(
+      Object.entries(description.module).map(async ([key, value]) => {
         const request = this.app[key]
         if (isFunction(request)) await request(value)
       }),
@@ -54,33 +60,47 @@ class Configuration {
 }
 
 /**
- * Process dynamic configuration
- *
+ * Process configurations
  * @public
  */
 export const config = async (app: Bud) => {
   const configuration = new Configuration(app)
 
-  app
-    .log(`processing configurations`)
-    .info(Object.values(app.context.config))
+  const configs = Object.values(app.context.config).filter(({bud}) => bud)
+
+  app.log(`processing configurations`).info(configs)
+
+  const getConfigs = (reqType: string, reqLocal: boolean) =>
+    configs
+      .filter(({type}) => type === reqType)
+      .filter(({local}) => local === reqLocal)
 
   await Promise.all(
-    Object.values(app.context.config)
-      .filter(
-        ({condition, name}) =>
-          name.includes(`bud`) && condition === `base`,
-      )
-      .map(async description => await configuration.run(description)),
+    getConfigs(`base`, false).map(async description => {
+      await configuration.run(description)
+      await app.api.processQueue()
+    }),
   )
 
   await Promise.all(
-    Object.values(app.context.config)
-      .filter(
-        ({condition, name}) =>
-          name.includes(`bud`) && condition === app.mode,
-      )
-      .map(async description => await configuration.run(description)),
+    getConfigs(`base`, true).map(async description => {
+      await configuration.run(description)
+      await app.api.processQueue()
+    }),
+  )
+
+  await Promise.all(
+    getConfigs(app.mode, false).map(async description => {
+      await configuration.run(description)
+      await app.api.processQueue()
+    }),
+  )
+
+  await Promise.all(
+    getConfigs(app.mode, true).map(async description => {
+      await configuration.run(description)
+      await app.api.processQueue()
+    }),
   )
 
   try {
