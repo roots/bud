@@ -1,7 +1,7 @@
 /* eslint-disable n/no-process-exit */
 import {error} from 'console'
 
-import type {Bud} from './bud.js'
+import type {Bud} from './bud'
 
 /**
  * Registers a callback for all kinds of application shutdown events.

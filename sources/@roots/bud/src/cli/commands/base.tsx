@@ -1,4 +1,4 @@
-import type * as Config from '@roots/bud-framework/config'
+import type * as Options from '@roots/bud-framework/options'
 import {BaseContext, Command, Option} from 'clipanion'
 import {bind, once} from 'helpful-decorators'
 import {Box, render, Text} from 'ink'
@@ -22,7 +22,7 @@ export default abstract class BaseCommand extends Command {
    *
    * @public
    */
-  public context: Config.Context & BaseContext
+  public context: Options.Context & BaseContext
 
   /**
    * Application
@@ -42,7 +42,7 @@ export default abstract class BaseCommand extends Command {
    * @virtual
    * @public
    */
-  public get args(): Config.Context[`args`] {
+  public get args(): Options.Context[`args`] {
     return {}
   }
 

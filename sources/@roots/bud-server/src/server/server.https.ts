@@ -1,4 +1,4 @@
-import type {Server} from '@roots/bud-framework'
+import type {Server} from '@roots/bud-framework/services'
 import {bind} from 'helpful-decorators'
 import type {RequestListener} from 'http'
 import {createServer, Server as HttpsServer} from 'https'

@@ -1,27 +1,16 @@
 import {bind} from 'helpful-decorators'
 import {isFunction, isNull, isString, isUndefined} from 'lodash-es'
 
-import type {
-  Cache,
-  Compiler,
-  Config,
-  Dashboard,
-  Env,
-  Extensions,
-  Hooks,
-  Logger,
-  Project,
-  Server,
-  Services,
-} from './index.js'
 import {bootstrap, LIFECYCLE_EVENT_MAP} from './lifecycle/bootstrap.js'
 import {override} from './lifecycle/init.js'
+import type {Logger} from './logger'
 import type * as methods from './methods/index.js'
-import type {Module} from './module.js'
+import type {Module} from './module'
 import * as parsers from './parsers/index.js'
-import type {EventsStore} from './registry/index.js'
-import type {Service as Api} from './services/api/index.js'
-import type {Service as Build} from './services/build/index.js'
+import type {Service} from './service'
+import type * as Options from './types/options'
+import type * as Registry from './types/registry'
+import type * as Services from './types/services'
 
 /**
  * Framework abstract
@@ -34,7 +23,7 @@ export class Bud {
    *
    * @public
    */
-  public context: Config.Context
+  public context: Options.Context
 
   public implementation: Constructor
 
@@ -133,29 +122,29 @@ export class Bud {
 
   public services: Array<keyof Services.Registry> = []
 
-  public api: Api
+  public api: Services.Api.Service
 
-  public build: Build
+  public build: Services.Build.Service
 
-  public cache: Cache.Service
+  public cache: Services.Cache.Service
 
-  public compiler: Compiler.Service
+  public compiler: Services.Compiler.Service
 
-  public dashboard: Dashboard.Service
+  public dashboard: Services.Dashboard.Service
 
-  public env: Env.Service
+  public env: Services.Env.Service
 
-  public extensions: Extensions.Service
+  public extensions: Services.Extensions.Service
 
-  public hooks: Hooks.Service
+  public hooks: Services.Hooks.Service
 
-  public project: Project.Service
+  public project: Services.Project.Service
 
   public logger: Logger
 
   public module: Module
 
-  public server: Server.Service
+  public server: Services.Server.Service
 
   public maybeCall: methods.maybeCall
 
@@ -205,7 +194,7 @@ export class Bud {
    * @public
    */
   public async make(
-    request: Config.Overrides | string,
+    request: Options.Overrides | string,
     tap?: (app: Bud) => Promise<unknown>,
   ) {
     if (!this.isRoot)
@@ -213,7 +202,7 @@ export class Bud {
         `Child instances should be produced from the root context`,
       )
 
-    let context: Config.Context
+    let context: Options.Context
 
     if (isString(request))
       context = {
@@ -241,17 +230,21 @@ export class Bud {
   }
 
   @bind
-  public async lifecycle(context: Config.Context): Promise<Bud> {
+  public async lifecycle(context: Options.Context): Promise<Bud> {
     await bootstrap.bind(this)({...context})
 
     Object.entries(LIFECYCLE_EVENT_MAP).map(
-      ([eventHandle, callbackName]) =>
+      ([eventHandle, callbackName]: [
+        keyof Registry.EventsStore,
+        keyof Service,
+      ]) =>
         this.services
           .map(service => [service, this[service]])
           .map(([label, service]) => {
             if (!isFunction(service[callbackName])) return
+
             this.hooks.action(
-              eventHandle as keyof EventsStore,
+              eventHandle,
               service[callbackName].bind(service),
             )
             this.success(
@@ -268,7 +261,7 @@ export class Bud {
       `registered`,
       `boot`,
       `booted`,
-    ].reduce(async (promised, event: keyof EventsStore) => {
+    ].reduce(async (promised, event: keyof Registry.EventsStore) => {
       await promised
       await this.hooks
         .fire(event)

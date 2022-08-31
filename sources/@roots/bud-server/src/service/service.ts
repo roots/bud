@@ -1,6 +1,10 @@
-import type {Bud, Server as Base} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework/bud'
 import {Service} from '@roots/bud-framework/service'
-import type {Connection} from '@roots/bud-framework/services/server'
+import type {
+  Connection,
+  Middleware,
+  Service as BaseService,
+} from '@roots/bud-framework/services/server'
 import {bind, once} from 'helpful-decorators'
 
 import * as clientScripts from '../hooks/dev.client.scripts.js'
@@ -14,7 +18,7 @@ import {Watcher} from '../server/server.watcher.js'
  * Server service class
  * @public
  */
-export class Server extends Service implements Base.Service {
+export class Server extends Service implements BaseService {
   /**
    * Service label
    *
@@ -50,7 +54,7 @@ export class Server extends Service implements Base.Service {
    * Utilized middleware
    * @public
    */
-  public get enabledMiddleware(): Base.Service['enabledMiddleware'] {
+  public get enabledMiddleware(): BaseService['enabledMiddleware'] {
     return this.app.hooks.filter(`dev.middleware.enabled`).reduce(
       (enabled, key) => ({
         ...enabled,
@@ -65,7 +69,7 @@ export class Server extends Service implements Base.Service {
    * @public
    */
   public appliedMiddleware: Partial<
-    Record<keyof Base.Middleware.Available, any>
+    Record<keyof Middleware.Available, any>
   > = {}
 
   /**

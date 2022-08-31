@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import type {Context} from '@roots/bud-framework/src/config'
+import type {Context} from '@roots/bud-framework/options'
 import {globby} from 'globby'
 import {resolve} from 'import-meta-resolve'
 import {isString} from 'lodash-es'

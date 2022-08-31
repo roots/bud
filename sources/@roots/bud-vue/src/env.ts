@@ -1,4 +1,5 @@
-import type {Build, Extension} from '@roots/bud-framework'
+import type {Extension} from '@roots/bud-framework/extension'
+import type {Build} from '@roots/bud-framework/services'
 
 import type Vue from './extension.js'
 

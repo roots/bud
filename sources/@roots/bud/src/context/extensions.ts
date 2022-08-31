@@ -1,4 +1,4 @@
-import type {Context} from '@roots/bud-framework/config'
+import type {Context} from '@roots/bud-framework/options'
 import {bind} from 'helpful-decorators'
 
 export default class Extensions {

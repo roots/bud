@@ -1,5 +1,6 @@
-import type {Bud, Compiler as Contract} from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework/bud'
+import type {Compiler as Contract} from '@roots/bud-framework/services'
 import {bind} from 'helpful-decorators'
 import type {MultiCompiler, MultiStats, Stats, WebpackError} from 'webpack'
 

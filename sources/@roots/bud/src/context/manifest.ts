@@ -1,6 +1,6 @@
 import {bind} from 'helpful-decorators'
 
-import type Config from './config.js'
+import type Config from './config'
 
 /**
  * Context: project manifest

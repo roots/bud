@@ -1,4 +1,4 @@
-import type {Context} from '@roots/bud-framework/src/config/context.js'
+import type {Context} from '@roots/bud-framework/options/context'
 import figures from 'figures'
 import {Box, Text} from 'ink'
 import {relative} from 'node:path/posix'

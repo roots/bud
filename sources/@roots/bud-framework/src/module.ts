@@ -4,7 +4,7 @@ import {createRequire} from 'module'
 import {join, normalize, relative} from 'node:path'
 import {fileURLToPath, pathToFileURL} from 'url'
 
-import type {Bud} from './bud.js'
+import type {Bud} from './bud'
 
 /**
  * Module resolver

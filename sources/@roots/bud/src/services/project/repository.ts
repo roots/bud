@@ -1,5 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
-import type {Context} from '@roots/bud-framework/src/config'
+import type {Context} from '@roots/bud-framework/options'
 
 export interface ConfigItem {
   fileName: string

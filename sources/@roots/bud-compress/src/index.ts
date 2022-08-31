@@ -10,7 +10,7 @@
  * @packageDocumentation
  */
 
-import './env.js'
+import './types.js'
 
 import BudCompressionExtension from './extension.js'
 export default BudCompressionExtension

@@ -1,4 +1,4 @@
-import type {EntryObject} from '@roots/bud-api/methods/entry'
+import type {EntryObject} from '@roots/bud-framework/config'
 import {isArray, isNull, isString, isUndefined} from 'lodash-es'
 
 /**
@@ -33,11 +33,7 @@ export function add(
       assets.unshift(`react-refresh/runtime`)
     }
 
-    if (
-      assets?.import &&
-      isArray(assets?.import) &&
-      !assets.import.includes(`react-refresh/runtime`)
-    ) {
+    if (!assets.import.includes(`react-refresh/runtime`)) {
       assets.import.unshift(`react-refresh/runtime`)
     }
 
@@ -62,10 +58,7 @@ export function remove(
       return {...all, [name]: filterAssetsArray(assets)}
     }
 
-    new Set([`dependOn`, `import`]).forEach(key => {
-      if (!assets[key]) return
-      assets[key] = filterAssetsArray(assets[key])
-    })
+    assets.import = filterAssetsArray(assets.import)
 
     return {...all, [name]: assets}
   }, {})

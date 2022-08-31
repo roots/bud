@@ -1,9 +1,8 @@
 import {bind} from 'helpful-decorators'
 import {has, isBoolean, isFunction, isUndefined} from 'lodash-es'
-import type {Compiler} from 'webpack'
 
 import type {Bud} from '../bud.js'
-import type {Modules} from '../registry/index.js'
+import type {Modules} from '../types/registry/modules'
 import type {ApplyPluginConstructor} from './decorators/plugin.js'
 
 export type Options<T = any> = {
@@ -40,7 +39,7 @@ export interface ApplyPlugin {
    *
    * @public
    */
-  apply: (compiler: Compiler) => unknown
+  apply: (...args: any[]) => unknown
 }
 
 export interface Constructor {
@@ -272,8 +271,6 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
   public async _init() {
     if (isUndefined(this.init)) return
 
-    await this.app.hooks.fire(`${this.label}/init/before`)
-
     try {
       await this.init(this.app, this.options)
       this.meta[`_init`] = true
@@ -281,8 +278,6 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
       this.logger.error(error)
       this.app.error(`error in`, this.label)
     }
-
-    await this.app.hooks.fire(`${this.label}/init/after`)
   }
 
   /**
@@ -294,8 +289,6 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
   @bind
   public async _register() {
     if (isUndefined(this.register)) return
-
-    await this.app.hooks.fire(`${this.label}/register/before`)
 
     try {
       if (this.init && !this.meta[`_init`]) await this._init()
@@ -309,8 +302,6 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
       this.logger.error(`error on register`, `\n`, error)
       this.app.error(`error in`, this.label)
     }
-
-    await this.app.hooks.fire(`${this.label}/register/after`)
   }
 
   /**
@@ -322,8 +313,6 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
   @bind
   public async _boot() {
     if (isUndefined(this.boot)) return
-
-    await this.app.hooks.fire(`${this.label}/boot/before`)
 
     try {
       if (this.init && !this.meta[`_init`]) await this._init()
@@ -337,8 +326,6 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
     } catch (error) {
       this.app.error(this.label, `boot error`, `\n`, error)
     }
-
-    await this.app.hooks.fire(`${this.label}/boot/after`)
   }
 
   /**
@@ -350,10 +337,7 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
   public async _buildBefore() {
     const enabled = await this.isEnabled()
     if (isUndefined(this.buildBefore) || enabled === false) return
-
-    await this.app.hooks.fire(`${this.label}/buildBefore/before`)
     await this.buildBefore(this.app, this.options)
-    await this.app.hooks.fire(`${this.label}/buildBefore/after`)
   }
 
   /**
@@ -365,10 +349,7 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
   public async _buildAfter() {
     const enabled = await this.isEnabled()
     if (isUndefined(this.buildAfter) || enabled === false) return
-
-    await this.app.hooks.fire(`${this.label}/buildAfter/after`)
     await this.buildAfter(this.app, this.options)
-    await this.app.hooks.fire(`${this.label}/buildAfter/after`)
   }
 
   /**
@@ -380,10 +361,7 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
   public async _configAfter() {
     const enabled = await this.isEnabled()
     if (isUndefined(this.configAfter) || enabled === false) return
-
-    await this.app.hooks.fire(`${this.label}/configAfter/before`)
     await this.configAfter(this.app, this.options)
-    await this.app.hooks.fire(`${this.label}/configAfter/after`)
   }
 
   /**
@@ -411,25 +389,9 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
     }
 
     try {
-      await this.app.hooks.fire(`${this.label}/make/before`)
-    } catch (err) {
-      this.logger.error(`error on`, `${this.label}/make/before`, err)
-    }
-
-    try {
       if (this.plugin) return new this.plugin(this.options)
     } catch (err) {
       this.logger.error(`error instantiating plugin`, err)
-    }
-
-    try {
-      let value: ApplyPlugin
-      if (this.apply) value = this as {apply: any}
-      else value = await this.make(this.app, this.options)
-      await this.app.hooks.fire(`${this.label}/make/after`)
-      return value
-    } catch (error) {
-      this.app.error(this.label, `make error`, `\n`, error)
     }
   }
 

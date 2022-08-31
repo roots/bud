@@ -1,4 +1,5 @@
-import * as Framework from '@roots/bud-framework'
+import {ContainerService} from '@roots/bud-framework'
+import type {Service} from '@roots/bud-framework/services/project'
 import fs from 'fs-extra'
 import {bind} from 'helpful-decorators'
 import {omit} from 'lodash-es'
@@ -11,10 +12,7 @@ import type {repository} from './repository.js'
  *
  * @public
  */
-export default class Project
-  extends Framework.ContainerService
-  implements Framework.Project.Service
-{
+export default class Project extends ContainerService implements Service {
   /**
    * Service label
    *

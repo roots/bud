@@ -54,6 +54,7 @@ export default class Env {
     const getEnvFromPath = (path: string): Record<string, string> => {
       const env = dotenv.config({path})
       if (!env || !env?.parsed || env?.error) return {}
+
       return filterUndefined(env.parsed)
     }
 

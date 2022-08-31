@@ -1,5 +1,5 @@
-import type {Env as Base} from '@roots/bud-framework'
 import {ContainerService} from '@roots/bud-framework'
+import type {Env as Base} from '@roots/bud-framework/services'
 import {bind} from 'helpful-decorators'
 
 /**

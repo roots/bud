@@ -41,6 +41,7 @@
   "types": "./lib/index.d.ts",
   "exports": {
     ".": "./lib/index.js",
+    "./abstract/extensions": "./lib/abstract/extensions.js",
     "./bud": "./lib/bud.js",
     "./extension": "./lib/extension/index.js",
     "./extension/decorators": "./lib/extension/decorators/index.js",
@@ -57,11 +58,11 @@
       ".": [
         "./lib/index.d.ts"
       ],
+      "abstract/extensions": [
+        "./lib/abstract/extensions"
+      ],
       "bud": [
         "./lib/bud.d.ts"
-      ],
-      "config": [
-        "./lib/config/index.d.ts"
       ],
       "extension": [
         "./lib/extension/index.d.ts"
@@ -87,8 +88,32 @@
       "service": [
         "./lib/service.d.ts"
       ],
+      "options": [
+        "./lib/types/options/index.d.ts"
+      ],
+      "options/*": [
+        "./lib/types/options/*.d.ts",
+        "./lib/types/options/*/index.d.ts"
+      ],
+      "services": [
+        "./lib/types/services/index.d.ts"
+      ],
       "services/*": [
-        "./lib/services/*/index.d.ts"
+        "./lib/types/services/*.d.ts",
+        "./lib/types/services/*/index.d.ts"
+      ],
+      "registry": [
+        "./lib/types/registry/index.d.ts"
+      ],
+      "registry/*": [
+        "./lib/types/registry/*.d.ts",
+        "./lib/types/registry/*/index.d.ts"
+      ],
+      "config": [
+        "./lib/types/config/index.d.ts"
+      ],
+      "config/*": [
+        "./lib/types/config/*.d.ts"
       ]
     }
   },

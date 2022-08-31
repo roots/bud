@@ -27,10 +27,7 @@ export default class BudSWCRefresh extends Extension {
    */
   @bind
   public async init() {
-    this.app.hooks.action(
-      `@roots/bud-swc/buildBefore/after`,
-      this.registerTransform,
-    )
+    this.app.hooks.action(`build.before`, this.registerTransform)
   }
 
   /**

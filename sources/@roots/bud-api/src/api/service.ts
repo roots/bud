@@ -1,4 +1,5 @@
-import * as Framework from '@roots/bud-framework'
+import {ContainerService} from '@roots/bud-framework/service'
+import type * as Services from '@roots/bud-framework/services'
 import chalk from 'chalk'
 import {bind} from 'helpful-decorators'
 import {isEmpty, isFunction} from 'lodash-es'
@@ -15,10 +16,7 @@ import * as methods from '../methods/index.js'
  *
  * @public
  */
-export class Api
-  extends Framework.ContainerService
-  implements Framework.Api.Service
-{
+export class Api extends ContainerService implements Services.Api.Service {
   /**
    * Service label
    *

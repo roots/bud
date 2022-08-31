@@ -1,4 +1,4 @@
-import type {Context} from '@roots/bud-framework/config'
+import type {Context} from '@roots/bud-framework/options'
 
 import * as argv from './argv.js'
 

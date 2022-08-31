@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import type {Context as FrameworkContext} from '@roots/bud-framework/config'
+import type * as Options from '@roots/bud-framework/options'
 import type Conf from 'conf'
 import cache from 'conf'
 
@@ -10,16 +10,16 @@ import Env from './env.js'
 import Extensions from './extensions.js'
 import Services from './services.js'
 
-let contexts: Record<string, FrameworkContext> = {}
+let contexts: Record<string, Options.Context> = {}
 
 export default class Context {
-  public data: Conf<FrameworkContext>
+  public data: Conf<Options.Context>
 
   private constructor() {
-    this.data = new cache<FrameworkContext>()
+    this.data = new cache<Options.Context>()
   }
 
-  public static async make(basedir: string): Promise<FrameworkContext> {
+  public static async make(basedir: string): Promise<Options.Context> {
     if (contexts[basedir]) return contexts[basedir]
 
     const instance = new Context()

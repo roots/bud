@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
-import {Dashboard as Base, Service} from '@roots/bud-framework'
+import {Service} from '@roots/bud-framework/service'
+import type * as Services from '@roots/bud-framework/services'
 import {bind} from 'helpful-decorators'
 import type * as Ink from 'ink'
 import type {StatsCompilation} from 'webpack'
@@ -9,7 +10,10 @@ import type {StatsCompilation} from 'webpack'
  *
  * @public
  */
-export class Dashboard extends Service implements Base.Service {
+export class Dashboard
+  extends Service
+  implements Services.Dashboard.Service
+{
   /**
    * Service label
    *

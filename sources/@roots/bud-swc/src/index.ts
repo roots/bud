@@ -10,7 +10,7 @@
  * @packageDocumentation
  */
 
-import type {Build} from '@roots/bud-framework'
+import type {Build} from '@roots/bud-framework/services'
 
 import BudSWC from './extension.js'
 

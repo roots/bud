@@ -1,4 +1,4 @@
-import type {Config} from '@roots/bud-framework'
+import type {Options} from '@roots/bud-framework'
 
 import Bud from '../bud.js'
 import {basedir} from '../context/argv.js'
@@ -45,7 +45,7 @@ const get = async (dir?: string) => {
  * @public
  */
 export async function factory(
-  overrides?: Config.Overrides,
+  overrides?: Options.Overrides,
   skipCache = false,
   skipConfig = false,
 ): Promise<Bud> {

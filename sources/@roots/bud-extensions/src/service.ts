@@ -1,13 +1,11 @@
-import {
-  Extension,
-  Extensions as Contract,
-  Modules,
-  Service,
-} from '@roots/bud-framework'
+import {Extensions as ExtensionsAbstract} from '@roots/bud-framework/abstract/extensions'
 import type {
   ApplyPlugin,
   ExtensionLiteral,
-} from '@roots/bud-framework/src/extension'
+} from '@roots/bud-framework/extension'
+import {Extension} from '@roots/bud-framework/extension'
+import type {Modules} from '@roots/bud-framework/registry/modules'
+import type {Service as ExtensionsInterface} from '@roots/bud-framework/services/extensions'
 import {bind} from 'helpful-decorators'
 
 /**
@@ -16,8 +14,8 @@ import {bind} from 'helpful-decorators'
  * @public
  */
 export default class Extensions
-  extends Service
-  implements Contract.Service
+  extends ExtensionsAbstract
+  implements ExtensionsInterface
 {
   /**
    * Service label
@@ -27,24 +25,23 @@ export default class Extensions
   public static label = `extensions`
 
   /**
-   * Service store
+   * Registered extensions
    *
    * @public
    */
   public repository: Modules = {}
 
   /**
--   * Modules on which an import
--   * attempt was made and failed
+-   * Modules on which an import attempt was made and failed
 -   *
 -   * @remarks
 -   * This doesn't mean an error, per se. This should only
--   * be used in the text of trying to import `optionalDependencies`
+-   * be used in the context of trying to import `optionalDependencies`
 -   * of a given extension module.
 -   *
 -   * @public
 -   */
-  public unresolvable = new Set()
+  public unresolvable: Set<string> = new Set()
 
   /**
    * `booted` callback
@@ -264,6 +261,41 @@ export default class Extensions
   }
 
   /**
+   * Add a {@link Extension} to the extensions repository
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async add(
+    input:
+      | (new (...args: any[]) => Extension)
+      | ExtensionLiteral
+      | Array<(new (...args: any[]) => Extension) | ExtensionLiteral>,
+  ): Promise<void> {
+    const arrayed = Array.isArray(input) ? input : [input]
+
+    await arrayed.reduce(async (promised, extensionObject) => {
+      await promised
+
+      try {
+        const extension = this.instantiate(extensionObject)
+        if (!extension || (extension.label && this.has(extension.label)))
+          return
+
+        this.set(extension)
+
+        await this.run(extension, `_init`)
+        await this.run(extension, `_register`)
+        await this.run(extension, `_boot`)
+      } catch (err) {
+        this.app.error(err)
+        return Promise.reject()
+      }
+    }, Promise.resolve())
+  }
+
+  /**
    * Run an extension lifecycle method
    *
    * @remarks
@@ -304,6 +336,32 @@ export default class Extensions
     } catch (err) {
       this.app.error(err)
     }
+  }
+
+  /**
+   * Execute a extension lifecycle method on all registered extensions
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async runAll(
+    methodName:
+      | '_init'
+      | '_register'
+      | '_boot'
+      | '_configAfter'
+      | '_buildBefore'
+      | '_buildAfter'
+      | '_make',
+  ): Promise<any> {
+    return await Object.values(this.repository).reduce(
+      async (promised, extension) => {
+        await promised
+        await this.run(extension, methodName)
+      },
+      Promise.resolve(),
+    )
   }
 
   /**
@@ -357,78 +415,17 @@ export default class Extensions
       extension.dependsOnOptional.size > 0
     ) {
       await Array.from(extension.dependsOnOptional).reduce(
-        async (promised, dependency) => {
+        async (promised, signifier) => {
           await promised
 
           try {
-            if (!this.has(dependency)) await this.import(dependency)
-            await this.run(this.get(dependency), methodName)
+            if (!this.has(signifier)) await this.import(signifier)
+            await this.run(this.get(signifier), methodName)
           } catch (error) {}
         },
         Promise.resolve(),
       )
     }
-  }
-
-  /**
-   * Execute a extension lifecycle method on all registered extensions
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async runAll(
-    methodName:
-      | '_init'
-      | '_register'
-      | '_boot'
-      | '_configAfter'
-      | '_buildBefore'
-      | '_buildAfter'
-      | '_make',
-  ): Promise<any> {
-    return await Object.values(this.repository).reduce(
-      async (promised, extension) => {
-        await promised
-        await this.run(extension, methodName)
-      },
-      Promise.resolve(),
-    )
-  }
-
-  /**
-   * Add a {@link Extension} to the extensions repository
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async add(
-    input:
-      | (new (...args: any[]) => Extension)
-      | ExtensionLiteral
-      | Array<(new (...args: any[]) => Extension) | ExtensionLiteral>,
-  ): Promise<void> {
-    const arrayed = Array.isArray(input) ? input : [input]
-
-    await arrayed.reduce(async (promised, extensionObject) => {
-      await promised
-
-      try {
-        const extension = this.instantiate(extensionObject)
-        if (!extension || (extension.label && this.has(extension.label)))
-          return
-
-        this.set(extension)
-
-        await this.run(extension, `_init`)
-        await this.run(extension, `_register`)
-        await this.run(extension, `_boot`)
-      } catch (err) {
-        this.app.error(err)
-        return Promise.reject()
-      }
-    }, Promise.resolve())
   }
 
   /**
