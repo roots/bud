@@ -11,15 +11,14 @@
  * @packageDocumentation
  */
 
-import {Extension} from '@roots/bud-framework'
-import {MergedManifestWebpackPlugin} from '@roots/merged-manifest-webpack-plugin'
+import {Extension} from '@roots/bud-framework/extension'
+import {label} from '@roots/bud-framework/extension/decorators/label'
+import {plugin} from '@roots/bud-framework/extension/decorators/plugin'
+import MergedManifestWebpackPlugin from '@roots/merged-manifest-webpack-plugin'
 
+@label(`@roots/bud-wordpress-manifests`)
+@plugin(MergedManifestWebpackPlugin)
 export default class BudMergedManifestAdapter extends Extension<
-  {},
+  null,
   MergedManifestWebpackPlugin
-> {
-  public label = `@roots/bud-wordpress-manifests`
-  public async make() {
-    return new MergedManifestWebpackPlugin()
-  }
-}
+> {}

@@ -13,6 +13,7 @@ import {initialize} from './init.js'
 export const lifecycleHookHandles: Partial<
   Array<keyof Registry.EventsStore & keyof Registry.EventsStore>
 > = [
+  `init`,
   `bootstrap`,
   `bootstrapped`,
   `register`,
@@ -27,6 +28,7 @@ export const lifecycleHookHandles: Partial<
 ]
 
 export const lifecycleMethods: Partial<Array<keyof Service>> = [
+  `init`,
   `bootstrap`,
   `bootstrapped`,
   `register`,
@@ -65,6 +67,7 @@ export const DEVELOPMENT_SERVICES: Array<string> = [`@roots/bud-server`]
 export const LIFECYCLE_EVENT_MAP: Partial<
   Record<keyof Registry.EventsStore, keyof Service>
 > = {
+  init: `init`,
   bootstrap: `bootstrap`,
   bootstrapped: `bootstrapped`,
   register: `register`,
@@ -146,8 +149,7 @@ export const bootstrap = async function (
 ) {
   this.context = {...context}
 
-  /* copy context object */
-  if (!this.context.label) throw new Error(`options.label is required`)
+  if (!context.label) throw new Error(`options.label is required`)
 
   /* root specific */
   if (!(context.root instanceof Bud)) {

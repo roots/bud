@@ -1,11 +1,11 @@
-import type {ContainerService} from '../../service'
+import type {Service as Base} from '../../service'
 
 /**
  * API service
  *
  * @public
  */
-export interface Service extends ContainerService {
+export interface Service extends Base {
   /**
    * @internal
    */
@@ -19,10 +19,7 @@ export interface Service extends ContainerService {
   /**
    * @internal
    */
-  call<K extends keyof Service['repository']>(
-    name: K,
-    ...args: any
-  ): Promise<void>
+  call(name: string, ...args: any): Promise<void>
 
   /**
    * @internal
@@ -32,8 +29,5 @@ export interface Service extends ContainerService {
   /**
    * @internal
    */
-  bindFacade<K extends `${keyof Service['repository'] & string}`>(
-    key: K,
-    fn: Service['repository'][K],
-  ): void
+  bindFacade(key: string, fn: CallableFunction): void
 }

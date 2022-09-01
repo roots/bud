@@ -78,6 +78,5 @@ export class BudTSCheckCommand extends BaseCommand {
     }
 
     this.context.stdout.write(chalk.green(`typecheck complete\n`))
-    this.app.close()
   }
 }

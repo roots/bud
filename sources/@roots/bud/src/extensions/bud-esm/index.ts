@@ -27,8 +27,8 @@ export default class Esm extends Extension {
       .on(`build.experiments.outputModule`, true)
       .hooks.on(`build.output.module`, true)
 
-    this.app.project.has(`manifest.imports`) &&
-      this.app.externals(this.app.project.get(`manifest.imports`))
+    this.app.context.manifest[`imports`] &&
+      this.app.externals(this.app.context.manifest[`imports`])
   }
 
   /**

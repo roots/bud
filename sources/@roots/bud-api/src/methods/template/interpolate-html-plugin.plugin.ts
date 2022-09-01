@@ -1,5 +1,5 @@
 import {bind} from 'helpful-decorators'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
+import type HtmlWebpackPlugin from 'html-webpack-plugin'
 import type {Compilation, Compiler} from 'webpack'
 
 /**
@@ -7,17 +7,19 @@ import type {Compilation, Compiler} from 'webpack'
  *
  * @public
  */
-export class InterpolateHtmlPlugin {
+export default class InterpolateHtmlPlugin {
+  public name = `interpolate-html-plugin`
+
   /**
    * Class constructor
    *
-   * @param htmlWebpackPlugin - {@link HtmlWebpackPlugin}
+   * @param getHooks - {@link HtmlWebpackPlugin.getHooks}
    * @param replacements - {@link Record} of regular expressions
    *
    * @public
    */
   public constructor(
-    public htmlWebpackPlugin: HtmlWebpackPlugin,
+    public getHooks: (compilation: Compilation) => HtmlWebpackPlugin.Hooks,
     public replacements: Record<string, RegExp>,
   ) {}
 
@@ -29,32 +31,20 @@ export class InterpolateHtmlPlugin {
    */
   @bind
   public apply(compiler: Compiler): void {
-    compiler.hooks.compilation.tap(
-      `InterpolateHtmlPlugin`,
-      this.modifyHtmlWebpackPluginOptions,
-    )
-  }
+    compiler.hooks.compilation.tap(`InterpolateHtmlPlugin`, compilation =>
+      this.getHooks(compilation).afterTemplateExecution.tap(
+        `interpolate-html-plugin`,
+        (data: any) => {
+          Object.entries(this.replacements).forEach(([key, value]) => {
+            data.html = data.html.replaceAll(
+              new RegExp(`%${key}%`, `g`),
+              value,
+            )
+          })
 
-  /**
-   * @param compilation - {@link Compilation}
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public modifyHtmlWebpackPluginOptions(compilation: Compilation): void {
-    HtmlWebpackPlugin.getHooks(compilation).afterTemplateExecution.tap(
-      `InterpolateHtmlPlugin`,
-      (data: any) => {
-        Object.entries(this.replacements).forEach(([key, value]) => {
-          data.html = data.html.replaceAll(
-            new RegExp(`%${key}%`, `g`),
-            value,
-          )
-        })
-
-        return data
-      },
+          return data
+        },
+      ),
     )
   }
 }

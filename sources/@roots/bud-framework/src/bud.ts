@@ -255,6 +255,7 @@ export class Bud {
     )
 
     await [
+      `init`,
       `bootstrap`,
       `bootstrapped`,
       `register`,

@@ -379,17 +379,39 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
       isUndefined(this.apply) &&
       isUndefined(this.plugin)
     ) {
+      this.logger.info(`no make, apply or plugin prop found. skipping.`)
       return false
     }
 
     const enabled = await this.isEnabled()
     if (enabled === false) {
-      this.logger.info(`${this.label} is disabled`)
+      this.logger.info(`${this.label} is disabled. skipping.`)
       return false
     }
 
     try {
-      if (this.plugin) return new this.plugin(this.options)
+      if (this.plugin) {
+        this.logger.info(`plugin prop found. instantiating and returning.`)
+        return new this.plugin(this.options)
+      }
+    } catch (err) {
+      this.logger.error(`error instantiating plugin`, err)
+    }
+
+    try {
+      if (this.apply) {
+        this.logger.info(`apply prop found. return extension instance`)
+        return this
+      }
+    } catch (err) {
+      this.logger.error(`error instantiating plugin`, err)
+    }
+
+    try {
+      if (this.make) {
+        this.logger.info(`make prop found. invoking and returning.`)
+        return await this.make(this.app, this.options)
+      }
     } catch (err) {
       this.logger.error(`error instantiating plugin`, err)
     }

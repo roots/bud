@@ -2,19 +2,19 @@ import {Box, Text} from 'ink'
 import React from 'react'
 
 import Title from '../display/title.component.js'
+import {color} from '../format.js'
 import Asset from './asset.component.js'
 
 const ChunkGroup = ({
   indent,
-  color,
   final,
   minWidth,
   ...chunk
 }: {
   name?: string
+  assetsSize?: number
   assets?: Array<any>
   indent: Array<boolean>
-  color: string
   final: boolean
   minWidth?: number
   emitted?: boolean
@@ -24,7 +24,11 @@ const ChunkGroup = ({
     <Box flexDirection="column">
       <Box flexDirection="row">
         <Title indent={indent} final={final}>
-          {chunk?.name && <Text color={color}>{chunk.name}</Text>}
+          {chunk.name ? (
+            <Text color={color.foregroundColor}>{chunk.name}</Text>
+          ) : (
+            <Text color={color.foregroundColor}>unnamed chunk</Text>
+          )}
         </Title>
       </Box>
 
@@ -32,7 +36,6 @@ const ChunkGroup = ({
         <Asset
           key={index}
           {...asset}
-          emitted={chunk.emitted}
           minWidth={minWidth}
           final={index == chunk.assets?.length - 1}
           indent={[true, !final]}

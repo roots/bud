@@ -1,5 +1,7 @@
-import {ContainerService} from '@roots/bud-framework/service'
+import type {Bud} from '@roots/bud-framework'
+import {Service as BaseService} from '@roots/bud-framework/service'
 import type * as Services from '@roots/bud-framework/services'
+import Container from '@roots/container'
 import chalk from 'chalk'
 import {bind} from 'helpful-decorators'
 import {isEmpty, isFunction} from 'lodash-es'
@@ -16,7 +18,7 @@ import * as methods from '../methods/index.js'
  *
  * @public
  */
-export class Api extends ContainerService implements Services.Api.Service {
+export class Api extends BaseService implements Services.Api.Service {
   /**
    * Service label
    *
@@ -37,6 +39,23 @@ export class Api extends ContainerService implements Services.Api.Service {
    * @public
    */
   public trace: Array<[string, ...any[]]> = []
+
+  public data: Container
+  public has: Container['has']
+  public get: Container['get']
+  public set: Container['set']
+  public isFunction: Container['isFunction']
+  public isString: Container['isString']
+
+  public constructor(app: Bud) {
+    super(app)
+    this.data = new Container()
+    this.has = this.data.has
+    this.get = this.data.get
+    this.set = this.data.set
+    this.isFunction = this.data.isFunction
+    this.isString = this.data.isString
+  }
 
   /**
    * `bootstrap` callback
@@ -69,10 +88,7 @@ export class Api extends ContainerService implements Services.Api.Service {
    * @decorator `@bind`
    */
   @bind
-  public bindFacade<K extends keyof Api['repository']>(
-    name: K & string,
-    fn: Api['repository'][K],
-  ) {
+  public bindFacade(name: string, fn: CallableFunction) {
     // check if the callable exists
     if (!isFunction(fn)) {
       this.app.fatal(`bud.api.bindFacade error: ${name} is not a function`)

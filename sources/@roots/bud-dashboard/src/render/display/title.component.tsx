@@ -18,7 +18,6 @@ const Title = ({
         {indent.map(indent => (indent ? `${VERT} ` : `  `))}
         {final ? `└─ ` : `├─ `}
       </Text>
-
       {children}
     </Box>
   )

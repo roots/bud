@@ -18,28 +18,21 @@ let data: Options = {
  * @public
  */
 const set = (overrides: Options) => {
-  data = {
-    ...data,
-    ...overrides,
-  }
+  data = {...data, ...overrides}
 }
 
 /**
  * Get client option
  * @public
  */
-const get = (key?: string) => {
-  return key ? data[key] : data
-}
+const get = (key?: string) => (key ? data[key] : data)
 
 /**
  * Set client options based on URL parameters
  */
 const setFromParameters = (query: string): void =>
   new window.URLSearchParams(query).forEach((value, key) => {
-    const normalized =
-      value === `true` ? true : value === `false` ? false : value
-    data[key] = normalized
+    data[key] = value === `true` ? true : value === `false` ? false : value
   })
 
 export {data, get, setFromParameters, set}

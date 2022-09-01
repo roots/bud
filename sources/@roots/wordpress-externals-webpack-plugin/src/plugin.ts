@@ -7,7 +7,7 @@ import {externals} from './externals.js'
  *
  * @public
  */
-export class WordPressExternals {
+export default class WordPressExternals {
   /**
    * Plugin name
    *

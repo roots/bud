@@ -1,6 +1,19 @@
 import type {Context} from '@roots/bud-framework/options'
 import {bind} from 'helpful-decorators'
 
+const CORE_MODULES = [
+  `@roots/bud-api`,
+  `@roots/bud-build`,
+  `@roots/bud-cache`,
+  `@roots/bud-client`,
+  `@roots/bud-compiler`,
+  `@roots/bud-dashboard`,
+  `@roots/bud-extensions`,
+  `@roots/bud-framework`,
+  `@roots/bud-hooks`,
+  `@roots/bud-server`,
+]
+
 export default class Extensions {
   public data: Array<string> = [
     `@roots/bud-terser/extension`,
@@ -32,18 +45,7 @@ export default class Extensions {
       )
       .filter(
         signifier =>
-          ![
-            `@roots/bud-api`,
-            `@roots/bud-build`,
-            `@roots/bud-cache`,
-            `@roots/bud-client`,
-            `@roots/bud-compiler`,
-            `@roots/bud-dashboard`,
-            `@roots/bud-extensions`,
-            `@roots/bud-framework`,
-            `@roots/bud-hooks`,
-            `@roots/bud-server`,
-          ].includes(signifier),
+          !CORE_MODULES.some(coreSignifier => signifier === coreSignifier),
       )
       .filter(
         signifier =>

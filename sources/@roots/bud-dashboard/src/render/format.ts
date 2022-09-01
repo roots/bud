@@ -26,7 +26,7 @@ export const longestAssetNameLength = (chunks: StatsChunkGroup) =>
     return Math.max(asset.name?.length, longest)
   }, 0) + 1
 
-export const size = sizeFormatter()
+export const size: (int: number) => string = sizeFormatter()
 
 export const colorFromStats = (stats: StatsCompilation) =>
   stats?.errorsCount > 0

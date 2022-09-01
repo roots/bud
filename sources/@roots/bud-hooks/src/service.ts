@@ -286,10 +286,10 @@ export default class Hooks extends Service implements HooksInterface {
     const length = value.length
 
     await value
-      .reduce(async (promise, action) => {
+      .reduce(async (promise, action, iteration) => {
         await promise
         try {
-          this.app.info(`calling`, id, action)
+          this.app.info(`calling`, id, `[${iteration + 1}/${length}]`)
           await action(this.app)
         } catch (error) {
           this.app.error(error)

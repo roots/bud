@@ -1,7 +1,7 @@
 import type {Bud} from '../../bud'
 
 export interface Events {
-  'app.close': (app?: Bud) => any
+  init: (app?: Bud) => Promise<unknown>
   bootstrap: (app?: Bud) => Promise<unknown>
   bootstrapped: (app?: Bud) => Promise<unknown>
   register: (app?: Bud) => Promise<unknown>

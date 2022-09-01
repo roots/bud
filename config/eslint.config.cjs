@@ -49,6 +49,7 @@ module.exports = {
     `tests/util/**/*`,
     `**/dist`,
     `storage/**/*`,
+    `**/*.html`,
   ],
   rules: {
     [`@typescript-eslint/explicit-member-accessibility`]: ERROR,

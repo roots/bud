@@ -78,33 +78,31 @@ export const config = async (app: Bud) => {
   await Promise.all(
     getConfigs(`base`, false).map(async description => {
       await configuration.run(description)
-      await app.api.processQueue()
     }),
-  )
+  ).then(async () => await app.api.processQueue())
 
   await Promise.all(
     getConfigs(`base`, true).map(async description => {
       await configuration.run(description)
-      await app.api.processQueue()
     }),
-  )
+  ).then(async () => await app.api.processQueue())
 
   await Promise.all(
     getConfigs(app.mode, false).map(async description => {
       await configuration.run(description)
-      await app.api.processQueue()
     }),
-  )
+  ).then(async () => await app.api.processQueue())
 
   await Promise.all(
     getConfigs(app.mode, true).map(async description => {
       await configuration.run(description)
-      await app.api.processQueue()
     }),
-  )
+  ).then(async () => await app.api.processQueue())
 
   try {
-    await app.hooks.fire(`config.after`)
+    await app.hooks
+      .fire(`config.after`)
+      .then(async () => await app.api.processQueue())
   } catch (err) {
     app.error(err)
   }

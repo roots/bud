@@ -254,7 +254,7 @@ export default class Cdn extends Extension<Options, null> {
   @bind
   public async register() {
     for (const cdnKey of this.sources.keys()) {
-      if (this.app.project.has(`manifest.${cdnKey}`)) this.enable()
+      this.app.context.manifest.bud?.[cdnKey] && this.enable()
     }
   }
 
@@ -293,8 +293,9 @@ export default class Cdn extends Extension<Options, null> {
           ),
       })
 
-      if (this.app.project.has(`manifest.${cdn.ident}`)) {
-        const manifest = this.app.project.get(`manifest.${cdn.ident}`)
+      if (!isUndefined(this.app.context.manifest.bud[cdn.ident])) {
+        const manifest = this.app.context.manifest.bud[cdn.ident]
+
         const imports = Array.isArray(manifest)
           ? manifest.map(signifier => [signifier, signifier])
           : Object.entries(manifest).map(([base, params]) => [

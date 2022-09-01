@@ -1,5 +1,5 @@
 import {describe, expect, it, jest} from '@jest/globals'
-import type {Bud} from '@roots/bud'
+import type Bud from '@roots/bud'
 
 import {Api} from './service'
 
