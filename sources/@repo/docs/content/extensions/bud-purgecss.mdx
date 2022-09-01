@@ -19,8 +19,10 @@ By default, bud does not purge any styles on its own. [PurgeCSS](https://purgecs
 ## Configuration
 
 ```ts title="bud.config.js"
+import purgeCssWordPress from `purgecss-with-wordpress`
+
 app.purgecss({
-  content: [app.path('resources/views/**')],
-  safelist: [...require('purgecss-with-wordpress').safelist],
+  content: [app.path(`resources/views/**`)],
+  safelist: [...purgeCssWordPress.safelist],
 })
 ```
