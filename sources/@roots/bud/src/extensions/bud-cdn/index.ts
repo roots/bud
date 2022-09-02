@@ -293,34 +293,33 @@ export default class Cdn extends Extension<Options, null> {
           ),
       })
 
-      if (!isUndefined(this.app.context.manifest.bud[cdn.ident])) {
-        const manifest = this.app.context.manifest.bud[cdn.ident]
+      if (isUndefined(this.app.context.manifest?.bud?.[cdn.ident])) return
 
-        const imports = Array.isArray(manifest)
-          ? manifest.map(signifier => [signifier, signifier])
-          : Object.entries(manifest).map(([base, params]) => [
-              base,
-              `${base}@${params}`,
-            ])
+      const manifest = this.app.context.manifest.bud[cdn.ident]
+      const imports = Array.isArray(manifest)
+        ? manifest.map(signifier => [signifier, signifier])
+        : Object.entries(manifest).map(([base, params]) => [
+            base,
+            `${base}@${params}`,
+          ])
 
-        await Promise.all(
-          imports.map(async ([signifier, remotePath]) => {
-            await this.app.extensions.add({
-              label: `bud-cdn-${cdn.ident}-${remotePath}`,
-              make: async () =>
-                new Webpack.NormalModuleReplacementPlugin(
-                  new RegExp(`^${signifier}`),
-                  result => {
-                    result.request = result.request.replace(
-                      signifier,
-                      [cdn.url, remotePath].join(``),
-                    )
-                  },
-                ),
-            })
-          }),
-        )
-      }
+      await Promise.all(
+        imports.map(async ([signifier, remotePath]) => {
+          await this.app.extensions.add({
+            label: `bud-cdn-${cdn.ident}-${remotePath}`,
+            make: async () =>
+              new Webpack.NormalModuleReplacementPlugin(
+                new RegExp(`^${signifier}`),
+                result => {
+                  result.request = result.request.replace(
+                    signifier,
+                    [cdn.url, remotePath].join(``),
+                  )
+                },
+              ),
+          })
+        }),
+      )
     }
   }
 }
