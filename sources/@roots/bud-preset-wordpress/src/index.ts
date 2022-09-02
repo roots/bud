@@ -10,13 +10,6 @@
  * @packageDocumentation
  */
 
-import '@roots/bud-api'
-import '@roots/bud-preset-recommend'
-import '@roots/bud-react'
-import '@roots/bud-wordpress-dependencies'
-import '@roots/bud-wordpress-externals'
-import '@roots/bud-wordpress-manifests'
-
 import BudPresetWordPress from './extension.js'
 
 declare module '@roots/bud-framework' {

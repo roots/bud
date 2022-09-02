@@ -1,9 +1,8 @@
 import {bind} from 'helpful-decorators'
 import {has, isBoolean, isFunction, isUndefined} from 'lodash-es'
-import type {Compiler} from 'webpack'
 
 import type {Bud} from '../bud.js'
-import type {Modules} from '../registry/index.js'
+import type {Modules} from '../types/registry/modules'
 import type {ApplyPluginConstructor} from './decorators/plugin.js'
 
 export type Options<T = any> = {
@@ -40,7 +39,7 @@ export interface ApplyPlugin {
    *
    * @public
    */
-  apply: (compiler: Compiler) => unknown
+  apply: (...args: any[]) => unknown
 }
 
 export interface Constructor {
@@ -236,20 +235,18 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
    *
    * @public
    */
-  public constructor(_app: Bud) {
-    this._app = () => _app
+  public constructor(app: Bud) {
+    this._app = () => app
 
     Object.defineProperty(this, `app`, {
       get: (): Bud => this._app(),
     })
     Object.defineProperty(this, `logger`, {
       get: () =>
-        _app.logger
-          .makeInstance()
-          .scope(
-            ...this.app.logger.scope,
-            this.label ?? `anonymous extension`,
-          ),
+        app.logger.instance.scope(
+          ...this.app.logger.scope,
+          this.label ?? `anonymous extension`,
+        ),
     })
 
     const opts = this.options ?? {}
@@ -272,17 +269,13 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
   public async _init() {
     if (isUndefined(this.init)) return
 
-    await this.app.hooks.fire(`${this.label}/init/before`)
-
     try {
       await this.init(this.app, this.options)
       this.meta[`_init`] = true
     } catch (error) {
       this.logger.error(error)
-      this.app.error(`error in`, this.label)
+      this.app.fatal(`error in ${this.label}`)
     }
-
-    await this.app.hooks.fire(`${this.label}/init/after`)
   }
 
   /**
@@ -294,8 +287,6 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
   @bind
   public async _register() {
     if (isUndefined(this.register)) return
-
-    await this.app.hooks.fire(`${this.label}/register/before`)
 
     try {
       if (this.init && !this.meta[`_init`]) await this._init()
@@ -309,8 +300,6 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
       this.logger.error(`error on register`, `\n`, error)
       this.app.error(`error in`, this.label)
     }
-
-    await this.app.hooks.fire(`${this.label}/register/after`)
   }
 
   /**
@@ -322,8 +311,6 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
   @bind
   public async _boot() {
     if (isUndefined(this.boot)) return
-
-    await this.app.hooks.fire(`${this.label}/boot/before`)
 
     try {
       if (this.init && !this.meta[`_init`]) await this._init()
@@ -337,8 +324,6 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
     } catch (error) {
       this.app.error(this.label, `boot error`, `\n`, error)
     }
-
-    await this.app.hooks.fire(`${this.label}/boot/after`)
   }
 
   /**
@@ -350,10 +335,7 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
   public async _buildBefore() {
     const enabled = await this.isEnabled()
     if (isUndefined(this.buildBefore) || enabled === false) return
-
-    await this.app.hooks.fire(`${this.label}/buildBefore/before`)
     await this.buildBefore(this.app, this.options)
-    await this.app.hooks.fire(`${this.label}/buildBefore/after`)
   }
 
   /**
@@ -365,10 +347,7 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
   public async _buildAfter() {
     const enabled = await this.isEnabled()
     if (isUndefined(this.buildAfter) || enabled === false) return
-
-    await this.app.hooks.fire(`${this.label}/buildAfter/after`)
     await this.buildAfter(this.app, this.options)
-    await this.app.hooks.fire(`${this.label}/buildAfter/after`)
   }
 
   /**
@@ -380,10 +359,7 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
   public async _configAfter() {
     const enabled = await this.isEnabled()
     if (isUndefined(this.configAfter) || enabled === false) return
-
-    await this.app.hooks.fire(`${this.label}/configAfter/before`)
     await this.configAfter(this.app, this.options)
-    await this.app.hooks.fire(`${this.label}/configAfter/after`)
   }
 
   /**
@@ -401,35 +377,37 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
       isUndefined(this.apply) &&
       isUndefined(this.plugin)
     ) {
+      this.logger.info(`no make, apply or plugin prop found. skipping.`)
       return false
     }
 
     const enabled = await this.isEnabled()
     if (enabled === false) {
-      this.logger.info(`${this.label} is disabled`)
+      this.logger.info(`${this.label} is disabled. skipping.`)
       return false
     }
 
-    try {
-      await this.app.hooks.fire(`${this.label}/make/before`)
-    } catch (err) {
-      this.logger.error(`error on`, `${this.label}/make/before`, err)
+    if (this.apply) {
+      this.logger.info(`apply prop found. return extension instance`)
+      return this
     }
 
     try {
-      if (this.plugin) return new this.plugin(this.options)
+      if (this.plugin) {
+        this.logger.info(`plugin prop found. instantiating and returning.`)
+        return new this.plugin(this.options)
+      }
     } catch (err) {
       this.logger.error(`error instantiating plugin`, err)
     }
 
     try {
-      let value: ApplyPlugin
-      if (this.apply) value = this as {apply: any}
-      else value = await this.make(this.app, this.options)
-      await this.app.hooks.fire(`${this.label}/make/after`)
-      return value
-    } catch (error) {
-      this.app.error(this.label, `make error`, `\n`, error)
+      if (this.make) {
+        this.logger.info(`make prop found. invoking and returning.`)
+        return await this.make(this.app, this.options)
+      }
+    } catch (err) {
+      this.logger.error(`error calling make`, err)
     }
   }
 
@@ -584,27 +562,19 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
   @bind
   public async resolve(
     signifier: string,
-    parent?: string,
+    context?: string,
   ): Promise<string> {
     let modulePath: string
 
     modulePath = await this.app.module.resolve(signifier)
 
     if (!modulePath) {
-      modulePath = await this.app.module.resolve(signifier, parent)
+      modulePath = await this.app.module.resolve(signifier, context)
     }
     if (!modulePath) {
-      this.app.error(this.label, `unresolvable:`, signifier)
+      this.logger.error(`unresolvable:`, signifier)
+      this.app.fatal(`unresolvable: ${signifier}`)
     }
-
-    this.logger.log(
-      `resolved`,
-      signifier,
-      `=>`,
-      modulePath
-        ?.replace(this.app.path(), `.`)
-        .replace(/(.*)\/node_modules\/(.*)/, `$2`),
-    )
 
     return modulePath
   }
@@ -618,11 +588,20 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
   @bind
   public async import<T = any>(signifier: string): Promise<T> {
     try {
-      const result = await import(signifier)
+      const path = await this.resolve(signifier)
+
+      if (!path) {
+        this.logger.error(`could not import`, signifier)
+        return
+      }
+
+      const result = await import(path)
+
       this.logger.success(`imported`, signifier)
       return result?.default ?? result ?? null
     } catch (error) {
-      throw new Error(error)
+      this.logger.error(`error importing`, signifier)
+      this.app.fatal(error)
     }
   }
 

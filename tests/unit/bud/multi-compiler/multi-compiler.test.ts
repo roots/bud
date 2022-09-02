@@ -1,6 +1,5 @@
 import {paths} from '@repo/constants'
-import {factory} from '@repo/test-kit/bud'
-import {Bud} from '@roots/bud'
+import {Bud, factory} from '@repo/test-kit/bud'
 import {join} from 'path'
 
 describe(`multi-compiler`, () => {

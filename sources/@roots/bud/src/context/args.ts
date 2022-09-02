@@ -1,4 +1,4 @@
-import type {Context} from '@roots/bud-framework/config'
+import type {Context} from '@roots/bud-framework/options'
 
 import * as argv from './argv.js'
 
@@ -14,8 +14,6 @@ export default class Args {
     cache: undefined,
     ci: undefined,
     clean: undefined,
-    contextCache: !argv.noContextCache,
-    clearContextCache: argv.clearContextCache,
     debug: undefined,
     devtool: undefined,
     dry: undefined,

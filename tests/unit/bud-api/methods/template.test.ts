@@ -44,11 +44,6 @@ describe(`bud.template`, function () {
     it(`adds interpolate-html-plugint`, () => {
       expect(bud.extensions.has(`interpolate-html-plugin`)).toBe(true)
     })
-
-    it(`enables html feature flag`, async () => {
-      await bud.api.call(`template`)
-      expect(bud.hooks.filter(`feature.html`)).toEqual(true)
-    })
   })
 
   describe(`called with options`, () => {
@@ -59,8 +54,10 @@ describe(`bud.template`, function () {
     })
 
     it(`can be disabled`, async () => {
+      await bud.api.call(`template`)
+      expect(bud.extensions.has(`html-webpack-plugin`)).toBe(true)
       await bud.api.call(`template`, false)
-      expect(bud.hooks.filter(`feature.html`)).toEqual(false)
+      expect(bud.extensions.has(`html-webpack-plugin`)).toBe(false)
     })
 
     it(`changes the template when template options is passed`, async () => {

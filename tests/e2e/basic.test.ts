@@ -74,10 +74,10 @@ describe(`html output of examples/basic`, () => {
     await browser?.close()
   })
 
-  it(`should have page title: \`Webpack App\``, async () => {
+  it(`should have page title: \`%APP_TITLE%\``, async () => {
     await page?.goto(`http://0.0.0.0:3000/`)
     const title = await page.title()
-    expect(title).toBe(`Webpack App`)
+    expect(title).toBe(`%APP_TITLE%`)
   })
 
   it(`should add new body class after updating src/index.js`, async () => {

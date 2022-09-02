@@ -94,8 +94,8 @@ export const initialize = (app: Bud): Bud =>
       ]),
       'build.stats': {preset: `errors-only`},
       'build.target': () =>
-        app.project.has(`manifest.browserslist`)
-          ? `browserslist:${app.root.path(`package.json`)}`
+        app.context.manifest?.browserslist
+          ? `browserslist:${app.context.config[`package.json`]?.path}`
           : `web`,
       'dev.middleware.dev.options.writeToDisk': true,
       'dev.middleware.dev.options.publicPath': () =>
@@ -135,8 +135,6 @@ export const override = async (app: Bud): Promise<Bud> => {
     app.hooks.on(`location.@src`, app.context.args.input)
   else if (isset(app.context.manifest?.bud?.paths?.[`@src`]))
     app.hooks.on(`location.@src`, app.context.manifest.bud.paths[`@src`])
-  else if (app.env.has(`APP_SRC_PATH`))
-    app.hooks.on(`location.@src`, app.env.get(`APP_SRC_PATH`))
 
   if (isset(app.context.args.output))
     app.hooks.on(`location.@dist`, app.context.args.output)

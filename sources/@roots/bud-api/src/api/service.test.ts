@@ -1,5 +1,5 @@
 import {describe, expect, it, jest} from '@jest/globals'
-import type {Bud} from '@roots/bud'
+import type Bud from '@roots/bud'
 
 import {Api} from './service'
 
@@ -8,7 +8,12 @@ const mockBud = {
   hooks: {
     action: jest.fn(() => null),
   },
-  log: jest.fn(() => null),
+  logger: {
+    scope: [`@test`],
+    instance: {
+      scope: jest.fn(() => null),
+    },
+  },
   error: jest.fn(() => null),
   fatal: jest.fn(() => null),
 } as unknown as Bud

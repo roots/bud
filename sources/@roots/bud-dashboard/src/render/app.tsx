@@ -10,25 +10,47 @@ import {Server} from './server.js'
 const App = ({
   app,
   compilations,
+  isTTY = true,
+  displayServerInfo = true,
+  displayAssets = true,
+  displayEntrypoints = true,
 }: {
   app: Bud
   compilations: Array<StatsCompilation>
-}) => (
-  <Box flexDirection="column">
-    <Box marginBottom={1}>
-      <Text bold color={color.cyan}>
-        {app.label}
-      </Text>
-    </Box>
-
-    {compilations.map((compilation, id) => (
-      <Box key={id} flexDirection="column">
-        <Compilation id={id} stats={compilation} context={app.context} />
+  isTTY?: boolean
+  displayServerInfo?: boolean
+  displayAssets?: boolean
+  displayEntrypoints?: boolean
+}) => {
+  return (
+    <Box flexDirection="column">
+      <Box marginBottom={1}>
+        <Text bold color={color.cyan}>
+          {app.label}
+        </Text>
       </Box>
-    ))}
 
-    {app.mode === `development` && <Server app={app} />}
-  </Box>
-)
+      {compilations.map((compilation, id) => (
+        <Box key={id} flexDirection="column">
+          <Compilation
+            id={id}
+            stats={compilation}
+            context={app.context}
+            displayAssets={displayAssets}
+            displayEntrypoints={displayEntrypoints}
+          />
+        </Box>
+      ))}
+
+      <Box>
+        <Text>{` `}</Text>
+      </Box>
+
+      {app.isDevelopment ? (
+        <Server app={app} displayServerInfo={displayServerInfo} />
+      ) : null}
+    </Box>
+  )
+}
 
 export default App

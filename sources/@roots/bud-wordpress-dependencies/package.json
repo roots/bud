@@ -65,6 +65,14 @@
     "@roots/wordpress-dependencies-webpack-plugin": "workspace:sources/@roots/wordpress-dependencies-webpack-plugin",
     "tslib": "2.4.0"
   },
+  "peerDependencies": {
+    "@roots/wordpress-dependencies-webpack-plugin": "*"
+  },
+  "peerDependenciesMeta": {
+    "@roots/wordpress-dependencies-webpack-plugin": {
+      "optional": true
+    }
+  },
   "volta": {
     "extends": "../../../package.json"
   }

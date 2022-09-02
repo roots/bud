@@ -2,10 +2,10 @@ import {isString} from 'lodash-es'
 import {normalize} from 'node:path'
 
 import type {Bud} from '../bud.js'
-import type {Locations} from '../registry/locations.js'
+import type * as Locations from '../types/registry/locations'
 
 export interface setPath {
-  <T extends `${keyof Locations & string}`>(
+  <T extends `${keyof Locations.Sync & string}`>(
     arg1: T | Partial<Record<T, string>>,
     arg2?: string,
   ): Bud
@@ -45,12 +45,12 @@ export const setPath: setPath = function (arg1, arg2) {
 
   Object.entries(input).map(
     ([key, value]: [
-      `${keyof Locations & string}`,
+      `${keyof Locations.SyncRegistry & string}`,
       (
-        | `${keyof Locations & string}`
+        | `${keyof Locations.SyncRegistry & string}`
         | `@file`
         | `@name`
-        | `${keyof Locations & string}/${string}`
+        | `${keyof Locations.SyncRegistry & string}/${string}`
         | `./${string}`
         | `/${string}`
       ),
@@ -66,7 +66,10 @@ export const setPath: setPath = function (arg1, arg2) {
           `internal error: the final result of a bud.setPath transform was not absolute: ${key} => ${value} => ${absolutePath}`,
         )
 
-      app.hooks.on(`location.${key}`, app.path(value))
+      app.hooks.on(
+        `location.${key as `@src` | `@dist` | `@modules` | `@storage`}`,
+        app.path(value),
+      )
       app.info(`${key} set to ${value}`)
     },
   )

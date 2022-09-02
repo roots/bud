@@ -1,20 +1,16 @@
-import * as Framework from '@roots/bud-framework'
+import {Service as BaseService} from '@roots/bud-framework/service'
+import type {Service} from '@roots/bud-framework/services/project'
 import fs from 'fs-extra'
 import {bind} from 'helpful-decorators'
 import {omit} from 'lodash-es'
 import {format} from 'pretty-format'
-
-import type {repository} from './repository.js'
 
 /**
  * Project service
  *
  * @public
  */
-export default class Project
-  extends Framework.ContainerService
-  implements Framework.Project.Service
-{
+export default class Project extends BaseService implements Service {
   /**
    * Service label
    *
@@ -23,35 +19,14 @@ export default class Project
   public static label = `project`
 
   /**
-   * Service values repository
+   * `build.after` hook callback
    *
    * @public
    */
-  public repository: repository
-
-  /**
-   * Service bootstrap event
-   *
-   * @internal
-   * @decorator `@bind`
-   */
-  @bind
-  public async bootstrap() {
-    this.setStore({
-      context: omit(this.app.context, [
-        `root`,
-        `stdin`,
-        `stderr`,
-        `stdout`,
-      ]),
-      publicEnv: this.app.env.getPublicEnv(),
-    })
-  }
-
   @bind
   public async buildAfter() {
     if (!this.app.context.args.debug) {
-      this.app.log(`debug set to false. skipping fs writes.`)
+      this.app.info(`--debug not \`true\`. skipping fs write`)
       return
     }
 
@@ -67,15 +42,22 @@ export default class Project
       await fs.writeFile(
         path,
         this.app.json.stringify(
-          omit(this.repository, [`context.env`]),
+          omit(
+            this.app.context,
+            `env`,
+            `stdout`,
+            `stderr`,
+            `stdin`,
+            `stdio`,
+          ),
           null,
           2,
         ),
       )
 
-      this.app.success(`profile written`)
+      this.app.success(`profile written to `, path)
     } catch (error) {
-      this.app.error(`failed to write profile`)
+      this.app.error(`failed to write profile`, error)
     }
 
     try {
@@ -88,12 +70,9 @@ export default class Project
       await fs.ensureFile(path)
       await fs.writeFile(path, format(this.app.build.config))
 
-      this.app.success({
-        message: `webpack.config.js written`,
-        suffix: path,
-      })
+      this.app.success(`webpack.config.dump written to`, path)
     } catch (error) {
-      this.app.error(`failed to write webpack.config.dump`)
+      this.app.error(`failed to write webpack.config.dump`, error)
     }
   }
 }

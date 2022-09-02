@@ -34,7 +34,8 @@
     "bud-framework"
   ],
   "files": [
-    "lib/"
+    "lib/",
+    "vendor/"
   ],
   "type": "module",
   "module": "./lib/index.js",
@@ -71,6 +72,7 @@
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "@roots/container": "workspace:sources/@roots/container",
     "chalk": "5.0.1",
     "copy-webpack-plugin": "11.0.0",
     "fs-extra": "10.1.0",

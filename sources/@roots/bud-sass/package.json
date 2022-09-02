@@ -53,16 +53,17 @@
   "typesVersions": {
     "*": {
       ".": [
+        "./lib/types.d.ts",
         "./lib/index.d.ts"
-      ],
-      "env": [
-        "./lib/env.d.ts"
       ],
       "extension": [
         "./lib/extension.d.ts"
       ],
       "resolve-url": [
         "./lib/resolve-url/index.d.ts"
+      ],
+      "types": [
+        "./lib/types.d.ts"
       ]
     }
   },

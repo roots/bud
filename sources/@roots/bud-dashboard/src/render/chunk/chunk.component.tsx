@@ -6,11 +6,10 @@ import {longestAssetNameLength} from '../format.js'
 import Asset from './asset.component.js'
 
 const Chunk = ({
-  assets,
   final,
   indent,
   minWidth,
-  emitted,
+  ...chunk
 }: {
   assets: Array<StatsAsset>
   final?: boolean
@@ -20,18 +19,16 @@ const Chunk = ({
 }) => {
   return (
     <Box flexDirection="column">
-      {assets
-        ?.filter(asset => asset.emitted)
-        ?.map((asset, index) => (
-          <Asset
-            key={index}
-            {...asset}
-            emitted={asset.emitted && emitted}
-            minWidth={longestAssetNameLength(assets)}
-            final={index == assets.length - 1}
-            indent={[!final]}
-          />
-        ))}
+      {chunk?.assets?.map((asset, index) => (
+        <Asset
+          key={index}
+          {...asset}
+          emitted={chunk?.emitted}
+          minWidth={longestAssetNameLength(chunk?.assets)}
+          final={index == chunk?.assets.length - 1}
+          indent={[!final]}
+        />
+      ))}
     </Box>
   )
 }

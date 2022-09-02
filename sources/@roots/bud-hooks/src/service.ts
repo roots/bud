@@ -1,14 +1,5 @@
 import type {Bud} from '@roots/bud-framework/bud'
-import type {
-  Async,
-  AsyncCallback,
-  AsyncStore,
-  EventsStore,
-  Store,
-  Sync,
-  SyncCallback,
-  SyncStore,
-} from '@roots/bud-framework/lib/registry'
+import type * as Registry from '@roots/bud-framework/registry'
 import {Service} from '@roots/bud-framework/service'
 import type {Service as HooksInterface} from '@roots/bud-framework/services/hooks'
 import {bind} from 'helpful-decorators'
@@ -72,14 +63,14 @@ export default class Hooks extends Service implements HooksInterface {
    *
    * @public
    */
-  public store: Partial<Store> = {}
+  public store: Partial<Registry.Store> = {}
 
   /**
    * Not type safe but very convenient
    * to check if a hook has been set somewhere
    */
   @bind
-  public has<T extends keyof Store & string>(path: T): boolean {
+  public has<T extends keyof Registry.Store & string>(path: T): boolean {
     return !isUndefined(this.store[path]) ? true : false
   }
 
@@ -105,9 +96,9 @@ export default class Hooks extends Service implements HooksInterface {
    * @decorator `@bind`
    */
   @bind
-  public on<T extends keyof SyncStore & string>(
+  public on<T extends keyof Registry.SyncStore & string>(
     id: T,
-    input: SyncCallback[T],
+    input: Registry.SyncCallback[T],
   ): Bud {
     if (!isFunction(input)) this.store[id] = [() => input]
     else if (this.has(id)) this.store[id].push(input)
@@ -116,10 +107,12 @@ export default class Hooks extends Service implements HooksInterface {
   }
 
   @bind
-  public fromMap<K extends keyof SyncStore>(
-    map: Partial<SyncCallback>,
+  public fromMap<K extends keyof Registry.SyncStore>(
+    map: Partial<Registry.SyncCallback>,
   ): Bud {
-    Object.entries(map).map(([k, v]: [K, SyncStore[K]]) => this.on(k, v))
+    Object.entries(map).map(([k, v]: [K, Registry.SyncStore[K]]) =>
+      this.on(k, v),
+    )
 
     return this.app
   }
@@ -146,27 +139,27 @@ export default class Hooks extends Service implements HooksInterface {
    * @decorator `@bind`
    */
   @bind
-  public async<T extends keyof AsyncStore>(
+  public async<T extends keyof Registry.AsyncStore>(
     id: T,
-    value: AsyncCallback[T],
+    value: Registry.AsyncCallback[T],
   ): Bud {
     if (!isFunction(value)) {
-      this.store[id] = [async () => value] as AsyncStore[T]
+      this.store[id] = [async () => value] as Registry.AsyncStore[T]
       return this.app
     }
 
     if (this.has(id)) {
-      this.store[id] = [...this.store[id], value] as AsyncStore[T]
+      this.store[id] = [...this.store[id], value] as Registry.AsyncStore[T]
       return this.app
     }
 
-    this.store[id] = [value] as AsyncStore[T]
+    this.store[id] = [value] as Registry.AsyncStore[T]
 
     return this.app
   }
 
   @bind
-  public fromAsyncMap(map: AsyncCallback): Bud {
+  public fromAsyncMap(map: Registry.AsyncCallback): Bud {
     Object.entries(map).map(([k, v]: any) => this.async(k, v))
     return this.app
   }
@@ -189,10 +182,10 @@ export default class Hooks extends Service implements HooksInterface {
    * @decorator `@bind`
    */
   @bind
-  public filter<T extends keyof SyncStore & string>(
+  public filter<T extends keyof Registry.SyncStore & string>(
     id: T,
-    fallback?: SyncCallback[T],
-  ): Sync[T] {
+    fallback?: Registry.SyncCallback[T],
+  ): Registry.SyncRegistry[T] {
     if (!this.has(id)) return isFunction(fallback) ? fallback() : fallback
 
     const result = (
@@ -201,9 +194,12 @@ export default class Hooks extends Service implements HooksInterface {
         : ([this.store[id]] as any)) ?? []
     ).reduce(
       (
-        accumulated: Sync[T],
-        current: (value?: Sync[T]) => Sync[T],
-      ): Sync[T] => (isFunction(current) ? current(accumulated) : current),
+        accumulated: Registry.SyncRegistry[T],
+        current: (
+          value?: Registry.SyncRegistry[T],
+        ) => Registry.SyncRegistry[T],
+      ): Registry.SyncRegistry[T] =>
+        isFunction(current) ? current(accumulated) : current,
       fallback,
     )
 
@@ -228,17 +224,20 @@ export default class Hooks extends Service implements HooksInterface {
    * @decorator `@bind`
    */
   @bind
-  public async filterAsync<T extends keyof AsyncStore>(
+  public async filterAsync<
+    T extends keyof Registry.AsyncRegistry & string,
+  >(
     id: T,
-    fallback?: Async[T],
-  ): Promise<Async[T]> {
-    if (!this.has(id))
-      return isFunction(fallback) ? await fallback() : fallback
+    fallback?: Registry.AsyncRegistry[T],
+  ): Promise<Registry.AsyncRegistry[T]> {
+    if (!this.has(id)) return fallback
 
     const result = await ((this.store[id] as any) ?? []).reduce(
       async (
         accumulated,
-        current?: ((fallback: T) => Promise<T> | Store[T]) | Store[T],
+        current?:
+          | ((fallback: T) => Promise<T> | Registry.Store[T])
+          | Registry.Store[T],
       ) => {
         const next = await accumulated
         return isFunction(current) ? await current(next) : current
@@ -256,9 +255,9 @@ export default class Hooks extends Service implements HooksInterface {
    * @decorator `@bind`
    */
   @bind
-  public action<T extends keyof EventsStore & string>(
+  public action<T extends keyof Registry.EventsStore & string>(
     id: T,
-    ...actions: EventsStore[T]
+    ...actions: Registry.EventsStore[T]
   ): Bud {
     if (!this.has(id)) this.store[id] = []
     this.store[id].push(...actions)
@@ -278,7 +277,7 @@ export default class Hooks extends Service implements HooksInterface {
    * @decorator `@bind`
    */
   @bind
-  public async fire<T extends keyof EventsStore & string>(
+  public async fire<T extends keyof Registry.EventsStore & string>(
     id: T,
   ): Promise<Bud> {
     if (!this.store[id] || this.store[id]?.length === 0) return this.app
@@ -287,10 +286,10 @@ export default class Hooks extends Service implements HooksInterface {
     const length = value.length
 
     await value
-      .reduce(async (promise, action) => {
+      .reduce(async (promise, action, iteration) => {
         await promise
         try {
-          this.app.info(`calling`, id, action)
+          this.app.info(`calling`, id, `[${iteration + 1}/${length}]`)
           await action(this.app)
         } catch (error) {
           this.app.error(error)

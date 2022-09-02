@@ -1,4 +1,4 @@
-import type * as Config from '@roots/bud-framework/config'
+import type * as Options from '@roots/bud-framework/options'
 import {BaseContext, Command, Option} from 'clipanion'
 import {bind, once} from 'helpful-decorators'
 import {Box, render, Text} from 'ink'
@@ -22,7 +22,7 @@ export default abstract class BaseCommand extends Command {
    *
    * @public
    */
-  public context: Config.Context & BaseContext
+  public context: Options.Context & BaseContext
 
   /**
    * Application
@@ -42,7 +42,7 @@ export default abstract class BaseCommand extends Command {
    * @virtual
    * @public
    */
-  public get args(): Config.Context[`args`] {
+  public get args(): Options.Context[`args`] {
     return {}
   }
 
@@ -62,28 +62,6 @@ export default abstract class BaseCommand extends Command {
   public basedir = Option.String(`--basedir,--cwd`, undefined, {
     description: `project base directory`,
     env: `APP_BASE_DIR`,
-    hidden: true,
-  })
-
-  /**
-   * --clear-context-cache
-   * @public
-   */
-  public clearContextCache = Option.Boolean(
-    `--clear-context-cache`,
-    true,
-    {
-      description: `clear cached bud context`,
-      hidden: true,
-    },
-  )
-
-  /**
-   * Base directory
-   * @public
-   */
-  public contextCache = Option.Boolean(`--context-cache`, true, {
-    description: `allow caching of bud context`,
     hidden: true,
   })
 
@@ -146,8 +124,6 @@ export default abstract class BaseCommand extends Command {
   public get baseArgs() {
     return {
       basedir: this.basedir,
-      clearContextCache: this.clearContextCache,
-      contextCache: this.contextCache,
       dry: this.dry,
       level: this.level,
       log: this.log,
@@ -189,10 +165,6 @@ export default abstract class BaseCommand extends Command {
   public async execute() {
     this.context = {
       ...this.context,
-      basedir:
-        this.args?.basedir ??
-        this.baseArgs.basedir ??
-        this.context.basedir,
       mode: this.args?.mode ?? this.baseArgs.mode ?? this.context.mode,
       args: {
         ...this.context.args,

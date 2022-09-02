@@ -254,7 +254,7 @@ export default class Cdn extends Extension<Options, null> {
   @bind
   public async register() {
     for (const cdnKey of this.sources.keys()) {
-      if (this.app.project.has(`manifest.${cdnKey}`)) this.enable()
+      this.app.context.manifest.bud?.[cdnKey] && this.enable()
     }
   }
 
@@ -293,33 +293,33 @@ export default class Cdn extends Extension<Options, null> {
           ),
       })
 
-      if (this.app.project.has(`manifest.${cdn.ident}`)) {
-        const manifest = this.app.project.get(`manifest.${cdn.ident}`)
-        const imports = Array.isArray(manifest)
-          ? manifest.map(signifier => [signifier, signifier])
-          : Object.entries(manifest).map(([base, params]) => [
-              base,
-              `${base}@${params}`,
-            ])
+      if (isUndefined(this.app.context.manifest?.bud?.[cdn.ident])) return
 
-        await Promise.all(
-          imports.map(async ([signifier, remotePath]) => {
-            await this.app.extensions.add({
-              label: `bud-cdn-${cdn.ident}-${remotePath}`,
-              make: async () =>
-                new Webpack.NormalModuleReplacementPlugin(
-                  new RegExp(`^${signifier}`),
-                  result => {
-                    result.request = result.request.replace(
-                      signifier,
-                      [cdn.url, remotePath].join(``),
-                    )
-                  },
-                ),
-            })
-          }),
-        )
-      }
+      const manifest = this.app.context.manifest.bud[cdn.ident]
+      const imports = Array.isArray(manifest)
+        ? manifest.map(signifier => [signifier, signifier])
+        : Object.entries(manifest).map(([base, params]) => [
+            base,
+            `${base}@${params}`,
+          ])
+
+      await Promise.all(
+        imports.map(async ([signifier, remotePath]) => {
+          await this.app.extensions.add({
+            label: `bud-cdn-${cdn.ident}-${remotePath}`,
+            make: async () =>
+              new Webpack.NormalModuleReplacementPlugin(
+                new RegExp(`^${signifier}`),
+                result => {
+                  result.request = result.request.replace(
+                    signifier,
+                    [cdn.url, remotePath].join(``),
+                  )
+                },
+              ),
+          })
+        }),
+      )
     }
   }
 }

@@ -31,7 +31,7 @@ describe(`@roots/bud-typescript`, () => {
   })
 
   it(`sets up ts module rule`, async () => {
-    await bud.extensions.runAll(`_configAfter`)
+    await bud.extensions.runAll(`configAfter`)
     expect(bud.build.rules.ts).toBeDefined()
   })
 

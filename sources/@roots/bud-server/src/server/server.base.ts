@@ -1,4 +1,5 @@
-import type {Bud, Server} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework/bud'
+import type {Server} from '@roots/bud-framework/services'
 import type {Connection} from '@roots/bud-framework/services/server'
 import {bind} from 'helpful-decorators'
 import type {

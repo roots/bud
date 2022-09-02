@@ -11,7 +11,7 @@
 
 import {Extension} from '@roots/bud-framework/extension'
 import {label, plugin} from '@roots/bud-framework/extension/decorators'
-import {WordPressDependenciesWebpackPlugin} from '@roots/wordpress-dependencies-webpack-plugin'
+import WordPressDependenciesWebpackPlugin from '@roots/wordpress-dependencies-webpack-plugin'
 
 @label(`@roots/bud-wordpress-dependencies`)
 @plugin(WordPressDependenciesWebpackPlugin)

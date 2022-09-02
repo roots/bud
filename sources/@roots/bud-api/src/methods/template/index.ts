@@ -1,5 +1,8 @@
 import type {Bud} from '@roots/bud-framework'
 import type {Options as HtmlOptions} from 'html-webpack-plugin'
+import {isUndefined, omit} from 'lodash-es'
+import {dirname, resolve} from 'path'
+import {fileURLToPath} from 'url'
 
 import BudHtmlWebpackPlugin from './html-webpack-plugin.extension.js'
 import BudInterpolateHtmlPlugin from './interpolate-html-plugin.extension.js'
@@ -34,49 +37,46 @@ interface Options extends HtmlOptions {
 }
 
 export const template: template = async function (
-  userOptions?: Options | boolean,
+  userOptions,
 ): Promise<Bud> {
   const app = this as Bud
 
   if (userOptions === false) {
-    app.hooks.on(`feature.html`, false)
+    app.extensions.remove(`html-webpack-plugin`)
+    app.extensions.remove(`interpolate-html-plugin`)
     return app
   }
 
-  app.hooks.on(`feature.html`, true)
-
-  /**
-   * Add {@link BudHtmlWebpackPlugin} if it isn't already added
-   */
-  if (!app.extensions.has(`html-webpack-plugin`)) {
-    await app.extensions.add(BudHtmlWebpackPlugin)
+  let options: Options = {
+    template: resolve(
+      dirname(fileURLToPath(import.meta.url)),
+      `..`,
+      `..`,
+      `..`,
+      `vendor`,
+      `template.html`,
+    ),
+    replace: app.env.getPublicEnv(),
   }
 
-  /**
-   * Add {@link BudInterpolateHtmlPlugin} if it isn't already added
-   */
-  if (!app.extensions.has(`interpolate-html-plugin`)) {
-    await app.extensions.add(BudInterpolateHtmlPlugin)
+  if (!isUndefined(userOptions) && userOptions !== true) {
+    options = {
+      ...options,
+      ...userOptions,
+      replace: {
+        ...options.replace,
+        ...userOptions.replace,
+      },
+    }
   }
 
-  /**
-   * If there were no options specified, we're done.
-   */
-  if (!userOptions || userOptions === true) return app
+  await app.extensions.add(BudHtmlWebpackPlugin)
+  app.extensions
+    .get(`html-webpack-plugin`)
+    .setOptions(omit(options, `replace`))
 
-  /**
-   * Plugin references
-   */
-  const plugins = {
-    html: app.extensions.get(`html-webpack-plugin`),
-    interpolate: app.extensions.get(`interpolate-html-plugin`),
-  }
-
-  app.info(`processing html-webpack-plugin options`)
-  plugins.html.setOptions(userOptions)
-
-  app.info(`processing bud-interpolate-html-plugin options`)
-  plugins.interpolate.setOptions(userOptions.replace)
+  await app.extensions.add(BudInterpolateHtmlPlugin)
+  app.extensions.get(`interpolate-html-plugin`).setOptions(options.replace)
 
   return app
 }

@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
-import type * as Bud from '@roots/bud-framework'
-import {resolve} from 'node:path'
+import type * as Options from '@roots/bud-framework/options'
+import {isAbsolute, resolve} from 'node:path'
 
 import Context from './context.js'
 
@@ -15,10 +15,7 @@ import Context from './context.js'
  *
  * @public
  */
-export const get = async (
-  basedir: string,
-): Promise<Bud.Config.Context> => {
-  basedir = resolve(process.cwd(), basedir)
-  const context = await Context.make(basedir)
-  return context
+export const get = async (basedir: string): Promise<Options.Context> => {
+  basedir = isAbsolute(basedir) ? basedir : resolve(process.cwd(), basedir)
+  return await new Context().make(basedir)
 }

@@ -1,4 +1,4 @@
-import type {Context} from '@roots/bud-framework/src/config/context.js'
+import type {Context} from '@roots/bud-framework/options/context'
 import figures from 'figures'
 import {Box, Text} from 'ink'
 import {relative} from 'node:path/posix'
@@ -19,14 +19,16 @@ import {
 import Messages from '../messages/messages.component.js'
 
 const onlyNotHot = ({name}: StatsAsset) => !name?.includes(`hot-update`)
-const onlyStatic = ({name}: StatsAsset) =>
-  ![`js`, `css`].some(ext => name.endsWith(ext))
-
+const onlyStatic = ({info}: StatsAsset) => info.copied
 const Compilation = ({
+  displayAssets,
+  displayEntrypoints,
   stats,
   id,
   context,
 }: {
+  displayAssets: boolean
+  displayEntrypoints: boolean
   stats: StatsCompilation
   id: number
   context: Context
@@ -35,13 +37,11 @@ const Compilation = ({
 
   const enrich = (asset: StatsAsset) => {
     const assetModule = stats?.assets?.find(a => a.name === asset.name)
-    const {emitted, cached, type, info} = assetModule
-    return {...asset, emitted, cached, type, info}
+    return {...asset, ...assetModule}
   }
 
   const entrypoints: StatsChunkGroup = stats?.entrypoints
     ? Object.values(stats?.entrypoints)
-        .filter(onlyNotHot)
         .filter(Boolean)
         .map(entrypoint => ({
           ...entrypoint,
@@ -64,7 +64,7 @@ const Compilation = ({
   const hiddenStaticAssets: Array<StatsAsset> = staticAssets.splice(5)
 
   return (
-    <Box flexDirection="column" marginBottom={1}>
+    <Box flexDirection="column">
       <Box flexDirection="row">
         <Text color={colorFromStats(stats)}>
           {stats?.errorsCount > 0 ? figures.cross : figures.circleFilled}
@@ -98,51 +98,70 @@ const Compilation = ({
       />
 
       <Box flexDirection="column">
-        <Title>
-          <Text color={colorFromStats(stats)}>entrypoints</Text>
-        </Title>
-
-        {entrypoints.map((chunk: StatsChunkGroup, id: number) => (
-          <Box key={id} flexDirection="column">
-            <ChunkGroup
-              indent={[true]}
-              {...chunk}
-              color={colorFromStats(chunk.assets)}
-              minWidth={longestEntrypointAssetLength}
-              final={id === entrypoints.length - 1}
-            />
+        {entrypoints.some(({assets}) => assets?.length > 0) ? (
+          <Box flexDirection="column">
+            <Title>
+              <Text
+                color={colorFromStats(stats)}
+                dimColor={displayEntrypoints === false}
+              >
+                <Text underline>e</Text>ntrypoints
+              </Text>
+            </Title>
+            {displayEntrypoints
+              ? entrypoints
+                  .filter(({assets}) => assets.length > 0)
+                  .map((chunk: StatsChunkGroup, id: number) => (
+                    <Box key={id} flexDirection="column">
+                      <ChunkGroup
+                        indent={[true]}
+                        {...chunk}
+                        minWidth={longestEntrypointAssetLength}
+                        final={id === entrypoints.length - 1}
+                      />
+                    </Box>
+                  ))
+              : null}
+            <Space>
+              <Text> </Text>
+            </Space>
           </Box>
-        ))}
-
-        <Space>
-          <Text> </Text>
-        </Space>
+        ) : null}
       </Box>
 
-      {staticAssets.length > 0 ? (
+      {staticAssets?.length > 0 ? (
         <Box flexDirection="column">
           <Title>
-            <Text color={colorFromStats(stats)}>assets</Text>
+            <Text
+              color={colorFromStats(stats)}
+              dimColor={displayAssets === false}
+            >
+              <Text underline>a</Text>ssets
+            </Text>
           </Title>
 
-          <Chunk assets={staticAssets} indent={[true]} />
+          {displayAssets ? (
+            <>
+              <Chunk assets={staticAssets} indent={[true]} />
 
-          <Space>
-            <Text> </Text>
-          </Space>
+              <Space>
+                <Text> </Text>
+              </Space>
 
-          {hiddenStaticAssets?.length > 0 && (
-            <Space>
-              <Text dimColor>
-                {` `}
-                {figures.ellipsis}
-                {` `}
-                {hiddenStaticAssets.length}
-                {` `}
-                additional asset(s) not shown
-              </Text>
-            </Space>
-          )}
+              {hiddenStaticAssets?.length > 0 && (
+                <Space>
+                  <Text dimColor>
+                    {` `}
+                    {figures.ellipsis}
+                    {` `}
+                    {hiddenStaticAssets.length}
+                    {` `}
+                    additional asset(s) not shown
+                  </Text>
+                </Space>
+              )}
+            </>
+          ) : null}
         </Box>
       ) : null}
 

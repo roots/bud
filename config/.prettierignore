@@ -2,3 +2,4 @@
 ../**/node_modules
 ../**/package.json
 ../**/tsconfig.json
+../**/*.html

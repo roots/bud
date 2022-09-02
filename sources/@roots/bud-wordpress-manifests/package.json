@@ -61,6 +61,14 @@
     "@roots/merged-manifest-webpack-plugin": "workspace:sources/@roots/merged-manifest-webpack-plugin",
     "tslib": "2.4.0"
   },
+  "peerDependencies": {
+    "@roots/merged-manifest-webpack-plugin": "*"
+  },
+  "peerDependenciesMeta": {
+    "@roots/merged-manifest-webpack-plugin": {
+      "optional": true
+    }
+  },
   "volta": {
     "extends": "../../../package.json"
   }

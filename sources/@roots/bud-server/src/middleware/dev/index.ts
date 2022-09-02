@@ -1,4 +1,5 @@
-import type {Bud, Server} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
+import type {Server} from '@roots/bud-framework/services'
 import WebpackDevMiddleware, {
   IncomingMessage,
   ServerResponse,

@@ -1,11 +1,46 @@
 import {omit} from 'lodash-es'
 
-import {Bud, Config} from '../index.js'
+import {Bud} from '../bud.js'
 import {Logger} from '../logger/index.js'
 import * as methods from '../methods/index.js'
 import {Module} from '../module.js'
 import * as Process from '../process.js'
+import type {Service} from '../service'
+import type * as Options from '../types/options'
+import type * as Registry from '../types/registry'
 import {initialize} from './init.js'
+
+export const lifecycleHookHandles: Partial<
+  Array<keyof Registry.EventsStore & keyof Registry.EventsStore>
+> = [
+  `init`,
+  `bootstrap`,
+  `bootstrapped`,
+  `register`,
+  `registered`,
+  `boot`,
+  `booted`,
+  `config.after`,
+  `compiler.before`,
+  `build.before`,
+  `build.after`,
+  `compiler.after`,
+]
+
+export const lifecycleMethods: Partial<Array<keyof Service>> = [
+  `init`,
+  `bootstrap`,
+  `bootstrapped`,
+  `register`,
+  `registered`,
+  `boot`,
+  `booted`,
+  `configAfter`,
+  `compilerBefore`,
+  `buildBefore`,
+  `buildAfter`,
+  `compilerAfter`,
+]
 
 /**
  * Services which are only instantiated in the parent compiler context.
@@ -29,7 +64,10 @@ export const DEVELOPMENT_SERVICES: Array<string> = [`@roots/bud-server`]
  * Mapped hooks to callbacks
  * @public
  */
-export const LIFECYCLE_EVENT_MAP = {
+export const LIFECYCLE_EVENT_MAP: Partial<
+  Record<keyof Registry.EventsStore, keyof Service>
+> = {
+  init: `init`,
   bootstrap: `bootstrap`,
   bootstrapped: `bootstrapped`,
   register: `register`,
@@ -77,8 +115,6 @@ const importAndBindFrameworkServices =
     app[imported.label] = new imported(app)
 
     app.success(`imported`, imported.label)
-    app.info(app[imported.label])
-
     app.services.push(imported.label)
   }
 
@@ -107,12 +143,11 @@ const initializeLoggerAndReportContext = (app: Bud) => {
  */
 export const bootstrap = async function (
   this: Bud,
-  context: Config.Context,
+  context: Options.Context,
 ) {
   this.context = {...context}
 
-  /* copy context object */
-  if (!this.context.label) throw new Error(`options.label is required`)
+  if (!context.label) throw new Error(`options.label is required`)
 
   /* root specific */
   if (!(context.root instanceof Bud)) {

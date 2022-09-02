@@ -9,4 +9,6 @@
  * @packageDocumentation
  */
 
-export {WordPressDependenciesWebpackPlugin} from './plugin.js'
+import WordPressDependenciesWebpackPlugin from './plugin.js'
+
+export default WordPressDependenciesWebpackPlugin

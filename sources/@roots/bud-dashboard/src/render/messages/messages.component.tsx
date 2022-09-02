@@ -22,7 +22,7 @@ const Messages = ({
       .split(`\n`)
       .filter(ln => !ln.includes(`ModuleBuildError:`))
       .map(
-        (ln, id) =>
+        ln =>
           `${chalk.dim(VERT)} ${ln
             .replace(process.cwd(), `.`)
             .replace(/^\t/g, ``)}`,

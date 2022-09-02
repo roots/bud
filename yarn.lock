@@ -4439,6 +4439,7 @@ __metadata:
   dependencies:
     "@jest/globals": 29.0.1
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
+    "@roots/container": "workspace:sources/@roots/container"
     "@skypack/package-check": 0.2.2
     "@types/fs-extra": 9.0.13
     "@types/lodash-es": 4.17.6
@@ -5365,6 +5366,11 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/node": 16.11.48
     tslib: 2.4.0
+  peerDependencies:
+    "@roots/wordpress-dependencies-webpack-plugin": "*"
+  peerDependenciesMeta:
+    "@roots/wordpress-dependencies-webpack-plugin":
+      optional: true
   languageName: unknown
   linkType: soft
 
@@ -5378,6 +5384,11 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/node": 16.11.48
     tslib: 2.4.0
+  peerDependencies:
+    "@roots/wordpress-externals-webpack-plugin": "*"
+  peerDependenciesMeta:
+    "@roots/wordpress-externals-webpack-plugin":
+      optional: true
   languageName: unknown
   linkType: soft
 
@@ -5391,6 +5402,11 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/node": 16.11.48
     tslib: 2.4.0
+  peerDependencies:
+    "@roots/merged-manifest-webpack-plugin": "*"
+  peerDependenciesMeta:
+    "@roots/merged-manifest-webpack-plugin":
+      optional: true
   languageName: unknown
   linkType: soft
 
@@ -5410,6 +5426,7 @@ __metadata:
     "@roots/bud-hooks": "workspace:sources/@roots/bud-hooks"
     "@roots/bud-server": "workspace:sources/@roots/bud-server"
     "@roots/bud-terser": "workspace:sources/@roots/bud-terser"
+    "@roots/container": "workspace:sources/@roots/container"
     "@skypack/package-check": 0.2.2
     "@types/braces": 3.0.1
     "@types/fs-extra": 9.0.13
@@ -5434,7 +5451,6 @@ __metadata:
     fs-extra: 10.1.0
     globby: 13.1.2
     helpful-decorators: 2.1.0
-    html-webpack-plugin: 5.5.0
     import-meta-resolve: 2.1.0
     ink: 3.2.0
     ink-text-input: 4.0.3
@@ -5636,6 +5652,11 @@ __metadata:
     lodash-es: 4.17.21
     tslib: 2.4.0
     webpack: 5.73.0
+  peerDependencies:
+    "@roots/bud-preset-wordpress": "*"
+  peerDependenciesMeta:
+    "@roots/bud-preset-wordpress":
+      optional: true
   languageName: unknown
   linkType: soft
 

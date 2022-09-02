@@ -1,6 +1,6 @@
-import type {Build} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {bind, label} from '@roots/bud-framework/extension/decorators'
+import type * as Build from '@roots/bud-framework/services/build'
 
 import {Config} from './config.js'
 

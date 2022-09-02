@@ -1,5 +1,3 @@
-import type {Compiler} from 'webpack'
-
 /**
  * Webpack plugin.
  *
@@ -20,7 +18,7 @@ export interface ApplyPlugin {
    *
    * @public
    */
-  apply: (compiler?: Compiler) => unknown
+  apply: (...args: Array<any>) => unknown
 }
 
 /**

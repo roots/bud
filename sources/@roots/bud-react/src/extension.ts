@@ -56,7 +56,9 @@ export default class BudReact extends Extension {
    * @public
    */
   public get refresh(): BudReactRefresh {
-    return this.app.extensions.get(`@roots/bud-react/react-refresh`)
+    return this.app.extensions.get(
+      `@roots/bud-react/react-refresh`,
+    ) as BudReactRefresh
   }
 
   /**

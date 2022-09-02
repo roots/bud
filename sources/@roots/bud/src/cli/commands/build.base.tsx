@@ -1,4 +1,4 @@
-import type {Context} from '@roots/bud-framework/src/config/context.js'
+import type {Context} from '@roots/bud-framework/options/context'
 import {Command, Option} from 'clipanion'
 import {bind} from 'helpful-decorators'
 import * as t from 'typanion'

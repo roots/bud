@@ -1,6 +1,4 @@
-import {bind} from 'helpful-decorators'
-
-import type Config from './config.js'
+import type Config from './config'
 
 /**
  * Context: project manifest
@@ -15,15 +13,7 @@ export default class Manifest {
    *
    * @public
    */
-  public constructor(public config: Config) {}
-
-  /**
-   * Read manifest
-   *
-   * @public
-   */
-  @bind
-  public async read() {
+  public constructor(public config: Config) {
     if (!this.config.data[`package.json`]) return this
     this.data = this.config.data[`package.json`].module
 

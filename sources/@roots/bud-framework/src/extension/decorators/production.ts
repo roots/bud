@@ -9,8 +9,8 @@
  *
  * @public
  */
-export const production = <Type extends {new (...args: any[]): any}>(
-  constructor: Type,
+export const production = <Extension extends {new (...args: any[]): any}>(
+  constructor: Extension,
 ) =>
   class extends constructor {
     /**

@@ -1,7 +1,5 @@
 /* eslint-disable no-console */
-import type {Context as FrameworkContext} from '@roots/bud-framework/config'
-import type Conf from 'conf'
-import cache from 'conf'
+import type * as Options from '@roots/bud-framework/options'
 
 import Args from './args.js'
 import BudContext from './bud.js'
@@ -10,59 +8,51 @@ import Env from './env.js'
 import Extensions from './extensions.js'
 import Services from './services.js'
 
-let contexts: Record<string, FrameworkContext> = {}
+let contexts: Record<string, Options.Context> = {}
 
 export default class Context {
-  public data: Conf<FrameworkContext>
-
-  private constructor() {
-    this.data = new cache<FrameworkContext>()
+  public data: Options.Context = {
+    basedir: null,
+    label: null,
+    mode: null,
+    bud: null,
+    config: null,
+    args: null,
+    env: null,
+    manifest: null,
+    services: null,
+    extensions: null,
+    stdin: process.stdin,
+    stdout: process.stdout,
+    stderr: process.stderr,
+    colorDepth: 256,
   }
 
-  public static async make(basedir: string): Promise<FrameworkContext> {
+  public async make(basedir: string): Promise<Options.Context> {
     if (contexts[basedir]) return contexts[basedir]
 
-    const instance = new Context()
+    this.data.basedir = basedir
 
-    instance.data.set(`basedir`, basedir)
-    instance.data.set(`args`, new Args(basedir).data)
-    instance.data.set(`env`, new Env(basedir).data)
+    this.data.args = new Args(basedir).data
 
-    if (instance.data.get(`args.clearContextCache`)) instance.data.clear()
+    this.data.env = new Env(basedir).data
 
-    const config: Config = await new Config().find(
-      instance.data.get(`basedir`),
-    )
+    this.data.config = await new Config()
+      .find(basedir)
+      .then(config => config.data)
 
-    config.data[`package.json`] &&
-      instance.data.set(`manifest`, config.data[`package.json`].module)
+    if (this.data.config[`package.json`])
+      this.data.manifest = this.data.config[`package.json`].module
 
-    if (
-      instance.data.has(`bud`) &&
-      instance.data.has(`manifest`) &&
-      !instance.data.get(`args.clearContextCache`) &&
-      instance.data.get(`args.contextCache`)
-    ) {
-      contexts[basedir] = {
-        ...instance.data.store,
-        config: config.data,
-      }
-      return contexts[basedir]
-    }
+    this.data.bud = await new BudContext().find().then(({data}) => data)
 
-    await new BudContext().find().then(({data}) => {
-      instance.data.set(`bud`, data)
-    })
-
-    await new Extensions(instance.data.get(`manifest`))
+    this.data.extensions = await new Extensions(this.data.manifest)
       .find()
-      .then(({data}) => {
-        instance.data.set(`extensions`, data)
-      })
+      .then(({data}) => data)
 
-    instance.data.set(`services`, Services.data)
+    this.data.services = Services.data
 
-    contexts[basedir] = {...instance.data.store, config: config.data}
+    contexts[basedir] = this.data
 
     return contexts[basedir]
   }

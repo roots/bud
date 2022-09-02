@@ -26,10 +26,8 @@ export default class Sage extends Extension {
    * @decorator `@bind`
    */
   @bind
-  public async boot({isProduction, path}) {
-    /**
-     * Set paths
-     */
+  public async register({isProduction, path}) {
+    /* Set paths */
     this.app.setPath({
       '@src': `resources`,
       '@dist': `public`,
@@ -42,9 +40,7 @@ export default class Sage extends Extension {
       '@views': `@src/views`,
     })
 
-    /**
-     * Set aliases
-     */
+    /* Set aliases */
     this.app.alias({
       '@fonts': path(`@fonts`),
       '@images': path(`@images`),
