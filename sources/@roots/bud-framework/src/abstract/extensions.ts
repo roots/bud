@@ -1,22 +1,21 @@
 import type {ApplyPlugin, Extension, ExtensionLiteral} from '../extension'
 import {Service} from '../service.js'
 import type {Modules} from '../types/registry/modules'
-import type {Service as BaseExtensionsService} from '../types/services/extensions'
+import type * as Base from '../types/services/extensions'
 
 /**
  * Extensions Service
  *
  * @public
  */
-export abstract class Extensions
-  extends Service
-  implements BaseExtensionsService
-{
+export abstract class Extensions extends Service implements Base.Service {
   public static label = `extensions`
 
   public abstract repository: Modules
 
   public abstract unresolvable: Set<string>
+
+  public methodNames: Array<Base.LifecycleMethods>
 
   public has<K extends keyof Modules>(
     key: K & string,
@@ -60,37 +59,14 @@ export abstract class Extensions
 
   public abstract run<K extends keyof Modules & string>(
     extension: Modules[K],
-    methodName:
-      | '_init'
-      | '_register'
-      | '_boot'
-      | '_configAfter'
-      | '_buildBefore'
-      | '_buildAfter'
-      | '_make',
+    methodName: Base.LifecycleMethods,
   ): Promise<this>
 
-  public abstract runAll(
-    methodName:
-      | '_init'
-      | '_register'
-      | '_boot'
-      | '_configAfter'
-      | '_buildBefore'
-      | '_buildAfter'
-      | '_make',
-  ): Promise<any>
+  public abstract runAll(methodName: Base.LifecycleMethods): Promise<any>
 
   public abstract runDependencies<K extends keyof Modules>(
     extension: Modules[K & string] | (keyof Modules & string),
-    methodName:
-      | '_init'
-      | '_register'
-      | '_boot'
-      | '_configAfter'
-      | '_buildBefore'
-      | '_buildAfter'
-      | '_make',
+    methodName: Base.LifecycleMethods,
   ): Promise<void>
 
   public abstract make(): Promise<ApplyPlugin[]>

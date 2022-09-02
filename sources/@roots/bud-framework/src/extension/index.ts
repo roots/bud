@@ -235,20 +235,18 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
    *
    * @public
    */
-  public constructor(_app: Bud) {
-    this._app = () => _app
+  public constructor(app: Bud) {
+    this._app = () => app
 
     Object.defineProperty(this, `app`, {
       get: (): Bud => this._app(),
     })
     Object.defineProperty(this, `logger`, {
       get: () =>
-        _app.logger
-          .makeInstance()
-          .scope(
-            ...this.app.logger.scope,
-            this.label ?? `anonymous extension`,
-          ),
+        app.logger.instance.scope(
+          ...this.app.logger.scope,
+          this.label ?? `anonymous extension`,
+        ),
     })
 
     const opts = this.options ?? {}
@@ -276,7 +274,7 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
       this.meta[`_init`] = true
     } catch (error) {
       this.logger.error(error)
-      this.app.error(`error in`, this.label)
+      this.app.fatal(`error in ${this.label}`)
     }
   }
 
@@ -389,19 +387,15 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
       return false
     }
 
+    if (this.apply) {
+      this.logger.info(`apply prop found. return extension instance`)
+      return this
+    }
+
     try {
       if (this.plugin) {
         this.logger.info(`plugin prop found. instantiating and returning.`)
         return new this.plugin(this.options)
-      }
-    } catch (err) {
-      this.logger.error(`error instantiating plugin`, err)
-    }
-
-    try {
-      if (this.apply) {
-        this.logger.info(`apply prop found. return extension instance`)
-        return this
       }
     } catch (err) {
       this.logger.error(`error instantiating plugin`, err)
@@ -413,7 +407,7 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
         return await this.make(this.app, this.options)
       }
     } catch (err) {
-      this.logger.error(`error instantiating plugin`, err)
+      this.logger.error(`error calling make`, err)
     }
   }
 
@@ -568,27 +562,19 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
   @bind
   public async resolve(
     signifier: string,
-    parent?: string,
+    context?: string,
   ): Promise<string> {
     let modulePath: string
 
     modulePath = await this.app.module.resolve(signifier)
 
     if (!modulePath) {
-      modulePath = await this.app.module.resolve(signifier, parent)
+      modulePath = await this.app.module.resolve(signifier, context)
     }
     if (!modulePath) {
-      this.app.error(this.label, `unresolvable:`, signifier)
+      this.logger.error(`unresolvable:`, signifier)
+      this.app.fatal(`unresolvable: ${signifier}`)
     }
-
-    this.logger.log(
-      `resolved`,
-      signifier,
-      `=>`,
-      modulePath
-        ?.replace(this.app.path(), `.`)
-        .replace(/(.*)\/node_modules\/(.*)/, `$2`),
-    )
 
     return modulePath
   }
@@ -602,11 +588,20 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
   @bind
   public async import<T = any>(signifier: string): Promise<T> {
     try {
-      const result = await import(signifier)
+      const path = await this.resolve(signifier)
+
+      if (!path) {
+        this.logger.error(`could not import`, signifier)
+        return
+      }
+
+      const result = await import(path)
+
       this.logger.success(`imported`, signifier)
       return result?.default ?? result ?? null
     } catch (error) {
-      throw new Error(error)
+      this.logger.error(`error importing`, signifier)
+      this.app.fatal(error)
     }
   }
 

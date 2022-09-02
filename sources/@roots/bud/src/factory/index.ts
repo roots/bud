@@ -1,8 +1,8 @@
 import type {Options} from '@roots/bud-framework'
 
 import Bud from '../bud.js'
-import {basedir} from '../context/argv.js'
-import * as context from '../context/index.js'
+import * as argv from '../context/argv.js'
+import * as applicationContext from '../context/index.js'
 import {config} from './config.js'
 import {mergeOptions} from './options.js'
 
@@ -13,11 +13,11 @@ import {mergeOptions} from './options.js'
  */
 let instances: Array<Bud> = []
 
-const get = async (dir?: string) => {
-  const projectPath = dir ?? basedir
+const get = async (basedir?: string) => {
+  basedir = basedir ?? argv.basedir
 
   const cached = instances.find(
-    instance => instance.context.basedir === projectPath,
+    instance => instance.context.basedir === basedir,
   )
 
   if (!cached) return await factory()
@@ -49,11 +49,11 @@ export async function factory(
   skipCache = false,
   skipConfig = false,
 ): Promise<Bud> {
-  const projectPath = overrides?.basedir ?? basedir
+  const basedir = overrides?.basedir ?? argv.basedir
 
   if (skipCache !== true) {
     const cached = instances.find(
-      instance => instance.context.basedir === projectPath,
+      instance => instance.context.basedir === basedir,
     )
 
     if (cached) {
@@ -62,19 +62,19 @@ export async function factory(
     }
   }
 
-  const ctx = await context.get(projectPath)
+  const context = await applicationContext.get(basedir)
 
   Array.isArray(overrides?.extensions) &&
     overrides.extensions
-      .filter(extension => !ctx?.extensions.includes(extension))
-      .map(extension => ctx.extensions.push(extension))
+      .filter(extension => !context?.extensions.includes(extension))
+      .map(extension => context.extensions.push(extension))
 
   Array.isArray(overrides?.services) &&
     overrides.services
-      .filter(service => !ctx?.services.includes(service))
-      .map(service => ctx.services.push(service))
+      .filter(service => !context?.services.includes(service))
+      .map(service => context.services.push(service))
 
-  const options = mergeOptions(ctx, overrides)
+  const options = mergeOptions(context, overrides)
   const instance = await new Bud().lifecycle(options)
 
   instances.push(instance)

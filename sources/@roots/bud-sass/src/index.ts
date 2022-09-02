@@ -7,6 +7,8 @@
  * @packageDocumentation
  */
 
+import './types.js'
+
 import BudSass from './extension.js'
 
 export default BudSass

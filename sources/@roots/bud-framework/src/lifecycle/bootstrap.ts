@@ -115,8 +115,6 @@ const importAndBindFrameworkServices =
     app[imported.label] = new imported(app)
 
     app.success(`imported`, imported.label)
-    app.info(app[imported.label])
-
     app.services.push(imported.label)
   }
 

@@ -1,11 +1,11 @@
-import {Extensions as ExtensionsAbstract} from '@roots/bud-framework/abstract/extensions'
+import * as Abstract from '@roots/bud-framework/abstract/extensions'
 import type {
   ApplyPlugin,
   ExtensionLiteral,
 } from '@roots/bud-framework/extension'
 import {Extension} from '@roots/bud-framework/extension'
 import type {Modules} from '@roots/bud-framework/registry/modules'
-import type {Service as ExtensionsInterface} from '@roots/bud-framework/services/extensions'
+import type * as Base from '@roots/bud-framework/services/extensions'
 import {bind} from 'helpful-decorators'
 
 /**
@@ -14,8 +14,8 @@ import {bind} from 'helpful-decorators'
  * @public
  */
 export default class Extensions
-  extends ExtensionsAbstract
-  implements ExtensionsInterface
+  extends Abstract.Extensions
+  implements Base.Service
 {
   /**
    * Service label
@@ -52,12 +52,14 @@ export default class Extensions
   @bind
   public async booted(): Promise<void> {
     await Promise.all(
-      this.app.context.extensions.filter(Boolean).map(this.import),
+      this.app.context.extensions
+        .filter(Boolean)
+        .map(async signifier => await this.import(signifier)),
     )
 
-    await this.runAll(`_init`)
-    await this.runAll(`_register`)
-    await this.runAll(`_boot`)
+    await this.runAll(`init`)
+    await this.runAll(`register`)
+    await this.runAll(`boot`)
   }
 
   /**
@@ -68,7 +70,7 @@ export default class Extensions
    */
   @bind
   public async configAfter(): Promise<void> {
-    await this.runAll(`_configAfter`)
+    await this.runAll(`configAfter`)
   }
 
   /**
@@ -76,7 +78,7 @@ export default class Extensions
    */
   @bind
   public async buildBefore(): Promise<void> {
-    await this.runAll(`_buildBefore`)
+    await this.runAll(`buildBefore`)
   }
 
   /**
@@ -84,7 +86,7 @@ export default class Extensions
    */
   @bind
   public async buildAfter(): Promise<void> {
-    await this.runAll(`_buildAfter`)
+    await this.runAll(`buildAfter`)
   }
 
   /**
@@ -94,10 +96,7 @@ export default class Extensions
    * @decorator `@bind`
    */
   @bind
-  public has<K extends keyof Modules>(
-    key: K & string,
-    ...iterable: any[]
-  ): boolean {
+  public has<K extends keyof Modules>(key: K & string): boolean {
     return this.repository[key] ? true : false
   }
 
@@ -178,20 +177,26 @@ export default class Extensions
    * @decorator `@bind`
    */
   @bind
-  public async import(signifier: string): Promise<Extension> {
+  public async import(
+    signifier: string,
+    fatalOnError = true,
+  ): Promise<Extension> {
     if (
       this.has(signifier) ||
       this.unresolvable.has(signifier) ||
       !this.filterApplicableExtensions([signifier]).length
     ) {
-      this.app.info(signifier, `extension is not importable`)
+      this.logger.info(signifier, `extension is not importable`)
       return
     }
 
-    this.app.info(`importing`, signifier)
+    this.logger.info(`importing`, signifier)
 
-    const extension = await this.app.module.import(signifier)
-    const instance = this.instantiate(extension)
+    const extensionClass = fatalOnError
+      ? await this.app.module.import(signifier)
+      : await this.app.module.tryImport(signifier)
+
+    const instance = this.instantiate(extensionClass)
 
     if (instance.dependsOn) {
       await this.filterApplicableExtensions(
@@ -202,9 +207,9 @@ export default class Extensions
 
         await this.import(signifier)
 
-        if (!this.has(signifier)) {
+        if (!this.has(signifier) && fatalOnError) {
           this.unresolvable.add(signifier)
-          this.app.error(`missing dependency`, signifier)
+          this.logger.info(`missing dependency`, signifier)
         }
       }, Promise.resolve())
     }
@@ -219,7 +224,7 @@ export default class Extensions
           if (this.has(signifier) || this.unresolvable.has(signifier))
             return
 
-          await this.import(signifier)
+          await this.import(signifier, false)
           if (!this.has(signifier)) this.unresolvable.add(signifier)
         } catch (err) {}
       }, Promise.resolve())
@@ -248,16 +253,18 @@ export default class Extensions
           }
 
           await this.import(signifier)
-          if (!this.has(signifier)) this.unresolvable.add(signifier)
+          if (!this.has(signifier)) {
+            this.unresolvable.add(signifier)
+          }
         } catch (err) {}
       }, Promise.resolve())
     }
 
     this.set(instance)
 
-    this.app.success(instance.label, `imported and instantiated`)
+    this.logger.success(instance.label, `imported and instantiated`)
 
-    return extension
+    return instance
   }
 
   /**
@@ -285,11 +292,11 @@ export default class Extensions
 
         this.set(extension)
 
-        await this.run(extension, `_init`)
-        await this.run(extension, `_register`)
-        await this.run(extension, `_boot`)
+        await this.run(extension, `init`)
+        await this.run(extension, `register`)
+        await this.run(extension, `boot`)
       } catch (err) {
-        this.app.error(err)
+        this.logger.error(err)
         return Promise.reject()
       }
     }, Promise.resolve())
@@ -311,30 +318,21 @@ export default class Extensions
   @bind
   public async run<K extends Modules>(
     extension: Modules[K & string],
-    methodName:
-      | '_init'
-      | '_register'
-      | '_boot'
-      | '_configAfter'
-      | '_buildBefore'
-      | '_buildAfter'
-      | '_make',
+    methodName: Base.LifecycleMethods,
   ): Promise<this> {
     if (extension.meta[methodName] === true) return this
     else extension.meta[methodName] = true
 
     try {
       await this.runDependencies(extension, methodName)
-
-      if (!extension[methodName.replace(`_`, ``)]) return this
-
-      await extension[methodName]()
-
+      const method = extension[`_${methodName}`]
+      await method()
       await this.app.api.processQueue()
 
       return this
-    } catch (err) {
-      this.app.error(err)
+    } catch (error) {
+      this.logger.error(error)
+      this.app.fatal(error)
     }
   }
 
@@ -345,16 +343,7 @@ export default class Extensions
    * @decorator `@bind`
    */
   @bind
-  public async runAll(
-    methodName:
-      | '_init'
-      | '_register'
-      | '_boot'
-      | '_configAfter'
-      | '_buildBefore'
-      | '_buildAfter'
-      | '_make',
-  ): Promise<any> {
+  public async runAll(methodName: Base.LifecycleMethods): Promise<any> {
     return await Object.values(this.repository).reduce(
       async (promised, extension) => {
         await promised
@@ -377,19 +366,12 @@ export default class Extensions
   @bind
   public async runDependencies<K extends Modules>(
     extension: Modules[K & string] | (keyof Modules & string),
-    methodName:
-      | '_init'
-      | '_register'
-      | '_boot'
-      | '_configAfter'
-      | '_buildBefore'
-      | '_buildAfter'
-      | '_make',
+    methodName: Base.LifecycleMethods,
   ): Promise<void> {
     extension =
       typeof extension === `string` ? this.get(extension) : extension
 
-    if (extension.dependsOn && extension.dependsOn.size > 0) {
+    if (extension.dependsOn) {
       await Array.from(extension.dependsOn).reduce(
         async (
           promised: Promise<any>,
@@ -403,28 +385,63 @@ export default class Extensions
             if (!this.get(signifier).meta[methodName])
               await this.run(this.get(signifier), methodName)
           } catch (error) {
-            this.app.error(error)
+            this.logger.error(error)
           }
         },
         Promise.resolve(),
       )
     }
 
-    if (
-      extension.dependsOnOptional &&
-      extension.dependsOnOptional.size > 0
-    ) {
+    if (extension.dependsOnOptional) {
       await Array.from(extension.dependsOnOptional).reduce(
         async (promised, signifier) => {
           await promised
 
           try {
-            if (!this.has(signifier)) await this.import(signifier)
+            if (!this.isOptedIn(signifier)) return
+            if (!this.has(signifier)) await this.import(signifier, false)
+            if (!this.has(signifier)) {
+              this.unresolvable.add(signifier)
+              return
+            }
+
             await this.run(this.get(signifier), methodName)
-          } catch (error) {}
+          } catch (error) {
+            this.logger.info(
+              `optional dependency`,
+              signifier,
+              `could not be imported`,
+            )
+          }
         },
         Promise.resolve(),
       )
+    }
+
+    if (extension.optIn) {
+      await this.filterApplicableExtensions(
+        Array.from(extension.optIn),
+      ).reduce(async (promised: Promise<any>, signifier): Promise<any> => {
+        await promised
+
+        try {
+          if (!this.isOptedIn(signifier)) return
+          if (!this.has(signifier)) await this.import(signifier, false)
+          if (!this.has(signifier)) {
+            this.unresolvable.add(signifier)
+            return
+          }
+
+          await this.run(this.get(signifier), methodName)
+        } catch (error) {
+          this.logger.info(
+            `extensions.runDependencies`,
+            `optIn`,
+            signifier,
+            error,
+          )
+        }
+      }, Promise.resolve())
     }
   }
 
@@ -447,5 +464,16 @@ export default class Extensions
       (result: Array<ApplyPlugin>): Array<ApplyPlugin> =>
         result.filter(Boolean),
     )
+  }
+
+  protected isOptedIn(signifier: string) {
+    return ![
+      ...(this.app.context.manifest?.devDependencies
+        ? Object.keys(this.app.context.manifest.devDependencies)
+        : []),
+      ...(this.app.context.manifest?.dependencies
+        ? Object.keys(this.app.context.manifest.dependencies)
+        : []),
+    ].includes(signifier)
   }
 }

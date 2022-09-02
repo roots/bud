@@ -4,18 +4,16 @@ import {
   dependsOn,
   expose,
   label,
-  options,
 } from '@roots/bud-framework/extension/decorators'
 
 @label(`@roots/bud-preset-wordpress`)
 @dependsOn([
-  `@roots/bud-entrypoints`,
   `@roots/bud-preset-recommend`,
   `@roots/bud-wordpress-externals`,
   `@roots/bud-wordpress-dependencies`,
   `@roots/bud-wordpress-manifests`,
+  `@roots/bud-react`,
 ])
-@options({replaceLink: true})
 @expose(`wordpress`)
 export default class BudPresetWordPress extends Extension {
   protected _origin: URL
@@ -28,7 +26,7 @@ export default class BudPresetWordPress extends Extension {
   }
 
   @bind
-  public async init() {
+  public async register() {
     if (!this.app.env.has(`WP_HOME`) || !this.app.env.isString(`WP_HOME`))
       return
 
@@ -36,11 +34,9 @@ export default class BudPresetWordPress extends Extension {
   }
 
   @bind
-  public async register() {
-    if (!this.app.extensions.has(`@roots/bud-esbuild`)) {
-      const {default: react} = await import(`@roots/bud-react`)
-      await this.app.extensions.add(react)
-    }
+  public async boot() {
+    if (!this.app.extensions.has(`@roots/bud-esbuild`))
+      await this.app.extensions.add(await this.import(`@roots/bud-react`))
 
     if (!this.origin) return
 

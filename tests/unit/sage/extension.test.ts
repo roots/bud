@@ -20,12 +20,17 @@ describe(`@roots/sage`, () => {
   it(`registers prop: label`, () =>
     expect(bud.extensions.get(`@roots/sage`).label).toBe(instance.label))
 
-  it(`has boot prop`, () => expect(instance.boot).toBeInstanceOf(Function))
+  it(`has boot prop`, () =>
+    expect(instance.register).toBeInstanceOf(Function))
 
   it(`registers prop: boot`, () =>
     expect(JSON.stringify(bud.extensions.get(`@roots/sage`).boot)).toBe(
       JSON.stringify(instance.boot),
     ))
+
+  it(`registers @roots/bud-preset-recommend`, async () => {
+    expect(bud.extensions.has(`@roots/bud-preset-recommend`)).toBeTruthy()
+  })
 
   it(`sets aliases`, async () => {
     const aliases = await bud.hooks.filterAsync(`build.resolve.alias`)

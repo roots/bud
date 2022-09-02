@@ -1,3 +1,6 @@
+import {lowerCase} from 'lodash-es'
+import type {Signale} from 'signale'
+
 import type {Bud} from './bud'
 
 /**
@@ -33,12 +36,18 @@ export class Service {
     return this._app()
   }
 
+  public logger: Signale
+
   /**
    * Class constructor
    * @public
    */
   public constructor(app: Bud) {
     this._app = () => app
+    this.logger = app.logger.instance.scope(
+      ...app.logger.scope,
+      lowerCase(this.constructor.name),
+    )
   }
 
   /**

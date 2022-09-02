@@ -7,6 +7,15 @@ import type {
 import type {Service as BaseService} from '../../service.js'
 import type {Modules, Registry} from '../registry/modules'
 
+export type LifecycleMethods =
+  | 'init'
+  | 'register'
+  | 'boot'
+  | 'configAfter'
+  | 'buildBefore'
+  | 'buildAfter'
+  | 'make'
+
 /**
  * Container service for {@link Bud} extensions.
  *
@@ -20,6 +29,8 @@ import type {Modules, Registry} from '../registry/modules'
  */
 export interface Service extends BaseService {
   repository: Registry
+
+  methodNames: Array<LifecycleMethods>
 
   has<K extends keyof Modules & string>(
     key: K & string,
@@ -48,36 +59,16 @@ export interface Service extends BaseService {
 
   import(input: Record<string, any> | string): Promise<Extension>
 
-  runAll(
-    methodName:
-      | '_init'
-      | '_register'
-      | '_boot'
-      | '_configAfter'
-      | '_buildBefore'
-      | '_make',
-  ): Promise<Array<void>>
+  runAll(methodName: LifecycleMethods): Promise<Array<void>>
 
   run<K extends keyof Modules & string>(
     extension: Modules[K],
-    methodName:
-      | '_init'
-      | '_register'
-      | '_boot'
-      | '_configAfter'
-      | '_buildBefore'
-      | '_make',
+    methodName: LifecycleMethods,
   ): Promise<this>
 
   runDependencies<K extends keyof Modules & string>(
     extension: Modules[K],
-    methodName:
-      | '_init'
-      | '_register'
-      | '_boot'
-      | '_configAfter'
-      | '_buildBefore'
-      | '_make',
+    methodName: LifecycleMethods,
   ): Promise<void>
 
   /**

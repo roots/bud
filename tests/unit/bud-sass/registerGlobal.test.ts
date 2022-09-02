@@ -13,7 +13,7 @@ describe(`@roots/bud-sass registration`, () => {
     it(`should add global to \`additionalData\``, async () => {
       bud.sass.registerGlobal(`$foo: rgba(0, 0, 0, 1);`)
 
-      await bud.extensions.runAll(`_configAfter`)
+      await bud.extensions.runAll(`configAfter`)
       expect(bud.build.items.sass.getOptions().additionalData).toBe(
         `$foo: rgba(0, 0, 0, 1);`,
       )
@@ -25,7 +25,7 @@ describe(`@roots/bud-sass registration`, () => {
         `$bar: rgba(255, 255, 255, 1);`,
       ])
 
-      await bud.extensions.runAll(`_configAfter`)
+      await bud.extensions.runAll(`configAfter`)
 
       expect(bud.build.items.sass.getOptions().additionalData).toBe(
         `$foo: rgba(0, 0, 0, 1);\n$bar: rgba(255, 255, 255, 1);`,

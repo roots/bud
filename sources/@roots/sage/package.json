@@ -101,6 +101,14 @@
     "lodash-es": "4.17.21",
     "tslib": "2.4.0"
   },
+  "peerDependencies": {
+    "@roots/bud-preset-wordpress": "*"
+  },
+  "peerDependenciesMeta": {
+    "@roots/bud-preset-wordpress": {
+      "optional": true
+    }
+  },
   "volta": {
     "extends": "../../../package.json"
   }

@@ -11,7 +11,7 @@
  * @packageDocumentation
  */
 
-import './env.js'
+import './types.js'
 
 import BudWordPressManifestExtension from './extension.js'
 

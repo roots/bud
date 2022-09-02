@@ -26,7 +26,7 @@ export default class Sage extends Extension {
    * @decorator `@bind`
    */
   @bind
-  public async boot({isProduction, path}) {
+  public async register({isProduction, path}) {
     /* Set paths */
     this.app.setPath({
       '@src': `resources`,

@@ -165,10 +165,6 @@ export default abstract class BaseCommand extends Command {
   public async execute() {
     this.context = {
       ...this.context,
-      basedir:
-        this.args?.basedir ??
-        this.baseArgs.basedir ??
-        this.context.basedir,
       mode: this.args?.mode ?? this.baseArgs.mode ?? this.context.mode,
       args: {
         ...this.context.args,

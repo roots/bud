@@ -12,7 +12,7 @@ describe(`@roots/bud-react`, () => {
       const bud = await factory({mode: `development`})
       await bud.extensions.add([BudReact])
 
-      await bud.extensions.runAll(`_configAfter`)
+      await bud.extensions.runAll(`configAfter`)
       await bud.build.make()
 
       expect(bud.extensions.has(`@roots/bud-react/babel-refresh`)).toBe(
@@ -26,7 +26,7 @@ describe(`@roots/bud-react`, () => {
       const bud = await factory({mode: `development`})
       await bud.extensions.add([BudTypeScript, BudReact])
 
-      await bud.extensions.runAll(`_configAfter`)
+      await bud.extensions.runAll(`configAfter`)
       await bud.build.make()
 
       expect(bud.extensions.has(`@roots/bud-react/babel-refresh`)).toBe(
