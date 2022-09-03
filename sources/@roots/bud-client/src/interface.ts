@@ -21,9 +21,10 @@ declare module global {
 
 declare interface Events extends EventSource {
   timer: NodeJS.Timer
+  messages: Set<string>
   lastActivity: Date
   options: Options
-  listeners: Array<((ev: MessageEvent) => any) | null>
+  listeners: Set<((ev: MessageEvent) => any) | null>
   checkTimeout(): this
   addMessageListener(fn: (ev: MessageEvent) => unknown): this
 }

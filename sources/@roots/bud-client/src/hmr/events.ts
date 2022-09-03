@@ -1,11 +1,18 @@
 /* eslint-disable no-console */
 
+type Listener = ((ev: MessageEvent) => any) | null
+
 /**
  * HMR EventSource
  *
  * @public
  */
 export class Events extends EventSource {
+  /**
+   * Messages
+   */
+  public messages: Set<string> = new Set()
+
   /**
    * Timer (for timeout)
    * @public
@@ -22,7 +29,7 @@ export class Events extends EventSource {
    * Registered listeners
    * @public
    */
-  public listeners: Array<((ev: MessageEvent) => any) | null> = []
+  public listeners: Set<Listener> = new Set<Listener>()
 
   /**
    * Class constructor
@@ -73,11 +80,18 @@ export class Events extends EventSource {
     this.lastActivity = new Date()
     if (!payload) return
 
-    if (!this.listeners?.length || !payload) return
+    try {
+      const {hash} = JSON.parse(payload.data)
+      if (!hash || this.messages.has(hash)) return
 
-    this.listeners?.forEach(listener =>
-      typeof listener === `function` ? listener(payload) : null,
-    )
+      this.messages.add(hash)
+
+      if (this.messages.size <= 1 || !this.listeners?.size) return
+      else
+        [...this.listeners]
+          ?.filter(listener => typeof listener === `function`)
+          .forEach(listener => listener(payload))
+    } catch (err) {}
   }
 
   /**
@@ -97,7 +111,7 @@ export class Events extends EventSource {
   public addMessageListener(
     callback: (ev: MessageEvent) => unknown,
   ): this {
-    this.listeners.push(callback)
+    this.listeners.add(callback)
     return this
   }
 

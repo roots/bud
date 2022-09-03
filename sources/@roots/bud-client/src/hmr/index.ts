@@ -1,5 +1,4 @@
-import * as cache from './cache.js'
-import * as client from './client.js'
+import {Cache, cache} from './cache.js'
 import {Events as events} from './events.js'
 
-export {cache, client, events}
+export {Cache, cache, events}

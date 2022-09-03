@@ -2,37 +2,40 @@
  * Client options
  * @public
  */
-let data: Options = {
-  timeout: 20 * 1000,
-  reload: true,
-  name: `default`,
-  debug: true,
-  log: true,
-  path: `/__bud/hmr`,
-  indicator: true,
-  overlay: true,
-}
-
-/**
- * Set client option
- * @public
- */
-const set = (overrides: Options) => {
-  data = {...data, ...overrides}
+let data: Record<string, Options> = {
+  [`default`]: {
+    timeout: 20 * 1000,
+    reload: true,
+    name: `default`,
+    debug: true,
+    log: true,
+    path: `/__bud/hmr`,
+    indicator: true,
+    overlay: true,
+  },
 }
 
 /**
  * Get client option
  * @public
  */
-const get = (key?: string) => (key ? data[key] : data)
+const get = (name?: string, key?: string) =>
+  key ? data[name][key] : data[name]
 
 /**
- * Set client options based on URL parameters
+ * Set client data based on URL parameters
  */
-const setFromParameters = (query: string): void =>
+const setFromParameters = (query: string): Options => {
+  let parsedParams: Partial<Options> = {}
+
   new window.URLSearchParams(query).forEach((value, key) => {
-    data[key] = value === `true` ? true : value === `false` ? false : value
+    parsedParams[key] =
+      value === `true` ? true : value === `false` ? false : value
   })
 
-export {data, get, setFromParameters, set}
+  data[parsedParams.name] = {...data.default, ...parsedParams}
+
+  return data[parsedParams.name]
+}
+
+export {data, get, setFromParameters}
