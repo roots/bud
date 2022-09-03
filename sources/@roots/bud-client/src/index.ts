@@ -52,8 +52,6 @@ const initialize = async () => {
   /* Instantiate indicator, overlay */
   await components.make(clientOptions)
 
-  let needsReload = false
-
   const check = () => {
     module.hot.status() === `idle` &&
       module.hot
@@ -75,11 +73,6 @@ const initialize = async () => {
 
   const update = (error: Error, modules?: StatsCompilation['modules']) => {
     if (!modules) return
-
-    if (needsReload && !error) {
-      clientOptions.reload && window.location.reload()
-      needsReload = false
-    }
 
     module.hot
       .apply(
