@@ -14,9 +14,7 @@ let closed = false
 let logger: Bud['logger']['instance']
 
 export default (app: Bud) => {
-  logger = app.logger.makeInstance()
-  logger.scope(`hot middleware`)
-
+  logger = app.logger.instance.scope(...app.logger.scope, `hmr`)
   return makeHandler(app.compiler.instance)
 }
 
