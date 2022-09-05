@@ -6,7 +6,8 @@
     "rootDir": "src",
     "sourceMap": false,
     "outDir": "lib",
-    "target": "es6"
+    "target": "es6",
+    "types": ["node", "webpack-env"]
   },
   "include": [
     "src"

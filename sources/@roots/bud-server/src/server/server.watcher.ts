@@ -43,7 +43,13 @@ export class Watcher implements Server.Watcher {
    *
    * @param app - Application instance
    */
-  public constructor(public app: Bud) {}
+  public constructor(public app: Bud) {
+    this.logger = this.app.server.logger.scope(
+      ...this.app.logger.scope,
+      `server`,
+      `watch`,
+    )
+  }
 
   /**
    * Get watch options
@@ -64,8 +70,9 @@ export class Watcher implements Server.Watcher {
    */
   @bind
   public getFiles(): Array<string> {
-    this.files = this.app.hooks.filter(`dev.watch.files`)
-    if (!this.files || this.files.size === 0) return []
+    this.files = this.app.hooks.filter(`dev.watch.files`, new Set())
+
+    if (this.files.size === 0) return []
 
     return Array.from(this.files)
   }
@@ -111,16 +118,14 @@ export class Watcher implements Server.Watcher {
    */
   @bind
   public async watch(): Promise<Watcher['instance']> {
-    this.logger = this.app.logger.instance.scope(`watch`)
-    this.getFiles()
+    const files = await this.search()
+    this.files = new Set(files)
 
-    if (!this.files.size) return
+    if (files.length < 1) return
 
-    this.instance = await this.search().then(files =>
-      chokidar
-        .watch(files, this.getOptions())
-        .on(`change`, this.watcherCallback),
-    )
+    this.instance = chokidar
+      .watch(files, this.getOptions())
+      .on(`change`, this.watcherCallback)
 
     this.logger.log(`watching ${this.files.size} files for changes`)
 

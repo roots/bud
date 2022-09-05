@@ -25,7 +25,6 @@ export class Controller {
     return this.payload.errors?.reduce(
       (a, c) => `${a}
         <div>
-          <span>${c?.title ?? `Compilation error`}</span>
           <pre>${stripAnsi(c?.message) ?? ``}</pre>
         </div>`,
       ``,
@@ -68,9 +67,10 @@ export class Controller {
    */
   public update(payload: Payload): void {
     this.payload = payload
+
     this.element.setAttribute(`message`, this.message ?? ``)
 
-    if (this.payload.errors?.length) {
+    if (this.payload.errors?.length > 0) {
       return this.createError()
     }
 

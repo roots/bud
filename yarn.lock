@@ -4564,6 +4564,7 @@ __metadata:
     "@jest/globals": 29.0.1
     "@skypack/package-check": 0.2.2
     "@types/node": 16.11.48
+    "@types/webpack-env": 1.18.0
     strip-ansi: 7.0.1
     tslib: 2.4.0
     webpack: 5.73.0
@@ -7136,6 +7137,13 @@ __metadata:
   dependencies:
     webpack-dev-middleware: "*"
   checksum: 58609c1c34ead0552fe18576c0d6f411b7988030ec3517c07ca9938b4f37f962756b75bb9a694d1315b39134d05e2092b2e3c59ab76ff0715c5484e38602d0c4
+  languageName: node
+  linkType: hard
+
+"@types/webpack-env@npm:1.18.0":
+  version: 1.18.0
+  resolution: "@types/webpack-env@npm:1.18.0"
+  checksum: ecf4daa31cb37d474ac0ce058d83a3cadeb9881ca8107ae93c2299eaa9954943aae09b43e143c62ccbe4288a14db00c918c9debd707afe17c3998f873eaabc59
   languageName: node
   linkType: hard
 
