@@ -3,8 +3,6 @@ import {execa} from 'execa'
 import fs from 'fs-extra'
 import {join} from 'path'
 
-jest.setTimeout(60000)
-
 describe.skip(`node-api`, () => {
   beforeAll(async () => {
     await execa(`yarn`, [`webpack`], {

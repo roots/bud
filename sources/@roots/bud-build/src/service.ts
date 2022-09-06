@@ -1,28 +1,22 @@
-import type * as Bud from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework/service'
 import {bind} from 'helpful-decorators'
 import {isFunction, isUndefined} from 'lodash-es'
 import type {Configuration} from 'webpack'
 
-import * as config from './config/index.js'
+import type {ValueFactory} from './config/builder.js'
 import * as items from './handlers/items.js'
 import * as loaders from './handlers/loaders.js'
 import * as rules from './handlers/rules.js'
-import Item from './item.js'
-import Loader from './loader.js'
-import Rule from './rule.js'
+import Item from './item/item.js'
+import Loader from './loader/loader.js'
+import * as Rule from './rule/rule.js'
 
 /**
  * Webpack configuration builder class
  *
  * @public
  */
-export default class Build extends Service implements Bud.Build.Service {
-  /**
-   * Service label
-   *
-   * @public
-   */
+export default class Build extends Service {
   public static label = `build`
 
   /**
@@ -35,21 +29,21 @@ export default class Build extends Service implements Bud.Build.Service {
    *
    * @public
    */
-  public loaders: Bud.Build.Loaders
+  public loaders: Record<string, Loader> = {}
 
   /**
    * Registered rules
    *
    * @public
    */
-  public rules: Bud.Build.Rules
+  public rules: Record<string, Rule.Instance> = {}
 
   /**
    * Registered items
    *
    * @public
    */
-  public items: Bud.Build.Items
+  public items: Record<string, Item> = {}
 
   /**
    * Make webpack configuration
@@ -59,53 +53,30 @@ export default class Build extends Service implements Bud.Build.Service {
    */
   @bind
   public async make(): Promise<Configuration> {
-    await this.app.extensions.runAll(`_beforeBuild`)
-    await this.app.hooks.fire(`build.before`)
+    this.app.log(`bud.build.make called`)
+    try {
+      await this.app.hooks.fire(`build.before`)
+    } catch (error) {
+      this.app.error(error)
+    }
 
-    await Promise.all(
-      [
-        [`entry`],
-        [`plugins`, true],
-        [`resolve`, true],
-        [`bail`],
-        [`cache`],
-        [`context`],
-        [`devtool`],
-        [`experiments`],
-        [`externals`],
-        [`externalsType`],
-        [`infrastructureLogging`],
-        [`loader`],
-        [`mode`],
-        [`module`],
-        [`name`],
-        [`node`],
-        [`output`],
-        [`optimization`],
-        [`parallelism`],
-        [`performance`],
-        [`profile`],
-        [`recordsPath`],
-        [`stats`],
-        [`target`],
-        [`watch`],
-        [`watchOptions`],
-      ].map(async ([propKey, isAsync]: [keyof Configuration, boolean]) => {
-        const propValue =
-          isAsync === true
-            ? await this.app.hooks.filterAsync(`build.${propKey}` as any)
-            : this.app.hooks.filter(`build.${propKey}` as any)
-
-        if (isUndefined(propValue)) return
-
-        Object.assign(this.config, {[propKey]: propValue})
-
-        return Promise.resolve()
-      }),
+    await import(`./config/builder.js`).then(
+      async (obj: {
+        [K in keyof Configuration as `${K & string}`]: ValueFactory<K>
+      }) =>
+        await Promise.all(
+          Object.entries(obj).map(async ([prop, factory]) => {
+            const value = await factory(this.app)
+            if (isUndefined(value)) return
+            this.app.success(`built`, prop).info(value)
+            this.config[prop] = value
+          }),
+        ),
     )
 
-    await this.app.hooks.fire(`build.after`)
+    this.app.success(`configuration successfully built`)
 
+    await this.app.hooks.fire(`build.after`)
     return this.config
   }
 
@@ -122,18 +93,16 @@ export default class Build extends Service implements Bud.Build.Service {
   @bind
   public async register() {
     await Promise.all(
-      Object.entries(loaders).map(async ([key, loaderFactory]) => {
-        const value = await loaderFactory(this.app)
-        if (!this.loaders) this.loaders = {[key]: value}
-        else this.loaders[key] = value
+      Object.entries(rules).map(async ([key, ruleFactory]) => {
+        const value = await ruleFactory(this)
+        this.rules[key] = value
       }),
     )
 
     await Promise.all(
       Object.entries(items).map(async ([key, itemFactory]) => {
         const value = await itemFactory(this.app)
-        if (!this.items) this.items = {[key]: value}
-        else this.items[key] = value
+        this.items[key] = value as Item
       }),
     )
 
@@ -142,14 +111,11 @@ export default class Build extends Service implements Bud.Build.Service {
       : this.items.style
 
     await Promise.all(
-      Object.entries(rules).map(async ([key, ruleFactory]) => {
-        const value = await ruleFactory(this.app)
-        if (!this.rules) this.rules = {[key]: value}
-        else this.rules[key] = value
+      Object.entries(loaders).map(async ([key, loaderFactory]) => {
+        const value = await loaderFactory(this.app)
+        this.loaders[key] = value as Loader
       }),
     )
-
-    await config.builder.build(this.app)
   }
 
   /**
@@ -163,7 +129,7 @@ export default class Build extends Service implements Bud.Build.Service {
    * @decorator `@bind`
    */
   @bind
-  public setRule(name: string, options?: Bud.Build.Rule.Options): this {
+  public setRule(name: string, options?: Rule.Options): this {
     const processedOptions = isFunction(options)
       ? options(this.makeRule())
       : this.makeRule(options)
@@ -183,8 +149,8 @@ export default class Build extends Service implements Bud.Build.Service {
    * @decorator `@bind`
    */
   @bind
-  public makeRule(options?: Bud.Build.Rule.Options): Rule {
-    return new Rule(() => this.app, options)
+  public makeRule(options?: Rule.Options): Rule.Instance {
+    return new Rule.default(() => this.app, options)
   }
 
   /**
@@ -229,12 +195,7 @@ export default class Build extends Service implements Bud.Build.Service {
    * @decorator `@bind`
    */
   @bind
-  public setItem(
-    name: string,
-    options:
-      | ((item: Bud.Build.Item) => Bud.Build.Item)
-      | Bud.Build.Item.ConstructorOptions,
-  ): this {
+  public setItem(name: string, options: (item: Item) => Item): this {
     const processedOptions = isFunction(options)
       ? options(this.makeItem())
       : this.makeItem(options)

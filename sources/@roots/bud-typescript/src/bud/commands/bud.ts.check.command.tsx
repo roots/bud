@@ -1,5 +1,4 @@
-import {BaseCommand} from '@roots/bud/cli/commands/base'
-import {factory} from '@roots/bud/factory'
+import BaseCommand from '@roots/bud/cli/commands/base'
 import chalk from 'chalk'
 import {Command} from 'clipanion'
 import {execa} from 'execa'
@@ -21,8 +20,24 @@ export class BudTSCheckCommand extends BaseCommand {
    */
   public static usage = Command.Usage({
     category: `@roots/bud-typescript`,
-    description: `Typecheck source`,
+    description: `Typecheck application source code`,
+    details: `
+      This command runs the \`tsc\` command with the \`--noEmit\` flag.
+
+      It is required that a \`tsconfig.json\` file exists in the project root.
+    `,
+    examples: [[`bud ts check`, `Typecheck application source`]],
   })
+
+  public dry = true
+
+  public get args() {
+    return {
+      ...this.context.args,
+      dry: true,
+      mode: `production` as `production`,
+    }
+  }
 
   /**
    * Command execute
@@ -31,15 +46,6 @@ export class BudTSCheckCommand extends BaseCommand {
    */
   @bind
   public async runCommand() {
-    this.app = await factory({
-      mode: `production`,
-      ...this.context,
-      args: {
-        ...this.context.args,
-        ci: true,
-      },
-    })
-
     const hasTsConfig = await fs.pathExists(
       this.app.path(`./tsconfig.json`),
     )
@@ -72,6 +78,5 @@ export class BudTSCheckCommand extends BaseCommand {
     }
 
     this.context.stdout.write(chalk.green(`typecheck complete\n`))
-    this.app.close()
   }
 }

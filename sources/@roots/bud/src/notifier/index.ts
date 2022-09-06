@@ -1,6 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
 import {bind, once} from 'helpful-decorators'
-import {join} from 'node:path/posix'
+import {isString} from 'lodash-es'
 import {
   Notification,
   NotificationCallback,
@@ -8,6 +8,9 @@ import {
 } from 'node-notifier'
 import open from 'open'
 import openEditor from 'open-editor'
+import type {StatsCompilation, StatsError} from 'webpack'
+
+import {notifierPath} from './notifierPath.js'
 
 /**
  * Notification center
@@ -35,23 +38,6 @@ export class Notifier {
   public notificationCenter: NotificationCenter
 
   /**
-   * Binary path
-   *
-   * @public
-   */
-  public get binary() {
-    return join(
-      this.app.context.bud.basedir,
-      `vendor`,
-      `mac.no-index`,
-      `roots-notifier.app`,
-      `Contents`,
-      `MacOS`,
-      `roots-notifier`,
-    )
-  }
-
-  /**
    * Get user editor from env
    *
    * @public
@@ -66,7 +52,7 @@ export class Notifier {
    *
    * @public
    */
-  public get jsonStats() {
+  public get jsonStats(): StatsCompilation {
     return this.app.compiler.stats?.toJson() ?? {}
   }
 
@@ -77,7 +63,7 @@ export class Notifier {
    */
   public constructor(public app: Bud) {
     this.notificationCenter = new NotificationCenter({
-      customPath: this.binary,
+      customPath: notifierPath,
     })
   }
 
@@ -87,9 +73,7 @@ export class Notifier {
    * @public
    */
   public get title(): string {
-    return this.app.compiler.stats?.toJson()?.errors?.length > 0
-      ? `✖ ${this.group}`
-      : `✔ ${this.group}`
+    return this.group
   }
 
   /**
@@ -98,7 +82,7 @@ export class Notifier {
    * @public
    */
   public get group(): string {
-    return this.app.label ?? this.app.context.bud.label
+    return this.app.label
   }
 
   /**
@@ -106,22 +90,9 @@ export class Notifier {
    * @public
    */
   public get message() {
-    return [
-      `${this.app.mode} build completed`,
-      (this.jsonStats.errors?.length || this.jsonStats.warnings?.length) &&
-        `with`,
-      this.jsonStats.errors?.length &&
-        `${this.jsonStats.errors.length} errors`,
-
-      this.jsonStats.errors?.length &&
-        this.jsonStats.warnings?.length &&
-        `and`,
-
-      this.jsonStats.warnings?.length &&
-        `${this.jsonStats.warnings.length} warnings`,
-    ]
-      .filter(Boolean)
-      .join(` `)
+    return this.jsonStats?.errors?.length > 0
+      ? `Compiled with errors`
+      : `Compiled without errors`
   }
 
   /**
@@ -130,8 +101,7 @@ export class Notifier {
    * @public
    */
   public get open(): string {
-    if (this.app.isProduction) return
-    return this.app.server.connection.url.toString()
+    return this.app.hooks.filter(`dev.url`).origin
   }
 
   /**
@@ -144,8 +114,11 @@ export class Notifier {
   @bind
   @once
   public async openBrowser() {
-    if (this.app.isProduction) return
-    return await open(this.open)
+    return await open(this.open, {
+      app: isString(this.app.context.args.browser)
+        ? {name: this.app.context.args.browser}
+        : undefined,
+    })
   }
 
   /**
@@ -155,33 +128,52 @@ export class Notifier {
    * @decorator `@bind`
    */
   @bind
-  public openEditor(
-    errors: Array<{
-      file?: string
-      line?: number
-      column?: number
-      message: string
-    }>,
-  ) {
+  public openEditor(errors: Array<any>) {
     if (!this.editor) {
-      return this.app.warn(
+      return this.app.error(
         `Can't open problem file(s) in editor\n`,
         `The --editor flag was used but there is no editor indicated by either $EDITOR or $VISUAL environmental variables\n`,
         `$VISUAL will be preferred over $EDITOR if both are present`,
       )
     }
 
-    openEditor(
-      errors.map(error => {
-        if (!error.file) return
-        return {
-          file: this.app.path(error.file as `./`),
-          line: error.line ?? 0,
-          column: error.column ?? 0,
-        }
-      }),
-      {editor: this.editor},
-    )
+    /* Webpack error messages are rough stuff */
+    const parseError = (error: StatsError) => {
+      const file = (error?.moduleName ?? error?.message)
+        .replace(this.app.path(), `.`)
+        .match(/\.\/(.+\.\w*)/)
+        .shift()
+
+      if (!file) return
+
+      const column = error.message
+        ?.match(/:\d+/)
+        ?.shift()
+        ?.replace(`:`, ``)
+
+      const line = error.message?.match(/\d+\:/)?.shift()?.replace(`:`, ``)
+
+      return {
+        file: this.app.path(file),
+        line: isString(line) ? Number.parseInt(line) : 0,
+        column: isString(column) ? Number.parseInt(column) : 0,
+      }
+    }
+
+    const parsedErrors: Array<{
+      file: string
+      line: number
+      column: number
+    }> = errors
+      .map(parseError)
+      .filter(Boolean)
+      .reduce(
+        (a, v) => (a.some(av => av.file === v.file) ? [...a] : [...a, v]),
+        [],
+      )
+
+    if (parsedErrors?.length === 0) return
+    openEditor(parsedErrors, {editor: this.editor})
   }
 
   /**
@@ -192,36 +184,35 @@ export class Notifier {
    */
   @bind
   public async notify() {
-    this.app.info(`cli`, `notify`)
+    this.app.info(`notification center called`)
+
+    const errors = this.jsonStats.errors
 
     try {
-      if (this.jsonStats.errors?.length && this.app.context.args.editor)
-        this.openEditor(this.jsonStats.errors)
+      if (errors?.length && this.app.context.args.editor)
+        this.openEditor(errors)
     } catch (err) {
       this.app.warn(err)
     }
 
     try {
-      if (this.app.context.args.browser && !this.jsonStats.errors?.length)
+      if (this.app.context.args.browser && !errors?.length)
         await this.openBrowser()
     } catch (err) {
       this.app.warn(err)
     }
 
-    try {
-      this.app.context.args.notify &&
-        this.notificationCenter.notify(
-          {
-            title: this.title,
-            message: this.message,
-            // @ts-ignore
-            group: this.group,
-            open: this.open,
-          },
-          this.callback,
-        )
-    } catch (err) {
-      this.app.warn(err)
+    if (this.app.context.args.notify !== false) {
+      this.notificationCenter.notify(
+        {
+          title: this.title,
+          message: this.message,
+          // @ts-ignore
+          group: this.group,
+          open: this.open,
+        },
+        this.callback,
+      )
     }
   }
 

@@ -3,7 +3,7 @@ import fs from 'fs-extra'
 import {urlToHttpOptions} from 'node:url'
 
 /**
- * `event.compiler.done` callback
+ * `compiler.done` callback
  *
  * @remarks
  * Generates and emits `hmr.json` with proxy/dev server information

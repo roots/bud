@@ -11,8 +11,8 @@
  * @packageDocumentation
  */
 
-import './env.js'
+import './types.js'
 
-import BudMergedManifest from './extension.js'
+import BudWordPressManifestExtension from './extension.js'
 
-export default BudMergedManifest
+export default BudWordPressManifestExtension

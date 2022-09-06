@@ -12,10 +12,12 @@ describe(`@roots/bud-react`, () => {
   describe(`with typescript`, () => {
     it(`uses typescript transformer when babel is disabled`, async () => {
       bud = await factory({mode: `development`})
+      expect(bud.mode).toEqual(`development`)
+
       await bud.extensions.add([BudTypeScript, BudReact])
 
       bud.typescript.useBabel(false)
-      await bud.extensions.runAll(`_afterConfig`)
+      await bud.extensions.runAll(`configAfter`)
       await bud.build.make()
 
       expect(
@@ -27,7 +29,7 @@ describe(`@roots/bud-react`, () => {
       bud = await factory({mode: `development`})
       await bud.extensions.add([BudReact])
 
-      await bud.extensions.runAll(`_afterConfig`)
+      await bud.extensions.runAll(`configAfter`)
       await bud.build.make()
 
       // @ts-ignore

@@ -4,15 +4,14 @@
 import fs from 'fs-extra'
 import {bind} from 'helpful-decorators'
 import path from 'node:path'
-import type {Stats} from 'webpack'
-import type Webpack from 'webpack'
+import type {Compiler, Stats} from 'webpack'
 
 /**
  * Merged Manifest Webpack Plugin
  *
  * @public
  */
-export class MergedManifestWebpackPlugin {
+export default class MergedManifestWebpackPlugin {
   /**
    * Plugin ident
    *
@@ -70,7 +69,7 @@ export class MergedManifestWebpackPlugin {
    * @public
    */
   @bind
-  public apply(compiler: Webpack.Compiler): void {
+  public apply(compiler: Compiler): void {
     this.dir = compiler.options.output.path
 
     compiler.hooks.done.tapAsync(this.plugin, this.done)
@@ -80,11 +79,7 @@ export class MergedManifestWebpackPlugin {
    * @public
    */
   @bind
-  public async done(stats: Stats, callback): Promise<CallableFunction> {
-    // No emit
-    if (!stats.toJson().assets.filter(asset => asset.emitted).length)
-      return callback()
-
+  public async done(_stats: Stats, callback): Promise<CallableFunction> {
     // Missing manifests
     if (!this.isBuildable()) return callback()
 

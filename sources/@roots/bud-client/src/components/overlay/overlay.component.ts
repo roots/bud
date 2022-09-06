@@ -48,18 +48,20 @@ export class Component extends HTMLElement {
         }
 
         .visible {
-          border-top: 5px solid red;
+          position: fixed;
           top: 0;
-          opacity: 1;
-          transition: opacity 0.2s ease-in-out, border 0.4s ease-in-out;
           z-index: 9998;
+          opacity: 1;
+          border-top: 5px solid red;
+          transition: opacity 0.2s ease-in-out, border 0.4s ease-in-out;
           max-width: 100vw;
         }
 
         .messages {
           background-color: white;
           border-radius: 5px;
-          filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.1)) drop-shadow(0 1px 1px rgb(0 0 0 / 0.06));          display: flex;
+          filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.1)) drop-shadow(0 1px 1px rgb(0 0 0 / 0.06));
+          display: flex;
           align-self: center;
           width: 800px;
           max-width: 90vw;
@@ -92,12 +94,6 @@ export class Component extends HTMLElement {
           padding: 0rem 2rem 2rem 2rem;
           width: 100%;
           max-width:95vw;
-        }
-
-        .messages > div > span {
-          font-size: 1.2rem;
-          line-height: 2rem;
-          font-weight: 300;
         }
 
         .messages > div > pre {

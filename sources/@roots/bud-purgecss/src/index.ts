@@ -21,18 +21,17 @@
 
 import '@roots/bud-postcss'
 
-import type {Extension} from '@roots/bud-framework'
-
-import type * as purge from './purge.interface.js'
+import * as purgeExtension from './extension.js'
+import type {api} from './purge.interface.js'
 
 declare module '@roots/bud-framework' {
   interface Bud {
-    purgecss: purge.api
+    purgecss: api
   }
 
   interface Modules {
-    '@roots/bud-purgecss': Extension
+    '@roots/bud-purgecss': typeof purgeExtension
   }
 }
 
-export * from './extension.js'
+export default purgeExtension

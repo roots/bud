@@ -5,16 +5,18 @@ export interface watch {
     /**
      * Watched files
      */
-    ...files: Array<string | Array<string>>
+    ...files: Array<string> | Array<Array<string>>
   ): Bud
 }
 
 export const watch: watch = function (...input) {
   const app = this as Bud
 
-  app.hooks.on(`dev.watch.files`, files =>
-    input.flat().reduce((files, file) => files.add(file), files),
-  )
+  app.hooks.on(`dev.watch.files`, files => {
+    if (!files) files = new Set()
+    input.flat().forEach((file: string) => files.add(file))
+    return files
+  })
 
   return app
 }

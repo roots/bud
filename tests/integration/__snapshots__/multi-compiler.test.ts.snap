@@ -13,17 +13,3 @@ Object {
   "plugin.js": "js/plugin.js",
 }
 `;
-
-exports[`multi-compiler theme npm manifest.json matches snapshot 1`] = `
-Object {
-  "theme.css": "css/theme.css",
-  "theme.js": "js/theme.js",
-}
-`;
-
-exports[`multi-compiler theme yarn manifest.json matches snapshot 1`] = `
-Object {
-  "theme.css": "css/theme.css",
-  "theme.js": "js/theme.js",
-}
-`;

@@ -14,4 +14,4 @@ import './env.js'
 
 import Bud from './bud.js'
 
-export {Bud, Bud as default}
+export default Bud

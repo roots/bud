@@ -12,4 +12,4 @@
 
 import Extensions from './service.js'
 
-export {Extensions, Extensions as Service, Extensions as default}
+export default Extensions

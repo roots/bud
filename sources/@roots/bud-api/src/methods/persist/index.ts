@@ -1,5 +1,4 @@
 import type {Bud} from '@roots/bud-framework'
-import chalk from 'chalk'
 import {isString} from 'lodash-es'
 
 export interface persist {
@@ -13,17 +12,14 @@ export const persist: persist = function (
 
   if (type === false) {
     ctx.cache.enabled = false
-    ctx.success({message: `cache disabled`})
+    ctx.success(`cache disabled`)
     return ctx
   }
 
   ctx.cache.enabled = true
-  ctx.cache.type = isString(type) ? type : `filesystem`
+  ctx.cache.type = isString(type) ? type : ctx.cache.type
 
-  ctx.success({
-    message: `cache enabled`,
-    suffix: chalk.dim(type),
-  })
+  ctx.success(`cache enabled`)
 
   return ctx
 }

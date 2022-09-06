@@ -1,13 +1,24 @@
-import {describe, expect, it} from '@jest/globals'
-import {Bud, factory} from '@repo/test-kit/bud'
+import {beforeEach, describe, expect, it, jest} from '@jest/globals'
+import {Bud} from '@repo/test-kit/bud'
 
-import {config} from './config.method.js'
+import {config as configFn} from './config.method.js'
+
+const mockBud = {
+  bindMethod: jest.fn(() => null),
+  hooks: {
+    action: jest.fn(() => null),
+  },
+  log: jest.fn(() => null),
+  error: jest.fn(() => null),
+  fatal: jest.fn(() => null),
+} as unknown as Bud
 
 describe(`bud.config`, function () {
-  let bud: Bud
+  let config: configFn
 
-  beforeAll(async () => {
-    bud = await factory()
+  beforeEach(async () => {
+    config = configFn.bind(mockBud)
+    jest.clearAllMocks()
   })
 
   it(`should be a function`, () => {
@@ -15,28 +26,28 @@ describe(`bud.config`, function () {
   })
 
   it(`should return bud`, () => {
-    expect(config.call(bud, {})).toBeInstanceOf(Bud)
+    expect(config({})).toEqual(mockBud)
   })
 
   it(`should throw with no input`, () => {
-    expect(() => config.call(bud)).toThrow()
+    // @ts-ignore
+    expect(() => config()).toThrow()
   })
 
   it(`should accept object configuration`, async () => {
-    config.call(bud, {entry: `foo`})
-
-    const result = await bud.build.make()
-    expect(result.entry).toEqual(`foo`)
+    config({entry: `foo`})
+    expect(mockBud.hooks.action).toHaveBeenCalledWith(
+      `build.after`,
+      expect.any(Function),
+    )
   })
 
   it(`should accept a callback function`, async () => {
-    config.call(bud, conf => ({
-      ...conf,
-      entry: undefined,
-    }))
-
-    const result = await bud.build.make()
-    expect(result.entry).toBeUndefined()
-    expect(result.context).toEqual(expect.stringContaining(`tests/util`))
+    const callback = () => ({})
+    config(callback)
+    expect(mockBud.hooks.action).toHaveBeenCalledWith(
+      `build.after`,
+      expect.any(Function),
+    )
   })
 })

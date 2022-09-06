@@ -1,4 +1,4 @@
-import type {Bud} from '../bud.js'
+import type {Bud} from '../bud'
 
 export interface GenericFunctionMap {
   [key: string]: CallableFunction

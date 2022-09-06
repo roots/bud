@@ -10,7 +10,7 @@ describe(`@roots/bud-sass sets postcss syntax`, () => {
     bud = await factory()
     await bud.extensions.add(BudResolveUrl)
     await bud.extensions.add(BudPostCss)
-    await new BudSass(bud).afterConfig()
+    await new BudSass(bud).configAfter()
   })
 
   it(`adds postcss-scss syntax`, () => {

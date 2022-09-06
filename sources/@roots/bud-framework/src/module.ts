@@ -2,8 +2,10 @@ import {bind, memo} from 'helpful-decorators'
 import {resolve} from 'import-meta-resolve'
 import {createRequire} from 'module'
 import {join, normalize, relative} from 'node:path'
+import type {Signale} from 'signale'
+import {fileURLToPath, pathToFileURL} from 'url'
 
-import type {Bud} from './bud.js'
+import type {Bud} from './bud'
 
 /**
  * Module resolver
@@ -18,13 +20,21 @@ export class Module {
    */
   public require: NodeRequire
 
+  public logger: Signale
+
   /**
    * Class constructor
    *
    * @public
    */
   public constructor(public app: Bud) {
-    this.require = createRequire(this.app.root.context.basedir)
+    this.require = createRequire(
+      this.makeContextURL(this.app.root.context.basedir),
+    )
+    this.logger = this.app.logger.instance.scope(
+      ...this.app.logger.scope,
+      `module`,
+    )
   }
 
   /**
@@ -37,8 +47,6 @@ export class Module {
   @memo()
   public async getDirectory(signifier: string, parent?: string) {
     return await this.resolve(signifier, parent)
-      .then(path => path.replace(`file://`, ``))
-      .then(this.require.resolve)
       .then(path =>
         relative(parent ?? this.app.root.context.basedir, path),
       )
@@ -70,7 +78,7 @@ export class Module {
   @memo()
   public async readManifest(signifier: string) {
     return await this.getManifestPath(signifier).then(async path => {
-      this.app.log(signifier, `manifest resolved to`, path)
+      this.logger.log(signifier, `manifest resolved to`, path)
 
       return await this.app.json.read(path)
     })
@@ -86,19 +94,20 @@ export class Module {
   @memo()
   public async resolve(
     signifier: string,
-    parent?: string,
+    context?: string | URL,
   ): Promise<string> {
-    const context =
-      parent ?? `file://${this.app.root.path(`./package.json`)}`
-
     try {
-      const resolvedPath = await resolve(signifier, context)
-      const normalized = normalize(
-        resolvedPath.replace(`file://`, ``).replace(/%20/g, ` `),
+      const resolvedPath = await resolve(
+        signifier,
+        this.makeContextURL(context) as unknown as string,
       )
-      return normalized
+      return normalize(fileURLToPath(resolvedPath))
     } catch (err) {
-      this.app.info(signifier, `not resolvable`, `(context: ${context})`)
+      this.logger.info(
+        signifier,
+        `not resolvable`,
+        `(context: ${context})`,
+      )
     }
   }
 
@@ -112,17 +121,55 @@ export class Module {
   @memo()
   public async import<T = any>(
     signifier: string,
-    context?: string,
+    context?: URL | URL | string,
   ): Promise<T> {
-    if (!context)
-      context = `file://${this.app.root.path(`./package.json`)}`
-    const modulePath = await this.resolve(signifier, context)
-    const result = await import(modulePath)
-    if (!result) {
-      this.app.error(signifier, `not found`)
-      return {} as T
+    try {
+      const modulePath = await this.resolve(signifier, context)
+      const result = await import(modulePath)
+      this.logger.success(`imported`, signifier, `from`, modulePath)
+      return result?.default ?? result
+    } catch (err) {
+      this.logger.error(`Error importing`, signifier, err)
+      this.app.fatal(`Fatal error importing ${signifier}\n${err}`)
     }
+  }
 
-    return result?.default ?? result
+  /**
+   * Import a module from its signifier
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  @memo()
+  public async tryImport<T = any>(
+    signifier: string,
+    context?: URL | URL | string,
+  ): Promise<T> | undefined | null {
+    try {
+      const modulePath = await this.resolve(signifier, context)
+      const result = await import(modulePath)
+      this.logger.success(`imported`, signifier, `from`, modulePath)
+      return result?.default ?? result
+    } catch (err) {
+      this.logger.info(`Error importing`, signifier, err)
+    }
+  }
+
+  /**
+   * Make context URL
+   *
+   * @param context  - context directory
+   * @returns
+   */
+  @bind
+  protected makeContextURL(context?: string | URL): URL {
+    context = context ?? this.app.root.path(`package.json`)
+
+    return context instanceof URL
+      ? context
+      : pathToFileURL(
+          !context ? this.app.root.path(`package.json`) : context,
+        )
   }
 }

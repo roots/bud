@@ -1,4 +1,7 @@
-import * as Framework from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
+import {Service as BaseService} from '@roots/bud-framework/service'
+import type * as Services from '@roots/bud-framework/services'
+import Container from '@roots/container'
 import chalk from 'chalk'
 import {bind} from 'helpful-decorators'
 import {isEmpty, isFunction} from 'lodash-es'
@@ -15,10 +18,7 @@ import * as methods from '../methods/index.js'
  *
  * @public
  */
-export class Api
-  extends Framework.ContainerService
-  implements Framework.Api.Service
-{
+export class Api extends BaseService implements Services.Api.Service {
   /**
    * Service label
    *
@@ -40,6 +40,23 @@ export class Api
    */
   public trace: Array<[string, ...any[]]> = []
 
+  public data: Container
+  public has: Container['has']
+  public get: Container['get']
+  public set: Container['set']
+  public isFunction: Container['isFunction']
+  public isString: Container['isString']
+
+  public constructor(app: Bud) {
+    super(app)
+    this.data = new Container()
+    this.has = this.data.has
+    this.get = this.data.get
+    this.set = this.data.set
+    this.isFunction = this.data.isFunction
+    this.isString = this.data.isString
+  }
+
   /**
    * `bootstrap` callback
    *
@@ -60,6 +77,7 @@ export class Api
   @bind
   public async registered() {
     await this.processQueue()
+    this.app.hooks.action(`config.after`, this.processQueue)
     this.app.hooks.action(`build.before`, this.processQueue)
   }
 
@@ -70,20 +88,14 @@ export class Api
    * @decorator `@bind`
    */
   @bind
-  public bindFacade<K extends keyof Api['repository']>(
-    name: K & string,
-    fn: Api['repository'][K],
-  ) {
+  public bindFacade(name: string, fn: CallableFunction) {
     // check if the callable exists
     if (!isFunction(fn)) {
-      this.app.error(
-        `bud.api.bindFacade error`,
-        `${name} is not a function`,
-      )
+      this.app.fatal(`bud.api.bindFacade error: ${name} is not a function`)
     }
 
     this.set(name, fn.bind(this.app))
-    this.app.bindMethod({[`${name}`]: factory(name)})
+    this.app.bindMethod({[name]: factory(name)})
   }
 
   /**
@@ -127,14 +139,7 @@ export class Api
         try {
           await this.call(name, ...args)
         } catch (error) {
-          this.app.error(
-            `Error calling`,
-            name,
-            `with args`,
-            args,
-            `\nerror:`,
-            error,
-          )
+          this.app.error(`Error calling`, name, error)
         }
       }),
     )

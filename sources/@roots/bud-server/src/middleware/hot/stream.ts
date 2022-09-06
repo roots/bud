@@ -90,13 +90,11 @@ export class HotEventStream {
 
     clients[id] = res
 
-    const isHttp1 = !(parseInt(req.httpVersion) >= 2)
+    const isHttp1 = parseInt(req.httpVersion) === 1
 
     if (isHttp1) {
       req.socket.setKeepAlive(true)
-      Object.assign(headers, {
-        Connection: `keep-alive`,
-      })
+      Object.assign(headers, {Connection: `keep-alive`})
     }
 
     res.writeHead(200, headers)
@@ -113,8 +111,10 @@ export class HotEventStream {
    * @public
    */
   public publish(payload: Partial<Payload>) {
+    if (!payload) return
+
     tapClients(client => {
-      client.write(`data: ` + JSON.stringify(payload) + `\n\n`)
+      client.write(`data: ${JSON.stringify(payload)} \n\n`)
     })
   }
 
@@ -125,7 +125,7 @@ export class HotEventStream {
   public close() {
     clearInterval(this.interval)
     tapClients(client => {
-      if (!client.finished) client.end()
+      !client.finished && client.end()
     })
     clients = {}
   }

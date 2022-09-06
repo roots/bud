@@ -1,6 +1,7 @@
-import Container from '@roots/container'
+import {lowerCase} from 'lodash-es'
+import type {Signale} from 'signale'
 
-import type {Bud} from './bud.js'
+import type {Bud} from './bud'
 
 /**
  * Service
@@ -14,17 +15,17 @@ import type {Bud} from './bud.js'
  */
 export class Service {
   /**
-   * @internal @readonly
-   */
-  public _app: () => Bud
-
-  /**
    * Service label
    *
    * @public
    * @virtual
    */
   public static label: string
+
+  /**
+   * @internal @readonly
+   */
+  public _app: () => Bud
 
   /**
    * Access {@link Bud}
@@ -35,13 +36,29 @@ export class Service {
     return this._app()
   }
 
+  public logger: Signale
+
   /**
    * Class constructor
    * @public
    */
   public constructor(app: Bud) {
     this._app = () => app
+    this.logger = app.logger.instance.scope(
+      ...app.logger.scope,
+      lowerCase(this.constructor.name),
+    )
   }
+
+  /**
+   * Lifecycle method: init
+   *
+   * @remarks
+   * `init` is called when the Service is instantiated
+   *
+   * @virtual @public
+   */
+  public init?(app: Bud): Promise<unknown>
 
   /**
    * Lifecycle method: bootstrap
@@ -102,7 +119,6 @@ export class Service {
    *
    * @remarks
    * `booted` is called after `boot`
-
    *
    * @virtual @public
    */
@@ -112,103 +128,29 @@ export class Service {
    * After config callback
    * @public
    */
-  public afterConfig?(app: Bud): Promise<unknown>
+  public configAfter?(app: Bud): Promise<unknown>
 
   /**
-   * After config callback
+   * Before build service
    * @public
    */
-  public beforeBuild?(app: Bud): Promise<unknown>
-}
-
-/**
- * Container service
- *
- * @public
- */
-export class ContainerService<T = any> extends Container<T> {
-  /**
-   * @readonly @internal
-   */
-  public _app: () => Bud
+  public buildBefore?(app: Bud): Promise<unknown>
 
   /**
-   * Access {@link Bud}
-   * @public @readonly
-   */
-  public get app(): Bud {
-    return this._app()
-  }
-
-  /**
-   * Class constructor
-   *
+   * After build service
    * @public
    */
-  public constructor(app: Bud) {
-    super()
-    this._app = () => app
-  }
+  public buildAfter?(app: Bud): Promise<unknown>
 
   /**
-   * Lifecycle method: bootstrap
-   *
-   * @remarks
-   * `bootstrap` is called when the Service is instantiated (but before all services are guaranteed to be instantiated).
-   *
-   * @virtual @public
+   * Before Compiler service
+   * @public
    */
-  public bootstrap?(app: Bud): Promise<any>
+  public compilerBefore?(app: Bud): Promise<unknown>
 
   /**
-   * Lifecycle method: bootstrapped
-   *
-   * @remarks
-   * Called once all Service instances are available
-   *
-   * @virtual @public
+   * After Compiler service
+   * @public
    */
-  public bootstrapped?(app: Bud): Promise<any>
-
-  /**
-   * Lifecycle method: register
-   *
-   * @remarks
-   * Method for Service instances to register functionalities, modules,
-   * and bind functions to {@link Bud}
-   *
-   * @virtual @public
-   */
-  public register?(app: Bud): Promise<any>
-
-  /**
-   * Lifecycle method: registered
-   *
-   * @remarks
-   * `registered` is called after `register` callback is processed
-   *
-   * @virtual @public
-   */
-  public registered?(app: Bud): Promise<any>
-
-  /**
-   * Lifecycle method: boot
-   *
-   * @remarks
-   * `boot` is called once all services are registered.
-   *
-   * @virtual @public
-   */
-  public boot?(app: Bud): Promise<any>
-
-  /**
-   * Lifecycle method: booted
-   *
-   * @remarks
-   * `booted` is called after `boot` callback is processed
-
-   *
-   * @virtual @public
-   */
-  public booted?(app: Bud): Promise<any>
+  public compilerAfter?(app: Bud): Promise<unknown>
 }

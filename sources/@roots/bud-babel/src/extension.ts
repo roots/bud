@@ -1,6 +1,6 @@
-import type {Build} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {bind, label} from '@roots/bud-framework/extension/decorators'
+import type * as Build from '@roots/bud-framework/services/build'
 
 import {Config} from './config.js'
 
@@ -17,7 +17,13 @@ export default class BabelExtension extends Extension<any, null> {
    * @public
    */
   public get cacheDirectory() {
-    return this.app.path(`@storage`, this.app.label, `cache`, `babel`)
+    return this.app.path(
+      `@storage`,
+      this.app.label,
+      `cache`,
+      this.app.mode,
+      `babel`,
+    )
   }
 
   /**
@@ -60,18 +66,6 @@ export default class BabelExtension extends Extension<any, null> {
   }
 
   /**
-   * Initialize extension
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async init() {
-    this.app.babel = new Config()
-    process.env.BABEL_ENV = this.app.mode
-  }
-
-  /**
    * Register extension
    *
    * @public
@@ -79,6 +73,8 @@ export default class BabelExtension extends Extension<any, null> {
    */
   @bind
   public async register() {
+    this.app.babel = new Config()
+
     const presetEnv = await this.resolve(
       `@babel/preset-env`,
       import.meta.url,

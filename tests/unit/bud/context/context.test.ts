@@ -11,20 +11,12 @@ describe(`unit`, function () {
     it(`has expected context.config`, () => {
       expect(bud.context.config).toEqual(
         expect.objectContaining({
-          '.eslintrc.js': expect.stringMatching(/project\/.eslintrc\.js$/),
-          'bud.config.cjs': expect.stringMatching(
-            /project\/bud\.config\.cjs$/,
-          ),
-          'docker-compose.yml': expect.stringMatching(
-            /project\/docker-compose\.yml$/,
-          ),
-          'package.json': expect.stringContaining(`project/package.json`),
-          'tailwind.config.js': expect.stringContaining(
-            `project/tailwind.config.js`,
-          ),
-          'tsconfig.json': expect.stringContaining(
-            `project/tsconfig.json`,
-          ),
+          '.eslintrc.js': expect.any(Object),
+          'bud.config.cjs': expect.any(Object),
+          'docker-compose.yml': expect.any(Object),
+          'package.json': expect.any(Object),
+          'tailwind.config.js': expect.any(Object),
+          'tsconfig.json': expect.any(Object),
         }),
       )
     })

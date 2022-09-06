@@ -16,13 +16,13 @@ import {
 @dependsOn([`@roots/bud-babel`])
 export default class BudEmotion extends Extension {
   /**
-   * `beforeBuild` callback
+   * `buildBefore` callback
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public async beforeBuild() {
+  public async buildBefore() {
     const plugin = await this.resolve(`@emotion/babel-plugin`)
     this.app.babel.setPlugin(`@emotion/babel-plugin`, plugin)
   }

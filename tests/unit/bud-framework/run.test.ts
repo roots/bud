@@ -21,25 +21,4 @@ describe(`bud.run`, function () {
     bud = await factory()
     expect(JSON.stringify(run)).toEqual(JSON.stringify(bud.run))
   })
-
-  describe(`production`, () => {
-    it(`summons compiler`, async () => {
-      bud = await factory()
-      bud.compiler = new MockCompiler(bud) as any
-
-      await run.call(bud)
-      expect((bud.compiler as any).invoke).toHaveBeenCalled()
-    })
-  })
-
-  describe(`development`, () => {
-    it(`summons server`, async () => {
-      bud = await factory({mode: `development`})
-      bud.compiler = new MockCompiler(bud) as any
-      bud.server = new MockServer(bud) as any
-
-      await run.call(bud)
-      expect((bud.server as any).run).toHaveBeenCalled()
-    })
-  })
 })

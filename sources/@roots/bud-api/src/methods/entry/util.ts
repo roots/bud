@@ -1,14 +1,14 @@
 import type {Bud, Config} from '@roots/bud-framework'
 import {isArray, isString} from 'lodash-es'
 
-export type EntryObject = Config.Entry.EntryObject
+export type EntryObject = Config.EntryObject
 
 export type Input =
   | [string]
   | [Array<string>]
   | [string, string | Array<string>]
   | [Record<string, string | Array<string>>]
-  | [Record<string, Config.Entry.EntryObject>]
+  | [Record<string, Config.EntryObject>]
 
 export type RawValue =
   | string
@@ -17,7 +17,7 @@ export type RawValue =
 
 export type NormalValue = {
   import: Array<string>
-} & Config.Entry.EntryObject
+} & Config.EntryObject
 
 export interface method {
   (...entrypoint: Input): Promise<Bud>

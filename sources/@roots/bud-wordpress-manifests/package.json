@@ -52,6 +52,7 @@
     }
   },
   "devDependencies": {
+    "@jest/globals": "29.0.1",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.11.48"
@@ -59,6 +60,14 @@
   "dependencies": {
     "@roots/merged-manifest-webpack-plugin": "workspace:sources/@roots/merged-manifest-webpack-plugin",
     "tslib": "2.4.0"
+  },
+  "peerDependencies": {
+    "@roots/merged-manifest-webpack-plugin": "*"
+  },
+  "peerDependenciesMeta": {
+    "@roots/merged-manifest-webpack-plugin": {
+      "optional": true
+    }
   },
   "volta": {
     "extends": "../../../package.json"

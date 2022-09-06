@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import {Builtins, Cli} from 'clipanion'
+import {Builtins, Cli, CommandClass} from 'clipanion'
 
 let instance: Cli
 
@@ -17,4 +17,4 @@ export const get = (label: string, version: string) => {
   return instance
 }
 
-export {Builtins, Cli}
+export {Builtins, Cli, CommandClass}

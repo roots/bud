@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
-import type {Config} from '@roots/bud-framework'
 import {execa} from 'execa'
 import {platform} from 'node:os'
-import {join} from 'node:path'
+
+import {notifierPath} from './notifierPath.js'
 
 /**
  * Ensure notifier permissions (macOS)
@@ -10,21 +10,9 @@ import {join} from 'node:path'
  * @param context - application context
  * @public
  */
-export default async function ensureNotifierPermissions(
-  context: Partial<Config.Context>,
-) {
+export default async function ensureNotifierPermissions() {
   if (platform() === `darwin`) {
     try {
-      const notifierPath = join(
-        context.bud.basedir,
-        `vendor`,
-        `mac.no-index`,
-        `roots-notifier.app`,
-        `Contents`,
-        `MacOS`,
-        `roots-notifier`,
-      )
-
       await execa(`chmod`, [`u+x`, notifierPath])
     } catch (err) {}
   }

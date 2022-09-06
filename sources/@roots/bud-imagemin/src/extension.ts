@@ -101,7 +101,7 @@ export default class BudImagemin extends Extension {
    * @public
    */
   @bind
-  public async afterConfig() {
+  public async configAfter() {
     this.app.hooks.on(`build.optimization.minimizer`, minimizer => [
       ...(minimizer ?? []),
       new ImageMinimizerPlugin({

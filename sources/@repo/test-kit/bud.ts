@@ -1,8 +1,12 @@
+/* eslint-disable n/no-process-env */
+import {jest} from '@jest/globals'
 import {paths} from '@repo/constants'
 import Bud from '@roots/bud'
 import {factory as makeInstance} from '@roots/bud/factory'
-import type {Config} from '@roots/bud-framework'
+import type * as Options from '@roots/bud-framework/options'
 import {join} from 'node:path'
+
+jest.mock(`@roots/bud-compiler`)
 
 export const repoPath = (...path: Array<string>) =>
   join(paths.root, ...(path ?? []))
@@ -12,15 +16,24 @@ export const mockProject = {
 }
 
 export const factory = async (
-  overrides?: Partial<Config.Context>,
+  overrides?: Partial<Options.Context>,
+  useConfig = false,
 ): Promise<Bud> => {
   process.env.BUD_TEST_ENV = `true`
 
-  const bud = await makeInstance({
-    basedir: mockProject.path,
-    mode: `production`,
-    ...(overrides ?? {}),
-  })
+  const bud = await makeInstance(
+    {
+      basedir: mockProject.path,
+      ...(overrides ?? {}),
+      args: {
+        dry: true,
+        log: false,
+        ...(overrides?.args ?? {}),
+      },
+    },
+    true,
+    !useConfig,
+  )
 
   return bud
 }

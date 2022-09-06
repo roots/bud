@@ -1,10 +1,11 @@
 import {join, normalize, resolve, sep} from 'node:path'
 
-import type {Bud, Locations} from '../index.js'
+import type {Bud} from '../bud'
+import type * as Locations from '../types/registry/locations'
 
+type Handle = `${keyof Locations.Sync}`
 type AbsolutePath = `/${string}`
-type RelativePath = `./${string}`
-type Handle = `${keyof Locations & string}`
+type RelativePath = `${string}`
 type HandleSlashPath = `${Handle}/${string}`
 type FileHandle = `@name` | `@file`
 
@@ -27,11 +28,11 @@ export const parseAlias: (app: Bud, ...base: Array<string>) => string = (
     .flat()
 
   /* If there is no match for ident there is a problem */
-  !app.hooks.has(`location.${ident as keyof Locations}`) &&
+  !app.hooks.has(`location.${ident as keyof Locations.Sync}`) &&
     app.error(`\`${ident}\` is not a registered path`)
 
   /* Replace base path */
-  ident = app.hooks.filter(`location.${ident as Handle}`)
+  ident = app.hooks.filter(`location.${ident as keyof Locations.Sync}`)
 
   /* If segments were passed, resolve */
   return normalize(join(ident, ...(parts ?? [])))
@@ -49,7 +50,7 @@ export const parseAlias: (app: Bud, ...base: Array<string>) => string = (
 export interface path {
   (
     base?:
-      | Handle
+      | keyof Locations.SyncRegistry
       | FileHandle
       | HandleSlashPath
       | RelativePath
@@ -87,7 +88,7 @@ export const path: path = function (base, ...segments) {
   if (base.startsWith(`@`)) base = parseAlias(app, base) as any
 
   /* Resolve any base path that isn't already absolute */
-  if (!base.startsWith(`/`))
+  if (!base.startsWith(sep))
     base = resolve(app.context.basedir, base) as any
 
   /* If segments were passed, resolve them against base */

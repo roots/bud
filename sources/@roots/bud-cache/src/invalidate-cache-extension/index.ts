@@ -1,6 +1,7 @@
 import {Extension} from '@roots/bud-framework/extension'
 import {bind, label} from '@roots/bud-framework/extension/decorators'
 import fs from 'fs-extra'
+import stripAnsi from 'strip-ansi'
 
 /**
  * Cache invalidation extension
@@ -16,6 +17,14 @@ import fs from 'fs-extra'
  */
 @label(`@roots/bud-cache/invalidate-cache`)
 export default class InvalidateCacheExtension extends Extension {
+  public get file(): string {
+    return this.app.path(
+      `@storage`,
+      `${this.app.label}`,
+      `${this.app.mode}.error.json`,
+    )
+  }
+
   /**
    * `register` callback
    *
@@ -23,23 +32,26 @@ export default class InvalidateCacheExtension extends Extension {
    * @decorator `@bind`
    */
   @bind public async register() {
-    const invalidate = await fs.pathExists(
-      this.app.path(`@storage`, `cache`, `invalidate`),
-    )
+    const invalidate = await fs.pathExists(this.file)
 
     if (this.app.context.args.flush === true || invalidate) {
-      await fs.remove(this.app.path(`@storage/cache`))
+      await fs.remove(this.file)
     }
 
     this.app.hooks.action(`compiler.after`, async () => {
-      this.app.compiler.compilation.hooks.done.tap(
+      this.app.compiler.instance.hooks.done.tap(
         this.label,
         async compiler => {
           if (!compiler.hasErrors()) return
-
-          await fs.ensureFile(
-            this.app.path(`@storage`, `cache`, `invalidate`),
-          )
+          await fs.writeJSON(this.file, {
+            hash: compiler.hash,
+            errors: compiler.stats.flatMap(stats =>
+              stats
+                .toString({preset: `errors-warnings`, colors: false})
+                .split(/\n/)
+                .map(stripAnsi),
+            ),
+          })
         },
       )
     })

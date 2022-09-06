@@ -1,8 +1,13 @@
 import {Extension} from '@roots/bud-framework/extension'
-import {bind, label} from '@roots/bud-framework/extension/decorators'
+import {
+  bind,
+  label,
+  options,
+  when,
+} from '@roots/bud-framework/extension/decorators'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 
-import {InterpolateHtmlPlugin} from './interpolate-html-plugin.plugin.js'
+import InterpolateHtmlPlugin from './interpolate-html-plugin.plugin.js'
 
 /**
  * BudInterpolateHTMLPlugin
@@ -11,32 +16,12 @@ import {InterpolateHtmlPlugin} from './interpolate-html-plugin.plugin.js'
  * @decorator `@label`
  */
 @label(`interpolate-html-plugin`)
+@when(async () => true)
+@options({})
 export default class BudInterpolateHtmlPlugin extends Extension<
   Record<string, RegExp>,
   InterpolateHtmlPlugin
 > {
-  /**
-   * public env accessor
-   *
-   * @public
-   */
-  public get publicEnv() {
-    return this.app.env.getPublicEnv() ?? {}
-  }
-
-  /**
-   * `afterConfig` callback
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async afterConfig() {
-    Object.entries(this.app.env.getPublicEnv()).map(([key, value]) => {
-      this.setOption(key, value)
-    })
-  }
-
   /**
    * `make` callback
    *
@@ -46,19 +31,8 @@ export default class BudInterpolateHtmlPlugin extends Extension<
   @bind
   public async make() {
     return new InterpolateHtmlPlugin(
-      HtmlWebpackPlugin as any,
+      HtmlWebpackPlugin.getHooks,
       this.options,
     )
-  }
-
-  /**
-   * `when` callback
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async when() {
-    return this.options ? true : false
   }
 }

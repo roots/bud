@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import type {Context} from '@roots/bud-framework/src/config'
+import type {Context} from '@roots/bud-framework/options'
 import {globby} from 'globby'
 import {resolve} from 'import-meta-resolve'
 import {isString} from 'lodash-es'
@@ -42,8 +42,8 @@ export class Commands {
    */
   public getProjectDependencySignifiers(): Array<string> {
     return Object.keys({
-      ...(this.context.manifest.dependencies ?? {}),
-      ...(this.context.manifest.devDependencies ?? {}),
+      ...(this.context.manifest?.dependencies ?? {}),
+      ...(this.context.manifest?.devDependencies ?? {}),
     }).filter(signifier => !signifier.startsWith(`@types`))
   }
 

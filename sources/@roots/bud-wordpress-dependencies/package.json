@@ -56,6 +56,7 @@
     }
   },
   "devDependencies": {
+    "@jest/globals": "29.0.1",
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.11.48"
   },
@@ -63,6 +64,14 @@
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/wordpress-dependencies-webpack-plugin": "workspace:sources/@roots/wordpress-dependencies-webpack-plugin",
     "tslib": "2.4.0"
+  },
+  "peerDependencies": {
+    "@roots/wordpress-dependencies-webpack-plugin": "*"
+  },
+  "peerDependenciesMeta": {
+    "@roots/wordpress-dependencies-webpack-plugin": {
+      "optional": true
+    }
   },
   "volta": {
     "extends": "../../../package.json"

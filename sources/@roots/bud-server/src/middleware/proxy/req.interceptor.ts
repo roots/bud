@@ -31,7 +31,7 @@ export class RequestInterceptorFactory {
    *
    * @param proxyRequest - proxy client request
    * @param request - incoming message
-   * @param response - server response
+   * @param _response - server response
    * @returns void
    *
    * @public

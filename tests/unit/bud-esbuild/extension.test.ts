@@ -1,5 +1,5 @@
 import {Bud, factory} from '@repo/test-kit/bud'
-import {Loader} from '@roots/bud-build'
+import Loader from '@roots/bud-build/loader'
 import esbuild from '@roots/bud-esbuild'
 import {isArray, isUndefined} from 'lodash-es'
 

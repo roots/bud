@@ -1,75 +1,87 @@
+import type {Context} from '@roots/bud-framework/options/context'
 import figures from 'figures'
 import {Box, Text} from 'ink'
 import {relative} from 'node:path/posix'
 import React from 'react'
-import type {StatsCompilation} from 'webpack'
+import type {StatsAsset, StatsChunkGroup, StatsCompilation} from 'webpack'
 
 import Chunk from '../chunk/chunk.component.js'
 import ChunkGroup from '../chunk/chunkgroup.component.js'
 import Space from '../display/space.component.js'
 import Title from '../display/title.component.js'
-import {color, colorFromCompilation, duration, SPACE} from '../format.js'
+import {
+  color,
+  colorFromStats,
+  duration,
+  longestAssetNameLength,
+  VERT,
+} from '../format.js'
 import Messages from '../messages/messages.component.js'
 
+const onlyNotHot = ({name}: StatsAsset) => !name?.includes(`hot-update`)
+const onlyStatic = ({info}: StatsAsset) => info.copied
 const Compilation = ({
+  displayAssets,
+  displayEntrypoints,
   stats,
   id,
+  context,
 }: {
+  displayAssets: boolean
+  displayEntrypoints: boolean
   stats: StatsCompilation
   id: number
+  context: Context
 }) => {
   if (!stats?.entrypoints) return null
 
-  const enrich = (asset: any) => {
+  const enrich = (asset: StatsAsset) => {
     const assetModule = stats?.assets?.find(a => a.name === asset.name)
-
-    const {emitted, cached, type, info} = assetModule
-
-    return {
-      ...asset,
-      emitted,
-      cached,
-      type,
-      info,
-    }
+    return {...asset, ...assetModule}
   }
 
-  const entrypoints = Object.values(stats?.entrypoints).map(entrypoint => {
-    entrypoint.assets = entrypoint.assets.map(enrich)
-    return entrypoint
-  })
+  const entrypoints: StatsChunkGroup = stats?.entrypoints
+    ? Object.values(stats?.entrypoints)
+        .filter(Boolean)
+        .map(entrypoint => ({
+          ...entrypoint,
+          assets: entrypoint.assets.map(enrich),
+        }))
+    : []
 
-  const staticAssets = stats?.assets
-    ?.filter(
-      asset =>
-        ![`js`, `css`].includes(asset.name.split(`.`).pop()) &&
-        !asset.name?.includes(`hot-update`),
-    )
+  const longestEntrypointAssetLength: number = entrypoints.reduce(
+    (longest, entry) =>
+      Math.max(longestAssetNameLength(entry.assets), longest),
+    0,
+  )
+
+  const staticAssets: Array<StatsAsset> = (stats?.assets ?? [])
+    .filter(onlyNotHot)
+    .filter(onlyStatic)
+    .filter(Boolean)
     .map(enrich)
 
-  const hiddenStaticAssets = staticAssets.splice(5)
-
-  const compilationColor = colorFromCompilation(stats)
+  const hiddenStaticAssets: Array<StatsAsset> = staticAssets.splice(5)
 
   return (
-    <Box flexDirection="column" marginBottom={1}>
+    <Box flexDirection="column">
       <Box flexDirection="row">
-        <Text color={compilationColor}>
+        <Text color={colorFromStats(stats)}>
           {stats?.errorsCount > 0 ? figures.cross : figures.circleFilled}
         </Text>
 
-        <Text color={compilationColor}>
-          {SPACE}
-          {SPACE}./
-          {relative(process.cwd(), stats.outputPath)}
+        <Text>{` `}</Text>
+
+        <Text color={colorFromStats(stats)}>
+          ./{relative(context.basedir, stats.outputPath)}
         </Text>
 
-        <Text dimColor>
-          {SPACE}[{stats.hash}]
-        </Text>
+        <Text>{` `}</Text>
+
+        <Text dimColor>[{stats.hash}]</Text>
       </Box>
 
-      <Text dimColor>{figures.lineVerticalDashed7}</Text>
+      <Text dimColor>{VERT}</Text>
 
       <Messages
         type="error"
@@ -86,57 +98,72 @@ const Compilation = ({
       />
 
       <Box flexDirection="column">
-        <Title>
-          <Text color={compilationColor}>entrypoints</Text>
-        </Title>
-
-        {entrypoints.map((chunk, id) => (
-          <Box key={id} flexDirection="column">
-            <ChunkGroup
-              assets={chunk.assets}
-              name={chunk.name}
-              indent={[true]}
-              emitted={chunk.emitted && stats?.errorsCount === 0}
-              color={
-                stats?.errorsCount > 0 ? color.dim : color.foregroundColor
-              }
-              final={id == entrypoints.length - 1}
-            />
+        {entrypoints.some(({assets}) => assets?.length > 0) ? (
+          <Box flexDirection="column">
+            <Title>
+              <Text
+                color={colorFromStats(stats)}
+                dimColor={displayEntrypoints === false}
+              >
+                <Text underline>e</Text>ntrypoints
+              </Text>
+            </Title>
+            {displayEntrypoints
+              ? entrypoints
+                  .filter(({assets}) => assets.length > 0)
+                  .map((chunk: StatsChunkGroup, id: number) => (
+                    <Box key={id} flexDirection="column">
+                      <ChunkGroup
+                        indent={[true]}
+                        {...chunk}
+                        minWidth={longestEntrypointAssetLength}
+                        final={id === entrypoints.length - 1}
+                      />
+                    </Box>
+                  ))
+              : null}
+            <Space>
+              <Text> </Text>
+            </Space>
           </Box>
-        ))}
-
-        <Space>
-          <Text> </Text>
-        </Space>
-      </Box>
-
-      <Box flexDirection="column">
-        <Title>
-          <Text color={compilationColor}>assets</Text>
-        </Title>
-
-        <Chunk
-          assets={staticAssets}
-          emitted={stats?.errorsCount === 0}
-          indent={[true]}
-        />
-
-        <Space>
-          <Text> </Text>
-        </Space>
-
-        {hiddenStaticAssets?.length > 0 ? (
-          <Space>
-            <Text dimColor>
-              {SPACE}
-              {figures.ellipsis}
-              {SPACE}
-              {hiddenStaticAssets.length}
-              {SPACE}additional assets not shown
-            </Text>
-          </Space>
         ) : null}
       </Box>
+
+      {staticAssets?.length > 0 ? (
+        <Box flexDirection="column">
+          <Title>
+            <Text
+              color={colorFromStats(stats)}
+              dimColor={displayAssets === false}
+            >
+              <Text underline>a</Text>ssets
+            </Text>
+          </Title>
+
+          {displayAssets ? (
+            <>
+              <Chunk assets={staticAssets} indent={[true]} />
+
+              <Space>
+                <Text> </Text>
+              </Space>
+
+              {hiddenStaticAssets?.length > 0 && (
+                <Space>
+                  <Text dimColor>
+                    {` `}
+                    {figures.ellipsis}
+                    {` `}
+                    {hiddenStaticAssets.length}
+                    {` `}
+                    additional asset(s) not shown
+                  </Text>
+                </Space>
+              )}
+            </>
+          ) : null}
+        </Box>
+      ) : null}
 
       <Space>
         <Text> </Text>

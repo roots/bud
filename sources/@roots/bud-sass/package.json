@@ -53,20 +53,22 @@
   "typesVersions": {
     "*": {
       ".": [
+        "./lib/types.d.ts",
         "./lib/index.d.ts"
-      ],
-      "env": [
-        "./lib/env.d.ts"
       ],
       "extension": [
         "./lib/extension.d.ts"
       ],
       "resolve-url": [
         "./lib/resolve-url/index.d.ts"
+      ],
+      "types": [
+        "./lib/types.d.ts"
       ]
     }
   },
   "devDependencies": {
+    "@jest/globals": "29.0.1",
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.11.48",
     "postcss": "8.4.16",

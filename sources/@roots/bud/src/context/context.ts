@@ -1,61 +1,59 @@
-import type {Config as Options} from '@roots/bud-framework'
-import {get, set} from 'lodash-es'
+/* eslint-disable no-console */
+import type * as Options from '@roots/bud-framework/options'
 
+import Args from './args.js'
 import BudContext from './bud.js'
 import Config from './config.js'
 import Env from './env.js'
 import Extensions from './extensions.js'
-import Manifest from './manifest.js'
 import Services from './services.js'
 
-let cache: Record<string, Context> = {}
+let contexts: Record<string, Options.Context> = {}
 
 export default class Context {
-  public data: Partial<Options.Context> = {
-    args: {},
+  public data: Options.Context = {
+    basedir: null,
+    label: null,
+    mode: null,
+    bud: null,
+    config: null,
+    args: null,
+    env: null,
+    manifest: null,
+    services: null,
+    extensions: null,
+    stdin: process.stdin,
+    stdout: process.stdout,
+    stderr: process.stderr,
+    colorDepth: 256,
   }
 
-  public get(key: string): any {
-    return get(this.data, key)
-  }
+  public async make(basedir: string): Promise<Options.Context> {
+    if (contexts[basedir]) return contexts[basedir]
 
-  public set(key: string, value: any) {
-    set(this.data, key, value)
-  }
+    this.data.basedir = basedir
 
-  private constructor() {}
+    this.data.args = new Args(basedir).data
 
-  public static async make(basedir: string): Promise<Context> {
-    if (cache[basedir]) return cache[basedir]
+    this.data.env = new Env(basedir).data
 
-    const instance = new Context()
+    this.data.config = await new Config()
+      .find(basedir)
+      .then(config => config.data)
 
-    instance.set(`basedir`, basedir)
+    if (this.data.config[`package.json`])
+      this.data.manifest = this.data.config[`package.json`].module
 
-    await new BudContext().find().then(({data}) => {
-      instance.set(`bud`, data)
-    })
+    this.data.bud = await new BudContext().find().then(({data}) => data)
 
-    instance.set(`env`, new Env(basedir).data)
-
-    await new Config().find(basedir).then(({data}) => {
-      instance.set(`config`, data)
-    })
-
-    const manifest = await new Manifest(instance.get(`config`)).read()
-    instance.set(`manifest`, manifest.data)
-    instance.set(`label`, instance.get(`manifest.name`))
-
-    await new Extensions(instance.get(`manifest`))
+    this.data.extensions = await new Extensions(this.data.manifest)
       .find()
-      .then(({data}) => {
-        instance.set(`extensions`, data)
-      })
+      .then(({data}) => data)
 
-    instance.set(`services`, Services.data)
+    this.data.services = Services.data
 
-    cache[basedir] = instance
+    contexts[basedir] = this.data
 
-    return instance
+    return contexts[basedir]
   }
 }

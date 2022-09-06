@@ -1,6 +1,5 @@
 import {Extension} from '@roots/bud-framework/extension'
 import {
-  bind,
   label,
   options,
   plugin,
@@ -17,9 +16,4 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 export default class BudHtmlWebpackPlugin extends Extension<
   HtmlWebpackPlugin.Options,
   HtmlWebpackPlugin
-> {
-  @bind
-  public async when() {
-    return this.app.hooks.filter(`feature.html`)
-  }
-}
+> {}

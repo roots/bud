@@ -33,13 +33,13 @@ export default class BudSWC extends Extension {
   }
 
   /**
-   * `beforeBuild` callback
+   * `buildBefore` callback
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public async beforeBuild() {
+  public async buildBefore() {
     await this.registerSWC(this.app)
   }
 

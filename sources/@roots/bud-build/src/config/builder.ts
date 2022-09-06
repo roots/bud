@@ -1,127 +1,70 @@
 import type {Bud} from '@roots/bud-framework'
+import {cpus} from 'os'
+import type {Configuration} from 'webpack'
 
-import {filenameFormat} from './filenameFormat.js'
+export {bail} from './bail.js'
+export {cache} from './cache.js'
+export {context} from './context.js'
+export {experiments} from './experiments.js'
+export {infrastructureLogging} from './infrastructureLogging.js'
+export {module} from './module.js'
+export {optimization} from './optimization.js'
+export {output} from './output.js'
+export {resolve} from './resolve.js'
 
-/**
- * Initializes configuration builder hooks
- *
- * @remarks
- * All hooks in the `build` namespace are initialized here with
- * the exception of `build.cache` which is handled in {@link Bud.cache}
- *
- * @param app - the Bud instance
- * @returns Promise
- *
- * @public
- */
-export async function build(app: Bud): Promise<void> {
-  app.hooks
-    .on(`build.bail`, () => app.isProduction)
-    .hooks.on(`build.cache`, () => app.cache.configuration)
-    .hooks.on(`build.context`, () => app.context.basedir)
-    .hooks.on(`build.externalsType`, `var`)
-    .hooks.on(`build.experiments`, () => ({
-      asyncWebAssembly: app.hooks.filter(
-        `build.experiments.asyncWebAssembly`,
-      ),
-      backCompat: app.hooks.filter(`build.experiments.backCompat`),
-      buildHttp: app.hooks.filter(`build.experiments.buildHttp`),
-      cacheUnaffected: app.hooks.filter(
-        `build.experiments.cacheUnaffected`,
-      ),
-      css: app.hooks.filter(`build.experiments.css`),
-      futureDefaults: app.hooks.filter(`build.experiments.futureDefaults`),
-      layers: app.hooks.filter(`build.experiments.layers`),
-      lazyCompilation: app.hooks.filter(
-        `build.experiments.lazyCompilation`,
-      ),
-      topLevelAwait: app.hooks.filter(`build.experiments.topLevelAwait`),
-      outputModule: app.hooks.filter(`build.experiments.outputModule`),
-      syncWebAssembly: app.hooks.filter(
-        `build.experiments.syncWebAssembly`,
-      ),
-    }))
-    .hooks.on(`build.infrastructureLogging`, () => ({
-      console: app.hooks.filter(`build.infrastructureLogging.console`),
-      level: app.hooks.filter(`build.infrastructureLogging.level`),
-    }))
-    .hooks.on(`build.mode`, () => app.mode)
-    .hooks.on(`build.module`, () => ({
-      noParse: app.hooks.filter(`build.module.noParse`),
-      rules: app.hooks.filter(`build.module.rules`),
-      unsafeCache: app.hooks.filter(`build.module.unsafeCache`),
-    }))
-    .hooks.on(`build.module.rules`, () => [
-      ...app.hooks.filter(`build.module.rules.before`),
-      {oneOf: app.hooks.filter(`build.module.rules.oneOf`)},
-      ...app.hooks.filter(`build.module.rules.after`),
-    ])
-    .hooks.on(`build.module.rules.oneOf`, () =>
-      Object.values(app.build.rules).map(rule => rule.toWebpack()),
-    )
-    .hooks.on(`build.name`, () => app.label)
-    .hooks.on(`build.output`, () => ({
-      assetModuleFilename: app.hooks.filter(
-        `build.output.assetModuleFilename`,
-      ),
-      chunkFilename: app.hooks.filter(`build.output.chunkFilename`),
-      clean: app.hooks.filter(`build.output.clean`),
-      environment: app.hooks.filter(`build.output.environment`),
-      filename: app.hooks.filter(`build.output.filename`),
-      module: app.hooks.filter(`build.output.module`),
-      path: app.hooks.filter(`build.output.path`),
-      pathinfo: app.hooks.filter(`build.output.pathinfo`),
-      publicPath: app.hooks.filter(`build.output.publicPath`),
-    }))
-    .hooks.async(`build.resolve.alias`, async () => ({
-      '@src': app.path(`@src`),
-      '@dist': app.path(`@dist`),
-    }))
-    .hooks.on(`build.output.assetModuleFilename`, () =>
-      filenameFormat(app, `[ext]`),
-    )
-    .hooks.on(`build.output.chunkFilename`, () => `js/dynamic/[id].js`)
-    .hooks.on(`build.output.filename`, () => `js/${filenameFormat(app)}`)
-    .hooks.on(`build.output.path`, () => app.path(`@dist`))
-    .hooks.on(`build.output.chunkFilename`, () => `js/dynamic/[id].js`)
-    .hooks.on(`build.output.filename`, () => `js/${filenameFormat(app)}`)
-    .hooks.on(`build.output.path`, () => app.path(`@dist`))
-    .hooks.on(`build.output.publicPath`, () => `auto`)
-    .hooks.on(`build.optimization`, () => ({
-      emitOnErrors: app.hooks.filter(`build.optimization.emitOnErrors`),
-      minimize: app.hooks.filter(`build.optimization.minimize`),
-      minimizer: app.hooks.filter(`build.optimization.minimizer`),
-      moduleIds: app.hooks.filter(`build.optimization.moduleIds`),
-      runtimeChunk: app.hooks.filter(`build.optimization.runtimeChunk`),
-      splitChunks: app.hooks.filter(`build.optimization.splitChunks`),
-    }))
-    .hooks.async(`build.plugins`, async () => await app.extensions.make())
-    .hooks.on(`build.recordsPath`, () =>
-      app.path(`@storage/${app.label}/modules.json`),
-    )
-    .hooks.on(`build.optimization.emitOnErrors`, () => app.isDevelopment)
-    .hooks.async(`build.resolve`, async () => {
-      const alias = await app.hooks.filterAsync(`build.resolve.alias`)
-      const extensions = Array.from(
-        app.hooks.filter(`build.resolve.extensions`),
-      )
-      const modules = await app.hooks.filterAsync(`build.resolve.modules`)
-
-      return {alias, extensions, modules}
-    })
-
-    .hooks.async(`build.resolve.modules`, async (value?: any) => {
-      return Array.from(
-        new Set([
-          ...(value ?? []),
-          app.hooks.filter(`location.@src`),
-          app.hooks.filter(`location.@modules`),
-        ]),
-      )
-    })
-    .hooks.on(`build.target`, () =>
-      app.project.has(`manifest.browserslist`)
-        ? `browserslist:${app.root.path(`./package.json`)}`
-        : undefined,
-    )
+export interface ValueFactory<T extends keyof B, B = Configuration> {
+  (app: Bud): Promise<B[T]>
 }
+
+export const entry: ValueFactory<`entry`> = async app =>
+  app.hooks.filter(`build.entry`)
+
+export const externals: ValueFactory<`externals`> = async app =>
+  app.hooks.filter(`build.externals`)
+
+export const externalsType: ValueFactory<`externalsType`> = async app =>
+  app.hooks.filter(`build.externalsType`, `var`)
+
+export const loader: ValueFactory<`loader`> = async app =>
+  app.hooks.filter(`build.loader`)
+
+export const mode: ValueFactory<`mode`> = async app =>
+  app.hooks.filter(`build.mode`, app.mode)
+
+export const name: ValueFactory<`name`> = async app =>
+  app.hooks.filter(`build.name`, app.label)
+
+export const node: ValueFactory<`node`> = async app =>
+  app.hooks.filter(`build.node`, false)
+
+export const parallelism: ValueFactory<`parallelism`> = async app =>
+  app.hooks.filter(
+    `build.parallelism`,
+    10 * Math.max(cpus().length - 1, 1),
+  )
+
+export const performance: ValueFactory<`performance`> = async app =>
+  app.hooks.filter(`build.performance`, {hints: false})
+
+export const plugins: ValueFactory<`plugins`> = async app =>
+  await app.extensions.make()
+
+export const profile: ValueFactory<`profile`> = async app =>
+  app.hooks.filter(`build.profile`)
+
+export const recordsPath: ValueFactory<`recordsPath`> = async app =>
+  app.hooks.filter(
+    `build.recordsPath`,
+    app.path(`@storage`, app.label, `modules.json`),
+  )
+
+export const stats: ValueFactory<`stats`> = async app =>
+  app.hooks.filter(`build.stats`, {preset: `errors-only`})
+
+export const target: ValueFactory<`target`> = async app =>
+  app.hooks.filter(
+    `build.target`,
+    app.context.config.manifest?.browserslist
+      ? `browserslist:${app.root.path(`package.json`)}`
+      : `web`,
+  )

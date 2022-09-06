@@ -1,5 +1,5 @@
 import {Bud, factory} from '@repo/test-kit/bud'
-import {Rule} from '@roots/bud-build'
+import Rule from '@roots/bud-build/rule'
 
 describe(`Build Rule`, function () {
   let bud: Bud

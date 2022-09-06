@@ -7,15 +7,18 @@
     "build": "builder build plugin"
   },
   "devDependencies": {
-    "@repo/constants": "workspace:sources/@repo/constants",
     "@types/fs-extra": "9.0.13",
     "@types/node": "16.11.48",
-    "@yarnpkg/builder": "3.2.3",
-    "@yarnpkg/cli": "3.2.2",
+    "@yarnpkg/builder": "3.2.3"
+  },
+  "dependencies": {
+    "@repo/constants": "workspace:sources/@repo/constants",
+    "@yarnpkg/cli": "3.2.3",
     "@yarnpkg/core": "3.2.3",
     "@yarnpkg/shell": "3.2.3",
     "clipanion": "3.2.0-rc.11",
     "fs-extra": "10.1.0",
+    "helpful-decorators": "2.1.0",
     "js-yaml": "4.1.0",
     "lodash": "4.17.21",
     "pm2": "5.2.0",
@@ -23,9 +26,6 @@
     "tslib": "2.4.0",
     "typescript": "4.7.4",
     "verdaccio": "5.13.1"
-  },
-  "dependencies": {
-    "helpful-decorators": "2.1.0"
   },
   "volta": {
     "node": "16.16.0",

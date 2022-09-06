@@ -1,3 +1,4 @@
+/* eslint-disable n/no-process-env */
 import {factory} from '@repo/test-kit/bud'
 
 describe(`test environment sanity checks`, () => {

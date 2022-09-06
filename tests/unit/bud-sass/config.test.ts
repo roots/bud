@@ -28,7 +28,7 @@ describe(`@roots/bud-sass registration`, () => {
       `additionalData`,
       `@import "@styles/common/variables";`,
     )
-    await bud.extensions.runAll(`_afterConfig`)
+    await bud.extensions.runAll(`configAfter`)
     expect(bud.build.items.sass.getOptions().additionalData).toBe(
       `@import "@styles/common/variables";`,
     )

@@ -40,6 +40,7 @@
     "./current": "./current.cjs"
   },
   "devDependencies": {
+    "@jest/globals": "29.0.1",
     "@skypack/package-check": "0.2.2"
   },
   "volta": {

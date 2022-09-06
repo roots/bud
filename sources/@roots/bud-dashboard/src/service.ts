@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
-import {Dashboard as Base, Service} from '@roots/bud-framework'
+import {Service} from '@roots/bud-framework/service'
+import type * as Services from '@roots/bud-framework/services'
 import {bind} from 'helpful-decorators'
 import type * as Ink from 'ink'
 import type {StatsCompilation} from 'webpack'
@@ -9,7 +10,10 @@ import type {StatsCompilation} from 'webpack'
  *
  * @public
  */
-export class Dashboard extends Service implements Base.Service {
+export class Dashboard
+  extends Service
+  implements Services.Dashboard.Service
+{
   /**
    * Service label
    *
@@ -60,7 +64,10 @@ export class Dashboard extends Service implements Base.Service {
   }: {
     stats: StatsCompilation
   }): Promise<this> {
-    if (!compilationStats) return this
+    if (!compilationStats || this.app.context.args.log === false)
+      return this
+
+    this.app.log(`\n`)
 
     if (this.app.context.args.ci) {
       this.log(compilationStats?.toString())
@@ -70,7 +77,7 @@ export class Dashboard extends Service implements Base.Service {
     try {
       const {renderDashboard} = await import(`./render/renderer.js`)
 
-      const stats: StatsCompilation = compilationStats.toJson()
+      const stats: StatsCompilation = compilationStats.toJson(`alls`)
 
       if (!stats || stats.hash === this.lastHash) return this
       this.lastHash = stats.hash
@@ -79,8 +86,8 @@ export class Dashboard extends Service implements Base.Service {
         app: this.app,
       })
     } catch (error) {
-      this.log(error)
       this.log(compilationStats?.toString())
+      this.app.error(error)
     }
 
     return this

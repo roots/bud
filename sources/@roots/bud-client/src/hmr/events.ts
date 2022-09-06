@@ -1,5 +1,7 @@
 /* eslint-disable no-console */
 
+type Listener = ((ev: MessageEvent) => any) | null
+
 /**
  * HMR EventSource
  *
@@ -7,22 +9,21 @@
  */
 export class Events extends EventSource {
   /**
-   * Timer (for timeout)
+   * Current hash
    * @public
    */
-  public timer: NodeJS.Timer
+  public currentHash: string
 
   /**
-   * Last activity (for timeout)
-   * @public
+   * Messages
    */
-  public lastActivity: Date = new Date()
+  public messages: Set<string> = new Set()
 
   /**
    * Registered listeners
    * @public
    */
-  public listeners: Array<((ev: MessageEvent) => any) | null> = []
+  public listeners: Set<Listener> = new Set<Listener>()
 
   /**
    * Class constructor
@@ -35,10 +36,6 @@ export class Events extends EventSource {
 
     this.onopen = this.onopen.bind(this)
     this.onmessage = this.onmessage.bind(this)
-    this.onerror = this.onerror.bind(this)
-
-    this.checkTimeout = this.checkTimeout.bind(this)
-    this.timer = setInterval(this.checkTimeout, options.timeout / 2)
     this.addMessageListener = this.addMessageListener.bind(this)
   }
 
@@ -60,34 +57,37 @@ export class Events extends EventSource {
    * EventSource `onopen` handler
    * @public
    */
-  public onopen = function (this: Events, ev?: Event) {
+  public onopen = async function (ev?: Event) {
     console.log(`[bud] connected`)
-    this.lastActivity = new Date()
   }
 
   /**
    * EventSource `onmessage` handler
    * @public
    */
-  public onmessage = function (payload: MessageEvent) {
-    this.lastActivity = new Date()
+  public onmessage = async function (payload: MessageEvent) {
+    // @ts-ignore
     if (!payload) return
 
-    if (!this.listeners?.length || !payload) return
+    try {
+      this.payload = JSON.parse(payload.data)
 
-    this.listeners?.forEach(listener =>
-      typeof listener === `function` ? listener(payload) : null,
-    )
-  }
+      this.payload?.action === `reload` &&
+        this.options.reload &&
+        window.location.reload()
 
-  /**
-   * EventSource `onerror` handler
-   * @public
-   */
-  public onerror = function (this: Events, ev?: Event) {
-    clearInterval(this.timer)
-    this.close()
-    setTimeout(() => Events.make(this.options), this.options.timeout)
+      if (this.payload?.hash) {
+        if (this.messages.has(this.payload?.hash)) return
+        this.currentHash = this.payload?.hash
+        this.messages.add(this.currentHash)
+      }
+
+      if (this.messages.size <= 1) return
+
+      await Promise.all(
+        [...this.listeners].map(async listener => await listener(payload)),
+      )
+    } catch (error) {}
   }
 
   /**
@@ -97,20 +97,7 @@ export class Events extends EventSource {
   public addMessageListener(
     callback: (ev: MessageEvent) => unknown,
   ): this {
-    this.listeners.push(callback)
-    return this
-  }
-
-  /**
-   * Check if timed out
-   * @public
-   */
-  public checkTimeout(): this {
-    // @ts-ignore
-    if (new Date() - this.lastActivity > this.options.timeout) {
-      this.onerror()
-    }
-
+    this.listeners.add(callback)
     return this
   }
 }

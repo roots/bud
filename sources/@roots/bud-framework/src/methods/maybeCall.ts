@@ -1,6 +1,6 @@
 import {isFunction} from 'lodash-es'
 
-import type {Bud} from '../bud.js'
+import type {Bud} from '../bud'
 
 /**
  * @internal
@@ -24,6 +24,8 @@ export function maybeCall<I = Bud>(maybeCallable: maybeCallable): I {
   const app = this as Bud
 
   return isFunction(maybeCallable)
-    ? maybeCallable.call(app, app)
+    ? maybeCallable.bind
+      ? maybeCallable.bind(app)(app)
+      : maybeCallable(app)
     : maybeCallable
 }

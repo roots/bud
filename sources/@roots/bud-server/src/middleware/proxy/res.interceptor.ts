@@ -108,10 +108,10 @@ export class ResponseInterceptorFactory {
     return this.app.hooks
       .filter(`dev.middleware.proxy.replacements`, [])
       .reduce(
-        (buffer: string, [find, replace]: [string | RegExp, string]) =>
+        (buffer: string, [search, replace]: [string | RegExp, string]) =>
           buffer
             .split(`\n`)
-            .map((ln: string) => ln.replaceAll(find, replace))
+            .map((ln: string) => ln.replaceAll(search, replace))
             .join(`\n`),
         buffer.toString(),
       )

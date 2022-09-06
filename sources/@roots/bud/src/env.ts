@@ -8,7 +8,7 @@ import '@roots/bud-framework'
 import '@roots/bud-hooks'
 import '@roots/bud-server'
 
-import type {Build} from '@roots/bud-framework'
+import type {Build} from '@roots/bud-framework/services'
 
 import type BudCDN from './extensions/bud-cdn/index.js'
 import type BudESM from './extensions/bud-esm/index.js'

@@ -12,4 +12,5 @@
 import './env.js'
 
 import BudWordPressDependencies from './extension.js'
+
 export default BudWordPressDependencies

@@ -10,7 +10,7 @@ interface Manifest {
 /**
  * @public
  */
-export class WordPressDependenciesWebpackPlugin {
+export default class WordPressDependenciesWebpackPlugin {
   /**
    * @public
    */

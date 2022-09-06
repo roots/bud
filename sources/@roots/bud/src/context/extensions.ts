@@ -1,5 +1,18 @@
-import type {Context} from '@roots/bud-framework/config'
+import type {Context} from '@roots/bud-framework/options'
 import {bind} from 'helpful-decorators'
+
+const CORE_MODULES = [
+  `@roots/bud-api`,
+  `@roots/bud-build`,
+  `@roots/bud-cache`,
+  `@roots/bud-client`,
+  `@roots/bud-compiler`,
+  `@roots/bud-dashboard`,
+  `@roots/bud-extensions`,
+  `@roots/bud-framework`,
+  `@roots/bud-hooks`,
+  `@roots/bud-server`,
+]
 
 export default class Extensions {
   public data: Array<string> = [
@@ -20,19 +33,10 @@ export default class Extensions {
 
   @bind
   public async find() {
-    this.filterApplicableExtensions(
-      Object.keys({
-        ...(this.manifest?.devDependencies ?? {}),
-        ...(this.manifest?.dependencies ?? {}),
-      }),
-    )
-
-    return this
-  }
-
-  @bind
-  public filterApplicableExtensions(extensions: Array<string>) {
-    extensions
+    Object.keys({
+      ...(this.manifest?.devDependencies ?? {}),
+      ...(this.manifest?.dependencies ?? {}),
+    })
       .filter(
         signifier =>
           signifier.startsWith(`@roots/bud-`) ||
@@ -41,18 +45,7 @@ export default class Extensions {
       )
       .filter(
         signifier =>
-          ![
-            `@roots/bud-api`,
-            `@roots/bud-build`,
-            `@roots/bud-cache`,
-            `@roots/bud-client`,
-            `@roots/bud-compiler`,
-            `@roots/bud-dashboard`,
-            `@roots/bud-extensions`,
-            `@roots/bud-framework`,
-            `@roots/bud-hooks`,
-            `@roots/bud-server`,
-          ].includes(signifier),
+          !CORE_MODULES.some(coreSignifier => signifier === coreSignifier),
       )
       .filter(
         signifier =>
@@ -65,5 +58,7 @@ export default class Extensions {
           this.manifest.bud.allowlist.includes(signifier),
       )
       .map(signifier => this.data.push(signifier))
+
+    return this
   }
 }

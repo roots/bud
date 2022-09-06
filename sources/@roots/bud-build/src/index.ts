@@ -10,9 +10,6 @@
  * @packageDocumentation
  */
 
-import Item from './item.js'
-import Loader from './loader.js'
-import Rule from './rule.js'
 import Build from './service.js'
 
-export {Build, Build as Service, Build as default, Loader, Item, Rule}
+export default Build

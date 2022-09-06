@@ -1,4 +1,4 @@
-import type {Build} from '@roots/bud-framework'
+import type {Build} from '@roots/bud-framework/services'
 
 import type Esbuild from './extension.js'
 

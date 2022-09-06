@@ -20,17 +20,14 @@ import {
 @development
 export default class BudTypeScriptRefresh extends Extension {
   /**
-   * `beforeBuild` callback
+   * `buildBefore` callback
    *
    * @public
    * @decorator `@bind`
    */
   @bind
   public async init() {
-    this.app.hooks.action(
-      `@roots/bud-typescript/beforeBuild/after`,
-      this.registerTransform,
-    )
+    this.app.hooks.action(`build.before`, this.registerTransform)
   }
 
   /**

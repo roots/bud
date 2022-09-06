@@ -1,10 +1,11 @@
 import {isString} from 'lodash-es'
+import {normalize} from 'node:path'
 
 import type {Bud} from '../bud.js'
-import type {Locations} from '../registry/locations.js'
+import type * as Locations from '../types/registry/locations'
 
 export interface setPath {
-  <T extends `${keyof Locations & string}`>(
+  <T extends `${keyof Locations.Sync & string}`>(
     arg1: T | Partial<Record<T, string>>,
     arg2?: string,
   ): Bud
@@ -14,7 +15,13 @@ export interface setPath {
  * Set a {@link Locations} value
  *
  * @remarks
- * All {@link Locations} values should be relative to the project directory
+ * All values should be relative to the project directory.
+ *
+ * @example
+ * Set project path
+ * ```js
+ * bud.setPath('/app/absolute/path/')
+ * ```
  *
  * @example
  * ```js
@@ -29,16 +36,21 @@ export interface setPath {
 export const setPath: setPath = function (arg1, arg2) {
   const app = this as Bud
 
+  if (isString(arg1) && !arg2) {
+    Object.assign(app.context, {basedir: normalize(arg1)})
+    return app
+  }
+
   const input = isString(arg1) ? {[arg1]: arg2} : arg1
 
   Object.entries(input).map(
     ([key, value]: [
-      `${keyof Locations & string}`,
+      `${keyof Locations.SyncRegistry & string}`,
       (
-        | `${keyof Locations & string}`
+        | `${keyof Locations.SyncRegistry & string}`
         | `@file`
         | `@name`
-        | `${keyof Locations & string}/${string}`
+        | `${keyof Locations.SyncRegistry & string}/${string}`
         | `./${string}`
         | `/${string}`
       ),
@@ -54,7 +66,10 @@ export const setPath: setPath = function (arg1, arg2) {
           `internal error: the final result of a bud.setPath transform was not absolute: ${key} => ${value} => ${absolutePath}`,
         )
 
-      app.hooks.on(`location.${key}`, app.path(value))
+      app.hooks.on(
+        `location.${key as `@src` | `@dist` | `@modules` | `@storage`}`,
+        app.path(value),
+      )
       app.info(`${key} set to ${value}`)
     },
   )

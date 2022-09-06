@@ -1,6 +1,20 @@
+import * as json from '@roots/bud-framework/parsers/json5'
+import * as yml from '@roots/bud-framework/parsers/yml'
 import {globby} from 'globby'
 import {bind} from 'helpful-decorators'
+import {set} from 'lodash-es'
 import {basename, join, normalize} from 'node:path/posix'
+
+interface ConfigFileDescription {
+  name: string
+  path: string
+  bud: boolean
+  local: boolean
+  dynamic: boolean
+  extension: string | null
+  type: `production` | `development` | `base`
+  module: any
+}
 
 /**
  * Context: disk
@@ -13,7 +27,17 @@ export default class Config {
    *
    * @public
    */
-  public data: Record<string, string> = {}
+  public data: Record<string, ConfigFileDescription> = {}
+
+  public static hasExtension(path: string, extension: string) {
+    return path.endsWith(extension)
+  }
+
+  public static isDynamicConfig(path: string) {
+    return [`js`, `cjs`, `mjs`, `ts`, `cts`, `mts`].some(
+      (extension: string) => path.endsWith(extension),
+    )
+  }
 
   /**
    * Find configs
@@ -22,7 +46,7 @@ export default class Config {
    */
   @bind
   public async find(basedir: string): Promise<Config> {
-    await globby(
+    const results = await globby(
       [
         `*.{cts,mts,ts,cjs,mjs,js,json,toml,yml}`,
         `*rc`,
@@ -36,18 +60,52 @@ export default class Config {
         gitignore: true,
         onlyFiles: true,
       },
-    ).then(results => {
-      Object.assign(
-        this.data,
-        results.reduce(
-          (configs: Record<string, string>, filePath: string) => ({
-            ...(configs ?? {}),
-            [basename(normalize(filePath))]: normalize(filePath),
-          }),
-          this.data,
-        ),
-      )
+    )
+
+    results?.map((filePath: string) => {
+      const name = basename(normalize(filePath))
+      const extension = name.split(`.`).pop()
+      const path = normalize(filePath)
+
+      set(this.data, [`${name}`], {
+        name,
+        path,
+        extension,
+        local: name.includes(`local`),
+        dynamic: Config.isDynamicConfig(path),
+        bud: name.includes(`bud`),
+        type: name.includes(`production`)
+          ? `production`
+          : name.includes(`development`)
+          ? `development`
+          : `base`,
+      })
     })
+
+    await Promise.all(
+      Object.entries(this.data).map(
+        async ([name, description]: [string, ConfigFileDescription]) => {
+          try {
+            if (description.dynamic) {
+              const dynamicConfig = await import(description.path)
+              set(this.data, [name, `module`], dynamicConfig)
+            }
+
+            if (description.extension === `json`) {
+              const jsonConfig = await json.read(description.path)
+              set(this.data, [name, `module`], jsonConfig)
+            }
+
+            if (description.extension === `yml`) {
+              const ymlConfig = await yml.read(description.path)
+              set(this.data, [name, `module`], ymlConfig)
+            }
+          } catch (err) {
+            throw err
+          }
+        },
+      ),
+    )
 
     return this
   }

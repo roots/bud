@@ -2,39 +2,42 @@ import {Box, Text} from 'ink'
 import React from 'react'
 
 import Title from '../display/title.component.js'
-import {longestAssetNameLength} from '../format.js'
+import {color} from '../format.js'
 import Asset from './asset.component.js'
 
 const ChunkGroup = ({
-  name,
-  assets,
   indent,
-  color,
   final,
-  emitted,
+  minWidth,
+  ...chunk
 }: {
-  name: string
-  assets: Array<any>
+  name?: string
+  assetsSize?: number
+  assets?: Array<any>
   indent: Array<boolean>
-  color: string
   final: boolean
+  minWidth?: number
   emitted?: boolean
+  cached?: boolean
 }) => {
   return (
     <Box flexDirection="column">
       <Box flexDirection="row">
         <Title indent={indent} final={final}>
-          <Text color={color}>{name}</Text>
+          {chunk.name ? (
+            <Text color={color.foregroundColor}>{chunk.name}</Text>
+          ) : (
+            <Text color={color.foregroundColor}>unnamed chunk</Text>
+          )}
         </Title>
       </Box>
 
-      {assets.map((asset, index) => (
+      {chunk.assets?.map((asset, index) => (
         <Asset
           key={index}
           {...asset}
-          emitted={emitted}
-          minWidth={longestAssetNameLength(assets) + 1}
-          final={index == assets?.length - 1}
+          minWidth={minWidth}
+          final={index == chunk.assets?.length - 1}
           indent={[true, !final]}
         />
       ))}

@@ -9,7 +9,7 @@ describe(`@roots/bud-tailwindcss`, () => {
   let instance: BudTailwindCssExtension
 
   beforeAll(async () => {
-    bud = await factory()
+    bud = await factory({}, true)
     instance = new BudTailwindCssExtension(bud)
   })
 
@@ -18,13 +18,13 @@ describe(`@roots/bud-tailwindcss`, () => {
   })
 
   it(`queues up postcss`, async () => {
-    const bud = await factory()
+    bud = await factory({}, true)
     await bud.extensions.add(BudTailwindCssExtension)
     expect(bud.extensions.has(`@roots/bud-postcss`))
   })
 
   it(`sets up postcss plugins`, async () => {
-    const bud = await factory()
+    bud = await factory({}, true)
 
     await bud.extensions.add(BudTailwindCssExtension)
     const plugins = [...bud.postcss.plugins.keys()]

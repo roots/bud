@@ -2,10 +2,9 @@
 
 import {describe, expect, it} from '@jest/globals'
 import {paths} from '@repo/constants'
-import {logger} from '@repo/logger'
 import {execa, ExecaChildProcess} from 'execa'
 import fs from 'fs-extra'
-import {join} from 'path'
+import {join} from 'node:path'
 import {Browser, chromium, Page} from 'playwright'
 
 import copy from './util/copy'
@@ -46,12 +45,12 @@ describe(`html output of examples/basic`, () => {
       .then(async () => {
         devProcess = execa(
           `node`,
-          [`./node_modules/.bin/bud`, `dev`, `--html`, `--no-cache`],
+          [`./node_modules/.bin/bud`, `dev`, `--no-cache`, `--html`],
           {cwd: join(paths.mocks, `yarn`, `@examples`, `basic`)},
         )
         devProcess.stdout?.pipe(process.stdout)
 
-        setTimeout(done, 5000)
+        setTimeout(done, 10000)
 
         await devProcess.catch(err => {
           process.stderr.write(JSON.stringify(err))
@@ -65,11 +64,9 @@ describe(`html output of examples/basic`, () => {
 
   beforeEach(async () => {
     await reset()
-    await chromium.launch().then(async instance => {
-      browser = instance
-      page = await browser.newPage()
-      await page?.goto(`http://0.0.0.0:3000/`)
-    })
+
+    browser = await chromium.launch()
+    page = await browser?.newPage()
   })
 
   afterEach(async () => {
@@ -77,19 +74,19 @@ describe(`html output of examples/basic`, () => {
     await browser?.close()
   })
 
-  it(`should have page title: \`Webpack App\``, async () => {
+  it(`should have page title: \`%APP_TITLE%\``, async () => {
+    await page?.goto(`http://0.0.0.0:3000/`)
     const title = await page.title()
-    expect(title).toBe(`Webpack App`)
-  })
-
-  it(`should have expected initial markup`, async () => {
-    const init = await page.$(`.init`)
-    expect(init).toBeTruthy()
+    expect(title).toBe(`%APP_TITLE%`)
   })
 
   it(`should add new body class after updating src/index.js`, async () => {
+    await page?.goto(`http://0.0.0.0:3000/`)
+    const init = await page.$(`.init`)
+    expect(init).toBeTruthy()
+
     await update()
-    await page.waitForTimeout(3000)
+    await page.waitForTimeout(12000)
 
     const hot = await page.$(`.hot`)
     expect(hot).toBeTruthy()

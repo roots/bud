@@ -54,6 +54,7 @@ export default class Env {
     const getEnvFromPath = (path: string): Record<string, string> => {
       const env = dotenv.config({path})
       if (!env || !env?.parsed || env?.error) return {}
+
       return filterUndefined(env.parsed)
     }
 
@@ -80,6 +81,7 @@ export default class Env {
     /**
      * Apply process env
      */
+    // eslint-disable-next-line n/no-process-env
     Object.entries(filterUndefined(process.env)).map(([k, v]) => {
       this.data[k] = v
     })

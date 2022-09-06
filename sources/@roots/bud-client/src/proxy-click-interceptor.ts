@@ -5,15 +5,14 @@ import intercept from './intercept'
 
 window.requestAnimationFrame(async function ready() {
   if (!__resourceQuery) return
+
   const params = new URLSearchParams(__resourceQuery)
+  if (!params || !params.has(`search`) || !params.has(`replace`)) return
 
-  if (!params) return
-  const href = params.get(`href`)
-
-  if (!href) return
-  const origin = decodeURI(href)
+  const search = decodeURI(params.get(`search`))
+  const replace = decodeURI(params.get(`replace`))
 
   return document.body
-    ? intercept(origin)
+    ? intercept(search, replace)
     : window.requestAnimationFrame(ready)
 })

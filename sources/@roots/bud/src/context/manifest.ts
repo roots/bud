@@ -1,7 +1,4 @@
-import fs from 'fs-extra'
-import {bind} from 'helpful-decorators'
-
-import type Config from './config.js'
+import type Config from './config'
 
 /**
  * Context: project manifest
@@ -16,18 +13,9 @@ export default class Manifest {
    *
    * @public
    */
-  public constructor(public config: Config['data']) {}
-
-  /**
-   * Read manifest
-   *
-   * @public
-   */
-  @bind
-  public async read() {
-    if (!this.config[`package.json`]) return this
-
-    this.data = await fs.readJson(this.config[`package.json`], `utf8`)
+  public constructor(public config: Config) {
+    if (!this.config.data[`package.json`]) return this
+    this.data = this.config.data[`package.json`].module
 
     return this
   }
