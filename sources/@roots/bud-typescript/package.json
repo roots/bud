@@ -77,7 +77,7 @@
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@types/webpack-env": "^1.17.0",
+    "@types/webpack-env": "1.18.0",
     "chalk": "5.0.1",
     "clipanion": "3.2.0-rc.11",
     "execa": "6.1.0",
