@@ -113,7 +113,7 @@ const navbar = {
   items: [
     {
       type: 'doc',
-      docId: 'overview/index',
+      docId: 'index',
       position: 'left',
       label: 'Guides',
       docsPluginId: 'guides',
