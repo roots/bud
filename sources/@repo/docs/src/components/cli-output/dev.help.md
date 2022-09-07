@@ -1,39 +1,52 @@
-Compile and serve source assets
+Compiles source assets in `development` mode.
 
 ━━━ Usage ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-$ bud dev
+$ bud build development
 
 ━━━ Options ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
+  --notify                  Enable notfication center messages
   --cache                   Utilize compiler's filesystem cache
-  --clean                   Clean artifacts and distributables prior to compilation
   --ci                      Simple build summaries for CI
-  --debug                   Enable debugging mode. Very verbose logging. Writes output files to `@storage` directory
+  --clean                   Clean artifacts and distributables prior to compilation
+  --debug                   Write debug files to storage directory
   --devtool #0              Set devtool option
-  --output,-o #0            Distribution directory (relative to project)
+  --editor                  Open editor to file containing errors on unsuccessful development build
   --esm                     build as es modules
-  --immutable               bud.http: immutable module lockfile
   --flush                   Force clearing bud internal cache
   --hash                    Hash compiled filenames
   --html                    Generate an html template
-  --input,-i #0             Source directory (relative to project)
-  --storage #0              Storage directory (relative to project)
-  --indicator               Enable development status indicator
-  --log                     Enable logging
+  --immutable               bud.http: immutable module lockfile
+  --input,-i,--src #0       Source directory (relative to project)
+  --output,-o,--dist #0     Distribution directory (relative to project)
   --manifest                Generate a manifest of compiled assets
   --minimize                Minimize compiled assets
-  --modules #0              Module resolution path
-  --notify                  Enable notfication center messages
-  --browser                 Open browser on successful development build
-  --editor                  Open editor to file containing errors on unsuccessful development build
-  --overlay                 Enable error overlay in development mode
   --publicPath #0           public path of emitted assets
   --splitChunks,--vendor    Separate vendor bundle
-  --target,-t #0            Limit compilation to particular compilers
-  --verbose                 Set logging level
+  --storage #0              Storage directory (relative to project)
+  --browser                 Open browser on successful development build.
+  --indicator               Enable development status indicator
+  --overlay                 Enable error overlay in development mode
+  --reload                  Reload browser on unrecoverable error
+
+━━━ Details ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+`bud build development` compiles source assets in `development` mode.
+
+If you run this command without a bud configuration file `bud` will look for an 
+entrypoint at `@src/index.js`.
 
 ━━━ Examples ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Start dev server and compile assets in dev mode
-  $ bud dev
+compile source and serve
+  $ bud build development
+
+open project in system default browser
+  $ bud build development --browser
+
+do not force reload in the browser when encountering a fatal HMR error
+  $ bud build development --no-reload
+
+do not display an error overlay when encountering errors in application code
+  $ bud build development --no-overlay

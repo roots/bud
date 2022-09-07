@@ -51,6 +51,7 @@ export default class Extensions
    */
   @bind
   public async booted(): Promise<void> {
+    if (this.app.context.args.discovery === false) return
     await Promise.all(
       this.app.context.extensions
         .filter(Boolean)

@@ -10,31 +10,6 @@ import CodeBlock from '@theme/CodeBlock'
 
 You can add additional functionality to **bud.js** using the extensions API.
 
-## Packaging
-
-Your extension's name should begin with `bud-`. This is important for discoverability.
-We recommend authoring bud extensions with ESM.
-
-```json title="package.json"
-{
-  "name": "bud-extension",
-  "type": "module"
-}
-```
-
-Your extension should be the `default` export from **both** `.` and `./extension`:
-
-```json title="package.json"
-{
-  "name": "bud-extension",
-  "type": "module",
-  "exports": {
-    ".": "./lib/index.js",
-    "./extension": "./lib/extension.js"
-  }
-}
-```
-
 ## Extension shape
 
 Extensions can be provided as either a plain JS object or a class.

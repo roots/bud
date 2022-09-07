@@ -13,5 +13,6 @@
 import './env.js'
 
 import Bud from './bud.js'
+import {factory, get} from './factory/index.js'
 
-export default Bud
+export {Bud, Bud as default, factory, get}

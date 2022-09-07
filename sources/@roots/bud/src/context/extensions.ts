@@ -1,6 +1,8 @@
 import type {Context} from '@roots/bud-framework/options'
 import {bind} from 'helpful-decorators'
 
+import {noDiscovery} from './argv.js'
+
 const CORE_MODULES = [
   `@roots/bud-api`,
   `@roots/bud-build`,
@@ -32,7 +34,9 @@ export default class Extensions {
   public constructor(public manifest: Context['manifest']) {}
 
   @bind
-  public async find() {
+  public async find(): Promise<Extensions> {
+    if (noDiscovery) return this
+
     Object.keys({
       ...(this.manifest?.devDependencies ?? {}),
       ...(this.manifest?.dependencies ?? {}),

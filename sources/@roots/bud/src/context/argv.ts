@@ -14,3 +14,6 @@ export const noContextCache =
 
 export const clearContextCache =
   args.findIndex(arg => arg === `--clear-context-cache`) !== -1
+
+export const noDiscovery =
+  args.findIndex(arg => arg === `--no-discovery`) !== -1

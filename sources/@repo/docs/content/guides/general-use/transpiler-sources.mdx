@@ -1,16 +1,21 @@
 ---
-title: Transpiler sources
+title: Adding transpiler sources
 description: Module resolution in bud.js
 slug: transpiler-sources
-sidebar_label: Transpiler sources
+sidebar_label: Adding transpiler sources
 sidebar_position: 5
 ---
 
-**bud.js** only resolves source code from [the `@src` directory](/docs/bud.path).
+By default, **bud.js** only resolves source code from [the `@src` directory](/docs/bud.path).
 
 Nearly all of the modules you install will be transpiled before they are published. It's almost always a waste to run this code through Babel or whatever other transpiler you may be using.
 
-Nevertheless, some packages expect to be transpiled from source. We can do this by updating the matching build rule.
+Nevertheless, some packages expect to be transpiled from source. We can allow for this with the **bud.build.rules** API.
+
+Common examples:
+
+- `highlight.js`
+- various `scss` frameworks
 
 ## Adding sources
 
@@ -32,12 +37,12 @@ bud.build.rules.js.setInclude([
 ])
 ```
 
-## Restricting sources
-
-You can also do the opposite and _restrict_ transpiler sources.
+To be maximally accepting of what you want to transpile, you can use the following snippet:
 
 ```ts
-bud.build.rules.js.setExclude([bud => bud.path('@src')])
+Object.values(bud.build.rules).map(rule =>
+  rule.setInclude([bud => bud.path('@src'), bud => bud.path('@modules')]),
+)
 ```
 
-You may use `setInclude` and `setExclude` together.
+In general, we would advise being as restrictive as possible when it comes to whitelisting transpiler sources.

@@ -4,22 +4,31 @@
 
 ━━━ General commands ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  bud build [--cache] [--clean] [--ci] [--debug] [--devtool #0] [--output,-o #0] [--esm] [--immutable] [--flush] [--hash] [--html] [--mode #0] [--input,-i #0] [--storage #0] [--indicator] [--log] [--manifest] [--minimize] [--modules #0] [--notify] [--browser] [--editor] [--overlay] [--publicPath #0] [--splitChunks,--vendor] [--target,-t #0] [--verbose]
-    Compile source assets
-
-  bud clean
+  bud clean [--notify] [@storage] [@dist]
     Clean project artifacts and caches
 
-  bud dev [--cache] [--clean] [--ci] [--debug] [--devtool #0] [--output,-o #0] [--esm] [--immutable] [--flush] [--hash] [--html] [--input,-i #0] [--storage #0] [--indicator] [--log] [--manifest] [--minimize] [--modules #0] [--notify] [--browser] [--editor] [--overlay] [--publicPath #0] [--splitChunks,--vendor] [--target,-t #0] [--verbose]
-    Compile and serve source assets
-
-  bud doctor
+  bud doctor [--notify]
     Check compiled configuration against webpack
 
-━━━ Typecheck ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  bud repl [--notify] [--color,-c] [--indent,-i #0] [--depth,-d #0]
+    Use bud in a repl
 
-  bud typecheck
-    Typecheck source
+  bud view [--notify] [--color,-c] [--indent,-i] [subject]
+    Explore bud object
+
+  bud webpack [--notify] ...
+    Webpack CLI passthrough
+
+━━━ build ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  bud build [--notify] [--cache] [--ci] [--clean] [--debug] [--devtool #0] [--editor] [--esm] [--flush] [--hash] [--html] [--immutable] [--input,-i,--src #0] [--output,-o,--dist #0] [--manifest] [--minimize] [--publicPath #0] [--splitChunks,--vendor] [--storage #0]
+    Compile source assets
+
+  bud build development [--notify] [--cache] [--ci] [--clean] [--debug] [--devtool #0] [--editor] [--esm] [--flush] [--hash] [--html] [--immutable] [--input,-i,--src #0] [--output,-o,--dist #0] [--manifest] [--minimize] [--publicPath #0] [--splitChunks,--vendor] [--storage #0] [--browser] [--indicator] [--overlay] [--reload]
+    Compiles source assets in `development` mode.
+
+  bud build production [--notify] [--cache] [--ci] [--clean] [--debug] [--devtool #0] [--editor] [--esm] [--flush] [--hash] [--html] [--immutable] [--input,-i,--src #0] [--output,-o,--dist #0] [--manifest] [--minimize] [--publicPath #0] [--splitChunks,--vendor] [--storage #0]
+    Compiles source assets in `production` mode.
 
 You can also print more details about any of these commands by calling them with 
 the `-h,--help` flag right after the command name.

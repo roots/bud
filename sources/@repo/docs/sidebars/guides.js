@@ -1,86 +1,31 @@
 module.exports = {
   sidebar: [
-    'index',
-    'configure',
+    `index`,
+    `configure`,
     {
-      type: 'category',
-      label: 'Getting started',
-      link: {
-        type: 'doc',
-        id: 'getting-started/index',
-      },
-      collapsed: false,
+      type: `category`,
+      label: `Going deeper`,
       items: [
-        'getting-started/configure',
-        'getting-started/build',
-        'getting-started/develop',
-        'getting-started/extend',
+        `general-use/cli`,
+        `general-use/development-server`,
+        `general-use/customizing-loaders`,
+        `general-use/transpiler-sources`,
+        `general-use/alternative-config-syntax`,
+        `general-use/extensions`,
+        `general-use/multi-compiler`,
+        `general-use/node-api`,
+        `general-use/esmodules`,
+        `general-use/remote-sources`,
       ],
     },
     {
-      type: 'category',
-      label: 'Configuration',
+      type: `category`,
+      label: `Extending bud.js`,
       link: {
-        type: 'doc',
-        id: 'config/index',
+        type: `doc`,
+        id: `extending/index`,
       },
-      items: [
-        'config/zero-config',
-        'config/cli-config',
-        {
-          type: 'category',
-          label: 'File config',
-          link: {
-            type: 'doc',
-            id: 'config/file-config/index',
-          },
-          items: [
-            'config/file-config/env',
-            'config/file-config/typescript',
-            'config/file-config/static',
-          ],
-        },
-      ],
-    },
-    {
-      type: 'category',
-      label: 'General use',
-      link: {
-        type: 'doc',
-        id: 'general-use/index',
-      },
-      items: [
-        'general-use/dynamic-imports',
-        'general-use/esmodules',
-        'general-use/extensions',
-        'general-use/multi-compiler',
-        'general-use/optimizing',
-        'general-use/remote-sources',
-        'general-use/transpiler-sources',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'CLI',
-      link: {
-        type: 'doc',
-        id: 'cli/index',
-      },
-      items: [
-        'cli/bud-build',
-        'cli/bud-clean',
-        'cli/bud-dev',
-        'cli/bud-doctor',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'Extending',
-      link: {
-        type: 'doc',
-        id: 'extending/index',
-      },
-      items: ['extending/decorators'],
+      items: [`extending/decorators`, `extending/packaging`],
     },
   ],
 }

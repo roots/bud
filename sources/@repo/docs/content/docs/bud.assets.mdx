@@ -15,11 +15,13 @@ This function is pretty flexible and accepts a few different ways of specifying 
 
 ```ts title='bud.config.js'
   (
-    request: Array<
-      | string
+    request:
+      | CopyPlugin.StringPattern
       | CopyPlugin.ObjectPattern
-      | Array<string | [string, string] | CopyPlugin.ObjectPattern>
-    >
+      | Array<CopyPlugin.StringPattern>
+      | Array<FromToTuple>
+      | Array<CopyPlugin.ObjectPattern>,
+    overrides?: Partial<CopyPlugin.ObjectPattern>,
   ): Bud
 ```
 
@@ -129,9 +131,7 @@ there is probably no real harm in doing so.
 If, for whatever reason, this API doesn't work for you, you can utilize the extension directly:
 
 ```js title="bud.config.js"
-app.extensions.get('copy-webpack-plugin').setOption('patterns', [
-  {
-    from: app.path('@src/images'),
-  },
-])
+app.extensions
+  .get('copy-webpack-plugin')
+  .setOption('patterns', [{from: app.path('@src/images')}])
 ```

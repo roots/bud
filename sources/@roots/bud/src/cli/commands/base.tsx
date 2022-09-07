@@ -56,7 +56,7 @@ export default abstract class BaseCommand extends Command {
   }
 
   /**
-   * Base directory
+   * --basedir
    * @public
    */
   public basedir = Option.String(`--basedir,--cwd`, undefined, {
@@ -67,9 +67,19 @@ export default abstract class BaseCommand extends Command {
 
   /**
    * -- dry
+   * @public
    */
   public dry = Option.Boolean(`--dry`, false, {
     description: `Run without webpack or server process`,
+    hidden: true,
+  })
+
+  /**
+   * --inject
+   * @public
+   */
+  public discovery = Option.Boolean(`--discovery`, true, {
+    description: `Automatically search for and register extensions`,
     hidden: true,
   })
 

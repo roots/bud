@@ -42,6 +42,7 @@ export interface BaseContext {
       | `hidden-cheap-source-map`
       | `hidden-cheap-module-source-map`
       | `hidden-source-map`
+    discovery: boolean
     dry: boolean
     output: string
     editor: boolean
