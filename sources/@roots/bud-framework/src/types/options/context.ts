@@ -67,7 +67,19 @@ export interface BaseContext {
     storage: string
     target: Array<string>
   }>
-  config: Record<string, any>
+  config: Record<
+    string,
+    {
+      name: string
+      path: string
+      bud: boolean
+      local: boolean
+      dynamic: boolean
+      extension: string | null
+      type: `production` | `development` | `base`
+      module: any
+    }
+  >
   extensions: Array<string>
   services: Array<string>
   env: Record<string, string | undefined>

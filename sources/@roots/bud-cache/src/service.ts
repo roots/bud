@@ -76,10 +76,6 @@ export default class Cache
     }
   }
 
-  public set buildDependencies(deps: Array<string>) {
-    this.app.context.config.push(...deps)
-  }
-
   /**
    * Cache directory
    *

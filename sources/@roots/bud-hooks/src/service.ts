@@ -289,15 +289,17 @@ export default class Hooks extends Service implements HooksInterface {
       .reduce(async (promise, action, iteration) => {
         await promise
         try {
-          this.app.info(`calling`, id, `[${iteration + 1}/${length}]`)
+          this.logger.info(`calling`, id, `[${iteration + 1}/${length}]`)
           await action(this.app)
         } catch (error) {
-          this.app.error(error)
+          this.logger.fatal(`${id}: error`, error ?? `unknown`)
+          this.app.fatal(
+            `error: ${error ? JSON.stringify(error) : `unknown`}`,
+          )
         }
       }, Promise.resolve())
-      .catch(error => this.app.error(error))
       .finally(() => {
-        this.app.success(
+        this.logger.success(
           `${length} actions registered to '${id}' completed without errors`,
         )
         this.store[id] = []

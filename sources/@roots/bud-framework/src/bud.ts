@@ -240,17 +240,17 @@ export class Bud {
       ]) =>
         this.services
           .map(service => [service, this[service]])
+          .filter(([, service]) => isFunction(service[callbackName]))
           .map(([label, service]) => {
-            if (!isFunction(service[callbackName])) return
-
             this.hooks.action(
               eventHandle,
               service[callbackName].bind(service),
             )
+
             this.success(
               `registered service callback:`,
               `${label}.${callbackName}`,
-            ).info(service[callbackName])
+            )
           }),
     )
 
@@ -386,7 +386,7 @@ export class Bud {
    */
   @bind
   public fatal(error: string) {
-    this.logger.instance.fatal(error)
+    throw new Error(error)
   }
 }
 

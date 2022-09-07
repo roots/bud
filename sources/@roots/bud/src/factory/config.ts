@@ -1,6 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
 import {bind} from 'helpful-decorators'
-import {isFunction} from 'lodash-es'
+import {isFunction, sortBy} from 'lodash-es'
 
 /**
  * User config parser
@@ -71,9 +71,12 @@ export const config = async (app: Bud) => {
   app.log(`processing configurations`).info(configs)
 
   const getConfigs = (reqType: string, reqLocal: boolean) =>
-    configs
-      .filter(({type}) => type === reqType)
-      .filter(({local}) => local === reqLocal)
+    sortBy(
+      configs
+        .filter(({type}) => type === reqType)
+        .filter(({local}) => local === reqLocal),
+      `name`,
+    )
 
   await Promise.all(
     getConfigs(`base`, false).map(async description => {

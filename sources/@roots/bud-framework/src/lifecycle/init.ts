@@ -123,6 +123,11 @@ export const initialize = (app: Bud): Bud =>
     })
 
 export const override = async (app: Bud): Promise<Bud> => {
+  if (app.isRoot && isset(app.context.args.target))
+    Object.keys(app.children)
+      .filter(name => !app.context.args.target.includes(name))
+      .map(name => delete app.children[name])
+
   if (isset(app.context.args.publicPath))
     app.hooks.on(`build.output.publicPath`, app.context.args.publicPath)
   else if (isset(app.context.manifest?.bud?.publicPath))
