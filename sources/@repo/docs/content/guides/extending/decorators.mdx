@@ -4,7 +4,7 @@ description: Overview of decorators available to extensions
 sidebar_label: Decorators
 ---
 
-There are decorators exported from `@roots/bud-framework/extension/decorators` available.
+There are decorators exported from `@roots/bud-framework/extension/decorators`.
 
 ## @bind
 
@@ -52,6 +52,17 @@ import {
 
 @label('my-extension')
 @dependsOnOptional(['@roots/bud-postcss'])
+class MyExtension extends Extension {}
+```
+
+## @optIn
+
+```ts title="extension.ts"
+import {Extension} from '@roots/bud-framework/extension'
+import {optIn, label} from '@roots/bud-framework/extension/decorators'
+
+@label('my-extension')
+@optIn(['@roots/bud-postcss'])
 class MyExtension extends Extension {}
 ```
 

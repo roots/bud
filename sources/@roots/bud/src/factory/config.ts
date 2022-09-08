@@ -29,7 +29,6 @@ class Configuration {
 
     if (description.dynamic) {
       const callback = description.module?.default ?? description.module
-      this.app.log(callback)
       return await callback(this.app)
     } else {
       return await this.processStaticConfiguration(description)
@@ -68,9 +67,7 @@ export const config = async (app: Bud) => {
 
   const configs = Object.values(app.context.config).filter(({bud}) => bud)
 
-  app.log(`processing configurations`).info(configs)
-
-  const getConfigs = (reqType: string, reqLocal: boolean) =>
+  const getAllMatchingConfigs = (reqType: string, reqLocal: boolean) =>
     sortBy(
       configs
         .filter(({type}) => type === reqType)
@@ -79,25 +76,25 @@ export const config = async (app: Bud) => {
     )
 
   await Promise.all(
-    getConfigs(`base`, false).map(async description => {
+    getAllMatchingConfigs(`base`, false).map(async description => {
       await configuration.run(description)
     }),
   ).then(async () => await app.api.processQueue())
 
   await Promise.all(
-    getConfigs(`base`, true).map(async description => {
+    getAllMatchingConfigs(`base`, true).map(async description => {
       await configuration.run(description)
     }),
   ).then(async () => await app.api.processQueue())
 
   await Promise.all(
-    getConfigs(app.mode, false).map(async description => {
+    getAllMatchingConfigs(app.mode, false).map(async description => {
       await configuration.run(description)
     }),
   ).then(async () => await app.api.processQueue())
 
   await Promise.all(
-    getConfigs(app.mode, true).map(async description => {
+    getAllMatchingConfigs(app.mode, true).map(async description => {
       await configuration.run(description)
     }),
   ).then(async () => await app.api.processQueue())

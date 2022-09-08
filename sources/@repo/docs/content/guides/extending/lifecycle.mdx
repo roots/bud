@@ -1,0 +1,108 @@
+---
+title: Extension lifecycle
+description: The life of a bud.js Extension
+sidebar_label: Lifecycle
+---
+
+### init
+
+Async callback. Called first. Useful to avoid needing to deal with `super` and the constructor.
+
+```ts title="extension.ts"
+import {Bud} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
+
+export default class MyExtension extends Extension {
+  public label = 'bud-extension'
+
+  public async init(app, options) {
+    // do something
+  }
+}
+```
+
+### register
+
+Async callback. Try to do things in this method, when possible.
+
+```ts title="extension.ts"
+import {Bud} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
+
+export default class MyExtension extends Extension {
+  public label = 'bud-extension'
+
+  public async register(app, options) {
+    // do something
+  }
+}
+```
+
+### boot
+
+Async callback. Called after `register`. Good for business which requires another
+extension to have already had `register` called on it.
+
+```ts title="extension.ts"
+import {Bud} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
+
+export default class MyExtension extends Extension {
+  public label = 'bud-extension'
+
+  public async boot(app, options) {
+    // do something
+  }
+}
+```
+
+### configAfter
+
+Async callback. Called after user configuration has been processed.
+
+```ts title="extension.ts"
+import {Bud} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
+
+export default class MyExtension extends Extension {
+  public label = 'bud-extension'
+
+  public async configAfter(app, options) {
+    // do something
+  }
+}
+```
+
+### buildBefore
+
+Async callback. Called directly before configuration is constructed and passed to the compiler.
+
+```ts title="extension.ts"
+import {Bud} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
+
+export default class MyExtension extends Extension {
+  public label = 'bud-extension'
+
+  public async buildBefore(app, options) {
+    // do something
+  }
+}
+```
+
+### buildAfter
+
+Async callback. Called directly after configuration is produced.
+
+```ts title="extension.ts"
+import {Bud} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
+
+export default class MyExtension extends Extension {
+  public label = 'bud-extension'
+
+  public async buildBefore(app, options) {
+    // do something
+  }
+}
+```
