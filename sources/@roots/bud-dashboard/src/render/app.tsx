@@ -34,17 +34,18 @@ const App = ({
         <Box key={id} flexDirection="column">
           <Compilation
             id={id}
+            mode={app.mode}
             stats={compilation}
             context={app.context}
+            compilerCount={compilations.length}
             displayAssets={displayAssets}
             displayEntrypoints={displayEntrypoints}
           />
+          <Box flexDirection="column">
+            <Text>{` `}</Text>
+          </Box>
         </Box>
       ))}
-
-      <Box>
-        <Text>{` `}</Text>
-      </Box>
 
       {app.isDevelopment ? (
         <Server app={app} displayServerInfo={displayServerInfo} />
