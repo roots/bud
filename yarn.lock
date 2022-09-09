@@ -4464,7 +4464,7 @@ __metadata:
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@skypack/package-check": 0.2.2
     "@types/fs-extra": 9.0.13
-    "@types/lodash": 4.14.182
+    "@types/lodash": 4.14.184
     "@types/node": 16.11.48
     babel-loader: 8.2.5
     lodash-es: 4.17.21
@@ -4504,7 +4504,7 @@ __metadata:
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@skypack/package-check": 0.2.2
     "@types/fs-extra": 9.0.13
-    "@types/lodash": 4.14.182
+    "@types/lodash": 4.14.184
     "@types/lodash-es": 4.17.6
     "@types/mini-css-extract-plugin": 2.5.0
     "@types/node": 16.11.48
@@ -4537,7 +4537,7 @@ __metadata:
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@skypack/package-check": 0.2.2
     "@types/fs-extra": 9.0.13
-    "@types/lodash": 4.14.182
+    "@types/lodash": 4.14.184
     "@types/lodash-es": 4.17.6
     fs-extra: 10.1.0
     helpful-decorators: 2.1.0
@@ -4601,7 +4601,7 @@ __metadata:
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/critical-css-webpack-plugin": "workspace:sources/@roots/critical-css-webpack-plugin"
     "@skypack/package-check": 0.2.2
-    "@types/lodash": 4.14.182
+    "@types/lodash": 4.14.184
     "@types/node": 16.11.48
     critical: 4.0.1
     tslib: 2.4.0
@@ -4722,7 +4722,7 @@ __metadata:
     "@jest/globals": 29.0.1
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@skypack/package-check": 0.2.2
-    "@types/lodash": 4.14.182
+    "@types/lodash": 4.14.184
     "@types/node": 16.11.48
     eslint: 8.19.0
     eslint-webpack-plugin: ^3.1.1
@@ -4760,7 +4760,7 @@ __metadata:
     "@types/fs-extra": 9.0.13
     "@types/http-proxy": 1.17.9
     "@types/js-yaml": 4.0.5
-    "@types/lodash": 4.14.182
+    "@types/lodash": 4.14.184
     "@types/lodash-es": 4.17.6
     "@types/node": 16.11.48
     "@types/safe-json-stringify": 1.1.2
@@ -4833,7 +4833,7 @@ __metadata:
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-react": "workspace:sources/@roots/bud-react"
     "@skypack/package-check": 0.2.2
-    "@types/lodash": 4.14.182
+    "@types/lodash": 4.14.184
     "@types/node": 16.11.48
     react: 17.0.2
     react-dom: 17.0.2
@@ -4941,7 +4941,7 @@ __metadata:
     "@roots/bud-wordpress-externals": "workspace:sources/@roots/bud-wordpress-externals"
     "@roots/bud-wordpress-manifests": "workspace:sources/@roots/bud-wordpress-manifests"
     "@skypack/package-check": 0.2.2
-    "@types/lodash": 4.14.182
+    "@types/lodash": 4.14.184
     "@types/node": 16.11.48
     "@types/react": 17.0.47
     "@types/react-dom": 17.0.17
@@ -5143,7 +5143,7 @@ __metadata:
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@skypack/package-check": 0.2.2
     "@types/babel__core": 7.1.19
-    "@types/lodash": 4.14.182
+    "@types/lodash": 4.14.184
     "@types/node": 16.11.48
     babel-preset-solid: 1.4.6
     solid-js: 1.4.7
@@ -5253,7 +5253,7 @@ __metadata:
     "@jest/globals": 29.0.1
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@skypack/package-check": 0.2.2
-    "@types/lodash": 4.14.182
+    "@types/lodash": 4.14.184
     "@types/node": 16.11.48
     css-minimizer-webpack-plugin: 4.0.0
     terser-webpack-plugin: ^5.3.3
@@ -5421,7 +5421,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/braces": 3.0.1
     "@types/fs-extra": 9.0.13
-    "@types/lodash": 4.14.182
+    "@types/lodash": 4.14.184
     "@types/lodash-es": 4.17.6
     "@types/mini-css-extract-plugin": 2.5.0
     "@types/node": 16.11.48
@@ -5542,7 +5542,7 @@ __metadata:
   dependencies:
     "@jest/globals": 29.0.1
     "@skypack/package-check": 0.2.2
-    "@types/lodash": 4.14.182
+    "@types/lodash": 4.14.184
     "@types/node": 16.11.48
     helpful-decorators: 2.1.0
     tslib: 2.4.0
@@ -5616,7 +5616,7 @@ __metadata:
     "@jest/globals": 29.0.1
     "@skypack/package-check": 0.2.2
     "@types/fs-extra": 9.0.13
-    "@types/lodash": 4.14.182
+    "@types/lodash": 4.14.184
     "@types/node": 16.11.48
     fs-extra: 10.1.0
     helpful-decorators: 2.1.0
@@ -5657,7 +5657,7 @@ __metadata:
   dependencies:
     "@jest/globals": 29.0.1
     "@skypack/package-check": 0.2.2
-    "@types/lodash": 4.14.182
+    "@types/lodash": 4.14.184
     "@types/node": 16.11.48
     helpful-decorators: 2.1.0
     lodash-es: 4.17.21
@@ -6728,10 +6728,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lodash@npm:*, @types/lodash@npm:4.14.182, @types/lodash@npm:^4.14.172, @types/lodash@npm:^4.14.175":
-  version: 4.14.182
-  resolution: "@types/lodash@npm:4.14.182"
-  checksum: 7dd137aa9dbabd632408bd37009d984655164fa1ecc3f2b6eb94afe35bf0a5852cbab6183148d883e9c73a958b7fec9a9bcf7c8e45d41195add6a18c34958209
+"@types/lodash@npm:*, @types/lodash@npm:4.14.184, @types/lodash@npm:^4.14.172, @types/lodash@npm:^4.14.175":
+  version: 4.14.184
+  resolution: "@types/lodash@npm:4.14.184"
+  checksum: 6d9a4d67f7f9d0ec3fd21174f3dd3d00629dc1227eb469450eace53adbc1f7e2330699c28d0fe093e5f0fef0f0e763098be1f779268857213224af082b62be21
   languageName: node
   linkType: hard
 
