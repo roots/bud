@@ -3164,17 +3164,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jridgewell/trace-mapping@npm:^0.3.0, @jridgewell/trace-mapping@npm:^0.3.12, @jridgewell/trace-mapping@npm:^0.3.13, @jridgewell/trace-mapping@npm:^0.3.7, @jridgewell/trace-mapping@npm:^0.3.9":
-  version: 0.3.14
-  resolution: "@jridgewell/trace-mapping@npm:0.3.14"
-  dependencies:
-    "@jridgewell/resolve-uri": ^3.0.3
-    "@jridgewell/sourcemap-codec": ^1.4.10
-  checksum: b9537b9630ffb631aef9651a085fe361881cde1772cd482c257fe3c78c8fd5388d681f504a9c9fe1081b1c05e8f75edf55ee10fdb58d92bbaa8dbf6a7bd6b18c
-  languageName: node
-  linkType: hard
-
-"@jridgewell/trace-mapping@npm:^0.3.15":
+"@jridgewell/trace-mapping@npm:^0.3.0, @jridgewell/trace-mapping@npm:^0.3.12, @jridgewell/trace-mapping@npm:^0.3.13, @jridgewell/trace-mapping@npm:^0.3.15, @jridgewell/trace-mapping@npm:^0.3.7, @jridgewell/trace-mapping@npm:^0.3.9":
   version: 0.3.15
   resolution: "@jridgewell/trace-mapping@npm:0.3.15"
   dependencies:
@@ -5209,7 +5199,7 @@ __metadata:
     "@roots/bud-build": "workspace:sources/@roots/bud-build"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@skypack/package-check": 0.2.2
-    "@swc/core": 1.2.237
+    "@swc/core": 1.2.249
     "@types/fs-extra": 9.0.13
     "@types/node": 16.11.48
     fs-extra: 10.1.0
@@ -6029,126 +6019,126 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@swc/core-android-arm-eabi@npm:1.2.237":
-  version: 1.2.237
-  resolution: "@swc/core-android-arm-eabi@npm:1.2.237"
+"@swc/core-android-arm-eabi@npm:1.2.249":
+  version: 1.2.249
+  resolution: "@swc/core-android-arm-eabi@npm:1.2.249"
   dependencies:
     "@swc/wasm": 1.2.122
   conditions: os=android & cpu=arm
   languageName: node
   linkType: hard
 
-"@swc/core-android-arm64@npm:1.2.237":
-  version: 1.2.237
-  resolution: "@swc/core-android-arm64@npm:1.2.237"
+"@swc/core-android-arm64@npm:1.2.249":
+  version: 1.2.249
+  resolution: "@swc/core-android-arm64@npm:1.2.249"
   dependencies:
     "@swc/wasm": 1.2.130
   conditions: os=android & cpu=arm64
   languageName: node
   linkType: hard
 
-"@swc/core-darwin-arm64@npm:1.2.237":
-  version: 1.2.237
-  resolution: "@swc/core-darwin-arm64@npm:1.2.237"
+"@swc/core-darwin-arm64@npm:1.2.249":
+  version: 1.2.249
+  resolution: "@swc/core-darwin-arm64@npm:1.2.249"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@swc/core-darwin-x64@npm:1.2.237":
-  version: 1.2.237
-  resolution: "@swc/core-darwin-x64@npm:1.2.237"
+"@swc/core-darwin-x64@npm:1.2.249":
+  version: 1.2.249
+  resolution: "@swc/core-darwin-x64@npm:1.2.249"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@swc/core-freebsd-x64@npm:1.2.237":
-  version: 1.2.237
-  resolution: "@swc/core-freebsd-x64@npm:1.2.237"
+"@swc/core-freebsd-x64@npm:1.2.249":
+  version: 1.2.249
+  resolution: "@swc/core-freebsd-x64@npm:1.2.249"
   dependencies:
     "@swc/wasm": 1.2.130
   conditions: os=freebsd & cpu=x64
   languageName: node
   linkType: hard
 
-"@swc/core-linux-arm-gnueabihf@npm:1.2.237":
-  version: 1.2.237
-  resolution: "@swc/core-linux-arm-gnueabihf@npm:1.2.237"
+"@swc/core-linux-arm-gnueabihf@npm:1.2.249":
+  version: 1.2.249
+  resolution: "@swc/core-linux-arm-gnueabihf@npm:1.2.249"
   dependencies:
     "@swc/wasm": 1.2.130
   conditions: os=linux & cpu=arm
   languageName: node
   linkType: hard
 
-"@swc/core-linux-arm64-gnu@npm:1.2.237":
-  version: 1.2.237
-  resolution: "@swc/core-linux-arm64-gnu@npm:1.2.237"
+"@swc/core-linux-arm64-gnu@npm:1.2.249":
+  version: 1.2.249
+  resolution: "@swc/core-linux-arm64-gnu@npm:1.2.249"
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@swc/core-linux-arm64-musl@npm:1.2.237":
-  version: 1.2.237
-  resolution: "@swc/core-linux-arm64-musl@npm:1.2.237"
+"@swc/core-linux-arm64-musl@npm:1.2.249":
+  version: 1.2.249
+  resolution: "@swc/core-linux-arm64-musl@npm:1.2.249"
   conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
 
-"@swc/core-linux-x64-gnu@npm:1.2.237":
-  version: 1.2.237
-  resolution: "@swc/core-linux-x64-gnu@npm:1.2.237"
+"@swc/core-linux-x64-gnu@npm:1.2.249":
+  version: 1.2.249
+  resolution: "@swc/core-linux-x64-gnu@npm:1.2.249"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@swc/core-linux-x64-musl@npm:1.2.237":
-  version: 1.2.237
-  resolution: "@swc/core-linux-x64-musl@npm:1.2.237"
+"@swc/core-linux-x64-musl@npm:1.2.249":
+  version: 1.2.249
+  resolution: "@swc/core-linux-x64-musl@npm:1.2.249"
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
 
-"@swc/core-win32-arm64-msvc@npm:1.2.237":
-  version: 1.2.237
-  resolution: "@swc/core-win32-arm64-msvc@npm:1.2.237"
+"@swc/core-win32-arm64-msvc@npm:1.2.249":
+  version: 1.2.249
+  resolution: "@swc/core-win32-arm64-msvc@npm:1.2.249"
   dependencies:
     "@swc/wasm": 1.2.130
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"@swc/core-win32-ia32-msvc@npm:1.2.237":
-  version: 1.2.237
-  resolution: "@swc/core-win32-ia32-msvc@npm:1.2.237"
+"@swc/core-win32-ia32-msvc@npm:1.2.249":
+  version: 1.2.249
+  resolution: "@swc/core-win32-ia32-msvc@npm:1.2.249"
   dependencies:
     "@swc/wasm": 1.2.130
   conditions: os=win32 & cpu=ia32
   languageName: node
   linkType: hard
 
-"@swc/core-win32-x64-msvc@npm:1.2.237":
-  version: 1.2.237
-  resolution: "@swc/core-win32-x64-msvc@npm:1.2.237"
+"@swc/core-win32-x64-msvc@npm:1.2.249":
+  version: 1.2.249
+  resolution: "@swc/core-win32-x64-msvc@npm:1.2.249"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
 
-"@swc/core@npm:1.2.237":
-  version: 1.2.237
-  resolution: "@swc/core@npm:1.2.237"
+"@swc/core@npm:1.2.249":
+  version: 1.2.249
+  resolution: "@swc/core@npm:1.2.249"
   dependencies:
-    "@swc/core-android-arm-eabi": 1.2.237
-    "@swc/core-android-arm64": 1.2.237
-    "@swc/core-darwin-arm64": 1.2.237
-    "@swc/core-darwin-x64": 1.2.237
-    "@swc/core-freebsd-x64": 1.2.237
-    "@swc/core-linux-arm-gnueabihf": 1.2.237
-    "@swc/core-linux-arm64-gnu": 1.2.237
-    "@swc/core-linux-arm64-musl": 1.2.237
-    "@swc/core-linux-x64-gnu": 1.2.237
-    "@swc/core-linux-x64-musl": 1.2.237
-    "@swc/core-win32-arm64-msvc": 1.2.237
-    "@swc/core-win32-ia32-msvc": 1.2.237
-    "@swc/core-win32-x64-msvc": 1.2.237
+    "@swc/core-android-arm-eabi": 1.2.249
+    "@swc/core-android-arm64": 1.2.249
+    "@swc/core-darwin-arm64": 1.2.249
+    "@swc/core-darwin-x64": 1.2.249
+    "@swc/core-freebsd-x64": 1.2.249
+    "@swc/core-linux-arm-gnueabihf": 1.2.249
+    "@swc/core-linux-arm64-gnu": 1.2.249
+    "@swc/core-linux-arm64-musl": 1.2.249
+    "@swc/core-linux-x64-gnu": 1.2.249
+    "@swc/core-linux-x64-musl": 1.2.249
+    "@swc/core-win32-arm64-msvc": 1.2.249
+    "@swc/core-win32-ia32-msvc": 1.2.249
+    "@swc/core-win32-x64-msvc": 1.2.249
   dependenciesMeta:
     "@swc/core-android-arm-eabi":
       optional: true
@@ -6178,7 +6168,7 @@ __metadata:
       optional: true
   bin:
     swcx: run_swcx.js
-  checksum: 250d010745a068a5f483ffdae759f346d405ea46776842a3e051fc702e2bb815a4c9c2790c48a0d037949802c78f414c27ec430cf7934c9ba5d6e4e0bca677c5
+  checksum: c47f17fefccd94fb7be3787e832f3e3fd62c07e22f8bf566435bd1de032efd9fdefb4a64e0eefd684a9a24902509a235afeacb5ed93e03512fa09064bf1e1268
   languageName: node
   linkType: hard
 
@@ -8154,7 +8144,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/cli@npm:3.2.3":
+"@yarnpkg/cli@npm:3.2.3, @yarnpkg/cli@npm:^3.2.2":
   version: 3.2.3
   resolution: "@yarnpkg/cli@npm:3.2.3"
   dependencies:
@@ -8192,45 +8182,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/cli@npm:^3.2.2":
-  version: 3.2.2
-  resolution: "@yarnpkg/cli@npm:3.2.2"
-  dependencies:
-    "@yarnpkg/core": ^3.2.3
-    "@yarnpkg/fslib": ^2.7.0
-    "@yarnpkg/libzip": ^2.2.4
-    "@yarnpkg/parsers": ^2.5.1
-    "@yarnpkg/plugin-compat": ^3.1.4
-    "@yarnpkg/plugin-dlx": ^3.1.3
-    "@yarnpkg/plugin-essentials": ^3.2.1
-    "@yarnpkg/plugin-file": ^2.3.1
-    "@yarnpkg/plugin-git": ^2.6.1
-    "@yarnpkg/plugin-github": ^2.3.1
-    "@yarnpkg/plugin-http": ^2.2.1
-    "@yarnpkg/plugin-init": ^3.1.3
-    "@yarnpkg/plugin-link": ^2.2.1
-    "@yarnpkg/plugin-nm": ^3.1.3
-    "@yarnpkg/plugin-npm": ^2.7.1
-    "@yarnpkg/plugin-npm-cli": ^3.2.1
-    "@yarnpkg/plugin-pack": ^3.1.2
-    "@yarnpkg/plugin-patch": ^3.2.2
-    "@yarnpkg/plugin-pnp": ^3.2.2
-    "@yarnpkg/plugin-pnpm": ^1.1.1
-    "@yarnpkg/shell": ^3.2.3
-    chalk: ^3.0.0
-    ci-info: ^3.2.0
-    clipanion: ^3.2.0-rc.4
-    semver: ^7.1.2
-    tslib: ^1.13.0
-    typanion: ^3.3.0
-    yup: ^0.32.9
-  peerDependencies:
-    "@yarnpkg/core": ^3.2.3
-  checksum: 9c7dd915888a3ad5fb7bfd75a502d8a3ee95c218f737fa4b521528059dc0c2581ed743835b4771dc898045036108a90079761a5f41d899352aa9851371e49641
-  languageName: node
-  linkType: hard
-
-"@yarnpkg/core@npm:3.2.3, @yarnpkg/core@npm:^3.2.2, @yarnpkg/core@npm:^3.2.3":
+"@yarnpkg/core@npm:3.2.3":
   version: 3.2.3
   resolution: "@yarnpkg/core@npm:3.2.3"
   dependencies:
@@ -8270,7 +8222,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/core@npm:^3.2.4":
+"@yarnpkg/core@npm:^3.2.2, @yarnpkg/core@npm:^3.2.3, @yarnpkg/core@npm:^3.2.4":
   version: 3.2.4
   resolution: "@yarnpkg/core@npm:3.2.4"
   dependencies:
@@ -8321,15 +8273,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/extensions@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "@yarnpkg/extensions@npm:1.1.0"
-  peerDependencies:
-    "@yarnpkg/core": ^3.2.3
-  checksum: 45c0f431ff85946fe14669a326cbfc701ac268a3e9e1efd48ead616229c1af3af10244c5c322bdd77cc1624062bc85d718f0774cc3734e95b99ebecfd3b39040
-  languageName: node
-  linkType: hard
-
 "@yarnpkg/extensions@npm:^1.1.1":
   version: 1.1.1
   resolution: "@yarnpkg/extensions@npm:1.1.1"
@@ -8339,17 +8282,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/fslib@npm:^2.5.0, @yarnpkg/fslib@npm:^2.6.2, @yarnpkg/fslib@npm:^2.7.0":
-  version: 2.7.0
-  resolution: "@yarnpkg/fslib@npm:2.7.0"
-  dependencies:
-    "@yarnpkg/libzip": ^2.2.4
-    tslib: ^1.13.0
-  checksum: ebb28ffbec67339a365fa97394f78a05c3c640e463b19d32fe1d435fd45b62a5c810e90d5b41941855c2717e16a04323d0307273349a71bed14b3f2129dc4246
-  languageName: node
-  linkType: hard
-
-"@yarnpkg/fslib@npm:^2.7.1":
+"@yarnpkg/fslib@npm:^2.5.0, @yarnpkg/fslib@npm:^2.6.2, @yarnpkg/fslib@npm:^2.7.0, @yarnpkg/fslib@npm:^2.7.1":
   version: 2.7.1
   resolution: "@yarnpkg/fslib@npm:2.7.1"
   dependencies:
@@ -8399,18 +8332,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/plugin-compat@npm:^3.1.4":
-  version: 3.1.4
-  resolution: "@yarnpkg/plugin-compat@npm:3.1.4"
-  dependencies:
-    "@yarnpkg/extensions": ^1.1.0
-  peerDependencies:
-    "@yarnpkg/core": ^3.2.3
-    "@yarnpkg/plugin-patch": ^3.2.2
-  checksum: 683fa98b711dc578b137a91287aa20f8782ef74362229912cb0def577eb1f406f957599d0bb9c119799b059e080a9aa325d3adcc2a0111ff7c9e40b0dda71cf4
-  languageName: node
-  linkType: hard
-
 "@yarnpkg/plugin-compat@npm:^3.1.5":
   version: 3.1.5
   resolution: "@yarnpkg/plugin-compat@npm:3.1.5"
@@ -8420,21 +8341,6 @@ __metadata:
     "@yarnpkg/core": ^3.2.4
     "@yarnpkg/plugin-patch": ^3.2.3
   checksum: db8bc609d13c6b47a4cdfdf8038f9ab096c2b355b41e08dba58baea2b241876ad7f3ea1e2f61fabb05198579a340e24d3e2342351f2cc575cefeccf38bfa4410
-  languageName: node
-  linkType: hard
-
-"@yarnpkg/plugin-dlx@npm:^3.1.3":
-  version: 3.1.3
-  resolution: "@yarnpkg/plugin-dlx@npm:3.1.3"
-  dependencies:
-    "@yarnpkg/fslib": ^2.7.0
-    "@yarnpkg/json-proxy": ^2.1.1
-    clipanion: ^3.2.0-rc.4
-    tslib: ^1.13.0
-  peerDependencies:
-    "@yarnpkg/cli": ^3.2.2
-    "@yarnpkg/core": ^3.2.3
-  checksum: 50776b7057f11410ec8daf5cb579cd4a5858c3cea5ead3e5cf5fdc983186852edcbf027c357967ba1611216a2da77034a943c86d09b93a5b547d915a04f31a26
   languageName: node
   linkType: hard
 
@@ -8450,29 +8356,6 @@ __metadata:
     "@yarnpkg/cli": ^3.2.3
     "@yarnpkg/core": ^3.2.4
   checksum: c98b94e0c884b8158ce82a782ba63d99af6f23dd655d6fff37fe3716005f74b2438fc882a2e2e2812d7a5f7d1c529943e6ed0f1fc4999548816af80063e4d779
-  languageName: node
-  linkType: hard
-
-"@yarnpkg/plugin-essentials@npm:^3.2.1":
-  version: 3.2.1
-  resolution: "@yarnpkg/plugin-essentials@npm:3.2.1"
-  dependencies:
-    "@yarnpkg/fslib": ^2.6.2
-    "@yarnpkg/json-proxy": ^2.1.1
-    "@yarnpkg/parsers": ^2.5.1
-    ci-info: ^3.2.0
-    clipanion: ^3.2.0-rc.4
-    enquirer: ^2.3.6
-    lodash: ^4.17.15
-    micromatch: ^4.0.2
-    semver: ^7.1.2
-    tslib: ^1.13.0
-    typanion: ^3.3.0
-  peerDependencies:
-    "@yarnpkg/cli": ^3.2.1
-    "@yarnpkg/core": ^3.2.1
-    "@yarnpkg/plugin-git": ^2.6.1
-  checksum: de0c6a5b2126e2a3e1bd5c619cdcc68e526240d0d24e5b1382415ca9f33a8f25dedc95a812249cb50c8fa5b3bf520c4ab0b69a906c6eb468d5b1950d71286fff
   languageName: node
   linkType: hard
 
@@ -8508,23 +8391,6 @@ __metadata:
   peerDependencies:
     "@yarnpkg/core": ^3.2.1
   checksum: 0cd3a9ac59a7e24bc21e1a9ea28adf383a9a89a1585ea7810e43b7b81f3d59e2dcc134118ca95b0116e0f2fd99912e3ee6eba6ba5899642bb9bb298c2289b84d
-  languageName: node
-  linkType: hard
-
-"@yarnpkg/plugin-git@npm:^2.6.1":
-  version: 2.6.1
-  resolution: "@yarnpkg/plugin-git@npm:2.6.1"
-  dependencies:
-    "@types/semver": ^7.1.0
-    "@yarnpkg/fslib": ^2.6.2
-    clipanion: ^3.2.0-rc.4
-    git-url-parse: 11.1.2
-    lodash: ^4.17.15
-    semver: ^7.1.2
-    tslib: ^1.13.0
-  peerDependencies:
-    "@yarnpkg/core": ^3.2.1
-  checksum: afbec058bcc0bc8fe2750bcc714f093b085b53ad5a3a16158ea3d4d1e1aa548fce97ef811c47a5f6592669777b5d73a864d391aed08a95a4b053758f1d685eb1
   languageName: node
   linkType: hard
 
@@ -8570,21 +8436,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/plugin-init@npm:^3.1.3":
-  version: 3.1.3
-  resolution: "@yarnpkg/plugin-init@npm:3.1.3"
-  dependencies:
-    "@yarnpkg/fslib": ^2.6.2
-    clipanion: ^3.2.0-rc.4
-    lodash: ^4.17.15
-    tslib: ^1.13.0
-  peerDependencies:
-    "@yarnpkg/cli": ^3.2.1
-    "@yarnpkg/core": ^3.2.1
-  checksum: 2c7efc1e8f812f1bafa8ddea46ce39801dacadcc454db91da774ade94e1c2d165e3b8bdde2869a7c8c9f6a5ba964fd830acef85312b0315f64473c1059398ff7
-  languageName: node
-  linkType: hard
-
 "@yarnpkg/plugin-init@npm:^3.1.4":
   version: 3.1.4
   resolution: "@yarnpkg/plugin-init@npm:3.1.4"
@@ -8612,27 +8463,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/plugin-nm@npm:^3.1.3":
-  version: 3.1.3
-  resolution: "@yarnpkg/plugin-nm@npm:3.1.3"
-  dependencies:
-    "@yarnpkg/fslib": ^2.6.2
-    "@yarnpkg/libzip": ^2.2.4
-    "@yarnpkg/nm": ^3.0.3
-    "@yarnpkg/parsers": ^2.5.1
-    "@yarnpkg/plugin-pnp": ^3.2.1
-    "@yarnpkg/pnp": ^3.2.1
-    "@zkochan/cmd-shim": ^5.1.0
-    clipanion: ^3.2.0-rc.4
-    micromatch: ^4.0.2
-    tslib: ^1.13.0
-  peerDependencies:
-    "@yarnpkg/cli": ^3.2.1
-    "@yarnpkg/core": ^3.2.2
-  checksum: 108acab2391e89fa2d48507ba107c16563c1cebdd01ac902ad245b311a5108ecdd12a29ea58cd4f2a81ed78bf7608e5c37639a2dda6d104bee00808955a43a5d
-  languageName: node
-  linkType: hard
-
 "@yarnpkg/plugin-nm@npm:^3.1.4":
   version: 3.1.4
   resolution: "@yarnpkg/plugin-nm@npm:3.1.4"
@@ -8651,25 +8481,6 @@ __metadata:
     "@yarnpkg/cli": ^3.2.3
     "@yarnpkg/core": ^3.2.4
   checksum: 53cbffd10554c302b78a2dbdc623fe8acb807dbff341e88b71ee11dc668312170c5a139ecd0be912f47cd19cb0962399a6cbdcd76f69347e555891d52b1ce33c
-  languageName: node
-  linkType: hard
-
-"@yarnpkg/plugin-npm-cli@npm:^3.2.1":
-  version: 3.2.1
-  resolution: "@yarnpkg/plugin-npm-cli@npm:3.2.1"
-  dependencies:
-    "@yarnpkg/fslib": ^2.6.2
-    clipanion: ^3.2.0-rc.4
-    enquirer: ^2.3.6
-    semver: ^7.1.2
-    tslib: ^1.13.0
-    typanion: ^3.3.0
-  peerDependencies:
-    "@yarnpkg/cli": ^3.2.1
-    "@yarnpkg/core": ^3.2.1
-    "@yarnpkg/plugin-npm": ^2.7.1
-    "@yarnpkg/plugin-pack": ^3.1.2
-  checksum: 3da256383ac1e2e8a148ef23e0ed22513a4bb6636d34694e60999192e58dbd7a7e1b3fe913cc3f17ae0855065cf28bdbbb698ee34702a38d1d89cf9ca1423aa8
   languageName: node
   linkType: hard
 
@@ -8708,22 +8519,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/plugin-pack@npm:^3.1.2":
-  version: 3.1.2
-  resolution: "@yarnpkg/plugin-pack@npm:3.1.2"
-  dependencies:
-    "@yarnpkg/fslib": ^2.6.2
-    clipanion: ^3.2.0-rc.4
-    micromatch: ^4.0.2
-    tar-stream: ^2.0.1
-    tslib: ^1.13.0
-  peerDependencies:
-    "@yarnpkg/cli": ^3.2.1
-    "@yarnpkg/core": ^3.2.1
-  checksum: 5dbb5bd4131df0212826ad9d0f6a832f50b0fc2823303bc38e1b49f6265042525dca3b561887738044c122c91c69db7d6adc3f56a7ae61b4dfd230b3f1fdd3c2
-  languageName: node
-  linkType: hard
-
 "@yarnpkg/plugin-pack@npm:^3.1.3":
   version: 3.1.3
   resolution: "@yarnpkg/plugin-pack@npm:3.1.3"
@@ -8740,21 +8535,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/plugin-patch@npm:^3.2.2":
-  version: 3.2.2
-  resolution: "@yarnpkg/plugin-patch@npm:3.2.2"
-  dependencies:
-    "@yarnpkg/fslib": ^2.7.0
-    "@yarnpkg/libzip": ^2.2.4
-    clipanion: ^3.2.0-rc.4
-    tslib: ^1.13.0
-  peerDependencies:
-    "@yarnpkg/cli": ^3.2.2
-    "@yarnpkg/core": ^3.2.3
-  checksum: ac7078771a4afd6da8838ae0eeacbf0c523d7fbfee46832cdc780860dc1af169fa0470c6b8636151f087e45451a103b0470ceb1cc74723d21f2f517e69e8cd88
-  languageName: node
-  linkType: hard
-
 "@yarnpkg/plugin-patch@npm:^3.2.3":
   version: 3.2.3
   resolution: "@yarnpkg/plugin-patch@npm:3.2.3"
@@ -8767,25 +8547,6 @@ __metadata:
     "@yarnpkg/cli": ^3.2.3
     "@yarnpkg/core": ^3.2.4
   checksum: 4c96d4bead6c02b1d58782690dcc01cb51c4f36706f8a0ae8bb485cb1cfaf0328400e8cb951601cc7c025fedce497cbd9e264331399b8f11a0fea89857a3129f
-  languageName: node
-  linkType: hard
-
-"@yarnpkg/plugin-pnp@npm:^3.2.1, @yarnpkg/plugin-pnp@npm:^3.2.2":
-  version: 3.2.2
-  resolution: "@yarnpkg/plugin-pnp@npm:3.2.2"
-  dependencies:
-    "@types/semver": ^7.1.0
-    "@yarnpkg/fslib": ^2.7.0
-    "@yarnpkg/plugin-stage": ^3.1.2
-    "@yarnpkg/pnp": ^3.2.2
-    clipanion: ^3.2.0-rc.4
-    micromatch: ^4.0.2
-    semver: ^7.1.2
-    tslib: ^1.13.0
-  peerDependencies:
-    "@yarnpkg/cli": ^3.2.2
-    "@yarnpkg/core": ^3.2.3
-  checksum: fe595bea09dd74537bdeea4e43d3084b4489dfe22eb0a5a9415ee41e8b7ff57438c173a5eb19950502b868cb7a3da2b31206588ec7c9a610611cb0e0b4ae2ead
   languageName: node
   linkType: hard
 
@@ -8808,23 +8569,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/plugin-pnpm@npm:^1.1.1":
-  version: 1.1.1
-  resolution: "@yarnpkg/plugin-pnpm@npm:1.1.1"
-  dependencies:
-    "@yarnpkg/fslib": ^2.6.2
-    "@yarnpkg/plugin-pnp": ^3.2.1
-    "@yarnpkg/plugin-stage": ^3.1.2
-    clipanion: ^3.2.0-rc.4
-    p-limit: ^2.2.0
-    tslib: ^1.13.0
-  peerDependencies:
-    "@yarnpkg/cli": ^3.2.1
-    "@yarnpkg/core": ^3.2.1
-  checksum: f4f9f2940cced14c10591e86561b074afe5efec5f1a53ff382a8a13df18e64314c4ec47b8a82d5837c4724f6dda354c294936c8a52186f11bb59481543973b24
-  languageName: node
-  linkType: hard
-
 "@yarnpkg/plugin-pnpm@npm:^1.1.2":
   version: 1.1.2
   resolution: "@yarnpkg/plugin-pnpm@npm:1.1.2"
@@ -8842,20 +8586,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/plugin-stage@npm:^3.1.2":
-  version: 3.1.2
-  resolution: "@yarnpkg/plugin-stage@npm:3.1.2"
-  dependencies:
-    "@yarnpkg/fslib": ^2.6.2
-    clipanion: ^3.2.0-rc.4
-    tslib: ^1.13.0
-  peerDependencies:
-    "@yarnpkg/cli": ^3.2.1
-    "@yarnpkg/core": ^3.2.1
-  checksum: ae357474d8ebe7859d950a336862b5574cb77c23be98c2b4fe20feb24cc0d0d442ef4c32519f3f8a648571a353c1584b1deff272fb90ed94b6a6e3801eaec9f7
-  languageName: node
-  linkType: hard
-
 "@yarnpkg/plugin-stage@npm:^3.1.3":
   version: 3.1.3
   resolution: "@yarnpkg/plugin-stage@npm:3.1.3"
@@ -8870,17 +8600,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/pnp@npm:^3.2.1, @yarnpkg/pnp@npm:^3.2.2":
-  version: 3.2.2
-  resolution: "@yarnpkg/pnp@npm:3.2.2"
-  dependencies:
-    "@types/node": ^13.7.0
-    "@yarnpkg/fslib": ^2.7.0
-  checksum: 847846fc5a051f0db9da88ac63ee707c3457f11ca49c2dc9dae66e0d27b39ec5ffa0cbf30455d935d74580f59dcdde5fd924f0e73ae9909b98a1574f46bb694c
-  languageName: node
-  linkType: hard
-
-"@yarnpkg/pnp@npm:^3.2.3":
+"@yarnpkg/pnp@npm:^3.2.2, @yarnpkg/pnp@npm:^3.2.3":
   version: 3.2.3
   resolution: "@yarnpkg/pnp@npm:3.2.3"
   dependencies:
@@ -8890,7 +8610,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/shell@npm:3.2.3, @yarnpkg/shell@npm:^3.2.3":
+"@yarnpkg/shell@npm:3.2.3":
   version: 3.2.3
   resolution: "@yarnpkg/shell@npm:3.2.3"
   dependencies:
@@ -8909,7 +8629,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/shell@npm:^3.2.4":
+"@yarnpkg/shell@npm:^3.2.3, @yarnpkg/shell@npm:^3.2.4":
   version: 3.2.4
   resolution: "@yarnpkg/shell@npm:3.2.4"
   dependencies:
@@ -9544,14 +9264,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"arg@npm:^5.0.0":
-  version: 5.0.1
-  resolution: "arg@npm:5.0.1"
-  checksum: 9aefbcb1204f8dbd541a045bfe99b6515b4dc697c2f704ef2bb5e9fe5464575d97571e91e673a6f23ad72dd1cc24d7d8cf2d1d828e72c08e4d4f6f9237adc761
-  languageName: node
-  linkType: hard
-
-"arg@npm:^5.0.2":
+"arg@npm:^5.0.0, arg@npm:^5.0.2":
   version: 5.0.2
   resolution: "arg@npm:5.0.2"
   checksum: 6c69ada1a9943d332d9e5382393e897c500908d91d5cb735a01120d5f71daf1b339b7b8980cbeaba8fd1afc68e658a739746179e4315a26e8a28951ff9930078
@@ -9898,25 +9611,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"autoprefixer@npm:^10.3.7, autoprefixer@npm:^10.4.7":
-  version: 10.4.7
-  resolution: "autoprefixer@npm:10.4.7"
-  dependencies:
-    browserslist: ^4.20.3
-    caniuse-lite: ^1.0.30001335
-    fraction.js: ^4.2.0
-    normalize-range: ^0.1.2
-    picocolors: ^1.0.0
-    postcss-value-parser: ^4.2.0
-  peerDependencies:
-    postcss: ^8.1.0
-  bin:
-    autoprefixer: bin/autoprefixer
-  checksum: 0e55d0d19806c672ec0c79cc23c27cf77e90edf2600670735266ba33ec5294458f404baaa2f7cd4cfe359cf7a97b3c86f01886bdbdc129a4f2f76ca5977a91af
-  languageName: node
-  linkType: hard
-
-"autoprefixer@npm:^10.4.8":
+"autoprefixer@npm:^10.3.7, autoprefixer@npm:^10.4.7, autoprefixer@npm:^10.4.8":
   version: 10.4.8
   resolution: "autoprefixer@npm:10.4.8"
   dependencies:
@@ -10495,21 +10190,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"browserslist@npm:^4.0.0, browserslist@npm:^4.14.5, browserslist@npm:^4.16.6, browserslist@npm:^4.18.1, browserslist@npm:^4.20.2, browserslist@npm:^4.20.3, browserslist@npm:^4.21.0, browserslist@npm:latest":
-  version: 4.21.2
-  resolution: "browserslist@npm:4.21.2"
-  dependencies:
-    caniuse-lite: ^1.0.30001366
-    electron-to-chromium: ^1.4.188
-    node-releases: ^2.0.6
-    update-browserslist-db: ^1.0.4
-  bin:
-    browserslist: cli.js
-  checksum: 30fe59f8b065f99665ea63819d29c797660f7975857c290f61f570403abed4d7039ca15b6fd21e39a57b87e1a9262f94676114040766fc0da6ccc11faf9fc377
-  languageName: node
-  linkType: hard
-
-"browserslist@npm:^4.21.3":
+"browserslist@npm:^4.0.0, browserslist@npm:^4.14.5, browserslist@npm:^4.16.6, browserslist@npm:^4.18.1, browserslist@npm:^4.20.2, browserslist@npm:^4.20.3, browserslist@npm:^4.21.0, browserslist@npm:^4.21.3":
   version: 4.21.3
   resolution: "browserslist@npm:4.21.3"
   dependencies:
@@ -10520,6 +10201,20 @@ __metadata:
   bin:
     browserslist: cli.js
   checksum: ff512a7bcca1c530e2854bbdfc7be2791d0fb524097a6340e56e1d5924164c7e4e0a9b070de04cdc4c149d15cb4d4275cb7c626ebbce954278a2823aaad2452a
+  languageName: node
+  linkType: hard
+
+"browserslist@npm:latest":
+  version: 4.21.2
+  resolution: "browserslist@npm:4.21.2"
+  dependencies:
+    caniuse-lite: ^1.0.30001366
+    electron-to-chromium: ^1.4.188
+    node-releases: ^2.0.6
+    update-browserslist-db: ^1.0.4
+  bin:
+    browserslist: cli.js
+  checksum: 30fe59f8b065f99665ea63819d29c797660f7975857c290f61f570403abed4d7039ca15b6fd21e39a57b87e1a9262f94676114040766fc0da6ccc11faf9fc377
   languageName: node
   linkType: hard
 
@@ -10540,7 +10235,7 @@ __metadata:
     "@repo/constants": "workspace:sources/@repo/constants"
     "@repo/logger": "workspace:sources/@repo/logger"
     "@repo/test-kit": "workspace:sources/@repo/test-kit"
-    "@swc/core": 1.2.237
+    "@swc/core": 1.2.249
     "@swc/jest": 0.2.22
     "@types/express": 4.17.13
     "@types/fs-extra": 9.0.13
@@ -10635,16 +10330,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"builtins@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "builtins@npm:5.0.0"
-  dependencies:
-    semver: ^7.0.0
-  checksum: a62b7f142d585e7f809bee5d7fc0ec7bc874abce8d5954ae817ac6d385897075a9632795ce226abc7e3a02ad14268ee20594ab84a614a817955ded80de971981
-  languageName: node
-  linkType: hard
-
-"builtins@npm:^5.0.1":
+"builtins@npm:^5.0.0, builtins@npm:^5.0.1":
   version: 5.0.1
   resolution: "builtins@npm:5.0.1"
   dependencies:
@@ -10871,17 +10557,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"caniuse-lite@npm:^1.0.0, caniuse-lite@npm:^1.0.30001335, caniuse-lite@npm:^1.0.30001366, caniuse-lite@npm:latest":
-  version: 1.0.30001366
-  resolution: "caniuse-lite@npm:1.0.30001366"
-  checksum: eeb878e0be4090a4247dd3de5392ff1a864d086e5401790c7c81697918ce6ce3dac75956a21f9404b5ac770bfdabdb18619d0f920dc2295f3211ee893355f697
-  languageName: node
-  linkType: hard
-
-"caniuse-lite@npm:^1.0.30001370, caniuse-lite@npm:^1.0.30001373":
+"caniuse-lite@npm:^1.0.0, caniuse-lite@npm:^1.0.30001366, caniuse-lite@npm:^1.0.30001370, caniuse-lite@npm:^1.0.30001373":
   version: 1.0.30001378
   resolution: "caniuse-lite@npm:1.0.30001378"
   checksum: 19f1774da1f62d393ddde55dc091eb3e4f5c5b0ce43f9a9d20e75307a0f329cf8591c836a35a9f6f9fd7c27db7a75e0682245a194acec2e2ba1bc25ef1c3300c
+  languageName: node
+  linkType: hard
+
+"caniuse-lite@npm:latest":
+  version: 1.0.30001366
+  resolution: "caniuse-lite@npm:1.0.30001366"
+  checksum: eeb878e0be4090a4247dd3de5392ff1a864d086e5401790c7c81697918ce6ce3dac75956a21f9404b5ac770bfdabdb18619d0f920dc2295f3211ee893355f697
   languageName: node
   linkType: hard
 
@@ -13850,14 +13536,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"electron-to-chromium@npm:^1.4.188":
-  version: 1.4.191
-  resolution: "electron-to-chromium@npm:1.4.191"
-  checksum: d7bd39517da1fc6c392e87f18df0ce8697814105a663fbc8df51a346f230920ef31adb465cc355fea0ee9c6c9fba6da653ee04f99d515f7280a50f3d394801e4
-  languageName: node
-  linkType: hard
-
-"electron-to-chromium@npm:^1.4.202":
+"electron-to-chromium@npm:^1.4.188, electron-to-chromium@npm:^1.4.202":
   version: 1.4.222
   resolution: "electron-to-chromium@npm:1.4.222"
   checksum: acae758e1cfb647cfaa7ac662200e3d2c15a66c50da999cac2c08e98908e61c276c4ef336e0f9d0f42d75b68f08cdc4efe6cb7b8031cfe5aed47645ebd07632c
@@ -18333,16 +18012,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-core-module@npm:^2.1.0, is-core-module@npm:^2.5.0, is-core-module@npm:^2.8.1, is-core-module@npm:^2.9.0":
-  version: 2.9.0
-  resolution: "is-core-module@npm:2.9.0"
-  dependencies:
-    has: ^1.0.3
-  checksum: b27034318b4b462f1c8f1dfb1b32baecd651d891a4e2d1922135daeff4141dfced2b82b07aef83ef54275c4a3526aa38da859223664d0868ca24182badb784ce
-  languageName: node
-  linkType: hard
-
-"is-core-module@npm:^2.10.0":
+"is-core-module@npm:^2.1.0, is-core-module@npm:^2.10.0, is-core-module@npm:^2.5.0, is-core-module@npm:^2.8.1, is-core-module@npm:^2.9.0":
   version: 2.10.0
   resolution: "is-core-module@npm:2.10.0"
   dependencies:
@@ -20175,7 +19845,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"kleur@npm:4.1.4, kleur@npm:^4.0.3, kleur@npm:^4.1.3":
+"kleur@npm:4.1.4":
   version: 4.1.4
   resolution: "kleur@npm:4.1.4"
   checksum: 7f6db36e378045dec14acd3cbf0b1e59130c09e984ee8b8ce56dd2d2257cfff90389c1e8f8b19bd09dd5d241080566a814b4ccd99fdcef91f59ef93ec33c8a44
@@ -20189,7 +19859,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"kleur@npm:^4.0.0":
+"kleur@npm:^4.0.0, kleur@npm:^4.0.3, kleur@npm:^4.1.3":
   version: 4.1.5
   resolution: "kleur@npm:4.1.5"
   checksum: 1dc476e32741acf0b1b5b0627ffd0d722e342c1b0da14de3e8ae97821327ca08f9fb944542fb3c126d90ac5f27f9d804edbe7c585bf7d12ef495d115e0f22c12
@@ -20298,14 +19968,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lilconfig@npm:^2.0.3, lilconfig@npm:^2.0.5":
-  version: 2.0.5
-  resolution: "lilconfig@npm:2.0.5"
-  checksum: f7bb9e42656f06930ad04e583026f087508ae408d3526b8b54895e934eb2a966b7aafae569656f2c79a29fe6d779b3ec44ba577e80814734c8655d6f71cdf2d1
-  languageName: node
-  linkType: hard
-
-"lilconfig@npm:^2.0.6":
+"lilconfig@npm:^2.0.3, lilconfig@npm:^2.0.5, lilconfig@npm:^2.0.6":
   version: 2.0.6
   resolution: "lilconfig@npm:2.0.6"
   checksum: 40a3cd72f103b1be5975f2ac1850810b61d4053e20ab09be8d3aeddfe042187e1ba70b4651a7e70f95efa1642e7dc8b2ae395b317b7d7753b241b43cef7c0f7d
@@ -25335,7 +24998,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:8.4.16":
+"postcss@npm:8.4.16, postcss@npm:^8.1.10, postcss@npm:^8.2.14, postcss@npm:^8.3.0, postcss@npm:^8.3.11, postcss@npm:^8.3.5, postcss@npm:^8.4.12, postcss@npm:^8.4.13, postcss@npm:^8.4.14, postcss@npm:^8.4.7":
   version: 8.4.16
   resolution: "postcss@npm:8.4.16"
   dependencies:
@@ -25343,17 +25006,6 @@ __metadata:
     picocolors: ^1.0.0
     source-map-js: ^1.0.2
   checksum: 10eee25efd77868036403858577da0cefaf2e0905feeaba5770d5438ccdddba3d01cba8063e96b8aac4c6daa0ed413dd5ae0554a433a3c4db38df1d134cffc1f
-  languageName: node
-  linkType: hard
-
-"postcss@npm:^8.1.10, postcss@npm:^8.2.14, postcss@npm:^8.3.0, postcss@npm:^8.3.11, postcss@npm:^8.3.5, postcss@npm:^8.4.12, postcss@npm:^8.4.13, postcss@npm:^8.4.14, postcss@npm:^8.4.7":
-  version: 8.4.14
-  resolution: "postcss@npm:8.4.14"
-  dependencies:
-    nanoid: ^3.3.4
-    picocolors: ^1.0.0
-    source-map-js: ^1.0.2
-  checksum: fe58766ff32e4becf65a7d57678995cfd239df6deed2fe0557f038b47c94e4132e7e5f68b5aa820c13adfec32e523b693efaeb65798efb995ce49ccd83953816
   languageName: node
   linkType: hard
 
@@ -27103,20 +26755,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"resolve@npm:^1.1.6, resolve@npm:^1.1.7, resolve@npm:^1.10.0, resolve@npm:^1.12.0, resolve@npm:^1.14.2, resolve@npm:^1.20.0, resolve@npm:^1.22.0, resolve@npm:^1.3.2, resolve@npm:^1.9.0":
-  version: 1.22.0
-  resolution: "resolve@npm:1.22.0"
-  dependencies:
-    is-core-module: ^2.8.1
-    path-parse: ^1.0.7
-    supports-preserve-symlinks-flag: ^1.0.0
-  bin:
-    resolve: bin/resolve
-  checksum: a2d14cc437b3a23996f8c7367eee5c7cf8149c586b07ca2ae00e96581ce59455555a1190be9aa92154785cf9f2042646c200d0e00e0bbd2b8a995a93a0ed3e4e
-  languageName: node
-  linkType: hard
-
-"resolve@npm:^1.22.1":
+"resolve@npm:^1.1.6, resolve@npm:^1.1.7, resolve@npm:^1.10.0, resolve@npm:^1.12.0, resolve@npm:^1.14.2, resolve@npm:^1.20.0, resolve@npm:^1.22.0, resolve@npm:^1.22.1, resolve@npm:^1.3.2, resolve@npm:^1.9.0":
   version: 1.22.1
   resolution: "resolve@npm:1.22.1"
   dependencies:
@@ -27152,20 +26791,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"resolve@patch:resolve@^1.1.6#~builtin<compat/resolve>, resolve@patch:resolve@^1.1.7#~builtin<compat/resolve>, resolve@patch:resolve@^1.10.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.12.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.14.2#~builtin<compat/resolve>, resolve@patch:resolve@^1.20.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.22.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.3.2#~builtin<compat/resolve>, resolve@patch:resolve@^1.9.0#~builtin<compat/resolve>":
-  version: 1.22.0
-  resolution: "resolve@patch:resolve@npm%3A1.22.0#~builtin<compat/resolve>::version=1.22.0&hash=07638b"
-  dependencies:
-    is-core-module: ^2.8.1
-    path-parse: ^1.0.7
-    supports-preserve-symlinks-flag: ^1.0.0
-  bin:
-    resolve: bin/resolve
-  checksum: c79ecaea36c872ee4a79e3db0d3d4160b593f2ca16e031d8283735acd01715a203607e9ded3f91f68899c2937fa0d49390cddbe0fb2852629212f3cda283f4a7
-  languageName: node
-  linkType: hard
-
-"resolve@patch:resolve@^1.22.1#~builtin<compat/resolve>":
+"resolve@patch:resolve@^1.1.6#~builtin<compat/resolve>, resolve@patch:resolve@^1.1.7#~builtin<compat/resolve>, resolve@patch:resolve@^1.10.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.12.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.14.2#~builtin<compat/resolve>, resolve@patch:resolve@^1.20.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.22.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.22.1#~builtin<compat/resolve>, resolve@patch:resolve@^1.3.2#~builtin<compat/resolve>, resolve@patch:resolve@^1.9.0#~builtin<compat/resolve>":
   version: 1.22.1
   resolution: "resolve@patch:resolve@npm%3A1.22.1#~builtin<compat/resolve>::version=1.22.1&hash=07638b"
   dependencies:
@@ -30637,21 +30263,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"update-browserslist-db@npm:^1.0.4":
-  version: 1.0.4
-  resolution: "update-browserslist-db@npm:1.0.4"
-  dependencies:
-    escalade: ^3.1.1
-    picocolors: ^1.0.0
-  peerDependencies:
-    browserslist: ">= 4.21.0"
-  bin:
-    browserslist-lint: cli.js
-  checksum: 7c7da28d0fc733b17e01c8fa9385ab909eadce64b8ea644e9603867dc368c2e2a6611af8247e72612b23f9e7cb87ac7c7585a05ff94e1759e9d646cbe9bf49a7
-  languageName: node
-  linkType: hard
-
-"update-browserslist-db@npm:^1.0.5":
+"update-browserslist-db@npm:^1.0.4, update-browserslist-db@npm:^1.0.5":
   version: 1.0.5
   resolution: "update-browserslist-db@npm:1.0.5"
   dependencies:
