@@ -4,7 +4,6 @@ import React from 'react'
 import type {StatsCompilation} from 'webpack'
 
 import Compilation from './compilation/compilation.component.js'
-import {color} from './format.js'
 import {Server} from './server.js'
 
 const App = ({
@@ -24,14 +23,11 @@ const App = ({
 }) => {
   return (
     <Box flexDirection="column">
-      <Box marginBottom={1}>
-        <Text bold color={color.cyan}>
-          {app.label}
-        </Text>
-      </Box>
-
       {compilations.map((compilation, id) => (
         <Box key={id} flexDirection="column">
+          <Box>
+            <Text>{` `}</Text>
+          </Box>
           <Compilation
             id={id}
             mode={app.mode}
@@ -41,7 +37,7 @@ const App = ({
             displayAssets={displayAssets}
             displayEntrypoints={displayEntrypoints}
           />
-          <Box flexDirection="column">
+          <Box>
             <Text>{` `}</Text>
           </Box>
         </Box>

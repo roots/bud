@@ -1,4 +1,4 @@
-import type {Service} from '../../service.js'
+import type * as Service from '../../service.js'
 import type * as Api from './api'
 import type * as Build from './build'
 import type * as Cache from './cache'
@@ -28,7 +28,7 @@ export type {
  *
  * @virtual @public
  */
-export interface Registry extends Record<string, Service> {
+export interface Registry extends Record<string, Service.Contract> {
   api: Api.Service
   build: Build.Service
   cache: Cache.Service

@@ -1,4 +1,5 @@
-import {Service} from '@roots/bud-framework/service'
+import * as Service from '@roots/bud-framework/service'
+import type * as Base from '@roots/bud-framework/services/build'
 import {bind} from 'helpful-decorators'
 import {isFunction, isUndefined} from 'lodash-es'
 import type {Configuration} from 'webpack'
@@ -16,7 +17,7 @@ import * as Rule from './rule/rule.js'
  *
  * @public
  */
-export default class Build extends Service {
+export default class Build extends Service.Base implements Base.Service {
   public static label = `build`
 
   /**

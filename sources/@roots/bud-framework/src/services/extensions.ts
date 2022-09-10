@@ -1,14 +1,16 @@
 import type {ApplyPlugin, Extension, ExtensionLiteral} from '../extension'
-import {Service} from '../service.js'
+import {Service as BaseService} from '../service.js'
 import type {Modules} from '../types/registry/modules'
 import type * as Base from '../types/services/extensions'
+
+export type {Base}
 
 /**
  * Extensions Service
  *
  * @public
  */
-export abstract class Extensions extends Service implements Base.Service {
+export abstract class Service extends BaseService implements Base.Service {
   public static label = `extensions`
 
   public abstract repository: Modules
@@ -17,10 +19,7 @@ export abstract class Extensions extends Service implements Base.Service {
 
   public methodNames: Array<Base.LifecycleMethods>
 
-  public has<K extends keyof Modules>(
-    key: K & string,
-    ...iterable: any[]
-  ): boolean {
+  public has<K extends keyof Modules>(key: K & string): boolean {
     return this.repository[key] ? true : false
   }
 

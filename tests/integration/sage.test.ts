@@ -67,8 +67,14 @@ const test = (pacman: 'yarn' | 'npm') => () => {
     })
   })
 
-  it(`[editor] is not defined`, () => {
-    expect(project.assets[`editor.js`]).toBeUndefined()
+  describe(`editor.js`, () => {
+    it(`has contents`, () => {
+      expect(project.assets[`editor.js`].length).toBeGreaterThan(10)
+    })
+
+    it(`is transpiled`, () => {
+      expect(project.assets[`editor.js`].includes(`import `)).toBeFalsy()
+    })
   })
 
   it(`[editor] css: has contents`, () => {

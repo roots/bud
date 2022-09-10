@@ -1,7 +1,4 @@
-import type {Bud} from '@roots/bud-framework'
-import {Service as BaseService} from '@roots/bud-framework/service'
-import type * as Services from '@roots/bud-framework/services'
-import Container from '@roots/container'
+import * as Base from '@roots/bud-framework/services/api'
 import chalk from 'chalk'
 import {bind} from 'helpful-decorators'
 import {isEmpty, isFunction} from 'lodash-es'
@@ -18,44 +15,13 @@ import * as methods from '../methods/index.js'
  *
  * @public
  */
-export class Api extends BaseService implements Services.Api.Service {
+export class Api extends Base.Service implements Base.Contract {
   /**
    * Service label
    *
    * @public
    */
   public static label = `api`
-
-  /**
-   * Queued method calls
-   *
-   * @public
-   */
-  public queue: Array<[string, ...any[]]> = []
-
-  /**
-   * Trace of all method calls
-   *
-   * @public
-   */
-  public trace: Array<[string, ...any[]]> = []
-
-  public data: Container
-  public has: Container['has']
-  public get: Container['get']
-  public set: Container['set']
-  public isFunction: Container['isFunction']
-  public isString: Container['isString']
-
-  public constructor(app: Bud) {
-    super(app)
-    this.data = new Container()
-    this.has = this.data.has
-    this.get = this.data.get
-    this.set = this.data.set
-    this.isFunction = this.data.isFunction
-    this.isString = this.data.isString
-  }
 
   /**
    * `bootstrap` callback
@@ -113,7 +79,7 @@ export class Api extends BaseService implements Services.Api.Service {
         : `(no arguments passed)`,
     )
 
-    if (!this.has(name) || !this.isFunction(name)) {
+    if (!this.has(name)) {
       this.app.error(
         `bud.api.bindFacade error`,
         `${name} is not a function`,

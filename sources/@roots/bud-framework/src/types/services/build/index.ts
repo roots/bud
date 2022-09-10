@@ -10,15 +10,8 @@ import type {Rule} from './rule'
  * Build Service
  *
  * @remarks
- * Generates a {@link Build.config} and acts as a repository for {@link Rule} {@link Item}
+ * Generates a compiler config and acts as a repository for {@link Rule} {@link Item}
  * and {@link Loader} instances.
- *
- * The most current config is accessible through {@link Build.config}. {@link Build.config}
- * can be created manually by calling {@link Build.make}.
- *
- * - {@link Build.loaders} can be extended by augmenting the {@link Bud.Loaders} interface
- * - {@link Build.items} can be extended by augmenting the {@link Bud.Items} interface
- * - {@link Build.rules} can be extended by augmenting the {@link Bud.Rules} interface
  *
  * @example
  * Access the configuration:
@@ -35,10 +28,10 @@ import type {Rule} from './rule'
  * ```
  *
  * @example
- * Get the current `configuration.entry` value
+ * Get the current `build.entry` value
  *
  * ```js
- * bud.hooks.filter('build.entry')
+ * bud.hooks.filter('build.entry', {})
  * ```
  *
  * @public

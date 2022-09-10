@@ -73,7 +73,7 @@ export interface Options {
   ts: ({context}) => ({
     loader: `tsx`,
     target: `es2015`,
-    tsconfigRaw: context.config[`tsconfig.json`].module ?? null,
+    tsconfigRaw: context.config?.[`tsconfig.json`]?.module ?? null,
   }),
 })
 export default class BudEsbuild extends Extension<Options> {

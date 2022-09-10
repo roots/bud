@@ -17,27 +17,32 @@ import type {Bud} from './bud'
 export const initialize = (app: Bud): void => {
   process
     // exit with errors
-    .on(`uncaughtException`, makeHandler(app, 1))
+    .on(`uncaughtException`, makeProcessHandler(app, 1))
     // exit with errors
-    .on(`unhandledRejection`, makeHandler(app, 1))
+    .on(`unhandledRejection`, makeProcessHandler(app, 1))
     // only works when the process normally exits
     // on windows, ctrl-c will not trigger this handler
     // unless you listen on 'SIGINT'
-    .on(`exit`, makeHandler(app, 0))
+    .on(`exit`, makeProcessHandler(app, 0))
     // only works when the process normally exits
     .on(`SIGINT`, process.exit)
 }
 
-let hasClosedApplication = false
+/**
+ * Has the application already exited?
+ *
+ * @public
+ */
+let appExited: boolean = false
 
 /**
  * Create an error handler
  *
  * @public
  */
-const makeHandler = (app: Bud, code: number) => () => {
-  if (hasClosedApplication) return
-  hasClosedApplication = true
+const makeProcessHandler = (app: Bud, code: number) => () => {
+  if (appExited) return
+  appExited = true
 
   const logError = app.logger?.instance?.error ?? error
 

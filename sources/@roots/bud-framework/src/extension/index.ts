@@ -1,22 +1,20 @@
 import {bind} from 'helpful-decorators'
 import {has, isBoolean, isFunction, isUndefined} from 'lodash-es'
+import type {Signale} from 'signale'
+import type {Compiler} from 'webpack'
 
 import type {Bud} from '../bud.js'
 import type {Modules} from '../types/registry/modules'
 import type {ApplyPluginConstructor} from './decorators/plugin.js'
 
-export type Options<T = any> = {
+export type Options<T = Record<string, any>> = {
   [K in keyof T as `${K & string}`]?: T[K]
 }
 
-export namespace Options {
-  export type FuncMap<T = any> = Options<{
-    [K in keyof T as `${K & string}`]?: (app: Bud) => T[K]
-  }>
-
-  export type Seed<T = any> = Options<{
-    [K in keyof T as `${K & string}`]?: ((app: Bud) => T[K]) | T[K]
-  }>
+export type OptionsMap<MappedOptions extends Options> = {
+  [K in keyof MappedOptions as `${K & string}`]?:
+    | ((app: Bud) => MappedOptions[K])
+    | MappedOptions[K]
 }
 
 /**
@@ -55,7 +53,10 @@ export type ExtensionLiteral = {
  *
  * @public
  */
-export class Extension<E = any, Plugin extends ApplyPlugin = any> {
+export class Extension<
+  ExtensionOptions extends Options = Options,
+  Plugin extends ApplyPlugin = ApplyPlugin,
+> {
   /**
    * Application
    *
@@ -75,7 +76,7 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
    *
    * @internal
    */
-  public _options: Options.FuncMap<E> = {}
+  public optionsMap: OptionsMap<ExtensionOptions> = {}
 
   /**
    * Extension options
@@ -83,14 +84,27 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
    * @readonly
    * @public
    */
-  public readonly options: Options<E>
-
+  public readonly options: ExtensionOptions
   /**
    * Extension meta
    *
    * @public
    */
-  public meta = {}
+  public meta: {
+    init: boolean
+    register: boolean
+    boot: boolean
+    configAfter: boolean
+    buildBefore: boolean
+    buildAfter: boolean
+  } = {
+    init: false,
+    register: false,
+    boot: false,
+    configAfter: false,
+    buildBefore: false,
+    buildAfter: false,
+  }
 
   /**
    * The module name
@@ -102,7 +116,7 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
   /**
    * @public
    */
-  public logger: Bud['logger']['instance']
+  public logger: Signale
 
   /**
    * Depends on
@@ -134,7 +148,7 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
    *
    * @public
    */
-  public when?(app: Bud, options?: Options<E>): Promise<boolean>
+  public when?(app: Bud, options?: ExtensionOptions): Promise<boolean>
 
   /**
    * `init` callback
@@ -144,7 +158,10 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
    *
    * @public
    */
-  public async init?(app: Bud, options?: Options<E>): Promise<unknown>
+  public async init?(
+    app: Bud,
+    options?: ExtensionOptions,
+  ): Promise<unknown>
 
   /**
    * `register` callback
@@ -154,7 +171,10 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
    *
    * @public
    */
-  public async register?(app: Bud, options?: Options<E>): Promise<unknown>
+  public async register?(
+    app: Bud,
+    options?: ExtensionOptions,
+  ): Promise<unknown>
 
   /**
    * `boot` callback
@@ -164,7 +184,10 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
    *
    * @public
    */
-  public async boot?(app: Bud, options?: Options<E>): Promise<unknown>
+  public async boot?(
+    app: Bud,
+    options?: ExtensionOptions,
+  ): Promise<unknown>
 
   /**
    * `configAfter` callback
@@ -173,7 +196,7 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
    */
   public async configAfter?(
     app: Bud,
-    options?: Options<E>,
+    options?: ExtensionOptions,
   ): Promise<unknown>
 
   /**
@@ -183,7 +206,7 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
    */
   public async buildBefore?(
     app: Bud,
-    options?: Options<E>,
+    options?: ExtensionOptions,
   ): Promise<unknown>
 
   /**
@@ -193,17 +216,17 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
    */
   public async buildAfter?(
     app: Bud,
-    options?: Options<E>,
+    options?: ExtensionOptions,
   ): Promise<unknown>
 
   public async compilerBefore?(
     app: Bud,
-    options?: Options<E>,
+    options?: ExtensionOptions,
   ): Promise<unknown>
 
   public async compilerAfter?(
     app: Bud,
-    options?: Options<E>,
+    options?: ExtensionOptions,
   ): Promise<unknown>
 
   /**
@@ -214,7 +237,7 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
    *
    * @public
    */
-  public async make?(app: Bud, options?: Options<E>): Promise<Plugin>
+  public async make?(app: Bud, options?: ExtensionOptions): Promise<Plugin>
 
   /**
    * Plugin constructor
@@ -228,7 +251,7 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
    *
    * @public
    */
-  public apply?: ApplyPlugin['apply']
+  public apply?(compiler: Compiler): unknown
 
   /**
    * Class constructor
@@ -237,10 +260,10 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
    */
   public constructor(app: Bud) {
     this._app = () => app
-
     Object.defineProperty(this, `app`, {
       get: (): Bud => this._app(),
     })
+
     Object.defineProperty(this, `logger`, {
       get: () =>
         app.logger.instance.scope(
@@ -256,7 +279,7 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
       set: this.setOptions,
     })
 
-    this.setOptions(opts)
+    this.setOptions(opts as any)
   }
 
   /**
@@ -268,10 +291,11 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
   @bind
   public async _init() {
     if (isUndefined(this.init)) return
+    this.logger.log(`initialized`)
 
     try {
       await this.init(this.app, this.options)
-      this.meta[`_init`] = true
+      this.meta[`init`] = true
     } catch (error) {
       this.logger.error(error)
       this.app.fatal(`error in ${this.label}`)
@@ -287,15 +311,13 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
   @bind
   public async _register() {
     if (isUndefined(this.register)) return
+    this.logger.log(`registered`)
+
+    if (this.init && !this.meta[`init`]) await this._init()
+    this.meta[`register`] = true
 
     try {
-      if (this.init && !this.meta[`_init`]) await this._init()
-    } catch (err) {
-      this.logger.error(this.label, `register => init error`, `\n`)
-    }
-    try {
       await this.register(this.app, this.options)
-      this.meta[`_register`] = true
     } catch (error) {
       this.logger.error(`error on register`, `\n`, error)
       this.app.error(`error in`, this.label)
@@ -312,15 +334,14 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
   public async _boot() {
     if (isUndefined(this.boot)) return
 
-    try {
-      if (this.init && !this.meta[`_init`]) await this._init()
-      if (this.register && !this.meta[`_register`]) await this._register()
-    } catch (err) {
-      this.logger.error(this.label, `register => init error`, `\n`)
-    }
+    if (this.init && !this.meta[`init`]) await this._init()
+    if (this.register && !this.meta[`register`]) await this._register()
+
+    this.logger.log(`booted`)
+
     try {
       await this.boot(this.app, this.options)
-      this.meta[`_boot`] = true
+      this.meta[`boot`] = true
     } catch (error) {
       this.app.error(this.label, `boot error`, `\n`, error)
     }
@@ -335,6 +356,9 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
   public async _buildBefore() {
     const enabled = await this.isEnabled()
     if (isUndefined(this.buildBefore) || enabled === false) return
+    this.logger.log(`buildBefore`)
+    this.meta[`buildBefore`] = true
+
     await this.buildBefore(this.app, this.options)
   }
 
@@ -347,8 +371,13 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
   public async _buildAfter() {
     const enabled = await this.isEnabled()
     if (isUndefined(this.buildAfter) || enabled === false) return
+    this.logger.log(`buildAfter`)
+    this.meta[`buildAfter`] = true
+
     await this.buildAfter(this.app, this.options)
   }
+
+  public isConfigAfter: boolean = false
 
   /**
    * `configAfter` callback handler
@@ -359,6 +388,8 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
   public async _configAfter() {
     const enabled = await this.isEnabled()
     if (isUndefined(this.configAfter) || enabled === false) return
+    this.isConfigAfter = true
+
     await this.configAfter(this.app, this.options)
   }
 
@@ -382,29 +413,36 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
     }
 
     const enabled = await this.isEnabled()
+
     if (enabled === false) {
       this.logger.info(`${this.label} is disabled. skipping.`)
       return false
     }
 
-    if (this.apply) {
-      this.logger.info(`apply prop found. return extension instance`)
-      return this
+    try {
+      if (!isUndefined(this.apply)) {
+        this.logger.info(`apply prop found. return extension instance`)
+        return this
+      }
+    } catch (error) {
+      this.logger.error(`error instantiating plugin`, error)
     }
 
     try {
-      if (this.plugin) {
-        this.logger.info(`plugin prop found. instantiating and returning.`)
-        return new this.plugin(this.options)
+      if (!isUndefined(this.plugin)) {
+        const plugin = new this.plugin(this.options)
+        this.logger.success(`produced webpack plugin`)
+        return plugin
       }
     } catch (err) {
       this.logger.error(`error instantiating plugin`, err)
     }
 
     try {
-      if (this.make) {
-        this.logger.info(`make prop found. invoking and returning.`)
-        return await this.make(this.app, this.options)
+      if (!isUndefined(this.make)) {
+        const plugin = await this.make(this.app, this.options)
+        this.logger.success(`produced webpack plugin`)
+        return plugin
       }
     } catch (err) {
       this.logger.error(`error calling make`, err)
@@ -418,10 +456,10 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
    * @decorator `@bind`
    */
   @bind
-  public getOptions(): Options<E> {
-    return Object.entries(this._options ?? {}).reduce(
+  public getOptions(): ExtensionOptions {
+    return Object.entries(this.optionsMap ?? {}).reduce(
       this.fromOptionsMap,
-      {},
+      {} as ExtensionOptions,
     )
   }
 
@@ -433,9 +471,14 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
    */
   @bind
   public setOptions(
-    value: Options<E> | ((value: Options<E>) => Options<E>),
+    value:
+      | ExtensionOptions
+      | ((options: ExtensionOptions) => ExtensionOptions),
   ): this {
-    this._options = isFunction(value) ? value(this.options ?? {}) : value
+    this.optionsMap = isFunction(value)
+      ? value(this.options ?? ({} as ExtensionOptions))
+      : value
+
     return this
   }
 
@@ -446,9 +489,9 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
    * @decorator `@bind`
    */
   @bind
-  public getOption<K extends keyof Options<E> & string>(
+  public getOption<K extends keyof ExtensionOptions & string>(
     key: K,
-  ): Options<E>[K] {
+  ): ExtensionOptions[K] {
     return this.options[key]
   }
 
@@ -459,12 +502,13 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
    * @decorator `@bind`
    */
   @bind
-  public setOption<K extends keyof Options.FuncMap<E>>(
-    key: K & string,
-    value: Options<E>[K & string],
+  public setOption<K extends keyof ExtensionOptions & string>(
+    key: K,
+    value: ExtensionOptions[K],
   ): this {
-    if (!this._options) this._options = {}
-    this._options[key] = isFunction(value)
+    if (!this.optionsMap) this.optionsMap = {}
+
+    this.optionsMap[key] = isFunction(value)
       ? value(this.options[key])
       : () => value
 
@@ -478,10 +522,10 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
    * @decorator `@bind`
    */
   @bind
-  public toOptionsMap<K extends keyof Options<E> & string>(
-    funcMap: Options.FuncMap<Options<E>> = {},
-    [key, value]: [K & string, Options<E>[K & string]],
-  ): Options.FuncMap<Options<E>> {
+  public toOptionsMap<K extends keyof ExtensionOptions & string>(
+    funcMap: OptionsMap<ExtensionOptions> = {},
+    [key, value]: [K & string, ExtensionOptions[K & string]],
+  ): OptionsMap<ExtensionOptions> {
     return {
       ...funcMap,
       [key]: isFunction(value) ? value : () => value,
@@ -495,14 +539,14 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
    * @decorator `@bind`
    */
   @bind
-  public fromOptionsMap<K extends keyof Options<E>>(
-    options: Options<E>,
-    [key, value]: [K & string, Options<E>[K & string]],
-  ): Options<E> {
+  public fromOptionsMap<K extends keyof OptionsMap<ExtensionOptions>>(
+    options: ExtensionOptions,
+    [key, value]: [K, OptionsMap<ExtensionOptions>[K]],
+  ): ExtensionOptions {
     return {
       ...(options ?? {}),
       [key]: isFunction(value) ? value(this.app) : value,
-    }
+    } as ExtensionOptions
   }
 
   /**
@@ -635,11 +679,10 @@ export class Extension<E = any, Plugin extends ApplyPlugin = any> {
    */
   @bind
   public async isEnabled(): Promise<boolean> {
-    if (this.when && isFunction(this.when))
+    if (isUndefined(this.when)) return true
+    if (isBoolean(this.when)) return this.when as unknown as boolean
+    if (isFunction(this.when))
       return await this.when(this.app, this.options)
-
-    if (this.when && isBoolean(this.when))
-      return this.when as unknown as boolean
 
     return true
   }

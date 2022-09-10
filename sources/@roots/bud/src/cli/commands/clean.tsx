@@ -1,4 +1,3 @@
-import chalk from 'chalk'
 import {Command, Option} from 'clipanion'
 import fs from 'fs-extra'
 import {bind} from 'helpful-decorators'
@@ -59,7 +58,7 @@ export default class CleanCommand extends BaseCommand {
         </Box>,
       )
     } catch (err) {
-      this.context.stderr.write(chalk.red(err))
+      this.context.stderr.write(err)
     }
   }
 
@@ -75,7 +74,7 @@ export default class CleanCommand extends BaseCommand {
         </Box>,
       )
     } catch (err) {
-      this.context.stderr.write(chalk.red(err))
+      this.context.stderr.write(err)
     }
   }
 }

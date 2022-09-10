@@ -11,8 +11,14 @@ export default () => {
   beforeAll(async () => {
     bud = await factory({mode: `development`})
     instance = new Server(bud)
+
     await instance.register()
-    await bud.run()
+
+    expect(instance.app.context.args.dry).toBe(true)
+
+    try {
+      await instance.run()
+    } catch (e) {}
 
     expect(bud.mode).toBe(`development`)
   })

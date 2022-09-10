@@ -7,7 +7,8 @@ import type {Logger} from './logger'
 import type * as methods from './methods/index.js'
 import type {Module} from './module'
 import * as parsers from './parsers/index.js'
-import type {Service} from './service'
+import type * as Service from './service'
+import type * as Api from './services/api.js'
 import type * as Options from './types/options'
 import type * as Registry from './types/registry'
 import type * as Services from './types/services'
@@ -25,6 +26,11 @@ export class Bud {
    */
   public context: Options.Context
 
+  /**
+   * Implementation
+   *
+   * @public
+   */
   public implementation: Constructor
 
   /**
@@ -120,9 +126,9 @@ export class Bud {
     )
   }
 
-  public services: Array<keyof Services.Registry> = []
+  public services: Array<string> = []
 
-  public api: Services.Api.Service
+  public api: Api.Contract
 
   public build: Services.Build.Service
 
@@ -236,21 +242,21 @@ export class Bud {
     Object.entries(LIFECYCLE_EVENT_MAP).map(
       ([eventHandle, callbackName]: [
         keyof Registry.EventsStore,
-        keyof Service,
+        keyof Service.Contract,
       ]) =>
         this.services
           .map(service => [service, this[service]])
-          .filter(([, service]) => isFunction(service[callbackName]))
           .map(([label, service]) => {
+            if (!isFunction(service[callbackName])) return
+
             this.hooks.action(
               eventHandle,
               service[callbackName].bind(service),
             )
-
             this.success(
               `registered service callback:`,
               `${label}.${callbackName}`,
-            )
+            ).info(service[callbackName])
           }),
     )
 
@@ -386,7 +392,8 @@ export class Bud {
    */
   @bind
   public fatal(error: string) {
-    throw new Error(error)
+    this.logger.instance.error(error)
+    throw new Error()
   }
 }
 
