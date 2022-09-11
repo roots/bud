@@ -34,6 +34,8 @@ export default class ViewCommand extends BaseCommand {
 
   public dry = true
 
+  public notify = false
+
   public color = Option.Boolean(`--color,-c`, true, {
     description: `use syntax highlighting`,
   })

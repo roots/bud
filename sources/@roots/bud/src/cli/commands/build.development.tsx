@@ -28,9 +28,6 @@ export default class BuildDevelopmentCommand extends BuildCommand {
     description: `Compiles source assets in \`development\` mode.`,
     details: `\
       \`bud build development\` compiles source assets in \`development\` mode.
-
-      If you run this command without a bud configuration file \`bud\` will
-      look for an entrypoint at \`@src/index.js\`.
     `,
     examples: [
       [`compile source and serve`, `$0 build development`],

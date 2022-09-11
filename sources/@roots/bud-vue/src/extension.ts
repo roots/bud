@@ -76,13 +76,18 @@ export default class Vue extends Extension<Options, null> {
    */
   @bind
   public async addStyleLoader(): Promise<this> {
-    this.app.build.setLoader(
-      `vue-style`,
-      await this.resolve(`vue-style-loader`),
-    )
-    this.app.build.setItem(`vue-style`, {loader: `vue-style`})
-    this.app.build.rules.css.setUse(items => [`vue-style`, ...items])
-    this.app.build.rules.sass?.setUse(items => [`vue-style`, ...items])
+    this.app.build
+      .setLoader(`vue-style-loader`)
+      .setItem(`vue-style-loader`)
+
+    this.app.build.rules.css.setUse(items => [
+      `vue-style-loader`,
+      ...items,
+    ])
+    this.app.build.rules.sass?.setUse(items => [
+      `vue-style-loader`,
+      ...items,
+    ])
     this.app.build.items.precss.setOptions({esModule: false})
 
     return this

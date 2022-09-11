@@ -1,6 +1,5 @@
 import {Extension} from '@roots/bud-framework/extension'
 import {bind, label} from '@roots/bud-framework/extension/decorators'
-import type * as Build from '@roots/bud-framework/services/build'
 
 import {Config} from './config.js'
 
@@ -33,9 +32,7 @@ export default class BabelExtension extends Extension {
    */
   public get env() {
     return {
-      development: {
-        compact: false,
-      },
+      development: {compact: false},
     }
   }
 
@@ -46,23 +43,6 @@ export default class BabelExtension extends Extension {
    */
   public get root() {
     return this.app.path()
-  }
-
-  /**
-   * Babel RuleSetItem callback
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public setRuleSetItem(ruleSetItem: Build.Item) {
-    return ruleSetItem.setLoader(`babel`).setOptions(() => ({
-      cacheDirectory: this.cacheDirectory,
-      presets: Object.values(this.app.babel.presets),
-      plugins: Object.values(this.app.babel.plugins),
-      env: this.env,
-      root: this.root,
-    }))
   }
 
   /**
@@ -111,13 +91,17 @@ export default class BabelExtension extends Extension {
       )
 
     const loader = await this.resolve(`babel-loader`, import.meta.url)
-    if (!loader) {
-      return this.logger.error(`Babel loader not found`)
-    }
+    if (!loader) return this.logger.error(`Babel loader not found`)
 
-    this.app.build
-      .setLoader(`babel`, loader)
-      .setItem(`babel`, this.setRuleSetItem)
+    this.app.build.setLoader(`babel`, loader).setItem(`babel`, item =>
+      item.setLoader(`babel`).setOptions(() => ({
+        cacheDirectory: this.cacheDirectory,
+        presets: Object.values(this.app.babel.presets),
+        plugins: Object.values(this.app.babel.plugins),
+        env: this.env,
+        root: this.root,
+      })),
+    )
 
     this.app.build.rules.js.setUse(items => [`babel`, ...items])
   }

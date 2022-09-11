@@ -28,7 +28,7 @@ export const parseAlias: (app: Bud, ...base: Array<string>) => string = (
     .flat()
 
   /* If there is no match for ident there is a problem */
-  !app.hooks.has(`location.${ident as keyof Locations.Sync}`) &&
+  !app.hooks.hasSyncHook(`location.${ident as keyof Locations.Sync}`) &&
     app.error(`\`${ident}\` is not a registered path`)
 
   /* Replace base path */

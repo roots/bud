@@ -4335,6 +4335,7 @@ __metadata:
     json5: 2.2.1
     lodash-es: 4.17.21
     prettier: 2.7.1
+    strip-ansi: 7.0.1
   languageName: unknown
   linkType: soft
 

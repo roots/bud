@@ -1,3 +1,5 @@
+import type {Bud} from '../../bud.js'
+import type Value from '../../value.js'
 import type * as Build from './build.js'
 import type * as Dev from './dev.js'
 import type * as Events from './events.js'
@@ -23,26 +25,36 @@ type SyncCallback = {
 
 type SyncStore = {
   [K in keyof SyncRegistry as `${K & string}`]?: Array<
-    (current?: SyncRegistry[K]) => SyncRegistry[K]
+    Value<SyncCallback[K]>
   >
 }
 
 type Async = Build.Async
+
 type AsyncRegistry = Build.AsyncRegistry
 
 type AsyncCallback = {
-  [K in keyof AsyncRegistry as `${K & string}`]?:
-    | ((current?: AsyncRegistry[K]) => Promise<AsyncRegistry[K]>)
-    | AsyncRegistry[K]
+  [K in keyof Build.AsyncRegistry as `${K & string}`]?:
+    | ((
+        current?: Build.AsyncRegistry[K],
+      ) => Promise<Build.AsyncRegistry[K]>)
+    | Build.AsyncRegistry[K]
 }
 
 type AsyncStore = {
-  [K in keyof AsyncRegistry as `${K & string}`]?: Array<AsyncCallback>
+  [K in keyof AsyncRegistry as `${K & string}`]?: Array<
+    Value<
+      | ((current?: AsyncRegistry[K]) => Promise<AsyncRegistry[K]>)
+      | AsyncRegistry[K]
+    >
+  >
 }
+
+type EventsCallback = (app?: Bud) => Promise<unknown>
 
 type EventsStore = {
   [K in keyof Events.Registry as `${K & string}`]?: Array<
-    Events.Registry[K]
+    Value<EventsCallback>
   >
 }
 
@@ -56,6 +68,7 @@ export type {
   Build,
   Dev,
   Events,
+  EventsCallback,
   EventsStore,
   Flags,
   Locations,

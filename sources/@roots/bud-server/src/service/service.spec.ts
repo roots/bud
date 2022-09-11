@@ -1,4 +1,4 @@
-import {beforeAll, describe, expect, it} from '@jest/globals'
+import {beforeAll, expect, it} from '@jest/globals'
 import {Bud, factory} from '@repo/test-kit/bud'
 
 import {Watcher} from '../server/server.watcher'

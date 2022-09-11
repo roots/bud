@@ -31,15 +31,11 @@ import type * as Hooks from '../registry'
  * @public
  */
 export interface Service extends BaseService {
-  store: Partial<Hooks.Store>
+  asyncStore: any
+  syncStore: any
+  events: any
 
-  /**
-   * hook setter
-   *
-   * @internal
-   * @decorator `@bind`
-   */
-  has(path: string): boolean
+  hasSyncHook: (hook: keyof Hooks.SyncStore) => boolean
 
   /**
    * Register a function or value to modify or replace a filtered value
@@ -54,10 +50,10 @@ export interface Service extends BaseService {
    *
    * @public
    */
-  on<T extends keyof Hooks.SyncStore & string>(
+  on: <T extends keyof Hooks.SyncStore & string>(
     id: T,
     input: Hooks.SyncCallback[T],
-  ): Bud
+  ) => Bud
 
   /**
    * Register a recordset of functions or values to modify or replace existing values
@@ -72,7 +68,7 @@ export interface Service extends BaseService {
    *
    * @public
    */
-  fromMap(map: Partial<Hooks.SyncCallback>): Bud
+  fromMap: (map: Partial<Hooks.SyncCallback>) => Bud
 
   /**
    * Register an async function to filter a value.
@@ -87,10 +83,10 @@ export interface Service extends BaseService {
    *
    * @public
    */
-  async<T extends keyof Hooks.AsyncStore>(
+  async: <T extends keyof Hooks.AsyncStore>(
     id: T,
     value: Hooks.AsyncCallback[T],
-  ): Bud
+  ) => Bud
 
   /**
    * Register a recordset of functions or values to modify or replace existing values
@@ -105,7 +101,7 @@ export interface Service extends BaseService {
    *
    * @public
    */
-  fromAsyncMap(map: Hooks.AsyncCallback): Bud
+  fromAsyncMap: (map: Hooks.AsyncCallback) => Bud
 
   /**
    * Filter a value
@@ -120,10 +116,10 @@ export interface Service extends BaseService {
    *
    * @public
    */
-  filter<T extends keyof Hooks.SyncStore>(
+  filter: <T extends keyof Hooks.SyncStore>(
     id: T,
     callback?: Hooks.SyncCallback[T],
-  ): Hooks.SyncRegistry[T]
+  ) => Hooks.SyncRegistry[T]
 
   /**
    * Async version of hook.filter
@@ -141,27 +137,27 @@ export interface Service extends BaseService {
    *
    * @public
    */
-  filterAsync<T extends keyof Hooks.AsyncRegistry & string>(
+  filterAsync: <T extends keyof Hooks.AsyncRegistry & string>(
     id: T,
     fallback?: Hooks.AsyncCallback[T],
-  ): Promise<Hooks.AsyncRegistry[T]>
+  ) => Promise<Hooks.AsyncRegistry[T]>
 
   /**
    * Execute an action
    *
    * @public
    */
-  fire<T extends `${keyof Hooks.EventsStore & string}`>(
+  fire: <T extends `${keyof Hooks.EventsStore & string}`>(
     id: T,
-  ): Promise<Bud>
+  ) => Promise<Bud>
 
   /**
    * Store callback to an action handler
    *
    * @public
    */
-  action<T extends keyof Hooks.EventsStore & string>(
+  action: <T extends keyof Hooks.EventsStore & string>(
     id: T,
-    ...actions: Hooks.EventsStore[T]
-  ): Bud
+    ...input: Array<Hooks.EventsCallback>
+  ) => Bud
 }

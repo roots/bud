@@ -133,7 +133,7 @@ interface Contract {
  *
  * @public
  */
-abstract class Base implements Contract {
+abstract class Base implements Partial<Contract> {
   /**
    * Service label
    *

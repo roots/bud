@@ -69,16 +69,16 @@ declare module '@roots/bud-framework' {
   }
 
   interface Rules {
-    js: Build.Rule
-    css: Build.Rule
-    html: Build.Rule
-    svg: Build.Rule
-    image: Build.Rule
-    font: Build.Rule
-    xml: Build.Rule
-    json5: Build.Rule
-    csv: Build.Rule
-    yml: Build.Rule
-    toml: Build.Rule
+    js: Build.Rule.Interface
+    css: Build.Rule.Interface
+    html: Build.Rule.Interface
+    svg: Build.Rule.Interface
+    image: Build.Rule.Interface
+    font: Build.Rule.Interface
+    xml: Build.Rule.Interface
+    json5: Build.Rule.Interface
+    csv: Build.Rule.Interface
+    yml: Build.Rule.Interface
+    toml: Build.Rule.Interface
   }
 }

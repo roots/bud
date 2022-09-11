@@ -1,5 +1,5 @@
 import type * as Service from '../../service.js'
-import type * as Api from './api'
+import type * as Api from '../../services/api.js'
 import type * as Build from './build'
 import type * as Cache from './cache'
 import type * as Compiler from './compiler'

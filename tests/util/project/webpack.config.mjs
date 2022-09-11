@@ -1,3 +1,3 @@
-import { get } from "@roots/bud/factory";
+import {get} from '@roots/bud/factory'
 
-export default async () => (await get()).build.make();
+export default async () => (await get()).build.make()

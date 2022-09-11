@@ -45,12 +45,12 @@ export const setPath: setPath = function (arg1, arg2) {
 
   Object.entries(input).map(
     ([key, value]: [
-      `${keyof Locations.SyncRegistry & string}`,
+      `${keyof Locations.Sync & string}`,
       (
-        | `${keyof Locations.SyncRegistry & string}`
+        | `${keyof Locations.Sync & string}`
         | `@file`
         | `@name`
-        | `${keyof Locations.SyncRegistry & string}/${string}`
+        | `${keyof Locations.Sync & string}/${string}`
         | `./${string}`
         | `/${string}`
       ),
@@ -66,10 +66,7 @@ export const setPath: setPath = function (arg1, arg2) {
           `internal error: the final result of a bud.setPath transform was not absolute: ${key} => ${value} => ${absolutePath}`,
         )
 
-      app.hooks.on(
-        `location.${key as `@src` | `@dist` | `@modules` | `@storage`}`,
-        app.path(value),
-      )
+      app.hooks.on(`location.${key}`, app.path(value))
       app.info(`${key} set to ${value}`)
     },
   )

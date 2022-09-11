@@ -74,7 +74,7 @@ const Compilation = ({
 
         <Text>{`  `}</Text>
         <Text>{stats.name}</Text>
-        <Text> {` `}</Text>
+        <Text> {``}</Text>
 
         {stats?.outputPath && (
           <Text color={color.blue}>

@@ -22,10 +22,13 @@ export default class WebpackCommand extends BaseCommand {
    */
   public static usage = Command.Usage({
     description: `Webpack CLI passthrough`,
-    examples: [[`View webpack usage information`, `$0 webpack -- --help`]],
+    category: `tools`,
+    examples: [[`View webpack usage information`, `$0 webpack --help`]],
   })
 
-  public options = Option.Rest({name: `webpack positionals and options`})
+  public notify = false
+
+  public options = Option.Proxy({name: `webpack passthrough options`})
 
   /**
    * Command execute

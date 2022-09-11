@@ -61,7 +61,7 @@ export const initialize = (app: Bud): Bud =>
           parser: {requireEnsure: false},
         },
       ],
-      'build.module.rules.after': () => [],
+      'build.module.rules.after': [],
       'build.module.rules.oneOf': () =>
         Object.values(app.build.rules).map(rule => rule.toWebpack()),
       'build.name': () => app.label,

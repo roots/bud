@@ -12,9 +12,23 @@ export default class CleanCommand extends BaseCommand {
   public static paths = [[`clean`]]
 
   public static usage = Command.Usage({
+    category: `tasks`,
     description: `Clean project artifacts and caches`,
-    examples: [[`Clean artifacts/caches`, `$0 clean`]],
+    details: `
+      \`bud clean\` empties the \`@dist\` and \`@storage\` directories.
+
+      \`bud clean @dist\` empties the \`@dist\` directory.
+
+      \`bud clean @storage\` empties the \`@storage\` directory.
+`,
+    examples: [
+      [`Clean artifacts/caches`, `$0 clean`],
+      [`Clean dist`, `$0 clean @dist`],
+      [`Clean storage`, `$0 clean @storage`],
+    ],
   })
+
+  public notify = Option.Boolean(`--notify`, false, {hidden: true})
 
   public storage = Option.Boolean(`@storage`, false, {
     description: `empty @storage`,

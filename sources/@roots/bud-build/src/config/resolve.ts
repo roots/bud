@@ -9,7 +9,7 @@ const getAlias = async (
 const getExtensions = async (
   app: Bud,
 ): Promise<Configuration['resolve']['extensions']> =>
-  Array.from(app.hooks.filter(`build.resolve.extensions`))
+  Array.from(app.hooks.filter(`build.resolve.extensions`, new Set()))
 
 const getModules = async (
   app: Bud,

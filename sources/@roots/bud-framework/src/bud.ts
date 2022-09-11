@@ -12,6 +12,7 @@ import type * as Api from './services/api.js'
 import type * as Options from './types/options'
 import type * as Registry from './types/registry'
 import type * as Services from './types/services'
+import Value from './value.js'
 
 /**
  * Framework abstract
@@ -128,7 +129,7 @@ export class Bud {
 
   public services: Array<string> = []
 
-  public api: Api.Contract
+  public api: Api.Service
 
   public build: Services.Build.Service
 
@@ -193,6 +194,8 @@ export class Bud {
   public json: typeof parsers.json5 = parsers.json5
 
   public yml: typeof parsers.yml = parsers.yml
+
+  public value = Value
 
   /**
    * Creates a child with `bud.create` but returns the parent instance
@@ -393,7 +396,6 @@ export class Bud {
   @bind
   public fatal(error: string) {
     this.logger.instance.error(error)
-    throw new Error()
   }
 }
 

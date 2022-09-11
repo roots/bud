@@ -15,7 +15,7 @@ import * as methods from '../methods/index.js'
  *
  * @public
  */
-export class Api extends Base.Service implements Base.Contract {
+export class Api extends Base.Service {
   /**
    * Service label
    *

@@ -13,7 +13,7 @@ Out of the box, **bud.js** supports configuration files authored with `json5` an
 
 Bud supports configuration using static config files, although the API is slightly more limited. Bud supports `json` and `yml` as static config options.
 
-If using `json` your config file will be parsed with json5. This means you can use comments, trailing commas, amongst other niceties.
+If using `json` your config file will be parsed with json5. This means you can use comments, trailing commas, etc.
 
 ### Create a static config file
 
@@ -21,7 +21,7 @@ Create either a `bud.config.json` or `bud.config.yml` in the root of your projec
 
 ### Working with a static config
 
-Config function names are used as keys. Their values serve as function parameters.
+Config function names are used as keys. Their values are used as function parameters.
 
 <Tabs
   defaultValue="yml"
@@ -65,7 +65,7 @@ Things to think about:
 
 ## TypeScript
 
-You can use TypeScript to configure your build for instant feedback and added assurance that you're on track.
+You can use TypeScript to configure your build. In general we would recommend using JavaScript with typedoc comments, but TypeScript is supported with a couple caveats.
 
 ### Configuration
 

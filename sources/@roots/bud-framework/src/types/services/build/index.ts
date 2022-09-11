@@ -4,7 +4,7 @@ import type {Service as BaseService} from '../../../service'
 import type {Base} from './base'
 import type {Item} from './item'
 import type {Loader} from './loader'
-import type {Rule} from './rule'
+import type * as Rule from './rule'
 
 /**
  * Build Service
@@ -56,7 +56,7 @@ export interface Service extends BaseService {
    *
    * @public
    */
-  rules: Record<string, Rule>
+  rules: Record<string, Rule.Interface>
 
   /**
    * Compiler configuration
@@ -77,7 +77,7 @@ export interface Service extends BaseService {
    *
    * @public
    */
-  setLoader(name: string, options: string): Service
+  setLoader(name: string, options?: string): Service
 
   /**
    * Make a {@link Loader} instance
@@ -93,7 +93,9 @@ export interface Service extends BaseService {
    */
   setRule(
     name: string,
-    options?: Partial<Rule.Options> | ((item: Rule) => Rule),
+    options?:
+      | Partial<Rule.Options>
+      | ((item: Rule.Interface) => Rule.Interface),
   ): Service
 
   /**
@@ -101,7 +103,7 @@ export interface Service extends BaseService {
    *
    * @public
    */
-  makeRule(options?: Partial<Rule.Options>): Rule
+  makeRule(options?: Partial<Rule.Options>): Rule.Interface
 
   /**
    * Set a {@link Item} instance

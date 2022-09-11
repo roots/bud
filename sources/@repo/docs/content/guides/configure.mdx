@@ -13,7 +13,7 @@ To use `import`/`export` syntax and take advantage of ESM-only packages, we reco
 
 The fundamentals:
 
-- The config file is **not** required. If your root entrypoint is **@src/index.js** and you have no particular build requirements, it might be enough to install bud and whatever extensions and be done with it.
+- The config file is **not** required.
 - The config file must include `bud.config` in the filename.
 - The file exports a single function which receives an instance of **bud**.
 - The function can be `async`.
@@ -63,7 +63,7 @@ Most config functions in bud are designed to be chained, like you see above. How
 
 ### Setting application paths
 
-In the function exported by `bud.config.mjs`, we call [bud.setPath](/docs/bud.setPath) to set our project source and output paths.
+[bud.setPath](/docs/bud.setPath) is used to set project source and output paths.
 
 ```js title='bud.config.mjs'
 export default async bud => {
@@ -74,8 +74,7 @@ export default async bud => {
 }
 ```
 
-The `@src` and `@dist` handles are special handles associated with the input and output base directories. You can learn more about this and
-other details in the [bud.setPath documentation](/docs/bud.setPath).
+The `@src` and `@dist` handles are special handles associated with the input and output base directories.
 
 ### Referencing application paths
 
@@ -90,7 +89,7 @@ export default async bud => {
 
 ### Reserved paths
 
-**bud.js** has a few path handles which fulfill a special role:
+**bud.js** has a few path handles which fulfill a special role. We've already seen two of them:
 
 | handle       | description           | default        |
 | ------------ | --------------------- | -------------- |
@@ -320,4 +319,4 @@ yarn bud build production
 yarn bud build development
 ```
 
-`ctrl+c` will terminate the application gracefully.
+`ctrl+c` will terminate the application when running in `development` mode.

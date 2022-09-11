@@ -3,42 +3,26 @@ import Container from '@roots/container/container'
 import type {Bud} from '../bud'
 import * as BaseService from '../service.js'
 
-/**
- * API service
- *
- * @public
- */
-export interface Contract {
-  /**
-   * @public
-   */
-  trace: Array<[string, ...any[]]>
+export abstract class Service extends BaseService.Service {
+  public abstract bootstrap(): Promise<void>
+
+  public abstract registered(): Promise<void>
 
   /**
    * @public
    */
-  queue: Array<[string, ...any[]]>
+  public abstract processQueue(): Promise<void>
 
   /**
    * @public
    */
-  call(name: string, ...args: any): Promise<void>
+  public abstract call(name: string, ...args: any): Promise<void>
 
   /**
    * @public
    */
-  processQueue: () => Promise<void>
+  public abstract bindFacade(key: string, fn: CallableFunction): void
 
-  /**
-   * @public
-   */
-  bindFacade(key: string, fn: CallableFunction): void
-}
-
-export abstract class Service
-  extends BaseService.Service
-  implements Contract
-{
   /**
    * Queued method calls
    *
@@ -87,21 +71,6 @@ export abstract class Service
    * @public
    */
   public isString: Container['isString']
-
-  /**
-   * @public
-   */
-  public abstract call(name: string, ...args: any): Promise<void>
-
-  /**
-   * @public
-   */
-  public abstract processQueue(): Promise<void>
-
-  /**
-   * @public
-   */
-  public abstract bindFacade(key: string, fn: CallableFunction): void
 
   /**
    * Class constructor

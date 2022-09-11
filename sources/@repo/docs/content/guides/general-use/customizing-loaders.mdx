@@ -5,24 +5,13 @@ slug: customizing-loaders
 sidebar_label: Customizing loaders
 ---
 
-The **bud.build** service contains everything you need to customize the way modules are transpiled.
+The **bud.build** service allows you to customize the loaders used to process modules.
 
-**bud.build** divides its handling of loaders into three related objects: [loaders](#loaders), [items](#items), and [rules](#rules).
+**bud.build** divides its handling of loaders into three related objects:
 
-:::info
-
-If you are trying to customize a loader provided by an extension it's
-better to use the extension's API. For example, to customize the babel loader,
-use the [@roots/bud-babel](/extensions/bud-babel) extension API.
-
-1. It's going to be easier
-2. These extensions may have code that runs after the config is processed and ends up
-   overwriting your configuration.
-
-Alternatively, considering using a late hook like [build.before](/docs/bud.hooks) to
-make sure you get the last word.
-
-:::
+- [Loaders](#loaders) — A resolved path to a script which processes source modules
+- [Items](#items) — A loader accompanied by its options
+- [Rules](#rules) — One or more items and the rules which dictate what modules they apply to
 
 ## Loaders
 
@@ -132,7 +121,7 @@ bud.build.rules.js.setUse(items => [...items, 'babel'])
 
 ### Registering new rules
 
-New rules can be added using `bud.build.setRule`:
+New rules can be registered using `bud.build.setRule`:
 
 ```ts
 bud.build.setRule('app.ts', {
@@ -141,7 +130,21 @@ bud.build.setRule('app.ts', {
 })
 ```
 
-## Example
+New rules can be made (but not registered) using `bud.build.makeRule`:
+
+```ts
+const rule = bud.build
+  .makeRule()
+  .setTest(/\.app.tsx?$/)
+  .setUse([`ts`])
+
+// Later this could be registered:
+bud.build.setRule(`app.ts`, rule)
+```
+
+## Examples
+
+### @roots/bud-typescript
 
 [@roots/bud-typescript](/extensions/bud-typescript) is an excellent example because it:
 
@@ -162,4 +165,22 @@ bud.build
   })
 
 bud.build.rules.js.setUse([`babel`, `ts`])
+```
+
+### @roots/bud-vue
+
+In [@roots/bud-vue](/extensions/bud-vue), the `vue-loader` is registered, and the `js` rule is modified to use it. Unlike the `ts-loader` example, the `vue-loader` is registered using the chainable API.
+
+```ts
+bud.build.setLoader(`vue-style-loader`).setItem(`vue-style-loader`)
+
+bud.build.rules.css.setUse(items => [`vue-style-loader`, ...items])
+bud.build.rules.sass?.setUse(items => [`vue-style-loader`, ...items])
+bud.build.items.precss.setOptions({esModule: false})
+
+bud.build
+  .makeRule()
+  .setTest(({hooks}) => hooks.filter(`pattern.vue`))
+  .setInclude([app => app.path(`@src`)])
+  .setUse(items => [`vue`, ...items])
 ```

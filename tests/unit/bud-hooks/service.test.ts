@@ -10,7 +10,9 @@ describe(`@roots/bud-hooks`, function () {
   beforeAll(async () => {
     bud = await factory()
     hooks = new Hooks(bud)
-    hooks.store = {} as any
+    hooks.syncStore.store = {}
+    hooks.asyncStore.store = {}
+    hooks.events.store = {}
   })
 
   it(`has an on method`, () => {
@@ -39,12 +41,15 @@ describe(`@roots/bud-hooks`, function () {
 
   it(`async registers value`, () => {
     const callback = async () => `bar`
-    // @ts-ignore
     hooks.async(`build.resolve`, callback)
-    expect(hooks.store[`build.resolve`]).toStrictEqual([callback])
+    expect(
+      hooks.asyncStore.store[`build.resolve`]?.pop()?.get(),
+    ).toStrictEqual(callback)
   })
 
   it(`filterAsync retrieves value`, async () => {
+    const callback = async () => `bar`
+    hooks.async(`build.resolve`, callback)
     const value = await hooks.filterAsync(`build.resolve`)
     expect(value).toBe(`bar`)
   })
@@ -53,7 +58,7 @@ describe(`@roots/bud-hooks`, function () {
     const value = jest.fn(async (app: Bud) => null)
     // @ts-ignore
     hooks.action(`app.build`, value)
-    expect(hooks.store[`app.build`].pop()).toBe(value)
+    expect(hooks.events.store[`app.build`].pop().get()).toBe(value)
   })
 
   it(`fire calls action function`, async () => {

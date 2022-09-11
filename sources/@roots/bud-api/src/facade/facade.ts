@@ -1,4 +1,4 @@
-import type * as alias from '../methods/alias/index.js'
+import type * as alias from '../methods/alias/alias.method.js'
 import type * as assets from '../methods/assets/assets.method.js'
 import type * as bundle from '../methods/bundle/bundle.method.js'
 import type {config} from '../methods/config/config.method.js'
