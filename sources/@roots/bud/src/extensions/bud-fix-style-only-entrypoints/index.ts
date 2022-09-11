@@ -1,5 +1,9 @@
 import {Extension} from '@roots/bud-framework'
-import {label, plugin} from '@roots/bud-framework/extension/decorators'
+import {
+  label,
+  plugin,
+  production,
+} from '@roots/bud-framework/extension/decorators'
 
 import FixStyleOnlyEntrypoints from './plugin.js'
 
@@ -12,4 +16,5 @@ import FixStyleOnlyEntrypoints from './plugin.js'
  */
 @label(`fix-style-only-entrypoints`)
 @plugin(FixStyleOnlyEntrypoints)
+@production
 export default class BudFixStyleOnlyEntrypoints extends Extension {}

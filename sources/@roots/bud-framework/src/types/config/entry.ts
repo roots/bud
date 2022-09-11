@@ -1,3 +1,6 @@
 import type * as Webpack from 'webpack'
 
-export type EntryObject = Webpack.EntryObject & {import: Array<string>}
+export type EntryObject = Webpack.EntryObject & {
+  import: Array<string>
+  dependOn?: string | string[]
+}

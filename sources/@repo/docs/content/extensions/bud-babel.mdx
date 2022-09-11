@@ -25,128 +25,82 @@ import {Install} from '@site/src/docs/Install'
 - [@babel/plugin-proposal-object-rest-spread](https://babeljs.io/docs/en/babel-plugin-proposal-object-rest-spread)
 - [@babel/plugin-syntax-dynamic-import](https://babeljs.io/docs/en/babel-plugin-syntax-dynamic-import)
 
-If this works for you, great! No need to keep reading. But, if you need something more specialized, there is a configuration utility registered by `@roots/bud-babel` designed to help you out.
+## Presets
 
-### Presets
-
-See what presets are registered:
+Presets are registered to `bud.babel.presets`.
 
 ```js title='bud.config.mjs'
-console.dir(app.babel.presets)
+console.dir(bud.babel.presets)
 ```
 
-Add preset:
+### Add a preset
+
+It will be appended to whatever presets are already registered.
 
 ```js title='bud.config.mjs'
-app.babel.setPreset('@babel/preset-env')
+bud.babel.setPreset('@babel/preset-env')
 ```
 
-Remove preset:
+### Remove preset
+
+Use `bud.babel.unsetPreset` to remove a preset, if present.
 
 ```js title='bud.config.mjs'
-app.babel.unsetPreset('@babel/preset-env')
+bud.babel.unsetPreset('@babel/preset-env')
 ```
 
-Fully override presets:
+### Fully override preset configuration
+
+Pass an array of presets to `bud.babel.setPresets` to fully replace the existing presents configuration.
 
 ```js title='bud.config.mjs'
-app.babel.setPresets(['@babel/preset-env'])
+bud.babel.setPresets(['@babel/preset-env'])
 ```
 
-Override any preset options:
+### Set options on a preset
 
 ```js title='bud.config.mjs'
-app.babel.setPresetOptions('@babel/preset-env', {
+bud.babel.setPresetOptions('@babel/preset-env', {
   useBuiltIns: 'entry',
 })
 ```
 
-### Plugins
+## Plugins
 
-Plugins has nearly the exact same API already demonstrated by the `presets` docs above.
+Managing plugins uses nearly the exact same API.
 
-Add a plugin:
-
-```js title='bud.config.mjs'
-app.babel.setPlugin('@babel/plugin-transform-runtime')
-```
-
-Add a plugin with options:
-
-```ts title='bud.config.mjs'
-app.babel.setPlugin(['@babel/plugin-transform-runtime', {helpers: false}])
-```
-
-Fully override plugins:
-
-```ts title='bud.config.mjs'
-app.babel.setPlugins([
-  '@babel/plugin-transform-runtime',
-  '@babel/plugin-proposal-object-rest-spread',
-  ['@babel/plugin-syntax-dynamic-import', {helpers: false}],
-])
-```
-
-Remove a plugin:
-
-```ts title='bud.config.mjs'
-app.babel.unsetPlugin('@babel/plugin-transform-runtime')
-```
-
-Override any plugin options:
+### Add a plugin
 
 ```js title='bud.config.mjs'
-app.babel.setPluginOptions('@babel/plugin-transform-runtime', {
+bud.babel.setPlugin('@babel/plugin-transform-runtime')
+```
+
+### Add a plugin with options
+
+```ts title='bud.config.mjs'
+bud.babel.setPlugin(['@babel/plugin-transform-runtime', {helpers: false}])
+```
+
+### Remove a plugin
+
+```ts title='bud.config.mjs'
+bud.babel.unsetPlugin('@babel/plugin-transform-runtime')
+```
+
+### Override any plugin options
+
+```js title='bud.config.mjs'
+bud.babel.setPluginOptions('@babel/plugin-transform-runtime', {
   helpers: false,
 })
 ```
 
-## Configuring babel-loader
+### Fully override plugins
 
-Merge options with existing options:
-
-```js title='bud.config.mjs'
-app.build.items.babel.mergeOptions({
-  cacheDirectory: ({path}) => path('project', 'tmp'),
-})
-```
-
-Override loader options directly:
-
-```js title='bud.config.mjs'
-app.build.items.babel.setOptions({
-  cacheDirectory: ({path}) => path('project', 'tmp'),
-  presets: Object.values(babel.presets),
-  plugins: Object.values(babel.plugins),
-})
-```
-
-When using `setOptions`, you must include the plugins and presets (as demonstrated above) if you want bud to continue managing these options. Using `setOptions` completely overrides the framework's callbacks.
-
-If you intend to override those callbacks, you need to pass those options along yourself (or use `mergeOptions`):
-
-```js title='bud.config.mjs'
-app.build.items.babel.setOptions({
-  cacheDirectory: ({path}) => path('project', 'tmp'),
-  presets: ['@babel/preset-env'],
-  plugins: [
-    '@babel/plugin-transform-runtime',
-    '@babel/plugin-proposal-object-rest-spread',
-    '@babel/plugin-syntax-dynamic-import',
-  ],
-})
-```
-
-## Eslint plugin
-
-There are babel specific linting rules that you will probably want in your project.
-
-You may use the babel preset exported by `@roots/eslint-config` if it suits you.
-
-```js title=".eslintrc.cjs"
-module.exports = {
-  root: true,
-  extends: ['@roots/eslint-config/babel'],
-  rules: {},
-}
+```ts title='bud.config.mjs'
+bud.babel.setPlugins([
+  '@babel/plugin-transform-runtime',
+  '@babel/plugin-proposal-object-rest-spread',
+  ['@babel/plugin-syntax-dynamic-import', {helpers: false}],
+])
 ```

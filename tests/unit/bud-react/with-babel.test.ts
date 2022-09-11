@@ -46,14 +46,14 @@ describe(`@roots/bud-react`, () => {
       )
       expect(bud.extensions.has(`@roots/bud-react`)).toBe(true)
 
-      await bud.build.make()
+      await bud.extensions.runAll(`configAfter`)
 
       // @ts-ignore
-      expect(bud.build.config.entry.app.import).toContain(
-        `react-refresh/runtime`,
-      )
+      const devScript = await Array.from(
+        bud.hooks.filter(`dev.client.scripts`),
+      )?.pop()(bud)
 
-      bud.close()
+      expect(devScript).toEqual(`react-refresh/runtime`)
     })
 
     it(`adds babel plugin`, async () => {

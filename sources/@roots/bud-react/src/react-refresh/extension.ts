@@ -11,8 +11,6 @@ import {
 } from '@roots/bud-framework/extension/decorators'
 import {isBoolean, isUndefined} from 'lodash-es'
 
-import * as reduceEntries from './reducers.js'
-
 /**
  * Wrapper for `@pmmmwh/react-refresh-webpack-plugin`
  *
@@ -59,10 +57,18 @@ export default class BudReactRefresh extends Extension<
   public async configAfter() {
     this.logger.log(`Injecting react-refresh/client scripts`)
     if (!this.app.hasChildren)
-      this.app.hooks.on(`build.entry`, reduceEntries.add)
+      this.app.hooks.on(`dev.client.scripts`, scripts =>
+        scripts
+          ? scripts.add(() => `react-refresh/runtime`)
+          : new Set([() => `react-refresh/runtime`]),
+      )
     else
       Object.values(this.app.children).forEach(instance =>
-        instance.hooks.on(`build.entry`, reduceEntries.add),
+        instance.hooks.on(`dev.client.scripts`, scripts =>
+          scripts
+            ? scripts.add(() => `react-refresh/runtime`)
+            : new Set([() => `react-refresh/runtime`]),
+        ),
       )
 
     if (!this.transformExtension) {
@@ -135,7 +141,7 @@ export default class BudReactRefresh extends Extension<
   protected makeReactRefreshCallback(
     userOptions?: Options | boolean,
   ): (bud: Bud) => Promise<unknown> {
-    return async (bud: Bud) => {
+    return async () => {
       if (!this.app.isDevelopment) return
 
       userOptions === false ? this.disable() : this.enable()

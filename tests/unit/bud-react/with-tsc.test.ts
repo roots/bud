@@ -30,12 +30,14 @@ describe(`@roots/bud-react`, () => {
       await bud.extensions.add([BudReact])
 
       await bud.extensions.runAll(`configAfter`)
-      await bud.build.make()
+      await bud.run()
 
       // @ts-ignore
-      expect(bud.build.config.entry.app.import).toContain(
-        `react-refresh/runtime`,
-      )
+      const devScript = await Array.from(
+        bud.hooks.filter(`dev.client.scripts`),
+      )?.pop()(bud)
+
+      expect(devScript).toEqual(`react-refresh/runtime`)
     })
   })
 })
