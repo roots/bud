@@ -41,7 +41,6 @@
   "types": "./lib/index.d.ts",
   "exports": {
     ".": "./lib/index.js",
-    "./abstract/extensions": "./lib/abstract/extensions.js",
     "./bud": "./lib/bud.js",
     "./extension": "./lib/extension/index.js",
     "./extension/decorators": "./lib/extension/decorators/index.js",
@@ -51,15 +50,13 @@
     "./module": "./lib/module.js",
     "./parsers": "./lib/parsers/index.js",
     "./parsers/*": "./lib/parsers/*.js",
-    "./service": "./lib/service.js"
+    "./service": "./lib/service.js",
+    "./services/*": "./lib/services/*.js"
   },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.d.ts"
-      ],
-      "abstract/extensions": [
-        "./lib/abstract/extensions"
       ],
       "bud": [
         "./lib/bud.d.ts"
@@ -97,6 +94,12 @@
       ],
       "services": [
         "./lib/types/services/index.d.ts"
+      ],
+      "services/api": [
+        "./lib/services/api.d.ts"
+      ],
+      "services/extensions": [
+        "./lib/services/extensions.d.ts"
       ],
       "services/*": [
         "./lib/types/services/*.d.ts",

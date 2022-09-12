@@ -1,4 +1,4 @@
-export {alias} from './alias/index.js'
+export {alias} from './alias/alias.method.js'
 export {assets, assets as copy} from './assets/assets.method.js'
 export {bundle} from './bundle/bundle.method.js'
 export {

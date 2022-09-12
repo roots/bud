@@ -54,7 +54,8 @@ export interface Service extends BaseService {
     input:
       | Constructor
       | ExtensionLiteral
-      | Array<Constructor | ExtensionLiteral>,
+      | Extension
+      | Array<Constructor | ExtensionLiteral | Extension>,
   ): Promise<void>
 
   import(input: Record<string, any> | string): Promise<Extension>

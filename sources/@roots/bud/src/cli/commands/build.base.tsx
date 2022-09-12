@@ -25,10 +25,11 @@ export default class BuildCommand extends BaseCommand {
     category: `build`,
     description: `Compile source assets`,
     details: `\
-      \`bud build production\` compiles source assets in \`production\` mode.
+      \`bud build production\` compiles source assets in \`production\` mode. Run \`bud build production --help\` for usage.
 
-      If you run this command without a bud configuration file \`bud\` will
-      look for an entrypoint at \`@src/index.js\`.
+      \`bud build development\` compiles source assets in \`development\` mode and serves updated modules. Run \`bud build development --help\` for usage.
+
+      If you run this command without a configuration file \`bud\` will look for an entrypoint at \`@src/index.js\`.
     `,
     examples: [[`compile source assets`, `$0 build`]],
   })

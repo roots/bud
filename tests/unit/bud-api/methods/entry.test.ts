@@ -8,7 +8,8 @@ describe(`bud.entry`, function () {
   })
 
   beforeEach(() => {
-    bud.hooks.store[`build.entry`] = [() => ({})]
+    //  @ts-ignore
+    bud.hooks.syncStore.store[`build.entry`] = [() => ({})]
   })
 
   it(`sets an entrypoint using (string, string) fn signature`, async () => {

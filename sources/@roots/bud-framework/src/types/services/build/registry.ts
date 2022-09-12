@@ -1,7 +1,7 @@
 import type {Base} from './base'
 import type {Item} from './item'
 import type {Loader} from './loader'
-import type {Rule} from './rule'
+import type * as Rule from './rule'
 
 /**
  * Registered {@link Loader} instances
@@ -9,7 +9,6 @@ import type {Rule} from './rule'
  * @virtual @public
  */
 export interface Loaders extends Record<string, Loader> {}
-export type {Loader}
 
 /**
  * Registered {@link Item} instances
@@ -17,14 +16,12 @@ export type {Loader}
  * @virtual @public
  */
 export interface Items extends Record<string, Item> {}
-export type {Item}
 
 /**
  * Registered {@link Rule} instances
  *
  * @virtual @public
  */
-export interface Rules extends Record<string, Rule> {}
-export type {Rule}
+export interface Rules extends Record<string, Rule.Interface> {}
 
 export type {Base}

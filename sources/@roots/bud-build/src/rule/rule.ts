@@ -1,7 +1,9 @@
 import type {Bud} from '@roots/bud-framework/bud'
 import {bind} from 'helpful-decorators'
 import {isFunction, isString} from 'lodash-es'
+import type {RuleSetUseItem} from 'webpack'
 
+import Item from '../item/item.js'
 import type Build from '../service'
 import Base from '../shared/base.js'
 import type {Instance, Options, Output, Parser} from './rule.interface'
@@ -26,7 +28,7 @@ export default class extends Base implements Instance {
    *
    * @public
    */
-  public use?: Array<keyof Build['items'] & string>
+  public use?: Array<(keyof Build['items'] & string) | RuleSetUseItem>
 
   /**
    * Include paths
@@ -136,8 +138,10 @@ export default class extends Base implements Instance {
    * @decorator `@bind`
    */
   @bind
-  public getUse(): Array<`${`${keyof Build['items'] & string}`}`> {
-    return this.unwrap(this.use)?.filter(isString) ?? []
+  public getUse(): Array<
+    `${`${keyof Build['items'] & string}`}` | RuleSetUseItem
+  > {
+    return this.unwrap(this.use)?.filter(Boolean) ?? []
   }
 
   /**
@@ -149,15 +153,12 @@ export default class extends Base implements Instance {
   @bind
   public setUse(
     input:
-      | Array<keyof Build['items'] & string>
+      | Array<(keyof Build['items'] & string) | RuleSetUseItem>
       | ((
-          use: Array<keyof Build['items'] & string>,
-          app: Bud,
-        ) => Array<keyof Build['items'] & string>),
+          use: Array<(keyof Build['items'] & string) | RuleSetUseItem>,
+        ) => Array<(keyof Build['items'] & string) | RuleSetUseItem>),
   ): this {
-    this.use = isFunction(input)
-      ? input(this.getUse() ?? [], this.app)
-      : input
+    this.use = isFunction(input) ? input(this.getUse()) : input
 
     return this
   }
@@ -295,8 +296,10 @@ export default class extends Base implements Instance {
     this.use &&
       Object.assign(output, {
         use: this.getUse()
-          .map(item => this.app.build.items[item])
-          .map(item => item.toWebpack()),
+          .map(item =>
+            isString(item) ? this.app.build.items[item] : item,
+          )
+          .map(item => (item instanceof Item ? item.toWebpack() : item)),
       })
 
     return output

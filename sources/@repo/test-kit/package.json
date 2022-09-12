@@ -17,7 +17,7 @@
       ]
     }
   },
-  "devDependencies": {
+  "dependencies": {
     "@jest/globals": "29.0.1",
     "@repo/constants": "workspace:sources/@repo/constants",
     "@repo/logger": "workspace:sources/@repo/logger",

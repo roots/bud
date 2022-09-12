@@ -1,11 +1,11 @@
-import type {Options} from '../index.js'
+import type {OptionsMap} from '../index.js'
 
 export const options =
-  <Options = any>(options: Options.Seed<Options>) =>
+  <Options = any>(options: OptionsMap<Options>) =>
   <Type extends {new (...args: any[]): any}>(constructor: Type) =>
     class extends constructor {
       public constructor(...args: any[]) {
         super(...args)
-        this._options = options
+        this.optionsMap = options
       }
     }

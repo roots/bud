@@ -26,15 +26,17 @@ const Compilation = ({
   stats,
   id,
   context,
+  mode,
+  compilerCount,
 }: {
   displayAssets: boolean
   displayEntrypoints: boolean
   stats: StatsCompilation
   id: number
   context: Context
+  mode: `production` | `development`
+  compilerCount: number
 }) => {
-  if (!stats?.entrypoints) return null
-
   const enrich = (asset: StatsAsset) => {
     const assetModule = stats?.assets?.find(a => a.name === asset.name)
     return {...asset, ...assetModule}
@@ -70,104 +72,112 @@ const Compilation = ({
           {stats?.errorsCount > 0 ? figures.cross : figures.circleFilled}
         </Text>
 
-        <Text>{` `}</Text>
+        <Text>{`  `}</Text>
+        <Text>{stats.name}</Text>
+        <Text> {``}</Text>
 
-        <Text color={colorFromStats(stats)}>
-          ./{relative(context.basedir, stats.outputPath)}
-        </Text>
+        {stats?.outputPath && (
+          <Text color={color.blue}>
+            ./{relative(context.basedir, stats.outputPath)}
+          </Text>
+        )}
 
         <Text>{` `}</Text>
 
         <Text dimColor>[{stats.hash}]</Text>
       </Box>
 
-      <Text dimColor>{VERT}</Text>
+      {!stats.isChild && (
+        <>
+          <Text dimColor>{VERT}</Text>
 
-      <Messages
-        type="error"
-        color={color.red}
-        messages={stats.errors}
-        figure={figures.cross}
-      />
+          <Messages
+            type="error"
+            color={color.red}
+            messages={stats.errors}
+            figure={figures.cross}
+          />
 
-      <Messages
-        type="warning"
-        color={color.yellow}
-        messages={stats.warnings}
-        figure={figures.warning}
-      />
+          <Messages
+            type="warning"
+            color={color.yellow}
+            messages={stats.warnings}
+            figure={figures.warning}
+          />
 
-      <Box flexDirection="column">
-        {entrypoints.some(({assets}) => assets?.length > 0) ? (
           <Box flexDirection="column">
-            <Title>
-              <Text
-                color={colorFromStats(stats)}
-                dimColor={displayEntrypoints === false}
-              >
-                <Text underline>e</Text>ntrypoints
-              </Text>
-            </Title>
-            {displayEntrypoints
-              ? entrypoints
-                  .filter(({assets}) => assets.length > 0)
-                  .map((chunk: StatsChunkGroup, id: number) => (
-                    <Box key={id} flexDirection="column">
-                      <ChunkGroup
-                        indent={[true]}
-                        {...chunk}
-                        minWidth={longestEntrypointAssetLength}
-                        final={id === entrypoints.length - 1}
-                      />
-                    </Box>
-                  ))
-              : null}
-            <Space>
-              <Text> </Text>
-            </Space>
-          </Box>
-        ) : null}
-      </Box>
-
-      {staticAssets?.length > 0 ? (
-        <Box flexDirection="column">
-          <Title>
-            <Text
-              color={colorFromStats(stats)}
-              dimColor={displayAssets === false}
-            >
-              <Text underline>a</Text>ssets
-            </Text>
-          </Title>
-
-          {displayAssets ? (
-            <>
-              <Chunk assets={staticAssets} indent={[true]} />
-
-              <Space>
-                <Text> </Text>
-              </Space>
-
-              {hiddenStaticAssets?.length > 0 && (
-                <Space>
-                  <Text dimColor>
-                    {` `}
-                    {figures.ellipsis}
-                    {` `}
-                    {hiddenStaticAssets.length}
-                    {` `}
-                    additional asset(s) not shown
+            {entrypoints.some(({assets}) => assets?.length > 0) ? (
+              <Box flexDirection="column">
+                <Title>
+                  <Text
+                    color={colorFromStats(stats)}
+                    dimColor={displayEntrypoints === false}
+                  >
+                    <Text underline>e</Text>ntrypoints
                   </Text>
+                </Title>
+                {displayEntrypoints
+                  ? entrypoints
+                      .filter(({assets}) => assets.length > 0)
+                      .map((chunk: StatsChunkGroup, id: number) => (
+                        <Box key={id} flexDirection="column">
+                          <ChunkGroup
+                            indent={[true]}
+                            {...chunk}
+                            minWidth={longestEntrypointAssetLength}
+                            final={id === entrypoints.length - 1}
+                          />
+                        </Box>
+                      ))
+                  : null}
+                <Space>
+                  <Text> </Text>
                 </Space>
-              )}
-            </>
-          ) : null}
-        </Box>
-      ) : null}
+              </Box>
+            ) : null}
+          </Box>
 
-      <Space>
-        <Text> </Text>
-      </Space>
+          {staticAssets?.length > 0 ? (
+            <Box flexDirection="column">
+              <Title>
+                <Text
+                  color={colorFromStats(stats)}
+                  dimColor={displayAssets === false}
+                >
+                  <Text underline>a</Text>ssets
+                </Text>
+              </Title>
+
+              {displayAssets ? (
+                <>
+                  <Chunk assets={staticAssets} indent={[true]} />
+
+                  <Space>
+                    <Text> </Text>
+                  </Space>
+
+                  {hiddenStaticAssets?.length > 0 && (
+                    <Space>
+                      <Text dimColor>
+                        {` `}
+                        {figures.ellipsis}
+                        {` `}
+                        {hiddenStaticAssets.length}
+                        {` `}
+                        additional asset(s) not shown
+                      </Text>
+                    </Space>
+                  )}
+                </>
+              ) : null}
+            </Box>
+          ) : null}
+
+          <Space>
+            <Text> </Text>
+          </Space>
+        </>
+      )}
 
       <Title final={true}>
         <Text dimColor>

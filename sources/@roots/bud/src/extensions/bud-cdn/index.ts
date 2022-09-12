@@ -141,7 +141,7 @@ export default class Cdn extends Extension<Options, null> {
    * @public
    */
   public get lockfileLocation(): string {
-    return this.app.maybeCall(this.getOption(`lockfileLocation`))
+    return this.getOption(`lockfileLocation`)
   }
   public set lockfileLocation(
     value: string | Options['lockfileLocation'],
@@ -252,9 +252,10 @@ export default class Cdn extends Extension<Options, null> {
   }
 
   @bind
-  public async register() {
+  public async beforeBuild() {
     for (const cdnKey of this.sources.keys()) {
-      this.app.context.manifest.bud?.[cdnKey] && this.enable()
+      this.logger.log(`registering`, cdnKey)
+      this.app.context.manifest?.bud?.[cdnKey] && this.enable()
     }
   }
 

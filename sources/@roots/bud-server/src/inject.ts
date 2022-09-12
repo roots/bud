@@ -17,27 +17,22 @@ export const inject = (
       const missing =
         !entrypoints || isUndefined(entrypoints) || isNull(entrypoints)
 
-      entrypoints = missing
-        ? {
-            app: {
-              import: [`index`],
-            },
-          }
-        : entrypoints
+      entrypoints = missing ? {app: {import: [`index`]}} : entrypoints
+    }
+
+    entrypoints = {
+      ...entrypoints,
+      [`dev-client`]: {
+        import: injection.map(inject => inject(app)).filter(Boolean),
+      },
     }
 
     return Object.entries(entrypoints).reduce(
       (entrypoints, [name, entry]) => {
         if (!entry) return entrypoints
 
-        entry.import = Array.from(
-          new Set(
-            [
-              ...injection.map(inject => inject(app)),
-              ...(entry.import ?? []),
-            ].filter(Boolean),
-          ),
-        )
+        if (name !== `dev-client`)
+          entry.dependOn = [`dev-client`, ...(entry.dependOn ?? [])]
 
         return {...entrypoints, [name]: entry}
       },

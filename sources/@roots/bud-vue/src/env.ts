@@ -20,6 +20,6 @@ declare module '@roots/bud-framework' {
   }
 
   interface Rules {
-    vue: Build.Rule
+    vue: Build.Rule.Interface
   }
 }

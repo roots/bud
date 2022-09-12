@@ -4,4 +4,4 @@ class CoolClass {
   }
 }
 
-console.log(new CoolClass().hello())
+document.body.innerText = new CoolClass().hello()

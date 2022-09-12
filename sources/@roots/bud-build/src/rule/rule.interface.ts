@@ -1,4 +1,5 @@
 import type {Bud} from '@roots/bud-framework/lib/bud'
+import type {RuleSetUseItem} from 'webpack'
 
 import type Build from '../service.js'
 import type Base from '../shared/base.js'
@@ -15,7 +16,7 @@ export interface Parser extends Record<string, any> {}
  *
  * @public
  */
-export type Options = {
+export interface Options {
   test?: Instance['test']
   use?: Instance['use'] | ((use: Instance['use']) => Instance['use'])
   include?: Instance['include']
@@ -30,7 +31,7 @@ export type Options = {
  *
  * @public
  */
-export type Output = Partial<{
+export interface Output {
   test?: RegExp
   use?: {
     loader: string
@@ -41,7 +42,7 @@ export type Output = Partial<{
   type?: string
   parser?: Parser
   generator?: any
-}>
+}
 
 export interface Instance extends Base {
   /**
@@ -70,22 +71,26 @@ export interface Instance extends Base {
    *
    * @public
    */
-  use?: Array<keyof Build['items'] & string>
+  use?: Array<(keyof Build['items'] & string) | RuleSetUseItem>
 
   /**
    * Get the value of `use`
    *
    * @public
    */
-  getUse(): Array<keyof Build['items'] & string>
+  getUse(): Array<(keyof Build['items'] & string) | RuleSetUseItem>
 
   /**
    * Set the value of `use`
    *
    * @public
    */
-  setUse<K extends keyof Build['items'] & string>(
-    use: ((use: Array<K>, app: Bud) => Array<K>) | Array<K>,
+  setUse(
+    use:
+      | ((
+          use: Array<(keyof Build['items'] & string) | RuleSetUseItem>,
+        ) => Array<(keyof Build['items'] & string) | RuleSetUseItem>)
+      | Array<(keyof Build['items'] & string) | RuleSetUseItem>,
   ): this
 
   /**

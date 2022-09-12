@@ -1,6 +1,5 @@
 import {Extension} from '@roots/bud-framework/extension'
 import {bind, label} from '@roots/bud-framework/extension/decorators'
-import type * as Build from '@roots/bud-framework/services/build'
 
 import {Config} from './config.js'
 
@@ -10,7 +9,7 @@ import {Config} from './config.js'
  * @public
  */
 @label(`@roots/bud-babel`)
-export default class BabelExtension extends Extension<any, null> {
+export default class BabelExtension extends Extension {
   /**
    * Babel cache directory
    *
@@ -33,9 +32,7 @@ export default class BabelExtension extends Extension<any, null> {
    */
   public get env() {
     return {
-      development: {
-        compact: false,
-      },
+      development: {compact: false},
     }
   }
 
@@ -49,23 +46,6 @@ export default class BabelExtension extends Extension<any, null> {
   }
 
   /**
-   * Babel RuleSetItem callback
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public setRuleSetItem(ruleSetItem: Build.Item) {
-    return ruleSetItem.setLoader(`babel`).setOptions(() => ({
-      cacheDirectory: this.cacheDirectory,
-      presets: Object.values(this.app.babel.presets),
-      plugins: Object.values(this.app.babel.plugins),
-      env: this.env,
-      root: this.root,
-    }))
-  }
-
-  /**
    * Register extension
    *
    * @public
@@ -75,60 +55,53 @@ export default class BabelExtension extends Extension<any, null> {
   public async register() {
     this.app.babel = new Config()
 
-    const presetEnv = await this.resolve(
-      `@babel/preset-env`,
-      import.meta.url,
-    )
-    if (presetEnv) this.app.babel.setPreset(`@babel/preset-env`, presetEnv)
+    this.app.babel
+      .setPreset(
+        `@babel/preset-env`,
+        await this.resolve(`@babel/preset-env`, import.meta.url),
+      )
 
-    const transformRuntime = await this.resolve(
-      `@babel/plugin-transform-runtime`,
-      import.meta.url,
-    )
-    transformRuntime &&
-      this.app.babel.setPlugin(`@babel/plugin-transform-runtime`, [
-        transformRuntime,
+      .setPlugin(`@babel/plugin-transform-runtime`, [
+        await this.resolve(
+          `@babel/plugin-transform-runtime`,
+          import.meta.url,
+        ),
         {helpers: false},
       ])
-
-    const objectRestSpread = await this.resolve(
-      `@babel/plugin-proposal-object-rest-spread`,
-      import.meta.url,
-    )
-    objectRestSpread &&
-      this.app.babel.setPlugin(
+      .setPlugin(
         `@babel/plugin-proposal-object-rest-spread`,
-        objectRestSpread,
+        await this.resolve(
+          `@babel/plugin-proposal-object-rest-spread`,
+          import.meta.url,
+        ),
       )
-
-    const classProperties = await this.resolve(
-      `@babel/plugin-proposal-class-properties`,
-      import.meta.url,
-    )
-    classProperties &&
-      this.app.babel.setPlugin(
+      .setPlugin(
         `@babel/plugin-proposal-class-properties`,
-        classProperties,
+        await this.resolve(
+          `@babel/plugin-proposal-class-properties`,
+          import.meta.url,
+        ),
       )
-
-    const dynamicImport = await this.resolve(
-      `@babel/plugin-syntax-dynamic-import`,
-      import.meta.url,
-    )
-    dynamicImport &&
-      this.app.babel.setPlugin(
+      .setPlugin(
         `@babel/plugin-syntax-dynamic-import`,
-        dynamicImport,
+        await this.resolve(
+          `@babel/plugin-syntax-dynamic-import`,
+          import.meta.url,
+        ),
       )
 
     const loader = await this.resolve(`babel-loader`, import.meta.url)
-    if (!loader) {
-      return this.logger.error(`Babel loader not found`)
-    }
+    if (!loader) return this.logger.error(`Babel loader not found`)
 
-    this.app.build
-      .setLoader(`babel`, loader)
-      .setItem(`babel`, this.setRuleSetItem)
+    this.app.build.setLoader(`babel`, loader).setItem(`babel`, item =>
+      item.setLoader(`babel`).setOptions(() => ({
+        cacheDirectory: this.cacheDirectory,
+        presets: Object.values(this.app.babel.presets),
+        plugins: Object.values(this.app.babel.plugins),
+        env: this.env,
+        root: this.root,
+      })),
+    )
 
     this.app.build.rules.js.setUse(items => [`babel`, ...items])
   }

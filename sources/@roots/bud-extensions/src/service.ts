@@ -1,11 +1,10 @@
-import * as Abstract from '@roots/bud-framework/abstract/extensions'
 import type {
   ApplyPlugin,
   ExtensionLiteral,
 } from '@roots/bud-framework/extension'
 import {Extension} from '@roots/bud-framework/extension'
 import type {Modules} from '@roots/bud-framework/registry/modules'
-import type * as Base from '@roots/bud-framework/services/extensions'
+import {Base, Service} from '@roots/bud-framework/services/extensions'
 import {bind} from 'helpful-decorators'
 
 /**
@@ -13,10 +12,7 @@ import {bind} from 'helpful-decorators'
  *
  * @public
  */
-export default class Extensions
-  extends Abstract.Extensions
-  implements Base.Service
-{
+export default class Extensions extends Service {
   /**
    * Service label
    *
@@ -51,6 +47,7 @@ export default class Extensions
    */
   @bind
   public async booted(): Promise<void> {
+    if (this.app.context.args.discovery === false) return
     await Promise.all(
       this.app.context.extensions
         .filter(Boolean)

@@ -67,8 +67,6 @@ export class Dashboard
     if (!compilationStats || this.app.context.args.log === false)
       return this
 
-    this.app.log(`\n`)
-
     if (this.app.context.args.ci) {
       this.log(compilationStats?.toString())
       return this

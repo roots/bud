@@ -5,7 +5,7 @@ describe(`@roots/sage`, () => {
   let bud: Bud
   let instance: Sage
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     bud = await factory()
     await bud.extensions.add(Sage)
     instance = new Sage(bud)

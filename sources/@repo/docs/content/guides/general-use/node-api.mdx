@@ -1,0 +1,118 @@
+---
+title: Node API
+description: Overview of instantiating Bud directly from Node
+sidebar_label: Node API
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+import CodeBlock from '@theme/CodeBlock'
+
+**bud.js** can be imported and instantiated directly instead of being run through the CLI.
+
+## Instantiating **bud.js**
+
+### Using `get`
+
+The fastest way to get ahold of a `bud` instance is calling the `get` helper exported from **@roots/bud/factory**.
+
+```ts title='config/build.mts'
+import type {Bud} from '@roots/bud'
+import {get} from '@roots/bud/factory'
+
+const basdir = process.cwd()
+const app: Bud = await get(basedir)
+```
+
+If `get` is called again with the same basedir it will return the same instance. This means that you can arbitrarily access
+`bud` from anywhere in your project and have assurance you're working with the same `bud` instance.
+
+### Using `@roots/bud/factory`
+
+The fastest way to get going is calling the `factory` helper exported from **@roots/bud/factory**.
+
+```ts title='config/build.mts'
+import type {Bud} from '@roots/bud'
+import {factory} from '@roots/bud/factory'
+
+const app: Bud = await factory()
+```
+
+### Manually
+
+You'll need to create an application context and pass it to the `Bud` `lifecyle` method.
+
+```ts title='config/build.mts'
+import Bud from '@roots/bud'
+import * as applicationContext from '@roots/bud/context'
+
+const context = await applicationContext.get(process.cwd())
+
+// override context options here
+
+const app: Bud = await new Bud().lifecycle(context)
+
+// configure build here
+
+await app.run()
+```
+
+## Application context
+
+The application context is a collection of options used to bootstrap the bud instance.
+
+| Option     | Description                       | Optional |
+| ---------- | --------------------------------- | -------- |
+| label      | application identifier            | no       |
+| basedir    | application root directory        | yes      |
+| manifest   | application package.json contents | yes      |
+| mode       | `production` or `development`     | no       |
+| args       | cli args                          | yes      |
+| config     | application configuration files   | yes      |
+| extensions | array of extension signifiers     | yes      |
+| services   | array of service signifiers       | yes      |
+| env        | Env key/value records             | yes      |
+| stdin      | Writable stream                   | yes      |
+| stdout     | Writable stream                   | yes      |
+| stderr     | Writable stream                   | yes      |
+| colorDepth | Color depth, number               | yes      |
+
+### Creating application context
+
+Same as in the [manual instantiation example above](#manually):
+
+```ts title='config/build.mts'
+import * as applicationContext from '@roots/bud/context'
+const context = await applicationContext.get(process.cwd())
+```
+
+Like the `get` export from `@roots/bud/factory`, `applicationContext.get` will return the same context for the same basedir if called more than once.
+
+### Overridding context values
+
+You may pass overrides to `factory`. Example:
+
+```ts title='config/build.mts'
+import type {Bud} from '@roots/bud'
+import type {Overrides} from '@roots/bud-framework/options'
+import {factory} from '@roots/bud/factory'
+
+const overrides: Overrides = {
+  label: `app-build`,
+  basedir: process.cwd(),
+  mode: `production`,
+  args: {
+    discover: false,
+    dry: true,
+  },
+  env: {
+    SOME_SECRET_KEY: `some-secret-value`,
+  },
+}
+
+const app: Bud = await factory(overrides)
+```
+
+## Learning more
+
+Check out the unit tests in the [@roots/bud](https://github.com/roots/bud) repo for hundreds of examples of customizing a bud instance using `factory`.

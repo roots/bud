@@ -87,11 +87,8 @@ export type SyncRegistry = {
 }
 
 export interface Async {
-  plugins: Array<{
-    [key: string]: unknown
-    apply: (...args: Array<unknown>) => unknown
-  }>
-  resolve: Configuration['resolve']
+  plugins: Array<any>
+  resolve: any
   'resolve.alias': Configuration['resolve']['alias']
   'resolve.aliasFields': Configuration['resolve']['aliasFields']
   'resolve.modules': Configuration['resolve']['modules']

@@ -16,6 +16,7 @@ export default class Args {
     clean: undefined,
     debug: undefined,
     devtool: undefined,
+    discovery: undefined,
     dry: undefined,
     output: undefined,
     editor: undefined,

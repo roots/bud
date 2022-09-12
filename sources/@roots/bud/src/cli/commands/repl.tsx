@@ -31,6 +31,8 @@ export default class ReplCommand extends BaseCommand {
 
   public dry = true
 
+  public notify = false
+
   public color = Option.Boolean(`--color,-c`, true, {
     description: `use syntax highlighting`,
   })
@@ -51,7 +53,7 @@ export default class ReplCommand extends BaseCommand {
    */
   public async runCommand() {
     await this.app.build.make()
-    this.render(
+    await this.render(
       <Repl app={this.app} indent={this.indent} depth={this.depth} />,
     )
   }

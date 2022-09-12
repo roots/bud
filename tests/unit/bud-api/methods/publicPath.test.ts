@@ -28,8 +28,6 @@ describe(`bud.publicPath`, function () {
     // @ts-ignore
     bud.setPublicPath(newPath)
 
-    log(bud.hooks.store[`build.output.publicPath`])
-
     await bud.build.make()
 
     expect(bud.build.config.output?.publicPath).toEqual(newPath)

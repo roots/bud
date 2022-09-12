@@ -1,0 +1,186 @@
+---
+title: Customizing loaders
+description: Cusotmizing module loaders
+slug: customizing-loaders
+sidebar_label: Customizing loaders
+---
+
+The **bud.build** service allows you to customize the loaders used to process modules.
+
+**bud.build** divides its handling of loaders into three related objects:
+
+- [Loaders](#loaders) — A resolved path to a script which processes source modules
+- [Items](#items) — A loader accompanied by its options
+- [Rules](#rules) — One or more items and the rules which dictate what modules they apply to
+
+## Loaders
+
+A `loader` is the path to a module which handles a code transformation.
+
+All registered loaders are stored in `bud.build.loaders`. They are all instances of the **bud.js** `Loader` class.
+
+### Modifying loaders
+
+#### loader[\`setSrc\`]
+
+Modify the source path of a given loader using **Loader[\`setSrc\`]**
+
+```ts
+bud.build.loaders.babel.setSrc('example')
+```
+
+### Registering new loaders
+
+Register a new loader using **Build[\`addLoader\`]**. The first parameter is a friendly handle for the loader, and the second is the path to the loader module.
+
+```ts
+bud.build.setLoader(`example`, bud.module.resolve(`example`))
+```
+
+## Items
+
+An `item` is a [loader](#loaders) and associated options. There may be multiple items using a common [loader](#loaders).
+
+All registered items are stored in `bud.build.items`. They are all instances of the **bud.js** `Item` class.
+
+### Modifying items
+
+#### item[\`setOptions\`]
+
+Modify the options of a given item using **Item[\`setOptions\`]**
+
+```ts
+bud.build.items.example.setOptions({})
+```
+
+#### Item[\`setLoader\`]
+
+The value given references the handle of a registered [loader](#loaders).
+
+```ts
+bud.build.items.example.setLoader(`example`)
+```
+
+### Registering new items
+
+```ts
+bud.build.setItem(`example`, {
+  loader: `example`,
+  options: {},
+})
+```
+
+## Rules
+
+A `rule` describes:
+
+- a set of conditions that must be met for the rule to be applied
+  - `test` - a regular expression that matches the module's filename
+  - `include` - a regular expression that must match the module's path
+  - `exclude` - a regular expression that must not match the module's path
+- a set [items](#items) which should process the module if it meets the conditions
+
+All registered rules are stored in `bud.build.rules`. They are all instances of the **bud.js** `Rule` class. There may be multiple
+rules using a common [item](#items).
+
+### Modifying rules
+
+#### rule[\`setTest\`]
+
+Modify the test of a given rule using **Rule[\`setTest\`]**
+
+```ts
+bud.build.rules.example.setTest(/\.example$/)
+```
+
+#### rule[\`setInclude\`]
+
+Modify the include of a given rule using **Rule[\`setInclude\`]**
+
+```ts
+bud.build.rules.example.setInclude(/example/)
+```
+
+#### rule[\`setExclude\`]
+
+Modify the exclude of a given rule using **Rule[\`setExclude\`]**
+
+```ts
+bud.build.rules.example.setExclude(/node_modules/)
+```
+
+#### rule[\`setUse\`]
+
+Modify the [items](#items) used by a given rule using **Rule[\`setUse\`]**.
+
+The value given references the handle of a registered [item](#items).
+
+```ts
+bud.build.rules.js.setUse(items => [...items, 'babel'])
+```
+
+### Registering new rules
+
+New rules can be registered using `bud.build.setRule`:
+
+```ts
+bud.build.setRule('app.ts', {
+  test: /\.app.tsx?$/,
+  use: [`ts`],
+})
+```
+
+New rules can be made (but not registered) using `bud.build.makeRule`:
+
+```ts
+const rule = bud.build
+  .makeRule()
+  .setTest(/\.app.tsx?$/)
+  .setUse([`ts`])
+
+// Later this could be registered:
+bud.build.setRule(`app.ts`, rule)
+```
+
+## Examples
+
+### @roots/bud-typescript
+
+[@roots/bud-typescript](/extensions/bud-typescript) is an excellent example because it:
+
+- registers a new [loader](#loaders), [item](#items), and [rule](#rule)
+- modifies an existing [rule](#rules).
+
+```ts
+bud.build
+  .setLoader(`ts`, await bud.module.resolve(`ts-loader`))
+  .setItem(`ts`, {
+    loader: `ts`,
+    options: {},
+  })
+  .setRule(`ts`, {
+    test: /\.tsx?$/,
+    include: [bud.path(`@src`)],
+    use: [`babel`, `ts`],
+  })
+
+bud.build.rules.js.setUse([`babel`, `ts`])
+```
+
+### @roots/bud-vue
+
+In [@roots/bud-vue](/extensions/bud-vue), the `vue-loader` is registered, and the `js` rule is modified to use it. Unlike the `ts-loader` example, the `vue-loader` is registered using the chainable API.
+
+```ts
+bud.build.setLoader(`vue-style-loader`).setItem(`vue-style-loader`)
+
+bud.build.rules.css.setUse(items => [`vue-style-loader`, ...items])
+bud.build.rules.sass?.setUse(items => [`vue-style-loader`, ...items])
+bud.build.items.precss.setOptions({esModule: false})
+
+bud.build
+  .makeRule()
+  .setTest(({hooks}) => hooks.filter(`pattern.vue`))
+  .setInclude([app => app.path(`@src`)])
+  .setUse(items => [`vue`, ...items])
+```

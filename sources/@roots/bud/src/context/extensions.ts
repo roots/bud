@@ -1,6 +1,8 @@
 import type {Context} from '@roots/bud-framework/options'
 import {bind} from 'helpful-decorators'
 
+import {noDiscovery} from './argv.js'
+
 const CORE_MODULES = [
   `@roots/bud-api`,
   `@roots/bud-build`,
@@ -19,9 +21,9 @@ export default class Extensions {
     `@roots/bud-terser/extension`,
     `@roots/bud/extensions/bud-cdn`,
     `@roots/bud/extensions/bud-esm`,
+    `@roots/bud/extensions/bud-fix-style-only-entrypoints`,
     `@roots/bud/extensions/clean-webpack-plugin`,
     `@roots/bud/extensions/webpack-provide-plugin`,
-    `@roots/bud/extensions/webpack-remove-empty-scripts`,
     `@roots/bud/extensions/webpack-manifest-plugin`,
     `@roots/bud/extensions/webpack-hot-module-replacement-plugin`,
     `@roots/bud/extensions/webpack-define-plugin`,
@@ -32,7 +34,9 @@ export default class Extensions {
   public constructor(public manifest: Context['manifest']) {}
 
   @bind
-  public async find() {
+  public async find(): Promise<Extensions> {
+    if (noDiscovery) return this
+
     Object.keys({
       ...(this.manifest?.devDependencies ?? {}),
       ...(this.manifest?.dependencies ?? {}),

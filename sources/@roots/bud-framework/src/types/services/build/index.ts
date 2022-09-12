@@ -4,21 +4,14 @@ import type {Service as BaseService} from '../../../service'
 import type {Base} from './base'
 import type {Item} from './item'
 import type {Loader} from './loader'
-import type {Rule} from './rule'
+import type * as Rule from './rule'
 
 /**
  * Build Service
  *
  * @remarks
- * Generates a {@link Build.config} and acts as a repository for {@link Rule} {@link Item}
+ * Generates a compiler config and acts as a repository for {@link Rule} {@link Item}
  * and {@link Loader} instances.
- *
- * The most current config is accessible through {@link Build.config}. {@link Build.config}
- * can be created manually by calling {@link Build.make}.
- *
- * - {@link Build.loaders} can be extended by augmenting the {@link Bud.Loaders} interface
- * - {@link Build.items} can be extended by augmenting the {@link Bud.Items} interface
- * - {@link Build.rules} can be extended by augmenting the {@link Bud.Rules} interface
  *
  * @example
  * Access the configuration:
@@ -35,10 +28,10 @@ import type {Rule} from './rule'
  * ```
  *
  * @example
- * Get the current `configuration.entry` value
+ * Get the current `build.entry` value
  *
  * ```js
- * bud.hooks.filter('build.entry')
+ * bud.hooks.filter('build.entry', {})
  * ```
  *
  * @public
@@ -63,7 +56,7 @@ export interface Service extends BaseService {
    *
    * @public
    */
-  rules: Record<string, Rule>
+  rules: Record<string, Rule.Interface>
 
   /**
    * Compiler configuration
@@ -84,7 +77,7 @@ export interface Service extends BaseService {
    *
    * @public
    */
-  setLoader(name: string, options: string): Service
+  setLoader(name: string, options?: string): Service
 
   /**
    * Make a {@link Loader} instance
@@ -100,7 +93,9 @@ export interface Service extends BaseService {
    */
   setRule(
     name: string,
-    options?: Partial<Rule.Options> | ((item: Rule) => Rule),
+    options?:
+      | Partial<Rule.Options>
+      | ((item: Rule.Interface) => Rule.Interface),
   ): Service
 
   /**
@@ -108,7 +103,7 @@ export interface Service extends BaseService {
    *
    * @public
    */
-  makeRule(options?: Partial<Rule.Options>): Rule
+  makeRule(options?: Partial<Rule.Options>): Rule.Interface
 
   /**
    * Set a {@link Item} instance

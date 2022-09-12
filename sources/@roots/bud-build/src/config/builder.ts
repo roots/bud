@@ -64,7 +64,7 @@ export const stats: ValueFactory<`stats`> = async app =>
 export const target: ValueFactory<`target`> = async app =>
   app.hooks.filter(
     `build.target`,
-    app.context.config.manifest?.browserslist
+    app.context.manifest?.browserslist
       ? `browserslist:${app.root.path(`package.json`)}`
       : `web`,
   )

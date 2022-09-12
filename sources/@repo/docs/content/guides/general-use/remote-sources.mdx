@@ -4,9 +4,15 @@ description: Use remote sources as though they were installed modules
 sidebar_label: Remote sources
 ---
 
-import Tabs from '@theme/Tabs'
-import TabItem from '@theme/TabItem'
-import CodeBlock from '@theme/CodeBlock'
+:::info Experimental
+
+This feature is flagged by webpack as **experimental** and, as such, it is opt-in.
+
+If you use this feature and bump into a problem please ensure that
+**bud.js** is doing something wrong before opening an issue in the roots/bud repository. Consider accompanying your issue with
+a PR that implements the change you would like to see.
+
+:::
 
 You can build remote packages at compile time, serve them locally, and generate a lockfile to guarantee deployed dependencies match your development environment.
 
@@ -81,3 +87,30 @@ The current version & an SHA512 of the remote resource is stored at `.budfiles/[
 Module versions are updated and a new source is cached when the remote changes, by default. To disable this behavior try `bud.cdn.setUpgrade(false)`.
 
 You can prevent version upgrades during deployment with the `--immutable` flag or by calling `cdn.freeze()`. If you use this feature you must include the lockfile and module cache in version control. The build will obviously fail if the lockfile/cache is set as frozen but is not available.
+
+## URL imports from ESM
+
+If [outputting esmodules](/guides/general-use/esmodules) packages can be listed in the `imports` field of `package.json`:
+
+```json title="package.json"
+{
+  "imports": {
+    "alpinejs": "https://cdn.skypack.dev/alpinejs",
+    "animejs": "https://cdn.skypack.dev/animejs",
+    "axios": "https://cdn.skypack.dev/axios"
+  }
+}
+```
+
+Imports of these packages will be resolved to the specified URL. This structure
+allows you to use es modules without touching application code.
+
+```ts title="app.ts"
+import Alpine from 'alpinejs' // resolves to `https://cdn.skypack.dev/alpinejs`
+
+window.Alpine = Alpine
+```
+
+For this to work correctly, ensure that `type="module"` is set on the `<script>` tag.
+
+Outputted scripts will be emitted with the `.mjs` extension.

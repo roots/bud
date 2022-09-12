@@ -13,14 +13,14 @@ export const renderDashboard = ({
   stats: StatsCompilation
   app: Bud
 }): Instance => {
-  const compilations = (
-    stats?.children?.length ? [stats, ...stats?.children] : [stats]
-  ).filter(
-    stats =>
-      stats?.namedChunkGroups &&
-      Object.values(stats?.namedChunkGroups).length > 0,
-  )
-
+  const compilations = stats?.children?.length
+    ? [
+        ...stats.children,
+        ...(stats?.children?.flatMap(({children}) =>
+          children.map(child => ({...child, isChild: true})),
+        ) ?? []),
+      ]
+    : [stats]
   return render(
     app.isProduction ? (
       <Static items={[0]}>

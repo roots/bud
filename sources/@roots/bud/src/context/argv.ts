@@ -9,8 +9,12 @@ export const basedir =
     ? resolve(process.cwd(), args[basedirFind + 1])
     : process.cwd()
 
-export const noContextCache =
-  args.findIndex(arg => arg === `--no-context-cache`) !== -1
+export const noContextCache = args.some(
+  arg => arg === `--no-context-cache`,
+)
 
-export const clearContextCache =
-  args.findIndex(arg => arg === `--clear-context-cache`) !== -1
+export const clearContextCache = args.some(
+  arg => arg === `--clear-context-cache`,
+)
+
+export const noDiscovery = args.some(arg => arg === `--no-discovery`)

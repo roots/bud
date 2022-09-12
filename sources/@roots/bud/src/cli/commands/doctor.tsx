@@ -25,7 +25,7 @@ export default class DoctorCommand extends BaseCommand {
    * @public
    */
   public static usage = Command.Usage({
-    description: `Check compiled configuration against webpack`,
+    description: `Check project for common errors`,
     details: `\
 The \`bud doctor\` command will:
 
@@ -43,6 +43,8 @@ for a lot of edge cases so it might return a false positive.
       [`Check compiled configuration against webpack`, `$0 doctor`],
     ],
   })
+
+  public notify = false
 
   /**
    * --basedir

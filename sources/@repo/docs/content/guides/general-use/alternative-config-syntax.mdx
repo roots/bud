@@ -1,0 +1,84 @@
+---
+title: Alternative config syntaxes
+description: Configure bud.js with typescript, yml or json
+sidebar_label: Alternative config syntaxes
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+Out of the box, **bud.js** supports configuration files authored with `json5` and `yml`. `ts` support is relatively easy to add.
+
+## Static config (json or yml)
+
+Bud supports configuration using static config files, although the API is slightly more limited. Bud supports `json` and `yml` as static config options.
+
+If using `json` your config file will be parsed with json5. This means you can use comments, trailing commas, etc.
+
+### Create a static config file
+
+Create either a `bud.config.json` or `bud.config.yml` in the root of your project (or `config` directory).
+
+### Working with a static config
+
+Config function names are used as keys. Their values are used as function parameters.
+
+<Tabs
+  defaultValue="yml"
+  values={[
+    {label: 'yml', value: 'yml'},
+    {label: 'json', value: 'json'},
+  ]}>
+  <TabItem value="yml">
+
+```yml title="bud.config.yml"
+entry:
+  app:
+    - index.js
+    - index.css
+```
+
+  </TabItem>
+  <TabItem value="json">
+
+```json5 title="bud.config.json"
+{
+  /**
+   * You can include comments in json configs
+   */
+  entry: {
+    // keys do not need to be quoted
+    app: ['index.js', 'index.css'],
+  },
+}
+```
+
+  </TabItem>
+</Tabs>
+
+### Limitations
+
+Things to think about:
+
+- If you need to specify a callback or anything that isn't a simple primitive as a parameter a static config is not for you.
+- Static configurations will likely never have total parity with JavaScript configurations due to inherent limitations.
+
+## TypeScript
+
+You can use TypeScript to configure your build. In general we would recommend using JavaScript with typedoc comments, but TypeScript is supported with a couple caveats.
+
+### Configuration
+
+TypeScript 4.7.2 offers two new TypeScript extensions to deal with CJS/ESM compatibility issues: .cts and .mts (they have their own declaration file extensions as well: .d.cts and .d.mts).
+
+Depending on your project, you want to use one of the following
+
+| Extension      | Description                                            |
+| -------------- | ------------------------------------------------------ |
+| bud.config.ts  | Project has opted in to ESM with `{type: module}`      |
+| bud.config.mts | Project has not opted in to ESM but is using `import`  |
+| bud.config.cts | Project has not opted in to ESM and is using `require` |
+
+### ts-bud
+
+When configuring bud.js with TypeScript you must use `ts-bud` rather than the standard `bud` command.

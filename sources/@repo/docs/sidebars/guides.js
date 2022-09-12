@@ -1,97 +1,40 @@
 module.exports = {
   sidebar: [
+    `index`,
+    `configure`,
     {
-      type: 'category',
-      label: 'Overview',
+      type: `category`,
+      label: `CLI`,
       link: {
-        type: 'doc',
-        id: 'overview/index',
+        type: `doc`,
+        id: `cli/index`,
       },
+      items: [`cli/build`, `cli/clean`, `cli/doctor`],
+    },
+    {
+      type: `category`,
+      label: `Going deeper`,
       items: [
-        'overview/what-is-bud',
-        'overview/installation',
-        'overview/requirements',
+        `general-use/development-server`,
+        `general-use/customizing-loaders`,
+        `general-use/transpiler-sources`,
+        `general-use/alternative-config-syntax`,
+        `general-use/config-layers`,
+        `general-use/extensions`,
+        `general-use/multi-compiler`,
+        `general-use/node-api`,
+        `general-use/esmodules`,
+        `general-use/remote-sources`,
       ],
     },
     {
-      type: 'category',
-      label: 'Getting started',
+      type: `category`,
+      label: `Extending bud.js`,
       link: {
-        type: 'doc',
-        id: 'getting-started/index',
+        type: `doc`,
+        id: `extending/index`,
       },
-      items: [
-        'getting-started/configure',
-        'getting-started/build',
-        'getting-started/develop',
-        'getting-started/extend',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'Configuration',
-      link: {
-        type: 'doc',
-        id: 'config/index',
-      },
-      items: [
-        'config/zero-config',
-        'config/cli-config',
-        {
-          type: 'category',
-          label: 'File config',
-          link: {
-            type: 'doc',
-            id: 'config/file-config/index',
-          },
-          items: [
-            'config/file-config/env',
-            'config/file-config/typescript',
-            'config/file-config/static',
-          ],
-        },
-      ],
-    },
-    {
-      type: 'category',
-      label: 'General use',
-      link: {
-        type: 'doc',
-        id: 'general-use/index',
-      },
-      items: [
-        'general-use/dynamic-imports',
-        'general-use/esmodules',
-        'general-use/extensions',
-        'general-use/multi-compiler',
-        'general-use/optimizing',
-        'general-use/remote-sources',
-        'general-use/transpiler-sources',
-      ],
-    },
-    {
-      type: 'category',
-      label: 'CLI',
-      link: {
-        type: 'doc',
-        id: 'cli/index',
-      },
-      items: [
-        'cli/bud-build',
-        'cli/bud-clean',
-        'cli/bud-dev',
-        'cli/bud-doctor',
-      ],
-    },
-    'node-api',
-    {
-      type: 'category',
-      label: 'Extending',
-      link: {
-        type: 'doc',
-        id: 'extending/index',
-      },
-      items: ['extending/decorators'],
+      items: [`extending/decorators`, `extending/packaging`],
     },
   ],
 }

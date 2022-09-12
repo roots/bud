@@ -1,4 +1,4 @@
-import {beforeAll, describe, expect, it} from '@jest/globals'
+import {beforeAll, expect, it} from '@jest/globals'
 import {Bud, factory} from '@repo/test-kit/bud'
 
 import {Watcher} from '../server/server.watcher'
@@ -11,8 +11,14 @@ export default () => {
   beforeAll(async () => {
     bud = await factory({mode: `development`})
     instance = new Server(bud)
+
     await instance.register()
-    await bud.run()
+
+    expect(instance.app.context.args.dry).toBe(true)
+
+    try {
+      await instance.run()
+    } catch (e) {}
 
     expect(bud.mode).toBe(`development`)
   })

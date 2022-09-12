@@ -1,80 +1,58 @@
 ---
 title: Running multiple compilers
 description: It is possible to configure more than one Webpack compiler from a single bud config.
-sidebar_label: Multi-compiler
+sidebar_label: Multi-compiler mode
 ---
 
-import Tabs from '@theme/Tabs'
-import TabItem from '@theme/TabItem'
-import CodeBlock from '@theme/CodeBlock'
-
-:::info Experimental feature
+:::info Experimental
 
 This is a newer feature of bud.js. It is possible that this API will change in future releases. We suspect these changes will
 be driven by the needs of users.
 
 :::
 
-It is possible to configure more than one Webpack compiler in a project.
+It is possible to configure more than one compilation in a project.
 
-For a single page app this isn't really that useful. However, for WordPress or a Symfony app &mdash; or anything with potentially
-very different builds for different pages &mdash; it is potentially very useful.
+For a single page app this isn't really that useful. However, for WordPress or a Symfony app &mdash; or anything with
+different build requirements for different application components &mdash; it is potentially very useful.
 
 ## Creating child instances
 
-To specify a new child instance, we can use [bud.make](/docs/bud.make). It is a function that accepts two parameters: a name for the instance
-(so we can refer to it later), and a callback that is identical to the standard `bud.config.js` module-level function.
+To specify a new child instance, we can use [bud.make](/docs/bud.make). It is a function that accepts two parameters:
 
-In this example we're creating two instances of bud: one for `theme` code and another for `plugin` code.
+1. A context (at minimum, an object with a unique `label` prop), and;
+2. an optional callback used to configure the instance.
 
-<Tabs
-  groupId="lang"
-  defaultValue="ts"
-  values={[
-    {label: 'Javascript', value: 'js'},
-    {label: 'TypeScript', value: 'ts'},
-  ]}>
-  <TabItem value="js">
+In this example we're creating two instances: one for `theme` code and another for `plugin` code.
 
-```js title="bud.config.mjs"
-export default async app =>
-  app
-    .make('theme', async theme =>
-      theme
-        .setPath('@dist', 'dist/theme')
-        .entry('theme', ['theme.js', 'theme.css']),
-    )
-    .make('plugin', async plugin =>
-      plugin
-        .setPath('@dist', 'dist/plugin')
-        .entry('plugin', ['plugin.js', 'plugin.css']),
-    )
+```ts title='bud.config.mjs'
+/**
+ * Configuration which runs two instances of bud.
+ */
+export default async bud => {
+  /**
+   * Make `theme` workspace in `./theme`
+   */
+  await bud.make(
+    {
+      label: 'theme',
+      basedir: bud.path('theme'),
+    },
+    async theme => theme.entry('theme', ['theme.js', 'theme.css']),
+  )
+
+  /**
+   * Make plugin workspace in `./plugin`
+   */
+  await bud.make(
+    {
+      label: 'plugin',
+      basedir: bud.path('plugin'),
+    },
+    async plugin => plugin.entry('plugin', ['plugin.js', 'plugin.css']),
+  )
+}
 ```
-
-  </TabItem>
-  <TabItem value="ts">
-
-```ts title='bud.config.mts'
-import type {Bud} from '@roots/bud'
-
-export default (app: Bud): void =>
-  app
-    .make('theme', async (theme: Bud): Promise<void> => {
-      theme
-        .setPath('@dist', 'dist/theme')
-        .entry('theme', ['theme.js', 'theme.css'])
-    })
-    .make(
-      'plugin',
-      async (plugin: Bud): Promise<void> =>
-        plugin
-          .setPath('@dist', 'dist/plugin')
-          .entry('plugin', ['plugin.js', 'plugin.css']),
-    )
-```
-
-  </TabItem>
-</Tabs>
 
 ## Using the `--target` flag
 
@@ -93,7 +71,7 @@ If you had more than two instances it might make sense to want to target more th
 $ yarn bud build --target theme --target plugin
 ```
 
-## Extensions
+## Configuring unique extensions per compiler
 
 By default, all extensions will be applied to all compilers in the project.
 
@@ -101,67 +79,23 @@ You can use the `--no-inject` flag to prevent any extensions from being register
 
 In that case you will need to manually register the extensions you want to use per compiler:
 
-```ts title='bud.config.compiler-a.mjs'
-import BudPostCSS from '@roots/bud-postcss/extension'
+```ts title='bud.config.mjs'
+import BudReact from '@roots/bud-react'
+import BudPostCSS from '@roots/bud-postcss'
 
 export default async bud => {
-  bud.make('theme', async theme => {
-    bud
+  await bud.make('theme', async theme => {
+    theme
       .use(BudPostCSS)
       .setPath('@dist', 'dist/theme')
       .entry('theme', ['theme.css'])
   })
-}
-```
 
-```ts title='bud.config.compiler-b.mjs'
-import BudReact from '@roots/bud-react/extension'
-
-export default async bud => {
-  bud.make('plugin', async plugin => {
-    bud
+  await bud.make('plugin', async plugin => {
+    plugin
       .use(BudReact)
       .setPath('@dist', 'dist/plugin')
       .entry('plugin', ['plugin.js'])
   })
 }
-```
-
-## Configuring manually registered extensions
-
-When using [bud.use](/docs/bud.use) extensions will not be registered until after the config has been processed.
-
-This matters when you want to configure an extension (like [@roots/bud-postcss](/extensions/bud-postcss)). In this case you should use `bud.extensions.add`:
-
-```ts title='bud.config.extensions.mjs'
-import BudPostCSS from '@roots/bud-postcss/extension'
-
-export default async bud => {
-  bud.make('plugin', async plugin => {
-    await bud.extensions.add(BudPostCSS)
-    plugin.postcss.setPluginOption('env', {stage: 0})
-  })
-}
-```
-
-## Using multiple config files
-
-To keep your project well organized, you might consider using multiple bud configuration files to separate compilers.
-
-```ts title='bud.config.theme.mjs'
-export default async bud =>
-  bud.make('theme', async theme =>
-    theme
-      .setPath('@dist', bud.path('dist/theme'))
-      .entry('theme', ['@src/theme']),
-  )
-```
-
-```ts title='bud.config.plugin.mjs'
-export default async bud =>
-  bud.make('plugin', async plugin =>
-    plugin
-      .setPath('@dist', bud.path('dist/plugin'))
-      .entry('plugin', ['@src/plugin']),
-  )
 ```

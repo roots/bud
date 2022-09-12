@@ -10,31 +10,6 @@ import CodeBlock from '@theme/CodeBlock'
 
 You can add additional functionality to **bud.js** using the extensions API.
 
-## Packaging
-
-Your extension's name should begin with `bud-`. This is important for discoverability.
-We recommend authoring bud extensions with ESM.
-
-```json title="package.json"
-{
-  "name": "bud-extension",
-  "type": "module"
-}
-```
-
-Your extension should be the `default` export from **both** `.` and `./extension`:
-
-```json title="package.json"
-{
-  "name": "bud-extension",
-  "type": "module",
-  "exports": {
-    ".": "./lib/index.js",
-    "./extension": "./lib/extension.js"
-  }
-}
-```
-
 ## Extension shape
 
 Extensions can be provided as either a plain JS object or a class.
@@ -97,7 +72,7 @@ export default class MyExtension extends Extension {
 
 ### dependsOnOptional
 
-Extensions may also depend on other extensions on an optional basis. Bud will attempt to register the extension if it is available, otherwise it will silently proceed.
+Extensions may depend on other extensions on an optional basis. Bud will attempt to register the extension if it is available. Otherwise, it will silently proceed.
 
 ```ts title="extension.ts"
 import {Extension} from '@roots/bud-framework/extension'
@@ -106,6 +81,20 @@ export default class MyExtension extends Extension {
   public label = 'bud-extension'
 
   public dependsOnOptional = new Set(['@roots/bud-postcss'])
+}
+```
+
+### optIn
+
+Extensions may depend on other extensions on an opt-in basis. Bud will attempt to register the extension if it is available _and_ included in the root `devDependencies` or `dependencies`. Otherwise, it will skip it and silently proceed.
+
+```ts title="extension.ts"
+import {Extension} from '@roots/bud-framework/extension'
+
+export default class MyExtension extends Extension {
+  public label = 'bud-extension'
+
+  public optIn = new Set(['@roots/bud-postcss'])
 }
 ```
 

@@ -14,7 +14,7 @@
 import {Bud} from './bud.js'
 import {Extension} from './extension/index.js'
 import {Logger} from './logger/index.js'
-import {Service} from './service.js'
+import * as Service from './service.js'
 
 import type * as Config from './types/config'
 import type * as Options from './types/options'

@@ -7,35 +7,38 @@ import '@roots/bud-extensions'
 import '@roots/bud-framework'
 import '@roots/bud-hooks'
 import '@roots/bud-server'
+import '@roots/bud-terser'
 
 import type {Build} from '@roots/bud-framework/services'
 
-import type BudCDN from './extensions/bud-cdn/index.js'
-import type BudESM from './extensions/bud-esm/index.js'
-import type BudClean from './extensions/clean-webpack-plugin/index.js'
-import type BudCopy from './extensions/copy-webpack-plugin/index.js'
-import type BudMiniCss from './extensions/mini-css-extract-plugin/index.js'
-import type BudDefine from './extensions/webpack-define-plugin/index.js'
-import type BudHMR from './extensions/webpack-hot-module-replacement-plugin/index.js'
-import type BudManifest from './extensions/webpack-manifest-plugin/index.js'
-import type BudProvide from './extensions/webpack-provide-plugin/index.js'
+import type CDN from './extensions/bud-cdn/index.js'
+import type ESM from './extensions/bud-esm/index.js'
+import type FixStyleOnlyEntrypoints from './extensions/bud-fix-style-only-entrypoints/index.js'
+import type Clean from './extensions/clean-webpack-plugin/index.js'
+import type Copy from './extensions/copy-webpack-plugin/index.js'
+import type MiniCss from './extensions/mini-css-extract-plugin/index.js'
+import type Define from './extensions/webpack-define-plugin/index.js'
+import type HMR from './extensions/webpack-hot-module-replacement-plugin/index.js'
+import type Manifest from './extensions/webpack-manifest-plugin/index.js'
+import type Provide from './extensions/webpack-provide-plugin/index.js'
 
 declare module '@roots/bud-framework' {
   interface Bud {
-    cdn: BudCDN
-    esm: BudESM
+    cdn: CDN
+    esm: ESM
   }
 
   interface Modules {
-    cdn: BudCDN
-    esm: BudESM
-    'webpack:define-plugin': BudDefine
-    'webpack:provide-plugin': BudProvide
-    'webpack:hot-module-replacement-plugin': BudHMR
-    'copy-webpack-plugin': BudCopy
-    'clean-webpack-plugin': BudClean
-    'manifest-plugin': BudManifest
-    'mini-css-extract-plugin': BudMiniCss
+    cdn: CDN
+    esm: ESM
+    'fix-style-only-entrypoints': FixStyleOnlyEntrypoints
+    'webpack:define-plugin': Define
+    'webpack:provide-plugin': Provide
+    'webpack:hot-module-replacement-plugin': HMR
+    'copy-webpack-plugin': Copy
+    'clean-webpack-plugin': Clean
+    'manifest-plugin': Manifest
+    'mini-css-extract-plugin': MiniCss
   }
 
   interface Loaders {
@@ -66,16 +69,16 @@ declare module '@roots/bud-framework' {
   }
 
   interface Rules {
-    js: Build.Rule
-    css: Build.Rule
-    html: Build.Rule
-    svg: Build.Rule
-    image: Build.Rule
-    font: Build.Rule
-    xml: Build.Rule
-    json5: Build.Rule
-    csv: Build.Rule
-    yml: Build.Rule
-    toml: Build.Rule
+    js: Build.Rule.Interface
+    css: Build.Rule.Interface
+    html: Build.Rule.Interface
+    svg: Build.Rule.Interface
+    image: Build.Rule.Interface
+    font: Build.Rule.Interface
+    xml: Build.Rule.Interface
+    json5: Build.Rule.Interface
+    csv: Build.Rule.Interface
+    yml: Build.Rule.Interface
+    toml: Build.Rule.Interface
   }
 }

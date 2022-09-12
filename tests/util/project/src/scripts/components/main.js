@@ -1,13 +1,1 @@
-/**
- * Main JS
- */
-
-export const main = () => {
-  /**
-   * Remove no-js class from body element
-   */
-  document.body.classList.contains(`no-js`) &&
-    document.body.classList.remove(`no-js`)
-
-  document.body.style.backgroundColor = `black`
-}
+export const main = () => (document.body.style.backgroundColor = `black`)

@@ -7,10 +7,12 @@ import type {Logger} from './logger'
 import type * as methods from './methods/index.js'
 import type {Module} from './module'
 import * as parsers from './parsers/index.js'
-import type {Service} from './service'
+import type * as Service from './service'
+import type * as Api from './services/api.js'
 import type * as Options from './types/options'
 import type * as Registry from './types/registry'
 import type * as Services from './types/services'
+import Value from './value.js'
 
 /**
  * Framework abstract
@@ -25,6 +27,11 @@ export class Bud {
    */
   public context: Options.Context
 
+  /**
+   * Implementation
+   *
+   * @public
+   */
   public implementation: Constructor
 
   /**
@@ -120,9 +127,9 @@ export class Bud {
     )
   }
 
-  public services: Array<keyof Services.Registry> = []
+  public services: Array<string> = []
 
-  public api: Services.Api.Service
+  public api: Api.Service
 
   public build: Services.Build.Service
 
@@ -188,6 +195,8 @@ export class Bud {
 
   public yml: typeof parsers.yml = parsers.yml
 
+  public value = Value
+
   /**
    * Creates a child with `bud.create` but returns the parent instance
    *
@@ -236,7 +245,7 @@ export class Bud {
     Object.entries(LIFECYCLE_EVENT_MAP).map(
       ([eventHandle, callbackName]: [
         keyof Registry.EventsStore,
-        keyof Service,
+        keyof Service.Contract,
       ]) =>
         this.services
           .map(service => [service, this[service]])
@@ -386,7 +395,7 @@ export class Bud {
    */
   @bind
   public fatal(error: string) {
-    this.logger.instance.fatal(error)
+    this.logger.instance.error(error)
   }
 }
 

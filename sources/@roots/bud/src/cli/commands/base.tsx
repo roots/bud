@@ -1,8 +1,6 @@
 import type * as Options from '@roots/bud-framework/options'
 import {BaseContext, Command, Option} from 'clipanion'
 import {bind, once} from 'helpful-decorators'
-import {Box, render, Text} from 'ink'
-import React from 'react'
 import * as t from 'typanion'
 
 import type Bud from '../../bud.js'
@@ -14,49 +12,60 @@ import {Notifier} from '../../notifier/index.js'
  *
  * @public
  */
-export default abstract class BaseCommand extends Command {
-  public abstract runCommand(): Promise<unknown>
-
+export default class BaseCommand extends Command {
   /**
-   * Context
-   *
+   * Command usage
    * @public
    */
-  public context: Options.Context & BaseContext
+  public static usage = Command.Usage({
+    description: `Run \`bud --help\` for usage information`,
+    details: `\
+      \`bud build production\` compiles source assets in \`production\` mode. Run \`bud build production --help\` for usage.
+
+      \`bud build development\` compiles source assets in \`development\` mode and serves updated modules. Run \`bud build development --help\` for usage.
+    `,
+    examples: [[`compile source assets`, `$0 build`]],
+  })
 
   /**
    * Application
-   *
    * @public
    */
   public app: Bud
 
   /**
+   * React (lazy loaded)
+   * @public
+   */
+  public React: any
+
+  /**
+   * Ink (lazy loaded)
+   * @public
+   */
+  public Ink: any
+
+  /**
+   * Context
+   * @public
+   */
+  public context: Options.Context & BaseContext
+
+  /**
    * Node notifier
-   *
    * @public
    */
   public notifier: Notifier
 
   /**
+   * Run command
    * @virtual
    * @public
    */
-  public get args(): Options.Context[`args`] {
-    return {}
-  }
+  public runCommand?(): Promise<unknown>
 
   /**
-   * Application logger
-   *
-   * @public
-   */
-  public get logger() {
-    return this.app.logger.instance
-  }
-
-  /**
-   * Base directory
+   * --basedir
    * @public
    */
   public basedir = Option.String(`--basedir,--cwd`, undefined, {
@@ -67,9 +76,19 @@ export default abstract class BaseCommand extends Command {
 
   /**
    * -- dry
+   * @public
    */
   public dry = Option.Boolean(`--dry`, false, {
     description: `Run without webpack or server process`,
+    hidden: true,
+  })
+
+  /**
+   * --inject
+   * @public
+   */
+  public discovery = Option.Boolean(`--discovery`, true, {
+    description: `Automatically search for and register extensions`,
     hidden: true,
   })
 
@@ -91,6 +110,7 @@ export default abstract class BaseCommand extends Command {
 
   /**
    * --mode
+   * @public
    */
   public mode = Option.String(`--mode`, undefined, {
     description: `Compilation mode`,
@@ -104,6 +124,7 @@ export default abstract class BaseCommand extends Command {
 
   /**
    * --notify
+   * @public
    */
   public notify = Option.Boolean(`--notify`, true, {
     description: `Enable notfication center messages`,
@@ -134,14 +155,30 @@ export default abstract class BaseCommand extends Command {
   }
 
   /**
-   * Render ink component and immediately unmount
-   *
-   * @param box - Ink box
-   * @returns
+   * @virtual
+   * @public
    */
+  public get args(): Options.Context[`args`] {
+    return {}
+  }
+
+  /**
+   * Application logger
+   *
+   * @public
+   */
+  public get logger() {
+    return this.app.logger.instance
+  }
+
   @bind
-  public renderOnce(box: React.ReactElement) {
-    return this.log !== false && this.render(box).unmount()
+  public async renderOnce(children: React.ReactElement) {
+    if (!this.Ink) this.Ink = await import(`ink`)
+
+    const {React, Ink} = this
+
+    this.log !== false &&
+      Ink.render(<Ink.Box>{children}</Ink.Box>).unmount()
   }
 
   /**
@@ -151,8 +188,12 @@ export default abstract class BaseCommand extends Command {
    * @returns
    */
   @bind
-  public render(box: React.ReactElement) {
-    return this.log !== false && render(box)
+  public async render(box: React.ReactElement) {
+    if (!this.Ink) this.Ink = await import(`ink`)
+
+    const {Ink} = this
+
+    return this.log !== false && Ink.render(box)
   }
 
   /**
@@ -172,12 +213,6 @@ export default abstract class BaseCommand extends Command {
         ...(this.args ?? {}),
       },
     }
-
-    this.renderOnce(
-      <Box marginY={1} justifyContent="flex-start">
-        <Text dimColor>$ bud {process.argv.splice(2).join(` `)} </Text>
-      </Box>,
-    )
 
     this.app = await factory(this.context)
 

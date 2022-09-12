@@ -42,6 +42,7 @@ export interface BaseContext {
       | `hidden-cheap-source-map`
       | `hidden-cheap-module-source-map`
       | `hidden-source-map`
+    discovery: boolean
     dry: boolean
     output: string
     editor: boolean
@@ -66,7 +67,19 @@ export interface BaseContext {
     storage: string
     target: Array<string>
   }>
-  config: Record<string, any>
+  config: Record<
+    string,
+    {
+      name: string
+      path: string
+      bud: boolean
+      local: boolean
+      dynamic: boolean
+      extension: string | null
+      type: `production` | `development` | `base`
+      module: any
+    }
+  >
   extensions: Array<string>
   services: Array<string>
   env: Record<string, string | undefined>

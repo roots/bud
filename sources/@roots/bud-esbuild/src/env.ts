@@ -17,7 +17,7 @@ declare module '@roots/bud-framework' {
   }
 
   interface Rules {
-    js: Build.Rule
-    ts: Build.Rule
+    js: Build.Rule.Interface
+    ts: Build.Rule.Interface
   }
 }

@@ -1,4 +1,5 @@
-import {Service, Services} from '@roots/bud-framework'
+import {Service} from '@roots/bud-framework/service'
+import type * as Services from '@roots/bud-framework/services'
 import fs from 'fs-extra'
 import {bind} from 'helpful-decorators'
 import {isUndefined} from 'lodash-es'
@@ -74,10 +75,6 @@ export default class Cache
     return {
       config: Object.values(this.app.context.config).map(({path}) => path),
     }
-  }
-
-  public set buildDependencies(deps: Array<string>) {
-    this.app.context.config.push(...deps)
   }
 
   /**

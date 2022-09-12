@@ -1,4 +1,5 @@
-import {Service} from '@roots/bud-framework/service'
+import * as Service from '@roots/bud-framework/service'
+import type * as Base from '@roots/bud-framework/services/build'
 import {bind} from 'helpful-decorators'
 import {isFunction, isUndefined} from 'lodash-es'
 import type {Configuration} from 'webpack'
@@ -16,7 +17,7 @@ import * as Rule from './rule/rule.js'
  *
  * @public
  */
-export default class Build extends Service {
+export default class Build extends Service.Base implements Base.Service {
   public static label = `build`
 
   /**
@@ -164,8 +165,8 @@ export default class Build extends Service {
    * @decorator `@bind`
    */
   @bind
-  public setLoader(name: string, options: string): this {
-    Object.assign(this.loaders, {[name]: this.makeLoader(options)})
+  public setLoader(name: string, options?: string): this {
+    Object.assign(this.loaders, {[name]: this.makeLoader(options ?? name)})
 
     return this
   }
@@ -195,12 +196,19 @@ export default class Build extends Service {
    * @decorator `@bind`
    */
   @bind
-  public setItem(name: string, options: (item: Item) => Item): this {
-    const processedOptions = isFunction(options)
-      ? options(this.makeItem())
-      : this.makeItem(options)
+  public setItem(
+    name: string,
+    options?: Item | ((item: Item) => Item),
+  ): this {
+    const maybeOptionsCallback = isUndefined(options)
+      ? {loader: name}
+      : options
 
-    Object.assign(this.items, {[name]: processedOptions})
+    const item = isFunction(maybeOptionsCallback)
+      ? maybeOptionsCallback(this.makeItem())
+      : this.makeItem(maybeOptionsCallback)
+
+    Object.assign(this.items, {[name]: item})
 
     return this
   }

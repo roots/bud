@@ -37,7 +37,7 @@ declare module '@roots/bud-framework' {
   }
 
   interface Rules {
-    ts: Rule
+    ts: Rule.Interface
   }
 }
 

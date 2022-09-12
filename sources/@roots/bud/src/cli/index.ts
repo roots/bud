@@ -8,7 +8,6 @@ import BuildDevelopmentCommand from './commands/build.development.js'
 import BuildProductionCommand from './commands/build.production.js'
 import CleanCommand from './commands/clean.js'
 import DoctorCommand from './commands/doctor.js'
-import InstallCommand from './commands/install.js'
 import ReplCommand from './commands/repl.js'
 import ViewCommand from './commands/view.js'
 import WebpackCommand from './commands/webpack.js'
@@ -43,7 +42,6 @@ const bud = async () => {
   application.register(BuildProductionCommand)
   application.register(CleanCommand)
   application.register(DoctorCommand)
-  application.register(InstallCommand)
   application.register(ReplCommand)
   application.register(ViewCommand)
   application.register(WebpackCommand)

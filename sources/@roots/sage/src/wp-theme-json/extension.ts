@@ -120,15 +120,19 @@ export default class ThemeJson extends Extension<
     if (!config) return
 
     try {
-      this.palette = await ThemeJson.tailwind.palette.getPalette(config)
-    } catch (error) {}
-    try {
-      this.fontFamily = await ThemeJson.tailwind.fontFamily.getFonts(
-        config,
+      this.palette = await ThemeJson.tailwind.palette.getPalette(
+        config.module,
       )
     } catch (error) {}
     try {
-      this.fontSize = await ThemeJson.tailwind.fontSize.getFontSize(config)
+      this.fontFamily = await ThemeJson.tailwind.fontFamily.getFonts(
+        config.module,
+      )
+    } catch (error) {}
+    try {
+      this.fontSize = await ThemeJson.tailwind.fontSize.getFontSize(
+        config.module,
+      )
     } catch (err) {}
   }
 

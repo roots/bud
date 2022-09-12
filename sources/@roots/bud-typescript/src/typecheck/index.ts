@@ -12,14 +12,14 @@ import type {ForkTsCheckerWebpackPluginOptions as Options} from 'fork-ts-checker
 @label(`@roots/bud-typescript/typecheck`)
 @plugin(Plugin)
 @options<Options>({
-  async: false,
-  typescript: {
+  async: () => false,
+  typescript: () => ({
     diagnosticOptions: {
       semantic: true,
       syntactic: true,
     },
     mode: `readonly`,
-  },
+  }),
 })
 @when(async () => false)
 export default class BudTypeCheckPlugin extends Extension<

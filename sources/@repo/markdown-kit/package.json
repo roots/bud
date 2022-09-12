@@ -7,7 +7,7 @@
     "./readme": "./compiled/readme/index.js",
     "./cli-examples": "./compiled/cli-examples/index.js"
   },
-  "devDependencies": {
+  "dependencies": {
     "@jest/globals": "29.0.1",
     "@repo/constants": "workspace:sources/@repo/constants",
     "@repo/logger": "workspace:sources/@repo/logger",
@@ -20,7 +20,8 @@
     "helpful-decorators": "2.1.0",
     "json5": "2.2.1",
     "lodash-es": "4.17.21",
-    "prettier": "2.7.1"
+    "prettier": "2.7.1",
+    "strip-ansi": "7.0.1"
   },
   "volta": {
     "extends": "../../../package.json"

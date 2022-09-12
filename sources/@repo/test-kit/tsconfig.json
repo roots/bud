@@ -12,7 +12,7 @@
     "module": "esnext",
   },
   "include": ["bud.ts", "integration.ts", "project.ts"],
-  "exclude": ["lib", "node_modules"],
+  "exclude": ["node_modules"],
   "references": [
     {"path": "./../../@roots/bud/tsconfig.json"},
     {"path": "./../../@roots/bud-framework/tsconfig.json"},

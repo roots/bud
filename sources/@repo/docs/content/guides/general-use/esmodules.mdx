@@ -8,7 +8,7 @@ sidebar_label: Compiling to ESM
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
-:::warning
+:::info Experimental
 
 This feature is flagged by webpack as **experimental** and, as such, it is opt-in.
 
@@ -29,30 +29,3 @@ Or, set the `build` command's `--esm` flag:
 ```sh
 bud build --esm
 ```
-
-Once set packages can be listed in the `imports` field of `package.json`:
-
-```json title="package.json"
-{
-  // ...
-
-  "imports": {
-    "alpinejs": "https://cdn.skypack.dev/alpinejs",
-    "animejs": "https://cdn.skypack.dev/animejs",
-    "axios": "https://cdn.skypack.dev/axios"
-  }
-}
-```
-
-Imports of these packages will be resolved to the specified URL. This structure
-allows you to use es modules without touching application code.
-
-```ts title="app.ts"
-import Alpine from 'alpinejs' // resolves to `https://cdn.skypack.dev/alpinejs`
-
-window.Alpine = Alpine
-```
-
-For this to work correctly, ensure that `type="module"` is set on the `<script>` tag.
-
-Outputted scripts will be emitted with the `.mjs` extension.
