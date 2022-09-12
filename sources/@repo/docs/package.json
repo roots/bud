@@ -43,7 +43,7 @@
   "dependencies": {
     "axios": "0.27.2",
     "clsx": "1.2.1",
-    "docusaurus-lunr-search": "2.1.15",
+    "docusaurus-lunr-search": "2.2.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "tslib": "2.4.0"
