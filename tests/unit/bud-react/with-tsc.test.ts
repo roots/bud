@@ -30,7 +30,6 @@ describe(`@roots/bud-react`, () => {
       await bud.extensions.add([BudReact])
 
       await bud.extensions.runAll(`configAfter`)
-      await bud.run()
 
       // @ts-ignore
       const devScript = await Array.from(
