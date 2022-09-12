@@ -18,10 +18,10 @@
     "extends @roots/browserslist-config/current"
   ],
   "devDependencies": {
-    "@docusaurus/core": "2.0.1",
-    "@docusaurus/module-type-aliases": "2.0.1",
-    "@docusaurus/preset-classic": "2.0.1",
-    "@docusaurus/remark-plugin-npm2yarn": "2.0.1",
+    "@docusaurus/core": "2.1.0",
+    "@docusaurus/module-type-aliases": "2.1.0",
+    "@docusaurus/preset-classic": "2.1.0",
+    "@docusaurus/remark-plugin-npm2yarn": "2.1.0",
     "@jest/globals": "29.0.1",
     "@repo/constants": "workspace:sources/@repo/constants",
     "@svgr/webpack": "6.2.1",
