@@ -1,7 +1,7 @@
 {
   "name": "@repo/yarn-plugin-bud",
   "private": true,
-  "packageManager": "yarn@3.2.2",
+  "packageManager": "yarn@3.2.3",
   "main": "./sources/index.ts",
   "scripts": {
     "build": "builder build plugin"
