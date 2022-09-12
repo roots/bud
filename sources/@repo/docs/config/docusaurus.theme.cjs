@@ -1,6 +1,6 @@
-const dracula = require('prism-react-renderer/themes/dracula')
+const dracula = require(`prism-react-renderer/themes/dracula`)
 
-const config = require('../../../../config/monorepo.config.cjs')
+const config = require(`../../../../config/monorepo.config.cjs`)
 
 /**
  * Announcement bar config
@@ -8,8 +8,8 @@ const config = require('../../../../config/monorepo.config.cjs')
  * @public
  */
 const announcementBar = {
-  id: 'announcementBar-4', // Increment on change
-  content: `🚀 SWC support and more in v6.3.0. <a href="/blog/tags/v-6">Release notes for v6.x.x releases available here</a>`,
+  id: `announcementBar-5`, // Increment on change
+  content: `Support bud.js <a href="https://github.com/sponsors/roots">on github sponsors</a>`,
 }
 
 /**
@@ -18,47 +18,47 @@ const announcementBar = {
  * @public
  */
 const footer = {
-  style: 'dark',
+  style: `dark`,
   links: [
     {
-      title: 'Links',
+      title: `Links`,
       items: [
         {
-          label: 'Getting started',
-          to: '/guides/getting-started/',
+          label: `Getting started`,
+          to: `/guides/getting-started/`,
         },
         {
-          label: 'Configuration',
-          to: '/docs/',
+          label: `Configuration`,
+          to: `/docs/`,
         },
         {
-          label: 'Extensions',
-          to: '/extensions/',
+          label: `Extensions`,
+          to: `/extensions/`,
         },
       ],
     },
     {
-      title: 'Community',
+      title: `Community`,
       items: [
         {
-          label: 'Twitter',
+          label: `Twitter`,
           href: config.organization.twitter,
         },
         {
-          label: 'Discourse',
+          label: `Discourse`,
           href: config.url.discourse,
         },
       ],
     },
     {
-      title: 'More',
+      title: `More`,
       items: [
         {
-          label: 'Blog',
-          to: '/blog',
+          label: `Blog`,
+          to: `/blog`,
         },
         {
-          label: 'GitHub',
+          label: `GitHub`,
           href: config.url.web,
         },
       ],
@@ -78,25 +78,25 @@ const metadata = [
   /**
    * Presentational
    */
-  {name: 'theme-color', content: '#525ddc'},
+  {name: `theme-color`, content: `#525ddc`},
 
   /**
    * Open graph
    */
-  {name: 'fb:app_id', content: '1022828784420871'},
-  {name: 'og:image', content: 'https://bud.js.org/img/bud.js.png'},
-  {name: 'og:locale', content: 'en_US'},
-  {name: 'og:type', content: 'website'},
-  {name: 'og:url', content: 'https://bud.js.org'},
+  {name: `fb:app_id`, content: `1022828784420871`},
+  {name: `og:image`, content: `https://bud.js.org/img/bud.js.png`},
+  {name: `og:locale`, content: `en_US`},
+  {name: `og:type`, content: `website`},
+  {name: `og:url`, content: `https://bud.js.org`},
 
   /**
    * Twitter
    */
-  {name: 'twitter:card', content: 'summary_large_image'},
-  {name: 'twitter:creator', content: config.organization.twitter},
-  {name: 'twitter:image', content: '/img/bud.js.png'},
-  {name: 'twitter:site', content: config.organization.twitter},
-  {name: 'twitter:url', content: config.url.docs},
+  {name: `twitter:card`, content: `summary_large_image`},
+  {name: `twitter:creator`, content: config.organization.twitter},
+  {name: `twitter:image`, content: `/img/bud.js.png`},
+  {name: `twitter:site`, content: config.organization.twitter},
+  {name: `twitter:url`, content: config.url.docs},
 ]
 
 /**
@@ -112,44 +112,44 @@ const navbar = {
   },
   items: [
     {
-      type: 'doc',
-      docId: 'index',
-      position: 'left',
-      label: 'Guides',
-      docsPluginId: 'guides',
+      type: `doc`,
+      docId: `index`,
+      position: `left`,
+      label: `Guides`,
+      docsPluginId: `guides`,
     },
     {
-      type: 'doc',
-      docId: 'index',
-      position: 'left',
-      label: 'Docs',
+      type: `doc`,
+      docId: `index`,
+      position: `left`,
+      label: `Docs`,
     },
     {
-      type: 'doc',
-      docId: 'index',
-      position: 'left',
-      label: 'Extensions',
-      docsPluginId: 'extensions',
+      type: `doc`,
+      docId: `index`,
+      position: `left`,
+      label: `Extensions`,
+      docsPluginId: `extensions`,
     },
-    {to: '/blog', label: 'Blog', position: 'right'},
+    {to: `/blog`, label: `Blog`, position: `right`},
     {
-      href: '/dev',
-      label: 'Dev',
-      position: 'right',
-      className: 'header-github-link',
+      href: `/dev`,
+      label: `Dev`,
+      position: `right`,
+      className: `header-github-link`,
     },
     {
       href: config.url.discourse,
-      label: 'Community',
-      position: 'right',
-      className: 'header-discourse-link',
+      label: `Community`,
+      position: `right`,
+      className: `header-discourse-link`,
     },
     {
       href: config.url.web,
-      label: 'GitHub',
-      position: 'right',
-      className: 'header-github-link',
-      'aria-label': 'GitHub repository',
+      label: `GitHub`,
+      position: `right`,
+      className: `header-github-link`,
+      'aria-label': `GitHub repository`,
     },
   ],
 }
@@ -160,7 +160,7 @@ const navbar = {
  * @public
  */
 const prism = {
-  additionalLanguages: ['php'],
+  additionalLanguages: [`php`],
   darkTheme: dracula,
   theme: dracula,
 }

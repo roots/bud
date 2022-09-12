@@ -67,6 +67,7 @@
   },
   "devDependencies": {
     "@jest/globals": "29.0.1",
+    "@roots/bud": "workspace:*",
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.11.48",
@@ -75,7 +76,14 @@
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
+    "@types/fs-extra": "9.0.13",
     "autoprefixer": "^10.4.8",
+    "chalk": "5.0.1",
+    "clipanion": "3.2.0-rc.11",
+    "execa": "6.1.0",
+    "fs-extra": "10.1.0",
+    "helpful-decorators": "2.1.0",
+    "lodash-es": "4.17.21",
     "tailwindcss": "^3.1.8",
     "tslib": "2.4.0"
   },

@@ -24,8 +24,8 @@ const basdir = process.cwd()
 const app: Bud = await get(basedir)
 ```
 
-If `get` is called again with the same basedir it will return the same instance. This means that you can arbitrarily access
-`bud` from anywhere in your project and have assurance you're working with the same `bud` instance.
+If `get` is called again with the same `basedir` it will return the same instance. This means that you can arbitrarily access `bud` from anywhere in your project
+and have assurance you're working with the same instance.
 
 ### Using `@roots/bud/factory`
 
@@ -66,7 +66,7 @@ The application context is a collection of options used to bootstrap the bud ins
 | label      | application identifier            | no       |
 | basedir    | application root directory        | yes      |
 | manifest   | application package.json contents | yes      |
-| mode       | `production` or `development`     | no       |
+| mode       | `production` or `development`     | yes      |
 | args       | cli args                          | yes      |
 | config     | application configuration files   | yes      |
 | extensions | array of extension signifiers     | yes      |

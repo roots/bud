@@ -8,6 +8,29 @@ sidebar_label: Extensions
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
+## Register an extension
+
+Extensions included in `package.json` are automatically instantiated. You can also add extensions using [`bud.use`](/docs/bud.use).
+
+You can choose to use the bud extensions API directly in order to register an extension:
+
+```js title="bud.config.mjs"
+import BudMDX from '@roots/bud-mdx'
+export default async app => {
+  await bud.extensions.add(BudMDX)
+}
+```
+
+**bud.js extensions are a superset of Webpack plugins**.
+This means that you can add basically any Webpack plugin as demonstrated above.
+
+```js title="bud.config.mjs"
+import BrowserSyncWebpackPlugin from 'browser-sync-webpack-plugin'
+export default async app => {
+  await bud.extensions.add(new BrowserSyncWebpackPlugin({...options}))
+}
+```
+
 ## Get an extension reference
 
 You may get an extension instance with `bud.extensions.get`:
@@ -16,15 +39,15 @@ You may get an extension instance with `bud.extensions.get`:
 bud.extensions.get('copy-webpack-plugin')
 ```
 
-From there you can do a lot of different things:
-
-## Enable or disable an extension
+## Enable a registered extension
 
 Call `enable` to enable an extension:
 
 ```js title="bud.config.mjs"
 bud.extensions.get('webpack-clean-plugin').enable()
 ```
+
+## Disable a registered extension
 
 Or `disable` to disable it:
 
@@ -42,7 +65,7 @@ bud.extensions.get('copy-webpack-plugin').setOptions({
 })
 ```
 
-`setOptions` also takes a callback which is passed the current options:
+`setOptions` also takes a callback which is passed the current options value:
 
 ```js title="bud.config.mjs"
 bud.extensions.get('copy-webpack-plugin').setOptions(options => ({
@@ -62,7 +85,7 @@ bud.extensions
   .setOption('patterns', [{from: bud.path('@src/images')}])
 ```
 
-Like `setOptions`, you can also utilize a callback here:
+Like `setOptions`, you can also utilize a callback if you want to merge options on to what already is in place:
 
 ```js title="bud.config.mjs"
 bud.extensions
@@ -71,26 +94,4 @@ bud.extensions
     ...patterns,
     {from: bud.path('@src/images')},
   ])
-```
-
-## Register an extension
-
-Extensions included in `package.json` are automatically instantiated. You can also add extensions using [`bud.use`](/docs/bud.use).
-But, again, you can choose to use the bud extensions API directly in order to register an extension, if desired:
-
-```js title="bud.config.mjs"
-import BudMDX from '@roots/bud-mdx/extension'
-export default async app => {
-  await bud.extensions.add(BudMDX)
-}
-```
-
-**bud.js extensions are a superset of Webpack plugins**.
-This means that you can add basically any Webpack plugin as demonstrated above.
-
-```js title="bud.config.mjs"
-import BrowserSyncWebpackPlugin from 'browser-sync-webpack-plugin'
-export default async app => {
-  await bud.extensions.add(new BrowserSyncWebpackPlugin({...options}))
-}
 ```

@@ -167,7 +167,6 @@ Here's what you can expect:
 │
 └─ compiled 41 modules in 709ms
 
-
 ◉  HtmlWebpackCompiler ./dist [bce8eedbb4952eca25f3]
 └─ compiled 6 modules in 262ms
 
@@ -201,7 +200,7 @@ Start a repl to play around with bud: `$ bud repl`
 
 Some example queries you may wish to try:
 
-`$ bud.hooks.syncStore`
+`$ bud.hooks.events.store`
 
 `$ bud.extensions.get('webpack:define-plugin')`
 
@@ -292,7 +291,11 @@ default: `true`
 
 Extensions can now register commands.
 
-So far only one additional command has been added in this manner: `yarn bud ts check` can be used when `@roots/bud-typescript` is installed.
+So far a few commands have been implemented:
+
+- `yarn bud ts check` will typecheck source assets (registered by `@roots/bud-typescript`).
+- `yarn bud lint` will lint source assets (registered by `@roots/bud-eslint`).
+- `yarn bud tailwindcss` will transpile tailwindcss (registered by `@roots/bud-tailwindcss`).
 
 ## ✨ Improve: builds now labeled by package.json `name` field
 
@@ -305,14 +308,10 @@ In addition to the clear output summary labeling (see above), you should also fi
 [bud@6.4.0] [my-project] › importing @roots/bud-terser/css-minimizer
 ```
 
-If you're looking through `.budfiles` you'll see that build artifacts are broken down by compiler label as well:
+## 🧪 Experimental: Use `tailwindcss` CLI command directly
 
-```
-❯ tree .budfiles
-.budfiles
-└── my-project
-     └── cache
-          └── development
+```ts
+bud.tailwindcss.useCLI()
 ```
 
 ## ℹ️ Release information

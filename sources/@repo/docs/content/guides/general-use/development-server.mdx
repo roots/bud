@@ -47,3 +47,14 @@ export default async bud => {
   })
 }
 ```
+
+## Proxying an existing server
+
+You can use [bud.proxy](/docs/bud.proxy) to proxy an existing server.
+
+```js title='bud.config.mjs'
+export default async bud => {
+  bud.serve(new URL(`http://localhost:3000`))
+  bud.proxy(new URL(`http://example.test`))
+}
+```

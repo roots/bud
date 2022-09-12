@@ -9,7 +9,19 @@ module.exports = {
         type: `doc`,
         id: `cli/index`,
       },
-      items: [`cli/build`, `cli/clean`, `cli/doctor`],
+      items: [
+        {
+          type: `category`,
+          label: `bud build`,
+          link: {
+            type: `doc`,
+            id: `cli/build/index`,
+          },
+          items: [`cli/build/production`, `cli/build/development`],
+        },
+        `cli/clean`,
+        `cli/doctor`,
+      ],
     },
     {
       type: `category`,
