@@ -4294,7 +4294,7 @@ __metadata:
     "@types/react-router-dom": 5.3.3
     axios: 0.27.2
     clsx: 1.2.1
-    docusaurus-lunr-search: 2.1.15
+    docusaurus-lunr-search: 2.2.0
     file-loader: 6.2.0
     netlify-cli: 10.12.1
     raw-loader: 4.0.2
@@ -13102,9 +13102,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"docusaurus-lunr-search@npm:2.1.15":
-  version: 2.1.15
-  resolution: "docusaurus-lunr-search@npm:2.1.15"
+"docusaurus-lunr-search@npm:2.2.0":
+  version: 2.2.0
+  resolution: "docusaurus-lunr-search@npm:2.2.0"
   dependencies:
     autocomplete.js: ^0.37.0
     classnames: ^2.2.6
@@ -13124,7 +13124,7 @@ __metadata:
     "@docusaurus/core": ^2.0.0-alpha.60 || ^2.0.0
     react: ^16.8.4 || ^17
     react-dom: ^16.8.4 || ^17
-  checksum: 3e1019125f57be8a397ad54e88a8163f846d46d9f2282987f41c9c23c2ae94bef037cd25081266281f36adec3d5807c1caeb04140096a96d6896db6d580bcbf6
+  checksum: f46132e6f4d47615beb2159c05faa540c04013a625dc03306037042c933c4a2ba4fa4dab54fc99d6a4fe34597a10b4956e6dfb99f35be15a537f67247af69097
   languageName: node
   linkType: hard
 
