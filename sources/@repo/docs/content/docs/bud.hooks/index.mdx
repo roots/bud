@@ -6,14 +6,14 @@ sidebar_position: 1
 slug: /bud.hooks/
 ---
 
-Bud provides a system of 'hooks' to expose values for modification.
+`bud.hooks` allows for modifying values with callbacks. This is useful for things like logging, or for modifying a value before it is used.
 
 ## bud.hooks.on
 
-Hooks are defined as functions. Hook functions are registered with `bud.hooks.on`
+Callbacks and raw values are registered with `bud.hooks.on`
 
 ```js title='bud.config.js'
-bud.hooks.on('build/externals', externals => ({
+bud.hooks.on('build.externals', externals => ({
   ...externals,
   $: 'jquery',
 })
@@ -24,25 +24,74 @@ bud.hooks.on('build/externals', externals => ({
 - The `name` of the hook.
 - A function to filter the associated value through.
 
+## bud.hooks.fromMap
+
+Set multiple hooks at once with `bud.hooks.fromMap`.
+
+```ts
+bud.hooks.fromMap({
+  'build.node': false,
+  'build.resolve.extensions': ext => ext.add('.mjml'),
+})
+```
+
 ## bud.hooks.filter
 
 Filters are registered with `bud.hooks.filter`.
 
+```js
+const result = bud.hooks.filter('my.filter.key', value)
+```
+
 `bud.hooks.filter` takes two parameters:
 
 - The `name` of the `filter` to hook onto.
-- The `value` which is being filtered
+- The `value` which is being filtered. If there is nothing hooked to this filter, the value will be returned as-is.
 
-### Usage
+## bud.hooks.async
 
-A `value` is passed through the `my.filter.key` filter.
+Some hooks are asynchronous. An example of this are values for `build.resolve.modules`:
 
-```js
-const filteredValue = bud.hooks.filter('my.filter.key', value)
+```js title='bud.config.js'
+bud.hooks.async('build.resolve.modules', async modulePaths => [
+  ...modulePaths,
+  await fs.promises.realpath('node_modules'),
+])
 ```
 
-Now, the user and other extensions have access to this value and can modify it.
+Callbacks for asynchronous hooks should be registered as asynchronous functions.
+
+## bud.hooks.fromMap
+
+Set multiple async hooks at once with `bud.hooks.fromMap`.
+
+```ts
+bud.hooks.fromMap({
+  'build.resolve.modules': async paths => [
+    ...paths,
+    await fs.promises.realpath('node_modules'),
+  ],
+})
+```
+
+## bud.hooks.action
+
+Actions are registered with `bud.hooks.action`.
 
 ```js
-bud.hooks.on('my.filter.key', value => value.shift())
+bud.hooks.action('my.action.key', async bud => {
+  bud.log('action log') // do something
+})
 ```
+
+All actions are asynchronous. The order of execution is not guaranteed.
+
+## bud.hooks.fire
+
+Actions are fired with `bud.hooks.fire`.
+
+```js
+await bud.hooks.fire('my.action.key')
+```
+
+This function returns a `Promise`.

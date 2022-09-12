@@ -34,9 +34,6 @@ $ bud build development
 
 `bud build development` compiles source assets in `development` mode.
 
-If you run this command without a bud configuration file `bud` will look for an 
-entrypoint at `@src/index.js`.
-
 ━━━ Examples ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 compile source and serve

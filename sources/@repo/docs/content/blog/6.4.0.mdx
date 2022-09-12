@@ -12,7 +12,44 @@ tags: [release]
 
 <!--truncate-->
 
-## ✨ Improve: bud.js hot reloading (middleware & client packages)
+## bud.assets
+
+You can now specify copy options to apply to all copy patterns as a second parameter.
+
+In this example we'll redefine the `context` for each item:
+
+```ts
+bud.assets(
+  [
+    {from: 'images', to: 'images'},
+    {from: 'fonts', to: 'fonts'},
+  ],
+  {context: app.path('@assets')},
+)
+```
+
+This is the same as:
+
+```ts
+bud.assets([
+  {
+    from: 'images',
+    to: 'images',
+    context: app.path('@assets'),
+  },
+  {
+    from: 'fonts',
+    to: 'fonts',
+    context: app.path(`assets`),
+  },
+])
+```
+
+This also works with `string` or `[from, to]` tuples, as well.
+
+## Client
+
+### hot reload middleware
 
 Internally, bud.js has fully replaced `webpack-hot-middleware` and its associated client scripts.
 
@@ -20,91 +57,242 @@ What you can expect:
 
 - If you have an error in your code that fully breaks hot module reloading the client
   will automatically perform a full page reload.
-- The HMR client is now a singleton assigned to `window.bud.hmr`.
 - You should have far fewer duplicate log messages about module updates.
-- **Known issue**: Initial page load will include a request for a json file with a 404 status.
-  This doesn't seem to effect anything negatively.
 
-## ✨ Improve: bud.js proxy url replacement
+### proxy url replacement
 
-This script is a lot more flexible.
+If you are using [bud.proxy](https://bud.js.org/docs/bud.proxy) you don't need to do anything. But, if you wanted to use this script directly it is now a lot more flexible.
 
-The "needle" string is now set with a url query parameter: `@roots/bud-client/lib/proxy-client-interceptor.js?href=http://example.com`.
+There are two ways to utilize it:
 
-Optionally, it can also be imported and called directly:
+#### 1. add to your entry imports array
+
+`@roots/bud-client/lib/proxy-client-interceptor.js` accepts URL parameters for `search` and `replace` strings.
+
+```ts
+bud.entry({
+  app: [
+    // ... app scripts and styles
+    `@roots/bud-client/lib/proxy-client-interceptor.js?search=http://example.com&replace=/`,
+  ],
+})
+```
+
+#### 2. import it in a client script
+
+`@roots/bud-client/lib/intercept.js` can be imported directly and called from application code.
 
 ```js
 import intercept from '@roots/bud-client/lib/intercept.js'
-intercept('http://example.com') // replace `href="http://example.com"` with `href="/"`
+
+intercept('http://example.com', '/')
 ```
 
-## ✨ Improve: extensions can now register `bud` cli commands
+## Hooks
 
-So far, only one extension is taking advantage of this. With `@roots/bud-typescript` installed
-you can run typechecks on your codebase using the `bud ts check` subcommand.
+### bud.hooks.fromMap
 
-```sh
-yarn bud ts check
+`bud.hooks.fromMap` can be used to set multiple hooks in one call.
+
+```ts
+bud.hooks.fromMap({
+  'build.node': false,
+  'build.resolve.extensions': ext => ext.add('.mjml'),
+})
 ```
 
-Previously this command was registered in `@roots/bud`, which wasn't ideal.
+### bud.hooks.fromAsyncMap
 
-## ✨ Improve: bud cli
+`bud.hooks.fromAsyncMap` can be used in the same way to set hooks with async callbacks.
 
-- [Enhanced build summary](#enhanced-build-summary)
-- [--debug flag](#--debug-flag)
+```ts
+bud.hooks.fromAsyncMap({
+  'build.plugins': async () => await app.extensions.make(),
+  'build.resolve.modules': async () => [
+    app.hooks.filter(`location.@src`),
+    app.hooks.filter(`location.@modules`),
+  ],
+})
+```
+
+Speaking generally, if you want to learn more about all of the available hooks you might be interesting in exploring more with the new [`bud view` command](#bud-view)
+
+## Services
+
+Services have access to some new methods that are called when the associated lifecycle event takes place.
+
+In the order they are called:
+
+| method name     | associated lifecycle event |
+| --------------- | -------------------------- |
+| `configAfter`   | `config.after`             |
+| `compileBefore` | `compile.before`           |
+| `buildBefore`   | `build.before`             |
+| `buildAfter`    | `build.after`              |
+| `compileAfter`  | `compile.after`            |
+
+## Extensions
+
+Extensions have access to some new methods that are called when the associated lifecycle event takes place.
+
+In the order they are called:
+
+| method name   | associated lifecycle event |
+| ------------- | -------------------------- |
+| `configAfter` | `config.after`             |
+| `buildBefore` | `build.before`             |
+| `buildAfter`  | `build.after`              |
+
+## CLI
 
 ### Enhanced build summary
 
 Here's what you can expect:
 
 ```sh
-$ bud build
+◉  @tests/project ./dist [6c3fa82de0a7a70e5e45]
+│
+├─ entrypoints
+│ ├─ app
+│ │ └─ js/app.js           28.34 kB
+│ ├─ app2
+│ │ └─ js/app2.js          26.73 kB
+│ └─ dev-client
+│   └─ js/dev-client.js    84.61 kB
+│
+├─ assets
+│ ├─ images/image.jpeg          761.41 kB
+│ ├─ images/nested/image.jpeg   761.41 kB
+│ └─ images/.gitkeep
+│
+└─ compiled 41 modules in 709ms
 
-sage
 
-◉   ./public  [f3a3c400ffcd71efbad3]
-│
-├─ entrypoints
-│  ├─ app
-│  │   └─ js/app.js    308.98 kB
-│  └─ editor
-│      └─ js/editor.js    252.02 kB
-│
-├─ assets
-│  ├─ fonts/public-sans-v11-latin-700italic.woff2    13.76 kB
-│  ├─ fonts/public-sans-v11-latin-italic.woff2       13.73 kB
-│  ├─ fonts/public-sans-v11-latin-700.woff2          13.39 kB
-│  └─ fonts/public-sans-v11-latin-300.woff2          13.32 kB
-│
-│   …  4  additional assets not shown
-│
-└─ compiled 174 modules in 212ms
+◉  HtmlWebpackCompiler ./dist [bce8eedbb4952eca25f3]
+└─ compiled 6 modules in 262ms
 
-ℹ dev
-│
-├─ proxying: https://roots.test
-├─ internal: http://localhost:58398
-└─ external: http://192.168.194.103:58398
+ℹ server
+╷
+├─ internal: http://localhost:3015 (http://localhost:3015)
+└─ external: http://192.168.194.103:3015 (http://192.168.194.103:3015)
 
-… watching project sources (and 2 other files)
+… watching project sources
 ```
 
 Some of the changes you may notice:
 
+- Displays information for multiple compilations.
 - Labeled (can be useful if running builds in parallel with yarn/npm workspaces).
+  - tip: set your compilation label using the `name` field of `package.json`
 - Indicates the directory being emitted to (also handy for identification purposes).
 - Includes the oft-requested "external IP" for use over LAN.
 - Visually grouped by entrypoint
 - Improved display of compiler error messages
 - Improved display of compiler warning messages
 
-### `--debug` flag
+### bud repl
 
-The `bud build`, `bud build production` and `bud build development` commands now take a `--debug` flag.
+Start a repl to play around with bud: `$ bud repl`
 
-In earlier versions of bud.js a snapshot of the finalized webpack configuration and a snapshot of bud.js state was always
-stored prior to compilation. If your project is working correctly this is just needless fs overhead.
+| option        | description       | default |
+| ------------- | ----------------- | ------- |
+| `--indent,-i` | indentation level | `1`     |
+| `--depth,-d`  | recursion depth   | `2`     |
+
+Some example queries you may wish to try:
+
+`$ bud.hooks.syncStore`
+
+`$ bud.extensions.get('webpack:define-plugin')`
+
+`$ bud.make('test').then(bud => bud.get('test').label)`
+
+`$ bud.extensions.make()`
+
+`$ bud.hooks.filter('build.optimization')`
+
+### bud view
+
+Explore the bud object with `$ yarn bud view`. You can use dot notation to dive through properties.
+
+| option        | description       | default |
+| ------------- | ----------------- | ------- |
+| `--indent,-i` | indentation level | `2`     |
+| `--color,-c`  | color             | `true`  |
+
+Interesting examples:
+
+See what functions were called: `$ yarn bud view api.trace`
+
+View the generated config: `$ yarn bud view build.config`
+
+You can go as deep as you need but if you are accessing an array by index you'll probably need to escape the brackets with quotes:
+
+`$ yarn bud view 'build.config.module.rules[1].oneOf[0]'`
+
+### bud webpack
+
+This is a passthrough command for the webpack cli. Get webpack usage help `$ yarn bud webpack -- --help`
+
+To run a build with webpack you'd probably want to create a new file named `webpack.config.js` in your project and do something like this:
+
+```ts
+// webpack.config.mjs
+
+import {get} from '@roots/bud/factory'
+
+export default async () => {
+  const bud = await get()
+  return await bud.build.make()
+}
+```
+
+Run it with `$ yarn bud webpack`.
+
+### Flags
+
+`--basedir`
+
+Set the application base directory. Default: `process.cwd()`
+
+`--browser`
+
+Now accepts an (optional) string to open the project in a specific browser. The exact string is system dependent. [Check the sindresorhus/open docs](https://github.com/sindresorhus/open)
+
+`--dry`
+
+Will run bud.js all the way up until it's time to actually instantiate the compiler or the dev server, and then it bails.
+
+`-v,-vv,-vvv,-vvvv`
+
+Set logging level.
+
+| Flag    | Level          |
+| ------- | -------------- |
+| `-v`    | error          |
+| `-vv`   | warning        |
+| `-vvv`  | log            |
+| `-vvvv` | info (verbose) |
+
+default: `-vv`.
+
+`--debug`
+
+Emit artifacts to storage directory for debugging bud.js context or the emitted webpack configuration. In earlier versions of bud.js a snapshot of the finalized webpack configuration and a snapshot of bud.js state was always saved to storage prior to compilation. If your project is working correctly this is just needless fs overhead.
+
+default: `false`
+
+`--reload`
+
+allow bud.js to hard reload the browser window when an error is encountered that breaks hot module reloading.
+
+default: `true`
+
+### Extensions can register commands
+
+Extensions can now register commands.
+
+So far only one additional command has been added in this manner: `yarn bud ts check` can be used when `@roots/bud-typescript` is installed.
 
 ## ✨ Improve: builds now labeled by package.json `name` field
 

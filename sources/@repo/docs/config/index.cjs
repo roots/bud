@@ -1,24 +1,24 @@
-const {join, resolve} = require('path')
+const {join, resolve} = require(`path`)
 
-const config = require('../../../../config/monorepo.config.cjs')
-const themeConfig = require('./docusaurus.theme.cjs')
+const config = require(`../../../../config/monorepo.config.cjs`)
+const themeConfig = require(`./docusaurus.theme.cjs`)
 
-const presetClassic = require.resolve('@docusaurus/preset-classic')
-const pluginBlog = require.resolve('@docusaurus/plugin-content-blog')
-const pluginDocs = require.resolve('@docusaurus/plugin-content-docs')
-const pluginSearch = require.resolve('docusaurus-lunr-search')
+const presetClassic = require.resolve(`@docusaurus/preset-classic`)
+const pluginBlog = require.resolve(`@docusaurus/plugin-content-blog`)
+const pluginDocs = require.resolve(`@docusaurus/plugin-content-docs`)
+const pluginSearch = require.resolve(`docusaurus-lunr-search`)
 
-const docsPath = path => resolve(__dirname, '..', path ?? '')
+const docsPath = path => resolve(__dirname, `..`, path ?? ``)
 
-const sidebarPath = docsPath('sidebars/docs.js')
+const sidebarPath = docsPath(`sidebars/docs.js`)
 
 module.exports = {
   title: config.name,
   tagline: config.description,
   url: config.url.docs,
-  baseUrl: '/',
-  onBrokenLinks: 'warn',
-  onBrokenMarkdownLinks: 'warn',
+  baseUrl: `/`,
+  onBrokenLinks: `warn`,
+  onBrokenMarkdownLinks: `warn`,
   favicon: config.organization.favicon,
   organizationName: config.organization.name,
   projectName: config.name,
@@ -29,22 +29,22 @@ module.exports = {
       presetClassic,
       {
         docs: {
-          path: docsPath('content/docs'),
+          path: docsPath(`content/docs`),
           sidebarPath,
           editUrl: join(config.url.web, `edit/main/sources/@repo/docs/`),
           remarkPlugins: [
-            [require('@docusaurus/remark-plugin-npm2yarn'), {sync: true}],
+            [require(`@docusaurus/remark-plugin-npm2yarn`), {sync: true}],
           ],
         },
         blog: {
-          path: docsPath('content/blog'),
+          path: docsPath(`content/blog`),
           showReadingTime: true,
         },
         pages: {
-          path: docsPath('content/pages'),
+          path: docsPath(`content/pages`),
         },
         theme: {
-          customCss: docsPath('src/css/custom.css'),
+          customCss: docsPath(`src/css/custom.css`),
         },
       },
     ],
@@ -53,55 +53,55 @@ module.exports = {
     [
       pluginBlog,
       {
-        id: 'releases',
-        path: docsPath('content/releases'),
+        id: `releases`,
+        path: docsPath(`content/releases`),
         remarkPlugins: [
-          [require('@docusaurus/remark-plugin-npm2yarn'), {sync: true}],
+          [require(`@docusaurus/remark-plugin-npm2yarn`), {sync: true}],
         ],
-        routeBasePath: 'releases',
-        include: ['**/*.md', '**/*.mdx'],
+        routeBasePath: `releases`,
+        include: [`**/*.md`, `**/*.mdx`],
       },
     ],
     [
       pluginDocs,
       {
-        id: 'dev',
-        path: docsPath('content/dev'),
+        id: `dev`,
+        path: docsPath(`content/dev`),
         remarkPlugins: [
-          [require('@docusaurus/remark-plugin-npm2yarn'), {sync: true}],
+          [require(`@docusaurus/remark-plugin-npm2yarn`), {sync: true}],
         ],
-        routeBasePath: 'dev',
+        routeBasePath: `dev`,
         sidebarPath,
-        include: ['**/*.md', '**/*.mdx'],
+        include: [`**/*.md`, `**/*.mdx`],
       },
     ],
     [
       pluginDocs,
       {
-        id: 'guides',
-        path: docsPath('content/guides'),
+        id: `guides`,
+        path: docsPath(`content/guides`),
         remarkPlugins: [
-          [require('@docusaurus/remark-plugin-npm2yarn'), {sync: true}],
+          [require(`@docusaurus/remark-plugin-npm2yarn`), {sync: true}],
         ],
-        routeBasePath: 'guides',
-        sidebarPath: docsPath('sidebars/guides.js'),
-        include: ['**/*.md', '**/*.mdx'],
+        routeBasePath: `guides`,
+        sidebarPath: docsPath(`sidebars/guides.js`),
+        include: [`**/*.md`, `**/*.mdx`],
       },
     ],
     [
       pluginDocs,
       {
-        id: 'extensions',
-        path: docsPath('content/extensions'),
-        routeBasePath: 'extensions',
+        id: `extensions`,
+        path: docsPath(`content/extensions`),
+        routeBasePath: `extensions`,
         sidebarPath,
-        include: ['**/*.md', '**/*.mdx'],
+        include: [`**/*.md`, `**/*.mdx`],
       },
     ],
     [
       pluginSearch,
       {
-        excludeRoutes: ['blog/**/*', 'pages/**/*'],
+        excludeRoutes: [`blog/**/*`, `pages/**/*`],
       },
     ],
   ],

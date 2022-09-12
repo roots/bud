@@ -9,22 +9,6 @@ Include static assets in your compilation even if they aren't referenced in scri
 
 You may specify a path to a specific file or use glob syntax to match many files at once.
 
-## Signature
-
-This function is pretty flexible and accepts a few different ways of specifying what you want to copy.
-
-```ts title='bud.config.js'
-  (
-    request:
-      | CopyPlugin.StringPattern
-      | CopyPlugin.ObjectPattern
-      | Array<CopyPlugin.StringPattern>
-      | Array<FromToTuple>
-      | Array<CopyPlugin.ObjectPattern>,
-    overrides?: Partial<CopyPlugin.ObjectPattern>,
-  ): Bud
-```
-
 ## Usage
 
 ### Copying a file
@@ -128,10 +112,12 @@ there is probably no real harm in doing so.
 
 ## Passing options directly
 
-If, for whatever reason, this API doesn't work for you, you can utilize the extension directly:
+**bud.assets** is just a simple interface wrapper for the `copy-webpack-plugin` extension. You can utilize the extension directly:
 
 ```js title="bud.config.js"
 app.extensions
   .get('copy-webpack-plugin')
   .setOption('patterns', [{from: app.path('@src/images')}])
 ```
+
+It accepts any options that [copy-webpack-plugin](https://www.npmjs.com/package/copy-webpack-plugin) does.

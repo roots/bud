@@ -9,7 +9,7 @@ module.exports = {
         type: `doc`,
         id: `cli/index`,
       },
-      items: [`cli/build`, `cli/clean`],
+      items: [`cli/build`, `cli/clean`, `cli/doctor`],
     },
     {
       type: `category`,
