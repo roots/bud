@@ -40,13 +40,12 @@ export default class Sync extends Hooks<SyncStore> {
    * @decorator `@bind`
    */
   @bind
-  public set<T extends keyof SyncStore>(
+  public set<T extends keyof SyncStore & string>(
     id: T,
-    input: SyncCallback[T],
+    input: SyncRegistry[T],
   ): Bud {
-    const value = this.app.value.make(input)
-    if (this.store[id]) this.store[id].push(value)
-    else this.store[id] = [value]
+    if (this.has(id)) this.store[id].push(this.app.value.make(input))
+    else this.store[id] = [this.app.value.make(input)].filter(Boolean)
     return this.app
   }
 
@@ -57,7 +56,7 @@ export default class Sync extends Hooks<SyncStore> {
    * @public
    */
   @bind
-  public setRecords<K extends keyof SyncRegistry>(
+  public setRecords<K extends keyof SyncRegistry & string>(
     map: Partial<SyncCallback>,
   ): Bud {
     Object.entries(map).map(([k, v]: [K, SyncRegistry[K]]) =>
@@ -88,7 +87,7 @@ export default class Sync extends Hooks<SyncStore> {
   ) {
     if (!this.has(id)) return isFunction(fallback) ? fallback() : fallback
 
-    return this.store[id]
+    return (this.store[id] ?? [])
       .map(this.app.value.get)
       .reduce(
         (accumulated, current) =>

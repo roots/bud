@@ -4721,12 +4721,15 @@ __metadata:
   resolution: "@roots/bud-eslint@workspace:sources/@roots/bud-eslint"
   dependencies:
     "@jest/globals": 29.0.1
+    "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@skypack/package-check": 0.2.2
     "@types/lodash": 4.14.184
     "@types/node": 16.11.48
+    clipanion: 3.2.0-rc.11
     eslint: 8.19.0
     eslint-webpack-plugin: ^3.1.1
+    execa: 6.1.0
     tslib: 2.4.0
     webpack: 5.73.0
   peerDependencies:
@@ -5227,13 +5230,21 @@ __metadata:
   resolution: "@roots/bud-tailwindcss@workspace:sources/@roots/bud-tailwindcss"
   dependencies:
     "@jest/globals": 29.0.1
+    "@roots/bud": "workspace:*"
     "@roots/bud-api": "workspace:sources/@roots/bud-api"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss"
     "@skypack/package-check": 0.2.2
+    "@types/fs-extra": 9.0.13
     "@types/node": 16.11.48
     "@types/tailwindcss": 3.0.11
     autoprefixer: ^10.4.8
+    chalk: 5.0.1
+    clipanion: 3.2.0-rc.11
+    execa: 6.1.0
+    fs-extra: 10.1.0
+    helpful-decorators: 2.1.0
+    lodash-es: 4.17.21
     tailwindcss: ^3.1.8
     tslib: 2.4.0
   peerDependencies:
@@ -5402,7 +5413,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/bud@workspace:sources/@roots/bud":
+"@roots/bud@workspace:*, @roots/bud@workspace:sources/@roots/bud":
   version: 0.0.0-use.local
   resolution: "@roots/bud@workspace:sources/@roots/bud"
   dependencies:
