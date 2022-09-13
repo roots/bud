@@ -12,7 +12,7 @@ export interface Options {
 }
 
 export interface ncc {
-  (entry: string, options: Options): Promise<any>
+  (entry: string, options: any): Promise<any>
 }
 
 export const ncc: ncc = vercelImport as ncc

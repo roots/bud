@@ -58,7 +58,7 @@ export default class Build extends Service.Base implements Base.Service {
     try {
       await this.app.hooks.fire(`build.before`)
     } catch (error) {
-      this.app.error(error)
+      this.logger.error(error)
     }
 
     await import(`./config/builder.js`).then(
@@ -69,13 +69,14 @@ export default class Build extends Service.Base implements Base.Service {
           Object.entries(obj).map(async ([prop, factory]) => {
             const value = await factory(this.app)
             if (isUndefined(value)) return
-            this.app.success(`built`, prop).info(value)
+            this.logger.success(`built`, prop)
+            this.logger.info(value)
             this.config[prop] = value
           }),
         ),
     )
 
-    this.app.success(`configuration successfully built`)
+    this.logger.success(`configuration successfully built`)
 
     await this.app.hooks.fire(`build.after`)
     return this.config

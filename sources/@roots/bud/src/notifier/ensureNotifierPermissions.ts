@@ -6,8 +6,6 @@ import {notifierPath} from './notifierPath.js'
 
 /**
  * Ensure notifier permissions (macOS)
- *
- * @param context - application context
  * @public
  */
 export default async function ensureNotifierPermissions() {

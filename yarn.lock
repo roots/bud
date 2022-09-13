@@ -4313,6 +4313,7 @@ __metadata:
   resolution: "@repo/logger@workspace:sources/@repo/logger"
   dependencies:
     "@jest/globals": 29.0.1
+    "@repo/constants": "workspace:sources/@repo/constants"
     "@types/node": 16.11.48
     signale: 1.4.0
   languageName: unknown
@@ -4330,6 +4331,7 @@ __metadata:
     "@types/prettier": 2.6.4
     execa: 6.1.0
     fs-extra: 10.1.0
+    globby: 13.1.2
     handlebars: 4.7.7
     helpful-decorators: 2.1.0
     json5: 2.2.1

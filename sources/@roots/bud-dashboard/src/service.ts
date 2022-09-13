@@ -75,7 +75,7 @@ export class Dashboard
     try {
       const {renderDashboard} = await import(`./render/renderer.js`)
 
-      const stats: StatsCompilation = compilationStats.toJson(`alls`)
+      const stats: StatsCompilation = compilationStats.toJson(`all`)
 
       if (!stats || stats.hash === this.lastHash) return this
       this.lastHash = stats.hash

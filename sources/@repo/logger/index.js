@@ -3,19 +3,19 @@ import Signale from 'signale'
 
 const types = {
   log: {
-    badge: '',
-    label: '',
-    color: 'white',
+    badge: ``,
+    label: ``,
+    color: `white`,
   },
   error: {
-    badge: '🚨',
-    label: '',
-    color: 'red',
+    badge: `🚨`,
+    label: ``,
+    color: `red`,
   },
   success: {
-    badge: '✔',
-    label: '',
-    color: 'green',
+    badge: `✔`,
+    label: ``,
+    color: `green`,
   },
 }
 

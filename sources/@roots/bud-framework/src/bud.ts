@@ -242,6 +242,11 @@ export class Bud {
   public async lifecycle(context: Options.Context): Promise<Bud> {
     await bootstrap.bind(this)({...context})
 
+    const logger = this.logger.instance.scope(
+      ...this.logger.scope,
+      `bootstrap`,
+    )
+
     Object.entries(LIFECYCLE_EVENT_MAP).map(
       ([eventHandle, callbackName]: [
         keyof Registry.EventsStore,
@@ -256,10 +261,10 @@ export class Bud {
               eventHandle,
               service[callbackName].bind(service),
             )
-            this.success(
+            logger.success(
               `registered service callback:`,
               `${label}.${callbackName}`,
-            ).info(service[callbackName])
+            )
           }),
     )
 
@@ -275,7 +280,8 @@ export class Bud {
       await promised
       await this.hooks
         .fire(event)
-        .catch(error => this.error(`error on`, event, error))
+        .catch(error => logger.error(`error on`, event, error))
+        .finally(() => logger.success(event))
     }, Promise.resolve())
 
     this.hooks.action(`config.after`, override)
@@ -374,9 +380,6 @@ export class Bud {
    */
   @bind
   public error(...messages: Array<any>): Bud {
-    if (this.isProduction)
-      this.fatal(messages.map(msg => this.json.stringify(msg)).join(`\n`)) // throws error
-
     if (this.logger?.instance)
       this.logger.instance.error(...this.formatLogMessages(messages))
 

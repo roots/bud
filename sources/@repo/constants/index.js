@@ -1,4 +1,5 @@
 import {createRequire} from 'node:module'
+import {fileURLToPath} from 'node:url'
 import {join} from 'path'
 
 /**
@@ -9,7 +10,7 @@ import {join} from 'path'
 // @ts-ignore
 export const REPO_PATH = (
   import.meta?.url && typeof import.meta.url !== `undefined`
-    ? import.meta.url.replace(`file:/`, ``)
+    ? fileURLToPath(import.meta.url)
     : __dirname
 )
   .split(`sources/`)
