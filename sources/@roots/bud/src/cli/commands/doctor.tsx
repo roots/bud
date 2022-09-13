@@ -1,4 +1,4 @@
-import {Command, Option} from 'clipanion'
+import {Command} from 'clipanion'
 import {bind} from 'helpful-decorators'
 import {Box, Text} from 'ink'
 import React from 'react'
@@ -44,25 +44,8 @@ for a lot of edge cases so it might return a false positive.
     ],
   })
 
+  public dry = true
   public notify = false
-
-  /**
-   * --basedir
-   * @public
-   */
-  public basedir = Option.String(`--basedir,--cwd`, undefined, {
-    description: `project base directory`,
-    hidden: true,
-  })
-
-  /**
-   * -- dry
-   * @public
-   */
-  public dry = Option.Boolean(`--dry`, true, {
-    description: `Run without webpack or server process`,
-    hidden: true,
-  })
 
   /**
    * Command execute

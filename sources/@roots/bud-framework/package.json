@@ -51,7 +51,8 @@
     "./parsers": "./lib/parsers/index.js",
     "./parsers/*": "./lib/parsers/*.js",
     "./service": "./lib/service.js",
-    "./services/*": "./lib/services/*.js"
+    "./services/*": "./lib/services/*.js",
+    "./value": "./lib/value.js"
   },
   "typesVersions": {
     "*": {
@@ -111,6 +112,9 @@
       "registry/*": [
         "./lib/types/registry/*.d.ts",
         "./lib/types/registry/*/index.d.ts"
+      ],
+      "value": [
+        "./lib/value.d.ts"
       ],
       "config": [
         "./lib/types/config/index.d.ts"

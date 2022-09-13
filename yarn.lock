@@ -4992,9 +4992,12 @@ __metadata:
   resolution: "@roots/bud-prettier@workspace:sources/@roots/bud-prettier"
   dependencies:
     "@jest/globals": 29.0.1
+    "@roots/bud": "workspace:*"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@skypack/package-check": 0.2.2
     "@types/node": 16.11.48
+    clipanion: 3.2.0-rc.11
+    execa: 6.1.0
     prettier: 2.7.1
     tslib: 2.4.0
   peerDependencies:
@@ -6265,6 +6268,7 @@ __metadata:
     "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-eslint": "workspace:sources/@roots/bud-eslint"
     "@roots/bud-preset-recommend": "workspace:sources/@roots/bud-preset-recommend"
+    "@roots/bud-prettier": "workspace:sources/@roots/bud-prettier"
     "@roots/bud-tailwindcss": "workspace:sources/@roots/bud-tailwindcss"
   languageName: unknown
   linkType: soft

@@ -16,7 +16,7 @@ tags: [release]
 
 You can now specify copy options to apply to all copy patterns as a second parameter.
 
-In this example we'll redefine the `context` for each item:
+So the second parameter will be merged onto each pattern:
 
 ```ts
 bud.assets(
@@ -200,15 +200,11 @@ Start a repl to play around with bud: `$ bud repl`
 
 Some example queries you may wish to try:
 
-`$ bud.hooks.events.store`
-
-`$ bud.extensions.get('webpack:define-plugin')`
-
-`$ bud.make('test').then(bud => bud.get('test').label)`
-
-`$ bud.extensions.make()`
-
-`$ bud.hooks.filter('build.optimization')`
+- `$ bud.hooks.events.store`
+- `$ bud.extensions.get('webpack:define-plugin')`
+- `$ bud.make('test').then(bud => bud.get('test').label)`
+- `$ bud.extensions.make()`
+- `$ bud.hooks.filter('build.optimization')`
 
 ### bud view
 
@@ -296,13 +292,14 @@ So far a few commands have been implemented:
 - `yarn bud ts check` will typecheck source assets (registered by `@roots/bud-typescript`).
 - `yarn bud lint` will lint source assets (registered by `@roots/bud-eslint`).
 - `yarn bud tailwindcss` will transpile tailwindcss (registered by `@roots/bud-tailwindcss`).
+- `yarn bud format` will format source assets (registered by `@roots/bud-prettier`).
 
 ## ✨ Improve: builds now labeled by package.json `name` field
 
 In earlier versions of bud.js the `bud.label` property was always set to `bud` (for the parent compiler). Now, it will be set to the `name` field
-of your project (as set in `package.json`).
+of your project (as set in `package.json`). If you don't have a `name` set the new default is `default`.
 
-In addition to the clear output summary labeling (see above), you should also find that logs are better labeled now:
+In addition to the clearer output summary labeling (see above), you should also find that logs are better labeled now:
 
 ```
 [bud@6.4.0] [my-project] › importing @roots/bud-terser/css-minimizer
