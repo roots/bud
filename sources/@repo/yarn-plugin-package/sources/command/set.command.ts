@@ -17,7 +17,7 @@ export abstract class Set extends Command {
   public _value = Option.String()
 
   public get value() {
-    return JSON.parse(this._value)
+    return this._value
   }
 
   public async execute() {
