@@ -57,17 +57,6 @@ export class Notifier {
   }
 
   /**
-   * Class constructor
-   *
-   * @public
-   */
-  public constructor(public app: Bud) {
-    this.notificationCenter = new NotificationCenter({
-      customPath: notifierPath,
-    })
-  }
-
-  /**
    * Notice title
    *
    * @public
@@ -90,7 +79,9 @@ export class Notifier {
    * @public
    */
   public get message() {
-    return this.jsonStats?.errors?.length > 0
+    return this.jsonStats.errorsCount +
+      this.jsonStats.children.reduce((a, c) => a + c.errorsCount, 0) >
+      0
       ? `Compiled with errors`
       : `Compiled without errors`
   }
@@ -102,6 +93,17 @@ export class Notifier {
    */
   public get open(): string {
     return this.app.hooks.filter(`dev.url`).origin
+  }
+
+  /**
+   * Class constructor
+   *
+   * @public
+   */
+  public constructor(public app: Bud) {
+    this.notificationCenter = new NotificationCenter({
+      customPath: notifierPath,
+    })
   }
 
   /**
@@ -186,22 +188,6 @@ export class Notifier {
   public async notify() {
     this.app.info(`notification center called`)
 
-    const errors = this.jsonStats.errors
-
-    try {
-      if (errors?.length && this.app.context.args.editor)
-        this.openEditor(errors)
-    } catch (err) {
-      this.app.warn(err)
-    }
-
-    try {
-      if (this.app.context.args.browser && !errors?.length)
-        await this.openBrowser()
-    } catch (err) {
-      this.app.warn(err)
-    }
-
     if (this.app.context.args.notify !== false) {
       this.notificationCenter.notify(
         {
@@ -213,6 +199,29 @@ export class Notifier {
         },
         this.callback,
       )
+    }
+
+    const errorsCount =
+      this.jsonStats.errorsCount +
+      this.jsonStats.children.reduce((a, c) => a + c.errorsCount, 0)
+
+    try {
+      if (errorsCount > 0 && this.app.context.args.editor)
+        this.openEditor([
+          ...this.jsonStats.errors,
+          ...this.jsonStats.children
+            ?.map(child => child.errors)
+            .reduce((a, c) => [...a, ...(c ?? [])], []),
+        ])
+    } catch (err) {
+      this.app.warn(err)
+    }
+
+    try {
+      if (this.app.context.args.browser && errorsCount > 0)
+        await this.openBrowser()
+    } catch (err) {
+      this.app.warn(err)
     }
   }
 

@@ -2,7 +2,7 @@ import type {Bud} from '@roots/bud-framework/bud'
 import {Service} from '@roots/bud-framework/service'
 import type {Compiler as Contract} from '@roots/bud-framework/services'
 import {bind} from 'helpful-decorators'
-import type {MultiCompiler, MultiStats, Stats, WebpackError} from 'webpack'
+import type {MultiCompiler, MultiStats, WebpackError} from 'webpack'
 
 /**
  * Wepback compilation controller class
@@ -20,10 +20,15 @@ export class Compiler extends Service implements Contract.Service {
   /**
    * Compiler implementation
    *
-   * @internal
+   * @public
    */
   public implementation: Contract.Service[`implementation`]
 
+  /**
+   * Compiler instance
+   *
+   * @public
+   */
   public instance: Contract.Service[`instance`]
 
   /**
@@ -55,19 +60,20 @@ export class Compiler extends Service implements Contract.Service {
 
     this.implementation = webpack.default
 
-    this.app.log(`imported webpack`, webpack.default.version)
+    this.logger.log(`imported webpack`, webpack.default.version)
 
     this.config = []
 
     if (!this.app.hasChildren) {
-      this.app.info(`no children found, processing parent instance`)
+      this.logger.log(`no children found, processing parent instance`)
       const config = await this.app.build.make()
       this.config.push(config)
     } else {
       await Promise.all(
         Object.values(this.app.children).map(async (child: Bud) => {
           const config = await child.build.make()
-          this.app.info(`child config`, child.label, child.build.config)
+          this.logger.log(`child config`, child.label)
+          this.logger.info(child.label, child.build.config)
           this.config.push(config)
         }),
       )
@@ -76,7 +82,7 @@ export class Compiler extends Service implements Contract.Service {
     await this.app.hooks.fire(`compiler.before`)
 
     if (this.app.context.args.dry) {
-      this.app.log(`running in dry mode. exiting early.`)
+      this.logger.log(`running in dry mode. exiting early.`)
       return
     }
 
@@ -88,10 +94,10 @@ export class Compiler extends Service implements Contract.Service {
         this.handleStats,
       )
 
-    this.instance.hooks.done.tap(
-      `${this.app.label}-cli-done`,
-      async () => await this.app.hooks.fire(`compiler.close`),
-    )
+    this.instance.hooks.done.tap(this.app.label, async stats => {
+      this.handleStats(stats)
+      await this.app.hooks.fire(`compiler.close`)
+    })
 
     await this.app.hooks.fire(`compiler.after`)
 
@@ -106,7 +112,7 @@ export class Compiler extends Service implements Contract.Service {
    * @decorator `@once`
    */
   @bind
-  public callback(error: Error, stats: Stats & MultiStats) {
+  public callback(error: Error, stats: MultiStats) {
     if (error) this.onError(error)
     if (stats) this.handleStats(stats)
   }
@@ -118,8 +124,9 @@ export class Compiler extends Service implements Contract.Service {
    * @decorator `@bind`
    */
   @bind
-  public handleStats(stats: Stats & MultiStats) {
+  public handleStats(stats: MultiStats) {
     if (!stats) return
+
     this.stats = stats
     this.app.dashboard.stats({stats})
   }
@@ -146,6 +153,8 @@ export class Compiler extends Service implements Contract.Service {
     this.app.isDevelopment &&
       this.app.server.appliedMiddleware?.hot?.publish({error})
 
-    this.app.error(error)
+    this.logger.error(error)
+
+    process.exitCode = 1
   }
 }

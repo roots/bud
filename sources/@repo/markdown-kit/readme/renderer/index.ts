@@ -10,27 +10,27 @@ export async function registerPartials() {
     `${REPO_PATH}/sources/@repo/markdown-kit/readme/partials/*.md`,
   )
 
-  log('partials on disk', sources)
+  log(`partials on disk`, sources)
 
   const partials = await sources.reduce(async (promised, path) => {
     const dictionary = await promised
     const templateSource = await fs.readFile(path).then(String)
     return {
       ...dictionary,
-      [`${path.split('/').pop().split('.').shift()}`]: templateSource,
+      [`${path.split(`/`).pop().split(`.`).shift()}`]: templateSource,
     }
   }, Promise.resolve({}))
 
-  log('partials registered', partials)
+  log(`partials registered`, partials)
 
   hb.registerPartial(partials)
 }
 
 export async function registerHelpers() {
-  hb.registerHelper('dotPath', function (context, options) {
+  hb.registerHelper(`dotPath`, function (context, options) {
     return `${options.fn(this).replace(/\./, options.data.root.name)}`
   })
-  hb.registerHelper('raw', function (options) {
+  hb.registerHelper(`raw`, function (options) {
     return options.fn(this)
   })
 }
@@ -48,11 +48,11 @@ export async function getTemplates(): Promise<
     const template = hb.compile(templateSource)
     return {
       ...dictionary,
-      [`${path.split('/').pop().split('.').shift()}`]: template,
+      [`${path.split(`/`).pop().split(`.`).shift()}`]: template,
     }
   }, Promise.resolve({}))
 
-  log('template created', templates)
+  log(`template created`, templates)
 
   return templates
 }
@@ -64,7 +64,7 @@ export async function render(
 ) {
   const result = template(data)
 
-  await fs.writeFile(dest, format(result, {parser: 'markdown'}), {
-    encoding: 'utf8',
+  await fs.writeFile(dest, format(result, {parser: `markdown`}), {
+    encoding: `utf8`,
   })
 }

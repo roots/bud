@@ -41,6 +41,5 @@
   "prettier.prettierPath": ".yarn/sdks/prettier",
   "typescript.tsdk": ".yarn/sdks/typescript",
   "typescript.enablePromptUseWorkspaceTsdk": true,
-  "spellright.language": ["en"],
-  "spellright.documentTypes": ["markdown", "latex"]
+  "markdown.experimental.validate.ignoreLinks": ["{{{documentation}}}"]
 }

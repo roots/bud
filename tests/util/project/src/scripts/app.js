@@ -8,5 +8,4 @@ const init = () =>
   })
 
 init()
-
 module?.hot?.accept()

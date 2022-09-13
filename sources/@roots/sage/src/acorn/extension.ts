@@ -25,12 +25,15 @@ export default class Acorn extends Extension {
      * `@roots/bud-build` places them, by default, in `@dist/svg/`
      */
     this.app.build.rules.svg.setGenerator(this.svgGenerator)
+    this.logger.success(`set svg generator path`)
 
     /**
      * Write hmr.json
      */
-    this.app.isDevelopment &&
+    if (this.app.isDevelopment) {
       this.app.hooks.action(`compiler.close`, eventCompilerDone)
+      this.logger.success(`registered compiler.close callback`)
+    }
   }
 
   /**
@@ -41,12 +44,17 @@ export default class Acorn extends Extension {
     this.app.extensions
       .get(`@roots/bud-entrypoints`)
       .setOption(`publicPath`, ``)
+    this.logger.success(`unset entrypoints publicPath`)
 
     this.app.extensions
       .get(`webpack-manifest-plugin`)
       .setOption(`publicPath`, ``)
+    this.logger.success(`unset manifest publicPath`)
 
-    this.app.isDevelopment && this.app.setPublicPath(`/`)
+    if (this.app.isDevelopment) {
+      this.app.setPublicPath(`/`)
+      this.logger.success(`set publicPath to / for dev`)
+    }
   }
 
   /**
