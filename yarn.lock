@@ -6268,7 +6268,6 @@ __metadata:
     "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-eslint": "workspace:sources/@roots/bud-eslint"
     "@roots/bud-preset-recommend": "workspace:sources/@roots/bud-preset-recommend"
-    "@roots/bud-prettier": "workspace:sources/@roots/bud-prettier"
     "@roots/bud-tailwindcss": "workspace:sources/@roots/bud-tailwindcss"
   languageName: unknown
   linkType: soft
