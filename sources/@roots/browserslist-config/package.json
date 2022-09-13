@@ -30,6 +30,7 @@
   },
   "files": [
     "index.cjs",
+    "broad.cjs",
     "current.cjs"
   ],
   "main": "./index.cjs",
@@ -37,6 +38,7 @@
   "types": "./types.d.ts",
   "exports": {
     ".": "./index.cjs",
+    "./broad": "./broad.cjs",
     "./current": "./current.cjs"
   },
   "devDependencies": {

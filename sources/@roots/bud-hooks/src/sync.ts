@@ -1,9 +1,9 @@
+import type {Bud} from '@roots/bud-framework/bud'
 import type {
   SyncCallback,
   SyncRegistry,
   SyncStore,
 } from '@roots/bud-framework/registry'
-import type {Bud} from '@roots/bud-framework/src'
 import {bind} from 'helpful-decorators'
 import {isFunction} from 'lodash-es'
 
@@ -12,52 +12,37 @@ import Hooks from './base.js'
 /**
  * Synchronous hooks registry
  *
- * @remarks
- * Supports sync values
- *
  * @public
  */
 export default class Sync extends Hooks<SyncStore> {
   /**
-   * Register a function to filter a value.
-   *
-   * @remarks
-   * If a filter calls for this name the function is then run,
-   * passing whatever data along for modification. If more than one
-   * hook is registered to a name, they will be called sequentially
-   * in the order they were registered, with each hook's output used
-   * as the input for the next.
-   *
-   * @example
-   * ```js
-   * app.hooks.on(
-   *   'namespace.key',
-   *   value => 'replaced by this string',
-   * )
-   * ```
+   * Set a value
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public set<T extends keyof SyncStore>(
+  public set<T extends keyof SyncStore & string>(
     id: T,
-    input: SyncCallback[T],
+    input: SyncRegistry[T],
   ): Bud {
-    const value = this.app.value.make(input)
-    if (this.store[id]) this.store[id].push(value)
-    else this.store[id] = [value]
+    if (this.has(id) && isFunction(input)) {
+      this.store[id].push(this.app.value.make(input))
+    } else {
+      this.store[id] = [this.app.value.make(input)]
+    }
+
     return this.app
   }
 
   /**
-   * Set multiple hooks at once.
+   * Set multiple values
    *
-   * @param map - Hooks map
    * @public
+   * @decorator `@bind`
    */
   @bind
-  public setRecords<K extends keyof SyncRegistry>(
+  public setRecords<K extends keyof SyncRegistry & string>(
     map: Partial<SyncCallback>,
   ): Bud {
     Object.entries(map).map(([k, v]: [K, SyncRegistry[K]]) =>
@@ -68,15 +53,7 @@ export default class Sync extends Hooks<SyncStore> {
   }
 
   /**
-   * Filter value
-   *
-   * @example
-   * ```js
-   * bud.hooks.filter(
-   *   'namespace.Key.event',
-   *   ['array', 'of', 'items'],
-   * )
-   * ```
+   * Get a value
    *
    * @public
    * @decorator `@bind`
@@ -88,7 +65,7 @@ export default class Sync extends Hooks<SyncStore> {
   ) {
     if (!this.has(id)) return isFunction(fallback) ? fallback() : fallback
 
-    return this.store[id]
+    return (this.store[id] ?? [])
       .map(this.app.value.get)
       .reduce(
         (accumulated, current) =>

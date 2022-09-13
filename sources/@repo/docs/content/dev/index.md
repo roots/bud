@@ -23,7 +23,7 @@ yarn
 
 Generally speaking, you will probably want to use vscode and utilize the recommended extensions. Not mandatory, but definitely recommended.
 
-## Building
+## Development
 
 You can start up tsc, jest and docusaurus in `--watch` mode with one command:
 
@@ -31,15 +31,15 @@ You can start up tsc, jest and docusaurus in `--watch` mode with one command:
 yarn @bud dev
 ```
 
-You can also just build the packages and exit with:
+Build the packages:
 
 ```sh
-yarn @bud tsc
+yarn @bud build
 ```
 
 ## Testing
 
-Unit and integration tests are run with swc-jest.
+Unit and integration tests are run with `swc-jest`.
 
 Most tests are stored in `tests/`.
 
@@ -53,6 +53,12 @@ yarn @bud test unit  --verbose
 
 ```sh
 yarn @bud test integration --verbose
+```
+
+### E2E testing
+
+```sh
+yarn @bud test e2e --verbose
 ```
 
 ## Linting

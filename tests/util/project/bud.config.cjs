@@ -1,14 +1,8 @@
 module.exports = async app => {
   app
-    .entry({
-      app: [`scripts/app`, `styles/app`],
-      app2: [`styles/app`],
-    })
+    .entry({app: [`scripts/app`, `styles/app`]})
     .copy([[`images`, `images`]])
-    .template({
-      cache: true,
-      replace: {APP_TITLE: `Bud`},
-    })
+    .template({replace: {APP_TITLE: `Bud`}})
     .devtool(false)
     .watch([`index.html`, `images`])
     .serve(3015)

@@ -20,21 +20,20 @@ export const inject = (
       entrypoints = missing ? {app: {import: [`index`]}} : entrypoints
     }
 
-    entrypoints = {
-      ...entrypoints,
-      [`dev-client`]: {
-        import: injection.map(inject => inject(app)).filter(Boolean),
-      },
-    }
-
     return Object.entries(entrypoints).reduce(
       (entrypoints, [name, entry]) => {
         if (!entry) return entrypoints
 
-        if (name !== `dev-client`)
-          entry.dependOn = [`dev-client`, ...(entry.dependOn ?? [])]
-
-        return {...entrypoints, [name]: entry}
+        return {
+          ...entrypoints,
+          [name]: {
+            ...entry,
+            import: [
+              ...injection.map(fn => fn(app)),
+              ...entry.import,
+            ].filter(Boolean),
+          },
+        }
       },
       {},
     )

@@ -1,4 +1,4 @@
-import {Command, Option} from 'clipanion'
+import {Command} from 'clipanion'
 import {bind} from 'helpful-decorators'
 import {Box, Text} from 'ink'
 import React from 'react'
@@ -14,7 +14,6 @@ import BaseCommand from './base.js'
 export default class DoctorCommand extends BaseCommand {
   /**
    * Command paths
-   *
    * @public
    */
   public static paths = [[`doctor`]]
@@ -44,25 +43,11 @@ for a lot of edge cases so it might return a false positive.
     ],
   })
 
-  public notify = false
+  public dry = true
 
-  /**
-   * --basedir
-   * @public
-   */
-  public basedir = Option.String(`--basedir,--cwd`, undefined, {
-    description: `project base directory`,
-    hidden: true,
-  })
-
-  /**
-   * -- dry
-   * @public
-   */
-  public dry = Option.Boolean(`--dry`, true, {
-    description: `Run without webpack or server process`,
-    hidden: true,
-  })
+  public get args() {
+    return {...this.context.args, dry: true}
+  }
 
   /**
    * Command execute
@@ -75,6 +60,7 @@ for a lot of edge cases so it might return a false positive.
         <Text>Checking configuration...</Text>
       </Box>,
     )
+
     await this.checkConfiguration()
 
     this.renderOnce(
@@ -87,7 +73,7 @@ for a lot of edge cases so it might return a false positive.
 
   @bind
   public async checkConfiguration() {
-    const conf = this.app.build.config
+    const conf = this.app.build.make()
 
     if (!conf) {
       return this.renderOnce(
@@ -112,8 +98,6 @@ for a lot of edge cases so it might return a false positive.
           <Text>{error?.message ?? error}</Text>
         </Box>,
       )
-
-      this.app.error(error)
     }
   }
 

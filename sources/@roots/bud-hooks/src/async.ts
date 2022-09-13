@@ -10,31 +10,13 @@ import {isFunction, isUndefined} from 'lodash-es'
 import Hooks from './base.js'
 
 /**
- * Synchronous hooks registry
- *
- * @remarks
- * Supports sync values
+ * Asynchronous hooks registry
  *
  * @public
  */
 export default class Async extends Hooks<AsyncStore> {
   /**
-   * Register a function to filter a value.
-   *
-   * @remarks
-   * If a filter calls for this name the function is then run,
-   * passing whatever data along for modification. If more than one
-   * hook is registered to a name, they will be called sequentially
-   * in the order they were registered, with each hook's output used
-   * as the input for the next.
-   *
-   * @example
-   * ```js
-   * app.hooks.on(
-   *   'namespace.key',
-   *   value => 'replaced by this string',
-   * )
-   * ```
+   * Set a value
    *
    * @public
    * @decorator `@bind`
@@ -44,11 +26,21 @@ export default class Async extends Hooks<AsyncStore> {
     id: T,
     input: AsyncCallback[T],
   ): Bud {
-    const value = this.app.value.make(input)
-    this.store[id] = [...(this.store[id] ?? []), value] as AsyncStore[T]
+    if (this.has(id) && isFunction(input)) {
+      this.store[id].push(this.app.value.make(input))
+    } else {
+      this.store[id] = [this.app.value.make(input)]
+    }
+
     return this.app
   }
 
+  /**
+   * Set multiple values
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public setRecords(map: Partial<AsyncCallback>): Bud {
     Object.entries(map).map(([k, v]: any) => this.set(k, v))
@@ -56,18 +48,7 @@ export default class Async extends Hooks<AsyncStore> {
   }
 
   /**
-   * Asyncronous hook filter
-   *
-   * @remarks
-   * This method is used to filter a hook event.
-   *
-   * @example
-   * ```js
-   * bud.hooks.filter(
-   *   'namespace.Key.event',
-   *   ['array', 'of', 'items'],
-   * )
-   * ```
+   * Get a value
    *
    * @public
    * @decorator `@bind`
