@@ -1,6 +1,8 @@
 import type * as Options from '@roots/bud-framework/options'
 import {BaseContext, Command, Option} from 'clipanion'
 import {bind, once} from 'helpful-decorators'
+import {Box, render} from 'ink'
+import React from 'react'
 import * as t from 'typanion'
 
 import type Bud from '../../bud.js'
@@ -173,12 +175,7 @@ export default class BaseCommand extends Command {
 
   @bind
   public async renderOnce(children: React.ReactElement) {
-    if (!this.Ink) this.Ink = await import(`ink`)
-
-    const {React, Ink} = this
-
-    this.log !== false &&
-      Ink.render(<Ink.Box>{children}</Ink.Box>).unmount()
+    this.log !== false && render(<Box>{children}</Box>).unmount()
   }
 
   /**
@@ -189,11 +186,7 @@ export default class BaseCommand extends Command {
    */
   @bind
   public async render(box: React.ReactElement) {
-    if (!this.Ink) this.Ink = await import(`ink`)
-
-    const {Ink} = this
-
-    return this.log !== false && Ink.render(box)
+    return this.log !== false && render(box)
   }
 
   /**
@@ -218,6 +211,10 @@ export default class BaseCommand extends Command {
 
     if (this.runCommand) await this.runCommand()
 
-    this.app.hooks.action(`compiler.close`, new Notifier(this.app).notify)
+    if (this.notify !== false)
+      this.app.hooks.action(
+        `compiler.close`,
+        new Notifier(this.app).notify,
+      )
   }
 }
