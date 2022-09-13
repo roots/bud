@@ -45,7 +45,7 @@
     "@jest/globals": "29.0.1",
     "@skypack/package-check": "0.2.2",
     "@types/fs-extra": "9.0.13",
-    "@types/lodash": "4.14.184",
+    "@types/lodash": "4.14.185",
     "@types/node": "16.11.48",
     "webpack": "5.73.0"
   },
