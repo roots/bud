@@ -1,5 +1,5 @@
-import {bind} from 'helpful-decorators'
-import isEqual from 'lodash-es/isEqual.js'
+import {bind} from '@roots/bud-support/decorators'
+import {isEqual} from '@roots/bud-support/lodash-es'
 import Signale, {SignaleConfig, SignaleOptions} from 'signale'
 
 import type {Bud} from '../bud.js'

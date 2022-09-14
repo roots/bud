@@ -1,5 +1,19 @@
+import {
+  get,
+  has,
+  isArray,
+  isEmpty,
+  isEqual,
+  isFunction,
+  isNull,
+  isNumber,
+  isString,
+  isUndefined,
+  set,
+  size,
+  uniq,
+} from '@roots/bud-support/lodash-es'
 import {bind} from 'helpful-decorators'
-import _ from 'lodash-es'
 import type {ValueOf} from 'type-fest'
 
 import {mergeable} from './utilities.js'
@@ -73,7 +87,7 @@ export default class Container<I = any> {
    */
   @bind
   public setStore(repository: Repository): this {
-    if (_.isUndefined(repository)) {
+    if (isUndefined(repository)) {
       throw new Error(`Repository cannot be empty`)
     }
 
@@ -164,7 +178,7 @@ export default class Container<I = any> {
    */
   @bind
   public get<T = any>(key: string | Array<string>) {
-    return _.get(this.repository, key) as T
+    return get(this.repository, key) as T
   }
 
   /**w
@@ -358,7 +372,7 @@ export default class Container<I = any> {
    */
   @bind
   public set(key: string | Array<string>, value: any): this {
-    _.set(this.repository, key, value)
+    set(this.repository, key, value)
 
     return this
   }
@@ -382,11 +396,11 @@ export default class Container<I = any> {
 
     const value = this.get(key)
 
-    if (!_.isArray(value)) {
+    if (!isArray(value)) {
       throw new Error(`${key} is not an array`)
     }
 
-    return _.uniq(value)
+    return uniq(value)
   }
 
   /**
@@ -461,8 +475,8 @@ export default class Container<I = any> {
         `${key} is a ${typeof existent} and cannot be merged with`,
       )
 
-    if (_.isArray(value)) {
-      if (!_.isArray(existent)) {
+    if (isArray(value)) {
+      if (!isArray(existent)) {
         throw new Error(
           `${key} is not an array and cannot have an array merged onto it`,
         )
@@ -490,7 +504,7 @@ export default class Container<I = any> {
    */
   @bind
   public has(key: string): boolean {
-    return _.has(this.repository, key)
+    return has(this.repository, key)
   }
 
   /**
@@ -528,7 +542,7 @@ export default class Container<I = any> {
    */
   @bind
   public is(key: string, value: any): boolean {
-    return _.isEqual(this.get(key), value)
+    return isEqual(this.get(key), value)
   }
 
   /**
@@ -550,10 +564,10 @@ export default class Container<I = any> {
         throw new Error(`${key} does not exist in the container`)
       }
 
-      return _.size(this.get(key))
+      return size(this.get(key))
     }
 
-    return _.size(this.repository)
+    return size(this.repository)
   }
 
   /**
@@ -613,7 +627,7 @@ export default class Container<I = any> {
    */
   @bind
   public isArray(key: string): boolean {
-    return this.has(key) && _.isArray(this.get(key))
+    return this.has(key) && isArray(this.get(key))
   }
 
   /**
@@ -633,7 +647,7 @@ export default class Container<I = any> {
    */
   @bind
   public isNotArray(key: string): boolean {
-    return this.has(key) && !_.isArray(this.get(key))
+    return this.has(key) && !isArray(this.get(key))
   }
 
   /**
@@ -653,7 +667,7 @@ export default class Container<I = any> {
    */
   @bind
   public isString(key: string): boolean {
-    return this.has(key) && _.isString(this.get(key))
+    return this.has(key) && isString(this.get(key))
   }
 
   /**
@@ -673,7 +687,7 @@ export default class Container<I = any> {
    */
   @bind
   public isNotString(key: string): boolean {
-    return this.has(key) && !_.isString(this.get(key))
+    return this.has(key) && !isString(this.get(key))
   }
 
   /**
@@ -693,7 +707,7 @@ export default class Container<I = any> {
    */
   @bind
   public isNumber(key: string): boolean {
-    return this.has(key) && _.isNumber(this.get(key))
+    return this.has(key) && isNumber(this.get(key))
   }
 
   /**
@@ -713,7 +727,7 @@ export default class Container<I = any> {
    */
   @bind
   public isNotNumber(key: string): boolean {
-    return this.has(key) && !_.isNumber(this.get(key))
+    return this.has(key) && !isNumber(this.get(key))
   }
 
   /**
@@ -730,7 +744,7 @@ export default class Container<I = any> {
    */
   @bind
   public isNull(key: string): boolean {
-    return this.has(key) && _.isNull(this.get(key))
+    return this.has(key) && isNull(this.get(key))
   }
 
   /**
@@ -750,7 +764,7 @@ export default class Container<I = any> {
    */
   @bind
   public isNotNull(key: string): boolean {
-    return this.has(key) && !_.isNull(this.get(key))
+    return this.has(key) && !isNull(this.get(key))
   }
 
   /**
@@ -771,7 +785,7 @@ export default class Container<I = any> {
    */
   @bind
   public isDefined(key: string): boolean {
-    return this.has(key) && !_.isUndefined(this.get(key))
+    return this.has(key) && !isUndefined(this.get(key))
   }
 
   /**
@@ -791,7 +805,7 @@ export default class Container<I = any> {
    */
   @bind
   public isUndefined(key: string): boolean {
-    return !this.has(key) || _.isUndefined(this.get(key))
+    return !this.has(key) || isUndefined(this.get(key))
   }
 
   /**
@@ -811,7 +825,7 @@ export default class Container<I = any> {
    */
   @bind
   public isFunction(key: string): boolean {
-    return this.has(key) && _.isFunction(this.get(key))
+    return this.has(key) && isFunction(this.get(key))
   }
 
   /**
@@ -831,7 +845,7 @@ export default class Container<I = any> {
    */
   @bind
   public isNotFunction(key: string): boolean {
-    return this.has(key) && !_.isFunction(this.get(key))
+    return this.has(key) && !isFunction(this.get(key))
   }
 
   /**
@@ -945,10 +959,10 @@ export default class Container<I = any> {
   @bind
   public isEmpty(key?: string): boolean {
     if (key) {
-      return this.has(key) && _.isEmpty(this.get(key))
+      return this.has(key) && isEmpty(this.get(key))
     }
 
-    return _.isEmpty(this.repository)
+    return isEmpty(this.repository)
   }
 
   /**
@@ -971,6 +985,6 @@ export default class Container<I = any> {
    */
   @bind
   public isNotEmpty(key: string): boolean {
-    return this.has(key) && !_.isEmpty(this.get(key))
+    return this.has(key) && !isEmpty(this.get(key))
   }
 }

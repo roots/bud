@@ -1,9 +1,9 @@
 import BaseCommand from '@roots/bud/cli/commands/base'
+import {Command} from '@roots/bud-support/clipanion'
+import {bind} from '@roots/bud-support/decorators'
+import execa from '@roots/bud-support/execa'
+import * as fs from '@roots/bud-support/fs'
 import chalk from 'chalk'
-import {Command} from 'clipanion'
-import {execa} from 'execa'
-import fs from 'fs-extra'
-import {bind} from 'helpful-decorators'
 
 export class BudTSCheckCommand extends BaseCommand {
   /**

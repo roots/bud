@@ -1,7 +1,7 @@
 import * as Service from '@roots/bud-framework/service'
 import type * as Base from '@roots/bud-framework/services/build'
-import {bind} from 'helpful-decorators'
-import {isFunction, isUndefined} from 'lodash-es'
+import {bind} from '@roots/bud-support/decorators'
+import {isFunction, isUndefined} from '@roots/bud-support/lodash-es'
 import type {Configuration} from 'webpack'
 
 import type {ValueFactory} from './config/builder.js'

@@ -1,4 +1,4 @@
-import {bind, memo} from 'helpful-decorators'
+import {bind, memo} from '@roots/bud-support/decorators'
 import {resolve} from 'import-meta-resolve'
 import {createRequire} from 'module'
 import {join, normalize, relative} from 'node:path'

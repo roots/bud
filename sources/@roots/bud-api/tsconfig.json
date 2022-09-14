@@ -12,6 +12,7 @@
   "include": ["src", "**/*.html"],
   "exclude": ["lib", "node_modules", "src/**/*.test.ts"],
   "references": [
-    {"path": "./../bud-framework/tsconfig.json"}
+    {"path": "./../bud-framework/tsconfig.json"},
+    {"path": "./../bud-support/tsconfig.json"},
   ]
 }

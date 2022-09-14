@@ -1,4 +1,4 @@
-import fs from 'fs-extra'
+import * as fs from '@roots/bud-support/fs'
 import yaml from 'js-yaml'
 
 export const read = async (file: string): Promise<any> => {

@@ -1,7 +1,7 @@
 import type {Bud} from '@roots/bud-framework'
 import type {Base as BuildBase} from '@roots/bud-framework/services/build'
-import {bind} from 'helpful-decorators'
-import {isFunction} from 'lodash-es'
+import {bind} from '@roots/bud-support/decorators'
+import {isFunction} from '@roots/bud-support/lodash-es'
 
 export default class Base implements BuildBase {
   /**

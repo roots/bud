@@ -1,11 +1,20 @@
-import _ from 'lodash-es'
+import {
+  isBoolean,
+  isMap,
+  isNull,
+  isNumber,
+  isSet,
+  isString,
+  isWeakMap,
+  isWeakSet,
+} from '@roots/bud-support/lodash-es'
 
 export const mergeable = (thing: unknown): boolean =>
-  !_.isString(thing) ||
-  !_.isNumber(thing) ||
-  !_.isNull(thing) ||
-  !_.isBoolean(thing) ||
-  !_.isWeakMap(thing) ||
-  !_.isMap(thing) ||
-  !_.isSet(thing) ||
-  !_.isWeakSet(thing)
+  !isString(thing) ||
+  !isNumber(thing) ||
+  !isNull(thing) ||
+  !isBoolean(thing) ||
+  !isWeakMap(thing) ||
+  !isMap(thing) ||
+  !isSet(thing) ||
+  !isWeakSet(thing)

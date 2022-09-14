@@ -1,9 +1,9 @@
 import type {Bud} from '@roots/bud-framework/bud'
 import {Box, Text} from '@roots/bud-support/ink'
 import Link from '@roots/bud-support/ink-link'
+import {isString} from '@roots/bud-support/lodash-es'
 import React from '@roots/bud-support/react'
 import figures from 'figures'
-import {isString} from 'lodash-es'
 import {networkInterfaces} from 'node:os'
 
 import * as theme from './format.js'

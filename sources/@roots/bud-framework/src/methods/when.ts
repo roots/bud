@@ -1,4 +1,4 @@
-import {isArray, isFunction} from 'lodash-es'
+import {isArray, isFunction} from '@roots/bud-support/lodash-es'
 
 import type {Bud} from '../bud.js'
 

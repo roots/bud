@@ -2,23 +2,18 @@ import type {Bud} from '@roots/bud-framework'
 
 import Base from '../shared/base.js'
 
-namespace Loader {
-  export type ConstructorOptions = string
-}
-
 /**
  * Bud Loader
  *
  * @public
  */
 export default class Loader extends Base {
-  protected declare _app: () => Bud
   /**
    * Factory returning the loader path
    *
    * @public
    */
-  public src: string | ((app: Bud) => string)
+  public src: string
 
   /**
    * Class constructor
@@ -33,12 +28,12 @@ export default class Loader extends Base {
     this.src = src
   }
 
-  public getSrc() {
-    return this.unwrap(this.src)
+  public getSrc(): string {
+    return this.src
   }
 
-  public setSrc(src: string | ((app: Bud) => string)) {
-    this.src = this.wrap(src)
+  public setSrc(src: string) {
+    this.src = src
     return this
   }
 }

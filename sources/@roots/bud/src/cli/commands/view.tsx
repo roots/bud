@@ -1,9 +1,9 @@
+import {Command, Option} from '@roots/bud-support/clipanion'
 import {Box, Static, Text} from '@roots/bud-support/ink'
+import {get} from '@roots/bud-support/lodash-es'
+import format from '@roots/bud-support/pretty-format'
 import React, {Fragment} from '@roots/bud-support/react'
 import {highlight} from 'cli-highlight'
-import {Command, Option} from 'clipanion'
-import {get} from 'lodash-es'
-import {format} from 'pretty-format'
 
 import BaseCommand from './base.js'
 

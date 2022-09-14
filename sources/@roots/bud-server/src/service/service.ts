@@ -5,7 +5,7 @@ import type {
   Middleware,
   Service as BaseService,
 } from '@roots/bud-framework/services/server'
-import {bind, once} from 'helpful-decorators'
+import {bind, once} from '@roots/bud-support/decorators'
 
 import * as clientScripts from '../hooks/dev.client.scripts.js'
 import {inject} from '../inject.js'

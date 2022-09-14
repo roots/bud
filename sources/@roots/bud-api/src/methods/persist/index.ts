@@ -1,5 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
-import {isString} from 'lodash-es'
+import {isString} from '@roots/bud-support/lodash-es'
 
 export interface persist {
   (type?: 'memory' | 'filesystem' | false): Bud

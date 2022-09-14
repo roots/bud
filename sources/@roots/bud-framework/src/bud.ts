@@ -1,5 +1,10 @@
-import {bind} from 'helpful-decorators'
-import {isFunction, isNull, isString, isUndefined} from 'lodash-es'
+import {bind} from '@roots/bud-support/decorators'
+import {
+  isFunction,
+  isNull,
+  isString,
+  isUndefined,
+} from '@roots/bud-support/lodash-es'
 
 import {bootstrap, LIFECYCLE_EVENT_MAP} from './lifecycle/bootstrap.js'
 import {override} from './lifecycle/init.js'

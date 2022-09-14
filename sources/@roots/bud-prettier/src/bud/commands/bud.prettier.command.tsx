@@ -1,7 +1,7 @@
 import BaseCommand from '@roots/bud/cli/commands/base'
 import {bind} from '@roots/bud-framework/extension/decorators'
-import {Command, Option} from 'clipanion'
-import {execa} from 'execa'
+import {Command, Option} from '@roots/bud-support/clipanion'
+import execa from '@roots/bud-support/execa'
 import {join, resolve} from 'node:path'
 
 export class BudPrettierCommand extends BaseCommand {

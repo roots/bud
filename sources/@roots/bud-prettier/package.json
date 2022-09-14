@@ -65,8 +65,7 @@
   "dependencies": {
     "@roots/bud": "workspace:*",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "clipanion": "3.2.0-rc.11",
-    "execa": "6.1.0",
+    "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "prettier": "2.7.1",
     "tslib": "2.4.0"
   },

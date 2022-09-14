@@ -1,6 +1,6 @@
 import {Extension} from '@roots/bud-framework/extension'
 import {bind, label} from '@roots/bud-framework/extension/decorators'
-import fs from 'fs-extra'
+import * as fs from '@roots/bud-support/fs'
 import stripAnsi from 'strip-ansi'
 
 /**
@@ -43,7 +43,7 @@ export default class InvalidateCacheExtension extends Extension {
         this.label,
         async compiler => {
           if (!compiler.hasErrors()) return
-          await fs.writeJSON(this.file, {
+          await fs.writeJson(this.file, {
             hash: compiler.hash,
             errors: compiler.stats.flatMap(stats =>
               stats

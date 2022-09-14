@@ -1,6 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
-import {bind} from 'helpful-decorators'
-import {isFunction, sortBy} from 'lodash-es'
+import {bind} from '@roots/bud-support/decorators'
+import {isFunction, sortBy} from '@roots/bud-support/lodash-es'
 
 /**
  * User config parser

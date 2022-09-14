@@ -1,5 +1,5 @@
-import fs from 'fs-extra'
-import {bind} from 'helpful-decorators'
+import {bind} from '@roots/bud-support/decorators'
+import * as fs from '@roots/bud-support/fs'
 import {dirname, join, resolve, sep} from 'node:path/posix'
 import {fileURLToPath} from 'node:url'
 

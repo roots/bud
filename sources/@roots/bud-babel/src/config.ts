@@ -1,5 +1,5 @@
 import {bind} from '@roots/bud-framework/extension/decorators'
-import {isUndefined} from 'lodash-es'
+import {isUndefined} from '@roots/bud-support/lodash-es'
 
 /**
  * Babel transpiler options
@@ -90,13 +90,13 @@ export class Config {
    * @decorator `@bind`
    */
   @bind
-  public setPreset(name: string, preset: [string, any] | string): this {
-    if (Array.isArray(preset)) {
-      this.presets[name] = preset
+  public setPreset(name: string, preset?: [string, any] | string): this {
+    if (!preset) {
+      this.presets[name] = [name]
       return this
     }
 
-    this.presets[name] = [preset]
+    this.presets[name] = Array.isArray(preset) ? preset : [preset]
     return this
   }
 
@@ -173,13 +173,25 @@ export class Config {
    * @decorator `@bind`
    */
   @bind
-  public setPlugin(name: string, plugin: [any, any] | string): this {
-    if (Array.isArray(plugin)) {
-      this.plugins[name] = plugin
+  public setPlugin(
+    name: string | [any, any],
+    plugin?: [any, any] | string,
+  ): this {
+    if (!plugin && Array.isArray(name)) {
+      this.plugins[name[0]] = name
       return this
     }
 
-    this.plugins[name] = [plugin]
+    if (!plugin && !Array.isArray(name)) {
+      this.plugins[name] = [name]
+      return this
+    }
+
+    if (Array.isArray(name)) {
+      throw Error(`Babel plugin name must be a string.`)
+    }
+
+    this.plugins[name] = Array.isArray(plugin) ? plugin : [plugin]
     return this
   }
 

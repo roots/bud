@@ -1,4 +1,4 @@
-import {omit} from 'lodash-es'
+import {omit} from '@roots/bud-support/lodash-es'
 
 import {Bud} from '../bud.js'
 import {Logger} from '../logger/index.js'

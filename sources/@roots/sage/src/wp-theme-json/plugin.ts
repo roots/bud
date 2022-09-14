@@ -1,7 +1,7 @@
 import type * as ThemeJSON from '@roots/bud-preset-wordpress/theme'
-import fs from 'fs-extra'
-import {bind} from 'helpful-decorators'
-import {omit} from 'lodash-es'
+import {bind} from '@roots/bud-support/decorators'
+import * as fs from '@roots/bud-support/fs'
+import {omit} from '@roots/bud-support/lodash-es'
 import type {Compiler, WebpackPluginInstance} from 'webpack'
 
 /**

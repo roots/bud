@@ -1,5 +1,5 @@
 import type {Constructor, Extension} from '@roots/bud-framework/extension'
-import {isEqual, isFunction} from 'lodash-es'
+import {isEqual, isFunction} from '@roots/bud-support/lodash-es'
 import {nanoid} from 'nanoid'
 
 /**

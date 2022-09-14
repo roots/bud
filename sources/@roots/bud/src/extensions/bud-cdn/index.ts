@@ -6,7 +6,11 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
-import {isFunction, isString, isUndefined} from 'lodash-es'
+import {
+  isFunction,
+  isString,
+  isUndefined,
+} from '@roots/bud-support/lodash-es'
 import Webpack from 'webpack'
 
 /**

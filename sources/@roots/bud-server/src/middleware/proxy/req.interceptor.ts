@@ -1,5 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
-import {bind} from 'helpful-decorators'
+import {bind} from '@roots/bud-support/decorators'
 import type {ClientRequest, IncomingMessage, ServerResponse} from 'http'
 
 import type {ApplicationURL} from './url.js'

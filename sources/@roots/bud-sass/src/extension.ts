@@ -5,6 +5,7 @@ import {
   dependsOnOptional,
   expose,
   label,
+  options,
 } from '@roots/bud-framework/extension/decorators'
 
 /**
@@ -17,9 +18,13 @@ import {
  * @decorator `@dependsOnOptional`
  */
 @label(`@roots/bud-sass`)
-@expose(`sass`)
 @dependsOn([`@roots/bud-sass/resolve-url`])
 @dependsOnOptional([`@roots/bud-postcss`])
+@options({
+  implementation: null,
+  sourceMap: true,
+})
+@expose(`sass`)
 export default class BudSass extends Extension {
   /**
    * `register` callback
@@ -30,7 +35,7 @@ export default class BudSass extends Extension {
   @bind
   public async register() {
     const implementation = await this.import(`sass`)
-    this.setOptions({implementation, sourceMap: true})
+    this.setOptions({implementation})
   }
 
   /**
@@ -42,9 +47,9 @@ export default class BudSass extends Extension {
   @bind
   public async configAfter() {
     this.app.build
-      .setLoader(`sass`, await this.resolve(`sass-loader`))
+      .setLoader(`sass-loader`)
       .setItem(`sass`, {
-        loader: `sass`,
+        loader: `sass-loader`,
         options: this.options,
       })
       .setRule(`sass`, {

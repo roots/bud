@@ -105,13 +105,9 @@
     "@jest/globals": "29.0.1",
     "@skypack/package-check": "0.2.2",
     "@types/braces": "3.0.1",
-    "@types/fs-extra": "9.0.13",
-    "@types/lodash": "4.14.184",
-    "@types/lodash-es": "4.17.6",
     "@types/mini-css-extract-plugin": "2.5.0",
     "@types/node": "16.11.48",
-    "@types/node-notifier": "8.0.2",
-    "@types/signale": "1.4.4"
+    "@types/node-notifier": "8.0.2"
   },
   "dependencies": {
     "@roots/browserslist-config": "workspace:sources/@roots/browserslist-config",
@@ -131,22 +127,15 @@
     "caniuse-lite": "latest",
     "clean-webpack-plugin": "^4.0.0",
     "cli-highlight": "2.1.11",
-    "clipanion": "3.2.0-rc.11",
     "conf": "10.2.0",
     "copy-webpack-plugin": "11.0.0",
     "dotenv": "16.0.1",
     "dotenv-expand": "8.0.3",
-    "execa": "6.1.0",
-    "fs-extra": "10.1.0",
-    "globby": "13.1.2",
-    "helpful-decorators": "2.1.0",
     "import-meta-resolve": "2.1.0",
-    "lodash-es": "4.17.21",
     "mini-css-extract-plugin": "^2.4.5",
     "node-notifier": "10.0.1",
     "open": "8.4.0",
     "open-editor": "4.0.0",
-    "pretty-format": "29.0.1",
     "signale": "1.4.0",
     "tslib": "2.4.0",
     "typanion": "3.9.0",
@@ -160,33 +149,6 @@
   },
   "peerDependenciesMeta": {
     "@roots/browserslist-config": {
-      "optional": true
-    },
-    "@roots/bud-api": {
-      "optional": true
-    },
-    "@roots/bud-build": {
-      "optional": true
-    },
-    "@roots/bud-cache": {
-      "optional": true
-    },
-    "@roots/bud-compiler": {
-      "optional": true
-    },
-    "@roots/bud-dashboard": {
-      "optional": true
-    },
-    "@roots/bud-extensions": {
-      "optional": true
-    },
-    "@roots/bud-framework": {
-      "optional": true
-    },
-    "@roots/bud-hooks": {
-      "optional": true
-    },
-    "@roots/bud-server": {
       "optional": true
     },
     "browserslist": {

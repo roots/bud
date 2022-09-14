@@ -1,6 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
-import {bind, once} from 'helpful-decorators'
-import {isString} from 'lodash-es'
+import {bind, once} from '@roots/bud-support/decorators'
+import {isString} from '@roots/bud-support/lodash-es'
 import {
   Notification,
   NotificationCallback,

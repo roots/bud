@@ -1,7 +1,7 @@
 import * as Base from '@roots/bud-framework/services/api'
+import {bind} from '@roots/bud-support/decorators'
+import {isEmpty, isFunction} from '@roots/bud-support/lodash-es'
 import chalk from 'chalk'
-import {bind} from 'helpful-decorators'
-import {isEmpty, isFunction} from 'lodash-es'
 
 import {factory} from '../facade/facade.factory.js'
 import * as methods from '../methods/index.js'

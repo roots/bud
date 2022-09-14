@@ -1,7 +1,6 @@
 {
   "name": "@roots/bud-support",
   "version": "0.0.0",
-  "private": true,
   "description": "👨🏽‍🍳 Internal packages for @roots/bud",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -40,15 +39,37 @@
   "module": "./lib/index.js",
   "exports": {
     ".": "./lib/index.js",
+    "./clipanion": "./lib/clipanion/index.js",
+    "./decorators": "./lib/decorators/index.js",
+    "./execa": "./lib/execa/index.js",
+    "./fs": "./lib/fs/index.js",
+    "./globby": "./lib/globby/index.js",
     "./ink": "./lib/ink/index.js",
     "./ink-link": "./lib/ink-link/index.js",
     "./ink-text-input": "./lib/ink-text-input/index.js",
+    "./lodash-es": "./lib/lodash-es/index.js",
+    "./pretty-format": "./lib/pretty-format/index.js",
     "./react": "./lib/react/index.js"
   },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.d.ts"
+      ],
+      "clipanion": [
+        "./lib/clipanion/index.d.ts"
+      ],
+      "decorators": [
+        "./lib/decorators/index.d.ts"
+      ],
+      "execa": [
+        "./lib/execa/index.d.ts"
+      ],
+      "fs": [
+        "./lib/fs/index.d.ts"
+      ],
+      "globby": [
+        "./lib/globby/index.d.ts"
       ],
       "ink": [
         "./lib/ink/index.d.ts"
@@ -59,6 +80,12 @@
       "ink-text-input": [
         "./lib/ink-text-input/index.d.ts"
       ],
+      "lodash-es": [
+        "./lib/lodash-es/index.d.ts"
+      ],
+      "pretty-format": [
+        "./lib/pretty-format/index.d.ts"
+      ],
       "react": [
         "./lib/react/index.d.ts"
       ]
@@ -66,10 +93,19 @@
   },
   "types": "./lib/index.d.ts",
   "devDependencies": {
-    "@skypack/package-check": "0.2.2",
+    "@skypack/package-check": "0.2.2"
+  },
+  "dependencies": {
+    "clipanion": "3.2.0-rc.12",
+    "execa": "6.1.0",
+    "fs-extra": "10.1.0",
+    "globby": "13.1.2",
+    "helpful-decorators": "2.1.0",
     "ink": "3.2.0",
     "ink-link": "2.0.0",
     "ink-text-input": "4.0.3",
+    "lodash-es": "4.17.21",
+    "pretty-format": "29.0.3",
     "react": "17.0.2"
   }
 }

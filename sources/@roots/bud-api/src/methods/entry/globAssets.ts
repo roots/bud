@@ -1,4 +1,4 @@
-import {globby} from 'globby'
+import globby from '@roots/bud-support/globby'
 
 export async function globAssets(search: string): Promise<Array<string>> {
   try {

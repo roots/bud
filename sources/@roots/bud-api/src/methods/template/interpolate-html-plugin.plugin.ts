@@ -1,4 +1,4 @@
-import {bind} from 'helpful-decorators'
+import {bind} from '@roots/bud-support/decorators'
 import type HtmlWebpackPlugin from 'html-webpack-plugin'
 import type {Compilation, Compiler} from 'webpack'
 

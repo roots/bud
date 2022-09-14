@@ -1,5 +1,10 @@
-import {bind} from 'helpful-decorators'
-import {has, isBoolean, isFunction, isUndefined} from 'lodash-es'
+import {bind} from '@roots/bud-support/decorators'
+import {
+  has,
+  isBoolean,
+  isFunction,
+  isUndefined,
+} from '@roots/bud-support/lodash-es'
 import type {Signale} from 'signale'
 import type {Compiler} from 'webpack'
 

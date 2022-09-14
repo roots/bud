@@ -1,12 +1,10 @@
+import {Command, Option} from '@roots/bud-support/clipanion'
+import {bind} from '@roots/bud-support/decorators'
+import {ensureDir, remove} from '@roots/bud-support/fs'
 import {Box, Text} from '@roots/bud-support/ink'
 import React from '@roots/bud-support/react'
-import {Command, Option} from 'clipanion'
-import fs from 'fs-extra'
-import {bind} from 'helpful-decorators'
 
 import BaseCommand from './base.js'
-
-const {ensureDir, remove} = fs
 
 export default class CleanCommand extends BaseCommand {
   public static paths = [[`clean`]]

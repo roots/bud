@@ -1,14 +1,13 @@
 import type {Bud} from '@roots/bud-framework/bud'
 import type {Server} from '@roots/bud-framework/services'
 import type {Connection} from '@roots/bud-framework/services/server'
-import {bind} from 'helpful-decorators'
+import {bind} from '@roots/bud-support/decorators'
 import type {
   IncomingMessage,
   Server as HttpServer,
   ServerResponse,
 } from 'node:http'
 import type {Server as HttpsServer} from 'node:https'
-import type Signale from 'signale'
 
 /**
  * Node server
@@ -47,7 +46,7 @@ export abstract class BaseServer implements Connection {
    *
    * @public
    */
-  public logger: Signale.Signale
+  public logger: Bud['logger']['instance']
 
   /**
    * Port

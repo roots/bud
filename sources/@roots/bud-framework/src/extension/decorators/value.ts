@@ -1,4 +1,4 @@
-import {isFunction, upperFirst} from 'lodash-es'
+import {isFunction, upperFirst} from '@roots/bud-support/lodash-es'
 
 export const value =
   <Value = any, Signature extends {[key: string]: any} = any>(

@@ -153,14 +153,14 @@ describe(`@roots/bud-postcss`, () => {
   })
 
   it(`registers loader`, () => {
-    expect(bud.build.loaders.postcss?.getSrc()).toContain(
-      `postcss-loader/dist/cjs.js`,
+    expect(bud.build.loaders[`postcss-loader`].getSrc()).toEqual(
+      `postcss-loader`,
     )
   })
 
   it(`registers item`, () => {
     expect(bud.build.items.postcss?.getLoader().getSrc()).toContain(
-      `postcss-loader/dist/cjs.js`,
+      `postcss-loader`,
     )
   })
 

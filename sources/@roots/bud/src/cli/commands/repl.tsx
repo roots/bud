@@ -1,9 +1,9 @@
+import {Command, Option} from '@roots/bud-support/clipanion'
 import {Box, Text} from '@roots/bud-support/ink'
 import {UncontrolledTextInput} from '@roots/bud-support/ink-text-input'
+import format from '@roots/bud-support/pretty-format'
 import React, {useState} from '@roots/bud-support/react'
 import {highlight} from 'cli-highlight'
-import {Command, Option} from 'clipanion'
-import {format} from 'pretty-format'
 
 import type Bud from '../../bud.js'
 import BaseCommand from './base.js'

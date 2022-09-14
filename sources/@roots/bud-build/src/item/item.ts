@@ -1,6 +1,6 @@
 import type {Bud} from '@roots/bud-framework/bud'
 import type * as Build from '@roots/bud-framework/services/build'
-import {bind} from 'helpful-decorators'
+import {bind} from '@roots/bud-support/decorators'
 
 import Base from '../shared/base.js'
 

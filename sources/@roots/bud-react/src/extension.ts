@@ -7,7 +7,7 @@ import {
   optIn,
   options,
 } from '@roots/bud-framework/extension/decorators'
-import {isUndefined} from 'lodash-es'
+import {isUndefined} from '@roots/bud-support/lodash-es'
 
 import type BudReactRefresh from './react-refresh/index.js'
 

@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import {Builtins, Cli, CommandClass} from 'clipanion'
+import {Builtins, Cli, CommandClass} from '@roots/bud-support/clipanion'
 
 let instance: Cli
 

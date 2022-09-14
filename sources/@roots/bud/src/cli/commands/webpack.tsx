@@ -1,5 +1,5 @@
-import {Command, Option} from 'clipanion'
-import {execa} from 'execa'
+import {Command, Option} from '@roots/bud-support/clipanion'
+import execa from '@roots/bud-support/execa'
 import {join, resolve} from 'node:path'
 
 import BaseCommand from './base.js'

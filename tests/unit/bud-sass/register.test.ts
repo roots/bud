@@ -29,7 +29,7 @@ describe(`@roots/bud-sass registration`, () => {
   })
 
   it(`adds sass loader`, () => {
-    expect(bud.build.loaders.sass?.getSrc()).toEqual(
+    expect(bud.build.loaders[`sass-loader`]?.getSrc()).toEqual(
       expect.stringContaining(`sass-loader`),
     )
   })

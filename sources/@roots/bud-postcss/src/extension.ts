@@ -5,7 +5,7 @@ import {
   label,
   once,
 } from '@roots/bud-framework/extension/decorators'
-import {isFunction, isUndefined} from 'lodash-es'
+import {isFunction, isUndefined} from '@roots/bud-support/lodash-es'
 import type {Plugin, Processor} from 'postcss'
 
 type Input =
@@ -329,12 +329,10 @@ export default class BudPostCss extends Extension {
   @once
   public async register() {
     this.setPlugins({
-      import: await this.resolve(`postcss-import`),
-      nesting: await this.resolve(`postcss-nested`),
+      import: `postcss-import`,
+      nesting: `postcss-nested`,
       env: [
-        await this.resolve(`postcss-preset-env`).then(path =>
-          path.replace(`.mjs`, `.cjs`),
-        ),
+        `postcss-preset-env`,
         {
           stage: 1,
           features: {
@@ -344,18 +342,19 @@ export default class BudPostCss extends Extension {
       ],
     })
 
-    this.app.build
-      .setLoader(`postcss`, await this.resolve(`postcss-loader`))
-      .setItem(`postcss`, {
-        loader: `postcss`,
-        options: () => ({
-          sourceMap: this.sourceMap,
-          postcssOptions: this.postcssOptions,
-        }),
-      })
+    this.app.build.setLoader(`postcss-loader`).setItem(`postcss`, {
+      loader: `postcss-loader`,
+      options: () => ({
+        sourceMap: this.sourceMap,
+        postcssOptions: this.postcssOptions,
+      }),
+    })
 
-    this.app.build.rules.css.setUse(items => [...(items ?? []), `postcss`])
-    this.app.build.rules.cssModule.setUse(items => [
+    this.app.build.rules.css?.setUse(items => [
+      ...(items ?? []),
+      `postcss`,
+    ])
+    this.app.build.rules.cssModule?.setUse(items => [
       ...(items ?? []),
       `postcss`,
     ])

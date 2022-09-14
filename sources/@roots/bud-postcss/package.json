@@ -61,14 +61,13 @@
     "@jest/globals": "29.0.1",
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@skypack/package-check": "0.2.2",
-    "@types/lodash-es": "4.17.6",
     "@types/node": "16.11.48",
     "@types/signale": "1.4.4",
     "webpack": "5.73.0"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "lodash-es": "4.17.21",
+    "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "postcss": "8.4.16",
     "postcss-import": "14.1.0",
     "postcss-loader": "7.0.1",

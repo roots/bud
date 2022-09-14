@@ -1,4 +1,4 @@
-import {isUndefined} from 'lodash-es'
+import {isUndefined} from '@roots/bud-support/lodash-es'
 import {cpus} from 'os'
 
 import type {Bud} from '../bud'
