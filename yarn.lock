@@ -5553,8 +5553,6 @@ __metadata:
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
     "@types/fork-ts-checker-webpack-plugin": 0.4.5
-    "@types/fs-extra": 9.0.13
-    "@types/lodash-es": 4.17.6
     "@types/node": 16.11.48
     "@types/webpack-env": 1.18.0
     chalk: 5.0.1

@@ -9,7 +9,7 @@ export class BudEslintCommand extends BaseCommand {
    *
    * @public
    */
-  public static paths = [[`eslint`], [`lint`, `js`]]
+  public static paths = [[`lint`, `js`], [`eslint`]]
 
   /**
    * Comand usage
