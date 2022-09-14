@@ -9,7 +9,7 @@ export class BudEslintCommand extends BaseCommand {
    *
    * @public
    */
-  public static paths = [[`lint`]]
+  public static paths = [[`eslint`], [`lint`, `js`]]
 
   /**
    * Comand usage
@@ -33,23 +33,20 @@ export class BudEslintCommand extends BaseCommand {
    * @public
    */
   public async runCommand() {
-    this.app.context.config = {}
     const eslint = await this.app.module.getDirectory(`eslint`)
     const bin = join(eslint, `bin`, `eslint.js`)
 
-    const child = execa(
-      `node`,
-      [
-        bin,
-        this.app.path(`@src`, `**/*.{js,jsx,ts,tsx}`),
-        ...this.options,
-      ].filter(Boolean),
-      {
-        cwd: resolve(process.cwd(), this.basedir ?? `./`),
-      },
-    )
+    if (!this.options?.length)
+      this.options = [this.app.path(`@src`, `**/*.{ts,tsx,js,jsx}`)]
+
+    const child = execa(`node`, [bin, ...this.options].filter(Boolean), {
+      cwd: resolve(process.cwd(), this.basedir ?? `./`),
+    })
+
+    child.catch(() => {})
     child.stdout.pipe(process.stdout)
     child.stderr.pipe(process.stderr)
+
     await child
   }
 }

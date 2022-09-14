@@ -62,32 +62,20 @@ export default class BabelExtension extends Extension {
       )
 
       .setPlugin(`@babel/plugin-transform-runtime`, [
-        await this.resolve(
-          `@babel/plugin-transform-runtime`,
-          import.meta.url,
-        ),
+        await this.resolve(`@babel/plugin-transform-runtime`),
         {helpers: false},
       ])
       .setPlugin(
         `@babel/plugin-proposal-object-rest-spread`,
-        await this.resolve(
-          `@babel/plugin-proposal-object-rest-spread`,
-          import.meta.url,
-        ),
+        await this.resolve(`@babel/plugin-proposal-object-rest-spread`),
       )
       .setPlugin(
         `@babel/plugin-proposal-class-properties`,
-        await this.resolve(
-          `@babel/plugin-proposal-class-properties`,
-          import.meta.url,
-        ),
+        await this.resolve(`@babel/plugin-proposal-class-properties`),
       )
       .setPlugin(
         `@babel/plugin-syntax-dynamic-import`,
-        await this.resolve(
-          `@babel/plugin-syntax-dynamic-import`,
-          import.meta.url,
-        ),
+        await this.resolve(`@babel/plugin-syntax-dynamic-import`),
       )
 
     const loader = await this.resolve(`babel-loader`, import.meta.url)

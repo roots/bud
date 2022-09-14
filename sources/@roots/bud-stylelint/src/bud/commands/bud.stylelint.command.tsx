@@ -1,15 +1,20 @@
 import BaseCommand from '@roots/bud/cli/commands/base'
-import {bind} from '@roots/bud-framework/extension/decorators'
 import {Command, Option} from 'clipanion'
 import {execa} from 'execa'
 import {join, resolve} from 'node:path'
 
-export class BudPrettierCommand extends BaseCommand {
+export class BudEslintCommand extends BaseCommand {
   /**
    * Command paths
+   *
    * @public
    */
-  public static paths = [[`format`], [`prettier`]]
+  public static paths = [
+    [`lint`, `css`],
+    [`lint`, `scss`],
+    [`lint`, `sass`],
+    [`stylelint`],
+  ]
 
   /**
    * Comand usage
@@ -17,31 +22,29 @@ export class BudPrettierCommand extends BaseCommand {
    */
   public static usage = Command.Usage({
     category: `tools`,
-    description: `Prettier CLI`,
-    examples: [[`View prettier usage information`, `$0 prettier --help`]],
+    description: `stylelint CLI passthrough`,
+    examples: [
+      [`View stylelint usage information`, `$0 stylelint --help`],
+    ],
   })
 
   public dry = true
 
   public notify = false
 
-  public options = Option.Proxy({name: `prettier passthrough options`})
+  public options = Option.Proxy({name: `stylelint passthrough options`})
 
   /**
    * Command execute
    *
    * @public
    */
-  @bind
   public async runCommand() {
-    const prettier = await this.app.module.getDirectory(`prettier`)
-    const bin = join(prettier, `bin-prettier.js`)
+    const stylelint = await this.app.module.getDirectory(`stylelint`)
+    const bin = join(stylelint, `bin`, `stylelint.js`)
 
     if (!this.options?.length)
-      this.options = [
-        this.app.path(`@src`, `**/*.{ts,tsx,js,jsx,css,scss,sass}`),
-        `--write`,
-      ]
+      this.options = [this.app.path(`@src`, `**/*.{css,scss,sass}`)]
 
     const child = execa(
       `node`,
@@ -50,8 +53,11 @@ export class BudPrettierCommand extends BaseCommand {
         cwd: resolve(process.cwd(), this.basedir ?? `./`),
       },
     )
+
+    child.catch(() => {})
     child.stdout.pipe(process.stdout)
     child.stderr.pipe(process.stderr)
+
     await child
   }
 }

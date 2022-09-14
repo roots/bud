@@ -1,0 +1,75 @@
+{
+  "name": "@roots/bud-support",
+  "version": "0.0.0",
+  "private": true,
+  "description": "👨🏽‍🍳 Internal packages for @roots/bud",
+  "homepage": "https://roots.io/bud",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "sources/@roots/bud-support"
+  },
+  "contributors": [
+    {
+      "name": "kellymears",
+      "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "QWp6t",
+      "url": "https://github.com/QWp6t"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/roots/bud/issues"
+  },
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "keywords": [
+    "bud"
+  ],
+  "engines": {
+    "node": ">=16"
+  },
+  "files": [
+    "lib/"
+  ],
+  "type": "module",
+  "module": "./lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./ink": "./lib/ink/index.js",
+    "./ink-link": "./lib/ink-link/index.js",
+    "./ink-text-input": "./lib/ink-text-input/index.js",
+    "./react": "./lib/react/index.js"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ],
+      "ink": [
+        "./lib/ink/index.d.ts"
+      ],
+      "ink-link": [
+        "./lib/ink-link/index.d.ts"
+      ],
+      "ink-text-input": [
+        "./lib/ink-text-input/index.d.ts"
+      ],
+      "react": [
+        "./lib/react/index.d.ts"
+      ]
+    }
+  },
+  "types": "./lib/index.d.ts",
+  "devDependencies": {
+    "@skypack/package-check": "0.2.2",
+    "ink": "3.2.0",
+    "ink-link": "2.0.0",
+    "ink-text-input": "4.0.3",
+    "react": "17.0.2"
+  }
+}

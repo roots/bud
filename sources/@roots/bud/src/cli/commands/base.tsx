@@ -1,8 +1,8 @@
 import type * as Options from '@roots/bud-framework/options'
+import {Box, render} from '@roots/bud-support/ink'
+import React from '@roots/bud-support/react'
 import {BaseContext, Command, Option} from 'clipanion'
 import {bind, once} from 'helpful-decorators'
-import {Box, render} from 'ink'
-import React from 'react'
 import * as t from 'typanion'
 
 import type Bud from '../../bud.js'

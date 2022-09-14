@@ -1,7 +1,7 @@
+import {Box, Text} from '@roots/bud-support/ink'
+import React from '@roots/bud-support/react'
 import {Command} from 'clipanion'
 import {bind} from 'helpful-decorators'
-import {Box, Text} from 'ink'
-import React from 'react'
 import webpack from 'webpack'
 
 import BaseCommand from './base.js'

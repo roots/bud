@@ -28,18 +28,6 @@ export class BudTailwindCommand extends BaseCommand {
 
   public notify = false
 
-  public input = Option.String(`--input,-i`, undefined, {
-    description: `input file`,
-  })
-
-  public output = Option.String(`--output,-o`, undefined, {
-    description: `output file`,
-  })
-
-  public watch = Option.Boolean(`--watch,-w`, true, {
-    description: `watch mode`,
-  })
-
   public options = Option.Proxy({name: `tailwindcss passthrough options`})
 
   /**
@@ -52,27 +40,17 @@ export class BudTailwindCommand extends BaseCommand {
     const tailwindPath = await this.app.module.getDirectory(`tailwindcss`)
     const bin = join(tailwindPath, `lib`, `cli.js`)
 
-    const child = execa(
-      `node`,
-      [
-        bin,
-        ...this.options,
+    if (!this.options?.length)
+      this.options = [
         `-i`,
-        this.input === undefined
-          ? this.app.path(`@src`, `index.css`)
-          : this.input,
-        `-o`,
-        this.output === undefined
-          ? this.app.path(`@dist`, `index.css`)
-          : this.output,
-        ...(this.watch === true && this.app.isDevelopment
-          ? `--watch`
-          : ``),
-      ].filter(Boolean),
-      {
-        cwd: resolve(process.cwd(), this.basedir ?? `./`),
-      },
-    )
+        this.app.path(`@src`, `index.css`),
+        `o`,
+        this.app.path(`@dist`),
+      ]
+
+    const child = execa(`node`, [bin, ...(this.options ?? [])], {
+      cwd: resolve(process.cwd(), this.basedir ?? `./`),
+    })
     child.stdout.pipe(process.stdout)
     child.stderr.pipe(process.stderr)
     await child

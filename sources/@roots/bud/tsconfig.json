@@ -14,6 +14,7 @@
       "@roots/bud-framework",
       "@roots/bud-hooks",
       "@roots/bud-server",
+      "@roots/bud-support",
     ],
   },
   "include": ["src"],
@@ -28,6 +29,7 @@
     {"path": "./../bud-extensions/tsconfig.json"},
     {"path": "./../bud-hooks/tsconfig.json"},
     {"path": "./../bud-server/tsconfig.json"},
+    {"path": "./../bud-support/tsconfig.json"},
     {"path": "./../bud-terser/tsconfig.json"}
   ]
 }

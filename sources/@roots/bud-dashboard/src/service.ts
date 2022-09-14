@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 import {Service} from '@roots/bud-framework/service'
 import type * as Services from '@roots/bud-framework/services'
+import type * as Ink from '@roots/bud-support/ink'
 import {bind} from 'helpful-decorators'
-import type * as Ink from 'ink'
 import type {StatsCompilation} from 'webpack'
 
 /**

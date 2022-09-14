@@ -1,8 +1,8 @@
+import {Box, Text} from '@roots/bud-support/ink'
+import React from '@roots/bud-support/react'
 import {Command, Option} from 'clipanion'
 import fs from 'fs-extra'
 import {bind} from 'helpful-decorators'
-import {Box, Text} from 'ink'
-import React from 'react'
 
 import BaseCommand from './base.js'
 
