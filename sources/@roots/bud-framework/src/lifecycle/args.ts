@@ -3,22 +3,6 @@ import {isUndefined} from '@roots/bud-support/lodash-es'
 import type {Bud} from '../bud'
 
 /**
- * --target override
- *
- * @remarks
- * This override should always be first.
- *
- * No reason to handle child instances which are slated
- * to be discarded.
- *
- * @public
- */
-const target = (app: Bud) =>
-  Object.keys(app.children).reduce((state, name) => {
-    return !app.context.args.target.includes(name) ? false : state
-  }, true)
-
-/**
  * Returns true if the given value is neither null nor undefined.
  *
  * @public
@@ -30,8 +14,52 @@ const isset = (value: unknown): boolean => !isUndefined(value)
  *
  * @public
  */
-export const buildBefore = async (app: Bud) => {
-  if (isset(app.context.args.target) && !target(app)) return
+export const override = async (app: Bud) => {
+  if (app.isRoot && isset(app.context.args.target))
+    Object.keys(app.children)
+      .filter(name => !app.context.args.target.includes(name))
+      .map(name => delete app.children[name])
+
+  if (isset(app.context.args.publicPath))
+    app.hooks.on(`build.output.publicPath`, app.context.args.publicPath)
+  else if (isset(app.context.manifest?.bud?.publicPath))
+    app.hooks.on(
+      `build.output.publicPath`,
+      app.context.manifest.bud.publicPath,
+    )
+
+  if (isset(app.context.args.input))
+    app.hooks.on(`location.@src`, app.context.args.input)
+  else if (isset(app.context.manifest?.bud?.paths?.[`@src`]))
+    app.hooks.on(`location.@src`, app.context.manifest.bud.paths[`@src`])
+
+  if (isset(app.context.args.output))
+    app.hooks.on(`location.@dist`, app.context.args.output)
+  else if (isset(app.context.manifest?.bud?.paths?.[`@dist`]))
+    app.hooks.on(`location.@dist`, app.context.manifest.bud.paths[`@dist`])
+
+  if (isset(app.context.args.storage))
+    app.hooks.on(`location.@storage`, app.context.args.storage)
+  else if (isset(app.context.manifest?.bud?.paths?.[`@storage`]))
+    app.hooks.on(
+      `location.@storage`,
+      app.context.manifest?.bud.paths[`@storage`],
+    )
+
+  if (isset(app.context.args.mode))
+    app.hooks.on(`build.mode`, app.context.args.mode)
+
+  if (isset(app.context.args.clean))
+    app.hooks.on(`feature.clean`, app.context.args.clean)
+  else if (isset(app.context.manifest?.bud?.clean))
+    app.hooks.on(`feature.clean`, app.context.manifest?.bud.clean)
+
+  if (isset(app.context.args.minimize))
+    app.api.call(`minimize`, app.context.args.minimize)
+
+  if (isset(app.context.args.html)) {
+    await app.api.call(`template`)
+  }
 
   if (isset(app.context.args.input)) {
     app.setPath(`@src`, app.context.args.input)
