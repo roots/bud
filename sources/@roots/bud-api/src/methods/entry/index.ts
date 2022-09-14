@@ -1,5 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
-import {isArray, isString} from 'lodash-es'
+import {isArray, isString} from '@roots/bud-support/lodash-es'
 
 import {globAssets} from './globAssets.js'
 import type {EntryObject} from './util'

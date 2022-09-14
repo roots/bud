@@ -1,5 +1,5 @@
-import {Box} from 'ink'
-import React from 'react'
+import {Box} from '@roots/bud-support/ink'
+import React from '@roots/bud-support/react'
 import type {StatsAsset} from 'webpack'
 
 import {longestAssetNameLength} from '../format.js'

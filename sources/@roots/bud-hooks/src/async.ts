@@ -4,8 +4,8 @@ import type {
   AsyncStore,
 } from '@roots/bud-framework/registry'
 import type {Bud} from '@roots/bud-framework/src'
-import {bind} from 'helpful-decorators'
-import {isFunction, isUndefined} from 'lodash-es'
+import {bind} from '@roots/bud-support/decorators'
+import {isFunction, isUndefined} from '@roots/bud-support/lodash-es'
 
 import Hooks from './base.js'
 

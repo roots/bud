@@ -1,8 +1,8 @@
 import {Service} from '@roots/bud-framework/service'
 import type * as Services from '@roots/bud-framework/services'
-import fs from 'fs-extra'
-import {bind} from 'helpful-decorators'
-import {isUndefined} from 'lodash-es'
+import {bind} from '@roots/bud-support/decorators'
+import * as fs from '@roots/bud-support/fs'
+import {isUndefined} from '@roots/bud-support/lodash-es'
 import {createHash} from 'node:crypto'
 
 import InvalidateCacheExtension from './invalidate-cache-extension/index.js'
@@ -172,7 +172,7 @@ export default class Cache
   }
 
   @bind
-  public flush() {
-    fs.removeSync(this.cacheDirectory)
+  public async flush() {
+    await fs.remove(this.cacheDirectory)
   }
 }

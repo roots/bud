@@ -1,9 +1,8 @@
 import BaseCommand from '@roots/bud/cli/commands/base'
+import {Command} from '@roots/bud-support/clipanion'
+import {bind} from '@roots/bud-support/decorators'
+import execa from '@roots/bud-support/execa'
 import chalk from 'chalk'
-import {Command} from 'clipanion'
-import {execa} from 'execa'
-import fs from 'fs-extra'
-import {bind} from 'helpful-decorators'
 
 export class BudTSCheckCommand extends BaseCommand {
   /**
@@ -19,14 +18,14 @@ export class BudTSCheckCommand extends BaseCommand {
    * @public
    */
   public static usage = Command.Usage({
-    category: `@roots/bud-typescript`,
-    description: `Typecheck application source code`,
+    category: `tools`,
+    description: `Typecheck source code`,
     details: `
       This command runs the \`tsc\` command with the \`--noEmit\` flag.
 
       It is required that a \`tsconfig.json\` file exists in the project root.
     `,
-    examples: [[`bud ts check`, `Typecheck application source`]],
+    examples: [[`bud ts check`, `Typecheck source`]],
   })
 
   public dry = true
@@ -46,20 +45,8 @@ export class BudTSCheckCommand extends BaseCommand {
    */
   @bind
   public async runCommand() {
-    const hasTsConfig = await fs.pathExists(
-      this.app.path(`./tsconfig.json`),
-    )
-
-    if (!hasTsConfig) {
-      this.app.error(
-        `A tsconfig.json config file is required in the project root in order to run typechecking`,
-      )
-    }
-
     try {
-      const check = execa(`tsc`, [`--noEmit`])
-
-      this.context.stdout.write(`checking types\n`)
+      const check = execa(`bud`, [`tsc`, `--noEmit`])
 
       check.stdout.on(`data`, message => {
         this.context.stdout.write(message.toString())

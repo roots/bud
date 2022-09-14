@@ -1,9 +1,9 @@
 import {Service as BaseService} from '@roots/bud-framework/service'
 import type {Service} from '@roots/bud-framework/services/project'
-import fs from 'fs-extra'
-import {bind} from 'helpful-decorators'
-import {omit} from 'lodash-es'
-import {format} from 'pretty-format'
+import {bind} from '@roots/bud-support/decorators'
+import * as fs from '@roots/bud-support/fs'
+import {omit} from '@roots/bud-support/lodash-es'
+import format from '@roots/bud-support/pretty-format'
 
 /**
  * Project service

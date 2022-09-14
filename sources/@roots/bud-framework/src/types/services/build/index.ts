@@ -4,6 +4,7 @@ import type {Service as BaseService} from '../../../service'
 import type {Base} from './base'
 import type {Item} from './item'
 import type {Loader} from './loader'
+import type {Items, Loaders, Rules} from './registry'
 import type * as Rule from './rule'
 
 /**
@@ -42,21 +43,21 @@ export interface Service extends BaseService {
    *
    * @public
    */
-  loaders: Record<string, Loader>
+  loaders: Record<keyof Loaders, Loader>
 
   /**
    * Arrayed {@link Item} instances
    *
    * @public
    */
-  items: Record<string, Item>
+  items: Record<keyof Items, Item>
 
   /**
    * Arrayed {@link Rule} instances
    *
    * @public
    */
-  rules: Record<string, Rule.Interface>
+  rules: Record<keyof Rules, Rule.Interface>
 
   /**
    * Compiler configuration

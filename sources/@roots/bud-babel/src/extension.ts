@@ -46,6 +46,14 @@ export default class BabelExtension extends Extension {
   }
 
   /**
+   * Init callback
+   */
+  @bind
+  public async init() {
+    this.app.babel = new Config()
+  }
+
+  /**
    * Register extension
    *
    * @public
@@ -53,48 +61,15 @@ export default class BabelExtension extends Extension {
    */
   @bind
   public async register() {
-    this.app.babel = new Config()
-
     this.app.babel
-      .setPreset(
-        `@babel/preset-env`,
-        await this.resolve(`@babel/preset-env`, import.meta.url),
-      )
+      .setPreset(`@babel/preset-env`)
+      .setPlugin([`@babel/plugin-transform-runtime`, {helpers: false}])
+      .setPlugin(`@babel/plugin-proposal-object-rest-spread`)
+      .setPlugin(`@babel/plugin-proposal-class-properties`)
+      .setPlugin(`@babel/plugin-syntax-dynamic-import`)
 
-      .setPlugin(`@babel/plugin-transform-runtime`, [
-        await this.resolve(
-          `@babel/plugin-transform-runtime`,
-          import.meta.url,
-        ),
-        {helpers: false},
-      ])
-      .setPlugin(
-        `@babel/plugin-proposal-object-rest-spread`,
-        await this.resolve(
-          `@babel/plugin-proposal-object-rest-spread`,
-          import.meta.url,
-        ),
-      )
-      .setPlugin(
-        `@babel/plugin-proposal-class-properties`,
-        await this.resolve(
-          `@babel/plugin-proposal-class-properties`,
-          import.meta.url,
-        ),
-      )
-      .setPlugin(
-        `@babel/plugin-syntax-dynamic-import`,
-        await this.resolve(
-          `@babel/plugin-syntax-dynamic-import`,
-          import.meta.url,
-        ),
-      )
-
-    const loader = await this.resolve(`babel-loader`, import.meta.url)
-    if (!loader) return this.logger.error(`Babel loader not found`)
-
-    this.app.build.setLoader(`babel`, loader).setItem(`babel`, item =>
-      item.setLoader(`babel`).setOptions(() => ({
+    this.app.build.setLoader(`babel-loader`).setItem(`babel`, item =>
+      item.setLoader(`babel-loader`).setOptions(() => ({
         cacheDirectory: this.cacheDirectory,
         presets: Object.values(this.app.babel.presets),
         plugins: Object.values(this.app.babel.plugins),

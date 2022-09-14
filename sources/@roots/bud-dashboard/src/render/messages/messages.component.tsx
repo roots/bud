@@ -1,6 +1,6 @@
+import {Box, Text} from '@roots/bud-support/ink'
+import React from '@roots/bud-support/react'
 import chalk from 'chalk'
-import {Box, Text} from 'ink'
-import React from 'react'
 import type {StatsCompilation} from 'webpack'
 import {formatMessage} from 'webpack-format-messages'
 

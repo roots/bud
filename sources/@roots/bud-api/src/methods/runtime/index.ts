@@ -1,5 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
-import {isUndefined} from 'lodash-es'
+import {isUndefined} from '@roots/bud-support/lodash-es'
 import type {Configuration, EntryObject} from 'webpack'
 
 export interface runtime {

@@ -1,4 +1,4 @@
-import {Command, Option} from 'clipanion'
+import {Command, Option} from '@roots/bud-support/clipanion'
 
 import BuildCommand from './build.base.js'
 

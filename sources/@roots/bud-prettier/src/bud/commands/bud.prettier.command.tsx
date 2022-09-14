@@ -1,7 +1,7 @@
 import BaseCommand from '@roots/bud/cli/commands/base'
 import {bind} from '@roots/bud-framework/extension/decorators'
-import {Command, Option} from 'clipanion'
-import {execa} from 'execa'
+import {Command, Option} from '@roots/bud-support/clipanion'
+import execa from '@roots/bud-support/execa'
 import {join, resolve} from 'node:path'
 
 export class BudPrettierCommand extends BaseCommand {
@@ -36,6 +36,12 @@ export class BudPrettierCommand extends BaseCommand {
   public async runCommand() {
     const prettier = await this.app.module.getDirectory(`prettier`)
     const bin = join(prettier, `bin-prettier.js`)
+
+    if (!this.options?.length)
+      this.options = [
+        this.app.path(`@src`, `**/*.{ts,tsx,js,jsx,css,scss,sass}`),
+        `--write`,
+      ]
 
     const child = execa(
       `node`,

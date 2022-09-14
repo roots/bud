@@ -1,5 +1,5 @@
-import {useInput} from 'ink'
-import React, {useState} from 'react'
+import {useInput} from '@roots/bud-support/ink'
+import React, {useState} from '@roots/bud-support/react'
 
 export const useTTY = () => {
   const [displayServerInfo, setDisplayServerInfo] = useState(true)

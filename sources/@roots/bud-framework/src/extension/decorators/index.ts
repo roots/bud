@@ -1,4 +1,4 @@
-import {bind, once} from 'helpful-decorators'
+import {bind, once} from '@roots/bud-support/decorators'
 
 import {dependsOn} from './dependsOn.js'
 import {dependsOnOptional} from './dependsOnOptional.js'

@@ -1,8 +1,8 @@
 import type {Bud} from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework/service'
 import type {Env as Base} from '@roots/bud-framework/services'
+import {bind} from '@roots/bud-support/decorators'
 import Container from '@roots/container'
-import {bind} from 'helpful-decorators'
 
 /**
  * Env service

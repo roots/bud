@@ -1,6 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
+import {isUndefined, omit} from '@roots/bud-support/lodash-es'
 import type {Options as HtmlOptions} from 'html-webpack-plugin'
-import {isUndefined, omit} from 'lodash-es'
 import {dirname, resolve} from 'path'
 import {fileURLToPath} from 'url'
 

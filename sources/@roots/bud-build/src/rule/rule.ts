@@ -1,6 +1,6 @@
 import type {Bud} from '@roots/bud-framework/bud'
-import {bind} from 'helpful-decorators'
-import {isFunction, isString} from 'lodash-es'
+import {bind} from '@roots/bud-support/decorators'
+import {isFunction, isString} from '@roots/bud-support/lodash-es'
 import type {RuleSetUseItem} from 'webpack'
 
 import Item from '../item/item.js'

@@ -1,6 +1,11 @@
 import type {Bud} from '@roots/bud-framework/bud'
 import type * as Server from '@roots/bud-framework/services/server'
-import {isBoolean, isNumber, isString, isUndefined} from 'lodash-es'
+import {
+  isBoolean,
+  isNumber,
+  isString,
+  isUndefined,
+} from '@roots/bud-support/lodash-es'
 
 /**
  * Enables proxy middleware

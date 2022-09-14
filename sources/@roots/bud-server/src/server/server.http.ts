@@ -1,5 +1,5 @@
 import type {Server} from '@roots/bud-framework/services'
-import {bind} from 'helpful-decorators'
+import {bind} from '@roots/bud-support/decorators'
 import {createServer, RequestListener, Server as HttpServer} from 'http'
 
 import {BaseServer} from './server.base.js'

@@ -6,7 +6,7 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
-import fs from 'fs-extra'
+import * as fs from '@roots/bud-support/fs'
 
 /**
  * Transpile JS and TS with `swc-loader`

@@ -9,6 +9,7 @@
   "include": ["src"],
   "exclude": ["lib", "node_modules"],
   "references": [
-    {"path": "./../container/tsconfig.json"}
+    {"path": "./../container/tsconfig.json"},
+    {"path": "./../bud-support/tsconfig.json"}
   ]
 }

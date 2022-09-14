@@ -5,7 +5,7 @@ import type {
 import {Extension} from '@roots/bud-framework/extension'
 import type {Modules} from '@roots/bud-framework/registry/modules'
 import {Base, Service} from '@roots/bud-framework/services/extensions'
-import {bind} from 'helpful-decorators'
+import {bind} from '@roots/bud-support/decorators'
 
 /**
  * Extensions Service

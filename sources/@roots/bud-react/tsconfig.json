@@ -13,6 +13,7 @@
     {"path": "./../bud-api/tsconfig.json"},
     {"path": "./../bud-babel/tsconfig.json"},
     {"path": "./../bud-framework/tsconfig.json"},
+    {"path": "./../bud-support/tsconfig.json"},
     {"path": "./../bud-swc/tsconfig.json"},
     {"path": "./../bud-typescript/tsconfig.json"}
   ]

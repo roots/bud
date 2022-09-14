@@ -1,4 +1,4 @@
-import fs from 'fs-extra'
+import * as fs from '@roots/bud-support/fs'
 import json5 from 'json5'
 import jsonStringify from 'safe-json-stringify'
 

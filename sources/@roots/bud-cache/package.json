@@ -56,16 +56,11 @@
   },
   "devDependencies": {
     "@jest/globals": "29.0.1",
-    "@skypack/package-check": "0.2.2",
-    "@types/fs-extra": "9.0.13",
-    "@types/lodash": "4.14.185",
-    "@types/lodash-es": "4.17.6"
+    "@skypack/package-check": "0.2.2"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "fs-extra": "10.1.0",
-    "helpful-decorators": "2.1.0",
-    "lodash-es": "4.17.21",
+    "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "strip-ansi": "7.0.1",
     "tslib": "2.4.0"
   },

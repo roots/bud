@@ -4,8 +4,8 @@ import type {
   SyncRegistry,
   SyncStore,
 } from '@roots/bud-framework/registry'
-import {bind} from 'helpful-decorators'
-import {isFunction} from 'lodash-es'
+import {bind} from '@roots/bud-support/decorators'
+import {isFunction} from '@roots/bud-support/lodash-es'
 
 import Hooks from './base.js'
 

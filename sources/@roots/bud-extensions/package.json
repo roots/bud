@@ -60,8 +60,8 @@
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "chalk": "5.0.1",
-    "helpful-decorators": "2.1.0",
     "tslib": "2.4.0"
   },
   "volta": {

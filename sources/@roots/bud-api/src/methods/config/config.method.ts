@@ -1,5 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
-import {isFunction} from 'lodash-es'
+import {isFunction} from '@roots/bud-support/lodash-es'
 import type {Configuration} from 'webpack'
 
 export interface override {

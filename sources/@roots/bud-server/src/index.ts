@@ -9,4 +9,4 @@
 
 import {Server} from './service/service.js'
 
-export {Server, Server as Service, Server as default}
+export default Server

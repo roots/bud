@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import {execa} from 'execa'
+import execa from '@roots/bud-support/execa'
 import {platform} from 'node:os'
 
 import {notifierPath} from './notifierPath.js'

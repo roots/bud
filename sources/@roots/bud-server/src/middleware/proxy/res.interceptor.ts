@@ -1,8 +1,8 @@
 import type {Bud} from '@roots/bud-framework'
-import {bind} from 'helpful-decorators'
+import {bind} from '@roots/bud-support/decorators'
+import {isString, isUndefined} from '@roots/bud-support/lodash-es'
 import type * as http from 'http'
 import {responseInterceptor} from 'http-proxy-middleware'
-import {isString, isUndefined} from 'lodash-es'
 
 import type {ApplicationURL} from './url.js'
 

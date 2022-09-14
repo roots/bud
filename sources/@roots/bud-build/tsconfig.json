@@ -8,6 +8,7 @@
   "exclude": ["lib", "node_modules"],
   "references": [
     {"path": "./../bud-api/tsconfig.json"},
-    {"path": "./../bud-framework/tsconfig.json"}
+    {"path": "./../bud-framework/tsconfig.json"},
+    {"path": "./../bud-support/tsconfig.json"}
   ]
 }

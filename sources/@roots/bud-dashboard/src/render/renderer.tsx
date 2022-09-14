@@ -1,6 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
-import {Instance, render, Static} from 'ink'
-import React from 'react'
+import {Instance, render, Static} from '@roots/bud-support/ink'
+import React from '@roots/bud-support/react'
 import type {StatsCompilation} from 'webpack'
 
 import App from './app.js'
@@ -21,6 +21,7 @@ export const renderDashboard = ({
         ) ?? []),
       ]
     : [stats]
+
   return render(
     app.isProduction ? (
       <Static items={[0]}>

@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 import type {Context} from '@roots/bud-framework/options'
-import {globby} from 'globby'
+import globby from '@roots/bud-support/globby'
+import {isString} from '@roots/bud-support/lodash-es'
 import {resolve} from 'import-meta-resolve'
-import {isString} from 'lodash-es'
 import {dirname, join} from 'node:path/posix'
 import {fileURLToPath} from 'node:url'
 

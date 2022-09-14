@@ -1,4 +1,4 @@
-import {lowerCase} from 'lodash-es'
+import {lowerCase} from '@roots/bud-support/lodash-es'
 import type {Signale} from 'signale'
 
 import type {Bud} from './bud'

@@ -8,8 +8,8 @@ import {
   when,
 } from '@roots/bud-framework/extension/decorators'
 import type {GlobalSettingsAndStyles as WPThemeJson} from '@roots/bud-preset-wordpress/theme'
+import {isBoolean, isFunction} from '@roots/bud-support/lodash-es'
 import Container from '@roots/container'
-import {isBoolean, isFunction} from 'lodash-es'
 
 import {Options, ThemeJsonWebpackPlugin} from './plugin.js'
 import * as tailwind from './tailwind/index.js'

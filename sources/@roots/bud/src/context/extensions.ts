@@ -1,5 +1,5 @@
 import type {Context} from '@roots/bud-framework/options'
-import {bind} from 'helpful-decorators'
+import {bind} from '@roots/bud-support/decorators'
 
 import {noDiscovery} from './argv.js'
 
