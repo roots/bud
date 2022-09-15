@@ -1,4 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
+import type {Loaders} from '@roots/bud-framework/src/types/services/build/registry'
 
 import Base from '../shared/base.js'
 
@@ -13,7 +14,7 @@ export default class Loader extends Base {
    *
    * @public
    */
-  public src: string
+  public src: `${keyof Loaders & string}`
 
   /**
    * Class constructor

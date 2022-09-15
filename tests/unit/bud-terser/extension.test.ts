@@ -20,7 +20,7 @@ describe(`@roots/bud-terser`, () => {
   it(`has options prop`, () => {
     expect(bud.terser.options).toStrictEqual({
       extractComments: false,
-      include: /\.(cjs|mjs|jsx?)$/,
+      include: /\.(mjs|jsx?)$/,
       exclude: /(node_modules|bower_components)/,
       parallel: true,
       terserOptions: {

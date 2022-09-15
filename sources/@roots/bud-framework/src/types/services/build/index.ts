@@ -43,21 +43,21 @@ export interface Service extends BaseService {
    *
    * @public
    */
-  loaders: Record<keyof Loaders, Loader>
+  loaders: Record<`${keyof Loaders & string}`, Loader>
 
   /**
    * Arrayed {@link Item} instances
    *
    * @public
    */
-  items: Record<keyof Items, Item>
+  items: Record<`${keyof Items & string}`, Item>
 
   /**
    * Arrayed {@link Rule} instances
    *
    * @public
    */
-  rules: Record<keyof Rules, Rule.Interface>
+  rules: Record<`${keyof Rules & string}`, Rule.Interface>
 
   /**
    * Compiler configuration
@@ -78,7 +78,17 @@ export interface Service extends BaseService {
    *
    * @public
    */
-  setLoader(name: string, options?: string): Service
+  getLoader<K extends `${keyof Loaders & string}`>(name: K): Loaders[K]
+
+  /**
+   * Set a {@link Loader} instance
+   *
+   * @public
+   */
+  setLoader<K extends `${keyof Loaders & string}`>(
+    name: K,
+    options?: string | Loader,
+  ): Service
 
   /**
    * Make a {@link Loader} instance
@@ -92,27 +102,32 @@ export interface Service extends BaseService {
    *
    * @public
    */
-  setRule(
-    name: string,
-    options?:
-      | Partial<Rule.Options>
-      | ((item: Rule.Interface) => Rule.Interface),
-  ): Service
+  setRule<K extends `${keyof Rules & string}`>(
+    name: K,
+    options?: Rule.Options | Rule.Interface,
+  ): this
 
   /**
    * Make a new {@link Rule} instance
    *
    * @public
    */
-  makeRule(options?: Partial<Rule.Options>): Rule.Interface
+  makeRule(options?: Partial<Rule.Options> | Rule.Output): Rule.Interface
+
+  /**
+   * Get a {@link Item} instance
+   *
+   * @public
+   */
+  getItem<K extends `${keyof Items & string}`>(name: K): Items[K]
 
   /**
    * Set a {@link Item} instance
    *
    * @public
    */
-  setItem(
-    name: string,
+  setItem<K extends `${keyof Items & string}`>(
+    name: K,
     options?: Partial<Item.Options> | ((item: Item) => Item),
   ): Service
 

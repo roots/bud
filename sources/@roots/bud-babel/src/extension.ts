@@ -68,16 +68,20 @@ export default class BabelExtension extends Extension {
       .setPlugin(`@babel/plugin-proposal-class-properties`)
       .setPlugin(`@babel/plugin-syntax-dynamic-import`)
 
-    this.app.build.setLoader(`babel-loader`).setItem(`babel`, item =>
-      item.setLoader(`babel-loader`).setOptions(() => ({
+    this.app.build.setLoader(`babel`, `babel-loader`).setItem(`babel`, {
+      loader: this.app.build.loaders[`babel`],
+      options: () => ({
         cacheDirectory: this.cacheDirectory,
         presets: Object.values(this.app.babel.presets),
         plugins: Object.values(this.app.babel.plugins),
         env: this.env,
         root: this.root,
-      })),
-    )
+      }),
+    })
 
-    this.app.build.rules.js.setUse(items => [`babel`, ...items])
+    this.app.build.rules.js.setUse(items => [
+      this.app.build.items.babel,
+      ...items,
+    ])
   }
 }

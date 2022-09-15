@@ -23,7 +23,6 @@ export default class BudEmotion extends Extension {
    */
   @bind
   public async buildBefore() {
-    const plugin = await this.resolve(`@emotion/babel-plugin`)
-    this.app.babel.setPlugin(`@emotion/babel-plugin`, plugin)
+    this.app.babel.setPlugin(`@emotion/babel-plugin`)
   }
 }

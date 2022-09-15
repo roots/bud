@@ -1,67 +1,71 @@
 import type {Bud} from '@roots/bud-framework/bud'
+import type {
+  Interface,
+  Options,
+  Output,
+  Parser,
+} from '@roots/bud-framework/services/build/rule'
+import type {Item} from '@roots/bud-framework/src/types/services/build/item.js'
+import type {Items} from '@roots/bud-framework/src/types/services/build/registry.js'
 import {bind} from '@roots/bud-support/decorators'
 import {isFunction, isString} from '@roots/bud-support/lodash-es'
-import type {RuleSetUseItem} from 'webpack'
 
-import Item from '../item/item.js'
-import type Build from '../service'
 import Base from '../shared/base.js'
-import type {Instance, Options, Output, Parser} from './rule.interface'
 
-export {Instance, Options, Output, Parser}
+export {Interface, Options, Output, Parser}
 
 /**
  * Bud Rule
  *
  * @public
  */
-export default class extends Base implements Instance {
+export default class Rule extends Base implements Interface {
   /**
    * Rule test
    *
    * @public
    */
-  public test: Instance['test']
+  public test: Interface['test']
 
   /**
    * {@inheritDoc @roots/bud-framework#Rule.Abstract.use}
    *
    * @public
    */
-  public use?: Array<(keyof Build['items'] & string) | RuleSetUseItem>
+  public use?: Array<`${keyof Items & string}` | Item>
 
   /**
    * Include paths
    */
-  public include?: Instance['include']
+  public include?: Options['include']
 
   /**
    * {@inheritDoc @roots/bud-framework#Rule.Abstract.exclude}
    *
    * @public
    */
-  public exclude?: Instance['exclude']
+  public exclude?: Options['exclude']
 
   /**
    * {@inheritDoc @roots/bud-framework#Rule.Abstract."type"}
    *
    * @public
    */
-  public type?: Instance['type']
+  public type?: Interface['type']
 
   /**
    * Generator factory
    *
    * @public
    */
-  public parser?: Instance['parser']
+  public parser?: Interface['parser']
 
   /**
    * Generator factory
    *
    * @public
    */
-  public generator?: Instance['generator']
+  public generator?: Interface['generator']
 
   /**
    * Class constructor
@@ -92,7 +96,7 @@ export default class extends Base implements Instance {
    * @decorator `@bind`
    */
   @bind
-  public getTest(): RegExp {
+  public getTest(): Output['test'] {
     return this.unwrap(this.test)
   }
 
@@ -103,7 +107,7 @@ export default class extends Base implements Instance {
    * @decorator `@bind`
    */
   @bind
-  public setTest(test: Instance['test']): this {
+  public setTest(test: Interface['test']): this {
     this.test = this.wrap(test)
     return this
   }
@@ -115,7 +119,7 @@ export default class extends Base implements Instance {
    * @decorator `@bind`
    */
   @bind
-  public getParser(): Parser {
+  public getParser(): Output['parser'] {
     return this.unwrap(this.parser)
   }
 
@@ -126,7 +130,7 @@ export default class extends Base implements Instance {
    * @decorator `@bind`
    */
   @bind
-  public setParser(parser: Instance['parser']): this {
+  public setParser(parser: Interface['parser']): this {
     this.parser = this.wrap(parser)
     return this
   }
@@ -138,10 +142,8 @@ export default class extends Base implements Instance {
    * @decorator `@bind`
    */
   @bind
-  public getUse(): Array<
-    `${`${keyof Build['items'] & string}`}` | RuleSetUseItem
-  > {
-    return this.unwrap(this.use)?.filter(Boolean) ?? []
+  public getUse(): Array<`${keyof Items & string}` | Item> {
+    return this.use
   }
 
   /**
@@ -153,13 +155,12 @@ export default class extends Base implements Instance {
   @bind
   public setUse(
     input:
-      | Array<(keyof Build['items'] & string) | RuleSetUseItem>
+      | Array<`${keyof Items & string}` | Item>
       | ((
-          use: Array<(keyof Build['items'] & string) | RuleSetUseItem>,
-        ) => Array<(keyof Build['items'] & string) | RuleSetUseItem>),
+          use: Array<`${keyof Items & string}` | Item>,
+        ) => Array<`${keyof Items & string}` | Item>),
   ): this {
-    this.use = isFunction(input) ? input(this.getUse()) : input
-
+    this.use = isFunction(input) ? input(this.getUse() ?? []) : input
     return this
   }
 
@@ -170,7 +171,7 @@ export default class extends Base implements Instance {
    * @decorator `@bind`
    */
   @bind
-  public getInclude(): Instance['include'] {
+  public getInclude(): Options['include'] {
     return this.include.map(this.unwrap)
   }
 
@@ -181,16 +182,10 @@ export default class extends Base implements Instance {
    * @decorator `@bind`
    */
   @bind
-  public setInclude(
-    includes:
-      | ((includes: Instance['include']) => Instance['include'])
-      | Instance['include'],
-  ): this {
+  public setInclude(includes: Options['include']): this {
     if (!this.include) this.include = []
 
-    if (typeof includes === `function`)
-      this.include = includes(this.include)
-    else this.include = includes
+    this.include = isFunction(includes) ? includes(this.include) : includes
 
     return this
   }
@@ -202,7 +197,7 @@ export default class extends Base implements Instance {
    * @decorator `@bind`
    */
   @bind
-  public getExclude(): Instance['exclude'] {
+  public getExclude(): Interface['exclude'] {
     return this.exclude.map(this.unwrap)
   }
 
@@ -215,13 +210,12 @@ export default class extends Base implements Instance {
   @bind
   public setExclude(
     excludes:
-      | ((excludes: Instance['exclude']) => Instance['exclude'])
-      | Instance['exclude'],
+      | ((excludes: Interface['exclude']) => Interface['exclude'])
+      | Interface['exclude'],
   ): this {
     if (!this.exclude) this.exclude = []
 
-    if (typeof excludes === `function`)
-      this.exclude = excludes(this.exclude)
+    if (isFunction(excludes)) this.exclude = excludes(this.exclude)
     else this.exclude = excludes
 
     return this
@@ -268,7 +262,7 @@ export default class extends Base implements Instance {
    * @decorator `@bind`
    */
   @bind
-  public setGenerator(generator: Instance['generator']): this {
+  public setGenerator(generator: Interface['generator']): this {
     this.generator = this.wrap(generator)
     return this
   }
@@ -293,15 +287,17 @@ export default class extends Base implements Instance {
     this.generator &&
       Object.assign(output, {generator: this.getGenerator()})
 
-    this.use &&
+    if (this.getUse()) {
       Object.assign(output, {
         use: this.getUse()
           .map(item =>
             isString(item) ? this.app.build.items[item] : item,
           )
-          .map(item => (item instanceof Item ? item.toWebpack() : item)),
+          .map(item => item.toWebpack()),
       })
+    }
 
+    this.app.info(output)
     return output
   }
 }

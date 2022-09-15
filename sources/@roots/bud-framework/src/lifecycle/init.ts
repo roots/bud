@@ -22,7 +22,7 @@ export const initialize = (app: Bud): Bud =>
       'value.fileFormat': `[name]`,
       'value.hashFormat': `[name].[contenthash:6]`,
 
-      'pattern.js': /\.(cjs|mjs|jsx?)$/,
+      'pattern.js': /\.(mjs|jsx?)$/,
       'pattern.ts': /\.(tsx?)$/,
       'pattern.sass': /\.(scss|sass)$/,
       'pattern.sassModule': /\.module\.(scss|sass)$/,
@@ -43,10 +43,10 @@ export const initialize = (app: Bud): Bud =>
       'pattern.json': /\.json$/,
       'pattern.json5': /\.json5$/,
 
-      'location.@src': `src`,
-      'location.@dist': `dist`,
-      'location.@storage': `.budfiles`,
-      'location.@modules': `node_modules`,
+      'location.@src': app.context.args.input ?? `src`,
+      'location.@dist': app.context.args.output ?? `dist`,
+      'location.@storage': app.context.args.storage ?? `.budfiles`,
+      'location.@modules': app.context.args.modules ?? `node_modules`,
 
       'build.bail': app.isProduction,
       'build.cache': () => app.cache.configuration,
@@ -56,7 +56,7 @@ export const initialize = (app: Bud): Bud =>
       'build.module.rules.before': () => [
         {
           test: app.hooks.filter(`pattern.js`),
-          include: [app.path(`@src`)],
+          include: [app.context.basedir],
           parser: {requireEnsure: false},
         },
       ],
@@ -82,32 +82,18 @@ export const initialize = (app: Bud): Bud =>
         app.path(`@storage`, app.label, `modules.json`),
       'build.resolve.extensions': new Set([
         `.mjs`,
-        `.cjs`,
         `.js`,
         `.jsx`,
         `.css`,
         `.json`,
         `.wasm`,
         `.yml`,
-        `.toml`,
       ]),
       'build.stats': {preset: `errors-only`},
       'build.target': () =>
         app.context.manifest?.browserslist
           ? `browserslist:${app.context.config[`package.json`]?.path}`
           : `web`,
-      'dev.middleware.dev.options.writeToDisk': true,
-      'dev.middleware.dev.options.publicPath': () =>
-        app.hooks.filter(`build.output.publicPath`),
-      'dev.middleware.dev.options.headers': {
-        'Access-Control-Allow-Origin': `*`,
-        'Access-Control-Allow-Headers': `*`,
-        'x-powered-by': `@roots/bud`,
-      },
-      'dev.middleware.enabled': [`dev`, `hot`],
-      'dev.url': new URL(`http://0.0.0.0:3000`),
-      'dev.watch.files': new Set([]),
-      'dev.watch.options': {},
     })
     .hooks.fromAsyncMap({
       'build.plugins': async () => await app.extensions.make(),
@@ -120,6 +106,22 @@ export const initialize = (app: Bud): Bud =>
         app.hooks.filter(`location.@modules`),
       ],
     })
+    .when(app.isDevelopment, ({hooks}) =>
+      hooks.fromMap({
+        'dev.middleware.dev.options.writeToDisk': true,
+        'dev.middleware.dev.options.publicPath': () =>
+          app.hooks.filter(`build.output.publicPath`),
+        'dev.middleware.dev.options.headers': {
+          'Access-Control-Allow-Origin': `*`,
+          'Access-Control-Allow-Headers': `*`,
+          'x-powered-by': `@roots/bud`,
+        },
+        'dev.middleware.enabled': [`dev`, `hot`],
+        'dev.url': new URL(`http://0.0.0.0:3000`),
+        'dev.watch.files': new Set([]),
+        'dev.watch.options': {},
+      }),
+    )
 
 /**
  * Filename

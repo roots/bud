@@ -342,18 +342,17 @@ export default class BudPostCss extends Extension {
       ],
     })
 
-    this.app.build.setLoader(`postcss-loader`).setItem(`postcss`, {
-      loader: `postcss-loader`,
-      options: () => ({
-        sourceMap: this.sourceMap,
-        postcssOptions: this.postcssOptions,
-      }),
-    })
+    this.app.build
+      .setLoader(`postcss`, `postcss-loader`)
+      .setItem(`postcss`, {
+        loader: `postcss`,
+        options: () => ({
+          sourceMap: this.sourceMap,
+          postcssOptions: this.postcssOptions,
+        }),
+      })
 
-    this.app.build.rules.css?.setUse(items => [
-      ...(items ?? []),
-      `postcss`,
-    ])
+    this.app.build.rules.css.setUse(items => [...(items ?? []), `postcss`])
     this.app.build.rules.cssModule?.setUse(items => [
       ...(items ?? []),
       `postcss`,

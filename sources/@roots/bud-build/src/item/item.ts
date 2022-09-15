@@ -1,7 +1,11 @@
 import type {Bud} from '@roots/bud-framework/bud'
 import type * as Build from '@roots/bud-framework/services/build'
+import type {Loaders} from '@roots/bud-framework/src/types/services/build/registry.js'
 import {bind} from '@roots/bud-support/decorators'
+import {isString} from '@roots/bud-support/lodash-es'
+import {basename} from 'path'
 
+import Loader from '../loader/loader.js'
 import Base from '../shared/base.js'
 
 export type ConstructorOptions = Build.Item.ConstructorOptions
@@ -11,13 +15,19 @@ export type ConstructorOptions = Build.Item.ConstructorOptions
  *
  * @public
  */
-class Item extends Base {
+class Item extends Base implements Build.Item {
+  /**
+   * Identifier
+   * @public
+   */
+  public ident: string
+
   /**
    * Loader
    *
    * @public
    */
-  public loader: Build.Item['loader']
+  public loader: Loader | `${keyof Loaders & string}`
 
   /**
    * Loader options
@@ -34,14 +44,35 @@ class Item extends Base {
   public constructor(
     protected _app: () => Bud,
     options?: {
-      loader?: Item['loader']
+      ident?: string
+      loader?: Loader | `${keyof Loaders & string}`
       options?: Item['options']
     },
   ) {
     super(_app)
 
+    options?.ident && this.setIdent(options.ident)
     options?.loader && this.setLoader(options.loader)
+    !options?.ident &&
+      options?.loader &&
+      this.setIdent(
+        isString(options.loader)
+          ? options.loader
+          : basename(options.loader.getSrc()),
+      )
+
     options?.options && this.setOptions(options.options)
+  }
+
+  @bind
+  public getIdent(): Build.Item['ident'] {
+    return this.ident
+  }
+
+  @bind
+  public setIdent(ident: Build.Item['ident']): this {
+    this.ident = ident
+    return this
   }
 
   /**
@@ -51,8 +82,10 @@ class Item extends Base {
    * @decorator `@bind`
    */
   @bind
-  public getLoader(): Build.Loader {
-    return this.app.build.loaders[this.unwrap(this.loader)]
+  public getLoader(): Loader {
+    return this.loader instanceof Loader
+      ? this.loader
+      : this.app.build.loaders[this.loader]
   }
 
   /**
@@ -62,8 +95,10 @@ class Item extends Base {
    * @decorator `@bind`
    */
   @bind
-  public setLoader(loader: Build.Item['loader']): this {
+  public setLoader(loader: Loader | `${keyof Loaders & string}`): this {
     this.loader = loader
+    if (!this.ident)
+      this.setIdent(basename(isString(loader) ? loader : loader.getSrc()))
     return this
   }
 
@@ -114,15 +149,20 @@ class Item extends Base {
    */
   @bind
   public toWebpack(): Build.Item.Output {
-    const loader = this.getLoader()
-    if (!loader) this.app.error(`missing loader ${loader}`)
-
     const output: Build.Item.Output = {
-      loader: this.getLoader().getSrc(),
+      loader: this.getLoader()?.getSrc(),
     }
 
     if (this.options) {
       output.options = this.getOptions()
+    }
+
+    if (this.ident) {
+      output.ident = this.getIdent()
+    }
+
+    if (!output.loader) {
+      this.app.error(`error in ${this.ident}`, `no loader registered`)
     }
 
     return output
