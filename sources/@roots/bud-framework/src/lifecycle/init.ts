@@ -1,4 +1,5 @@
 import {cpus} from 'os'
+import {join} from 'path'
 
 import type {Bud} from '../bud'
 
@@ -73,7 +74,7 @@ export const initialize = (app: Bud): Bud =>
       'build.optimization.minimize': false,
       'build.optimization.removeEmptyChunks': true,
       'build.output.chunkFilename': () => `js/dynamic/[id].js`,
-      'build.output.filename': () => `js/${filenameFormat(app)}`,
+      'build.output.filename': () => join(`js`, filenameFormat(app)),
       'build.output.path': () => app.path(`@dist`),
       'build.output.publicPath': `auto`,
       'build.parallelism': 10 * Math.max(cpus().length - 1, 1),
