@@ -61,7 +61,7 @@
     }
   },
   "devDependencies": {
-    "@babel/core": "7.18.10",
+    "@babel/core": "7.19.1",
     "@jest/globals": "29.0.1",
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.11.48",

@@ -329,10 +329,12 @@ export default class BudPostCss extends Extension {
   @once
   public async register() {
     this.setPlugins({
-      import: `postcss-import`,
-      nesting: `postcss-nested`,
+      import: await this.resolve(`postcss-import`),
+      nesting: await this.resolve(`postcss-nested`),
       env: [
-        `postcss-preset-env`,
+        await this.resolve(`postcss-preset-env`).then(path =>
+          path.replace(`.mjs`, `.cjs`),
+        ),
         {
           stage: 1,
           features: {
@@ -343,7 +345,7 @@ export default class BudPostCss extends Extension {
     })
 
     this.app.build
-      .setLoader(`postcss`, `postcss-loader`)
+      .setLoader(`postcss`, await this.resolve(`postcss-loader`))
       .setItem(`postcss`, {
         loader: `postcss`,
         options: () => ({

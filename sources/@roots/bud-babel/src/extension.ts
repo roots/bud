@@ -61,15 +61,54 @@ export default class BabelExtension extends Extension {
    */
   @bind
   public async register() {
-    this.app.babel
-      .setPreset(`@babel/preset-env`)
-      .setPlugin([`@babel/plugin-transform-runtime`, {helpers: false}])
-      .setPlugin(`@babel/plugin-proposal-object-rest-spread`)
-      .setPlugin(`@babel/plugin-proposal-class-properties`)
-      .setPlugin(`@babel/plugin-syntax-dynamic-import`)
+    this.app.babel = new Config()
 
-    this.app.build.setLoader(`babel`, `babel-loader`).setItem(`babel`, {
-      loader: this.app.build.loaders[`babel`],
+    const presetEnv = await this.resolve(`@babel/preset-env`)
+    if (presetEnv) this.app.babel.setPreset(`@babel/preset-env`, presetEnv)
+
+    const transformRuntime = await this.resolve(
+      `@babel/plugin-transform-runtime`,
+    )
+    transformRuntime &&
+      this.app.babel.setPlugin(`@babel/plugin-transform-runtime`, [
+        transformRuntime,
+        {helpers: false},
+      ])
+
+    const objectRestSpread = await this.resolve(
+      `@babel/plugin-proposal-object-rest-spread`,
+    )
+    objectRestSpread &&
+      this.app.babel.setPlugin(
+        `@babel/plugin-proposal-object-rest-spread`,
+        objectRestSpread,
+      )
+
+    const classProperties = await this.resolve(
+      `@babel/plugin-proposal-class-properties`,
+    )
+    classProperties &&
+      this.app.babel.setPlugin(
+        `@babel/plugin-proposal-class-properties`,
+        classProperties,
+      )
+
+    const dynamicImport = await this.resolve(
+      `@babel/plugin-syntax-dynamic-import`,
+    )
+    dynamicImport &&
+      this.app.babel.setPlugin(
+        `@babel/plugin-syntax-dynamic-import`,
+        dynamicImport,
+      )
+
+    const loader = await this.resolve(`babel-loader`, import.meta.url)
+    if (!loader) {
+      return this.logger.error(`Babel loader not found`)
+    }
+
+    this.app.build.setLoader(`babel`, loader).setItem(`babel`, {
+      loader: `babel`,
       options: () => ({
         cacheDirectory: this.cacheDirectory,
         presets: Object.values(this.app.babel.presets),
@@ -81,7 +120,7 @@ export default class BabelExtension extends Extension {
 
     this.app.build.rules.js.setUse(items => [
       this.app.build.items.babel,
-      ...items,
+      ...(items ?? []),
     ])
   }
 }
