@@ -67,11 +67,6 @@ module.exports = {
       url: `https://carrot.com/`,
     },
     {
-      image: `https://cdn.roots.io/app/uploads/c21redwood.svg`,
-      title: `C21 Redwood Realty`,
-      url: `https://www.c21redwood.com/`,
-    },
-    {
       image: `https://cdn.roots.io/app/uploads/wordpress.svg`,
       title: `WordPress.com`,
       url: `https://wordpress.com/`,
