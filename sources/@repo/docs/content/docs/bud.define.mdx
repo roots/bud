@@ -3,7 +3,6 @@ id: bud.define
 title: bud.define
 description: Replace variables in your application code and templates at compile time.
 sidebar_label: bud.define
-image: 'https://bud.js.org/img/share/docs/bud.define.png'
 ---
 
 import Tabs from '@theme/Tabs'
@@ -35,12 +34,4 @@ Replacements will also be made when compiling [html templates](/docs/bud.templat
   <title>%APP_NAME%</title>
   <!-- ... -->
 </html>
-```
-
-## Signature
-
-```ts title='@roots/bud-api/types/repository/index.d.ts'
-interface Define {
-  (this: Bud, values: Webpack.DefinePlugin['definitions']): Bud
-}
 ```

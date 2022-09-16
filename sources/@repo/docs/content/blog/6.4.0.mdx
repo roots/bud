@@ -12,7 +12,17 @@ tags: [release]
 
 <!--truncate-->
 
-## bud.assets
+## new: bud.sh
+
+bud.sh is a new config function that allows for executing arbitrary shell commands. It is a wrapper around the [execa](https://github.com/sindresorhus/execa) package.
+
+It's async and returns the `ExecaChildProcess` object. It will pipe the process stdout/stderr to the console automatically.
+
+```js title=bud.config.mjs
+await bud.sh('echo "hello world"')
+```
+
+## improved: bud.assets
 
 You can now specify copy options to apply to all copy patterns as a second parameter.
 

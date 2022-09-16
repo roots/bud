@@ -11,24 +11,18 @@ You can use **bud.path** to reference a file or directory's absolute path.
 ## Usage
 
 ```ts
-bud.path('@src/scripts/components')
-```
-
-If you like you can use `./` to reference project root:
-
-```ts
 bud.path('./src/scripts/components')
 ```
 
 You may also choose to deliniate directories with an `Array` of path segments, rather than a `String`:
 
 ```ts
-bud.path('@src', 'scripts', 'components')
+bud.path('./src', 'scripts', 'components')
 ```
 
 ## Special path handles
 
-The following is a table containing `String` values which fulfill a special role in the context of the **bud.path** function:
+The following is a table containing `string` values which fulfill a special role in the context of the **bud.path** function:
 
 | handle       | description                      | default          |
 | ------------ | -------------------------------- | ---------------- |
@@ -37,7 +31,7 @@ The following is a table containing `String` values which fulfill a special role
 | **@storage** | cache/artifact storage directory | `./.budfiles`    |
 | **@modules** | modules directory                | `./node_modules` |
 
-When one of these handles is used at **the beginning of a path**, the path will be
+When one of these handles is used at **the beginning of a string path** (or the first segment in a multi-segment path), the path will be
 prefixed with the corresponding directory.
 
 For example, to reference the `./src` directory:
@@ -46,40 +40,9 @@ For example, to reference the `./src` directory:
 bud.path('@src/scripts/components')
 ```
 
-You can create your own handles for use in the **bud.path** function. But, the handles in this table are standard. Other parts of the bud.js framework or ecosystem may use these handles to reference project directories. So, while they may be freely modified as needed, they should not be removed.
+You can create your own handles for use in the **bud.path** function. But, the handles in this table are standard.
+Other parts of bud.js or its ecosystem may use these handles to reference project directories. So, while they may be freely modified as needed, they should not be removed or repurposed.
 
-## Managing **bud.path** handles
+## Setting **bud.path** handles
 
-**bud.setPath** is used to add or modify path handles. There are only two real rules for path handles:
-
-- A path handle must be unique
-- A path handle must be a `String` which begins with a `@`
-
-To make a reference to the `./src/scripts/components` directory we could write:
-
-```ts
-bud.setPath('@components', '@src/scripts/components')
-```
-
-In the future we can utilize that reference:
-
-```ts
-bud.path('@components') // => './src/scripts/components'
-```
-
-We can redefine the path to source assets like so:
-
-```ts
-bud.setPath('@src', 'sources')
-```
-
-Lastly, we can define multiple paths in a single call by using an object:
-
-```ts
-bud.setPath({
-  '@src': 'sources',
-  '@components': '@src/scripts/components',
-})
-```
-
-Note that if we were to change `@src` again that `@components` path would still reference the old value. This is something to be aware of.
+Use [bud.setPath](/docs/bud.setPath) to define or override a handle value.

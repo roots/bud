@@ -3,25 +3,9 @@ slug: bud.template
 title: bud.template
 description: Configure your application's html templates.
 sidebar_label: bud.template
-image: 'https://bud.js.org/img/share/docs/bud.template.png'
 ---
 
-Configure your application's html templates.
-
-## Signature
-
-```ts title='template.d.ts'
-type Template = (
-  this: Bud,
-  options?: {
-    enabled?: boolean
-    template?: string
-    replace?: {
-      [key: string]: string
-    }
-  },
-) => Bud
-```
+Configure your app's html wrapper
 
 ## Usage
 
@@ -31,15 +15,12 @@ This method can be called without passing any options.
 bud.template()
 ```
 
-## Explicitly enabling or disabling
+The default template will source a couple variables from `.env`, you'll probably want to make sure they are set.
 
-You may use `enabled` to explicitly disable or enable the html generation.
-
-```js title='bud.config.js'
-bud.template({enabled: false})
+```env title='.env'
+PUBLIC_APP_TITLE='My App'
+PUBLIC_APP_DESCRIPTION='My App Description'
 ```
-
-Useful in the event that an overeager extension is adding a template you do not have use for.
 
 ## Using a custom template
 
@@ -65,38 +46,8 @@ bud.template({
 
 You may use any of these variables in the template by surrounding the variable name with `%` characters.
 
-```html {2} title='public/index.html'
+```html title='public/index.html'
 <html>
   <title>%APP_NAME%</title>
-</html>
-```
-
-You may use [**bud.define**](/docs/bud.define) should you need to access defined variables from your application code as well.
-
-Lastly, any variables defined in an `.env` file are also made available to the template automatically.
-
-## Default template reference
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <title>%APP_NAME%</title>
-    <meta name="theme-color" content="#000000" />
-    <meta name="description" content="%APP_DESCRIPTION%" />
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-  </head>
-
-  <body>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      You can add webfonts, meta tags, or analytics to this file.
-    -->
-  </body>
 </html>
 ```

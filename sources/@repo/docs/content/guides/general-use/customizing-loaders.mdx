@@ -29,12 +29,34 @@ Modify the source path of a given loader using **Loader[\`setSrc\`]**
 bud.build.loaders.babel.setSrc('example')
 ```
 
-### Registering new loaders
+### Examples
 
-Register a new loader using **Build[\`addLoader\`]**. The first parameter is a friendly handle for the loader, and the second is the path to the loader module.
+With automatic resolution:
 
-```ts
-bud.build.setLoader(`example`, bud.module.resolve(`example`))
+```js title=bud.config.mjs
+export default async bud => {
+  bud.build.setLoader(`babel-loader`)
+}
+```
+
+With explicit resolution:
+
+```js title=bud.config.mjs
+export default async bud => {
+  bud.build.setLoader(
+    `babel-loader`,
+    await bud.module.resolve(`babel-loader`),
+  )
+```
+
+Using the callback API:
+
+```js title=bud.config.mjs
+export default async bud => {
+  bud.build.setLoader(
+    `babel-loader`,
+    loader => loader.setSrc(`babel-loader`)
+  )
 ```
 
 ## Items
@@ -61,13 +83,31 @@ The value given references the handle of a registered [loader](#loaders).
 bud.build.items.example.setLoader(`example`)
 ```
 
-### Registering new items
+### Examples
 
-```ts
-bud.build.setItem(`example`, {
-  loader: `example`,
-  options: {},
-})
+Declaratively:
+
+```js title=bud.config.mjs
+export default async bud => {
+  bud.build.setItem(`babel`, {
+    loader: `babel-loader`,
+    options: {
+      presets: [`@babel/preset-env`],
+    },
+  })
+}
+```
+
+Using the callback API:
+
+```js title=bud.config.mjs
+export default async bud => {
+  bud.build.setItem(`babel`, item =>
+    item.setLoader(`babel-loader`).setOptions({
+      presets: [`@babel/preset-env`],
+    }),
+  )
+}
 ```
 
 ## Rules
@@ -119,30 +159,27 @@ The value given references the handle of a registered [item](#items).
 bud.build.rules.js.setUse(items => [...items, 'babel'])
 ```
 
-### Registering new rules
+### Examples
 
-New rules can be registered using `bud.build.setRule`:
+Declaratively:
 
-```ts
-bud.build.setRule('app.ts', {
-  test: /\.app.tsx?$/,
-  use: [`ts`],
-})
+```js title=bud.config.mjs
+export default async bud => {
+  bud.build.setRule(`js`, {
+    test: /\.js$/,
+    use: [`babel`],
+  })
+}
 ```
 
-New rules can be made (but not registered) using `bud.build.makeRule`:
+Using the callback API:
 
-```ts
-const rule = bud.build
-  .makeRule()
-  .setTest(/\.app.tsx?$/)
-  .setUse([`ts`])
-
-// Later this could be registered:
-bud.build.setRule(`app.ts`, rule)
+```js title=bud.config.mjs
+export default async bud =>
+  bud.build.setRule(`js`, rule => rule.setTest(/\.js$/).setUse([`babel`]))
 ```
 
-## Examples
+## In practice
 
 ### @roots/bud-typescript
 
