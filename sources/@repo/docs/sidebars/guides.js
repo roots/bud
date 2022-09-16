@@ -21,6 +21,7 @@ module.exports = {
         },
         `cli/clean`,
         `cli/doctor`,
+        `cli/repl`,
       ],
     },
     {
@@ -37,6 +38,7 @@ module.exports = {
         `general-use/node-api`,
         `general-use/esmodules`,
         `general-use/remote-sources`,
+        `general-use/managing-dependencies`,
       ],
     },
     {

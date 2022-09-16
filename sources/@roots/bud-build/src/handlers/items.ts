@@ -6,9 +6,10 @@ import type {Item} from '@roots/bud-framework/services/build'
  *
  * @public
  */
-export const css = async (app: Bud): Promise<Item> =>
+export const css = (app: Bud): Item =>
   app.build
     .makeItem()
+    .setIdent(`css`)
     .setLoader(`css`)
     .setOptions(() => ({
       importLoaders: app.build.rules.css.getUse().length - 2,
@@ -21,9 +22,10 @@ export const css = async (app: Bud): Promise<Item> =>
  *
  * @public
  */
-export const cssModule = async (app: Bud): Promise<Item> =>
+export const cssModule = (app: Bud): Item =>
   app.build
     .makeItem()
+    .setIdent(`cssModule`)
     .setLoader(`css`)
     .setOptions(({build, hooks}) => ({
       esModule: true,
@@ -38,7 +40,7 @@ export const cssModule = async (app: Bud): Promise<Item> =>
  *
  * @public
  */
-export const csv = async (app: Bud): Promise<Item> =>
+export const csv = (app: Bud): Item =>
   app.build.makeItem().setLoader(`csv`)
 
 /**
@@ -46,34 +48,35 @@ export const csv = async (app: Bud): Promise<Item> =>
  *
  * @public
  */
-export const html = async (app: Bud): Promise<Item> =>
-  app.build.makeItem().setLoader(`html`)
+export const html = (app: Bud): Item =>
+  app.build.makeItem().setLoader(`html`).setIdent(`html`)
 
 /**
  * Style loader
  *
  * @public
  */
-export const style = async (app: Bud): Promise<Item> =>
-  app.build.makeItem().setLoader(`style`)
+export const style = (app: Bud): Item =>
+  app.build.makeItem().setLoader(`style`).setIdent(`style`)
 
 /**
  * Markdown loader
  *
  * @public
  */
-export const md = async (app: Bud): Promise<Item> =>
-  app.build.makeItem({loader: `md`})
+export const md = (app: Bud): Item =>
+  app.build.makeItem().setIdent(`md`).setLoader(`md`)
 
 /**
  * MiniCss loader
  *
  * @public
  */
-export const minicss = async (app: Bud): Promise<Item> =>
+export const minicss = (app: Bud): Item =>
   app.build
     .makeItem()
     .setLoader(`minicss`)
+    .setIdent(`minicss`)
     .setOptions(app => ({
       publicPath: app.hooks.filter(`build.output.publicPath`),
     }))
@@ -83,15 +86,15 @@ export const minicss = async (app: Bud): Promise<Item> =>
  *
  * @public
  */
-export const raw = async ({build}: Bud): Promise<Item> =>
-  build.makeItem().setLoader(`raw`)
+export const raw = ({build}: Bud): Item =>
+  build.makeItem().setLoader(`raw`).setIdent(`raw`)
 
 /**
  * File loader
  *
  * @public
  */
-export const file = async (app: Bud): Promise<Item> =>
+export const file = (app: Bud): Item =>
   app.build
     .makeItem()
     .setLoader(`file`)
@@ -100,19 +103,20 @@ export const file = async (app: Bud): Promise<Item> =>
         ? app.hooks.filter(`value.hashFormat`).concat(`.[ext]`)
         : app.hooks.filter(`value.fileFormat`).concat(`.[ext]`),
     }))
+    .setIdent(`file`)
 
 /**
  * Xml loader
  *
  * @public
  */
-export const xml = async (app: Bud): Promise<Item> =>
-  app.build.makeItem().setLoader(`xml`)
+export const xml = (app: Bud): Item =>
+  app.build.makeItem().setLoader(`xml`).setIdent(`xml`)
 
 /**
  * Yml loader
  *
  * @public
  */
-export const yml = async (app: Bud): Promise<Item> =>
-  app.build.makeItem().setLoader(`yml`)
+export const yml = (app: Bud): Item =>
+  app.build.makeItem().setLoader(`yml`).setIdent(`yml`)

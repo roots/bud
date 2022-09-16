@@ -31,11 +31,28 @@ import type * as Hooks from '../registry'
  * @public
  */
 export interface Service extends BaseService {
+  /**
+   * Async hooks value store
+   * @public
+   */
   asyncStore: any
+  /**
+   * Sync hooks value store
+   * @public
+   */
   syncStore: any
+
+  /**
+   * Events value store
+   * @public
+   */
   events: any
 
   hasSyncHook: (hook: keyof Hooks.SyncStore) => boolean
+
+  hasAsyncHook: (hook: keyof Hooks.AsyncStore) => boolean
+
+  hasEvent: (hook: keyof Hooks.EventsStore) => boolean
 
   /**
    * Register a function or value to modify or replace a filtered value

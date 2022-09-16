@@ -10,6 +10,12 @@ import type {Loaders} from './registry'
  */
 export interface Item extends Base {
   /**
+   * identifier
+   * @public
+   */
+  ident: string
+
+  /**
    * Key from {@link Loaders} registry
    *
    * @remarks
@@ -17,16 +23,14 @@ export interface Item extends Base {
    *
    * @public
    */
-  loader:
-    | `${keyof Loaders & string}`
-    | ((app: Bud) => `${keyof Loaders & string}`)
+  loader: `${keyof Loaders & string}` | Loader
 
   /**
    * Set the {@link Loaders} key
    *
    * @public
    */
-  setLoader(loader: Item['loader']): this
+  setLoader(loader: `${keyof Loaders & string}` | Loader): this
 
   /**
    * Get the associated {@link Loader} instance
@@ -34,6 +38,20 @@ export interface Item extends Base {
    * @public
    */
   getLoader(): Loader
+
+  /**
+   * Set the {@link Loaders} key
+   *
+   * @public
+   */
+  setIdent(ident: string): this
+
+  /**
+   * Get the associated {@link Ident} instance
+   *
+   * @public
+   */
+  getIdent(): string
 
   /**
    * Associated {@link Loader} options
@@ -101,17 +119,16 @@ export namespace Item {
    */
   export interface Output {
     /**
-     * Finalized loader
-     *
-     * @public
+     * Unique loader options identifier.
      */
-    loader: string
-
+    ident?: string
     /**
-     * Finalized options
-     *
-     * @public
+     * Loader name.
      */
-    options?: Item.Options
+    loader?: string
+    /**
+     * Loader options.
+     */
+    options?: string | {[index: string]: any}
   }
 }

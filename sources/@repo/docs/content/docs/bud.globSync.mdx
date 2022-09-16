@@ -5,17 +5,17 @@ description: Globbing function
 sidebar_label: bud.globSync
 ---
 
-Glob for matching files. This function is syncronous but there is an asyncronous version provided by [bud.glob](/docs/bud.glob)
+Glob for matching files. This function is synchronous but there is an asynchronous version provided by [bud.glob](/docs/bud.glob). The asynchronous version should be preferred.
 
 ## Usage
 
-To look for files relative to the project, you can simply pass the search:
+To look for files relative to the project root:
 
 ```js
 const results = bud.globSync('**/*.json')
 ```
 
-To include additional search terms (matched as `AND`) you can either treat the function as variadic or specify with an array:
+To include additional search terms you can either treat the function as variadic or specify with an array:
 
 ```js
 const results = bud.globSync('**/*.json', '**/*.yml')

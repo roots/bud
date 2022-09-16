@@ -4,7 +4,7 @@
 
 ━━━ General commands ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  bud doctor
+  bud doctor [--notify]
     Check project for common errors
 
   bud repl [--color,-c] [--indent,-i #0] [--depth,-d #0]

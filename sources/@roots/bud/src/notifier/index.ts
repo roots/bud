@@ -92,7 +92,9 @@ export class Notifier {
    * @public
    */
   public get open(): string {
-    return this.app.hooks.filter(`dev.url`).origin
+    return this.app.isDevelopment
+      ? this.app.hooks.filter(`dev.url`).origin
+      : null
   }
 
   /**
@@ -195,7 +197,7 @@ export class Notifier {
           message: this.message,
           // @ts-ignore
           group: this.group,
-          open: this.open,
+          open: this.app.isDevelopment ? this.open : undefined,
         },
         this.callback,
       )

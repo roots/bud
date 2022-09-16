@@ -6,8 +6,8 @@ import {
   isUndefined,
 } from '@roots/bud-support/lodash-es'
 
+import {override} from './lifecycle/args.js'
 import {bootstrap, LIFECYCLE_EVENT_MAP} from './lifecycle/bootstrap.js'
-import {override} from './lifecycle/init.js'
 import type {Logger} from './logger'
 import type * as methods from './methods/index.js'
 import type {Module} from './module'
@@ -188,6 +188,8 @@ export class Bud {
 
   public sequenceSync: methods.sequenceSync
 
+  public sh: methods.sh
+
   public tap: methods.tap
 
   public tapAsync: methods.tapAsync
@@ -289,7 +291,8 @@ export class Bud {
         .finally(() => logger.success(event))
     }, Promise.resolve())
 
-    this.hooks.action(`config.after`, override)
+    this.hooks.action(`booted`, override)
+    this.hooks.action(`build.before`, override)
 
     return this
   }

@@ -1,5 +1,5 @@
-import {isUndefined} from '@roots/bud-support/lodash-es'
 import {cpus} from 'os'
+import {join} from 'path'
 
 import type {Bud} from '../bud'
 
@@ -23,7 +23,7 @@ export const initialize = (app: Bud): Bud =>
       'value.fileFormat': `[name]`,
       'value.hashFormat': `[name].[contenthash:6]`,
 
-      'pattern.js': /\.(cjs|mjs|jsx?)$/,
+      'pattern.js': /\.(mjs|jsx?)$/,
       'pattern.ts': /\.(tsx?)$/,
       'pattern.sass': /\.(scss|sass)$/,
       'pattern.sassModule': /\.module\.(scss|sass)$/,
@@ -44,10 +44,10 @@ export const initialize = (app: Bud): Bud =>
       'pattern.json': /\.json$/,
       'pattern.json5': /\.json5$/,
 
-      'location.@src': `src`,
-      'location.@dist': `dist`,
-      'location.@storage': `.budfiles`,
-      'location.@modules': `node_modules`,
+      'location.@src': app.context.args.input ?? `src`,
+      'location.@dist': app.context.args.output ?? `dist`,
+      'location.@storage': app.context.args.storage ?? `.budfiles`,
+      'location.@modules': app.context.args.modules ?? `node_modules`,
 
       'build.bail': app.isProduction,
       'build.cache': () => app.cache.configuration,
@@ -57,7 +57,7 @@ export const initialize = (app: Bud): Bud =>
       'build.module.rules.before': () => [
         {
           test: app.hooks.filter(`pattern.js`),
-          include: [app.path(`@src`)],
+          include: [app.context.basedir],
           parser: {requireEnsure: false},
         },
       ],
@@ -74,7 +74,7 @@ export const initialize = (app: Bud): Bud =>
       'build.optimization.minimize': false,
       'build.optimization.removeEmptyChunks': true,
       'build.output.chunkFilename': () => `js/dynamic/[id].js`,
-      'build.output.filename': () => `js/${filenameFormat(app)}`,
+      'build.output.filename': () => join(`js`, filenameFormat(app)),
       'build.output.path': () => app.path(`@dist`),
       'build.output.publicPath': `auto`,
       'build.parallelism': 10 * Math.max(cpus().length - 1, 1),
@@ -83,32 +83,18 @@ export const initialize = (app: Bud): Bud =>
         app.path(`@storage`, app.label, `modules.json`),
       'build.resolve.extensions': new Set([
         `.mjs`,
-        `.cjs`,
         `.js`,
         `.jsx`,
         `.css`,
         `.json`,
         `.wasm`,
         `.yml`,
-        `.toml`,
       ]),
       'build.stats': {preset: `errors-only`},
       'build.target': () =>
         app.context.manifest?.browserslist
           ? `browserslist:${app.context.config[`package.json`]?.path}`
           : `web`,
-      'dev.middleware.dev.options.writeToDisk': true,
-      'dev.middleware.dev.options.publicPath': () =>
-        app.hooks.filter(`build.output.publicPath`),
-      'dev.middleware.dev.options.headers': {
-        'Access-Control-Allow-Origin': `*`,
-        'Access-Control-Allow-Headers': `*`,
-        'x-powered-by': `@roots/bud`,
-      },
-      'dev.middleware.enabled': [`dev`, `hot`],
-      'dev.url': new URL(`http://0.0.0.0:3000`),
-      'dev.watch.files': new Set([]),
-      'dev.watch.options': {},
     })
     .hooks.fromAsyncMap({
       'build.plugins': async () => await app.extensions.make(),
@@ -121,66 +107,22 @@ export const initialize = (app: Bud): Bud =>
         app.hooks.filter(`location.@modules`),
       ],
     })
-
-export const override = async (app: Bud): Promise<Bud> => {
-  if (app.isRoot && isset(app.context.args.target))
-    Object.keys(app.children)
-      .filter(name => !app.context.args.target.includes(name))
-      .map(name => delete app.children[name])
-
-  if (isset(app.context.args.publicPath))
-    app.hooks.on(`build.output.publicPath`, app.context.args.publicPath)
-  else if (isset(app.context.manifest?.bud?.publicPath))
-    app.hooks.on(
-      `build.output.publicPath`,
-      app.context.manifest.bud.publicPath,
+    .when(app.isDevelopment, ({hooks}) =>
+      hooks.fromMap({
+        'dev.middleware.dev.options.writeToDisk': true,
+        'dev.middleware.dev.options.publicPath': () =>
+          app.hooks.filter(`build.output.publicPath`),
+        'dev.middleware.dev.options.headers': {
+          'Access-Control-Allow-Origin': `*`,
+          'Access-Control-Allow-Headers': `*`,
+          'x-powered-by': `@roots/bud`,
+        },
+        'dev.middleware.enabled': [`dev`, `hot`],
+        'dev.url': new URL(`http://0.0.0.0:3000`),
+        'dev.watch.files': new Set([]),
+        'dev.watch.options': {},
+      }),
     )
-
-  if (isset(app.context.args.input))
-    app.hooks.on(`location.@src`, app.context.args.input)
-  else if (isset(app.context.manifest?.bud?.paths?.[`@src`]))
-    app.hooks.on(`location.@src`, app.context.manifest.bud.paths[`@src`])
-
-  if (isset(app.context.args.output))
-    app.hooks.on(`location.@dist`, app.context.args.output)
-  else if (isset(app.context.manifest?.bud?.paths?.[`@dist`]))
-    app.hooks.on(`location.@dist`, app.context.manifest.bud.paths[`@dist`])
-
-  if (isset(app.context.args.storage))
-    app.hooks.on(`location.@storage`, app.context.args.storage)
-  else if (isset(app.context.manifest?.bud?.paths?.[`@storage`]))
-    app.hooks.on(
-      `location.@storage`,
-      app.context.manifest?.bud.paths[`@storage`],
-    )
-
-  if (
-    isset(app.context.manifest?.bud?.cache) &&
-    isUndefined(app.context.args.cache)
-  )
-    app.context.args.cache = app.context.manifest?.bud.cache
-
-  if (isset(app.context.args.mode))
-    app.hooks.on(`build.mode`, app.context.args.mode)
-
-  if (isset(app.context.args.clean))
-    app.hooks.on(`feature.clean`, app.context.args.clean)
-  else if (isset(app.context.manifest?.bud?.clean))
-    app.hooks.on(`feature.clean`, app.context.manifest?.bud.clean)
-
-  if (isset(app.context.args.html)) {
-    await app.api.call(`template`)
-  }
-
-  return app
-}
-
-/**
- * Returns true if the given value is neither null nor undefined.
- *
- * @public
- */
-const isset = (value: unknown): boolean => !isUndefined(value)
 
 /**
  * Filename

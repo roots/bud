@@ -1,5 +1,10 @@
 import * as Service from '@roots/bud-framework/service'
 import type * as Base from '@roots/bud-framework/services/build'
+import type {
+  Items,
+  Loaders,
+  Rules,
+} from '@roots/bud-framework/src/types/services/build/registry.js'
 import {bind} from '@roots/bud-support/decorators'
 import {isFunction, isUndefined} from '@roots/bud-support/lodash-es'
 import type {Configuration} from 'webpack'
@@ -7,7 +12,7 @@ import type {Configuration} from 'webpack'
 import type {ValueFactory} from './config/builder.js'
 import * as items from './handlers/items.js'
 import * as loaders from './handlers/loaders.js'
-import * as rules from './handlers/rules.js'
+import * as rules from './handlers/rules/rules.js'
 import Item from './item/item.js'
 import Loader from './loader/loader.js'
 import * as Rule from './rule/rule.js'
@@ -18,6 +23,9 @@ import * as Rule from './rule/rule.js'
  * @public
  */
 export default class Build extends Service.Base implements Base.Service {
+  /**
+   * @public
+   */
   public static label = `build`
 
   /**
@@ -30,21 +38,21 @@ export default class Build extends Service.Base implements Base.Service {
    *
    * @public
    */
-  public loaders: Record<string, Loader> = {}
+  public loaders: Record<`${keyof Loaders & string}`, Loader> = {}
 
   /**
    * Registered rules
    *
    * @public
    */
-  public rules: Record<string, Rule.Instance> = {}
+  public rules: Record<`${keyof Rules & string}`, Rule.Interface> = {}
 
   /**
    * Registered items
    *
    * @public
    */
-  public items: Record<string, Item> = {}
+  public items: Record<`${keyof Items & string}`, Item> = {}
 
   /**
    * Make webpack configuration
@@ -94,30 +102,25 @@ export default class Build extends Service.Base implements Base.Service {
    */
   @bind
   public async register() {
-    await Promise.all(
-      Object.entries(rules).map(async ([key, ruleFactory]) => {
-        const value = await ruleFactory(this)
-        this.rules[key] = value
-      }),
-    )
+    Object.entries(loaders).map(([key, loaderFactory]) => {
+      const value = loaderFactory(this.app)
+      this.setLoader(key, value)
+    })
 
-    await Promise.all(
-      Object.entries(items).map(async ([key, itemFactory]) => {
-        const value = await itemFactory(this.app)
-        this.items[key] = value as Item
-      }),
-    )
+    Object.entries(items).map(([key, itemFactory]) => {
+      const value = itemFactory(this.app)
+      this.setItem(key, value as any)
+    })
 
     this.items.precss = this.app.isProduction
       ? this.items.minicss
       : this.items.style
 
-    await Promise.all(
-      Object.entries(loaders).map(async ([key, loaderFactory]) => {
-        const value = await loaderFactory(this.app)
-        this.loaders[key] = value as Loader
-      }),
-    )
+    Object.entries(rules)
+      .reverse()
+      .map(([key, ruleFactory]) => {
+        this.setRule(key, ruleFactory(this.app))
+      })
   }
 
   /**
@@ -131,12 +134,20 @@ export default class Build extends Service.Base implements Base.Service {
    * @decorator `@bind`
    */
   @bind
-  public setRule(name: string, options?: Rule.Options): this {
-    const processedOptions = isFunction(options)
-      ? options(this.makeRule())
-      : this.makeRule(options)
+  public setRule<K extends `${keyof Rules & string}`>(
+    name: K,
+    options?: Rule.Options | Rule.Interface,
+  ): this {
+    if (options instanceof Rule.default) {
+      this.rules[name] = options
+      this.logger.info(`set rule`, name, this.rules[name])
+      return this
+    }
 
-    Object.assign(this.rules, {[name]: processedOptions})
+    this.rules[name] = isFunction(options)
+      ? options(this.makeRule())
+      : this.makeRule(options as any)
+    this.logger.info(`set rule`, name, this.rules[name])
 
     return this
   }
@@ -151,23 +162,43 @@ export default class Build extends Service.Base implements Base.Service {
    * @decorator `@bind`
    */
   @bind
-  public makeRule(options?: Rule.Options): Rule.Instance {
+  public makeRule(options?: Rule.Options): Rule.Interface {
     return new Rule.default(() => this.app, options)
+  }
+
+  @bind
+  public getLoader(name: string): Loader {
+    if (!this.loaders[name])
+      this.logger.error(
+        `loader ${name} was requested but is not registered`,
+      )
+
+    return this.loaders[name]
   }
 
   /**
    * Set Loader
    *
    * @param name - Loader key
-   * @param options - Loader constructor properties
+   * @param definition - Loader constructor properties
    * @returns the Loader
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public setLoader(name: string, options?: string): this {
-    Object.assign(this.loaders, {[name]: this.makeLoader(options ?? name)})
+  public setLoader<K extends `${keyof Loaders & string}`>(
+    name: K,
+    definition?: string | Loader,
+  ): this {
+    const loader = isUndefined(definition)
+      ? this.makeLoader(name)
+      : definition instanceof Loader
+      ? definition
+      : this.makeLoader(definition)
+
+    this.loaders[name] = loader
+    this.logger.info(`set loader`, loader)
 
     return this
   }
@@ -182,8 +213,18 @@ export default class Build extends Service.Base implements Base.Service {
    * @decorator `@bind`
    */
   @bind
-  public makeLoader(options: string): Loader {
-    return new Loader(() => this.app, options)
+  public makeLoader(src: string): Loader {
+    return new Loader(() => this.app, src)
+  }
+
+  @bind
+  public getItem(name: `${keyof Items & string}`): Item {
+    if (!this.items[name])
+      this.logger.error(
+        `loader ${name} was requested but is not registered`,
+      )
+
+    return this.items[name]
   }
 
   /**
@@ -197,19 +238,20 @@ export default class Build extends Service.Base implements Base.Service {
    * @decorator `@bind`
    */
   @bind
-  public setItem(
-    name: string,
+  public setItem<K extends `${keyof Items & string}`>(
+    name: K,
     options?: Item | ((item: Item) => Item),
   ): this {
     const maybeOptionsCallback = isUndefined(options)
-      ? {loader: name}
+      ? {ident: name, loader: name}
       : options
 
     const item = isFunction(maybeOptionsCallback)
       ? maybeOptionsCallback(this.makeItem())
       : this.makeItem(maybeOptionsCallback)
 
-    Object.assign(this.items, {[name]: item})
+    this.items[name] = item
+    this.logger.info(`set item`, item)
 
     return this
   }

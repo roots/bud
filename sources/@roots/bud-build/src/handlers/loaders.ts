@@ -7,8 +7,8 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin'
  *
  * @public
  */
-export const css = async (app: Bud): Promise<Loader> => {
-  const loader = await app.module.resolve(`css-loader`)
+export const css = (app: Bud): Loader => {
+  const loader = `css-loader`
   return app.build.makeLoader().setSrc(loader)
 }
 
@@ -17,8 +17,8 @@ export const css = async (app: Bud): Promise<Loader> => {
  *
  * @public
  */
-export const csv = async (app: Bud): Promise<Loader> => {
-  const loader = await app.module.resolve(`csv-loader`)
+export const csv = (app: Bud): Loader => {
+  const loader = `csv-loader`
   return app.build.makeLoader().setSrc(loader)
 }
 
@@ -27,8 +27,8 @@ export const csv = async (app: Bud): Promise<Loader> => {
  *
  * @public
  */
-export const file = async (app: Bud): Promise<Loader> => {
-  const loader = await app.module.resolve(`file-loader`)
+export const file = (app: Bud): Loader => {
+  const loader = `file-loader`
   return app.build.makeLoader().setSrc(loader)
 }
 
@@ -37,8 +37,8 @@ export const file = async (app: Bud): Promise<Loader> => {
  *
  * @public
  */
-export const html = async (app: Bud): Promise<Loader> => {
-  const loader = await app.module.resolve(`html-loader`)
+export const html = (app: Bud): Loader => {
+  const loader = `html-loader`
   return app.build.makeLoader().setSrc(loader)
 }
 
@@ -47,8 +47,8 @@ export const html = async (app: Bud): Promise<Loader> => {
  *
  * @public
  */
-export const remark = async (app: Bud): Promise<Loader> => {
-  const loader = await app.module.resolve(`remark-loader`)
+export const remark = (app: Bud): Loader => {
+  const loader = `remark-loader`
   return app.build.makeLoader().setSrc(loader)
 }
 
@@ -57,7 +57,7 @@ export const remark = async (app: Bud): Promise<Loader> => {
  *
  * @public
  */
-export const minicss = async (app: Bud): Promise<Loader> => {
+export const minicss = (app: Bud): Loader => {
   return app.build.makeLoader().setSrc(MiniCssExtractPlugin.loader)
 }
 
@@ -66,8 +66,8 @@ export const minicss = async (app: Bud): Promise<Loader> => {
  *
  * @public
  */
-export const style = async (app: Bud): Promise<Loader> => {
-  const loader = await app.module.resolve(`style-loader`)
+export const style = (app: Bud): Loader => {
+  const loader = `style-loader`
   return app.build.makeLoader().setSrc(loader)
 }
 
@@ -76,8 +76,8 @@ export const style = async (app: Bud): Promise<Loader> => {
  *
  * @public
  */
-export const xml = async (app: Bud): Promise<Loader> => {
-  const loader = await app.module.resolve(`xml-loader`)
+export const xml = (app: Bud): Loader => {
+  const loader = `xml-loader`
   return app.build.makeLoader().setSrc(loader)
 }
 
@@ -86,7 +86,7 @@ export const xml = async (app: Bud): Promise<Loader> => {
  *
  * @public
  */
-export const yml = async (app: Bud): Promise<Loader> => {
-  const loader = await app.module.resolve(`yml-loader`)
+export const yml = (app: Bud): Loader => {
+  const loader = `yml-loader`
   return app.build.makeLoader().setSrc(loader)
 }

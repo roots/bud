@@ -61,15 +61,15 @@ bud.hooks.async('build.resolve.modules', async modulePaths => [
 
 Callbacks for asynchronous hooks should be registered as asynchronous functions.
 
-## bud.hooks.fromMap
+## bud.hooks.fromAsyncMap
 
-Set multiple async hooks at once with `bud.hooks.fromMap`.
+Set multiple async hooks at once with `bud.hooks.fromAsyncMap`.
 
 ```ts
-bud.hooks.fromMap({
+bud.hooks.fromAsyncMap({
   'build.resolve.modules': async paths => [
     ...paths,
-    await fs.promises.realpath('node_modules'),
+    abud.path('@modules'),
   ],
 })
 ```

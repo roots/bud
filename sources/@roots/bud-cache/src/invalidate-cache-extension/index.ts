@@ -34,8 +34,9 @@ export default class InvalidateCacheExtension extends Extension {
   @bind public async register() {
     const invalidate = await fs.pathExists(this.file)
 
-    if (this.app.context.args.flush === true || invalidate) {
+    if (invalidate || this.app.context.args.flush) {
       await fs.remove(this.file)
+      await fs.remove(this.app.path(`@storage`, this.app.label, `cache`))
     }
 
     this.app.hooks.action(`compiler.after`, async () => {

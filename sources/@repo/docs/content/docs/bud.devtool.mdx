@@ -37,13 +37,3 @@ Enable sourcemaps only in development (see [bud.when](bud.when) for extra clarit
 ```js title='bud.config.js'
 bud.when(bud.isDevelopment, bud => bud.devtool())
 ```
-
-## Signature
-
-```ts title='@roots/bud-api/types/repository/index.d.ts'
-namespace Repository {
-  interface Devtool {
-    (this: Bud, devtool?: Webpack.Configuration['devtool']): Bud
-  }
-}
-```

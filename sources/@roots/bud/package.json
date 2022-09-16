@@ -136,7 +136,6 @@
     "node-notifier": "10.0.1",
     "open": "8.4.0",
     "open-editor": "4.0.0",
-    "signale": "1.4.0",
     "tslib": "2.4.0",
     "typanion": "3.9.0",
     "webpack": "5.73.0",

@@ -12,6 +12,7 @@ import {run} from './run.js'
 import {sequence, sequenceSync} from './sequence.js'
 import {setPath} from './setPath.js'
 import {setPublicPath} from './setPublicPath.js'
+import {sh} from './sh.js'
 import {tap, tapAsync} from './tap.js'
 import {when} from './when.js'
 
@@ -32,6 +33,7 @@ export {
   sequenceSync,
   setPath,
   setPublicPath,
+  sh,
   tap,
   tapAsync,
   when,

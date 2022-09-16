@@ -5,12 +5,10 @@
     "extends @roots/browserslist-config/current"
   ],
   "devDependencies": {
-    "@roots/browserslist-config": "latest",
     "@roots/bud": "latest",
     "@roots/bud-vue": "latest"
   },
   "dependencies": {
-    "lodash": "4.17.21",
     "vue": "^2.6.14",
     "vue-template-compiler": "^2.6.14",
     "vue-loader": "^15.9.4"

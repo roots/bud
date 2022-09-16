@@ -1,7 +1,8 @@
-import type {RuleSetUseItem} from 'webpack'
+import type {RuleSetRule} from 'webpack'
 
 import type {Bud} from '../../../bud'
 import type {Base} from './base'
+import type {Item} from './item'
 import type * as Build from './registry'
 
 /**
@@ -17,13 +18,17 @@ export interface Parser extends Record<string, any> {}
  * @public
  */
 export interface Options {
-  test?: Interface['test']
-  use?: Interface['use'] | ((use: Interface['use']) => Interface['use'])
-  include?: Interface['include']
-  exclude?: Interface['exclude']
-  type?: Interface['type']
-  parser?: Interface['parser']
-  generator?: Interface['generator']
+  test?: ((app: Bud) => Output['test']) | Output['test']
+  use?:
+    | ((
+        loaders: Array<Item | `${keyof Build.Items & string}`>,
+      ) => Array<Item | `${keyof Build.Items & string}`>)
+    | Array<Item | `${keyof Build.Items & string}`>
+  include?: Array<((app: Bud) => string | RegExp) | string | RegExp>
+  exclude?: Array<((app: Bud) => string | RegExp) | string | RegExp>
+  type?: ((app: Bud) => Output['type']) | Output['type']
+  parser?: ((app: Bud) => Output['parser']) | Output['parser']
+  generator?: ((app: Bud) => Output['generator']) | Output['generator']
 }
 
 /**
@@ -31,17 +36,9 @@ export interface Options {
  *
  * @public
  */
-export interface Output {
-  test?: RegExp
-  use?: {
-    loader: string
-    options?: {[key: string]: any}
-  }[]
+export interface Output extends RuleSetRule {
   include?: Array<RegExp | string>
   exclude?: Array<RegExp | string>
-  type?: string
-  parser?: Parser
-  generator?: any
 }
 
 export interface Interface extends Base {
@@ -50,35 +47,35 @@ export interface Interface extends Base {
    *
    * @public
    */
-  test: ((app: Bud) => RegExp) | RegExp
+  test: Options['test']
 
   /**
    * Get the value of `test`
    *
    * @public
    */
-  getTest(): RegExp
+  getTest(): Options['test']
 
   /**
    * Set the value of `test`
    *
    * @public
    */
-  setTest(test: Interface['test']): this
+  setTest(test: Options['test']): this
 
   /**
    * Use item
    *
    * @public
    */
-  use?: Array<(keyof Build.Items & string) | RuleSetUseItem>
+  use?: Array<`${keyof Build.Items & string}` | Item>
 
   /**
    * Get the value of `use`
    *
    * @public
    */
-  getUse(): Array<(keyof Build.Items & string) | RuleSetUseItem>
+  getUse(): Array<`${keyof Build.Items & string}` | Item>
 
   /**
    * Set the value of `use`
@@ -87,10 +84,10 @@ export interface Interface extends Base {
    */
   setUse(
     use:
+      | Array<`${keyof Build.Items & string}` | Item>
       | ((
-          use: Array<(keyof Build.Items & string) | RuleSetUseItem>,
-        ) => Array<(keyof Build.Items & string) | RuleSetUseItem>)
-      | Array<(keyof Build.Items & string) | RuleSetUseItem>,
+          use: Array<`${keyof Build.Items & string}` | Item>,
+        ) => Array<`${keyof Build.Items & string}` | Item>),
   ): this
 
   /**
@@ -98,121 +95,105 @@ export interface Interface extends Base {
    *
    * @public
    */
-  exclude?: Array<string | RegExp | ((app: Bud) => string | RegExp)>
+  exclude?: Options['exclude']
 
   /**
    * Get the value of `exclude`
    *
    * @public
    */
-  getExclude(): Array<string | RegExp | ((app: Bud) => string | RegExp)>
+  getExclude(): Options['exclude']
 
   /**
    * Set the value of `exclude`
    *
    * @public
    */
-  setExclude(
-    excludes:
-      | ((
-          excludes: Array<
-            string | RegExp | ((app: Bud) => string | RegExp)
-          >,
-        ) => Array<string | RegExp | ((app: Bud) => string | RegExp)>)
-      | Array<string | RegExp | ((app: Bud) => string | RegExp)>,
-  ): this
+  setExclude(excludes: Options['exclude']): this
 
   /**
    * Include paths
    *
    * @public
    */
-  include?: Array<string | RegExp | ((app: Bud) => string | RegExp)>
+  include?: Options['include']
 
   /**
    * Get the value of `include`
    *
    * @public
    */
-  getInclude(): this['include']
+  getInclude(): Options['include']
 
   /**
    * Set the value of `include`
    *
    * @public
    */
-  setInclude(
-    value:
-      | ((includes: Interface['include']) => Interface['include'])
-      | Interface['include'],
-  ): this
+  setInclude(value: Options['include']): this
 
   /**
    * Type
    *
    * @public
    */
-  type?: ((app: Bud) => string) | string
+  type?: Options['type']
 
   /**
    * Get the value of `type`
    *
    * @public
    */
-  getType(): ((app: Bud) => string) | string
+  getType(): Options['type']
 
   /**
    * Set the value of `type`
    *
    * @public
    */
-  setType(type: Interface['type']): this
+  setType(type: Options['type']): this
 
   /**
    * Parser
    *
    * @public
    */
-  parser?: ((app: Bud) => Parser) | Parser
+  parser?: Options['parser']
 
   /**
    * Get the value of `parser`
    *
    * @public
    */
-  getParser(): Parser
+  getParser(): Options['parser']
 
   /**
    * Set the value of `parser`
    *
    * @public
    */
-  setParser(parser: ((app: Bud) => Parser) | Parser): this
+  setParser(parser: Options['parser']): this
 
   /**
    * Generator
    *
    * @public
    */
-  generator?: (app: Bud) => any
+  generator?: Options['generator']
 
   /**
    * Get the value of `generator`
    *
    * @public
    */
-  getGenerator(): any
+  getGenerator(): Options['generator']
 
   /**
    * Set the value of `generator`
    *
    * @public
    */
-  setGenerator(
-    Generator:
-      | ((app: Bud) => Interface['generator'])
-      | Interface['generator'],
-  ): this
+  setGenerator(Generator: Options['generator']): this
 
   /**
    * Returns final RuleSetRule
