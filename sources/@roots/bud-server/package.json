@@ -58,7 +58,7 @@
     "@skypack/package-check": "0.2.2",
     "@types/connect": "3.4.35",
     "@types/cookie-parser": "1.4.3",
-    "@types/express": "4.17.13",
+    "@types/express": "4.17.14",
     "@types/node": "16.11.48",
     "@types/webpack-dev-middleware": "5.3.0",
     "@types/webpack-hot-middleware": "2.25.6",
