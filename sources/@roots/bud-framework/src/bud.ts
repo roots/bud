@@ -188,6 +188,8 @@ export class Bud {
 
   public sequenceSync: methods.sequenceSync
 
+  public sh: methods.sh
+
   public tap: methods.tap
 
   public tapAsync: methods.tapAsync

@@ -11,4 +11,5 @@
  */
 
 import Hooks from './service.js'
-export {Hooks as default}
+
+export default Hooks

@@ -73,6 +73,10 @@ export default class Hooks extends Service implements HooksInterface {
 
   public hasSyncHook: SyncHooks['has']
 
+  public hasAsyncHook: AsyncHooks['has']
+
+  public hasEvent: EventHooks['has']
+
   public async: AsyncHooks['set']
 
   public filterAsync: AsyncHooks['get']

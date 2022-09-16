@@ -39,11 +39,11 @@ class Item extends Base implements Build.Item {
   /**
    * Class constructor
    *
-   * @param options - {@link Build.Item.Options}
+   * @public
    */
   public constructor(
     protected _app: () => Bud,
-    options?: {
+    constructorParams?: {
       ident?: string
       loader?: Loader | `${keyof Loaders & string}`
       options?: Item['options']
@@ -51,17 +51,19 @@ class Item extends Base implements Build.Item {
   ) {
     super(_app)
 
-    options?.ident && this.setIdent(options.ident)
-    options?.loader && this.setLoader(options.loader)
-    !options?.ident &&
-      options?.loader &&
+    constructorParams?.ident && this.setIdent(constructorParams.ident)
+    constructorParams?.loader && this.setLoader(constructorParams.loader)
+
+    !constructorParams?.ident &&
+      constructorParams?.loader &&
       this.setIdent(
-        isString(options.loader)
-          ? options.loader
-          : basename(options.loader.getSrc()),
+        isString(constructorParams.loader)
+          ? constructorParams.loader
+          : basename(constructorParams.loader.getSrc()),
       )
 
-    options?.options && this.setOptions(options.options)
+    constructorParams?.options &&
+      this.setOptions(constructorParams.options)
   }
 
   @bind

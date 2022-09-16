@@ -9,13 +9,13 @@ import type {Item} from '@roots/bud-framework/services/build'
 export const css = (app: Bud): Item =>
   app.build
     .makeItem()
+    .setIdent(`css`)
     .setLoader(`css`)
     .setOptions(() => ({
       importLoaders: app.build.rules.css.getUse().length - 2,
       modules: false,
       sourceMap: app.hooks.filter(`build.devtool`) ? true : false,
     }))
-    .setIdent(`css`)
 
 /**
  * CSS module loader
@@ -25,6 +25,7 @@ export const css = (app: Bud): Item =>
 export const cssModule = (app: Bud): Item =>
   app.build
     .makeItem()
+    .setIdent(`cssModule`)
     .setLoader(`css`)
     .setOptions(({build, hooks}) => ({
       esModule: true,
@@ -33,7 +34,6 @@ export const cssModule = (app: Bud): Item =>
       modules: true,
       sourceMap: hooks.filter(`build.devtool`) ? true : false,
     }))
-    .setIdent(`cssModule`)
 
 /**
  * CSV loader
@@ -65,7 +65,7 @@ export const style = (app: Bud): Item =>
  * @public
  */
 export const md = (app: Bud): Item =>
-  app.build.makeItem({ident: `md`, loader: `md`})
+  app.build.makeItem().setIdent(`md`).setLoader(`md`)
 
 /**
  * MiniCss loader
