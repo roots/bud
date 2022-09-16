@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-mdx",
-  "version": "0.0.0",
+  "version": "6.4.0",
   "description": "mdx extension for @roots/bud projects",
   "homepage": "https://roots.io/bud",
   "repository": {
