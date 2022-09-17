@@ -20,7 +20,7 @@ export default class InvalidateCacheExtension extends Extension {
   public get file(): string {
     return this.app.path(
       `@storage`,
-      `${this.app.label}`,
+      this.app.label,
       `${this.app.mode}.error.json`,
     )
   }
@@ -36,7 +36,9 @@ export default class InvalidateCacheExtension extends Extension {
 
     if (invalidate || this.app.context.args.flush) {
       await fs.remove(this.file)
-      await fs.remove(this.app.path(`@storage`, this.app.label, `cache`))
+      await fs.remove(
+        this.app.path(`@storage`, this.app.label, `cache`, this.app.mode),
+      )
     }
 
     this.app.hooks.action(`compiler.after`, async () => {

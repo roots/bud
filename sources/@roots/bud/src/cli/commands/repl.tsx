@@ -1,12 +1,14 @@
 import {Command, Option} from '@roots/bud-support/clipanion'
-import {Box, Text} from '@roots/bud-support/ink'
-import {UncontrolledTextInput} from '@roots/bud-support/ink-text-input'
+import {chunk} from '@roots/bud-support/lodash-es'
 import format from '@roots/bud-support/pretty-format'
-import React, {useState} from '@roots/bud-support/react'
 import {highlight} from 'cli-highlight'
 
 import type Bud from '../../bud.js'
 import BaseCommand from './base.js'
+
+let React
+let Ink
+let TextInput
 
 /**
  * `bud repl` command
@@ -33,6 +35,8 @@ export default class ReplCommand extends BaseCommand {
 
   public notify = false
 
+  public log = false
+
   public color = Option.Boolean(`--color,-c`, true, {
     description: `use syntax highlighting`,
   })
@@ -53,10 +57,20 @@ export default class ReplCommand extends BaseCommand {
    */
   public async runCommand() {
     await this.app.build.make()
-    await this.render(
-      <Repl app={this.app} indent={this.indent} depth={this.depth} />,
-    )
+    render({app: this.app, indent: this.indent, depth: this.depth})
   }
+}
+
+const render = async ({app, indent, depth}) => {
+  React = await import(`@roots/bud-support/react`).then(
+    ({default: React}) => React,
+  )
+  TextInput = await import(`@roots/bud-support/ink-text-input`).then(
+    ({TextInput}) => TextInput,
+  )
+  Ink = await import(`@roots/bud-support/ink`)
+
+  Ink.render(<Repl app={app} indent={indent} depth={depth} />)
 }
 
 interface ReplProps {
@@ -66,7 +80,33 @@ interface ReplProps {
 }
 
 const Repl = ({app, indent, depth}: ReplProps) => {
-  const [result, setResult] = useState(``)
+  const [search, setSearch] = React.useState(``)
+  const [result, setResult] = React.useState(``)
+  const [paged, setPaged] = React.useState([])
+  const [page, setPage] = React.useState(0)
+
+  const pageSize = Math.max(10, 1)
+
+  Ink.useInput((input, key) => {
+    if (key.escape) {
+      // eslint-disable-next-line
+      process.exit()
+    }
+
+    if (key.upArrow) {
+      page >= 1 ? setPage(page - 1) : setPage(paged.length - 1)
+    }
+
+    if (key.downArrow) {
+      page < paged.length - 1 ? setPage(page + 1) : setPage(0)
+    }
+
+    if (key.return) {
+      setSearch(``)
+      setResult(``)
+      setPaged([])
+    }
+  })
 
   const makeFn = (value: string) => eval(`async (bud) => ${value};`)
 
@@ -76,49 +116,77 @@ const Repl = ({app, indent, depth}: ReplProps) => {
       return
     }
 
-    setResult(
-      highlight(
+    try {
+      const result = highlight(
         format(raw, {
           indent: parseInt(indent),
           maxDepth: parseInt(depth),
         }),
-      ),
-    )
+        {ignoreIllegals: true},
+      )
+      setResult(result)
+    } catch (e) {
+      setResult(e.message)
+    }
   }
 
   // @ts-ignore
-  const onSubmit = async value => {
+  const onChange = (value: string) => {
     if (!value) return
-    setResult(`processing`)
+    setSearch(value)
 
     try {
-      const raw = makeFn(value)(app)
-      processResults(raw)
-
-      raw.then(async (results: unknown) => {
+      makeFn(value)(app).then(async (results: unknown) => {
         processResults(results)
         await app.api.processQueue()
       })
-    } catch (err) {}
+    } catch (err) {
+      setResult(err.message)
+    }
   }
 
-  return (
-    <Box marginBottom={1} flexDirection="column">
-      <Box flexDirection="row" justifyContent="flex-start" marginTop={1}>
-        <Text>async (bud) {`=> `}</Text>
-        <UncontrolledTextInput
-          placeholder="app.build.config"
-          onSubmit={onSubmit}
-        />
-      </Box>
+  React.useEffect(() => {
+    if (result) {
+      setPaged(
+        chunk<string>(result.split(`\n`), pageSize).map(page =>
+          page.join(`\n`),
+        ),
+      )
+    }
+  }, [result, pageSize])
 
-      <Box
-        flexDirection="column"
-        justifyContent="flex-start"
-        marginTop={1}
-      >
-        <Text>{result}</Text>
-      </Box>
-    </Box>
+  React.useEffect(() => {
+    if (page > paged.length) {
+      setPage(paged.length - 1)
+    }
+  }, [page, paged])
+
+  return (
+    <Ink.Box marginY={1} flexDirection="column">
+      <Ink.Box flexDirection="row" justifyContent="space-between">
+        <Ink.Box flexDirection="row" justifyContent="flex-start">
+          <Ink.Text>async (bud) {`=> `}</Ink.Text>
+          <TextInput value={search} onChange={onChange} />
+        </Ink.Box>
+        {paged.length > 0 ? (
+          <Ink.Box
+            flexDirection="row"
+            justifyContent="flex-start"
+            marginTop={1}
+          >
+            <Ink.Text>page </Ink.Text>
+            <Ink.Text>{page + 1}</Ink.Text>
+            <Ink.Text>/</Ink.Text>
+            <Ink.Text>{paged.length}</Ink.Text>
+          </Ink.Box>
+        ) : null}
+      </Ink.Box>
+
+      {paged[page] ? (
+        <Ink.Box flexDirection="column" justifyContent="flex-start">
+          <Ink.Text>{paged[page]}</Ink.Text>
+        </Ink.Box>
+      ) : null}
+    </Ink.Box>
   )
 }

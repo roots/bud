@@ -70,7 +70,7 @@ export default class ViewCommand extends BaseCommand {
 
     if (this.color) value = highlight(value, {ignoreIllegals: true})
 
-    this.renderOnce(
+    await this.renderOnce(
       <Box marginBottom={1}>
         <Static items={[0]}>
           {id => (

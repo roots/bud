@@ -85,10 +85,6 @@ export const override = async (app: Bud) => {
     app.hooks.on(`feature.manifest`, app.context.args.manifest)
   }
 
-  if (isset(app.context.args.cache)) {
-    await app.api.call(`persist`, app.context.args.cache)
-  }
-
   if (isset(app.context.args.clean)) {
     app.hooks.on(`build.output.clean`, app.context.args.clean)
   }

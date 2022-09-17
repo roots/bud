@@ -64,7 +64,7 @@ export default class CleanCommand extends BaseCommand {
     try {
       await remove(this.app.path(`@dist`))
 
-      this.renderOnce(
+      await this.renderOnce(
         <Box>
           <Text color="green">✔ emptied {this.app.path(`@dist`)}</Text>
         </Box>,
@@ -80,7 +80,7 @@ export default class CleanCommand extends BaseCommand {
       await ensureDir(this.app.path(`@storage`))
       await remove(this.app.path(`@storage`))
 
-      this.renderOnce(
+      await this.renderOnce(
         <Box>
           <Text color="green">✔ emptied {this.app.path(`@storage`)}</Text>
         </Box>,
