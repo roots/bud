@@ -130,9 +130,6 @@ Help support our open-source development efforts by [becoming a patron](https://
 <a href="https://carrot.com/">
 <img src="https://cdn.roots.io/app/uploads/carrot.svg" alt="Carrot" width="200" height="150"/>
 </a>
-<a href="https://www.c21redwood.com/">
-<img src="https://cdn.roots.io/app/uploads/c21redwood.svg" alt="C21 Redwood Realty" width="200" height="150"/>
-</a>
 <a href="https://wordpress.com/">
 <img src="https://cdn.roots.io/app/uploads/wordpress.svg" alt="WordPress.com" width="200" height="150"/>
 </a>
