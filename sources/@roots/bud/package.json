@@ -126,7 +126,6 @@
     "browserslist": "latest",
     "caniuse-lite": "latest",
     "clean-webpack-plugin": "^4.0.0",
-    "cli-highlight": "2.1.11",
     "conf": "10.2.0",
     "copy-webpack-plugin": "11.0.0",
     "dotenv": "16.0.1",
