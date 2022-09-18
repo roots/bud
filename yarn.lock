@@ -5182,7 +5182,7 @@ __metadata:
     ink-text-input: 4.0.3
     lodash-es: 4.17.21
     pretty-format: 29.0.3
-    react: 16.8.0
+    react: 17.0.2
     typanion: 3.12.0
     type-fest: 2.19.0
   languageName: unknown
@@ -26005,18 +26005,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:16.8.0":
-  version: 16.8.0
-  resolution: "react@npm:16.8.0"
-  dependencies:
-    loose-envify: ^1.1.0
-    object-assign: ^4.1.1
-    prop-types: ^15.6.2
-    scheduler: ^0.13.0
-  checksum: ab4d78cb90af138f6339565862ad6753b24a39b9cbed9a9c4394f90d4f2b7505525d496f8c5b353de785f151557a0239eb2b01e40bca1565665fb25bf6b6df95
-  languageName: node
-  linkType: hard
-
 "react@npm:17.0.2, react@npm:^17.0.2":
   version: 17.0.2
   resolution: "react@npm:17.0.2"
@@ -27220,16 +27208,6 @@ __metadata:
   dependencies:
     xmlchars: ^2.2.0
   checksum: 5636b55cf15f7cf0baa73f2797bf992bdcf75d1b39d82c0aa4608555c774368f6ac321cb641fd5f3d3ceb87805122cd47540da6a7b5960fe0dbdb8f8c263f000
-  languageName: node
-  linkType: hard
-
-"scheduler@npm:^0.13.0":
-  version: 0.13.6
-  resolution: "scheduler@npm:0.13.6"
-  dependencies:
-    loose-envify: ^1.1.0
-    object-assign: ^4.1.1
-  checksum: c82c705f6d0d6df87b26bf2cca33f427e91889438c0435ade3ee7f41860eda4dd7f3171ca2d93e8fe9431f3bd831ca0e267a401a0296e4b14de05e389f82d320
   languageName: node
   linkType: hard
 
