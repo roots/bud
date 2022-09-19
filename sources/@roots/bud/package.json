@@ -129,7 +129,7 @@
     "cli-highlight": "2.1.11",
     "conf": "10.2.0",
     "copy-webpack-plugin": "11.0.0",
-    "dotenv": "16.0.1",
+    "dotenv": "16.0.2",
     "dotenv-expand": "8.0.3",
     "import-meta-resolve": "2.1.0",
     "mini-css-extract-plugin": "^2.4.5",
