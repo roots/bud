@@ -35,7 +35,7 @@ export default class BudSass extends Extension {
   @bind
   public async register() {
     const implementation = await this.import(`sass`)
-    this.setOptions({implementation})
+    this.setOptions({implementation, sourceMap: true})
   }
 
   /**
@@ -57,11 +57,6 @@ export default class BudSass extends Extension {
         include: [app => app.path(`@src`)],
         use: [`precss`, `css`, `postcss`, `resolveUrl`, `sass`],
       })
-
-    this.app.build.items.resolveUrl.setOptions((_app, options) => ({
-      ...options,
-      sourceMap: true,
-    }))
 
     this.app.hooks.on(`build.resolve.extensions`, ext =>
       ext.add(`.scss`).add(`.sass`),
