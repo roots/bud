@@ -1,7 +1,7 @@
 import type * as Options from '@roots/bud-framework/options'
 import {BaseContext, Command, Option} from '@roots/bud-support/clipanion'
 import {bind, once} from '@roots/bud-support/decorators'
-import * as t from 'typanion'
+import * as t from '@roots/bud-support/typanion'
 
 import type Bud from '../../bud.js'
 import {factory} from '../../factory/index.js'

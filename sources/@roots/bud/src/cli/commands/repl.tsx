@@ -1,7 +1,7 @@
+import {highlight} from '@roots/bud-support/cli-highlight'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {chunk} from '@roots/bud-support/lodash-es'
 import format from '@roots/bud-support/pretty-format'
-import {highlight} from '@roots/bud-support/cli-highlight'
 
 import type Bud from '../../bud.js'
 import BaseCommand from './base.js'
