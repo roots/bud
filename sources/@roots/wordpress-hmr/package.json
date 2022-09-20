@@ -73,7 +73,7 @@
     "@types/wordpress__blocks": "11.0.7",
     "@types/wordpress__data": "6.0.1",
     "@wordpress/blocks": "11.15.0",
-    "@wordpress/data": "6.15.0",
+    "@wordpress/data": "7.1.0",
     "@wordpress/hooks": "3.16.0",
     "@wordpress/plugins": "4.14.0",
     "@wordpress/rich-text": "5.14.0",
