@@ -78,7 +78,7 @@
     }
   },
   "devDependencies": {
-    "@jest/globals": "29.0.1",
+    "@jest/globals": "29.0.3",
     "@skypack/package-check": "0.2.2",
     "@types/fs-extra": "9.0.13",
     "@types/mini-css-extract-plugin": "2.5.0",

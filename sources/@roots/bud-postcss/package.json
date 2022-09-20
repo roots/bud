@@ -58,7 +58,7 @@
     }
   },
   "devDependencies": {
-    "@jest/globals": "29.0.1",
+    "@jest/globals": "29.0.3",
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.11.48",

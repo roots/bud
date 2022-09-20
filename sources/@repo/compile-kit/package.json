@@ -16,7 +16,7 @@
     "./options": "./options.ts"
   },
   "dependencies": {
-    "@jest/globals": "29.0.1",
+    "@jest/globals": "29.0.3",
     "@repo/constants": "workspace:sources/@repo/constants",
     "@repo/logger": "workspace:sources/@repo/logger",
     "@types/fs-extra": "9.0.13",
