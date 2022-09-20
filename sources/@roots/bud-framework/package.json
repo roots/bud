@@ -140,7 +140,7 @@
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@roots/container": "workspace:sources/@roots/container",
     "chalk": "5.0.1",
-    "figures": "4.0.1",
+    "figures": "5.0.0",
     "globby": "13.1.2",
     "import-meta-resolve": "2.1.0",
     "js-yaml": "4.1.0",
