@@ -1,7 +1,7 @@
 import type {Context} from '@roots/bud-framework/options/context'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators'
-import * as t from 'typanion'
+import * as t from '@roots/bud-support/typanion'
 
 import BaseCommand from './base.js'
 

@@ -59,7 +59,7 @@
     "@skypack/package-check": "0.2.2",
     "@types/lodash-es": "4.17.6",
     "@types/node": "16.11.48",
-    "type-fest": "2.16.0"
+    "type-fest": "2.19.0"
   },
   "dependencies": {
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
