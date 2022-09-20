@@ -1,3 +1,6 @@
+import chunk from './chunk.js'
+export {chunk}
+
 import get from 'lodash-es/get.js'
 export {get}
 

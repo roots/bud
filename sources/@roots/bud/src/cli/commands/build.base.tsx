@@ -1,7 +1,7 @@
 import type {Context} from '@roots/bud-framework/options/context'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators'
-import * as t from 'typanion'
+import * as t from '@roots/bud-support/typanion'
 
 import BaseCommand from './base.js'
 
@@ -182,22 +182,6 @@ export default class BuildCommand extends BaseCommand {
   })
 
   /**
-   * --input
-   */
-  public input = Option.String(`--input,-i,--src`, undefined, {
-    description: `Source directory (relative to project)`,
-    env: `APP_PATH_INPUT`,
-  })
-
-  /*
-   * --dist
-   */
-  public output = Option.String(`--output,-o,--dist`, undefined, {
-    description: `Distribution directory (relative to project)`,
-    env: `APP_PATH_OUTPUT`,
-  })
-
-  /**
    * --manifest
    */
   public manifest = Option.Boolean(`--manifest`, undefined, {
@@ -251,7 +235,6 @@ export default class BuildCommand extends BaseCommand {
       clean: this.clean,
       debug: this.debug,
       devtool: this.devtool,
-      output: this.output,
       editor: this.editor,
       esm: this.esm,
       flush: this.flush,
@@ -259,7 +242,6 @@ export default class BuildCommand extends BaseCommand {
       html: this.html,
       immutable: this.immutable,
       indicator: this.indicator,
-      input: this.input,
       manifest: this.manifest,
       minimize: this.minimize,
       mode: this.mode,

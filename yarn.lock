@@ -5022,7 +5022,7 @@ __metadata:
     react-hot-loader: ^4.13.0
     react-refresh: ^0.14.0
     tslib: 2.4.0
-    type-fest: 2.16.0
+    type-fest: 2.19.0
     webpack: 5.73.0
   peerDependencies:
     "@pmmmwh/react-refresh-webpack-plugin": "*"
@@ -5120,7 +5120,7 @@ __metadata:
     babel-preset-solid: 1.4.6
     solid-js: 1.4.7
     tslib: 2.4.0
-    type-fest: 2.16.0
+    type-fest: 2.19.0
     webpack: 5.73.0
   peerDependencies:
     "@babel/plugin-syntax-jsx": "*"
@@ -5170,17 +5170,23 @@ __metadata:
   resolution: "@roots/bud-support@workspace:sources/@roots/bud-support"
   dependencies:
     "@skypack/package-check": 0.2.2
+    chalk: 5.0.1
     clipanion: 3.2.0-rc.12
     execa: 6.1.0
     fs-extra: 10.1.0
     globby: 13.1.2
     helpful-decorators: 2.1.0
+    highlight.js: 11.6.0
     ink: 3.2.0
     ink-link: 2.0.0
     ink-text-input: 4.0.3
     lodash-es: 4.17.21
+    parse5: 7.1.1
+    parse5-htmlparser2-tree-adapter: 7.0.0
     pretty-format: 29.0.3
     react: 17.0.2
+    typanion: 3.12.0
+    type-fest: 2.19.0
   languageName: unknown
   linkType: soft
 
@@ -5417,7 +5423,6 @@ __metadata:
     browserslist: latest
     caniuse-lite: latest
     clean-webpack-plugin: ^4.0.0
-    cli-highlight: 2.1.11
     conf: 10.2.0
     copy-webpack-plugin: 11.0.0
     dotenv: 16.0.2
@@ -5428,7 +5433,6 @@ __metadata:
     open: 8.4.0
     open-editor: 4.0.0
     tslib: 2.4.0
-    typanion: 3.9.0
     webpack: 5.73.0
     webpack-cli: ^4.9.2
     webpack-manifest-plugin: ^5.0.0
@@ -5460,7 +5464,7 @@ __metadata:
     helpful-decorators: 2.1.0
     lodash-es: 4.17.21
     tslib: 2.4.0
-    type-fest: 2.16.0
+    type-fest: 2.19.0
   languageName: unknown
   linkType: soft
 
@@ -10156,6 +10160,7 @@ __metadata:
     playwright: 1.23.4
     prettier: 2.7.1
     syncpack: 8.2.4
+    tinybench: 2.1.5
     ts-node: 10.9.1
     tslib: 2.4.0
     typedoc: 0.23.8
@@ -10889,22 +10894,6 @@ __metadata:
   dependencies:
     restore-cursor: ^4.0.0
   checksum: ab3f3ea2076e2176a1da29f9d64f72ec3efad51c0960898b56c8a17671365c26e67b735920530eaf7328d61f8bd41c27f46b9cf6e4e10fe2fa44b5e8c0e392cc
-  languageName: node
-  linkType: hard
-
-"cli-highlight@npm:2.1.11":
-  version: 2.1.11
-  resolution: "cli-highlight@npm:2.1.11"
-  dependencies:
-    chalk: ^4.0.0
-    highlight.js: ^10.7.1
-    mz: ^2.4.0
-    parse5: ^5.1.1
-    parse5-htmlparser2-tree-adapter: ^6.0.0
-    yargs: ^16.0.0
-  bin:
-    highlight: bin/highlight
-  checksum: 0a60e60545e39efea78c1732a25b91692017ec40fb6e9497208dc0eeeae69991d3923a8d6e4edd0543db3c395ed14529a33dd4d0353f1679c5b6dded792a8496
   languageName: node
   linkType: hard
 
@@ -13623,6 +13612,13 @@ __metadata:
   version: 4.3.1
   resolution: "entities@npm:4.3.1"
   checksum: e8f6d2bac238494b2355e90551893882d2675142be7e7bdfcb15248ed0652a630678ba0e3a8dc750693e736cb6011f504c27dabeb4cd3330560092e88b105090
+  languageName: node
+  linkType: hard
+
+"entities@npm:^4.4.0":
+  version: 4.4.0
+  resolution: "entities@npm:4.4.0"
+  checksum: 84d250329f4b56b40fa93ed067b194db21e8815e4eb9b59f43a086f0ecd342814f6bc483de8a77da5d64e0f626033192b1b4f1792232a7ea6b970ebe0f3187c2
   languageName: node
   linkType: hard
 
@@ -16962,10 +16958,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"highlight.js@npm:^10.7.1":
-  version: 10.7.3
-  resolution: "highlight.js@npm:10.7.3"
-  checksum: defeafcd546b535d710d8efb8e650af9e3b369ef53e28c3dc7893eacfe263200bba4c5fcf43524ae66d5c0c296b1af0870523ceae3e3104d24b7abf6374a4fea
+"highlight.js@npm:11.6.0":
+  version: 11.6.0
+  resolution: "highlight.js@npm:11.6.0"
+  checksum: 3908eb34a4b442ca1e20c1ae6415ea935fbbcdb2b532a89948d82b0fa4ad41fc5de3802a0de4e88a0bcb7d97d4445579048cd2aab1d105ac47f59dd58a9a98ae
   languageName: node
   linkType: hard
 
@@ -21911,7 +21907,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mz@npm:^2.0.0, mz@npm:^2.4.0":
+"mz@npm:^2.0.0":
   version: 2.7.0
   resolution: "mz@npm:2.7.0"
   dependencies:
@@ -23475,16 +23471,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"parse5-htmlparser2-tree-adapter@npm:^6.0.0":
-  version: 6.0.1
-  resolution: "parse5-htmlparser2-tree-adapter@npm:6.0.1"
-  dependencies:
-    parse5: ^6.0.1
-  checksum: 1848378b355d027915645c13f13f982e60502d201f53bc2067a508bf2dba4aac08219fc781dcd160167f5f50f0c73f58d20fa4fb3d90ee46762c20234fa90a6d
-  languageName: node
-  linkType: hard
-
-"parse5-htmlparser2-tree-adapter@npm:^7.0.0":
+"parse5-htmlparser2-tree-adapter@npm:7.0.0, parse5-htmlparser2-tree-adapter@npm:^7.0.0":
   version: 7.0.0
   resolution: "parse5-htmlparser2-tree-adapter@npm:7.0.0"
   dependencies:
@@ -23501,17 +23488,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"parse5@npm:6.0.1, parse5@npm:^6.0.0, parse5@npm:^6.0.1":
+"parse5@npm:6.0.1, parse5@npm:^6.0.0":
   version: 6.0.1
   resolution: "parse5@npm:6.0.1"
   checksum: 7d569a176c5460897f7c8f3377eff640d54132b9be51ae8a8fa4979af940830b2b0c296ce75e5bd8f4041520aadde13170dbdec44889975f906098ea0002f4bd
   languageName: node
   linkType: hard
 
-"parse5@npm:^5.1.1":
-  version: 5.1.1
-  resolution: "parse5@npm:5.1.1"
-  checksum: 613a714af4c1101d1cb9f7cece2558e35b9ae8a0c03518223a4a1e35494624d9a9ad5fad4c13eab66a0e0adccd9aa3d522fc8f5f9cc19789e0579f3fa0bdfc65
+"parse5@npm:7.1.1":
+  version: 7.1.1
+  resolution: "parse5@npm:7.1.1"
+  dependencies:
+    entities: ^4.4.0
+  checksum: 8f72fbfa6df83a3f29f58e1818f7bd46b47ff3e26d79c74e10b8fc7ef7ee76163f205113f1b2f6a5b8dc4e31e726f490444f04890cead6e974dbcbe8172b1321
   languageName: node
   linkType: hard
 
@@ -25662,12 +25651,12 @@ __metadata:
   linkType: hard
 
 "react-devtools-core@npm:^4.19.1":
-  version: 4.25.0
-  resolution: "react-devtools-core@npm:4.25.0"
+  version: 4.26.0
+  resolution: "react-devtools-core@npm:4.26.0"
   dependencies:
     shell-quote: ^1.6.1
     ws: ^7
-  checksum: 68dae4507c46b875936904f2aba0fe1dda1d7b6fb616ac72e438aec29d7c49aeadaaff264cc148d40795075fdb9c736d1dcf5c50dbe40eaae64c7aa24f313e68
+  checksum: 82de66b531d8b480231e6629bcad1caebd11c3346ea52a4aef97ea9e3dbbffdc2475082b23a939f80cb618ad073d51eeb17aee874fc66322f645228e60119e61
   languageName: node
   linkType: hard
 
@@ -29149,6 +29138,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tinybench@npm:2.1.5":
+  version: 2.1.5
+  resolution: "tinybench@npm:2.1.5"
+  checksum: 5a6d378271a00ace6fa6970404eb1efd539d3e9b9908a9cb6d66ad78acfd873762734f3fc69fe10d86217318871367997d2a8b9566039fd224c518493466aa96
+  languageName: node
+  linkType: hard
+
 "tinylogic@npm:^1.0.3":
   version: 1.0.3
   resolution: "tinylogic@npm:1.0.3"
@@ -29596,10 +29592,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typanion@npm:3.9.0, typanion@npm:^3.3.0, typanion@npm:^3.3.1, typanion@npm:^3.8.0":
-  version: 3.9.0
-  resolution: "typanion@npm:3.9.0"
-  checksum: db635975e86c50399fe019010e489a9adb24a74cd19b15efb1d0f434c7dccd842a9402a6a6d60e8ab6d9f7949fd8604a019802a022427e78dbbe2e74f143527b
+"typanion@npm:3.12.0, typanion@npm:^3.3.0, typanion@npm:^3.3.1, typanion@npm:^3.8.0":
+  version: 3.12.0
+  resolution: "typanion@npm:3.12.0"
+  checksum: 3c61f33027f1612ef079574a538ea800aee93272d0080e5efd305b750065c344c66f8986a5fd1678f38694199ab0444e16afe1a03e7a01c1d204d1129d79e416
   languageName: node
   linkType: hard
 
@@ -29628,10 +29624,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"type-fest@npm:2.16.0, type-fest@npm:^2.0.0, type-fest@npm:^2.11.2, type-fest@npm:^2.5.0":
-  version: 2.16.0
-  resolution: "type-fest@npm:2.16.0"
-  checksum: 897fc5f6833de5ade5c4841d034bdfb6aaa168f24f725354ad13320b2a463b9df03a7a664b836b4c3bc7d9f92b22a25c26fe24668a35caf3b7a9ea5fcb847b8d
+"type-fest@npm:2.19.0, type-fest@npm:^2.0.0, type-fest@npm:^2.11.2, type-fest@npm:^2.5.0":
+  version: 2.19.0
+  resolution: "type-fest@npm:2.19.0"
+  checksum: a4ef07ece297c9fba78fc1bd6d85dff4472fe043ede98bd4710d2615d15776902b595abf62bd78339ed6278f021235fb28a96361f8be86ed754f778973a0d278
   languageName: node
   linkType: hard
 
@@ -31656,7 +31652,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yargs-parser@npm:^20.2.2, yargs-parser@npm:^20.2.3":
+"yargs-parser@npm:^20.2.3":
   version: 20.2.9
   resolution: "yargs-parser@npm:20.2.9"
   checksum: 8bb69015f2b0ff9e17b2c8e6bfe224ab463dd00ca211eece72a4cd8a906224d2703fb8a326d36fdd0e68701e201b2a60ed7cf81ce0fd9b3799f9fe7745977ae3
@@ -31686,21 +31682,6 @@ __metadata:
     y18n: ^4.0.0
     yargs-parser: ^15.0.1
   checksum: 684fcb1896e6c873c31c09c5c16445d6253dfe505aa879cff56d49425f5bca44f2ab8d7a1c949f3b932ae8654128425e89770e5e2f2c3d816e5816b9eb6efb6f
-  languageName: node
-  linkType: hard
-
-"yargs@npm:^16.0.0":
-  version: 16.2.0
-  resolution: "yargs@npm:16.2.0"
-  dependencies:
-    cliui: ^7.0.2
-    escalade: ^3.1.1
-    get-caller-file: ^2.0.5
-    require-directory: ^2.1.1
-    string-width: ^4.2.0
-    y18n: ^5.0.5
-    yargs-parser: ^20.2.2
-  checksum: b14afbb51e3251a204d81937c86a7e9d4bdbf9a2bcee38226c900d00f522969ab675703bee2a6f99f8e20103f608382936034e64d921b74df82b63c07c5e8f59
   languageName: node
   linkType: hard
 

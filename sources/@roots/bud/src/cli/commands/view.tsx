@@ -1,9 +1,9 @@
 import {Command, Option} from '@roots/bud-support/clipanion'
+import {highlight} from '@roots/bud-support/highlight'
 import {Box, Static, Text} from '@roots/bud-support/ink'
 import {get} from '@roots/bud-support/lodash-es'
 import format from '@roots/bud-support/pretty-format'
 import React, {Fragment} from '@roots/bud-support/react'
-import {highlight} from 'cli-highlight'
 
 import BaseCommand from './base.js'
 
@@ -68,9 +68,9 @@ export default class ViewCommand extends BaseCommand {
       ),
     })
 
-    if (this.color) value = highlight(value, {ignoreIllegals: true})
+    if (this.color) value = highlight(value)
 
-    this.renderOnce(
+    await this.renderOnce(
       <Box marginBottom={1}>
         <Static items={[0]}>
           {id => (

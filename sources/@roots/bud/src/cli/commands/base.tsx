@@ -1,20 +1,19 @@
 import type * as Options from '@roots/bud-framework/options'
 import {BaseContext, Command, Option} from '@roots/bud-support/clipanion'
 import {bind, once} from '@roots/bud-support/decorators'
-import {Box, render} from '@roots/bud-support/ink'
-import React from '@roots/bud-support/react'
-import * as t from 'typanion'
+import * as t from '@roots/bud-support/typanion'
 
 import type Bud from '../../bud.js'
 import {factory} from '../../factory/index.js'
 import {Notifier} from '../../notifier/index.js'
+import Render from '../render.js'
 
 /**
  * Base command
  *
  * @public
  */
-export default class BaseCommand extends Command {
+export default abstract class BaseCommand extends Command {
   /**
    * Command usage
    * @public
@@ -34,18 +33,6 @@ export default class BaseCommand extends Command {
    * @public
    */
   public app: Bud
-
-  /**
-   * React (lazy loaded)
-   * @public
-   */
-  public React: any
-
-  /**
-   * Ink (lazy loaded)
-   * @public
-   */
-  public Ink: any
 
   /**
    * Context
@@ -74,6 +61,24 @@ export default class BaseCommand extends Command {
     description: `project base directory`,
     env: `APP_BASE_DIR`,
     hidden: true,
+  })
+
+  /**
+   * --src
+   * @public
+   */
+  public input = Option.String(`--input,-i,--@src,--src`, undefined, {
+    description: `Source directory (relative to project)`,
+    env: `APP_PATH_INPUT`,
+  })
+
+  /**
+   * --dist
+   * @public
+   */
+  public output = Option.String(`--output,-o,--@dist,--dist`, undefined, {
+    description: `Distribution directory (relative to project)`,
+    env: `APP_PATH_OUTPUT`,
   })
 
   /**
@@ -147,6 +152,8 @@ export default class BaseCommand extends Command {
   public get baseArgs() {
     return {
       basedir: this.basedir,
+      input: this.input,
+      output: this.output,
       dry: this.dry,
       level: this.level,
       log: this.log,
@@ -173,9 +180,15 @@ export default class BaseCommand extends Command {
     return this.app.logger.instance
   }
 
+  /**
+   * Render ink component
+   *
+   * @param box - Ink box
+   * @returns
+   */
   @bind
   public async renderOnce(children: React.ReactElement) {
-    this.log !== false && render(<Box>{children}</Box>).unmount()
+    return this.log !== false && Render.once({children})
   }
 
   /**
@@ -185,8 +198,20 @@ export default class BaseCommand extends Command {
    * @returns
    */
   @bind
-  public async render(box: React.ReactElement) {
-    return this.log !== false && render(box)
+  public async text(text: string) {
+    return this.log !== false && Render.text(text)
+  }
+
+  /**
+   * Render ink component
+   *
+   * @param box - Ink box
+   * @returns
+   */
+  @bind
+  public async view(children: React.ReactElement) {
+    if (this.log === false) return
+    return Render.view({children})
   }
 
   /**

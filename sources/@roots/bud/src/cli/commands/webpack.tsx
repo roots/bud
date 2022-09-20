@@ -41,7 +41,7 @@ export default class WebpackCommand extends BaseCommand {
     const bin = join(webpackPath, `bin`, `webpack.js`)
 
     const child = execa(`node`, [bin, ...this.options], {
-      cwd: resolve(process.cwd(), this.basedir ?? `./`),
+      cwd: resolve(process.cwd(), this.basedir ?? ``),
     })
     child.stdout.pipe(process.stdout)
     child.stderr.pipe(process.stderr)

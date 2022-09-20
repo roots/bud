@@ -12,51 +12,6 @@ tags: [release]
 
 <!--truncate-->
 
-## new: bud.sh
-
-bud.sh is a new config function that allows for executing arbitrary shell commands. It is a wrapper around the [execa](https://github.com/sindresorhus/execa) package.
-
-It's async and returns the `ExecaChildProcess` object. It will pipe the process stdout/stderr to the console automatically.
-
-```js title=bud.config.mjs
-await bud.sh('echo "hello world"')
-```
-
-## improved: bud.assets
-
-You can now specify copy options to apply to all copy patterns as a second parameter.
-
-So the second parameter will be merged onto each pattern:
-
-```ts
-bud.assets(
-  [
-    {from: 'images', to: 'images'},
-    {from: 'fonts', to: 'fonts'},
-  ],
-  {context: app.path('@assets')},
-)
-```
-
-This is the same as:
-
-```ts
-bud.assets([
-  {
-    from: 'images',
-    to: 'images',
-    context: app.path('@assets'),
-  },
-  {
-    from: 'fonts',
-    to: 'fonts',
-    context: app.path(`assets`),
-  },
-])
-```
-
-This also works with `string` or `[from, to]` tuples, as well.
-
 ## Client
 
 ### hot reload middleware
@@ -98,60 +53,58 @@ import intercept from '@roots/bud-client/lib/intercept.js'
 intercept('http://example.com', '/')
 ```
 
-## Hooks
+## improved: `bud.config.local` support
 
-### bud.hooks.fromMap
+If you are on a team and team members have different needs for their local development environment, you can now use `bud.config.local.mjs` to override `bud.config.mjs` settings.
 
-`bud.hooks.fromMap` can be used to set multiple hooks in one call.
+`.local` configs will always be applied after the base config.
 
-```ts
-bud.hooks.fromMap({
-  'build.node': false,
-  'build.resolve.extensions': ext => ext.add('.mjml'),
-})
-```
+## improved: bud.assets
 
-### bud.hooks.fromAsyncMap
+You can now specify copy options to apply to all copy patterns as a second parameter.
 
-`bud.hooks.fromAsyncMap` can be used in the same way to set hooks with async callbacks.
+So the second parameter will be merged onto each pattern:
 
 ```ts
-bud.hooks.fromAsyncMap({
-  'build.plugins': async () => await app.extensions.make(),
-  'build.resolve.modules': async () => [
-    app.hooks.filter(`location.@src`),
-    app.hooks.filter(`location.@modules`),
+bud.assets(
+  [
+    {from: 'images', to: 'images'},
+    {from: 'fonts', to: 'fonts'},
   ],
-})
+  {context: app.path('@assets')},
+)
 ```
 
-Speaking generally, if you want to learn more about all of the available hooks you might be interesting in exploring more with the new [`bud view` command](#bud-view)
+This is the same as:
 
-## Services
+```ts
+bud.assets([
+  {
+    from: 'images',
+    to: 'images',
+    context: app.path('@assets'),
+  },
+  {
+    from: 'fonts',
+    to: 'fonts',
+    context: app.path(`assets`),
+  },
+])
+```
 
-Services have access to some new methods that are called when the associated lifecycle event takes place.
+This also works with `string` or `[from, to]` tuples, as well.
 
-In the order they are called:
+## new: bud.sh
 
-| method name     | associated lifecycle event |
-| --------------- | -------------------------- |
-| `configAfter`   | `config.after`             |
-| `compileBefore` | `compile.before`           |
-| `buildBefore`   | `build.before`             |
-| `buildAfter`    | `build.after`              |
-| `compileAfter`  | `compile.after`            |
+[bud.sh](/docs/bud.sh) is a new config function that allows for executing arbitrary shell commands. It is a wrapper around the [execa](https://github.com/sindresorhus/execa) package.
 
-## Extensions
+It's async and returns the `ExecaChildProcess` object. It will pipe the process stdout/stderr to the console automatically.
 
-Extensions have access to some new methods that are called when the associated lifecycle event takes place.
+```js title=bud.config.mjs
+await bud.sh('echo "hello world"')
+```
 
-In the order they are called:
-
-| method name   | associated lifecycle event |
-| ------------- | -------------------------- |
-| `configAfter` | `config.after`             |
-| `buildBefore` | `build.before`             |
-| `buildAfter`  | `build.after`              |
+Ideal for a hook like `compiler.done`, if you wanted to fire off a command when finalizing a build.
 
 ## CLI
 
@@ -303,6 +256,59 @@ So far a few commands have been implemented:
 - `yarn bud lint` (alias: `yarn bud eslint`) will lint source assets (registered by `@roots/bud-eslint`).
 - `yarn bud tailwindcss` will transpile tailwindcss (registered by `@roots/bud-tailwindcss`).
 - `yarn bud format` (alias: `yarn bud prettier`) will format source assets (registered by `@roots/bud-prettier`).
+
+## Hooks
+
+### bud.hooks.fromMap
+
+`bud.hooks.fromMap` can be used to set multiple hooks in one call.
+
+```ts
+bud.hooks.fromMap({
+  'build.node': false,
+  'build.resolve.extensions': ext => ext.add('.mjml'),
+})
+```
+
+### bud.hooks.fromAsyncMap
+
+`bud.hooks.fromAsyncMap` can be used in the same way to set hooks with async callbacks.
+
+```ts
+bud.hooks.fromAsyncMap({
+  'build.plugins': async () => await app.extensions.make(),
+  'build.resolve.modules': async () => [
+    app.hooks.filter(`location.@src`),
+    app.hooks.filter(`location.@modules`),
+  ],
+})
+```
+
+## Services
+
+Services have access to some new methods that are called when the associated lifecycle event takes place.
+
+In the order they are called:
+
+| method name     | associated lifecycle event |
+| --------------- | -------------------------- |
+| `configAfter`   | `config.after`             |
+| `compileBefore` | `compile.before`           |
+| `buildBefore`   | `build.before`             |
+| `buildAfter`    | `build.after`              |
+| `compileAfter`  | `compile.after`            |
+
+## Extensions
+
+Extensions have access to some new methods that are called when the associated lifecycle event takes place.
+
+In the order they are called:
+
+| method name   | associated lifecycle event |
+| ------------- | -------------------------- |
+| `configAfter` | `config.after`             |
+| `buildBefore` | `build.before`             |
+| `buildAfter`  | `build.after`              |
 
 ## ✨ Improve: builds now labeled by package.json `name` field
 

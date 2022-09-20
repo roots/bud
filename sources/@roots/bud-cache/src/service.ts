@@ -142,17 +142,28 @@ export default class Cache
       isUndefined(this.app.context.args.cache) ||
       this.app.context.args.cache !== false
 
-    this.type =
-      isUndefined(this.app.context.args.cache) ||
-      (this.app.context.args.cache !== false &&
-        this.app.context.args.cache !== `memory`)
-        ? `filesystem`
-        : `memory`
+    switch (this.app.context.args.cache) {
+      case `memory`:
+        this.type = `memory`
+        break
+      case `filesystem`:
+        this.type = `filesystem`
+        break
+      case undefined:
+        this.type = `filesystem`
+        break
+      case false:
+        this.enabled = false
+        break
+    }
 
-    this.app.context.args.cache === `memory` ? `memory` : `filesystem`
-
-    this.name = `${this.app.label}/cache/${this.app.mode}/webpack`
-    this.cacheDirectory = this.app.path(`@storage`)
+    this.name = `webpack`
+    this.cacheDirectory = this.app.path(
+      `@storage`,
+      this.app.label,
+      `cache`,
+      this.app.mode,
+    )
 
     const args = Object.entries(this.app.context.args)
       .filter(([k, v]) => v !== undefined)
@@ -166,6 +177,7 @@ export default class Cache
       .toLowerCase()
 
     this.app.success(`cache initialized`)
+
     if (this.app.context.args.cache === false) {
       this.app.log(`cache is disabled with a contextual argument`)
     }
