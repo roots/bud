@@ -18,6 +18,7 @@ describe(`benchmark`, () => {
     await bench.run()
 
     const result = bench?.getTask(`factory`)?.result
+    // eslint-disable-next-line no-console
     console.log(result)
 
     await fs.ensureDir(repoPath(`tests`, `unit`, `tests`, `artifacts`))
@@ -26,6 +27,7 @@ describe(`benchmark`, () => {
       JSON.stringify(result, null, 2),
     )
 
+    // eslint-disable-next-line n/no-process-env
     expect(result?.mean).toBeLessThan(process.env.CI ? 30 : 20)
   })
 })
