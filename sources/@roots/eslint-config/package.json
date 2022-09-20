@@ -1,6 +1,6 @@
 {
   "name": "@roots/eslint-config",
-  "version": "0.0.0",
+  "version": "6.4.1",
   "description": "eslint presets for roots projects",
   "repository": {
     "type": "git",

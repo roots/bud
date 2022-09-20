@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-react",
-  "version": "0.0.0",
+  "version": "6.4.1",
   "description": "React support for @roots/bud projects.",
   "homepage": "https://roots.io/bud",
   "repository": {
