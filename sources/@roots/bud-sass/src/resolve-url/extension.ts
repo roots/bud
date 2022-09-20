@@ -16,7 +16,7 @@ export default class BudResolveUrl extends Extension {
       loader: `resolveUrl`,
       options: ({path, hooks}) => ({
         root: path(`@src`),
-        sourceMap: hooks.filter(`build.devtool`) ? true : false,
+        sourceMap: true,
       }),
     })
   }
