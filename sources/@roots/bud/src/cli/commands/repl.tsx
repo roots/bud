@@ -1,5 +1,5 @@
-import {highlight} from '@roots/bud-support/cli-highlight'
 import {Command, Option} from '@roots/bud-support/clipanion'
+import {highlight} from '@roots/bud-support/highlight'
 import {chunk} from '@roots/bud-support/lodash-es'
 import format from '@roots/bud-support/pretty-format'
 
@@ -122,7 +122,6 @@ const Repl = ({app, indent, depth}: ReplProps) => {
           indent: parseInt(indent),
           maxDepth: parseInt(depth),
         }),
-        {ignoreIllegals: true},
       )
       setResult(result)
     } catch (e) {

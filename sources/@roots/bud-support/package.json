@@ -39,12 +39,12 @@
   "module": "./lib/index.js",
   "exports": {
     ".": "./lib/index.js",
-    "./cli-highlight": "./lib/dependencies/cli-highlight/index.js",
     "./clipanion": "./lib/dependencies/clipanion/index.js",
     "./decorators": "./lib/decorators/index.js",
     "./execa": "./lib/dependencies/execa/index.js",
     "./fs": "./lib/dependencies/fs/index.js",
     "./globby": "./lib/dependencies/globby/index.js",
+    "./highlight": "./lib/highlight/index.js",
     "./ink": "./lib/dependencies/ink/index.js",
     "./ink-link": "./lib/dependencies/ink-link/index.js",
     "./ink-text-input": "./lib/dependencies/ink-text-input/index.js",
@@ -61,9 +61,6 @@
       "chalk": [
         "./lib/dependencies/chalk/index.d.ts"
       ],
-      "cli-highlight": [
-        "./lib/dependencies/cli-highlight/index.d.ts"
-      ],
       "clipanion": [
         "./lib/dependencies/clipanion/index.d.ts"
       ],
@@ -78,6 +75,9 @@
       ],
       "globby": [
         "./lib/dependencies/globby/index.d.ts"
+      ],
+      "highlight": [
+        "./lib/highlight/index.d.ts"
       ],
       "ink": [
         "./lib/dependencies/ink/index.d.ts"
@@ -108,16 +108,18 @@
   },
   "dependencies": {
     "chalk": "5.0.1",
-    "cli-highlight": "1.0.0",
     "clipanion": "3.2.0-rc.12",
     "execa": "6.1.0",
     "fs-extra": "10.1.0",
     "globby": "13.1.2",
     "helpful-decorators": "2.1.0",
+    "highlight.js": "11.6.0",
     "ink": "3.2.0",
     "ink-link": "2.0.0",
     "ink-text-input": "4.0.3",
     "lodash-es": "4.17.21",
+    "parse5": "7.1.1",
+    "parse5-htmlparser2-tree-adapter": "7.0.0",
     "pretty-format": "29.0.3",
     "react": "17.0.2",
     "typanion": "3.12.0",

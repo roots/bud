@@ -1,5 +1,5 @@
-import {highlight} from '@roots/bud-support/cli-highlight'
 import {Command, Option} from '@roots/bud-support/clipanion'
+import {highlight} from '@roots/bud-support/highlight'
 import {Box, Static, Text} from '@roots/bud-support/ink'
 import {get} from '@roots/bud-support/lodash-es'
 import format from '@roots/bud-support/pretty-format'
@@ -68,7 +68,7 @@ export default class ViewCommand extends BaseCommand {
       ),
     })
 
-    if (this.color) value = highlight(value, {ignoreIllegals: true})
+    if (this.color) value = highlight(value)
 
     await this.renderOnce(
       <Box marginBottom={1}>

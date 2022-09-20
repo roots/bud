@@ -5171,16 +5171,18 @@ __metadata:
   dependencies:
     "@skypack/package-check": 0.2.2
     chalk: 5.0.1
-    cli-highlight: 1.0.0
     clipanion: 3.2.0-rc.12
     execa: 6.1.0
     fs-extra: 10.1.0
     globby: 13.1.2
     helpful-decorators: 2.1.0
+    highlight.js: 11.6.0
     ink: 3.2.0
     ink-link: 2.0.0
     ink-text-input: 4.0.3
     lodash-es: 4.17.21
+    parse5: 7.1.1
+    parse5-htmlparser2-tree-adapter: 7.0.0
     pretty-format: 29.0.3
     react: 17.0.2
     typanion: 3.12.0
@@ -10158,6 +10160,7 @@ __metadata:
     playwright: 1.23.4
     prettier: 2.7.1
     syncpack: 8.2.4
+    tinybench: 2.1.5
     ts-node: 10.9.1
     tslib: 2.4.0
     typedoc: 0.23.8
@@ -10894,20 +10897,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cli-highlight@npm:1.0.0":
-  version: 1.0.0
-  resolution: "cli-highlight@npm:1.0.0"
-  dependencies:
-    chalk: ^1.1.3
-    commander: ^2.9.0
-    highlight.js: ^9.6.0
-    mz: ^2.4.0
-  bin:
-    cli-highlight: dist/bin/highlight.js
-  checksum: d53615854bdb0ebc3ca364b8b9b15ade6afbd242775c8db5637109b7ba3e6d13c7437a81e79edf22c7513562887bb0be03514bc5885a52b1e4f8b45fbd619306
-  languageName: node
-  linkType: hard
-
 "cli-progress@npm:^3.7.0":
   version: 3.11.2
   resolution: "cli-progress@npm:3.11.2"
@@ -11327,7 +11316,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commander@npm:^2.20.0, commander@npm:^2.3.0, commander@npm:^2.8.1, commander@npm:^2.9.0":
+"commander@npm:^2.20.0, commander@npm:^2.3.0, commander@npm:^2.8.1":
   version: 2.20.3
   resolution: "commander@npm:2.20.3"
   checksum: ab8c07884e42c3a8dbc5dd9592c606176c7eb5c1ca5ff274bcf907039b2c41de3626f684ea75ccf4d361ba004bbaff1f577d5384c155f3871e456bdf27becf9e
@@ -13623,6 +13612,13 @@ __metadata:
   version: 4.3.1
   resolution: "entities@npm:4.3.1"
   checksum: e8f6d2bac238494b2355e90551893882d2675142be7e7bdfcb15248ed0652a630678ba0e3a8dc750693e736cb6011f504c27dabeb4cd3330560092e88b105090
+  languageName: node
+  linkType: hard
+
+"entities@npm:^4.4.0":
+  version: 4.4.0
+  resolution: "entities@npm:4.4.0"
+  checksum: 84d250329f4b56b40fa93ed067b194db21e8815e4eb9b59f43a086f0ecd342814f6bc483de8a77da5d64e0f626033192b1b4f1792232a7ea6b970ebe0f3187c2
   languageName: node
   linkType: hard
 
@@ -16962,10 +16958,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"highlight.js@npm:^9.6.0":
-  version: 9.18.5
-  resolution: "highlight.js@npm:9.18.5"
-  checksum: a8afdb395869bba8a892dd8891b738d3bd48fe2e5b6843ec3181c93d73f52abf2cab863424caa631442a7bbafac222bafdab3f5a536a69aab9c60d4c1b7f8b77
+"highlight.js@npm:11.6.0":
+  version: 11.6.0
+  resolution: "highlight.js@npm:11.6.0"
+  checksum: 3908eb34a4b442ca1e20c1ae6415ea935fbbcdb2b532a89948d82b0fa4ad41fc5de3802a0de4e88a0bcb7d97d4445579048cd2aab1d105ac47f59dd58a9a98ae
   languageName: node
   linkType: hard
 
@@ -21911,7 +21907,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mz@npm:^2.0.0, mz@npm:^2.4.0":
+"mz@npm:^2.0.0":
   version: 2.7.0
   resolution: "mz@npm:2.7.0"
   dependencies:
@@ -23475,7 +23471,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"parse5-htmlparser2-tree-adapter@npm:^7.0.0":
+"parse5-htmlparser2-tree-adapter@npm:7.0.0, parse5-htmlparser2-tree-adapter@npm:^7.0.0":
   version: 7.0.0
   resolution: "parse5-htmlparser2-tree-adapter@npm:7.0.0"
   dependencies:
@@ -23496,6 +23492,15 @@ __metadata:
   version: 6.0.1
   resolution: "parse5@npm:6.0.1"
   checksum: 7d569a176c5460897f7c8f3377eff640d54132b9be51ae8a8fa4979af940830b2b0c296ce75e5bd8f4041520aadde13170dbdec44889975f906098ea0002f4bd
+  languageName: node
+  linkType: hard
+
+"parse5@npm:7.1.1":
+  version: 7.1.1
+  resolution: "parse5@npm:7.1.1"
+  dependencies:
+    entities: ^4.4.0
+  checksum: 8f72fbfa6df83a3f29f58e1818f7bd46b47ff3e26d79c74e10b8fc7ef7ee76163f205113f1b2f6a5b8dc4e31e726f490444f04890cead6e974dbcbe8172b1321
   languageName: node
   linkType: hard
 
@@ -29130,6 +29135,13 @@ __metadata:
   version: 1.0.3
   resolution: "tiny-warning@npm:1.0.3"
   checksum: da62c4acac565902f0624b123eed6dd3509bc9a8d30c06e017104bedcf5d35810da8ff72864400ad19c5c7806fc0a8323c68baf3e326af7cb7d969f846100d71
+  languageName: node
+  linkType: hard
+
+"tinybench@npm:2.1.5":
+  version: 2.1.5
+  resolution: "tinybench@npm:2.1.5::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Ftinybench%2F-%2Ftinybench-2.1.5.tgz"
+  checksum: 5a6d378271a00ace6fa6970404eb1efd539d3e9b9908a9cb6d66ad78acfd873762734f3fc69fe10d86217318871367997d2a8b9566039fd224c518493466aa96
   languageName: node
   linkType: hard
 
