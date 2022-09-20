@@ -29580,17 +29580,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typanion@npm:3.12.0":
+"typanion@npm:3.12.0, typanion@npm:^3.3.0, typanion@npm:^3.3.1, typanion@npm:^3.8.0":
   version: 3.12.0
   resolution: "typanion@npm:3.12.0"
   checksum: 3c61f33027f1612ef079574a538ea800aee93272d0080e5efd305b750065c344c66f8986a5fd1678f38694199ab0444e16afe1a03e7a01c1d204d1129d79e416
-  languageName: node
-  linkType: hard
-
-"typanion@npm:^3.3.0, typanion@npm:^3.3.1, typanion@npm:^3.8.0":
-  version: 3.9.0
-  resolution: "typanion@npm:3.9.0"
-  checksum: db635975e86c50399fe019010e489a9adb24a74cd19b15efb1d0f434c7dccd842a9402a6a6d60e8ab6d9f7949fd8604a019802a022427e78dbbe2e74f143527b
   languageName: node
   linkType: hard
 
@@ -29619,7 +29612,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"type-fest@npm:2.19.0":
+"type-fest@npm:2.19.0, type-fest@npm:^2.0.0, type-fest@npm:^2.11.2, type-fest@npm:^2.5.0":
   version: 2.19.0
   resolution: "type-fest@npm:2.19.0"
   checksum: a4ef07ece297c9fba78fc1bd6d85dff4472fe043ede98bd4710d2615d15776902b595abf62bd78339ed6278f021235fb28a96361f8be86ed754f778973a0d278
@@ -29700,13 +29693,6 @@ __metadata:
   version: 1.4.0
   resolution: "type-fest@npm:1.4.0"
   checksum: b011c3388665b097ae6a109a437a04d6f61d81b7357f74cbcb02246f2f5bd72b888ae33631b99871388122ba0a87f4ff1c94078e7119ff22c70e52c0ff828201
-  languageName: node
-  linkType: hard
-
-"type-fest@npm:^2.0.0, type-fest@npm:^2.11.2, type-fest@npm:^2.5.0":
-  version: 2.16.0
-  resolution: "type-fest@npm:2.16.0"
-  checksum: 897fc5f6833de5ade5c4841d034bdfb6aaa168f24f725354ad13320b2a463b9df03a7a664b836b4c3bc7d9f92b22a25c26fe24668a35caf3b7a9ea5fcb847b8d
   languageName: node
   linkType: hard
 
