@@ -63,7 +63,7 @@
     "helpful-decorators": "2.1.0",
     "tslib": "2.4.0",
     "vinyl": "^2.2.1",
-    "webpack": "5.73.0"
+    "webpack": "5.74.0"
   },
   "peerDependencies": {
     "critical": "*"

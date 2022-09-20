@@ -69,7 +69,7 @@
     "@skypack/package-check": "0.2.2",
     "@types/fork-ts-checker-webpack-plugin": "0.4.5",
     "@types/node": "16.11.48",
-    "webpack": "5.73.0"
+    "webpack": "5.74.0"
   },
   "dependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",

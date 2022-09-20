@@ -83,7 +83,7 @@
     "@types/fs-extra": "9.0.13",
     "@types/mini-css-extract-plugin": "2.5.0",
     "@types/node": "16.11.48",
-    "webpack": "5.73.0"
+    "webpack": "5.74.0"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",

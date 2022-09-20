@@ -134,7 +134,7 @@
     "@types/signale": "1.4.4",
     "chokidar": "3.5.3",
     "http-proxy-middleware": "2.0.6",
-    "webpack": "5.73.0"
+    "webpack": "5.74.0"
   },
   "dependencies": {
     "@roots/bud-support": "workspace:sources/@roots/bud-support",

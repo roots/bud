@@ -66,7 +66,7 @@
     "@roots/bud-build": "workspace:sources/@roots/bud-build",
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.11.48",
-    "webpack": "5.73.0"
+    "webpack": "5.74.0"
   },
   "dependencies": {
     "@babel/core": "7.19.1",

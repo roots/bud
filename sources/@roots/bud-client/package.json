@@ -60,7 +60,7 @@
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.11.48",
     "@types/webpack-env": "1.18.0",
-    "webpack": "5.73.0"
+    "webpack": "5.74.0"
   },
   "dependencies": {
     "strip-ansi": "7.0.1",
