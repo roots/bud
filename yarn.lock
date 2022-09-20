@@ -29140,7 +29140,7 @@ __metadata:
 
 "tinybench@npm:2.1.5":
   version: 2.1.5
-  resolution: "tinybench@npm:2.1.5::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Ftinybench%2F-%2Ftinybench-2.1.5.tgz"
+  resolution: "tinybench@npm:2.1.5"
   checksum: 5a6d378271a00ace6fa6970404eb1efd539d3e9b9908a9cb6d66ad78acfd873762734f3fc69fe10d86217318871367997d2a8b9566039fd224c518493466aa96
   languageName: node
   linkType: hard
