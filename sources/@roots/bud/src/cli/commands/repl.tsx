@@ -66,7 +66,7 @@ const render = async ({app, indent, depth}) => {
     ({default: React}) => React,
   )
   TextInput = await import(`@roots/bud-support/ink-text-input`).then(
-    ({TextInput}) => TextInput,
+    ({Prompt}) => Prompt,
   )
   Ink = await import(`@roots/bud-support/ink`)
 
@@ -164,7 +164,6 @@ const Repl = ({app, indent, depth}: ReplProps) => {
     <Ink.Box marginY={1} flexDirection="column">
       <Ink.Box flexDirection="row" justifyContent="space-between">
         <Ink.Box flexDirection="row" justifyContent="flex-start">
-          <Ink.Text>async (bud) {`=> `}</Ink.Text>
           <TextInput value={search} onChange={onChange} />
         </Ink.Box>
         {paged.length > 0 ? (
