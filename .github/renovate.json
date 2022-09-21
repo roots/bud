@@ -12,7 +12,11 @@
     },
     {
       "groupName": "@babel",
-      "matchPackagePrefixes": ["@babel/"]
+      "matchPackagePrefixes": ["@babel", "babel-"]
+    },
+    {
+      "groupName": "eslint",
+      "matchPackagePrefixes": ["eslint"]
     },
     {
       "groupName": "react",
@@ -22,6 +26,10 @@
         "@types/react",
         "react-reconciler"
       ]
+    },
+    {
+      "groupName": "stylelint",
+      "matchPackagePrefixes": ["stylelint"]
     },
     {
       "groupName": "@yarnpkg",
