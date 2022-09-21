@@ -4317,7 +4317,7 @@ __metadata:
     react-dom: 17.0.2
     ts-node: 10.9.1
     tslib: 2.4.0
-    typescript: 4.7.4
+    typescript: 4.8.3
     url-loader: 4.1.1
     webpack: 5.74.0
   languageName: unknown
@@ -4407,7 +4407,7 @@ __metadata:
     pm2: 5.2.0
     semver: 7.3.7
     tslib: 2.4.0
-    typescript: 4.7.4
+    typescript: 4.8.3
     verdaccio: 5.13.1
   languageName: unknown
   linkType: soft
@@ -4428,7 +4428,7 @@ __metadata:
     helpful-decorators: 2.1.0
     lodash-es: 4.17.21
     tslib: 2.4.0
-    typescript: 4.7.4
+    typescript: 4.8.3
   languageName: unknown
   linkType: soft
 
@@ -5298,7 +5298,7 @@ __metadata:
     ts-loader: ^9.3.0
     ts-node: 10.9.1
     tslib: 2.4.0
-    typescript: 4.7.4
+    typescript: 4.8.3
     webpack: 5.74.0
   peerDependencies:
     fork-ts-checker-webpack-plugin: "*"
@@ -10178,7 +10178,7 @@ __metadata:
     ts-node: 10.9.1
     tslib: 2.4.0
     typedoc: 0.23.8
-    typescript: 4.7.4
+    typescript: 4.8.3
     webpack: 5.74.0
   languageName: unknown
   linkType: soft
@@ -29790,23 +29790,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:4.7.4, typescript@npm:^4.5.4, typescript@npm:^4.5.5":
-  version: 4.7.4
-  resolution: "typescript@npm:4.7.4"
+"typescript@npm:4.8.3, typescript@npm:^4.5.4, typescript@npm:^4.5.5":
+  version: 4.8.3
+  resolution: "typescript@npm:4.8.3"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 5750181b1cd7e6482c4195825547e70f944114fb47e58e4aa7553e62f11b3f3173766aef9c281783edfd881f7b8299cf35e3ca8caebe73d8464528c907a164df
+  checksum: 8286a5edcaf3d68e65c451aa1e7150ad1cf53ee0813c07ec35b7abdfdb10f355ecaa13c6a226a694ae7a67785fd7eeebf89f845da0b4f7e4a35561ddc459aba0
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@4.7.4#~builtin<compat/typescript>, typescript@patch:typescript@^4.5.4#~builtin<compat/typescript>, typescript@patch:typescript@^4.5.5#~builtin<compat/typescript>":
-  version: 4.7.4
-  resolution: "typescript@patch:typescript@npm%3A4.7.4#~builtin<compat/typescript>::version=4.7.4&hash=a1c5e5"
+"typescript@patch:typescript@4.8.3#~builtin<compat/typescript>, typescript@patch:typescript@^4.5.4#~builtin<compat/typescript>, typescript@patch:typescript@^4.5.5#~builtin<compat/typescript>":
+  version: 4.8.3
+  resolution: "typescript@patch:typescript@npm%3A4.8.3#~builtin<compat/typescript>::version=4.8.3&hash=a1c5e5"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 9096d8f6c16cb80ef3bf96fcbbd055bf1c4a43bd14f3b7be45a9fbe7ada46ec977f604d5feed3263b4f2aa7d4c7477ce5f9cd87de0d6feedec69a983f3a4f93e
+  checksum: 2222d2382fb3146089b1d27ce2b55e9d1f99cc64118f1aba75809b693b856c5d3c324f052f60c75b577947fc538bc1c27bad0eb76cbdba9a63a253489504ba7e
   languageName: node
   linkType: hard
 
