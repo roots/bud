@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`multi-compiler plugin npm manifest.json matches snapshot 1`] = `
-Object {
+{
   "plugin.css": "css/plugin.css",
   "plugin.js": "js/plugin.js",
 }
 `;
 
 exports[`multi-compiler plugin yarn manifest.json matches snapshot 1`] = `
-Object {
+{
   "plugin.css": "css/plugin.css",
   "plugin.js": "js/plugin.js",
 }

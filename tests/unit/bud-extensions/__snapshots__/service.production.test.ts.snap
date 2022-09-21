@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Extensions [production] bud.extensions.repository matches snapshot 1`] = `
-Array [
+[
   "@roots/bud-babel",
   "@roots/bud-cache/invalidate-cache",
   "@roots/bud-entrypoints",
