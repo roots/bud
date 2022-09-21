@@ -5440,7 +5440,7 @@ __metadata:
     conf: 10.2.0
     copy-webpack-plugin: 11.0.0
     dotenv: 16.0.2
-    dotenv-expand: 8.0.3
+    dotenv-expand: 9.0.0
     import-meta-resolve: 2.1.0
     mini-css-extract-plugin: ^2.4.5
     node-notifier: 10.0.1
@@ -13339,10 +13339,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dotenv-expand@npm:8.0.3":
-  version: 8.0.3
-  resolution: "dotenv-expand@npm:8.0.3"
-  checksum: 128ce90ac825b543de3ece0154a51b056ab0dc36bb26d97a68cd0b8707327ecd3c182fb6ac63b26a0fcdfa85064419906a1065cb634f1f9dc08ad311375f1fc0
+"dotenv-expand@npm:9.0.0":
+  version: 9.0.0
+  resolution: "dotenv-expand@npm:9.0.0"
+  checksum: 76f669b87da73d6980d1235cb18e9ccd94b294927784a0c06db5e9e98d1090b0605e75ade70880f0cd812af7f61e41367a80feea223d23fd3bd0b82f3409b9ed
   languageName: node
   linkType: hard
 
