@@ -29,7 +29,7 @@ export default class BudTypeCheckPlugin extends Extension<
   /**
    * Enable typechecking
    *
-   * @override {@link Extension.enable}
+   * @override
    * @decorator `@bind`
    */
   @bind public async enable(state: boolean = true) {
