@@ -62,11 +62,11 @@
   },
   "dependencies": {
     "@roots/critical-css-webpack-plugin": "workspace:sources/@roots/critical-css-webpack-plugin",
-    "critical": "4.0.1",
+    "critical": "5.0.2",
     "tslib": "2.4.0"
   },
   "peerDependencies": {
-    "critical": "^4.0.1"
+    "critical": "^4.0.1 || ^5.0.0"
   },
   "peerDependenciesMeta": {
     "critical": {
