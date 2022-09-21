@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`bud.bundle should set the bundle using a string 1`] = `
-Object {
+{
   "automaticNameDelimiter": "/",
-  "cacheGroups": Object {
-    "react": Object {
+  "cacheGroups": {
+    "react": {
       "filename": "js/bundle/react/[name].js",
       "idHint": "react",
       "priority": -10,
@@ -17,10 +17,10 @@ Object {
 `;
 
 exports[`bud.bundle should set the bundle using a string name and a string test 1`] = `
-Object {
+{
   "automaticNameDelimiter": "/",
-  "cacheGroups": Object {
-    "react": Object {
+  "cacheGroups": {
+    "react": {
       "filename": "js/bundle/react/[name].js",
       "idHint": "react",
       "priority": -10,
@@ -33,10 +33,10 @@ Object {
 `;
 
 exports[`bud.bundle should set the bundle using a string name and array of strings test 1`] = `
-Object {
+{
   "automaticNameDelimiter": "/",
-  "cacheGroups": Object {
-    "react": Object {
+  "cacheGroups": {
+    "react": {
       "filename": "js/bundle/react/[name].js",
       "idHint": "react",
       "priority": -10,
@@ -49,10 +49,10 @@ Object {
 `;
 
 exports[`bud.bundle should set the bundle using a string name and regular expression test 1`] = `
-Object {
+{
   "automaticNameDelimiter": "/",
-  "cacheGroups": Object {
-    "react": Object {
+  "cacheGroups": {
+    "react": {
       "filename": "js/bundle/react/[name].js",
       "idHint": "react",
       "priority": -10,

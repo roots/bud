@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`@roots/bud-server @roots/bud-server/service should have availableMiddleware property 1`] = `
-Object {
+{
   "cookie": [Function],
   "dev": [Function],
   "hot": [Function],
@@ -10,7 +10,7 @@ Object {
 `;
 
 exports[`@roots/bud-server @roots/bud-server/service should have enabledMiddleware property 1`] = `
-Object {
+{
   "dev": [Function],
   "hot": [Function],
 }

@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`bud.watch merges watch files 1`] = `
-Array [
+[
   "1/*.js",
 ]
 `;
 
-exports[`bud.watch should have expected default values 1`] = `Array []`;
+exports[`bud.watch should have expected default values 1`] = `[]`;

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`vue npm manifest.json matches snapshot 1`] = `
-Object {
+{
   "app.css": "css/app.css",
   "app.js": "js/app.js",
   "index.html": "index.html",
@@ -9,7 +9,7 @@ Object {
 `;
 
 exports[`vue yarn manifest.json matches snapshot 1`] = `
-Object {
+{
   "app.css": "css/app.css",
   "app.js": "js/app.js",
   "index.html": "index.html",

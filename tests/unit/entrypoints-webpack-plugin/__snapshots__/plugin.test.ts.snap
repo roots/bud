@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`entrypoints.json should get chunk file list 1`] = `
-Array [
-  Object {
+[
+  {
     "file": "foo.js",
     "key": undefined,
   },
-  Object {
+  {
     "file": "bar.js",
     "key": undefined,
   },

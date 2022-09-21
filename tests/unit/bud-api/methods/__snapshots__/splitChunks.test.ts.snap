@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`bud.splitChunks sets default options when called 1`] = `
-Object {
+{
   "automaticNameDelimiter": "/",
-  "cacheGroups": Object {
-    "vendor": Object {
+  "cacheGroups": {
+    "vendor": {
       "filename": "js/bundle/vendor/[name].js",
       "idHint": "vendor",
       "priority": -20,
@@ -17,8 +17,8 @@ Object {
 `;
 
 exports[`bud.splitChunks sets options when passed as parameters 1`] = `
-Object {
-  "cacheGroups": Object {
+{
+  "cacheGroups": {
     "chunks": "all",
   },
 }

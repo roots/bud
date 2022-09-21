@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`sage npm [snapshots] package.json is unchanged 1`] = `
-Object {
-  "browserslist": Array [
+{
+  "browserslist": [
     "extends @roots/browserslist-config/current",
   ],
-  "devDependencies": Object {
+  "devDependencies": {
     "@roots/bud": "latest",
     "@roots/bud-eslint": "latest",
     "@roots/bud-prettier": "latest",
@@ -20,11 +20,11 @@ Object {
 `;
 
 exports[`sage yarn [snapshots] package.json is unchanged 1`] = `
-Object {
-  "browserslist": Array [
+{
+  "browserslist": [
     "extends @roots/browserslist-config/current",
   ],
-  "devDependencies": Object {
+  "devDependencies": {
     "@roots/bud": "latest",
     "@roots/bud-eslint": "latest",
     "@roots/bud-prettier": "latest",
