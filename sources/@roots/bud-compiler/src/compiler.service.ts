@@ -153,8 +153,6 @@ export class Compiler extends Service implements Contract.Service {
     this.app.isDevelopment &&
       this.app.server.appliedMiddleware?.hot?.publish({error})
 
-    this.logger.error(error)
-
-    process.exitCode = 1
+    this.app.isProduction && this.app.fatal(error)
   }
 }

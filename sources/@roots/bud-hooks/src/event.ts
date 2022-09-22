@@ -57,9 +57,7 @@ export default class EventHooks extends Hooks<EventsStore> {
         try {
           await action(this.app)
         } catch (error) {
-          this.app.fatal(
-            `error: ${error ? JSON.stringify(error) : `unknown`}`,
-          )
+          throw error
         }
       }, Promise.resolve())
 

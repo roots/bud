@@ -1,6 +1,4 @@
 /* eslint-disable n/no-process-exit */
-import {error} from 'console'
-
 import type {Bud} from './bud'
 
 /**
@@ -26,6 +24,7 @@ export const initialize = (app: Bud): void => {
     .on(`exit`, makeProcessHandler(app, 0))
     // only works when the process normally exits
     .on(`SIGINT`, process.exit)
+    .on(`SIGTERM`, process.exit)
 }
 
 /**
@@ -44,9 +43,9 @@ const makeProcessHandler = (app: Bud, code: number) => () => {
   if (appExited) return
   appExited = true
 
-  const logError = app.logger?.instance?.error ?? error
-
-  if (code > 0) logError(`\nexiting with code ${code}`)
+  process.exitCode = process.exitCode !== 0 ? process.exitCode : code
+  process.exitCode !== 0 &&
+    app.context.stderr.write(`\nexiting with code ${process.exitCode}\n`)
 
   app?.close()
 }

@@ -64,11 +64,19 @@ export class Dashboard
   }: {
     stats: StatsCompilation
   }): Promise<this> {
-    if (!compilationStats || this.app.context.args.log === false)
-      return this
+    if (!compilationStats) return this
+
+    if (this.app.context.args.log === false) {
+      if (compilationStats.hasErrors() && this.app.isProduction)
+        this.app.fatal(new Error(`compilation completed but had errors`))
+      return
+    }
 
     if (this.app.context.args.ci) {
       this.log(compilationStats?.toString())
+      if (compilationStats.hasErrors() && this.app.isProduction)
+        this.app.fatal(new Error(`compilation completed but had errors`))
+
       return this
     }
 
@@ -87,6 +95,9 @@ export class Dashboard
       this.log(compilationStats?.toString())
       this.app.error(error)
     }
+
+    if (compilationStats.hasErrors() && this.app.isProduction)
+      this.app.fatal(new Error(`compilation completed but had errors`))
 
     return this
   }

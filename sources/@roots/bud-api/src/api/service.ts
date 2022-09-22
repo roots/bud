@@ -57,7 +57,9 @@ export class Api extends Base.Service {
   public bindFacade(name: string, fn: CallableFunction) {
     // check if the callable exists
     if (!isFunction(fn)) {
-      this.app.fatal(`bud.api.bindFacade error: ${name} is not a function`)
+      throw new Error(
+        `bud.api.bindFacade error: ${name} is not a function`,
+      )
     }
 
     this.set(name, fn.bind(this.app))

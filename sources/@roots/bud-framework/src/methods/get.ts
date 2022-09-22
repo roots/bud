@@ -23,7 +23,9 @@ export const get: get = function (label, tap) {
   !isRoot &&
     warn(`not root instance. returning from the context of ${root.label}`)
 
-  !root.children[label] && root.fatal(`${label} instance not found`) // throws
+  if (!root.children[label]) {
+    throw new Error(`${label} instance not found`)
+  }
 
   root.success(`returning child instance:`, label)
 
