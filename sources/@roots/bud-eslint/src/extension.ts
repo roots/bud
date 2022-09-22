@@ -6,6 +6,7 @@ import {
   options,
   plugin,
 } from '@roots/bud-framework/extension/decorators'
+import {isUndefined} from '@roots/bud-support/lodash-es'
 import type {Options} from 'eslint-webpack-plugin'
 import EslintPlugin from 'eslint-webpack-plugin'
 
@@ -25,7 +26,7 @@ import EslintPlugin from 'eslint-webpack-plugin'
   extensions: [`js`, `jsx`, `ts`, `tsx`, `vue`],
   cacheLocation: app => app.path(`@storage`, app.label, `cache`, `eslint`),
   fix: false,
-  cwd: app => app.context.basedir,
+  context: app => app.context.basedir,
   resolvePluginsRelativeTo: app => app.context.basedir,
   threads: false,
 })
@@ -40,6 +41,14 @@ export default class BudEslint extends Extension<Options, EslintPlugin> {
   public async register() {
     const eslintPath = await this.resolve(`eslint`)
     this.setOption(`eslintPath`, eslintPath)
+
+    const findFlatConfig = ({name}) => name.includes(`eslint.config`)
+
+    const userConfigs = Object.values(this.app.context.config)
+    if (!userConfigs.some(findFlatConfig)) return
+
+    const {module: flatConfig} = userConfigs.find(findFlatConfig)
+    this.setOption(`baseConfig`, flatConfig?.default ?? flatConfig)
   }
 
   /**
