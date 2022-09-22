@@ -1,0 +1,90 @@
+{
+  "name": "@roots/bud-preact",
+  "version": "0.0.0",
+  "description": "Preact support for @roots/bud projects.",
+  "homepage": "https://roots.io/bud",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud",
+    "directory": "sources/@roots/bud-preact"
+  },
+  "contributors": [
+    {
+      "name": "kellymears",
+      "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "QWp6t",
+      "url": "https://github.com/QWp6t"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/roots/bud/issues"
+  },
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "keywords": [
+    "bud",
+    "bud-extension",
+    "preact"
+  ],
+  "engines": {
+    "node": ">=16"
+  },
+  "bud": {
+    "type": "extension"
+  },
+  "files": [
+    "lib/"
+  ],
+  "type": "module",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": "./lib/index.js"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ]
+    }
+  },
+  "devDependencies": {
+    "@babel/core": "7.19.1",
+    "@jest/globals": "29.0.3",
+    "@roots/bud-swc": "workspace:sources/@roots/bud-swc",
+    "@roots/bud-typescript": "workspace:sources/@roots/bud-typescript",
+    "@skypack/package-check": "0.2.2",
+    "@types/babel__core": "7.1.19",
+    "@types/node": "16.11.48",
+    "type-fest": "2.19.0",
+    "webpack": "5.74.0"
+  },
+  "dependencies": {
+    "@babel/plugin-transform-react-jsx": "7.19.0",
+    "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "@roots/bud-support": "workspace:sources/@roots/bud-support",
+    "preact": "10.11.0",
+    "tslib": "2.4.0"
+  },
+  "peerDependencies": {
+    "@babel/plugin-transform-react-jsx": "*",
+    "preact": "*"
+  },
+  "peerDependenciesMeta": {
+    "@babel/plugin-transform-react-jsx": {
+      "optional": true
+    },
+    "preact": {
+      "optional": true
+    }
+  },
+  "volta": {
+    "extends": "../../../package.json"
+  }
+}

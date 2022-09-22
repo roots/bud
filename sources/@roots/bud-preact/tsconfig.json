@@ -1,0 +1,17 @@
+{
+  "extends": "../../../config/tsconfig.json",
+  "compilerOptions": {
+
+    "rootDir": "src",
+    "outDir": "lib",
+    "module": "esnext",
+    "types": ["node", "@roots/bud-framework", "@roots/bud-babel", "@roots/bud-api"]
+  },
+  "include": ["src"],
+  "exclude": ["lib", "node_modules"],
+  "references": [
+    {"path": "./../bud-babel/tsconfig.json"},
+    {"path": "./../bud-framework/tsconfig.json"},
+    {"path": "./../bud-support/tsconfig.json"},
+  ]
+}
