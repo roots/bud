@@ -16,7 +16,7 @@ describe(`themeJson tailwind adapter`, () => {
   }
 
   it(`transformsPalette`, () => {
-    expect(tailwind.palette.transformPalette(mockPalette)).toStrictEqual([
+    expect(tailwind.palette.transform(mockPalette)).toStrictEqual([
       {
         name: `Blue Shade Hue 50`,
         slug: `blue-shade-hue-50`,

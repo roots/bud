@@ -6,7 +6,6 @@ import {
   options,
   plugin,
 } from '@roots/bud-framework/extension/decorators'
-import {isUndefined} from '@roots/bud-support/lodash-es'
 import type {Options} from 'eslint-webpack-plugin'
 import EslintPlugin from 'eslint-webpack-plugin'
 
@@ -47,8 +46,8 @@ export default class BudEslint extends Extension<Options, EslintPlugin> {
     const userConfigs = Object.values(this.app.context.config)
     if (!userConfigs.some(findFlatConfig)) return
 
-    const {module: flatConfig} = userConfigs.find(findFlatConfig)
-    this.setOption(`baseConfig`, flatConfig?.default ?? flatConfig)
+    const flatConfig = userConfigs.find(findFlatConfig)
+    this.setOption(`baseConfig`, flatConfig.module)
   }
 
   /**
