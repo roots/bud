@@ -8,4 +8,7 @@ export default async app => {
     .watch(['resources/views/*.blade.php'])
     .serve(3000)
     .proxy('http://example.test')
+    .wpjson.useTailwindColors()
+    .useTailwindFontFamily()
+    .enable()
 }

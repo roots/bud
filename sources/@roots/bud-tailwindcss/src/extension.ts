@@ -1,7 +1,7 @@
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
-  dependsOnOptional,
+  dependsOn,
   expose,
   label,
 } from '@roots/bud-framework/extension/decorators'
@@ -14,7 +14,7 @@ import {
  * @decorator `@dependsOn`
  */
 @label(`@roots/bud-tailwindcss`)
-@dependsOnOptional([`@roots/bud-postcss`])
+@dependsOn([`@roots/bud-postcss`])
 @expose(`tailwindcss`)
 export default class BudTailwindCss extends Extension {
   /**

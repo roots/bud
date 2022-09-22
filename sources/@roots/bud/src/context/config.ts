@@ -88,7 +88,11 @@ export default class Config {
           try {
             if (description.dynamic) {
               const dynamicConfig = await import(description.path)
-              set(this.data, [name, `module`], dynamicConfig)
+              set(
+                this.data,
+                [name, `module`],
+                dynamicConfig?.default ?? dynamicConfig,
+              )
             }
 
             if (description.extension === `json`) {
@@ -100,8 +104,9 @@ export default class Config {
               const ymlConfig = await yml.read(description.path)
               set(this.data, [name, `module`], ymlConfig)
             }
-          } catch (err) {
-            throw err
+          } catch (error) {
+            // eslint-disable-next-line no-console
+            console.error(error.message)
           }
         },
       ),
