@@ -18,6 +18,12 @@ import resolveConfig from 'tailwindcss/resolveConfig.js'
 import type {Config, ThemeConfig} from 'tailwindcss/types/config'
 import WebpackVirtualModules from 'webpack-virtual-modules'
 
+type ResolvedConfig = Partial<{
+  [K in keyof Config['theme'] as `${K & string}`]: ReturnType<
+    Config['theme'][K]
+  >
+}>
+
 /**
  * TailwindCSS support for `@roots/bud`
  *
@@ -40,7 +46,7 @@ export default class BudTailwindCss extends Extension {
    *
    * @public
    */
-  public config: Config
+  public theme: ResolvedConfig
 
   /**
    * Resolved paths
@@ -56,7 +62,7 @@ export default class BudTailwindCss extends Extension {
   public get importableKeys() {
     return Array.isArray(this.options.generateImports)
       ? this.options.generateImports
-      : Object.keys(this.config.theme)
+      : Object.keys(this.theme)
   }
 
   /**
@@ -67,7 +73,7 @@ export default class BudTailwindCss extends Extension {
   public resolveTailwindConfigValue<
     K extends `${keyof ThemeConfig & string}`,
   >(key: K): Config {
-    const rawValue = this.config?.theme?.[key]
+    const rawValue = this.theme[key]
     return isFunction(rawValue) ? rawValue(pluginUtils) : rawValue
   }
 
@@ -77,8 +83,8 @@ export default class BudTailwindCss extends Extension {
    * @returns
    */
   @bind
-  public makeStaticModule(key: keyof Config) {
-    const value = get(this.config.theme, key)
+  public makeStaticModule(key: keyof Config['theme']) {
+    const value = get(this.theme, key)
 
     return isObject(value)
       ? Object.entries(value).reduce(
@@ -117,13 +123,11 @@ export default class BudTailwindCss extends Extension {
       this.app.context.config[`tailwind.config.mjs`] ??
       this.app.context.config[`tailwind.config.cjs`]
 
-    this.config = resolveConfig(configDescription.module)
-
-    Object.assign(
-      this.config,
+    this.theme = Object.assign(
+      {},
       configDescription.module
-        ? resolveConfig(configDescription.module)
-        : resolveConfig(defaultConfig),
+        ? resolveConfig(configDescription.module).theme
+        : resolveConfig(defaultConfig).theme,
     )
   }
 

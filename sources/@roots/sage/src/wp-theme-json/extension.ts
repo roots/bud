@@ -122,7 +122,7 @@ export default class ThemeJson extends Extension<
       color: {
         ...(this.options.settings?.color ?? {}),
         palette: tailwindAdapter.palette.transform(
-          this.app.tailwind.config.colors,
+          this.app.tailwind.theme.colors,
         ),
       },
     })
@@ -136,8 +136,8 @@ export default class ThemeJson extends Extension<
       ...(this.options.settings ?? {}),
       typography: {
         ...(this.options.settings?.typography ?? {}),
-        fontFamilies: tailwindAdapter.palette.transform(
-          this.app.tailwind.config.fontFamily,
+        fontFamilies: tailwindAdapter.fontFamily.transform(
+          this.app.tailwind.theme.fontFamily,
         ),
       },
     })
@@ -151,8 +151,8 @@ export default class ThemeJson extends Extension<
       ...(this.options.settings ?? {}),
       typography: {
         ...(this.options.settings?.typography ?? {}),
-        fontSizes: tailwindAdapter.palette.transform(
-          this.app.tailwind.config.fontSize,
+        fontSizes: tailwindAdapter.fontSize.transform(
+          this.app.tailwind.theme.fontSize,
         ),
       },
     })
