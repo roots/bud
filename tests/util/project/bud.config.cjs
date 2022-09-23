@@ -6,4 +6,6 @@ module.exports = async app => {
     .devtool(false)
     .watch([`index.html`, `images`])
     .serve(3015)
+
+  app.tailwind.generateImports([`colors`, `fontFamily`])
 }
