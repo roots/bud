@@ -302,8 +302,7 @@ export class Extension<
       await this.init(this.app, this.options)
       this.meta[`init`] = true
     } catch (error) {
-      this.logger.error(error)
-      this.app.fatal(`error in ${this.label}`)
+      throw error
     }
   }
 
@@ -324,8 +323,7 @@ export class Extension<
     try {
       await this.register(this.app, this.options)
     } catch (error) {
-      this.logger.error(`error on register`, `\n`, error)
-      this.app.error(`error in`, this.label)
+      throw error
     }
   }
 
@@ -348,7 +346,7 @@ export class Extension<
       await this.boot(this.app, this.options)
       this.meta[`boot`] = true
     } catch (error) {
-      this.app.error(this.label, `boot error`, `\n`, error)
+      throw error
     }
   }
 
@@ -622,7 +620,6 @@ export class Extension<
     }
     if (!modulePath) {
       this.logger.error(`unresolvable:`, signifier)
-      this.app.fatal(`unresolvable: ${signifier}`)
     }
 
     return modulePath
@@ -650,7 +647,6 @@ export class Extension<
       return result?.default ?? result ?? null
     } catch (error) {
       this.logger.error(`error importing`, signifier)
-      this.app.fatal(error)
     }
   }
 

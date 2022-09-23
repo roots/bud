@@ -83,7 +83,7 @@ export async function factory(
     try {
       await config(instance)
     } catch (error) {
-      instance.error(error)
+      throw error
     }
   }
 

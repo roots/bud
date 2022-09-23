@@ -215,7 +215,9 @@ export class Bud {
   ) {
     if (!this.isRoot)
       return this.fatal(
-        `Child instances should be produced from the root context`,
+        new Error(
+          `Child instances should be produced from the root context`,
+        ),
       )
 
     let context: Options.Context
@@ -388,6 +390,7 @@ export class Bud {
    */
   @bind
   public error(...messages: Array<any>): Bud {
+    process.exitCode = 1
     if (this.logger?.instance)
       this.logger.instance.error(...this.formatLogMessages(messages))
 
@@ -405,8 +408,10 @@ export class Bud {
    * @throws fatal error
    */
   @bind
-  public fatal(error: string) {
+  public fatal(error: Error) {
+    process.exitCode = 1
     this.logger.instance.error(error)
+    throw error
   }
 }
 

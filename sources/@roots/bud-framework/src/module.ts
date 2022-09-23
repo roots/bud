@@ -130,7 +130,7 @@ export class Module {
       return result?.default ?? result
     } catch (err) {
       this.logger.error(`Error importing`, signifier, err)
-      this.app.fatal(`Fatal error importing ${signifier}\n${err}`)
+      throw new Error(`Fatal error importing ${signifier}\n${err}`)
     }
   }
 
