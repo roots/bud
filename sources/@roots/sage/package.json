@@ -85,6 +85,7 @@
   },
   "devDependencies": {
     "@jest/globals": "29.0.3",
+    "@roots/bud-tailwindcss": "workspace:sources/@roots/bud-tailwindcss",
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.11.48",
     "tailwindcss": "^3.1.8",

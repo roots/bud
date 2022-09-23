@@ -71,7 +71,8 @@
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.11.48",
-    "@types/tailwindcss": "3.0.11"
+    "@types/tailwindcss": "3.0.11",
+    "@types/webpack-virtual-modules": "^0"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
@@ -81,7 +82,8 @@
     "autoprefixer": "^10.4.8",
     "chalk": "5.0.1",
     "tailwindcss": "^3.1.8",
-    "tslib": "2.4.0"
+    "tslib": "2.4.0",
+    "webpack-virtual-modules": "0.4.5"
   },
   "peerDependencies": {
     "autoprefixer": "*",
