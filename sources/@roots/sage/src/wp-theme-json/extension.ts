@@ -8,7 +8,11 @@ import {
   when,
 } from '@roots/bud-framework/extension/decorators'
 import type {GlobalSettingsAndStyles as WPThemeJson} from '@roots/bud-preset-wordpress/theme'
-import {isBoolean, isFunction} from '@roots/bud-support/lodash-es'
+import {
+  isBoolean,
+  isFunction,
+  isUndefined,
+} from '@roots/bud-support/lodash-es'
 import Container from '@roots/container'
 
 import {Options, ThemeJsonWebpackPlugin} from './plugin.js'
@@ -154,6 +158,17 @@ export default class ThemeJson extends Extension<
 
   @bind
   public async init() {
+    const userTailwindConfig =
+      this.app.context.config[`tailwind.config.js`] ??
+      this.app.context.config[`tailwind.config.mjs`] ??
+      this.app.context.config[`tailwind.config.cjs`]
+
+    if (
+      !userTailwindConfig &&
+      !this.app.extensions.has(`@roots/bud-tailwindcss`)
+    )
+      return
+
     try {
       this.resolveConfig = await this.import(
         `tailwindcss/resolveConfig.js`,
@@ -165,18 +180,32 @@ export default class ThemeJson extends Extension<
         `tailwindcss/defaultConfig.js`,
       )
 
-      const userTailwindConfig =
-        this.app.context.config[`tailwind.config.js`] ??
-        this.app.context.config[`tailwind.config.mjs`] ??
-        this.app.context.config[`tailwind.config.cjs`]
+      if (
+        [this.resolveConfig, this.pluginUtils, this.defaultConfig].some(
+          value => isUndefined(value),
+        )
+      )
+        return
 
-      this.tailwindConfig = userTailwindConfig
-        ? this.resolveConfig(userTailwindConfig.module)
-        : this.resolveConfig(this.defaultConfig)
+      Object.assign(
+        this.tailwindConfig,
+        userTailwindConfig
+          ? this.resolveConfig(userTailwindConfig.module)
+          : this.resolveConfig(this.defaultConfig),
+      )
 
-      this.palette = this.resolveTailwindConfigValue(`colors`)
-      this.fontSize = this.resolveTailwindConfigValue(`fontSize`)
-      this.fontFamily = this.resolveTailwindConfigValue(`fontFamily`)
+      Object.assign(
+        this.palette,
+        this.resolveTailwindConfigValue(`colors`),
+      )
+      Object.assign(
+        this.fontSize,
+        this.resolveTailwindConfigValue(`fontSize`),
+      )
+      Object.assign(
+        this.fontFamily,
+        this.resolveTailwindConfigValue(`fontFamily`),
+      )
     } catch (error) {}
   }
 
