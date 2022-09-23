@@ -77,8 +77,6 @@ export default class ThemeJson extends Extension<
   Options,
   ThemeJsonWebpackPlugin
 > {
-  protected static tailwind = tailwind
-
   protected _palette: tailwind.palette.TailwindColors
   protected get palette() {
     return this._palette
@@ -110,30 +108,17 @@ export default class ThemeJson extends Extension<
     this._template = template
   }
 
+  public resolveConfig: typeof import('tailwindcss/resolveConfig.js')
+  public pluginUtils: typeof import('tailwindcss/lib/util/pluginUtils.js')
+  public defaultConfig: typeof import('tailwindcss/defaultConfig.js')
+  public tailwindConfig: ReturnType<typeof this.resolveConfig>
+
   @bind
-  public async init() {
-    const config =
-      this.app.context.config[`tailwind.config.js`] ??
-      this.app.context.config[`tailwind.config.mjs`] ??
-      this.app.context.config[`tailwind.config.cjs`]
-
-    if (!config) return
-
-    try {
-      this.palette = await ThemeJson.tailwind.palette.getPalette(
-        config.module,
-      )
-    } catch (error) {}
-    try {
-      this.fontFamily = await ThemeJson.tailwind.fontFamily.getFonts(
-        config.module,
-      )
-    } catch (error) {}
-    try {
-      this.fontSize = await ThemeJson.tailwind.fontSize.getFontSize(
-        config.module,
-      )
-    } catch (err) {}
+  public resolveTailwindConfigValue<
+    K extends `${keyof tailwind.ThemeConfig & string}`,
+  >(key: K): typeof this.tailwindConfig {
+    const rawValue = this.tailwindConfig?.theme?.[key]
+    return isFunction(rawValue) ? rawValue(this.pluginUtils) : rawValue
   }
 
   @bind
@@ -168,12 +153,40 @@ export default class ThemeJson extends Extension<
   }
 
   @bind
+  public async init() {
+    try {
+      this.resolveConfig = await this.import(
+        `tailwindcss/resolveConfig.js`,
+      )
+      this.pluginUtils = await this.import(
+        `tailwindcss/lib/util/pluginUtils.js`,
+      )
+      this.defaultConfig = await this.import(
+        `tailwindcss/defaultConfig.js`,
+      )
+
+      const userTailwindConfig =
+        this.app.context.config[`tailwind.config.js`] ??
+        this.app.context.config[`tailwind.config.mjs`] ??
+        this.app.context.config[`tailwind.config.cjs`]
+
+      this.tailwindConfig = userTailwindConfig
+        ? this.resolveConfig(userTailwindConfig.module)
+        : this.resolveConfig(this.defaultConfig)
+
+      this.palette = this.resolveTailwindConfigValue(`colors`)
+      this.fontSize = this.resolveTailwindConfigValue(`fontSize`)
+      this.fontFamily = this.resolveTailwindConfigValue(`fontFamily`)
+    } catch (error) {}
+  }
+
+  @bind
   public useTailwindColors(): this {
     this.setOption(`settings`, {
       ...(this.options.settings ?? {}),
       color: {
         ...(this.options.settings?.color ?? {}),
-        palette: ThemeJson.tailwind.palette.transformPalette(this.palette),
+        palette: tailwind.palette.transform(this.palette),
       },
     })
 
@@ -185,10 +198,8 @@ export default class ThemeJson extends Extension<
     this.setOption(`settings`, {
       ...(this.options.settings ?? {}),
       typography: {
-        ...(this.options.settings.typography ?? {}),
-        fontFamilies: ThemeJson.tailwind.fontFamily.transformFonts(
-          this.fontFamily,
-        ),
+        ...(this.options.settings?.typography ?? {}),
+        fontFamilies: tailwind.fontFamily.transform(this.fontFamily),
       },
     })
 
@@ -200,10 +211,8 @@ export default class ThemeJson extends Extension<
     this.setOption(`settings`, {
       ...(this.options.settings ?? {}),
       typography: {
-        ...(this.options.settings.typography ?? {}),
-        fontSizes: ThemeJson.tailwind.fontSize.transformFonts(
-          this.fontSize,
-        ),
+        ...(this.options.settings?.typography ?? {}),
+        fontSizes: tailwind.fontSize.transform(this.fontSize),
       },
     })
 

@@ -1,5 +1,3 @@
-import {omit} from '@roots/bud-support/lodash-es'
-
 import {Bud} from '../bud.js'
 import {Logger} from '../logger/index.js'
 import * as methods from '../methods/index.js'
@@ -127,10 +125,6 @@ const initializeLoggerAndReportContext = (app: Bud) => {
   app.logger = new Logger(app)
 
   app.success(`logger ready`)
-
-  Object.entries(omit(app.context, `stdout`, `stdin`, `stderr`))
-    .filter(([k, v]) => v !== undefined)
-    .map(([k, v]) => app.info(`context`, k, `=>`, v))
 }
 
 /**
