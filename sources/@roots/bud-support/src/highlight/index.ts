@@ -3,6 +3,7 @@ import css from 'highlight.js/lib/languages/css'
 import js from 'highlight.js/lib/languages/javascript'
 import scss from 'highlight.js/lib/languages/scss'
 import ts from 'highlight.js/lib/languages/typescript'
+import isFunction from 'lodash-es/isFunction.js'
 import * as parse5 from 'parse5'
 import {adapter} from 'parse5-htmlparser2-tree-adapter'
 
@@ -18,7 +19,8 @@ const colorizeNode = (node): string => {
         const nodeData = node.childNodes
           .map(node => colorizeNode(node))
           .join(``)
-        return theme[token](nodeData)
+
+        return isFunction(theme[token]) ? theme[token](nodeData) : nodeData
       }
 
       return node.childNodes.map(node => colorizeNode(node)).join(``)

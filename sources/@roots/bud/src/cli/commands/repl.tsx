@@ -108,42 +108,6 @@ const Repl = ({app, indent, depth}: ReplProps) => {
     }
   })
 
-  const makeFn = (value: string) => eval(`async (bud) => ${value};`)
-
-  const processResults = (raw: unknown) => {
-    if (raw === undefined) {
-      setResult(`undefined`)
-      return
-    }
-
-    try {
-      const result = highlight(
-        format(raw, {
-          indent: parseInt(indent),
-          maxDepth: parseInt(depth),
-        }),
-      )
-      setResult(result)
-    } catch (e) {
-      setResult(e.message)
-    }
-  }
-
-  // @ts-ignore
-  const onChange = (value: string) => {
-    if (!value) return
-    setSearch(value)
-
-    try {
-      makeFn(value)(app).then(async (results: unknown) => {
-        processResults(results)
-        await app.api.processQueue()
-      })
-    } catch (err) {
-      setResult(err.message)
-    }
-  }
-
   React.useEffect(() => {
     if (result) {
       setPaged(
@@ -160,11 +124,49 @@ const Repl = ({app, indent, depth}: ReplProps) => {
     }
   }, [page, paged])
 
+  const makeFn = (value: string) => eval(`async (bud) => ${value};`)
+
+  const processResults = (raw: unknown) => {
+    if (raw === undefined) {
+      setResult(``)
+      return
+    }
+
+    try {
+      const result = highlight(
+        format(raw, {
+          indent: parseInt(indent),
+          maxDepth: parseInt(depth),
+        }),
+      )
+      setResult(result)
+    } catch (e) {
+      setResult(e.message)
+    }
+  }
+
+  const onSubmit = (value: string) => {
+    setSearch(``)
+
+    try {
+      makeFn(value)(app).then(async (results: unknown) => {
+        processResults(results)
+        await app.api.processQueue()
+      })
+    } catch (err) {
+      setResult(err.message)
+    }
+  }
+
   return (
     <Ink.Box marginY={1} flexDirection="column">
       <Ink.Box flexDirection="row" justifyContent="space-between">
         <Ink.Box flexDirection="row" justifyContent="flex-start">
-          <TextInput value={search} onChange={onChange} />
+          <TextInput
+            value={search}
+            onChange={setSearch}
+            onSubmit={onSubmit}
+          />
         </Ink.Box>
         {paged.length > 0 ? (
           <Ink.Box
