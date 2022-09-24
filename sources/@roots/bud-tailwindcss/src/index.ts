@@ -10,7 +10,15 @@
  * @packageDocumentation
  */
 
-import './env.js'
+declare module '@roots/bud-framework' {
+  interface Bud {
+    tailwind: BudTailwindCss
+  }
+
+  interface Modules {
+    '@roots/bud-tailwindcss': BudTailwindCss
+  }
+}
 
 import BudTailwindCss from './extension.js'
 export default BudTailwindCss

@@ -3,7 +3,7 @@
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./lib",
-    "types": ["@roots/bud-framework", "@roots/bud-api", "@roots/bud-preset-wordpress"],
+    "types": ["@roots/bud-framework",  "@roots/bud-tailwindcss", "@roots/bud-api", "@roots/bud-preset-wordpress"],
     "sourceMap": false,
   },
   "include": ["./src"],

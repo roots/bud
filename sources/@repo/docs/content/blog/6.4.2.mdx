@@ -1,0 +1,42 @@
+---
+slug: '6.4.2'
+title: 'Release: 6.4.2'
+description: 'Release notes for bud.js 6.4.2'
+date: 2022-08-23
+author: Kelly Mears
+author_title: Lead developer
+author_url: https://github.com/kellymears
+author_image_url: https://avatars.githubusercontent.com/u/397606?v=4
+tags: [release]
+---
+
+<!--truncate-->
+
+## 👉🏼 known issue: [@roots/sage] errors logged when not using tailwindcss
+
+If you are not using `@roots/bud-tailwindcss` you will see errors in the logs when running `bud build` or `bud dev`.
+This is a known issue and will be resolved in the next release. It isn't a sign that anything is wrong in your project.
+
+## ✨ improve: [@roots/sage] `bud.wpjson` now fully resolves tailwind configs
+
+Previously, `bud.wpjson` could only generate a `theme.json` based on a fully static tailwind config file. This excluded tailwind configs that
+defined theme properties using functions and also meant that plugins would not be applied.
+
+Now, `bud.wpjson` functions related to tailwindcss will fully resolve the tailwind config file and generate a `theme.json` based on the
+processed config. This should mean that _any_ tailwind config can be used in conjunction with `bud.wpjson.useTailwindColors()` and similar functions.
+
+## 🩹 fix: build errors return non-zero exit code
+
+For production builds, build errors will now result in a non-zero exit code. This regression was introduced in 6.4.0. It is now fixed.
+
+## 🩹 fix: eslint.config.js support
+
+`eslint.config.js` configurations are now supported.
+
+## 🩹 fix: bud repl
+
+The `bud repl` command has seen significant improvements since 6.4.0. It fixes a bug in 6.4.1 related to syntax highlighting.
+
+## ℹ️ Release information
+
+For more information [review the diff to see what's changed](https://github.com/roots/bud/compare/v6.4.0...v6.4.2).

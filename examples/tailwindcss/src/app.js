@@ -1,10 +1,5 @@
-const body = document.querySelector('body')
+import * as colors from '@tailwind/colors'
 
-const changeBg = () => {
-  body.classList = ''
-  body.classList.add('bg-indigo-600')
-}
+document.body.style.backgroundColor = colors.indigo[600]
 
-changeBg()
-
-module?.hot?.accept(err => changeBg())
+module?.hot?.accept(console.error)
