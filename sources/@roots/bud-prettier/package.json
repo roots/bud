@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-prettier",
-  "version": "0.0.0",
+  "version": "6.4.3",
   "description": "Adds prettier support to Bud",
   "homepage": "https://roots.io/bud",
   "repository": {
