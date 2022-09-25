@@ -1,12 +1,9 @@
 /* eslint-disable n/no-process-env */
-import {jest} from '@jest/globals'
 import {paths} from '@repo/constants'
 import Bud from '@roots/bud'
 import {factory as makeInstance} from '@roots/bud/factory'
 import type * as Options from '@roots/bud-framework/options'
 import {join} from 'node:path'
-
-jest.mock(`@roots/bud-compiler`)
 
 export const repoPath = (...path: Array<string>) =>
   join(paths.root, ...(path ?? []))
