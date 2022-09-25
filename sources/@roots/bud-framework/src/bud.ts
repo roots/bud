@@ -220,15 +220,9 @@ export class Bud {
         ),
       )
 
-    let context: Options.Context
-
-    if (isString(request))
-      context = {
-        ...this.context,
-        label: request,
-        root: this,
-      }
-    else context = {...this.context, ...request, root: this}
+    let context: Options.Context = isString(request)
+      ? {...this.context, label: request, root: this}
+      : {...this.context, ...request, root: this}
 
     if (this.children && this.children[context.label]) {
       this.log(`returning requested child instance:`, context.label)
@@ -242,7 +236,6 @@ export class Bud {
     else this.children[context.label] = child
 
     if (tap) await tap(this.get(context.label))
-    await this.get(context.label).hooks.fire(`config.after`)
 
     return this
   }
@@ -287,10 +280,14 @@ export class Bud {
       `booted`,
     ].reduce(async (promised, event: keyof Registry.EventsStore) => {
       await promised
-      await this.hooks
-        .fire(event)
-        .catch(error => logger.error(`error on`, event, error))
-        .finally(() => logger.success(event))
+      try {
+        await this.hooks
+          .fire(event)
+          .catch(error => logger.error(`error on`, event, error))
+          .finally(() => logger.success(event))
+      } catch (error) {
+        throw error
+      }
     }, Promise.resolve())
 
     this.hooks.action(`booted`, override)

@@ -234,12 +234,12 @@ export default abstract class BaseCommand extends Command {
 
     this.app = await factory(this.context)
 
-    if (this.runCommand) await this.runCommand()
-
     if (this.notify !== false)
       this.app.hooks.action(
         `compiler.close`,
         new Notifier(this.app).notify,
       )
+
+    if (this.runCommand) await this.runCommand()
   }
 }

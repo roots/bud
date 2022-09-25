@@ -11,7 +11,7 @@ import type {Bud} from '../bud'
  * @public
  */
 export interface close {
-  (done?: CallableFunction): Promise<void>
+  (done?: () => unknown): Promise<void>
 }
 
 /**
@@ -24,19 +24,27 @@ export interface close {
  *
  * @public
  */
-export function close(callback?: any) {
+export function close(onComplete?: any) {
   const application = this as Bud
 
   try {
-    application.isDevelopment &&
-      isFunction(
-        application.server?.connection?.instance?.removeAllListeners,
-      ) &&
-      application.server.connection.instance.removeAllListeners().unref()
+    if (application.compiler?.instance?.running) {
+      application.compiler.instance.close(() => {
+        closeDevelopmentServer(application)
+        unmountDashboard(application)
+      })
+    } else {
+      closeDevelopmentServer(application)
+      unmountDashboard(application)
+    }
   } catch (error) {
-    application.error(error)
+    throw error
   }
 
+  if (onComplete) return onComplete()
+}
+
+const unmountDashboard = (application: Bud) => {
   try {
     application.dashboard?.instance?.unmount()
   } catch (error) {
@@ -47,6 +55,26 @@ export function close(callback?: any) {
       `This might not be a problem, as the dashboard will unmount itself, so there is a race condition here.`,
     )
   }
+}
 
-  return callback && callback()
+const closeDevelopmentServer = (application: Bud) => {
+  try {
+    if (
+      application.isDevelopment &&
+      isFunction(application.server?.watcher?.instance?.close)
+    ) {
+      application.server.watcher.instance.close()
+      application.success(`closed fs watch`)
+    }
+
+    if (
+      application.isDevelopment &&
+      isFunction(application.server?.connection?.instance?.close)
+    ) {
+      application.server.connection.instance.close()
+      application.success(`closed development server`)
+    }
+  } catch (error) {
+    throw error
+  }
 }

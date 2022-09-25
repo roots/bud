@@ -91,9 +91,10 @@ export class Dashboard
         stats,
         app: this.app,
       })
+      await this.instance.waitUntilExit()
     } catch (error) {
       this.log(compilationStats?.toString())
-      this.app.error(error)
+      throw error
     }
 
     if (compilationStats.hasErrors() && this.app.isProduction)
