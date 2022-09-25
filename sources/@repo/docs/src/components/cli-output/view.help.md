@@ -6,8 +6,10 @@ $ bud view [subject]
 
 ━━━ Options ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  --color,-c     use syntax highlighting
-  --indent,-i    indentation level
+  --input,-i,--@src,--src #0       Source directory (relative to project)
+  --output,-o,--@dist,--dist #0    Distribution directory (relative to project)
+  --color,-c                       use syntax highlighting
+  --indent,-i                      indentation level
 
 ━━━ Examples ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 

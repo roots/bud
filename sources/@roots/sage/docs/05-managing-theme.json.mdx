@@ -34,14 +34,8 @@ bud.wptheme
 
 ### Using tailwindcss config values
 
-If you use tailwindcss in your project there are several opt-in helpers that allow you to generate `theme.json`
-values directly from your tailwind config.
-
-:::caution
-
-This only works if the values are literally expressed in your config. Your config is not processed by postcss before theme.json is emitted.
-
-:::
+If you use [@roots/bud-tailwindcss](https://bud.js.org/extensions/bud-tailwindcss) in your project there are several
+opt-in config functions that allow you to generate `theme.json` values directly from your tailwind config.
 
 #### wpjson.useTailwindColors
 
@@ -69,7 +63,7 @@ bud.wpjson.useTailwindFontFamily().enable()
 
 ### In combination
 
-Lastly, know that you can use any of these methods in combination:
+You can use any of these methods in combination:
 
 ```ts title="bud.config.mjs"
 bud.wpjson

@@ -12,6 +12,41 @@ import {Install} from '@site/src/docs/Install'
 
 ## Installation
 
-[@roots/bud-tailwindcss](/extensions/bud-tailwindcss) requires [@roots/bud-postcss](/extensions/bud-postcss) in order to function.
+<Install packages="@roots/bud-tailwindcss --dev" />
 
-<Install packages="@roots/bud-tailwindcss @roots/bud-postcss" />
+## Using tailwind values in JS files
+
+bud.js can be configured to allow for you to import tailwind theme values using the (virtual) `@tailwind/*` alias.
+
+An example:
+
+```typescript
+import {black} from '@tailwind/colors'
+import {sans} from '@tailwind/fontFamily'
+
+export const main = () => {
+  document.body.style.backgroundColor = black
+  document.body.style.fontFamily = sans
+}
+```
+
+Generating the imports can be memory intensive and increase build times, so it is opt-in.
+
+```ts
+app.tailwind.generateImports()
+```
+
+Better to generate imports only for specific keys (much less memory intensive):
+
+```ts
+app.tailwind.generateImports([`colors`, `fontFamily`])
+```
+
+This is a lot better than trying to import the actual `tailwind.config.js` file to read these values as the values are fully resolved (merged with `defaultTheme`, plugins applied, etc.)
+
+And it's a lot better than importing `tailwindcss/resolveConfig` and doing it in the app code because of transitive dependencies.
+
+Lastly, it's better than pre-compiling a static json file because these values are tree-shakeable. The entire generated json for the default tailwind config is ~100kb.
+The above example adds ~5kb to the overall bundle (and only because tailwind has so many default colors). If you use terser ([bud.minify](https://bud.js.org/docs/bud.minimize)) the difference is entirely negligible.
+
+If you don't import from `@tailwind/*` nothing is added to the bundle (even if the imports are generated)

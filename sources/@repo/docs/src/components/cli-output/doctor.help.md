@@ -6,7 +6,9 @@ $ bud doctor
 
 ━━━ Options ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  --notify    Enable notfication center messages
+  --input,-i,--@src,--src #0       Source directory (relative to project)
+  --output,-o,--@dist,--dist #0    Distribution directory (relative to project)
+  --notify                         Enable notfication center messages
 
 ━━━ Details ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
