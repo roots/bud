@@ -45,6 +45,7 @@
     "./extension": "./lib/extension/index.js",
     "./extension/decorators": "./lib/extension/decorators/index.js",
     "./extension/decorators/*": "./lib/extension/decorators/*.js",
+    "./logger": "./lib/logger/index.js",
     "./methods": "./lib/methods/index.js",
     "./methods/*": "./lib/methods/*.js",
     "./module": "./lib/module.js",
@@ -70,6 +71,9 @@
       ],
       "extension/decorators/*": [
         "./lib/extension/decorators/*.d.ts"
+      ],
+      "logger": [
+        "./lib/logger/index.d.ts"
       ],
       "methods": [
         "./lib/methods/index.d.ts"

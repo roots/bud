@@ -3,7 +3,7 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "lib",
-    "types": ["node", "@roots/bud-framework", "@roots/bud-postcss", "@roots/bud-api"]
+    "types": ["jest", "node", "@roots/bud-framework", "@roots/bud-postcss", "@roots/bud-api"]
   },
   "include": ["src"],
   "exclude": ["lib", "node_modules"],
