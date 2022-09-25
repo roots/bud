@@ -1,4 +1,4 @@
-import {isString} from '@roots/bud-support/lodash-es'
+import {isString, isUndefined} from '@roots/bud-support/lodash-es'
 import {normalize} from 'node:path'
 
 import type {Bud} from '../bud.js'
@@ -36,7 +36,7 @@ export interface setPath {
 export const setPath: setPath = function (arg1, arg2) {
   const app = this as Bud
 
-  if (isString(arg1) && !arg2) {
+  if (isString(arg1) && isUndefined(arg2)) {
     Object.assign(app.context, {basedir: normalize(arg1)})
     return app
   }

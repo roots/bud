@@ -6,10 +6,13 @@ export const useTTY = () => {
   const [displayEntrypoints, setDisplayEntrypoints] = useState(true)
   const [displayAssets, setDisplayAssets] = useState(false)
 
-  useInput(key => {
+  useInput((key, input) => {
     key === `s` && setDisplayServerInfo(!displayServerInfo)
     key === `e` && setDisplayEntrypoints(!displayEntrypoints)
     key === `a` && setDisplayAssets(!displayAssets)
+
+    // eslint-disable-next-line
+    if (input.escape) process.exit()
   })
 
   return {displayAssets, displayEntrypoints, displayServerInfo}

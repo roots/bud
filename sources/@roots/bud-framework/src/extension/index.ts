@@ -380,8 +380,6 @@ export class Extension<
     await this.buildAfter(this.app, this.options)
   }
 
-  public isConfigAfter: boolean = false
-
   /**
    * `configAfter` callback handler
    *
@@ -391,7 +389,6 @@ export class Extension<
   public async _configAfter() {
     const enabled = await this.isEnabled()
     if (isUndefined(this.configAfter) || enabled === false) return
-    this.isConfigAfter = true
 
     await this.configAfter(this.app, this.options)
   }

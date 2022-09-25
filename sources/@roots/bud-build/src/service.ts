@@ -66,7 +66,7 @@ export default class Build extends Service.Base implements Base.Service {
     try {
       await this.app.hooks.fire(`build.before`)
     } catch (error) {
-      this.logger.error(error)
+      throw error
     }
 
     await import(`./config/builder.js`).then(
@@ -75,11 +75,15 @@ export default class Build extends Service.Base implements Base.Service {
       }) =>
         await Promise.all(
           Object.entries(obj).map(async ([prop, factory]) => {
-            const value = await factory(this.app)
-            if (isUndefined(value)) return
-            this.logger.success(`built`, prop)
-            this.logger.info(value)
-            this.config[prop] = value
+            try {
+              const value = await factory(this.app)
+              if (isUndefined(value)) return
+              this.logger.success(`built`, prop)
+              this.logger.info(value)
+              this.config[prop] = value
+            } catch (error) {
+              throw error
+            }
           }),
         ),
     )

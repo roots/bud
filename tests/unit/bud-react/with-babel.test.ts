@@ -42,11 +42,8 @@ describe(`@roots/bud-react`, () => {
           mode: `development`,
           extensions: [`@roots/bud-react`],
         },
-        true,
+        false,
       )
-      expect(bud.extensions.has(`@roots/bud-react`)).toBe(true)
-
-      await bud.extensions.runAll(`configAfter`)
 
       // @ts-ignore
       const devScript = await Array.from(
@@ -62,9 +59,8 @@ describe(`@roots/bud-react`, () => {
           mode: `development`,
           extensions: [`@roots/bud-react`],
         },
-        true,
+        false,
       )
-      await bud.build.make()
 
       expect(bud.babel.plugins[`react-refresh/babel`].shift()).toEqual(
         expect.stringContaining(`react-refresh/babel.js`),

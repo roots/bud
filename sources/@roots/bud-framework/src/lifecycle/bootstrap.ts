@@ -1,4 +1,4 @@
-import {Bud} from '../bud.js'
+import type {Bud} from '../bud.js'
 import {Logger} from '../logger/index.js'
 import * as methods from '../methods/index.js'
 import {Module} from '../module.js'
@@ -143,15 +143,15 @@ export const bootstrap = async function (
 
   if (!context.label) throw new Error(`options.label is required`)
 
+  bindFrameworkMethods(this)
+  initializeLoggerAndReportContext(this)
+
   /* root specific */
-  if (!(context.root instanceof Bud)) {
+  if (this.isRoot) {
     // eslint-disable-next-line n/no-process-env
     process.env.NODE_ENV = context.mode
     Process.initialize(this)
   }
-
-  bindFrameworkMethods(this)
-  initializeLoggerAndReportContext(this)
 
   /* initialize module class */
   this.module = new Module(this)

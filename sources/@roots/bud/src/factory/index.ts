@@ -3,7 +3,6 @@ import type {Options} from '@roots/bud-framework'
 import Bud from '../bud.js'
 import * as argv from '../context/argv.js'
 import * as applicationContext from '../context/index.js'
-import {config} from './config.js'
 import {mergeOptions} from './options.js'
 
 /**
@@ -45,11 +44,10 @@ const get = async (basedir?: string) => {
  * @public
  */
 export async function factory(
-  overrides?: Options.Overrides,
+  config?: Options.Overrides,
   skipCache = false,
-  skipConfig = false,
 ): Promise<Bud> {
-  const basedir = overrides?.basedir ?? argv.basedir
+  const basedir = config?.basedir ?? argv.basedir
 
   if (skipCache !== true) {
     const cached = instances.find(
@@ -64,28 +62,20 @@ export async function factory(
 
   const context = await applicationContext.get(basedir)
 
-  Array.isArray(overrides?.extensions) &&
-    overrides.extensions
+  Array.isArray(config?.extensions) &&
+    config.extensions
       .filter(extension => !context?.extensions.includes(extension))
       .map(extension => context.extensions.push(extension))
 
-  Array.isArray(overrides?.services) &&
-    overrides.services
+  Array.isArray(config?.services) &&
+    config.services
       .filter(service => !context?.services.includes(service))
       .map(service => context.services.push(service))
 
-  const options = mergeOptions(context, overrides)
+  const options = mergeOptions(context, config)
   const instance = await new Bud().lifecycle(options)
 
   instances.push(instance)
-
-  if (skipConfig !== true) {
-    try {
-      await config(instance)
-    } catch (error) {
-      throw error
-    }
-  }
 
   return instance
 }

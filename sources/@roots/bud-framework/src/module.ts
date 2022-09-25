@@ -31,6 +31,7 @@ export class Module {
     this.require = createRequire(
       this.makeContextURL(this.app.root.context.basedir),
     )
+
     this.logger = this.app.logger.instance.scope(
       ...this.app.logger.scope,
       `module`,
@@ -101,6 +102,7 @@ export class Module {
         signifier,
         this.makeContextURL(context) as unknown as string,
       )
+      this.app.success(`resolved`, signifier)
       return normalize(fileURLToPath(resolvedPath))
     } catch (err) {
       this.logger.info(
@@ -129,8 +131,10 @@ export class Module {
       this.logger.success(`imported`, signifier, `from`, modulePath)
       return result?.default ?? result
     } catch (err) {
-      this.logger.error(`Error importing`, signifier, err)
-      throw new Error(`Fatal error importing ${signifier}\n${err}`)
+      this.logger.fatal(
+        new Error(`Fatal error importing ${signifier}\n${err}`),
+      )
+      throw err
     }
   }
 

@@ -17,13 +17,14 @@ export const mockProject = {
 
 export const factory = async (
   overrides?: Partial<Options.Context>,
-  useConfig = false,
+  skipConfig = true,
 ): Promise<Bud> => {
   process.env.BUD_TEST_ENV = `true`
 
   const bud = await makeInstance(
     {
       basedir: mockProject.path,
+      mode: `production`,
       ...(overrides ?? {}),
       args: {
         dry: true,
@@ -32,8 +33,9 @@ export const factory = async (
       },
     },
     true,
-    !useConfig,
   )
+
+  if (!skipConfig) await bud.run()
 
   return bud
 }
