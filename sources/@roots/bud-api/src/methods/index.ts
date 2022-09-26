@@ -7,8 +7,8 @@ export {
   config as override,
 } from './config/config.method.js'
 export {define} from './define/define.method.js'
-export {devtool} from './devtool/index.js'
-export {entry} from './entry/index.js'
+export {devtool} from './devtool/devtool.method.js'
+export {entry} from './entry/entry.method.js'
 export {experiments} from './experiments/index.js'
 export {externals} from './externals/index.js'
 export {hash, hash as version} from './hash/index.js'

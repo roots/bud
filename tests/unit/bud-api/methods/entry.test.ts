@@ -35,7 +35,7 @@ describe(`bud.entry`, function () {
     await bud.api.call(`entry`, `styles/app.css`)
 
     expect(bud.hooks.filter(`build.entry`)).toStrictEqual({
-      default: {
+      [`@tests/project`]: {
         import: [`styles/app.css`],
       },
     })
@@ -44,7 +44,7 @@ describe(`bud.entry`, function () {
     await bud.api.call(`entry`, [`scripts/app.js`, `styles/app.css`])
 
     expect(bud.hooks.filter(`build.entry`)).toStrictEqual({
-      default: {
+      [`@tests/project`]: {
         import: [`scripts/app.js`, `styles/app.css`],
       },
     })
