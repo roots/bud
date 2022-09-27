@@ -42,6 +42,7 @@
     "./clipanion": "./lib/dependencies/clipanion/index.js",
     "./decorators": "./lib/decorators/index.js",
     "./execa": "./lib/dependencies/execa/index.js",
+    "./filesystem": "./lib/filesystem/index.js",
     "./fs": "./lib/dependencies/fs/index.js",
     "./globby": "./lib/dependencies/globby/index.js",
     "./highlight": "./lib/highlight/index.js",
@@ -69,6 +70,9 @@
       ],
       "execa": [
         "./lib/dependencies/execa/index.d.ts"
+      ],
+      "filesystem": [
+        "./lib/filesystem/index.d.ts"
       ],
       "fs": [
         "./lib/dependencies/fs/index.d.ts"
@@ -107,6 +111,7 @@
     "@skypack/package-check": "0.2.2"
   },
   "dependencies": {
+    "@roots/filesystem": "workspace:sources/@roots/filesystem",
     "chalk": "5.0.1",
     "clipanion": "3.2.0-rc.12",
     "execa": "6.1.0",

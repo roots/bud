@@ -1,7 +1,5 @@
-import * as json from '@roots/bud-framework/parsers/json5'
-import * as yml from '@roots/bud-framework/parsers/yml'
 import {bind} from '@roots/bud-support/decorators'
-import globby from '@roots/bud-support/globby'
+import * as fs from '@roots/bud-support/filesystem'
 import {set} from '@roots/bud-support/lodash-es'
 import {basename, join, normalize} from 'node:path'
 
@@ -45,30 +43,24 @@ export default class Config {
    * @public
    */
   @bind
-  public async find(basedir: string): Promise<Config> {
-    const results = await globby(
-      [
+  public async find(): Promise<Config> {
+    const results = await fs.get(`basedir`).find({
+      recursive: false,
+      directories: false,
+      matching: [
         `*.{cts,mts,ts,cjs,mjs,js,json,toml,yml}`,
         `*rc`,
         join(`config`, `*.{cts,mts,ts,cjs,mjs,js,json,toml,yml}`),
         join(`config`, `*rc`),
       ],
-      {
-        absolute: true,
-        cwd: basedir,
-        dot: true,
-        gitignore: true,
-        onlyFiles: true,
-      },
-    )
+    })
 
-    results?.map((filePath: string) => {
-      const name = basename(normalize(filePath))
+    results?.map((name: string) => {
       const extension = name.split(`.`).pop()
-      const path = normalize(filePath)
+      const path = fs.get(`basedir`).path(name)
 
       set(this.data, [`${name}`], {
-        name,
+        name: basename(normalize(name)),
         path,
         extension,
         local: name.includes(`local`),
@@ -96,12 +88,12 @@ export default class Config {
             }
 
             if (description.extension === `json`) {
-              const jsonConfig = await json.read(description.path)
+              const jsonConfig = await fs.json.read(description.path)
               set(this.data, [name, `module`], jsonConfig)
             }
 
             if (description.extension === `yml`) {
-              const ymlConfig = await yml.read(description.path)
+              const ymlConfig = await fs.yml.read(description.path)
               set(this.data, [name, `module`], ymlConfig)
             }
           } catch (error) {

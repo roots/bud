@@ -1,5 +1,5 @@
 import {bind} from '@roots/bud-support/decorators'
-import * as fs from '@roots/bud-support/fs'
+import * as fs from '@roots/bud-support/filesystem'
 import {dirname, join, resolve, sep} from 'node:path/posix'
 import {fileURLToPath} from 'node:url'
 
@@ -29,23 +29,15 @@ export default class Bud {
   @bind
   public async find(): Promise<this> {
     const resolvedPath = dirname(fileURLToPath(import.meta.url))
+
     this.data.manifestPath = resolve(
       join(resolvedPath, `..`, `..`, `package.json`),
     )
+
     this.data.basedir = dirname(resolve(this.data.manifestPath))
-    await this.handleFindResults(this.data.manifestPath)
 
-    return this
-  }
-
-  /**
-   * Handle file results
-   *
-   * @public
-   */
-  @bind
-  public async handleFindResults(path: string): Promise<this> {
-    const manifest = await fs.readJson(path)
+    fs.set(`bud`, this.data.basedir)
+    const manifest = await fs.json.read(fs.get(`bud`).path(`package.json`))
 
     this.data.label = manifest.name.split(sep).pop()
     this.data.version = manifest.version

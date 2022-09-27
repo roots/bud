@@ -1,15 +1,13 @@
 import type {Context} from '@roots/bud-framework/options'
 
-import * as argv from './argv.js'
-
 /**
  * Application args
  *
  * @public
  */
 export default class Args {
-  public data: Context['args'] = {
-    basedir: argv.basedir,
+  public static data: Context['args'] = {
+    basedir: null,
     browser: undefined,
     cache: undefined,
     ci: undefined,
@@ -38,9 +36,5 @@ export default class Args {
     reload: undefined,
     splitChunks: undefined,
     target: undefined,
-  }
-
-  public constructor(basedir: string) {
-    this.data.basedir = basedir
   }
 }

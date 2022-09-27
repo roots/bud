@@ -24,9 +24,8 @@ class Configuration {
    */
   @bind
   public async run(description: any): Promise<unknown> {
-    this.app
-      .log(`processing configuration`, description.name)
-      .info(description)
+    this.app.log(`processing configuration`, description.name)
+    this.app.info(description)
 
     if (description.dynamic) {
       const callback = description.module?.default ?? description.module
