@@ -56,13 +56,12 @@ export default class Config {
     })
 
     results?.map((name: string) => {
-      const extension = name.split(`.`).pop()
       const path = fs.get(`basedir`).path(name)
 
       set(this.data, [`${name}`], {
-        name: basename(normalize(name)),
         path,
-        extension,
+        name: basename(normalize(name)),
+        extension: name.split(`.`).pop(),
         local: name.includes(`local`),
         dynamic: Config.isDynamicConfig(path),
         bud: name.includes(`bud`),

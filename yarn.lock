@@ -5081,6 +5081,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-support@workspace:sources/@roots/bud-support"
   dependencies:
+    "@roots/filesystem": "workspace:sources/@roots/filesystem"
     "@skypack/package-check": 0.2.2
     chalk: 5.0.1
     clipanion: 3.2.0-rc.12
@@ -5459,16 +5460,14 @@ __metadata:
   resolution: "@roots/filesystem@workspace:sources/@roots/filesystem"
   dependencies:
     "@jest/globals": 29.0.3
-    "@roots/container": "workspace:sources/@roots/container"
     "@skypack/package-check": 0.2.2
-    "@types/lodash-es": 4.17.6
+    "@types/js-yaml": 4.0.5
     "@types/node": 16.11.48
-    autobind-decorator: 2.4.0
-    fs-extra: 10.1.0
-    globby: 13.1.2
-    helpful-decorators: 2.1.0
-    lodash-es: 4.17.21
-    resolve-from: 5.0.0
+    "@types/safe-json-stringify": 1.1.2
+    fs-jetpack: 5.0.0
+    js-yaml: 4.1.0
+    json5: 2.2.1
+    safe-json-stringify: 1.2.0
     tslib: 2.4.0
   languageName: unknown
   linkType: soft
@@ -9474,13 +9473,6 @@ __metadata:
   version: 4.0.0
   resolution: "auto-bind@npm:4.0.0"
   checksum: 00cad71cce5742faccb7dd65c1b55ebc4f45add4b0c9a1547b10b05bab22813230133b0c892c67ba3eb969a4524710c5e43cc45c72898ec84e56f3a596e7a04f
-  languageName: node
-  linkType: hard
-
-"autobind-decorator@npm:2.4.0":
-  version: 2.4.0
-  resolution: "autobind-decorator@npm:2.4.0"
-  checksum: 6fcc922580d3585a3aeef1a480f935c0827b1a4505b9e39ff9bcad9039958bd47b27a4e35152f566e01befb2924701dbc9f744ec29eeb880c99eef8e39fce4a3
   languageName: node
   linkType: hard
 
@@ -15561,6 +15553,15 @@ __metadata:
     jsonfile: ^6.0.1
     universalify: ^2.0.0
   checksum: ba71ba32e0faa74ab931b7a0031d1523c66a73e225de7426e275e238e312d07313d2da2d33e34a52aa406c8763ade5712eb3ec9ba4d9edce652bcacdc29e6b20
+  languageName: node
+  linkType: hard
+
+"fs-jetpack@npm:5.0.0":
+  version: 5.0.0
+  resolution: "fs-jetpack@npm:5.0.0"
+  dependencies:
+    minimatch: ^5.1.0
+  checksum: cae8df4eb8f65de13c62b6a783a7cc3a6c24ed1d74a0e1f62568bce3c8b37929d56979115c673dd0e2914721beeceebdadba541b22a47c2c67ea9f75d031de26
   languageName: node
   linkType: hard
 
@@ -26365,17 +26366,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"resolve-from@npm:5.0.0, resolve-from@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "resolve-from@npm:5.0.0"
-  checksum: 4ceeb9113e1b1372d0cd969f3468fa042daa1dd9527b1b6bb88acb6ab55d8b9cd65dbf18819f9f9ddf0db804990901dcdaade80a215e7b2c23daae38e64f5bdf
-  languageName: node
-  linkType: hard
-
 "resolve-from@npm:^4.0.0":
   version: 4.0.0
   resolution: "resolve-from@npm:4.0.0"
   checksum: f4ba0b8494846a5066328ad33ef8ac173801a51739eb4d63408c847da9a2e1c1de1e6cbbf72699211f3d13f8fc1325648b169bd15eb7da35688e30a5fb0e4a7f
+  languageName: node
+  linkType: hard
+
+"resolve-from@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "resolve-from@npm:5.0.0"
+  checksum: 4ceeb9113e1b1372d0cd969f3468fa042daa1dd9527b1b6bb88acb6ab55d8b9cd65dbf18819f9f9ddf0db804990901dcdaade80a215e7b2c23daae38e64f5bdf
   languageName: node
   linkType: hard
 
