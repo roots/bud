@@ -1,7 +1,6 @@
 ---
-title: Running multiple compilers
+title: Running multiple instances
 description: It is possible to configure more than one Webpack compiler from a single bud config.
-sidebar_label: Multi-compiler mode
 ---
 
 :::info Experimental
@@ -18,10 +17,18 @@ different build requirements for different application components &mdash; it is 
 
 ## Creating child instances
 
-To specify a new child instance, we can use [bud.make](/docs/bud.make). It is a function that accepts two parameters:
+To create a new child instance, we can use [bud.make](/docs/bud.make).
 
-1. A context (at minimum, an object with a unique `label` prop), and;
+It is a function that accepts two parameters:
+
+1. A context (at minimum, a unique string used to identify the instance), and;
 2. an optional callback used to configure the instance.
+
+```ts title='bud.config.js'
+export default async bud => {
+  await bud.make('theme', async theme => theme.entry('theme'))
+}
+```
 
 In this example we're creating two instances: one for `theme` code and another for `plugin` code.
 
@@ -97,5 +104,45 @@ export default async bud => {
       .setPath('@dist', 'dist/plugin')
       .entry('plugin', ['plugin.js'])
   })
+}
+```
+
+## Configuring the development server
+
+Any configuration of the development server should be done in the parent context.
+
+This includes:
+
+- [bud.serve](/docs/bud.serve)
+- [bud.proxy](/docs/bud.proxy)
+- [bud.watch](/docs/bud.watch)
+
+```ts title='bud.config.mjs'
+export default async bud => {
+  /**
+   * Configure dev server in the parent context
+   */
+  bud
+    .watch([`resources/views/**/*`, `app/**/*`])
+    .proxy(`https://sage.test`)
+    .serve(`http://0.0.0.0:3000`)
+
+  await bud.make(`app`, async app => app)
+  await bud.make(`editor`, async editor => editor)
+}
+```
+
+Child instances do not feature their own development server. This is incorrect:
+
+```ts title='bud.config.mjs'
+export default async bud => {
+  await bud.make(`app`, async app => {
+    app
+      .watch([`resources/views/**/*`, `app/**/*`])
+      .proxy(`https://sage.test`)
+      .serve(`http://0.0.0.0:3000`)
+  })
+
+  await bud.make(`editor`, async editor => editor)
 }
 ```
