@@ -271,13 +271,16 @@ export default class Cdn extends Extension<Options, null> {
    */
   @bind
   public async buildBefore() {
-    this.app.hooks.on(`build.experiments.buildHttp`, () => ({
-      allowedUris: this.allowedUris,
-      cacheLocation: this.cacheEnabled ? this.cacheLocation : false,
-      frozen: this.frozen,
-      lockfileLocation: this.lockfileLocation,
-      proxy: isString(this.proxy) ? this.proxy : undefined,
-      upgrade: this.upgrade,
+    this.app.hooks.on(`build.experiments`, experiments => ({
+      ...(experiments ?? {}),
+      buildHttp: {
+        allowedUris: this.allowedUris,
+        cacheLocation: this.cacheEnabled ? this.cacheLocation : false,
+        frozen: this.frozen,
+        lockfileLocation: this.lockfileLocation,
+        proxy: isString(this.proxy) ? this.proxy : undefined,
+        upgrade: this.upgrade,
+      },
     }))
 
     for (const source of this.sources.entries()) {

@@ -136,7 +136,7 @@ export const initialize = (app: Bud): Bud =>
  */
 export const filenameFormat = (app: Bud, extension?: string): string => {
   if (!extension) {
-    extension = app.hooks.filter(`build.experiments.outputModule`)
+    extension = app.hooks.filter(`build.experiments`)?.outputModule
       ? `.mjs`
       : `.js`
   }
