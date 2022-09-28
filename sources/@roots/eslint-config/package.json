@@ -55,7 +55,7 @@
     "./sage": "./sage.cjs"
   },
   "devDependencies": {
-    "@babel/core": "7.19.1",
+    "@babel/core": "7.19.3",
     "@jest/globals": "29.0.3",
     "@skypack/package-check": "0.2.2",
     "@types/babel__core": "7.1.19",
@@ -65,7 +65,7 @@
     "prettier": "2.7.1"
   },
   "dependencies": {
-    "@babel/eslint-parser": "7.18.9",
+    "@babel/eslint-parser": "7.19.1",
     "@typescript-eslint/eslint-plugin": "5.26.0",
     "@typescript-eslint/parser": "5.26.0",
     "eslint-config-prettier": "8.5.0",
