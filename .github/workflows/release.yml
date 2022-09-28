@@ -50,6 +50,10 @@ jobs:
         run: |
           yarn @bud release --tag latest --version ${{ github.event.inputs.version }}
 
+      - name: reset npmAuthToken
+        run: |
+          yarn config set npmAuthToken "${NPM_AUTH_TOKEN:-fallback}"
+
       - name: Configure Git
         run: |
           git config user.name "Roots Ladybud"
