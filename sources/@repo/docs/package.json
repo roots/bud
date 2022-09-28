@@ -41,6 +41,8 @@
     "webpack": "5.74.0"
   },
   "dependencies": {
+    "@docusaurus/theme-classic": "2.1.0",
+    "@docusaurus/theme-common": "2.1.0",
     "axios": "0.27.2",
     "clsx": "1.2.1",
     "docusaurus-lunr-search": "2.2.0",

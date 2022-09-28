@@ -1,4 +1,5 @@
 http://budjs.netlify.app/* https://bud.js.org/:splat 301!
 https://budjs.netlify.app/* https://bud.js.org/:splat 301!
-https://bud.js.org/releases https://bud.js.org/blog/tags/release 301!
-https://bud.js.org/releases/* https://bud.js.org/blog/:splat 301!
+https://bud.js.org/blog/tags/release https://bud.js.org/releases 301!
+https://bud.js.org/blog/* https://bud.js.org/releases/:splat 301!
+https://bud.js.org/guides/general-use/multi-compiler https://bud.js.org/guides/general-use/multi-instance 301!

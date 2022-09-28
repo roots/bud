@@ -54,8 +54,8 @@ const footer = {
       title: `More`,
       items: [
         {
-          label: `Blog`,
-          to: `/blog`,
+          label: `Releases`,
+          to: `/releases`,
         },
         {
           label: `GitHub`,
@@ -131,7 +131,15 @@ const navbar = {
       label: `Extensions`,
       docsPluginId: `extensions`,
     },
-    {to: `/blog`, label: `Blog`, position: `right`},
+    {
+      to: `/releases`,
+      label: `Releases`,
+      position: `left`,
+      items: [
+        {to: `/releases/tags/6-4`, label: `6.4`},
+        {to: `/releases/tags/6-3`, label: `6.3`},
+      ],
+    },
     {
       href: `/dev`,
       label: `Dev`,

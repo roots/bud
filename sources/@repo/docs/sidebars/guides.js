@@ -34,7 +34,7 @@ module.exports = {
         `general-use/alternative-config-syntax`,
         `general-use/config-layers`,
         `general-use/extensions`,
-        `general-use/multi-compiler`,
+        `general-use/multi-instance`,
         `general-use/node-api`,
         `general-use/esmodules`,
         `general-use/remote-sources`,
