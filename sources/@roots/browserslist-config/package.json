@@ -1,6 +1,6 @@
 {
   "name": "@roots/browserslist-config",
-  "version": "0.0.0",
+  "version": "6.4.4",
   "description": "Roots standard browserslist-config",
   "repository": {
     "type": "git",
