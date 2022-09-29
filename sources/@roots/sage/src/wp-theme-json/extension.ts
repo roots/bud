@@ -111,7 +111,7 @@ export default class ThemeJson extends Extension<
   }
 
   @bind
-  public useTailwindColors(): this {
+  public useTailwindColors(extendOnly?: boolean): this {
     if (!this.app.extensions.has(`@roots/bud-tailwindcss`))
       throw new Error(
         `@roots/bud-tailwindcss is required in order to call \`useTailwindColors\``,
@@ -122,7 +122,7 @@ export default class ThemeJson extends Extension<
       color: {
         ...(this.options.settings?.color ?? {}),
         palette: tailwindAdapter.palette.transform(
-          this.app.tailwind.theme.colors,
+          this.app.tailwind.resolveThemeValue(`colors`, extendOnly),
         ),
       },
     })
@@ -131,13 +131,13 @@ export default class ThemeJson extends Extension<
   }
 
   @bind
-  public useTailwindFontFamily(): this {
+  public useTailwindFontFamily(extendOnly?: boolean): this {
     this.setOption(`settings`, {
       ...(this.options.settings ?? {}),
       typography: {
         ...(this.options.settings?.typography ?? {}),
         fontFamilies: tailwindAdapter.fontFamily.transform(
-          this.app.tailwind.theme.fontFamily,
+          this.app.tailwind.resolveThemeValue(`fontFamily`, extendOnly),
         ),
       },
     })
@@ -146,13 +146,13 @@ export default class ThemeJson extends Extension<
   }
 
   @bind
-  public useTailwindFontSize(): this {
+  public useTailwindFontSize(extendOnly?: boolean): this {
     this.setOption(`settings`, {
       ...(this.options.settings ?? {}),
       typography: {
         ...(this.options.settings?.typography ?? {}),
         fontSizes: tailwindAdapter.fontSize.transform(
-          this.app.tailwind.theme.fontSize,
+          this.app.tailwind.resolveThemeValue(`fontSize`, extendOnly),
         ),
       },
     })
