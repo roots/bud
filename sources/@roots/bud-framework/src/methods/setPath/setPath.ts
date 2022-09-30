@@ -1,8 +1,8 @@
 import {isString, isUndefined} from '@roots/bud-support/lodash-es'
 import {normalize} from 'node:path'
 
-import type {Bud} from '../bud.js'
-import type * as Locations from '../types/registry/locations'
+import type {Bud} from '../../bud.js'
+import type * as Locations from '../../types/registry/locations'
 
 export interface setPath {
   <T extends `${keyof Locations.Sync & string}`>(
@@ -10,6 +10,14 @@ export interface setPath {
     arg2?: string,
   ): Bud
 }
+
+type Value =
+  | `${keyof Locations.Sync & string}`
+  | `@file`
+  | `@name`
+  | `${keyof Locations.Sync & string}/${string}`
+  | `./${string}`
+  | `/${string}`
 
 /**
  * Set a {@link Locations} value
@@ -44,26 +52,18 @@ export const setPath: setPath = function (arg1, arg2) {
   const input = isString(arg1) ? {[arg1]: arg2} : arg1
 
   Object.entries(input).map(
-    ([key, value]: [
-      `${keyof Locations.Sync & string}`,
-      (
-        | `${keyof Locations.Sync & string}`
-        | `@file`
-        | `@name`
-        | `${keyof Locations.Sync & string}/${string}`
-        | `./${string}`
-        | `/${string}`
-      ),
-    ]) => {
-      !key.startsWith(`@`) &&
-        app.error(
+    ([key, value]: [`${keyof Locations.Sync & string}`, Value]) => {
+      if (!key.startsWith(`@`)) {
+        throw new Error(
           `bud path keys should start with \`@\`. Please change \`${key}\` to \`@${key}\``,
         )
+      }
 
       const absolutePath = app.path(value)
-      !absolutePath.startsWith(`/`) &&
-        app.error(
-          `internal error: the final result of a bud.setPath transform was not absolute: ${key} => ${value} => ${absolutePath}`,
+
+      if (!absolutePath.startsWith(`/`))
+        throw new Error(
+          `the final result of a bud.setPath transform was not absolute: ${key} => ${value} => ${absolutePath}`,
         )
 
       app.hooks.on(`location.${key}`, app.path(value))

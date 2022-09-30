@@ -7,10 +7,6 @@ describe(`bud.externals`, function () {
     bud = await factory()
   })
 
-  it(`is a function`, () => {
-    expect(bud.externals).toBeInstanceOf(Function)
-  })
-
   it(`modifies build.config.externals`, async () => {
     bud.externals({react: `window.React`})
     await bud.build.make()

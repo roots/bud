@@ -14,7 +14,7 @@ export const devtool: devtool = async function (
 ) {
   const app = this as Bud
 
-  app.hooks.on(`build.devtool`, () => input)
+  app.hooks.on(`build.devtool`, input)
 
   return this
 }

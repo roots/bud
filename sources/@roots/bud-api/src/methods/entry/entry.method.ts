@@ -1,7 +1,7 @@
 import type {Bud} from '@roots/bud-framework'
-import {isArray, isString} from '@roots/bud-support/lodash-es'
+import {isArray, isString, isUndefined} from '@roots/bud-support/lodash-es'
 
-import {globAssets} from './globAssets.js'
+import {globAssets} from './entry.glob.js'
 import type {EntryObject} from './util'
 import {
   applyToImports,
@@ -15,15 +15,18 @@ import {
 export const entry: method = async function (...input) {
   const app = this as Bud
 
+  if (isUndefined(input[0])) {
+    throw new Error(`bud.entry requires at least one argument`)
+  }
+
   if (input.length > 1 && !isString(input[0])) {
-    app.error(
+    throw new Error(
       `the first parameter in a multi-parameter call to bud.entry must be a string`,
     )
-    return app
   }
 
   if ((input.length == 1 && isString(input[0])) || isArray(input[0])) {
-    input = [`default`, input[0]]
+    input = [app.label, Array.isArray(input[0]) ? input[0] : [input[0]]]
   }
 
   const normal = isString(input[0])

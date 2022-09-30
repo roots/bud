@@ -24,7 +24,10 @@ export default class Esm extends Extension {
   @bind
   public async buildBefore() {
     this.app.hooks.fromMap({
-      'build.experiments.outputModule': true,
+      'build.experiments': experiments => ({
+        ...(experiments ?? {}),
+        outputModule: true,
+      }),
       'build.output.module': true,
     })
 
