@@ -16,48 +16,33 @@ import {
 ])
 @expose(`wordpress`)
 export default class BudPresetWordPress extends Extension {
-  protected _origin: URL
-
-  public get origin(): URL {
-    return this._origin
-  }
-  public set origin(origin: string | URL) {
-    this._origin = origin instanceof URL ? origin : new URL(origin)
-  }
-
+  /**
+   * `configAfter` callback
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
-  public async register() {
+  public async configAfter() {
+    if (!this.app.isDevelopment) return
+
+    if (this.app.api.trace.some(([method]) => method === `proxy`)) return
+    if (this.app.hooks.filter(`dev.middleware.proxy.target`)) return
+
     if (!this.app.env.has(`WP_HOME`) || !this.app.env.isString(`WP_HOME`))
       return
 
-    this.origin = this.app.env.get(`WP_HOME`)
-  }
-
-  @bind
-  public async boot() {
-    if (!this.app.extensions.has(`@roots/bud-esbuild`))
-      await this.app.extensions.add(await this.import(`@roots/bud-react`))
-
-    if (!this.origin) return
-
     try {
-      this.proxyOrigin(this.origin)
-    } catch (err) {
-      this.logger.warn(
-        `Tried to set proxy based on value of WP_HOME but failed\n`,
-        `WP_HOME is set as: ${this.origin}`,
+      const url = new URL(this.app.env.get(`WP_HOME`))
+      this.app.proxy(url)
+    } catch (e) {
+      this.app.warn(
+        `@roots/bud-preset-wordpress: tried to set proxy based on value of WP_HOME but failed\n`,
+        `WP_HOME is set as: ${this.app.env.get(`WP_HOME`)}`,
         `\n`,
-        err,
+        `Please check your .env file and ensure that WP_HOME is a valid URL`,
+        `or call bud.proxy in your configuration file`,
       )
     }
-  }
-
-  @bind
-  public proxyOrigin(origin: string | URL): this {
-    this.origin = origin
-
-    this.app.proxy(this.origin)
-
-    return this
   }
 }
