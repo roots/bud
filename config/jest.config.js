@@ -90,6 +90,8 @@ export default async () => ({
         `.js$`,
         `/deprecated/`,
         `/*.types.ts`,
+        `/types/`,
+        `/bud-support/`,
       ],
       testMatch: [
         `**/sources/@roots/*/src/**/*.test.ts`,
