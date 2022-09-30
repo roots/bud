@@ -1,5 +1,4 @@
 import {beforeEach, describe, expect, it, jest} from '@jest/globals'
-// @ts-ignore
 import resolveConfig from 'tailwindcss/resolveConfig'
 
 import Extension from './extension'
@@ -17,7 +16,6 @@ const Logger = {
   },
 }
 
-// @ts-ignore
 const PostCSS = {
   setPlugins: jest.fn(),
 }
@@ -49,6 +47,8 @@ const Bud = {
 describe(`@roots/bud-tailwindcss extension`, () => {
   beforeEach(async () => {
     jest.clearAllMocks()
+    Bud.hooks.async = jest.fn()
+    Bud.extensions.add = jest.fn()
   })
 
   it(`basic checks`, () => {
@@ -81,7 +81,7 @@ describe(`@roots/bud-tailwindcss extension`, () => {
     expect(Bud.module.resolve).toHaveBeenCalledTimes(4)
   })
 
-  it(`should return a copy of resolveConfig return`, async () => {
+  it(`should return a copy of the resolved config`, async () => {
     const extension = new Extension(Bud)
 
     const configInitial = resolveConfig(
@@ -89,6 +89,13 @@ describe(`@roots/bud-tailwindcss extension`, () => {
     )
 
     expect(extension.theme.colors).not.toBe(configInitial.theme.colors)
+  })
+
+  it(`should have a config prop`, async () => {
+    const extension = new Extension(Bud)
+    expect(extension.config.module).toBe(
+      Bud.context.config[`tailwind.config.js`].module,
+    )
   })
 
   it(`should produce a static module`, async () => {
@@ -100,9 +107,33 @@ describe(`@roots/bud-tailwindcss extension`, () => {
   it(`should resolve tailwind config values`, async () => {
     const extension = new Extension(Bud)
 
-    expect(
-      extension.resolveTailwindConfigValue(`colors`),
-    ).toMatchSnapshot()
+    expect(extension.resolveThemeValue(`colors`)).toMatchSnapshot()
+  })
+
+  it(`should throw when key does not exist`, async () => {
+    const extension = new Extension(Bud)
+
+    try {
+      expect(() =>
+        extension.resolveThemeValue(`foo`),
+      ).toThrowErrorMatchingSnapshot()
+    } catch (e) {}
+  })
+
+  it(`should resolve tailwind config values (filter extends)`, async () => {
+    const extension = new Extension(Bud)
+
+    expect(extension.resolveThemeValue(`colors`, true)).toMatchSnapshot()
+  })
+
+  it(`should throw when key does not exist in extended config (filter extends)`, async () => {
+    const extension = new Extension(Bud)
+
+    try {
+      expect(() =>
+        extension.resolveThemeValue(`lineHeight`, true),
+      ).toThrowErrorMatchingSnapshot()
+    } catch (e) {}
   })
 
   it(`should set generateImports to an array`, async () => {
@@ -142,6 +173,14 @@ describe(`@roots/bud-tailwindcss extension`, () => {
     expect(extension.getOption(`generateImports`)).toBe(true)
   })
 
+  it(`should not call extensions.add when generatedImports is not true`, async () => {
+    const extension = new Extension(Bud)
+
+    extension.generateImports(false)
+    await extension.configAfter()
+    expect(Bud.extensions.add).not.toHaveBeenCalled()
+  })
+
   it(`should call extensions.add when generateImports is not undefined`, async () => {
     const extension = new Extension(Bud)
 
@@ -150,9 +189,18 @@ describe(`@roots/bud-tailwindcss extension`, () => {
     expect(Bud.extensions.add).toHaveBeenCalled()
   })
 
+  it(`should not register alias when generatedImports is not true`, async () => {
+    const extension = new Extension(Bud)
+
+    extension.generateImports(false)
+    await extension.configAfter()
+    expect(Bud.hooks.async).not.toHaveBeenCalled()
+  })
+
   it(`should register alias when generateImports is not undefined`, async () => {
     const extension = new Extension(Bud)
 
+    extension.generateImports()
     await extension.configAfter()
     expect(Bud.hooks.async).toHaveBeenCalledTimes(1)
     expect(Bud.hooks.async).toHaveBeenCalledWith(
