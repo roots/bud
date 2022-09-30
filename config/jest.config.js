@@ -89,6 +89,7 @@ export default async () => ({
         `spec.ts$`,
         `.js$`,
         `/deprecated/`,
+        `/*.types.ts`,
       ],
       testMatch: [
         `**/sources/@roots/*/src/**/*.test.ts`,

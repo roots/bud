@@ -37,7 +37,7 @@ export default class BudPresetWordPress extends Extension {
       this.app.proxy(url)
     } catch (e) {
       this.app.warn(
-        `Tried to set proxy based on value of WP_HOME but failed\n`,
+        `@roots/bud-preset-wordpress: tried to set proxy based on value of WP_HOME but failed\n`,
         `WP_HOME is set as: ${this.app.env.get(`WP_HOME`)}`,
         `\n`,
         `Please check your .env file and ensure that WP_HOME is a valid URL`,

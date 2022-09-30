@@ -52,7 +52,7 @@
         "./lib/extension.d.ts"
       ],
       "theme": [
-        "./lib/theme.d.ts"
+        "./lib/theme.types.d.ts"
       ]
     }
   },
