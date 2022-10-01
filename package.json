@@ -30,7 +30,7 @@
     "@repo/logger": "workspace:sources/@repo/logger",
     "@repo/test-kit": "workspace:sources/@repo/test-kit",
     "@swc/core": "1.2.249",
-    "@swc/jest": "0.2.22",
+    "@swc/jest": "0.2.23",
     "@types/express": "4.17.14",
     "@types/fs-extra": "9.0.13",
     "@types/jest": "29.0.3",
