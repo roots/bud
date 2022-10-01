@@ -60,7 +60,7 @@
     "@jest/globals": "29.0.3",
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@skypack/package-check": "0.2.2",
-    "@types/lodash": "4.14.185",
+    "@types/lodash": "4.14.186",
     "@types/node": "16.11.48",
     "@types/react": "17.0.50",
     "@types/react-dom": "17.0.17",
