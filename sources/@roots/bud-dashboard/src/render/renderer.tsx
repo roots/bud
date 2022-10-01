@@ -1,5 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
-import {Instance, render, Static} from '@roots/bud-support/ink'
+import {render, Static} from '@roots/bud-support/ink'
 import React from '@roots/bud-support/react'
 import type {StatsCompilation} from 'webpack'
 
@@ -12,7 +12,7 @@ export const renderDashboard = ({
 }: {
   stats: StatsCompilation
   app: Bud
-}): Instance => {
+}) => {
   const compilations = stats?.children?.length
     ? [
         ...stats.children,

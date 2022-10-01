@@ -26,7 +26,7 @@ export default class Project extends BaseService implements Service {
   @bind
   public async buildAfter() {
     if (!this.app.context.args.debug) {
-      this.app.info(`--debug not \`true\`. skipping fs write`)
+      this.app.info(`--debug not \`true\`. skipping fs write.`)
       return
     }
 
@@ -42,14 +42,22 @@ export default class Project extends BaseService implements Service {
       await fs.writeFile(
         path,
         this.app.json.stringify(
-          omit(
-            this.app.context,
-            `env`,
-            `stdout`,
-            `stderr`,
-            `stdin`,
-            `stdio`,
-          ),
+          {
+            context: omit(
+              this.app.context,
+              `env`,
+              `stdout`,
+              `stderr`,
+              `stdin`,
+              `stdio`,
+            ),
+            extensions: this.app.extensions.repository,
+            hooks: {
+              sync: this.app.hooks.syncStore.store,
+              async: this.app.hooks.asyncStore.store,
+              actions: this.app.hooks.events.store,
+            },
+          },
           null,
           2,
         ),

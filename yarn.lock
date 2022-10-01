@@ -4537,6 +4537,7 @@ __metadata:
     chalk: 5.0.1
     figures: 5.0.0
     human-readable: 0.2.1
+    ink-testing-library: 2.1.0
     tslib: 2.4.0
     webpack: 5.74.0
     webpack-format-messages: 3.0.1
@@ -17520,6 +17521,18 @@ __metadata:
     ink: ">=3.0.0"
     react: ">=16.8.0"
   checksum: cde7b0c4051ecc8fc8ca978f70e17348f24faed413dc72489ee7cc3a515eced03ec51471a092bd3aca549fcc4af29d0619e0e5230553a38dd2e79df653955b80
+  languageName: node
+  linkType: hard
+
+"ink-testing-library@npm:2.1.0":
+  version: 2.1.0
+  resolution: "ink-testing-library@npm:2.1.0"
+  peerDependencies:
+    "@types/react": ">=16.8.0"
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+  checksum: 932bc3feed2d68e853f69c56b40610f50ea4366750400ee9597c0f5231acdfd29ac41d8c86924c7f85b7a0ab31cf0ad0726a9d29fdfe6ff82bc836177e7ff063
   languageName: node
   linkType: hard
 

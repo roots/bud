@@ -1,6 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
 import {bind, once} from '@roots/bud-support/decorators'
-import {isString} from '@roots/bud-support/lodash-es'
+import {isFunction, isNumber, isString} from '@roots/bud-support/lodash-es'
 import {
   Notification,
   NotificationCallback,
@@ -53,7 +53,9 @@ export class Notifier {
    * @public
    */
   public get jsonStats(): StatsCompilation {
-    return this.app.compiler.stats?.toJson() ?? {}
+    return isFunction(this.app.compiler.stats?.toJson)
+      ? this.app.compiler.stats.toJson()
+      : {}
   }
 
   /**
@@ -79,10 +81,27 @@ export class Notifier {
    * @public
    */
   public get message() {
-    return this.jsonStats.errorsCount +
-      this.jsonStats.children.reduce((a, c) => a + c.errorsCount, 0) >
-      0
+    const totalErrorCount =
+      this.jsonStats.errorsCount +
+      this.jsonStats.children.reduce(
+        (a, c) => (isNumber(c.errorsCount) ? a + c.errorsCount : a),
+        0,
+      )
+    const hasErrors = totalErrorCount > 0
+
+    const totalWarningCount =
+      this.jsonStats.warningsCount +
+      this.jsonStats.children.reduce(
+        (a, c) => (isNumber(c.warningsCount) ? a + c.warningsCount : a),
+        0,
+      )
+
+    const hasWarnings = totalWarningCount > 0
+
+    return hasErrors
       ? `Compiled with errors`
+      : hasWarnings
+      ? `Compiled with warnings`
       : `Compiled without errors`
   }
 
@@ -93,7 +112,9 @@ export class Notifier {
    */
   public get open(): string {
     return this.app.isDevelopment
-      ? this.app.hooks.filter(`dev.url`).origin
+      ? this.app.hooks
+          .filter(`dev.url`)
+          .origin.replace(`0.0.0.0`, `localhost`)
       : null
   }
 
@@ -118,11 +139,11 @@ export class Notifier {
   @bind
   @once
   public async openBrowser() {
-    return await open(this.open, {
-      app: isString(this.app.context.args.browser)
-        ? {name: this.app.context.args.browser}
-        : undefined,
-    })
+    const {browser: name} = this.app.context.args
+    return await open(
+      this.open,
+      isString(name) ? {app: {name}} : undefined,
+    )
   }
 
   /**
@@ -203,12 +224,8 @@ export class Notifier {
       )
     }
 
-    const errorsCount =
-      this.jsonStats.errorsCount +
-      this.jsonStats.children.reduce((a, c) => a + c.errorsCount, 0)
-
     try {
-      if (errorsCount > 0 && this.app.context.args.editor)
+      if (this.app.context.args.editor)
         this.openEditor([
           ...this.jsonStats.errors,
           ...this.jsonStats.children
@@ -220,8 +237,7 @@ export class Notifier {
     }
 
     try {
-      if (this.app.context.args.browser && errorsCount > 0)
-        await this.openBrowser()
+      if (this.app.context.args.browser) await this.openBrowser()
     } catch (err) {
       this.app.warn(err)
     }

@@ -95,6 +95,7 @@ export default async () => ({
       ],
       testMatch: [
         `**/sources/@roots/*/src/**/*.test.ts`,
+        `**/sources/@roots/*/src/**/*.test.tsx`,
         `**/tests/unit/**/*.test.ts`,
       ],
     },
