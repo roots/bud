@@ -5350,7 +5350,7 @@ __metadata:
     clean-webpack-plugin: ^4.0.0
     conf: 10.2.0
     copy-webpack-plugin: 11.0.0
-    dotenv: 16.0.2
+    dotenv: 16.0.3
     dotenv-expand: 9.0.0
     import-meta-resolve: 2.1.0
     mini-css-extract-plugin: ^2.4.5
@@ -13230,10 +13230,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dotenv@npm:16.0.2, dotenv@npm:^16.0.0":
-  version: 16.0.2
-  resolution: "dotenv@npm:16.0.2"
-  checksum: ca8f9ca2d67929c7771069f4c31b4e46b9932621009e658e5afd655dde2d69b77642bf36dbc9e72bc170523dfd908a9ee41c26f034c1fdc605ace3b1b4b10faf
+"dotenv@npm:16.0.3, dotenv@npm:^16.0.0":
+  version: 16.0.3
+  resolution: "dotenv@npm:16.0.3"
+  checksum: afcf03f373d7a6d62c7e9afea6328e62851d627a4e73f2e12d0a8deae1cd375892004f3021883f8aec85932cd2834b091f568ced92b4774625b321db83b827f8
   languageName: node
   linkType: hard
 
