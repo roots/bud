@@ -22,7 +22,7 @@ Previously, this value was set up front, which could cause errors if the value w
 
 ## ✨ [@roots/sage](https://bud.js.org/extensions/sage): filter theme.json values to those used in `theme.extend`
 
-If you wish to limit generated values in `theme.json` to those included in `theme.extend`, you can now do so with an optional parameter added to `useTailwindFontFamily`, `useTailwindColors`, and `useTailwindFontSize`.
+If you wish to limit generated values in `theme.json` to those included in `theme.extend`, you can now do so with an optional parameter passed to `useTailwindFontFamily`, `useTailwindColors`, and `useTailwindFontSize`.
 
 ```js
 export default async bud => {
@@ -38,6 +38,10 @@ If called with no arguments, the default behavior is to generate all values reso
 ## ⚠️ [@roots/bud-tailwindcss](https://bud.js.org/extensions/bud-tailwindcss): `bud.tailwindcss.resolveTailwindThemeValue` renamed to `bud.tailwindcss.resolveThemeValue`
 
 This is an undocumented method but some of you may very well be using it. It's name changed.
+
+## 🩹 fix: `--browser` flag not working
+
+Regression introduced in 6.4.0. Fixed (with added unit tests).
 
 ## ℹ️ Release information
 
