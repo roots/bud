@@ -13,7 +13,11 @@ const mock = jest.fn().mockImplementation(async () => {
     loaders: {},
     items: {},
     rules: {},
-    make: jest.fn(() => ({})),
+    make: jest.fn(() => ({
+      entry: {
+        app: [`index.js`],
+      },
+    })),
     setRule: jest.fn(),
     setLoader: jest.fn(),
     setItem: jest.fn(),

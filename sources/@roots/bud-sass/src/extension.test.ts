@@ -50,7 +50,10 @@ describe(`@roots/bud-sass`, () => {
       extension.registerGlobal(`$primary-color: #ff0000;`)
     } catch (e) {}
 
-    expect(setOptionSpy).toHaveBeenCalled()
+    expect(setOptionSpy).toHaveBeenCalledWith(
+      `additionalData`,
+      expect.any(Function),
+    )
   })
 
   it(`should call setLoader when configAfter is called`, async () => {
@@ -61,5 +64,70 @@ describe(`@roots/bud-sass`, () => {
     } catch (e) {}
 
     expect(bud.build.setLoader).toHaveBeenCalledWith(`sass-loader`)
+  })
+
+  it(`should call setItem when configAfter is called`, async () => {
+    const extension = new BudSassExtension(bud)
+
+    try {
+      await extension.configAfter()
+    } catch (e) {}
+
+    expect(bud.build.setItem).toHaveBeenCalledWith(
+      `sass`,
+      expect.objectContaining({
+        loader: `sass-loader`,
+        options: {
+          additionalData: `$primary-color: #ff0000;`,
+          implementation: expect.any(Object),
+          sourceMap: true,
+        },
+      }),
+    )
+  })
+
+  it(`should call setRule when configAfter is called`, async () => {
+    const extension = new BudSassExtension(bud)
+
+    try {
+      await extension.configAfter()
+    } catch (e) {}
+
+    expect(bud.build.setRule).toHaveBeenCalledWith(
+      `sass`,
+      expect.objectContaining({
+        include: expect.arrayContaining([expect.any(Function)]),
+        test: expect.any(Function),
+        use: [`precss`, `css`, `postcss`, `resolveUrl`, `sass`],
+      }),
+    )
+  })
+
+  it(`should set postcss syntax`, async () => {
+    const extension = new BudSassExtension(bud)
+
+    // @ts-ignore
+    extension.app.postcss = {
+      syntax: ``,
+    }
+
+    try {
+      await extension.configAfter()
+    } catch (e) {}
+
+    expect(extension.app.postcss.syntax).toEqual(`postcss-scss`)
+  })
+
+  it(`should register global when importGlobal is called`, async () => {
+    const extension = new BudSassExtension(bud)
+    const registerGlobalSpy = jest.spyOn(extension, `registerGlobal`)
+
+    try {
+      extension.importGlobal(`@src/styles/global.scss`)
+    } catch (e) {}
+
+    expect(registerGlobalSpy).toHaveBeenCalledWith([
+      `@import "@src/styles/global.scss";`,
+    ])
   })
 })

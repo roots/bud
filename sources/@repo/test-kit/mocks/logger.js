@@ -11,6 +11,8 @@ const logger = {
   error: jest.fn(),
 }
 
+logger.instance.scope = jest.fn(() => logger)
+
 logger.log = jest.fn(() => logger)
 logger.instance.log = logger.log
 logger.info = jest.fn(() => logger)

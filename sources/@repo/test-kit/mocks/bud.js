@@ -1,6 +1,7 @@
 import {jest} from '@jest/globals'
 
 import build from './build'
+import dashboard from './dashboard'
 import extensions from './extensions'
 import hooks from './hooks'
 import logger from './logger'
@@ -13,6 +14,9 @@ jest.unstable_mockModule(`@roots/bud-api`, async () => {
   }
 })
 jest.unstable_mockModule(`@roots/bud-build`, () => ({default: build}))
+jest.unstable_mockModule(`@roots/bud-dashboard`, () => ({
+  default: dashboard,
+}))
 jest.unstable_mockModule(`@roots/bud-extensions`, () => ({
   default: extensions,
 }))
@@ -27,6 +31,10 @@ const mock = jest.fn().mockImplementation(async () => {
     ({default: Build}) => new Build(),
   )
 
+  const dashboard = await import(`@roots/bud-dashboard`).then(
+    ({default: Dashboard}) => new Dashboard(),
+  )
+
   const extensions = await import(`@roots/bud-extensions`).then(
     ({default: Extensions}) => new Extensions(),
   )
@@ -38,9 +46,22 @@ const mock = jest.fn().mockImplementation(async () => {
   const bud = {
     api,
     build,
+    context: {
+      args: {
+        dry: false,
+      },
+    },
+    dashboard,
     extensions,
+    hasChildren: false,
     hooks,
+    isDevelopment: false,
+    label: `MOCK`,
     logger,
+    module: {
+      import: jest.fn(),
+      resolve: jest.fn(),
+    },
     path: jest.fn(),
   }
 

@@ -4,7 +4,7 @@ import {label} from '@roots/bud-framework/extension/decorators'
 @label(`@roots/bud-sass/resolve-url`)
 export default class BudResolveUrl extends Extension {
   /**
-   * Factory {@link Item} resolve-url
+   * `register` callback
    *
    * @public
    */
