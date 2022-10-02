@@ -5119,6 +5119,7 @@ __metadata:
   resolution: "@roots/bud-swc@workspace:sources/@roots/bud-swc"
   dependencies:
     "@jest/globals": 29.0.3
+    "@repo/test-kit": "workspace:sources/@repo/test-kit"
     "@roots/bud-build": "workspace:sources/@roots/bud-build"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
