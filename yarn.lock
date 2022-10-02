@@ -5040,7 +5040,7 @@ __metadata:
     "@types/babel__core": 7.1.19
     "@types/lodash": 4.14.186
     "@types/node": 16.11.48
-    babel-preset-solid: 1.5.6
+    babel-preset-solid: 1.5.7
     solid-js: 1.4.7
     tslib: 2.4.0
     type-fest: 2.19.0
@@ -9666,7 +9666,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-plugin-jsx-dom-expressions@npm:^0.34.10":
+"babel-plugin-jsx-dom-expressions@npm:^0.34.11":
   version: 0.34.11
   resolution: "babel-plugin-jsx-dom-expressions@npm:0.34.11"
   dependencies:
@@ -9761,14 +9761,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-preset-solid@npm:1.5.6":
-  version: 1.5.6
-  resolution: "babel-preset-solid@npm:1.5.6"
+"babel-preset-solid@npm:1.5.7":
+  version: 1.5.7
+  resolution: "babel-preset-solid@npm:1.5.7"
   dependencies:
-    babel-plugin-jsx-dom-expressions: ^0.34.10
+    babel-plugin-jsx-dom-expressions: ^0.34.11
   peerDependencies:
     "@babel/core": ^7.0.0
-  checksum: 0f57ba18c00761b59d07dc8f08dc41fdbe84870635e7d220a5cab64662dc4d1399953f48268a231db4e5765a8247eb39040369a1e4b1f5156a6e8a04ede2a83b
+  checksum: 7d3ddf572ff95337686e7cdbbe375830d5fb69c777fbebd6040a8c34e395234ac4a765172ce47e56e2b923282bd3648302262bdfbbee039943768056783f24d4
   languageName: node
   linkType: hard
 
