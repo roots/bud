@@ -21,6 +21,8 @@ logger.warn = jest.fn(() => logger)
 logger.instance.warn = logger.warn
 logger.error = jest.fn(() => logger)
 logger.instance.error = logger.error
+logger.fatal = jest.fn(() => logger)
+logger.instance.fatal = logger.fatal
 
 export default logger
 export const {instance, log, info, scope, warn, error} = logger

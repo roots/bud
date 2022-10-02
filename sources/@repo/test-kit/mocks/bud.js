@@ -1,4 +1,6 @@
 import {jest} from '@jest/globals'
+import {dirname} from 'path'
+import {fileURLToPath} from 'url'
 
 import build from './build'
 import dashboard from './dashboard'
@@ -50,11 +52,16 @@ const mock = jest.fn().mockImplementation(async () => {
       args: {
         dry: false,
       },
+      basedir: dirname(fileURLToPath(import.meta.url)),
     },
     dashboard,
     extensions,
     hasChildren: false,
     hooks,
+    json: {
+      read: jest.fn(),
+      write: jest.fn(),
+    },
     isDevelopment: false,
     label: `MOCK`,
     logger,
@@ -63,7 +70,13 @@ const mock = jest.fn().mockImplementation(async () => {
       resolve: jest.fn(),
     },
     path: jest.fn(),
+    success: jest.fn(),
+    warn: jest.fn(),
+    error: jest.fn(),
+    fatal: jest.fn(),
   }
+
+  bud.root = bud
 
   return bud
 })

@@ -1,9 +1,9 @@
-import {Bud, factory} from '@repo/test-kit/bud'
+import {factory} from '@repo/test-kit/bud'
 
 import Rule from './rule'
 
 describe(`Build Rule`, function () {
-  let bud: Bud
+  let bud
 
   beforeAll(async () => {
     bud = await factory()

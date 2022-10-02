@@ -98,18 +98,21 @@ describe(`@roots/bud-compiler`, function () {
 
   it(`should call error handler from callback when hasErrors is truthy`, async () => {
     const onErrorSpy = jest.spyOn(compiler, `onError`)
+    // @ts-ignore
     compiler.callback(new Error(), null)
     expect(onErrorSpy).toHaveBeenCalled()
   })
 
   it(`should not call error handler from callback when hasErrors is falsey`, async () => {
     const onErrorSpy = jest.spyOn(compiler, `onError`)
+    // @ts-ignore
     compiler.callback(null, null)
     expect(onErrorSpy).not.toHaveBeenCalled()
   })
 
   it(`should call stats handler from callback when stats is truthy`, async () => {
     const handleStatsSpy = jest.spyOn(compiler, `handleStats`)
+    // @ts-ignore
     compiler.callback(null, {
       toJson: jest.fn(() => {}),
     } as unknown as MultiStats)
@@ -118,6 +121,7 @@ describe(`@roots/bud-compiler`, function () {
 
   it(`should not call stats handler from callback when stats is falsey`, async () => {
     const handleStatsSpy = jest.spyOn(compiler, `handleStats`)
+    // @ts-ignore
     compiler.callback(null, null)
     expect(handleStatsSpy).not.toHaveBeenCalled()
   })
