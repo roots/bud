@@ -23,6 +23,7 @@ export const enableMiddlewareHookCallback = (
   `cookie`,
   `proxy`,
 ]
+
 /**
  * Disable proxy middleware
  *
@@ -66,18 +67,18 @@ export type facade = method
  * @public
  */
 export const method: method = function (input, replacements) {
-  const ctx = this as Bud
+  const app = this as Bud
 
   /**
    * Bail early in production
    */
-  if (!ctx.isDevelopment) return ctx
+  if (!app.isDevelopment) return app
 
   /**
    * User proxy request from a port #
    */
   isNumber(input) &&
-    ctx.hooks.on(`dev.middleware.proxy.target`, url => {
+    app.hooks.on(`dev.middleware.proxy.target`, url => {
       url.port = `${input}`
       return url
     })
@@ -86,25 +87,25 @@ export const method: method = function (input, replacements) {
    * User proxy request from a string
    */
   isString(input) &&
-    ctx.hooks.on(`dev.middleware.proxy.target`, new URL(input))
+    app.hooks.on(`dev.middleware.proxy.target`, new URL(input))
 
   /**
    * User proxy request from a URL
    */
   input instanceof URL &&
-    ctx.hooks.on(`dev.middleware.proxy.target`, input)
+    app.hooks.on(`dev.middleware.proxy.target`, input)
 
   /**
    * User proxy request as a boolean
    */
   isBoolean(input)
-    ? ctx.hooks.on(
+    ? app.hooks.on(
         `dev.middleware.enabled`,
         input
           ? enableMiddlewareHookCallback
           : disableMiddlewareHookCallback,
       )
-    : ctx.hooks.on(`dev.middleware.enabled`, enableMiddlewareHookCallback)
+    : app.hooks.on(`dev.middleware.enabled`, enableMiddlewareHookCallback)
 
   /**
    * Handle URL replacements
@@ -112,14 +113,14 @@ export const method: method = function (input, replacements) {
   replacements = isUndefined(replacements)
     ? (hookValue): Array<[string | RegExp, string]> => [
         ...(hookValue ?? []),
-        [ctx.hooks.filter(`dev.middleware.proxy.target`).href, `/`],
+        [app.hooks.filter(`dev.middleware.proxy.target`).href, `/`],
       ]
     : replacements
 
-  ctx.hooks.on(`dev.middleware.proxy.replacements`, replacements)
+  app.hooks.on(`dev.middleware.proxy.replacements`, replacements)
 
   /**
    * Return bud interface
    */
-  return ctx
+  return app
 }

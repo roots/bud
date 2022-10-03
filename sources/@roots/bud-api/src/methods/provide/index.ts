@@ -9,15 +9,21 @@ export const provide: provide = function (
 ) {
   const app = this as Bud
 
-  app.extensions.get(`webpack:provide-plugin`).setOptions(options => {
-    Object.entries(packages).forEach(([key, alias]) => {
-      ;(Array.isArray(alias) ? alias : [alias]).forEach(alias => {
-        options[alias] = key
-      })
-    })
+  if (!packages) {
+    throw new Error(`bud.provide: packages must be an object`)
+  }
 
-    return options
-  })
+  const plugin = app.extensions.get(`webpack:provide-plugin`)
+  const options = plugin.getOptions()
+  const modified = Object.entries(packages).reduce(
+    (acc, [key, value]) => ({
+      ...acc,
+      [key]: [...(acc[key] ?? []), ...value],
+    }),
+    options ?? {},
+  )
+
+  plugin.setOptions(modified)
 
   return app
 }
