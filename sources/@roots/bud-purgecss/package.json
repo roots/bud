@@ -65,7 +65,7 @@
     "@jest/globals": "29.0.3",
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.11.48",
-    "postcss": "8.4.16"
+    "postcss": "8.4.17"
   },
   "dependencies": {
     "@fullhuman/postcss-purgecss": "4.1.3",
