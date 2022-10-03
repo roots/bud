@@ -1,5 +1,6 @@
 import {describe, expect, it, jest} from '@jest/globals'
-import {Container} from '@roots/container'
+
+import Container from './index'
 
 describe(`container`, function () {
   describe(`constructor`, () => {
