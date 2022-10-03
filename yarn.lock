@@ -4650,6 +4650,7 @@ __metadata:
   resolution: "@roots/bud-extensions@workspace:sources/@roots/bud-extensions"
   dependencies:
     "@jest/globals": 29.0.3
+    "@repo/test-kit": "workspace:sources/@repo/test-kit"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
@@ -4766,6 +4767,7 @@ __metadata:
   resolution: "@roots/bud-postcss@workspace:sources/@roots/bud-postcss"
   dependencies:
     "@jest/globals": 29.0.3
+    "@repo/test-kit": "workspace:sources/@repo/test-kit"
     "@roots/bud-api": "workspace:sources/@roots/bud-api"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
@@ -5183,6 +5185,7 @@ __metadata:
   resolution: "@roots/bud-terser@workspace:sources/@roots/bud-terser"
   dependencies:
     "@jest/globals": 29.0.3
+    "@repo/test-kit": "workspace:sources/@repo/test-kit"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@skypack/package-check": 0.2.2
     "@types/lodash": 4.14.185
@@ -5332,6 +5335,7 @@ __metadata:
   resolution: "@roots/bud@workspace:sources/@roots/bud"
   dependencies:
     "@jest/globals": 29.0.3
+    "@repo/test-kit": "workspace:sources/@repo/test-kit"
     "@roots/browserslist-config": "workspace:sources/@roots/browserslist-config"
     "@roots/bud-api": "workspace:sources/@roots/bud-api"
     "@roots/bud-build": "workspace:sources/@roots/bud-build"
