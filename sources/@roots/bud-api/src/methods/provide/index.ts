@@ -18,7 +18,7 @@ export const provide: provide = function (
   const modified = Object.entries(packages).reduce(
     (acc, [key, value]) => ({
       ...acc,
-      [key]: [...(acc[key] ?? []), ...value],
+      ...value.reduce((acc, inner) => ({...acc, [inner]: key}), {}),
     }),
     options ?? {},
   )

@@ -1,3 +1,5 @@
+import '@roots/bud-api'
+
 import {Bud, factory} from '@repo/test-kit/bud'
 
 describe.skip(`bud.runtime`, function () {

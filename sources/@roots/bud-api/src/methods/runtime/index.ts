@@ -1,29 +1,24 @@
 import type {Bud} from '@roots/bud-framework'
-import {isUndefined} from '@roots/bud-support/lodash-es'
-import type {Configuration, EntryObject} from 'webpack'
+import type {Configuration, EntryObject} from '@roots/bud-framework/config'
 
 export interface runtime {
-  (this: Bud, runtime?: Configuration['optimization']['runtimeChunk']): Bud
+  (runtime: Configuration['optimization']['runtimeChunk']): Bud
 }
 
 /**
  * Default options for runtime if no options are passed as parameters.
  */
-const DEFAULT_OPTIONS: Configuration['optimization']['runtimeChunk'] = {
+const DEFAULT_RUNTIME: Configuration['optimization']['runtimeChunk'] = {
   name: (entrypoint: EntryObject) => `runtime/${entrypoint.name}`,
 }
 
-export const runtime: runtime = function (runtime?) {
-  if (isUndefined(runtime) || runtime === true) {
-    this.hooks.on(`build.optimization.runtimeChunk`, () => DEFAULT_OPTIONS)
-    return this
-  }
+export const runtime: runtime = function (runtime = DEFAULT_RUNTIME) {
+  const app = this as Bud
 
-  if (runtime === false) {
-    this.hooks.on(`build.optimization.runtimeChunk`, () => false)
-    return this
-  }
+  app.hooks.on(
+    `build.optimization.runtimeChunk`,
+    runtime === true ? DEFAULT_RUNTIME : runtime,
+  )
 
-  this.hooks.on(`build.optimization.runtimeChunk`, () => runtime)
-  return this
+  return app
 }

@@ -24,12 +24,15 @@ describe(`bud.provide`, () => {
   })
 
   it(`should call mockExtension.get when called`, () => {
-    subject({foo: [`bar`]})
+    subject({jquery: [`$`, `jQuery`]})
 
     expect(bud.extensions.get).toHaveBeenCalled()
     expect(mockExtension.getOptions).toHaveBeenCalled()
     expect(mockExtension.setOptions).toHaveBeenCalledWith(
-      expect.objectContaining({foo: [`bar`]}),
+      expect.objectContaining({
+        jQuery: `jquery`,
+        $: `jquery`,
+      }),
     )
   })
 
