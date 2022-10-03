@@ -4182,7 +4182,7 @@ __metadata:
     fs-extra: 10.1.0
     get-package-json-from-registry: 2.2.2
     lodash-es: 4.17.21
-    npm-package-arg: 9.1.0
+    npm-package-arg: 9.1.2
     registry-info: 1.0.0
   languageName: unknown
   linkType: soft
@@ -22282,15 +22282,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"npm-package-arg@npm:9.1.0":
-  version: 9.1.0
-  resolution: "npm-package-arg@npm:9.1.0"
+"npm-package-arg@npm:9.1.2":
+  version: 9.1.2
+  resolution: "npm-package-arg@npm:9.1.2"
   dependencies:
     hosted-git-info: ^5.0.0
     proc-log: ^2.0.1
     semver: ^7.3.5
     validate-npm-package-name: ^4.0.0
-  checksum: 277c21477731a4f1e31bde36f0db5f5470deb2a008db2aaf1b015d588b23cb225c75f90291ea241235e86682a03de972bbe69fc805c921a786ea9616955990b9
+  checksum: 3793488843985ed71deb14fcba7c068d8ed03a18fd8f6b235c6a64465c9a25f60261598106d5cc8677c0bee9548e405c34c2e3c7a822e3113d3389351c745dfa
   languageName: node
   linkType: hard
 
