@@ -3,6 +3,7 @@ import {dirname} from 'path'
 import {fileURLToPath} from 'url'
 
 import build from './build'
+import cache from './cache'
 import dashboard from './dashboard'
 import extensions from './extensions'
 import hooks from './hooks'
@@ -23,6 +24,7 @@ jest.unstable_mockModule(`@roots/bud-extensions`, () => ({
   default: extensions,
 }))
 jest.unstable_mockModule(`@roots/bud-hooks`, () => ({default: hooks}))
+jest.unstable_mockModule(`@roots/bud-cache`, () => ({default: cache}))
 
 const mock = jest.fn().mockImplementation(async () => {
   const api = await import(`@roots/bud-api`).then(
@@ -31,6 +33,10 @@ const mock = jest.fn().mockImplementation(async () => {
 
   const build = await import(`@roots/bud-build`).then(
     ({default: Build}) => new Build(),
+  )
+
+  const cache = await import(`@roots/bud-cache`).then(
+    ({default: Cache}) => new Cache(),
   )
 
   const dashboard = await import(`@roots/bud-dashboard`).then(
@@ -48,6 +54,7 @@ const mock = jest.fn().mockImplementation(async () => {
   const bud = {
     api,
     build,
+    cache,
     context: {
       args: {
         dry: false,
