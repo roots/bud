@@ -103,6 +103,7 @@
   },
   "devDependencies": {
     "@jest/globals": "29.0.3",
+    "@repo/test-kit": "workspace:sources/@repo/test-kit",
     "@skypack/package-check": "0.2.2",
     "@types/braces": "3.0.1",
     "@types/mini-css-extract-plugin": "2.5.0",

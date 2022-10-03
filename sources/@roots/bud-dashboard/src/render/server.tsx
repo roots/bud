@@ -18,7 +18,9 @@ const formatUrl = (host: string, protocol: string, port: string) =>
   }`
 
 const getServer = (app: Bud) => {
-  const {protocol, port, hostname: internal} = app.server.connection.url
+  const {protocol, port, hostname: internal} = app.server?.connection?.url
+
+  if (!internal || !port || !protocol) return false
 
   return {
     internal: formatUrl(internal, protocol, port),
@@ -70,30 +72,34 @@ export const Server = ({
             </Box>
           )}
 
-          <Box flexDirection="row">
-            <Box marginRight={1}>
-              <Text dimColor>├─ internal:</Text>
-            </Box>
+          {server ? (
+            <Box flexDirection="row">
+              <Box marginRight={1}>
+                <Text dimColor>├─ internal:</Text>
+              </Box>
 
-            <Box>
-              {/* @ts-ignore */}
-              <Link url={server.internal}>
-                <Text>{server.internal}</Text>
-              </Link>
+              <Box>
+                {/* @ts-ignore */}
+                <Link url={server.internal}>
+                  <Text>{server.internal}</Text>
+                </Link>
+              </Box>
             </Box>
-          </Box>
+          ) : null}
 
-          <Box flexDirection="row">
-            <Box marginRight={1}>
-              <Text dimColor>└─ external:</Text>
+          {server ? (
+            <Box flexDirection="row">
+              <Box marginRight={1}>
+                <Text dimColor>└─ external:</Text>
+              </Box>
+              <Box>
+                {/* @ts-ignore */}
+                <Link url={server.external}>
+                  <Text>{server.external}</Text>
+                </Link>
+              </Box>
             </Box>
-            <Box>
-              {/* @ts-ignore */}
-              <Link url={server.external}>
-                <Text>{server.external}</Text>
-              </Link>
-            </Box>
-          </Box>
+          ) : null}
 
           <Box
             marginTop={1}

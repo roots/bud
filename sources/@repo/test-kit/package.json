@@ -5,7 +5,8 @@
   "type": "module",
   "exports": {
     "./bud": "./compiled/bud.js",
-    "./project": "./compiled/project.js"
+    "./project": "./compiled/project.js",
+    "./mocks/*": "./mocks/*.js"
   },
   "typesVersions": {
     "*": {

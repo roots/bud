@@ -37,16 +37,16 @@ export interface facade {
  * @public
  */
 export const method: method = function (options) {
-  const ctx = this as Bud
+  const app = this as Bud
 
   /**
    * A `false` value indicates that the user wishes to
-   * disable chunking. Passing `undefined` to a `build.` hook
+   * disable chunking. Passing `undefined` to a `build.*` hook
    * will omit it from the configuration entirely.
    */
   if (options === false) {
-    ctx.hooks.on(`build.optimization.splitChunks`, () => false)
-    return ctx
+    app.hooks.on(`build.optimization.splitChunks`, options)
+    return app
   }
 
   /**
@@ -54,7 +54,7 @@ export const method: method = function (options) {
    * cache groups are added to the build
    */
   if (options === true || isUndefined(options)) {
-    ctx.hooks.on(`build.optimization.splitChunks`, () => ({
+    app.hooks.on(`build.optimization.splitChunks`, {
       chunks: `all`,
       automaticNameDelimiter: `/`,
       minSize: 0,
@@ -66,9 +66,9 @@ export const method: method = function (options) {
           priority: -20,
         },
       },
-    }))
+    })
 
-    return ctx
+    return app
   }
 
   /**
@@ -79,6 +79,7 @@ export const method: method = function (options) {
    * For deeper merging the user can call `build.optimization.splitChunks`
    * hook themselves.
    */
-  ctx.hooks.on(`build.optimization.splitChunks`, options)
-  return ctx
+  app.hooks.on(`build.optimization.splitChunks`, options)
+
+  return app
 }

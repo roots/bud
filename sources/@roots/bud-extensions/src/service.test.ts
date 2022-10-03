@@ -1,7 +1,8 @@
 import {beforeAll, describe, expect, it, jest} from '@jest/globals'
 import {Bud, factory} from '@repo/test-kit/bud'
-import Extensions from '@roots/bud-extensions'
-import {WebpackPluginInstance} from 'webpack'
+import type {WebpackPluginInstance} from 'webpack'
+
+import Extensions from './index'
 
 describe(`Extensions`, function () {
   let bud: Bud
