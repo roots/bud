@@ -77,6 +77,8 @@ const mock = jest.fn().mockImplementation(async () => {
       resolve: jest.fn(),
     },
     path: jest.fn(),
+    run: jest.fn(),
+    setPath: jest.fn(),
     success: jest.fn(),
     warn: jest.fn(),
     error: jest.fn(),

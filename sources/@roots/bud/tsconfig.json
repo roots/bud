@@ -18,7 +18,7 @@
     ],
   },
   "include": ["src"],
-  "exclude": ["lib", "node_modules"],
+  "exclude": ["lib", "node_modules", "src/**/*.test.tsx", "src/**/*.test.ts"],
   "references": [
     {"path": "./../bud-framework/tsconfig.json"},
     {"path": "./../bud-api/tsconfig.json"},
