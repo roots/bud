@@ -1,7 +1,7 @@
 import type {GlobalSettingsAndStyles as WPThemeJson} from '@roots/bud-preset-wordpress/theme'
 
-export interface TailwindFonts {
-  [key: string]: Array<string>
+export interface TailwindFontFamily {
+  [key: string]: Array<string> | string
 }
 export type WordPressFonts =
   WPThemeJson['settings']['typography']['fontFamilies']
@@ -30,10 +30,11 @@ const name: name = label =>
 export interface transformEntry {
   ([slug, value]: [string, string]): WordPressFonts[any]
 }
-export const transformEntry: transformEntry = ([slug, fontFamily]: [
-  string,
-  string,
-]) => ({name: fontFamily.split(`,`).shift(), slug, fontFamily})
+export const transformEntry: transformEntry = ([slug, fontFamily]) => ({
+  name: name(fontFamily.split(`,`).shift()),
+  slug,
+  fontFamily,
+})
 
 /**
  * Transform tailwindcss fonts to wordpress theme.json fonts
@@ -43,9 +44,9 @@ export const transformEntry: transformEntry = ([slug, fontFamily]: [
  * @public
  */
 export interface transform {
-  (fonts: TailwindFonts): WordPressFonts
+  (fonts: TailwindFontFamily): WordPressFonts
 }
-export const transform: transform = (fonts: TailwindFonts) =>
-  Object.entries(fonts ?? {})
+export const transform: transform = fonts =>
+  Object.entries(fonts)
     .map(([k, v]) => [k, Array.isArray(v) ? v.join(`,`) : v])
     .map(transformEntry)

@@ -1,7 +1,3 @@
-body {
-  @apply font-sans;
-}
-
 #root {
-  @apply text-3xl font-medium text-indigo-500;
+  @apply text-indigo-500;
 }

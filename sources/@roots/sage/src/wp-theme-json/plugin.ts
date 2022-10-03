@@ -11,12 +11,17 @@ import type {Compiler, WebpackPluginInstance} from 'webpack'
  */
 export interface Options {
   /**
-   * JSON contents
+   * WordPress `settings`
    *
    * @public
    */
   settings?: Partial<ThemeJSON.GlobalSettingsAndStyles['settings']>
 
+  /**
+   * WordPress `customTemplates`
+   *
+   * @public
+   */
   customTemplates?: ThemeJSON.GlobalSettingsAndStyles['customTemplates']
 
   /**

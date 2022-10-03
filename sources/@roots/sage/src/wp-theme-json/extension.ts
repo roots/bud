@@ -48,6 +48,7 @@ export interface Mutator {
  * @decorator `@options`
  * @decorator `@when`
  * @decorator `@plugin`
+ * @decorator `@expose`
  */
 @label(`@roots/sage/wp-theme-json`)
 @dependsOnOptional([`@roots/bud-tailwindcss`])
@@ -137,7 +138,15 @@ export default class ThemeJson extends Extension<
       typography: {
         ...(this.options.settings?.typography ?? {}),
         fontFamilies: tailwindAdapter.fontFamily.transform(
-          this.app.tailwind.resolveThemeValue(`fontFamily`, extendOnly),
+          Object.assign(
+            {},
+            {
+              ...this.app.tailwind.resolveThemeValue(
+                `fontFamily`,
+                extendOnly,
+              ),
+            },
+          ),
         ),
       },
     })
@@ -152,7 +161,15 @@ export default class ThemeJson extends Extension<
       typography: {
         ...(this.options.settings?.typography ?? {}),
         fontSizes: tailwindAdapter.fontSize.transform(
-          this.app.tailwind.resolveThemeValue(`fontSize`, extendOnly),
+          Object.assign(
+            {},
+            {
+              ...this.app.tailwind.resolveThemeValue(
+                `fontSize`,
+                extendOnly,
+              ),
+            },
+          ),
         ),
       },
     })
