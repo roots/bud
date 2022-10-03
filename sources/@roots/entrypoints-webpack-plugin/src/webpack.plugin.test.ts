@@ -1,5 +1,6 @@
-import {EntrypointsWebpackPlugin} from '@roots/entrypoints-webpack-plugin'
 import Webpack from 'webpack'
+
+import {EntrypointsWebpackPlugin} from './index'
 
 describe(`entrypoints.json`, () => {
   it(`should get chunk file list`, () => {
