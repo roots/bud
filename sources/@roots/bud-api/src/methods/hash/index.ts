@@ -1,15 +1,15 @@
 import type {Bud} from '@roots/bud-framework'
 
 export interface hash {
-  (this: Bud, enabled?: boolean | ((hash: boolean) => boolean)): Bud
+  (this: Bud, value?: boolean | ((hash: boolean) => boolean)): Bud
 }
 
-export const hash: hash = function (enabled = true) {
-  this as Bud
+export const hash: hash = function (value = true) {
+  const app = this as Bud
 
-  this.hooks.on(`feature.hash`, enabled)
+  app.hooks.on(`feature.hash`, value)
 
-  this.success(`file hashing ${enabled ? `enabled` : `disabled`}`)
+  app.success(`file hashing ${value ? `enabled` : `disabled`}`)
 
-  return this
+  return app
 }

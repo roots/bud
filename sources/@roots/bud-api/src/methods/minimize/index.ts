@@ -1,5 +1,4 @@
 import type {Bud} from '@roots/bud-framework'
-import {isUndefined} from '@roots/bud-support/lodash-es'
 
 /**
  * Minimize function interface
@@ -10,7 +9,10 @@ import {isUndefined} from '@roots/bud-support/lodash-es'
  * @public
  */
 export interface minimize {
-  (enabled?: boolean, options?: {css: any}): Bud
+  (
+    enabled?: boolean | ((value?: boolean) => boolean),
+    options?: {css: any},
+  ): Bud
 }
 
 /**
@@ -39,20 +41,22 @@ export interface minimize {
  *
  * @public
  */
-export const minimize: minimize = function (enabled: boolean = true) {
+export const minimize: minimize = function (
+  value: boolean | ((value?: boolean) => boolean) = true,
+) {
   const app = this as Bud
 
-  if (enabled === false) {
-    app.hooks.on(`build.optimization.minimize`, false)
+  app.hooks.on(`build.optimization.minimize`, value)
+
+  if (app.hooks.filter(`build.optimization.minimize`)) {
+    app.extensions.get(`@roots/bud-terser`).enable()
+    app.extensions.get(`@roots/bud-terser/css-minimizer`).enable()
+  } else {
     app.extensions.get(`@roots/bud-terser`).disable()
     app.extensions.get(`@roots/bud-terser/css-minimizer`).disable()
   }
 
-  if (isUndefined(enabled) || enabled === true) {
-    app.hooks.on(`build.optimization.minimize`, true)
-    app.extensions.get(`@roots/bud-terser`).enable()
-    app.extensions.get(`@roots/bud-terser/css-minimizer`).enable()
-  }
+  app.success(`minimize ${value ? `enabled` : `disabled`}`)
 
   return app
 }
