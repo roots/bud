@@ -72,11 +72,11 @@
     "@types/react": "17.0.50",
     "@types/wordpress__blocks": "11.0.7",
     "@types/wordpress__data": "6.0.1",
-    "@wordpress/blocks": "11.15.0",
-    "@wordpress/data": "7.1.0",
-    "@wordpress/hooks": "3.16.0",
-    "@wordpress/plugins": "4.14.0",
-    "@wordpress/rich-text": "5.14.0",
+    "@wordpress/blocks": "11.17.0",
+    "@wordpress/data": "7.2.0",
+    "@wordpress/hooks": "3.18.0",
+    "@wordpress/plugins": "4.16.0",
+    "@wordpress/rich-text": "5.16.0",
     "webpack": "5.74.0"
   },
   "dependencies": {
