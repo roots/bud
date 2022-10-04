@@ -11,6 +11,7 @@ exports[`Extensions [production] bud.extensions.repository matches snapshot 1`] 
   "@roots/bud-tailwindcss",
   "@roots/bud-terser",
   "@roots/bud-terser/css-minimizer",
+  "bud-s3",
   "cdn",
   "clean-webpack-plugin",
   "copy-webpack-plugin",

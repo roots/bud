@@ -29,6 +29,7 @@ export default class Extensions {
     `@roots/bud/extensions/webpack-define-plugin`,
     `@roots/bud/extensions/mini-css-extract-plugin`,
     `@roots/bud/extensions/copy-webpack-plugin`,
+    `@roots/bud/extensions/bud-s3`,
   ]
 
   public constructor(public manifest: Context['manifest']) {}

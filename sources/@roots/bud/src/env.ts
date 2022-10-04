@@ -14,6 +14,7 @@ import type {Build} from '@roots/bud-framework/services'
 import type CDN from './extensions/bud-cdn/index.js'
 import type ESM from './extensions/bud-esm/index.js'
 import type FixStyleOnlyEntrypoints from './extensions/bud-fix-style-only-entrypoints/index.js'
+import type BudS3 from './extensions/bud-s3/index.js'
 import type Clean from './extensions/clean-webpack-plugin/index.js'
 import type Copy from './extensions/copy-webpack-plugin/index.js'
 import type MiniCss from './extensions/mini-css-extract-plugin/index.js'
@@ -26,11 +27,13 @@ declare module '@roots/bud-framework' {
   interface Bud {
     cdn: CDN
     esm: ESM
+    s3: BudS3
   }
 
   interface Modules {
     cdn: CDN
     esm: ESM
+    'bud-s3': BudS3
     'fix-style-only-entrypoints': FixStyleOnlyEntrypoints
     'webpack:define-plugin': Define
     'webpack:provide-plugin': Provide
