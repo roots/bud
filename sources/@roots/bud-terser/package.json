@@ -62,7 +62,7 @@
     "@repo/test-kit": "workspace:sources/@repo/test-kit",
     "@skypack/package-check": "0.2.2",
     "@types/lodash": "4.14.186",
-    "@types/node": "16.11.48",
+    "@types/node": "16.11.64",
     "webpack": "5.74.0"
   },
   "dependencies": {

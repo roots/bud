@@ -68,7 +68,7 @@
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@skypack/package-check": "0.2.2",
     "@types/fork-ts-checker-webpack-plugin": "0.4.5",
-    "@types/node": "16.11.48",
+    "@types/node": "16.11.64",
     "webpack": "5.74.0"
   },
   "dependencies": {

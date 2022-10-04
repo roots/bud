@@ -8,7 +8,7 @@
   },
   "devDependencies": {
     "@types/fs-extra": "9.0.13",
-    "@types/node": "16.11.48",
+    "@types/node": "16.11.64",
     "@yarnpkg/builder": "3.2.4"
   },
   "dependencies": {
@@ -28,7 +28,7 @@
     "verdaccio": "5.13.1"
   },
   "volta": {
-    "node": "16.16.0",
+    "node": "16.17.1",
     "npm": "8.19.2",
     "yarn": "1.22.19"
   }
