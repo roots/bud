@@ -63,8 +63,8 @@ Then, in your theme directory create a `eslint.config.cjs` file and include the 
 ```ts title="eslint.config.cjs"
 module.exports = {
   root: true,
-  extends: ["@roots/eslint-config/sage"],
-};
+  extends: ['@roots/eslint-config/sage'],
+}
 ```
 
 ### Using With Stylelint
@@ -79,11 +79,11 @@ Next, in your theme directory create a `.stylelintrc.js` file and include the Sa
 
 ```ts title="bud.config.mjs"
 module.exports = {
-  extends: ["@roots/sage/stylelint-config"],
+  extends: ['@roots/sage/stylelint-config'],
   rules: {
-    "color-no-invalid-hex": true,
+    'color-no-invalid-hex': true,
   },
-};
+}
 ```
 
 ### Managing Theme Json
@@ -95,7 +95,7 @@ You can manage [WordPress' `theme.json` config file](https://developer.wordpress
 In order to emit the file you will need to enable the feature:
 
 ```ts title="bud.config.mjs"
-bud.wpjson.enable();
+bud.wpjson.enable()
 ```
 
 ### Managing generic `theme.json` values
@@ -103,7 +103,7 @@ bud.wpjson.enable();
 You can use `setOption` from the bud.js extensions API to set `theme.json` values:
 
 ```ts title="bud.config.mjs"
-bud.wpjson.setOption("customTemplates", []).enable();
+bud.wpjson.setOption('customTemplates', []).enable()
 ```
 
 ### Managing the `settings` field
@@ -113,13 +113,13 @@ container interface exposed by `bud.wpjson.settings`.
 
 ```ts title="bud.config.mjs"
 bud.wptheme
-  .settings((theme) =>
+  .settings(theme =>
     theme
-      .set("typography.customFontSizes", true)
-      .set("typography.fontWeight", false)
-      .merge("spacing.units", ["px", "%", "em"])
+      .set('typography.customFontSizes', true)
+      .set('typography.fontWeight', false)
+      .merge('spacing.units', ['px', '%', 'em']),
   )
-  .enable();
+  .enable()
 ```
 
 ### Using tailwindcss config values
@@ -127,28 +127,36 @@ bud.wptheme
 If you use [@roots/bud-tailwindcss](https://bud.js.org/extensions/bud-tailwindcss) in your project there are several
 opt-in config functions that allow you to generate `theme.json` values directly from your tailwind config.
 
-#### wpjson.useTailwindColors
+#### wpjson.useTailwindColors()
 
-Convert `theme.extends.colors` to a `theme.json` palette.
+Convert `theme.colors` to a `theme.json` palette.
 
 ```ts title="bud.config.mjs"
-bud.wpjson.useTailwindColors().enable();
+bud.wpjson.useTailwindColors().enable()
 ```
 
 #### wpjson.useTailwindFontSize()
 
-Emits values from `theme.extends.fontSize` as the `typography.fontSizes` property of `theme.json`.
+Emits values from `theme.fontSize` as the `typography.fontSizes` property of `theme.json`.
 
 ```ts title="bud.config.mjs"
-bud.wpjson.useTailwindFontSize().enable();
+bud.wpjson.useTailwindFontSize().enable()
 ```
 
 #### wpjson.useTailwindFontFamily()
 
-Emits values from `theme.extends.fontFamily` as the `typography.fontFamilies` property of `theme.json`.
+Emits values from `theme.fontFamily` as the `typography.fontFamilies` property of `theme.json`.
 
 ```ts title="bud.config.mjs"
-bud.wpjson.useTailwindFontFamily().enable();
+bud.wpjson.useTailwindFontFamily().enable()
+```
+
+#### Limiting values to those defined in `theme.extend`
+
+You can pass `true` to any of the the above functions to limit the values emitted to those defined under tailwind's `theme.extend` key.
+
+```ts title="bud.config.mjs"
+bud.wpjson.useTailwindColors(true).enable()
 ```
 
 ### In combination
@@ -160,8 +168,8 @@ bud.wpjson
   .useTailwindColors()
   .useTailwindFontSize()
   .useTailwindFontFamily()
-  .setOption("typography.fontWeight", false)
-  .enable();
+  .setOption('typography.fontWeight', false)
+  .enable()
 ```
 
 ### Using With Sass
@@ -176,8 +184,11 @@ If using stylelint you will need to configure it for sass:
 
 ```ts file="stylelint.config.cjs"
 module.exports = {
-  extends: ["@roots/sage/stylelint-config", "@roots/bud-sass/stylelint-config"],
-};
+  extends: [
+    '@roots/sage/stylelint-config',
+    '@roots/bud-sass/stylelint-config',
+  ],
+}
 ```
 
 ## Contributing

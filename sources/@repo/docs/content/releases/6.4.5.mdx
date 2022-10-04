@@ -2,7 +2,7 @@
 slug: 6.4.5
 title: 6.4.5
 description: Release notes for bud.js 6.4.5
-date: 2022-09-29
+date: 2022-10-03
 author: Kelly Mears
 author_title: Lead developer
 author_url: https://github.com/kellymears
@@ -19,6 +19,10 @@ A bugfix release for bud 6.4.
 `WP_HOME` is now automatically set as a _fallback_ proxy value. This means that if you don't call [bud.proxy](https://bud.js.org/docs/bud.proxy) value in your `bud.config.js` file, the extension will attempt to use `WP_HOME` (if it is available and is a string value).
 
 Previously, this value was set up front, which could cause errors if the value was malformed.
+
+## 🩹 [@roots/sage](https://bud.js.org/extensions/sage): `bud.wpjson.useTailwindFontSize` mutates config
+
+This function no longer mutates the tailwind config. This caused tailwind to not generate css for font sizes.
 
 ## ✨ [@roots/sage](https://bud.js.org/extensions/sage): filter theme.json values to those used in `theme.extend`
 
