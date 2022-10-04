@@ -1,6 +1,7 @@
+import {join, sep} from 'node:path'
+
 import type {Bud} from '@roots/bud-framework'
 import {isRegExp, isString} from '@roots/bud-support/lodash-es'
-import {join, sep} from 'node:path'
 
 /**
  * Create a module chunk

@@ -1,6 +1,7 @@
+import {join} from 'node:path'
+
 import {paths} from '@repo/constants'
 import {read, write} from '@roots/bud-framework/parsers/yml'
-import {join} from 'node:path'
 
 describe(`bud.yml`, () => {
   describe(`read`, () => {

@@ -1,6 +1,7 @@
+import {urlToHttpOptions} from 'node:url'
+
 import type {Bud} from '@roots/bud-framework'
 import * as fs from '@roots/bud-support/fs'
-import {urlToHttpOptions} from 'node:url'
 
 /**
  * `compiler.done` callback

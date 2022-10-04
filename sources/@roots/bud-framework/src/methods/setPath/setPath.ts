@@ -1,5 +1,6 @@
-import {isString, isUndefined} from '@roots/bud-support/lodash-es'
 import {normalize} from 'node:path'
+
+import {isString, isUndefined} from '@roots/bud-support/lodash-es'
 
 import type {Bud} from '../../bud.js'
 import type * as Locations from '../../types/registry/locations'
