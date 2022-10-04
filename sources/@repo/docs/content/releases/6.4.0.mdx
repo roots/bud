@@ -73,7 +73,7 @@ bud.assets(
     {from: 'images', to: 'images'},
     {from: 'fonts', to: 'fonts'},
   ],
-  {context: app.path('@assets')},
+  {context: bud.path('@assets')},
 )
 ```
 
@@ -84,12 +84,12 @@ bud.assets([
   {
     from: 'images',
     to: 'images',
-    context: app.path('@assets'),
+    context: bud.path('@assets'),
   },
   {
     from: 'fonts',
     to: 'fonts',
-    context: app.path(`assets`),
+    context: bud.path(`assets`),
   },
 ])
 ```
@@ -278,10 +278,10 @@ bud.hooks.fromMap({
 
 ```ts
 bud.hooks.fromAsyncMap({
-  'build.plugins': async () => await app.extensions.make(),
+  'build.plugins': async () => await bud.extensions.make(),
   'build.resolve.modules': async () => [
-    app.hooks.filter(`location.@src`),
-    app.hooks.filter(`location.@modules`),
+    bud.hooks.filter(`location.@src`),
+    bud.hooks.filter(`location.@modules`),
   ],
 })
 ```

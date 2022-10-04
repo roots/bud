@@ -71,7 +71,7 @@ Want to add support to bud for some arcane syntax? Great news, the API for `load
 Here's typescript.
 
 ```ts
-app.build
+bud.build
   .setLoader('ts', 'ts-loader')
   .setItem('ts', {loader: 'ts', options: {}})
   .setRule('ts', {test: /\.tsx?/, use: [`babel`, `ts`]})
@@ -80,9 +80,9 @@ app.build
 If you just want to modify an existing rule, there is lots for you in this update:
 
 ```ts
-app.bulid.rule.ts.setUse([`babel`, `ts`])
-app.build.loaders.ts.setSrc(`alternate-ts-loader`)
-app.build.items.ts.setOptions({...options})
+bud.bulid.rule.ts.setUse([`babel`, `ts`])
+bud.build.loaders.ts.setSrc(`alternate-ts-loader`)
+bud.build.items.ts.setOptions({...options})
 ```
 
 Extension authors should take advantage of how all properties for loader, item, and rule definitions can be expressed with a callback. This means if someone changes their source path later your rule will still be pointed in the right direction.

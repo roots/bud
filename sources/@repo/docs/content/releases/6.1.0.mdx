@@ -105,7 +105,7 @@ domReady(async () => {
 In addition to the theme color palette, you can now generate font sizes and font families from `tailwind.config.js` using `bud.wpjson.useTailwindFontSize` and `bud.wpjson.useTailwindFontFamily`.
 
 ```js title="bud.config.mjs"
-app.wpjson
+bud.wpjson
   .useTailwindColors()
   .useTailwindFontSize()
   .useTailwindFontFamily()
@@ -116,23 +116,23 @@ You can also modify fields which are not under the `settings` key using the stan
 
 ```js title="bud.config.mjs"
 // callback
-app.wpjson.setOptions(opts => ({
+bud.wpjson.setOptions(opts => ({
   ...options,
   customTemplates: [],
 }))
 
 // literal
-app.wpjson.setOptions({
+bud.wpjson.setOptions({
   // using without a callback
   // will fully override theme.json
-  ...app.wpjson.getOptions(),
+  ...bud.wpjson.getOptions(),
 })
 ```
 
-`app.wpjson.settings` can be used to change the `settings` prop granularly:
+`bud.wpjson.settings` can be used to change the `settings` prop granularly:
 
 ```js title="bud.config.mjs"
-app.wpjson.settings(theme => theme.set('custom', {}))
+bud.wpjson.settings(theme => theme.set('custom', {}))
 ```
 
 :::danger Breaking

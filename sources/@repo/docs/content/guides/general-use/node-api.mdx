@@ -21,7 +21,7 @@ import type {Bud} from '@roots/bud'
 import {get} from '@roots/bud/factory'
 
 const basdir = process.cwd()
-const app: Bud = await get(basedir)
+const bud: Bud = await get(basedir)
 ```
 
 If `get` is called again with the same `basedir` it will return the same instance. This means that you can arbitrarily access `bud` from anywhere in your project
@@ -35,7 +35,7 @@ The fastest way to get going is calling the `factory` helper exported from **@ro
 import type {Bud} from '@roots/bud'
 import {factory} from '@roots/bud/factory'
 
-const app: Bud = await factory()
+const bud: Bud = await factory()
 ```
 
 ### Manually
@@ -50,11 +50,11 @@ const context = await applicationContext.get(process.cwd())
 
 // override context options here
 
-const app: Bud = await new Bud().lifecycle(context)
+const bud: Bud = await new Bud().lifecycle(context)
 
 // configure build here
 
-await app.run()
+await bud.run()
 ```
 
 ## Application context
@@ -110,7 +110,7 @@ const overrides: Overrides = {
   },
 }
 
-const app: Bud = await factory(overrides)
+const bud: Bud = await factory(overrides)
 ```
 
 ## Learning more
