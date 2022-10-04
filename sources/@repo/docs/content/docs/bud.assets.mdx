@@ -115,9 +115,9 @@ there is probably no real harm in doing so.
 **bud.assets** is just a simple interface wrapper for the `copy-webpack-plugin` extension. You can utilize the extension directly:
 
 ```js title="bud.config.js"
-app.extensions
+bud.extensions
   .get('copy-webpack-plugin')
-  .setOption('patterns', [{from: app.path('@src/images')}])
+  .setOption('patterns', [{from: bud.path('@src/images')}])
 ```
 
 It accepts any options that [copy-webpack-plugin](https://www.npmjs.com/package/copy-webpack-plugin) does.

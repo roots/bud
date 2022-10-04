@@ -33,7 +33,7 @@ For more on how to set this up [check out the bud.serve documentation](/docs/bud
 You can generate a `theme.json` file for your theme using the `@roots/sage` package.
 
 ```ts title="bud.config.js"
-app.themeJson({
+bud.themeJson({
   typography: {
     customFontSize: false,
   },
@@ -43,7 +43,7 @@ app.themeJson({
 You can even sync your tailwind palette:
 
 ```ts title="bud.config.js"
-app.useTailwindColors()
+bud.useTailwindColors()
 ```
 
 Find out more in the updated docs for [@roots/sage](/extensions/sage).

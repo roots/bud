@@ -29,25 +29,25 @@ You can now easily use tailwind theme values in your app code by importing them 
 An example:
 
 ```ts
-import {black} from '@tailwind/colors'
-import {sans} from '@tailwind/fontFamily'
+import colors from '@tailwind/colors'
+import fontFamily from '@tailwind/fontFamily'
 
 export const main = () => {
-  document.body.style.backgroundColor = black
-  document.body.style.fontFamily = sans
+  document.body.style.backgroundColor = colors.black
+  document.body.style.fontFamily = fontFamily.sans
 }
 ```
 
 Generating the imports can be memory intensive and increase build times, so it is opt-in.
 
 ```ts
-app.tailwind.generateImports()
+bud.tailwind.generateImports()
 ```
 
 Better to generate imports only for specific keys (much less memory intensive):
 
 ```ts
-app.tailwind.generateImports([`colors`, `fontFamily`])
+bud.tailwind.generateImports([`colors`, `fontFamily`])
 ```
 
 This is a lot better than trying to import the actual `tailwind.config.js` file to read these values as the values are fully resolved (merged with `defaultTheme`, plugins applied, etc.)
