@@ -1,9 +1,10 @@
 // Copyright © Roots Software Foundation LLC
 // Licensed under the MIT license.
 
+import path from 'node:path'
+
 import fs from 'fs-extra'
 import {bind} from 'helpful-decorators'
-import path from 'node:path'
 import type {Compiler, Stats} from 'webpack'
 
 /**

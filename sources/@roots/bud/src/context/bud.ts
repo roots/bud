@@ -1,7 +1,8 @@
-import {bind} from '@roots/bud-support/decorators'
-import * as fs from '@roots/bud-support/fs'
 import {dirname, join, resolve, sep} from 'node:path/posix'
 import {fileURLToPath} from 'node:url'
+
+import {bind} from '@roots/bud-support/decorators'
+import * as fs from '@roots/bud-support/fs'
 
 /**
  * Application context

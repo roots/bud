@@ -1,7 +1,8 @@
+import * as path from 'node:path'
+
 import {Container} from '@roots/container'
 import {bind} from 'helpful-decorators'
 import {get} from 'lodash-es'
-import * as path from 'node:path'
 
 import {FileContainer} from '../FileContainer/index.js'
 

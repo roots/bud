@@ -1,6 +1,7 @@
+import {join} from 'node:path'
+
 import {paths} from '@repo/constants'
 import fs from 'fs-extra'
-import {join} from 'node:path'
 
 import {ncc} from './ncc.js'
 

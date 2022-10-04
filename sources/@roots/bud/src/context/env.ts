@@ -1,6 +1,7 @@
+import {join, sep} from 'node:path/posix'
+
 import dotenv from 'dotenv'
 import {expand} from 'dotenv-expand'
-import {join, sep} from 'node:path/posix'
 
 /**
  * Context: env

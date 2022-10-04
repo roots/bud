@@ -1,9 +1,10 @@
+import {basename, join, normalize} from 'node:path'
+
 import * as json from '@roots/bud-framework/parsers/json5'
 import * as yml from '@roots/bud-framework/parsers/yml'
 import {bind} from '@roots/bud-support/decorators'
 import globby from '@roots/bud-support/globby'
 import {set} from '@roots/bud-support/lodash-es'
-import {basename, join, normalize} from 'node:path'
 
 interface ConfigFileDescription {
   name: string
