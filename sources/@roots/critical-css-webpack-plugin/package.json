@@ -59,7 +59,7 @@
     "@types/vinyl": "2.0.6"
   },
   "dependencies": {
-    "critical": "5.0.2",
+    "critical": "5.0.3",
     "helpful-decorators": "2.1.0",
     "tslib": "2.4.0",
     "vinyl": "^2.2.1",
