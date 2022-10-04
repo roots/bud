@@ -1,9 +1,10 @@
+import * as path from 'node:path'
+
 import {Container} from '@roots/container'
 import * as fs from 'fs-extra'
 import {globbySync} from 'globby'
 import {bind} from 'helpful-decorators'
 import {get, has, set} from 'lodash-es'
-import * as path from 'node:path'
 import resolve from 'resolve-from'
 
 export class FileContainer extends Container {

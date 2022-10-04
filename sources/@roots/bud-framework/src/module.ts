@@ -1,7 +1,8 @@
+import {join, normalize, relative} from 'node:path'
+
 import {bind, memo} from '@roots/bud-support/decorators'
 import {resolve} from 'import-meta-resolve'
 import {createRequire} from 'module'
-import {join, normalize, relative} from 'node:path'
 import type {Signale} from 'signale'
 import {fileURLToPath, pathToFileURL} from 'url'
 

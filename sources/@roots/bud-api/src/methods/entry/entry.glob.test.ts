@@ -1,5 +1,6 @@
-import {describe, expect, it, jest} from '@jest/globals'
 import {dirname} from 'node:path'
+
+import {describe, expect, it, jest} from '@jest/globals'
 
 import {globAssets} from './entry.glob.js'
 

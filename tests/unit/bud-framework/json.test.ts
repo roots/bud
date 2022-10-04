@@ -1,6 +1,7 @@
+import {join} from 'node:path'
+
 import {paths} from '@repo/constants'
 import {read, write} from '@roots/bud-framework/parsers/json5'
-import {join} from 'node:path'
 
 describe(`bud.json`, () => {
   describe(`read`, () => {

@@ -1,8 +1,9 @@
+import {join} from 'node:path'
+
 import {paths} from '@repo/constants'
 import {Bud, factory} from '@repo/test-kit/bud'
 import Env from '@roots/bud/context/env'
 import EnvService from '@roots/bud/services/env'
-import {join} from 'node:path'
 
 const path = join(paths.root, `tests`, `unit`, `bud`, `context`, `mock`)
 

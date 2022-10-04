@@ -1,9 +1,10 @@
+import {createHash} from 'node:crypto'
+
 import {Service} from '@roots/bud-framework/service'
 import type * as Services from '@roots/bud-framework/services'
 import {bind} from '@roots/bud-support/decorators'
 import * as fs from '@roots/bud-support/fs'
 import {isUndefined} from '@roots/bud-support/lodash-es'
-import {createHash} from 'node:crypto'
 
 import InvalidateCacheExtension from './invalidate-cache-extension/index.js'
 
