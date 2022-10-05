@@ -10,7 +10,11 @@
  * @packageDocumentation
  */
 
+import S3 from './s3/index.js'
+
 export * from './directories.js'
 export * from './filesystem.js'
 export * as json from './json.js'
 export * as yml from './yml.js'
+
+export {S3}
