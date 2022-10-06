@@ -11,13 +11,41 @@ jest.unstable_mockModule(
 let webpack = function () {
   return {
     version: `MOCK_VERSION`,
+    compilers: [
+      {
+        name: `MOCK_CHILD_COMPILER`,
+        hooks: {
+          afterEmit: {
+            tapAsync: jest.fn(async () => {}),
+          },
+          done: {
+            tap: jest.fn(),
+          },
+        },
+      },
+      {
+        name: `MOCK_CHILD_COMPILER`,
+        hooks: {
+          afterEmit: {
+            tapAsync: jest.fn(async () => {}),
+          },
+          done: {
+            tap: jest.fn(),
+          },
+        },
+      },
+    ],
     hooks: {
+      afterEmit: {
+        tapAsync: jest.fn(async () => {}),
+      },
       done: {
         tap: jest.fn(),
       },
     },
   }
 }
+
 // @ts-ignore
 webpack.version = `MOCK_VERSION`
 const mockWebpack = jest.fn(webpack)

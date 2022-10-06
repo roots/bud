@@ -22,7 +22,7 @@ describe(`context.get`, () => {
   it(`should match expectations`, async () => {
     const context = await get(process.cwd())
     expect(context.args).toMatchSnapshot({
-      basedir: expect.stringMatching(/\/bud$/),
+      basedir: null,
       browser: undefined,
       cache: undefined,
       ci: undefined,
