@@ -1,5 +1,4 @@
-import {get} from '@roots/filesystem'
-const fs = get(`basedir`)
+import FS from '@roots/filesystem/filesystem'
 
-export default fs
+export default FS
 export * from '@roots/filesystem'

@@ -38,7 +38,7 @@ export interface Registry extends Record<string, Service.Contract> {
   dashboard: Dashboard.Service
   env: Env.Service
   extensions: Extensions.Service
-  fs: FS
+  fs: FS & Service.Contract
   hooks: Hooks.Service
   project: Project.Service
   server: Server.Service

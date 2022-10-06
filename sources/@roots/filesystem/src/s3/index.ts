@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import {
   DeleteObjectCommand,
   GetObjectCommand,
@@ -6,13 +7,13 @@ import {
   PutObjectCommandInput,
   S3Client,
 } from '@aws-sdk/client-s3'
+import fs from 'fs-jetpack'
 import {globby} from 'globby'
 import isUndefined from 'lodash-es/isUndefined.js'
 import mimetypes from 'mime-types'
 import {join} from 'path'
 import type {Readable} from 'stream'
 
-import * as fs from '../filesystem.js'
 import * as json from '../json.js'
 import Client from './client.js'
 import Config from './config.js'

@@ -1,5 +1,6 @@
 import {bind} from '@roots/bud-support/decorators'
-import * as fs from '@roots/bud-support/filesystem'
+import {json, yml} from '@roots/bud-support/filesystem'
+import fs from '@roots/bud-support/fs-jetpack'
 import {set} from '@roots/bud-support/lodash-es'
 import {basename, join, normalize} from 'node:path'
 
@@ -37,6 +38,8 @@ export default class Config {
     )
   }
 
+  public constructor(public basedir: string) {}
+
   /**
    * Find configs
    *
@@ -44,7 +47,7 @@ export default class Config {
    */
   @bind
   public async find(): Promise<Config> {
-    const results = await fs.get(`basedir`).find({
+    const results = await fs.cwd(this.basedir).find({
       recursive: false,
       directories: false,
       matching: [
@@ -56,7 +59,7 @@ export default class Config {
     })
 
     results?.map((name: string) => {
-      const path = fs.get(`basedir`).path(name)
+      const path = fs.cwd(this.basedir).path(name)
 
       set(this.data, [`${name}`], {
         path,
@@ -87,12 +90,12 @@ export default class Config {
             }
 
             if (description.extension === `json`) {
-              const jsonConfig = await fs.json.read(description.path)
+              const jsonConfig = await json.read(description.path)
               set(this.data, [name, `module`], jsonConfig)
             }
 
             if (description.extension === `yml`) {
-              const ymlConfig = await fs.yml.read(description.path)
+              const ymlConfig = await yml.read(description.path)
               set(this.data, [name, `module`], ymlConfig)
             }
           } catch (error) {

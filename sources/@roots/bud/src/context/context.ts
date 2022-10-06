@@ -37,7 +37,7 @@ export default class Context {
 
     this.data.env = new Env(basedir).data
 
-    this.data.config = await new Config()
+    this.data.config = await new Config(basedir)
       .find()
       .then(config => config.data)
 

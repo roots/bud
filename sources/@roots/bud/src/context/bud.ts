@@ -1,5 +1,6 @@
 import {bind} from '@roots/bud-support/decorators'
-import * as fs from '@roots/bud-support/filesystem'
+import {json} from '@roots/bud-support/filesystem'
+import fs from '@roots/bud-support/fs-jetpack'
 import {dirname, join, resolve, sep} from 'node:path/posix'
 import {fileURLToPath} from 'node:url'
 
@@ -36,8 +37,9 @@ export default class Bud {
 
     this.data.basedir = dirname(resolve(this.data.manifestPath))
 
-    fs.set(`bud`, this.data.basedir)
-    const manifest = await fs.json.read(fs.get(`bud`).path(`package.json`))
+    const manifest = await json.read(
+      fs.cwd(this.data.basedir).path(`package.json`),
+    )
 
     this.data.label = manifest.name.split(sep).pop()
     this.data.version = manifest.version
