@@ -1,10 +1,11 @@
 /* eslint-disable no-console */
 
+import {join} from 'node:path'
+
 import {describe, expect, it} from '@jest/globals'
 import {paths} from '@repo/constants'
 import {execa, ExecaChildProcess} from 'execa'
 import fs from 'fs-extra'
-import {join} from 'node:path'
 import {Browser, chromium, Page} from 'playwright'
 
 import copy from './util/copy'

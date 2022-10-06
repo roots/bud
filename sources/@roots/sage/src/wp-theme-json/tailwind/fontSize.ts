@@ -26,10 +26,11 @@ export type WordPressSizes =
 export interface transformEntry {
   ([slug, value]: [string, string]): WordPressSizes[any]
 }
-export const transformEntry: transformEntry = ([slug, fontSize]: [
-  string,
-  string,
-]) => ({name: slug, slug, size: fontSize})
+export const transformEntry: transformEntry = ([slug, fontSize]) => ({
+  name: slug,
+  slug,
+  size: fontSize,
+})
 
 /**
  * Transform tailwindcss fonts to wordpress theme.json fonts
@@ -41,10 +42,7 @@ export const transformEntry: transformEntry = ([slug, fontSize]: [
 export interface transform {
   (fonts: TailwindSize): WordPressSizes
 }
-
-export const transform: transform = (
-  fonts: TailwindSize,
-): WordPressSizes =>
-  Object.entries(fonts ?? {})
-    .map(([k, v]) => [k, Array.isArray(v) ? v.shift() : v])
+export const transform: transform = fonts =>
+  Object.entries(fonts)
+    .map(([k, v]) => [k, Array.isArray(v) ? v[0] : v])
     .map(transformEntry)

@@ -51,8 +51,8 @@ export default async bud => {
      * Copy static assets from `sources/static` to `dist/static`
      */
     .assets({
-      from: app.path(`@src/static`),
-      to: app.path(`@dist/static`),
+      from: bud.path(`@src/static`),
+      to: bud.path(`@dist/static`),
     })
 }
 ```
@@ -188,9 +188,9 @@ For complete control, you can pass an object:
 ```js title='bud.config.mjs'
 export default async bud => {
   bud.assets({
-    from: app.path(`@src`, 'images'),
-    to: app.path(`@dist`, 'images', `@name`), // `@name` is the filename (including hash if applicable)
-    context: app.path(`@src`),
+    from: bud.path(`@src`, 'images'),
+    to: bud.path(`@dist`, 'images', `@name`), // `@name` is the filename (including hash if applicable)
+    context: bud.path(`@src`),
     noErrorOnMissing: true,
     toType: `template`,
   })

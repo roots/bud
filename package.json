@@ -9,10 +9,10 @@
   },
   "license": "MIT",
   "engines": {
-    "node": "16.16.0"
+    "node": "16.17.1"
   },
   "volta": {
-    "node": "16.16.0",
+    "node": "16.17.1",
     "yarn": "1.22.19",
     "npm": "8.19.2"
   },
@@ -30,19 +30,19 @@
     "@repo/logger": "workspace:sources/@repo/logger",
     "@repo/test-kit": "workspace:sources/@repo/test-kit",
     "@swc/core": "1.2.249",
-    "@swc/jest": "0.2.22",
+    "@swc/jest": "0.2.23",
     "@types/express": "4.17.14",
     "@types/fs-extra": "9.0.13",
     "@types/jest": "29.0.3",
     "@types/lodash-es": "4.17.6",
-    "@types/node": "16.11.48",
+    "@types/node": "16.11.64",
     "@typescript-eslint/eslint-plugin": "5.26.0",
     "@typescript-eslint/parser": "5.26.0",
-    "eslint": "8.19.0",
+    "eslint": "8.24.0",
     "eslint-plugin-import": "2.26.0",
-    "eslint-plugin-react": "7.30.1",
+    "eslint-plugin-react": "7.31.8",
     "eslint-plugin-react-hooks": "4.6.0",
-    "eslint-plugin-simple-import-sort": "7.0.0",
+    "eslint-plugin-simple-import-sort": "8.0.0",
     "eslint-plugin-tsdoc": "0.2.17",
     "execa": "6.1.0",
     "fs-extra": "10.1.0",
@@ -56,11 +56,11 @@
     "tinybench": "2.1.5",
     "ts-node": "10.9.1",
     "tslib": "2.4.0",
-    "typedoc": "0.23.8",
-    "typescript": "4.8.3",
+    "typedoc": "0.23.15",
+    "typescript": "4.8.4",
     "webpack": "5.74.0"
   },
   "devDependencies": {
-    "eslint-plugin-n": "15.2.5"
+    "eslint-plugin-n": "15.3.0"
   }
 }

@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
-import type * as Options from '@roots/bud-framework/options'
 import {isAbsolute, resolve} from 'node:path'
+
+import type * as Options from '@roots/bud-framework/options'
 
 import Context from './context.js'
 

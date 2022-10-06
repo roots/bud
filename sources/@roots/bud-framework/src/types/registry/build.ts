@@ -15,23 +15,6 @@ export interface Sync {
   devtool: Configuration['devtool']
   entry: Record<string, EntryObject>
   experiments: Configuration['experiments']
-  'experiments.asyncWebAssembly': Configuration['experiments']['asyncWebAssembly']
-  'experiments.backCompat': Configuration['experiments']['backCompat']
-  'experiments.buildHttp': Configuration['experiments']['buildHttp']
-  'experiments.buildHttp.allowedUris': Array<(uri: string) => boolean>
-  'experiments.buildHttp.cacheLocation': string
-  'experiments.buildHttp.frozen': boolean
-  'experiments.buildHttp.lockfileLocation': string
-  'experiments.buildHttp.proxy': string
-  'experiments.buildHttp.upgrade': boolean
-  'experiments.cacheUnaffected': Configuration['experiments']['cacheUnaffected']
-  'experiments.css': Configuration['experiments']['css']
-  'experiments.lazyCompilation': Configuration['experiments']['lazyCompilation']
-  'experiments.futureDefaults': Configuration['experiments']['futureDefaults']
-  'experiments.layers': Configuration['experiments']['layers']
-  'experiments.syncWebAssembly': Configuration['experiments']['syncWebAssembly']
-  'experiments.topLevelAwait': Configuration['experiments']['topLevelAwait']
-  'experiments.outputModule': Configuration['experiments']['outputModule']
   externals: Configuration['externals']
   externalsType: Configuration['externalsType']
   infrastructureLogging: Configuration['infrastructureLogging']

@@ -52,7 +52,7 @@
         "./lib/extension.d.ts"
       ],
       "theme": [
-        "./lib/theme.d.ts"
+        "./lib/theme.types.d.ts"
       ]
     }
   },
@@ -60,8 +60,8 @@
     "@jest/globals": "29.0.3",
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@skypack/package-check": "0.2.2",
-    "@types/lodash": "4.14.185",
-    "@types/node": "16.11.48",
+    "@types/lodash": "4.14.186",
+    "@types/node": "16.11.64",
     "@types/react": "17.0.50",
     "@types/react-dom": "17.0.17",
     "react": "17.0.2",

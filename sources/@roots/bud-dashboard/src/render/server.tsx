@@ -1,10 +1,11 @@
+import {networkInterfaces} from 'node:os'
+
 import type {Bud} from '@roots/bud-framework/bud'
 import {Box, Text} from '@roots/bud-support/ink'
 import Link from '@roots/bud-support/ink-link'
 import {isString} from '@roots/bud-support/lodash-es'
 import React from '@roots/bud-support/react'
 import figures from 'figures'
-import {networkInterfaces} from 'node:os'
 
 import * as theme from './format.js'
 
@@ -18,7 +19,9 @@ const formatUrl = (host: string, protocol: string, port: string) =>
   }`
 
 const getServer = (app: Bud) => {
-  const {protocol, port, hostname: internal} = app.server.connection.url
+  const {protocol, port, hostname: internal} = app.server?.connection?.url
+
+  if (!internal || !port || !protocol) return false
 
   return {
     internal: formatUrl(internal, protocol, port),
@@ -70,30 +73,34 @@ export const Server = ({
             </Box>
           )}
 
-          <Box flexDirection="row">
-            <Box marginRight={1}>
-              <Text dimColor>├─ internal:</Text>
-            </Box>
+          {server ? (
+            <Box flexDirection="row">
+              <Box marginRight={1}>
+                <Text dimColor>├─ internal:</Text>
+              </Box>
 
-            <Box>
-              {/* @ts-ignore */}
-              <Link url={server.internal}>
-                <Text>{server.internal}</Text>
-              </Link>
+              <Box>
+                {/* @ts-ignore */}
+                <Link url={server.internal}>
+                  <Text>{server.internal}</Text>
+                </Link>
+              </Box>
             </Box>
-          </Box>
+          ) : null}
 
-          <Box flexDirection="row">
-            <Box marginRight={1}>
-              <Text dimColor>└─ external:</Text>
+          {server ? (
+            <Box flexDirection="row">
+              <Box marginRight={1}>
+                <Text dimColor>└─ external:</Text>
+              </Box>
+              <Box>
+                {/* @ts-ignore */}
+                <Link url={server.external}>
+                  <Text>{server.external}</Text>
+                </Link>
+              </Box>
             </Box>
-            <Box>
-              {/* @ts-ignore */}
-              <Link url={server.external}>
-                <Text>{server.external}</Text>
-              </Link>
-            </Box>
-          </Box>
+          ) : null}
 
           <Box
             marginTop={1}

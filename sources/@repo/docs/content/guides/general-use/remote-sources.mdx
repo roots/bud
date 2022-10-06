@@ -65,13 +65,13 @@ import * as preact from 'unpkg:preact'
 You can add your own sources
 
 ```ts title="bud.config.mjs"
-app.cdn.setSource('localhost', 'https://localhost:8080/')
+bud.cdn.setSource('localhost', 'https://localhost:8080/')
 ```
 
 If you want to remove a source it's easy to access the mapping directly:
 
 ```ts title="bud.config.mjs"
-app.cdn.sources.delete('gist')
+bud.cdn.sources.delete('gist')
 ```
 
 ## Module caching

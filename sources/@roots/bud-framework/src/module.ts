@@ -1,7 +1,8 @@
+import {join, normalize, relative} from 'node:path'
+
 import {bind, memo} from '@roots/bud-support/decorators'
 import {resolve} from 'import-meta-resolve'
 import {createRequire} from 'module'
-import {join, normalize, relative} from 'node:path'
 import type {Signale} from 'signale'
 import {fileURLToPath, pathToFileURL} from 'url'
 
@@ -20,6 +21,11 @@ export class Module {
    */
   public require: NodeRequire
 
+  /**
+   * Logger
+   *
+   * @public
+   */
   public logger: Signale
 
   /**
@@ -47,12 +53,16 @@ export class Module {
   @bind
   @memo()
   public async getDirectory(signifier: string, parent?: string) {
-    return await this.resolve(signifier, parent)
-      .then(path =>
-        relative(parent ?? this.app.root.context.basedir, path),
-      )
-      .then(path => path.split(signifier).shift())
-      .then(path => this.app.path(path as any, signifier))
+    try {
+      return await this.resolve(signifier, parent)
+        .then(path =>
+          relative(parent ?? this.app.root.context.basedir, path),
+        )
+        .then(path => path.split(signifier).shift())
+        .then(path => this.app.root.path(path as any, signifier))
+    } catch (error) {
+      throw error
+    }
   }
 
   /**
@@ -102,7 +112,7 @@ export class Module {
         signifier,
         this.makeContextURL(context) as unknown as string,
       )
-      this.app.success(`resolved`, signifier)
+      this.logger.success(`resolved`, signifier, `to`, resolvedPath)
       return normalize(fileURLToPath(resolvedPath))
     } catch (err) {
       this.logger.info(
@@ -169,11 +179,6 @@ export class Module {
   @bind
   protected makeContextURL(context?: string | URL): URL {
     context = context ?? this.app.root.path(`package.json`)
-
-    return context instanceof URL
-      ? context
-      : pathToFileURL(
-          !context ? this.app.root.path(`package.json`) : context,
-        )
+    return context instanceof URL ? context : pathToFileURL(context)
   }
 }

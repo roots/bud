@@ -63,11 +63,11 @@
     "@roots/bud-build": "workspace:sources/@roots/bud-build",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.11.48",
+    "@types/node": "16.11.64",
     "webpack": "5.74.0"
   },
   "dependencies": {
-    "esbuild-loader": "2.19.0",
+    "esbuild-loader": "2.20.0",
     "ts-node": "10.9.1",
     "tslib": "2.4.0"
   },

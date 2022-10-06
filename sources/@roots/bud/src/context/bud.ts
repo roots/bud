@@ -1,7 +1,7 @@
 import {bind} from '@roots/bud-support/decorators'
 import {json} from '@roots/bud-support/filesystem'
 import fs from '@roots/bud-support/fs-jetpack'
-import {dirname, join, resolve, sep} from 'node:path/posix'
+import {dirname, join, resolve, sep} from 'node:path'
 import {fileURLToPath} from 'node:url'
 
 /**

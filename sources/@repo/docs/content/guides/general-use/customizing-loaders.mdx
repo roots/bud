@@ -218,6 +218,6 @@ bud.build.items.precss.setOptions({esModule: false})
 bud.build
   .makeRule()
   .setTest(({hooks}) => hooks.filter(`pattern.vue`))
-  .setInclude([app => app.path(`@src`)])
+  .setInclude([bud => bud.path(`@src`)])
   .setUse(items => [`vue`, ...items])
 ```

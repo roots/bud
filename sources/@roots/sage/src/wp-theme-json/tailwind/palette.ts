@@ -50,10 +50,7 @@ export interface toWordPressEntries {
     Array<string>,
   ]): WordPressColors
 }
-export const toWordPressEntries: toWordPressEntries = ([entry, path]: [
-  [string, string | TailwindColors],
-  Array<string>,
-]): WordPressColors => {
+export const toWordPressEntries: toWordPressEntries = ([entry, path]) => {
   const [name, value] = entry
 
   if (!isString(value)) {
@@ -77,7 +74,7 @@ export const toWordPressEntries: toWordPressEntries = ([entry, path]: [
 export interface transform {
   (palette: TailwindColors): WordPressColors
 }
-export const transform: transform = (palette: TailwindColors) =>
-  Object.entries(palette ?? {})
+export const transform: transform = palette =>
+  Object.entries(palette)
     .map(i => [i, []])
     .flatMap(toWordPressEntries)

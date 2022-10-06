@@ -16,7 +16,7 @@ You can choose to use the bud extensions API directly in order to register an ex
 
 ```js title="bud.config.mjs"
 import BudMDX from '@roots/bud-mdx'
-export default async app => {
+export default async bud => {
   await bud.extensions.add(BudMDX)
 }
 ```
@@ -26,7 +26,7 @@ This means that you can add basically any Webpack plugin as demonstrated above.
 
 ```js title="bud.config.mjs"
 import BrowserSyncWebpackPlugin from 'browser-sync-webpack-plugin'
-export default async app => {
+export default async bud => {
   await bud.extensions.add(new BrowserSyncWebpackPlugin({...options}))
 }
 ```

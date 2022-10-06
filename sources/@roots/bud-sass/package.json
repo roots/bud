@@ -69,9 +69,10 @@
   },
   "devDependencies": {
     "@jest/globals": "29.0.3",
+    "@repo/test-kit": "workspace:sources/@repo/test-kit",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.11.48",
-    "postcss": "8.4.16",
+    "@types/node": "16.11.64",
+    "postcss": "8.4.17",
     "stylelint": "14.9.1",
     "webpack": "5.74.0"
   },

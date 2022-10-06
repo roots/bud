@@ -1,9 +1,9 @@
 body {
-  @apply font-sans;
+  @apply font-sans text-custom;
 }
 
 #root {
-  @apply text-3xl font-medium text-indigo-500;
+  @apply font-medium text-indigo-500 text-xl;
 
   background: url('~@images/image.jpeg');
 }

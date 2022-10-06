@@ -1,0 +1,29 @@
+---
+slug: '6.3.5'
+title: 'Release: 6.3.5'
+description: 'Release notes for bud.js 6.3.5'
+date: 2022-07-26
+author: Kelly Mears
+author_title: Lead developer
+author_url: https://github.com/kellymears
+author_image_url: https://avatars.githubusercontent.com/u/397606?v=4
+tags: [release, 6.3]
+---
+
+<!--truncate-->
+
+## 🩹 Fix: resolved paths containing spaces
+
+Paths resolved by bud.js's module resolve utility had spaces replaced with `%20` in the path. This replacement was being made
+by `import-module-resolve`'s `resolve` function, which treats paths as browser-compatible URIs.
+
+This small patch replaces `%20` with ` ` (U+0020) before returning resolved paths.
+
+## ℹ️ Release information
+
+- 📦 deps: update @swc/core to v1.2.220 (#1610)
+- 📦 deps: update netlify-cli to v10.12.1 (#1612)
+- 🩹 fix(patch): remove fn from allowed uris array (#1609)
+- 🩹 fix(patch): directory containing spaces (#1608)
+
+For more information [review the diff to see what's changed](https://github.com/roots/bud/compare/v6.3.4...v6.3.5).

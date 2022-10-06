@@ -1,0 +1,49 @@
+---
+slug: '6.3.2'
+title: 'Release: 6.3.2'
+description: 'Release notes for bud.js 6.3.2'
+date: 2022-07-15
+author: Kelly Mears
+author_title: Lead developer
+author_url: https://github.com/kellymears
+author_image_url: https://avatars.githubusercontent.com/u/397606?v=4
+tags: [release, 6.3]
+---
+
+Important fixes for roots/sage projects using acorn@v2
+
+<!--truncate-->
+
+## 🩹 Fix: HMR failures when there are semantic errors in application code
+
+An internal misconfiguration could have resulted in some app code errors hanging the HMR middleware. This has been addressed.
+
+## 🩹 Fix: `bud clean` command
+
+This command has been fixed. The problem stemmed from a change made for the benefit of multi-compilers in v6.
+
+## 🩹 Fix: @roots/sage public path (when using acorn v2)
+
+I didn't realize the project I was using to test bud in the context of Trellis/Bedrock/Acorn/Sage was using acorn v3 (which is still in alpha).
+
+This caused some problems with public path in roots/sage projects using acorn@v2. Whoops!
+
+Moving forward, I have set up an explicit e2e testing environment which includes acorn@v2 and acorn@v3 projects. Right now it is testing hmr compilation works in the browser.
+
+In the future, there will be additional tests for:
+
+- proxied wordpress uploads
+- sage `@asset` directive
+
+## ⏪ Revert: chunk loading and formatting for es modules
+
+This change from [v6.3.1](https://bud.js.org/blog/v6.3.1#fix-chunk-loading-and-formatting-for-es-modules) has been reverted. Still, it is our current hope that users who enable esm
+and have set a compatible build target will output es modules. What we're reverting is an enforcement of esm as an output format.
+
+It turns out webpack also configures the `output.chunkFormat` and `output.chunkLoading` values based on the application's build `target` option, which is usually set in a browserslist config.
+
+In the case of conflict, the behavior has been varied but largely undesirable. Additional testing is required in order to have any confidence in the behavior that will result from settings these values.
+
+## Release information
+
+For more information [review the diff to see what's changed](https://github.com/roots/bud/compare/v6.3.1...v6.3.2).

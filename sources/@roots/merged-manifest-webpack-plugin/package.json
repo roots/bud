@@ -45,8 +45,8 @@
     "@jest/globals": "29.0.3",
     "@skypack/package-check": "0.2.2",
     "@types/fs-extra": "9.0.13",
-    "@types/lodash": "4.14.185",
-    "@types/node": "16.11.48",
+    "@types/lodash": "4.14.186",
+    "@types/node": "16.11.64",
     "webpack": "5.74.0"
   },
   "dependencies": {

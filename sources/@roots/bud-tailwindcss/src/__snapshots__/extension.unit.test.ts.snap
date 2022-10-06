@@ -5,6 +5,12 @@ exports[`@roots/bud-tailwindcss extension should produce a static module 1`] = `
 "
 `;
 
+exports[`@roots/bud-tailwindcss extension should resolve tailwind config values (filter extends) 1`] = `
+{
+  "primary": "red",
+}
+`;
+
 exports[`@roots/bud-tailwindcss extension should resolve tailwind config values 1`] = `
 {
   "amber": {
@@ -513,3 +519,7 @@ exports[`@roots/bud-tailwindcss extension should set importables when generateIm
   "zIndex",
 ]
 `;
+
+exports[`@roots/bud-tailwindcss extension should throw when key does not exist 1`] = `"@roots/bud-tailwindcss: foo is not a valid tailwind theme key."`;
+
+exports[`@roots/bud-tailwindcss extension should throw when key does not exist in extended config (filter extends) 1`] = `"The key "lineHeight" is not extended in your tailwind config."`;

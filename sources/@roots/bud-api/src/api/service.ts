@@ -82,13 +82,14 @@ export class Api extends Base.Service {
     )
 
     if (!this.has(name)) {
-      this.app.error(
-        `bud.api.bindFacade error`,
-        `${name} is not a function`,
-      )
+      throw new Error(`bud.api.call error: ${name} is not a function`)
     }
 
-    return await this.get(name).call(this.app, ...args)
+    try {
+      return await this.get(name).call(this.app, ...args)
+    } catch (error) {
+      throw error
+    }
   }
 
   /**
@@ -102,14 +103,15 @@ export class Api extends Base.Service {
     await Promise.all(
       this.queue.map(async ([name, args], i) => {
         this.trace.push([name, ...args])
-        delete this.queue[i]
 
         try {
           await this.call(name, ...args)
         } catch (error) {
-          this.app.error(`Error calling`, name, error)
+          throw error
         }
       }),
     )
+
+    this.queue = []
   }
 }

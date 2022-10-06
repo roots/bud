@@ -327,7 +327,9 @@ export class Bud {
       this.context.args.log === false
     )
       return this
+
     this.logger.instance.log(...this.formatLogMessages(messages))
+
     return this
   }
 

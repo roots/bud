@@ -6,7 +6,13 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
-import {get, isFunction, isUndefined} from '@roots/bud-support/lodash-es'
+import {
+  get,
+  has,
+  isFunction,
+  isUndefined,
+} from '@roots/bud-support/lodash-es'
+import defaultConfig from 'tailwindcss/defaultConfig.js'
 import pluginUtils from 'tailwindcss/lib/util/pluginUtils.js'
 import resolveConfig from 'tailwindcss/resolveConfig.js'
 import type {Config, ThemeConfig} from 'tailwindcss/types/config'
@@ -33,6 +39,20 @@ type ResolvedConfig = Partial<{
 })
 export default class BudTailwindCss extends Extension {
   /**
+   * Get config module
+   * @public
+   */
+  public get config() {
+    return (
+      this.app.context.config?.[`tailwind.config.js`] ??
+      this.app.context.config?.[`tailwind.config.mjs`] ??
+      this.app.context.config?.[`tailwind.config.cjs`] ?? {
+        module: defaultConfig,
+      }
+    )
+  }
+
+  /**
    * Resolved tailwind config
    *
    * @remarks
@@ -41,15 +61,7 @@ export default class BudTailwindCss extends Extension {
    * @public
    */
   public get theme(): ResolvedConfig {
-    const configDescription =
-      this.app.context.config[`tailwind.config.js`] ??
-      this.app.context.config[`tailwind.config.mjs`] ??
-      this.app.context.config[`tailwind.config.cjs`]
-
-    return Object.assign(
-      {},
-      {...resolveConfig(configDescription.module).theme},
-    )
+    return Object.assign({}, {...resolveConfig(this.config?.module).theme})
   }
 
   /**
@@ -77,11 +89,38 @@ export default class BudTailwindCss extends Extension {
    * @public
    */
   @bind
-  public resolveTailwindConfigValue<
-    K extends `${keyof ThemeConfig & string}`,
-  >(key: K): Config {
+  public resolveThemeValue<K extends `${keyof ThemeConfig & string}`>(
+    key: K,
+    extendedOnly?: boolean,
+  ): Config[K] {
+    if (!has(this.theme, key)) {
+      throw new Error(
+        `@roots/bud-tailwindcss: ${key} is not a valid tailwind theme key.`,
+      )
+    }
+
     const rawValue = this.theme[key]
-    return isFunction(rawValue) ? rawValue(pluginUtils) : rawValue
+    const value = isFunction(rawValue) ? rawValue(pluginUtils) : rawValue
+
+    if (!extendedOnly) return value
+
+    if (isUndefined(this.config.module?.theme?.extend?.[key]))
+      throw new Error(
+        `The key "${key}" is not extended in your tailwind config.`,
+      )
+
+    const extended =
+      typeof this.config.module?.theme?.extend?.[key] === `function`
+        ? this.config.module?.theme?.extend?.[key](pluginUtils)
+        : this.config.module?.theme?.extend?.[key]
+
+    return Object.entries(value).reduce(
+      (a, [k, v]) => ({
+        ...a,
+        ...(Object.keys(extended).includes(k) ? {[k]: v} : {}),
+      }),
+      {},
+    )
   }
 
   /**
@@ -133,31 +172,25 @@ export default class BudTailwindCss extends Extension {
 
     this.logger.success(`postcss configured for tailwindcss`)
 
-    if (this.getOption(`generateImports`) !== false) {
-      await this.app.extensions.add({
-        label: `bud-tailwindcss-virtual-module`,
-        make: async () => {
-          return new WebpackVirtualModules(
-            this.importableKeys.reduce(
-              (acc, key) => ({
-                ...acc,
-                [this.app.path(
-                  `@src`,
-                  `__bud`,
-                  `@tailwind`,
-                  `${key}.mjs`,
-                )]: this.makeStaticModule(key),
-              }),
-              {},
-            ),
-          )
-        },
-      })
+    if (this.getOption(`generateImports`) === false) return
+    await this.app.extensions.add({
+      label: `bud-tailwindcss-virtual-module`,
+      make: async () =>
+        new WebpackVirtualModules(
+          this.importableKeys.reduce(
+            (acc, key) => ({
+              ...acc,
+              [this.app.path(`@src`, `__bud`, `@tailwind`, `${key}.mjs`)]:
+                this.makeStaticModule(key),
+            }),
+            {},
+          ),
+        ),
+    })
 
-      this.app.hooks.async(`build.resolve.alias`, async alias => ({
-        ...alias,
-        [`@tailwind`]: `${this.app.path(`@src`, `__bud`, `@tailwind`)}`,
-      }))
-    }
+    this.app.hooks.async(`build.resolve.alias`, async alias => ({
+      ...alias,
+      [`@tailwind`]: `${this.app.path(`@src`, `__bud`, `@tailwind`)}`,
+    }))
   }
 }

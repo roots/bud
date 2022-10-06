@@ -11,7 +11,7 @@ import TabItem from '@theme/TabItem'
 
 Create a new, configurable instance of Bud.
 
-For more context on how this might be useful check out [the guide on multi-compiler configurations](/guides/general-use/multi-compiler).
+For more context on how this might be useful check out [the guide on multi-instance configurations](/guides/general-use/multi-instance).
 
 ## Usage
 
@@ -35,7 +35,7 @@ export default async bud => {
   bud.make(
     {
       name: 'compiler-b',
-      basedir: bud.path('./compiler-a'),
+      basedir: bud.path('./compiler-b'),
     },
     async child => {
       child.entry('app', 'app.js')
@@ -50,4 +50,4 @@ Related:
 
 Guides:
 
-- [multi-compiler guide](/guides/general-use/multi-compiler)
+- [multi-instance guide](/guides/general-use/multi-instance)

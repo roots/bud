@@ -21,13 +21,13 @@
     "@repo/logger": "workspace:sources/@repo/logger",
     "@types/fs-extra": "9.0.13",
     "@types/lodash-es": "4.17.6",
-    "@types/node": "16.11.48",
+    "@types/node": "16.11.64",
     "@vercel/ncc": "0.34.0",
     "download-package-tarball": "1.0.7",
     "fs-extra": "10.1.0",
     "get-package-json-from-registry": "2.2.2",
     "lodash-es": "4.17.21",
-    "npm-package-arg": "9.1.0",
+    "npm-package-arg": "9.1.2",
     "registry-info": "1.0.0"
   }
 }

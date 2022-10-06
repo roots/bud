@@ -1,0 +1,52 @@
+---
+slug: 6.4.5
+title: 6.4.5
+description: Release notes for bud.js 6.4.5
+date: 2022-10-03
+author: Kelly Mears
+author_title: Lead developer
+author_url: https://github.com/kellymears
+author_image_url: https://avatars.githubusercontent.com/u/397606?v=4
+tags: [release, 6.4]
+---
+
+A bugfix release for bud 6.4.
+
+<!--truncate-->
+
+## ✨ [@roots/bud-preset-wordpress](https://bud.js.org/extensions/bud-preset-wordpress): improve handling of `WP_HOME`
+
+`WP_HOME` is now automatically set as a _fallback_ proxy value. This means that if you don't call [bud.proxy](https://bud.js.org/docs/bud.proxy) value in your `bud.config.js` file, the extension will attempt to use `WP_HOME` (if it is available and is a string value).
+
+Previously, this value was set up front, which could cause errors if the value was malformed.
+
+## 🩹 [@roots/sage](https://bud.js.org/extensions/sage): `bud.wpjson.useTailwindFontSize` mutates config
+
+This function no longer mutates the tailwind config. This caused tailwind to not generate css for font sizes.
+
+## ✨ [@roots/sage](https://bud.js.org/extensions/sage): filter theme.json values to those used in `theme.extend`
+
+If you wish to limit generated values in `theme.json` to those included in `theme.extend`, you can now do so with an optional parameter passed to `useTailwindFontFamily`, `useTailwindColors`, and `useTailwindFontSize`.
+
+```js
+export default async bud => {
+  /**
+   * Limit generated values to those used in theme.extend
+   */
+  bud.wpjson.useTailwindFontFamily(true)
+}
+```
+
+If called with no arguments, the default behavior is to generate all values resolved by tailwindcss.
+
+## ⚠️ [@roots/bud-tailwindcss](https://bud.js.org/extensions/bud-tailwindcss): `bud.tailwindcss.resolveTailwindThemeValue` renamed to `bud.tailwindcss.resolveThemeValue`
+
+This is an undocumented method but some of you may very well be using it. It's name changed.
+
+## 🩹 fix: `--browser` flag not working
+
+Regression introduced in 6.4.0. Fixed (with added unit tests).
+
+## ℹ️ Release information
+
+For more information [review the diff to see what's changed](https://github.com/roots/bud/compare/v6.4.4...v6.4.5).

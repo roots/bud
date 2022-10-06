@@ -55,11 +55,11 @@
   "devDependencies": {
     "@jest/globals": "29.0.3",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.11.48",
+    "@types/node": "16.11.64",
     "@types/vinyl": "2.0.6"
   },
   "dependencies": {
-    "critical": "5.0.2",
+    "critical": "5.0.3",
     "helpful-decorators": "2.1.0",
     "tslib": "2.4.0",
     "vinyl": "^2.2.1",

@@ -52,8 +52,8 @@
   "devDependencies": {
     "@jest/globals": "29.0.3",
     "@skypack/package-check": "0.2.2",
-    "@types/lodash": "4.14.185",
-    "@types/node": "16.11.48"
+    "@types/lodash": "4.14.186",
+    "@types/node": "16.11.64"
   },
   "dependencies": {
     "helpful-decorators": "2.1.0",

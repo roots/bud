@@ -16,39 +16,51 @@ Common examples:
 
 - `highlight.js`
 - various `scss` frameworks
+- a project that needs to source modules from multiple directories
 
 ## Adding sources
 
-You can be specific about what you want to include for transpilation with something like the following:
+You should make modifications to transpiler sources within a `config.after` action.
+Some extensions will not register build rules until after the config file is processed;
+using this hook will guarantee that your customization takes precedence.
 
 ```ts
-bud.build.rules.js.setInclude([
-  bud => bud.path('@src'),
-  bud => bud.path('@modules/some-untranspiled-pkg'),
-])
+bud.hooks.action(`config.after`, async bud => {
+  bud.build.rules.js.setInclude([
+    bud => bud.path('@src'),
+    bud => bud.path('@modules/some-untranspiled-pkg'),
+  ])
+})
 ```
 
 :::info
 
-`@modules` is a bud.path built-in handle referencing `node_modules`
+`@modules` is a [bud.path](/docs/bud.path) built-in handle referencing `node_modules`
 
 :::
 
 Or, you can be broad:
 
 ```ts
-bud.build.rules.js.setInclude([
-  bud => bud.path('@src'),
-  bud => bud.path('@modules'),
-])
+bud.hooks.action(`config.after`, async bud => {
+  bud.build.rules.js.setInclude([
+    bud => bud.path('@src'),
+    bud => bud.path('@modules'),
+  ])
+})
 ```
 
 To be maximally accepting of what you want to transpile, you can use the following snippet:
 
 ```ts
-Object.values(bud.build.rules).map(rule =>
-  rule.setInclude([bud => bud.path('@src'), bud => bud.path('@modules')]),
-)
+bud.hooks.action(`config.after`, async bud => {
+  Object.values(bud.build.rules).map(rule =>
+    rule.setInclude([
+      bud => bud.path('@src'),
+      bud => bud.path('@modules'),
+    ]),
+  )
+})
 ```
 
 In general, we would advise being as restrictive as possible when it comes to whitelisting transpiler sources.

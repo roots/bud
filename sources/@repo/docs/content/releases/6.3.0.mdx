@@ -1,0 +1,160 @@
+---
+slug: '6.3.0'
+title: 'Release: 6.3.0'
+description: 'Release notes for bud.js 6.3.0'
+date: 2022-07-01
+author: Kelly Mears
+author_title: Lead developer
+author_url: https://github.com/kellymears
+author_image_url: https://avatars.githubusercontent.com/u/397606?v=4
+tags: [release, 6.3]
+---
+
+import CodeBlock from '@theme/CodeBlock'
+
+<!--truncate-->
+
+## ✨ Roots browserslist
+
+**@wordpress/browserslist-config** is licensed in a way that is not compatible with bud's overall licensing ideals. Accordingly, we're offering a drop-in replacement: **@roots/browserslist-config**.
+
+:::info sage
+
+Either covert your browserslist config to use **@roots/browserslist-config** or install **@wordpress/browserslist-config** as a dependency.
+
+:::
+
+There are three configurations available, pick the one most suited to your requirements:
+
+| Export                                 | Target          | Description                                   |
+| :------------------------------------- | :-------------- | :-------------------------------------------- |
+| **@roots/browserslist-config**         | >1% usage       | Similar to **@wordpress/browserslist-config** |
+| **@roots/browserslist-config/current** | >.5% usage      | Similar to **@facebook/docusaurus**           |
+| **@roots/browserslist-config/broad**   | last 3 versions | Similar to **@shopify/browserslist-config**   |
+
+## ✨ Simpler postcss config
+
+:::note
+
+<details>
+<summary>If you are addressing the default plugins by their handle you will need to update it</summary>
+
+- `postcss-import` becomes `import`
+- `postcss-nesting` becomes `nesting`
+- `postcss-preset-env` becomes `env`
+
+[More information added to docs](https://bud.js.org/extensions/bud-postcss)
+
+</details>
+
+:::
+
+Essentially 100% of postcss users want three things from postcss: `@import`, nesting, and the arcane magic that is `postcss-preset-env`. Some want more, but none want less. And out of that 100%, pretty much 100% of them want the plugins in that order.
+
+That 100% figure is absolutely a fabrication, but I do think there is something to it.
+
+Nobody wants nesting before import because it just doesn't work. Everything goes sideways _immediately_. You probably have an `@import` right at the top and postcss has no way to know what to do with it.
+
+So, that basic ordering is locked down now (at least by default &mdash; [check the docs for information on how to override](https://bud.js.org/extensions/bud-postcss)). The result is that its much simpler to play with the baseline config without breaking everything.
+
+<details>
+  <summary>
+    Example: add <strong>some-example-plugin</strong>
+  </summary>
+  <CodeBlock language="ts" title="bud.config.mjs">
+    {`bud.postcss.setPlugin('example-postcss-plugin')`}
+  </CodeBlock>
+</details>
+
+<details>
+  <summary>
+    Example: modify <strong>postcss-preset-env</strong> options
+  </summary>
+  <CodeBlock language="ts" title="bud.config.mjs">
+    {`bud.postcss.setPluginOptions('env', {
+  features: {
+    customProperties: false,
+  },
+})`}
+  </CodeBlock>
+</details>
+
+## ✨ Better bundles
+
+It's pretty passe to just go throwing the entirety of `node_modules` into a `vendor.js` file with [bud.splitChunks](https://bud.js.org/docs/bud.splitChunks).
+
+Why not be cool and target only the dependencies that benefit from it?
+
+Introducing a better, simpler way to code split: **bud.bundle**.
+
+```ts title="bud.config.mjs"
+bud.bundle('react')
+```
+
+Or, group some dependencies you always use together:
+
+```ts title="bud.config.mjs"
+bud.bundle('react', ['react', 'react-dom'])
+```
+
+Nice chunk!
+
+You're not restricted to `node_modules`, use your own code with it too, if you want. The only rule is that the chunk members are being addressed by directory. So, to match your own code you need to make a directory for it.
+You can always use `bud.splitChunks` if you need more control than that.
+
+## 🩹 Safer env expansion
+
+**bud.js** still sources envvars from process and its path, but will no longer attempt to expand values outside of the `.env` found in the project root directory.
+
+This could cause issues if `${` and other such character strings were used in bud's path without being escaped.
+
+## 💭 Extension specific notes
+
+### ✨ @roots/sage: dynamic imports
+
+If you're using **@roots/sage**, you should try doing a dynamic import with `@roots/sage/client/lazy`:
+
+```ts title="src/index.js"
+import lazy from '@roots/sage/client/lazy'
+
+const makeConfetti = async () => {
+  await lazy(import('canvas-confetti'), confetti => confetti())
+}
+```
+
+:::info `lazy(import(`, really?
+
+`import` is statically analyzed so we can't ponyfill it. Even so, it's still less cumbersome. Not to mention the util is priced at $0.
+
+:::
+
+### 🩹 @roots/bud-vue: scoped styles
+
+A small configuration issue in the @roots/bud-vue extension has been fixed and scoped stylesheets should no longer make total destroy.
+
+## 💭 Notes on public path
+
+I'm just going to come out and say it: if you are not serving from web root you should specify a public path.
+
+This is what I'm imagining you saying right now:
+
+- "But, I shouldn't have to set a public path!"
+- "Setting a public path is unncessary"
+- "A base URL once robbed me on the L train and now I only take ubers"
+
+Here are my responses:
+
+- [vue cli requires publicPath outside of web root](https://cli.vuejs.org/config/#publicpath)
+- [next.js requires publicPath outside of web root](https://nextjs.org/docs/api-reference/next.config.js/basepath)
+- [vite requires publicPath outside of web root](https://vitejs.dev/guide/build.html#public-base-path)
+- [gatsby requires publicPath outside of web root](https://www.gatsbyjs.com/docs/how-to/previews-deploys-hosting/path-prefix/)
+- [create react app requires publicPath outside of web root](https://create-react-app.dev/docs/advanced-configuration/)
+
+In all seriousness we'll get more specific & explicit about this in the documentation but I can say that in the future bud will expect users not serving assets from web root to define a public path. Right now we characterize
+it as "if you want to use dynamic imports", but it will be simplifying to just assume it is set.
+
+I think it is a reasonable requirement and certainly a common one. And, for what it's worth, I'm afraid to take the L train, too.
+
+## Release information
+
+For more information [review the diff to see what's changed](https://github.com/roots/bud/compare/v6.2.0...v6.3.0).
