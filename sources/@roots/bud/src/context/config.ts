@@ -1,8 +1,9 @@
+import {basename, join, normalize} from 'node:path'
+
 import {bind} from '@roots/bud-support/decorators'
 import {json, yml} from '@roots/bud-support/filesystem'
 import fs from '@roots/bud-support/fs-jetpack'
 import {set} from '@roots/bud-support/lodash-es'
-import {basename, join, normalize} from 'node:path'
 
 interface ConfigFileDescription {
   name: string
