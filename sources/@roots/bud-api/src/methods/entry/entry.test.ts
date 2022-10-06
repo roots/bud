@@ -1,21 +1,16 @@
 import {describe, expect, it, jest} from '@jest/globals'
+import mockBud from '@repo/test-kit/mocks/bud'
 
 import {entry, method} from './entry.method.js'
 
-const callback = jest.fn() as any
-const bud = {
-  label: `bud`,
-  hooks: {
-    on: jest.fn((_label: string, value: any) => {
-      return callback(value())
-    }),
-  },
-} as any
+jest.unstable_mockModule(`@roots/bud`, () => ({default: mockBud}))
 
 describe(`bud.entry`, function () {
+  let bud
   let method: method
 
   beforeEach(async () => {
+    bud = await import(`@roots/bud`).then(({default: Bud}) => new Bud())
     method = entry.bind(bud)
     jest.clearAllMocks()
   })
@@ -61,6 +56,11 @@ describe(`bud.entry`, function () {
   })
 
   it(`should accept a string`, async () => {
+    const callback = jest.fn() as any
+    bud.hooks.on = jest.fn((_label: string, value: any) => {
+      return callback(value())
+    })
+
     await method(`foo`)
 
     expect(bud.hooks.on).toHaveBeenCalledWith(
@@ -70,12 +70,17 @@ describe(`bud.entry`, function () {
 
     expect(callback).toHaveBeenCalledWith(
       expect.objectContaining({
-        bud: {import: [`foo`]},
+        MOCK: {import: [`foo`]},
       }),
     )
   })
 
   it(`should accept an array`, async () => {
+    const callback = jest.fn() as any
+    bud.hooks.on = jest.fn((_label: string, value: any) => {
+      return callback(value())
+    })
+
     await method([`foo`])
 
     expect(bud.hooks.on).toHaveBeenCalledWith(
@@ -85,12 +90,17 @@ describe(`bud.entry`, function () {
 
     expect(callback).toHaveBeenCalledWith(
       expect.objectContaining({
-        bud: {import: [`foo`]},
+        MOCK: {import: [`foo`]},
       }),
     )
   })
 
   it(`should accept an object`, async () => {
+    const callback = jest.fn() as any
+    bud.hooks.on = jest.fn((_label: string, value: any) => {
+      return callback(value())
+    })
+
     await method({
       foo: `foo`,
     })

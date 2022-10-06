@@ -16,5 +16,7 @@ export const devtool: devtool = async function (
 
   app.hooks.on(`build.devtool`, input)
 
+  app.api.logger.success(`bud.devtool: devtool set`)
+
   return this
 }

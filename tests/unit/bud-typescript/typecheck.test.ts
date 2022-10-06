@@ -1,5 +1,5 @@
 import {factory} from '@repo/test-kit/bud'
-import type {Bud} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud'
 import BudTypescript from '@roots/bud-typescript'
 import BudTypeCheck from '@roots/bud-typescript/typecheck'
 

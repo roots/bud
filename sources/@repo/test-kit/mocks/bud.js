@@ -12,7 +12,9 @@ import logger from './logger'
 jest.unstable_mockModule(`@roots/bud-api`, async () => {
   return {
     default: jest.fn(() => ({
-      logger: {},
+      logger: {
+        success: jest.fn(),
+      },
     })),
   }
 })

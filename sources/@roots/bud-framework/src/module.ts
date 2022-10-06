@@ -164,6 +164,7 @@ export class Module {
       const modulePath = await this.resolve(signifier, context)
       const result = await import(modulePath)
       this.logger.success(`imported`, signifier, `from`, modulePath)
+
       return result?.default ?? result
     } catch (err) {
       this.logger.info(`Error importing`, signifier, err)

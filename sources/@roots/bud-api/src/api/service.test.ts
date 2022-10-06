@@ -1,5 +1,4 @@
 import {describe, expect, it, jest} from '@jest/globals'
-import type Bud from '@roots/bud'
 
 import {Api} from './service'
 
@@ -51,7 +50,6 @@ describe(`Api`, () => {
 
     // @ts-ignore
     expect(processQueue).toHaveBeenCalledTimes(1)
-    expect(mockBud.hooks.action).toHaveBeenCalledTimes(2)
   })
 
   it(`should have a method bindFacade()`, () => {
@@ -96,21 +94,25 @@ describe(`processQueue`, () => {
   // @ts-ignore
   let instance: Api = {}
 
-  beforeEach(async () => {
-    jest.clearAllMocks()
-    // @ts-ignore
-    instance = new Api(mockBud)
-  })
-
   it(`processQueue() should empty the queue and fill the trace`, async () => {
     // @ts-ignore
+    instance = new Api(mockBud)
+    // @ts-ignore
     const call = jest.spyOn(instance, `call`)
+    // @ts-ignore
+    instance.logger = {
+      info: jest.fn(),
+    }
+    instance.has = jest.fn(() => true)
+    // @ts-ignore
+    instance.get = jest.fn(() => () => {})
     instance.queue = [[`minimize`, []]]
 
-    try {
-      await instance.processQueue()
-    } catch (e) {}
-
+    await instance.processQueue()
+    expect(instance.logger.info).toHaveBeenCalled()
+    expect(instance.has).toHaveBeenCalled()
+    expect(instance.get).toHaveBeenCalled()
+    expect(instance.queue).toHaveLength(0)
     expect(call).toHaveBeenCalled()
     expect(instance.trace).toHaveLength(1)
   })

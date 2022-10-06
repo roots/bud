@@ -69,6 +69,10 @@ export const assets: method = async function assets(
     ],
   }))
 
+  app.api.logger.success(
+    `bud.copy: ${arrayedRequest.length} asset patterns added`,
+  )
+
   return app
 }
 

@@ -43,8 +43,6 @@ export class Api extends Base.Service {
   @bind
   public async registered() {
     await this.processQueue()
-    this.app.hooks.action(`config.after`, this.processQueue)
-    this.app.hooks.action(`build.before`, this.processQueue)
   }
 
   /**
@@ -100,18 +98,15 @@ export class Api extends Base.Service {
    */
   @bind
   public async processQueue() {
-    await Promise.all(
-      this.queue.map(async ([name, args], i) => {
-        this.trace.push([name, ...args])
+    const queue = this.queue
+    if (!queue.length) return
 
-        try {
-          await this.call(name, ...args)
-        } catch (error) {
-          throw error
-        }
-      }),
-    )
-
+    this.logger.info(`processing ${queue.length} queued calls`)
+    this.trace.push(...queue)
     this.queue = []
+
+    await Promise.all(
+      queue.map(async ([name, args]) => await this.call(name, ...args)),
+    )
   }
 }

@@ -41,6 +41,8 @@ export const entry: method = async function (...input) {
     records.reduce((a, [k, v]) => ({...a, [k]: v}), a),
   )
 
+  app.api.logger.success(`bud.entry: entrypoint(s) added`)
+
   return app
 }
 

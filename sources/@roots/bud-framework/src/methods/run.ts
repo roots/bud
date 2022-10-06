@@ -13,11 +13,7 @@ export interface run {
 export const run: run = async function (): Promise<void> {
   const app = this as Bud
 
-  try {
-    await configuration.process(app)
-  } catch (error) {
-    throw error
-  }
+  await configuration.process(app)
 
   try {
     const production = async () => {
