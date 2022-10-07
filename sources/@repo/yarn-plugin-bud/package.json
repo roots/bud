@@ -22,7 +22,7 @@
     "js-yaml": "4.1.0",
     "lodash": "4.17.21",
     "pm2": "5.2.0",
-    "semver": "7.3.7",
+    "semver": "7.3.8",
     "tslib": "2.4.0",
     "typescript": "4.8.4",
     "verdaccio": "5.13.1"
