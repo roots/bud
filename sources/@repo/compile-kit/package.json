@@ -1,7 +1,7 @@
 {
   "name": "@repo/compile-kit",
   "private": true,
-  "packageManager": "yarn@3.2.3",
+  "packageManager": "yarn@3.2.4",
   "type": "module",
   "engines": {
     "node": ">=16.0.0"
