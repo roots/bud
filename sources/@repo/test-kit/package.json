@@ -1,6 +1,6 @@
 {
   "name": "@repo/test-kit",
-  "packageManager": "yarn@3.2.3",
+  "packageManager": "yarn@3.2.4",
   "private": true,
   "type": "module",
   "exports": {
