@@ -154,6 +154,12 @@ export default class S3 {
     }
   }
 
+  /**
+   * Upload files to S3
+   *
+   * @param options - upload options
+   * @public
+   */
   public async upload({
     source,
     destination,
@@ -164,7 +170,7 @@ export default class S3 {
     destination?: string
     files?: string
     keep?: number | false
-  }) {
+  }): Promise<S3> {
     await globby(files, {cwd: source}).then(async files => {
       const descriptions = await Promise.all(
         files.map(async file => {
@@ -235,5 +241,7 @@ export default class S3 {
         })
       }
     })
+
+    return this
   }
 }

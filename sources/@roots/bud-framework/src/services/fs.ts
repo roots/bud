@@ -2,9 +2,24 @@ import FS, {S3} from '@roots/bud-support/filesystem'
 
 import type {Bud} from '../bud'
 
+/**
+ * filesystem
+ *
+ * @public
+ */
 export default class Service extends FS {
+  /**
+   * Service label
+   *
+   * @public
+   */
   public static label = `fs`
 
+  /**
+   * S3 instance
+   *
+   * @public
+   */
   public s3: S3
 
   /**
@@ -17,12 +32,18 @@ export default class Service extends FS {
     this.s3 = new S3()
   }
 
+  /**
+   * Upload files to S3
+   *
+   * @param options - upload options
+   * @public
+   */
   public upload(options?: {
     source?: string
     destination?: string
     files?: string
     keep?: number | false
-  }) {
+  }): Service {
     this.app.after(async app => {
       if (!options)
         options = {
@@ -42,5 +63,7 @@ export default class Service extends FS {
         },
       )
     })
+
+    return this
   }
 }
