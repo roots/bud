@@ -51,7 +51,8 @@ export default class Extensions extends Service {
     await Promise.all(
       this.app.context.extensions
         .filter(Boolean)
-        .map(async signifier => await this.import(signifier)),
+        .filter(this.isAllowed)
+        .map(async signifier => await this.import(signifier, true)),
     )
 
     await this.runAll(`init`)
@@ -153,18 +154,27 @@ export default class Extensions extends Service {
   }
 
   @bind
-  public filterApplicableExtensions(extensions: Array<string>) {
-    return extensions
-      .filter(
-        signifier =>
-          !this.app.context.manifest?.bud?.denylist ||
-          !this.app.context.manifest?.bud?.denylist.includes(signifier),
-      )
-      .filter(
-        signifier =>
-          !this.app.context.manifest?.bud?.allowlist ||
-          this.app.context.manifest?.bud?.allowlist.includes(signifier),
-      )
+  public isAllowed(signifier: string) {
+    return (
+      (!this.app.context.manifest?.bud?.denylist ||
+        !this.app.context.manifest.bud.denylist.includes(signifier)) &&
+      (!this.app.context.manifest?.bud?.allowlist ||
+        this.app.context.manifest.bud.allowlist.includes(signifier))
+    )
+  }
+
+  @bind
+  public isDirectDependency(signifier: string) {
+    return (
+      (this.app.context.manifest?.devDependencies &&
+        Object.keys(this.app.context.manifest.devDependencies).includes(
+          signifier,
+        )) ||
+      (this.app.context.manifest?.dependencies &&
+        Object.keys(this.app.context.manifest.dependencies).includes(
+          signifier,
+        ))
+    )
   }
 
   /**
@@ -177,85 +187,60 @@ export default class Extensions extends Service {
   public async import(
     signifier: string,
     fatalOnError = true,
-  ): Promise<Extension> {
-    if (
-      this.has(signifier) ||
-      this.unresolvable.has(signifier) ||
-      !this.filterApplicableExtensions([signifier]).length
-    ) {
-      this.logger.info(signifier, `extension is not importable`)
+  ): Promise<Extension | undefined> {
+    if (fatalOnError && this.unresolvable.has(signifier))
+      throw new Error(`Extension ${signifier} is not importable`)
+
+    if (this.has(signifier)) {
+      this.logger.info(signifier, `extension already imported`)
+      return
+    }
+
+    if (!this.isAllowed(signifier)) {
+      this.logger.info(signifier, `extension is not allowed`)
       return
     }
 
     this.logger.info(`importing`, signifier)
 
-    const extensionClass = fatalOnError
+    const extensionClass: ExtensionLiteral = fatalOnError
       ? await this.app.module.import(signifier)
       : await this.app.module.tryImport(signifier)
 
+    if (!extensionClass) return
+
     const instance = this.instantiate(extensionClass)
 
-    if (instance.dependsOn) {
-      await this.filterApplicableExtensions(
-        Array.from(instance.dependsOn),
-      ).reduce(async (promised: Promise<any>, signifier): Promise<any> => {
-        await promised
-        if (this.has(signifier) || this.unresolvable.has(signifier)) return
+    if (instance.dependsOn)
+      await Promise.all(
+        Array.from(instance.dependsOn)
+          .filter(this.isAllowed)
+          .filter(dependency => !this.has(dependency))
+          .map(async dependency => await this.import(dependency)),
+      )
 
-        await this.import(signifier)
+    if (instance.dependsOnOptional)
+      await Promise.all(
+        Array.from(instance.dependsOnOptional)
+          .filter(this.isAllowed)
+          .filter(optionalDependency => !this.has(optionalDependency))
+          .map(
+            async optionalDependency =>
+              await this.import(optionalDependency, false),
+          ),
+      )
 
-        if (!this.has(signifier) && fatalOnError) {
-          this.unresolvable.add(signifier)
-          this.logger.info(`missing dependency`, signifier)
-        }
-      }, Promise.resolve())
-    }
-
-    if (instance.dependsOnOptional) {
-      await this.filterApplicableExtensions(
-        Array.from(instance.dependsOnOptional),
-      ).reduce(async (promised: Promise<any>, signifier): Promise<any> => {
-        try {
-          await promised
-
-          if (this.has(signifier) || this.unresolvable.has(signifier))
-            return
-
-          await this.import(signifier, false)
-          if (!this.has(signifier)) this.unresolvable.add(signifier)
-        } catch (err) {}
-      }, Promise.resolve())
-    }
-
-    if (instance.optIn) {
-      await this.filterApplicableExtensions(
-        Array.from(instance.optIn),
-      ).reduce(async (promised: Promise<any>, signifier): Promise<any> => {
-        try {
-          await promised
-
-          if (
-            this.has(signifier) ||
-            this.unresolvable.has(signifier) ||
-            ![
-              ...(this.app.context.manifest?.devDependencies
-                ? Object.keys(this.app.context.manifest.devDependencies)
-                : []),
-              ...(this.app.context.manifest?.dependencies
-                ? Object.keys(this.app.context.manifest.dependencies)
-                : []),
-            ].includes(signifier)
-          ) {
-            return
-          }
-
-          await this.import(signifier)
-          if (!this.has(signifier)) {
-            this.unresolvable.add(signifier)
-          }
-        } catch (err) {}
-      }, Promise.resolve())
-    }
+    if (instance.optIn)
+      await Promise.all(
+        Array.from(instance.optIn)
+          .filter(this.isAllowed)
+          .filter(optInDependency => !this.has(optInDependency))
+          .filter(this.isDirectDependency)
+          .map(
+            async optInDependency =>
+              await this.import(optInDependency, false),
+          ),
+      )
 
     this.set(instance)
 
@@ -292,9 +277,8 @@ export default class Extensions extends Service {
         await this.run(extension, `init`)
         await this.run(extension, `register`)
         await this.run(extension, `boot`)
-      } catch (err) {
-        this.logger.error(err)
-        return Promise.reject()
+      } catch (error) {
+        throw error
       }
     }, Promise.resolve())
   }
@@ -318,7 +302,8 @@ export default class Extensions extends Service {
     methodName: Base.LifecycleMethods,
   ): Promise<this> {
     if (extension.meta[methodName] === true) return this
-    else extension.meta[methodName] = true
+
+    extension.meta[methodName] = true
 
     try {
       await this.runDependencies(extension, methodName)
@@ -328,8 +313,7 @@ export default class Extensions extends Service {
 
       return this
     } catch (error) {
-      this.logger.error(error)
-      this.app.fatal(error)
+      throw error
     }
   }
 
@@ -369,77 +353,42 @@ export default class Extensions extends Service {
       typeof extension === `string` ? this.get(extension) : extension
 
     if (extension.dependsOn) {
-      await Array.from(extension.dependsOn).reduce(
-        async (
-          promised: Promise<any>,
-          signifier: string,
-        ): Promise<any> => {
+      await Array.from(extension.dependsOn)
+        .filter(this.isAllowed)
+        .filter(signifier => !this.unresolvable.has(signifier))
+        .reduce(async (promised, signifier) => {
           await promised
+          if (!this.has(signifier)) await this.import(signifier)
 
-          try {
-            if (!this.has(signifier)) await this.import(signifier)
-
-            if (!this.get(signifier).meta[methodName])
-              await this.run(this.get(signifier), methodName)
-          } catch (error) {
-            this.logger.error(error)
-          }
-        },
-        Promise.resolve(),
-      )
-    }
-
-    if (extension.dependsOnOptional) {
-      await Array.from(extension.dependsOnOptional).reduce(
-        async (promised, signifier) => {
-          await promised
-
-          try {
-            if (!this.isOptedIn(signifier)) return
-            if (!this.has(signifier)) await this.import(signifier, false)
-            if (!this.has(signifier)) {
-              this.unresolvable.add(signifier)
-              return
-            }
-
+          if (!this.get(signifier).meta[methodName])
             await this.run(this.get(signifier), methodName)
-          } catch (error) {
-            this.logger.info(
-              `optional dependency`,
-              signifier,
-              `could not be imported`,
-            )
-          }
-        },
-        Promise.resolve(),
-      )
+        }, Promise.resolve())
     }
 
-    if (extension.optIn) {
-      await this.filterApplicableExtensions(
-        Array.from(extension.optIn),
-      ).reduce(async (promised: Promise<any>, signifier): Promise<any> => {
-        await promised
-
-        try {
-          if (!this.isOptedIn(signifier)) return
+    if (extension.dependsOnOptional)
+      await Array.from(extension.dependsOnOptional)
+        .filter(this.isAllowed)
+        .filter(signifier => !this.unresolvable.has(signifier))
+        .reduce(async (promised, signifier) => {
+          await promised
           if (!this.has(signifier)) await this.import(signifier, false)
-          if (!this.has(signifier)) {
-            this.unresolvable.add(signifier)
-            return
-          }
 
-          await this.run(this.get(signifier), methodName)
-        } catch (error) {
-          this.logger.info(
-            `extensions.runDependencies`,
-            `optIn`,
-            signifier,
-            error,
-          )
-        }
-      }, Promise.resolve())
-    }
+          if (!this.get(signifier).meta[methodName])
+            await this.run(this.get(signifier), methodName)
+        }, Promise.resolve())
+
+    if (extension.optIn)
+      await Array.from(extension.optIn)
+        .filter(this.isAllowed)
+        .filter(this.isDirectDependency)
+        .filter(signifier => !this.unresolvable.has(signifier))
+        .reduce(async (promised, signifier) => {
+          await promised
+          if (!this.has(signifier)) await this.import(signifier)
+
+          if (!this.get(signifier).meta[methodName])
+            await this.run(this.get(signifier), methodName)
+        }, Promise.resolve())
   }
 
   /**
@@ -461,16 +410,5 @@ export default class Extensions extends Service {
       (result: Array<ApplyPlugin>): Array<ApplyPlugin> =>
         result.filter(Boolean),
     )
-  }
-
-  protected isOptedIn(signifier: string) {
-    return ![
-      ...(this.app.context.manifest?.devDependencies
-        ? Object.keys(this.app.context.manifest.devDependencies)
-        : []),
-      ...(this.app.context.manifest?.dependencies
-        ? Object.keys(this.app.context.manifest.dependencies)
-        : []),
-    ].includes(signifier)
   }
 }

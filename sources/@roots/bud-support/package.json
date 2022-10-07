@@ -42,7 +42,9 @@
     "./clipanion": "./lib/dependencies/clipanion/index.js",
     "./decorators": "./lib/decorators/index.js",
     "./execa": "./lib/dependencies/execa/index.js",
+    "./filesystem": "./lib/filesystem/index.js",
     "./fs": "./lib/dependencies/fs/index.js",
+    "./fs-jetpack": "./lib/dependencies/fs-jetpack/index.js",
     "./globby": "./lib/dependencies/globby/index.js",
     "./highlight": "./lib/highlight/index.js",
     "./ink": "./lib/dependencies/ink/index.js",
@@ -70,8 +72,14 @@
       "execa": [
         "./lib/dependencies/execa/index.d.ts"
       ],
+      "filesystem": [
+        "./lib/filesystem/index.d.ts"
+      ],
       "fs": [
         "./lib/dependencies/fs/index.d.ts"
+      ],
+      "fs-jetpack": [
+        "./lib/dependencies/fs-jetpack/index.d.ts"
       ],
       "globby": [
         "./lib/dependencies/globby/index.d.ts"
@@ -107,10 +115,12 @@
     "@skypack/package-check": "0.2.2"
   },
   "dependencies": {
+    "@roots/filesystem": "workspace:sources/@roots/filesystem",
     "chalk": "5.0.1",
     "clipanion": "3.2.0-rc.12",
     "execa": "6.1.0",
     "fs-extra": "10.1.0",
+    "fs-jetpack": "5.0.0",
     "globby": "13.1.2",
     "helpful-decorators": "2.1.0",
     "highlight.js": "11.6.0",

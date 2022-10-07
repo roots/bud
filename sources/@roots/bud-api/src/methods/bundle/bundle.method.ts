@@ -32,12 +32,12 @@ export interface method {
  * @public
  */
 export const bundle: method = function (name, matcher) {
-  const ctx = this as Bud
+  const app = this as Bud
 
   const test = normalize(matcher ?? name)
 
-  ctx.hooks.on(`build.optimization.splitChunks`, splitChunks => {
-    const template = ctx.hooks.filter(`feature.hash`)
+  app.hooks.on(`build.optimization.splitChunks`, splitChunks => {
+    const template = app.hooks.filter(`feature.hash`)
       ? `[name].[contenthash].js`
       : `[name].js`
 
@@ -64,7 +64,9 @@ export const bundle: method = function (name, matcher) {
     }
   })
 
-  return ctx
+  app.api.logger.success(`bud.bundle: chunk settings registered`)
+
+  return app
 }
 
 const normalize = (matcher: string | Array<string> | RegExp): RegExp => {

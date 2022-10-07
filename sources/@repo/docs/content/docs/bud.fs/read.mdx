@@ -1,0 +1,39 @@
+---
+title: bud.fs.read
+description: Read a file
+sidebar_label: read
+---
+
+Read a file from the filesystem.
+
+You can request that the file contents be returned as a `string`, `buffer` or `json` object.
+
+## Usage
+
+_Most_ `bud.fs.read` operations will return a `string` by default.
+
+```typescript
+const str = await bud.fs.read(`readme.md`)
+```
+
+`.json` files will be returned as a `json` object. `bud.fs.read` is compatible with json5.
+
+```typescript
+const obj = await bud.fs.read(`package.json`)
+```
+
+and `.yml` or `.yaml` files will be returned as a `json` object.
+
+```typescript
+const obj = await bud.fs.read(`docker-compose.yml`)
+```
+
+You can explicitly pass the desired return type as the second argument.
+
+```typescript
+const str = await bud.fs.read(`readme.md`, `string`)
+const buffer = await bud.fs.read(`readme.md`, `buffer`)
+const json = await bud.fs.read(`.babelrc`, `json`)
+```
+
+If you attempt to read a file as `json` and it is not valid, an error will be thrown.

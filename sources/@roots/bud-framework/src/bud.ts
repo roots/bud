@@ -14,6 +14,7 @@ import type {Module} from './module'
 import * as parsers from './parsers/index.js'
 import type * as Service from './service'
 import type * as Api from './services/api.js'
+import type FS from './services/fs.js'
 import type * as Options from './types/options'
 import type * as Registry from './types/registry'
 import type * as Services from './types/services'
@@ -148,6 +149,8 @@ export class Bud {
 
   public extensions: Services.Extensions.Service
 
+  public fs: FS
+
   public hooks: Services.Hooks.Service
 
   public project: Services.Project.Service
@@ -157,6 +160,8 @@ export class Bud {
   public module: Module
 
   public server: Services.Server.Service
+
+  public after: methods.after
 
   public maybeCall: methods.maybeCall
 
@@ -198,8 +203,14 @@ export class Bud {
 
   public bindMethod: methods.bindMethod
 
+  /**
+   * @deprecated - use {@link FS.json | bud.fs.json}
+   */
   public json: typeof parsers.json5 = parsers.json5
 
+  /**
+   * @deprecated - use {@link FS.yml | bud.fs.yml}
+   */
   public yml: typeof parsers.yml = parsers.yml
 
   public value = Value

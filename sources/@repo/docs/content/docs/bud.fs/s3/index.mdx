@@ -1,0 +1,106 @@
+---
+title: bud.fs.s3
+description: S3 filesystem API
+sidebar_label: s3
+sidebar_position: 1
+---
+
+`bud.fs.s3` is a collection of utilities for working with the S3 cloud storage API.
+
+Several common operations are available through `bud.fs` directly (for convenience), but the full API is available through `bud.fs.s3`.
+
+## Aliased functions
+
+| Alias                   | Function                                     |
+| ----------------------- | -------------------------------------------- |
+| `bud.fs.setCredentials` | [`bud.fs.s3.setCredentials`](setCredentials) |
+| `bud.fs.setEndpoint`    | [`bud.fs.s3.setEndpoint`](setEndpoint)       |
+| `bud.fs.setRegion`      | [`bud.fs.s3.setRegion`](setRegion)           |
+| `bud.fs.setBucket`      | [`bud.fs.s3.setBucket`](setBucket)           |
+
+## Setup
+
+Digital Ocean users will want to specify the endpoint:
+
+```typescript
+bud.fs
+  .setCredentials({
+    accessKeyId: `***`,
+    secretAccessKey: `***`,
+  })
+  .setEndpoint(`https://sfo2.digitaloceanspaces.com`)
+  .setBucket('my-bucket')
+```
+
+AWS users will want to specify the region:
+
+```typescript
+bud.fs
+  .setCredentials({
+    accessKeyId: `***`,
+    secretAccessKey: `***`,
+  })
+  .setRegion('us-east-1')
+  .setBucket('my-bucket')
+```
+
+There is likely no need to set both. Unless you know what you're doing this is likely a mistake.
+
+## Uploading files
+
+`bud.fs.upload` is a synchronous function that can be used to upload files to S3 without having to mess with streams or buffers.
+
+In fact, if you are only wanting to upload the contents of your `dist` directory to S3, you can call `bud.fs.upload` with no arguments.
+
+```typescript
+bud.fs.upload()
+```
+
+This function takes an optional `options` object, which can be used to dial in the defaults, if needed.
+
+```typescript
+bud.fs.upload({
+  /* Directory to upload (local path) */
+  source: bud.path(`@dist`),
+
+  /* Upload to a specific directory in the bucket (remote path) */
+  destination: `bucket/path`,
+
+  /* Limit to matching files */
+  files: '**/*.js',
+
+  /* Keep the assets from the most recent x builds */
+  keep: 5,
+})
+```
+
+### the `keep` option
+
+The `keep` option is a special option that can be used to keep only the most recent `x` builds in the bucket. By default `keep` is set to `5`.
+
+When used, bud.js tracks the most recent builds in a file named `uploads-manifest.json`, stored in the root of the bucket. Each entry value lists all of the compilation assets in a one-dimensional array. The keys are the time of the corresponding compilation.
+
+Before uploading, bud.js checks the length of the tracked entries. if it exceeds the value specified by `keep`, bud.js makes a copy of the array items which are slated to be deleted and then deletes the oldest build from the manifest's entries.
+
+Then, it checks each of the assets from the deleted manifest entry against all the other entries which remain. If an asset is still a part of the any of the remaining entries, it is not deleted. If an asset is now orphaned (no reference remaining), it will be deleted.
+
+In other words, an asset will be deleted when:
+
+- It is currently a part of a build in `uploads-manifest.json`
+- It will no longer be a part of any build in `uploads-manifest.json` after the current compilation
+
+If bud.js attempts to delete an asset and it is not present in the bucket (for example: manually renamed or moved), it will silently move on to the next item.
+
+bud.js will not attempt to delete any file which is not listed in `uploads-manifest.json`. It is prefererred to keep a bucket solely for usage with the bud s3 uploader, but it should be safe to put other files in the bucket.
+
+If `uploads-manifest.json` is deleted bud will have no way of knowing which files were once a part of a build and will ignore everything. It will begin tracking again on the next compilation but any stale files will need to be dealt with manually.
+
+To disable tracking, you can pass `false` as the value of `keep`:
+
+```typescript
+bud.fs.upload({
+  source: bud.path(`@dist`),
+  /* will not attempt to manage assets */
+  keep: false,
+})
+```

@@ -24,14 +24,18 @@ class Configuration {
    */
   @bind
   public async run(description: any): Promise<unknown> {
-    this.app
-      .log(`processing configuration`, description.name)
-      .info(description)
-
     if (description.dynamic) {
-      const callback = description.module?.default ?? description.module
-      return await callback(this.app)
+      this.app.log(
+        `processing as dynamic configuration:`,
+        description.name,
+      )
+
+      const configCallable =
+        description.module?.default ?? description.module
+      await configCallable(this.app)
     } else {
+      this.app.log(`processing as static configuration:`, description.name)
+
       return await this.processStaticConfiguration(description)
     }
   }

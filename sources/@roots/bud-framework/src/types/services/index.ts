@@ -1,5 +1,6 @@
 import type * as Service from '../../service.js'
 import type * as Api from '../../services/api.js'
+import type FS from '../../services/fs.js'
 import type * as Build from './build'
 import type * as Cache from './cache'
 import type * as Compiler from './compiler'
@@ -21,6 +22,7 @@ export type {
   Hooks,
   Project,
   Server,
+  FS,
 }
 
 /**
@@ -36,6 +38,7 @@ export interface Registry extends Record<string, Service.Contract> {
   dashboard: Dashboard.Service
   env: Env.Service
   extensions: Extensions.Service
+  fs: FS & Service.Contract
   hooks: Hooks.Service
   project: Project.Service
   server: Server.Service

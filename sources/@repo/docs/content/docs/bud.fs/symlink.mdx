@@ -1,0 +1,18 @@
+---
+title: bud.fs.symlink
+description: Create a symbolic link
+sidebar_label: move
+---
+
+Create a symbolic link
+
+## Usage
+
+`bud.fs.symlink` takes a minimum of two arguments:
+
+- `value` - The path where the symbolic link should point
+- `path` - Where the symbolic link should be created
+
+```typescript
+await bud.fs.symlink(`symlink-to/points/to`, `symlink`)
+```

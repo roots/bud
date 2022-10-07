@@ -1,3 +1,4 @@
+import {after} from './after.js'
 import {bindMethod} from './bindMethod.js'
 import {close} from './close.js'
 import {container} from './container.js'
@@ -17,6 +18,7 @@ import {tap, tapAsync} from './tap.js'
 import {when} from './when.js'
 
 export {
+  after,
   bindMethod,
   close,
   container,

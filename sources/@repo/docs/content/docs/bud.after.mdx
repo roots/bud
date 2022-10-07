@@ -1,0 +1,19 @@
+---
+id: bud.after
+title: bud.after
+description: Do something after compilation has completed
+---
+
+**bud.after** can be used to do tasks after a compilation has completed.
+
+The callback it accepts is asynchronous, but `bud.after` itself is synchronous.
+
+## Usage
+
+```typescript
+export default async bud => {
+  bud.after(async bud => {
+    // Do something after the compilation has completed
+  })
+}
+```

@@ -65,12 +65,9 @@ export abstract class Service extends BaseService implements Base.Service {
       | ExtensionLiteral,
   ): Modules[K & string]
 
-  /**
-   * @public
-   */
-  public abstract filterApplicableExtensions(
-    extensions: Array<string>,
-  ): Array<string>
+  public abstract isAllowed(signifier: string): boolean
+
+  public abstract isDirectDependency(signifier: string): boolean
 
   /**
    * @public

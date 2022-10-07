@@ -1,0 +1,19 @@
+---
+title: bud.fs.s3.setPublic
+description: Set upload permissions
+sidebar_label: setPublic
+---
+
+Set whether or not to treat uploads as `public-read` or `private`. By default bud.js treats uploads as `public-read`.
+
+## Usage
+
+```typescript
+bud.fs.s3.setPublic()
+```
+
+Set as `private`:
+
+```typescript
+bud.fs.s3.setPublic(false)
+```

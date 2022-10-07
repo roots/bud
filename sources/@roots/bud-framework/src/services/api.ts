@@ -4,8 +4,14 @@ import type {Bud} from '../bud'
 import * as BaseService from '../service.js'
 
 export abstract class Service extends BaseService.Service {
+  /**
+   * @public
+   */
   public abstract bootstrap(): Promise<void>
 
+  /**
+   * @public
+   */
   public abstract registered(): Promise<void>
 
   /**

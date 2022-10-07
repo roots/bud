@@ -1,0 +1,31 @@
+---
+title: bud.fs.yml
+description: yml utilities
+sidebar_label: yml
+---
+
+Utilities for working with yml
+
+## Read
+
+Reads a yml file from the filesystem.
+
+```typescript
+const result = await bud.fs.yml.read(`config.yml`)
+```
+
+## Write
+
+Write a yml file to the filesystem.
+
+```typescript
+const result = await bud.fs.yml.write(`config.yml`, {foo: `bar`})
+```
+
+## Parse
+
+Parses a yml string.
+
+```typescript
+const result = bud.fs.yml.parse(`foo: bar`)
+```

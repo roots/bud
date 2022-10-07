@@ -1,7 +1,6 @@
 import {Service as BaseService} from '@roots/bud-framework/service'
 import type {Service} from '@roots/bud-framework/services/project'
 import {bind} from '@roots/bud-support/decorators'
-import * as fs from '@roots/bud-support/fs'
 import {omit} from '@roots/bud-support/lodash-es'
 import format from '@roots/bud-support/pretty-format'
 
@@ -37,9 +36,7 @@ export default class Project extends BaseService implements Service {
         `profile.json`,
       )
 
-      await fs.ensureFile(path)
-
-      await fs.writeFile(
+      await this.app.fs.write(
         path,
         this.app.json.stringify(
           {
@@ -75,8 +72,7 @@ export default class Project extends BaseService implements Service {
         `webpack.config.dump`,
       )
 
-      await fs.ensureFile(path)
-      await fs.writeFile(path, format(this.app.build.config))
+      await this.app.fs.write(path, format(this.app.build.config))
 
       this.app.success(`webpack.config.dump written to`, path)
     } catch (error) {

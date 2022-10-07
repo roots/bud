@@ -36,31 +36,54 @@
     "lib/"
   ],
   "type": "module",
-  "module": "./lib/index.d.ts",
+  "module": "./lib/index.ts",
+  "types": "./lib/index.d.ts",
   "exports": {
-    ".": "./lib/index.js"
+    ".": "./lib/index.js",
+    "./directories": "./lib/directories.js",
+    "./filesystem": "./lib/filesystem.js",
+    "./json": "./lib/json.js",
+    "./yml": "./lib/yml.js"
   },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.d.ts"
+      ],
+      "directories": [
+        "./lib/directories.d.ts"
+      ],
+      "filesystem": [
+        "./lib/filesystem.d.ts"
+      ],
+      "json": [
+        "./lib/json.d.ts"
+      ],
+      "yml": [
+        "./lib/yml.d.ts"
       ]
     }
   },
   "devDependencies": {
     "@jest/globals": "29.0.3",
-    "@roots/container": "workspace:sources/@roots/container",
     "@skypack/package-check": "0.2.2",
-    "@types/lodash-es": "4.17.6",
+    "@types/js-yaml": "4.0.5",
+    "@types/mime-types": "^2",
     "@types/node": "16.11.64",
-    "autobind-decorator": "2.4.0",
-    "fs-extra": "10.1.0",
-    "resolve-from": "5.0.0"
+    "@types/safe-json-stringify": "1.1.2"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "3.183.0",
+    "@aws-sdk/lib-storage": "3.183.0",
+    "@types/lodash-es": "4.17.6",
+    "fs-jetpack": "5.0.0",
     "globby": "13.1.2",
     "helpful-decorators": "2.1.0",
+    "js-yaml": "4.1.0",
+    "json5": "2.2.1",
     "lodash-es": "4.17.21",
+    "mime-types": "2.1.35",
+    "safe-json-stringify": "1.2.0",
     "tslib": "2.4.0"
   },
   "volta": {

@@ -1,9 +1,8 @@
 import {basename, join, normalize} from 'node:path'
 
-import * as json from '@roots/bud-framework/parsers/json5'
-import * as yml from '@roots/bud-framework/parsers/yml'
 import {bind} from '@roots/bud-support/decorators'
-import globby from '@roots/bud-support/globby'
+import {json, yml} from '@roots/bud-support/filesystem'
+import fs from '@roots/bud-support/fs-jetpack'
 import {set} from '@roots/bud-support/lodash-es'
 
 interface ConfigFileDescription {
@@ -40,38 +39,33 @@ export default class Config {
     )
   }
 
+  public constructor(public basedir: string) {}
+
   /**
    * Find configs
    *
    * @public
    */
   @bind
-  public async find(basedir: string): Promise<Config> {
-    const results = await globby(
-      [
+  public async find(): Promise<Config> {
+    const results = await fs.cwd(this.basedir).find({
+      recursive: false,
+      directories: false,
+      matching: [
         `*.{cts,mts,ts,cjs,mjs,js,json,toml,yml}`,
         `*rc`,
         join(`config`, `*.{cts,mts,ts,cjs,mjs,js,json,toml,yml}`),
         join(`config`, `*rc`),
       ],
-      {
-        absolute: true,
-        cwd: basedir,
-        dot: true,
-        gitignore: true,
-        onlyFiles: true,
-      },
-    )
+    })
 
-    results?.map((filePath: string) => {
-      const name = basename(normalize(filePath))
-      const extension = name.split(`.`).pop()
-      const path = normalize(filePath)
+    results?.map((name: string) => {
+      const path = fs.cwd(this.basedir).path(name)
 
       set(this.data, [`${name}`], {
-        name,
         path,
-        extension,
+        name: basename(normalize(name)),
+        extension: name.split(`.`).pop(),
         local: name.includes(`local`),
         dynamic: Config.isDynamicConfig(path),
         bud: name.includes(`bud`),

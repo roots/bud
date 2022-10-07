@@ -33,12 +33,12 @@ export default class Context {
 
     this.data.basedir = basedir
 
-    this.data.args = new Args(basedir).data
+    this.data.args = Args.data
 
     this.data.env = new Env(basedir).data
 
-    this.data.config = await new Config()
-      .find(basedir)
+    this.data.config = await new Config(basedir)
+      .find()
       .then(config => config.data)
 
     if (this.data.config[`package.json`])

@@ -33,12 +33,13 @@ describe(`bud.persist`, function () {
   it(`sets buildDependencies`, async () => {
     expect(bud.cache.buildDependencies.config.sort()).toEqual(
       expect.arrayContaining([
-        expect.stringContaining(`package.json`),
-        expect.stringContaining(`.eslintrc.js`),
-        expect.stringContaining(`bud.config.cjs`),
-        expect.stringContaining(`docker-compose.yml`),
-        expect.stringContaining(`tailwind.config.js`),
-        expect.stringContaining(`tsconfig.json`),
+        expect.stringMatching(/\.eslintrc\.js/),
+        expect.stringMatching(/bud\.config\.mjs/),
+        expect.stringMatching(/docker-compose\.yml/),
+        expect.stringMatching(/package\.json/),
+        expect.stringMatching(/tailwind\.config\.js/),
+        expect.stringMatching(/tsconfig\.json/),
+        expect.stringMatching(/webpack\.config\.mjs/),
       ]),
     )
   })

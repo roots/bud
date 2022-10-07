@@ -123,7 +123,6 @@ const importAndBindFrameworkServices =
 const initializeLoggerAndReportContext = (app: Bud) => {
   /* initialize logger */
   app.logger = new Logger(app)
-
   app.success(`logger ready`)
 }
 

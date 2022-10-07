@@ -1,0 +1,39 @@
+---
+title: bud.fs.json
+description: JSON utilities
+sidebar_label: json
+---
+
+Utilities for working with JSON
+
+## Read
+
+Reads a JSON file from the filesystem. Compatible with JSON5.
+
+```typescript
+const result = await bud.fs.json.read(`src/index.json`)
+```
+
+## Write
+
+Write a JSON file to the filesystem. Compatible with JSON5.
+
+```typescript
+const result = await bud.fs.json.write(`src/index.json`, {foo: `bar`})
+```
+
+## Parse
+
+Parses a JSON string. Compatible with JSON5.
+
+```typescript
+const result = bud.fs.json.parse(`{"foo": "bar"}`)
+```
+
+## Stringify
+
+Stringifies a JSON object. Safer than the built-in `JSON.stringify` with protection against recursive reference errors, etc.
+
+```typescript
+const result = bud.fs.json.stringify({foo: `bar`})
+```

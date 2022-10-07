@@ -3,16 +3,16 @@ import type {Configuration, RuleSetRule} from 'webpack'
 import type {EntryObject} from '../config/entry'
 
 export interface Sync {
-  bail: boolean
-  cache: any
+  bail: boolean | undefined
+  cache: any | undefined
   'cache.buildDependencies': Record<string, Array<string>>
   'cache.cacheDirectory': string
   'cache.managedPaths': Array<string>
   'cache.name': string
   'cache.type': 'memory' | 'filesystem'
   'cache.version': string
-  context: Configuration['context']
-  devtool: Configuration['devtool']
+  context: Configuration['context'] | undefined
+  devtool: Configuration['devtool'] | undefined
   entry: Record<string, EntryObject>
   experiments: Configuration['experiments']
   externals: Configuration['externals']

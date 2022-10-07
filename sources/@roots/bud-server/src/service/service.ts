@@ -134,7 +134,7 @@ export class Server extends Service implements BaseService {
       inject(
         instance,
         Array.from(
-          this.app.hooks.filter(`dev.client.scripts`) ?? new Set([]),
+          this.app.hooks.filter(`dev.client.scripts`, new Set([])),
         ),
       )
 
