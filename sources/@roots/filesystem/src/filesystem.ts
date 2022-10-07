@@ -1,5 +1,7 @@
-import type {PathLike, ReadStream, WriteStream} from 'fs'
-import type {CreateWriteStreamOptions} from 'fs/promises'
+import type {PathLike, ReadStream, WriteStream} from 'node:fs'
+import type {CreateWriteStreamOptions} from 'node:fs/promises'
+import {join} from 'node:path'
+
 import filesystem from 'fs-jetpack'
 import type {
   AppendData,
@@ -19,36 +21,73 @@ import type {
   WritableData,
   WriteOptions,
 } from 'fs-jetpack/types'
+import isNumber from 'lodash-es/isNumber.js'
 
 import * as json from './json.js'
 
+/**
+ * Filesystem
+ *
+ * @public
+ */
 export default class Filesystem {
+  /**
+   * FS Jetpack instance
+   *
+   * @public
+   */
   public fs: FSJetpack = filesystem
 
-  public cwd(...pathParts: string[]): Filesystem {
+  /**
+   * Instances
+   *
+   * @public
+   */
+  public instances: Map<string, Filesystem> = new Map()
+
+  /**
+   * Class constructor
+   *
+   * @internal
+   */
+  public constructor(...pathParts: Array<string>) {
     this.fs = filesystem.cwd(...pathParts)
-    return this
   }
 
-  public async chain(
-    ...tasks: Array<(fs: Filesystem) => Promise<unknown>>
-  ): Promise<Filesystem> {
-    for (const task of tasks) {
-      await task(this)
-    }
+  /**
+   * Returns Current Working Directory (CWD) for this instance of jetpack, or creates new jetpack object with given path as its internal CWD.
+   *
+   * @param pathParts - (optional) path (or many path parts) to become new CWD. Could be absolute, or relative. If relative path given new CWD will be resolved basing on current CWD of this jetpack instance.
+   * @public
+   */
+  public make(...pathParts: string[]): Filesystem {
+    const key = join(...pathParts)
+    if (this.instances.has(key)) return this.instances.get(key)
 
-    return this
+    const instance = new Filesystem(...pathParts)
+    this.instances.set(key, instance)
+
+    return this.instances.get(key)
   }
 
-  public createReadStream(path: string, options?: any): ReadStream {
-    return filesystem.createReadStream(path, options)
+  /**
+   * Create a {@link ReadStream}
+   */
+  public async createReadStream(
+    path: string,
+    options?: any,
+  ): Promise<ReadStream> {
+    return this.fs.createReadStream(path, options)
   }
 
-  public createWriteStream(
+  /**
+   * Create a {@link WriteStream}
+   */
+  public async createWriteStream(
     path: PathLike,
     options?: BufferEncoding | CreateWriteStreamOptions,
-  ): WriteStream {
-    return filesystem.createWriteStream(path, options)
+  ): Promise<WriteStream> {
+    return this.fs.createWriteStream(path, options)
   }
 
   /**
@@ -63,7 +102,8 @@ export default class Filesystem {
     data: AppendData,
     options?: AppendOptions,
   ): Promise<Filesystem> {
-    await filesystem.appendAsync(path, data, options)
+    this.fs.appendAsync(path, data, options) // returns void
+
     return this
   }
 
@@ -80,7 +120,7 @@ export default class Filesystem {
     to: string,
     options?: CopyOptions,
   ): Promise<Filesystem> {
-    await filesystem.copyAsync(from, to, options)
+    this.fs.copyAsync(from, to, options) // returns void
     return this
   }
 
@@ -96,7 +136,7 @@ export default class Filesystem {
     path: string,
     criteria?: DirCriteria,
   ): Promise<Filesystem> {
-    this.fs = await filesystem.dirAsync(path, criteria)
+    this.fs.dirAsync(path, criteria)
     return this
   }
 
@@ -114,7 +154,7 @@ export default class Filesystem {
    * @public
    */
   public async exists(path: string): Promise<ExistsResult> {
-    return await filesystem.existsAsync(path)
+    return this.fs.existsAsync(path)
   }
 
   /**
@@ -125,7 +165,7 @@ export default class Filesystem {
    * @public
    */
   public async find(options?: FindOptions): Promise<string[]> {
-    return await filesystem.findAsync(options)
+    return this.fs.findAsync(options)
   }
 
   /**
@@ -141,7 +181,7 @@ export default class Filesystem {
     path: string,
     options?: InspectOptions,
   ): Promise<InspectResult | undefined> {
-    return await filesystem.inspectAsync(path, options)
+    return this.fs.inspectAsync(path, options)
   }
 
   /**
@@ -155,40 +195,69 @@ export default class Filesystem {
     path: string,
     options?: InspectTreeOptions,
   ): Promise<InspectTreeResult | undefined> {
-    return await filesystem.inspectTreeAsync(path, options)
+    return this.fs.inspectTreeAsync(path, options)
   }
 
+  /**
+   * Lists the contents of directory. Equivalent of `fs.readdir`.
+   *
+   * @param path - directory to list
+   * @public
+   */
   public async list(path?: string): Promise<string[] | undefined> {
-    return await filesystem.listAsync(path)
+    return this.fs.listAsync(path)
   }
 
+  /**
+   * Moves given path to new location.
+   *
+   * @param from - path
+   * @param to - path
+   * @param options - move options
+   * @public
+   */
   public async move(
     from: string,
     to: string,
     options?: MoveOptions,
   ): Promise<Filesystem> {
-    await filesystem.moveAsync(from, to, options)
+    this.fs.moveAsync(from, to, options) // returns void
+
     return this
   }
 
-  public path(...pathParts: string[]): string {
-    return filesystem.path(...pathParts)
+  public async path(...pathParts: string[]): Promise<string> {
+    return this.fs.path(...pathParts)
   }
 
+  /**
+   * Reads content of file.
+   *
+   * @param path - path to file
+   * @param returnAs - a custom return type (`utf8`, `json` or `buffer`)
+   * @public
+   */
   public async read(
     path: string,
-    returnAs: 'utf8' | 'json' | 'buffer',
+    returnAs: `utf8` | `json` | `buffer`,
   ): Promise<string | Buffer | Record<string, any>> {
     if (returnAs === `json`) {
       return await json.read(path)
     }
 
-    await filesystem.readAsync(path)
-    return this
+    return this.fs.readAsync(path)
   }
 
+  /**
+   * Deletes given path, no matter what it is (file, directory or non-empty directory). If path already doesn't exist
+   * terminates gracefully without throwing, so you can use it as 'ensure path doesn't exist'.
+   *
+   * @param path - path to delete
+   * @public
+   */
   public async remove(path?: string): Promise<Filesystem> {
-    await filesystem.removeAsync(path)
+    this.fs.removeAsync(path) // returns void
+
     return this
   }
 
@@ -197,29 +266,58 @@ export default class Filesystem {
     newName: string,
     options?: RenameOptions,
   ): Promise<Filesystem> {
-    await filesystem.renameAsync(path, newName, options)
+    this.fs.renameAsync(path, newName, options) // returns void
+
     return this
   }
 
+  /**
+   * Creates symbolic link.
+   *
+   * @param symlinkValue - path where symbolic link should point.
+   * @param path -  where symbolic link should be put.
+   */
   public async symlink(
     symlinkValue: string,
     path: string,
   ): Promise<Filesystem> {
-    await filesystem.symlinkAsync(symlinkValue, path)
+    this.fs.symlinkAsync(symlinkValue, path) // returns void
+
     return this
   }
 
+  /**
+   * Creates temporary directory.
+   *
+   * @param options - tmpDir options
+   * @public
+   */
   public async tmpDir(options?: TmpDirOptions): Promise<Filesystem> {
-    await filesystem.tmpDirAsync(options)
+    this.fs.tmpDirAsync(options) // returns void
+
     return this
   }
 
+  /**
+   * Writes data to file. If any parent directory in `path` doesn't exist it will be created (like `mkdir -p`).
+   *
+   * @param path - path to file
+   * @param data - data to be written. This could be `String`, `Buffer`, `Object` or `Array` (if last two used, the data will be outputted into file as JSON).
+   * @param options - write options
+   * @public
+   */
   public async write(
     path: string,
     data: WritableData,
     options?: WriteOptions,
   ): Promise<Filesystem> {
-    await filesystem.writeAsync(path, data, options)
+    if (typeof data === `object`) {
+      await json.write(path, data, {
+        space: isNumber(options?.jsonIndent) ? options.jsonIndent : 2,
+      })
+    }
+    this.fs.writeAsync(path, data, options) // returns void
+
     return this
   }
 }

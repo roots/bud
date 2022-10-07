@@ -12,26 +12,35 @@ export default class Service extends FS {
    *
    * @public
    */
-  public constructor(public app: Bud) {
+  public constructor(public app?: Bud) {
     super()
     this.s3 = new S3()
   }
 
-  public upload({
-    source,
-    destination,
-    files = `**/*`,
-    keep = 5,
-  }: {
-    source: string
+  public upload(options?: {
+    source?: string
     destination?: string
     files?: string
-    keep: number | false
+    keep?: number | false
   }) {
     this.app.after(async app => {
-      if (!source) source = app.path(`@dist`)
+      if (!options)
+        options = {
+          source: app.path(`@dist`),
+          files: `**/*`,
+          keep: 5,
+        }
 
-      await app.fs.s3.upload({source, destination, files, keep})
+      if (!options?.source) options.source = app.path(`@dist`)
+
+      await app.fs.s3.upload(
+        options as {
+          source: string
+          keep?: number | false
+          files?: string
+          destination?: string
+        },
+      )
     })
   }
 }

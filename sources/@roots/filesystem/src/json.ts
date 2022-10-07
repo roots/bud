@@ -9,8 +9,15 @@ export const read = async (path: string): Promise<any> => {
 
 export const {parse} = json5
 
-export const write = async (path: string, data: any): Promise<void> => {
-  const source = json5.stringify(data)
+export const write = async (
+  path: string,
+  data: any,
+  options: {
+    replacer?: ((this: any, key: string, value: any) => any) | null
+    space?: string | number | null
+  },
+): Promise<void> => {
+  const source = json5.stringify(data, options)
   await fs.writeAsync(path, source)
 }
 

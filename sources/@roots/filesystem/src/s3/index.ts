@@ -163,7 +163,7 @@ export default class S3 {
     source: string
     destination?: string
     files?: string
-    keep: number | false
+    keep?: number | false
   }) {
     await globby(files, {cwd: source}).then(async files => {
       const descriptions = await Promise.all(
