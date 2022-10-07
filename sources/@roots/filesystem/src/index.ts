@@ -2,18 +2,15 @@
 // Licensed under the MIT license.
 
 /**
- * A simple, high-level virtual filesystem.
- *
- * @beta
- * This package is provided as-is.
+ * A high-level virtual filesystem.
  *
  * @packageDocumentation
  */
 
+import FS from './filesystem.js'
 import S3 from './s3/index.js'
 
-export * from './filesystem.js'
+export {FS, S3}
+
 export * as json from './json.js'
 export * as yml from './yml.js'
-
-export {S3}

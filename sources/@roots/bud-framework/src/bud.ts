@@ -203,8 +203,14 @@ export class Bud {
 
   public bindMethod: methods.bindMethod
 
+  /**
+   * @deprecated - use {@link FS.json | bud.fs.json}
+   */
   public json: typeof parsers.json5 = parsers.json5
 
+  /**
+   * @deprecated - use {@link FS.yml | bud.fs.yml}
+   */
   public yml: typeof parsers.yml = parsers.yml
 
   public value = Value

@@ -18,6 +18,11 @@ export default class Service extends FS {
    */
   public static label = `fs`
 
+  /**
+   * Logger
+   *
+   * @public
+   */
   public logger: Bud['logger']['instance']
 
   /**
@@ -57,24 +62,26 @@ export default class Service extends FS {
   /**
    * Set bucket
    *
-   * @param options - upload options
+   * @param bucket - {@link S3.bucket}
    * @public
    */
   public setBucket: S3[`setBucket`] = function (bucket: string) {
     this.s3.setBucket(bucket)
+
     return this
   }
 
   /**
    * Set credentials
    *
-   * @param options - upload options
+   * @param credentials - {@link S3.credentials}
    * @public
    */
   public setCredentials: S3[`setCredentials`] = function (
     credentials: S3[`config`][`credentials`],
   ) {
     this.s3.setCredentials(credentials)
+
     return this
   }
 
@@ -153,11 +160,7 @@ export default class Service extends FS {
             this.logger.await(`Upload ${file} to ${this.s3.ident}`)
 
             try {
-              await this.s3.write({
-                Key: s3Path(file),
-                Body: contents,
-              })
-
+              await this.s3.write(s3Path(file), contents)
               this.logger.success(`Upload ${file} to ${this.s3.ident}`)
             } catch (error) {
               this.logger.error(`Upload ${file} to ${this.s3.ident}`)
@@ -183,6 +186,7 @@ export default class Service extends FS {
             .map(async key => {
               const fileExists = await this.s3.exists(key)
               if (!fileExists) return
+
               this.logger.await(
                 `Remove ${key} from ${this.s3.ident} (stale)`,
               )

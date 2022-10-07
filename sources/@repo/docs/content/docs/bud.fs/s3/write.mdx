@@ -6,12 +6,18 @@ sidebar_label: write
 
 Write a file to the bucket. This function takes any of the properties that the S3 API's write function does.
 
-At minimum you will want to supply a `Key` (filename) and `Body` (contents to write).
-
 ## Usage
 
+Pass the file name as the first argument and a `Buffer`, `string` or `ReadableStream` as the second argument.
+
 ```typescript
-await app.fs.s3.write({
+await bud.fs.s3.write(`my-file.txt`, `Hello World!`)
+```
+
+You can also supply the AWS input props directly. At minimum you will want to supply a `Key` (filename) and `Body` (contents to write).
+
+```typescript
+await bud.fs.s3.write({
   Key: 'my-file.txt',
   Body: 'Hello World',
 })

@@ -16,9 +16,9 @@ Some much-needed filesystem functionality, a way to upload compilations to S3 an
 
 ## ✨ bud.fs
 
-`bud.fs` is a new service that provides a filesystem API for bud. It uses [fs-jetpack](https://www.npmjs.com/package/fs-jetpack) and includes support for managing s3 assets.
+`bud.fs` is a new filesystem API for bud.js. It uses [fs-jetpack](https://www.npmjs.com/package/fs-jetpack) and includes support for managing s3 assets.
 
-Example usage which uploads `@dist` contents to a bucket after compilation:
+Example of the S3 API which uploads `@dist` contents to a bucket after compilation:
 
 ```typescript
 app.fs

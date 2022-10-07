@@ -19,6 +19,7 @@ import type {
   WritableData,
   WriteOptions,
 } from 'fs-jetpack/types'
+import {bind} from 'helpful-decorators'
 import isNumber from 'lodash-es/isNumber.js'
 
 import * as json from './json.js'
@@ -56,9 +57,14 @@ export default class Filesystem {
   /**
    * Returns Current Working Directory (CWD) for this instance of jetpack, or creates new jetpack object with given path as its internal CWD.
    *
-   * @param pathParts - (optional) path (or many path parts) to become new CWD. Could be absolute, or relative. If relative path given new CWD will be resolved basing on current CWD of this jetpack instance.
+   * @param pathParts - (optional) path (or many path parts) to become new CWD. Could be absolute, or relative.
+   *  If relative path given new CWD will be resolved basing on current CWD of this jetpack instance.
    * @public
+   *
+   * @public
+   * @decorator {@link bind | bind}
    */
+  @bind
   public make(...pathParts: string[]): Filesystem {
     const key = join(...pathParts)
     if (this.instances.has(key)) return this.instances.get(key)
@@ -71,7 +77,11 @@ export default class Filesystem {
 
   /**
    * Create a {@link ReadStream}
+   *
+   * @public
+   * @decorator {@link bind | @bind}
    */
+  @bind
   public async createReadStream(
     path: string,
     options?: any,
@@ -81,7 +91,11 @@ export default class Filesystem {
 
   /**
    * Create a {@link WriteStream}
+   *
+   * @public
+   * @decorator {@link bind | @bind}
    */
+  @bind
   public async createWriteStream(
     path: PathLike,
     options?: BufferEncoding | CreateWriteStreamOptions,
@@ -95,7 +109,11 @@ export default class Filesystem {
    * @param path - the path to file.
    * @param data - data to append (can be `String` or `Buffer`).
    * @param options - options
+   *
+   * @public
+   * @decorator {@link bind}
    */
+  @bind
   public async append(
     path: string,
     data: AppendData,
@@ -264,7 +282,9 @@ export default class Filesystem {
    *
    * @param path - path to delete
    * @public
+   * @decorator {@link bind | bind}
    */
+  @bind
   public async remove(path?: string): Promise<Filesystem> {
     this.fs.removeAsync(path) // returns void
 
@@ -276,6 +296,9 @@ export default class Filesystem {
    *
    * @param symlinkValue - path where symbolic link should point.
    * @param path -  where symbolic link should be put.
+   *
+   * @public
+   * @decorator {@link bind | bind}
    */
   public async symlink(
     symlinkValue: string,
@@ -289,24 +312,54 @@ export default class Filesystem {
   /**
    * Writes data to file. If any parent directory in `path` doesn't exist it will be created (like `mkdir -p`).
    *
+   * @remarks
+   * JSON5 is not compatible with `atomic` and `mode`. You should convert your JSON5 to JSON before writing it, or write it as a string.
+   *
    * @param path - path to file
-   * @param data - data to be written. This could be `String`, `Buffer`, `Object` or `Array` (if last two used, the data will be outputted into file as JSON).
-   * @param options - write options
+   * @param data - {@link WritableData | data to write}
+   * @param options - {@link json.WriteOptions | write options}
+   *
    * @public
+   * @decorator {@link bind | bind}
    */
+  @bind
   public async write(
     path: string,
     data: WritableData,
-    options?: WriteOptions,
+    options?: {
+      replacer?: json.WriteOptions[`replacer`]
+      space?: json.WriteOptions[`space`]
+      mode?: string | number
+      atomic?: boolean
+    },
   ): Promise<Filesystem> {
-    if (typeof data === `object`) {
-      await json.write(path, data, {
-        space: isNumber(options?.jsonIndent) ? options.jsonIndent : 2,
-      })
+    if (
+      typeof data === `object` &&
+      (!options || options.replacer) &&
+      !options?.atomic &&
+      !options?.mode
+    ) {
+      await json.write(path, data, options)
+
       return this
     }
 
-    this.fs.writeAsync(path, data, options) // returns void
+    const writeProps: WriteOptions = null
+
+    if (options && options.mode)
+      Object.assign(writeProps, {mode: options.mode})
+
+    if (options && options.atomic)
+      Object.assign(writeProps, {atomic: options.atomic})
+
+    if (options && options.space)
+      Object.assign(writeProps, {
+        jsonIndent: !isNumber(options.space)
+          ? parseInt(options.space)
+          : options.space,
+      })
+
+    this.fs.writeAsync(path, data, {}) // returns void
 
     return this
   }

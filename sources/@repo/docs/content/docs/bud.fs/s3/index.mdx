@@ -23,7 +23,7 @@ Several common operations are available through `bud.fs` directly (for convenien
 Digital Ocean users will want to specify the endpoint:
 
 ```typescript
-app.fs
+bud.fs
   .setCredentials({
     accessKeyId: `***`,
     secretAccessKey: `***`,
@@ -35,7 +35,7 @@ app.fs
 AWS users will want to specify the region:
 
 ```typescript
-app.fs
+bud.fs
   .setCredentials({
     accessKeyId: `***`,
     secretAccessKey: `***`,
@@ -59,9 +59,9 @@ bud.fs.upload()
 This function takes an optional `options` object, which can be used to dial in the defaults, if needed.
 
 ```typescript
-app.fs.upload({
+bud.fs.upload({
   /* Directory to upload (local path) */
-  source: app.path(`@dist`),
+  source: bud.path(`@dist`),
 
   /* Upload to a specific directory in the bucket (remote path) */
   destination: `bucket/path`,
@@ -98,8 +98,8 @@ If `uploads-manifest.json` is deleted bud will have no way of knowing which file
 To disable tracking, you can pass `false` as the value of `keep`:
 
 ```typescript
-app.fs.upload({
-  source: app.path(`@dist`),
+bud.fs.upload({
+  source: bud.path(`@dist`),
   /* will not attempt to manage assets */
   keep: false,
 })

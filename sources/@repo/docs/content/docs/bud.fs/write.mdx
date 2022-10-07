@@ -30,10 +30,14 @@ options:
 type WriteOptions = {
   mode?: string | number
   atomic?: boolean
-  jsonIndent?: number
+  spaces?: number
 }
 ```
 
 ```typescript
 await bud.fs.write(`demo.json`, {foo: 'bar'}, {spaces: 2})
 ```
+
+## Related
+
+- [bud.fs.json.write](json) - Write a JSON file
