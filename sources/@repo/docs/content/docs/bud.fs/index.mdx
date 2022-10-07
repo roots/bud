@@ -1,0 +1,34 @@
+---
+title: bud.fs
+description: Work with the filesystem
+sidebar_label: bud.fs
+sidebar_position: 1
+---
+
+`bud.fs` is a collection of utilities to help with common filesystem based tasks.
+
+All `bud.fs` functions take paths relative to the project's root directory. You can also create new instances with
+a different context using `bud.fs.make`. This is useful for code readability if you have a bunch of tasks to do relative to a particular directory:
+
+```typescript
+const source = bud.fs.make(bud.path(`@src`)) // make a new bud.fs instance with a root in `src`
+await source.copy(`foo`, `bar`) // copy src/foo to src/bar
+await source.write(`hello.txt`, `hello world`) // write `hello world` to src/hello.txt
+```
+
+Additionally, `bud.fs` includes built-in support for working with remote files stored in S3. It is compatible with Digital Ocean Spaces.
+
+Example which will automatically upload `@dist` to S3 (and delete files from outdated builds):
+
+```typescript
+app.fs
+  .setCredentials({
+    accessKeyId: `***`,
+    secretAccessKey: `***`,
+  })
+  .setEndpoint(`https://sfo2.digitaloceanspaces.com`)
+  .setBucket('my-bucket')
+  .upload()
+```
+
+[See bud.fs.s3 documentation](s3) for more information on how to use these features.

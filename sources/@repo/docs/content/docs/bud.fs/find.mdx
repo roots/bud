@@ -1,0 +1,36 @@
+---
+title: bud.fs.find
+description: Find matching files
+sidebar_label: find
+---
+
+`bud.fs.find` searches the filesystem for matching files which are returned as an array
+
+## Usage
+
+Simple usage: pass a search string or array of strings
+
+```typescript
+const scripts = await bud.fs.find(`src/**/*.js`)
+```
+
+You can use an options object for more complex searches:
+
+```typescript
+type FindOptions = {
+  matching?: string | string[]
+  filter?: (fileInspect: InspectResult) => boolean | Promise<boolean>
+  files?: boolean
+  directories?: boolean
+  recursive?: boolean
+  ignoreCase?: boolean
+}
+```
+
+```typescript
+const scripts = await bud.fs.find({
+  matching: `src/**/*.js`,
+  files: true,
+  ignoreCase: true,
+})
+```

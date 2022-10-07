@@ -1,0 +1,13 @@
+---
+title: bud.fs.inspectTree
+description: Recursively inspect the contents of a path
+sidebar_label: inspectTree
+---
+
+Calls `bud.fs.inspect` recursively on given path so it creates a tree of all directories and sub-directories inside it.
+
+## Usage
+
+```typescript
+const result = await bud.fs.inspectTree(`src`)
+```

@@ -1,0 +1,39 @@
+---
+title: bud.fs.write
+description: Write a file
+sidebar_label: write
+---
+
+Write a file from the filesystem.
+
+## Usage
+
+`bud.fs.write` takes a minimum of two arguments:
+
+- `path` - The path to the file to write
+- `content` - The content to write to the file
+
+```typescript
+await bud.fs.write(`readme.md`, `# Hello, world!`)
+```
+
+If you pass an object as the `content` parameter it will be written as `json`.
+
+```typescript
+await bud.fs.write(`demo.json`, {foo: 'bar'})
+```
+
+In addition to the two required arguments, `bud.fs.write` also takes an optional third argument for
+options:
+
+```typescript
+type WriteOptions = {
+  mode?: string | number
+  atomic?: boolean
+  jsonIndent?: number
+}
+```
+
+```typescript
+await bud.fs.write(`demo.json`, {foo: 'bar'}, {spaces: 2})
+```

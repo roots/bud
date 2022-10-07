@@ -1,0 +1,18 @@
+---
+title: bud.fs.s3.write
+description: Write a file to the bucket
+sidebar_label: write
+---
+
+Write a file to the bucket. This function takes any of the properties that the S3 API's write function does.
+
+At minimum you will want to supply a `Key` (filename) and `Body` (contents to write).
+
+## Usage
+
+```typescript
+await app.fs.s3.write({
+  Key: 'my-file.txt',
+  Body: 'Hello World',
+})
+```

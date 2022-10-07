@@ -1,0 +1,50 @@
+---
+slug: 6.5.0
+title: 6.5.0
+description: Release notes for bud.js 6.5.0
+date: 2022-10-03
+author: Kelly Mears
+author_title: Lead developer
+author_url: https://github.com/kellymears
+author_image_url: https://avatars.githubusercontent.com/u/397606?v=4
+tags: [release, 6.5]
+---
+
+Some much-needed filesystem functionality, a way to
+
+<!--truncate-->
+
+## ✨ bud.fs
+
+`bud.fs` is a new service that provides a filesystem API for bud. It uses [fs-jetpack](https://www.npmjs.com/package/fs-jetpack) and includes support for managing s3 assets.
+
+Example usage which uploads `@dist` contents to a bucket after compilation:
+
+```typescript
+app.fs
+  .setCredentials({
+    accessKeyId: `***`,
+    secretAccessKey: `***`,
+  })
+  .setEndpoint(`https://sfo2.digitaloceanspaces.com`)
+  .setBucket('bud-test')
+  .upload()
+```
+
+Check [the bud.fs docs](https://bud.js.org/docs/bud.fs) for more information.
+
+## ✨ bud.after
+
+Config function for executing tasks after the compilation is fully complete. This is useful for tasks that need to run after the compilation is complete, but don't need to be part of the compilation process (like uploading assets to s3!)
+
+```typescript
+bud.after(async bud => {
+  await bud.fs.s3.write({Key: 'example.test', Body: 'Hello, world!'})
+})
+```
+
+Check [the bud.after docs](https://bud.js.org/docs/bud.after) for more information.
+
+## ℹ️ Release information
+
+For more information [review the diff to see what's changed](https://github.com/roots/bud/compare/v6.4.5...v6.5.0).

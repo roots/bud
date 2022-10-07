@@ -16,8 +16,6 @@ import type {
   InspectTreeOptions,
   InspectTreeResult,
   MoveOptions,
-  RenameOptions,
-  TmpDirOptions,
   WritableData,
   WriteOptions,
 } from 'fs-jetpack/types'
@@ -162,10 +160,17 @@ export default class Filesystem {
    * Finds in directory specified by `path` all files fulfilling `searchOptions`.
    *
    * @remarks Returned paths are relative to current CWD of fs instance.
+   *
    * @param options - search options
    * @public
    */
-  public async find(options?: FindOptions): Promise<string[]> {
+  public async find(
+    options?: FindOptions | string | Array<string>,
+  ): Promise<string[]> {
+    if (typeof options === `string` || Array.isArray(options)) {
+      return this.fs.findAsync({matching: options})
+    }
+
     return this.fs.findAsync(options)
   }
 
@@ -266,16 +271,6 @@ export default class Filesystem {
     return this
   }
 
-  public async rename(
-    path: string,
-    newName: string,
-    options?: RenameOptions,
-  ): Promise<Filesystem> {
-    this.fs.renameAsync(path, newName, options) // returns void
-
-    return this
-  }
-
   /**
    * Creates symbolic link.
    *
@@ -287,18 +282,6 @@ export default class Filesystem {
     path: string,
   ): Promise<Filesystem> {
     this.fs.symlinkAsync(symlinkValue, path) // returns void
-
-    return this
-  }
-
-  /**
-   * Creates temporary directory.
-   *
-   * @param options - tmpDir options
-   * @public
-   */
-  public async tmpDir(options?: TmpDirOptions): Promise<Filesystem> {
-    this.fs.tmpDirAsync(options) // returns void
 
     return this
   }
@@ -320,7 +303,9 @@ export default class Filesystem {
       await json.write(path, data, {
         space: isNumber(options?.jsonIndent) ? options.jsonIndent : 2,
       })
+      return this
     }
+
     this.fs.writeAsync(path, data, options) // returns void
 
     return this
