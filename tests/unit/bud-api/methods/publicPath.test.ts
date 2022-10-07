@@ -30,6 +30,6 @@ describe(`bud.publicPath`, function () {
 
     await bud.build.make()
 
-    expect(bud.build.config.output?.publicPath).toEqual(newPath)
+    expect(bud.build.config.output?.publicPath).toEqual(`/foo/`)
   })
 })
