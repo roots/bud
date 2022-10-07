@@ -3,6 +3,7 @@
  */
 export default async app => {
   app
+    .entry(`app`, [`@src/scripts/app.js`, `@src/styles/app.css`])
     .setPath(`@src`, `src`)
     .copy([[`images`, `images`]])
     .template({replace: {APP_TITLE: `Bud`}, template: `src/index.html`})

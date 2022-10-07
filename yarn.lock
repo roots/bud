@@ -6617,6 +6617,7 @@ __metadata:
     "@types/safe-json-stringify": 1.1.2
     fs-jetpack: 5.0.0
     globby: 13.1.2
+    helpful-decorators: 2.1.0
     js-yaml: 4.1.0
     json5: 2.2.1
     lodash-es: 4.17.21

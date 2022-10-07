@@ -7,14 +7,12 @@ import {
   PutObjectCommandInput,
   S3Client,
 } from '@aws-sdk/client-s3'
-import fs from 'fs-jetpack'
-import {globby} from 'globby'
+import {bind} from 'helpful-decorators'
+import isString from 'lodash-es/isString.js'
 import isUndefined from 'lodash-es/isUndefined.js'
 import mimetypes from 'mime-types'
-import {join} from 'path'
 import type {Readable} from 'stream'
 
-import * as json from '../json.js'
 import Client from './client.js'
 import Config from './config.js'
 
@@ -23,6 +21,23 @@ export default class S3 {
 
   public config: Config = new Config()
 
+  public get ident() {
+    const maybeEndpoint = this.getEndpoint()
+    if (!maybeEndpoint) return `${this.getBucket()} (${this.getRegion()})`
+
+    if (
+      isString(maybeEndpoint) &&
+      maybeEndpoint.includes(`digitaloceanspaces`)
+    )
+      return `https://${this.getBucket()}.${
+        new URL(maybeEndpoint).hostname
+      }`
+
+    if (maybeEndpoint) {
+      return `https://${maybeEndpoint.toString()}`
+    }
+  }
+
   public get client(): S3Client {
     return Client.make(this.config.value)
   }
@@ -30,6 +45,7 @@ export default class S3 {
   public getBucket() {
     return this.bucket
   }
+  @bind
   public setBucket(bucket: string) {
     this.bucket = bucket
     return this
@@ -38,6 +54,8 @@ export default class S3 {
   public getCredentials() {
     return this.config.value.credentials
   }
+
+  @bind
   public setCredentials(credentials: Config['value']['credentials']) {
     this.config.set(`credentials`, credentials)
     return this
@@ -46,6 +64,8 @@ export default class S3 {
   public getEndpoint() {
     return this.config.value.endpoint
   }
+
+  @bind
   public setEndpoint(endpoint: Config['value']['endpoint']) {
     this.config.set(`endpoint`, endpoint)
     return this
@@ -54,12 +74,16 @@ export default class S3 {
   public getRegion() {
     return this.config.value.region
   }
+
+  @bind
   public setRegion(region: Config['value']['region']) {
     this.config.set(`region`, region)
     return this
   }
 
   public isPublic: boolean = true
+
+  @bind
   public setPublic(isPublic?: boolean) {
     this.isPublic = isUndefined(isPublic) ? true : isPublic
   }
@@ -72,11 +96,10 @@ export default class S3 {
       new Promise((resolve, reject) => {
         const chunks = []
 
-        stream.on(`data`, chunk => chunks.push(chunk))
-        stream.on(`error`, reject)
-        stream.on(`end`, () =>
-          resolve(Buffer.concat(chunks).toString(`utf8`)),
-        )
+        stream
+          .on(`data`, chunk => chunks.push(chunk))
+          .on(`error`, reject)
+          .on(`end`, () => resolve(Buffer.concat(chunks).toString(`utf8`)))
       })
 
     try {
@@ -152,96 +175,5 @@ export default class S3 {
     } catch (error) {
       throw error
     }
-  }
-
-  /**
-   * Upload files to S3
-   *
-   * @param options - upload options
-   * @public
-   */
-  public async upload({
-    source,
-    destination,
-    files = `**/*`,
-    keep = 5,
-  }: {
-    source: string
-    destination?: string
-    files?: string
-    keep?: number | false
-  }): Promise<S3> {
-    await globby(files, {cwd: source}).then(async files => {
-      const descriptions = await Promise.all(
-        files.map(async file => {
-          const destinationPath = destination
-            ? join(destination, file)
-            : file
-
-          const contents = await fs.read(join(source, file), `buffer`)
-
-          return {
-            file,
-            destinationPath,
-            contents,
-          }
-        }),
-      )
-
-      const manifestPath = destination
-        ? join(destination, `upload-manifest.json`)
-        : `upload-manifest.json`
-
-      const manifestExists = await this.exists(manifestPath)
-      const entries = Object.entries(
-        manifestExists
-          ? await this.read(manifestPath).then(JSON.parse)
-          : {},
-      )
-
-      const shouldPrune = typeof keep === `number`
-      const stale =
-        shouldPrune && keep > 1
-          ? entries.splice(0, entries.length - (keep - 1))
-          : []
-
-      await Promise.all(
-        [...new Set(stale)]
-          .flatMap(([key, value]: [string, Array<string>]) => value)
-          .filter(
-            key =>
-              !entries.some(([_, value]: [string, Array<string>]) =>
-                value.includes(key),
-              ),
-          )
-          .map(async key => {
-            const fileExists = await this.exists(key)
-            if (!fileExists) return
-            await this.delete(key)
-          }),
-      )
-
-      await Promise.all(
-        descriptions.map(async ({file, destinationPath, contents}) => {
-          await this.write({Key: destinationPath, Body: contents})
-          console.log(`Uploaded ${file} to ${this.bucket}`)
-          return file
-        }),
-      ).then(files => files.filter(Boolean))
-
-      if (shouldPrune) {
-        const merged = {
-          ...entries.reduce((acc, [k, v]) => ({...acc, [k]: v}), {}),
-          [new Date().getTime()]: descriptions.map(({file}) => file),
-        }
-
-        await this.write({
-          Key: manifestPath,
-          Body: Buffer.from(json.stringify(merged)),
-        })
-      }
-    })
-
-    return this
   }
 }

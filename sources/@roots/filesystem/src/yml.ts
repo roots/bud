@@ -2,7 +2,7 @@ import fs from 'fs-jetpack'
 import yaml from 'js-yaml'
 
 export const read = async (file: string): Promise<any> => {
-  const source = await fs.readAsync(file)
+  const source = await fs.readAsync(file, `utf8`)
   return yaml.load(source)
 }
 

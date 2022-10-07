@@ -24,6 +24,7 @@ import type {
 import isNumber from 'lodash-es/isNumber.js'
 
 import * as json from './json.js'
+import * as yml from './yml.js'
 
 /**
  * Filesystem
@@ -237,15 +238,19 @@ export default class Filesystem {
    * @param returnAs - a custom return type (`utf8`, `json` or `buffer`)
    * @public
    */
-  public async read(
-    path: string,
-    returnAs: `utf8` | `json` | `buffer`,
-  ): Promise<string | Buffer | Record<string, any>> {
-    if (returnAs === `json`) {
+  public async read(path: string, returnAs?: `utf8` | `json` | `buffer`) {
+    if (returnAs === `json` || (!returnAs && path.endsWith(`.json`))) {
       return await json.read(path)
     }
 
-    return this.fs.readAsync(path)
+    if (!returnAs && (path.endsWith(`.yml`) || path.endsWith(`.yaml`)))
+      return await yml.read(path)
+
+    if (returnAs === `utf8`) return await this.fs.readAsync(path, returnAs)
+    if (returnAs === `buffer`)
+      return await this.fs.readAsync(path, returnAs)
+
+    return await this.fs.readAsync(path)
   }
 
   /**

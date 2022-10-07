@@ -3,7 +3,7 @@ import json5 from 'json5'
 import jsonStringify from 'safe-json-stringify'
 
 export const read = async (path: string): Promise<any> => {
-  const source = await fs.readAsync(path)
+  const source = await fs.readAsync(path, `utf8`)
   return json5.parse(source.trim())
 }
 

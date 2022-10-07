@@ -10,7 +10,7 @@ export const configDefaults: SignaleConfig = {
   displayScope: true,
   displayBadge: true,
   displayDate: false,
-  displayFilename: true,
+  displayFilename: false,
   displayLabel: true,
   displayTimestamp: false,
   underlineLabel: false,
