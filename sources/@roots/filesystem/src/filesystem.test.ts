@@ -53,6 +53,10 @@ describe(`filesystem`, () => {
     fs.json = json
   })
 
+  it(`should make a new instance`, async () => {
+    expect(fs.make()).toBeInstanceOf(FS)
+  })
+
   it(`should call jetpack createWriteStream`, async () => {
     await fs.createWriteStream(`foo`)
     expect(mockJetpack.createWriteStream).toHaveBeenCalledWith(
