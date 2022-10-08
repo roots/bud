@@ -28,30 +28,6 @@ export default class Config {
   public endpoint: S3ClientConfig[`endpoint`]
 
   /**
-   * S3 config
-   *
-   * @see {@link S3ClientConfig}
-   *
-   * @public
-   */
-  public get value(): S3ClientConfig {
-    if (!this.credentials) {
-      throw new Error(
-        `S3 credentials are required. Did you forget to set them?`,
-      )
-    }
-
-    let value: S3ClientConfig = {
-      credentials: this.credentials,
-      region: this.region,
-    }
-
-    if (this.endpoint) value.endpoint = this.endpoint
-
-    return value
-  }
-
-  /**
    * Get a config value
    *
    * @param key - {@link S3ClientConfig} key
