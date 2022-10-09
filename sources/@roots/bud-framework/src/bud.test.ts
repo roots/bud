@@ -11,16 +11,6 @@ describe(`Bud`, function () {
     expect(new Bud()).toBeInstanceOf(Bud)
   })
 
-  it(`has bud.json`, () => {
-    expect(new Bud().json.read).toBeInstanceOf(Function)
-    expect(new Bud().json.write).toBeInstanceOf(Function)
-  })
-
-  it(`has bud.yml`, () => {
-    expect(new Bud().yml.read).toBeInstanceOf(Function)
-    expect(new Bud().yml.write).toBeInstanceOf(Function)
-  })
-
   it(`throws when bootstrapped with no context`, async () => {
     try {
       // @ts-ignore

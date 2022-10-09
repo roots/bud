@@ -91,7 +91,7 @@ export class Module {
     return await this.getManifestPath(signifier).then(async path => {
       this.logger.log(signifier, `manifest resolved to`, path)
 
-      return await this.app.json.read(path)
+      return await this.app.fs.json.read(path)
     })
   }
 

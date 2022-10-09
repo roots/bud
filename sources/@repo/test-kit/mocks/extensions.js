@@ -16,9 +16,11 @@ jest.unstable_mockModule(`@roots/bud`, () => ({default: bud}))
 
 const mock = jest.fn().mockImplementation(async () => {
   await import(`@roots/bud`)
+
   const extensions = {
     app: bud,
     logger,
+    add: jest.fn(() => {}),
     get: jest.fn(() => mockExtension),
   }
 

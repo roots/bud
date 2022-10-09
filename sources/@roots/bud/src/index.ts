@@ -10,7 +10,7 @@
  * @packageDocumentation
  */
 
-import './env.js'
+import './types.js'
 
 import Bud from './bud.js'
 import {factory, get} from './factory/index.js'

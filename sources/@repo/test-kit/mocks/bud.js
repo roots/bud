@@ -1,6 +1,4 @@
 import {jest} from '@jest/globals'
-import {dirname} from 'path'
-import {fileURLToPath} from 'url'
 
 import build from './build'
 import cache from './cache'
@@ -41,6 +39,10 @@ const mock = jest.fn().mockImplementation(async () => {
     ({default: Cache}) => new Cache(),
   )
 
+  const context = await import(`./context.js`).then(
+    ({default: context}) => context,
+  )
+
   const dashboard = await import(`@roots/bud-dashboard`).then(
     ({default: Dashboard}) => new Dashboard(),
   )
@@ -57,14 +59,22 @@ const mock = jest.fn().mockImplementation(async () => {
     api,
     build,
     cache,
-    context: {
-      args: {
-        dry: false,
-      },
-      basedir: dirname(fileURLToPath(import.meta.url)),
-    },
+    context,
     dashboard,
     extensions,
+    fs: {
+      json: {
+        read: jest.fn(),
+        write: jest.fn(),
+        parse: jest.fn(),
+        stringify: jest.fn(),
+      },
+      yml: {
+        read: jest.fn(),
+        write: jest.fn(),
+        parse: jest.fn(),
+      },
+    },
     hasChildren: false,
     hooks,
     json: {
@@ -74,6 +84,7 @@ const mock = jest.fn().mockImplementation(async () => {
     isDevelopment: false,
     label: `MOCK`,
     logger,
+    maybeCall: jest.fn(),
     module: {
       import: jest.fn(),
       resolve: jest.fn(),
@@ -85,6 +96,11 @@ const mock = jest.fn().mockImplementation(async () => {
     warn: jest.fn(),
     error: jest.fn(),
     fatal: jest.fn(),
+    env: {
+      get: jest.fn(),
+      set: jest.fn(),
+      isString: jest.fn(() => true),
+    },
   }
 
   bud.root = bud

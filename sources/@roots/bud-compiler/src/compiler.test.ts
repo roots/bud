@@ -8,50 +8,51 @@ jest.unstable_mockModule(
   async () => await import(`@repo/test-kit/mocks/bud`),
 )
 
-let webpack = function () {
-  return {
-    version: `MOCK_VERSION`,
-    compilers: [
-      {
-        name: `MOCK_CHILD_COMPILER`,
-        hooks: {
-          afterEmit: {
-            tapAsync: jest.fn(async () => {}),
-          },
-          done: {
-            tap: jest.fn(),
-          },
+const webpackImplementation = {
+  version: `MOCK_VERSION`,
+  compilers: [
+    {
+      name: `MOCK_CHILD_COMPILER`,
+      hooks: {
+        afterEmit: {
+          tapAsync: jest.fn(async () => {}),
         },
-      },
-      {
-        name: `MOCK_CHILD_COMPILER`,
-        hooks: {
-          afterEmit: {
-            tapAsync: jest.fn(async () => {}),
-          },
-          done: {
-            tap: jest.fn(),
-          },
+        done: {
+          tap: jest.fn(),
         },
-      },
-    ],
-    hooks: {
-      afterEmit: {
-        tapAsync: jest.fn(async () => {}),
-      },
-      done: {
-        tap: jest.fn(),
       },
     },
-  }
+    {
+      name: `MOCK_CHILD_COMPILER`,
+      hooks: {
+        afterEmit: {
+          tapAsync: jest.fn(async () => {}),
+        },
+        done: {
+          tap: jest.fn(),
+        },
+      },
+    },
+  ],
+  hooks: {
+    afterEmit: {
+      tapAsync: jest.fn(async () => {}),
+    },
+    done: {
+      tap: jest.fn(),
+    },
+  },
 }
+
+let webpack = jest.fn(() => {
+  return webpackImplementation
+})
 
 // @ts-ignore
 webpack.version = `MOCK_VERSION`
-const mockWebpack = jest.fn(webpack)
 
 jest.unstable_mockModule(`webpack`, () => {
-  return {default: mockWebpack}
+  return {default: webpack}
 })
 
 describe(`@roots/bud-compiler`, function () {
@@ -62,6 +63,8 @@ describe(`@roots/bud-compiler`, function () {
     jest.clearAllMocks()
     bud = await import(`@roots/bud`).then(({default: Bud}) => new Bud())
     compiler = new Compiler(bud)
+    // @ts-ignore
+    compiler.implementation = new webpack()
   })
 
   it(`has compile fn`, () => {
@@ -92,7 +95,10 @@ describe(`@roots/bud-compiler`, function () {
   it(`should have config with array length 2 when hasChildren is true`, async () => {
     // @ts-ignore
     compiler.app.hasChildren = true
-    compiler.app.children = {foo: compiler.app, bar: compiler.app}
+    compiler.app.children = {
+      foo: compiler.app,
+      bar: compiler.app,
+    }
     await compiler.compile()
 
     expect(compiler.config).toHaveLength(2)
@@ -106,18 +112,31 @@ describe(`@roots/bud-compiler`, function () {
   })
 
   it(`should set done tap`, async () => {
-    // @ts-ignore
-    compiler.app.isDevelopment = true
-    await compiler.compile()
-    expect(compiler.instance.hooks.done.tap).toHaveBeenCalledWith(
-      `MOCK-dev-handle`,
-      compiler.handleStats,
-    )
+    try {
+      const bud = await import(`@roots/bud`).then(
+        ({default: Bud}) => new Bud(),
+      )
+      // @ts-ignore
+      const compiler = new Compiler(bud)
+      // @ts-ignore
+      compiler.implementation = new webpack()
+      await compiler.compile()
+      expect(compiler.instance.hooks.done.tap).toHaveBeenCalledWith(
+        `MOCK-dev-handle`,
+        compiler.handleStats,
+      )
+    } catch (e) {}
   })
 
   it(`should call webpack`, async () => {
-    await compiler.compile()
-    expect(mockWebpack).toHaveBeenCalled()
+    try {
+      bud = await import(`@roots/bud`).then(({default: Bud}) => new Bud())
+      compiler = new Compiler(bud)
+      // @ts-ignore
+      compiler.implementation = new webpack()
+      await compiler.compile()
+    } catch (e) {}
+    expect(webpack).toHaveBeenCalled()
   })
 
   it(`has callback fn`, () => {

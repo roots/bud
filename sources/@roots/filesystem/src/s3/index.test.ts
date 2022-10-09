@@ -128,6 +128,10 @@ describe(`s3`, () => {
     expect(s3.public).toBeFalsy()
   })
 
+  it(`should return the value of s3.isPublic when calling getPublic`, () => {
+    expect(s3.getPublic()).toBeTruthy()
+  })
+
   it(`should throw if attempt to access client is made and credentials aren't set`, async () => {
     s3.setCredentials(null)
     try {

@@ -5,7 +5,8 @@
     "outDir": "lib",
     "types": [
       "@roots/bud-framework",
-      "@roots/bud-api"
+      "@roots/bud-api",
+      "@roots/bud-framework/registry/flags",
     ]
   },
   "include": [
@@ -13,7 +14,8 @@
   ],
   "exclude": [
     "lib",
-    "node_modules"
+    "node_modules",
+    "**/*.test.ts"
   ],
   "references": [
     {"path": "./../bud-framework/tsconfig.json"},

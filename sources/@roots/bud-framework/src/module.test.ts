@@ -17,7 +17,7 @@ describe(`@roots/bud-framework`, () => {
     bud = await import(`@roots/bud`).then(({default: Bud}) => new Bud())
     bud.root = {
       context: bud.context,
-      path: jest.fn((...args) => join(bud.root.context.basedir, ...args)),
+      path: jest.fn((...args) => join(bud.context.basedir, ...args)),
     }
 
     budModule = new Module(bud)
@@ -80,7 +80,7 @@ describe(`@roots/bud-framework`, () => {
 
   it(`should have a readManifest fn that returns the requested package.json object`, async () => {
     await budModule.readManifest(`@roots/bud`)
-    expect(bud.json.read).toHaveBeenCalledWith(
+    expect(bud.fs.json.read).toHaveBeenCalledWith(
       expect.stringContaining(`@roots/bud/package.json`),
     )
   })

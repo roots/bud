@@ -11,7 +11,6 @@ import {bootstrap, LIFECYCLE_EVENT_MAP} from './lifecycle/bootstrap.js'
 import type {Logger} from './logger'
 import type * as methods from './methods/index.js'
 import type {Module} from './module'
-import * as parsers from './parsers/index.js'
 import type * as Service from './service'
 import type * as Api from './services/api.js'
 import type FS from './services/fs.js'
@@ -206,12 +205,12 @@ export class Bud {
   /**
    * @deprecated - use {@link FS.json | bud.fs.json}
    */
-  public json: typeof parsers.json5 = parsers.json5
+  public json: FS['json']
 
   /**
    * @deprecated - use {@link FS.yml | bud.fs.yml}
    */
-  public yml: typeof parsers.yml = parsers.yml
+  public yml: FS['yml']
 
   public value = Value
 

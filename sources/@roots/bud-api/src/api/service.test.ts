@@ -4,6 +4,19 @@ import {Api} from './service'
 
 const mockBud = {
   bindMethod: jest.fn(() => null),
+  fs: {
+    json: {
+      read: jest.fn(() => null),
+      write: jest.fn(),
+      stringify: jest.fn(),
+      parse: jest.fn(),
+    },
+    yml: {
+      read: jest.fn(),
+      write: jest.fn(),
+      parse: jest.fn(),
+    },
+  },
   hooks: {
     action: jest.fn(() => null),
   },

@@ -1,5 +1,3 @@
-import '@roots/bud-framework/registry/flags'
-
 import type BudBrotliWebpackPlugin from './brotli.js'
 import type BudCompressionExtension from './extension.js'
 import type {Options} from './extension.js'

@@ -75,7 +75,7 @@ export class Api extends Base.Service {
     this.app.log(
       chalk.blue(name),
       args && !isEmpty(args)
-        ? this.app.json.stringify(args)
+        ? this.app.fs.json.stringify(args)
         : `(no arguments passed)`,
     )
 

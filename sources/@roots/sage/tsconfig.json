@@ -6,8 +6,8 @@
     "types": ["@roots/bud-framework",  "@roots/bud-tailwindcss", "@roots/bud-api", "@roots/bud-preset-wordpress"],
     "sourceMap": false,
   },
-  "include": ["./src"],
-  "exclude": ["./lib", "./node_modules", "./**/*.test.ts"],
+  "include": ["src"],
+  "exclude": ["lib", "node_modules", "**/*.test.ts"],
   "references": [
     {"path": "./../bud-framework/tsconfig.json"},
     {"path": "./../bud-api/tsconfig.json"},
