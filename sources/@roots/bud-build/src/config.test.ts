@@ -134,6 +134,12 @@ describe(`bud.build.config`, function () {
 
   it(`should have expected default requireEnsure rule`, () => {
     if (!build.config.module?.rules?.length) throw new Error()
-    expect(build.config.module.rules[0]).toMatchSnapshot()
+    expect(build.config.module.rules[0]).toEqual(
+      expect.objectContaining({
+        parser: {
+          requireEnsure: false,
+        },
+      }),
+    )
   })
 })

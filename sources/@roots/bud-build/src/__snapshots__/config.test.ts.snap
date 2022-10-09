@@ -1,17 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`bud.build.config should have expected default requireEnsure rule 1`] = `
-{
-  "include": [
-    "/Users/kellymears/code/git/roots/bud/tests/util/project",
-  ],
-  "parser": {
-    "requireEnsure": false,
-  },
-  "test": /\\\\\\.\\(mjs\\|jsx\\?\\)\\$/,
-}
-`;
-
 exports[`bud.build.config should have expected resolve.extensions default 1`] = `
 [
   ".mjs",
