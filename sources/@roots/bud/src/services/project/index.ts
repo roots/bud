@@ -38,7 +38,7 @@ export default class Project extends BaseService implements Service {
 
       await this.app.fs.write(
         path,
-        this.app.json.stringify(
+        this.app.fs.json.stringify(
           {
             context: omit(
               this.app.context,

@@ -16,7 +16,8 @@
   "exclude": [
     "lib",
     "types",
-    "node_modules"
+    "node_modules",
+    "**/*.test.ts"
   ],
   "references": [{"path": "./../bud-framework/tsconfig.json"}]
 }

@@ -8,6 +8,7 @@ import {
   PutObjectCommand,
   PutObjectCommandInput,
   S3Client,
+  S3ClientConfig,
 } from '@aws-sdk/client-s3'
 import {bind} from 'helpful-decorators'
 import isString from 'lodash-es/isString.js'
@@ -36,7 +37,36 @@ export default class S3 {
    *
    * @public
    */
-  public config: Config = new Config()
+  public config: Config
+
+  /**
+   * Client factory
+   *
+   * @internal
+   */
+  public client: {make: (config: S3ClientConfig) => S3Client} = Client
+
+  /**
+   * S3 Client
+   *
+   * @public
+   */
+  public getClient(): S3Client {
+    if (!this.config.credentials) {
+      throw new Error(
+        `S3 credentials are required. Did you forget to set them?`,
+      )
+    }
+
+    let value: S3ClientConfig = {
+      credentials: this.config.credentials,
+      region: this.config.region,
+    }
+
+    if (this.config.endpoint) value.endpoint = this.config.endpoint
+
+    return this.client.make(value)
+  }
 
   /**
    * Permissions for uploaded files
@@ -44,6 +74,16 @@ export default class S3 {
    * @public
    */
   public isPublic: boolean = true
+
+  /**
+   * constructor
+   *
+   * @public
+   */
+  public constructor() {
+    this.client = Client
+    this.config = new Config()
+  }
 
   /**
    * Identifier (for loggers, etc)
@@ -64,15 +104,6 @@ export default class S3 {
       }`
 
     return `https://${maybeEndpoint.toString()}`
-  }
-
-  /**
-   * S3 client instance
-   *
-   * @public
-   */
-  public get client(): S3Client {
-    return Client.make(this.config.value)
   }
 
   /**
@@ -114,7 +145,7 @@ export default class S3 {
    */
   @bind
   public getCredentials() {
-    return this.config.value.credentials
+    return this.config.get(`credentials`)
   }
 
   /**
@@ -127,7 +158,7 @@ export default class S3 {
    * @decorator bind - {@link bind}
    */
   @bind
-  public setCredentials(credentials: Config['value']['credentials']) {
+  public setCredentials(credentials: Config['credentials']) {
     this.config.set(`credentials`, credentials)
 
     return this
@@ -143,7 +174,7 @@ export default class S3 {
    */
   @bind
   public getEndpoint() {
-    return this.config.value.endpoint
+    return this.config.get(`endpoint`)
   }
 
   /**
@@ -156,7 +187,7 @@ export default class S3 {
    * @decorator bind - {@link bind}
    */
   @bind
-  public setEndpoint(endpoint: Config['value']['endpoint']) {
+  public setEndpoint(endpoint: Config['endpoint']) {
     this.config.set(`endpoint`, endpoint)
 
     return this
@@ -172,7 +203,7 @@ export default class S3 {
    */
   @bind
   public getRegion() {
-    return this.config.value.region
+    return this.config.get(`region`)
   }
 
   /**
@@ -185,7 +216,7 @@ export default class S3 {
    * @decorator bind - {@link bind}
    */
   @bind
-  public setRegion(region: Config['value']['region']) {
+  public setRegion(region: Config['region']) {
     this.config.set(`region`, region)
 
     return this
@@ -251,7 +282,7 @@ export default class S3 {
       })
 
     try {
-      const request = (await this.client.send(
+      const request = (await this.getClient().send(
         new GetObjectCommand({Bucket: this.bucket, Key: key}),
       )) as {Body: Readable}
 
@@ -277,7 +308,7 @@ export default class S3 {
   @bind
   public async delete(key: string) {
     try {
-      await this.client.send(
+      await this.getClient().send(
         new DeleteObjectCommand({
           Bucket: this.bucket,
           Key: key,
@@ -325,14 +356,15 @@ export default class S3 {
   @bind
   public async list(raw = false) {
     try {
-      const results = await this.client.send(
+      const results = await this.getClient().send(
         new ListObjectsCommand({
           Bucket: this.bucket,
         }),
       )
 
+      if (!results) return []
       if (raw) return results
-      else return results.Contents.map(({Key}) => Key)
+      else return results?.Contents.map(({Key}) => Key)
     } catch (error) {
       throw error
     }
@@ -373,7 +405,7 @@ export default class S3 {
     }
 
     try {
-      await this.client.send(new PutObjectCommand(putProps))
+      await this.getClient().send(new PutObjectCommand(putProps))
 
       return this
     } catch (error) {

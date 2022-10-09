@@ -5,7 +5,6 @@ import {paths} from '@repo/constants'
  */
 const base = {
   coverageProvider: `v8`,
-  collectCoverageFrom: [`sources/**/*{ts,tsx}`],
   extensionsToTreatAsEsm: [`.ts`, `.tsx`],
   moduleDirectories: [`node_modules`],
   moduleNameMapper: {
@@ -28,6 +27,37 @@ const base = {
     `<rootDir>/node_modules/`,
     `<rootDir>/tests/__mocks__`,
     `<rootDir>/storage/`,
+  ],
+  collectCoverageFrom: [
+    `**/sources/@roots/*/src/*.{ts,tsx}`,
+    `**/sources/@roots/*/src/**/*.{ts,tsx}`,
+    `!**/sources/@roots/*/src/*.test.{ts,tsx}`,
+    `!**/sources/@roots/*/src/**/*.test.{ts,tsx}`,
+  ],
+  coveragePathIgnorePatterns: [
+    `/node_modules/`,
+    `/__snapshots__/`,
+    `/vendor/`,
+    `/lib/`,
+    `/@repo/`,
+    `/tests/`,
+    `/__mocks__/`,
+    `.js$`,
+    `spec.ts$`,
+    `types.ts$`,
+    `.d.ts$`,
+    `interface.ts$`,
+    `env.ts$`,
+    `/types/`,
+    `/deprecated/`,
+    `/@roots/bud-support/`,
+    `/@roots/dependencies/`,
+    /**
+     * Currently problematic to unit test these.
+     * October 9, 2022
+     */
+    `/@roots/bud/src/cli/`,
+    `/src/bud/commands/`,
   ],
   slowTestThreshold: 10,
   testTimeout: 60 * 1000,
@@ -79,25 +109,7 @@ export default async () => ({
       ...base,
       displayName: `unit`,
       collectCoverage: true,
-      coveragePathIgnorePatterns: [
-        `/node_modules/`,
-        `/vendor/`,
-        `/lib/`,
-        `/@repo/`,
-        `/tests/`,
-        `/__mocks__/`,
-        `spec.ts$`,
-        `.js$`,
-        `/deprecated/`,
-        `/*.types.ts`,
-        `/types/`,
-        `/bud-support/`,
-      ],
-      testMatch: [
-        `**/sources/@roots/*/src/**/*.test.ts`,
-        `**/sources/@roots/*/src/**/*.test.tsx`,
-        `**/tests/unit/**/*.test.ts`,
-      ],
+      testMatch: [`**/sources/@roots/*/src/**/*.test.{ts,tsx}`],
     },
   ],
 })

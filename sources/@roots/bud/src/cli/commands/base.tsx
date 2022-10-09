@@ -237,8 +237,11 @@ export default abstract class BaseCommand extends Command {
     if (this.runCommand) await this.runCommand()
 
     if (this.notify !== false)
-      this.app.hooks.action(`compiler.close`, async () =>
-        new Notifier(this.app).notify(),
-      )
+      this.app.hooks.action(`compiler.after`, async () => {
+        this.app.compiler.instance.hooks.done.tap(
+          `bud-cli-notifier`,
+          new Notifier(this.app).notify,
+        )
+      })
   }
 }

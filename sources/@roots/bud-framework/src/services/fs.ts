@@ -57,6 +57,9 @@ export default class Service extends FS {
     this.logger = this.app.logger
       .makeInstance({logLevel: `info`, interactive: true})
       .scope(...this.app.logger.scope, `fs`)
+
+    this.app.json = this.json
+    this.app.yml = this.yml
   }
 
   /**

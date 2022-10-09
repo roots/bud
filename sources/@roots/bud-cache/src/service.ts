@@ -3,7 +3,6 @@ import {createHash} from 'node:crypto'
 import {Service} from '@roots/bud-framework/service'
 import type * as Services from '@roots/bud-framework/services'
 import {bind} from '@roots/bud-support/decorators'
-import * as fs from '@roots/bud-support/fs'
 import {isUndefined} from '@roots/bud-support/lodash-es'
 
 import InvalidateCacheExtension from './invalidate-cache-extension/index.js'
@@ -172,7 +171,7 @@ export default class Cache
       .join(`.`)
 
     this.version = createHash(`sha1`)
-      .update(this.app.json.stringify([this.app.context.config, args]))
+      .update(this.app.fs.json.stringify([this.app.context.config, args]))
       .digest(`base64`)
       .replace(/[^a-z0-9]/gi, `_`)
       .toLowerCase()
@@ -184,8 +183,11 @@ export default class Cache
     }
   }
 
+  /**
+   * Flush cache
+   */
   @bind
   public async flush() {
-    await fs.remove(this.cacheDirectory)
+    await this.app.fs.remove(this.cacheDirectory)
   }
 }

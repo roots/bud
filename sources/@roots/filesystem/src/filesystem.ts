@@ -344,7 +344,7 @@ export default class Filesystem {
       return this
     }
 
-    const writeProps: WriteOptions = null
+    const writeProps: WriteOptions = {}
 
     if (options && options.mode)
       Object.assign(writeProps, {mode: options.mode})
@@ -359,7 +359,7 @@ export default class Filesystem {
           : options.space,
       })
 
-    this.fs.writeAsync(path, data, {}) // returns void
+    this.fs.writeAsync(path, data, writeProps) // returns void
 
     return this
   }
