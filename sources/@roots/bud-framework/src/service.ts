@@ -1,4 +1,5 @@
 import {lowerCase} from '@roots/bud-support/lodash-es'
+import Container from '@roots/container'
 import type {Signale} from 'signale'
 
 import type {Bud} from './bud'
@@ -177,5 +178,69 @@ abstract class Base implements Partial<Contract> {
   }
 }
 
-export {Base, Base as Service}
+/**
+ * Service
+ *
+ * @remarks
+ * The Service interface provides access to the {@link Bud} container.
+ *
+ * A Service interfaces with the Framework through a series of callbacks at different points in the build.
+ *
+ * @public
+ */
+abstract class BaseContainer
+  extends Container
+  implements Partial<Contract>
+{
+  /**
+   * Service label
+   *
+   * @public
+   * @virtual
+   */
+  public static label: string
+
+  /**
+   * @internal @readonly
+   */
+  public _app: () => Bud
+
+  /**
+   * Access {@link Bud}
+   *
+   * @public @readonly
+   */
+  public get app(): Bud {
+    return this._app()
+  }
+
+  /**
+   * Logger instance
+   *
+   * @public
+   */
+  public logger: Signale
+
+  /**
+   * Class constructor
+   * @public
+   */
+  public constructor(app: Bud) {
+    super()
+
+    this._app = () => app
+
+    this.logger = app.logger.instance.scope(
+      ...app.logger.scope,
+      lowerCase(this.constructor.name),
+    )
+  }
+}
+
+export {
+  Base,
+  Base as Service,
+  BaseContainer,
+  BaseContainer as ServiceContainer,
+}
 export type {Contract}

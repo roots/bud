@@ -10,8 +10,6 @@ import type {Service as Base} from '../../service'
 export interface Service extends Base {
   instance: any
 
-  log(...strings: Array<string>): unknown
-
   /**
    * Render the dashboard
    *
