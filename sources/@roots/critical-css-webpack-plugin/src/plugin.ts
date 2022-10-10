@@ -1,4 +1,4 @@
-import critical from 'critical'
+import * as critical from 'critical'
 import {bind} from 'helpful-decorators'
 import vinyl from 'vinyl'
 import Webpack from 'webpack'
@@ -125,24 +125,29 @@ export default class CriticalCssWebpackPlugin {
           contents: asset.source.buffer(),
         })
 
-        await critical
-          .generate({
-            ...this.options,
-            base,
-            css: [vfile],
-          })
-          .then(({css, uncritical}) => {
-            this.webpack.compilation.updateAsset(
-              asset.name,
-              new Webpack.sources.RawSource(uncritical),
-            )
+        try {
+          await critical
+            .generate({
+              ...this.options,
+              base,
+              css: [vfile],
+            })
+            .then(({css, uncritical}) => {
+              this.webpack.compilation.updateAsset(
+                asset.name,
+                new Webpack.sources.RawSource(uncritical),
+              )
 
-            this.webpack.compilation.emitAsset(
-              `critical/${asset.name.split(`.`).shift().concat(`.css`)}`,
-              new Webpack.sources.RawSource(css),
-              asset.info,
-            )
-          })
+              this.webpack.compilation.emitAsset(
+                `critical/${asset.name.split(`.`).shift().concat(`.css`)}`,
+                new Webpack.sources.RawSource(css),
+                asset.info,
+              )
+            })
+        } catch (error) {
+          console.error(error)
+          throw error
+        }
       }),
     )
 
