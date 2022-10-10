@@ -1,5 +1,5 @@
 import {bind} from '@roots/bud-support/decorators'
-import patchConsole from 'patch-console'
+import patchConsole from '@roots/bud-support/patch-console'
 
 import {Service} from '../service.js'
 
