@@ -10,7 +10,7 @@ author_image_url: https://avatars.githubusercontent.com/u/397606?v=4
 tags: [release, 6.5]
 ---
 
-Some much-needed filesystem functionality, a way to upload compilations to S3 and a new, simple way to do tasks after compilations are finalized.
+Some much-needed filesystem functionality, post compilation tasks, and a way to upload compilations to S3.
 
 <!--truncate-->
 
@@ -39,11 +39,28 @@ Config function for executing tasks after the compilation is fully complete. Thi
 
 ```typescript
 bud.after(async bud => {
-  await bud.fs.s3.write({Key: 'example.test', Body: 'Hello, world!'})
+  await bud.fs.write(
+    `dist/credits.txt`,
+    `${bud.context.manifest.name} built by me!`,
+  )
 })
 ```
 
 Check [the bud.after docs](https://bud.js.org/docs/bud.after) for more information.
+
+## 🩹 fix: duplicative logs
+
+Some logs would be displayed twice in the terminal if they were emitted around the same time that the dashboard was being updated.
+It was also possible, depending on user configuration, for requests for the dashboard to update to fire twice. This has been fixed.
+
+1. `console.*` events are now caught by a new service: `bud.bufferConsole`. The service catches logs, trims and deduplicates them, and
+   then emits them using an instance of the standard bud logger. If bud is invoked with the `--ci` flag the service will let them pass through normally.
+2. The `bud.dashboard` service's `stats` method is now debounced. Duplicative calls should be ignored.
+
+## 🩹 fix: notifications only fire once (macos)
+
+In `dev` mode, only the first compilation would result in a desktop notification. This has been fixed. You should receive a notification for every
+compilation now.
 
 ## ℹ️ Release information
 
