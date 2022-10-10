@@ -134,7 +134,7 @@
     "lodash-es": "4.17.21",
     "parse5": "7.1.1",
     "parse5-htmlparser2-tree-adapter": "7.0.0",
-    "patch-console": "2.0.0",
+    "patch-console": "1.0.0",
     "pretty-format": "29.0.3",
     "react": "17.0.2",
     "typanion": "3.12.0",

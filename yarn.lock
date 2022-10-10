@@ -6234,7 +6234,7 @@ __metadata:
     lodash-es: 4.17.21
     parse5: 7.1.1
     parse5-htmlparser2-tree-adapter: 7.0.0
-    patch-console: 2.0.0
+    patch-console: 1.0.0
     pretty-format: 29.0.3
     react: 17.0.2
     typanion: 3.12.0
@@ -24539,14 +24539,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"patch-console@npm:2.0.0":
-  version: 2.0.0
-  resolution: "patch-console@npm:2.0.0"
-  checksum: 10e7d382cc1cf930a2114a822cdc816109a1147bcbc4881ca4fa2ad0228a60cf14d53f815fce3164f25851fea71db4026ae8271e4026b42b0a6e92ddc074d4c2
-  languageName: node
-  linkType: hard
-
-"patch-console@npm:^1.0.0":
+"patch-console@npm:1.0.0, patch-console@npm:^1.0.0":
   version: 1.0.0
   resolution: "patch-console@npm:1.0.0"
   checksum: 8cd738aa470f2e9463fca35da6a19403384ac555004f698ddd3dfdb69135ab60fe9bd2edd1dbdd8c09d92c0a2190fd0f7337fe48123013baf8ffec8532885a3a

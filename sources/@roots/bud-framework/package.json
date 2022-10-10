@@ -100,8 +100,18 @@
       "services": [
         "./lib/types/services/index.d.ts"
       ],
+      "services/api": [
+        "./lib/services/api.d.ts"
+      ],
+      "services/extensions": [
+        "./lib/services/extensions.d.ts"
+      ],
+      "services/console": [
+        "./lib/services/console.d.ts"
+      ],
       "services/*": [
-        "./lib/types/services/*.d.ts"
+        "./lib/types/services/*.d.ts",
+        "./lib/types/services/*/index.d.ts"
       ],
       "registry": [
         "./lib/types/registry/index.d.ts"
