@@ -106,6 +106,9 @@
       "services/extensions": [
         "./lib/services/extensions.d.ts"
       ],
+      "services/console": [
+        "./lib/services/console.d.ts"
+      ],
       "services/*": [
         "./lib/types/services/*.d.ts",
         "./lib/types/services/*/index.d.ts"
