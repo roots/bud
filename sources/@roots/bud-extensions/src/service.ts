@@ -216,7 +216,9 @@ export default class Extensions extends Service {
         Array.from(instance.dependsOn)
           .filter(this.isAllowed)
           .filter(dependency => !this.has(dependency))
-          .map(async dependency => await this.import(dependency)),
+          .map(async dependency => {
+            await this.import(dependency)
+          }),
       )
 
     if (instance.dependsOnOptional)
@@ -224,10 +226,9 @@ export default class Extensions extends Service {
         Array.from(instance.dependsOnOptional)
           .filter(this.isAllowed)
           .filter(optionalDependency => !this.has(optionalDependency))
-          .map(
-            async optionalDependency =>
-              await this.import(optionalDependency, false),
-          ),
+          .map(async optionalDependency => {
+            await this.import(optionalDependency, false)
+          }),
       )
 
     if (instance.optIn)
@@ -236,10 +237,9 @@ export default class Extensions extends Service {
           .filter(this.isAllowed)
           .filter(optInDependency => !this.has(optInDependency))
           .filter(this.isDirectDependency)
-          .map(
-            async optInDependency =>
-              await this.import(optInDependency, false),
-          ),
+          .map(async optInDependency => {
+            await this.import(optInDependency, false)
+          }),
       )
 
     this.set(instance)

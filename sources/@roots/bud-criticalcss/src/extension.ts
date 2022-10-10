@@ -50,7 +50,6 @@ export default class BudCriticalCss extends Extension<
    * Set source url
    *
    * @param src - source url
-   * @returns {@link BudCriticalCss}
    *
    * @public
    */
@@ -63,7 +62,6 @@ export default class BudCriticalCss extends Extension<
    * Set markup to use as source
    *
    * @param html - source template as a string
-   * @returns {@link BudCriticalCss}
    *
    * @public
    */
@@ -80,7 +78,8 @@ export default class BudCriticalCss extends Extension<
    * Relative public paths are not supported.
    *
    * @param base - base path
-   * @returns
+   *
+   * @public
    */
   public base(base: string) {
     this.setOption(`base`, base)
@@ -91,7 +90,6 @@ export default class BudCriticalCss extends Extension<
    * Set browser width
    *
    * @param width - browser width
-   * @returns {@link BudCriticalCss}
    *
    * @public
    */
@@ -104,7 +102,6 @@ export default class BudCriticalCss extends Extension<
    * Set browser height
    *
    * @param height - browser height
-   * @returns {@link BudCriticalCss}
    *
    * @public
    */
