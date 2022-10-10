@@ -6,10 +6,14 @@ export interface BaseContext {
   label: string
   root?: Bud
   basedir: string
-  bud: Record<string, any>
+  bud?: {
+    label: string
+    basedir: string
+    version: string
+  }
   manifest?: Record<string, any>
-  mode: 'development' | 'production'
-  args: Partial<{
+  mode?: 'development' | 'production'
+  args?: Partial<{
     basedir: string
     browser: string | boolean
     cache: `filesystem` | `memory` | true | false
@@ -67,7 +71,7 @@ export interface BaseContext {
     storage: string
     target: Array<string>
   }>
-  config: Record<
+  config?: Record<
     string,
     {
       name: string
@@ -80,16 +84,16 @@ export interface BaseContext {
       module: any
     }
   >
-  extensions: Array<string>
-  services: Array<string>
-  env: Record<string, string | undefined>
+  extensions?: Array<string>
+  services?: Array<string>
+  env?: Record<string, string | undefined>
 }
 
 export interface InstanceContext extends BaseContext {
-  stdin: Readable
-  stdout: Writable
-  stderr: Writable
-  colorDepth: number
+  stdin?: Readable
+  stdout?: Writable
+  stderr?: Writable
+  colorDepth?: number
 }
 
 export type BaseOverrides = {

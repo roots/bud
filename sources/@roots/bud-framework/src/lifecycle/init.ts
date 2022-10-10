@@ -44,13 +44,13 @@ export const initialize = (app: Bud): Bud =>
       'pattern.json': /\.json$/,
       'pattern.json5': /\.json5$/,
 
-      'location.@src': app.context.args.input ?? `src`,
-      'location.@dist': app.context.args.output ?? `dist`,
-      'location.@storage': app.context.args.storage ?? `.budfiles`,
-      'location.@modules': app.context.args.modules ?? `node_modules`,
+      'location.@src': app.context.args?.input ?? `src`,
+      'location.@dist': app.context.args?.output ?? `dist`,
+      'location.@storage': app.context.args?.storage ?? `.budfiles`,
+      'location.@modules': app.context.args?.modules ?? `node_modules`,
 
       'build.bail': app.isProduction,
-      'build.cache': () => app.cache.configuration,
+      'build.cache': () => app.cache?.configuration ?? false,
       'build.context': () => app.context.basedir,
       'build.externalsType': `var`,
       'build.mode': () => app.mode,

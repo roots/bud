@@ -1,8 +1,6 @@
 import type {
-  Configuration,
   MultiCompiler as WebpackMultiCompiler,
   MultiStats,
-  ProgressPlugin,
   Stats,
   StatsCompilation,
 } from 'webpack'
@@ -13,22 +11,32 @@ import type {Service as BaseService} from '../../service'
  * Compiler service interface
  *
  * @remarks
- * Compiles {@link @roots/bud-Bud#Build.config | Build config}
- * and reports on stats, progress, and errors encountered during compilation.
+ * Compiles the configuration provided by bud.build
+ * and reports compilation results and errors
  *
  * @public
  */
 interface Service extends BaseService {
-  implementation: Implementation
-
   /**
-   * The compiler instance
+   * Compiler function
    *
    * @public
    */
-  instance: WebpackMultiCompiler
+  implementation: (...params: Array<any>) => any
 
-  config: Array<Configuration>
+  /**
+   * The compilation
+   *
+   * @public
+   */
+  instance: any
+
+  /**
+   * The final configuration
+   *
+   * @public
+   */
+  config: Array<any>
 
   /**
    * Contains compilation stats, if available.
@@ -56,27 +64,26 @@ interface Service extends BaseService {
    */
   compile(): Promise<WebpackMultiCompiler>
 
+  /**
+   * Handle compilation results and errors
+   *
+   * @public
+   */
   callback(error: Error, stats: Stats & MultiStats): void
 
+  /**
+   * Handle compiler results
+   *
+   * @public
+   */
   handleStats(stats: Stats & MultiStats): void
 
+  /**
+   * Handle compiler errors
+   *
+   * @public
+   */
   onError(error: any): void
-}
-
-export type BudError = {
-  file: string
-  line: number
-  column: number
-  message: string
-  type: 'syntax' | 'export'
-}
-export type Config = Configuration
-export type Implementation = (...params: any[]) => any
-
-export type Progress = [number, string]
-
-export namespace Progress {
-  export type Handler = ProgressPlugin['handler']
 }
 
 export {Service}

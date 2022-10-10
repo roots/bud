@@ -158,7 +158,7 @@ export const bootstrap = async function (
   /* initialize services */
   await Promise.all(
     this.context.services
-      .filter(filterFrameworkServices(this))
+      ?.filter(filterFrameworkServices(this))
       .map(importAndBindFrameworkServices(this)),
   )
 

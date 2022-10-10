@@ -11,8 +11,11 @@ let bud = {
   root: null,
 }
 
+// @ts-ignore
 bud.hooks.fromAsyncMap = jest.fn(() => bud)
+// @ts-ignore
 bud.hooks.fromMap = jest.fn(() => bud)
+// @ts-ignore
 bud.root = bud
 
 let context = {

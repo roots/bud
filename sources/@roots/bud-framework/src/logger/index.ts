@@ -25,7 +25,7 @@ export class Logger {
   public instance: Signale.Signale
 
   public get level() {
-    switch (this.app.context.args.level?.length) {
+    switch (this.app.context.args?.level?.length) {
       case 1:
         return LEVEL[`v`]
       case 2:
@@ -38,14 +38,14 @@ export class Logger {
       // fallthrough
     }
 
-    if (this.app.context.args.log === true) {
+    if (this.app.context.args?.log === true) {
       return LEVEL[`vvv`]
     }
 
     return LEVEL[`vv`]
   }
 
-  public scope: Array<string>
+  public scope: Array<string> = []
 
   /**
    * Class constructor
@@ -54,10 +54,13 @@ export class Logger {
    */
   public constructor(_app: Bud) {
     this._app = () => _app
-    this.scope = [
-      `${this.app.context.bud.label}@${this.app.context.bud.version}`,
-      this.app.label,
-    ]
+
+    this.app.context.bud?.label &&
+      this.app.context.bud?.version &&
+      this.scope.push(
+        `${this.app.context.bud?.label}@${this.app.context.bud.version}`,
+      )
+    this.scope.push(this.app.label)
     this.instance = this.makeInstance()
   }
 
@@ -68,8 +71,8 @@ export class Logger {
   ) {
     let instance = new Signale.Signale({
       logLevel: this.level,
-      disabled: isEqual(this.app.context.args.log, false),
-      scope: this.app.label ?? this.app.context.bud.label,
+      disabled: isEqual(this.app.context.args?.log, false),
+      scope: this.scope.join(` `),
       stream: this.app.context.stdout as any,
       types,
       ...constructorOverrides,

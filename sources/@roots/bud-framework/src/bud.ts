@@ -1,4 +1,5 @@
 import {bind} from '@roots/bud-support/decorators'
+import {json} from '@roots/bud-support/filesystem'
 import {
   isFunction,
   isNull,
@@ -309,10 +310,7 @@ export class Bud {
   @bind
   private formatLogMessages(messages: any[]) {
     return messages.map(message =>
-      (typeof message !== `string`
-        ? this.json.stringify(message)
-        : message
-      )
+      (typeof message !== `string` ? json.stringify(message) : message)
         ?.replaceAll(this.context.basedir, `.`)
         .replaceAll(/(.*)\s(.*)\/node_modules\/(.*)/g, `$1 $3`),
     )
@@ -328,8 +326,8 @@ export class Bud {
   public log(...messages: any[]) {
     if (
       !this.logger?.instance ||
-      this.context.args.level?.length < 3 ||
-      this.context.args.log === false
+      this.context.args?.level?.length < 3 ||
+      this.context.args?.log === false
     )
       return this
 
@@ -348,8 +346,8 @@ export class Bud {
   public info(...messages: any[]) {
     if (
       !this.logger?.instance ||
-      this.context.args.level?.length < 4 ||
-      this.context.args.log === false
+      this.context.args?.level?.length < 4 ||
+      this.context.args?.log === false
     )
       return this
     this.logger.instance.info(...this.formatLogMessages(messages))
@@ -366,8 +364,8 @@ export class Bud {
   public success(...messages: any[]) {
     if (
       !this.logger?.instance ||
-      this.context.args.level?.length < 3 ||
-      this.context.args.log === false
+      this.context.args?.level?.length < 3 ||
+      this.context.args?.log === false
     )
       return this
     this.logger.instance.success(...this.formatLogMessages(messages))

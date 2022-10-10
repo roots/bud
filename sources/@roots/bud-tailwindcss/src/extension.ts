@@ -18,11 +18,11 @@ import resolveConfig from 'tailwindcss/resolveConfig.js'
 import type {Config, ThemeConfig} from 'tailwindcss/types/config'
 import WebpackVirtualModules from 'webpack-virtual-modules'
 
-type ResolvedConfig = Partial<{
-  [K in keyof Config['theme'] as `${K & string}`]: ReturnType<
-    Config['theme'][K]
-  >
-}>
+type ResolvedConfig = Partial<
+  {
+    [K in keyof ThemeConfig as `${K & string}`]: ReturnType<ThemeConfig[K]>
+  } & ThemeConfig
+>
 
 /**
  * TailwindCSS support for `@roots/bud`
@@ -34,9 +34,7 @@ type ResolvedConfig = Partial<{
 @label(`@roots/bud-tailwindcss`)
 @dependsOn([`@roots/bud-postcss`])
 @expose(`tailwind`)
-@options({
-  generateImports: false,
-})
+@options({generateImports: false})
 export default class BudTailwindCss extends Extension {
   /**
    * Get config module
@@ -129,13 +127,13 @@ export default class BudTailwindCss extends Extension {
    * @returns
    */
   @bind
-  public makeStaticModule(key: keyof Config['theme']) {
+  public makeStaticModule(key: keyof ThemeConfig) {
     return `export default ${JSON.stringify(get(this.theme, key))}\n`
   }
 
   @bind
   public async generateImports(
-    imports?: Array<`${keyof Config['theme'] & string}`> | boolean,
+    imports?: Array<`${keyof ThemeConfig & string}`> | boolean,
   ) {
     this.setOption(
       `generateImports`,

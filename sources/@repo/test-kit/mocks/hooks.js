@@ -1,7 +1,7 @@
 import {jest} from '@jest/globals'
 
 const mock = jest.fn().mockImplementation(async () => {
-  return {
+  const hooks = {
     logger: {
       log: jest.fn(),
       info: jest.fn(),
@@ -9,18 +9,21 @@ const mock = jest.fn().mockImplementation(async () => {
       error: jest.fn(),
     },
     label: `hooks`,
-    on: jest.fn(),
-    filter: jest.fn(),
-    fromMap: jest.fn(),
-    hasSyncHook: jest.fn(),
-    hasAsyncHook: jest.fn(),
-    hasEvent: jest.fn(),
-    async: jest.fn(),
-    filterAsync: jest.fn(),
-    fromAsyncMap: jest.fn(),
-    action: jest.fn(),
-    fire: jest.fn(),
   }
+
+  hooks.on = jest.fn()
+  hooks.filter = jest.fn()
+  hooks.fromMap = jest.fn()
+  hooks.hasSyncHook = jest.fn(() => false)
+  hooks.hasAsyncHook = jest.fn(() => false)
+  hooks.hasEvent = jest.fn(() => false)
+  hooks.async = jest.fn()
+  hooks.filterAsync = jest.fn()
+  hooks.fromAsyncMap = jest.fn()
+  hooks.action = jest.fn()
+  hooks.fire = jest.fn()
+
+  return hooks
 })
 
 export default mock

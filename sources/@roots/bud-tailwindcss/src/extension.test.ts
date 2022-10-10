@@ -88,7 +88,7 @@ describe(`@roots/bud-tailwindcss extension`, () => {
       Bud.context.config[`tailwind.config.js`].module,
     )
 
-    expect(extension.theme.colors).not.toBe(configInitial.theme.colors)
+    expect(extension.theme.colors).not.toBe(configInitial.theme?.colors)
   })
 
   it(`should have a config prop`, async () => {
