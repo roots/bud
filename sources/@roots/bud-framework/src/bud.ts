@@ -13,6 +13,7 @@ import type * as methods from './methods/index.js'
 import type {Module} from './module'
 import type * as Service from './service'
 import type * as Api from './services/api.js'
+import type ConsoleBuffer from './services/console'
 import type FS from './services/fs.js'
 import type * as Options from './types/options'
 import type * as Registry from './types/registry'
@@ -132,6 +133,14 @@ export class Bud {
     )
   }
 
+  public consoleBuffer: ConsoleBuffer
+
+  public fs: FS
+
+  public logger: Logger
+
+  public module: Module
+
   public services: Array<string> = []
 
   public api: Api.Service
@@ -148,15 +157,9 @@ export class Bud {
 
   public extensions: Services.Extensions.Service
 
-  public fs: FS
-
   public hooks: Services.Hooks.Service
 
   public project: Services.Project.Service
-
-  public logger: Logger
-
-  public module: Module
 
   public server: Services.Server.Service
 
@@ -212,6 +215,11 @@ export class Bud {
    */
   public yml: FS['yml']
 
+  /**
+   * Value helper
+   *
+   * @public
+   */
   public value = Value
 
   /**
