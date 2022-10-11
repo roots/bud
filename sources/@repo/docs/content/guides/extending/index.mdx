@@ -84,20 +84,6 @@ export default class MyExtension extends Extension {
 }
 ```
 
-### optIn
-
-Extensions may depend on other extensions on an opt-in basis. Bud will attempt to register the extension if it is available _and_ included in the root `devDependencies` or `dependencies`. Otherwise, it will skip it and silently proceed.
-
-```ts title="extension.ts"
-import {Extension} from '@roots/bud-framework/extension'
-
-export default class MyExtension extends Extension {
-  public label = 'bud-extension'
-
-  public optIn = new Set(['@roots/bud-postcss'])
-}
-```
-
 ### options
 
 Any extension options can be set in the `options` property.

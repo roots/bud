@@ -17,7 +17,7 @@ import {
  * @public
  * @decorator `@label`
  * @decorator `@dependsOn`
- * @decorator `@optIn`
+ * @decorator `@dependsOnOptional`
  */
 @label(`@roots/bud-preset-recommend`)
 @dependsOn([`@roots/bud-entrypoints`, `@roots/bud-postcss`])
