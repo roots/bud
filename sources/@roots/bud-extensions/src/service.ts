@@ -130,7 +130,16 @@ export default class Extensions extends Service {
    */
   @bind
   public set<K extends Modules>(value: Modules[K & string]): this {
+    if (!value) throw new Error(`Extension must be defined.`)
+    if (this.repository[value.label]) return this
+
     this.repository[value.label] = value
+
+    this.logger.success(
+      value.label ?? value.constructor.name ?? `unknown extension`,
+      `added to registry`,
+    )
+
     return this
   }
 
@@ -146,11 +155,27 @@ export default class Extensions extends Service {
       | (new (...args: any[]) => Modules[K & string])
       | ExtensionLiteral,
   ): Modules[K & string] {
-    return typeof extension === `function`
-      ? new extension(this.app)
-      : !(extension instanceof Extension)
-      ? new Extension(this.app).fromObject(extension)
-      : extension
+    const instance =
+      typeof extension === `function`
+        ? new extension(this.app)
+        : !(extension instanceof Extension)
+        ? new Extension(this.app).fromObject(extension)
+        : extension
+    const ident = instance.label ?? instance.constructor.name
+    if (ident && this.has(instance.label ?? instance.constructor.name)) {
+      this.logger.log(
+        `${ident} already exists. Returning existing instance.`,
+      )
+
+      return this.get(ident)
+    }
+
+    this.logger.success(
+      instance.label ?? instance.constructor.name ?? `unknown extension`,
+      `instantiated`,
+    )
+
+    return instance
   }
 
   @bind
@@ -192,16 +217,11 @@ export default class Extensions extends Service {
       throw new Error(`Extension ${signifier} is not importable`)
 
     if (this.has(signifier)) {
-      this.logger.info(signifier, `extension already imported`)
+      this.logger.log(signifier, `extension already imported. skipping.`)
       return
     }
 
-    if (!this.isAllowed(signifier)) {
-      this.logger.info(signifier, `extension is not allowed`)
-      return
-    }
-
-    this.logger.info(`importing`, signifier)
+    if (!this.isAllowed(signifier)) return
 
     const extensionClass: ExtensionLiteral = fatalOnError
       ? await this.app.module.import(signifier)
@@ -214,37 +234,75 @@ export default class Extensions extends Service {
     if (instance.dependsOn)
       await Promise.all(
         Array.from(instance.dependsOn)
-          .filter(this.isAllowed)
           .filter(dependency => !this.has(dependency))
+          .map(dependency => {
+            this.logger.log(
+              dependency,
+              `is a requirement of`,
+              `${signifier}`,
+            )
+            return dependency
+          })
+          .filter(dependency => {
+            const allowed = this.isAllowed(dependency)
+            if (!allowed) {
+              this.logger.log(
+                `skipping`,
+                dependency,
+                `because it is not allowed by manifest settings`,
+              )
+            }
+
+            return allowed
+          })
           .map(async dependency => {
             await this.import(dependency)
+
+            if (!this.has(dependency))
+              throw new Error(
+                `Failed to import ${signifier} which is required by ${dependency}`,
+              )
           }),
       )
 
     if (instance.dependsOnOptional)
       await Promise.all(
         Array.from(instance.dependsOnOptional)
-          .filter(this.isAllowed)
           .filter(optionalDependency => !this.has(optionalDependency))
+          .map(optionalDependency => {
+            this.logger.log(
+              optionalDependency,
+              `is an optional dependency of`,
+              `${signifier}`,
+              `and will be used if available`,
+            )
+            return optionalDependency
+          })
+          .filter(optionalDependency => {
+            const allowed = this.isAllowed(optionalDependency)
+            if (!allowed) {
+              this.logger.log(
+                `skipping`,
+                optionalDependency,
+                `because it is not allowed by manifest settings`,
+              )
+            }
+
+            return allowed
+          })
           .map(async optionalDependency => {
             await this.import(optionalDependency, false)
           }),
       )
 
-    if (instance.optIn)
-      await Promise.all(
-        Array.from(instance.optIn)
-          .filter(this.isAllowed)
-          .filter(optInDependency => !this.has(optInDependency))
-          .filter(this.isDirectDependency)
-          .map(async optInDependency => {
-            await this.import(optInDependency, false)
-          }),
-      )
+    if (this.has(signifier)) return
 
-    this.set(instance)
-
-    this.logger.success(instance.label, `imported and instantiated`)
+    try {
+      this.set(instance)
+    } catch (error) {
+      if (fatalOnError) throw error
+      else return
+    }
 
     return instance
   }
@@ -301,13 +359,14 @@ export default class Extensions extends Service {
     extension: Modules[K & string],
     methodName: Base.LifecycleMethods,
   ): Promise<this> {
+    if (!extension?.meta) return this
     if (extension.meta[methodName] === true) return this
-
     extension.meta[methodName] = true
 
     try {
       await this.runDependencies(extension, methodName)
       const method = extension[`_${methodName}`]
+
       await method()
       await this.app.api.processQueue()
 
@@ -359,6 +418,8 @@ export default class Extensions extends Service {
         .reduce(async (promised, signifier) => {
           await promised
           if (!this.has(signifier)) await this.import(signifier)
+          if (!this.has(signifier))
+            throw new Error(`${signifier} not instantiable`)
 
           if (!this.get(signifier).meta[methodName])
             await this.run(this.get(signifier), methodName)
@@ -372,6 +433,7 @@ export default class Extensions extends Service {
         .reduce(async (promised, signifier) => {
           await promised
           if (!this.has(signifier)) await this.import(signifier, false)
+          if (!this.has(signifier)) return
 
           if (!this.get(signifier).meta[methodName])
             await this.run(this.get(signifier), methodName)
@@ -385,6 +447,7 @@ export default class Extensions extends Service {
         .reduce(async (promised, signifier) => {
           await promised
           if (!this.has(signifier)) await this.import(signifier)
+          if (!this.has(signifier)) return
 
           if (!this.get(signifier).meta[methodName])
             await this.run(this.get(signifier), methodName)
