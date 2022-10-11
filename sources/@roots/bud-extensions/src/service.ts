@@ -438,20 +438,6 @@ export default class Extensions extends Service {
           if (!this.get(signifier).meta[methodName])
             await this.run(this.get(signifier), methodName)
         }, Promise.resolve())
-
-    if (extension.optIn)
-      await Array.from(extension.optIn)
-        .filter(this.isAllowed)
-        .filter(this.isDirectDependency)
-        .filter(signifier => !this.unresolvable.has(signifier))
-        .reduce(async (promised, signifier) => {
-          await promised
-          if (!this.has(signifier)) await this.import(signifier)
-          if (!this.has(signifier)) return
-
-          if (!this.get(signifier).meta[methodName])
-            await this.run(this.get(signifier), methodName)
-        }, Promise.resolve())
   }
 
   /**
