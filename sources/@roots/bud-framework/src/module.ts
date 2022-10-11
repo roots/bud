@@ -53,11 +53,11 @@ export class Module {
    */
   @bind
   @memo()
-  public async getDirectory(signifier: string, parent?: string) {
+  public async getDirectory(signifier: string, context?: string) {
     try {
-      return await this.resolve(signifier, parent)
+      return await this.resolve(signifier, context)
         .then(path =>
-          relative(parent ?? this.app.root.context.basedir, path),
+          relative(context ?? this.app.root.context.basedir, path),
         )
         .then(path => path.split(signifier).shift())
         .then(path => this.app.root.path(path as any, signifier))
@@ -113,10 +113,12 @@ export class Module {
         signifier,
         this.makeContextURL(context) as unknown as string,
       )
+
       const normalpath = normalize(fileURLToPath(resolvedPath))
+
       this.logger.success(
         chalk.dim(
-          `resolved ${signifier} to ${this.app.relPath(normalpath)}`,
+          `resolved ${signifier} to ${this.app.root.relPath(normalpath)}`,
         ),
       )
       return normalpath
