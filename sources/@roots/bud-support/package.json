@@ -39,6 +39,7 @@
   "module": "./lib/index.js",
   "exports": {
     ".": "./lib/index.js",
+    "./chalk": "./lib/dependencies/chalk/index.js",
     "./clipanion": "./lib/dependencies/clipanion/index.js",
     "./decorators": "./lib/decorators/index.js",
     "./execa": "./lib/dependencies/execa/index.js",
