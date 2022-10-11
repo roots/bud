@@ -11,4 +11,5 @@ export default async app => {
     .watch([`src/*.html`, `src/images`])
     .serve(3015)
     .minimize()
+    .when(app.isProduction, () => app.hash())
 }

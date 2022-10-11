@@ -46,7 +46,7 @@ export interface ApplyPlugin {
 }
 
 export interface Constructor {
-  new (...args: [Bud]): Extension | ApplyPlugin
+  new (...args: any[]): Extension | ApplyPlugin
 }
 
 export type ExtensionLiteral = {
@@ -62,6 +62,8 @@ export class Extension<
   ExtensionOptions extends Options = Options,
   Plugin extends ApplyPlugin = ApplyPlugin,
 > {
+  [key: string]: any
+
   /**
    * Application
    *
