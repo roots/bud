@@ -15,19 +15,13 @@ import CriticalCssWebpackPlugin, {
  * Adds critical css webpack plugin to compilation
  *
  * @example
- * Configure plugin options:
  *
  * ```ts
- * bud.critical.setOptions({
- *  src: 'https://example.test',
- * })
- * ```
- *
- * @example
- * Enable conditionally for production:
- *
- * ```ts
- * bud.when(bud.isProduction, bud.critical.enable)
+ * bud.critical
+ *   .setSrc('https://example.test')
+ *   .setWidth(1200)
+ *   .setHeight(800)
+ *   .enable()
  * ```
  *
  * @public
@@ -41,11 +35,78 @@ import CriticalCssWebpackPlugin, {
 @expose(`critical`)
 @plugin(CriticalCssWebpackPlugin)
 @options<Options>({
-  base: (app: Bud) => app.publicPath() ?? `/`,
+  base: (app: Bud) =>
+    app.publicPath() !== `auto` && app.publicPath() !== ``
+      ? app.publicPath()
+      : `/`,
   request: {https: {rejectUnauthorized: false}},
 })
 @when(async () => false)
 export default class BudCriticalCss extends Extension<
   Options,
   CriticalCssWebpackPlugin
-> {}
+> {
+  /**
+   * Set source url
+   *
+   * @param src - source url
+   *
+   * @public
+   */
+  public src(src: string) {
+    this.setOption(`src`, src)
+    return this
+  }
+
+  /**
+   * Set markup to use as source
+   *
+   * @param html - source template as a string
+   *
+   * @public
+   */
+  public html(html: string) {
+    this.setOption(`html`, html)
+    return this
+  }
+
+  /**
+   * Set base path
+   *
+   * @remarks
+   * By default the base path is the public path.
+   * Relative public paths are not supported.
+   *
+   * @param base - base path
+   *
+   * @public
+   */
+  public base(base: string) {
+    this.setOption(`base`, base)
+    return this
+  }
+
+  /**
+   * Set browser width
+   *
+   * @param width - browser width
+   *
+   * @public
+   */
+  public width(width: number) {
+    this.setOption(`width`, width)
+    return this
+  }
+
+  /**
+   * Set browser height
+   *
+   * @param height - browser height
+   *
+   * @public
+   */
+  public height(height: number) {
+    this.setOption(`height`, height)
+    return this
+  }
+}

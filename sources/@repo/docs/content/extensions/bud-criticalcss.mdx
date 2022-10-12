@@ -24,44 +24,32 @@ For more information on this technique check out this [web.dev article](https://
 
 ## Generating critical styles
 
-First, call `bud.critical` and specify either
-a URL or path to the html critical can use to generate styles from.
+You need to do two things:
+
+- Either:
+  - specify a `src`: a URL or a path on disk to the markup that will be used to generate critical styles
+  - provide `html`: the markup as a string
+- explicitly enable the extension
 
 From a URL:
 
 ```ts title="bud.config.mjs"
-bud.critical({
-  src: 'http://example.test',
-})
+bud.critical.src(`http://example.test`).enable()
 ```
 
 From a path:
 
 ```ts title="bud.config.mjs"
-bud.critical({
-  src: bud.path('./path/to/index.html'),
-})
+bud.critical.src(bud.path('path/to/index.html')).enable()
 ```
 
-Alternatively, you can also use raw html as a string:
+From raw markup:
 
 ```ts title="bud.config.mjs"
-bud.critical({
-  html: `<html>...</html>`,
-})
+bud.critical.html(`<html>...</html>`).enable()
 ```
 
-## Allowing insecure https requests
-
-If you are using `https` and your cert isn't 100% legit you will want to loosen the
-default request options:
-
-```ts title="bud.config.mjs"
-bud.critical({
-  src: 'http://example.test',
-  request: {https: {rejectUnauthorized: false}},
-})
-```
+Regardless of how you handle it, you want to call `enable`.
 
 ## Add the css
 

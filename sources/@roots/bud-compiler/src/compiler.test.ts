@@ -61,6 +61,7 @@ describe(`@roots/bud-compiler`, function () {
 
   beforeEach(async () => {
     jest.clearAllMocks()
+
     bud = await import(`@roots/bud`).then(({default: Bud}) => new Bud())
     compiler = new Compiler(bud)
     // @ts-ignore

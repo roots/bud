@@ -41,7 +41,7 @@ export const use: use = async function (source): Promise<Bud> {
     let instance
 
     if (isFunction(source)) {
-      instance = new (source as Constructor)(bud)
+      instance = new (source as any)(bud)
     } else instance = source
 
     if (!instance.label) {

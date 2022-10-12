@@ -1,5 +1,6 @@
 import {join, normalize, relative} from 'node:path'
 
+import chalk from '@roots/bud-support/chalk'
 import {bind, memo} from '@roots/bud-support/decorators'
 import {resolve} from 'import-meta-resolve'
 import {createRequire} from 'module'
@@ -52,11 +53,11 @@ export class Module {
    */
   @bind
   @memo()
-  public async getDirectory(signifier: string, parent?: string) {
+  public async getDirectory(signifier: string, context?: string) {
     try {
-      return await this.resolve(signifier, parent)
+      return await this.resolve(signifier, context)
         .then(path =>
-          relative(parent ?? this.app.root.context.basedir, path),
+          relative(context ?? this.app.root.context.basedir, path),
         )
         .then(path => path.split(signifier).shift())
         .then(path => this.app.root.path(path as any, signifier))
@@ -112,8 +113,15 @@ export class Module {
         signifier,
         this.makeContextURL(context) as unknown as string,
       )
-      this.logger.success(`resolved`, signifier, `to`, resolvedPath)
-      return normalize(fileURLToPath(resolvedPath))
+
+      const normalpath = normalize(fileURLToPath(resolvedPath))
+
+      this.logger.success(
+        chalk.dim(
+          `resolved ${signifier} to ${this.app.root.relPath(normalpath)}`,
+        ),
+      )
+      return normalpath
     } catch (err) {
       this.logger.info(
         signifier,
@@ -138,12 +146,10 @@ export class Module {
     try {
       const modulePath = await this.resolve(signifier, context)
       const result = await import(modulePath)
-      this.logger.success(`imported`, signifier, `from`, modulePath)
+      this.logger.success(chalk.dim(`imported ${signifier}`))
       return result?.default ?? result
     } catch (err) {
-      this.logger.fatal(
-        new Error(`Fatal error importing ${signifier}\n${err}`),
-      )
+      this.logger.fatal(new Error(`error importing ${signifier}\n${err}`))
       throw err
     }
   }
@@ -163,11 +169,12 @@ export class Module {
     try {
       const modulePath = await this.resolve(signifier, context)
       const result = await import(modulePath)
-      this.logger.success(`imported`, signifier, `from`, modulePath)
-
+      this.logger.success(chalk.dim(`imported ${signifier} (optional)`))
       return result?.default ?? result
     } catch (err) {
-      this.logger.info(`Error importing`, signifier, err)
+      this.logger.info(
+        chalk.dim(`${signifier} could not be imported (optional)`),
+      )
     }
   }
 

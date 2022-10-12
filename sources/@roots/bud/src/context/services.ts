@@ -11,5 +11,6 @@ export default class Services {
     `@roots/bud-server`,
     `@roots/bud/services/project`,
     `@roots/bud-framework/services/fs`,
+    `@roots/bud-framework/services/console`,
   ]
 }

@@ -1,4 +1,4 @@
-import * as colors from '@tailwind/colors'
+import colors from '@tailwind/colors'
 
 document.body.style.backgroundColor = colors.indigo[600]
 
