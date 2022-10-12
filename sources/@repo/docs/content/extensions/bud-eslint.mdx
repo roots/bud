@@ -7,6 +7,8 @@ sidebar_label: '🟢 @roots/bud-eslint'
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 
+import Configuration from '@site/../../@roots/bud-eslint/docs/01-configuration.md'
+
 [Eslint](https://eslint.org) support can be added by installing the [@roots/bud-eslint](/extensions/bud-eslint) extension.
 
 ## Installation
@@ -15,16 +17,4 @@ import TabItem from '@theme/TabItem'
 
 ## Configuration
 
-For general information on configuring eslint see [the official Eslint user guide](https://eslint.org/docs/user-guide/configuring).
-
-As a courtesy, there is a recommended eslint configuration available for you to use as a base in your project:
-
-```js
-module.exports = {
-  root: true,
-  extends: [require.resolve('@roots/bud-eslint/config')],
-  rules: {},
-}
-```
-
-Other extensions may make additional eslint configurations available. These are, generally speaking, composable.
+<Configuration />
