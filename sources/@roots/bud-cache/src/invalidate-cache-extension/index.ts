@@ -1,6 +1,5 @@
 import {Extension} from '@roots/bud-framework/extension'
 import {bind, label} from '@roots/bud-framework/extension/decorators'
-import * as fs from '@roots/bud-support/fs'
 import stripAnsi from 'strip-ansi'
 
 /**
@@ -17,6 +16,11 @@ import stripAnsi from 'strip-ansi'
  */
 @label(`@roots/bud-cache/invalidate-cache`)
 export default class InvalidateCacheExtension extends Extension {
+  /**
+   * Cache invalidation file
+   *
+   * @public
+   */
   public get file(): string {
     return this.app.path(
       `@storage`,
@@ -31,12 +35,13 @@ export default class InvalidateCacheExtension extends Extension {
    * @public
    * @decorator `@bind`
    */
-  @bind public async register() {
-    const invalidate = await fs.pathExists(this.file)
+  @bind
+  public async register() {
+    const invalidate = await this.app.fs.exists(this.file)
 
     if (invalidate || this.app.context.args.flush) {
-      await fs.remove(this.file)
-      await fs.remove(
+      await this.app.fs.remove(this.file)
+      await this.app.fs.remove(
         this.app.path(`@storage`, this.app.label, `cache`, this.app.mode),
       )
     }
@@ -46,7 +51,8 @@ export default class InvalidateCacheExtension extends Extension {
         this.label,
         async compiler => {
           if (!compiler.hasErrors()) return
-          await fs.writeJson(this.file, {
+
+          await this.app.fs.json.write(this.file, {
             hash: compiler.hash,
             errors: compiler.stats.flatMap(stats =>
               stats

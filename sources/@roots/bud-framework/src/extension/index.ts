@@ -46,7 +46,7 @@ export interface ApplyPlugin {
 }
 
 export interface Constructor {
-  new (...args: [Bud]): Extension | ApplyPlugin
+  new (...args: any[]): Extension | ApplyPlugin
 }
 
 export type ExtensionLiteral = {
@@ -62,6 +62,8 @@ export class Extension<
   ExtensionOptions extends Options = Options,
   Plugin extends ApplyPlugin = ApplyPlugin,
 > {
+  [key: string]: any
+
   /**
    * Application
    *
@@ -136,13 +138,6 @@ export class Extension<
    * @public
    */
   public dependsOnOptional?: Set<`${keyof Modules & string}`>
-
-  /**
-   * Depends on (optional)
-   *
-   * @public
-   */
-  public optIn?: Set<`${keyof Modules & string}`>
 
   /**
    * Boolean or a function returning a boolean indicating if the {@link Extension} should be utilized.

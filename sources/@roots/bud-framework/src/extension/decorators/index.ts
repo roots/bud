@@ -5,7 +5,6 @@ import {dependsOnOptional} from './dependsOnOptional.js'
 import {development} from './development.js'
 import {expose} from './expose.js'
 import {label} from './label.js'
-import {optIn} from './optIn.js'
 import {options} from './options.js'
 import {plugin} from './plugin.js'
 import {production} from './production.js'
@@ -21,7 +20,6 @@ export {
   label,
   once,
   options,
-  optIn,
   plugin,
   production,
   value,

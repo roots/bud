@@ -230,18 +230,6 @@ export default class Extensions extends Service {
           ),
       )
 
-    if (instance.optIn)
-      await Promise.all(
-        Array.from(instance.optIn)
-          .filter(this.isAllowed)
-          .filter(optInDependency => !this.has(optInDependency))
-          .filter(this.isDirectDependency)
-          .map(
-            async optInDependency =>
-              await this.import(optInDependency, false),
-          ),
-      )
-
     this.set(instance)
 
     this.logger.success(instance.label, `imported and instantiated`)
@@ -372,19 +360,6 @@ export default class Extensions extends Service {
         .reduce(async (promised, signifier) => {
           await promised
           if (!this.has(signifier)) await this.import(signifier, false)
-
-          if (!this.get(signifier).meta[methodName])
-            await this.run(this.get(signifier), methodName)
-        }, Promise.resolve())
-
-    if (extension.optIn)
-      await Array.from(extension.optIn)
-        .filter(this.isAllowed)
-        .filter(this.isDirectDependency)
-        .filter(signifier => !this.unresolvable.has(signifier))
-        .reduce(async (promised, signifier) => {
-          await promised
-          if (!this.has(signifier)) await this.import(signifier)
 
           if (!this.get(signifier).meta[methodName])
             await this.run(this.get(signifier), methodName)

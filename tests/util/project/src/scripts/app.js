@@ -1,8 +1,8 @@
-import {main} from './components/main'
-
-const init = () =>
-  window.requestAnimationFrame(function ready() {
-    return document.body ? main() : window.requestAnimationFrame(ready)
+const init = async () =>
+  window.requestAnimationFrame(async function ready() {
+    return document.body
+      ? await import(`./components/main`).then(({main}) => main())
+      : window.requestAnimationFrame(ready)
   })
 
 init()

@@ -18,6 +18,7 @@ describe(`@roots/bud-framework`, () => {
     bud.root = {
       context: bud.context,
       path: jest.fn((...args) => join(bud.context.basedir, ...args)),
+      relPath: jest.fn((...args) => join(bud.context.basedir, ...args)),
     }
 
     budModule = new Module(bud)
@@ -50,14 +51,8 @@ describe(`@roots/bud-framework`, () => {
   })
 
   it(`should resolve a package`, async () => {
-    const path = await budModule.resolve(`@roots/bud`)
-    expect(path).toEqual(expect.stringContaining(`@roots/bud`))
-  })
-
-  it(`should have a getDirectory fn that calls makeContextURL`, async () => {
-    const makeContextURLSpy = jest.spyOn(budModule, `makeContextURL`)
-    await budModule.getDirectory(`@roots/bud-support`)
-    expect(makeContextURLSpy).toHaveBeenCalled()
+    const path = await budModule.resolve(`@roots/bud-support`)
+    expect(path).toEqual(expect.stringContaining(`@roots/bud-support`))
   })
 
   it(`should have a getDirectory fn that resolves by package name`, async () => {

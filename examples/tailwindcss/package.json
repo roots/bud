@@ -4,6 +4,9 @@
   "browserslist": [
     "extends @roots/browserslist-config/current"
   ],
+  "bud": {
+    "denylist": ["@roots/bud-swc"]
+  },
   "devDependencies": {
     "@roots/browserslist-config": "latest",
     "@roots/bud": "latest",
