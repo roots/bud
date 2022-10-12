@@ -5,24 +5,10 @@ description: Specify files which will trigger a full page reload in development 
 sidebar_label: bud.watch
 ---
 
+import Usage from '@site/../../@roots/bud-api/src/methods/watch/watch.docs.md'
+
 Specify files which trigger a full page reload in development mode.
 
 ## Usage
 
-It is preferred to specify files using [bud.path](/docs/bud.path) or [bud.glob](/docs/bud.glob).
-
-```ts
-bud.watch(bud.path(`@src/pages/page.php`))
-```
-
-You can use glob syntax to specify multiple files using pattern matching:
-
-```ts
-bud.watch(await bud.glob(`@src/pages/**/*`))
-```
-
-You can add additional watch patterns using an `array`:
-
-```ts
-bud.watch([bud.path('@src/pages/**/*'), bud.path('package.json')])
-```
+<Usage />
