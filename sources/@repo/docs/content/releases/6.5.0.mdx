@@ -14,6 +14,13 @@ Some much-needed filesystem functionality, post compilation tasks, and a way to 
 
 <!--truncate-->
 
+:::info deprecation notice
+
+This release deprecates the `optIn` property and decorator for extensions. This doesn't matter unless you are authoring an extension. If you are, you can
+probably just use `dependsOnOptional` instead.
+
+:::
+
 ## ✨ bud.fs
 
 `bud.fs` is a new filesystem API for bud.js. It uses [fs-jetpack](https://www.npmjs.com/package/fs-jetpack) and includes support for managing s3 assets.
@@ -47,6 +54,11 @@ bud.after(async bud => {
 ```
 
 Check [the bud.after docs](https://bud.js.org/docs/bud.after) for more information.
+
+## 🩹 fix: @roots/bud-criticalcss
+
+A breaking change in the `critical` package had broken this extension. This change has now been accounted for and the extension should work again.
+This extension is still listed as experimental.
 
 ## 🩹 fix: duplicative logs
 
