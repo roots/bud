@@ -2,7 +2,7 @@
 slug: 6.5.0
 title: 6.5.0
 description: Release notes for bud.js 6.5.0
-date: 2022-10-03
+date: 2022-10-12
 author: Kelly Mears
 author_title: Lead developer
 author_url: https://github.com/kellymears
@@ -25,10 +25,16 @@ probably just use `dependsOnOptional` instead.
 
 `bud.fs` is a new filesystem API for bud.js. It uses [fs-jetpack](https://www.npmjs.com/package/fs-jetpack) and includes support for managing s3 assets.
 
+Example of a file write operation:
+
+```typescript
+await bud.fs.write(`README.md`, `# Hello, world!`)
+```
+
 Example of the S3 API which uploads `@dist` contents to a bucket after compilation:
 
 ```typescript
-app.fs
+bud.fs
   .setCredentials({
     accessKeyId: `***`,
     secretAccessKey: `***`,
@@ -44,23 +50,28 @@ Check [the bud.fs docs](https://bud.js.org/docs/bud.fs) for more information.
 
 Config function for executing tasks after the compilation is fully complete. This is useful for tasks that need to run after the compilation is complete, but don't need to be part of the compilation process (like uploading assets to s3!)
 
-```typescript
-bud.after(async bud => {
-  await bud.fs.write(
-    `dist/credits.txt`,
-    `${bud.context.manifest.name} built by me!`,
-  )
-})
+```typescript title="bud.config.mjs"
+export default async bud => {
+  bud.after(async bud => {
+    await bud.fs.write(
+      `dist/credits.txt`,
+      `${bud.context.manifest.name} built by me!`,
+    )
+  })
+}
+```
+
+Execute a command with [bud.sh](https://bud.js.org/docs/bud.sh):
+
+```typescript title="bud.config.mjs"
+export default async bud => {
+  bud.after(async bud => await bud.sh(`yarn jest`))
+}
 ```
 
 Check [the bud.after docs](https://bud.js.org/docs/bud.after) for more information.
 
-## 🩹 fix: @roots/bud-criticalcss
-
-A breaking change in the `critical` package had broken this extension. This change has now been accounted for and the extension should work again.
-This extension is still listed as experimental.
-
-## 🩹 fix: duplicative logs
+## 🩹 Fix: duplicative logs
 
 Some logs would be displayed twice in the terminal if they were emitted around the same time that the dashboard was being updated.
 It was also possible, depending on user configuration, for requests for the dashboard to update to fire twice. This has been fixed.
@@ -69,10 +80,21 @@ It was also possible, depending on user configuration, for requests for the dash
    then emits them using an instance of the standard bud logger. If bud is invoked with the `--ci` flag the service will let them pass through normally.
 2. The `bud.dashboard` service's `stats` method is now debounced. Duplicative calls should be ignored.
 
-## 🩹 fix: notifications only fire once (macos)
+It's likely that our handling of `process.stdout` is still imperfect, but this is a step in the right direction.
 
-In `dev` mode, only the first compilation would result in a desktop notification. This has been fixed. You should receive a notification for every
+## 🩹 Fix: notifications only fire once (macos)
+
+In `dev` mode only the first compilation would result in a desktop notification. This has been fixed. You should receive a notification for every
 compilation now.
+
+## 🩹 Fix: `bud.env` is not an instance of `Container`
+
+`bud.env` was not an instance of `Container` and therefore did not have methods like `is`. This has been fixed and it should now behave as documented.
+
+## 🩹 Fix: @roots/bud-criticalcss
+
+A breaking change in the `critical` package had broken this extension. This change has now been accounted for and the extension should work again.
+This extension is still listed as experimental.
 
 ## ℹ️ Release information
 
