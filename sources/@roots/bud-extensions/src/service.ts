@@ -6,6 +6,7 @@ import {Extension} from '@roots/bud-framework/extension'
 import type {Modules} from '@roots/bud-framework/registry/modules'
 import {Base, Service} from '@roots/bud-framework/services/extensions'
 import {bind} from '@roots/bud-support/decorators'
+import {isUndefined} from '@roots/bud-support/lodash-es'
 
 /**
  * Extensions Service
@@ -163,20 +164,6 @@ export default class Extensions extends Service {
     )
   }
 
-  @bind
-  public isDirectDependency(signifier: string) {
-    return (
-      (this.app.context.manifest?.devDependencies &&
-        Object.keys(this.app.context.manifest.devDependencies).includes(
-          signifier,
-        )) ||
-      (this.app.context.manifest?.dependencies &&
-        Object.keys(this.app.context.manifest.dependencies).includes(
-          signifier,
-        ))
-    )
-  }
-
   /**
    * Import an extension
    *
@@ -223,11 +210,16 @@ export default class Extensions extends Service {
       await Promise.all(
         Array.from(instance.dependsOnOptional)
           .filter(this.isAllowed)
+          .filter(
+            optionalDependency =>
+              !this.unresolvable.has(optionalDependency),
+          )
           .filter(optionalDependency => !this.has(optionalDependency))
-          .map(
-            async optionalDependency =>
-              await this.import(optionalDependency, false),
-          ),
+          .map(async optionalDependency => {
+            await this.import(optionalDependency, false)
+            if (!this.has(optionalDependency))
+              this.unresolvable.add(optionalDependency)
+          }),
       )
 
     this.set(instance)
@@ -360,8 +352,16 @@ export default class Extensions extends Service {
         .reduce(async (promised, signifier) => {
           await promised
           if (!this.has(signifier)) await this.import(signifier, false)
+          if (!this.has(signifier)) {
+            this.unresolvable.add(signifier)
+            return
+          }
 
-          if (!this.get(signifier).meta[methodName])
+          if (
+            this.get(signifier) &&
+            !isUndefined(this.get(signifier).meta) &&
+            !this.get(signifier).meta[methodName]
+          )
             await this.run(this.get(signifier), methodName)
         }, Promise.resolve())
   }
