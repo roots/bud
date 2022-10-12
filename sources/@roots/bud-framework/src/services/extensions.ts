@@ -67,8 +67,6 @@ export abstract class Service extends BaseService implements Base.Service {
 
   public abstract isAllowed(signifier: string): boolean
 
-  public abstract isDirectDependency(signifier: string): boolean
-
   /**
    * @public
    */
