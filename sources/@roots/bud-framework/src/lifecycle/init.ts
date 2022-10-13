@@ -75,8 +75,8 @@ export const initialize = (app: Bud): Bud =>
       'build.optimization.removeEmptyChunks': true,
       'build.output.chunkFilename': () =>
         app.hooks.filter(`feature.hash`)
-          ? `js/dynamic/${app.hooks.filter(`value.hashFormat`)}.js`
-          : `js/dynamic/${app.hooks.filter(`value.fileFormat`)}.js`,
+          ? `js/dynamic/[id].[contenthash:6].js`
+          : `js/dynamic/[id].js`,
       'build.output.filename': () => join(`js`, filenameFormat(app)),
       'build.output.path': () => app.path(`@dist`),
       'build.output.publicPath': `auto`,
