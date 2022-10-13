@@ -298,14 +298,7 @@ export class Bud {
       `booted`,
     ].reduce(async (promised, event: keyof Registry.EventsStore) => {
       await promised
-      try {
-        await this.hooks
-          .fire(event)
-          .catch(error => logger.error(`error on`, event, error))
-          .finally(() => logger.success(event))
-      } catch (error) {
-        throw error
-      }
+      await this.hooks.fire(event)
     }, Promise.resolve())
 
     this.hooks.action(`booted`, override)
@@ -408,6 +401,7 @@ export class Bud {
   @bind
   public error(...messages: Array<any>): Bud {
     process.exitCode = 1
+
     if (this.logger?.instance)
       this.logger.instance.error(...this.formatLogMessages(messages))
 

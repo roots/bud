@@ -6221,6 +6221,7 @@ __metadata:
     "@roots/filesystem": "workspace:sources/@roots/filesystem"
     "@skypack/package-check": 0.2.2
     chalk: 5.0.1
+    clean-stack: 5.0.0
     clipanion: 3.2.0-rc.12
     execa: 6.1.0
     fs-extra: 10.1.0
@@ -6237,6 +6238,7 @@ __metadata:
     patch-console: 1.0.0
     pretty-format: 29.0.3
     react: 17.0.2
+    signale: 1.4.0
     typanion: 3.12.0
     type-fest: 2.19.0
   languageName: unknown
@@ -11987,6 +11989,15 @@ __metadata:
     lodash.isplainobject: ^4.0.6
     lodash.transform: ^4.6.0
   checksum: 0f6beb5d1ec41f55c5b470d3d1d359175bb1e45510fec2be656ed32a1fa12c3bcb0e127c6a8ddbc42aea56cf6e22adaab2ee722fdaaccab537d1ab3ca48ecf74
+  languageName: node
+  linkType: hard
+
+"clean-stack@npm:5.0.0":
+  version: 5.0.0
+  resolution: "clean-stack@npm:5.0.0"
+  dependencies:
+    escape-string-regexp: 5.0.0
+  checksum: 7938105170762272284ea8f2aad3874a852faa707893e1a44291f89849a0a749d5f21771bea08bff628772d0a5849d05d57f497657de7afb5fcf51e4b2b42ed9
   languageName: node
   linkType: hard
 
