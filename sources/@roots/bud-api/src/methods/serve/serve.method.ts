@@ -3,6 +3,7 @@ import type Http from 'node:https'
 
 import type {Bud} from '@roots/bud-framework'
 import * as fs from '@roots/bud-support/fs'
+import {externalNetworkInterface} from '@roots/bud-support/os'
 import getPort from 'get-port'
 
 /**
@@ -99,7 +100,7 @@ export const method: Serve = async function (
 
   const current = app.hooks.filter(
     `dev.url`,
-    new URL(`http://0.0.0.0:3000`),
+    new URL(`http://${externalNetworkInterface.ipv4}:3000`),
   )
 
   if (Array.isArray(input) || typeof input === `number`) {
