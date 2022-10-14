@@ -2,7 +2,7 @@
 slug: 6.5.0
 title: 6.5.0
 description: Release notes for bud.js 6.5.0
-date: 2022-10-12
+date: 2022-10-14
 author: Kelly Mears
 author_title: Lead developer
 author_url: https://github.com/kellymears
@@ -28,7 +28,7 @@ probably just use `dependsOnOptional` instead.
 Example of a file write operation:
 
 ```typescript
-await bud.fs.write(`README.md`, `# Hello, world!`)
+await bud.fs.write(`README.md`, `# Hello, world!`);
 ```
 
 Example of the S3 API which uploads `@dist` contents to a bucket after compilation:
@@ -40,8 +40,8 @@ bud.fs
     secretAccessKey: `***`,
   })
   .setEndpoint(`https://sfo2.digitaloceanspaces.com`)
-  .setBucket('bud-test')
-  .upload()
+  .setBucket("bud-test")
+  .upload();
 ```
 
 Check [the bud.fs docs](https://bud.js.org/docs/bud.fs) for more information.
@@ -51,22 +51,22 @@ Check [the bud.fs docs](https://bud.js.org/docs/bud.fs) for more information.
 Config function for executing tasks after the compilation is fully complete. This is useful for tasks that need to run after the compilation is complete, but don't need to be part of the compilation process (like uploading assets to s3!)
 
 ```typescript title="bud.config.mjs"
-export default async bud => {
-  bud.after(async bud => {
+export default async (bud) => {
+  bud.after(async (bud) => {
     await bud.fs.write(
       `dist/credits.txt`,
-      `${bud.context.manifest.name} built by me!`,
-    )
-  })
-}
+      `${bud.context.manifest.name} built by me!`
+    );
+  });
+};
 ```
 
 Execute a command with [bud.sh](https://bud.js.org/docs/bud.sh):
 
 ```typescript title="bud.config.mjs"
-export default async bud => {
-  bud.after(async bud => await bud.sh(`yarn jest`))
-}
+export default async (bud) => {
+  bud.after(async (bud) => await bud.sh(`yarn jest`));
+};
 ```
 
 Check [the bud.after docs](https://bud.js.org/docs/bud.after) for more information.
@@ -90,6 +90,10 @@ compilation now.
 ## 🩹 Fix: `bud.env` is not an instance of `Container`
 
 `bud.env` was not an instance of `Container` and therefore did not have methods like `is`. This has been fixed and it should now behave as documented.
+
+## 🩹 Fix: dynamically imported chunks not hashed
+
+Dynamically imported chunks were not being hashed. This has been fixed.
 
 ## 🩹 Fix: @roots/bud-criticalcss
 
