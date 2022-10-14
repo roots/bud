@@ -62,9 +62,7 @@
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "chalk": "5.0.1",
     "figures": "5.0.0",
-    "human-readable": "0.2.1",
-    "webpack-format-messages": "3.0.1",
-    "webpack-messages": "2.0.4"
+    "human-readable": "0.2.1"
   },
   "volta": {
     "extends": "../../../package.json"

@@ -16,6 +16,15 @@ export default class ConsoleBuffer extends Service {
   @bind
   public async boot() {
     if (this.app.context?.args?.ci) return
+    const logger = this.app.logger.makeInstance({
+      disabled: this.app.context.args?.log === false,
+      config: {
+        displayLabel: false,
+        displayBadge: false,
+        displayScope: false,
+      },
+      logLevel: `info`,
+    })
 
     this.restore = patchConsole((stream, data) => {
       const message = data.trim()
@@ -23,14 +32,11 @@ export default class ConsoleBuffer extends Service {
       if (!message || message.length === 0) return
       if (this.messages[stream].some(message => message === data)) return
 
-      this.app.logger
-        .makeInstance({
-          disabled: this.app.context.args?.log === false,
-          config: {displayLabel: false},
-          logLevel: `info`,
-        })
-        .scope(...this.app.logger.scope, stream)
-        [stream === `stdout` ? `log` : `error`](message)
+      logger[stream === `stdout` ? `log` : `error`](
+        this.app.logger.format({
+          message: message.replace(`${this.app.label}:\n`, ``),
+        }),
+      )
     })
 
     this.app.hooks.action(`compiler.close`, this.restore)

@@ -1,3 +1,4 @@
+import commonPath from '@roots/bud-support/common-path'
 import {bind} from '@roots/bud-support/decorators'
 import {
   isFunction,
@@ -5,6 +6,7 @@ import {
   isString,
   isUndefined,
 } from '@roots/bud-support/lodash-es'
+import {resolve} from 'import-meta-resolve'
 
 import {override} from './lifecycle/args.js'
 import {bootstrap, LIFECYCLE_EVENT_MAP} from './lifecycle/bootstrap.js'
@@ -133,6 +135,8 @@ export class Bud {
     )
   }
 
+  public commonPath: string
+
   public consoleBuffer: ConsoleBuffer
 
   public fs: FS
@@ -260,6 +264,12 @@ export class Bud {
 
   @bind
   public async lifecycle(context: Options.Context): Promise<Bud> {
+    const supportPath = await resolve(
+      `@roots/bud-support`,
+      import.meta.url,
+    )
+    this.commonPath = commonPath([context.basedir, supportPath]).commonDir
+
     await bootstrap.bind(this)({...context})
 
     const logger = this.logger.instance.scope(
@@ -307,18 +317,6 @@ export class Bud {
     return this
   }
 
-  @bind
-  private formatLogMessages(messages: any[]) {
-    return messages.map(message =>
-      (typeof message !== `string`
-        ? this.json.stringify(message)
-        : message
-      )
-        ?.replaceAll(this.context.basedir, `.`)
-        .replaceAll(/(.*)\s(.*)\/node_modules\/(.*)/g, `$1 $3`),
-    )
-  }
-
   /**
    * Log a message
    *
@@ -334,7 +332,7 @@ export class Bud {
     )
       return this
 
-    this.logger.instance.log(...this.formatLogMessages(messages))
+    this.logger.instance.log(this.logger.format(messages))
 
     return this
   }
@@ -353,7 +351,7 @@ export class Bud {
       this.context.args.log === false
     )
       return this
-    this.logger.instance.info(...this.formatLogMessages(messages))
+    this.logger.instance.info(this.logger.format(messages))
     return this
   }
 
@@ -371,7 +369,7 @@ export class Bud {
       this.context.args.log === false
     )
       return this
-    this.logger.instance.success(...this.formatLogMessages(messages))
+    this.logger.instance.success(this.logger.format(messages))
     return this
   }
 
@@ -383,8 +381,7 @@ export class Bud {
    */
   @bind
   public warn(...messages: any[]) {
-    if (!this.logger?.instance) return this
-    this.logger.instance.warn(...this.formatLogMessages(messages))
+    this.logger?.instance?.warn(this.logger.format(messages))
     return this
   }
 
@@ -400,10 +397,10 @@ export class Bud {
    */
   @bind
   public error(...messages: Array<any>): Bud {
-    process.exitCode = 1
+    if (this.isProduction) process.exitCode = 1
 
-    if (this.logger?.instance)
-      this.logger.instance.error(...this.formatLogMessages(messages))
+    this.logger?.instance?.error(this.logger.format(messages))
+    this.close()
 
     return this
   }
@@ -421,7 +418,8 @@ export class Bud {
   @bind
   public fatal(error: Error) {
     process.exitCode = 1
-    this.logger.instance.error(error)
+
+    this.logger.instance.error(this.logger.format(error))
     throw error
   }
 }

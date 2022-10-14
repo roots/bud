@@ -52,7 +52,8 @@ export class Dashboard
     if (this.app.context.args?.log === false) {
       if (compilationStats.hasErrors() && this.app.isProduction)
         this.app.fatal(new Error(`compilation completed but had errors`))
-      return
+
+      return this
     }
 
     if (this.app.context.args?.ci) {
@@ -64,39 +65,55 @@ export class Dashboard
       )
 
       if (compilationStats.hasErrors() && this.app.isProduction)
-        this.app.fatal(new Error(`compilation completed but had errors`))
+        console.error(new Error(`compilation completed but had errors`))
 
       return this
     }
 
-    try {
-      const {renderDashboard} = await import(`./render/renderer.js`)
+    const {renderDashboard} = await import(`./render/renderer.js`)
 
-      const stats: StatsCompilation = compilationStats.toJson({
-        preset: `normal`,
-        children: true,
-      })
+    const stats: StatsCompilation = compilationStats.toJson({
+      preset: `normal`,
+      children: true,
+    })
 
-      if (!stats || stats.hash === this.lastHash) return this
-      this.lastHash = stats.hash
-      this.instance = renderDashboard({
-        stats,
-        app: this.app,
-      })
-      await this.instance.waitUntilExit()
-    } catch (error) {
-      this.app.context.stdout.write(
-        compilationStats?.toString(
-          // @ts-ignore
-          {colors: true},
+    if (!stats || stats.hash === this.lastHash) return this
+
+    let compilations = stats?.children?.length
+      ? [
+          ...stats.children,
+          ...(stats?.children?.flatMap(({children}) =>
+            children.map(child => ({...child, isChild: true})),
+          ) ?? []),
+        ]
+      : [stats]
+
+    if (this.app.extensions.has(`@roots/bud-eslint`)) {
+      compilations = compilations?.map(child => ({
+        ...child,
+        errors: child.errors.filter(
+          error => !error.message.includes(`Module build failed`),
         ),
-      )
-      this.logger.error(error)
-      throw error
+      }))
     }
 
-    if (compilationStats.hasErrors() && this.app.isProduction)
-      this.app.fatal(new Error(`compilation completed but had errors`))
+    this.lastHash = stats.hash
+
+    this.instance = renderDashboard({
+      compilations,
+      app: this.app,
+    })
+
+    if (compilationStats.hasErrors()) {
+      if (this.app.isProduction) {
+        process.exitCode = 1
+        this.app.error(`compilation completed but had errors`)
+      }
+    }
+
+    try {
+      await this.instance.waitUntilExit()
+    } catch (error) {}
 
     return this
   }

@@ -125,9 +125,9 @@ export class Compiler extends Service implements Contract.Service {
    * @decorator `@once`
    */
   @bind
-  public callback(error: Error, stats: MultiStats) {
-    if (error) this.onError(error)
-    if (stats) this.handleStats(stats)
+  public callback(error: WebpackError, stats: MultiStats) {
+    if (error) return this.onError(error)
+    if (stats) return this.handleStats(stats)
   }
 
   /**
@@ -141,6 +141,7 @@ export class Compiler extends Service implements Contract.Service {
     if (!stats) return
 
     this.stats = stats
+
     this.app.dashboard.stats({stats})
   }
 
@@ -162,10 +163,13 @@ export class Compiler extends Service implements Contract.Service {
    * @decorator `@bind`
    */
   @bind
-  public onError(error: Error) {
+  public onError(error: WebpackError) {
     this.app.isDevelopment &&
       this.app.server.appliedMiddleware?.hot?.publish({error})
 
-    this.app.isProduction && this.app.fatal(error)
+    if (this.app.isProduction) {
+      process.exitCode = 1
+      this.app.error(error)
+    }
   }
 }

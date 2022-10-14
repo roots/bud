@@ -1,6 +1,4 @@
 import type * as Options from '@roots/bud-framework/options'
-import chalk from '@roots/bud-support/chalk'
-import cleanStack from '@roots/bud-support/clean-stack'
 import {BaseContext, Command, Option} from '@roots/bud-support/clipanion'
 import {bind, once} from '@roots/bud-support/decorators'
 import {signale} from '@roots/bud-support/signale'
@@ -265,25 +263,6 @@ export default abstract class BaseCommand extends Command {
 
   @bind
   public handleError(error: any) {
-    let logParams = []
-
-    if (error instanceof Error) {
-      if (error.stack)
-        logParams.push(
-          `\n\n`,
-          cleanStack(error.stack, {
-            basePath: this.context.basedir,
-            pretty: true,
-          })
-            .split(`at`)
-            .map((err, i) => chalk[i === 0 ? `white` : `dim`](err))
-            .splice(0, 2)
-            .join(chalk.dim(`at`)),
-        )
-      else logParams.push(error.message)
-    } else if (Array.isArray(error)) logParams.push(...error)
-    else logParams.push(error)
-
-    this.logger.error(...logParams)
+    this.app.fatal(error)
   }
 }

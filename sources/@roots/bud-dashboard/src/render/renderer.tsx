@@ -7,21 +7,12 @@ import App from './app.js'
 import {TTYApp} from './input.js'
 
 export const renderDashboard = ({
-  stats,
+  compilations,
   app,
 }: {
-  stats: StatsCompilation
+  compilations: Array<StatsCompilation>
   app: Bud
 }) => {
-  const compilations = stats?.children?.length
-    ? [
-        ...stats.children,
-        ...(stats?.children?.flatMap(({children}) =>
-          children.map(child => ({...child, isChild: true})),
-        ) ?? []),
-      ]
-    : [stats]
-
   return render(
     <Box flexDirection="column">
       {app.isProduction ? (

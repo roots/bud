@@ -1,5 +1,4 @@
 /* eslint-disable n/no-process-exit */
-import {isNumber} from '@roots/bud-support/lodash-es'
 
 import type {Bud} from './bud'
 
@@ -45,8 +44,6 @@ const makeProcessHandler =
     if (appExited) return
 
     appExited = true
-
-    process.exitCode = !isNumber(code) ? process.exitCode : code
 
     app?.close()
 
