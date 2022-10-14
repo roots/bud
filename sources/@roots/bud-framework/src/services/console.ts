@@ -91,8 +91,8 @@ export default class ConsoleBuffer extends Service {
         .join(`\n`)
         .trim()
 
-      // Ignore messages that are empty or just whitespace
-      if (!message || message === `` || message.match(/^\s*?$/)) return
+      // Ignore empty messages
+      if (!message) return
 
       // Ignore messages that have been logged before
       if (this.messages[stream].some(stale => stale === message)) return
