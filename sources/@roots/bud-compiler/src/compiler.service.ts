@@ -141,7 +141,7 @@ export class Compiler extends Service implements Contract.Service {
     if (!stats) return
 
     this.stats = stats
-    this.app.dashboard.stats({stats})
+    this.app.dashboard.stats(stats)
   }
 
   /**

@@ -7,7 +7,11 @@ import Compilation from './compilation/compilation.component.js'
 import {Server} from './server/index.js'
 
 interface Props {
-  app: Bud
+  context: Bud['context']
+  devUrl?: URL
+  proxyUrl?: URL
+  watchFiles?: Set<string>
+  mode: Bud['mode']
   compilations: Array<StatsCompilation>
   isTTY?: boolean
   displayServerInfo?: boolean
@@ -16,11 +20,15 @@ interface Props {
 }
 
 const App = ({
-  app,
   compilations,
+  context,
+  devUrl,
+  proxyUrl,
   displayServerInfo = true,
   displayAssets = true,
   displayEntrypoints = true,
+  mode,
+  watchFiles = new Set(),
 }: Props) => {
   return (
     <Box flexDirection="column">
@@ -31,9 +39,9 @@ const App = ({
           </Box>
           <Compilation
             id={id}
-            mode={app.mode}
+            mode={mode}
             stats={compilation}
-            context={app.context}
+            context={context}
             compilerCount={compilations.length}
             displayAssets={displayAssets}
             displayEntrypoints={displayEntrypoints}
@@ -44,8 +52,13 @@ const App = ({
         </Box>
       ))}
 
-      {app.isDevelopment ? (
-        <Server app={app} displayServerInfo={displayServerInfo} />
+      {mode === `development` ? (
+        <Server
+          devUrl={devUrl}
+          proxyUrl={proxyUrl}
+          watchFiles={watchFiles}
+          displayServerInfo={displayServerInfo}
+        />
       ) : null}
     </Box>
   )

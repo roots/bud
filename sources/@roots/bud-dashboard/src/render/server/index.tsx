@@ -1,4 +1,3 @@
-import type {Bud} from '@roots/bud-framework/bud'
 import {Box, Text} from '@roots/bud-support/ink'
 import Link from '@roots/bud-support/ink-link'
 import React from '@roots/bud-support/react'
@@ -9,8 +8,10 @@ import getProxy from './getProxy.js'
 import getServer from './getServer.js'
 
 interface Props {
-  app: Bud
+  devUrl?: URL
+  watchFiles: Set<string>
   displayServerInfo: boolean
+  proxyUrl?: URL
 }
 
 /**
@@ -18,9 +19,14 @@ interface Props {
  *
  * @public
  */
-export const Server = ({app, displayServerInfo}: Props) => {
-  const server = getServer(app)
-  const proxy = getProxy(app)
+export const Server = ({
+  devUrl,
+  displayServerInfo,
+  watchFiles = new Set(),
+  proxyUrl,
+}: Props) => {
+  const server = getServer(devUrl)
+  const proxy = getProxy(proxyUrl)
 
   return (
     <Box flexDirection="column">
@@ -51,15 +57,15 @@ export const Server = ({app, displayServerInfo}: Props) => {
           >
             <Text>
               {figures.ellipsis} watching project sources
-              {app.server.watcher?.files?.size > 0 && (
+              {watchFiles?.size > 0 && (
                 <Text dimColor>
                   {` `}
-                  (and {app.server.watcher.files.size} other{` `}
-                  {app.server.watcher.files.size > 1 ? `files` : `file`})
-                  {` `}
+                  (and {watchFiles.size} other{` `}
+                  {watchFiles.size > 1 ? `files` : `file`}){` `}
                 </Text>
               )}
             </Text>
+
             <Text>
               {figures.info} <Text dimColor>ctrl+c to exit</Text>
             </Text>

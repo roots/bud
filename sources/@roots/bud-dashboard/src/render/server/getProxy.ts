@@ -1,5 +1,3 @@
-import type {Bud} from '@roots/bud-framework'
-
 import * as formatUrl from './formatUrl.js'
 import parsePort from './parsePort.js'
 
@@ -8,16 +6,14 @@ import parsePort from './parsePort.js'
  *
  * @public
  */
-const getProxy = (app: Bud) => {
-  const proxy = app.hooks.filter(`dev.middleware.proxy.target`)
+const getProxy = (url?: URL) => {
+  if (!url) return false
 
-  if (!proxy) return false
+  const {protocol, port, hostname} = url
 
-  return formatUrl.external(
-    proxy.hostname,
-    proxy.protocol,
-    parsePort(proxy.port),
-  )
+  if (!hostname || !port || !protocol) return false
+
+  return formatUrl.external(protocol, hostname, parsePort(port))
 }
 
 export default getProxy

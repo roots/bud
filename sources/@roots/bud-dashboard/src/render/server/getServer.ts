@@ -1,4 +1,3 @@
-import type {Bud} from '@roots/bud-framework'
 import {externalNetworkInterface} from '@roots/bud-support/os'
 
 import * as formatUrl from './formatUrl.js'
@@ -9,16 +8,20 @@ import parsePort from './parsePort.js'
  *
  * @public
  */
-const getServer = (app: Bud) => {
-  const {protocol, port, hostname: internal} = app.hooks.filter(`dev.url`)
+const getServer = (
+  url?: URL,
+): {internal: string; external: string} | false => {
+  if (!url) return false
+
+  const {protocol, port, hostname: internal} = url
 
   if (!internal || !port || !protocol) return false
 
   return {
-    internal: formatUrl.internal(internal, protocol, parsePort(port)),
+    internal: formatUrl.internal(protocol, internal, parsePort(port)),
     external: formatUrl.external(
-      externalNetworkInterface.ipv4,
       protocol,
+      externalNetworkInterface.ipv4,
       parsePort(port),
     ),
   }
