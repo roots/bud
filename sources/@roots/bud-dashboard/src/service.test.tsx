@@ -1,88 +1,69 @@
 import {beforeEach, describe, expect, it, jest} from '@jest/globals'
-import type {Bud} from '@roots/bud-framework/bud'
+import {factory} from '@repo/test-kit/bud'
 import {Service} from '@roots/bud-framework/service'
-import React from '@roots/bud-support/react'
-import {render} from 'ink-testing-library'
 
 import Dashboard from './index.js'
-import App from './render/app'
-
-const mockLogger = {
-  instance: {
-    scope: jest.fn(),
-  },
-  scope: [],
-}
-
-mockLogger.instance.scope = jest.fn(() => mockLogger)
-
-const mockCompilations = [{}]
-
-const bud = {
-  isDevelopment: true,
-  context: {
-    args: {
-      ci: false,
-      log: true,
-    },
-  },
-  hooks: {
-    filter: jest.fn(() => new URL(`http://localhost:8080`)),
-  },
-  logger: mockLogger,
-  server: {
-    connection: {
-      url: new URL(`http://localhost:3000`),
-    },
-  },
-} as unknown as Bud
 
 describe(`Dashboard`, () => {
-  let dashboard
+  let bud
 
-  beforeEach(() => {
-    dashboard = new Dashboard(bud)
+  beforeEach(async () => {
+    bud = await factory()
   })
 
   it(`should be a Service`, async () => {
+    const dashboard = new Dashboard(bud)
     expect(dashboard).toBeInstanceOf(Service)
   })
 
-  it(`should render stats`, async () => {
+  it(`should have a stats fn`, async () => {
+    const dashboard = new Dashboard(bud)
     expect(dashboard.stats).toBeInstanceOf(Function)
   })
 
-  it(`should render stats`, async () => {
-    const {lastFrame} = render(
-      // @ts-ignore
-      <App
-        compilations={mockCompilations}
-        app={bud}
-        isTTY={true}
-        displayServerInfo={true}
-        displayAssets={true}
-        displayEntrypoints={true}
-      />,
-    )
-
-    expect(lastFrame()).toContain(`compiled  modules`)
+  it(`should have a getLastHash fn that returns the value of dashboard.lastHash`, async () => {
+    const dashboard = new Dashboard(bud)
+    dashboard.lastHash = `test`
+    expect(dashboard.getLastHash()).toBe(`test`)
+  })
+  it(`should have a setLastHash fn that set the value of dashboard.lastHash`, async () => {
+    const dashboard = new Dashboard(bud)
+    dashboard.setLastHash(`test`)
+    expect(dashboard.lastHash).toBe(`test`)
+  })
+  it(`should have a hashIsStale fn that returns true if hash is equal to lastHash`, async () => {
+    const dashboard = new Dashboard(bud)
+    dashboard.lastHash = `test`
+    expect(dashboard.hashIsStale(`test`)).toBeTruthy()
   })
 
-  it(`should render stats`, async () => {
-    const {lastFrame} = render(
+  it(`should return early from dashboard.stats when there are no stats provided`, async () => {
+    const dashboard = new Dashboard(bud)
+    await dashboard.stats(
       // @ts-ignore
-      <App
-        compilations={mockCompilations}
-        app={bud}
-        isTTY={true}
-        displayServerInfo={true}
-        displayAssets={true}
-        displayEntrypoints={true}
-      />,
+      undefined,
     )
+    expect(dashboard.lastHash).toBeUndefined()
+  })
 
-    expect(lastFrame()).toContain(`proxying`)
-    expect(lastFrame()).toContain(`internal`)
-    expect(lastFrame()).toContain(`external`)
+  it(`should set lastHash when stats is called`, async () => {
+    const dashboard = new Dashboard(bud)
+    await dashboard.stats({hash: `test`})
+    expect(dashboard.lastHash).toBe(`test`)
+  })
+
+  it(`should call setLastHash when hash is fresh`, async () => {
+    const dashboard = new Dashboard(bud)
+    const spy = jest.spyOn(dashboard, `setLastHash`)
+    await dashboard.stats({hash: `test`})
+    expect(spy).toHaveBeenCalledWith(`test`)
+  })
+
+  it(`should not call setLastHash when hash is stale`, async () => {
+    const dashboard = new Dashboard(bud)
+    const spy = jest.spyOn(dashboard, `setLastHash`)
+    await dashboard.stats({hash: `test`})
+    await dashboard.stats({hash: `test`})
+    expect(spy).toHaveBeenCalledTimes(1)
   })
 })

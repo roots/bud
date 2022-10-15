@@ -52,6 +52,7 @@
     "./ink-link": "./lib/dependencies/ink-link/index.js",
     "./ink-text-input": "./lib/dependencies/ink-text-input/index.js",
     "./lodash-es": "./lib/dependencies/lodash-es/index.js",
+    "./os": "./lib/os/index.js",
     "./patch-console": "./lib/dependencies/patch-console/index.js",
     "./pretty-format": "./lib/dependencies/pretty-format/index.js",
     "./react": "./lib/dependencies/react/index.js",
@@ -100,6 +101,9 @@
       ],
       "lodash-es": [
         "./lib/dependencies/lodash-es/index.d.ts"
+      ],
+      "os": [
+        "./lib/os/index.d.ts"
       ],
       "patch-console": [
         "./lib/dependencies/patch-console/index.d.ts"

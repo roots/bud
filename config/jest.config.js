@@ -30,9 +30,9 @@ const base = {
   ],
   collectCoverageFrom: [
     `**/sources/@roots/*/src/*.{ts,tsx}`,
+    `**/sources/@roots/*/src/*.*.{ts,tsx}`,
     `**/sources/@roots/*/src/**/*.{ts,tsx}`,
-    `!**/sources/@roots/*/src/*.test.{ts,tsx}`,
-    `!**/sources/@roots/*/src/**/*.test.{ts,tsx}`,
+    `**/sources/@roots/*/src/**/*.*.{ts,tsx}`,
   ],
   coveragePathIgnorePatterns: [
     `/node_modules/`,

@@ -12,4 +12,4 @@
 
 import {Dashboard} from './service.js'
 
-export {Dashboard, Dashboard as Service, Dashboard as default}
+export default Dashboard
