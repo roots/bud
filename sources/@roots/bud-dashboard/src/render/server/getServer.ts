@@ -11,6 +11,7 @@ import parsePort from './parsePort.js'
  */
 const getServer = (app: Bud) => {
   const {protocol, port, hostname: internal} = app.hooks.filter(`dev.url`)
+
   if (!internal || !port || !protocol) return false
 
   return {

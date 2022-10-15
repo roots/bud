@@ -3,6 +3,7 @@ import type Http from 'node:https'
 
 import type {Bud} from '@roots/bud-framework'
 import * as fs from '@roots/bud-support/fs'
+import {isNumber, isString} from '@roots/bud-support/lodash-es'
 import {externalNetworkInterface} from '@roots/bud-support/os'
 import getPort from 'get-port'
 
@@ -98,27 +99,38 @@ export const method: Serve = async function (
 
   if (!app.isDevelopment) return app
 
-  const current = app.hooks.filter(
-    `dev.url`,
-    new URL(`http://${externalNetworkInterface.ipv4}:3000`),
-  )
+  const current =
+    app.hooks.filter(`dev.url`) ??
+    new URL(`http://${externalNetworkInterface.ipv4}:3000`)
 
-  if (Array.isArray(input) || typeof input === `number`) {
-    current.port = await requestPort(app, current, input)
+  app.log(`current dev url`, current)
 
-    return app.hooks.on(`dev.url`, current)
+  if (Array.isArray(input) || isNumber(input)) {
+    app.log(`serve input is an array or number`, input)
+    const port = await requestPort(app, current, input)
+    app.log(`port`, port, `is available. assigning.`)
+
+    current.port = port
+    app.hooks.on(`dev.url`, current)
+    app.log(`dev url set to`, current)
+    return app
   }
 
-  if (input instanceof URL || typeof input === `string`) {
+  if (input instanceof URL || isString(input)) {
+    app.log(`input is a URL or a string`, input)
     const url = input instanceof URL ? input : new URL(input)
-
+    app.log(`parsed as url:`, url)
     url.port = await requestPort(
       app,
       url,
-      Number(url.port ?? current.port),
+      parseInt(url.port ?? current.port),
     )
+    app.log(`port`, url.port, `is available. assigning.`)
 
-    return app.hooks.on(`dev.url`, url)
+    app.hooks.on(`dev.url`, url)
+    app.log(`dev url set to`, url)
+
+    return app
   }
 
   await assignSpec(app, current, input)
@@ -138,11 +150,10 @@ const assignSpec = async (app: Bud, url: URL, spec: Specification) => {
   }
 
   if (spec.cert) spec.options.cert = await fs.readFile(spec.cert)
-
   if (spec.key) spec.options.key = await fs.readFile(spec.key)
 
   if (spec.port) {
-    url.port = await requestPort(app, url, Number(url.port))
+    url.port = await requestPort(app, url, parseInt(url.port))
   }
 
   if (spec.host) url.hostname = spec.host
@@ -162,19 +173,15 @@ const requestPort = async (
   exclude: number | Array<number> = [],
 ) => {
   const opts = {
-    port: Array.isArray(request) ? request : [Number(request)],
+    port: Array.isArray(request) ? request : [request],
     exclude: Array.isArray(exclude) ? exclude : [exclude],
   }
 
   url.port = await getPort(opts).then(p => `${p}`)
 
-  if (!opts.port.includes(Number(url.port))) {
-    app.warn(
-      `None of the requested ports could be resolved.`,
-      `\n`,
-      `A port was automatically selected: ${url.port}`,
-      `\n`,
-    )
+  if (!opts.port.includes(parseInt(url.port))) {
+    app.warn(`None of the requested ports could be resolved.`)
+    app.warn(`A port was automatically selected: ${url.port}`)
   }
 
   return url.port

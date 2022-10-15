@@ -123,7 +123,8 @@ export const initialize = (app: Bud): Bud =>
           'x-powered-by': `@roots/bud`,
         },
         'dev.middleware.enabled': [`dev`, `hot`],
-        'dev.url': new URL(`http://${externalNetworkInterface.ipv4}:3000`),
+        'dev.url': () =>
+          new URL(`http://${externalNetworkInterface.ipv4}:3000`),
         'dev.watch.files': new Set([]),
         'dev.watch.options': {},
       }),

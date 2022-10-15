@@ -81,7 +81,7 @@ describe(`Dashboard`, () => {
       />,
     )
 
-    expect(lastFrame()).toContain(`proxying`)
+    expect(lastFrame()).toContain(`proxy`)
     expect(lastFrame()).toContain(`internal`)
     expect(lastFrame()).toContain(`external`)
   })
