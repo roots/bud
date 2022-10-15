@@ -4,23 +4,24 @@ import React from '@roots/bud-support/react'
 import type {StatsCompilation} from 'webpack'
 
 import Compilation from './compilation/compilation.component.js'
-import {Server} from './server.js'
+import {Server} from './server/index.js'
 
-const App = ({
-  app,
-  compilations,
-  isTTY = true,
-  displayServerInfo = true,
-  displayAssets = true,
-  displayEntrypoints = true,
-}: {
+interface Props {
   app: Bud
   compilations: Array<StatsCompilation>
   isTTY?: boolean
   displayServerInfo?: boolean
   displayAssets?: boolean
   displayEntrypoints?: boolean
-}) => {
+}
+
+const App = ({
+  app,
+  compilations,
+  displayServerInfo = true,
+  displayAssets = true,
+  displayEntrypoints = true,
+}: Props) => {
   return (
     <Box flexDirection="column">
       {compilations.map((compilation, id) => (

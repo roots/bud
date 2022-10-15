@@ -6,13 +6,12 @@ import type {StatsCompilation} from 'webpack'
 import App from './app.js'
 import {TTYApp} from './input.js'
 
-export const renderDashboard = ({
-  stats,
-  app,
-}: {
+interface Props {
   stats: StatsCompilation
   app: Bud
-}) => {
+}
+
+export const renderDashboard = ({stats, app}: Props) => {
   const compilations = stats?.children?.length
     ? [
         ...stats.children,
