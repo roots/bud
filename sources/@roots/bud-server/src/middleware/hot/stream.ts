@@ -71,7 +71,7 @@ export class HotEventStream {
     this.interval = setInterval(
       () =>
         tapClients(client => {
-          client.write(`data: \uD83D\uDC93\n\n`)
+          client.write(`{data: {"action": "ping"}\n\n`)
         }),
       updateInterval,
     ).unref()
@@ -124,6 +124,7 @@ export class HotEventStream {
    */
   public close() {
     clearInterval(this.interval)
+
     tapClients(client => {
       !client.finished && client.end()
     })

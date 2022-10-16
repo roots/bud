@@ -1,14 +1,11 @@
 /* eslint-disable no-console */
 
-type Listener = ((ev: MessageEvent) => any) | null
+type Listener = ((ev: Payload) => any) | null
 
-export default (EventSource: new (...args: any[]) => EventSource) => {
-  /**
-   * HMR EventSource
-   *
-   * @public
-   */
-  return class Events extends EventSource {
+export const injectEvents = (
+  eventSource: new (path: string) => EventSource,
+) => {
+  return class Events extends eventSource {
     /**
      * Current hash
      * @public
@@ -33,7 +30,7 @@ export default (EventSource: new (...args: any[]) => EventSource) => {
      * Singleton interface, so this is private.
      */
     private constructor(
-      public options: Partial<Options> & {path: string},
+      public options: Partial<Options> & {name: string; path: string},
     ) {
       super(options.path)
 
@@ -44,18 +41,18 @@ export default (EventSource: new (...args: any[]) => EventSource) => {
 
     /**
      * Singleton constructor
+     *
      * @public
      */
     public static make(
-      options: Partial<Options> & {path: string},
+      options: Partial<Options> & {name: string; path: string},
     ): Events {
       if (!window.bud) window.bud = {hmr: {}}
 
-      if (!window.bud.hmr[options.path]) {
-        window.bud.hmr[options.path] = new Events(options)
-      }
+      if (!window.bud.hmr[options.name])
+        window.bud.hmr[options.name] = new Events(options)
 
-      return window.bud.hmr[options.path]
+      return window.bud.hmr[options.name]
     }
 
     /**
@@ -74,23 +71,27 @@ export default (EventSource: new (...args: any[]) => EventSource) => {
       // @ts-ignore
       if (!payload) return
 
-      this.payload = JSON.parse(payload.data)
+      try {
+        this.payload = JSON.parse(payload.data)
 
-      this.payload?.action === `reload` &&
-        this.options.reload &&
-        window.location.reload()
+        this.payload?.action === `reload` &&
+          this.options.reload &&
+          window.location.reload()
 
-      if (this.payload?.hash) {
-        if (this.messages.has(this.payload?.hash)) return
-        this.currentHash = this.payload?.hash
-        this.messages.add(this.currentHash)
-      }
+        if (this.payload?.hash) {
+          if (this.messages.has(this.payload?.hash)) return
+          this.currentHash = this.payload?.hash
+          this.messages.add(this.currentHash)
+        }
 
-      if (this.messages.size <= 1) return
+        if (this.messages.size <= 1) return
 
-      await Promise.all(
-        [...this.listeners].map(async listener => await listener(payload)),
-      )
+        await Promise.all(
+          [...this.listeners].map(
+            async listener => await listener(this.payload),
+          ),
+        )
+      } catch (e) {}
     }
 
     /**
@@ -98,10 +99,12 @@ export default (EventSource: new (...args: any[]) => EventSource) => {
      * @public
      */
     public addMessageListener(
-      callback: (ev: MessageEvent) => unknown,
+      payloadListener: (ev: Payload) => unknown,
     ): this {
-      this.listeners.add(callback)
+      this.listeners.add(payloadListener)
       return this
     }
   }
 }
+
+export default injectEvents

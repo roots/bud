@@ -7,15 +7,17 @@
 import {describe, expect, it, jest} from '@jest/globals'
 
 import client from './client'
-import makeEventSource from './hmr/events'
+import {injectEvents} from './events'
 import * as options from './options'
 
 // @ts-ignore
 global.EventSource = class Events {
   public constructor() {}
-  public addM
 }
+
 window.EventSource = global.EventSource
+
+const Events = injectEvents(global.EventSource)
 
 const mockHot = jest.fn()
 // @ts-ignore
@@ -33,7 +35,7 @@ describe(`@roots/bud-client`, () => {
 
   it(`should add window.bud.hmr as an instance of EventSource`, async () => {
     await client(`?name=test`)
-    expect(window.bud.hmr[`/__bud/hmr`]).toBeInstanceOf(EventSource)
+    expect(window.bud.hmr[`test`]).toBeInstanceOf(EventSource)
   })
 
   it(`should set clientOptions`, async () => {
@@ -55,18 +57,15 @@ describe(`@roots/bud-client`, () => {
 
   it(`should call console.log`, async () => {
     const spy = jest.spyOn(global.console, `log`)
+
     await client(`?name=test`)
     const clientOptions = options.data
-    const events = await makeEventSource(global.EventSource).make(
-      clientOptions.test,
-    )
+    const events = Events.make(clientOptions.test)
     events.onopen()
     expect(spy).toHaveBeenCalled()
   })
 
   it(`should call listener from onmessage`, async () => {
-    const Events = makeEventSource(global.EventSource)
-
     await client(`?name=test`)
     const clientOptions = options.data
     const events = Events.make(clientOptions.test)

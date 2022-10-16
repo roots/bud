@@ -1,11 +1,9 @@
 /* eslint-disable no-console */
 /* global __resourceQuery */
 
-import './interface'
-
 import * as components from './components/index.js'
-import makeEventSource from './hmr/events.js'
-import * as clientOptions from './options'
+import {injectEvents} from './events.js'
+import * as clientOptions from './options.js'
 
 /**
  * Initializes bud.js HMR handling
@@ -35,11 +33,12 @@ export default async (queryString: string) => {
   /**
    * Webpack HMR check handler
    */
-  const check = async () =>
-    webpackHot.status() === `idle` &&
-    (await webpackHot.check(false).then(async modules => {
-      modules && (await update())
-    }))
+  const check = async () => {
+    if (webpackHot.status() === `idle`)
+      await webpackHot.check(true).then(async modules => {
+        if (modules) await update()
+      })
+  }
 
   /**
    * Webpack HMR unaccepted module handler
@@ -59,11 +58,12 @@ export default async (queryString: string) => {
       error?.error ?? `error`
     }`
     console.error(message)
+
     components.controllers.map(controller =>
       controller.update({
         type: `accept-errored`,
         action: `built`,
-        errors: [{message}],
+        errors: [{name: error.name ?? error.moduleId ?? `error`, message}],
       }),
     )
   }
@@ -84,22 +84,24 @@ export default async (queryString: string) => {
       }))
   }
 
-  /* Instantiate eventSource */
-  const eventSource = makeEventSource(global.EventSource).make(options)
-
   /* Instantiate indicator, overlay */
   await components.make(options)
 
-  /* Instantiate HMR event source and register client listeners */
-  eventSource.addMessageListener(async (event: MessageEvent) => {
+  /* Instantiate eventSource */
+  const events = injectEvents(EventSource).make(options)
+
+  const listener = async (payload: Payload) => {
     try {
-      const data = JSON.parse(event.data)
-      if (!data) return
-      if (data.action === `reload`) window.location.reload()
+      if (!payload) return
 
-      components.controllers.map(controller => controller.update(data))
+      components.controllers.map(controller => controller.update(payload))
 
-      if (__webpack_hash__ !== eventSource.currentHash) await check()
-    } catch (error) {}
-  })
+      if (__webpack_hash__ !== payload.hash) await check()
+    } catch (error) {
+      console.error(`[bud]`, error)
+    }
+  }
+
+  /* Instantiate HMR event source and register client listeners */
+  events.addMessageListener(listener)
 }

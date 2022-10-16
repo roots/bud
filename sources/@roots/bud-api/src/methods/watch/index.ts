@@ -16,7 +16,9 @@ export const watch: watch = function (...input) {
 
   app.hooks.on(`dev.watch.files`, files => {
     if (!files) files = new Set()
+
     input.flat().forEach((file: string) => files.add(file))
+
     return files
   })
 
