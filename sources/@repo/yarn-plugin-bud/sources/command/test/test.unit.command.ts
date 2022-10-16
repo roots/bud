@@ -55,10 +55,13 @@ export class TestUnit extends Command {
         `yarn node --experimental-vm-modules ${join(
           paths.root,
           `node_modules/.bin/jest`,
+        )} ${this.passthrough.reduce(
+          (a, c) => `${a} ${c}`,
+          ``,
         )} --config ${join(
           paths.root,
           `config/jest.config.js`,
-        )} --selectProjects unit --verbose --coverage`,
+        )} --selectProjects unit:node unit:dom --verbose --coverage`,
       ),
     )
   }

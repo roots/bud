@@ -23,7 +23,7 @@ declare module global {
 
 declare interface Events extends EventSource {
   messages: Set<string>
-  options: Options
+  options: Partial<Options> & {path: string}
   currentHash: string
   listeners: Set<((ev: MessageEvent) => any) | null>
   addMessageListener(fn: (ev: MessageEvent) => unknown): this
