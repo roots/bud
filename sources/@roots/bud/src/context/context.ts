@@ -28,8 +28,11 @@ export default class Context {
     colorDepth: 256,
   }
 
-  public async make(basedir: string): Promise<Options.Context> {
-    if (contexts[basedir]) return contexts[basedir]
+  public async make(
+    basedir: string,
+    skipCache?: boolean,
+  ): Promise<Options.Context> {
+    if (!skipCache && contexts[basedir]) return contexts[basedir]
 
     this.data.basedir = basedir
 

@@ -16,7 +16,10 @@ import Context from './context.js'
  *
  * @public
  */
-export const get = async (basedir: string): Promise<Options.Context> => {
+export const get = async (
+  basedir: string,
+  skipCache?: boolean,
+): Promise<Options.Context> => {
   basedir = isAbsolute(basedir) ? basedir : resolve(process.cwd(), basedir)
-  return await new Context().make(basedir)
+  return await new Context().make(basedir, skipCache)
 }

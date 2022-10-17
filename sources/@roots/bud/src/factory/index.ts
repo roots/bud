@@ -60,7 +60,7 @@ export async function factory(
     }
   }
 
-  const context = await applicationContext.get(basedir)
+  const context = await applicationContext.get(basedir, skipCache)
 
   Array.isArray(config?.extensions) &&
     config.extensions
