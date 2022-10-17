@@ -24,7 +24,7 @@
     "@docusaurus/remark-plugin-npm2yarn": "2.1.0",
     "@jest/globals": "29.0.3",
     "@repo/constants": "workspace:sources/@repo/constants",
-    "@svgr/webpack": "6.4.0",
+    "@svgr/webpack": "6.5.0",
     "@tsconfig/docusaurus": "1.0.6",
     "@types/node": "16.11.64",
     "@types/react": "17.0.50",
