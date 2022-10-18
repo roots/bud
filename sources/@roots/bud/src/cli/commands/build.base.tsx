@@ -369,9 +369,9 @@ export default class BuildCommand extends BaseCommand {
 
   @bind
   public async applyManifestOptions() {
-    if (isset(this.app.context.manifest?.bud?.[`basedir`])) {
+    if (isset(this.app.context.manifest?.bud?.paths?.[`base`])) {
       this.app.context.basedir =
-        this.app.context.manifest?.bud?.[`basedir`]
+        this.app.context.manifest?.bud?.paths?.[`base`]
     }
 
     if (isset(this.app.context.manifest?.bud?.[`publicPath`]))
@@ -390,6 +390,12 @@ export default class BuildCommand extends BaseCommand {
       this.app.hooks.on(
         `location.@dist`,
         this.app.context.manifest.bud.paths[`dist`],
+      )
+
+    if (isset(this.app.context.manifest?.bud?.extensions?.inject))
+      this.app.hooks.on(
+        `feature.inject`,
+        this.app.context.manifest.bud.extensions.inject,
       )
 
     if (isset(this.app.context.manifest?.bud?.paths?.[`storage`]))
