@@ -25,7 +25,9 @@ type SyncCallback = {
 
 type SyncStore = {
   [K in keyof SyncRegistry as `${K & string}`]?: Array<
-    Value<SyncCallback[K]>
+    Value<
+      ((current?: SyncRegistry[K]) => SyncRegistry[K]) | SyncRegistry[K]
+    >
   >
 }
 

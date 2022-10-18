@@ -6,7 +6,6 @@ import {
   isUndefined,
 } from '@roots/bud-support/lodash-es'
 
-import {override} from './lifecycle/args.js'
 import {bootstrap, LIFECYCLE_EVENT_MAP} from './lifecycle/bootstrap.js'
 import type {Logger} from './logger'
 import type * as methods from './methods/index.js'
@@ -181,6 +180,8 @@ export class Bud {
 
   public pipe: methods.pipe
 
+  public processConfigs: methods.processConfigs
+
   public publicPath: methods.publicPath
 
   public relPath: methods.relPath
@@ -307,9 +308,6 @@ export class Bud {
         throw error
       }
     }, Promise.resolve())
-
-    this.hooks.action(`booted`, override)
-    this.hooks.action(`build.before`, override)
 
     return this
   }

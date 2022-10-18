@@ -154,9 +154,4 @@ describe(`filesystem`, () => {
     await fs.dir(`foo`)
     expect(mockJetpack.dirAsync).toHaveBeenCalledWith(`foo`, undefined)
   })
-
-  it(`should call jetpack path`, async () => {
-    fs.path(`foo`)
-    expect(mockJetpack.path).toHaveBeenCalledWith(`foo`)
-  })
 })

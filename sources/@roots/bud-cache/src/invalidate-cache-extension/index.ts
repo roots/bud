@@ -21,7 +21,7 @@ export default class InvalidateCacheExtension extends Extension {
    *
    * @public
    */
-  public get file(): string {
+  public get invalidationFile(): string {
     return this.app.path(
       `@storage`,
       this.app.label,
@@ -37,12 +37,23 @@ export default class InvalidateCacheExtension extends Extension {
    */
   @bind
   public async register() {
-    const invalidate = await this.app.fs.exists(this.file)
+    const invalidate = await this.app.fs.exists(
+      `@storage`,
+      this.app.label,
+      `${this.app.mode}.error.json`,
+    )
 
     if (invalidate || this.app.context.args.flush) {
-      await this.app.fs.remove(this.file)
+      await this.app.fs.remove(this.invalidationFile)
       await this.app.fs.remove(
-        this.app.path(`@storage`, this.app.label, `cache`, this.app.mode),
+        this.app.relPath(
+          this.app.path(
+            `@storage`,
+            this.app.label,
+            `cache`,
+            this.app.mode,
+          ),
+        ),
       )
     }
 

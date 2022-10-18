@@ -44,8 +44,7 @@
   "types": "./lib/index.d.ts",
   "exports": {
     ".": "./lib/index.js",
-    "./extension": "./lib/extension.js",
-    "./config": "./lib/config.js"
+    "./extension": "./lib/extension.js"
   },
   "typesVersions": {
     "*": {
@@ -54,9 +53,6 @@
       ],
       "extension": [
         "./lib/extension.d.ts"
-      ],
-      "config": [
-        "./lib/config.d.ts"
       ]
     }
   },
