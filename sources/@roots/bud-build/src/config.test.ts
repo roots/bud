@@ -55,7 +55,7 @@ describe(`bud.build.config`, function () {
   })
 
   it(`should have expected devtool default`, () => {
-    expect(build.config.devtool).toBeUndefined()
+    expect(build.config.devtool).toBe(false)
   })
 
   it(`should have expected entry default`, () => {
