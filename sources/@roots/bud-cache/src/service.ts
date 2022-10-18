@@ -3,7 +3,6 @@ import {createHash} from 'node:crypto'
 import {Service} from '@roots/bud-framework/service'
 import type * as Services from '@roots/bud-framework/services'
 import {bind} from '@roots/bud-support/decorators'
-import {isUndefined} from '@roots/bud-support/lodash-es'
 
 import InvalidateCacheExtension from './invalidate-cache-extension/index.js'
 
@@ -138,18 +137,17 @@ export default class Cache
   public async booted() {
     await this.app.extensions.add(InvalidateCacheExtension)
 
-    this.enabled =
-      isUndefined(this.app.context.args.cache) ||
-      this.app.context.args.cache !== false
-
     switch (this.app.context.args.cache) {
       case `memory`:
+        this.enabled = true
         this.type = `memory`
         break
       case `filesystem`:
+        this.enabled = true
         this.type = `filesystem`
         break
       case undefined:
+        this.enabled = true
         this.type = `filesystem`
         break
       case false:
@@ -165,22 +163,20 @@ export default class Cache
       this.app.mode,
     )
 
-    const args = Object.entries(this.app.context.args)
-      .filter(([k, v]) => v !== undefined)
-      .map(([k, v]) => `${k}-${v}`)
-      .join(`.`)
-
     this.version = createHash(`sha1`)
-      .update(this.app.fs.json.stringify([this.app.context.config, args]))
+      .update(
+        this.app.fs.json.stringify([
+          this.app.context.config,
+          Object.entries(this.app.context.args)
+            .filter(([k, v]) => v !== undefined)
+            .map(([k, v]) => `${k}-${v}`)
+            .join(`.`),
+        ]),
+      )
       .digest(`base64`)
       .replace(/[^a-z0-9]/gi, `_`)
       .toLowerCase()
-
     this.app.success(`cache initialized`)
-
-    if (this.app.context.args.cache === false) {
-      this.app.log(`cache is disabled with a contextual argument`)
-    }
   }
 
   /**
