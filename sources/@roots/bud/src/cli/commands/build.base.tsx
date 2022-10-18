@@ -1,9 +1,17 @@
 import type {Context} from '@roots/bud-framework/options/context'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators'
+import {isString, isUndefined} from '@roots/bud-support/lodash-es'
 import * as t from '@roots/bud-support/typanion'
 
 import BaseCommand from './base.js'
+
+/**
+ * Returns true if the given value is neither null nor undefined.
+ *
+ * @public
+ */
+const isset = (value: unknown): boolean => !isUndefined(value)
 
 /**
  * Build command
@@ -40,6 +48,12 @@ export default class BuildCommand extends BaseCommand {
    * @public
    */
   public browser?: boolean | string
+  /**
+   * (dev only) hot
+   * @virtual
+   * @public
+   */
+  public hot?: boolean
   /**
    * (dev only) reload
    * @virtual
@@ -203,6 +217,19 @@ export default class BuildCommand extends BaseCommand {
     env: `APP_PUBLIC_PATH`,
   })
 
+  public runtime: `single` | `multiple` | boolean = Option.String(
+    `--runtime`,
+    undefined,
+    {
+      description: `Set runtime chunk`,
+      validator: t.isOneOf([
+        t.isLiteral(`single`),
+        t.isLiteral(`multiple`),
+        t.isBoolean(),
+      ]),
+    },
+  )
+
   /**
    * --splitChunks
    */
@@ -239,6 +266,7 @@ export default class BuildCommand extends BaseCommand {
       esm: this.esm,
       flush: this.flush,
       hash: this.hash,
+      hot: this.hot,
       html: this.html,
       immutable: this.immutable,
       indicator: this.indicator,
@@ -249,16 +277,219 @@ export default class BuildCommand extends BaseCommand {
       overlay: this.overlay,
       publicPath: this.publicPath,
       reload: this.reload,
+      runtime: this.runtime,
       splitChunks: this.splitChunks,
       target: this.target,
+      storage: this.storage,
     }
   }
 
   /**
    * Execute command
+   *
+   * @public
+   * @decorator `@bind`
    */
   @bind
   public async runCommand() {
+    await this.applyEnv()
+    await this.applyManifestOptions()
+    await this.app.processConfigs()
+    await this.applyArgs()
     await this.app.run()
+  }
+
+  @bind
+  public async applyEnv() {
+    if (this.app.env.isString(`APP_MODE`)) {
+      this.app.hooks.on(
+        `build.mode`,
+        this.app.env.get<`development` | `production`>(`APP_MODE`),
+      )
+      this.app.success(
+        `mode set to`,
+        this.app.env.get(`APP_MODE`),
+        `from environment`,
+      )
+    }
+
+    if (this.app.env.isString(`APP_BASE_PATH`)) {
+      this.app.context.basedir = this.app.env.get(`APP_BASE_PATH`)
+      this.app.success(
+        `project base path set to`,
+        this.app.env.get(`APP_BASE_PATH`),
+        `from environment`,
+      )
+    }
+
+    if (this.app.env.isString(`APP_PUBLIC_PATH`)) {
+      this.app.hooks.on(
+        `build.output.publicPath`,
+        this.app.env.get(`APP_PUBLIC_PATH`),
+      )
+      this.app.success(
+        `public path set to`,
+        this.app.env.get(`APP_PUBLIC_PATH`),
+        `from environment`,
+      )
+    }
+
+    if (this.app.env.isString(`APP_SRC_PATH`)) {
+      this.app.hooks.on(`location.@src`, this.app.env.get(`APP_SRC_PATH`))
+      this.app.success(
+        `src path set to`,
+        this.app.env.get(`APP_SRC_PATH`),
+        `from environment`,
+      )
+    }
+
+    if (this.app.env.isString(`APP_DIST_PATH`)) {
+      this.app.hooks.on(
+        `location.@dist`,
+        this.app.env.get(`APP_DIST_PATH`),
+      )
+      this.app.success(
+        `dist path set to`,
+        this.app.env.get(`APP_DIST_PATH`),
+        `from environment`,
+      )
+    }
+
+    if (this.app.env.isString(`APP_STORAGE_PATH`)) {
+      this.app.hooks.on(
+        `location.@storage`,
+        this.app.env.get(`APP_STORAGE_PATH`),
+      )
+      this.app.success(
+        `storage path set to`,
+        this.app.env.get(`APP_STORAGE_PATH`),
+        `from environment`,
+      )
+    }
+  }
+
+  @bind
+  public async applyManifestOptions() {
+    if (isset(this.app.context.manifest?.bud?.[`basedir`])) {
+      this.app.context.basedir =
+        this.app.context.manifest?.bud?.[`basedir`]
+    }
+
+    if (isset(this.app.context.manifest?.bud?.[`publicPath`]))
+      this.app.hooks.on(
+        `build.output.publicPath`,
+        this.app.context.manifest.bud[`publicPath`],
+      )
+
+    if (isset(this.app.context.manifest?.bud?.paths?.[`src`]))
+      this.app.hooks.on(
+        `location.@src`,
+        this.app.context.manifest.bud.paths[`src`],
+      )
+
+    if (isset(this.app.context.manifest?.bud?.paths?.[`dist`]))
+      this.app.hooks.on(
+        `location.@dist`,
+        this.app.context.manifest.bud.paths[`dist`],
+      )
+
+    if (isset(this.app.context.manifest?.bud?.paths?.[`storage`]))
+      this.app.hooks.on(
+        `location.@storage`,
+        this.app.context.manifest.bud.paths[`storage`],
+      )
+  }
+
+  /**
+   * Apply arguments
+   *
+   * @public
+   */
+  @bind
+  public async applyArgs() {
+    if (this.app.isRoot && isset(this.app.context.args.target))
+      Object.keys(this.app.children)
+        .filter(name => !this.app.context.args.target.includes(name))
+        .map(name => delete this.app.children[name])
+
+    if (isset(this.app.context.args.publicPath)) {
+      this.app.setPublicPath(this.app.context.args.publicPath)
+    }
+
+    if (isset(this.app.context.args.input))
+      this.app.setPath(`@src`, this.app.context.args.input)
+
+    if (isset(this.app.context.args.output)) {
+      this.app.setPath(`@dist`, this.app.context.args.output)
+    }
+
+    if (isset(this.app.context.args.storage))
+      this.app.setPath(`@storage`, this.app.context.args.storage)
+
+    if (isset(this.app.context.args.mode))
+      this.app.hooks.on(`build.mode`, this.app.context.args.mode)
+
+    if (isset(this.app.context.args.cache)) {
+      this.app.persist(this.app.context.args.cache)
+    }
+
+    if (isset(this.app.context.args.manifest)) {
+      this.app.hooks.on(`feature.manifest`, this.app.context.args.manifest)
+    }
+
+    if (isset(this.app.context.args.minimize))
+      await this.app.api.call(`minimize`, this.app.context.args.minimize)
+
+    if (isset(this.app.context.args.html))
+      await this.app.api.call(`template`)
+
+    if (isset(this.app.context.args.devtool))
+      await this.app.api.call(`devtool`, this.app.context.args.devtool)
+
+    if (isset(this.app.context.args.esm)) this.app.esm.enable()
+
+    if (isset(this.app.context.args.immutable)) this.app.cdn.freeze()
+
+    if (isset(this.app.context.args.manifest))
+      this.app.hooks.on(`feature.manifest`, this.app.context.args.manifest)
+
+    if (isset(this.app.context.args.clean)) {
+      this.app.extensions
+        .get(`clean-webpack-plugin`)
+        [this.app.context.args.clean ? `enable` : `disable`]()
+
+      this.app.hooks.on(`build.output.clean`, this.app.context.args.clean)
+    } else if (
+      this.app.isProduction &&
+      !isset(this.app.hooks.filter(`build.output.clean`))
+    ) {
+      this.app.extensions.get(`clean-webpack-plugin`).enable()
+      this.app.hooks.on(`build.output.clean`, true)
+    }
+
+    if (isset(this.app.context.args.devtool))
+      await this.app.api.call(`devtool`, this.app.context.args.devtool)
+
+    if (isset(this.app.context.args.hash))
+      await this.app.api.call(`hash`, this.app.context.args.hash)
+
+    if (isset(this.app.context.args.html))
+      isString(this.app.context.args.html)
+        ? await this.app.api.call(`template`, {
+            template: this.app.context.args.html,
+          })
+        : await this.app.api.call(`template`)
+
+    if (isset(this.app.context.args.minimize))
+      await this.app.api.call(`minimize`, this.app.context.args.minimize)
+
+    if (isset(this.app.context.args.runtime))
+      await this.app.api.call(`runtime`, this.app.context.args.runtime)
+
+    if (isset(this.app.context.args.splitChunks))
+      await this.app.api.call(
+        `splitChunks`,
+        this.app.context.args.splitChunks,
+      )
   }
 }
