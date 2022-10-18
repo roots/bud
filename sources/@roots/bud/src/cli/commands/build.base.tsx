@@ -266,7 +266,6 @@ export default class BuildCommand extends BaseCommand {
       esm: this.esm,
       flush: this.flush,
       hash: this.hash,
-      hot: this.hot,
       html: this.html,
       immutable: this.immutable,
       indicator: this.indicator,
