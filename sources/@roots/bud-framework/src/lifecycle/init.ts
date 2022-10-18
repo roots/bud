@@ -16,7 +16,7 @@ import type {Bud} from '../bud'
 export const initialize = (app: Bud): Bud =>
   app.hooks
     .fromMap({
-      'feature.clean': true,
+      'feature.clean': () => app.isProduction,
       'feature.hash': false,
       'feature.manifest': true,
       'feature.runtimeChunk': false,
@@ -54,6 +54,7 @@ export const initialize = (app: Bud): Bud =>
       'build.bail': app.isProduction,
       'build.cache': () => app.cache.configuration,
       'build.context': () => app.context.basedir,
+      'build.devtool': false,
       'build.externalsType': `var`,
       'build.mode': () => app.mode,
       'build.module.rules.before': () => [
