@@ -7,6 +7,7 @@ import {glob, globSync} from './glob.js'
 import {maybeCall} from './maybeCall.js'
 import {path} from './path.js'
 import {pipe} from './pipe.js'
+import {processConfigs} from './processConfigs.js'
 import {publicPath} from './publicPath.js'
 import {relPath} from './relPath.js'
 import {run} from './run.js'
@@ -28,6 +29,7 @@ export {
   maybeCall,
   path,
   pipe,
+  processConfigs,
   publicPath,
   relPath,
   run,
