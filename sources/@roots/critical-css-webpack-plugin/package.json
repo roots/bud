@@ -1,7 +1,7 @@
 {
   "name": "@roots/critical-css-webpack-plugin",
   "description": "Webpack plugin for generating critical-path CSS",
-  "version": "0.0.0",
+  "version": "6.5.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
