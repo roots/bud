@@ -5,10 +5,12 @@
     "extends @roots/browserslist-config/current"
   ],
   "bud": {
-    "denylist": [
-      "@roots/bud-esbuild",
-      "@roots/bud-swc"
-    ]
+    "extensions": {
+      "denylist": [
+        "@roots/bud-esbuild",
+        "@roots/bud-swc"
+      ]
+    }
   },
   "devDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
