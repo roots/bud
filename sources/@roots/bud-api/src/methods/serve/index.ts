@@ -4,7 +4,7 @@ import type Http from 'node:https'
 import type {Bud} from '@roots/bud-framework'
 import {isEmpty, isNumber, isString} from '@roots/bud-support/lodash-es'
 import {externalNetworkInterface} from '@roots/bud-support/os'
-import getPort, {Options as GetPortOptions} from 'get-port'
+import getPort from 'get-port'
 
 /**
  * Specification object
@@ -12,12 +12,6 @@ import getPort, {Options as GetPortOptions} from 'get-port'
  * @public
  */
 export interface Specification {
-  /**
-   * A preferred port or anArray of preferred ports to use.
-   * @public
-   */
-  port?: number | Array<number>
-
   /**
    * Use ssl connection
    * @public
@@ -31,10 +25,22 @@ export interface Specification {
   exclude?: number | Array<number>
 
   /**
+   * Server URL
+   * @public
+   */
+  url?: string | URL
+
+  /**
    * Hostname
    * @public
    */
   host?: string
+
+  /**
+   * port
+   * @public
+   */
+  port?: number | Array<number>
 
   /**
    * SSL certificate (path)
@@ -54,12 +60,6 @@ export interface Specification {
    */
   options?: Https.ServerOptions | Http.ServerOptions
 }
-
-/**
- * Permissable options
- * @public
- */
-export type Options = Specification | number | Array<number> | URL | string
 
 /**
  * bud.serve
@@ -92,7 +92,7 @@ export type facade = Serve<Bud>
  * @public
  */
 export const method: Serve = async function (
-  input: Options,
+  input: Specification | URL | string | number | Array<number>,
 ): Promise<Bud> {
   const app = this as Bud
 
@@ -107,7 +107,11 @@ export const method: Serve = async function (
 
   if (Array.isArray(input) || isNumber(input)) {
     app.log(`serve input is an array or number`, input)
-    const port = await requestPort(app, current, input)
+    const port = await requestPorts(
+      app,
+      current,
+      portOrPortsToNumbers(input),
+    )
 
     app.log(`port`, port, `is available. assigning.`)
     current.port = port
@@ -120,16 +124,17 @@ export const method: Serve = async function (
 
   if (input instanceof URL || isString(input)) {
     app.log(`input is a URL or a string`, input)
-    const url = input instanceof URL ? input : new URL(input)
 
+    const url = input instanceof URL ? input : new URL(input)
     app.log(`parsed as url:`, url)
 
-    const requestedPort = (url.port ?? current.port ?? `:3000`).replace(
-      `:`,
-      ``,
-    )
+    const requestedPort = url.port ?? current.port ?? `3000`
 
-    url.port = await requestPort(app, url, Number(requestedPort))
+    url.port = await requestPorts(
+      app,
+      url,
+      portOrPortsToNumbers(requestedPort),
+    )
     app.log(`port`, url.port, `is available. assigning.`)
 
     app.hooks.on(`dev.url`, url)
@@ -138,7 +143,7 @@ export const method: Serve = async function (
     return app
   }
 
-  await assignSpec(app, current, input)
+  await assignSpec.bind(app)(input, current)
 
   return app
 }
@@ -147,50 +152,56 @@ export const method: Serve = async function (
  * Process specification object
  * @public
  */
-const assignSpec = async (app: Bud, url: URL, spec: Specification) => {
+const assignSpec = async function (spec: Specification, url: URL) {
   const options: Partial<Specification> = {}
 
-  if ([spec.ssl, spec.cert, spec.key].filter(Boolean).length > 0) {
+  if (spec.url)
+    url = spec.url instanceof URL ? spec.url : new URL(spec.url)
+
+  if ([spec.ssl, spec.cert, spec.key].some(Boolean)) {
     url.protocol = `https:`
   }
 
-  if (spec.cert) options.cert = await app.fs.read(spec.cert)
-  if (spec.key) options.key = await app.fs.read(spec.key)
-
-  if (spec.port) {
-    url.port = await requestPort(app, url, Number(spec.port))
-  }
-
   if (spec.host) url.hostname = spec.host
+  if (spec.port)
+    url.port = await requestPorts(
+      this,
+      url,
+      portOrPortsToNumbers(spec.port),
+    )
 
-  !isEmpty(options) && app.hooks.on(`dev.options`, options)
-  app.hooks.on(`dev.url`, url)
+  this.hooks.on(`dev.url`, url)
+
+  if (spec.cert) options.cert = await this.fs.read(spec.cert)
+  if (spec.key) options.key = await this.fs.read(spec.key)
+  if (!isEmpty(options)) this.hooks.on(`dev.options`, options)
 }
 
 /**
  * Process Node URL
  * @public
  */
-const requestPort = async (
+const requestPorts = async (
   app: Bud,
   url: URL,
-  request: number | Array<number>,
-  exclude: number | Array<number> = [],
+  port: Array<number>,
+  exclude: Array<number> = [],
 ) => {
-  const opts: GetPortOptions & {
-    port: Array<number>
-    exclude: Array<number>
-  } = {
-    port: Array.isArray(request) ? request : [request],
-    exclude: Array.isArray(exclude) ? exclude : [exclude],
-  }
+  const request = {port, exclude}
 
-  url.port = await getPort(opts).then(p => `${p}`)
+  url.port = await getPort(request).then(p => `${p}`)
 
-  if (!opts.port?.includes(Number(url.port))) {
+  if (!request.port?.includes(Number(url.port))) {
     app.warn(`None of the requested ports could be resolved.`)
     app.warn(`A port was automatically selected: ${url.port}`)
   }
 
   return url.port
+}
+
+const portOrPortsToNumbers = (
+  port: number | string | Array<number | string>,
+): Array<number> => {
+  if (Array.isArray(port)) return port.map(port => Number(port))
+  return [Number(port)]
 }
