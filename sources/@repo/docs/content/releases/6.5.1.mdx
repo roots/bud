@@ -23,11 +23,11 @@ These flags were janky but now they are golden:
 - `--discovery` - Enable or disable automatic extension registration
 - `--flush` - Clean webpack cache
 
-This release also adds a `--runtime` flag, which is new. It doesn't accept everything `bud.runtime` does, but you can use it to specify basic options like `single`, `multiple`, or `true` (which will use the default: `single`).
+This release also adds a `--runtime` flag, which is new. It doesn't accept everything `bud.runtime` does, but you can use it to specify basic options like `single` or `multiple`.
 
 ## ✨ Improve: `env` context
 
-You can set values in your `.env`:
+You can now set certain values in your `.env`:
 
 - `APP_BASE_PATH` - the base path for your app
 - `APP_PUBLIC_PATH` - the public path for your app
@@ -59,7 +59,31 @@ The options available under the `bud` key in `package.json` have been expanded:
 }
 ```
 
-If you are using `bud.allowlist` or `bud.denylist`, please update to `bud.extensions.allowlist` and `bud.extensions.denyList`. You'll get a warning in your terminal for now; in a future release this will cause an error.
+If you are using `bud.allowlist` or `bud.denylist`, please update to `bud.extensions.allowlist` and `bud.extensions.denylist`. You'll get a warning in your terminal for now; in a future release this will cause an error.
+
+## 🩹 Fix: SSL proxy rewrites and documentation
+
+The implementation and documentation for the `bud.serve` function had fallen out-of-sync. The `bud.serve` documentation and development server configuration guides are now up-to-date.
+
+Additionally, path rewrites for proxied URLs served over SSL were defaulting to `0.0.0.0` for `hostname`. This has been fixed.
+
+Example of the config which served as a test case for this release:
+
+```typescript
+.proxy("https://ssl-test.test")
+.serve({
+  host: "ssl-test.test",
+  cert: `${process.env.HOME}/.config/valet/Certificates/ssl-test.test.crt`,
+  key: `${process.env.HOME}/.config/valet/Certificates/ssl-test.test.key`,
+})
+```
+
+To apply the hostname fix to earlier versions of bud you will need to apply the rewrite in your config:
+
+```typescript
+// This is no longer necessary in 6.5.1
+bud.proxy('https://ssl-test.test', [['0.0.0.0', 'ssl-test.test']])
+```
 
 ## ℹ️ Release information
 
