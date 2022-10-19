@@ -15,13 +15,13 @@
 
 ━━━ build ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  bud build [--input,-i,--@src,--src #0] [--output,-o,--@dist,--dist #0] [--notify] [--cache] [--ci] [--clean] [--debug] [--devtool #0] [--editor] [--esm] [--flush] [--hash] [--html] [--immutable] [--manifest] [--minimize] [--publicPath #0] [--splitChunks,--vendor] [--storage #0]
+  bud build [--input,-i,--@src,--src #0] [--output,-o,--@dist,--dist #0] [--discovery] [--notify] [--cache] [--ci] [--clean] [--debug] [--devtool #0] [--editor] [--esm] [--flush] [--hash] [--html] [--immutable] [--manifest] [--minimize] [--publicPath #0] [--runtime #0] [--splitChunks,--vendor] [--storage #0]
     Compile source assets
 
-  bud build development [--input,-i,--@src,--src #0] [--output,-o,--@dist,--dist #0] [--notify] [--cache] [--ci] [--clean] [--debug] [--devtool #0] [--editor] [--esm] [--flush] [--hash] [--html] [--immutable] [--manifest] [--minimize] [--publicPath #0] [--splitChunks,--vendor] [--storage #0] [--browser] [--indicator] [--overlay] [--reload]
+  bud build development [--input,-i,--@src,--src #0] [--output,-o,--@dist,--dist #0] [--discovery] [--notify] [--cache] [--ci] [--clean] [--debug] [--devtool #0] [--editor] [--esm] [--flush] [--hash] [--html] [--immutable] [--manifest] [--minimize] [--publicPath #0] [--runtime #0] [--splitChunks,--vendor] [--storage #0] [--browser] [--indicator] [--overlay] [--reload]
     Compiles source assets in `development` mode.
 
-  bud build production [--input,-i,--@src,--src #0] [--output,-o,--@dist,--dist #0] [--notify] [--cache] [--ci] [--clean] [--debug] [--devtool #0] [--editor] [--esm] [--flush] [--hash] [--html] [--immutable] [--manifest] [--minimize] [--publicPath #0] [--splitChunks,--vendor] [--storage #0]
+  bud build production [--input,-i,--@src,--src #0] [--output,-o,--@dist,--dist #0] [--discovery] [--notify] [--cache] [--ci] [--clean] [--debug] [--devtool #0] [--editor] [--esm] [--flush] [--hash] [--html] [--immutable] [--manifest] [--minimize] [--publicPath #0] [--runtime #0] [--splitChunks,--vendor] [--storage #0]
     Compiles source assets in `production` mode.
 
 ━━━ tasks ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
