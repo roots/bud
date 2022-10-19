@@ -49,7 +49,7 @@ Serve over `https`:
 
 ```ts title='bud.config.js'
 bud.serve({
-  host: 'https://example.test',
+  host: new URL('example.test'),
   cert: '/path/to/example.test.crt',
   key: '/path/to/example.test.key',
 })

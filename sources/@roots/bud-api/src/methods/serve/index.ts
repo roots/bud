@@ -103,20 +103,17 @@ export const method: Serve = async function (
     new URL(`http://${externalNetworkInterface.ipv4}:3000`),
   )
 
-  app.log(`current dev url`, current)
+  app.log(`current dev url:`, current)
 
   if (Array.isArray(input) || isNumber(input)) {
     app.log(`serve input is an array or number`, input)
-    const port = await requestPorts(
-      app,
-      current,
-      portOrPortsToNumbers(input),
-    )
 
+    const port = await requestPorts(app, portOrPortsToNumbers(input))
     app.log(`port`, port, `is available. assigning.`)
+
     current.port = port
 
-    app.log(`dev url set to`, current)
+    app.log(`dev url set to:`, current)
     app.hooks.on(`dev.url`, current)
 
     return app
@@ -130,11 +127,7 @@ export const method: Serve = async function (
 
     const requestedPort = url.port ?? current.port ?? `3000`
 
-    url.port = await requestPorts(
-      app,
-      url,
-      portOrPortsToNumbers(requestedPort),
-    )
+    url.port = await requestPorts(app, portOrPortsToNumbers(requestedPort))
     app.log(`port`, url.port, `is available. assigning.`)
 
     app.hooks.on(`dev.url`, url)
@@ -162,13 +155,18 @@ const assignSpec = async function (spec: Specification, url: URL) {
     url.protocol = `https:`
   }
 
-  if (spec.host) url.hostname = spec.host
-  if (spec.port)
-    url.port = await requestPorts(
-      this,
-      url,
-      portOrPortsToNumbers(spec.port),
+  if (spec.host) {
+    if (
+      [spec.host.startsWith(`http:`), spec.host.startsWith(`https:`)].some(
+        Boolean,
+      )
     )
+      url = new URL(spec.host)
+    else url.hostname = spec.host
+  }
+
+  if (spec.port)
+    url.port = await requestPorts(this, portOrPortsToNumbers(spec.port))
 
   this.hooks.on(`dev.url`, url)
 
@@ -178,27 +176,33 @@ const assignSpec = async function (spec: Specification, url: URL) {
 }
 
 /**
- * Process Node URL
+ * Get a free port
+ *
  * @public
  */
 const requestPorts = async (
   app: Bud,
-  url: URL,
   port: Array<number>,
   exclude: Array<number> = [],
 ) => {
   const request = {port, exclude}
 
-  url.port = await getPort(request).then(p => `${p}`)
+  const freePort = await getPort(request).then(p => `${p}`)
 
-  if (!request.port?.includes(Number(url.port))) {
+  if (!request.port?.includes(Number(freePort))) {
     app.warn(`None of the requested ports could be resolved.`)
-    app.warn(`A port was automatically selected: ${url.port}`)
+    app.warn(`A port was automatically selected: ${freePort}`)
   }
 
-  return url.port
+  return freePort
 }
 
+/**
+ * Convert a string, number, or array of strings or numbers
+ * to an array of portOrPortsToNumbers
+ *
+ * @public
+ */
 const portOrPortsToNumbers = (
   port: number | string | Array<number | string>,
 ): Array<number> => {
