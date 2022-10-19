@@ -1,0 +1,64 @@
+---
+slug: 6.5.1
+title: 6.5.1
+description: Release notes for bud.js 6.5.1
+date: 2022-10-14
+author: Kelly Mears
+author_title: Lead developer
+author_url: https://github.com/kellymears
+author_image_url: https://avatars.githubusercontent.com/u/397606?v=4
+tags: [release, 6.5]
+---
+
+Small fixes and improvements related to `argv`, `package.json` and `.env` settings.
+
+<!--truncate-->
+
+## 🩹 Fix: `argv` parsing
+
+These flags were janky but now they are golden:
+
+- `--devtool` - Set desired devtool
+- `--clean` - Enable or disable build cleaning
+- `--discovery` - Enable or disable automatic extension registration
+- `--flush` - Clean webpack cache
+
+This release also adds a `--runtime` flag, which is new. It doesn't accept everything `bud.runtime` does, but you can use it to specify basic options like `single`, `multiple`, or `true` (which will use the default: `single`).
+
+## ✨ Improve: `env` context
+
+You can set values in your `.env`:
+
+- `APP_BASE_PATH` - the base path for your app
+- `APP_PUBLIC_PATH` - the public path for your app
+- `APP_SRC_PATH` - the `@src` path for your app
+- `APP_DIST_PATH` - the `@dist` path for your app
+- `APP_STORAGE_PATH` - the `@storage` path for your app
+- `APP_MODE` - desired build mode
+
+## ✨ Improve: `package.json` context
+
+The options available under the `bud` key in `package.json` have been expanded:
+
+```json5
+{
+  "bud": {
+    "paths": {
+      "base": string,
+      "src": string,
+      "dist": string,
+      "storage": string
+    },
+    "publicPath": string,
+    "extensions": {
+      "allowlist": string[],
+      "denylist": string[],
+      "discovery": boolean
+    }
+  }
+}
+```
+
+## ℹ️ Release information
+
+For more information [review the diff to see what's changed](https://github.com/roots/bud/compare/v6.5.0...v6.5.1).

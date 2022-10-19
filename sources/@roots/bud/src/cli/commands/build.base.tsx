@@ -97,6 +97,7 @@ export default class BuildCommand extends BaseCommand {
 
   /**
    * --clean
+   * @public
    */
   public clean = Option.Boolean(`--clean`, undefined, {
     description: `Clean artifacts and distributables prior to compilation`,
@@ -104,6 +105,7 @@ export default class BuildCommand extends BaseCommand {
 
   /**
    * --debug
+   * @public
    */
   public debug = Option.Boolean(`--debug`, undefined, {
     description: `Write debug files to storage directory`,
@@ -111,6 +113,7 @@ export default class BuildCommand extends BaseCommand {
 
   /**
    * --devtool
+   * @public
    */
   public devtool = Option.String(`--devtool`, undefined, {
     description: `Set devtool option`,
@@ -146,6 +149,7 @@ export default class BuildCommand extends BaseCommand {
 
   /**
    * --notify
+   * @public
    */
   public editor = Option.Boolean(`--editor`, undefined, {
     description: `Open editor to file containing errors on unsuccessful development build`,
@@ -153,6 +157,7 @@ export default class BuildCommand extends BaseCommand {
 
   /**
    * --esm
+   * @public
    */
   public esm = Option.Boolean(`--esm`, undefined, {
     description: `build as es modules`,
@@ -160,6 +165,7 @@ export default class BuildCommand extends BaseCommand {
 
   /**
    * --flush
+   * @public
    */
   public flush = Option.Boolean(`--flush`, undefined, {
     description: `Force clearing bud internal cache`,
@@ -167,6 +173,7 @@ export default class BuildCommand extends BaseCommand {
 
   /**
    * --hash
+   * @public
    */
   public hash = Option.Boolean(`--hash`, undefined, {
     description: `Hash compiled filenames`,
@@ -174,6 +181,7 @@ export default class BuildCommand extends BaseCommand {
 
   /**
    * --html
+   * @public
    */
   public html = Option.String(`--html`, undefined, {
     description: `Generate an html template`,
@@ -182,21 +190,23 @@ export default class BuildCommand extends BaseCommand {
 
   /**
    * --immutable
+   * @public
    */
   public immutable = Option.Boolean(`--immutable`, undefined, {
     description: `bud.http: immutable module lockfile`,
   })
 
   /**
-   * --inject
+   * --discovery
+   * @public
    */
-  public inject = Option.Boolean(`--inject`, undefined, {
-    description: `Automatically inject extensions`,
-    hidden: true,
+  public discovery = Option.Boolean(`--discovery`, undefined, {
+    description: `Automatically register extensions`,
   })
 
   /**
    * --manifest
+   * @public
    */
   public manifest = Option.Boolean(`--manifest`, undefined, {
     description: `Generate a manifest of compiled assets`,
@@ -204,6 +214,7 @@ export default class BuildCommand extends BaseCommand {
 
   /**
    * --minimize
+   * @public
    */
   public minimize = Option.Boolean(`--minimize`, undefined, {
     description: `Minimize compiled assets`,
@@ -211,12 +222,17 @@ export default class BuildCommand extends BaseCommand {
 
   /**
    * --publicPath
+   * @public
    */
   public publicPath = Option.String(`--publicPath`, undefined, {
     description: `public path of emitted assets`,
     env: `APP_PUBLIC_PATH`,
   })
 
+  /**
+   * --runtime
+   * @public
+   */
   public runtime: `single` | `multiple` | boolean = Option.String(
     `--runtime`,
     undefined,
@@ -232,6 +248,7 @@ export default class BuildCommand extends BaseCommand {
 
   /**
    * --splitChunks
+   * @public
    */
   public splitChunks = Option.Boolean(
     `--splitChunks,--vendor`,
@@ -243,6 +260,7 @@ export default class BuildCommand extends BaseCommand {
 
   /**
    * --storage
+   * @public
    */
   public storage = Option.String(`--storage`, undefined, {
     description: `Storage directory (relative to project)`,
@@ -298,6 +316,11 @@ export default class BuildCommand extends BaseCommand {
     await this.app.run()
   }
 
+  /**
+   * Apply context from .env
+   *
+   * @public
+   */
   @bind
   public async applyEnv() {
     if (this.app.env.isString(`APP_MODE`)) {
@@ -347,6 +370,7 @@ export default class BuildCommand extends BaseCommand {
         `location.@dist`,
         this.app.env.get(`APP_DIST_PATH`),
       )
+
       this.app.success(
         `dist path set to`,
         this.app.env.get(`APP_DIST_PATH`),
@@ -367,6 +391,11 @@ export default class BuildCommand extends BaseCommand {
     }
   }
 
+  /**
+   * Apply context from `package.json`
+   *
+   * @public
+   */
   @bind
   public async applyManifestOptions() {
     if (isset(this.app.context.manifest?.bud?.paths?.[`base`])) {
@@ -392,12 +421,6 @@ export default class BuildCommand extends BaseCommand {
         this.app.context.manifest.bud.paths[`dist`],
       )
 
-    if (isset(this.app.context.manifest?.bud?.extensions?.inject))
-      this.app.hooks.on(
-        `feature.inject`,
-        this.app.context.manifest.bud.extensions.inject,
-      )
-
     if (isset(this.app.context.manifest?.bud?.paths?.[`storage`]))
       this.app.hooks.on(
         `location.@storage`,
@@ -406,7 +429,7 @@ export default class BuildCommand extends BaseCommand {
   }
 
   /**
-   * Apply arguments
+   * Apply context from argv
    *
    * @public
    */
@@ -444,9 +467,6 @@ export default class BuildCommand extends BaseCommand {
 
     if (isset(this.app.context.args.minimize))
       await this.app.api.call(`minimize`, this.app.context.args.minimize)
-
-    if (isset(this.app.context.args.html))
-      await this.app.api.call(`template`)
 
     if (isset(this.app.context.args.devtool))
       await this.app.api.call(`devtool`, this.app.context.args.devtool)

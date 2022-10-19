@@ -48,7 +48,11 @@ export default class Extensions extends Service {
    */
   @bind
   public async booted(): Promise<void> {
-    if (this.app.context.args.discovery === false) return
+    if (
+      this.app.context.args.discovery === false ||
+      this.app.context.manifest?.bud?.extensions?.discovery
+    )
+      return
     await Promise.all(
       this.app.context.extensions
         .filter(Boolean)
@@ -157,10 +161,14 @@ export default class Extensions extends Service {
   @bind
   public isAllowed(signifier: string) {
     return (
-      (!this.app.context.manifest?.bud?.denylist ||
-        !this.app.context.manifest.bud.denylist.includes(signifier)) &&
-      (!this.app.context.manifest?.bud?.allowlist ||
-        this.app.context.manifest.bud.allowlist.includes(signifier))
+      (!this.app.context.manifest?.bud?.extensions?.denylist ||
+        !this.app.context.manifest.bud?.extensions?.denylist.includes(
+          signifier,
+        )) &&
+      (!this.app.context.manifest?.bud?.extensions?.allowlist ||
+        this.app.context.manifest.bud?.extensions?.allowlist.includes(
+          signifier,
+        ))
     )
   }
 
