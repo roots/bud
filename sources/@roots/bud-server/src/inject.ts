@@ -1,5 +1,4 @@
 import type {Bud} from '@roots/bud-framework'
-import {isNull, isUndefined} from '@roots/bud-support/lodash-es'
 
 /**
  * Inject webpack entrypoints with client scripts
