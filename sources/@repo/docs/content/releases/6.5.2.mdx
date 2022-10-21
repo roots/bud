@@ -1,0 +1,24 @@
+---
+slug: 6.5.2
+title: 6.5.2
+description: Release notes for bud.js 6.5.2
+date: 2022-10-18
+author: Kelly Mears
+author_title: Lead developer
+author_url: https://github.com/kellymears
+author_image_url: https://avatars.githubusercontent.com/u/397606?v=4
+tags: [release, 6.5]
+---
+
+Bug fix for multi-compiler builds.
+
+<!--truncate-->
+
+## Fix: Client script injection in multi-compiler when no entrypoints are specified
+
+Specifying an entrypoint is optional and, accordingly, its value may very well return `undefined`.
+This possibility was not handled correctly by `@roots/bud-server/inject` for multi-instance configurations, and would throw a `TypeError` if a child didn't explicitly set an instance. This is now fixed.
+
+## ℹ️ Release information
+
+For more information [review the diff to see what's changed](https://github.com/roots/bud/compare/v6.5.1...v6.5.2).
