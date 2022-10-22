@@ -3,10 +3,10 @@ import {
   bind,
   dependsOn,
   dependsOnOptional,
+  disabled,
   expose,
   label,
   options,
-  when,
 } from '@roots/bud-framework/extension/decorators'
 import TerserPlugin from 'terser-webpack-plugin'
 
@@ -31,6 +31,7 @@ export type Options = TerserPlugin.BasePluginOptions & {
  * @decorator `@label`
  * @decorator `@expose`
  * @decorator `@options`
+ * @decorator `@disabled`
  */
 @label(`@roots/bud-terser`)
 @dependsOn([`@roots/bud-terser/css-minimizer`])
@@ -55,7 +56,7 @@ export type Options = TerserPlugin.BasePluginOptions & {
     },
   },
 })
-@when(async () => false)
+@disabled
 export default class Terser extends Extension<Options> {
   /**
    * Terser options getter/setter

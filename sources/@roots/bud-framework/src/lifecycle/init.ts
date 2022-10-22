@@ -80,6 +80,7 @@ export const initialize = (app: Bud): Bud =>
         app.hooks.filter(`feature.hash`)
           ? `js/dynamic/[id].[contenthash:6].js`
           : `js/dynamic/[id].js`,
+      'build.output.clean': () => app.isProduction,
       'build.output.filename': () => join(`js`, filenameFormat(app)),
       'build.output.path': () => app.path(`@dist`),
       'build.output.publicPath': `auto`,

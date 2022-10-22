@@ -208,7 +208,7 @@ export default class MyExtension extends Extension {
 }
 ```
 
-### afterConfig
+### configAfter
 
 Async callback. Called after user configuration has been processed.
 
@@ -219,13 +219,13 @@ import {Extension} from '@roots/bud-framework/extension'
 export default class MyExtension extends Extension {
   public label = 'bud-extension'
 
-  public async afterConfig(app, options) {
+  public async configAfter(app, options) {
     // do something
   }
 }
 ```
 
-### beforeBuild
+### buildBefore
 
 Async callback. Called directly before configuration is constructed and passed to the compiler).
 
@@ -236,7 +236,7 @@ import {Extension} from '@roots/bud-framework/extension'
 export default class MyExtension extends Extension {
   public label = 'bud-extension'
 
-  public async beforeBuild(app, options) {
+  public async buildBefore(app, options) {
     // do something
   }
 }
@@ -342,3 +342,57 @@ export default class MyExtension extends Extension {
 ```
 
 When present **bud.js** will pass the extension itself to the compiler's `plugin` array.
+
+### when
+
+A callback that returns a boolean. The extension will be registered regardless of the value returned by this function, but certain methods
+will not be called if this function returns `false`.
+
+This function is passed `bud` and the resolved extension `options`.
+
+```ts title="extension.ts"
+import {Bud} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
+
+export default class MyExtension extends Extension {
+  public label = 'bud-extension'
+
+  public async when(app, options) {
+    return app.isProduction && options.set.size > 0
+  }
+}
+```
+
+If `Extension.when` returns `false` the following methods will be discarded:
+
+- [buildBefore](#buildBefore)
+- [buildAfter](#buildafter)
+- [configAfter](#configAfter)
+- [make](#make)
+
+`Extension.enabled` (a simple `boolean`) will always take precedence over `Extension.when` if it is set.
+
+```ts title="extension.ts"
+import {Bud} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
+
+export default class MyExtension extends Extension {
+  public label = 'bud-extension'
+
+  public async register(app, options) {
+    // this overrides `when`
+    this.enabled = true
+  }
+
+  /**
+   * This function will never be called because {@link Extension.enabled}
+   * was set to `true` in {@link Extension.register}.
+   */
+  public async when(app, options) {
+    return app.isProduction && options.set.size > 0
+  }
+}
+```
+
+This is by design; it makes it more straight-forward for the consuming developer to reason about enabling or disabling
+particular extensions should they wish to override your implementation.

@@ -10,14 +10,18 @@ author_image_url: https://avatars.githubusercontent.com/u/397606?v=4
 tags: [release, 6.5]
 ---
 
-Bug fix for multi-compiler builds.
+Bug fix for multi-instance builds.
 
 <!--truncate-->
 
-## Fix: Client script injection in multi-compiler when no entrypoints are specified
+## Fix: Client script injection TypeError when no entrypoints are specified
 
 Specifying an entrypoint is optional and, accordingly, its value may very well return `undefined`.
 This possibility was not handled correctly by `@roots/bud-server/inject` for multi-instance configurations, and would throw a `TypeError` if a child didn't explicitly set an instance. This is now fixed.
+
+## Fix: Certain conditionally applied extensions enabled/disabled globally in multi-instance
+
+In multi-instance configurations the last call to `Extension.enable()` or `Extension.disable()` would be applied to all instances. This has been fixed.
 
 ## ℹ️ Release information
 

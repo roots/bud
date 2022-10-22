@@ -1,11 +1,11 @@
 import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
+  disabled,
   expose,
   label,
   options,
   plugin,
-  when,
 } from '@roots/bud-framework/extension/decorators'
 import CriticalCssWebpackPlugin, {
   Options,
@@ -41,7 +41,7 @@ import CriticalCssWebpackPlugin, {
       : `/`,
   request: {https: {rejectUnauthorized: false}},
 })
-@when(async () => false)
+@disabled
 export default class BudCriticalCss extends Extension<
   Options,
   CriticalCssWebpackPlugin
