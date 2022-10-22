@@ -6238,7 +6238,7 @@ __metadata:
     patch-console: 1.0.0
     pretty-format: 29.0.3
     react: 17.0.2
-    typanion: 3.12.0
+    typanion: 3.12.1
     type-fest: 2.19.0
   languageName: unknown
   linkType: soft
@@ -30700,10 +30700,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typanion@npm:3.12.0, typanion@npm:^3.3.0, typanion@npm:^3.3.1, typanion@npm:^3.8.0":
-  version: 3.12.0
-  resolution: "typanion@npm:3.12.0"
-  checksum: 3c61f33027f1612ef079574a538ea800aee93272d0080e5efd305b750065c344c66f8986a5fd1678f38694199ab0444e16afe1a03e7a01c1d204d1129d79e416
+"typanion@npm:3.12.1, typanion@npm:^3.3.0, typanion@npm:^3.3.1, typanion@npm:^3.8.0":
+  version: 3.12.1
+  resolution: "typanion@npm:3.12.1"
+  checksum: a2e26fa216f8a1dbd2ffbaacb75b1e2dc042a0356e9702fba05a968cad95d9f661b24e37f6c6d8c3adad2c8582c99fca4826ff26a2d07cd2ae617ea87e6187eb
   languageName: node
   linkType: hard
 
