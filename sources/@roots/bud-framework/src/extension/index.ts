@@ -384,6 +384,8 @@ export class Extension<
   public async _configAfter() {
     const enabled = await this.isEnabled()
     if (isUndefined(this.configAfter) || enabled === false) return
+    this.logger.log(`configAfter`)
+    this.meta[`configAfter`] = true
 
     await this.configAfter(this.app, this.options)
   }
@@ -650,7 +652,9 @@ export class Extension<
    */
   @bind
   public disable() {
-    this.when = async () => false
+    this.when = function () {
+      return false
+    }.bind(this)
   }
 
   /**
@@ -661,7 +665,9 @@ export class Extension<
    */
   @bind
   public enable() {
-    this.when = async () => true
+    this.when = function () {
+      return true
+    }.bind(this)
   }
 
   /**
@@ -672,11 +678,10 @@ export class Extension<
    */
   @bind
   public async isEnabled(): Promise<boolean> {
-    if (isUndefined(this.when)) return true
-    if (isBoolean(this.when)) return this.when as unknown as boolean
     if (isFunction(this.when))
       return await this.when(this.app, this.options)
-
+    if (isUndefined(this.when)) return true
+    if (isBoolean(this.when)) return this.when as unknown as boolean
     return true
   }
 
