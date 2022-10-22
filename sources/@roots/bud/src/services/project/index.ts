@@ -1,7 +1,6 @@
 import {Service as BaseService} from '@roots/bud-framework/service'
 import type {Service} from '@roots/bud-framework/services/project'
 import {bind} from '@roots/bud-support/decorators'
-import {omit} from '@roots/bud-support/lodash-es'
 import format from '@roots/bud-support/pretty-format'
 
 /**
@@ -40,14 +39,15 @@ export default class Project extends BaseService implements Service {
         path,
         this.app.fs.json.stringify(
           {
-            context: omit(
-              this.app.context,
-              `env`,
-              `stdout`,
-              `stderr`,
-              `stdin`,
-              `stdio`,
-            ),
+            basedir: this.app.context.basedir,
+            children: this.app.children
+              ? Object.keys(this.app.children)
+              : [],
+            context: {
+              args: this.app.context?.args,
+              extensions: this.app.context?.extensions,
+              services: this.app.context?.services,
+            },
             extensions: this.app.extensions.repository,
             hooks: {
               sync: this.app.hooks.syncStore.store,

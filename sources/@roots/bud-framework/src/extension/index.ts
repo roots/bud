@@ -223,16 +223,6 @@ export class Extension<
     options?: ExtensionOptions,
   ): Promise<unknown>
 
-  public async compilerBefore?(
-    app: Bud,
-    options?: ExtensionOptions,
-  ): Promise<unknown>
-
-  public async compilerAfter?(
-    app: Bud,
-    options?: ExtensionOptions,
-  ): Promise<unknown>
-
   /**
    * `make` callback
    *
@@ -276,14 +266,14 @@ export class Extension<
         ),
     })
 
-    const opts = this.options ?? {}
+    const options = this.options ?? {}
 
     Object.defineProperty(this, `options`, {
       get: this.getOptions,
       set: this.setOptions,
     })
 
-    this.setOptions(opts as any)
+    this.setOptions(options as any)
   }
 
   /**
@@ -356,10 +346,12 @@ export class Extension<
    */
   @bind
   public async _buildBefore() {
+    if (this.meta[`buildBefore`]) return
+    this.meta[`buildBefore`] = true
+
     const enabled = await this.isEnabled()
     if (isUndefined(this.buildBefore) || enabled === false) return
     this.logger.log(`buildBefore`)
-    this.meta[`buildBefore`] = true
 
     await this.buildBefore(this.app, this.options)
   }
@@ -371,10 +363,12 @@ export class Extension<
    */
   @bind
   public async _buildAfter() {
+    if (this.meta[`buildAfter`]) return
+    this.meta[`buildAfter`] = true
+
     const enabled = await this.isEnabled()
     if (isUndefined(this.buildAfter) || enabled === false) return
     this.logger.log(`buildAfter`)
-    this.meta[`buildAfter`] = true
 
     await this.buildAfter(this.app, this.options)
   }
@@ -386,10 +380,12 @@ export class Extension<
    */
   @bind
   public async _configAfter() {
+    if (this.meta[`configAfter`]) return
+    this.meta[`configAfter`] = true
+
     const enabled = await this.isEnabled()
     if (isUndefined(this.configAfter) || enabled === false) return
     this.logger.log(`configAfter`)
-    this.meta[`configAfter`] = true
 
     await this.configAfter(this.app, this.options)
   }
