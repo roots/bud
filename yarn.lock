@@ -5434,7 +5434,7 @@ __metadata:
     "@yarnpkg/cli": 3.2.4
     "@yarnpkg/core": 3.2.5
     "@yarnpkg/shell": 3.2.4
-    clipanion: 3.2.0-rc.12
+    clipanion: 3.2.0-rc.13
     fs-extra: 10.1.0
     helpful-decorators: 2.1.0
     js-yaml: 4.1.0
@@ -5458,7 +5458,7 @@ __metadata:
     "@yarnpkg/cli": 3.2.4
     "@yarnpkg/core": 3.2.5
     "@yarnpkg/shell": 3.2.4
-    clipanion: 3.2.0-rc.12
+    clipanion: 3.2.0-rc.13
     fs-extra: 10.1.0
     helpful-decorators: 2.1.0
     lodash-es: 4.17.21
@@ -6222,7 +6222,7 @@ __metadata:
     "@roots/filesystem": "workspace:sources/@roots/filesystem"
     "@skypack/package-check": 0.2.2
     chalk: 5.0.1
-    clipanion: 3.2.0-rc.12
+    clipanion: 3.2.0-rc.13
     execa: 6.1.0
     fs-extra: 10.1.0
     fs-jetpack: 5.0.0
@@ -12136,14 +12136,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clipanion@npm:3.2.0-rc.12":
-  version: 3.2.0-rc.12
-  resolution: "clipanion@npm:3.2.0-rc.12"
+"clipanion@npm:3.2.0-rc.13":
+  version: 3.2.0-rc.13
+  resolution: "clipanion@npm:3.2.0-rc.13"
   dependencies:
     typanion: ^3.8.0
   peerDependencies:
     typanion: "*"
-  checksum: a49acffb4ef843872dbbaf1d2c582021c03c51d08c556ff1e2909a1ebed27f32301f2e98a5ebe4cdf6ae30d360dac7a2a9aa6b0c5e34a6fc95c561091a734c87
+  checksum: 354fee2b12dd356a76949a0ea651e32ea26a12026dd6f27d045c7e00c07a2f2a129dddc84eadc855c960b7d842378064d84fe21641c1d8a943b6364343162b4e
   languageName: node
   linkType: hard
 
