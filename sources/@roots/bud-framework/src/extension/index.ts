@@ -266,14 +266,14 @@ export class Extension<
         ),
     })
 
-    const options = this.options ?? {}
+    const opts = this.options ?? {}
 
     Object.defineProperty(this, `options`, {
       get: this.getOptions,
       set: this.setOptions,
     })
 
-    this.setOptions(options as any)
+    this.setOptions(opts as any)
   }
 
   /**
@@ -304,16 +304,17 @@ export class Extension<
   @bind
   public async _register() {
     if (isUndefined(this.register)) return
-    this.logger.log(`registered`)
 
-    if (this.init && !this.meta[`init`]) await this._init()
-    this.meta[`register`] = true
+    if (!this.meta[`init`]) await this._init()
 
     try {
       await this.register(this.app, this.options)
+      this.meta[`register`] = true
     } catch (error) {
       throw error
     }
+
+    this.logger.success(`registered`)
   }
 
   /**
@@ -326,10 +327,8 @@ export class Extension<
   public async _boot() {
     if (isUndefined(this.boot)) return
 
-    if (this.init && !this.meta[`init`]) await this._init()
-    if (this.register && !this.meta[`register`]) await this._register()
-
-    this.logger.log(`booted`)
+    if (!this.meta[`init`]) await this._init()
+    if (!this.meta[`register`]) await this._register()
 
     try {
       await this.boot(this.app, this.options)
@@ -337,6 +336,8 @@ export class Extension<
     } catch (error) {
       throw error
     }
+
+    this.logger.success(`booted`)
   }
 
   /**
@@ -346,12 +347,10 @@ export class Extension<
    */
   @bind
   public async _buildBefore() {
-    if (this.meta[`buildBefore`]) return
-    this.meta[`buildBefore`] = true
-
     const enabled = await this.isEnabled()
     if (isUndefined(this.buildBefore) || enabled === false) return
     this.logger.log(`buildBefore`)
+    this.meta[`buildBefore`] = true
 
     await this.buildBefore(this.app, this.options)
   }
@@ -363,12 +362,10 @@ export class Extension<
    */
   @bind
   public async _buildAfter() {
-    if (this.meta[`buildAfter`]) return
-    this.meta[`buildAfter`] = true
-
     const enabled = await this.isEnabled()
     if (isUndefined(this.buildAfter) || enabled === false) return
     this.logger.log(`buildAfter`)
+    this.meta[`buildAfter`] = true
 
     await this.buildAfter(this.app, this.options)
   }
@@ -380,12 +377,10 @@ export class Extension<
    */
   @bind
   public async _configAfter() {
-    if (this.meta[`configAfter`]) return
-    this.meta[`configAfter`] = true
-
     const enabled = await this.isEnabled()
     if (isUndefined(this.configAfter) || enabled === false) return
     this.logger.log(`configAfter`)
+    this.meta[`configAfter`] = true
 
     await this.configAfter(this.app, this.options)
   }

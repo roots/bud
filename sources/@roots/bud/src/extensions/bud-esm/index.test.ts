@@ -29,12 +29,6 @@ describe(`bud-esm`, () => {
     expect(instance.label).toBe(`esm`)
   })
 
-  it(`should have a when fn`, async () => {
-    let bud = await factory()
-    let instance = new extensionConstructor(bud)
-    expect(instance.when).toBeInstanceOf(Function)
-  })
-
   it(`should be disabled by default`, async () => {
     let bud = await factory()
     let instance = new extensionConstructor(bud)
@@ -52,8 +46,6 @@ describe(`bud-esm`, () => {
     let bud = await factory()
     bud.extensions.add(extensionConstructor)
     const extensionInstance = bud.extensions.get(`esm`)
-
-    expect(extensionInstance.when).toBeInstanceOf(Function)
 
     extensionInstance.enable()
     expect(await extensionInstance.isEnabled()).toBe(true)
