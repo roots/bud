@@ -151,7 +151,7 @@ export class Extension<
     _app: Bud,
     _options?: ExtensionOptions,
   ): Promise<boolean> {
-    return this.enabled
+    return !isUndefined(this.enabled) ? this.enabled : true
   }
 
   /**
