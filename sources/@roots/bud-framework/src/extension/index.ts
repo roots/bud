@@ -1,10 +1,5 @@
 import {bind} from '@roots/bud-support/decorators'
-import {
-  has,
-  isBoolean,
-  isFunction,
-  isUndefined,
-} from '@roots/bud-support/lodash-es'
+import {has, isFunction, isUndefined} from '@roots/bud-support/lodash-es'
 import type {Signale} from 'signale'
 import type {Compiler} from 'webpack'
 
@@ -79,6 +74,11 @@ export class Extension<
   public app: Bud
 
   /**
+   * Extension is enabled
+   */
+  public enabled?: boolean = undefined
+
+  /**
    * Extension options
    *
    * @internal
@@ -140,15 +140,19 @@ export class Extension<
   public dependsOnOptional?: Set<`${keyof Modules & string}`>
 
   /**
-   * Boolean or a function returning a boolean indicating if the {@link Extension} should be utilized.
+   * Function returning a boolean indicating if the {@link Extension} should be utilized.
    *
    * @remarks
-   * If a factory is implemented, it will be passed the {@link Bud} instance as its first parameter and
-   * a {@link Container} instance holding the {@link Extension.options} (if any) as the second parameter.
+   * By default returns {@link Extension.enabled}
    *
    * @public
    */
-  public when?(app: Bud, options?: ExtensionOptions): Promise<boolean>
+  public async when(
+    _app: Bud,
+    _options?: ExtensionOptions,
+  ): Promise<boolean> {
+    return this.enabled
+  }
 
   /**
    * `init` callback
@@ -652,9 +656,7 @@ export class Extension<
    */
   @bind
   public disable() {
-    this.when = function () {
-      return false
-    }.bind(this)
+    this.enabled = false
   }
 
   /**
@@ -665,9 +667,7 @@ export class Extension<
    */
   @bind
   public enable() {
-    this.when = function () {
-      return true
-    }.bind(this)
+    this.enabled = true
   }
 
   /**
@@ -678,10 +678,11 @@ export class Extension<
    */
   @bind
   public async isEnabled(): Promise<boolean> {
+    if (!isUndefined(this.enabled)) return this.enabled
+
     if (isFunction(this.when))
       return await this.when(this.app, this.options)
-    if (isUndefined(this.when)) return true
-    if (isBoolean(this.when)) return this.when as unknown as boolean
+
     return true
   }
 

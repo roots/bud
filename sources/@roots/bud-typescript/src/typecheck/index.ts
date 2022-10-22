@@ -1,10 +1,10 @@
 import {Extension} from '@roots/bud-framework'
 import {
   bind,
+  disabled,
   label,
   options,
   plugin,
-  when,
 } from '@roots/bud-framework/extension/decorators'
 import Plugin from 'fork-ts-checker-webpack-plugin'
 import type {ForkTsCheckerWebpackPluginOptions as Options} from 'fork-ts-checker-webpack-plugin/lib/plugin-options.js'
@@ -21,7 +21,7 @@ import type {ForkTsCheckerWebpackPluginOptions as Options} from 'fork-ts-checker
     mode: `readonly`,
   }),
 })
-@when(async () => false)
+@disabled
 export default class BudTypeCheckPlugin extends Extension<
   Options,
   Plugin

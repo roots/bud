@@ -3,7 +3,7 @@ import {
   label,
   options,
   plugin,
-  when,
+  production,
 } from '@roots/bud-framework/extension/decorators'
 import {
   CleanWebpackPlugin,
@@ -17,7 +17,7 @@ import {
  * @decorator `@label`
  * @decorator `@plugin`
  * @decorator `@options`
- * @decorator `@when`
+ * @decorator `@production`
  */
 @label(`clean-webpack-plugin`)
 @plugin(CleanWebpackPlugin)
@@ -43,10 +43,7 @@ import {
    */
   cleanOnceBeforeBuildPatterns: [`**/*`],
 })
-@when(
-  async ({hooks, isProduction}) =>
-    hooks.filter(`feature.clean`) && isProduction,
-)
+@production
 export default class BudClean extends Extension<
   PluginOptions,
   CleanWebpackPlugin

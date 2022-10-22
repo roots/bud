@@ -1,5 +1,9 @@
 import {Extension} from '@roots/bud-framework/extension'
-import {expose, label} from '@roots/bud-framework/extension/decorators'
+import {
+  disabled,
+  expose,
+  label,
+} from '@roots/bud-framework/extension/decorators'
 
 import type Bud from '../../bud.js'
 
@@ -9,9 +13,11 @@ import type Bud from '../../bud.js'
  * @public
  * @decorator `@label`
  * @decorator `@expose`
+ * @decorator `@disabled`
  */
 @label(`esm`)
 @expose(`esm`)
+@disabled
 export default class Esm extends Extension {
   /**
    * `buildBefore` callback
@@ -30,15 +36,5 @@ export default class Esm extends Extension {
 
     app.context.manifest?.imports &&
       app.externals(app.context.manifest.imports)
-  }
-
-  /**
-   * `when` callback
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  public async when() {
-    return false
   }
 }

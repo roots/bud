@@ -3,7 +3,6 @@ import {
   bind,
   label,
   options,
-  when,
 } from '@roots/bud-framework/extension/decorators'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 
@@ -16,7 +15,6 @@ import InterpolateHtmlPlugin from './interpolate-html-plugin.plugin.js'
  * @decorator `@label`
  */
 @label(`interpolate-html-plugin`)
-@when(async () => true)
 @options({})
 export default class BudInterpolateHtmlPlugin extends Extension<
   Record<string, RegExp>,

@@ -51,10 +51,12 @@ describe(`bud-esm`, () => {
   it(`should be callable when enabled using extensions api`, async () => {
     let bud = await factory()
     bud.extensions.add(extensionConstructor)
-    expect(bud.extensions.get(`esm`).when).toBeInstanceOf(Function)
+    const extensionInstance = bud.extensions.get(`esm`)
 
-    bud.extensions.get(`esm`).enable()
-    expect(await bud.extensions.get(`esm`).isEnabled()).toBe(true)
+    expect(extensionInstance.when).toBeInstanceOf(Function)
+
+    extensionInstance.enable()
+    expect(await extensionInstance.isEnabled()).toBe(true)
   })
 
   it(`should call hooks from buildBefore`, async () => {

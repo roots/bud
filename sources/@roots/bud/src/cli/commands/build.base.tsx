@@ -484,12 +484,6 @@ export default class BuildCommand extends BaseCommand {
         [this.app.context.args.clean ? `enable` : `disable`]()
 
       this.app.hooks.on(`build.output.clean`, this.app.context.args.clean)
-    } else if (
-      this.app.isProduction &&
-      !isset(this.app.hooks.filter(`build.output.clean`))
-    ) {
-      this.app.extensions.get(`clean-webpack-plugin`).enable()
-      this.app.hooks.on(`build.output.clean`, true)
     }
 
     if (isset(this.app.context.args.devtool))

@@ -3,6 +3,7 @@ import {bind, once} from '@roots/bud-support/decorators'
 import {dependsOn} from './dependsOn.js'
 import {dependsOnOptional} from './dependsOnOptional.js'
 import {development} from './development.js'
+import {disabled} from './disabled.js'
 import {expose} from './expose.js'
 import {label} from './label.js'
 import {options} from './options.js'
@@ -16,6 +17,7 @@ export {
   dependsOnOptional,
   dependsOn,
   development,
+  disabled,
   expose,
   label,
   once,
