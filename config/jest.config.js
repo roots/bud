@@ -109,7 +109,10 @@ export default async () => ({
       ...base,
       displayName: `unit`,
       collectCoverage: true,
-      testMatch: [`**/sources/@roots/*/src/**/*.test.{ts,tsx}`],
+      testMatch: [
+        `**/sources/@roots/*/src/**/*.test.{ts,tsx}`,
+        `**/sources/@roots/*/test/**/*.test.{ts,tsx}`,
+      ],
     },
   ],
 })

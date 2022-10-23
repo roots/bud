@@ -288,6 +288,7 @@ export default class Extensions extends Service {
 
       try {
         const extension = this.instantiate(extensionObject)
+
         if (!extension || (extension.label && this.has(extension.label)))
           return
 

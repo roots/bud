@@ -20,6 +20,6 @@ export const run: run = async function (): Promise<void> {
 
     app.isDevelopment ? await app.server.run() : await production()
   } catch (error) {
-    throw error
+    if (app.isProduction) throw error
   }
 }

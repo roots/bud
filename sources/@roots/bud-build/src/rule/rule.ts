@@ -182,7 +182,11 @@ export default class Rule extends Base implements Interface {
    * @decorator `@bind`
    */
   @bind
-  public setInclude(includes: Options['include']): this {
+  public setInclude(
+    includes:
+      | Options['include']
+      | ((includes: Options['include']) => Options['include']),
+  ): this {
     if (!this.include) this.include = []
 
     this.include = isFunction(includes) ? includes(this.include) : includes
@@ -210,8 +214,8 @@ export default class Rule extends Base implements Interface {
   @bind
   public setExclude(
     excludes:
-      | ((excludes: Interface['exclude']) => Interface['exclude'])
-      | Interface['exclude'],
+      | Options['exclude']
+      | ((excludes: Options['exclude']) => Options['exclude']),
   ): this {
     if (!this.exclude) this.exclude = []
 
