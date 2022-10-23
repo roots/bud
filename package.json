@@ -20,7 +20,8 @@
     "packages": [
       "sources/@roots/*",
       "sources/@repo/*",
-      "tests/util/project"
+      "tests/util/project",
+      "sources/@roots/bud-sass/test/fixtures/dev-error"
     ]
   },
   "type": "module",

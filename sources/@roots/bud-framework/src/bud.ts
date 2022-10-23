@@ -405,7 +405,6 @@ export class Bud {
    */
   @bind
   public error(...messages: Array<any>): Bud {
-    process.exitCode = 1
     if (this.logger?.instance)
       this.logger.instance.error(...this.formatLogMessages(messages))
 
@@ -425,8 +424,13 @@ export class Bud {
   @bind
   public fatal(error: Error) {
     process.exitCode = 1
-    this.logger.instance.error(error)
-    throw error
+
+    if (this.logger?.instance) this.logger.instance.error(error)
+
+    if (this.isProduction) {
+      process.exitCode = 1
+      throw error
+    }
   }
 }
 

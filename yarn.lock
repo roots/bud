@@ -7290,6 +7290,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@tests/sass-error@workspace:sources/@roots/bud-sass/test/fixtures/dev-error":
+  version: 0.0.0-use.local
+  resolution: "@tests/sass-error@workspace:sources/@roots/bud-sass/test/fixtures/dev-error"
+  dependencies:
+    "@roots/bud": "workspace:sources/@roots/bud"
+    "@roots/bud-sass": "workspace:sources/@roots/bud-sass"
+  languageName: unknown
+  linkType: soft
+
 "@tootallnate/once@npm:1":
   version: 1.1.2
   resolution: "@tootallnate/once@npm:1.1.2"

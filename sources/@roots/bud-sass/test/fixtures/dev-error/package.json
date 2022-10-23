@@ -1,0 +1,7 @@
+{
+  "name": "@tests/sass-error",
+  "devDependencies": {
+    "@roots/bud": "workspace:sources/@roots/bud",
+    "@roots/bud-sass": "workspace:sources/@roots/bud-sass"
+  }
+}

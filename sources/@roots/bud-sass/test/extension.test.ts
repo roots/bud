@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import {beforeEach, describe, expect, it, jest} from '@jest/globals'
 
-import BudSassExtension from './index'
+import BudSassExtension from '../src/index'
 
 jest.unstable_mockModule(
   `@roots/bud`,

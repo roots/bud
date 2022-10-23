@@ -79,11 +79,6 @@ export class Dashboard
 
     this.setLastHash(statsCompilation.hash)
 
-    if (this.app.context.args?.log === false) {
-      process.exitCode = 1
-      return this
-    }
-
     if (this.app.context.args?.ci) {
       console.log(
         statsCompilation?.toString(
@@ -123,12 +118,12 @@ export class Dashboard
           {colors: true},
         ),
       )
-      this.logger.error(error)
-      throw error
-    }
 
-    if (statsCompilation.hasErrors() && this.app.isProduction)
-      this.app.fatal(new Error(`compilation completed but had errors`))
+      if (this.app.isProduction) {
+        this.logger.error(error)
+        throw error
+      }
+    }
 
     return this
   }
