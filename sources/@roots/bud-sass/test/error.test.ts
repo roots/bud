@@ -3,8 +3,8 @@ import {describe, expect, it} from '@jest/globals'
 import {execa} from 'execa'
 
 describe(`@roots/bud-sass`, () => {
-  it(`should not throw in development`, async () => {
-    const process = await execa(
+  it(`should throw in production and not development`, async () => {
+    const dev = await execa(
       `yarn`,
       [
         `workspace`,
@@ -14,22 +14,19 @@ describe(`@roots/bud-sass`, () => {
         `build`,
         `development`,
         `--no-cache`,
+        `--ci`,
       ],
       {
         reject: false,
-        timeout: 5000,
+        timeout: 10000,
       },
     )
 
-    expect(process.stderr?.split(`\n`).pop()).toMatchInlineSnapshot(`""`)
-    expect(process.stdout?.split(`\n`).pop()).toMatchInlineSnapshot(
-      `"… watching project sources                                      ℹ [2mctrl+c to exit[22m"`,
-    )
-    expect(process.exitCode).toBe(undefined)
-  })
+    expect(dev.stderr?.split(`\n`).pop()).toMatchInlineSnapshot(`""`)
+    expect(dev.stdout?.split(`\n`).pop()).toContain(`compiled with [1m[31m`)
+    expect(dev.exitCode).toBe(undefined)
 
-  it(`should throw in production`, async () => {
-    const process = await execa(
+    const prod = await execa(
       `yarn`,
       [
         `workspace`,
@@ -39,18 +36,18 @@ describe(`@roots/bud-sass`, () => {
         `build`,
         `production`,
         `--no-cache`,
+        `--ci`,
       ],
       {
         reject: false,
         encoding: `utf8`,
-        timeout: 5000,
+        timeout: 10000,
       },
     )
 
-    expect(process.stderr).toMatchInlineSnapshot(`""`)
-    expect(process.stdout?.split(`\n`)[4]).toMatchInlineSnapshot(
-      `"[2m│[22m [7mSassError: SassError: Expected escape sequence.[27m"`,
-    )
-    expect(process.exitCode).toBe(1)
+    expect(prod.stderr).toMatchInlineSnapshot(`""`)
+    expect(prod.stdout).toContain(`compiled with [1m[31m`)
+    expect(prod.exitCode).not.toBe(0)
+    expect(prod.exitCode).not.toBe(undefined)
   })
 })
