@@ -75,25 +75,31 @@ export class Dashboard
   @bind
   public async stats(statsCompilation: StatsCompilation): Promise<this> {
     if (!statsCompilation) return this
-    if (this.hashIsStale(statsCompilation.hash)) return this
 
+    if (this.hashIsStale(statsCompilation.hash)) return this
     this.setLastHash(statsCompilation.hash)
 
-    if (this.app.context.args?.ci) {
-      console.log(
-        statsCompilation?.toString(
-          // @ts-ignore
-          {preset: `normal`, colors: true},
-        ),
-      )
+    const hasErrors = statsCompilation.hasErrors()
 
-      if (statsCompilation.hasErrors() && this.app.isProduction)
-        this.app.fatal(new Error(`compilation completed but had errors`))
-
-      return this
+    if (
+      this.app.context.args?.log === false &&
+      hasErrors &&
+      this.app.isProduction
+    ) {
+      throw new Error(`build failed`)
     }
 
-    try {
+    if (this.app.context.args?.ci === true) {
+      console.log(`webpack logged stats:`)
+      const stringCompilation = statsCompilation.toString(
+        // @ts-ignore
+        {
+          preset: `normal`,
+          colors: true,
+        },
+      )
+      console.log(stringCompilation)
+    } else {
       const {renderDashboard} = await import(`./render/renderer.js`)
 
       const compilations: StatsCompilation = statsCompilation.toJson({
@@ -101,27 +107,23 @@ export class Dashboard
         children: true,
       })
 
-      this.instance = renderDashboard({
-        stats: compilations,
-        context: this.app.context,
-        mode: this.app.mode,
-        devUrl: this.app.hooks.filter(`dev.url`),
-        proxyUrl: this.app.hooks.filter(`dev.middleware.proxy.target`),
-        watchFiles: this.app.server?.watcher?.files,
-      })
+      try {
+        this.instance = renderDashboard({
+          stats: compilations,
+          context: this.app.context,
+          mode: this.app.mode,
+          devUrl: this.app.hooks.filter(`dev.url`),
+          proxyUrl: this.app.hooks.filter(`dev.middleware.proxy.target`),
+          watchFiles: this.app.server?.watcher?.files,
+        })
+      } catch (e) {}
 
-      await this.instance.waitUntilExit()
-    } catch (error) {
-      this.app.context.stdout.write(
-        statsCompilation?.toString(
-          // @ts-ignore
-          {colors: true},
-        ),
-      )
-
-      if (this.app.isProduction) {
-        this.logger.error(error)
-        throw error
+      if (hasErrors && this.app.isProduction) {
+        throw new Error(
+          compilations
+            .map(compilation => compilation.errors?.join(`\n`))
+            .join(`\n`),
+        )
       }
     }
 

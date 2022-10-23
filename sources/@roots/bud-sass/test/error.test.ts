@@ -4,41 +4,53 @@ import {execa} from 'execa'
 
 describe(`@roots/bud-sass`, () => {
   it(`should not throw in development`, async () => {
-    let error
-    try {
-      const child = await execa(`yarn`, [
-        `workspace`,
-        `@tests/issue-1798`,
-        `run`,
-        `bud`,
-        `dev`,
-      ])
-    } catch (e) {
-      error = e.message?.split(`\n`).pop()
-    }
-
-    expect(error).toMatchInlineSnapshot(
-      `"… watching project sources                                      ℹ [2mctrl+c to exit[22m"`,
-    )
-  })
-
-  it(`should throw in production`, async () => {
-    let error
-    try {
-      const {stdout} = await execa(`yarn`, [
+    const process = await execa(
+      `yarn`,
+      [
         `workspace`,
         `@tests/issue-1798`,
         `run`,
         `bud`,
         `build`,
-      ])
+        `development`,
+        `--no-cache`,
+      ],
+      {
+        reject: false,
+        timeout: 5000,
+      },
+    )
 
-      expect(stdout.split(`\n`)[4]).toMatchInlineSnapshot(
-        `"[2m│[22m [7mSassError: SassError: Expected escape sequence.[27m"`,
-      )
-    } catch (e) {
-      error = e
-    }
-    expect(error).toBeUndefined()
+    expect(process.stderr?.split(`\n`).pop()).toMatchInlineSnapshot(`""`)
+    expect(process.stdout?.split(`\n`).pop()).toMatchInlineSnapshot(
+      `"… watching project sources                                      ℹ [2mctrl+c to exit[22m"`,
+    )
+    expect(process.exitCode).toBe(undefined)
+  })
+
+  it(`should throw in production`, async () => {
+    const process = await execa(
+      `yarn`,
+      [
+        `workspace`,
+        `@tests/issue-1798`,
+        `run`,
+        `bud`,
+        `build`,
+        `production`,
+        `--no-cache`,
+      ],
+      {
+        reject: false,
+        encoding: `utf8`,
+        timeout: 5000,
+      },
+    )
+
+    expect(process.stderr).toMatchInlineSnapshot(`""`)
+    expect(process.stdout?.split(`\n`)[4]).toMatchInlineSnapshot(
+      `"[2m│[22m [7mSassError: SassError: Expected escape sequence.[27m"`,
+    )
+    expect(process.exitCode).toBe(1)
   })
 })

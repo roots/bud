@@ -105,9 +105,7 @@ export class Compiler extends Service implements Contract.Service {
         async (stats, callback) => {
           try {
             await this.app.hooks.fire(`compiler.after`)
-          } catch (error) {
-            this.onError(error)
-          }
+          } catch (error) {}
 
           return callback()
         },
@@ -138,8 +136,6 @@ export class Compiler extends Service implements Contract.Service {
    */
   @bind
   public handleStats(stats: MultiStats) {
-    if (!stats) return
-
     this.stats = stats
     this.app.dashboard.stats(stats)
   }

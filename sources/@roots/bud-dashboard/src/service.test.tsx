@@ -10,6 +10,7 @@ describe(`Dashboard`, () => {
 
   beforeEach(async () => {
     bud = await factory()
+    bud.context.args.log = true
     dashboard = new Dashboard(bud)
   })
 
