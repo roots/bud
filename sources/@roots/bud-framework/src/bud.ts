@@ -423,9 +423,7 @@ export class Bud {
    */
   @bind
   public fatal(error: Error) {
-    process.exitCode = 1
-
-    if (this.logger?.instance) this.logger.instance.error(error)
+    if (this.logger?.instance) this.logger.instance.fatal(error)
 
     if (this.isProduction) {
       process.exitCode = 1

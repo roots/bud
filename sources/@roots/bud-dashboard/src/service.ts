@@ -99,6 +99,10 @@ export class Dashboard
         },
       )
       console.log(stringCompilation)
+      if (hasErrors) {
+        this.app.fatal(new Error(`build failed`))
+        return
+      }
     } else {
       const {renderDashboard} = await import(`./render/renderer.js`)
 
