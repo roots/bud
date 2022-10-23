@@ -83,7 +83,7 @@
     "@skypack/package-check": "0.2.2",
     "@types/fs-extra": "9.0.13",
     "@types/mini-css-extract-plugin": "2.5.0",
-    "@types/node": "16.11.64",
+    "@types/node": "16.11.68",
     "webpack": "5.74.0"
   },
   "dependencies": {

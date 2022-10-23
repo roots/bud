@@ -27,7 +27,7 @@
     "@roots/bud-compiler": "workspace:sources/@roots/bud-compiler",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@types/fs-extra": "9.0.13",
-    "@types/node": "16.11.64",
+    "@types/node": "16.11.68",
     "chalk": "5.0.1",
     "execa": "6.1.0",
     "fs-extra": "10.1.0",
