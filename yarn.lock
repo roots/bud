@@ -7279,6 +7279,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tests/issue-1798@workspace:sources/@roots/bud-sass/test/fixtures/issue-1798":
+  version: 0.0.0-use.local
+  resolution: "@tests/issue-1798@workspace:sources/@roots/bud-sass/test/fixtures/issue-1798"
+  dependencies:
+    "@roots/bud": "workspace:sources/@roots/bud"
+    "@roots/bud-sass": "workspace:sources/@roots/bud-sass"
+  languageName: unknown
+  linkType: soft
+
 "@tests/project@workspace:tests/util/project":
   version: 0.0.0-use.local
   resolution: "@tests/project@workspace:tests/util/project"
@@ -7287,15 +7296,6 @@ __metadata:
     "@roots/bud-eslint": "workspace:sources/@roots/bud-eslint"
     "@roots/bud-preset-recommend": "workspace:sources/@roots/bud-preset-recommend"
     "@roots/bud-tailwindcss": "workspace:sources/@roots/bud-tailwindcss"
-  languageName: unknown
-  linkType: soft
-
-"@tests/sass-error@workspace:sources/@roots/bud-sass/test/fixtures/dev-error":
-  version: 0.0.0-use.local
-  resolution: "@tests/sass-error@workspace:sources/@roots/bud-sass/test/fixtures/dev-error"
-  dependencies:
-    "@roots/bud": "workspace:sources/@roots/bud"
-    "@roots/bud-sass": "workspace:sources/@roots/bud-sass"
   languageName: unknown
   linkType: soft
 

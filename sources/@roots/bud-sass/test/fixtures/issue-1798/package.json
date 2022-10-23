@@ -1,5 +1,5 @@
 {
-  "name": "@tests/sass-error",
+  "name": "@tests/issue-1798",
   "devDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-sass": "workspace:sources/@roots/bud-sass"
