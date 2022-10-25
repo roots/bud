@@ -4151,9 +4151,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jest/types@npm:^29.0.3":
-  version: 29.0.3
-  resolution: "@jest/types@npm:29.0.3"
+"@jest/types@npm:^29.0.3, @jest/types@npm:^29.2.1":
+  version: 29.2.1
+  resolution: "@jest/types@npm:29.2.1"
   dependencies:
     "@jest/schemas": ^29.0.0
     "@types/istanbul-lib-coverage": ^2.0.0
@@ -4161,7 +4161,7 @@ __metadata:
     "@types/node": "*"
     "@types/yargs": ^17.0.8
     chalk: ^4.0.0
-  checksum: 3bd33e64d87a5421b860396ac7f7b9b8d5abbf0f300f4379bb20c8e3a6169fbbd078933ce0649827cd63e23330c4effeb6b222fa94e8dd0df638dfff6c1fed41
+  checksum: a83f20727425179aa05974aa7553c307d207fbb6b7ae5ab1e37fbb6ba9b6655f26655301fc804f2545d33f4c4a6b59d41eed1737c005d2b83fce9e14841b4150
   languageName: node
   linkType: hard
 
@@ -6327,7 +6327,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/lodash": 4.14.186
     "@types/node": 16.11.68
-    css-minimizer-webpack-plugin: 4.0.0
+    css-minimizer-webpack-plugin: 4.2.2
     terser-webpack-plugin: ^5.3.3
     tslib: 2.4.0
     webpack: 5.74.0
@@ -13130,13 +13130,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"css-minimizer-webpack-plugin@npm:4.0.0, css-minimizer-webpack-plugin@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "css-minimizer-webpack-plugin@npm:4.0.0"
+"css-minimizer-webpack-plugin@npm:4.2.2, css-minimizer-webpack-plugin@npm:^4.0.0":
+  version: 4.2.2
+  resolution: "css-minimizer-webpack-plugin@npm:4.2.2"
   dependencies:
     cssnano: ^5.1.8
-    jest-worker: ^27.5.1
-    postcss: ^8.4.13
+    jest-worker: ^29.1.2
+    postcss: ^8.4.17
     schema-utils: ^4.0.0
     serialize-javascript: ^6.0.0
     source-map: ^0.6.1
@@ -13145,13 +13145,17 @@ __metadata:
   peerDependenciesMeta:
     "@parcel/css":
       optional: true
+    "@swc/css":
+      optional: true
     clean-css:
       optional: true
     csso:
       optional: true
     esbuild:
       optional: true
-  checksum: 18487ee9aacdb0cc4e9fc1921f5d7a519c94203332b845b9a6d95434365d275fafff7dbfe21355347b8bbb8266078b7e60f7bac771f15eb30dfed5a29016debc
+    lightningcss:
+      optional: true
+  checksum: 5417e76a445f35832aa96807c835b8e92834a6cd285b1b788dfe3ca0fa90fec7eb2dd6efa9d3649f9d8244b99b7da2d065951603b94918e8f6a366a5049cacdd
   languageName: node
   linkType: hard
 
@@ -20160,17 +20164,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-util@npm:^29.0.3":
-  version: 29.0.3
-  resolution: "jest-util@npm:29.0.3"
+"jest-util@npm:^29.0.3, jest-util@npm:^29.2.1":
+  version: 29.2.1
+  resolution: "jest-util@npm:29.2.1"
   dependencies:
-    "@jest/types": ^29.0.3
+    "@jest/types": ^29.2.1
     "@types/node": "*"
     chalk: ^4.0.0
     ci-info: ^3.2.0
     graceful-fs: ^4.2.9
     picomatch: ^2.2.3
-  checksum: 39c31e75ba5bcb4c3ccdf0895f9fdbb83f839c432e7c6639a688beb414d681b5d50282da017c723ea1f2a7033e74a4938fd33dcff231c3e90f903173919991d5
+  checksum: 781bd14a65599d24b7449877020f4da32e8cb8fbc31c4e849c589ffde58f0eec27de9f690dba182e3ca369fe651c0bb9c307de29a0927d12777677ded56bafb8
   languageName: node
   linkType: hard
 
@@ -20232,7 +20236,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-worker@npm:^27.3.1, jest-worker@npm:^27.4.5, jest-worker@npm:^27.5.1":
+"jest-worker@npm:^27.3.1, jest-worker@npm:^27.4.5":
   version: 27.5.1
   resolution: "jest-worker@npm:27.5.1"
   dependencies:
@@ -20254,14 +20258,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-worker@npm:^29.0.3":
-  version: 29.0.3
-  resolution: "jest-worker@npm:29.0.3"
+"jest-worker@npm:^29.0.3, jest-worker@npm:^29.1.2":
+  version: 29.2.1
+  resolution: "jest-worker@npm:29.2.1"
   dependencies:
     "@types/node": "*"
+    jest-util: ^29.2.1
     merge-stream: ^2.0.0
     supports-color: ^8.0.0
-  checksum: cdae4a58f6ab1ec3c384b42f1106004d434e65febcb34ba14a1e7d8538f7a5a5c2ebb0cf29cecfe8c71882c526ee02c4aa338a9ce0abcf11fcec9b8fa662189b
+  checksum: 10365612fae02412376e963de9f069d854deaf5aec8ff818ce49c299cd0373256a387a2da68db8225fb0f18483f2cc9072a52d1846881d44b756b1e36bc7f4ed
   languageName: node
   linkType: hard
 
@@ -25894,7 +25899,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:8.4.18, postcss@npm:^8.1.10, postcss@npm:^8.2.14, postcss@npm:^8.3.0, postcss@npm:^8.3.11, postcss@npm:^8.3.5, postcss@npm:^8.4.12, postcss@npm:^8.4.13, postcss@npm:^8.4.14, postcss@npm:^8.4.16, postcss@npm:^8.4.17, postcss@npm:^8.4.7":
+"postcss@npm:8.4.18, postcss@npm:^8.1.10, postcss@npm:^8.2.14, postcss@npm:^8.3.0, postcss@npm:^8.3.11, postcss@npm:^8.3.5, postcss@npm:^8.4.12, postcss@npm:^8.4.14, postcss@npm:^8.4.16, postcss@npm:^8.4.17, postcss@npm:^8.4.7":
   version: 8.4.18
   resolution: "postcss@npm:8.4.18"
   dependencies:
