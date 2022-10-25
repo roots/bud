@@ -88,7 +88,7 @@
     "@types/node": "16.11.68",
     "@types/react": "17.0.50",
     "@types/react-dom": "17.0.17",
-    "type-fest": "2.19.0",
+    "type-fest": "3.1.0",
     "webpack": "5.74.0"
   },
   "dependencies": {
