@@ -73,7 +73,7 @@
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.11.68",
     "postcss": "8.4.18",
-    "stylelint": "14.9.1",
+    "stylelint": "14.14.0",
     "webpack": "5.74.0"
   },
   "dependencies": {
