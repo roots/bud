@@ -6231,7 +6231,7 @@ __metadata:
     clipanion: 3.2.0-rc.13
     execa: 6.1.0
     fs-extra: 10.1.0
-    fs-jetpack: 5.0.0
+    fs-jetpack: 5.1.0
     globby: 13.1.2
     helpful-decorators: 2.1.0
     highlight.js: 11.6.0
@@ -6617,7 +6617,7 @@ __metadata:
     "@types/mime-types": 2.1.1
     "@types/node": 16.11.68
     "@types/safe-json-stringify": 1.1.2
-    fs-jetpack: 5.0.0
+    fs-jetpack: 5.1.0
     globby: 13.1.2
     helpful-decorators: 2.1.0
     js-yaml: 4.1.0
@@ -16770,12 +16770,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fs-jetpack@npm:5.0.0":
-  version: 5.0.0
-  resolution: "fs-jetpack@npm:5.0.0"
+"fs-jetpack@npm:5.1.0":
+  version: 5.1.0
+  resolution: "fs-jetpack@npm:5.1.0"
   dependencies:
     minimatch: ^5.1.0
-  checksum: cae8df4eb8f65de13c62b6a783a7cc3a6c24ed1d74a0e1f62568bce3c8b37929d56979115c673dd0e2914721beeceebdadba541b22a47c2c67ea9f75d031de26
+  checksum: a30fc7884ded99619b981f16bf096d93693d36c53dab87f1d8339d63f6c9c89c45981c47ddd4d08f4045c3181cc843ee2a83ed4834683eb8cb96665332f89b36
   languageName: node
   linkType: hard
 

@@ -76,7 +76,7 @@
     "@aws-sdk/client-s3": "3.194.0",
     "@aws-sdk/lib-storage": "3.194.0",
     "@types/lodash-es": "4.17.6",
-    "fs-jetpack": "5.0.0",
+    "fs-jetpack": "5.1.0",
     "globby": "13.1.2",
     "helpful-decorators": "2.1.0",
     "js-yaml": "4.1.0",
