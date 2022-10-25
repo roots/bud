@@ -63,7 +63,7 @@
     "@roots/bud-build": "workspace:sources/@roots/bud-build",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.11.68",
+    "@types/node": "16.18.0",
     "webpack": "5.74.0"
   },
   "dependencies": {

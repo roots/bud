@@ -53,7 +53,7 @@
     "@jest/globals": "29.0.3",
     "@repo/test-kit": "workspace:sources/@repo/test-kit",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.11.68",
+    "@types/node": "16.18.0",
     "ink-testing-library": "2.1.0",
     "tslib": "2.4.0",
     "webpack": "5.74.0"

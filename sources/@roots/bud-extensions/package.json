@@ -57,7 +57,7 @@
     "@jest/globals": "29.0.3",
     "@repo/test-kit": "workspace:sources/@repo/test-kit",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.11.68"
+    "@types/node": "16.18.0"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",

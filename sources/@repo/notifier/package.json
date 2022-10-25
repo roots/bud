@@ -3,7 +3,7 @@
   "private": true,
   "devDependencies": {
     "@jest/globals": "29.0.3",
-    "@types/node": "16.11.68"
+    "@types/node": "16.18.0"
   },
   "volta": {
     "extends": "../../../package.json"

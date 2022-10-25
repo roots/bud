@@ -61,7 +61,7 @@
   "devDependencies": {
     "@jest/globals": "29.0.3",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.11.68",
+    "@types/node": "16.18.0",
     "webpack": "5.74.0"
   },
   "dependencies": {

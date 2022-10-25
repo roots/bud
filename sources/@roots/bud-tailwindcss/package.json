@@ -70,7 +70,7 @@
     "@roots/bud": "workspace:*",
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.11.68",
+    "@types/node": "16.18.0",
     "@types/tailwindcss": "3.0.11",
     "@types/webpack-virtual-modules": "^0"
   },
