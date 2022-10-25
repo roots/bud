@@ -289,10 +289,12 @@ exports[`@roots/bud-tailwindcss extension should resolve tailwind config values 
 exports[`@roots/bud-tailwindcss extension should set importable values 1`] = `
 [
   "screens",
+  "supports",
   "colors",
   "columns",
   "spacing",
   "animation",
+  "aria",
   "aspectRatio",
   "backdropBlur",
   "backdropBrightness",
@@ -406,10 +408,12 @@ exports[`@roots/bud-tailwindcss extension should set importable values 1`] = `
 exports[`@roots/bud-tailwindcss extension should set importables when generateImports is called with false arg 1`] = `
 [
   "screens",
+  "supports",
   "colors",
   "columns",
   "spacing",
   "animation",
+  "aria",
   "aspectRatio",
   "backdropBlur",
   "backdropBrightness",
