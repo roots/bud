@@ -9,7 +9,7 @@
   "dependencies": {
     "@jest/globals": "29.0.3",
     "@types/fs-extra": "9.0.13",
-    "@types/node": "16.11.68",
+    "@types/node": "18.11.5",
     "@yarnpkg/builder": "3.2.5",
     "@yarnpkg/cli": "3.2.4",
     "@yarnpkg/core": "3.2.5",

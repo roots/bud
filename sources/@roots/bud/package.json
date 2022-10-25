@@ -107,7 +107,7 @@
     "@skypack/package-check": "0.2.2",
     "@types/braces": "3.0.1",
     "@types/mini-css-extract-plugin": "2.5.0",
-    "@types/node": "16.11.68",
+    "@types/node": "18.11.5",
     "@types/node-notifier": "8.0.2"
   },
   "dependencies": {
