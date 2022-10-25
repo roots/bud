@@ -68,7 +68,7 @@
     "@jest/globals": "29.0.3",
     "@skypack/package-check": "0.2.2",
     "@types/js-yaml": "4.0.5",
-    "@types/mime-types": "^2",
+    "@types/mime-types": "2.1.1",
     "@types/node": "16.11.68",
     "@types/safe-json-stringify": "1.1.2"
   },
