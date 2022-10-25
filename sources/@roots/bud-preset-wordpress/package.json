@@ -78,7 +78,7 @@
     "@roots/bud-wordpress-dependencies": "workspace:sources/@roots/bud-wordpress-dependencies",
     "@roots/bud-wordpress-externals": "workspace:sources/@roots/bud-wordpress-externals",
     "@roots/bud-wordpress-manifests": "workspace:sources/@roots/bud-wordpress-manifests",
-    "chalk": "5.0.1",
+    "chalk": "5.1.2",
     "lodash-es": "4.17.21",
     "tslib": "2.4.0"
   },

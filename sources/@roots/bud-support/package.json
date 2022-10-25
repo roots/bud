@@ -125,7 +125,7 @@
   },
   "dependencies": {
     "@roots/filesystem": "workspace:sources/@roots/filesystem",
-    "chalk": "5.0.1",
+    "chalk": "5.1.2",
     "clipanion": "3.2.0-rc.13",
     "execa": "6.1.0",
     "fs-extra": "10.1.0",
