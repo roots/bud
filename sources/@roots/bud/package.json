@@ -125,7 +125,7 @@
     "@roots/bud-terser": "workspace:sources/@roots/bud-terser",
     "@roots/container": "workspace:sources/@roots/container",
     "browserslist": "4.21.4",
-    "caniuse-lite": "1.0.30001423",
+    "caniuse-lite": "1.0.30001425",
     "clean-webpack-plugin": "^4.0.0",
     "conf": "10.2.0",
     "copy-webpack-plugin": "11.0.0",
