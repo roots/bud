@@ -11314,7 +11314,7 @@ __metadata:
     tinybench: 2.1.5
     ts-node: 10.9.1
     tslib: 2.4.0
-    typedoc: 0.23.17
+    typedoc: 0.23.18
     typescript: 4.8.4
     webpack: 5.74.0
   languageName: unknown
@@ -11653,17 +11653,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"caniuse-lite@npm:1.0.30001423":
+"caniuse-lite@npm:1.0.30001423, caniuse-lite@npm:^1.0.0, caniuse-lite@npm:^1.0.30001400, caniuse-lite@npm:^1.0.30001407":
   version: 1.0.30001423
   resolution: "caniuse-lite@npm:1.0.30001423"
   checksum: fe443f323f5dc6a858ef7d7deddb93db5e5f9a35e22970c4a65c4ef793bb696c1e2f038df572722d9edf29021e43ed16f5131faafde783563bd0d9eccf486592
-  languageName: node
-  linkType: hard
-
-"caniuse-lite@npm:^1.0.0, caniuse-lite@npm:^1.0.30001400, caniuse-lite@npm:^1.0.30001407":
-  version: 1.0.30001412
-  resolution: "caniuse-lite@npm:1.0.30001412"
-  checksum: 7f5f476355f25a9841c30785c11df5225e2e7613f3334573e8da5490f195ac897a525fe4b514fa926b7be7e7937f15743e466bbc3a3272e848fb7ace7432ae02
   languageName: node
   linkType: hard
 
@@ -30873,9 +30866,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typedoc@npm:0.23.17":
-  version: 0.23.17
-  resolution: "typedoc@npm:0.23.17"
+"typedoc@npm:0.23.18":
+  version: 0.23.18
+  resolution: "typedoc@npm:0.23.18"
   dependencies:
     lunr: ^2.3.9
     marked: ^4.0.19
@@ -30885,7 +30878,7 @@ __metadata:
     typescript: 4.6.x || 4.7.x || 4.8.x
   bin:
     typedoc: bin/typedoc
-  checksum: 9bfcfa762205f42645a5c545cf75399346663209e1f91f3e630880a6f48a5676a2efab23305df7aca69c6fe19bd4b1c42470bf39b95a369811f6eb4d5a8549e8
+  checksum: 2cf1ae57865e53545ba4cbdd8a441870b7a4ad74e421d43f4b731e4643adc82c3a2e89fa9cf1f600f908d9d12da818bcd1d26970c9dce9493a8d8ec5b649b594
   languageName: node
   linkType: hard
 
