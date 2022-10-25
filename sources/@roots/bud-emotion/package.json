@@ -65,8 +65,8 @@
     "@jest/globals": "29.0.3",
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.11.68",
-    "@types/react": "17.0.50",
-    "react": "17.0.2"
+    "@types/react": "18.0.22",
+    "react": "18.2.0"
   },
   "dependencies": {
     "@emotion/babel-plugin": "^11.9.2",

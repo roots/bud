@@ -5360,8 +5360,8 @@ __metadata:
     "@svgr/webpack": 6.5.0
     "@tsconfig/docusaurus": 1.0.6
     "@types/node": 16.11.68
-    "@types/react": 17.0.50
-    "@types/react-dom": 17.0.17
+    "@types/react": 18.0.22
+    "@types/react-dom": 18.0.7
     "@types/react-helmet": 6.1.5
     "@types/react-reconciler": 0.28.0
     "@types/react-router-dom": 5.3.3
@@ -5371,8 +5371,8 @@ __metadata:
     file-loader: 6.2.0
     netlify-cli: 12.0.11
     raw-loader: 4.0.2
-    react: 17.0.2
-    react-dom: 17.0.2
+    react: 18.2.0
+    react-dom: 18.2.0
     ts-node: 10.9.1
     tslib: 2.4.0
     typescript: 4.8.4
@@ -5706,8 +5706,8 @@ __metadata:
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@skypack/package-check": 0.2.2
     "@types/node": 16.11.68
-    "@types/react": 17.0.50
-    react: 17.0.2
+    "@types/react": 18.0.22
+    react: 18.2.0
     tslib: 2.4.0
   peerDependencies:
     "@emotion/babel-plugin": "*"
@@ -5883,8 +5883,8 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/lodash": 4.14.186
     "@types/node": 16.11.68
-    react: 17.0.2
-    react-dom: 17.0.2
+    react: 18.2.0
+    react-dom: 18.2.0
     tslib: 2.4.0
     webpack: 5.74.0
   peerDependencies:
@@ -5991,12 +5991,12 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/lodash": 4.14.186
     "@types/node": 16.11.68
-    "@types/react": 17.0.50
-    "@types/react-dom": 17.0.17
+    "@types/react": 18.0.22
+    "@types/react-dom": 18.0.7
     chalk: 5.1.2
     lodash-es: 4.17.21
-    react: 17.0.2
-    react-dom: 17.0.2
+    react: 18.2.0
+    react-dom: 18.2.0
     tslib: 2.4.0
     webpack: 5.74.0
   peerDependencies:
@@ -6088,10 +6088,10 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/babel__core": 7.1.19
     "@types/node": 16.11.68
-    "@types/react": 17.0.50
-    "@types/react-dom": 17.0.17
-    react: 17.0.2
-    react-dom: 17.0.2
+    "@types/react": 18.0.22
+    "@types/react-dom": 18.0.7
+    react: 18.2.0
+    react-dom: 18.2.0
     react-hot-loader: ^4.13.0
     react-refresh: ^0.14.0
     tslib: 2.4.0
@@ -6261,7 +6261,7 @@ __metadata:
     parse5-htmlparser2-tree-adapter: 7.0.0
     patch-console: 1.0.0
     pretty-format: 29.0.3
-    react: 17.0.2
+    react: 18.2.0
     typanion: 3.12.1
     type-fest: 3.1.0
   languageName: unknown
@@ -6722,7 +6722,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/lodash-es": 4.17.6
     "@types/node": 16.11.68
-    "@types/react": 17.0.50
+    "@types/react": 18.0.22
     "@types/wordpress__blocks": 11.0.7
     "@types/wordpress__data": 6.0.1
     "@wordpress/blocks": 11.19.0
@@ -6731,7 +6731,7 @@ __metadata:
     "@wordpress/plugins": 4.18.0
     "@wordpress/rich-text": 5.18.0
     lodash-es: 4.17.21
-    react: 17.0.2
+    react: 18.2.0
     tslib: 2.4.0
     webpack: 5.74.0
   languageName: unknown
@@ -7939,7 +7939,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:17.0.17, @types/react-dom@npm:^17.0.11":
+"@types/react-dom@npm:18.0.7":
+  version: 18.0.7
+  resolution: "@types/react-dom@npm:18.0.7"
+  dependencies:
+    "@types/react": "*"
+  checksum: 4fd47dd114d61e7228637de9bee685b81ea18b89b220a67662b05ebe74f69aad7cd929ebe69e8fd572cc8e0e9adf9bba1ea5586cfd37eb9045778851e78bcd66
+  languageName: node
+  linkType: hard
+
+"@types/react-dom@npm:^17.0.11":
   version: 17.0.17
   resolution: "@types/react-dom@npm:17.0.17"
   dependencies:
@@ -7998,18 +8007,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*":
-  version: 18.0.15
-  resolution: "@types/react@npm:18.0.15"
+"@types/react@npm:*, @types/react@npm:18.0.22":
+  version: 18.0.22
+  resolution: "@types/react@npm:18.0.22"
   dependencies:
     "@types/prop-types": "*"
     "@types/scheduler": "*"
     csstype: ^3.0.2
-  checksum: e22cc388d1c145aa184787e44dc28db4789976c704cd5db475c170bb76a560eb81def5f346cfe750949bb3d43ad88822b8cbb9f19b1286e3795892a8263e7715
+  checksum: e9e294c1b5467c502936f964be68e7284ec6a5d40c703e7429037d9b39ba5f9b0299d303dde06d0468e4e79957ac71ab5ab3ee8252bf6ff3cc09c2ee03695789
   languageName: node
   linkType: hard
 
-"@types/react@npm:17.0.50, @types/react@npm:^17, @types/react@npm:^17.0.37":
+"@types/react@npm:^17, @types/react@npm:^17.0.37":
   version: 17.0.50
   resolution: "@types/react@npm:17.0.50"
   dependencies:
@@ -26694,7 +26703,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:17.0.2, react-dom@npm:^17.0.2":
+"react-dom@npm:18.2.0":
+  version: 18.2.0
+  resolution: "react-dom@npm:18.2.0"
+  dependencies:
+    loose-envify: ^1.1.0
+    scheduler: ^0.23.0
+  peerDependencies:
+    react: ^18.2.0
+  checksum: 7d323310bea3a91be2965f9468d552f201b1c27891e45ddc2d6b8f717680c95a75ae0bc1e3f5cf41472446a2589a75aed4483aee8169287909fcd59ad149e8cc
+  languageName: node
+  linkType: hard
+
+"react-dom@npm:^17.0.2":
   version: 17.0.2
   resolution: "react-dom@npm:17.0.2"
   dependencies:
@@ -26907,7 +26928,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:17.0.2, react@npm:^17.0.2":
+"react@npm:18.2.0":
+  version: 18.2.0
+  resolution: "react@npm:18.2.0"
+  dependencies:
+    loose-envify: ^1.1.0
+  checksum: 88e38092da8839b830cda6feef2e8505dec8ace60579e46aa5490fc3dc9bba0bd50336507dc166f43e3afc1c42939c09fe33b25fae889d6f402721dcd78fca1b
+  languageName: node
+  linkType: hard
+
+"react@npm:^17.0.2":
   version: 17.0.2
   resolution: "react@npm:17.0.2"
   dependencies:
@@ -28142,6 +28172,15 @@ __metadata:
     loose-envify: ^1.1.0
     object-assign: ^4.1.1
   checksum: c4b35cf967c8f0d3e65753252d0f260271f81a81e427241295c5a7b783abf4ea9e905f22f815ab66676f5313be0a25f47be582254db8f9241b259213e999b8fc
+  languageName: node
+  linkType: hard
+
+"scheduler@npm:^0.23.0":
+  version: 0.23.0
+  resolution: "scheduler@npm:0.23.0"
+  dependencies:
+    loose-envify: ^1.1.0
+  checksum: d79192eeaa12abef860c195ea45d37cbf2bbf5f66e3c4dcd16f54a7da53b17788a70d109ee3d3dde1a0fd50e6a8fc171f4300356c5aee4fc0171de526bf35f8a
   languageName: node
   linkType: hard
 
