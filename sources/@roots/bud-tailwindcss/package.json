@@ -72,7 +72,7 @@
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.11.68",
     "@types/tailwindcss": "3.0.11",
-    "@types/webpack-virtual-modules": "^0"
+    "@types/webpack-virtual-modules": "0.1.1"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
