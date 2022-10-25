@@ -6181,7 +6181,7 @@ __metadata:
     "@types/lodash": 4.14.186
     "@types/node": 16.11.68
     babel-preset-solid: 1.6.0
-    solid-js: 1.4.7
+    solid-js: 1.6.0
     tslib: 2.4.0
     type-fest: 2.19.0
     webpack: 5.74.0
@@ -13412,10 +13412,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"csstype@npm:^3.0.2":
-  version: 3.0.10
-  resolution: "csstype@npm:3.0.10"
-  checksum: 20a8fa324f2b33ddf94aa7507d1b6ab3daa6f3cc308888dc50126585d7952f2471de69b2dbe0635d1fdc31223fef8e070842691877e725caf456e2378685a631
+"csstype@npm:^3.0.2, csstype@npm:^3.1.0":
+  version: 3.1.1
+  resolution: "csstype@npm:3.1.1"
+  checksum: 1f7b4f5fdd955b7444b18ebdddf3f5c699159f13e9cf8ac9027ae4a60ae226aef9bbb14a6e12ca7dba3358b007cee6354b116e720262867c398de6c955ea451d
   languageName: node
   linkType: hard
 
@@ -28768,10 +28768,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"solid-js@npm:1.4.7":
-  version: 1.4.7
-  resolution: "solid-js@npm:1.4.7"
-  checksum: 7cd5d5674a13955854cf806880ec353ae83efb6e53ccf8903e7581c3c31c25cdb2ee797efd0bbd930d0dd2d32e0b08ba81ba4befab821b1a09ba33063a4a496a
+"solid-js@npm:1.6.0":
+  version: 1.6.0
+  resolution: "solid-js@npm:1.6.0"
+  dependencies:
+    csstype: ^3.1.0
+  checksum: a1d655242b1bae82ebdd457deaa99e3874351ecf2447ccf1d3b09c5d862c9eb1b123e244dbe73e107a4ff08452e5857970189f8d2c401debda868b383027a069
   languageName: node
   linkType: hard
 
