@@ -114,9 +114,9 @@ export default async () => ({
       displayName: `unit:node`,
       collectCoverage: true,
       testMatch: [
-        `sources/@roots/*/src/*.test.{ts,tsx}`,
-        `sources/@roots/*/src/**/*.test.{ts,tsx}`,
-        `!sources/@roots/bud-client/src/**/*.test.{ts,tsx}`,
+        `**/sources/@roots/*/src/*.test.{ts,tsx}`,
+        `**/sources/@roots/*/src/**/*.test.{ts,tsx}`,
+        `!**/sources/@roots/bud-client/src/**/*.test.{ts,tsx}`,
       ],
     },
     {
@@ -124,7 +124,7 @@ export default async () => ({
       displayName: `unit:dom`,
       collectCoverage: true,
       testEnvironment: `jsdom`,
-      testMatch: [`sources/@roots/bud-client/src/**/*.test.{ts,tsx}`],
+      testMatch: [`**/sources/@roots/bud-client/src/**/*.test.{ts,tsx}`],
     },
   ],
 })
