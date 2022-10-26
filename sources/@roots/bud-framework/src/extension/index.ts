@@ -1,10 +1,5 @@
 import {bind} from '@roots/bud-support/decorators'
-import {
-  has,
-  isBoolean,
-  isFunction,
-  isUndefined,
-} from '@roots/bud-support/lodash-es'
+import {has, isFunction, isUndefined} from '@roots/bud-support/lodash-es'
 import type {Signale} from 'signale'
 import type {Compiler} from 'webpack'
 
@@ -79,6 +74,11 @@ export class Extension<
   public app: Bud
 
   /**
+   * Extension is enabled
+   */
+  public enabled?: boolean = undefined
+
+  /**
    * Extension options
    *
    * @internal
@@ -140,15 +140,19 @@ export class Extension<
   public dependsOnOptional?: Set<`${keyof Modules & string}`>
 
   /**
-   * Boolean or a function returning a boolean indicating if the {@link Extension} should be utilized.
+   * Function returning a boolean indicating if the {@link Extension} should be utilized.
    *
    * @remarks
-   * If a factory is implemented, it will be passed the {@link Bud} instance as its first parameter and
-   * a {@link Container} instance holding the {@link Extension.options} (if any) as the second parameter.
+   * By default returns {@link Extension.enabled}
    *
    * @public
    */
-  public when?(app: Bud, options?: ExtensionOptions): Promise<boolean>
+  public async when(
+    _app: Bud,
+    _options?: ExtensionOptions,
+  ): Promise<boolean> {
+    return !isUndefined(this.enabled) ? this.enabled : true
+  }
 
   /**
    * `init` callback
@@ -215,16 +219,6 @@ export class Extension<
    * @public
    */
   public async buildAfter?(
-    app: Bud,
-    options?: ExtensionOptions,
-  ): Promise<unknown>
-
-  public async compilerBefore?(
-    app: Bud,
-    options?: ExtensionOptions,
-  ): Promise<unknown>
-
-  public async compilerAfter?(
     app: Bud,
     options?: ExtensionOptions,
   ): Promise<unknown>
@@ -310,16 +304,17 @@ export class Extension<
   @bind
   public async _register() {
     if (isUndefined(this.register)) return
-    this.logger.log(`registered`)
 
-    if (this.init && !this.meta[`init`]) await this._init()
-    this.meta[`register`] = true
+    if (!this.meta[`init`]) await this._init()
 
     try {
       await this.register(this.app, this.options)
+      this.meta[`register`] = true
     } catch (error) {
       throw error
     }
+
+    this.logger.success(`registered`)
   }
 
   /**
@@ -332,10 +327,8 @@ export class Extension<
   public async _boot() {
     if (isUndefined(this.boot)) return
 
-    if (this.init && !this.meta[`init`]) await this._init()
-    if (this.register && !this.meta[`register`]) await this._register()
-
-    this.logger.log(`booted`)
+    if (!this.meta[`init`]) await this._init()
+    if (!this.meta[`register`]) await this._register()
 
     try {
       await this.boot(this.app, this.options)
@@ -343,6 +336,8 @@ export class Extension<
     } catch (error) {
       throw error
     }
+
+    this.logger.success(`booted`)
   }
 
   /**
@@ -384,6 +379,8 @@ export class Extension<
   public async _configAfter() {
     const enabled = await this.isEnabled()
     if (isUndefined(this.configAfter) || enabled === false) return
+    this.logger.log(`configAfter`)
+    this.meta[`configAfter`] = true
 
     await this.configAfter(this.app, this.options)
   }
@@ -650,7 +647,7 @@ export class Extension<
    */
   @bind
   public disable() {
-    this.when = async () => false
+    this.enabled = false
   }
 
   /**
@@ -661,7 +658,7 @@ export class Extension<
    */
   @bind
   public enable() {
-    this.when = async () => true
+    this.enabled = true
   }
 
   /**
@@ -672,8 +669,8 @@ export class Extension<
    */
   @bind
   public async isEnabled(): Promise<boolean> {
-    if (isUndefined(this.when)) return true
-    if (isBoolean(this.when)) return this.when as unknown as boolean
+    if (!isUndefined(this.enabled)) return this.enabled
+
     if (isFunction(this.when))
       return await this.when(this.app, this.options)
 

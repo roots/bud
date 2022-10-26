@@ -8,11 +8,11 @@
     "./cli-examples": "./compiled/cli-examples/index.js"
   },
   "dependencies": {
-    "@jest/globals": "29.0.3",
+    "@jest/globals": "29.2.2",
     "@repo/constants": "workspace:sources/@repo/constants",
     "@repo/logger": "workspace:sources/@repo/logger",
     "@roots/bud": "workspace:sources/@roots/bud",
-    "@types/node": "16.11.64",
+    "@types/node": "16.11.68",
     "@types/prettier": "2.7.1",
     "execa": "6.1.0",
     "fs-extra": "10.1.0",

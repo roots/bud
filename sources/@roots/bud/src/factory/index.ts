@@ -20,7 +20,6 @@ const get = async (basedir?: string) => {
   )
 
   if (!cached) return await factory()
-
   return cached
 }
 

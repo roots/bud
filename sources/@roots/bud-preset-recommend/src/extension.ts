@@ -40,6 +40,13 @@ export default class BudPresetRecommend extends Extension {
     )
       return
 
-    await this.app.extensions.add(await this.import(`@roots/bud-babel`))
+    if (!this.app.extensions.has(`@roots/bud-babel`)) {
+      const babel = await this.app.module.import(
+        `@roots/bud-babel`,
+        import.meta.url,
+      )
+      this.logger.log(babel)
+      await this.app.extensions.add(babel)
+    }
   }
 }

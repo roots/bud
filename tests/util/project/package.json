@@ -5,10 +5,12 @@
     "extends @roots/browserslist-config/current"
   ],
   "bud": {
-    "denylist": [
-      "@roots/bud-esbuild",
-      "@roots/bud-swc"
-    ]
+    "extensions": {
+      "denylist": [
+        "@roots/bud-esbuild",
+        "@roots/bud-swc"
+      ]
+    }
   },
   "devDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
@@ -17,6 +19,6 @@
     "@roots/bud-tailwindcss": "workspace:sources/@roots/bud-tailwindcss"
   },
   "volta": {
-    "node": "16.17.1"
+    "node": "16.18.0"
   }
 }

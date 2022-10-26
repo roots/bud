@@ -55,24 +55,24 @@
     "./sage": "./sage.cjs"
   },
   "devDependencies": {
-    "@babel/core": "7.19.3",
-    "@jest/globals": "29.0.3",
+    "@babel/core": "7.19.6",
+    "@jest/globals": "29.2.2",
     "@skypack/package-check": "0.2.2",
     "@types/babel__core": "7.1.19",
-    "@types/node": "16.11.64",
+    "@types/node": "16.11.68",
     "@types/prettier": "2.7.1",
-    "eslint": "8.24.0",
+    "eslint": "8.26.0",
     "prettier": "2.7.1"
   },
   "dependencies": {
     "@babel/eslint-parser": "7.19.1",
-    "@typescript-eslint/eslint-plugin": "5.26.0",
-    "@typescript-eslint/parser": "5.26.0",
+    "@typescript-eslint/eslint-plugin": "5.41.0",
+    "@typescript-eslint/parser": "5.41.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-react": "7.31.8",
+    "eslint-plugin-react": "7.31.10",
     "eslint-plugin-react-hooks": "4.6.0"
   },
   "volta": {

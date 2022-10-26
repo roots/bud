@@ -2,11 +2,11 @@ import {Extension} from '@roots/bud-framework'
 import {
   bind,
   dependsOnOptional,
+  disabled,
   expose,
   label,
   options,
   plugin,
-  when,
 } from '@roots/bud-framework/extension/decorators'
 import type {GlobalSettingsAndStyles as WPThemeJson} from '@roots/bud-preset-wordpress/theme'
 import {isBoolean, isFunction} from '@roots/bud-support/lodash-es'
@@ -49,6 +49,7 @@ export interface Mutator {
  * @decorator `@when`
  * @decorator `@plugin`
  * @decorator `@expose`
+ * @decorator `@disabled`
  */
 @label(`@roots/sage/wp-theme-json`)
 @dependsOnOptional([`@roots/bud-tailwindcss`])
@@ -73,9 +74,9 @@ export interface Mutator {
     },
   },
 })
-@when(async () => false)
 @plugin(ThemeJsonWebpackPlugin)
 @expose(`wpjson`)
+@disabled
 export default class ThemeJson extends Extension<
   Options,
   ThemeJsonWebpackPlugin

@@ -5,8 +5,8 @@
  */
 module.exports = {
   extends: [
-    require.resolve('@roots/bud-stylelint/config'),
-    require.resolve('@roots/bud-preset-wordpress/stylelint-config'),
+    require.resolve(`@roots/bud-stylelint/config`),
+    require.resolve(`@roots/bud-preset-wordpress/stylelint-config`),
   ],
   rules: {
     'at-rule-empty-line-before': null,

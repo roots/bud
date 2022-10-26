@@ -1,3 +1,6 @@
 {
-  "extends": ["@roots/sage/stylelint-config"]
+  "extends": [
+    "@roots/sage/stylelint-config",
+    "@roots/bud-tailwindcss/stylelint-config"
+  ]
 }

@@ -1,5 +1,4 @@
 import type {Bud} from '@roots/bud-framework'
-import {isNull, isUndefined} from '@roots/bud-support/lodash-es'
 
 /**
  * Inject webpack entrypoints with client scripts
@@ -11,14 +10,9 @@ export const inject = (
   injection: Array<(app: Bud) => string>,
 ): void => {
   app.hooks.on(`build.entry`, entrypoints => {
-    if (!injection) return
+    if (!injection) return entrypoints
 
-    if (app.isRoot) {
-      const missing =
-        !entrypoints || isUndefined(entrypoints) || isNull(entrypoints)
-
-      entrypoints = missing ? {app: {import: [`index`]}} : entrypoints
-    }
+    entrypoints = !entrypoints ? {app: {import: [`index`]}} : entrypoints
 
     return Object.entries(entrypoints).reduce(
       (entrypoints, [name, entry]) => {

@@ -55,11 +55,11 @@
     }
   },
   "devDependencies": {
-    "@jest/globals": "29.0.3",
+    "@jest/globals": "29.2.2",
     "@skypack/package-check": "0.2.2",
     "@types/lodash-es": "4.17.6",
-    "@types/node": "16.11.64",
-    "type-fest": "2.19.0"
+    "@types/node": "16.11.68",
+    "type-fest": "3.1.0"
   },
   "dependencies": {
     "@roots/bud-support": "workspace:sources/@roots/bud-support",

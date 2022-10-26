@@ -10,7 +10,7 @@ Configure the development server.
 
 ## Server information
 
-By default bud will serve at the following address:
+By default bud.js will serve at the following address:
 
 | Property | Value     |
 | -------- | --------- |
@@ -48,7 +48,8 @@ bud.serve(new URL('http://example.test:3000'))
 Serve over `https`:
 
 ```ts title='bud.config.js'
-bud.serve('https://example.test', {
+bud.serve({
+  host: new URL('example.test'),
   cert: '/path/to/example.test.crt',
   key: '/path/to/example.test.key',
 })
