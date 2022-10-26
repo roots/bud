@@ -3,7 +3,7 @@ import {Bud, factory} from '@repo/test-kit/bud'
 
 import {watch as subject} from './index'
 
-describe(`bud.watch`, function () {
+describe(`bud.watch`, () => {
   describe(`in development`, () => {
     let bud: Bud
     let watch: subject
@@ -13,9 +13,7 @@ describe(`bud.watch`, function () {
       watch = subject.bind(bud)
     })
 
-    it(`is a function`, () => {
-      expect(watch).toBeInstanceOf(Function)
-    })
+    it(`is a function`, () => expect(watch).toBeInstanceOf(Function))
 
     it(`should have expected default values`, async () => {
       const value = bud.hooks.filter(`dev.watch.files`)
@@ -23,7 +21,7 @@ describe(`bud.watch`, function () {
       if (!(value instanceof Set))
         throw new Error(`watch files should be a set`)
 
-      expect(Array.from(value)).toMatchSnapshot(expect.arrayContaining([]))
+      expect(Array.from(value)).toStrictEqual([])
     })
 
     it(`adds watch files`, () => {
