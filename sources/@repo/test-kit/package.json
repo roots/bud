@@ -19,7 +19,7 @@
     }
   },
   "dependencies": {
-    "@jest/globals": "29.0.3",
+    "@jest/globals": "29.2.2",
     "@repo/constants": "workspace:sources/@repo/constants",
     "@repo/logger": "workspace:sources/@repo/logger",
     "@roots/bud": "workspace:sources/@roots/bud",
@@ -33,7 +33,7 @@
     "fs-extra": "10.1.0",
     "globby": "13.1.2",
     "helpful-decorators": "2.1.0",
-    "jest": "29.0.3",
+    "jest": "29.2.2",
     "json5": "2.2.1",
     "tslib": "2.4.0"
   },

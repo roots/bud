@@ -7,7 +7,7 @@
     "build": "builder build plugin"
   },
   "dependencies": {
-    "@jest/globals": "29.0.3",
+    "@jest/globals": "29.2.2",
     "@types/fs-extra": "9.0.13",
     "@types/node": "16.11.68",
     "@yarnpkg/builder": "3.2.5",

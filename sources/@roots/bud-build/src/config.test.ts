@@ -98,15 +98,17 @@ describe(`bud.build.config`, function () {
   })
 
   it(`should have expected resolve.extensions default`, () => {
-    expect(build.config.resolve?.extensions).toMatchSnapshot([
-      `.mjs`,
-      `.js`,
-      `.jsx`,
-      `.css`,
-      `.json`,
-      `.wasm`,
-      `.yml`,
-    ])
+    expect(build.config.resolve?.extensions?.sort()).toEqual(
+      expect.arrayContaining([
+        `.css`,
+        `.js`,
+        `.json`,
+        `.jsx`,
+        `.mjs`,
+        `.wasm`,
+        `.yml`,
+      ]),
+    )
   })
 
   it(`should have expected target default`, () => {
