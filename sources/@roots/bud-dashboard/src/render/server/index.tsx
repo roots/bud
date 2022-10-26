@@ -6,6 +6,7 @@ import figures from 'figures'
 import {color} from '../format.js'
 import getProxy from './getProxy.js'
 import getServer from './getServer.js'
+import useWatchedFilesCount from './useWatchedFilesCount.js'
 
 interface Props {
   devUrl?: URL
@@ -27,6 +28,7 @@ export const Server = ({
 }: Props) => {
   const server = getServer(devUrl)
   const proxy = getProxy(proxyUrl)
+  const watchedFilesCount = useWatchedFilesCount(watchFiles)
 
   return (
     <Box flexDirection="column">
@@ -57,11 +59,11 @@ export const Server = ({
           >
             <Text>
               {figures.ellipsis} watching project sources
-              {watchFiles?.size > 0 && (
+              {watchedFilesCount > 0 && (
                 <Text dimColor>
                   {` `}
-                  (and {watchFiles.size} other{` `}
-                  {watchFiles.size > 1 ? `files` : `file`}){` `}
+                  (and {watchedFilesCount} other{` `}
+                  {watchedFilesCount > 1 ? `files` : `file`}){` `}
                 </Text>
               )}
             </Text>

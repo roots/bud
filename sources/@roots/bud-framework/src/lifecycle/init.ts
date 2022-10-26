@@ -128,7 +128,10 @@ export const initialize = (app: Bud): Bud =>
         'dev.url': () =>
           new URL(`http://${externalNetworkInterface.ipv4}:3000`),
         'dev.watch.files': new Set([]),
-        'dev.watch.options': {},
+        'dev.watch.options': () => ({
+          ignoreInitial: true,
+          cwd: app.path(),
+        }),
       }),
     )
 
