@@ -10,12 +10,11 @@ import * as clientOptions from './options.js'
  *
  * @public
  */
-export default async (queryString: string) => {
-  /**
-   * Webpack hot interface
-   */
-  const webpackHot: __WebpackModuleApi.Hot = module.hot
-
+export default async (
+  queryString: string,
+  webpackHot: __WebpackModuleApi.Hot,
+  __webpack_hash__: typeof global.__webpack_hash__,
+) => {
   /* Set client options from URL params */
   const options = clientOptions.setFromParameters(queryString)
 
@@ -53,12 +52,12 @@ export default async (queryString: string) => {
   /**
    * Webpack HMR error handler
    */
-  const onErrored = error => {
+  const onErrored = (error: any) => {
     const message = `[${error?.moduleId ?? options.name}] ${
       error?.error ?? `error`
     }`
-    console.error(message)
 
+    // console.error(message)
     components.controllers.map(controller =>
       controller.update({
         type: `accept-errored`,
@@ -72,8 +71,10 @@ export default async (queryString: string) => {
    * Webpack HMR update handler
    */
   const update = async () => {
-    webpackHot.status() === `ready` &&
-      (await webpackHot.apply({
+    if (webpackHot.status() !== `ready`) return
+
+    try {
+      await webpackHot.apply({
         autoApply: false,
         ignoreUnaccepted: true,
         ignoreDeclined: true,
@@ -81,7 +82,10 @@ export default async (queryString: string) => {
         onErrored,
         onUnaccepted: onUnacceptedOrDeclined,
         onDeclined: onUnacceptedOrDeclined,
-      }))
+      })
+    } catch (error) {
+      console.log(`[${options.name}] error`, error.message, error.stack)
+    }
   }
 
   /* Instantiate indicator, overlay */

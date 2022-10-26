@@ -14,6 +14,7 @@ export const injectEvents = (
 
     /**
      * Messages
+     * @public
      */
     public messages: Set<string> = new Set()
 
@@ -28,6 +29,8 @@ export const injectEvents = (
      *
      * @remarks
      * Singleton interface, so this is private.
+     *
+     * @public
      */
     private constructor(
       public options: Partial<Options> & {name: string; path: string},

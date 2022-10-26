@@ -3,6 +3,7 @@
 /**
  * @jest-environment jsdom
  */
+import './types/index'
 
 import {describe, expect, it, jest} from '@jest/globals'
 
@@ -19,9 +20,11 @@ window.EventSource = global.EventSource
 
 const Events = injectEvents(global.EventSource)
 
-const mockHot = jest.fn()
 // @ts-ignore
-global.module = {hot: mockHot}
+const webpackHotMock = {
+  hot: jest.fn(),
+  status: jest.fn(),
+} as __WebpackModuleApi.Hot
 
 describe(`@roots/bud-client`, () => {
   it(`should be a fn module`, () => {
@@ -29,17 +32,17 @@ describe(`@roots/bud-client`, () => {
   })
 
   it(`should add window.bud`, async () => {
-    await client(`?name=test`)
+    await client(`?name=test`, webpackHotMock, `test`)
     expect(window.bud).toBeDefined()
   })
 
   it(`should add window.bud.hmr as an instance of EventSource`, async () => {
-    await client(`?name=test`)
-    expect(window.bud.hmr[`test`]).toBeInstanceOf(EventSource)
+    await client(`?name=test`, webpackHotMock, `test`)
+    expect(window.bud?.hmr?.test).toBeInstanceOf(EventSource)
   })
 
   it(`should set clientOptions`, async () => {
-    await client(`?name=test`)
+    await client(`?name=test`, webpackHotMock, `test`)
     const clientOptions = options.data
     expect(clientOptions.test).toEqual(
       expect.objectContaining({
@@ -56,9 +59,9 @@ describe(`@roots/bud-client`, () => {
   })
 
   it(`should call console.log`, async () => {
-    const spy = jest.spyOn(global.console, `log`)
+    const spy = jest.spyOn(console, `log`)
 
-    await client(`?name=test`)
+    await client(`?name=test`, webpackHotMock, `test`)
     const clientOptions = options.data
     const events = Events.make(clientOptions.test)
     events.onopen()
@@ -66,7 +69,7 @@ describe(`@roots/bud-client`, () => {
   })
 
   it(`should call listener from onmessage`, async () => {
-    await client(`?name=test`)
+    await client(`?name=test`, webpackHotMock, `test`)
     const clientOptions = options.data
     const events = Events.make(clientOptions.test)
 
