@@ -2,6 +2,7 @@
   "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
     "importHelpers": false,
+    "lib": ["es2020", "dom"],
     "module": "commonjs",
     "rootDir": "src",
     "sourceMap": false,
@@ -9,12 +10,16 @@
     "target": "es6",
     "types": ["node", "webpack-env"]
   },
+  "files": [
+    "src/types/index.ts"
+  ],
   "include": [
-    "src"
+    "src",
   ],
   "exclude": [
     "lib",
-    "node_modules"
+    "node_modules",
+    "**/*.test.ts"
   ],
   "references": [
     {"path": "./../bud/tsconfig.json"},

@@ -1,7 +1,9 @@
+/* eslint-disable tsdoc/syntax */
 import {paths} from '@repo/constants'
 
 /**
  * Base jest configuration
+ * @type {import('@jest/types').Config.InitialOptions} base
  */
 const base = {
   coverageProvider: `v8`,
@@ -33,6 +35,7 @@ const base = {
     `**/sources/@roots/*/src/*.*.{ts,tsx}`,
     `**/sources/@roots/*/src/**/*.{ts,tsx}`,
     `**/sources/@roots/*/src/**/*.*.{ts,tsx}`,
+    `!**/sources/@roots/**/*.test.{ts,tsx}`,
   ],
   coveragePathIgnorePatterns: [
     `/node_modules/`,
@@ -91,6 +94,7 @@ const base = {
 
 /**
  * Jest configuration
+ * @type {() => Promise<import('@jest/types').Config.InitialOptions>}
  */
 export default async () => ({
   ...base,
@@ -107,12 +111,20 @@ export default async () => ({
     },
     {
       ...base,
-      displayName: `unit`,
+      displayName: `unit:node`,
       collectCoverage: true,
       testMatch: [
+        `**/sources/@roots/*/src/*.test.{ts,tsx}`,
         `**/sources/@roots/*/src/**/*.test.{ts,tsx}`,
-        `**/sources/@roots/*/test/**/*.test.{ts,tsx}`,
+        `!**/sources/@roots/bud-client/src/**/*.test.{ts,tsx}`,
       ],
+    },
+    {
+      ...base,
+      displayName: `unit:dom`,
+      collectCoverage: true,
+      testEnvironment: `jsdom`,
+      testMatch: [`**/sources/@roots/bud-client/src/**/*.test.{ts,tsx}`],
     },
   ],
 })

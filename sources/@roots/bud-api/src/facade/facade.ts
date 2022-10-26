@@ -88,6 +88,21 @@ export class Facade {
   public assets: assets.facade
 
   /**
+   * Modify the generated webpack config prior to compilation.
+   *
+   * @remarks
+   * Override generated webpack config with custom config.
+   *
+   * @example
+   * ```ts
+   * app.config({entry: './src/index.js'})
+   * ```
+   *
+   * @public
+   */
+  public config: config
+
+  /**
    * Copy static assets during compilation.
    *
    * @remarks
@@ -141,51 +156,7 @@ export class Facade {
    *
    * @public
    */
-  public config: config
-
-  /**
-   * Modify the generated webpack config prior to compilation.
-   *
-   * @remarks
-   * Override generated webpack config with custom config.
-   *
-   * @example
-   * ```ts
-   * app.config({entry: './src/index.js'})
-   * ```
-   *
-   * @public
-   */
-  public webpackConfig: config
-
-  /**
-   * Modify the generated webpack config prior to compilation.
-   *
-   * @remarks
-   * Override generated webpack config with custom config.
-   *
-   * @example
-   * ```ts
-   * app.config({entry: './src/index.js'})
-   * ```
-   *
-   * @public
-   */
   public override: config
-
-  /**
-   * Define application variables
-   *
-   * @example
-   * ```ts
-   * app.define({
-   *   APP_NAME: 'My Application',
-   * })
-   * ```
-   *
-   * @public
-   */
-  public define: define
 
   /**
    * Enable filename hashing of built assets.
@@ -212,6 +183,20 @@ export class Facade {
    * @public
    */
   public bundle: bundle.method
+
+  /**
+   * Define application variables
+   *
+   * @example
+   * ```ts
+   * app.define({
+   *   APP_NAME: 'My Application',
+   * })
+   * ```
+   *
+   * @public
+   */
+  public define: define
 
   /**
    * Configure sourcemaps
@@ -769,4 +754,19 @@ export class Facade {
    * @public
    */
   public watch: watch
+
+  /**
+   * Modify the generated webpack config prior to compilation.
+   *
+   * @remarks
+   * Override generated webpack config with custom config.
+   *
+   * @example
+   * ```ts
+   * app.config({entry: './src/index.js'})
+   * ```
+   *
+   * @public
+   */
+  public webpackConfig: config
 }

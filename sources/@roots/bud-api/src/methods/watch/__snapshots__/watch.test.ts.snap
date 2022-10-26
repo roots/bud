@@ -5,5 +5,3 @@ exports[`bud.watch in development adds watch files 1`] = `
   "1/*.js",
 ]
 `;
-
-exports[`bud.watch in development should have expected default values 1`] = `[]`;

@@ -1,4 +1,3 @@
 export const main = () => {
-  document.body.style.backgroundColor = `black`
-  document.body.style.backgroundColor = `blue`
+  document.body.style.backgroundColor = `#f0f0f0`
 }
