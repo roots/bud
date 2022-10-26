@@ -25,7 +25,7 @@ describe(`@roots/bud-cache/inalidate-cache-extension`, () => {
       bud,
     )
 
-    expect(extension.file).toStrictEqual(
+    expect(extension.invalidationFile).toStrictEqual(
       expect.stringContaining(`${bud.label}/production.error.json`),
     )
   })

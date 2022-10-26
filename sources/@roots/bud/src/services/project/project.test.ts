@@ -17,10 +17,7 @@ describe(`@roots/bud/services/project`, () => {
   })
 
   it(`is a container service`, () => {
-    const instance = new Project(
-      // @ts-ignore
-      bud,
-    )
+    const instance = new Project(bud)
     expect(instance).toBeInstanceOf(Service)
   })
 })

@@ -4,6 +4,8 @@ description: Utilize multiple configuration files to manage different environmen
 sidebar_label: Layered configurations
 ---
 
+## Configuration files
+
 It is possible to create more than one bud configuration file. Each configuration file is applied
 in the following order:
 
@@ -11,3 +13,53 @@ in the following order:
 2. `bud.config.local` - the local configuration. always applied.
 3. `bud.config.${mode}` - the mode-specific configuration. applied if the mode matches.
 4. `bud.config.${mode}.local` - the mode-specific local configuration. applied if the mode matches.
+
+## .env values
+
+The following `.env` will be applied to your build automatically, if present:
+
+- `APP_BASE_PATH` - the base path for your app
+- `APP_PUBLIC_PATH` - the public path for your app
+- `APP_SRC_PATH` - the `@src` path for your app
+- `APP_DIST_PATH` - the `@dist` path for your app
+- `APP_STORAGE_PATH` - the `@storage` path for your app
+- `APP_MODE` - desired build mode
+
+## `package.json` values
+
+You may also use the `bud` key in `package.json` to modify certain base values:
+
+```json5
+{
+  "bud": {
+    "paths": {
+      "base": string,
+      "src": string,
+      "dist": string,
+      "storage": string
+    },
+    "publicPath": string,
+    "extensions": {
+      "allowlist": string[],
+      "denylist": string[],
+      "discovery": boolean
+    }
+  }
+}
+```
+
+## CLI arguments and flags
+
+The CLI has many flags for configuring your build. Check the [CLI documentation](/guides/cli) for more information.
+
+## Order of application
+
+The following is the order in which bud will apply configuration values:
+
+1. `.env` values
+2. `package.json` values
+3. all config files
+4. CLI arguments and flags
+
+So, your `bud.config.mjs` will override any values set in `package.json` or `.env`. Likewise, the CLI arguments will override
+any values set in the config.

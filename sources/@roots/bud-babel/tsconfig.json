@@ -10,7 +10,7 @@
       "@roots/bud-build"
     ]
   },
-  "include": ["src"],
+  "include": ["src/**/*.ts"],
   "exclude": ["lib", "node_modules", "**/*.test.ts"],
   "references": [
     {"path": "./../bud-framework/tsconfig.json"},

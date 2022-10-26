@@ -1,7 +1,6 @@
 import type {Bud} from '@roots/bud-framework/bud'
 import type {Server} from '@roots/bud-framework/services'
 import {bind} from '@roots/bud-support/decorators'
-import globby from '@roots/bud-support/globby'
 import chokidar from 'chokidar'
 
 /**
@@ -52,43 +51,6 @@ export class Watcher implements Server.Watcher {
   }
 
   /**
-   * Get watch options
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  public getOptions() {
-    this.options = this.app.hooks.filter(`dev.watch.options`, {})
-    return this.options
-  }
-
-  /**
-   * Get watched files
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public getFiles(): Array<string> {
-    this.files = this.app.hooks.filter(`dev.watch.files`, new Set())
-
-    if (this.files.size === 0) return []
-
-    return Array.from(this.files)
-  }
-
-  /**
-   * Get files
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async search() {
-    return await globby(this.getFiles())
-  }
-
-  /**
    * Watcher callback
    *
    * @param path - changed file
@@ -118,14 +80,16 @@ export class Watcher implements Server.Watcher {
    */
   @bind
   public async watch(): Promise<Watcher['instance']> {
-    const files = await this.search()
-    this.files = new Set(files)
+    this.files = this.app.hooks.filter(`dev.watch.files`, new Set())
+    this.options = this.app.hooks.filter(`dev.watch.options`, {})
 
-    if (files.length < 1) return
+    if (this.files.size < 1) return
 
     this.instance = chokidar
-      .watch(files, this.getOptions())
+      .watch([...this.files], this.options)
       .on(`change`, this.watcherCallback)
+      .on(`add`, this.watcherCallback)
+      .on(`unlink`, this.watcherCallback)
 
     this.logger.log(`watching ${this.files.size} files for changes`)
 

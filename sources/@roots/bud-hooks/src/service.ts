@@ -91,6 +91,7 @@ export default class Hooks extends Service implements HooksInterface {
     super(app)
 
     this.syncStore = new SyncHooks(app)
+
     this.on = this.syncStore.set
     this.hasSyncHook = this.syncStore.has
     this.filter = this.syncStore.get

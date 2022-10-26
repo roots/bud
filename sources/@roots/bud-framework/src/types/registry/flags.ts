@@ -21,13 +21,6 @@ export interface Flags {
   html: boolean
 
   /**
-   * Automatically register installed extensions
-   *
-   * @public
-   */
-  inject: boolean
-
-  /**
    * Log build status informatino to the terminal
    *
    * @public

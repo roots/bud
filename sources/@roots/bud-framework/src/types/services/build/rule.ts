@@ -109,7 +109,11 @@ export interface Interface extends Base {
    *
    * @public
    */
-  setExclude(excludes: Options['exclude']): this
+  setExclude(
+    excludes:
+      | Options['exclude']
+      | ((excludes: Options['exclude']) => Options['exclude']),
+  ): this
 
   /**
    * Include paths
@@ -130,7 +134,11 @@ export interface Interface extends Base {
    *
    * @public
    */
-  setInclude(value: Options['include']): this
+  setInclude(
+    value:
+      | Options['include']
+      | ((includes: Options['include']) => Options['include']),
+  ): this
 
   /**
    * Type

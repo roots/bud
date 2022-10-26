@@ -56,9 +56,9 @@
     }
   },
   "devDependencies": {
-    "@jest/globals": "29.0.3",
+    "@jest/globals": "29.2.2",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.11.64",
+    "@types/node": "16.11.68",
     "@types/webpack-env": "1.18.0",
     "jest-environment-jsdom": "29.2.0",
     "webpack": "5.74.0"

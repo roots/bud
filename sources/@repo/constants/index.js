@@ -1,6 +1,6 @@
 import {createRequire} from 'node:module'
+import {join} from 'node:path'
 import {fileURLToPath} from 'node:url'
-import {join} from 'path'
 
 /**
  * Repo root path

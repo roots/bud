@@ -63,16 +63,16 @@
     }
   },
   "devDependencies": {
-    "@jest/globals": "29.0.3",
+    "@jest/globals": "29.2.2",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.11.64",
+    "@types/node": "16.11.68",
     "webpack": "5.74.0"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@roots/container": "workspace:sources/@roots/container",
-    "chalk": "5.0.1",
+    "chalk": "5.1.2",
     "copy-webpack-plugin": "11.0.0",
     "get-port": "6.1.2",
     "html-webpack-plugin": "5.5.0",

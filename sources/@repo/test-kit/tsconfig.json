@@ -5,6 +5,7 @@
     "types": [
       "node",
       "jest",
+      "@roots/bud-api",
       "@roots/bud",
       "@roots/bud-framework"
     ],
@@ -15,6 +16,7 @@
   "exclude": ["node_modules"],
   "references": [
     {"path": "./../../@roots/bud/tsconfig.json"},
+    {"path": "./../../@roots/bud-api/tsconfig.json"},
     {"path": "./../../@roots/bud-framework/tsconfig.json"},
     {"path": "./../../@roots/bud-compiler/tsconfig.json"},
   ]

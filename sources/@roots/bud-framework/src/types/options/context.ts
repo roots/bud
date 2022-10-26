@@ -63,6 +63,7 @@ export interface BaseContext {
     overlay: boolean
     publicPath: string
     reload: boolean
+    runtime: `single` | `multiple` | boolean
     splitChunks: boolean
     storage: string
     target: Array<string>

@@ -50,10 +50,10 @@
     }
   },
   "devDependencies": {
-    "@jest/globals": "29.0.3",
+    "@jest/globals": "29.2.2",
     "@repo/test-kit": "workspace:sources/@repo/test-kit",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.11.64",
+    "@types/node": "16.11.68",
     "ink-testing-library": "2.1.0",
     "tslib": "2.4.0",
     "webpack": "5.74.0"
@@ -61,7 +61,7 @@
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "chalk": "5.0.1",
+    "chalk": "5.1.2",
     "figures": "5.0.0",
     "human-readable": "0.2.1",
     "webpack-format-messages": "3.0.1",

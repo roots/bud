@@ -1,10 +1,10 @@
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
+  disabled,
   expose,
   label,
   options,
-  when,
 } from '@roots/bud-framework/extension/decorators'
 import Plugin from 'css-minimizer-webpack-plugin'
 
@@ -15,6 +15,7 @@ import Plugin from 'css-minimizer-webpack-plugin'
  * @decorator `@label`
  * @decorator `@expose`
  * @decorator `@options`
+ * @decorator `@disabled`
  */
 @label(`@roots/bud-terser/css-minimizer`)
 @expose(`minimizeCss`)
@@ -30,7 +31,7 @@ import Plugin from 'css-minimizer-webpack-plugin'
     ],
   },
 })
-@when(async () => false)
+@disabled
 export default class BudMinimizeCSS extends Extension {
   /**
    * `buildBefore` callback

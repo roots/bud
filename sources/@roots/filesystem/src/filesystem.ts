@@ -170,8 +170,9 @@ export default class Filesystem {
    *  - `"other"` if none of the above.
    * @public
    */
-  public async exists(path: string): Promise<ExistsResult> {
-    return this.fs.existsAsync(path)
+  public async exists(...path: Array<string>): Promise<ExistsResult> {
+    const pathResults = await this.path(...path)
+    return this.fs.existsAsync(pathResults)
   }
 
   /**
@@ -250,8 +251,14 @@ export default class Filesystem {
     return this
   }
 
+  /**
+   * Get path
+   *
+   * @param pathParts - string or array of string path parts
+   * @returns
+   */
   public async path(...pathParts: string[]): Promise<string> {
-    return this.fs.path(...pathParts)
+    return join(...pathParts)
   }
 
   /**

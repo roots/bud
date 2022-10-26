@@ -60,6 +60,8 @@ export default class MyExtension extends Extension {
 
 Async callback. Called after user configuration has been processed.
 
+This function is not called if either the value of `Extension.enabled` is `false` or `Extension.when` returns `false`.
+
 ```ts title="extension.ts"
 import {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
@@ -77,6 +79,8 @@ export default class MyExtension extends Extension {
 
 Async callback. Called directly before configuration is constructed and passed to the compiler.
 
+This function is not called if either the value of `Extension.enabled` is `false` or `Extension.when` returns `false`.
+
 ```ts title="extension.ts"
 import {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
@@ -93,6 +97,8 @@ export default class MyExtension extends Extension {
 ### buildAfter
 
 Async callback. Called directly after configuration is produced.
+
+This function is not called if either the value of `Extension.enabled` is `false` or `Extension.when` returns `false`.
 
 ```ts title="extension.ts"
 import {Bud} from '@roots/bud-framework'

@@ -102,12 +102,12 @@
     }
   },
   "devDependencies": {
-    "@jest/globals": "29.0.3",
+    "@jest/globals": "29.2.2",
     "@repo/test-kit": "workspace:sources/@repo/test-kit",
     "@skypack/package-check": "0.2.2",
     "@types/braces": "3.0.1",
     "@types/mini-css-extract-plugin": "2.5.0",
-    "@types/node": "16.11.64",
+    "@types/node": "16.11.68",
     "@types/node-notifier": "8.0.2"
   },
   "dependencies": {
@@ -124,8 +124,8 @@
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@roots/bud-terser": "workspace:sources/@roots/bud-terser",
     "@roots/container": "workspace:sources/@roots/container",
-    "browserslist": "latest",
-    "caniuse-lite": "latest",
+    "browserslist": "4.21.4",
+    "caniuse-lite": "1.0.30001425",
     "clean-webpack-plugin": "^4.0.0",
     "conf": "10.2.0",
     "copy-webpack-plugin": "11.0.0",

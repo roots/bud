@@ -1,11 +1,12 @@
 import type {Bud} from '@roots/bud-framework'
+import {isString} from '@roots/bud-support/lodash-es'
 
 export interface persist {
-  (type?: `memory` | `filesystem` | false): Bud
+  (type?: `memory` | `filesystem` | boolean): Bud
 }
 
 export const persist: persist = function (
-  type: `memory` | `filesystem` | false = `filesystem`,
+  type: `memory` | `filesystem` | boolean = `filesystem`,
 ) {
   const app = this as Bud
 
@@ -16,7 +17,7 @@ export const persist: persist = function (
   }
 
   app.cache.enabled = true
-  app.cache.type = type
+  app.cache.type = isString(type) ? type : `filesystem`
 
   app.success(`cache enabled`)
 

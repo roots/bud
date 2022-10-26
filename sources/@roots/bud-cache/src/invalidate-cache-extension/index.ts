@@ -21,7 +21,7 @@ export default class InvalidateCacheExtension extends Extension {
    *
    * @public
    */
-  public get file(): string {
+  public get invalidationFile(): string {
     return this.app.path(
       `@storage`,
       this.app.label,
@@ -37,12 +37,23 @@ export default class InvalidateCacheExtension extends Extension {
    */
   @bind
   public async register() {
-    const invalidate = await this.app.fs.exists(this.file)
+    const invalidate = await this.app.fs.exists(
+      `@storage`,
+      this.app.label,
+      `${this.app.mode}.error.json`,
+    )
 
     if (invalidate || this.app.context.args.flush) {
-      await this.app.fs.remove(this.file)
+      await this.app.fs.remove(this.invalidationFile)
       await this.app.fs.remove(
-        this.app.path(`@storage`, this.app.label, `cache`, this.app.mode),
+        this.app.relPath(
+          this.app.path(
+            `@storage`,
+            this.app.label,
+            `cache`,
+            this.app.mode,
+          ),
+        ),
       )
     }
 
@@ -50,17 +61,19 @@ export default class InvalidateCacheExtension extends Extension {
       this.app.compiler.instance.hooks.done.tap(
         this.label,
         async compiler => {
-          if (!compiler.hasErrors()) return
+          try {
+            if (!compiler.hasErrors()) return
 
-          await this.app.fs.json.write(this.file, {
-            hash: compiler.hash,
-            errors: compiler.stats.flatMap(stats =>
-              stats
-                .toString({preset: `errors-warnings`, colors: false})
-                .split(/\n/)
-                .map(stripAnsi),
-            ),
-          })
+            await this.app.fs.json.write(this.invalidationFile, {
+              hash: compiler.hash,
+              errors: compiler.stats.flatMap(stats =>
+                stats
+                  .toString({preset: `errors-warnings`, colors: false})
+                  .split(/\n/)
+                  .map(stripAnsi),
+              ),
+            })
+          } catch (e) {}
         },
       )
     })

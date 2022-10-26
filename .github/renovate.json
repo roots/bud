@@ -3,38 +3,26 @@
   "commitMessageAction": "update",
   "commitMessagePrefix": "📦 deps:",
   "commitMessageTopic": "{{depName}}",
-  "extends": ["config:base", "schedule:daily", ":dependencyDashboard"],
+  "extends": ["config:base", "schedule:daily"],
   "ignorePaths": ["sources/deprecated/**", "examples/**", "workbench/**"],
   "packageRules": [
     {
       "automerge": true,
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"]
     },
-    {
-      "groupName": "@babel",
-      "matchPackagePrefixes": ["@babel", "babel-"]
-    },
-    {
-      "groupName": "eslint",
-      "matchPackagePrefixes": ["eslint"]
-    },
+    {"groupName": "@babel", "matchPackagePrefixes": ["@babel", "babel-"]},
+    {"groupName": "@yarnpkg", "matchPackagePrefixes": ["@yarnpkg/"]},
+    {"groupName": "eslint", "matchPackagePrefixes": ["eslint"]},
     {
       "groupName": "react",
       "matchPackagePrefixes": [
+        "@types/react",
         "react",
         "react-dom",
-        "@types/react",
         "react-reconciler"
       ]
     },
-    {
-      "groupName": "stylelint",
-      "matchPackagePrefixes": ["stylelint"]
-    },
-    {
-      "groupName": "@yarnpkg",
-      "matchPackagePrefixes": ["@yarnpkg/"]
-    }
+    {"groupName": "stylelint", "matchPackagePrefixes": ["stylelint"]}
   ],
   "postUpdateOptions": ["yarnDedupeHighest"],
   "timezone": "America/Los_Angeles"
