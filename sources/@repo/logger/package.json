@@ -14,7 +14,7 @@
     }
   },
   "dependencies": {
-    "@jest/globals": "29.0.3",
+    "@jest/globals": "29.2.2",
     "@repo/constants": "workspace:sources/@repo/constants",
     "@types/node": "16.11.68",
     "signale": "1.4.0"

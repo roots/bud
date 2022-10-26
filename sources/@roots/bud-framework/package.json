@@ -132,7 +132,7 @@
     }
   },
   "devDependencies": {
-    "@jest/globals": "29.0.3",
+    "@jest/globals": "29.2.2",
     "@skypack/package-check": "0.2.2",
     "@types/http-proxy": "1.17.9",
     "@types/js-yaml": "4.0.5",
