@@ -62,7 +62,7 @@
     "@repo/test-kit": "workspace:sources/@repo/test-kit",
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.11.68",
+    "@types/node": "16.18.2",
     "@types/signale": "1.4.4",
     "webpack": "5.74.0"
   },

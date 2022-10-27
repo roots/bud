@@ -58,7 +58,7 @@
     "@jest/globals": "29.2.2",
     "@skypack/package-check": "0.2.2",
     "@types/lodash-es": "4.17.6",
-    "@types/node": "16.11.68",
+    "@types/node": "16.18.2",
     "type-fest": "3.1.0"
   },
   "dependencies": {
