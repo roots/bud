@@ -65,7 +65,7 @@
     "@jest/globals": "29.2.2",
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.18.2",
-    "@types/react": "17.0.50",
+    "@types/react": "17.0.51",
     "react": "17.0.2"
   },
   "dependencies": {
