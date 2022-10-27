@@ -85,7 +85,7 @@
     "@roots/bud-typescript": "workspace:sources/@roots/bud-typescript",
     "@skypack/package-check": "0.2.2",
     "@types/babel__core": "7.1.19",
-    "@types/node": "16.11.68",
+    "@types/node": "16.18.2",
     "@types/react": "17.0.50",
     "@types/react-dom": "17.0.17",
     "type-fest": "3.1.0",

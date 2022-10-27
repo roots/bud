@@ -16,7 +16,7 @@
   "dependencies": {
     "@jest/globals": "29.2.2",
     "@repo/constants": "workspace:sources/@repo/constants",
-    "@types/node": "16.11.68",
+    "@types/node": "16.18.2",
     "signale": "1.4.0"
   },
   "volta": {
