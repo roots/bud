@@ -79,12 +79,17 @@ Next, in your theme directory create a `.stylelintrc.js` file and include the Sa
 
 ```ts title="bud.config.mjs"
 module.exports = {
-  extends: ["@roots/sage/stylelint-config"],
+  extends: [
+    "@roots/sage/stylelint-config",
+    "@roots/bud-tailwindcss/stylelint-config",
+  ],
   rules: {
     "color-no-invalid-hex": true,
   },
 };
 ```
+
+If you aren't using `@roots/bud-tailwindcss` you may remove the `@roots/bud-tailwindcss/stylelint-config` value from `extends`.
 
 ### Managing Theme Json
 
@@ -184,7 +189,11 @@ If using stylelint you will need to configure it for sass:
 
 ```ts file="stylelint.config.cjs"
 module.exports = {
-  extends: ["@roots/sage/stylelint-config", "@roots/bud-sass/stylelint-config"],
+  extends: [
+    "@roots/sage/stylelint-config",
+    "@roots/bud-sass/stylelint-config",
+    "@roots/bud-tailwindcss/stylelint-config",
+  ],
 };
 ```
 
