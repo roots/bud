@@ -5361,8 +5361,8 @@ __metadata:
     "@svgr/webpack": 6.5.1
     "@tsconfig/docusaurus": 1.0.6
     "@types/node": 16.18.2
-    "@types/react": 17.0.51
-    "@types/react-dom": 17.0.17
+    "@types/react": 17.0.52
+    "@types/react-dom": 17.0.18
     "@types/react-helmet": 6.1.5
     "@types/react-reconciler": 0.28.0
     "@types/react-router-dom": 5.3.3
@@ -5708,7 +5708,7 @@ __metadata:
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@skypack/package-check": 0.2.2
     "@types/node": 16.18.2
-    "@types/react": 17.0.51
+    "@types/react": 17.0.52
     react: 17.0.2
     tslib: 2.4.0
   peerDependencies:
@@ -5993,8 +5993,8 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/lodash": 4.14.186
     "@types/node": 16.18.2
-    "@types/react": 17.0.51
-    "@types/react-dom": 17.0.17
+    "@types/react": 17.0.52
+    "@types/react-dom": 17.0.18
     chalk: 5.1.2
     lodash-es: 4.17.21
     react: 17.0.2
@@ -6090,8 +6090,8 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/babel__core": 7.1.19
     "@types/node": 16.18.2
-    "@types/react": 17.0.51
-    "@types/react-dom": 17.0.17
+    "@types/react": 17.0.52
+    "@types/react-dom": 17.0.18
     react: 17.0.2
     react-dom: 17.0.2
     react-hot-loader: ^4.13.0
@@ -6724,7 +6724,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/lodash-es": 4.17.6
     "@types/node": 16.18.2
-    "@types/react": 17.0.51
+    "@types/react": 17.0.52
     "@types/wordpress__blocks": 11.0.7
     "@types/wordpress__data": 6.0.1
     "@wordpress/blocks": 11.19.0
@@ -7952,12 +7952,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:17.0.17, @types/react-dom@npm:^17.0.11":
-  version: 17.0.17
-  resolution: "@types/react-dom@npm:17.0.17"
+"@types/react-dom@npm:17.0.18, @types/react-dom@npm:^17.0.11":
+  version: 17.0.18
+  resolution: "@types/react-dom@npm:17.0.18"
   dependencies:
     "@types/react": ^17
-  checksum: 23caf98aa03e968811560f92a2c8f451694253ebe16b670929b24eaf0e7fa62ba549abe9db0ac028a9d8a9086acd6ab9c6c773f163fa21224845edbc00ba6232
+  checksum: b74525b1a13a0e27fe20859ff7a7e8f7e4581fb9d45ed1b6447ad1534d86f813818353c39d0df2e28f9d2b9be2e3af1908c244b2214a979393d19f217665e614
   languageName: node
   linkType: hard
 
@@ -8022,14 +8022,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:17.0.51, @types/react@npm:^17, @types/react@npm:^17.0.37":
-  version: 17.0.51
-  resolution: "@types/react@npm:17.0.51"
+"@types/react@npm:17.0.52, @types/react@npm:^17, @types/react@npm:^17.0.37":
+  version: 17.0.52
+  resolution: "@types/react@npm:17.0.52"
   dependencies:
     "@types/prop-types": "*"
     "@types/scheduler": "*"
     csstype: ^3.0.2
-  checksum: a9680a17444df4edf89e91acb66fbe1eb8c3397ece0f279f67f3fd7f17c60460834e3be721947a7cddc916b76f7c62df3dbd1f6da1057643c5620e32a7a32ec5
+  checksum: a51b98dd87838d161278fdf9dd78e6a4ff8c018f406d6647f77963e144fb52a8beee40c89fd0e7e840eaeaa8bd9fe2f34519410540b1a52d43a6f8b4d2fbce33
   languageName: node
   linkType: hard
 
