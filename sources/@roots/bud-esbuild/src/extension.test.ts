@@ -17,8 +17,6 @@ describe(`@roots/bud-esbuild`, () => {
     await bud.build.make()
   })
 
-  test.todo(`improve this spec`)
-
   it(`should be constructable`, () => {
     expect(Extension).toBeInstanceOf(Function)
   })

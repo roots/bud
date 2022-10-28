@@ -62,12 +62,11 @@ export default class BudImagemin extends Extension {
   }
   @bind
   public encode(key: string, value: any): BudImagemin {
-    key =
-      key === `jpeg` || key === `jpg`
-        ? `mozjpeg`
-        : key === `png`
-        ? `oxipng`
-        : key
+    key = [`jpeg`, `jpg`].includes(key)
+      ? `mozjpeg`
+      : key === `png`
+      ? `oxipng`
+      : key
 
     this.encodeOptions.set(key, value)
     return this

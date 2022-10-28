@@ -1,5 +1,6 @@
 import {beforeEach, describe, expect, it} from '@jest/globals'
-import {Bud, factory} from '@repo/test-kit/bud'
+import {factory} from '@repo/test-kit/bud'
+import {Bud} from '@roots/bud'
 
 import {define as defineMethod} from './define.method.js'
 
@@ -18,7 +19,7 @@ describe(`bud.define`, function () {
 
   it(`should return bud`, () => {
     const returned = define({})
-    expect(returned).toBeInstanceOf(Bud)
+    expect(returned).toBe(bud)
   })
 
   it(`adds definitions`, () => {

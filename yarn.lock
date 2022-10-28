@@ -6273,7 +6273,7 @@ __metadata:
   dependencies:
     "@jest/globals": 29.2.2
     "@repo/test-kit": "workspace:sources/@repo/test-kit"
-    "@roots/bud-build": "workspace:sources/@roots/bud-build"
+    "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
@@ -7296,7 +7296,6 @@ __metadata:
   resolution: "@tests/project@workspace:tests/util/project"
   dependencies:
     "@roots/bud": "workspace:sources/@roots/bud"
-    "@roots/bud-eslint": "workspace:sources/@roots/bud-eslint"
     "@roots/bud-preset-recommend": "workspace:sources/@roots/bud-preset-recommend"
     "@roots/bud-tailwindcss": "workspace:sources/@roots/bud-tailwindcss"
   languageName: unknown

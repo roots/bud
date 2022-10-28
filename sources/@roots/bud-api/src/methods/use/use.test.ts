@@ -28,7 +28,7 @@ describe(`use`, function () {
   })
 
   it(`returns bud`, async () => {
-    expect(await use({label: `foo`})).toBeInstanceOf(Bud)
+    expect(await use({label: `foo`})).toBe(bud)
   })
 
   it(`registers an imported extension`, async () => {

@@ -9,10 +9,7 @@ describe(`@roots/sage`, () => {
   beforeEach(async () => {
     bud = await factory()
     await bud.extensions.add(Sage)
-    instance = new Sage(
-      // @ts-ignore
-      bud,
-    )
+    instance = new Sage(bud)
   })
 
   it(`is registrable`, () => {
