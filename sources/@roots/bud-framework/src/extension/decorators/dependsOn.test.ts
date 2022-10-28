@@ -1,6 +1,6 @@
 import {describe, expect, it} from '@jest/globals'
 
-import {dependsOn} from './dependsOn'
+import {dependsOn} from './dependsOn.js'
 
 @dependsOn([`foo`])
 // @ts-ignore

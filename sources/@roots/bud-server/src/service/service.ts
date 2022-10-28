@@ -5,7 +5,7 @@ import type {
   Middleware,
   Service as BaseService,
 } from '@roots/bud-framework/services/server'
-import {bind, once} from '@roots/bud-support/decorators'
+import {bind} from '@roots/bud-support/decorators'
 
 import * as clientScripts from '../hooks/dev.client.scripts.js'
 import {inject} from '../inject.js'
@@ -80,23 +80,22 @@ export class Server extends Service implements BaseService {
    * @decorator `@once`
    */
   @bind
-  @once
-  public async register() {
-    this.app.hooks.on(`dev.client.scripts`, clientScripts.callback)
-
-    this.application = await this.app.module
+  public async register(bud: Bud) {
+    this.application = await bud.module
       .import(`express`)
       .then(express => express())
 
     this.application.set(`x-powered-by`, false)
 
-    this.watcher = new Watcher(this.app)
+    this.watcher = new Watcher(bud)
 
-    this.app.hooks.action(
+    bud.hooks.on(`dev.client.scripts`, clientScripts.callback)
+
+    bud.hooks.action(
       `server.before`,
       this.setConnection.bind(this),
       this.injectScripts.bind(this),
-      this.app.compiler.compile.bind(this.app.compiler),
+      bud.compiler.compile.bind(bud.compiler),
       this.applyMiddleware.bind(this),
       this.watcher.watch.bind(this.watcher),
     )
@@ -126,7 +125,6 @@ export class Server extends Service implements BaseService {
    * @decorator `@once`
    */
   @bind
-  @once
   public async injectScripts() {
     this.app.log(`injecting client scripts`)
 
@@ -150,7 +148,6 @@ export class Server extends Service implements BaseService {
    * @decorator `@once`
    */
   @bind
-  @once
   public async applyMiddleware() {
     Object.entries(this.enabledMiddleware).map(([key, middleware]) => {
       this.appliedMiddleware[key] = middleware(this.app)

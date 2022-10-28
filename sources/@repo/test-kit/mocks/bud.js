@@ -13,6 +13,7 @@ jest.unstable_mockModule(`@roots/bud-api`, async () => {
       logger: {
         success: jest.fn(),
       },
+      trace: [],
     })),
   }
 })
@@ -62,7 +63,9 @@ const mock = jest.fn().mockImplementation(async () => {
     context,
     dashboard,
     extensions,
+    proxy: jest.fn(),
     fs: {
+      exists: jest.fn(),
       json: {
         read: jest.fn(),
         write: jest.fn(),

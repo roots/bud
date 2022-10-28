@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import {beforeEach, describe, expect, it, jest} from '@jest/globals'
+import Bud from '@roots/bud'
 
 import BudSWCExtension from './index'
 
@@ -9,7 +10,7 @@ jest.unstable_mockModule(
 )
 
 describe(`@roots/bud-swc`, () => {
-  let bud
+  let bud: Bud
 
   beforeEach(async () => {
     jest.clearAllMocks()
@@ -21,14 +22,14 @@ describe(`@roots/bud-swc`, () => {
   })
 
   it(`calls hooks.on during registration`, async () => {
-    await new BudSWCExtension(bud).register()
+    await new BudSWCExtension(bud).register(bud)
     expect(bud.hooks.on).toHaveBeenCalled()
   })
 
-  it(`calls registerSWC during buildBefore`, async () => {
+  it(`calls registerSWC during configAfter`, async () => {
     const extension = new BudSWCExtension(bud)
     const registerSWCSpy = jest.spyOn(extension, `registerSWC`)
-    await extension.buildBefore()
+    await extension.configAfter(bud)
     expect(registerSWCSpy).toHaveBeenCalled()
   })
 })

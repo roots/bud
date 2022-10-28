@@ -2,7 +2,7 @@
 import {join} from 'node:path'
 
 import {paths} from '@repo/constants'
-import Bud from '@roots/bud'
+import {Bud} from '@roots/bud'
 import {factory as makeInstance} from '@roots/bud/factory'
 import type * as Options from '@roots/bud-framework/options'
 

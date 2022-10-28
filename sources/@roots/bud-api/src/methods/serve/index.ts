@@ -2,6 +2,7 @@ import type Https from 'node:https'
 import type Http from 'node:https'
 
 import type {Bud} from '@roots/bud-framework'
+import {highlight} from '@roots/bud-support/highlight'
 import {isEmpty, isNumber, isString} from '@roots/bud-support/lodash-es'
 import {externalNetworkInterface} from '@roots/bud-support/os'
 import getPort from 'get-port'
@@ -94,7 +95,35 @@ export type facade = Serve<Bud>
 export const method: Serve = async function (
   input: Specification | URL | string | number | Array<number>,
 ): Promise<Bud> {
-  const app = this as Bud
+  const app = (this as Bud).root
+
+  if (this.isChild) {
+    this.api.logger.warn(
+      `server configuration is being moved to the root instance of bud: ${app.label}`,
+    )
+    this.api.logger.warn(
+      `\
+to silence this warning move the \`bud.serve\` call from ${
+        this.label
+      } to ${app.label}:
+
+${highlight(`export default async bud => {
+  await bud.make(\`${this.label}\`, async bud => {
+    bud.serve(${JSON.stringify(input)})
+  })
+}`)}
+
+should become:
+
+${highlight(`export default async bud => {
+  bud.serve(${JSON.stringify(input)})
+
+  await bud.make(\`${this.label}\`, async bud => {
+    // ...config
+  })
+}`)}`,
+    )
+  }
 
   if (!app.isDevelopment) return app
 

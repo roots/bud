@@ -7,14 +7,18 @@
     "module": "esnext",
     "types": [
       "node",
+      "@roots/bud",
       "@roots/bud-framework"
     ]
   },
   "include": ["src"],
-  "exclude": ["lib", "node_modules", "**/*.test.ts"],
+  "exclude": ["**/*.test.ts"],
   "references": [
     {
       "path": "./../bud-api/tsconfig.json"
+    },
+    {
+      "path": "./../bud/tsconfig.json"
     },
     {
       "path": "./../bud-framework/tsconfig.json"

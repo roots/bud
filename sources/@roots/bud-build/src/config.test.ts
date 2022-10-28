@@ -8,10 +8,7 @@ describe(`bud.build.config`, function () {
 
   beforeAll(async () => {
     bud = await factory()
-    build = new Build(
-      // @ts-ignore
-      bud,
-    )
+    build = new Build(bud)
 
     await build.register()
     await build.make()
@@ -124,12 +121,12 @@ describe(`bud.build.config`, function () {
   })
 
   it(`should have expected plugins`, () => {
-    const plugins = build.config.plugins?.map(
-      plugin => plugin.constructor.name,
-    )
+    const plugins = build.config.plugins
+      ?.map(plugin => plugin.constructor.name)
+      .sort()
+
     expect(plugins).toContain(`EntrypointsWebpackPlugin`)
     expect(plugins).toContain(`WebpackManifestPlugin`)
-    expect(plugins).toContain(`ESLintWebpackPlugin`)
     expect(plugins).toContain(`DefinePlugin`)
     expect(plugins).toContain(`MiniCssExtractPlugin`)
   })
