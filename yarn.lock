@@ -6036,7 +6036,7 @@ __metadata:
   resolution: "@roots/bud-prettier@workspace:sources/@roots/bud-prettier"
   dependencies:
     "@jest/globals": 29.2.2
-    "@roots/bud": "workspace:*"
+    "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
@@ -6302,7 +6302,7 @@ __metadata:
   resolution: "@roots/bud-tailwindcss@workspace:sources/@roots/bud-tailwindcss"
   dependencies:
     "@jest/globals": 29.2.2
-    "@roots/bud": "workspace:*"
+    "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-api": "workspace:sources/@roots/bud-api"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss"
@@ -6351,7 +6351,6 @@ __metadata:
   dependencies:
     "@jest/globals": 29.2.2
     "@roots/bud": "workspace:sources/@roots/bud"
-    "@roots/bud-api": "workspace:sources/@roots/bud-api"
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"

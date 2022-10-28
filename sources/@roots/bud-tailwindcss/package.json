@@ -67,7 +67,6 @@
   },
   "devDependencies": {
     "@jest/globals": "29.2.2",
-    "@roots/bud": "workspace:*",
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.18.2",
@@ -75,6 +74,7 @@
     "@types/webpack-virtual-modules": "0.1.1"
   },
   "dependencies": {
+    "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",

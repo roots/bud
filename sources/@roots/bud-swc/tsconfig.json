@@ -3,13 +3,12 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "lib",
-    "types": ["@roots/bud", "@roots/bud-api"]
+    "types": ["@roots/bud-framework"]
   },
   "include": ["src"],
   "exclude": ["**/*.test.ts"],
   "references": [
     {"path": "./../bud-framework/tsconfig.json"},
-    {"path": "./../bud-build/tsconfig.json"},
     {"path": "./../bud-support/tsconfig.json"},
   ]
 }
