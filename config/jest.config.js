@@ -28,7 +28,7 @@ const base = {
     '@roots/bud/services/env': `<rootDir>/sources/@roots/bud/src/services/env/index.ts`,
     '@roots/bud/services/project': `<rootDir>/sources/@roots/bud/src/services/project/index.ts`,
     '@roots/bud/bud$': `<rootDir>/sources/@roots/bud/src/bud.ts`,
-    '@roots/bud/extensions/fix-style-only-entrypoints': `<rootDir>/sources/@roots/bud/src/extensions/fix-style-only-entrypoints/index.ts`,
+    '@roots/bud/factory$': `<rootDir>/sources/@roots/bud/src/factory/index.ts`,
     '@roots/bud-api$': `<rootDir>/sources/@roots/bud-api/src/index.ts`,
     '@roots/bud-api/methods$': `<rootDir>/sources/@roots/bud-api/src/methods/index.ts`,
     '@roots/bud-babel$': `<rootDir>/sources/@roots/bud-babel/src/index.ts`,
