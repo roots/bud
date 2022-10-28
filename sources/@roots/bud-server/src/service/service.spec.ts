@@ -19,9 +19,7 @@ export default () => {
 
     try {
       await instance.run()
-    } catch (e) {
-      console.log(e)
-    }
+    } catch (e) {}
   })
 
   it(`should be an instance of Server`, () => {
