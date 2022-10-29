@@ -64,19 +64,22 @@ describe(`context.get`, () => {
     )
     expect(context.colorDepth).toEqual(256)
     expect(context.extensions).toEqual(
-      expect.arrayContaining([
-        `@roots/bud-terser/extension`,
-        `@roots/bud/extensions/bud-cdn`,
-        `@roots/bud/extensions/bud-esm`,
-        `@roots/bud/extensions/bud-fix-style-only-entrypoints`,
-        `@roots/bud/extensions/clean-webpack-plugin`,
-        `@roots/bud/extensions/webpack-provide-plugin`,
-        `@roots/bud/extensions/webpack-manifest-plugin`,
-        `@roots/bud/extensions/webpack-hot-module-replacement-plugin`,
-        `@roots/bud/extensions/webpack-define-plugin`,
-        `@roots/bud/extensions/mini-css-extract-plugin`,
-        `@roots/bud/extensions/copy-webpack-plugin`,
-      ]),
+      expect.objectContaining({
+        builtIn: expect.arrayContaining([
+          `@roots/bud-terser`,
+          `@roots/bud-extensions/bud-cdn`,
+          `@roots/bud-extensions/bud-esm`,
+          `@roots/bud-extensions/bud-fix-style-only-entrypoints`,
+          `@roots/bud-extensions/clean-webpack-plugin`,
+          `@roots/bud-extensions/webpack-provide-plugin`,
+          `@roots/bud-extensions/webpack-manifest-plugin`,
+          `@roots/bud-extensions/webpack-hot-module-replacement-plugin`,
+          `@roots/bud-extensions/webpack-define-plugin`,
+          `@roots/bud-extensions/mini-css-extract-plugin`,
+          `@roots/bud-extensions/copy-webpack-plugin`,
+        ]),
+        discovered: [],
+      }),
     )
     expect(context.manifest).toEqual(
       expect.objectContaining({

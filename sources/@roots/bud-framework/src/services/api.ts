@@ -83,7 +83,7 @@ export abstract class Service extends BaseService.Service {
    *
    * @public
    */
-  public constructor(app: Bud) {
+  public constructor(app: () => Bud) {
     super(app)
 
     this.has = this.data.has

@@ -23,10 +23,6 @@ describe(`@roots/bud-typescript`, () => {
     expect(typescript.label).toBe(`@roots/bud-typescript`)
   })
 
-  it(`registered @roots/bud-babel`, () => {
-    expect(bud.extensions.has(`@roots/bud-babel`)).toBeTruthy()
-  })
-
   it(`sets up ts module rule`, async () => {
     await bud.extensions.runAll(`configAfter`)
     expect(bud.build.rules.ts).toBeDefined()

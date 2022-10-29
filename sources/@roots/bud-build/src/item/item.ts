@@ -42,7 +42,7 @@ class Item extends Base implements Build.Item {
    * @public
    */
   public constructor(
-    protected _app: () => Bud,
+    public _app: () => Bud,
     constructorParams?: {
       ident?: string
       loader?: Loader | `${keyof Loaders & string}`
@@ -99,8 +99,10 @@ class Item extends Base implements Build.Item {
   @bind
   public setLoader(loader: Loader | `${keyof Loaders & string}`): this {
     this.loader = loader
+
     if (!this.ident)
       this.setIdent(basename(isString(loader) ? loader : loader.getSrc()))
+
     return this
   }
 
@@ -134,7 +136,7 @@ class Item extends Base implements Build.Item {
    * @decorator `@bind`
    */
   @bind
-  public mergeOptions(options: Build.Item.Options) {
+  public mergeOptions(options: Build.Item.Options): this {
     this.setOptions({
       ...(this.getOptions() ?? {}),
       ...options,

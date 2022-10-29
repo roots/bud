@@ -19,7 +19,13 @@ import * as Service from './service.js'
 import type * as Config from './types/config'
 import type * as Options from './types/options'
 import type * as Services from './types/services'
+
+import type {Loaders, Items, Rules} from './types/services/build'
 import type * as Registry from './types/registry'
+import type {Modules} from './types/registry/modules'
+import type {Locations} from './types/registry/locations'
 
 export {Bud, Extension, Logger, Service}
+
 export type {Config, Options, Registry, Services}
+export type {Items, Modules, Loaders, Locations, Rules}

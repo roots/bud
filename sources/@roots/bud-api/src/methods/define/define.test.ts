@@ -26,7 +26,8 @@ describe(`bud.define`, function () {
     define({DEFINED_KEY: `DEFINED_VALUE`})
 
     expect(
-      bud.extensions.get(`webpack:define-plugin`).options.DEFINED_KEY,
+      bud.extensions.get(`@roots/bud-extensions/webpack-define-plugin`)
+        .options.DEFINED_KEY,
     ).toEqual(`DEFINED_VALUE`)
   })
 })

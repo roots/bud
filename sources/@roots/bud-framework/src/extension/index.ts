@@ -57,6 +57,11 @@ export class Extension<
   ExtensionOptions extends Options = Options,
   Plugin extends ApplyPlugin = ApplyPlugin,
 > {
+  /**
+   * Loose definition
+   *
+   * @public
+   */
   [key: string]: any
 
   /**

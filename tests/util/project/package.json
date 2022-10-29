@@ -8,13 +8,14 @@
     "extensions": {
       "denylist": [
         "@roots/bud-esbuild",
-        "@roots/bud-swc"
+        "@roots/bud-babel"
       ]
     }
   },
   "devDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-preset-recommend": "workspace:sources/@roots/bud-preset-recommend",
+    "@roots/bud-swc": "workspace:sources/@roots/bud-swc",
     "@roots/bud-tailwindcss": "workspace:sources/@roots/bud-tailwindcss"
   },
   "volta": {

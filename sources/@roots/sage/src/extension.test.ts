@@ -30,9 +30,9 @@ describe(`@roots/sage`, () => {
       JSON.stringify(instance.boot),
     ))
 
-  it(`registers @roots/bud-preset-recommend`, async () => {
+  it(`registers @roots/bud-preset-wordpress`, async () => {
     expect(
-      instance.app.extensions.has(`@roots/bud-preset-recommend`),
+      instance.app.extensions.has(`@roots/bud-preset-wordpress`),
     ).toBeTruthy()
   })
 
@@ -53,9 +53,5 @@ describe(`@roots/sage`, () => {
     expect(
       instance.app.hooks.filter(`build.optimization.runtimeChunk`),
     ).toBe(`single`)
-  })
-
-  it(`registers @roots/bud-babel`, async () => {
-    expect(instance.app.extensions.has(`@roots/bud-babel`)).toBeTruthy()
   })
 })

@@ -1,5 +1,6 @@
 import {beforeAll, describe, expect, it} from '@jest/globals'
 import {Bud, factory} from '@repo/test-kit/bud'
+import {Extension} from '@roots/bud-framework'
 
 import BudTerser from './index'
 
@@ -40,7 +41,7 @@ describe(`@roots/bud-terser`, () => {
   })
 
   it(`exposes self @ bud.terser`, async () => {
-    expect(bud.terser).toBeInstanceOf(BudTerser)
+    expect(bud.terser).toBeInstanceOf(Extension)
   })
 
   it(`bud.terser.comments`, async () => {

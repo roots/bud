@@ -14,7 +14,7 @@ export default () => {
     expect(bud.context.args.dry).toBe(true)
     expect(bud.mode).toBe(`development`)
 
-    instance = new Server(bud)
+    instance = new Server(() => bud)
     await instance.register(bud)
 
     try {

@@ -1,11 +1,8 @@
-import type {Bud} from '@roots/bud-framework'
+import type {Bud, Extension} from '@roots/bud-framework'
 import {isUndefined, omit} from '@roots/bud-support/lodash-es'
 import type {Options as HtmlOptions} from 'html-webpack-plugin'
 import {dirname, resolve} from 'path'
 import {fileURLToPath} from 'url'
-
-import BudHtmlWebpackPlugin from './html-webpack-plugin.extension.js'
-import BudInterpolateHtmlPlugin from './interpolate-html-plugin.extension.js'
 
 export interface template {
   (userOptions?: Options | boolean): Promise<Bud>
@@ -42,8 +39,10 @@ export const template: template = async function (
   const app = this as Bud
 
   if (userOptions === false) {
-    app.extensions.remove(`html-webpack-plugin`)
-    app.extensions.remove(`interpolate-html-plugin`)
+    app.extensions.remove(`@roots/bud-extensions/html-webpack-plugin`)
+    app.extensions.remove(
+      `@roots/bud-extensions/interpolate-html-webpack-plugin`,
+    )
     return app
   }
 
@@ -70,13 +69,16 @@ export const template: template = async function (
     }
   }
 
-  await app.extensions.add(BudHtmlWebpackPlugin)
-  app.extensions
-    .get(`html-webpack-plugin`)
-    .setOptions(omit(options, `replace`))
-
-  await app.extensions.add(BudInterpolateHtmlPlugin)
-  app.extensions.get(`interpolate-html-plugin`).setOptions(options.replace)
+  ;(
+    app.extensions.get(
+      `@roots/bud-extensions/html-webpack-plugin`,
+    ) as Extension
+  ).setOptions(omit(options, `replace`))
+  ;(
+    app.extensions.get(
+      `@roots/bud-extensions/interpolate-html-webpack-plugin`,
+    ) as Extension
+  ).setOptions(options.replace)
 
   return app
 }

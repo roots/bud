@@ -2,6 +2,7 @@ import type * as Service from '../../service.js'
 import type * as Api from '../../services/api.js'
 import type FS from '../../services/fs.js'
 import type * as Build from './build'
+import type {Items, Loaders, Rules} from './build'
 import type * as Cache from './cache'
 import type * as Compiler from './compiler'
 import type * as Dashboard from './dashboard'
@@ -10,20 +11,6 @@ import type * as Extensions from './extensions'
 import type * as Hooks from './hooks'
 import type * as Project from './project'
 import type * as Server from './server'
-
-export type {
-  Api,
-  Build,
-  Cache,
-  Compiler,
-  Dashboard,
-  Env,
-  Extensions,
-  Hooks,
-  Project,
-  Server,
-  FS,
-}
 
 /**
  * Service registry
@@ -42,4 +29,21 @@ export interface Registry extends Record<string, Service.Contract> {
   hooks: Hooks.Service
   project: Project.Service
   server: Server.Service
+}
+
+export type {
+  Api,
+  Build,
+  Cache,
+  Compiler,
+  Dashboard,
+  Env,
+  Extensions,
+  Hooks,
+  Items,
+  Loaders,
+  Project,
+  Rules,
+  Server,
+  FS,
 }

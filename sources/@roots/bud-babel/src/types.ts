@@ -1,5 +1,3 @@
-import '@roots/bud-framework'
-
 import type BabelExtension from './extension.js'
 
 export interface LoaderOptions {
@@ -69,13 +67,11 @@ declare module '@roots/bud-framework' {
     '@roots/bud-babel': BabelExtension
   }
 
-  namespace Services.Build {
-    interface Loaders {
-      babel: any
-    }
+  interface Loaders {
+    babel: any
+  }
 
-    interface Items {
-      babel: any
-    }
+  interface Items {
+    babel: any
   }
 }

@@ -41,7 +41,8 @@
   "types": "./lib/index.d.ts",
   "exports": {
     ".": "./lib/index.js",
-    "./service": "./lib/service.js"
+    "./service": "./lib/service.js",
+    "./*": "./lib/extensions/*/index.js"
   },
   "typesVersions": {
     "*": {
@@ -50,6 +51,9 @@
       ],
       "service": [
         "./lib/service.d.ts"
+      ],
+      "/*": [
+        "./lib/extensions/*/index.d.ts"
       ]
     }
   },
@@ -62,8 +66,15 @@
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
+    "@roots/bud-terser": "workspace:*",
     "chalk": "5.1.2",
-    "tslib": "2.4.0"
+    "clean-webpack-plugin": "4.0.0",
+    "copy-webpack-plugin": "11.0.0",
+    "html-webpack-plugin": "5.5.0",
+    "mini-css-extract-plugin": "2.6.1",
+    "tslib": "2.4.0",
+    "webpack": "5.74.0",
+    "webpack-manifest-plugin": "5.0.0"
   },
   "volta": {
     "extends": "../../../package.json"

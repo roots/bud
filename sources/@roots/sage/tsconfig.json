@@ -3,7 +3,7 @@
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./lib",
-    "types": ["@roots/bud-framework",  "@roots/bud-tailwindcss", "@roots/bud-api", "@roots/bud-preset-wordpress"],
+    "types": ["@roots/bud-framework",  "@roots/bud-tailwindcss", "@roots/bud-api", "@roots/bud-build", "@roots/bud-entrypoints", "@roots/bud-extensions", "@roots/bud-preset-wordpress"],
     "sourceMap": false,
   },
   "include": ["src"],
@@ -11,6 +11,9 @@
   "references": [
     {"path": "./../bud-framework/tsconfig.json"},
     {"path": "./../bud-api/tsconfig.json"},
+    {"path": "../bud-build/tsconfig.json"},
+    {"path": "./../bud-entrypoints/tsconfig.json"},
+    {"path": "./../bud-extensions/tsconfig.json"},
     {"path": "./../bud-preset-wordpress/tsconfig.json"},
     {"path": "./../bud-tailwindcss/tsconfig.json"},
   ]

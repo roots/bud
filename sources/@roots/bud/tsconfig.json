@@ -13,12 +13,11 @@
       "@roots/bud-extensions",
       "@roots/bud-framework",
       "@roots/bud-hooks",
-      "@roots/bud-server",
-      "@roots/bud-support",
+      "@roots/bud-terser"
     ],
   },
   "include": ["src"],
-  "exclude": ["lib", "node_modules", "src/**/*.test.tsx", "src/**/*.test.ts"],
+  "exclude": ["**/*.test.tsx", "**/*.test.ts"],
   "references": [
     {"path": "./../bud-framework/tsconfig.json"},
     {"path": "./../bud-api/tsconfig.json"},

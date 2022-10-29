@@ -57,18 +57,16 @@ declare module '@roots/bud-framework' {
   interface Modules {
     '@roots/sage': Sage
     '@roots/sage/acorn': Acorn
-    'wp-theme-json': ThemeJSON
+    '@roots/sage/wp-theme-json': ThemeJSON
   }
 
-  namespace Registry.Locations {
-    interface Locations {
-      '@resources': string
-      '@public': string
-      '@fonts': string
-      '@images': string
-      '@scripts': string
-      '@styles': string
-      '@views': string
-    }
+  interface Locations {
+    '@resources': string
+    '@public': string
+    '@fonts': string
+    '@images': string
+    '@scripts': string
+    '@styles': string
+    '@views': string
   }
 }

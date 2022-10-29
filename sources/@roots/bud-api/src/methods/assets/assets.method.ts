@@ -61,13 +61,15 @@ export const assets: method = async function assets(
     return {...item, ...overrides}
   }
 
-  app.extensions.get(`copy-webpack-plugin`).setOptions(options => ({
-    ...(options ?? {}),
-    patterns: [
-      ...(options?.patterns ?? []),
-      ...arrayedRequest.map(valueMapper),
-    ],
-  }))
+  app.extensions
+    .get(`@roots/bud-extensions/copy-webpack-plugin`)
+    .setOptions(options => ({
+      ...(options ?? {}),
+      patterns: [
+        ...(options?.patterns ?? []),
+        ...arrayedRequest.map(valueMapper),
+      ],
+    }))
 
   app.api.logger.success(
     `bud.copy: ${arrayedRequest.length} asset patterns added`,

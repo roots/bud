@@ -30,23 +30,17 @@ describe(`@roots/bud-extensions`, function () {
     })
 
     it(`is constructable`, () => {
-      const extensions: Extensions = new Extensions(
-        // @ts-ignore
-        bud,
-      )
+      const extensions: Extensions = new Extensions(() => bud)
       expect(extensions).toBeInstanceOf(Extensions)
     })
 
     it(`add fn registers a module`, async () => {
-      const extensions: Extensions = new Extensions(
-        // @ts-ignore
-        bud,
-      )
+      const extensions: Extensions = new Extensions(() => bud)
       extensions.repository = {} as any
 
       await extensions.add(mockModule)
 
-      expect(extensions.get(mockModule.label).options?.test).toEqual(
+      expect(extensions.get(mockModule.label)?.options?.test).toEqual(
         mockModule.options.test,
       )
     })
@@ -59,11 +53,8 @@ describe(`@roots/bud-extensions`, function () {
     beforeAll(async () => {
       bud = await factory({mode: `development`})
       expect(bud.mode).toBe(`development`)
-      extensions = new Extensions(
-        //@ts-ignore
-        bud,
-      )
-      await extensions.booted()
+      extensions = new Extensions(() => bud)
+      await extensions.booted(bud)
     })
 
     it(`[development] bud.extensions.repository options matches snapshot`, () => {

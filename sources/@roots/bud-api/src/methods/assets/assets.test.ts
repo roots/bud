@@ -11,7 +11,9 @@ describe(`bud.assets`, () => {
   beforeEach(async () => {
     bud = await factory()
     assetsFn = assets.bind(bud)
-    bud.extensions.get(`copy-webpack-plugin`).setOption(`patterns`, [])
+    bud.extensions
+      .get(`@roots/bud-extensions/copy-webpack-plugin`)
+      .setOption(`patterns`, [])
   })
 
   it(`should be a function`, () => {
@@ -19,13 +21,16 @@ describe(`bud.assets`, () => {
   })
 
   it(`should have copy-webpack-plugin available`, () => {
-    expect(bud.extensions.has(`copy-webpack-plugin`)).toBeTruthy()
+    expect(
+      bud.extensions.has(`@roots/bud-extensions/copy-webpack-plugin`),
+    ).toBeTruthy()
   })
 
   it(`should add job when passed an array of strings`, async () => {
     await assetsFn([`images`])
     expect(
-      bud.extensions.get(`copy-webpack-plugin`).options.patterns,
+      bud.extensions.get(`@roots/bud-extensions/copy-webpack-plugin`)
+        .options.patterns,
     ).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
@@ -50,8 +55,9 @@ describe(`bud.assets`, () => {
       ],
     ])
 
-    const [patterna, patternb] = bud.extensions.get(`copy-webpack-plugin`)
-      .options.patterns as any
+    const [patterna, patternb] = bud.extensions.get(
+      `@roots/bud-extensions/copy-webpack-plugin`,
+    ).options.patterns as any
 
     expect(patterna).toEqual(
       expect.objectContaining({
@@ -87,7 +93,7 @@ describe(`bud.assets`, () => {
     await assetsFn(input)
 
     const patterns = bud.extensions
-      .get(`copy-webpack-plugin`)
+      .get(`@roots/bud-extensions/copy-webpack-plugin`)
       .getOption(`patterns`)
 
     expect(patterns?.pop()).toEqual(
@@ -106,8 +112,9 @@ describe(`bud.assets`, () => {
     const overrides: Partial<CopyPlugin.ObjectPattern> = {toType: `file`}
     await assetsFn(input, overrides)
 
-    const patterns = bud.extensions.get(`copy-webpack-plugin`).options
-      .patterns
+    const patterns = bud.extensions.get(
+      `@roots/bud-extensions/copy-webpack-plugin`,
+    ).options.patterns
 
     expect(patterns?.pop()).toEqual(
       expect.objectContaining({

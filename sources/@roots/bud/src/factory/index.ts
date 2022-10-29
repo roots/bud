@@ -1,8 +1,8 @@
 import type {Options} from '@roots/bud-framework'
 
-import Bud from '../bud.js'
 import * as argv from '../context/argv.js'
 import * as applicationContext from '../context/index.js'
+import Bud from '../index.js'
 import {mergeOptions} from './options.js'
 
 /**
@@ -61,15 +61,22 @@ export async function factory(
 
   const context = await applicationContext.get(basedir)
 
-  Array.isArray(config?.extensions) &&
-    config.extensions
-      .filter(extension => !context?.extensions.includes(extension))
-      .map(extension => context.extensions.push(extension))
-
   Array.isArray(config?.services) &&
     config.services
       .filter(service => !context?.services.includes(service))
       .map(service => context.services.push(service))
+
+  Array.isArray(config?.extensions?.builtIn) &&
+    config.extensions.builtIn
+      .filter(extension => !context.extensions.builtIn.includes(extension))
+      .map(extension => context.extensions.builtIn.push(extension))
+
+  Array.isArray(config?.extensions?.discovered) &&
+    config.extensions.discovered
+      .filter(
+        extension => !context.extensions.discovered.includes(extension),
+      )
+      .map(extension => context.extensions.discovered.push(extension))
 
   const options = mergeOptions(context, config)
   const instance = await new Bud().lifecycle(options)

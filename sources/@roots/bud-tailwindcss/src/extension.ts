@@ -174,7 +174,7 @@ export default class BudTailwindCss extends Extension {
 
     if (this.getOption(`generateImports`) === false) return
     await this.app.extensions.add({
-      label: `bud-tailwindcss-virtual-module`,
+      label: `@roots/bud-tailwindcss/virtual-module`,
       make: async () =>
         new WebpackVirtualModules(
           this.importableKeys.reduce(

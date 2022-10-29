@@ -1,4 +1,5 @@
 import {Bud, factory} from '@repo/test-kit/bud'
+import {isUndefined} from 'lodash-es'
 
 import Build from './index.js'
 
@@ -8,9 +9,9 @@ describe(`bud.build.config`, function () {
 
   beforeAll(async () => {
     bud = await factory()
-    build = new Build(bud)
+    build = new Build(() => bud)
 
-    await build.register()
+    !isUndefined(build.register) && (await build.register(bud))
     await build.make()
   })
 

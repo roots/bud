@@ -10,6 +10,8 @@
  *  @packageDocumentation
  */
 
+import './types.js'
+
 import Extensions from './service.js'
 
 export default Extensions

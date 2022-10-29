@@ -13,10 +13,15 @@ export const provide: provide = function (
     throw new Error(`bud.provide: packages must be an object`)
   }
 
-  const plugin = app.extensions.get(`webpack:provide-plugin`)
+  const plugin = app.extensions.get(
+    `@roots/bud-extensions/webpack-provide-plugin`,
+  )
   const options = plugin.getOptions()
   const modified = Object.entries(packages).reduce(
-    (acc, [key, value]) => ({
+    (
+      acc: Record<string, string>,
+      [key, value]: [string, Array<string>],
+    ) => ({
       ...acc,
       ...value.reduce((acc, inner) => ({...acc, [inner]: key}), {}),
     }),

@@ -10,10 +10,7 @@ describe(`@roots/bud-hooks`, function () {
 
   beforeAll(async () => {
     bud = await factory()
-    hooks = new Hooks(
-      // @ts-ignore
-      bud,
-    )
+    hooks = new Hooks(() => bud)
     hooks.syncStore.store = {}
     hooks.asyncStore.store = {}
     hooks.events.store = {}

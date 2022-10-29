@@ -16,7 +16,8 @@
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "types": ["node", "webpack-env", "@roots/bud", "@roots/bud-swc", "@roots/bud-tailwindcss"]
   },
   "include": ["src"],
   "exclude": ["node_modules"]

@@ -46,6 +46,7 @@ const base = {
     '@roots/bud-esbuild$': `<rootDir>/sources/@roots/bud-esbuild/src/index.ts`,
     '@roots/bud-eslint$': `<rootDir>/sources/@roots/bud-eslint/src/index.ts`,
     '@roots/bud-extensions$': `<rootDir>/sources/@roots/bud-extensions/src/index.ts`,
+    '@roots/bud-extensions/(?!js)$': `<rootDir>/sources/@roots/bud-extensions/src/extensions/$1/index.ts`,
     '@roots/bud-framework$': `<rootDir>/sources/@roots/bud-framework/src/index.ts`,
     '@roots/bud-framework/extension$': `<rootDir>/sources/@roots/bud-framework/src/extension/index.ts`,
     '@roots/bud-framework/extension/decorators$': `<rootDir>/sources/@roots/bud-framework/src/extension/decorators/index.ts`,

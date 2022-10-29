@@ -5506,8 +5506,10 @@ __metadata:
   resolution: "@roots/bud-api@workspace:sources/@roots/bud-api"
   dependencies:
     "@jest/globals": 29.2.2
+    "@roots/bud-extensions": "workspace:sources/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
+    "@roots/bud-terser": "workspace:sources/@roots/bud-terser"
     "@roots/container": "workspace:sources/@roots/container"
     "@skypack/package-check": 0.2.2
     "@types/node": 16.18.2
@@ -5800,10 +5802,17 @@ __metadata:
     "@repo/test-kit": "workspace:sources/@repo/test-kit"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
+    "@roots/bud-terser": "workspace:*"
     "@skypack/package-check": 0.2.2
     "@types/node": 16.18.2
     chalk: 5.1.2
+    clean-webpack-plugin: 4.0.0
+    copy-webpack-plugin: 11.0.0
+    html-webpack-plugin: 5.5.0
+    mini-css-extract-plugin: 2.6.1
     tslib: 2.4.0
+    webpack: 5.74.0
+    webpack-manifest-plugin: 5.0.0
   languageName: unknown
   linkType: soft
 
@@ -5916,6 +5925,7 @@ __metadata:
     "@jest/globals": 29.2.2
     "@repo/test-kit": "workspace:sources/@repo/test-kit"
     "@roots/bud-api": "workspace:sources/@roots/bud-api"
+    "@roots/bud-build": "workspace:sources/@roots/bud-build"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
@@ -5956,8 +5966,10 @@ __metadata:
     "@roots/bud-api": "workspace:sources/@roots/bud-api"
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel"
     "@roots/bud-entrypoints": "workspace:sources/@roots/bud-entrypoints"
+    "@roots/bud-esbuild": "workspace:sources/@roots/bud-esbuild"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss"
+    "@roots/bud-swc": "workspace:sources/@roots/bud-swc"
     "@skypack/package-check": 0.2.2
     "@types/node": 16.18.2
     tslib: 2.4.0
@@ -6083,6 +6095,7 @@ __metadata:
     "@pmmmwh/react-refresh-webpack-plugin": ^0.5.7
     "@roots/bud-api": "workspace:sources/@roots/bud-api"
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel"
+    "@roots/bud-esbuild": "workspace:sources/@roots/bud-esbuild"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@roots/bud-swc": "workspace:sources/@roots/bud-swc"
@@ -6119,6 +6132,7 @@ __metadata:
   dependencies:
     "@jest/globals": 29.2.2
     "@repo/test-kit": "workspace:sources/@repo/test-kit"
+    "@roots/bud-build": "workspace:sources/@roots/bud-build"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss"
     "@skypack/package-check": 0.2.2
@@ -6330,7 +6344,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/bud-terser@workspace:sources/@roots/bud-terser":
+"@roots/bud-terser@workspace:*, @roots/bud-terser@workspace:sources/@roots/bud-terser":
   version: 0.0.0-use.local
   resolution: "@roots/bud-terser@workspace:sources/@roots/bud-terser"
   dependencies:
@@ -6394,7 +6408,10 @@ __metadata:
   dependencies:
     "@jest/globals": 29.2.2
     "@roots/bud-api": "workspace:sources/@roots/bud-api"
+    "@roots/bud-build": "workspace:sources/@roots/bud-build"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
+    "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss"
+    "@roots/bud-sass": "workspace:sources/@roots/bud-sass"
     "@skypack/package-check": 0.2.2
     "@types/node": 16.18.2
     "@vue/compiler-sfc": ^3.2.36
@@ -6499,26 +6516,20 @@ __metadata:
     "@roots/bud-terser": "workspace:sources/@roots/bud-terser"
     "@roots/container": "workspace:sources/@roots/container"
     "@skypack/package-check": 0.2.2
-    "@types/braces": 3.0.1
-    "@types/mini-css-extract-plugin": 2.5.0
     "@types/node": 16.18.2
     "@types/node-notifier": 8.0.2
     browserslist: 4.21.4
     caniuse-lite: 1.0.30001426
-    clean-webpack-plugin: ^4.0.0
     conf: 10.2.0
-    copy-webpack-plugin: 11.0.0
     dotenv: 16.0.3
     dotenv-expand: 9.0.0
     import-meta-resolve: 2.1.0
-    mini-css-extract-plugin: ^2.4.5
     node-notifier: 10.0.1
     open: 8.4.0
     open-editor: 4.0.0
     tslib: 2.4.0
     webpack: 5.74.0
     webpack-cli: ^4.9.2
-    webpack-manifest-plugin: ^5.0.0
   peerDependencies:
     browserslist: "*"
     caniuse-lite: "*"
@@ -6669,13 +6680,14 @@ __metadata:
   resolution: "@roots/sage@workspace:sources/@roots/sage"
   dependencies:
     "@jest/globals": 29.2.2
+    "@roots/bud-build": "workspace:sources/@roots/bud-build"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-preset-wordpress": "workspace:sources/@roots/bud-preset-wordpress"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@roots/bud-tailwindcss": "workspace:sources/@roots/bud-tailwindcss"
     "@roots/container": "workspace:sources/@roots/container"
     "@skypack/package-check": 0.2.2
-    "@types/node": 16.18.2
+    "@types/node": 18.11.7
     tailwindcss: 3.2.1
     tslib: 2.4.0
     webpack: 5.74.0
@@ -7298,6 +7310,7 @@ __metadata:
   dependencies:
     "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-preset-recommend": "workspace:sources/@roots/bud-preset-recommend"
+    "@roots/bud-swc": "workspace:sources/@roots/bud-swc"
     "@roots/bud-tailwindcss": "workspace:sources/@roots/bud-tailwindcss"
   languageName: unknown
   linkType: soft
@@ -7424,13 +7437,6 @@ __metadata:
   dependencies:
     "@types/node": "*"
   checksum: bfcadb042a41b124c4e3de4925e3be6d35b78f93f27c4535d5ff86980dc0f8bc407ed99b9b54528952dc62834d5a779392f7a12c2947dd19330eb05a6bcae15a
-  languageName: node
-  linkType: hard
-
-"@types/braces@npm:3.0.1":
-  version: 3.0.1
-  resolution: "@types/braces@npm:3.0.1"
-  checksum: 3749f7673a03d498ddb2f199b222bb403e53e78ac05a599c757c2049703ece802602c78640af0ff826be0fd2ea8b03daff04ce18806ed739592302195b7a569b
   languageName: node
   linkType: hard
 
@@ -7891,6 +7897,13 @@ __metadata:
   version: 16.18.2
   resolution: "@types/node@npm:16.18.2"
   checksum: d21bb6614916b88242300abb23f11ae8bdaabd60c8f7c5edac21f3bf4b1f3ebfbd2a9019a664dd28e5b5730145c069074d70e7a2ab063e80a2fa9ab12de9797a
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:18.11.7":
+  version: 18.11.7
+  resolution: "@types/node@npm:18.11.7::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2F%40types%252fnode%2F-%2Fnode-18.11.7.tgz"
+  checksum: 69d630825cf6fbf580d08d76a4d4836ef8c34ed4fe0842221ade87d275f517099cbfabe8e22397208e564bd24926db97699ab9db5c091383269a432b336665e2
   languageName: node
   linkType: hard
 
@@ -10341,7 +10354,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"array-union@npm:^1.0.1, array-union@npm:^1.0.2":
+"array-union@npm:^1.0.1":
+  version: 1.0.2
+  resolution: "array-union@npm:1.0.2::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Farray-union%2F-%2Farray-union-1.0.2.tgz"
+  dependencies:
+    array-uniq: ^1.0.1
+  checksum: 82cec6421b6e6766556c484835a6d476a873f1b71cace5ab2b4f1b15b1e3162dc4da0d16f7a2b04d4aec18146c6638fe8f661340b31ba8e469fd811a1b45dc8d
+  languageName: node
+  linkType: hard
+
+"array-union@npm:^1.0.2":
   version: 1.0.2
   resolution: "array-union@npm:1.0.2"
   dependencies:
@@ -11985,9 +12007,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clean-webpack-plugin@npm:^4.0.0":
+"clean-webpack-plugin@npm:4.0.0":
   version: 4.0.0
-  resolution: "clean-webpack-plugin@npm:4.0.0"
+  resolution: "clean-webpack-plugin@npm:4.0.0::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fclean-webpack-plugin%2F-%2Fclean-webpack-plugin-4.0.0.tgz"
   dependencies:
     del: ^4.1.1
   peerDependencies:
@@ -13836,7 +13858,7 @@ __metadata:
 
 "del@npm:^4.1.1":
   version: 4.1.1
-  resolution: "del@npm:4.1.1"
+  resolution: "del@npm:4.1.1::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fdel%2F-%2Fdel-4.1.1.tgz"
   dependencies:
     "@types/glob": ^7.1.1
     globby: ^6.1.0
@@ -17227,9 +17249,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob@npm:^7.0.0, glob@npm:^7.0.3, glob@npm:^7.0.5, glob@npm:^7.1.3, glob@npm:^7.1.4, glob@npm:^7.1.6":
+"glob@npm:^7.0.0, glob@npm:^7.0.5, glob@npm:^7.1.3, glob@npm:^7.1.4, glob@npm:^7.1.6":
   version: 7.2.3
   resolution: "glob@npm:7.2.3"
+  dependencies:
+    fs.realpath: ^1.0.0
+    inflight: ^1.0.4
+    inherits: 2
+    minimatch: ^3.1.1
+    once: ^1.3.0
+    path-is-absolute: ^1.0.0
+  checksum: 29452e97b38fa704dabb1d1045350fb2467cf0277e155aa9ff7077e90ad81d1ea9d53d3ee63bd37c05b09a065e90f16aec4a65f5b8de401d1dac40bc5605d133
+  languageName: node
+  linkType: hard
+
+"glob@npm:^7.0.3":
+  version: 7.2.3
+  resolution: "glob@npm:7.2.3::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fglob%2F-%2Fglob-7.2.3.tgz"
   dependencies:
     fs.realpath: ^1.0.0
     inflight: ^1.0.4
@@ -17335,7 +17371,7 @@ __metadata:
 
 "globby@npm:^6.1.0":
   version: 6.1.0
-  resolution: "globby@npm:6.1.0"
+  resolution: "globby@npm:6.1.0::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fglobby%2F-%2Fglobby-6.1.0.tgz"
   dependencies:
     array-union: ^1.0.1
     glob: ^7.0.3
@@ -19371,7 +19407,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-path-cwd@npm:^2.0.0, is-path-cwd@npm:^2.2.0":
+"is-path-cwd@npm:^2.0.0":
+  version: 2.2.0
+  resolution: "is-path-cwd@npm:2.2.0::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fis-path-cwd%2F-%2Fis-path-cwd-2.2.0.tgz"
+  checksum: 46a840921bb8cc0dc7b5b423a14220e7db338072a4495743a8230533ce78812dc152548c86f4b828411fe98c5451959f07cf841c6a19f611e46600bd699e8048
+  languageName: node
+  linkType: hard
+
+"is-path-cwd@npm:^2.2.0":
   version: 2.2.0
   resolution: "is-path-cwd@npm:2.2.0"
   checksum: 46a840921bb8cc0dc7b5b423a14220e7db338072a4495743a8230533ce78812dc152548c86f4b828411fe98c5451959f07cf841c6a19f611e46600bd699e8048
@@ -19380,7 +19423,7 @@ __metadata:
 
 "is-path-in-cwd@npm:^2.0.0":
   version: 2.1.0
-  resolution: "is-path-in-cwd@npm:2.1.0"
+  resolution: "is-path-in-cwd@npm:2.1.0::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fis-path-in-cwd%2F-%2Fis-path-in-cwd-2.1.0.tgz"
   dependencies:
     is-path-inside: ^2.1.0
   checksum: 6b01b3f8c9172e9682ea878d001836a0cc5a78cbe6236024365d478c2c9e384da2417e5f21f2ad2da2761d0465309fc5baf6e71187d2a23f0058da69790f7f48
@@ -19389,7 +19432,7 @@ __metadata:
 
 "is-path-inside@npm:^2.1.0":
   version: 2.1.0
-  resolution: "is-path-inside@npm:2.1.0"
+  resolution: "is-path-inside@npm:2.1.0::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fis-path-inside%2F-%2Fis-path-inside-2.1.0.tgz"
   dependencies:
     path-is-inside: ^1.0.2
   checksum: 6ca34dbd84d5c50a3ee1547afb6ada9b06d556a4ff42da9b303797e4acc3ac086516a4833030aa570f397f8c58dacabd57ee8e6c2ce8b2396a986ad2af10fcaf
@@ -22589,7 +22632,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mini-css-extract-plugin@npm:*, mini-css-extract-plugin@npm:^2.4.5, mini-css-extract-plugin@npm:^2.6.1":
+"mini-css-extract-plugin@npm:*, mini-css-extract-plugin@npm:2.6.1, mini-css-extract-plugin@npm:^2.4.5, mini-css-extract-plugin@npm:^2.6.1":
   version: 2.6.1
   resolution: "mini-css-extract-plugin@npm:2.6.1"
   dependencies:
@@ -24579,9 +24622,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"path-is-inside@npm:1.0.2, path-is-inside@npm:^1.0.2":
+"path-is-inside@npm:1.0.2":
   version: 1.0.2
   resolution: "path-is-inside@npm:1.0.2"
+  checksum: 0b5b6c92d3018b82afb1f74fe6de6338c4c654de4a96123cb343f2b747d5606590ac0c890f956ed38220a4ab59baddfd7b713d78a62d240b20b14ab801fa02cb
+  languageName: node
+  linkType: hard
+
+"path-is-inside@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "path-is-inside@npm:1.0.2::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fpath-is-inside%2F-%2Fpath-is-inside-1.0.2.tgz"
   checksum: 0b5b6c92d3018b82afb1f74fe6de6338c4c654de4a96123cb343f2b747d5606590ac0c890f956ed38220a4ab59baddfd7b713d78a62d240b20b14ab801fa02cb
   languageName: node
   linkType: hard
@@ -24733,7 +24783,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pify@npm:^2.0.0, pify@npm:^2.3.0":
+"pify@npm:^2.0.0":
+  version: 2.3.0
+  resolution: "pify@npm:2.3.0::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fpify%2F-%2Fpify-2.3.0.tgz"
+  checksum: 9503aaeaf4577acc58642ad1d25c45c6d90288596238fb68f82811c08104c800e5a7870398e9f015d82b44ecbcbef3dc3d4251a1cbb582f6e5959fe09884b2ba
+  languageName: node
+  linkType: hard
+
+"pify@npm:^2.3.0":
   version: 2.3.0
   resolution: "pify@npm:2.3.0"
   checksum: 9503aaeaf4577acc58642ad1d25c45c6d90288596238fb68f82811c08104c800e5a7870398e9f015d82b44ecbcbef3dc3d4251a1cbb582f6e5959fe09884b2ba
@@ -27870,9 +27927,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rimraf@npm:2, rimraf@npm:^2.6.1, rimraf@npm:^2.6.3":
+"rimraf@npm:2, rimraf@npm:^2.6.1":
   version: 2.7.1
   resolution: "rimraf@npm:2.7.1"
+  dependencies:
+    glob: ^7.1.3
+  bin:
+    rimraf: ./bin.js
+  checksum: cdc7f6eacb17927f2a075117a823e1c5951792c6498ebcce81ca8203454a811d4cf8900314154d3259bb8f0b42ab17f67396a8694a54cae3283326e57ad250cd
+  languageName: node
+  linkType: hard
+
+"rimraf@npm:^2.6.3":
+  version: 2.7.1
+  resolution: "rimraf@npm:2.7.1::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Frimraf%2F-%2Frimraf-2.7.1.tgz"
   dependencies:
     glob: ^7.1.3
   bin:
@@ -32175,7 +32243,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack-manifest-plugin@npm:^5.0.0":
+"webpack-manifest-plugin@npm:5.0.0":
   version: 5.0.0
   resolution: "webpack-manifest-plugin@npm:5.0.0"
   dependencies:

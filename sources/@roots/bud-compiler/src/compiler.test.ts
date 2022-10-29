@@ -63,7 +63,7 @@ describe(`@roots/bud-compiler`, function () {
     jest.clearAllMocks()
 
     bud = await import(`@roots/bud`).then(({default: Bud}) => new Bud())
-    compiler = new Compiler(bud)
+    compiler = new Compiler(() => bud)
     // @ts-ignore
     compiler.implementation = new webpack()
   })
@@ -118,7 +118,7 @@ describe(`@roots/bud-compiler`, function () {
         ({default: Bud}) => new Bud(),
       )
       // @ts-ignore
-      const compiler = new Compiler(bud)
+      const compiler = new Compiler(() => bud)
       // @ts-ignore
       compiler.implementation = new webpack()
       await compiler.compile()
@@ -132,7 +132,7 @@ describe(`@roots/bud-compiler`, function () {
   it(`should call webpack`, async () => {
     try {
       bud = await import(`@roots/bud`).then(({default: Bud}) => new Bud())
-      compiler = new Compiler(bud)
+      compiler = new Compiler(() => bud)
       // @ts-ignore
       compiler.implementation = new webpack()
       await compiler.compile()

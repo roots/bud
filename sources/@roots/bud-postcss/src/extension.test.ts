@@ -1,4 +1,4 @@
-import {beforeAll, describe, expect, it} from '@jest/globals'
+import {beforeEach, describe, expect, it} from '@jest/globals'
 import {Bud, factory} from '@repo/test-kit/bud'
 
 import BudPostCss from './index'
@@ -6,7 +6,7 @@ import BudPostCss from './index'
 describe(`@roots/bud-postcss`, () => {
   let bud: Bud
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     bud = await factory()
     await bud.extensions.add(BudPostCss)
   })

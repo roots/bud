@@ -1,3 +1,4 @@
+import type {Bud} from '@roots/bud-framework'
 import * as Service from '@roots/bud-framework/service'
 import type * as Base from '@roots/bud-framework/services/build'
 import type {
@@ -38,21 +39,72 @@ export default class Build extends Service.Base implements Base.Service {
    *
    * @public
    */
-  public loaders: Record<`${keyof Loaders & string}`, Loader> = {}
+  // @ts-ignore
+  public loaders: Loaders = {}
 
   /**
    * Registered rules
    *
    * @public
    */
-  public rules: Record<`${keyof Rules & string}`, Rule.Interface> = {}
+  // @ts-ignore
+  public rules: Rules = {}
 
   /**
    * Registered items
    *
    * @public
    */
-  public items: Record<`${keyof Items & string}`, Item> = {}
+  // @ts-ignore
+  public items: Items = {}
+
+  /**
+   * Service register event
+   *
+   * @remarks
+   * `loaders`, `items`, and `rules` are instantiated dumbly
+   * because it is painful to think about how to map the typings..
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async register?(bud: Bud): Promise<any> {
+    Object.entries(loaders).map(
+      <K extends keyof Loaders & string>([key, loaderFactory]: [
+        K,
+        (bud: Bud) => Loaders[K],
+      ]) => {
+        const value = loaderFactory(bud)
+        this.setLoader(key, value)
+      },
+    )
+
+    Object.entries(items).map(
+      <K extends keyof Items & string>([key, itemFactory]: [
+        K,
+        (bud: Bud) => Items[K],
+      ]) => {
+        const value = itemFactory(bud)
+        this.setItem(key, value as any)
+      },
+    )
+
+    this.items.precss = bud.isProduction
+      ? this.items.minicss
+      : this.items.style
+
+    Object.entries(rules)
+      .reverse()
+      .map(
+        <K extends keyof Rules & string>([key, ruleFactory]: [
+          K,
+          (bud: Bud) => Rules[K],
+        ]) => {
+          this.setRule(key, ruleFactory(bud))
+        },
+      )
+  }
 
   /**
    * Make webpack configuration
@@ -92,39 +144,6 @@ export default class Build extends Service.Base implements Base.Service {
 
     await this.app.hooks.fire(`build.after`)
     return this.config
-  }
-
-  /**
-   * Service register event
-   *
-   * @remarks
-   * `loaders`, `items`, and `rules` are instantiated dumbly
-   * because it is painful to think about how to map the typings..
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async register() {
-    Object.entries(loaders).map(([key, loaderFactory]) => {
-      const value = loaderFactory(this.app)
-      this.setLoader(key, value)
-    })
-
-    Object.entries(items).map(([key, itemFactory]) => {
-      const value = itemFactory(this.app)
-      this.setItem(key, value as any)
-    })
-
-    this.items.precss = this.app.isProduction
-      ? this.items.minicss
-      : this.items.style
-
-    Object.entries(rules)
-      .reverse()
-      .map(([key, ruleFactory]) => {
-        this.setRule(key, ruleFactory(this.app))
-      })
   }
 
   /**
@@ -193,7 +212,7 @@ export default class Build extends Service.Base implements Base.Service {
   @bind
   public setLoader<K extends `${keyof Loaders & string}`>(
     name: K,
-    definition?: string | Loader,
+    definition?: any,
   ): this {
     const loader = isUndefined(definition)
       ? this.makeLoader(name)
@@ -217,7 +236,7 @@ export default class Build extends Service.Base implements Base.Service {
    * @decorator `@bind`
    */
   @bind
-  public makeLoader(src: string): Loader {
+  public makeLoader(src?: string): Loader {
     return new Loader(() => this.app, src)
   }
 
@@ -244,7 +263,7 @@ export default class Build extends Service.Base implements Base.Service {
   @bind
   public setItem<K extends `${keyof Items & string}`>(
     name: K,
-    options?: Item | ((item: Item) => Item),
+    options?: Items[K]['options'] | ((item: Items[K]) => Items[K]),
   ): this {
     const maybeOptionsCallback = isUndefined(options)
       ? {ident: name, loader: name}

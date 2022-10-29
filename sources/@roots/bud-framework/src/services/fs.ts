@@ -19,6 +19,15 @@ export default class Service extends FS {
   public static label = `fs`
 
   /**
+   * Access {@link Bud}
+   *
+   * @public @readonly
+   */
+  public get app(): Bud {
+    return this._app()
+  }
+
+  /**
    * Logger
    *
    * @public
@@ -51,8 +60,8 @@ export default class Service extends FS {
    *
    * @public
    */
-  public constructor(public app?: Bud) {
-    super(app.context.basedir)
+  public constructor(public _app: () => Bud) {
+    super(_app().context.basedir)
     this.s3 = new S3()
     this.logger = this.app.logger
       .makeInstance({logLevel: `info`, interactive: true})

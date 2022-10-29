@@ -64,6 +64,8 @@
   },
   "devDependencies": {
     "@jest/globals": "29.2.2",
+    "@roots/bud-extensions": "workspace:sources/@roots/bud-extensions",
+    "@roots/bud-terser": "workspace:sources/@roots/bud-terser",
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.18.2",
     "webpack": "5.74.0"

@@ -9,7 +9,7 @@ export function define(values: DefinePlugin['definitions']): Bud {
   const app = this as Bud
 
   app.extensions
-    .get(`webpack:define-plugin`)
+    .get(`@roots/bud-extensions/webpack-define-plugin`)
     .setOptions((definitions: DefinePlugin['definitions']) => ({
       ...definitions,
       ...values,

@@ -41,7 +41,7 @@ describe(`Api`, () => {
   beforeEach(async () => {
     jest.clearAllMocks()
     // @ts-ignore
-    instance = new Api(mockBud)
+    instance = new Api(() => mockBud)
   })
 
   it(`should have a method bootstrap()`, async () => {
@@ -109,7 +109,7 @@ describe(`processQueue`, () => {
 
   it(`processQueue() should empty the queue and fill the trace`, async () => {
     // @ts-ignore
-    instance = new Api(mockBud)
+    instance = new Api(() => mockBud)
     // @ts-ignore
     const call = jest.spyOn(instance, `call`)
     // @ts-ignore

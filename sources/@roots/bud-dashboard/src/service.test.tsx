@@ -11,7 +11,7 @@ describe(`Dashboard`, () => {
   beforeEach(async () => {
     bud = await factory()
     bud.context.args.log = true
-    dashboard = new Dashboard(bud)
+    dashboard = new Dashboard(() => bud)
   })
 
   it(`should be a Service`, async () => {

@@ -42,6 +42,9 @@ export interface Output extends RuleSetRule {
 }
 
 export interface Interface extends Base {
+  _app: () => Bud
+  app: Bud
+
   /**
    * Test pattern
    *
