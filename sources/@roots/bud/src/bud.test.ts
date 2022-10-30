@@ -1,14 +1,13 @@
 import {beforeEach, describe, expect, it, jest} from '@jest/globals'
-import {Bud} from '@roots/bud-framework'
 
-import budConstructor from './bud.js'
+import Bud from './bud'
 
 describe(`@roots/bud/bud`, function () {
-  let bud
+  let bud: Bud
 
   beforeEach(async () => {
     jest.clearAllMocks()
-    bud = new budConstructor()
+    bud = new Bud()
   })
 
   it(`should be instance of Framework`, () => {

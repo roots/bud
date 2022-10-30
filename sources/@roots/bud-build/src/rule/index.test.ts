@@ -1,6 +1,6 @@
 import {factory} from '@repo/test-kit/bud'
 
-import Rule from './rule'
+import Rule from './index.js'
 
 describe(`Build Rule`, function () {
   let bud

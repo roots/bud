@@ -6,6 +6,9 @@ const mock = {
     dry: false,
   },
   basedir: dirname(fileURLToPath(import.meta.url)),
+  extensions: {
+    builtIn: [],
+  },
 }
 
 export default mock

@@ -24,6 +24,7 @@ jest.unstable_mockModule(`@roots/bud-dashboard`, () => ({
 jest.unstable_mockModule(`@roots/bud-extensions`, () => ({
   default: extensions,
 }))
+
 jest.unstable_mockModule(`@roots/bud-hooks`, () => ({default: hooks}))
 jest.unstable_mockModule(`@roots/bud-cache`, () => ({default: cache}))
 

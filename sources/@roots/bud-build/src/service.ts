@@ -14,9 +14,9 @@ import type {ValueFactory} from './config/builder.js'
 import * as items from './handlers/items.js'
 import * as loaders from './handlers/loaders.js'
 import * as rules from './handlers/rules/rules.js'
-import Item from './item/item.js'
-import Loader from './loader/loader.js'
-import * as Rule from './rule/rule.js'
+import Item from './item/index.js'
+import Loader from './loader/index.js'
+import * as Rule from './rule/index.js'
 
 /**
  * Webpack configuration builder class
@@ -115,6 +115,7 @@ export default class Build extends Service.Base implements Base.Service {
   @bind
   public async make(): Promise<Configuration> {
     this.app.log(`bud.build.make called`)
+
     try {
       await this.app.hooks.fire(`build.before`)
     } catch (error) {

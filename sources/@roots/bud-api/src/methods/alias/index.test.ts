@@ -1,10 +1,10 @@
 import {beforeEach, describe, expect, it} from '@jest/globals'
-import {Bud, factory, repoPath} from '@repo/test-kit/bud'
+import {factory, repoPath} from '@repo/test-kit/bud'
 
-import {alias} from './alias.method.js'
+import {alias} from './index.js'
 
 describe(`bud.alias`, () => {
-  let bud: Bud
+  let bud
   let instance: typeof alias
 
   beforeEach(async () => {

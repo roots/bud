@@ -2,21 +2,11 @@ import {describe, expect, it} from '@jest/globals'
 import {factory} from '@repo/test-kit/bud'
 import {ServiceContainer} from '@roots/bud-framework/service'
 
-import Bud from '../../bud'
-import Env from './index'
+import Env from './index.js'
 
 describe(`@roots/bud/services/env`, () => {
-  let bud: Bud
-
-  beforeEach(async () => {
-    bud = await factory()
-  })
-
-  it(`is constructable`, () => {
-    expect(Env).toBeInstanceOf(Function)
-  })
-
-  it(`is a container service`, () => {
+  it(`is a container service`, async () => {
+    const bud = await factory()
     const instance = new Env(() => bud)
     expect(instance).toBeInstanceOf(ServiceContainer)
   })

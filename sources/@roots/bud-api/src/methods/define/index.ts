@@ -6,14 +6,14 @@ export interface define {
 }
 
 export function define(values: DefinePlugin['definitions']): Bud {
-  const app = this as Bud
+  const bud = this as Bud
 
-  app.extensions
+  bud.extensions
     .get(`@roots/bud-extensions/webpack-define-plugin`)
-    .setOptions((definitions: DefinePlugin['definitions']) => ({
-      ...definitions,
+    ?.setOptions((definitions: DefinePlugin['definitions']) => ({
+      ...(definitions ?? {}),
       ...values,
     }))
 
-  return app
+  return bud
 }

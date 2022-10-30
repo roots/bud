@@ -36,10 +36,12 @@ describe(`Dashboard`, () => {
   })
 
   it(`should return early from dashboard.stats when there are no stats provided`, async () => {
-    await dashboard.stats(
-      // @ts-ignore
-      undefined,
-    )
+    try {
+      await dashboard.stats(
+        // @ts-ignore
+        undefined,
+      )
+    } catch (e) {}
     expect(dashboard.lastHash).toBeUndefined()
   })
 

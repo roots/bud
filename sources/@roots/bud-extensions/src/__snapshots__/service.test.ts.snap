@@ -1,25 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`@roots/bud-extensions in development [development] bud.extensions.repository options matches snapshot 1`] = `
-[
-  "@roots/bud-entrypoints",
-  "@roots/bud-extensions/bud-cdn",
-  "@roots/bud-extensions/bud-esm",
-  "@roots/bud-extensions/bud-fix-style-only-entrypoints",
-  "@roots/bud-extensions/clean-webpack-plugin",
-  "@roots/bud-extensions/copy-webpack-plugin",
-  "@roots/bud-extensions/html-webpack-plugin",
-  "@roots/bud-extensions/interpolate-html-webpack-plugin",
-  "@roots/bud-extensions/mini-css-extract-plugin",
-  "@roots/bud-extensions/webpack-define-plugin",
-  "@roots/bud-extensions/webpack-hot-module-replacement-plugin",
-  "@roots/bud-extensions/webpack-manifest-plugin",
-  "@roots/bud-extensions/webpack-provide-plugin",
-  "@roots/bud-postcss",
-  "@roots/bud-preset-recommend",
-  "@roots/bud-swc",
-  "@roots/bud-tailwindcss",
-  "@roots/bud-terser",
-  "@roots/bud-terser/css-minimizer",
-]
-`;
+exports[`@roots/bud-extensions [development] bud.extensions.repository options matches snapshot 1`] = `[]`;

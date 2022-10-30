@@ -1,11 +1,11 @@
 import {beforeAll, describe, expect, it} from '@jest/globals'
-import {Bud, factory} from '@repo/test-kit/bud'
-import {Extension} from '@roots/bud-framework'
+import {factory} from '@repo/test-kit/bud'
+import {Extension} from '@roots/bud-framework/extension'
 
 import BudTerser from './index'
 
 describe(`@roots/bud-terser`, () => {
-  let bud: Bud
+  let bud
 
   beforeAll(async () => {
     bud = await factory()

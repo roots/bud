@@ -1,12 +1,12 @@
-export {alias} from './alias/alias.method.js'
-export {assets, assets as copy} from './assets/assets.method.js'
-export {bundle} from './bundle/bundle.method.js'
+export {alias} from './alias/index.js'
+export {assets, assets as copy} from './assets/index.js'
+export {bundle} from './bundle/index.js'
 export {
   config,
   config as webpackConfig,
   config as override,
 } from './config/config.method.js'
-export {define} from './define/define.method.js'
+export {define} from './define/index.js'
 export {devtool} from './devtool/devtool.method.js'
 export {entry} from './entry/entry.method.js'
 export {experiments} from './experiments/experiments.method.js'

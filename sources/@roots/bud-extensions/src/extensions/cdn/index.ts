@@ -35,7 +35,7 @@ export interface Options {
  * @decorator `@expose`
  * @decorator `@options`
  */
-@label(`@roots/bud-extensions/bud-cdn`)
+@label(`@roots/bud-extensions/cdn`)
 @expose(`cdn`)
 @options<Options>({
   allowedUris: [],

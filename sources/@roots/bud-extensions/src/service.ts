@@ -128,15 +128,17 @@ export default class Extensions
         ?.denylist ?? []),
     )
 
-    await Promise.all(
-      bud.context.extensions.builtIn
-        .filter(Boolean)
-        .map(async signifier => await this.import(signifier, true)),
-    )
+    if (bud.context.extensions.builtIn)
+      await Promise.all(
+        bud.context.extensions.builtIn
+          ?.filter(Boolean)
+          .map(async signifier => await this.import(signifier, true)),
+      )
 
     if (
       this.resolvedOptions.discovery &&
-      this.resolvedOptions.allowlist.length === 0
+      this.resolvedOptions.allowlist.length === 0 &&
+      bud.context.extensions?.discovered
     )
       await Promise.all(
         bud.context.extensions.discovered
@@ -144,7 +146,7 @@ export default class Extensions
           .filter(this.isAllowed)
           .map(async signifier => await this.import(signifier, true)),
       )
-    else
+    else if (this.resolvedOptions.allowlist.length > 0)
       await Promise.all(
         this.resolvedOptions.allowlist
           ?.filter(Boolean)
@@ -349,11 +351,10 @@ export default class Extensions
       const moduleObject:
         | (new (...args: any[]) => Extension)
         | ExtensionLiteral =
-        typeof item === `string`
-          ? await this.app.module.import(item)
-          : item
+        typeof item === `string` ? await import(item) : item
 
       const extension = this.instantiate(moduleObject)
+
       const key: keyof Modules =
         typeof item === `string` ? item : extension.label
 

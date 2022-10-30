@@ -1,8 +1,8 @@
 import type {Options} from '@roots/bud-framework'
 
+import Bud from '../bud.js'
 import * as argv from '../context/argv.js'
 import * as applicationContext from '../context/index.js'
-import Bud from '../index.js'
 import {mergeOptions} from './options.js'
 
 /**
@@ -47,17 +47,6 @@ export async function factory(
   skipCache = false,
 ): Promise<Bud> {
   const basedir = config?.basedir ?? argv.basedir
-
-  if (skipCache !== true) {
-    const cached = instances.find(
-      instance => instance.context.basedir === basedir,
-    )
-
-    if (cached) {
-      cached.log(`using cached instance`)
-      return cached
-    }
-  }
 
   const context = await applicationContext.get(basedir)
 

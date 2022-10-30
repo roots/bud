@@ -1,11 +1,10 @@
 import {beforeEach, describe, expect, it} from '@jest/globals'
-import {Bud, factory} from '@repo/test-kit/bud'
-import CopyPlugin from 'copy-webpack-plugin'
+import {factory} from '@repo/test-kit/bud'
 
-import {assets} from './assets.method.js'
+import {assets} from './index.js'
 
 describe(`bud.assets`, () => {
-  let bud: Bud
+  let bud
   let assetsFn: typeof assets
 
   beforeEach(async () => {
@@ -109,8 +108,8 @@ describe(`bud.assets`, () => {
       from: bud.path(`@src`, `images`),
       to: bud.path(`@dist`, `images`),
     }
-    const overrides: Partial<CopyPlugin.ObjectPattern> = {toType: `file`}
-    await assetsFn(input, overrides)
+    const overrides = {toType: `file`}
+    await assetsFn(input, overrides as any)
 
     const patterns = bud.extensions.get(
       `@roots/bud-extensions/copy-webpack-plugin`,

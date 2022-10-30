@@ -6,6 +6,8 @@
     "types": ["@roots/bud-framework"]
   },
   "include": ["src"],
-  "exclude": ["./src/**/*.test.ts", "./src/*.test.ts"],
-  "references": [{"path": "./../bud-framework/tsconfig.json"}]
+  "exclude": ["**/*.test.ts", "*.test.ts"],
+  "references": [
+    {"path": "./../bud-framework/tsconfig.json"}
+  ]
 }

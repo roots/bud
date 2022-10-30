@@ -14,7 +14,7 @@ import {
  * @decorator `@expose`
  * @decorator `@disabled`
  */
-@label(`@roots/bud-extensions/bud-esm`)
+@label(`@roots/bud-extensions/esm`)
 @expose(`esm`)
 @disabled
 export default class Esm extends Extension {

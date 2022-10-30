@@ -1,35 +1,34 @@
 import {describe, expect, it, jest} from '@jest/globals'
-import {Bud, factory} from '@repo/test-kit/bud'
+import {factory} from '@repo/test-kit/bud'
+import extensionConstructor from '@roots/bud-extensions/esm'
 
-import extensionConstructor from './index'
-
-describe(`bud-esm`, () => {
+describe(`@roots/bud-extensions/esm`, () => {
   it(`is constructable`, () => {
     expect(extensionConstructor).toBeInstanceOf(Function)
   })
 
   it(`should be an instance of extension`, async () => {
-    let bud: Bud = await factory()
+    let bud = await factory()
 
     expect(new extensionConstructor(bud)).toBeInstanceOf(
       extensionConstructor,
     )
 
     expect(new extensionConstructor(bud).buildBefore).not.toBe(
-      bud.extensions.get(`@roots/bud-extensions/bud-esm`).buildBefore,
+      bud.extensions.get(`@roots/bud-extensions/esm`).buildBefore,
     )
   })
 
   it(`should be exposed via bud.esm`, async () => {
     let bud = await factory()
-    bud.extensions.add(`@roots/bud-extensions/bud-esm`)
+    bud.extensions.add(extensionConstructor)
     expect(bud.esm).toBeDefined()
   })
 
-  it(`should be labeled esm`, async () => {
+  it(`should be labeled @roots/bud-extensions/esm`, async () => {
     let bud = await factory()
     const instance = new extensionConstructor(bud)
-    expect(instance.label).toBe(`@roots/bud-extensions/bud-esm`)
+    expect(instance.label).toBe(`@roots/bud-extensions/esm`)
   })
 
   it(`should be disabled by default`, async () => {
@@ -49,7 +48,7 @@ describe(`bud-esm`, () => {
     let bud = await factory()
     bud.extensions.add(extensionConstructor)
     const extensionInstance = bud.extensions.get(
-      `@roots/bud-extensions/bud-esm`,
+      `@roots/bud-extensions/esm`,
     )
 
     extensionInstance.enable()

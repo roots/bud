@@ -12,6 +12,6 @@
 
 import './types.js'
 
-import BudReact from './extension/extension.js'
+import BudReact from './extension/index.js'
 
 export default BudReact

@@ -1,6 +1,6 @@
-import type Acorn from './acorn/extension.js'
-import type Sage from './sage/extension.js'
-import type ThemeJSON from './wp-theme-json/extension.js'
+import type Acorn from './acorn/index.js'
+import type Sage from './sage/index.js'
+import type ThemeJSON from './wp-theme-json/index.js'
 
 declare module '@roots/bud-framework' {
   interface Bud {

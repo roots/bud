@@ -1,7 +1,7 @@
-import type {Bud} from '@roots/bud-framework/src/bud.js'
+import type {Bud} from '@roots/bud-framework'
 import * as tomlParser from 'toml'
 
-import type * as Rule from '../../rule/rule.js'
+import type * as Rule from '../../rule/index.js'
 
 /**
  * Returns {@link Rule} for `.toml` handling

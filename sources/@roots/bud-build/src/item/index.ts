@@ -1,11 +1,11 @@
-import type {Bud} from '@roots/bud-framework/bud'
+import type {Bud} from '@roots/bud-framework'
 import type * as Build from '@roots/bud-framework/services/build'
 import type {Loaders} from '@roots/bud-framework/src/types/services/build/registry.js'
 import {bind} from '@roots/bud-support/decorators'
 import {isString} from '@roots/bud-support/lodash-es'
 import {basename} from 'path'
 
-import Loader from '../loader/loader.js'
+import Loader from '../loader/index.js'
 import Base from '../shared/base.js'
 
 export type ConstructorOptions = Build.Item.ConstructorOptions

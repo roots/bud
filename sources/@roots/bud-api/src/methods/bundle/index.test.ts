@@ -1,10 +1,10 @@
 import {beforeEach, describe, expect, it} from '@jest/globals'
-import {Bud, factory} from '@repo/test-kit/bud'
+import {factory} from '@repo/test-kit/bud'
 
-import {bundle} from './bundle.method.js'
+import {bundle} from './index.js'
 
 describe(`bud.bundle`, () => {
-  let bud: Bud
+  let bud
   let instance: typeof bundle
 
   beforeEach(async () => {

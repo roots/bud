@@ -64,10 +64,12 @@
   },
   "devDependencies": {
     "@jest/globals": "29.2.2",
+    "@repo/test-kit": "workspace:sources/@repo/test-kit",
     "@roots/bud-extensions": "workspace:sources/@roots/bud-extensions",
     "@roots/bud-terser": "workspace:sources/@roots/bud-terser",
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.18.2",
+    "copy-webpack-plugin": "11.0.0",
     "webpack": "5.74.0"
   },
   "dependencies": {
@@ -75,10 +77,7 @@
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@roots/container": "workspace:sources/@roots/container",
     "chalk": "5.1.2",
-    "copy-webpack-plugin": "11.0.0",
     "get-port": "6.1.2",
-    "html-webpack-plugin": "5.5.0",
-    "nanoid": "4.0.0",
     "tslib": "2.4.0"
   },
   "volta": {

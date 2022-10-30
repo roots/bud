@@ -62,7 +62,9 @@ describe(`@roots/bud-compiler`, function () {
   beforeEach(async () => {
     jest.clearAllMocks()
 
-    bud = await import(`@roots/bud`).then(({default: Bud}) => new Bud())
+    bud = await import(`@roots/bud`).then(
+      pkg => new (pkg as any).default(),
+    )
     compiler = new Compiler(() => bud)
     // @ts-ignore
     compiler.implementation = new webpack()
@@ -115,6 +117,7 @@ describe(`@roots/bud-compiler`, function () {
   it(`should set done tap`, async () => {
     try {
       const bud = await import(`@roots/bud`).then(
+        // @ts-ignore
         ({default: Bud}) => new Bud(),
       )
       // @ts-ignore
@@ -131,7 +134,10 @@ describe(`@roots/bud-compiler`, function () {
 
   it(`should call webpack`, async () => {
     try {
-      bud = await import(`@roots/bud`).then(({default: Bud}) => new Bud())
+      bud = await import(`@roots/bud`).then(
+        // @ts-ignore
+        ({default: Bud}) => new Bud(),
+      )
       compiler = new Compiler(() => bud)
       // @ts-ignore
       compiler.implementation = new webpack()

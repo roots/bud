@@ -1,38 +1,49 @@
-import {beforeAll, describe, expect, it} from '@jest/globals'
-import {Bud, factory} from '@repo/test-kit/bud'
-import {assert} from 'console'
+import {describe, expect, it} from '@jest/globals'
+import {factory} from '@repo/test-kit/bud'
 
-import Extension from './index'
+import Extension from './extension'
 
 describe(`@roots/bud-typescript`, () => {
-  let bud: Bud
-  let typescript
-
-  beforeAll(async () => {
-    bud = await factory()
-    typescript = new Extension(bud)
-    await typescript._register()
-    await bud.extensions.add(Extension)
-  })
-
-  it(`is exposed`, () => {
+  it(`is exposed`, async () => {
+    const bud = await factory()
+    const typescript = new Extension(bud)
     expect(typescript).toBeInstanceOf(Extension)
   })
 
-  it(`is labeled`, () => {
+  it(`is labeled`, async () => {
+    const bud = await factory()
+    const typescript = new Extension(bud)
     expect(typescript.label).toBe(`@roots/bud-typescript`)
   })
 
   it(`sets up ts module rule`, async () => {
-    await bud.extensions.runAll(`configAfter`)
-    expect(bud.build.rules.ts).toBeDefined()
+    const bud = await factory()
+    const typescript = new Extension(bud)
+
+    await typescript.register(bud)
+    await typescript.configAfter(bud)
+    expect(typescript.app.build.rules.ts).toBeDefined()
   })
 
-  it(`adds ts handling`, () => {
-    assert(bud.hooks.filter(`build.resolve.extensions`).has(`.ts`))
+  it(`adds ts handling`, async () => {
+    const bud = await factory()
+    const typescript = new Extension(bud)
+    await typescript.register(bud)
+    await typescript.configAfter(bud)
+
+    expect(
+      typescript.app.hooks.filter(`build.resolve.extensions`),
+    ).toContain(`.ts`)
   })
 
-  it(`adds tsx handling`, () => {
-    assert(bud.hooks.filter(`build.resolve.extensions`).has(`.tsx`))
+  it(`adds tsx handling`, async () => {
+    const bud = await factory()
+    const typescript = new Extension(bud)
+    await typescript.register(bud)
+    await typescript.configAfter(bud)
+
+    expect(
+      typescript.app.hooks.filter(`build.resolve.extensions`),
+    ).toContain(`.tsx`)
   })
 })

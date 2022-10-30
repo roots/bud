@@ -5432,9 +5432,7 @@ __metadata:
     "@repo/constants": "workspace:sources/@repo/constants"
     "@repo/logger": "workspace:sources/@repo/logger"
     "@roots/bud": "workspace:sources/@roots/bud"
-    "@roots/bud-api": "workspace:sources/@roots/bud-api"
-    "@roots/bud-compiler": "workspace:sources/@roots/bud-compiler"
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
+    "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@types/fs-extra": 9.0.13
     "@types/node": 16.18.2
     chalk: 5.1.2
@@ -5506,6 +5504,7 @@ __metadata:
   resolution: "@roots/bud-api@workspace:sources/@roots/bud-api"
   dependencies:
     "@jest/globals": 29.2.2
+    "@repo/test-kit": "workspace:sources/@repo/test-kit"
     "@roots/bud-extensions": "workspace:sources/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
@@ -5516,8 +5515,6 @@ __metadata:
     chalk: 5.1.2
     copy-webpack-plugin: 11.0.0
     get-port: 6.1.2
-    html-webpack-plugin: 5.5.0
-    nanoid: 4.0.0
     tslib: 2.4.0
     webpack: 5.74.0
   languageName: unknown
@@ -5588,7 +5585,7 @@ __metadata:
     helpful-decorators: 2.1.0
     html-loader: ^4.1.0
     json5: 2.2.1
-    mini-css-extract-plugin: ^2.4.5
+    mini-css-extract-plugin: 2.6.1
     remark: 14.0.2
     remark-html: 15.0.1
     remark-loader: 5.0.0
@@ -5802,7 +5799,7 @@ __metadata:
     "@repo/test-kit": "workspace:sources/@repo/test-kit"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
-    "@roots/bud-terser": "workspace:*"
+    "@roots/bud-terser": "workspace:sources/@roots/bud-terser"
     "@skypack/package-check": 0.2.2
     "@types/node": 16.18.2
     chalk: 5.1.2
@@ -5813,6 +5810,23 @@ __metadata:
     tslib: 2.4.0
     webpack: 5.74.0
     webpack-manifest-plugin: 5.0.0
+  peerDependencies:
+    clean-webpack-plugin: "*"
+    copy-webpack-plugin: "*"
+    html-webpack-plugin: "*"
+    mini-css-extract-plugin: "*"
+    webpack-manifest-plugin: "*"
+  peerDependenciesMeta:
+    clean-webpack-plugin:
+      optional: true
+    copy-webpack-plugin:
+      optional: true
+    html-webpack-plugin:
+      optional: true
+    mini-css-extract-plugin:
+      optional: true
+    webpack-manifest-plugin:
+      optional: true
   languageName: unknown
   linkType: soft
 
@@ -5926,6 +5940,7 @@ __metadata:
     "@repo/test-kit": "workspace:sources/@repo/test-kit"
     "@roots/bud-api": "workspace:sources/@roots/bud-api"
     "@roots/bud-build": "workspace:sources/@roots/bud-build"
+    "@roots/bud-cache": "workspace:sources/@roots/bud-cache"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
@@ -6344,7 +6359,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/bud-terser@workspace:*, @roots/bud-terser@workspace:sources/@roots/bud-terser":
+"@roots/bud-terser@workspace:sources/@roots/bud-terser":
   version: 0.0.0-use.local
   resolution: "@roots/bud-terser@workspace:sources/@roots/bud-terser"
   dependencies:
@@ -6366,6 +6381,7 @@ __metadata:
   resolution: "@roots/bud-typescript@workspace:sources/@roots/bud-typescript"
   dependencies:
     "@jest/globals": 29.2.2
+    "@repo/test-kit": "workspace:sources/@repo/test-kit"
     "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
@@ -6680,8 +6696,10 @@ __metadata:
   resolution: "@roots/sage@workspace:sources/@roots/sage"
   dependencies:
     "@jest/globals": 29.2.2
+    "@repo/test-kit": "workspace:sources/@repo/test-kit"
     "@roots/bud-build": "workspace:sources/@roots/bud-build"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
+    "@roots/bud-preset-recommend": "workspace:sources/@roots/bud-preset-recommend"
     "@roots/bud-preset-wordpress": "workspace:sources/@roots/bud-preset-wordpress"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@roots/bud-tailwindcss": "workspace:sources/@roots/bud-tailwindcss"
@@ -7309,7 +7327,6 @@ __metadata:
   resolution: "@tests/project@workspace:tests/util/project"
   dependencies:
     "@roots/bud": "workspace:sources/@roots/bud"
-    "@roots/bud-preset-recommend": "workspace:sources/@roots/bud-preset-recommend"
     "@roots/bud-swc": "workspace:sources/@roots/bud-swc"
     "@roots/bud-tailwindcss": "workspace:sources/@roots/bud-tailwindcss"
   languageName: unknown
@@ -22602,7 +22619,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mini-css-extract-plugin@npm:*, mini-css-extract-plugin@npm:2.6.1, mini-css-extract-plugin@npm:^2.4.5, mini-css-extract-plugin@npm:^2.6.1":
+"mini-css-extract-plugin@npm:*, mini-css-extract-plugin@npm:2.6.1, mini-css-extract-plugin@npm:^2.6.1":
   version: 2.6.1
   resolution: "mini-css-extract-plugin@npm:2.6.1"
   dependencies:
@@ -22925,15 +22942,6 @@ __metadata:
   version: 0.2.1
   resolution: "nanoclone@npm:0.2.1"
   checksum: 96b2954e22f70561f41e20d69856266c65583c2a441dae108f1dc71b716785d2c8038dac5f1d5e92b117aed3825f526b53139e2e5d6e6db8a77cfa35b3b8bf40
-  languageName: node
-  linkType: hard
-
-"nanoid@npm:4.0.0":
-  version: 4.0.0
-  resolution: "nanoid@npm:4.0.0"
-  bin:
-    nanoid: bin/nanoid.js
-  checksum: 7d5946df5c6d383694195b781ae7b5067c149d164ec71e910d6b06676309c3459b68af570b944fb5ecd5065d19df464f05700d141d70bb712ff8ca06642fd8df
   languageName: node
   linkType: hard
 

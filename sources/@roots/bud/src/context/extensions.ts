@@ -23,9 +23,9 @@ export default class Extensions {
    */
   public builtIn: Partial<Array<keyof Modules & string>> = [
     `@roots/bud-terser`,
-    `@roots/bud-extensions/bud-cdn`,
-    `@roots/bud-extensions/bud-esm`,
-    `@roots/bud-extensions/bud-fix-style-only-entrypoints`,
+    `@roots/bud-extensions/cdn`,
+    `@roots/bud-extensions/esm`,
+    `@roots/bud-extensions/fix-style-only-entrypoints`,
     `@roots/bud-extensions/clean-webpack-plugin`,
     `@roots/bud-extensions/copy-webpack-plugin`,
     `@roots/bud-extensions/html-webpack-plugin`,

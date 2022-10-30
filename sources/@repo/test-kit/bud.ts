@@ -29,6 +29,7 @@ export const factory = async (
       args: {
         dry: true,
         log: false,
+        level: [],
         ...(overrides?.args ?? {}),
       },
     },
