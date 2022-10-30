@@ -42,7 +42,6 @@
     "bin/",
     "docs/",
     "lib/",
-    "types.d.ts",
     "vendor/"
   ],
   "bin": {
@@ -51,7 +50,7 @@
   },
   "type": "module",
   "module": "./lib/index.js",
-  "types": "./types.d.ts",
+  "types": "./lib/index.d.ts",
   "exports": {
     ".": "./lib/index.js",
     "./bud": "./lib/bud.js",
