@@ -70,6 +70,7 @@
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.18.2",
     "copy-webpack-plugin": "11.0.0",
+    "html-webpack-plugin": "5.5.0",
     "webpack": "5.74.0"
   },
   "dependencies": {

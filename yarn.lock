@@ -5515,6 +5515,7 @@ __metadata:
     chalk: 5.1.2
     copy-webpack-plugin: 11.0.0
     get-port: 6.1.2
+    html-webpack-plugin: 5.5.0
     tslib: 2.4.0
     webpack: 5.74.0
   languageName: unknown

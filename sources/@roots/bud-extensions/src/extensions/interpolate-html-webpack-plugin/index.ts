@@ -19,7 +19,7 @@ import InterpolateHtmlPlugin from './interpolate-html-webpack-plugin.js'
 @options({})
 @disabled
 export default class BudInterpolateHtmlPlugin extends Extension<
-  Record<string, RegExp>,
+  Record<string, RegExp | string>,
   InterpolateHtmlPlugin
 > {
   /**

@@ -20,7 +20,7 @@ export default class InterpolateHtmlWebpackPlugin {
    */
   public constructor(
     public getHooks: (compilation: Compilation) => HtmlWebpackPlugin.Hooks,
-    public replacements: Record<string, RegExp>,
+    public replacements: Record<string, RegExp | string>,
   ) {}
 
   /**
