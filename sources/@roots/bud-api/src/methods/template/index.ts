@@ -4,10 +4,20 @@ import type {Options as HtmlOptions} from 'html-webpack-plugin'
 import {dirname, resolve} from 'path'
 import {fileURLToPath} from 'url'
 
-export interface template {
+/**
+ * Set HTML template
+ *
+ * @public
+ */
+interface template {
   (userOptions?: Options | boolean): Promise<Bud>
 }
 
+/**
+ * Set HTML template (facade)
+ *
+ * @public
+ */
 export interface facade {
   (userOptions?: Options | boolean): Bud
 }
@@ -33,6 +43,11 @@ interface Options extends HtmlOptions {
   }
 }
 
+/**
+ * Set HTML template
+ *
+ * @public
+ */
 export const template: template = async function (
   userOptions,
 ): Promise<Bud> {
