@@ -150,7 +150,7 @@ const base = {
    * @see {@link https://swc.rs/docs/usage/jest}
    */
   transform: {
-    '.+\\.(c|m)?(t|j)sx?$': [
+    '^.+\\.(c|m)?(t|j)sx?$': [
       `@swc/jest`,
       {
         jsc: {

@@ -80,6 +80,8 @@ export class Watcher implements Server.Watcher {
    */
   @bind
   public async watch(): Promise<Watcher['instance']> {
+    if (this.app.context.args.dry) return
+
     this.files = this.app.hooks.filter(`dev.watch.files`, new Set())
     this.options = this.app.hooks.filter(`dev.watch.options`, {})
 
