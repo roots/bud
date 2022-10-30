@@ -86,7 +86,7 @@
     "@roots/bud-preset-recommend": "workspace:sources/@roots/bud-preset-recommend",
     "@roots/bud-tailwindcss": "workspace:sources/@roots/bud-tailwindcss",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.11.7",
+    "@types/node": "16.18.2",
     "tailwindcss": "3.2.1",
     "webpack": "5.74.0"
   },

@@ -6706,7 +6706,7 @@ __metadata:
     "@roots/bud-tailwindcss": "workspace:sources/@roots/bud-tailwindcss"
     "@roots/container": "workspace:sources/@roots/container"
     "@skypack/package-check": 0.2.2
-    "@types/node": 18.11.7
+    "@types/node": 16.18.2
     tailwindcss: 3.2.1
     tslib: 2.4.0
     webpack: 5.74.0
@@ -7915,13 +7915,6 @@ __metadata:
   version: 16.18.2
   resolution: "@types/node@npm:16.18.2"
   checksum: d21bb6614916b88242300abb23f11ae8bdaabd60c8f7c5edac21f3bf4b1f3ebfbd2a9019a664dd28e5b5730145c069074d70e7a2ab063e80a2fa9ab12de9797a
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:18.11.7":
-  version: 18.11.7
-  resolution: "@types/node@npm:18.11.7"
-  checksum: 69d630825cf6fbf580d08d76a4d4836ef8c34ed4fe0842221ade87d275f517099cbfabe8e22397208e564bd24926db97699ab9db5c091383269a432b336665e2
   languageName: node
   linkType: hard
 
