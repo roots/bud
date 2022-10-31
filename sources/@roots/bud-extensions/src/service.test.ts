@@ -46,6 +46,46 @@ describe(`@roots/bud-extensions`, () => {
     )
   })
 
+  it(`should assign a uuid as key for extensions without names`, async () => {
+    const bud = await factory()
+    const extensions: Extensions = new Extensions(() => bud)
+    extensions.repository = {} as any
+
+    await extensions.add(
+      // @ts-ignore
+      {
+        register: () => {
+          // noop
+        },
+      },
+    )
+
+    expect(Object.keys(extensions.repository).sort().pop()).toMatch(
+      /[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}/,
+    )
+  })
+
+  it(`should assign a uuid to label for extensions without name`, async () => {
+    const bud = await factory()
+    const extensions: Extensions = new Extensions(() => bud)
+    extensions.repository = {} as any
+
+    await extensions.add(
+      // @ts-ignore
+      {
+        register: () => {
+          // noop
+        },
+      },
+    )
+
+    expect(
+      Object.values(extensions.repository).sort().pop().label,
+    ).toMatch(
+      /[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}/,
+    )
+  })
+
   it(`[development] bud.extensions.repository options matches snapshot`, async () => {
     const bud: any = await import(`@roots/bud`).then(
       async pkg => new (pkg as any).default(),

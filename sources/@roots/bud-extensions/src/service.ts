@@ -1,3 +1,5 @@
+import {randomUUID} from 'node:crypto'
+
 import type {Bud} from '@roots/bud-framework'
 import {
   ApplyPlugin,
@@ -251,6 +253,7 @@ export default class Extensions
   @bind
   public instantiate<K extends `${keyof Modules & string}`>(
     extension: (new (...args: any[]) => Modules[K]) | ExtensionLiteral,
+    signifier?: K,
   ): Modules[K] {
     const instance =
       typeof extension === `function`
@@ -259,6 +262,9 @@ export default class Extensions
         !(extension instanceof Extension)
         ? new Extension(this.app).fromObject(extension)
         : extension
+
+    if (!instance?.label)
+      instance.label = signifier ?? (`${randomUUID()}` as keyof Modules)
 
     return instance as Modules[K]
   }
@@ -300,7 +306,7 @@ export default class Extensions
 
     if (!extensionClass) return
 
-    const instance = this.instantiate<K>(extensionClass)
+    const instance = this.instantiate<K>(extensionClass, signifier)
 
     if (instance.dependsOn)
       await Promise.all(
@@ -352,22 +358,17 @@ export default class Extensions
     await arrayed.reduce(async (promised, item) => {
       await promised
 
-      let moduleObject
-      if (typeof item === `string`) {
-        moduleObject = await this.app.module.tryImport(item)
-      } else {
-        moduleObject = item
-      }
+      let moduleObject =
+        typeof item === `string`
+          ? await import(item).then(pkg => pkg.default ?? pkg)
+          : item
 
-      const extension = this.instantiate(moduleObject)
+      const extension = this.instantiate(
+        moduleObject,
+        typeof item === `string` ? item : undefined,
+      )
 
-      const key: keyof Modules =
-        typeof item === `string` ? item : extension.label
-
-      if (!extension || (extension.label && this.has(extension.label)))
-        return
-
-      this.set(key, extension)
+      this.set(extension.label, extension)
 
       await this.run(extension, `init`)
       await this.run(extension, `register`)
