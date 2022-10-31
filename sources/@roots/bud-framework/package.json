@@ -42,6 +42,7 @@
   "exports": {
     ".": "./lib/index.js",
     "./bud": "./lib/bud.js",
+    "./configuration": "./lib/configuration/index.js",
     "./extension": "./lib/extension/index.js",
     "./extension/decorators": "./lib/extension/decorators/index.js",
     "./extension/decorators/*": "./lib/extension/decorators/*.js",
@@ -62,6 +63,9 @@
       ],
       "bud": [
         "./lib/bud.d.ts"
+      ],
+      "configuration": [
+        "./lib/configuration/index.d.ts"
       ],
       "extension": [
         "./lib/extension/index.d.ts"

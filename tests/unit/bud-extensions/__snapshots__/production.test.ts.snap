@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Extensions [production] bud.extensions.repository matches snapshot 1`] = `
+[
+  "@roots/bud-extensions/cdn",
+  "@roots/bud-extensions/clean-webpack-plugin",
+  "@roots/bud-extensions/copy-webpack-plugin",
+  "@roots/bud-extensions/esm",
+  "@roots/bud-extensions/fix-style-only-entrypoints",
+  "@roots/bud-extensions/html-webpack-plugin",
+  "@roots/bud-extensions/interpolate-html-webpack-plugin",
+  "@roots/bud-extensions/webpack-hot-module-replacement-plugin",
+  "@roots/bud-terser",
+  "@roots/bud-terser/css-minimizer",
+  "bud-cdn-gist",
+]
+`;

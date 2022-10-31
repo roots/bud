@@ -1,14 +1,48 @@
 /* eslint-disable tsdoc/syntax */
 import {paths} from '@repo/constants'
 
+const coverage = {
+  collectCoverage: true,
+  collectCoverageFrom: [
+    `**/sources/@roots/*/src/*.{ts,tsx}`,
+    `**/sources/@roots/*/src/*.{ts,tsx}`,
+    `**/sources/@roots/*/src/**/*.*.{ts,tsx}`,
+    `!**/sources/@roots/**/*.test.{ts,tsx}`,
+  ],
+  coveragePathIgnorePatterns: [
+    `/__snapshots__/`,
+    `/vendor/`,
+    `/lib/`,
+    `/@repo/`,
+    `/tests/`,
+    `/__mocks__/`,
+    `.js$`,
+    `spec.ts$`,
+    `types.ts$`,
+    `.d.ts$`,
+    `interface.ts$`,
+    `env.ts$`,
+    `/types/`,
+    `/deprecated/`,
+    `/@roots/bud-support/`,
+    `/@roots/dependencies/`,
+    /**
+     * Currently problematic to unit test these.
+     * October 9, 2022
+     */
+    `/@roots/bud/src/cli/`,
+    `/src/bud/commands/`,
+  ],
+  coverageProvider: `v8`,
+}
+
 /**
  * Base jest configuration
  * @type {import('@jest/types').Config.InitialOptions} base
  */
 const base = {
-  coverageProvider: `v8`,
   extensionsToTreatAsEsm: [`.ts`, `.tsx`],
-  moduleDirectories: [`node_modules`],
+  moduleDirectories: [`node_modules`, `<rootDir>/sources/`],
   moduleNameMapper: {
     /**
      * Jest doesn't understand .js extension with es modules
@@ -35,8 +69,8 @@ const base = {
     '@roots/bud-babel$': `<rootDir>/sources/@roots/bud-babel/src/index.ts`,
     '@roots/bud-build$': `<rootDir>/sources/@roots/bud-build/src/index.ts`,
     '@roots/bud-build/loader$': `<rootDir>/sources/@roots/bud-build/src/loader/index.ts`,
-    '@roots/bud-build/item$': `<rootDir>/sources/@roots/bud-build/src/loader/item.ts`,
-    '@roots/bud-build/rule$': `<rootDir>/sources/@roots/bud-build/src/loader/rule.ts`,
+    '@roots/bud-build/item$': `<rootDir>/sources/@roots/bud-build/src/item/index.ts`,
+    '@roots/bud-build/rule$': `<rootDir>/sources/@roots/bud-build/src/rule/index.ts`,
     '@roots/bud-cache$': `<rootDir>/sources/@roots/bud-cache/src/index.ts`,
     '@roots/bud-client$': `<rootDir>/sources/@roots/bud-client/src/index.ts`,
     '@roots/bud-compiler$': `<rootDir>/sources/@roots/bud-compiler/src/index.ts`,
@@ -50,6 +84,7 @@ const base = {
     '@roots/bud-extensions$': `<rootDir>/sources/@roots/bud-extensions/src/index.ts`,
     '@roots/bud-extensions/cdn$': `<rootDir>/sources/@roots/bud-extensions/src/extensions/cdn/index.ts`,
     '@roots/bud-extensions/esm$': `<rootDir>/sources/@roots/bud-extensions/src/extensions/esm/index.ts`,
+    '@roots/bud-extensions/clean-webpack-plugin$': `<rootDir>/sources/@roots/bud-extensions/src/extensions/clean-webpack-plugin/index.ts`,
     '@roots/bud-extensions/copy-webpack-plugin$': `<rootDir>/sources/@roots/bud-extensions/src/extensions/copy-webpack-plugin/index.ts`,
     '@roots/bud-extensions/fix-style-only-entrypoints$': `<rootDir>/sources/@roots/bud-extensions/src/extensions/fix-style-only-entrypoints/index.ts`,
     '@roots/bud-extensions/html-webpack-plugin$': `<rootDir>/sources/@roots/bud-extensions/src/extensions/html-webpack-plugin/index.ts`,
@@ -61,6 +96,7 @@ const base = {
     '@roots/bud-extensions/webpack-manifest-plugin$': `<rootDir>/sources/@roots/bud-extensions/src/extensions/webpack-manifest-plugin/index.ts`,
     '@roots/bud-framework$': `<rootDir>/sources/@roots/bud-framework/src/index.ts`,
     '@roots/bud-framework/bud$': `<rootDir>/sources/@roots/bud-framework/src/bud.ts`,
+    '@roots/bud-framework/configuration$': `<rootDir>/sources/@roots/bud-framework/src/configuration/index.ts`,
     '@roots/bud-framework/extension$': `<rootDir>/sources/@roots/bud-framework/src/extension/index.ts`,
     '@roots/bud-framework/extension/decorators$': `<rootDir>/sources/@roots/bud-framework/src/extension/decorators/index.ts`,
     '@roots/bud-framework/extension/decorators/(.*)$': `<rootDir>/sources/@roots/bud-framework/src/extension/decorators/$1.ts`,
@@ -80,6 +116,8 @@ const base = {
     '@roots/bud-prettier$': `<rootDir>/sources/@roots/bud-prettier/src/index.ts`,
     '@roots/bud-purgecss$': `<rootDir>/sources/@roots/bud-purgecss/src/index.ts`,
     '@roots/bud-react$': `<rootDir>/sources/@roots/bud-react/src/index.ts`,
+    '@roots/bud-react/babel-refresh$': `<rootDir>/sources/@roots/bud-react/src/babel-refresh/extension.ts`,
+    '@roots/bud-react/react-refresh$': `<rootDir>/sources/@roots/bud-react/src/react-refresh/extension.ts`,
     '@roots/bud-sass$': `<rootDir>/sources/@roots/bud-sass/src/index.ts`,
     '@roots/bud-server$': `<rootDir>/sources/@roots/bud-server/src/index.ts`,
     '@roots/bud-server/service$': `<rootDir>/sources/@roots/bud-server/src/service/service.ts`,
@@ -103,52 +141,16 @@ const base = {
   reporters: [`default`, `github-actions`],
   rootDir: paths.root,
   testEnvironment: `node`,
-  testPathIgnorePatterns: [
-    `<rootDir>/build/`,
-    `<rootDir>/node_modules/`,
-    `<rootDir>/tests/__mocks__`,
-    `<rootDir>/storage/`,
-  ],
-  collectCoverageFrom: [
-    `**/sources/@roots/*/src/*.{ts,tsx}`,
-    `**/sources/@roots/*/src/*.*.{ts,tsx}`,
-    `**/sources/@roots/*/src/**/*.{ts,tsx}`,
-    `**/sources/@roots/*/src/**/*.*.{ts,tsx}`,
-    `!**/sources/@roots/**/*.test.{ts,tsx}`,
-  ],
-  coveragePathIgnorePatterns: [
-    `/node_modules/`,
-    `/__snapshots__/`,
-    `/vendor/`,
-    `/lib/`,
-    `/@repo/`,
-    `/tests/`,
-    `/__mocks__/`,
-    `.js$`,
-    `spec.ts$`,
-    `types.ts$`,
-    `.d.ts$`,
-    `interface.ts$`,
-    `env.ts$`,
-    `/types/`,
-    `/deprecated/`,
-    `/@roots/bud-support/`,
-    `/@roots/dependencies/`,
-    /**
-     * Currently problematic to unit test these.
-     * October 9, 2022
-     */
-    `/@roots/bud/src/cli/`,
-    `/src/bud/commands/`,
-  ],
   slowTestThreshold: 10,
   testTimeout: 60 * 1000,
+}
 
-  /**
-   * `@swc/jest` transformer
-   *
-   * @see {@link https://swc.rs/docs/usage/jest}
-   */
+/**
+ * `@swc/jest` transformer
+ *
+ * @see {@link https://swc.rs/docs/usage/jest}
+ */
+const swcJestTransformerOptions = {
   transform: {
     '^.+\\.(c|m)?(t|j)sx?$': [
       `@swc/jest`,
@@ -181,29 +183,45 @@ export default async () => ({
     {
       ...base,
       displayName: `e2e`,
+      ...swcJestTransformerOptions,
       testMatch: [`**/tests/e2e/**/*.test.ts`],
     },
     {
       ...base,
       displayName: `integration`,
+      ...swcJestTransformerOptions,
       testMatch: [`**/tests/integration/**/*.test.ts`],
     },
     {
       ...base,
+      displayName: `unit:old`,
+      ...coverage,
+      ...swcJestTransformerOptions,
+      testMatch: [`**/tests/unit/**/*.test.ts`, `**/tests/unit/*.test.ts`],
+    },
+    {
+      ...base,
       displayName: `unit:node`,
-      collectCoverage: true,
+      ...coverage,
+      ...swcJestTransformerOptions,
       testMatch: [
-        `**/sources/@roots/*/src/*.test.{ts,tsx}`,
-        `**/sources/@roots/*/src/**/*.test.{ts,tsx}`,
-        `!**/sources/@roots/bud-client/src/**/*.test.{ts,tsx}`,
+        `**/sources/@roots/*/src/*.test.ts`,
+        `**/sources/@roots/*/src/*.test.tsx`,
+        `**/sources/@roots/*/src/**/*.test.ts`,
+        `**/sources/@roots/*/src/**/*.test.tsx`,
+        `!**/sources/@roots/bud-client/**`,
       ],
     },
     {
       ...base,
       displayName: `unit:dom`,
-      collectCoverage: true,
+      ...coverage,
+      ...swcJestTransformerOptions,
       testEnvironment: `jsdom`,
-      testMatch: [`**/sources/@roots/bud-client/src/**/*.test.{ts,tsx}`],
+      testMatch: [
+        `!**/*`,
+        `**/sources/@roots/bud-client/src/**/*.test.ts`,
+      ],
     },
   ],
 })

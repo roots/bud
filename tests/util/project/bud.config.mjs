@@ -12,5 +12,6 @@ export default async app => {
     .watch([`src/*.html`, `src/images`])
     .serve(3015)
     .minimize()
+    .provide({jquery: [`jQuery`, `$`]})
     .when(app.isProduction, app => app.hash())
 }

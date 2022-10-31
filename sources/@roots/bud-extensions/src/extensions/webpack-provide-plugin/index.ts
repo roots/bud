@@ -2,6 +2,7 @@ import {Extension} from '@roots/bud-framework'
 import {
   bind,
   label,
+  options,
   plugin,
 } from '@roots/bud-framework/extension/decorators'
 import Webpack from 'webpack'
@@ -15,6 +16,7 @@ import Webpack from 'webpack'
  */
 @label(`@roots/bud-extensions/webpack-provide-plugin`)
 @plugin(Webpack.ProvidePlugin)
+@options({})
 export default class BudProvide extends Extension<
   Record<string, any>,
   Webpack.ProvidePlugin

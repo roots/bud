@@ -1,4 +1,4 @@
-import type {Bud} from '../bud'
+import type {Bud} from '../../bud'
 
 export interface after {
   (
@@ -16,11 +16,11 @@ export const after: after = function (
   action: (app: Bud) => Promise<unknown>,
   errorHandler?: (error: Error) => unknown,
 ): Bud {
-  const app = this as Bud
+  const bud = this as Bud
 
-  app.hooks.action(`compiler.after`, async app => {
+  bud.hooks.action(`compiler.after`, async bud => {
     try {
-      await action(app)
+      await action(bud)
     } catch (error) {
       if (!errorHandler) {
         throw error
@@ -29,9 +29,10 @@ export const after: after = function (
       errorHandler(error)
     }
 
-    app.success(`bud.after action executed`)
+    bud.success(`bud.after action executed`)
   })
 
-  app.success(`bud.after: registered action`)
-  return app
+  bud.success(`bud.after: registered action`)
+
+  return bud
 }

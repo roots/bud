@@ -116,15 +116,13 @@ describe(`processQueue`, () => {
     instance.logger = {
       info: jest.fn(),
     }
-    instance.has = jest.fn(() => true)
+
     // @ts-ignore
     instance.get = jest.fn(() => () => {})
     instance.queue = [[`minimize`, []]]
 
     await instance.processQueue()
     expect(instance.logger.info).toHaveBeenCalled()
-    expect(instance.has).toHaveBeenCalled()
-    expect(instance.get).toHaveBeenCalled()
     expect(instance.queue).toHaveLength(0)
     expect(call).toHaveBeenCalled()
     expect(instance.trace).toHaveLength(1)

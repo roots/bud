@@ -4,7 +4,7 @@ describe(`Extensions`, function () {
   let bud: Bud
 
   beforeAll(async () => {
-    bud = await factory({mode: `development`})
+    bud = await factory({mode: `development`}, true)
     expect(bud.mode).toBe(`development`)
   })
 

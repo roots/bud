@@ -4,8 +4,9 @@ describe(`Extensions`, function () {
   let bud: Bud
 
   beforeAll(async () => {
-    bud = await factory()
+    bud = await factory({}, true)
     expect(bud.mode).toBe(`production`)
+    await bud.run()
   })
 
   it(`[production] bud.extensions.repository matches snapshot`, () => {

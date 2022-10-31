@@ -1,4 +1,5 @@
-import * as Base from '@roots/bud-framework/services/api'
+import {ServiceContainer} from '@roots/bud-framework/service'
+import type {Service as Contract} from '@roots/bud-framework/services/api'
 import {bind} from '@roots/bud-support/decorators'
 import {isEmpty, isFunction} from '@roots/bud-support/lodash-es'
 import chalk from 'chalk'
@@ -15,13 +16,27 @@ import * as methods from '../methods/index.js'
  *
  * @public
  */
-export class Api extends Base.Service {
+export class Api extends ServiceContainer implements Contract {
   /**
    * Service label
    *
    * @public
    */
   public static label = `api`
+
+  /**
+   * Called methods
+   *
+   * @public
+   */
+  public trace: Contract['trace'] = []
+
+  /**
+   * Queued method calls
+   *
+   * @public
+   */
+  public queue: Contract['queue'] = []
 
   /**
    * `bootstrap` callback

@@ -1,7 +1,7 @@
 import {beforeAll, beforeEach, describe, it, jest} from '@jest/globals'
 import {factory} from '@repo/test-kit/bud'
 import type {Bud} from '@roots/bud'
-import {Extension} from '@roots/bud-framework/extension'
+import {Extension} from '@roots/bud-framework'
 
 const mockInit = jest.fn()
 const mockRegister = jest.fn()

@@ -69,19 +69,7 @@ export interface BaseContext {
     storage: string
     target: Array<string>
   }>
-  config: Record<
-    string,
-    {
-      name: string
-      path: string
-      bud: boolean
-      local: boolean
-      dynamic: boolean
-      extension: string | null
-      type: `production` | `development` | `base`
-      module: any
-    }
-  >
+  config: Record<string, ConfigDescription>
   extensions: {
     builtIn: Partial<Array<keyof Modules & string>>
     discovered: Partial<Array<keyof Modules & string>>
@@ -107,3 +95,14 @@ export type InstanceOverrides = {
 
 export type Context = BaseContext & InstanceContext
 export type Overrides = BaseOverrides & InstanceOverrides
+
+export interface ConfigDescription {
+  name: string
+  path: string
+  bud: boolean
+  local: boolean
+  dynamic: boolean
+  extension: string | null
+  type: `production` | `development` | `base`
+  module: any
+}
