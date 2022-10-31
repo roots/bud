@@ -123,7 +123,7 @@
     "@roots/bud-terser": "workspace:sources/@roots/bud-terser",
     "@roots/container": "workspace:sources/@roots/container",
     "browserslist": "4.21.4",
-    "caniuse-lite": "1.0.30001426",
+    "caniuse-lite": "1.0.30001427",
     "conf": "10.2.0",
     "dotenv": "16.0.3",
     "dotenv-expand": "9.0.0",
