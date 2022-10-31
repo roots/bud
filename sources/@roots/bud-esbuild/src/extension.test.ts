@@ -1,6 +1,5 @@
-import {describe, expect, it, test} from '@jest/globals'
+import {beforeEach, describe, expect, it} from '@jest/globals'
 import {factory} from '@repo/test-kit/bud'
-import Loader from '@roots/bud-build/loader'
 import esbuild from '@roots/bud-esbuild'
 import {isArray, isUndefined} from '@roots/bud-support/lodash-es'
 
@@ -10,11 +9,13 @@ describe(`@roots/bud-esbuild`, () => {
   let bud
   let extension: any
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     bud = await factory()
+
     await bud.extensions.add(esbuild)
     extension = bud.extensions.get(`@roots/bud-esbuild`)
-    await bud.build.make()
+    await extension.register(bud)
+    await extension.buildBefore()
   })
 
   it(`should be constructable`, () => {
@@ -91,6 +92,16 @@ describe(`@roots/bud-esbuild`, () => {
   })
 
   describe(`module options`, () => {
+    let bud
+    let extension: any
+
+    beforeEach(async () => {
+      bud = await factory()
+      await bud.extensions.add(esbuild)
+      extension = bud.extensions.get(`@roots/bud-esbuild`)
+      await bud.build.make()
+    })
+
     it(`is a method`, () => {
       expect(extension.options).toBeDefined()
     })
@@ -120,6 +131,16 @@ describe(`@roots/bud-esbuild`, () => {
   })
 
   describe(`does its job`, () => {
+    let bud
+    let extension: any
+
+    beforeEach(async () => {
+      bud = await factory()
+      await bud.extensions.add(esbuild)
+      extension = bud.extensions.get(`@roots/bud-esbuild`)
+      await bud.build.make()
+    })
+
     it(`single minifier`, () => {
       if (isUndefined(bud.build.config.optimization)) throw new Error()
       expect(bud.build.config.optimization.minimizer).toHaveLength(1)

@@ -104,6 +104,10 @@ export default class Extensions
         bud.context.manifest.bud.extensions.discovery
     }
 
+    if (!isUndefined(bud.context.args.discovery)) {
+      this.resolvedOptions.discovery = bud.context.args.discovery
+    }
+
     if (
       !isUndefined(
         bud.context.manifest?.[this.app.label]?.extensions?.discovery,
@@ -348,10 +352,12 @@ export default class Extensions
     await arrayed.reduce(async (promised, item) => {
       await promised
 
-      const moduleObject:
-        | (new (...args: any[]) => Extension)
-        | ExtensionLiteral =
-        typeof item === `string` ? await import(item) : item
+      let moduleObject
+      if (typeof item === `string`) {
+        moduleObject = await this.app.module.tryImport(item)
+      } else {
+        moduleObject = item
+      }
 
       const extension = this.instantiate(moduleObject)
 

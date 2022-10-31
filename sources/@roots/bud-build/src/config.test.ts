@@ -29,6 +29,7 @@ describe(`bud.build.config`, function () {
   it(`should have expected cache default`, async () => {
     const {build} = await setup()
     await build.make()
+
     const {cache}: any = build.config
 
     expect(cache.type).toStrictEqual(`filesystem`)
