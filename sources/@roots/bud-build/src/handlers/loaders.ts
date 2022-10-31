@@ -1,4 +1,4 @@
-import type {Bud} from '@roots/bud-framework/bud'
+import type {Bud} from '@roots/bud-framework'
 import type {Loader} from '@roots/bud-framework/services/build'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 

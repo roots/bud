@@ -10,6 +10,8 @@
  * @packageDocumentation
  */
 
+import './types.js'
+
 import Build from './service.js'
 
 export default Build

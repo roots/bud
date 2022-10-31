@@ -14,7 +14,7 @@ jobs:
         platform:
           - ubuntu-latest
         node:
-          - 16.x
+          - 16.18.0
 
     name: test node@${{matrix.node}}/${{matrix.platform}}
     runs-on: ${{matrix.platform}}
@@ -57,4 +57,4 @@ jobs:
 
       - name: yarn @bud test integration
         run: |
-          yarn @bud test integration --runInBand
+          yarn @bud test integration

@@ -1,4 +1,4 @@
-import {after} from './after.js'
+import {after} from './after/after.js'
 import {bindMethod} from './bindMethod.js'
 import {close} from './close.js'
 import {container} from './container.js'

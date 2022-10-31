@@ -28,13 +28,12 @@
   },
   "jestrunner.configPath": "config/jest.config.js",
   "search.exclude": {
-    ".yarn": true,
     ".git": true,
-    "storage": true,
-    "verdaccio": true,
+    ".yarn": true,
+    "**/node_modules": false,
     "**/pnp.*": true,
-    "**/node_modules": true,
-    "**/.budfiles/**/*": true
+    "storage": true,
+    "verdaccio": true
   },
   "prettier.configPath": "config/prettier.config.cjs",
   "prettier.ignorePath": "config/.prettierignore",

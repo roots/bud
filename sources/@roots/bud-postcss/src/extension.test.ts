@@ -1,25 +1,26 @@
-import {beforeAll, describe, expect, it} from '@jest/globals'
-import {Bud, factory} from '@repo/test-kit/bud'
+import {describe, expect, it} from '@jest/globals'
+import {factory} from '@repo/test-kit/bud'
 
-import BudPostCss from './index'
+import BudPostCss from './index.js'
 
 describe(`@roots/bud-postcss`, () => {
-  let bud: Bud
-
-  beforeAll(async () => {
-    bud = await factory()
+  it(`label`, async () => {
+    const bud = await factory()
     await bud.extensions.add(BudPostCss)
-  })
-
-  it(`label`, () => {
     expect(bud.postcss.label).toBe(`@roots/bud-postcss`)
   })
 
-  it(`getPlugins`, () => {
+  it(`getPlugins`, async () => {
+    const bud = await factory()
+    await bud.extensions.add(BudPostCss)
     expect(bud.postcss.getPlugins()).toBe(bud.postcss.plugins)
   })
 
-  it(`setPlugins from obj`, () => {
+  it(`setPlugins from obj`, async () => {
+    const bud = await factory()
+    await bud.extensions.add(BudPostCss)
+    bud.postcss.plugins.clear()
+
     bud.postcss.setPlugins({foo: [`bar`]})
 
     expect(bud.postcss.getPlugins()).toStrictEqual(
@@ -27,8 +28,12 @@ describe(`@roots/bud-postcss`, () => {
     )
   })
 
-  it(`setPlugins from map`, () => {
+  it(`setPlugins from map`, async () => {
+    const bud = await factory()
+
+    await bud.extensions.add(BudPostCss)
     bud.postcss.plugins.clear()
+
     bud.postcss.setPlugins(new Map([[`bang`, [`bop`]]]))
 
     expect(bud.postcss.getPlugins()).toStrictEqual(
@@ -36,23 +41,37 @@ describe(`@roots/bud-postcss`, () => {
     )
   })
 
-  it(`getPluginOptions`, () => {
+  it(`getPluginOptions`, async () => {
+    const bud = await factory()
+
+    await bud.extensions.add(BudPostCss)
+    bud.postcss.plugins.clear()
+
     bud.postcss.setPlugins(new Map([[`bang`, [`bop`]]]))
 
     const options = bud.postcss.getPluginOptions(`bang`)
     expect(options).toStrictEqual({})
   })
 
-  it(`setPluginOptions`, () => {
+  it(`setPluginOptions`, async () => {
+    const bud = await factory()
+
+    await bud.extensions.add(BudPostCss)
+    bud.postcss.plugins.clear()
+
     bud.postcss.setPlugins(new Map([[`bang`, [`bop`]]]))
 
     bud.postcss.setPluginOptions(`bang`, {})
     expect(bud.postcss.plugins.get(`bang`)?.pop()).toStrictEqual({})
   })
 
-  it(`setPluginOptions (callback)`, () => {
-    bud.postcss.setPlugins(new Map([[`bang`, [`bop`]]]))
+  it(`setPluginOptions (callback)`, async () => {
+    const bud = await factory()
 
+    await bud.extensions.add(BudPostCss)
+    bud.postcss.plugins.clear()
+
+    bud.postcss.setPlugins(new Map([[`bang`, [`bop`]]]))
     bud.postcss.setPluginOptions(`bang`, {foo: `bar`})
 
     bud.postcss.setPluginOptions(`bang`, options => {
@@ -61,7 +80,12 @@ describe(`@roots/bud-postcss`, () => {
     })
   })
 
-  it(`getPluginPath`, () => {
+  it(`getPluginPath`, async () => {
+    const bud = await factory()
+
+    await bud.extensions.add(BudPostCss)
+    bud.postcss.plugins.clear()
+
     bud.postcss.setPlugins(new Map([[`bang`, [`setPluginPath test`]]]))
 
     expect(bud.postcss.getPluginPath(`bang`)).toStrictEqual(
@@ -69,9 +93,13 @@ describe(`@roots/bud-postcss`, () => {
     )
   })
 
-  it(`setPluginPath`, () => {
-    bud.postcss.setPlugins(new Map([[`bang`, [`bop`]]]))
+  it(`setPluginPath`, async () => {
+    const bud = await factory()
 
+    await bud.extensions.add(BudPostCss)
+    bud.postcss.plugins.clear()
+
+    bud.postcss.setPlugins(new Map([[`bang`, [`bop`]]]))
     bud.postcss.setPluginPath(`bang`, `newPath`)
 
     expect(bud.postcss.plugins.get(`bang`)?.shift()).toStrictEqual(
@@ -79,7 +107,12 @@ describe(`@roots/bud-postcss`, () => {
     )
   })
 
-  it(`unsetPlugin`, () => {
+  it(`unsetPlugin`, async () => {
+    const bud = await factory()
+
+    await bud.extensions.add(BudPostCss)
+    bud.postcss.plugins.clear()
+
     bud.postcss.setPlugins(
       new Map([
         [`bang`, [`bop`]],
@@ -88,7 +121,12 @@ describe(`@roots/bud-postcss`, () => {
     )
   })
 
-  it(`unsetPlugin return bud.postcss`, () => {
+  it(`unsetPlugin return bud.postcss`, async () => {
+    const bud = await factory()
+
+    await bud.extensions.add(BudPostCss)
+    bud.postcss.plugins.clear()
+
     const returnValue = bud.postcss.setPlugins(
       new Map([
         [`bang`, [`bop`]],
@@ -99,7 +137,12 @@ describe(`@roots/bud-postcss`, () => {
     expect(returnValue).toBeInstanceOf(BudPostCss)
   })
 
-  it(`setPlugins return bud.postcss`, () => {
+  it(`setPlugins return bud.postcss`, async () => {
+    const bud = await factory()
+
+    await bud.extensions.add(BudPostCss)
+    bud.postcss.plugins.clear()
+
     const returnValue = bud.postcss.setPlugins(
       new Map([
         [`bang`, [`bop`]],
@@ -110,7 +153,10 @@ describe(`@roots/bud-postcss`, () => {
     expect(returnValue).toBeInstanceOf(BudPostCss)
   })
 
-  it(`setPlugin`, () => {
+  it(`setPlugin`, async () => {
+    const bud = await factory()
+
+    await bud.extensions.add(BudPostCss)
     bud.postcss.plugins.clear()
 
     bud.postcss.setPlugin(`boop`)
@@ -120,10 +166,13 @@ describe(`@roots/bud-postcss`, () => {
     )
   })
 
-  it(`setPlugin (arr)`, () => {
-    const signifier = `postcss-preset-env`
+  it(`setPlugin (arr)`, async () => {
+    const bud = await factory()
 
+    await bud.extensions.add(BudPostCss)
     bud.postcss.plugins.clear()
+
+    const signifier = `postcss-preset-env`
     bud.postcss.setPlugin(`env`, signifier)
 
     expect(bud.postcss.plugins.get(`env`)).toEqual(
@@ -131,10 +180,13 @@ describe(`@roots/bud-postcss`, () => {
     )
   })
 
-  it(`setPlugin (arr w/options)`, () => {
-    const signifier = `postcss-preset-env`
+  it(`setPlugin (arr w/options)`, async () => {
+    const bud = await factory()
 
+    await bud.extensions.add(BudPostCss)
     bud.postcss.plugins.clear()
+
+    const signifier = `postcss-preset-env`
     bud.postcss.setPlugin(`env`, [signifier, {option: `value`}])
 
     expect(bud.postcss.plugins.get(`env`)).toEqual(
@@ -145,7 +197,11 @@ describe(`@roots/bud-postcss`, () => {
     )
   })
 
-  it(`throws when plugin doesn't exist`, () => {
+  it(`throws when plugin doesn't exist`, async () => {
+    const bud = await factory()
+
+    await bud.extensions.add(BudPostCss)
+
     bud.postcss.plugins.clear()
 
     try {
@@ -153,17 +209,32 @@ describe(`@roots/bud-postcss`, () => {
     } catch (err) {}
   })
 
-  it(`registers loader`, () => {
+  it(`registers loader`, async () => {
+    const bud = await factory()
+
+    await bud.extensions.add(BudPostCss)
+    bud.postcss.plugins.clear()
+
     expect(bud.build.loaders.postcss.getSrc()).toContain(`postcss-loader`)
   })
 
-  it(`registers item`, () => {
+  it(`registers item`, async () => {
+    const bud = await factory()
+
+    await bud.extensions.add(BudPostCss)
+    bud.postcss.plugins.clear()
+
     expect(bud.build.items.postcss?.getLoader().getSrc()).toContain(
       `postcss-loader`,
     )
   })
 
-  it(`added to css rule`, () => {
+  it(`added to css rule`, async () => {
+    const bud = await factory()
+
+    await bud.extensions.add(BudPostCss)
+    bud.postcss.plugins.clear()
+
     expect(bud.build.rules.css?.getUse()).toContain(`postcss`)
   })
 })

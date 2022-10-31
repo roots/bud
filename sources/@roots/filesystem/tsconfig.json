@@ -6,5 +6,4 @@
     "module": "esnext"
   },
   "include": ["src"],
-  "exclude": ["lib", "node_modules"]
 }

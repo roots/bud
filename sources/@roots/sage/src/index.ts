@@ -12,6 +12,6 @@
 
 import './types.js'
 
-import Sage from './sage/extension.js'
+import Sage from './sage/index.js'
 
 export default Sage

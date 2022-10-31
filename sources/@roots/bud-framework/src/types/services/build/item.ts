@@ -9,17 +9,18 @@ import type {Loaders} from './registry'
  * @public
  */
 export interface Item extends Base {
+  _app: () => Bud
+  app: Bud
+
   /**
-   * identifier
+   * Identifier
+   *
    * @public
    */
   ident: string
 
   /**
    * Key from {@link Loaders} registry
-   *
-   * @remarks
-   * Or a callback which returns it
    *
    * @public
    */
@@ -82,7 +83,7 @@ export interface Item extends Base {
    *
    * @public
    */
-  mergeOptions(options: Item.Options): void
+  mergeOptions(options: Item.Options): this
 
   /**
    * Makes final Item output

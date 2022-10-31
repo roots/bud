@@ -11,7 +11,7 @@ describe(`Dashboard`, () => {
   beforeEach(async () => {
     bud = await factory()
     bud.context.args.log = true
-    dashboard = new Dashboard(bud)
+    dashboard = new Dashboard(() => bud)
   })
 
   it(`should be a Service`, async () => {
@@ -36,10 +36,12 @@ describe(`Dashboard`, () => {
   })
 
   it(`should return early from dashboard.stats when there are no stats provided`, async () => {
-    await dashboard.stats(
-      // @ts-ignore
-      undefined,
-    )
+    try {
+      await dashboard.stats(
+        // @ts-ignore
+        undefined,
+      )
+    } catch (e) {}
     expect(dashboard.lastHash).toBeUndefined()
   })
 

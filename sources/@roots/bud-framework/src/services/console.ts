@@ -1,6 +1,7 @@
 import {bind} from '@roots/bud-support/decorators'
 import patchConsole from '@roots/bud-support/patch-console'
 
+import type {Bud} from '../bud.js'
 import {Service} from '../service.js'
 
 /**
@@ -8,7 +9,7 @@ import {Service} from '../service.js'
  *
  * @public
  */
-interface Messages {
+interface MessagesCache {
   stdout: string[]
   stderr: string[]
 }
@@ -43,7 +44,7 @@ export default class ConsoleBuffer extends Service {
    * Received messages
    * @public
    */
-  public messages: Messages = {stdout: [], stderr: []}
+  public messages: MessagesCache = {stdout: [], stderr: []}
 
   /**
    * Restore console function
@@ -63,13 +64,13 @@ export default class ConsoleBuffer extends Service {
    * @decorator `@bind`
    */
   @bind
-  public async boot() {
+  public async boot(bud: Bud) {
     // Don't mess with console if --ci flag is `true`
-    if (this.app.context?.args?.ci) return
+    if (bud.context?.args?.ci) return
 
     // Overwrite service logger with a specially configured `Signale` instance
-    this.logger = this.app.logger.makeInstance({
-      disabled: this.app.context.args?.log === false,
+    this.logger = bud.logger.makeInstance({
+      disabled: bud.context.args?.log === false,
       config: {
         displayLabel: false,
         displayBadge: false,
@@ -102,13 +103,13 @@ export default class ConsoleBuffer extends Service {
 
       // Log message to console
       this.logger
-        .scope(...this.app.logger.scope, stream)
+        .scope(...bud.logger.scope, stream)
         [streamDictionary[stream]](message)
     })
 
     /**
      * On compiler close event, restore {@link console} methods
      */
-    this.app.hooks.action(`compiler.close`, this.restore)
+    bud.hooks.action(`compiler.close`, this.restore)
   }
 }

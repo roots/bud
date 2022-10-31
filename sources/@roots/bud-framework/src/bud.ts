@@ -7,10 +7,10 @@ import {
 } from '@roots/bud-support/lodash-es'
 
 import {bootstrap, LIFECYCLE_EVENT_MAP} from './lifecycle/bootstrap.js'
-import type {Logger} from './logger'
+import type {Logger} from './logger/index.js'
 import type * as methods from './methods/index.js'
-import type {Module} from './module'
-import type * as Service from './service'
+import type {Module} from './module.js'
+import type * as Service from './service.js'
 import type * as Api from './services/api.js'
 import type ConsoleBuffer from './services/console'
 import type FS from './services/fs.js'

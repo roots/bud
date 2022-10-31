@@ -20,7 +20,7 @@ describe(`env`, function () {
     })
 
     test(`should have env values`, () => {
-      expect(bud.env.data.repository.PUBLIC_APP_TITLE).toEqual(
+      expect(bud.env.repository.PUBLIC_APP_TITLE).toEqual(
         `bud.js test app`,
       )
     })

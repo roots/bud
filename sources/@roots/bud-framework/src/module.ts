@@ -1,13 +1,13 @@
+import {createRequire} from 'node:module'
 import {join, normalize, relative} from 'node:path'
+import {fileURLToPath, pathToFileURL} from 'node:url'
 
 import chalk from '@roots/bud-support/chalk'
-import {bind, memo} from '@roots/bud-support/decorators'
+import {bind} from '@roots/bud-support/decorators'
 import {resolve} from 'import-meta-resolve'
-import {createRequire} from 'module'
 import type {Signale} from 'signale'
-import {fileURLToPath, pathToFileURL} from 'url'
 
-import type {Bud} from './bud'
+import type {Bud} from './bud.js'
 
 /**
  * Module resolver
@@ -52,7 +52,6 @@ export class Module {
    * @decorator `@bind`
    */
   @bind
-  @memo()
   public async getDirectory(signifier: string, context?: string) {
     try {
       return await this.resolve(signifier, context)
@@ -73,7 +72,6 @@ export class Module {
    * @decorator `@bind`
    */
   @bind
-  @memo()
   public async getManifestPath(pkgName: string) {
     return await this.getDirectory(pkgName).then(dir =>
       join(dir, `package.json`),
@@ -87,7 +85,6 @@ export class Module {
    * @decorator `@bind`
    */
   @bind
-  @memo()
   public async readManifest(signifier: string) {
     return await this.getManifestPath(signifier).then(async path => {
       this.logger.log(signifier, `manifest resolved to`, path)
@@ -103,7 +100,6 @@ export class Module {
    * @decorator `@bind`
    */
   @bind
-  @memo()
   public async resolve(
     signifier: string,
     context?: string | URL,
@@ -138,7 +134,6 @@ export class Module {
    * @decorator `@bind`
    */
   @bind
-  @memo()
   public async import<T = any>(
     signifier: string,
     context?: URL | URL | string,
@@ -161,7 +156,6 @@ export class Module {
    * @decorator `@bind`
    */
   @bind
-  @memo()
   public async tryImport<T = any>(
     signifier: string,
     context?: URL | URL | string,

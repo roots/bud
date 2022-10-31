@@ -9,7 +9,6 @@ import {label} from './label.js'
 import {options} from './options.js'
 import {plugin} from './plugin.js'
 import {production} from './production.js'
-import {value} from './value.js'
 import {when} from './when.js'
 
 export {
@@ -24,6 +23,5 @@ export {
   options,
   plugin,
   production,
-  value,
   when,
 }

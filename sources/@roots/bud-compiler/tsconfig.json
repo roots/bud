@@ -3,12 +3,9 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "lib",
-    "module": "esnext",
-    "target": "es2021",
     "types": [
       "node",
       "@roots/bud-framework",
-      "@roots/bud-swc"
     ]
   },
   "include": [
@@ -19,6 +16,5 @@
     {"path": "../bud-framework/tsconfig.json"},
     {"path": "../bud-api/tsconfig.json"},
     {"path": "../bud-support/tsconfig.json"},
-    {"path": "../bud-swc/tsconfig.json"}
   ]
 }

@@ -7,7 +7,8 @@
       "node",
       "@roots/bud-framework",
       "@roots/bud-api",
-      "@roots/bud-build"
+      "@roots/bud-build",
+      "@roots/bud-support",
     ]
   },
   "include": ["src/**/*.ts"],

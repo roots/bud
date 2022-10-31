@@ -1,6 +1,5 @@
 import type {Bud} from '../../../bud'
 import type {Base} from './base'
-import type {Loaders} from './registry'
 
 /**
  * Loader interface
@@ -12,13 +11,14 @@ import type {Loaders} from './registry'
  * @public
  */
 export interface Loader extends Base {
+  _app: () => Bud
   app: Bud
 
   /**
    * Loader source factory
    * @public
    */
-  src: `${keyof Loaders & string}`
+  src: string
 
   /**
    * Set src

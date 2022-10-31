@@ -1,10 +1,10 @@
-import * as Framework from '@roots/bud-framework'
+import {Bud as Core} from '@roots/bud-framework/bud'
 
 /**
  * ⚡️ Bud
  *
  * @public
  */
-export default class Bud extends Framework.Bud {
+export default class Bud extends Core {
   public implementation = Bud
 }

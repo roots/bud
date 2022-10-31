@@ -41,7 +41,7 @@ describe(`Api`, () => {
   beforeEach(async () => {
     jest.clearAllMocks()
     // @ts-ignore
-    instance = new Api(mockBud)
+    instance = new Api(() => mockBud)
   })
 
   it(`should have a method bootstrap()`, async () => {
@@ -109,22 +109,20 @@ describe(`processQueue`, () => {
 
   it(`processQueue() should empty the queue and fill the trace`, async () => {
     // @ts-ignore
-    instance = new Api(mockBud)
+    instance = new Api(() => mockBud)
     // @ts-ignore
     const call = jest.spyOn(instance, `call`)
     // @ts-ignore
     instance.logger = {
       info: jest.fn(),
     }
-    instance.has = jest.fn(() => true)
+
     // @ts-ignore
     instance.get = jest.fn(() => () => {})
     instance.queue = [[`minimize`, []]]
 
     await instance.processQueue()
     expect(instance.logger.info).toHaveBeenCalled()
-    expect(instance.has).toHaveBeenCalled()
-    expect(instance.get).toHaveBeenCalled()
     expect(instance.queue).toHaveLength(0)
     expect(call).toHaveBeenCalled()
     expect(instance.trace).toHaveLength(1)

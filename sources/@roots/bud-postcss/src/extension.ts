@@ -1,3 +1,4 @@
+import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
@@ -25,8 +26,8 @@ type Registry = Map<string, [string | Plugin | Processor, any?]>
  * @decorator `@expose`
  * @decorator `@label`
  */
-@expose(`postcss`)
 @label(`@roots/bud-postcss`)
+@expose(`postcss`)
 export default class BudPostCss extends Extension {
   /**
    * Syntax
@@ -48,6 +49,47 @@ export default class BudPostCss extends Extension {
    * @public
    */
   protected readonly _plugins: Registry = new Map([])
+
+  /**
+   * Extension registration
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async register(app: Bud): Promise<void> {
+    this.setPlugins({
+      import: await this.resolve(`postcss-import`),
+      nesting: await this.resolve(`postcss-nested`),
+      env: [
+        await this.resolve(`postcss-preset-env`).then(path =>
+          path.replace(`.mjs`, `.cjs`),
+        ),
+        {
+          stage: 1,
+          features: {
+            'focus-within-pseudo-class': false,
+          },
+        },
+      ],
+    })
+
+    app.build
+      .setLoader(`postcss`, await this.resolve(`postcss-loader`))
+      .setItem(`postcss`, {
+        loader: `postcss`,
+        options: () => ({
+          sourceMap: this.sourceMap,
+          postcssOptions: this.postcssOptions,
+        }),
+      })
+
+    app.build.rules.css.setUse(items => [...(items ?? []), `postcss`])
+    app.build.rules.cssModule?.setUse(items => [
+      ...(items ?? []),
+      `postcss`,
+    ])
+  }
 
   /**
    * postcss-loader `postcssOptions` accessor
@@ -189,6 +231,7 @@ export default class BudPostCss extends Extension {
     }
 
     Object.entries(plugins).map(pluginMap).forEach(setPlugin)
+
     return this
   }
 
@@ -315,46 +358,5 @@ export default class BudPostCss extends Extension {
     this.setPlugin(plugin, hasOptions ? [path, target.pop()] : [path])
 
     return this
-  }
-
-  /**
-   * Extension registration
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async register() {
-    this.setPlugins({
-      import: await this.resolve(`postcss-import`),
-      nesting: await this.resolve(`postcss-nested`),
-      env: [
-        await this.resolve(`postcss-preset-env`).then(path =>
-          path.replace(`.mjs`, `.cjs`),
-        ),
-        {
-          stage: 1,
-          features: {
-            'focus-within-pseudo-class': false,
-          },
-        },
-      ],
-    })
-
-    this.app.build
-      .setLoader(`postcss`, await this.resolve(`postcss-loader`))
-      .setItem(`postcss`, {
-        loader: `postcss`,
-        options: () => ({
-          sourceMap: this.sourceMap,
-          postcssOptions: this.postcssOptions,
-        }),
-      })
-
-    this.app.build.rules.css.setUse(items => [...(items ?? []), `postcss`])
-    this.app.build.rules.cssModule?.setUse(items => [
-      ...(items ?? []),
-      `postcss`,
-    ])
   }
 }

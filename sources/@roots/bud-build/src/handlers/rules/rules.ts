@@ -1,8 +1,8 @@
-import type {Bud} from '@roots/bud-framework/src/bud.js'
+import type {Bud} from '@roots/bud-framework'
 import * as json5Parser from 'json5'
 import {join} from 'path'
 
-import type * as Rule from '../../rule/rule.js'
+import type * as Rule from '../../rule/index.js'
 
 /**
  * Returns {@link Rule} for js

@@ -105,8 +105,6 @@
     "@jest/globals": "29.2.2",
     "@repo/test-kit": "workspace:sources/@repo/test-kit",
     "@skypack/package-check": "0.2.2",
-    "@types/braces": "3.0.1",
-    "@types/mini-css-extract-plugin": "2.5.0",
     "@types/node": "16.18.2",
     "@types/node-notifier": "8.0.2"
   },
@@ -126,20 +124,16 @@
     "@roots/container": "workspace:sources/@roots/container",
     "browserslist": "4.21.4",
     "caniuse-lite": "1.0.30001426",
-    "clean-webpack-plugin": "^4.0.0",
     "conf": "10.2.0",
-    "copy-webpack-plugin": "11.0.0",
     "dotenv": "16.0.3",
     "dotenv-expand": "9.0.0",
     "import-meta-resolve": "2.1.0",
-    "mini-css-extract-plugin": "^2.4.5",
     "node-notifier": "10.0.1",
     "open": "8.4.0",
     "open-editor": "4.0.0",
     "tslib": "2.4.0",
     "webpack": "5.74.0",
-    "webpack-cli": "^4.9.2",
-    "webpack-manifest-plugin": "^5.0.0"
+    "webpack-cli": "^4.9.2"
   },
   "peerDependencies": {
     "browserslist": "*",

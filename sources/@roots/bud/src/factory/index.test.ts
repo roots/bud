@@ -1,22 +1,18 @@
-import {describe, test} from '@jest/globals'
-import {Bud} from '@roots/bud-framework'
-import {dirname} from 'path'
-import {fileURLToPath} from 'url'
+import {describe, expect, test} from '@jest/globals'
+import {paths} from '@repo/constants'
+import {join} from 'path'
 
-import {factory} from './index'
+import {factory} from './index.js'
 
 describe(`@roots/bud/factory`, () => {
-  test(`should return bud`, async () => {
-    const bud = await factory()
-    expect(bud).toBeInstanceOf(Bud)
-  })
-
   test(`should merge overrides`, async () => {
     const bud = await factory({
-      basedir: dirname(fileURLToPath(import.meta.url)),
+      basedir: join(paths.tests, `util`, `project`),
+      args: {
+        dry: true,
+        log: false,
+      },
     })
-    expect(bud.context.basedir).toEqual(
-      dirname(fileURLToPath(import.meta.url)),
-    )
+    expect(bud.label).toBe(`@tests/project`)
   })
 })
