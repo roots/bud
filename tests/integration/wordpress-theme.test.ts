@@ -1,4 +1,4 @@
-import {describe, test} from '@jest/globals'
+import {describe, test} from 'vitest'
 
 describe(`examples/wordpress-theme`, () => {
   test.todo(`wordpress-theme tests`)

@@ -1,4 +1,5 @@
 import {factory} from '@repo/test-kit/bud'
+import {beforeAll, describe, expect, it} from 'vitest'
 
 import Rule from './rule'
 

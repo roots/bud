@@ -1,5 +1,5 @@
-import {beforeAll, describe, it} from '@jest/globals'
 import {Project} from '@repo/test-kit/project'
+import {beforeAll, describe, it} from 'vitest'
 
 const test = (pacman: 'yarn' | 'npm') => () => {
   describe(`examples/purgecss`, () => {

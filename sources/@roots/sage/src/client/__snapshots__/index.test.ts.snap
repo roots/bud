@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`@roots/sage @roots/sage/client 1`] = `
+exports[`@roots/sage > @roots/sage/client 1`] = `
 {
   "domReady": [Function],
   "lazy": [Function],

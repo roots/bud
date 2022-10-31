@@ -1,6 +1,6 @@
-import {describe, expect, it, jest} from '@jest/globals'
 import {factory} from '@repo/test-kit/bud'
 import {Extension} from '@roots/bud-framework/extension'
+import {describe, expect, it, vi} from 'vitest'
 
 import extensionConstructor from './index'
 
@@ -73,7 +73,7 @@ describe(`bud-esm`, () => {
       },
     }
 
-    const externalsSpy = jest.spyOn(
+    const externalsSpy = vi.spyOn(
       bud,
       // @ts-ignore
       `externals`,
@@ -96,7 +96,7 @@ describe(`bud-esm`, () => {
       imports: undefined,
     }
 
-    const externalsSpy = jest.spyOn(
+    const externalsSpy = vi.spyOn(
       bud,
       // @ts-ignore
       `externals`,

@@ -1,10 +1,10 @@
 /* eslint-disable n/callback-return */
-import {beforeEach, describe, expect, jest} from '@jest/globals'
 import mockBud from '@repo/test-kit/mocks/bud'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import {method as splitChunks} from './index'
 
-jest.unstable_mockModule(`@roots/bud`, () => ({default: mockBud}))
+vi.mock(`@roots/bud`, () => ({default: mockBud}))
 
 describe(`bud.splitChunks`, () => {
   let bud
@@ -15,7 +15,7 @@ describe(`bud.splitChunks`, () => {
     bud.isDevelopment = true
 
     subject = splitChunks.bind(bud)
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   it(`should call bud.hooks.on with false when called with false`, () => {

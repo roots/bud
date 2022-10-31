@@ -1,13 +1,10 @@
-import {beforeEach, describe, expect, it, jest} from '@jest/globals'
 import {join} from 'path'
 import {pathToFileURL} from 'url'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import {Module} from './module'
 
-jest.unstable_mockModule(
-  `@roots/bud`,
-  async () => await import(`@repo/test-kit/mocks/bud`),
-)
+vi.mock(`@roots/bud`, async () => await import(`@repo/test-kit/mocks/bud`))
 
 describe(`@roots/bud-framework`, () => {
   let bud
@@ -17,17 +14,17 @@ describe(`@roots/bud-framework`, () => {
     bud = await import(`@roots/bud`).then(({default: Bud}) => new Bud())
     bud.root = {
       context: bud.context,
-      path: jest.fn((...args) => join(bud.context.basedir, ...args)),
-      relPath: jest.fn((...args) => join(bud.context.basedir, ...args)),
+      path: vi.fn((...args) => join(bud.context.basedir, ...args)),
+      relPath: vi.fn((...args) => join(bud.context.basedir, ...args)),
     }
 
     budModule = new Module(bud)
 
-    bud.info = jest.fn()
-    bud.success = jest.fn()
-    bud.log = jest.fn()
-    bud.fatal = jest.fn()
-    bud.error = jest.fn()
+    bud.info = vi.fn()
+    bud.success = vi.fn()
+    bud.log = vi.fn()
+    bud.fatal = vi.fn()
+    bud.error = vi.fn()
 
     budModule.logger = {
       info: bud.info,

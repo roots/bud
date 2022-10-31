@@ -1,12 +1,9 @@
-import {beforeEach, describe, expect, it, jest} from '@jest/globals'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 import type {MultiStats, WebpackError} from 'webpack'
 
 import Compiler from './index'
 
-jest.unstable_mockModule(
-  `@roots/bud`,
-  async () => await import(`@repo/test-kit/mocks/bud`),
-)
+vi.mock(`@roots/bud`, async () => await import(`@repo/test-kit/mocks/bud`))
 
 const webpackImplementation = {
   version: `MOCK_VERSION`,
@@ -15,10 +12,10 @@ const webpackImplementation = {
       name: `MOCK_CHILD_COMPILER`,
       hooks: {
         afterEmit: {
-          tapAsync: jest.fn(async () => {}),
+          tapAsync: vi.fn(async () => {}),
         },
         done: {
-          tap: jest.fn(),
+          tap: vi.fn(),
         },
       },
     },
@@ -26,32 +23,32 @@ const webpackImplementation = {
       name: `MOCK_CHILD_COMPILER`,
       hooks: {
         afterEmit: {
-          tapAsync: jest.fn(async () => {}),
+          tapAsync: vi.fn(async () => {}),
         },
         done: {
-          tap: jest.fn(),
+          tap: vi.fn(),
         },
       },
     },
   ],
   hooks: {
     afterEmit: {
-      tapAsync: jest.fn(async () => {}),
+      tapAsync: vi.fn(async () => {}),
     },
     done: {
-      tap: jest.fn(),
+      tap: vi.fn(),
     },
   },
 }
 
-let webpack = jest.fn(() => {
+let webpack = vi.fn(() => {
   return webpackImplementation
 })
 
 // @ts-ignore
 webpack.version = `MOCK_VERSION`
 
-jest.unstable_mockModule(`webpack`, () => {
+vi.mock(`webpack`, () => {
   return {default: webpack}
 })
 
@@ -60,7 +57,7 @@ describe(`@roots/bud-compiler`, function () {
   let compiler: Compiler
 
   beforeEach(async () => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
 
     bud = await import(`@roots/bud`).then(({default: Bud}) => new Bud())
     compiler = new Compiler(bud)
@@ -107,7 +104,7 @@ describe(`@roots/bud-compiler`, function () {
 
   it(`should log early exit (--dry)`, async () => {
     compiler.app.context.args.dry = true
-    const logSpy = jest.spyOn(compiler.logger, `log`)
+    const logSpy = vi.spyOn(compiler.logger, `log`)
     await compiler.compile()
     expect(logSpy).toHaveBeenCalledTimes(3)
   })
@@ -145,30 +142,30 @@ describe(`@roots/bud-compiler`, function () {
   })
 
   it(`should call error handler from callback when hasErrors is truthy`, async () => {
-    const onErrorSpy = jest.spyOn(compiler, `onError`)
+    const onErrorSpy = vi.spyOn(compiler, `onError`)
     // @ts-ignore
     compiler.callback(new Error(), null)
     expect(onErrorSpy).toHaveBeenCalled()
   })
 
   it(`should not call error handler from callback when hasErrors is falsey`, async () => {
-    const onErrorSpy = jest.spyOn(compiler, `onError`)
+    const onErrorSpy = vi.spyOn(compiler, `onError`)
     // @ts-ignore
     compiler.callback(null, null)
     expect(onErrorSpy).not.toHaveBeenCalled()
   })
 
   it(`should call stats handler from callback when stats is truthy`, async () => {
-    const handleStatsSpy = jest.spyOn(compiler, `handleStats`)
+    const handleStatsSpy = vi.spyOn(compiler, `handleStats`)
     // @ts-ignore
     compiler.callback(null, {
-      toJson: jest.fn(() => {}),
+      toJson: vi.fn(() => {}),
     } as unknown as MultiStats)
     expect(handleStatsSpy).toHaveBeenCalled()
   })
 
   it(`should not call stats handler from callback when stats is falsey`, async () => {
-    const handleStatsSpy = jest.spyOn(compiler, `handleStats`)
+    const handleStatsSpy = vi.spyOn(compiler, `handleStats`)
     // @ts-ignore
     compiler.callback(null, null)
     expect(handleStatsSpy).not.toHaveBeenCalled()
@@ -187,7 +184,7 @@ describe(`@roots/bud-compiler`, function () {
   })
 
   it(`should call onError when onClose is called with error`, async () => {
-    const onErrorSpy = jest.spyOn(compiler, `onError`)
+    const onErrorSpy = vi.spyOn(compiler, `onError`)
     compiler.onClose(new Error() as WebpackError)
     expect(onErrorSpy).toHaveBeenCalled()
   })

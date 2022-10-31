@@ -64,7 +64,7 @@ export class TestIntegration extends Command {
           `node_modules/.bin/jest`,
         )} --config ${join(
           paths.root,
-          `config/jest.config.js`,
+          `config/vi.config.js`,
         )} --selectProjects integration --verbose --testTimeout ${
           120 * 1000
         }`,

@@ -2,6 +2,7 @@
 import {Bud, factory} from '@repo/test-kit/bud'
 import Babel from '@roots/bud-babel'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import {beforeAll, describe, expect, it} from 'vitest'
 
 describe(`bud.use`, function () {
   let bud: Bud

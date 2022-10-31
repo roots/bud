@@ -1,11 +1,9 @@
-import '@roots/bud-api'
-
-import {beforeEach, describe, expect, it, jest} from '@jest/globals'
 import mockBud from '@repo/test-kit/mocks/bud'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import BudPresetWordPress from './index'
 
-jest.unstable_mockModule(`@roots/bud`, () => ({default: mockBud}))
+vi.mock(`@roots/bud`, () => ({default: mockBud}))
 
 describe(`@roots/bud-preset-wordpress`, () => {
   let bud: any
@@ -26,9 +24,9 @@ describe(`@roots/bud-preset-wordpress`, () => {
 
   it(`should call bud.proxy when conditions are met`, async () => {
     bud.isProduction = false
-    bud.env.has = jest.fn(() => true)
-    bud.env.isString = jest.fn(() => true)
-    bud.env.get = jest.fn(() => `http://example.com`)
+    bud.env.has = vi.fn(() => true)
+    bud.env.isString = vi.fn(() => true)
+    bud.env.get = vi.fn(() => `http://example.com`)
     await extension.configAfter(bud)
     expect(bud.proxy).toHaveBeenCalled()
   })
@@ -42,16 +40,16 @@ describe(`@roots/bud-preset-wordpress`, () => {
 
   it(`should not call bud.proxy when proxy already called`, async () => {
     bud.isProduction = false
-    bud.env.has = jest.fn(() => true)
-    bud.env.isString = jest.fn(() => true)
-    bud.hooks.filter = jest.fn(() => true)
-    bud.env.get = jest.fn(() => `http://example.com`)
+    bud.env.has = vi.fn(() => true)
+    bud.env.isString = vi.fn(() => true)
+    bud.hooks.filter = vi.fn(() => true)
+    bud.env.get = vi.fn(() => `http://example.com`)
     await extension.configAfter(bud)
     expect(bud.proxy).not.toHaveBeenCalled()
   })
 
   it(`should not call bud.proxy when dev.middleware.proxy.target value is set`, async () => {
-    bud.hooks.filter = jest.fn(() => true) as any
+    bud.hooks.filter = vi.fn(() => true) as any
     await extension.configAfter(bud)
     expect(bud.hooks.filter).toHaveBeenCalled()
     expect(bud.hooks.filter).toHaveBeenCalledWith(
@@ -61,15 +59,15 @@ describe(`@roots/bud-preset-wordpress`, () => {
   })
 
   it(`should not call bud.proxy when WP_HOME is not set`, async () => {
-    bud.env.has = jest.fn(() => false)
-    bud.env.isString = jest.fn(() => false) as any
+    bud.env.has = vi.fn(() => false)
+    bud.env.isString = vi.fn(() => false) as any
     await extension.configAfter(bud)
     expect(bud.proxy).not.toHaveBeenCalled()
   })
 
   it(`should not call bud.proxy when WP_HOME is not a string`, async () => {
-    bud.env.has = jest.fn(() => true)
-    bud.env.isString = jest.fn(() => false)
+    bud.env.has = vi.fn(() => true)
+    bud.env.isString = vi.fn(() => false)
     await extension.configAfter(bud)
     expect(bud.env.isString).toHaveBeenCalled()
     expect(bud.env.isString).toHaveBeenCalledWith(`WP_HOME`)
@@ -78,9 +76,9 @@ describe(`@roots/bud-preset-wordpress`, () => {
 
   it(`should warn when proxy set call results in error`, async () => {
     bud.isProduction = false
-    bud.env.has = jest.fn(() => true)
-    bud.env.isString = jest.fn(() => true)
-    bud.env.get = jest.fn(() => `123456789`)
+    bud.env.has = vi.fn(() => true)
+    bud.env.isString = vi.fn(() => true)
+    bud.env.get = vi.fn(() => `123456789`)
 
     try {
       await extension.configAfter(bud)

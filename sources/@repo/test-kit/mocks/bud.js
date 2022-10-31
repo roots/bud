@@ -1,4 +1,4 @@
-import {jest} from '@jest/globals'
+import {vi} from 'vitest'
 
 import build from './build'
 import cache from './cache'
@@ -7,27 +7,27 @@ import extensions from './extensions'
 import hooks from './hooks'
 import logger from './logger'
 
-jest.unstable_mockModule(`@roots/bud-api`, async () => {
+vi.mock(`@roots/bud-api`, async () => {
   return {
-    default: jest.fn(() => ({
+    default: vi.fn(() => ({
       logger: {
-        success: jest.fn(),
+        success: vi.fn(),
       },
       trace: [],
     })),
   }
 })
-jest.unstable_mockModule(`@roots/bud-build`, () => ({default: build}))
-jest.unstable_mockModule(`@roots/bud-dashboard`, () => ({
+vi.mock(`@roots/bud-build`, () => ({default: build}))
+vi.mock(`@roots/bud-dashboard`, () => ({
   default: dashboard,
 }))
-jest.unstable_mockModule(`@roots/bud-extensions`, () => ({
+vi.mock(`@roots/bud-extensions`, () => ({
   default: extensions,
 }))
-jest.unstable_mockModule(`@roots/bud-hooks`, () => ({default: hooks}))
-jest.unstable_mockModule(`@roots/bud-cache`, () => ({default: cache}))
+vi.mock(`@roots/bud-hooks`, () => ({default: hooks}))
+vi.mock(`@roots/bud-cache`, () => ({default: cache}))
 
-const mock = jest.fn().mockImplementation(async () => {
+const mock = vi.fn().mockImplementation(async () => {
   const api = await import(`@roots/bud-api`).then(
     ({default: Api}) => new Api(),
   )
@@ -63,46 +63,46 @@ const mock = jest.fn().mockImplementation(async () => {
     context,
     dashboard,
     extensions,
-    proxy: jest.fn(),
+    proxy: vi.fn(),
     fs: {
-      exists: jest.fn(),
+      exists: vi.fn(),
       json: {
-        read: jest.fn(),
-        write: jest.fn(),
-        parse: jest.fn(),
-        stringify: jest.fn(),
+        read: vi.fn(),
+        write: vi.fn(),
+        parse: vi.fn(),
+        stringify: vi.fn(),
       },
       yml: {
-        read: jest.fn(),
-        write: jest.fn(),
-        parse: jest.fn(),
+        read: vi.fn(),
+        write: vi.fn(),
+        parse: vi.fn(),
       },
     },
     hasChildren: false,
     hooks,
     json: {
-      read: jest.fn(),
-      write: jest.fn(),
+      read: vi.fn(),
+      write: vi.fn(),
     },
     isDevelopment: false,
     label: `MOCK`,
     logger,
-    maybeCall: jest.fn(),
+    maybeCall: vi.fn(),
     module: {
-      import: jest.fn(),
-      resolve: jest.fn(),
+      import: vi.fn(),
+      resolve: vi.fn(),
     },
-    path: jest.fn(),
-    run: jest.fn(),
-    setPath: jest.fn(),
-    success: jest.fn(),
-    warn: jest.fn(),
-    error: jest.fn(),
-    fatal: jest.fn(),
+    path: vi.fn(),
+    run: vi.fn(),
+    setPath: vi.fn(),
+    success: vi.fn(),
+    warn: vi.fn(),
+    error: vi.fn(),
+    fatal: vi.fn(),
     env: {
-      get: jest.fn(),
-      set: jest.fn(),
-      isString: jest.fn(() => true),
+      get: vi.fn(),
+      set: vi.fn(),
+      isString: vi.fn(() => true),
     },
   }
 

@@ -1,31 +1,31 @@
 import {createRequire} from 'node:module'
 
-import {describe, jest} from '@jest/globals'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-const mockJetpack = {
-  createReadStream: jest.fn(),
-  createWriteStream: jest.fn(),
-  existsAsync: jest.fn(),
-  readAsync: jest.fn(async () => `{"foo":"bar"}`),
-  removeAsync: jest.fn(),
-  writeAsync: jest.fn(),
-  appendAsync: jest.fn(),
-  copyAsync: jest.fn(),
-  moveAsync: jest.fn(),
-  inspectAsync: jest.fn(),
-  inspectTreeAsync: jest.fn(),
-  listAsync: jest.fn(),
-  findAsync: jest.fn(),
-  dirAsync: jest.fn(),
-  path: jest.fn(),
-  cwd: null,
+const mockJetpack = function () {
+  return {
+    createReadStream: vi.fn(() => this),
+    createWriteStream: vi.fn(() => this),
+    existsAsync: vi.fn(() => this),
+    readAsync: vi.fn(async () => `{"foo":"bar"}`),
+    removeAsync: vi.fn(() => this),
+    writeAsync: vi.fn(() => this),
+    appendAsync: vi.fn(() => this),
+    copyAsync: vi.fn(() => this),
+    moveAsync: vi.fn(() => this),
+    inspectAsync: vi.fn(() => this),
+    inspectTreeAsync: vi.fn(() => this),
+    listAsync: vi.fn(() => this),
+    findAsync: vi.fn(() => this),
+    dirAsync: vi.fn(() => this),
+    path: vi.fn(() => this),
+    cwd: vi.fn(() => this),
+  }
 }
 
-const require = createRequire(import.meta.url)
+mockJetpack.cwd = vi.fn(() => mockJetpack)
 
-mockJetpack.cwd = jest.fn(() => mockJetpack)
-
-jest.mock(`fs-jetpack`, () => mockJetpack)
+vi.mock(`fs-jetpack`, () => mockJetpack())
 
 describe(`filesystem`, () => {
   describe(`read`, () => {
@@ -33,7 +33,7 @@ describe(`filesystem`, () => {
     let json
 
     beforeEach(async () => {
-      jetpack = require(`fs-jetpack`)
+      jetpack = await import(`fs-jetpack`)
       json = await import(`./json.js`)
     })
 
@@ -48,7 +48,7 @@ describe(`filesystem`, () => {
     let json
 
     beforeEach(async () => {
-      jetpack = require(`fs-jetpack`)
+      jetpack = await import(`fs-jetpack`)
       json = await import(`./json.js`)
     })
 

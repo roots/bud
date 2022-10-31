@@ -1,10 +1,10 @@
-import {beforeEach, describe, expect, jest} from '@jest/globals'
 import mockBud from '@repo/test-kit/mocks/bud'
 import {mockExtension} from '@repo/test-kit/mocks/extensions'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import {provide} from './index'
 
-jest.unstable_mockModule(`@roots/bud`, () => ({default: mockBud}))
+vi.mock(`@roots/bud`, () => ({default: mockBud}))
 
 describe(`bud.provide`, () => {
   let bud

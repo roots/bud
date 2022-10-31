@@ -1,5 +1,5 @@
-import fs from 'fs-jetpack'
-import yaml from 'js-yaml'
+import * as fs from 'fs-jetpack'
+import * as yaml from 'js-yaml'
 
 export const read = async (file: string): Promise<any> => {
   const source = await fs.readAsync(file, `utf8`)

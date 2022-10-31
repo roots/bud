@@ -1,90 +1,92 @@
-import { beforeAll, describe, it } from "@jest/globals";
-import { Project } from "@repo/test-kit/project";
+import {Project} from '@repo/test-kit/project'
+import {beforeAll, describe, it} from 'vitest'
 
-const test = (pacman: "yarn" | "npm") => () => {
-  let project: Project;
+const test = (pacman: 'yarn' | 'npm') => () => {
+  let project: Project
 
   beforeAll(async () => {
     project = await new Project({
       label: `@examples/sage`,
       dist: `public`,
       with: pacman,
-    }).setup();
-  });
+    }).setup()
+  })
 
   describe(`entrypoints.json`, () => {
     it(`has expected app entries`, () => {
-      expect(project.entrypoints.app.css).toBeInstanceOf(Array);
-      expect(project.entrypoints.app.css).toHaveLength(1);
-      expect(project.entrypoints.app.dependencies).toEqual([]);
-    });
+      expect(project.entrypoints.app.css).toBeInstanceOf(Array)
+      expect(project.entrypoints.app.css).toHaveLength(1)
+      expect(project.entrypoints.app.dependencies).toEqual([])
+    })
 
     it(`has expected editor entries`, () => {
-      expect(project.entrypoints.editor.css).toBeInstanceOf(Array);
-      expect(project.entrypoints.editor.css).toHaveLength(1);
-    });
-  });
+      expect(project.entrypoints.editor.css).toBeInstanceOf(Array)
+      expect(project.entrypoints.editor.css).toHaveLength(1)
+    })
+  })
 
   describe(`runtime`, () => {
     it(`has contents`, () => {
-      expect(project.assets[`runtime.js`].length).toBeGreaterThan(10);
-    });
+      expect(project.assets[`runtime.js`].length).toBeGreaterThan(10)
+    })
 
     it(`is transpiled`, () => {
-      expect(project.assets[`runtime.js`].includes(`import `)).toBeFalsy();
-    });
-  });
+      expect(project.assets[`runtime.js`].includes(`import `)).toBeFalsy()
+    })
+  })
 
   describe(`app.js`, () => {
     it(`has contents`, () => {
-      expect(project.assets[`app.js`].length).toBeGreaterThan(10);
-    });
+      expect(project.assets[`app.js`].length).toBeGreaterThan(10)
+    })
 
     it(`is transpiled`, () => {
-      expect(project.assets[`app.js`].includes(`import `)).toBeFalsy();
-    });
-  });
+      expect(project.assets[`app.js`].includes(`import `)).toBeFalsy()
+    })
+  })
 
   describe(`app.css`, () => {
     it(`has contents`, () => {
-      expect(project.assets[`app.css`].length).toBeGreaterThan(10);
-    });
+      expect(project.assets[`app.css`].length).toBeGreaterThan(10)
+    })
 
     it(`is transpiled`, () => {
-      expect(project.assets[`app.css`].includes(`@import`)).toBe(false);
-    });
+      expect(project.assets[`app.css`].includes(`@import`)).toBe(false)
+    })
 
     it(`@tailwind directive is transpiled`, () => {
-      expect(project.assets[`app.css`].includes(`@apply`)).toBe(false);
-    });
+      expect(project.assets[`app.css`].includes(`@apply`)).toBe(false)
+    })
 
     it(`has whitespace removed`, () => {
-      expect(project.assets[`app.css`].match(/    /)).toBeFalsy();
-    });
+      expect(project.assets[`app.css`].match(/    /)).toBeFalsy()
+    })
 
     it(`has breaks removed`, () => {
-      expect(project.assets[`app.css`].match(/\\n/)).toBeFalsy();
-    });
+      expect(project.assets[`app.css`].match(/\\n/)).toBeFalsy()
+    })
 
     it(`has xl font-size`, () => {
       expect(
-        project.assets[`app.css`].includes(`.text-xl{font-size:1.25rem`)
-      ).toBeTruthy();
-    });
+        project.assets[`app.css`].includes(`.text-xl{font-size:1.25rem`),
+      ).toBeTruthy()
+    })
 
     it(`has custom font-size`, () => {
       expect(
-        project.assets[`app.css`].includes(`.text-custom{font-size:.625rem`)
-      ).toBeTruthy();
-    });
-  });
+        project.assets[`app.css`].includes(
+          `.text-custom{font-size:.625rem`,
+        ),
+      ).toBeTruthy()
+    })
+  })
 
   if (pacman === `yarn`) {
     describe(`theme.json`, () => {
       it(`matches snapshot`, async () => {
         const themeJson = await project.readJson(
-          project.projectPath(`theme.json`)
-        );
+          project.projectPath(`theme.json`),
+        )
         expect(themeJson).toMatchInlineSnapshot(`
           {
             "$schema": "https://schemas.wp.org/trunk/theme.json",
@@ -220,53 +222,55 @@ const test = (pacman: "yarn" | "npm") => () => {
             },
             "version": 2,
           }
-        `);
-      });
-    });
+        `)
+      })
+    })
   }
 
   describe(`editor.js`, () => {
     it(`has contents`, () => {
-      expect(project.assets[`editor.js`].length).toBeGreaterThan(10);
-    });
+      expect(project.assets[`editor.js`].length).toBeGreaterThan(10)
+    })
 
     it(`is transpiled`, () => {
-      expect(project.assets[`editor.js`].includes(`import `)).toBeFalsy();
-    });
-  });
+      expect(project.assets[`editor.js`].includes(`import `)).toBeFalsy()
+    })
+  })
 
   it(`[editor] css: has contents`, () => {
-    expect(project.assets[`editor.css`].length).toBeGreaterThan(10);
-  });
+    expect(project.assets[`editor.css`].length).toBeGreaterThan(10)
+  })
 
   it(`[editor] css: is transpiled`, () => {
-    expect(project.assets[`editor.css`].includes(`@import`)).toBe(false);
-  });
+    expect(project.assets[`editor.css`].includes(`@import`)).toBe(false)
+  })
 
   it(`[editor] css: @tailwind directive is transpiled`, () => {
-    expect(project.assets[`editor.css`].includes(`@apply`)).toBe(false);
-  });
+    expect(project.assets[`editor.css`].includes(`@apply`)).toBe(false)
+  })
 
   it(`[editor] css: has whitespace removed`, () => {
-    expect(project.assets[`editor.css`].match(/    /)).toBeFalsy();
-  });
+    expect(project.assets[`editor.css`].match(/    /)).toBeFalsy()
+  })
 
   it(`[editor] css: has breaks removed`, () => {
-    expect(project.assets[`editor.css`].match(/\\n/)).toBeFalsy();
-  });
+    expect(project.assets[`editor.css`].match(/\\n/)).toBeFalsy()
+  })
 
   it(`[snapshots] package.json is unchanged`, async () => {
-    expect(project.packageJson).toMatchSnapshot();
-  });
+    expect(project.packageJson).toMatchSnapshot()
+  })
 
   it(`[snapshots] public/manifest.json matches expectations`, async () => {
-    expect(project.manifest[`app.js`]).toMatch(/js\/app\.[\d|\w]*\.js/);
-    expect(project.manifest[`app.css`]).toMatch(/css\/app\.[\d|\w]*\.css/);
+    expect(project.manifest[`app.js`]).toMatch(/js\/app\.[\d|\w]*\.js/)
+    expect(project.manifest[`app.css`]).toMatch(/css\/app\.[\d|\w]*\.css/)
     expect(project.manifest[`editor.css`]).toMatch(
-      /css\/editor\.[\d|\w]*\.css/
-    );
-    expect(project.manifest[`runtime.js`]).toMatch(/js\/runtime\.[\d|\w]*\.js/);
-  });
+      /css\/editor\.[\d|\w]*\.css/,
+    )
+    expect(project.manifest[`runtime.js`]).toMatch(
+      /js\/runtime\.[\d|\w]*\.js/,
+    )
+  })
 
   it(`[snapshots] module named chunks matches snapshot`, async () => {
     expect(project.modules.chunks.byName).toEqual(
@@ -274,12 +278,12 @@ const test = (pacman: "yarn" | "npm") => () => {
         app: expect.any(Number),
         editor: expect.any(Number),
         runtime: expect.any(Number),
-      })
-    );
-  });
-};
+      }),
+    )
+  })
+}
 
 describe(`sage`, () => {
-  describe(`npm`, test(`npm`));
-  describe(`yarn`, test(`yarn`));
-});
+  describe(`npm`, test(`npm`))
+  describe(`yarn`, test(`yarn`))
+})

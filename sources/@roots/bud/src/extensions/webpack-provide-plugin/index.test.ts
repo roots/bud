@@ -1,7 +1,6 @@
-import {describe, test} from '@jest/globals'
-import {Extension} from '@roots/bud-framework'
+import {describe, expect, it, test} from 'vitest'
 
-import provideExtension from './index'
+import provideExtension from './index.js'
 
 describe(`webpack:provide-plugin`, () => {
   it(`is an instance of Extension`, () => {

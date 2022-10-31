@@ -1,7 +1,8 @@
-import {Bud, factory} from '@repo/test-kit/bud'
+import {factory} from '@repo/test-kit/bud'
+import {beforeAll, describe, expect, it} from 'vitest'
 
 describe(`bud.hash`, function () {
-  let bud: Bud
+  let bud
 
   beforeAll(async () => {
     bud = await factory()

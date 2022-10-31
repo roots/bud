@@ -1,6 +1,6 @@
-import {beforeAll, describe, expect, it} from '@jest/globals'
 import {Bud, factory} from '@repo/test-kit/bud'
 import {assert} from 'console'
+import {beforeAll, describe, expect, it} from 'vitest'
 
 import Extension from './index'
 

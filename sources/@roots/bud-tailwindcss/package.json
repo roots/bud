@@ -66,12 +66,12 @@
     }
   },
   "devDependencies": {
-    "@jest/globals": "29.2.2",
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.18.2",
     "@types/tailwindcss": "3.0.11",
-    "@types/webpack-virtual-modules": "0.1.1"
+    "@types/webpack-virtual-modules": "0.1.1",
+    "vitest": "0.24.4"
   },
   "dependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",

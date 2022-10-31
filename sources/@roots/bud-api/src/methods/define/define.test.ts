@@ -1,6 +1,6 @@
-import {beforeEach, describe, expect, it} from '@jest/globals'
 import {factory} from '@repo/test-kit/bud'
 import {Bud} from '@roots/bud'
+import {beforeEach, describe, expect, it} from 'vitest'
 
 import {define as defineMethod} from './define.method.js'
 

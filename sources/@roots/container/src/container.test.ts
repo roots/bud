@@ -1,4 +1,4 @@
-import {describe, expect, it, jest} from '@jest/globals'
+import {describe, expect, it, vi} from 'vitest'
 
 import Container from './index'
 
@@ -298,7 +298,7 @@ describe(`container`, function () {
       }
       const container: Container = new Container(repo)
 
-      const callback = jest.fn()
+      const callback = vi.fn()
       container.each(`foo`, callback)
 
       expect(callback).toBeCalledTimes(2)
@@ -315,7 +315,7 @@ describe(`container`, function () {
       }
       const container: Container = new Container(repo)
 
-      const callback = jest.fn()
+      const callback = vi.fn()
       container.every(callback)
 
       expect(callback).toBeCalledTimes(1)

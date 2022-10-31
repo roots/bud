@@ -19,7 +19,6 @@
     }
   },
   "dependencies": {
-    "@jest/globals": "29.2.2",
     "@repo/constants": "workspace:sources/@repo/constants",
     "@repo/logger": "workspace:sources/@repo/logger",
     "@roots/bud": "workspace:sources/@roots/bud",
@@ -35,7 +34,8 @@
     "helpful-decorators": "2.1.0",
     "jest": "29.2.2",
     "json5": "2.2.1",
-    "tslib": "2.4.0"
+    "tslib": "2.4.0",
+    "vitest": "0.24.4"
   },
   "volta": {
     "extends": "../../../package.json"

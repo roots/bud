@@ -1,13 +1,13 @@
-import {beforeEach, describe, expect, jest} from '@jest/globals'
 import mockBud from '@repo/test-kit/mocks/bud'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import {persist} from './index'
 
-jest.unstable_mockModule(`@roots/bud`, () => ({default: mockBud}))
+vi.mock(`@roots/bud`, () => ({default: mockBud}))
 
 const mockExtension = {
-  enable: jest.fn(),
-  disable: jest.fn(),
+  enable: vi.fn(),
+  disable: vi.fn(),
 }
 
 describe(`bud.persist`, () => {

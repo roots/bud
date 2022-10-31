@@ -2,11 +2,11 @@
 
 import {join} from 'node:path'
 
-import {describe, expect, it} from '@jest/globals'
 import {paths} from '@repo/constants'
 import {execa, ExecaChildProcess} from 'execa'
 import fs from 'fs-extra'
 import {Browser, chromium, Page} from 'playwright'
+import {describe, expect, it} from 'vitest'
 
 import copy from './util/copy'
 import install from './util/install'

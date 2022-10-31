@@ -1,11 +1,11 @@
-import {jest} from '@jest/globals'
 import {Bud, factory} from '@repo/test-kit/bud'
+import {afterAll, beforeAll, describe, expect, it, vi} from 'vitest'
 
 import hotMiddleware, {collectCompilations} from './middleware'
 
-jest.mock(`@roots/bud-compiler`)
+vi.mock(`@roots/bud-compiler`)
 
-export default () => {
+describe(`@roots/bud-server/middleware/hot`, () => {
   let bud: Bud
 
   beforeAll(async () => {
@@ -29,4 +29,4 @@ export default () => {
       expect(collectCompilations).toBeInstanceOf(Function)
     })
   })
-}
+})

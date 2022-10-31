@@ -1,6 +1,6 @@
-import {beforeAll, describe, it} from '@jest/globals'
 import {logger} from '@repo/logger'
 import {Project} from '@repo/test-kit/project'
+import {beforeAll, describe, it} from 'vitest'
 
 const run = pacman => () => {
   let project: Project

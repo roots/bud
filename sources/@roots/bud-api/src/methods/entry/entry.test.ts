@@ -1,9 +1,9 @@
-import {describe, expect, it, jest} from '@jest/globals'
 import mockBud from '@repo/test-kit/mocks/bud'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import {entry, method} from './entry.method.js'
 
-jest.unstable_mockModule(`@roots/bud`, () => ({default: mockBud}))
+vi.mock(`@roots/bud`, () => ({default: mockBud}))
 
 describe(`bud.entry`, function () {
   let bud
@@ -12,7 +12,7 @@ describe(`bud.entry`, function () {
   beforeEach(async () => {
     bud = await import(`@roots/bud`).then(({default: Bud}) => new Bud())
     method = entry.bind(bud)
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   it(`is a function`, () => {
@@ -56,8 +56,8 @@ describe(`bud.entry`, function () {
   })
 
   it(`should accept a string`, async () => {
-    const callback = jest.fn() as any
-    bud.hooks.on = jest.fn((_label: string, value: any) => {
+    const callback = vi.fn() as any
+    bud.hooks.on = vi.fn((_label: string, value: any) => {
       return callback(value())
     })
 
@@ -76,8 +76,8 @@ describe(`bud.entry`, function () {
   })
 
   it(`should accept an array`, async () => {
-    const callback = jest.fn() as any
-    bud.hooks.on = jest.fn((_label: string, value: any) => {
+    const callback = vi.fn() as any
+    bud.hooks.on = vi.fn((_label: string, value: any) => {
       return callback(value())
     })
 
@@ -96,8 +96,8 @@ describe(`bud.entry`, function () {
   })
 
   it(`should accept an object`, async () => {
-    const callback = jest.fn() as any
-    bud.hooks.on = jest.fn((_label: string, value: any) => {
+    const callback = vi.fn() as any
+    bud.hooks.on = vi.fn((_label: string, value: any) => {
       return callback(value())
     })
 

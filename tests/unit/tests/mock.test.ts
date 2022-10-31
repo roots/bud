@@ -1,6 +1,6 @@
-import {beforeAll, describe, expect, it} from '@jest/globals'
 import * as console from '@repo/logger'
 import {Bud, factory, mockProject, repoPath} from '@repo/test-kit/bud'
+import {beforeAll, describe, expect, it} from 'vitest'
 
 describe(`mock project`, () => {
   let bud: Bud

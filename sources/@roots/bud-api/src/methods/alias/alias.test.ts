@@ -1,5 +1,5 @@
-import {beforeEach, describe, expect, it} from '@jest/globals'
 import {Bud, factory, repoPath} from '@repo/test-kit/bud'
+import {beforeEach, describe, expect, it} from 'vitest'
 
 import {alias} from './alias.method.js'
 

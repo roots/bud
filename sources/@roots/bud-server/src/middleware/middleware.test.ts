@@ -1,11 +1,12 @@
+import {describe, expect, it} from 'vitest'
+
 import {cookie} from './cookie/index'
 import {dev} from './dev/index'
 import hot from './hot/middleware'
-import hotMiddlewareSpec from './hot/middleware.spec'
 import * as exports from './middleware'
 import {proxy} from './proxy/index'
 
-export default () => {
+describe(`@roots/bud-server/middleware/proxy`, () => {
   it(`should export dev middleware`, () => {
     expect(exports.dev).toBe(dev)
   })
@@ -21,6 +22,4 @@ export default () => {
   it(`should export proxy middleware`, () => {
     expect(exports.proxy).toBe(proxy)
   })
-
-  describe(`hot middleware`, hotMiddlewareSpec)
-}
+})

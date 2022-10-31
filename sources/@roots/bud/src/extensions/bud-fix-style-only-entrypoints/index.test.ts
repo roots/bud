@@ -1,4 +1,4 @@
-import {describe, test} from '@jest/globals'
+import {describe, expect, it, test} from 'vitest'
 
 import extensionConstructor from './index'
 

@@ -1,5 +1,5 @@
-import {beforeAll, describe, expect, it, jest} from '@jest/globals'
 import {Bud, factory} from '@repo/test-kit/bud'
+import {beforeAll, describe, expect, it, vi} from 'vitest'
 import type {WebpackPluginInstance} from 'webpack'
 
 import Extensions from './index'
@@ -9,7 +9,7 @@ describe(`@roots/bud-extensions`, function () {
     let bud: Bud
 
     let mockWebpackPlugin: WebpackPluginInstance = {
-      apply: jest.fn(),
+      apply: vi.fn(),
     }
 
     let options = {
@@ -18,11 +18,11 @@ describe(`@roots/bud-extensions`, function () {
 
     let mockModule: any = {
       label: `mock_extension`,
-      register: jest.fn(async () => null),
-      boot: jest.fn(async () => null),
+      register: vi.fn(async () => null),
+      boot: vi.fn(async () => null),
       options: options,
-      make: jest.fn(async () => mockWebpackPlugin),
-      when: jest.fn(async () => true),
+      make: vi.fn(async () => mockWebpackPlugin),
+      when: vi.fn(async () => true),
     }
 
     beforeAll(async () => {

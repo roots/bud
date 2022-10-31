@@ -1,27 +1,27 @@
-import {jest} from '@jest/globals'
+import {vi} from 'vitest'
 
 const logger = {
   instance: {
-    scope: jest.fn(),
+    scope: vi.fn(),
   },
-  log: jest.fn(),
-  info: jest.fn(),
+  log: vi.fn(),
+  info: vi.fn(),
   scope: [],
-  warn: jest.fn(),
-  error: jest.fn(),
+  warn: vi.fn(),
+  error: vi.fn(),
 }
 
-logger.instance.scope = jest.fn(() => logger)
+logger.instance.scope = vi.fn(() => logger)
 
-logger.log = jest.fn(() => logger)
+logger.log = vi.fn(() => logger)
 logger.instance.log = logger.log
-logger.info = jest.fn(() => logger)
+logger.info = vi.fn(() => logger)
 logger.instance.info = logger.info
-logger.warn = jest.fn(() => logger)
+logger.warn = vi.fn(() => logger)
 logger.instance.warn = logger.warn
-logger.error = jest.fn(() => logger)
+logger.error = vi.fn(() => logger)
 logger.instance.error = logger.error
-logger.fatal = jest.fn(() => logger)
+logger.fatal = vi.fn(() => logger)
 logger.instance.fatal = logger.fatal
 
 export default logger

@@ -4,6 +4,7 @@ import {paths} from '@repo/constants'
 import {Bud, factory} from '@repo/test-kit/bud'
 import Env from '@roots/bud/context/env'
 import EnvService from '@roots/bud/services/env'
+import {beforeAll, describe, expect, it} from 'vitest'
 
 const path = join(paths.root, `tests`, `unit`, `bud`, `context`, `mock`)
 
@@ -20,7 +21,7 @@ describe(`env`, function () {
     })
 
     test(`should have env values`, () => {
-      expect(bud.env.data.repository.PUBLIC_APP_TITLE).toEqual(
+      expect(bud.env.repository.PUBLIC_APP_TITLE).toEqual(
         `bud.js test app`,
       )
     })
@@ -43,7 +44,7 @@ describe(`env`, function () {
     })
 
     test(`process env`, () => {
-      expect(env.JEST_WORKER_ID).toBeDefined()
+      expect(env.vitest_WORKER_ID).toBeDefined()
     })
 
     test(`expand .env`, () => {

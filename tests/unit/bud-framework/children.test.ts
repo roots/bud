@@ -1,5 +1,5 @@
-import {beforeEach, describe, expect, it, jest} from '@jest/globals'
 import {Bud, factory} from '@repo/test-kit/bud'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 describe(`@roots/bud-framework child`, () => {
   let bud: Bud
@@ -25,7 +25,7 @@ describe(`@roots/bud-framework child`, () => {
   })
 
   it(`should produce child with self at root`, async () => {
-    const callback = jest.fn(async (app: Bud) => null)
+    const callback = vi.fn(async (app: Bud) => null)
     await bud.make(`@tests/project-child`, callback)
     expect(callback).toHaveBeenCalledTimes(1)
   })

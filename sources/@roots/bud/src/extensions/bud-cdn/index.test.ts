@@ -1,17 +1,14 @@
-import {describe, jest, test} from '@jest/globals'
-import type {Bud} from '@roots/bud-framework'
+import {Bud} from '@repo/test-kit/bud'
 import {Extension} from '@roots/bud-framework/extension'
+import {beforeEach, describe, expect, it, test, vi} from 'vitest'
 
 import extensionConstructor from './index'
 
-jest.unstable_mockModule(
-  `@roots/bud`,
-  async () => await import(`@repo/test-kit/mocks/bud`),
-)
+vi.mock(`@roots/bud`, async () => await import(`@repo/test-kit/mocks/bud`))
 
 describe(`@roots/bud/extensions/bud-cdn`, () => {
   beforeEach(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   it(`should be constructable`, () => {
@@ -29,14 +26,11 @@ describe(`@roots/bud/extensions/bud-cdn`, () => {
   })
 
   it(`should set cacheEnabled to false when disableCache is called`, async () => {
-    const bud = await import(`@roots/bud`).then(
+    const bud = (await import(`@roots/bud`).then(
       ({default: Bud}) => new Bud(),
-    )
+    )) as Bud
 
-    const instance = new extensionConstructor(
-      // @ts-ignore
-      bud,
-    )
+    const instance = new extensionConstructor(bud)
 
     instance.disableCache()
     expect(instance.cacheEnabled).toBe(false)
@@ -47,58 +41,46 @@ describe(`@roots/bud/extensions/bud-cdn`, () => {
       ({default: Bud}) => new Bud(),
     )
 
-    const instance = new extensionConstructor(
-      // @ts-ignore
-      bud,
-    )
+    const instance = new extensionConstructor(bud)
 
     instance.setLockfileLocation(`foo`)
     expect(instance.lockfileLocation).toBe(`foo`)
   })
 
   it(`should set cacheLocation when setCacheLocation is called`, async () => {
-    const bud = await import(`@roots/bud`).then(
+    const bud = (await import(`@roots/bud`).then(
       ({default: Bud}) => new Bud(),
-    )
+    )) as Bud
 
-    bud.maybeCall = jest.fn(arg => arg)
+    bud.maybeCall = vi.fn(arg => arg) as Bud[`maybeCall`]
 
-    const instance = new extensionConstructor(
-      // @ts-ignore
-      bud,
-    )
+    const instance = new extensionConstructor(bud)
 
     instance.setCacheLocation(`foo`)
     expect(instance.cacheLocation).toBe(`foo`)
   })
 
   it(`should call hooks.on from buildBefore`, async () => {
-    const bud = await import(`@roots/bud`).then(
+    const bud = (await import(`@roots/bud`).then(
       ({default: Bud}) => new Bud(),
-    )
+    )) as Bud
 
-    bud.maybeCall = jest.fn(arg => arg)
+    bud.maybeCall = vi.fn(arg => arg) as Bud[`maybeCall`]
 
-    const instance = new extensionConstructor(
-      // @ts-ignore
-      bud,
-    )
+    const instance = new extensionConstructor(bud)
 
     await instance.buildBefore()
     expect(instance.app.hooks.on).toHaveBeenCalled()
   })
 
   it(`should call extensions.add from buildBefore`, async () => {
-    const bud = await import(`@roots/bud`).then(
+    const bud = (await import(`@roots/bud`).then(
       ({default: Bud}) => new Bud(),
-    )
+    )) as Bud
 
-    bud.maybeCall = jest.fn(arg => arg)
+    bud.maybeCall = vi.fn(arg => arg) as Bud[`maybeCall`]
 
-    const instance = new extensionConstructor(
-      // @ts-ignore
-      bud,
-    )
+    const instance = new extensionConstructor(bud)
 
     await instance.buildBefore()
     expect(instance.app.extensions.add).toHaveBeenCalled()

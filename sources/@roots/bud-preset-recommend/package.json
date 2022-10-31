@@ -61,10 +61,10 @@
     }
   },
   "devDependencies": {
-    "@jest/globals": "29.2.2",
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.18.2"
+    "@types/node": "16.18.2",
+    "vitest": "0.24.4"
   },
   "dependencies": {
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel",

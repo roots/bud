@@ -1,11 +1,11 @@
-import {beforeAll, beforeEach, describe, it, jest} from '@jest/globals'
 import {factory} from '@repo/test-kit/bud'
 import type {Bud} from '@roots/bud'
 import {Extension} from '@roots/bud-framework/extension'
+import {beforeAll, beforeEach, describe, it, vi} from 'vitest'
 
-const mockInit = jest.fn()
-const mockRegister = jest.fn()
-const mockBoot = jest.fn()
+const mockInit = vi.fn()
+const mockRegister = vi.fn()
+const mockBoot = vi.fn()
 
 class MockExtension extends Extension {
   public label = `mock-extension`

@@ -1,6 +1,6 @@
-import {beforeEach, describe, expect, it} from '@jest/globals'
 import {Bud, factory} from '@repo/test-kit/bud'
 import CopyPlugin from 'copy-webpack-plugin'
+import {beforeEach, describe, expect, it} from 'vitest'
 
 import {assets} from './assets.method.js'
 

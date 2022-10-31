@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`context.get should match expectations 1`] = `
+exports[`context.get > should match expectations 1`] = `
 {
   "basedir": null,
   "browser": undefined,

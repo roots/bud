@@ -65,12 +65,12 @@
     }
   },
   "devDependencies": {
-    "@jest/globals": "29.2.2",
     "@skypack/package-check": "0.2.2",
     "@types/js-yaml": "4.0.5",
     "@types/mime-types": "2.1.1",
     "@types/node": "16.18.2",
-    "@types/safe-json-stringify": "1.1.2"
+    "@types/safe-json-stringify": "1.1.2",
+    "vitest": "0.24.4"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "3.197.0",

@@ -3,8 +3,9 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "lib",
-    "module": "esnext"
+    "module": "esnext",
+    "allowSyntheticDefaultImports": false,
   },
   "include": ["src"],
-  "exclude": ["lib", "node_modules"]
+  "exclude": ["**/*.test.ts", "*.test.ts"]
 }

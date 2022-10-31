@@ -1,8 +1,8 @@
-import {describe, expect, it, test} from '@jest/globals'
 import {factory} from '@repo/test-kit/bud'
 import Loader from '@roots/bud-build/loader'
 import esbuild from '@roots/bud-esbuild'
 import {isArray, isUndefined} from 'lodash-es'
+import {beforeAll, describe, expect, it, test} from 'vitest'
 
 import Extension from './index'
 

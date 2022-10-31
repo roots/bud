@@ -1,5 +1,5 @@
-import {beforeEach, describe, expect, it, jest} from '@jest/globals'
 import {Bud} from '@roots/bud-framework'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import budConstructor from './bud.js'
 
@@ -7,7 +7,7 @@ describe(`@roots/bud/bud`, function () {
   let bud
 
   beforeEach(async () => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
     bud = new budConstructor()
   })
 

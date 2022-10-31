@@ -1,35 +1,35 @@
-import {jest} from '@jest/globals'
+import {vi} from 'vitest'
 
-const mock = jest.fn().mockImplementation(async () => {
+const mock = vi.fn().mockImplementation(async () => {
   const mock = {
     logger: {
-      log: jest.fn(),
-      info: jest.fn(),
-      warn: jest.fn(),
-      error: jest.fn(),
+      log: vi.fn(),
+      info: vi.fn(),
+      warn: vi.fn(),
+      error: vi.fn(),
     },
     config: {},
     label: `build`,
     loaders: {},
     items: {},
     rules: {},
-    make: jest.fn(() => ({
+    make: vi.fn(() => ({
       entry: {
         app: [`index.js`],
       },
     })),
-    setRule: jest.fn(),
-    setLoader: jest.fn(),
-    setItem: jest.fn(),
+    setRule: vi.fn(),
+    setLoader: vi.fn(),
+    setItem: vi.fn(),
   }
 
   mock.rules.js = {
-    setUse: jest.fn(),
+    setUse: vi.fn(),
   }
 
-  mock.setLoader = jest.fn(() => mock)
-  mock.setItem = jest.fn(() => mock)
-  mock.setRule = jest.fn(() => mock)
+  mock.setLoader = vi.fn(() => mock)
+  mock.setItem = vi.fn(() => mock)
+  mock.setRule = vi.fn(() => mock)
 
   return mock
 })

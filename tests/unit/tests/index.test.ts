@@ -12,8 +12,8 @@ describe(`test environment sanity checks`, () => {
     )
   })
 
-  it(`should have JEST_WORKER_ID defined`, () => {
-    expect(process.env.JEST_WORKER_ID).toBeDefined()
+  it(`should have vitest_WORKER_ID defined`, () => {
+    expect(process.env.vitest_WORKER_ID).toBeDefined()
   })
 
   it(`bud mock should be banning @roots/bud-swc`, async () => {

@@ -1,9 +1,19 @@
-import {describe, expect, it} from '@jest/globals'
+import {factory} from '@roots/bud/factory'
+import {Extension} from '@roots/bud-framework/extension'
+import {beforeEach, describe, expect, it} from 'vitest'
 
-import Extension from './index'
+import Vue from './index'
 
 describe(`@roots/bud-vue`, () => {
+  let bud
+  let vue
+
+  beforeEach(async () => {
+    bud = await factory()
+    vue = new Vue(bud)
+  })
+
   it(`should be constructable`, () => {
-    expect(Extension).toBeInstanceOf(Function)
+    expect(vue).toBeInstanceOf(Extension)
   })
 })

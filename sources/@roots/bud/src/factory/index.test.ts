@@ -1,7 +1,7 @@
-import {describe, test} from '@jest/globals'
 import {Bud} from '@roots/bud-framework'
 import {dirname} from 'path'
 import {fileURLToPath} from 'url'
+import {describe, expect, test} from 'vitest'
 
 import {factory} from './index'
 

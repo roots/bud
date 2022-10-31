@@ -1,13 +1,13 @@
-import {beforeEach, describe, expect, jest} from '@jest/globals'
 import mockBud from '@repo/test-kit/mocks/bud'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import {minimize as subject} from './index'
 
-jest.unstable_mockModule(`@roots/bud`, () => ({default: mockBud}))
+vi.mock(`@roots/bud`, () => ({default: mockBud}))
 
 const mockExtension = {
-  enable: jest.fn(),
-  disable: jest.fn(),
+  enable: vi.fn(),
+  disable: vi.fn(),
 }
 
 describe(`bud.minimize`, () => {
@@ -16,7 +16,7 @@ describe(`bud.minimize`, () => {
 
   beforeEach(async () => {
     bud = await import(`@roots/bud`).then(({default: Bud}) => new Bud())
-    bud.extensions.get = jest.fn(() => mockExtension)
+    bud.extensions.get = vi.fn(() => mockExtension)
 
     minimize = subject.bind(bud)
   })
@@ -32,13 +32,13 @@ describe(`bud.minimize`, () => {
   })
 
   it(`should call mockExtension.enable when called with truthy value`, () => {
-    bud.hooks.filter = jest.fn(() => true)
+    bud.hooks.filter = vi.fn(() => true)
     minimize(true)
     expect(mockExtension.enable).toHaveBeenCalled()
   })
 
   it(`should call mockExtension.enable when called with falsy value`, () => {
-    bud.hooks.filter = jest.fn(() => false)
+    bud.hooks.filter = vi.fn(() => false)
     minimize(false)
     expect(mockExtension.disable).toHaveBeenCalled()
   })

@@ -1,5 +1,5 @@
-import {describe, test} from '@jest/globals'
 import {Extension} from '@roots/bud-framework'
+import {describe, expect, it, test} from 'vitest'
 
 import manifestExtension from './index'
 

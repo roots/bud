@@ -6,7 +6,7 @@
     "types": ["@roots/bud-framework", "@roots/bud-api"]
   },
   "include": ["src"],
-  "exclude": ["lib", "node_modules", "**/*.test.ts"],
+  "exclude": ["*.test.ts", "**/*.test.ts"],
   "references": [
     {"path": "./../bud-api/tsconfig.json"},
     {"path": "./../bud-framework/tsconfig.json"}

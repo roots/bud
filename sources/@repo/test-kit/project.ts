@@ -2,7 +2,6 @@
 /* eslint-disable no-console */
 import {posix} from 'node:path'
 
-import {jest} from '@jest/globals'
 import {paths, REGISTRY_PROXY} from '@repo/constants'
 import * as logger from '@repo/logger'
 import {execa, ExecaChildProcess} from 'execa'
@@ -11,8 +10,6 @@ import {bind} from 'helpful-decorators'
 import json5 from 'json5'
 
 const {join} = posix
-
-jest.setTimeout(120000)
 
 interface Options {
   label: string

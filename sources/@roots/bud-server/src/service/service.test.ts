@@ -1,10 +1,10 @@
-import {beforeEach, expect, it, jest} from '@jest/globals'
 import {Bud, factory} from '@repo/test-kit/bud'
+import {beforeAll, describe, expect, it} from 'vitest'
 
 import {Watcher} from '../server/server.watcher'
 import {Server} from './service'
 
-export default () => {
+describe(`@roots/bud-server`, () => {
   let bud: Bud
   let instance: Server
 
@@ -47,4 +47,4 @@ export default () => {
   it(`should have a watcher property`, async () => {
     expect(instance.watcher).toBeInstanceOf(Watcher)
   })
-}
+})

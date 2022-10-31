@@ -1,14 +1,14 @@
-import {jest} from '@jest/globals'
+import {vi} from 'vitest'
 
-const mock = jest.fn().mockImplementation(async () => {
+const mock = vi.fn().mockImplementation(async () => {
   const mock = {
     logger: {
-      log: jest.fn(),
-      info: jest.fn(),
-      warn: jest.fn(),
-      error: jest.fn(),
+      log: vi.fn(),
+      info: vi.fn(),
+      warn: vi.fn(),
+      error: vi.fn(),
     },
-    stats: jest.fn(),
+    stats: vi.fn(),
   }
 
   return mock

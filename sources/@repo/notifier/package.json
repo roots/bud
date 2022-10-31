@@ -2,8 +2,8 @@
   "name": "@repo/notifier",
   "private": true,
   "devDependencies": {
-    "@jest/globals": "29.2.2",
-    "@types/node": "16.18.2"
+    "@types/node": "16.18.2",
+    "vitest": "0.24.4"
   },
   "volta": {
     "extends": "../../../package.json"

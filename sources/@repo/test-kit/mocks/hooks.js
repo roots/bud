@@ -1,25 +1,25 @@
-import {jest} from '@jest/globals'
+import {vi} from 'vitest'
 
-const mock = jest.fn().mockImplementation(async () => {
+const mock = vi.fn().mockImplementation(async () => {
   return {
     logger: {
-      log: jest.fn(),
-      info: jest.fn(),
-      warn: jest.fn(),
-      error: jest.fn(),
+      log: vi.fn(),
+      info: vi.fn(),
+      warn: vi.fn(),
+      error: vi.fn(),
     },
     label: `hooks`,
-    on: jest.fn(),
-    filter: jest.fn(),
-    fromMap: jest.fn(),
-    hasSyncHook: jest.fn(),
-    hasAsyncHook: jest.fn(),
-    hasEvent: jest.fn(),
-    async: jest.fn(),
-    filterAsync: jest.fn(),
-    fromAsyncMap: jest.fn(),
-    action: jest.fn(),
-    fire: jest.fn(),
+    on: vi.fn(),
+    filter: vi.fn(),
+    fromMap: vi.fn(),
+    hasSyncHook: vi.fn(),
+    hasAsyncHook: vi.fn(),
+    hasEvent: vi.fn(),
+    async: vi.fn(),
+    filterAsync: vi.fn(),
+    fromAsyncMap: vi.fn(),
+    action: vi.fn(),
+    fire: vi.fn(),
   }
 })
 

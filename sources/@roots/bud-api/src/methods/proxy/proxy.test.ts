@@ -1,7 +1,8 @@
 /* eslint-disable n/callback-return */
-import {beforeEach, describe, expect, jest} from '@jest/globals'
+import {URL} from 'node:url'
+
 import mockBud from '@repo/test-kit/mocks/bud'
-import {URL} from 'url'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import {
   disableMiddlewareHookCallback,
@@ -9,7 +10,7 @@ import {
   method as proxy,
 } from './index'
 
-jest.unstable_mockModule(`@roots/bud`, () => ({default: mockBud}))
+vi.mock(`@roots/bud`, () => ({default: mockBud}))
 
 describe(`bud.proxy`, () => {
   let bud
@@ -20,7 +21,7 @@ describe(`bud.proxy`, () => {
     bud.isDevelopment = true
 
     subject = proxy.bind(bud)
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   it(`should call bud.hooks.on with a fn when called with a number`, () => {
@@ -34,7 +35,7 @@ describe(`bud.proxy`, () => {
 
   it(`should set port when called with a number`, () => {
     let url = new URL(`http://example.com:8080`)
-    bud.hooks.on = jest.fn((str, cb) => {
+    bud.hooks.on = vi.fn((str, cb) => {
       if (str === `dev.middleware.proxy.target`) url = cb(url)
 
       return [`dev`]
@@ -86,13 +87,13 @@ describe(`bud.proxy`, () => {
   it(`should run replacements when called without replacements`, () => {
     let callback
 
-    bud.hooks.filter = jest.fn((str, cb) => {
+    bud.hooks.filter = vi.fn((str, cb) => {
       if (str === `dev.middleware.proxy.target`)
         return new URL(`https://example.com/`)
 
       callback = cb
     })
-    bud.hooks.on = jest.fn((str, value) => {
+    bud.hooks.on = vi.fn((str, value) => {
       if (str === `dev.middleware.proxy.replacements`) {
         bud.hooks.filter(str, value)
       }

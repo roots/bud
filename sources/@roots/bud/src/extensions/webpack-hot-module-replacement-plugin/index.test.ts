@@ -1,17 +1,14 @@
-import {describe, jest, test} from '@jest/globals'
 import {Extension} from '@roots/bud-framework/extension'
+import {beforeEach, describe, expect, it, test, vi} from 'vitest'
 import webpack from 'webpack'
 
 import hmrExtension from './index'
 
-jest.unstable_mockModule(
-  `@roots/bud`,
-  async () => await import(`@repo/test-kit/mocks/bud`),
-)
+vi.mock(`@roots/bud`, async () => await import(`@repo/test-kit/mocks/bud`))
 
 describe(`webpack-hot-module-replacement-plugin`, () => {
   beforeEach(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   it(`is an instance of Extension`, () => {

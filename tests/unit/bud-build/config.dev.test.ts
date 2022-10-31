@@ -1,5 +1,5 @@
-import {beforeAll, describe, expect, it, jest} from '@jest/globals'
 import {Bud, factory} from '@repo/test-kit/bud'
+import {beforeAll, describe, expect, it, vi} from 'vitest'
 
 describe(`[dev] bud.build.config`, function () {
   let bud: Bud

@@ -53,10 +53,10 @@
     }
   },
   "devDependencies": {
-    "@jest/globals": "29.2.2",
     "@skypack/package-check": "0.2.2",
     "@types/lodash": "4.14.186",
     "@types/node": "16.18.2",
+    "vitest": "0.24.4",
     "webpack": "5.74.0"
   },
   "dependencies": {

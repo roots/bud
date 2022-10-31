@@ -1,6 +1,6 @@
-import {beforeAll, describe, it} from '@jest/globals'
 import {Project} from '@repo/test-kit/project'
 import fs from 'fs-extra'
+import {beforeAll, describe, it} from 'vitest'
 
 const run = pacman => () => {
   let project: Project

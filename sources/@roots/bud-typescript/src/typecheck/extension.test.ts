@@ -1,6 +1,6 @@
-import {beforeAll, describe, expect, it} from '@jest/globals'
 import {factory} from '@repo/test-kit/bud'
 import type {Bud} from '@roots/bud'
+import {beforeAll, describe, expect, it} from 'vitest'
 
 import BudTypescript from '../index'
 import BudTypeCheck from './index'

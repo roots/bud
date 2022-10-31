@@ -60,7 +60,7 @@ export class TestUnit extends Command {
           ``,
         )} --config ${join(
           paths.root,
-          `config/jest.config.js`,
+          `config/vi.config.js`,
         )} --selectProjects unit:node unit:dom --verbose --coverage`,
       ),
     )

@@ -1,17 +1,17 @@
-import {describe, expect, it, jest} from '@jest/globals'
 import {Bud, factory} from '@repo/test-kit/bud'
 import {run} from '@roots/bud-framework/methods/run'
 import {Service} from '@roots/bud-framework/service'
 import {noop} from 'lodash-es'
+import {describe, expect, it, vi} from 'vitest'
 
 class MockCompiler extends Service {
-  public compile = jest.fn(() => ({run: this.invoke}))
-  public invoke = jest.fn(noop)
-  public callback = jest.fn(noop)
+  public compile = vi.fn(() => ({run: this.invoke}))
+  public invoke = vi.fn(noop)
+  public callback = vi.fn(noop)
 }
 
 class MockServer extends Service {
-  public run = jest.fn(noop)
+  public run = vi.fn(noop)
 }
 
 describe(`bud.run`, function () {

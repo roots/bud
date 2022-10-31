@@ -57,7 +57,7 @@ export class TestE2E extends Command {
           `node_modules/.bin/jest`,
         )} --config ${join(
           paths.root,
-          `config/jest.config.js`,
+          `config/vi.config.js`,
         )} --selectProjects e2e --verbose --runInBand --testTimeout ${
           60 * 1000
         }`,

@@ -1,11 +1,11 @@
-import {describe, expect, it, jest} from '@jest/globals'
 import mockBud from '@repo/test-kit/mocks/bud'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import {devtool} from './devtool.method.js'
 
-jest.unstable_mockModule(`@roots/bud`, () => ({default: mockBud}))
+vi.mock(`@roots/bud`, () => ({default: mockBud}))
 
-const callback = jest.fn() as any
+const callback = vi.fn() as any
 
 describe(`bud.devtool`, function () {
   let method: devtool
@@ -15,7 +15,7 @@ describe(`bud.devtool`, function () {
     bud = await import(`@roots/bud`).then(({default: Bud}) => new Bud())
     bud.hooks.on = callback
     method = devtool.bind(bud)
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   it(`is a function`, () => {

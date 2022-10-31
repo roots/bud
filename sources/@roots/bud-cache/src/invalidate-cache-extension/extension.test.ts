@@ -1,5 +1,5 @@
-import {describe, expect, it, jest} from '@jest/globals'
 import {factory} from '@repo/test-kit/bud'
+import {describe, expect, it, vi} from 'vitest'
 
 import Extension from './index'
 
@@ -38,7 +38,7 @@ describe(`@roots/bud-cache/inalidate-cache-extension`, () => {
       bud,
     )
     // @ts-ignore
-    extension.app.fs.exists = jest.fn(() => false)
+    extension.app.fs.exists = vi.fn(() => false)
     await extension.register()
 
     expect(extension.app.fs.exists).toHaveBeenCalled()
@@ -47,9 +47,9 @@ describe(`@roots/bud-cache/inalidate-cache-extension`, () => {
   it(`should call remove when bud.fs.exists returns false`, async () => {
     const bud = await factory()
     // @ts-ignore
-    bud.fs.exists = jest.fn(() => true)
+    bud.fs.exists = vi.fn(() => true)
     // @ts-ignore
-    const removeSpy = jest.spyOn(bud.fs, `remove`)
+    const removeSpy = vi.spyOn(bud.fs, `remove`)
 
     const extension = new Extension(
       // @ts-ignore
@@ -63,8 +63,8 @@ describe(`@roots/bud-cache/inalidate-cache-extension`, () => {
   it(`should call bud.hooks.action`, async () => {
     const bud = await factory()
     // @ts-ignore
-    bud.fs.exists = jest.fn(() => true)
-    const hookSpy = jest.spyOn(bud.hooks, `action`)
+    bud.fs.exists = vi.fn(() => true)
+    const hookSpy = vi.spyOn(bud.hooks, `action`)
 
     const extension = new Extension(
       // @ts-ignore

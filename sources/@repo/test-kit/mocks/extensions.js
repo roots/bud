@@ -1,27 +1,27 @@
-import {jest} from '@jest/globals'
+import {vi} from 'vitest'
 
 import bud from './bud'
 import logger from './logger'
 
 const mockExtension = {
   logger,
-  disable: jest.fn(),
-  enable: jest.fn(),
-  setOptions: jest.fn(),
-  getOptions: jest.fn(),
-  setOption: jest.fn(),
+  disable: vi.fn(),
+  enable: vi.fn(),
+  setOptions: vi.fn(),
+  getOptions: vi.fn(),
+  setOption: vi.fn(),
 }
 
-jest.unstable_mockModule(`@roots/bud`, () => ({default: bud}))
+vi.mock(`@roots/bud`, () => ({default: bud}))
 
-const mock = jest.fn().mockImplementation(async () => {
+const mock = vi.fn().mockImplementation(async () => {
   await import(`@roots/bud`)
 
   const extensions = {
     app: bud,
     logger,
-    add: jest.fn(() => {}),
-    get: jest.fn(() => mockExtension),
+    add: vi.fn(() => {}),
+    get: vi.fn(() => mockExtension),
   }
 
   return extensions

@@ -55,11 +55,11 @@
     }
   },
   "devDependencies": {
-    "@jest/globals": "29.2.2",
     "@repo/test-kit": "workspace:sources/@repo/test-kit",
     "@roots/bud": "workspace:sources/@roots/bud",
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.18.2",
+    "vitest": "0.24.4",
     "webpack": "5.74.0"
   },
   "dependencies": {

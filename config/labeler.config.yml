@@ -40,7 +40,7 @@
   - sources/**/*.test.js
   - tests/*
   - tests/**
-  - jest.config.ts
+  - vi.config.ts
 
 'roots-notifier':
   - sources/@repo/notifier/*

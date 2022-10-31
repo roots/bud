@@ -1,4 +1,6 @@
 /* eslint-disable no-console */
+import type {Readable} from 'node:stream'
+
 import {
   DeleteObjectCommand,
   GetObjectCommand,
@@ -13,8 +15,7 @@ import {
 import {bind} from 'helpful-decorators'
 import isString from 'lodash-es/isString.js'
 import isUndefined from 'lodash-es/isUndefined.js'
-import mimetypes from 'mime-types'
-import type {Readable} from 'stream'
+import * as mimetypes from 'mime-types'
 
 import Client from './client.js'
 import Config from './config.js'

@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`@roots/bud-extensions in development [development] bud.extensions.repository options matches snapshot 1`] = `
+exports[`@roots/bud-extensions > in development > [development] bud.extensions.repository options matches snapshot 1`] = `
 [
   "@roots/bud-entrypoints",
   "@roots/bud-postcss",
