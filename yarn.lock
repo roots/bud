@@ -7744,13 +7744,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jest@npm:29.2.0":
-  version: 29.2.0
-  resolution: "@types/jest@npm:29.2.0"
+"@types/jest@npm:29.2.1":
+  version: 29.2.1
+  resolution: "@types/jest@npm:29.2.1"
   dependencies:
     expect: ^29.0.0
     pretty-format: ^29.0.0
-  checksum: 6779e63d8d7507b116a61b2935a200e48531849fc1ac74090212759fe17716777ca6d2c3a8d927a563e9cfa474ae91d40b1688376ae80e3a08974b3c9e9691e1
+  checksum: 5610c9a44c57f6dc39cf54429ea8d04574ad4c3e3ddf9a2621882aa94a0758a42ca97a0d0aec41a8d0b149fa63bf3d077d1f07c1f1d82e3d89ad7408de211255
   languageName: node
   linkType: hard
 
@@ -11282,7 +11282,7 @@ __metadata:
     "@swc/jest": 0.2.23
     "@types/express": 4.17.14
     "@types/fs-extra": 9.0.13
-    "@types/jest": 29.2.0
+    "@types/jest": 29.2.1
     "@types/lodash-es": 4.17.6
     "@types/node": 16.18.2
     "@typescript-eslint/eslint-plugin": 5.41.0
