@@ -42,7 +42,7 @@ export class TestUnit extends Command {
    *
    * @internal
    */
-  public passthrough = Option.Proxy({name: `jest passthrough options`})
+  public passthrough = Option.Proxy({name: `vitest passthrough options`})
 
   /**
    * Execute command

@@ -25,7 +25,7 @@ Generally speaking, you will probably want to use vscode and utilize the recomme
 
 ## Development
 
-You can start up tsc, jest and docusaurus in `--watch` mode with one command:
+You can start up tsc, vitest and docusaurus in `--watch` mode with one command:
 
 ```sh
 yarn @bud dev
@@ -39,7 +39,7 @@ yarn @bud build
 
 ## Testing
 
-Unit and integration tests are run with `swc-jest`.
+Unit and integration tests are run with `vitest`.
 
 Most tests are stored in `tests/`.
 

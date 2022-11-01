@@ -36,11 +36,11 @@
   - examples/**
 
 'test':
-  - dev/jest/**/*
-  - sources/**/*.test.js
+  - sources/**/*.test.ts
+  - sources/**/*.test.tsx
   - tests/*
   - tests/**
-  - vi.config.ts
+  - config/vi.*.config.ts
 
 'roots-notifier':
   - sources/@repo/notifier/*
