@@ -56,10 +56,11 @@ export const template: template = async function (
   if (userOptions === false) {
     app.extensions
       .get(`@roots/bud-extensions/html-webpack-plugin`)
-      .disable()
+      ?.disable()
+
     app.extensions
       .get(`@roots/bud-extensions/interpolate-html-webpack-plugin`)
-      .disable()
+      ?.disable()
 
     return app
   }
@@ -78,10 +79,10 @@ export const template: template = async function (
 
   if (!isUndefined(userOptions) && userOptions !== true) {
     options = {
-      ...options,
+      ...(options ?? {}),
       ...userOptions,
       replace: {
-        ...options.replace,
+        ...(options?.replace ?? {}),
         ...userOptions.replace,
       },
     }

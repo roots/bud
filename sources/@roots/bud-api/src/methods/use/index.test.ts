@@ -1,6 +1,6 @@
 /* eslint-disable n/no-extraneous-import */
-import {describe, expect, it, jest} from '@jest/globals'
 import {factory} from '@repo/test-kit/bud'
+import {describe, expect, it, vi} from 'vitest'
 
 import {use as subject} from './index.js'
 
@@ -85,7 +85,7 @@ describe(`use`, () => {
 
     bud.extensions.repository = {} as any // reset extensions
 
-    const addSpy = jest.spyOn(bud.extensions, `add`)
+    const addSpy = vi.spyOn(bud.extensions, `add`)
 
     const use = subject.bind(bud)
 

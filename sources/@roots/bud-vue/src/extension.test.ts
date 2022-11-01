@@ -1,7 +1,8 @@
-import {beforeEach, describe, expect, it} from '@jest/globals'
-import {factory} from '@repo/test-kit/bud'
+import {factory} from '@roots/bud/factory'
+import {Extension} from '@roots/bud-framework/extension'
+import {beforeEach, describe, expect, it} from 'vitest'
 
-import Extension from './index'
+import Vue from './index'
 
 describe(`@roots/bud-vue`, () => {
   let bud
@@ -9,13 +10,11 @@ describe(`@roots/bud-vue`, () => {
 
   beforeEach(async () => {
     bud = await factory()
-    bud.extensions.repository = {}
-    await bud.extensions.add(Extension)
-    instance = new Extension(bud)
+    instance = new Vue(bud)
   })
 
-  it(`should be a constructor`, () => {
-    expect(Extension).toBeInstanceOf(Function)
+  it(`should be constructable`, () => {
+    expect(instance).toBeInstanceOf(Extension)
   })
 
   it(`should be constructable`, () => {

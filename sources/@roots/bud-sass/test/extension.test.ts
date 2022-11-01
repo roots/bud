@@ -1,18 +1,15 @@
 /* eslint-disable no-console */
-import {beforeEach, describe, expect, it, jest} from '@jest/globals'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import BudSassExtension from '../src/index'
 
-jest.unstable_mockModule(
-  `@roots/bud`,
-  async () => await import(`@repo/test-kit/mocks/bud`),
-)
+vi.mock(`@roots/bud`, async () => await import(`@repo/test-kit/mocks/bud`))
 
 describe(`@roots/bud-sass`, () => {
   let bud
 
   beforeEach(async () => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
     bud = await import(`@roots/bud`).then(({default: Bud}) => new Bud())
   })
 
@@ -22,7 +19,7 @@ describe(`@roots/bud-sass`, () => {
 
   it(`should call import when sass.register is called`, async () => {
     const extension = new BudSassExtension(bud)
-    const importSpy = jest.spyOn(extension, `import`)
+    const importSpy = vi.spyOn(extension, `import`)
 
     try {
       await extension.register()
@@ -33,8 +30,8 @@ describe(`@roots/bud-sass`, () => {
   it(`should call setOptions when sass.register is called`, async () => {
     const extension = new BudSassExtension(bud)
     // @ts-ignore
-    extension.import = jest.fn(() => ({}))
-    const setOptionsSpy = jest.spyOn(extension, `setOptions`)
+    extension.import = vi.fn(() => ({}))
+    const setOptionsSpy = vi.spyOn(extension, `setOptions`)
 
     try {
       await extension.register()
@@ -44,7 +41,7 @@ describe(`@roots/bud-sass`, () => {
 
   it(`should call setOption when sass.registerGlobal is called`, async () => {
     const extension = new BudSassExtension(bud)
-    const setOptionSpy = jest.spyOn(extension, `setOption`)
+    const setOptionSpy = vi.spyOn(extension, `setOption`)
 
     try {
       extension.registerGlobal(`$primary-color: #ff0000;`)
@@ -120,7 +117,7 @@ describe(`@roots/bud-sass`, () => {
 
   it(`should register global when importGlobal is called`, async () => {
     const extension = new BudSassExtension(bud)
-    const registerGlobalSpy = jest.spyOn(extension, `registerGlobal`)
+    const registerGlobalSpy = vi.spyOn(extension, `registerGlobal`)
 
     try {
       extension.importGlobal(`@src/styles/global.scss`)

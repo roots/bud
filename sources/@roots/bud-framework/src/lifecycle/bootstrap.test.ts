@@ -1,18 +1,18 @@
-import {beforeEach, describe, expect, it, jest} from '@jest/globals'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import {bootstrap as subject} from './bootstrap'
 
 let bud = {
-  info: jest.fn(),
-  success: jest.fn(),
+  info: vi.fn(),
+  success: vi.fn(),
   context: {basedir: `/foo`},
-  hooks: {fromAsyncMap: null, fromMap: null, on: jest.fn()},
-  path: jest.fn((...args) => `/test-return`),
+  hooks: {fromAsyncMap: null, fromMap: null, on: vi.fn()},
+  path: vi.fn((...args) => `/test-return`),
   root: null,
 }
 
-bud.hooks.fromAsyncMap = jest.fn(() => bud)
-bud.hooks.fromMap = jest.fn(() => bud)
+bud.hooks.fromAsyncMap = vi.fn(() => bud)
+bud.hooks.fromMap = vi.fn(() => bud)
 bud.root = bud
 
 let context = {
@@ -32,9 +32,9 @@ describe(`bootstrap`, function () {
   let bootstrap
 
   beforeEach(async () => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
     bud.context.basedir = `/foo`
-    bud.path = jest.fn(() => `/test-return`)
+    bud.path = vi.fn(() => `/test-return`)
     bootstrap = subject.bind(bud)
   })
 

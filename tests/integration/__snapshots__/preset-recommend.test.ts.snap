@@ -1,11 +1,11 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`preset-recommend npm [app.css] is transpiled 1`] = `
+exports[`preset-recommend > npm > [app.css] is transpiled 1`] = `
 "h2 .class{margin-top:5rem}
 "
 `;
 
-exports[`preset-recommend yarn [app.css] is transpiled 1`] = `
+exports[`preset-recommend > yarn > [app.css] is transpiled 1`] = `
 "h2 .class{margin-top:5rem}
 "
 `;

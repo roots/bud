@@ -1,5 +1,6 @@
 import {Bud, factory} from '@repo/test-kit/bud'
 import BudSass from '@roots/bud-sass'
+import {beforeEach, describe, expect, it} from 'vitest'
 
 describe(`@roots/bud-sass registration`, () => {
   let bud: Bud

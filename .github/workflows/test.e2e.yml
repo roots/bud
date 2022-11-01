@@ -57,4 +57,4 @@ jobs:
 
       - name: yarn @bud test e2e
         run: |
-          yarn @bud test e2e --runInBand
+          yarn @bud test e2e

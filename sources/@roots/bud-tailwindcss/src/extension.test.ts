@@ -1,30 +1,30 @@
-import {beforeEach, describe, expect, it, jest} from '@jest/globals'
 import resolveConfig from 'tailwindcss/resolveConfig'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import Extension from './extension'
 
-jest.mock(`@roots/bud-postcss`)
+vi.mock(`@roots/bud-postcss`)
 
 const Logger = {
-  error: jest.fn(),
-  success: jest.fn(),
+  error: vi.fn(),
+  success: vi.fn(),
   scope: [],
   instance: {
-    error: jest.fn(),
-    success: jest.fn(),
+    error: vi.fn(),
+    success: vi.fn(),
     scope: () => Logger,
   },
 }
 
 const PostCSS = {
-  setPlugins: jest.fn(),
+  setPlugins: vi.fn(),
 }
 
 const Bud = {
-  extensions: {add: jest.fn()},
-  hooks: {async: jest.fn()},
+  extensions: {add: vi.fn()},
+  hooks: {async: vi.fn()},
   logger: Logger,
-  module: {resolve: jest.fn()},
+  module: {resolve: vi.fn()},
   postcss: PostCSS,
   context: {
     config: {
@@ -46,9 +46,9 @@ const Bud = {
 
 describe(`@roots/bud-tailwindcss extension`, () => {
   beforeEach(async () => {
-    jest.clearAllMocks()
-    Bud.hooks.async = jest.fn()
-    Bud.extensions.add = jest.fn()
+    vi.clearAllMocks()
+    Bud.hooks.async = vi.fn()
+    Bud.extensions.add = vi.fn()
   })
 
   it(`basic checks`, () => {
@@ -68,7 +68,7 @@ describe(`@roots/bud-tailwindcss extension`, () => {
   it(`should not call extensions.add when generateImports is false`, async () => {
     const extension = new Extension(Bud)
     extension.setOption(`generateImports`, false)
-    extension.app.extensions.add = jest.fn() as any
+    extension.app.extensions.add = vi.fn() as any
 
     await extension.configAfter()
     expect(extension.options.generateImports).toBe(false)

@@ -1,11 +1,12 @@
-import {describe, expect, it} from '@jest/globals'
 import {factory} from '@repo/test-kit/bud'
+import {describe, expect, it} from 'vitest'
 
 import BudPostCss from './index.js'
 
 describe(`@roots/bud-postcss`, () => {
   it(`label`, async () => {
     const bud = await factory()
+    bud.extensions.repository = {} as any
     await bud.extensions.add(BudPostCss)
     expect(bud.postcss.label).toBe(`@roots/bud-postcss`)
   })

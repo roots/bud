@@ -1,5 +1,5 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`entrypoints.json should get chunk file list: bar.js 1`] = `"bar.js"`;
+exports[`entrypoints.json > should get chunk file list > bar.js 1`] = `"bar.js"`;
 
-exports[`entrypoints.json should get chunk file list: foo.js 1`] = `"foo.js"`;
+exports[`entrypoints.json > should get chunk file list > foo.js 1`] = `"foo.js"`;

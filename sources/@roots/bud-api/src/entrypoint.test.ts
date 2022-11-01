@@ -1,4 +1,4 @@
-import {describe, expect, it} from '@jest/globals'
+import {describe, expect, it, vi} from 'vitest'
 
 import {Api as Service} from './api/service.js'
 import Api from './index.js'

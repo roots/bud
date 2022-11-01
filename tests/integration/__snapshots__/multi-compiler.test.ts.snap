@@ -1,13 +1,13 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`multi-compiler plugin npm manifest.json matches snapshot 1`] = `
+exports[`multi-compiler plugin > npm > manifest.json > matches snapshot 1`] = `
 {
   "plugin.css": "css/plugin.css",
   "plugin.js": "js/plugin.js",
 }
 `;
 
-exports[`multi-compiler plugin yarn manifest.json matches snapshot 1`] = `
+exports[`multi-compiler plugin > yarn > manifest.json > matches snapshot 1`] = `
 {
   "plugin.css": "css/plugin.css",
   "plugin.js": "js/plugin.js",

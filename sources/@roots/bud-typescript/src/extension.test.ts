@@ -1,5 +1,5 @@
-import {describe, expect, it} from '@jest/globals'
 import {factory} from '@repo/test-kit/bud'
+import {describe, expect, it} from 'vitest'
 
 import Extension from './extension'
 

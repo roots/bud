@@ -1,9 +1,12 @@
+import type {Bud} from '@repo/test-kit/bud'
+import {describe, expect, it} from 'vitest'
+
 import Build from './index.js'
 
 const setup = async () => {
-  const bud = await import(`@repo/test-kit/bud`).then(
+  const bud = (await import(`@repo/test-kit/bud`).then(
     async pkg => await pkg.factory({}),
-  )
+  )) as Bud
 
   const build = new Build(() => bud)
 

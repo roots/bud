@@ -1,18 +1,18 @@
-import {describe, expect, it, jest} from '@jest/globals'
 import type {Bud} from '@roots/bud-framework'
 import React from '@roots/bud-support/react'
 import {render} from 'ink-testing-library'
+import {describe, expect, it, vi} from 'vitest'
 
 import App from './app'
 
 const mockLogger = {
   instance: {
-    scope: jest.fn(),
+    scope: vi.fn(),
   },
   scope: [],
 }
 
-mockLogger.instance.scope = jest.fn(() => mockLogger)
+mockLogger.instance.scope = vi.fn(() => mockLogger)
 
 const mockCompilations = [{}]
 
@@ -25,7 +25,7 @@ const bud = {
     },
   },
   hooks: {
-    filter: jest.fn(() => new URL(`http://localhost:8080`)),
+    filter: vi.fn(() => new URL(`http://localhost:8080`)),
   },
   logger: mockLogger,
   server: {

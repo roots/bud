@@ -16,7 +16,6 @@
     "./options": "./options.ts"
   },
   "dependencies": {
-    "@jest/globals": "29.2.2",
     "@repo/constants": "workspace:sources/@repo/constants",
     "@repo/logger": "workspace:sources/@repo/logger",
     "@types/fs-extra": "9.0.13",
@@ -28,6 +27,7 @@
     "get-package-json-from-registry": "2.2.2",
     "lodash-es": "4.17.21",
     "npm-package-arg": "10.0.0",
-    "registry-info": "1.0.0"
+    "registry-info": "1.0.0",
+    "vitest": "0.24.4"
   }
 }

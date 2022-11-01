@@ -1,5 +1,5 @@
-import {describe, expect, it} from '@jest/globals'
 import {externalNetworkInterface} from '@roots/bud-support/os'
+import {describe, expect, it} from 'vitest'
 
 import * as formatUrl from './formatUrl'
 

@@ -175,7 +175,7 @@ export default class Extensions
    * @decorator `@bind`
    */
   @bind
-  public async configAfter(bud: Bud): Promise<void> {
+  public async configAfter(): Promise<void> {
     await this.runAll(`configAfter`)
   }
 
@@ -183,7 +183,7 @@ export default class Extensions
    * `buildBefore` callback
    */
   @bind
-  public async buildBefore(bud: Bud): Promise<void> {
+  public async buildBefore(): Promise<void> {
     await this.runAll(`buildBefore`)
   }
 
@@ -191,7 +191,7 @@ export default class Extensions
    * `buildBefore` callback
    */
   @bind
-  public async buildAfter(bud: Bud): Promise<void> {
+  public async buildAfter(): Promise<void> {
     await this.runAll(`buildAfter`)
   }
 
@@ -241,6 +241,7 @@ export default class Extensions
     value: Modules[K],
   ): this {
     this.repository[key] = value
+
     return this
   }
 

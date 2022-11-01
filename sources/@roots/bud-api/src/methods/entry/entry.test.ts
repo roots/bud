@@ -1,18 +1,16 @@
-import {describe, expect, it, jest} from '@jest/globals'
-import mockBud from '@repo/test-kit/mocks/bud'
+import {factory} from '@repo/test-kit/bud'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import {entry, method} from './entry.method.js'
-
-jest.unstable_mockModule(`@roots/bud`, () => ({default: mockBud}))
 
 describe(`bud.entry`, function () {
   let bud
   let method: method
 
   beforeEach(async () => {
-    bud = await import(`@roots/bud`).then(({default: Bud}) => new Bud())
+    vi.clearAllMocks()
+    bud = await factory()
     method = entry.bind(bud)
-    jest.clearAllMocks()
   })
 
   it(`is a function`, () => {
@@ -25,8 +23,9 @@ describe(`bud.entry`, function () {
   })
 
   it(`should call bud.hooks.on one time`, async () => {
+    const onSpy = vi.spyOn(bud.hooks, `on`)
     await method(`foo`)
-    expect(bud.hooks.on).toHaveBeenCalledTimes(1)
+    expect(onSpy).toHaveBeenCalledTimes(1)
   })
 
   it(`should throw when a string is passed as arg0 and a non-array/string as arg1`, async () => {
@@ -48,72 +47,34 @@ describe(`bud.entry`, function () {
   })
 
   it(`should call bud.hooks.on with expected arguments`, async () => {
+    const onSpy = vi.spyOn(bud.hooks, `on`)
     await method(`foo`)
-    expect(bud.hooks.on).toHaveBeenCalledWith(
-      `build.entry`,
-      expect.any(Function),
-    )
+    expect(onSpy).toHaveBeenCalledWith(`build.entry`, expect.any(Function))
   })
 
   it(`should accept a string`, async () => {
-    const callback = jest.fn() as any
-    bud.hooks.on = jest.fn((_label: string, value: any) => {
-      return callback(value())
-    })
+    const onSpy = vi.spyOn(bud.hooks, `on`)
 
     await method(`foo`)
 
-    expect(bud.hooks.on).toHaveBeenCalledWith(
-      `build.entry`,
-      expect.any(Function),
-    )
-
-    expect(callback).toHaveBeenCalledWith(
-      expect.objectContaining({
-        MOCK: {import: [`foo`]},
-      }),
-    )
+    expect(onSpy).toHaveBeenCalledWith(`build.entry`, expect.any(Function))
   })
 
   it(`should accept an array`, async () => {
-    const callback = jest.fn() as any
-    bud.hooks.on = jest.fn((_label: string, value: any) => {
-      return callback(value())
-    })
+    const onSpy = vi.spyOn(bud.hooks, `on`)
 
     await method([`foo`])
 
-    expect(bud.hooks.on).toHaveBeenCalledWith(
-      `build.entry`,
-      expect.any(Function),
-    )
-
-    expect(callback).toHaveBeenCalledWith(
-      expect.objectContaining({
-        MOCK: {import: [`foo`]},
-      }),
-    )
+    expect(onSpy).toHaveBeenCalledWith(`build.entry`, expect.any(Function))
   })
 
   it(`should accept an object`, async () => {
-    const callback = jest.fn() as any
-    bud.hooks.on = jest.fn((_label: string, value: any) => {
-      return callback(value())
-    })
+    const onSpy = vi.spyOn(bud.hooks, `on`)
 
     await method({
       foo: `foo`,
     })
 
-    expect(bud.hooks.on).toHaveBeenCalledWith(
-      `build.entry`,
-      expect.any(Function),
-    )
-
-    expect(callback).toHaveBeenCalledWith(
-      expect.objectContaining({
-        foo: {import: [`foo`]},
-      }),
-    )
+    expect(onSpy).toHaveBeenCalledWith(`build.entry`, expect.any(Function))
   })
 })

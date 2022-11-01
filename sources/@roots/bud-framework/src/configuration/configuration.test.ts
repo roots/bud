@@ -1,18 +1,15 @@
-import {beforeEach, describe, expect, it, jest} from '@jest/globals'
-import mockBud from '@repo/test-kit/mocks/bud'
+import {factory} from '@repo/test-kit/bud'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import Configuration from './configuration'
 
-jest.unstable_mockModule(`@roots/bud`, () => ({default: mockBud}))
-
 describe(`bud.after`, function () {
   let configuration: Configuration
+  let bud
 
   beforeEach(async () => {
-    jest.clearAllMocks()
-    const bud = (await import(`@roots/bud`).then(
-      ({default: Bud}) => new Bud(),
-    )) as any
+    vi.clearAllMocks()
+    bud = await factory()
     configuration = new Configuration(bud)
   })
 

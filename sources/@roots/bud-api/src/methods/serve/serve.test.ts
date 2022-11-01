@@ -1,7 +1,7 @@
-import {describe, expect, it, jest} from '@jest/globals'
 import {Bud, factory} from '@repo/test-kit/bud'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import {method, Serve} from './index'
+import {method, Serve} from './index.js'
 
 describe(`bud.serve`, () => {
   let bud: Bud
@@ -14,7 +14,7 @@ describe(`bud.serve`, () => {
 
   it(`should not call anything in prod`, async () => {
     bud.context.mode = `production`
-    const spy = jest.spyOn(bud.hooks, `filter`)
+    const spy = vi.spyOn(bud.hooks, `filter`)
     await serve(`http://example.com`)
     expect(spy).not.toHaveBeenCalled()
   })
@@ -41,7 +41,7 @@ describe(`bud.serve`, () => {
 
   it(`should set from options`, async () => {
     // @ts-ignore
-    bud.fs.read = jest.fn(() => `test`)
+    bud.fs.read = vi.fn(() => `test`)
     await serve({cert: `foo`})
     expect(bud.hooks.filter(`dev.options`).cert).toBe(`test`)
   })

@@ -1,4 +1,4 @@
-import {describe, expect, it, jest} from '@jest/globals'
+import {describe, expect, it, vi} from 'vitest'
 
 import Sage from './index'
 
@@ -41,7 +41,7 @@ describe(`@roots/sage`, () => {
     let spy
 
     await setup(bud => {
-      spy = jest.spyOn(bud.hooks, `on`)
+      spy = vi.spyOn(bud.hooks, `on`)
     })
 
     expect(spy).toHaveBeenLastCalledWith(
@@ -54,7 +54,7 @@ describe(`@roots/sage`, () => {
     let spy
 
     await setup(bud => {
-      spy = jest.spyOn(bud, `runtime`)
+      spy = vi.spyOn(bud, `runtime`)
     })
 
     expect(spy).toHaveBeenCalledWith(`single`)

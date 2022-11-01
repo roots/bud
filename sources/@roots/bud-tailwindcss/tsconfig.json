@@ -3,7 +3,7 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "lib",
-    "types": ["jest", "node", "@roots/bud", "@roots/bud-framework", "@roots/bud-postcss"]
+    "types": ["node", "@roots/bud", "@roots/bud-framework", "@roots/bud-postcss"]
   },
   "include": ["src"],
   "exclude": ["**/*.test.ts"],

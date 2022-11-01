@@ -136,7 +136,6 @@
     }
   },
   "devDependencies": {
-    "@jest/globals": "29.2.2",
     "@skypack/package-check": "0.2.2",
     "@types/http-proxy": "1.17.9",
     "@types/js-yaml": "4.0.5",
@@ -145,6 +144,7 @@
     "@types/signale": "1.4.4",
     "chokidar": "3.5.3",
     "http-proxy-middleware": "2.0.6",
+    "vitest": "0.24.4",
     "webpack": "5.74.0"
   },
   "dependencies": {

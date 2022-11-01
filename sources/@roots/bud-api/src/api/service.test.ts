@@ -1,37 +1,37 @@
-import {describe, expect, it, jest} from '@jest/globals'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import {Api} from './service'
 
 const mockBud = {
-  bindMethod: jest.fn(() => null),
+  bindMethod: vi.fn(() => null),
   fs: {
     json: {
-      read: jest.fn(() => null),
-      write: jest.fn(),
-      stringify: jest.fn(),
-      parse: jest.fn(),
+      read: vi.fn(() => null),
+      write: vi.fn(),
+      stringify: vi.fn(),
+      parse: vi.fn(),
     },
     yml: {
-      read: jest.fn(),
-      write: jest.fn(),
-      parse: jest.fn(),
+      read: vi.fn(),
+      write: vi.fn(),
+      parse: vi.fn(),
     },
   },
   hooks: {
-    action: jest.fn(() => null),
+    action: vi.fn(() => null),
   },
   logger: {
     scope: [`@test`],
     instance: {
-      scope: jest.fn(() => null),
+      scope: vi.fn(() => null),
     },
   },
   json: {
-    stringify: jest.fn(),
+    stringify: vi.fn(),
   },
-  log: jest.fn(() => null),
-  error: jest.fn(() => null),
-  fatal: jest.fn(() => null),
+  log: vi.fn(() => null),
+  error: vi.fn(() => null),
+  fatal: vi.fn(() => null),
 }
 
 describe(`Api`, () => {
@@ -39,7 +39,7 @@ describe(`Api`, () => {
   let instance: Api = {}
 
   beforeEach(async () => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
     // @ts-ignore
     instance = new Api(() => mockBud)
   })
@@ -56,7 +56,7 @@ describe(`Api`, () => {
 
   it(`registered should set processQueue actions`, async () => {
     // @ts-ignore
-    const processQueue = jest.spyOn(instance, `processQueue`)
+    const processQueue = vi.spyOn(instance, `processQueue`)
 
     // @ts-ignore
     await instance.registered()
@@ -71,7 +71,7 @@ describe(`Api`, () => {
   })
 
   it(`bindFacade should call bud.bindMethod`, async () => {
-    const set = jest.fn(() => true)
+    const set = vi.fn(() => true)
     const testFn = () => true
 
     // @ts-ignore
@@ -89,9 +89,9 @@ describe(`Api`, () => {
   })
 
   it(`call() should call a function`, async () => {
-    const mockFn = jest.fn(() => null)
-    const has = jest.fn(() => true)
-    const get = jest.fn((...args) => ({call: mockFn}))
+    const mockFn = vi.fn(() => null)
+    const has = vi.fn(() => true)
+    const get = vi.fn((...args) => ({call: mockFn}))
 
     // @ts-ignore
     instance.get = get
@@ -111,14 +111,14 @@ describe(`processQueue`, () => {
     // @ts-ignore
     instance = new Api(() => mockBud)
     // @ts-ignore
-    const call = jest.spyOn(instance, `call`)
+    const call = vi.spyOn(instance, `call`)
     // @ts-ignore
     instance.logger = {
-      info: jest.fn(),
+      info: vi.fn(),
     }
-
+    instance.has = vi.fn(() => true)
     // @ts-ignore
-    instance.get = jest.fn(() => () => {})
+    instance.get = vi.fn(() => () => {})
     instance.queue = [[`minimize`, []]]
 
     await instance.processQueue()

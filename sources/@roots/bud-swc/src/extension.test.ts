@@ -1,20 +1,15 @@
 /* eslint-disable no-console */
-import {beforeEach, describe, expect, it, jest} from '@jest/globals'
-import Bud from '@roots/bud'
+import {factory} from '@repo/test-kit/bud'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import BudSWCExtension from './index'
 
-jest.unstable_mockModule(
-  `@roots/bud`,
-  async () => await import(`@repo/test-kit/mocks/bud`),
-)
-
 describe(`@roots/bud-swc`, () => {
-  let bud: Bud
+  let bud
 
   beforeEach(async () => {
-    jest.clearAllMocks()
-    bud = await import(`@roots/bud`).then(({default: Bud}) => new Bud())
+    vi.clearAllMocks()
+    bud = await factory()
   })
 
   it(`is instantiable`, () => {
@@ -22,13 +17,14 @@ describe(`@roots/bud-swc`, () => {
   })
 
   it(`calls hooks.on during registration`, async () => {
+    const onSpy = vi.spyOn(bud.hooks, `on`)
     await new BudSWCExtension(bud).register(bud)
-    expect(bud.hooks.on).toHaveBeenCalled()
+    expect(onSpy).toHaveBeenCalled()
   })
 
   it(`calls registerSWC during configAfter`, async () => {
     const extension = new BudSWCExtension(bud)
-    const registerSWCSpy = jest.spyOn(extension, `registerSWC`)
+    const registerSWCSpy = vi.spyOn(extension, `registerSWC`)
     await extension.configAfter(bud)
     expect(registerSWCSpy).toHaveBeenCalled()
   })

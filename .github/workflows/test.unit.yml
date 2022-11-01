@@ -49,4 +49,4 @@ jobs:
 
       - name: yarn @bud test unit
         run: |
-          yarn @bud test unit
+          yarn @bud test unit run --coverage

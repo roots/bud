@@ -1,16 +1,17 @@
-import {beforeEach, describe, expect, it, jest} from '@jest/globals'
+import {Bud as Core} from '@roots/bud-framework/bud'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import Bud from './bud'
+import {Bud} from './index.js'
 
 describe(`@roots/bud/bud`, function () {
   let bud: Bud
 
   beforeEach(async () => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
     bud = new Bud()
   })
 
   it(`should be instance of Framework`, () => {
-    expect(bud).toBeInstanceOf(Bud)
+    expect(bud).toBeInstanceOf(Core)
   })
 })

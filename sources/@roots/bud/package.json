@@ -102,11 +102,11 @@
     }
   },
   "devDependencies": {
-    "@jest/globals": "29.2.2",
     "@repo/test-kit": "workspace:sources/@repo/test-kit",
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.18.2",
-    "@types/node-notifier": "8.0.2"
+    "@types/node-notifier": "8.0.2",
+    "vitest": "0.24.4"
   },
   "dependencies": {
     "@roots/browserslist-config": "workspace:sources/@roots/browserslist-config",

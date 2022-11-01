@@ -1,15 +1,15 @@
-import {describe, jest, test} from '@jest/globals'
+import {factory} from '@repo/test-kit/bud'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import extensionConstructor from './index'
 
-jest.unstable_mockModule(
-  `@roots/bud`,
-  async () => await import(`@repo/test-kit/mocks/bud`),
-)
-
 describe(`@roots/bud-extensions/cdn`, () => {
-  beforeEach(() => {
-    jest.clearAllMocks()
+  let bud
+  let instance
+  beforeEach(async () => {
+    vi.clearAllMocks()
+    bud = await factory()
+    instance = new extensionConstructor(bud)
   })
 
   it(`should be constructable`, () => {
@@ -17,94 +17,41 @@ describe(`@roots/bud-extensions/cdn`, () => {
   })
 
   it(`should be an instance of Extension`, async () => {
-    const bud = await import(`@roots/bud`).then(
-      // @ts-ignore
-      ({default: Bud}) => new Bud(),
-    )
-    expect(
-      // @ts-ignore
-      new extensionConstructor(bud),
-    ).toBeInstanceOf(extensionConstructor)
+    expect(instance).toBeInstanceOf(extensionConstructor)
   })
 
   it(`should set cacheEnabled to false when disableCache is called`, async () => {
-    const bud = await import(`@roots/bud`).then(
-      // @ts-ignore
-      ({default: Bud}) => new Bud(),
-    )
-
-    const instance = new extensionConstructor(
-      // @ts-ignore
-      bud,
-    )
-
     instance.disableCache()
     expect(instance.cacheEnabled).toBe(false)
   })
 
   it(`should set lockfileLocation when setLockFileLocation is called`, async () => {
-    const bud = await import(`@roots/bud`).then(
-      // @ts-ignore
-      ({default: Bud}) => new Bud(),
-    )
-
-    const instance = new extensionConstructor(
-      // @ts-ignore
-      bud,
-    )
-
     instance.setLockfileLocation(`foo`)
     expect(instance.lockfileLocation).toBe(`foo`)
   })
 
   it(`should set cacheLocation when setCacheLocation is called`, async () => {
-    const bud = await import(`@roots/bud`).then(
-      // @ts-ignore
-      ({default: Bud}) => new Bud(),
-    )
-
-    bud.maybeCall = jest.fn(arg => arg)
-
-    const instance = new extensionConstructor(
-      // @ts-ignore
-      bud,
-    )
-
     instance.setCacheLocation(`foo`)
     expect(instance.cacheLocation).toBe(`foo`)
   })
 
   it(`should call hooks.on from buildBefore`, async () => {
-    const bud = await import(`@roots/bud`).then(
-      // @ts-ignore
-      ({default: Bud}) => new Bud(),
-    )
+    const bud = await factory()
+    const onSpy = vi.spyOn(bud.hooks, `on`)
 
-    bud.maybeCall = jest.fn(arg => arg)
+    const instance = new extensionConstructor(bud)
+    await instance.buildBefore(bud)
 
-    const instance = new extensionConstructor(
-      // @ts-ignore
-      bud,
-    )
-
-    await instance.buildBefore()
-    expect(instance.app.hooks.on).toHaveBeenCalled()
+    expect(onSpy).toHaveBeenCalled()
   })
 
   it(`should call extensions.add from buildBefore`, async () => {
-    const bud = await import(`@roots/bud`).then(
-      // @ts-ignore
-      ({default: Bud}) => new Bud(),
-    )
+    const bud = await factory()
+    const extAddSpy = vi.spyOn(bud.extensions, `add`)
 
-    bud.maybeCall = jest.fn(arg => arg)
+    const instance = new extensionConstructor(bud)
+    await instance.buildBefore(bud)
 
-    const instance = new extensionConstructor(
-      // @ts-ignore
-      bud,
-    )
-
-    await instance.buildBefore()
-    expect(instance.app.extensions.add).toHaveBeenCalled()
+    expect(extAddSpy).toHaveBeenCalled()
   })
 })

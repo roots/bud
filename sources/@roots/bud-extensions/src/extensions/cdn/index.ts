@@ -270,8 +270,8 @@ export default class Cdn extends Extension<Options, null> {
    * @decorator `@bind`
    */
   @bind
-  public async buildBefore() {
-    this.app.hooks.on(`build.experiments`, experiments => ({
+  public async buildBefore(bud: Bud) {
+    bud.hooks.on(`build.experiments`, experiments => ({
       ...(experiments ?? {}),
       buildHttp: {
         allowedUris: this.allowedUris,
@@ -290,7 +290,7 @@ export default class Cdn extends Extension<Options, null> {
         schema: `${source[0]}:`,
       }
 
-      await this.app.extensions.add({
+      await bud.extensions.add({
         label: `bud-cdn-${cdn.ident}` as keyof Modules & string,
         make: async () =>
           new Webpack.NormalModuleReplacementPlugin(
@@ -301,9 +301,9 @@ export default class Cdn extends Extension<Options, null> {
           ),
       })
 
-      if (isUndefined(this.app.context.manifest?.bud?.[cdn.ident])) return
+      if (isUndefined(bud.context.manifest?.bud?.[cdn.ident])) return
 
-      const manifest = this.app.context.manifest.bud[cdn.ident]
+      const manifest = bud.context.manifest.bud[cdn.ident]
       const imports = Array.isArray(manifest)
         ? manifest.map(signifier => [signifier, signifier])
         : Object.entries(manifest).map(([base, params]) => [
@@ -313,7 +313,7 @@ export default class Cdn extends Extension<Options, null> {
 
       await Promise.all(
         imports.map(async ([signifier, remotePath]) => {
-          await this.app.extensions.add({
+          await bud.extensions.add({
             label: `bud-cdn-${cdn.ident}-${remotePath}` as keyof Modules &
               string,
             make: async () =>

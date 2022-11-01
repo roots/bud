@@ -1,4 +1,4 @@
-import {describe, expect, it, jest} from '@jest/globals'
+import {describe, expect, it, vi} from 'vitest'
 
 import Extension from './index'
 
@@ -44,7 +44,7 @@ describe(`@roots/bud-cache/invalidate-cache-extension`, () => {
       bud,
     )
     // @ts-ignore
-    extension.app.fs.exists = jest.fn(() => false)
+    extension.app.fs.exists = vi.fn(() => false)
     await extension.register()
 
     expect(extension.app.fs.exists).toHaveBeenCalled()
@@ -55,9 +55,9 @@ describe(`@roots/bud-cache/invalidate-cache-extension`, () => {
       async pkg => await pkg.factory(),
     )
     // @ts-ignore
-    bud.fs.exists = jest.fn(() => true)
+    bud.fs.exists = vi.fn(() => true)
     // @ts-ignore
-    const removeSpy = jest.spyOn(bud.fs, `remove`)
+    const removeSpy = vi.spyOn(bud.fs, `remove`)
 
     const extension = new Extension(
       // @ts-ignore
@@ -74,8 +74,8 @@ describe(`@roots/bud-cache/invalidate-cache-extension`, () => {
     )
 
     // @ts-ignore
-    bud.fs.exists = jest.fn(() => true)
-    const hookSpy = jest.spyOn(bud.hooks, `action`)
+    bud.fs.exists = vi.fn(() => true)
+    const hookSpy = vi.spyOn(bud.hooks, `action`)
 
     const extension = new Extension(
       // @ts-ignore

@@ -52,13 +52,13 @@
   },
   "devDependencies": {
     "@babel/core": "7.19.6",
-    "@jest/globals": "29.2.2",
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@skypack/package-check": "0.2.2",
     "@types/babel__core": "7.1.19",
     "@types/lodash": "4.14.186",
     "@types/node": "16.18.2",
     "type-fest": "3.1.0",
+    "vitest": "0.24.4",
     "webpack": "5.74.0"
   },
   "dependencies": {

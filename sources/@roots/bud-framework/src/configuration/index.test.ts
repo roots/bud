@@ -1,18 +1,14 @@
-import {beforeEach, describe, expect, it, jest} from '@jest/globals'
-import mockBud from '@repo/test-kit/mocks/bud'
+import {factory} from '@repo/test-kit/bud'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import * as configuration from './index'
-
-jest.unstable_mockModule(`@roots/bud`, () => ({default: mockBud}))
 
 describe(`bud.configuration`, function () {
   let bud
 
   beforeEach(async () => {
-    jest.clearAllMocks()
-    bud = (await import(`@roots/bud`).then(
-      ({default: Bud}) => new Bud(),
-    )) as any
+    vi.clearAllMocks()
+    bud = await factory()
   })
 
   it(`should have a process fn`, () => {

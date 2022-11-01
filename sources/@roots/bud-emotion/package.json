@@ -62,11 +62,11 @@
   },
   "devDependencies": {
     "@babel/core": "7.19.6",
-    "@jest/globals": "29.2.2",
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.18.2",
     "@types/react": "17.0.52",
-    "react": "17.0.2"
+    "react": "17.0.2",
+    "vitest": "0.24.4"
   },
   "dependencies": {
     "@emotion/babel-plugin": "^11.9.2",

@@ -1,8 +1,8 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`html-template npm index.html is the correct html 1`] = `"<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="html templating example"/><title>Demo</title><link rel="icon" href="favicon.ico"><script defer="defer" src="js/app.js"></script></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root">#root content</div></body></html>"`;
+exports[`html-template > npm > index.html > is the correct html 1`] = `"<!doctype html><html lang=\\"en\\"><head><meta charset=\\"utf-8\\"/><meta name=\\"viewport\\" content=\\"width=device-width,initial-scale=1\\"/><meta name=\\"theme-color\\" content=\\"#000000\\"/><meta name=\\"description\\" content=\\"html templating example\\"/><title>Demo</title><link rel=\\"icon\\" href=\\"favicon.ico\\"><script defer=\\"defer\\" src=\\"js/app.js\\"></script></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\\"root\\">#root content</div></body></html>"`;
 
-exports[`html-template npm package.json matches snapshot 1`] = `
+exports[`html-template > npm > package.json > matches snapshot 1`] = `
 {
   "browserslist": [
     "extends @roots/browserslist-config/current",
@@ -16,9 +16,9 @@ exports[`html-template npm package.json matches snapshot 1`] = `
 }
 `;
 
-exports[`html-template yarn index.html is the correct html 1`] = `"<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="html templating example"/><title>Demo</title><link rel="icon" href="favicon.ico"><script defer="defer" src="js/app.js"></script></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root">#root content</div></body></html>"`;
+exports[`html-template > yarn > index.html > is the correct html 1`] = `"<!doctype html><html lang=\\"en\\"><head><meta charset=\\"utf-8\\"/><meta name=\\"viewport\\" content=\\"width=device-width,initial-scale=1\\"/><meta name=\\"theme-color\\" content=\\"#000000\\"/><meta name=\\"description\\" content=\\"html templating example\\"/><title>Demo</title><link rel=\\"icon\\" href=\\"favicon.ico\\"><script defer=\\"defer\\" src=\\"js/app.js\\"></script></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\\"root\\">#root content</div></body></html>"`;
 
-exports[`html-template yarn package.json matches snapshot 1`] = `
+exports[`html-template > yarn > package.json > matches snapshot 1`] = `
 {
   "browserslist": [
     "extends @roots/browserslist-config/current",

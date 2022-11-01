@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`bud.splitChunks sets default options when called 1`] = `
+exports[`bud.splitChunks > sets default options when called 1`] = `
 {
   "automaticNameDelimiter": "/",
   "cacheGroups": {
@@ -16,7 +16,7 @@ exports[`bud.splitChunks sets default options when called 1`] = `
 }
 `;
 
-exports[`bud.splitChunks sets options when passed as parameters 1`] = `
+exports[`bud.splitChunks > sets options when passed as parameters 1`] = `
 {
   "cacheGroups": {
     "chunks": "all",

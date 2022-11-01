@@ -1,6 +1,7 @@
 import {paths} from '@repo/constants'
 import {Bud, factory} from '@repo/test-kit/bud'
 import {join} from 'path'
+import {beforeAll, describe, expect, it} from 'vitest'
 
 describe(`multi-compiler`, () => {
   let bud: Bud

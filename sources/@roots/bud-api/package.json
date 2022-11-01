@@ -63,7 +63,6 @@
     }
   },
   "devDependencies": {
-    "@jest/globals": "29.2.2",
     "@repo/test-kit": "workspace:sources/@repo/test-kit",
     "@roots/bud-extensions": "workspace:sources/@roots/bud-extensions",
     "@roots/bud-terser": "workspace:sources/@roots/bud-terser",
@@ -71,6 +70,7 @@
     "@types/node": "16.18.2",
     "copy-webpack-plugin": "11.0.0",
     "html-webpack-plugin": "5.5.0",
+    "vitest": "0.24.4",
     "webpack": "5.74.0"
   },
   "dependencies": {

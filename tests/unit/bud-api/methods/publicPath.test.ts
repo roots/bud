@@ -1,5 +1,5 @@
-import {log} from '@repo/logger'
 import {Bud, factory} from '@repo/test-kit/bud'
+import {beforeAll, describe, expect, it} from 'vitest'
 
 describe(`bud.publicPath`, function () {
   let bud: Bud

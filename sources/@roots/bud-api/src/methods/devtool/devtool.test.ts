@@ -1,21 +1,19 @@
-import {describe, expect, it, jest} from '@jest/globals'
-import mockBud from '@repo/test-kit/mocks/bud'
+import {factory} from '@repo/test-kit/bud'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import {devtool} from './devtool.method.js'
 
-jest.unstable_mockModule(`@roots/bud`, () => ({default: mockBud}))
-
-const callback = jest.fn() as any
+const callback = vi.fn() as any
 
 describe(`bud.devtool`, function () {
   let method: devtool
   let bud
 
   beforeEach(async () => {
-    bud = await import(`@roots/bud`).then(({default: Bud}) => new Bud())
+    bud = await factory()
     bud.hooks.on = callback
     method = devtool.bind(bud)
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   it(`is a function`, () => {
@@ -28,20 +26,23 @@ describe(`bud.devtool`, function () {
   })
 
   it(`calls bud.hooks.on`, async () => {
+    const onSpy = vi.spyOn(bud.hooks, `on`)
     await method()
-    expect(bud.hooks.on).toHaveBeenCalledTimes(1)
+    expect(onSpy).toHaveBeenCalledTimes(1)
   })
 
   it(`calls bud.hooks.on`, async () => {
+    const onSpy = vi.spyOn(bud.hooks, `on`)
     await method()
-    expect(bud.hooks.on).toHaveBeenCalledWith(
+    expect(onSpy).toHaveBeenCalledWith(
       `build.devtool`,
       `cheap-module-source-map`,
     )
   })
 
   it(`calls bud.hooks.on with expected arguments`, async () => {
+    const onSpy = vi.spyOn(bud.hooks, `on`)
     await method(callback)
-    expect(bud.hooks.on).toHaveBeenCalledWith(`build.devtool`, callback)
+    expect(onSpy).toHaveBeenCalledWith(`build.devtool`, callback)
   })
 })

@@ -1,13 +1,13 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`typescript npm manifest.json matches snapshot 1`] = `
+exports[`typescript > npm > manifest.json > matches snapshot 1`] = `
 {
   "app.js": "js/app.js",
   "index.html": "index.html",
 }
 `;
 
-exports[`typescript yarn manifest.json matches snapshot 1`] = `
+exports[`typescript > yarn > manifest.json > matches snapshot 1`] = `
 {
   "app.js": "js/app.js",
   "index.html": "index.html",

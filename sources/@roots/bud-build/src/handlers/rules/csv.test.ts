@@ -1,4 +1,4 @@
-import {describe, expect} from '@jest/globals'
+import {describe, expect, it} from 'vitest'
 
 import {csv} from './csv'
 

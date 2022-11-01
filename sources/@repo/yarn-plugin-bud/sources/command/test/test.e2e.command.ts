@@ -42,7 +42,7 @@ export class TestE2E extends Command {
    *
    * @internal
    */
-  public passthrough = Option.Proxy({name: `jest passthrough options`})
+  public passthrough = Option.Proxy({name: `vitest passthrough options`})
 
   /**
    * Execute command
@@ -52,15 +52,10 @@ export class TestE2E extends Command {
   public async execute() {
     await this.$(
       this.withPassthrough(
-        `yarn node --experimental-vm-modules ${join(
+        `yarn vitest --config ${join(
           paths.root,
-          `node_modules/.bin/jest`,
-        )} --config ${join(
-          paths.root,
-          `config/jest.config.js`,
-        )} --selectProjects e2e --verbose --runInBand --testTimeout ${
-          60 * 1000
-        }`,
+          `config/vitest.e2e.config.ts`,
+        )}`,
       ),
     )
   }

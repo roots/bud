@@ -1,6 +1,7 @@
-import {describe, expect, it, jest} from '@jest/globals'
 import {factory} from '@repo/test-kit/bud'
-import extensionConstructor from '@roots/bud-extensions/esm'
+import {describe, expect, it, vi} from 'vitest'
+
+import extensionConstructor from './index.js'
 
 describe(`@roots/bud-extensions/esm`, () => {
   it(`is constructable`, () => {
@@ -77,7 +78,7 @@ describe(`@roots/bud-extensions/esm`, () => {
       },
     }
 
-    const hooksSpy = jest.spyOn(
+    const hooksSpy = vi.spyOn(
       bud.hooks,
       // @ts-ignore
       `on`,
@@ -97,7 +98,7 @@ describe(`@roots/bud-extensions/esm`, () => {
       imports: undefined,
     }
 
-    const hooksSpy = jest.spyOn(
+    const externalsSpy = vi.spyOn(
       bud.hooks,
       // @ts-ignore
       `on`,
@@ -111,6 +112,6 @@ describe(`@roots/bud-extensions/esm`, () => {
       bud,
     )
 
-    expect(hooksSpy).not.toHaveBeenCalled()
+    expect(externalsSpy).not.toHaveBeenCalled()
   })
 })

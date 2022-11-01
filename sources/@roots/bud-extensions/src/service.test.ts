@@ -1,18 +1,15 @@
-import {describe, expect, it, jest} from '@jest/globals'
 import {factory} from '@repo/test-kit/bud'
-import mockBud from '@repo/test-kit/mocks/bud'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 import type {WebpackPluginInstance} from 'webpack'
 
 import Extensions from './index'
 
-jest.unstable_mockModule(
-  `@roots/bud`,
-  async () => await import(`@repo/test-kit/mocks/bud`),
-)
-
 describe(`@roots/bud-extensions`, () => {
+  let bud
+  let extensions
+
   let mockWebpackPlugin: WebpackPluginInstance = {
-    apply: jest.fn(),
+    apply: vi.fn(),
   }
 
   let options = {
@@ -21,22 +18,23 @@ describe(`@roots/bud-extensions`, () => {
 
   let mockModule: any = {
     label: `mock_extension`,
-    register: jest.fn(async () => null),
-    boot: jest.fn(async () => null),
+    register: vi.fn(async () => null),
+    boot: vi.fn(async () => null),
     options: options,
-    make: jest.fn(async () => mockWebpackPlugin),
-    when: jest.fn(async () => true),
+    make: vi.fn(async () => mockWebpackPlugin),
+    when: vi.fn(async () => true),
   }
 
+  beforeEach(async () => {
+    bud = await factory()
+    extensions = new Extensions(() => bud)
+  })
+
   it(`is constructable`, async () => {
-    const bud = await factory()
-    const extensions: Extensions = new Extensions(() => bud)
     expect(extensions).toBeInstanceOf(Extensions)
   })
 
   it(`add fn registers a module`, async () => {
-    const bud = await factory()
-    const extensions: Extensions = new Extensions(() => bud)
     extensions.repository = {} as any
 
     await extensions.add(mockModule)
@@ -47,8 +45,6 @@ describe(`@roots/bud-extensions`, () => {
   })
 
   it(`should assign a uuid as key for extensions without names`, async () => {
-    const bud = await factory()
-    const extensions: Extensions = new Extensions(() => bud)
     extensions.repository = {} as any
 
     await extensions.add(
@@ -66,9 +62,7 @@ describe(`@roots/bud-extensions`, () => {
   })
 
   it(`should assign a uuid to label for extensions without name`, async () => {
-    const bud = await factory()
-    const extensions: Extensions = new Extensions(() => bud)
-    extensions.repository = {} as any
+    extensions.repository = {} as Extensions[`repository`]
 
     await extensions.add(
       // @ts-ignore
@@ -80,6 +74,7 @@ describe(`@roots/bud-extensions`, () => {
     )
 
     expect(
+      // @ts-ignore
       Object.values(extensions.repository).sort().pop().label,
     ).toMatch(
       /[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}/,
@@ -87,10 +82,7 @@ describe(`@roots/bud-extensions`, () => {
   })
 
   it(`[development] bud.extensions.repository options matches snapshot`, async () => {
-    const bud: any = await import(`@roots/bud`).then(
-      async pkg => new (pkg as any).default(),
-    )
-    bud.mode = `development`
+    bud = await factory({mode: `development`})
 
     const extensions = new Extensions(() => bud)
     await extensions.register(bud)

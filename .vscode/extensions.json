@@ -3,7 +3,6 @@
     "arcanis.vscode-zipfs",
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
-    "ms-vscode-remote.remote-containers",
-    "firsttris.vscode-jest-runner"
+    "ms-vscode-remote.remote-containers"
   ]
 }

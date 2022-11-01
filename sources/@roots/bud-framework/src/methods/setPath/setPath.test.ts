@@ -1,25 +1,25 @@
-import {beforeEach, describe, expect, it, jest} from '@jest/globals'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import {setPath as subject} from './setPath'
 
 let bud = {
-  info: jest.fn(),
+  info: vi.fn(),
   context: {
     basedir: `/foo`,
   },
   hooks: {
-    on: jest.fn(),
+    on: vi.fn(),
   },
-  path: jest.fn((...args) => `/test-return`),
+  path: vi.fn((...args) => `/test-return`),
 }
 
 describe(`bud.setPath`, function () {
   let setPath
 
   beforeEach(async () => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
     bud.context.basedir = `/foo`
-    bud.path = jest.fn(() => `/test-return`)
+    bud.path = vi.fn(() => `/test-return`)
     setPath = subject.bind(bud)
   })
 
@@ -50,7 +50,7 @@ describe(`bud.setPath`, function () {
   })
 
   it(`throws when a path doesn't resolve correctly`, () => {
-    bud.path = jest.fn(() => `foo`)
+    bud.path = vi.fn(() => `foo`)
     try {
       expect(setPath(`@src`, `test-foo`)).toThrowError()
     } catch (e) {

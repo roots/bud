@@ -1,7 +1,7 @@
-import {describe, test} from '@jest/globals'
 import {factory} from '@repo/test-kit/bud'
+import {describe, expect, it} from 'vitest'
 
-import extensionConstructor from './index'
+import extensionConstructor from './index.js'
 
 describe(`clean-webpack-plugin`, () => {
   it(`is an instance of Extension`, () => {

@@ -42,7 +42,7 @@ export class TestUnit extends Command {
    *
    * @internal
    */
-  public passthrough = Option.Proxy({name: `jest passthrough options`})
+  public passthrough = Option.Proxy({name: `vitest passthrough options`})
 
   /**
    * Execute command
@@ -52,16 +52,10 @@ export class TestUnit extends Command {
   public async execute() {
     await this.$(
       this.withPassthrough(
-        `yarn node --experimental-vm-modules ${join(
+        `yarn vitest --config ${join(
           paths.root,
-          `node_modules/.bin/jest`,
-        )} ${this.passthrough.reduce(
-          (a, c) => `${a} ${c}`,
-          ``,
-        )} --config ${join(
-          paths.root,
-          `config/jest.config.js`,
-        )} --selectProjects unit:node unit:dom --verbose --coverage`,
+          `config/vitest.unit.config.ts`,
+        )}`,
       ),
     )
   }

@@ -1,4 +1,4 @@
-import {describe, expect, it, jest} from '@jest/globals'
+import {describe, expect, it, vi} from 'vitest'
 
 import getProxy from './getProxy'
 

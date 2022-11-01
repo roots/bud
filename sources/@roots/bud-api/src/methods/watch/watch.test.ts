@@ -1,5 +1,5 @@
-import {beforeEach, describe, expect, it, jest} from '@jest/globals'
 import {Bud, factory} from '@repo/test-kit/bud'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import {watch as subject} from './index'
 
@@ -41,7 +41,7 @@ describe(`bud.watch`, () => {
       let result
 
       // @ts-ignore
-      bud.hooks.on = jest.fn((key: any, hookFn: any) => {
+      bud.hooks.on = vi.fn((key: any, hookFn: any) => {
         result = hookFn(undefined)
         return bud
       })

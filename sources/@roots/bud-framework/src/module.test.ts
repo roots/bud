@@ -1,41 +1,17 @@
-import {beforeEach, describe, expect, it, jest} from '@jest/globals'
-import {join} from 'path'
+import {factory} from '@repo/test-kit/bud'
 import {pathToFileURL} from 'url'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import {Module} from './module'
-
-jest.unstable_mockModule(
-  `@roots/bud`,
-  async () => await import(`@repo/test-kit/mocks/bud`),
-)
 
 describe(`@roots/bud-framework`, () => {
   let bud
   let budModule
 
   beforeEach(async () => {
-    bud = await import(`@roots/bud`).then(({default: Bud}) => new Bud())
-    bud.root = {
-      context: bud.context,
-      path: jest.fn((...args) => join(bud.context.basedir, ...args)),
-      relPath: jest.fn((...args) => join(bud.context.basedir, ...args)),
-    }
-
+    vi.clearAllMocks()
+    bud = await factory()
     budModule = new Module(bud)
-
-    bud.info = jest.fn()
-    bud.success = jest.fn()
-    bud.log = jest.fn()
-    bud.fatal = jest.fn()
-    bud.error = jest.fn()
-
-    budModule.logger = {
-      info: bud.info,
-      success: bud.success,
-      log: bud.log,
-      fatal: bud.fatal,
-      error: bud.error,
-    }
   })
 
   it(`should be instantiable`, () => {
@@ -74,8 +50,9 @@ describe(`@roots/bud-framework`, () => {
   })
 
   it(`should have a readManifest fn that returns the requested package.json object`, async () => {
+    const readSpy = vi.spyOn(bud.fs.json, `read`)
     await budModule.readManifest(`@roots/bud`)
-    expect(bud.fs.json.read).toHaveBeenCalledWith(
+    expect(readSpy).toHaveBeenCalledWith(
       expect.stringContaining(`@roots/bud/package.json`),
     )
   })
@@ -93,10 +70,12 @@ describe(`@roots/bud-framework`, () => {
   })
 
   it(`should have an tryImport fn that returns the default export`, async () => {
+    const successSpy = vi.spyOn(budModule.logger, `success`)
+
     expect(await budModule.tryImport(`@roots/bud`)).toEqual(
       expect.any(Function),
     )
-    expect(budModule.logger.success).toHaveBeenCalled()
+    expect(successSpy).toHaveBeenCalled()
   })
 
   it(`should have an tryImport fn that throws when pkg is unresolvable`, async () => {

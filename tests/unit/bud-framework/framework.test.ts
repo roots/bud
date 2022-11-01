@@ -1,7 +1,7 @@
-import {describe, expect, it, jest} from '@jest/globals'
 import {Bud, factory} from '@repo/test-kit/bud'
 import {Container} from '@roots/container'
 import {noop} from 'lodash-es'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 describe.skip(`bud`, () => {
   let bud: Bud
@@ -30,7 +30,7 @@ describe.skip(`bud`, () => {
   })
 
   it(`tap calls fn and returns instance of Bud`, async () => {
-    const fn = jest.fn()
+    const fn = vi.fn()
     expect(bud.tap(fn)).toBeInstanceOf(Bud)
     expect(fn).toHaveBeenCalledTimes(1)
   })
@@ -75,11 +75,11 @@ describe.skip(`bud`, () => {
   })
 
   it(`when calls fns conditionally`, async () => {
-    const whenTrue = jest.fn((app: Bud) => {})
+    const whenTrue = vi.fn((app: Bud) => {})
     bud.when(() => true, whenTrue)
     expect(whenTrue).toHaveBeenCalledTimes(1)
 
-    const whenFalse = jest.fn((app: Bud) => {})
+    const whenFalse = vi.fn((app: Bud) => {})
     bud.when(() => false, noop, whenFalse)
     expect(whenFalse).toHaveBeenCalledTimes(1)
   })

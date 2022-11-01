@@ -1,6 +1,7 @@
-import {describe, expect, test} from '@jest/globals'
+import {join} from 'node:path'
+
 import {paths} from '@repo/constants'
-import {join} from 'path'
+import {describe, expect, test} from 'vitest'
 
 import {factory} from './index.js'
 

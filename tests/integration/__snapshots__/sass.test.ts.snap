@@ -1,22 +1,22 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`sass npm app.css matches snapshot 1`] = `
+exports[`sass > npm > app.css > matches snapshot 1`] = `
 "html,body{padding:0;margin:0}body{background:blue}body div{border:#fff}
 "
 `;
 
-exports[`sass npm manifest.json matches snapshot 1`] = `
+exports[`sass > npm > manifest.json > matches snapshot 1`] = `
 {
   "app.css": "css/app.css",
 }
 `;
 
-exports[`sass yarn app.css matches snapshot 1`] = `
+exports[`sass > yarn > app.css > matches snapshot 1`] = `
 "html,body{padding:0;margin:0}body{background:blue}body div{border:#fff}
 "
 `;
 
-exports[`sass yarn manifest.json matches snapshot 1`] = `
+exports[`sass > yarn > manifest.json > matches snapshot 1`] = `
 {
   "app.css": "css/app.css",
 }

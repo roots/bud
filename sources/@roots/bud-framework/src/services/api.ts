@@ -1,6 +1,6 @@
 import type * as BaseService from '../service.js'
 
-export interface Service extends BaseService.Service {
+export interface Service extends BaseService.ServiceContainer {
   /**
    * @public
    */

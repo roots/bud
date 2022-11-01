@@ -57,4 +57,4 @@ jobs:
 
       - name: yarn @bud test integration
         run: |
-          yarn @bud test integration
+          yarn @bud test integration run

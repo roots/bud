@@ -1,6 +1,6 @@
-import {describe, expect, it} from '@jest/globals'
 import {factory} from '@repo/test-kit/bud'
 import {ServiceContainer} from '@roots/bud-framework/service'
+import {beforeEach, describe, expect, it} from 'vitest'
 
 import Env from './index.js'
 

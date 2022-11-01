@@ -1,6 +1,6 @@
-import {beforeEach, describe, expect, it, jest} from '@jest/globals'
 import {factory} from '@repo/test-kit/bud'
 import {Service} from '@roots/bud-framework/service'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import Dashboard from './index.js'
 
@@ -46,7 +46,7 @@ describe(`Dashboard`, () => {
   })
 
   it(`should call setLastHash when hash is fresh`, async () => {
-    const spy = jest.spyOn(dashboard, `setLastHash`)
+    const spy = vi.spyOn(dashboard, `setLastHash`)
 
     try {
       await dashboard.stats({hash: `test`})
@@ -56,7 +56,7 @@ describe(`Dashboard`, () => {
   })
 
   it(`should not call setLastHash when hash is stale`, async () => {
-    const spy = jest.spyOn(dashboard, `setLastHash`)
+    const spy = vi.spyOn(dashboard, `setLastHash`)
 
     try {
       await dashboard.stats({hash: `test`})

@@ -26,14 +26,14 @@
     "**/Thumbs.db": true,
     "**/node_modules": false
   },
-  "jestrunner.configPath": "config/jest.config.js",
   "search.exclude": {
-    ".git": true,
     ".yarn": true,
-    "**/node_modules": false,
-    "**/pnp.*": true,
+    ".git": true,
     "storage": true,
-    "verdaccio": true
+    "verdaccio": true,
+    "**/pnp.*": true,
+    "**/node_modules": true,
+    "**/.budfiles/**/*": true
   },
   "prettier.configPath": "config/prettier.config.cjs",
   "prettier.ignorePath": "config/.prettierignore",

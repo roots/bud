@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`sage npm [snapshots] package.json is unchanged 1`] = `
+exports[`sage > npm > [snapshots] package.json is unchanged 1`] = `
 {
   "browserslist": [
     "extends @roots/browserslist-config/current",
@@ -19,7 +19,7 @@ exports[`sage npm [snapshots] package.json is unchanged 1`] = `
 }
 `;
 
-exports[`sage yarn [snapshots] package.json is unchanged 1`] = `
+exports[`sage > yarn > [snapshots] package.json is unchanged 1`] = `
 {
   "browserslist": [
     "extends @roots/browserslist-config/current",

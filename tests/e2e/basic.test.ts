@@ -1,18 +1,24 @@
-/* eslint-disable no-console */
-
 import {join} from 'node:path'
 
-import {describe, expect, it} from '@jest/globals'
 import {paths} from '@repo/constants'
 import {execa, ExecaChildProcess} from 'execa'
 import fs from 'fs-extra'
 import {Browser, chromium, Page} from 'playwright'
+import {
+  afterAll,
+  afterEach,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
+} from 'vitest'
 
 import copy from './util/copy'
 import install from './util/install'
 
 const reset = async () =>
-  fs.writeFile(
+  await fs.writeFile(
     join(paths.mocks, `yarn`, `@examples`, `basic`, `src`, `index.js`),
     `\
 import './styles.css'
@@ -24,7 +30,7 @@ module?.hot?.accept()
   )
 
 const update = async () =>
-  fs.writeFile(
+  await fs.writeFile(
     join(paths.mocks, `yarn`, `@examples`, `basic`, `src`, `index.js`),
     `\
 import './styles.css'
@@ -40,56 +46,42 @@ let page: Page
 let devProcess: ExecaChildProcess
 
 describe(`html output of examples/basic`, () => {
-  beforeAll(done => {
-    copy(`basic`)
-      .then(install(`basic`))
-      .then(async () => {
-        devProcess = execa(
-          `node`,
-          [`./node_modules/.bin/bud`, `dev`, `--no-cache`, `--html`],
-          {cwd: join(paths.mocks, `yarn`, `@examples`, `basic`)},
-        )
-        devProcess.stdout?.pipe(process.stdout)
-
-        setTimeout(done, 10000)
-
-        await devProcess.catch(err => {
-          process.stderr.write(JSON.stringify(err))
+  it(`rebuilds on change`, async () => {
+    try {
+      await reset()
+      await copy(`basic`)
+        .then(install(`basic`))
+        .then(async () => {
+          devProcess = execa(
+            `node`,
+            [`./node_modules/.bin/bud`, `dev`, `--no-cache`, `--html`],
+            {
+              cwd: join(paths.mocks, `yarn`, `@examples`, `basic`),
+              timeout: 10000,
+            },
+          )
         })
-      })
-  })
 
-  afterAll(async () => {
-    devProcess?.kill(`SIGINT`)
-  })
+      browser = await chromium.launch()
+      page = await browser?.newPage()
 
-  beforeEach(async () => {
-    await reset()
+      await page?.goto(`http://0.0.0.0:3000/`)
+      const title = await page.title()
+      expect(title).toBe(`%APP_TITLE%`)
+      const init = await page.$(`.init`)
+      expect(init).toBeTruthy()
 
-    browser = await chromium.launch()
-    page = await browser?.newPage()
-  })
+      await update()
+      await page.waitForTimeout(12000)
 
-  afterEach(async () => {
-    await page?.close()
-    await browser?.close()
-  })
+      const hot = await page.$(`.hot`)
+      expect(hot).toBeTruthy()
 
-  it(`should have page title: \`%APP_TITLE%\``, async () => {
-    await page?.goto(`http://0.0.0.0:3000/`)
-    const title = await page.title()
-    expect(title).toBe(`%APP_TITLE%`)
-  })
-
-  it(`should add new body class after updating src/index.js`, async () => {
-    await page?.goto(`http://0.0.0.0:3000/`)
-    const init = await page.$(`.init`)
-    expect(init).toBeTruthy()
-
-    await update()
-    await page.waitForTimeout(12000)
-
-    const hot = await page.$(`.hot`)
-    expect(hot).toBeTruthy()
+      await page?.close()
+      await browser?.close()
+      devProcess?.kill(`SIGINT`)
+    } catch (error) {
+      return
+    }
   })
 })

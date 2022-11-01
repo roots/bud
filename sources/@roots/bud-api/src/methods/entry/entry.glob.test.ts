@@ -1,19 +1,19 @@
 import {dirname} from 'node:path'
 
-import {describe, expect, it, jest} from '@jest/globals'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import {globAssets} from './entry.glob.js'
 
-const callback = jest.fn() as any
+const callback = vi.fn() as any
 const bud = {
   label: `bud`,
-  path: jest.fn(() => dirname(import.meta.url)),
+  path: vi.fn(() => dirname(import.meta.url)),
   hooks: {
-    on: jest.fn((_label: string, value: any) => {
+    on: vi.fn((_label: string, value: any) => {
       return callback(value())
     }),
   },
-  warn: jest.fn(),
+  warn: vi.fn(),
 } as any
 
 describe(`entry glob`, function () {
@@ -21,7 +21,7 @@ describe(`entry glob`, function () {
 
   beforeEach(async () => {
     method = globAssets.bind(bud)
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   it(`is a function`, () => {

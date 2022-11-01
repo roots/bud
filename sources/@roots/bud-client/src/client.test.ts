@@ -1,11 +1,11 @@
 /* eslint-disable no-console */
 /* eslint-disable tsdoc/syntax */
 /**
- * @jest-environment jsdom
+ * @vitest-environment jsdom
  */
 import './types/index'
 
-import {describe, expect, it, jest} from '@jest/globals'
+import {describe, expect, it, vi} from 'vitest'
 
 import client from './client'
 import {injectEvents} from './events'
@@ -22,8 +22,8 @@ const Events = injectEvents(global.EventSource)
 
 // @ts-ignore
 const webpackHotMock = {
-  hot: jest.fn(),
-  status: jest.fn(),
+  hot: vi.fn(),
+  status: vi.fn(),
 } as __WebpackModuleApi.Hot
 
 describe(`@roots/bud-client`, () => {
@@ -59,7 +59,7 @@ describe(`@roots/bud-client`, () => {
   })
 
   it(`should call console.log`, async () => {
-    const spy = jest.spyOn(console, `log`)
+    const spy = vi.spyOn(console, `log`)
 
     await client(`?name=test`, webpackHotMock, `test`)
     const clientOptions = options.data
@@ -73,7 +73,7 @@ describe(`@roots/bud-client`, () => {
     const clientOptions = options.data
     const events = Events.make(clientOptions.test)
 
-    const listenerMock = jest.fn(async () => null)
+    const listenerMock = vi.fn(async () => null)
     events.addMessageListener(listenerMock)
     events.messages = new Set([`123`, `234`])
 

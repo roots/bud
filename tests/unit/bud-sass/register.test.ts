@@ -2,13 +2,14 @@ import {Bud, factory} from '@repo/test-kit/bud'
 import Loader from '@roots/bud-build/loader'
 import BudSass from '@roots/bud-sass'
 import ResolveUrl from '@roots/bud-sass/resolve-url'
+import {beforeAll, describe, expect, it} from 'vitest'
 
 describe(`@roots/bud-sass registration`, () => {
   let bud: Bud
 
   beforeAll(async () => {
     bud = await factory()
-    await new ResolveUrl(bud).register()
+    await new ResolveUrl(bud).register(bud)
     await new BudSass(bud).configAfter()
   })
 
