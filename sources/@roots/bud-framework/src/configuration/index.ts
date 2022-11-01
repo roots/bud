@@ -1,6 +1,7 @@
 import {sortBy} from '@roots/bud-support/lodash-es'
 
 import type {Bud} from '../bud'
+import type {ConfigDescription} from '../types/options/context'
 import Configuration from './configuration.js'
 
 /**
@@ -12,38 +13,31 @@ export const process = async (app: Bud) => {
 
   const configs = Object.values(app.context.config).filter(({bud}) => bud)
 
-  const getAllMatchingConfigs = (ofType: string, isLocal: boolean) =>
-    sortBy(
-      configs
-        .filter(({type}) => type === ofType)
-        .filter(({local}) => local === isLocal),
-      `name`,
-    )
+  const findConfigs = getAllMatchingConfigs.bind(configs)
 
   await Promise.all(
-    getAllMatchingConfigs(`base`, false).map(async description => {
+    findConfigs(`base`, false).map(async description => {
       app.log(`processing base configuration`, description.name)
       await configuration.run(description)
     }),
   ).then(async () => await app.api.processQueue())
 
   await Promise.all(
-    getAllMatchingConfigs(`base`, true).map(async description => {
+    findConfigs(`base`, true).map(async description => {
       app.log(`processing local configuration`, description.name)
       await configuration.run(description)
     }),
   ).then(async () => await app.api.processQueue())
 
   await Promise.all(
-    getAllMatchingConfigs(app.mode, false).map(async description => {
+    findConfigs(app.mode, false).map(async description => {
       app.log(`processing ${app.mode} configuration`, description.name)
-
       await configuration.run(description)
     }),
   ).then(async () => await app.api.processQueue())
 
   await Promise.all(
-    getAllMatchingConfigs(app.mode, true).map(async description => {
+    findConfigs(app.mode, true).map(async description => {
       app.log(
         `processing ${app.mode} local configuration`,
         description.name,
@@ -70,4 +64,17 @@ export const process = async (app: Bud) => {
       throw error
     }
   }
+}
+
+export function getAllMatchingConfigs(
+  this: Array<ConfigDescription>,
+  ofType: string,
+  isLocal: boolean,
+) {
+  return sortBy(
+    this.filter(({type}) => type === ofType).filter(
+      ({local}) => local === isLocal,
+    ),
+    `name`,
+  )
 }

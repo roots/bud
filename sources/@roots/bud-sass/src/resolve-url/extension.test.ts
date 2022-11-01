@@ -3,56 +3,51 @@ import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import ResolveUrlExtension from './index'
 
-vi.mock(`@roots/bud`, async () => await import(`@repo/test-kit/mocks/bud`))
-
 describe(`@roots/bud-sass`, () => {
   let bud
+  let extension
 
   beforeEach(async () => {
-    vi.clearAllMocks()
-    bud = await import(`@roots/bud`).then(({default: Bud}) => new Bud())
+    vi.restoreAllMocks()
+    bud = await import(`@repo/test-kit/bud`).then(
+      async ({factory}) => await factory(),
+    )
+    extension = new ResolveUrlExtension(bud)
   })
 
   it(`should be instantiable`, () => {
-    expect(new ResolveUrlExtension(bud)).toBeInstanceOf(
-      ResolveUrlExtension,
-    )
+    expect(extension).toBeInstanceOf(ResolveUrlExtension)
   })
 
   it(`should call resolve util when register is called`, async () => {
-    const extension = new ResolveUrlExtension(bud)
-
     const resolveSpy = vi.spyOn(extension, `resolve`)
 
     try {
-      await extension.register()
+      await extension.register(bud)
     } catch (e) {}
 
     expect(resolveSpy).toHaveBeenCalledWith(`resolve-url-loader`)
   })
 
   it(`should call setLoader when register is called`, async () => {
-    const extension = new ResolveUrlExtension(bud)
-
+    const setLoaderSpy = vi.spyOn(extension.app.build, `setLoader`)
     try {
-      await extension.register()
+      await extension.register(bud)
     } catch (e) {
       console.error(e)
     }
 
-    expect(extension.app.build.setLoader).toHaveBeenCalled()
+    expect(setLoaderSpy).toHaveBeenCalled()
   })
 
   it(`should call setItem when register is called`, async () => {
-    const extension = new ResolveUrlExtension(bud)
+    const setItemSpy = vi.spyOn(extension.app.build, `setItem`)
 
     try {
-      await extension.register()
-    } catch (e) {
-      console.error(e)
-    }
+      await extension.register(bud)
+    } catch (e) {}
 
-    expect(extension.app.build.setItem).toHaveBeenCalledWith(
+    expect(setItemSpy).toHaveBeenCalledWith(
       `resolveUrl`,
       expect.objectContaining({
         loader: `resolveUrl`,

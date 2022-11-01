@@ -1,21 +1,14 @@
-import mockBud from '@repo/test-kit/mocks/bud'
+import {factory} from '@repo/test-kit/bud'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import {persist} from './index'
-
-vi.mock(`@roots/bud`, () => ({default: mockBud}))
-
-const mockExtension = {
-  enable: vi.fn(),
-  disable: vi.fn(),
-}
 
 describe(`bud.persist`, () => {
   let bud
   let subject
 
   beforeEach(async () => {
-    bud = await import(`@roots/bud`).then(({default: Bud}) => new Bud())
+    bud = await factory()
     subject = persist.bind(bud)
   })
 
@@ -45,18 +38,21 @@ describe(`bud.persist`, () => {
   })
 
   it(`should call bud.success to log param`, () => {
+    const successSpy = vi.spyOn(bud, `success`)
     subject()
-    expect(bud.success).toHaveBeenCalledWith(`cache enabled`)
+    expect(successSpy).toHaveBeenCalledWith(`cache enabled`)
   })
 
   it(`should call bud.success to log param`, () => {
+    const successSpy = vi.spyOn(bud, `success`)
     subject(true)
-    expect(bud.success).toHaveBeenCalledWith(`cache enabled`)
+    expect(successSpy).toHaveBeenCalledWith(`cache enabled`)
   })
 
   it(`should call bud.success to log param`, () => {
+    const successSpy = vi.spyOn(bud, `success`)
     subject(false)
-    expect(bud.success).toHaveBeenCalledWith(`cache disabled`)
+    expect(successSpy).toHaveBeenCalledWith(`cache disabled`)
   })
 
   it(`should return bud`, () => {

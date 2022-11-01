@@ -80,6 +80,7 @@
   "devDependencies": {
     "@babel/core": "7.19.6",
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
+    "@roots/bud-esbuild": "workspace:sources/@roots/bud-esbuild",
     "@roots/bud-swc": "workspace:sources/@roots/bud-swc",
     "@roots/bud-typescript": "workspace:sources/@roots/bud-typescript",
     "@skypack/package-check": "0.2.2",

@@ -480,7 +480,7 @@ export default class BuildCommand extends BaseCommand {
 
     if (isset(this.app.context.args.clean)) {
       this.app.extensions
-        .get(`clean-webpack-plugin`)
+        .get(`@roots/bud-extensions/clean-webpack-plugin`)
         [this.app.context.args.clean ? `enable` : `disable`]()
 
       this.app.hooks.on(`build.output.clean`, this.app.context.args.clean)

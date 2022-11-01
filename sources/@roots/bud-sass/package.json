@@ -69,6 +69,7 @@
   },
   "devDependencies": {
     "@repo/test-kit": "workspace:sources/@repo/test-kit",
+    "@roots/bud-build": "workspace:sources/@roots/bud-build",
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.18.2",
     "postcss": "8.4.18",

@@ -1,3 +1,4 @@
+import type {Modules} from '@roots/bud-framework'
 import type {Context} from '@roots/bud-framework/options'
 import {bind} from '@roots/bud-support/decorators'
 
@@ -17,20 +18,37 @@ const CORE_MODULES = [
 ]
 
 export default class Extensions {
-  public data: Array<string> = [
-    `@roots/bud-terser/extension`,
-    `@roots/bud/extensions/bud-cdn`,
-    `@roots/bud/extensions/bud-esm`,
-    `@roots/bud/extensions/bud-fix-style-only-entrypoints`,
-    `@roots/bud/extensions/clean-webpack-plugin`,
-    `@roots/bud/extensions/webpack-provide-plugin`,
-    `@roots/bud/extensions/webpack-manifest-plugin`,
-    `@roots/bud/extensions/webpack-hot-module-replacement-plugin`,
-    `@roots/bud/extensions/webpack-define-plugin`,
-    `@roots/bud/extensions/mini-css-extract-plugin`,
-    `@roots/bud/extensions/copy-webpack-plugin`,
+  /**
+   * Builtin extensions
+   */
+  public builtIn: Partial<Array<keyof Modules & string>> = [
+    `@roots/bud-terser`,
+    `@roots/bud-extensions/cdn`,
+    `@roots/bud-extensions/esm`,
+    `@roots/bud-extensions/fix-style-only-entrypoints`,
+    `@roots/bud-extensions/clean-webpack-plugin`,
+    `@roots/bud-extensions/copy-webpack-plugin`,
+    `@roots/bud-extensions/html-webpack-plugin`,
+    `@roots/bud-extensions/interpolate-html-webpack-plugin`,
+    `@roots/bud-extensions/mini-css-extract-plugin`,
+    `@roots/bud-extensions/webpack-define-plugin`,
+    `@roots/bud-extensions/webpack-hot-module-replacement-plugin`,
+    `@roots/bud-extensions/webpack-manifest-plugin`,
+    `@roots/bud-extensions/webpack-provide-plugin`,
   ]
 
+  /**
+   * Discovered extensions
+   *
+   * @public
+   */
+  public discovered: Partial<Array<keyof Modules & string>> = []
+
+  /**
+   * Class constructor
+   *
+   * @public
+   */
   public constructor(public manifest: Context['manifest']) {}
 
   @bind
@@ -61,7 +79,9 @@ export default class Extensions {
           !this.manifest.bud?.allowlist ||
           this.manifest.bud.allowlist.includes(signifier),
       )
-      .map(signifier => this.data.push(signifier))
+      .map((signifier: keyof Modules & string) =>
+        this.discovered.push(signifier),
+      )
 
     return this
   }

@@ -1,6 +1,6 @@
-import type Acorn from './acorn/extension.js'
-import type Sage from './sage/extension.js'
-import type ThemeJSON from './wp-theme-json/extension.js'
+import type Acorn from './acorn/index.js'
+import type Sage from './sage/index.js'
+import type ThemeJSON from './wp-theme-json/index.js'
 
 declare module '@roots/bud-framework' {
   interface Bud {
@@ -57,18 +57,16 @@ declare module '@roots/bud-framework' {
   interface Modules {
     '@roots/sage': Sage
     '@roots/sage/acorn': Acorn
-    'wp-theme-json': ThemeJSON
+    '@roots/sage/wp-theme-json': ThemeJSON
   }
 
-  namespace Registry.Locations {
-    interface Locations {
-      '@resources': string
-      '@public': string
-      '@fonts': string
-      '@images': string
-      '@scripts': string
-      '@styles': string
-      '@views': string
-    }
+  interface Locations {
+    '@resources': string
+    '@public': string
+    '@fonts': string
+    '@images': string
+    '@scripts': string
+    '@styles': string
+    '@views': string
   }
 }

@@ -16,17 +16,17 @@ describe(`env`, function () {
       bud = await factory()
     })
 
-    test(`should have env service`, () => {
+    it(`should have env service`, () => {
       expect(bud.env).toBeInstanceOf(EnvService)
     })
 
-    test(`should have env values`, () => {
+    it(`should have env values`, () => {
       expect(bud.env.repository.PUBLIC_APP_TITLE).toEqual(
         `bud.js test app`,
       )
     })
 
-    test(`should have env values accessible by get`, () => {
+    it(`should have env values accessible by get`, () => {
       expect(bud.env.get(`PUBLIC_APP_TITLE`)).toEqual(`bud.js test app`)
     })
   })
@@ -39,33 +39,29 @@ describe(`env`, function () {
       env = env.data
     })
 
-    test(`.env env`, () => {
+    it(`.env env`, () => {
       expect(env.BUD_PROJECT_ENV_TEST).toEqual(`BUD_PROJECT_ENV_TEST`)
     })
 
-    test(`process env`, () => {
-      expect(env.vitest_WORKER_ID).toBeDefined()
-    })
-
-    test(`expand .env`, () => {
+    it(`expand .env`, () => {
       expect(env.BUD_EXPAND_BASE).toEqual(`basic`)
     })
 
-    test(`expanded .env`, () => {
+    it(`expanded .env`, () => {
       expect(env.BUD_EXPAND_EXPAND).toEqual(`basic`)
     })
 
-    test(`concatenate expanded .env`, () => {
+    it(`concatenate expanded .env`, () => {
       expect(env.BUD_EXPAND_CONCAT).toEqual(`basicworks`)
     })
 
-    test(`lower level env not interpolated`, () => {
+    it(`lower level env not interpolated`, () => {
       expect(env.BUD_PROJECT_ENV_IGNORE_INTERPOLATION).toEqual(
         `\${BUD_PROJECT_ENV_TEST}_IGNORE_INTERPOLATION`,
       )
     })
 
-    test(`malformed env throws`, () => {
+    it(`malformed env throws`, () => {
       try {
         expect(new Env(join(path, `bad-env`))).toThrow()
       } catch (e) {}

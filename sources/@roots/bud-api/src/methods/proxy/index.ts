@@ -79,6 +79,7 @@ export const method: method = function (input, replacements) {
    */
   isNumber(input) &&
     app.hooks.on(`dev.middleware.proxy.target`, url => {
+      if (isUndefined(url)) url = new URL(`http://0.0.0.0`)
       url.port = `${input}`
       return url
     })

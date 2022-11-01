@@ -4,7 +4,7 @@ import {
   enableMiddlewareHookCallback,
   method as proxy,
 } from '@roots/bud-api/methods/proxy'
-import {beforeAll, describe, expect, it} from 'vitest'
+import {beforeAll, beforeEach, describe, expect, it} from 'vitest'
 
 describe.skip(`bud.proxy`, function () {
   let bud: Bud

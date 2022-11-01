@@ -1,3 +1,4 @@
+import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
@@ -23,6 +24,8 @@ type Options = {runtimeOnly: boolean}
 @dependsOnOptional([`@roots/bud-postcss`, `@roots/bud-sass`])
 export default class Vue extends Extension<Options, null> {
   public loader: string
+
+  public version: string
 
   @bind
   public async register() {
@@ -120,7 +123,11 @@ export default class Vue extends Extension<Options, null> {
    */
   @bind
   public async resolveAlias(aliases: Configuration['resolve']['alias']) {
-    const isVue2 = await this.isVue2()
+    let isVue2 = false
+
+    try {
+      isVue2 = await this.isVue2(this.app)
+    } catch (e) {}
 
     isVue2 &&
       this.logger.log(`configuring for vue2 based on project dependencies`)
@@ -141,9 +148,17 @@ export default class Vue extends Extension<Options, null> {
    * @decorator `@bind`
    */
   @bind
-  protected async isVue2() {
-    const manifest = await this.app.module.readManifest(`vue`)
-    this.logger.log(`vue manifest:`, manifest)
-    return parseSemver(`vue@${manifest.version}`).version.startsWith(`2`)
+  public async isVue2(bud: Bud): Promise<boolean> {
+    let version = this.version
+
+    if (!version)
+      version =
+        bud.context.manifest?.dependencies?.vue ??
+        bud.context.manifest?.devDependencies?.vue ??
+        (await bud.module.readManifest(`vue`).then(({version}) => version))
+
+    if (version) this.version = parseSemver(`vue@${version}`).version
+
+    return this.version?.startsWith(`2`)
   }
 }

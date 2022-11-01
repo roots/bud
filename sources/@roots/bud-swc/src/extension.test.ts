@@ -1,17 +1,15 @@
 /* eslint-disable no-console */
-import Bud from '@roots/bud'
+import {factory} from '@repo/test-kit/bud'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import BudSWCExtension from './index'
 
-vi.mock(`@roots/bud`, async () => await import(`@repo/test-kit/mocks/bud`))
-
 describe(`@roots/bud-swc`, () => {
-  let bud: Bud
+  let bud
 
   beforeEach(async () => {
     vi.clearAllMocks()
-    bud = await import(`@roots/bud`).then(({default: Bud}) => new Bud())
+    bud = await factory()
   })
 
   it(`is instantiable`, () => {
@@ -19,8 +17,9 @@ describe(`@roots/bud-swc`, () => {
   })
 
   it(`calls hooks.on during registration`, async () => {
+    const onSpy = vi.spyOn(bud.hooks, `on`)
     await new BudSWCExtension(bud).register(bud)
-    expect(bud.hooks.on).toHaveBeenCalled()
+    expect(onSpy).toHaveBeenCalled()
   })
 
   it(`calls registerSWC during configAfter`, async () => {

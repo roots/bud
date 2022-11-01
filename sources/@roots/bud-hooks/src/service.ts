@@ -87,7 +87,7 @@ export default class Hooks extends Service implements HooksInterface {
 
   public fire: EventHooks['get']
 
-  public constructor(app: Bud) {
+  public constructor(app: () => Bud) {
     super(app)
 
     this.syncStore = new SyncHooks(app)

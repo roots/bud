@@ -48,28 +48,24 @@ export async function factory(
 ): Promise<Bud> {
   const basedir = config?.basedir ?? argv.basedir
 
-  if (skipCache !== true) {
-    const cached = instances.find(
-      instance => instance.context.basedir === basedir,
-    )
-
-    if (cached) {
-      cached.log(`using cached instance`)
-      return cached
-    }
-  }
-
   const context = await applicationContext.get(basedir)
-
-  Array.isArray(config?.extensions) &&
-    config.extensions
-      .filter(extension => !context?.extensions.includes(extension))
-      .map(extension => context.extensions.push(extension))
 
   Array.isArray(config?.services) &&
     config.services
       .filter(service => !context?.services.includes(service))
       .map(service => context.services.push(service))
+
+  Array.isArray(config?.extensions?.builtIn) &&
+    config.extensions.builtIn
+      .filter(extension => !context.extensions.builtIn.includes(extension))
+      .map(extension => context.extensions.builtIn.push(extension))
+
+  Array.isArray(config?.extensions?.discovered) &&
+    config.extensions.discovered
+      .filter(
+        extension => !context.extensions.discovered.includes(extension),
+      )
+      .map(extension => context.extensions.discovered.push(extension))
 
   const options = mergeOptions(context, config)
   const instance = await new Bud().lifecycle(options)

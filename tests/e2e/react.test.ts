@@ -6,7 +6,15 @@ import {paths} from '@repo/constants'
 import {execa, ExecaChildProcess} from 'execa'
 import fs from 'fs-extra'
 import {Browser, chromium, Page} from 'playwright'
-import {describe, expect, it} from 'vitest'
+import {
+  afterAll,
+  afterEach,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
+} from 'vitest'
 
 import copy from './util/copy'
 import install from './util/install'
@@ -75,48 +83,40 @@ let page: Page
 let devProcess: ExecaChildProcess
 
 describe(`html output of examples/react`, () => {
-  beforeAll(done => {
-    copy(`react`)
-      .then(install(`react`))
-      .then(async () => {
-        devProcess = execa(
-          `node`,
-          [`./node_modules/.bin/bud`, `dev`, `--no-cache`, `--html`],
-          {cwd: join(paths.mocks, `yarn`, `@examples`, `react`)},
-        )
-        devProcess.stdout?.pipe(process.stdout)
-
-        setTimeout(done, 10000)
-
-        await devProcess.catch(err => {
-          process.stderr.write(JSON.stringify(err))
+  it(`rebuilds on change`, async () => {
+    try {
+      await reset()
+      await copy(`react`)
+        .then(install(`react`))
+        .then(async () => {
+          devProcess = execa(
+            `node`,
+            [`./node_modules/.bin/bud`, `dev`, `--no-cache`, `--html`],
+            {
+              cwd: join(paths.mocks, `yarn`, `@examples`, `react`),
+              timeout: 10000,
+            },
+          )
         })
-      })
-  })
 
-  afterAll(async () => {
-    devProcess?.kill(`SIGINT`)
-  })
+      devProcess.stdout?.pipe(process.stdout)
+      browser = await chromium.launch()
+      page = await browser?.newPage()
 
-  beforeEach(async () => {
-    await reset()
+      await page?.goto(`http://0.0.0.0:3000/`)
+      expect(await page.$(`.App`)).toBeTruthy()
+      expect(await page.$(`.target`)).toBeFalsy()
 
-    browser = await chromium.launch()
-    page = await browser?.newPage()
-  })
+      await update()
+      await page.waitForTimeout(12000)
+      expect(await page.$(`.target`)).toBeTruthy()
 
-  afterEach(async () => {
-    await page?.close()
-    await browser?.close()
-  })
+      await page?.close()
+      await browser?.close()
 
-  it(`should add new body class after updating src/components/App.js`, async () => {
-    await page?.goto(`http://0.0.0.0:3000/`)
-    expect(await page.$(`.App`)).toBeTruthy()
-    expect(await page.$(`.target`)).toBeFalsy()
-
-    await update()
-    await page.waitForTimeout(12000)
-    expect(await page.$(`.target`)).toBeTruthy()
+      devProcess?.kill(`SIGINT`)
+    } catch (error) {
+      return
+    }
   })
 })

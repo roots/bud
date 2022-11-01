@@ -2,6 +2,7 @@ import {Bud, factory} from '@repo/test-kit/bud'
 import postcss from '@roots/bud-postcss'
 import purgeExtension from '@roots/bud-purgecss'
 import {purgecss} from '@roots/bud-purgecss/api'
+import {beforeEach, describe, expect, it} from 'vitest'
 
 describe(`@roots/bud-purgecss`, () => {
   let bud: Bud

@@ -41,11 +41,11 @@
   "types": "./lib/index.d.ts",
   "exports": {
     ".": "./lib/index.js",
-    "./item": "./lib/item/item.js",
+    "./item": "./lib/item/index.js",
     "./items": "./lib/handlers/items.js",
-    "./loader": "./lib/loader/loader.js",
+    "./loader": "./lib/loader/index.js",
     "./loaders": "./lib/handlers/loaders.js",
-    "./rule": "./lib/rule/rule.js",
+    "./rule": "./lib/rule/index.js",
     "./rules": "./lib/handlers/rules.js",
     "./service": "./lib/service.js"
   },
@@ -55,19 +55,19 @@
         "./lib/index.d.ts"
       ],
       "item": [
-        "./lib/item/item.d.ts"
+        "./lib/item/index.d.ts"
       ],
       "items": [
         "./lib/handlers/items.d.ts"
       ],
       "loader": [
-        "./lib/loader/loader.d.ts"
+        "./lib/loader/index.d.ts"
       ],
       "loaders": [
         "./lib/handlers/loaders.d.ts"
       ],
       "rule": [
-        "./lib/rule/rule.d.ts"
+        "./lib/rule/index.d.ts"
       ],
       "rules": [
         "./lib/handlers/rules.d.ts"
@@ -96,7 +96,7 @@
     "helpful-decorators": "2.1.0",
     "html-loader": "^4.1.0",
     "json5": "2.2.1",
-    "mini-css-extract-plugin": "^2.4.5",
+    "mini-css-extract-plugin": "2.6.1",
     "remark": "14.0.2",
     "remark-html": "15.0.1",
     "remark-loader": "5.0.0",

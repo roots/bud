@@ -1,22 +1,23 @@
 // Vitest Snapshot v1
 
-exports[`@roots/bud-extensions > in development > [development] bud.extensions.repository options matches snapshot 1`] = `
+exports[`@roots/bud-extensions > [development] bud.extensions.repository options matches snapshot 1`] = `
 [
-  "@roots/bud-entrypoints",
+  "@roots/bud-extensions/cdn",
+  "@roots/bud-extensions/clean-webpack-plugin",
+  "@roots/bud-extensions/copy-webpack-plugin",
+  "@roots/bud-extensions/esm",
+  "@roots/bud-extensions/fix-style-only-entrypoints",
+  "@roots/bud-extensions/html-webpack-plugin",
+  "@roots/bud-extensions/interpolate-html-webpack-plugin",
+  "@roots/bud-extensions/mini-css-extract-plugin",
+  "@roots/bud-extensions/webpack-define-plugin",
+  "@roots/bud-extensions/webpack-hot-module-replacement-plugin",
+  "@roots/bud-extensions/webpack-manifest-plugin",
+  "@roots/bud-extensions/webpack-provide-plugin",
   "@roots/bud-postcss",
-  "@roots/bud-preset-recommend",
+  "@roots/bud-swc",
   "@roots/bud-tailwindcss",
   "@roots/bud-terser",
   "@roots/bud-terser/css-minimizer",
-  "cdn",
-  "clean-webpack-plugin",
-  "copy-webpack-plugin",
-  "esm",
-  "fix-style-only-entrypoints",
-  "mini-css-extract-plugin",
-  "webpack-manifest-plugin",
-  "webpack:define-plugin",
-  "webpack:hot-module-replacement-plugin",
-  "webpack:provide-plugin",
 ]
 `;

@@ -1,17 +1,17 @@
-import {Bud} from '@roots/bud-framework'
+import {Bud as Core} from '@roots/bud-framework/bud'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import budConstructor from './bud.js'
+import {Bud} from './index.js'
 
 describe(`@roots/bud/bud`, function () {
-  let bud
+  let bud: Bud
 
   beforeEach(async () => {
     vi.clearAllMocks()
-    bud = new budConstructor()
+    bud = new Bud()
   })
 
   it(`should be instance of Framework`, () => {
-    expect(bud).toBeInstanceOf(Bud)
+    expect(bud).toBeInstanceOf(Core)
   })
 })

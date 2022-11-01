@@ -1,5 +1,5 @@
 import {Project} from '@repo/test-kit/project'
-import {beforeAll, describe, it} from 'vitest'
+import {beforeAll, describe, expect, it} from 'vitest'
 
 const test = (pacman: 'yarn' | 'npm') => () => {
   let project: Project
@@ -136,12 +136,12 @@ const test = (pacman: 'yarn' | 'npm') => () => {
                     "slug": "sans",
                   },
                   {
-                    "fontFamily": "ui-serif,Georgia,Cambria,"Times New Roman",Times,serif",
+                    "fontFamily": "ui-serif,Georgia,Cambria,\\"Times New Roman\\",Times,serif",
                     "name": "Ui-serif",
                     "slug": "serif",
                   },
                   {
-                    "fontFamily": "ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace",
+                    "fontFamily": "ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,\\"Liberation Mono\\",\\"Courier New\\",monospace",
                     "name": "Ui-monospace",
                     "slug": "mono",
                   },
@@ -286,4 +286,4 @@ const test = (pacman: 'yarn' | 'npm') => () => {
 describe(`sage`, () => {
   describe(`npm`, test(`npm`))
   describe(`yarn`, test(`yarn`))
-})
+}, 240000)

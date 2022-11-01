@@ -1,6 +1,6 @@
 import {logger} from '@repo/logger'
 import {Project} from '@repo/test-kit/project'
-import {beforeAll, describe, it} from 'vitest'
+import {beforeAll, describe, expect, it} from 'vitest'
 
 const run = pacman => () => {
   let project: Project
@@ -34,4 +34,4 @@ const run = pacman => () => {
 describe(`basic`, () => {
   describe(`npm`, run(`npm`))
   describe(`yarn`, run(`yarn`))
-})
+}, 240000)

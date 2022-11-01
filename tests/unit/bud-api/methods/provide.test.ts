@@ -22,7 +22,8 @@ describe(`bud.provide`, () => {
     await bud.api.processQueue()
 
     expect(
-      bud.extensions.get(`webpack:provide-plugin`).options,
+      bud.extensions.get(`@roots/bud-extensions/webpack-provide-plugin`)
+        .options,
     ).toStrictEqual({
       jQuery: `jquery`,
       $: `jquery`,

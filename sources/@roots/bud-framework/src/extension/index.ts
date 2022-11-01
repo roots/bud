@@ -57,6 +57,11 @@ export class Extension<
   ExtensionOptions extends Options = Options,
   Plugin extends ApplyPlugin = ApplyPlugin,
 > {
+  /**
+   * Loose definition
+   *
+   * @public
+   */
   [key: string]: any
 
   /**
@@ -549,9 +554,10 @@ export class Extension<
    */
   @bind
   public fromObject(extensionObject: ExtensionLiteral): this {
-    Object.entries(extensionObject).map(([k, v]) => {
-      this[k] = v
-    })
+    extensionObject &&
+      Object.entries(extensionObject).map(([k, v]) => {
+        this[k] = v
+      })
 
     return this
   }

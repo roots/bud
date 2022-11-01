@@ -1,6 +1,7 @@
 import type {Build} from '@roots/bud-framework/services'
 
 import type BudSass from './extension.js'
+import type BudResolveUrl from './resolve-url/extension.js'
 
 declare module '@roots/bud-framework' {
   interface Bud {
@@ -8,11 +9,12 @@ declare module '@roots/bud-framework' {
   }
   interface Modules {
     '@roots/bud-sass': BudSass
+    '@roots/bud-sass/resolve-url': BudResolveUrl
   }
 
   interface Loaders {
     resolveUrl: Build.Loader
-    sass: Build.Loader
+    'sass-loader': Build.Loader
   }
 
   interface Items {

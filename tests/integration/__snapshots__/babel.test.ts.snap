@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`babel npm manifest.json matches snapshot 1`] = `
+exports[`babel > npm > manifest.json > matches snapshot 1`] = `
 {
   "app.css": "css/app.css",
   "app.js": "js/app.js",
@@ -9,7 +9,7 @@ exports[`babel npm manifest.json matches snapshot 1`] = `
 }
 `;
 
-exports[`babel yarn manifest.json matches snapshot 1`] = `
+exports[`babel > yarn > manifest.json > matches snapshot 1`] = `
 {
   "app.css": "css/app.css",
   "app.js": "js/app.js",

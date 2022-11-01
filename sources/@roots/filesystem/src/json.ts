@@ -1,6 +1,6 @@
-import * as fs from 'fs-jetpack'
-import * as json5 from 'json5'
-import * as jsonStringify from 'safe-json-stringify'
+import fs from 'fs-jetpack'
+import json5 from 'json5'
+import jsonStringify from 'safe-json-stringify'
 
 export interface WriteOptions {
   replacer?: ((this: any, key: string, value: any) => any) | null
@@ -24,7 +24,7 @@ export const write = async (
 }
 
 // @ts-ignore
-export const stringify = jsonStringify.default
+export const stringify = jsonStringify
 
 export default {
   read,

@@ -2,7 +2,7 @@ import type {PathLike, ReadStream, WriteStream} from 'node:fs'
 import type {CreateWriteStreamOptions} from 'node:fs/promises'
 import {join} from 'node:path'
 
-import * as filesystem from 'fs-jetpack'
+import filesystem from 'fs-jetpack'
 import type {
   AppendData,
   AppendOptions,

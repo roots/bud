@@ -48,7 +48,7 @@ export default class Context {
 
     this.data.extensions = await new Extensions(this.data.manifest)
       .find()
-      .then(({data}) => data)
+      .then(({builtIn, discovered}) => ({builtIn, discovered}))
 
     this.data.services = Services.data
 

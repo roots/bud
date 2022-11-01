@@ -110,7 +110,7 @@ const importAndBindFrameworkServices =
   async (signifier: string): Promise<void> => {
     const pkg = await import(signifier)
     const imported = pkg?.default ?? pkg
-    app[imported.label] = new imported(app)
+    app[imported.label] = new imported(() => app)
 
     app.success(`imported`, imported.label)
     app.services.push(imported.label)

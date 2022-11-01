@@ -1,15 +1,17 @@
-import {factory} from '@repo/test-kit/bud'
 import {describe, expect, it, vi} from 'vitest'
 
 import Extension from './index'
 
-describe(`@roots/bud-cache/inalidate-cache-extension`, () => {
+describe(`@roots/bud-cache/invalidate-cache-extension`, () => {
   it(`should be constructable`, () => {
     expect(Extension).toBeInstanceOf(Function)
   })
 
   it(`should be an extension`, async () => {
-    const bud = await factory()
+    const bud = await import(`@repo/test-kit/bud`).then(
+      async pkg => await pkg.factory(),
+    )
+
     expect(
       new Extension(
         // @ts-ignore
@@ -19,7 +21,9 @@ describe(`@roots/bud-cache/inalidate-cache-extension`, () => {
   })
 
   it(`should have an error file accessor`, async () => {
-    const bud = await factory()
+    const bud = await import(`@repo/test-kit/bud`).then(
+      async pkg => await pkg.factory(),
+    )
     const extension = new Extension(
       // @ts-ignore
       bud,
@@ -31,7 +35,9 @@ describe(`@roots/bud-cache/inalidate-cache-extension`, () => {
   })
 
   it(`should check if error file exists`, async () => {
-    const bud = await factory()
+    const bud = await import(`@repo/test-kit/bud`).then(
+      async pkg => await pkg.factory(),
+    )
 
     const extension = new Extension(
       // @ts-ignore
@@ -45,7 +51,9 @@ describe(`@roots/bud-cache/inalidate-cache-extension`, () => {
   })
 
   it(`should call remove when bud.fs.exists returns false`, async () => {
-    const bud = await factory()
+    const bud = await import(`@repo/test-kit/bud`).then(
+      async pkg => await pkg.factory(),
+    )
     // @ts-ignore
     bud.fs.exists = vi.fn(() => true)
     // @ts-ignore
@@ -61,7 +69,10 @@ describe(`@roots/bud-cache/inalidate-cache-extension`, () => {
   })
 
   it(`should call bud.hooks.action`, async () => {
-    const bud = await factory()
+    const bud = await import(`@repo/test-kit/bud`).then(
+      async pkg => await pkg.factory(),
+    )
+
     // @ts-ignore
     bud.fs.exists = vi.fn(() => true)
     const hookSpy = vi.spyOn(bud.hooks, `action`)

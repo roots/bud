@@ -1,3 +1,4 @@
+import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
@@ -97,6 +98,7 @@ export default class BabelExtension extends Extension {
   @bind
   public async register() {
     const presetEnv = await this.resolve(`@babel/preset-env`)
+
     if (presetEnv) this.setPreset(`@babel/preset-env`, presetEnv)
 
     const transformRuntime = await this.resolve(
@@ -133,20 +135,25 @@ export default class BabelExtension extends Extension {
       this.setPlugin(`@babel/plugin-syntax-dynamic-import`, dynamicImport)
   }
 
+  /**
+   * `configAfter` callback
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
-  public async configAfter() {
+  public async configAfter(bud: Bud) {
     const loader = await this.resolve(`babel-loader`, import.meta.url)
-    if (!loader) {
-      return this.logger.error(`Babel loader not found`)
-    }
 
-    this.app.build.setLoader(`babel`, loader).setItem(`babel`, {
+    if (!loader) return this.logger.error(`Babel loader not found`)
+
+    bud.build.setLoader(`babel`, loader).setItem(`babel`, {
       loader: `babel`,
       options: () => this.loaderOptions,
     })
 
-    this.app.build.rules.js.setUse(items => [
-      this.app.build.items.babel,
+    bud.build.rules.js.setUse(items => [
+      bud.build.items.babel,
       ...(items ?? []),
     ])
   }

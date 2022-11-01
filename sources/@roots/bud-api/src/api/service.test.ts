@@ -41,7 +41,7 @@ describe(`Api`, () => {
   beforeEach(async () => {
     vi.clearAllMocks()
     // @ts-ignore
-    instance = new Api(mockBud)
+    instance = new Api(() => mockBud)
   })
 
   it(`should have a method bootstrap()`, async () => {
@@ -109,7 +109,7 @@ describe(`processQueue`, () => {
 
   it(`processQueue() should empty the queue and fill the trace`, async () => {
     // @ts-ignore
-    instance = new Api(mockBud)
+    instance = new Api(() => mockBud)
     // @ts-ignore
     const call = vi.spyOn(instance, `call`)
     // @ts-ignore
@@ -123,8 +123,6 @@ describe(`processQueue`, () => {
 
     await instance.processQueue()
     expect(instance.logger.info).toHaveBeenCalled()
-    expect(instance.has).toHaveBeenCalled()
-    expect(instance.get).toHaveBeenCalled()
     expect(instance.queue).toHaveLength(0)
     expect(call).toHaveBeenCalled()
     expect(instance.trace).toHaveLength(1)

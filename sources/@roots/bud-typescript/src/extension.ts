@@ -84,11 +84,15 @@ export default class BudTypeScript extends Extension {
       .setRule(`ts`, {
         test: ({hooks}) => hooks.filter(`pattern.ts`),
         include: [({path}) => path(`@src`)],
-        use: [this.options.babel ? `babel` : null, `ts`].filter(Boolean),
+        use: [this.options.babel ? `babel` : null, `ts`].filter(
+          Boolean,
+        ) as Array<any>,
       })
 
     bud.build.rules.js.setUse(
-      [this.options.babel ? `babel` : null, `ts`].filter(Boolean),
+      [this.options.babel ? `babel` : null, `ts`].filter(
+        Boolean,
+      ) as Array<any>,
     )
   }
 }

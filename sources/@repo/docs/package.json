@@ -22,7 +22,6 @@
     "@docusaurus/module-type-aliases": "2.1.0",
     "@docusaurus/preset-classic": "2.1.0",
     "@docusaurus/remark-plugin-npm2yarn": "2.1.0",
-    "@jest/globals": "29.2.2",
     "@repo/constants": "workspace:sources/@repo/constants",
     "@svgr/webpack": "6.5.1",
     "@tsconfig/docusaurus": "1.0.6",

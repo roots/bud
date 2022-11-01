@@ -5,7 +5,9 @@ import {beforeAll, describe, expect, it} from 'vitest'
 describe(`mock project`, () => {
   let bud: Bud
 
-  beforeAll(async () => (bud = await factory()))
+  beforeAll(async () => {
+    bud = await factory()
+  })
 
   it(`repoPath matches repo root`, async () => {
     expect(repoPath(`tests/unit/tests`)).toEqual(

@@ -1,29 +1,27 @@
-import {createRequire} from 'node:module'
-
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import {FS} from './index.js'
 
-const require = createRequire(import.meta.url)
-
 vi.mock(`fs-jetpack`, function () {
   return {
-    createReadStream: vi.fn(() => this),
-    createWriteStream: vi.fn(() => this),
-    existsAsync: vi.fn(() => this),
-    readAsync: vi.fn(async () => `{"foo":"bar"}`),
-    removeAsync: vi.fn(() => this),
-    writeAsync: vi.fn(() => this),
-    appendAsync: vi.fn(() => this),
-    copyAsync: vi.fn(() => this),
-    moveAsync: vi.fn(() => this),
-    inspectAsync: vi.fn(() => this),
-    inspectTreeAsync: vi.fn(() => this),
-    listAsync: vi.fn(() => this),
-    findAsync: vi.fn(() => this),
-    dirAsync: vi.fn(() => this),
-    path: vi.fn(() => this),
-    cwd: vi.fn(() => this),
+    default: {
+      createReadStream: vi.fn(() => this),
+      createWriteStream: vi.fn(() => this),
+      existsAsync: vi.fn(() => this),
+      readAsync: vi.fn(async () => `{"foo":"bar"}`),
+      removeAsync: vi.fn(() => this),
+      writeAsync: vi.fn(() => this),
+      appendAsync: vi.fn(() => this),
+      copyAsync: vi.fn(() => this),
+      moveAsync: vi.fn(() => this),
+      inspectAsync: vi.fn(() => this),
+      inspectTreeAsync: vi.fn(() => this),
+      listAsync: vi.fn(() => this),
+      findAsync: vi.fn(() => this),
+      dirAsync: vi.fn(() => this),
+      path: vi.fn(() => this),
+      cwd: vi.fn(() => this),
+    },
   }
 })
 
@@ -34,7 +32,24 @@ describe(`filesystem`, () => {
 
   beforeEach(async () => {
     vi.clearAllMocks()
-    jetpack = await import(`fs-jetpack`)
+    jetpack = {
+      createReadStream: vi.fn(() => this),
+      createWriteStream: vi.fn(() => this),
+      existsAsync: vi.fn(() => this),
+      readAsync: vi.fn(async () => `{"foo":"bar"}`),
+      removeAsync: vi.fn(() => this),
+      writeAsync: vi.fn(() => this),
+      appendAsync: vi.fn(() => this),
+      copyAsync: vi.fn(() => this),
+      moveAsync: vi.fn(() => this),
+      inspectAsync: vi.fn(() => this),
+      inspectTreeAsync: vi.fn(() => this),
+      listAsync: vi.fn(() => this),
+      findAsync: vi.fn(() => this),
+      dirAsync: vi.fn(() => this),
+      path: vi.fn(() => this),
+      cwd: vi.fn(() => this),
+    }
     json = await import(`./json`).then(mock => {
       json = mock
     })

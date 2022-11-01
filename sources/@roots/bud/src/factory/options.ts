@@ -28,9 +28,20 @@ export const mergeOptions: (
       ...context.args,
       ...(overrides?.args ?? {}),
     },
-    extensions: Array.from(
-      new Set([...context.extensions, ...(overrides?.extensions ?? [])]),
-    ),
+    extensions: {
+      builtIn: Array.from(
+        new Set([
+          ...context.extensions.builtIn,
+          ...(overrides?.extensions?.builtIn ?? []),
+        ]),
+      ),
+      discovered: Array.from(
+        new Set([
+          ...context.extensions.discovered,
+          ...(overrides?.extensions?.discovered ?? []),
+        ]),
+      ),
+    },
     services: Array.from(
       new Set([...context.services, ...(overrides?.services ?? [])]),
     ),

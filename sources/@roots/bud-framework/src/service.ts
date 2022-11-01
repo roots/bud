@@ -136,17 +136,115 @@ interface Contract {
  */
 abstract class Base implements Partial<Contract> {
   /**
+   * Lifecycle method: init
+   *
+   * @remarks
+   * `init` is called when the Service is instantiated
+   *
+   * @public
+   */
+  public init?(app: Bud): Promise<unknown>
+
+  /**
+   * Lifecycle method: bootstrap
+   *
+   * @remarks
+   * `bootstrap` is called when the Service is instantiated (but before all services are guaranteed to be instantiated).
+   *
+   * @public
+   */
+  public bootstrap?(app: Bud): Promise<any>
+
+  /**
+   * Lifecycle method: bootstrapped
+   *
+   * @remarks
+   * Called once all Service instances are available
+
+   *
+   * @public
+   */
+  public bootstrapped?(app: Bud): Promise<any>
+
+  /**
+   * Lifecycle method: register
+   *
+   * @remarks
+   * Intended for Service instances to register functionalities, modules,
+   * and bind functions to {@link Bud}
+   *
+   * @public
+   */
+  public register?(app: Bud): Promise<any>
+
+  /**
+   * Lifecycle method: registered
+   *
+   * @remarks
+   * `registered` is called after `register` is complete
+
+   *
+   * @public
+   */
+  public registered?(app: Bud): Promise<any>
+
+  /**
+   * Lifecycle method: boot
+   *
+   * @remarks
+   * `boot` is called once all services are registered.
+
+   *
+   * @public
+   */
+  public boot?(app: Bud): Promise<any>
+
+  /**
+   * Lifecycle method: booted
+   *
+   * @remarks
+   * `booted` is called after `boot`
+   *
+   * @public
+   */
+  public booted?(app: Bud): Promise<any>
+
+  /**
+   * After config callback
+   * @public
+   */
+  public configAfter?(app: Bud): Promise<unknown>
+
+  /**
+   * Before build service
+   * @public
+   */
+  public buildBefore?(app: Bud): Promise<unknown>
+
+  /**
+   * After build service
+   * @public
+   */
+  public buildAfter?(app: Bud): Promise<unknown>
+
+  /**
+   * Before Compiler service
+   * @public
+   */
+  public compilerBefore?(app: Bud): Promise<unknown>
+
+  /**
+   * After Compiler service
+   * @public
+   */
+  public compilerAfter?(app: Bud): Promise<unknown>
+  /**
    * Service label
    *
    * @public
    * @virtual
    */
   public static label: string
-
-  /**
-   * @internal @readonly
-   */
-  public _app: () => Bud
 
   /**
    * Access {@link Bud}
@@ -168,11 +266,9 @@ abstract class Base implements Partial<Contract> {
    * Class constructor
    * @public
    */
-  public constructor(app: Bud) {
-    this._app = () => app
-
-    this.logger = app.logger.instance.scope(
-      ...app.logger.scope,
+  public constructor(public _app: () => Bud) {
+    this.logger = this.app.logger.instance.scope(
+      ...this.app.logger.scope,
       lowerCase(this.constructor.name),
     )
   }
@@ -201,11 +297,6 @@ abstract class BaseContainer
   public static label: string
 
   /**
-   * @internal @readonly
-   */
-  public _app: () => Bud
-
-  /**
    * Access {@link Bud}
    *
    * @public @readonly
@@ -225,13 +316,11 @@ abstract class BaseContainer
    * Class constructor
    * @public
    */
-  public constructor(app: Bud) {
+  public constructor(public _app: () => Bud) {
     super()
 
-    this._app = () => app
-
-    this.logger = app.logger.instance.scope(
-      ...app.logger.scope,
+    this.logger = this.app.logger.instance.scope(
+      ...this.app.logger.scope,
       lowerCase(this.constructor.name),
     )
   }

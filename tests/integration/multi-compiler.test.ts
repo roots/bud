@@ -1,5 +1,5 @@
 import {Project} from '@repo/test-kit/project'
-import {beforeAll, describe, it} from 'vitest'
+import {beforeAll, describe, expect, it} from 'vitest'
 
 const plugin = pacman => () => {
   let project: Project
@@ -32,4 +32,4 @@ const plugin = pacman => () => {
 describe(`multi-compiler plugin`, () => {
   describe(`npm`, plugin(`npm`))
   describe(`yarn`, plugin(`yarn`))
-})
+}, 240000)

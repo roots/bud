@@ -4,20 +4,17 @@
     "outDir": "compiled",
     "types": [
       "node",
-      "jest",
-      "@roots/bud-api",
-      "@roots/bud",
-      "@roots/bud-framework"
     ],
-    "target": "es2021",
     "module": "esnext",
   },
-  "include": ["bud.ts", "integration.ts", "project.ts"],
-  "exclude": ["node_modules"],
+  "include": [
+    "bud.ts",
+    "integration.ts",
+    "project.ts"
+  ],
   "references": [
-    {"path": "./../../@roots/bud/tsconfig.json"},
-    {"path": "./../../@roots/bud-api/tsconfig.json"},
-    {"path": "./../../@roots/bud-framework/tsconfig.json"},
-    {"path": "./../../@roots/bud-compiler/tsconfig.json"},
+    {
+      "path": "./../../@roots/bud/tsconfig.json"
+    },
   ]
 }

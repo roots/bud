@@ -22,9 +22,7 @@
     "@repo/constants": "workspace:sources/@repo/constants",
     "@repo/logger": "workspace:sources/@repo/logger",
     "@roots/bud": "workspace:sources/@roots/bud",
-    "@roots/bud-api": "workspace:sources/@roots/bud-api",
-    "@roots/bud-compiler": "workspace:sources/@roots/bud-compiler",
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@types/fs-extra": "9.0.13",
     "@types/node": "16.18.2",
     "chalk": "5.1.2",
@@ -32,7 +30,6 @@
     "fs-extra": "10.1.0",
     "globby": "13.1.2",
     "helpful-decorators": "2.1.0",
-    "jest": "29.2.2",
     "json5": "2.2.1",
     "tslib": "2.4.0",
     "vitest": "0.24.4"

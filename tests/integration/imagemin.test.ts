@@ -1,6 +1,6 @@
 import {Project} from '@repo/test-kit/project'
 import fs from 'fs-extra'
-import {beforeAll, describe, it} from 'vitest'
+import {beforeAll, describe, expect, it} from 'vitest'
 
 const run = pacman => () => {
   let project: Project
@@ -31,4 +31,4 @@ const run = pacman => () => {
 describe(`imagemin`, () => {
   describe(`npm`, run(`npm`))
   describe(`yarn`, run(`yarn`))
-})
+}, 240000)

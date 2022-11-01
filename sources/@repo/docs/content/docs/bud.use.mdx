@@ -10,20 +10,26 @@ Register an extension or set of extensions.
 `bud.use` is an asyncronous function that takes a single argument, `extensions`. It returns a `Promise` that resolves to the `bud` instance.
 You can register multiple extensions at once by passing an array of extensions.
 
-It is not necessary to call `bud.use` to use an extension. The extensions will be discovered automatically before the configuration file is even loaded.
+If your extension is listed in `package.json` dependencies or devDependencies it is not necessary to call `bud.use` to use an extension.
+The extensions will be discovered automatically before the configuration file is even loaded.
 
 ## Usage
 
-Add packaged bud extensions:
+Add bud extensions:
 
-```js
-await bud.use([require('@roots/bud-babel'), require('@roots/bud-react')])
+```js title='bud.config.js'
+import babel from '@roots/bud-babel'
+import react from '@roots/bud-react'
+
+export default async bud => {
+  bud.use(babel)
+}
 ```
 
 Add an extension inline (also works with an array of extensions):
 
-```js
-await bud.use({
+```js title='bud.config.js'
+bud.use({
   name: 'my-webpack-plugin',
   make: () => new MyWebpackPlugin(),
 })
@@ -31,20 +37,12 @@ await bud.use({
 
 Add a webpack plugin inline (also work with an array of plugins):
 
-```js
-await bud.use(new MyWebpackPlugin())
+```js title='bud.config.js'
+bud.use(new MyWebpackPlugin())
 ```
 
-## Signature
+Add an extension or plugin from its signifier (must be the default export):
 
-```ts title='@roots/bud-api/types/repository/index.d.ts'
-namespace Repository {
-  interface Use {
-    (this: Bud, source: Use.Input): Promise<Bud>
-  }
-
-  namespace Use {
-    type Input = Module | Module[]
-  }
-}
+```js title='bud.config.js'
+bud.use(`my-webpack-dashboard`)
 ```

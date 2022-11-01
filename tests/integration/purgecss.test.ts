@@ -1,5 +1,5 @@
 import {Project} from '@repo/test-kit/project'
-import {beforeAll, describe, it} from 'vitest'
+import {beforeAll, describe, expect, it} from 'vitest'
 
 const test = (pacman: 'yarn' | 'npm') => () => {
   describe(`examples/purgecss`, () => {
@@ -37,4 +37,4 @@ const test = (pacman: 'yarn' | 'npm') => () => {
 describe(`purgecss`, () => {
   describe(`npm`, test(`npm`))
   describe(`yarn`, test(`yarn`))
-})
+}, 240000)

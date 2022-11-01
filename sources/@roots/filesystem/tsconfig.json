@@ -4,7 +4,7 @@
     "rootDir": "src",
     "outDir": "lib",
     "module": "esnext",
-    "allowSyntheticDefaultImports": false,
+    "allowSyntheticDefaultImports": true
   },
   "include": ["src"],
   "exclude": ["**/*.test.ts", "*.test.ts"]

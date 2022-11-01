@@ -1,3 +1,4 @@
+import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
@@ -26,9 +27,9 @@ export default class Sage extends Extension {
    * @decorator `@bind`
    */
   @bind
-  public async register({isProduction, path}) {
+  public async register(app: Bud) {
     /* Set paths */
-    this.app.setPath({
+    app.setPath({
       '@src': `resources`,
       '@dist': `public`,
       '@resources': `@src`,
@@ -41,20 +42,20 @@ export default class Sage extends Extension {
     })
 
     /* Set aliases */
-    this.app.alias({
-      '@fonts': path(`@fonts`),
-      '@images': path(`@images`),
-      '@scripts': path(`@scripts`),
-      '@styles': path(`@styles`),
+    app.alias({
+      '@fonts': app.path(`@fonts`),
+      '@images': app.path(`@images`),
+      '@scripts': app.path(`@scripts`),
+      '@styles': app.path(`@styles`),
     })
 
     /**
      * Optimize
      */
-    this.app.when(
-      isProduction,
-      () => this.app.minimize().hash().runtime(`single`).splitChunks(),
-      () => this.app.devtool(),
+    app.when(
+      app.isProduction,
+      () => app.minimize().hash().runtime(`single`).splitChunks(),
+      () => app.devtool(),
     )
   }
 }

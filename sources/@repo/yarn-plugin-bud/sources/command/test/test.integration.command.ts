@@ -59,15 +59,10 @@ export class TestIntegration extends Command {
 
     await this.$(
       this.withPassthrough(
-        `yarn node --experimental-vm-modules ${join(
+        `yarn vitest --config ${join(
           paths.root,
-          `node_modules/.bin/jest`,
-        )} --config ${join(
-          paths.root,
-          `config/vi.config.js`,
-        )} --selectProjects integration --verbose --testTimeout ${
-          120 * 1000
-        }`,
+          `config/vitest.integration.config.js`,
+        )}`,
       ),
     )
   }

@@ -1,5 +1,6 @@
 /* eslint-disable n/no-process-env */
 import {factory} from '@repo/test-kit/bud'
+import {describe, expect, it} from 'vitest'
 
 describe(`test environment sanity checks`, () => {
   it(`should run a test without errors`, () => {
@@ -12,12 +13,8 @@ describe(`test environment sanity checks`, () => {
     )
   })
 
-  it(`should have vitest_WORKER_ID defined`, () => {
-    expect(process.env.vitest_WORKER_ID).toBeDefined()
-  })
-
   it(`bud mock should be banning @roots/bud-swc`, async () => {
     const bud = await factory({mode: `production`})
-    expect(bud.extensions.repository).not.toHaveProperty(`@roots/bud-swc`)
+    expect(bud.extensions.repository).toHaveProperty(`@roots/bud-swc`)
   })
 })

@@ -1,33 +1,48 @@
 import {Bud, factory} from '@repo/test-kit/bud'
-import {beforeAll, describe, expect, it} from 'vitest'
+import {beforeAll, beforeEach, describe, expect, it} from 'vitest'
 
 describe(`bud.template`, function () {
   describe(`default`, () => {
     let bud: Bud
 
-    beforeAll(async () => {
+    beforeEach(async () => {
       bud = await factory()
+      await bud.run()
     })
 
-    it(`is a function`, () => {
+    it(`is a function`, async () => {
       expect(bud.template).toBeInstanceOf(Function)
     })
 
-    it(`html-webpack-plugin is not set by default`, () => {
-      expect(bud.extensions.has(`html-webpack-plugin`)).toBe(false)
+    it(`html-webpack-plugin is not set by default`, async () => {
+      expect(
+        bud.extensions.has(`@roots/bud-extensions/html-webpack-plugin`),
+      ).toBe(true)
+      expect(
+        await bud.extensions
+          .get(`@roots/bud-extensions/html-webpack-plugin`)
+          .isEnabled(),
+      ).toBe(false)
     })
 
-    it(`interpolate-html-plugin is not set by default`, () => {
-      expect(bud.extensions.has(`interpolate-html-plugin`)).toBe(false)
+    it(`interpolate-html-plugin is not set by default`, async () => {
+      expect(
+        await bud.extensions
+          .get(`@roots/bud-extensions/interpolate-html-webpack-plugin`)
+          .isEnabled(),
+      ).toBe(false)
     })
   })
 
   describe(`called`, () => {
     let bud: Bud
 
-    beforeAll(async () => {
+    beforeEach(async () => {
       bud = await factory()
-      bud.extensions.remove(`html-webpack-plugin`)
+      bud.extensions
+        .get(`@roots/bud-extensions/html-webpack-plugin`)
+        .disable()
+
       bud.hooks.on(`feature.html`, false)
     })
 
@@ -39,11 +54,21 @@ describe(`bud.template`, function () {
     it(`adds html webpack plugin`, async () => {
       await bud.api.call(`template`)
 
-      expect(bud.extensions.has(`html-webpack-plugin`)).toEqual(true)
+      expect(
+        await bud.extensions
+          .get(`@roots/bud-extensions/html-webpack-plugin`)
+          .isEnabled(),
+      ).toEqual(true)
     })
 
-    it(`adds interpolate-html-plugint`, () => {
-      expect(bud.extensions.has(`interpolate-html-plugin`)).toBe(true)
+    it(`adds interpolate-html-plugint`, async () => {
+      await bud.api.call(`template`)
+
+      expect(
+        await bud.extensions
+          .get(`@roots/bud-extensions/interpolate-html-webpack-plugin`)
+          .isEnabled(),
+      ).toBe(true)
     })
   })
 
@@ -56,9 +81,19 @@ describe(`bud.template`, function () {
 
     it(`can be disabled`, async () => {
       await bud.api.call(`template`)
-      expect(bud.extensions.has(`html-webpack-plugin`)).toBe(true)
+
+      expect(
+        await bud.extensions
+          .get(`@roots/bud-extensions/html-webpack-plugin`)
+          .isEnabled(),
+      ).toBe(true)
+
       await bud.api.call(`template`, false)
-      expect(bud.extensions.has(`html-webpack-plugin`)).toBe(false)
+      expect(
+        await bud.extensions
+          .get(`@roots/bud-extensions/html-webpack-plugin`)
+          .isEnabled(),
+      ).toBe(false)
     })
 
     it(`changes the template when template options is passed`, async () => {
@@ -67,7 +102,9 @@ describe(`bud.template`, function () {
       await bud.api.call(`template`, props)
 
       expect(
-        bud.extensions.get(`html-webpack-plugin`).getOption(`template`),
+        bud.extensions
+          .get(`@roots/bud-extensions/html-webpack-plugin`)
+          .getOption(`template`),
       ).toBe(props.template)
     })
   })

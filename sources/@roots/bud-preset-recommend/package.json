@@ -62,6 +62,8 @@
   },
   "devDependencies": {
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
+    "@roots/bud-esbuild": "workspace:sources/@roots/bud-esbuild",
+    "@roots/bud-swc": "workspace:sources/@roots/bud-swc",
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.18.2",
     "vitest": "0.24.4"

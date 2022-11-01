@@ -75,7 +75,14 @@ export default class Terser extends Extension<Options> {
    */
   @bind
   public async buildBefore(bud: Bud) {
-    if (!bud.extensions.has(`@roots/bud-swc`)) return
+    if (
+      !bud.extensions.has(
+        // @ts-ignore
+        `@roots/bud-swc`,
+      )
+    )
+      return
+
     const {swcMinify} = await this.import(`terser-webpack-plugin`)
     this.setMinifier(swcMinify)
 

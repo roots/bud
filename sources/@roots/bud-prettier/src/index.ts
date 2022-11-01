@@ -10,7 +10,7 @@
  * @packageDocumentation
  */
 
-import './types'
+import './types.js'
 
 import {Extension} from '@roots/bud-framework/extension'
 import {label} from '@roots/bud-framework/extension/decorators'

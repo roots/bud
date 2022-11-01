@@ -78,8 +78,7 @@ export default class BudReactRefresh extends Extension<
         ? `@roots/bud-react/swc-refresh`
         : `@roots/bud-react/typescript-refresh`
 
-      const transformExtension = await this.import(signifier)
-      await this.app.extensions.add(transformExtension)
+      await this.app.extensions.add(signifier)
       this.setTransformExtension(this.app.extensions.get(signifier))
     }
 
