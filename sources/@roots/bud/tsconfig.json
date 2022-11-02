@@ -31,5 +31,6 @@
     {"path": "./../bud-server/tsconfig.json"},
     {"path": "./../bud-support/tsconfig.json"},
     {"path": "./../bud-terser/tsconfig.json"},
+    {"path": "./../dependencies/tsconfig.json"}
   ]
 }

@@ -13,6 +13,8 @@ export abstract class Command {
     return null
   }
 
+  public abstract getLatestVersion(signifier: string): Promise<string>
+
   /**
    * @public
    */
@@ -27,17 +29,25 @@ export abstract class Command {
    * @public
    */
   public static execute(
-    onMessage: (message: string) => void,
-    ...commandArgs: Array<string>
+    commandArgs: Array<string>,
+    onMessage?: (message: string) => void,
+    onError?: (message: string) => void,
   ): Promise<any> {
     return new Promise((resolve, reject) => {
       const command = spawn(commandArgs.shift(), commandArgs)
+      const message = []
 
-      onMessage &&
-        command.stdout.on(`data`, message => onMessage(message.toString()))
+      command.stdout.on(`data`, incoming => {
+        message.push(incoming.toString())
+        onMessage && onMessage(incoming.toString())
+      })
+      command.stderr.on(`data`, incoming => {
+        message.push(incoming.toString())
+        onError && onError(incoming.toString())
+      })
 
-      command.on(`close`, resolve)
-      command.on(`error`, reject)
+      command.on(`close`, () => resolve(message))
+      command.on(`error`, () => reject())
     })
   }
 

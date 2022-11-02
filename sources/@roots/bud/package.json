@@ -122,6 +122,7 @@
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@roots/bud-terser": "workspace:sources/@roots/bud-terser",
     "@roots/container": "workspace:sources/@roots/container",
+    "@roots/dependencies": "workspace:sources/@roots/dependencies",
     "browserslist": "4.21.4",
     "caniuse-lite": "1.0.30001427",
     "conf": "10.2.0",
