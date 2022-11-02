@@ -34,16 +34,14 @@ export default class Env {
      */
     const getEnvFromPath = (path: string): Record<string, any> => {
       let parsed = {}
-      let env
-      let expanded
 
       try {
-        env = dotenv.config({path})
+        const env = dotenv.config({path})
         if (env?.parsed && !env?.error) Object.assign(parsed, env.parsed)
       } catch (error) {}
 
       try {
-        expanded = expand({parsed})
+        const expanded = expand({parsed})
         if (expanded?.parsed && !expanded?.error)
           Object.assign(parsed, expanded.parsed)
       } catch (error) {}
