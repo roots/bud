@@ -53,16 +53,12 @@ export class Module {
    */
   @bind
   public async getDirectory(signifier: string, context?: string) {
-    try {
-      return await this.resolve(signifier, context)
-        .then(path =>
-          relative(context ?? this.app.root.context.basedir, path),
-        )
-        .then(path => path.split(signifier).shift())
-        .then(path => this.app.root.path(path as any, signifier))
-    } catch (error) {
-      throw error
-    }
+    return await this.resolve(signifier, context)
+      .then(path =>
+        relative(context ?? this.app.root.context.basedir, path),
+      )
+      .then(path => path.split(signifier).shift())
+      .then(path => this.app.root.path(path as any, signifier))
   }
 
   /**
@@ -138,15 +134,18 @@ export class Module {
     signifier: string,
     context?: URL | URL | string,
   ): Promise<T> {
-    try {
-      const modulePath = await this.resolve(signifier, context)
-      const result = await import(modulePath)
-      this.logger.success(chalk.dim(`imported ${signifier}`))
-      return result?.default ?? result
-    } catch (err) {
-      this.logger.fatal(new Error(`error importing ${signifier}\n${err}`))
-      throw err
+    const modulePath = await this.resolve(signifier, context)
+    if (!modulePath) {
+      throw new Error(`Could not resolve ${signifier}`)
     }
+
+    const result = await import(modulePath)
+    if (!result) {
+      throw new Error(`Could not import ${signifier}`)
+    }
+
+    this.logger.success(chalk.dim(`imported ${signifier}`))
+    return result?.default ?? result
   }
 
   /**

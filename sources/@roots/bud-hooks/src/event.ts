@@ -50,20 +50,12 @@ export default class EventHooks extends Hooks<EventsStore> {
   ): Promise<Bud> {
     if (!this.has(id)) return this.app
 
-    try {
-      await this.store[id]
-        .map(this.app.value.get)
-        .reduce(async (promise, action) => {
-          await promise
-          try {
-            await action(this.app)
-          } catch (error) {
-            throw error
-          }
-        }, Promise.resolve())
-    } catch (error) {
-      throw error
-    }
+    await this.store[id]
+      .map(this.app.value.get)
+      .reduce(async (promise, action) => {
+        await promise
+        await action(this.app)
+      }, Promise.resolve())
 
     this.store[id] = []
 

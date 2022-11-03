@@ -97,7 +97,7 @@ export const initialize = (app: Bud): Bud =>
         `.wasm`,
         `.yml`,
       ]),
-      'build.stats': {preset: `errors-only`},
+      'build.stats': {preset: `none`},
       'build.target': () =>
         app.context.manifest?.browserslist
           ? `browserslist:${app.context.config[`package.json`]?.path}`

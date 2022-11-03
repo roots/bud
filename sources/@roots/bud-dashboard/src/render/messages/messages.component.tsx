@@ -2,7 +2,6 @@ import {Box, Text} from '@roots/bud-support/ink'
 import React from '@roots/bud-support/react'
 import chalk from 'chalk'
 import type {StatsCompilation} from 'webpack'
-import {formatMessage} from 'webpack-format-messages'
 
 import {VERT} from '../format.js'
 
@@ -17,24 +16,23 @@ const Messages = ({
   messages: StatsCompilation['errors'] | StatsCompilation['warnings']
   color: string
 }) => {
-  const formatted = messages?.map(formatMessage)?.map((message: string) =>
-    message
-      .split(`\n`)
-      .filter(ln => !ln.includes(`ModuleBuildError:`))
-      .map(
-        ln =>
-          `${chalk.dim(VERT)} ${ln
-            .replace(process.cwd(), `.`)
-            .replace(/^\t/g, ``)}`,
-      )
-      .join(`\n`),
-  )
+  const formatted = messages
+    ?.reverse()
+    .map(({stack, message}: {stack: string; message: string}) => ({
+      stack,
+      message: message
+        .split(`\n`)
+        .map(ln => `${chalk.dim(VERT)} ${ln.replace(process.cwd(), `.`)}`)
+        .join(`\n`)
+        .split(`    at`)
+        .shift(),
+    }))
 
   if (!formatted) return null
 
   return (
     <Box flexDirection="column">
-      {formatted?.map((msg: string, index: number) => (
+      {formatted?.map(({message, stack}, index: number) => (
         <Box key={index} flexDirection="column">
           <Box flexDirection="row">
             <Text dimColor>├─</Text>
@@ -45,7 +43,7 @@ const Messages = ({
           </Box>
 
           <Box flexDirection="column">
-            <Text>{msg.trim() as string}</Text>
+            <Text>{message.trim() as string} </Text>
             <Text dimColor>{chalk.dim(VERT)}</Text>
           </Box>
         </Box>

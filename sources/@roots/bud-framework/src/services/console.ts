@@ -65,19 +65,28 @@ export default class ConsoleBuffer extends Service {
    */
   @bind
   public async boot(bud: Bud) {
-    // Don't mess with console if --ci flag is `true`
     if (bud.context?.args?.ci) return
-
-    // Overwrite service logger with a specially configured `Signale` instance
-    this.logger = bud.logger.makeInstance({
+    const logger = bud.logger.makeInstance({
       disabled: bud.context.args?.log === false,
       config: {
         displayLabel: false,
         displayBadge: false,
-        displayTimestamp: true,
+        displayScope: false,
       },
-      // Unlike the main bud.logger, emit everything
       logLevel: `info`,
+    })
+
+    this.restore = patchConsole((stream, data) => {
+      const message = data.trim()
+
+      if (!message || message.length === 0) return
+      if (this.messages[stream].some(message => message === data)) return
+
+      logger[stream === `stdout` ? `log` : `error`](
+        bud.logger.format({
+          message: message.replace(`${bud.label}:\n`, ``),
+        }),
+      )
     })
 
     // Patch the console, and assign the restore function

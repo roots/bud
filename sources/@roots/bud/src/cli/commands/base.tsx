@@ -1,6 +1,7 @@
 import type * as Options from '@roots/bud-framework/options'
 import {BaseContext, Command, Option} from '@roots/bud-support/clipanion'
 import {bind, once} from '@roots/bud-support/decorators'
+import {signale} from '@roots/bud-support/signale'
 import * as t from '@roots/bud-support/typanion'
 
 import type Bud from '../../bud.js'
@@ -178,7 +179,7 @@ export default abstract class BaseCommand extends Command {
    * @public
    */
   public get logger() {
-    return this.app.logger.instance
+    return this.app?.logger?.instance ?? new signale()
   }
 
   /**
@@ -233,16 +234,36 @@ export default abstract class BaseCommand extends Command {
       },
     }
 
-    this.app = await factory(this.context)
+    try {
+      this.app = await factory(this.context)
+    } catch (error) {
+      this.handleError(error)
+      return 1
+    }
 
-    if (this.runCommand) await this.runCommand()
+    try {
+      if (this.runCommand) await this.runCommand()
+    } catch (error) {
+      this.handleError(error)
+      return 1
+    }
 
-    if (this.notify !== false)
-      this.app.hooks.action(`compiler.after`, async () => {
-        this.app.compiler.instance.hooks.done.tap(
-          `bud-cli-notifier`,
-          new Notifier(this.app).notify,
-        )
-      })
+    try {
+      if (this.notify !== false)
+        this.app.hooks.action(`compiler.after`, async () => {
+          this.app.compiler.instance.hooks.done.tap(
+            `bud-cli-notifier`,
+            new Notifier(this.app).notify,
+          )
+        })
+    } catch (error) {
+      this.handleError(error)
+      return 1
+    }
+  }
+
+  @bind
+  public handleError(error: any) {
+    this.app.fatal(error)
   }
 }

@@ -1,5 +1,4 @@
 /* eslint-disable n/no-process-exit */
-import {isNumber} from '@roots/bud-support/lodash-es'
 
 import type {Bud} from './bud'
 
@@ -44,19 +43,20 @@ let appExited: boolean = false
  *
  * @public
  */
-const makeProcessHandler = (app: Bud, code: number) => () => {
-  if (appExited) return
-  appExited = true
+const makeProcessHandler =
+  (app: Bud, code: number): NodeJS.BeforeExitListener =>
+  _code => {
+    if (appExited) return
 
-  process.exitCode = !isNumber(code) ? process.exitCode : code
+    appExited = true
 
-  app?.close()
+    app?.close()
 
-  app?.logger?.instance
-    ? app.logger.instance[process.exitCode === 0 ? `success` : `error`](
-        `exiting with code ${process.exitCode}`,
-      )
-    : app.context[process.exitCode === 0 ? `stdout` : `stderr`].write(
-        `\nexiting with code ${process.exitCode}\n`,
-      )
-}
+    app?.logger?.instance
+      ? app.logger.instance[process.exitCode === 0 ? `success` : `error`](
+          `exiting with code ${process.exitCode}`,
+        )
+      : app.context[process.exitCode === 0 ? `stdout` : `stderr`].write(
+          `\nexiting with code ${process.exitCode}\n`,
+        )
+  }

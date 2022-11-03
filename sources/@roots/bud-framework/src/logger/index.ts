@@ -1,3 +1,5 @@
+import chalk from '@roots/bud-support/chalk'
+import cleanStack from '@roots/bud-support/clean-stack'
 import {bind} from '@roots/bud-support/decorators'
 import {isEqual} from '@roots/bud-support/lodash-es'
 import Signale, {SignaleConfig, SignaleOptions} from 'signale'
@@ -81,5 +83,66 @@ export class Logger {
     })
 
     return instance.scope(...this.scope)
+  }
+
+  /**
+   * Format logger messages
+   *
+   * @param messages - Literally anything or an array of anything
+   * @public
+   * @decorator `@bind` - to ensure `this` is bound to the instance
+   */
+  @bind
+  public format(messages: any[] | any) {
+    const format = (message: string) => {
+      return message
+        ?.replaceAll(this.app.commonPath, `.`)
+        ?.replaceAll(/(.*)\s(.*)\/node_modules\/(.*)/g, `$1 $3`)
+    }
+
+    const highlightFirstLine = message =>
+      message
+        .split(`\n`)
+        .map((ln, i) => (i === 0 ? chalk.white(ln) : chalk.dim(ln)))
+        .join(`\n`)
+
+    const parse = message => {
+      if (message instanceof Error) {
+        return message.stack
+          ? cleanStack(message.stack, {
+              basePath: this.app.commonPath,
+              pretty: true,
+            })
+          : message.message
+      }
+
+      if (message.error) {
+        return cleanStack(message.error, {
+          basePath: this.app.commonPath,
+          pretty: true,
+        })
+      }
+
+      if (typeof message === `string`) return format(message)
+
+      return message.message ?? message
+    }
+
+    return highlightFirstLine(
+      Array.isArray(messages)
+        ? messages.map(parse).join(` `)
+        : parse(messages),
+    )
+      .replaceAll(/file:\/\/~/g, `~`)
+      .replaceAll(/'([^(\s|')]*)'/g, chalk.blue(`'$1'`))
+      .replaceAll(/\.\.\/([^(\s|')]*)/g, chalk.blue(`../$1`))
+      .replaceAll(/file\:\/\/([/^(\s|')]*)/g, chalk.blue(`file://$1`))
+      .replaceAll(/~\/([^(\s|')]*)/g, chalk.blue(`~/$1`))
+      .replaceAll(/ \/([^(\s|')]*)/g, chalk.blue(` /$1`))
+      .split(`   at`)
+      .splice(0, 2)
+      .join(`   at`)
+      .split(`using description`)
+      .shift()
   }
 }
