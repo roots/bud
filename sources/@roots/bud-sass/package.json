@@ -85,7 +85,7 @@
     "sass": "^1.52.2",
     "sass-loader": "^13.0.0",
     "stylelint-config-recommended-scss": "^8.0.0",
-    "tslib": "2.4.0"
+    "tslib": "2.4.1"
   },
   "peerDependencies": {
     "@roots/bud-postcss": "*",

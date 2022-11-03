@@ -79,7 +79,7 @@
     "@roots/container": "workspace:sources/@roots/container",
     "chalk": "5.1.2",
     "get-port": "6.1.2",
-    "tslib": "2.4.0"
+    "tslib": "2.4.1"
   },
   "volta": {
     "extends": "../../../package.json"

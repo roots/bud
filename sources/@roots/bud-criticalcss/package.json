@@ -62,7 +62,7 @@
   },
   "dependencies": {
     "@roots/critical-css-webpack-plugin": "workspace:sources/@roots/critical-css-webpack-plugin",
-    "tslib": "2.4.0"
+    "tslib": "2.4.1"
   },
   "volta": {
     "extends": "../../../package.json"

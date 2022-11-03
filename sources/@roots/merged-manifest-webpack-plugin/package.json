@@ -52,7 +52,7 @@
   "dependencies": {
     "fs-extra": "10.1.0",
     "helpful-decorators": "2.1.0",
-    "tslib": "2.4.0"
+    "tslib": "2.4.1"
   },
   "volta": {
     "extends": "../../../package.json"

@@ -69,7 +69,7 @@
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "css-minimizer-webpack-plugin": "4.2.2",
     "terser-webpack-plugin": "^5.3.3",
-    "tslib": "2.4.0"
+    "tslib": "2.4.1"
   },
   "volta": {
     "extends": "../../../package.json"

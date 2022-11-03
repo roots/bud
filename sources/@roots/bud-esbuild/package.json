@@ -69,7 +69,7 @@
   "dependencies": {
     "esbuild-loader": "2.20.0",
     "ts-node": "10.9.1",
-    "tslib": "2.4.0"
+    "tslib": "2.4.1"
   },
   "peerDependencies": {
     "esbuild-loader": "*",

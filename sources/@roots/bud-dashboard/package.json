@@ -54,7 +54,7 @@
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.18.2",
     "ink-testing-library": "2.1.0",
-    "tslib": "2.4.0",
+    "tslib": "2.4.1",
     "vitest": "0.24.4",
     "webpack": "5.74.0"
   },

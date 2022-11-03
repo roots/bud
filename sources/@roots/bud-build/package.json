@@ -102,7 +102,7 @@
     "remark-loader": "5.0.0",
     "style-loader": "3.3.1",
     "toml": "3.0.0",
-    "tslib": "2.4.0",
+    "tslib": "2.4.1",
     "xml-loader": "1.2.1",
     "yml-loader": "2.1.0"
   },

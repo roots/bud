@@ -80,7 +80,7 @@
     "@roots/bud-wordpress-manifests": "workspace:sources/@roots/bud-wordpress-manifests",
     "chalk": "5.1.2",
     "lodash-es": "4.17.21",
-    "tslib": "2.4.0"
+    "tslib": "2.4.1"
   },
   "peerDependencies": {
     "@roots/browserslist-config": "*",

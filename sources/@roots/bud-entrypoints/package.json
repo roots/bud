@@ -63,7 +63,7 @@
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/entrypoints-webpack-plugin": "workspace:sources/@roots/entrypoints-webpack-plugin",
-    "tslib": "2.4.0"
+    "tslib": "2.4.1"
   },
   "volta": {
     "extends": "../../../package.json"

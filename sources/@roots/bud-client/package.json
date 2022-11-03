@@ -64,7 +64,7 @@
   },
   "dependencies": {
     "strip-ansi": "7.0.1",
-    "tslib": "2.4.0"
+    "tslib": "2.4.1"
   },
   "volta": {
     "extends": "../../../package.json"
