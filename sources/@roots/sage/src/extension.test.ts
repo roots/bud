@@ -1,64 +1,62 @@
-import {Bud, factory} from '@repo/test-kit/bud'
+import {describe, expect, it, vi} from 'vitest'
 
 import Sage from './index'
 
+const setup = async (spyCallback?) => {
+  const bud = await import(`@repo/test-kit/bud`).then(
+    async ({factory}) => await factory(),
+  )
+
+  if (spyCallback) {
+    await spyCallback(bud)
+  }
+
+  const instance = new Sage(bud)
+  await instance.register(bud)
+  return {bud, instance}
+}
+
 describe(`@roots/sage`, () => {
-  let bud: Bud
-  let instance: Sage
-
-  beforeEach(async () => {
-    bud = await factory()
-    await bud.extensions.add(Sage)
-    instance = new Sage(
-      // @ts-ignore
-      bud,
-    )
+  it(`is registrable`, async () => {
+    const {instance} = await setup()
+    expect(instance).toBeInstanceOf(Sage)
   })
 
-  it(`is registrable`, () => {
-    expect(instance.app.extensions.has(`@roots/sage`)).toBeTruthy()
-  })
-
-  it(`has label prop`, () => expect(instance.label).toBe(`@roots/sage`))
-
-  it(`registers prop: label`, () => {
+  it(`has label prop`, async () => {
+    const {instance} = await setup()
     expect(instance.label).toBe(`@roots/sage`)
   })
 
-  it(`has boot prop`, () =>
-    expect(instance.register).toBeInstanceOf(Function))
+  it(`registers prop: label`, async () => {
+    const {instance} = await setup()
+    expect(instance.label).toBe(`@roots/sage`)
+  })
 
-  it(`registers prop: boot`, () =>
-    expect(JSON.stringify(bud.extensions.get(`@roots/sage`).boot)).toBe(
-      JSON.stringify(instance.boot),
-    ))
-
-  it(`registers @roots/bud-preset-recommend`, async () => {
-    expect(
-      instance.app.extensions.has(`@roots/bud-preset-recommend`),
-    ).toBeTruthy()
+  it(`has boot prop`, async () => {
+    const {instance} = await setup()
+    expect(instance.register).toBeInstanceOf(Function)
   })
 
   it(`sets aliases`, async () => {
-    const aliases = await bud.hooks.filterAsync(`build.resolve.alias`)
+    let spy
 
-    expect(aliases).toStrictEqual({
-      '@src': bud.path(`@src`),
-      '@scripts': bud.path(`@src/scripts`),
-      '@styles': bud.path(`@src/styles`),
-      '@images': bud.path(`@src/images`),
-      '@fonts': bud.path(`@src/fonts`),
-      '@dist': bud.path(`@dist`),
+    await setup(bud => {
+      spy = vi.spyOn(bud.hooks, `on`)
     })
+
+    expect(spy).toHaveBeenLastCalledWith(
+      `location.@views`,
+      expect.any(String),
+    )
   })
 
-  it(`sets runtime`, () => {
-    expect(
-      instance.app.hooks.filter(`build.optimization.runtimeChunk`),
-    ).toBe(`single`)
-  })
+  it(`sets runtime`, async () => {
+    let spy
 
-  it(`registers @roots/bud-babel`, async () => {
-    expect(instance.app.extensions.has(`@roots/bud-babel`)).toBeTruthy()
+    await setup(bud => {
+      spy = vi.spyOn(bud, `runtime`)
+    })
+
+    expect(spy).toHaveBeenCalledWith(`single`)
   })
 })

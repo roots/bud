@@ -46,12 +46,11 @@
   "types": "./lib/index.d.ts",
   "exports": {
     ".": "./lib/index.js",
-    "./acorn": "./lib/acorn/extension.js",
-    "./extension": "./lib/sage/extension.js",
+    "./acorn": "./lib/acorn/index.js",
     "./client": "./lib/client/index.js",
     "./client/dom-ready": "./lib/client/dom-ready.js",
     "./client/lazy": "./lib/client/lazy.js",
-    "./wp-theme-json": "./lib/wp-theme-json/extension.js",
+    "./wp-theme-json": "./lib/wp-theme-json/index.js",
     "./wp-theme-json/tailwind": "./lib/wp-theme-json/tailwind/index.js",
     "./stylelint-config": "./stylelint-config/index.cjs"
   },
@@ -61,7 +60,7 @@
         "./lib/index.d.ts"
       ],
       "acorn": [
-        "./lib/acorn.d.ts"
+        "./lib/acorn/index.d.ts"
       ],
       "client": [
         "./lib/client/index.d.ts"
@@ -72,11 +71,8 @@
       "client/lazy": [
         "./lib/client/lazy.d.ts"
       ],
-      "extension": [
-        "./lib/sage/extension.d.ts"
-      ],
       "wp-theme-json": [
-        "./lib/wp-theme-json/extension.d.ts"
+        "./lib/wp-theme-json/index.d.ts"
       ],
       "wp-theme-json/tailwind": [
         "./lib/wp-theme-json/tailwind/index.d.ts"
@@ -84,11 +80,11 @@
     }
   },
   "devDependencies": {
-    "@jest/globals": "29.0.3",
     "@roots/bud-tailwindcss": "workspace:sources/@roots/bud-tailwindcss",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.11.64",
-    "tailwindcss": "^3.1.8",
+    "@types/node": "16.18.2",
+    "tailwindcss": "3.2.1",
+    "vitest": "0.24.4",
     "webpack": "5.74.0"
   },
   "dependencies": {

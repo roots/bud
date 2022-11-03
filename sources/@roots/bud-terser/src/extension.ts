@@ -1,12 +1,12 @@
+import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
   dependsOn,
-  dependsOnOptional,
+  disabled,
   expose,
   label,
   options,
-  when,
 } from '@roots/bud-framework/extension/decorators'
 import TerserPlugin from 'terser-webpack-plugin'
 
@@ -31,10 +31,10 @@ export type Options = TerserPlugin.BasePluginOptions & {
  * @decorator `@label`
  * @decorator `@expose`
  * @decorator `@options`
+ * @decorator `@disabled`
  */
 @label(`@roots/bud-terser`)
 @dependsOn([`@roots/bud-terser/css-minimizer`])
-@dependsOnOptional([`@roots/bud-swc`])
 @expose(`terser`)
 @options<Options>({
   include: ({hooks}) => hooks.filter(`pattern.js`),
@@ -55,7 +55,7 @@ export type Options = TerserPlugin.BasePluginOptions & {
     },
   },
 })
-@when(async () => false)
+@disabled
 export default class Terser extends Extension<Options> {
   /**
    * Terser options getter/setter
@@ -68,34 +68,25 @@ export default class Terser extends Extension<Options> {
   }
 
   /**
-   * SWC available
-   */
-  public get isSWC() {
-    return this.app.extensions.has(`@roots/bud-swc`)
-  }
-
-  /**
-   * `register` callback
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async register() {
-    if (!this.isSWC) return
-    const {swcMinify} = await import(`terser-webpack-plugin`)
-    this.setMinifier(swcMinify)
-  }
-
-  /**
    * `buildBefore` callback
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public async buildBefore() {
-    this.app.hooks.on(`build.optimization.minimizer`, minimizer => {
+  public async buildBefore(bud: Bud) {
+    if (
+      !bud.extensions.has(
+        // @ts-ignore
+        `@roots/bud-swc`,
+      )
+    )
+      return
+
+    const {swcMinify} = await this.import(`terser-webpack-plugin`)
+    this.setMinifier(swcMinify)
+
+    bud.hooks.on(`build.optimization.minimizer`, minimizer => {
       minimizer.push(new TerserPlugin(this.options))
       return minimizer
     })

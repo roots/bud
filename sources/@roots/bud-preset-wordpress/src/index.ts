@@ -10,15 +10,8 @@
  * @packageDocumentation
  */
 
-import BudPresetWordPress from './extension.js'
+import './types.js'
 
-declare module '@roots/bud-framework' {
-  interface Bud {
-    wordpress: BudPresetWordPress
-  }
-  interface Modules {
-    '@roots/bud-preset-wordpress': BudPresetWordPress
-  }
-}
+import BudPresetWordPress from './extension.js'
 
 export default BudPresetWordPress

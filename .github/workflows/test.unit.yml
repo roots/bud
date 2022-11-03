@@ -14,7 +14,7 @@ jobs:
         platform:
           - ubuntu-latest
         node:
-          - 16.x
+          - 16.18.0
 
     name: test node@${{matrix.node}}/${{matrix.platform}}
     runs-on: ${{matrix.platform}}
@@ -49,4 +49,4 @@ jobs:
 
       - name: yarn @bud test unit
         run: |
-          yarn @bud test unit --maxWorkers=50% --coverage
+          yarn @bud test unit run --coverage

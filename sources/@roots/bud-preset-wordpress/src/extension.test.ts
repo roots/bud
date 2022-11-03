@@ -1,47 +1,17 @@
-import '@roots/bud-api'
-
-import {beforeEach, describe, expect, it, jest} from '@jest/globals'
-import {Extension} from '@roots/bud-framework'
+import {factory} from '@repo/test-kit/bud'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import BudPresetWordPress from './index'
-
-const Logger = {
-  error: jest.fn(),
-  success: jest.fn(),
-  scope: [],
-  instance: {
-    error: jest.fn(),
-    success: jest.fn(),
-    scope: () => Logger,
-  },
-}
 
 describe(`@roots/bud-preset-wordpress`, () => {
   let bud: any
   let extension: BudPresetWordPress
 
   beforeEach(async () => {
-    bud = {
-      api: {trace: []},
-      env: {
-        has: jest.fn(() => true),
-        isString: jest.fn(() => true),
-        get: jest.fn(() => `https://example.com`),
-      },
-      isDevelopment: true,
-      extensions: {add: jest.fn()},
-      hooks: {async: jest.fn(), filter: jest.fn(() => false)},
-      logger: Logger,
-      module: {resolve: jest.fn()},
-      proxy: jest.fn(),
-      warn: jest.fn(),
-    }
-
+    vi.clearAllMocks()
+    bud = await factory({mode: `development`})
+    bud.env.set(`WP_HOME`, `http://localhost:8080`)
     extension = new BudPresetWordPress(bud)
-  })
-
-  it(`should be Extension`, async () => {
-    expect(extension).toBeInstanceOf(Extension)
   })
 
   it(`should have label`, () => {
@@ -53,62 +23,72 @@ describe(`@roots/bud-preset-wordpress`, () => {
   })
 
   it(`should call bud.proxy when conditions are met`, async () => {
-    extension.app.proxy = jest.fn(() => bud) as any
-    await extension.configAfter()
-    expect(extension.app.proxy).toHaveBeenCalled()
+    const proxySpy = vi.spyOn(bud, `proxy`)
+    await extension.configAfter(bud)
+    expect(proxySpy).toHaveBeenCalled()
   })
 
-  it(`should not call bud.proxy when isDevelopment is false`, async () => {
-    // @ts-ignore
-    extension.app.isDevelopment = false
-    await extension.configAfter()
-    expect(extension.app.proxy).not.toHaveBeenCalled()
+  it(`should not call bud.proxy when isProduction is false`, async () => {
+    const bud = await factory({mode: `production`})
+    const proxySpy = vi.spyOn(bud, `proxy`)
+
+    await extension.configAfter(bud)
+    expect(proxySpy).not.toHaveBeenCalled()
   })
 
   it(`should not call bud.proxy when proxy already called`, async () => {
-    extension.app.api.trace = [[`proxy`]]
-    await extension.configAfter()
-    expect(extension.app.proxy).not.toHaveBeenCalled()
+    const bud = await factory({mode: `development`})
+    bud.hooks.on(`dev.middleware.proxy.target`, `http://localhost:8080`)
+
+    const proxySpy = vi.spyOn(bud, `proxy`)
+
+    await extension.configAfter(bud)
+    expect(proxySpy).not.toHaveBeenCalled()
   })
 
   it(`should not call bud.proxy when dev.middleware.proxy.target value is set`, async () => {
-    extension.app.hooks.filter = jest.fn(() => true) as any
-    await extension.configAfter()
-    expect(extension.app.hooks.filter).toHaveBeenCalled()
-    expect(extension.app.hooks.filter).toHaveBeenCalledWith(
-      `dev.middleware.proxy.target`,
-    )
-    expect(extension.app.proxy).not.toHaveBeenCalled()
+    const filterSpy = vi.spyOn(bud.hooks, `filter`)
+    const proxySpy = vi.spyOn(bud, `proxy`)
+    bud.hooks.on(`dev.middleware.proxy.target`, `http://localhost:8080`)
+    await extension.configAfter(bud)
+
+    expect(filterSpy).toHaveBeenCalled()
+    expect(filterSpy).toHaveBeenCalledWith(`dev.middleware.proxy.target`)
+    expect(proxySpy).not.toHaveBeenCalled()
   })
 
   it(`should not call bud.proxy when WP_HOME is not set`, async () => {
-    extension.app.env.has = jest.fn(() => false) as any
-    await extension.configAfter()
-    expect(extension.app.env.has).toHaveBeenCalled()
-    expect(extension.app.env.has).toHaveBeenCalledWith(`WP_HOME`)
-    expect(extension.app.proxy).not.toHaveBeenCalled()
+    bud.env.set(`WP_HOME`, undefined)
+    const proxySpy = vi.spyOn(bud, `proxy`)
+
+    await extension.configAfter(bud)
+    expect(proxySpy).not.toHaveBeenCalled()
   })
 
   it(`should not call bud.proxy when WP_HOME is not a string`, async () => {
-    extension.app.env.isString = jest.fn(() => false) as any
-    await extension.configAfter()
-    expect(extension.app.env.isString).toHaveBeenCalled()
-    expect(extension.app.env.isString).toHaveBeenCalledWith(`WP_HOME`)
-    expect(extension.app.proxy).not.toHaveBeenCalled()
+    bud.env.set(`WP_HOME`, 0)
+
+    const proxySpy = vi.spyOn(bud, `proxy`)
+    const isStringSpy = vi.spyOn(bud.env, `isString`)
+
+    await extension.configAfter(bud)
+    expect(isStringSpy).toHaveBeenCalled()
+    expect(isStringSpy).toHaveBeenCalledWith(`WP_HOME`)
+    expect(proxySpy).not.toHaveBeenCalled()
   })
 
   it(`should warn when proxy set call results in error`, async () => {
-    extension.app.proxy = jest.fn(() => {
-      throw new Error(`test`)
-    }) as any
+    const bud = await factory({mode: `development`})
+    bud.env.set(`WP_HOME`, `1234567890`)
 
-    await extension.configAfter()
-
-    expect(extension.app.proxy).toHaveBeenCalled()
-    expect(extension.app.warn).toHaveBeenCalled()
-    expect(extension.app.warn).toHaveBeenCalledWith(
+    const warnSpy = vi.spyOn(bud, `warn`)
+    try {
+      await extension.configAfter(bud)
+    } catch (e) {}
+    expect(warnSpy).toHaveBeenCalled()
+    expect(warnSpy).toHaveBeenCalledWith(
       `@roots/bud-preset-wordpress: tried to set proxy based on value of WP_HOME but failed\n`,
-      `WP_HOME is set as: https://example.com`,
+      `WP_HOME is set as: 1234567890`,
       `\n`,
       `Please check your .env file and ensure that WP_HOME is a valid URL`,
       `or call bud.proxy in your configuration file`,

@@ -24,7 +24,7 @@ export default class Sync extends Hooks<SyncStore> {
   @bind
   public set<T extends keyof SyncStore & string>(
     id: T,
-    input: SyncRegistry[T],
+    input: SyncCallback[T],
   ): Bud {
     if (this.has(id) && isFunction(input)) {
       this.store[id].push(this.app.value.make(input))

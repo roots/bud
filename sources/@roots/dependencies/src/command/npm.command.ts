@@ -15,17 +15,20 @@ export class Npm extends Command implements IDependencyManager {
   @bind
   public install(
     dependencies: Array<string | [string, string]>,
-    dev: boolean = false,
+    args: Array<string> = [],
     onMessage?: (message: string) => void,
+    onError?: (message: string) => void,
   ): Promise<any> {
     return Npm.execute(
-      onMessage ?? this.onMessage,
-      `npm`,
-      `install`,
-      ...Npm.normalizeDependencies(dependencies),
-      dev ? `--dev` : null,
-      `--cwd`,
-      this.path,
+      [
+        `npm`,
+        `install`,
+        ...Npm.normalizeDependencies(dependencies),
+        `--prefix`,
+        this.path,
+      ],
+      onMessage,
+      onError,
     )
   }
 
@@ -36,14 +39,29 @@ export class Npm extends Command implements IDependencyManager {
   public uninstall(
     dependencies: Array<string | [string, string]>,
     onMessage?: (message: string) => void,
+    onError?: (message: string) => void,
   ): Promise<any> {
     return Npm.execute(
-      onMessage ?? this.onMessage,
-      `npm`,
-      `uninstall`,
-      ...Npm.normalizeDependencies(dependencies),
-      `--prefix`,
-      this.path,
+      [
+        `npm`,
+        `uninstall`,
+        ...Npm.normalizeDependencies(dependencies),
+        `--prefix`,
+        this.path,
+      ],
+      onMessage,
+      onError,
     )
+  }
+
+  /**
+   * Get the latest version of a package from the npm registry
+   *
+   * @public
+   */
+  @bind
+  public async getLatestVersion(signifier: string): Promise<string> {
+    const result = await Npm.execute([`npm`, `view`, signifier, `version`])
+    if (result?.shift) return result.shift().trim()
   }
 }

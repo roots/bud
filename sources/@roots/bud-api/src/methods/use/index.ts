@@ -1,12 +1,9 @@
-import type {Bud} from '@roots/bud-framework'
+import type {Bud, Modules} from '@roots/bud-framework'
 import type {
   Constructor,
   Extension,
   ExtensionLiteral,
 } from '@roots/bud-framework/extension'
-import {isArray, isFunction} from '@roots/bud-support/lodash-es'
-
-import {generateName, isPlugin} from './use.utilities.js'
 
 export interface use {
   (
@@ -14,7 +11,13 @@ export interface use {
       | Extension
       | Constructor
       | ExtensionLiteral
-      | Array<Extension | Constructor | ExtensionLiteral>,
+      | `${keyof Modules & string}`
+      | Array<
+          | Extension
+          | Constructor
+          | ExtensionLiteral
+          | `${keyof Modules & string}`
+        >,
   ): Promise<Bud>
 }
 
@@ -24,46 +27,20 @@ export interface facade {
       | Extension
       | Constructor
       | ExtensionLiteral
-      | Array<Extension | Constructor | ExtensionLiteral>,
+      | `${keyof Modules & string}`
+      | Array<
+          | Extension
+          | Constructor
+          | ExtensionLiteral
+          | `${keyof Modules & string}`
+        >,
   ): Bud
 }
 
 export const use: use = async function (source): Promise<Bud> {
   const bud = this as Bud
 
-  const addExtension = async (
-    source: Extension | Constructor | ExtensionLiteral,
-  ): Promise<Bud> => {
-    if (!source) {
-      bud.error(`extension source is not defined`)
-    }
-
-    let instance
-
-    if (isFunction(source)) {
-      instance = new (source as any)(bud)
-    } else instance = source
-
-    if (!instance.label) {
-      instance.label = generateName(instance)
-    }
-
-    if (bud.extensions.has(instance.label)) {
-      bud.info(
-        `extension "${instance.label}" is already registered. skipping`,
-      )
-
-      return bud
-    }
-
-    if (isPlugin(instance)) instance.make = () => instance
-
-    await bud.extensions.add(instance)
-  }
-
-  !isArray(source)
-    ? await addExtension(source)
-    : await Promise.all(source.map(addExtension))
+  await bud.extensions.add(source)
 
   return bud
 }

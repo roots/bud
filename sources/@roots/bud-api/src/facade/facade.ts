@@ -1,8 +1,8 @@
-import type * as alias from '../methods/alias/alias.method.js'
-import type * as assets from '../methods/assets/assets.method.js'
-import type * as bundle from '../methods/bundle/bundle.method.js'
+import type * as alias from '../methods/alias/index.js'
+import type * as assets from '../methods/assets/index.js'
+import type * as bundle from '../methods/bundle/index.js'
 import type {config} from '../methods/config/config.method.js'
-import type {define} from '../methods/define/define.method.js'
+import type {define} from '../methods/define/index.js'
 import type * as devtool from '../methods/devtool/devtool.method.js'
 import type {facade as entryFacade} from '../methods/entry/entry.method.js'
 import type {experiments} from '../methods/experiments/experiments.method.js'
@@ -13,7 +13,7 @@ import type {persist} from '../methods/persist/index'
 import type {provide} from '../methods/provide/index'
 import type * as proxy from '../methods/proxy/index'
 import type {runtime} from '../methods/runtime/index'
-import type * as serve from '../methods/serve/serve.method.js'
+import type * as serve from '../methods/serve/index'
 import type * as splitChunks from '../methods/splitChunks/index'
 import type {facade as templateFacade} from '../methods/template/index'
 import type * as use from '../methods/use/index'
@@ -88,6 +88,21 @@ export class Facade {
   public assets: assets.facade
 
   /**
+   * Modify the generated webpack config prior to compilation.
+   *
+   * @remarks
+   * Override generated webpack config with custom config.
+   *
+   * @example
+   * ```ts
+   * app.config({entry: './src/index.js'})
+   * ```
+   *
+   * @public
+   */
+  public config: config
+
+  /**
    * Copy static assets during compilation.
    *
    * @remarks
@@ -141,51 +156,7 @@ export class Facade {
    *
    * @public
    */
-  public config: config
-
-  /**
-   * Modify the generated webpack config prior to compilation.
-   *
-   * @remarks
-   * Override generated webpack config with custom config.
-   *
-   * @example
-   * ```ts
-   * app.config({entry: './src/index.js'})
-   * ```
-   *
-   * @public
-   */
-  public webpackConfig: config
-
-  /**
-   * Modify the generated webpack config prior to compilation.
-   *
-   * @remarks
-   * Override generated webpack config with custom config.
-   *
-   * @example
-   * ```ts
-   * app.config({entry: './src/index.js'})
-   * ```
-   *
-   * @public
-   */
   public override: config
-
-  /**
-   * Define application variables
-   *
-   * @example
-   * ```ts
-   * app.define({
-   *   APP_NAME: 'My Application',
-   * })
-   * ```
-   *
-   * @public
-   */
-  public define: define
 
   /**
    * Enable filename hashing of built assets.
@@ -212,6 +183,20 @@ export class Facade {
    * @public
    */
   public bundle: bundle.method
+
+  /**
+   * Define application variables
+   *
+   * @example
+   * ```ts
+   * app.define({
+   *   APP_NAME: 'My Application',
+   * })
+   * ```
+   *
+   * @public
+   */
+  public define: define
 
   /**
    * Configure sourcemaps
@@ -769,4 +754,19 @@ export class Facade {
    * @public
    */
   public watch: watch
+
+  /**
+   * Modify the generated webpack config prior to compilation.
+   *
+   * @remarks
+   * Override generated webpack config with custom config.
+   *
+   * @example
+   * ```ts
+   * app.config({entry: './src/index.js'})
+   * ```
+   *
+   * @public
+   */
+  public webpackConfig: config
 }

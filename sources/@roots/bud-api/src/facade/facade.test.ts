@@ -1,4 +1,4 @@
-import {describe, expect, it, jest} from '@jest/globals'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import {Facade} from './facade'
 import * as facade from './facade.factory'
@@ -13,7 +13,7 @@ describe(`facade`, () => {
   let factory
 
   beforeEach(async () => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   it(`should have a Facade class`, () => {

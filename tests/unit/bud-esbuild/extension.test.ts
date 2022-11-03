@@ -2,6 +2,7 @@ import {Bud, factory} from '@repo/test-kit/bud'
 import Loader from '@roots/bud-build/loader'
 import esbuild from '@roots/bud-esbuild'
 import {isArray, isUndefined} from 'lodash-es'
+import {beforeAll, describe, expect, it} from 'vitest'
 
 describe(`@roots/bud-esbuild`, () => {
   let bud: Bud

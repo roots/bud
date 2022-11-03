@@ -1,17 +1,15 @@
 /* eslint-disable @typescript-eslint/explicit-member-accessibility */
 /* eslint-disable no-console */
-import {jest} from '@jest/globals'
+import {posix} from 'node:path'
+
 import {paths, REGISTRY_PROXY} from '@repo/constants'
 import * as logger from '@repo/logger'
 import {execa, ExecaChildProcess} from 'execa'
 import fs from 'fs-extra'
 import {bind} from 'helpful-decorators'
 import json5 from 'json5'
-import {posix} from 'node:path'
 
 const {join} = posix
-
-jest.setTimeout(120000)
 
 interface Options {
   label: string
@@ -121,8 +119,15 @@ export class Project {
       const child = execa(bin, flags ?? [], {
         cwd: this.projectPath(),
       })
+      child.stderr.on(`data`, data => {
+        const log = data
+          .toString()
+          .split(`\n`)
+          .map((ln: string) => ln.trim())
+          .join(``)
 
-      child.stderr.on(`data`, data => this.logger.error(data.toString()))
+        if (log !== ``) this.logger.error(log)
+      })
       return child
     } catch (error) {
       throw new Error(error)

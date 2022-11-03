@@ -2,6 +2,8 @@
 
 import type {Bud} from './bud'
 
+let initialized: boolean = false
+
 /**
  * Registers a callback for all kinds of application shutdown events.
  *
@@ -14,6 +16,9 @@ import type {Bud} from './bud'
  * @public
  */
 export const initialize = (app: Bud): void => {
+  if (initialized) return
+  initialized = true
+
   process
     // exit with errors
     .once(`uncaughtException`, makeProcessHandler(app, 1))

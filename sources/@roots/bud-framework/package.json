@@ -42,6 +42,7 @@
   "exports": {
     ".": "./lib/index.js",
     "./bud": "./lib/bud.js",
+    "./configuration": "./lib/configuration/index.js",
     "./extension": "./lib/extension/index.js",
     "./extension/decorators": "./lib/extension/decorators/index.js",
     "./extension/decorators/*": "./lib/extension/decorators/*.js",
@@ -62,6 +63,9 @@
       ],
       "bud": [
         "./lib/bud.d.ts"
+      ],
+      "configuration": [
+        "./lib/configuration/index.d.ts"
       ],
       "extension": [
         "./lib/extension/index.d.ts"
@@ -132,21 +136,21 @@
     }
   },
   "devDependencies": {
-    "@jest/globals": "29.0.3",
     "@skypack/package-check": "0.2.2",
     "@types/http-proxy": "1.17.9",
     "@types/js-yaml": "4.0.5",
-    "@types/node": "16.11.64",
+    "@types/node": "16.18.2",
     "@types/safe-json-stringify": "1.1.2",
     "@types/signale": "1.4.4",
     "chokidar": "3.5.3",
     "http-proxy-middleware": "2.0.6",
+    "vitest": "0.24.4",
     "webpack": "5.74.0"
   },
   "dependencies": {
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@roots/container": "workspace:sources/@roots/container",
-    "chalk": "5.0.1",
+    "chalk": "5.1.2",
     "figures": "5.0.0",
     "globby": "13.1.2",
     "import-meta-resolve": "2.1.0",

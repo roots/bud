@@ -1,7 +1,8 @@
 /* eslint-disable n/callback-return */
-import {beforeEach, describe, expect, jest} from '@jest/globals'
-import mockBud from '@repo/test-kit/mocks/bud'
-import {URL} from 'url'
+import {URL} from 'node:url'
+
+import {factory} from '@repo/test-kit/bud'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import {
   disableMiddlewareHookCallback,
@@ -9,64 +10,61 @@ import {
   method as proxy,
 } from './index'
 
-jest.unstable_mockModule(`@roots/bud`, () => ({default: mockBud}))
-
 describe(`bud.proxy`, () => {
   let bud
   let subject
 
   beforeEach(async () => {
-    bud = await import(`@roots/bud`).then(({default: Bud}) => new Bud())
-    bud.isDevelopment = true
+    bud = await factory({mode: `development`})
 
     subject = proxy.bind(bud)
-    jest.clearAllMocks()
   })
 
   it(`should call bud.hooks.on with a fn when called with a number`, () => {
+    const onSpy = vi.spyOn(bud.hooks, `on`)
     subject(3005)
 
-    expect(bud.hooks.on).toHaveBeenCalledWith(
+    expect(onSpy).toHaveBeenCalledWith(
       `dev.middleware.proxy.target`,
       expect.any(Function),
     )
   })
 
   it(`should set port when called with a number`, () => {
-    let url = new URL(`http://example.com:8080`)
-    bud.hooks.on = jest.fn((str, cb) => {
-      if (str === `dev.middleware.proxy.target`) url = cb(url)
-
-      return [`dev`]
-    })
-
     subject(3005)
-
-    expect(url.port).toBe(`3005`)
+    expect(bud.hooks.filter(`dev.middleware.proxy.target`).port).toBe(
+      `3005`,
+    )
   })
 
   it(`should call bud.hooks.on with a URL when called with a URL`, () => {
+    const onSpy = vi.spyOn(bud.hooks, `on`)
+
     subject(new URL(`https://example.com`))
 
-    expect(bud.hooks.on).toHaveBeenCalledWith(
+    expect(onSpy).toHaveBeenCalledWith(
       `dev.middleware.proxy.target`,
       expect.any(URL),
     )
   })
 
   it(`should call bud.hooks.on with a URL when called with a string`, () => {
+    const onSpy = vi.spyOn(bud.hooks, `on`)
+
     subject(`https://example.com`)
 
-    expect(bud.hooks.on).toHaveBeenCalledWith(
+    expect(onSpy).toHaveBeenCalledWith(
       `dev.middleware.proxy.target`,
       expect.any(URL),
     )
   })
 
   it(`should enable middleware when called with true`, () => {
+    const onSpy = vi.spyOn(bud.hooks, `on`)
+
     subject(true)
 
-    expect(bud.hooks.on).toHaveBeenNthCalledWith(
+    expect(onSpy).toHaveBeenNthCalledWith(
       1,
       `dev.middleware.enabled`,
       expect.any(Function),
@@ -74,9 +72,11 @@ describe(`bud.proxy`, () => {
   })
 
   it(`should enable middleware when called with false`, () => {
+    const onSpy = vi.spyOn(bud.hooks, `on`)
+
     subject(true)
 
-    expect(bud.hooks.on).toHaveBeenNthCalledWith(
+    expect(onSpy).toHaveBeenNthCalledWith(
       1,
       `dev.middleware.enabled`,
       expect.any(Function),
@@ -84,40 +84,22 @@ describe(`bud.proxy`, () => {
   })
 
   it(`should run replacements when called without replacements`, () => {
-    let callback
-
-    bud.hooks.filter = jest.fn((str, cb) => {
-      if (str === `dev.middleware.proxy.target`)
-        return new URL(`https://example.com/`)
-
-      callback = cb
-    })
-    bud.hooks.on = jest.fn((str, value) => {
-      if (str === `dev.middleware.proxy.replacements`) {
-        bud.hooks.filter(str, value)
-      }
-    })
+    let onSpy = vi.spyOn(bud.hooks, `on`)
 
     subject(true)
 
-    expect(bud.hooks.on).toHaveBeenLastCalledWith(
+    expect(onSpy).toHaveBeenLastCalledWith(
       `dev.middleware.proxy.replacements`,
       expect.any(Function),
     )
-    expect(bud.hooks.filter).toHaveBeenCalledWith(
-      `dev.middleware.proxy.replacements`,
-      expect.any(Function),
-    )
-    expect(callback([[`https://example.com/`, `/`]])).toEqual([
-      [`https://example.com/`, `/`],
-      [`https://example.com/`, `/`],
-    ])
   })
 
   it(`should run replacements when called with replacements`, () => {
+    let onSpy = vi.spyOn(bud.hooks, `on`)
+
     subject(true, [[/foo/, `bar`]])
 
-    expect(bud.hooks.on).toHaveBeenLastCalledWith(
+    expect(onSpy).toHaveBeenLastCalledWith(
       `dev.middleware.proxy.replacements`,
       expect.arrayContaining([[/foo/, `bar`]]),
     )

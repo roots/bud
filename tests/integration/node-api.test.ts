@@ -1,7 +1,7 @@
-import {beforeAll, describe, it, jest} from '@jest/globals'
 import {execa} from 'execa'
 import fs from 'fs-extra'
 import {join} from 'path'
+import {beforeAll, describe, expect, it} from 'vitest'
 
 describe.skip(`node-api`, () => {
   beforeAll(async () => {
@@ -55,4 +55,4 @@ describe.skip(`node-api`, () => {
       expect(artifact.cache).toMatchSnapshot()
     })
   })
-})
+}, 240000)

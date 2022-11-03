@@ -92,7 +92,7 @@ export default abstract class BaseCommand extends Command {
   })
 
   /**
-   * --inject
+   * --discovery
    * @public
    */
   public discovery = Option.Boolean(`--discovery`, true, {
@@ -153,6 +153,7 @@ export default abstract class BaseCommand extends Command {
   public get baseArgs() {
     return {
       basedir: this.basedir,
+      discovery: this.discovery,
       input: this.input,
       output: this.output,
       dry: this.dry,

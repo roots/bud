@@ -1,5 +1,7 @@
-import {cpus} from 'os'
-import {join} from 'path'
+import {cpus} from 'node:os'
+import {join} from 'node:path'
+
+import {externalNetworkInterface} from '@roots/bud-support/os'
 
 import type {Bud} from '../bud'
 
@@ -14,7 +16,7 @@ import type {Bud} from '../bud'
 export const initialize = (app: Bud): Bud =>
   app.hooks
     .fromMap({
-      'feature.clean': true,
+      'feature.clean': () => app.isProduction,
       'feature.hash': false,
       'feature.manifest': true,
       'feature.runtimeChunk': false,
@@ -52,6 +54,7 @@ export const initialize = (app: Bud): Bud =>
       'build.bail': app.isProduction,
       'build.cache': () => app.cache.configuration,
       'build.context': () => app.context.basedir,
+      'build.devtool': false,
       'build.externalsType': `var`,
       'build.mode': () => app.mode,
       'build.module.rules.before': () => [
@@ -77,6 +80,7 @@ export const initialize = (app: Bud): Bud =>
         app.hooks.filter(`feature.hash`)
           ? `js/dynamic/[id].[contenthash:6].js`
           : `js/dynamic/[id].js`,
+      'build.output.clean': () => app.isProduction,
       'build.output.filename': () => join(`js`, filenameFormat(app)),
       'build.output.path': () => app.path(`@dist`),
       'build.output.publicPath': `auto`,
@@ -121,9 +125,13 @@ export const initialize = (app: Bud): Bud =>
           'x-powered-by': `@roots/bud`,
         },
         'dev.middleware.enabled': [`dev`, `hot`],
-        'dev.url': new URL(`http://0.0.0.0:3000`),
+        'dev.url': () =>
+          new URL(`http://${externalNetworkInterface.ipv4}:3000`),
         'dev.watch.files': new Set([]),
-        'dev.watch.options': {},
+        'dev.watch.options': () => ({
+          ignoreInitial: true,
+          cwd: app.path(),
+        }),
       }),
     )
 

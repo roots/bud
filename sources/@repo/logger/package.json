@@ -14,10 +14,10 @@
     }
   },
   "dependencies": {
-    "@jest/globals": "29.0.3",
     "@repo/constants": "workspace:sources/@repo/constants",
-    "@types/node": "16.11.64",
-    "signale": "1.4.0"
+    "@types/node": "16.18.2",
+    "signale": "1.4.0",
+    "vitest": "0.24.4"
   },
   "volta": {
     "extends": "../../../package.json"

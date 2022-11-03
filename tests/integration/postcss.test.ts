@@ -1,5 +1,5 @@
-import {beforeAll, describe, it} from '@jest/globals'
 import {Project} from '@repo/test-kit/project'
+import {beforeAll, describe, expect, it} from 'vitest'
 
 const test = (pacman: 'yarn' | 'npm') => () => {
   let project: Project
@@ -29,4 +29,4 @@ const test = (pacman: 'yarn' | 'npm') => () => {
 describe(`postcss`, () => {
   describe(`yarn`, test(`yarn`))
   describe(`npm`, test(`npm`))
-})
+}, 240000)

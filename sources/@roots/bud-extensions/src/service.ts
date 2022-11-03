@@ -1,10 +1,14 @@
-import type {
+import {randomUUID} from 'node:crypto'
+
+import type {Bud} from '@roots/bud-framework'
+import {
   ApplyPlugin,
+  Extension,
   ExtensionLiteral,
 } from '@roots/bud-framework/extension'
-import {Extension} from '@roots/bud-framework/extension'
 import type {Modules} from '@roots/bud-framework/registry/modules'
-import {Base, Service} from '@roots/bud-framework/services/extensions'
+import {Service} from '@roots/bud-framework/service'
+import type {Extensions as Contract} from '@roots/bud-framework/services'
 import {bind} from '@roots/bud-support/decorators'
 import {isUndefined} from '@roots/bud-support/lodash-es'
 
@@ -13,7 +17,10 @@ import {isUndefined} from '@roots/bud-support/lodash-es'
  *
  * @public
  */
-export default class Extensions extends Service {
+export default class Extensions
+  extends Service
+  implements Contract.Service
+{
   /**
    * Service label
    *
@@ -26,7 +33,19 @@ export default class Extensions extends Service {
    *
    * @public
    */
+  // @ts-ignore
   public repository: Modules = {}
+
+  /**
+   * Resolved options
+   *
+   * @public
+   */
+  public resolvedOptions: Contract.Service['resolvedOptions'] = {
+    allowlist: [],
+    denylist: [],
+    discovery: true,
+  }
 
   /**
 -   * Modules on which an import attempt was made and failed
@@ -38,7 +57,41 @@ export default class Extensions extends Service {
 -   *
 -   * @public
 -   */
-  public unresolvable: Set<string> = new Set()
+  public unresolvable: Set<`${keyof Modules & string}`> = new Set()
+
+  /**
+   * `register` callback
+   *
+   * @remarks
+   * All this is doing is helping transition people to using `bud.extensions` key for
+   * `allowList` and `denyList`. It can be removed in a future release.
+   * ⸺ 2022-10-18
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async register(bud: Bud): Promise<void> {
+    if (bud.context.manifest?.bud?.allowlist) {
+      bud.context.manifest.bud.extensions = {
+        ...(bud.context.manifest.bud.extensions ?? {}),
+        allowlist: bud.context.manifest.bud.allowlist,
+      }
+      this.logger.warn(
+        `package.json: bud.allowlist is deprecated. Use bud.extensions.allowlist instead.`,
+      )
+    }
+
+    if (bud.context.manifest?.bud?.denylist) {
+      bud.context.manifest.bud.extensions = {
+        ...(bud.context.manifest.bud.extensions ?? {}),
+        denylist: bud.context.manifest.bud.denylist,
+      }
+      this.logger.warn(
+        `package.json: bud.denylist is deprecated. Use bud.extensions.denylist instead.`,
+      )
+    }
+  }
 
   /**
    * `booted` callback
@@ -47,14 +100,68 @@ export default class Extensions extends Service {
    * @decorator `@bind`
    */
   @bind
-  public async booted(): Promise<void> {
-    if (this.app.context.args.discovery === false) return
-    await Promise.all(
-      this.app.context.extensions
-        .filter(Boolean)
-        .filter(this.isAllowed)
-        .map(async signifier => await this.import(signifier, true)),
+  public async booted(bud: Bud): Promise<void> {
+    if (!isUndefined(bud.context.manifest?.bud?.extensions?.discovery)) {
+      this.resolvedOptions.discovery =
+        bud.context.manifest.bud.extensions.discovery
+    }
+
+    if (!isUndefined(bud.context.args.discovery)) {
+      this.resolvedOptions.discovery = bud.context.args.discovery
+    }
+
+    if (
+      !isUndefined(
+        bud.context.manifest?.[this.app.label]?.extensions?.discovery,
+      )
+    ) {
+      this.resolvedOptions.discovery =
+        bud.context.manifest?.bud?.[this.app.label].extensions.discovery
+    }
+
+    if (!isUndefined(bud.context.args.discovery)) {
+      this.resolvedOptions.discovery = bud.context.args.discovery
+    }
+
+    this.resolvedOptions.allowlist.push(
+      ...(bud.context.manifest?.bud?.extensions?.allowlist ?? []),
+      ...(bud.context.manifest?.bud?.[this.app.label]?.extensions
+        ?.allowlist ?? []),
     )
+    this.resolvedOptions.denylist.push(
+      ...(bud.context.manifest?.bud?.extensions?.denylist ?? []),
+      ...(bud.context.manifest?.bud?.[this.app.label]?.extensions
+        ?.denylist ?? []),
+    )
+
+    if (bud.context.extensions.builtIn)
+      await Promise.all(
+        bud.context.extensions.builtIn
+          ?.filter(Boolean)
+          .map(async signifier => await this.import(signifier, true)),
+      )
+
+    if (
+      this.resolvedOptions.discovery &&
+      this.resolvedOptions.allowlist.length === 0 &&
+      bud.context.extensions?.discovered
+    )
+      await Promise.all(
+        bud.context.extensions.discovered
+          .filter(Boolean)
+          .filter(this.isAllowed)
+          .map(async signifier => await this.import(signifier, true)),
+      )
+    else if (this.resolvedOptions.allowlist.length > 0)
+      await Promise.all(
+        this.resolvedOptions.allowlist
+          ?.filter(Boolean)
+          .filter(this.isAllowed)
+          .map(
+            async (signifier: `${keyof Modules & string}`) =>
+              await this.import(signifier, true),
+          ),
+      )
 
     await this.runAll(`init`)
     await this.runAll(`register`)
@@ -95,7 +202,7 @@ export default class Extensions extends Service {
    * @decorator `@bind`
    */
   @bind
-  public has<K extends keyof Modules>(key: K & string): boolean {
+  public has<K extends `${keyof Modules & string}`>(key: K): boolean {
     return this.repository[key] ? true : false
   }
 
@@ -106,7 +213,7 @@ export default class Extensions extends Service {
    * @decorator `@bind`
    */
   @bind
-  public get<K extends keyof Modules>(key: K & string) {
+  public get<K extends `${keyof Modules & string}`>(key: K): Modules[K] {
     return this.repository[key]
   }
 
@@ -117,9 +224,8 @@ export default class Extensions extends Service {
    * @decorator `@bind`
    */
   @bind
-  public remove<K extends keyof Modules>(key: K & string): this {
+  public remove<K extends `${keyof Modules & string}`>(key: K): this {
     delete this.repository[key]
-
     return this
   }
 
@@ -130,8 +236,12 @@ export default class Extensions extends Service {
    * @decorator `@bind`
    */
   @bind
-  public set<K extends Modules>(value: Modules[K & string]): this {
-    this.repository[value.label] = value
+  public set<K extends `${keyof Modules & string}`>(
+    key: K,
+    value: Modules[K],
+  ): this {
+    this.repository[key] = value
+
     return this
   }
 
@@ -142,25 +252,31 @@ export default class Extensions extends Service {
    * @decorator `@bind`
    */
   @bind
-  public instantiate<K extends Modules>(
-    extension:
-      | (new (...args: any[]) => Modules[K & string])
-      | ExtensionLiteral,
-  ): Modules[K & string] {
-    return typeof extension === `function`
-      ? new extension(this.app)
-      : !(extension instanceof Extension)
-      ? new Extension(this.app).fromObject(extension)
-      : extension
+  public instantiate<K extends `${keyof Modules & string}`>(
+    extension: (new (...args: any[]) => Modules[K]) | ExtensionLiteral,
+    signifier?: K,
+  ): Modules[K] {
+    const instance =
+      typeof extension === `function`
+        ? new extension(this.app)
+        : // @ts-ignore
+        !(extension instanceof Extension)
+        ? new Extension(this.app).fromObject(extension)
+        : extension
+
+    if (!instance?.label)
+      instance.label = signifier ?? (`${randomUUID()}` as keyof Modules)
+
+    return instance as Modules[K]
   }
 
   @bind
-  public isAllowed(signifier: string) {
+  public isAllowed(signifier: string): boolean {
     return (
-      (!this.app.context.manifest?.bud?.denylist ||
-        !this.app.context.manifest.bud.denylist.includes(signifier)) &&
-      (!this.app.context.manifest?.bud?.allowlist ||
-        this.app.context.manifest.bud.allowlist.includes(signifier))
+      (this.resolvedOptions.denylist.length === 0 ||
+        !this.resolvedOptions.denylist.includes(signifier)) &&
+      (this.resolvedOptions.allowlist.length === 0 ||
+        this.resolvedOptions.allowlist.includes(signifier))
     )
   }
 
@@ -171,20 +287,15 @@ export default class Extensions extends Service {
    * @decorator `@bind`
    */
   @bind
-  public async import(
-    signifier: string,
+  public async import<K extends `${keyof Modules & string}`>(
+    signifier: K,
     fatalOnError = true,
-  ): Promise<Extension | undefined> {
+  ): Promise<Modules[K] | undefined> {
     if (fatalOnError && this.unresolvable.has(signifier))
       throw new Error(`Extension ${signifier} is not importable`)
 
     if (this.has(signifier)) {
       this.logger.info(signifier, `extension already imported`)
-      return
-    }
-
-    if (!this.isAllowed(signifier)) {
-      this.logger.info(signifier, `extension is not allowed`)
       return
     }
 
@@ -196,12 +307,11 @@ export default class Extensions extends Service {
 
     if (!extensionClass) return
 
-    const instance = this.instantiate(extensionClass)
+    const instance = this.instantiate<K>(extensionClass, signifier)
 
     if (instance.dependsOn)
       await Promise.all(
         Array.from(instance.dependsOn)
-          .filter(this.isAllowed)
           .filter(dependency => !this.has(dependency))
           .map(async dependency => await this.import(dependency)),
       )
@@ -222,7 +332,7 @@ export default class Extensions extends Service {
           }),
       )
 
-    this.set(instance)
+    this.set(signifier, instance)
 
     this.logger.success(instance.label, `imported and instantiated`)
 
@@ -236,30 +346,34 @@ export default class Extensions extends Service {
    * @decorator `@bind`
    */
   @bind
-  public async add(
+  public async add<K extends `${keyof Modules}`>(
     input:
       | (new (...args: any[]) => Extension)
       | ExtensionLiteral
-      | Array<(new (...args: any[]) => Extension) | ExtensionLiteral>,
+      | Array<(new (...args: any[]) => Extension) | ExtensionLiteral>
+      | K
+      | Array<K>,
   ): Promise<void> {
     const arrayed = Array.isArray(input) ? input : [input]
 
-    await arrayed.reduce(async (promised, extensionObject) => {
+    await arrayed.reduce(async (promised, item) => {
       await promised
 
-      try {
-        const extension = this.instantiate(extensionObject)
-        if (!extension || (extension.label && this.has(extension.label)))
-          return
+      let moduleObject =
+        typeof item === `string`
+          ? await import(item).then(pkg => pkg.default ?? pkg)
+          : item
 
-        this.set(extension)
+      const extension = this.instantiate(
+        moduleObject,
+        typeof item === `string` ? item : undefined,
+      )
 
-        await this.run(extension, `init`)
-        await this.run(extension, `register`)
-        await this.run(extension, `boot`)
-      } catch (error) {
-        throw error
-      }
+      this.set(extension.label, extension)
+
+      await this.run(extension, `init`)
+      await this.run(extension, `register`)
+      await this.run(extension, `boot`)
     }, Promise.resolve())
   }
 
@@ -277,9 +391,9 @@ export default class Extensions extends Service {
    * @decorator `@bind`
    */
   @bind
-  public async run<K extends Modules>(
-    extension: Modules[K & string],
-    methodName: Base.LifecycleMethods,
+  public async run<K extends `${keyof Modules & string}`>(
+    extension: Modules[K],
+    methodName: Contract.LifecycleMethods,
   ): Promise<this> {
     if (extension.meta[methodName] === true) return this
 
@@ -304,7 +418,9 @@ export default class Extensions extends Service {
    * @decorator `@bind`
    */
   @bind
-  public async runAll(methodName: Base.LifecycleMethods): Promise<any> {
+  public async runAll(
+    methodName: Contract.LifecycleMethods,
+  ): Promise<any> {
     return await Object.values(this.repository).reduce(
       async (promised, extension) => {
         await promised
@@ -325,9 +441,9 @@ export default class Extensions extends Service {
    * @decorator `@bind`
    */
   @bind
-  public async runDependencies<K extends Modules>(
-    extension: Modules[K & string] | (keyof Modules & string),
-    methodName: Base.LifecycleMethods,
+  public async runDependencies<K extends `${keyof Modules & string}`>(
+    extension: Modules[K] | K,
+    methodName: Contract.LifecycleMethods,
   ): Promise<void> {
     extension =
       typeof extension === `string` ? this.get(extension) : extension

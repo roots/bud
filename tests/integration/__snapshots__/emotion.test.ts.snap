@@ -1,17 +1,17 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`emotion npm app.js should be present in the manifest 1`] = `"js/app.js"`;
+exports[`emotion > npm > app.js > should be present in the manifest 1`] = `"js/app.js"`;
 
-exports[`emotion npm index.html should be present in the manifest 1`] = `"index.html"`;
+exports[`emotion > npm > index.html > should be present in the manifest 1`] = `"index.html"`;
 
-exports[`emotion npm runtime.js should be present in the manifest 1`] = `"js/runtime.js"`;
+exports[`emotion > npm > runtime.js > should be present in the manifest 1`] = `"js/runtime.js"`;
 
-exports[`emotion npm svg/logo.svg should be present in the manifest 1`] = `"svg/logo.svg"`;
+exports[`emotion > npm > svg/logo.svg > should be present in the manifest 1`] = `"svg/logo.svg"`;
 
-exports[`emotion yarn app.js should be present in the manifest 1`] = `"js/app.js"`;
+exports[`emotion > yarn > app.js > should be present in the manifest 1`] = `"js/app.js"`;
 
-exports[`emotion yarn index.html should be present in the manifest 1`] = `"index.html"`;
+exports[`emotion > yarn > index.html > should be present in the manifest 1`] = `"index.html"`;
 
-exports[`emotion yarn runtime.js should be present in the manifest 1`] = `"js/runtime.js"`;
+exports[`emotion > yarn > runtime.js > should be present in the manifest 1`] = `"js/runtime.js"`;
 
-exports[`emotion yarn svg/logo.svg should be present in the manifest 1`] = `"svg/logo.svg"`;
+exports[`emotion > yarn > svg/logo.svg > should be present in the manifest 1`] = `"svg/logo.svg"`;

@@ -1,40 +1,17 @@
-import {beforeEach, describe, expect, it, jest} from '@jest/globals'
+import {factory} from '@repo/test-kit/bud'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import {bootstrap as subject} from './bootstrap'
 
-let bud = {
-  info: jest.fn(),
-  success: jest.fn(),
-  context: {basedir: `/foo`},
-  hooks: {fromAsyncMap: null, fromMap: null, on: jest.fn()},
-  path: jest.fn((...args) => `/test-return`),
-  root: null,
-}
-
-bud.hooks.fromAsyncMap = jest.fn(() => bud)
-bud.hooks.fromMap = jest.fn(() => bud)
-bud.root = bud
-
-let context = {
-  label: `project`,
-  basedir: `/foo/bar`,
-  bud: {name: `@roots/bud`},
-  manifest: {name: `project`},
-  mode: `production`,
-  args: {devtool: `eval`, log: true},
-  config: {},
-  extensions: [],
-  services: [],
-  env: {FOO: `foo`},
-}
-
 describe(`bootstrap`, function () {
+  let bud
   let bootstrap
 
   beforeEach(async () => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
+    bud = await factory()
     bud.context.basedir = `/foo`
-    bud.path = jest.fn(() => `/test-return`)
+    bud.path = vi.fn(() => `/test-return`)
     bootstrap = subject.bind(bud)
   })
 
@@ -43,6 +20,6 @@ describe(`bootstrap`, function () {
   })
 
   it(`returns Bud`, async () => {
-    expect(await bootstrap(context)).toBe(bud)
+    expect(await bootstrap(bud.context)).toBe(bud)
   })
 })

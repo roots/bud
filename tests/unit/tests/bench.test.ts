@@ -1,7 +1,7 @@
-import {describe, expect, it} from '@jest/globals'
 import {Bud, factory, repoPath} from '@repo/test-kit/bud'
 import * as fs from '@roots/bud-support/fs'
 import {Bench} from 'tinybench'
+import {describe, expect, it} from 'vitest'
 
 describe.skip(`benchmark`, () => {
   it(`do eet`, async () => {

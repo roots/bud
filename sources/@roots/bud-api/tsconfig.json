@@ -3,16 +3,18 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "lib",
-    "module": "esnext",
     "types": [
-      "node",
-      "@roots/bud-framework"
+      "@roots/bud-extensions",
+      "@roots/bud-framework",
+      "@roots/bud-terser"
     ]
   },
-  "include": ["src", "**/*.html"],
-  "exclude": ["lib", "node_modules", "src/**/*.test.ts"],
+  "include": ["src"],
+  "exclude": ["**/*.test.ts", "**/*.test.ts"],
   "references": [
-    {"path": "./../bud-framework/tsconfig.json"},
-    {"path": "./../bud-support/tsconfig.json"},
+    {"path": "../bud-extensions/tsconfig.json"},
+    {"path": "../bud-framework/tsconfig.json"},
+    {"path": "../bud-support/tsconfig.json"},
+    {"path": "../bud-terser/tsconfig.json"}
   ]
 }

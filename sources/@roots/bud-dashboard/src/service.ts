@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import {Service} from '@roots/bud-framework/service'
 import type * as Services from '@roots/bud-framework/services'
-import {bind, debounce} from '@roots/bud-support/decorators'
+import {bind} from '@roots/bud-support/decorators'
 import type * as Ink from '@roots/bud-support/ink'
 import type {StatsCompilation} from 'webpack'
 
@@ -33,6 +33,38 @@ export class Dashboard
    * @public
    */
   public lastHash: string
+  /**
+   * Set last hash
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public setLastHash(hash: string) {
+    this.lastHash = hash
+  }
+
+  /**
+   * Get last hash
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public getLastHash() {
+    return this.lastHash
+  }
+
+  /**
+   * Hash is stale
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public hashIsStale(hash: string) {
+    return this.lastHash && this.lastHash === hash
+  }
 
   /**
    * Run dashboard
@@ -41,79 +73,63 @@ export class Dashboard
    * @decorator `@bind`
    */
   @bind
-  @debounce(100)
-  public async stats({
-    stats: compilationStats,
-  }: {
-    stats: StatsCompilation
-  }): Promise<this> {
-    if (!compilationStats) return this
+  public async stats(statsCompilation: StatsCompilation): Promise<this> {
+    if (!statsCompilation) return this
 
-    if (this.app.context.args?.log === false) {
-      if (compilationStats.hasErrors() && this.app.isProduction)
-        this.app.fatal(new Error(`compilation completed but had errors`))
+    if (this.hashIsStale(statsCompilation.hash)) return this
+    this.setLastHash(statsCompilation.hash)
 
-      return this
+    const hasErrors = statsCompilation.hasErrors()
+
+    if (
+      this.app.context.args?.log === false &&
+      hasErrors &&
+      this.app.isProduction
+    ) {
+      throw new Error(`build failed`)
     }
 
-    if (this.app.context.args?.ci) {
-      console.log(
-        compilationStats?.toString(
-          // @ts-ignore
-          {preset: `normal`, colors: true},
-        ),
+    if (this.app.context.args?.ci === true) {
+      console.log(`webpack logged stats:`)
+      const stringCompilation = statsCompilation.toString(
+        // @ts-ignore
+        {
+          preset: `normal`,
+          colors: true,
+        },
       )
+      console.log(stringCompilation)
+      if (hasErrors) {
+        this.app.fatal(new Error(`build failed`))
+        return
+      }
+    } else {
+      const {renderDashboard} = await import(`./render/renderer.js`)
 
-      if (compilationStats.hasErrors() && this.app.isProduction)
-        console.error(new Error(`compilation completed but had errors`))
+      const compilations: StatsCompilation = statsCompilation.toJson({
+        preset: `normal`,
+        children: true,
+      })
 
-      return this
-    }
+      try {
+        this.instance = renderDashboard({
+          stats: compilations,
+          context: this.app.context,
+          mode: this.app.mode,
+          devUrl: this.app.hooks.filter(`dev.url`),
+          proxyUrl: this.app.hooks.filter(`dev.middleware.proxy.target`),
+          watchFiles: this.app.server?.watcher?.files,
+        })
+      } catch (e) {}
 
-    const {renderDashboard} = await import(`./render/renderer.js`)
-
-    const stats: StatsCompilation = compilationStats.toJson({
-      preset: `normal`,
-      children: true,
-    })
-
-    if (!stats || stats.hash === this.lastHash) return this
-
-    let compilations = stats?.children?.length
-      ? [
-          ...stats.children,
-          ...(stats?.children?.flatMap(({children}) =>
-            children.map(child => ({...child, isChild: true})),
-          ) ?? []),
-        ]
-      : [stats]
-
-    if (this.app.extensions.has(`@roots/bud-eslint`)) {
-      compilations = compilations?.map(child => ({
-        ...child,
-        errors: child.errors.filter(
-          error => !error.message.includes(`Module build failed`),
-        ),
-      }))
-    }
-
-    this.lastHash = stats.hash
-
-    this.instance = renderDashboard({
-      compilations,
-      app: this.app,
-    })
-
-    if (compilationStats.hasErrors()) {
-      if (this.app.isProduction) {
-        process.exitCode = 1
-        this.app.error(`compilation completed but had errors`)
+      if (hasErrors && this.app.isProduction) {
+        throw new Error(
+          compilations
+            .map(compilation => compilation.errors?.join(`\n`))
+            .join(`\n`),
+        )
       }
     }
-
-    try {
-      await this.instance.waitUntilExit()
-    } catch (error) {}
 
     return this
   }

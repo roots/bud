@@ -8,12 +8,11 @@ import {
 } from '@roots/bud-support/lodash-es'
 import {resolve} from 'import-meta-resolve'
 
-import {override} from './lifecycle/args.js'
 import {bootstrap, LIFECYCLE_EVENT_MAP} from './lifecycle/bootstrap.js'
-import type {Logger} from './logger'
+import type {Logger} from './logger/index.js'
 import type * as methods from './methods/index.js'
-import type {Module} from './module'
-import type * as Service from './service'
+import type {Module} from './module.js'
+import type * as Service from './service.js'
 import type * as Api from './services/api.js'
 import type ConsoleBuffer from './services/console'
 import type FS from './services/fs.js'
@@ -185,6 +184,8 @@ export class Bud {
 
   public pipe: methods.pipe
 
+  public processConfigs: methods.processConfigs
+
   public publicPath: methods.publicPath
 
   public relPath: methods.relPath
@@ -251,7 +252,7 @@ export class Bud {
       return this.get(context.label)
     }
 
-    this.log(`instantiating bud`, context)
+    this.log(`instantiating new bud instance`)
     const child = await new Bud().lifecycle(context)
 
     if (!this.children) this.children = {[context.label]: child}
@@ -310,9 +311,6 @@ export class Bud {
       await promised
       await this.hooks.fire(event)
     }, Promise.resolve())
-
-    this.hooks.action(`booted`, override)
-    this.hooks.action(`build.before`, override)
 
     return this
   }
@@ -417,10 +415,12 @@ export class Bud {
    */
   @bind
   public fatal(error: Error) {
-    process.exitCode = 1
+    if (this.logger?.instance) this.logger.instance.fatal(error)
 
-    this.logger.instance.error(this.logger.format(error))
-    throw error
+    if (this.isProduction) {
+      process.exitCode = 1
+      throw error
+    }
   }
 }
 

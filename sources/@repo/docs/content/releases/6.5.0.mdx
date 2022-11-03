@@ -2,7 +2,7 @@
 slug: 6.5.0
 title: 6.5.0
 description: Release notes for bud.js 6.5.0
-date: 2022-10-12
+date: 2022-10-14
 author: Kelly Mears
 author_title: Lead developer
 author_url: https://github.com/kellymears
@@ -90,6 +90,10 @@ compilation now.
 ## 🩹 Fix: `bud.env` is not an instance of `Container`
 
 `bud.env` was not an instance of `Container` and therefore did not have methods like `is`. This has been fixed and it should now behave as documented.
+
+## 🩹 Fix: dynamically imported chunks not hashed
+
+Dynamically imported chunks were not being hashed. This has been fixed.
 
 ## 🩹 Fix: @roots/bud-criticalcss
 

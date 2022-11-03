@@ -11,8 +11,11 @@ import {isUndefined} from '@roots/bud-support/lodash-es'
  * @public
  */
 export default abstract class Hooks<Store> {
-  public _app: () => Bud
-
+  /**
+   * Get app
+   *
+   * @public
+   */
   public get app(): Bud {
     return this._app()
   }
@@ -29,8 +32,7 @@ export default abstract class Hooks<Store> {
    *
    * @public
    */
-  public constructor(app: Bud) {
-    this._app = () => app
+  public constructor(public _app: () => Bud) {
     this.store = {} as Store
   }
 

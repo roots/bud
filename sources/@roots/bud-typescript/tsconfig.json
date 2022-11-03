@@ -5,15 +5,17 @@
     "outDir": "lib",
     "types": [
       "node",
-      "@roots/bud-framework",
-      "@roots/bud-api",
+      "@roots/bud",
+      "@roots/bud-build",
       "@roots/bud-babel"
     ]
   },
   "include": ["src"],
-  "exclude": ["lib", "node_modules", "**/*.test.ts"],
+  "exclude": ["**/*.test.ts"],
   "references": [
-    {"path": "./../bud-framework/tsconfig.json"},
-    {"path": "./../bud-babel/tsconfig.json"}
+    {"path": "./../bud/tsconfig.json"},
+    {"path": "./../bud-babel/tsconfig.json"},
+    {"path": "./../bud-build/tsconfig.json"},
+
   ]
 }

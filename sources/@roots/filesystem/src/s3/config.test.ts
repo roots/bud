@@ -1,4 +1,4 @@
-import {describe, jest} from '@jest/globals'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import Config from './config.js'
 
@@ -6,7 +6,7 @@ describe(`s3 config`, () => {
   let config
 
   beforeEach(async () => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
 
     config = new Config()
   })

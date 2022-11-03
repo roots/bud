@@ -1,8 +1,8 @@
-import {beforeAll, beforeEach, describe, expect, it} from '@jest/globals'
 import {factory} from '@repo/test-kit/bud'
 import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {options} from '@roots/bud-framework/extension/decorators'
+import {beforeAll, beforeEach, describe, expect, it} from 'vitest'
 
 describe(`Extension`, () => {
   const resetExtensions = bud => {
@@ -39,7 +39,7 @@ describe(`Extension`, () => {
     it(`adds options with function wrappers`, async () => {
       const mockOptions = {
         foo: `bar`,
-        bar: () => bud.name,
+        bar: () => bud.label,
       }
 
       class MockExtension extends Extension {

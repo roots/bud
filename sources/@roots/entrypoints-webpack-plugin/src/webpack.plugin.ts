@@ -181,7 +181,15 @@ export class EntrypointsWebpackPlugin {
    * @decorator `@bind`
    */
   @bind
-  public addToManifest({key = null, entry, file}) {
+  public addToManifest({
+    key = null,
+    entry,
+    file,
+  }: {
+    key?: string
+    entry: string
+    file: any
+  }) {
     const type = file.split(`.`).pop()
 
     if (!this.assets[entry]) {

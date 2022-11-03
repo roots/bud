@@ -41,7 +41,20 @@
   "types": "./lib/index.d.ts",
   "exports": {
     ".": "./lib/index.js",
-    "./service": "./lib/service.js"
+    "./service": "./lib/service.js",
+    "./extensions": "./lib/extensions/index.js",
+    "./cdn": "./lib/extensions/cdn/index.js",
+    "./esm": "./lib/extensions/esm/index.js",
+    "./clean-webpack-plugin": "./lib/extensions/clean-webpack-plugin/index.js",
+    "./copy-webpack-plugin": "./lib/extensions/copy-webpack-plugin/index.js",
+    "./fix-style-only-entrypoints": "./lib/extensions/fix-style-only-entrypoints/index.js",
+    "./html-webpack-plugin": "./lib/extensions/html-webpack-plugin/index.js",
+    "./interpolate-html-webpack-plugin": "./lib/extensions/interpolate-html-webpack-plugin/index.js",
+    "./mini-css-extract-plugin": "./lib/extensions/mini-css-extract-plugin/index.js",
+    "./webpack-define-plugin": "./lib/extensions/webpack-define-plugin/index.js",
+    "./webpack-hot-module-replacement-plugin": "./lib/extensions/webpack-hot-module-replacement-plugin/index.js",
+    "./webpack-manifest-plugin": "./lib/extensions/webpack-manifest-plugin/index.js",
+    "./webpack-provide-plugin": "./lib/extensions/webpack-provide-plugin/index.js"
   },
   "typesVersions": {
     "*": {
@@ -50,20 +63,90 @@
       ],
       "service": [
         "./lib/service.d.ts"
+      ],
+      "extensions": [
+        "./lib/extensions/index.d.ts"
+      ],
+      "cdn": [
+        "./lib/extensions/cdn/index.d.ts"
+      ],
+      "esm": [
+        "./lib/extensions/esm/index.d.ts"
+      ],
+      "fix-style-only-entrypoints": [
+        "./lib/extensions/fix-style-only-entrypoints/index.d.ts"
+      ],
+      "clean-webpack-plugin": [
+        "./lib/extensions/clean-webpack-plugin/index.d.ts"
+      ],
+      "copy-webpack-plugin": [
+        "./lib/extensions/copy-webpack-plugin/index.d.ts"
+      ],
+      "html-webpack-plugin": [
+        "./lib/extensions/html-webpack-plugin/index.d.ts"
+      ],
+      "interpolate-html-webpack-plugin": [
+        "./lib/extensions/interpolate-html-webpack-plugin/index.d.ts"
+      ],
+      "mini-css-extract-plugin": [
+        "./lib/extensions/mini-css-extract-plugin/index.d.ts"
+      ],
+      "webpack-define-plugin": [
+        "./lib/extensions/webpack-define-plugin/index.d.ts"
+      ],
+      "webpack-hot-module-replacement-plugin": [
+        "./lib/extensions/webpack-hot-module-replacement-plugin/index.d.ts"
+      ],
+      "webpack-manifest-plugin": [
+        "./lib/extensions/webpack-manifest-plugin/index.d.ts"
+      ],
+      "webpack-provide-plugin": [
+        "./lib/extensions/webpack-provide-plugin/index.d.ts"
       ]
     }
   },
   "devDependencies": {
-    "@jest/globals": "29.0.3",
     "@repo/test-kit": "workspace:sources/@repo/test-kit",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.11.64"
+    "@types/node": "16.18.2",
+    "vitest": "0.24.4"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "chalk": "5.0.1",
-    "tslib": "2.4.0"
+    "@roots/bud-terser": "workspace:sources/@roots/bud-terser",
+    "chalk": "5.1.2",
+    "clean-webpack-plugin": "4.0.0",
+    "copy-webpack-plugin": "11.0.0",
+    "html-webpack-plugin": "5.5.0",
+    "mini-css-extract-plugin": "2.6.1",
+    "tslib": "2.4.0",
+    "webpack": "5.74.0",
+    "webpack-manifest-plugin": "5.0.0"
+  },
+  "peerDependencies": {
+    "clean-webpack-plugin": "*",
+    "copy-webpack-plugin": "*",
+    "html-webpack-plugin": "*",
+    "mini-css-extract-plugin": "*",
+    "webpack-manifest-plugin": "*"
+  },
+  "peerDependenciesMeta": {
+    "clean-webpack-plugin": {
+      "optional": true
+    },
+    "copy-webpack-plugin": {
+      "optional": true
+    },
+    "html-webpack-plugin": {
+      "optional": true
+    },
+    "mini-css-extract-plugin": {
+      "optional": true
+    },
+    "webpack-manifest-plugin": {
+      "optional": true
+    }
   },
   "volta": {
     "extends": "../../../package.json"

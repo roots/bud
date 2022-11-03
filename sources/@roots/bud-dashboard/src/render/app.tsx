@@ -4,23 +4,32 @@ import React from '@roots/bud-support/react'
 import type {StatsCompilation} from 'webpack'
 
 import Compilation from './compilation/compilation.component.js'
-import {Server} from './server.js'
+import {Server} from './server/index.js'
 
-const App = ({
-  app,
-  compilations,
-  isTTY = true,
-  displayServerInfo = true,
-  displayAssets = true,
-  displayEntrypoints = true,
-}: {
-  app: Bud
+interface Props {
+  context: Bud['context']
+  devUrl?: URL
+  proxyUrl?: URL
+  watchFiles?: Set<string>
+  mode: Bud['mode']
   compilations: Array<StatsCompilation>
   isTTY?: boolean
   displayServerInfo?: boolean
   displayAssets?: boolean
   displayEntrypoints?: boolean
-}) => {
+}
+
+const App = ({
+  compilations,
+  context,
+  devUrl,
+  proxyUrl,
+  displayServerInfo = true,
+  displayAssets = true,
+  displayEntrypoints = true,
+  mode,
+  watchFiles = new Set(),
+}: Props) => {
   return (
     <Box flexDirection="column">
       {compilations.map((compilation, id) => (
@@ -30,9 +39,9 @@ const App = ({
           </Box>
           <Compilation
             id={id}
-            mode={app.mode}
+            mode={mode}
             stats={compilation}
-            context={app.context}
+            context={context}
             compilerCount={compilations.length}
             displayAssets={displayAssets}
             displayEntrypoints={displayEntrypoints}
@@ -43,8 +52,13 @@ const App = ({
         </Box>
       ))}
 
-      {app.isDevelopment ? (
-        <Server app={app} displayServerInfo={displayServerInfo} />
+      {mode === `development` ? (
+        <Server
+          devUrl={devUrl}
+          proxyUrl={proxyUrl}
+          watchFiles={watchFiles}
+          displayServerInfo={displayServerInfo}
+        />
       ) : null}
     </Box>
   )

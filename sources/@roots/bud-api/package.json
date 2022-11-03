@@ -63,20 +63,22 @@
     }
   },
   "devDependencies": {
-    "@jest/globals": "29.0.3",
+    "@repo/test-kit": "workspace:sources/@repo/test-kit",
+    "@roots/bud-extensions": "workspace:sources/@roots/bud-extensions",
+    "@roots/bud-terser": "workspace:sources/@roots/bud-terser",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.11.64",
+    "@types/node": "16.18.2",
+    "copy-webpack-plugin": "11.0.0",
+    "html-webpack-plugin": "5.5.0",
+    "vitest": "0.24.4",
     "webpack": "5.74.0"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@roots/container": "workspace:sources/@roots/container",
-    "chalk": "5.0.1",
-    "copy-webpack-plugin": "11.0.0",
+    "chalk": "5.1.2",
     "get-port": "6.1.2",
-    "html-webpack-plugin": "5.5.0",
-    "nanoid": "4.0.0",
     "tslib": "2.4.0"
   },
   "volta": {

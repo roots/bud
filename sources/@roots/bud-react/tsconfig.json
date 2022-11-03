@@ -5,13 +5,14 @@
     "rootDir": "src",
     "outDir": "lib",
     "module": "esnext",
-    "types": ["node", "@roots/bud-framework", "@roots/bud-babel", "@roots/bud-api"]
+    "types": ["node", "@roots/bud-framework", "@roots/bud-babel", "@roots/bud-api", "@roots/bud-esbuild", "@roots/bud-swc", "@roots/bud-typescript"]
   },
   "include": ["src"],
-  "exclude": ["lib", "node_modules", "**/*.test.ts"],
+  "exclude": ["**/*.test.ts"],
   "references": [
     {"path": "./../bud-api/tsconfig.json"},
     {"path": "./../bud-babel/tsconfig.json"},
+    {"path": "./../bud-esbuild/tsconfig.json"},
     {"path": "./../bud-framework/tsconfig.json"},
     {"path": "./../bud-support/tsconfig.json"},
     {"path": "./../bud-swc/tsconfig.json"},

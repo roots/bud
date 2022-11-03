@@ -1,3 +1,4 @@
+import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
@@ -57,11 +58,12 @@ export default class BudTypeScript extends Extension {
    * @decorator `@bind`
    */
   @bind
-  public async register() {
-    this.setOption(`context`, this.app.path(`./`))
+  public async register(bud: Bud) {
+    this.useBabel = this.useBabel.bind(this)
+    this.setOption(`context`, bud.context.basedir)
 
-    this.app.hooks.on(`build.resolve.extensions`, extensions =>
-      extensions.add(`.ts`).add(`.tsx`),
+    bud.hooks.on(`build.resolve.extensions`, extensions =>
+      extensions.add(`.ts`).add(`.jsx`).add(`.tsx`),
     )
   }
 
@@ -72,8 +74,8 @@ export default class BudTypeScript extends Extension {
    * @decorator `@bind`
    */
   @bind
-  public async configAfter() {
-    this.app.build
+  public async configAfter(bud: Bud) {
+    bud.build
       .setLoader(`ts`, await this.resolve(`ts-loader`))
       .setItem(`ts`, {
         loader: `ts`,
@@ -82,11 +84,15 @@ export default class BudTypeScript extends Extension {
       .setRule(`ts`, {
         test: ({hooks}) => hooks.filter(`pattern.ts`),
         include: [({path}) => path(`@src`)],
-        use: [this.options.babel ? `babel` : null, `ts`].filter(Boolean),
+        use: [this.options.babel ? `babel` : null, `ts`].filter(
+          Boolean,
+        ) as Array<any>,
       })
 
-    this.app.build.rules.js.setUse(
-      [this.options.babel ? `babel` : null, `ts`].filter(Boolean),
+    bud.build.rules.js.setUse(
+      [this.options.babel ? `babel` : null, `ts`].filter(
+        Boolean,
+      ) as Array<any>,
     )
   }
 }

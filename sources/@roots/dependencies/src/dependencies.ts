@@ -1,5 +1,6 @@
 /* eslint-disable n/no-process-env */
-import {spawnSync} from 'child_process'
+import {realpath} from 'fs/promises'
+import {join} from 'path'
 
 import {Npm} from './command/index.js'
 import {Yarn} from './command/index.js'
@@ -14,32 +15,34 @@ export class Dependencies {
   /**
    * @public
    */
-  public get client(): IDependencyManager {
-    if (this.isYarn()) {
-      return new Yarn(this.path)
-    }
-
-    return new Npm(this.path)
+  public async getClient(): Promise<IDependencyManager> {
+    return await this.isYarn().then(isYarn => {
+      return isYarn ? new Yarn(this.path) : new Npm(this.path)
+    })
   }
 
   /**
    * @public
    */
-  public isYarn(): boolean {
+  public async isYarn(): Promise<boolean> {
     try {
-      // user could have yarn installed, but not be using it
-      // this will return false if the user isn't actually using yarn
-      if (
-        !process.env.npm_execpath ||
-        process.env.npm_execpath.indexOf(`yarn`) === -1
-      ) {
-        return false
-      }
-      // test to be sure yarn can be spawned
-      spawnSync(`command -v yarn >/dev/null`)
-      return true
-    } catch (e) {}
+      return await realpath(join(this.path, `yarn.lock`)).then(
+        result => typeof result === `string`,
+      )
+    } catch (e) {
+      return false
+    }
+  }
 
-    return false
+  /**
+   * Get the latest version of a package from the npm registry
+   *
+   * @returns - Package version
+   * @public
+   */
+  public async getLatestVersion(signifier): Promise<string> {
+    return await this.getClient().then(
+      async client => await client.getLatestVersion(signifier),
+    )
   }
 }

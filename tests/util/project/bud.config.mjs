@@ -1,3 +1,4 @@
+// @ts-check
 /**
  * @param {import('@roots/bud').Bud} app
  */
@@ -11,5 +12,6 @@ export default async app => {
     .watch([`src/*.html`, `src/images`])
     .serve(3015)
     .minimize()
-    .when(app.isProduction, () => app.hash())
+    .provide({jquery: [`jQuery`, `$`]})
+    .when(app.isProduction, app => app.hash())
 }

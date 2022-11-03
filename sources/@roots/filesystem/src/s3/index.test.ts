@@ -1,9 +1,9 @@
-import {describe, jest} from '@jest/globals'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import S3 from './index.js'
 
 const mockSDKImplementation = {
-  send: jest.fn(),
+  send: vi.fn(),
 }
 
 const mockConfigImplementation = {
@@ -13,21 +13,21 @@ const mockConfigImplementation = {
   },
   region: `us-east-1`,
   endpoint: `https://s3.amazonaws.com`,
-  get: jest.fn(),
-  set: jest.fn(),
+  get: vi.fn(),
+  set: vi.fn(),
 }
-mockConfigImplementation.get = jest.fn(
+mockConfigImplementation.get = vi.fn(
   (key: string) => mockConfigImplementation[key],
 )
-mockConfigImplementation.set = jest.fn(
+mockConfigImplementation.set = vi.fn(
   (key: string, value) => (mockConfigImplementation[key] = value),
 )
 
-const mockClient = jest.fn().mockImplementation(() => ({
-  make: jest.fn(() => mockSDKImplementation),
+const mockClient = vi.fn().mockImplementation(() => ({
+  make: vi.fn(() => mockSDKImplementation),
 }))
 
-const mockConfigModule = jest
+const mockConfigModule = vi
   .fn()
   .mockImplementation(() => mockConfigImplementation)
 
@@ -35,8 +35,6 @@ describe(`s3`, () => {
   let s3
 
   beforeEach(async () => {
-    jest.restoreAllMocks()
-
     // @ts-ignore
     s3 = new S3()
     s3.client = new mockClient()
@@ -144,7 +142,7 @@ describe(`s3`, () => {
   })
 
   it(`should call s3.list from s3.exists`, async () => {
-    const listSpy = jest.spyOn(s3, `list`)
+    const listSpy = vi.spyOn(s3, `list`)
     await s3.exists()
     expect(listSpy).toHaveBeenCalled()
   })

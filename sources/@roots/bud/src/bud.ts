@@ -1,14 +1,10 @@
-import type Api from '@roots/bud-api'
-import * as Framework from '@roots/bud-framework'
-import type Hooks from '@roots/bud-hooks'
+import {Bud as Core} from '@roots/bud-framework/bud'
 
 /**
  * ⚡️ Bud
  *
  * @public
  */
-export default class Bud extends Framework.Bud {
-  public declare api: Api
-  public declare hooks: Hooks
+export default class Bud extends Core {
   public implementation = Bud
 }

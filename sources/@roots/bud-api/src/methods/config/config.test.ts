@@ -1,16 +1,16 @@
-import {beforeEach, describe, expect, it, jest} from '@jest/globals'
 import {Bud} from '@repo/test-kit/bud'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import {config as configFn} from './config.method.js'
 
 const mockBud = {
-  bindMethod: jest.fn(() => null),
+  bindMethod: vi.fn(() => null),
   hooks: {
-    action: jest.fn(() => null),
+    action: vi.fn(() => null),
   },
-  log: jest.fn(() => null),
-  error: jest.fn(() => null),
-  fatal: jest.fn(() => null),
+  log: vi.fn(() => null),
+  error: vi.fn(() => null),
+  fatal: vi.fn(() => null),
 } as unknown as Bud
 
 describe(`bud.config`, function () {
@@ -18,7 +18,7 @@ describe(`bud.config`, function () {
 
   beforeEach(async () => {
     config = configFn.bind(mockBud)
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   it(`should be a function`, () => {

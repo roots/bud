@@ -1,3 +1,4 @@
+import type {Bud} from '../../bud.js'
 import type {
   ApplyPlugin,
   Constructor,
@@ -5,7 +6,7 @@ import type {
   ExtensionLiteral,
 } from '../../extension/index.js'
 import type {Service as BaseService} from '../../service.js'
-import type {Modules, Registry} from '../registry/modules'
+import type {Modules} from '../registry/modules'
 
 export type LifecycleMethods =
   | 'init'
@@ -28,22 +29,44 @@ export type LifecycleMethods =
  * @public
  */
 export interface Service extends BaseService {
-  repository: Registry
+  unresolvable: Set<`${keyof Modules & string}`>
 
-  methodNames: Array<LifecycleMethods>
+  resolvedOptions: {
+    discovery: boolean
+    allowlist: Array<string>
+    denylist: Array<string>
+  }
 
-  has<K extends keyof Modules & string>(
-    key: K & string,
-    ...iterable: any[]
-  ): boolean
+  repository: Modules
 
-  get<K extends keyof Modules & string>(
-    key: K & string,
-  ): Modules[K & string]
+  register(bud: Bud): Promise<void>
 
-  remove<K extends keyof Modules>(key: K & string): this
+  booted(bud: Bud): Promise<void>
 
-  set<K extends keyof Modules>(value: Modules[K & string]): this
+  configAfter(bud: Bud): Promise<void>
+
+  buildBefore(bud: Bud): Promise<void>
+
+  buildAfter(bud: Bud): Promise<void>
+
+  make(bud: Bud): Promise<Array<ApplyPlugin>>
+
+  isAllowed(key: string): boolean
+
+  instantiate<K extends `${keyof Modules & string}`>(
+    extension:
+      | (new (...args: any[]) => Modules[K])
+      | Modules[K]
+      | ExtensionLiteral,
+  ): Modules[K]
+
+  has<K extends keyof Modules & string>(key: K): boolean
+
+  get<K extends keyof Modules & string>(key: K): Modules[K]
+
+  remove<K extends keyof Modules & string>(key: K): this
+
+  set<K extends keyof Modules & string>(key: K, value: Modules[K]): this
 
   /**
    * Add an extension
@@ -55,19 +78,28 @@ export interface Service extends BaseService {
       | Constructor
       | ExtensionLiteral
       | Extension
-      | Array<Constructor | ExtensionLiteral | Extension>,
+      | (keyof Modules & string)
+      | Array<
+          | Constructor
+          | ExtensionLiteral
+          | Extension
+          | `${keyof Modules & string}`
+        >,
   ): Promise<void>
 
-  import(input: Record<string, any> | string): Promise<Extension>
+  import<K extends keyof Modules & string>(
+    signifier: K,
+    fatalOnError?: boolean,
+  ): Promise<Modules[K] | undefined>
 
   runAll(methodName: LifecycleMethods): Promise<Array<void>>
 
-  run<K extends keyof Modules & string>(
+  run<K extends `${keyof Modules & string}`>(
     extension: Modules[K],
     methodName: LifecycleMethods,
   ): Promise<this>
 
-  runDependencies<K extends keyof Modules & string>(
+  runDependencies<K extends `${keyof Modules & string}`>(
     extension: Modules[K],
     methodName: LifecycleMethods,
   ): Promise<void>

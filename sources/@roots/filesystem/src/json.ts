@@ -23,4 +23,12 @@ export const write = async (
   await fs.writeAsync(path, source)
 }
 
+// @ts-ignore
 export const stringify = jsonStringify
+
+export default {
+  read,
+  parse,
+  write,
+  stringify,
+}

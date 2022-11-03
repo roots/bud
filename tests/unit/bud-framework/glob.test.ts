@@ -1,9 +1,12 @@
 import {Bud, factory} from '@repo/test-kit/bud'
+import {beforeAll, describe, expect, it} from 'vitest'
 
 describe(`bud.glob`, function () {
   let bud: Bud
 
-  beforeAll(async () => (bud = await factory()))
+  beforeAll(async () => {
+    bud = await factory()
+  })
 
   it(`is a function`, () => {
     expect(bud.glob).toBeInstanceOf(Function)

@@ -1,12 +1,12 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`sass-tailwindcss npm manifest.json matches snapshot 1`] = `
+exports[`sass-tailwindcss > npm > manifest.json > matches snapshot 1`] = `
 {
   "app.css": "css/app.css",
 }
 `;
 
-exports[`sass-tailwindcss yarn manifest.json matches snapshot 1`] = `
+exports[`sass-tailwindcss > yarn > manifest.json > matches snapshot 1`] = `
 {
   "app.css": "css/app.css",
 }

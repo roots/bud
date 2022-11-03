@@ -1,4 +1,4 @@
-import {after} from './after.js'
+import {after} from './after/after.js'
 import {bindMethod} from './bindMethod.js'
 import {close} from './close.js'
 import {container} from './container.js'
@@ -7,6 +7,7 @@ import {glob, globSync} from './glob.js'
 import {maybeCall} from './maybeCall.js'
 import {path} from './path.js'
 import {pipe} from './pipe.js'
+import {processConfigs} from './processConfigs.js'
 import {publicPath} from './publicPath.js'
 import {relPath} from './relPath.js'
 import {run} from './run.js'
@@ -28,6 +29,7 @@ export {
   maybeCall,
   path,
   pipe,
+  processConfigs,
   publicPath,
   relPath,
   run,

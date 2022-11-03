@@ -1,121 +1,201 @@
-import '@roots/bud'
-
-import {beforeAll, describe, expect, it} from '@jest/globals'
-import {Bud, factory} from '@repo/test-kit/bud'
-
-import {Config} from './config'
-import BudBabelExtension from './index'
+import {factory} from '@repo/test-kit/bud'
+import {describe, expect, it} from 'vitest'
 
 describe(`@roots/bud-babel`, () => {
-  let bud: Bud
-  let config: Config
-  let BabelInstance: BudBabelExtension
+  it(`should have label`, async () => {
+    const bud = await factory()
+    const BabelInstance = await import(`./index.js`)
+      .then(pkg => pkg.default)
+      .then(async babel => new babel(bud))
 
-  beforeAll(async () => {
-    bud = await factory()
-    config = new Config()
-    BabelInstance = new BudBabelExtension(
-      // @ts-ignore
-      bud,
-    )
+    expect(BabelInstance.label).toBeDefined()
   })
 
-  it(`object property checks`, () => {
-    expect(BabelInstance.label).toBeDefined()
+  it(`should have register method`, async () => {
+    const bud = await factory()
+    const BabelInstance = await import(`./index.js`)
+      .then(pkg => pkg.default)
+      .then(async babel => new babel(bud))
+
     expect(BabelInstance.register).toBeDefined()
   })
 
-  it(`config class has a setPlugins`, () => {
-    expect(config.setPlugins).toBeInstanceOf(Function)
+  it(`should have configAfter method`, async () => {
+    const bud = await factory()
+    const BabelInstance = await import(`./index.js`)
+      .then(pkg => pkg.default)
+      .then(async babel => new babel(bud))
+
+    expect(BabelInstance.configAfter).toBeDefined()
   })
 
-  it(`config class has a setPresets`, () => {
-    expect(config.setPresets).toBeInstanceOf(Function)
+  it(`config class has a setPlugins`, async () => {
+    const bud = await factory()
+    const BabelInstance = await import(`./index.js`)
+      .then(pkg => pkg.default)
+      .then(async babel => new babel(bud))
+
+    expect(BabelInstance.setPlugins).toBeInstanceOf(Function)
   })
 
-  it(`config class has a setPlugin`, () => {
-    expect(config.setPlugin).toBeInstanceOf(Function)
+  it(`config class has a setPresets`, async () => {
+    const bud = await factory()
+    const BabelInstance = await import(`./index.js`)
+      .then(pkg => pkg.default)
+      .then(async babel => new babel(bud))
+
+    expect(BabelInstance.setPresets).toBeInstanceOf(Function)
   })
 
-  it(`config class has a setPreset`, () => {
-    expect(config.setPreset).toBeInstanceOf(Function)
+  it(`config class has a setPlugin`, async () => {
+    const bud = await factory()
+    const BabelInstance = await import(`./index.js`)
+      .then(pkg => pkg.default)
+      .then(async babel => new babel(bud))
+
+    expect(BabelInstance.setPlugin).toBeInstanceOf(Function)
   })
 
-  it(`config class has a setPluginOptions`, () => {
-    expect(config.setPluginOptions).toBeInstanceOf(Function)
+  it(`config class has a setPreset`, async () => {
+    const bud = await factory()
+    const BabelInstance = await import(`./index.js`)
+      .then(pkg => pkg.default)
+      .then(async babel => new babel(bud))
+
+    expect(BabelInstance.setPreset).toBeInstanceOf(Function)
   })
 
-  it(`config class has a setPluginOptions`, () => {
-    expect(config.setPresetOptions).toBeInstanceOf(Function)
+  it(`config class has a setPluginOptions`, async () => {
+    const bud = await factory()
+    const BabelInstance = await import(`./index.js`)
+      .then(pkg => pkg.default)
+      .then(async babel => new babel(bud))
+
+    expect(BabelInstance.setPluginOptions).toBeInstanceOf(Function)
   })
 
-  it(`bud.babel.setPresets functions`, () => {
-    config.presets = {}
+  it(`config class has a setPluginOptions`, async () => {
+    const bud = await factory()
+    const BabelInstance = await import(`./index.js`)
+      .then(pkg => pkg.default)
+      .then(async babel => new babel(bud))
+
+    expect(BabelInstance.setPresetOptions).toBeInstanceOf(Function)
+  })
+
+  it(`bud.babel.setPresets functions`, async () => {
+    const bud = await factory()
+    const BabelInstance = await import(`./index.js`)
+      .then(pkg => pkg.default)
+      .then(async babel => new babel(bud))
+
+    BabelInstance.presets = {}
 
     const value: Record<string, [string, any]> = {
       '@babel/preset-env': [`@babel/preset-env`, {foo: `bar`}],
     }
-    config.setPresets(value)
+    BabelInstance.setPresets(value)
 
-    expect(config.presets).toEqual(value)
+    expect(BabelInstance.presets).toEqual(value)
   })
 
-  it(`bud.babel.setPreset functions`, () => {
-    config.presets = {}
+  it(`bud.babel.setPreset functions`, async () => {
+    const bud = await factory()
+    const BabelInstance = await import(`./index.js`)
+      .then(pkg => pkg.default)
+      .then(async babel => new babel(bud))
 
-    config.setPreset(`@babel/preset-env`, `@babel/preset-env`)
+    BabelInstance.presets = {}
 
-    expect(config.presets).toEqual({
+    BabelInstance.setPreset(`@babel/preset-env`, `@babel/preset-env`)
+
+    expect(BabelInstance.presets).toEqual({
       '@babel/preset-env': [`@babel/preset-env`],
     })
 
-    config.presets = {}
+    BabelInstance.presets = {}
 
-    config.setPreset(`@babel/preset-env`, [
+    BabelInstance.setPreset(`@babel/preset-env`, [
       `@babel/preset-env`,
       {foo: `bar`},
     ])
 
-    expect(config.presets).toEqual({
+    expect(BabelInstance.presets).toEqual({
       '@babel/preset-env': [`@babel/preset-env`, {foo: `bar`}],
     })
   })
 
-  it(`bud.babel.setPlugin functions`, () => {
-    config.plugins = {}
+  it(`bud.babel.setPlugin functions`, async () => {
+    const bud = await factory()
+    const BabelInstance = await import(`./index.js`)
+      .then(pkg => pkg.default)
+      .then(async babel => new babel(bud))
 
-    config.setPlugin(`someBabelPlugin`, `someBabelPlugin`)
+    BabelInstance.plugins = {}
 
-    expect(config.plugins).toEqual({
+    BabelInstance.setPlugin(`someBabelPlugin`, `someBabelPlugin`)
+
+    expect(BabelInstance.plugins).toEqual({
       someBabelPlugin: [`someBabelPlugin`],
     })
 
-    config.plugins = {}
+    BabelInstance.plugins = {}
 
-    config.setPlugin(`someBabelPlugin`, [`someBabelPlugin`, {foo: `bar`}])
+    BabelInstance.setPlugin(`someBabelPlugin`, [
+      `someBabelPlugin`,
+      {foo: `bar`},
+    ])
 
-    expect(config.plugins).toEqual({
+    expect(BabelInstance.plugins).toEqual({
       someBabelPlugin: [`someBabelPlugin`, {foo: `bar`}],
     })
   })
 
-  it(`bud.babel.unsetPlugin functions`, () => {
-    config.plugins = {
+  it(`bud.babel.unsetPlugin functions`, async () => {
+    const bud = await factory()
+    const BabelInstance = await import(`./index.js`)
+      .then(pkg => pkg.default)
+      .then(async babel => new babel(bud))
+
+    BabelInstance.plugins = {
       someBabelPlugin: [`someBabelPlugin`],
     }
 
-    config.unsetPlugin(`someBabelPlugin`)
+    BabelInstance.unsetPlugin(`someBabelPlugin`)
 
-    expect(config.plugins).toEqual({})
+    expect(BabelInstance.plugins).toEqual({})
   })
 
-  it(`bud.babel.unsetPreset functions`, () => {
-    config.presets = {
+  it(`bud.babel.unsetPreset functions`, async () => {
+    const bud = await factory()
+    const BabelInstance = await import(`./index.js`)
+      .then(pkg => pkg.default)
+      .then(async babel => new babel(bud))
+
+    BabelInstance.presets = {
       someBabelPreset: [`someBabelPreset`],
     }
 
-    config.unsetPreset(`someBabelPreset`)
+    BabelInstance.unsetPreset(`someBabelPreset`)
 
-    expect(config.presets).toEqual({})
+    expect(BabelInstance.presets).toEqual({})
+  })
+
+  it(`should have a setEnv method`, async () => {
+    const bud = await factory()
+    const BabelInstance = await import(`./index.js`)
+      .then(pkg => pkg.default)
+      .then(async babel => new babel(bud))
+
+    expect(BabelInstance.setEnv)
+  })
+
+  it(`should have a setEnv method`, async () => {
+    const bud = await factory()
+    const BabelInstance = await import(`./index.js`)
+      .then(pkg => pkg.default)
+      .then(async babel => new babel(bud))
+
+    expect(BabelInstance.setEnv)
   })
 })

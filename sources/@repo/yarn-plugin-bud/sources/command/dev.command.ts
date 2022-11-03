@@ -30,7 +30,7 @@ export class Dev extends Command {
     category: `@bud`,
     description: `develop project code`,
     examples: [
-      [`run tsc, docusaurus & jest in watch mode`, `yarn @bud dev`],
+      [`run tsc, docusaurus & vitest in watch mode`, `yarn @bud dev`],
     ],
   }
 
@@ -42,7 +42,7 @@ export class Dev extends Command {
 
     await this.$(
       `yarn @bud tsc --watch`,
-      `yarn @bud test unit --verbose --watch`,
+      `yarn @bud test unit`,
       `yarn @bud docs dev`,
     )
   }

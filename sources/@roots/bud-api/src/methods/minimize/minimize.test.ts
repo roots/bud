@@ -1,64 +1,63 @@
-import {beforeEach, describe, expect, jest} from '@jest/globals'
-import mockBud from '@repo/test-kit/mocks/bud'
+import {factory} from '@repo/test-kit/bud'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import {minimize} from './index'
-
-jest.unstable_mockModule(`@roots/bud`, () => ({default: mockBud}))
-
-const mockExtension = {
-  enable: jest.fn(),
-  disable: jest.fn(),
-}
+import {minimize as subject} from './index'
 
 describe(`bud.minimize`, () => {
   let bud
-  let subject
+  let minimize
 
   beforeEach(async () => {
-    bud = await import(`@roots/bud`).then(({default: Bud}) => new Bud())
-    bud.extensions.get = jest.fn(() => mockExtension)
-
-    subject = minimize.bind(bud)
+    bud = await factory()
+    minimize = subject.bind(bud)
   })
 
   it(`should call bud.hooks.on when called`, () => {
-    subject()
-    expect(bud.hooks.on).toHaveBeenCalled()
+    const onSpy = vi.spyOn(bud.hooks, `on`)
+    minimize()
+    expect(onSpy).toHaveBeenCalled()
   })
 
   it(`should call bud.hooks.filter when called`, () => {
-    subject()
-    expect(bud.hooks.filter).toHaveBeenCalled()
+    const filterSpy = vi.spyOn(bud.hooks, `filter`)
+    minimize()
+    expect(filterSpy).toHaveBeenCalled()
   })
 
   it(`should call mockExtension.enable when called with truthy value`, () => {
-    bud.hooks.filter = jest.fn(() => true)
-    subject(true)
-    expect(mockExtension.enable).toHaveBeenCalled()
+    const terser = bud.extensions.get(`@roots/bud-terser`)
+    const enableSpy = vi.spyOn(terser, `enable`)
+    minimize(true)
+    expect(enableSpy).toHaveBeenCalled()
   })
 
   it(`should call mockExtension.enable when called with falsy value`, () => {
-    bud.hooks.filter = jest.fn(() => false)
-    subject(false)
-    expect(mockExtension.disable).toHaveBeenCalled()
+    const terser = bud.extensions.get(`@roots/bud-terser`)
+    const enableSpy = vi.spyOn(terser, `disable`)
+    minimize(false)
+    expect(enableSpy).toHaveBeenCalled()
   })
 
   it(`should call bud.success to log param`, () => {
-    subject()
-    expect(bud.success).toHaveBeenCalledWith(`minimize enabled`)
+    const logSpy = vi.spyOn(bud, `success`)
+    minimize()
+    expect(logSpy).toHaveBeenCalledWith(`minimize enabled`)
   })
 
   it(`should call bud.success to log param`, () => {
-    subject(true)
-    expect(bud.success).toHaveBeenCalledWith(`minimize enabled`)
+    const logSpy = vi.spyOn(bud, `success`)
+    minimize(true)
+    expect(logSpy).toHaveBeenCalledWith(`minimize enabled`)
   })
 
   it(`should call bud.success to log param`, () => {
-    subject(false)
-    expect(bud.success).toHaveBeenCalledWith(`minimize disabled`)
+    const logSpy = vi.spyOn(bud, `success`)
+
+    minimize(false)
+    expect(logSpy).toHaveBeenCalledWith(`minimize disabled`)
   })
 
   it(`should return bud`, () => {
-    expect(subject()).toEqual(bud)
+    expect(minimize()).toEqual(bud)
   })
 })

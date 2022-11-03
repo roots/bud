@@ -16,18 +16,18 @@
     "./options": "./options.ts"
   },
   "dependencies": {
-    "@jest/globals": "29.0.3",
     "@repo/constants": "workspace:sources/@repo/constants",
     "@repo/logger": "workspace:sources/@repo/logger",
     "@types/fs-extra": "9.0.13",
     "@types/lodash-es": "4.17.6",
-    "@types/node": "16.11.64",
+    "@types/node": "16.18.2",
     "@vercel/ncc": "0.34.0",
     "download-package-tarball": "1.0.7",
     "fs-extra": "10.1.0",
     "get-package-json-from-registry": "2.2.2",
     "lodash-es": "4.17.21",
-    "npm-package-arg": "9.1.2",
-    "registry-info": "1.0.0"
+    "npm-package-arg": "10.0.0",
+    "registry-info": "1.0.0",
+    "vitest": "0.24.4"
   }
 }

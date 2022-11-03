@@ -1,6 +1,6 @@
-import {describe, expect, it} from '@jest/globals'
 import {factory} from '@repo/test-kit/bud'
 import {Service} from '@roots/bud-framework/service'
+import {beforeEach, describe, expect, it} from 'vitest'
 
 import Bud from '../../bud'
 import Project from './index'
@@ -17,10 +17,7 @@ describe(`@roots/bud/services/project`, () => {
   })
 
   it(`is a container service`, () => {
-    const instance = new Project(
-      // @ts-ignore
-      bud,
-    )
+    const instance = new Project(() => bud)
     expect(instance).toBeInstanceOf(Service)
   })
 })

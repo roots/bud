@@ -3,20 +3,18 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "lib",
-    "module": "esnext",
-    "target": "es2021",
     "types": [
       "node",
-      "@roots/bud-framework"
+      "@roots/bud-framework",
     ]
   },
   "include": [
-    "./src"
+    "src"
   ],
-  "exclude": ["lib", "node_modules", "src/**/*.test.ts"],
+  "exclude": ["**/*.test.ts"],
   "references": [
-    {"path": "./../bud-framework/tsconfig.json"},
-    {"path": "./../bud-api/tsconfig.json"},
-    {"path": "./../bud-support/tsconfig.json"},
+    {"path": "../bud-framework/tsconfig.json"},
+    {"path": "../bud-api/tsconfig.json"},
+    {"path": "../bud-support/tsconfig.json"},
   ]
 }

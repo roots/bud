@@ -1,15 +1,17 @@
-import {describe, expect, it, jest} from '@jest/globals'
-import {factory} from '@repo/test-kit/bud'
+import {describe, expect, it, vi} from 'vitest'
 
 import Extension from './index'
 
-describe(`@roots/bud-cache/inalidate-cache-extension`, () => {
+describe(`@roots/bud-cache/invalidate-cache-extension`, () => {
   it(`should be constructable`, () => {
     expect(Extension).toBeInstanceOf(Function)
   })
 
   it(`should be an extension`, async () => {
-    const bud = await factory()
+    const bud = await import(`@repo/test-kit/bud`).then(
+      async pkg => await pkg.factory(),
+    )
+
     expect(
       new Extension(
         // @ts-ignore
@@ -19,37 +21,43 @@ describe(`@roots/bud-cache/inalidate-cache-extension`, () => {
   })
 
   it(`should have an error file accessor`, async () => {
-    const bud = await factory()
+    const bud = await import(`@repo/test-kit/bud`).then(
+      async pkg => await pkg.factory(),
+    )
     const extension = new Extension(
       // @ts-ignore
       bud,
     )
 
-    expect(extension.file).toStrictEqual(
+    expect(extension.invalidationFile).toStrictEqual(
       expect.stringContaining(`${bud.label}/production.error.json`),
     )
   })
 
   it(`should check if error file exists`, async () => {
-    const bud = await factory()
+    const bud = await import(`@repo/test-kit/bud`).then(
+      async pkg => await pkg.factory(),
+    )
 
     const extension = new Extension(
       // @ts-ignore
       bud,
     )
     // @ts-ignore
-    extension.app.fs.exists = jest.fn(() => false)
+    extension.app.fs.exists = vi.fn(() => false)
     await extension.register()
 
     expect(extension.app.fs.exists).toHaveBeenCalled()
   })
 
   it(`should call remove when bud.fs.exists returns false`, async () => {
-    const bud = await factory()
+    const bud = await import(`@repo/test-kit/bud`).then(
+      async pkg => await pkg.factory(),
+    )
     // @ts-ignore
-    bud.fs.exists = jest.fn(() => true)
+    bud.fs.exists = vi.fn(() => true)
     // @ts-ignore
-    const removeSpy = jest.spyOn(bud.fs, `remove`)
+    const removeSpy = vi.spyOn(bud.fs, `remove`)
 
     const extension = new Extension(
       // @ts-ignore
@@ -61,10 +69,13 @@ describe(`@roots/bud-cache/inalidate-cache-extension`, () => {
   })
 
   it(`should call bud.hooks.action`, async () => {
-    const bud = await factory()
+    const bud = await import(`@repo/test-kit/bud`).then(
+      async pkg => await pkg.factory(),
+    )
+
     // @ts-ignore
-    bud.fs.exists = jest.fn(() => true)
-    const hookSpy = jest.spyOn(bud.hooks, `action`)
+    bud.fs.exists = vi.fn(() => true)
+    const hookSpy = vi.spyOn(bud.hooks, `action`)
 
     const extension = new Extension(
       // @ts-ignore

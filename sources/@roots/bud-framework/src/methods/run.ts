@@ -1,5 +1,4 @@
 import type {Bud} from '../bud.js'
-import * as configuration from '../configuration/index.js'
 
 /**
  * Run the build
@@ -13,8 +12,6 @@ export interface run {
 export const run: run = async function (): Promise<void> {
   const app = this as Bud
 
-  await configuration.process(app)
-
   try {
     const production = async () => {
       const instance = await app.compiler.compile()
@@ -23,6 +20,6 @@ export const run: run = async function (): Promise<void> {
 
     app.isDevelopment ? await app.server.run() : await production()
   } catch (error) {
-    throw error
+    if (app.isProduction) throw error
   }
 }

@@ -33,28 +33,6 @@ export interface Watcher {
   logger: Logger['instance']
 
   /**
-   * Get watch options
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  getOptions(): WatchOptions
-
-  /**
-   * Get watched files
-   *
-   * @public
-   */
-  getFiles(): Array<string>
-
-  /**
-   * Search files
-   *
-   * @public
-   */
-  search(): Promise<Array<string>>
-
-  /**
    * Initialize watch files
    *
    * @public

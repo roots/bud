@@ -15,15 +15,19 @@ const options = (designator: string): Options => ({
 })
 
 const install = (designator: string) => async () => {
-  logger.log(`installing @examples/${designator}`)
+  try {
+    logger.log(`installing @examples/${designator}`)
 
-  const child: ExecaChildProcess = execa(
-    `yarn`,
-    [`install`, `--registry`, `http://localhost:4873`],
-    options(designator),
-  )
-  child.stdout?.pipe(process.stdout)
-  return await child
+    const child: ExecaChildProcess = execa(
+      `yarn`,
+      [`install`, `--registry`, `http://localhost:4873`],
+      options(designator),
+    )
+    child.stdout?.pipe(process.stdout)
+    return await child
+  } catch (error) {
+    return
+  }
 }
 
 export default install

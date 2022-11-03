@@ -41,7 +41,8 @@ The development server can be [configured to use SSL](/docs/bud.serve#ssl).
 
 ```js title='bud.config.mjs'
 export default async bud => {
-  bud.serve(new URL(`https://example.test`), {
+  bud.serve({
+    url: new URL(`https://example.test`)
     cert: `/path/to/example.test.crt`,
     key: `/path/to/example.test.key`,
   })

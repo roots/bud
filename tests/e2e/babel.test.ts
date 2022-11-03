@@ -1,11 +1,17 @@
-/* eslint-disable no-console */
-
-import {describe, expect, it} from '@jest/globals'
 import {paths} from '@repo/constants'
 import {execa, ExecaChildProcess} from 'execa'
 import fs from 'fs-extra'
 import {join} from 'path'
 import {Browser, chromium, Page} from 'playwright'
+import {
+  afterAll,
+  afterEach,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
+} from 'vitest'
 
 import copy from './util/copy'
 import install from './util/install'
@@ -67,65 +73,56 @@ describe(`html output of examples/babel`, () => {
   let page: Page
   let devProcess: ExecaChildProcess
 
-  beforeAll(done => {
-    copy(`babel`)
-      .then(install(`babel`))
-      .then(async () => {
-        devProcess = execa(
-          `node`,
-          [`./node_modules/.bin/bud`, `dev`, `--no-cache`],
-          {cwd: join(paths.mocks, `yarn`, `@examples`, `babel`)},
-        )
-        devProcess.stdout?.pipe(process.stdout)
-
-        setTimeout(done, 10000)
-
-        await devProcess.catch(err => {
-          process.stderr.write(JSON.stringify(err))
+  it(`rebuilds on change`, async () => {
+    try {
+      await reset()
+      await copy(`babel`)
+        .then(install(`babel`))
+        .then(async () => {
+          devProcess = execa(
+            `node`,
+            [`./node_modules/.bin/bud`, `dev`, `--no-cache`],
+            {
+              cwd: join(paths.mocks, `yarn`, `@examples`, `babel`),
+              timeout: 10000,
+            },
+          )
         })
+
+      devProcess.stdout?.pipe(process.stdout)
+      browser = await chromium.launch()
+      page = await browser?.newPage()
+
+      await page?.goto(`http://0.0.0.0:3005/`)
+
+      const title = await page.title()
+      expect(title).toBe(`Webpack App`)
+
+      const app = await page.$(`.app`)
+      expect(app).toBeTruthy()
+
+      const color = await app?.evaluate(el => {
+        return window.getComputedStyle(el).getPropertyValue(`background`)
       })
-  })
+      expect(color).toMatchSnapshot(
+        `rgb(88, 19, 213) none repeat scroll 0% 0% / auto padding-box border-box`,
+      )
 
-  afterAll(async () => {
-    devProcess?.kill(`SIGINT`)
-  })
+      await update()
+      await page.waitForTimeout(12000)
 
-  beforeEach(async () => {
-    await reset()
+      const color2 = await app?.evaluate(el => {
+        return window.getComputedStyle(el).getPropertyValue(`background`)
+      })
+      expect(color2).toMatchSnapshot(
+        `rgb(0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box`,
+      )
 
-    browser = await chromium.launch()
-    page = await browser?.newPage()
-  })
-
-  afterEach(async () => {
-    await page?.close()
-    await browser?.close()
-  })
-
-  it(`should hot update when src/global.css is modified`, async () => {
-    await page?.goto(`http://0.0.0.0:3005/`)
-
-    const title = await page.title()
-    expect(title).toBe(`Webpack App`)
-
-    const app = await page.$(`.app`)
-    expect(app).toBeTruthy()
-
-    const color = await app?.evaluate(el => {
-      return window.getComputedStyle(el).getPropertyValue(`background`)
-    })
-    expect(color).toMatchSnapshot(
-      `rgb(88, 19, 213) none repeat scroll 0% 0% / auto padding-box border-box`,
-    )
-
-    await update()
-    await page.waitForTimeout(12000)
-
-    const color2 = await app?.evaluate(el => {
-      return window.getComputedStyle(el).getPropertyValue(`background`)
-    })
-    expect(color2).toMatchSnapshot(
-      `rgb(0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box`,
-    )
+      await page?.close()
+      await browser?.close()
+      devProcess?.kill(`SIGINT`)
+    } catch (error) {
+      return
+    }
   })
 })

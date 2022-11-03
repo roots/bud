@@ -38,26 +38,28 @@ import type * as Rule from './rule'
  * @public
  */
 export interface Service extends BaseService {
+  [key: string]: any
+
   /**
    * Arrayed {@link Loader} instances
    *
    * @public
    */
-  loaders: Record<`${keyof Loaders & string}`, Loader>
+  loaders: Loaders
 
   /**
    * Arrayed {@link Item} instances
    *
    * @public
    */
-  items: Record<`${keyof Items & string}`, Item>
+  items: Items
 
   /**
    * Arrayed {@link Rule} instances
    *
    * @public
    */
-  rules: Record<`${keyof Rules & string}`, Rule.Interface>
+  rules: Rules
 
   /**
    * Compiler configuration
@@ -78,7 +80,7 @@ export interface Service extends BaseService {
    *
    * @public
    */
-  getLoader<K extends `${keyof Loaders & string}`>(name: K): Loaders[K]
+  getLoader<K extends `${keyof Loaders}`>(name: K): Loaders[K]
 
   /**
    * Set a {@link Loader} instance
@@ -87,22 +89,22 @@ export interface Service extends BaseService {
    */
   setLoader<K extends `${keyof Loaders & string}`>(
     name: K,
-    options?: string | Loader,
-  ): Service
+    definition?: any,
+  ): this
 
   /**
    * Make a {@link Loader} instance
    *
    * @public
    */
-  makeLoader(options?: string): Loader
+  makeLoader(src?: string): Loader
 
   /**
    * Set a {@link Rule} instance
    *
    * @public
    */
-  setRule<K extends `${keyof Rules & string}`>(
+  setRule<K extends `${keyof Rules}`>(
     name: K,
     options?: Rule.Options | Rule.Interface,
   ): this
@@ -119,7 +121,7 @@ export interface Service extends BaseService {
    *
    * @public
    */
-  getItem<K extends `${keyof Items & string}`>(name: K): Items[K]
+  getItem<K extends `${keyof Items}`>(name: K): Items[K]
 
   /**
    * Set a {@link Item} instance
@@ -128,15 +130,15 @@ export interface Service extends BaseService {
    */
   setItem<K extends `${keyof Items & string}`>(
     name: K,
-    options?: Partial<Item.Options> | ((item: Item) => Item),
-  ): Service
+    options?: Items[K]['options'] | ((item: Items[K]) => Items[K]),
+  ): this
 
   /**
    * Make a new {@link Item} instance
    *
    * @public
    */
-  makeItem(options?: Partial<Item.Options>): Item
+  makeItem(options?: Partial<Item['options']>): Item
 }
 
-export type {Base, Item, Loader, Rule}
+export type {Base, Item, Items, Loader, Loaders, Rule, Rules}

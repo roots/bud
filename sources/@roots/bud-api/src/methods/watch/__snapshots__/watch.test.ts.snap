@@ -1,9 +1,7 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1
 
-exports[`bud.watch in development adds watch files 1`] = `
+exports[`bud.watch > in development > adds watch files 1`] = `
 [
   "1/*.js",
 ]
 `;
-
-exports[`bud.watch in development should have expected default values 1`] = `[]`;

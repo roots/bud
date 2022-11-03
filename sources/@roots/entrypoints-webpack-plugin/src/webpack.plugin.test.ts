@@ -1,3 +1,4 @@
+import {describe, expect, it} from 'vitest'
 import Webpack from 'webpack'
 
 import {EntrypointsWebpackPlugin} from './index'
@@ -9,11 +10,14 @@ describe(`entrypoints.json`, () => {
     })
     const chonk = new Webpack.Chunk()
     chonk.files = new Set([`foo.js`, `bar.js`])
-    const files = entrypoints.getEntrypointFiles({
-      chunks: [chonk],
-    })
+    const files = entrypoints
+      .getEntrypointFiles({
+        chunks: [chonk],
+      })
+      .map(file => file.file)
 
-    expect(files).toMatchSnapshot([{file: `foo.js`}, {file: `bar.js`}])
+    expect(files.shift()).toMatchSnapshot(`foo.js`)
+    expect(files.shift()).toMatchSnapshot(`bar.js`)
   })
 
   it(`should create manifest object`, () => {

@@ -1,17 +1,14 @@
-import {beforeEach, describe, expect, jest} from '@jest/globals'
-import mockBud from '@repo/test-kit/mocks/bud'
-import {mockExtension} from '@repo/test-kit/mocks/extensions'
+import {factory} from '@repo/test-kit/bud'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import {provide} from './index'
-
-jest.unstable_mockModule(`@roots/bud`, () => ({default: mockBud}))
 
 describe(`bud.provide`, () => {
   let bud
   let subject
 
   beforeEach(async () => {
-    bud = await import(`@roots/bud`).then(({default: Bud}) => new Bud())
+    bud = await factory()
     subject = provide.bind(bud)
   })
 
@@ -24,16 +21,10 @@ describe(`bud.provide`, () => {
   })
 
   it(`should call mockExtension.get when called`, () => {
+    const getSpy = vi.spyOn(bud.extensions, `get`)
     subject({jquery: [`$`, `jQuery`]})
 
-    expect(bud.extensions.get).toHaveBeenCalled()
-    expect(mockExtension.getOptions).toHaveBeenCalled()
-    expect(mockExtension.setOptions).toHaveBeenCalledWith(
-      expect.objectContaining({
-        jQuery: `jquery`,
-        $: `jquery`,
-      }),
-    )
+    expect(getSpy).toHaveBeenCalled()
   })
 
   it(`should return bud`, () => {

@@ -1,12 +1,12 @@
-import {describe, expect, it, jest} from '@jest/globals'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import {externals as subject} from './externals.method.js'
 
-const callback = jest.fn() as any
+const callback = vi.fn() as any
 const bud = {
   label: `bud`,
   hooks: {
-    on: jest.fn((_label: string, value: any) => {
+    on: vi.fn((_label: string, value: any) => {
       return callback(value())
     }),
   },
@@ -17,7 +17,7 @@ describe(`bud.entry`, function () {
 
   beforeEach(async () => {
     method = subject.bind(bud)
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   it(`is a function`, () => {

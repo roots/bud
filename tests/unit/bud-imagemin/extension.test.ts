@@ -1,6 +1,6 @@
-import {beforeAll, describe, expect, it} from '@jest/globals'
 import {Bud, factory} from '@repo/test-kit/bud'
 import imagemin from '@roots/bud-imagemin'
+import {beforeAll, describe, expect, it} from 'vitest'
 
 describe(`@roots/bud-imagemin`, () => {
   let bud: Bud

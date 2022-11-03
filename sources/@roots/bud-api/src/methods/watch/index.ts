@@ -14,9 +14,13 @@ export const watch: watch = function (...input) {
 
   if (!app.isDevelopment) return app
 
+  const normalized = input.flat()
+
   app.hooks.on(`dev.watch.files`, files => {
     if (!files) files = new Set()
-    input.flat().forEach((file: string) => files.add(file))
+
+    normalized.map(file => files.add(file))
+
     return files
   })
 
