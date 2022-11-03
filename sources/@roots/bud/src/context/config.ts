@@ -29,22 +29,47 @@ export default class Config {
    */
   public data: Record<string, ConfigFileDescription> = {}
 
+  /**
+   * Has extension
+   *
+   * @param path - Path to file
+   * @param extension - File extension
+   * @returns boolean
+   *
+   * @public
+   */
   public static hasExtension(path: string, extension: string) {
     return path.endsWith(extension)
   }
 
+  /**
+   * Return true if extension is an executable script
+   *
+   * @param path - Path to file
+   * @returns boolean
+   *
+   * @public
+   */
   public static isDynamicConfig(path: string) {
     return [`js`, `cjs`, `mjs`, `ts`, `cts`, `mts`].some(
       (extension: string) => path.endsWith(extension),
     )
   }
 
+  /**
+   * Class constructor
+   *
+   * @param basedir - Project root
+   *
+   * @public
+   */
   public constructor(public basedir: string) {}
 
   /**
    * Find configs
    *
    * @public
+   * @decorator `@bind`
    */
   @bind
   public async find(): Promise<Config> {
