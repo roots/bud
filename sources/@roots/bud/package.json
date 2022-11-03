@@ -104,9 +104,9 @@
   "devDependencies": {
     "@repo/test-kit": "workspace:sources/@repo/test-kit",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.18.2",
+    "@types/node": "16.18.3",
     "@types/node-notifier": "8.0.2",
-    "vitest": "0.24.4"
+    "vitest": "0.24.5"
   },
   "dependencies": {
     "@roots/browserslist-config": "workspace:sources/@roots/browserslist-config",
@@ -124,7 +124,7 @@
     "@roots/container": "workspace:sources/@roots/container",
     "@roots/dependencies": "workspace:sources/@roots/dependencies",
     "browserslist": "4.21.4",
-    "caniuse-lite": "1.0.30001427",
+    "caniuse-lite": "1.0.30001429",
     "conf": "10.2.0",
     "dotenv": "16.0.3",
     "dotenv-expand": "9.0.0",
@@ -132,9 +132,9 @@
     "node-notifier": "10.0.1",
     "open": "8.4.0",
     "open-editor": "4.0.0",
-    "tslib": "2.4.0",
+    "tslib": "2.4.1",
     "webpack": "5.74.0",
-    "webpack-cli": "^4.9.2"
+    "webpack-cli": "^4.10.0"
   },
   "peerDependencies": {
     "browserslist": "*",

@@ -63,15 +63,15 @@
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.18.2",
+    "@types/node": "16.18.3",
     "postcss": "8.4.18",
-    "vitest": "0.24.4"
+    "vitest": "0.24.5"
   },
   "dependencies": {
     "@fullhuman/postcss-purgecss": "5.0.0",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
-    "tslib": "2.4.0"
+    "tslib": "2.4.1"
   },
   "peerDependencies": {
     "@fullhuman/postcss-purgecss": "*"

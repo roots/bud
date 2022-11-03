@@ -60,8 +60,8 @@
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@roots/bud-build": "workspace:sources/@roots/bud-build",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.18.2",
-    "vitest": "0.24.4",
+    "@types/node": "16.18.3",
+    "vitest": "0.24.5",
     "webpack": "5.74.0"
   },
   "dependencies": {
@@ -73,8 +73,8 @@
     "@babel/preset-env": "7.19.4",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "babel-loader": "8.2.5",
-    "tslib": "2.4.0"
+    "babel-loader": "9.0.1",
+    "tslib": "2.4.1"
   },
   "peerDependencies": {
     "@babel/core": "*",

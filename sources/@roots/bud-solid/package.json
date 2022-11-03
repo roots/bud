@@ -55,19 +55,19 @@
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@skypack/package-check": "0.2.2",
     "@types/babel__core": "7.1.19",
-    "@types/lodash": "4.14.186",
-    "@types/node": "16.18.2",
+    "@types/lodash": "4.14.187",
+    "@types/node": "16.18.3",
     "type-fest": "3.1.0",
-    "vitest": "0.24.4",
+    "vitest": "0.24.5",
     "webpack": "5.74.0"
   },
   "dependencies": {
     "@babel/plugin-syntax-jsx": "7.18.6",
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "babel-preset-solid": "1.6.0",
-    "solid-js": "1.6.0",
-    "tslib": "2.4.0"
+    "babel-preset-solid": "1.6.1",
+    "solid-js": "1.6.1",
+    "tslib": "2.4.1"
   },
   "peerDependencies": {
     "@babel/plugin-syntax-jsx": "*",

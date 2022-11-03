@@ -60,16 +60,16 @@
   "devDependencies": {
     "@repo/test-kit": "workspace:sources/@repo/test-kit",
     "@skypack/package-check": "0.2.2",
-    "@types/lodash": "4.14.186",
-    "@types/node": "16.18.2",
-    "vitest": "0.24.4",
+    "@types/lodash": "4.14.187",
+    "@types/node": "16.18.3",
+    "vitest": "0.24.5",
     "webpack": "5.74.0"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "css-minimizer-webpack-plugin": "4.2.2",
-    "terser-webpack-plugin": "^5.3.3",
-    "tslib": "2.4.0"
+    "terser-webpack-plugin": "^5.3.6",
+    "tslib": "2.4.1"
   },
   "volta": {
     "extends": "../../../package.json"

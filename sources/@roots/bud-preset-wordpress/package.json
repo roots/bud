@@ -59,13 +59,13 @@
   "devDependencies": {
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@skypack/package-check": "0.2.2",
-    "@types/lodash": "4.14.186",
-    "@types/node": "16.18.2",
+    "@types/lodash": "4.14.187",
+    "@types/node": "16.18.3",
     "@types/react": "17.0.52",
     "@types/react-dom": "17.0.18",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "vitest": "0.24.4",
+    "vitest": "0.24.5",
     "webpack": "5.74.0"
   },
   "dependencies": {
@@ -80,7 +80,7 @@
     "@roots/bud-wordpress-manifests": "workspace:sources/@roots/bud-wordpress-manifests",
     "chalk": "5.1.2",
     "lodash-es": "4.17.21",
-    "tslib": "2.4.0"
+    "tslib": "2.4.1"
   },
   "peerDependencies": {
     "@roots/browserslist-config": "*",

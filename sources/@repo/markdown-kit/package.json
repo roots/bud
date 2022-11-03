@@ -11,7 +11,7 @@
     "@repo/constants": "workspace:sources/@repo/constants",
     "@repo/logger": "workspace:sources/@repo/logger",
     "@roots/bud": "workspace:sources/@roots/bud",
-    "@types/node": "16.18.2",
+    "@types/node": "16.18.3",
     "@types/prettier": "2.7.1",
     "execa": "6.1.0",
     "fs-extra": "10.1.0",
@@ -22,7 +22,7 @@
     "lodash-es": "4.17.21",
     "prettier": "2.7.1",
     "strip-ansi": "7.0.1",
-    "vitest": "0.24.4"
+    "vitest": "0.24.5"
   },
   "volta": {
     "extends": "../../../package.json"

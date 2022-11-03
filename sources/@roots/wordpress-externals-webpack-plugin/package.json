@@ -50,12 +50,12 @@
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.18.2",
-    "vitest": "0.24.4"
+    "@types/node": "16.18.3",
+    "vitest": "0.24.5"
   },
   "dependencies": {
     "lodash-es": "4.17.21",
-    "tslib": "2.4.0",
+    "tslib": "2.4.1",
     "webpack": "5.74.0"
   },
   "volta": {

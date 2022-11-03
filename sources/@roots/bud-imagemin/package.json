@@ -55,15 +55,15 @@
   "devDependencies": {
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.18.2",
-    "vitest": "0.24.4",
+    "@types/node": "16.18.3",
+    "vitest": "0.24.5",
     "webpack": "5.74.0"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@squoosh/lib": "^0.4.0",
-    "image-minimizer-webpack-plugin": "^3.2.3",
-    "tslib": "2.4.0"
+    "image-minimizer-webpack-plugin": "^3.8.0",
+    "tslib": "2.4.1"
   },
   "peerDependencies": {
     "@squoosh/lib": "*",
