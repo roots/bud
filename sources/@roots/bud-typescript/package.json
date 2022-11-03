@@ -66,8 +66,8 @@
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@types/fork-ts-checker-webpack-plugin": "0.4.5",
-    "@types/node": "16.18.2",
-    "vitest": "0.24.4",
+    "@types/node": "16.18.3",
+    "vitest": "0.24.5",
     "webpack": "5.74.0"
   },
   "dependencies": {
@@ -77,11 +77,11 @@
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@types/webpack-env": "1.18.0",
     "chalk": "5.1.2",
-    "fork-ts-checker-webpack-plugin": "^7.2.6",
+    "fork-ts-checker-webpack-plugin": "^7.2.13",
     "react-refresh-typescript": "2.0.7",
-    "ts-loader": "^9.3.0",
+    "ts-loader": "^9.4.1",
     "ts-node": "10.9.1",
-    "tslib": "2.4.0",
+    "tslib": "2.4.1",
     "typescript": "4.8.4"
   },
   "peerDependencies": {

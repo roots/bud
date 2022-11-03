@@ -61,19 +61,19 @@
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
     "@roots/bud-sass": "workspace:sources/@roots/bud-sass",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.18.2",
-    "vitest": "0.24.4",
+    "@types/node": "16.18.3",
+    "vitest": "0.24.5",
     "webpack": "5.74.0"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@vue/compiler-sfc": "^3.2.36",
+    "@vue/compiler-sfc": "^3.2.41",
     "parse-semver": "1.1.1",
-    "tslib": "2.4.0",
-    "vue": "^3.2.37",
-    "vue-loader": "^17.0.0",
+    "tslib": "2.4.1",
+    "vue": "^3.2.41",
+    "vue-loader": "^17.0.1",
     "vue-style-loader": "^4.1.3",
-    "vue-template-compiler": "^2.6.14"
+    "vue-template-compiler": "^2.7.13"
   },
   "peerDependencies": {
     "@vue/compiler-sfc": "*",

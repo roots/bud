@@ -53,14 +53,14 @@
     "@repo/test-kit": "workspace:sources/@repo/test-kit",
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.18.2",
-    "vitest": "0.24.4",
+    "@types/node": "16.18.3",
+    "vitest": "0.24.5",
     "webpack": "5.74.0"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "tslib": "2.4.0"
+    "tslib": "2.4.1"
   },
   "volta": {
     "extends": "../../../package.json"

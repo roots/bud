@@ -63,9 +63,9 @@
     "@roots/bud-build": "workspace:sources/@roots/bud-build",
     "@roots/bud-cache": "workspace:sources/@roots/bud-cache",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.18.2",
+    "@types/node": "16.18.3",
     "@types/signale": "1.4.4",
-    "vitest": "0.24.4",
+    "vitest": "0.24.5",
     "webpack": "5.74.0"
   },
   "dependencies": {
@@ -76,7 +76,7 @@
     "postcss-loader": "7.0.1",
     "postcss-nested": "6.0.0",
     "postcss-preset-env": "7.8.2",
-    "tslib": "2.4.0"
+    "tslib": "2.4.1"
   },
   "peerDependencies": {
     "postcss": "*",

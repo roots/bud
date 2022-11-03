@@ -67,10 +67,10 @@
     "@roots/bud-extensions": "workspace:sources/@roots/bud-extensions",
     "@roots/bud-terser": "workspace:sources/@roots/bud-terser",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.18.2",
+    "@types/node": "16.18.3",
     "copy-webpack-plugin": "11.0.0",
     "html-webpack-plugin": "5.5.0",
-    "vitest": "0.24.4",
+    "vitest": "0.24.5",
     "webpack": "5.74.0"
   },
   "dependencies": {
@@ -79,7 +79,7 @@
     "@roots/container": "workspace:sources/@roots/container",
     "chalk": "5.1.2",
     "get-port": "6.1.2",
-    "tslib": "2.4.0"
+    "tslib": "2.4.1"
   },
   "volta": {
     "extends": "../../../package.json"

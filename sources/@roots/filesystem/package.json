@@ -68,13 +68,13 @@
     "@skypack/package-check": "0.2.2",
     "@types/js-yaml": "4.0.5",
     "@types/mime-types": "2.1.1",
-    "@types/node": "16.18.2",
+    "@types/node": "16.18.3",
     "@types/safe-json-stringify": "1.1.2",
-    "vitest": "0.24.4"
+    "vitest": "0.24.5"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "3.197.0",
-    "@aws-sdk/lib-storage": "3.197.0",
+    "@aws-sdk/client-s3": "3.202.0",
+    "@aws-sdk/lib-storage": "3.202.0",
     "@types/lodash-es": "4.17.6",
     "fs-jetpack": "5.1.0",
     "globby": "13.1.2",
@@ -84,7 +84,7 @@
     "lodash-es": "4.17.21",
     "mime-types": "2.1.35",
     "safe-json-stringify": "1.2.0",
-    "tslib": "2.4.0"
+    "tslib": "2.4.1"
   },
   "volta": {
     "extends": "../../../package.json"

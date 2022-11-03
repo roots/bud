@@ -71,21 +71,21 @@
     "@repo/test-kit": "workspace:sources/@repo/test-kit",
     "@roots/bud-build": "workspace:sources/@roots/bud-build",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.18.2",
+    "@types/node": "16.18.3",
     "postcss": "8.4.18",
     "stylelint": "14.14.0",
-    "vitest": "0.24.4",
+    "vitest": "0.24.5",
     "webpack": "5.74.0"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
-    "postcss-scss": "^4.0.4",
+    "postcss-scss": "^4.0.5",
     "resolve-url-loader": "5.0.0",
-    "sass": "^1.52.2",
-    "sass-loader": "^13.0.0",
+    "sass": "^1.55.0",
+    "sass-loader": "^13.1.0",
     "stylelint-config-recommended-scss": "^8.0.0",
-    "tslib": "2.4.0"
+    "tslib": "2.4.1"
   },
   "peerDependencies": {
     "@roots/bud-postcss": "*",

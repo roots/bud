@@ -31,6 +31,9 @@
 
 ━━━ tools ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
+  bud upgrade [--input,-i,--@src,--src #0] [--output,-o,--@dist,--dist #0] ...
+    Upgrade @roots dependencies
+
   bud webpack [--input,-i,--@src,--src #0] [--output,-o,--@dist,--dist #0] ...
     Webpack CLI passthrough
 
