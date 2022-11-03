@@ -1,0 +1,40 @@
+---
+slug: 6.5.4
+title: 6.5.4
+description: Release notes for bud.js 6.5.4
+date: 2022-10-23
+author: Kelly Mears
+author_title: Lead developer
+author_url: https://github.com/kellymears
+author_image_url: https://avatars.githubusercontent.com/u/397606?v=4
+tags: [release, 6.5]
+---
+
+<!--truncate-->
+
+## ✨ improve(patch): clean up stack traces (#1773)
+
+There should be less duplication of emitted errors, more meaningful stack traces, and highlighting of important
+parts of the error message.
+
+## ✨ improve(patch): improve env interpolations (#1856)
+
+Envvars sourced from .env files in the path to the project are now interpolated using env-expand.
+If you have an unescaped string that causes the expansion to fail the error will be caught and
+you should be gracefully downgraded.
+
+## 🎉 feat(none): `bud upgrade` command (#1855)
+
+Run `bud upgrade` to upgrade your project bud dependencies to the latest available version.
+
+## 🩹 fix(patch): reload browser on watched files add/unlink (#1781)
+
+When files are added or removed from a path matching a watched file, the browser will now reload.
+
+## 🧪 test(none): migrate jest to vitest (#1850)
+
+This should have no bearing on your project but we switched from jest to vitest and it's pretty cool.
+
+## ℹ️ Release information
+
+For more information [review the diff to see what's changed](https://github.com/roots/bud/compare/v6.5.3...v6.5.4).
