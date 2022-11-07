@@ -231,7 +231,9 @@ export class Bud {
    * Creates a child with `bud.create` but returns the parent instance
    *
    * @public
+   * @decorator `@bind`
    */
+  @bind
   public async make(
     request: Options.Overrides | string,
     tap?: (app: Bud) => Promise<unknown>,

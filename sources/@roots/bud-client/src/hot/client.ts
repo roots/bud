@@ -130,13 +130,12 @@ export default async (
     window.bud.listeners[options.name] = async payload => {
       if (!payload) return
 
-      !isStale(payload.hash) &&
-        window.bud.controllers.map(({update}) => update(payload))
-
       if (options.reload && payload.action === `reload`)
         return window.location.reload()
 
       if (payload.name !== options.name) return
+      window.bud.controllers.map(({update}) => update(payload))
+
       if (payload.errors?.length > 0) return
 
       if (payload.action === `built` || payload.action === `sync`) {

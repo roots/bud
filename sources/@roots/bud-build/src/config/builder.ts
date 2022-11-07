@@ -1,4 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
+import {isUndefined} from '@roots/bud-support/lodash-es'
 import {cpus} from 'os'
 import type {Configuration} from 'webpack'
 
@@ -18,7 +19,9 @@ export interface ValueFactory<T extends keyof B, B = Configuration> {
 }
 
 export const dependencies: ValueFactory<`dependencies`> = async app =>
-  app.hooks.filter(`build.dependencies`)
+  app.hooks
+    .filter(`build.dependencies`)
+    .filter(label => !isUndefined(app.root.children[label]))
 
 export const entry: ValueFactory<`entry`> = async app =>
   app.hooks.filter(`build.entry`)
