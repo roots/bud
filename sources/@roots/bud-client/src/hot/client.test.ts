@@ -3,7 +3,7 @@
 /**
  * @vitest-environment jsdom
  */
-import './types/index'
+import '../types/index'
 
 import {describe, expect, it, vi} from 'vitest'
 
@@ -43,15 +43,14 @@ describe(`@roots/bud-client`, () => {
 
   it(`should set clientOptions`, async () => {
     await client(`?name=test`, webpackHotMock, `test`)
-    const clientOptions = options.data
-    expect(clientOptions.test).toEqual(
+    expect(options.data).toEqual(
       expect.objectContaining({
         debug: true,
         indicator: true,
         log: true,
         name: `test`,
         overlay: true,
-        path: `/__bud/hmr`,
+        path: `/bud/hmr`,
         reload: true,
         timeout: 20000,
       }),
@@ -62,20 +61,17 @@ describe(`@roots/bud-client`, () => {
     const spy = vi.spyOn(console, `log`)
 
     await client(`?name=test`, webpackHotMock, `test`)
-    const clientOptions = options.data
-    const events = Events.make(clientOptions.test)
+    const events = Events.make(options.data)
     events.onopen()
     expect(spy).toHaveBeenCalled()
   })
 
   it(`should call listener from onmessage`, async () => {
     await client(`?name=test`, webpackHotMock, `test`)
-    const clientOptions = options.data
-    const events = Events.make(clientOptions.test)
+    const events = Events.make(options.data)
 
-    const listenerMock = vi.fn(async () => null)
-    events.addMessageListener(listenerMock)
-    events.messages = new Set([`123`, `234`])
+    const listenerMock = vi.fn(async () => {})
+    events.addListener(listenerMock)
 
     await events.onmessage(
       // @ts-ignore

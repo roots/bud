@@ -1,9 +1,20 @@
+/// <reference path="../../bud-preset-wordpress/lib/index.d.ts" />
+
 import type Acorn from './acorn/index.js'
+import type AcornV2PublicPath from './acorn-v2-public-path/extension.js'
 import type Sage from './sage/index.js'
 import type ThemeJSON from './wp-theme-json/index.js'
+import type WPThemeJsonTailwind from './wp-theme-json-tailwind/extension.js'
 
 declare module '@roots/bud-framework' {
   interface Bud {
+    /**
+     * Set options related to sage
+     *
+     * @public
+     */
+    sage: Sage
+
     /**
      * Generate a WordPress `theme.json`
      *
@@ -58,6 +69,8 @@ declare module '@roots/bud-framework' {
     '@roots/sage': Sage
     '@roots/sage/acorn': Acorn
     '@roots/sage/wp-theme-json': ThemeJSON
+    '@roots/sage/acorn-v2-public-path'?: AcornV2PublicPath
+    '@roots/sage/wp-theme-json-tailwind'?: WPThemeJsonTailwind
   }
 
   interface Locations {

@@ -2,6 +2,7 @@ import type {Bud, Modules} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
+  disabled,
   expose,
   label,
   options,
@@ -11,7 +12,6 @@ import {
   isString,
   isUndefined,
 } from '@roots/bud-support/lodash-es'
-import Webpack from 'webpack'
 
 /**
  * `esm-http` extension options
@@ -46,6 +46,7 @@ export interface Options {
   proxy: ({env}) => env.isString(`HTTP_PROXY`) && env.get(`HTTP_PROXY`),
   upgrade: true,
 })
+@disabled
 export default class Cdn extends Extension<Options, null> {
   /**
    * CDN manifest key to URL mapping
@@ -292,13 +293,17 @@ export default class Cdn extends Extension<Options, null> {
 
       await bud.extensions.add({
         label: `bud-cdn-${cdn.ident}` as keyof Modules & string,
-        make: async () =>
-          new Webpack.NormalModuleReplacementPlugin(
+        make: async () => {
+          const {NormalModuleReplacementPlugin} = await import(
+            `webpack`
+          ).then(m => m.default)
+          return new NormalModuleReplacementPlugin(
             new RegExp(`^${cdn.schema}`),
             result => {
               result.request = result.request.replace(cdn.schema, cdn.url)
             },
-          ),
+          )
+        },
       })
 
       if (isUndefined(bud.context.manifest?.bud?.[cdn.ident])) return
@@ -316,8 +321,12 @@ export default class Cdn extends Extension<Options, null> {
           await bud.extensions.add({
             label: `bud-cdn-${cdn.ident}-${remotePath}` as keyof Modules &
               string,
-            make: async () =>
-              new Webpack.NormalModuleReplacementPlugin(
+            make: async () => {
+              const {NormalModuleReplacementPlugin} = await import(
+                `webpack`
+              ).then(m => m.default)
+
+              return new NormalModuleReplacementPlugin(
                 new RegExp(`^${signifier}`),
                 result => {
                   result.request = result.request.replace(
@@ -325,7 +334,8 @@ export default class Cdn extends Extension<Options, null> {
                     [cdn.url, remotePath].join(``),
                   )
                 },
-              ),
+              )
+            },
           })
         }),
       )

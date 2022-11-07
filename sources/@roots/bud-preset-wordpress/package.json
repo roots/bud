@@ -57,36 +57,24 @@
     }
   },
   "devDependencies": {
-    "@roots/bud-api": "workspace:sources/@roots/bud-api",
+    "@roots/bud": "workspace:sources/@roots/bud",
     "@skypack/package-check": "0.2.2",
-    "@types/lodash": "4.14.187",
     "@types/node": "16.18.3",
-    "@types/react": "17.0.52",
-    "@types/react-dom": "17.0.18",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "vitest": "0.24.5",
-    "webpack": "5.74.0"
+    "vitest": "0.24.5"
   },
   "dependencies": {
     "@roots/browserslist-config": "workspace:sources/@roots/browserslist-config",
-    "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
-    "@roots/bud-entrypoints": "workspace:sources/@roots/bud-entrypoints",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-preset-recommend": "workspace:sources/@roots/bud-preset-recommend",
     "@roots/bud-react": "workspace:sources/@roots/bud-react",
     "@roots/bud-wordpress-dependencies": "workspace:sources/@roots/bud-wordpress-dependencies",
     "@roots/bud-wordpress-externals": "workspace:sources/@roots/bud-wordpress-externals",
     "@roots/bud-wordpress-manifests": "workspace:sources/@roots/bud-wordpress-manifests",
-    "chalk": "5.1.2",
-    "lodash-es": "4.17.21",
     "tslib": "2.4.1"
   },
   "peerDependencies": {
     "@roots/browserslist-config": "*",
-    "@roots/bud-babel": "*",
-    "@roots/bud-entrypoints": "*",
-    "@roots/bud-framework": "*",
+    "@roots/bud": "*",
     "@roots/bud-preset-recommend": "*",
     "@roots/bud-react": "*",
     "@roots/bud-wordpress-dependencies": "*",
@@ -97,13 +85,7 @@
     "@roots/browserslist-config": {
       "optional": true
     },
-    "@roots/bud-babel": {
-      "optional": true
-    },
-    "@roots/bud-entrypoints": {
-      "optional": true
-    },
-    "@roots/bud-framework": {
+    "@roots/bud": {
       "optional": true
     },
     "@roots/bud-preset-recommend": {

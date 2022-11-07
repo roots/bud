@@ -1,3 +1,5 @@
+/// <reference path="../../bud/lib/index.d.ts" />
+
 import type BabelExtension from './extension.js'
 
 export interface LoaderOptions {

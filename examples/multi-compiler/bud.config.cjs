@@ -4,28 +4,20 @@
  * Each can be uniqueuely configured.
  * ```
  */
-module.exports = async project => {
+module.exports = async ({make, path}) => {
   /**
    * Make `theme` workspace in `./theme` and setup entrypoints
    * Files will be output to `./theme/dist`
    */
-  await project.make(
-    {
-      label: 'theme',
-      basedir: project.path('theme'),
-    },
-    async theme => theme.entry('theme', ['theme.js', 'theme.css']),
+  await make({label: 'theme', basedir: path('theme')}, async theme =>
+    theme.entry('theme', ['theme.js', 'theme.css']),
   )
 
   /**
    * Make plugin workspace in `./plugin` and setup entrypoints
    * Files will be output to `./plugin/dist`
    */
-  await project.make(
-    {
-      label: 'plugin',
-      basedir: project.path('plugin'),
-    },
-    async plugin => plugin.entry('plugin', ['plugin.js', 'plugin.css']),
+  await make({label: 'plugin', basedir: path('plugin')}, async plugin =>
+    plugin.entry('plugin', ['plugin.js', 'plugin.css']),
   )
 }

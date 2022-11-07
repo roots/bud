@@ -6,7 +6,7 @@ import type {Payload} from './payload'
 
 export interface HotEventStream {
   handler: NextHandleFunction
-  publish(payload: any): void
+  publish(payload: Payload): void
   close(): void
 }
 
@@ -27,7 +27,7 @@ const headers = {
  * Update interval
  * @public
  */
-const updateInterval = 10 * 1000
+const updateInterval = 1000
 
 /**
  * Registered clients
@@ -51,6 +51,15 @@ const tapClients = (fn: CallableFunction) =>
     .filter(Boolean)
     .forEach(client => fn(client))
 
+const pingClient = client => {
+  client.write(`{data: {"action": "ping"}\n\n`)
+}
+
+const closeClient = client => {
+  if (client.finished) return
+  client.end()
+}
+
 /**
  * Hot Module Replacement event stream
  *
@@ -69,10 +78,7 @@ export class HotEventStream {
    */
   public constructor() {
     this.interval = setInterval(
-      () =>
-        tapClients(client => {
-          client.write(`{data: {"action": "ping"}\n\n`)
-        }),
+      () => tapClients(pingClient),
       updateInterval,
     ).unref()
   }
@@ -102,7 +108,7 @@ export class HotEventStream {
 
     req.on(`close`, () => {
       if (!res.writableEnded) res.end()
-      clients[id] = undefined
+      delete clients[id]
     })
   }
 
@@ -124,10 +130,7 @@ export class HotEventStream {
    */
   public close() {
     clearInterval(this.interval)
-
-    tapClients(client => {
-      !client.finished && client.end()
-    })
+    tapClients(closeClient)
     clients = {}
   }
 }

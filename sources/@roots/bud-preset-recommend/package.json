@@ -61,7 +61,7 @@
     }
   },
   "devDependencies": {
-    "@roots/bud-api": "workspace:sources/@roots/bud-api",
+    "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-esbuild": "workspace:sources/@roots/bud-esbuild",
     "@roots/bud-swc": "workspace:sources/@roots/bud-swc",
     "@skypack/package-check": "0.2.2",
@@ -76,8 +76,10 @@
     "tslib": "2.4.1"
   },
   "peerDependencies": {
+    "@roots/bud": "*",
     "@roots/bud-babel": "*",
     "@roots/bud-entrypoints": "*",
+    "@roots/bud-esbuild": "*",
     "@roots/bud-postcss": "*"
   },
   "peerDependenciesMeta": {
@@ -87,7 +89,13 @@
     "@roots/bud-entrypoints": {
       "optional": true
     },
+    "@roots/bud-esbuild": {
+      "optional": true
+    },
     "@roots/bud-postcss": {
+      "optional": true
+    },
+    "@roots/bud-swc": {
       "optional": true
     }
   },

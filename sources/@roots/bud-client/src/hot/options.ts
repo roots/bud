@@ -2,17 +2,15 @@
  * Client options
  * @public
  */
-let data: Record<string, Options> = {
-  [`default`]: {
-    timeout: 20 * 1000,
-    reload: true,
-    name: `default`,
-    debug: true,
-    log: true,
-    path: `/__bud/hmr`,
-    indicator: true,
-    overlay: true,
-  },
+let data: Options = {
+  timeout: 2000,
+  reload: true,
+  name: `@roots/bud-client`,
+  debug: true,
+  log: true,
+  indicator: true,
+  overlay: true,
+  path: `/bud/hot`,
 }
 
 /**
@@ -24,6 +22,7 @@ const get = (name?: string, key?: string) =>
 
 /**
  * Set client data based on URL parameters
+ * @public
  */
 const setFromParameters = (query: string): Options => {
   let parsedParams: Partial<Options> = {}
@@ -33,7 +32,7 @@ const setFromParameters = (query: string): Options => {
       value === `true` ? true : value === `false` ? false : value
   })
 
-  data[parsedParams.name] = {...data.default, ...parsedParams}
+  data[parsedParams.name] = {...data, ...parsedParams}
 
   return data[parsedParams.name]
 }

@@ -1,7 +1,7 @@
 import {Bud, factory} from '@repo/test-kit/bud'
 import {afterAll, beforeAll, describe, expect, it, vi} from 'vitest'
 
-import hotMiddleware, {collectCompilations} from './middleware'
+import hotMiddleware from './middleware'
 
 vi.mock(`@roots/bud-compiler`)
 
@@ -22,11 +22,5 @@ describe(`@roots/bud-server/middleware/hot`, () => {
     try {
       expect(hotMiddleware(bud)).toBeInstanceOf(Function)
     } catch (error) {}
-  })
-
-  describe(`collectCompilations`, () => {
-    it(`should be a function`, () => {
-      expect(collectCompilations).toBeInstanceOf(Function)
-    })
   })
 })

@@ -1,4 +1,10 @@
-import stripAnsi from 'strip-ansi'
+const ansiPattern = [
+  `[\\u001B\\u009B][[\\]()#;?]*(?:(?:(?:(?:;[-a-zA-Z\\d\\/#&.:=?%@~_]+)*|[a-zA-Z\\d]+(?:;[-a-zA-Z\\d\\/#&.:=?%@~_]*)*)?\\u0007)`,
+  `(?:(?:\\d{1,4}(?:;\\d{0,4})*)?[\\dA-PR-TZcf-ntqry=><~]))`,
+].join(`|`)
+
+const stripAnsi = (body: string) =>
+  body?.replace?.(new RegExp(ansiPattern, `g`), ``) ?? body
 
 /**
  * Overlay controller
@@ -22,13 +28,14 @@ export class Controller {
    * @public
    */
   public get message(): string {
-    return this.payload.errors?.reduce(
-      (a, c) => `${a}
+    return this.payload.errors?.reduce((a, c) => {
+      const msg = c?.message ?? c?.error ?? c
+      if (!msg) return a
+      return `${a}
         <div>
-          <pre>${stripAnsi(c?.message) ?? ``}</pre>
-        </div>`,
-      ``,
-    )
+          <pre>${stripAnsi(msg)}</pre>
+        </div>`
+    }, ``)
   }
 
   /**

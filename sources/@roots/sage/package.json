@@ -47,11 +47,12 @@
   "exports": {
     ".": "./lib/index.js",
     "./acorn": "./lib/acorn/index.js",
+    "./acorn-v2-public-path": "./lib/acorn-v2-public-path/index.js",
     "./client": "./lib/client/index.js",
     "./client/dom-ready": "./lib/client/dom-ready.js",
     "./client/lazy": "./lib/client/lazy.js",
     "./wp-theme-json": "./lib/wp-theme-json/index.js",
-    "./wp-theme-json/tailwind": "./lib/wp-theme-json/tailwind/index.js",
+    "./wp-theme-json-tailwind": "./lib/wp-theme-json-tailwind/index.js",
     "./stylelint-config": "./stylelint-config/index.cjs"
   },
   "typesVersions": {
@@ -61,6 +62,9 @@
       ],
       "acorn": [
         "./lib/acorn/index.d.ts"
+      ],
+      "acorn-v2-public-path": [
+        "./lib/acorn-v2-public-path/index.d.ts"
       ],
       "client": [
         "./lib/client/index.d.ts"
@@ -74,8 +78,8 @@
       "wp-theme-json": [
         "./lib/wp-theme-json/index.d.ts"
       ],
-      "wp-theme-json/tailwind": [
-        "./lib/wp-theme-json/tailwind/index.d.ts"
+      "wp-theme-json-tailwind": [
+        "./lib/wp-theme-json-tailwind/index.d.ts"
       ]
     }
   },

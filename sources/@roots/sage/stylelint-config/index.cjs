@@ -1,5 +1,5 @@
 /**
- * Sage default stylelint config
+ * Sage stylelint config
  *
  * @public
  */

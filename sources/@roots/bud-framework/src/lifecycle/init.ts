@@ -54,6 +54,7 @@ export const initialize = (app: Bud): Bud =>
       'build.bail': app.isProduction,
       'build.cache': () => app.cache.configuration,
       'build.context': () => app.context.basedir,
+      'build.dependencies': () => [],
       'build.devtool': false,
       'build.externalsType': `var`,
       'build.mode': () => app.mode,
@@ -84,6 +85,7 @@ export const initialize = (app: Bud): Bud =>
       'build.output.filename': () => join(`js`, filenameFormat(app)),
       'build.output.path': () => app.path(`@dist`),
       'build.output.publicPath': `auto`,
+      'build.output.uniqueName': () => app.label,
       'build.parallelism': 10 * Math.max(cpus().length - 1, 1),
       'build.performance': {hints: false},
       'build.recordsPath': () =>

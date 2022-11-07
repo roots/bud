@@ -5,26 +5,24 @@ import type {Bud} from '@roots/bud-framework'
  *
  * @public
  */
-export const inject = (
+export const on = async (
   app: Bud,
   injection: Array<(app: Bud) => string>,
-): void => {
+) => {
   app.hooks.on(`build.entry`, entrypoints => {
     if (!injection) return entrypoints
 
-    entrypoints = !entrypoints ? {app: {import: [`index`]}} : entrypoints
-
-    return Object.entries(entrypoints).reduce(
+    return Object.entries(entrypoints ?? {}).reduce(
       (entrypoints, [name, entry]) => {
-        if (!entry) return entrypoints
+        name = name ?? `main`
 
         return {
           ...entrypoints,
           [name]: {
-            ...entry,
+            ...(entry ?? {}),
             import: [
+              ...(entry?.import ?? `index`),
               ...injection.map(fn => fn(app)),
-              ...entry.import,
             ].filter(Boolean),
           },
         }

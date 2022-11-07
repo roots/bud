@@ -39,10 +39,7 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "exports": {
-    ".": {
-      "import": "./lib/index.mjs",
-      "require": "./lib/index.js"
-    },
+    ".": "./lib/index.js",
     "./lib/*": "./lib/*"
   },
   "typesVersions": {
@@ -63,7 +60,6 @@
     "webpack": "5.74.0"
   },
   "dependencies": {
-    "strip-ansi": "7.0.1",
     "tslib": "2.4.1"
   },
   "volta": {

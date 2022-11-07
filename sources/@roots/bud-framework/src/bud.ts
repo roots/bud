@@ -258,6 +258,13 @@ export class Bud {
     if (!this.children) this.children = {[context.label]: child}
     else this.children[context.label] = child
 
+    this.get(context.label).hooks.on(
+      `build.dependencies`,
+      Object.values(this.children)
+        .map(({label}) => label)
+        .filter(label => label !== context.label),
+    )
+
     if (tap) await tap(this.get(context.label))
 
     return this

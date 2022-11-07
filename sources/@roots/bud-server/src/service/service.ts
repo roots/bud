@@ -8,7 +8,7 @@ import type {
 import {bind} from '@roots/bud-support/decorators'
 
 import * as clientScripts from '../hooks/dev.client.scripts.js'
-import {inject} from '../inject.js'
+import * as inject from '../inject.js'
 import * as middlewareMap from '../middleware/middleware.js'
 import {Http} from '../server/server.http.js'
 import {Https} from '../server/server.https.js'
@@ -16,6 +16,7 @@ import {Watcher} from '../server/server.watcher.js'
 
 /**
  * Server service class
+ *
  * @public
  */
 export class Server extends Service implements BaseService {
@@ -28,12 +29,14 @@ export class Server extends Service implements BaseService {
 
   /**
    * Express instance
+   *
    * @public
    */
   public application: Express.Application & {set: any; use: any}
 
   /**
    * Watcher instance
+   *
    * @public
    */
   public watcher: Watcher
@@ -81,10 +84,11 @@ export class Server extends Service implements BaseService {
    */
   @bind
   public async register(bud: Bud) {
+    if (!bud.isDevelopment) return
+
     this.application = await bud.module
       .import(`express`)
       .then(express => express())
-
     this.application.set(`x-powered-by`, false)
 
     this.watcher = new Watcher(bud)
@@ -114,8 +118,6 @@ export class Server extends Service implements BaseService {
     this.connection = isHttps ? new Https(this.app) : new Http(this.app)
 
     await this.connection.setup()
-
-    this.app.log(`server initialized`)
   }
 
   /**
@@ -128,8 +130,8 @@ export class Server extends Service implements BaseService {
   public async injectScripts() {
     this.app.log(`injecting client scripts`)
 
-    const injectOn = (instance: Bud): unknown =>
-      inject(
+    const injectOn = async (instance: Bud) =>
+      inject.on(
         instance,
         Array.from(
           this.app.hooks.filter(`dev.client.scripts`, new Set([])),
@@ -143,6 +145,7 @@ export class Server extends Service implements BaseService {
 
   /**
    * Apply middleware
+   *
    * @public
    * @decorator `@bind`
    * @decorator `@once`
@@ -157,6 +160,7 @@ export class Server extends Service implements BaseService {
 
   /**
    * Run development server
+   *
    * @public
    * @decorator `@bind`
    */

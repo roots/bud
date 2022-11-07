@@ -15,6 +15,7 @@ describe(`@roots/bud-server`, () => {
     expect(bud.mode).toBe(`development`)
 
     instance = new Server(() => bud)
+
     await instance.register(bud)
 
     try {

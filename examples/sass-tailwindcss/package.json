@@ -8,7 +8,7 @@
     "@roots/browserslist-config": "latest",
     "@roots/bud": "latest",
     "@roots/bud-entrypoints": "latest",
-    "@roots/bud-tailwindcss": "latest",
-    "@roots/bud-sass": "latest"
+    "@roots/bud-sass": "latest",
+    "@roots/bud-tailwindcss": "latest"
   }
 }

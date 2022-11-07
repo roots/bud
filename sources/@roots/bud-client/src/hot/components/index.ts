@@ -1,21 +1,19 @@
-let controllers: Array<Controller> = []
-
-const make: (
+export const make: (
   options: Options,
 ) => Promise<Array<Controller>> = async options => {
+  if (window.bud.controllers.length > 0) return window.bud.controllers
+
   if (options.indicator && !customElements.get(`bud-activity-indicator`)) {
     await import(`./indicator/index.js`)
       .then(async controller => await controller.make())
-      .then(controller => controllers.push(controller))
+      .then(controller => window.bud.controllers.push(controller))
   }
 
   if (options.overlay && !customElements.get(`bud-error`)) {
     await import(`./overlay/index.js`)
       .then(async controller => await controller.make())
-      .then(controller => controllers.push(controller))
+      .then(controller => window.bud.controllers.push(controller))
   }
 
-  return controllers
+  return window.bud.controllers
 }
-
-export {controllers, make}

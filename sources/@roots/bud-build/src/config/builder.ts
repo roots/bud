@@ -17,6 +17,9 @@ export interface ValueFactory<T extends keyof B, B = Configuration> {
   (app: Bud): Promise<B[T]>
 }
 
+export const dependencies: ValueFactory<`dependencies`> = async app =>
+  app.hooks.filter(`build.dependencies`)
+
 export const entry: ValueFactory<`entry`> = async app =>
   app.hooks.filter(`build.entry`)
 

@@ -1,4 +1,7 @@
-import type {Build} from '@roots/bud-framework/services'
+/// <reference path="../../bud/lib/index.d.ts" />
+
+import type Item from '@roots/bud-build/item'
+import type Loader from '@roots/bud-build/loader'
 import type {Plugin, Processor} from 'postcss'
 
 import type BudPostCss from './extension.js'
@@ -9,11 +12,11 @@ declare module '@roots/bud-framework' {
   }
 
   interface Loaders {
-    postcss: Build.Loader
+    postcss: Loader
   }
 
   interface Items {
-    postcss: Build.Item
+    postcss: Item
   }
 
   interface Modules {

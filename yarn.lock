@@ -5355,8 +5355,7 @@ __metadata:
     "@babel/plugin-syntax-dynamic-import": 7.8.3
     "@babel/plugin-transform-runtime": 7.19.6
     "@babel/preset-env": 7.19.4
-    "@roots/bud-api": "workspace:sources/@roots/bud-api"
-    "@roots/bud-build": "workspace:sources/@roots/bud-build"
+    "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
@@ -5372,6 +5371,7 @@ __metadata:
     "@babel/plugin-syntax-dynamic-import": "*"
     "@babel/plugin-transform-runtime": "*"
     "@babel/preset-env": "*"
+    "@roots/bud": "*"
     babel-loader: "*"
   peerDependenciesMeta:
     "@babel/core":
@@ -5443,7 +5443,6 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/node": 16.18.3
     "@types/webpack-env": 1.18.0
-    strip-ansi: 7.0.1
     tslib: 2.4.1
     vitest: 0.24.5
     webpack: 5.74.0
@@ -5759,9 +5758,7 @@ __metadata:
   resolution: "@roots/bud-postcss@workspace:sources/@roots/bud-postcss"
   dependencies:
     "@repo/test-kit": "workspace:sources/@repo/test-kit"
-    "@roots/bud-api": "workspace:sources/@roots/bud-api"
     "@roots/bud-build": "workspace:sources/@roots/bud-build"
-    "@roots/bud-cache": "workspace:sources/@roots/bud-cache"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
@@ -5774,8 +5771,8 @@ __metadata:
     postcss-preset-env: 7.8.2
     tslib: 2.4.1
     vitest: 0.24.5
-    webpack: 5.74.0
   peerDependencies:
+    "@roots/bud": "*"
     postcss: "*"
     postcss-import: "*"
     postcss-loader: "*"
@@ -5799,7 +5796,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-preset-recommend@workspace:sources/@roots/bud-preset-recommend"
   dependencies:
-    "@roots/bud-api": "workspace:sources/@roots/bud-api"
+    "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel"
     "@roots/bud-entrypoints": "workspace:sources/@roots/bud-entrypoints"
     "@roots/bud-esbuild": "workspace:sources/@roots/bud-esbuild"
@@ -5811,15 +5808,21 @@ __metadata:
     tslib: 2.4.1
     vitest: 0.24.5
   peerDependencies:
+    "@roots/bud": "*"
     "@roots/bud-babel": "*"
     "@roots/bud-entrypoints": "*"
+    "@roots/bud-esbuild": "*"
     "@roots/bud-postcss": "*"
   peerDependenciesMeta:
     "@roots/bud-babel":
       optional: true
     "@roots/bud-entrypoints":
       optional: true
+    "@roots/bud-esbuild":
+      optional: true
     "@roots/bud-postcss":
+      optional: true
+    "@roots/bud-swc":
       optional: true
   languageName: unknown
   linkType: soft
@@ -5829,9 +5832,7 @@ __metadata:
   resolution: "@roots/bud-preset-wordpress@workspace:sources/@roots/bud-preset-wordpress"
   dependencies:
     "@roots/browserslist-config": "workspace:sources/@roots/browserslist-config"
-    "@roots/bud-api": "workspace:sources/@roots/bud-api"
-    "@roots/bud-babel": "workspace:sources/@roots/bud-babel"
-    "@roots/bud-entrypoints": "workspace:sources/@roots/bud-entrypoints"
+    "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-preset-recommend": "workspace:sources/@roots/bud-preset-recommend"
     "@roots/bud-react": "workspace:sources/@roots/bud-react"
@@ -5839,22 +5840,12 @@ __metadata:
     "@roots/bud-wordpress-externals": "workspace:sources/@roots/bud-wordpress-externals"
     "@roots/bud-wordpress-manifests": "workspace:sources/@roots/bud-wordpress-manifests"
     "@skypack/package-check": 0.2.2
-    "@types/lodash": 4.14.187
     "@types/node": 16.18.3
-    "@types/react": 17.0.52
-    "@types/react-dom": 17.0.18
-    chalk: 5.1.2
-    lodash-es: 4.17.21
-    react: 17.0.2
-    react-dom: 17.0.2
     tslib: 2.4.1
     vitest: 0.24.5
-    webpack: 5.74.0
   peerDependencies:
     "@roots/browserslist-config": "*"
-    "@roots/bud-babel": "*"
-    "@roots/bud-entrypoints": "*"
-    "@roots/bud-framework": "*"
+    "@roots/bud": "*"
     "@roots/bud-preset-recommend": "*"
     "@roots/bud-react": "*"
     "@roots/bud-wordpress-dependencies": "*"
@@ -5863,11 +5854,7 @@ __metadata:
   peerDependenciesMeta:
     "@roots/browserslist-config":
       optional: true
-    "@roots/bud-babel":
-      optional: true
-    "@roots/bud-entrypoints":
-      optional: true
-    "@roots/bud-framework":
+    "@roots/bud":
       optional: true
     "@roots/bud-preset-recommend":
       optional: true
@@ -6007,6 +5994,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-server@workspace:sources/@roots/bud-server"
   dependencies:
+    "@roots/bud-api": "workspace:sources/@roots/bud-api"
     "@roots/bud-client": "workspace:sources/@roots/bud-client"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
@@ -6027,6 +6015,7 @@ __metadata:
     vitest: 0.24.5
     webpack: 5.74.0
     webpack-dev-middleware: 5.3.3
+    webpack-dev-server: 4.11.1
   languageName: unknown
   linkType: soft
 
@@ -27829,6 +27818,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"selfsigned@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "selfsigned@npm:2.1.1::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fselfsigned%2F-%2Fselfsigned-2.1.1.tgz"
+  dependencies:
+    node-forge: ^1
+  checksum: aa9ce2150a54838978d5c0aee54d7ebe77649a32e4e690eb91775f71fdff773874a4fbafd0ac73d8ec3b702ff8a395c604df4f8e8868528f36fd6c15076fb43a
+  languageName: node
+  linkType: hard
+
 "semver-diff@npm:^3.1.1":
   version: 3.1.1
   resolution: "semver-diff@npm:3.1.1"
@@ -31850,6 +31848,50 @@ __metadata:
   peerDependencies:
     webpack: ^4.0.0 || ^5.0.0
   checksum: dd332cc6da61222c43d25e5a2155e23147b777ff32fdf1f1a0a8777020c072fbcef7756360ce2a13939c3f534c06b4992a4d659318c4a7fe2c0530b52a8a6621
+  languageName: node
+  linkType: hard
+
+"webpack-dev-server@npm:4.11.1":
+  version: 4.11.1
+  resolution: "webpack-dev-server@npm:4.11.1::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fwebpack-dev-server%2F-%2Fwebpack-dev-server-4.11.1.tgz"
+  dependencies:
+    "@types/bonjour": ^3.5.9
+    "@types/connect-history-api-fallback": ^1.3.5
+    "@types/express": ^4.17.13
+    "@types/serve-index": ^1.9.1
+    "@types/serve-static": ^1.13.10
+    "@types/sockjs": ^0.3.33
+    "@types/ws": ^8.5.1
+    ansi-html-community: ^0.0.8
+    bonjour-service: ^1.0.11
+    chokidar: ^3.5.3
+    colorette: ^2.0.10
+    compression: ^1.7.4
+    connect-history-api-fallback: ^2.0.0
+    default-gateway: ^6.0.3
+    express: ^4.17.3
+    graceful-fs: ^4.2.6
+    html-entities: ^2.3.2
+    http-proxy-middleware: ^2.0.3
+    ipaddr.js: ^2.0.1
+    open: ^8.0.9
+    p-retry: ^4.5.0
+    rimraf: ^3.0.2
+    schema-utils: ^4.0.0
+    selfsigned: ^2.1.1
+    serve-index: ^1.9.1
+    sockjs: ^0.3.24
+    spdy: ^4.0.2
+    webpack-dev-middleware: ^5.3.1
+    ws: ^8.4.2
+  peerDependencies:
+    webpack: ^4.37.0 || ^5.0.0
+  peerDependenciesMeta:
+    webpack-cli:
+      optional: true
+  bin:
+    webpack-dev-server: bin/webpack-dev-server.js
+  checksum: b7601a39ee0f413988259e29a36835b0a68522cfaa161de5b7ec99b3399acdd99d44189add4aaf4a5191258bb130f9cf3e68919324a1955c7557f5fe6ab0d96c
   languageName: node
   linkType: hard
 

@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 /* global __resourceQuery */
 
-import intercept from './intercept'
+import intercept from './index.js'
 
 window.requestAnimationFrame(async function ready() {
   if (!__resourceQuery) return

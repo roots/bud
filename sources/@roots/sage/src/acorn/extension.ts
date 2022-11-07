@@ -1,3 +1,4 @@
+import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {bind, label} from '@roots/bud-framework/extension/decorators'
 
@@ -18,44 +19,33 @@ export default class Acorn extends Extension {
    * @decorator `@bind`
    */
   @bind
-  public async register() {
+  public async register(bud: Bud) {
     /**
      * Override output directory for svg assets
      *
      * `@roots/bud-build` places them, by default, in `@dist/svg/`
      */
-    this.app.build.rules.svg.setGenerator(this.svgGenerator)
+    bud.build.rules.svg.setGenerator(this.svgGenerator)
     this.logger.success(`set svg generator path`)
 
-    /**
-     * Write hmr.json
-     */
-    if (this.app.isDevelopment) {
-      this.app.hooks.action(`compiler.close`, eventCompilerDone)
-      this.logger.success(`registered compiler.close callback`)
-    }
-  }
-
-  /**
-   * `configAfter` callback
-   */
-  @bind
-  public async configAfter() {
-    this.app.extensions
+    bud.extensions
       .get(`@roots/bud-entrypoints`)
       .setOption(`publicPath`, ``)
 
     this.logger.success(`unset entrypoints publicPath`)
 
-    this.app.extensions
+    bud.extensions
       .get(`@roots/bud-extensions/webpack-manifest-plugin`)
       .setOption(`publicPath`, ``)
 
     this.logger.success(`unset manifest publicPath`)
 
-    if (this.app.isDevelopment) {
-      this.app.setPublicPath(`/`)
-      this.logger.success(`set publicPath to / for dev`)
+    /**
+     * Write hmr.json
+     */
+    if (bud.isDevelopment) {
+      bud.hooks.action(`compiler.close`, eventCompilerDone)
+      this.logger.success(`registered compiler.close callback`)
     }
   }
 
