@@ -94,7 +94,7 @@ exports[`node-api snapshots package.json 1`] = `
     ]
   },
   \\"devDependencies\\": {
-    \\"@roots/bud\\": \\"workspace:*\\"
+    \\"@roots/bud\\": \\"workspace:sources/@roots/bud\\"
   }
 }
 "

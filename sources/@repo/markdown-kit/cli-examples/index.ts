@@ -14,6 +14,7 @@ const main = async () => {
     generateMarkdown([`build`, `production`, `--help`]),
     generateMarkdown([`build`, `development`, `--help`]),
     generateMarkdown([`repl`, `--help`]),
+    generateMarkdown([`upgrade`, `--help`]),
     generateMarkdown([`view`, `--help`]),
   ])
 }

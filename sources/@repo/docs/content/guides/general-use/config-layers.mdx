@@ -29,7 +29,7 @@ The following `.env` will be applied to your build automatically, if present:
 
 You may also use the `bud` key in `package.json` to modify certain base values:
 
-```json5
+```json5 title='package.json'
 {
   "bud": {
     "paths": {
@@ -43,6 +43,36 @@ You may also use the `bud` key in `package.json` to modify certain base values:
       "allowlist": string[],
       "denylist": string[],
       "discovery": boolean
+    }
+  }
+}
+```
+
+If you are using a multi-instance configuration, you can specify `extensions` to load on a per-instance basis:
+
+The top level `extensions` key will be applied to all instances.
+
+```json5 title='package.json'
+{
+  "bud": {
+    "extensions": {
+      "allowlist": string[],
+      "denylist": string[],
+      "discovery": boolean
+    },
+    "compiler-a": {
+      "extensions": {
+        "allowlist": string[],
+        "denylist": string[],
+        "discovery": boolean
+      }
+    },
+    "compiler-b": {
+      "extensions": {
+        "allowlist": string[],
+        "denylist": string[],
+        "discovery": boolean
+      }
     }
   }
 }

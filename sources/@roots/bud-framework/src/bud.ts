@@ -262,9 +262,11 @@ export class Bud {
 
     this.get(context.label).hooks.on(
       `build.dependencies`,
-      Object.values(this.children)
-        .map(({label}) => label)
-        .filter(label => label !== context.label),
+      typeof request !== `string` && request.dependsOn
+        ? request.dependsOn
+        : Object.values(this.children)
+            .map(({label}) => label)
+            .filter(label => label !== context.label),
     )
 
     if (tap) await tap(this.get(context.label))

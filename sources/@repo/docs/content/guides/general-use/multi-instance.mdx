@@ -19,47 +19,26 @@ different build requirements for different application components &mdash; it is 
 
 To create a new child instance, we can use [bud.make](/docs/bud.make).
 
-It is a function that accepts two parameters:
-
-1. A context (at minimum, a unique string used to identify the instance), and;
-2. an optional callback used to configure the instance.
+The simplest implementation sets the `label` of the compiler with a `string`, and provides a configuration callback:
 
 ```ts title='bud.config.js'
 export default async bud => {
-  await bud.make('theme', async theme => theme.entry('theme'))
+  await bud.make('theme', async theme => theme.entry('index'))
 }
 ```
 
-In this example we're creating two instances: one for `theme` code and another for `plugin` code.
+More complex implementations can be achieved by supplying **context** overrides using an object:
 
-```ts title='bud.config.mjs'
-/**
- * Configuration which runs two instances of bud.
- */
+```ts title='bud.config.js'
 export default async bud => {
-  /**
-   * Make `theme` workspace in `./theme`
-   */
   await bud.make(
-    {
-      label: 'theme',
-      basedir: bud.path('theme'),
-    },
-    async theme => theme.entry('theme', ['theme.js', 'theme.css']),
-  )
-
-  /**
-   * Make plugin workspace in `./plugin`
-   */
-  await bud.make(
-    {
-      label: 'plugin',
-      basedir: bud.path('plugin'),
-    },
-    async plugin => plugin.entry('plugin', ['plugin.js', 'plugin.css']),
+    {label: `plugin`, basedir: bud.path(`plugin`)},
+    async plugin => plugin.entry(`index`),
   )
 }
 ```
+
+See the [bud.make](/docs/bud.make) documentation for more information.
 
 ## Using the `--target` flag
 
@@ -82,25 +61,24 @@ $ yarn bud build --target theme --target plugin
 
 By default, all extensions will be applied to all compilers in the project.
 
-You can use the `--no-discovery` flag to prevent any extensions from being registered (except for core extensions).
+If the extensions differ between compilers you can either use the `--no-discovery` flag or set the
+[`bud.extensions.discovery` property in your root package.json to `false`](/guides/general-use/config-layers)
+to prevent extensions from being automatically injected.
 
-In that case you will need to manually register the extensions you want to use per compiler:
+Then, you can manually load the extensions on a per-compiler basis:
 
 ```ts title='bud.config.mjs'
-import BudReact from '@roots/bud-react'
-import BudPostCSS from '@roots/bud-postcss'
-
 export default async bud => {
   await bud.make('theme', async theme => {
     theme
-      .use(BudPostCSS)
+      .use('@roots/bud-postcss')
       .setPath('@dist', 'dist/theme')
       .entry('theme', ['theme.css'])
   })
 
   await bud.make('plugin', async plugin => {
     plugin
-      .use(BudReact)
+      .use('@roots/bud-react')
       .setPath('@dist', 'dist/plugin')
       .entry('plugin', ['plugin.js'])
   })
