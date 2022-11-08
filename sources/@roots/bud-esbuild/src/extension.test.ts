@@ -14,8 +14,7 @@ describe(`@roots/bud-esbuild`, () => {
 
     await bud.extensions.add(esbuild)
     extension = bud.extensions.get(`@roots/bud-esbuild`)
-    await extension.register(bud)
-    await extension.buildBefore()
+    await extension.buildBefore(bud)
   })
 
   it(`should be constructable`, () => {
@@ -30,10 +29,6 @@ describe(`@roots/bud-esbuild`, () => {
 
   it(`has label prop`, () => {
     expect(extension.label).toBe(`@roots/bud-esbuild`)
-  })
-
-  it(`is a method`, () => {
-    expect(extension.register).toBeInstanceOf(Function)
   })
 
   it(`registers js ruleset item`, () => {

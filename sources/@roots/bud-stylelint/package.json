@@ -65,7 +65,7 @@
     "webpack": "5.74.0"
   },
   "dependencies": {
-    "@roots/bud": "workspace:*",
+    "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "stylelint": "14.14.0",

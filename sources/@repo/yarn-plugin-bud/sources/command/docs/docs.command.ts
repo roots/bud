@@ -75,33 +75,6 @@ export class Docs extends Command {
   public async execute() {
     const all = !this.site && !this.readme && !this.api
 
-    if (all || this.api) {
-      /**
-       * Generate API docs
-       */
-      await this.$(
-        `\
-typedoc \
-\ --out ./sources/@repo/docs/content/dev/api \
-\ --tsconfig ./config/tsconfig.json \
-\ --entryPoints \
-\ ./sources/@roots/bud-framework/src/index.ts \
-\ ./sources/@roots/bud-framework/src/extension/index.ts \
-\ ./sources/@roots/bud-framework/src/methods/index.ts \
-\ ./sources/@roots/bud-framework/src/services/index.ts \
-\ ./sources/@roots/bud/src/index.ts \
-\ ./sources/@roots/bud/src/cli/index.ts \
-\ ./sources/@roots/bud-api/src/index.ts \
-\ ./sources/@roots/bud-build/src/index.ts \
-\ ./sources/@roots/bud-compiler/src/index.ts \
-\ ./sources/@roots/bud-hooks/src/index.ts \
-\ ./sources/@roots/bud-server/src/index.ts \
-\ ./sources/@roots/bud/src/index.ts \
-\ ./sources/@roots/container/src/index.ts \
-\ ./sources/@roots/sage/src/index.ts`,
-      )
-    }
-
     /**
      * Build docs site cli examples
      */
@@ -115,15 +88,6 @@ typedoc \
        * Build docs
        */
       await this.$(`yarn workspace @repo/docs run build`)
-
-      /**
-       * Copy api docs into `@repo/docs/build` directory
-       */
-      await copy(
-        `${repo.paths.sources}/@repo/docs/content/dev/api`,
-        `${repo.paths.sources}/@repo/docs/build/dev/api`,
-        {overwrite: true},
-      )
     }
 
     if (all || this.readme) {

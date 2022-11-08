@@ -2,12 +2,14 @@
   "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
     "sourceMap": false,
-    "rootDir": "src",
-    "outDir": "lib"
+    "rootDir": "./src",
+    "outDir": "./lib",
+    "types": ["node", "@roots/bud-api"]
   },
-  "include": ["src"],
+  "include": ["./src/**/*.ts"],
   "exclude": ["**/*.test.ts", "*.test.ts"],
   "references": [
+    {"path": "./../bud-api/tsconfig.json"},
     {"path": "./../bud-framework/tsconfig.json"},
     {"path": "./../bud-support/tsconfig.json"}
   ]

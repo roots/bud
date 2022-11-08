@@ -1,4 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
+import {isUndefined} from '@roots/bud-support/lodash-es'
 import {cpus} from 'os'
 import type {Configuration} from 'webpack'
 
@@ -16,6 +17,11 @@ export {resolve} from './resolve.js'
 export interface ValueFactory<T extends keyof B, B = Configuration> {
   (app: Bud): Promise<B[T]>
 }
+
+export const dependencies: ValueFactory<`dependencies`> = async app =>
+  app.hooks
+    .filter(`build.dependencies`)
+    .filter(label => !isUndefined(app.root.children[label]))
 
 export const entry: ValueFactory<`entry`> = async app =>
   app.hooks.filter(`build.entry`)

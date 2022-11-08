@@ -1,4 +1,4 @@
 export default {
   root: true,
-  extends: ['@roots/eslint-config/wordpress'],
+  extends: ['@roots/bud-preset-wordpress/eslint-config'],
 }

@@ -1,4 +1,4 @@
-import {Extension} from '@roots/bud-framework'
+import {Bud, Extension} from '@roots/bud-framework'
 import {
   bind,
   label,
@@ -78,16 +78,17 @@ export interface Options {
 })
 export default class BudEsbuild extends Extension<Options> {
   /**
-   * `boot` callback
+   * `buildBefore` callback
+   *
+   * @remarks
    *
    * @public
-   * @decorator `@bind`
    */
   @bind
-  public async register() {
+  public async buildBefore(bud: Bud) {
     const loader = await this.resolve(`esbuild-loader`)
 
-    this.app.build
+    bud.build
       .setLoader(`esbuild`, loader)
       .setItem(`esbuild-js`, {
         loader: `esbuild`,
@@ -104,21 +105,11 @@ export default class BudEsbuild extends Extension<Options> {
       })
       .rules.js.setUse([`esbuild-js`])
 
-    this.app.hooks.on(`build.resolve.extensions`, ext =>
+    bud.hooks.on(`build.resolve.extensions`, ext =>
       ext.add(`.ts`).add(`.tsx`),
     )
-  }
 
-  /**
-   * `buildBefore` callback
-   *
-   * @remarks
-   *
-   * @public
-   */
-  @bind
-  public async buildBefore() {
-    this.app.hooks.on(`build.optimization.minimizer`, () => [
+    bud.hooks.on(`build.optimization.minimizer`, () => [
       new ESBuildMinifyPlugin(this.options.minify),
     ])
   }

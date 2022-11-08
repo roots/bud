@@ -20,8 +20,8 @@
     "packages": [
       "sources/@roots/*",
       "sources/@repo/*",
-      "tests/util/project",
-      "sources/@roots/bud-sass/test/fixtures/issue-1798"
+      "sources/@roots/bud-sass/test/fixtures/issue-1798",
+      "tests/util/project"
     ]
   },
   "type": "module",

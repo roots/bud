@@ -15,7 +15,7 @@ export default async env => {
   /**
    * Set entrypoints and do other config as usual
    */
-  bud.entry('app', 'index.js').minimize().splitChunks()
+  bud.when(env.production, () => bud.minimize().splitChunks())
 
   /**
    * This is our final config object. Return it for webpack.

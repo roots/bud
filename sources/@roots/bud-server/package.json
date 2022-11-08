@@ -49,11 +49,12 @@
         "./lib/index.d.ts"
       ],
       "service": [
-        "./lib/service/servide.d.ts"
+        "./lib/service/service.d.ts"
       ]
     }
   },
   "devDependencies": {
+    "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@skypack/package-check": "0.2.2",
     "@types/connect": "3.4.35",
     "@types/cookie-parser": "1.4.3",

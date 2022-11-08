@@ -14,4 +14,5 @@ export const output = async (app: Bud): Promise<Configuration['output']> =>
     path: app.hooks.filter(`build.output.path`),
     pathinfo: app.hooks.filter(`build.output.pathinfo`),
     publicPath: app.hooks.filter(`build.output.publicPath`),
+    uniqueName: app.hooks.filter(`build.output.uniqueName`),
   })

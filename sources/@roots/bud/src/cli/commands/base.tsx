@@ -17,6 +17,7 @@ import Render from '../render.js'
 export default abstract class BaseCommand extends Command {
   /**
    * Command usage
+   *
    * @public
    */
   public static usage = Command.Usage({
@@ -264,6 +265,14 @@ export default abstract class BaseCommand extends Command {
 
   @bind
   public handleError(error: any) {
-    this.app.fatal(error)
+    this.context.stderr.write(
+      `\n`
+        .concat(
+          typeof error === `string`
+            ? error
+            : error?.message ?? JSON.stringify(error),
+        )
+        .concat(`/n`),
+    )
   }
 }

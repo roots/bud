@@ -1,7 +1,6 @@
 import {urlToHttpOptions} from 'node:url'
 
 import type {Bud} from '@roots/bud-framework'
-import * as fs from '@roots/bud-support/fs'
 
 /**
  * `compiler.done` callback
@@ -12,19 +11,42 @@ import * as fs from '@roots/bud-support/fs'
  *
  * @public
  */
-export default async function (app: Bud) {
+export default async function (bud: Bud) {
   try {
-    await fs.ensureFile(app.path(`@dist/hmr.json`))
-
-    await fs.writeJson(app.path(`@dist`, `hmr.json`), {
-      dev: urlToHttpOptions(app.server.connection.url) ?? null,
-      proxy:
-        urlToHttpOptions(
-          app.hooks.filter(`dev.middleware.proxy.target`),
-        ) ?? null,
-      publicPath: app.hooks.filter(`build.output.publicPath`) ?? null,
-    })
+    if (bud.hasChildren) {
+      await Promise.all(
+        Object.values(bud.children).map(
+          async bud => await writeIfEnabled(bud),
+        ),
+      )
+    } else {
+      await writeIfEnabled(bud)
+    }
   } catch (error) {
-    app.error(error)
+    bud.error(error)
   }
+}
+
+const writeIfEnabled = async (bud: Bud) => {
+  if (
+    !bud.extensions.has(`@roots/sage`) ||
+    !(await bud.extensions.get(`@roots/sage`).isEnabled())
+  )
+    return
+
+  await writeJson(bud)
+}
+
+const writeJson = async function (bud: Bud) {
+  const devUrl = bud.root.hooks.filter(`dev.url`)
+  const proxyUrl = bud.root.hooks.filter(`dev.middleware.proxy.target`)
+  const publicPath = bud.root.hooks.filter(`build.output.publicPath`)
+  const writePath = bud.path(`@dist`, `hmr.json`)
+
+  await bud.fs.exists(writePath)
+  await bud.fs.write(writePath, {
+    dev: devUrl instanceof URL ? urlToHttpOptions(devUrl) : devUrl,
+    proxy: proxyUrl instanceof URL ? urlToHttpOptions(proxyUrl) : proxyUrl,
+    publicPath,
+  })
 }

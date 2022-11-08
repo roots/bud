@@ -3,8 +3,15 @@ import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
   dependsOn,
+  dependsOnOptional,
+  expose,
   label,
+  options,
 } from '@roots/bud-framework/extension/decorators'
+
+interface Options {
+  acorn: `v2` | `v3`
+}
 
 /**
  * roots/sage support extension
@@ -15,11 +22,14 @@ import {
  */
 @label(`@roots/sage`)
 @dependsOn([
-  `@roots/sage/acorn`,
   `@roots/sage/wp-theme-json`,
   `@roots/bud-preset-wordpress`,
+  `@roots/sage/acorn`,
 ])
-export default class Sage extends Extension {
+@dependsOnOptional([`@roots/bud-tailwindcss`])
+@options<Options>({acorn: `v2`})
+@expose(`sage`)
+export default class Sage extends Extension<Options> {
   /**
    * `boot` callback
    *
@@ -28,17 +38,19 @@ export default class Sage extends Extension {
    */
   @bind
   public async register(app: Bud) {
+    if (app.extensions.has(`@roots/bud-tailwindcss`))
+      await app.extensions.add(`@roots/sage/wp-theme-json-tailwind`)
+
     /* Set paths */
     app.setPath({
       '@src': `resources`,
-      '@dist': `public`,
       '@resources': `@src`,
-      '@public': `@dist`,
       '@fonts': `@src/fonts`,
       '@images': `@src/images`,
       '@scripts': `@src/scripts`,
       '@styles': `@src/styles`,
-      '@views': `@src/views`,
+      '@dist': `public`,
+      '@public': `@dist`,
     })
 
     /* Set aliases */
@@ -57,5 +69,26 @@ export default class Sage extends Extension {
       () => app.minimize().hash().runtime(`single`).splitChunks(),
       () => app.devtool(),
     )
+  }
+
+  /**
+   * `configAfter` callback
+   *
+   * @public
+   */
+  @bind
+  public async configAfter(app: Bud) {
+    if (this.options.acorn === `v2`)
+      await app.extensions.add(`@roots/sage/acorn-v2-public-path`)
+  }
+
+  /**
+   * Set acorn version
+   *
+   * @public
+   */
+  @bind
+  public setAcornVersion(version: 'v2' | 'v3') {
+    this.setOption(`acorn`, version)
   }
 }

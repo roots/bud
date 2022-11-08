@@ -1,0 +1,119 @@
+---
+slug: 6.5.4
+title: 6.5.4
+description: Release notes for bud.js 6.5.4
+date: 2022-11-03
+author: Kelly Mears
+author_title: Lead developer
+author_url: https://github.com/kellymears
+author_image_url: https://avatars.githubusercontent.com/u/397606?v=4
+tags: [release, 6.5]
+---
+
+<!--truncate-->
+
+## 🚨 breaking: builtin extension keys are normalized
+
+| label                                                       | description                                                                                     | exposed |
+| ----------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ------- |
+| @roots/bud-extensions/cdn                                   | Adds remote import functionality                                                                | bud.cdn |
+| @roots/bud-extensions/esm                                   | Adds ESM support functionality                                                                  | bud.esm |
+| @roots/bud-extensions/clean-webpack-plugin                  | Cleans output directory on build                                                                |         |
+| @roots/bud-extensions/copy-webpack-plugin                   | Copies assets (used by [bud.assets](/docs/bud.assets))                                          |         |
+| @roots/bud-extensions/fix-style-only-entrypoints            | Removes JS output from entrypoints which only contain CSS                                       |         |
+| @roots/bud-extensions/html-webpack-plugin                   | HTML functionality (used by [bud.template](/docs/bud.template))                                 |         |
+| @roots/bud-extensions/interpolate-html-webpack-plugin       | Adds `create-react-app`-like template variable support for HTML files                           |         |
+| @roots/bud-extensions/mini-css-extract-plugin               | Optimized CSS loading                                                                           |         |
+| @roots/bud-extensions/webpack-define-plugin                 | Defines variables which can be used in the application (used by [bud.define](/docs/bud.define)) |         |
+| @roots/bud-extensions/webpack-hot-module-replacement-plugin | Adds HMR support                                                                                |         |
+| @roots/bud-extensions/webpack-manifest-plugin               | Emits `manifest.json`                                                                           |         |
+| @roots/bud-extensions/webpack-provide-plugin                | Provides import(s) globally to the application                                                  |         |
+
+If you were using one of these labels directly, you'll need to update it. The upshot of this is that your editor will likely not only tell you that it's wrong but also offer the new key as a suggestion.
+
+## ✨ improve: Can use package signifiers with `bud.extensions.add` and `bud.use`
+
+Very convenient!
+
+```js
+bud.use('browsersync-webpack-plugin')
+```
+
+```js
+await bud.extensions.add('browsersync-webpack-plugin')
+```
+
+Only works for `default` exports. But, should be compatible with CommonJS or ES modules.
+
+## 🏷️ typings: mapped extension options
+
+You should now get useful, accurate intellisense and typechecking when using the `bud.extensions` api directly.
+
+## ✨ improve: CLI feedback when using `bud.serve` in a child compiler
+
+It tells you to move it to the parent context.
+
+## ✨ improve: clean up stack traces (#1773)
+
+There should be less duplication of emitted errors, more meaningful stack traces, and highlighting of important
+parts of the error message.
+
+## ✨ improve: improve env interpolation (#1856)
+
+Variables sourced from .env files in the path to the project are now interpolated using env-expand.
+Previously, only the project directory would be expanded.
+
+If you have an unescaped string that causes the expansion to fail the error will be caught.
+
+## ✨ improve: `@roots/bud-client` now better supports multi-compiler
+
+Each bud.js instance's entrypoints are now registered with `@roots/bud-client/hot`. This helps to prevent conflicts
+with reloaded modules when using multiple bud instances.
+
+Some notes:
+
+- Each instance now declares each previous instance as a dependency. This the [bud.runtime](https://bud.js.org/docs/runtime) to work even when using
+  multiple instances.
+- If you are using [bud.runtime](https://bud.js.org/docs/runtime) you will need to make sure that you are using `runtime(\`single\`)`.
+- If you want to modify the instance dependencies manually, you can use the (new) `build.dependencies` hook. Or, specify the dependencies in the `context` argument
+  passed to [bud.make](https://bud.js.org/docs/make).
+- The [bud.make](https://bud.js.org/docs/make) docs have been updated.
+
+```js
+bud.make({
+  label: `example`,
+  basedir: bud.path(`example`),
+  dependsOn: [`some-other-instance`],
+})
+```
+
+## 🎉 feat(none): `bud upgrade` command (#1855)
+
+Run `bud upgrade` to upgrade your project bud dependencies to the latest available version. You will need to run the install after the command completes.
+
+## 🎉 feat: `@roots/bud-emotion` now supports `@roots/bud-swc`
+
+If you have `@roots/bud-swc` installed, `@roots/bud-emotion` will register emotion support with `@swc/core`.
+
+## 🎉 feat: `@roots/bud-swc` plugins are configurable
+
+Call `bud.swc.plugins` to manage `@swc/core` plugins. You can pass an array of plugins (as demonstrated in the swc docs) or a callback
+if you want to modify what's already there:
+
+```js
+bud.swc.plugins(plugins => {
+  plugins.push([`swc-plugin`, {option: true}])
+})
+```
+
+## 🩹 fix: reload browser on watched files add/unlink (#1781)
+
+When files are added or removed from a watched directory path the browser will now reload.
+
+## 🧪 test(none): migrate jest to vitest (#1850)
+
+This should have no bearing on your project but we switched from jest to vitest and it's pretty cool.
+
+## ℹ️ Release information
+
+For more information [review the diff to see what's changed](https://github.com/roots/bud/compare/v6.5.3...v6.5.4).

@@ -7,7 +7,7 @@ import type {Compiler, MultiCompiler, StatsCompilation} from 'webpack'
 import type {Payload} from './payload.js'
 import {HotEventStream} from './stream.js'
 
-const middlewarePath = `/__bud/hmr`
+const middlewarePath = `/bud/hot`
 
 let latestStats = null
 let closed = false
@@ -23,7 +23,6 @@ export const makeHandler = (compiler: Compiler | MultiCompiler) => {
 
   const onInvalid = () => {
     if (closed) return
-    latestStats = null
     stream.publish({action: `building`})
   }
 
@@ -59,6 +58,8 @@ export const makeHandler = (compiler: Compiler | MultiCompiler) => {
     if (closed) return
     closed = true
     stream.close()
+    // @ts-ignore https://github.com/webpack/tapable/issues/32#issuecomment-350644466
+    stream = null
   }
 
   return middleware
@@ -69,7 +70,7 @@ export const publish = (
   statsCompilation: StatsCompilation,
   stream: HotEventStream,
 ) => {
-  const bundles = collectCompilations(
+  const compilations = collectCompilations(
     statsCompilation.toJson({
       all: false,
       cached: true,
@@ -81,13 +82,9 @@ export const publish = (
     }),
   )
 
-  bundles.forEach((stats: StatsCompilation) => {
+  compilations.forEach((stats: StatsCompilation) => {
     const name: string = stats.name ?? statsCompilation.name ?? `unnamed`
-
-    const modules: Record<string, string> = stats.modules?.reduce(
-      (modules, module) => ({...modules, [module.id]: module.name}),
-      {},
-    )
+    const modules = collectModules(stats.modules)
 
     logger.log(`built`, name, `(${stats.hash})`, `in`, `${stats.time}ms`)
 
@@ -96,22 +93,30 @@ export const publish = (
       action,
       time: stats.time,
       hash: stats.hash,
-      warnings: stats.warnings || [],
-      errors: stats.errors || [],
+      warnings: stats.warnings ?? [],
+      errors: stats.errors ?? [],
       modules,
     })
   })
 }
 
+export const collectModules = (modules: StatsCompilation['modules']) =>
+  modules?.reduce(
+    (modules, module) => ({...modules, [module.id]: module.name}),
+    {},
+  )
+
 export const collectCompilations = (
   stats: StatsCompilation,
 ): Array<StatsCompilation> => {
+  let collection = []
+
   // Stats has modules, single bundle
-  if (stats.modules) return [stats]
+  if (stats.modules) collection.push(stats)
 
   // Stats has children, multiple bundles
-  if (stats.children && stats.children.length) return stats.children
+  if (stats.children?.length) collection.push(...stats.children)
 
   // Not sure, assume single
-  return [stats]
+  return collection
 }

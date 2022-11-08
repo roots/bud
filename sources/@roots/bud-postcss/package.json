@@ -59,14 +59,11 @@
   },
   "devDependencies": {
     "@repo/test-kit": "workspace:sources/@repo/test-kit",
-    "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@roots/bud-build": "workspace:sources/@roots/bud-build",
-    "@roots/bud-cache": "workspace:sources/@roots/bud-cache",
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.18.3",
     "@types/signale": "1.4.4",
-    "vitest": "0.24.5",
-    "webpack": "5.74.0"
+    "vitest": "0.24.5"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
@@ -79,6 +76,7 @@
     "tslib": "2.4.1"
   },
   "peerDependencies": {
+    "@roots/bud": "*",
     "postcss": "*",
     "postcss-import": "*",
     "postcss-loader": "*",

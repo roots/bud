@@ -12,6 +12,7 @@ export interface Sync {
   'cache.type': 'memory' | 'filesystem'
   'cache.version': string
   context: Configuration['context'] | undefined
+  dependencies: Configuration['dependencies'] | undefined
   devtool: Configuration['devtool'] | undefined
   entry: Record<string, EntryObject>
   experiments: Configuration['experiments']
@@ -53,6 +54,7 @@ export interface Sync {
   'output.path': Configuration['output']['path']
   'output.pathinfo': Configuration['output']['pathinfo']
   'output.publicPath': string
+  'output.uniqueName': string
   parallelism: Configuration['parallelism']
   performance: Configuration['performance']
   profile: Configuration['profile']

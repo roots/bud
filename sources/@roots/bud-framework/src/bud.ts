@@ -231,7 +231,9 @@ export class Bud {
    * Creates a child with `bud.create` but returns the parent instance
    *
    * @public
+   * @decorator `@bind`
    */
+  @bind
   public async make(
     request: Options.Overrides | string,
     tap?: (app: Bud) => Promise<unknown>,
@@ -257,6 +259,15 @@ export class Bud {
 
     if (!this.children) this.children = {[context.label]: child}
     else this.children[context.label] = child
+
+    this.get(context.label).hooks.on(
+      `build.dependencies`,
+      typeof request !== `string` && request.dependsOn
+        ? request.dependsOn
+        : Object.values(this.children)
+            .map(({label}) => label)
+            .filter(label => label !== context.label),
+    )
 
     if (tap) await tap(this.get(context.label))
 

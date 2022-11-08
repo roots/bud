@@ -7,4 +7,5 @@ export interface Payload {
   hash: string
   warnings: StatsCompilation['warnings']
   errors: StatsCompilation['errors']
+  modules: Record<string, Array<string | number>>
 }

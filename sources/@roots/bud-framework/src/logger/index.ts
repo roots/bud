@@ -93,20 +93,30 @@ export class Logger {
    * @decorator `@bind` - to ensure `this` is bound to the instance
    */
   @bind
-  public format(messages: any[] | any) {
+  public format(
+    messages:
+      | {error?: string; message?: string}
+      | string
+      | Error
+      | Array<{error?: string; message?: string} | Error | string>,
+  ) {
     const format = (message: string) => {
       return message
         ?.replaceAll(this.app.commonPath, `.`)
         ?.replaceAll(/(.*)\s(.*)\/node_modules\/(.*)/g, `$1 $3`)
     }
 
-    const highlightFirstLine = message =>
+    const highlightFirstLine = (message: string) =>
       message
         .split(`\n`)
-        .map((ln, i) => (i === 0 ? chalk.white(ln) : chalk.dim(ln)))
+        .map((ln: string, i: number) =>
+          i === 0 ? chalk.white(ln) : chalk.dim(ln),
+        )
         .join(`\n`)
 
-    const parse = message => {
+    const extractString = (
+      message: Error | {error?: string; message?: string} | string,
+    ): string => {
       if (message instanceof Error) {
         return message.stack
           ? cleanStack(message.stack, {
@@ -116,22 +126,24 @@ export class Logger {
           : message.message
       }
 
-      if (message.error) {
+      if (typeof message === `string`) return format(message)
+
+      if (message?.error) {
         return cleanStack(message.error, {
           basePath: this.app.commonPath,
           pretty: true,
         })
       }
 
-      if (typeof message === `string`) return format(message)
-
-      return message.message ?? message
+      if (message?.message) {
+        return message.message
+      }
     }
 
     return highlightFirstLine(
       Array.isArray(messages)
-        ? messages.map(parse).join(` `)
-        : parse(messages),
+        ? messages.map(extractString).join(` `)
+        : extractString(messages),
     )
       .replaceAll(/file:\/\/~/g, `~`)
       .replaceAll(/'([^(\s|')]*)'/g, chalk.blue(`'$1'`))
@@ -140,9 +152,7 @@ export class Logger {
       .replaceAll(/~\/([^(\s|')]*)/g, chalk.blue(`~/$1`))
       .replaceAll(/ \/([^(\s|')]*)/g, chalk.blue(` /$1`))
       .split(`   at`)
-      .splice(0, 2)
-      .join(`   at`)
-      .split(`using description`)
       .shift()
+      .trim()
   }
 }

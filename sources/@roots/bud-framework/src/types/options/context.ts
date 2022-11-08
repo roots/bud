@@ -6,6 +6,7 @@ import type {Modules} from '../registry/modules'
 export interface BaseContext {
   label: string
   root?: Bud
+  dependsOn?: Array<string>
   basedir: string
   bud: Record<string, any>
   manifest?: Record<string, any>

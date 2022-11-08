@@ -7,7 +7,6 @@
   "devDependencies": {
     "@roots/browserslist-config": "latest",
     "@roots/bud": "latest",
-    "@roots/bud-preset-wordpress": "latest",
-    "@roots/eslint-config/wordpress": "latest"
+    "@roots/bud-preset-wordpress": "latest"
   }
 }

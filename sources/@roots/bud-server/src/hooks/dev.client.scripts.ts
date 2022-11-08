@@ -8,7 +8,7 @@ import {isNull, isUndefined} from '@roots/bud-support/lodash-es'
  *
  * @public
  */
-export const callback = () => new Set([overlay, proxyClickInterceptor])
+export const callback = () => new Set([hmrClient, proxyClickInterceptor])
 
 /**
  * Proxy click interceptor
@@ -19,29 +19,29 @@ export const callback = () => new Set([overlay, proxyClickInterceptor])
  * @public
  */
 export const proxyClickInterceptor = (app: Bud) => {
-  if (!app.hooks.filter(`dev.middleware.enabled`, []).includes(`proxy`))
-    return null
-
-  const target = app.hooks.filter(`dev.middleware.proxy.target`)
-  if (!target?.href) return null
+  if (
+    !app.hooks.filter(`dev.middleware.enabled`, []).includes(`proxy`) ||
+    !app.hooks.filter(`dev.middleware.proxy.target`)?.href
+  )
+    return
 
   const params = new URLSearchParams({
-    search: target.href,
+    search: app.hooks.filter(`dev.middleware.proxy.target`)?.href,
     replace: `/`,
   })
 
-  return `@roots/bud-client/lib/proxy-click-interceptor.js?${params.toString()}`
+  return `@roots/bud-client/lib/intercept/proxy-click-interceptor.js?${params.toString()}`
 }
 
 /**
- * Overlay
+ * Client
  *
  * @param app - Bud instance
  * @returns string
  *
  * @public
  */
-export const overlay = (app: Bud) => {
+export const hmrClient = (app: Bud) => {
   const params = new URLSearchParams({
     name: app.label,
     indicator:
@@ -61,5 +61,5 @@ export const overlay = (app: Bud) => {
         : app.context.args.reload.toString(),
   })
 
-  return `@roots/bud-client/lib/index.js?${params.toString()}`
+  return `@roots/bud-client/lib/hot/index.js?${params.toString()}`
 }

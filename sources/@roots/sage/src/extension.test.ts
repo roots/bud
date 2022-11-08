@@ -45,7 +45,7 @@ describe(`@roots/sage`, () => {
     })
 
     expect(spy).toHaveBeenLastCalledWith(
-      `location.@views`,
+      `location.@public`,
       expect.any(String),
     )
   })

@@ -12,20 +12,31 @@ describe(`@roots/bud-swc`, () => {
     bud = await factory()
   })
 
-  it(`is instantiable`, () => {
+  it(`should be instantiable`, () => {
     expect(new BudSWCExtension(bud)).toBeInstanceOf(BudSWCExtension)
   })
 
-  it(`calls hooks.on during registration`, async () => {
+  it(`should call hooks.on during registration`, async () => {
     const onSpy = vi.spyOn(bud.hooks, `on`)
     await new BudSWCExtension(bud).register(bud)
     expect(onSpy).toHaveBeenCalled()
   })
 
-  it(`calls registerSWC during configAfter`, async () => {
+  it(`should call registerSWC during buildBefore`, async () => {
     const extension = new BudSWCExtension(bud)
     const registerSWCSpy = vi.spyOn(extension, `registerSWC`)
-    await extension.configAfter(bud)
+    await extension.buildBefore(bud)
     expect(registerSWCSpy).toHaveBeenCalled()
+  })
+
+  it(`should add a plugin`, async () => {
+    const extension = new BudSWCExtension(bud)
+    extension.plugins(plugins => {
+      plugins.push([`test`])
+      return plugins
+    })
+    expect(extension.options?.jsc?.experimental?.plugins?.[0]).toEqual([
+      `test`,
+    ])
   })
 })

@@ -175,7 +175,6 @@ describe(`bud.build.config`, function () {
 
     expect(plugins).toContain(`CleanWebpackPlugin`)
     expect(plugins).toContain(`FixStyleOnlyEntrypoints`)
-    expect(plugins).toContain(`NormalModuleReplacementPlugin`)
   })
 
   it(`should have expected default requireEnsure rule`, async () => {

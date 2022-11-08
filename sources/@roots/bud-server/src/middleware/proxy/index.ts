@@ -110,7 +110,7 @@ export const proxy = (app: Bud) => {
   }
 
   return createProxyMiddleware(
-    app.hooks.filter(`dev.middleware.proxy.paths`, [`**`, `!/__bud/**`]),
+    app.hooks.filter(`dev.middleware.proxy.paths`, [`**`, `!/bud/**`]),
     app.hooks.filter(`dev.middleware.proxy.options`, options),
   )
 }

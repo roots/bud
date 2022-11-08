@@ -3,7 +3,7 @@
 /**
  * @vitest-environment jsdom
  */
-import './types/index'
+import '../types/index'
 
 import {describe, expect, it, vi} from 'vitest'
 
@@ -32,50 +32,37 @@ describe(`@roots/bud-client`, () => {
   })
 
   it(`should add window.bud`, async () => {
-    await client(`?name=test`, webpackHotMock, `test`)
+    await client(`?name=test`, webpackHotMock)
     expect(window.bud).toBeDefined()
   })
 
   it(`should add window.bud.hmr as an instance of EventSource`, async () => {
-    await client(`?name=test`, webpackHotMock, `test`)
+    await client(`?name=test`, webpackHotMock)
     expect(window.bud?.hmr?.test).toBeInstanceOf(EventSource)
   })
 
   it(`should set clientOptions`, async () => {
-    await client(`?name=test`, webpackHotMock, `test`)
-    const clientOptions = options.data
-    expect(clientOptions.test).toEqual(
+    await client(`?name=test`, webpackHotMock)
+    expect(options.data).toEqual(
       expect.objectContaining({
         debug: true,
         indicator: true,
         log: true,
-        name: `test`,
+        name: `@roots/bud-client`,
         overlay: true,
-        path: `/__bud/hmr`,
+        path: `/bud/hot`,
         reload: true,
-        timeout: 20000,
+        timeout: 2000,
       }),
     )
   })
 
-  it(`should call console.log`, async () => {
-    const spy = vi.spyOn(console, `log`)
-
-    await client(`?name=test`, webpackHotMock, `test`)
-    const clientOptions = options.data
-    const events = Events.make(clientOptions.test)
-    events.onopen()
-    expect(spy).toHaveBeenCalled()
-  })
-
   it(`should call listener from onmessage`, async () => {
-    await client(`?name=test`, webpackHotMock, `test`)
-    const clientOptions = options.data
-    const events = Events.make(clientOptions.test)
+    await client(`?name=test`, webpackHotMock)
+    const events = Events.make(options.data)
 
-    const listenerMock = vi.fn(async () => null)
-    events.addMessageListener(listenerMock)
-    events.messages = new Set([`123`, `234`])
+    const listenerMock = vi.fn(async () => {})
+    events.addListener(listenerMock)
 
     await events.onmessage(
       // @ts-ignore

@@ -6,6 +6,7 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
+import type {Options} from '@swc/core'
 
 /**
  * Transpile JS and TS with `swc-loader`
@@ -15,11 +16,13 @@ import {
  * @decorator `@options`
  */
 @label(`@roots/bud-swc`)
-@options({
+@options<Options>({
   jsc: {
+    experimental: {
+      plugins: [],
+    },
     parser: {
       syntax: `typescript`,
-      jsx: true,
       tsx: true,
       decorators: false,
       dynamicImport: true,
@@ -31,7 +34,7 @@ import {
   minify: false,
 })
 @expose(`swc`)
-export default class BudSWC extends Extension {
+export default class BudSWC extends Extension<Options> {
   /**
    * `register` callback
    *
@@ -52,8 +55,33 @@ export default class BudSWC extends Extension {
    * @decorator `@bind`
    */
   @bind
-  public async configAfter(bud: Bud) {
+  public async buildBefore(bud: Bud) {
     await this.registerSWC(bud)
+  }
+
+  /**
+   * Set SWC plugins
+   *
+   * @param plugins - Array of plugins or a function that returns an array of plugins
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public plugins(
+    plugins:
+      | Options['jsc']['experimental']['plugins']
+      | ((
+          plugins: Options['jsc']['experimental']['plugins'],
+        ) => Options['jsc']['experimental']['plugins']),
+  ) {
+    if (typeof plugins === `function`) {
+      this.options.jsc.experimental.plugins = plugins(
+        this.options.jsc.experimental.plugins,
+      )
+    } else {
+      this.options.jsc.experimental.plugins = plugins
+    }
   }
 
   /**

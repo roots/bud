@@ -33,6 +33,9 @@ export interface Sync {
    * @public
    */
   'client.scripts': Set<(app: Bud) => string>
+  'client.standalone': boolean
+  'client.path': string
+  'client.dist': string
 
   /**
    * Enabled middleware

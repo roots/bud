@@ -1,14 +1,16 @@
-/* eslint-disable no-console */
-/* global __resourceQuery */
-/* global __webpack_hash__ */
+// Copyright © Roots Software Foundation LLC
+// Licensed under the MIT license.
 
-import client from './client.js'
+/**
+ * `@roots/bud` client scripts
+ *
+ * You should not import this root module.
+ * Import the components from the submodules instead.
+ *
+ * @see https://bud.js.org
+ * @see https://github.com/roots/bud
+ *
+ *  @packageDocumentation
+ */
 
-// @ts-ignore
-const webpackHot: __WebpackModuleApi.Hot = import.meta
-  ? // @ts-ignore
-    import.meta.webpackHot
-  : module.hot
-
-;(async () =>
-  await client(__resourceQuery, webpackHot, __webpack_hash__))()
+export {}

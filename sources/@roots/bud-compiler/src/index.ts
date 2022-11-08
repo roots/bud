@@ -2,8 +2,7 @@
 // Licensed under the MIT license.
 
 /**
- * The {@link @roots/bud-compiler# | @roots/bud-compiler} package implements the
- * {@link @roots/bud-framework#Compiler | Compiler interface}
+ * The bud compiler interface
  *
  * @see https://bud.js.org
  * @see https://github.com/roots/bud

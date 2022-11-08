@@ -1,7 +1,6 @@
 import {Extension} from '@roots/bud-framework'
 import {
   bind,
-  dependsOnOptional,
   disabled,
   expose,
   label,
@@ -13,7 +12,6 @@ import {isBoolean, isFunction} from '@roots/bud-support/lodash-es'
 import Container from '@roots/container'
 
 import {Options, ThemeJsonWebpackPlugin} from './plugin.js'
-import * as tailwindAdapter from './tailwind/index.js'
 
 /**
  * Callback function used to configure wordpress `theme.json`
@@ -52,7 +50,6 @@ export interface Mutator {
  * @decorator `@disabled`
  */
 @label(`@roots/sage/wp-theme-json`)
-@dependsOnOptional([`@roots/bud-tailwindcss`])
 @options({
   path: ({path}) => path(`./theme.json`),
   settings: {
@@ -108,72 +105,6 @@ export default class ThemeJson extends Extension<
       `settings`,
       value instanceof Container ? value.all() : value,
     )
-
-    return this
-  }
-
-  @bind
-  public useTailwindColors(extendOnly?: boolean): this {
-    if (!this.app.extensions.has(`@roots/bud-tailwindcss`))
-      throw new Error(
-        `@roots/bud-tailwindcss is required in order to call \`useTailwindColors\``,
-      )
-
-    this.setOption(`settings`, {
-      ...(this.options.settings ?? {}),
-      color: {
-        ...(this.options.settings?.color ?? {}),
-        palette: tailwindAdapter.palette.transform(
-          this.app.tailwind.resolveThemeValue(`colors`, extendOnly),
-        ),
-      },
-    })
-
-    return this
-  }
-
-  @bind
-  public useTailwindFontFamily(extendOnly?: boolean): this {
-    this.setOption(`settings`, {
-      ...(this.options.settings ?? {}),
-      typography: {
-        ...(this.options.settings?.typography ?? {}),
-        fontFamilies: tailwindAdapter.fontFamily.transform(
-          Object.assign(
-            {},
-            {
-              ...this.app.tailwind.resolveThemeValue(
-                `fontFamily`,
-                extendOnly,
-              ),
-            },
-          ),
-        ),
-      },
-    })
-
-    return this
-  }
-
-  @bind
-  public useTailwindFontSize(extendOnly?: boolean): this {
-    this.setOption(`settings`, {
-      ...(this.options.settings ?? {}),
-      typography: {
-        ...(this.options.settings?.typography ?? {}),
-        fontSizes: tailwindAdapter.fontSize.transform(
-          Object.assign(
-            {},
-            {
-              ...this.app.tailwind.resolveThemeValue(
-                `fontSize`,
-                extendOnly,
-              ),
-            },
-          ),
-        ),
-      },
-    })
 
     return this
   }

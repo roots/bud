@@ -11,7 +11,7 @@ This is a work-in-progress.
 
 :::
 
-You can [reference API documentation here](https://bud.js.org/dev/api/).
+How to get started with bud.js locally.
 
 ## Installation
 
@@ -41,24 +41,24 @@ yarn @bud build
 
 Unit and integration tests are run with `vitest`.
 
-Most tests are stored in `tests/`.
+Most tests are stored in `tests/`. Integration and e2e testa have too complex a setup to be run in watchmode.
 
 ### Unit testing
 
 ```sh
-yarn @bud test unit  --verbose
+yarn @bud test unit
 ```
 
 ### Integration testing
 
 ```sh
-yarn @bud test integration --verbose
+yarn @bud test run integration
 ```
 
-### E2E testing
+### e2e testing
 
 ```sh
-yarn @bud test e2e --verbose
+yarn @bud test run e2e
 ```
 
 ## Linting
