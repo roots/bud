@@ -5236,6 +5236,7 @@ __metadata:
     lodash-es: 4.17.21
     prettier: 2.7.1
     strip-ansi: 7.0.1
+    typescript: 4.8.4
     vitest: 0.24.5
   languageName: unknown
   linkType: soft
@@ -6063,7 +6064,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-stylelint@workspace:sources/@roots/bud-stylelint"
   dependencies:
-    "@roots/bud": "workspace:*"
+    "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
@@ -6332,7 +6333,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/bud@workspace:*, @roots/bud@workspace:sources/@roots/bud":
+"@roots/bud@workspace:sources/@roots/bud":
   version: 0.0.0-use.local
   resolution: "@roots/bud@workspace:sources/@roots/bud"
   dependencies:
