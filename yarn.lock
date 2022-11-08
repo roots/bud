@@ -5612,6 +5612,7 @@ __metadata:
     vitest: 0.24.5
     webpack: 5.74.0
   peerDependencies:
+    "@roots/bud": "*"
     eslint: "*"
   peerDependenciesMeta:
     eslint:
