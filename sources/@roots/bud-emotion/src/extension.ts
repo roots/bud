@@ -1,9 +1,10 @@
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
-  dependsOn,
+  dependsOnOptional,
   label,
 } from '@roots/bud-framework/extension/decorators'
+import {isUndefined} from '@roots/bud-support/lodash-es'
 
 /**
  * Emotion extension
@@ -13,16 +14,23 @@ import {
  * @decorator `@dependsOnOptional`
  */
 @label(`@roots/bud-emotion`)
-@dependsOn([`@roots/bud-babel`])
+@dependsOnOptional([`@roots/bud-babel`, `@roots/bud-swc`])
 export default class BudEmotion extends Extension {
   /**
-   * `buildBefore` callback
+   * `afterConfig` callback
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public async buildBefore() {
-    this.app.babel.setPlugin(`@emotion/babel-plugin`)
+  public async afterConfig() {
+    if (!isUndefined(this.app.babel))
+      this.app.babel.setPlugin(`@emotion/babel-plugin`)
+
+    if (!isUndefined(this.app.swc))
+      this.app.swc.plugins(plugins => {
+        plugins.push([`emotion-swc-plugin`, {}])
+        return plugins
+      })
   }
 }

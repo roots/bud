@@ -10,6 +10,8 @@
  * @packageDocumentation
  */
 
+import './types.js'
+
 import BudEmotion from './extension.js'
 
 export default BudEmotion

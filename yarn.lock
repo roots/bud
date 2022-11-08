@@ -5523,11 +5523,15 @@ __metadata:
     "@emotion/css": ^11.10.5
     "@emotion/react": ^11.10.5
     "@emotion/styled": ^11.10.5
+    "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
+    "@roots/bud-support": "workspace:sources/@roots/bud-support"
+    "@roots/bud-swc": "workspace:sources/@roots/bud-swc"
     "@skypack/package-check": 0.2.2
     "@types/node": 16.18.3
     "@types/react": 17.0.52
+    emotion-swc-plugin: 0.0.5
     react: 17.0.2
     tslib: 2.4.1
     vitest: 0.24.5
@@ -5537,6 +5541,7 @@ __metadata:
     "@emotion/react": "*"
     "@emotion/styled": "*"
     "@roots/bud-babel": "*"
+    "@roots/bud-swc": "*"
   peerDependenciesMeta:
     "@emotion/babel-plugin":
       optional: true
@@ -5547,6 +5552,8 @@ __metadata:
     "@emotion/styled":
       optional: true
     "@roots/bud-babel":
+      optional: true
+    "@roots/bud-swc":
       optional: true
   languageName: unknown
   linkType: soft
@@ -14329,6 +14336,13 @@ __metadata:
   version: 3.2.0
   resolution: "emoticon@npm:3.2.0"
   checksum: f30649d18b672ab3139e95cb04f77b2442feb95c99dc59372ff80fbfd639b2bf4018bc68ab0b549bd765aecf8230d7899c43f86cfcc7b6370c06c3232783e24f
+  languageName: node
+  linkType: hard
+
+"emotion-swc-plugin@npm:0.0.5":
+  version: 0.0.5
+  resolution: "emotion-swc-plugin@npm:0.0.5"
+  checksum: 00e17226cb2f9de5110ec1c40bc7bfcf97959f2b0cf700ce4678a996856dbce53df5117352df148e4aa536027d181a0ecdf903b0d399dfc0dc9bb0252179b3b2
   languageName: node
   linkType: hard
 

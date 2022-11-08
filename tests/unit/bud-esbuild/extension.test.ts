@@ -11,6 +11,7 @@ describe(`@roots/bud-esbuild`, () => {
   beforeAll(async () => {
     bud = await factory()
     await bud.extensions.add(esbuild)
+    bud.extensions.remove(`@roots/bud-swc`)
     extension = bud.extensions.get(`@roots/bud-esbuild`)
     await bud.build.make()
   })
