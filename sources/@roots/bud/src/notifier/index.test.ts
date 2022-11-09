@@ -2,7 +2,7 @@ import type {Bud} from '@roots/bud-framework'
 import nodeNotifier from 'node-notifier'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import {Notifier} from './index.js'
+import Notifier from './index.js'
 
 const mockStatsReturn = {
   errors: [],

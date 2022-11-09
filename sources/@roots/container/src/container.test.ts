@@ -1,6 +1,6 @@
 import {describe, expect, it, vi} from 'vitest'
 
-import Container from './index'
+import Container from './index.js'
 
 describe(`container`, function () {
   describe(`constructor`, () => {

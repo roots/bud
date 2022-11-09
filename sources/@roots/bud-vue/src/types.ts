@@ -1,3 +1,6 @@
+/// <reference path="../../bud-postcss/lib/index.d.ts" />
+/// <reference path="../../bud-sass/lib/index.d.ts" />
+
 import type {Extension} from '@roots/bud-framework/extension'
 import type {Build} from '@roots/bud-framework/services'
 
@@ -20,6 +23,6 @@ declare module '@roots/bud-framework' {
   }
 
   interface Rules {
-    vue: Build.Rule.Interface
+    vue: Build.Rule
   }
 }

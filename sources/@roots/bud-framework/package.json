@@ -37,10 +37,11 @@
     "lib/"
   ],
   "type": "module",
-  "module": "./lib/index.js",
-  "types": "./lib/index.d.ts",
   "exports": {
-    ".": "./lib/index.js",
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    },
     "./bud": "./lib/bud.js",
     "./configuration": "./lib/configuration/index.js",
     "./extension": "./lib/extension/index.js",
@@ -56,6 +57,8 @@
     "./services/*": "./lib/services/*.js",
     "./value": "./lib/value.js"
   },
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "typesVersions": {
     "*": {
       ".": [

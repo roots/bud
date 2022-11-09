@@ -1,15 +1,9 @@
 {
   "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
-    "rootDir": "src",
-    "outDir": "lib",
-    "module": "esnext",
-    "types": ["node", "express"]
+    "rootDir": "./src",
+    "outDir": "./lib"
   },
-  "include": ["src"],
-  "exclude": ["lib", "node_modules", "src/**/*.test.ts"],
-  "references": [
-    {"path": "./../container/tsconfig.json"},
-    {"path": "./../bud-support/tsconfig.json"}
-  ]
+  "include": ["./src"],
+  "exclude": ["./lib", "./node_modules", "**/*.test.ts"]
 }

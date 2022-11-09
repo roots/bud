@@ -3,7 +3,7 @@ import {normalize} from 'node:path'
 import {isString, isUndefined} from '@roots/bud-support/lodash-es'
 
 import type {Bud} from '../../bud.js'
-import type * as Locations from '../../types/registry/locations'
+import type * as Locations from '../../types/registry/locations.js'
 
 export interface setPath {
   <T extends `${keyof Locations.Sync & string}`>(

@@ -4,9 +4,9 @@ import {bind, once} from '@roots/bud-support/decorators'
 import {signale} from '@roots/bud-support/signale'
 import * as t from '@roots/bud-support/typanion'
 
-import type Bud from '../../bud.js'
+import type Bud from '../../bud/index.js'
 import {factory} from '../../factory/index.js'
-import {Notifier} from '../../notifier/index.js'
+import Notifier from '../../notifier/index.js'
 import Render from '../render.js'
 
 /**

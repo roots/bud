@@ -1,7 +1,7 @@
 import {join, normalize, resolve, sep} from 'node:path'
 
-import type {Bud} from '../bud'
-import type * as Locations from '../types/registry/locations'
+import type {Bud} from '../bud.js'
+import type * as Locations from '../types/registry/locations.js'
 
 type Handle = `${keyof Locations.Sync}`
 type AbsolutePath = `/${string}`

@@ -22,8 +22,8 @@ export const factory = async (
   const bud = await makeInstance(
     {
       basedir: mockProject.path,
-      mode: `production`,
       ...(overrides ?? {}),
+      mode: overrides?.mode ?? `production`,
       args: {
         dry: true,
         log: false,

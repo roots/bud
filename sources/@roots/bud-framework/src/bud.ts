@@ -14,11 +14,12 @@ import type * as methods from './methods/index.js'
 import type {Module} from './module.js'
 import type * as Service from './service.js'
 import type * as Api from './services/api.js'
-import type ConsoleBuffer from './services/console'
+import type ConsoleBuffer from './services/console.js'
 import type FS from './services/fs.js'
-import type * as Options from './types/options'
-import type * as Registry from './types/registry'
-import type * as Services from './types/services'
+import type * as Options from './types/options/index.js'
+import type * as Registry from './types/registry/index.js'
+import type Hooks from './types/services/hooks.js'
+import type * as Services from './types/services/index.js'
 import Value from './value.js'
 
 /**
@@ -160,7 +161,7 @@ export class Bud {
 
   public extensions: Services.Extensions.Service
 
-  public hooks: Services.Hooks.Service
+  public hooks: Hooks
 
   public project: Services.Project.Service
 

@@ -12,7 +12,10 @@
 
 import './types.js'
 
-import Bud from './bud.js'
-import {factory, get} from './factory/index.js'
+import Bud from './bud/index.js'
+import * as cache from './factory/cache.js'
+import {factory} from './factory/index.js'
 
-export {Bud, Bud as default, factory, get}
+const {get, set} = cache
+
+export {Bud, Bud as default, cache, factory, get, set}

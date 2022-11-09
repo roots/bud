@@ -1,6 +1,6 @@
 import type {StatsCompilation} from 'webpack'
 
-import type {Service as Base} from '../../service'
+import type {Service as Base} from '../../service.js'
 
 /**
  * Dashboard service container

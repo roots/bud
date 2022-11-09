@@ -79,6 +79,7 @@
   },
   "devDependencies": {
     "@repo/test-kit": "workspace:sources/@repo/test-kit",
+    "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@skypack/package-check": "0.2.2",
     "@types/fs-extra": "9.0.13",
     "@types/mini-css-extract-plugin": "2.5.1",
@@ -88,6 +89,7 @@
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "@roots/bud-hooks": "workspace:sources/@roots/bud-hooks",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "css-loader": "^6.7.1",
     "csv-loader": "^3.0.5",

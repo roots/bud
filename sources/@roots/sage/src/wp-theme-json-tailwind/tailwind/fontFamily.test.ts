@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vitest'
 
-import {fontFamily} from './index'
+import {fontFamily} from './index.js'
 
 const mockFontFamily: fontFamily.TailwindFontFamily = {
   sans: [`mOCK-SANS`, `SANS-MOCK`],

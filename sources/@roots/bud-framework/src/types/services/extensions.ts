@@ -6,7 +6,7 @@ import type {
   ExtensionLiteral,
 } from '../../extension/index.js'
 import type {Service as BaseService} from '../../service.js'
-import type {Modules} from '../registry/modules'
+import type {Modules} from '../registry/modules.js'
 
 export type LifecycleMethods =
   | 'init'
@@ -54,11 +54,9 @@ export interface Service extends BaseService {
   isAllowed(key: string): boolean
 
   instantiate<K extends `${keyof Modules & string}`>(
-    extension:
-      | (new (...args: any[]) => Modules[K])
-      | Modules[K]
-      | ExtensionLiteral,
-  ): Modules[K]
+    extension: (new (...args: any[]) => Modules[K]) | ExtensionLiteral,
+    signifier?: K,
+  ): Extension<any, any>
 
   has<K extends keyof Modules & string>(key: K): boolean
 
@@ -87,10 +85,10 @@ export interface Service extends BaseService {
         >,
   ): Promise<void>
 
-  import<K extends keyof Modules & string>(
+  import<K extends `${keyof Modules}`>(
     signifier: K,
     fatalOnError?: boolean,
-  ): Promise<Modules[K] | undefined>
+  ): Promise<Extension<any, any>>
 
   runAll(methodName: LifecycleMethods): Promise<Array<void>>
 

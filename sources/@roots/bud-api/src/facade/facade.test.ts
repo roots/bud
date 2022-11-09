@@ -1,7 +1,7 @@
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import {Facade} from './facade'
-import * as facade from './facade.factory'
+import * as facade from './facade.factory.js'
+import {Facade} from './facade.js'
 
 const mockBud = {
   api: {

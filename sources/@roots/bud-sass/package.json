@@ -69,7 +69,9 @@
   },
   "devDependencies": {
     "@repo/test-kit": "workspace:sources/@repo/test-kit",
+    "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-build": "workspace:sources/@roots/bud-build",
+    "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.18.3",
     "postcss": "8.4.18",
@@ -79,20 +81,22 @@
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
     "postcss-scss": "^4.0.5",
     "resolve-url-loader": "5.0.0",
     "sass": "^1.55.0",
     "sass-loader": "^13.1.0",
     "stylelint-config-recommended-scss": "^8.0.0",
+    "stylelint-scss": "^4.3.0",
     "tslib": "2.4.1"
   },
   "peerDependencies": {
+    "@roots/bud": "*",
     "@roots/bud-postcss": "*",
     "postcss-scss": "*",
     "sass": "*",
     "sass-loader": "*",
-    "stylelint-config-recommended-scss": "*"
+    "stylelint-config-recommended-scss": "*",
+    "stylelint-scss": "*"
   },
   "peerDependenciesMeta": {
     "@roots/bud-postcss": {
@@ -108,6 +112,9 @@
       "optional": true
     },
     "stylelint-config-recommended-scss": {
+      "optional": true
+    },
+    "stylelint-scss": {
       "optional": true
     }
   },

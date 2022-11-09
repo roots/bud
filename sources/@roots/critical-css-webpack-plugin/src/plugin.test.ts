@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vitest'
 
-import Plugin from './index'
+import Plugin from './index.js'
 
 describe(`@roots/critical-css-webpack-plugin`, () => {
   it(`should be constructable`, () => {

@@ -1,11 +1,9 @@
 {
   "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
-    "rootDir": "src",
-    "outDir": "lib",
-    "module": "esnext",
-    "allowSyntheticDefaultImports": true
+    "rootDir": "./src",
+    "outDir": "./lib"
   },
-  "include": ["src"],
-  "exclude": ["**/*.test.ts", "*.test.ts"]
+  "include": ["./src"],
+  "exclude": ["./lib", "./node_modules", "**/*.test.ts"]
 }

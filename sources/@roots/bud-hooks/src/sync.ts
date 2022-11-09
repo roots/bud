@@ -22,7 +22,7 @@ export default class Sync extends Hooks<SyncStore> {
    * @decorator `@bind`
    */
   @bind
-  public set<T extends keyof SyncStore & string>(
+  public set<T extends `${keyof SyncStore & string}`>(
     id: T,
     input: SyncCallback[T],
   ): Bud {

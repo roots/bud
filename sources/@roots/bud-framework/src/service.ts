@@ -2,7 +2,7 @@ import {lowerCase} from '@roots/bud-support/lodash-es'
 import Container from '@roots/container'
 import type {Signale} from 'signale'
 
-import type {Bud} from './bud'
+import type {Bud} from './bud.js'
 
 interface Contract {
   /**
@@ -329,6 +329,7 @@ abstract class BaseContainer
 export {
   Base,
   Base as Service,
+  Base as default,
   BaseContainer,
   BaseContainer as ServiceContainer,
 }

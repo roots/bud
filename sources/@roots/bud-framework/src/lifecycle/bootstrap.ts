@@ -3,9 +3,9 @@ import {Logger} from '../logger/index.js'
 import * as methods from '../methods/index.js'
 import {Module} from '../module.js'
 import * as Process from '../process.js'
-import type * as Service from '../service'
-import type * as Options from '../types/options'
-import type * as Registry from '../types/registry'
+import type * as Service from '../service.js'
+import type * as Options from '../types/options/index.js'
+import type * as Registry from '../types/registry/index.js'
 import {initialize} from './init.js'
 
 export const lifecycleHookHandles: Partial<

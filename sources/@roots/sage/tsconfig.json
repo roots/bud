@@ -2,12 +2,10 @@
   "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
     "rootDir": "./src",
-    "outDir": "./lib",
-    "types": ["@roots/bud-framework",  "@roots/bud-tailwindcss", "@roots/bud-api", "@roots/bud-build", "@roots/bud-entrypoints", "@roots/bud-extensions", "@roots/bud-preset-recommend", "@roots/bud-preset-wordpress"],
-    "sourceMap": false,
+    "outDir": "./lib"
   },
-  "include": ["src"],
-  "exclude": ["**/*.test.ts"],
+  "include": ["./src"],
+  "exclude": ["./lib", "./node_modules", "**/*.test.ts"],
   "references": [
     {"path": "../bud-framework/tsconfig.json"},
     {"path": "../bud-api/tsconfig.json"},

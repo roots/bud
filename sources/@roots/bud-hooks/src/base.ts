@@ -1,4 +1,4 @@
-import type {Bud} from '@roots/bud-framework/src'
+import type {Bud} from '@roots/bud-framework'
 import {bind} from '@roots/bud-support/decorators'
 import {isUndefined} from '@roots/bud-support/lodash-es'
 

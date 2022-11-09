@@ -1,8 +1,8 @@
-import {factory} from '@roots/bud/factory'
+import {factory} from '@repo/test-kit/bud'
 import {Extension} from '@roots/bud-framework/extension'
 import {beforeEach, describe, expect, it} from 'vitest'
 
-import Vue from './index'
+import Vue from './index.js'
 
 describe(`@roots/bud-vue`, () => {
   let bud

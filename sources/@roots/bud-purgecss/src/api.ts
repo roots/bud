@@ -1,6 +1,4 @@
-import purgePlugin from '@fullhuman/postcss-purgecss'
-
-import type * as purge from './purge.interface.js'
+import type * as purge from './extension.js'
 
 /**
  * Purge unused CSS from compiled stylesheets
@@ -22,7 +20,10 @@ import type * as purge from './purge.interface.js'
 export const purgecss: purge.api = function (
   userOptions: purge.UserOptions,
 ) {
-  this.postcss.setPlugin(`purgecss`, purgePlugin(userOptions))
+  this.postcss.setPlugin(`purgecss`, [
+    `@fullhuman/postcss-purgecss`,
+    userOptions,
+  ])
 
   return this
 }

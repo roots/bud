@@ -1,8 +1,8 @@
+import type {Bud} from '@roots/bud-framework'
 import type {
   EventsCallback,
   EventsStore,
 } from '@roots/bud-framework/registry'
-import type {Bud} from '@roots/bud-framework/src'
 import {bind} from '@roots/bud-support/decorators'
 
 import Hooks from './base.js'

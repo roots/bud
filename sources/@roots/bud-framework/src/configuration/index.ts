@@ -1,7 +1,7 @@
 import {sortBy} from '@roots/bud-support/lodash-es'
 
-import type {Bud} from '../bud'
-import type {ConfigDescription} from '../types/options/context'
+import type {Bud} from '../bud.js'
+import type {ConfigDescription} from '../types/options/context.js'
 import Configuration from './configuration.js'
 
 /**

@@ -1,5 +1,5 @@
-import type {Bud} from '../../../bud'
-import type {Base} from './base'
+import type {Bud} from '../../../bud.js'
+import type {Base} from './base.js'
 
 /**
  * Loader interface

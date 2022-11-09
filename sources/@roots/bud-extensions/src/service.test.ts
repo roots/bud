@@ -2,7 +2,7 @@ import {factory} from '@repo/test-kit/bud'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 import type {WebpackPluginInstance} from 'webpack'
 
-import Extensions from './index'
+import Extensions from './index.js'
 
 describe(`@roots/bud-extensions`, () => {
   let bud

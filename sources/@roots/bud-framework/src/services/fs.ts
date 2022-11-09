@@ -1,9 +1,10 @@
+import {join} from 'node:path'
+
 import FS, {json, S3, yml} from '@roots/bud-support/filesystem'
 import globby from '@roots/bud-support/globby'
 import {isUndefined} from '@roots/bud-support/lodash-es'
-import {join} from 'path'
 
-import type {Bud} from '../bud'
+import type {Bud} from '../bud.js'
 
 /**
  * Filesystem service

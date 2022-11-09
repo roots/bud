@@ -5397,7 +5397,9 @@ __metadata:
   resolution: "@roots/bud-build@workspace:sources/@roots/bud-build"
   dependencies:
     "@repo/test-kit": "workspace:sources/@repo/test-kit"
+    "@roots/bud-api": "workspace:sources/@roots/bud-api"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
+    "@roots/bud-hooks": "workspace:sources/@roots/bud-hooks"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
     "@types/fs-extra": 9.0.13
@@ -5964,6 +5966,7 @@ __metadata:
   resolution: "@roots/bud-sass@workspace:sources/@roots/bud-sass"
   dependencies:
     "@repo/test-kit": "workspace:sources/@repo/test-kit"
+    "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-build": "workspace:sources/@roots/bud-build"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss"
@@ -5976,15 +5979,18 @@ __metadata:
     sass-loader: ^13.1.0
     stylelint: 14.14.0
     stylelint-config-recommended-scss: ^8.0.0
+    stylelint-scss: ^4.3.0
     tslib: 2.4.1
     vitest: 0.24.5
     webpack: 5.74.0
   peerDependencies:
+    "@roots/bud": "*"
     "@roots/bud-postcss": "*"
     postcss-scss: "*"
     sass: "*"
     sass-loader: "*"
     stylelint-config-recommended-scss: "*"
+    stylelint-scss: "*"
   peerDependenciesMeta:
     "@roots/bud-postcss":
       optional: true
@@ -5995,6 +6001,8 @@ __metadata:
     sass-loader:
       optional: true
     stylelint-config-recommended-scss:
+      optional: true
+    stylelint-scss:
       optional: true
   languageName: unknown
   linkType: soft
@@ -6078,11 +6086,14 @@ __metadata:
   peerDependencies:
     stylelint: "*"
     stylelint-config-standard: "*"
+    stylelint-scss: "*"
     stylelint-webpack-plugin: "*"
   peerDependenciesMeta:
     stylelint:
       optional: true
     stylelint-config-standard:
+      optional: true
+    stylelint-scss:
       optional: true
     stylelint-webpack-plugin:
       optional: true
@@ -6132,7 +6143,6 @@ __metadata:
     "@swc/core": 1.3.14
     "@types/node": 16.18.3
     swc-loader: 0.2.3
-    ts-node: 10.9.1
     tslib: 2.4.1
     vitest: 0.24.5
     webpack: 5.74.0
@@ -29222,6 +29232,21 @@ __metadata:
   peerDependencies:
     stylelint: ^14.0.0
   checksum: 9dde9ecc6b1306530307a389f22b098df368bc6453eb09095b1f06a31d5395545d4171d842bc2c3996bb006c8977f5629076ff985c140548db4cbb794c15a780
+  languageName: node
+  linkType: hard
+
+"stylelint-scss@npm:^4.3.0":
+  version: 4.3.0
+  resolution: "stylelint-scss@npm:4.3.0"
+  dependencies:
+    lodash: ^4.17.21
+    postcss-media-query-parser: ^0.2.3
+    postcss-resolve-nested-selector: ^0.1.1
+    postcss-selector-parser: ^6.0.6
+    postcss-value-parser: ^4.1.0
+  peerDependencies:
+    stylelint: ^14.5.1
+  checksum: fdf6119add2a3ccbf79f3a928acd7f90fc0f77fc45e5cf6f67d97419fe1a39dc6feec56307e1c45e0ec5ae677b0f18f83ce70e644df52aa6600706cf3551d0db
   languageName: node
   linkType: hard
 

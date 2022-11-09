@@ -8,7 +8,7 @@ import {
   disableMiddlewareHookCallback,
   enableMiddlewareHookCallback,
   method as proxy,
-} from './index'
+} from './index.js'
 
 describe(`bud.proxy`, () => {
   let bud

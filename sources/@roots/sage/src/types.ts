@@ -1,4 +1,5 @@
 /// <reference path="../../bud-preset-wordpress/lib/index.d.ts" />
+/// <reference path="../../bud-tailwindcss/lib/index.d.ts" />
 
 import type Acorn from './acorn/index.js'
 import type AcornV2PublicPath from './acorn-v2-public-path/extension.js'

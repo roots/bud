@@ -1,7 +1,7 @@
 import {factory} from '@repo/test-kit/bud'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import {runtime} from './index'
+import {runtime} from './index.js'
 
 describe(`bud.splitChunks`, () => {
   let bud

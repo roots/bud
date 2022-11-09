@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vitest'
 
-import Service from './index'
+import Service from './index.js'
 
 describe(`@roots/bud-cache`, () => {
   it(`should be constructable`, () => {

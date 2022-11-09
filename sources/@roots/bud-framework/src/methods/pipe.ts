@@ -1,4 +1,4 @@
-import type {Bud} from '../bud'
+import type {Bud} from '../bud.js'
 
 /**
  * Pipe callback

@@ -1,12 +1,11 @@
 import {randomUUID} from 'node:crypto'
 
-import type {Bud} from '@roots/bud-framework'
+import type {Bud, Modules} from '@roots/bud-framework'
 import {
   ApplyPlugin,
   Extension,
   ExtensionLiteral,
 } from '@roots/bud-framework/extension'
-import type {Modules} from '@roots/bud-framework/registry/modules'
 import {Service} from '@roots/bud-framework/service'
 import type {Extensions as Contract} from '@roots/bud-framework/services'
 import {bind} from '@roots/bud-support/decorators'
@@ -236,10 +235,7 @@ export default class Extensions
    * @decorator `@bind`
    */
   @bind
-  public set<K extends `${keyof Modules & string}`>(
-    key: K,
-    value: Modules[K],
-  ): this {
+  public set(key: string, value: Extension<any, any>): this {
     this.repository[key] = value
 
     return this
@@ -255,7 +251,7 @@ export default class Extensions
   public instantiate<K extends `${keyof Modules & string}`>(
     extension: (new (...args: any[]) => Modules[K]) | ExtensionLiteral,
     signifier?: K,
-  ): Modules[K] {
+  ): Extension<any, any> {
     const instance =
       typeof extension === `function`
         ? new extension(this.app)
@@ -267,7 +263,7 @@ export default class Extensions
     if (!instance?.label)
       instance.label = signifier ?? (`${randomUUID()}` as keyof Modules)
 
-    return instance as Modules[K]
+    return instance
   }
 
   @bind
@@ -287,10 +283,10 @@ export default class Extensions
    * @decorator `@bind`
    */
   @bind
-  public async import<K extends `${keyof Modules & string}`>(
+  public async import<K extends `${keyof Modules}`>(
     signifier: K,
     fatalOnError = true,
-  ): Promise<Modules[K] | undefined> {
+  ): Promise<Extension<any, any>> {
     if (fatalOnError && this.unresolvable.has(signifier))
       throw new Error(`Extension ${signifier} is not importable`)
 
@@ -312,8 +308,8 @@ export default class Extensions
     if (instance.dependsOn)
       await Promise.all(
         Array.from(instance.dependsOn)
-          .filter(dependency => !this.has(dependency))
-          .map(async dependency => await this.import(dependency)),
+          .filter((dependency: K) => !this.has(dependency))
+          .map(async (dependency: K) => await this.import(dependency)),
       )
 
     if (instance.dependsOnOptional)
@@ -321,11 +317,11 @@ export default class Extensions
         Array.from(instance.dependsOnOptional)
           .filter(this.isAllowed)
           .filter(
-            optionalDependency =>
+            (optionalDependency: K) =>
               !this.unresolvable.has(optionalDependency),
           )
-          .filter(optionalDependency => !this.has(optionalDependency))
-          .map(async optionalDependency => {
+          .filter((optionalDependency: K) => !this.has(optionalDependency))
+          .map(async (optionalDependency: K) => {
             await this.import(optionalDependency, false)
             if (!this.has(optionalDependency))
               this.unresolvable.add(optionalDependency)
@@ -346,11 +342,11 @@ export default class Extensions
    * @decorator `@bind`
    */
   @bind
-  public async add<K extends `${keyof Modules}`>(
+  public async add<K extends `${keyof Modules & string}`>(
     input:
-      | (new (...args: any[]) => Extension)
+      | Extension<any, any>
       | ExtensionLiteral
-      | Array<(new (...args: any[]) => Extension) | ExtensionLiteral>
+      | Array<Extension<any, any> | ExtensionLiteral>
       | K
       | Array<K>,
   ): Promise<void> {
@@ -369,7 +365,7 @@ export default class Extensions
         typeof item === `string` ? item : undefined,
       )
 
-      this.set(extension.label, extension)
+      this.set(extension.label ?? randomUUID(), extension)
 
       await this.run(extension, `init`)
       await this.run(extension, `register`)
@@ -451,8 +447,8 @@ export default class Extensions
     if (extension.dependsOn) {
       await Array.from(extension.dependsOn)
         .filter(this.isAllowed)
-        .filter(signifier => !this.unresolvable.has(signifier))
-        .reduce(async (promised, signifier) => {
+        .filter((signifier: K) => !this.unresolvable.has(signifier))
+        .reduce(async (promised, signifier: K) => {
           await promised
           if (!this.has(signifier)) await this.import(signifier)
 
@@ -464,8 +460,8 @@ export default class Extensions
     if (extension.dependsOnOptional)
       await Array.from(extension.dependsOnOptional)
         .filter(this.isAllowed)
-        .filter(signifier => !this.unresolvable.has(signifier))
-        .reduce(async (promised, signifier) => {
+        .filter((signifier: K) => !this.unresolvable.has(signifier))
+        .reduce(async (promised, signifier: K) => {
           await promised
           if (!this.has(signifier)) await this.import(signifier, false)
           if (!this.has(signifier)) {

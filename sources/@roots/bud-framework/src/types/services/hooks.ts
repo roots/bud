@@ -1,6 +1,6 @@
-import type {Bud} from '../../bud'
-import type {Service as BaseService} from '../../service'
-import type * as Hooks from '../registry'
+import type {Bud} from '../../bud.js'
+import type {Service as BaseService} from '../../service.js'
+import type * as Registry from '../registry/index.js'
 
 /**
  * Assign and filter callback to values.
@@ -30,7 +30,7 @@ import type * as Hooks from '../registry'
  *
  * @public
  */
-export interface Service extends BaseService {
+export default interface Hooks extends BaseService {
   /**
    * Async hooks value store
    * @public
@@ -48,11 +48,11 @@ export interface Service extends BaseService {
    */
   events: any
 
-  hasSyncHook: (hook: keyof Hooks.SyncStore) => boolean
+  hasSyncHook: (hook: keyof Registry.SyncStore) => boolean
 
-  hasAsyncHook: (hook: keyof Hooks.AsyncStore) => boolean
+  hasAsyncHook: (hook: keyof Registry.AsyncStore) => boolean
 
-  hasEvent: (hook: keyof Hooks.EventsStore) => boolean
+  hasEvent: (hook: keyof Registry.EventsStore) => boolean
 
   /**
    * Register a function or value to modify or replace a filtered value
@@ -67,9 +67,9 @@ export interface Service extends BaseService {
    *
    * @public
    */
-  on: <T extends keyof Hooks.SyncStore & string>(
+  on: <T extends `${keyof Registry.SyncStore & string}`>(
     id: T,
-    input: Hooks.SyncCallback[T],
+    input: Registry.SyncCallback[T],
   ) => Bud
 
   /**
@@ -85,7 +85,7 @@ export interface Service extends BaseService {
    *
    * @public
    */
-  fromMap: (map: Partial<Hooks.SyncCallback>) => Bud
+  fromMap: (map: Partial<Registry.SyncCallback>) => Bud
 
   /**
    * Register an async function to filter a value.
@@ -100,9 +100,9 @@ export interface Service extends BaseService {
    *
    * @public
    */
-  async: <T extends keyof Hooks.AsyncStore>(
+  async: <T extends keyof Registry.AsyncStore>(
     id: T,
-    value: Hooks.AsyncCallback[T],
+    value: Registry.AsyncCallback[T],
   ) => Bud
 
   /**
@@ -118,7 +118,7 @@ export interface Service extends BaseService {
    *
    * @public
    */
-  fromAsyncMap: (map: Hooks.AsyncCallback) => Bud
+  fromAsyncMap: (map: Registry.AsyncCallback) => Bud
 
   /**
    * Filter a value
@@ -133,10 +133,10 @@ export interface Service extends BaseService {
    *
    * @public
    */
-  filter: <T extends keyof Hooks.SyncStore>(
+  filter: <T extends keyof Registry.SyncStore>(
     id: T,
-    callback?: Hooks.SyncCallback[T],
-  ) => Hooks.SyncRegistry[T]
+    callback?: Registry.SyncCallback[T],
+  ) => Registry.SyncRegistry[T]
 
   /**
    * Async version of hook.filter
@@ -154,17 +154,17 @@ export interface Service extends BaseService {
    *
    * @public
    */
-  filterAsync: <T extends keyof Hooks.AsyncRegistry & string>(
+  filterAsync: <T extends keyof Registry.AsyncRegistry & string>(
     id: T,
-    fallback?: Hooks.AsyncCallback[T],
-  ) => Promise<Hooks.AsyncRegistry[T]>
+    fallback?: Registry.AsyncCallback[T],
+  ) => Promise<Registry.AsyncRegistry[T]>
 
   /**
    * Execute an action
    *
    * @public
    */
-  fire: <T extends `${keyof Hooks.EventsStore & string}`>(
+  fire: <T extends `${keyof Registry.EventsStore & string}`>(
     id: T,
   ) => Promise<Bud>
 
@@ -173,8 +173,8 @@ export interface Service extends BaseService {
    *
    * @public
    */
-  action: <T extends keyof Hooks.EventsStore & string>(
+  action: <T extends keyof Registry.EventsStore & string>(
     id: T,
-    ...input: Array<Hooks.EventsCallback>
+    ...input: Array<Registry.EventsCallback>
   ) => Bud
 }

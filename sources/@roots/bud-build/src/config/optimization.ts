@@ -1,6 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
 
-import type {ValueFactory} from './builder'
+import type {ValueFactory} from './builder.js'
 
 export const optimization: ValueFactory<`optimization`> = async (
   app: Bud,

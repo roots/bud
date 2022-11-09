@@ -1,4 +1,4 @@
-import type {Service as Base} from '../../service'
+import type {Service as Base} from '../../service.js'
 
 /**
  * Peer service interface

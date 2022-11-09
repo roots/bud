@@ -3,6 +3,7 @@ import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
   dependsOn,
+  dependsOnOptional,
   expose,
   label,
   options,
@@ -26,7 +27,8 @@ import {isUndefined} from '@roots/bud-support/lodash-es'
     transpileOnly: true,
   },
 })
-@dependsOn([`@roots/bud-babel`, `@roots/bud-typescript/typecheck`])
+@dependsOn([`@roots/bud-typescript/typecheck`])
+@dependsOnOptional([`@roots/bud-babel`])
 export default class BudTypeScript extends Extension {
   /**
    * Typechecking controls

@@ -1,7 +1,7 @@
 import {bind} from '@roots/bud-support/decorators'
 import {isFunction} from '@roots/bud-support/lodash-es'
 
-import type {Bud} from '../bud'
+import type {Bud} from '../bud.js'
 
 /**
  * User config parser

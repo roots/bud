@@ -1,6 +1,12 @@
 import {describe, expect, it} from 'vitest'
 
-import {Bud, Extension, Logger, Service} from './index'
+import {
+  Bud,
+  Extension,
+  Logger,
+  Service,
+  ServiceContainer,
+} from './index.js'
 
 describe(`@roots/bud-framework`, () => {
   it(`should have a Bud export`, () => {
@@ -16,10 +22,10 @@ describe(`@roots/bud-framework`, () => {
   })
 
   it(`should have a Service export`, () => {
-    expect(Service.Service).toBeInstanceOf(Function)
+    expect(Service).toBeInstanceOf(Function)
   })
 
   it(`should have a ServiceContainer export`, () => {
-    expect(Service.ServiceContainer).toBeInstanceOf(Function)
+    expect(ServiceContainer).toBeInstanceOf(Function)
   })
 })

@@ -15,7 +15,7 @@ import {
 import defaultConfig from 'tailwindcss/defaultConfig.js'
 import pluginUtils from 'tailwindcss/lib/util/pluginUtils.js'
 import resolveConfig from 'tailwindcss/resolveConfig.js'
-import type {Config, ThemeConfig} from 'tailwindcss/types/config'
+import type {Config, ThemeConfig} from 'tailwindcss/types/config.js'
 import WebpackVirtualModules from 'webpack-virtual-modules'
 
 type ResolvedConfig = Partial<{
@@ -37,12 +37,14 @@ type ResolvedConfig = Partial<{
 @options({
   generateImports: false,
 })
-export default class BudTailwindCss extends Extension {
+export default class BudTailwindCss extends Extension<{
+  generateImports: boolean | Array<string>
+}> {
   /**
    * Get config module
    * @public
    */
-  public get config() {
+  public get config(): ResolvedConfig {
     return (
       this.app.context.config?.[`tailwind.config.js`] ??
       this.app.context.config?.[`tailwind.config.mjs`] ??

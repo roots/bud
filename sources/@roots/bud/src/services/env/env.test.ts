@@ -1,13 +1,19 @@
 import {factory} from '@repo/test-kit/bud'
-import {ServiceContainer} from '@roots/bud-framework/service'
+import Bud from '@roots/bud'
 import {beforeEach, describe, expect, it} from 'vitest'
 
-import Env from './index.js'
+import Env from './env.js'
 
 describe(`@roots/bud/services/env`, () => {
+  let bud: Bud
+
+  beforeEach(async () => {
+    bud = await factory()
+  })
+
   it(`is a container service`, async () => {
     const bud = await factory()
     const instance = new Env(() => bud)
-    expect(instance).toBeInstanceOf(ServiceContainer)
+    expect(instance.constructor.name).toBe(`Env`)
   })
 })

@@ -3,7 +3,7 @@ import type {Bud} from '@roots/bud'
 import {beforeAll, describe, expect, it} from 'vitest'
 
 import BudTypescript from '../index'
-import BudTypeCheck from './index'
+import BudTypeCheck from './index.js'
 
 describe(`@roots/bud-typescript/typecheck`, () => {
   let bud: Bud

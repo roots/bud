@@ -1,4 +1,4 @@
-import type {Service} from '../../../service'
+import type {Service} from '../../../service.js'
 import type {Connection} from './connection.js'
 import type * as Middleware from './middleware.js'
 import type {Watcher} from './watcher.js'

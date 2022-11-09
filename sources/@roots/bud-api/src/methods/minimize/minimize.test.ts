@@ -1,7 +1,7 @@
 import {factory} from '@repo/test-kit/bud'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import {minimize as subject} from './index'
+import {minimize as subject} from './index.js'
 
 describe(`bud.minimize`, () => {
   let bud

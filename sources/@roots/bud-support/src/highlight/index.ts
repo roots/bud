@@ -3,7 +3,7 @@ import css from 'highlight.js/lib/languages/css'
 import js from 'highlight.js/lib/languages/javascript'
 import scss from 'highlight.js/lib/languages/scss'
 import ts from 'highlight.js/lib/languages/typescript'
-import isFunction from 'lodash-es/isFunction.js'
+import {isFunction} from 'lodash-es'
 import * as parse5 from 'parse5'
 import {adapter} from 'parse5-htmlparser2-tree-adapter'
 

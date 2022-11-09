@@ -1,4 +1,4 @@
-import type {Extension} from '../../extension'
+import type {Extension} from '../../extension/index.js'
 
 interface Modules {
   _?: Extension

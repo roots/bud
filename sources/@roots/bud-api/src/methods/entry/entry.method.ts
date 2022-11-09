@@ -2,7 +2,7 @@ import type {Bud} from '@roots/bud-framework'
 import {isArray, isString, isUndefined} from '@roots/bud-support/lodash-es'
 
 import {globAssets} from './entry.glob.js'
-import type {EntryObject} from './util'
+import type {EntryObject} from './util.js'
 import {
   applyToImports,
   facade,
