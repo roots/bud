@@ -1,21 +1,10 @@
 {
   "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
-    "sourceRoot": "src",
-    "rootDir": "./",
-    "outDir": "lib",
-    "types": [
-      "node",
-    ]
+    "rootDir": "./src",
+    "outDir": "./lib"
   },
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "lib",
-    "types",
-    "node_modules",
-    "**/*.test.ts"
-  ],
+  "include": ["./src"],
+  "exclude": ["./lib", "./node_modules", "**/*.test.ts"],
   "references": [{"path": "./../bud-framework/tsconfig.json"}]
 }
