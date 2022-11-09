@@ -20,7 +20,8 @@
     "packages": [
       "sources/@roots/*",
       "sources/@repo/*",
-      "sources/@roots/bud-sass/test/fixtures/issue-1798",
+      "sources/@roots/*/test/fixtures/*",
+      "sources/@roots/*/src/__fixtures__/*",
       "tests/util/project"
     ]
   },

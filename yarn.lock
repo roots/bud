@@ -5487,14 +5487,15 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-criticalcss@workspace:sources/@roots/bud-criticalcss"
   dependencies:
-    "@roots/bud-api": "workspace:sources/@roots/bud-api"
+    "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/critical-css-webpack-plugin": "workspace:sources/@roots/critical-css-webpack-plugin"
     "@skypack/package-check": 0.2.2
-    "@types/lodash": 4.14.187
     "@types/node": 16.18.3
     tslib: 2.4.1
     vitest: 0.24.5
+  peerDependencies:
+    "@roots/bud": "*"
   languageName: unknown
   linkType: soft
 
@@ -7055,6 +7056,24 @@ __metadata:
   checksum: 5cf61174cbf94f56650e7065e04e4322a92ac3732f036dcab88998bfb0ea43f4e2fbe54b9d5d35a809c224c5568c5cad6c1e78ab667353aadaa26986969c2e25
   languageName: node
   linkType: hard
+
+"@tests/bud-criticalcss__extract@workspace:sources/@roots/bud-criticalcss/src/__fixtures__/extract":
+  version: 0.0.0-use.local
+  resolution: "@tests/bud-criticalcss__extract@workspace:sources/@roots/bud-criticalcss/src/__fixtures__/extract"
+  dependencies:
+    "@roots/bud": "workspace:sources/@roots/bud"
+    "@roots/bud-criticalcss": "workspace:sources/@roots/bud-criticalcss"
+  languageName: unknown
+  linkType: soft
+
+"@tests/bud-criticalcss__no-extract@workspace:sources/@roots/bud-criticalcss/src/__fixtures__/no-extract":
+  version: 0.0.0-use.local
+  resolution: "@tests/bud-criticalcss__no-extract@workspace:sources/@roots/bud-criticalcss/src/__fixtures__/no-extract"
+  dependencies:
+    "@roots/bud": "workspace:sources/@roots/bud"
+    "@roots/bud-criticalcss": "workspace:sources/@roots/bud-criticalcss"
+  languageName: unknown
+  linkType: soft
 
 "@tests/issue-1798@workspace:sources/@roots/bud-sass/test/fixtures/issue-1798":
   version: 0.0.0-use.local

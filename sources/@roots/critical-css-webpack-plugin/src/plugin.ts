@@ -114,10 +114,10 @@ export default class CriticalCssWebpackPlugin {
       this.options.base ?? this.webpack.compilation.outputOptions.path
 
     await Promise.all(
-      Object.entries(assets).map(async ([entryIdent, entryValue]) => {
-        if (!entryIdent.endsWith(`.css`)) return
+      Object.keys(assets).map(async ident => {
+        if (!ident.endsWith(`.css`)) return
 
-        const asset = this.webpack.compilation.getAsset(entryIdent)
+        const asset = this.webpack.compilation.getAsset(ident)
 
         const vfile = new vinyl({
           base,
@@ -133,10 +133,12 @@ export default class CriticalCssWebpackPlugin {
               css: [vfile],
             })
             .then(({css, uncritical}) => {
-              this.webpack.compilation.updateAsset(
-                asset.name,
-                new Webpack.sources.RawSource(uncritical),
-              )
+              if (this.options.extract) {
+                this.webpack.compilation.updateAsset(
+                  asset.name,
+                  new Webpack.sources.RawSource(uncritical),
+                )
+              }
 
               this.webpack.compilation.emitAsset(
                 `critical/${asset.name.split(`.`).shift().concat(`.css`)}`,

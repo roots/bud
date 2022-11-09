@@ -1,6 +1,7 @@
 import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
+  bind,
   disabled,
   expose,
   label,
@@ -15,12 +16,12 @@ import CriticalCssWebpackPlugin, {
  * Adds critical css webpack plugin to compilation
  *
  * @example
- *
  * ```ts
  * bud.critical
- *   .setSrc('https://example.test')
- *   .setWidth(1200)
- *   .setHeight(800)
+ *   .src('https://example.test')
+ *   .width(1200)
+ *   .height(800)
+ *   .extract()
  *   .enable()
  * ```
  *
@@ -39,6 +40,7 @@ import CriticalCssWebpackPlugin, {
     app.publicPath() !== `auto` && app.publicPath() !== ``
       ? app.publicPath()
       : `/`,
+  extract: true,
   request: {https: {rejectUnauthorized: false}},
 })
 @disabled
@@ -47,12 +49,28 @@ export default class BudCriticalCss extends Extension<
   CriticalCssWebpackPlugin
 > {
   /**
+   * Whether to extract styles
+   *
+   * @param extract - extract styles
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public extract(extract: boolean = true) {
+    this.setOption(`extract`, extract)
+    return this
+  }
+
+  /**
    * Set source url
    *
    * @param src - source url
    *
    * @public
+   * @decorator `@bind`
    */
+  @bind
   public src(src: string) {
     this.setOption(`src`, src)
     return this
@@ -64,7 +82,9 @@ export default class BudCriticalCss extends Extension<
    * @param html - source template as a string
    *
    * @public
+   * @decorator `@bind`
    */
+  @bind
   public html(html: string) {
     this.setOption(`html`, html)
     return this
@@ -80,6 +100,7 @@ export default class BudCriticalCss extends Extension<
    * @param base - base path
    *
    * @public
+   * @decorator `@bind`
    */
   public base(base: string) {
     this.setOption(`base`, base)
@@ -92,6 +113,7 @@ export default class BudCriticalCss extends Extension<
    * @param width - browser width
    *
    * @public
+   * @decorator `@bind`
    */
   public width(width: number) {
     this.setOption(`width`, width)
@@ -104,6 +126,7 @@ export default class BudCriticalCss extends Extension<
    * @param height - browser height
    *
    * @public
+   * @decorator `@bind`
    */
   public height(height: number) {
     this.setOption(`height`, height)

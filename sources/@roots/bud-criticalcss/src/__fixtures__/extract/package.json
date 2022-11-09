@@ -1,0 +1,12 @@
+{
+  "name": "@tests/bud-criticalcss__extract",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "bud build"
+  },
+  "devDependencies": {
+    "@roots/bud": "workspace:sources/@roots/bud",
+    "@roots/bud-criticalcss": "workspace:sources/@roots/bud-criticalcss"
+  }
+}
