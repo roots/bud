@@ -102,6 +102,7 @@ export default class BudCriticalCss extends Extension<
    * @public
    * @decorator `@bind`
    */
+  @bind
   public base(base: string) {
     this.setOption(`base`, base)
     return this
@@ -115,6 +116,7 @@ export default class BudCriticalCss extends Extension<
    * @public
    * @decorator `@bind`
    */
+  @bind
   public width(width: number) {
     this.setOption(`width`, width)
     return this
@@ -128,6 +130,7 @@ export default class BudCriticalCss extends Extension<
    * @public
    * @decorator `@bind`
    */
+  @bind
   public height(height: number) {
     this.setOption(`height`, height)
     return this
