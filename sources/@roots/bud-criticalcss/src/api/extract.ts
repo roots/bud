@@ -53,7 +53,7 @@ export const extractCss = function (
         }),
       )
     } catch (e) {
-      console.error(e)
+      throw new Error(e)
     }
   })
 
