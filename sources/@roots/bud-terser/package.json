@@ -42,7 +42,7 @@
   "exports": {
     ".": "./lib/index.js",
     "./extension": "./lib/extension.js",
-    "./css-minimizer": "./lib/css-minimizer/extension.js"
+    "./css-minimizer": "./lib/css-minimizer/index.js"
   },
   "typesVersions": {
     "*": {
@@ -50,7 +50,7 @@
         "./lib/index.d.ts"
       ],
       "css-minimizer": [
-        "./lib/css-minimizer/extension.d.ts"
+        "./lib/css-minimizer/index.d.ts"
       ],
       "extension": [
         "./lib/extension.d.ts"
