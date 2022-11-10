@@ -136,6 +136,7 @@ const navbar = {
       label: `Releases`,
       position: `left`,
       items: [
+        {to: `/releases/tags/6-6`, label: `6.6`},
         {to: `/releases/tags/6-5`, label: `6.5`},
         {to: `/releases/tags/6-4`, label: `6.4`},
         {to: `/releases/tags/6-3`, label: `6.3`},

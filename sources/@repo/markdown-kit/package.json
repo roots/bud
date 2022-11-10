@@ -13,7 +13,7 @@
   "dependencies": {
     "@repo/constants": "workspace:sources/@repo/constants",
     "@repo/logger": "workspace:sources/@repo/logger",
-    "@roots/bud": "workspace:sources/@roots/bud",
+    "@roots/bud": "npm",
     "@types/node": "16.18.3",
     "@types/prettier": "2.7.1",
     "execa": "6.1.0",

@@ -15,28 +15,17 @@ Extensions documentation is a work-in-progress
 
 Nearly all of the first-party bud extensions are zero config. Once installed, they are immediately and automatically applied.
 
-An exception to this general assumption are extensions which _require_ some sort of configuration — like [@roots/bud-library](/extensions/bud-library).
+If an extension does require some configuration to be used it will be documented on the extension page.
 
-After installing an extension you may wish to run `bud clean` to explicitly remove any cached data. However, Webpack should
-register the change in dependencies and automatically invalidate the cache.
+After installing an extension you may wish to run your next build with the `--flush` flag (`bud build --flush`)
+to explicitly remove any cached artifacts that might be version specific.
+
+All core extensions should have version numbers which exactly match the version of bud they are compatible with.
+When upgrading an extension or bud core take care to ensure that the versions are compatible.
 
 ### What do the colors in the sidebar mean?
 
-They indicate our level of confidence in the extension.
-
-Semantically, it's probably close to what you'd assume:
-
-#### 🟢 green
-
-We have a working version of the extension with _at least_ partial unit/integration test coverage.
-This extension sees relatively broad usage and is being used in production.
-
 #### 🟡 yellow
 
-This extension is simple and likely runs in a predictable way but either has limited unit/integration
+This is an experimental extension. This extension likely runs in a predictable way but either has limited unit/integration
 test coverage or does not see broad production usage. Any issue with this extension will be taken seriously.
-
-#### 🔴 red
-
-This is an experimental extension. It likely has no tests written for it. It is our intent to improve it
-over time but it may not be a top priority.
