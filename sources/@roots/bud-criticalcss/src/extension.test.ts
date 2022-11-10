@@ -35,6 +35,14 @@ describe(`@roots/bud-criticalcss`, () => {
   })
 }, 120000)
 
+const baseParts = [
+  paths.sources,
+  `@roots`,
+  `bud-criticalcss`,
+  `src`,
+  `__fixtures__`,
+]
+
 const runFixture = async target =>
   await execa(
     `yarn`,
@@ -56,11 +64,7 @@ const runFixture = async target =>
 const readOriginal = async target =>
   await fs.readFile(
     join(
-      paths.sources,
-      `@roots`,
-      `bud-criticalcss`,
-      `src`,
-      `__fixtures__`,
+      ...baseParts,
       target,
       `dist`,
       `css`,
@@ -73,11 +77,7 @@ const readOriginal = async target =>
 const readCritical = async target =>
   await fs.readFile(
     join(
-      paths.sources,
-      `@roots`,
-      `bud-criticalcss`,
-      `src`,
-      `__fixtures__`,
+      ...baseParts,
       target,
       `dist`,
       `critical`,

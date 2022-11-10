@@ -16,11 +16,21 @@ import CriticalCssWebpackPlugin, {
  * Adds critical css webpack plugin to compilation
  *
  * @example
+ *
+ * At minimum you will need to provide an html or src option:
+ *
+ * ```js
+ *
+ * ```
+ *
+ * More options:
+ *
  * ```ts
  * bud.critical
  *   .src('https://example.test')
  *   .width(1200)
  *   .height(800)
+ *   .request({https: {rejectUnauthorized: false}})
  *   .extract()
  *   .enable()
  * ```
@@ -133,6 +143,34 @@ export default class BudCriticalCss extends Extension<
   @bind
   public height(height: number) {
     this.setOption(`height`, height)
+    return this
+  }
+
+  /**
+   * Ignore css
+   *
+   * @param ignore - css ignore matcher
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public ignore(ignore: Options['ignore']) {
+    this.setOption(`ignore`, ignore)
+    return this
+  }
+
+  /**
+   * Set request options
+   *
+   * @param request - http request options
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public request(request: number) {
+    this.setOption(`request`, request)
     return this
   }
 }

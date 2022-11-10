@@ -7,13 +7,6 @@ module.exports = async app => {
     .entry('app', ['app.css'])
     .entry('app2', ['app2.css'])
     .splitChunks()
-    .critical.setOptions(options => ({
-      ...options,
-      replace: '%INLINE_CSS%',
-      criticalOptions: {
-        html: app.path('public/index.html'),
-        base: '/',
-      },
-    }))
+    .critical.src(app.path(`public/index.html`))
     .enable()
 }

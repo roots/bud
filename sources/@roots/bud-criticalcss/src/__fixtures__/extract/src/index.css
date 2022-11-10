@@ -5,3 +5,7 @@ body {
 .foo {
   background-color: black;
 }
+
+.ignore-style .test {
+  background-color: red;
+}
