@@ -56,7 +56,7 @@ export type Options = TerserPlugin.BasePluginOptions & {
   },
 })
 @disabled
-export default class Terser extends Extension<Options> {
+export class BudTerser extends Extension<Options> {
   /**
    * Terser options getter/setter
    */

@@ -7,14 +7,14 @@ import type {
 import {bind} from '@roots/bud-support/decorators'
 import {isFunction, isUndefined} from '@roots/bud-support/lodash-es'
 
-import Hooks from './base.js'
+import {Hooks} from './base.js'
 
 /**
  * Asynchronous hooks registry
  *
  * @public
  */
-export default class Async extends Hooks<AsyncStore> {
+export class AsyncHooks extends Hooks<AsyncStore> {
   /**
    * Set a value
    *

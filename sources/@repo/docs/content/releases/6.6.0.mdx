@@ -57,9 +57,9 @@ with reloaded modules when using multiple bud instances.
 
 Some notes:
 
-- Each instance now declares each previous instance as a dependency. This the [bud.runtime](https://bud.js.org/docs/runtime) to work even when using
+- Each instance now declares each previous instance as a dependency. This allows the [bud.runtime](https://bud.js.org/docs/runtime) to work even when using
   multiple instances.
-- If you are using [bud.runtime](https://bud.js.org/docs/runtime) you will need to make sure that you are using `runtime(\`single\`)`.
+- If you are using [bud.runtime](https://bud.js.org/docs/runtime) you will need to make sure that you are specifying `single`.
 - If you want to modify the instance dependencies manually, you can use the (new) `build.dependencies` hook. Or, specify the dependencies in the `context` argument
   passed to [bud.make](https://bud.js.org/docs/make).
 - The [bud.make](https://bud.js.org/docs/make) docs have been updated.
@@ -76,7 +76,7 @@ bud.make({
 
 ## 🎉 feat: `bud upgrade` command (#1855)
 
-Run `bud upgrade` to upgrade your project bud dependencies to the latest available version.
+Run `bud upgrade` to bump bud dependencies to the latest available version.
 You will need to run the install after the command completes. This is a new command and is not yet unit tested.
 
 ## @roots/bud-swc
@@ -92,6 +92,9 @@ bud.swc.plugins(plugins => {
 })
 ```
 
+If you haven't tried `@roots/bud-swc` you should consider it. This extension is no longer considered experimental. There is a strong
+case to be made for it replacing `@roots/bud-babel` in `@roots/bud-preset-recommmend` for version 7 of bud.js.
+
 ## @roots/bud-emotion
 
 ### 🎉 feat: `@roots/bud-emotion` now supports `@roots/bud-swc`
@@ -103,6 +106,7 @@ If you have `@roots/bud-swc` installed, `@roots/bud-emotion` will register emoti
 ### 🎉 feat: `bud.critical.extract`
 
 Disable critical CSS extraction by calling `bud.critical.extract(false)`. This isn't generally recommended.
+
 [@roots/bud-criticalcss](https://bud.js.org/extensions/bud-criticalcss) remains an experimental extension.
 
 ## @roots/sage
@@ -128,7 +132,8 @@ You should now get useful, accurate intellisense and typechecking when using the
 
 ### ✨ improve: CLI feedback when using `bud.serve` in a child compiler
 
-It tells you to move it to the parent context.
+It warns you to move it to the parent context. For now it also does this for you since it's an understandable mistake and
+will result in a `TypeError`.
 
 ### ✨ improve: clean up stack traces (#1773)
 

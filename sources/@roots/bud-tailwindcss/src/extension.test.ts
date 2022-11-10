@@ -1,9 +1,7 @@
 import resolveConfig from 'tailwindcss/resolveConfig'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import Extension from './extension'
-
-vi.mock(`@roots/bud-postcss`)
+import {BudTailwindCss} from './extension'
 
 const Logger = {
   error: vi.fn(),
@@ -52,7 +50,7 @@ describe(`@roots/bud-tailwindcss extension`, () => {
   })
 
   it(`basic checks`, () => {
-    const extension = new Extension(Bud)
+    const extension = new BudTailwindCss(Bud)
 
     expect(extension.getOptions()).toEqual(extension.options)
     expect(extension.options.generateImports).toBe(
@@ -61,12 +59,12 @@ describe(`@roots/bud-tailwindcss extension`, () => {
   })
 
   it(`should have label`, () => {
-    const extension = new Extension(Bud)
+    const extension = new BudTailwindCss(Bud)
     expect(extension.label).toBe(`@roots/bud-tailwindcss`)
   })
 
   it(`should not call extensions.add when generateImports is false`, async () => {
-    const extension = new Extension(Bud)
+    const extension = new BudTailwindCss(Bud)
     extension.setOption(`generateImports`, false)
     extension.app.extensions.add = vi.fn() as any
 
@@ -76,13 +74,13 @@ describe(`@roots/bud-tailwindcss extension`, () => {
   })
 
   it(`should attempt to resolve modules`, async () => {
-    const extension = new Extension(Bud)
+    const extension = new BudTailwindCss(Bud)
     await extension.init()
     expect(Bud.module.resolve).toHaveBeenCalledTimes(4)
   })
 
   it(`should return a copy of the resolved config`, async () => {
-    const extension = new Extension(Bud)
+    const extension = new BudTailwindCss(Bud)
 
     const configInitial = resolveConfig(
       Bud.context.config[`tailwind.config.js`].module,
@@ -92,26 +90,26 @@ describe(`@roots/bud-tailwindcss extension`, () => {
   })
 
   it(`should have a config prop`, async () => {
-    const extension = new Extension(Bud)
+    const extension = new BudTailwindCss(Bud)
     expect(extension.config.module).toBe(
       Bud.context.config[`tailwind.config.js`].module,
     )
   })
 
   it(`should produce a static module`, async () => {
-    const extension = new Extension(Bud)
+    const extension = new BudTailwindCss(Bud)
 
     expect(extension.makeStaticModule(`colors`)).toMatchSnapshot()
   })
 
   it(`should resolve tailwind config values`, async () => {
-    const extension = new Extension(Bud)
+    const extension = new BudTailwindCss(Bud)
 
     expect(extension.resolveThemeValue(`colors`)).toMatchSnapshot()
   })
 
   it(`should throw when key does not exist`, async () => {
-    const extension = new Extension(Bud)
+    const extension = new BudTailwindCss(Bud)
 
     try {
       expect(() =>
@@ -121,13 +119,13 @@ describe(`@roots/bud-tailwindcss extension`, () => {
   })
 
   it(`should resolve tailwind config values (filter extends)`, async () => {
-    const extension = new Extension(Bud)
+    const extension = new BudTailwindCss(Bud)
 
     expect(extension.resolveThemeValue(`colors`, true)).toMatchSnapshot()
   })
 
   it(`should throw when key does not exist in extended config (filter extends)`, async () => {
-    const extension = new Extension(Bud)
+    const extension = new BudTailwindCss(Bud)
 
     try {
       expect(() =>
@@ -137,7 +135,7 @@ describe(`@roots/bud-tailwindcss extension`, () => {
   })
 
   it(`should set generateImports to an array`, async () => {
-    const extension = new Extension(Bud)
+    const extension = new BudTailwindCss(Bud)
 
     extension.generateImports([`colors`])
     expect(extension.getOption(`generateImports`)).toStrictEqual([
@@ -146,35 +144,35 @@ describe(`@roots/bud-tailwindcss extension`, () => {
   })
 
   it(`should set importable values`, async () => {
-    const extension = new Extension(Bud)
+    const extension = new BudTailwindCss(Bud)
     const importables = undefined
     extension.generateImports(importables)
     expect(extension.importableKeys).toMatchSnapshot()
   })
 
   it(`should set importables when generateImports is called with array arg`, async () => {
-    const extension = new Extension(Bud)
+    const extension = new BudTailwindCss(Bud)
     const importables = [`colors`]
     extension.generateImports(importables)
     expect(extension.importableKeys).toBe(importables)
   })
 
   it(`should set importables when generateImports is called with false arg`, async () => {
-    const extension = new Extension(Bud)
+    const extension = new BudTailwindCss(Bud)
     const importables = false
     extension.generateImports(importables)
     expect(extension.importableKeys).toMatchSnapshot()
   })
 
   it(`should set importables when generateImports is called with true arg`, async () => {
-    const extension = new Extension(Bud)
+    const extension = new BudTailwindCss(Bud)
 
     extension.generateImports(true)
     expect(extension.getOption(`generateImports`)).toBe(true)
   })
 
   it(`should not call extensions.add when generatedImports is not true`, async () => {
-    const extension = new Extension(Bud)
+    const extension = new BudTailwindCss(Bud)
 
     extension.generateImports(false)
     await extension.configAfter()
@@ -182,7 +180,7 @@ describe(`@roots/bud-tailwindcss extension`, () => {
   })
 
   it(`should call extensions.add when generateImports is not undefined`, async () => {
-    const extension = new Extension(Bud)
+    const extension = new BudTailwindCss(Bud)
 
     extension.generateImports(true)
     await extension.configAfter()
@@ -190,7 +188,7 @@ describe(`@roots/bud-tailwindcss extension`, () => {
   })
 
   it(`should not register alias when generatedImports is not true`, async () => {
-    const extension = new Extension(Bud)
+    const extension = new BudTailwindCss(Bud)
 
     extension.generateImports(false)
     await extension.configAfter()
@@ -198,7 +196,7 @@ describe(`@roots/bud-tailwindcss extension`, () => {
   })
 
   it(`should register alias when generateImports is not undefined`, async () => {
-    const extension = new Extension(Bud)
+    const extension = new BudTailwindCss(Bud)
 
     extension.generateImports()
     await extension.configAfter()
@@ -210,14 +208,14 @@ describe(`@roots/bud-tailwindcss extension`, () => {
   })
 
   it(`should call postcss.setPlugins`, async () => {
-    const extension = new Extension(Bud)
+    const extension = new BudTailwindCss(Bud)
 
     await extension.configAfter()
     expect(PostCSS.setPlugins).toHaveBeenCalled()
   })
 
   it(`should log success after setting plugin`, async () => {
-    const extension = new Extension(Bud)
+    const extension = new BudTailwindCss(Bud)
 
     await extension.configAfter()
     expect(Logger.success).toHaveBeenCalledTimes(1)

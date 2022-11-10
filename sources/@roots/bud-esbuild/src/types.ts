@@ -1,4 +1,7 @@
-import type {Build} from '@roots/bud-framework/services'
+/// <reference path="../../bud/lib/index.d.ts" />
+/// <reference path="../../bud-framework/lib/index.d.ts" />
+
+import type {Item, Loader, Rule} from '@roots/bud-framework'
 
 import type Esbuild from './extension.js'
 
@@ -8,16 +11,16 @@ declare module '@roots/bud-framework' {
   }
 
   interface Loaders {
-    esbuild: Build.Loader
+    esbuild: Loader
   }
 
   interface Items {
-    'esbuild-js': Build.Item
-    'esbuild-ts': Build.Item
+    'esbuild-js': Item
+    'esbuild-ts': Item
   }
 
   interface Rules {
-    js: Build.Rule
-    ts: Build.Rule
+    js: Rule
+    ts: Rule
   }
 }

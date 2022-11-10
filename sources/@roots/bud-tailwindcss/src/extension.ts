@@ -37,7 +37,7 @@ type ResolvedConfig = Partial<{
 @options({
   generateImports: false,
 })
-export default class BudTailwindCss extends Extension<{
+export class BudTailwindCss extends Extension<{
   generateImports: boolean | Array<string>
 }> {
   /**

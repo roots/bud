@@ -2,7 +2,7 @@ import chalk from '@roots/bud-support/chalk'
 import cleanStack from '@roots/bud-support/clean-stack'
 import {bind} from '@roots/bud-support/decorators'
 import {isEqual} from '@roots/bud-support/lodash-es'
-import Signale, {SignaleConfig, SignaleOptions} from 'signale'
+import * as Signale from '@roots/bud-support/signale'
 
 import type {Bud} from '../bud.js'
 import {configDefaults, LEVEL, types} from './logger.constants.js'
@@ -24,7 +24,7 @@ export class Logger {
    *
    * @public
    */
-  public instance: Signale.Signale
+  public instance: Signale.Instance
 
   public get level() {
     switch (this.app.context.args.level?.length) {
@@ -60,15 +60,16 @@ export class Logger {
       `${this.app.context.bud.label}@${this.app.context.bud.version}`,
       this.app.label,
     ]
+
     this.instance = this.makeInstance()
   }
 
   @bind
   public makeInstance(
-    constructorOverrides: SignaleOptions = {},
-    configOverrides: SignaleConfig = {},
+    constructorOverrides: Signale.Options = {},
+    configOverrides: Signale.Config = {},
   ) {
-    let instance = new Signale.Signale({
+    let instance = new Signale.default({
       logLevel: this.level,
       disabled: isEqual(this.app.context.args.log, false),
       scope: this.app.label ?? this.app.context.bud.label,

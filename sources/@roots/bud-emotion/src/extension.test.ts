@@ -1,10 +1,10 @@
 import {describe, expect, it, test} from 'vitest'
 
-import Extension from './index.js'
+import {BudEmotion} from './extension.js'
 
 describe(`@roots/bud-emotion`, () => {
   it(`should be constructable`, () => {
-    expect(Extension).toBeInstanceOf(Function)
+    expect(BudEmotion).toBeInstanceOf(Function)
   })
 
   test.todo(`improve this spec`)

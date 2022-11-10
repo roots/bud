@@ -10,7 +10,7 @@ import {isUndefined} from '@roots/bud-support/lodash-es'
  *
  * @public
  */
-export default abstract class Hooks<Store> {
+export abstract class Hooks<Store> {
   /**
    * Get app
    *

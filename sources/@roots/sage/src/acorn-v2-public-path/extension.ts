@@ -9,7 +9,7 @@ import {bind, label} from '@roots/bud-framework/extension/decorators'
  * @decorator `@label`
  */
 @label(`@roots/sage/acorn-v2-public-path`)
-export default class AcornV2PublicPath extends Extension {
+export class AcornV2PublicPath extends Extension {
   /**
    * `register` callback
    *

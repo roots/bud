@@ -1,8 +1,9 @@
 /* eslint-disable no-console */
-import {paths} from '@repo/constants/.'
+import {join} from 'node:path'
+
+import {paths} from '@repo/constants'
 import * as fs from '@roots/bud-support/fs'
 import {execa} from 'execa'
-import {join} from 'path'
 import {beforeEach, describe, expect, it} from 'vitest'
 
 describe(`@roots/bud-criticalcss`, () => {

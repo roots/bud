@@ -5,7 +5,7 @@ import type {
 } from '@roots/bud-framework/registry'
 import {bind} from '@roots/bud-support/decorators'
 
-import Hooks from './base.js'
+import {Hooks} from './base.js'
 
 /**
  * Synchronous hooks registry
@@ -15,7 +15,7 @@ import Hooks from './base.js'
  *
  * @public
  */
-export default class EventHooks extends Hooks<EventsStore> {
+export class EventHooks extends Hooks<EventsStore> {
   /**
    * Register a function to filter a value.
    *

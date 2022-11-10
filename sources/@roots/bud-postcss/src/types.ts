@@ -4,7 +4,7 @@ import type Item from '@roots/bud-build/item'
 import type Loader from '@roots/bud-build/loader'
 import type {Plugin, Processor} from 'postcss'
 
-import type BudPostCss from './extension.js'
+import type {BudPostCss} from './extension.js'
 
 declare module '@roots/bud-framework' {
   interface Bud {

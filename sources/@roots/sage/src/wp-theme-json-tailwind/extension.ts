@@ -17,7 +17,7 @@ import * as tailwindAdapter from './tailwind/index.js'
  */
 @label(`@roots/sage/wp-theme-json-tailwind`)
 @dependsOn([`@roots/sage/wp-theme-json`])
-export default class WPThemeJsonTailwind extends Extension {
+export class WPThemeJsonTailwind extends Extension {
   /**
    * `register` callback
    *

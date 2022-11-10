@@ -2,25 +2,18 @@
   "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
     "importHelpers": false,
-    "lib": ["es2020", "dom"],
     "module": "commonjs",
-    "rootDir": "src",
+    "moduleDetection": "auto",
+    "rootDir": "./src",
     "sourceMap": false,
-    "outDir": "lib",
+    "outDir": "./lib",
     "target": "es6",
-    "types": ["node", "webpack-env"]
   },
   "files": [
     "src/types/index.ts"
   ],
-  "include": [
-    "src",
-  ],
-  "exclude": [
-    "lib",
-    "node_modules",
-    "**/*.test.ts"
-  ],
+  "include": ["./src"],
+  "exclude": ["./lib", "./node_modules", "**/*.test.ts", "**/__fixtures__"],
   "references": [
     {"path": "./../bud/tsconfig.json"},
   ]

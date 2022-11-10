@@ -10,6 +10,6 @@
  *  @packageDocumentation
  */
 
-import Hooks from './service.js'
+import {Hooks} from './service.js'
 
 export default Hooks

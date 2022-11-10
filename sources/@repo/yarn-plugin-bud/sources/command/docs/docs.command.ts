@@ -34,20 +34,10 @@ export class Docs extends Command {
     description: `build docs and readme.`,
     examples: [
       [`build all`, `yarn @bud docs`],
-      [`build api documentation`, `yarn @bud docs --api`],
       [`build api documentation and site files`, `yarn @bud docs --site`],
       [`build readme files`, `yarn @bud docs --readme`],
     ],
   }
-
-  /**
-   * --api option
-   *
-   * @internal
-   */
-  public api = Option.Boolean(`-a,--api`, false, {
-    description: `build api docs`,
-  })
 
   /**
    * --site option
@@ -73,7 +63,7 @@ export class Docs extends Command {
    * @internal
    */
   public async execute() {
-    const all = !this.site && !this.readme && !this.api
+    const all = !this.site && !this.readme
 
     /**
      * Build docs site cli examples

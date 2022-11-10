@@ -12,6 +12,8 @@ import CriticalCssWebpackPlugin, {
   Options,
 } from '@roots/critical-css-webpack-plugin'
 
+import {extractCss} from './api/extract.js'
+
 /**
  * Adds critical css webpack plugin to compilation
  *
@@ -58,6 +60,14 @@ export default class BudCriticalCss extends Extension<
   Options,
   CriticalCssWebpackPlugin
 > {
+  /**
+   * `register` callback
+   */
+  @bind
+  public async register(bud: Bud) {
+    bud.extractCss = extractCss.bind(bud)
+  }
+
   /**
    * Whether to extract styles
    *

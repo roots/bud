@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-/* eslint-disable tsdoc/syntax */
 /**
  * @vitest-environment jsdom
  */

@@ -15,22 +15,28 @@ import {isUndefined} from '@roots/bud-support/lodash-es'
  */
 @label(`@roots/bud-emotion`)
 @dependsOnOptional([`@roots/bud-babel`, `@roots/bud-swc`])
-export default class BudEmotion extends Extension {
+export class BudEmotion extends Extension {
   /**
-   * `afterConfig` callback
+   * `configAfter` callback
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public async afterConfig() {
+  public async configAfter() {
     if (!isUndefined(this.app.babel))
       this.app.babel.setPlugin(`@emotion/babel-plugin`)
 
-    if (!isUndefined(this.app.swc))
+    if (!isUndefined(this.app.swc)) {
+      const plugin: [string, Record<string, any>] = [
+        `@swc/plugin-emotion`,
+        {},
+      ]
+
       this.app.swc.plugins(plugins => {
-        plugins.push([`emotion-swc-plugin`, {}])
-        return plugins
+        plugins?.push(plugin)
+        return plugins ?? [plugin]
       })
+    }
   }
 }

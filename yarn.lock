@@ -4143,25 +4143,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@microsoft/tsdoc-config@npm:0.16.2":
-  version: 0.16.2
-  resolution: "@microsoft/tsdoc-config@npm:0.16.2"
-  dependencies:
-    "@microsoft/tsdoc": 0.14.2
-    ajv: ~6.12.6
-    jju: ~1.4.0
-    resolve: ~1.19.0
-  checksum: 12b0d703154076bcaac75ca42e804e4fc292672396441e54346d7eadd0d6b57f90980eda2b1bab89b224af86da34a2389f9054002e282011e795ca5919a4386f
-  languageName: node
-  linkType: hard
-
-"@microsoft/tsdoc@npm:0.14.2":
-  version: 0.14.2
-  resolution: "@microsoft/tsdoc@npm:0.14.2"
-  checksum: b167c89e916ba73ee20b9c9d5dba6aa3a0de25ed3d50050e8a344dca7cd43cb2e1059bd515c820369b6e708901dd3fda476a42bc643ca74a35671ce77f724a3a
-  languageName: node
-  linkType: hard
-
 "@mrmlnc/readdir-enhanced@npm:^2.2.1":
   version: 2.2.1
   resolution: "@mrmlnc/readdir-enhanced@npm:2.2.1"
@@ -5492,7 +5473,9 @@ __metadata:
     "@roots/critical-css-webpack-plugin": "workspace:sources/@roots/critical-css-webpack-plugin"
     "@skypack/package-check": 0.2.2
     "@types/node": 16.18.3
+    critical: 5.0.3
     tslib: 2.4.1
+    vinyl: 3.0.0
     vitest: 0.24.5
   peerDependencies:
     "@roots/bud": "*"
@@ -5533,9 +5516,9 @@ __metadata:
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@roots/bud-swc": "workspace:sources/@roots/bud-swc"
     "@skypack/package-check": 0.2.2
+    "@swc/plugin-emotion": 2.5.21
     "@types/node": 16.18.3
     "@types/react": 17.0.52
-    emotion-swc-plugin: 0.0.5
     react: 17.0.2
     tslib: 2.4.1
     vitest: 0.24.5
@@ -5559,6 +5542,8 @@ __metadata:
       optional: true
     "@roots/bud-swc":
       optional: true
+    "@swc/plugin-emotion":
+      optional: true
   languageName: unknown
   linkType: soft
 
@@ -5579,13 +5564,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-esbuild@workspace:sources/@roots/bud-esbuild"
   dependencies:
-    "@roots/bud-api": "workspace:sources/@roots/bud-api"
-    "@roots/bud-build": "workspace:sources/@roots/bud-build"
+    "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@skypack/package-check": 0.2.2
     "@types/node": 16.18.3
     esbuild-loader: 2.20.0
-    ts-node: 10.9.1
     tslib: 2.4.1
     vitest: 0.24.5
     webpack: 5.74.0
@@ -5906,6 +5889,7 @@ __metadata:
   resolution: "@roots/bud-purgecss@workspace:sources/@roots/bud-purgecss"
   dependencies:
     "@fullhuman/postcss-purgecss": 5.0.0
+    "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss"
     "@skypack/package-check": 0.2.2
@@ -5915,6 +5899,8 @@ __metadata:
     vitest: 0.24.5
   peerDependencies:
     "@fullhuman/postcss-purgecss": "*"
+    "@roots/bud": "*"
+    "@roots/bud-postcss": "*"
   peerDependenciesMeta:
     "@fullhuman/postcss-purgecss":
       optional: true
@@ -6997,6 +6983,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@swc/plugin-emotion@npm:2.5.21":
+  version: 2.5.21
+  resolution: "@swc/plugin-emotion@npm:2.5.21"
+  checksum: 3c0bf085b1aee20eb00456540e8d6b753d33f29f47f8424ed890b600033cca18ed81c3e32b3a1726c750afdefff9cba77ba00b0e00453dfebaa5ea0144f2043e
+  languageName: node
+  linkType: hard
+
 "@szmarczak/http-timer@npm:^1.1.2":
   version: 1.1.2
   resolution: "@szmarczak/http-timer@npm:1.1.2"
@@ -7056,6 +7049,15 @@ __metadata:
   checksum: 5cf61174cbf94f56650e7065e04e4322a92ac3732f036dcab88998bfb0ea43f4e2fbe54b9d5d35a809c224c5568c5cad6c1e78ab667353aadaa26986969c2e25
   languageName: node
   linkType: hard
+
+"@tests/bud-criticalcss__extract-func@workspace:sources/@roots/bud-criticalcss/src/__fixtures__/extract-func":
+  version: 0.0.0-use.local
+  resolution: "@tests/bud-criticalcss__extract-func@workspace:sources/@roots/bud-criticalcss/src/__fixtures__/extract-func"
+  dependencies:
+    "@roots/bud": "workspace:sources/@roots/bud"
+    "@roots/bud-criticalcss": "workspace:sources/@roots/bud-criticalcss"
+  languageName: unknown
+  linkType: soft
 
 "@tests/bud-criticalcss__extract@workspace:sources/@roots/bud-criticalcss/src/__fixtures__/extract":
   version: 0.0.0-use.local
@@ -9743,7 +9745,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ajv@npm:^6.10.0, ajv@npm:^6.12.2, ajv@npm:^6.12.3, ajv@npm:^6.12.4, ajv@npm:^6.12.5, ajv@npm:~6.12.6":
+"ajv@npm:^6.10.0, ajv@npm:^6.12.2, ajv@npm:^6.12.3, ajv@npm:^6.12.4, ajv@npm:^6.12.5":
   version: 6.12.6
   resolution: "ajv@npm:6.12.6"
   dependencies:
@@ -11071,7 +11073,6 @@ __metadata:
     eslint-plugin-react: 7.31.10
     eslint-plugin-react-hooks: 4.6.0
     eslint-plugin-simple-import-sort: 8.0.0
-    eslint-plugin-tsdoc: 0.2.17
     execa: 6.1.0
     fs-extra: 10.1.0
     import-meta-resolve: 2.1.0
@@ -11081,9 +11082,7 @@ __metadata:
     prettier: 2.7.1
     syncpack: 8.3.9
     tinybench: 2.3.1
-    ts-node: 10.9.1
     tslib: 2.4.1
-    typedoc: 0.23.20
     typescript: 4.8.4
     vitest: 0.24.5
     webpack: 5.74.0
@@ -14370,13 +14369,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"emotion-swc-plugin@npm:0.0.5":
-  version: 0.0.5
-  resolution: "emotion-swc-plugin@npm:0.0.5"
-  checksum: 00e17226cb2f9de5110ec1c40bc7bfcf97959f2b0cf700ce4678a996856dbce53df5117352df148e4aa536027d181a0ecdf903b0d399dfc0dc9bb0252179b3b2
-  languageName: node
-  linkType: hard
-
 "enabled@npm:2.0.x":
   version: 2.0.0
   resolution: "enabled@npm:2.0.0"
@@ -15343,16 +15335,6 @@ __metadata:
   peerDependencies:
     eslint: ">=5.0.0"
   checksum: d2a92a7d148803ee9ad4f081892a8d03820198c36a0f4f16a97d9f686a714edc9c9a9e51cc79cb0ba1afff76a1fde6a5eae50e9e3754928068227c92a2db5d6b
-  languageName: node
-  linkType: hard
-
-"eslint-plugin-tsdoc@npm:0.2.17":
-  version: 0.2.17
-  resolution: "eslint-plugin-tsdoc@npm:0.2.17"
-  dependencies:
-    "@microsoft/tsdoc": 0.14.2
-    "@microsoft/tsdoc-config": 0.16.2
-  checksum: d143a5f1c5967812d75f246ae2776cb030f6e7966b981406c9df9352a9ab02b035f294cedb30054eac2c4a217ee4ab2ed9fb76292bdccda9438e54d2d7b0146e
   languageName: node
   linkType: hard
 
@@ -19129,7 +19111,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-core-module@npm:^2.1.0, is-core-module@npm:^2.10.0, is-core-module@npm:^2.5.0, is-core-module@npm:^2.8.1, is-core-module@npm:^2.9.0":
+"is-core-module@npm:^2.10.0, is-core-module@npm:^2.5.0, is-core-module@npm:^2.8.1, is-core-module@npm:^2.9.0":
   version: 2.10.0
   resolution: "is-core-module@npm:2.10.0"
   dependencies:
@@ -19922,13 +19904,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jju@npm:~1.4.0":
-  version: 1.4.0
-  resolution: "jju@npm:1.4.0"
-  checksum: 3790481bd2b7827dd6336e6e3dc2dcc6d425679ba7ebde7b679f61dceb4457ea0cda330972494de608571f4973c6dfb5f70fab6f3c5037dbab19ac449a60424f
-  languageName: node
-  linkType: hard
-
 "joi@npm:^17.6.0, joi@npm:^17.6.2":
   version: 17.6.2
   resolution: "joi@npm:17.6.2"
@@ -20209,13 +20184,6 @@ __metadata:
   bin:
     json5: lib/cli.js
   checksum: e76ea23dbb8fc1348c143da628134a98adf4c5a4e8ea2adaa74a80c455fc2cdf0e2e13e6398ef819bfe92306b610ebb2002668ed9fc1af386d593691ef346fc3
-  languageName: node
-  linkType: hard
-
-"jsonc-parser@npm:^3.0.0":
-  version: 3.2.0
-  resolution: "jsonc-parser@npm:3.2.0"
-  checksum: 946dd9a5f326b745aa326d48a7257e3f4a4b62c5e98ec8e49fa2bdd8d96cef7e6febf1399f5c7016114fd1f68a1c62c6138826d5d90bc650448e3cf0951c53c7
   languageName: node
   linkType: hard
 
@@ -21153,7 +21121,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lunr@npm:>= 2.3.0 < 2.4.0, lunr@npm:^2.3.8, lunr@npm:^2.3.9":
+"lunr@npm:>= 2.3.0 < 2.4.0, lunr@npm:^2.3.8":
   version: 2.3.9
   resolution: "lunr@npm:2.3.9"
   checksum: 176719e24fcce7d3cf1baccce9dd5633cd8bdc1f41ebe6a180112e5ee99d80373fe2454f5d4624d437e5a8319698ca6837b9950566e15d2cae5f2a543a3db4b8
@@ -21302,7 +21270,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"marked@npm:4.1.0, marked@npm:^4.0.19":
+"marked@npm:4.1.0":
   version: 4.1.0
   resolution: "marked@npm:4.1.0"
   bin:
@@ -24235,7 +24203,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"path-parse@npm:^1.0.6, path-parse@npm:^1.0.7":
+"path-parse@npm:^1.0.7":
   version: 1.0.7
   resolution: "path-parse@npm:1.0.7"
   checksum: 49abf3d81115642938a8700ec580da6e830dde670be21893c62f4e10bd7dd4c3742ddc603fe24f898cba7eb0c6bc1777f8d9ac14185d34540c6d4d80cd9cae8a
@@ -27366,16 +27334,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"resolve@npm:~1.19.0":
-  version: 1.19.0
-  resolution: "resolve@npm:1.19.0"
-  dependencies:
-    is-core-module: ^2.1.0
-    path-parse: ^1.0.6
-  checksum: a05b356e47b85ad3613d9e2a39a824f3c27f4fcad9c9ff6c7cc71a2e314c5904a90ab37481ad0069d03cab9eaaac6eb68aca1bc3355fdb05f1045cd50e2aacea
-  languageName: node
-  linkType: hard
-
 "resolve@patch:resolve@^1.1.6#~builtin<compat/resolve>, resolve@patch:resolve@^1.1.7#~builtin<compat/resolve>, resolve@patch:resolve@^1.10.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.12.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.14.2#~builtin<compat/resolve>, resolve@patch:resolve@^1.19.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.20.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.22.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.22.1#~builtin<compat/resolve>, resolve@patch:resolve@^1.3.2#~builtin<compat/resolve>, resolve@patch:resolve@^1.9.0#~builtin<compat/resolve>":
   version: 1.22.1
   resolution: "resolve@patch:resolve@npm%3A1.22.1#~builtin<compat/resolve>::version=1.22.1&hash=07638b"
@@ -27399,16 +27357,6 @@ __metadata:
   bin:
     resolve: bin/resolve
   checksum: 4bf9f4f8a458607af90518ff73c67a4bc1a38b5a23fef2bb0ccbd45e8be89820a1639b637b0ba377eb2be9eedfb1739a84cde24fe4cd670c8207d8fea922b011
-  languageName: node
-  linkType: hard
-
-"resolve@patch:resolve@~1.19.0#~builtin<compat/resolve>":
-  version: 1.19.0
-  resolution: "resolve@patch:resolve@npm%3A1.19.0#~builtin<compat/resolve>::version=1.19.0&hash=07638b"
-  dependencies:
-    is-core-module: ^2.1.0
-    path-parse: ^1.0.6
-  checksum: 2443b94d347e6946c87c85faf13071f605e609e0b54784829b0ed2b917d050bfc1cbaf4ecc6453f224cfa7d0c5dcd97cbb273454cd210bee68e4af15c1a5abc9
   languageName: node
   linkType: hard
 
@@ -28109,17 +28057,6 @@ __metadata:
   version: 0.1.1
   resolution: "shellwords@npm:0.1.1"
   checksum: 8d73a5e9861f5e5f1068e2cfc39bc0002400fe58558ab5e5fa75630d2c3adf44ca1fac81957609c8320d5533e093802fcafc72904bf1a32b95de3c19a0b1c0d4
-  languageName: node
-  linkType: hard
-
-"shiki@npm:^0.11.1":
-  version: 0.11.1
-  resolution: "shiki@npm:0.11.1"
-  dependencies:
-    jsonc-parser: ^3.0.0
-    vscode-oniguruma: ^1.6.1
-    vscode-textmate: ^6.0.0
-  checksum: 2a4ebc3b466816263fc244ae4f67a4ff96aa74d863b9c5e7e4affc50f37fd6d1a781405de0dbf763b777bc33e49a0d441de7ff3fededb8b01e3b8dbb37e2927d
   languageName: node
   linkType: hard
 
@@ -30546,22 +30483,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typedoc@npm:0.23.20":
-  version: 0.23.20
-  resolution: "typedoc@npm:0.23.20"
-  dependencies:
-    lunr: ^2.3.9
-    marked: ^4.0.19
-    minimatch: ^5.1.0
-    shiki: ^0.11.1
-  peerDependencies:
-    typescript: 4.6.x || 4.7.x || 4.8.x
-  bin:
-    typedoc: bin/typedoc
-  checksum: 8dbe046794a827b87e186523df86573673520ea5c706e1dfc2a820360bda5e998c23fd2ced91299ef060339f6ebba1086776e4e7423769da9b135a13edee10ec
-  languageName: node
-  linkType: hard
-
 "typescript@npm:4.8.4, typescript@npm:^4.5.4, typescript@npm:^4.5.5":
   version: 4.8.4
   resolution: "typescript@npm:4.8.4"
@@ -31527,7 +31448,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vinyl@npm:^3.0.0":
+"vinyl@npm:3.0.0, vinyl@npm:^3.0.0":
   version: 3.0.0
   resolution: "vinyl@npm:3.0.0"
   dependencies:
@@ -31634,20 +31555,6 @@ __metadata:
   bin:
     vm2: bin/vm2
   checksum: 5534df3d3f3aa9060ab23fd22a2f5e756c19bec7b9af50028aa05c6f7c21c3da303101f1982004964d5320f9484d02a2d299e841994dce03af7fe1061871b518
-  languageName: node
-  linkType: hard
-
-"vscode-oniguruma@npm:^1.6.1":
-  version: 1.6.2
-  resolution: "vscode-oniguruma@npm:1.6.2"
-  checksum: 6b754acdafd5b68242ea5938bb00a32effc16c77f471d4f0f337d879d0e8e592622998e2441f42d9a7ff799c1593f31c11f26ca8d9bf9917e3ca881d3c1f3e19
-  languageName: node
-  linkType: hard
-
-"vscode-textmate@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "vscode-textmate@npm:6.0.0"
-  checksum: ff6f17a406c2906586afc14ef01cb122e33acd35312e815abb5c924347a777c6783ce3fe7db8b83f1760ebf843c669843b9390f905b69c433b3395af28e4b483
   languageName: node
   linkType: hard
 

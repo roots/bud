@@ -3,6 +3,8 @@
  * @param {import('@roots/bud').Bud} app
  */
 export default async app => {
+  await app.extensions.add([`@roots/bud-swc`, `@roots/bud-tailwindcss`])
+  await app.extensions.add([`@roots/bud-emotion`])
   app
     .entry(`app`, [`@src/scripts/app.js`, `@src/styles/app.css`])
     .setPath(`@src`, `src`)

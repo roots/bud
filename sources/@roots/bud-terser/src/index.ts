@@ -12,6 +12,6 @@
 
 import './types.js'
 
-import BudTerser from './extension.js'
+import {BudTerser} from './extension.js'
 
 export default BudTerser
