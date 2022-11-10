@@ -13,6 +13,7 @@
     "@roots/bud": "0.0.0",
     "@roots/bud-babel": "0.0.0",
     "@roots/bud-typescript": "0.0.0",
-    "@types/webpack-env": "latest"
+    "@types/webpack-env": "latest",
+    "ts-node": "10.9.1"
   }
 }
