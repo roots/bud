@@ -1,9 +1,5 @@
 import type {Bud} from '@roots/bud-framework/bud'
-import type {
-  SyncCallback,
-  SyncRegistry,
-  SyncStore,
-} from '@roots/bud-framework/registry'
+import type {SyncCallback, SyncStore} from '@roots/bud-framework/registry'
 import {bind} from '@roots/bud-support/decorators'
 import {isFunction} from '@roots/bud-support/lodash-es'
 
@@ -42,11 +38,11 @@ export class SyncHooks extends Hooks<SyncStore> {
    * @decorator `@bind`
    */
   @bind
-  public setRecords<K extends keyof SyncRegistry & string>(
+  public setRecords<K extends keyof Partial<SyncCallback> & string>(
     map: Partial<SyncCallback>,
   ): Bud {
-    Object.entries(map).map(([k, v]: [K, SyncRegistry[K]]) =>
-      this.set(k, v),
+    Object.entries(map).map(([k, v]) =>
+      this.set(k as K, v as SyncCallback[K]),
     )
 
     return this.app

@@ -32,8 +32,7 @@ export default class Extensions
    *
    * @public
    */
-  // @ts-ignore
-  public repository: Modules = {}
+  public repository: Partial<Modules> = {}
 
   /**
    * Resolved options
@@ -157,8 +156,8 @@ export default class Extensions
           ?.filter(Boolean)
           .filter(this.isAllowed)
           .map(
-            async (signifier: `${keyof Modules & string}`) =>
-              await this.import(signifier, true),
+            async signifier =>
+              await this.import(signifier as keyof Modules & string, true),
           ),
       )
 
@@ -308,8 +307,8 @@ export default class Extensions
     if (instance.dependsOn)
       await Promise.all(
         Array.from(instance.dependsOn)
-          .filter((dependency: K) => !this.has(dependency))
-          .map(async (dependency: K) => await this.import(dependency)),
+          .filter(dependency => !this.has(dependency))
+          .map(async dependency => await this.import(dependency)),
       )
 
     if (instance.dependsOnOptional)
@@ -317,11 +316,11 @@ export default class Extensions
         Array.from(instance.dependsOnOptional)
           .filter(this.isAllowed)
           .filter(
-            (optionalDependency: K) =>
+            optionalDependency =>
               !this.unresolvable.has(optionalDependency),
           )
-          .filter((optionalDependency: K) => !this.has(optionalDependency))
-          .map(async (optionalDependency: K) => {
+          .filter(optionalDependency => !this.has(optionalDependency))
+          .map(async optionalDependency => {
             await this.import(optionalDependency, false)
             if (!this.has(optionalDependency))
               this.unresolvable.add(optionalDependency)
@@ -447,8 +446,8 @@ export default class Extensions
     if (extension.dependsOn) {
       await Array.from(extension.dependsOn)
         .filter(this.isAllowed)
-        .filter((signifier: K) => !this.unresolvable.has(signifier))
-        .reduce(async (promised, signifier: K) => {
+        .filter(signifier => !this.unresolvable.has(signifier))
+        .reduce(async (promised, signifier) => {
           await promised
           if (!this.has(signifier)) await this.import(signifier)
 
@@ -460,8 +459,8 @@ export default class Extensions
     if (extension.dependsOnOptional)
       await Array.from(extension.dependsOnOptional)
         .filter(this.isAllowed)
-        .filter((signifier: K) => !this.unresolvable.has(signifier))
-        .reduce(async (promised, signifier: K) => {
+        .filter(signifier => !this.unresolvable.has(signifier))
+        .reduce(async (promised, signifier) => {
           await promised
           if (!this.has(signifier)) await this.import(signifier, false)
           if (!this.has(signifier)) {
@@ -488,14 +487,11 @@ export default class Extensions
    * @decorator `@bind`
    */
   @bind
-  public async make(): Promise<ApplyPlugin[]> {
+  public async make(): Promise<Array<ApplyPlugin>> {
     return await Promise.all(
       Object.values(this.repository).map(
         async extension => await extension._make(),
       ),
-    ).then(
-      (result: Array<ApplyPlugin>): Array<ApplyPlugin> =>
-        result.filter(Boolean),
-    )
+    ).then((result): Array<ApplyPlugin> => result.filter(Boolean))
   }
 }

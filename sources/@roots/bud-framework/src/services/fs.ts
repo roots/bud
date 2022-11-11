@@ -160,7 +160,7 @@ export default class Service extends FS {
         const manifestExists = await this.s3.exists(
           s3Path(`upload-manifest.json`),
         )
-        const entries = Object.entries(
+        const entries: Array<[string, Array<string>]> = Object.entries(
           manifestExists
             ? await this.s3
                 .read(s3Path(`upload-manifest.json`))
@@ -189,7 +189,7 @@ export default class Service extends FS {
 
         await Promise.all(
           [...new Set(stale)]
-            .flatMap(([key, value]: [string, Array<string>]) => value)
+            .flatMap(([_key, value]: [string, Array<string>]) => value)
             .filter(
               key =>
                 !entries.some(([_, value]: [string, Array<string>]) =>

@@ -37,7 +37,7 @@ export interface ApplyPlugin {
    *
    * @public
    */
-  apply: (...args: any[]) => unknown
+  apply: any
 }
 
 export interface Constructor {
@@ -397,7 +397,7 @@ export class Extension<
    * @decorator `@bind`
    */
   @bind
-  public async _make() {
+  public async _make(): Promise<ApplyPlugin> {
     this.logger.info(`trying to make`, this.label)
 
     if (
@@ -406,20 +406,20 @@ export class Extension<
       isUndefined(this.plugin)
     ) {
       this.logger.info(`no make, apply or plugin prop found. skipping.`)
-      return false
+      return
     }
 
     const enabled = await this.isEnabled()
 
     if (enabled === false) {
       this.logger.info(`${this.label} is disabled. skipping.`)
-      return false
+      return
     }
 
     try {
       if (!isUndefined(this.apply)) {
         this.logger.info(`apply prop found. return extension instance`)
-        return this
+        return this as ApplyPlugin
       }
     } catch (error) {
       this.logger.error(`error instantiating plugin`, error)

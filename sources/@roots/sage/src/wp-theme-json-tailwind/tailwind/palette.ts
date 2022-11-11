@@ -56,6 +56,7 @@ export const toWordPressEntries: toWordPressEntries = ([entry, path]) => {
   if (!isString(value)) {
     const result = Object.entries(value)
       .map(i => [i, [...path, name]])
+      // @ts-ignore
       .flatMap(toWordPressEntries)
 
     return result
@@ -77,4 +78,5 @@ export interface transform {
 export const transform: transform = palette =>
   Object.entries(palette)
     .map(i => [i, []])
+    // @ts-ignore
     .flatMap(toWordPressEntries)

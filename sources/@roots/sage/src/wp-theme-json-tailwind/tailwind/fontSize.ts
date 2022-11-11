@@ -42,7 +42,9 @@ export const transformEntry: transformEntry = ([slug, fontSize]) => ({
 export interface transform {
   (fonts: TailwindSize): WordPressSizes
 }
-export const transform: transform = fonts =>
-  Object.entries(fonts)
-    .map(([k, v]) => [k, Array.isArray(v) ? v[0] : v])
-    .map(transformEntry)
+export const transform: transform = fonts => {
+  const entries: Array<[string, string]> = Object.entries(fonts).map(
+    ([k, v]) => [k, Array.isArray(v) ? v[0] : v],
+  )
+  return entries.map(transformEntry)
+}

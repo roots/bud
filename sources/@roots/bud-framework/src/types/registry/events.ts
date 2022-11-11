@@ -23,7 +23,3 @@ export interface Events {
   'server.after': (app?: Bud) => Promise<unknown>
   'proxy.interceptor': (app?: Bud) => Promise<unknown>
 }
-
-export type Registry = {
-  [P in keyof Events as `${P & string}`]: Events[P]
-}

@@ -62,9 +62,7 @@ export const DEVELOPMENT_SERVICES: Array<string> = [`@roots/bud-server`]
  * Mapped hooks to callbacks
  * @public
  */
-export const LIFECYCLE_EVENT_MAP: Partial<
-  Record<keyof Registry.EventsStore, keyof Service.Contract>
-> = {
+export const LIFECYCLE_EVENT_MAP = {
   init: `init`,
   bootstrap: `bootstrap`,
   bootstrapped: `bootstrapped`,

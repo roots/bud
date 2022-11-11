@@ -6,20 +6,21 @@ import {responseInterceptor} from 'http-proxy-middleware'
 
 import type {ApplicationURL} from './url.js'
 
-interface IncomingMessage extends http.IncomingMessage {
-  cookies: any
-}
-
-interface ServerResponse extends http.ServerResponse {
-  cookie: any
+declare module 'http' {
+  interface IncomingMessage {
+    cookies: any
+  }
+  interface ServerResponse {
+    cookie: any
+  }
 }
 
 export interface ResponseInterceptorFactory {
   interceptor(
     buffer: Buffer,
-    proxyResponse: IncomingMessage,
-    request: IncomingMessage,
-    response: ServerResponse,
+    proxyResponse: http.IncomingMessage,
+    request: http.IncomingMessage,
+    response: http.ServerResponse,
   ): Promise<Buffer | string>
 }
 
@@ -65,9 +66,9 @@ export class ResponseInterceptorFactory {
   @bind
   public async interceptor(
     buffer: Buffer,
-    _proxyResponse: IncomingMessage,
-    request: IncomingMessage,
-    response: ServerResponse,
+    _proxyResponse: http.IncomingMessage,
+    request: http.IncomingMessage,
+    response: http.ServerResponse,
   ): Promise<Buffer | String> {
     this.app.info(
       request.url,

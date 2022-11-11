@@ -16,17 +16,15 @@ const Messages = ({
   messages: StatsCompilation['errors'] | StatsCompilation['warnings']
   color: string
 }) => {
-  const formatted = messages
-    ?.reverse()
-    .map(({stack, message}: {stack: string; message: string}) => ({
-      stack,
-      message: message
-        .split(`\n`)
-        .map(ln => `${chalk.dim(VERT)} ${ln.replace(process.cwd(), `.`)}`)
-        .join(`\n`)
-        .split(`    at`)
-        .shift(),
-    }))
+  const formatted = messages?.reverse().map(({stack, message}) => ({
+    stack,
+    message: message
+      .split(`\n`)
+      .map(ln => `${chalk.dim(VERT)} ${ln.replace(process.cwd(), `.`)}`)
+      .join(`\n`)
+      .split(`    at`)
+      .shift(),
+  }))
 
   if (!formatted) return null
 

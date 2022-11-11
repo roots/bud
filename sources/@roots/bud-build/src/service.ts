@@ -65,25 +65,15 @@ export default class Build extends Service.Base implements Base.Service {
    */
   @bind
   public override async register(bud: Bud) {
-    Object.entries(loaders).map(
-      <K extends keyof Loaders & string>([key, loaderFactory]: [
-        K,
-        (bud: Bud) => Loaders[K],
-      ]) => {
-        const value = loaderFactory(bud)
-        this.setLoader(key, value)
-      },
-    )
+    Object.entries(loaders).map(([key, loaderFactory]) => {
+      const value = loaderFactory(bud)
+      this.setLoader(key as `${keyof Loaders & string}`, value)
+    })
 
-    Object.entries(items).map(
-      <K extends keyof Items & string>([key, itemFactory]: [
-        K,
-        (bud: Bud) => Items[K],
-      ]) => {
-        const value = itemFactory(bud)
-        this.setItem(key, value as any)
-      },
-    )
+    Object.entries(items).map(([key, itemFactory]) => {
+      const value = itemFactory(bud)
+      this.setItem(key as `${keyof Items & string}`, value as any)
+    })
 
     this.items.precss = bud.isProduction
       ? this.items.minicss
@@ -91,14 +81,9 @@ export default class Build extends Service.Base implements Base.Service {
 
     Object.entries(rules)
       .reverse()
-      .map(
-        <K extends keyof Rules & string>([key, ruleFactory]: [
-          K,
-          (bud: Bud) => Rules[K],
-        ]) => {
-          this.setRule(key, ruleFactory(bud))
-        },
-      )
+      .map(([key, ruleFactory]) => {
+        this.setRule(key as `${keyof Rules & string}`, ruleFactory(bud))
+      })
   }
 
   /**

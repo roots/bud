@@ -18,17 +18,17 @@ declare module '@roots/bud-framework' {
   }
 
   interface Modules {
-    '@roots/bud-extensions/cdn': BudCDN
-    '@roots/bud-extensions/esm': BudESM
-    '@roots/bud-extensions/fix-style-only-entrypoints': BudFixStyleOnlyEntrypoints
-    '@roots/bud-extensions/clean-webpack-plugin': CleanWebpackPlugin
-    '@roots/bud-extensions/copy-webpack-plugin': CopyWebpackPlugin
-    '@roots/bud-extensions/html-webpack-plugin': HtmlWebpackPlugin
-    '@roots/bud-extensions/interpolate-html-webpack-plugin': InterpolateHtmlPlugin
-    '@roots/bud-extensions/mini-css-extract-plugin': MiniCssExtractPlugin
-    '@roots/bud-extensions/webpack-define-plugin': WebpackDefinePlugin
-    '@roots/bud-extensions/webpack-hot-module-replacement-plugin': WebpackHotModuleReplacementPlugin
-    '@roots/bud-extensions/webpack-manifest-plugin': WebpackManifestPlugin
-    '@roots/bud-extensions/webpack-provide-plugin': WebpackProvidePlugin
+    '@roots/bud-extensions/cdn'?: BudCDN
+    '@roots/bud-extensions/esm'?: BudESM
+    '@roots/bud-extensions/fix-style-only-entrypoints'?: BudFixStyleOnlyEntrypoints
+    '@roots/bud-extensions/clean-webpack-plugin'?: CleanWebpackPlugin
+    '@roots/bud-extensions/copy-webpack-plugin'?: CopyWebpackPlugin
+    '@roots/bud-extensions/html-webpack-plugin'?: HtmlWebpackPlugin
+    '@roots/bud-extensions/interpolate-html-webpack-plugin'?: InterpolateHtmlPlugin
+    '@roots/bud-extensions/mini-css-extract-plugin'?: MiniCssExtractPlugin
+    '@roots/bud-extensions/webpack-define-plugin'?: WebpackDefinePlugin
+    '@roots/bud-extensions/webpack-hot-module-replacement-plugin'?: WebpackHotModuleReplacementPlugin
+    '@roots/bud-extensions/webpack-manifest-plugin'?: WebpackManifestPlugin
+    '@roots/bud-extensions/webpack-provide-plugin'?: WebpackProvidePlugin
   }
 }

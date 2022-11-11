@@ -4,7 +4,6 @@ import type {Readable} from 'node:stream'
 import {
   DeleteObjectCommand,
   GetObjectCommand,
-  GetObjectOutput,
   ListObjectsCommand,
   ListObjectsCommandOutput,
   PutObjectCommand,
@@ -267,11 +266,12 @@ export default class S3 {
    * @decorator bind - {@link bind}
    */
   @bind
-  public async read(
-    key: string,
-    raw = false,
-  ): Promise<GetObjectOutput | string> {
-    const streamToString = ({Body: stream}: {Body: Readable}) =>
+  public async read(key: string): Promise<string> {
+    const streamToString = async ({
+      Body: stream,
+    }: {
+      Body: Readable
+    }): Promise<string> =>
       new Promise((resolve, reject) => {
         const chunks = []
 
@@ -285,8 +285,6 @@ export default class S3 {
       const request = (await this.getClient().send(
         new GetObjectCommand({Bucket: this.bucket, Key: key}),
       )) as {Body: Readable}
-
-      if (raw) return request
 
       return streamToString(request)
     } catch (error) {

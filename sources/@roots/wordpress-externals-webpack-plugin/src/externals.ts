@@ -9,9 +9,15 @@ export type WordPressProvidedPackages =
   | 'react-dom'
   | 'jquery'
 
+interface RequestInterface {
+  /**
+   * The request as written by the user in the require/import expression/statement.
+   */
+  request?: string
+}
+
 export interface Externals {
-  window: ['wp', string]
-  enqueue: string
+  (request: RequestInterface, callback: CallableFunction)
 }
 
 export type PackageMapEntry = [string, Record<string, string>]
@@ -106,8 +112,8 @@ export const transform = (packageName: string): any => {
  *
  * @public
  */
-export const externals = (
-  {_context, request},
+export const externals: Externals = (
+  {request},
   callback: CallableFunction,
 ) =>
   isProvided(request)

@@ -12,7 +12,6 @@ import {bootstrap, LIFECYCLE_EVENT_MAP} from './lifecycle/bootstrap.js'
 import type {Logger} from './logger/index.js'
 import type * as methods from './methods/index.js'
 import type {Module} from './module.js'
-import type * as Service from './service.js'
 import type * as Api from './services/api.js'
 import type ConsoleBuffer from './services/console.js'
 import type FS from './services/fs.js'
@@ -291,17 +290,14 @@ export class Bud {
     )
 
     Object.entries(LIFECYCLE_EVENT_MAP).map(
-      ([eventHandle, callbackName]: [
-        keyof Registry.EventsStore,
-        keyof Service.Contract,
-      ]) =>
+      ([eventHandle, callbackName]) =>
         this.services
           .map(service => [service, this[service]])
           .map(([label, service]) => {
             if (!isFunction(service[callbackName])) return
 
             this.hooks.action(
-              eventHandle,
+              eventHandle as `${keyof Registry.EventsStore & string}`,
               service[callbackName].bind(service),
             )
             logger.success(
@@ -311,7 +307,7 @@ export class Bud {
           }),
     )
 
-    await [
+    const eventsKeys: Array<`${keyof Registry.EventsStore}`> = [
       `init`,
       `bootstrap`,
       `bootstrapped`,
@@ -319,10 +315,18 @@ export class Bud {
       `registered`,
       `boot`,
       `booted`,
-    ].reduce(async (promised, event: keyof Registry.EventsStore) => {
-      await promised
-      await this.hooks.fire(event)
-    }, Promise.resolve())
+    ]
+
+    eventsKeys.reduce(
+      async (
+        promised,
+        event: `${keyof Registry.EventsStore & string}`,
+      ) => {
+        await promised
+        await this.hooks.fire(event)
+      },
+      Promise.resolve(),
+    )
 
     return this
   }

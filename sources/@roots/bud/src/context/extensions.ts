@@ -79,8 +79,8 @@ export default class Extensions {
           !this.manifest.bud?.allowlist ||
           this.manifest.bud.allowlist.includes(signifier),
       )
-      .map((signifier: keyof Modules & string) =>
-        this.discovered.push(signifier),
+      .map(signifier =>
+        this.discovered.push(signifier as keyof Modules & string),
       )
 
     return this

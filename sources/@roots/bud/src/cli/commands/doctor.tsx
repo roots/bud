@@ -127,7 +127,7 @@ for a lot of edge cases so it might return a false positive.
         </Box>,
       )
     }
-    mismatches.map(([k, v]: [string, string]) => {
+    mismatches.map(([k, v]) => {
       this.renderOnce(
         <Box>
           <Text color="red">version mismatch</Text>

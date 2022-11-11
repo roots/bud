@@ -28,7 +28,7 @@ const name: name = label =>
  * @returns WordPress theme.json color
  */
 export interface transformEntry {
-  ([slug, value]: [string, string]): WordPressFonts[any]
+  ([slug, value]: [string, string]): WordPressFonts[0]
 }
 export const transformEntry: transformEntry = ([slug, fontFamily]) => ({
   name: name(fontFamily.split(`,`).shift()),
@@ -46,7 +46,9 @@ export const transformEntry: transformEntry = ([slug, fontFamily]) => ({
 export interface transform {
   (fonts: TailwindFontFamily): WordPressFonts
 }
-export const transform: transform = fonts =>
-  Object.entries(fonts)
-    .map(([k, v]) => [k, Array.isArray(v) ? v.join(`,`) : v])
-    .map(transformEntry)
+export const transform: transform = fonts => {
+  const entries: Array<[string, string]> = Object.entries(fonts).map(
+    ([k, v]) => [k, Array.isArray(v) ? v.join(`,`) : v],
+  )
+  return entries.map(transformEntry)
+}

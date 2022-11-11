@@ -23,6 +23,7 @@
     "sourceMap": true,
     "skipLibCheck": true,
     "strictBindCallApply": true,
+    "strictFunctionTypes": true,
     "target": "es2021",
     "types": ["node", "react", "express", "webpack", "webpack-env"]
   },

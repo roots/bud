@@ -107,5 +107,5 @@ export interface Service extends BaseService {
    *
    * @public
    */
-  make(): Promise<Array<ApplyPlugin>>
+  make(): Promise<Array<{apply: any}>>
 }

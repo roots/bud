@@ -3,7 +3,6 @@ import type {
   MultiCompiler as WebpackMultiCompiler,
   MultiStats,
   ProgressPlugin,
-  Stats,
   StatsCompilation,
 } from 'webpack'
 
@@ -56,9 +55,9 @@ interface Service extends BaseService {
    */
   compile(): Promise<WebpackMultiCompiler>
 
-  callback(error: Error, stats: Stats & MultiStats): void
+  callback(error: Error, stats: MultiStats): void
 
-  handleStats(stats: Stats & MultiStats): void
+  handleStats(stats: MultiStats): void
 
   onError(error: any): void
 }

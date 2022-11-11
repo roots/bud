@@ -38,7 +38,7 @@ const Compilation = ({
   mode: `production` | `development`
   compilerCount: number
 }) => {
-  const enrich = (asset: StatsAsset) => {
+  const enrich = (asset: Partial<StatsAsset>) => {
     const assetModule = stats?.assets?.find(a => a.name === asset.name)
     return {...asset, ...assetModule}
   }

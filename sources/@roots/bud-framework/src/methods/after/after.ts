@@ -18,14 +18,11 @@ export const after: after = function (
 ): Bud {
   const bud = this as Bud
 
-  bud.hooks.action(`compiler.after`, async bud => {
+  bud.hooks.action(`compiler.close`, async bud => {
     try {
       await action(bud)
     } catch (error) {
-      if (!errorHandler) {
-        throw error
-      }
-
+      if (!errorHandler) throw error
       errorHandler(error)
     }
 
