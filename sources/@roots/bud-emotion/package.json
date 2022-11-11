@@ -61,7 +61,7 @@
     }
   },
   "devDependencies": {
-    "@babel/core": "7.19.6",
+    "@babel/core": "7.20.2",
     "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
     "@roots/bud-swc": "workspace:sources/@roots/bud-swc",
