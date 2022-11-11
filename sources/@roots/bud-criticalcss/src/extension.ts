@@ -64,7 +64,7 @@ export default class BudCriticalCss extends Extension<
    * `register` callback
    */
   @bind
-  public async register(bud: Bud) {
+  public override async register(bud: Bud) {
     bud.extractCss = extractCss.bind(bud)
   }
 

@@ -7,9 +7,9 @@ import React from '@roots/bud-support/react'
 import BaseCommand from './base.js'
 
 export default class CleanCommand extends BaseCommand {
-  public static paths = [[`clean`]]
+  public static override paths = [[`clean`]]
 
-  public static usage = Command.Usage({
+  public static override usage = Command.Usage({
     category: `tasks`,
     description: `Clean project artifacts and caches`,
     details: `
@@ -26,7 +26,9 @@ export default class CleanCommand extends BaseCommand {
     ],
   })
 
-  public notify = Option.Boolean(`--notify`, false, {hidden: true})
+  public override notify = Option.Boolean(`--notify`, false, {
+    hidden: true,
+  })
 
   public storage = Option.Boolean(`@storage`, false, {
     description: `empty @storage`,
@@ -39,14 +41,14 @@ export default class CleanCommand extends BaseCommand {
   /**
    * Set CI to true
    */
-  public dry = true
+  public override dry = true
 
-  public get args() {
+  public override get args() {
     return {...this.context.args, dry: true}
   }
 
   @bind
-  public async runCommand() {
+  public override async runCommand() {
     try {
       await this.app.run()
     } catch (e) {}

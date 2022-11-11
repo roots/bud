@@ -1,4 +1,4 @@
-import {Extension} from '@roots/bud-framework'
+import {Bud, Extension} from '@roots/bud-framework'
 import {
   bind,
   expose,
@@ -37,13 +37,13 @@ export default class BudEslint extends Extension<Options, EslintPlugin> {
    * @decorator `@bind`
    */
   @bind
-  public async register() {
+  public override async register(bud: Bud) {
     const eslintPath = await this.resolve(`eslint`)
     this.setOption(`eslintPath`, eslintPath)
 
     const findFlatConfig = ({name}) => name.includes(`eslint.config`)
 
-    const userConfigs = Object.values(this.app.context.config)
+    const userConfigs = Object.values(bud.context.config)
     if (!userConfigs.some(findFlatConfig)) return
 
     const flatConfig = userConfigs.find(findFlatConfig)

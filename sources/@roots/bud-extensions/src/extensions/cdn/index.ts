@@ -271,7 +271,7 @@ export default class Cdn extends Extension<Options, null> {
    * @decorator `@bind`
    */
   @bind
-  public async buildBefore(bud: Bud) {
+  public override async buildBefore(bud: Bud) {
     bud.hooks.on(`build.experiments`, experiments => ({
       ...(experiments ?? {}),
       buildHttp: {

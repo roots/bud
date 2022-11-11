@@ -1,3 +1,4 @@
+import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
@@ -23,17 +24,17 @@ export class BudEmotion extends Extension {
    * @decorator `@bind`
    */
   @bind
-  public async configAfter() {
-    if (!isUndefined(this.app.babel))
-      this.app.babel.setPlugin(`@emotion/babel-plugin`)
+  public override async configAfter(bud: Bud) {
+    if (!isUndefined(bud.babel))
+      bud.babel.setPlugin(`@emotion/babel-plugin`)
 
-    if (!isUndefined(this.app.swc)) {
+    if (!isUndefined(bud.swc)) {
       const plugin: [string, Record<string, any>] = [
         `@swc/plugin-emotion`,
         {},
       ]
 
-      this.app.swc.plugins(plugins => {
+      bud.swc.plugins(plugins => {
         plugins?.push(plugin)
         return plugins ?? [plugin]
       })

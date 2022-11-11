@@ -1,3 +1,4 @@
+import type {Bud} from '@roots/bud-framework'
 import {Service as BaseService} from '@roots/bud-framework/service'
 import type {Service} from '@roots/bud-framework/services/project'
 import {bind} from '@roots/bud-support/decorators'
@@ -14,7 +15,7 @@ export default class Project extends BaseService implements Service {
    *
    * @public
    */
-  public static label = `project`
+  public static override label = `project`
 
   /**
    * `build.after` hook callback
@@ -22,37 +23,30 @@ export default class Project extends BaseService implements Service {
    * @public
    */
   @bind
-  public async buildAfter() {
-    if (!this.app.context.args.debug) {
-      this.app.info(`--debug not \`true\`. skipping fs write.`)
-      return
+  public override async buildAfter(bud: Bud) {
+    if (!bud.context.args.debug) {
+      return bud.info(`--debug not \`true\`. skipping fs write.`)
     }
 
     try {
-      const path = this.app.path(
-        `@storage`,
-        this.app.label,
-        `profile.json`,
-      )
+      const path = bud.path(`@storage`, bud.label, `profile.json`)
 
-      await this.app.fs.write(
+      await bud.fs.write(
         path,
-        this.app.fs.json.stringify(
+        bud.fs.json.stringify(
           {
-            basedir: this.app.context.basedir,
-            children: this.app.children
-              ? Object.keys(this.app.children)
-              : [],
+            basedir: bud.context.basedir,
+            children: bud.children ? Object.keys(bud.children) : [],
             context: {
-              args: this.app.context?.args,
-              extensions: this.app.context?.extensions,
-              services: this.app.context?.services,
+              args: bud.context?.args,
+              extensions: bud.context?.extensions,
+              services: bud.context?.services,
             },
-            extensions: this.app.extensions.repository,
+            extensions: bud.extensions.repository,
             hooks: {
-              sync: this.app.hooks.syncStore.store,
-              async: this.app.hooks.asyncStore.store,
-              actions: this.app.hooks.events.store,
+              sync: bud.hooks.syncStore.store,
+              async: bud.hooks.asyncStore.store,
+              actions: bud.hooks.events.store,
             },
           },
           null,
@@ -60,23 +54,18 @@ export default class Project extends BaseService implements Service {
         ),
       )
 
-      this.app.success(`profile written to `, path)
+      bud.success(`profile written to `, path)
     } catch (error) {
-      this.app.error(`failed to write profile`, error)
+      bud.error(`failed to write profile`, error)
     }
 
     try {
-      const path = this.app.path(
-        `@storage`,
-        this.app.label,
-        `webpack.config.dump`,
-      )
+      const path = bud.path(`@storage`, bud.label, `webpack.config.dump`)
+      await bud.fs.write(path, format(bud.build.config))
 
-      await this.app.fs.write(path, format(this.app.build.config))
-
-      this.app.success(`webpack.config.dump written to`, path)
+      bud.success(`webpack.config.dump written to`, path)
     } catch (error) {
-      this.app.error(`failed to write webpack.config.dump`, error)
+      bud.error(`failed to write webpack.config.dump`, error)
     }
   }
 }

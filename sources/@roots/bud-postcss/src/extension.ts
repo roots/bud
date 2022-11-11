@@ -57,7 +57,7 @@ export class BudPostCss extends Extension {
    * @decorator `@bind`
    */
   @bind
-  public async register(app: Bud): Promise<void> {
+  public override async register(app: Bud): Promise<void> {
     this.setPlugins({
       import: await this.resolve(`postcss-import`),
       nesting: await this.resolve(`postcss-nested`),

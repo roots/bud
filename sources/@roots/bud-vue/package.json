@@ -56,8 +56,7 @@
     }
   },
   "devDependencies": {
-    "@roots/bud-api": "workspace:sources/@roots/bud-api",
-    "@roots/bud-build": "workspace:sources/@roots/bud-build",
+    "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
     "@roots/bud-sass": "workspace:sources/@roots/bud-sass",
     "@skypack/package-check": "0.2.2",
@@ -76,6 +75,7 @@
     "vue-template-compiler": "^2.7.13"
   },
   "peerDependencies": {
+    "@roots/bud": "*",
     "@vue/compiler-sfc": "*",
     "vue": "*",
     "vue-loader": "*",

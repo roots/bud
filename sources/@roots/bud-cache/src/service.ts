@@ -20,7 +20,7 @@ export default class Cache
    *
    * @public
    */
-  public static label = `cache`
+  public static override label = `cache`
 
   /**
    * Enabled
@@ -134,7 +134,7 @@ export default class Cache
    * @decorator `@bind`
    */
   @bind
-  public async booted() {
+  public override async booted() {
     await this.app.extensions.add(InvalidateCacheExtension)
 
     switch (this.app.context.args.cache) {

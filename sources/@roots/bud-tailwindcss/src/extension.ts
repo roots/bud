@@ -1,3 +1,4 @@
+import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
@@ -19,9 +20,7 @@ import type {Config, ThemeConfig} from 'tailwindcss/types/config.js'
 import WebpackVirtualModules from 'webpack-virtual-modules'
 
 type ResolvedConfig = Partial<{
-  [K in keyof Config['theme'] as `${K & string}`]: ReturnType<
-    Config['theme'][K]
-  >
+  [K in keyof ThemeConfig as `${K & string}`]: ReturnType<ThemeConfig[K]>
 }>
 
 /**
@@ -44,7 +43,7 @@ export class BudTailwindCss extends Extension<{
    * Get config module
    * @public
    */
-  public get config(): ResolvedConfig {
+  public get config(): {module: Config} {
     return (
       this.app.context.config?.[`tailwind.config.js`] ??
       this.app.context.config?.[`tailwind.config.mjs`] ??
@@ -62,7 +61,9 @@ export class BudTailwindCss extends Extension<{
    *
    * @public
    */
-  public get theme(): ResolvedConfig {
+  public get theme(): ResolvedConfig & {
+    colors?: ResolvedConfig['colors']
+  } {
     return Object.assign({}, {...resolveConfig(this.config?.module).theme})
   }
 
@@ -131,13 +132,13 @@ export class BudTailwindCss extends Extension<{
    * @returns
    */
   @bind
-  public makeStaticModule(key: keyof Config['theme']) {
+  public makeStaticModule(key: keyof ThemeConfig) {
     return `export default ${JSON.stringify(get(this.theme, key))}\n`
   }
 
   @bind
   public async generateImports(
-    imports?: Array<`${keyof Config['theme'] & string}`> | boolean,
+    imports?: Array<`${keyof ThemeConfig & string}`> | boolean,
   ) {
     this.setOption(
       `generateImports`,
@@ -152,7 +153,7 @@ export class BudTailwindCss extends Extension<{
    * @public
    */
   @bind
-  public async init() {
+  public override async init() {
     this.dependencies.tailwindcss = await this.resolve(`tailwindcss`)
     this.dependencies.nesting = await this.resolve(
       `tailwindcss/nesting/index.js`,
@@ -166,8 +167,8 @@ export class BudTailwindCss extends Extension<{
    * @decorator `@bind`
    */
   @bind
-  public async configAfter() {
-    this.app.postcss.setPlugins({
+  public override async configAfter(bud: Bud) {
+    bud.postcss.setPlugins({
       nesting: this.dependencies.nesting,
       tailwindcss: this.dependencies.tailwindcss,
     })
@@ -175,14 +176,14 @@ export class BudTailwindCss extends Extension<{
     this.logger.success(`postcss configured for tailwindcss`)
 
     if (this.getOption(`generateImports`) === false) return
-    await this.app.extensions.add({
+    await bud.extensions.add({
       label: `@roots/bud-tailwindcss/virtual-module`,
       make: async () =>
         new WebpackVirtualModules(
           this.importableKeys.reduce(
             (acc, key) => ({
               ...acc,
-              [this.app.path(`@src`, `__bud`, `@tailwind`, `${key}.mjs`)]:
+              [bud.path(`@src`, `__bud`, `@tailwind`, `${key}.mjs`)]:
                 this.makeStaticModule(key),
             }),
             {},
@@ -190,9 +191,9 @@ export class BudTailwindCss extends Extension<{
         ),
     })
 
-    this.app.hooks.async(`build.resolve.alias`, async alias => ({
+    bud.hooks.async(`build.resolve.alias`, async alias => ({
       ...alias,
-      [`@tailwind`]: `${this.app.path(`@src`, `__bud`, `@tailwind`)}`,
+      [`@tailwind`]: `${bud.path(`@src`, `__bud`, `@tailwind`)}`,
     }))
   }
 }

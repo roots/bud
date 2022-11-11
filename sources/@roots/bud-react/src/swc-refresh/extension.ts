@@ -27,7 +27,7 @@ export default class BudSWCRefresh extends Extension {
    * @decorator `@bind`
    */
   @bind
-  public async init(bud: Bud) {
+  public override async init(bud: Bud) {
     bud.hooks.action(`build.before`, this.registerTransform.bind(this))
   }
 

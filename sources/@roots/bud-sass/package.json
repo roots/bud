@@ -27,8 +27,8 @@
     "url": "https://github.com/sponsors/roots"
   },
   "keywords": [
+    "roots",
     "bud",
-    "bud-extension",
     "sass"
   ],
   "engines": {
@@ -47,13 +47,12 @@
   "exports": {
     ".": "./lib/index.js",
     "./extension": "./lib/extension.js",
-    "./resolve-url": "./lib/resolve-url/extension.js",
+    "./resolve-url": "./lib/resolve-url/index.js",
     "./stylelint-config": "./stylelint-config/index.cjs"
   },
   "typesVersions": {
     "*": {
       ".": [
-        "./lib/types.d.ts",
         "./lib/index.d.ts"
       ],
       "extension": [

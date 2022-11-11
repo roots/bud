@@ -25,7 +25,7 @@ export class Server extends Service implements BaseService {
    *
    * @public
    */
-  public static label = `server`
+  public static override label = `server`
 
   /**
    * Express instance
@@ -83,7 +83,7 @@ export class Server extends Service implements BaseService {
    * @decorator `@once`
    */
   @bind
-  public async register(bud: Bud) {
+  public override async register(bud: Bud) {
     if (!bud.isDevelopment) return
 
     this.application = await bud.module

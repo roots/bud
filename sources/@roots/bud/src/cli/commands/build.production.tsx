@@ -13,13 +13,13 @@ export default class BuildProductionCommand extends BuildCommand {
    *
    * @public
    */
-  public static paths = [[`build`, `production`], [`production`]]
+  public static override paths = [[`build`, `production`], [`production`]]
 
   /**
    * Command usage
    * @public
    */
-  public static usage = Command.Usage({
+  public static override usage = Command.Usage({
     category: `build`,
     description: `Compiles source assets in \`production\` mode.`,
     details: `\
@@ -36,5 +36,5 @@ export default class BuildProductionCommand extends BuildCommand {
    *
    * @public
    */
-  public mode: `production` = `production`
+  public override mode: `production` = `production`
 }

@@ -20,7 +20,7 @@ export default abstract class BaseCommand extends Command {
    *
    * @public
    */
-  public static usage = Command.Usage({
+  public static override usage = Command.Usage({
     description: `Run \`bud --help\` for usage information`,
     details: `\
       \`bud build production\` compiles source assets in \`production\` mode. Run \`bud build production --help\` for usage.
@@ -40,7 +40,7 @@ export default abstract class BaseCommand extends Command {
    * Context
    * @public
    */
-  public context: Options.Context & BaseContext
+  public override context: Options.Context & BaseContext
 
   /**
    * Node notifier

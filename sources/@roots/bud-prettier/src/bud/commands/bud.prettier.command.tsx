@@ -10,21 +10,21 @@ export class BudPrettierCommand extends BaseCommand {
    * Command paths
    * @public
    */
-  public static paths = [[`format`], [`prettier`]]
+  public static override paths = [[`format`], [`prettier`]]
 
   /**
    * Comand usage
    * @public
    */
-  public static usage = Command.Usage({
+  public static override usage = Command.Usage({
     category: `tools`,
     description: `Prettier CLI`,
     examples: [[`View prettier usage information`, `$0 prettier --help`]],
   })
 
-  public dry = true
+  public override dry = true
 
-  public notify = false
+  public override notify = false
 
   public options = Option.Proxy({name: `prettier passthrough options`})
 
@@ -34,7 +34,7 @@ export class BudPrettierCommand extends BaseCommand {
    * @public
    */
   @bind
-  public async runCommand() {
+  public override async runCommand() {
     const prettier = await this.app.module.getDirectory(`prettier`)
     const bin = join(prettier, `bin-prettier.js`)
 

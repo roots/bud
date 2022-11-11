@@ -10,21 +10,21 @@ export class BudEslintCommand extends BaseCommand {
    *
    * @public
    */
-  public static paths = [[`lint`, `js`], [`eslint`]]
+  public static override paths = [[`lint`, `js`], [`eslint`]]
 
   /**
    * Comand usage
    * @public
    */
-  public static usage = Command.Usage({
+  public static override usage = Command.Usage({
     category: `tools`,
     description: `eslint CLI passthrough`,
     examples: [[`View eslint usage information`, `$0 eslint --help`]],
   })
 
-  public dry = true
+  public override dry = true
 
-  public notify = false
+  public override notify = false
 
   public options = Option.Proxy({name: `eslint passthrough options`})
 
@@ -33,7 +33,7 @@ export class BudEslintCommand extends BaseCommand {
    *
    * @public
    */
-  public async runCommand() {
+  public override async runCommand() {
     const eslint = await this.app.module.getDirectory(`eslint`)
     const bin = join(eslint, `bin`, `eslint.js`)
 

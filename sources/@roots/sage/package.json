@@ -84,6 +84,7 @@
     }
   },
   "devDependencies": {
+    "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-tailwindcss": "workspace:sources/@roots/bud-tailwindcss",
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.18.3",
@@ -99,6 +100,7 @@
     "tslib": "2.4.1"
   },
   "peerDependencies": {
+    "@roots/bud": "*",
     "@roots/bud-preset-wordpress": "*"
   },
   "peerDependenciesMeta": {

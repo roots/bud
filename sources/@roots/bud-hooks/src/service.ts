@@ -55,7 +55,7 @@ export class Hooks extends Base implements Service {
    *
    * @public
    */
-  public static label = `hooks`
+  public static override label = `hooks`
 
   public asyncStore: AsyncHooks
 

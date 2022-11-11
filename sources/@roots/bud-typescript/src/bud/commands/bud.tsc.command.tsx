@@ -10,21 +10,21 @@ export class BudTSCCommand extends BaseCommand {
    * Command paths
    * @public
    */
-  public static paths = [[`tsc`]]
+  public static override paths = [[`tsc`]]
 
   /**
    * Comand usage
    * @public
    */
-  public static usage = Command.Usage({
+  public static override usage = Command.Usage({
     category: `tools`,
     description: `TypeScript CLI passthrough`,
     examples: [[`View tsc usage information`, `$0 tsc --help`]],
   })
 
-  public dry = true
+  public override dry = true
 
-  public notify = false
+  public override notify = false
 
   public options = Option.Proxy({name: `tsc passthrough options`})
 
@@ -34,7 +34,7 @@ export class BudTSCCommand extends BaseCommand {
    * @public
    */
   @bind
-  public async runCommand() {
+  public override async runCommand() {
     const tsc = await this.app.module.getDirectory(`tsc`)
     const bin = join(tsc, `bin`, `tsc`)
 

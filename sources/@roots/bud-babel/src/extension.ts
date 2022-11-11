@@ -96,7 +96,7 @@ export default class BabelExtension extends Extension {
    * @decorator `@bind`
    */
   @bind
-  public async register() {
+  public override async register() {
     const presetEnv = await this.resolve(`@babel/preset-env`)
 
     if (presetEnv) this.setPreset(`@babel/preset-env`, presetEnv)
@@ -142,7 +142,7 @@ export default class BabelExtension extends Extension {
    * @decorator `@bind`
    */
   @bind
-  public async configAfter(bud: Bud) {
+  public override async configAfter(bud: Bud) {
     const loader = await this.resolve(`babel-loader`, import.meta.url)
 
     if (!loader) return this.logger.error(`Babel loader not found`)
