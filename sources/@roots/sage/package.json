@@ -88,7 +88,7 @@
     "@roots/bud-tailwindcss": "workspace:sources/@roots/bud-tailwindcss",
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.18.3",
-    "tailwindcss": "3.2.1",
+    "tailwindcss": "3.2.4",
     "vitest": "0.24.5",
     "webpack": "5.74.0"
   },
