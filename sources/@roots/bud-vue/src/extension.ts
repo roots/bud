@@ -9,7 +9,9 @@ import {
 import parseSemver from 'parse-semver'
 import type {Configuration, RuleSetRule} from 'webpack'
 
-type Options = {runtimeOnly: boolean}
+interface Options {
+  runtimeOnly: boolean
+}
 
 /**
  * Vue support
