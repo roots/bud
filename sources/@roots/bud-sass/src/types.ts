@@ -1,7 +1,7 @@
 import type {Build} from '@roots/bud-framework/services'
 
-import type BudSass from './extension.js'
-import type BudResolveUrl from './resolve-url/extension.js'
+import type {BudSass} from './extension.js'
+import type {BudResolveUrl} from './resolve-url/extension.js'
 
 declare module '@roots/bud-framework' {
   interface Bud {

@@ -17,13 +17,13 @@ export default class ViewCommand extends BaseCommand {
    * Command paths
    * @public
    */
-  public static paths = [[`view`]]
+  public static override paths = [[`view`]]
 
   /**
    * Command usage
    * @public
    */
-  public static usage = Command.Usage({
+  public static override usage = Command.Usage({
     description: `Explore bud object`,
     examples: [
       [`view compiled config`, `$0 view`],
@@ -31,9 +31,9 @@ export default class ViewCommand extends BaseCommand {
     ],
   })
 
-  public dry = true
+  public override dry = true
 
-  public notify = false
+  public override notify = false
 
   public color = Option.Boolean(`--color,-c`, true, {
     description: `use syntax highlighting`,
@@ -51,7 +51,7 @@ export default class ViewCommand extends BaseCommand {
    *
    * @public
    */
-  public async runCommand() {
+  public override async runCommand() {
     await this.app.build.make()
 
     let value = this.subject ? get(this.app, this.subject) : this.app

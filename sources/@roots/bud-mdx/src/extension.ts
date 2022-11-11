@@ -1,3 +1,4 @@
+import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
@@ -17,7 +18,7 @@ import {
   remarkPlugins: {},
   rehypePlugins: {},
 })
-export default class BudMDX extends Extension {
+export class BudMDX extends Extension {
   /**
    * Get registered remark plugins.
    */
@@ -48,14 +49,14 @@ export default class BudMDX extends Extension {
    * `boot` callback
    */
   @bind
-  public async configAfter() {
-    this.app.hooks.on(`build.resolve.extensions`, ext =>
+  public override async configAfter(bud: Bud) {
+    bud.hooks.on(`build.resolve.extensions`, ext =>
       ext.add(`.md`).add(`.mdx`),
     )
 
     const loader = await this.resolve(`@mdx-js/loader`)
 
-    this.app.build
+    bud.build
       .setLoader(`mdx`, loader)
       .setItem(`mdx`, {
         loader: `mdx`,

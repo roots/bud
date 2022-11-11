@@ -10,7 +10,7 @@ describe(`@roots/bud-sass registration`, () => {
   beforeAll(async () => {
     bud = await factory()
     await new ResolveUrl(bud).register(bud)
-    await new BudSass(bud).configAfter()
+    await new BudSass(bud).configAfter(bud)
   })
 
   it(`adds scss extension`, () => {

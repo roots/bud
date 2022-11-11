@@ -1,9 +1,9 @@
 import {describe, expect, it} from 'vitest'
 
-import Extension from './index.js'
+import {BudMDX} from './extension.js'
 
 describe(`@roots/bud-mdx`, () => {
   it(`should be constructable`, () => {
-    expect(Extension).toBeInstanceOf(Function)
+    expect(BudMDX).toBeInstanceOf(Function)
   })
 })

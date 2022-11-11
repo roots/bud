@@ -1,3 +1,4 @@
+import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
@@ -26,8 +27,8 @@ export default class BudTypeScriptRefresh extends Extension {
    * @decorator `@bind`
    */
   @bind
-  public async init() {
-    this.app.hooks.action(`build.before`, this.registerTransform)
+  public override async init(bud: Bud) {
+    bud.hooks.action(`build.before`, this.registerTransform)
   }
 
   /**

@@ -15,19 +15,19 @@ export default class WebpackCommand extends BaseCommand {
    * Command paths
    * @public
    */
-  public static paths = [[`webpack`]]
+  public static override paths = [[`webpack`]]
 
   /**
    * Command usage
    * @public
    */
-  public static usage = Command.Usage({
+  public static override usage = Command.Usage({
     description: `Webpack CLI passthrough`,
     category: `tools`,
     examples: [[`View webpack usage information`, `$0 webpack --help`]],
   })
 
-  public notify = false
+  public override notify = false
 
   public options = Option.Proxy({name: `webpack passthrough options`})
 
@@ -36,7 +36,7 @@ export default class WebpackCommand extends BaseCommand {
    *
    * @public
    */
-  public async runCommand() {
+  public override async runCommand() {
     this.app.context.config = {}
     const webpackPath = await this.app.module.getDirectory(`webpack`)
     const bin = join(webpackPath, `bin`, `webpack.js`)

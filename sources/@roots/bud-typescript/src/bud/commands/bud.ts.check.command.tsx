@@ -10,14 +10,14 @@ export class BudTSCheckCommand extends BaseCommand {
    *
    * @public
    */
-  public static paths = [[`ts`, `check`]]
+  public static override paths = [[`ts`, `check`]]
 
   /**
    * Comand usage
    *
    * @public
    */
-  public static usage = Command.Usage({
+  public static override usage = Command.Usage({
     category: `tools`,
     description: `Typecheck source code`,
     details: `
@@ -28,9 +28,9 @@ export class BudTSCheckCommand extends BaseCommand {
     examples: [[`bud ts check`, `Typecheck source`]],
   })
 
-  public dry = true
+  public override dry = true
 
-  public get args() {
+  public override get args() {
     return {
       ...this.context.args,
       dry: true,
@@ -44,7 +44,7 @@ export class BudTSCheckCommand extends BaseCommand {
    * @public
    */
   @bind
-  public async runCommand() {
+  public override async runCommand() {
     try {
       const check = execa(`bud`, [`tsc`, `--noEmit`])
 

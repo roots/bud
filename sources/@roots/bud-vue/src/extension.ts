@@ -28,7 +28,7 @@ export default class Vue extends Extension<Options, null> {
   public version: string
 
   @bind
-  public async register() {
+  public override async register() {
     this.loader = await this.resolve(`vue-loader`)
   }
 
@@ -39,11 +39,11 @@ export default class Vue extends Extension<Options, null> {
    * @decorator `@bind`
    */
   @bind
-  public async boot() {
+  public override async boot(bud: Bud) {
     await this.addLoader()
     await this.addStyleLoader()
 
-    this.app.hooks
+    bud.hooks
       .fromMap({
         [`build.module.rules.before`]: this.moduleRulesBefore,
         [`build.resolve.extensions`]: ext => ext.add(`.vue`),

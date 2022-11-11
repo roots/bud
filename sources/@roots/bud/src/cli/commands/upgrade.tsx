@@ -14,14 +14,14 @@ export default class UpgradeCommand extends BaseCommand {
    *
    * @public
    */
-  public static paths = [[`upgrade`]]
+  public static override paths = [[`upgrade`]]
 
   /**
    * Command usage
    *
    * @public
    */
-  public static usage = Command.Usage({
+  public static override usage = Command.Usage({
     description: `Upgrade @roots dependencies`,
     category: `tools`,
     examples: [[`Upgrade @roots dependencies`, `$0 upgrade`]],
@@ -40,7 +40,7 @@ export default class UpgradeCommand extends BaseCommand {
    *
    * @public
    */
-  public async runCommand() {
+  public override async runCommand() {
     this.manager = new Dependencies(this.app.context.basedir)
     this.isYarn = await this.manager.isYarn()
     this.client = await this.manager.getClient()

@@ -38,7 +38,7 @@ export default class ConsoleBuffer extends Service {
    * Service label
    * @public
    */
-  public static label = `consoleBuffer`
+  public static override label = `consoleBuffer`
 
   /**
    * Received messages
@@ -64,7 +64,7 @@ export default class ConsoleBuffer extends Service {
    * @decorator `@bind`
    */
   @bind
-  public async boot(bud: Bud) {
+  public override async boot(bud: Bud) {
     if (bud.context?.args?.ci) return
     const logger = bud.logger.makeInstance({
       disabled: bud.context.args?.log === false,

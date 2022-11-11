@@ -14,7 +14,7 @@ export class Http extends BaseServer implements Server.Connection {
    *
    * @public
    */
-  public instance: HttpServer
+  public override instance: HttpServer
 
   /**
    * Protocol

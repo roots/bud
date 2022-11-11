@@ -1,3 +1,4 @@
+import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {bind, label} from '@roots/bud-framework/extension/decorators'
 import stripAnsi from 'strip-ansi'
@@ -36,46 +37,36 @@ export default class InvalidateCacheExtension extends Extension {
    * @decorator `@bind`
    */
   @bind
-  public async register() {
-    const invalidate = await this.app.fs.exists(
+  public override async register(bud: Bud) {
+    const invalidate = await bud.fs.exists(
       `@storage`,
-      this.app.label,
-      `${this.app.mode}.error.json`,
+      bud.label,
+      `${bud.mode}.error.json`,
     )
 
-    if (invalidate || this.app.context.args.flush) {
-      await this.app.fs.remove(this.invalidationFile)
-      await this.app.fs.remove(
-        this.app.relPath(
-          this.app.path(
-            `@storage`,
-            this.app.label,
-            `cache`,
-            this.app.mode,
-          ),
-        ),
+    if (invalidate || bud.context.args.flush) {
+      await bud.fs.remove(this.invalidationFile)
+      await bud.fs.remove(
+        bud.relPath(bud.path(`@storage`, bud.label, `cache`, bud.mode)),
       )
     }
 
-    this.app.hooks.action(`compiler.after`, async () => {
-      this.app.compiler.instance.hooks.done.tap(
-        this.label,
-        async compiler => {
-          try {
-            if (!compiler.hasErrors()) return
+    bud.hooks.action(`compiler.after`, async () => {
+      bud.compiler.instance.hooks.done.tap(this.label, async compiler => {
+        try {
+          if (!compiler.hasErrors()) return
 
-            await this.app.fs.json.write(this.invalidationFile, {
-              hash: compiler.hash,
-              errors: compiler.stats.flatMap(stats =>
-                stats
-                  .toString({preset: `errors-warnings`, colors: false})
-                  .split(/\n/)
-                  .map(stripAnsi),
-              ),
-            })
-          } catch (e) {}
-        },
-      )
+          await bud.fs.json.write(this.invalidationFile, {
+            hash: compiler.hash,
+            errors: compiler.stats.flatMap(stats =>
+              stats
+                .toString({preset: `errors-warnings`, colors: false})
+                .split(/\n/)
+                .map(stripAnsi),
+            ),
+          })
+        } catch (e) {}
+      })
     })
   }
 }

@@ -1,3 +1,4 @@
+import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
@@ -100,8 +101,8 @@ export class BudImagemin extends Extension {
    * @public
    */
   @bind
-  public async configAfter() {
-    this.app.hooks.on(`build.optimization.minimizer`, minimizer => [
+  public override async configAfter(bud: Bud) {
+    bud.hooks.on(`build.optimization.minimizer`, minimizer => [
       ...(minimizer ?? []),
       new ImageMinimizerPlugin({
         minimizer: {

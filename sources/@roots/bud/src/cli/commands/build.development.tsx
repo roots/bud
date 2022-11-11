@@ -13,7 +13,7 @@ export default class BuildDevelopmentCommand extends BuildCommand {
    *
    * @public
    */
-  public static paths = [
+  public static override paths = [
     [`build`, `development`],
     [`dev`],
     [`development`],
@@ -23,7 +23,7 @@ export default class BuildDevelopmentCommand extends BuildCommand {
    * Command usage
    * @public
    */
-  public static usage = Command.Usage({
+  public static override usage = Command.Usage({
     category: `build`,
     description: `Compiles source assets in \`development\` mode.`,
     details: `\
@@ -50,13 +50,13 @@ export default class BuildDevelopmentCommand extends BuildCommand {
    * --mode
    * @public
    */
-  public mode: `development` = `development`
+  public override mode: `development` = `development`
 
   /**
    * --browser
    * @public
    */
-  public browser = Option.String(`--browser`, undefined, {
+  public override browser = Option.String(`--browser`, undefined, {
     description: `Open browser on successful development build.`,
     tolerateBoolean: true,
   })
@@ -65,7 +65,7 @@ export default class BuildDevelopmentCommand extends BuildCommand {
    * --indicator
    * @public
    */
-  public indicator = Option.Boolean(`--indicator`, undefined, {
+  public override indicator = Option.Boolean(`--indicator`, undefined, {
     description: `Enable development status indicator`,
   })
 
@@ -73,7 +73,7 @@ export default class BuildDevelopmentCommand extends BuildCommand {
    * --overlay
    * @public
    */
-  public overlay = Option.Boolean(`--overlay`, undefined, {
+  public override overlay = Option.Boolean(`--overlay`, undefined, {
     description: `Enable error overlay in development mode`,
   })
 
@@ -81,7 +81,7 @@ export default class BuildDevelopmentCommand extends BuildCommand {
    * --reload
    * @public
    */
-  public reload = Option.Boolean(`--reload`, undefined, {
+  public override reload = Option.Boolean(`--reload`, undefined, {
     description: `Reload browser on unrecoverable error`,
   })
 }

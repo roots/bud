@@ -13,7 +13,7 @@ export default class BudDefine extends Extension<
   Webpack.DefinePlugin
 > {
   @bind
-  public async init() {
+  public override async init() {
     if (!this.app.env.getPublicEnv()) return
 
     this.setOptions(
@@ -34,7 +34,7 @@ export default class BudDefine extends Extension<
    * @decorator `@bind`
    */
   @bind
-  public async when() {
+  public override async when() {
     return this.options && Object.keys(this.options).length > 0
   }
 }

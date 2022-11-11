@@ -1,3 +1,4 @@
+import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {bind, label} from '@roots/bud-framework/extension/decorators'
 
@@ -36,7 +37,7 @@ export default class BudCompressionExtension extends Extension<any, any> {
    * @decorator `@bind`
    */
   @bind
-  public async register() {
-    await this.app.extensions.add([Brotli, Gzip])
+  public override async register(bud: Bud) {
+    await bud.extensions.add([Brotli, Gzip])
   }
 }

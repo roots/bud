@@ -1,2 +1,2 @@
-import BudResolveUrl from './extension.js'
+import {BudResolveUrl} from './extension.js'
 export default BudResolveUrl

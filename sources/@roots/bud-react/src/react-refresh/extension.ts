@@ -54,16 +54,16 @@ export default class BudReactRefresh extends Extension<
    * @decorator `@bind`
    */
   @bind
-  public async configAfter() {
+  public override async configAfter(bud: Bud) {
     this.logger.log(`Injecting react-refresh/client scripts`)
-    if (!this.app.hasChildren)
-      this.app.hooks.on(`dev.client.scripts`, scripts =>
+    if (!bud.hasChildren)
+      bud.hooks.on(`dev.client.scripts`, scripts =>
         scripts
           ? scripts.add(() => `react-refresh/runtime`)
           : new Set([() => `react-refresh/runtime`]),
       )
     else
-      Object.values(this.app.children).forEach(instance =>
+      Object.values(bud.children).forEach(instance =>
         instance.hooks.on(`dev.client.scripts`, scripts =>
           scripts
             ? scripts.add(() => `react-refresh/runtime`)
@@ -72,14 +72,14 @@ export default class BudReactRefresh extends Extension<
       )
 
     if (!this.transformExtension) {
-      const signifier = this.app.react.useBabel
+      const signifier = bud.react.useBabel
         ? `@roots/bud-react/babel-refresh`
-        : this.app.extensions.has(`@roots/bud-swc`)
+        : bud.extensions.has(`@roots/bud-swc`)
         ? `@roots/bud-react/swc-refresh`
         : `@roots/bud-react/typescript-refresh`
 
-      await this.app.extensions.add(signifier)
-      this.setTransformExtension(this.app.extensions.get(signifier))
+      await bud.extensions.add(signifier)
+      this.setTransformExtension(bud.extensions.get(signifier))
     }
 
     this.logger.log(

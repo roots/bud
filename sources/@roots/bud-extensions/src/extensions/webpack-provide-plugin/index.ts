@@ -31,7 +31,7 @@ export default class BudProvide extends Extension<
    * @decorator `@bind`
    */
   @bind
-  public async when() {
+  public override async when() {
     return this.options && Object.keys(this.options).length > 0
   }
 }

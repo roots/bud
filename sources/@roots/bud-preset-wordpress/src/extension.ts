@@ -24,7 +24,7 @@ export default class BudPresetWordPress extends Extension {
    * @decorator `@bind`
    */
   @bind
-  public async configAfter(bud: Bud) {
+  public override async configAfter(bud: Bud) {
     if (bud.isProduction) return
     if (bud.hooks.filter(`dev.middleware.proxy.target`)) return
     if (!bud.env.has(`WP_HOME`) || !bud.env.isString(`WP_HOME`)) return

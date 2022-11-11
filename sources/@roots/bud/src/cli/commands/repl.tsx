@@ -20,22 +20,22 @@ export default class ReplCommand extends BaseCommand {
    * Command paths
    * @public
    */
-  public static paths = [[`repl`]]
+  public static override paths = [[`repl`]]
 
   /**
    * Command usage
    * @public
    */
-  public static usage = Command.Usage({
+  public static override usage = Command.Usage({
     description: `Use bud in a repl`,
     examples: [[`repl`, `$0 repl`]],
   })
 
-  public dry = true
+  public override dry = true
 
-  public notify = false
+  public override notify = false
 
-  public log = false
+  public override log = false
 
   public color = Option.Boolean(`--color,-c`, true, {
     description: `use syntax highlighting`,
@@ -55,7 +55,7 @@ export default class ReplCommand extends BaseCommand {
    * Command execute
    * @public
    */
-  public async runCommand() {
+  public override async runCommand() {
     await this.app.build.make()
     render({app: this.app, indent: this.indent, depth: this.depth})
   }

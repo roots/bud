@@ -19,7 +19,7 @@ export default class Acorn extends Extension {
    * @decorator `@bind`
    */
   @bind
-  public async register(bud: Bud) {
+  public override async register(bud: Bud) {
     /**
      * Override output directory for svg assets
      *

@@ -17,7 +17,7 @@ export class AcornV2PublicPath extends Extension {
    * @decorator `@bind`
    */
   @bind
-  public async register(bud: Bud) {
+  public override async register(bud: Bud) {
     if (bud.isDevelopment) {
       bud.setPublicPath(`/`)
       this.logger.success(`set publicPath to / for dev`)

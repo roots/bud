@@ -15,7 +15,7 @@ export class Compiler extends Service implements Contract.Service {
    *
    * @public
    */
-  public static label = `compiler`
+  public static override label = `compiler`
 
   /**
    * Compiler implementation

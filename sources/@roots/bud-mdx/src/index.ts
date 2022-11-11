@@ -10,8 +10,8 @@
  * @packageDocumentation
  */
 
-import './env.js'
+import './types.js'
 
-import BudMDX from './extension.js'
+import {BudMDX} from './extension.js'
 
 export default BudMDX

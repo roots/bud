@@ -1,3 +1,4 @@
+import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
@@ -9,8 +10,8 @@ import {
 @dependsOn([`@roots/bud-babel`])
 export default class BudSolid extends Extension {
   @bind
-  public async boot() {
+  public override async boot(bud: Bud) {
     const preset = await this.resolve(`babel-preset-solid`)
-    this.app.babel.setPreset(`babel-preset-solid`, preset)
+    bud.babel.setPreset(`babel-preset-solid`, preset)
   }
 }
