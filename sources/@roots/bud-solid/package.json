@@ -55,7 +55,7 @@
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@skypack/package-check": "0.2.2",
     "@types/babel__core": "7.1.19",
-    "@types/lodash": "4.14.187",
+    "@types/lodash": "4.14.188",
     "@types/node": "16.18.3",
     "type-fest": "3.1.0",
     "vitest": "0.24.5",
