@@ -1,6 +1,6 @@
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import {setPath as subject} from './setPath'
+import {setPath as subject} from './setPath.js'
 
 let bud = {
   info: vi.fn(),

@@ -10,7 +10,6 @@ module.exports = {
     `react`,
     `react-hooks`,
     `simple-import-sort`,
-    `tsdoc`,
     `eslint-plugin-n`,
   ],
   parserOptions: {
@@ -86,13 +85,8 @@ module.exports = {
     [`react-hooks/rules-of-hooks`]: ERROR,
     [`react-hooks/exhaustive-deps`]: WARN,
     [`simple-import-sort/imports`]: ERROR,
-    [`tsdoc/syntax`]: WARN,
   },
   overrides: [
-    {
-      files: [`examples/**/*.js`],
-      rules: {[`tsdoc/syntax`]: OFF},
-    },
     {
       files: [`tests/**/*`, `**/*.spec.ts`, `**/*.test.ts`],
       rules: {

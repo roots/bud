@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import * as critical from 'critical'
 import {bind} from 'helpful-decorators'
 import vinyl from 'vinyl'
@@ -6,23 +7,6 @@ import Webpack from 'webpack'
 import type {Options} from './interface.js'
 
 export {Options}
-
-/**
- * Default options
- *
- * @public
- */
-const INIT_OPTIONS = {
-  inline: false,
-  extract: true,
-  width: 1300,
-  height: 900,
-  request: {
-    https: {
-      rejectUnauthorized: false,
-    },
-  },
-}
 
 /**
  * CriticalCSSWebpackPlugin
@@ -38,6 +22,22 @@ export default class CriticalCssWebpackPlugin {
   public plugin = {
     name: `CriticalCssWebpackPlugin`,
     stage: Webpack.Compilation.PROCESS_ASSETS_STAGE_DERIVED,
+  }
+
+  /**
+   * Plugin options
+   *
+   * @public
+   */
+  public options: Options = {
+    extract: true,
+    width: 1300,
+    height: 900,
+    request: {
+      https: {
+        rejectUnauthorized: false,
+      },
+    },
   }
 
   /**
@@ -60,7 +60,9 @@ export default class CriticalCssWebpackPlugin {
    *
    * @public
    */
-  public constructor(public options: Options = INIT_OPTIONS) {}
+  public constructor(options?: Options) {
+    options && Object.assign(this.options, options)
+  }
 
   /**
    * Webpack apply hook
@@ -114,10 +116,10 @@ export default class CriticalCssWebpackPlugin {
       this.options.base ?? this.webpack.compilation.outputOptions.path
 
     await Promise.all(
-      Object.entries(assets).map(async ([entryIdent, entryValue]) => {
-        if (!entryIdent.endsWith(`.css`)) return
+      Object.keys(assets).map(async ident => {
+        if (!ident.endsWith(`.css`)) return
 
-        const asset = this.webpack.compilation.getAsset(entryIdent)
+        const asset = this.webpack.compilation.getAsset(ident)
 
         const vfile = new vinyl({
           base,
@@ -133,10 +135,12 @@ export default class CriticalCssWebpackPlugin {
               css: [vfile],
             })
             .then(({css, uncritical}) => {
-              this.webpack.compilation.updateAsset(
-                asset.name,
-                new Webpack.sources.RawSource(uncritical),
-              )
+              if (this.options.extract) {
+                this.webpack.compilation.updateAsset(
+                  asset.name,
+                  new Webpack.sources.RawSource(uncritical),
+                )
+              }
 
               this.webpack.compilation.emitAsset(
                 `critical/${asset.name.split(`.`).shift().concat(`.css`)}`,
@@ -145,7 +149,6 @@ export default class CriticalCssWebpackPlugin {
               )
             })
         } catch (error) {
-          // eslint-disable-next-line no-console
           console.error(error)
           throw error
         }

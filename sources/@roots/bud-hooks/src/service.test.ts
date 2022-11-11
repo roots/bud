@@ -1,7 +1,7 @@
 import {Bud, factory} from '@repo/test-kit/bud'
 import {beforeAll, describe, expect, it, vi} from 'vitest'
 
-import Hooks from './index'
+import Hooks from './index.js'
 
 describe(`@roots/bud-hooks`, function () {
   let bud: Bud

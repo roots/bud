@@ -1,7 +1,7 @@
 import {describe, expect, it} from 'vitest'
 
 import domReady from './dom-ready'
-import * as client from './index'
+import * as client from './index.js'
 import lazy from './lazy'
 
 describe(`@roots/sage`, () => {

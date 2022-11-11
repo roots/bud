@@ -1,11 +1,15 @@
 import type * as Webpack from 'webpack'
 
-import type {Service as BaseService} from '../../../service'
-import type {Base} from './base'
-import type {Item} from './item'
-import type {Loader} from './loader'
-import type {Items, Loaders, Rules} from './registry'
-import type * as Rule from './rule'
+import type {Items, Loaders, Rules} from '../../../index.js'
+import type {Service as BaseService} from '../../../service.js'
+import type {Base} from './base.js'
+import type {Item} from './item.js'
+import type {Loader} from './loader.js'
+import type {
+  Options as RuleOptions,
+  Output as RuleOutput,
+  Rule,
+} from './rule.js'
 
 /**
  * Build Service
@@ -38,8 +42,6 @@ import type * as Rule from './rule'
  * @public
  */
 export interface Service extends BaseService {
-  [key: string]: any
-
   /**
    * Arrayed {@link Loader} instances
    *
@@ -80,7 +82,7 @@ export interface Service extends BaseService {
    *
    * @public
    */
-  getLoader<K extends `${keyof Loaders}`>(name: K): Loaders[K]
+  getLoader<K extends `${keyof Loaders & string}`>(name: K): Loaders[K]
 
   /**
    * Set a {@link Loader} instance
@@ -104,9 +106,9 @@ export interface Service extends BaseService {
    *
    * @public
    */
-  setRule<K extends `${keyof Rules}`>(
+  setRule<K extends `${keyof Rules & string}`>(
     name: K,
-    options?: Rule.Options | Rule.Interface,
+    options?: RuleOptions | Rule,
   ): this
 
   /**
@@ -114,14 +116,14 @@ export interface Service extends BaseService {
    *
    * @public
    */
-  makeRule(options?: Partial<Rule.Options> | Rule.Output): Rule.Interface
+  makeRule(options?: Partial<RuleOptions> | RuleOutput): Rule
 
   /**
    * Get a {@link Item} instance
    *
    * @public
    */
-  getItem<K extends `${keyof Items}`>(name: K): Items[K]
+  getItem<K extends `${keyof Items & string}`>(name: K): Items[K]
 
   /**
    * Set a {@link Item} instance
@@ -141,4 +143,4 @@ export interface Service extends BaseService {
   makeItem(options?: Partial<Item['options']>): Item
 }
 
-export type {Base, Item, Items, Loader, Loaders, Rule, Rules}
+export type {Base, Item, Loader, Rule}

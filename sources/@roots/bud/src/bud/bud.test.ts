@@ -1,7 +1,6 @@
+import {Bud} from '@roots/bud'
 import {Bud as Core} from '@roots/bud-framework/bud'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
-
-import {Bud} from './index.js'
 
 describe(`@roots/bud/bud`, function () {
   let bud: Bud

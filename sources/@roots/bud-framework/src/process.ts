@@ -1,6 +1,6 @@
 /* eslint-disable n/no-process-exit */
 
-import type {Bud} from './bud'
+import type {Bud} from './bud.js'
 
 let initialized: boolean = false
 

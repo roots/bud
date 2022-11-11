@@ -1,6 +1,6 @@
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import {Api} from './service'
+import {Api} from './service.js'
 
 const mockBud = {
   bindMethod: vi.fn(() => null),

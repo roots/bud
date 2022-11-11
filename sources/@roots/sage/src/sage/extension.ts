@@ -29,7 +29,7 @@ interface Options {
 @dependsOnOptional([`@roots/bud-tailwindcss`])
 @options<Options>({acorn: `v2`})
 @expose(`sage`)
-export default class Sage extends Extension<Options> {
+export class Sage extends Extension<Options> {
   /**
    * `boot` callback
    *

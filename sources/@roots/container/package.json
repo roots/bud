@@ -39,11 +39,17 @@
   ],
   "type": "module",
   "module": "./lib/index.js",
-  "types": "./lib/index.d.ts",
   "exports": {
-    ".": "./lib/index.js",
-    "./container": "./lib/container.js"
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./container": {
+      "types": "./lib/container.d.ts",
+      "default": "./lib/container.js"
+    }
   },
+  "types": "./lib/index.d.ts",
   "typesVersions": {
     "*": {
       ".": [

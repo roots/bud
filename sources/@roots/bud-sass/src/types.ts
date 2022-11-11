@@ -23,6 +23,6 @@ declare module '@roots/bud-framework' {
   }
 
   interface Rules {
-    sass: Build.Rule.Interface
+    sass: Build.Rule
   }
 }

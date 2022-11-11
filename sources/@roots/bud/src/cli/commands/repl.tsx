@@ -3,7 +3,7 @@ import {highlight} from '@roots/bud-support/highlight'
 import {chunk} from '@roots/bud-support/lodash-es'
 import format from '@roots/bud-support/pretty-format'
 
-import type Bud from '../../bud.js'
+import type Bud from '../../bud/index.js'
 import BaseCommand from './base.js'
 
 let React

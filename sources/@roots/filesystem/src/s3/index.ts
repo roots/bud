@@ -13,8 +13,7 @@ import {
   S3ClientConfig,
 } from '@aws-sdk/client-s3'
 import {bind} from 'helpful-decorators'
-import isString from 'lodash-es/isString.js'
-import isUndefined from 'lodash-es/isUndefined.js'
+import {isString, isUndefined} from 'lodash-es'
 import * as mimetypes from 'mime-types'
 
 import Client from './client.js'

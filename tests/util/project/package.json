@@ -4,6 +4,14 @@
   "browserslist": [
     "extends @roots/browserslist-config/current"
   ],
+  "bud": {
+    "extensions": {
+      "discover": false,
+      "denylist": [
+        "@roots/bud-babel"
+      ]
+    }
+  },
   "devDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-swc": "workspace:sources/@roots/bud-swc",

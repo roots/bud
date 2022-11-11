@@ -1,7 +1,7 @@
 import {factory} from '@repo/test-kit/bud'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import {hash} from './index'
+import {hash} from './index.js'
 
 describe(`bud.hash`, () => {
   let bud

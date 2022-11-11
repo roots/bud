@@ -1,9 +1,9 @@
 import type {RuleSetRule} from 'webpack'
 
-import type {Bud} from '../../../bud'
-import type {Base} from './base'
-import type {Item} from './item'
-import type * as Build from './registry'
+import type {Bud} from '../../../bud.js'
+import type {Items} from '../../../index.js'
+import type {Base} from './base.js'
+import type {Item} from './item.js'
 
 /**
  * File parser interface
@@ -21,9 +21,9 @@ export interface Options {
   test?: ((app: Bud) => Output['test']) | Output['test']
   use?:
     | ((
-        loaders: Array<Item | `${keyof Build.Items & string}`>,
-      ) => Array<Item | `${keyof Build.Items & string}`>)
-    | Array<Item | `${keyof Build.Items & string}`>
+        loaders: Array<Item | `${keyof Items & string}`>,
+      ) => Array<Item | `${keyof Items & string}`>)
+    | Array<Item | `${keyof Items & string}`>
   include?: Array<((app: Bud) => string | RegExp) | string | RegExp>
   exclude?: Array<((app: Bud) => string | RegExp) | string | RegExp>
   type?: ((app: Bud) => Output['type']) | Output['type']
@@ -41,7 +41,7 @@ export interface Output extends RuleSetRule {
   exclude?: Array<RegExp | string>
 }
 
-export interface Interface extends Base {
+export interface Rule extends Base {
   _app: () => Bud
   app: Bud
 
@@ -71,14 +71,14 @@ export interface Interface extends Base {
    *
    * @public
    */
-  use?: Array<`${keyof Build.Items & string}` | Item>
+  use?: Array<`${keyof Items & string}` | Item>
 
   /**
    * Get the value of `use`
    *
    * @public
    */
-  getUse(): Array<`${keyof Build.Items & string}` | Item>
+  getUse(): Array<`${keyof Items & string}` | Item>
 
   /**
    * Set the value of `use`
@@ -87,10 +87,10 @@ export interface Interface extends Base {
    */
   setUse(
     use:
-      | Array<`${keyof Build.Items & string}` | Item>
+      | Array<`${keyof Items & string}` | Item>
       | ((
-          use: Array<`${keyof Build.Items & string}` | Item>,
-        ) => Array<`${keyof Build.Items & string}` | Item>),
+          use: Array<`${keyof Items & string}` | Item>,
+        ) => Array<`${keyof Items & string}` | Item>),
   ): this
 
   /**

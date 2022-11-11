@@ -1,10 +1,10 @@
-import {Bud, factory} from '@repo/test-kit/bud'
+import {factory} from '@repo/test-kit/bud'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import {method, Serve} from './index.js'
 
 describe(`bud.serve`, () => {
-  let bud: Bud
+  let bud
   let serve: Serve
 
   beforeEach(async () => {
@@ -13,7 +13,7 @@ describe(`bud.serve`, () => {
   })
 
   it(`should not call anything in prod`, async () => {
-    bud.context.mode = `production`
+    bud = await factory({mode: `production`})
     const spy = vi.spyOn(bud.hooks, `filter`)
     await serve(`http://example.com`)
     expect(spy).not.toHaveBeenCalled()

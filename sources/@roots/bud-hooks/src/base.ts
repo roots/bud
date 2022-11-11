@@ -1,4 +1,4 @@
-import type {Bud} from '@roots/bud-framework/src'
+import type {Bud} from '@roots/bud-framework'
 import {bind} from '@roots/bud-support/decorators'
 import {isUndefined} from '@roots/bud-support/lodash-es'
 
@@ -10,7 +10,7 @@ import {isUndefined} from '@roots/bud-support/lodash-es'
  *
  * @public
  */
-export default abstract class Hooks<Store> {
+export abstract class Hooks<Store> {
   /**
    * Get app
    *

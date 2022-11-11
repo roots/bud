@@ -7,7 +7,7 @@ import type {
   StatsCompilation,
 } from 'webpack'
 
-import type {Service as BaseService} from '../../service'
+import type {Service as BaseService} from '../../service.js'
 
 /**
  * Compiler service interface

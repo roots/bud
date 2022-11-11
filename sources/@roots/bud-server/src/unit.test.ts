@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vitest'
 
-import * as pkg from './index'
+import * as pkg from './index.js'
 import {Server} from './service/service'
 
 describe(`@roots/bud-server`, () => {

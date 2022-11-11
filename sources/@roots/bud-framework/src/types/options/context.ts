@@ -1,7 +1,7 @@
 import type {Readable, Writable} from 'node:stream'
 
-import type {Bud} from '../../bud'
-import type {Modules} from '../registry/modules'
+import type {Bud} from '../../bud.js'
+import type {Modules} from '../registry/modules.js'
 
 export interface BaseContext {
   label: string

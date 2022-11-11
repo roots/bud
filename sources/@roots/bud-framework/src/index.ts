@@ -14,18 +14,29 @@
 import {Bud} from './bud.js'
 import {Extension} from './extension/index.js'
 import {Logger} from './logger/index.js'
-import * as Service from './service.js'
+import Service, {ServiceContainer} from './service.js'
 
-import type * as Config from './types/config'
-import type * as Options from './types/options'
-import type * as Services from './types/services'
+import type * as Config from './types/config/index.js'
+import type * as Options from './types/options/index.js'
+import type * as Services from './types/services/index.js'
+import type Hooks from './types/services/hooks.js'
 
-import type {Loaders, Items, Rules} from './types/services/build'
-import type * as Registry from './types/registry'
-import type {Modules} from './types/registry/modules'
-import type {Locations} from './types/registry/locations'
+import type {Items} from './types/registry/items.js'
+import type {Loaders} from './types/registry/loaders.js'
+import type {Rules} from './types/registry/rules.js'
+import type {Item} from './types/services/build/item.js'
+import type {Loader} from './types/services/build/loader.js'
+import type {Rule} from './types/services/build/rule.js'
+import type * as Registry from './types/registry/index.js'
+import type {Modules} from './types/registry/modules.js'
+import type {Locations} from './types/registry/locations.js'
 
-export {Bud, Extension, Logger, Service}
+export {Bud, Extension, Logger, Service, ServiceContainer}
 
-export type {Config, Options, Registry, Services}
-export type {Items, Modules, Loaders, Locations, Rules}
+export type {Config, Options}
+export type {Hooks, Registry, Services}
+
+export type {Item, Loader, Rule}
+export type {Items, Loaders, Rules}
+export type {Locations}
+export type {Modules}

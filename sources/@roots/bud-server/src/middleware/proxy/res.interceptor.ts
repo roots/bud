@@ -65,7 +65,7 @@ export class ResponseInterceptorFactory {
   @bind
   public async interceptor(
     buffer: Buffer,
-    proxyResponse: IncomingMessage,
+    _proxyResponse: IncomingMessage,
     request: IncomingMessage,
     response: ServerResponse,
   ): Promise<Buffer | String> {
@@ -90,7 +90,7 @@ export class ResponseInterceptorFactory {
         'content-security-policy': undefined,
         'x-http-method-override': undefined,
       }),
-    ).map(([k, v]) => {
+    ).map(([k, v]: [string, string | number | ReadonlyArray<string>]) => {
       if (isString(k) && isUndefined(v)) {
         this.app.log(`removing header`, k)
         response.removeHeader(k)

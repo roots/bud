@@ -1,6 +1,6 @@
 import {describe, expect, it, vi} from 'vitest'
 
-import Sage from './index'
+import Sage from './index.js'
 
 const setup = async (spyCallback?) => {
   const bud = await import(`@repo/test-kit/bud`).then(

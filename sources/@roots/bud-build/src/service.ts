@@ -1,11 +1,6 @@
-import type {Bud} from '@roots/bud-framework'
+import type {Bud, Items, Loaders, Rules} from '@roots/bud-framework'
 import * as Service from '@roots/bud-framework/service'
 import type * as Base from '@roots/bud-framework/services/build'
-import type {
-  Items,
-  Loaders,
-  Rules,
-} from '@roots/bud-framework/src/types/services/build/registry.js'
 import {bind} from '@roots/bud-support/decorators'
 import {isFunction, isUndefined} from '@roots/bud-support/lodash-es'
 import type {Configuration} from 'webpack'
@@ -16,7 +11,7 @@ import * as loaders from './handlers/loaders.js'
 import * as rules from './handlers/rules/rules.js'
 import Item from './item/index.js'
 import Loader from './loader/index.js'
-import * as Rule from './rule/index.js'
+import Rule, {Options as RuleOptions} from './rule/index.js'
 
 /**
  * Webpack configuration builder class
@@ -160,9 +155,9 @@ export default class Build extends Service.Base implements Base.Service {
   @bind
   public setRule<K extends `${keyof Rules & string}`>(
     name: K,
-    options?: Rule.Options | Rule.Interface,
+    options?: RuleOptions | Rule,
   ): this {
-    if (options instanceof Rule.default) {
+    if (options instanceof Rule) {
       this.rules[name] = options
       this.logger.info(`set rule`, name, this.rules[name])
       return this
@@ -186,8 +181,8 @@ export default class Build extends Service.Base implements Base.Service {
    * @decorator `@bind`
    */
   @bind
-  public makeRule(options?: Rule.Options): Rule.Interface {
-    return new Rule.default(() => this.app, options)
+  public makeRule(options?: RuleOptions): Rule {
+    return new Rule(() => this.app, options)
   }
 
   @bind

@@ -1,4 +1,4 @@
-import type {Modules} from '../../types/registry/modules'
+import type {Modules} from '../../types/registry/modules.js'
 
 /**
  * A decorator that adds a `label` property to the class.

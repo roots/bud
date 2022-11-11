@@ -1,8 +1,9 @@
+import {factory} from '@repo/test-kit/bud'
 import {Extension} from '@roots/bud-framework/extension'
-import {beforeEach, describe, expect, it, test, vi} from 'vitest'
+import {describe, expect, it, test, vi} from 'vitest'
 import webpack from 'webpack'
 
-import hmrExtension from './index'
+import hmrExtension from './index.js'
 
 describe(`webpack-hot-module-replacement-plugin`, () => {
   it(`is an instance of Extension`, () => {
@@ -10,25 +11,22 @@ describe(`webpack-hot-module-replacement-plugin`, () => {
   })
 
   it(`is an instance of Extension`, async () => {
-    const bud = await import(`@repo/test-kit/bud`).then(({factory}) =>
-      factory({mode: `development`}),
-    )
+    const bud = await factory()
     const extension = new hmrExtension(bud)
     expect(extension).toBeInstanceOf(Extension)
   })
 
   it(`is not enabled in production`, async () => {
-    const bud = await import(`@repo/test-kit/bud`).then(({factory}) =>
-      factory({mode: `production`}),
-    )
+    const bud = await factory({mode: `production`})
+
     // @ts-ignore
     const extension = new hmrExtension(bud)
+    expect(bud.mode).toBe(`production`)
     expect(await extension.isEnabled()).toBe(false)
   })
+
   it(`is enabled in development`, async () => {
-    const bud = await import(`@repo/test-kit/bud`).then(({factory}) =>
-      factory({mode: `development`}),
-    )
+    const bud = await factory({mode: `development`})
 
     // @ts-ignore
     const extension = new hmrExtension(bud)
@@ -36,9 +34,7 @@ describe(`webpack-hot-module-replacement-plugin`, () => {
   })
 
   it(`produces webpack hmr plugin`, async () => {
-    const bud = await import(`@repo/test-kit/bud`).then(({factory}) =>
-      factory({mode: `development`}),
-    )
+    const bud = await factory({mode: `development`})
 
     // @ts-ignore
     const extension = new hmrExtension(bud)

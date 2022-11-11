@@ -1,2 +1,2 @@
-import WpThemeJson from './extension.js'
+import {WpThemeJson} from './extension.js'
 export default WpThemeJson

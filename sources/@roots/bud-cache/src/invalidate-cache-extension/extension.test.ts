@@ -1,6 +1,6 @@
 import {describe, expect, it, vi} from 'vitest'
 
-import Extension from './index'
+import Extension from './index.js'
 
 describe(`@roots/bud-cache/invalidate-cache-extension`, () => {
   it(`should be constructable`, () => {

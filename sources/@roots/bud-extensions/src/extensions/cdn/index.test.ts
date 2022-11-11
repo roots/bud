@@ -1,7 +1,7 @@
 import {factory} from '@repo/test-kit/bud'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import extensionConstructor from './index'
+import extensionConstructor from './index.js'
 
 describe(`@roots/bud-extensions/cdn`, () => {
   let bud

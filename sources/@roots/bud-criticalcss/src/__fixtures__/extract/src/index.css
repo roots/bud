@@ -1,0 +1,11 @@
+body {
+  background-color: blue;
+}
+
+.foo {
+  background-color: black;
+}
+
+.ignore-style .test {
+  background-color: red;
+}

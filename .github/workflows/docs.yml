@@ -32,9 +32,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - name: Install tsdoc
-        run: npm install tsdoc --global
-
       - name: yarn install
         run: yarn install
 

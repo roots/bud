@@ -1,12 +1,12 @@
 import type * as Options from '@roots/bud-framework/options'
 import {BaseContext, Command, Option} from '@roots/bud-support/clipanion'
 import {bind, once} from '@roots/bud-support/decorators'
-import {signale} from '@roots/bud-support/signale'
+import Signale from '@roots/bud-support/signale'
 import * as t from '@roots/bud-support/typanion'
 
-import type Bud from '../../bud.js'
+import type Bud from '../../bud/index.js'
 import {factory} from '../../factory/index.js'
-import {Notifier} from '../../notifier/index.js'
+import Notifier from '../../notifier/index.js'
 import Render from '../render.js'
 
 /**
@@ -180,7 +180,7 @@ export default abstract class BaseCommand extends Command {
    * @public
    */
   public get logger() {
-    return this.app?.logger?.instance ?? new signale()
+    return this.app?.logger?.instance ?? new Signale()
   }
 
   /**

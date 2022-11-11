@@ -1,6 +1,5 @@
 /// <reference path="../../bud-api/lib/index.d.ts" />
 /// <reference path="../../bud-build/lib/index.d.ts" />
-/// <reference path="../../bud-build/lib/index.d.ts" />
 /// <reference path="../../bud-cache/lib/index.d.ts" />
 /// <reference path="../../bud-compiler/lib/index.d.ts" />
 /// <reference path="../../bud-dashboard/lib/index.d.ts" />

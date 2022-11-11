@@ -1,7 +1,7 @@
 import {Bud, factory} from '@repo/test-kit/bud'
 import {afterAll, beforeAll, describe, expect, it, vi} from 'vitest'
 
-import hotMiddleware from './middleware'
+import hotMiddleware from './middleware.js'
 
 vi.mock(`@roots/bud-compiler`)
 

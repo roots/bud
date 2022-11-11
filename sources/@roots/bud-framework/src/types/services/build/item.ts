@@ -1,7 +1,7 @@
-import type {Bud} from '../../../bud'
-import type {Base} from './base'
-import type {Loader} from './loader'
-import type {Loaders} from './registry'
+import type {Bud} from '../../../bud.js'
+import type {Loaders} from '../../../index.js'
+import type {Base} from './base.js'
+import type {Loader} from './loader.js'
 
 /**
  * Item interface

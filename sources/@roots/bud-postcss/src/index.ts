@@ -12,6 +12,6 @@
 
 import './types.js'
 
-import BudPostCss from './extension.js'
+import {BudPostCss} from './extension.js'
 
 export default BudPostCss

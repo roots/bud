@@ -32,7 +32,7 @@ import Plugin from 'css-minimizer-webpack-plugin'
   },
 })
 @disabled
-export default class BudMinimizeCSS extends Extension {
+export class BudMinimizeCss extends Extension {
   /**
    * `buildBefore` callback
    *

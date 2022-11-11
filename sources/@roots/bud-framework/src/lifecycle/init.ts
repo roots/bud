@@ -3,7 +3,7 @@ import {join} from 'node:path'
 
 import {externalNetworkInterface} from '@roots/bud-support/os'
 
-import type {Bud} from '../bud'
+import type {Bud} from '../bud.js'
 
 /**
  * Initializes hooks

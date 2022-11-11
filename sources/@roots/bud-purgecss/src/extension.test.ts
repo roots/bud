@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vitest'
 
-import Extension from './index'
+import * as Extension from './extension.js'
 
 describe(`@roots/bud-purgecss`, () => {
   it(`should be constructable`, () => {

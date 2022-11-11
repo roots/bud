@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vitest'
 
-import {palette} from './index'
+import {palette} from './index.js'
 
 const mockPalette: palette.TailwindColors = {
   blue: {

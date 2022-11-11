@@ -1,4 +1,4 @@
-import type {Bud} from '../bud'
+import type {Bud} from '../bud.js'
 
 export interface get {
   (label: string, tap?: (bud: Bud) => Bud): Bud

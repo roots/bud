@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import ResolveUrlExtension from './index'
+import ResolveUrlExtension from './index.js'
 
 describe(`@roots/bud-sass`, () => {
   let bud

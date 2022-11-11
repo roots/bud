@@ -1,4 +1,4 @@
-import type {ServiceContainer} from '../../service'
+import type {ServiceContainer} from '../../service.js'
 
 /**
  * Env container interface

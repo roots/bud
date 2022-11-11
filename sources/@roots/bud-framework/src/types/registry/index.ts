@@ -18,7 +18,7 @@ interface SyncRegistry
     Values.SyncRegistry {}
 
 type SyncCallback = {
-  [K in keyof SyncRegistry as `${K & string}`]?:
+  [K in keyof SyncRegistry]?:
     | ((current?: SyncRegistry[K]) => SyncRegistry[K])
     | SyncRegistry[K]
 }
@@ -33,7 +33,10 @@ type SyncStore = {
 
 type Async = Build.Async
 
-type AsyncRegistry = Build.AsyncRegistry
+type AsyncRegistry = {
+  [K in keyof Build.AsyncRegistry as `${K &
+    string}`]?: Build.AsyncRegistry[K]
+}
 
 type AsyncCallback = {
   [K in keyof Build.AsyncRegistry as `${K & string}`]?:

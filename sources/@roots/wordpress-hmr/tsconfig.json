@@ -3,7 +3,6 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "lib",
-    "importHelpers": true,
   },
   "include": [
     "src"

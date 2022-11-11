@@ -1,7 +1,7 @@
 import type {WatchOptions} from 'chokidar'
 
-import type {Bud} from '../../bud'
-import type * as Server from '../services/server'
+import type {Bud} from '../../bud.js'
+import type * as Server from '../services/server/index.js'
 
 export interface Sync {
   /**

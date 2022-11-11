@@ -97,6 +97,8 @@ export const method: Serve = async function (
 ): Promise<Bud> {
   const app = (this as Bud).root
 
+  if (!app.isDevelopment) return app
+
   if (this.isChild) {
     this.api.logger.warn(
       `server configuration is being moved to the root instance of bud: ${app.label}`,
@@ -124,8 +126,6 @@ ${highlight(`export default async bud => {
 }`)}`,
     )
   }
-
-  if (!app.isDevelopment) return app
 
   const current = app.hooks.filter(
     `dev.url`,

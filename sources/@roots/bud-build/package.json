@@ -79,6 +79,8 @@
   },
   "devDependencies": {
     "@repo/test-kit": "workspace:sources/@repo/test-kit",
+    "@roots/bud-api": "workspace:sources/@roots/bud-api",
+    "@roots/bud-hooks": "workspace:sources/@roots/bud-hooks",
     "@skypack/package-check": "0.2.2",
     "@types/fs-extra": "9.0.13",
     "@types/mini-css-extract-plugin": "2.5.1",

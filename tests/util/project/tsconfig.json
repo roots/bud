@@ -17,7 +17,7 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "jsx": "preserve",
-    "types": ["node", "webpack-env", "@roots/bud", "@roots/bud-swc", "@roots/bud-tailwindcss"]
+    "types": ["node", "webpack-env"]
   },
   "include": ["src"],
   "exclude": ["node_modules"]

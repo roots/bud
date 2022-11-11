@@ -4,7 +4,7 @@ import BaseCommand from '@roots/bud/cli/commands/base'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import execa from '@roots/bud-support/execa'
 
-export class BudEslintCommand extends BaseCommand {
+export class BudStylelintCommand extends BaseCommand {
   /**
    * Command paths
    *

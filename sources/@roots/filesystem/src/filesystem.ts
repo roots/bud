@@ -18,9 +18,9 @@ import type {
   MoveOptions,
   WritableData,
   WriteOptions,
-} from 'fs-jetpack/types'
+} from 'fs-jetpack/types.js'
 import {bind} from 'helpful-decorators'
-import isNumber from 'lodash-es/isNumber.js'
+import {isNumber} from 'lodash-es'
 
 import * as json from './json.js'
 import * as yml from './yml.js'

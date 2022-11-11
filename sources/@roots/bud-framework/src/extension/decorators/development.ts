@@ -1,3 +1,5 @@
+import type {Bud} from '../../index.js'
+
 /**
  * Extension to be run in `development` mode
  *
@@ -20,7 +22,7 @@ export const development = <Type extends {new (...args: any[]): any}>(
      * @returns `true` when mode is `development`
      * @public
      */
-    public when({isDevelopment}) {
-      return isDevelopment
+    public when(bud: Bud) {
+      return bud.isDevelopment
     }
   }

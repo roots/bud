@@ -1,10 +1,8 @@
-import type {Bud} from '@roots/bud-framework/bud'
-import {Service} from '@roots/bud-framework/service'
-import type {Service as HooksInterface} from '@roots/bud-framework/services/hooks'
+import {Bud, Hooks as Service, Service as Base} from '@roots/bud-framework'
 
-import AsyncHooks from './async.js'
-import EventHooks from './event.js'
-import SyncHooks from './sync.js'
+import {AsyncHooks} from './async.js'
+import {EventHooks} from './event.js'
+import {SyncHooks} from './sync.js'
 
 /**
  * Hooks and events registry
@@ -51,7 +49,7 @@ import SyncHooks from './sync.js'
  *
  * @public
  */
-export default class Hooks extends Service implements HooksInterface {
+export class Hooks extends Base implements Service {
   /**
    * Service label
    *
@@ -65,7 +63,7 @@ export default class Hooks extends Service implements HooksInterface {
 
   public syncStore: SyncHooks
 
-  public on: SyncHooks['set']
+  public on: SyncHooks[`set`]
 
   public filter: SyncHooks['get']
 

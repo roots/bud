@@ -70,6 +70,7 @@ module.exports = {
         remarkPlugins: [
           [require(`@docusaurus/remark-plugin-npm2yarn`), {sync: true}],
         ],
+        editUrl: join(config.url.web, `edit/main/sources/@repo/docs/`),
         routeBasePath: `dev`,
         sidebarPath,
         include: [`**/*.md`, `**/*.mdx`],
@@ -83,6 +84,7 @@ module.exports = {
         remarkPlugins: [
           [require(`@docusaurus/remark-plugin-npm2yarn`), {sync: true}],
         ],
+        editUrl: join(config.url.web, `edit/main/sources/@repo/docs/`),
         routeBasePath: `guides`,
         sidebarPath: docsPath(`sidebars/guides.js`),
         include: [`**/*.md`, `**/*.mdx`],
@@ -93,6 +95,7 @@ module.exports = {
       {
         id: `extensions`,
         path: docsPath(`content/extensions`),
+        editUrl: join(config.url.web, `edit/main/sources/@repo/docs/`),
         routeBasePath: `extensions`,
         sidebarPath,
         include: [`**/*.md`, `**/*.mdx`],

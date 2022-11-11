@@ -2,7 +2,7 @@
 import {factory} from '@repo/test-kit/bud'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import {method as splitChunks} from './index'
+import {method as splitChunks} from './index.js'
 
 describe(`bud.splitChunks`, () => {
   let bud

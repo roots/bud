@@ -1,15 +1,14 @@
-import type {Bud} from '@roots/bud-framework'
+import type {Bud, Items} from '@roots/bud-framework'
 import type {
-  Interface,
   Options,
   Output,
   Parser,
+  Rule as Interface,
 } from '@roots/bud-framework/services/build/rule'
-import type {Item} from '@roots/bud-framework/src/types/services/build/item.js'
-import type {Items} from '@roots/bud-framework/src/types/services/build/registry.js'
 import {bind} from '@roots/bud-support/decorators'
 import {isFunction, isString} from '@roots/bud-support/lodash-es'
 
+import type Item from '../item/index.js'
 import Base from '../shared/base.js'
 
 export {Interface, Options, Output, Parser}

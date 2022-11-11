@@ -74,7 +74,7 @@ export interface Mutator {
 @plugin(ThemeJsonWebpackPlugin)
 @expose(`wpjson`)
 @disabled
-export default class ThemeJson extends Extension<
+export class WpThemeJson extends Extension<
   Options,
   ThemeJsonWebpackPlugin
 > {

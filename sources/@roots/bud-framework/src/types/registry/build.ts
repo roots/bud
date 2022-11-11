@@ -1,6 +1,6 @@
 import type {Configuration, RuleSetRule} from 'webpack'
 
-import type {EntryObject} from '../config/entry'
+import type {EntryObject} from '../config/entry.js'
 
 export interface Sync {
   bail: boolean | undefined

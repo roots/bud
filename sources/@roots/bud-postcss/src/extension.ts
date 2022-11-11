@@ -28,7 +28,7 @@ type Registry = Map<string, [string | Plugin | Processor, any?]>
  */
 @label(`@roots/bud-postcss`)
 @expose(`postcss`)
-export default class BudPostCss extends Extension {
+export class BudPostCss extends Extension {
   /**
    * Syntax
    *

@@ -59,13 +59,13 @@
     }
   },
   "devDependencies": {
+    "@roots/bud": "workspace:sources/@roots/bud",
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.18.3",
     "vitest": "0.24.5",
     "webpack": "5.74.0"
   },
   "dependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "stylelint": "14.14.0",
@@ -76,6 +76,7 @@
   "peerDependencies": {
     "stylelint": "*",
     "stylelint-config-standard": "*",
+    "stylelint-scss": "*",
     "stylelint-webpack-plugin": "*"
   },
   "peerDependenciesMeta": {
@@ -83,6 +84,9 @@
       "optional": true
     },
     "stylelint-config-standard": {
+      "optional": true
+    },
+    "stylelint-scss": {
       "optional": true
     },
     "stylelint-webpack-plugin": {

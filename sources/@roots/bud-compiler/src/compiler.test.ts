@@ -2,7 +2,7 @@ import {factory} from '@repo/test-kit/bud'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 import type {MultiStats, WebpackError} from 'webpack'
 
-import Compiler from './index'
+import Compiler from './index.js'
 
 describe(`@roots/bud-compiler`, function () {
   let bud

@@ -1,3 +1,3 @@
-import WPThemeJsonTailwind from './extension.js'
+import {WPThemeJsonTailwind} from './extension.js'
 
 export default WPThemeJsonTailwind

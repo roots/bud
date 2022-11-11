@@ -4,7 +4,7 @@ import type {Signale} from 'signale'
 import type {Compiler} from 'webpack'
 
 import type {Bud} from '../bud.js'
-import type {Modules} from '../types/registry/modules'
+import type {Modules} from '../index.js'
 import type {ApplyPluginConstructor} from './decorators/plugin.js'
 
 export type Options<T = Record<string, any>> = {
@@ -123,7 +123,7 @@ export class Extension<
    *
    * @public
    */
-  public label: keyof Modules & string
+  public label?: keyof Modules & string
 
   /**
    * @public
@@ -135,7 +135,7 @@ export class Extension<
    *
    * @public
    */
-  public dependsOn?: Set<`${keyof Modules & string}`>
+  public dependsOn?: Set<keyof Modules & string>
 
   /**
    * Depends on (optional)

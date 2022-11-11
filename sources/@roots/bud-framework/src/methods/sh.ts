@@ -1,6 +1,6 @@
 import execa, {ExecaChildProcess, Options} from '@roots/bud-support/execa'
 
-import type {Bud} from '../bud'
+import type {Bud} from '../bud.js'
 
 export interface sh {
   (command: string | Array<string>, options?: Options): ExecaChildProcess

@@ -1,10 +1,11 @@
 /// <reference path="../../bud-preset-wordpress/lib/index.d.ts" />
+/// <reference path="../../bud-tailwindcss/lib/index.d.ts" />
 
 import type Acorn from './acorn/index.js'
-import type AcornV2PublicPath from './acorn-v2-public-path/extension.js'
+import type AcornV2PublicPath from './acorn-v2-public-path/index.js'
 import type Sage from './sage/index.js'
 import type ThemeJSON from './wp-theme-json/index.js'
-import type WPThemeJsonTailwind from './wp-theme-json-tailwind/extension.js'
+import type WPThemeJsonTailwind from './wp-theme-json-tailwind/index.js'
 
 declare module '@roots/bud-framework' {
   interface Bud {

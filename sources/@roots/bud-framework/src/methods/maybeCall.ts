@@ -1,6 +1,6 @@
 import {isFunction} from '@roots/bud-support/lodash-es'
 
-import type {Bud} from '../bud'
+import type {Bud} from '../bud.js'
 
 /**
  * @internal

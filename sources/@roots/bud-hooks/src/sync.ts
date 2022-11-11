@@ -7,14 +7,14 @@ import type {
 import {bind} from '@roots/bud-support/decorators'
 import {isFunction} from '@roots/bud-support/lodash-es'
 
-import Hooks from './base.js'
+import {Hooks} from './base.js'
 
 /**
  * Synchronous hooks registry
  *
  * @public
  */
-export default class Sync extends Hooks<SyncStore> {
+export class SyncHooks extends Hooks<SyncStore> {
   /**
    * Set a value
    *
@@ -22,7 +22,7 @@ export default class Sync extends Hooks<SyncStore> {
    * @decorator `@bind`
    */
   @bind
-  public set<T extends keyof SyncStore & string>(
+  public set<T extends `${keyof SyncStore & string}`>(
     id: T,
     input: SyncCallback[T],
   ): Bud {

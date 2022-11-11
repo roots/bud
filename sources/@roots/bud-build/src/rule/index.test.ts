@@ -24,7 +24,11 @@ describe(`Build Rule`, function () {
 
   it(`getUse`, () => {
     const input = [`md`]
-    const rule = new Rule(() => bud, {test: /.foo$/, use: input})
+    const rule = new Rule(() => bud, {
+      test: /.foo$/,
+      // @ts-ignore
+      use: input,
+    })
 
     expect(rule.getUse()).toEqual(input)
   })
@@ -32,6 +36,7 @@ describe(`Build Rule`, function () {
   it(`setUse`, () => {
     const input = [`raw`, `md`]
     const rule = new Rule(() => bud, {test: /.foo$/})
+    // @ts-ignore
     rule.setUse(input)
 
     expect(rule.use).toEqual(input)

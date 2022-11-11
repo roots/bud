@@ -12,5 +12,5 @@
 
 import './types.js'
 
-import BudTailwindCss from './extension.js'
+import {BudTailwindCss} from './extension.js'
 export default BudTailwindCss
