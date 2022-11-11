@@ -22,7 +22,7 @@
     "resolveJsonModule": false,
     "sourceMap": true,
     "skipLibCheck": true,
-    "strict": false,
+    "strictBindCallApply": true,
     "target": "es2021",
     "types": ["node", "react", "express", "webpack", "webpack-env"]
   },
