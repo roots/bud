@@ -162,7 +162,7 @@
     "@roots/container": "workspace:sources/@roots/container",
     "@roots/dependencies": "workspace:sources/@roots/dependencies",
     "browserslist": "4.21.4",
-    "caniuse-lite": "1.0.30001429",
+    "caniuse-lite": "1.0.30001431",
     "conf": "10.2.0",
     "dotenv": "16.0.3",
     "dotenv-expand": "9.0.0",
