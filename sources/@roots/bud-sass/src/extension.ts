@@ -34,7 +34,7 @@ export class BudSass extends Extension {
    * @decorator `@bind`
    */
   @bind
-  public override async register() {
+  public override async register(_bud: Bud) {
     const implementation = await this.import(`sass`)
     this.setOptions({implementation, sourceMap: true})
   }

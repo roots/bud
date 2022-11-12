@@ -1,6 +1,6 @@
 // Vitest Snapshot v1
 
-exports[`Extensions > [production] bud.extensions.repository matches snapshot 1`] = `
+exports[`production extensions > should match snapshot 1`] = `
 [
   "@roots/bud-cache/invalidate-cache",
   "@roots/bud-extensions/cdn",

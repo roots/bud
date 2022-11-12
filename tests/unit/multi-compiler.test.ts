@@ -8,7 +8,7 @@ describe(`multi-compiler`, () => {
 
   beforeAll(async () => {
     bud = await factory({
-      basedir: join(paths.root, `tests`, `unit`, `bud`, `multi-compiler`),
+      basedir: join(paths.root, `tests`, `unit`),
     })
 
     /**

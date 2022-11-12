@@ -20,7 +20,7 @@ export interface Sync {
   devtool: Configuration['devtool'] | undefined
   entry: Record<string, EntryObject>
   experiments: Configuration['experiments']
-  externals: Configuration['externals']
+  externals: Record<string, RegExp | string | Array<string | RegExp>>
   externalsType: Configuration['externalsType']
   infrastructureLogging: Configuration['infrastructureLogging']
   'infrastructureLogging.level': Configuration['infrastructureLogging']['level']

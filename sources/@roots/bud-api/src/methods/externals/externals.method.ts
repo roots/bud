@@ -1,20 +1,27 @@
 import type {Bud} from '@roots/bud-framework'
-import type {Configuration} from '@roots/bud-framework/config'
 
 export interface externals {
-  (externals: Configuration['externals']): Bud
+  (
+    externals:
+      | Record<string, RegExp | string | Array<string | RegExp>>
+      | ((
+          externals: Record<
+            string,
+            RegExp | string | Array<string | RegExp>
+          >,
+        ) => Record<string, RegExp | string | Array<string | RegExp>>),
+  ): Bud
 }
 
 export const externals: externals = function (externals) {
-  const app = this as Bud
+  const bud = this as Bud
+  const records = bud.hooks.filter(`build.externals`, {})
+  const value =
+    typeof externals === `function`
+      ? externals(records)
+      : {...records, ...externals}
 
-  app.hooks.on(
-    `build.externals`,
-    (existant: Configuration['externals']) => ({
-      ...(existant as any),
-      ...(externals as any),
-    }),
-  )
+  bud.hooks.on(`build.externals`, value)
 
-  return app
+  return bud
 }

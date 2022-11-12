@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import {beforeEach, describe, expect, it, vi} from 'vitest'
-
-import {BudResolveUrl} from './extension.js'
+import {factory} from '@repo/test-kit/bud'
+import {BudResolveUrl} from '../src/resolve-url/extension.js'
 
 describe(`@roots/bud-sass`, () => {
   let bud
@@ -9,9 +9,7 @@ describe(`@roots/bud-sass`, () => {
 
   beforeEach(async () => {
     vi.restoreAllMocks()
-    bud = await import(`@repo/test-kit/bud`).then(
-      async ({factory}) => await factory(),
-    )
+    bud = await factory()
     extension = new BudResolveUrl(bud)
   })
 

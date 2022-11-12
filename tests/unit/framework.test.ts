@@ -66,10 +66,10 @@ describe.skip(`bud`, () => {
   })
 
   it(`pipe passes value through fn chain`, async () => {
-    const cb1 = app => app
-    const cb2 = app => app
+    const cb1 = (bud: Bud) => bud
+    const cb2 = (bud: Bud) => bud
 
-    const res = bud.pipe([cb1, cb2])
+    const res = bud.pipe([cb1, cb2], bud)
 
     expect(res).toBe(bud)
   })

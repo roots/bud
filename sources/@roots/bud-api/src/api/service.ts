@@ -86,7 +86,7 @@ export class Api extends ServiceContainer implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public async call(name: string, ...args: any[]) {
+  public async call(name: string, args: any[]) {
     this.app.log(
       chalk.blue(name),
       args && !isEmpty(args)
@@ -114,13 +114,13 @@ export class Api extends ServiceContainer implements Contract {
   @bind
   public async processQueue() {
     this.logger.info(`processing ${this.queue.length} queued calls`)
+
     await Promise.all(
-      this.queue.map(async ([name, args], i) => {
-        await this.call(name, ...args)
-        if (this.queue[i]) {
-          this.trace.push(this.queue[i])
-          delete this.queue[i]
-        }
+      this.queue?.map(async ([name, args], index) => {
+        await this.call(name, args)
+        this.trace?.push(this.queue[index])
+        delete this.queue[index]
+        this.queue = this.queue.filter(Boolean)
       }),
     )
   }

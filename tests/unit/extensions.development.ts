@@ -1,7 +1,7 @@
 import {Bud, factory} from '@repo/test-kit/bud'
 import {beforeAll, describe, expect, it} from 'vitest'
 
-describe(`Extensions`, function () {
+describe(`development extensions`, function () {
   let bud: Bud
 
   beforeAll(async () => {
@@ -9,7 +9,7 @@ describe(`Extensions`, function () {
     expect(bud.mode).toBe(`development`)
   })
 
-  it(`[development] bud.extensions.repository options matches snapshot`, () => {
+  it(`should match snapshot`, () => {
     expect(Object.keys(bud.extensions.repository).sort()).toMatchSnapshot()
   })
 })

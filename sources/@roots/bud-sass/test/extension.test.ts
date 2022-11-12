@@ -1,50 +1,51 @@
 /* eslint-disable no-console */
 import {beforeEach, describe, expect, it, vi} from 'vitest'
+import {factory} from '@repo/test-kit/bud'
+import BudPostCSS from '@roots/bud-postcss'
 
-import BudSassExtension from '../src/index'
+import BudSass from '../src/index.js'
 
-vi.mock(`@roots/bud`, async () => await import(`@repo/test-kit/mocks/bud`))
-
-describe(`@roots/bud-sass`, () => {
+describe(`@roots/bud-sass/extension`, () => {
   let bud
+  let postcss: BudPostCSS
+  let sass: BudSass
 
   beforeEach(async () => {
     vi.clearAllMocks()
-    bud = await import(`@roots/bud`).then(({default: Bud}) => new Bud())
+    bud = await factory()
+    postcss = new BudPostCSS(bud)
+    sass = new BudSass(bud)
+    bud.sass = sass
+    bud.postcss = postcss
   })
 
   it(`should be instantiable`, () => {
-    expect(new BudSassExtension(bud)).toBeInstanceOf(BudSassExtension)
+    expect(sass).toBeInstanceOf(BudSass)
   })
 
   it(`should call import when sass.register is called`, async () => {
-    const extension = new BudSassExtension(bud)
-    const importSpy = vi.spyOn(extension, `import`)
+    const importSpy = vi.spyOn(sass, `import`)
 
     try {
-      await extension.register()
+      await sass.register(bud)
     } catch (e) {}
     expect(importSpy).toHaveBeenCalled()
   })
 
   it(`should call setOptions when sass.register is called`, async () => {
-    const extension = new BudSassExtension(bud)
-    // @ts-ignore
-    extension.import = vi.fn(() => ({}))
-    const setOptionsSpy = vi.spyOn(extension, `setOptions`)
+    const setOptionsSpy = vi.spyOn(sass, `setOptions`)
 
     try {
-      await extension.register()
+      await sass.register(bud)
     } catch (e) {}
     expect(setOptionsSpy).toHaveBeenCalled()
   })
 
   it(`should call setOption when sass.registerGlobal is called`, async () => {
-    const extension = new BudSassExtension(bud)
-    const setOptionSpy = vi.spyOn(extension, `setOption`)
+    const setOptionSpy = vi.spyOn(sass, `setOption`)
 
     try {
-      extension.registerGlobal(`$primary-color: #ff0000;`)
+      sass.registerGlobal(`$primary-color: #ff0000;`)
     } catch (e) {}
 
     expect(setOptionSpy).toHaveBeenCalledWith(
@@ -54,23 +55,23 @@ describe(`@roots/bud-sass`, () => {
   })
 
   it(`should call setLoader when configAfter is called`, async () => {
-    const extension = new BudSassExtension(bud)
+    const setLoaderSpy = vi.spyOn(bud.build, `setLoader`)
 
     try {
-      await extension.configAfter()
+      await sass.configAfter(bud)
     } catch (e) {}
 
-    expect(bud.build.setLoader).toHaveBeenCalledWith(`sass-loader`)
+    expect(setLoaderSpy).toHaveBeenCalledWith(`sass-loader`)
   })
 
   it(`should call setItem when configAfter is called`, async () => {
-    const extension = new BudSassExtension(bud)
+    const setItemSpy = vi.spyOn(bud.build, `setItem`)
 
     try {
-      await extension.configAfter()
+      await sass.configAfter(bud)
     } catch (e) {}
 
-    expect(bud.build.setItem).toHaveBeenCalledWith(
+    expect(setItemSpy).toHaveBeenCalledWith(
       `sass`,
       expect.objectContaining({
         loader: `sass-loader`,
@@ -84,13 +85,13 @@ describe(`@roots/bud-sass`, () => {
   })
 
   it(`should call setRule when configAfter is called`, async () => {
-    const extension = new BudSassExtension(bud)
+    const setRuleSpy = vi.spyOn(bud.build, `setRule`)
 
     try {
-      await extension.configAfter()
+      await sass.configAfter(bud)
     } catch (e) {}
 
-    expect(bud.build.setRule).toHaveBeenCalledWith(
+    expect(setRuleSpy).toHaveBeenCalledWith(
       `sass`,
       expect.objectContaining({
         include: expect.arrayContaining([expect.any(Function)]),
@@ -101,30 +102,49 @@ describe(`@roots/bud-sass`, () => {
   })
 
   it(`should set postcss syntax`, async () => {
-    const extension = new BudSassExtension(bud)
-
-    // @ts-ignore
-    extension.app.postcss = {
-      syntax: ``,
-    }
+    postcss.syntax = ``
 
     try {
-      await extension.configAfter()
+      await sass.configAfter(bud)
     } catch (e) {}
 
-    expect(extension.app.postcss.syntax).toEqual(`postcss-scss`)
+    expect(sass.app.postcss.syntax).toEqual(`postcss-scss`)
   })
 
   it(`should register global when importGlobal is called`, async () => {
-    const extension = new BudSassExtension(bud)
-    const registerGlobalSpy = vi.spyOn(extension, `registerGlobal`)
-
-    try {
-      extension.importGlobal(`@src/styles/global.scss`)
-    } catch (e) {}
+    const registerGlobalSpy = vi.spyOn(sass, `registerGlobal`)
+    sass.importGlobal(`@src/styles/global.scss`)
 
     expect(registerGlobalSpy).toHaveBeenCalledWith([
       `@import "@src/styles/global.scss";`,
     ])
+  })
+
+  it(`should add global to \`additionalData\``, async () => {
+    const setOptionSpy = vi.spyOn(sass, `setOption`)
+
+    sass.setOption(`additionalData`, undefined)
+    sass.registerGlobal(`$foo: rgba(0, 0, 0, 1);`)
+    await sass.configAfter(bud)
+
+    expect(setOptionSpy).toHaveBeenCalledWith(
+      `additionalData`,
+      expect.any(Function),
+    )
+    expect(sass.getOption(`additionalData`)).toBe(
+      `$foo: rgba(0, 0, 0, 1);`,
+    )
+  })
+
+  it(`should import partials from an array`, async () => {
+    sass.setOption(`additionalData`, undefined)
+    sass.registerGlobal([
+      `$foo: rgba(0, 0, 0, 1);`,
+      `$bar: rgba(255, 255, 255, 1);`,
+    ])
+    await sass.configAfter(bud)
+    expect(sass.getOption(`additionalData`)).toBe(
+      `$foo: rgba(0, 0, 0, 1);\n$bar: rgba(255, 255, 255, 1);`,
+    )
   })
 })
