@@ -7463,9 +7463,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@tests/issue-1798@workspace:sources/@roots/bud-sass/test/fixtures/issue-1798":
+"@tests/issue-1798@workspace:sources/@roots/bud-sass/test/__fixtures__/issue-1798":
   version: 0.0.0-use.local
-  resolution: "@tests/issue-1798@workspace:sources/@roots/bud-sass/test/fixtures/issue-1798"
+  resolution: "@tests/issue-1798@workspace:sources/@roots/bud-sass/test/__fixtures__/issue-1798"
   dependencies:
     "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-sass": "workspace:sources/@roots/bud-sass"
