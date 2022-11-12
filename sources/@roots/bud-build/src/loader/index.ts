@@ -21,7 +21,7 @@ export default class Loader extends Base {
    *
    * @public
    */
-  public constructor(public _app: () => Bud, src: string) {
+  public constructor(public override _app: () => Bud, src: string) {
     super(_app)
     this._app = _app
     this.src = src

@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import ResolveUrlExtension from './index.js'
+import {BudResolveUrl} from './extension.js'
 
 describe(`@roots/bud-sass`, () => {
   let bud
@@ -12,11 +12,11 @@ describe(`@roots/bud-sass`, () => {
     bud = await import(`@repo/test-kit/bud`).then(
       async ({factory}) => await factory(),
     )
-    extension = new ResolveUrlExtension(bud)
+    extension = new BudResolveUrl(bud)
   })
 
   it(`should be instantiable`, () => {
-    expect(extension).toBeInstanceOf(ResolveUrlExtension)
+    expect(extension).toBeInstanceOf(BudResolveUrl)
   })
 
   it(`should call resolve util when register is called`, async () => {

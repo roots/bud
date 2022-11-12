@@ -6,5 +6,5 @@ import {Bud as Core} from '@roots/bud-framework/bud'
  * @public
  */
 export default class Bud extends Core {
-  public implementation = Bud
+  public override implementation = Bud
 }

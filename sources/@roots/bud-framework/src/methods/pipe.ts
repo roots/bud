@@ -1,4 +1,6 @@
-import type {Bud} from '../bud.js'
+import {isUndefined} from '@roots/bud-support/lodash-es'
+
+import {Bud} from '../bud.js'
 
 /**
  * Pipe callback
@@ -8,7 +10,7 @@ import type {Bud} from '../bud.js'
  *
  * @public
  */
-interface Callback<T = Bud> {
+interface Callback<T> {
   (input: T): T
 }
 
@@ -16,7 +18,8 @@ interface Callback<T = Bud> {
  * @public
  */
 export interface pipe {
-  <T = Bud>(fns: Callback<T>[], value?: T): T
+  <T = unknown>(fns: Array<Callback<T>>, value: T): T
+  <T = Bud>(fns: Array<Callback<T>>, value: undefined): T
 }
 
 /**
@@ -40,14 +43,22 @@ export interface pipe {
  *
  * @public
  */
-export function pipe<T = Bud>(fns: Callback<T>[], value?: T): T {
-  const app = this as Bud
+export const pipe: pipe = function <T>(
+  fns: Array<Callback<T>>,
+  value?: T,
+) {
+  const bud = this as Bud
 
-  const pipeReducer = (val: T, fn: Callback<T>) => {
-    return fn.call(val, val)
+  if (valueIsBud<T>(value)) {
+    return fns.reduce((value, fn) => fn(value), bud as T)
   }
 
-  return value
-    ? fns.reduce(pipeReducer, value)
-    : fns.reduce(pipeReducer, app)
+  return fns.reduce(
+    (value: T, fn: (value: T) => T) => fn.call(value, value),
+    value,
+  )
+}
+
+const valueIsBud = <T>(value: T): value is Bud & T => {
+  return isUndefined(value) || value instanceof Bud
 }

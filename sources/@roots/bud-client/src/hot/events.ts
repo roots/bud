@@ -58,13 +58,13 @@ export const injectEvents = (
      * EventSource `onopen` handler
      * @public
      */
-    public onopen = function () {}
+    public override onopen = function () {}
 
     /**
      * EventSource `onmessage` handler
      * @public
      */
-    public onmessage = async function (payload: MessageEvent) {
+    public override onmessage = async function (payload: MessageEvent) {
       if (!payload?.data || payload.data == `\uD83D\uDC93`) {
         return
       }

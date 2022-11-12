@@ -25,7 +25,7 @@ export default class Extensions
    *
    * @public
    */
-  public static label = `extensions`
+  public static override label = `extensions`
 
   /**
    * Registered extensions
@@ -70,7 +70,7 @@ export default class Extensions
    * @decorator `@bind`
    */
   @bind
-  public async register(bud: Bud): Promise<void> {
+  public override async register(bud: Bud): Promise<void> {
     if (bud.context.manifest?.bud?.allowlist) {
       bud.context.manifest.bud.extensions = {
         ...(bud.context.manifest.bud.extensions ?? {}),
@@ -99,7 +99,7 @@ export default class Extensions
    * @decorator `@bind`
    */
   @bind
-  public async booted(bud: Bud): Promise<void> {
+  public override async booted(bud: Bud): Promise<void> {
     if (!isUndefined(bud.context.manifest?.bud?.extensions?.discovery)) {
       this.resolvedOptions.discovery =
         bud.context.manifest.bud.extensions.discovery
@@ -174,7 +174,7 @@ export default class Extensions
    * @decorator `@bind`
    */
   @bind
-  public async configAfter(): Promise<void> {
+  public override async configAfter(): Promise<void> {
     await this.runAll(`configAfter`)
   }
 
@@ -182,7 +182,7 @@ export default class Extensions
    * `buildBefore` callback
    */
   @bind
-  public async buildBefore(): Promise<void> {
+  public override async buildBefore(): Promise<void> {
     await this.runAll(`buildBefore`)
   }
 
@@ -190,7 +190,7 @@ export default class Extensions
    * `buildBefore` callback
    */
   @bind
-  public async buildAfter(): Promise<void> {
+  public override async buildAfter(): Promise<void> {
     await this.runAll(`buildAfter`)
   }
 

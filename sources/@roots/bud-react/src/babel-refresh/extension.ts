@@ -1,3 +1,4 @@
+import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
@@ -26,13 +27,13 @@ export default class BudBabelRefresh extends Extension {
    * @decorator `@bind`
    */
   @bind
-  public async init() {
+  public override async init(bud: Bud) {
     this.logger.log(`Registering react-refresh-babel transformer`)
 
-    if (!this.app.react.useBabel) return
-    await this.app.react.ensureBabelIsLoaded()
+    if (!bud.react.useBabel) return
+    await bud.react.ensureBabelIsLoaded()
 
-    this.app.babel.setPlugin(
+    bud.babel.setPlugin(
       `react-refresh/babel`,
       await this.resolve(`react-refresh/babel`),
     )

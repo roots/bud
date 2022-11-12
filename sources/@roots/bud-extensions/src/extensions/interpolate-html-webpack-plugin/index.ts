@@ -29,7 +29,7 @@ export default class BudInterpolateHtmlPlugin extends Extension<
    * @decorator `@bind`
    */
   @bind
-  public async make() {
+  public override async make() {
     return new InterpolateHtmlPlugin(
       HtmlWebpackPlugin.getHooks,
       this.options,

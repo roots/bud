@@ -1,3 +1,4 @@
+import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
@@ -41,8 +42,8 @@ export class BudMinimizeCss extends Extension {
    * @decorator `@bind`
    */
   @bind
-  public async buildBefore() {
-    this.app.hooks.on(`build.optimization.minimizer`, minimizer => {
+  public override async buildBefore({hooks}: Bud) {
+    hooks.on(`build.optimization.minimizer`, minimizer => {
       if (!minimizer) minimizer = []
 
       minimizer.push(

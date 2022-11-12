@@ -1,4 +1,4 @@
-import {Extension} from '@roots/bud-framework'
+import {Bud, Extension} from '@roots/bud-framework'
 import {
   bind,
   disabled,
@@ -32,7 +32,7 @@ export default class BudTypeCheckPlugin extends Extension<
    * @override
    * @decorator `@bind`
    */
-  @bind public async enable(state: boolean = true) {
+  @bind public override async enable(state: boolean = true) {
     this.app.extensions
       .get(`@roots/bud-typescript`)
       .setOption(`transpileOnly`, !state)
@@ -50,7 +50,7 @@ export default class BudTypeCheckPlugin extends Extension<
    * @public
    * @decorator `@bind`
    */
-  @bind public async init() {
+  @bind public override async init(bud: Bud) {
     const typescriptPath = await this.resolve(`typescript`)
 
     this.setOptions(options => ({

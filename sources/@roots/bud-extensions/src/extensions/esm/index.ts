@@ -24,8 +24,8 @@ export default class Esm extends Extension {
    * @public
    * @decorator `@bind`
    */
-  public async buildBefore(app: Bud) {
-    app.hooks.fromMap({
+  public override async buildBefore(bud: Bud) {
+    bud.hooks.fromMap({
       'build.experiments': experiments => ({
         ...(experiments ?? {}),
         outputModule: true,
@@ -33,12 +33,12 @@ export default class Esm extends Extension {
       'build.output.module': true,
     })
 
-    app.context.manifest?.imports &&
-      app.hooks.on(
+    bud.context.manifest?.imports &&
+      bud.hooks.on(
         `build.externals`,
         (existant: Config.Configuration['externals']) => ({
           ...(existant ?? ({} as any)),
-          ...(app.context.manifest.imports as any),
+          ...(bud.context.manifest.imports as any),
         }),
       )
   }

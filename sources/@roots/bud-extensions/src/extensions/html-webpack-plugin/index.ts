@@ -33,7 +33,7 @@ export default class BudHtmlWebpackPlugin extends Extension<
    *
    * @public
    */
-  public async make(_bud: Bud, options: Plugin.Options) {
+  public override async make(_bud: Bud, options: Plugin.Options) {
     const HTMLWebpackPlugin = await import(`html-webpack-plugin`).then(
       m => m.default,
     )

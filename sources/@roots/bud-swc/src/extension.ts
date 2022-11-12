@@ -42,7 +42,7 @@ export default class BudSWC extends Extension<Options> {
    * @decorator `@bind`
    */
   @bind
-  public async register(bud: Bud) {
+  public override async register(bud: Bud) {
     bud.hooks.on(`build.resolve.extensions`, ext =>
       ext.add(`.ts`).add(`.tsx`).add(`.jsx`),
     )
@@ -55,7 +55,7 @@ export default class BudSWC extends Extension<Options> {
    * @decorator `@bind`
    */
   @bind
-  public async buildBefore(bud: Bud) {
+  public override async buildBefore(bud: Bud) {
     await this.registerSWC(bud)
   }
 

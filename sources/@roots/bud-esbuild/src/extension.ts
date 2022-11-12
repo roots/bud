@@ -86,7 +86,7 @@ export default class BudEsbuild extends Extension<Options> {
    * @public
    */
   @bind
-  public async buildBefore(bud: Bud) {
+  public override async buildBefore(bud: Bud) {
     const loader = await this.resolve(`esbuild-loader`)
 
     bud.build

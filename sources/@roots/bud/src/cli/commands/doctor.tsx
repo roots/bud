@@ -16,14 +16,14 @@ export default class DoctorCommand extends BaseCommand {
    * Command paths
    * @public
    */
-  public static paths = [[`doctor`]]
+  public static override paths = [[`doctor`]]
 
   /**
    * Command usage
    *
    * @public
    */
-  public static usage = Command.Usage({
+  public static override usage = Command.Usage({
     description: `Check project for common errors`,
     details: `\
 The \`bud doctor\` command will:
@@ -43,9 +43,17 @@ for a lot of edge cases so it might return a false positive.
     ],
   })
 
-  public dry = true
+  /**
+   * --dry
+   * @public
+   */
+  public override dry = true
 
-  public get args() {
+  /**
+   * Args
+   * @public
+   */
+  public override get args() {
     return {...this.context.args, dry: true}
   }
 
@@ -54,7 +62,7 @@ for a lot of edge cases so it might return a false positive.
    *
    * @public
    */
-  public async runCommand() {
+  public override async runCommand() {
     this.renderOnce(
       <Box marginBottom={1}>
         <Text>Checking configuration...</Text>

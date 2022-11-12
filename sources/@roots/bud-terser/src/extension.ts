@@ -75,7 +75,7 @@ export class BudTerser extends Extension<Options> {
    * @decorator `@bind`
    */
   @bind
-  public async buildBefore(bud: Bud) {
+  public override async buildBefore(bud: Bud) {
     if (
       !bud.extensions.has(
         // @ts-ignore

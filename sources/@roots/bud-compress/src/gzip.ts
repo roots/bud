@@ -37,8 +37,8 @@ export default class BudGzip extends Extension<Options, Plugin> {
    * @decorator `@bind`
    */
   @bind
-  public async register() {
-    this.app.api.bindFacade(`gzip`, this.config)
+  public override async register(bud: Bud) {
+    bud.api.bindFacade(`gzip`, this.config)
   }
 
   /**
@@ -65,7 +65,7 @@ export default class BudGzip extends Extension<Options, Plugin> {
    * @decorator `@bind`
    */
   @bind
-  public async when() {
-    return this.app.hooks.filter(`feature.gzip`)
+  public override async when(bud: Bud) {
+    return bud.hooks.filter(`feature.gzip`)
   }
 }

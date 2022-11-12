@@ -41,7 +41,7 @@ class Item extends Base implements Build.Item {
    * @public
    */
   public constructor(
-    public _app: () => Bud,
+    public override _app: () => Bud,
     constructorParams?: {
       ident?: string
       loader?: Loader | `${keyof Loaders & string}`

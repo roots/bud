@@ -25,7 +25,7 @@ export class WPThemeJsonTailwind extends Extension {
    * @decorator `@bind`
    */
   @bind
-  public async register(bud: Bud) {
+  public override async register(bud: Bud) {
     bud.wpjson.useTailwindColors = this.useTailwindColors.bind(bud.wpjson)
 
     bud.wpjson.useTailwindFontFamily = this.useTailwindFontFamily.bind(

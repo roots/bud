@@ -1,3 +1,4 @@
+import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
@@ -33,20 +34,20 @@ export default class BudPresetRecommend extends Extension {
    * @public
    */
   @bind
-  public async register() {
+  public override async register(bud: Bud) {
     if (
-      this.app.extensions.has(`@roots/bud-esbuild`) ||
-      this.app.extensions.has(`@roots/bud-swc`)
+      bud.extensions.has(`@roots/bud-esbuild`) ||
+      bud.extensions.has(`@roots/bud-swc`)
     )
       return
 
-    if (!this.app.extensions.has(`@roots/bud-babel`)) {
-      const babel = await this.app.module.import(
+    if (!bud.extensions.has(`@roots/bud-babel`)) {
+      const babel = await bud.module.import(
         `@roots/bud-babel`,
         import.meta.url,
       )
       this.logger.log(babel)
-      await this.app.extensions.add(babel)
+      await bud.extensions.add(babel)
     }
   }
 }

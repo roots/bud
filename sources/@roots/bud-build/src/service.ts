@@ -22,7 +22,7 @@ export default class Build extends Service.Base implements Base.Service {
   /**
    * @public
    */
-  public static label = `build`
+  public static override label = `build`
 
   /**
    * @public
@@ -64,7 +64,7 @@ export default class Build extends Service.Base implements Base.Service {
    * @decorator `@bind`
    */
   @bind
-  public async register?(bud: Bud): Promise<any> {
+  public override async register(bud: Bud) {
     Object.entries(loaders).map(
       <K extends keyof Loaders & string>([key, loaderFactory]: [
         K,

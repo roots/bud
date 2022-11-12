@@ -60,7 +60,7 @@ export default class BudTypeScript extends Extension {
    * @decorator `@bind`
    */
   @bind
-  public async register(bud: Bud) {
+  public override async register(bud: Bud) {
     this.useBabel = this.useBabel.bind(this)
     this.setOption(`context`, bud.context.basedir)
 
@@ -76,7 +76,7 @@ export default class BudTypeScript extends Extension {
    * @decorator `@bind`
    */
   @bind
-  public async configAfter(bud: Bud) {
+  public override async configAfter(bud: Bud) {
     bud.build
       .setLoader(`ts`, await this.resolve(`ts-loader`))
       .setItem(`ts`, {

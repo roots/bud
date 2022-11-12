@@ -22,7 +22,7 @@ export class Api extends ServiceContainer implements Contract {
    *
    * @public
    */
-  public static label = `api`
+  public static override label = `api`
 
   /**
    * Called methods
@@ -45,7 +45,7 @@ export class Api extends ServiceContainer implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public async bootstrap() {
+  public override async bootstrap() {
     Object.entries(methods).map(([k, v]) => this.bindFacade(k, v))
   }
 
@@ -56,7 +56,7 @@ export class Api extends ServiceContainer implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public async registered() {
+  public override async registered() {
     await this.processQueue()
   }
 

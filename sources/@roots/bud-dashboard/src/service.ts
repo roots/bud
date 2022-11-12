@@ -19,7 +19,7 @@ export class Dashboard
    *
    * @public
    */
-  public static label = `dashboard`
+  public static override label = `dashboard`
 
   /**
    * Ink instance

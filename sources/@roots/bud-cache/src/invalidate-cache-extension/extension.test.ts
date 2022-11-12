@@ -39,13 +39,10 @@ describe(`@roots/bud-cache/invalidate-cache-extension`, () => {
       async pkg => await pkg.factory(),
     )
 
-    const extension = new Extension(
-      // @ts-ignore
-      bud,
-    )
+    const extension = new Extension(bud)
     // @ts-ignore
     extension.app.fs.exists = vi.fn(() => false)
-    await extension.register()
+    await extension.register(bud)
 
     expect(extension.app.fs.exists).toHaveBeenCalled()
   })
@@ -59,11 +56,8 @@ describe(`@roots/bud-cache/invalidate-cache-extension`, () => {
     // @ts-ignore
     const removeSpy = vi.spyOn(bud.fs, `remove`)
 
-    const extension = new Extension(
-      // @ts-ignore
-      bud,
-    )
-    await extension.register()
+    const extension = new Extension(bud)
+    await extension.register(bud)
 
     expect(removeSpy).toHaveBeenCalled()
   })
@@ -77,11 +71,8 @@ describe(`@roots/bud-cache/invalidate-cache-extension`, () => {
     bud.fs.exists = vi.fn(() => true)
     const hookSpy = vi.spyOn(bud.hooks, `action`)
 
-    const extension = new Extension(
-      // @ts-ignore
-      bud,
-    )
-    await extension.register()
+    const extension = new Extension(bud)
+    await extension.register(bud)
 
     expect(hookSpy).toHaveBeenCalled()
   })

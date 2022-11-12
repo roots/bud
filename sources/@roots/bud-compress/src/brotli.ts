@@ -36,8 +36,8 @@ export default class BudBrotli extends Extension<Options, Plugin> {
    * @decorator `@bind`
    */
   @bind
-  public async register() {
-    this.app.api.bindFacade(`brotli`, this.config)
+  public override async register(bud: Bud) {
+    bud.api.bindFacade(`brotli`, this.config)
   }
 
   /**
@@ -64,7 +64,7 @@ export default class BudBrotli extends Extension<Options, Plugin> {
    * @decorator `@bind`
    */
   @bind
-  public async when() {
-    return this.app.hooks.filter(`feature.brotli`)
+  public override async when(bud: Bud) {
+    return bud.hooks.filter(`feature.brotli`)
   }
 }

@@ -37,7 +37,7 @@ export class Sage extends Extension<Options> {
    * @decorator `@bind`
    */
   @bind
-  public async register(app: Bud) {
+  public override async register(app: Bud) {
     if (app.extensions.has(`@roots/bud-tailwindcss`))
       await app.extensions.add(`@roots/sage/wp-theme-json-tailwind`)
 
@@ -77,7 +77,7 @@ export class Sage extends Extension<Options> {
    * @public
    */
   @bind
-  public async configAfter(app: Bud) {
+  public override async configAfter(app: Bud) {
     if (this.options.acorn === `v2`)
       await app.extensions.add(`@roots/sage/acorn-v2-public-path`)
   }

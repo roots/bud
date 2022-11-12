@@ -23,13 +23,13 @@ export default class BuildCommand extends BaseCommand {
    * Command paths
    * @public
    */
-  public static paths = [[`build`]]
+  public static override paths = [[`build`]]
 
   /**
    * Command usage
    * @public
    */
-  public static usage = Command.Usage({
+  public static override usage = Command.Usage({
     category: `build`,
     description: `Compile source assets`,
     details: `\
@@ -200,7 +200,7 @@ export default class BuildCommand extends BaseCommand {
    * --discovery
    * @public
    */
-  public discovery = Option.Boolean(`--discovery`, undefined, {
+  public override discovery = Option.Boolean(`--discovery`, undefined, {
     description: `Automatically register extensions`,
   })
 
@@ -272,7 +272,7 @@ export default class BuildCommand extends BaseCommand {
    *
    * @public
    */
-  public get args(): Context[`args`] {
+  public override get args(): Context[`args`] {
     return {
       browser: this.browser,
       cache: this.cache,
@@ -308,7 +308,7 @@ export default class BuildCommand extends BaseCommand {
    * @decorator `@bind`
    */
   @bind
-  public async runCommand() {
+  public override async runCommand() {
     await this.applyEnv()
     await this.applyManifestOptions()
     await this.app.processConfigs()

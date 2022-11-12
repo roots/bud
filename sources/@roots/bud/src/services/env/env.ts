@@ -1,3 +1,4 @@
+import type {Bud} from '@roots/bud-framework'
 import {ServiceContainer} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators'
 
@@ -12,7 +13,7 @@ export default class Env extends ServiceContainer {
    *
    * @public
    */
-  public static label = `env`
+  public static override label = `env`
 
   /**
    * Bootstrap event callback
@@ -21,8 +22,8 @@ export default class Env extends ServiceContainer {
    * @decorator `@bind`
    */
   @bind
-  public async bootstrap() {
-    this.setStore(this.app.context.env)
+  public override async bootstrap(bud: Bud) {
+    this.setStore(bud.context.env)
   }
 
   /**

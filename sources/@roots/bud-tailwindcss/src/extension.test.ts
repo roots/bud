@@ -68,7 +68,7 @@ describe(`@roots/bud-tailwindcss extension`, () => {
     extension.setOption(`generateImports`, false)
     extension.app.extensions.add = vi.fn() as any
 
-    await extension.configAfter()
+    await extension.configAfter(Bud)
     expect(extension.options.generateImports).toBe(false)
     expect(extension.app.extensions.add).not.toHaveBeenCalled()
   })
@@ -86,7 +86,7 @@ describe(`@roots/bud-tailwindcss extension`, () => {
       Bud.context.config[`tailwind.config.js`].module,
     )
 
-    expect(extension.theme.colors).not.toBe(configInitial.theme.colors)
+    expect(extension.theme?.colors).not.toBe(configInitial?.theme?.colors)
   })
 
   it(`should have a config prop`, async () => {
@@ -175,7 +175,7 @@ describe(`@roots/bud-tailwindcss extension`, () => {
     const extension = new BudTailwindCss(Bud)
 
     extension.generateImports(false)
-    await extension.configAfter()
+    await extension.configAfter(Bud)
     expect(Bud.extensions.add).not.toHaveBeenCalled()
   })
 
@@ -183,7 +183,7 @@ describe(`@roots/bud-tailwindcss extension`, () => {
     const extension = new BudTailwindCss(Bud)
 
     extension.generateImports(true)
-    await extension.configAfter()
+    await extension.configAfter(Bud)
     expect(Bud.extensions.add).toHaveBeenCalled()
   })
 
@@ -191,7 +191,7 @@ describe(`@roots/bud-tailwindcss extension`, () => {
     const extension = new BudTailwindCss(Bud)
 
     extension.generateImports(false)
-    await extension.configAfter()
+    await extension.configAfter(Bud)
     expect(Bud.hooks.async).not.toHaveBeenCalled()
   })
 
@@ -199,7 +199,7 @@ describe(`@roots/bud-tailwindcss extension`, () => {
     const extension = new BudTailwindCss(Bud)
 
     extension.generateImports()
-    await extension.configAfter()
+    await extension.configAfter(Bud)
     expect(Bud.hooks.async).toHaveBeenCalledTimes(1)
     expect(Bud.hooks.async).toHaveBeenCalledWith(
       `build.resolve.alias`,
@@ -210,14 +210,14 @@ describe(`@roots/bud-tailwindcss extension`, () => {
   it(`should call postcss.setPlugins`, async () => {
     const extension = new BudTailwindCss(Bud)
 
-    await extension.configAfter()
+    await extension.configAfter(Bud)
     expect(PostCSS.setPlugins).toHaveBeenCalled()
   })
 
   it(`should log success after setting plugin`, async () => {
     const extension = new BudTailwindCss(Bud)
 
-    await extension.configAfter()
+    await extension.configAfter(Bud)
     expect(Logger.success).toHaveBeenCalledTimes(1)
   })
 })

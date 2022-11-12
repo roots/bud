@@ -10,7 +10,7 @@ export class BudStylelintCommand extends BaseCommand {
    *
    * @public
    */
-  public static paths = [
+  public static override paths = [
     [`lint`, `css`],
     [`lint`, `scss`],
     [`lint`, `sass`],
@@ -21,7 +21,7 @@ export class BudStylelintCommand extends BaseCommand {
    * Comand usage
    * @public
    */
-  public static usage = Command.Usage({
+  public static override usage = Command.Usage({
     category: `tools`,
     description: `stylelint CLI passthrough`,
     examples: [
@@ -29,9 +29,9 @@ export class BudStylelintCommand extends BaseCommand {
     ],
   })
 
-  public dry = true
+  public override dry = true
 
-  public notify = false
+  public override notify = false
 
   public options = Option.Proxy({name: `stylelint passthrough options`})
 
@@ -40,7 +40,7 @@ export class BudStylelintCommand extends BaseCommand {
    *
    * @public
    */
-  public async runCommand() {
+  public override async runCommand() {
     const stylelint = await this.app.module.getDirectory(`stylelint`)
     const bin = join(stylelint, `bin`, `stylelint.js`)
 

@@ -10,14 +10,14 @@ export class BudTailwindCommand extends BaseCommand {
    *
    * @public
    */
-  public static paths = [[`tailwindcss`]]
+  public static override paths = [[`tailwindcss`]]
 
   /**
    * Comand usage
    *
    * @public
    */
-  public static usage = Command.Usage({
+  public static override usage = Command.Usage({
     category: `tools`,
     description: `tailwindcss CLI passthrough`,
     examples: [
@@ -25,9 +25,9 @@ export class BudTailwindCommand extends BaseCommand {
     ],
   })
 
-  public dry = true
+  public override dry = true
 
-  public notify = false
+  public override notify = false
 
   public options = Option.Proxy({name: `tailwindcss passthrough options`})
 
@@ -36,7 +36,7 @@ export class BudTailwindCommand extends BaseCommand {
    *
    * @public
    */
-  public async runCommand() {
+  public override async runCommand() {
     this.app.context.config = {}
     const tailwindPath = await this.app.module.getDirectory(`tailwindcss`)
     const bin = join(tailwindPath, `lib`, `cli.js`)

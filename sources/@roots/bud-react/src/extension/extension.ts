@@ -1,3 +1,4 @@
+import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
@@ -72,13 +73,13 @@ export default class BudReact extends Extension {
    * @decorator `@bind`
    */
   @bind
-  public async configAfter() {
+  public override async configAfter(bud: Bud) {
     if (!this.useBabel) return
 
     await this.ensureBabelIsLoaded()
 
     const Preset = await this.resolve(`@babel/preset-react`)
-    this.app.babel.setPreset(`@babel/preset-react`, Preset)
+    bud.babel.setPreset(`@babel/preset-react`, Preset)
   }
 
   /**

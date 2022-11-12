@@ -1,3 +1,4 @@
+import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
@@ -25,7 +26,7 @@ import {
   sourceMap: true,
 })
 @expose(`sass`)
-export default class BudSass extends Extension {
+export class BudSass extends Extension {
   /**
    * `register` callback
    *
@@ -33,7 +34,7 @@ export default class BudSass extends Extension {
    * @decorator `@bind`
    */
   @bind
-  public async register() {
+  public override async register() {
     const implementation = await this.import(`sass`)
     this.setOptions({implementation, sourceMap: true})
   }
@@ -45,8 +46,8 @@ export default class BudSass extends Extension {
    * @decorator `@bind`
    */
   @bind
-  public async configAfter() {
-    this.app.build
+  public override async configAfter(bud: Bud) {
+    bud.build
       .setLoader(`sass-loader`)
       .setItem(`sass`, {
         loader: `sass-loader`,
@@ -58,12 +59,12 @@ export default class BudSass extends Extension {
         use: [`precss`, `css`, `postcss`, `resolveUrl`, `sass`],
       })
 
-    this.app.hooks.on(`build.resolve.extensions`, ext =>
+    bud.hooks.on(`build.resolve.extensions`, ext =>
       ext.add(`.scss`).add(`.sass`),
     )
 
-    if (this.app.postcss) {
-      this.app.postcss.syntax = `postcss-scss`
+    if (bud.postcss) {
+      bud.postcss.syntax = `postcss-scss`
     }
   }
 
