@@ -76,7 +76,7 @@ export class Api extends ServiceContainer implements Contract {
     }
 
     this.set(name, fn.bind(this.app))
-    this.app.bindMethod({[name]: factory(name)})
+    this.app.bindMethod(name, factory(name))
   }
 
   /**
@@ -113,15 +113,15 @@ export class Api extends ServiceContainer implements Contract {
    */
   @bind
   public async processQueue() {
-    const queue = this.queue
-    if (!queue.length) return
-
-    this.logger.info(`processing ${queue.length} queued calls`)
-    this.trace.push(...queue)
-    this.queue = []
-
+    this.logger.info(`processing ${this.queue.length} queued calls`)
     await Promise.all(
-      queue.map(async ([name, args]) => await this.call(name, ...args)),
+      this.queue.map(async ([name, args], i) => {
+        await this.call(name, ...args)
+        if (this.queue[i]) {
+          this.trace.push(this.queue[i])
+          delete this.queue[i]
+        }
+      }),
     )
   }
 }
