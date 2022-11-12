@@ -58,18 +58,14 @@
     }
   },
   "devDependencies": {
-    "@repo/test-kit": "workspace:sources/@repo/test-kit",
     "@skypack/package-check": "0.2.2",
-    "@types/lodash": "4.14.187",
-    "@types/node": "16.18.3",
-    "vitest": "0.24.5",
-    "webpack": "5.74.0"
+    "@types/node": "16.18.3"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "css-minimizer-webpack-plugin": "4.2.2",
-    "terser-webpack-plugin": "^5.3.6",
-    "tslib": "2.4.1"
+    "terser-webpack-plugin": "^5.3.6"
   },
   "volta": {
     "extends": "../../../package.json"

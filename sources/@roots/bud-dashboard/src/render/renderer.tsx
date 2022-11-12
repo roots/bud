@@ -1,7 +1,7 @@
 import type {Bud} from '@roots/bud-framework'
 import {Box, render, Static} from '@roots/bud-support/ink'
 import React from '@roots/bud-support/react'
-import type {StatsCompilation} from 'webpack'
+import type {StatsCompilation} from '@roots/bud-support/webpack'
 
 import App from './app.js'
 import {TTYApp} from './input.js'

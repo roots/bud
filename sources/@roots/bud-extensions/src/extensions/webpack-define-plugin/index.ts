@@ -1,23 +1,37 @@
-import {Extension} from '@roots/bud-framework'
+import {Bud, Extension} from '@roots/bud-framework'
 import {
   bind,
   label,
   plugin,
 } from '@roots/bud-framework/extension/decorators'
-import Webpack from 'webpack'
+import {isUndefined} from '@roots/bud-support/lodash-es'
+import Webpack from '@roots/bud-support/webpack'
 
+/**
+ * `@roots/bud-extensions/webpack-define-plugin` adapter
+ *
+ * @public
+ * @decorator `@label`
+ * @decorator `@plugin`
+ */
 @label(`@roots/bud-extensions/webpack-define-plugin`)
 @plugin(Webpack.DefinePlugin)
 export default class BudDefine extends Extension<
-  Record<string, any>,
+  Webpack.DefinePlugin['definitions'],
   Webpack.DefinePlugin
 > {
+  /**
+   * `init` callback
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
-  public override async init() {
-    if (!this.app.env.getPublicEnv()) return
+  public override async init({env}: Bud) {
+    if (!env.getPublicEnv()) return
 
     this.setOptions(
-      Object.entries(this.app.env.getPublicEnv()).reduce(
+      Object.entries(env.getPublicEnv()).reduce(
         (values, [key, value]) => ({
           ...values,
           [key]: JSON.stringify(value),
@@ -34,7 +48,14 @@ export default class BudDefine extends Extension<
    * @decorator `@bind`
    */
   @bind
-  public override async when() {
-    return this.options && Object.keys(this.options).length > 0
+  public override async when(
+    _bud: Bud,
+    options?: Webpack.DefinePlugin['definitions'],
+  ) {
+    return (
+      options &&
+      !isUndefined(Object.keys(options)?.length) &&
+      Object.keys(options).length > 0
+    )
   }
 }

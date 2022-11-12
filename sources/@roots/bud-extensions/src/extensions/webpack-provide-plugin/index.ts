@@ -5,7 +5,7 @@ import {
   options,
   plugin,
 } from '@roots/bud-framework/extension/decorators'
-import Webpack from 'webpack'
+import webpack from '@roots/bud-support/webpack'
 
 /**
  * `@roots/bud-extensions/webpack-provide-plugin` adapter
@@ -15,11 +15,11 @@ import Webpack from 'webpack'
  * @decorator `@plugin`
  */
 @label(`@roots/bud-extensions/webpack-provide-plugin`)
-@plugin(Webpack.ProvidePlugin)
+@plugin(webpack.ProvidePlugin)
 @options({})
 export default class BudProvide extends Extension<
   Record<string, any>,
-  Webpack.ProvidePlugin
+  webpack.ProvidePlugin
 > {
   /**
    * `when` callback

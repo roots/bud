@@ -1,11 +1,11 @@
 import type {
   Configuration,
-  MultiCompiler as WebpackMultiCompiler,
+  MultiCompiler,
   MultiStats,
   ProgressPlugin,
   Stats,
   StatsCompilation,
-} from 'webpack'
+} from '@roots/bud-support/webpack'
 
 import type {Service as BaseService} from '../../service.js'
 
@@ -26,7 +26,7 @@ interface Service extends BaseService {
    *
    * @public
    */
-  instance: WebpackMultiCompiler
+  instance: MultiCompiler
 
   config: Array<Configuration>
 
@@ -54,7 +54,7 @@ interface Service extends BaseService {
    *
    * @public
    */
-  compile(): Promise<WebpackMultiCompiler>
+  compile(): Promise<MultiCompiler>
 
   callback(error: Error, stats: Stats & MultiStats): void
 

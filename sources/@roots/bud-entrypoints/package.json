@@ -57,13 +57,11 @@
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.18.3",
-    "vitest": "0.24.5"
+    "@types/node": "16.18.3"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/entrypoints-webpack-plugin": "workspace:sources/@roots/entrypoints-webpack-plugin",
-    "tslib": "2.4.1"
+    "@roots/entrypoints-webpack-plugin": "workspace:sources/@roots/entrypoints-webpack-plugin"
   },
   "volta": {
     "extends": "../../../package.json"

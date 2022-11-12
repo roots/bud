@@ -75,14 +75,11 @@
     "@wordpress/data": "7.5.0",
     "@wordpress/hooks": "3.21.0",
     "@wordpress/plugins": "4.19.0",
-    "@wordpress/rich-text": "5.19.0",
-    "vitest": "0.24.5",
-    "webpack": "5.74.0"
+    "@wordpress/rich-text": "5.19.0"
   },
   "dependencies": {
     "lodash-es": "4.17.21",
-    "react": "17.0.2",
-    "tslib": "2.4.1"
+    "react": "17.0.2"
   },
   "volta": {
     "extends": "../../../package.json"

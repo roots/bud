@@ -67,15 +67,12 @@
   },
   "devDependencies": {
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.18.3",
-    "vitest": "0.24.5",
-    "webpack": "5.74.0"
+    "@types/node": "16.18.3"
   },
   "dependencies": {
-    "compression-webpack-plugin": "^10.0.0",
-    "tslib": "2.4.1"
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "compression-webpack-plugin": "^10.0.0"
   },
   "volta": {
     "extends": "../../../package.json"

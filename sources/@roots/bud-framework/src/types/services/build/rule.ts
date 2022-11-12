@@ -1,4 +1,4 @@
-import type {RuleSetRule} from 'webpack'
+import type {RuleSetRule} from '@roots/bud-support/webpack'
 
 import type {Bud} from '../../../bud.js'
 import type {Items} from '../../../index.js'

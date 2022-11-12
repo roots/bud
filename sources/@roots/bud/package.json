@@ -102,49 +102,10 @@
       }
     }
   },
-  "typesVersions": {
-    "*": {
-      ".": [
-        "./lib/index.d.ts"
-      ],
-      "bud": [
-        "./lib/bud/index.d.ts"
-      ],
-      "cli": [
-        "./lib/cli/index.d.ts"
-      ],
-      "cli/commands/*": [
-        "./lib/cli/commands/*.d.ts"
-      ],
-      "context": [
-        "./lib/context/index.d.ts"
-      ],
-      "context/*": [
-        "./lib/context/*.d.ts"
-      ],
-      "factory": [
-        "./lib/factory/index.d.ts"
-      ],
-      "factory/*": [
-        "./lib/factory/*.d.ts"
-      ],
-      "notifier": [
-        "./lib/notifier/index.d.ts"
-      ],
-      "notifier/*": [
-        "./lib/notifier/*.d.ts"
-      ],
-      "services/*": [
-        "./lib/services/*/index.d.ts"
-      ]
-    }
-  },
   "devDependencies": {
-    "@repo/test-kit": "workspace:sources/@repo/test-kit",
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.18.3",
-    "@types/node-notifier": "8.0.2",
-    "vitest": "0.24.5"
+    "@types/node-notifier": "8.0.2"
   },
   "dependencies": {
     "@roots/browserslist-config": "workspace:sources/@roots/browserslist-config",
@@ -162,19 +123,15 @@
     "@roots/container": "workspace:sources/@roots/container",
     "@roots/dependencies": "workspace:sources/@roots/dependencies",
     "browserslist": "4.21.4",
-    "caniuse-lite": "1.0.30001429",
-    "conf": "10.2.0",
+    "caniuse-lite": "1.0.30001431",
     "dotenv": "16.0.3",
     "dotenv-expand": "9.0.0",
-    "import-meta-resolve": "2.1.0",
     "node-notifier": "10.0.1",
     "open": "8.4.0",
-    "open-editor": "4.0.0",
-    "tslib": "2.4.1",
-    "webpack": "5.74.0",
-    "webpack-cli": "^4.10.0"
+    "open-editor": "4.0.0"
   },
   "peerDependencies": {
+    "@roots/browserslist-config": "*",
     "browserslist": "*",
     "caniuse-lite": "*"
   },

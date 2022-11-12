@@ -55,14 +55,12 @@
     }
   },
   "devDependencies": {
-    "@skypack/package-check": "0.2.2",
-    "vitest": "0.24.5"
+    "@skypack/package-check": "0.2.2"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "strip-ansi": "7.0.1",
-    "tslib": "2.4.1"
+    "strip-ansi": "7.0.1"
   },
   "volta": {
     "extends": "../../../package.json"

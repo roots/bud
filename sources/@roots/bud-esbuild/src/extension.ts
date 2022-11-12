@@ -4,6 +4,7 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
+import type {WebpackPluginInstance} from '@roots/bud-support/webpack'
 import {ESBuildMinifyPlugin} from 'esbuild-loader'
 
 /**
@@ -109,8 +110,10 @@ export default class BudEsbuild extends Extension<Options> {
       ext.add(`.ts`).add(`.tsx`),
     )
 
-    bud.hooks.on(`build.optimization.minimizer`, () => [
-      new ESBuildMinifyPlugin(this.options.minify),
+    bud.hooks.on(`build.optimization.minimizer`, minimizer => [
+      new ESBuildMinifyPlugin(
+        this.options.minify,
+      ) as unknown as WebpackPluginInstance,
     ])
   }
 }

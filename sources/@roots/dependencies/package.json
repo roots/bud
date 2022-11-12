@@ -51,13 +51,10 @@
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/lodash": "4.14.187",
-    "@types/node": "16.18.3",
-    "vitest": "0.24.5"
+    "@types/node": "16.18.3"
   },
   "dependencies": {
-    "helpful-decorators": "2.1.0",
-    "tslib": "2.4.1"
+    "helpful-decorators": "2.1.0"
   },
   "volta": {
     "extends": "../../../package.json"

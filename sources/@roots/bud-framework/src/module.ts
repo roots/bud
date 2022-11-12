@@ -4,8 +4,8 @@ import {fileURLToPath, pathToFileURL} from 'node:url'
 
 import chalk from '@roots/bud-support/chalk'
 import {bind} from '@roots/bud-support/decorators'
-import {resolve} from 'import-meta-resolve'
-import type {Signale} from 'signale'
+import {resolve} from '@roots/bud-support/import-meta-resolve'
+import type {Instance} from '@roots/bud-support/signale'
 
 import type {Bud} from './bud.js'
 
@@ -27,7 +27,7 @@ export class Module {
    *
    * @public
    */
-  public logger: Signale
+  public logger: Instance
 
   /**
    * Class constructor

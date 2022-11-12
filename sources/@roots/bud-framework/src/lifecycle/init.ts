@@ -56,6 +56,7 @@ export const initialize = (app: Bud): Bud =>
       'build.context': () => app.context.basedir,
       'build.dependencies': () => [],
       'build.devtool': false,
+      'build.externals': undefined,
       'build.externalsType': `var`,
       'build.mode': () => app.mode,
       'build.module.rules.before': () => [

@@ -58,22 +58,19 @@
     }
   },
   "devDependencies": {
-    "@repo/test-kit": "workspace:sources/@repo/test-kit",
     "@roots/bud-build": "workspace:sources/@roots/bud-build",
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.18.3",
-    "@types/signale": "1.4.4",
-    "vitest": "0.24.5"
+    "@types/signale": "1.4.4"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "postcss": "8.4.18",
+    "postcss": "8.4.19",
     "postcss-import": "15.0.0",
     "postcss-loader": "7.0.1",
     "postcss-nested": "6.0.0",
-    "postcss-preset-env": "7.8.2",
-    "tslib": "2.4.1"
+    "postcss-preset-env": "7.8.2"
   },
   "peerDependencies": {
     "@roots/bud": "*",

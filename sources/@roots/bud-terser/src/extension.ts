@@ -8,6 +8,7 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
+import type {WebpackPluginInstance} from '@roots/bud-support/webpack'
 import TerserPlugin from 'terser-webpack-plugin'
 
 /**
@@ -87,7 +88,12 @@ export class BudTerser extends Extension<Options> {
     this.setMinifier(swcMinify)
 
     bud.hooks.on(`build.optimization.minimizer`, minimizer => {
-      minimizer.push(new TerserPlugin(this.options))
+      if (!minimizer) minimizer = []
+
+      minimizer.push(
+        new TerserPlugin(this.options) as unknown as WebpackPluginInstance,
+      )
+
       return minimizer
     })
   }

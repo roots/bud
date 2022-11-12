@@ -42,6 +42,7 @@ export default class Project extends BaseService implements Service {
               extensions: bud.context?.extensions,
               services: bud.context?.services,
             },
+            trace: bud.api.trace,
             extensions: bud.extensions.repository,
             hooks: {
               sync: bud.hooks.syncStore.store,

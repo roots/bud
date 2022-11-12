@@ -18,8 +18,8 @@ export interface dev
 }
 
 export const dev = (app: Bud) =>
-  WebpackDevMiddleware(
-    app.compiler.instance,
+  WebpackDevMiddleware<IncomingMessage, ServerResponse>(
+    app.compiler.instance as any,
     app.hooks.filter(`dev.middleware.dev.options`, {
       headers: app.hooks.filter(`dev.middleware.dev.options.headers`),
       index: app.hooks.filter(`dev.middleware.dev.options.index`),

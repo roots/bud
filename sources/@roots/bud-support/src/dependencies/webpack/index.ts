@@ -1,0 +1,47 @@
+import type {
+  Compilation,
+  Compiler,
+  Configuration,
+  DefinePlugin,
+  EntryObject,
+  MultiCompiler,
+  MultiStats,
+  ProgressPlugin,
+  RuleSetRule,
+  Stats,
+  StatsAsset,
+  StatsChunk,
+  StatsChunkGroup,
+  StatsCompilation,
+  StatsError,
+  StatsModule,
+  WebpackError,
+  WebpackPluginFunction,
+  WebpackPluginInstance,
+} from 'webpack'
+import webpack from 'webpack'
+import type * as WebpackTypes from 'webpack/types.js'
+
+export default webpack
+export type {
+  Compiler,
+  Compilation,
+  Configuration,
+  DefinePlugin,
+  EntryObject,
+  MultiCompiler,
+  MultiStats,
+  ProgressPlugin,
+  RuleSetRule,
+  Stats,
+  StatsAsset,
+  StatsChunk,
+  StatsChunkGroup,
+  StatsCompilation,
+  StatsError,
+  StatsModule,
+  WebpackError,
+  WebpackPluginFunction,
+  WebpackPluginInstance,
+  WebpackTypes,
+}

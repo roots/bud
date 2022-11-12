@@ -1,15 +1,15 @@
 import type {Bud} from '../bud.js'
 
-export interface GenericFunctionMap {
-  [key: string]: CallableFunction
-}
-
 export interface bindMethod {
-  <FunctionMap = GenericFunctionMap>(properties: FunctionMap): Bud
+  (key: string, value: (...args: any[]) => Bud | Promise<Bud>): Bud
 }
 
 /**
- * Bind a {@link CallableFunction} to {@link Bud}
+ * Bind a callable function to {@link Bud}
+ *
+ * @remarks
+ * You should also override the {@link Bud} module declaration to ensure
+ * that your typings are applied.
  *
  * @example
  * Bind a function named `fooFn` to `app.foo`
@@ -18,22 +18,26 @@ export interface bindMethod {
  * app.service.bindClass({foo: fooFn})
  * ```
  *
- * @remarks
- * You should also override the {@link Bud} module declaration to ensure
- * that your typings are correctly implemented and exported.
+ * @example
+ * Extend bud typings:
  *
- * @typeParam FunctionMap - Map of {@link Bud} keys to {@link CallableFunction} types
+ * ```ts
+ * declare module '@roots/bud-framework' {
+ *  interface Bud {
+ *   foo: typeof fooFn
+ *  }
+ * }
+ * ```
  *
  * @public
  */
-export function bindMethod<FunctionMap = GenericFunctionMap>(
-  properties: FunctionMap,
+export function bindMethod(
+  key: string,
+  value: (...args: any[]) => Bud | Promise<Bud>,
 ): Bud {
   const app = this as Bud
 
-  Object.entries(properties).forEach(([key, value]) => {
-    app[key] = value.bind(app)
-  })
+  app[key] = value.bind(app)
 
   return app
 }

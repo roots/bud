@@ -1,0 +1,30 @@
+// Vitest Snapshot v1
+
+exports[`@roots/bud-api > should add methods when bootstrapped 1`] = `
+{
+  "alias": [Function],
+  "assets": [Function],
+  "bundle": [Function],
+  "config": [Function],
+  "copy": [Function],
+  "define": [Function],
+  "devtool": [Function],
+  "entry": [Function],
+  "experiments": [Function],
+  "externals": [Function],
+  "hash": [Function],
+  "minimize": [Function],
+  "override": [Function],
+  "persist": [Function],
+  "provide": [Function],
+  "proxy": [Function],
+  "runtime": [Function],
+  "serve": [Function],
+  "splitChunks": [Function],
+  "template": [Function],
+  "use": [Function],
+  "version": [Function],
+  "watch": [Function],
+  "webpackConfig": [Function],
+}
+`;

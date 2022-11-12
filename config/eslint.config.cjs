@@ -41,6 +41,8 @@ module.exports = {
     `**/*.html`,
     `**/*.json`,
     `**/.budfiles`,
+    `*.test.ts`,
+    `*.test.tsx`,
     `**/dist`,
     `**/lib`,
     `**/node_modules`,

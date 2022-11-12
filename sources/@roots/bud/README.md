@@ -51,11 +51,11 @@ If your configuration is authored in TypeScript, you will use the `ts-bud` comma
 A simple way to instantiate **bud** is using the `factory` export:
 
 ```js
-import { factory } from "@roots/bud/factory";
+import {factory} from '@roots/bud/factory'
 
-await factory().then((bud) => {
+await factory().then(bud => {
   // use bud
-});
+})
 ```
 
 `factory` accepts an optional `Bud.Options` argument:
@@ -66,35 +66,39 @@ interface Options {
    * Context
    */
   context?: {
-    cwd: string;
-    dir: string;
-    manifest: Record<string, any>;
+    cwd: string
+    dir: string
+    manifest: Record<string, any>
     application: {
-      name: string;
-      label: string;
-      version: string;
-      dir: string;
-    };
+      name: string
+      label: string
+      version: string
+      dir: string
+    }
     args: Record<
       string,
-      string | boolean | undefined | number | Array<string | boolean | number>
-    >;
+      | string
+      | boolean
+      | undefined
+      | number
+      | Array<string | boolean | number>
+    >
     disk: {
-      config: Record<string, any>;
-    };
-    env: Record<string, string | undefined>;
-    stdin: Readable;
-    stdout: Writable;
-    stderr: Writable;
-    colorDepth: number;
-  };
+      config: Record<string, any>
+    }
+    env: Record<string, string | undefined>
+    stdin: Readable
+    stdout: Writable
+    stderr: Writable
+    colorDepth: number
+  }
 
   /**
    * Name
    *
    * @defaultValue `bud`
    */
-  name?: string;
+  name?: string
 
   /**
    * Build mode
@@ -104,22 +108,22 @@ interface Options {
    *
    * @defaultValue `production`
    */
-  mode?: Mode;
+  mode?: Mode
 
   /**
    * Seed values
    */
-  seed?: Partial<Bud["hooks"]["store"]>;
+  seed?: Partial<Bud['hooks']['store']>
 
   /**
    * Services
    */
-  services?: Record<string, new (...params: Array<any>) => Service>;
+  services?: Record<string, new (...params: Array<any>) => Service>
 
   /**
    * Extensions to be registered
    */
-  extensions?: Array<Extension | Extension.Constructor>;
+  extensions?: Array<Extension | Extension.Constructor>
 }
 ```
 
@@ -130,15 +134,15 @@ Arguments are merged with the defaults up to a depth of 1. So, if you want to ad
 From a file titled `webpack.config.cjs`:
 
 ```cjs
-module.exports = async (env) => {
-  const bud = await import("@roots/bud/factory").then(
-    async (factory) => await factory()
-  );
+module.exports = async env => {
+  const bud = await import('@roots/bud/factory').then(
+    async factory => await factory(),
+  )
 
-  bud.entry({ app: ["@src/app.js"] });
+  bud.entry({app: ['@src/app.js']})
 
-  return await bud.build.make();
-};
+  return await bud.build.make()
+}
 ```
 
 ## Contributing

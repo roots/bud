@@ -64,14 +64,12 @@
     }
   },
   "devDependencies": {
+    "@roots/bud": "workspace:sources/@roots/bud",
     "@skypack/package-check": "0.2.2",
     "@types/fork-ts-checker-webpack-plugin": "0.4.5",
-    "@types/node": "16.18.3",
-    "vitest": "0.24.5",
-    "webpack": "5.74.0"
+    "@types/node": "16.18.3"
   },
   "dependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
@@ -81,10 +79,10 @@
     "react-refresh-typescript": "2.0.7",
     "ts-loader": "^9.4.1",
     "ts-node": "10.9.1",
-    "tslib": "2.4.1",
     "typescript": "4.8.4"
   },
   "peerDependencies": {
+    "@roots/bud": "*",
     "fork-ts-checker-webpack-plugin": "*",
     "react-refresh-typescript": "*",
     "ts-loader": "*",

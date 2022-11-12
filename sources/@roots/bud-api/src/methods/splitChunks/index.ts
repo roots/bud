@@ -1,6 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
 import {isUndefined} from '@roots/bud-support/lodash-es'
-import type {Configuration} from 'webpack'
+import type {Configuration} from '@roots/bud-support/webpack'
 
 export interface method {
   (options?: Configuration['optimization']['splitChunks']): Bud

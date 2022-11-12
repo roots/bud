@@ -1,5 +1,5 @@
 import {isString} from '@roots/bud-support/lodash-es'
-import type {Compiler} from 'webpack'
+import type {Compiler} from '@roots/bud-support/webpack'
 
 /**
  * Remove empty modules from the compilation

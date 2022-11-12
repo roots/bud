@@ -1,5 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
-import type {DefinePlugin} from 'webpack'
+import type {DefinePlugin} from '@roots/bud-support/webpack'
 
 export interface define {
   (values: DefinePlugin['definitions']): Bud

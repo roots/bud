@@ -4,12 +4,16 @@ export default {
       provider: `istanbul`,
       reporter: [`text`, `json`, `html`],
     },
-    deps: {
-      interopDefault: true,
-    },
     include: [
+      `sources/@roots/*/src/*.test.ts`,
       `sources/@roots/*/src/**/*.test.ts`,
-      `tests/unit/**/*.test.ts`,
+      `sources/@roots/*/src/*.test.tsx`,
+      `sources/@roots/*/src/**/*.test.tsx`,
+      `sources/@roots/*/test/*.test.ts`,
+      `sources/@roots/*/test/**/*.test.ts`,
+      `sources/@roots/*/test/*.test.tsx`,
+      `sources/@roots/*/test/**/*.test.tsx`,
+      `tests/unit/*.test.ts`,
     ],
   },
 }

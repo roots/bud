@@ -3,7 +3,7 @@ import {Service} from '@roots/bud-framework/service'
 import type * as Services from '@roots/bud-framework/services'
 import {bind} from '@roots/bud-support/decorators'
 import type * as Ink from '@roots/bud-support/ink'
-import type {StatsCompilation} from 'webpack'
+import type {StatsCompilation} from '@roots/bud-support/webpack'
 
 /**
  * Dashboard service

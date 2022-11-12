@@ -1,7 +1,7 @@
 import type {Bud} from '@roots/bud-framework'
 import {isUndefined} from '@roots/bud-support/lodash-es'
+import type {Configuration} from '@roots/bud-support/webpack'
 import {cpus} from 'os'
-import type {Configuration} from 'webpack'
 
 export {bail} from './bail.js'
 export {cache} from './cache.js'

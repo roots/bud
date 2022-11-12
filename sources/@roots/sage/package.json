@@ -88,23 +88,24 @@
     "@roots/bud-tailwindcss": "workspace:sources/@roots/bud-tailwindcss",
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.18.3",
-    "tailwindcss": "3.2.1",
-    "vitest": "0.24.5",
-    "webpack": "5.74.0"
+    "tailwindcss": "3.2.4"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-preset-wordpress": "workspace:sources/@roots/bud-preset-wordpress",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "@roots/container": "workspace:sources/@roots/container",
-    "tslib": "2.4.1"
+    "@roots/container": "workspace:sources/@roots/container"
   },
   "peerDependencies": {
     "@roots/bud": "*",
-    "@roots/bud-preset-wordpress": "*"
+    "@roots/bud-preset-wordpress": "*",
+    "@roots/bud-tailwindcss": "*"
   },
   "peerDependenciesMeta": {
     "@roots/bud-preset-wordpress": {
+      "optional": true
+    },
+    "@roots/bud-tailwindcss": {
       "optional": true
     }
   },

@@ -1,6 +1,6 @@
 import {lowerCase} from '@roots/bud-support/lodash-es'
+import type {Instance as Signale} from '@roots/bud-support/signale'
 import Container from '@roots/container'
-import type {Signale} from 'signale'
 
 import type {Bud} from './bud.js'
 

@@ -1,8 +1,12 @@
 /* eslint-disable no-console */
 
 import type {Bud} from '@roots/bud-framework'
+import type {
+  MultiCompiler,
+  StatsCompilation,
+  StatsModule,
+} from '@roots/bud-support/webpack'
 import type {RequestHandler} from 'express'
-import type {Compiler, MultiCompiler, StatsCompilation} from 'webpack'
 
 import type {Payload} from './payload.js'
 import {HotEventStream} from './stream.js'
@@ -18,7 +22,7 @@ export default (app: Bud) => {
   return makeHandler(app.compiler.instance)
 }
 
-export const makeHandler = (compiler: Compiler | MultiCompiler) => {
+export const makeHandler = (compiler: MultiCompiler) => {
   const stream = new HotEventStream()
 
   const onInvalid = () => {
@@ -100,7 +104,7 @@ export const publish = (
   })
 }
 
-export const collectModules = (modules: StatsCompilation['modules']) =>
+export const collectModules = (modules: Array<StatsModule>) =>
   modules?.reduce(
     (modules, module) => ({...modules, [module.id]: module.name}),
     {},

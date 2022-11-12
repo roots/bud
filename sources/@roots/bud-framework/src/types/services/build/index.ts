@@ -1,4 +1,4 @@
-import type * as Webpack from 'webpack'
+import type {Configuration} from '@roots/bud-support/webpack'
 
 import type {Items, Loaders, Rules} from '../../../index.js'
 import type {Service as BaseService} from '../../../service.js'
@@ -68,7 +68,7 @@ export interface Service extends BaseService {
    *
    * @public
    */
-  config: Webpack.Configuration
+  config: Configuration
 
   /**
    * Make {@link Build.config}

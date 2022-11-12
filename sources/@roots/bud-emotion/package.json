@@ -61,15 +61,14 @@
     }
   },
   "devDependencies": {
-    "@babel/core": "7.19.6",
+    "@babel/core": "7.20.2",
     "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
     "@roots/bud-swc": "workspace:sources/@roots/bud-swc",
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.18.3",
     "@types/react": "17.0.52",
-    "react": "17.0.2",
-    "vitest": "0.24.5"
+    "react": "17.0.2"
   },
   "dependencies": {
     "@emotion/babel-plugin": "^11.10.5",
@@ -78,8 +77,7 @@
     "@emotion/styled": "^11.10.5",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "@swc/plugin-emotion": "2.5.21",
-    "tslib": "2.4.1"
+    "@swc/plugin-emotion": "2.5.21"
   },
   "peerDependencies": {
     "@emotion/babel-plugin": "*",

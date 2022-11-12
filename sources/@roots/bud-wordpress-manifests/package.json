@@ -54,12 +54,10 @@
   "devDependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.18.3",
-    "vitest": "0.24.5"
+    "@types/node": "16.18.3"
   },
   "dependencies": {
-    "@roots/merged-manifest-webpack-plugin": "workspace:sources/@roots/merged-manifest-webpack-plugin",
-    "tslib": "2.4.1"
+    "@roots/merged-manifest-webpack-plugin": "workspace:sources/@roots/merged-manifest-webpack-plugin"
   },
   "peerDependencies": {
     "@roots/merged-manifest-webpack-plugin": "*"
