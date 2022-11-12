@@ -1,12 +1,12 @@
 import commonPath from '@roots/bud-support/common-path'
 import {bind} from '@roots/bud-support/decorators'
+import {resolve} from '@roots/bud-support/import-meta-resolve'
 import {
   isFunction,
   isNull,
   isString,
   isUndefined,
 } from '@roots/bud-support/lodash-es'
-import {resolve} from 'import-meta-resolve'
 
 import {bootstrap, LIFECYCLE_EVENT_MAP} from './lifecycle/bootstrap.js'
 import type {Logger} from './logger/index.js'
