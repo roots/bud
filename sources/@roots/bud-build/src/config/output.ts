@@ -1,5 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
-import type {Configuration} from 'webpack'
+import type {Configuration} from '@roots/bud-support/webpack'
 
 export const output = async (app: Bud): Promise<Configuration['output']> =>
   app.hooks.filter(`build.output`, {

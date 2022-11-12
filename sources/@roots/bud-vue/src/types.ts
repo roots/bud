@@ -1,3 +1,4 @@
+/// <reference path="../../bud/lib/index.d.ts" />
 /// <reference path="../../bud-postcss/lib/index.d.ts" />
 /// <reference path="../../bud-sass/lib/index.d.ts" />
 

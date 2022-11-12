@@ -3,7 +3,7 @@ import * as Service from '@roots/bud-framework/service'
 import type * as Base from '@roots/bud-framework/services/build'
 import {bind} from '@roots/bud-support/decorators'
 import {isFunction, isUndefined} from '@roots/bud-support/lodash-es'
-import type {Configuration} from 'webpack'
+import type {Configuration} from '@roots/bud-support/webpack'
 
 import type {ValueFactory} from './config/builder.js'
 import * as items from './handlers/items.js'

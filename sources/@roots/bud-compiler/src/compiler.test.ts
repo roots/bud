@@ -1,6 +1,6 @@
 import {factory} from '@repo/test-kit/bud'
+import type {MultiStats, WebpackError} from '@roots/bud-support/webpack'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
-import type {MultiStats, WebpackError} from 'webpack'
 
 import Compiler from './index.js'
 

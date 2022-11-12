@@ -45,11 +45,13 @@
     "./common-path": "./lib/dependencies/common-path/index.js",
     "./decorators": "./lib/decorators/index.js",
     "./execa": "./lib/dependencies/execa/index.js",
+    "./figures": "./lib/dependencies/figures/index.js",
     "./filesystem": "./lib/filesystem/index.js",
     "./fs": "./lib/dependencies/fs/index.js",
     "./fs-jetpack": "./lib/dependencies/fs-jetpack/index.js",
     "./globby": "./lib/dependencies/globby/index.js",
     "./highlight": "./lib/highlight/index.js",
+    "./import-meta-resolve": "./lib/dependencies/import-meta-resolve/index.js",
     "./ink": "./lib/dependencies/ink/index.js",
     "./ink-link": "./lib/dependencies/ink-link/index.js",
     "./ink-text-input": "./lib/dependencies/ink-text-input/index.js",
@@ -59,7 +61,8 @@
     "./pretty-format": "./lib/dependencies/pretty-format/index.js",
     "./react": "./lib/dependencies/react/index.js",
     "./signale": "./lib/dependencies/signale/index.js",
-    "./typanion": "./lib/dependencies/typanion/index.js"
+    "./typanion": "./lib/dependencies/typanion/index.js",
+    "./webpack": "./lib/dependencies/webpack/index.js"
   },
   "typesVersions": {
     "*": {
@@ -84,6 +87,9 @@
       "execa": [
         "./lib/dependencies/execa/index.d.ts"
       ],
+      "figures": [
+        "./lib/dependencies/figures/index.d.ts"
+      ],
       "filesystem": [
         "./lib/filesystem/index.d.ts"
       ],
@@ -98,6 +104,9 @@
       ],
       "highlight": [
         "./lib/highlight/index.d.ts"
+      ],
+      "import-meta-resolve": [
+        "./lib/dependencies/import-meta-resolve/index.d.ts"
       ],
       "ink": [
         "./lib/dependencies/ink/index.d.ts"
@@ -128,6 +137,9 @@
       ],
       "typanion": [
         "./lib/dependencies/typanion/index.d.ts"
+      ],
+      "webpack": [
+        "./lib/dependencies/webpack/index.d.ts"
       ]
     }
   },
@@ -142,11 +154,13 @@
     "clipanion": "3.2.0-rc.13",
     "common-path": "1.0.1",
     "execa": "6.1.0",
+    "figures": "5.0.0",
     "fs-extra": "10.1.0",
     "fs-jetpack": "5.1.0",
     "globby": "13.1.2",
     "helpful-decorators": "2.1.0",
     "highlight.js": "11.6.0",
+    "import-meta-resolve": "2.1.0",
     "ink": "3.2.0",
     "ink-link": "2.0.0",
     "ink-text-input": "4.0.3",
@@ -154,10 +168,19 @@
     "parse5": "7.1.1",
     "parse5-htmlparser2-tree-adapter": "7.0.0",
     "patch-console": "1.0.0",
-    "pretty-format": "29.2.1",
+    "pretty-format": "29.3.1",
     "react": "17.0.2",
     "signale": "1.4.0",
     "typanion": "3.12.1",
-    "type-fest": "3.1.0"
+    "type-fest": "3.2.0",
+    "webpack": "5.75.0"
+  },
+  "peerDependencies": {
+    "webpack": ">=5"
+  },
+  "peerDependenciesMeta": {
+    "webpack": {
+      "optional": true
+    }
   }
 }

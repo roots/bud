@@ -1,7 +1,7 @@
+import chalk from '@roots/bud-support/chalk'
 import {Box, Text} from '@roots/bud-support/ink'
 import React from '@roots/bud-support/react'
-import chalk from 'chalk'
-import type {StatsCompilation} from 'webpack'
+import type {StatsCompilation} from '@roots/bud-support/webpack'
 
 import {VERT} from '../format.js'
 

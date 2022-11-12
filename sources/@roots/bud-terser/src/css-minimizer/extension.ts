@@ -6,6 +6,7 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
+import type {WebpackPluginInstance} from '@roots/bud-support/webpack'
 import Plugin from 'css-minimizer-webpack-plugin'
 
 /**
@@ -42,7 +43,12 @@ export class BudMinimizeCss extends Extension {
   @bind
   public async buildBefore() {
     this.app.hooks.on(`build.optimization.minimizer`, minimizer => {
-      minimizer.push(new Plugin(this.options))
+      if (!minimizer) minimizer = []
+
+      minimizer.push(
+        new Plugin(this.options) as unknown as WebpackPluginInstance,
+      )
+
       return minimizer
     })
   }

@@ -4,7 +4,7 @@ import {
   label,
   plugin,
 } from '@roots/bud-framework/extension/decorators'
-import Webpack from 'webpack'
+import Webpack from '@roots/bud-support/webpack'
 
 /**
  * This is the extension that enables hot module replacement in `development` mode

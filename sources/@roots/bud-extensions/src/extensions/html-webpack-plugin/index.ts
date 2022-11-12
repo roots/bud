@@ -7,6 +7,13 @@ import {
 } from '@roots/bud-framework/extension/decorators'
 import type Plugin from 'html-webpack-plugin'
 
+/**
+ * `@roots/bud-extensions/html-webpack-plugin` adapter
+ *
+ * @public
+ * @decorator `@label`
+ * @decorator `@plugin`
+ */
 @label(`@roots/bud-extensions/html-webpack-plugin`)
 @options<Plugin.Options>({
   inject: true,

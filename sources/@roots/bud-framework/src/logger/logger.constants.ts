@@ -1,12 +1,12 @@
-import figures from 'figures'
-import type {SignaleConfig} from 'signale'
+import figures from '@roots/bud-support/figures'
+import type {Config} from '@roots/bud-support/signale'
 
 /**
  * Instance configuration
  *
  * @internal
  */
-export const configDefaults: SignaleConfig = {
+export const configDefaults: Config = {
   displayScope: true,
   displayBadge: true,
   displayDate: false,

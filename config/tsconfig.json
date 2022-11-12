@@ -9,6 +9,7 @@
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
+    "importHelpers": true,
     "importsNotUsedAsValues": "error",
     "incremental": true,
     "jsx": "react",

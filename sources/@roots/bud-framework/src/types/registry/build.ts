@@ -1,4 +1,8 @@
-import type {Configuration, RuleSetRule} from 'webpack'
+import type {
+  Compiler,
+  Configuration,
+  RuleSetRule,
+} from '@roots/bud-support/webpack'
 
 import type {EntryObject} from '../config/entry.js'
 
@@ -35,7 +39,9 @@ export interface Sync {
   optimization: Configuration['optimization']
   'optimization.emitOnErrors': Configuration['optimization']['emitOnErrors']
   'optimization.minimize': Configuration['optimization']['minimize']
-  'optimization.minimizer': Configuration['optimization']['minimizer']
+  'optimization.minimizer': Array<
+    ((compiler: Compiler) => void) | {apply: any} | '...'
+  >
   'optimization.moduleIds': Configuration['optimization']['moduleIds']
   'optimization.removeEmptyChunks': Configuration['optimization']['removeEmptyChunks']
   'optimization.runtimeChunk': Configuration['optimization']['runtimeChunk']

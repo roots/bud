@@ -1,4 +1,4 @@
-import {globby, globbySync} from 'globby'
+import globby, {globbySync} from '@roots/bud-support/globby'
 
 import type {Bud} from '../bud.js'
 

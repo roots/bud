@@ -1,4 +1,4 @@
-import type {StatsCompilation} from 'webpack'
+import type {StatsCompilation} from '@roots/bud-support/webpack'
 
 import type {Service as Base} from '../../service.js'
 
@@ -17,5 +17,5 @@ export interface Service extends Base {
    *
    * @public
    */
-  stats({stats}: {stats: StatsCompilation}): Promise<unknown>
+  stats(stats: StatsCompilation): Promise<unknown>
 }

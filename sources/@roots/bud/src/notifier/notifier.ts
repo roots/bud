@@ -1,6 +1,10 @@
 import type {Bud} from '@roots/bud-framework'
 import {bind, once} from '@roots/bud-support/decorators'
 import {isFunction, isNumber, isString} from '@roots/bud-support/lodash-es'
+import type {
+  StatsCompilation,
+  StatsError,
+} from '@roots/bud-support/webpack'
 import {
   Notification,
   NotificationCallback,
@@ -8,7 +12,6 @@ import {
 } from 'node-notifier'
 import open from 'open'
 import openEditor from 'open-editor'
-import type {StatsCompilation, StatsError} from 'webpack'
 
 import {notifierPath} from './notifierPath.js'
 

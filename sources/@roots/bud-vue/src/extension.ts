@@ -6,8 +6,8 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
+import type {Configuration, RuleSetRule} from '@roots/bud-support/webpack'
 import parseSemver from 'parse-semver'
-import type {Configuration, RuleSetRule} from 'webpack'
 
 type Options = {runtimeOnly: boolean}
 

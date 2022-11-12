@@ -1,6 +1,6 @@
 import {bind} from '@roots/bud-support/decorators'
+import type {Compiler} from '@roots/bud-support/webpack'
 import type HtmlWebpackPlugin from 'html-webpack-plugin'
-import type {Compilation, Compiler} from 'webpack'
 
 /**
  * Template variable interpolation plugin for webpack
@@ -8,6 +8,11 @@ import type {Compilation, Compiler} from 'webpack'
  * @public
  */
 export default class InterpolateHtmlWebpackPlugin {
+  /**
+   * Plugin name
+   *
+   * @public
+   */
   public name = `interpolate-html-webpack-plugin`
 
   /**
@@ -19,7 +24,7 @@ export default class InterpolateHtmlWebpackPlugin {
    * @public
    */
   public constructor(
-    public getHooks: (compilation: Compilation) => HtmlWebpackPlugin.Hooks,
+    public getHooks: (...args: any[]) => HtmlWebpackPlugin.Hooks,
     public replacements: Record<string, RegExp | string>,
   ) {}
 

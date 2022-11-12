@@ -48,10 +48,13 @@ export default class Filesystem {
   /**
    * Class constructor
    *
-   * @internal
+   * @public
    */
   public constructor(...pathParts: Array<string>) {
-    this.fs = filesystem.cwd(...pathParts)
+    this.fs =
+      pathParts && Array.isArray(pathParts)
+        ? filesystem.cwd(...pathParts)
+        : filesystem
   }
 
   /**

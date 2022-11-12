@@ -1,5 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
-import type {Configuration} from 'webpack'
+import type {Configuration} from '@roots/bud-support/webpack'
 
 export interface devtool {
   (devtool?: Configuration['devtool']): Promise<Bud>

@@ -11,8 +11,8 @@ import type {
 import * as SignaleModule from 'signale'
 
 const Signale = SignaleModule.default.Signale
-
 export {Signale as default}
+
 export type {
   Methods,
   Fn,

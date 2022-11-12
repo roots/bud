@@ -1,7 +1,7 @@
 import {factory} from '@repo/test-kit/bud'
 import {Extension} from '@roots/bud-framework/extension'
-import {describe, expect, it, test, vi} from 'vitest'
-import webpack from 'webpack'
+import webpack from '@roots/bud-support/webpack'
+import {describe, expect, it, test} from 'vitest'
 
 import hmrExtension from './index.js'
 

@@ -1,6 +1,6 @@
 import {factory} from '@repo/test-kit/bud'
+import type {WebpackPluginInstance} from '@roots/bud-support/webpack'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
-import type {WebpackPluginInstance} from 'webpack'
 
 import Extensions from './index.js'
 

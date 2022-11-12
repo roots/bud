@@ -1,4 +1,4 @@
-import type {Configuration} from 'webpack'
+import type {Configuration} from '@roots/bud-support/webpack'
 
 import type {Service as BaseService} from '../../service.js'
 

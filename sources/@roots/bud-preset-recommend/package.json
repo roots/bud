@@ -65,15 +65,13 @@
     "@roots/bud-esbuild": "workspace:sources/@roots/bud-esbuild",
     "@roots/bud-swc": "workspace:sources/@roots/bud-swc",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.18.3",
-    "vitest": "0.24.5"
+    "@types/node": "16.18.3"
   },
   "dependencies": {
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
     "@roots/bud-entrypoints": "workspace:sources/@roots/bud-entrypoints",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
-    "tslib": "2.4.1"
+    "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss"
   },
   "peerDependencies": {
     "@roots/bud": "*",

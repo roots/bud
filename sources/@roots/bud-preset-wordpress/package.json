@@ -59,8 +59,7 @@
   "devDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.18.3",
-    "vitest": "0.24.5"
+    "@types/node": "16.18.3"
   },
   "dependencies": {
     "@roots/browserslist-config": "workspace:sources/@roots/browserslist-config",
@@ -69,8 +68,7 @@
     "@roots/bud-react": "workspace:sources/@roots/bud-react",
     "@roots/bud-wordpress-dependencies": "workspace:sources/@roots/bud-wordpress-dependencies",
     "@roots/bud-wordpress-externals": "workspace:sources/@roots/bud-wordpress-externals",
-    "@roots/bud-wordpress-manifests": "workspace:sources/@roots/bud-wordpress-manifests",
-    "tslib": "2.4.1"
+    "@roots/bud-wordpress-manifests": "workspace:sources/@roots/bud-wordpress-manifests"
   },
   "peerDependencies": {
     "@roots/browserslist-config": "*",

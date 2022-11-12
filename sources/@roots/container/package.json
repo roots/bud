@@ -64,14 +64,12 @@
     "@skypack/package-check": "0.2.2",
     "@types/lodash-es": "4.17.6",
     "@types/node": "16.18.3",
-    "type-fest": "3.1.0",
-    "vitest": "0.24.5"
+    "type-fest": "3.2.0"
   },
   "dependencies": {
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "helpful-decorators": "2.1.0",
-    "lodash-es": "4.17.21",
-    "tslib": "2.4.1"
+    "lodash-es": "4.17.21"
   },
   "volta": {
     "extends": "../../../package.json"
