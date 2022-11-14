@@ -12,19 +12,25 @@ If no entrypoint is provided **bud** will attempt to compile **src/index.js** to
 
 ## Usage
 
-The simplest usage is just a name for the entrypoint and the asset to compile
+The simplest usage is just a string reference to your application's entrypoint.
+
+```js title='bud.config.js'
+bud.entry('app')
+```
+
+For more control over naming, you may pass two parameters. The first will be used as the name, and the second as the asset signifier.
 
 ```js title='bud.config.js'
 bud.entry('app', 'app.js')
 ```
 
-It is also possible to pass an array of assets. Assets do not have to be the same filetype to be grouped together as a single entrypoint.
+It is also possible to pass an array of assets (with or without an entrypoint name). Assets do not have to be the same filetype to be grouped together as a single entrypoint.
 
 ```js title='bud.config.js'
 bud.entry('app', ['app.js', 'app.css'])
 ```
 
-You may specify multiple entrypoints in one call using object syntax
+You may also specify multiple entrypoints in one call using object syntax:
 
 ```js title='bud.config.js'
 bud.entry({
@@ -33,9 +39,11 @@ bud.entry({
 })
 ```
 
-## Specifying dependencies
+## Specifying additional properties
 
-Bud supports the new Webpack 5 `dependOn` syntax for explicitly defining entrypoint dependencies.
+The entire `EntryObject` API is available to you.
+
+As an example, bud.js supports the Webpack 5 `dependOn` syntax for explicitly defining entrypoint dependencies:
 
 ```ts title='bud.config.js'
 bud.entry({
@@ -49,10 +57,10 @@ bud.entry({
 
 ## Globbing
 
-You can specify assets using [fast-glob syntax](https://git.io/JkGbw).
+You may pair **bud.entry** with [bud.glob](/docs/bud.glob) if you need it.
 
-- `*` matches any number of characters, but not `/`
-- `?` matches a single character, but not `/`
-- `**` matches any number of characters, including `/`, as long as it's the only thing in a path part
-- `{}` allows for a comma-separated list of "or" expressions
-- `!` at the beginning of a pattern will negate the match
+```js title='bud.config.js'
+bud.entry({
+  app: await bud.glob('./src/*.{css,js}'),
+})
+```

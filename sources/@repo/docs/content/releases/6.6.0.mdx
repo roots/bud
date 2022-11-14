@@ -12,6 +12,20 @@ tags: [release, 6.6]
 
 <!--truncate-->
 
+## 🚨 breaking: bud.entry no longer parses files as globs
+
+You can use [bud.glob](https://bud.js.org/docs/bud.glob) if you have need for this.
+
+Example:
+
+```ts title="bud.config.mjs"
+export default async bud => {
+  bud.entry({
+    app: await bud.glob(`@src/*.{js,css}`),
+  })
+}
+```
+
 ## 🚨 breaking: builtin extension keys are normalized
 
 | label                                                       | description                                                                                     | exposed |
@@ -33,7 +47,7 @@ If you were using one of these labels directly, you'll need to update it. The up
 
 ## ✨ improve: Can use package signifiers with `bud.extensions.add` and `bud.use`
 
-Very convenient!
+Very convenient! Works for webpack plugins or bud.js extensions.
 
 ```js
 bud.use('browsersync-webpack-plugin')
@@ -42,6 +56,8 @@ bud.use('browsersync-webpack-plugin')
 ```js
 await bud.extensions.add('browsersync-webpack-plugin')
 ```
+
+This will only work if the plugin/extension is the `default` export.
 
 ## ✨ improve: improve env interpolation (#1856)
 
@@ -142,11 +158,16 @@ parts of the error message.
 
 ### ⚙️ internal: use `nodenext` to resolve node modules
 
-We're using the `nodenext` tsc `module` setting. This enables top-level `await` for core bud packages 🥳.
+We're using the `nodenext` tsc `module` setting. This enables top-level `await` for core bud,js packages 🥳.
+
+### ⚙️ internal: @roots/bud-api is now fully type-safe
+
+`strict` mode is enabled! We're beginning to implement runtime validation using [zod](https://zod.dev).
 
 ### 🧪 test: migrate jest to vitest (#1850)
 
-We switched from jest to vitest and it's pretty cool. Hopefully we'll be able to run unit tests on the CLI now.
+We switched from jest to vitest because of esm compatibility issues. It's pretty nice!
+Hopefully we'll be able to run unit tests on the CLI now.
 
 ## ℹ️ Release information
 
