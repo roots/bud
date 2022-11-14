@@ -170,7 +170,9 @@ describe(`bud.alias`, () => {
       } catch (e) {}
 
       expect(logSpy).toHaveBeenCalledWith(
+        `\n\n`,
         `bud.alias`,
+        `\n`,
         `Array must contain at most 2 element(s)`,
       )
     })

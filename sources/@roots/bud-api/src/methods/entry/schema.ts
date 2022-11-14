@@ -1,37 +1,57 @@
-import {z} from '@roots/bud-support/zod'
+import {z, ZodIssueCode} from '@roots/bud-support/zod'
 
-const docs = `usage docs: https://bud.js.org/docs/bud.entry`
+const docs = `\n\n usage docs: https://bud.js.org/docs/bud.entry`
 
 /**
  * Entrypoint signifier
  */
 export const entrypointSignifier = z
-  .string()
-  .min(1, {message: `signifier must not be a blank string. ${docs}`})
+  .string({
+    errorMap: (error, ctx) => {
+      switch (error.code) {
+        case ZodIssueCode.invalid_type:
+          return {
+            message: `entrypoint signifier must be a string.${docs}`,
+          }
+        default:
+          return {message: ctx.defaultError}
+      }
+    },
+  })
+  .min(1, {message: `signifier must not be a blank string.${docs}`})
 
 /**
  * `import` key value
  */
 export const importItem = z
-  .string()
-  .min(1, {message: `value must not be a blank string. ${docs}`})
+  .string({
+    errorMap: (error, ctx) => {
+      switch (error.code) {
+        case ZodIssueCode.invalid_type:
+          return {
+            message: `import item must be a string.${docs}`,
+          }
+        default:
+          return {message: ctx.defaultError}
+      }
+    },
+  })
+  .min(1, {message: `imports cannot be a blank string.${docs}`})
 
 /**
  * `import` array
  */
-export const importArray = z.array(importItem).nonempty()
-
-/**
- * simple import value
- *
- * @remarks union of {@link importItem} and {@link importArray}
- */
-export const importValue = z.union([importItem, importArray])
+export const importArray = z.array(importItem).nonempty({
+  message: `imports array must not be empty.${docs}`,
+})
 
 /**
  * entrypoints records
  */
-export const inputRecord = z.record(entrypointSignifier, importValue)
+export const inputRecord = z.record(
+  entrypointSignifier,
+  importItem.or(importArray),
+)
 
 /**
  * normalized entry record value
@@ -52,9 +72,9 @@ export const entrypointsRecord = z.record(
  * parameters
  */
 export const parameters = z.union([
-  z.tuple([entrypointSignifier, importValue]),
-  z.tuple([entrypointSignifier, importArray]),
+  z.tuple([entrypointSignifier, importItem.or(importArray)], {
+    invalid_type_error: `invalid entrypoint.${docs}`,
+  }),
   entrypointsRecord,
-  importValue,
-  importArray,
+  importItem.or(importArray),
 ])

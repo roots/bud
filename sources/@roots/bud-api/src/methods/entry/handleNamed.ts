@@ -9,12 +9,18 @@ export async function handleNamed(bud: Bud, input: Parameters) {
 
   const signifier = await schema.entrypointSignifier.safeParseAsync(key)
   if (!signifier.success)
-    return handleTypeError(bud, `bud.entry`, signifier)
+    return handleTypeError(bud, `bud.entry: invalid key`, signifier)
 
   const imports = Array.isArray(value)
     ? await schema.importArray.safeParseAsync(value)
-    : await schema.entrypointSignifier.safeParseAsync(value)
-  if (!imports.success) return handleTypeError(bud, `bud.entry`, imports)
+    : await schema.importItem.safeParseAsync(value)
+
+  if (!imports.success)
+    return handleTypeError(
+      bud,
+      `bud.entry: invalid value in ${signifier.data} entrypoint`,
+      imports,
+    )
 
   const current = bud.hooks.filter(`build.entry`, {})
 
