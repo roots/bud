@@ -1,6 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
 
-import {handleTypeError} from './handleTypeError.js'
+import {handleTypeError} from '../../errors/handleValidationTypeError.js'
 import * as schema from './schema.js'
 import type {Parameters} from './types.js'
 
@@ -32,6 +32,7 @@ async function getParameter(
   const validation = await schema.signifier.safeParseAsync(
     parameters[index],
   )
-  if (!validation.success) return handleTypeError(bud, validation)
+  if (!validation.success)
+    return handleTypeError(bud, `bud.alias`, validation)
   return validation.data
 }

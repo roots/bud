@@ -1,6 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
 
-import {handleTypeError} from './handleTypeError.js'
+import {handleTypeError} from '../../errors/handleValidationTypeError.js'
 import * as schema from './schema.js'
 import type {Parameters} from './types.js'
 
@@ -14,7 +14,8 @@ export async function handleFallthrough(
   input: Parameters,
 ): Promise<never> {
   const validation = await schema.parameters.safeParseAsync(input)
-  if (!validation.success) return handleTypeError(bud, validation)
+  if (!validation.success)
+    return handleTypeError(bud, `bud.alias`, validation)
 
   // this should never be called
   bud.api.logger.error(`unknown error in bud.alias`)

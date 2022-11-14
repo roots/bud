@@ -120,13 +120,9 @@ describe(`bud.alias`, () => {
           ({handleRecords}) => handleRecords,
         ),
       ).toHaveBeenCalledTimes(1)
+
       expect(
-        await import(`./handleTypeError.js`).then(
-          ({handleTypeError}) => handleTypeError,
-        ),
-      ).toHaveBeenCalledTimes(1)
-      expect(
-        await import(`./isSignifierValuePair`).then(
+        await import(`./isSignifierValuePair.js`).then(
           ({isSignifierValuePair}) => isSignifierValuePair,
         ),
       ).not.toHaveBeenCalled()

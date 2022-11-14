@@ -7,10 +7,11 @@ import type {Bud} from '@roots/bud-framework'
  */
 export function handleTypeError(
   bud: Bud,
+  label: string,
   {error}: Zod.SafeParseError<any>,
 ): never {
   bud.api.logger.error(
-    `bud.alias`,
+    label,
     `type error:`,
     error.format()._errors.join(` `),
   )

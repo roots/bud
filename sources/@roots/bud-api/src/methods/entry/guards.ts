@@ -1,14 +1,26 @@
-import type {EntryObject, Parameters, Signifier} from './types.js'
+import type {EntryObject, Parameters} from './types.js'
 
-export function isSingleEntrypoint(
+export function isPrimitive(
+  input: Parameters,
+): input is [string] | [Array<string>] {
+  return (
+    input.length === 1 &&
+    (typeof input[0] === `string` || Array.isArray(input[0]))
+  )
+}
+
+export function isNamed(
   input: Parameters,
 ): input is [string, string | Array<string>] {
-  return input.length === 2 && typeof input[0] === `string`
+  return (
+    input.length === 2 &&
+    (typeof input[1] === `string` || Array.isArray(input[1]))
+  )
 }
 
 export function isNormalRecord(
   input: Parameters,
-): input is [Record<Signifier, EntryObject>] {
+): input is [Record<string, EntryObject>] {
   return (
     input.length === 1 &&
     typeof input[0] !== `string` &&
@@ -19,9 +31,9 @@ export function isNormalRecord(
   )
 }
 
-export function isSimpleRecord(
+export function isRecord(
   input: Parameters,
-): input is [Record<Signifier, Signifier | Array<Signifier>>] {
+): input is [Record<string, string | Array<string>>] {
   return (
     input.length === 1 &&
     typeof input[0] !== `string` &&
