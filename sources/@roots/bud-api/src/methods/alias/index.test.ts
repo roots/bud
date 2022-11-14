@@ -171,7 +171,6 @@ describe(`bud.alias`, () => {
 
       expect(logSpy).toHaveBeenCalledWith(
         `bud.alias`,
-        `type error:`,
         `Array must contain at most 2 element(s)`,
       )
     })

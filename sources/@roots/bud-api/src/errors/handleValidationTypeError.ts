@@ -10,11 +10,7 @@ export function handleTypeError(
   label: string,
   {error}: Zod.SafeParseError<any>,
 ): never {
-  bud.api.logger.error(
-    label,
-    `type error:`,
-    error.format()._errors.join(` `),
-  )
+  bud.api.logger.error(label, error.format()._errors.join(`; `))
 
   throw new TypeError()
 }

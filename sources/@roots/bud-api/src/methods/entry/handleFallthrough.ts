@@ -16,8 +16,8 @@ export async function handleFallthrough(
 ): Promise<never> {
   const validation = await schema.parameters.safeParseAsync(input)
   if (!validation.success)
-    return handleTypeError(bud, `bud.alias`, validation)
+    return handleTypeError(bud, `bud.entry`, validation)
 
   // this should never be called
-  return handleFallthroughError(bud, `bud.alias`)
+  return handleFallthroughError(bud, `bud.entry`)
 }

@@ -8,7 +8,7 @@ export default async app => {
   app
     .setPath(`@src`, `src`)
     .alias(`@src`, app.path(`@src`))
-    .entry(`app`, [`@src/scripts/app`, `@src/styles/app`])
+    .entry(`app`, [`@src/scripts/app`])
     .copy([[`images`, `images`]])
     .template({
       replace: {
