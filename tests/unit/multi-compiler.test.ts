@@ -1,12 +1,12 @@
 import {paths} from '@repo/constants'
 import {Bud, factory} from '@repo/test-kit/bud'
 import {join} from 'path'
-import {beforeAll, describe, expect, it} from 'vitest'
+import {beforeEach, describe, expect, it} from 'vitest'
 
 describe(`multi-compiler`, () => {
   let bud: Bud
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     bud = await factory({
       basedir: join(paths.root, `tests`, `unit`),
     })
@@ -65,9 +65,11 @@ describe(`multi-compiler`, () => {
   })
 
   it(`has theme entry`, async () => {
-    await bud.get(`theme`).build.make()
+    const theme = bud.get(`theme`)
 
-    expect(bud.get(`theme`).build.config.entry).toEqual(
+    await theme.build.make()
+
+    expect(theme.build.config.entry).toEqual(
       expect.objectContaining({
         theme: expect.objectContaining({
           import: expect.arrayContaining([`theme.js`, `theme.css`]),

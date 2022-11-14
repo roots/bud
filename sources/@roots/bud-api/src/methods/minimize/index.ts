@@ -1,18 +1,14 @@
 import type {Bud} from '@roots/bud-framework'
 
+export type Parameters = [(boolean | ((value?: boolean) => boolean))?]
+
 /**
  * Minimize function interface
- *
- * @param this - {@link @roots/bud-framework#Framework}
- * @param enabled - Should assets be minimized
  *
  * @public
  */
 export interface minimize {
-  (
-    enabled?: boolean | ((value?: boolean) => boolean),
-    options?: {css: any},
-  ): Bud
+  (...parameters: Parameters): Bud
 }
 
 /**
@@ -41,22 +37,18 @@ export interface minimize {
  *
  * @public
  */
-export const minimize: minimize = function (
-  value: boolean | ((value?: boolean) => boolean) = true,
-) {
-  const app = this as Bud
+export const minimize: minimize = function (this: Bud, value = true) {
+  this.hooks.on(`build.optimization.minimize`, value)
 
-  app.hooks.on(`build.optimization.minimize`, value)
-
-  if (app.hooks.filter(`build.optimization.minimize`)) {
-    app.extensions.get(`@roots/bud-terser`).enable()
-    app.extensions.get(`@roots/bud-terser/css-minimizer`).enable()
+  if (this.hooks.filter(`build.optimization.minimize`)) {
+    this.extensions.get(`@roots/bud-terser`).enable()
+    this.extensions.get(`@roots/bud-terser/css-minimizer`).enable()
   } else {
-    app.extensions.get(`@roots/bud-terser`).disable()
-    app.extensions.get(`@roots/bud-terser/css-minimizer`).disable()
+    this.extensions.get(`@roots/bud-terser`).disable()
+    this.extensions.get(`@roots/bud-terser/css-minimizer`).disable()
   }
 
-  app.success(`minimize ${value ? `enabled` : `disabled`}`)
+  this.success(`minimize ${value ? `enabled` : `disabled`}`)
 
-  return app
+  return this
 }

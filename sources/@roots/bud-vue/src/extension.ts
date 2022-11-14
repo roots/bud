@@ -6,7 +6,7 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
-import type {Configuration, RuleSetRule} from '@roots/bud-support/webpack'
+import type {RuleSetRule} from '@roots/bud-support/webpack'
 import parseSemver from 'parse-semver'
 
 interface Options {
@@ -45,12 +45,12 @@ export default class Vue extends Extension<Options, null> {
     await this.addLoader()
     await this.addStyleLoader()
 
-    bud.hooks
-      .fromMap({
-        [`build.module.rules.before`]: this.moduleRulesBefore,
-        [`build.resolve.extensions`]: ext => ext.add(`.vue`),
-      })
-      .hooks.async(`build.resolve.alias`, this.resolveAlias)
+    bud.hooks.fromMap({
+      [`build.module.rules.before`]: this.moduleRulesBefore,
+      [`build.resolve.extensions`]: ext => ext.add(`.vue`),
+    })
+
+    bud.alias(this.resolveAlias)
   }
 
   /**
@@ -124,7 +124,11 @@ export default class Vue extends Extension<Options, null> {
    * @decorator `@bind`
    */
   @bind
-  public async resolveAlias(aliases: Configuration['resolve']['alias']) {
+  public async resolveAlias(aliases: {
+    [key: string]: string | Array<string>
+  }): Promise<{
+    [key: string]: string | Array<string>
+  }> {
     let isVue2 = false
 
     try {
@@ -140,7 +144,9 @@ export default class Vue extends Extension<Options, null> {
       ? `vue/dist/vue.runtime.${type}.js`
       : `vue/dist/vue.${type}.js`
 
-    return Object.assign(aliases, {vue})
+    if (aliases === undefined) return {vue}
+
+    return {...aliases, vue}
   }
 
   /**

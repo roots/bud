@@ -1,11 +1,12 @@
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import {externals as subject} from './externals.method.js'
+import {externals as subject} from './index.js'
 import {factory} from '@repo/test-kit/bud'
+import {Bud} from '@roots/bud-framework'
 
 describe(`bud.entry`, function () {
   let externals: subject
-  let bud
+  let bud: Bud
 
   beforeEach(async () => {
     bud = await factory()
@@ -18,14 +19,14 @@ describe(`bud.entry`, function () {
   })
 
   it(`should return bud`, async () => {
-    const returnedVaulue = externals({foo: [`bar`]})
+    const returnedVaulue = await externals({foo: [`bar`]})
     expect(returnedVaulue).toBe(bud)
   })
 
   it(`should call bud.hooks.on one time`, async () => {
     bud.hooks.on(`build.externals`, undefined)
     const onSpy = vi.spyOn(bud.hooks, `on`)
-    externals({foo: [`bar`]})
+    await externals({foo: [`bar`]})
     expect(onSpy).toHaveBeenCalledTimes(1)
   })
 
@@ -33,7 +34,7 @@ describe(`bud.entry`, function () {
     bud.hooks.on(`build.externals`, undefined)
     const onSpy = vi.spyOn(bud.hooks, `on`)
 
-    externals({react: `window.React`})
+    await externals({react: `window.React`})
     expect(onSpy).toHaveBeenCalledWith(`build.externals`, {
       react: `window.React`,
     })
@@ -43,8 +44,8 @@ describe(`bud.entry`, function () {
     bud.hooks.on(`build.externals`, undefined)
     const onSpy = vi.spyOn(bud.hooks, `on`)
 
-    externals({react: `window.React`})
-    externals(externals => ({...externals, foo: ['bar']}))
+    await externals({react: `window.React`})
+    await externals(externals => ({...externals, foo: ['bar']}))
     expect(onSpy).toHaveBeenLastCalledWith(`build.externals`, {
       react: `window.React`,
       foo: ['bar'],

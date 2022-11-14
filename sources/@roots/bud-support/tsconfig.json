@@ -1,10 +1,13 @@
 {
   "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
+    "allowJs": true,
+    "strict": true,
     "rootDir": "src",
-    "outDir": "lib",
+    "outDir": "lib"
   },
-  "include": ["src"],
+  "files": ["src/highlight/index.d.ts", "src/common-path/index.d.ts"],
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["lib", "node_modules", "**/*.test.ts"],
   "references": [
     {"path": "./../filesystem/tsconfig.json"}

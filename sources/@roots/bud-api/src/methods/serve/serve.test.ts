@@ -1,26 +1,29 @@
 import {factory} from '@repo/test-kit/bud'
+import {Bud} from '@roots/bud-framework'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import {method, Serve} from './index.js'
+import {serve as serveFn} from './index.js'
 
 describe(`bud.serve`, () => {
-  let bud
-  let serve: Serve
+  let bud: Bud
+  let serve: serveFn
 
   beforeEach(async () => {
     bud = await factory({mode: `development`})
-    serve = method.bind(bud)
+    serve = serveFn.bind(bud)
   })
 
   it(`should not call anything in prod`, async () => {
     bud = await factory({mode: `production`})
     const spy = vi.spyOn(bud.hooks, `filter`)
     await serve(`http://example.com`)
+
     expect(spy).not.toHaveBeenCalled()
   })
 
   it(`should set from from string`, async () => {
     await serve(`http://example.com`)
+
     expect((bud.hooks.filter(`dev.url`) as URL).hostname).toBe(
       `example.com`,
     )

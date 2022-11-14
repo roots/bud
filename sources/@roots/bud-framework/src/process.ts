@@ -50,13 +50,13 @@ const makeProcessHandler =
 
     appExited = true
 
-    app?.close()
-
     app?.logger?.instance
       ? app.logger.instance[process.exitCode === 0 ? `success` : `error`](
           `exiting with code ${process.exitCode}`,
         )
       : app.context[process.exitCode === 0 ? `stdout` : `stderr`].write(
-          `\nexiting with code ${process.exitCode}\n`,
+          `exiting with code ${process.exitCode}`,
         )
+
+    app?.close()
   }

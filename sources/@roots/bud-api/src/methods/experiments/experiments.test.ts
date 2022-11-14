@@ -1,6 +1,6 @@
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import {experiments as subject} from './experiments.method.js'
+import {experiments as subject} from './index.js'
 
 const callback = vi.fn() as any
 const bud = {

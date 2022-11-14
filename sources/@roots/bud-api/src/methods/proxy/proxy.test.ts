@@ -7,7 +7,7 @@ import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {
   disableMiddlewareHookCallback,
   enableMiddlewareHookCallback,
-  method as proxy,
+  proxy,
 } from './index.js'
 
 describe(`bud.proxy`, () => {
@@ -16,13 +16,12 @@ describe(`bud.proxy`, () => {
 
   beforeEach(async () => {
     bud = await factory({mode: `development`})
-
     subject = proxy.bind(bud)
   })
 
-  it(`should call bud.hooks.on with a fn when called with a number`, () => {
+  it(`should call bud.hooks.on with a fn when called with a number`, async () => {
     const onSpy = vi.spyOn(bud.hooks, `on`)
-    subject(3005)
+    await subject(3005)
 
     expect(onSpy).toHaveBeenCalledWith(
       `dev.middleware.proxy.target`,
@@ -30,17 +29,17 @@ describe(`bud.proxy`, () => {
     )
   })
 
-  it(`should set port when called with a number`, () => {
-    subject(3005)
+  it(`should set port when called with a number`, async () => {
+    await subject(3005)
     expect(bud.hooks.filter(`dev.middleware.proxy.target`).port).toBe(
       `3005`,
     )
   })
 
-  it(`should call bud.hooks.on with a URL when called with a URL`, () => {
+  it(`should call bud.hooks.on with a URL when called with a URL`, async () => {
     const onSpy = vi.spyOn(bud.hooks, `on`)
 
-    subject(new URL(`https://example.com`))
+    await subject(new URL(`https://example.com`))
 
     expect(onSpy).toHaveBeenCalledWith(
       `dev.middleware.proxy.target`,
@@ -48,10 +47,10 @@ describe(`bud.proxy`, () => {
     )
   })
 
-  it(`should call bud.hooks.on with a URL when called with a string`, () => {
+  it(`should call bud.hooks.on with a URL when called with a string`, async () => {
     const onSpy = vi.spyOn(bud.hooks, `on`)
 
-    subject(`https://example.com`)
+    await subject(`https://example.com`)
 
     expect(onSpy).toHaveBeenCalledWith(
       `dev.middleware.proxy.target`,
@@ -83,10 +82,21 @@ describe(`bud.proxy`, () => {
     )
   })
 
-  it(`should run replacements when called without replacements`, () => {
+  it(`should run replacements when called without replacements`, async () => {
     let onSpy = vi.spyOn(bud.hooks, `on`)
 
-    subject(true)
+    await subject(true)
+
+    expect(onSpy).not.toHaveBeenLastCalledWith(
+      `dev.middleware.proxy.replacements`,
+      expect.any(Function),
+    )
+  })
+
+  it(`should run replacements when called with replacements`, async () => {
+    let onSpy = vi.spyOn(bud.hooks, `on`)
+
+    await subject(true, [[/foo/, `bar`]])
 
     expect(onSpy).toHaveBeenLastCalledWith(
       `dev.middleware.proxy.replacements`,
@@ -94,23 +104,12 @@ describe(`bud.proxy`, () => {
     )
   })
 
-  it(`should run replacements when called with replacements`, () => {
-    let onSpy = vi.spyOn(bud.hooks, `on`)
-
-    subject(true, [[/foo/, `bar`]])
-
-    expect(onSpy).toHaveBeenLastCalledWith(
-      `dev.middleware.proxy.replacements`,
-      expect.arrayContaining([[/foo/, `bar`]]),
-    )
-  })
-
-  it(`should return bud`, () => {
-    expect(subject({foo: [`bar`]})).toEqual(bud)
+  it(`should return bud`, async () => {
+    expect(await subject({foo: [`bar`]})).toEqual(bud)
   })
 })
 
-describe(`enableMiddlewareHookCallback`, () => {
+describe(`enableMiddlewareHookCallback`, async () => {
   it(`should add middleware`, () => {
     expect(enableMiddlewareHookCallback([`dev`])).toEqual(
       expect.arrayContaining([`dev`, `proxy`, `cookie`]),

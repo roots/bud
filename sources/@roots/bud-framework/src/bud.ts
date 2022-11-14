@@ -271,6 +271,7 @@ export class Bud {
     )
 
     if (tap) await tap(this.get(context.label))
+    await this.get(context.label).api.processQueue()
 
     return this
   }
@@ -409,7 +410,9 @@ export class Bud {
   public error(...messages: Array<any>): Bud {
     if (this.isProduction) process.exitCode = 1
 
-    this.logger?.instance?.error(this.logger.format(messages))
+    if (messages.length > 0)
+      this.logger?.instance?.error(this.logger.format(messages))
+
     this.close()
 
     return this

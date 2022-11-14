@@ -1,24 +1,27 @@
 import type {Bud} from '@roots/bud-framework'
-import type {Configuration, EntryObject} from '@roots/bud-framework/config'
+import type {EntryObject, Optimization} from '@roots/bud-framework/config'
+
+export type Parameters = [Optimization.RuntimeChunk?]
 
 export interface runtime {
-  (runtime: Configuration['optimization']['runtimeChunk']): Bud
+  (...parameters: Parameters): Promise<Bud>
 }
 
 /**
  * Default options for runtime if no options are passed as parameters.
  */
-const DEFAULT_RUNTIME: Configuration['optimization']['runtimeChunk'] = {
+const DEFAULT_RUNTIME: Optimization.RuntimeChunk = {
   name: (entrypoint: EntryObject) => `runtime/${entrypoint.name}`,
 }
 
-export const runtime: runtime = function (runtime = DEFAULT_RUNTIME) {
-  const app = this as Bud
-
-  app.hooks.on(
+export const runtime: runtime = async function (
+  this: Bud,
+  runtime = DEFAULT_RUNTIME,
+) {
+  this.hooks.on(
     `build.optimization.runtimeChunk`,
     runtime === true ? DEFAULT_RUNTIME : runtime,
   )
 
-  return app
+  return this
 }

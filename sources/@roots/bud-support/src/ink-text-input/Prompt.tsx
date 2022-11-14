@@ -3,7 +3,7 @@ import {Text, useInput} from 'ink'
 import type {FC} from 'react'
 import React from 'react'
 
-import {highlight} from '../../highlight/index.js'
+import {highlight} from '../highlight/index.js'
 
 interface Props {
   /**

@@ -1,28 +1,28 @@
 import type {Bud} from '@roots/bud-framework'
 
+export type Parameters = [string | Array<string>]
+
 export interface watch {
   (
     /**
      * Watched files
      */
-    ...files: Array<string> | Array<Array<string>>
+    ...files: Parameters
   ): Bud
 }
 
-export const watch: watch = function (...input) {
-  const app = this as Bud
+export const watch: watch = function (this: Bud, input) {
+  if (!this.isDevelopment) return this
 
-  if (!app.isDevelopment) return app
+  this.hooks.on(`dev.watch.files`, files => {
+    const watchlist = files === undefined ? new Set<string>() : files
 
-  const normalized = input.flat()
+    ;(Array.isArray(input) ? input : [input]).map(file => {
+      watchlist.add(file)
+    })
 
-  app.hooks.on(`dev.watch.files`, files => {
-    if (!files) files = new Set()
-
-    normalized.map(file => files.add(file))
-
-    return files
+    return watchlist
   })
 
-  return app
+  return this
 }

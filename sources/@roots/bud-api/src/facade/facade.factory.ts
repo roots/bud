@@ -11,14 +11,14 @@ export interface facade {
  * @internal
  */
 export interface factory {
-  (name: string): facade
+  (app: Bud, name: string): facade
 }
 
 /**
  * @internal
  */
-export const factory: factory = (name: string): facade =>
+export const factory: factory = (app: Bud, name: string): facade =>
   function facade(...args: any[]): Bud {
-    this.api.queue.push([name, args])
-    return this
+    app.api.queue.push([name, args])
+    return app
   }

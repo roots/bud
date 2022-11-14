@@ -263,16 +263,20 @@ export default abstract class BaseCommand extends Command {
     }
   }
 
+  /**
+   * Handle logging error
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public handleError(error: any) {
     this.context.stderr.write(
-      `\n`
-        .concat(
-          typeof error === `string`
-            ? error
-            : error?.message ?? JSON.stringify(error),
-        )
-        .concat(`/n`),
+      `\n`.concat(
+        typeof error === `string`
+          ? error
+          : error?.message ?? JSON.stringify(error),
+      ),
     )
   }
 }

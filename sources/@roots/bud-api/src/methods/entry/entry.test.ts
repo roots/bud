@@ -1,30 +1,30 @@
 import {factory} from '@repo/test-kit/bud'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import {entry, method} from './entry.method.js'
+import {entry as entryFn} from './index.js'
 
 describe(`bud.entry`, function () {
   let bud
-  let method: method
+  let entry: entryFn
 
   beforeEach(async () => {
     vi.clearAllMocks()
     bud = await factory()
-    method = entry.bind(bud)
+    entry = entryFn.bind(bud)
   })
 
   it(`is a function`, () => {
-    expect(method).toBeInstanceOf(Function)
+    expect(entry).toBeInstanceOf(Function)
   })
 
   it(`should return bud`, async () => {
-    const ret = await method(`foo`)
+    const ret = await entry(`foo`)
     expect(ret).toBe(bud)
   })
 
   it(`should call bud.hooks.on one time`, async () => {
     const onSpy = vi.spyOn(bud.hooks, `on`)
-    await method(`foo`)
+    await entry(`foo`)
     expect(onSpy).toHaveBeenCalledTimes(1)
   })
 
@@ -32,49 +32,58 @@ describe(`bud.entry`, function () {
     try {
       expect(
         // @ts-ignore
-        await method([`foo`], {bar: `bar`}),
+        await entry([`foo`], {bar: `bar`}),
       ).toThrow()
     } catch (e) {}
   })
 
-  it(`should throw when passed no args`, async () => {
-    try {
-      // @ts-ignore
-      await method()
-    } catch (e) {
-      expect(e).toBeInstanceOf(Error)
-    }
-  })
-
   it(`should call bud.hooks.on with expected arguments`, async () => {
     const onSpy = vi.spyOn(bud.hooks, `on`)
-    await method(`foo`)
-    expect(onSpy).toHaveBeenCalledWith(`build.entry`, expect.any(Function))
+    await entry(`foo`)
+    expect(onSpy).toHaveBeenCalledWith(
+      `build.entry`,
+      expect.objectContaining({
+        [`@tests/project`]: {import: [`foo`]},
+      }),
+    )
   })
 
   it(`should accept a string`, async () => {
     const onSpy = vi.spyOn(bud.hooks, `on`)
 
-    await method(`foo`)
+    await entry(`foo`)
 
-    expect(onSpy).toHaveBeenCalledWith(`build.entry`, expect.any(Function))
+    expect(onSpy).toHaveBeenCalledWith(
+      `build.entry`,
+      expect.objectContaining({
+        [`@tests/project`]: {import: [`foo`]},
+      }),
+    )
   })
 
   it(`should accept an array`, async () => {
     const onSpy = vi.spyOn(bud.hooks, `on`)
 
-    await method([`foo`])
+    await entry([`foo`])
 
-    expect(onSpy).toHaveBeenCalledWith(`build.entry`, expect.any(Function))
+    expect(onSpy).toHaveBeenCalledWith(
+      `build.entry`,
+      expect.objectContaining({
+        [`@tests/project`]: {import: [`foo`]},
+      }),
+    )
   })
 
   it(`should accept an object`, async () => {
     const onSpy = vi.spyOn(bud.hooks, `on`)
 
-    await method({
-      foo: `foo`,
-    })
+    await entry({bar: `bar.js`})
 
-    expect(onSpy).toHaveBeenCalledWith(`build.entry`, expect.any(Function))
+    expect(onSpy).toHaveBeenCalledWith(
+      `build.entry`,
+      expect.objectContaining({
+        bar: {import: [`bar.js`]},
+      }),
+    )
   })
 })

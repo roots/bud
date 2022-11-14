@@ -1,7 +1,7 @@
 import {factory} from '@repo/test-kit/bud'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import {minimize as subject} from './index.js'
+import {minimize as minimizeFn} from './index.js'
 
 describe(`bud.minimize`, () => {
   let bud
@@ -9,7 +9,7 @@ describe(`bud.minimize`, () => {
 
   beforeEach(async () => {
     bud = await factory()
-    minimize = subject.bind(bud)
+    minimize = minimizeFn.bind(bud)
   })
 
   it(`should call bud.hooks.on when called`, () => {

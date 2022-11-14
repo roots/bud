@@ -1,8 +1,8 @@
 export default async app => {
   app
     .entry({
-      app: '**/app.{js,css}',
-      editor: '**/editor.{js,css}',
+      app: ['@scripts/app', '@styles/app'],
+      editor: ['@scripts/editor', '@styles/editor'],
     })
     .copy('images')
     .watch(['resources/views/*.blade.php'])

@@ -1,4 +1,6 @@
 import type {
+  Chunk,
+  ChunkGraph,
   Compilation,
   Compiler,
   Configuration,
@@ -20,10 +22,11 @@ import type {
   WebpackPluginInstance,
 } from 'webpack'
 import webpack from 'webpack'
-import type * as WebpackTypes from 'webpack/types.js'
 
 export default webpack
 export type {
+  Chunk,
+  ChunkGraph,
   Compiler,
   Compilation,
   Configuration,
@@ -43,5 +46,7 @@ export type {
   WebpackError,
   WebpackPluginFunction,
   WebpackPluginInstance,
-  WebpackTypes,
 }
+
+import type * as Optimization from './types/optimization/index.js'
+export type {Optimization}

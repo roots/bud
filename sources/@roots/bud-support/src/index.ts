@@ -11,4 +11,5 @@
  * Import what you need
  */
 
+export default {}
 export {}

@@ -1,6 +1,7 @@
 import type {
   Compiler,
   Configuration,
+  Optimization,
   RuleSetRule,
 } from '@roots/bud-support/webpack'
 
@@ -45,7 +46,7 @@ export interface Sync {
   'optimization.moduleIds': Configuration['optimization']['moduleIds']
   'optimization.removeEmptyChunks': Configuration['optimization']['removeEmptyChunks']
   'optimization.runtimeChunk': Configuration['optimization']['runtimeChunk']
-  'optimization.splitChunks': any
+  'optimization.splitChunks': Optimization.SplitChunks
   output: Configuration['output']
   'output.assetModuleFilename': Configuration['output']['assetModuleFilename']
   'output.chunkFilename': Configuration['output']['chunkFilename']
@@ -80,7 +81,7 @@ export type SyncRegistry = {
 export interface Async {
   plugins: Array<any>
   resolve: any
-  'resolve.alias': Configuration['resolve']['alias']
+  'resolve.alias': {[index: string]: string | false | string[]}
   'resolve.aliasFields': Configuration['resolve']['aliasFields']
   'resolve.modules': Configuration['resolve']['modules']
 }

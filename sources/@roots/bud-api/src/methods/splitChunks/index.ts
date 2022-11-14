@@ -1,13 +1,11 @@
 import type {Bud} from '@roots/bud-framework'
 import {isUndefined} from '@roots/bud-support/lodash-es'
-import type {Configuration} from '@roots/bud-support/webpack'
+import type {Optimization} from '@roots/bud-support/webpack'
 
-export interface method {
-  (options?: Configuration['optimization']['splitChunks']): Bud
-}
+export type Parameters = [Optimization.SplitChunks?]
 
-export interface facade {
-  (options?: Configuration['optimization']['splitChunks']): Bud
+export interface splitChunks {
+  (...parameters: Parameters): Promise<Bud>
 }
 
 /**
@@ -36,17 +34,18 @@ export interface facade {
  *
  * @public
  */
-export const method: method = function (options) {
-  const app = this as Bud
-
+export const splitChunks: splitChunks = async function (
+  this: Bud,
+  options,
+) {
   /**
    * A `false` value indicates that the user wishes to
    * disable chunking. Passing `undefined` to a `build.*` hook
    * will omit it from the configuration entirely.
    */
   if (options === false) {
-    app.hooks.on(`build.optimization.splitChunks`, options)
-    return app
+    this.hooks.on(`build.optimization.splitChunks`, options)
+    return this
   }
 
   /**
@@ -54,7 +53,7 @@ export const method: method = function (options) {
    * cache groups are added to the build
    */
   if (options === true || isUndefined(options)) {
-    app.hooks.on(`build.optimization.splitChunks`, {
+    this.hooks.on(`build.optimization.splitChunks`, {
       chunks: `all`,
       automaticNameDelimiter: `/`,
       minSize: 0,
@@ -68,7 +67,7 @@ export const method: method = function (options) {
       },
     })
 
-    return app
+    return this
   }
 
   /**
@@ -79,7 +78,7 @@ export const method: method = function (options) {
    * For deeper merging the user can call `build.optimization.splitChunks`
    * hook themselves.
    */
-  app.hooks.on(`build.optimization.splitChunks`, options)
+  this.hooks.on(`build.optimization.splitChunks`, options)
 
-  return app
+  return this
 }

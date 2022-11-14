@@ -2,7 +2,7 @@ import chalk from 'chalk'
 
 export const identity = (x: unknown): unknown => x
 
-export const theme = {
+export const theme: Record<string, any> = {
   /**
    * keyword in a regular Algol-style language
    */
