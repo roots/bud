@@ -2,13 +2,13 @@
 /**
  * @vitest-environment jsdom
  */
-import '../types/index'
+import '../types/index.js'
 
 import {describe, expect, it, vi} from 'vitest'
 
-import client from './client'
-import {injectEvents} from './events'
-import * as options from './options'
+import client from './client.js'
+import {injectEvents} from './events.js'
+import * as options from './options.js'
 
 // @ts-ignore
 global.EventSource = class Events {
