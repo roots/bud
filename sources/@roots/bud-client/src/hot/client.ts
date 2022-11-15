@@ -92,7 +92,7 @@ export default async (
    */
   const onErrored = (error: any) => {
     window.bud.controllers.map(controller =>
-      controller.update({
+      controller?.update({
         errors: [error],
       }),
     )
@@ -134,7 +134,7 @@ export default async (
         return window.location.reload()
 
       if (payload.name !== options.name) return
-      window.bud.controllers.map(({update}) => update(payload))
+      window.bud.controllers.map(controller => controller?.update(payload))
 
       if (payload.errors?.length > 0) return
 

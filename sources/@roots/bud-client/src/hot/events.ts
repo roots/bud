@@ -71,6 +71,7 @@ export const injectEvents = (
 
       try {
         const data = JSON.parse(payload.data)
+        if (!data) return
 
         await Promise.all(
           [...this.listeners].map(async listener => {
