@@ -31,7 +31,7 @@ export interface Service extends BaseService.ServiceContainer {
    *
    * @public
    */
-  queue: Array<[string, ...any[]]>
+  queue: Array<[string, ...any[]] | undefined>
 
   /**
    * Trace of all method calls

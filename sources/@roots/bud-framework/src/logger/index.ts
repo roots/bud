@@ -104,16 +104,14 @@ export class Logger {
     const format = (message: string) => {
       return message
         ?.replaceAll(this.app.commonPath, `.`)
-        ?.replaceAll(/(.*)\s(.*)\/node_modules\/(.*)/g, `$1 $3`)
+        .replaceAll(/(.*)\s(.*)\/node_modules\/(.*)/g, `$1 $3`)
+        .replaceAll(/file:\/\/~/g, `~`)
+        .replaceAll(/file\:\/\/([/^(\s|')]*)/g, chalk.blue(`file://$1`))
+        .replaceAll(/'([^(\s|')]*)'/g, chalk.blue(`'$1'`))
+        .replaceAll(/\.\.\/([^(\s|')]*)/g, chalk.blue(`../$1`))
+        .replaceAll(/~\/([^(\s|')]*)/g, chalk.blue(`~/$1`))
+        .replaceAll(/ \/([^(\s|')]*)/g, chalk.blue(` /$1`))
     }
-
-    const highlightFirstLine = (message: string) =>
-      message
-        .split(`\n`)
-        .map((ln: string, i: number) =>
-          i === 0 ? chalk.white(ln) : chalk.dim(ln),
-        )
-        .join(`\n`)
 
     const extractString = (
       message: Error | {error?: string; message?: string} | string,
@@ -137,21 +135,13 @@ export class Logger {
       }
 
       if (message?.message) {
-        return message.message
+        return format(message.message)
       }
     }
 
-    return highlightFirstLine(
-      Array.isArray(messages)
-        ? messages.map(extractString).join(` `)
-        : extractString(messages),
-    )
-      .replaceAll(/file:\/\/~/g, `~`)
-      .replaceAll(/'([^(\s|')]*)'/g, chalk.blue(`'$1'`))
-      .replaceAll(/\.\.\/([^(\s|')]*)/g, chalk.blue(`../$1`))
-      .replaceAll(/file\:\/\/([/^(\s|')]*)/g, chalk.blue(`file://$1`))
-      .replaceAll(/~\/([^(\s|')]*)/g, chalk.blue(`~/$1`))
-      .replaceAll(/ \/([^(\s|')]*)/g, chalk.blue(` /$1`))
+    return (Array.isArray(messages) ? messages : [messages])
+      .map(extractString)
+      .join(` `)
       .split(`   at`)
       .shift()
       .trim()

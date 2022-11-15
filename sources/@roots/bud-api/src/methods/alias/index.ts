@@ -1,35 +1,32 @@
 import type {Bud} from '@roots/bud-framework'
-import type {Configuration} from '@roots/bud-support/webpack'
 
-interface AliasObject {
-  [key: string]: string | false | string[]
-}
+import {handleCallback} from './handleCallback.js'
+import {handleFallthrough} from './handleFallthrough.js'
+import {handleRecords} from './handleRecords.js'
+import {handleSignifierValuePair} from './handleSignifierValuePair.js'
+import {isCallback} from './isCallback.js'
+import {isRecords} from './isRecords.js'
+import {isSignifierValuePair} from './isSignifierValuePair.js'
+import type {Parameters} from './types.js'
 
-export interface facade {
-  (
-    ...input:
-      | [AliasObject & Configuration['resolve']['alias']]
-      | [string, string | false | string[]]
-  ): Bud
-}
+export {Parameters}
 
 export interface alias {
-  (
-    ...input:
-      | [AliasObject & Configuration['resolve']['alias']]
-      | [string, string | false | string[]]
-  ): Promise<Bud>
+  (...parameters: Parameters): Promise<Bud>
 }
 
-export const alias: alias = async function (...input) {
-  const app = this as Bud
+export const alias: alias = async function (this: Bud, ...input) {
+  if (isCallback(input)) {
+    return await handleCallback(this, input)
+  }
 
-  const records: AliasObject =
-    typeof input[0] === `string` ? {[input[0]]: input[1]} : input[0]
+  if (isRecords(input)) {
+    return await handleRecords(this, input)
+  }
 
-  app.hooks.async(`build.resolve.alias`, async aliases => {
-    return {...(aliases ?? {}), ...(records ?? {})}
-  })
+  if (isSignifierValuePair(input)) {
+    return await handleSignifierValuePair(this, input)
+  }
 
-  return app
+  return await handleFallthrough(this, input)
 }

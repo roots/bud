@@ -9,8 +9,18 @@ import {adapter} from 'parse5-htmlparser2-tree-adapter'
 
 import {theme} from './theme.js'
 
-const colorizeNode = (node): string => {
-  switch (node.type) {
+interface node {
+  attribs: {
+    class: string
+  }
+  data: any
+  theme: typeof theme
+  type: string
+  childNodes: Array<node>
+}
+
+const colorizeNode = (node: node): string => {
+  switch (node?.type) {
     case `tag`:
       const hljsClass = /hljs-(\w+)/.exec(node.attribs.class)
 
@@ -36,7 +46,9 @@ const colorizeNode = (node): string => {
 const colorize = (code: string): string => {
   // @ts-ignore
   const fragment = parse5.parseFragment(code, {treeAdapter: adapter})
-  return fragment.childNodes.map(node => colorizeNode(node)).join(``)
+  return fragment.childNodes
+    .map(node => colorizeNode(node as any))
+    .join(``)
 }
 
 !hljs.listLanguages().includes(`javascript`) &&

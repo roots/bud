@@ -1,3 +1,3 @@
 module.exports = async app => {
-  app.entry('app', ['index.{js,css}']).minimize()
+  app.entry('app', await app.glob('@src/index.{js,css}')).minimize()
 }

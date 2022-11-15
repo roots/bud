@@ -62,52 +62,34 @@ export interface Specification {
   options?: Https.ServerOptions | Http.ServerOptions
 }
 
-/**
- * bud.serve
- * @public
- */
-export interface Serve<ReturnType = Promise<Bud>> {
-  (options: Specification): ReturnType
-}
-export interface Serve<ReturnType = Promise<Bud>> {
-  (options: URL): ReturnType
-}
-export interface Serve<ReturnType = Promise<Bud>> {
-  (options: string): ReturnType
-}
-export interface Serve<ReturnType = Promise<Bud>> {
-  (options: number): ReturnType
-}
-export interface Serve<ReturnType = Promise<Bud>> {
-  (options: Array<number>): ReturnType
-}
-
-/**
- * bud.serve sync facade
- * @public
- */
-export type facade = Serve<Bud>
+export type Parameters = [
+  Specification | URL | string | number | Array<number>,
+]
 
 /**
  * bud.serve
  * @public
  */
-export const method: Serve = async function (
-  input: Specification | URL | string | number | Array<number>,
-): Promise<Bud> {
-  const app = (this as Bud).root
+export interface serve {
+  (...input: Parameters): Promise<Bud>
+}
 
-  if (!app.isDevelopment) return app
+/**
+ * bud.serve
+ * @public
+ */
+export const serve: serve = async function (this: Bud, input) {
+  if (!this.isDevelopment) return this
 
   if (this.isChild) {
     this.api.logger.warn(
-      `server configuration is being moved to the root instance of bud: ${app.label}`,
+      `server configuration is being moved to the root instance of bud: ${this.label}`,
     )
     this.api.logger.warn(
       `\
 to silence this warning move the \`bud.serve\` call from ${
         this.label
-      } to ${app.label}:
+      } to ${this.label}:
 
 ${highlight(`export default async bud => {
   await bud.make(\`${this.label}\`, async bud => {
@@ -127,54 +109,61 @@ ${highlight(`export default async bud => {
     )
   }
 
-  const current = app.hooks.filter(
+  const current = this.hooks.filter(
     `dev.url`,
     new URL(`http://${externalNetworkInterface.ipv4}:3000`),
   )
 
-  app.log(`current dev url:`, current)
+  this.log(`current dev url:`, current)
 
   if (Array.isArray(input) || isNumber(input)) {
-    app.log(`serve input is an array or number`, input)
+    this.log(`serve input is an array or number`, input)
 
-    const port = await requestPorts(app, portOrPortsToNumbers(input))
-    app.log(`port`, port, `is available. assigning.`)
+    const port = await requestPorts(this, portOrPortsToNumbers(input))
+    this.log(`port`, port, `is available. assigning.`)
 
     current.port = port
 
-    app.log(`dev url set to:`, current)
-    app.hooks.on(`dev.url`, current)
+    this.log(`dev url set to:`, current)
+    this.hooks.on(`dev.url`, current)
 
-    return app
+    return this
   }
 
   if (input instanceof URL || isString(input)) {
-    app.log(`input is a URL or a string`, input)
+    this.log(`input is a URL or a string`, input)
 
     const url = input instanceof URL ? input : new URL(input)
-    app.log(`parsed as url:`, url)
+    this.log(`parsed as url:`, url)
 
     const requestedPort = url.port ?? current.port ?? `3000`
 
-    url.port = await requestPorts(app, portOrPortsToNumbers(requestedPort))
-    app.log(`port`, url.port, `is available. assigning.`)
+    url.port = await requestPorts(
+      this,
+      portOrPortsToNumbers(requestedPort),
+    )
+    this.log(`port`, url.port, `is available. assigning.`)
 
-    app.hooks.on(`dev.url`, url)
-    app.log(`dev url set to`, url)
+    this.hooks.on(`dev.url`, url)
+    this.log(`dev url set to`, url)
 
-    return app
+    return this
   }
 
-  await assignSpec.bind(app)(input, current)
+  await assignSpec.bind(this)(input, current)
 
-  return app
+  return this
 }
 
 /**
  * Process specification object
  * @public
  */
-const assignSpec = async function (spec: Specification, url: URL) {
+const assignSpec = async function (
+  this: Bud,
+  spec: Specification,
+  url: URL,
+) {
   const options: Partial<Specification> = {}
 
   if (spec.url)

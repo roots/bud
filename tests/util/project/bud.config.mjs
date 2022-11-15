@@ -6,14 +6,20 @@ export default async app => {
   await app.extensions.add([`@roots/bud-swc`, `@roots/bud-tailwindcss`])
   await app.extensions.add([`@roots/bud-emotion`])
   app
-    .entry(`app`, [`@src/scripts/app.js`, `@src/styles/app.css`])
     .setPath(`@src`, `src`)
+    .alias(`@src`, app.path(`@src`))
+    .entry(`app`, [`@src/scripts/app`, `@src/styles/app`])
     .copy([[`images`, `images`]])
-    .template({replace: {APP_TITLE: `Bud`}, template: `src/index.html`})
+    .template({
+      replace: {
+        APP_TITLE: `Bud`,
+        replaceTest: `replaced`,
+      },
+      template: `src/index.html`,
+    })
     .devtool(false)
     .watch([`src/*.html`, `src/images`])
     .serve(3015)
     .minimize()
     .provide({jquery: [`jQuery`, `$`]})
-    .when(app.isProduction, app => app.hash())
 }

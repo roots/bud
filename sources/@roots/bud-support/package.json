@@ -38,109 +38,13 @@
   "type": "module",
   "module": "./lib/index.js",
   "exports": {
-    ".": "./lib/index.js",
-    "./chalk": "./lib/dependencies/chalk/index.js",
-    "./clipanion": "./lib/dependencies/clipanion/index.js",
-    "./clean-stack": "./lib/dependencies/clean-stack/index.js",
-    "./common-path": "./lib/dependencies/common-path/index.js",
-    "./decorators": "./lib/decorators/index.js",
-    "./execa": "./lib/dependencies/execa/index.js",
-    "./figures": "./lib/dependencies/figures/index.js",
-    "./filesystem": "./lib/filesystem/index.js",
-    "./fs": "./lib/dependencies/fs/index.js",
-    "./fs-jetpack": "./lib/dependencies/fs-jetpack/index.js",
-    "./globby": "./lib/dependencies/globby/index.js",
-    "./highlight": "./lib/highlight/index.js",
-    "./import-meta-resolve": "./lib/dependencies/import-meta-resolve/index.js",
-    "./ink": "./lib/dependencies/ink/index.js",
-    "./ink-link": "./lib/dependencies/ink-link/index.js",
-    "./ink-text-input": "./lib/dependencies/ink-text-input/index.js",
-    "./lodash-es": "./lib/dependencies/lodash-es/index.js",
-    "./os": "./lib/os/index.js",
-    "./patch-console": "./lib/dependencies/patch-console/index.js",
-    "./pretty-format": "./lib/dependencies/pretty-format/index.js",
-    "./react": "./lib/dependencies/react/index.js",
-    "./signale": "./lib/dependencies/signale/index.js",
-    "./typanion": "./lib/dependencies/typanion/index.js",
-    "./webpack": "./lib/dependencies/webpack/index.js"
-  },
-  "typesVersions": {
-    "*": {
-      ".": [
-        "./lib/dependencies/index.d.ts"
-      ],
-      "chalk": [
-        "./lib/dependencies/chalk/index.d.ts"
-      ],
-      "clean-stack": [
-        "./lib/dependencies/clean-stack/index.d.ts"
-      ],
-      "clipanion": [
-        "./lib/dependencies/clipanion/index.d.ts"
-      ],
-      "common-path": [
-        "./lib/dependencies/common-path/index.d.ts"
-      ],
-      "decorators": [
-        "./lib/decorators/index.d.ts"
-      ],
-      "execa": [
-        "./lib/dependencies/execa/index.d.ts"
-      ],
-      "figures": [
-        "./lib/dependencies/figures/index.d.ts"
-      ],
-      "filesystem": [
-        "./lib/filesystem/index.d.ts"
-      ],
-      "fs": [
-        "./lib/dependencies/fs/index.d.ts"
-      ],
-      "fs-jetpack": [
-        "./lib/dependencies/fs-jetpack/index.d.ts"
-      ],
-      "globby": [
-        "./lib/dependencies/globby/index.d.ts"
-      ],
-      "highlight": [
-        "./lib/highlight/index.d.ts"
-      ],
-      "import-meta-resolve": [
-        "./lib/dependencies/import-meta-resolve/index.d.ts"
-      ],
-      "ink": [
-        "./lib/dependencies/ink/index.d.ts"
-      ],
-      "ink-link": [
-        "./lib/dependencies/ink-link/index.d.ts"
-      ],
-      "ink-text-input": [
-        "./lib/dependencies/ink-text-input/index.d.ts"
-      ],
-      "lodash-es": [
-        "./lib/dependencies/lodash-es/index.d.ts"
-      ],
-      "os": [
-        "./lib/os/index.d.ts"
-      ],
-      "patch-console": [
-        "./lib/dependencies/patch-console/index.d.ts"
-      ],
-      "pretty-format": [
-        "./lib/dependencies/pretty-format/index.d.ts"
-      ],
-      "react": [
-        "./lib/dependencies/react/index.d.ts"
-      ],
-      "signale": [
-        "./lib/dependencies/signale/index.d.ts"
-      ],
-      "typanion": [
-        "./lib/dependencies/typanion/index.d.ts"
-      ],
-      "webpack": [
-        "./lib/dependencies/webpack/index.d.ts"
-      ]
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./*": {
+      "types": "./lib/*/index.d.ts",
+      "default": "./lib/*/index.js"
     }
   },
   "types": "./lib/index.d.ts",
@@ -173,7 +77,9 @@
     "signale": "1.4.0",
     "typanion": "3.12.1",
     "type-fest": "3.2.0",
-    "webpack": "5.75.0"
+    "webpack": "5.75.0",
+    "zod": "3.19.1",
+    "zod-validation-error": "0.2.1"
   },
   "peerDependencies": {
     "webpack": ">=5"

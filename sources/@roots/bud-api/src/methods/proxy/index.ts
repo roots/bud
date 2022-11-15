@@ -7,6 +7,13 @@ import {
   isUndefined,
 } from '@roots/bud-support/lodash-es'
 
+export type Parameters = [
+  (URL | string | boolean | number)?,
+  ((
+    input: Array<[string | RegExp, string]>,
+  ) => Array<[string | RegExp, string]>)?,
+]
+
 /**
  * Enables proxy middleware
  *
@@ -17,12 +24,16 @@ import {
  * @public
  */
 export const enableMiddlewareHookCallback = (
-  middleware: Array<keyof Server.Middleware.Available>,
-): Array<keyof Server.Middleware.Available> => [
-  ...(disableMiddlewareHookCallback(middleware) ?? []),
-  `cookie`,
-  `proxy`,
-]
+  middleware: Array<keyof Server.Middleware.Available> | undefined,
+): Array<keyof Server.Middleware.Available> => {
+  if (middleware === undefined) middleware = []
+
+  return [
+    ...(disableMiddlewareHookCallback(middleware) ?? []),
+    `cookie`,
+    `proxy`,
+  ]
+}
 
 /**
  * Disable proxy middleware
@@ -34,51 +45,43 @@ export const enableMiddlewareHookCallback = (
  * @public
  */
 export const disableMiddlewareHookCallback = (
-  middleware: Array<keyof Server.Middleware.Available>,
-): Array<keyof Server.Middleware.Available> =>
-  middleware?.filter(
+  middleware: Array<keyof Server.Middleware.Available> | undefined,
+): Array<keyof Server.Middleware.Available> => {
+  if (middleware === undefined) middleware = []
+  return middleware?.filter(
     middleware => middleware !== `proxy` && middleware !== `cookie`,
-  ) ?? []
+  )
+}
 
 /**
  * bud.proxy interface
  *
  * @public
  */
-export interface method {
-  (
-    input?: URL | string | boolean | number,
-    replacements?: (
-      input: Array<[string | RegExp, string]>,
-    ) => Array<[string | RegExp, string]>,
-  ): Bud
+export interface proxy {
+  (...params: Parameters): Promise<Bud>
 }
-
-/**
- * bud.proxy sync facade interface
- *
- * @public
- */
-export type facade = method
 
 /**
  * bud.proxy method
  *
  * @public
  */
-export const method: method = function (input, replacements) {
-  const app = this as Bud
-
+export const proxy: proxy = async function (
+  this: Bud,
+  input,
+  replacements,
+) {
   /**
    * Bail early in production
    */
-  if (!app.isDevelopment) return app
+  if (!this.isDevelopment) return this
 
   /**
    * User proxy request from a port #
    */
   isNumber(input) &&
-    app.hooks.on(`dev.middleware.proxy.target`, url => {
+    this.hooks.on(`dev.middleware.proxy.target`, url => {
       if (isUndefined(url)) url = new URL(`http://0.0.0.0`)
       url.port = `${input}`
       return url
@@ -88,40 +91,39 @@ export const method: method = function (input, replacements) {
    * User proxy request from a string
    */
   isString(input) &&
-    app.hooks.on(`dev.middleware.proxy.target`, new URL(input))
+    this.hooks.on(`dev.middleware.proxy.target`, new URL(input))
 
   /**
    * User proxy request from a URL
    */
   input instanceof URL &&
-    app.hooks.on(`dev.middleware.proxy.target`, input)
+    this.hooks.on(`dev.middleware.proxy.target`, input)
 
   /**
    * User proxy request as a boolean
    */
   isBoolean(input)
-    ? app.hooks.on(
+    ? this.hooks.on(
         `dev.middleware.enabled`,
         input
           ? enableMiddlewareHookCallback
           : disableMiddlewareHookCallback,
       )
-    : app.hooks.on(`dev.middleware.enabled`, enableMiddlewareHookCallback)
+    : this.hooks.on(`dev.middleware.enabled`, enableMiddlewareHookCallback)
 
   /**
    * Handle URL replacements
    */
-  replacements = isUndefined(replacements)
-    ? (hookValue): Array<[string | RegExp, string]> => [
-        ...(hookValue ?? []),
-        [app.hooks.filter(`dev.middleware.proxy.target`).href, `/`],
-      ]
-    : replacements
+  if (replacements === undefined) return this
 
-  app.hooks.on(`dev.middleware.proxy.replacements`, replacements)
+  this.hooks.on(`dev.middleware.proxy.replacements`, hookValue => {
+    if (hookValue === undefined)
+      return [[this.hooks.filter(`dev.middleware.proxy.target`).href, `/`]]
+    return [
+      ...hookValue,
+      [this.hooks.filter(`dev.middleware.proxy.target`).href, `/`],
+    ]
+  })
 
-  /**
-   * Return bud interface
-   */
-  return app
+  return this
 }

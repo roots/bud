@@ -5,31 +5,23 @@ import type CopyPlugin from 'copy-webpack-plugin'
 
 type FromToTuple = [CopyPlugin.StringPattern, CopyPlugin.StringPattern]
 
-export interface facade {
+export type Parameters = [
   (
-    request:
-      | CopyPlugin.StringPattern
-      | CopyPlugin.ObjectPattern
-      | Array<CopyPlugin.StringPattern>
-      | Array<FromToTuple>
-      | Array<CopyPlugin.ObjectPattern>,
-    overrides?: Partial<CopyPlugin.ObjectPattern>,
-  ): Bud
+    | CopyPlugin.StringPattern
+    | CopyPlugin.ObjectPattern
+    | Array<CopyPlugin.StringPattern>
+    | Array<FromToTuple>
+    | Array<CopyPlugin.ObjectPattern>
+  ),
+  Partial<CopyPlugin.ObjectPattern>?,
+]
+
+export interface assets {
+  (...parameters: Parameters): Promise<Bud>
 }
 
-export interface method {
-  (
-    request:
-      | CopyPlugin.StringPattern
-      | CopyPlugin.ObjectPattern
-      | Array<CopyPlugin.StringPattern>
-      | Array<FromToTuple>
-      | Array<CopyPlugin.ObjectPattern>,
-    overrides?: Partial<CopyPlugin.ObjectPattern>,
-  ): Promise<Bud>
-}
-
-export const assets: method = async function assets(
+export const assets: assets = async function assets(
+  this: Bud,
   request,
   overrides = {},
 ) {

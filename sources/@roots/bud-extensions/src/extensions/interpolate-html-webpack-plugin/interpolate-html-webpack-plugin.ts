@@ -40,11 +40,16 @@ export default class InterpolateHtmlWebpackPlugin {
       this.getHooks(compilation).afterTemplateExecution.tap(
         `interpolate-html-plugin`,
         (data: any) => {
+          if (
+            !this.replacements ||
+            Object.keys(this.replacements).length === 0
+          )
+            return data
+
           Object.entries(this.replacements).forEach(([key, value]) => {
-            data.html = data.html.replaceAll(
-              new RegExp(`%${key}%`, `g`),
-              value,
-            )
+            data.html = data.html
+              .replaceAll(new RegExp(`{{${key}}}`, `g`), value)
+              .replaceAll(new RegExp(`%${key}%`, `g`), value)
           })
 
           return data

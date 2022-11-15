@@ -2,21 +2,22 @@
 import {factory} from '@repo/test-kit/bud'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import {method as splitChunks} from './index.js'
+import {splitChunks as splitChunksFn} from './index.js'
 
-describe(`bud.splitChunks`, () => {
+describe(`bud.splitChunks`, async () => {
   let bud
-  let subject
+  let splitChunks: splitChunksFn
 
   beforeEach(async () => {
     vi.clearAllMocks()
     bud = await factory({mode: `development`})
-    subject = splitChunks.bind(bud)
+    splitChunks = splitChunksFn.bind(bud)
   })
 
-  it(`should call bud.hooks.on with false when called with false`, () => {
+  it(`should call bud.hooks.on with false when called with false`, async () => {
     const onSpy = vi.spyOn(bud.hooks, `on`)
-    subject(false)
+
+    await splitChunks(false)
 
     expect(onSpy).toHaveBeenCalledWith(
       `build.optimization.splitChunks`,
@@ -24,10 +25,10 @@ describe(`bud.splitChunks`, () => {
     )
   })
 
-  it(`should call bud.hooks.on with default chunk group when called with no options`, () => {
+  it(`should call bud.hooks.on with default chunk group when called with no options`, async () => {
     const onSpy = vi.spyOn(bud.hooks, `on`)
 
-    subject()
+    await splitChunks()
 
     expect(onSpy).toHaveBeenCalledWith(`build.optimization.splitChunks`, {
       chunks: `all`,
@@ -44,10 +45,10 @@ describe(`bud.splitChunks`, () => {
     })
   })
 
-  it(`should call bud.hooks.on with default chunk group when called with true`, () => {
+  it(`should call bud.hooks.on with default chunk group when called with true`, async () => {
     const onSpy = vi.spyOn(bud.hooks, `on`)
 
-    subject(true)
+    await splitChunks(true)
 
     expect(onSpy).toHaveBeenCalledWith(`build.optimization.splitChunks`, {
       chunks: `all`,
@@ -64,10 +65,10 @@ describe(`bud.splitChunks`, () => {
     })
   })
 
-  it(`should call bud.hooks.on with custom chunk`, () => {
+  it(`should call bud.hooks.on with custom chunk`, async () => {
     const onSpy = vi.spyOn(bud.hooks, `on`)
 
-    subject({
+    await splitChunks({
       chunks: `all`,
       automaticNameDelimiter: `/`,
       minSize: 0,
@@ -96,7 +97,7 @@ describe(`bud.splitChunks`, () => {
     })
   })
 
-  it(`should return bud`, () => {
-    expect(subject()).toEqual(bud)
+  it(`should return bud`, async () => {
+    expect(await splitChunks()).toEqual(bud)
   })
 })

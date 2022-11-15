@@ -3,6 +3,8 @@ import {join, sep} from 'node:path'
 import type {Bud} from '@roots/bud-framework'
 import {isRegExp, isString} from '@roots/bud-support/lodash-es'
 
+export type Parameters = [string, (string | Array<string> | RegExp)?]
+
 /**
  * Create a module chunk
  *
@@ -15,8 +17,8 @@ import {isRegExp, isString} from '@roots/bud-support/lodash-es'
  *
  * @public
  */
-export interface method {
-  (name: string, matcher?: string | Array<string> | RegExp): Bud
+export interface bundle {
+  (...params: Parameters): Bud
 }
 
 /**
@@ -31,7 +33,7 @@ export interface method {
  *
  * @public
  */
-export const bundle: method = function (name, matcher) {
+export const bundle: bundle = function (this: Bud, name, matcher) {
   const app = this as Bud
 
   const test = normalize(matcher ?? name)

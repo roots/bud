@@ -66,31 +66,11 @@ export default class ConsoleBuffer extends Service {
   @bind
   public override async boot(bud: Bud) {
     if (bud.context?.args?.ci) return
-    const logger = bud.logger.makeInstance({
-      disabled: bud.context.args?.log === false,
-      config: {
-        displayLabel: false,
-        displayBadge: false,
-        displayScope: false,
-      },
-      logLevel: `info`,
-    })
-
-    this.restore = patchConsole((stream, data) => {
-      const message = data.trim()
-
-      if (!message || message.length === 0) return
-      if (this.messages[stream].some(message => message === data)) return
-
-      logger[stream === `stdout` ? `log` : `error`](
-        bud.logger.format({
-          message: message.replace(`${bud.label}:\n`, ``),
-        }),
-      )
-    })
 
     // Patch the console, and assign the restore function
     this.restore = patchConsole((stream, data) => {
+      if (!data || data === ``) return
+
       /**
        * Clean up log message whitespace, etc.
        */

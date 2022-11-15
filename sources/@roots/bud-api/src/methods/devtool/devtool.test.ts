@@ -1,7 +1,7 @@
 import {factory} from '@repo/test-kit/bud'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import {devtool} from './devtool.method.js'
+import {devtool} from './index.js'
 
 const callback = vi.fn() as any
 

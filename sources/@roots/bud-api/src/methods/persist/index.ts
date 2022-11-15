@@ -1,25 +1,23 @@
 import type {Bud} from '@roots/bud-framework'
 import {isString} from '@roots/bud-support/lodash-es'
 
+export type Parameters = [(`memory` | `filesystem` | boolean)?]
+
 export interface persist {
-  (type?: `memory` | `filesystem` | boolean): Bud
+  (...parameters: Parameters): Bud
 }
 
-export const persist: persist = function (
-  type: `memory` | `filesystem` | boolean = `filesystem`,
-) {
-  const app = this as Bud
-
+export const persist: persist = function (this: Bud, type = `filesystem`) {
   if (type === false) {
-    app.cache.enabled = false
-    app.success(`cache disabled`)
-    return app
+    this.cache.enabled = false
+    this.success(`cache disabled`)
+    return this
   }
 
-  app.cache.enabled = true
-  app.cache.type = isString(type) ? type : `filesystem`
+  this.cache.enabled = true
+  this.cache.type = isString(type) ? type : `filesystem`
 
-  app.success(`cache enabled`)
+  this.success(`cache enabled`)
 
-  return app
+  return this
 }
