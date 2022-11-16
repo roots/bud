@@ -55,8 +55,8 @@ export interface Service extends BaseService {
 
   instantiate<K extends `${keyof Modules & string}`>(
     extension: (new (...args: any[]) => Modules[K]) | ExtensionLiteral,
-    signifier?: K,
-  ): Extension<any, any>
+    options?: Record<string, any>,
+  ): Promise<Extension | ApplyPlugin>
 
   has<K extends keyof Modules & string>(key: K): boolean
 
@@ -64,7 +64,7 @@ export interface Service extends BaseService {
 
   remove<K extends keyof Modules & string>(key: K): this
 
-  set<K extends keyof Modules & string>(key: K, value: Modules[K]): this
+  set<K extends keyof Modules & string>(value: Modules[K]): this
 
   /**
    * Add an extension
@@ -83,17 +83,18 @@ export interface Service extends BaseService {
           | Extension
           | `${keyof Modules & string}`
         >,
+    options?: Record<string, any>,
   ): Promise<void>
 
   import<K extends `${keyof Modules}`>(
     signifier: K,
     fatalOnError?: boolean,
-  ): Promise<Extension<any, any>>
+  ): Promise<Extension | ApplyPlugin>
 
   runAll(methodName: LifecycleMethods): Promise<Array<void>>
 
   run<K extends `${keyof Modules & string}`>(
-    extension: Modules[K],
+    extension: Extension | ApplyPlugin | K,
     methodName: LifecycleMethods,
   ): Promise<this>
 

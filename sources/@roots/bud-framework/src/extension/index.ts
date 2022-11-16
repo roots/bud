@@ -1,7 +1,6 @@
 import {bind} from '@roots/bud-support/decorators'
 import {has, isFunction, isUndefined} from '@roots/bud-support/lodash-es'
 import type {Instance as Signale} from '@roots/bud-support/signale'
-import type {Compiler} from '@roots/bud-support/webpack'
 
 import type {Bud} from '../bud.js'
 import type {Modules} from '../index.js'
@@ -123,7 +122,7 @@ export class Extension<
    *
    * @public
    */
-  public label?: keyof Modules & string
+  public label: keyof Modules & string
 
   /**
    * @public
@@ -244,13 +243,6 @@ export class Extension<
    * @public
    */
   public plugin?: ApplyPluginConstructor
-
-  /**
-   * Compiler plugin `apply` method
-   *
-   * @public
-   */
-  public apply?(compiler: Compiler): unknown
 
   /**
    * Class constructor
@@ -400,11 +392,7 @@ export class Extension<
   public async _make() {
     this.logger.info(`trying to make`, this.label)
 
-    if (
-      isUndefined(this.make) &&
-      isUndefined(this.apply) &&
-      isUndefined(this.plugin)
-    ) {
+    if (isUndefined(this.make) && isUndefined(this.plugin)) {
       this.logger.info(`no make, apply or plugin prop found. skipping.`)
       return false
     }
@@ -415,7 +403,6 @@ export class Extension<
       this.logger.info(`${this.label} is disabled. skipping.`)
       return false
     }
-
     try {
       if (!isUndefined(this.apply)) {
         this.logger.info(`apply prop found. return extension instance`)

@@ -235,8 +235,8 @@ export default class Extensions
    * @decorator `@bind`
    */
   @bind
-  public set(key: string, value: Extension<any, any>): this {
-    this.repository[key] = value
+  public set(value: Extension | ApplyPlugin): this {
+    this.repository[value.label ?? randomUUID()] = value
 
     return this
   }
@@ -248,22 +248,42 @@ export default class Extensions
    * @decorator `@bind`
    */
   @bind
-  public instantiate<K extends `${keyof Modules & string}`>(
-    extension: (new (...args: any[]) => Modules[K]) | ExtensionLiteral,
-    signifier?: K,
-  ): Extension<any, any> {
-    const instance =
-      typeof extension === `function`
-        ? new extension(this.app)
-        : // @ts-ignore
-        !(extension instanceof Extension)
-        ? new Extension(this.app).fromObject(extension)
-        : extension
+  public async instantiate(
+    source:
+      | (new (...args: any[]) => Extension)
+      | ExtensionLiteral
+      | {apply: (...args: any[]) => any},
+  ): Promise<Extension | ApplyPlugin> {
+    const isConstructor = (f: any): f is new (...args: any[]) => any => {
+      try {
+        Reflect.construct(String, [], f)
+      } catch (e) {
+        return false
+      }
+      return true
+    }
 
-    if (!instance?.label)
-      instance.label = signifier ?? (`${randomUUID()}` as keyof Modules)
+    if (source instanceof Extension) {
+      return source
+    }
 
-    return instance
+    if (typeof source === `function`) {
+      if (isConstructor(source)) {
+        return new source(this.app)
+      }
+
+      return source(this.app)
+    }
+
+    if (typeof source.apply === `function`) {
+      return source as ApplyPlugin
+    }
+
+    if (source instanceof Object && !isConstructor(source)) {
+      return new Extension(this.app).fromObject(source)
+    }
+
+    return new source()
   }
 
   @bind
@@ -286,7 +306,7 @@ export default class Extensions
   public async import<K extends `${keyof Modules}`>(
     signifier: K,
     fatalOnError = true,
-  ): Promise<Extension<any, any>> {
+  ): Promise<Extension | ApplyPlugin> {
     if (fatalOnError && this.unresolvable.has(signifier))
       throw new Error(`Extension ${signifier} is not importable`)
 
@@ -303,7 +323,7 @@ export default class Extensions
 
     if (!extensionClass) return
 
-    const instance = this.instantiate<K>(extensionClass, signifier)
+    const instance = await this.instantiate(extensionClass)
 
     if (instance.dependsOn)
       await Promise.all(
@@ -328,7 +348,7 @@ export default class Extensions
           }),
       )
 
-    this.set(signifier, instance)
+    this.set(instance)
 
     this.logger.success(instance.label, `imported and instantiated`)
 
@@ -343,29 +363,26 @@ export default class Extensions
    */
   @bind
   public async add<K extends `${keyof Modules & string}`>(
-    input:
+    extension:
       | Extension<any, any>
       | ExtensionLiteral
       | Array<Extension<any, any> | ExtensionLiteral>
       | K
       | Array<K>,
   ): Promise<void> {
-    const arrayed = Array.isArray(input) ? input : [input]
+    const arrayed = Array.isArray(extension) ? extension : [extension]
 
     await arrayed.reduce(async (promised, item) => {
       await promised
 
-      let moduleObject =
+      const moduleObject =
         typeof item === `string`
           ? await import(item).then(pkg => pkg.default ?? pkg)
           : item
 
-      const extension = this.instantiate(
-        moduleObject,
-        typeof item === `string` ? item : undefined,
-      )
+      const extension = await this.instantiate(moduleObject)
 
-      this.set(extension.label ?? randomUUID(), extension)
+      this.set(extension)
 
       await this.run(extension, `init`)
       await this.run(extension, `register`)
@@ -387,11 +404,16 @@ export default class Extensions
    * @decorator `@bind`
    */
   @bind
-  public async run<K extends `${keyof Modules & string}`>(
-    extension: Modules[K],
+  public async run(
+    extension: Extension | ApplyPlugin,
     methodName: Contract.LifecycleMethods,
   ): Promise<this> {
-    if (extension.meta[methodName] === true) return this
+    if (
+      isUndefined(extension?.meta) ||
+      isUndefined(extension?.meta?.[methodName]) ||
+      extension?.meta?.[methodName] === true
+    )
+      return this
 
     extension.meta[methodName] = true
 
@@ -438,7 +460,7 @@ export default class Extensions
    */
   @bind
   public async runDependencies<K extends `${keyof Modules & string}`>(
-    extension: Modules[K] | K,
+    extension: Extension | ApplyPlugin | K,
     methodName: Contract.LifecycleMethods,
   ): Promise<void> {
     extension =
@@ -490,8 +512,8 @@ export default class Extensions
   @bind
   public async make(): Promise<ApplyPlugin[]> {
     return await Promise.all(
-      Object.values(this.repository).map(
-        async extension => await extension._make(),
+      Object.values(this.repository).map(async extension =>
+        extension.apply ? extension : await extension._make(),
       ),
     ).then(
       (result: Array<ApplyPlugin>): Array<ApplyPlugin> =>
