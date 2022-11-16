@@ -116,19 +116,9 @@ export class Project {
     flags: Array<string>,
   ): Promise<ExecaChildProcess> {
     try {
-      const child = execa(bin, flags ?? [], {
+      return execa(bin, flags ?? [], {
         cwd: this.projectPath(),
       })
-      child.stderr.on(`data`, data => {
-        const log = data
-          .toString()
-          .split(`\n`)
-          .map((ln: string) => ln.trim())
-          .join(``)
-
-        if (log !== ``) this.logger.error(log)
-      })
-      return child
     } catch (error) {
       throw new Error(error)
     }

@@ -15,9 +15,6 @@ import Comparison from '@site/src/docs/comparison.mdx'
 import styles from './index.module.css'
 
 export const Mast = () => {
-  // @ts-ignore
-  const {siteConfig} = useDocusaurusContext()
-
   return (
     <header className={clsx(`hero hero--primary`, styles.heroBanner)}>
       <div className="container">

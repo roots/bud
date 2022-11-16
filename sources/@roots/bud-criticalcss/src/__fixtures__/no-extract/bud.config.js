@@ -1,7 +1,7 @@
 export default async bud => {
   bud
     .entry(`index.css`)
-    .critical.html(`https://google.com`)
+    .critical.src(`https://google.com`)
     .extract(false)
     .enable()
 }
