@@ -10,6 +10,10 @@ import {Service} from '@roots/bud-framework/service'
 import type {Extensions as Contract} from '@roots/bud-framework/services'
 import {bind} from '@roots/bud-support/decorators'
 import {isUndefined} from '@roots/bud-support/lodash-es'
+import Container from '@roots/container'
+
+import {handleManifestSchemaWarning} from './util/handleManifestSchemaWarning.js'
+import {isConstructor} from './util/isConstructor.js'
 
 /**
  * Extensions Service
@@ -40,11 +44,11 @@ export default class Extensions
    *
    * @public
    */
-  public resolvedOptions: Contract.Service['resolvedOptions'] = {
-    allowlist: [],
-    denylist: [],
-    discovery: true,
-  }
+  public options: Container<{
+    allowlist: Array<string>
+    denylist: Array<string>
+    discovery: boolean
+  }>
 
   /**
 -   * Modules on which an import attempt was made and failed
@@ -56,40 +60,30 @@ export default class Extensions
 -   *
 -   * @public
 -   */
-  public unresolvable: Set<`${keyof Modules & string}`> = new Set()
+  public unresolvable: Set<string> = new Set()
+
+  public constructor(bud: () => Bud) {
+    super(bud)
+    this.options = new Container({
+      allowlist: [],
+      denylist: [],
+      discovery: true,
+    })
+  }
 
   /**
    * `register` callback
    *
-   * @remarks
+   * @todo
    * All this is doing is helping transition people to using `bud.extensions` key for
-   * `allowList` and `denyList`. It can be removed in a future release.
-   * ⸺ 2022-10-18
+   * `allowList` and `denyList`. It can be removed in a future release. (2022-10-18)
    *
    * @public
    * @decorator `@bind`
    */
   @bind
   public override async register(bud: Bud): Promise<void> {
-    if (bud.context.manifest?.bud?.allowlist) {
-      bud.context.manifest.bud.extensions = {
-        ...(bud.context.manifest.bud.extensions ?? {}),
-        allowlist: bud.context.manifest.bud.allowlist,
-      }
-      this.logger.warn(
-        `package.json: bud.allowlist is deprecated. Use bud.extensions.allowlist instead.`,
-      )
-    }
-
-    if (bud.context.manifest?.bud?.denylist) {
-      bud.context.manifest.bud.extensions = {
-        ...(bud.context.manifest.bud.extensions ?? {}),
-        denylist: bud.context.manifest.bud.denylist,
-      }
-      this.logger.warn(
-        `package.json: bud.denylist is deprecated. Use bud.extensions.denylist instead.`,
-      )
-    }
+    handleManifestSchemaWarning.bind(this)(bud)
   }
 
   /**
@@ -100,66 +94,61 @@ export default class Extensions
    */
   @bind
   public override async booted(bud: Bud): Promise<void> {
-    if (!isUndefined(bud.context.manifest?.bud?.extensions?.discovery)) {
-      this.resolvedOptions.discovery =
-        bud.context.manifest.bud.extensions.discovery
+    const {manifest} = bud.context
+
+    if (manifest?.bud?.extensions) {
+      const {discovery, allowlist, denylist} = manifest.bud.extensions
+
+      if (!isUndefined(discovery)) this.options.set(`discovery`, discovery)
+      if (!isUndefined(allowlist))
+        this.options.merge(`allowlist`, allowlist)
+      if (!isUndefined(denylist)) this.options.merge(`denylist`, denylist)
     }
 
-    if (!isUndefined(bud.context.args.discovery)) {
-      this.resolvedOptions.discovery = bud.context.args.discovery
+    if (manifest?.[this.app.label]?.extensions) {
+      const {discovery, allowlist, denylist} =
+        manifest[this.app.label].extensions
+
+      if (!isUndefined(discovery)) this.options.set(`discovery`, discovery)
+      if (!isUndefined(allowlist))
+        this.options.merge(`allowlist`, allowlist)
+      if (!isUndefined(denylist)) this.options.merge(`denylist`, denylist)
     }
 
     if (
-      !isUndefined(
-        bud.context.manifest?.[this.app.label]?.extensions?.discovery,
-      )
-    ) {
-      this.resolvedOptions.discovery =
-        bud.context.manifest?.bud?.[this.app.label].extensions.discovery
-    }
-
-    if (!isUndefined(bud.context.args.discovery)) {
-      this.resolvedOptions.discovery = bud.context.args.discovery
-    }
-
-    this.resolvedOptions.allowlist.push(
-      ...(bud.context.manifest?.bud?.extensions?.allowlist ?? []),
-      ...(bud.context.manifest?.bud?.[this.app.label]?.extensions
-        ?.allowlist ?? []),
+      !isUndefined(bud.context.extensions.builtIn) &&
+      Array.isArray(bud.context.extensions.builtIn)
     )
-    this.resolvedOptions.denylist.push(
-      ...(bud.context.manifest?.bud?.extensions?.denylist ?? []),
-      ...(bud.context.manifest?.bud?.[this.app.label]?.extensions
-        ?.denylist ?? []),
-    )
-
-    if (bud.context.extensions.builtIn)
       await Promise.all(
-        bud.context.extensions.builtIn
-          ?.filter(Boolean)
-          .map(async signifier => await this.import(signifier, true)),
+        bud.context.extensions.builtIn.filter(Boolean).map(this.import),
       )
 
+    if (!isUndefined(bud.context.args.discovery)) {
+      this.options.set(`discovery`, bud.context.args.discovery)
+    }
+    if (!isUndefined(bud.context.args.discovery)) {
+      this.options.set(`discovery`, bud.context.args.discovery)
+    }
+
     if (
-      this.resolvedOptions.discovery &&
-      this.resolvedOptions.allowlist.length === 0 &&
-      bud.context.extensions?.discovered
+      this.options.is(`discovery`, true) &&
+      this.options.isEmpty(`allowlist`) &&
+      bud.context.extensions?.discovered &&
+      Array.isArray(bud.context.extensions.discovered)
     )
       await Promise.all(
         bud.context.extensions.discovered
           .filter(Boolean)
           .filter(this.isAllowed)
-          .map(async signifier => await this.import(signifier, true)),
+          .map(this.import),
       )
-    else if (this.resolvedOptions.allowlist.length > 0)
+    else if (this.options.isNotEmpty(`allowlist`))
       await Promise.all(
-        this.resolvedOptions.allowlist
-          ?.filter(Boolean)
+        this.options
+          .get(`allowlist`)
+          .filter(Boolean)
           .filter(this.isAllowed)
-          .map(
-            async (signifier: `${keyof Modules & string}`) =>
-              await this.import(signifier, true),
-          ),
+          .map(this.import),
       )
 
     await this.runAll(`init`)
@@ -254,18 +243,7 @@ export default class Extensions
       | ExtensionLiteral
       | {apply: (...args: any[]) => any},
   ): Promise<Extension | ApplyPlugin> {
-    const isConstructor = (f: any): f is new (...args: any[]) => any => {
-      try {
-        Reflect.construct(String, [], f)
-      } catch (e) {
-        return false
-      }
-      return true
-    }
-
-    if (source instanceof Extension) {
-      return source
-    }
+    if (source instanceof Extension) return source
 
     if (typeof source === `function`) {
       if (isConstructor(source)) {
@@ -289,10 +267,10 @@ export default class Extensions
   @bind
   public isAllowed(signifier: string): boolean {
     return (
-      (this.resolvedOptions.denylist.length === 0 ||
-        !this.resolvedOptions.denylist.includes(signifier)) &&
-      (this.resolvedOptions.allowlist.length === 0 ||
-        this.resolvedOptions.allowlist.includes(signifier))
+      (this.options.isEmpty(`denylist`) ||
+        !this.options.get(`denylist`).includes(signifier)) &&
+      (this.options.isEmpty(`allowlist`) ||
+        this.options.get(`allowlist`).includes(signifier))
     )
   }
 
@@ -303,9 +281,9 @@ export default class Extensions
    * @decorator `@bind`
    */
   @bind
-  public async import<K extends `${keyof Modules}`>(
+  public async import<K extends `${keyof Modules & string}`>(
     signifier: K,
-    fatalOnError = true,
+    fatalOnError: boolean | number = true,
   ): Promise<Extension | ApplyPlugin> {
     if (fatalOnError && this.unresolvable.has(signifier))
       throw new Error(`Extension ${signifier} is not importable`)

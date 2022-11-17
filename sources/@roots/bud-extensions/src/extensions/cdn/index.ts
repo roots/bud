@@ -28,12 +28,16 @@ export interface Options {
 }
 
 /**
+ * `@roots/bud-extensions/cdn
+ *
+ * @remarks
  * Include remote modules in compilation
  *
  * @public
  * @decorator `@label`
  * @decorator `@expose`
  * @decorator `@options`
+ * @decorator `@disabled`
  */
 @label(`@roots/bud-extensions/cdn`)
 @expose(`cdn`)
@@ -49,7 +53,7 @@ export interface Options {
 @disabled
 export default class Cdn extends Extension<Options, null> {
   /**
-   * CDN manifest key to URL mapping
+   * CDN key to URL mapping
    *
    * @public
    */
@@ -99,13 +103,14 @@ export default class Cdn extends Extension<Options, null> {
   > {
     return Array.from(
       new Set([
-        ...(this.app.maybeCall(this.getOption(`allowedUris`)) ?? []),
+        ...this.getOption(`allowedUris`),
         ...(this.sources.values() ?? []),
       ]),
     ).filter(
       v => typeof v === `string` || v instanceof RegExp || isFunction(v),
     )
   }
+
   public set allowedUris(
     value:
       | Array<string | RegExp | ((uri: string) => boolean)>
@@ -275,7 +280,8 @@ export default class Cdn extends Extension<Options, null> {
     bud.hooks.on(`build.experiments`, experiments => ({
       ...(experiments ?? {}),
       buildHttp: {
-        allowedUris: this.allowedUris,
+        allowedUris:
+          this.allowedUris.length > 0 ? this.allowedUris : undefined,
         cacheLocation: this.cacheEnabled ? this.cacheLocation : false,
         frozen: this.frozen,
         lockfileLocation: this.lockfileLocation,
