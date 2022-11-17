@@ -14,7 +14,6 @@ const main = async () => {
     generateMarkdown([`build`, `production`, `--help`]),
     generateMarkdown([`build`, `development`, `--help`]),
     generateMarkdown([`repl`, `--help`]),
-    generateMarkdown([`upgrade`, `--help`]),
     generateMarkdown([`view`, `--help`]),
   ])
 }
@@ -39,11 +38,7 @@ const generateMarkdown = async (args: string[]) => {
     .replace(/^\./, ``) // remove leading `.`
     .concat(`.md`) // add .md extension
 
-  const path = join(
-    paths.sources,
-    `@repo/docs/src/components/cli-output`,
-    name,
-  )
+  const path = join(paths.sources, `@repo/docs/src/generated/cli`, name)
 
   await fs.writeFile(path, content)
 }

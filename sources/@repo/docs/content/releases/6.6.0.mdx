@@ -2,7 +2,7 @@
 slug: 6.6.0
 title: 6.6.0
 description: Release notes for bud.js 6.6.0
-date: 2022-11-09
+date: 2022-11-15
 author: Kelly Mears
 author_title: Lead developer
 author_url: https://github.com/kellymears
@@ -12,114 +12,120 @@ tags: [release, 6.6]
 
 <!--truncate-->
 
-## 🚨 breaking: bud.entry no longer parses files as globs
+## 🚨 Breaking: [bud.entry](https://bud.js.org/docs/bud.entry) no longer parses files as globs
 
 You can use [bud.glob](https://bud.js.org/docs/bud.glob) if you have need for this.
 
 Example:
 
-```ts title="bud.config.mjs"
+```typescript title="bud.config.mjs"
 export default async bud => {
-  bud.entry({
-    app: await bud.glob(`@src/*.{js,css}`),
-  })
+  bud.entry(`app`, await bud.glob(`@src/*.{js,css}`))
 }
 ```
 
-## 🚨 breaking: builtin extension keys are normalized
+## 🚨 Breaking: Built-in extension keys are normalized
 
-| label                                                       | description                                                                                     | exposed |
-| ----------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ------- |
-| @roots/bud-extensions/cdn                                   | Adds remote import functionality                                                                | bud.cdn |
-| @roots/bud-extensions/esm                                   | Adds ESM support functionality                                                                  | bud.esm |
-| @roots/bud-extensions/clean-webpack-plugin                  | Cleans output directory on build                                                                |         |
-| @roots/bud-extensions/copy-webpack-plugin                   | Copies assets (used by [bud.assets](/docs/bud.assets))                                          |         |
-| @roots/bud-extensions/fix-style-only-entrypoints            | Removes JS output from entrypoints which only contain CSS                                       |         |
-| @roots/bud-extensions/html-webpack-plugin                   | HTML functionality (used by [bud.template](/docs/bud.template))                                 |         |
-| @roots/bud-extensions/interpolate-html-webpack-plugin       | Adds `create-react-app`-like template variable support for HTML files                           |         |
-| @roots/bud-extensions/mini-css-extract-plugin               | Optimized CSS loading                                                                           |         |
-| @roots/bud-extensions/webpack-define-plugin                 | Defines variables which can be used in the application (used by [bud.define](/docs/bud.define)) |         |
-| @roots/bud-extensions/webpack-hot-module-replacement-plugin | Adds HMR support                                                                                |         |
-| @roots/bud-extensions/webpack-manifest-plugin               | Emits `manifest.json`                                                                           |         |
-| @roots/bud-extensions/webpack-provide-plugin                | Provides import(s) globally to the application                                                  |         |
+| label                                                       | description                                                                                                       | exposed |
+| ----------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ------- |
+| @roots/bud-extensions/cdn                                   | Adds remote import functionality                                                                                  | bud.cdn |
+| @roots/bud-extensions/esm                                   | Adds ESM support functionality                                                                                    | bud.esm |
+| @roots/bud-extensions/clean-webpack-plugin                  | Cleans output directory on build                                                                                  |         |
+| @roots/bud-extensions/copy-webpack-plugin                   | Copies assets (used by [bud.assets](https://bud.js.org/docs/bud.assets))                                          |         |
+| @roots/bud-extensions/fix-style-only-entrypoints            | Removes JS output from entrypoints which only contain CSS                                                         |         |
+| @roots/bud-extensions/html-webpack-plugin                   | HTML functionality (used by [bud.template](https://bud.js.org/docs/bud.template))                                 |         |
+| @roots/bud-extensions/interpolate-html-webpack-plugin       | Adds `create-react-app`-like template variable support for HTML files                                             |         |
+| @roots/bud-extensions/mini-css-extract-plugin               | Optimized CSS loading                                                                                             |         |
+| @roots/bud-extensions/webpack-define-plugin                 | Defines variables which can be used in the application (used by [bud.define](https://bud.js.org/docs/bud.define)) |         |
+| @roots/bud-extensions/webpack-hot-module-replacement-plugin | Adds HMR support                                                                                                  |         |
+| @roots/bud-extensions/webpack-manifest-plugin               | Emits `manifest.json`                                                                                             |         |
+| @roots/bud-extensions/webpack-provide-plugin                | Provides import(s) globally to the application                                                                    |         |
 
 If you were using one of these labels directly, you'll need to update it. The upshot of this is that your editor will likely not only tell you that it's wrong but also offer the new key as a suggestion.
 
-## ✨ improve: Can use package signifiers with `bud.extensions.add` and `bud.use`
+## ✨ Use package signifiers with **bud.extensions.add** and [bud.use](https://bud.js.org/docs/bud.use)
 
 Very convenient! Works for webpack plugins or bud.js extensions.
 
-```js
-bud.use('browsersync-webpack-plugin')
+```typescript title="bud.config.mjs"
+export default async bud => {
+  bud.use('browsersync-webpack-plugin')
+}
 ```
 
-```js
-await bud.extensions.add('browsersync-webpack-plugin')
+```typescript title="bud.config.mjs"
+export default async bud => {
+  await bud.extensions.add('browsersync-webpack-plugin')
+}
 ```
 
 This will only work if the plugin/extension is the `default` export.
 
-## ✨ improve: improve env interpolation (#1856)
+## ✨ Expand all env values
 
 Variables sourced from .env files in the path to the project are now interpolated using env-expand.
 Previously, only the project directory would be expanded.
 
 If you have an unescaped string that causes the expansion to fail the error will be caught.
 
-## ✨ improve: `@roots/bud-client` now better supports multi-compiler
+## ✨ Better support for hot reload when using multi-compiler
 
 Each bud.js instance's entrypoints are now registered with `@roots/bud-client/hot`. This helps to prevent conflicts
 with reloaded modules when using multiple bud instances.
 
 Some notes:
 
-- Each instance now declares each previous instance as a dependency. This allows the [bud.runtime](https://bud.js.org/docs/runtime) to work even when using
+- Each instance now declares each previous instance as a dependency. This allows the [bud.runtime](https://bud.js.org/docs/bud.runtime) to work even when using
   multiple instances.
-- If you are using [bud.runtime](https://bud.js.org/docs/runtime) you will need to make sure that you are specifying `single`.
+- If you are using [bud.runtime](https://bud.js.org/docs/bud.runtime) you will need to make sure that you are specifying `single`.
 - If you want to modify the instance dependencies manually, you can use the (new) `build.dependencies` hook. Or, specify the dependencies in the `context` argument
-  passed to [bud.make](https://bud.js.org/docs/make).
-- The [bud.make](https://bud.js.org/docs/make) docs have been updated.
+  passed to [bud.make](https://bud.js.org/docs/bud.make).
+- The [bud.make](https://bud.js.org/docs/bud.make) docs have been updated.
 
 Example of a custom `dependsOn` when setting up a child instance:
 
-```js
-bud.make({
-  label: `example`,
-  basedir: bud.path(`example`),
-  dependsOn: [`some-other-instance`],
-})
+```typescript title="bud.config.mjs"
+export default async bud => {
+  bud.make({
+    label: `example`,
+    basedir: bud.path(`example`),
+    dependsOn: [`some-other-instance`],
+  })
+}
 ```
 
-## 🎉 feat: `bud upgrade` command (#1855)
+## 🎉 Easier upgrades with `bud upgrade` command
 
 Run `bud upgrade` to bump bud dependencies to the latest available version.
 You will need to run the install after the command completes. This is a new command and is not yet unit tested.
 
 ## @roots/bud-swc
 
-### 🎉 feat: `@roots/bud-swc` plugins are configurable
+### 🎉 [@roots/bud-swc](https://bud.js.org/extensions/bud-swc) plugins are configurable
 
 Call `bud.swc.plugins` to manage `@swc/core` plugins. You can pass an array of plugins (as demonstrated in the swc docs) or a callback
 if you want to modify what's already there:
 
-```js
-bud.swc.plugins(plugins => {
-  plugins.push([`swc-plugin`, {option: true}])
-})
+```typescript title="bud.config.mjs"
+export default async bud => {
+  bud.swc.plugins(plugins => {
+    plugins.push([`swc-plugin`, {option: true}])
+  })
+}
 ```
 
-If you haven't tried `@roots/bud-swc` you should consider it. This extension is no longer considered experimental. There is a strong
-case to be made for it replacing `@roots/bud-babel` in `@roots/bud-preset-recommmend` for version 7 of bud.js.
+If you haven't tried [@roots/bud-swc](https://bud.js.org/extensions/bud-swc) you should consider it. This extension is no longer considered experimental. There is a strong
+case to be made for it replacing [@roots/bud-babel](https://bud.js.org/extensions/bud-babel) in [@roots/bud-preset-recommend](https://bud.js.org/extensions/bud-preset-recommend) for version 7 of bud.js.
 
 ## @roots/bud-emotion
 
-### 🎉 feat: `@roots/bud-emotion` now supports `@roots/bud-swc`
+### 🎉 Supports [@roots/bud-emotion](https://bud.js.org/extensions/bud-emotion)
 
-If you have `@roots/bud-swc` installed, `@roots/bud-emotion` will register emotion support with `@swc/core`.
+If you have [@roots/bud-swc](https://bud.js.org/extensions/bud-swc) installed, [@roots/bud-emotion](https://bud.js.org/extensions/bud-emotion) will register emotion support with `@swc/core`.
 
 ## @roots/bud-criticalcss
 
-### 🎉 feat: `bud.critical.extract`
+### 🎉 Option to disable CSS extraction
 
 Disable critical CSS extraction by calling `bud.critical.extract(false)`. This isn't generally recommended.
 
@@ -127,7 +133,7 @@ Disable critical CSS extraction by calling `bud.critical.extract(false)`. This i
 
 ## @roots/sage
 
-### 🩹 fix: proxy assets load when in dev mode
+### 🩹 Fix: proxy assets load when in dev mode
 
 This fix requires acorn v3 and you must set a public path. You can opt-in with `bud.sage.setAcornVersion('v3')`.
 
@@ -138,33 +144,33 @@ You will still see 404 errors for the `/bud/hot` endpoint.
 
 Nothing is required of you, but if you're curious, here's what's changed:
 
-### 🩹 fix: reload browser on watched files add/unlink (#1781)
+### 🩹 Fix: reload browser on watched files add/unlink
 
 When files are added or removed from a watched directory path the browser will now reload.
 
-### 🏷️ typings: mapped extension options
+### 🏷️ Typings: mapped extension options
 
-You should now get useful, accurate intellisense and typechecking when using the `bud.extensions` api directly.
+You should now get useful, accurate intellisense and typechecking when [using the `bud.extensions` api directly](https://bud.js.org/guides/general-use/extensions).
 
-### ✨ improve: CLI feedback when using `bud.serve` in a child compiler
+### ✨ CLI: warn when using [bud.serve](https://bud.js.org/docs/bud.serve) in a child compiler
 
-It warns you to move it to the parent context. For now it also does this for you since it's an understandable mistake and
+It warns you to [move it to the parent context](https://bud.js.org/guides/general-use/multi-instance#configuring-the-development-server). For now it also does this for you since it's an understandable mistake and
 will result in a `TypeError`.
 
-### ✨ improve: clean up stack traces (#1773)
+### ✨ CLI: cleaner stack traces
 
 There should be less duplication of emitted errors, more meaningful stack traces, and highlighting of important
 parts of the error message.
 
-### ⚙️ internal: use `nodenext` to resolve node modules
+### ⚙️ use `nodenext` to resolve node modules
 
-We're using the `nodenext` tsc `module` setting. This enables top-level `await` for core bud,js packages 🥳.
+We're using the `nodenext` tsc `module` setting. This enables top-level `await` for core bud.js packages 🥳.
 
-### ⚙️ internal: @roots/bud-api is now fully type-safe
+### ⚙️ **@roots/bud-api** is now fully type-safe
 
 `strict` mode is enabled! We're beginning to implement runtime validation using [zod](https://zod.dev).
 
-### 🧪 test: migrate jest to vitest (#1850)
+### 🧪 migrate from jest to vitest (#1850)
 
 We switched from jest to vitest because of esm compatibility issues. It's pretty nice!
 Hopefully we'll be able to run unit tests on the CLI now.

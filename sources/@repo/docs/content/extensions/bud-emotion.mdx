@@ -5,28 +5,20 @@ sidebar_label: '@roots/bud-emotion'
 image: 'https://bud.js.org/img/share/extensions/bud-emotion.png'
 ---
 
-import Tabs from '@theme/Tabs'
-import TabItem from '@theme/TabItem'
 import CodeBlock from '@theme/CodeBlock'
 
 import {Install} from '@site/src/docs/Install'
 
-<blockquote>
-  <p>
-    Emotion is a library designed for writing css styles with JavaScript.
-    It provides powerful and predictable style composition in addition to a
-    great developer experience with features such as source maps, labels,
-    and testing utilities. Both string and object styles are supported.
-  </p>
-  <cite>
-    &mdash; <a href="https://emotion.sh">emotion.sh</a>
-  </cite>
-</blockquote>
-
-[👩‍🎤 Emotion](https://emotion.sh) support can be added by installing the [@roots/bud-emotion extension](/extensions/bud-emotion).
+[👩‍🎤 Emotion](https://emotion.sh) can be added by installing the **@roots/bud-emotion** extension.
 
 ## Installation
 
-[@roots/bud-emotion](/extensions/bud-emotion) requires [@roots/bud-babel](/extensions/bud-babel) and [@roots/bud-react](/extensions/bud-react) in order to function.
+**@roots/bud-emotion** requires being installed alongside either [babel](https://babeljs.io/) or [swc](https://swc.rs/).
 
-<Install packages="@roots/bud-emotion @roots/bud-react @roots/bud-babel" />
+With babel:
+
+<Install packages="@roots/bud-emotion @roots/bud-babel" />
+
+With swc:
+
+<Install packages="@roots/bud-emotion @roots/bud-swc" />
