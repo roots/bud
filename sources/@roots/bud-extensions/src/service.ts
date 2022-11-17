@@ -279,7 +279,7 @@ export default class Extensions
       return source as ApplyPlugin
     }
 
-    if (source instanceof Object && !isConstructor(source)) {
+    if (!isConstructor(source)) {
       return new Extension(this.app).fromObject(source)
     }
 
