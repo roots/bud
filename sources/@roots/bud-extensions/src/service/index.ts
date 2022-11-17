@@ -98,6 +98,7 @@ export default class Extensions
 
     if (manifest?.bud?.extensions) {
       const {discovery, allowlist, denylist} = manifest.bud.extensions
+
       if (!isUndefined(discovery)) this.options.set(`discovery`, discovery)
       if (!isUndefined(allowlist))
         this.options.merge(`allowlist`, allowlist)
@@ -107,6 +108,7 @@ export default class Extensions
     if (manifest?.[this.app.label]?.extensions) {
       const {discovery, allowlist, denylist} =
         manifest[this.app.label].extensions
+
       if (!isUndefined(discovery)) this.options.set(`discovery`, discovery)
       if (!isUndefined(allowlist))
         this.options.merge(`allowlist`, allowlist)
