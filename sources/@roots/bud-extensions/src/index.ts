@@ -12,6 +12,6 @@
 
 import './types.js'
 
-import Extensions from './service.js'
+import Extensions from './service/index.js'
 
 export default Extensions

@@ -1,14 +1,18 @@
+import '../types.js'
+
 import {factory} from '@repo/test-kit/bud'
-import type {WebpackPluginInstance} from '@roots/bud-support/webpack'
+import type {Bud} from '@roots/bud-framework/bud'
+import type {Modules} from '@roots/bud-framework'
+import type {ApplyPlugin} from '@roots/bud-framework/extension'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import Extensions from './index.js'
 
 describe(`@roots/bud-extensions`, () => {
-  let bud
-  let extensions
+  let bud: Bud
+  let extensions: Extensions
 
-  let mockWebpackPlugin: WebpackPluginInstance = {
+  let mockWebpackPlugin: ApplyPlugin = {
     apply: vi.fn(),
   }
 
@@ -39,7 +43,7 @@ describe(`@roots/bud-extensions`, () => {
 
     await extensions.add(mockModule)
 
-    const instance = extensions.get(`mock_extension`)
+    const instance = extensions.get(`mock_extension` as keyof Modules)
     expect(instance.label).toBe(`mock_extension`)
 
     expect(extensions.get(mockModule.label)?.options?.test).toEqual(
@@ -53,7 +57,7 @@ describe(`@roots/bud-extensions`, () => {
     await extensions.add(
       // @ts-ignore
       {
-        register: () => {
+        register: async () => {
           // noop
         },
       },

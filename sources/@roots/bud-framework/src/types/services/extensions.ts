@@ -1,3 +1,5 @@
+import type Container from '@roots/container'
+
 import type {Bud} from '../../bud.js'
 import type {
   ApplyPlugin,
@@ -29,13 +31,13 @@ export type LifecycleMethods =
  * @public
  */
 export interface Service extends BaseService {
-  unresolvable: Set<`${keyof Modules & string}`>
+  unresolvable: Set<string>
 
-  resolvedOptions: {
+  options: Container<{
     discovery: boolean
     allowlist: Array<string>
     denylist: Array<string>
-  }
+  }>
 
   repository: Modules
 

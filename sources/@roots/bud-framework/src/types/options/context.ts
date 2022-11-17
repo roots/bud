@@ -1,7 +1,6 @@
 import type {Readable, Writable} from 'node:stream'
 
 import type {Bud} from '../../bud.js'
-import type {Modules} from '../registry/modules.js'
 
 export interface BaseContext {
   label: string
@@ -71,9 +70,9 @@ export interface BaseContext {
     target: Array<string>
   }>
   config: Record<string, ConfigDescription>
-  extensions: {
-    builtIn: Partial<Array<keyof Modules & string>>
-    discovered: Partial<Array<keyof Modules & string>>
+  extensions?: {
+    builtIn?: Array<string>
+    discovered?: Array<string>
   }
   services: Array<string>
   env: Record<string, string | undefined>
