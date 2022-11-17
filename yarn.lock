@@ -6083,6 +6083,7 @@ __metadata:
     copy-webpack-plugin: 11.0.0
     html-webpack-plugin: 5.5.0
     mini-css-extract-plugin: 2.6.1
+    palette-webpack-plugin: 1.0.5
     webpack-manifest-plugin: 5.0.0
   peerDependencies:
     clean-webpack-plugin: "*"
@@ -13555,6 +13556,29 @@ __metadata:
   version: 1.0.1
   resolution: "cyclist@npm:1.0.1"
   checksum: 3cc2fdeb358599ca0ea96f5ecf2fc530ccab7ed1f8aa1a894aebfacd2009281bd7380cb9b30db02a18cdd00b3ed1d7ce81a3b11fe56e33a6a0fe4424dc592fbe
+  languageName: node
+  linkType: hard
+
+"d3-color@npm:1":
+  version: 1.4.1
+  resolution: "d3-color@npm:1.4.1"
+  checksum: a214b61458b5fcb7ad1a84faed0e02918037bab6be37f2d437bf0e2915cbd854d89fbf93754f17b0781c89e39d46704633d05a2bfae77e6209f0f4b140f9894b
+  languageName: node
+  linkType: hard
+
+"d3-color@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "d3-color@npm:2.0.0"
+  checksum: b887354aa383937abd04fbffed3e26e5d6a788472cd3737fb10735930e427763e69fe93398663bccf88c0b53ee3e638ac6fcf0c02226b00ed9e4327c2dfbf3dc
+  languageName: node
+  linkType: hard
+
+"d3-hsv@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "d3-hsv@npm:0.1.0"
+  dependencies:
+    d3-color: 1
+  checksum: ad7cdb9ae9cb6724506055f741bcf7e3dbe534d41a1cd4a8398e8b85b59ea865113456d4003f2aac06ff625e2ddc2626b086742e7141f5721dcc2a33d7c774e7
   languageName: node
   linkType: hard
 
@@ -24170,6 +24194,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"palette-webpack-plugin@npm:1.0.5":
+  version: 1.0.5
+  resolution: "palette-webpack-plugin@npm:1.0.5"
+  dependencies:
+    d3-color: ^2.0.0
+    d3-hsv: ^0.1.0
+    lodash: ^4.17.20
+    sass-export: ^2.1.0
+  peerDependencies:
+    webpack: ^4.0.0 || ^5.0.0
+  checksum: 85d6b4628fcf30506122c135003b6b29e76b981138f68e782c7fc879defedde5a0344ef0d39cc76355e75169cf940034f53d4bb91abfa00af580be4225c8f9ef
+  languageName: node
+  linkType: hard
+
 "papaparse@npm:^5.2.0":
   version: 5.3.1
   resolution: "papaparse@npm:5.3.1"
@@ -27902,6 +27940,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"sass-export@npm:^2.1.0":
+  version: 2.1.2
+  resolution: "sass-export@npm:2.1.2"
+  dependencies:
+    glob: ^7.1.6
+    minimist: ^1.2.5
+    sass: ^1.32.8
+  bin:
+    sass-export: bin/sass-export
+  checksum: cff2356a756eba19679a08c80cf69de613555d1a5e5b572b517f0197f340f67c3dce1dcdd89e6818d12246eff4d4f22098b19533a5334bcaa2bbf329e12ebdfe
+  languageName: node
+  linkType: hard
+
 "sass-loader@npm:^13.2.0":
   version: 13.2.0
   resolution: "sass-loader@npm:13.2.0"
@@ -27927,7 +27978,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass@npm:^1.56.1":
+"sass@npm:^1.32.8, sass@npm:^1.56.1":
   version: 1.56.1
   resolution: "sass@npm:1.56.1"
   dependencies:

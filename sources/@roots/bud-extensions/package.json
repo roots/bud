@@ -107,7 +107,8 @@
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.18.3"
+    "@types/node": "16.18.3",
+    "palette-webpack-plugin": "1.0.5"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",

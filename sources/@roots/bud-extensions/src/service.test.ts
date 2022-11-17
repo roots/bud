@@ -39,6 +39,9 @@ describe(`@roots/bud-extensions`, () => {
 
     await extensions.add(mockModule)
 
+    const instance = extensions.get(`mock_extension`)
+    expect(instance.label).toBe(`mock_extension`)
+
     expect(extensions.get(mockModule.label)?.options?.test).toEqual(
       mockModule.options.test,
     )
@@ -61,6 +64,30 @@ describe(`@roots/bud-extensions`, () => {
     )
   })
 
+  it(`should accept a plugin definition`, async () => {
+    extensions.repository = {} as any
+
+    const plugin = await import('palette-webpack-plugin')
+    await extensions.add(plugin.default)
+
+    expect(
+      Object.values(extensions.repository).sort().pop().constructor.name,
+    ).toBe(`PaletteWebpackPlugin`)
+  })
+
+  it(`should accept a plugin instance`, async () => {
+    extensions.repository = {} as any
+
+    const plugin = await import('palette-webpack-plugin')
+    // @ts-ignore
+    const instance = new plugin.default()
+    await extensions.add(instance)
+
+    expect(Object.values(extensions.repository).sort().pop()).toBe(
+      instance,
+    )
+  })
+
   it(`should assign a uuid to label for extensions without name`, async () => {
     extensions.repository = {} as Extensions[`repository`]
 
@@ -75,7 +102,7 @@ describe(`@roots/bud-extensions`, () => {
 
     expect(
       // @ts-ignore
-      Object.values(extensions.repository).sort().pop().label,
+      Object.keys(extensions.repository).sort().pop(),
     ).toMatch(
       /[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}/,
     )

@@ -53,7 +53,12 @@ describe(`use`, () => {
       options: {},
     })
     await use(`@roots/bud-babel`)
-    expect(bud.extensions.has(`@roots/bud-babel`))
+    expect(
+      bud.extensions.has(
+        // @ts-ignore
+        `@roots/bud-babel`,
+      ),
+    ).toBe(true)
   })
 
   it(`registers an inline extension`, async () => {
@@ -68,10 +73,12 @@ describe(`use`, () => {
       label: `css-minimizer-webpack-plugin`,
       options: {},
     })
+
     await use(
       // @ts-ignore
       {label: `inline-extension`},
     )
+
     expect(
       bud.extensions.has(
         // @ts-ignore
