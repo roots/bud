@@ -14,6 +14,7 @@ export default {
       `sources/@roots/*/test/*.test.tsx`,
       `sources/@roots/*/test/**/*.test.tsx`,
       `tests/unit/*.test.ts`,
+      `tests/reproductions/*.test.ts`,
     ],
   },
 }

@@ -6143,7 +6143,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@squoosh/lib": ^0.4.0
     "@types/node": 16.18.3
-    image-minimizer-webpack-plugin: ^3.8.0
+    image-minimizer-webpack-plugin: ^3.8.1
   peerDependencies:
     "@roots/bud": "*"
     "@squoosh/lib": "*"
@@ -7482,6 +7482,15 @@ __metadata:
   dependencies:
     "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-sass": "workspace:sources/@roots/bud-sass"
+  languageName: unknown
+  linkType: soft
+
+"@tests/issue-1886@workspace:tests/reproductions/issue-1886":
+  version: 0.0.0-use.local
+  resolution: "@tests/issue-1886@workspace:tests/reproductions/issue-1886"
+  dependencies:
+    "@roots/bud": "workspace:sources/@roots/bud"
+    "@roots/bud-imagemin": "workspace:sources/@roots/bud-imagemin"
   languageName: unknown
   linkType: soft
 
@@ -18866,9 +18875,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"image-minimizer-webpack-plugin@npm:^3.8.0":
-  version: 3.8.0
-  resolution: "image-minimizer-webpack-plugin@npm:3.8.0"
+"image-minimizer-webpack-plugin@npm:^3.8.1":
+  version: 3.8.1
+  resolution: "image-minimizer-webpack-plugin@npm:3.8.1"
   dependencies:
     schema-utils: ^4.0.0
     serialize-javascript: ^6.0.0
@@ -18883,7 +18892,7 @@ __metadata:
       optional: true
     svgo:
       optional: true
-  checksum: 5e533dd9e85fa9e9955cc979917ff830d014e3e84388499c16f996970cd4cf8d649582a50630dc653bec5c3437b31112d49e106838b0430280f28da0bc0b5373
+  checksum: 016099c76e57c2e3c6828eec939f58c4d9fdfc75231a9ad06030102b7974f52b88754d4640756d7b91f8fdcde33f778cdc5222f4344235951a02271cc7ca9f94
   languageName: node
   linkType: hard
 

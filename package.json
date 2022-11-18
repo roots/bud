@@ -22,7 +22,8 @@
       "sources/@repo/*",
       "sources/@roots/*/test/__fixtures__/*",
       "sources/@roots/*/src/__fixtures__/*",
-      "tests/util/project"
+      "tests/util/project",
+      "tests/reproductions/*"
     ]
   },
   "type": "module",

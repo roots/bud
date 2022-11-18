@@ -7,94 +7,128 @@ import {
 } from '@roots/bud-framework/extension/decorators'
 import ImageMinimizerPlugin, {
   Generator,
+  WorkerResult,
 } from 'image-minimizer-webpack-plugin'
+
+interface Minifier {
+  (
+    original: WorkerResult,
+    options: Record<string, any>,
+  ): Promise<WorkerResult | null>
+}
+interface EncoderOptions extends Map<string, any> {}
+
+type GeneratorMap = Map<string, Generator<any>>
+
+const encoders = {
+  mozjpeg: `jpg`,
+  oxipng: `png`,
+}
 
 @label(`@roots/bud-imagemin`)
 @expose(`imagemin`)
 export class BudImagemin extends Extension {
-  public _implementation = ImageMinimizerPlugin.squooshMinify
-  public get implementation() {
-    return this._implementation
+  protected _minifier: Minifier = ImageMinimizerPlugin.squooshMinify
+  protected _generators: GeneratorMap
+  protected _encodeOptions: EncoderOptions
+
+  public get minifier(): Minifier {
+    return this._minifier
   }
-  public set implementation(
-    implementation: typeof ImageMinimizerPlugin.squooshMinify,
-  ) {
-    this._implementation = implementation
-  }
-  @bind
-  public getImplementation(): typeof ImageMinimizerPlugin.squooshMinify {
-    return this.implementation
+  public set minifier(minifier: Minifier) {
+    this._minifier = minifier
   }
   @bind
-  public setImplementation(implementation): BudImagemin {
-    this.implementation = implementation
+  public getMinifier(): Minifier {
+    return this.minifier
+  }
+  @bind
+  public setMinifier(minifier: Minifier): this {
+    this.minifier = minifier
     return this
   }
 
-  public _generatorImplementation = ImageMinimizerPlugin.squooshGenerate
-  public get generatorImplementation() {
-    return this._generatorImplementation
+  public get generators(): GeneratorMap {
+    return this._generators
   }
-  public set generatorImplementation(generatorImplementation) {
-    this._generatorImplementation = generatorImplementation
+  public set generators(generators: GeneratorMap) {
+    this._generators = generators
   }
+
+  /**
+   * Get generator
+   *
+   * @param key - key of {@link GeneratorMap}
+   * @returns generator - {@link Generator}
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
-  public setGeneratorImplementation(generatorImplementation): BudImagemin {
-    this.generatorImplementation = generatorImplementation
+  public getGenerator(
+    key: `${keyof GeneratorMap & string}`,
+  ): Generator<any> {
+    return this.generators.get(key)
+  }
+  /**
+   * Set generator
+   *
+   * @param key - {@link string}
+   * @param generator - {@link Generator}
+   * @returns instance - {@link BudImagemin}
+   *
+   * @public
+   */
+  @bind
+  public setGenerator(
+    key: `${keyof GeneratorMap & string}`,
+    generator: Generator<any>,
+  ): this {
+    this.generators.set(key, generator)
     return this
   }
 
-  public _encodeOptions: Map<string, any> = new Map([
-    [`mozjpeg`, {}],
-    [`webp`, {}],
-    [`avif`, {}],
-    [`oxipng`, {}],
-  ])
-  public get encodeOptions() {
+  /**
+   * Get generators as an array
+   *
+   * @returns Array of {@link Generator}
+   * @public
+   */
+  @bind
+  public getGenerators(): Array<Generator<any>> {
+    return Array.from(this.generators.values())
+  }
+
+  public get encodeOptions(): EncoderOptions {
     return this._encodeOptions
   }
-  public set encodeOptions(options) {
+  public set encodeOptions(options: EncoderOptions) {
     this._encodeOptions = options
   }
   @bind
-  public setEncodeOptions(options): BudImagemin {
-    this.encodeOptions = options
+  public encode(key: string, value: any): this {
+    this.encodeOptions.set(encoders[key] ?? key, value)
     return this
   }
+
   @bind
-  public encode(key: string, value: any): BudImagemin {
-    key = [`jpeg`, `jpg`].includes(key)
-      ? `mozjpeg`
-      : key === `png`
-      ? `oxipng`
-      : key
-
-    this.encodeOptions.set(key, value)
-    return this
-  }
-
-  public _generator: Set<Generator<any>> = new Set([
-    {
-      preset: `webp`,
-      implementation: this.generatorImplementation,
-      options: {
-        encodeOptions: {
-          webp: this.encodeOptions.get(`webp`),
+  public override async register(bud: Bud) {
+    this.encodeOptions = new Map([
+      [`mozjpeg`, {}],
+      [`webp`, {quality: 100}],
+      [`avif`, {}],
+      [`oxipng`, {}],
+    ])
+    this.generators = new Map([
+      [
+        `webp`,
+        {
+          preset: `webp`,
+          implementation: ImageMinimizerPlugin.squooshGenerate,
+          options: undefined,
         },
-      },
-    },
-  ])
-
-  public get generator() {
-    return this._generator
-  }
-  public set generator(generator) {
-    this._generator = generator
-  }
-  @bind
-  public setGenerator(generator): BudImagemin {
-    this.generator = generator
-    return this
+      ],
+    ])
   }
 
   /**
@@ -106,12 +140,27 @@ export class BudImagemin extends Extension {
       ...(minimizer ?? []),
       new ImageMinimizerPlugin({
         minimizer: {
-          implementation: this.implementation,
+          implementation: this.minifier,
           options: {
             encodeOptions: Object.fromEntries(this.encodeOptions),
           },
         },
-        generator: Array.from(this.generator),
+        generator: this.getGenerators().map(generator => {
+          this.logger.log(`instantiating ${generator.preset} generator `)
+
+          return {
+            ...generator,
+            options: generator.options
+              ? generator.options
+              : {
+                  encodeOptions: {
+                    [generator.preset]: this.encodeOptions.get(
+                      generator.preset,
+                    ),
+                  },
+                },
+          }
+        }),
       }),
     ])
   }
