@@ -16,7 +16,7 @@ describe('issue-1886', () => {
   })
 
   it('should generate webp from png included in js source', async () => {
-    const webp = await readFile(
+    const image = await readFile(
       join(
         paths.tests,
         `reproductions`,
@@ -27,11 +27,40 @@ describe('issue-1886', () => {
       ),
       `utf-8`,
     )
-    expect(webp.length).toMatchInlineSnapshot('16695')
+    expect(image.length).toMatchInlineSnapshot('7307')
+  })
+  it('should generate jpg from png included in js source', async () => {
+    const image = await readFile(
+      join(
+        paths.tests,
+        `reproductions`,
+        `issue-1886`,
+        `dist`,
+        `images`,
+        `bud.jpg`,
+      ),
+      `utf-8`,
+    )
+    expect(image.length).toMatchInlineSnapshot('13008')
+  })
+
+  it('should generate webp@50 from png included in js source', async () => {
+    const image = await readFile(
+      join(
+        paths.tests,
+        `reproductions`,
+        `issue-1886`,
+        `dist`,
+        `images`,
+        `bud-50.webp`,
+      ),
+      `utf-8`,
+    )
+    expect(image.length).toMatchInlineSnapshot('6351')
   })
 
   it('should generate webp from png included in css source', async () => {
-    const webp = await readFile(
+    const image = await readFile(
       join(
         paths.tests,
         `reproductions`,
@@ -42,6 +71,6 @@ describe('issue-1886', () => {
       ),
       `utf-8`,
     )
-    expect(webp.length).toMatchInlineSnapshot('16695')
+    expect(image.length).toMatchInlineSnapshot('7307')
   })
 })

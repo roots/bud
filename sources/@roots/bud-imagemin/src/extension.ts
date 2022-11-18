@@ -81,13 +81,36 @@ export class BudImageminExtension extends Extension {
    */
   @bind
   public setGenerator(
-    key: `${keyof GeneratorMap & string}`,
-    generator: Generator<any>,
-  ): this {
-    this.generators.set(key, generator)
+    ...args:
+      | [string, string, Generator<any>['options']['encodeOptions']]
+      | [string, Generator<any>['options']['encodeOptions']]
+  ) {
+    if (args.length === 3) {
+      const [key, encoder, options] = args
+      this.generators.set(key, {
+        preset: key,
+        implementation: ImageMinimizerPlugin.squooshGenerate,
+        options: {
+          encodeOptions: {
+            [encoder]: options,
+          },
+        },
+      })
+      return this
+    }
+
+    const [key, options] = args
+    this.generators.set(key, {
+      preset: key,
+      implementation: ImageMinimizerPlugin.squooshGenerate,
+      options: {
+        encodeOptions: {
+          [key]: options,
+        },
+      },
+    })
     return this
   }
-
   /**
    * Get generators as an array
    *
@@ -95,8 +118,8 @@ export class BudImageminExtension extends Extension {
    * @public
    */
   @bind
-  public getGenerators(): Array<Generator<any>> {
-    return Array.from(this.generators.values())
+  public getGenerators(): Array<[string, Generator<any>]> {
+    return [...this.generators.entries()]
   }
 
   public get encodeOptions(): EncoderOptions {
@@ -119,16 +142,8 @@ export class BudImageminExtension extends Extension {
       [`avif`, {}],
       [`oxipng`, {}],
     ])
-    this.generators = new Map([
-      [
-        `webp`,
-        {
-          preset: `webp`,
-          implementation: ImageMinimizerPlugin.squooshGenerate,
-          options: undefined,
-        },
-      ],
-    ])
+    this.generators = new Map()
+    this.setGenerator(`webp`, {})
   }
 
   /**
@@ -145,21 +160,9 @@ export class BudImageminExtension extends Extension {
             encodeOptions: Object.fromEntries(this.encodeOptions),
           },
         },
-        generator: this.getGenerators().map(generator => {
-          this.logger.log(`instantiating ${generator.preset} generator `)
-
-          return {
-            ...generator,
-            options: generator.options
-              ? generator.options
-              : {
-                  encodeOptions: {
-                    [generator.preset]: this.encodeOptions.get(
-                      generator.preset,
-                    ),
-                  },
-                },
-          }
+        generator: this.getGenerators().map(([key, generator]) => {
+          this.logger.log(`instantiating ${key} generator `)
+          return generator
         }),
       }),
     ])
