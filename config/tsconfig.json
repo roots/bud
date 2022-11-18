@@ -29,6 +29,7 @@
   },
   "files": [],
   "references": [
+    {"path": "./../sources/@repo/markdown-kit/tsconfig.json"},
     {"path": "./../sources/@repo/test-kit/tsconfig.json"},
     {"path": "./../sources/@roots/bud/tsconfig.json"},
     {"path": "./../sources/@roots/bud-api/tsconfig.json"},

@@ -1,3 +1,1 @@
-export default async bud => {
-  bud.minimize()
-}
+export default async bud => bud.minimize()

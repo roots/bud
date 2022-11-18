@@ -12,5 +12,5 @@
 
 import './types.js'
 
-import {BudImagemin} from './extension.js'
-export default BudImagemin
+import {BudImageminExtension} from './extension.js'
+export default BudImageminExtension

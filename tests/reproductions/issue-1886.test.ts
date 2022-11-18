@@ -15,7 +15,7 @@ describe('issue-1886', () => {
     })
   })
 
-  it('should generate', async () => {
+  it('should generate webp from png included in js source', async () => {
     const webp = await readFile(
       join(
         paths.tests,
@@ -24,6 +24,21 @@ describe('issue-1886', () => {
         `dist`,
         `images`,
         `bud.webp`,
+      ),
+      `utf-8`,
+    )
+    expect(webp.length).toMatchInlineSnapshot('16695')
+  })
+
+  it('should generate webp from png included in css source', async () => {
+    const webp = await readFile(
+      join(
+        paths.tests,
+        `reproductions`,
+        `issue-1886`,
+        `dist`,
+        `images`,
+        `bud-css.webp`,
       ),
       `utf-8`,
     )

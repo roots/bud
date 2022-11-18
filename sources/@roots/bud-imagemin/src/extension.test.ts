@@ -1,9 +1,9 @@
 import {describe, expect, it} from 'vitest'
 
-import Extension from './index.js'
+import {BudImageminExtension} from './extension.js'
 
 describe(`@roots/bud-imagemin`, () => {
   it(`should be constructable`, () => {
-    expect(Extension).toBeInstanceOf(Function)
+    expect(BudImageminExtension).toBeInstanceOf(Function)
   })
 })

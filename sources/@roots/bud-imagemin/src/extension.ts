@@ -27,7 +27,7 @@ const encoders = {
 
 @label(`@roots/bud-imagemin`)
 @expose(`imagemin`)
-export class BudImagemin extends Extension {
+export class BudImageminExtension extends Extension {
   protected _minifier: Minifier = ImageMinimizerPlugin.squooshMinify
   protected _generators: GeneratorMap
   protected _encodeOptions: EncoderOptions
