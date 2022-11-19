@@ -6,7 +6,7 @@ import {
   usePluralForm,
 } from '@docusaurus/theme-common'
 import {translate} from '@docusaurus/Translate'
-import {Hero} from '@site/src/components/Hero'
+import {Hero} from '@site/src/components/hero'
 import BlogPostItems from '@theme/BlogPostItems'
 import Layout from '@theme/Layout'
 import SearchMetadata from '@theme/SearchMetadata'

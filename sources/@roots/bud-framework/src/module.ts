@@ -167,6 +167,7 @@ export class Module {
     } catch (err) {
       this.logger.info(
         chalk.dim(`${signifier} could not be imported (optional)`),
+        err,
       )
     }
   }

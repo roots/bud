@@ -5,7 +5,7 @@ import {describe, expect, it} from 'vitest'
 describe(`@roots/bud-sass`, () => {
   it(`should throw in production and not development`, async () => {
     try {
-      const dev = await execa(
+      await execa(
         `yarn`,
         [
           `workspace`,
@@ -18,7 +18,7 @@ describe(`@roots/bud-sass`, () => {
         ],
         {
           reject: false,
-          timeout: 30000,
+          timeout: 10000,
         },
       )
     } catch (e) {
