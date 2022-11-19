@@ -52,6 +52,7 @@ module.exports = {
     `sources/@repo/docs/content/dev/api`,
     `storage`,
     `tests/util`,
+    `tests/reproductions`,
   ],
   rules: {
     [`@typescript-eslint/explicit-member-accessibility`]: ERROR,

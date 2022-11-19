@@ -29,29 +29,19 @@
   "engines": {
     "node": ">=16"
   },
-  "bud": {
-    "type": "extension"
-  },
   "files": [
+    "docs/",
     "lib/"
   ],
   "type": "module",
-  "module": "./lib/index.js",
-  "types": "./lib/index.d.ts",
   "exports": {
-    ".": "./lib/index.js",
-    "./extension": "./lib/extension.js"
-  },
-  "typesVersions": {
-    "*": {
-      ".": [
-        "./lib/index.d.ts"
-      ],
-      "./extension": [
-        "./lib/extension.d.ts"
-      ]
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
     }
   },
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "devDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
     "@skypack/package-check": "0.2.2",
@@ -61,7 +51,7 @@
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@squoosh/lib": "^0.4.0",
-    "image-minimizer-webpack-plugin": "^3.8.0"
+    "image-minimizer-webpack-plugin": "^3.8.1"
   },
   "peerDependencies": {
     "@roots/bud": "*",

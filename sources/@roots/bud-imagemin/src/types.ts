@@ -1,13 +1,13 @@
 /// <reference path="../../bud/lib/index.d.ts" />
 
-import type {BudImagemin} from './extension.js'
+import type {BudImageminExtension} from './extension.js'
 
 declare module '@roots/bud-framework' {
   interface Bud {
-    imagemin: BudImagemin
+    imagemin: BudImageminExtension
   }
 
   interface Modules {
-    '@roots/bud-imagemin': BudImagemin
+    '@roots/bud-imagemin': BudImageminExtension
   }
 }

@@ -8,9 +8,15 @@ import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
 import {Install} from '@site/src/docs/Install'
 
-[@roots/bud-imagemin](/extensions/bud-imagemin) optimizes image filesizes.
+import SettingEncoderOptions from '@site/../../@roots/bud-imagemin/docs/01-setting-encoder-options.md'
+import UsingTheWebpPreset from '@site/../../@roots/bud-imagemin/docs/02-using-the-webp-preset.md'
+import Minimizers from '@site/../../@roots/bud-imagemin/docs/03-generators.md'
+import Generators from '@site/../../@roots/bud-imagemin/docs/04-minimizers.md'
 
-The extension uses [GoogleChromeLabs/squoosh](https://github.com/GoogleChromeLabs/squoosh) under the hood.
+[@roots/bud-imagemin](/extensions/bud-imagemin) optimizes image filesizes. It works with no configuration beyond installing it
+but also has a robust customization API.
+
+The extension uses [GoogleChromeLabs/squoosh](https://github.com/GoogleChromeLabs/squoosh).
 
 ## Installation
 
@@ -18,88 +24,20 @@ The extension uses [GoogleChromeLabs/squoosh](https://github.com/GoogleChromeLab
 
 ## Usage
 
-Once installed, all compatible assets will be run through the image minimizer. No further config is necessary.
+Once installed, all compatible assets will be run through the image minimizer. No further configuration is required.
 
-### Convert to `webp`
+## Setting encoder options
 
-You may convert an asset to `webp` format using the `?as=webp` url param:
+<SettingEncoderOptions />
 
-```css
-body {
-  background-image: url(./images/image.jpg?as=webp);
-}
-```
+## Using the webp preset
 
-```ts
-import Image from './images/image.jpg?as=webp'
-```
+<UsingTheWebpPreset />
 
-## Configuration
+## Minimizers
 
-Sans configuration, the image minimizer extension will apply the libSquoosh `'auto'` config.
+<Minimizers />
 
-### Encoder
+## Generators
 
-You can set options for an encoder with `imagemin.encode`:
-
-```ts
-export default async bud => {
-  bud.imagemin
-    /**
-     * Set encoder options:
-     * - 'jpg' will be interpolated to 'mozjpeg'
-     * - 'png' will be interpolated to 'oxipng'
-     */
-    .encode('jpg', {quality: 50})
-    .encode('png', {quality: 90})
-}
-```
-
-Available encoders:
-
-| encoder | extension       |
-| ------- | --------------- |
-| mozjpeg | `.jpeg`, `.jpg` |
-| webp    | `.webp`         |
-| avif    | `.avif`         |
-| jxl     | `.jxl`          |
-| wp2     | `.wp2`          |
-| oxipng  | `.oxipng`       |
-
-### setEncodeOptions
-
-You can fully override the encoder config using `imagemin.setEncodeOptions`.
-
-Options are expressed as a `Map`:
-
-```ts
-const options = new Map([
-  ['mozjpeg', {quality: 50}],
-  ['oxipng', 'auto'],
-  ['webp', {}],
-])
-
-export default async bud => {
-  bud.imagemin.setEncodeOptions(options)
-}
-```
-
-## Implementation
-
-You can replace libSquoosh with another implementation using `imagemin.setImplementation`:
-
-```ts
-export default async bud => {
-  bud.imagemin.setImplementation(MyImplementation)
-}
-```
-
-## Generator implementation
-
-You can replace the libSquoosh generator with another implementation using `imagemin.setGeneratorImplementation`:
-
-```ts
-export default async bud => {
-  bud.imagemin.setGeneratorImplementation(MyImplementation)
-}
-```
+<Generators />
