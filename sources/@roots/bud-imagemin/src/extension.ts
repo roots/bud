@@ -81,7 +81,7 @@ export class BudImageminExtension extends Extension {
    * @public
    */
   @bind
-  public setMinimizer(label: string, options: Minimizer) {
+  public setMinimizer(label: string, options: Minimizer): this {
     this.minimizers.set(label, {
       ...options,
       minimizer: {
@@ -115,7 +115,7 @@ export class BudImageminExtension extends Extension {
   @bind
   public configure<K extends `${keyof Minimizer & string}`>(
     ...args: ConfigureMinimizerByKeyArgs<K> | ConfigureMinimizerArgs
-  ) {
+  ): this {
     const [id, key, value] =
       args.length === 3 ? args : [args[0], `minimizer`, args[1]]
 
@@ -151,7 +151,10 @@ export class BudImageminExtension extends Extension {
    * @public
    */
   @bind
-  public setGenerator(label: string, generator?: Partial<Generator>) {
+  public setGenerator(
+    label: string,
+    generator?: Partial<Generator>,
+  ): this {
     this.generators.set(label, {
       preset: label,
       implementation: Plugin.squooshGenerate,
@@ -178,10 +181,10 @@ export class BudImageminExtension extends Extension {
    * @param options - encoder options
    */
   @bind
-  public encode(key: string, options: {}) {
+  public encode(key: string, options: {}): this {
     const [minimizer, encoder] = this.encoders.get(key)
 
-    return this.configure(minimizer, (minimizer: Minimizer) => ({
+    const transform = (minimizer: Minimizer): Minimizer => ({
       ...minimizer,
       options: {
         ...minimizer?.options,
@@ -190,17 +193,19 @@ export class BudImageminExtension extends Extension {
           [encoder]: options,
         },
       },
-    }))
+    })
+
+    return this.configure(minimizer, transform)
   }
 
   /**
-   * {@link Extension.register}
+   * {@link Extension.init}
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public override async register(_bud: Bud) {
+  public override async init(_bud: Bud): Promise<void> {
     this.minimizers = new Map()
     this.generators = new Map()
     this.encoders = new Map([
@@ -213,7 +218,16 @@ export class BudImageminExtension extends Extension {
       [`wp2`, [`squoosh`, `wp2`]],
       [`jxl`, [`squoosh`, `jxl`]],
     ])
+  }
 
+  /**
+   * {@link Extension.register}
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public override async register(_bud: Bud) {
     this.setMinimizer(`squoosh`, {
       minimizer: {
         implementation: Plugin.squooshMinify,
@@ -228,9 +242,7 @@ export class BudImageminExtension extends Extension {
           },
         },
       },
-    })
-
-    this.setGenerator(`webp`, {options: {encodeOptions: {webp: {}}}})
+    }).setGenerator(`webp`, {options: {encodeOptions: {webp: {}}}})
   }
 
   /**
