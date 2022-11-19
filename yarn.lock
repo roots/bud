@@ -7485,15 +7485,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@tests/issue-1886@workspace:tests/reproductions/issue-1886":
-  version: 0.0.0-use.local
-  resolution: "@tests/issue-1886@workspace:tests/reproductions/issue-1886"
-  dependencies:
-    "@roots/bud": "workspace:sources/@roots/bud"
-    "@roots/bud-imagemin": "workspace:sources/@roots/bud-imagemin"
-  languageName: unknown
-  linkType: soft
-
 "@tests/project@workspace:tests/util/project":
   version: 0.0.0-use.local
   resolution: "@tests/project@workspace:tests/util/project"
