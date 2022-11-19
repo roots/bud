@@ -1,19 +1,19 @@
 import {join} from 'node:path'
 import {paths} from '@repo/constants'
 import {execa} from 'execa'
-import {beforeEach, describe, expect, it} from 'vitest'
+import {beforeAll, describe, expect, it} from 'vitest'
 import {readFile} from 'fs-extra'
 
 describe('issue-1886', () => {
-  beforeEach(async () => {
-    await execa(`yarn`, [`clean`], {
+  beforeAll(async () => {
+    await execa(`yarn`, [`bud`, `clean`], {
       cwd: join(paths.tests, `reproductions`, `issue-1886`),
     })
 
-    await execa(`yarn`, [`build`, `--no-log`, `--debug`], {
+    await execa(`yarn`, [`bud`, `build`, `--no-log`, `--debug`], {
       cwd: join(paths.tests, `reproductions`, `issue-1886`),
     })
-  })
+  }, 30000)
 
   it('should generate webp from png included in js source', async () => {
     const image = await readFile(
@@ -29,6 +29,7 @@ describe('issue-1886', () => {
     )
     expect(image.length).toMatchInlineSnapshot('7307')
   })
+
   it('should generate jpg from png included in js source', async () => {
     const image = await readFile(
       join(
