@@ -53,13 +53,3 @@ export default async bud => {
   bud.imagemin.setEncoder(SomeEncoder)
 }
 ```
-
-## Generator
-
-You can replace the `libSquoosh` generator with another implementation using `imagemin.setGenerator`:
-
-```ts
-export default async bud => {
-  bud.imagemin.setGenerator(SomeGenerator)
-}
-```

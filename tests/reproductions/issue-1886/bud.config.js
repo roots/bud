@@ -2,5 +2,17 @@ export default async bud =>
   bud
     .entry('index.js')
     .minimize()
-    .imagemin.setGenerator(`jpg`, `mozjpeg`, {})
-    .setGenerator(`webp@50`, `webp`, {quality: 50, near_lossless: 50})
+    .imagemin.setGenerator(`jpg`, {
+      options: {
+        encodeOptions: {
+          mozjpeg: {quality: 75},
+        },
+      },
+    })
+    .setGenerator(`webp@50`, {
+      options: {
+        encodeOptions: {
+          webp: {quality: 50},
+        },
+      },
+    })

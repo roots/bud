@@ -73,7 +73,7 @@ export class BudImageminExtension extends Extension {
   /**
    * Set generator
    *
-   * @param key - {@link string}
+   * @param preset- {@link string}
    * @param generator - {@link Generator}
    * @returns instance - {@link BudImagemin}
    *
@@ -81,34 +81,15 @@ export class BudImageminExtension extends Extension {
    */
   @bind
   public setGenerator(
-    ...args:
-      | [string, string, Generator<any>['options']['encodeOptions']]
-      | [string, Generator<any>['options']['encodeOptions']]
+    preset: string,
+    generator?: Partial<Generator<any>>,
   ) {
-    if (args.length === 3) {
-      const [key, encoder, options] = args
-      this.generators.set(key, {
-        preset: key,
-        implementation: ImageMinimizerPlugin.squooshGenerate,
-        options: {
-          encodeOptions: {
-            [encoder]: options,
-          },
-        },
-      })
-      return this
-    }
-
-    const [key, options] = args
-    this.generators.set(key, {
-      preset: key,
+    this.generators.set(preset, {
+      preset,
       implementation: ImageMinimizerPlugin.squooshGenerate,
-      options: {
-        encodeOptions: {
-          [key]: options,
-        },
-      },
+      ...generator,
     })
+
     return this
   }
   /**
@@ -118,8 +99,8 @@ export class BudImageminExtension extends Extension {
    * @public
    */
   @bind
-  public getGenerators(): Array<[string, Generator<any>]> {
-    return [...this.generators.entries()]
+  public getGenerators(): Array<Generator<any>> {
+    return [...this.generators.values()]
   }
 
   public get encodeOptions(): EncoderOptions {
@@ -138,12 +119,14 @@ export class BudImageminExtension extends Extension {
   public override async register(bud: Bud) {
     this.encodeOptions = new Map([
       [`mozjpeg`, {}],
-      [`webp`, {quality: 100}],
+      [`webp`, {}],
       [`avif`, {}],
       [`oxipng`, {}],
+      [`wp2`, {}],
+      [`jxl`, {}],
     ])
     this.generators = new Map()
-    this.setGenerator(`webp`, {})
+    this.setGenerator(`webp`, {options: {encodeOptions: {webp: {}}}})
   }
 
   /**
@@ -160,10 +143,7 @@ export class BudImageminExtension extends Extension {
             encodeOptions: Object.fromEntries(this.encodeOptions),
           },
         },
-        generator: this.getGenerators().map(([key, generator]) => {
-          this.logger.log(`instantiating ${key} generator `)
-          return generator
-        }),
+        generator: this.getGenerators(),
       }),
     ])
   }
