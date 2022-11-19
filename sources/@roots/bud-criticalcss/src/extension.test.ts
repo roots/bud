@@ -4,13 +4,13 @@ import {join} from 'node:path'
 import {paths} from '@repo/constants'
 import * as fs from '@roots/bud-support/fs'
 import {execa} from 'execa'
-import {beforeEach, describe, expect, it} from 'vitest'
+import {beforeAll, describe, expect, it} from 'vitest'
 
 describe(`@roots/bud-criticalcss`, () => {
   describe(`extract`, () => {
-    beforeEach(async () => {
+    beforeAll(async () => {
       await runFixture(`extract`)
-    })
+    }, 30000)
 
     it(`should generate criticalcss`, async () => {
       expect(await readCritical(`extract`)).toMatchSnapshot()
@@ -22,9 +22,9 @@ describe(`@roots/bud-criticalcss`, () => {
   })
 
   describe(`no-extract`, () => {
-    beforeEach(async () => {
+    beforeAll(async () => {
       await runFixture(`no-extract`)
-    })
+    }, 30000)
 
     it(`should generate criticalcss`, async () => {
       expect(await readCritical(`no-extract`)).toMatchSnapshot()

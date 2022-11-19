@@ -32,71 +32,127 @@ npm install @roots/bud-imagemin --save-dev
 
 ## Usage
 
-### Configuration
+### Using The Webp Preset
 
-### Encoder
+You may convert an asset to `webp` format using the `?as=webp` url parameter.
 
-You can set options for an encoder with `bud.imagemin.encode`:
+It works in both styles and scripts:
 
-```ts
+```css title="app.css"
+body {
+  background-image: url(./images/image.jpg?as=webp);
+}
+```
+
+```typescript title="app.js"
+import image from "./images/image.jpg?as=webp";
+```
+
+This is an example of a generator, and you're able [to add additional ones if you'd like](#generators).
+
+### Minimizers
+
+**@roots/bud-imagemin** is a simple wrapper around the [webpack-contrib/image-minimizer-webpack-plugin](https://github.com/webpack-contrib/image-minimizer-webpack-plugin). Refer to their [documentation](https://github.com/webpack-contrib/image-minimizer-webpack-plugin) for more information on how these features are used.
+
+### Adding minimizers
+
+You can add support for other minimizers beyond the included default using **bud.imagemin.setMinimizer**.
+
+```typescript title="bud.config.mjs"
+import MinimizerFunction from "minimizer-lib";
+
 export default async (bud) => {
-  bud.imagemin
-    /**
-     * Set encoder options:
-     * - 'jpg' will be interpolated to 'mozjpeg'
-     * - 'png' will be interpolated to 'oxipng'
-     */
-    .encode("jpg", { quality: 50 })
-    .encode("png", { quality: 90 });
+  bud.imagemin.setMinimizer(`minimizer-lib`, {
+    minimizer: {
+      implementation: MinimizerFunction,
+      options: {
+        encodeOptions: {},
+      },
+    },
+  });
 };
 ```
 
-Available encoders:
+### Modifying minimizers
 
-| encoder | extension |
-| ------- | --------- |
-| mozjpeg | `.jpg`    |
-| webp    | `.webp`   |
-| avif    | `.avif`   |
-| jxl     | `.jxl`    |
-| wp2     | `.wp2`    |
-| oxipng  | `.png`    |
+You can use **bud.imagemin.configure** to customize the options for a minimizer that already exists.
 
-### setEncodeOptions
-
-You can fully override the encoder config using `bud.imagemin.setEncodeOptions`.
-
-Options are expressed as a `Map`:
-
-```ts
-const options = new Map([
-  ["mozjpeg", { quality: 50 }],
-  ["oxipng", "auto"],
-  ["webp", {}],
-]);
-
+```typescript title="bud.config.mjs"
 export default async (bud) => {
-  bud.imagemin.setEncodeOptions(options);
+  bud.imagemin.configure(`squoosh`, {
+    options: {
+      encodeOptions: {},
+    },
+  });
 };
 ```
 
-## Implementation
+It also accepts a callback function.
 
-You can replace `libSquoosh` with another implementation using `bud.imagemin.setEncoder`:
+```typescript title="bud.config.mjs"
+export default async bud => {
+  bud.imagemin.configure(`squoosh`, config => ({
+    ...config,
+    options: {...config.options,
+      encodeOptions: {
+        mozjpeg: {quality: 50},
+      },
+    },
+  })
+}
+```
 
-```ts
+If needed, you may call **bud.imagemin.configure** with three parameters to modify other options.
+
+```typescript title="bud.config.mjs"
 export default async (bud) => {
-  bud.imagemin.setEncoder(SomeEncoder);
+  const minimizer = `squoosh`;
+  const optionKey = `include`;
+  const value = /\/includes/;
+
+  bud.imagemin.configure(minimizer, optionKey, value);
 };
 ```
 
-## Generator
+In this case, a callback is also supported in the third parameter.
 
-You can replace the `libSquoosh` generator with another implementation using `imagemin.setGenerator`:
+### Operating on minimizers directly
 
-```ts
+You may access the minimizer map directly using **bud.imagemin.minimizers**
+
+```typescript title="bud.config.mjs"
 export default async (bud) => {
-  bud.imagemin.setGenerator(SomeGenerator);
+  bud.imagemin.minimizers.clear();
+};
+```
+
+### Generators
+
+### Adding generators
+
+You may add additional generators using `bud.imagemin.setGenerator`.
+
+For example, this custom generator will convert an asset to `png` at 80% quality.
+
+```typescript title="bud.config.mjs"
+export default async (bud) => {
+  const encodeOptions = { oxipng: { quality: 80 } };
+
+  bud.imagemin.setGenerator(`png`, {
+    options: { encodeOptions },
+  });
+};
+```
+
+Once set, it can be called using `?as=png` from application scripts and styles.
+
+### Operating on generators directly
+
+You may access the generator map directly using **bud.imagemin.generators**
+
+```typescript title="bud.config.mjs"
+export default async (bud) => {
+  bud.imagemin.generators.clear();
 };
 ```
 
