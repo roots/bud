@@ -116,28 +116,15 @@ export class BudImageminExtension extends Extension {
   public configure<K extends `${keyof Minimizer & string}`>(
     ...args: ConfigureMinimizerByKeyArgs<K> | ConfigureMinimizerArgs
   ) {
-    if (args.length === 3) {
-      const [id, key, value] = args
-      const current = this.getMinimizer(id)
+    const [id, key, value] =
+      args.length === 3 ? args : [args[0], `minimizer`, args[1]]
 
-      this.setMinimizer(id, {
-        ...current,
-        [key]: typeof value === `function` ? value(current[key]) : value,
-      })
-
-      return this
-    }
-
-    const [id, value] = args
     const current = this.getMinimizer(id)
 
-    this.setMinimizer(id, {
-      ...current,
-      minimizer:
-        typeof value === `function` ? value(current.minimizer) : value,
+    return this.setMinimizer(id, {
+      ...(current ?? {}),
+      [key]: typeof value === `function` ? value(current[key]) : value,
     })
-
-    return this
   }
 
   /**
@@ -194,7 +181,7 @@ export class BudImageminExtension extends Extension {
   public encode(key: string, options: {}) {
     const [minimizer, encoder] = this.encoders.get(key)
 
-    this.configure(minimizer, minimizer => ({
+    return this.configure(minimizer, (minimizer: Minimizer) => ({
       ...minimizer,
       options: {
         ...minimizer?.options,

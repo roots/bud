@@ -152,7 +152,7 @@ describe(`@roots/bud-imagemin`, () => {
     )
   })
 
-  it(`should set minimizer encoder options when encode fn is called`, async () => {
+  it(`should set minimizer encodeOptions when encode fn is called`, async () => {
     await bud.extensions.add(BudImageminExtension)
 
     bud.imagemin.encode(`jpg`, {test: `case`})
