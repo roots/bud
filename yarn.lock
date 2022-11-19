@@ -6143,7 +6143,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@squoosh/lib": ^0.4.0
     "@types/node": 16.18.3
-    image-minimizer-webpack-plugin: ^3.8.1
+    image-minimizer-webpack-plugin: ^3.8.0
   peerDependencies:
     "@roots/bud": "*"
     "@squoosh/lib": "*"
@@ -18866,7 +18866,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"image-minimizer-webpack-plugin@npm:^3.8.1":
+"image-minimizer-webpack-plugin@npm:^3.8.0":
   version: 3.8.1
   resolution: "image-minimizer-webpack-plugin@npm:3.8.1"
   dependencies:

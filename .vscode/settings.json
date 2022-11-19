@@ -37,6 +37,8 @@
   },
   "prettier.configPath": "config/prettier.config.cjs",
   "prettier.ignorePath": "config/.prettierignore",
+  "prettier.prettierPath": ".yarn/sdks/prettier",
+  "typescript.tsdk": ".yarn/sdks/typescript",
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "vitest.commandLine": "yarn @bud test unit "
 }
