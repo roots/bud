@@ -1,7 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
 
 import {isNamed, isNormalRecord, isPrimitive, isRecord} from './guards.js'
-import {handleFallthrough} from './handleFallthrough.js'
 import {handleNamed} from './handleNamed.js'
 import {handleNormalRecord} from './handleNormalRecord.js'
 import {handlePrimitive} from './handlePrimitive.js'
@@ -72,14 +71,36 @@ export interface entry {
  * @public
  */
 export const entry: entry = async function (this: Bud, ...input) {
-  if (isPrimitive(input)) {
-    return await handlePrimitive(this, input)
-  }
-
   if (isNamed(input)) {
     return await handleNamed(this, input)
   }
 
+  if (isPrimitive(input)) {
+    return await handlePrimitive(this, input)
+  }
+
+  const [records] = input
+
+  await Promise.all(
+    Object.entries(records).map(async ([ident, value]) => {
+      try {
+        await processEntry.bind(this)({[ident]: value})
+      } catch (e) {
+        this.api.logger.error(
+          `There was an error processing the ${ident} entrypoint`,
+          e,
+        )
+      }
+    }),
+  )
+
+  return this
+}
+
+/**
+ * Process an entrypoint
+ */
+const processEntry = async function (this: Bud, ...input: Parameters) {
   if (isNormalRecord(input)) {
     return await handleNormalRecord(this, input)
   }
@@ -87,6 +108,4 @@ export const entry: entry = async function (this: Bud, ...input) {
   if (isRecord(input)) {
     return await handleSimpleRecord(this, input)
   }
-
-  return await handleFallthrough(this, input)
 }

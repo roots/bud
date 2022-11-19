@@ -20063,6 +20063,14 @@ __metadata:
   languageName: node
   linkType: hard
 
+"issue-1890@workspace:tests/reproductions/issue-1890":
+  version: 0.0.0-use.local
+  resolution: "issue-1890@workspace:tests/reproductions/issue-1890"
+  dependencies:
+    "@roots/bud": "workspace:sources/@roots/bud"
+  languageName: unknown
+  linkType: soft
+
 "istanbul-lib-coverage@npm:^3.0.0, istanbul-lib-coverage@npm:^3.2.0":
   version: 3.2.0
   resolution: "istanbul-lib-coverage@npm:3.2.0"

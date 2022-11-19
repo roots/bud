@@ -76,5 +76,6 @@ export const parameters = z.union([
     invalid_type_error: `invalid entrypoint.${docs}`,
   }),
   entrypointsRecord,
+  inputRecord,
   importItem.or(importArray),
 ])

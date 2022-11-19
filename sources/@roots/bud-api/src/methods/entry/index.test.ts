@@ -86,4 +86,51 @@ describe(`bud.entry`, function () {
       }),
     )
   })
+
+  it(`should accept a mixed type`, async () => {
+    const onSpy = vi.spyOn(bud.hooks, `on`)
+
+    await entry({
+      primitiveString: `primitiveString.js`,
+      primitiveArray: [`primitiveArray1.js`, `primitiveArray2.js`],
+      normalRecord: {
+        import: [`normalRecordImport1.js`, `normalRecordImport2.js`],
+        dependsOn: [`primitiveString`],
+      },
+    })
+
+    expect(onSpy).toHaveBeenNthCalledWith(
+      1,
+      `build.entry`,
+      expect.objectContaining({
+        primitiveString: {import: [`primitiveString.js`]},
+      }),
+    )
+
+    expect(onSpy).toHaveBeenNthCalledWith(
+      2,
+      `build.entry`,
+      expect.objectContaining({
+        primitiveString: {import: [`primitiveString.js`]},
+        primitiveArray: {
+          import: [`primitiveArray1.js`, `primitiveArray2.js`],
+        },
+      }),
+    )
+
+    expect(onSpy).toHaveBeenNthCalledWith(
+      3,
+      `build.entry`,
+      expect.objectContaining({
+        primitiveString: {import: [`primitiveString.js`]},
+        primitiveArray: {
+          import: [`primitiveArray1.js`, `primitiveArray2.js`],
+        },
+        normalRecord: {
+          import: [`normalRecordImport1.js`, `normalRecordImport2.js`],
+          dependsOn: [`primitiveString`],
+        },
+      }),
+    )
+  })
 })
