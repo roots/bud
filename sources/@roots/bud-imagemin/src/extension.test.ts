@@ -151,4 +151,15 @@ describe(`@roots/bud-imagemin`, () => {
       expect.any(Function),
     )
   })
+
+  it(`should set minimizer encoder options when encode fn is called`, async () => {
+    await bud.extensions.add(BudImageminExtension)
+
+    bud.imagemin.encode(`jpg`, {test: `case`})
+
+    expect(
+      bud.imagemin.minimizers.get(`squoosh`).minimizer.options
+        .encodeOptions.mozjpeg,
+    ).toEqual(expect.objectContaining({test: `case`}))
+  })
 })

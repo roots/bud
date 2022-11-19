@@ -5,12 +5,6 @@ export default async app => {
   app
     .entry(`app`, `app.js`)
     .minimize()
-    .imagemin.configure(`squoosh`, {
-      options: {
-        encodeOptions: {
-          mozjpeg: {quality: 75},
-          oxipng: {quality: 100},
-        },
-      },
-    })
+    .encode(`jpg`, {quality: 75})
+    .encode(`oxipng`, {quality: 100})
 }

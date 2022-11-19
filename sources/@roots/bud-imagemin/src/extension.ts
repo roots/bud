@@ -10,7 +10,9 @@ import Plugin, {
 } from 'image-minimizer-webpack-plugin'
 
 type Generator = ImageminGenerator<any>
-type Minimizer = Plugin.PluginOptions<any, any>
+type Minimizer = {
+  [key: string]: any
+}
 type MinimizerMap = Map<string, Minimizer>
 type GeneratorMap = Map<string, Generator>
 type MutateMinimizerOptions<K extends `${keyof Minimizer & string}`> = (
@@ -35,6 +37,13 @@ type ConfigureMinimizerByKeyArgs<K extends `${keyof Minimizer & string}`> =
 @label(`@roots/bud-imagemin`)
 @expose(`imagemin`)
 export class BudImageminExtension extends Extension {
+  /**
+   * Encoders
+   *
+   * @public
+   */
+  public encoders: Map<string, [string, string]>
+
   /**
    * Minimizers
    *
@@ -144,6 +153,7 @@ export class BudImageminExtension extends Extension {
   public getGenerator(key: string): Generator {
     return this.generators.get(key)
   }
+
   /**
    * Set generator
    *
@@ -175,6 +185,28 @@ export class BudImageminExtension extends Extension {
   }
 
   /**
+   * Encode
+   *
+   * @param key - encoder key
+   * @param options - encoder options
+   */
+  @bind
+  public encode(key: string, options: {}) {
+    const [minimizer, encoder] = this.encoders.get(key)
+
+    this.configure(minimizer, minimizer => ({
+      ...minimizer,
+      options: {
+        ...minimizer?.options,
+        encodeOptions: {
+          ...minimizer?.options?.encodeOptions,
+          [encoder]: options,
+        },
+      },
+    }))
+  }
+
+  /**
    * {@link Extension.register}
    *
    * @public
@@ -184,6 +216,16 @@ export class BudImageminExtension extends Extension {
   public override async register(_bud: Bud) {
     this.minimizers = new Map()
     this.generators = new Map()
+    this.encoders = new Map([
+      [`jpg`, [`squoosh`, `mozjpeg`]],
+      [`jpeg`, [`squoosh`, `mozjpeg`]],
+      [`mozjpeg`, [`squoosh`, `mozjpeg`]],
+      [`avif`, [`squoosh`, `avif`]],
+      [`png`, [`squoosh`, `oxipng`]],
+      [`oxipng`, [`squoosh`, `oxipng`]],
+      [`wp2`, [`squoosh`, `wp2`]],
+      [`jxl`, [`squoosh`, `jxl`]],
+    ])
 
     this.setMinimizer(`squoosh`, {
       minimizer: {
