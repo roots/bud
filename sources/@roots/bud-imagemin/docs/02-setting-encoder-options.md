@@ -1,6 +1,4 @@
-**@roots/bud-imagemin** works out of the box with no configuration. However, you may wish to customize the encoder settings.
-
-This is done with the **bud.imagemin.encode** method.
+You may wish to customize the encoder settings. This is done with [bud.imagemin.encode](https://bud.js.org/extensions/bud-imagemin/encode).
 
 ```typescript title="bud.config.mjs"
 export default async bud => {
@@ -8,7 +6,7 @@ export default async bud => {
 }
 ```
 
-Some of the squoosh encoders have a name that does not match the filetype. For example, the `mozjpeg` encoder is used to encode `jpg` files.
+Some of the default squoosh encoders have a name that does not match the filetype. For example, the `mozjpeg` encoder is used to encode `jpg` files.
 
 When setting the encoder options the function will automatically map filetypes to the encoder name for you.
 
@@ -24,4 +22,4 @@ export default async bud => {
 }
 ```
 
-This allows the [bud.imagemin.encode](#setting-encoder-options) method to work with the new minimizer.
+This allows [bud.imagemin.encode](https://bud.js.org/extensions/bud-imagemin/encode) to work with the new minimizer.

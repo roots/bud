@@ -5,25 +5,16 @@ import {
   expose,
   label,
 } from '@roots/bud-framework/extension/decorators'
-import Plugin, {
-  Generator as ImageminGenerator,
-} from 'image-minimizer-webpack-plugin'
+import Plugin from 'image-minimizer-webpack-plugin'
 
-type Generator = ImageminGenerator<any>
-type Minimizer = {
-  [key: string]: any
-}
-type MinimizerMap = Map<string, Minimizer>
-type GeneratorMap = Map<string, Generator>
-type MutateMinimizerOptions<K extends `${keyof Minimizer & string}`> = (
-  minimizer: Minimizer[K],
-) => Minimizer[K]
-type ConfigureMinimizerArgs = [
-  string,
-  Partial<MutateMinimizerOptions<`minimizer`>>,
-]
-type ConfigureMinimizerByKeyArgs<K extends `${keyof Minimizer & string}`> =
-  [string, K, Minimizer[K] | Partial<MutateMinimizerOptions<K>>]
+import {configure} from './configure/configure.js'
+import {encode} from './encode/encode.js'
+import type {
+  Generator,
+  GeneratorMap,
+  Minimizer,
+  MinimizerMap,
+} from './index.js'
 
 /**
  * `@roots/bud-imagemin`
@@ -56,6 +47,16 @@ export class BudImageminExtension extends Extension {
    * @public
    */
   public generators: GeneratorMap
+
+  /**
+   * Configure
+   */
+  public configure: configure = configure
+
+  /**
+   * Encode
+   */
+  public encode: encode = encode
 
   /**
    * Get minimizer
@@ -102,29 +103,6 @@ export class BudImageminExtension extends Extension {
   @bind
   public getMinimizers(): Array<Minimizer> {
     return [...this.minimizers.values()]
-  }
-
-  /**
-   * Configure minimizer
-   *
-   * @see {@link https://bud.js.org/extensions/bud-imagemin}
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public configure<K extends `${keyof Minimizer & string}`>(
-    ...args: ConfigureMinimizerByKeyArgs<K> | ConfigureMinimizerArgs
-  ): this {
-    const [id, key, value] =
-      args.length === 3 ? args : [args[0], `minimizer`, args[1]]
-
-    const current = this.getMinimizer(id)
-
-    return this.setMinimizer(id, {
-      ...(current ?? {}),
-      [key]: typeof value === `function` ? value(current[key]) : value,
-    })
   }
 
   /**
@@ -175,30 +153,6 @@ export class BudImageminExtension extends Extension {
   }
 
   /**
-   * Encode
-   *
-   * @param key - encoder key
-   * @param options - encoder options
-   */
-  @bind
-  public encode(key: string, options: {}): this {
-    const [minimizer, encoder] = this.encoders.get(key)
-
-    const transform = (minimizer: Minimizer): Minimizer => ({
-      ...minimizer,
-      options: {
-        ...minimizer?.options,
-        encodeOptions: {
-          ...minimizer?.options?.encodeOptions,
-          [encoder]: options,
-        },
-      },
-    })
-
-    return this.configure(minimizer, transform)
-  }
-
-  /**
    * {@link Extension.init}
    *
    * @public
@@ -206,18 +160,13 @@ export class BudImageminExtension extends Extension {
    */
   @bind
   public override async init(_bud: Bud): Promise<void> {
+    this.configure = this.configure.bind(this)
+    this.encode = this.encode.bind(this)
+
     this.minimizers = new Map()
     this.generators = new Map()
-    this.encoders = new Map([
-      [`jpg`, [`squoosh`, `mozjpeg`]],
-      [`jpeg`, [`squoosh`, `mozjpeg`]],
-      [`mozjpeg`, [`squoosh`, `mozjpeg`]],
-      [`avif`, [`squoosh`, `avif`]],
-      [`png`, [`squoosh`, `oxipng`]],
-      [`oxipng`, [`squoosh`, `oxipng`]],
-      [`wp2`, [`squoosh`, `wp2`]],
-      [`jxl`, [`squoosh`, `jxl`]],
-    ])
+
+    this.encoders = new Map()
   }
 
   /**
@@ -228,21 +177,31 @@ export class BudImageminExtension extends Extension {
    */
   @bind
   public override async register(_bud: Bud) {
-    this.setMinimizer(`squoosh`, {
-      minimizer: {
-        implementation: Plugin.squooshMinify,
-        options: {
-          encodeOptions: {
-            mozjpeg: {},
-            webp: {},
-            avif: {},
-            oxipng: {},
-            wp2: {},
-            jxl: {},
-          },
-        },
-      },
-    }).setGenerator(`webp`, {options: {encodeOptions: {webp: {}}}})
+    this.encoders
+      .set(`jpg`, [`squoosh`, `mozjpeg`])
+      .set(`jpeg`, [`squoosh`, `mozjpeg`])
+      .set(`mozjpeg`, [`squoosh`, `mozjpeg`])
+      .set(`avif`, [`squoosh`, `avif`])
+      .set(`png`, [`squoosh`, `oxipng`])
+      .set(`oxipng`, [`squoosh`, `oxipng`])
+      .set(`wp2`, [`squoosh`, `wp2`])
+      .set(`jxl`, [`squoosh`, `jxl`])
+
+    this.configure(
+      `squoosh`,
+      `minimizer.implementation`,
+      () => Plugin.squooshMinify,
+    )
+    this.configure(`squoosh`, `minimizer.options.encodeOptions`, {
+      mozjpeg: {},
+      webp: {},
+      avif: {},
+      oxipng: {},
+      wp2: {},
+      jxl: {},
+    })
+
+    this.setGenerator(`webp`, {options: {encodeOptions: {webp: {}}}})
   }
 
   /**

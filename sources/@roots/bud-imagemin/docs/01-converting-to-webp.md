@@ -12,4 +12,4 @@ body {
 import image from './images/image.jpg?as=webp'
 ```
 
-This is an example of a generator, and you're able [to add additional ones if you'd like](#generators).
+You're able [to add additional generators](#generators) if you want to do the same thing with another filetype.
