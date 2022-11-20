@@ -10,11 +10,8 @@ For example, this custom generator will convert an asset to `png` at 80% quality
 
 ```typescript title="bud.config.mjs"
 export default async bud => {
-  const encodeOptions = {oxipng: {quality: 80}}
-
-  bud.imagemin.setGenerator(`png`, {
-    options: {encodeOptions},
-  })
+  const options = {oxipng: {quality: 80}}
+  bud.imagemin.setGenerator(`png`, options)
 }
 ```
 
