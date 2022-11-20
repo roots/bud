@@ -16,10 +16,9 @@ export async function handleNormalRecord(bud: Bud, input: Parameters) {
   }
 
   const current = bud.hooks.filter(`build.entry`, {})
-  bud.hooks.on(`build.entry`, {
-    ...current,
-    ...records.data,
-  })
+  const data = records.data
+
+  bud.hooks.on(`build.entry`, {...current, ...data})
 
   return bud
 }
