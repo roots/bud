@@ -1,7 +1,7 @@
 {
   "name": "@roots/wordpress-externals-webpack-plugin",
   "description": "Webpack plugin to register WordPress dependencies as externals",
-  "version": "0.0.0",
+  "version": "6.6.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
