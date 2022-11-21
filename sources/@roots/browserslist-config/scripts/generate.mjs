@@ -2,8 +2,8 @@ import {join} from 'node:path'
 
 // eslint-disable-next-line
 import {paths} from '@repo/constants'
-import {execa} from '@roots/bud-support/execa'
-import fs from '@roots/bud-support/fs-jetpack'
+import {execa} from 'execa'
+import fs from 'fs-jetpack'
 
 export const generate = async (filename, versions) => {
   const {stdout} = await execa(`yarn`, [

@@ -5981,6 +5981,8 @@ __metadata:
     "@skypack/package-check": 0.2.2
     browserslist: 4.21.4
     caniuse-lite: 1.0.30001434
+    execa: 6.1.0
+    fs-jetpack: 5.1.0
   languageName: unknown
   linkType: soft
 
