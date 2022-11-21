@@ -60,7 +60,7 @@
     "@types/babel__core": "7.1.20",
     "@types/node": "16.18.3",
     "@types/prettier": "2.7.1",
-    "eslint": "8.27.0",
+    "eslint": "8.28.0",
     "prettier": "2.7.1"
   },
   "dependencies": {
@@ -71,7 +71,7 @@
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-jsx-a11y": "^6.6.1",
     "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-react": "7.31.10",
+    "eslint-plugin-react": "7.31.11",
     "eslint-plugin-react-hooks": "4.6.0"
   },
   "volta": {
