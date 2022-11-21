@@ -19,6 +19,8 @@
     "@repo/constants": "workspace:sources/@repo/constants",
     "@repo/logger": "workspace:sources/@repo/logger",
     "@roots/bud": "workspace:sources/@roots/bud",
+    "@roots/bud-support": "workspace:sources/@roots/bud-support",
+    "dotenv": "16.0.3",
     "execa": "6.1.0",
     "fs-extra": "10.1.0",
     "globby": "13.1.2",
@@ -26,6 +28,7 @@
     "helpful-decorators": "2.1.0",
     "json5": "2.2.1",
     "lodash-es": "4.17.21",
+    "octokit": "2.0.10",
     "prettier": "2.7.1",
     "strip-ansi": "7.0.1",
     "typescript": "4.8.4"
