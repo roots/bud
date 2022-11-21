@@ -1,16 +1,29 @@
 ---
-slug: 6.6.0
-title: 6.6.0
+slug: "6.6.0"
+title: "6.6.0"
 description: Release notes for bud.js 6.6.0
-date: 2022-11-15
-author: Kelly Mears
-author_title: Lead developer
+date: 2022-11-15T19:06:33Z
+author: kellymears
+author_title: Developer
 author_url: https://github.com/kellymears
 author_image_url: https://avatars.githubusercontent.com/u/397606?v=4
-tags: [release, 6.6]
+tags:
+  - release
+  - 6
+  - 6.6
 ---
 
+<!--This file is generated-->
+
+Features, improvements and fixes. Strongly recommended for multi-compiler users.
+
 <!--truncate-->
+
+:::info Updates available
+
+There are patches available for [this release](https://bud.js.org/releases/tags/6-6). Please update to [6.6.1](https://bud.js.org/releases/6.6.1).
+
+:::
 
 ## 🚨 Breaking: [bud.entry](https://bud.js.org/docs/bud.entry) no longer parses files as globs
 
@@ -75,11 +88,9 @@ with reloaded modules when using multiple bud instances.
 
 Some notes:
 
-- Each instance now declares each previous instance as a dependency. This allows the [bud.runtime](https://bud.js.org/docs/bud.runtime) to work even when using
-  multiple instances.
+- Each instance now declares each previous instance as a dependency. This allows the [bud.runtime](https://bud.js.org/docs/bud.runtime) to work even when using multiple instances.
 - If you are using [bud.runtime](https://bud.js.org/docs/bud.runtime) you will need to make sure that you are specifying `single`.
-- If you want to modify the instance dependencies manually, you can use the (new) `build.dependencies` hook. Or, specify the dependencies in the `context` argument
-  passed to [bud.make](https://bud.js.org/docs/bud.make).
+- If you want to modify the instance dependencies manually, you can use the (new) `build.dependencies` hook. Or, specify the dependencies in the `context` argument passed to [bud.make](https://bud.js.org/docs/bud.make).
 - The [bud.make](https://bud.js.org/docs/bud.make) docs have been updated.
 
 Example of a custom `dependsOn` when setting up a child instance:
@@ -114,8 +125,7 @@ export default async bud => {
 }
 ```
 
-If you haven't tried [@roots/bud-swc](https://bud.js.org/extensions/bud-swc) you should consider it. This extension is no longer considered experimental. There is a strong
-case to be made for it replacing [@roots/bud-babel](https://bud.js.org/extensions/bud-babel) in [@roots/bud-preset-recommend](https://bud.js.org/extensions/bud-preset-recommend) for version 7 of bud.js.
+If you haven't tried [@roots/bud-swc](https://bud.js.org/extensions/bud-swc) you should consider it. This extension is no longer considered experimental. There is a strong case to be made for it replacing [@roots/bud-babel](https://bud.js.org/extensions/bud-babel) in [@roots/bud-preset-recommend](https://bud.js.org/extensions/bud-preset-recommend) for version 7 of bud.js.
 
 ## @roots/bud-emotion
 
@@ -137,8 +147,7 @@ Disable critical CSS extraction by calling `bud.critical.extract(false)`. This i
 
 This fix requires acorn v3 and you must set a public path. You can opt-in with `bud.sage.setAcornVersion('v3')`.
 
-With the acorn version set to `v3` assets should load when using the proxy directly in dev mode.
-You will still see 404 errors for the `/bud/hot` endpoint.
+With the acorn version set to `v3` assets should load when using the proxy directly in dev mode. You will still see 404 errors for the `/bud/hot` endpoint.
 
 ## Internal changes
 
@@ -154,8 +163,7 @@ You should now get useful, accurate intellisense and typechecking when [using th
 
 ### ✨ CLI: warn when using [bud.serve](https://bud.js.org/docs/bud.serve) in a child compiler
 
-It warns you to [move it to the parent context](https://bud.js.org/guides/general-use/multi-instance#configuring-the-development-server). For now it also does this for you since it's an understandable mistake and
-will result in a `TypeError`.
+It warns you to [move it to the parent context](https://bud.js.org/guides/general-use/multi-instance#configuring-the-development-server). For now it also does this for you since it's an understandable mistake and will result in a `TypeError`.
 
 ### ✨ CLI: cleaner stack traces
 

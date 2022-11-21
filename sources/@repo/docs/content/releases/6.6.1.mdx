@@ -1,0 +1,30 @@
+---
+slug: "6.6.1"
+title: "6.6.1"
+description: Release notes for bud.js 6.6.1
+date: 2022-11-17T14:27:51Z
+author: kellymears
+author_title: Developer
+author_url: https://github.com/kellymears
+author_image_url: https://avatars.githubusercontent.com/u/397606?v=4
+tags:
+  - release
+  - 6
+  - 6.6
+---
+
+<!--This file is generated-->
+
+- Fix(@roots/bud-extensions): direct use webpack plugins not being called
+
+<!--truncate-->
+
+:::info Updates available
+
+There are patches available for [this release](https://bud.js.org/releases/tags/6-6). Please update to [6.6.2](https://bud.js.org/releases/6.6.2).
+
+:::
+
+- Test: add unit test covering plugins added by signifier: `bud.extensions.add('some-webpack-plugin')`
+- Test: add unit test covering plugins added as instance: `bud.extensions.add(new SomeWebpackPlugin())`
+- Test: add unit test covering plugins added as simple object: `bud.extensions.add({apply: () => void 0})`
