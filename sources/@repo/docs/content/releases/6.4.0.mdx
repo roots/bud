@@ -1,18 +1,29 @@
 ---
-slug: 6.4.0
-title: 6.4.0
-description: '6.4 replaces `webpack-hot-middleware`, adds a slew of new cli features, and fixes more than a few bugs along the way.'
-date: 2022-09-15
-author: Kelly Mears
-author_title: Lead developer
+slug: "6.4.0"
+title: "6.4.0"
+description: Release notes for bud.js 6.4.0
+date: 2022-09-20T23:11:02Z
+author: kellymears
+author_title: Developer
 author_url: https://github.com/kellymears
 author_image_url: https://avatars.githubusercontent.com/u/397606?v=4
-tags: [release, 6.4]
+tags:
+  - release
+  - 6
+  - 6.4
 ---
 
-6.4 replaces `webpack-hot-middleware`, adds a slew of new cli features, and fixes more than a few bugs along the way.
+<!--This file is generated-->
+
+Lots of fixes, features, and performance improvements. As always, you can read enhanced release notes at [bud.js.org](https://bud.js.org/blog/6.4.0).
 
 <!--truncate-->
+
+:::info Updates available
+
+There are patches available for [this release](https://bud.js.org/releases/tags/6-4). Please update to [6.4.2](https://bud.js.org/releases/6.4.2).
+
+:::
 
 ## Client
 
@@ -73,7 +84,7 @@ bud.assets(
     {from: 'images', to: 'images'},
     {from: 'fonts', to: 'fonts'},
   ],
-  {context: bud.path('@assets')},
+  {context: app.path('@assets')},
 )
 ```
 
@@ -84,12 +95,12 @@ bud.assets([
   {
     from: 'images',
     to: 'images',
-    context: bud.path('@assets'),
+    context: app.path('@assets'),
   },
   {
     from: 'fonts',
     to: 'fonts',
-    context: bud.path(`assets`),
+    context: app.path(`assets`),
   },
 ])
 ```
@@ -278,10 +289,10 @@ bud.hooks.fromMap({
 
 ```ts
 bud.hooks.fromAsyncMap({
-  'build.plugins': async () => await bud.extensions.make(),
+  'build.plugins': async () => await app.extensions.make(),
   'build.resolve.modules': async () => [
-    bud.hooks.filter(`location.@src`),
-    bud.hooks.filter(`location.@modules`),
+    app.hooks.filter(`location.@src`),
+    app.hooks.filter(`location.@modules`),
   ],
 })
 ```

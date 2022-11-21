@@ -1,18 +1,29 @@
 ---
-slug: '6.4.3'
-title: '6.4.3'
-description: 'Release notes for bud.js 6.4.3'
-date: 2022-09-24
-author: Kelly Mears
-author_title: Lead developer
+slug: "6.4.3"
+title: "6.4.3"
+description: Release notes for bud.js 6.4.3
+date: 2022-09-24T04:52:45Z
+author: kellymears
+author_title: Developer
 author_url: https://github.com/kellymears
 author_image_url: https://avatars.githubusercontent.com/u/397606?v=4
-tags: [release, 6.4]
+tags:
+  - release
+  - 6
+  - 6.4
 ---
 
-A bugfix release for bud 6.4.
+<!--This file is generated-->
+
+Release notes are also [available on bud.js.org](https://bud.js.org/blog/6.4.3)
 
 <!--truncate-->
+
+:::info Updates available
+
+There are patches available for [this release](https://bud.js.org/releases/tags/6-4). Please update to [6.4.4](https://bud.js.org/releases/6.4.4).
+
+:::
 
 ## 🩹 fix: [@roots/sage](https://bud.js.org/extensions/sage) errors logged when not using tailwindcss
 
@@ -29,25 +40,25 @@ You can now easily use tailwind theme values in your app code by importing them 
 An example:
 
 ```ts
-import colors from '@tailwind/colors'
-import fontFamily from '@tailwind/fontFamily'
+import {black} from '@tailwind/colors'
+import {sans} from '@tailwind/fontFamily'
 
 export const main = () => {
-  document.body.style.backgroundColor = colors.black
-  document.body.style.fontFamily = fontFamily.sans
+  document.body.style.backgroundColor = black
+  document.body.style.fontFamily = sans
 }
 ```
 
 Generating the imports can be memory intensive and increase build times, so it is opt-in.
 
 ```ts
-bud.tailwind.generateImports()
+app.tailwind.generateImports()
 ```
 
 Better to generate imports only for specific keys (much less memory intensive):
 
 ```ts
-bud.tailwind.generateImports([`colors`, `fontFamily`])
+app.tailwind.generateImports([`colors`, `fontFamily`])
 ```
 
 This is a lot better than trying to import the actual `tailwind.config.js` file to read these values as the values are fully resolved (merged with `defaultTheme`, plugins applied, etc.)
@@ -55,9 +66,8 @@ This is a lot better than trying to import the actual `tailwind.config.js` file 
 And it's a lot better than importing `tailwindcss/resolveConfig` and doing it in the app code because of the transitive dependencies taken on by that import.
 
 It's also better than pre-compiling a static json file because these values are tree-shakeable. The entire generated json for the default tailwind config is ~100kb.
-The above example adds ~5kb to the overall bundle (and only because tailwind has so many default colors). If you use terser ([bud.minify](https://bud.js.org/docs/bud.minimize)) the difference is entirely negligible.
 
-If you don't import from `@tailwind/*` nothing is added to the bundle (even if the imports are generated)
+The above example adds ~5kb to the overall bundle (and only because tailwind has so many default colors). If you use terser ([bud.minify](https://bud.js.org/docs/bud.minimize)) the difference is entirely negligible.
 
 ## ℹ️ Release information
 

@@ -1,16 +1,29 @@
 ---
-slug: '6.3.3'
-title: 'Release: 6.3.3'
-description: 'Release notes for bud.js 6.3.3'
-date: 2022-07-18
-author: Kelly Mears
-author_title: Lead developer
+slug: "6.3.3"
+title: "6.3.3"
+description: Release notes for bud.js 6.3.3
+date: 2022-07-19T08:21:38Z
+author: kellymears
+author_title: Developer
 author_url: https://github.com/kellymears
 author_image_url: https://avatars.githubusercontent.com/u/397606?v=4
-tags: [release, 6.3]
+tags:
+  - release
+  - 6
+  - 6.3
 ---
 
+<!--This file is generated-->
+
+[Release notes also available on bud.js.org](https://bud.js.org/blog/6.3.3/).
+
 <!--truncate-->
+
+:::info Updates available
+
+There are patches available for [this release](https://bud.js.org/releases/tags/6-3). Please update to [6.3.4](https://bud.js.org/releases/6.3.4).
+
+:::
 
 ## 🩹 Fix: extensions api inconsistencies
 
@@ -71,8 +84,7 @@ bud.sass.registerGlobal([
 
 Resolved some inconsistencies between the function typings, documentation and implementation.
 
-You are now able to use an array of values for an alias.The first resolvable
-module found will be used, checking in the order of the supplied array.
+You are now able to use an array of values for an alias.The first resolvable module found will be used, checking in the order of the supplied array.
 
 Example:
 
@@ -98,8 +110,7 @@ For those who remember: this basically replaces `null-loader`.
 
 ## ✨ Improve: overlay and indicator web components
 
-The hmr status indicator and client overlay are now using the shadow dom to more or less fully separate
-their styles from page styles.
+The hmr status indicator and client overlay are now using the shadow dom to more or less fully separate their styles from page styles.
 
 All of the [@roots/bud-client](https://github.com/roots/bud/tree/main/sources/@roots/bud-client) scripts remain dependency free.
 

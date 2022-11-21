@@ -1,28 +1,33 @@
 ---
-slug: '6.3.0'
-title: 'Release: 6.3.0'
-description: 'Release notes for bud.js 6.3.0'
-date: 2022-07-01
-author: Kelly Mears
-author_title: Lead developer
+slug: "6.3.0"
+title: "6.3.0"
+description: Release notes for bud.js 6.3.0
+date: 2022-07-11T19:41:41Z
+author: kellymears
+author_title: Developer
 author_url: https://github.com/kellymears
 author_image_url: https://avatars.githubusercontent.com/u/397606?v=4
-tags: [release, 6.3]
+tags:
+  - release
+  - 6
+  - 6.3
 ---
 
-import CodeBlock from '@theme/CodeBlock'
+<!--This file is generated-->
+
+For a better reading experience, read on [bud.js.org](https://bud.js.org/blog/6.3.0).
 
 <!--truncate-->
+
+:::info Updates available
+
+There are patches available for [this release](https://bud.js.org/releases/tags/6-3). Please update to [6.3.2](https://bud.js.org/releases/6.3.2).
+
+:::
 
 ## ✨ Roots browserslist
 
 **@wordpress/browserslist-config** is licensed in a way that is not compatible with bud's overall licensing ideals. Accordingly, we're offering a drop-in replacement: **@roots/browserslist-config**.
-
-:::info sage
-
-Either covert your browserslist config to use **@roots/browserslist-config** or install **@wordpress/browserslist-config** as a dependency.
-
-:::
 
 There are three configurations available, pick the one most suited to your requirements:
 
@@ -34,10 +39,8 @@ There are three configurations available, pick the one most suited to your requi
 
 ## ✨ Simpler postcss config
 
-:::note
-
 <details>
-<summary>If you are addressing the default plugins by their handle you will need to update it</summary>
+<summary>🚨If you are addressing the default plugins by their handle you will need to update it</summary>
 
 - `postcss-import` becomes `import`
 - `postcss-nesting` becomes `nesting`
@@ -46,8 +49,6 @@ There are three configurations available, pick the one most suited to your requi
 [More information added to docs](https://bud.js.org/extensions/bud-postcss)
 
 </details>
-
-:::
 
 Essentially 100% of postcss users want three things from postcss: `@import`, nesting, and the arcane magic that is `postcss-preset-env`. Some want more, but none want less. And out of that 100%, pretty much 100% of them want the plugins in that order.
 
@@ -122,12 +123,6 @@ const makeConfetti = async () => {
 }
 ```
 
-:::info `lazy(import(`, really?
-
-`import` is statically analyzed so we can't ponyfill it. Even so, it's still less cumbersome. Not to mention the util is priced at $0.
-
-:::
-
 ### 🩹 @roots/bud-vue: scoped styles
 
 A small configuration issue in the @roots/bud-vue extension has been fixed and scoped stylesheets should no longer make total destroy.
@@ -154,7 +149,3 @@ In all seriousness we'll get more specific & explicit about this in the document
 it as "if you want to use dynamic imports", but it will be simplifying to just assume it is set.
 
 I think it is a reasonable requirement and certainly a common one. And, for what it's worth, I'm afraid to take the L train, too.
-
-## Release information
-
-For more information [review the diff to see what's changed](https://github.com/roots/bud/compare/v6.2.0...v6.3.0).

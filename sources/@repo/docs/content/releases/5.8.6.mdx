@@ -1,0 +1,35 @@
+---
+slug: "5.8.6"
+title: "5.8.6"
+description: Release notes for bud.js 5.8.6
+date: 2022-05-22T23:26:17Z
+author: kellymears
+author_title: Developer
+author_url: https://github.com/kellymears
+author_image_url: https://avatars.githubusercontent.com/u/397606?v=4
+tags:
+  - release
+  - 5
+  - 5.8
+---
+
+<!--This file is generated-->
+
+A couple minor fixes. Recommended for all users of 5.8.x.
+
+<!--truncate-->
+
+:::info Updates available
+
+There are patches available for [this release](https://bud.js.org/releases/tags/5-8). Please update to [5.8.7](https://bud.js.org/releases/5.8.7).
+
+:::
+
+1. Users of [@roots/sage](https://bud.js.org/extensions/sage) who are using [dynamic imports](https://bud.js.org/guides/general-use/dynamic-imports) can now use [`bud.setPublicPath`](https://bud.js.org/docs/bud.setPublicPath) without causing issues with acorn. It's also fine to continue setting the publicPath in the `entry` call.
+
+2. Fixes an issue with `bud.assets` that resulted in the hash not being applied to copied filenames.
+
+## Changes
+
+- [🛼 improve(patch): @roots/sage: allow for use of app.setPublicPath](https://github.com/roots/bud/pull/1423)
+- [🐛 fix(patch): include hash with bud.assets calls](https://github.com/roots/bud/pull/1424)

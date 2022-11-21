@@ -65,6 +65,8 @@ export class Docs extends Command {
   public async execute() {
     const all = !this.site && !this.readme
 
+    await this.$(`yarn workspace @repo/markdown-kit build`)
+
     /**
      * Build docs site cli examples
      */
@@ -73,6 +75,12 @@ export class Docs extends Command {
       await this.$(
         `yarn node ${repo.paths.sources}/@repo/markdown-kit/compiled/cli-examples/index.js`,
       )
+
+      try {
+        await this.$(
+          `yarn node ${repo.paths.sources}/@repo/markdown-kit/compiled/releases/index.js`,
+        )
+      } catch (error) {}
 
       /**
        * Build docs

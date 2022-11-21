@@ -1,61 +1,54 @@
 ---
-slug: '6.1.0'
-title: 'Release: 6.1.0'
-description: 'Release notes for bud.js 6.1.0'
-date: 2022-06-22
-author: Kelly Mears
-author_title: Lead developer
+slug: "6.1.0"
+title: "6.1.0"
+description: Release notes for bud.js 6.1.0
+date: 2022-06-28T09:18:38Z
+author: kellymears
+author_title: Developer
 author_url: https://github.com/kellymears
 author_image_url: https://avatars.githubusercontent.com/u/397606?v=4
-tags: [release, v6]
+tags:
+  - release
+  - 6
+  - 6.1
 ---
 
-import CodeBlock from '@theme/CodeBlock'
+<!--This file is generated-->
+
+For more information refer to the [the v6.1.0 release notes on bud.js.org](https://bud.js.org/blog/6.1.0).
 
 <!--truncate-->
 
-:::warning Sage
-
-This release requires usage of a public path for builds which are not served from web root.
-
-This is fixed in 6.3.0. But, you _should_ absolutely set a public path in your build, regardless.
-
-:::
 
 ## Fix: bud.assets
 
-This release makes some changes to [bud.assets](https://bud.js.org/docs/bud.assets) in response to feedback from the [roots/sage](https://github.com/roots/sage) team
-and members of the [Roots Discourse community](https://discourse.roots.io). Specifically, you will find that directories listed
-in the `bud.assets` call will have their structure preserved in the `@dist` directory.
+This release makes some changes to [bud.assets](https://bud.js.org/docs/bud.assets) in response to feedback from the [roots/sage](https://github.com/roots/sage) team and members of the [Roots Discourse community](https://discourse.roots.io). Specifically, you will find that directories listed in the `bud.assets` call will have their structure preserved in the `@dist` directory.
 
-:::danger Breaking
+### accounting for the path change
 
-bud.assets is no longer variadic. If you are specifying copy jobs using multiple parameters just wrap them in an array:
-
-```js title="bud.config.mjs"
-// from this
-bud.assets('images', 'fonts')
-// to this
-bud.assets(['images', 'fonts'])
-```
-
-:::
-
-:::danger Breaking
-
-After upgrading, it is possible that assets will be emitted to a different directory than you expect.
-Likely you are anticipating that copied files will be available in the root of `@dist` and are finding them now in a subdirectory.
+After upgrading, it is possible that assets will be emitted to a different directory than you expect. Likely you are anticipating that copied files will be available in the root of `@dist` and are finding them now in a subdirectory.
 
 You can specify the dist root as a target to compensate for the change:
 
 ```js title="bud.config.js"
 // from this (will copy from images dir to dist/images)
 bud.assets(['images'])
+
 // to this (will copy from images dir to dist)
 bud.assets([['images', './']])
 ```
 
-:::
+### bud.assets api change
+
+bud.assets is no longer variadic. If you are specifying copy jobs using multiple parameters just wrap them in an array:
+
+```js title="bud.config.mjs"
+// from this
+bud.assets('images', 'fonts')
+
+// to this
+bud.assets(['images', 'fonts'])
+```
 
 ## Feature: `bud.denylist`
 
@@ -64,7 +57,7 @@ They are also automatically utilized when marked as a dep of another extension.
 
 You can add a `bud.denylist` field to `package.json` to prevent certain extensions from being registered, regardless.
 
-```json title="package.json"
+```json
 {
   "bud": {
     "denylist": ["@roots/bud-criticalcss"]
@@ -72,17 +65,14 @@ You can add a `bud.denylist` field to `package.json` to prevent certain extensio
 }
 ```
 
-There is also a `bud.allowlist` to whitelist extensions. You shoud be aware that there are many internal extensions, and things may
-break if they are not available. If you run a build with the `--log` flag the tapped extensions will be summarized at the bottom, but it's
-probably better to use `bud.denylist`.
+There is also a `bud.allowlist` to whitelist extensions. You should be aware that there are many internal extensions, and things may break if they are not available. If you run a build with the `--log` flag the tapped extensions will be summarized at the bottom, but it's probably better to use `bud.denylist`.
 
 ## Improve: `@roots/bud-preset-recommend`
 
 ### Use `@roots/bud-esbuild` over `@roots/bud-babel` when possible
 
 The `@roots/bud-preset-recommend` extension will check to see if `@roots/bud-esbuild` is available before registering `@roots/bud-babel`.
-This didn't cause errors prior to 6.1.0, but it did have a cost in terms of build time for users of `@roots/bud-preset-recommend` who wanted
-to use `@roots/bud-esbuild` instead of `@roots/bud-typescript` and/or `@roots/bud-babel`.
+This didn't cause errors prior to 6.1.0, but it did have a cost in terms of build time for users of `@roots/bud-preset-recommend` who wanted to use `@roots/bud-esbuild` iorf `@roots/bud-typescript` instead of `@roots/bud-babel`.
 
 ## Improve: @roots/sage
 
@@ -92,7 +82,7 @@ A few changes here:
 
 The `domReady` named export of `@roots/sage/client` can now take an async callback:
 
-```js title="app.js"
+```js 
 import {domReady} from '@roots/sage/client'
 
 domReady(async () => {
@@ -102,47 +92,11 @@ domReady(async () => {
 
 ### New `theme.json` features
 
-In addition to the theme color palette, you can now generate font sizes and font families from `tailwind.config.js` using `bud.wpjson.useTailwindFontSize` and `bud.wpjson.useTailwindFontFamily`.
+⚠️ **If you were already using **bud.js** to generate `theme.json` for WordPress, you will need to update your call.**
 
-```js title="bud.config.mjs"
-bud.wpjson
-  .useTailwindColors()
-  .useTailwindFontSize()
-  .useTailwindFontFamily()
-  .enable()
-```
+All the methods are now housed under `bud.wpjson`. You must also call `bud.wpjson.enable` in order to actually emit the file.
 
-You can also modify fields which are not under the `settings` key using the standard extension API `setOptions`:
-
-```js title="bud.config.mjs"
-// callback
-bud.wpjson.setOptions(opts => ({
-  ...options,
-  customTemplates: [],
-}))
-
-// literal
-bud.wpjson.setOptions({
-  // using without a callback
-  // will fully override theme.json
-  ...bud.wpjson.getOptions(),
-})
-```
-
-`bud.wpjson.settings` can be used to change the `settings` prop granularly:
-
-```js title="bud.config.mjs"
-bud.wpjson.settings(theme => theme.set('custom', {}))
-```
-
-:::danger Breaking
-
-If you were already using **bud.js** to generate `theme.json` for WordPress, you will need to update your call.
-
-All the methods are now housed under `bud.wpjson`. You must also call `bud.wpjson.enable` in order to
-actually emit the file.
-
-```js title="bud.config.mjs"
+```js
 bud.wpjson
   .useTailwindColors()
   .settings(theme => {
@@ -151,7 +105,34 @@ bud.wpjson
   .enable()
 ```
 
-:::
+#### Use tailwind font sizes and families in `theme.json`
+
+In addition to the theme color palette, you can now generate font sizes and font families from `tailwind.config.js` using `bud.wpjson.useTailwindFontSize` and `bud.wpjson.useTailwindFontFamily`.
+
+```js title="bud.config.mjs"
+app.wpjson
+  .useTailwindColors()
+  .useTailwindFontSize()
+  .useTailwindFontFamily()
+  .enable()
+```
+
+You can also modify fields which are not under the `settings` key using the standard extension API's `setOptions` method:
+
+```js title="bud.config.mjs"
+// callback
+app.wpjson.setOptions(opts => ({
+  ...options,
+  customTemplates: [],
+}))
+
+// literal
+app.wpjson.setOptions({
+  // using without a callback
+  // will fully override theme.json
+  ...app.wpjson.options,
+})
+```
 
 [Check the updated @roots/sage docs](https://bud.js.org/extensions/sage) for additional usage guidance.
 
@@ -159,13 +140,9 @@ bud.wpjson
 
 The fix for this issue is pretty in the weeds but [you can read about it in #1492](https://github.com/roots/bud/pull/1492).
 
-Long story short: if you have a bud configuration file authored in TypeScript (.mts) and
-enable typechecking with `bud.typescript.typecheck.enable()`, everything should work as expected.
-
 ## Fix: `@roots/bud-eslint` incompatible with filesystem caching
 
-Previously users of `@roots/bud-eslint` needed to use `bud.persist('memory')` in order
-to guarantee linting worked as expected. This is no longer the case [thanks to #1492](https://github.com/roots/bud/pull/1492).
+Previously users of `@roots/bud-eslint` needed to use `bud.persist('memory')` in order to guarantee linting worked as expected. This is no longer the case [thanks to #1492](https://github.com/roots/bud/pull/1492).
 
 ## More information
 

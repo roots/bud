@@ -1,52 +1,43 @@
 ---
-slug: '5.7.0'
-title: 'Release: 5.7.0'
-description: 'Release notes for bud.js 5.7.0'
-date: 2022-03-25
-author: Kelly Mears
-author_title: Lead developer
+slug: "5.7.0"
+title: "5.7.0"
+description: Release notes for bud.js 5.7.0
+date: 2022-03-25T12:13:08Z
+author: kellymears
+author_title: Developer
 author_url: https://github.com/kellymears
 author_image_url: https://avatars.githubusercontent.com/u/397606?v=4
-tags: [release, v5]
+tags:
+  - release
+  - 5
+  - 5.7
 ---
 
-Client tooling improvements
+<!--This file is generated-->
+
+[Read the release post on bud.js.org for additional details](https://bud.js.org/blog/5.7.0)
 
 <!--truncate-->
 
-## New features and improvements
 
-### Client error overlay and build status indicators
+## 🛼 Improvements
 
-These can be toggled with the `--indicator` and `--overlay` flags.
+- improve: client dev scripts (#1293)
+- improve: bud.config (#1287)
 
-### Better .env support
+## 🩹 Fixes
 
-Env values are sourced from any `.env` files in the path. This is probably of particular note to
-wordpress developers: you can now reference values in bedrock's `.env` file using `bud.env`.
-
-Example:
-
-```ts
-bud.env.get('WP_HOME')
-```
-
-### Stickier proxy links
-
-The **bud.js** proxy server does a better job of keeping you "glued" to the development server when
-clicking links, submitting forms, etc.
-
-## Fixes
-
-- Fix: HMR fixes (we ended up forking `webpack-hot-middleware`)
-- Fix: **bud.alias** path resolution
-- Fix: stylelint configs for **@roots/bud-tailwindcss**
-- Fix: **@roots/bud-terser** config function
-- Fix: random port assigned when **bud.serve** is _not_ called
+- fix: remove rules section from bud-tailwindcss base stylelint config (#1239) props @alexdanylyschyn
+- fix: add scss stylelint rules for tailwindcss (#1288) props @joshuafredrickson
+- fix: indicator/hmr errors (#1248)
+- fix: bud.terser (#1285)
+- fix: babel root (#1284)
+- fix: bud.alias (#1283)
+- fix: error logging (#1290)
 
 ## Upgrade guide
 
-If you were using **bud.serve** to set SSL options, you'll need to update that call:
+If you were using **bud.serve** to set SSL options, you'll need to update that call as the function's API has changed slightly:
 
 ```ts
 bud.serve({
@@ -67,6 +58,7 @@ bud.serve('https://my-site.com', {
 
 You may pass any other node server options you want or need to using the second parameter.
 
-## More information
+## 👀 More information
 
+- [Read the release post](https://bud.js.org/blog/5.7.0)
 - [Review the diff to see what's changed](https://github.com/roots/bud/compare/v5.6.0...v5.7.0)

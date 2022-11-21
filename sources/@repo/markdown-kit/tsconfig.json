@@ -3,10 +3,25 @@
   "compilerOptions": {
     "outDir": "compiled",
     "module": "esnext",
-    "types": ["node"]
+    "types": [
+      "node"
+    ]
   },
-  "files": ["./types/index.d.ts"],
-  "include": ["./cli-examples", "./readme"],
-  "exclude": ["./compiled", "./node_modules"],
-  "references": []
+  "files": [
+    "./types/index.d.ts"
+  ],
+  "include": [
+    "./cli-examples",
+    "./readme",
+    "./releases",
+  ],
+  "exclude": [
+    "./compiled",
+    "./node_modules"
+  ],
+  "references": [
+    {
+      "path": "../../@roots/bud-support"
+    }
+  ]
 }
