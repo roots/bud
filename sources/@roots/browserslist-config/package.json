@@ -42,7 +42,13 @@
     "./current": "./current.cjs"
   },
   "devDependencies": {
-    "@skypack/package-check": "0.2.2"
+    "@repo/constants": "workspace:sources/@repo/constants",
+    "@roots/bud-support": "workspace:sources/@roots/bud-support",
+    "@skypack/package-check": "0.2.2",
+    "caniuse-lite": "1.0.30001434"
+  },
+  "dependencies": {
+    "browserslist": "4.21.4"
   },
   "volta": {
     "extends": "../../../package.json"

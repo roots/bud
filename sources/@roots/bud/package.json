@@ -122,8 +122,6 @@
     "@roots/bud-terser": "workspace:sources/@roots/bud-terser",
     "@roots/container": "workspace:sources/@roots/container",
     "@roots/dependencies": "workspace:sources/@roots/dependencies",
-    "browserslist": "4.21.4",
-    "caniuse-lite": "1.0.30001431",
     "dotenv": "16.0.3",
     "dotenv-expand": "9.0.0",
     "node-notifier": "10.0.1",
@@ -131,9 +129,7 @@
     "open-editor": "4.0.0"
   },
   "peerDependencies": {
-    "@roots/browserslist-config": "*",
-    "browserslist": "*",
-    "caniuse-lite": "*"
+    "@roots/browserslist-config": "*"
   },
   "peerDependenciesMeta": {
     "@roots/browserslist-config": {

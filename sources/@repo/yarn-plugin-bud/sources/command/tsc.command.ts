@@ -68,6 +68,9 @@ export class Tsc extends Command {
    * @public
    */
   public async execute() {
+    await this.$(
+      `yarn workspace @roots/browserslist-config exec node scripts/index.mjs`,
+    )
     await this.$(this.withPassthrough(`yarn tsc -b ${this.tsconfig}`))
   }
 }

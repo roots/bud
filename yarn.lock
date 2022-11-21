@@ -5977,7 +5977,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/browserslist-config@workspace:sources/@roots/browserslist-config"
   dependencies:
+    "@repo/constants": "workspace:sources/@repo/constants"
+    "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
+    browserslist: 4.21.4
+    caniuse-lite: 1.0.30001434
   languageName: unknown
   linkType: soft
 
@@ -6938,8 +6942,6 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/node": 16.18.3
     "@types/node-notifier": 8.0.2
-    browserslist: 4.21.4
-    caniuse-lite: 1.0.30001431
     dotenv: 16.0.3
     dotenv-expand: 9.0.0
     node-notifier: 10.0.1
@@ -6947,8 +6949,6 @@ __metadata:
     open-editor: 4.0.0
   peerDependencies:
     "@roots/browserslist-config": "*"
-    browserslist: "*"
-    caniuse-lite: "*"
   peerDependenciesMeta:
     "@roots/browserslist-config":
       optional: true
@@ -7672,6 +7672,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@tests/project@workspace:tests/util/project"
   dependencies:
+    "@repo/constants": "workspace:sources/@repo/constants"
     "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-swc": "workspace:sources/@roots/bud-swc"
     "@roots/bud-tailwindcss": "workspace:sources/@roots/bud-tailwindcss"
@@ -11976,10 +11977,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"caniuse-lite@npm:1.0.30001431":
-  version: 1.0.30001431
-  resolution: "caniuse-lite@npm:1.0.30001431"
-  checksum: bc8ab55cd194e240152946b54bfaff7456180cc018674fc7ed134f4f502192405f6643f422feaa0a5e7cc02b5bac564cfac7771ac6d29f5d129482fcfe335ba1
+"caniuse-lite@npm:1.0.30001434":
+  version: 1.0.30001434
+  resolution: "caniuse-lite@npm:1.0.30001434"
+  checksum: 7c9d2641e8e8f3ddf9af14c4ce47266a9d8fd1fc0243626049ff1b2eca4bf02938ff440813cc3feae3fa8d851ec8d1b9718044340c8d09bb4372d92d4f6b519c
   languageName: node
   linkType: hard
 
