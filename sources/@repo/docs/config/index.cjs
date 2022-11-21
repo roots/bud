@@ -53,13 +53,21 @@ module.exports = {
     [
       pluginBlog,
       {
+        blogTitle: `Releases`,
+        blogDescription: config.description,
+        blogSidebarTitle: `Recent releases`,
+        feedOptions: {
+          title: `${config.name} releases`,
+          description: config.description,
+        },
         id: `releases`,
-        path: docsPath(`content/releases`),
+        path: docsPath(`generated/releases`),
         remarkPlugins: [
           [require(`@docusaurus/remark-plugin-npm2yarn`), {sync: true}],
         ],
         routeBasePath: `releases`,
-        include: [`**/*.md`, `**/*.mdx`],
+        showReadingTime: true,
+        tagsBasePath: `tags`,
       },
     ],
     [
