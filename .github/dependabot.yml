@@ -5,7 +5,7 @@ updates:
     directory: /
     schedule:
       interval: daily
-      time: 09:00
+      time: '09:00'
     commit-message:
       prefix: '📦 deps'
       include: scope
@@ -17,7 +17,7 @@ updates:
     directory: /
     schedule:
       interval: daily
-      time: 09:00
+      time: '09:00'
     labels:
       - dependencies
     commit-message:
