@@ -73,7 +73,7 @@
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.18.3",
     "postcss": "8.4.19",
-    "stylelint": "14.14.1"
+    "stylelint": "14.15.0"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
