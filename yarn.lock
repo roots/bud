@@ -5979,10 +5979,18 @@ __metadata:
   dependencies:
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
-    browserslist: 4.21.4
-    caniuse-lite: 1.0.30001434
+    browserslist: latest
+    caniuse-lite: latest
     execa: 6.1.0
     fs-jetpack: 5.1.0
+  peerDependencies:
+    browserslist: "*"
+    caniuse-lite: "*"
+  peerDependenciesMeta:
+    browserslist:
+      optional: true
+    caniuse-lite:
+      optional: true
   languageName: unknown
   linkType: soft
 
@@ -11580,7 +11588,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"browserslist@npm:4.21.4, browserslist@npm:^4.0.0, browserslist@npm:^4.14.5, browserslist@npm:^4.16.6, browserslist@npm:^4.18.1, browserslist@npm:^4.20.3, browserslist@npm:^4.21.3, browserslist@npm:^4.21.4":
+"browserslist@npm:^4.0.0, browserslist@npm:^4.14.5, browserslist@npm:^4.16.6, browserslist@npm:^4.18.1, browserslist@npm:^4.20.3, browserslist@npm:^4.21.3, browserslist@npm:^4.21.4, browserslist@npm:latest":
   version: 4.21.4
   resolution: "browserslist@npm:4.21.4"
   dependencies:
@@ -11977,13 +11985,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"caniuse-lite@npm:1.0.30001434":
-  version: 1.0.30001434
-  resolution: "caniuse-lite@npm:1.0.30001434"
-  checksum: 7c9d2641e8e8f3ddf9af14c4ce47266a9d8fd1fc0243626049ff1b2eca4bf02938ff440813cc3feae3fa8d851ec8d1b9718044340c8d09bb4372d92d4f6b519c
-  languageName: node
-  linkType: hard
-
 "caniuse-lite@npm:^1.0.0, caniuse-lite@npm:^1.0.30001400, caniuse-lite@npm:^1.0.30001407":
   version: 1.0.30001427
   resolution: "caniuse-lite@npm:1.0.30001427"
@@ -11995,6 +11996,13 @@ __metadata:
   version: 1.0.30001429
   resolution: "caniuse-lite@npm:1.0.30001429"
   checksum: d1658080248ef5ef0f5157423b2766026e6aa45642ce3b2cc74859b6a54e39881dd902397a2368324ed30ed0cd40250f11a4a4f3773453cd57b88db5e5e5c76a
+  languageName: node
+  linkType: hard
+
+"caniuse-lite@npm:latest":
+  version: 1.0.30001434
+  resolution: "caniuse-lite@npm:1.0.30001434"
+  checksum: 7c9d2641e8e8f3ddf9af14c4ce47266a9d8fd1fc0243626049ff1b2eca4bf02938ff440813cc3feae3fa8d851ec8d1b9718044340c8d09bb4372d92d4f6b519c
   languageName: node
   linkType: hard
 

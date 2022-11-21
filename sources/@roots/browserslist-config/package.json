@@ -44,12 +44,24 @@
   "devDependencies": {
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@skypack/package-check": "0.2.2",
-    "caniuse-lite": "1.0.30001434",
     "execa": "6.1.0",
     "fs-jetpack": "5.1.0"
   },
   "dependencies": {
-    "browserslist": "4.21.4"
+    "browserslist": "latest",
+    "caniuse-lite": "latest"
+  },
+  "peerDependencies": {
+    "browserslist": "*",
+    "caniuse-lite": "*"
+  },
+  "peerDependenciesMeta": {
+    "browserslist": {
+      "optional": true
+    },
+    "caniuse-lite": {
+      "optional": true
+    }
   },
   "volta": {
     "extends": "../../../package.json"
