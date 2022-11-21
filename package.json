@@ -14,7 +14,7 @@
   "volta": {
     "node": "16.18.0",
     "yarn": "1.22.19",
-    "npm": "8.19.2"
+    "npm": "8.19.3"
   },
   "workspaces": {
     "packages": [
