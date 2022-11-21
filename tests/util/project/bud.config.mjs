@@ -25,10 +25,4 @@ export default async app => {
     .serve(3015)
     .minimize()
     .provide({jquery: [`jQuery`, `$`]})
-
-  app.when(
-    app instanceof Bud,
-    app.warn('all were true'),
-    app.warn('something was false'),
-  )
 }

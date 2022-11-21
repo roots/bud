@@ -42,7 +42,26 @@
     "./current": "./current.cjs"
   },
   "devDependencies": {
-    "@skypack/package-check": "0.2.2"
+    "@roots/bud-support": "workspace:sources/@roots/bud-support",
+    "@skypack/package-check": "0.2.2",
+    "execa": "6.1.0",
+    "fs-jetpack": "5.1.0"
+  },
+  "dependencies": {
+    "browserslist": "latest",
+    "caniuse-lite": "latest"
+  },
+  "peerDependencies": {
+    "browserslist": "*",
+    "caniuse-lite": "*"
+  },
+  "peerDependenciesMeta": {
+    "browserslist": {
+      "optional": true
+    },
+    "caniuse-lite": {
+      "optional": true
+    }
   },
   "volta": {
     "extends": "../../../package.json"
