@@ -26,6 +26,7 @@ storage/**/*
 /sources/@repo/docs/build
 /sources/@repo/docs/.docusaurus
 /sources/@repo/docs/generated/*/*
+!/sources/@repo/docs/generated/*/.gitkeep
 /sources/@repo/*/compiled
 
 # Examples
