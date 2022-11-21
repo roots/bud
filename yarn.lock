@@ -5977,7 +5977,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/browserslist-config@workspace:sources/@roots/browserslist-config"
   dependencies:
-    "@repo/constants": "workspace:sources/@repo/constants"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
     browserslist: 4.21.4
@@ -7672,7 +7671,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@tests/project@workspace:tests/util/project"
   dependencies:
-    "@repo/constants": "workspace:sources/@repo/constants"
     "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-swc": "workspace:sources/@roots/bud-swc"
     "@roots/bud-tailwindcss": "workspace:sources/@roots/bud-tailwindcss"

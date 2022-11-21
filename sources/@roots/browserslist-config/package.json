@@ -42,7 +42,6 @@
     "./current": "./current.cjs"
   },
   "devDependencies": {
-    "@repo/constants": "workspace:sources/@repo/constants",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@skypack/package-check": "0.2.2",
     "caniuse-lite": "1.0.30001434"

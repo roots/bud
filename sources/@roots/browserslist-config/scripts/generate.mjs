@@ -1,5 +1,6 @@
 import {join} from 'node:path'
 
+// eslint-disable-next-line
 import {paths} from '@repo/constants'
 import {execa} from '@roots/bud-support/execa'
 import fs from '@roots/bud-support/fs-jetpack'
