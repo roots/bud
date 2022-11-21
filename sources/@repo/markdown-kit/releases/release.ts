@@ -11,14 +11,13 @@ const getNewerVersions = (current: release): Array<release> =>
     .filter(release => release.patch > current.patch)
 
 const updateNotice = (release: release) => {
-  const updates = getNewerVersions(release)
-  const latest = updates.pop()
+  const latest = [...getNewerVersions(release)].shift()
   return !latest
     ? ``
     : `
 :::info Updates available
 
-There are patches available for [this release](https://bud.js.org/releases/tags/${release.major}-${release.minor}). Please update to [${release.semver}](https://bud.js.org/releases/${latest.semver}).
+There are patches available for [this release](https://bud.js.org/releases/tags/${latest.major}-${latest.minor}). Please update to [${latest.semver}](https://bud.js.org/releases/${latest.semver}).
 
 :::
 `
@@ -45,7 +44,6 @@ ${release.intro}
 
 <!--truncate-->
 ${updateNotice(release)}
-
 ${release.body}
 `
 

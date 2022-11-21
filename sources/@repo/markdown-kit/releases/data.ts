@@ -27,17 +27,32 @@ interface request {
 
 type releases = Array<release>
 
+/**
+ * Request cache
+ */
+let request: request
+/**
+ * Release cache
+ */
+let releases: Array<release>
+
 // eslint-disable-next-line
 const octokit = new Octokit({auth: process.env.GITHUB_TOKEN})
 
-const filter = (release: ghRelease) => {
-  if (release.tag_name.length !== 6) return false
-  return true
-}
+/**
+ * Filter out older releases with weird titles
+ */
+const filter = ({tag_name}: ghRelease) => tag_name.length === 6
 
+/**
+ * Parse a version string to a number
+ */
 const parseVersion = (version?: string) =>
   typeof version !== `undefined` ? parseInt(version) : 0
 
+/**
+ * Parse a release object
+ */
 const parse = (release: ghRelease): release => {
   const semver = release.tag_name.replace(`v`, ``)
   const [major, minor, patch] = semver.split(`.`)
@@ -54,14 +69,19 @@ const parse = (release: ghRelease): release => {
   }
 }
 
-let request: {data: Array<ghRelease>}
-if (!request?.data)
-  request = await octokit.request(`GET /repos/roots/bud/releases?100,1`, {
-    owner: `roots`,
-    repo: `bud`,
-  })
-
-let releases = []
-if (!releases) releases = request.data.filter(filter).map(parse)
+if (!request?.data) {
+  try {
+    request = await octokit.request(
+      `GET /repos/roots/bud/releases?100,1`,
+      {
+        owner: `roots`,
+        repo: `bud`,
+      },
+    )
+  } catch (error) {
+    throw error
+  }
+}
+if (!releases) releases = request?.data?.filter(filter).map(parse)
 
 export {releases, release}
