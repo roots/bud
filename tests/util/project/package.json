@@ -18,6 +18,6 @@
     "@roots/bud-tailwindcss": "workspace:sources/@roots/bud-tailwindcss"
   },
   "volta": {
-    "node": "16.18.0"
+    "node": "16.18.1"
   }
 }
