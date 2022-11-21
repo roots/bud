@@ -9,13 +9,13 @@
   "devDependencies": {
     "@types/fs-extra": "9.0.13",
     "@types/node": "16.18.3",
-    "@yarnpkg/builder": "3.2.5"
+    "@yarnpkg/builder": "3.2.6"
   },
   "dependencies": {
     "@repo/constants": "workspace:sources/@repo/constants",
-    "@yarnpkg/cli": "3.2.4",
-    "@yarnpkg/core": "3.2.5",
-    "@yarnpkg/shell": "3.2.4",
+    "@yarnpkg/cli": "3.3.0",
+    "@yarnpkg/core": "3.3.0",
+    "@yarnpkg/shell": "3.2.5",
     "clipanion": "3.2.0-rc.13",
     "fs-extra": "10.1.0",
     "helpful-decorators": "2.1.0",
