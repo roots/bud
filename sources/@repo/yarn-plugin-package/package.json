@@ -13,7 +13,7 @@
     "@yarnpkg/cli": "3.2.4",
     "@yarnpkg/core": "3.2.5",
     "@yarnpkg/shell": "3.2.4",
-    "clipanion": "3.2.0-rc.13",
+    "clipanion": "3.2.0-rc.14",
     "fs-extra": "10.1.0",
     "helpful-decorators": "2.1.0",
     "lodash-es": "4.17.21",

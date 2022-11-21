@@ -55,7 +55,7 @@
     "@roots/filesystem": "workspace:sources/@roots/filesystem",
     "chalk": "5.1.2",
     "clean-stack": "5.0.1",
-    "clipanion": "3.2.0-rc.13",
+    "clipanion": "3.2.0-rc.14",
     "common-path": "1.0.1",
     "execa": "6.1.0",
     "figures": "5.0.0",
