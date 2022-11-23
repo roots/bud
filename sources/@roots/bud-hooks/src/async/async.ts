@@ -4,10 +4,11 @@ import type {
   AsyncRegistry,
   AsyncStore,
 } from '@roots/bud-framework/registry'
+import type Value from '@roots/bud-framework/value'
 import {bind} from '@roots/bud-support/decorators'
-import {isFunction, isUndefined} from '@roots/bud-support/lodash-es'
+import {isFunction} from '@roots/bud-support/lodash-es'
 
-import {Hooks} from './base.js'
+import {Hooks} from '../base/base.js'
 
 /**
  * Asynchronous hooks registry
@@ -24,13 +25,16 @@ export class AsyncHooks extends Hooks<AsyncStore> {
   @bind
   public set<T extends keyof AsyncStore & string>(
     id: T,
-    input: AsyncCallback[T],
+    ...input: AsyncCallback[T]
   ): Bud {
-    if (this.has(id) && isFunction(input)) {
-      this.store[id].push(this.app.value.make(input))
-    } else {
-      this.store[id] = [this.app.value.make(input)]
-    }
+    if (!this.has(id)) this.store[id] = []
+
+    input
+      .map(this.app.value.make)
+      .map((value: Value<AsyncCallback[T]>) => {
+        if (typeof value.get() === `function`) this.store[id].push(value)
+        else this.store[id] = [value]
+      })
 
     return this.app
   }
@@ -58,15 +62,11 @@ export class AsyncHooks extends Hooks<AsyncStore> {
     id: T,
     fallback?: AsyncRegistry[T],
   ): Promise<AsyncRegistry[T]> {
-    if (isUndefined(this.store[id])) return fallback
-
-    const result = await this.store[id]
+    return await [this.app.value.make(fallback), ...(this.store[id] ?? [])]
       .map(this.app.value.get)
       .reduce(async (accumulated, current) => {
-        const thisValue = await accumulated
-        return isFunction(current) ? await current(thisValue) : current
-      }, fallback)
-
-    return result
+        const previous = await accumulated
+        return isFunction(current) ? await current(previous) : current
+      })
   }
 }

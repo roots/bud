@@ -3,9 +3,10 @@ import type {
   EventsCallback,
   EventsStore,
 } from '@roots/bud-framework/registry'
+import type Value from '@roots/bud-framework/value'
 import {bind} from '@roots/bud-support/decorators'
 
-import {Hooks} from './base.js'
+import {Hooks} from '../base/base.js'
 
 /**
  * Synchronous hooks registry
@@ -27,9 +28,12 @@ export class EventHooks extends Hooks<EventsStore> {
     id: T,
     ...input: Array<EventsCallback>
   ): Bud {
-    const value = input.map(this.app.value.make)
-    if (this.store[id]) this.store[id] = [...this.store[id], ...value]
-    else this.store[id] = value
+    if (!this.has(id)) this.store[id] = []
+
+    input
+      .map(this.app.value.make)
+      .map((value: Value<EventsCallback>) => this.store[id].push(value))
+
     return this.app
   }
 
@@ -50,14 +54,15 @@ export class EventHooks extends Hooks<EventsStore> {
   ): Promise<Bud> {
     if (!this.has(id)) return this.app
 
-    await this.store[id]
+    const events = [...this.store[id]]
+    this.store[id] = []
+
+    await events
       .map(this.app.value.get)
       .reduce(async (promise, action) => {
         await promise
         await action(this.app)
       }, Promise.resolve())
-
-    this.store[id] = []
 
     return this.app
   }

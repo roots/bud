@@ -1,8 +1,8 @@
 import {Bud, Hooks as Service, Service as Base} from '@roots/bud-framework'
 
-import {AsyncHooks} from './async.js'
-import {EventHooks} from './event.js'
-import {SyncHooks} from './sync.js'
+import {AsyncHooks} from './async/async.js'
+import {EventHooks} from './event/event.js'
+import {SyncHooks} from './sync/sync.js'
 
 /**
  * Hooks and events registry
@@ -50,11 +50,6 @@ import {SyncHooks} from './sync.js'
  * @public
  */
 export class Hooks extends Base implements Service {
-  /**
-   * Service label
-   *
-   * @public
-   */
   public static override label = `hooks`
 
   public asyncStore: AsyncHooks
