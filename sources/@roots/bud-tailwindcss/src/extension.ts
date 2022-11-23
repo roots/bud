@@ -7,12 +7,7 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
-import {
-  get,
-  has,
-  isFunction,
-  isUndefined,
-} from '@roots/bud-support/lodash-es'
+import {get, isFunction, isUndefined} from '@roots/bud-support/lodash-es'
 import defaultConfig from 'tailwindcss/defaultConfig.js'
 import pluginUtils from 'tailwindcss/lib/util/pluginUtils.js'
 import resolveConfig from 'tailwindcss/resolveConfig.js'
@@ -33,25 +28,25 @@ type ResolvedConfig = Partial<{
 @label(`@roots/bud-tailwindcss`)
 @dependsOn([`@roots/bud-postcss`])
 @expose(`tailwind`)
-@options({
-  generateImports: false,
-})
+@options({generateImports: false})
 export class BudTailwindCss extends Extension<{
   generateImports: boolean | Array<string>
 }> {
   /**
    * Get config module
+   *
    * @public
    */
-  public get config(): {module: Config} {
+  public get configSource(): Config {
     return (
-      this.app.context.config?.[`tailwind.config.js`] ??
-      this.app.context.config?.[`tailwind.config.mjs`] ??
-      this.app.context.config?.[`tailwind.config.cjs`] ?? {
-        module: defaultConfig,
-      }
+      this.app.context.config[`tailwind.config.js`]?.module ??
+      this.app.context.config[`tailwind.config.mjs`]?.module ??
+      this.app.context.config[`tailwind.config.cjs`]?.module ??
+      defaultConfig
     )
   }
+
+  public config: ResolvedConfig | undefined
 
   /**
    * Resolved tailwind config
@@ -61,11 +56,11 @@ export class BudTailwindCss extends Extension<{
    *
    * @public
    */
-  public get theme(): ResolvedConfig & {
-    colors?: ResolvedConfig['colors']
-  } {
-    return Object.assign({}, {...resolveConfig(this.config?.module).theme})
-  }
+  public theme:
+    | (ResolvedConfig & {
+        colors?: ResolvedConfig['colors']
+      })
+    | undefined
 
   /**
    * Resolved paths
@@ -96,26 +91,32 @@ export class BudTailwindCss extends Extension<{
     key: K,
     extendedOnly?: boolean,
   ): Config[K] {
-    if (!has(this.theme, key)) {
+    const rawValue = this.theme[key]
+    if (!rawValue) {
       throw new Error(
         `@roots/bud-tailwindcss: ${key} is not a valid tailwind theme key.`,
       )
     }
 
-    const rawValue = this.theme[key]
     const value = isFunction(rawValue) ? rawValue(pluginUtils) : rawValue
+    if (!value) {
+      throw new Error(
+        `@roots/bud-tailwindcss: value for ${key} could not be resolved.`,
+      )
+    }
 
     if (!extendedOnly) return value
 
-    if (isUndefined(this.config.module?.theme?.extend?.[key]))
+    const src = this.configSource?.theme?.extend?.[key]
+    if (!src)
       throw new Error(
-        `The key "${key}" is not extended in your tailwind config.`,
+        `The key "${key}" is not extended in your tailwind config.\n\n${JSON.stringify(
+          this.configSource,
+          null,
+          2,
+        )}`,
       )
-
-    const extended =
-      typeof this.config.module?.theme?.extend?.[key] === `function`
-        ? this.config.module?.theme?.extend?.[key](pluginUtils)
-        : this.config.module?.theme?.extend?.[key]
+    const extended = isFunction(src) ? src(pluginUtils) : src
 
     return Object.entries(value).reduce(
       (a, [k, v]) => ({
@@ -158,6 +159,12 @@ export class BudTailwindCss extends Extension<{
     this.dependencies.nesting = await this.resolve(
       `tailwindcss/nesting/index.js`,
     )
+
+    const resolvedConfig = resolveConfig(this.configSource)
+    if (!resolvedConfig) return
+
+    this.config = {...resolvedConfig}
+    this.theme = {...(this.config?.theme ?? {})}
   }
 
   /**
@@ -175,7 +182,8 @@ export class BudTailwindCss extends Extension<{
 
     this.logger.success(`postcss configured for tailwindcss`)
 
-    if (this.getOption(`generateImports`) === false) return
+    if (this.options.generateImports === false) return
+
     await bud.extensions.add({
       label: `@roots/bud-tailwindcss/virtual-module`,
       make: async () =>
