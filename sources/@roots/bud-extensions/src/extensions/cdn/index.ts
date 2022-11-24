@@ -277,6 +277,8 @@ export default class Cdn extends Extension<Options, null> {
    */
   @bind
   public override async buildBefore(bud: Bud) {
+    const manifest = bud.context.manifest.bud
+
     bud.hooks.on(`build.experiments`, experiments => ({
       ...(experiments ?? {}),
       buildHttp: {
@@ -312,15 +314,8 @@ export default class Cdn extends Extension<Options, null> {
         },
       })
 
-      if (isUndefined(bud.context.manifest?.bud?.[cdn.ident])) return
-
-      const manifest = bud.context.manifest.bud[cdn.ident]
-      const imports = Array.isArray(manifest)
-        ? manifest.map(signifier => [signifier, signifier])
-        : Object.entries(manifest).map(([base, params]) => [
-            base,
-            `${base}@${params}`,
-          ])
+      const imports = manifest?.imports?.[cdn.ident]
+      if (isUndefined(imports)) return
 
       await Promise.all(
         imports.map(async ([signifier, remotePath]) => {

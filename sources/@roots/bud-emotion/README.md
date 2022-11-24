@@ -9,7 +9,7 @@
 <h1 align="center"><strong>@roots/bud-emotion</strong></h1>
 
 <p align="center">
-  CSS-in-JS support for the @roots/bud framework
+  CSS-in-JS for bud.js
 </p>
 
 ---
@@ -29,8 +29,6 @@ npm:
 ```sh
 npm install @roots/bud-emotion --save-dev
 ```
-
-## Usage
 
 ## Contributing
 

@@ -1,3 +1,7 @@
+---
+title: Convering asets to webp
+---
+
 You may convert an asset to `webp` format using the `?as=webp` url parameter.
 
 It works in both styles and scripts:

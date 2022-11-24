@@ -1,3 +1,7 @@
+---
+title: Global values
+---
+
 Use the `bud.sass.registerGlobal` function to ensure global styles are made available throughout your sass stylesheets, regardless of scope.
 
 This function differs from `bud.sass.importGlobal` in that it can be passed arbitrary values.

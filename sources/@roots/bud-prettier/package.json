@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-prettier",
   "version": "0.0.0",
-  "description": "Adds prettier support to Bud",
+  "description": "Code formatting support for bud.js",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",

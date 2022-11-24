@@ -30,8 +30,6 @@ npm:
 npm install @roots/wordpress-externals-webpack-plugin --save-dev
 ```
 
-## Usage
-
 ## Contributing
 
 Contributions are welcome from everyone.

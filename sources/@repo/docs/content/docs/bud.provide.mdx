@@ -2,24 +2,8 @@
 slug: bud.provide
 title: bud.provide
 description: Makes a variable/module available throughout the entire application.
-sidebar_label: bud.provide
-image: 'https://bud.js.org/img/share/docs/bud.provide.png'
 ---
 
-Makes a variable/module available throughout the entire application.
+import Provide from '@site/../../@roots/bud-api/src/methods/provide/provide.docs.md'
 
-## Usage
-
-The following specifies that `$` is the default `jQuery` export:
-
-```js
-bud.provide({
-  jquery: '$',
-})
-```
-
-Now, in any module in our application, we can invoke jQuery with `$`. There is no need to import it.
-
-```js
-$('#modal') // it just works
-```
+<Provide />

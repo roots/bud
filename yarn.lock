@@ -4568,13 +4568,13 @@ __metadata:
   linkType: hard
 
 "@netlify/build@npm:^28.3.1":
-  version: 28.3.1
-  resolution: "@netlify/build@npm:28.3.1"
+  version: 28.4.2
+  resolution: "@netlify/build@npm:28.4.2"
   dependencies:
     "@bugsnag/js": ^7.0.0
     "@netlify/cache-utils": ^5.0.2
     "@netlify/config": ^20.0.2
-    "@netlify/edge-bundler": 4.4.1
+    "@netlify/edge-bundler": 4.4.2
     "@netlify/functions-utils": ^5.0.4
     "@netlify/git-utils": ^5.0.2
     "@netlify/plugins-list": ^6.54.0
@@ -4617,6 +4617,7 @@ __metadata:
     string-width: ^5.0.0
     strip-ansi: ^7.0.0
     supports-color: ^9.0.0
+    terminal-link: ^3.0.0
     tmp-promise: ^3.0.2
     ts-node: ^10.6.0
     typescript: ^4.8.4
@@ -4625,7 +4626,7 @@ __metadata:
     yargs: ^17.6.0
   bin:
     netlify-build: bin.js
-  checksum: 9d4d7581490761b979d269b694d1e2a9a342efb9af7b3fc5445a4cfdd0f83e609a27de08589fad654da9f6c56061e4b228d861199a6809782bfd740d43e897ba
+  checksum: 59dee4954f2dc295cd7e7ceb54c46452f93e45a185a23816e2dfd8123ac83803abd5131490000456a822e171824141af62a41ab6793d19752bd4fd0d115bd358
   languageName: node
   linkType: hard
 
@@ -4680,9 +4681,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@netlify/edge-bundler@npm:4.4.1, @netlify/edge-bundler@npm:^4.4.1":
-  version: 4.4.1
-  resolution: "@netlify/edge-bundler@npm:4.4.1"
+"@netlify/edge-bundler@npm:4.4.2":
+  version: 4.4.2
+  resolution: "@netlify/edge-bundler@npm:4.4.2"
   dependencies:
     "@import-maps/resolve": ^1.0.1
     ajv: ^8.11.2
@@ -4703,7 +4704,34 @@ __metadata:
     semver: ^7.3.5
     tmp-promise: ^3.0.3
     uuid: ^9.0.0
-  checksum: 2e8417de221dc0bd3369586e4ede596260a43a35f9405f1bbd87b13922e18a4d5590906281915e02c495d1bc742fd5a3401252e8607d08bba9309360d4f85697
+  checksum: 28ab2a6f2f3ab2e40442c01723a42a927f7061533b6486a462f69623e3348dda635194c3be4bb9f6461722d491bdf731644dddcfc3a82a6012c680abd4b9e30c
+  languageName: node
+  linkType: hard
+
+"@netlify/edge-bundler@npm:^4.4.1":
+  version: 4.4.3
+  resolution: "@netlify/edge-bundler@npm:4.4.3"
+  dependencies:
+    "@import-maps/resolve": ^1.0.1
+    ajv: ^8.11.2
+    ajv-errors: ^3.0.0
+    better-ajv-errors: ^1.2.0
+    common-path-prefix: ^3.0.0
+    del: ^7.0.0
+    env-paths: ^3.0.0
+    execa: ^6.0.0
+    find-up: ^6.3.0
+    get-port: ^6.1.2
+    glob-to-regexp: ^0.4.1
+    node-fetch: ^3.1.1
+    node-stream-zip: ^1.15.0
+    p-retry: ^5.1.1
+    p-wait-for: ^4.1.0
+    path-key: ^4.0.0
+    semver: ^7.3.5
+    tmp-promise: ^3.0.3
+    uuid: ^9.0.0
+  checksum: 3038fe571fe93e12eeee97876d67c718a295af9c363bf4fac5ac8c033e3ca161ca84d21a4c153464bcfc2ac008ffd650efa8786cffd696c46d55a1cfb9f655e4
   languageName: node
   linkType: hard
 
@@ -5837,6 +5865,7 @@ __metadata:
     execa: 6.1.0
     fs-extra: 10.1.0
     globby: 13.1.2
+    gray-matter: 4.0.3
     handlebars: 4.7.7
     helpful-decorators: 2.1.0
     json5: 2.2.1
@@ -7703,9 +7732,9 @@ __metadata:
   linkType: hard
 
 "@types/aws-lambda@npm:^8.10.83":
-  version: 8.10.108
-  resolution: "@types/aws-lambda@npm:8.10.108"
-  checksum: 648a6cc8e627e6170fbfa523c918cea6b06cdb0a66e25aa35da99a78ed1b7345e4f2921e25f96cb2547f0a13bbd77a90823c37c650db6e9ad8e3b03752e21570
+  version: 8.10.109
+  resolution: "@types/aws-lambda@npm:8.10.109"
+  checksum: 879dd30806bbcdcc5495192ed139ab6e7e65d2481c4c80237d8293e3a33e9fcbfb662109246164c493de9fd13b32d1780359a0f191238bd62fd4be14c1efe2fe
   languageName: node
   linkType: hard
 
@@ -18226,7 +18255,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"gray-matter@npm:^4.0.3":
+"gray-matter@npm:4.0.3, gray-matter@npm:^4.0.3":
   version: 4.0.3
   resolution: "gray-matter@npm:4.0.3"
   dependencies:
@@ -21313,17 +21342,28 @@ __metadata:
   linkType: hard
 
 "loader-utils@npm:^1.0.0, loader-utils@npm:^1.0.2, loader-utils@npm:^1.1.0":
-  version: 1.4.2
-  resolution: "loader-utils@npm:1.4.2"
+  version: 1.4.0
+  resolution: "loader-utils@npm:1.4.0"
   dependencies:
     big.js: ^5.2.2
     emojis-list: ^3.0.0
     json5: ^1.0.1
-  checksum: eb6fb622efc0ffd1abdf68a2022f9eac62bef8ec599cf8adb75e94d1d338381780be6278534170e99edc03380a6d29bc7eb1563c89ce17c5fed3a0b17f1ad804
+  checksum: d150b15e7a42ac47d935c8b484b79e44ff6ab4c75df7cc4cb9093350cf014ec0b17bdb60c5d6f91a37b8b218bd63b973e263c65944f58ca2573e402b9a27e717
   languageName: node
   linkType: hard
 
-"loader-utils@npm:^2.0.0, loader-utils@npm:^2.0.3":
+"loader-utils@npm:^2.0.0":
+  version: 2.0.1
+  resolution: "loader-utils@npm:2.0.1"
+  dependencies:
+    big.js: ^5.2.2
+    emojis-list: ^3.0.0
+    json5: ^2.1.2
+  checksum: 8f204319618e9624e25b311237d51b98109bb6093f904ffe1017097eed29654db3883c741f15d7916e17709d9cc6ebc217e678a234b42bbe37172e8eaa073f67
+  languageName: node
+  linkType: hard
+
+"loader-utils@npm:^2.0.3":
   version: 2.0.4
   resolution: "loader-utils@npm:2.0.4"
   dependencies:
@@ -30036,7 +30076,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"supports-hyperlinks@npm:^2.0.0, supports-hyperlinks@npm:^2.3.0":
+"supports-hyperlinks@npm:^2.0.0, supports-hyperlinks@npm:^2.2.0, supports-hyperlinks@npm:^2.3.0":
   version: 2.3.0
   resolution: "supports-hyperlinks@npm:2.3.0"
   dependencies:
@@ -30367,6 +30407,16 @@ __metadata:
     ansi-escapes: ^4.2.1
     supports-hyperlinks: ^2.0.0
   checksum: ce3d2cd3a438c4a9453947aa664581519173ea40e77e2534d08c088ee6dda449eabdbe0a76d2a516b8b73c33262fedd10d5270ccf7576ae316e3db170ce6562f
+  languageName: node
+  linkType: hard
+
+"terminal-link@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "terminal-link@npm:3.0.0"
+  dependencies:
+    ansi-escapes: ^5.0.0
+    supports-hyperlinks: ^2.2.0
+  checksum: 85a78ae50a2cd3c43df25922e7572f1008c92b1ea98c6c4579bbbe02fa54677a487123c3cae44fecd1a36cac782d0be2cec212a916818abb2b4df6fbb8eed341
   languageName: node
   linkType: hard
 

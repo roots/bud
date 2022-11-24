@@ -30,15 +30,13 @@ npm:
 npm install @roots/browserslist-config --save-dev
 ```
 
-## Usage
+## Exports
 
-### Configs
-
-| Export                             | Description                                                                          |
-| ---------------------------------- | ------------------------------------------------------------------------------------ |
-| @roots/browserslist-config         | `'> .5%', 'last 2 versions', 'not dead', 'not op_mini all', 'supports es6-module', ` |
-| @roots/browserslist-config/current | `'> 1%', 'last 2 versions', 'not dead', 'not op_mini all', 'supports es6-module', `  |
-| @roots/browserslist-config/broad   | `'> .2%', 'last 3 versions', 'not dead', 'not op_mini all'`                          |
+| Signifier                            | Description           |
+| ------------------------------------ | --------------------- |
+| `@roots/browserslist-config`         | Last 3 major versions |
+| `@roots/browserslist-config/current` | Last 2 major versions |
+| `@roots/browserslist-config/broad`   | Last 4 major versions |
 
 ## Contributing
 

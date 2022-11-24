@@ -30,8 +30,6 @@ npm:
 npm install @roots/bud-tailwindcss --save-dev
 ```
 
-## Usage
-
 ## Contributing
 
 Contributions are welcome from everyone.

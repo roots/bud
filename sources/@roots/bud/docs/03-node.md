@@ -1,3 +1,7 @@
+---
+title: Node
+---
+
 A simple way to instantiate **bud** is using the `factory` export:
 
 ```js

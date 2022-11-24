@@ -30,9 +30,7 @@ npm:
 npm install @roots/bud-react --save-dev
 ```
 
-## Usage
-
-### React Refresh
+## react-refresh
 
 This extension enables [react-refresh](https://www.npmjs.com/package/react-refresh) in development. It uses [@pmmmwh/react-refresh-webpack-plugin](https://github.com/pmmmwh/react-refresh-webpack-plugin).
 

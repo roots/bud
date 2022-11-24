@@ -2,7 +2,7 @@ import {paths, projectConfig, REPO_PATH} from '@repo/constants'
 import {log} from '@repo/logger'
 import fs from 'fs-extra'
 import {globby} from 'globby'
-import {camelCase, startCase} from 'lodash-es'
+import matter from 'gray-matter'
 import path from 'path'
 
 import * as renderer from './renderer/index.js'
@@ -26,7 +26,7 @@ async function getReadmeProps(
   packageName: string,
 ): Promise<Record<string, any>> {
   const json = await fs.readJson(
-    getPackagePath(packageName, 'package.json'),
+    getPackagePath(packageName, `package.json`),
   )
   return {...json, projectConfig}
 }
@@ -46,10 +46,10 @@ async function getReadmeProps(
   await renderer.registerHelpers()
 
   const templates = await renderer.getTemplates()
-  const data = await getReadmeProps('@roots/bud')
+  const data = await getReadmeProps(`@roots/bud`)
   await renderer.render(templates.root, `${REPO_PATH}/readme.md`, {
     ...data,
-    name: 'bud.js',
+    name: `bud.js`,
   })
 
   await globby(`${REPO_PATH}/sources/@roots/*`, {
@@ -63,31 +63,22 @@ async function getReadmeProps(
           `${pkg}/docs/*.md`,
         ]).then(async (mdfiles: Array<string>) => {
           return await mdfiles.sort().reduce(async (promised, current) => {
-            const all = await promised
-            const content = await fs
-              .readFile(current, 'utf-8')
+            const document = await fs
+              .readFile(current, `utf-8`)
               .then(String)
-
-            const title = startCase(
-              camelCase(
-                current
-                  .split('/')
-                  .pop()
-                  .replace(/\.mdx?/, '')
-                  .replace(/^\d\d-/, ''),
-              ),
-            )
+              .then(str => matter(str))
 
             return [
-              ...all,
-              `### ${title}
-${content}
-`,
+              ...(await promised),
+              ...(document.data.title
+                ? [`## ${document.data.title}\n`]
+                : []),
+              `${document.content}\n`,
             ]
           }, Promise.resolve([]))
         })
 
-        const data = await getReadmeProps(`@roots/${pkg.split('/').pop()}`)
+        const data = await getReadmeProps(`@roots/${pkg.split(`/`).pop()}`)
 
         await renderer.render(templates.core, `${pkg}/readme.md`, {
           ...data,

@@ -30,8 +30,6 @@ npm:
 npm install @roots/bud-solid --save-dev
 ```
 
-## Usage
-
 ## Contributing
 
 Contributions are welcome from everyone.

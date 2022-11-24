@@ -30,9 +30,7 @@ npm:
 npm install @roots/bud-sass --save-dev
 ```
 
-## Usage
-
-### Basics
+## Basic usage
 
 After installation, sass will automatically preprocess any `.scss` or `.sass` modules in your project with sass.
 
@@ -40,7 +38,7 @@ Additionally, if [@roots/bud-postcss](https://bud.js.org/extensions/bud-postcss)
 
 If you are using [@roots/bud-preset-recommend](https://bud.js.org/extensions/bud-preset-recommend), [@roots/bud-preset-wordpress](https://bud.js.org/extensions/bud-preset-wordpress), or [@roots/sage](https://bud.js.org/extensions/sage) then postcss is automatically applied.
 
-### Global Imports
+## Global imports
 
 Use the `bud.sass.importGlobal` function to ensure a module is made available throughout your sass stylesheets, regardless of scope.
 
@@ -58,7 +56,7 @@ bud.sass.importGlobal([
 ]);
 ```
 
-### Global Values
+## Global values
 
 Use the `bud.sass.registerGlobal` function to ensure global styles are made available throughout your sass stylesheets, regardless of scope.
 
@@ -77,7 +75,7 @@ bud.sass.registerGlobal([
 ]);
 ```
 
-### Url Imports
+## URL imports
 
 When using `@roots/bud-sass`, you will find that the `url()` function is not working as expected. This is because the `url()` function is relative to the target file, not the source file and Sass does not support url rewriting.
 

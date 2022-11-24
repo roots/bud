@@ -30,8 +30,6 @@ npm:
 npm install @roots/bud-compiler --save-dev
 ```
 
-## Usage
-
 ## Contributing
 
 Contributions are welcome from everyone.

@@ -2439,10 +2439,10 @@
     "http-errors" "2.0.0"
     "unix-crypt-td-js" "1.1.4"
 
-"verdaccio@^5.17.0":
-  "integrity" "sha512-is5ivFhZ8RUmafkIXWvOh/lDzu9Ooa9njP/sgfOVBKDgajOYEzn58YO6aOgmhw6WrYhGsBs8ocaEht48yjcTwA=="
-  "resolved" "https://registry.npmjs.org/verdaccio/-/verdaccio-5.17.0.tgz"
-  "version" "5.17.0"
+"verdaccio@^5.18.0":
+  "integrity" "sha512-z6akeVQS08iXXz0yqi6gMMOoSI2SHocQI+NMMtaVo2MFJaYvhoPSLf66MyXIS3vyCIOu108R6Ncknt0oTIUk1A=="
+  "resolved" "https://registry.npmjs.org/verdaccio/-/verdaccio-5.18.0.tgz"
+  "version" "5.18.0"
   dependencies:
     "@verdaccio/commons-api" "10.2.0"
     "@verdaccio/local-storage" "10.3.1"
