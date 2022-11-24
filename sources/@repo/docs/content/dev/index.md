@@ -11,17 +11,15 @@ This is a work-in-progress.
 
 :::
 
-How to get started with bud.js locally.
+How to get started with **bud.js** locally.
+
+## Pre-development
+
+You will probably want to use vscode and utilize the recommended extensions. Not mandatory, but recommended.
 
 ## Installation
 
-```sh
-yarn
-```
-
-## Setup
-
-Generally speaking, you will probably want to use vscode and utilize the recommended extensions. Not mandatory, but definitely recommended.
+**bud.js** is managed with yarn.
 
 ## Development
 
@@ -39,9 +37,9 @@ yarn @bud build
 
 ## Testing
 
-Unit and integration tests are run with `vitest`.
+Unit and integration tests are run with [vitest](https://vitest.dev).
 
-Most tests are stored in `tests/`. Integration and e2e testa have too complex a setup to be run in watchmode.
+Most tests are stored in `tests/`. Integration and e2e tests have too complex a setup to be run in watchmode.
 
 ### Unit testing
 
@@ -115,7 +113,15 @@ After the release finishes, you can install it to any project in your dev enviro
 yarn add @roots/bud@latest --dev --registry http://localhost:4873
 ```
 
-If you want to make a change and try it again, rerun `yarn @bud release --tag latest`. Don't worry about incrementing versions, the integration command will delete the old packages before publishing again.
+### Rebuilding packages
+
+If you want to make a change and try it again, first clean the existing packages and then rerun the release:
+
+```sh
+yarn @bud registry clean
+yarn @bud build --force
+yarn @bud release --tag latest
+```
 
 ### Stopping the registry
 
@@ -125,7 +131,7 @@ yarn @bud registry stop
 
 ## Documentation
 
-bud.js documentation is generated with [docusaurus](https://docusaurus.io/).
+**bud.js** documentation is generated with [docusaurus](https://docusaurus.io/).
 
 The `yarn @bud docs` command will build all documentation and README.
 
@@ -135,24 +141,16 @@ Don't edit README files directly. They are generated and your work will be overw
 
 Each package supports a `docs` directory. Contents of files in the `docs` directory will be concatenated and merged in the package readme.
 
-The README section will have its heading sourced from the title of the file. Hyphens will be converted to spaces and capitalization will be automatically handled, even if it's imperfect.
+You can start the markdown filename with a number to indicate the desired position within the README.
 
-You can lead the markdown file with a number to indicate the desired position.
-
-#### Example:
+#### Example
 
 ```md title="./sources/@roots/bud/docs/01-getting-started.md"
-For more detailed usage information consult the [Getting Started guide on bud.js.org](https://bud.js.org/guides/getting-started)
-```
-
-```md title="./sources/@roots/bud/README.md"
-...
-
-### Getting Started
+---
+title: Getting started
+---
 
 For more detailed usage information consult the [Getting Started guide on bud.js.org](https://bud.js.org/guides/getting-started)
-
-...
 ```
 
 ## Site docs

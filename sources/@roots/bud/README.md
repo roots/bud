@@ -51,9 +51,7 @@ A simple way to instantiate **bud** is using the `factory` export:
 ```js
 import { factory } from "@roots/bud/factory";
 
-await factory().then((bud) => {
-  // use bud
-});
+const bud = await factory();
 ```
 
 `factory` accepts an optional `Bud.Options` argument:

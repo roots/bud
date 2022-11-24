@@ -30,7 +30,7 @@ npm:
 npm install @roots/browserslist-config --save-dev
 ```
 
-## Exports
+## Exported configurations
 
 | Signifier                            | Description           |
 | ------------------------------------ | --------------------- |

@@ -1,4 +1,7 @@
 {
+  "name": "storage",
+  "private": true,
+  "packageManager": "yarn@1.23.0",
   "dependencies": {
     "pm2": "^5.2.2",
     "verdaccio": "^5.18.0"

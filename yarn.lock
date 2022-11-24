@@ -11803,7 +11803,6 @@ __metadata:
     playwright: 1.28.0
     prettier: 2.7.1
     syncpack: 8.3.9
-    tinybench: 2.3.1
     ts-node: 10.9.1
     tslib: 2.4.1
     typescript: 4.8.4
@@ -30653,7 +30652,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tinybench@npm:2.3.1, tinybench@npm:^2.3.1":
+"tinybench@npm:^2.3.1":
   version: 2.3.1
   resolution: "tinybench@npm:2.3.1"
   checksum: 74d45fa546d964a8123f98847fc59550945ed7f0d3e5a4ce0f9596d836b51c1d340c2ae0277a8023c15dc9ea3d7cb948a79173bfc46338c9b367c6323ea1eaf3
