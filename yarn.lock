@@ -6574,8 +6574,8 @@ __metadata:
     chokidar: 3.5.3
     cookie-parser: 1.4.6
     express: 4.18.2
-    http-proxy-middleware: 2.0.6
-    webpack-dev-middleware: 5.3.3
+    http-proxy-middleware: 3.0.0-beta.0
+    webpack-dev-middleware: 6.0.1
   peerDependencies:
     "@roots/bud-client": "*"
   peerDependenciesMeta:
@@ -8121,6 +8121,13 @@ __metadata:
   version: 4.14.186
   resolution: "@types/lodash@npm:4.14.186"
   checksum: ee0c1368a8100bb6efb88335107473a41928fc307ff1ef4ff1278868ccddba9c04c68c36d1ffe3a0392ef4a956e1955f7de3203ec09df4f1655dd1b88485c549
+  languageName: node
+  linkType: hard
+
+"@types/lodash@npm:^4":
+  version: 4.14.190
+  resolution: "@types/lodash@npm:4.14.190::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2F%40types%252flodash%2F-%2Flodash-4.14.190.tgz"
+  checksum: 353a55a1222a57224ead8bd3379fabb2e3e3f6685f599c48b1b66f099d8e9e015e6c6352c6e2275954004c3bb510377804c63117233c6f187700b6ab78adfa02
   languageName: node
   linkType: hard
 
@@ -11757,6 +11764,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/express": 4.17.14
     "@types/fs-extra": 9.0.13
+    "@types/lodash": ^4
     "@types/node": 16.18.3
     "@typescript-eslint/eslint-plugin": 5.42.1
     "@typescript-eslint/parser": 5.42.1
@@ -11771,6 +11779,7 @@ __metadata:
     execa: 6.1.0
     fs-extra: 10.1.0
     import-meta-resolve: 2.1.0
+    lodash: 4.17.21
     playwright: 1.28.0
     prettier: 2.7.1
     syncpack: 8.3.9
@@ -17488,6 +17497,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fs-monkey@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "fs-monkey@npm:1.0.3::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Ffs-monkey%2F-%2Ffs-monkey-1.0.3.tgz"
+  checksum: cf50804833f9b88a476911ae911fe50f61a98d986df52f890bd97e7262796d023698cb2309fa9b74fdd8974f04315b648748a0a8ee059e7d5257b293bfc409c0
+  languageName: node
+  linkType: hard
+
 "fs.realpath@npm:^1.0.0":
   version: 1.0.0
   resolution: "fs.realpath@npm:1.0.0"
@@ -19097,6 +19113,25 @@ __metadata:
     "@types/express":
       optional: true
   checksum: 2ee85bc878afa6cbf34491e972ece0f5be0a3e5c98a60850cf40d2a9a5356e1fc57aab6cff33c1fc37691b0121c3a42602d2b1956c52577e87a5b77b62ae1c3a
+  languageName: node
+  linkType: hard
+
+"http-proxy-middleware@npm:3.0.0-beta.0":
+  version: 3.0.0-beta.0
+  resolution: "http-proxy-middleware@npm:3.0.0-beta.0::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fhttp-proxy-middleware%2F-%2Fhttp-proxy-middleware-3.0.0-beta.0.tgz"
+  dependencies:
+    "@types/http-proxy": ^1.17.8
+    debug: ^4.3.4
+    http-proxy: ^1.18.1
+    is-glob: ^4.0.1
+    is-plain-obj: ^3.0.0
+    micromatch: ^4.0.5
+  peerDependencies:
+    "@types/express": ^4.17.13
+  peerDependenciesMeta:
+    "@types/express":
+      optional: true
+  checksum: f681ba7d798f723df2bf6bf1b47dbe82192f2708cdffd2c570f72f9ccc4f280f91af0fded3993734cc25c2f7e1b5ae6f0f3ba5cf0f3225750b4b6c9707dfd5e4
   languageName: node
   linkType: hard
 
@@ -22197,6 +22232,15 @@ __metadata:
   dependencies:
     fs-monkey: 1.0.3
   checksum: c947ef46e2036524ba120cb42fa502fd75dae8d49d0c53e818d3d3780b9a3a47845705cd1cf51eec04c70f1db590ca7b6c7f78dd5a65883bb253fcedf86f412c
+  languageName: node
+  linkType: hard
+
+"memfs@npm:^3.4.12":
+  version: 3.4.12
+  resolution: "memfs@npm:3.4.12::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fmemfs%2F-%2Fmemfs-3.4.12.tgz"
+  dependencies:
+    fs-monkey: ^1.0.3
+  checksum: dab8dec1ae0b2a92e4d563ac86846047cd7aeb17cde4ad51da85cff6e580c32d12b886354527788e36eb75f733dd8edbaf174476b7cea73fed9c5a0e45a6b428
   languageName: node
   linkType: hard
 
@@ -32566,7 +32610,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack-dev-middleware@npm:*, webpack-dev-middleware@npm:5.3.3, webpack-dev-middleware@npm:^5.3.1":
+"webpack-dev-middleware@npm:*, webpack-dev-middleware@npm:^5.3.1":
   version: 5.3.3
   resolution: "webpack-dev-middleware@npm:5.3.3"
   dependencies:
@@ -32578,6 +32622,21 @@ __metadata:
   peerDependencies:
     webpack: ^4.0.0 || ^5.0.0
   checksum: dd332cc6da61222c43d25e5a2155e23147b777ff32fdf1f1a0a8777020c072fbcef7756360ce2a13939c3f534c06b4992a4d659318c4a7fe2c0530b52a8a6621
+  languageName: node
+  linkType: hard
+
+"webpack-dev-middleware@npm:6.0.1":
+  version: 6.0.1
+  resolution: "webpack-dev-middleware@npm:6.0.1::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fwebpack-dev-middleware%2F-%2Fwebpack-dev-middleware-6.0.1.tgz"
+  dependencies:
+    colorette: ^2.0.10
+    memfs: ^3.4.12
+    mime-types: ^2.1.31
+    range-parser: ^1.2.1
+    schema-utils: ^4.0.0
+  peerDependencies:
+    webpack: ^5.0.0
+  checksum: eeda09cf4a1fdb09ee95f96ab657b0fb8d32c56f4d20c7f4499457a015c703f243711fda0b5bc0d103ff9e7c7b9b60568210a4c0fbd6d02361d09d2387cd723a
   languageName: node
   linkType: hard
 
