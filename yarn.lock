@@ -8126,7 +8126,7 @@ __metadata:
 
 "@types/lodash@npm:^4":
   version: 4.14.190
-  resolution: "@types/lodash@npm:4.14.190::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2F%40types%252flodash%2F-%2Flodash-4.14.190.tgz"
+  resolution: "@types/lodash@npm:4.14.190"
   checksum: 353a55a1222a57224ead8bd3379fabb2e3e3f6685f599c48b1b66f099d8e9e015e6c6352c6e2275954004c3bb510377804c63117233c6f187700b6ab78adfa02
   languageName: node
   linkType: hard
@@ -17490,16 +17490,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fs-monkey@npm:1.0.3":
+"fs-monkey@npm:1.0.3, fs-monkey@npm:^1.0.3":
   version: 1.0.3
   resolution: "fs-monkey@npm:1.0.3"
-  checksum: cf50804833f9b88a476911ae911fe50f61a98d986df52f890bd97e7262796d023698cb2309fa9b74fdd8974f04315b648748a0a8ee059e7d5257b293bfc409c0
-  languageName: node
-  linkType: hard
-
-"fs-monkey@npm:^1.0.3":
-  version: 1.0.3
-  resolution: "fs-monkey@npm:1.0.3::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Ffs-monkey%2F-%2Ffs-monkey-1.0.3.tgz"
   checksum: cf50804833f9b88a476911ae911fe50f61a98d986df52f890bd97e7262796d023698cb2309fa9b74fdd8974f04315b648748a0a8ee059e7d5257b293bfc409c0
   languageName: node
   linkType: hard
@@ -19118,7 +19111,7 @@ __metadata:
 
 "http-proxy-middleware@npm:3.0.0-beta.0":
   version: 3.0.0-beta.0
-  resolution: "http-proxy-middleware@npm:3.0.0-beta.0::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fhttp-proxy-middleware%2F-%2Fhttp-proxy-middleware-3.0.0-beta.0.tgz"
+  resolution: "http-proxy-middleware@npm:3.0.0-beta.0"
   dependencies:
     "@types/http-proxy": ^1.17.8
     debug: ^4.3.4
@@ -22237,7 +22230,7 @@ __metadata:
 
 "memfs@npm:^3.4.12":
   version: 3.4.12
-  resolution: "memfs@npm:3.4.12::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fmemfs%2F-%2Fmemfs-3.4.12.tgz"
+  resolution: "memfs@npm:3.4.12"
   dependencies:
     fs-monkey: ^1.0.3
   checksum: dab8dec1ae0b2a92e4d563ac86846047cd7aeb17cde4ad51da85cff6e580c32d12b886354527788e36eb75f733dd8edbaf174476b7cea73fed9c5a0e45a6b428
@@ -32627,7 +32620,7 @@ __metadata:
 
 "webpack-dev-middleware@npm:6.0.1":
   version: 6.0.1
-  resolution: "webpack-dev-middleware@npm:6.0.1::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fwebpack-dev-middleware%2F-%2Fwebpack-dev-middleware-6.0.1.tgz"
+  resolution: "webpack-dev-middleware@npm:6.0.1"
   dependencies:
     colorette: ^2.0.10
     memfs: ^3.4.12
