@@ -30,8 +30,6 @@ npm:
 npm install @roots/critical-css-webpack-plugin --save-dev
 ```
 
-## Usage
-
 ## Contributing
 
 Contributions are welcome from everyone.

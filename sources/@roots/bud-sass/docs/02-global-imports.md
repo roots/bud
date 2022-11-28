@@ -1,3 +1,7 @@
+---
+title: Global imports
+---
+
 Use the `bud.sass.importGlobal` function to ensure a module is made available throughout your sass stylesheets, regardless of scope.
 
 ```ts

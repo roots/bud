@@ -30,7 +30,12 @@ npm:
 npm install @roots/bud-cache --save-dev
 ```
 
-## Usage
+## Exports
+
+| Signifier                                     | Description                                           |
+| :-------------------------------------------- | :---------------------------------------------------- |
+| `@roots/bud-cache`                            | The `bud.cache` service                               |
+| `@roots/bud-cache/invalidate-cache-extension` | Extension which invalidates cache during build errors |
 
 ## Contributing
 

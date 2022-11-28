@@ -1,3 +1,7 @@
+---
+title: Minimizers
+---
+
 ### Modifying minimizers
 
 Use [bud.imagemin.configure](https://bud.js.org/extensions/bud-imagemin/configure) to customize minimizer options.

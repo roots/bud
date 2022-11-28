@@ -30,9 +30,7 @@ npm:
 npm install @roots/bud-swc --save-dev
 ```
 
-## Usage
-
-### Configuration
+## Configuration
 
 You have two options for configuring SWC:
 
@@ -52,7 +50,7 @@ bud.swc.setOptions({
 
 You may also use a standard `.swcrc` config file in the root of your project.
 
-### Typechecking
+## Typechecking
 
 `@roots/bud-swc` does not currently support typechecking during compilation.
 

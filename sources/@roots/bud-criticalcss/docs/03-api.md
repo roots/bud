@@ -1,3 +1,7 @@
+---
+title: Configuration
+---
+
 ### bud.critical.src
 
 Specify the source with a URL:

@@ -32,8 +32,6 @@ npm install @roots/bud-criticalcss --save-dev
 
 ## Usage
 
-### Usage
-
 1. [Identify the markup to be used for critical css generation](#identify-source-markup)
 2. [Enable the extension](#enable-the-extension)
 
@@ -63,7 +61,7 @@ You must explicitly call [bud.critical.enable](#budcriticalenable) to enable the
 bud.critical.enable();
 ```
 
-### Example
+## Example
 
 ```typescript title="bud.config.mjs"
 export default async (bud) => {
@@ -71,7 +69,7 @@ export default async (bud) => {
 };
 ```
 
-### Api
+## Configuration
 
 ### bud.critical.src
 

@@ -30,8 +30,6 @@ npm:
 npm install @roots/bud-preset-wordpress --save-dev
 ```
 
-## Usage
-
 ## Contributing
 
 Contributions are welcome from everyone.

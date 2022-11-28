@@ -30,8 +30,6 @@ npm:
 npm install @roots/bud-wordpress-dependencies --save-dev
 ```
 
-## Usage
-
 ## Contributing
 
 Contributions are welcome from everyone.

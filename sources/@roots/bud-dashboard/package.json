@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-dashboard",
-  "description": "Bud CLI dashboard",
+  "description": "bud.js core module",
   "version": "0.0.0",
   "homepage": "https://roots.io/bud",
   "repository": {

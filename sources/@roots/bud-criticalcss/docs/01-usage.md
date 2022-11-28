@@ -1,3 +1,7 @@
+---
+title: Usage
+---
+
 1. [Identify the markup to be used for critical css generation](#identify-source-markup)
 2. [Enable the extension](#enable-the-extension)
 

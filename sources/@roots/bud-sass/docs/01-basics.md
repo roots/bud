@@ -1,3 +1,7 @@
+---
+title: Basic usage
+---
+
 After installation, sass will automatically preprocess any `.scss` or `.sass` modules in your project with sass.
 
 Additionally, if [@roots/bud-postcss](https://bud.js.org/extensions/bud-postcss) is available, postcss will be applied to your `.scss` and `.sass` source files.

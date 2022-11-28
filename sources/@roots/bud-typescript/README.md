@@ -30,9 +30,7 @@ npm:
 npm install @roots/bud-typescript --save-dev
 ```
 
-## Usage
-
-### Config
+## Configuration
 
 If you are authoring your config file in TypeScript you must use the `ts-bud` command instead of `bud`.
 
@@ -46,7 +44,7 @@ There is a base tsconfig available for you to extend:
 }
 ```
 
-### Typechecking
+## Typechecking
 
 By default TypeScript files will only be compiled to JS during builds.
 If you also want typechecking, you can enable it in your bud configuration:
@@ -62,7 +60,7 @@ experience stays snappy:
 bud.isProduction && bud.typescript.typecheck.enable();
 ```
 
-### Babel
+## Babel
 
 By default, `@roots/bud-typescript` will pass code to `@roots/bud-babel` for further transforms.
 
@@ -76,9 +74,14 @@ If you aren't using babel make sure your `tsconfig.json` is set up appropriately
 
 In particular, React users likely want to set `jsx` to `react`.
 
-### React Fast Refresh
+## react-refresh
 
-If you are using `@roots/bud-react` and have disabled babel the `react-refresh-typescript` transformer will automatically be used.
+React refresh should work out of the box with zero configuration required.
+
+- If you are using [@roots/bud-react](https://bud.js.org/extensions/bud-react)
+  the `react-refresh-typescript` transformer will automatically be used.
+- If you are using [@roots/bud-babel](https://bud.js.org/extensions/bud-babel) the babel transformer
+  will be used instead of the `react-refresh-typescript`.
 
 ## Contributing
 

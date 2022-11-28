@@ -1,6 +1,6 @@
 import {isUndefined} from '@roots/bud-support/lodash-es'
 
-import {Bud} from '../bud.js'
+import type {Bud} from '../../bud.js'
 
 /**
  * Pipe callback
@@ -10,16 +10,15 @@ import {Bud} from '../bud.js'
  *
  * @public
  */
-interface Callback<T> {
-  (input: T): T
+interface Callback<T = any> {
+  (input: T): Promise<T>
 }
 
 /**
  * @public
  */
 export interface pipe {
-  <T = unknown>(fns: Array<Callback<T>>, value: T): T
-  <T = Bud>(fns: Array<Callback<T>>, value: undefined): T
+  <T = Bud>(fns: Array<Callback<T>>, value?: T): Promise<T>
 }
 
 /**
@@ -43,22 +42,17 @@ export interface pipe {
  *
  * @public
  */
-export const pipe: pipe = function <T>(
-  fns: Array<Callback<T>>,
-  value?: T,
+export const pipe: pipe = async function <T = unknown>(
+  this: Bud,
+  functions: Array<Callback<T>>,
+  maybeInitialValue?: T,
 ) {
-  const bud = this as Bud
-
-  if (valueIsBud<T>(value)) {
-    return fns.reduce((value, fn) => fn(value), bud as T)
-  }
-
-  return fns.reduce(
-    (value: T, fn: (value: T) => T) => fn.call(value, value),
-    value,
+  const initialValue = Promise.resolve(
+    !isUndefined(maybeInitialValue) ? maybeInitialValue : (this as T),
   )
-}
 
-const valueIsBud = <T>(value: T): value is Bud & T => {
-  return isUndefined(value) || value instanceof Bud
+  return await functions.reduce(
+    async (value, fn) => await fn(await value),
+    initialValue,
+  )
 }

@@ -1,3 +1,7 @@
+---
+title: Configuration
+---
+
 You have two options for configuring SWC:
 
 ### bud.swc

@@ -1,7 +1,7 @@
 {
   "name": "@roots/browserslist-config",
   "version": "0.0.0",
-  "description": "Roots standard browserslist-config",
+  "description": "Browserslist configuration",
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",

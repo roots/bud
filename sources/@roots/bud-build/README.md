@@ -9,7 +9,7 @@
 <h1 align="center"><strong>@roots/bud-build</strong></h1>
 
 <p align="center">
-  Bud webpack config build controller
+  bud.js core module
 </p>
 
 ---
@@ -30,7 +30,39 @@ npm:
 npm install @roots/bud-build --save-dev
 ```
 
-## Usage
+## Exports
+
+| Signifier                  | Description             |
+| :------------------------- | :---------------------- |
+| `@roots/bud-build`         | The `bud.build` service |
+| `@roots/bud-build/item`    | The `Item` class        |
+| `@roots/bud-build/rule`    | The `Rule` class        |
+| `@roots/bud-build/loader`  | The `Loader` class      |
+| `@roots/bud-build/items`   | The default `items`     |
+| `@roots/bud-build/loaders` | The default `loaders`   |
+| `@roots/bud-build/rules`   | The default `rules`     |
+
+## Default rules
+
+| Type          | Description                  |
+| :------------ | :--------------------------- |
+| `.js`         | JavaScript source            |
+| `.css`        | Stylesheet source            |
+| `.module.css` | Stylesheet source (module)   |
+| `.json`       | JSON source                  |
+| `.toml`       | Imported as JSON             |
+| `.yml`        | Imported as JSON             |
+| `.html`       | Imported as string           |
+| `.md`         | Imported as string           |
+| `.svg`        | Imported as `asset/resource` |
+| `.png`        | Imported as `asset/resource` |
+| `.gif`        | Imported as `asset/resource` |
+| `.jpg`        | Imported as `asset/resource` |
+| `.jpeg`       | Imported as `asset/resource` |
+| `.webp`       | Imported as `asset/resource` |
+| `.woff`       | Imported as `asset/resource` |
+| `.woff2`      | Imported as `asset/resource` |
+| `.otf`        | Imported as `asset`          |
 
 ## Contributing
 

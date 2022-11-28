@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-build",
-  "description": "Bud webpack config build controller",
+  "description": "bud.js core module",
   "version": "0.0.0",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -46,8 +46,7 @@
     "./loader": "./lib/loader/index.js",
     "./loaders": "./lib/handlers/loaders.js",
     "./rule": "./lib/rule/index.js",
-    "./rules": "./lib/handlers/rules.js",
-    "./service": "./lib/service.js"
+    "./rules": "./lib/handlers/rules.js"
   },
   "typesVersions": {
     "*": {
@@ -71,9 +70,6 @@
       ],
       "rules": [
         "./lib/handlers/rules.d.ts"
-      ],
-      "service": [
-        "./lib/service.d.ts"
       ]
     }
   },

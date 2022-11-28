@@ -30,13 +30,11 @@ npm:
 npm install @roots/bud --save-dev
 ```
 
-## Usage
+## Getting started
 
-### Getting Started
+For helpn getting started consult the [Getting Started guide on bud.js.org](https://bud.js.org/guides/getting-started)
 
-For more detailed usage information consult the [Getting Started guide on bud.js.org](https://bud.js.org/guides/getting-started)
-
-### Cli
+## CLI
 
 **bud.js** is invoked with the `bud` command.
 
@@ -46,16 +44,14 @@ Call `bud --help` for usage information.
 
 If your configuration is authored in TypeScript, you will use the `ts-bud` command instead of the `bud` command.
 
-### Node
+## Node
 
 A simple way to instantiate **bud** is using the `factory` export:
 
 ```js
 import { factory } from "@roots/bud/factory";
 
-await factory().then((bud) => {
-  // use bud
-});
+const bud = await factory();
 ```
 
 `factory` accepts an optional `Bud.Options` argument:

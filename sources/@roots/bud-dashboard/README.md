@@ -9,7 +9,7 @@
 <h1 align="center"><strong>@roots/bud-dashboard</strong></h1>
 
 <p align="center">
-  Bud CLI dashboard
+  bud.js core module
 </p>
 
 ---
@@ -29,8 +29,6 @@ npm:
 ```sh
 npm install @roots/bud-dashboard --save-dev
 ```
-
-## Usage
 
 ## Contributing
 
