@@ -1,17 +1,19 @@
 import type {Bud} from '@roots/bud-framework/bud'
 import type * as Server from '@roots/bud-framework/services/server'
 import {
-  isBoolean,
   isNumber,
   isString,
   isUndefined,
 } from '@roots/bud-support/lodash-es'
 
+type ReplacementTuples = Array<[string, string]>
+type ReplacementCallback = (
+  replacements: ReplacementTuples | undefined,
+) => ReplacementTuples
+
 export type Parameters = [
   (URL | string | boolean | number)?,
-  ((
-    input: Array<[string | RegExp, string]>,
-  ) => Array<[string | RegExp, string]>)?,
+  (ReplacementCallback | ReplacementTuples)?,
 ]
 
 /**
@@ -102,28 +104,20 @@ export const proxy: proxy = async function (
   /**
    * User proxy request as a boolean
    */
-  isBoolean(input)
-    ? this.hooks.on(
-        `dev.middleware.enabled`,
-        input
-          ? enableMiddlewareHookCallback
-          : disableMiddlewareHookCallback,
-      )
-    : this.hooks.on(`dev.middleware.enabled`, enableMiddlewareHookCallback)
+
+  this.hooks.on(
+    `dev.middleware.enabled`,
+    input === false
+      ? disableMiddlewareHookCallback
+      : enableMiddlewareHookCallback,
+  )
 
   /**
    * Handle URL replacements
    */
   if (replacements === undefined) return this
 
-  this.hooks.on(`dev.middleware.proxy.replacements`, hookValue => {
-    if (hookValue === undefined)
-      return [[this.hooks.filter(`dev.middleware.proxy.target`).href, `/`]]
-    return [
-      ...hookValue,
-      [this.hooks.filter(`dev.middleware.proxy.target`).href, `/`],
-    ]
-  })
+  this.hooks.on(`dev.middleware.proxy.replacements`, replacements)
 
   return this
 }

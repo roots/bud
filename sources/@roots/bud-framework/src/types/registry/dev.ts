@@ -60,7 +60,8 @@ export interface Sync {
   'middleware.proxy.options.changeOrigin': Server.Middleware.Available['proxy']['options']['changeOrigin']
   'middleware.proxy.options.cookieDomainRewrite': Server.Middleware.Available['proxy']['options']['cookieDomainRewrite']
   'middleware.proxy.options.followRedirects': Server.Middleware.Available['proxy']['options']['followRedirects']
-  'middleware.proxy.options.headers': Server.Middleware.Available['proxy']['options']['headers']
+  'middleware.proxy.options.forward': Server.Middleware.Available['proxy']['options']['forward']
+  'middleware.proxy.options.headers': Record<string, string>
   'middleware.proxy.options.hostRewrite': Server.Middleware.Available['proxy']['options']['hostRewrite']
   'middleware.proxy.options.logLevel': Server.Middleware.Available['proxy']['options']['logLevel']
   'middleware.proxy.options.onProxyReq': Server.Middleware.Available['proxy']['options']['onProxyReq']
@@ -79,7 +80,7 @@ export interface Sync {
    * Proxy middleware replacements
    * @public
    */
-  'middleware.proxy.replacements': Array<[RegExp | string, string]>
+  'middleware.proxy.replacements': Array<[string, string]>
 }
 
 export type SyncRegistry = {

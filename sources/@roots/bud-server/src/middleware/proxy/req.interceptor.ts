@@ -29,46 +29,37 @@ export class RequestInterceptorFactory {
   /**
    * Callback for `http-proxy-middleware` `onProxyReq`
    *
-   * @param proxyRequest - proxy client request
+   * @param proxy - proxy client request
    * @param request - incoming message
-   * @param _response - server response
+   * @param response - server response
    * @returns void
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public async _interceptor(
-    proxyRequest: ClientRequest,
+  public interceptor(
+    proxy: ClientRequest,
     request: IncomingMessage,
     _response: ServerResponse,
   ) {
     try {
-      /**
-       * Acorn compat
-       * Ideally, we use the headers included after this
-       */
-      proxyRequest.setHeader(
-        `x-bud-dev-pathname`,
-        new URL(request.url, `http://${request.headers.host}`).pathname,
-      )
-
-      /**
-       * Headers
-       */
-      proxyRequest.setHeader(`x-bud-dev-origin`, this.url.dev.origin)
-      proxyRequest.setHeader(`x-bud-dev-protocol`, this.url.dev.protocol)
-      proxyRequest.setHeader(`x-bud-dev-hostname`, this.url.dev.hostname)
-      proxyRequest.setHeader(
-        `x-bud-request`,
-        new URL(
-          request.url,
-          `${this.url.dev.protocol ?? `http:`}//${request.headers.host}`,
-        ).toJSON(),
-      )
-    } catch (err) {
-      this.app.error(`${err}\n`)
-    }
+      proxy
+        .setHeader(
+          `x-bud-request`,
+          new URL(
+            request.url,
+            `${this.url.dev.protocol}//${request.headers.host}`,
+          ).toJSON(),
+        )
+        .setHeader(
+          `x-bud-dev-pathname`,
+          new URL(request.url, `http://${request.headers.host}`).pathname,
+        )
+        .setHeader(`x-bud-origin`, this.url.dev.origin)
+        .setHeader(`x-bud-protocol`, this.url.dev.protocol)
+        .setHeader(`x-bud-hostname`, this.url.dev.hostname)
+    } catch (error) {}
   }
 
   /**
@@ -76,6 +67,6 @@ export class RequestInterceptorFactory {
    */
   @bind
   public make() {
-    return this._interceptor
+    return this.interceptor
   }
 }
