@@ -6254,7 +6254,7 @@ __metadata:
     "@types/js-yaml": 4.0.5
     "@types/node": 16.18.3
     chokidar: 3.5.3
-    http-proxy-middleware: 2.0.6
+    http-proxy-middleware: 3.0.0-beta.0
     tslib: 2.4.1
   languageName: unknown
   linkType: soft
@@ -19091,24 +19091,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"http-proxy-middleware@npm:2.0.6, http-proxy-middleware@npm:^2.0.0, http-proxy-middleware@npm:^2.0.3":
-  version: 2.0.6
-  resolution: "http-proxy-middleware@npm:2.0.6"
-  dependencies:
-    "@types/http-proxy": ^1.17.8
-    http-proxy: ^1.18.1
-    is-glob: ^4.0.1
-    is-plain-obj: ^3.0.0
-    micromatch: ^4.0.2
-  peerDependencies:
-    "@types/express": ^4.17.13
-  peerDependenciesMeta:
-    "@types/express":
-      optional: true
-  checksum: 2ee85bc878afa6cbf34491e972ece0f5be0a3e5c98a60850cf40d2a9a5356e1fc57aab6cff33c1fc37691b0121c3a42602d2b1956c52577e87a5b77b62ae1c3a
-  languageName: node
-  linkType: hard
-
 "http-proxy-middleware@npm:3.0.0-beta.0":
   version: 3.0.0-beta.0
   resolution: "http-proxy-middleware@npm:3.0.0-beta.0"
@@ -19125,6 +19107,24 @@ __metadata:
     "@types/express":
       optional: true
   checksum: f681ba7d798f723df2bf6bf1b47dbe82192f2708cdffd2c570f72f9ccc4f280f91af0fded3993734cc25c2f7e1b5ae6f0f3ba5cf0f3225750b4b6c9707dfd5e4
+  languageName: node
+  linkType: hard
+
+"http-proxy-middleware@npm:^2.0.0, http-proxy-middleware@npm:^2.0.3":
+  version: 2.0.6
+  resolution: "http-proxy-middleware@npm:2.0.6"
+  dependencies:
+    "@types/http-proxy": ^1.17.8
+    http-proxy: ^1.18.1
+    is-glob: ^4.0.1
+    is-plain-obj: ^3.0.0
+    micromatch: ^4.0.2
+  peerDependencies:
+    "@types/express": ^4.17.13
+  peerDependenciesMeta:
+    "@types/express":
+      optional: true
+  checksum: 2ee85bc878afa6cbf34491e972ece0f5be0a3e5c98a60850cf40d2a9a5356e1fc57aab6cff33c1fc37691b0121c3a42602d2b1956c52577e87a5b77b62ae1c3a
   languageName: node
   linkType: hard
 
