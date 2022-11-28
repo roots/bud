@@ -9,7 +9,7 @@
 <h1 align="center"><strong>@roots/bud-extensions</strong></h1>
 
 <p align="center">
-  Bud extensions controller
+  bud.js core module
 </p>
 
 ---
@@ -29,8 +29,6 @@ npm:
 ```sh
 npm install @roots/bud-extensions --save-dev
 ```
-
-## Usage
 
 ## Contributing
 

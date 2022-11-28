@@ -1,3 +1,7 @@
+---
+title: react-refresh
+---
+
 This extension enables [react-refresh](https://www.npmjs.com/package/react-refresh) in development. It uses [@pmmmwh/react-refresh-webpack-plugin](https://github.com/pmmmwh/react-refresh-webpack-plugin).
 
 For usage guidance, consult [the react-refresh-webpack-plugin API documentation](https://github.com/pmmmwh/react-refresh-webpack-plugin/blob/main/docs/API.md).

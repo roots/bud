@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-imagemin",
   "version": "0.0.0",
-  "description": "Image minification for `@roots/bud` projects",
+  "description": "Image minimizer for bud.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud",

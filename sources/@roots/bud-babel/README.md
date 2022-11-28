@@ -30,8 +30,6 @@ npm:
 npm install @roots/bud-babel --save-dev
 ```
 
-## Usage
-
 ## Contributing
 
 Contributions are welcome from everyone.

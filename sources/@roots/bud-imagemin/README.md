@@ -9,7 +9,7 @@
 <h1 align="center"><strong>@roots/bud-imagemin</strong></h1>
 
 <p align="center">
-  Image minification for &#x60;@roots/bud&#x60; projects
+  Image minimizer for bud.js
 </p>
 
 ---
@@ -32,8 +32,6 @@ npm install @roots/bud-imagemin --save-dev
 
 ## Usage
 
-### Usage
-
 **@roots/bud-imagemin** works out of the box with no configuration. It uses the [squoosh](https://squoosh.app/) library to optimize images, and sticks to the default options provided by the library.
 
 Ultimately, this extension is a relatively thin wrapper around the [webpack-contrib/image-minimizer-webpack-plugin](https://github.com/webpack-contrib/image-minimizer-webpack-plugin). Refer to the [plugin documentation](https://github.com/webpack-contrib/image-minimizer-webpack-plugin) for a better understanding of how it all works.
@@ -43,7 +41,7 @@ Ultimately, this extension is a relatively thin wrapper around the [webpack-cont
 - [bud.imagemin.encode](https://bud.js.org/extensions/bud-imagemin/encode)
 - [bud.imagemin.configure](https://bud.js.org/extensions/bud-imagemin/configure)
 
-### Converting To Webp
+## Convering asets to webp
 
 You may convert an asset to `webp` format using the `?as=webp` url parameter.
 
@@ -61,7 +59,7 @@ import image from "./images/image.jpg?as=webp";
 
 You're able [to add additional generators](#generators) if you want to do the same thing with another filetype.
 
-### Setting Encoder Options
+## Setting encoder options
 
 You may wish to customize the encoder settings. This is done with [bud.imagemin.encode](https://bud.js.org/extensions/bud-imagemin/encode).
 
@@ -89,7 +87,7 @@ export default async (bud) => {
 
 This allows [bud.imagemin.encode](https://bud.js.org/extensions/bud-imagemin/encode) to work with the new minimizer.
 
-### Generators
+## Generators
 
 Generators allow you to convert one type of image asset to another by appending a URL parameter to the asset path.
 
@@ -126,7 +124,7 @@ export default async (bud) => {
 };
 ```
 
-### Minimizers
+## Minimizers
 
 ### Modifying minimizers
 

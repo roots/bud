@@ -156,6 +156,7 @@ export default class Cache
     }
 
     this.name = `webpack`
+
     this.cacheDirectory = this.app.path(
       `@storage`,
       this.app.label,
@@ -176,6 +177,7 @@ export default class Cache
       .digest(`base64`)
       .replace(/[^a-z0-9]/gi, `_`)
       .toLowerCase()
+
     this.app.success(`cache initialized`)
   }
 

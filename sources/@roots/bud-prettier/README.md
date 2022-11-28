@@ -9,7 +9,7 @@
 <h1 align="center"><strong>@roots/bud-prettier</strong></h1>
 
 <p align="center">
-  Adds prettier support to Bud
+  Code formatting support for bud.js
 </p>
 
 ---
@@ -29,8 +29,6 @@ npm:
 ```sh
 npm install @roots/bud-prettier --save-dev
 ```
-
-## Usage
 
 ## Contributing
 

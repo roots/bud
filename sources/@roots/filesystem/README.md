@@ -30,8 +30,6 @@ npm:
 npm install @roots/filesystem --save-dev
 ```
 
-## Usage
-
 ## Contributing
 
 Contributions are welcome from everyone.

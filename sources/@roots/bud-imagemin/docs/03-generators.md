@@ -1,3 +1,7 @@
+---
+title: Generators
+---
+
 Generators allow you to convert one type of image asset to another by appending a URL parameter to the asset path.
 
 With the default configuration, you [can convert an image to `webp` using the `?as=webp` url parameter](#using-the-webp-preset).

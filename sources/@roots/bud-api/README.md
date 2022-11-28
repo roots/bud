@@ -9,7 +9,7 @@
 <h1 align="center"><strong>@roots/bud-api</strong></h1>
 
 <p align="center">
-  Bud configuration API
+  bud.js core module
 </p>
 
 ---
@@ -29,8 +29,6 @@ npm:
 ```sh
 npm install @roots/bud-api --save-dev
 ```
-
-## Usage
 
 ## Contributing
 

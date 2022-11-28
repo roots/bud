@@ -1,3 +1,7 @@
+---
+title: Included extensions
+---
+
 The @roots/sage extension depends on [@roots/bud-preset-wordpress](https://bud.js.org/extensions/bud-preset-wordpress) which in turn depends on [@roots/bud-preset-recommend](https://bud.js.org/extensions/bud-preset-recommend).
 
 All told, these are the extensions which are installed as peers of @roots/sage:

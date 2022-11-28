@@ -1,3 +1,7 @@
+---
+title: Setting encoder options
+---
+
 You may wish to customize the encoder settings. This is done with [bud.imagemin.encode](https://bud.js.org/extensions/bud-imagemin/encode).
 
 ```typescript title="bud.config.mjs"

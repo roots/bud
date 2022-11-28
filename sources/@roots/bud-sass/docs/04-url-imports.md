@@ -1,3 +1,7 @@
+---
+title: URL imports
+---
+
 When using `@roots/bud-sass`, you will find that the `url()` function is not working as expected. This is because the `url()` function is relative to the target file, not the source file and Sass does not support url rewriting.
 
 A few options are available to work around this.

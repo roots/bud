@@ -9,7 +9,7 @@
 <h1 align="center"><strong>@roots/bud-esbuild</strong></h1>
 
 <p align="center">
-  ESBuild transpilation extension for Bud projects
+  esbuild support for bud.js
 </p>
 
 ---
@@ -29,8 +29,6 @@ npm:
 ```sh
 npm install @roots/bud-esbuild --save-dev
 ```
-
-## Usage
 
 ## Contributing
 

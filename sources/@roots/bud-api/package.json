@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-api",
   "version": "0.0.0",
-  "description": "Bud configuration API",
+  "description": "bud.js core module",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",

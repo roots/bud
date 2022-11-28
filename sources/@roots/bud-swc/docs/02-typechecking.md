@@ -1,3 +1,7 @@
+---
+title: Typechecking
+---
+
 `@roots/bud-swc` does not currently support typechecking during compilation.
 
 Our recommendation is to run typechecking as a separate process. You can use the `bud typecheck` command or even use `tsc` directly: `tsc --noEmit`.

@@ -30,11 +30,7 @@ npm:
 npm install @roots/sage --save-dev
 ```
 
-## Usage
-
-Documentation for this package is available on [bud.js.org](https://bud.js.org/extensions/sage). It may include additional context and information not available in this README.
-
-### Included Extensions
+## Included extensions
 
 The @roots/sage extension depends on [@roots/bud-preset-wordpress](https://bud.js.org/extensions/bud-preset-wordpress) which in turn depends on [@roots/bud-preset-recommend](https://bud.js.org/extensions/bud-preset-recommend).
 
@@ -50,7 +46,7 @@ All told, these are the extensions which are installed as peers of @roots/sage:
 | @roots/bud-wordpress-externals                                          | Externalizes references to code provided by `window.wp`        |
 | @roots/bud-wordpress-manifests                                          | Combines the `entrypoints.json` and `wordpress.json` manifests |
 
-### Using With Eslint
+## Using with eslint
 
 Install the [@roots/bud-eslint](https://bud.js.org/extensions/bud-eslint) and the [@roots/eslint-config] preset package:
 
@@ -67,7 +63,7 @@ module.exports = {
 };
 ```
 
-### Using With Stylelint
+## Using with stylelint
 
 Install the [@roots/bud-stylelint extension](https://bud.js.org/extensions/bud-stylelint):
 
@@ -91,7 +87,7 @@ module.exports = {
 
 If you aren't using `@roots/bud-tailwindcss` you may remove the `@roots/bud-tailwindcss/stylelint-config` value from `extends`.
 
-### Managing Theme Json
+## Managing `theme.json`
 
 You can manage [WordPress' `theme.json` config file](https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-json/) from the context of your bud config using `bud.wptheme`.
 
@@ -177,7 +173,7 @@ bud.wpjson
   .enable();
 ```
 
-### Using With Sass
+## Using with sass
 
 Install the [@roots/bud-sass extension](https://bud.js.org/extensions/bud-sass):
 

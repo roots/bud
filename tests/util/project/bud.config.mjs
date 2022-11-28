@@ -3,14 +3,15 @@
 import Bud from '@roots/bud'
 
 /**
- * @param {import('@roots/bud').Bud} app
+ * @param {import('@roots/bud').Bud} bud
  */
-export default async app => {
-  await app.extensions.add([`@roots/bud-swc`, `@roots/bud-tailwindcss`])
-  await app.extensions.add([`@roots/bud-emotion`])
-  app
+export default async bud => {
+  await bud.extensions.add([`@roots/bud-swc`, `@roots/bud-tailwindcss`])
+  await bud.extensions.add([`@roots/bud-emotion`])
+
+  bud
     .setPath(`@src`, `src`)
-    .alias(`@src`, app.path(`@src`))
+    .alias(`@src`, bud.path(`@src`))
     .entry(`app`, [`@src/scripts/app`, `@src/styles/app`])
     .copy([[`images`, `images`]])
     .template({
