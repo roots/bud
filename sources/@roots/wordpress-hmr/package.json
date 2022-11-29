@@ -1,7 +1,7 @@
 {
   "name": "@roots/wordpress-hmr",
   "description": "WordPress HMR scripts",
-  "version": "0.0.0",
+  "version": "6.6.3",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
