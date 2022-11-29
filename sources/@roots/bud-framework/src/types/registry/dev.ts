@@ -63,9 +63,8 @@ export interface Sync {
   'middleware.proxy.options.forward': Server.Middleware.Available['proxy']['options']['forward']
   'middleware.proxy.options.headers': Record<string, string>
   'middleware.proxy.options.hostRewrite': Server.Middleware.Available['proxy']['options']['hostRewrite']
-  'middleware.proxy.options.logLevel': Server.Middleware.Available['proxy']['options']['logLevel']
-  'middleware.proxy.options.onProxyReq': Server.Middleware.Available['proxy']['options']['onProxyReq']
-  'middleware.proxy.options.onProxyRes': Server.Middleware.Available['proxy']['options']['onProxyRes']
+  'middleware.proxy.options.onProxyReq': Server.Middleware.Available['proxy']['options']['on']['proxyReq']
+  'middleware.proxy.options.onProxyRes': Server.Middleware.Available['proxy']['options']['on']['proxyRes']
   'middleware.proxy.options.protocolRewrite': Server.Middleware.Available['proxy']['options']['protocolRewrite']
   'middleware.proxy.options.secure': Server.Middleware.Available['proxy']['options']['secure']
   'middleware.proxy.options.selfHandleResponse': Server.Middleware.Available['proxy']['options']['selfHandleResponse']
