@@ -144,7 +144,7 @@
     "@types/js-yaml": "4.0.5",
     "@types/node": "16.18.3",
     "chokidar": "3.5.3",
-    "http-proxy-middleware": "2.0.6"
+    "http-proxy-middleware": "3.0.0-beta.0"
   },
   "dependencies": {
     "@roots/bud-support": "workspace:sources/@roots/bud-support",

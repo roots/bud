@@ -100,7 +100,7 @@ describe(`bud.proxy`, () => {
 
     expect(onSpy).toHaveBeenLastCalledWith(
       `dev.middleware.proxy.replacements`,
-      expect.any(Function),
+      [[/foo/, `bar`]],
     )
   })
 

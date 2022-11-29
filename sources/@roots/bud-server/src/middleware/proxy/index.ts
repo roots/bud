@@ -20,97 +20,53 @@ export const proxy = (app: Bud) => {
       `dev.middleware.proxy.options.autoRewrite`,
       true,
     ),
-
-    /**
-     * Change origin
-     */
     changeOrigin: app.hooks.filter(
       `dev.middleware.proxy.options.changeOrigin`,
       true,
     ),
-
-    /**
-     * Cookie domain rewrite
-     */
     cookieDomainRewrite: app.hooks.filter(
       `dev.middleware.proxy.options.cookieDomainRewrite`,
       url.dev.host,
     ),
-
-    /**
-     * Follow redirects
-     */
     followRedirects: app.hooks.filter(
       `dev.middleware.proxy.options.followRedirects`,
       false,
     ),
-
-    /**
-     * Host rewrite
-     */
     hostRewrite: app.hooks.filter(
       `dev.middleware.proxy.options.hostRewrite`,
       url.dev.host,
     ),
-
-    /**
-     * Log level
-     */
-    logLevel: app.hooks.filter(
-      `dev.middleware.proxy.options.logLevel`,
-      `info`,
+    forward: app.hooks.filter(
+      `dev.middleware.proxy.options.forward`,
+      undefined,
     ),
-
-    /**
-     * Log provider
-     */
-    logProvider: () => app.logger.instance.scope(`proxy`),
-
-    /**
-     * Proxy request handler
-     */
-    onProxyReq: app.hooks.filter(
-      `dev.middleware.proxy.options.onProxyReq`,
-      request.make,
+    headers: app.hooks.filter(
+      `dev.middleware.proxy.options.headers`,
+      undefined,
     ),
-
-    /**
-     * Proxy response handler
-     */
-    onProxyRes: app.hooks.filter(
-      `dev.middleware.proxy.options.onProxyRes`,
-      response.make,
-    ),
-
-    /**
-     * Protocol rewrite
-     */
+    on: {
+      proxyReq: app.hooks.filter(
+        `dev.middleware.proxy.options.onProxyReq`,
+        request.make,
+      ),
+      proxyRes: app.hooks.filter(
+        `dev.middleware.proxy.options.onProxyRes`,
+        response.make,
+      ),
+    },
     protocolRewrite: app.hooks.filter(
       `dev.middleware.proxy.options.protocolRewrite`,
       url.dev.protocol === `https:` ? `https` : null,
     ),
-
-    /**
-     * Secure
-     */
     secure: app.hooks.filter(`dev.middleware.proxy.options.secure`, false),
-
-    /**
-     * Self handle response
-     */
     selfHandleResponse: app.hooks.filter(
       `dev.middleware.proxy.options.selfHandleResponse`,
       true,
     ),
-
-    /**
-     * Target
-     */
     target: app.hooks.filter(`dev.middleware.proxy.target`, url.proxy),
   }
 
   return createProxyMiddleware(
-    app.hooks.filter(`dev.middleware.proxy.paths`, [`**`, `!/bud/**`]),
     app.hooks.filter(`dev.middleware.proxy.options`, options),
   )
 }
