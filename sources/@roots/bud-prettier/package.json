@@ -65,7 +65,7 @@
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "prettier": "2.7.1"
+    "prettier": "2.8.0"
   },
   "peerDependencies": {
     "prettier": "*"
