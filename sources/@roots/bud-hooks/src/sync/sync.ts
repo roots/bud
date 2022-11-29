@@ -4,10 +4,11 @@ import type {
   SyncRegistry,
   SyncStore,
 } from '@roots/bud-framework/registry'
+import type Value from '@roots/bud-framework/value'
 import {bind} from '@roots/bud-support/decorators'
 import {isFunction} from '@roots/bud-support/lodash-es'
 
-import {Hooks} from './base.js'
+import {Hooks} from '../base/base.js'
 
 /**
  * Synchronous hooks registry
@@ -24,13 +25,14 @@ export class SyncHooks extends Hooks<SyncStore> {
   @bind
   public set<T extends `${keyof SyncStore & string}`>(
     id: T,
-    input: SyncCallback[T],
+    ...input: SyncCallback[T]
   ): Bud {
-    if (this.has(id) && isFunction(input)) {
-      this.store[id].push(this.app.value.make(input))
-    } else {
-      this.store[id] = [this.app.value.make(input)]
-    }
+    if (!this.has(id)) this.store[id] = []
+
+    input.map(this.app.value.make).map((value: Value<SyncCallback[T]>) => {
+      if (typeof value.get() === `function`) this.store[id].push(value)
+      else this.store[id] = [value]
+    })
 
     return this.app
   }
@@ -42,13 +44,8 @@ export class SyncHooks extends Hooks<SyncStore> {
    * @decorator `@bind`
    */
   @bind
-  public setRecords<K extends keyof SyncRegistry & string>(
-    map: Partial<SyncCallback>,
-  ): Bud {
-    Object.entries(map).map(([k, v]: [K, SyncRegistry[K]]) =>
-      this.set(k, v),
-    )
-
+  public setRecords(map: Partial<SyncCallback>): Bud {
+    Object.entries(map).map(([k, v]: any) => this.set(k, v))
     return this.app
   }
 
@@ -59,18 +56,14 @@ export class SyncHooks extends Hooks<SyncStore> {
    * @decorator `@bind`
    */
   @bind
-  public get<T extends keyof SyncStore & string>(
+  public get<T extends keyof SyncRegistry & string>(
     id: T,
     fallback?: SyncCallback[T],
   ) {
-    if (!this.has(id)) return isFunction(fallback) ? fallback() : fallback
-
-    return (this.store[id] ?? [])
+    return [this.app.value.make(fallback), ...(this.store[id] ?? [])]
       .map(this.app.value.get)
-      .reduce(
-        (accumulated, current) =>
-          isFunction(current) ? current(accumulated) : current,
-        fallback,
+      .reduce((accumulated, current) =>
+        isFunction(current) ? current(accumulated) : current,
       )
   }
 }
