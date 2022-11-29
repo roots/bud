@@ -81,7 +81,18 @@ export class ResponseInterceptorFactory implements InterceptorFactory {
     response: ServerResponse,
   ): Promise<Buffer | string> {
     this.mapProxyCookies(request, response)
+
     response.setHeader(`x-bud-origin`, this.url.dev.origin)
+
+    if (request.headers?.location) {
+      response.setHeader(
+        `location`,
+        request.headers.location
+          .toString()
+          .replace(this.url.proxy.origin, this.url.dev.origin),
+      )
+    }
+
     return this.isTransformable(proxy) ? this.transform(buffer) : buffer
   }
 
@@ -95,8 +106,8 @@ export class ResponseInterceptorFactory implements InterceptorFactory {
   public transform(buffer: Buffer): string {
     return this.app.hooks
       .filter(`dev.middleware.proxy.replacements`, [
-        [this.url.proxy.toString(), `/`],
         [this.url.proxy.origin, this.url.dev.origin],
+        [this.url.proxy.host, this.url.dev.host],
       ])
       .reduce(
         (value, [search, replace]) =>

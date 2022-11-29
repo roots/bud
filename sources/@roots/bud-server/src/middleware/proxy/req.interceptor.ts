@@ -59,6 +59,16 @@ export class RequestInterceptorFactory {
         .setHeader(`x-bud-origin`, this.url.dev.origin)
         .setHeader(`x-bud-protocol`, this.url.dev.protocol)
         .setHeader(`x-bud-hostname`, this.url.dev.hostname)
+
+      if (proxy.hasHeader(`location`)) {
+        proxy.setHeader(
+          `location`,
+          (proxy.getHeader(`location`) as string).replace(
+            this.url.proxy.origin,
+            this.url.dev.origin,
+          ),
+        )
+      }
     } catch (error) {}
   }
 
