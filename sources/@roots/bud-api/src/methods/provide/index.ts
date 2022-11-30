@@ -1,6 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
 
-export type Parameters = [Record<string, Array<string>>]
+export type Parameters = [Record<string, Array<string> | string>]
 
 export interface provide {
   (...parameters: Parameters): Promise<Bud>
@@ -18,17 +18,21 @@ export const provide: provide = async function (this: Bud, packages) {
   const modified = Object.entries(packages).reduce(
     (
       acc: Record<string, string>,
-      [key, value]: [string, Array<string>],
-    ) => ({
-      ...(acc ?? {}),
-      ...value.reduce(
-        (all, item) => ({
-          ...(all ?? {}),
-          [item]: key,
-        }),
-        {},
-      ),
-    }),
+      [key, value]: [string, Array<string> | string],
+    ) => {
+      const normalValue = Array.isArray(value) ? value : [value]
+
+      return {
+        ...(acc ?? {}),
+        ...normalValue.reduce(
+          (all, item) => ({
+            ...(all ?? {}),
+            [item]: key,
+          }),
+          {},
+        ),
+      }
+    },
     options ?? {},
   )
 
