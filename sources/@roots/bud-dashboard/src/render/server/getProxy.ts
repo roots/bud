@@ -6,14 +6,16 @@ import parsePort from './parsePort.js'
  *
  * @public
  */
-const getProxy = (url?: URL) => {
+const getProxy = (url?: {
+  protocol: string
+  hostname: string
+  port: string
+}) => {
   if (!url) return false
 
-  const {protocol, port, hostname} = url
+  const port = parsePort(url.port)
 
-  if (!hostname || !port || !protocol) return false
-
-  return formatUrl.external(protocol, hostname, parsePort(port))
+  return formatUrl.external(url.protocol, url.hostname, port)
 }
 
 export default getProxy
