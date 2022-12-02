@@ -14,7 +14,7 @@ By default bud.js will serve at the following address:
 | host     | localhost |
 | port     | 3000      |
 
-If port 3000 is already used a new port will be dynamically selected.
+If port `3000` is already used a new port will be dynamically selected.
 
 ## Specifying server address
 
@@ -42,11 +42,20 @@ Specify an address with a node URL object:
 bud.serve(new URL('http://example.test:3000'))
 ```
 
-Serve over `https`:
+To serve over https:
 
 ```ts title='bud.config.js'
 bud.serve({
-  host: new URL('example.test'),
+  host: 'example.test',
+  port: 3000,
+  cert: '/path/to/example.test.crt',
+  key: '/path/to/example.test.key',
+})
+```
+
+```ts title="bud.config.js"
+bud.serve({
+  url: new URL('https://example.test:3000'),
   cert: '/path/to/example.test.crt',
   key: '/path/to/example.test.key',
 })

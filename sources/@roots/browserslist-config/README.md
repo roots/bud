@@ -9,7 +9,7 @@
 <h1 align="center"><strong>@roots/browserslist-config</strong></h1>
 
 <p align="center">
-  Roots standard browserslist-config
+  Browserslist configuration
 </p>
 
 ---
