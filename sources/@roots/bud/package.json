@@ -104,7 +104,7 @@
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.18.3",
+    "@types/node": "16.18.4",
     "@types/node-notifier": "8.0.2"
   },
   "dependencies": {

@@ -79,19 +79,19 @@
     "@skypack/package-check": "0.2.2",
     "@types/fs-extra": "9.0.13",
     "@types/mini-css-extract-plugin": "2.5.1",
-    "@types/node": "16.18.3"
+    "@types/node": "16.18.4"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "css-loader": "^6.7.1",
+    "css-loader": "^6.7.2",
     "csv-loader": "^3.0.5",
     "file-loader": "^6.2.0",
     "fs-extra": "10.1.0",
     "helpful-decorators": "2.1.0",
     "html-loader": "^4.2.0",
     "json5": "2.2.1",
-    "mini-css-extract-plugin": "2.6.1",
+    "mini-css-extract-plugin": "2.7.1",
     "remark": "14.0.2",
     "remark-html": "15.0.1",
     "remark-loader": "5.0.0",

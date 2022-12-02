@@ -20,14 +20,14 @@
     "@repo/logger": "workspace:sources/@repo/logger",
     "@types/fs-extra": "9.0.13",
     "@types/lodash-es": "4.17.6",
-    "@types/node": "16.18.3",
+    "@types/node": "16.18.4",
     "@vercel/ncc": "0.34.0",
     "download-package-tarball": "1.0.7",
     "fs-extra": "10.1.0",
     "get-package-json-from-registry": "2.2.2",
     "lodash-es": "4.17.21",
-    "npm-package-arg": "10.0.0",
+    "npm-package-arg": "10.1.0",
     "registry-info": "1.0.0",
-    "vitest": "0.24.5"
+    "vitest": "0.25.3"
   }
 }

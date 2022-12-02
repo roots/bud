@@ -2,17 +2,16 @@
   "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
     "importHelpers": false,
-    "module": "commonjs",
-    "moduleDetection": "auto",
+    "module": "es2020",
     "rootDir": "./src",
     "sourceMap": false,
     "outDir": "./lib",
     "target": "es6",
   },
   "files": [
-    "src/types/index.ts"
+    "src/types/index.d.ts"
   ],
-  "include": ["./src"],
+  "include": ["./src/**/*.ts", "./src/**/*.mts", "./src/**/*.cts"],
   "exclude": ["./lib", "./node_modules", "**/*.test.ts", "**/__fixtures__"],
   "references": [
     {"path": "./../bud/tsconfig.json"},

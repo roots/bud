@@ -8,15 +8,15 @@
   },
   "devDependencies": {
     "@types/fs-extra": "9.0.13",
-    "@types/node": "16.18.3",
-    "@yarnpkg/builder": "3.2.5"
+    "@types/node": "16.18.4",
+    "@yarnpkg/builder": "3.2.6"
   },
   "dependencies": {
     "@repo/constants": "workspace:sources/@repo/constants",
-    "@yarnpkg/cli": "3.2.4",
-    "@yarnpkg/core": "3.2.5",
-    "@yarnpkg/shell": "3.2.4",
-    "clipanion": "3.2.0-rc.13",
+    "@yarnpkg/cli": "3.3.0",
+    "@yarnpkg/core": "3.3.0",
+    "@yarnpkg/shell": "3.2.5",
+    "clipanion": "3.2.0-rc.14",
     "fs-extra": "10.1.0",
     "helpful-decorators": "2.1.0",
     "js-yaml": "4.1.0",
@@ -24,8 +24,8 @@
     "pm2": "5.2.2",
     "semver": "7.3.8",
     "tslib": "2.4.1",
-    "typescript": "4.8.4",
-    "verdaccio": "5.16.3"
+    "typescript": "4.9.3",
+    "verdaccio": "5.18.0"
   },
   "volta": {
     "node": "16.18.0",

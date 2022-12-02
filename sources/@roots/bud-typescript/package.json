@@ -67,7 +67,7 @@
     "@roots/bud": "workspace:sources/@roots/bud",
     "@skypack/package-check": "0.2.2",
     "@types/fork-ts-checker-webpack-plugin": "0.4.5",
-    "@types/node": "16.18.3"
+    "@types/node": "16.18.4"
   },
   "dependencies": {
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
@@ -77,9 +77,9 @@
     "chalk": "5.1.2",
     "fork-ts-checker-webpack-plugin": "^7.2.13",
     "react-refresh-typescript": "2.0.7",
-    "ts-loader": "^9.4.1",
+    "ts-loader": "^9.4.2",
     "ts-node": "10.9.1",
-    "typescript": "4.8.4"
+    "typescript": "4.9.3"
   },
   "peerDependencies": {
     "@roots/bud": "*",
