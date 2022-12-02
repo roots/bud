@@ -31,13 +31,11 @@ export default class Acorn extends Extension {
     bud.extensions
       .get(`@roots/bud-entrypoints`)
       .setOption(`publicPath`, ``)
-
     this.logger.success(`unset entrypoints publicPath`)
 
     bud.extensions
       .get(`@roots/bud-extensions/webpack-manifest-plugin`)
       .setOption(`publicPath`, ``)
-
     this.logger.success(`unset manifest publicPath`)
 
     /**
