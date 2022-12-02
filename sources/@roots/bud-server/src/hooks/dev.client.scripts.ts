@@ -61,5 +61,5 @@ export const hmrClient = (app: Bud) => {
         : app.context.args.reload.toString(),
   })
 
-  return `@roots/bud-client/lib/hot/index.js?${params.toString()}`
+  return `@roots/bud-client/lib/hot/index.mjs?${params.toString()}`
 }

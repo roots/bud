@@ -114,10 +114,7 @@ export class Server extends Service implements BaseService {
   @bind
   public async setConnection() {
     const isHttps = this.app.hooks.filter(`dev.url`).protocol === `https:`
-
     this.connection = isHttps ? new Https(this.app) : new Http(this.app)
-
-    await this.connection.setup()
   }
 
   /**

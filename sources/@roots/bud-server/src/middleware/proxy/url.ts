@@ -21,7 +21,7 @@ export class ApplicationURL {
    * @public
    */
   public get dev(): URL {
-    return this.app.server.connection.url
+    return this.app.hooks.filter(`dev.url`, new URL(`http://0.0.0.0:3000`))
   }
 
   /**
@@ -30,7 +30,10 @@ export class ApplicationURL {
    * @public
    */
   public get proxy(): URL {
-    return this.app.hooks.filter(`dev.middleware.proxy.target`)
+    return this.app.hooks.filter(
+      `dev.middleware.proxy.target`,
+      new URL(`http://0.0.0.0`),
+    )
   }
 
   /**
