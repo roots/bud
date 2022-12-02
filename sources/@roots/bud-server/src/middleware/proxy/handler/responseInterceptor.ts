@@ -16,7 +16,17 @@ declare module 'node:http' {
 
 const factory = (bud: Bud, url: ApplicationURL) =>
   responseInterceptor(async (buffer, proxy, request, response) => {
-    response.setHeader(`x-bud-origin`, url.dev.origin)
+    response
+      .setHeader(`x-proxy-by`, `@roots/bud`)
+      .setHeader(`x-bud-origin`, url.dev.origin)
+      .setHeader(`x-bud-dev-origin`, url.dev.origin)
+      .setHeader(`x-bud-dev-protocol`, url.dev.protocol)
+      .setHeader(`x-bud-dev-hostname`, url.dev.hostname)
+      .setHeader(`x-bud-proxy-origin`, url.proxy.origin)
+
+    response.removeHeader(`content-security-policy`)
+    response.removeHeader(`x-http-method-override`)
+
     setResponseCookies(request, response)
     return transformResponseBuffer(bud, url, proxy, buffer)
   })
@@ -50,17 +60,14 @@ const transformResponseBuffer = (
   proxy: IncomingMessage,
   buffer: Buffer,
 ) => {
-  const replacements = bud.hooks.filter(
-    `dev.middleware.proxy.replacements`,
-    [
+  if (!isTransformable(proxy)) return buffer
+
+  return bud.hooks
+    .filter(`dev.middleware.proxy.replacements`, [
       [url.proxy.origin, url.dev.origin],
       [url.proxy.host, url.dev.host],
-    ],
-  )
-
-  return isTransformable(proxy)
-    ? replacements.reduce(transformBody, buffer.toString(`utf8`))
-    : buffer
+    ])
+    .reduce(transformBody, buffer.toString(`utf8`))
 }
 
 const isTransformable = (message?: IncomingMessage) => {

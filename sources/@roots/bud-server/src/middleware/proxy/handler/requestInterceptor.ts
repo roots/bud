@@ -1,4 +1,4 @@
-import type {ClientRequest} from 'node:http'
+import type {ClientRequest, IncomingMessage} from 'node:http'
 
 import type {Bud} from '@roots/bud-framework'
 
@@ -10,13 +10,33 @@ import type {ApplicationURL} from '../url.js'
  * @public
  */
 const factory =
-  (_app: Bud, url: ApplicationURL) => async (proxy: ClientRequest) => {
+  (app: Bud, url: ApplicationURL) =>
+  async (proxy: ClientRequest, request: IncomingMessage) => {
     if (proxy.headersSent) return
 
-    proxy
-      .setHeader(`x-bud-origin`, url.dev.origin)
-      .setHeader(`x-bud-protocol`, url.dev.protocol)
-      .setHeader(`x-bud-hostname`, url.dev.hostname)
+    try {
+      /**
+       * Acorn compat
+       * Ideally, we use the headers included after this
+       */
+      proxy
+        .setHeader(
+          `x-bud-dev-pathname`,
+          new URL(request.url, `http://${request.headers.host}`).pathname,
+        )
+        .setHeader(`x-bud-dev-origin`, url.dev.origin)
+        .setHeader(`x-bud-dev-protocol`, url.dev.protocol)
+        .setHeader(`x-bud-dev-hostname`, url.dev.hostname)
+        .setHeader(
+          `x-bud-request`,
+          new URL(
+            request.url,
+            `${url.dev.protocol ?? `http:`}//${request.headers.host}`,
+          ).toJSON(),
+        )
+    } catch (error) {
+      app.error(error)
+    }
   }
 
 export {factory}
