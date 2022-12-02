@@ -53,7 +53,11 @@ export const bundle: bundle = function (this: Bud, name, matcher) {
         : {}
 
     return {
-      ...(splitChunks ?? {}),
+      ...(splitChunks ?? {
+        chunks: `all`,
+        automaticNameDelimiter: `/`,
+        minSize: 0,
+      }),
       cacheGroups: {
         ...cacheGroups,
         [name]: {
