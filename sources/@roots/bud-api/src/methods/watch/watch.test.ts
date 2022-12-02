@@ -15,15 +15,6 @@ describe(`bud.watch`, () => {
 
     it(`is a function`, () => expect(watch).toBeInstanceOf(Function))
 
-    it(`should have expected default values`, async () => {
-      const value = bud.hooks.filter(`dev.watch.files`)
-
-      if (!(value instanceof Set))
-        throw new Error(`watch files should be a set`)
-
-      expect(Array.from(value)).toStrictEqual([])
-    })
-
     it(`adds watch files`, () => {
       watch(`1/*.js`)
 
