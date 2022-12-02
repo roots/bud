@@ -5,9 +5,18 @@ import type {Bud} from '../../../bud.js'
 export interface ProxyOptions extends HttpProxy.Options {}
 
 export interface DevOptions {
-  headers?: Record<string, string>
+  /**
+   * Allows to pass custom HTTP headers on each request.
+   */
+  headers?: Array<{key: string; value: string}>
+  /**
+   * If false (but not undefined), the server will not respond to requests to the root URL.
+   */
   index?: string | boolean
-  methods?: string
+  /**
+   * This is Array<string> (mistyped upstream)
+   */
+  methods?: any
   mimeTypes?: {[key: string]: string}
   publicPath?: string
   writeToDisk?: boolean | ((targetPath: string) => boolean)

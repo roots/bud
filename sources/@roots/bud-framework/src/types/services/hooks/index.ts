@@ -1,6 +1,6 @@
-import type {Bud} from '../../bud.js'
-import type {Service as BaseService} from '../../service.js'
-import type * as Registry from '../registry/index.js'
+import type {Bud} from '../../../bud.js'
+import type {Service as BaseService} from '../../../service.js'
+import type * as Registry from '../../registry/index.js'
 
 /**
  * Assign and filter callback to values.

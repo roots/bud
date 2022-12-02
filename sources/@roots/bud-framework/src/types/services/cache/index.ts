@@ -1,6 +1,6 @@
 import type {Configuration} from '@roots/bud-support/webpack'
 
-import type {Service as BaseService} from '../../service.js'
+import type {Service as BaseService} from '../../../service.js'
 
 /**
  * Cache service Interface

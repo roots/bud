@@ -1,9 +1,31 @@
+import type {ListenOptions} from 'node:net'
+
 import type {WatchOptions} from 'chokidar'
 
 import type {Bud} from '../../bud.js'
 import type * as Server from '../services/server/index.js'
 
 export interface Sync {
+  listenOptions: ListenOptions
+
+  /**
+   * On listening callback
+   * @public
+   */
+  onListening: Server.Connection['onListening']
+
+  /**
+   * Request callback
+   * @public
+   */
+  onRequest: Server.Connection['onRequest']
+
+  /**
+   * Error callback
+   * @public
+   */
+  onError: Server.Connection['onError']
+
   /**
    * Dev server connection options
    * @public
@@ -45,6 +67,7 @@ export interface Sync {
 
   'middleware.dev.options': Server.Middleware.Available['dev']['options']
   'middleware.dev.options.headers': Server.Middleware.Available['dev']['options']['headers']
+  'middleware.dev.options.methods': Server.Middleware.Available['dev']['options']['methods']
   'middleware.dev.options.index': Server.Middleware.Available['dev']['options']['index']
   'middleware.dev.options.publicPath': Server.Middleware.Available['dev']['options']['publicPath']
   'middleware.dev.options.writeToDisk': Server.Middleware.Available['dev']['options']['writeToDisk']
@@ -65,9 +88,14 @@ export interface Sync {
   'middleware.proxy.options.hostRewrite': Server.Middleware.Available['proxy']['options']['hostRewrite']
   'middleware.proxy.options.onProxyReq': Server.Middleware.Available['proxy']['options']['on']['proxyReq']
   'middleware.proxy.options.onProxyRes': Server.Middleware.Available['proxy']['options']['on']['proxyRes']
+  'middleware.proxy.options.onError': Server.Middleware.Available['proxy']['options']['on']['error']
+  'middleware.proxy.options.onOpen': Server.Middleware.Available['proxy']['options']['on']['open']
+  'middleware.proxy.options.pathFilter': Server.Middleware.Available['proxy']['options']['pathFilter']
+  'middleware.proxy.options.pathRewrite': Server.Middleware.Available['proxy']['options']['pathRewrite']
   'middleware.proxy.options.protocolRewrite': Server.Middleware.Available['proxy']['options']['protocolRewrite']
   'middleware.proxy.options.secure': Server.Middleware.Available['proxy']['options']['secure']
   'middleware.proxy.options.selfHandleResponse': Server.Middleware.Available['proxy']['options']['selfHandleResponse']
+  'middleware.proxy.options.xfwd': Server.Middleware.Available['proxy']['options']['xfwd']
 
   /**
    * Proxy target URL
