@@ -22,22 +22,9 @@ export const dev = (app: Bud) =>
     app.compiler.instance as any,
     app.hooks.filter(`dev.middleware.dev.options`, {
       headers: app.hooks.filter(`dev.middleware.dev.options.headers`, [
-        {
-          key: `x-bud-origin`,
-          value: app.hooks.filter(`dev.url`).origin,
-        },
-        {
-          key: `Access-Control-Allow-Origin`,
-          value: `*`,
-        },
-        {
-          key: `Access-Control-Allow-Headers`,
-          value: `*`,
-        },
-        {
-          key: `x-powered-by`,
-          value: `@roots/bud`,
-        },
+        {key: `Access-Control-Allow-Origin`, value: `*`},
+        {key: `Access-Control-Allow-Headers`, value: `*`},
+        {key: `x-powered-by`, value: `@roots/bud`},
       ]),
       index: app.hooks.filter(
         `dev.middleware.dev.options.index`,
@@ -45,7 +32,7 @@ export const dev = (app: Bud) =>
       ),
       publicPath: app.hooks.filter(
         `dev.middleware.dev.options.publicPath`,
-        ``,
+        app.hooks.filter(`build.output.publicPath`, `auto`),
       ),
       writeToDisk: app.hooks.filter(
         `dev.middleware.dev.options.writeToDisk`,

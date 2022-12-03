@@ -1,6 +1,6 @@
 import type {Bud} from '@roots/bud-framework/bud'
 import type * as Server from '@roots/bud-framework/services/server'
-import {isNumber, isString} from '@roots/bud-support/lodash-es'
+import {isNumber} from '@roots/bud-support/lodash-es'
 
 type ReplacementTuples = Array<[string, string]>
 type ReplacementCallback = (
@@ -82,17 +82,13 @@ export const proxy: proxy = async function (
   }
 
   /**
-   * User proxy request from a string
-   */
-  if (isString(input)) {
-    this.hooks.on(`dev.middleware.proxy.target`, new URL(input))
-  }
-
-  /**
    * User proxy request from a URL
    */
-  if (input instanceof URL) {
-    this.hooks.on(`dev.middleware.proxy.target`, input)
+  if (input instanceof URL || typeof input === `string`) {
+    this.hooks.on(
+      `dev.middleware.proxy.target`,
+      input instanceof URL ? input : new URL(input),
+    )
   }
 
   /**
@@ -109,7 +105,7 @@ export const proxy: proxy = async function (
    * Handle URL replacements
    */
   if (replacements === undefined) return this
-  this.hooks.on(`dev.middleware.proxy.replacements`, replacements)
 
+  this.hooks.on(`dev.middleware.proxy.replacements`, replacements)
   return this
 }

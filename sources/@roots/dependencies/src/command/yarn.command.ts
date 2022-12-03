@@ -14,22 +14,15 @@ export class Yarn extends Command implements IDependencyManager {
    */
   @bind
   public async install(
-    dependencies: Array<[string, string]>,
+    dependencies: Array<string | [string, string]>,
     args: Array<string> = [],
-    onMessage?: (message: string) => void,
-    onError?: (message: string) => void,
   ): Promise<any> {
-    await Yarn.execute(
-      [
-        `yarn`,
-        `add`,
-        ...Yarn.normalizeDependencies(dependencies),
-        ...args,
-      ],
-      onMessage,
-      onError,
-    )
-    await Yarn.execute([`yarn`, `install`])
+    await this.execute([
+      `yarn`,
+      `add`,
+      ...this.normalizeDependencies(dependencies),
+      ...args,
+    ])
   }
 
   /**
@@ -37,25 +30,25 @@ export class Yarn extends Command implements IDependencyManager {
    */
   @bind
   public async uninstall(
-    dependencies: Array<[string, string]>,
-    onMessage?: (message: string) => void,
-    onError?: (message: string) => void,
+    dependencies: Array<string | [string, string]>,
+    args: Array<string> = [],
   ): Promise<any> {
-    return await Yarn.execute(
-      [`yarn`, `remove`, ...Yarn.normalizeDependencies(dependencies)],
-      onMessage,
-      onError,
-    )
+    return await this.execute([
+      `yarn`,
+      `remove`,
+      ...this.normalizeDependencies(dependencies),
+      ...args,
+    ])
   }
 
   /**
-   * Get the latest version of a package from the npm registry
+   * Get the latest version of a package from the registry
    *
    * @public
    */
   @bind
   public async getLatestVersion(signifier: string): Promise<string> {
-    const result = await Yarn.execute([
+    const result = await this.execute([
       `yarn`,
       `info`,
       signifier,

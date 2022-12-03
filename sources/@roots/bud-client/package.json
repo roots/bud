@@ -47,8 +47,8 @@
     },
     "./lib/*": {
       "types": "./lib/*.d.mts",
-      "require": "./lib/*.cjs",
-      "default": "./lib/*.mjs"
+      "require": "./lib/*",
+      "default": "./lib/*"
     }
   },
   "devDependencies": {

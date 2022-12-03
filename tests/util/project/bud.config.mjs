@@ -1,13 +1,10 @@
 // @ts-check
 
-import Bud from '@roots/bud'
-
 /**
  * @param {import('@roots/bud').Bud} bud
  */
 export default async bud => {
   await bud.extensions.add([`@roots/bud-swc`, `@roots/bud-tailwindcss`])
-  await bud.extensions.add([`@roots/bud-emotion`])
 
   bud
     .setPath(`@src`, `src`)

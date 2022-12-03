@@ -16,20 +16,15 @@ export class Npm extends Command implements IDependencyManager {
   public install(
     dependencies: Array<string | [string, string]>,
     args: Array<string> = [],
-    onMessage?: (message: string) => void,
-    onError?: (message: string) => void,
   ): Promise<any> {
-    return Npm.execute(
-      [
-        `npm`,
-        `install`,
-        ...Npm.normalizeDependencies(dependencies),
-        `--prefix`,
-        this.path,
-      ],
-      onMessage,
-      onError,
-    )
+    return this.execute([
+      `npm`,
+      `install`,
+      ...this.normalizeDependencies(dependencies),
+      `--prefix`,
+      this.path,
+      ...args,
+    ])
   }
 
   /**
@@ -38,20 +33,16 @@ export class Npm extends Command implements IDependencyManager {
   @bind
   public uninstall(
     dependencies: Array<string | [string, string]>,
-    onMessage?: (message: string) => void,
-    onError?: (message: string) => void,
+    args: Array<string> = [],
   ): Promise<any> {
-    return Npm.execute(
-      [
-        `npm`,
-        `uninstall`,
-        ...Npm.normalizeDependencies(dependencies),
-        `--prefix`,
-        this.path,
-      ],
-      onMessage,
-      onError,
-    )
+    return this.execute([
+      `npm`,
+      `uninstall`,
+      ...this.normalizeDependencies(dependencies),
+      `--prefix`,
+      this.path,
+      ...args,
+    ])
   }
 
   /**
@@ -61,7 +52,12 @@ export class Npm extends Command implements IDependencyManager {
    */
   @bind
   public async getLatestVersion(signifier: string): Promise<string> {
-    const result = await Npm.execute([`npm`, `view`, signifier, `version`])
+    const result = await this.execute([
+      `npm`,
+      `view`,
+      signifier,
+      `version`,
+    ])
     if (result?.shift) return result.shift().trim()
   }
 }

@@ -6970,14 +6970,13 @@ __metadata:
     node-notifier: 10.0.1
     open: 8.4.0
     open-editor: 4.0.0
+    tslib: 2.4.1
   peerDependencies:
     "@roots/browserslist-config": "*"
   peerDependenciesMeta:
     "@roots/browserslist-config":
       optional: true
-    browserslist:
-      optional: true
-    caniuse-lite:
+    tslib:
       optional: true
   bin:
     bud: ./bin/bud.mjs

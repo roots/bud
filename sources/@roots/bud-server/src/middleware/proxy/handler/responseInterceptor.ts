@@ -28,6 +28,7 @@ const factory = (bud: Bud, url: ApplicationURL) =>
     response.removeHeader(`x-http-method-override`)
 
     setResponseCookies(request, response)
+
     return transformResponseBuffer(bud, url, proxy, buffer)
   })
 
@@ -64,8 +65,7 @@ const transformResponseBuffer = (
 
   return bud.hooks
     .filter(`dev.middleware.proxy.replacements`, [
-      [url.proxy.origin, url.dev.origin],
-      [url.proxy.host, url.dev.host],
+      [url.proxy.href, url.dev.href],
     ])
     .reduce(transformBody, buffer.toString(`utf8`))
 }

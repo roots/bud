@@ -1,4 +1,6 @@
 /* eslint-disable n/no-process-env */
+import '@roots/bud'
+
 import {join} from 'node:path'
 
 import {paths} from '@repo/constants'

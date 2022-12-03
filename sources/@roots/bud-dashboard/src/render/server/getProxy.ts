@@ -1,21 +1,14 @@
-import * as formatUrl from './formatUrl.js'
-import parsePort from './parsePort.js'
+import {formatUrl} from './formatUrl.js'
 
 /**
  * Get formatted proxy url
  *
  * @public
  */
-const getProxy = (url?: {
-  protocol: string
-  hostname: string
-  port: string
-}) => {
+const getProxy = (url?: URL) => {
   if (!url) return false
 
-  const port = parsePort(url.port)
-
-  return formatUrl.external(url.protocol, url.hostname, port)
+  return formatUrl(url)
 }
 
 export default getProxy

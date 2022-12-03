@@ -1,5 +1,4 @@
-import {Bud} from '@roots/bud'
-import {Bud as Core} from '@roots/bud-framework/bud'
+import Bud from './bud'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 describe(`@roots/bud/bud`, function () {
@@ -11,6 +10,6 @@ describe(`@roots/bud/bud`, function () {
   })
 
   it(`should be instance of Framework`, () => {
-    expect(bud).toBeInstanceOf(Core)
+    expect(bud).toBeInstanceOf(Bud)
   })
 })

@@ -10,14 +10,20 @@ export class Dependencies {
   /**
    * @public
    */
-  public constructor(public path: string) {}
+  public constructor(
+    public path: string,
+    public onMessage?: (...args: any[]) => void,
+    public onError?: (...args: any[]) => void,
+  ) {}
 
   /**
    * @public
    */
   public async getClient(): Promise<IDependencyManager> {
     return await this.isYarn().then(isYarn => {
-      return isYarn ? new Yarn(this.path) : new Npm(this.path)
+      return isYarn
+        ? new Yarn(this.path, this.onMessage, this.onError)
+        : new Npm(this.path, this.onMessage, this.onError)
     })
   }
 
@@ -40,7 +46,7 @@ export class Dependencies {
    * @returns - Package version
    * @public
    */
-  public async getLatestVersion(signifier): Promise<string> {
+  public async getLatestVersion(signifier: string): Promise<string> {
     return await this.getClient().then(
       async client => await client.getLatestVersion(signifier),
     )

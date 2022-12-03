@@ -15,16 +15,6 @@ interface MessagesCache {
 }
 
 /**
- * Map stream name to logging function name
- *
- * @public
- */
-const streamDictionary = {
-  stdout: `log`,
-  stderr: `error`,
-}
-
-/**
  * ConsoleBuffer service class
  *
  * @remarks
@@ -55,50 +45,36 @@ export default class ConsoleBuffer extends Service {
    *
    * @public
    */
-  public restore: () => any
+  public restore?: () => any
+
+  public fetchAndRemove(type: keyof MessagesCache) {
+    const fetchedMessages = [...this.messages[type]]
+    this.messages[type] = []
+    return fetchedMessages
+  }
 
   /**
-   * `boot` callback
+   * `init` callback
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public override async boot(bud: Bud) {
+  public override async init(bud: Bud) {
     if (bud.context?.args?.ci) return
 
     // Patch the console, and assign the restore function
     this.restore = patchConsole((stream, data) => {
       if (!data || data === ``) return
 
-      /**
-       * Clean up log message whitespace, etc.
-       */
-      const message = data
-        .split(`\n`)
-        .map(line => line.trim())
-        .filter(Boolean)
-        .join(`\n`)
-        .trim()
-
-      // Ignore empty messages
+      const message = data.trim()
+      // Ignore empty
       if (!message) return
-
       // Ignore messages that have been logged before
       if (this.messages[stream].some(stale => stale === message)) return
 
       // Add message to buffer
       this.messages[stream].push(message)
-
-      // Log message to console
-      this.logger
-        .scope(...bud.logger.scope, stream)
-        [streamDictionary[stream]](message)
     })
-
-    /**
-     * On compiler close event, restore {@link console} methods
-     */
-    bud.hooks.action(`compiler.close`, this.restore)
   }
 }
