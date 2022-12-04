@@ -68,7 +68,8 @@
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.18.4",
     "copy-webpack-plugin": "11.0.0",
-    "html-webpack-plugin": "5.5.0"
+    "html-webpack-plugin": "5.5.0",
+    "http-proxy-middleware": "3.0.0-beta.0"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",

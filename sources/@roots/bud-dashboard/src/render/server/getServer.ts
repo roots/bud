@@ -12,9 +12,12 @@ const getServer = (
 ): {internal: string; external: string} | false => {
   if (!url) return false
 
+  const external = externalNetworkInterface.ipv4Url(url.protocol)
+  external.port = url.port
+
   return {
     internal: formatUrl(url),
-    external: externalNetworkInterface.ipv4Url(url.protocol).origin,
+    external: external.origin,
   }
 }
 

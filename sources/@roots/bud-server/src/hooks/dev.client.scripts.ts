@@ -24,7 +24,7 @@ export const proxyClickInterceptor = (app: Bud) => {
 
   const params = new URLSearchParams({
     search: app.hooks.filter(
-      `dev.middleware.proxy.target`,
+      `dev.middleware.proxy.options.target`,
       new URL(`http://0.0.0.0`),
     )?.href,
     replace: `/`,

@@ -15,9 +15,11 @@ describe(`formatUrl`, () => {
       expect(formatUrl(url)).toBe(`http://localhost:3000`)
     })
 
-    it(`should return localhost instead of 0.0.0.0`, () => {
+    it(`should return external address`, () => {
       const url = new URL(`http://${externalNetworkInterface.ipv4}:3000`)
-      expect(formatUrl(url)).toBe(`http://localhost:3000`)
+      expect(formatUrl(url)).toBe(
+        `http://${externalNetworkInterface.ipv4}:3000`,
+      )
     })
   })
 })

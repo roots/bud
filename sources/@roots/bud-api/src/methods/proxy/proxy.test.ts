@@ -5,44 +5,49 @@ import {factory} from '@repo/test-kit/bud'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import {
-  disableMiddlewareHookCallback,
-  enableMiddlewareHookCallback,
-  proxy,
+  disableMiddleware,
+  enableMiddleware,
+  proxy as proxyFn,
 } from './index.js'
 
 describe(`bud.proxy`, () => {
   let bud
-  let subject
+  let proxy
 
   beforeEach(async () => {
+    vi.clearAllMocks()
     bud = await factory({mode: `development`})
-    subject = proxy.bind(bud)
+    proxy = proxyFn.bind(bud)
   })
 
   it(`should call bud.hooks.on with a fn when called with a number`, async () => {
     const onSpy = vi.spyOn(bud.hooks, `on`)
-    await subject(3005)
+    await proxy(3005)
 
-    expect(onSpy).toHaveBeenCalledWith(
-      `dev.middleware.proxy.target`,
+    expect(onSpy).toHaveBeenLastCalledWith(
+      `dev.middleware.proxy.options.target`,
       expect.any(Function),
     )
   })
 
   it(`should set port when called with a number`, async () => {
-    await subject(3005)
-    expect(bud.hooks.filter(`dev.middleware.proxy.target`).port).toBe(
-      `3005`,
-    )
+    await proxy(3005)
+    expect(
+      bud.hooks.filter(`dev.middleware.proxy.options.target`).port,
+    ).toBe(`3005`)
   })
 
   it(`should call bud.hooks.on with a URL when called with a URL`, async () => {
     const onSpy = vi.spyOn(bud.hooks, `on`)
 
-    await subject(new URL(`https://example.com`))
+    await proxy(new URL(`https://example.com`))
 
     expect(onSpy).toHaveBeenCalledWith(
-      `dev.middleware.proxy.target`,
+      `dev.middleware.enabled`,
+      expect.any(Function),
+    )
+    expect(onSpy).toHaveBeenLastCalledWith(
+      `dev.middleware.proxy.options.target`,
       expect.any(URL),
     )
   })
@@ -50,10 +55,10 @@ describe(`bud.proxy`, () => {
   it(`should call bud.hooks.on with a URL when called with a string`, async () => {
     const onSpy = vi.spyOn(bud.hooks, `on`)
 
-    await subject(`https://example.com`)
+    await proxy(`https://example.com`)
 
     expect(onSpy).toHaveBeenCalledWith(
-      `dev.middleware.proxy.target`,
+      `dev.middleware.proxy.options.target`,
       expect.any(URL),
     )
   })
@@ -61,7 +66,7 @@ describe(`bud.proxy`, () => {
   it(`should enable middleware when called with true`, () => {
     const onSpy = vi.spyOn(bud.hooks, `on`)
 
-    subject(true)
+    proxy(true)
 
     expect(onSpy).toHaveBeenNthCalledWith(
       1,
@@ -73,7 +78,7 @@ describe(`bud.proxy`, () => {
   it(`should enable middleware when called with false`, () => {
     const onSpy = vi.spyOn(bud.hooks, `on`)
 
-    subject(true)
+    proxy(true)
 
     expect(onSpy).toHaveBeenNthCalledWith(
       1,
@@ -85,7 +90,7 @@ describe(`bud.proxy`, () => {
   it(`should run replacements when called without replacements`, async () => {
     let onSpy = vi.spyOn(bud.hooks, `on`)
 
-    await subject(true)
+    await proxy(true)
 
     expect(onSpy).not.toHaveBeenLastCalledWith(
       `dev.middleware.proxy.replacements`,
@@ -96,7 +101,20 @@ describe(`bud.proxy`, () => {
   it(`should run replacements when called with replacements`, async () => {
     let onSpy = vi.spyOn(bud.hooks, `on`)
 
-    await subject(true, [[/foo/, `bar`]])
+    await proxy(true, [[/foo/, `bar`]])
+
+    expect(onSpy).toHaveBeenLastCalledWith(
+      `dev.middleware.proxy.replacements`,
+      [[/foo/, `bar`]],
+    )
+  })
+
+  it(`should run replacements when specified as Options prop`, async () => {
+    let onSpy = vi.spyOn(bud.hooks, `on`)
+
+    await proxy({
+      replacements: [[/foo/, `bar`]],
+    })
 
     expect(onSpy).toHaveBeenLastCalledWith(
       `dev.middleware.proxy.replacements`,
@@ -105,13 +123,13 @@ describe(`bud.proxy`, () => {
   })
 
   it(`should return bud`, async () => {
-    expect(await subject({foo: [`bar`]})).toEqual(bud)
+    expect(await proxy({foo: [`bar`]})).toEqual(bud)
   })
 })
 
 describe(`enableMiddlewareHookCallback`, async () => {
   it(`should add middleware`, () => {
-    expect(enableMiddlewareHookCallback([`dev`])).toEqual(
+    expect(enableMiddleware([`dev`])).toEqual(
       expect.arrayContaining([`dev`, `proxy`, `cookie`]),
     )
   })
@@ -119,8 +137,8 @@ describe(`enableMiddlewareHookCallback`, async () => {
 
 describe(`disableMiddlewareHookCallback`, () => {
   it(`should remove middleware`, () => {
-    expect(
-      disableMiddlewareHookCallback([`dev`, `proxy`, `cookie`]),
-    ).toEqual(expect.arrayContaining([`dev`]))
+    expect(disableMiddleware([`dev`, `proxy`, `cookie`])).toEqual(
+      expect.arrayContaining([`dev`]),
+    )
   })
 })

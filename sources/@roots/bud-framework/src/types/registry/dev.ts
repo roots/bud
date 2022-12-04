@@ -72,36 +72,42 @@ export interface Sync {
   'middleware.dev.options.publicPath': Server.Middleware.Available['dev']['options']['publicPath']
   'middleware.dev.options.writeToDisk': Server.Middleware.Available['dev']['options']['writeToDisk']
 
-  /**
-   * Proxy URL paths
-   * @public
-   */
-  'middleware.proxy.paths': Array<string>
-
   'middleware.proxy.options': Server.Middleware.Available['proxy']['options']
+  'middleware.proxy.options.agent': Server.Middleware.Available['proxy']['options']['agent']
+  'middleware.proxy.options.auth': Server.Middleware.Available['proxy']['options']['auth']
   'middleware.proxy.options.autoRewrite': Server.Middleware.Available['proxy']['options']['autoRewrite']
+  'middleware.proxy.options.buffer': Server.Middleware.Available['proxy']['options']['buffer']
   'middleware.proxy.options.changeOrigin': Server.Middleware.Available['proxy']['options']['changeOrigin']
   'middleware.proxy.options.cookieDomainRewrite': Server.Middleware.Available['proxy']['options']['cookieDomainRewrite']
+  'middleware.proxy.options.cookiePathRewrite': Server.Middleware.Available['proxy']['options']['cookiePathRewrite']
+  'middleware.proxy.options.ejectPlugins': Server.Middleware.Available['proxy']['options']['ejectPlugins']
   'middleware.proxy.options.followRedirects': Server.Middleware.Available['proxy']['options']['followRedirects']
   'middleware.proxy.options.forward': Server.Middleware.Available['proxy']['options']['forward']
   'middleware.proxy.options.headers': Record<string, string>
   'middleware.proxy.options.hostRewrite': Server.Middleware.Available['proxy']['options']['hostRewrite']
+  'middleware.proxy.options.ignorePath': Server.Middleware.Available['proxy']['options']['ignorePath']
+  'middleware.proxy.options.localAddress': Server.Middleware.Available['proxy']['options']['localAddress']
+  'middleware.proxy.options.logger': Server.Middleware.Available['proxy']['options']['logger']
+  'middleware.proxy.options.on': Server.Middleware.Available['proxy']['options']['on']
   'middleware.proxy.options.onProxyReq': Server.Middleware.Available['proxy']['options']['on']['proxyReq']
   'middleware.proxy.options.onProxyRes': Server.Middleware.Available['proxy']['options']['on']['proxyRes']
-  'middleware.proxy.options.onError': Server.Middleware.Available['proxy']['options']['on']['error']
-  'middleware.proxy.options.onOpen': Server.Middleware.Available['proxy']['options']['on']['open']
   'middleware.proxy.options.pathFilter': Server.Middleware.Available['proxy']['options']['pathFilter']
   'middleware.proxy.options.pathRewrite': Server.Middleware.Available['proxy']['options']['pathRewrite']
+  'middleware.proxy.options.plugins': Server.Middleware.Available['proxy']['options']['plugins']
+  'middleware.proxy.options.prependPath': Server.Middleware.Available['proxy']['options']['prependPath']
+  'middleware.proxy.options.preserveHeaderKeyCase': Server.Middleware.Available['proxy']['options']['preserveHeaderKeyCase']
   'middleware.proxy.options.protocolRewrite': Server.Middleware.Available['proxy']['options']['protocolRewrite']
+  'middleware.proxy.options.proxyTimeout': Server.Middleware.Available['proxy']['options']['proxyTimeout']
+  'middleware.proxy.options.router': Server.Middleware.Available['proxy']['options']['router']
   'middleware.proxy.options.secure': Server.Middleware.Available['proxy']['options']['secure']
   'middleware.proxy.options.selfHandleResponse': Server.Middleware.Available['proxy']['options']['selfHandleResponse']
+  'middleware.proxy.options.ssl': Server.Middleware.Available['proxy']['options']['ssl']
+  'middleware.proxy.options.target': Server.Middleware.Available['proxy']['options']['target'] &
+    URL
+  'middleware.proxy.options.timeout': Server.Middleware.Available['proxy']['options']['timeout']
+  'middleware.proxy.options.toProxy': Server.Middleware.Available['proxy']['options']['toProxy']
+  'middleware.proxy.options.ws': Server.Middleware.Available['proxy']['options']['ws']
   'middleware.proxy.options.xfwd': Server.Middleware.Available['proxy']['options']['xfwd']
-
-  /**
-   * Proxy target URL
-   * @public
-   */
-  'middleware.proxy.target': URL
 
   /**
    * Proxy middleware replacements

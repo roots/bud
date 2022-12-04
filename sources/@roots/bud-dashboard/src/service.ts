@@ -117,7 +117,9 @@ export class Dashboard
           context: this.app.context,
           mode: this.app.mode,
           devUrl: this.app.hooks.filter(`dev.url`),
-          proxyUrl: this.app.hooks.filter(`dev.middleware.proxy.target`),
+          proxyUrl: this.app.hooks.filter(
+            `dev.middleware.proxy.options.target`,
+          ),
           watchFiles: this.app.server?.watcher?.files,
           messages: {
             stdout: this.app.consoleBuffer.fetchAndRemove(`stdout`),

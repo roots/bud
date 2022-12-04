@@ -31,7 +31,7 @@ export class ApplicationURL {
    */
   public get proxy(): URL {
     return this.app.hooks.filter(
-      `dev.middleware.proxy.target`,
+      `dev.middleware.proxy.options.target`,
       new URL(`http://0.0.0.0`),
     )
   }
