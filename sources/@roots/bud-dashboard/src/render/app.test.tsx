@@ -73,9 +73,7 @@ describe(`@roots/bud-dashboard app component`, () => {
       />,
     )
 
-    expect(lastFrame().split(`\n`)[1]).toMatchInlineSnapshot(`
-      "[32m[stdout][39m stdout message"
-    `)
+    expect(lastFrame().split(`\n`)[1]).toContain(`stdout message`)
   })
 
   it(`should render watch list`, async () => {
