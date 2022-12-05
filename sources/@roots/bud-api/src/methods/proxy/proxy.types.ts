@@ -53,7 +53,7 @@ export interface Options extends ProxyMiddleware.Options {
    *
    * Used by default `onProxyRes` handler to rewrite the page body
    */
-  replacements: ReplacementTuples | ReplacementCallback
+  replacements?: ReplacementTuples | ReplacementCallback
 }
 
 export type ReplacementTuples = Array<[string, string]>
