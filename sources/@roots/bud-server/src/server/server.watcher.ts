@@ -82,8 +82,11 @@ export class Watcher implements Server.Watcher {
   public async watch(): Promise<Watcher['instance']> {
     if (this.app.context.args.dry) return
 
-    this.files = this.app.hooks.filter(`dev.watch.files`, new Set())
-    this.options = this.app.hooks.filter(`dev.watch.options`, {})
+    this.files = this.app.hooks.filter(`dev.watch.files`, new Set([]))
+    this.options = this.app.hooks.filter(`dev.watch.options`, {
+      ignoreInitial: true,
+      cwd: this.app.path(),
+    })
 
     if (this.files.size < 1) return
 
@@ -93,7 +96,7 @@ export class Watcher implements Server.Watcher {
       .on(`add`, this.watcherCallback)
       .on(`unlink`, this.watcherCallback)
 
-    this.logger.log(`watching ${this.files.size} files for changes`)
+    this.logger.log(`watching`)
 
     return this.instance
   }

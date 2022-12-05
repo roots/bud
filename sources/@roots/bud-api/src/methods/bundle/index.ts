@@ -1,4 +1,4 @@
-import {join, sep} from 'node:path'
+import {join} from 'node:path'
 
 import type {Bud} from '@roots/bud-framework'
 import {isRegExp, isString} from '@roots/bud-support/lodash-es'
@@ -45,15 +45,19 @@ export const bundle: bundle = function (this: Bud, name, matcher) {
 
     const filename = join(`js`, `bundle`, name, template)
 
-    const existing = splitChunks ?? {
-      chunks: `all`,
-      automaticNameDelimiter: sep,
-      minSize: 0,
-    }
-    const cacheGroups = existing?.cacheGroups ?? {}
+    const cacheGroups =
+      splitChunks &&
+      typeof splitChunks === `object` &&
+      splitChunks?.cacheGroups
+        ? splitChunks.cacheGroups
+        : {}
 
     return {
-      ...existing,
+      ...(splitChunks ?? {
+        chunks: `all`,
+        automaticNameDelimiter: `/`,
+        minSize: 0,
+      }),
       cacheGroups: {
         ...cacheGroups,
         [name]: {

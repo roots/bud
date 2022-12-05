@@ -1,4 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
+import type ConsoleBuffer from '@roots/bud-framework/services/console'
 import {Box, render, Static} from '@roots/bud-support/ink'
 import React from '@roots/bud-support/react'
 import type {StatsCompilation} from '@roots/bud-support/webpack'
@@ -7,20 +8,22 @@ import App from './app.js'
 import {TTYApp} from './input.js'
 
 interface Props {
-  stats: StatsCompilation
-  mode: Bud['mode']
   context: Bud['context']
   devUrl?: URL
+  messages: ConsoleBuffer['messages']
+  mode: Bud['mode']
   proxyUrl?: URL
+  stats: StatsCompilation
   watchFiles?: Set<string>
 }
 
 export const renderDashboard = ({
-  stats,
-  mode,
   context,
   devUrl,
+  messages,
+  mode,
   proxyUrl,
+  stats,
   watchFiles,
 }: Props) => {
   const compilations = stats?.children?.length
@@ -45,6 +48,7 @@ export const renderDashboard = ({
               displayAssets
               displayEntrypoints
               displayServerInfo={false}
+              messages={messages}
             />
           )}
         </Static>
@@ -58,6 +62,7 @@ export const renderDashboard = ({
           proxyUrl={proxyUrl}
           watchFiles={watchFiles}
           context={context}
+          messages={messages}
           displayAssets
           displayEntrypoints
           displayServerInfo
@@ -71,6 +76,7 @@ export const renderDashboard = ({
           proxyUrl={proxyUrl}
           watchFiles={watchFiles}
           context={context}
+          messages={messages}
           displayAssets
           displayEntrypoints
           displayServerInfo

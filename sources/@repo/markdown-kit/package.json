@@ -11,9 +11,9 @@
     "build": "yarn tsc -b"
   },
   "devDependencies": {
-    "@types/node": "16.18.3",
+    "@types/node": "16.18.4",
     "@types/prettier": "2.7.1",
-    "vitest": "0.24.5"
+    "vitest": "0.25.3"
   },
   "dependencies": {
     "@repo/constants": "workspace:sources/@repo/constants",
@@ -30,9 +30,9 @@
     "json5": "2.2.1",
     "lodash-es": "4.17.21",
     "octokit": "2.0.10",
-    "prettier": "2.7.1",
+    "prettier": "2.8.0",
     "strip-ansi": "7.0.1",
-    "typescript": "4.8.4"
+    "typescript": "4.9.3"
   },
   "volta": {
     "extends": "../../../package.json"

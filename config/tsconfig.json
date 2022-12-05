@@ -25,7 +25,7 @@
     "skipLibCheck": true,
     "strictBindCallApply": true,
     "target": "es2021",
-    "types": ["node", "react", "express", "webpack", "webpack-env"]
+    "types": ["node", "webpack", "webpack-env"]
   },
   "files": [],
   "references": [

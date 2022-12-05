@@ -1,8 +1,6 @@
 import {cpus} from 'node:os'
 import {join} from 'node:path'
 
-import {externalNetworkInterface} from '@roots/bud-support/os'
-
 import type {Bud} from '../bud.js'
 
 /**
@@ -119,22 +117,7 @@ export const initialize = (app: Bud): Bud =>
     })
     .when(app.isDevelopment, ({hooks}) =>
       hooks.fromMap({
-        'dev.middleware.dev.options.writeToDisk': true,
-        'dev.middleware.dev.options.publicPath': () =>
-          app.hooks.filter(`build.output.publicPath`),
-        'dev.middleware.dev.options.headers': {
-          'Access-Control-Allow-Origin': `*`,
-          'Access-Control-Allow-Headers': `*`,
-          'x-powered-by': `@roots/bud`,
-        },
         'dev.middleware.enabled': [`dev`, `hot`],
-        'dev.url': () =>
-          new URL(`http://${externalNetworkInterface.ipv4}:3000`),
-        'dev.watch.files': new Set([]),
-        'dev.watch.options': () => ({
-          ignoreInitial: true,
-          cwd: app.path(),
-        }),
       }),
     )
 

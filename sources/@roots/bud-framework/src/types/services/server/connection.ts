@@ -28,12 +28,6 @@ export interface Connection {
   instance: HttpServer | HttpsServer
 
   /**
-   * Resolved port
-   * @public
-   */
-  port: number
-
-  /**
    * Resolved URL
    * @public
    */
@@ -44,12 +38,6 @@ export interface Connection {
    * @public
    */
   createServer(app: any): Promise<Connection['instance']>
-
-  /**
-   * Setup
-   * @public
-   */
-  setup(): Promise<void>
 
   /**
    * Listen

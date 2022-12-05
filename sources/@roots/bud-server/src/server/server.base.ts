@@ -20,14 +20,6 @@ import {bind} from '@roots/bud-support/decorators'
  */
 export abstract class BaseServer implements Connection {
   /**
-   * Protocol
-   *
-   * @virtual
-   * @public
-   */
-  public abstract protocol: 'http:' | 'https:'
-
-  /**
    * Create server
    *
    * @virtual
@@ -47,14 +39,11 @@ export abstract class BaseServer implements Connection {
    *
    * @public
    */
-  public logger: Bud['logger']['instance']
-
-  /**
-   * Port
-   *
-   * @public
-   */
-  public port: number
+  public get logger(): Bud['logger']['instance'] {
+    return this.app.logger.instance.scope(
+      this.constructor.name.toLowerCase(),
+    )
+  }
 
   /**
    * Final URL
@@ -64,7 +53,9 @@ export abstract class BaseServer implements Connection {
    *
    * @public
    */
-  public url: URL
+  public get url(): URL {
+    return this.app.hooks.filter(`dev.url`)
+  }
 
   /**
    * Options
@@ -72,7 +63,7 @@ export abstract class BaseServer implements Connection {
    * @public
    */
   public get options(): Server.Options {
-    return this.app.hooks.filter(`dev.options`)
+    return this.app.hooks.filter(`dev.options`, {})
   }
 
   /**
@@ -81,22 +72,7 @@ export abstract class BaseServer implements Connection {
    * @param app - Bud
    * @public
    */
-  public constructor(public app: Bud) {
-    this.logger = this.app.logger.instance.scope(
-      this.constructor.name.toLowerCase(),
-    )
-  }
-
-  /**
-   * Setup
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async setup() {
-    this.url = this.app.hooks.filter(`dev.url`)
-  }
+  public constructor(public app: Bud) {}
 
   /**
    * Listen
@@ -107,12 +83,20 @@ export abstract class BaseServer implements Connection {
   @bind
   public async listen() {
     this.instance
-      .listen({
-        port: Number(this.url.port),
-      })
-      .on(`listening`, this.onListening)
-      .on(`request`, this.onRequest)
-      .on(`error`, this.onError)
+      .listen(
+        this.app.hooks.filter(`dev.listenOptions`, {
+          port: Number(this.url.port),
+        }),
+      )
+      .on(
+        `listening`,
+        this.app.hooks.filter(`dev.onListening`, this.onListening),
+      )
+      .on(
+        `request`,
+        this.app.hooks.filter(`dev.onRequest`, this.onRequest),
+      )
+      .on(`error`, this.app.hooks.filter(`dev.onError`, this.onError))
   }
 
   /**

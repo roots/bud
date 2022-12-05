@@ -1,156 +1,65 @@
-import type Https from 'node:https'
-import type Http from 'node:https'
-
 import type {Bud} from '@roots/bud-framework'
-import {highlight} from '@roots/bud-support/highlight'
-import {isEmpty, isNumber, isString} from '@roots/bud-support/lodash-es'
-import {externalNetworkInterface} from '@roots/bud-support/os'
+import {
+  isArray,
+  isEqual,
+  isNumber,
+  isString,
+  isUndefined,
+} from '@roots/bud-support/lodash-es'
 import getPort from 'get-port'
 
+import {checkChildInstanceError} from './childError.js'
+import type {Options, Parameters, ServerOptions} from './serve.types.js'
+
 /**
- * Specification object
+ * bud.serve
  *
  * @public
  */
-export interface Specification {
-  /**
-   * Use ssl connection
-   * @public
-   */
-  ssl?: boolean
-
-  /**
-   * Ports that should not be returned.
-   * @public
-   */
-  exclude?: number | Array<number>
-
-  /**
-   * Server URL
-   * @public
-   */
-  url?: string | URL
-
-  /**
-   * Hostname
-   * @public
-   */
-  host?: string
-
-  /**
-   * port
-   * @public
-   */
-  port?: number | Array<number>
-
-  /**
-   * SSL certificate (path)
-   * @public
-   */
-  cert?: string
-
-  /**
-   * SSL key (path)
-   * @public
-   */
-  key?: string
-
-  /**
-   * http & https server options
-   * @public
-   */
-  options?: Https.ServerOptions | Http.ServerOptions
-}
-
-export type Parameters = [
-  Specification | URL | string | number | Array<number>,
-]
-
-/**
- * bud.serve
- * @public
- */
 export interface serve {
-  (...input: Parameters): Promise<Bud>
+  (...parameters: Parameters): Promise<Bud>
 }
+export type {Options, Parameters, ServerOptions}
 
 /**
  * bud.serve
+ *
  * @public
  */
-export const serve: serve = async function (this: Bud, input) {
+export const serve: serve = async function (this: Bud, input, options) {
   if (!this.isDevelopment) return this
 
-  if (this.isChild) {
-    this.api.logger.warn(
-      `server configuration is being moved to the root instance of bud: ${this.label}`,
-    )
-    this.api.logger.warn(
-      `\
-to silence this warning move the \`bud.serve\` call from ${
-        this.label
-      } to ${this.label}:
+  checkChildInstanceError(this, input)
 
-${highlight(`export default async bud => {
-  await bud.make(\`${this.label}\`, async bud => {
-    bud.serve(${JSON.stringify(input)})
-  })
-}`)}
+  let resolvedUrl =
+    input instanceof URL
+      ? input
+      : this.hooks.filter(`dev.url`, new URL(`http://0.0.0.0`))
 
-should become:
+  let resolvedOptions = options ?? this.hooks.filter(`dev.options`, {})
 
-${highlight(`export default async bud => {
-  bud.serve(${JSON.stringify(input)})
-
-  await bud.make(\`${this.label}\`, async bud => {
-    // ...config
-  })
-}`)}`,
-    )
+  if (isString(input)) {
+    resolvedUrl = new URL(input)
   }
 
-  const current = this.hooks.filter(
-    `dev.url`,
-    new URL(`http://${externalNetworkInterface.ipv4}:3000`),
-  )
-
-  this.log(`current dev url:`, current)
-
-  if (Array.isArray(input) || isNumber(input)) {
-    this.log(`serve input is an array or number`, input)
-
-    const port = await requestPorts(this, portOrPortsToNumbers(input))
-    this.log(`port`, port, `is available. assigning.`)
-
-    current.port = port
-
-    this.log(`dev url set to:`, current)
-    this.hooks.on(`dev.url`, current)
-
-    return this
-  }
-
-  if (input instanceof URL || isString(input)) {
-    this.log(`input is a URL or a string`, input)
-
-    const url = input instanceof URL ? input : new URL(input)
-    this.log(`parsed as url:`, url)
-
-    const requestedPort = url.port ?? current.port ?? `3000`
-
-    url.port = await requestPorts(
+  if (isArray(input) || isNumber(input)) {
+    resolvedUrl.port = await requestPorts(
       this,
-      portOrPortsToNumbers(requestedPort),
+      portOrPortsToNumbers(input),
     )
-    this.log(`port`, url.port, `is available. assigning.`)
-
-    this.hooks.on(`dev.url`, url)
-    this.log(`dev url set to`, url)
-
-    return this
   }
 
-  await assignSpec.bind(this)(input, current)
+  if (
+    !(input instanceof URL) &&
+    !isArray(input) &&
+    typeof input === `object`
+  ) {
+    resolvedUrl = await makeURLFromObject(this, input, resolvedUrl)
+    resolvedOptions = await makeHttpOptions(this, input, resolvedOptions)
+  }
+
+  this.hooks.on(`dev.url`, resolvedUrl)
+  this.hooks.on(`dev.options`, resolvedOptions)
 
   return this
 }
@@ -159,38 +68,50 @@ ${highlight(`export default async bud => {
  * Process specification object
  * @public
  */
-const assignSpec = async function (
-  this: Bud,
-  spec: Specification,
+const makeURLFromObject = async function (
+  bud: Bud,
+  options: Options,
   url: URL,
-) {
-  const options: Partial<Specification> = {}
+): Promise<URL> {
+  if (options.url) {
+    return options.url instanceof URL ? options.url : new URL(options.url)
+  }
 
-  if (spec.url)
-    url = spec.url instanceof URL ? spec.url : new URL(spec.url)
-
-  if ([spec.ssl, spec.cert, spec.key].some(Boolean)) {
+  if (options.host) url.hostname = options.host
+  if (options.port) url.port = `${options.port}`
+  if (
+    [
+      !isUndefined(options.ssl),
+      !isUndefined(options.cert),
+      !isUndefined(options.key),
+      !isUndefined(options?.options?.cert),
+      !isUndefined(options?.options?.key),
+      isEqual(options.port, 443),
+    ].some(Boolean)
+  )
     url.protocol = `https:`
-  }
 
-  if (spec.host) {
-    if (
-      [spec.host.startsWith(`http:`), spec.host.startsWith(`https:`)].some(
-        Boolean,
-      )
-    )
-      url = new URL(spec.host)
-    else url.hostname = spec.host
-  }
+  return url
+}
 
-  if (spec.port)
-    url.port = await requestPorts(this, portOrPortsToNumbers(spec.port))
+/**
+ * Make ServerOptions from object
+ *
+ * @param bud - {@link Bud}
+ * @param input - {@link Options}
+ * @param resolvedOptions - {@link Options}
+ * @returns promise - {@link ServerOptions}
+ */
+const makeHttpOptions = async function (
+  bud: Bud,
+  input: Options,
+  resolvedOptions: ServerOptions = {},
+): Promise<ServerOptions> {
+  if (input.options) resolvedOptions = input.options
+  if (input.cert) resolvedOptions.cert = await bud.fs.read(input.cert)
+  if (input.key) resolvedOptions.key = await bud.fs.read(input.key)
 
-  this.hooks.on(`dev.url`, url)
-
-  if (spec.cert) options.cert = await this.fs.read(spec.cert)
-  if (spec.key) options.key = await this.fs.read(spec.key)
-  if (!isEmpty(options)) this.hooks.on(`dev.options`, options)
+  return resolvedOptions
 }
 
 /**
@@ -199,20 +120,20 @@ const assignSpec = async function (
  * @public
  */
 const requestPorts = async (
-  app: Bud,
-  port: Array<number>,
+  bud: Bud,
+  include: Array<number>,
   exclude: Array<number> = [],
 ) => {
-  const request = {port, exclude}
+  const request = {port: include, exclude}
 
-  const freePort = await getPort(request).then(p => `${p}`)
+  const port = await getPort(request)
 
-  if (!request.port?.includes(Number(freePort))) {
-    app.warn(`None of the requested ports could be resolved.`)
-    app.warn(`A port was automatically selected: ${freePort}`)
+  if (!request.port?.includes(port)) {
+    bud.warn(`None of the requested ports could be resolved.`)
+    bud.warn(`A port was automatically selected: ${port}`)
   }
 
-  return freePort
+  return `${port}`
 }
 
 /**

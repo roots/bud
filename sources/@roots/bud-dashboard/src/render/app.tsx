@@ -1,9 +1,11 @@
 import type {Bud} from '@roots/bud-framework'
-import {Box, Text} from '@roots/bud-support/ink'
+import type ConsoleBufferService from '@roots/bud-framework/services/console'
+import {Box} from '@roots/bud-support/ink'
 import React from '@roots/bud-support/react'
 import type {StatsCompilation} from '@roots/bud-support/webpack'
 
 import Compilation from './compilation/compilation.component.js'
+import ConsoleBuffer from './consoleBuffer/index.js'
 import {Server} from './server/index.js'
 
 interface Props {
@@ -17,6 +19,7 @@ interface Props {
   displayServerInfo?: boolean
   displayAssets?: boolean
   displayEntrypoints?: boolean
+  messages?: ConsoleBufferService['messages']
 }
 
 const App = ({
@@ -27,16 +30,34 @@ const App = ({
   displayServerInfo = true,
   displayAssets = true,
   displayEntrypoints = true,
+  messages,
   mode,
   watchFiles = new Set(),
 }: Props) => {
   return (
     <Box flexDirection="column">
+      {messages && (
+        <Box flexDirection="column" paddingTop={1}>
+          {messages.stderr && (
+            <ConsoleBuffer
+              label="stderr"
+              color="red"
+              messages={messages.stderr}
+            />
+          )}
+
+          {messages.stdout && (
+            <ConsoleBuffer
+              label="stdout"
+              color="green"
+              messages={messages.stdout}
+            />
+          )}
+        </Box>
+      )}
+
       {compilations.map((compilation, id) => (
-        <Box key={id} flexDirection="column">
-          <Box>
-            <Text>{` `}</Text>
-          </Box>
+        <Box key={id} flexDirection="column" paddingY={1}>
           <Compilation
             id={id}
             mode={mode}
@@ -46,9 +67,6 @@ const App = ({
             displayAssets={displayAssets}
             displayEntrypoints={displayEntrypoints}
           />
-          <Box>
-            <Text>{` `}</Text>
-          </Box>
         </Box>
       ))}
 

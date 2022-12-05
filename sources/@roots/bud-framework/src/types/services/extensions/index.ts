@@ -1,14 +1,14 @@
 import type Container from '@roots/container'
 
-import type {Bud} from '../../bud.js'
+import type {Bud} from '../../../bud.js'
 import type {
   ApplyPlugin,
   Constructor,
   Extension,
   ExtensionLiteral,
-} from '../../extension/index.js'
-import type {Service as BaseService} from '../../service.js'
-import type {Modules} from '../registry/modules.js'
+} from '../../../extension/index.js'
+import type {Service as BaseService} from '../../../service.js'
+import type {Modules} from '../../registry/modules.js'
 
 export type LifecycleMethods =
   | 'init'

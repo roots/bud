@@ -4,7 +4,7 @@ import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
-  development,
+  disabled,
   label,
   options,
   plugin,
@@ -15,18 +15,18 @@ import {isBoolean, isUndefined} from '@roots/bud-support/lodash-es'
  * Wrapper for `@pmmmwh/react-refresh-webpack-plugin`
  *
  * @remarks
- * Does not execute if `bud.mode` is not `development`
+ * Disabled by default
  *
  * @public
  * @decorator `@label`
  * @decorator `@plugin`
  * @decorator `@options`
- * @decorator `@development`
+ * @decorator `@disabled`
  */
 @label(`@roots/bud-react/react-refresh`)
 @plugin(RefreshPlugin)
 @options({overlay: false})
-@development
+@disabled
 export default class BudReactRefresh extends Extension<
   Options,
   RefreshPlugin

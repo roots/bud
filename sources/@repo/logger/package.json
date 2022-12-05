@@ -15,9 +15,9 @@
   },
   "dependencies": {
     "@repo/constants": "workspace:sources/@repo/constants",
-    "@types/node": "16.18.3",
+    "@types/node": "16.18.4",
     "signale": "1.4.0",
-    "vitest": "0.24.5"
+    "vitest": "0.25.3"
   },
   "volta": {
     "extends": "../../../package.json"

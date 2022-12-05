@@ -36,26 +36,24 @@
   "files": [
     "lib/"
   ],
-  "main": "./lib/index.js",
+  "main": "./lib/index.cjs",
   "module": "./lib/index.mjs",
   "types": "./lib/index.d.ts",
   "exports": {
-    ".": "./lib/index.js",
-    "./lib/*": "./lib/*"
-  },
-  "typesVersions": {
-    "*": {
-      ".": [
-        "./lib/index.d.ts"
-      ],
-      "./lib/*": [
-        "./lib/*.d.ts"
-      ]
+    ".": {
+      "types": "./lib/index.d.mts",
+      "require": "./lib/index.cjs",
+      "default": "./lib/index.mjs"
+    },
+    "./lib/*": {
+      "types": "./lib/*.d.mts",
+      "require": "./lib/*",
+      "default": "./lib/*"
     }
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.18.3",
+    "@types/node": "16.18.4",
     "@types/webpack-env": "1.18.0"
   },
   "volta": {

@@ -1,7 +1,6 @@
 import {externalNetworkInterface} from '@roots/bud-support/os'
 
-import * as formatUrl from './formatUrl.js'
-import parsePort from './parsePort.js'
+import {formatUrl} from './formatUrl.js'
 
 /**
  * Get formatted server url
@@ -13,17 +12,12 @@ const getServer = (
 ): {internal: string; external: string} | false => {
   if (!url) return false
 
-  const {protocol, port, hostname: internal} = url
-
-  if (!internal || !port || !protocol) return false
+  const external = externalNetworkInterface.ipv4Url(url.protocol)
+  external.port = url.port
 
   return {
-    internal: formatUrl.internal(protocol, internal, parsePort(port)),
-    external: formatUrl.external(
-      protocol,
-      externalNetworkInterface.ipv4,
-      parsePort(port),
-    ),
+    internal: formatUrl(url),
+    external: external.origin,
   }
 }
 

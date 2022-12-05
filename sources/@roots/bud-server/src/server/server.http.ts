@@ -6,6 +6,7 @@ import {BaseServer} from './server.base.js'
 
 /**
  * HTTP Server
+ *
  * @public
  */
 export class Http extends BaseServer implements Server.Connection {
@@ -17,17 +18,11 @@ export class Http extends BaseServer implements Server.Connection {
   public override instance: HttpServer
 
   /**
-   * Protocol
-   *
-   * @public
-   */
-  public protocol: 'http:' = `http:`
-
-  /**
    * createServer
    *
    * @param express - Express application
-   * @returns http.Server
+   * @returns server - {@link HttpServer}
+   *
    * @public
    * @decorator `@bind`
    */

@@ -1,6 +1,6 @@
 import type {StatsCompilation} from '@roots/bud-support/webpack'
 
-import type {Service as Base} from '../../service.js'
+import type {Service as Base} from '../../../service.js'
 
 /**
  * Dashboard service container

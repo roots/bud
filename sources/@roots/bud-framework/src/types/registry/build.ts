@@ -46,7 +46,7 @@ export interface Sync {
   'optimization.moduleIds': Configuration['optimization']['moduleIds']
   'optimization.removeEmptyChunks': Configuration['optimization']['removeEmptyChunks']
   'optimization.runtimeChunk': Configuration['optimization']['runtimeChunk']
-  'optimization.splitChunks': Optimization.SplitChunks
+  'optimization.splitChunks': Optimization.SplitChunks | false
   output: Configuration['output']
   'output.assetModuleFilename': Configuration['output']['assetModuleFilename']
   'output.chunkFilename': Configuration['output']['chunkFilename']

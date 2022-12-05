@@ -6,13 +6,6 @@ import {spawn} from 'child_process'
  * @public
  */
 export abstract class Command {
-  /**
-   * @public
-   */
-  public onMessage(message: string): void {
-    return null
-  }
-
   public abstract getLatestVersion(signifier: string): Promise<string>
 
   /**
@@ -20,30 +13,28 @@ export abstract class Command {
    */
   public constructor(
     public path: string,
-    onMessage?: (message: string) => void,
-  ) {
-    if (onMessage) this.onMessage = onMessage
-  }
+    public onMessage?: (message: string) => void,
+    public onError?: (...message: unknown[]) => void,
+  ) {}
 
   /**
    * @public
    */
-  public static execute(
-    commandArgs: Array<string>,
-    onMessage?: (message: string) => void,
-    onError?: (message: string) => void,
-  ): Promise<any> {
+  public async execute(commandArgs: Array<string>): Promise<any> {
+    const [bin, ...args] = commandArgs
     return new Promise((resolve, reject) => {
-      const command = spawn(commandArgs.shift(), commandArgs)
       const message = []
+
+      const command = spawn(bin, args)
 
       command.stdout.on(`data`, incoming => {
         message.push(incoming.toString())
-        onMessage && onMessage(incoming.toString())
+        this.onMessage && this.onMessage(incoming.toString())
       })
+
       command.stderr.on(`data`, incoming => {
         message.push(incoming.toString())
-        onError && onError(incoming.toString())
+        this.onError && this.onError(incoming.toString())
       })
 
       command.on(`close`, () => resolve(message))
@@ -54,7 +45,7 @@ export abstract class Command {
   /**
    * @public
    */
-  public static normalizeDependencies(
+  public normalizeDependencies(
     dependencies: Array<string | [string, string]>,
   ): Array<string> {
     return dependencies
@@ -64,6 +55,7 @@ export abstract class Command {
         } else {
           acc.push(dependency)
         }
+
         return acc
       }, [])
       .filter(Boolean)

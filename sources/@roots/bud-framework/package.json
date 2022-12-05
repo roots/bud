@@ -42,107 +42,89 @@
       "types": "./lib/index.d.ts",
       "default": "./lib/index.js"
     },
-    "./bud": "./lib/bud.js",
-    "./configuration": "./lib/configuration/index.js",
-    "./extension": "./lib/extension/index.js",
-    "./extension/decorators": "./lib/extension/decorators/index.js",
-    "./extension/decorators/*": "./lib/extension/decorators/*.js",
+    "./bud": {
+      "types": "./lib/bud.d.ts",
+      "default": "./lib/bud.js"
+    },
+    "./config": {
+      "types": "./lib/types/config/index.d.ts",
+      "default": "./lib/types/config/index.js"
+    },
+    "./configuration": {
+      "types": "./lib/configuration/index.d.ts",
+      "default": "./lib/configuration/index.js"
+    },
+    "./extension": {
+      "types": "./lib/extension/index.d.ts",
+      "default": "./lib/extension/index.js"
+    },
+    "./extension/decorators": {
+      "types": "./lib/extension/decorators/index.d.ts",
+      "default": "./lib/extension/decorators/index.js"
+    },
+    "./extension/decorators/*": {
+      "types": "./lib/extension/decorators/*.d.ts",
+      "default": "./lib/extension/decorators/*.js"
+    },
     "./logger": "./lib/logger/index.js",
     "./methods": "./lib/methods/index.js",
     "./methods/*": "./lib/methods/*.js",
     "./module": "./lib/module.js",
+    "./options": {
+      "types": "./lib/types/options/index.d.ts",
+      "default": "./lib/types/options/index.js"
+    },
+    "./options/*": {
+      "types": "./lib/types/options/*.d.ts",
+      "default": "./lib/types/options/*.js"
+    },
     "./parsers": "./lib/parsers/index.js",
     "./parsers/*": "./lib/parsers/*.js",
-    "./service": "./lib/service.js",
-    "./services/*": "./lib/services/*.js",
+    "./registry": {
+      "types": "./lib/types/registry/index.d.ts",
+      "default": "./lib/types/registry/index.js"
+    },
+    "./registry/*": {
+      "types": "./lib/types/registry/*.d.ts",
+      "default": "./lib/types/registry/*.js"
+    },
+    "./service": {
+      "types": "./lib/service.d.ts",
+      "default": "./lib/service.js"
+    },
+    "./services": {
+      "types": "./lib/types/services/index.d.ts",
+      "default": "./lib/types/services/index.js"
+    },
+    "./services/api": {
+      "types": "./lib/services/api.d.ts",
+      "default": "./lib/services/api.js"
+    },
+    "./services/console": {
+      "types": "./lib/services/console.d.ts",
+      "default": "./lib/services/console.js"
+    },
+    "./services/fs": {
+      "types": "./lib/services/fs.d.ts",
+      "default": "./lib/services/fs.js"
+    },
+    "./services/build/*": {
+      "types": "./lib/types/services/build/*.d.ts",
+      "default": "./lib/types/services/build/*.js"
+    },
+    "./services/*": {
+      "types": "./lib/types/services/*/index.d.ts",
+      "default": "./lib/types/services/*/index.js"
+    },
     "./value": "./lib/value.js"
   },
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "typesVersions": {
-    "*": {
-      ".": [
-        "./lib/index.d.ts"
-      ],
-      "bud": [
-        "./lib/bud.d.ts"
-      ],
-      "configuration": [
-        "./lib/configuration/index.d.ts"
-      ],
-      "extension": [
-        "./lib/extension/index.d.ts"
-      ],
-      "extension/decorators": [
-        "./lib/extension/decorators/index.d.ts"
-      ],
-      "extension/decorators/*": [
-        "./lib/extension/decorators/*.d.ts"
-      ],
-      "logger": [
-        "./lib/logger/index.d.ts"
-      ],
-      "methods": [
-        "./lib/methods/index.d.ts"
-      ],
-      "methods/*": [
-        "./lib/methods/*.d.ts"
-      ],
-      "parsers": [
-        "./lib/parsers/index.d.ts"
-      ],
-      "parsers/*": [
-        "./lib/parsers/*.d.ts"
-      ],
-      "service": [
-        "./lib/service.d.ts"
-      ],
-      "options": [
-        "./lib/types/options/index.d.ts"
-      ],
-      "options/*": [
-        "./lib/types/options/*.d.ts",
-        "./lib/types/options/*/index.d.ts"
-      ],
-      "services": [
-        "./lib/types/services/index.d.ts"
-      ],
-      "services/api": [
-        "./lib/services/api.d.ts"
-      ],
-      "services/extensions": [
-        "./lib/services/extensions.d.ts"
-      ],
-      "services/console": [
-        "./lib/services/console.d.ts"
-      ],
-      "services/*": [
-        "./lib/types/services/*.d.ts",
-        "./lib/types/services/*/index.d.ts"
-      ],
-      "registry": [
-        "./lib/types/registry/index.d.ts"
-      ],
-      "registry/*": [
-        "./lib/types/registry/*.d.ts",
-        "./lib/types/registry/*/index.d.ts"
-      ],
-      "value": [
-        "./lib/value.d.ts"
-      ],
-      "config": [
-        "./lib/types/config/index.d.ts"
-      ],
-      "config/*": [
-        "./lib/types/config/*.d.ts"
-      ]
-    }
-  },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@types/http-proxy": "1.17.9",
     "@types/js-yaml": "4.0.5",
-    "@types/node": "16.18.3",
+    "@types/node": "16.18.4",
     "chokidar": "3.5.3",
     "http-proxy-middleware": "3.0.0-beta.0"
   },

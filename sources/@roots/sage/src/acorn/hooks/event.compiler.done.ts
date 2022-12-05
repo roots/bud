@@ -39,7 +39,9 @@ const writeIfEnabled = async (bud: Bud) => {
 
 const writeJson = async function (bud: Bud) {
   const devUrl = bud.root.hooks.filter(`dev.url`)
-  const proxyUrl = bud.root.hooks.filter(`dev.middleware.proxy.target`)
+  const proxyUrl = bud.root.hooks.filter(
+    `dev.middleware.proxy.options.target`,
+  )
   const publicPath = bud.root.hooks.filter(`build.output.publicPath`)
   const writePath = bud.path(`@dist`, `hmr.json`)
 

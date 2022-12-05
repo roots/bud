@@ -19,7 +19,7 @@ import Service, {ServiceContainer} from './service.js'
 import type * as Config from './types/config/index.js'
 import type * as Options from './types/options/index.js'
 import type * as Services from './types/services/index.js'
-import type Hooks from './types/services/hooks.js'
+import type Hooks from './types/services/hooks/index.js'
 
 import type {Items} from './types/registry/items.js'
 import type {Loaders} from './types/registry/loaders.js'

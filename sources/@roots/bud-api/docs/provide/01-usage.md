@@ -1,10 +1,6 @@
 ---
-title: bud.provide
+title: Usage
 ---
-
-Makes a variable/module available throughout the entire application.
-
-## Usage
 
 The following specifies that `$` is the default `jquery` export:
 

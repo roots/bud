@@ -12,7 +12,7 @@ import * as clientOptions from './options.js'
  *
  * @public
  */
-export default async (
+export const client = async (
   queryString: string,
   webpackHot: __WebpackModuleApi.Hot,
 ) => {

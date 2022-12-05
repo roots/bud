@@ -63,8 +63,8 @@
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@types/lodash-es": "4.17.6",
-    "@types/node": "16.18.3",
-    "type-fest": "3.2.0"
+    "@types/node": "16.18.4",
+    "type-fest": "3.3.0"
   },
   "dependencies": {
     "@roots/bud-support": "workspace:sources/@roots/bud-support",

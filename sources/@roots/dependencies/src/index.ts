@@ -17,16 +17,11 @@ interface Install {
   (
     dependencies: Array<[string, string]>,
     args?: Array<string>,
-    onMessage?: (message: string) => void,
-    onError?: (message: string) => void,
   ): Promise<any>
 }
 
 interface Uninstall {
-  (
-    dependencies: Array<[string, string]>,
-    onMessage?: (message: string) => void,
-  ): Promise<any>
+  (dependencies: Array<[string, string]>): Promise<any>
 }
 
 export interface IDependencyManager {

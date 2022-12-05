@@ -48,12 +48,12 @@
     "fs-jetpack": "5.1.0"
   },
   "dependencies": {
-    "browserslist": "latest",
-    "caniuse-lite": "latest"
+    "browserslist": "4.21.4",
+    "caniuse-lite": "1.0.30001435"
   },
   "peerDependencies": {
-    "browserslist": "*",
-    "caniuse-lite": "*"
+    "browserslist": ">=4.21.4",
+    "caniuse-lite": ">=1.0.30001435"
   },
   "peerDependenciesMeta": {
     "browserslist": {

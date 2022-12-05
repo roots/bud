@@ -104,7 +104,7 @@
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.18.3",
+    "@types/node": "16.18.4",
     "@types/node-notifier": "8.0.2"
   },
   "dependencies": {
@@ -126,7 +126,8 @@
     "dotenv-expand": "9.0.0",
     "node-notifier": "10.0.1",
     "open": "8.4.0",
-    "open-editor": "4.0.0"
+    "open-editor": "4.0.0",
+    "tslib": "2.4.1"
   },
   "peerDependencies": {
     "@roots/browserslist-config": "*"
@@ -135,10 +136,7 @@
     "@roots/browserslist-config": {
       "optional": true
     },
-    "browserslist": {
-      "optional": true
-    },
-    "caniuse-lite": {
+    "tslib": {
       "optional": true
     }
   },

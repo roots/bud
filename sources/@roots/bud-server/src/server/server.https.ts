@@ -7,34 +7,23 @@ import {BaseServer} from './server.base.js'
 
 /**
  * HTTPS Server
+ *
  * @public
  */
 export class Https extends BaseServer implements Server.Connection {
   /**
    * Server instance
+   *
    * @public
    */
   public override instance: HttpsServer
 
   /**
-   * Https protocol
-   * @public
-   */
-  public protocol: 'https:' = `https:`
-
-  /**
-   * Has options
-   * @returns boolean
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public hasOptions(): boolean {
-    return this.options && Object.keys(this.options).length > 0
-  }
-
-  /**
-   * Create HTTPS server
+   * createServer
+   *
+   * @param express - Express application
+   * @returns server - {@link HttpsServer}
+   *
    * @public
    * @decorator `@bind`
    */
@@ -42,11 +31,6 @@ export class Https extends BaseServer implements Server.Connection {
   public async createServer(
     express: RequestListener & Express.Application,
   ): Promise<HttpsServer> {
-    if (!this.hasOptions()) {
-      this.instance = createServer(express)
-      return this.instance
-    }
-
     this.instance = createServer(this.options, express)
     return this.instance
   }

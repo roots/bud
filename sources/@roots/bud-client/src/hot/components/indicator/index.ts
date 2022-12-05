@@ -5,7 +5,6 @@ export const make = async (): Promise<{
   update: (data: Payload) => void
 }> => {
   if (customElements.get(`bud-activity-indicator`)) return
-
   customElements.define(`bud-activity-indicator`, Component)
 
   return new Controller()

@@ -1,4 +1,4 @@
-import {describe, expect, it, vi} from 'vitest'
+import {describe, expect, it} from 'vitest'
 
 import getProxy from './getProxy'
 
@@ -7,22 +7,21 @@ describe(`getProxy`, () => {
     expect(getProxy(undefined)).toBe(false)
   })
 
+  it(`should return joined hostname/protocol/port`, () => {
+    expect(getProxy(new URL(`http://localhost:3000`))).toBe(
+      `http://localhost:3000`,
+    )
+  })
+
   it(`should return false for no hostname/protocol/port`, () => {
-    expect(
-      getProxy({
-        // @ts-ignore
-        hostname: false,
-        // @ts-ignore
-        protocol: false,
-        // @ts-ignore
-        port: false,
-      }),
-    ).toBe(false)
+    expect(getProxy(new URL(`https://localhost:8080`))).toBe(
+      `https://localhost`,
+    )
   })
 
   it(`should return object matching url`, () => {
     expect(getProxy(new URL(`http://example.com:3000`))).toEqual(
-      expect.stringMatching(/^http:\/\/example\.com:.*/),
+      expect.stringMatching(/^http:\/\/example\.com:3000.*/),
     )
   })
 })

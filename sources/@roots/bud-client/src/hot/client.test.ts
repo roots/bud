@@ -2,11 +2,9 @@
 /**
  * @vitest-environment jsdom
  */
-import '../types/index.js'
-
 import {describe, expect, it, vi} from 'vitest'
 
-import client from './client.js'
+import {client} from './client.js'
 import {injectEvents} from './events.js'
 import * as options from './options.js'
 
