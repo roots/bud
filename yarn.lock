@@ -9000,12 +9000,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitest/ui@npm:0.25.3":
-  version: 0.25.3
-  resolution: "@vitest/ui@npm:0.25.3"
+"@vitest/ui@npm:0.25.4":
+  version: 0.25.4
+  resolution: "@vitest/ui@npm:0.25.4"
   dependencies:
     sirv: ^2.0.2
-  checksum: 496d6ede6a242ede23cc4e77db4b659872a8d63ae2dc9e58da64b8caf406c3509717c858a97877b7d77bca71b68aa46516c2ea1d9e85ba902f242955bb062b35
+  checksum: db9361ac3e01b02e942749a68e0bdc8afbd12dbae5a4c665ca57829c5cfe6816d33e03548c524d07187e1244f713cafa40003b14294d53bd1c5fb3f35c258302
   languageName: node
   linkType: hard
 
@@ -11704,7 +11704,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": 5.45.0
     "@typescript-eslint/parser": 5.45.0
     "@vitest/coverage-istanbul": 0.25.3
-    "@vitest/ui": 0.25.3
+    "@vitest/ui": 0.25.4
     eslint: 8.28.0
     eslint-plugin-import: 2.26.0
     eslint-plugin-n: 15.5.1
