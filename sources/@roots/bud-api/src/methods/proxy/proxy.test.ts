@@ -4,11 +4,8 @@ import {URL} from 'node:url'
 import {factory} from '@repo/test-kit/bud'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import {
-  disableMiddleware,
-  enableMiddleware,
-  proxy as proxyFn,
-} from './index.js'
+import {disableMiddleware, enableMiddleware} from './helpers.js'
+import {proxy as proxyFn} from './index.js'
 
 describe(`bud.proxy`, () => {
   let bud

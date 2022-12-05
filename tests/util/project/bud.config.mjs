@@ -11,16 +11,10 @@ export default async bud => {
     .alias(`@src`, bud.path(`@src`))
     .entry(`app`, [`@src/scripts/app`, `@src/styles/app`])
     .copy([[`images`, `images`]])
-    .template({
-      replace: {
-        APP_TITLE: `Bud`,
-        replaceTest: `replaced`,
-      },
-      template: `src/index.html`,
-    })
     .devtool(false)
     .watch([`src/*.html`, `src/images`])
     .serve(3015)
+    .proxy(`https://roots2022.test`, {})
     .minimize()
     .provide({jquery: [`jQuery`, `$`]})
 }

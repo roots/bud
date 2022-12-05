@@ -6019,11 +6019,13 @@ __metadata:
     "@roots/bud-terser": "workspace:sources/@roots/bud-terser"
     "@roots/container": "workspace:sources/@roots/container"
     "@skypack/package-check": 0.2.2
+    "@types/http-proxy": ^1
     "@types/node": 16.18.4
     chalk: 5.1.2
     copy-webpack-plugin: 11.0.0
     get-port: 6.1.2
     html-webpack-plugin: 5.5.0
+    http-proxy: 1.18.1
     http-proxy-middleware: 3.0.0-beta.0
   languageName: unknown
   linkType: soft
@@ -8089,7 +8091,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/http-proxy@npm:1.17.9, @types/http-proxy@npm:^1.17.8":
+"@types/http-proxy@npm:1.17.9, @types/http-proxy@npm:^1, @types/http-proxy@npm:^1.17.8":
   version: 1.17.9
   resolution: "@types/http-proxy@npm:1.17.9"
   dependencies:
@@ -19085,7 +19087,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"http-proxy@npm:^1.18.0, http-proxy@npm:^1.18.1":
+"http-proxy@npm:1.18.1, http-proxy@npm:^1.18.0, http-proxy@npm:^1.18.1":
   version: 1.18.1
   resolution: "http-proxy@npm:1.18.1"
   dependencies:
