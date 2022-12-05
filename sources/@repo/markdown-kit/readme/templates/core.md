@@ -16,7 +16,7 @@ npm:
 npm install {{name}} --save-dev
 ```
 
-{{#each usage}}
+{{#each sections}}
 {{{this}}}
 {{/each}}
 

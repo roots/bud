@@ -2,8 +2,8 @@
 title: URL replacement
 ---
 
-It is generally desirable to replace instances of the proxy URL's `origin` with the dev server's `origin` in proxied responses.
-Otherwise, anchor links and and window location events will still point to the proxied server.
+Instances of the proxy URL's base URL with the dev server's base URL in responses.
+Otherwise, absolute URLs would still point to the proxied server.
 
 This won't work for all setups. But, **bud.proxy** takes a second, optional parameter to customize this default behavior.
 
