@@ -29,17 +29,23 @@
     "node": ">=16"
   },
   "files": [
-    "index.cjs",
-    "broad.cjs",
-    "current.cjs"
+    "default.cjs",
+    "next.cjs",
+    "wordpress.cjs",
+    "last-2-versions.cjs",
+    "last-3-versions.cjs",
+    "scripts/"
   ],
   "main": "./index.cjs",
   "module": "./index.cjs",
   "types": "./types.d.ts",
   "exports": {
-    ".": "./index.cjs",
-    "./broad": "./broad.cjs",
-    "./current": "./current.cjs"
+    ".": "./default.cjs",
+    "./default": "./default.cjs",
+    "./broad": "./last-3-versions.cjs",
+    "./current": "./last-2-versions.cjs",
+    "./next": "./next.cjs",
+    "./wordpress": "./wordpress.cjs"
   },
   "devDependencies": {
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
@@ -48,20 +54,7 @@
     "fs-jetpack": "5.1.0"
   },
   "dependencies": {
-    "browserslist": "4.21.4",
-    "caniuse-lite": "1.0.30001435"
-  },
-  "peerDependencies": {
-    "browserslist": ">=4.21.4",
-    "caniuse-lite": ">=1.0.30001435"
-  },
-  "peerDependenciesMeta": {
-    "browserslist": {
-      "optional": true
-    },
-    "caniuse-lite": {
-      "optional": true
-    }
+    "browserslist": "4.21.4"
   },
   "volta": {
     "extends": "../../../package.json"

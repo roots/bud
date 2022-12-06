@@ -69,20 +69,18 @@
   "devDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.18.4"
+    "@types/node": "16.18.6"
   },
   "dependencies": {
-    "@roots/browserslist-config": "workspace:sources/@roots/browserslist-config",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-preset-recommend": "workspace:sources/@roots/bud-preset-recommend",
     "@roots/bud-react": "workspace:sources/@roots/bud-react",
     "@roots/bud-wordpress-dependencies": "workspace:sources/@roots/bud-wordpress-dependencies",
     "@roots/bud-wordpress-externals": "workspace:sources/@roots/bud-wordpress-externals",
-    "@roots/bud-wordpress-manifests": "workspace:sources/@roots/bud-wordpress-manifests"
+    "@roots/bud-wordpress-manifests": "workspace:sources/@roots/bud-wordpress-manifests",
+    "webpack": "5.75.0"
   },
   "peerDependencies": {
-    "@roots/browserslist-config": "*",
-    "@roots/bud": "*",
     "@roots/bud-preset-recommend": "*",
     "@roots/bud-react": "*",
     "@roots/bud-wordpress-dependencies": "*",
@@ -90,12 +88,6 @@
     "@roots/bud-wordpress-manifests": "*"
   },
   "peerDependenciesMeta": {
-    "@roots/browserslist-config": {
-      "optional": true
-    },
-    "@roots/bud": {
-      "optional": true
-    },
     "@roots/bud-preset-recommend": {
       "optional": true
     },
