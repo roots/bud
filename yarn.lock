@@ -11695,6 +11695,7 @@ __metadata:
     "@repo/constants": "workspace:sources/@repo/constants"
     "@repo/logger": "workspace:sources/@repo/logger"
     "@repo/test-kit": "workspace:sources/@repo/test-kit"
+    "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
     "@types/express": 4.17.14
     "@types/fs-extra": 9.0.13
