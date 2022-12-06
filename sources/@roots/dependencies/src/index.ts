@@ -30,4 +30,5 @@ export interface IDependencyManager {
   path: string
   install: Install
   uninstall: Uninstall
+  execute: (commandArgs: Array<string>) => Promise<any>
 }

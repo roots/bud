@@ -66,28 +66,25 @@
     }
   },
   "devDependencies": {
-    "@roots/bud-api": "workspace:sources/@roots/bud-api",
+    "@roots/bud": "workspace:sources/@roots/bud",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.18.4",
+    "@types/node": "16.18.6",
     "@types/tailwindcss": "3.1.0",
     "@types/webpack-virtual-modules": "0.1.1"
   },
   "dependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "@types/fs-extra": "9.0.13",
-    "autoprefixer": "^10.4.13",
     "tailwindcss": "3.2.4",
+    "webpack": "5.75.0",
     "webpack-virtual-modules": "0.4.6"
   },
   "peerDependencies": {
-    "autoprefixer": "*",
     "tailwindcss": "*"
   },
   "peerDependenciesMeta": {
-    "autoprefixer": {
+    "caniuse-lite": {
       "optional": true
     },
     "tailwindcss": {

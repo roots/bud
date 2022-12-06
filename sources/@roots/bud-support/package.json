@@ -82,7 +82,7 @@
     "zod-validation-error": "0.2.1"
   },
   "peerDependencies": {
-    "webpack": ">=5"
+    "webpack": ">=5.75.0"
   },
   "peerDependenciesMeta": {
     "webpack": {

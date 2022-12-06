@@ -68,8 +68,10 @@ export default class ConsoleBuffer extends Service {
       if (!data || data === ``) return
 
       const message = data.trim()
+
       // Ignore empty
       if (!message) return
+
       // Ignore messages that have been logged before
       if (this.messages[stream].some(stale => stale === message)) return
 
