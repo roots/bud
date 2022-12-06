@@ -8984,9 +8984,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitest/coverage-istanbul@npm:0.25.4":
-  version: 0.25.4
-  resolution: "@vitest/coverage-istanbul@npm:0.25.4"
+"@vitest/coverage-istanbul@npm:0.25.5":
+  version: 0.25.5
+  resolution: "@vitest/coverage-istanbul@npm:0.25.5"
   dependencies:
     istanbul-lib-coverage: ^3.2.0
     istanbul-lib-instrument: ^5.2.1
@@ -8994,8 +8994,8 @@ __metadata:
     istanbul-lib-source-maps: ^4.0.1
     istanbul-reports: ^3.1.5
     test-exclude: ^6.0.0
-    vitest: 0.25.4
-  checksum: 9a7e31a577a978592c73a35cea7079b226a77e8e206aac2d7a83ed4abb3d5c6612338f54533da568208a472902888b662eabee9d0ce1cfff8261d8b82cc6212a
+    vitest: 0.25.5
+  checksum: ade1e3df19c76c60e842615d6dce7c97ce1f513bfa552db12b1cbd2901cfdb83398839fc18da4fd9d8e4f5a34dd58c695c417c604be1acb260c822279a5ffb32
   languageName: node
   linkType: hard
 
@@ -11703,7 +11703,7 @@ __metadata:
     "@types/node": 16.18.6
     "@typescript-eslint/eslint-plugin": 5.45.1
     "@typescript-eslint/parser": 5.45.1
-    "@vitest/coverage-istanbul": 0.25.4
+    "@vitest/coverage-istanbul": 0.25.5
     "@vitest/ui": 0.25.4
     eslint: 8.29.0
     eslint-plugin-import: 2.26.0
@@ -32332,6 +32332,47 @@ __metadata:
   bin:
     vitest: vitest.mjs
   checksum: c6783f897dfa1cf512ee75126e650b239c8761d7c080860414ca88e561e9cb8c9b1652ab1504a28b4141ef774bccf3568dadc35f0e6974e70e00515136026e7f
+  languageName: node
+  linkType: hard
+
+"vitest@npm:0.25.5":
+  version: 0.25.5
+  resolution: "vitest@npm:0.25.5"
+  dependencies:
+    "@types/chai": ^4.3.3
+    "@types/chai-subset": ^1.3.3
+    "@types/node": "*"
+    acorn: ^8.8.0
+    acorn-walk: ^8.2.0
+    chai: ^4.3.6
+    debug: ^4.3.4
+    local-pkg: ^0.4.2
+    source-map: ^0.6.1
+    strip-literal: ^1.0.0
+    tinybench: ^2.3.1
+    tinypool: ^0.3.0
+    tinyspy: ^1.0.2
+    vite: ^3.0.0
+  peerDependencies:
+    "@edge-runtime/vm": "*"
+    "@vitest/browser": "*"
+    "@vitest/ui": "*"
+    happy-dom: "*"
+    jsdom: "*"
+  peerDependenciesMeta:
+    "@edge-runtime/vm":
+      optional: true
+    "@vitest/browser":
+      optional: true
+    "@vitest/ui":
+      optional: true
+    happy-dom:
+      optional: true
+    jsdom:
+      optional: true
+  bin:
+    vitest: vitest.mjs
+  checksum: f3e6cbe53f41ccdcf9d4a6dc71f22678007197388b4f1094c04ce28f778b99fce6cd7b2f35049aeffa8cd80cb25c0683f14dd008fdf0a54c6bc39fa3f2cb38a0
   languageName: node
   linkType: hard
 
