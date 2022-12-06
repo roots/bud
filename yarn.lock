@@ -6813,7 +6813,7 @@ __metadata:
     "@types/webpack-env": 1.18.0
     chalk: 5.1.2
     fork-ts-checker-webpack-plugin: ^7.2.13
-    react-refresh: 0.14.0
+    react-refresh: ^0.14.0
     react-refresh-typescript: 2.0.7
     ts-loader: ^9.4.2
     ts-node: 10.9.1
@@ -27144,7 +27144,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-refresh@npm:0.14.0, react-refresh@npm:^0.14.0":
+"react-refresh@npm:^0.14.0":
   version: 0.14.0
   resolution: "react-refresh@npm:0.14.0"
   checksum: dc69fa8c993df512f42dd0f1b604978ae89bd747c0ed5ec595c0cc50d535fb2696619ccd98ae28775cc01d0a7c146a532f0f7fb81dc22e1977c242a4912312f4
