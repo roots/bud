@@ -1,10 +1,10 @@
 /* eslint-disable no-console */
 /* eslint-disable n/no-process-env */
-import {execa} from '@roots/bud-support/execa'
-
 // browerslist updater
 ;(async () => {
   if (process.env.npm_package_version === `0.0.0`) return
+
+  const {execa} = await import(`@roots/bud-support/execa`)
 
   try {
     console.log(`updating browserslist database`)
