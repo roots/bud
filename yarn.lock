@@ -6649,7 +6649,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/babel__core": 7.1.20
     "@types/node": 16.18.6
-    babel-preset-solid: 1.6.2
+    babel-preset-solid: 1.6.3
     solid-js: 1.6.2
   peerDependencies:
     "@babel/plugin-syntax-jsx": "*"
@@ -11245,9 +11245,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-plugin-jsx-dom-expressions@npm:^0.35.4":
-  version: 0.35.4
-  resolution: "babel-plugin-jsx-dom-expressions@npm:0.35.4"
+"babel-plugin-jsx-dom-expressions@npm:^0.35.6":
+  version: 0.35.6
+  resolution: "babel-plugin-jsx-dom-expressions@npm:0.35.6"
   dependencies:
     "@babel/helper-module-imports": 7.16.0
     "@babel/plugin-syntax-jsx": ^7.16.5
@@ -11255,7 +11255,7 @@ __metadata:
     html-entities: 2.3.2
   peerDependencies:
     "@babel/core": ^7.0.0
-  checksum: 28aeea3e610b0e921cf51f2fafccf002e52cf3f7a9cfacc9a08b1393871d1503ce48a1240728d1e7d236408aa2923685024ef18ffbb06e0336247a22b2e342b6
+  checksum: c8b4e07b1a8646b11fa878158894e95ab0acc95dedd917ea65dee513c3a7001318fff04219b8fcda05b526aae4a22330d886a531fd37577a90bd81a0f54639dd
   languageName: node
   linkType: hard
 
@@ -11306,14 +11306,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-preset-solid@npm:1.6.2":
-  version: 1.6.2
-  resolution: "babel-preset-solid@npm:1.6.2"
+"babel-preset-solid@npm:1.6.3":
+  version: 1.6.3
+  resolution: "babel-preset-solid@npm:1.6.3"
   dependencies:
-    babel-plugin-jsx-dom-expressions: ^0.35.4
+    babel-plugin-jsx-dom-expressions: ^0.35.6
   peerDependencies:
     "@babel/core": ^7.0.0
-  checksum: cd5158c93b0ce00522d6e73797e82035c076a350b12e7a3b4d7972e979164df8e4d3b54c6c311c16ac0f7923c6408273137a3c34f805df4df93f9cf81c0e6e03
+  checksum: 9b4bf56eeeed199d38539851315dbf3e786bd6569510886651e7eafe1582748788cb8666ad5bb4e7e24c702e2dfdcf85ef64027e35ca723775065491bdf669c1
   languageName: node
   linkType: hard
 
