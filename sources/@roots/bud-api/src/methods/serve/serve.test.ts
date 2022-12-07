@@ -56,7 +56,7 @@ describe(`bud.serve`, () => {
     const value = bud.hooks.filter(`dev.url`)
 
     expect(value.hostname).toStrictEqual(options.host)
-    expect(value.port).toStrictEqual(``)
+    expect(value.port).toStrictEqual(`3000`)
     expect(value.protocol).toStrictEqual(`http:`)
   })
 

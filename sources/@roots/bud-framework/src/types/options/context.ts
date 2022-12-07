@@ -4,20 +4,21 @@ import type {Bud} from '../../bud.js'
 
 export interface BaseContext {
   label: string
+  basedir: string
+  mode: 'development' | 'production'
+  bud: Record<string, any>
   root?: Bud
   dependsOn?: Array<string>
-  basedir: string
-  bud: Record<string, any>
   manifest?: Record<string, any>
-  mode: 'development' | 'production'
-  args: Partial<{
-    basedir: string
-    browser: string | boolean
-    cache: `filesystem` | `memory` | true | false
-    ci: boolean
-    clean: boolean
-    debug: boolean
-    devtool:
+  services?: Array<string>
+  args?: Partial<{
+    basedir?: string
+    browser?: string | boolean
+    cache?: `filesystem` | `memory` | true | false
+    ci?: boolean
+    clean?: boolean
+    debug?: boolean
+    devtool?:
       | false
       | `eval`
       | `eval-cheap-source-map`
@@ -43,58 +44,47 @@ export interface BaseContext {
       | `hidden-cheap-source-map`
       | `hidden-cheap-module-source-map`
       | `hidden-source-map`
-    discovery: boolean
-    dry: boolean
-    output: string
-    editor: boolean
-    esm: boolean
-    flush: boolean
-    hash: boolean
-    html: boolean | string
-    immutable: boolean
-    indicator: boolean
-    input: string
-    level: Array<Boolean>
-    log: boolean
-    manifest: boolean
-    minimize: boolean
-    mode: `production` | `development`
-    modules: string
-    notify: boolean
-    overlay: boolean
-    publicPath: string
-    reload: boolean
-    runtime: `single` | `multiple` | boolean
-    splitChunks: boolean
-    storage: string
-    target: Array<string>
+    discovery?: boolean
+    dry?: boolean
+    output?: string
+    editor?: boolean
+    esm?: boolean
+    flush?: boolean
+    hash?: boolean
+    html?: boolean | string
+    immutable?: boolean
+    indicator?: boolean
+    input?: string
+    level?: Array<Boolean>
+    log?: boolean
+    manifest?: boolean
+    minimize?: boolean
+    mode?: `production` | `development`
+    modules?: string
+    notify?: boolean
+    overlay?: boolean
+    publicPath?: string
+    reload?: boolean
+    runtime?: `single` | `multiple` | boolean
+    splitChunks?: boolean
+    storage?: string
+    target?: Array<string>
   }>
-  config: Record<string, ConfigDescription>
+  config?: Record<string, ConfigDescription>
+  env?: Record<string, string | undefined>
   extensions?: {
     builtIn?: Array<string>
     discovered?: Array<string>
   }
-  services: Array<string>
-  env: Record<string, string | undefined>
 }
 
-export interface InstanceContext extends BaseContext {
+export interface Context extends BaseContext {
   stdin: Readable
   stdout: Writable
   stderr: Writable
   colorDepth: number
 }
-
-export type BaseOverrides = {
-  [K in keyof BaseContext]?: Partial<BaseContext[K]>
-}
-
-export type InstanceOverrides = {
-  [K in keyof InstanceContext]?: InstanceContext[K]
-}
-
-export type Context = BaseContext & InstanceContext
-export type Overrides = BaseOverrides & InstanceOverrides
+export type Overrides = Partial<Context>
 
 export interface ConfigDescription {
   name: string

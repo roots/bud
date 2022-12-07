@@ -17,27 +17,6 @@ export interface Options {
   ssl?: boolean
 
   /**
-   * Ports that should not be returned
-   *
-   * @public
-   */
-  exclude?: number | Array<number>
-
-  /**
-   * Server URL
-   *
-   * @public
-   */
-  url?: string | URL
-
-  /**
-   * Hostname
-   *
-   * @public
-   */
-  host?: string
-
-  /**
    * Port
    *
    * @public
@@ -57,6 +36,20 @@ export interface Options {
    * @public
    */
   key?: string
+
+  /**
+   * Server URL
+   *
+   * @public
+   */
+  url?: string | URL
+
+  /**
+   * Hostname
+   *
+   * @public
+   */
+  host?: string
 
   /**
    * http & https server options

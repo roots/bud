@@ -1,5 +1,5 @@
 ---
-title: URL replacement
+title: Modifying the response body
 ---
 
 Instances of the proxy URL's base URL with the dev server's base URL in responses.

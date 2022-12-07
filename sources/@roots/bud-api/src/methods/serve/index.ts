@@ -34,7 +34,7 @@ export const serve: serve = async function (this: Bud, input, options) {
   let resolvedUrl =
     input instanceof URL
       ? input
-      : this.hooks.filter(`dev.url`, new URL(`http://0.0.0.0`))
+      : this.hooks.filter(`dev.url`, new URL(`http://0.0.0.0:3000`))
 
   let resolvedOptions = options ?? this.hooks.filter(`dev.options`, {})
 

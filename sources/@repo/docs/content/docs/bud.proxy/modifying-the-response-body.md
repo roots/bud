@@ -1,0 +1,8 @@
+---
+title: URL replacement
+description: Configure proxy server
+---
+
+import Replace from '@site/../../@roots/bud-api/docs/proxy/body-replacement.md'
+
+<Replace />
