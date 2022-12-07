@@ -14,6 +14,4 @@ If the default `port` is already in use a new one will be dynamically selected.
 ### Documentation
 
 - [Setting the origin](https://bud.js.org/docs/bud.serve/setting-the-origin)
-- [Setting server options](https://bud.js.org/docs/bud.serve/setting-server-options)
-
-!!
+- [Setting server options](https://bud.js.org/docs/bud.serve/setting-options)
