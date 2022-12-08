@@ -1,9 +1,14 @@
 ---
 title: Configuration reference
 description: Register shorthand for resolving modules.
+sidebar_position: 1
 ---
 
 import {Card} from '../../src/components/card'
+import Entry from '@site/../../@roots/bud-api/docs/entry/overview.md'
+import Provide from '@site/../../@roots/bud-api/docs/provide/overview.md'
+import Proxy from '@site/../../@roots/bud-api/docs/proxy/overview.md'
+import Serve from '@site/../../@roots/bud-api/docs/serve/overview.md'
 
 ### bud.alias
 
@@ -39,7 +44,7 @@ Configure sourcemaps
 
 ### bud.entry
 
-Specify a set of assets to include in the compilation
+<Entry />
 
 <a href="/docs/bud.entry" className="button button--secondary">
   Read documentation
@@ -119,7 +124,7 @@ Get an absolute path to a directory or file.
 
 ### bud.provide
 
-Make a variable/module available throughout the entire application
+<Provide />
 
 <a href="/docs/bud.provide" className="button button--secondary">
   Read documentation
@@ -127,7 +132,7 @@ Make a variable/module available throughout the entire application
 
 ### bud.proxy
 
-Proxy an existing development server
+<Proxy />
 
 <a href="/docs/bud.proxy" className="button button--secondary">
   Read documentation
@@ -151,7 +156,7 @@ Generate a runtime chunk intended to be inlined on the page
 
 ### bud.serve
 
-Configure the development server
+<Serve />
 
 <a href="/docs/bud.serve" className="button button--secondary">
   Read documentation

@@ -2,7 +2,7 @@
 title: Modifying the response body
 ---
 
-Instances of the proxy URL's base URL with the dev server's base URL in responses.
+Instances of the proxy base URL are replaced by the dev server's base URL in proxied responses.
 Otherwise, absolute URLs would still point to the proxied server.
 
 This won't work for all setups. But, **bud.proxy** takes a second, optional parameter to customize this default behavior.
@@ -32,8 +32,7 @@ bud.proxy('https://example.test', (replacements = []) => {
 })
 ```
 
-To fully ovewrite these search/replace tasks, you can pass the array
-without a callback:
+To fully ovewrite these search/replace tasks, you can pass the array without a callback:
 
 ```ts title='bud.config.ts'
 bud.proxy('https://example.test', [

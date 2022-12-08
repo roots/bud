@@ -69,7 +69,7 @@ export const entrypointsRecord = z.record(
 )
 
 /**
- * parameters
+ * fn parameters
  */
 export const parameters = z.union([
   z.tuple([entrypointSignifier, importItem.or(importArray)], {

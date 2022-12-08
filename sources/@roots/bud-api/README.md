@@ -34,6 +34,12 @@ npm install @roots/bud-api --save-dev
 
 For full documentation refer to [bud.js.org/docs](https://bud.js.org/docs).
 
+### bud.entry
+
+**bud.entry** is used to specify and group assets to include in the compilation.
+
+If no entrypoint is provided **bud.js** will attempt to compile **src/index.js** to **dist/main.js**.
+
 ### bud.provide
 
 **bud.provide** makes a variable or module available throughout the entire application
@@ -47,6 +53,10 @@ For full documentation refer to [bud.js.org/docs](https://bud.js.org/docs).
 **bud.serve** is used to configure the development server.
 
 You don't need to call this function unless you want to change the default server configuration.
+
+### bud.watch
+
+**bud.watch** is used to specify files which will trigger a full browser reload when changed.
 
 ## Contributing
 

@@ -1,3 +1,7 @@
+---
+title: Usage
+---
+
 It is preferred to specify files using [bud.path](/docs/bud.path) or [bud.glob](/docs/bud.glob).
 
 ```typescript

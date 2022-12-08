@@ -39,6 +39,36 @@ declare module '@roots/bud-framework' {
     define(...params: Define.Parameters): Bud
     devtool(...params: Devtool.Parameters): Bud
 
+    /**
+     * ## bud.entry
+     *
+     * Indicate application entrypoint(s)
+     *
+     * @see {@link https://bud.js.org/docs/bud.entry}
+     *
+     * @example
+     * ```js
+     * bud.entry('@src/index.js')
+     * ```
+     *
+     * @example
+     * ```js
+     * bud.entry(['@src/index.js', '@src/another.js'])
+     * ```
+     *
+     * @example
+     * ```js
+     * bud.entry('app', '@src/index.js')
+     * ```
+     *
+     * @example
+     * ```js
+     * bud.entry({
+     *   app: ['@src/index.js'],
+     *   admin: ['@src/admin.js'],
+     * })
+     * ```
+     */
     entry(...params: Entry.Parameters): Bud
     experiments(...params: Experiments.Parameters): Bud
     externals(...params: Externals.Parameters): Bud
