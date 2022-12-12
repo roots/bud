@@ -335,7 +335,8 @@ export class Bud {
    */
   @bind
   public log(...messages: any[]) {
-    if (this.context.args?.level < 3 || this.context.args?.log === false)
+    if (!this.context.args?.log) return this
+    if (this.context.args?.level && this.context.args?.level < 3)
       return this
 
     !this.logger?.instance
@@ -354,7 +355,8 @@ export class Bud {
    */
   @bind
   public info(...messages: any[]) {
-    if (this.context.args.log === false || this.context.args.level < 4)
+    if (!this.context.args?.log) return this
+    if (!this.context.args?.level || this.context.args?.level < 4)
       return this
 
     !this.logger?.instance
@@ -373,7 +375,8 @@ export class Bud {
    */
   @bind
   public success(...messages: any[]) {
-    if (this.context.args?.log === false || this.context.args?.level < 2)
+    if (!this.context.args?.log) return this
+    if (this.context.args?.level && this.context.args?.level < 2)
       return this
 
     !this.logger?.instance
@@ -391,10 +394,13 @@ export class Bud {
    */
   @bind
   public warn(...messages: any[]) {
+    if (this.context.args?.level && this.context.args?.level < 1)
+      return this
+
     !this.logger?.instance
       ? // eslint-disable-next-line no-console
         console.warn(...messages)
-      : this.logger?.instance?.warn(...this.logger.format(...messages))
+      : this.logger.instance.warn(...this.logger.format(...messages))
 
     return this
   }
@@ -416,7 +422,7 @@ export class Bud {
     !this.logger?.instance
       ? // eslint-disable-next-line no-console
         console.error(...messages)
-      : this.logger?.instance?.error(...this.logger.format(...messages))
+      : this.logger.instance.error(...this.logger.format(...messages))
 
     this.close()
 

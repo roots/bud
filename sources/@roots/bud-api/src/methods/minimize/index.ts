@@ -40,9 +40,7 @@ export interface minimize {
 export const minimize: minimize = function (this: Bud, value = true) {
   this.hooks.on(`build.optimization.minimize`, value)
 
-  if (
-    this.hooks.filter(`build.optimization.minimize`, this.isProduction)
-  ) {
+  if (value) {
     this.extensions.get(`@roots/bud-terser`)?.enable()
     this.extensions.get(`@roots/bud-terser/css-minimizer`)?.enable()
   } else {

@@ -10,6 +10,8 @@ import type Bud from '../../bud/index.js'
 import {factory} from '../../factory/index.js'
 import Notifier from '../../notifier/index.js'
 import {checkDependencies} from '../helpers/checkDependencies.js'
+import {checkLockfile} from '../helpers/checkLockfile.js'
+import {checkPackageManagerConflict} from '../helpers/checkPackageManagerConflict.js'
 import Render from '../helpers/render.js'
 
 /**
@@ -201,6 +203,8 @@ export default abstract class BaseCommand extends Command {
     try {
       this.app = await factory(this.context)
       await checkDependencies(this.app)
+      checkPackageManagerConflict(this.app)
+      checkLockfile(this.app)
     } catch (error) {
       this.handleError(error)
       return 1

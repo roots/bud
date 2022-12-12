@@ -28,6 +28,8 @@ export class Logger {
   public get level() {
     return this.app.context.args?.level
       ? config.level[this.app.context.args.level - 1]
+      : this.app.context.args?.log
+      ? config.level[2]
       : config.level[1]
   }
 
@@ -39,11 +41,7 @@ export class Logger {
    */
   public constructor(_app: Bud) {
     this._app = () => _app
-    this.scope = [
-      `${this.app.context.bud.label}@${this.app.context.bud.version}`,
-      this.app.label,
-    ]
-
+    this.scope = [this.app.label]
     this.instance = this.makeInstance()
   }
 

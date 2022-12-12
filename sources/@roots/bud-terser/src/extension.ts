@@ -93,21 +93,6 @@ export class BudTerser extends Extension<Options> {
       this.logger.log(`with options`, this.options)
 
       minimizers.push(terserMinimizerInstance)
-
-      if (
-        bud.extensions.has(
-          // @ts-ignore
-          `@roots/bud-swc`,
-        )
-      ) {
-        this.logger.log(
-          `swc in use. removing CssMinimizerPlugin (if present)`,
-        )
-        minimizers = minimizers.filter(
-          minimizer => minimizer.constructor.name !== `CssMinimizerPlugin`,
-        )
-      }
-
       this.logger.success(`terser added to minimizers`, minimizers)
       return minimizers
     })

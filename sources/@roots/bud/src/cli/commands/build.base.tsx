@@ -313,7 +313,6 @@ export default class BuildCommand extends BaseCommand {
    */
   public override get args(): Context[`args`] {
     return {
-      ...this.context.args,
       browser: this.browser,
       cache: this.cache,
       ci: this.ci,

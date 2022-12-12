@@ -1,6 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
 import {ServiceContainer} from '@roots/bud-framework/service'
-import type {Api as Contract} from '@roots/bud-framework/services/api'
+import type {Api as Contract} from '@roots/bud-framework/services'
 import {bind} from '@roots/bud-support/decorators'
 import {isFunction} from '@roots/bud-support/lodash-es'
 import chalk from 'chalk'
@@ -76,7 +76,10 @@ export class Api extends ServiceContainer implements Contract {
    */
   @bind
   public async call(name: string, args?: any) {
-    this.app.log(chalk.blue(name), args ?? `(no arguments passed)`)
+    this.app.log(
+      chalk.blue(name),
+      ...(args ? args : [`(no arguments passed)`]),
+    )
 
     if (!this.has(name)) {
       throw new Error(`bud.api.call error: ${name} is not a function`)
