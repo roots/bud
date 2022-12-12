@@ -1,24 +1,12 @@
 {
+  "extends": "@roots/bud/config/tsconfig.json",
   "compilerOptions": {
-    "baseUrl": "./src",
     "paths": {
-      "@scripts/*": ["scripts/*"],
-      "@styles/*": ["styles/*"]
+      "@scripts/*": ["./src/scripts/*"],
+      "@styles/*": ["./src/styles/*"]
     },
-    "outDir": "public",
-    "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "strict": false,
-    "checkJs": false,
-    "forceConsistentCasingInFileNames": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "jsx": "preserve",
-    "types": ["node", "webpack-env"]
+    "types": ["node", "webpack-env", "@roots/bud"]
   },
-  "include": ["src"],
-  "exclude": ["node_modules"]
+  "include": ["./src"],
+  "exclude": ["./node_modules"]
 }
