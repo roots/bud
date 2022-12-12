@@ -1,5 +1,5 @@
 ---
-title: bud.template
+title: bud.html
 description: Configure your application's html templates.
 ---
 
@@ -10,7 +10,7 @@ Configure your application's html wrapper
 This method can be called without passing any options.
 
 ```js title='bud.config.js'
-bud.template()
+bud.html()
 ```
 
 The default template will source a couple variables from `.env`, you'll probably want to make sure they are set.
@@ -23,7 +23,7 @@ PUBLIC_APP_DESCRIPTION='My App Description'
 ## Using a custom template
 
 ```js title='bud.config.js'
-bud.template({
+bud.html({
   template: 'index.html',
 })
 ```
@@ -33,7 +33,7 @@ bud.template({
 Add template variables using `replace`.
 
 ```js {2-6} title='bud.config.js'
-bud.template({
+bud.html({
   replace: {
     APP_NAME: name,
     APP_DESCRIPTION: description,

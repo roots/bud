@@ -5,7 +5,7 @@ import {dirname, resolve} from 'path'
 import {fileURLToPath} from 'url'
 
 /**
- * Template options
+ * HTML options
  *
  * @public
  */
@@ -27,21 +27,16 @@ interface Options extends HtmlOptions {
 
 export type Parameters = [(Options | boolean)?]
 
-/**
- * Set HTML template
- *
- * @public
- */
-export interface template {
+export interface html {
   (...userOptions: Parameters): Promise<Bud>
 }
 
 /**
- * Set HTML template
+ * Set HTML html
  *
  * @public
  */
-export const template: template = async function (
+export const html: html = async function (
   this: Bud,
   userOptions,
 ): Promise<Bud> {

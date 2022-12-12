@@ -10,6 +10,7 @@ import type * as Entry from './methods/entry/index.js'
 import type * as Experiments from './methods/experiments/index.js'
 import type * as Externals from './methods/externals/index.js'
 import type * as Hash from './methods/hash/index.js'
+import type * as Html from './methods/html/index.js'
 import type * as Minimize from './methods/minimize/index.js'
 import type * as Persist from './methods/persist/index.js'
 import type * as Provide from './methods/provide/index.js'
@@ -17,7 +18,6 @@ import type * as Proxy from './methods/proxy/index.js'
 import type * as Runtime from './methods/runtime/index.js'
 import type * as Serve from './methods/serve/index.js'
 import type * as SplitChunks from './methods/splitChunks/index.js'
-import type * as Template from './methods/template/index.js'
 import type * as Use from './methods/use/index.js'
 import type * as Watch from './methods/watch/index.js'
 
@@ -201,20 +201,20 @@ export interface Repository {
   splitChunks(...params: SplitChunks.Parameters): Bud
 
   /**
+   * ## bud.html
+   *
+   * {@link https://bud.js.org/docs/bud.template 📕 Documentation}
+   */
+  html(...params: Html.Parameters): Bud
+
+  /**
    * ## bud.template
    *
    * {@link https://bud.js.org/docs/bud.template 📕 Documentation}
    *
    * @deprecated use {@link Bud.template bud.html}
    */
-  template(...params: Template.Parameters): Bud
-
-  /**
-   * ## bud.html
-   *
-   * {@link https://bud.js.org/docs/bud.template 📕 Documentation}
-   */
-  html(...params: Template.Parameters): Bud
+  template(...params: Html.Parameters): Bud
 
   /**
    * ## bud.use
