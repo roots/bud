@@ -202,9 +202,11 @@ export default abstract class BaseCommand extends Command {
 
     try {
       this.app = await factory(this.context)
-      await checkDependencies(this.app)
-      checkPackageManagerConflict(this.app)
-      checkLockfile(this.app)
+      if (this.context.bud.version !== `0.0.0`) {
+        await checkDependencies(this.app)
+        checkPackageManagerConflict(this.app)
+        checkLockfile(this.app)
+      }
     } catch (error) {
       this.handleError(error)
       return 1

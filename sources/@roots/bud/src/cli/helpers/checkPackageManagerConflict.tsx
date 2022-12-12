@@ -15,17 +15,18 @@ const checkPackageManagerConflict = (bud: Bud): boolean => {
 
   isConflict &&
     Render.once(
-      <Box flexDirection="column" marginTop={1}>
+      <Box flexDirection="column" marginY={1}>
         <Box flexDirection="row">
           <Box>
-            <Text color="red">package manager conflict</Text>
+            <Text color="red">conflict</Text>
           </Box>
 
           <Box flexDirection="column" paddingLeft={1}>
+            <Text>detected a conflict between yarn and npm</Text>
             <Text>
-              bud has detected a conflict between yarn and npm. your
-              project may not behave as expected until you remove either
-              `package-lock.json` or `yarn.lock` from the project root.
+              your project may not behave as expected until you remove
+              either `package-lock.json` or `yarn.lock` from the project
+              root.
             </Text>
           </Box>
         </Box>

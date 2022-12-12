@@ -47,6 +47,16 @@ export default class UpgradeCommand extends BaseCommand {
    * @public
    */
   public override async runCommand() {
+    if (
+      this.app.context.config?.[`yarn.lock`] &&
+      this.app.context.config?.[`package-lock.json`]
+    ) {
+      this.text(
+        `Refusing to install dependencies due to package manager conflict.\n`,
+      )
+      return
+    }
+
     const upgraded = []
 
     upgraded.push(

@@ -12,7 +12,7 @@ const checkLockfile = (bud: Bud): boolean => {
     return false
 
   Render.once(
-    <Box flexDirection="column" marginTop={1}>
+    <Box flexDirection="column" marginY={1}>
       <Box flexDirection="row">
         <Box>
           <Text color="red">project not installed</Text>
@@ -20,7 +20,9 @@ const checkLockfile = (bud: Bud): boolean => {
 
         <Box flexDirection="column" paddingLeft={1}>
           <Text>
-            run `yarn` or `npm install` to install project dependencies
+            run <Text color="blue">`yarn`</Text> or
+            <Text color="blue">`npm install`</Text> to install project
+            dependencies
           </Text>
         </Box>
       </Box>
