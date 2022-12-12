@@ -1,5 +1,5 @@
 import {Command, Option} from '@roots/bud-support/clipanion'
-import {Dependencies, IDependencyManager} from '@roots/dependencies'
+import execa from '@roots/bud-support/execa'
 
 import BaseCommand from './base.js'
 
@@ -29,11 +29,17 @@ export default class UpgradeCommand extends BaseCommand {
 
   public pacman = Option.Proxy({name: `package manager options`})
 
-  public manager: Dependencies
+  public get manager() {
+    return this.app.context.manifest?.packageManager?.includes(`yarn`) ||
+      (this.app.context.config?.[`yarn.lock`] &&
+        !this.app.context.config?.[`package-lock.json`])
+      ? `yarn`
+      : `npx`
+  }
 
-  public client: IDependencyManager
-
-  public isYarn: boolean
+  public isYarn() {
+    return this.manager === `yarn`
+  }
 
   /**
    * Command execute
@@ -41,9 +47,15 @@ export default class UpgradeCommand extends BaseCommand {
    * @public
    */
   public override async runCommand() {
-    this.manager = new Dependencies(this.app.context.basedir)
-    this.isYarn = await this.manager.isYarn()
-    this.client = await this.manager.getClient()
+    if (
+      this.app.context.config?.[`yarn.lock`] &&
+      this.app.context.config?.[`package-lock.json`]
+    ) {
+      this.text(
+        `Refusing to install dependencies due to package manager conflict.\n`,
+      )
+      return
+    }
 
     const upgraded = []
 
@@ -58,11 +70,8 @@ export default class UpgradeCommand extends BaseCommand {
         this.app.fs.json.stringify(this.app.context.manifest, null, 2),
       )
 
-      this.context.stdout.write(
-        `\nDependencies upgraded in \`package.json\`.\n\nInstall with: ${
-          this.isYarn ? `yarn install` : `npm install`
-        }\n\n`,
-      )
+      this.text(`Dependencies upgraded in \`package.json\`.`)
+      this.text(`Run \`yarn install\` or \`npm install\` to install.\n\n`)
     }
   }
 
@@ -76,13 +85,18 @@ export default class UpgradeCommand extends BaseCommand {
         signifier.startsWith(`@roots/`) || signifier.includes(`bud-`),
     )
 
-    if (!dependencies.length) return []
-
     await Promise.all(
-      dependencies.map(async signifier => {
-        this.app.context.manifest[type][signifier] =
-          await this.client.getLatestVersion(signifier)
-      }),
+      dependencies?.map(
+        async signifier => {
+          this.app.context.manifest[type][signifier] = await execa(
+            this.manager,
+            this.isYarn
+              ? [`info`, signifier, `version`]
+              : [`view`, signifier, `version`],
+          ).then(({stdout}) => stdout.split(`\n`).shift().trim())
+        },
+        {cwd: this.app.context.basedir},
+      ),
     )
 
     return dependencies

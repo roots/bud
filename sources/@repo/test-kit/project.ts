@@ -3,7 +3,6 @@
 import {posix} from 'node:path'
 
 import {paths, REGISTRY_PROXY} from '@repo/constants'
-import * as logger from '@repo/logger'
 import {execa, ExecaChildProcess} from 'execa'
 import fs from 'fs-extra'
 import {bind} from 'helpful-decorators'
@@ -70,13 +69,6 @@ export class Project {
   public dir: string
 
   /**
-   * logger
-   *
-   * @public
-   */
-  public logger: typeof logger.logger
-
-  /**
    * Class constructor
    *
    * @public
@@ -84,10 +76,6 @@ export class Project {
   public constructor(public options: Options) {
     this.dir = join(paths.mocks, this.options.with, this.options.label)
     this.options.dist = this.options.dist ?? `dist`
-
-    this.logger = logger
-      .make({interactive: false})
-      .scope(this.options.label, this.options.with)
   }
 
   /**
@@ -133,17 +121,49 @@ export class Project {
       this.projectPath(`.yarnrc.yml`),
     )
 
-    await this.$(`yarn`, [
+    const child = await this.$(`yarn`, [
       `install`,
       `--registry`,
       REGISTRY_PROXY,
       `--no-lockfile`,
+      `--no-cache`,
+      `--no-verify`,
     ])
+
+    child.stdout &&
+      (await fs.writeFile(
+        this.projectPath(`install.stdout.log`),
+        child.stdout,
+        `utf8`,
+      ))
+    child.stderr &&
+      (await fs.writeFile(
+        this.projectPath(`install.stderr.log`),
+        child.stderr,
+        `utf8`,
+      ))
   }
 
   @bind
   public async npmInstall() {
-    await this.$(`npm`, [`install`, `--registry`, REGISTRY_PROXY])
+    const child = await this.$(`npm`, [
+      `install`,
+      `--registry`,
+      REGISTRY_PROXY,
+    ])
+
+    child.stdout &&
+      (await fs.writeFile(
+        this.projectPath(`install.stdout.log`),
+        child.stdout,
+        `utf8`,
+      ))
+    child.stderr &&
+      (await fs.writeFile(
+        this.projectPath(`install.stderr.log`),
+        child.stderr,
+        `utf8`,
+      ))
   }
 
   @bind
@@ -167,19 +187,29 @@ export class Project {
 
   @bind
   public async build() {
-    if (this.options.buildCommand) {
-      await this.$(...this.options.buildCommand)
-      return
-    }
+    const child = this.options.buildCommand
+      ? await this.$(...this.options.buildCommand)
+      : await this.$(`node`, [
+          this.projectPath(`node_modules`, `.bin`, `bud`),
+          this.options.mode
+            ? this.options.mode === `production`
+              ? `build`
+              : `dev`
+            : `build`,
+        ])
 
-    await this.$(`node`, [
-      this.projectPath(`node_modules`, `.bin`, `bud`),
-      this.options.mode
-        ? this.options.mode === `production`
-          ? `build`
-          : `dev`
-        : `build`,
-    ])
+    child.stdout &&
+      (await fs.writeFile(
+        this.projectPath(`build.stdout.log`),
+        child.stdout,
+        `utf8`,
+      ))
+    child.stderr &&
+      (await fs.writeFile(
+        this.projectPath(`build.stderr.log`),
+        child.stderr,
+        `utf8`,
+      ))
 
     return this
   }

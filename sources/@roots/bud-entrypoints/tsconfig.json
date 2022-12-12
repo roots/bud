@@ -4,10 +4,9 @@
 
     "rootDir": "src",
     "outDir": "lib",
-    "types": ["@roots/bud-framework"]
   },
   "include": ["src"],
-  "exclude": ["lib", "node_modules","**/*.test.ts"],
+  "exclude": ["./lib", "./node_modules", "**/*.test.ts", "**/*.test.tsx"],
   "references": [
     {"path": "./../bud-api/tsconfig.json"},
     {"path": "./../bud-framework/tsconfig.json"},

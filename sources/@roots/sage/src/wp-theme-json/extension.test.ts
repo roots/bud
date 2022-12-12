@@ -1,7 +1,7 @@
 import {describe, expect, it} from 'vitest'
 
-import {WpThemeJson} from './extension'
-import {ThemeJsonWebpackPlugin} from './plugin'
+import {WpThemeJson} from './extension.js'
+import {ThemeJsonWebpackPlugin} from './plugin.js'
 
 describe(`@roots/sage/wp-theme-json`, () => {
   it(`extension should be constructable`, () => {

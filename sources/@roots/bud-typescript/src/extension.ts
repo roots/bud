@@ -64,7 +64,7 @@ export default class BudTypeScript extends Extension {
     this.useBabel = this.useBabel.bind(this)
     this.setOption(`context`, bud.context.basedir)
 
-    bud.hooks.on(`build.resolve.extensions`, extensions =>
+    bud.hooks.on(`build.resolve.extensions`, (extensions = new Set([])) =>
       extensions.add(`.ts`).add(`.jsx`).add(`.tsx`),
     )
   }

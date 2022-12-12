@@ -6,7 +6,7 @@ import type {Config} from '@roots/bud-support/signale'
  *
  * @internal
  */
-export const configDefaults: Config = {
+export const defaults: Config = {
   displayScope: true,
   displayBadge: true,
   displayDate: false,
@@ -20,54 +20,49 @@ export const configDefaults: Config = {
   uppercaseLabel: false,
 }
 
-export const enum LEVEL {
-  v = `error`,
-  vv = `warn`,
-  vvv = `debug`,
-  vvvv = `info`,
-}
+export const level = [`error`, `warn`, `debug`, `info`]
 
 export const types = {
   error: {
     badge: figures.cross,
     color: `red`,
     label: `error`,
-    logLevel: LEVEL[`v`],
+    logLevel: `error`,
   },
   fatal: {
     badge: figures.cross,
     color: `red`,
     label: `fatal`,
-    logLevel: LEVEL[`v`],
+    logLevel: `error`,
   },
   warn: {
     badge: figures.warning,
     color: `yellow`,
     label: `warning`,
-    logLevel: LEVEL[`vv`],
+    logLevel: `warn`,
   },
   success: {
     badge: figures.tick,
     color: `green`,
     label: `success`,
-    logLevel: LEVEL[`vvv`],
+    logLevel: `debug`,
   },
   log: {
-    badge: ``,
+    badge: figures.nodejs,
     color: `blue`,
     label: `log`,
-    logLevel: LEVEL[`vvv`],
+    logLevel: `debug`,
   },
   info: {
     badge: figures.info,
-    color: `magenta`,
-    label: `log`,
-    logLevel: LEVEL[`vvvv`],
+    color: `cyan`,
+    label: `info`,
+    logLevel: `info`,
   },
   debug: {
     badge: figures.circleFilled,
     color: `red`,
     label: `log`,
-    logLevel: LEVEL[`vvvv`],
+    logLevel: `info`,
   },
 }

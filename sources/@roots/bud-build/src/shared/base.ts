@@ -27,9 +27,11 @@ export default class Base implements BuildBase {
 
   @bind
   public unwrap<T = any>(
-    input: T | ((app: Bud, ...options: Array<any>) => T),
+    maybeFunction: T | ((app: Bud, ...options: Array<any>) => T),
     ...options: Array<any>
   ): T {
-    return isFunction(input) ? input(this.app, ...options) : input
+    return isFunction(maybeFunction)
+      ? maybeFunction(this.app, ...options)
+      : maybeFunction
   }
 }

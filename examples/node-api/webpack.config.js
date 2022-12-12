@@ -8,9 +8,7 @@ export default async env => {
   /**
    * Instantiate bud
    */
-  const bud = await factory({
-    mode: env.production ? 'production' : 'development',
-  })
+  const bud = await factory()
 
   /**
    * Set entrypoints and do other config as usual

@@ -12,8 +12,7 @@ import {bootstrap, LIFECYCLE_EVENT_MAP} from './lifecycle/bootstrap.js'
 import type {Logger} from './logger/index.js'
 import type * as methods from './methods/index.js'
 import type {Module} from './module.js'
-import type * as Service from './service.js'
-import type * as Api from './services/api.js'
+import type {Service} from './service.js'
 import type ConsoleBuffer from './services/console.js'
 import type FS from './services/fs.js'
 import type * as Options from './types/options/index.js'
@@ -40,7 +39,7 @@ export class Bud {
    *
    * @public
    */
-  public implementation: Constructor
+  public implementation: new () => Bud
 
   /**
    * Compilation mode
@@ -72,7 +71,7 @@ export class Bud {
    * @readonly
    * @public
    */
-  public get root(): Bud {
+  public get root() {
     return this.context.root ?? this
   }
 
@@ -119,7 +118,7 @@ export class Bud {
    *
    * @public
    */
-  public children: Record<string, Bud>
+  public children?: Record<string, Bud>
 
   /**
    * True when child compilers
@@ -147,7 +146,7 @@ export class Bud {
 
   public services: Array<string> = []
 
-  public api: Api.Service
+  public api: Services.Api
 
   public build: Services.Build.Service
 
@@ -157,7 +156,7 @@ export class Bud {
 
   public dashboard: Services.Dashboard.Service
 
-  public env: Services.Env.Service
+  public env: Services.Env
 
   public extensions: Services.Extensions.Service
 
@@ -167,49 +166,49 @@ export class Bud {
 
   public server: Services.Server.Service
 
-  public after: methods.after
+  public declare after: methods.after
 
-  public maybeCall: methods.maybeCall
+  public declare maybeCall: methods.maybeCall
 
-  public close: methods.close
+  public declare close: methods.close
 
-  public container: methods.container
+  public declare container: methods.container
 
-  public get: methods.get
+  public declare get: methods.get
 
-  public glob: methods.glob
+  public declare glob: methods.glob
 
-  public globSync: methods.globSync
+  public declare globSync: methods.globSync
 
-  public path: methods.path
+  public declare path: methods.path
 
-  public pipe: methods.pipe
+  public declare pipe: methods.pipe
 
-  public processConfigs: methods.processConfigs
+  public declare processConfigs: methods.processConfigs
 
-  public publicPath: methods.publicPath
+  public declare publicPath: methods.publicPath
 
-  public relPath: methods.relPath
+  public declare relPath: methods.relPath
 
-  public run: methods.run
+  public declare run: methods.run
 
-  public setPath: methods.setPath
+  public declare setPath: methods.setPath
 
-  public setPublicPath: methods.setPublicPath
+  public declare setPublicPath: methods.setPublicPath
 
-  public sequence: methods.sequence
+  public declare sequence: methods.sequence
 
-  public sequenceSync: methods.sequenceSync
+  public declare sequenceSync: methods.sequenceSync
 
-  public sh: methods.sh
+  public declare sh: methods.sh
 
-  public tap: methods.tap
+  public declare tap: methods.tap
 
-  public tapAsync: methods.tapAsync
+  public declare tapAsync: methods.tapAsync
 
-  public when: methods.when
+  public declare when: methods.when
 
-  public bindMethod: methods.bindMethod
+  public declare bindMethod: methods.bindMethod
 
   /**
    * @deprecated - use {@link FS.json | bud.fs.json}
@@ -294,7 +293,7 @@ export class Bud {
     Object.entries(LIFECYCLE_EVENT_MAP).map(
       ([eventHandle, callbackName]: [
         keyof Registry.EventsStore,
-        keyof Service.Contract,
+        keyof Service,
       ]) =>
         this.services
           .map(service => [service, this[service]])
@@ -336,14 +335,14 @@ export class Bud {
    */
   @bind
   public log(...messages: any[]) {
-    if (
-      !this.logger?.instance ||
-      this.context.args.level?.length < 3 ||
-      this.context.args.log === false
-    )
+    if (!this.context.args?.log) return this
+    if (this.context.args?.level && this.context.args?.level < 3)
       return this
 
-    this.logger.instance.log(this.logger.format(messages))
+    !this.logger?.instance
+      ? // eslint-disable-next-line no-console
+        console.info(...messages)
+      : this.logger.instance.log(...this.logger.format(...messages))
 
     return this
   }
@@ -356,13 +355,15 @@ export class Bud {
    */
   @bind
   public info(...messages: any[]) {
-    if (
-      !this.logger?.instance ||
-      this.context.args.level?.length < 4 ||
-      this.context.args.log === false
-    )
+    if (!this.context.args?.log) return this
+    if (!this.context.args?.level || this.context.args?.level < 4)
       return this
-    this.logger.instance.info(this.logger.format(messages))
+
+    !this.logger?.instance
+      ? // eslint-disable-next-line no-console
+        console.info(...messages)
+      : this.logger.instance.info(...this.logger.format(...messages))
+
     return this
   }
 
@@ -374,13 +375,14 @@ export class Bud {
    */
   @bind
   public success(...messages: any[]) {
-    if (
-      !this.logger?.instance ||
-      this.context.args.level?.length < 3 ||
-      this.context.args.log === false
-    )
+    if (!this.context.args?.log) return this
+    if (this.context.args?.level && this.context.args?.level < 2)
       return this
-    this.logger.instance.success(this.logger.format(messages))
+
+    !this.logger?.instance
+      ? // eslint-disable-next-line no-console
+        console.log(`[success]`, ...messages)
+      : this.logger.instance.success(...this.logger.format(...messages))
     return this
   }
 
@@ -392,7 +394,14 @@ export class Bud {
    */
   @bind
   public warn(...messages: any[]) {
-    this.logger?.instance?.warn(this.logger.format(messages))
+    if (this.context.args?.level && this.context.args?.level < 1)
+      return this
+
+    !this.logger?.instance
+      ? // eslint-disable-next-line no-console
+        console.warn(...messages)
+      : this.logger.instance.warn(...this.logger.format(...messages))
+
     return this
   }
 
@@ -410,8 +419,10 @@ export class Bud {
   public error(...messages: Array<any>): Bud {
     if (this.isProduction) process.exitCode = 1
 
-    if (messages.length > 0)
-      this.logger?.instance?.error(this.logger.format(messages))
+    !this.logger?.instance
+      ? // eslint-disable-next-line no-console
+        console.error(...messages)
+      : this.logger.instance.error(...this.logger.format(...messages))
 
     this.close()
 
@@ -438,8 +449,3 @@ export class Bud {
     }
   }
 }
-
-/**
- * Bud Constructor
- */
-export type Constructor = new () => Bud

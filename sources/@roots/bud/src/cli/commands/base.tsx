@@ -1,13 +1,18 @@
 import type * as Options from '@roots/bud-framework/options'
+import type {Context} from '@roots/bud-framework/options/context'
 import {BaseContext, Command, Option} from '@roots/bud-support/clipanion'
 import {bind, once} from '@roots/bud-support/decorators'
+import React from '@roots/bud-support/react'
 import Signale from '@roots/bud-support/signale'
 import * as t from '@roots/bud-support/typanion'
 
 import type Bud from '../../bud/index.js'
 import {factory} from '../../factory/index.js'
 import Notifier from '../../notifier/index.js'
-import Render from '../render.js'
+import {checkDependencies} from '../helpers/checkDependencies.js'
+import {checkLockfile} from '../helpers/checkLockfile.js'
+import {checkPackageManagerConflict} from '../helpers/checkPackageManagerConflict.js'
+import Render from '../helpers/render.js'
 
 /**
  * Base command
@@ -48,6 +53,8 @@ export default abstract class BaseCommand extends Command {
    */
   public notifier: Notifier
 
+  public notify?: boolean
+
   /**
    * Run command
    * @virtual
@@ -56,35 +63,16 @@ export default abstract class BaseCommand extends Command {
   public runCommand?(): Promise<unknown>
 
   /**
-   * --basedir
+   * basedir
    * @public
    */
   public basedir = Option.String(`--basedir,--cwd`, undefined, {
     description: `project base directory`,
-    env: `APP_BASE_DIR`,
     hidden: true,
   })
 
   /**
-   * --src
-   * @public
-   */
-  public input = Option.String(`--input,-i,--@src,--src`, undefined, {
-    description: `Source directory (relative to project)`,
-    env: `APP_PATH_INPUT`,
-  })
-
-  /**
-   * --dist
-   * @public
-   */
-  public output = Option.String(`--output,-o,--@dist,--dist`, undefined, {
-    description: `Distribution directory (relative to project)`,
-    env: `APP_PATH_OUTPUT`,
-  })
-
-  /**
-   * -- dry
+   *  dry
    * @public
    */
   public dry = Option.Boolean(`--dry`, false, {
@@ -93,24 +81,15 @@ export default abstract class BaseCommand extends Command {
   })
 
   /**
-   * --discovery
-   * @public
+   * level
    */
-  public discovery = Option.Boolean(`--discovery`, true, {
-    description: `Automatically search for and register extensions`,
-    hidden: true,
-  })
-
-  /**
-   * --level
-   */
-  public level = Option.Array<Boolean>(`-v`, undefined, {
+  public level = Option.Counter(`--verbose,-v`, undefined, {
     description: `Set logging level`,
     hidden: true,
   })
 
   /**
-   * --log
+   * log
    */
   public log = Option.Boolean(`--log`, undefined, {
     description: `Enable logging`,
@@ -118,7 +97,7 @@ export default abstract class BaseCommand extends Command {
   })
 
   /**
-   * --mode
+   * mode
    * @public
    */
   public mode = Option.String(`--mode`, undefined, {
@@ -127,52 +106,17 @@ export default abstract class BaseCommand extends Command {
       t.isLiteral(`production`),
       t.isLiteral(`development`),
     ]),
-    env: `APP_MODE`,
     hidden: true,
   })
 
   /**
-   * --notify
+   * label
    * @public
    */
-  public notify = Option.Boolean(`--notify`, true, {
-    description: `Enable notfication center messages`,
-  })
-
-  /**
-   * --target
-   */
-  public target = Option.Array(`--target,-t`, undefined, {
+  public filter = Option.Array(`--filter`, undefined, {
     description: `Limit compilation to particular compilers`,
     hidden: true,
   })
-
-  /**
-   * Base arguments
-   * @public
-   */
-  public get baseArgs() {
-    return {
-      basedir: this.basedir,
-      discovery: this.discovery,
-      input: this.input,
-      output: this.output,
-      dry: this.dry,
-      level: this.level,
-      log: this.log,
-      mode: this.mode,
-      notify: this.notify,
-      target: this.target,
-    }
-  }
-
-  /**
-   * @virtual
-   * @public
-   */
-  public get args(): Options.Context[`args`] {
-    return {}
-  }
 
   /**
    * Application logger
@@ -180,7 +124,7 @@ export default abstract class BaseCommand extends Command {
    * @public
    */
   public get logger() {
-    return this.app?.logger?.instance ?? new Signale()
+    return new Signale()
   }
 
   /**
@@ -191,7 +135,18 @@ export default abstract class BaseCommand extends Command {
    */
   @bind
   public async renderOnce(children: React.ReactElement) {
-    return this.log !== false && Render.once({children})
+    return Render.once(children)
+  }
+
+  /**
+   * Render ink component
+   *
+   * @param box - Ink box
+   * @returns
+   */
+  @bind
+  public async render(children: React.ReactElement) {
+    return Render.view(children)
   }
 
   /**
@@ -202,19 +157,32 @@ export default abstract class BaseCommand extends Command {
    */
   @bind
   public async text(text: string) {
-    return this.log !== false && Render.text(text)
+    return Render.text(text)
   }
 
   /**
-   * Render ink component
-   *
-   * @param box - Ink box
-   * @returns
+   * Base arguments
+   * @public
    */
-  @bind
-  public async view(children: React.ReactElement) {
-    if (this.log === false) return
-    return Render.view({children})
+  public get commandArgs() {
+    return {
+      basedir: this.basedir,
+      dry: this.dry,
+      level: this.level,
+      log: this.log,
+      mode: this.mode,
+      notify: this.notify,
+      target: this.filter,
+    }
+  }
+
+  /**
+   * Subcommand args
+   *
+   * @virtual
+   */
+  public get args(): Partial<Context[`args`]> {
+    return {}
   }
 
   /**
@@ -225,18 +193,20 @@ export default abstract class BaseCommand extends Command {
   @bind
   @once
   public async execute() {
-    this.context = {
-      ...this.context,
-      mode: this.args?.mode ?? this.baseArgs.mode ?? this.context.mode,
-      args: {
-        ...this.context.args,
-        ...this.baseArgs,
-        ...(this.args ?? {}),
-      },
+    this.context.mode = this.commandArgs.mode ?? `production`
+    this.context.args = {
+      ...this.context.args,
+      ...this.commandArgs,
+      ...this.args,
     }
 
     try {
       this.app = await factory(this.context)
+      if (this.context.bud.version !== `0.0.0`) {
+        await checkDependencies(this.app)
+        checkPackageManagerConflict(this.app)
+        checkLockfile(this.app)
+      }
     } catch (error) {
       this.handleError(error)
       return 1
@@ -250,7 +220,7 @@ export default abstract class BaseCommand extends Command {
     }
 
     try {
-      if (this.notify !== false)
+      if (this.context.args.notify !== false)
         this.app.hooks.action(`compiler.after`, async () => {
           this.app.compiler.instance.hooks.done.tap(
             `bud-cli-notifier`,

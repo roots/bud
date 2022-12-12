@@ -27,8 +27,6 @@ export default class WebpackCommand extends BaseCommand {
     examples: [[`View webpack usage information`, `$0 webpack --help`]],
   })
 
-  public override notify = false
-
   public options = Option.Proxy({name: `webpack passthrough options`})
 
   /**

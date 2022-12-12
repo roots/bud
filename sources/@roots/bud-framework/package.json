@@ -55,8 +55,10 @@
       "default": "./lib/configuration/index.js"
     },
     "./extension": {
-      "types": "./lib/extension/index.d.ts",
-      "default": "./lib/extension/index.js"
+      "import": {
+        "types": "./lib/extension/index.d.ts",
+        "default": "./lib/extension/index.js"
+      }
     },
     "./extension/decorators": {
       "types": "./lib/extension/decorators/index.d.ts",
@@ -66,10 +68,22 @@
       "types": "./lib/extension/decorators/*.d.ts",
       "default": "./lib/extension/decorators/*.js"
     },
-    "./logger": "./lib/logger/index.js",
-    "./methods": "./lib/methods/index.js",
-    "./methods/*": "./lib/methods/*.js",
-    "./module": "./lib/module.js",
+    "./logger": {
+      "types": "./lib/logger/index.d.ts",
+      "default": "./lib/logger/index.js"
+    },
+    "./methods": {
+      "types": "./lib/methods/index.d.ts",
+      "default": "./lib/methods/index.js"
+    },
+    "./methods/*": {
+      "types": "./lib/methods/*.d.ts",
+      "default": "./lib/methods/*.js"
+    },
+    "./module": {
+      "types": "./lib/module.d.ts",
+      "default": "./lib/module.js"
+    },
     "./options": {
       "types": "./lib/types/options/index.d.ts",
       "default": "./lib/types/options/index.js"
@@ -78,8 +92,14 @@
       "types": "./lib/types/options/*.d.ts",
       "default": "./lib/types/options/*.js"
     },
-    "./parsers": "./lib/parsers/index.js",
-    "./parsers/*": "./lib/parsers/*.js",
+    "./parsers": {
+      "types": "./lib/parsers/index.d.ts",
+      "default": "./lib/parsers/index.js"
+    },
+    "./parsers/*": {
+      "types": "./lib/parsers/*.d.ts",
+      "default": "./lib/parsers/*.js"
+    },
     "./registry": {
       "types": "./lib/types/registry/index.d.ts",
       "default": "./lib/types/registry/index.js"
@@ -116,7 +136,10 @@
       "types": "./lib/types/services/*/index.d.ts",
       "default": "./lib/types/services/*/index.js"
     },
-    "./value": "./lib/value.js"
+    "./value": {
+      "types": "./lib/value.d.ts",
+      "default": "./lib/value.js"
+    }
   },
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",

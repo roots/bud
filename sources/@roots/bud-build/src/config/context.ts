@@ -1,4 +1,3 @@
-import type {ValueFactory} from './builder.js'
+import type {Factory} from './index.js'
 
-export const context: ValueFactory<`context`> = async app =>
-  app.context.basedir
+export const context: Factory<`context`> = async ({path}) => path(`@src`)

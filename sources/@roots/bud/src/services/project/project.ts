@@ -25,7 +25,8 @@ export default class Project extends BaseService implements Service {
   @bind
   public override async buildAfter(bud: Bud) {
     if (!bud.context.args.debug) {
-      return bud.info(`--debug not \`true\`. skipping fs write.`)
+      bud.info(`--debug not \`true\`. skipping fs write.`)
+      return
     }
 
     try {

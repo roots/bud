@@ -55,52 +55,40 @@
   "types": "./lib/index.d.ts",
   "exports": {
     ".": {
-      "import": {
-        "types": "./lib/index.d.ts",
-        "default": "./lib/index.js"
-      }
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./bud": {
+      "types": "./lib/bud/bud.d.ts",
+      "default": "./lib/bud/bud.js"
     },
     "./cli/*": {
-      "import": {
-        "types": "./lib/cli/*.d.ts",
-        "default": "./lib/cli/*.js"
-      }
+      "types": "./lib/cli/*.d.ts",
+      "default": "./lib/cli/*.js"
     },
     "./cli/commands/*": {
-      "import": {
-        "types": "./lib/cli/commands/*.d.ts",
-        "default": "./lib/cli/commands/*.js"
-      }
+      "types": "./lib/cli/commands/*.d.ts",
+      "default": "./lib/cli/commands/*.js"
     },
     "./context/*": {
-      "import": {
-        "types": "./lib/context/*.d.ts",
-        "default": "./lib/context/*.js"
-      }
+      "types": "./lib/context/*.d.ts",
+      "default": "./lib/context/*.js"
     },
     "./factory": {
-      "import": {
-        "types": "./lib/factory/index.d.ts",
-        "default": "./lib/factory/index.js"
-      }
+      "types": "./lib/factory/index.d.ts",
+      "default": "./lib/factory/index.js"
     },
     "./factory/*": {
-      "import": {
-        "types": "./lib/factory/*.d.ts",
-        "default": "./lib/factory/*.js"
-      }
+      "types": "./lib/factory/*.d.ts",
+      "default": "./lib/factory/*.js"
     },
     "./notifier/*": {
-      "import": {
-        "types": "./lib/notifier/*.d.ts",
-        "default": "./lib/notifier/*.js"
-      }
+      "types": "./lib/notifier/*.d.ts",
+      "default": "./lib/notifier/*.js"
     },
     "./services/*": {
-      "import": {
-        "types": "./lib/services/*/index.d.ts",
-        "default": "./lib/services/*/index.js"
-      }
+      "types": "./lib/services/*/index.d.ts",
+      "default": "./lib/services/*/index.js"
     }
   },
   "devDependencies": {
@@ -133,7 +121,7 @@
     "update-browserslist-db": "1.0.10",
     "webpack": "5.75.0"
   },
-  "peerDependcies": {
+  "peerDependencies": {
     "browserslist": ">=4.21.4"
   },
   "peerDependenciesMeta": {

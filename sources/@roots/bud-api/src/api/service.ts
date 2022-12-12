@@ -1,7 +1,8 @@
+import type {Bud} from '@roots/bud-framework'
 import {ServiceContainer} from '@roots/bud-framework/service'
-import type {Service as Contract} from '@roots/bud-framework/services/api'
+import type {Api as Contract} from '@roots/bud-framework/services'
 import {bind} from '@roots/bud-support/decorators'
-import {isEmpty, isFunction} from '@roots/bud-support/lodash-es'
+import {isFunction} from '@roots/bud-support/lodash-es'
 import chalk from 'chalk'
 
 import {factory} from '../facade/facade.factory.js'
@@ -45,19 +46,8 @@ export class Api extends ServiceContainer implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public override async bootstrap() {
+  public override async bootstrap?(_app: Bud) {
     Object.entries(methods).map(([k, v]) => this.bindFacade(k, v))
-  }
-
-  /**
-   * `registered` callback
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public override async registered() {
-    await this.processQueue()
   }
 
   /**
@@ -68,7 +58,6 @@ export class Api extends ServiceContainer implements Contract {
    */
   @bind
   public bindFacade(name: string, fn: CallableFunction) {
-    // check if the callable exists
     if (!isFunction(fn)) {
       throw new Error(
         `bud.api.bindFacade error: ${name} is not a function`,
@@ -86,12 +75,10 @@ export class Api extends ServiceContainer implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public async call(name: string, args: any[]) {
+  public async call(name: string, args?: any) {
     this.app.log(
       chalk.blue(name),
-      args && !isEmpty(args)
-        ? this.app.fs.json.stringify(args)
-        : `(no arguments passed)`,
+      ...(args ? args : [`(no arguments passed)`]),
     )
 
     if (!this.has(name)) {
@@ -113,19 +100,19 @@ export class Api extends ServiceContainer implements Contract {
    */
   @bind
   public async processQueue() {
-    this.logger.info(`processing ${this.queue.length} queued calls`)
-    const queue = [...this.queue]
+    const stack = [...this.queue]
     this.queue = []
 
     await Promise.all(
-      queue?.map(async (value, index) => {
-        if (!value) return
+      stack.map(async value => {
+        if (!value) {
+          this.logger.warn(`api.processQueue: undefined api call`)
+          return
+        }
 
         const [name, args] = value
-
         await this.call(name, args)
-
-        this.trace?.push([name, args])
+        this.trace.push([name, args])
       }),
     )
   }

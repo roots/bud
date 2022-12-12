@@ -37,7 +37,7 @@ export interface Server extends Service {
    *
    * @public
    */
-  application: Application
+  application: Application & {set: any; use: any}
 
   /**
    * Express instance
@@ -80,4 +80,7 @@ export interface Server extends Service {
    * @public
    */
   run: () => Promise<void>
+  setConnection: any
+  injectScripts: any
+  applyMiddleware: any
 }

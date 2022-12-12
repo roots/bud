@@ -7,8 +7,7 @@ export const App = () => {
     <div className="App">
       <div className="header">
         <img src={logo} className="logo" alt="logo" />
-        Edit <code>src/components/App.js</code> and save to
-        reload
+        Edit <code>src/components/App.js</code> and save to reload
       </div>
     </div>
   )

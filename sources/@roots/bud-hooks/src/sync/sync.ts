@@ -25,7 +25,7 @@ export class SyncHooks extends Hooks<SyncStore> {
   @bind
   public set<T extends `${keyof SyncStore & string}`>(
     id: T,
-    ...input: SyncCallback[T]
+    ...input: Array<SyncCallback[T]>
   ): Bud {
     if (!this.has(id)) this.store[id] = []
 
@@ -56,7 +56,7 @@ export class SyncHooks extends Hooks<SyncStore> {
    * @decorator `@bind`
    */
   @bind
-  public get<T extends keyof SyncRegistry & string>(
+  public get<T extends `${keyof SyncRegistry & string}`>(
     id: T,
     fallback?: SyncCallback[T],
   ) {

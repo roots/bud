@@ -84,6 +84,7 @@ export const fromStringFactory =
       ? relative(app.path(`@src`), from)
       : app.path(`@dist`, from, `@file`),
     context: app.path(`@src`),
+    filter: filterDotFiles,
     noErrorOnMissing: true,
     toType: `template`,
     ...overrides,
@@ -99,8 +100,12 @@ export const fromTupleFactory =
   ([from, to]: [string, string]): CopyPlugin.ObjectPattern => ({
     from: from.startsWith(`/`) ? from : app.path(`@src`, from),
     to: to.startsWith(`/`) ? to : app.path(`@dist`, to, `@file`),
+    filter: filterDotFiles,
     context: app.path(`@src`),
     noErrorOnMissing: true,
     toType: `template`,
     ...overrides,
   })
+
+const filterDotFiles = (resourcePath: string) =>
+  !resourcePath.split(`/`).pop()?.startsWith(`.`)

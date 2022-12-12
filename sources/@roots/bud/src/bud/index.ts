@@ -1,3 +1,3 @@
-import Bud from './bud.js'
+import {Bud} from './bud.js'
 
 export default Bud

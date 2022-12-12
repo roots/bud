@@ -85,14 +85,16 @@ export default class Vue extends Extension<Options, null> {
       .setLoader(`vue-style-loader`)
       .setItem(`vue-style-loader`)
 
-    this.app.build.rules.css.setUse(items => [
+    this.app.build.rules.css.setUse((items = []) => [
       `vue-style-loader`,
       ...items,
     ])
-    this.app.build.rules.sass?.setUse(items => [
+
+    this.app.build.rules.sass?.setUse((items = []) => [
       `vue-style-loader`,
       ...items,
     ])
+
     this.app.build.items.precss.setOptions({esModule: false})
 
     return this
@@ -112,7 +114,7 @@ export default class Vue extends Extension<Options, null> {
       .makeRule()
       .setTest(({hooks}) => hooks.filter(`pattern.vue`))
       .setInclude([app => app.path(`@src`)])
-      .setUse(items => [`vue`, ...items])
+      .setUse((items = []) => [`vue`, ...items])
 
     return [rule.toWebpack(), ...(ruleset ?? [])]
   }

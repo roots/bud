@@ -132,7 +132,7 @@ export interface Service extends BaseService {
    */
   setItem<K extends `${keyof Items & string}`>(
     name: K,
-    options?: Items[K]['options'] | ((item: Items[K]) => Items[K]),
+    options?: any,
   ): this
 
   /**

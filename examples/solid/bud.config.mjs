@@ -1,2 +1,2 @@
-export default async app =>
-  app.template().entry({app: await app.glob('*.{js,css}')})
+export default async bud =>
+  bud.template().entry({app: await bud.glob('*.{js,css}')})

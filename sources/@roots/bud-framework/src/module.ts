@@ -83,7 +83,7 @@ export class Module {
   @bind
   public async readManifest(signifier: string) {
     return await this.getManifestPath(signifier).then(async path => {
-      this.logger.log(signifier, `manifest resolved to`, path)
+      this.logger.info(signifier, `manifest resolved to`, path)
 
       return await this.app.fs.json.read(path)
     })
@@ -108,7 +108,7 @@ export class Module {
 
       const normalpath = normalize(fileURLToPath(resolvedPath))
 
-      this.logger.success(
+      this.logger.info(
         chalk.dim(
           `resolved ${signifier} to ${this.app.root.relPath(normalpath)}`,
         ),
@@ -144,7 +144,7 @@ export class Module {
       throw new Error(`Could not import ${signifier}`)
     }
 
-    this.logger.success(chalk.dim(`imported ${signifier}`))
+    this.logger.info(chalk.dim(`imported ${signifier}`))
     return result?.default ?? result
   }
 

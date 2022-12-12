@@ -1,4 +1,5 @@
 import {Project} from '@repo/test-kit/project'
+import {paths} from '@repo/constants'
 import fs from 'fs-extra'
 import {beforeAll, describe, expect, it} from 'vitest'
 
@@ -15,7 +16,7 @@ const run = pacman => () => {
   describe(`owl.jpeg`, () => {
     it(`is smaller than the original`, async () => {
       const original = await fs.readFile(
-        `${process.cwd()}/examples/imagemin/src/owl.jpeg`,
+        `${paths.root}/examples/imagemin/src/images/owl.jpeg`,
         `utf8`,
       )
 

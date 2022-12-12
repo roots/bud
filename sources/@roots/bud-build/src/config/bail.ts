@@ -1,4 +1,4 @@
-import type {ValueFactory} from './builder.js'
+import type {Factory} from './index.js'
 
-export const bail: ValueFactory<'bail'> = async app =>
-  app.hooks.filter(`build.bail`, app.isProduction)
+export const bail: Factory<'bail'> = async ({hooks, isProduction}) =>
+  hooks.filter(`build.bail`, isProduction)

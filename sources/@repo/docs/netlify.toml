@@ -14,3 +14,9 @@
   to = "https://bud.js.org/:splat"
   status = 301
   force = true
+
+[[redirects]]
+  from = "https://bud.js.org/docs/bud.html"
+  to = "https://bud.js.org/docs/bud.html"
+  status = 301
+  force = true

@@ -38,6 +38,7 @@ describe(`bud.watch`, () => {
       })
 
       watch(`1/*.js`)
+      // @ts-ignore
       expect(Array.from(result)).toEqual(
         expect.arrayContaining([`1/*.js`]),
       )

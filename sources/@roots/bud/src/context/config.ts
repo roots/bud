@@ -81,6 +81,8 @@ export default class Config {
         `*rc`,
         join(`config`, `*.{cts,mts,ts,cjs,mjs,js,json,toml,yml}`),
         join(`config`, `*rc`),
+        `yarn.lock`,
+        `package-lock.json`,
       ],
     })
 

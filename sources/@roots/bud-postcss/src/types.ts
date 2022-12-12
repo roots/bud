@@ -1,7 +1,7 @@
 /// <reference path="../../bud/lib/index.d.ts" />
 
-import type Item from '@roots/bud-build/item'
-import type Loader from '@roots/bud-build/loader'
+import type {Item} from '@roots/bud-build/item'
+import type {Loader} from '@roots/bud-build/loader'
 import type {Plugin, Processor} from 'postcss'
 
 import type {BudPostCss} from './extension.js'

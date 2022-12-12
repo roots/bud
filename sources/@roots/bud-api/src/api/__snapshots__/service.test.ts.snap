@@ -13,6 +13,7 @@ exports[`@roots/bud-api > should add methods when bootstrapped 1`] = `
   "experiments": [Function],
   "externals": [Function],
   "hash": [Function],
+  "html": [Function],
   "minimize": [Function],
   "override": [Function],
   "persist": [Function],

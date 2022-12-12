@@ -41,16 +41,6 @@ export interface Service extends BaseService {
 
   repository: Modules
 
-  register(bud: Bud): Promise<void>
-
-  booted(bud: Bud): Promise<void>
-
-  configAfter(bud: Bud): Promise<void>
-
-  buildBefore(bud: Bud): Promise<void>
-
-  buildAfter(bud: Bud): Promise<void>
-
   make(bud: Bud): Promise<Array<ApplyPlugin>>
 
   isAllowed(key: string): boolean

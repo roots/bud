@@ -1,3 +1,5 @@
+import type {FSWatcher} from 'node:fs'
+
 import type {Bud} from '@roots/bud-framework/bud'
 import type {Server} from '@roots/bud-framework/services'
 import {bind} from '@roots/bud-support/decorators'
@@ -14,7 +16,7 @@ export class Watcher implements Server.Watcher {
    *
    * @public
    */
-  public instance: chokidar.FSWatcher
+  public instance: FSWatcher
 
   /**
    * Watch files
@@ -35,7 +37,7 @@ export class Watcher implements Server.Watcher {
    *
    * @public
    */
-  public logger: Bud['logger']['instance']
+  public logger: any
 
   /**
    * Class constructor

@@ -4,10 +4,10 @@
 
     "rootDir": "src",
     "outDir": "lib",
-    "types": ["@roots/bud-framework", "@roots/merged-manifest-webpack-plugin"]
+    "types": ["node", "@roots/bud-framework"]
   },
   "include": ["src"],
-  "exclude": ["lib", "node_modules", "**/*.test.ts"],
+  "exclude": ["./lib", "./node_modules", "**/*.test.ts", "**/*.test.tsx"],
   "references": [
     {"path": "./../bud-framework/tsconfig.json"},
     {"path": "./../merged-manifest-webpack-plugin/tsconfig.json"}

@@ -9,3 +9,9 @@
 /// <reference path="../../bud-server/lib/index.d.ts" />
 /// <reference path="../../bud-support/lib/index.d.ts" />
 /// <reference path="../../bud-terser/lib/index.d.ts" />
+
+import type * as Framework from '@roots/bud-framework'
+
+declare module '@roots/bud' {
+  export default interface Bud extends Framework.Bud {}
+}

@@ -53,6 +53,7 @@ module.exports = {
     `storage`,
     `tests/util`,
     `tests/reproductions`,
+    `sources/@repo/test-kit/compiled`,
   ],
   rules: {
     [`@typescript-eslint/explicit-member-accessibility`]: ERROR,

@@ -18,12 +18,6 @@ describe(`bud.minimize`, () => {
     expect(onSpy).toHaveBeenCalled()
   })
 
-  it(`should call bud.hooks.filter when called`, () => {
-    const filterSpy = vi.spyOn(bud.hooks, `filter`)
-    minimize()
-    expect(filterSpy).toHaveBeenCalled()
-  })
-
   it(`should call mockExtension.enable when called with truthy value`, () => {
     const terser = bud.extensions.get(`@roots/bud-terser`)
     const enableSpy = vi.spyOn(terser, `enable`)

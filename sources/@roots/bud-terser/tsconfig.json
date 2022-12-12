@@ -3,7 +3,6 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "lib",
-    "types": ["@roots/bud-framework"]
   },
   "include": ["src"],
   "exclude": ["lib", "node_modules", "src/**/*.test.ts"],

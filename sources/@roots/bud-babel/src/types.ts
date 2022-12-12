@@ -1,4 +1,4 @@
-/// <reference path="../../bud/lib/index.d.ts" />
+/// <reference path="../../bud-build/lib/index.d.ts" />
 
 import type BabelExtension from './extension.js'
 
