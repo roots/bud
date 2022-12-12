@@ -2,7 +2,15 @@ import type {Bud} from '@roots/bud-framework'
 import {isUndefined} from '@roots/bud-support/lodash-es'
 import type {Optimization} from '@roots/bud-support/webpack'
 
-export type Parameters = [(Optimization.SplitChunks | boolean)?]
+export type Parameters = [
+  (
+    | boolean
+    | Optimization.SplitChunks
+    | ((
+        splitChunks: Optimization.SplitChunks | undefined | false,
+      ) => Optimization.SplitChunks | false)
+  )?,
+]
 
 export interface splitChunks {
   (...parameters: Parameters): Promise<Bud>

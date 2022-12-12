@@ -16,7 +16,6 @@ export interface externals {
 
 export const externals: externals = async function (this: Bud, externals) {
   const current = this.hooks.filter(`build.externals`, {})
-
   return this.hooks.on(
     `build.externals`,
     isFunction(externals)

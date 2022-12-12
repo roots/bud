@@ -57,11 +57,11 @@ export const assignUrl = (bud: Bud, maybeURL: string | URL) => {
  * @param bud - bud instance
  * @param optionsFn - options callback
  */
-export const assignOptionsFunction = (
+export const assignOptionsCallback = (
   bud: Bud,
-  optionsFn: (options?: Options) => Options,
+  callback: (options?: Options) => Options,
 ) => {
-  bud.hooks.on(`dev.middleware.proxy.options`, optionsFn)
+  bud.hooks.on(`dev.middleware.proxy.options`, callback)
 }
 
 /**

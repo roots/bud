@@ -1,6 +1,7 @@
 import chalk from '@roots/bud-support/chalk'
 import {bind} from '@roots/bud-support/decorators'
 import {isEqual} from '@roots/bud-support/lodash-es'
+import prettyFormat from '@roots/bud-support/pretty-format'
 import * as Signale from '@roots/bud-support/signale'
 
 import type {Bud} from '../bud.js'
@@ -74,7 +75,7 @@ export class Logger {
   @bind
   public format(...messages: Array<unknown>) {
     return messages.map(message => {
-      if (typeof message !== `string`) return message
+      if (typeof message !== `string`) return prettyFormat(message)
 
       return message
         ?.replaceAll(this.app.commonPath, `.`)

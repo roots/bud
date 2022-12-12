@@ -9,8 +9,10 @@ Configure your application's html wrapper
 
 This method can be called without passing any options.
 
-```js title='bud.config.js'
-bud.html()
+```typescript title='bud.config.mjs'
+export default async bud => {
+  bud.html()
+}
 ```
 
 The default template will source a couple variables from `.env`, you'll probably want to make sure they are set.
@@ -22,7 +24,7 @@ PUBLIC_APP_DESCRIPTION='My App Description'
 
 ## Using a custom template
 
-```js title='bud.config.js'
+```typescript title='bud.config.mjs'
 bud.html({
   template: 'index.html',
 })
@@ -32,14 +34,16 @@ bud.html({
 
 Add template variables using `replace`.
 
-```js {2-6} title='bud.config.js'
-bud.html({
-  replace: {
-    APP_NAME: name,
-    APP_DESCRIPTION: description,
-    PUBLIC_URL: '/app/theme',
-  },
-})
+```typescript {2-6} title='bud.config.js'
+export default async bud => {
+  bud.html({
+    replace: {
+      APP_NAME: name,
+      APP_DESCRIPTION: description,
+      PUBLIC_URL: '/app/theme',
+    },
+  })
+}
 ```
 
 You may use any of these variables in the template by surrounding the variable name with `%` characters.

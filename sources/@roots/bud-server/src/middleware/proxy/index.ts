@@ -106,7 +106,7 @@ export const makeOptions = (app: Bud): Options => {
       ),
       protocolRewrite: app.hooks.filter(
         `dev.middleware.proxy.options.protocolRewrite`,
-        url.dev.protocol.startsWith(`https`) ? `https` : undefined,
+        url.proxy.protocol.startsWith(`https`) ? `https` : undefined,
       ),
       proxyTimeout: app.hooks.filter(
         `dev.middleware.proxy.options.proxyTimeout`,

@@ -28,7 +28,7 @@ interface Options extends HtmlOptions {
 export type Parameters = [(Options | boolean)?]
 
 export interface html {
-  (...userOptions: Parameters): Promise<Bud>
+  (...options: Parameters): Promise<Bud>
 }
 
 /**
@@ -38,53 +38,46 @@ export interface html {
  */
 export const html: html = async function (
   this: Bud,
-  userOptions,
+  options,
 ): Promise<Bud> {
-  if (userOptions === false) {
-    this.extensions
-      .get(`@roots/bud-extensions/html-webpack-plugin`)
-      ?.disable()
+  this.extensions
+    .get(`@roots/bud-extensions/html-webpack-plugin`)
+    ?.enable(options !== false)
+  this.extensions
+    .get(`@roots/bud-extensions/interpolate-html-webpack-plugin`)
+    ?.enable(options !== false)
 
-    this.extensions
-      .get(`@roots/bud-extensions/interpolate-html-webpack-plugin`)
-      ?.disable()
+  if (options === false) return this
 
-    return this
-  }
+  options = isUndefined(options) || options === true ? {} : options
 
-  let options: Options = {
-    template: resolve(
-      dirname(fileURLToPath(import.meta.url)),
-      `..`,
-      `..`,
-      `..`,
-      `vendor`,
-      `template.html`,
-    ),
-    replace: this.env.getPublicEnv(),
-  }
-
-  if (!isUndefined(userOptions) && userOptions !== true) {
-    options = {
-      ...options,
-      ...userOptions,
-      replace: {
-        ...(options.replace ?? {}),
-        ...userOptions.replace,
-      },
-    }
-  }
+  const htmlOptions = omit(options, `replace`) ?? {}
+  const interpolateOptions = options?.replace ?? {}
 
   this.extensions
     .get(`@roots/bud-extensions/html-webpack-plugin`)
-    .setOptions(omit(options, `replace`))
-    .enable()
+    .setOptions((options = {}) => ({
+      ...options,
+      template: options?.template ?? getFallbackTemplate(),
+      ...htmlOptions,
+    }))
 
-  if (options.replace)
-    this.extensions
-      .get(`@roots/bud-extensions/interpolate-html-webpack-plugin`)
-      .setOptions(options.replace)
-      .enable()
+  this.extensions
+    .get(`@roots/bud-extensions/interpolate-html-webpack-plugin`)
+    .setOptions((options = {}) => ({
+      ...options,
+      ...interpolateOptions,
+    }))
 
   return this
 }
+
+export const getFallbackTemplate = () =>
+  resolve(
+    dirname(fileURLToPath(import.meta.url)),
+    `..`,
+    `..`,
+    `..`,
+    `vendor`,
+    `template.html`,
+  )

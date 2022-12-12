@@ -41,29 +41,29 @@ export const bundle: bundle = function (this: Bud, name, matcher) {
       ? `[name].[contenthash].js`
       : `[name].js`
 
-    const filename = join(`js`, `bundle`, name, template)
+    const entry = {
+      [name]: {
+        idHint: name,
+        filename: join(`js`, `bundle`, name, template),
+        test,
+        priority: -10,
+      },
+    }
 
-    const cacheGroups =
-      splitChunks &&
-      typeof splitChunks === `object` &&
-      splitChunks?.cacheGroups
-        ? splitChunks.cacheGroups
-        : {}
-
-    return {
-      ...(splitChunks ?? {
+    if (splitChunks === false || splitChunks === undefined) {
+      return {
         chunks: `all`,
         automaticNameDelimiter: `/`,
         minSize: 0,
-      }),
+        cacheGroups: {...entry},
+      }
+    }
+
+    return {
+      ...splitChunks,
       cacheGroups: {
-        ...cacheGroups,
-        [name]: {
-          idHint: name,
-          filename,
-          test,
-          priority: -10,
-        },
+        ...(splitChunks.cacheGroups ?? {}),
+        ...entry,
       },
     }
   })

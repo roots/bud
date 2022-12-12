@@ -11,9 +11,11 @@ export async function handleSimpleRecord(bud: Bud, input: Parameters) {
   if (!records.success) handleTypeError(bud, `bud.entry`, records)
 
   const current = bud.hooks.filter(`build.entry`, {})
-  const data = normalizeRecord(records.data)
 
-  bud.hooks.on(`build.entry`, {...current, ...data})
+  bud.hooks.on(`build.entry`, {
+    ...current,
+    ...normalizeRecord(records.data),
+  })
 
   return bud
 }

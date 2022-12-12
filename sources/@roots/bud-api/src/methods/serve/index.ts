@@ -38,9 +38,7 @@ export const serve: serve = async function (this: Bud, input, options) {
 
   let resolvedOptions = options ?? this.hooks.filter(`dev.options`, {})
 
-  if (isString(input)) {
-    resolvedUrl = new URL(input)
-  }
+  if (isString(input)) resolvedUrl = new URL(input)
 
   if (isArray(input) || isNumber(input)) {
     resolvedUrl.port = await requestPorts(
