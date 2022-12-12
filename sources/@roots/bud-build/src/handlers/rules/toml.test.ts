@@ -8,7 +8,14 @@ describe(`toml loader`, () => {
 
   it(`should return a rule`, async () => {
     bud = await factory()
-    const result = await toml(bud)
+    const result = toml({
+      filter: bud.hooks.filter,
+      makeItem: bud.build.makeItem,
+      makeLoader: bud.build.makeLoader,
+      makeRule: bud.build.makeRule,
+      isProduction: bud.isProduction,
+      path: bud.path,
+    })
     const webpackOutput = result.toWebpack()
     expect(webpackOutput.type).toEqual(`json`)
   })

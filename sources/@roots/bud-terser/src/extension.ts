@@ -8,8 +8,7 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
-import type {WebpackPluginInstance} from '@roots/bud-support/webpack'
-import TerserPlugin from 'terser-webpack-plugin'
+import type TerserPlugin from 'terser-webpack-plugin'
 
 /**
  * `terser-webpack-plugin` options
@@ -50,9 +49,6 @@ export type Options = TerserPlugin.BasePluginOptions & {
     output: {
       comments: false,
       ascii_only: true,
-      preamble: `/**
-  * Minified by @roots/bud
-  */`,
     },
   },
 })
@@ -62,7 +58,7 @@ export class BudTerser extends Extension<Options> {
    * Terser options getter/setter
    */
   public get terserOptions() {
-    return this.getOption(`terserOptions`)
+    return this.getOption(`terserOptions`) ?? {}
   }
   public set terserOptions(terserOptions: Options['terserOptions']) {
     this.setOption(`terserOptions`, terserOptions)
@@ -76,25 +72,44 @@ export class BudTerser extends Extension<Options> {
    */
   @bind
   public override async buildBefore(bud: Bud) {
+    const terser = await this.import(`terser-webpack-plugin`)
+    if (!terser) return
+    if (this.disabled) return
+
     if (
-      !bud.extensions.has(
+      bud.extensions.has(
         // @ts-ignore
         `@roots/bud-swc`,
       )
-    )
-      return
+    ) {
+      const {swcMinify} = await this.import(`terser-webpack-plugin`)
+      this.setMinifier(swcMinify)
+    }
 
-    const {swcMinify} = await this.import(`terser-webpack-plugin`)
-    this.setMinifier(swcMinify)
+    bud.hooks.on(`build.optimization.minimizer`, (minimizers = []) => {
+      this.logger.log(`current minimizers:`, minimizers)
+      const terserMinimizerInstance = new terser(this.options)
+      this.logger.log(`registering terser`, terserMinimizerInstance)
+      this.logger.log(`with options`, this.options)
 
-    bud.hooks.on(`build.optimization.minimizer`, minimizer => {
-      if (!minimizer) minimizer = []
+      minimizers.push(terserMinimizerInstance)
 
-      minimizer.push(
-        new TerserPlugin(this.options) as unknown as WebpackPluginInstance,
-      )
+      if (
+        bud.extensions.has(
+          // @ts-ignore
+          `@roots/bud-swc`,
+        )
+      ) {
+        this.logger.log(
+          `swc in use. removing CssMinimizerPlugin (if present)`,
+        )
+        minimizers = minimizers.filter(
+          minimizer => minimizer.constructor.name !== `CssMinimizerPlugin`,
+        )
+      }
 
-      return minimizer
+      this.logger.success(`terser added to minimizers`, minimizers)
+      return minimizers
     })
   }
 
@@ -106,7 +121,7 @@ export class BudTerser extends Extension<Options> {
    */
   @bind
   public setMinifier(minify: any): this {
-    this.terserOptions = {...(this.terserOptions ?? {}), minify}
+    this.terserOptions = {...this.terserOptions, minify}
     return this
   }
 
@@ -119,7 +134,7 @@ export class BudTerser extends Extension<Options> {
   @bind
   public dropConsole(enable: boolean = true): this {
     this.terserOptions = {
-      ...(this.terserOptions ?? {}),
+      ...this.terserOptions,
       compress: {
         ...(this.terserOptions.compress ?? {}),
         drop_console: enable,
@@ -151,7 +166,7 @@ export class BudTerser extends Extension<Options> {
   @bind
   public comments(comments: boolean = true): this {
     this.terserOptions = {
-      ...(this.terserOptions ?? {}),
+      ...this.terserOptions,
       output: {
         ...(this.terserOptions.output ?? {}),
         comments,
@@ -170,7 +185,7 @@ export class BudTerser extends Extension<Options> {
   @bind
   public debugger(enable: boolean = true): this {
     this.terserOptions = {
-      ...(this.terserOptions ?? {}),
+      ...this.terserOptions,
       output: {
         ...(this.terserOptions.output ?? {}),
         debugger: enable,
@@ -202,7 +217,7 @@ export class BudTerser extends Extension<Options> {
   @bind
   public mangle(mangle: Options['terserOptions']['mangle']): this {
     this.terserOptions = {
-      ...(this.terserOptions ?? {}),
+      ...this.terserOptions,
       mangle,
     }
 

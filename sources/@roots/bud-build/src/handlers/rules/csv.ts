@@ -1,15 +1,7 @@
-import type {Bud} from '@roots/bud-framework'
+import type {Factory} from '../index.js'
 
-import type * as Rule from '../../rule/index.js'
-
-/**
- * Returns {@link Rule} for `.csv` handling
- *
- * @public
- */
-export const csv = ({build}: Bud): Rule.Interface =>
-  build
-    .makeRule()
-    .setInclude([app => app.path()])
-    .setTest(({hooks}) => hooks.filter(`pattern.csv`))
+export const csv: Factory = ({makeRule, path, filter}) =>
+  makeRule()
+    .setInclude([() => path()])
+    .setTest(() => filter(`pattern.csv`))
     .setUse([`csv`])

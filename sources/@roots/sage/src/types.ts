@@ -1,3 +1,4 @@
+/// <reference path="../../bud/lib/index.d.ts" />
 /// <reference path="../../bud-preset-wordpress/lib/index.d.ts" />
 /// <reference path="../../bud-tailwindcss/lib/index.d.ts" />
 

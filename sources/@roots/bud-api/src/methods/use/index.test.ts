@@ -52,6 +52,7 @@ describe(`use`, () => {
       label: `css-minimizer-webpack-plugin`,
       options: {},
     })
+    // @ts-ignore
     await use(`@roots/bud-babel`)
     expect(
       bud.extensions.has(
@@ -200,6 +201,7 @@ describe(`use`, () => {
     })
 
     const plugin = {
+      // @ts-ignore
       label: `my-plugin`,
       apply() {
         // noop

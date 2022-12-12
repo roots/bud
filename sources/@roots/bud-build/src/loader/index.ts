@@ -7,7 +7,7 @@ import Base from '../shared/base.js'
  *
  * @public
  */
-export default class Loader extends Base {
+class Loader extends Base {
   /**
    * Factory returning the loader path
    *
@@ -36,3 +36,5 @@ export default class Loader extends Base {
     return this
   }
 }
+
+export {Loader}

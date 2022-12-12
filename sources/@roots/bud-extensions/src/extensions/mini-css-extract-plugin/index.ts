@@ -1,3 +1,5 @@
+import {join} from 'node:path'
+
 import {Bud, Extension} from '@roots/bud-framework'
 import {
   label,
@@ -27,8 +29,7 @@ import MiniCssPlugin, {PluginOptions} from 'mini-css-extract-plugin'
    *
    * @public
    */
-  filename: (app: Bud) =>
-    `css/${app.path(`@name`).replace(`[ext]`, `.css`)}`,
+  filename: (app: Bud) => join(`css`, app.path(`@name`).concat(`.css`)),
 })
 @production
 export default class MiniCssExtract extends Extension<

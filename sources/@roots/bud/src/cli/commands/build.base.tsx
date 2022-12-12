@@ -48,33 +48,37 @@ export default class BuildCommand extends BaseCommand {
    * @public
    */
   public browser?: boolean | string
+
   /**
-   * (dev only) hot
+   * hot
    * @virtual
    * @public
    */
   public hot?: boolean
+
   /**
-   * (dev only) reload
+   * reload
    * @virtual
    * @public
    */
   public reload?: boolean
+
   /**
-   * (dev only) overlay
+   * overlay
    * @virtual
    * @public
    */
   public overlay?: boolean
+
   /**
-   * (dev only) indicator
+   * indicator
    * @virtual
    * @public
    */
   public indicator?: boolean
 
   /**
-   * --cache
+   * cache
    */
   public cache = Option.String(`--cache`, undefined, {
     description: `Utilize compiler's filesystem cache`,
@@ -89,14 +93,14 @@ export default class BuildCommand extends BaseCommand {
   })
 
   /**
-   * --ci
+   * ci
    */
   public ci = Option.Boolean(`--ci`, undefined, {
     description: `Simple build summaries for CI`,
   })
 
   /**
-   * --clean
+   * clean
    * @public
    */
   public clean = Option.Boolean(`--clean`, undefined, {
@@ -104,7 +108,7 @@ export default class BuildCommand extends BaseCommand {
   })
 
   /**
-   * --debug
+   * debug
    * @public
    */
   public debug = Option.Boolean(`--debug`, undefined, {
@@ -112,7 +116,7 @@ export default class BuildCommand extends BaseCommand {
   })
 
   /**
-   * --devtool
+   * devtool
    * @public
    */
   public devtool = Option.String(`--devtool`, undefined, {
@@ -148,7 +152,7 @@ export default class BuildCommand extends BaseCommand {
   })
 
   /**
-   * --notify
+   * editor
    * @public
    */
   public editor = Option.Boolean(`--editor`, undefined, {
@@ -156,7 +160,7 @@ export default class BuildCommand extends BaseCommand {
   })
 
   /**
-   * --esm
+   * esm
    * @public
    */
   public esm = Option.Boolean(`--esm`, undefined, {
@@ -164,7 +168,7 @@ export default class BuildCommand extends BaseCommand {
   })
 
   /**
-   * --flush
+   * flush
    * @public
    */
   public flush = Option.Boolean(`--flush`, undefined, {
@@ -172,7 +176,7 @@ export default class BuildCommand extends BaseCommand {
   })
 
   /**
-   * --hash
+   * hash
    * @public
    */
   public hash = Option.Boolean(`--hash`, undefined, {
@@ -180,7 +184,7 @@ export default class BuildCommand extends BaseCommand {
   })
 
   /**
-   * --html
+   * html
    * @public
    */
   public html = Option.String(`--html`, undefined, {
@@ -189,7 +193,7 @@ export default class BuildCommand extends BaseCommand {
   })
 
   /**
-   * --immutable
+   * immutable
    * @public
    */
   public immutable = Option.Boolean(`--immutable`, undefined, {
@@ -197,15 +201,32 @@ export default class BuildCommand extends BaseCommand {
   })
 
   /**
-   * --discovery
+   * discovery
    * @public
    */
-  public override discovery = Option.Boolean(`--discovery`, undefined, {
+  public discovery = Option.Boolean(`--discovery`, undefined, {
     description: `Automatically register extensions`,
   })
 
   /**
-   * --manifest
+   * notify
+   * @public
+   */
+  public override notify = Option.Boolean(`--notify`, true, {
+    description: `Enable notfication center messages`,
+  })
+
+  /**
+   * filter
+   * @public
+   */
+  public override filter = Option.Array(`--filter`, undefined, {
+    description: `Limit compilation to particular compilers`,
+    hidden: true,
+  })
+
+  /**
+   * manifest
    * @public
    */
   public manifest = Option.Boolean(`--manifest`, undefined, {
@@ -213,7 +234,7 @@ export default class BuildCommand extends BaseCommand {
   })
 
   /**
-   * --minimize
+   * minimize
    * @public
    */
   public minimize = Option.Boolean(`--minimize`, undefined, {
@@ -221,7 +242,25 @@ export default class BuildCommand extends BaseCommand {
   })
 
   /**
-   * --publicPath
+   * src
+   * @public
+   */
+  public input = Option.String(`--input,-i,--@src,--src`, undefined, {
+    description: `Source directory (relative to project)`,
+    env: `APP_PATH_INPUT`,
+  })
+
+  /**
+   * dist
+   * @public
+   */
+  public output = Option.String(`--output,-o,--@dist,--dist`, undefined, {
+    description: `Distribution directory (relative to project)`,
+    env: `APP_PATH_OUTPUT`,
+  })
+
+  /**
+   * publicPath
    * @public
    */
   public publicPath = Option.String(`--publicPath`, undefined, {
@@ -230,7 +269,7 @@ export default class BuildCommand extends BaseCommand {
   })
 
   /**
-   * --runtime
+   * runtime
    * @public
    */
   public runtime: `single` | `multiple` | boolean = Option.String(
@@ -247,7 +286,7 @@ export default class BuildCommand extends BaseCommand {
   )
 
   /**
-   * --splitChunks
+   * splitChunks
    * @public
    */
   public splitChunks = Option.Boolean(
@@ -259,7 +298,7 @@ export default class BuildCommand extends BaseCommand {
   )
 
   /**
-   * --storage
+   * storage
    * @public
    */
   public storage = Option.String(`--storage`, undefined, {
@@ -274,11 +313,13 @@ export default class BuildCommand extends BaseCommand {
    */
   public override get args(): Context[`args`] {
     return {
+      ...this.context.args,
       browser: this.browser,
       cache: this.cache,
       ci: this.ci,
       clean: this.clean,
       debug: this.debug,
+      discovery: this.discovery,
       devtool: this.devtool,
       editor: this.editor,
       esm: this.esm,
@@ -287,6 +328,8 @@ export default class BuildCommand extends BaseCommand {
       html: this.html,
       immutable: this.immutable,
       indicator: this.indicator,
+      input: this.input,
+      output: this.output,
       manifest: this.manifest,
       minimize: this.minimize,
       mode: this.mode,
@@ -296,8 +339,8 @@ export default class BuildCommand extends BaseCommand {
       reload: this.reload,
       runtime: this.runtime,
       splitChunks: this.splitChunks,
-      target: this.target,
       storage: this.storage,
+      target: this.filter,
     }
   }
 
@@ -311,6 +354,7 @@ export default class BuildCommand extends BaseCommand {
   public override async runCommand() {
     await this.applyEnv()
     await this.applyManifestOptions()
+    await this.applyArgs()
     await this.app.processConfigs()
     await this.applyArgs()
     await this.app.run()
@@ -383,6 +427,7 @@ export default class BuildCommand extends BaseCommand {
         `location.@storage`,
         this.app.env.get(`APP_STORAGE_PATH`),
       )
+
       this.app.success(
         `storage path set to`,
         this.app.env.get(`APP_STORAGE_PATH`),
@@ -398,11 +443,6 @@ export default class BuildCommand extends BaseCommand {
    */
   @bind
   public async applyManifestOptions() {
-    if (isset(this.app.context.manifest?.bud?.paths?.[`base`])) {
-      this.app.context.basedir =
-        this.app.context.manifest?.bud?.paths?.[`base`]
-    }
-
     if (isset(this.app.context.manifest?.bud?.[`publicPath`]))
       this.app.hooks.on(
         `build.output.publicPath`,
@@ -435,80 +475,136 @@ export default class BuildCommand extends BaseCommand {
    */
   @bind
   public async applyArgs() {
-    if (this.app.isRoot && isset(this.app.context.args.target))
+    if (isset(this.context.args.input))
+      this.app.setPath(`@src`, this.input)
+    if (isset(this.context.args.output))
+      this.app.setPath(`@dist`, this.output)
+
+    if (isset(this.manifest)) {
+      this.app.log(`overriding manifest setting from cli`)
+      this.app.hooks.on(`feature.manifest`, this.manifest)
+    }
+    if (isset(this.publicPath)) {
+      this.app.setPublicPath(this.publicPath)
+    }
+
+    if (
+      this.app.isRoot &&
+      isset(this.filter) &&
+      this.app.children &&
+      Object.keys(this.app.children).length > 0
+    ) {
       Object.keys(this.app.children)
-        .filter(name => !this.app.context.args.target.includes(name))
-        .map(name => delete this.app.children[name])
-
-    if (isset(this.app.context.args.publicPath)) {
-      this.app.setPublicPath(this.app.context.args.publicPath)
+        .filter(name => !this.filter.includes(name))
+        .map(name => {
+          delete this.app.children[name]
+          this.app.log(`removing ${name} instance from the cli`)
+        })
     }
 
-    if (isset(this.app.context.args.input))
-      this.app.setPath(`@src`, this.app.context.args.input)
-
-    if (isset(this.app.context.args.output)) {
-      this.app.setPath(`@dist`, this.app.context.args.output)
+    if (isset(this.storage)) {
+      this.app.log(`overriding storage directory from the cli`)
+      this.app.setPath(`@storage`, this.storage)
     }
 
-    if (isset(this.app.context.args.storage))
-      this.app.setPath(`@storage`, this.app.context.args.storage)
-
-    if (isset(this.app.context.args.mode))
-      this.app.hooks.on(`build.mode`, this.app.context.args.mode)
-
-    if (isset(this.app.context.args.cache)) {
-      this.app.persist(this.app.context.args.cache)
+    if (isset(this.mode)) {
+      this.app.log(`overriding mode from the cli`)
+      this.app.hooks.on(`build.mode`, this.mode)
     }
 
-    if (isset(this.app.context.args.manifest)) {
-      this.app.hooks.on(`feature.manifest`, this.app.context.args.manifest)
+    if (isset(this.cache)) {
+      this.app.log(`overriding cache settings from cli`)
+      this.app.persist(this.cache)
+      this.app.children &&
+        Object.values(this.app.children).map(child =>
+          child.persist(this.cache),
+        )
     }
 
-    if (isset(this.app.context.args.minimize))
-      await this.app.api.call(`minimize`, this.app.context.args.minimize)
+    if (isset(this.minimize)) {
+      this.app.log(`overriding minimize setting from cli`)
+      this.app.minimize(this.minimize)
+      this.app.children &&
+        Object.values(this.app.children).map(child =>
+          child.minimize(this.minimize),
+        )
+    }
 
-    if (isset(this.app.context.args.devtool))
-      await this.app.api.call(`devtool`, this.app.context.args.devtool)
+    if (isset(this.devtool)) {
+      this.app.log(`overriding devtool from cli`)
+      this.app.devtool(this.devtool)
+      this.app.children &&
+        Object.values(this.app.children).map(child =>
+          child.devtool(this.devtool),
+        )
+    }
 
-    if (isset(this.app.context.args.esm)) this.app.esm.enable()
+    if (isset(this.esm)) {
+      this.app.log(`overriding esm from cli`)
+      this.app.esm.enable(this.esm)
+      this.app.children &&
+        Object.values(this.app.children).map(child =>
+          child.esm.enable(this.esm),
+        )
+    }
 
-    if (isset(this.app.context.args.immutable)) this.app.cdn.freeze()
+    if (isset(this.immutable)) {
+      this.app.log(`overriding immutable from cli`)
+      this.app.cdn.freeze(this.immutable)
+      this.app.children &&
+        Object.values(this.app.children).map(child =>
+          child.cdn.freeze(this.immutable),
+        )
+    }
 
-    if (isset(this.app.context.args.manifest))
-      this.app.hooks.on(`feature.manifest`, this.app.context.args.manifest)
-
-    if (isset(this.app.context.args.clean)) {
+    if (isset(this.clean)) {
+      this.app.log(`overriding clean setting from cli`)
       this.app.extensions
         .get(`@roots/bud-extensions/clean-webpack-plugin`)
-        [this.app.context.args.clean ? `enable` : `disable`]()
+        .enable(this.clean)
 
-      this.app.hooks.on(`build.output.clean`, this.app.context.args.clean)
+      this.app.hooks.on(`build.output.clean`, this.clean)
     }
 
-    if (isset(this.app.context.args.devtool))
-      await this.app.api.call(`devtool`, this.app.context.args.devtool)
+    if (isset(this.hash)) {
+      this.app.log(`overriding hash setting from cli`)
+      this.app.hash(this.hash)
+      this.app.children &&
+        Object.values(this.app.children).map(child =>
+          child.persist(this.cache),
+        )
+    }
+    if (isset(this.html)) {
+      isString(this.html)
+        ? this.app.html({template: this.html})
+        : this.app.html()
 
-    if (isset(this.app.context.args.hash))
-      await this.app.api.call(`hash`, this.app.context.args.hash)
+      this.app.children &&
+        Object.values(this.app.children).map(child =>
+          isString(this.html)
+            ? child.html({template: this.html})
+            : child.html(),
+        )
+    }
 
-    if (isset(this.app.context.args.html))
-      isString(this.app.context.args.html)
-        ? await this.app.api.call(`template`, {
-            template: this.app.context.args.html,
-          })
-        : await this.app.api.call(`template`)
+    if (isset(this.runtime)) {
+      this.app.log(`overriding runtime setting from cli`)
+      this.app.runtime(this.runtime)
+      this.app.children &&
+        Object.values(this.app.children).map(child =>
+          child.runtime(this.runtime),
+        )
+    }
 
-    if (isset(this.app.context.args.minimize))
-      await this.app.api.call(`minimize`, this.app.context.args.minimize)
+    if (isset(this.splitChunks)) {
+      this.app.log(`overriding runtime setting from cli`)
+      this.app.splitChunks(this.splitChunks)
+      this.app.children &&
+        Object.values(this.app.children).map(child =>
+          child.splitChunks(this.splitChunks),
+        )
+    }
 
-    if (isset(this.app.context.args.runtime))
-      await this.app.api.call(`runtime`, this.app.context.args.runtime)
-
-    if (isset(this.app.context.args.splitChunks))
-      await this.app.api.call(
-        `splitChunks`,
-        this.app.context.args.splitChunks,
-      )
+    await this.app.api.processQueue()
   }
 }

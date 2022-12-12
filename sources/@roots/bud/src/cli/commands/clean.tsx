@@ -26,9 +26,9 @@ export default class CleanCommand extends BaseCommand {
     ],
   })
 
-  public override notify = Option.Boolean(`--notify`, false, {
-    hidden: true,
-  })
+  public override get args() {
+    return {...this.context.args, dry: true}
+  }
 
   public storage = Option.Boolean(`@storage`, false, {
     description: `empty @storage`,
@@ -37,15 +37,6 @@ export default class CleanCommand extends BaseCommand {
   public dist = Option.Boolean(`@dist`, false, {
     description: `empty @dist`,
   })
-
-  /**
-   * Set CI to true
-   */
-  public override dry = true
-
-  public override get args() {
-    return {...this.context.args, dry: true}
-  }
 
   @bind
   public override async runCommand() {

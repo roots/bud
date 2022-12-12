@@ -1,9 +1,7 @@
-import './types'
-
 import {factory} from '@repo/test-kit/bud'
 import {describe, expect, it} from 'vitest'
 
-import {BudPostCss} from './extension'
+import BudPostCss from './index.js'
 
 describe(`@roots/bud-postcss`, () => {
   it(`label`, async () => {

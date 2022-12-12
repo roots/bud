@@ -27,6 +27,10 @@ export class Dashboard
    */
   public instance: Ink.Instance
 
+  public setInstance(instance: Ink.Instance) {
+    this.instance = instance
+  }
+
   /**
    * Last hash
    *
@@ -99,6 +103,7 @@ export class Dashboard
         },
       )
       console.log(stringCompilation)
+
       if (hasErrors) {
         this.app.fatal(new Error(`build failed`))
         return

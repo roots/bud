@@ -34,43 +34,41 @@
     "node": ">=16"
   },
   "files": [
-    "lib/"
+    "docs/",
+    "lib/",
+    "src/"
   ],
   "type": "module",
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "exports": {
-    ".": "./lib/index.js",
-    "./item": "./lib/item/index.js",
-    "./items": "./lib/handlers/items.js",
-    "./loader": "./lib/loader/index.js",
-    "./loaders": "./lib/handlers/loaders.js",
-    "./rule": "./lib/rule/index.js",
-    "./rules": "./lib/handlers/rules.js"
-  },
-  "typesVersions": {
-    "*": {
-      ".": [
-        "./lib/index.d.ts"
-      ],
-      "item": [
-        "./lib/item/index.d.ts"
-      ],
-      "items": [
-        "./lib/handlers/items.d.ts"
-      ],
-      "loader": [
-        "./lib/loader/index.d.ts"
-      ],
-      "loaders": [
-        "./lib/handlers/loaders.d.ts"
-      ],
-      "rule": [
-        "./lib/rule/index.d.ts"
-      ],
-      "rules": [
-        "./lib/handlers/rules.d.ts"
-      ]
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./item": {
+      "types": "./lib/item/index.d.ts",
+      "default": "./lib/item/index.js"
+    },
+    "./items": {
+      "types": "./lib/handlers/items/items.d.ts",
+      "default": "./lib/handlers/items/items.js"
+    },
+    "./loader": {
+      "types": "./lib/loader/index.d.ts",
+      "default": "./lib/loader/index.js"
+    },
+    "./loaders": {
+      "types": "./lib/handlers/loaders/loaders.d.ts",
+      "default": "./lib/handlers/loaders/loaders.js"
+    },
+    "./rule": {
+      "types": "./lib/rule/index.d.ts",
+      "default": "./lib/rule/index.js"
+    },
+    "./rules": {
+      "types": "./lib/handlers/rules/rules.d.ts",
+      "default": "./lib/handlers/rules/rules.js"
     }
   },
   "devDependencies": {

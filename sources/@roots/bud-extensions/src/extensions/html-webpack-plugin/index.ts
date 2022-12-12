@@ -16,6 +16,7 @@ import type Plugin from 'html-webpack-plugin'
  */
 @label(`@roots/bud-extensions/html-webpack-plugin`)
 @options<Plugin.Options>({
+  filename: `index.html`,
   inject: true,
   template: `auto`,
   publicPath: app => app.publicPath(),

@@ -4,6 +4,7 @@ import {Box, Text} from '@roots/bud-support/ink'
 import React from '@roots/bud-support/react'
 import webpack from '@roots/bud-support/webpack'
 
+import {checkDependencies} from '../helpers/checkDependencies.js'
 import BaseCommand from './base.js'
 
 /**
@@ -14,6 +15,7 @@ import BaseCommand from './base.js'
 export default class DoctorCommand extends BaseCommand {
   /**
    * Command paths
+   *
    * @public
    */
   public static override paths = [[`doctor`]]
@@ -44,12 +46,6 @@ for a lot of edge cases so it might return a false positive.
   })
 
   /**
-   * --dry
-   * @public
-   */
-  public override dry = true
-
-  /**
    * Args
    * @public
    */
@@ -63,12 +59,6 @@ for a lot of edge cases so it might return a false positive.
    * @public
    */
   public override async runCommand() {
-    this.renderOnce(
-      <Box marginBottom={1}>
-        <Text>Checking configuration...</Text>
-      </Box>,
-    )
-
     await this.checkConfiguration()
 
     this.renderOnce(
@@ -76,11 +66,25 @@ for a lot of edge cases so it might return a false positive.
         <Text>Checking dependencies...</Text>
       </Box>,
     )
-    await this.checkDependencies()
+
+    const errors = await checkDependencies(this.app)
+    if (!errors) {
+      this.renderOnce(
+        <Box>
+          <Text color="green">✅ dependencies synced</Text>
+        </Box>,
+      )
+    }
   }
 
   @bind
   public async checkConfiguration() {
+    this.renderOnce(
+      <Box marginBottom={1}>
+        <Text>Checking configuration...</Text>
+      </Box>,
+    )
+
     const conf = this.app.build.make()
 
     if (!conf) {
@@ -107,42 +111,5 @@ for a lot of edge cases so it might return a false positive.
         </Box>,
       )
     }
-  }
-
-  @bind
-  public async checkDependencies() {
-    const mismatches = Object.entries({
-      ...(this.app.context.manifest?.dependencies ?? {}),
-      ...(this.app.context.manifest?.devDependencies ?? {}),
-    })
-      .filter(([name]) => name.startsWith(`@roots/`))
-      .filter(([k, v]) => v !== this.app.context.bud.version)
-
-    if (!mismatches?.length) {
-      this.renderOnce(
-        <Box>
-          <Text color="green">
-            ✅ all dependencies set to {this.app.context.bud.version}
-          </Text>
-        </Box>,
-      )
-    }
-    mismatches.map(([k, v]: [string, string]) => {
-      this.renderOnce(
-        <Box>
-          <Text color="red">version mismatch</Text>
-          <Box flexDirection="column" paddingLeft={1} paddingBottom={1}>
-            <Text>
-              bud is on{` `}
-              <Text color="blue">{this.app.context.bud.version}</Text> but
-              {` `}
-              {k}
-              {` `}
-              is on <Text color="blue">{v}</Text>
-            </Text>
-          </Box>
-        </Box>,
-      )
-    })
   }
 }

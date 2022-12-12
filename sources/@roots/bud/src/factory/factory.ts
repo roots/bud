@@ -51,5 +51,6 @@ export async function factory(
     )
     .map(extension => context.extensions.discovered.push(extension))
 
-  return await new Bud().lifecycle(mergeOptions(context, overrides))
+  const mergedOptions = mergeOptions(context, overrides)
+  return await new Bud().lifecycle(mergedOptions)
 }

@@ -1,44 +1,43 @@
 import type {Bud} from '@roots/bud-framework'
-import type {Configuration} from '@roots/bud-support/webpack'
 
-export interface module {
-  (app: Bud): Promise<Configuration['module']>
+import type {Factory} from './index.js'
+
+interface Props {
+  filter: Bud[`hooks`][`filter`]
+  rules: Bud[`build`][`rules`]
+  path: Bud[`path`]
 }
 
-export const module: module = async app => {
-  const noParse = await getNoParse(app)
-  const rules = await getRules(app)
-  const unsafeCache = await getUnsafeCache(app)
-
-  const module = {noParse, rules, unsafeCache}
-  return app.hooks.filter(`build.module`, module)
-}
-
-const getRules = async (
-  app: Bud,
-): Promise<Configuration['module']['rules']> => {
-  const rules = []
-
-  rules.push(...(app.hooks.filter(`build.module.rules.before`) ?? []))
-
-  rules.push({
-    oneOf: app.hooks.filter(
-      `build.module.rules.oneOf`,
-      Object.values(app.build.rules).map(rule => rule.toWebpack()),
-    ),
+export const module: Factory<`module`> = async ({
+  build: {rules},
+  hooks: {filter},
+  path,
+}) =>
+  filter(`build.module`, {
+    noParse: getNoParse(filter),
+    rules: getRules({filter, path, rules}),
+    unsafeCache: getUnsafeCache(filter),
   })
 
-  rules.push(...(app.hooks.filter(`build.module.rules.after`) ?? []))
+const getRules = ({filter, path, rules}: Props) => [
+  ...filter(`build.module.rules.before`, [
+    {
+      test: filter(`pattern.js`),
+      include: [path(`@src`)],
+      parser: {requireEnsure: false},
+    },
+  ]),
+  {
+    oneOf: filter(
+      `build.module.rules.oneOf`,
+      Object.values(rules).map(rule => rule.toWebpack()),
+    ),
+  },
+  ...filter(`build.module.rules.after`, []),
+]
 
-  return rules
-}
+const getNoParse = (filter: Props[`filter`]) =>
+  filter(`build.module.noParse`, undefined)
 
-const getNoParse = async (
-  app: Bud,
-): Promise<Configuration['module']['noParse']> =>
-  app.hooks.filter(`build.module.noParse`, undefined)
-
-const getUnsafeCache = async (
-  app: Bud,
-): Promise<Configuration['module']['unsafeCache']> =>
-  app.hooks.filter(`build.module.unsafeCache`, undefined)
+const getUnsafeCache = (filter: Props[`filter`]) =>
+  filter(`build.module.unsafeCache`, false)

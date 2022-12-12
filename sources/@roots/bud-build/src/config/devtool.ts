@@ -1,4 +1,4 @@
-import type {ValueFactory} from './builder.js'
+import type {Factory} from './index.js'
 
-export const devtool: ValueFactory<`devtool`> = async app =>
-  app.hooks.filter(`build.devtool`)
+export const devtool: Factory<`devtool`> = async ({hooks}) =>
+  hooks.filter(`build.devtool`, false)

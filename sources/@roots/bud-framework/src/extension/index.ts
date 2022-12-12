@@ -650,8 +650,8 @@ export class Extension<
    * @decorator `@bind`
    */
   @bind
-  public enable() {
-    this.enabled = true
+  public enable(enabled = true) {
+    this.enabled = enabled
   }
 
   /**

@@ -5,7 +5,7 @@ import type {ServiceContainer} from '../../../service.js'
  *
  * @public
  */
-export interface Service extends ServiceContainer {
+export interface Env extends ServiceContainer {
   /**
    * Get public environment variables
    *

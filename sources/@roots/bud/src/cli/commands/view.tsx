@@ -31,10 +31,6 @@ export default class ViewCommand extends BaseCommand {
     ],
   })
 
-  public override dry = true
-
-  public override notify = false
-
   public color = Option.Boolean(`--color,-c`, true, {
     description: `use syntax highlighting`,
   })
@@ -55,17 +51,27 @@ export default class ViewCommand extends BaseCommand {
     await this.app.build.make()
 
     let value = this.subject ? get(this.app, this.subject) : this.app
+    let indent = 0
+
+    switch (this.indent) {
+      case true:
+        indent = 2
+        break
+
+      case false:
+        indent = 0
+        break
+
+      case undefined:
+        indent = 2
+        break
+
+      default:
+        indent = parseInt(this.indent)
+    }
 
     value = format(this.subject ? get(this.app, this.subject) : this.app, {
-      indent: parseInt(
-        this.indent === undefined
-          ? `2`
-          : this.indent === true
-          ? `2`
-          : this.indent === false
-          ? `0`
-          : this.indent,
-      ),
+      indent,
     })
 
     if (this.color) value = highlight(value)

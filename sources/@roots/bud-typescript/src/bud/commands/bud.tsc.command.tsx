@@ -22,10 +22,6 @@ export class BudTSCCommand extends BaseCommand {
     examples: [[`View tsc usage information`, `$0 tsc --help`]],
   })
 
-  public override dry = true
-
-  public override notify = false
-
   public options = Option.Proxy({name: `tsc passthrough options`})
 
   /**

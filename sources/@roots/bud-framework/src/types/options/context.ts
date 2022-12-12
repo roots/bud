@@ -55,7 +55,7 @@ export interface BaseContext {
     immutable?: boolean
     indicator?: boolean
     input?: string
-    level?: Array<Boolean>
+    level?: number
     log?: boolean
     manifest?: boolean
     minimize?: boolean

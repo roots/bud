@@ -34,12 +34,10 @@ export interface bundle {
  * @public
  */
 export const bundle: bundle = function (this: Bud, name, matcher) {
-  const app = this as Bud
-
   const test = normalize(matcher ?? name)
 
-  app.hooks.on(`build.optimization.splitChunks`, splitChunks => {
-    const template = app.hooks.filter(`feature.hash`)
+  this.hooks.on(`build.optimization.splitChunks`, splitChunks => {
+    const template = this.hooks.filter(`feature.hash`)
       ? `[name].[contenthash].js`
       : `[name].js`
 
@@ -70,9 +68,9 @@ export const bundle: bundle = function (this: Bud, name, matcher) {
     }
   })
 
-  app.api.logger.success(`bud.bundle: chunk settings registered`)
+  this.api.logger.success(`bud.bundle: chunk settings registered`)
 
-  return app
+  return this
 }
 
 const normalize = (matcher: string | Array<string> | RegExp): RegExp => {

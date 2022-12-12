@@ -32,9 +32,6 @@ describe(`@roots/bud-terser`, () => {
         output: {
           ascii_only: true,
           comments: false,
-          preamble: `/**
-  * Minified by @roots/bud
-  */`,
         },
       },
     })

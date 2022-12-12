@@ -1,4 +1,4 @@
-import type {ValueFactory} from './builder.js'
+import type {Factory} from './index.js'
 
-export const experiments: ValueFactory<`experiments`> = async app =>
-  app.hooks.filter(`build.experiments`)
+export const experiments: Factory<`experiments`> = async ({hooks}) =>
+  hooks.filter(`build.experiments`, undefined)

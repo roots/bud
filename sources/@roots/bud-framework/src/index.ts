@@ -14,7 +14,7 @@
 import {Bud} from './bud.js'
 import {Extension} from './extension/index.js'
 import {Logger} from './logger/index.js'
-import Service, {ServiceContainer} from './service.js'
+import {Service, ServiceContainer} from './service.js'
 
 import type * as Config from './types/config/index.js'
 import type * as Options from './types/options/index.js'

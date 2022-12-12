@@ -3,7 +3,7 @@ import {Logger} from '../logger/index.js'
 import * as methods from '../methods/index.js'
 import {Module} from '../module.js'
 import * as Process from '../process.js'
-import type * as Service from '../service.js'
+import type {Service} from '../service.js'
 import type * as Options from '../types/options/index.js'
 import type * as Registry from '../types/registry/index.js'
 import {initialize} from './init.js'
@@ -25,7 +25,7 @@ export const lifecycleHookHandles: Partial<
   `compiler.after`,
 ]
 
-export const lifecycleMethods: Partial<Array<keyof Service.Contract>> = [
+export const lifecycleMethods: Partial<Array<keyof Service>> = [
   `init`,
   `bootstrap`,
   `bootstrapped`,
@@ -63,7 +63,7 @@ export const DEVELOPMENT_SERVICES: Array<string> = [`@roots/bud-server`]
  * @public
  */
 export const LIFECYCLE_EVENT_MAP: Partial<
-  Record<keyof Registry.EventsStore, keyof Service.Contract>
+  Record<keyof Registry.EventsStore, keyof Service>
 > = {
   init: `init`,
   bootstrap: `bootstrap`,

@@ -61,6 +61,7 @@ export interface Sync {
   'output.path': Configuration['output']['path']
   'output.pathinfo': Configuration['output']['pathinfo']
   'output.publicPath': string
+  'output.scriptType': false | `module` | `text/javascript`
   'output.uniqueName': string
   parallelism: Configuration['parallelism']
   performance: Configuration['performance']

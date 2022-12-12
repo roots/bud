@@ -13,5 +13,7 @@
 import './types.js'
 
 import {Api} from './api/service.js'
+import type {Repository} from './repository.js'
 
 export default Api
+export type {Repository}

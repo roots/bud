@@ -1,7 +1,9 @@
 /// <reference path="../../bud-framework/lib/index.d.ts" />
 /// <reference path="../../bud-hooks/lib/index.d.ts" />
 
-import type {Item, Loader, Rule} from '@roots/bud-framework'
+import type {Item} from './item/index.js'
+import type {Loader} from './loader/index.js'
+import type {Rule} from './rule/index.js'
 
 declare module '@roots/bud-framework' {
   interface Loaders {

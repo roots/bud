@@ -8,7 +8,8 @@
     "types": ["node", "@roots/bud-framework", "@roots/bud-api", "@roots/bud-babel"]
   },
   "include": ["src"],
-  "exclude": ["lib", "node_modules", "**/*.test.ts"],
+  "exclude": ["./lib", "./node_modules", "**/*.test.ts", "**/*.test.tsx"],
+
   "references": [
     {"path": "./../bud-api/tsconfig.json"},
     {"path": "./../bud-babel/tsconfig.json"},

@@ -43,8 +43,8 @@ export default class BudSWC extends Extension<Options> {
    */
   @bind
   public override async register(bud: Bud) {
-    bud.hooks.on(`build.resolve.extensions`, ext =>
-      ext.add(`.ts`).add(`.tsx`).add(`.jsx`),
+    bud.hooks.on(`build.resolve.extensions`, (extensions = new Set()) =>
+      extensions.add(`.ts`).add(`.tsx`).add(`.jsx`),
     )
   }
 

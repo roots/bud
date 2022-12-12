@@ -1,25 +1,18 @@
 import {beforeEach, describe, expect, it, vi} from 'vitest'
-
+import {factory} from '@repo/test-kit/bud'
 import {setPath as subject} from './setPath.js'
 
-let bud = {
-  info: vi.fn(),
-  context: {
-    basedir: `/foo`,
-  },
-  hooks: {
-    on: vi.fn(),
-  },
-  path: vi.fn((...args) => `/test-return`),
-}
+import {Bud} from '../../bud.js'
 
-describe(`bud.setPath`, function () {
-  let setPath
+describe(`bud.setPath`, () => {
+  let bud: Bud
+  let setPath: subject
 
   beforeEach(async () => {
     vi.clearAllMocks()
-    bud.context.basedir = `/foo`
-    bud.path = vi.fn(() => `/test-return`)
+
+    bud = await factory()
+
     setPath = subject.bind(bud)
   })
 
@@ -32,8 +25,9 @@ describe(`bud.setPath`, function () {
   })
 
   it(`sets a path`, () => {
+    const hooksOnSpy = vi.spyOn(bud.hooks, `on`)
     setPath(`@src`, `test`)
-    expect(bud.hooks.on).toHaveBeenCalled()
+    expect(hooksOnSpy).toHaveBeenCalled()
   })
 
   it(`sets context when only a string is passed`, () => {
@@ -43,6 +37,7 @@ describe(`bud.setPath`, function () {
 
   it(`throws when an invalid value is passed`, () => {
     try {
+      // @ts-ignore
       expect(setPath(`src`, `test-foo`)).toThrowError()
     } catch (e) {
       expect(e).toBeInstanceOf(Error)
@@ -59,19 +54,18 @@ describe(`bud.setPath`, function () {
   })
 
   it(`sets multiple paths`, () => {
-    const value = {
-      '@src': `src-test`,
-      '@dist': `dist-test`,
-    }
+    bud.path = vi.fn(() => `/test-return`)
+    const hooksOnSpy = vi.spyOn(bud.hooks, `on`)
 
-    setPath(value)
+    setPath({'@src': `src-test`, '@dist': `dist-test`})
 
-    expect(bud.hooks.on).toHaveBeenNthCalledWith(
+    expect(hooksOnSpy).toHaveBeenNthCalledWith(
       1,
       `location.@src`,
       `/test-return`,
     )
-    expect(bud.hooks.on).toHaveBeenLastCalledWith(
+
+    expect(hooksOnSpy).toHaveBeenLastCalledWith(
       `location.@dist`,
       `/test-return`,
     )

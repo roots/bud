@@ -1,5 +1,6 @@
 import {createHash} from 'node:crypto'
 
+import type {Configuration} from '@roots/bud-framework/config'
 import {Service} from '@roots/bud-framework/service'
 import type * as Services from '@roots/bud-framework/services'
 import {bind} from '@roots/bud-support/decorators'
@@ -66,17 +67,6 @@ export default class Cache
   }
 
   /**
-   * Build dependencies
-   *
-   * @public
-   */
-  public get buildDependencies(): any {
-    return {
-      config: Object.values(this.app.context.config).map(({path}) => path),
-    }
-  }
-
-  /**
    * Cache directory
    *
    * @public
@@ -93,7 +83,7 @@ export default class Cache
    *
    * @public
    */
-  public get configuration() {
+  public get configuration(): Configuration[`cache`] {
     if (this.enabled !== true) return false
     return this.type == `memory` ? this.memoryCache : this.filesystemCache
   }
@@ -103,7 +93,7 @@ export default class Cache
    *
    * @public
    */
-  public get memoryCache() {
+  public get memoryCache(): Configuration['cache'] {
     return true
   }
 
@@ -112,14 +102,13 @@ export default class Cache
    *
    * @public
    */
-  public get filesystemCache() {
+  public get filesystemCache(): Configuration['cache'] {
     return {
       name: this.name,
       type: this.type,
       store: `pack` as `pack`,
       allowCollectingMemory: true,
       cacheDirectory: this.cacheDirectory,
-      buildDependencies: this.buildDependencies,
       idleTimeout: 10000,
       idleTimeoutForInitialStore: 0,
       profile: true,
@@ -134,7 +123,7 @@ export default class Cache
    * @decorator `@bind`
    */
   @bind
-  public override async booted() {
+  public override async booted?() {
     await this.app.extensions.add(InvalidateCacheExtension)
 
     switch (this.app.context.args.cache) {
@@ -185,7 +174,7 @@ export default class Cache
    * Flush cache
    */
   @bind
-  public async flush() {
+  public async flush(): Promise<void> {
     await this.app.fs.remove(this.cacheDirectory)
   }
 }
