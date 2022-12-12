@@ -4,24 +4,28 @@
   "private": true,
   "type": "module",
   "exports": {
-    "./bud": "./compiled/bud.js",
-    "./project": "./compiled/project.js",
-    "./mocks/*": "./mocks/*.js"
-  },
-  "typesVersions": {
-    "*": {
-      "bud": [
-        "./compiled/bud.d.ts"
-      ],
-      "project": [
-        "./compiled/project.d.ts"
-      ]
+    "./bud": {
+      "types": "./compiled/bud.d.ts",
+      "default": "./compiled/bud.js"
+    },
+    "./project": {
+      "types": "./compiled/project.d.ts",
+      "default": "./compiled/project.js"
+    },
+    "./mocks/*": {
+      "types": "./mocks/*.d.ts",
+      "default": "./mocks/*.js"
+    },
+    "./setupYarnIntegrationTest": {
+      "types": "./compiled/setupYarnIntegrationTest.d.ts",
+      "default": "./compiled/setupYarnIntegrationTest.js"
     }
   },
   "dependencies": {
     "@repo/constants": "workspace:sources/@repo/constants",
     "@repo/logger": "workspace:sources/@repo/logger",
     "@roots/bud": "workspace:sources/@roots/bud",
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@types/fs-extra": "9.0.13",
     "@types/node": "16.18.6",

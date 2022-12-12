@@ -4,13 +4,9 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": "./index.js"
-  },
-  "typesVersions": {
-    "*": {
-      ".": [
-        "./index.d.ts"
-      ]
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./index.js"
     }
   },
   "devDependencies": {
