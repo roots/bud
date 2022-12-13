@@ -20,11 +20,6 @@ export class Build extends Service implements Base.Service {
   /**
    * @public
    */
-  public static override label = `build`
-
-  /**
-   * @public
-   */
   public config: Partial<Configuration> = {}
 
   /**

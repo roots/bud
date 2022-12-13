@@ -298,6 +298,10 @@ export class Bud {
         this.services
           .map(service => [service, this[service]])
           .map(([label, service]) => {
+            if (!service) {
+              this.error(`service not found: ${label}`, this.services)
+            }
+
             if (!isFunction(service[callbackName])) return
 
             this.hooks.action(

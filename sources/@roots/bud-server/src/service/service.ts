@@ -21,13 +21,6 @@ import {Watcher} from '../server/server.watcher.js'
  */
 export class Server extends Service implements BaseService {
   /**
-   * Service label
-   *
-   * @public
-   */
-  public static override label = `server`
-
-  /**
    * Express instance
    *
    * @public

@@ -128,15 +128,13 @@ interface Contract {
  * Service
  *
  * @remarks
- * The Service interface provides access to the {@link Bud} container.
+ * The Service interface provides access to the Bud parent container.
  *
  * A Service interfaces with the Framework through a series of callbacks at different points in the build.
  *
  * @public
  */
 abstract class Base implements Partial<Contract> {
-  [key: string]: any
-
   /**
    * Lifecycle method: init
    *
@@ -240,13 +238,6 @@ abstract class Base implements Partial<Contract> {
    * @public
    */
   public compilerAfter?(app?: Bud): Promise<void>
-  /**
-   * Service label
-   *
-   * @public
-   * @virtual
-   */
-  public static label: string
 
   /**
    * Access {@link Bud}
@@ -290,16 +281,6 @@ abstract class BaseContainer
   extends Container
   implements Partial<Contract>
 {
-  [key: string]: any
-
-  /**
-   * Service label
-   *
-   * @public
-   * @virtual
-   */
-  public static label: string
-
   /**
    * Access {@link Bud}
    *

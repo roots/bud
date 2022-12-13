@@ -11,13 +11,6 @@ import format from '@roots/bud-support/pretty-format'
  */
 export default class Project extends BaseService implements Service {
   /**
-   * Service label
-   *
-   * @public
-   */
-  public static override label = `project`
-
-  /**
    * `build.after` hook callback
    *
    * @public

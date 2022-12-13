@@ -1,10 +1,8 @@
-import './types.js'
-
-import resolveConfig from 'tailwindcss/resolveConfig'
+import resolveConfig from 'tailwindcss/resolveConfig.js'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {Bud, factory} from '@repo/test-kit/bud'
 
-import {BudTailwindCss} from './extension'
+import {BudTailwindCss} from './extension.js'
 
 describe(`@roots/bud-tailwindcss extension`, () => {
   let bud: Bud

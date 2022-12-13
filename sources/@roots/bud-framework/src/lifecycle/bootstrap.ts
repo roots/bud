@@ -1,3 +1,5 @@
+import {camelCase, set} from '@roots/bud-support/lodash-es'
+
 import type {Bud} from '../bud.js'
 import {Logger} from '../logger/index.js'
 import * as methods from '../methods/index.js'
@@ -108,12 +110,14 @@ const filterFrameworkServices =
 const importAndBindFrameworkServices =
   (app: Bud) =>
   async (signifier: string): Promise<void> => {
-    const pkg = await import(signifier)
-    const imported = pkg?.default ?? pkg
-    app[imported.label] = new imported(() => app)
+    const importedModule = await import(signifier)
+    const imported = importedModule?.default ?? importedModule
+    const service = new imported(() => app)
+    const label = camelCase(service.constructor.name)
 
-    app.success(`imported`, imported.label)
-    app.services.push(imported.label)
+    set(app, label, service)
+    app.success(`instantiated`, label, `from`, signifier)
+    app.services.push(label)
   }
 
 /**

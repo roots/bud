@@ -19,13 +19,6 @@ import * as methods from '../methods/index.js'
  */
 export class Api extends ServiceContainer implements Contract {
   /**
-   * Service label
-   *
-   * @public
-   */
-  public static override label = `api`
-
-  /**
    * Called methods
    *
    * @public

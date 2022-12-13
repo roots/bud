@@ -50,8 +50,6 @@ import {SyncHooks} from './sync/sync.js'
  * @public
  */
 export class Hooks extends Base implements Service {
-  public static override label = `hooks`
-
   public asyncStore: AsyncHooks
 
   public events: EventHooks

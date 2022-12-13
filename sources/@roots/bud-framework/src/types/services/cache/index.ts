@@ -50,19 +50,5 @@ export interface Service extends BaseService {
    */
   configuration: Configuration['cache']
 
-  /**
-   * Memory cache configuration
-   *
-   * @public
-   */
-  memoryCache: Configuration['cache']
-
-  /**
-   * Filesystem cache configuration
-   *
-   * @public
-   */
-  filesystemCache: Configuration['cache']
-
   flush: () => Promise<void>
 }

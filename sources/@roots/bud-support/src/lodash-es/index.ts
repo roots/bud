@@ -1,5 +1,8 @@
 export {
+  camelCase,
   chunk,
+  clone,
+  cloneDeep,
   get,
   has,
   isArray,
@@ -21,6 +24,7 @@ export {
   isMap,
   join,
   lowerCase,
+  lowerFirst,
   upperFirst,
   uniq,
   merge,

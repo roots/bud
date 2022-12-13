@@ -25,13 +25,6 @@ export default class Extensions
   implements Contract.Service
 {
   /**
-   * Service label
-   *
-   * @public
-   */
-  public static override label = `extensions`
-
-  /**
    * Registered extensions
    *
    * @public

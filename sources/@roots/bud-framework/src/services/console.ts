@@ -25,12 +25,6 @@ interface MessagesCache {
  */
 export default class ConsoleBuffer extends Service {
   /**
-   * Service label
-   * @public
-   */
-  public static override label = `consoleBuffer`
-
-  /**
    * Received messages
    * @public
    */

@@ -15,13 +15,6 @@ import type {
  */
 export class Compiler extends Service implements Contract.Service {
   /**
-   * Service label
-   *
-   * @public
-   */
-  public static override label = `compiler`
-
-  /**
    * Compiler implementation
    *
    * @public

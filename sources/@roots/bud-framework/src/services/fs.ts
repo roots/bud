@@ -1,6 +1,6 @@
 import {join} from 'node:path'
 
-import FS, {json, S3, yml} from '@roots/bud-support/filesystem'
+import FileSystem, {json, S3, yml} from '@roots/bud-support/filesystem'
 import globby from '@roots/bud-support/globby'
 import {isUndefined} from '@roots/bud-support/lodash-es'
 
@@ -11,14 +11,7 @@ import type {Bud} from '../bud.js'
  *
  * @public
  */
-export default class Service extends FS {
-  /**
-   * Service label
-   *
-   * @public
-   */
-  public static label = `fs`
-
+export default class FS extends FileSystem {
   /**
    * Access {@link Bud}
    *
@@ -135,7 +128,7 @@ export default class Service extends FS {
     destination?: string
     files?: string
     keep?: number | false
-  }): Service {
+  }): this {
     const {source, files, keep, destination} = {
       source: isUndefined(options?.source)
         ? this.app.path(`@dist`)

@@ -9,13 +9,6 @@ import {bind} from '@roots/bud-support/decorators'
  */
 export default class Env extends ServiceContainer {
   /**
-   * Service label
-   *
-   * @public
-   */
-  public static override label = `env`
-
-  /**
    * Bootstrap event callback
    *
    * @public

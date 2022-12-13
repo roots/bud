@@ -15,13 +15,6 @@ export class Dashboard
   implements Services.Dashboard.Service
 {
   /**
-   * Service label
-   *
-   * @public
-   */
-  public static override label = `dashboard`
-
-  /**
    * Ink instance
    * @public
    */
