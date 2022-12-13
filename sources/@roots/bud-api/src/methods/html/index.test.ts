@@ -10,6 +10,7 @@ describe(`bud.html`, () => {
   let interpolatePlugin
 
   beforeEach(async () => {
+    vi.clearAllMocks()
     bud = await factory()
     htmlPlugin = bud.extensions.get(
       `@roots/bud-extensions/html-webpack-plugin`,
@@ -62,13 +63,13 @@ describe(`bud.html`, () => {
 
   it(`should skip interpolate-html-plugin if no replacements`, async () => {
     const setOptionsSpy = vi.spyOn(htmlPlugin, `setOptions`)
-    const interpolateEnableSpy = vi.spyOn(interpolatePlugin, `enable`)
+    const interpolateEnableSpy = vi.spyOn(interpolatePlugin, `setOptions`)
 
     html()
     expect(setOptionsSpy).toHaveBeenCalledWith({
       template: expect.any(String),
     })
-    expect(interpolatePlugin).not.toHaveBeenCalled()
+    expect(interpolateEnableSpy).not.toHaveBeenCalled()
   })
 
   it(`should pass options to html-webpack-plugin extension`, async () => {

@@ -1,5 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
-import {isUndefined, omit} from '@roots/bud-support/lodash-es'
+import {isObject, isUndefined, omit} from '@roots/bud-support/lodash-es'
 import type {Options as HtmlOptions} from 'html-webpack-plugin'
 import {dirname, resolve} from 'path'
 import {fileURLToPath} from 'url'
@@ -49,31 +49,25 @@ export const html: html = async function (
 
   if (options === false) return this
 
-  options =
-    isUndefined(options) || options === true
-      ? {
-          template: resolve(
-            dirname(fileURLToPath(import.meta.url)),
-            `..`,
-            `..`,
-            `..`,
-            `vendor`,
-            `template.html`,
-          ),
-        }
-      : options
-
-  const htmlOptions = omit(options, `replace`)
-  const interpolateOptions = options.replace
-
   this.extensions
     .get(`@roots/bud-extensions/html-webpack-plugin`)
-    .setOptions({...htmlOptions})
+    .setOptions({
+      template: resolve(
+        dirname(fileURLToPath(import.meta.url)),
+        `..`,
+        `..`,
+        `..`,
+        `vendor`,
+        `template.html`,
+      ),
+      ...omit(isObject(options) ? options : {} ?? {}, `replace`),
+    })
 
-  interpolateOptions &&
+  if (isObject(options) && !isUndefined(options.replace)) {
     this.extensions
       .get(`@roots/bud-extensions/interpolate-html-webpack-plugin`)
-      .setOptions({...interpolateOptions})
+      .setOptions(options.replace)
+  }
 
   return this
 }
