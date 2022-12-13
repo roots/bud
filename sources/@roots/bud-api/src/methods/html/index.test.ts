@@ -60,10 +60,15 @@ describe(`bud.html`, () => {
     expect(interpolateEnableSpy).toHaveBeenCalledWith(true)
   })
 
-  it(`should pass public env values to interpolate-html-plugin`, async () => {
-    const setOptionsSpy = vi.spyOn(interpolatePlugin, `setOptions`)
+  it(`should skip interpolate-html-plugin if no replacements`, async () => {
+    const setOptionsSpy = vi.spyOn(htmlPlugin, `setOptions`)
+    const interpolateEnableSpy = vi.spyOn(interpolatePlugin, `enable`)
+
     html()
-    expect(setOptionsSpy).toHaveBeenCalledWith(expect.any(Function))
+    expect(setOptionsSpy).toHaveBeenCalledWith({
+      template: expect.any(String),
+    })
+    expect(interpolatePlugin).not.toHaveBeenCalled()
   })
 
   it(`should pass options to html-webpack-plugin extension`, async () => {
@@ -74,9 +79,7 @@ describe(`bud.html`, () => {
     )
 
     html({template: `test`, replace: {foo: `bar`}})
-    expect(setOptionsSpy).toHaveBeenCalledWith(expect.any(Function))
-    expect(interpolateSetOptionsSpy).toHaveBeenCalledWith(
-      expect.any(Function),
-    )
+    expect(setOptionsSpy).toHaveBeenCalledWith({template: `test`})
+    expect(interpolateSetOptionsSpy).toHaveBeenCalledWith({foo: `bar`})
   })
 })

@@ -49,35 +49,31 @@ export const html: html = async function (
 
   if (options === false) return this
 
-  options = isUndefined(options) || options === true ? {} : options
+  options =
+    isUndefined(options) || options === true
+      ? {
+          template: resolve(
+            dirname(fileURLToPath(import.meta.url)),
+            `..`,
+            `..`,
+            `..`,
+            `vendor`,
+            `template.html`,
+          ),
+        }
+      : options
 
-  const htmlOptions = omit(options, `replace`) ?? {}
-  const interpolateOptions = options?.replace ?? {}
+  const htmlOptions = omit(options, `replace`)
+  const interpolateOptions = options.replace
 
   this.extensions
     .get(`@roots/bud-extensions/html-webpack-plugin`)
-    .setOptions((options = {}) => ({
-      ...options,
-      template: options?.template ?? getFallbackTemplate(),
-      ...htmlOptions,
-    }))
+    .setOptions({...htmlOptions})
 
-  this.extensions
-    .get(`@roots/bud-extensions/interpolate-html-webpack-plugin`)
-    .setOptions((options = {}) => ({
-      ...options,
-      ...interpolateOptions,
-    }))
+  interpolateOptions &&
+    this.extensions
+      .get(`@roots/bud-extensions/interpolate-html-webpack-plugin`)
+      .setOptions({...interpolateOptions})
 
   return this
 }
-
-export const getFallbackTemplate = () =>
-  resolve(
-    dirname(fileURLToPath(import.meta.url)),
-    `..`,
-    `..`,
-    `..`,
-    `vendor`,
-    `template.html`,
-  )

@@ -83,7 +83,11 @@ export class Compiler extends Service implements Contract.Service {
       )
     }
 
-    await this.app.hooks.fire(`compiler.before`)
+    try {
+      await this.app.hooks.fire(`compiler.before`)
+    } catch (error) {
+      throw error
+    }
 
     if (this.app.context.args.dry) {
       this.logger.log(`running in dry mode. exiting early.`)

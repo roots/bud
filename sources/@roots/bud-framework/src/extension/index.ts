@@ -459,9 +459,7 @@ export class Extension<
       | ExtensionOptions
       | ((options: ExtensionOptions) => ExtensionOptions),
   ): this {
-    this.optionsMap = isFunction(value)
-      ? value(this.options ?? ({} as ExtensionOptions))
-      : value
+    this.optionsMap = isFunction(value) ? value(this.options) : value
 
     return this
   }
