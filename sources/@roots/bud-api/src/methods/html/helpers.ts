@@ -30,7 +30,7 @@ export const getHtmlPluginOptions = (
     ? defaultHtmlPluginOptions.template
     : bud.path(options.template)
 
-  return {...omit(options, `replace`), template}
+  return {template, ...omit(options, `replace`, `template`)}
 }
 
 export const getInterpolatePluginOptions = (

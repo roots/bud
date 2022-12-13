@@ -20,6 +20,10 @@ describe(`bud.html`, () => {
   beforeEach(async () => {
     vi.clearAllMocks()
 
+    // @ts-ignore
+    const _ = await import('@roots/bud-support/lodash-es')
+    lodashesOmitSpy = vi.spyOn(_, `omit`)
+
     bud = await factory()
     budPathSpy = vi.spyOn(bud, `path`)
     htmlPlugin = bud.extensions.get(
@@ -33,10 +37,6 @@ describe(`bud.html`, () => {
 
     interpolateEnableSpy = vi.spyOn(interpolatePlugin, `enable`)
     interpolateSetOptionsSpy = vi.spyOn(interpolatePlugin, `setOptions`)
-
-    // @ts-ignore
-    const _ = await import('@roots/bud-support/lodash-es')
-    lodashesOmitSpy = vi.spyOn(_, `omit`)
 
     html = source.html.bind(bud)
   })
@@ -122,9 +122,10 @@ describe(`bud.html`, () => {
       foo: `bar`,
     })
     expect(htmlEnableSpy).toHaveBeenCalledWith(true)
+    expect(budPathSpy).toHaveBeenCalledWith(`test`)
     expect(htmlSetOptionsSpy).toHaveBeenCalledWith(
       expect.objectContaining({
-        template: expect.stringMatching(/\/.*\/test$/),
+        template: expect.stringMatching(/\/test$/),
       }),
     )
   })
@@ -175,6 +176,7 @@ describe(`bud.html`, () => {
         replace: {foo: `bar`},
       }),
       `replace`,
+      `template`,
     )
     expect(returned).toEqual(
       expect.objectContaining({
