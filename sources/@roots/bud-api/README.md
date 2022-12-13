@@ -40,6 +40,10 @@ For full documentation refer to [bud.js.org/docs](https://bud.js.org/docs).
 
 If no entrypoint is provided **bud.js** will attempt to compile **src/index.js** to **dist/main.js**.
 
+### bud.html
+
+**bud.html** is used to configure your application's HTML wrapper.
+
 ### bud.provide
 
 **bud.provide** makes a variable or module available throughout the entire application

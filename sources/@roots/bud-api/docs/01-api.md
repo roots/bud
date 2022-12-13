@@ -2,6 +2,7 @@
 title: API
 parts:
   - entry/overview.md
+  - html/overview.md
   - provide/overview.md
   - proxy/overview.md
   - serve/overview.md

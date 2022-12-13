@@ -7,6 +7,8 @@ import {
 } from '@roots/bud-framework/extension/decorators'
 import type Plugin from 'html-webpack-plugin'
 
+export type Options = Plugin.Options
+
 /**
  * `@roots/bud-extensions/html-webpack-plugin` adapter
  *
@@ -15,7 +17,7 @@ import type Plugin from 'html-webpack-plugin'
  * @decorator `@plugin`
  */
 @label(`@roots/bud-extensions/html-webpack-plugin`)
-@options<Plugin.Options>({
+@options<Options>({
   filename: `index.html`,
   inject: true,
   template: `auto`,
@@ -23,7 +25,7 @@ import type Plugin from 'html-webpack-plugin'
 })
 @disabled
 export default class BudHtmlWebpackPlugin extends Extension<
-  Plugin.Options,
+  Options,
   Plugin
 > {
   /**
@@ -34,7 +36,7 @@ export default class BudHtmlWebpackPlugin extends Extension<
    *
    * @public
    */
-  public override async make(_bud: Bud, options: Plugin.Options) {
+  public override async make(_bud: Bud, options: Options) {
     const HTMLWebpackPlugin = await import(`html-webpack-plugin`).then(
       m => m.default,
     )

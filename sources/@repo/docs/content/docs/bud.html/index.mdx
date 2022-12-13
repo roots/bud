@@ -1,55 +1,14 @@
 ---
 title: bud.html
-description: Configure your application's html templates.
+description: Configure your application's html wrapper
+custom_edit_url: 'https://github.com/roots/bud/tree/main/sources/@roots/bud-api/docs/html'
 ---
 
-Configure your application's html wrapper
+import Overview from '@site/../../@roots/bud-api/docs/html/overview.md'
+import Usage from '@site/../../@roots/bud-api/docs/html/usage.md'
+
+<Overview />
 
 ## Usage
 
-This method can be called without passing any options.
-
-```typescript title='bud.config.mjs'
-export default async bud => {
-  bud.html()
-}
-```
-
-The default template will source a couple variables from `.env`, you'll probably want to make sure they are set.
-
-```env title='.env'
-PUBLIC_APP_TITLE='My App'
-PUBLIC_APP_DESCRIPTION='My App Description'
-```
-
-## Using a custom template
-
-```typescript title='bud.config.mjs'
-bud.html({
-  template: 'index.html',
-})
-```
-
-## Defining template vars
-
-Add template variables using `replace`.
-
-```typescript {2-6} title='bud.config.js'
-export default async bud => {
-  bud.html({
-    replace: {
-      APP_NAME: name,
-      APP_DESCRIPTION: description,
-      PUBLIC_URL: '/app/theme',
-    },
-  })
-}
-```
-
-You may use any of these variables in the template by surrounding the variable name with `%` characters.
-
-```html title='public/index.html'
-<html>
-  <title>%APP_NAME%</title>
-</html>
-```
+<Usage />

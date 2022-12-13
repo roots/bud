@@ -1,25 +1,44 @@
 import {Bud, factory} from '@repo/test-kit/bud'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import {html as func} from './index.js'
+import * as source from './index.js'
+import * as helpers from './helpers.js'
 
 describe(`bud.html`, () => {
-  let bud: Bud
-  let html: func
+  let bud
+  let budPathSpy
+  let html
   let htmlPlugin
   let interpolatePlugin
+  let htmlEnableSpy
+  let htmlSetOptionsSpy
+  let interpolateEnableSpy
+  let interpolateSetOptionsSpy
+
+  let lodashesOmitSpy
 
   beforeEach(async () => {
     vi.clearAllMocks()
+
     bud = await factory()
+    budPathSpy = vi.spyOn(bud, `path`)
     htmlPlugin = bud.extensions.get(
       `@roots/bud-extensions/html-webpack-plugin`,
     )
     interpolatePlugin = bud.extensions.get(
       `@roots/bud-extensions/interpolate-html-webpack-plugin`,
     )
+    htmlEnableSpy = vi.spyOn(htmlPlugin, `enable`)
+    htmlSetOptionsSpy = vi.spyOn(htmlPlugin, `setOptions`)
 
-    html = func.bind(bud)
+    interpolateEnableSpy = vi.spyOn(interpolatePlugin, `enable`)
+    interpolateSetOptionsSpy = vi.spyOn(interpolatePlugin, `setOptions`)
+
+    // @ts-ignore
+    const _ = await import('@roots/bud-support/lodash-es')
+    lodashesOmitSpy = vi.spyOn(_, `omit`)
+
+    html = source.html.bind(bud)
   })
 
   it.each([false, true, undefined, {}])(
@@ -30,57 +49,174 @@ describe(`bud.html`, () => {
   )
 
   it(`should disable extension when called with \`false\``, async () => {
-    const htmlEnableSpy = vi.spyOn(htmlPlugin, `enable`)
-    const interpolateEnableSpy = vi.spyOn(interpolatePlugin, `enable`)
-    html(false)
+    const returned = await html(false)
+
     expect(htmlEnableSpy).toHaveBeenCalledWith(false)
+    expect(htmlSetOptionsSpy).toHaveBeenCalledWith(
+      helpers.defaultHtmlPluginOptions,
+    )
     expect(interpolateEnableSpy).toHaveBeenCalledWith(false)
+    expect(interpolateSetOptionsSpy).toHaveBeenCalledWith({
+      APP_DESCRIPTION: `test app description`,
+      APP_TITLE: `bud.js test app`,
+    })
+
+    expect(returned).toBe(bud)
   })
 
   it(`should enable extension when called with \`true\``, async () => {
-    const htmlEnableSpy = vi.spyOn(htmlPlugin, `enable`)
-    const interpolateEnableSpy = vi.spyOn(interpolatePlugin, `enable`)
-    html(true)
+    const returned = await html(true)
+
     expect(htmlEnableSpy).toHaveBeenCalledWith(true)
+    expect(htmlSetOptionsSpy).toHaveBeenCalledWith(
+      helpers.defaultHtmlPluginOptions,
+    )
     expect(interpolateEnableSpy).toHaveBeenCalledWith(true)
+    expect(interpolateSetOptionsSpy).toHaveBeenCalledWith({
+      APP_DESCRIPTION: `test app description`,
+      APP_TITLE: `bud.js test app`,
+    })
+
+    expect(returned).toBe(bud)
   })
 
   it(`should enable extension when called with \`undefined\``, async () => {
-    const htmlEnableSpy = vi.spyOn(htmlPlugin, `enable`)
-    const interpolateEnableSpy = vi.spyOn(interpolatePlugin, `enable`)
-    html()
+    const returned = await html()
+
     expect(htmlEnableSpy).toHaveBeenCalledWith(true)
+    expect(htmlSetOptionsSpy).toHaveBeenCalledWith(
+      helpers.defaultHtmlPluginOptions,
+    )
     expect(interpolateEnableSpy).toHaveBeenCalledWith(true)
+    expect(interpolateSetOptionsSpy).toHaveBeenCalledWith({
+      APP_DESCRIPTION: `test app description`,
+      APP_TITLE: `bud.js test app`,
+    })
+
+    expect(returned).toBe(bud)
   })
 
   it(`should enable extension when called with \`object\``, async () => {
-    const htmlEnableSpy = vi.spyOn(htmlPlugin, `enable`)
-    const interpolateEnableSpy = vi.spyOn(interpolatePlugin, `enable`)
-    html({})
+    const returned = await html({})
+
     expect(htmlEnableSpy).toHaveBeenCalledWith(true)
+    expect(htmlSetOptionsSpy).toHaveBeenCalledWith(
+      helpers.defaultHtmlPluginOptions,
+    )
     expect(interpolateEnableSpy).toHaveBeenCalledWith(true)
-  })
-
-  it(`should skip interpolate-html-plugin if no replacements`, async () => {
-    const setOptionsSpy = vi.spyOn(htmlPlugin, `setOptions`)
-    const interpolateEnableSpy = vi.spyOn(interpolatePlugin, `setOptions`)
-
-    html()
-    expect(setOptionsSpy).toHaveBeenCalledWith({
-      template: expect.any(String),
+    expect(interpolateSetOptionsSpy).toHaveBeenCalledWith({
+      APP_DESCRIPTION: `test app description`,
+      APP_TITLE: `bud.js test app`,
     })
-    expect(interpolateEnableSpy).not.toHaveBeenCalled()
+
+    expect(returned).toBe(bud)
   })
 
   it(`should pass options to html-webpack-plugin extension`, async () => {
-    const setOptionsSpy = vi.spyOn(htmlPlugin, `setOptions`)
-    const interpolateSetOptionsSpy = vi.spyOn(
-      interpolatePlugin,
-      `setOptions`,
-    )
+    await html({template: `test`, replace: {foo: `bar`}})
 
-    html({template: `test`, replace: {foo: `bar`}})
-    expect(setOptionsSpy).toHaveBeenCalledWith({template: `test`})
-    expect(interpolateSetOptionsSpy).toHaveBeenCalledWith({foo: `bar`})
+    expect(interpolateEnableSpy).toHaveBeenCalledWith(true)
+    expect(interpolateSetOptionsSpy).toHaveBeenCalledWith({
+      APP_DESCRIPTION: `test app description`,
+      APP_TITLE: `bud.js test app`,
+      foo: `bar`,
+    })
+    expect(htmlEnableSpy).toHaveBeenCalledWith(true)
+    expect(htmlSetOptionsSpy).toHaveBeenCalledWith(
+      expect.objectContaining({
+        template: expect.stringMatching(/\/.*\/test$/),
+      }),
+    )
+  })
+
+  it(`should leave absolute paths alone when passed as options.template`, async () => {
+    await html({template: `/test`, replace: {foo: `bar`}})
+
+    expect(interpolateSetOptionsSpy).toHaveBeenCalledWith({
+      APP_DESCRIPTION: `test app description`,
+      APP_TITLE: `bud.js test app`,
+      foo: `bar`,
+    })
+    expect(htmlSetOptionsSpy).toHaveBeenCalledWith(
+      expect.objectContaining({
+        template: `/test`,
+      }),
+    )
+  })
+
+  it(`getHtmlPluginOptions returns normalized options with \`template\` when it is not included`, async () => {
+    const returned = helpers.getHtmlPluginOptions(bud, {foo: `bar`})
+
+    expect(budPathSpy).not.toHaveBeenCalled()
+    expect(returned).toEqual(
+      expect.objectContaining({
+        foo: `bar`,
+        template: helpers.defaultHtmlPluginOptions.template,
+      }),
+    )
+  })
+
+  it(`getHtmlPluginOptions handles undefined`, async () => {
+    const returned = helpers.getHtmlPluginOptions(bud, undefined)
+
+    expect(lodashesOmitSpy).not.toHaveBeenCalled()
+    expect(budPathSpy).not.toHaveBeenCalled()
+    expect(returned).toEqual(helpers.defaultHtmlPluginOptions)
+  })
+  it(`getHtmlPluginOptions handles object with replace key`, async () => {
+    const returned = helpers.getHtmlPluginOptions(bud, {
+      foo: `bar`,
+      replace: {foo: `bar`},
+    })
+    expect(budPathSpy).not.toHaveBeenCalled()
+    expect(lodashesOmitSpy).toHaveBeenCalledWith(
+      expect.objectContaining({
+        foo: `bar`,
+        replace: {foo: `bar`},
+      }),
+      `replace`,
+    )
+    expect(returned).toEqual(
+      expect.objectContaining({
+        foo: `bar`,
+        template: helpers.defaultHtmlPluginOptions.template,
+      }),
+    )
+  })
+
+  it(`getHtmlPluginOptions returns defaults when passed a boolean`, async () => {
+    const returned = helpers.getHtmlPluginOptions(bud, true)
+
+    expect(budPathSpy).not.toHaveBeenCalled()
+    expect(returned).toEqual(helpers.defaultHtmlPluginOptions)
+  })
+
+  it(`getHtmlPluginOptions returns absolutized path from options.template`, async () => {
+    helpers.getHtmlPluginOptions(bud, {template: `foo`})
+    expect(budPathSpy).toHaveBeenCalledWith(`foo`)
+  })
+
+  it.each([true, false, undefined, {}])(
+    `getInterpolatePluginOptions calls bud env`,
+    async value => {
+      const envSpy = vi.spyOn(bud.env, `getPublicEnv`)
+      helpers.getInterpolatePluginOptions(bud, value)
+      expect(envSpy).toHaveBeenCalledOnce()
+    },
+  )
+
+  it(`appends options.replace values to publicEnv`, async () => {
+    const envSpy = vi.spyOn(bud.env, `getPublicEnv`)
+    const result = helpers.getInterpolatePluginOptions(bud, {
+      replace: {foo: `bar`},
+    })
+    expect(envSpy).toHaveBeenCalledOnce()
+    expect(result).toEqual(
+      expect.objectContaining({
+        foo: `bar`,
+        APP_DESCRIPTION: `test app description`,
+        APP_TITLE: `bud.js test app`,
+      }),
+    )
   })
 })
