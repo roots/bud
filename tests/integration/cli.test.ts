@@ -15,7 +15,7 @@ const tmpProjectDir = join(
   `cli`,
 )
 
-describe(`cli`, () => {
+describe.skip(`cli`, () => {
   beforeEach(async () => {
     try {
       await fs.remove(tmpProjectDir)
