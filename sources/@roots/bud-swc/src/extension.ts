@@ -111,13 +111,7 @@ export default class BudSWC extends Extension<Options> {
       ...(options?.jsc ?? {}),
       experimental: {
         ...(options?.jsc?.experimental ?? {}),
-        cacheRoot: bud.path(
-          `@storage`,
-          bud.label,
-          `cache`,
-          bud.mode,
-          `swc`,
-        ),
+        cacheRoot: bud.path(bud.cache.cacheDirectory, `swc`),
       },
     })
 

@@ -19,14 +19,15 @@ interface SyncRegistry
 
 type SyncCallback = {
   [K in keyof SyncRegistry]?:
-    | ((current?: SyncRegistry[K]) => SyncRegistry[K])
+    | ((current?: SyncRegistry[K] | undefined) => SyncRegistry[K])
     | SyncRegistry[K]
 }
 
 type SyncStore = {
   [K in keyof SyncRegistry as `${K & string}`]?: Array<
     Value<
-      ((current?: SyncRegistry[K]) => SyncRegistry[K]) | SyncRegistry[K]
+      | ((current?: SyncRegistry[K] | undefined) => SyncRegistry[K])
+      | SyncRegistry[K]
     >
   >
 }
@@ -41,7 +42,7 @@ type AsyncRegistry = {
 type AsyncCallback = {
   [K in keyof Build.AsyncRegistry as `${K & string}`]?:
     | ((
-        current?: Build.AsyncRegistry[K],
+        current?: Build.AsyncRegistry[K] | undefined,
       ) => Promise<Build.AsyncRegistry[K]>)
     | Build.AsyncRegistry[K]
 }
@@ -49,7 +50,9 @@ type AsyncCallback = {
 type AsyncStore = {
   [K in keyof AsyncRegistry as `${K & string}`]?: Array<
     Value<
-      | ((current?: AsyncRegistry[K]) => Promise<AsyncRegistry[K]>)
+      | ((
+          current?: AsyncRegistry[K] | undefined,
+        ) => Promise<AsyncRegistry[K]>)
       | AsyncRegistry[K]
     >
   >
