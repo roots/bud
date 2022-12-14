@@ -29,11 +29,13 @@ describe(`bud.alias`, () => {
     await alias({'@foo': bud.path(`@src`, `foo`)})
 
     expect(asyncSpy).toHaveBeenCalledWith(`build.resolve.alias`, {
+      '@src': bud.path(`@src`),
       '@foo': bud.path(`@src`, `foo`),
     })
 
     const value = await bud.hooks.filterAsync(`build.resolve.alias`)
     expect(value).toEqual({
+      '@src': bud.path(`@src`),
       '@foo': bud.path(`@src`, `foo`),
     })
   })
@@ -52,6 +54,7 @@ describe(`bud.alias`, () => {
     const value = await bud.hooks.filterAsync(`build.resolve.alias`)
 
     expect(value).toEqual({
+      '@src': bud.path(`@src`),
       '@foo': bud.path(`@src/foo`),
     })
   })

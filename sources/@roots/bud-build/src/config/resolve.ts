@@ -16,7 +16,6 @@ export const resolve: Factory<`resolve`> = async bud => {
 const getAlias = async (bud: Bud) =>
   await bud.hooks.filterAsync(`build.resolve.alias`, {
     '@src': bud.path(`@src`),
-    '@dist': bud.path(`@dist`),
   })
 
 const getExtensions = (bud: Bud) =>
