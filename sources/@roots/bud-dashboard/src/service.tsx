@@ -2,8 +2,10 @@
 import {Service} from '@roots/bud-framework/service'
 import type * as Services from '@roots/bud-framework/services'
 import {bind} from '@roots/bud-support/decorators'
+import React from '@roots/bud-support/react'
 import type {StatsCompilation} from '@roots/bud-support/webpack'
 
+import {Log} from './dashboard/consoleBuffer/log.js'
 import {Renderer} from './renderer.js'
 
 /**
@@ -41,7 +43,12 @@ export class Dashboard
    */
   @bind
   public async stats(statsCompilation: StatsCompilation): Promise<this> {
-    if (!statsCompilation) return this
+    if (!statsCompilation) {
+      if (this.app.context.args?.log !== false)
+        Renderer.render(<Log messages={this.app.consoleBuffer.messages} />)
+
+      return this
+    }
 
     if (this.hashIsStale(statsCompilation.hash)) return this
     this.lastHash = statsCompilation.hash

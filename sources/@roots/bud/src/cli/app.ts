@@ -1,18 +1,19 @@
-import BuildCommand from '@roots/bud/cli/commands/build.base'
-import BuildDevelopmentCommand from '@roots/bud/cli/commands/build.development'
-import BuildProductionCommand from '@roots/bud/cli/commands/build.production'
-import CleanCommand from '@roots/bud/cli/commands/clean'
-import DoctorCommand from '@roots/bud/cli/commands/doctor'
-import ReplCommand from '@roots/bud/cli/commands/repl'
-import UpgradeCommand from '@roots/bud/cli/commands/upgrade'
-import ViewCommand from '@roots/bud/cli/commands/view'
-import WebpackCommand from '@roots/bud/cli/commands/webpack'
+import BudCommand from '@roots/bud/cli/commands/bud'
+import BudBuildCommand from '@roots/bud/cli/commands/bud.build'
+import BudBuildDevelopmentCommand from '@roots/bud/cli/commands/bud.build.development'
+import BudBuildProductionCommand from '@roots/bud/cli/commands/bud.build.production'
+import BudCleanCommand from '@roots/bud/cli/commands/bud.clean'
+import BudDoctorCommand from '@roots/bud/cli/commands/bud.doctor'
+import BudReplCommand from '@roots/bud/cli/commands/bud.repl'
+import BudUpgradeCommand from '@roots/bud/cli/commands/bud.upgrade'
+import BudViewCommand from '@roots/bud/cli/commands/bud.view'
+import BudWebpackCommand from '@roots/bud/cli/commands/bud.webpack'
 import {Commands} from '@roots/bud/cli/finder'
 import getContext from '@roots/bud/context'
 import {argv, basedir} from '@roots/bud/context/argv'
 import {Builtins, Cli, CommandClass} from '@roots/bud-support/clipanion'
 
-const context = await getContext(basedir)
+const context = await getContext(basedir, true)
 
 const application = new Cli({
   binaryLabel: `bud`,
@@ -25,15 +26,16 @@ application.register(Builtins.HelpCommand)
 application.register(Builtins.DefinitionsCommand)
 application.register(Builtins.VersionCommand)
 
-application.register(BuildCommand)
-application.register(BuildDevelopmentCommand)
-application.register(BuildProductionCommand)
-application.register(CleanCommand)
-application.register(DoctorCommand)
-application.register(ReplCommand)
-application.register(UpgradeCommand)
-application.register(ViewCommand)
-application.register(WebpackCommand)
+application.register(BudCommand)
+application.register(BudBuildCommand)
+application.register(BudBuildDevelopmentCommand)
+application.register(BudBuildProductionCommand)
+application.register(BudCleanCommand)
+application.register(BudDoctorCommand)
+application.register(BudReplCommand)
+application.register(BudUpgradeCommand)
+application.register(BudViewCommand)
+application.register(BudWebpackCommand)
 
 await Commands.get(application, context)
   .getCommands()
@@ -48,6 +50,7 @@ application.runExit(argv, {
   stdin: process.stdin,
   stdout: process.stdout,
   stderr: process.stderr,
+  colorDepth: 256,
 })
 
 export {application, Builtins, Cli, CommandClass}

@@ -1,15 +1,17 @@
 import {paths} from '@repo/constants'
-import {join} from 'path'
+import {join} from 'node:path'
 import {beforeAll, describe, expect, it} from 'vitest'
+import {Context} from '@roots/bud-framework/options'
 
 import getContext from './index.js'
 
 describe(`context.get`, () => {
-  let context
+  let context: Context
 
   beforeAll(async () => {
     context = await getContext(
       join(paths.root, `tests`, `util`, `project`),
+      true,
     )
   })
 
@@ -19,7 +21,7 @@ describe(`context.get`, () => {
 
   it(`should match expectations`, async () => {
     expect(context.args).toMatchSnapshot({
-      basedir: null,
+      basedir: process.cwd(),
       browser: undefined,
       cache: undefined,
       ci: undefined,
@@ -101,7 +103,7 @@ describe(`context.get`, () => {
         'bud.config.mjs': expect.any(Object),
         'docker-compose.yml': expect.any(Object),
         'package.json': expect.any(Object),
-        'tailwind.config.js': expect.any(Object),
+        'tailwind.config.cjs': expect.any(Object),
         'tsconfig.json': expect.any(Object),
       }),
     )

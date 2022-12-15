@@ -11,7 +11,7 @@ import {
  */
 let instances: Record<string, Bud> = {}
 
-const get = (key?: string): Bud => {
+const get = (key: string = process.cwd()): Bud => {
   if (has(key)) {
     return _get(instances, key)
   }

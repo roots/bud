@@ -5,7 +5,7 @@ import React from '@roots/bud-support/react'
 import type {StatsCompilation} from '@roots/bud-support/webpack'
 
 import Compilation from './compilation/compilation.component.js'
-import ConsoleBuffer from './consoleBuffer/index.js'
+import {Log} from './consoleBuffer/log.js'
 import {Server} from './server/index.js'
 
 interface Props {
@@ -36,28 +36,14 @@ const App = ({
 }: Props) => {
   return (
     <Box flexDirection="column">
-      {messages && (
-        <Box flexDirection="column" paddingTop={1}>
-          {messages.stderr && (
-            <ConsoleBuffer
-              label="stderr"
-              color="red"
-              messages={messages.stderr}
-            />
-          )}
-
-          {messages.stdout && (
-            <ConsoleBuffer
-              label="stdout"
-              color="green"
-              messages={messages.stdout}
-            />
-          )}
-        </Box>
-      )}
+      <Log messages={messages} />
 
       {compilations.map((compilation, id) => (
-        <Box key={id} flexDirection="column" paddingBottom={1}>
+        <Box
+          key={id}
+          flexDirection="column"
+          paddingBottom={compilations?.length > 1 ? 1 : 0}
+        >
           <Compilation
             id={id}
             mode={mode}

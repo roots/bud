@@ -12,15 +12,14 @@
 
 import './types.js'
 
-import {Bud, Service, ServiceContainer} from '@roots/bud/bud'
+import makeContext from '@roots/bud/context'
 import {factory} from '@roots/bud/factory'
 import {get, has, instances, set} from '@roots/bud/instances'
 
-export {Bud}
-export {factory}
-export {get, set, has, instances}
+import {Bud, Service, ServiceContainer} from './bud/bud.js'
 
-export {Service, ServiceContainer}
+export {factory, makeContext}
+export {get, set, has, instances}
 
 export type {
   Locations,
@@ -30,4 +29,5 @@ export type {
   Loaders,
 } from '@roots/bud-framework'
 
-export default Bud
+export {Bud}
+export {Service, ServiceContainer}

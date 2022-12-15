@@ -4,7 +4,6 @@ import type {Bud} from '../bud.js'
 import {Logger} from '../logger/index.js'
 import * as methods from '../methods/index.js'
 import {Module} from '../module.js'
-import * as Process from '../process.js'
 import type {Service} from '../service.js'
 import FS from '../services/fs.js'
 import type * as Options from '../types/options/index.js'
@@ -112,12 +111,14 @@ const instantiateServices =
     app.services.push(label)
   }
 
-const initializeCoreUtilities = (app: Bud) => {
-  app.logger = new Logger(() => app)
-  app.fs = new FS(() => app)
+const initializeCoreUtilities = (bud: Bud) => {
+  bud.logger = new Logger(() => bud)
+  bud.fs = new FS(() => bud)
   Object.entries(methods).map(([fn, method]) => {
-    app[fn] = method.bind(app)
+    bud[fn] = method.bind(bud)
   })
+
+  bud.logger.instance.time(`initialize`)
 }
 
 /**
@@ -142,7 +143,6 @@ export const bootstrap = async function (
   if (this.isRoot) {
     // eslint-disable-next-line n/no-process-env
     process.env.NODE_ENV = context.mode
-    Process.initialize(this)
   }
 
   /* initialize module class */

@@ -1,5 +1,7 @@
+import * as argv from './argv.js'
+
 export default {
-  basedir: null,
+  basedir: argv.basedir,
   browser: undefined,
   cache: undefined,
   ci: undefined,

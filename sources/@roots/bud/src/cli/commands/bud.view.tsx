@@ -1,3 +1,5 @@
+import type {Bud} from '@roots/bud'
+import BudCommand from '@roots/bud/cli/commands/bud'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {highlight} from '@roots/bud-support/highlight'
 import {Box, Static, Text} from '@roots/bud-support/ink'
@@ -5,14 +7,12 @@ import {get} from '@roots/bud-support/lodash-es'
 import format from '@roots/bud-support/pretty-format'
 import React, {Fragment} from '@roots/bud-support/react'
 
-import BaseCommand from './base.js'
-
 /**
  * `bud view` command
  *
  * @public
  */
-export default class ViewCommand extends BaseCommand {
+export default class BudViewCommand extends BudCommand {
   /**
    * Command paths
    * @public
@@ -47,10 +47,10 @@ export default class ViewCommand extends BaseCommand {
    *
    * @public
    */
-  public override async runCommand() {
-    await this.app.build.make()
+  public override async runCommand(bud: Bud) {
+    await bud.build.make()
 
-    let value = this.subject ? get(this.app, this.subject) : this.app
+    let value = this.subject ? get(bud, this.subject) : bud
     let indent = 0
 
     switch (this.indent) {
@@ -70,7 +70,7 @@ export default class ViewCommand extends BaseCommand {
         indent = parseInt(this.indent)
     }
 
-    value = format(this.subject ? get(this.app, this.subject) : this.app, {
+    value = format(this.subject ? get(bud, this.subject) : bud, {
       indent,
     })
 

@@ -2,7 +2,7 @@
 
 exports[`context.get > should match expectations 1`] = `
 {
-  "basedir": null,
+  "basedir": "/Users/kellymears/code/git/roots/bud",
   "browser": undefined,
   "cache": undefined,
   "ci": undefined,

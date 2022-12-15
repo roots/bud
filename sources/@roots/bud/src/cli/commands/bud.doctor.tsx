@@ -1,4 +1,5 @@
-import BuildCommand from '@roots/bud/cli/commands/build.base'
+import type {Bud} from '@roots/bud'
+import BudCommand from '@roots/bud/cli/commands/bud'
 import {checkDependencies} from '@roots/bud/cli/helpers/checkDependencies'
 import {checkNoPackageManager} from '@roots/bud/cli/helpers/checkPackageManagerErrors'
 import {detectPackageManager} from '@roots/bud/cli/helpers/detectPackageManager'
@@ -13,7 +14,7 @@ import webpack from '@roots/bud-support/webpack'
  *
  * @public
  */
-export default class DoctorCommand extends BuildCommand {
+export default class BudDoctorCommand extends BudCommand {
   /**
    * Command paths
    *
@@ -61,17 +62,15 @@ for a lot of edge cases so it might return a false positive.
    *
    * @public
    */
-  public override async runCommand() {
-    const hasNoPackageManager = isNoPackageManager(this.app)
+  public override async runCommand(bud: Bud) {
+    const hasNoPackageManager = isNoPackageManager(bud)
 
     if (hasNoPackageManager) {
-      checkNoPackageManager(this.app)
+      checkNoPackageManager(bud)
     } else {
       this.renderOnce(
         <Box>
-          <Text color="green">
-            ✅ using {detectPackageManager(this.app)}
-          </Text>
+          <Text color="green">✅ using {detectPackageManager(bud)}</Text>
         </Box>,
       )
     }
@@ -86,7 +85,7 @@ for a lot of edge cases so it might return a false positive.
         </Box>,
       )
     } else {
-      const errors = await checkDependencies(this.app)
+      const errors = await checkDependencies(bud)
       if (!errors) {
         this.renderOnce(
           <Box>
@@ -97,7 +96,7 @@ for a lot of edge cases so it might return a false positive.
     }
 
     try {
-      this.config = await this.app.build.make()
+      this.config = await bud.build.make()
       this.renderOnce(
         <Box>
           <Text color="green">✅ bud.js generated configuration</Text>
@@ -130,14 +129,14 @@ for a lot of edge cases so it might return a false positive.
     this.renderOnce(
       <Box flexDirection="column">
         <Text color="blue">Registered configurations</Text>
-        {Object.values(this.app.context.config)
+        {Object.values(bud.context.config)
           .filter(({bud}) => bud)
           .map(({name, path}, i) => (
             <Box key={i}>
               <Text>- {name}</Text>
               <Text>{` `}</Text>
               <Text color="gray">
-                {path.replace(this.app.context.basedir, `.`)}
+                {path.replace(bud.context.basedir, `.`)}
               </Text>
             </Box>
           ))}

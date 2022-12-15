@@ -11,7 +11,7 @@ const ConsoleBuffer = ({
   messages: Array<string>
 }) => {
   return (
-    <>
+    <Box marginBottom={1}>
       {messages.map((message, id) => (
         <Box flexDirection="column" key={id}>
           <Text>
@@ -19,7 +19,7 @@ const ConsoleBuffer = ({
           </Text>
         </Box>
       ))}
-    </>
+    </Box>
   )
 }
 

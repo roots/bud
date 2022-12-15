@@ -67,7 +67,7 @@ export default class Cache
       createHash(`sha1`)
         .update(
           this.app.fs.json.stringify([
-            Object.values(this.app.context.config)
+            Object.values(this.app.context.config ?? {})
               .filter(({bud}) => bud)
               .map(({module}) => module.toString()),
             Object.entries(this.app.context.args),

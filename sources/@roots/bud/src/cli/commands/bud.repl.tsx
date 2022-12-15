@@ -7,31 +7,20 @@ import {chunk} from '@roots/bud-support/lodash-es'
 import format from '@roots/bud-support/pretty-format'
 import React from '@roots/bud-support/react'
 
-import BaseCommand from './base.js'
+import BudCommand from './bud.js'
 
 /**
  * `bud repl` command
  *
  * @public
  */
-export default class ReplCommand extends BaseCommand {
-  /**
-   * Command paths
-   *
-   * @public
-   */
+export default class ReplCommand extends BudCommand {
+  public override dry = true
   public static override paths = [[`repl`]]
-
-  /**
-   * Command usage
-   * @public
-   */
   public static override usage = Command.Usage({
     description: `Use bud in a repl`,
     examples: [[`repl`, `$0 repl`]],
   })
-
-  public override dry = true
 
   public color = Option.Boolean(`--color,-c`, true, {
     description: `use syntax highlighting`,
@@ -51,12 +40,15 @@ export default class ReplCommand extends BaseCommand {
    * Command execute
    * @public
    */
-  public override async runCommand() {
-    await this.app.build.make()
+  public override async runCommand(bud: Bud) {
+    await this.applyEnv(bud)
+    await this.applyManifestOptions(bud)
+    await this.applyArgs(bud)
+    await bud.processConfigs()
+    await this.applyArgs(bud)
+    await bud.run()
 
-    this.render(
-      <Repl app={this.app} indent={this.indent} depth={this.depth} />,
-    )
+    this.render(<Repl app={bud} indent={this.indent} depth={this.depth} />)
   }
 }
 

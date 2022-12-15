@@ -14,4 +14,5 @@ export default async bud =>
     .watch([bud.path(`@src`, `*.html`), bud.path(`@src`, `images`)])
     .serve(3015)
     .minimize(false)
+    .tap(bud => console.log(`foo!`))
     .esm.enable()

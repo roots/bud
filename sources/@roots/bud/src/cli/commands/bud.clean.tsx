@@ -1,12 +1,13 @@
+import type {Bud} from '@roots/bud'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators'
 import {ensureDir, remove} from '@roots/bud-support/fs'
 import {Box, Text} from '@roots/bud-support/ink'
 import React from '@roots/bud-support/react'
 
-import BuildCommand from './base.js'
+import BudCommand from './bud.js'
 
-export default class CleanCommand extends BuildCommand {
+export default class BudCleanCommand extends BudCommand {
   public static override paths = [[`clean`]]
 
   public static override usage = Command.Usage({
@@ -30,32 +31,39 @@ export default class CleanCommand extends BuildCommand {
     return {...this.context.args, dry: true}
   }
 
-  public storage = Option.Boolean(`@storage`, false, {
+  public shouldCleanStorage = Option.Boolean(`@storage`, false, {
     description: `empty @storage`,
   })
 
-  public dist = Option.Boolean(`@dist`, false, {
+  public shouldCleanDist = Option.Boolean(`@dist`, false, {
     description: `empty @dist`,
   })
 
   @bind
-  public override async runCommand() {
-    if (this.storage || (!this.storage && !this.dist)) {
-      await this.cleanStorage()
+  public override async runCommand(bud: Bud) {
+    if (
+      this.shouldCleanStorage ||
+      (!this.shouldCleanStorage && !this.shouldCleanDist)
+    ) {
+      await this.cleanStorage(bud)
     }
-    if (this.dist || (!this.storage && !this.dist)) {
-      await this.cleanDist()
+
+    if (
+      this.shouldCleanDist ||
+      (!this.shouldCleanDist && !this.shouldCleanDist)
+    ) {
+      await this.cleanDist(bud)
     }
   }
 
   @bind
-  public async cleanDist() {
+  public async cleanDist(bud: Bud) {
     try {
-      await remove(this.app.path(`@dist`))
+      await remove(bud.path(`@dist`))
 
       this.renderOnce(
         <Box>
-          <Text color="green">✔ emptied {this.app.path(`@dist`)}</Text>
+          <Text color="green">✔ emptied {bud.path(`@dist`)}</Text>
         </Box>,
       )
     } catch (err) {
@@ -64,15 +72,15 @@ export default class CleanCommand extends BuildCommand {
   }
 
   @bind
-  public async cleanStorage() {
+  public async cleanStorage(bud: Bud) {
     try {
       this.renderOnce(
         <Box>
-          <Text color="green">✔ emptied {this.app.path(`@storage`)}</Text>
+          <Text color="green">✔ emptied {bud.path(`@storage`)}</Text>
         </Box>,
       )
-      await ensureDir(this.app.path(`@storage`))
-      await remove(this.app.path(`@storage`))
+      await ensureDir(bud.path(`@storage`))
+      await remove(bud.path(`@storage`))
     } catch (err) {
       this.context.stderr.write(err)
     }

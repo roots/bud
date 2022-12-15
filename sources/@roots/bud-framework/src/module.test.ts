@@ -6,86 +6,86 @@ import {Module} from './module.js'
 
 describe(`@roots/bud-framework`, () => {
   let bud
-  let budModule
+  let moduleInstance
 
   beforeEach(async () => {
     vi.clearAllMocks()
     bud = await factory()
-    budModule = new Module(bud)
+    moduleInstance = new Module(bud)
   })
 
   it(`should be instantiable`, () => {
-    expect(budModule).toBeInstanceOf(Module)
+    expect(moduleInstance).toBeInstanceOf(Module)
   })
 
   it(`should have a require fn`, () => {
-    expect(budModule.require).toEqual(expect.any(Function))
+    expect(moduleInstance.require).toEqual(expect.any(Function))
   })
 
   it(`should have resolve fn`, () => {
-    expect(budModule.resolve).toEqual(expect.any(Function))
+    expect(moduleInstance.resolve).toEqual(expect.any(Function))
   })
 
   it(`should resolve a package`, async () => {
-    const path = await budModule.resolve(`@roots/bud-support`)
+    const path = await moduleInstance.resolve(`@roots/bud-support`)
     expect(path).toEqual(expect.stringContaining(`@roots/bud-support`))
   })
 
   it(`should have a getDirectory fn that resolves by package name`, async () => {
-    expect(await budModule.getDirectory(`@roots/bud-support`)).toEqual(
-      expect.stringContaining(`@roots/bud-support`),
-    )
+    expect(
+      await moduleInstance.getDirectory(`@roots/bud-support`),
+    ).toEqual(expect.stringContaining(`@roots/bud-support`))
   })
 
   it(`should have a getDirectory fn that throws when package is unresolvable`, async () => {
     try {
-      expect(await budModule.getDirectory(`foo`)).toThrow()
+      expect(await moduleInstance.getDirectory(`foo`)).toThrow()
     } catch (e) {}
   })
 
   it(`should have a getManifestPath fn that returns a path to a package.json`, async () => {
-    expect(await budModule.getManifestPath(`@roots/bud`)).toEqual(
+    expect(await moduleInstance.getManifestPath(`@roots/bud`)).toEqual(
       expect.stringContaining(`package.json`),
     )
   })
 
   it(`should have a readManifest fn that returns the requested package.json object`, async () => {
     const readSpy = vi.spyOn(bud.fs.json, `read`)
-    await budModule.readManifest(`@roots/bud`)
+    await moduleInstance.readManifest(`@roots/bud`)
     expect(readSpy).toHaveBeenCalledWith(
       expect.stringContaining(`@roots/bud/package.json`),
     )
   })
 
   it(`should have an import fn that returns the default export`, async () => {
-    expect(await budModule.import(`@roots/bud`)).toEqual(
-      expect.any(Function),
+    expect(await moduleInstance.import(`@roots/bud`)).toEqual(
+      expect.objectContaining({Bud: expect.any(Function)}),
     )
   })
 
   it(`should have an import fn that throws when pkg is unresolvable`, async () => {
     try {
-      expect(await budModule.import(`foo`)).toThrow()
+      expect(await moduleInstance.import(`foo`)).toThrow()
     } catch (e) {}
   })
 
   it(`should have an tryImport fn that returns the default export`, async () => {
-    const successSpy = vi.spyOn(budModule.logger, `success`)
+    const successSpy = vi.spyOn(moduleInstance.logger, `success`)
 
-    expect(await budModule.tryImport(`@roots/bud`)).toEqual(
-      expect.any(Function),
+    expect(await moduleInstance.tryImport(`@roots/bud`)).toEqual(
+      expect.objectContaining({Bud: expect.any(Function)}),
     )
     expect(successSpy).toHaveBeenCalled()
   })
 
   it(`should have an tryImport fn that throws when pkg is unresolvable`, async () => {
     try {
-      expect(await budModule.tryImport(`foo`)).not.toThrow()
+      expect(await moduleInstance.tryImport(`foo`)).not.toThrow()
     } catch (e) {}
   })
 
   it(`should have a makeContextURL fn that returns a URL when passed a URL`, async () => {
     const url = pathToFileURL(bud.context.basedir)
-    expect(budModule.makeContextURL(url)).toBe(url)
+    expect(moduleInstance.makeContextURL(url)).toBe(url)
   })
 })

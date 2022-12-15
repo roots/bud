@@ -1,16 +1,16 @@
 import {join, resolve} from 'node:path'
 
+import type {Bud} from '@roots/bud'
+import BudCommand from '@roots/bud/cli/commands/bud'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import execa from '@roots/bud-support/execa'
-
-import BaseCommand from './base.js'
 
 /**
  * `bud webpack` command
  *
  * @public
  */
-export default class WebpackCommand extends BaseCommand {
+export default class BudWebpackCommand extends BudCommand {
   /**
    * Command paths
    * @public
@@ -34,9 +34,9 @@ export default class WebpackCommand extends BaseCommand {
    *
    * @public
    */
-  public override async runCommand() {
-    this.app.context.config = {}
-    const webpackPath = await this.app.module.getDirectory(`webpack`)
+  public override async runCommand(bud: Bud) {
+    bud.context.config = {}
+    const webpackPath = await bud.module.getDirectory(`webpack`)
     const bin = join(webpackPath, `bin`, `webpack.js`)
 
     const child = execa(`node`, [bin, ...this.options], {

@@ -82,6 +82,8 @@ export class Compiler extends Service implements Contract.Service {
       throw error
     }
 
+    this.app.logger.instance.timeEnd(`initialize`)
+
     if (this.app.context.args.dry) {
       this.logger.log(`running in dry mode. exiting early.`)
       return

@@ -1,6 +1,6 @@
 import {Command, Option} from '@roots/bud-support/clipanion'
 
-import BuildCommand from './build.base.js'
+import BuildCommand from './bud.build.js'
 
 /**
  * `bud build development` command
