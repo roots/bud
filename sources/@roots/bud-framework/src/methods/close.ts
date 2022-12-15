@@ -1,4 +1,3 @@
-import {Renderer} from '@roots/bud-dashboard/renderer'
 import {isFunction} from '@roots/bud-support/lodash-es'
 
 import type {Bud} from '../bud.js'
@@ -32,11 +31,9 @@ export function close(onComplete?: any) {
     if (application.compiler?.instance?.running) {
       application.compiler.instance.close(() => {
         closeDevelopmentServer(application)
-        Renderer.unmount()
       })
     } else {
       closeDevelopmentServer(application)
-      Renderer.unmount()
     }
   } catch (error) {
     throw error
