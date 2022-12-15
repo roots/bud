@@ -245,7 +245,7 @@ export class Bud {
         ),
       )
 
-    let context: Options.Context = isString(request)
+    const context: Options.Context = isString(request)
       ? {...this.context, label: request, root: this}
       : {...this.context, ...request, root: this}
 
@@ -270,7 +270,7 @@ export class Bud {
     )
 
     if (tap) await tap(this.get(context.label))
-    await this.get(context.label).api.processQueue()
+    await this.get(context.label)?.api.processQueue()
 
     return this
   }
@@ -278,17 +278,12 @@ export class Bud {
   @bind
   public async lifecycle(context: Options.Context): Promise<Bud> {
     const supportPath = await resolve(
-      `@roots/bud-support`,
+      `@roots/bud-support/os`,
       import.meta.url,
     )
     this.commonPath = commonPath([context.basedir, supportPath]).commonDir
 
     await bootstrap.bind(this)({...context})
-
-    const logger = this.logger.instance.scope(
-      ...this.logger.scope,
-      `bootstrap`,
-    )
 
     Object.entries(LIFECYCLE_EVENT_MAP).map(
       ([eventHandle, callbackName]: [
@@ -308,7 +303,7 @@ export class Bud {
               eventHandle,
               service[callbackName].bind(service),
             )
-            logger.success(
+            this.success(
               `registered service callback:`,
               `${label}.${callbackName}`,
             )

@@ -52,9 +52,7 @@ export default class Filesystem {
    */
   public constructor(...pathParts: Array<string>) {
     this.fs =
-      pathParts && Array.isArray(pathParts)
-        ? filesystem.cwd(...pathParts)
-        : filesystem
+      pathParts.length > 0 ? filesystem.cwd(...pathParts) : filesystem
   }
 
   /**
@@ -175,7 +173,7 @@ export default class Filesystem {
    */
   public async exists(...path: Array<string>): Promise<ExistsResult> {
     const pathResults = await this.path(...path)
-    return this.fs.existsAsync(pathResults)
+    return await this.fs.existsAsync(pathResults)
   }
 
   /**
@@ -193,7 +191,7 @@ export default class Filesystem {
       return this.fs.findAsync({matching: options})
     }
 
-    return this.fs.findAsync(options)
+    return await this.fs.findAsync(options)
   }
 
   /**
@@ -209,7 +207,7 @@ export default class Filesystem {
     path: string,
     options?: InspectOptions,
   ): Promise<InspectResult | undefined> {
-    return this.fs.inspectAsync(path, options)
+    return await this.fs.inspectAsync(path, options)
   }
 
   /**
@@ -223,7 +221,7 @@ export default class Filesystem {
     path: string,
     options?: InspectTreeOptions,
   ): Promise<InspectTreeResult | undefined> {
-    return this.fs.inspectTreeAsync(path, options)
+    return await this.fs.inspectTreeAsync(path, options)
   }
 
   /**
@@ -233,7 +231,7 @@ export default class Filesystem {
    * @public
    */
   public async list(path?: string): Promise<string[] | undefined> {
-    return this.fs.listAsync(path)
+    return await this.fs.listAsync(path)
   }
 
   /**
@@ -249,7 +247,7 @@ export default class Filesystem {
     to: string,
     options?: MoveOptions,
   ): Promise<Filesystem> {
-    this.fs.moveAsync(from, to, options) // returns void
+    await this.fs.moveAsync(from, to, options) // returns void
 
     return this
   }
@@ -268,20 +266,19 @@ export default class Filesystem {
    * Reads content of file.
    *
    * @param path - path to file
-   * @param returnAs - a custom return type (`utf8`, `json` or `buffer`)
+   * @param type - a custom return type (`utf8`, `json` or `buffer`)
    * @public
    */
-  public async read(path: string, returnAs?: `utf8` | `json` | `buffer`) {
-    if (returnAs === `json` || (!returnAs && path.endsWith(`.json`))) {
+  public async read(path: string, type?: 'utf8' | 'buffer'): Promise<any> {
+    if (path.endsWith(`.json`) || path.endsWith(`.json5`)) {
       return await json.read(path)
     }
 
-    if (!returnAs && (path.endsWith(`.yml`) || path.endsWith(`.yaml`)))
+    if (path.endsWith(`.yml`) || path.endsWith(`.yaml`)) {
       return await yml.read(path)
+    }
 
-    if (returnAs === `utf8`) return await this.fs.readAsync(path, returnAs)
-    if (returnAs === `buffer`)
-      return await this.fs.readAsync(path, returnAs)
+    if (type === `buffer`) return await this.fs.readAsync(path, type)
 
     return await this.fs.readAsync(path)
   }

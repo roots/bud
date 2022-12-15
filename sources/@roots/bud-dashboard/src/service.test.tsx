@@ -22,19 +22,6 @@ describe(`Dashboard`, () => {
     expect(dashboard.stats).toBeInstanceOf(Function)
   })
 
-  it(`should have a getLastHash fn that returns the value of dashboard.lastHash`, async () => {
-    dashboard.lastHash = `test`
-    expect(dashboard.getLastHash()).toBe(`test`)
-  })
-  it(`should have a setLastHash fn that set the value of dashboard.lastHash`, async () => {
-    dashboard.setLastHash(`test`)
-    expect(dashboard.lastHash).toBe(`test`)
-  })
-  it(`should have a hashIsStale fn that returns true if hash is equal to lastHash`, async () => {
-    dashboard.lastHash = `test`
-    expect(dashboard.hashIsStale(`test`)).toBeTruthy()
-  })
-
   it(`should return early from dashboard.stats when there are no stats provided`, async () => {
     try {
       await dashboard.stats(
@@ -43,29 +30,5 @@ describe(`Dashboard`, () => {
       )
     } catch (e) {}
     expect(dashboard.lastHash).toBeUndefined()
-  })
-
-  it(`should call setLastHash when hash is fresh`, async () => {
-    const spy = vi.spyOn(dashboard, `setLastHash`)
-
-    try {
-      await dashboard.stats({hash: `test`})
-    } catch (error) {}
-
-    expect(spy).toHaveBeenCalledWith(`test`)
-  })
-
-  it(`should not call setLastHash when hash is stale`, async () => {
-    const spy = vi.spyOn(dashboard, `setLastHash`)
-
-    try {
-      await dashboard.stats({hash: `test`})
-    } catch (e) {}
-
-    try {
-      await dashboard.stats({hash: `test`})
-    } catch (error) {}
-
-    expect(spy).toHaveBeenCalledTimes(1)
   })
 })

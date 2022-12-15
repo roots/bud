@@ -1,11 +1,11 @@
 /* eslint-disable no-console */
-import {factory} from '@repo/test-kit/bud'
+import {Bud, factory} from '@repo/test-kit/bud'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import BudSWCExtension from './index.js'
 
 describe(`@roots/bud-swc`, () => {
-  let bud
+  let bud: Bud
 
   beforeEach(async () => {
     vi.clearAllMocks()
@@ -32,11 +32,12 @@ describe(`@roots/bud-swc`, () => {
   it(`should add a plugin`, async () => {
     const extension = new BudSWCExtension(bud)
     extension.plugins(plugins => {
-      plugins.push([`test`])
+      plugins.push([`test`, {}])
       return plugins
     })
     expect(extension.options?.jsc?.experimental?.plugins?.[0]).toEqual([
       `test`,
+      expect.objectContaining({}),
     ])
   })
 })

@@ -1,17 +1,7 @@
-/// <reference path="../../bud-api/lib/index.d.ts" />
-/// <reference path="../../bud-build/lib/index.d.ts" />
-/// <reference path="../../bud-cache/lib/index.d.ts" />
-/// <reference path="../../bud-compiler/lib/index.d.ts" />
-/// <reference path="../../bud-dashboard/lib/index.d.ts" />
-/// <reference path="../../bud-extensions/lib/index.d.ts" />
-/// <reference path="../../bud-framework/lib/index.d.ts" />
-/// <reference path="../../bud-hooks/lib/index.d.ts" />
-/// <reference path="../../bud-server/lib/index.d.ts" />
-/// <reference path="../../bud-support/lib/index.d.ts" />
-/// <reference path="../../bud-terser/lib/index.d.ts" />
-
 import type * as Framework from '@roots/bud-framework'
 
-declare module '@roots/bud' {
+declare module '@roots/bud/bud' {
   interface Bud extends Framework.Bud {}
+  interface Locations extends Framework.Locations {}
+  interface Modules extends Framework.Modules {}
 }

@@ -1,17 +1,16 @@
+import BuildCommand from '@roots/bud/cli/commands/build.base'
+import BuildDevelopmentCommand from '@roots/bud/cli/commands/build.development'
+import BuildProductionCommand from '@roots/bud/cli/commands/build.production'
+import CleanCommand from '@roots/bud/cli/commands/clean'
+import DoctorCommand from '@roots/bud/cli/commands/doctor'
+import ReplCommand from '@roots/bud/cli/commands/repl'
+import UpgradeCommand from '@roots/bud/cli/commands/upgrade'
+import ViewCommand from '@roots/bud/cli/commands/view'
+import WebpackCommand from '@roots/bud/cli/commands/webpack'
+import {Commands} from '@roots/bud/cli/finder'
+import getContext from '@roots/bud/context'
 import {argv, basedir} from '@roots/bud/context/argv'
 import {Builtins, Cli, CommandClass} from '@roots/bud-support/clipanion'
-
-import getContext from '../context/index.js'
-import BuildCommand from './commands/build.base.js'
-import BuildDevelopmentCommand from './commands/build.development.js'
-import BuildProductionCommand from './commands/build.production.js'
-import CleanCommand from './commands/clean.js'
-import DoctorCommand from './commands/doctor.js'
-import ReplCommand from './commands/repl.js'
-import UpgradeCommand from './commands/upgrade.js'
-import ViewCommand from './commands/view.js'
-import WebpackCommand from './commands/webpack.js'
-import {Commands} from './finder.js'
 
 const context = await getContext(basedir)
 

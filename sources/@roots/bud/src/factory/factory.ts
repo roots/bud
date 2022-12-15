@@ -1,9 +1,11 @@
-import type {Options} from '@roots/bud-framework'
+import {isAbsolute, resolve} from 'node:path'
 
-import Bud from '../bud/index.js'
-import * as argv from '../context/argv.js'
-import getContext from '../context/index.js'
-import {mergeOptions} from './options.js'
+import {Bud} from '@roots/bud'
+import getContext from '@roots/bud/context'
+import * as argv from '@roots/bud/context/argv'
+import * as options from '@roots/bud/factory/options'
+import {get, has} from '@roots/bud/instances'
+import type {Options} from '@roots/bud-framework'
 
 /**
  * Create a {@link Bud} instance programatically
@@ -26,8 +28,14 @@ import {mergeOptions} from './options.js'
  */
 export async function factory(
   overrides?: Options.Overrides,
+  cache: boolean = true,
 ): Promise<Bud> {
-  const basedir = overrides?.basedir ?? argv.basedir
+  const rawbasedir = overrides?.basedir ?? argv.basedir
+  const basedir = isAbsolute(rawbasedir)
+    ? rawbasedir
+    : resolve(process.cwd(), rawbasedir)
+
+  if (cache && has(basedir)) return get(basedir)
   const context = await getContext(basedir)
 
   overrides?.services
@@ -44,5 +52,9 @@ export async function factory(
     )
     .map(extension => context.extensions.discovered.push(extension))
 
-  return await new Bud().lifecycle(mergeOptions(context, overrides))
+  return cache
+    ? await get(context.basedir).lifecycle(
+        options.merge(context, overrides),
+      )
+    : await new Bud().lifecycle(options.merge(context, overrides))
 }

@@ -13,18 +13,23 @@ import * as config from './config.js'
  * @public
  */
 export class Logger {
-  protected _app: () => Bud
-
   public get app() {
     return this._app()
   }
+
+  public _instance: Signale.Instance
 
   /**
    * Logger instance
    *
    * @public
    */
-  public instance: Signale.Instance
+  public get instance() {
+    return this._instance
+  }
+  public set instance(instance: Signale.Instance) {
+    this._instance = instance
+  }
 
   public get level() {
     return this.app.context.args?.level
@@ -40,8 +45,7 @@ export class Logger {
    * Class constructor
    * @public
    */
-  public constructor(_app: Bud) {
-    this._app = () => _app
+  public constructor(public _app: () => Bud) {
     this.scope = [this.app.label]
     this.instance = this.makeInstance()
   }

@@ -29,7 +29,7 @@ import type {Options} from '@swc/core'
       dynamicImport: true,
     },
     transform: null,
-    target: `es2015`,
+    target: `es2019`,
     loose: false,
   },
   minify: false,
@@ -56,7 +56,7 @@ export default class BudSWC extends Extension<Options> {
    * @decorator `@bind`
    */
   @bind
-  public override async buildBefore(bud: Bud) {
+  public override async buildBefore?(bud: Bud) {
     await this.registerSWC(bud)
   }
 
@@ -100,11 +100,8 @@ export default class BudSWC extends Extension<Options> {
   @bind
   public async registerSWC(bud: Bud) {
     const config = await bud.fs.exists(`.swcrc`)
-
     if (config === `file`) {
-      this.setOptions(
-        bud.fs.json.parse(await bud.fs.read(`.swcrc`, `utf8`)),
-      )
+      this.setOptions(bud.fs.json.parse(await bud.fs.read(`.swcrc`)))
     }
 
     const options = this.getOptions()
@@ -114,8 +111,9 @@ export default class BudSWC extends Extension<Options> {
         ...(options?.jsc ?? {}),
         experimental: {
           ...(options?.jsc?.experimental ?? {}),
-          cacheRoot: bud.path(bud.cache.cacheDirectory, `swc`),
+          cacheRoot: bud.path(bud.cache.cacheDirectory),
         },
+        target: this.app.esm.enabled ? `es2022` : `es2019`,
       },
       module: {
         type: this.app.esm.enabled ? `es6` : `commonjs`,
@@ -134,5 +132,10 @@ export default class BudSWC extends Extension<Options> {
         use: [`swc`],
       })
       .rules.js.setUse([`swc`])
+
+    bud.build.rules = {
+      ts: bud.build.rules.ts,
+      ...bud.build.rules,
+    }
   }
 }

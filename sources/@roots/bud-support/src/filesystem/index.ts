@@ -1,4 +1,5 @@
 import FS from '@roots/filesystem/filesystem'
+import * as json from '@roots/filesystem/json'
+import * as yml from '@roots/filesystem/yml'
 
-export default FS
-export * from '@roots/filesystem'
+export {FS, json, yml}

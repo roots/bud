@@ -62,6 +62,10 @@
       "types": "./lib/bud/bud.d.ts",
       "default": "./lib/bud/bud.js"
     },
+    "./instances": {
+      "types": "./lib/instances.d.ts",
+      "default": "./lib/instances.js"
+    },
     "./cli/*": {
       "types": "./lib/cli/*.d.ts",
       "default": "./lib/cli/*.js"
@@ -97,6 +101,10 @@
     "./services/*": {
       "types": "./lib/services/*/index.d.ts",
       "default": "./lib/services/*/index.js"
+    },
+    "./services/*/*": {
+      "types": "./lib/services/*/*.d.ts",
+      "default": "./lib/services/*/*.js"
     }
   },
   "typesVersions": {
@@ -116,6 +124,9 @@
       "factory": [
         "lib/factory/index.d.ts"
       ],
+      "factory/*": [
+        "lib/factory/*.d.ts"
+      ],
       "notifier": [
         "lib/notifier/index.d.ts"
       ],
@@ -124,6 +135,9 @@
       ],
       "services/*": [
         "lib/services/*/index.d.ts"
+      ],
+      "services/*/*": [
+        "lib/services/*/*.d.ts"
       ]
     }
   },

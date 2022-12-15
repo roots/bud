@@ -346,7 +346,11 @@ export class Extension<
   public async _buildBefore() {
     const enabled = await this.isEnabled()
     if (isUndefined(this.buildBefore) || enabled === false) return
-    this.logger.log(`buildBefore`)
+    this.logger.info(
+      `buildBefore:`,
+      this.label ?? this.constructor.name ?? `anonymous extension`,
+    )
+
     this.meta[`buildBefore`] = true
 
     await this.buildBefore(this.app, this.options)
@@ -361,6 +365,10 @@ export class Extension<
   public async _buildAfter() {
     const enabled = await this.isEnabled()
     if (isUndefined(this.buildAfter) || enabled === false) return
+    this.logger.info(
+      `buildAfter:`,
+      this.label ?? this.constructor.name ?? `anonymous extension`,
+    )
     this.logger.log(`buildAfter`)
     this.meta[`buildAfter`] = true
 

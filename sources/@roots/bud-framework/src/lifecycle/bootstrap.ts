@@ -6,6 +6,7 @@ import * as methods from '../methods/index.js'
 import {Module} from '../module.js'
 import * as Process from '../process.js'
 import type {Service} from '../service.js'
+import FS from '../services/fs.js'
 import type * as Options from '../types/options/index.js'
 import type * as Registry from '../types/registry/index.js'
 import {initialize} from './init.js'
@@ -82,21 +83,12 @@ export const LIFECYCLE_EVENT_MAP: Partial<
 }
 
 /**
- * Bind framework methods
- * @public
- */
-const bindFrameworkMethods = (app: Bud) =>
-  Object.entries(methods).map(([key, method]) => {
-    app[key] = method.bind(app)
-  })
-
-/**
  * Create filter for validating services
  *
  * @param app - Bud instance
  * @returns filter fn
  */
-const filterFrameworkServices =
+const filterServices =
   (app: Bud) =>
   (signifier: string): Boolean =>
     (app.isDevelopment || !DEVELOPMENT_SERVICES.includes(signifier)) &&
@@ -107,7 +99,7 @@ const filterFrameworkServices =
  *
  * @public
  */
-const importAndBindFrameworkServices =
+const instantiateServices =
   (app: Bud) =>
   async (signifier: string): Promise<void> => {
     const importedModule = await import(signifier)
@@ -120,14 +112,12 @@ const importAndBindFrameworkServices =
     app.services.push(label)
   }
 
-/**
- * Initialize logger and log initial context
- * @public
- */
-const initializeLoggerAndReportContext = (app: Bud) => {
-  /* initialize logger */
-  app.logger = new Logger(app)
-  app.success(`logger ready`)
+const initializeCoreUtilities = (app: Bud) => {
+  app.logger = new Logger(() => app)
+  app.fs = new FS(() => app)
+  Object.entries(methods).map(([fn, method]) => {
+    app[fn] = method.bind(app)
+  })
 }
 
 /**
@@ -146,8 +136,7 @@ export const bootstrap = async function (
 
   if (!context.label) throw new Error(`options.label is required`)
 
-  bindFrameworkMethods(this)
-  initializeLoggerAndReportContext(this)
+  initializeCoreUtilities(this)
 
   /* root specific */
   if (this.isRoot) {
@@ -162,8 +151,8 @@ export const bootstrap = async function (
   /* initialize services */
   await Promise.all(
     this.context.services
-      .filter(filterFrameworkServices(this))
-      .map(importAndBindFrameworkServices(this)),
+      .filter(filterServices(this))
+      .map(instantiateServices(this)),
   )
 
   return initialize(this)

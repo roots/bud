@@ -8,6 +8,10 @@ import type {Service as Base} from '../../../service.js'
  * @public
  */
 export interface Service extends Base {
+  lastHash?: string
+
+  hashIsStale?(hash: string): boolean
+
   /**
    * Render the dashboard
    *
@@ -15,5 +19,5 @@ export interface Service extends Base {
    *
    * @public
    */
-  stats(stats: StatsCompilation): Promise<unknown>
+  stats(stats: StatsCompilation): Promise<this>
 }

@@ -21,48 +21,11 @@ declare module '@roots/bud-framework' {
      * Generate a WordPress `theme.json`
      *
      * @example
-     * Use default values:
-     *
      * ```js
-     * app.themeJson()
-     * ```
+     * bud.wpjson.
      *
-     * @example
-     * Set with an object:
-     *
-     * ```js
-     * app.themeJson({
-     *   color: {
-     *     palette: []
-     *   }
-     * })
-     * ```
-     *
-     * @example
-     * Set with a callback. Callback supplies a container object.
-     *
-     * ```js
-     * app.themeJson(theme => {
-     *   theme.set('color.palette', [])
-     *   return theme
-     * })
-     * ```
-     *
-     * @example
-     * Set with a callback. Pass `true` as a second parameter to
-     * specify that you would like to use a raw object rather than
-     * a container.
-     *
-     * ```js
-     * app.themeJson(theme => ({
-     *   ...theme,
-     *   color: {
-     *     palette: [],
-     *   },
-     * }), true)
-     * ```
-     *
-     * @public
+     * @see {@link https://bud.js.org/extensions/sage/theme.json/}
+     * @see {@link https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-json/}
      */
     wpjson: ThemeJSON
   }

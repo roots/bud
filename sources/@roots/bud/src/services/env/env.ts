@@ -1,4 +1,4 @@
-import type {Bud} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud'
 import {ServiceContainer} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators'
 
@@ -15,7 +15,7 @@ export default class Env extends ServiceContainer {
    * @decorator `@bind`
    */
   @bind
-  public override async bootstrap(bud: Bud) {
+  public override async bootstrap?(bud: Bud) {
     this.setStore(bud.context.env)
   }
 
@@ -41,7 +41,10 @@ export default class Env extends ServiceContainer {
    * @decorator `@bind`
    */
   @bind
-  public transformPublicEnv([rawKey, rawValue]: [string, string]) {
+  public transformPublicEnv([rawKey, rawValue]: [string, string]): [
+    string,
+    string,
+  ] {
     return [rawKey.replace(`PUBLIC_`, ``), rawValue]
   }
 
@@ -51,7 +54,7 @@ export default class Env extends ServiceContainer {
    * @public
    */
   @bind
-  public filterPublicEnv([key]: [string, string]) {
+  public filterPublicEnv([key]: [string, string]): boolean {
     return key.startsWith(`PUBLIC_`)
   }
 }

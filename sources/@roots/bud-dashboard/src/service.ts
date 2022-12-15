@@ -20,28 +20,7 @@ export class Dashboard
    *
    * @public
    */
-  public lastHash: string
-  /**
-   * Set last hash
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public setLastHash(hash: string) {
-    this.lastHash = hash
-  }
-
-  /**
-   * Get last hash
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public getLastHash() {
-    return this.lastHash
-  }
+  public lastHash?: string
 
   /**
    * Hash is stale
@@ -50,7 +29,7 @@ export class Dashboard
    * @decorator `@bind`
    */
   @bind
-  public hashIsStale(hash: string) {
+  public hashIsStale?(hash: string) {
     return this.lastHash && this.lastHash === hash
   }
 
@@ -65,7 +44,7 @@ export class Dashboard
     if (!statsCompilation) return this
 
     if (this.hashIsStale(statsCompilation.hash)) return this
-    this.setLastHash(statsCompilation.hash)
+    this.lastHash = statsCompilation.hash
 
     const hasErrors = statsCompilation.hasErrors()
 

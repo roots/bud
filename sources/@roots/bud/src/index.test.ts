@@ -1,12 +1,8 @@
 import {describe, expect, it} from 'vitest'
 
-import Default, {Bud, factory, get} from './index.js'
+import {Bud, factory, get} from './index.js'
 
 describe(`@roots/bud`, () => {
-  it(`should have a default export that is Bud`, () => {
-    expect(Default).toBe(Bud)
-  })
-
   it(`should have a named Bud export`, () => {
     expect(Bud).toBeInstanceOf(Function)
   })

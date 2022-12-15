@@ -1,3 +1,4 @@
+import type {Bud} from '@roots/bud'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {highlight} from '@roots/bud-support/highlight'
 import * as Ink from '@roots/bud-support/ink'
@@ -6,7 +7,6 @@ import {chunk} from '@roots/bud-support/lodash-es'
 import format from '@roots/bud-support/pretty-format'
 import React from '@roots/bud-support/react'
 
-import type Bud from '../../bud/index.js'
 import BaseCommand from './base.js'
 
 /**
@@ -17,6 +17,7 @@ import BaseCommand from './base.js'
 export default class ReplCommand extends BaseCommand {
   /**
    * Command paths
+   *
    * @public
    */
   public static override paths = [[`repl`]]

@@ -103,7 +103,6 @@ describe(`context.get`, () => {
         'package.json': expect.any(Object),
         'tailwind.config.js': expect.any(Object),
         'tsconfig.json': expect.any(Object),
-        'webpack.config.mjs': expect.any(Object),
       }),
     )
   })

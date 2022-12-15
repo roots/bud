@@ -1,19 +1,16 @@
 /* eslint-disable no-console */
-import {isAbsolute, resolve} from 'node:path'
-
+import args from '@roots/bud/context/args'
+import bud from '@roots/bud/context/bud'
+import getConfig from '@roots/bud/context/config'
+import getEnv from '@roots/bud/context/env'
+import getExtensions from '@roots/bud/context/extensions'
+import getManifest from '@roots/bud/context/manifest'
+import services from '@roots/bud/context/services'
 import type {Context} from '@roots/bud-framework/options'
 
-import args from './args.js'
-import bud from './bud.js'
-import getConfig from './config.js'
-import getEnv from './env.js'
-import getExtensions from './extensions.js'
-import getManifest from './manifest.js'
-import services from './services.js'
-
 export default async (basedir: string): Promise<Context> => {
-  basedir = isAbsolute(basedir) ? basedir : resolve(process.cwd(), basedir)
   const config = await getConfig(basedir)
+
   const context = {
     basedir,
     env: getEnv(basedir),

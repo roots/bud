@@ -1,9 +1,9 @@
 import type {Context, Overrides} from '@roots/bud-framework/options'
 
-export const mergeOptions: (
-  context: Context,
-  overrides: Overrides,
-) => Context = (context, overrides) => {
+export const merge: (context: Context, overrides: Overrides) => Context = (
+  context,
+  overrides,
+) => {
   return {
     ...context,
     ...(overrides ?? {}),

@@ -7,7 +7,7 @@ import BudTypeCheck from './index.js'
 
 describe(`@roots/bud-typescript/typecheck`, () => {
   let bud: Bud
-  let typecheck
+  let typecheck: BudTypeCheck
 
   beforeAll(async () => {
     bud = await factory().then(async bud => {
@@ -15,7 +15,7 @@ describe(`@roots/bud-typescript/typecheck`, () => {
       return bud
     })
     typecheck = new BudTypeCheck(bud)
-    await typecheck.init()
+    await typecheck.init(bud)
   })
 
   it(`has expected default options`, () => {

@@ -9,7 +9,7 @@ export interface WriteOptions {
 
 export const read = async (path: string): Promise<any> => {
   const source = await fs.readAsync(path, `utf8`)
-  return json5.parse(source.trim())
+  return await json5.parse(source.trim())
 }
 
 export const {parse} = json5

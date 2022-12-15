@@ -1,7 +1,6 @@
+import {noDiscovery} from '@roots/bud/context/argv'
 import type {Modules} from '@roots/bud-framework'
 import type {Context} from '@roots/bud-framework/options'
-
-import {noDiscovery} from './argv.js'
 
 const CORE_MODULES = [
   `@roots/bud-api`,
