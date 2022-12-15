@@ -70,6 +70,14 @@
       "types": "./lib/cli/commands/*.d.ts",
       "default": "./lib/cli/commands/*.js"
     },
+    "./cli/helpers/*": {
+      "types": "./lib/cli/helpers/*.d.ts",
+      "default": "./lib/cli/helpers/*.js"
+    },
+    "./context": {
+      "types": "./lib/context/index.d.ts",
+      "default": "./lib/context/index.js"
+    },
     "./context/*": {
       "types": "./lib/context/*.d.ts",
       "default": "./lib/context/*.js"
@@ -89,6 +97,34 @@
     "./services/*": {
       "types": "./lib/services/*/index.d.ts",
       "default": "./lib/services/*/index.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "lib/index.d.ts"
+      ],
+      "cli": [
+        "lib/cli/index.d.ts"
+      ],
+      "cli/commands": [
+        "lib/cli/commands/index.d.ts"
+      ],
+      "context": [
+        "lib/context/index.d.ts"
+      ],
+      "factory": [
+        "lib/factory/index.d.ts"
+      ],
+      "notifier": [
+        "lib/notifier/index.d.ts"
+      ],
+      "services": [
+        "lib/services/index.d.ts"
+      ],
+      "services/*": [
+        "lib/services/*/index.d.ts"
+      ]
     }
   },
   "devDependencies": {

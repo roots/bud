@@ -33,3 +33,14 @@ exports[`context.get > should match expectations 1`] = `
   "target": undefined,
 }
 `;
+
+exports[`context.get > should match expectations 2`] = `
+{
+  "extensions": {
+    "denylist": [
+      "@roots/bud-babel",
+    ],
+    "discover": false,
+  },
+}
+`;

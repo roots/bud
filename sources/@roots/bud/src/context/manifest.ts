@@ -1,22 +1,6 @@
-import type Config from './config.js'
+import type {ConfigFileDescription} from './config.js'
 
-/**
- * Context: project manifest
- *
- * @public
- */
-export default class Manifest {
-  public data: Record<string, any> = {}
-
-  /**
-   * Class constructor
-   *
-   * @public
-   */
-  public constructor(public config: Config) {
-    if (!this.config.data[`package.json`]) return this
-    this.data = this.config.data[`package.json`].module
-
-    return this
-  }
+export default (config: Record<string, ConfigFileDescription>) => {
+  if (!config[`package.json`]) return {}
+  return config[`package.json`].module
 }

@@ -20,41 +20,36 @@ export {Interface, Options, Output, Parser}
  */
 class Rule extends Base implements Interface {
   /**
-   * Rule test
-   *
    * @public
    */
   public test: Options['test']
 
   /**
-   * {@inheritDoc @roots/bud-framework#Rule.Abstract.use}
-   *
    * @public
    */
   public use?: Options[`use`]
 
   /**
-   * Include paths
+   * @public
    */
   public include?: Options['include']
 
   /**
-   * {@inheritDoc @roots/bud-framework#Rule.Abstract.exclude}
-   *
    * @public
    */
   public exclude?: Options['exclude']
 
   /**
-   * {@inheritDoc @roots/bud-framework#Rule.Abstract."type"}
-   *
    * @public
    */
   public type?: Interface['type']
 
   /**
-   * Generator factory
-   *
+   * @public
+   */
+  public resourceQuery?: Interface['resourceQuery']
+
+  /**
    * @public
    */
   public parser?: Interface['parser']
@@ -185,6 +180,29 @@ class Rule extends Base implements Interface {
   }
 
   /**
+   * Get include value
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public getResourceQuery(): Output[`resourceQuery`] {
+    return this.resourceQuery
+  }
+
+  /**
+   * Set include value
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public setResourceQuery(query: Options['resourceQuery']): this {
+    this.resourceQuery = query
+    return this
+  }
+
+  /**
    * Get exclude value
    *
    * @public
@@ -268,7 +286,7 @@ class Rule extends Base implements Interface {
    */
   @bind
   public toWebpack(): Output {
-    const output: Output = {
+    const output: Output = Object.entries({
       test: this.getTest(),
       type: this.getType(),
       parser: this.getParser(),
@@ -276,14 +294,16 @@ class Rule extends Base implements Interface {
       use: this.getUse()
         ?.map(item => (isString(item) ? this.app.build.items[item] : item))
         .map(item => item.toWebpack()),
+      resourceQuery: this.getResourceQuery(),
       include: this.getInclude(),
       exclude: this.getExclude(),
-    }
-
-    this.include && Object.assign(output, {include: this.getInclude()})
-    this.exclude && Object.assign(output, {exclude: this.getExclude()})
+    }).reduce((a, [k, v]) => {
+      if (v === undefined) return a
+      return {...a, [k]: v}
+    }, {})
 
     this.app.info(output)
+
     return output
   }
 }

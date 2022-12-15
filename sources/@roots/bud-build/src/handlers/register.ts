@@ -3,7 +3,7 @@ import type {Bud} from '@roots/bud-framework'
 import type {Factory} from './index.js'
 import * as items from './items/items.js'
 import * as loaders from './loaders/loaders.js'
-import * as rules from './rules/rules.js'
+import {rules} from './rules/index.js'
 
 /**
  * Registry factory curry function
@@ -32,10 +32,7 @@ export async function register(bud: Bud) {
     ? bud.build.items.minicss
     : bud.build.items.style
 
-  // reverse order so the most likely/important rules are processed first
-  // by webpack but are are located at the top of the source code
-  // in the rules/rules.ts file
-  Object.entries(rules).reverse().map(makeRegister(bud, bud.build.setRule))
+  Object.entries(rules).map(makeRegister(bud, bud.build.setRule))
 }
 
 export const makeRegister: makeRegister =

@@ -8,8 +8,6 @@ import type {Service as Base} from '../../../service.js'
  * @public
  */
 export interface Service extends Base {
-  instance: any
-
   /**
    * Render the dashboard
    *

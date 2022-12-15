@@ -55,10 +55,8 @@
       "default": "./lib/configuration/index.js"
     },
     "./extension": {
-      "import": {
-        "types": "./lib/extension/index.d.ts",
-        "default": "./lib/extension/index.js"
-      }
+      "types": "./lib/extension/index.d.ts",
+      "default": "./lib/extension/index.js"
     },
     "./extension/decorators": {
       "types": "./lib/extension/decorators/index.d.ts",
@@ -143,6 +141,91 @@
   },
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ],
+      "api": [
+        "./lib/services/api.d.ts"
+      ],
+      "bud": [
+        "./lib/bud/index.d.ts"
+      ],
+      "config": [
+        "./lib/types/config/index.d.ts"
+      ],
+      "console": [
+        "./lib/services/console.d.ts"
+      ],
+      "fs": [
+        "./lib/services/fs.d.ts"
+      ],
+      "extension": [
+        "./lib/extension/index.d.ts"
+      ],
+      "extension/decorators": [
+        "./lib/extension/decorators/index.d.ts"
+      ],
+      "extension/decorators/*": [
+        "./lib/extension/decorators/*.d.ts"
+      ],
+      "logger": [
+        "./lib/logger/index.d.ts"
+      ],
+      "methods": [
+        "./lib/methods/index.d.ts"
+      ],
+      "methods/*": [
+        "./lib/methods/*.d.ts"
+      ],
+      "module": [
+        "./lib/module.d.ts"
+      ],
+      "options": [
+        "./lib/types/options/index.d.ts"
+      ],
+      "options/*": [
+        "./lib/types/options/*.d.ts"
+      ],
+      "parsers": [
+        "./lib/parsers/index.d.ts"
+      ],
+      "parsers/*": [
+        "./lib/parsers/*.d.ts"
+      ],
+      "registry": [
+        "./lib/types/registry/index.d.ts"
+      ],
+      "registry/*": [
+        "./lib/types/registry/*.d.ts"
+      ],
+      "service": [
+        "./lib/service.d.ts"
+      ],
+      "services": [
+        "./lib/types/services/index.d.ts"
+      ],
+      "services/api": [
+        "./lib/services/api.d.ts"
+      ],
+      "services/console": [
+        "./lib/services/console.d.ts"
+      ],
+      "services/fs": [
+        "./lib/services/fs.d.ts"
+      ],
+      "services/build/*": [
+        "./lib/types/services/build/*.d.ts"
+      ],
+      "services/*": [
+        "./lib/types/services/*/index.d.ts"
+      ],
+      "value": [
+        "./lib/value.d.ts"
+      ]
+    }
+  },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@types/http-proxy": "1.17.9",

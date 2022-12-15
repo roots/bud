@@ -1,4 +1,5 @@
 import type {Item} from '@roots/bud-framework/services/build'
+import {isBoolean} from '@roots/bud-support/lodash-es'
 
 import type {Factory} from '../index.js'
 
@@ -14,7 +15,9 @@ export const css: Factory<Item> = ({makeItem}) =>
     .setOptions(({build: {rules}, hooks: {filter}}) => ({
       importLoaders: rules.css.getUse().length - 2,
       modules: false,
-      sourceMap: filter(`build.devtool`, false),
+      sourceMap: isBoolean(filter(`build.devtool`, false))
+        ? filter(`build.devtool`, false)
+        : true,
     }))
 
 /**
@@ -31,7 +34,9 @@ export const cssModule: Factory<Item> = ({makeItem}) =>
       importLoaders: rules.cssModule.getUse().length - 2,
       localIdentName: `[name]__[local]___[hash:base64:5]`,
       modules: true,
-      sourceMap: filter(`build.devtool`, false),
+      sourceMap: isBoolean(filter(`build.devtool`, false))
+        ? filter(`build.devtool`, false)
+        : true,
     }))
 
 /**
@@ -40,7 +45,7 @@ export const cssModule: Factory<Item> = ({makeItem}) =>
  * @public
  */
 export const csv: Factory<Item> = ({makeItem}) =>
-  makeItem().setLoader(`csv`)
+  makeItem().setLoader(`csv`).setIdent(`csv`)
 
 /**
  * HTML loader

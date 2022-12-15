@@ -13,5 +13,5 @@
 import type * as Framework from '@roots/bud-framework'
 
 declare module '@roots/bud' {
-  export default interface Bud extends Framework.Bud {}
+  interface Bud extends Framework.Bud {}
 }

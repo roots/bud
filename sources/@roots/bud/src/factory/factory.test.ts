@@ -14,6 +14,7 @@ describe(`@roots/bud/factory`, () => {
         log: false,
       },
     })
+
     expect(bud.label).toBe(`@tests/project`)
   })
 })

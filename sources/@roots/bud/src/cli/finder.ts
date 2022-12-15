@@ -2,22 +2,24 @@
 import {dirname, join} from 'node:path/posix'
 import {fileURLToPath} from 'node:url'
 
+import type * as cli from '@roots/bud/cli/app'
 import type {Context} from '@roots/bud-framework/options'
 import globby from '@roots/bud-support/globby'
 import {resolve} from '@roots/bud-support/import-meta-resolve'
 import {isString} from '@roots/bud-support/lodash-es'
 
-import type * as cli from './app.js'
-
+/**
+ * Command finder class
+ *
+ * @public
+ */
 export class Commands {
-  public application: cli.Cli
-  public context: Partial<Context>
   public static instance: Commands
 
-  private constructor(context: Partial<Context>, application: cli.Cli) {
-    this.context = context
-    this.application = application
-  }
+  private constructor(
+    public context: Partial<Context>,
+    public application: cli.Cli,
+  ) {}
 
   public static get(application: cli.Cli, context: Partial<Context>) {
     if (Commands.instance) return Commands.instance

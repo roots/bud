@@ -21,19 +21,16 @@ export const factory = async (
 ): Promise<Bud> => {
   process.env.BUD_TEST_ENV = `true`
 
-  const bud = await makeInstance(
-    {
-      basedir: mockProject.path,
-      ...(overrides ?? {}),
-      mode: overrides?.mode ?? `production`,
-      args: {
-        dry: true,
-        log: false,
-        ...(overrides?.args ?? {}),
-      },
+  const bud = await makeInstance({
+    basedir: mockProject.path,
+    ...(overrides ?? {}),
+    mode: overrides?.mode ?? `production`,
+    args: {
+      dry: true,
+      log: false,
+      ...(overrides?.args ?? {}),
     },
-    true,
-  )
+  })
 
   if (!skipConfig) await bud.run()
 

@@ -1,4 +1,4 @@
-import {Bud, factory} from '@repo/test-kit/bud'
+import {factory} from '@repo/test-kit/bud'
 import React from '@roots/bud-support/react'
 import {render} from 'ink-testing-library'
 import {beforeEach, describe, expect, it, vi} from 'vitest'

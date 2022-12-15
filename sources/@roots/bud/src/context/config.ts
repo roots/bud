@@ -1,11 +1,10 @@
 import {basename, join, normalize} from 'node:path'
 
-import {bind} from '@roots/bud-support/decorators'
 import {json, yml} from '@roots/bud-support/filesystem'
-import fs from '@roots/bud-support/fs-jetpack'
+import FS from '@roots/bud-support/fs-jetpack'
 import {set} from '@roots/bud-support/lodash-es'
 
-interface ConfigFileDescription {
+export interface ConfigFileDescription {
   name: string
   path: string
   bud: boolean
@@ -16,85 +15,43 @@ interface ConfigFileDescription {
   module: any
 }
 
-/**
- * Context: disk
- *
- * @public
- */
-export default class Config {
-  /**
-   * Config data
-   *
-   * @public
-   */
-  public data: Record<string, ConfigFileDescription> = {}
+let data: Record<string, ConfigFileDescription> = {}
 
-  /**
-   * Has extension
-   *
-   * @param path - Path to file
-   * @param extension - File extension
-   * @returns boolean
-   *
-   * @public
-   */
-  public static hasExtension(path: string, extension: string) {
-    return path.endsWith(extension)
-  }
+export interface get {
+  (basedir: string): Promise<Record<string, ConfigFileDescription>>
+}
 
-  /**
-   * Return true if extension is an executable script
-   *
-   * @param path - Path to file
-   * @returns boolean
-   *
-   * @public
-   */
-  public static isDynamicConfig(path: string) {
-    return [`js`, `cjs`, `mjs`, `ts`, `cts`, `mts`].some(
-      (extension: string) => path.endsWith(extension),
+export const get: get = async basedir => {
+  const fs = FS.cwd(basedir)
+  const results: Array<string> = []
+
+  try {
+    results.push(
+      ...(await fs.find({
+        recursive: false,
+        directories: false,
+        matching: [
+          `*.{cts,mts,ts,cjs,mjs,js,json,toml,yml}`,
+          `*rc`,
+          join(`config`, `*.{cts,mts,ts,cjs,mjs,js,json,toml,yml}`),
+          join(`config`, `*rc`),
+          `yarn.lock`,
+          `package-lock.json`,
+        ],
+      })),
     )
+  } catch (error) {
+    throw error
   }
 
-  /**
-   * Class constructor
-   *
-   * @param basedir - Project root
-   *
-   * @public
-   */
-  public constructor(public basedir: string) {}
-
-  /**
-   * Find configs
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async find(): Promise<Config> {
-    const results = await fs.cwd(this.basedir).find({
-      recursive: false,
-      directories: false,
-      matching: [
-        `*.{cts,mts,ts,cjs,mjs,js,json,toml,yml}`,
-        `*rc`,
-        join(`config`, `*.{cts,mts,ts,cjs,mjs,js,json,toml,yml}`),
-        join(`config`, `*rc`),
-        `yarn.lock`,
-        `package-lock.json`,
-      ],
-    })
-
-    results?.map((name: string) => {
-      const path = fs.cwd(this.basedir).path(name)
-
-      set(this.data, [`${name}`], {
-        path,
+  await Promise.all(
+    results?.map(async (name: string) => {
+      set(data, [`${name}`], {
+        path: fs.path(name),
         name: basename(normalize(name)),
         extension: name.split(`.`).pop(),
         local: name.includes(`local`),
-        dynamic: Config.isDynamicConfig(path),
+        dynamic: isDynamicConfig(fs.path(name)),
         bud: name.includes(`bud`),
         type: name.includes(`production`)
           ? `production`
@@ -102,38 +59,46 @@ export default class Config {
           ? `development`
           : `base`,
       })
-    })
+    }),
+  )
 
-    await Promise.all(
-      Object.entries(this.data).map(
-        async ([name, description]: [string, ConfigFileDescription]) => {
-          try {
-            if (description.dynamic) {
-              const dynamicConfig = await import(description.path)
-              set(
-                this.data,
-                [name, `module`],
-                dynamicConfig?.default ?? dynamicConfig,
-              )
-            }
+  await Promise.all(
+    Object.entries(data).map(
+      async ([name, description]: [string, ConfigFileDescription]) => {
+        try {
+          if (description.dynamic) {
+            const dynamicConfig = await import(description.path)
 
-            if (description.extension === `json`) {
-              const jsonConfig = await json.read(description.path)
-              set(this.data, [name, `module`], jsonConfig)
-            }
-
-            if (description.extension === `yml`) {
-              const ymlConfig = await yml.read(description.path)
-              set(this.data, [name, `module`], ymlConfig)
-            }
-          } catch (error) {
-            // eslint-disable-next-line no-console
-            console.error(error.message)
+            set(
+              data,
+              [name, `module`],
+              dynamicConfig?.default ?? dynamicConfig,
+            )
           }
-        },
-      ),
-    )
 
-    return this
-  }
+          if (description.extension === `json`) {
+            const jsonConfig = await json.read(description.path)
+            set(data, [name, `module`], jsonConfig)
+          }
+
+          if (description.extension === `yml`) {
+            const ymlConfig = await yml.read(description.path)
+            set(data, [name, `module`], ymlConfig)
+          }
+        } catch (error) {
+          // eslint-disable-next-line no-console
+          console.error(error.message)
+        }
+      },
+    ),
+  )
+
+  return data
 }
+
+const isDynamicConfig = (path: string) =>
+  [`js`, `cjs`, `mjs`, `ts`, `cts`, `mts`].some((extension: string) =>
+    path.endsWith(extension),
+  )
+
+export default get

@@ -1,4 +1,4 @@
-import {join, sep} from 'node:path/posix'
+import {join, sep} from 'node:path'
 
 import dotenv from 'dotenv'
 import {expand} from 'dotenv-expand'
@@ -8,85 +8,64 @@ import {expand} from 'dotenv-expand'
  *
  * @public
  */
-export default class Env {
-  /**
-   * Service label
-   *
-   * @public
-   */
-  public static label = `env`
+export default (basedir: string) => {
+  let data
 
   /**
-   * Env dictionary
-   *
-   * @public
+   * Apply process env
    */
-  public data: Record<string, any> = {}
+  // eslint-disable-next-line n/no-process-env
+  data = process.env
 
   /**
-   * Constructor
-   *
-   * @public
+   * Apply .env & .env.local values in path
    */
-  public constructor(basedir: string) {
-    /**
-     * Apply expanded values from path
-     */
-    const getEnvFromPath = (path: string): Record<string, any> => {
-      let parsed = {}
-
-      try {
-        const env = dotenv.config({path})
-        if (env?.parsed && !env?.error) Object.assign(parsed, env.parsed)
-      } catch (error) {}
-
-      try {
-        const expanded = expand({parsed})
-        if (expanded?.parsed && !expanded?.error)
-          Object.assign(parsed, expanded.parsed)
-      } catch (error) {}
-
-      return Object.entries(parsed).reduce(
-        (a: Record<string, any>, [k, v]) => ({
-          ...a,
-          [k]: v,
-        }),
-        {},
-      )
-    }
-
-    const trySource = (envFile: string) => {
-      try {
-        return getEnvFromPath(envFile)
-      } catch (error) {
-        return {}
+  basedir
+    .split(sep)
+    .splice(1)
+    .reduce((basepath, segment) => {
+      data = {
+        ...data,
+        ...trySource(join(basepath, segment, `.env`)),
+        ...trySource(join(basepath, segment, `.env.local`)),
       }
-    }
 
-    /**
-     * Apply process env
-     */
-    // eslint-disable-next-line n/no-process-env
-    this.data = process.env
+      return join(basepath, segment)
+    }, sep)
 
-    /**
-     * Apply .env & .env.local values in path
-     */
-    basedir
-      .split(sep)
-      .splice(1)
-      .reduce((basepath, segment) => {
-        this.data = {
-          ...this.data,
-          ...trySource(join(basepath, segment, `.env`)),
-        }
+  return data
+}
 
-        this.data = {
-          ...this.data,
-          ...trySource(join(basepath, segment, `.env.local`)),
-        }
+/**
+ * Apply expanded values from path
+ */
+const getEnvFromPath = (path: string): Record<string, any> => {
+  let parsed = {}
 
-        return join(basepath, segment)
-      }, sep)
+  try {
+    const env = dotenv.config({path})
+    if (env?.parsed && !env?.error) Object.assign(parsed, env.parsed)
+  } catch (error) {}
+
+  try {
+    const expanded = expand({parsed})
+    if (expanded?.parsed && !expanded?.error)
+      Object.assign(parsed, expanded.parsed)
+  } catch (error) {}
+
+  return Object.entries(parsed).reduce(
+    (a: Record<string, any>, [k, v]) => ({
+      ...a,
+      [k]: v,
+    }),
+    {},
+  )
+}
+
+const trySource = (envFile: string) => {
+  try {
+    return getEnvFromPath(envFile)
+  } catch (error) {
+    return {}
   }
 }

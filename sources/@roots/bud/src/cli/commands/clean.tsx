@@ -4,9 +4,9 @@ import {ensureDir, remove} from '@roots/bud-support/fs'
 import {Box, Text} from '@roots/bud-support/ink'
 import React from '@roots/bud-support/react'
 
-import BaseCommand from './base.js'
+import BuildCommand from './base.js'
 
-export default class CleanCommand extends BaseCommand {
+export default class CleanCommand extends BuildCommand {
   public static override paths = [[`clean`]]
 
   public static override usage = Command.Usage({
@@ -40,10 +40,6 @@ export default class CleanCommand extends BaseCommand {
 
   @bind
   public override async runCommand() {
-    try {
-      await this.app.run()
-    } catch (e) {}
-
     if (this.storage || (!this.storage && !this.dist)) {
       await this.cleanStorage()
     }
@@ -57,7 +53,7 @@ export default class CleanCommand extends BaseCommand {
     try {
       await remove(this.app.path(`@dist`))
 
-      await this.renderOnce(
+      this.renderOnce(
         <Box>
           <Text color="green">✔ emptied {this.app.path(`@dist`)}</Text>
         </Box>,
@@ -70,14 +66,13 @@ export default class CleanCommand extends BaseCommand {
   @bind
   public async cleanStorage() {
     try {
-      await ensureDir(this.app.path(`@storage`))
-      await remove(this.app.path(`@storage`))
-
-      await this.renderOnce(
+      this.renderOnce(
         <Box>
           <Text color="green">✔ emptied {this.app.path(`@storage`)}</Text>
         </Box>,
       )
+      await ensureDir(this.app.path(`@storage`))
+      await remove(this.app.path(`@storage`))
     } catch (err) {
       this.context.stderr.write(err)
     }

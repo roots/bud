@@ -9,7 +9,7 @@ describe(`@roots/bud/context/env`, () => {
   let env: Record<string, any>
 
   beforeEach(() => {
-    env = new Env(
+    env = Env(
       join(
         paths.root,
         `sources`,
@@ -20,7 +20,7 @@ describe(`@roots/bud/context/env`, () => {
         `__fixtures__`,
         `mock`,
       ),
-    ).data
+    )
   })
 
   it(`.env env`, () => {
@@ -51,7 +51,7 @@ describe(`@roots/bud/context/env`, () => {
   it(`malformed env throws`, () => {
     try {
       expect(
-        new Env(
+        Env(
           join(
             paths.root,
             `sources`,

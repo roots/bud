@@ -1,3 +1,4 @@
+import {Renderer} from '@roots/bud-dashboard/renderer'
 import {isFunction} from '@roots/bud-support/lodash-es'
 
 import type {Bud} from '../bud.js'
@@ -31,30 +32,17 @@ export function close(onComplete?: any) {
     if (application.compiler?.instance?.running) {
       application.compiler.instance.close(() => {
         closeDevelopmentServer(application)
-        unmountDashboard(application)
+        Renderer.unmount()
       })
     } else {
       closeDevelopmentServer(application)
-      unmountDashboard(application)
+      Renderer.unmount()
     }
   } catch (error) {
     throw error
   }
 
   if (onComplete) return onComplete()
-}
-
-const unmountDashboard = (application: Bud) => {
-  try {
-    application.dashboard?.instance?.unmount()
-  } catch (error) {
-    application.info(
-      `Dashboard unmount error\n`,
-      error,
-      `\n`,
-      `This might not be a problem, as the dashboard will unmount itself, so there is a race condition here.`,
-    )
-  }
 }
 
 const closeDevelopmentServer = (application: Bud) => {

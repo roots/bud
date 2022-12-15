@@ -1,3 +1,10 @@
+import {checkDependencies} from '@roots/bud/cli/helpers/checkDependencies'
+import {
+  checkNoPackageManager,
+  checkPackageManagerConflict,
+} from '@roots/bud/cli/helpers/checkPackageManagerErrors'
+import {isInternalDevelopmentEnv} from '@roots/bud/cli/helpers/isInternalDevelopmentEnv'
+import {Renderer} from '@roots/bud-dashboard/renderer'
 import type * as Options from '@roots/bud-framework/options'
 import type {Context} from '@roots/bud-framework/options/context'
 import {BaseContext, Command, Option} from '@roots/bud-support/clipanion'
@@ -6,13 +13,9 @@ import React from '@roots/bud-support/react'
 import Signale from '@roots/bud-support/signale'
 import * as t from '@roots/bud-support/typanion'
 
-import type Bud from '../../bud/index.js'
+import type {Bud} from '../../bud/bud.js'
 import {factory} from '../../factory/index.js'
-import Notifier from '../../notifier/index.js'
-import {checkDependencies} from '../helpers/checkDependencies.js'
-import {checkLockfile} from '../helpers/checkLockfile.js'
-import {checkPackageManagerConflict} from '../helpers/checkPackageManagerConflict.js'
-import Render from '../helpers/render.js'
+import {Notifier} from '../../notifier/index.js'
 
 /**
  * Base command
@@ -46,12 +49,6 @@ export default abstract class BaseCommand extends Command {
    * @public
    */
   public override context: Options.Context & BaseContext
-
-  /**
-   * Node notifier
-   * @public
-   */
-  public notifier: Notifier
 
   public notify?: boolean
 
@@ -135,7 +132,7 @@ export default abstract class BaseCommand extends Command {
    */
   @bind
   public async renderOnce(children: React.ReactElement) {
-    return Render.once(children)
+    await Renderer.once(children)
   }
 
   /**
@@ -146,7 +143,7 @@ export default abstract class BaseCommand extends Command {
    */
   @bind
   public async render(children: React.ReactElement) {
-    return Render.view(children)
+    await Renderer.render(children)
   }
 
   /**
@@ -157,14 +154,14 @@ export default abstract class BaseCommand extends Command {
    */
   @bind
   public async text(text: string) {
-    return Render.text(text)
+    await Renderer.text(text)
   }
 
   /**
    * Base arguments
    * @public
    */
-  public get commandArgs() {
+  public get baseArgs() {
     return {
       basedir: this.basedir,
       dry: this.dry,
@@ -193,30 +190,32 @@ export default abstract class BaseCommand extends Command {
   @bind
   @once
   public async execute() {
-    this.context.mode = this.commandArgs.mode ?? `production`
+    if (this.baseArgs.mode) {
+      this.context.mode = this.baseArgs.mode
+    }
+
     this.context.args = {
       ...this.context.args,
-      ...this.commandArgs,
+      ...this.baseArgs,
       ...this.args,
     }
 
     try {
       this.app = await factory(this.context)
-      if (this.context.bud.version !== `0.0.0`) {
-        await checkDependencies(this.app)
+
+      if (!isInternalDevelopmentEnv(this.app)) {
+        checkNoPackageManager(this.app)
         checkPackageManagerConflict(this.app)
-        checkLockfile(this.app)
+        await checkDependencies(this.app)
       }
     } catch (error) {
-      this.handleError(error)
-      return 1
+      return this.handleError(error)
     }
 
     try {
       if (this.runCommand) await this.runCommand()
     } catch (error) {
-      this.handleError(error)
-      return 1
+      return this.handleError(error)
     }
 
     try {
@@ -228,8 +227,7 @@ export default abstract class BaseCommand extends Command {
           )
         })
     } catch (error) {
-      this.handleError(error)
-      return 1
+      return this.handleError(error)
     }
   }
 
@@ -248,5 +246,7 @@ export default abstract class BaseCommand extends Command {
           : error?.message ?? JSON.stringify(error),
       ),
     )
+
+    return 1
   }
 }

@@ -76,7 +76,7 @@ export default class ViewCommand extends BaseCommand {
 
     if (this.color) value = highlight(value)
 
-    await this.renderOnce(
+    this.render(
       <Box marginBottom={1}>
         <Static items={[0]}>
           {id => (

@@ -53,7 +53,7 @@ export default class ReplCommand extends BaseCommand {
   public override async runCommand() {
     await this.app.build.make()
 
-    Ink.render(
+    this.render(
       <Repl app={this.app} indent={this.indent} depth={this.depth} />,
     )
   }
@@ -99,6 +99,7 @@ const Repl = ({app, indent, depth}: ReplProps) => {
       setAction(`return`)
       setResult(``)
       setPaged([])
+      setPage(0)
     }
   })
 

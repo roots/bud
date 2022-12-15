@@ -6,6 +6,7 @@ import {csv} from './csv.js'
 describe(`csv loader`, () => {
   it(`should return a rule`, async () => {
     const bud = await factory()
+
     const result = csv({
       filter: bud.hooks.filter,
       makeItem: bud.build.makeItem,

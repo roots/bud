@@ -37,12 +37,16 @@
   "types": "./lib/index.d.ts",
   "exports": {
     ".": "./lib/index.js",
-    "./service": "./lib/service.js"
+    "./service": "./lib/service.js",
+    "./renderer": "./lib/renderer.js"
   },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.d.ts"
+      ],
+      "renderer": [
+        "./lib/renderer.d.ts"
       ],
       "service": [
         "./lib/service.d.ts"

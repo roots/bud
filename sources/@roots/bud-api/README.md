@@ -46,7 +46,7 @@ If no entrypoint is provided **bud.js** will attempt to compile **src/index.js**
 
 ### bud.provide
 
-**bud.provide** makes a variable or module available throughout the entire application
+**bud.provide** makes a variable or module available throughout the entire application.
 
 ### bud.proxy
 

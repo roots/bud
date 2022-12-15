@@ -13,3 +13,5 @@ export default async bud =>
     .provide({jquery: [`jQuery`, `$`]})
     .watch([bud.path(`@src`, `*.html`), bud.path(`@src`, `images`)])
     .serve(3015)
+    .minimize(false)
+    .esm.enable()

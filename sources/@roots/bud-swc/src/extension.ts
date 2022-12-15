@@ -1,5 +1,4 @@
-import type {Bud} from '@roots/bud-framework/bud'
-import {Extension} from '@roots/bud-framework/extension'
+import {Bud, Extension} from '@roots/bud-framework'
 import {
   bind,
   expose,
@@ -17,6 +16,8 @@ import type {Options} from '@swc/core'
  */
 @label(`@roots/bud-swc`)
 @options<Options>({
+  module: {type: `commonjs`},
+  isModule: `unknown`,
   jsc: {
     experimental: {
       plugins: [],
@@ -107,11 +108,17 @@ export default class BudSWC extends Extension<Options> {
     }
 
     const options = this.getOptions()
-    this.setOption(`jsc`, {
-      ...(options?.jsc ?? {}),
-      experimental: {
-        ...(options?.jsc?.experimental ?? {}),
-        cacheRoot: bud.path(bud.cache.cacheDirectory, `swc`),
+    this.setOptions({
+      ...options,
+      jsc: {
+        ...(options?.jsc ?? {}),
+        experimental: {
+          ...(options?.jsc?.experimental ?? {}),
+          cacheRoot: bud.path(bud.cache.cacheDirectory, `swc`),
+        },
+      },
+      module: {
+        type: this.app.esm.enabled ? `es6` : `commonjs`,
       },
     })
 

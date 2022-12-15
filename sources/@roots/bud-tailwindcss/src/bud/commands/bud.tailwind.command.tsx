@@ -45,15 +45,17 @@ export class BudTailwindCommand extends BaseCommand {
       this.options = [
         `-i`,
         this.app.path(`@src`, `index.css`),
-        `o`,
+        `-o`,
         this.app.path(`@dist`),
       ]
 
-    const child = execa(`node`, [bin, ...(this.options ?? [])], {
+    const tw = execa(`node`, [bin, ...(this.options ?? [])], {
       cwd: resolve(process.cwd(), this.basedir ?? `./`),
     })
-    child.stdout.pipe(process.stdout)
-    child.stderr.pipe(process.stderr)
-    await child
+
+    tw?.stdout?.pipe(process.stdout)
+    tw?.stderr?.pipe(process.stderr)
+
+    await tw
   }
 }

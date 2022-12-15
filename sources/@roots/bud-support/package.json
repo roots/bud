@@ -40,16 +40,22 @@
   "types": "./lib/index.d.ts",
   "exports": {
     ".": {
-      "import": {
-        "types": "./lib/index.d.ts",
-        "default": "./lib/index.js"
-      }
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
     },
     "./*": {
-      "import": {
-        "types": "./lib/*/index.d.ts",
-        "default": "./lib/*/index.js"
-      }
+      "types": "./lib/*/index.d.ts",
+      "default": "./lib/*/index.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ],
+      "*": [
+        "./lib/*/index.d.ts"
+      ]
     }
   },
   "devDependencies": {

@@ -2,8 +2,7 @@ import type {Options} from '@roots/bud-framework'
 
 import Bud from '../bud/index.js'
 import * as argv from '../context/argv.js'
-import * as applicationContext from '../context/index.js'
-import * as cache from './cache.js'
+import getContext from '../context/index.js'
 import {mergeOptions} from './options.js'
 
 /**
@@ -27,15 +26,9 @@ import {mergeOptions} from './options.js'
  */
 export async function factory(
   overrides?: Options.Overrides,
-  skipCache?: boolean,
 ): Promise<Bud> {
   const basedir = overrides?.basedir ?? argv.basedir
-
-  if (skipCache !== true && cache.has(basedir)) {
-    return cache.get(basedir)
-  }
-
-  const context = await applicationContext.get(basedir)
+  const context = await getContext(basedir)
 
   overrides?.services
     ?.filter(service => !context?.services.includes(service))
@@ -51,6 +44,5 @@ export async function factory(
     )
     .map(extension => context.extensions.discovered.push(extension))
 
-  const mergedOptions = mergeOptions(context, overrides)
-  return await new Bud().lifecycle(mergedOptions)
+  return await new Bud().lifecycle(mergeOptions(context, overrides))
 }

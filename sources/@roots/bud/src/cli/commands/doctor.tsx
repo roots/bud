@@ -1,18 +1,19 @@
+import BuildCommand from '@roots/bud/cli/commands/build.base'
+import {checkDependencies} from '@roots/bud/cli/helpers/checkDependencies'
+import {checkNoPackageManager} from '@roots/bud/cli/helpers/checkPackageManagerErrors'
+import {detectPackageManager} from '@roots/bud/cli/helpers/detectPackageManager'
+import {isNoPackageManager} from '@roots/bud/cli/helpers/isPackageManagerError'
 import {Command} from '@roots/bud-support/clipanion'
-import {bind} from '@roots/bud-support/decorators'
 import {Box, Text} from '@roots/bud-support/ink'
 import React from '@roots/bud-support/react'
 import webpack from '@roots/bud-support/webpack'
-
-import {checkDependencies} from '../helpers/checkDependencies.js'
-import BaseCommand from './base.js'
 
 /**
  * `bud doctor` command
  *
  * @public
  */
-export default class DoctorCommand extends BaseCommand {
+export default class DoctorCommand extends BuildCommand {
   /**
    * Command paths
    *
@@ -53,63 +54,94 @@ for a lot of edge cases so it might return a false positive.
     return {...this.context.args, dry: true}
   }
 
+  public config: webpack.Configuration
+
   /**
    * Command execute
    *
    * @public
    */
   public override async runCommand() {
-    await this.checkConfiguration()
+    const hasNoPackageManager = isNoPackageManager(this.app)
 
-    this.renderOnce(
-      <Box marginY={1}>
-        <Text>Checking dependencies...</Text>
-      </Box>,
-    )
-
-    const errors = await checkDependencies(this.app)
-    if (!errors) {
+    if (hasNoPackageManager) {
+      checkNoPackageManager(this.app)
+    } else {
       this.renderOnce(
         <Box>
-          <Text color="green">✅ dependencies synced</Text>
+          <Text color="green">
+            ✅ using {detectPackageManager(this.app)}
+          </Text>
         </Box>,
       )
     }
-  }
 
-  @bind
-  public async checkConfiguration() {
-    this.renderOnce(
-      <Box marginBottom={1}>
-        <Text>Checking configuration...</Text>
-      </Box>,
-    )
-
-    const conf = this.app.build.make()
-
-    if (!conf) {
-      return this.renderOnce(
+    if (hasNoPackageManager) {
+      this.renderOnce(
         <Box>
-          <Text color="red">config not returned from bud compiler</Text>
+          <Text color="yellow">
+            ⚠️ skipping dependency checks since package manager is
+            indeterminate
+          </Text>
         </Box>,
       )
+    } else {
+      const errors = await checkDependencies(this.app)
+      if (!errors) {
+        this.renderOnce(
+          <Box>
+            <Text color="green">✅ dependencies are valid</Text>
+          </Box>,
+        )
+      }
     }
 
     try {
-      webpack.validate(conf)
-
+      this.config = await this.app.build.make()
       this.renderOnce(
         <Box>
-          <Text color="green">✅ configuration is valid</Text>
+          <Text color="green">✅ bud.js generated configuration</Text>
         </Box>,
       )
     } catch (error) {
       this.renderOnce(
         <Box>
-          <Text color="red">configuration is invalid</Text>
-          <Text>{error?.message ?? error}</Text>
+          <Text color="red">❌ {error?.message ?? error}</Text>
         </Box>,
       )
     }
+
+    try {
+      webpack.validate(this.config)
+
+      this.renderOnce(
+        <Box>
+          <Text color="green">✅ webpack validated configuration</Text>
+        </Box>,
+      )
+    } catch (error) {
+      this.renderOnce(
+        <Box>
+          <Text color="red">❌ {error?.message ?? error}</Text>
+        </Box>,
+      )
+    }
+
+    this.renderOnce(
+      <Box flexDirection="column">
+        <Text color="blue">Registered configurations</Text>
+        {Object.values(this.app.context.config)
+          .filter(({bud}) => bud)
+          .map(({name, path}, i) => (
+            <Box key={i}>
+              <Text>- {name}</Text>
+              <Text>{` `}</Text>
+              <Text color="gray">
+                {path.replace(this.app.context.basedir, `.`)}
+              </Text>
+            </Box>
+          ))}
+      </Box>,
+    )
   }
 }

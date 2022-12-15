@@ -13,6 +13,7 @@ import {
 import open from 'open'
 import openEditor from 'open-editor'
 
+import {ensurePermissions} from './index.js'
 import {notifierPath} from './notifierPath.js'
 
 /**
@@ -213,6 +214,7 @@ export class Notifier {
   @bind
   public async notify() {
     this.app.info(`notification center called`)
+    await ensurePermissions()
 
     if (this.app.context.args.notify !== false) {
       this.notificationCenter.notify(

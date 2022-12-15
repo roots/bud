@@ -28,6 +28,7 @@ export interface Options {
     | undefined
   type?: ((app: Bud) => Output['type']) | Output['type'] | undefined
   parser?: ((app: Bud) => Output['parser']) | Output['parser'] | undefined
+  resourceQuery?: Output[`resourceQuery`] | undefined
   generator?:
     | ((app: Bud) => Output['generator'])
     | Output['generator']
@@ -141,6 +142,27 @@ export interface Rule extends Base {
    * @public
    */
   setInclude(value: Options['include']): this
+
+  /**
+   * Include paths
+   *
+   * @public
+   */
+  resourceQuery?: Output[`resourceQuery`] | undefined
+
+  /**
+   * Get the value of `resourceQuery`
+   *
+   * @public
+   */
+  getResourceQuery(): Output['resourceQuery']
+
+  /**
+   * Set the value of `resourceQuery`
+   *
+   * @public
+   */
+  setResourceQuery(value: Options[`resourceQuery`]): this
 
   /**
    * Type

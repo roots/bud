@@ -47,7 +47,7 @@ export const Server = ({
           {server ? (
             <>
               <Value label="internal" value={server.internal} />
-              <Value label="external" value={server.external} />
+              <Value label="external" last value={server.external} />
             </>
           ) : null}
 
@@ -78,10 +78,20 @@ export const Server = ({
   )
 }
 
-const Value = ({label, value}: {label: string; value: string}) => (
+const Value = ({
+  label,
+  value,
+  last,
+}: {
+  label: string
+  value: string
+  last?: boolean
+}) => (
   <Box flexDirection="row">
     <Box marginRight={1}>
-      <Text dimColor>├─ {label}:</Text>
+      <Text dimColor>
+        {last ? `└─` : `├─`} {label}:
+      </Text>
     </Box>
 
     <Box>

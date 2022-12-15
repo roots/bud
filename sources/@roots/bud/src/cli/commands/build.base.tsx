@@ -1,10 +1,9 @@
+import BaseCommand from '@roots/bud/cli/commands/base'
 import type {Context} from '@roots/bud-framework/options/context'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators'
 import {isString, isUndefined} from '@roots/bud-support/lodash-es'
 import * as t from '@roots/bud-support/typanion'
-
-import BaseCommand from './base.js'
 
 /**
  * Returns true if the given value is neither null nor undefined.

@@ -2,8 +2,9 @@
 import {Service} from '@roots/bud-framework/service'
 import type * as Services from '@roots/bud-framework/services'
 import {bind} from '@roots/bud-support/decorators'
-import type * as Ink from '@roots/bud-support/ink'
 import type {StatsCompilation} from '@roots/bud-support/webpack'
+
+import {Renderer} from './renderer.js'
 
 /**
  * Dashboard service
@@ -14,16 +15,6 @@ export class Dashboard
   extends Service
   implements Services.Dashboard.Service
 {
-  /**
-   * Ink instance
-   * @public
-   */
-  public instance: Ink.Instance
-
-  public setInstance(instance: Ink.Instance) {
-    this.instance = instance
-  }
-
   /**
    * Last hash
    *
@@ -83,11 +74,11 @@ export class Dashboard
       hasErrors &&
       this.app.isProduction
     ) {
-      throw new Error(`build failed`)
+      this.app.error(`build failed`)
+      return
     }
 
     if (this.app.context.args?.ci === true) {
-      console.log(`webpack logged stats:`)
       const stringCompilation = statsCompilation.toString(
         // @ts-ignore
         {
@@ -95,26 +86,31 @@ export class Dashboard
           colors: true,
         },
       )
-      console.log(stringCompilation)
+      Renderer.text(stringCompilation)
 
       if (hasErrors) {
         this.app.fatal(new Error(`build failed`))
         return
       }
-    } else {
-      const {renderDashboard} = await import(`./render/renderer.js`)
+      return
+    }
+    const {dashboard} = await import(`./dashboard/index.js`)
 
-      const compilations: StatsCompilation = statsCompilation.toJson({
-        preset: `normal`,
-        children: true,
-      })
+    const compilations: StatsCompilation = statsCompilation.toJson({
+      preset: `normal`,
+      children: true,
+    })
 
-      try {
-        this.instance = renderDashboard({
+    try {
+      Renderer.render(
+        dashboard({
           stats: compilations,
           context: this.app.context,
           mode: this.app.mode,
-          devUrl: this.app.hooks.filter(`dev.url`),
+          devUrl: this.app.hooks.filter(
+            `dev.url`,
+            new URL(`http://0.0.0.0:3000`),
+          ),
           proxyUrl: this.app.hooks.filter(
             `dev.middleware.proxy.options.target`,
           ),
@@ -123,12 +119,14 @@ export class Dashboard
             stdout: this.app.consoleBuffer.fetchAndRemove(`stdout`),
             stderr: this.app.consoleBuffer.fetchAndRemove(`stderr`),
           },
-        })
-      } catch (e) {}
+        }),
+      )
+    } catch (e) {
+      this.app.info(e)
+    }
 
-      if (hasErrors && this.app.isProduction) {
-        throw new Error()
-      }
+    if (hasErrors && this.app.isProduction) {
+      throw new Error()
     }
 
     return this

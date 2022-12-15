@@ -1,6 +1,7 @@
 import {Command, Option} from '@roots/bud-support/clipanion'
 import execa from '@roots/bud-support/execa'
 
+import {isInternalDevelopmentEnv} from '../helpers/isInternalDevelopmentEnv.js'
 import BaseCommand from './base.js'
 
 /**
@@ -31,8 +32,7 @@ export default class UpgradeCommand extends BaseCommand {
 
   public get manager() {
     return this.app.context.manifest?.packageManager?.includes(`yarn`) ||
-      (this.app.context.config?.[`yarn.lock`] &&
-        !this.app.context.config?.[`package-lock.json`])
+      this.app.context.config?.[`yarn.lock`]
       ? `yarn`
       : `npx`
   }
@@ -53,6 +53,13 @@ export default class UpgradeCommand extends BaseCommand {
     ) {
       this.text(
         `Refusing to install dependencies due to package manager conflict.\n`,
+      )
+      return
+    }
+
+    if (isInternalDevelopmentEnv(this.app)) {
+      this.text(
+        `Refusing to install dependencies in internal development environment.\n`,
       )
       return
     }

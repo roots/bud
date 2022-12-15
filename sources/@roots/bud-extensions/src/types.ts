@@ -1,3 +1,5 @@
+/// <reference path="../../bud-framework/lib/index.d.ts" />
+
 import type BudCDN from './extensions/cdn/index.js'
 import type CleanWebpackPlugin from './extensions/clean-webpack-plugin/index.js'
 import type CopyWebpackPlugin from './extensions/copy-webpack-plugin/index.js'
@@ -13,8 +15,8 @@ import type WebpackProvidePlugin from './extensions/webpack-provide-plugin/index
 
 declare module '@roots/bud-framework' {
   interface Bud {
-    cdn: BudCDN
-    esm: BudESM
+    cdn: Modules[`@roots/bud-extensions/cdn`]
+    esm: Modules[`@roots/bud-extensions/esm`]
   }
 
   interface Modules {

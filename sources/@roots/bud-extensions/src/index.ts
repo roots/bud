@@ -2,10 +2,10 @@
 // Licensed under the MIT license.
 
 /**
- * The {@link @roots/bud-extensions#} package implements the {@link @roots/bud-framework#Extensions | Extensions interface}
+ * Extensions controller and built-in extensions for bud.js.
  *
- * @see https://bud.js.org
- * @see https://github.com/roots/bud
+ * @see {@link https://bud.js.org bud.js.org}
+ * @see {@link https://github.com/roots/bud github}
  *
  *  @packageDocumentation
  */

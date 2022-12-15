@@ -67,8 +67,8 @@
       "default": "./lib/rule/index.js"
     },
     "./rules": {
-      "types": "./lib/handlers/rules/rules.d.ts",
-      "default": "./lib/handlers/rules/rules.js"
+      "types": "./lib/handlers/rules/index.d.ts",
+      "default": "./lib/handlers/rules/index.js"
     }
   },
   "devDependencies": {

@@ -103,7 +103,7 @@ export class Compiler extends Service implements Contract.Service {
     this.instance.compilers.forEach(compiler =>
       compiler.hooks.afterEmit.tapAsync(
         this.app.label,
-        async (stats, callback) => {
+        async (_stats, callback) => {
           try {
             await this.app.hooks.fire(`compiler.after`)
           } catch (error) {}

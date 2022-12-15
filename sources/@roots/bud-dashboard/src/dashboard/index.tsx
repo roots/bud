@@ -1,6 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
 import type ConsoleBuffer from '@roots/bud-framework/services/console'
-import {Box, render, Static} from '@roots/bud-support/ink'
+import {Box, Static} from '@roots/bud-support/ink'
 import React from '@roots/bud-support/react'
 import type {StatsCompilation} from '@roots/bud-support/webpack'
 
@@ -17,7 +17,7 @@ interface Props {
   watchFiles?: Set<string>
 }
 
-export const renderDashboard = ({
+export const dashboard = ({
   context,
   devUrl,
   messages,
@@ -25,7 +25,7 @@ export const renderDashboard = ({
   proxyUrl,
   stats,
   watchFiles,
-}: Props) => {
+}: Props): React.ReactElement => {
   const compilations = stats?.children?.length
     ? [
         ...stats.children,
@@ -35,7 +35,7 @@ export const renderDashboard = ({
       ]
     : [stats]
 
-  return render(
+  return (
     <Box flexDirection="column">
       {mode === `production` ? (
         <Static items={[0]}>
@@ -52,25 +52,11 @@ export const renderDashboard = ({
             />
           )}
         </Static>
-      ) : process.stdout.isTTY ? (
+      ) : (
         <TTYApp
           App={App}
           compilations={compilations}
-          isTTY={true}
-          mode={mode}
-          devUrl={devUrl}
-          proxyUrl={proxyUrl}
-          watchFiles={watchFiles}
-          context={context}
-          messages={messages}
-          displayAssets
-          displayEntrypoints
-          displayServerInfo
-        />
-      ) : (
-        <App
-          compilations={compilations}
-          isTTY={false}
+          isTTY={process.stdout.isTTY}
           mode={mode}
           devUrl={devUrl}
           proxyUrl={proxyUrl}
@@ -82,6 +68,6 @@ export const renderDashboard = ({
           displayServerInfo
         />
       )}
-    </Box>,
+    </Box>
   )
 }

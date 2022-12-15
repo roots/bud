@@ -57,7 +57,7 @@ const App = ({
       )}
 
       {compilations.map((compilation, id) => (
-        <Box key={id} flexDirection="column" paddingY={1}>
+        <Box key={id} flexDirection="column" paddingBottom={1}>
           <Compilation
             id={id}
             mode={mode}

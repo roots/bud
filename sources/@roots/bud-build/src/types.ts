@@ -46,9 +46,12 @@ declare module '@roots/bud-framework' {
     image: Rule
     font: Rule
     xml: Rule
-    json5: Rule
+    json: Rule
     csv: Rule
     yml: Rule
     toml: Rule
+    inlineSvg: Rule
+    inlineFont: Rule
+    inlineImage: Rule
   }
 }

@@ -6462,6 +6462,7 @@ __metadata:
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-preset-recommend": "workspace:sources/@roots/bud-preset-recommend"
     "@roots/bud-react": "workspace:sources/@roots/bud-react"
+    "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@roots/bud-wordpress-dependencies": "workspace:sources/@roots/bud-wordpress-dependencies"
     "@roots/bud-wordpress-externals": "workspace:sources/@roots/bud-wordpress-externals"
     "@roots/bud-wordpress-manifests": "workspace:sources/@roots/bud-wordpress-manifests"
@@ -6743,7 +6744,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-swc@workspace:sources/@roots/bud-swc"
   dependencies:
-    "@roots/bud": "workspace:sources/@roots/bud"
+    "@roots/bud-extensions": "workspace:sources/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2

@@ -4,7 +4,7 @@ import type {Rule} from '../rule/index.js'
 import * as items from './items/items.js'
 import * as loaders from './loaders/loaders.js'
 import {register} from './register.js'
-import * as rules from './rules/rules.js'
+import {rules} from './rules/index.js'
 
 export interface Props {
   filter: Bud[`hooks`][`filter`]
