@@ -20,7 +20,6 @@ import Signale from '@roots/bud-support/signale'
 import * as t from '@roots/bud-support/typanion'
 
 import {Notifier} from '../../notifier/index.js'
-import {Banner} from './render/banner.js'
 
 /**
  * Bud command
@@ -42,8 +41,6 @@ export default class BudCommand extends Command {
     `,
     examples: [[`compile source assets`, `$0 build`]],
   })
-
-  public static override paths = [[]]
 
   /**
    * Context
@@ -227,10 +224,7 @@ export default class BudCommand extends Command {
       ...(this.args ?? {}),
     }
 
-    this.render(<Banner />)
-
     const bud = await factory(this.context, true, true)
-    this.render(<Banner bud={bud} />)
 
     try {
       if (!isInternalDevelopmentEnv(bud)) {
@@ -243,7 +237,9 @@ export default class BudCommand extends Command {
     }
 
     try {
-      if (this.runCommand) await this.runCommand(bud)
+      if (this.runCommand) {
+        await this.runCommand(bud)
+      }
     } catch (error) {
       throw error
     }

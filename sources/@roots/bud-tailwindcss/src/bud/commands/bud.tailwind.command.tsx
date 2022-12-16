@@ -1,10 +1,10 @@
 import {join, resolve} from 'node:path'
 
-import BaseCommand from '@roots/bud/cli/commands/base'
+import type {Bud} from '@roots/bud'
+import BudCommand from '@roots/bud/cli/commands/bud'
 import {Command, Option} from '@roots/bud-support/clipanion'
-import execa from '@roots/bud-support/execa'
 
-export class BudTailwindCommand extends BaseCommand {
+export class BudTailwindCommand extends BudCommand {
   /**
    * Command paths
    *
@@ -36,26 +36,21 @@ export class BudTailwindCommand extends BaseCommand {
    *
    * @public
    */
-  public override async runCommand() {
-    this.app.context.config = {}
-    const tailwindPath = await this.app.module.getDirectory(`tailwindcss`)
+  public override async runCommand(bud: Bud) {
+    bud.context.config = {}
+    const tailwindPath = await bud.module.getDirectory(`tailwindcss`)
     const bin = join(tailwindPath, `lib`, `cli.js`)
 
     if (!this.options?.length)
       this.options = [
         `-i`,
-        this.app.path(`@src`, `index.css`),
+        bud.path(`@src`, `index.css`),
         `-o`,
-        this.app.path(`@dist`),
+        bud.path(`@dist`),
       ]
 
-    const tw = execa(`node`, [bin, ...(this.options ?? [])], {
+    await bud.sh([`node`, bin, ...(this.options ?? [])], {
       cwd: resolve(process.cwd(), this.basedir ?? `./`),
     })
-
-    tw?.stdout?.pipe(process.stdout)
-    tw?.stderr?.pipe(process.stderr)
-
-    await tw
   }
 }

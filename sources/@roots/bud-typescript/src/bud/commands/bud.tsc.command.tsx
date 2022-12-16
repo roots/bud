@@ -1,11 +1,11 @@
 import {join, resolve} from 'node:path'
 
-import BaseCommand from '@roots/bud/cli/commands/base'
+import type {Bud} from '@roots/bud'
+import BudCommand from '@roots/bud/cli/commands/bud'
 import {bind} from '@roots/bud-framework/extension/decorators'
 import {Command, Option} from '@roots/bud-support/clipanion'
-import execa from '@roots/bud-support/execa'
 
-export class BudTSCCommand extends BaseCommand {
+export class BudTSCCommand extends BudCommand {
   /**
    * Command paths
    * @public
@@ -30,13 +30,12 @@ export class BudTSCCommand extends BaseCommand {
    * @public
    */
   @bind
-  public override async runCommand() {
-    const tsc = await this.app.module.getDirectory(`tsc`)
+  public override async runCommand(bud: Bud) {
+    const tsc = await bud.module.getDirectory(`tsc`)
     const bin = join(tsc, `bin`, `tsc`)
 
-    const child = execa(
-      `node`,
-      [bin, ...(this.options ?? [])].filter(Boolean),
+    const child = bud.sh(
+      [`node`, bin, ...(this.options ?? [])].filter(Boolean),
       {
         cwd: resolve(process.cwd(), this.basedir ?? `./`),
       },

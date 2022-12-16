@@ -1,16 +1,17 @@
 import {join, resolve} from 'node:path'
 
-import BaseCommand from '@roots/bud/cli/commands/base'
+import type {Bud} from '@roots/bud'
+import BudCommand from '@roots/bud/cli/commands/bud'
 import {Command, Option} from '@roots/bud-support/clipanion'
-import execa from '@roots/bud-support/execa'
 
-export class BudStylelintCommand extends BaseCommand {
+export class BudStylelintCommand extends BudCommand {
   /**
    * Command paths
    *
    * @public
    */
   public static override paths = [
+    [`lint`],
     [`lint`, `css`],
     [`lint`, `scss`],
     [`lint`, `sass`],
@@ -40,25 +41,15 @@ export class BudStylelintCommand extends BaseCommand {
    *
    * @public
    */
-  public override async runCommand() {
-    const stylelint = await this.app.module.getDirectory(`stylelint`)
+  public override async runCommand(bud: Bud) {
+    const stylelint = await bud.module.getDirectory(`stylelint`)
     const bin = join(stylelint, `bin`, `stylelint.js`)
 
     if (!this.options?.length)
-      this.options = [this.app.path(`@src`, `**/*.{css,scss,sass}`)]
+      this.options = [bud.path(`@src`, `**/*.{css,scss,sass}`)]
 
-    const child = execa(
-      `node`,
-      [bin, ...(this.options ?? [])].filter(Boolean),
-      {
-        cwd: resolve(process.cwd(), this.basedir ?? `./`),
-      },
-    )
-
-    child.catch(() => {})
-    child.stdout.pipe(process.stdout)
-    child.stderr.pipe(process.stderr)
-
-    await child
+    await bud.sh([`node`, bin, ...(this.options ?? [])].filter(Boolean), {
+      cwd: resolve(process.cwd(), this.basedir ?? `./`),
+    })
   }
 }

@@ -1,4 +1,3 @@
-import BudCommand from '@roots/bud/cli/commands/bud'
 import BudBuildCommand from '@roots/bud/cli/commands/bud.build'
 import BudBuildDevelopmentCommand from '@roots/bud/cli/commands/bud.build.development'
 import BudBuildProductionCommand from '@roots/bud/cli/commands/bud.build.production'
@@ -26,7 +25,6 @@ application.register(Builtins.HelpCommand)
 application.register(Builtins.DefinitionsCommand)
 application.register(Builtins.VersionCommand)
 
-application.register(BudCommand)
 application.register(BudBuildCommand)
 application.register(BudBuildDevelopmentCommand)
 application.register(BudBuildProductionCommand)

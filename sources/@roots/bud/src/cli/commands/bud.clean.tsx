@@ -3,6 +3,7 @@ import {Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators'
 import {ensureDir, remove} from '@roots/bud-support/fs'
 import {Box, Text} from '@roots/bud-support/ink'
+import {isString} from '@roots/bud-support/lodash-es'
 import React from '@roots/bud-support/react'
 
 import BudCommand from './bud.js'
@@ -27,9 +28,7 @@ export default class BudCleanCommand extends BudCommand {
     ],
   })
 
-  public override get args() {
-    return {...this.context.args, dry: true}
-  }
+  public override dry: boolean = true
 
   public shouldCleanStorage = Option.Boolean(`@storage`, false, {
     description: `empty @storage`,
@@ -82,7 +81,13 @@ export default class BudCleanCommand extends BudCommand {
       await ensureDir(bud.path(`@storage`))
       await remove(bud.path(`@storage`))
     } catch (err) {
-      this.context.stderr.write(err)
+      this.renderOnce(
+        <Box>
+          <Text>
+            {err?.message ?? isString(err) ? err : JSON.stringify(err)}
+          </Text>
+        </Box>,
+      )
     }
   }
 }

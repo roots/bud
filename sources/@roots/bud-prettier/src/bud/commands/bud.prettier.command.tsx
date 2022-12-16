@@ -1,11 +1,11 @@
 import {join, resolve} from 'node:path'
 
-import BaseCommand from '@roots/bud/cli/commands/base'
+import BudCommand from '@roots/bud/cli/commands/bud'
+import type {Bud} from '@roots/bud-framework'
 import {bind} from '@roots/bud-framework/extension/decorators'
 import {Command, Option} from '@roots/bud-support/clipanion'
-import execa from '@roots/bud-support/execa'
 
-export class BudPrettierCommand extends BaseCommand {
+export class BudPrettierCommand extends BudCommand {
   /**
    * Command paths
    * @public
@@ -34,25 +34,18 @@ export class BudPrettierCommand extends BaseCommand {
    * @public
    */
   @bind
-  public override async runCommand() {
-    const prettier = await this.app.module.getDirectory(`prettier`)
+  public override async runCommand(bud: Bud) {
+    const prettier = await bud.module.getDirectory(`prettier`)
     const bin = join(prettier, `bin-prettier.js`)
 
     if (!this.options?.length)
       this.options = [
-        this.app.path(`@src`, `**/*.{ts,tsx,js,jsx,css,scss,sass}`),
+        bud.path(`@src`, `**/*.{ts,tsx,js,jsx,css,scss,sass}`),
         `--write`,
       ]
 
-    const child = execa(
-      `node`,
-      [bin, ...(this.options ?? [])].filter(Boolean),
-      {
-        cwd: resolve(process.cwd(), this.basedir ?? `./`),
-      },
-    )
-    child.stdout.pipe(process.stdout)
-    child.stderr.pipe(process.stderr)
-    await child
+    await bud.sh([`node`, bin, ...(this.options ?? [])].filter(Boolean), {
+      cwd: resolve(process.cwd(), this.basedir ?? `./`),
+    })
   }
 }
