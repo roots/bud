@@ -1,6 +1,6 @@
 import type {Bud} from '@roots/bud'
 import BudCommand from '@roots/bud/cli/commands/bud'
-import {Command} from '@roots/bud-support/clipanion'
+import {Command, Option} from '@roots/bud-support/clipanion'
 import axios from 'axios'
 
 /**
@@ -18,11 +18,16 @@ export default class BudUpgradeCommand extends BudCommand {
   public static override usage = Command.Usage({
     description: `Upgrade @roots dependencies`,
     category: `tools`,
-    examples: [[`Upgrade @roots dependencies`, `$0 upgrade`]],
+    examples: [
+      [`Upgrade dependencies to latest`, `$0 upgrade`],
+      [`Upgrade dependencies to specific version`, `$0 upgrade 6.6.6`],
+    ],
   })
 
   public override dry = true
   public override notify = false
+
+  public version = Option.String({required: false})
 
   /**
    * Command execute
@@ -55,8 +60,8 @@ export default class BudUpgradeCommand extends BudCommand {
             signifier.startsWith(`@roots/`) || signifier.includes(`bud-`),
         )
         ?.map(async signifier => {
-          const latest = await this.getLatestVersion(signifier)
-          bud.context.manifest[type][signifier] = latest
+          bud.context.manifest[type][signifier] =
+            this.version ?? (await this.getLatestVersion(signifier))
         }),
     )
   }

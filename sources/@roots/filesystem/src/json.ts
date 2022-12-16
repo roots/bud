@@ -19,7 +19,11 @@ export const write = async (
   data: any,
   options?: WriteOptions,
 ): Promise<void> => {
-  const source = json5.stringify(data, options)
+  const source = jsonStringify(
+    data,
+    options?.replacer ?? null,
+    options?.space ?? 2,
+  )
   await fs.writeAsync(path, source)
 }
 
