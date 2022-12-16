@@ -1,7 +1,5 @@
-import * as argv from './argv.js'
-
 export default {
-  basedir: argv.basedir,
+  basedir: undefined,
   browser: undefined,
   cache: undefined,
   ci: undefined,
@@ -13,6 +11,7 @@ export default {
   output: undefined,
   editor: undefined,
   esm: undefined,
+  find: undefined,
   flush: undefined,
   hash: undefined,
   html: undefined,
@@ -30,4 +29,5 @@ export default {
   reload: undefined,
   splitChunks: undefined,
   target: undefined,
+  verbose: undefined,
 }

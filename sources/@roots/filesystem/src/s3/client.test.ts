@@ -12,7 +12,7 @@ describe(`s3 client`, () => {
     expect(Client.make).toBeInstanceOf(Function)
   })
 
-  it(`should return s3 client from Client.make`, () => {
-    expect(Client.make({})).toBeInstanceOf(S3)
+  it(`should return s3 client from Client.make`, async () => {
+    expect(await Client.make({})).toBeInstanceOf(S3)
   })
 })

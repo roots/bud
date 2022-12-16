@@ -1,6 +1,6 @@
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import S3 from './index.js'
+import {S3} from './index.js'
 
 const mockSDKImplementation = {
   send: vi.fn(),
@@ -32,10 +32,10 @@ const mockConfigModule = vi
   .mockImplementation(() => mockConfigImplementation)
 
 describe(`s3`, () => {
-  let s3
+  let s3: S3
 
   beforeEach(async () => {
-    // @ts-ignore
+    vi.clearAllMocks()
     s3 = new S3()
     s3.client = new mockClient()
     s3.config = new mockConfigModule()
@@ -123,7 +123,7 @@ describe(`s3`, () => {
 
   it(`should set public value when setPublic is called`, () => {
     s3.setPublic(false)
-    expect(s3.public).toBeFalsy()
+    expect(s3.isPublic).toBeFalsy()
   })
 
   it(`should return the value of s3.isPublic when calling getPublic`, () => {
@@ -133,9 +133,9 @@ describe(`s3`, () => {
   it(`should throw if attempt to access client is made and credentials aren't set`, async () => {
     s3.setCredentials(null)
     try {
-      expect(s3.getClient).toThrow()
+      await s3.getClient()
     } catch (e) {
-      expect(e.message).toEqual(
+      expect(e.message).toBe(
         `S3 credentials are required. Did you forget to set them?`,
       )
     }
@@ -143,7 +143,9 @@ describe(`s3`, () => {
 
   it(`should call s3.list from s3.exists`, async () => {
     const listSpy = vi.spyOn(s3, `list`)
-    await s3.exists()
+    try {
+      await s3.exists(`foo`)
+    } catch (e) {}
     expect(listSpy).toHaveBeenCalled()
   })
 })

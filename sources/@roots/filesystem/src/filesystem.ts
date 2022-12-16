@@ -371,3 +371,20 @@ export default class Filesystem {
     return this
   }
 }
+
+export type {
+  AppendData,
+  AppendOptions,
+  CopyOptions,
+  DirCriteria,
+  ExistsResult,
+  FindOptions,
+  FSJetpack,
+  InspectOptions,
+  InspectResult,
+  InspectTreeOptions,
+  InspectTreeResult,
+  MoveOptions,
+  WritableData,
+  WriteOptions,
+}

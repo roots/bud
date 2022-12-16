@@ -1,9 +1,7 @@
 import type {Bud} from '@roots/bud'
 import BudCommand from '@roots/bud/cli/commands/bud'
 import {checkDependencies} from '@roots/bud/cli/helpers/checkDependencies'
-import {checkNoPackageManager} from '@roots/bud/cli/helpers/checkPackageManagerErrors'
-import {detectPackageManager} from '@roots/bud/cli/helpers/detectPackageManager'
-import {isNoPackageManager} from '@roots/bud/cli/helpers/isPackageManagerError'
+import {isPackageManagerError} from '@roots/bud/cli/helpers/isPackageManagerError'
 import {Command} from '@roots/bud-support/clipanion'
 import {Box, Text} from '@roots/bud-support/ink'
 import React from '@roots/bud-support/react'
@@ -63,28 +61,7 @@ for a lot of edge cases so it might return a false positive.
    * @public
    */
   public override async runCommand(bud: Bud) {
-    const hasNoPackageManager = isNoPackageManager(bud)
-
-    if (hasNoPackageManager) {
-      checkNoPackageManager(bud)
-    } else {
-      this.renderOnce(
-        <Box>
-          <Text color="green">✅ using {detectPackageManager(bud)}</Text>
-        </Box>,
-      )
-    }
-
-    if (hasNoPackageManager) {
-      this.renderOnce(
-        <Box>
-          <Text color="yellow">
-            ⚠️ skipping dependency checks since package manager is
-            indeterminate
-          </Text>
-        </Box>,
-      )
-    } else {
+    if (!isPackageManagerError(bud)) {
       const errors = await checkDependencies(bud)
       if (!errors) {
         this.renderOnce(

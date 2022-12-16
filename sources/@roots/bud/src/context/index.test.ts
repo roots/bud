@@ -9,10 +9,9 @@ describe(`context.get`, () => {
   let context: Context
 
   beforeAll(async () => {
-    context = await getContext(
-      join(paths.root, `tests`, `util`, `project`),
-      true,
-    )
+    context = await getContext({
+      basedir: join(paths.root, `tests`, `util`, `project`),
+    })
   })
 
   it(`should be accessible`, () => {
@@ -22,7 +21,7 @@ describe(`context.get`, () => {
   it(`should match expectations`, async () => {
     expect(context.args).toEqual(
       expect.objectContaining({
-        basedir: expect.any(String),
+        basedir: undefined,
         browser: undefined,
         cache: undefined,
         ci: undefined,
@@ -63,7 +62,6 @@ describe(`context.get`, () => {
         version: `0.0.0`,
       }),
     )
-    expect(context.colorDepth).toEqual(256)
     expect(context.extensions.builtIn).toEqual(
       expect.arrayContaining([
         `@roots/bud-terser`,
@@ -81,7 +79,7 @@ describe(`context.get`, () => {
       ]),
     )
     expect(context.manifest.bud).toMatchSnapshot()
-    expect(context.mode).toBe(null)
+    expect(context.mode).toBe(undefined)
     expect(context.services).toEqual(
       expect.arrayContaining([
         `@roots/bud/services/env`,

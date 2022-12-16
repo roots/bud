@@ -14,16 +14,20 @@ export const checkNoPackageManager = (bud: Bud): boolean => {
   isNoPackageManager(bud) &&
     Renderer.once(
       <Box flexDirection="column">
-        <Box flexDirection="column">
-          <Text backgroundColor="red" color="white">
-            No package manager detected
-          </Text>
+        <Box marginTop={1}>
+          <Text color="red">could not determine package manager</Text>
+        </Box>
 
+        <Box flexDirection="column">
           <Text>
-            bud.js looked for a `packageManager` property in your
-            `package.json` file, but found none. There is also no
-            `yarn.lock` or `package-lock.json` file in the project. Can't
-            determine package manager in use.
+            bud.js looked for a <Text color="blue">`packageManager`</Text>
+            property in your <Text color="blue">`package.json`</Text> file,
+            but found none.
+          </Text>
+          <Text>
+            There is also no <Text color="blue">`yarn.lock`</Text> or
+            <Text color="blue">`package-lock.json`</Text> file in the
+            project.
           </Text>
         </Box>
       </Box>,

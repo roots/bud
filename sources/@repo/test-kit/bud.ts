@@ -14,8 +14,8 @@ export const repoPath = (...path: Array<string>) =>
 export const basedir = repoPath(`tests`, `util`, `project`)
 
 export const factory = async (
-  overrides?: Partial<Options.Context>,
-  skipRun = true,
+  overrides?: Partial<Options.Context> | undefined,
+  run = false,
 ): Promise<Bud> => {
   const bud = await makeInstance(
     {
@@ -28,10 +28,9 @@ export const factory = async (
       },
     },
     false,
-    true,
   )
 
-  if (!skipRun) await bud.run()
+  if (run) await bud.run()
 
   return bud
 }

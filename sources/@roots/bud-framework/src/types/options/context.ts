@@ -1,5 +1,8 @@
 import type {Readable, Writable} from 'node:stream'
 
+import type {Instance as Signale} from '@roots/bud-support/signale'
+import type {InspectResult} from '@roots/filesystem/filesystem'
+
 import type {Bud} from '../../bud.js'
 
 export interface BaseContext {
@@ -69,24 +72,27 @@ export interface BaseContext {
     splitChunks?: boolean
     storage?: string
     target?: Array<string>
+    verbose?: boolean
   }>
-  config?: Record<string, ConfigDescription>
+  config?: Record<string, File>
   env?: Record<string, string | undefined>
   extensions?: {
     builtIn?: Array<string>
     discovered?: Array<string>
   }
+  logger?: Signale
 }
 
 export interface Context extends BaseContext {
-  stdin: Readable
-  stdout: Writable
-  stderr: Writable
-  colorDepth: number
+  stdin?: Readable
+  stdout?: Writable
+  stderr?: Writable
+  colorDepth?: number
 }
+
 export type Overrides = Partial<Context>
 
-export interface ConfigDescription {
+export interface File extends Omit<InspectResult, `type`> {
   name: string
   path: string
   bud: boolean
@@ -95,4 +101,10 @@ export interface ConfigDescription {
   extension: string | null
   type: `production` | `development` | `base`
   module: any
+  file: boolean
+  dir: boolean
+  symlink: boolean
+  size: number
+  md5: string
+  mode: number
 }

@@ -1,44 +1,20 @@
-import {basename, join, normalize} from 'node:path'
-
-import {json, yml} from '@roots/bud-support/filesystem'
-import {FS} from '@roots/bud-support/filesystem'
+import type {Context, File} from '@roots/bud-framework/options'
+import {Filesystem, json, yml} from '@roots/bud-support/filesystem'
 import {set} from '@roots/bud-support/lodash-es'
 
-export interface ConfigFileDescription {
-  name: string
-  path: string
-  bud: boolean
-  local: boolean
-  dynamic: boolean
-  extension: string | null
-  type: `production` | `development` | `base`
-  module: any
+interface get {
+  (props: {basedir: Context[`basedir`]; fs: Filesystem}): Promise<
+    Record<string, File>
+  >
 }
 
-let data: Record<string, ConfigFileDescription> = {}
+let data: Record<string, File> = {}
 
-export interface get {
-  (basedir: string): Promise<Record<string, ConfigFileDescription>>
-}
-
-export const get: get = async basedir => {
-  const fs = new FS(basedir)
-
+const get: get = async ({basedir, fs}) => {
   let results: Array<string>
 
   try {
-    results = await fs.find({
-      recursive: false,
-      directories: false,
-      matching: [
-        `*.{cts,mts,ts,cjs,mjs,js,json,toml,yml}`,
-        `*rc`,
-        join(`config`, `*.{cts,mts,ts,cjs,mjs,js,json,toml,yml}`),
-        join(`config`, `*rc`),
-        `yarn.lock`,
-        `package-lock.json`,
-      ],
-    })
+    results = await fs.list(basedir)
     if (!results) return {}
   } catch (error) {
     throw error
@@ -47,20 +23,34 @@ export const get: get = async basedir => {
   try {
     await Promise.all(
       results?.map(async (name: string) => {
-        const path = join(basedir, name)
+        const file = await fs.inspect(name, {
+          checksum: `md5`,
+          mode: true,
+          absolutePath: true,
+        })
 
         set(data, [`${name}`], {
-          path,
-          name: basename(normalize(name)),
-          extension: name.split(`.`).pop(),
-          local: name.includes(`local`),
-          dynamic: isDynamicConfig(path),
-          bud: name.includes(`bud`),
+          path: file.absolutePath,
+          name: file.name,
+          extension:
+            file.type === `file` ? file.name.split(`.`).pop() : null,
+          local: file.name.includes(`local`),
+          dynamic:
+            file.type === `file`
+              ? isDynamicConfig(file.absolutePath)
+              : null,
+          bud: name.includes(`bud`) && file.type === `file`,
           type: name.includes(`production`)
             ? `production`
             : name.includes(`development`)
             ? `development`
             : `base`,
+          size: file.size,
+          md5: file.md5,
+          mode: file.mode,
+          file: file.type === `file`,
+          dir: file.type === `dir`,
+          symlink: file.type === `symlink`,
         })
       }),
     )
@@ -71,7 +61,7 @@ export const get: get = async basedir => {
   try {
     await Promise.all(
       Object.entries(data).map(
-        async ([name, description]: [string, ConfigFileDescription]) => {
+        async ([name, description]: [string, File]) => {
           try {
             if (description.dynamic) {
               try {
@@ -114,4 +104,5 @@ const isDynamicConfig = (path: string) =>
     path.endsWith(extension),
   )
 
-export default get
+export {data, get}
+export type {File}

@@ -17,18 +17,8 @@ export class Logger {
     return this._app()
   }
 
-  public _instance: Signale.Instance
-
-  /**
-   * Logger instance
-   *
-   * @public
-   */
   public get instance() {
-    return this._instance
-  }
-  public set instance(instance: Signale.Instance) {
-    this._instance = instance
+    return this.app.context.logger
   }
 
   public get level() {
@@ -47,7 +37,8 @@ export class Logger {
    */
   public constructor(public _app: () => Bud) {
     this.scope = [this.app.label]
-    this.instance = this.makeInstance()
+    if (!this.app.context.logger)
+      this.app.context.logger = this.makeInstance()
   }
 
   @bind

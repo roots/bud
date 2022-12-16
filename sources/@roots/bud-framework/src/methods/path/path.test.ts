@@ -50,6 +50,7 @@ describe(`bud.path`, () => {
     expect(path(`@hash`)).toEqual(`[contenthash:6]`)
   })
   it(`resolves @hash to empty string when disabled`, async () => {
+    bud.hooks.on(`feature.hash`, false)
     expect(path(`@hash`)).toEqual(``)
   })
   it(`resolves @ext`, async () => {

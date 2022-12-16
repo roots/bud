@@ -9,9 +9,9 @@ describe(`bud.alias`, () => {
   let alias: typeof aliasFn
 
   beforeEach(async () => {
+    vi.restoreAllMocks()
     bud = await factory()
     alias = aliasFn.bind(bud)
-    vi.restoreAllMocks()
   })
 
   it(`should be operating in an expected env`, async () => {

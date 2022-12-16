@@ -8,7 +8,7 @@ import {expand} from 'dotenv-expand'
  *
  * @public
  */
-export default (basedir: string) => {
+export default ({basedir, ...overrides}) => {
   let data
 
   /**
@@ -33,7 +33,7 @@ export default (basedir: string) => {
       return join(basepath, segment)
     }, sep)
 
-  return data
+  return {...data, ...(overrides ?? {})}
 }
 
 /**

@@ -1,9 +1,9 @@
 import {join} from 'node:path'
 
-import {FS, json, yml} from '@roots/bud-support/filesystem'
+import {Filesystem as FS, json, yml} from '@roots/bud-support/filesystem'
 import globby from '@roots/bud-support/globby'
 import {isUndefined} from '@roots/bud-support/lodash-es'
-import type S3 from '@roots/filesystem/s3'
+import {S3} from '@roots/filesystem/s3'
 
 import type {Bud} from '../bud.js'
 
@@ -41,7 +41,7 @@ export default class FileSystem extends FS {
    *
    * @public
    */
-  public s3?: S3
+  public s3: S3
 
   /**
    * YML handling
@@ -57,6 +57,8 @@ export default class FileSystem extends FS {
    */
   public constructor(public _app: () => Bud) {
     super(_app().context.basedir)
+
+    this.s3 = new S3()
 
     this.logger = this.app.logger
       .makeInstance({logLevel: `info`, interactive: true})
@@ -76,11 +78,6 @@ export default class FileSystem extends FS {
    */
   public setBucket: S3[`setBucket`] = function (bucket: string) {
     this.app.after(async (bud: Bud) => {
-      if (!bud.fs.s3)
-        bud.fs.s3 = await import(`@roots/filesystem/s3`).then(
-          ({default: s3}) => new s3(),
-        )
-
       bud.fs.s3.setBucket(bucket)
     })
 
@@ -97,11 +94,6 @@ export default class FileSystem extends FS {
     credentials: S3[`config`][`credentials`],
   ) {
     this.app.after(async (bud: Bud) => {
-      if (!bud.fs.s3)
-        bud.fs.s3 = await import(`@roots/filesystem/s3`).then(
-          ({default: s3}) => new s3(),
-        )
-
       bud.fs.s3.setCredentials(credentials)
     })
 
@@ -118,11 +110,6 @@ export default class FileSystem extends FS {
     endpoint: S3[`config`][`endpoint`],
   ) {
     this.app.after(async (bud: Bud) => {
-      if (!bud.fs.s3)
-        bud.fs.s3 = await import(`@roots/filesystem/s3`).then(
-          ({default: s3}) => new s3(),
-        )
-
       bud.fs.s3.setEndpoint(endpoint)
     })
 
@@ -139,11 +126,6 @@ export default class FileSystem extends FS {
     region: S3[`config`][`region`],
   ) {
     this.app.after(async (bud: Bud) => {
-      if (!bud.fs.s3)
-        bud.fs.s3 = await import(`@roots/filesystem/s3`).then(
-          ({default: s3}) => new s3(),
-        )
-
       bud.fs.s3.setRegion(region)
     })
 
@@ -175,11 +157,6 @@ export default class FileSystem extends FS {
       destination ? join(destination, path) : path
 
     this.app.after(async (bud: Bud) => {
-      if (!bud.fs.s3)
-        bud.fs.s3 = await import(`@roots/filesystem/s3`).then(
-          ({default: s3}) => new s3(),
-        )
-
       await globby(files, {cwd: source}).then(async files => {
         const descriptions = await Promise.all(
           files.map(async file => {

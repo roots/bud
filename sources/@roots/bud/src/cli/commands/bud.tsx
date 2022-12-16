@@ -112,19 +112,15 @@ export default class BudCommand extends Command {
   })
 
   /**
-   * level
-   */
-  public level = Option.Counter(`--verbose,-v`, undefined, {
-    description: `Set logging level`,
-    hidden: true,
-  })
-
-  /**
    * log
    */
   public log = Option.Boolean(`--log`, undefined, {
     description: `Enable logging`,
     hidden: true,
+  })
+
+  public verbose = Option.Boolean(`--verbose,-vvvv`, undefined, {
+    description: `Enable verbose logging`,
   })
 
   /**
@@ -217,14 +213,22 @@ export default class BudCommand extends Command {
         : this.context.basedir,
       mode: this.context.mode,
       dry: this.dry,
-      level: this.level,
+      level:
+        this.verbose === true
+          ? 4
+          : this.log === true
+          ? 3
+          : this.log !== false
+          ? 2
+          : 1,
       log: this.log,
       notify: this.notify,
       target: this.filter,
+      verbose: this.verbose,
       ...(this.args ?? {}),
     }
 
-    const bud = await factory(this.context, true, true)
+    const bud = await factory(this.context)
 
     try {
       if (!isInternalDevelopmentEnv(bud)) {

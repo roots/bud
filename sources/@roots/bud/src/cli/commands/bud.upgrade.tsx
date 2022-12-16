@@ -1,10 +1,7 @@
 import type {Bud} from '@roots/bud'
 import BudCommand from '@roots/bud/cli/commands/bud'
-import {Command, Option} from '@roots/bud-support/clipanion'
-import execa from '@roots/bud-support/execa'
-
-import {isInternalDevelopmentEnv} from '../helpers/isInternalDevelopmentEnv.js'
-import {isPackageManagerConflict} from '../helpers/isPackageManagerError.js'
+import {Command} from '@roots/bud-support/clipanion'
+import axios from 'axios'
 
 /**
  * `bud upgrade` command
@@ -18,25 +15,14 @@ export default class BudUpgradeCommand extends BudCommand {
    * @public
    */
   public static override paths = [[`upgrade`]]
-
-  /**
-   * Command usage
-   *
-   * @public
-   */
   public static override usage = Command.Usage({
     description: `Upgrade @roots dependencies`,
     category: `tools`,
     examples: [[`Upgrade @roots dependencies`, `$0 upgrade`]],
   })
 
-  public pacman = Option.Proxy({name: `package manager options`})
-
-  public bin: `yarn` | `npx`
-
-  public isYarn() {
-    return this.bin.includes(`yarn`)
-  }
+  public override dry = true
+  public override notify = false
 
   /**
    * Command execute
@@ -44,75 +30,40 @@ export default class BudUpgradeCommand extends BudCommand {
    * @public
    */
   public override async runCommand(bud: Bud) {
-    if (isInternalDevelopmentEnv(bud)) {
+    try {
+      await this.bumpDependenciesOfType(bud, `dependencies`)
+      await this.bumpDependenciesOfType(bud, `devDependencies`)
+
+      await bud.fs.json.write(`package.json`, bud.context.manifest)
+
       this.text(
-        `Refusing to install dependencies in internal development environment.\n`,
+        `Dependencies upgraded in \`package.json\`.\n\nRun \`yarn install\` or \`npm install\` to install.\n\n`,
       )
-      return
-    }
-
-    if (isPackageManagerConflict(bud)) {
-      this.text(
-        `Refusing to install dependencies due to package manager conflict.\n`,
-      )
-      return
-    }
-
-    this.bin =
-      bud.context.manifest?.packageManager?.includes(`yarn`) ||
-      bud.context.config?.[`yarn.lock`]
-        ? `yarn`
-        : `npx`
-
-    const upgraded = []
-
-    upgraded.push(
-      ...(await this.upgradeAllRootsDependenciesOfType(
-        bud,
-        `devDependencies`,
-      )),
-      ...(await this.upgradeAllRootsDependenciesOfType(
-        bud,
-        `dependencies`,
-      )),
-    )
-
-    if (upgraded.length) {
-      await bud.fs.write(
-        `package.json`,
-        bud.fs.json.stringify(bud.context.manifest, null, 2),
-      )
-
-      this.text(`Dependencies upgraded in \`package.json\`.`)
-      this.text(`Run \`yarn install\` or \`npm install\` to install.\n\n`)
+    } catch (e) {
+      throw e
     }
   }
 
-  public async upgradeAllRootsDependenciesOfType(
+  public async bumpDependenciesOfType(
     bud: Bud,
     type: `devDependencies` | `dependencies`,
-  ): Promise<Array<string>> {
-    const dependencies = Object.keys(
-      bud.context.manifest[type] ?? {},
-    ).filter(
-      (signifier: string) =>
-        signifier.startsWith(`@roots/`) || signifier.includes(`bud-`),
-    )
-
+  ): Promise<void> {
     await Promise.all(
-      dependencies?.map(
-        async signifier => {
-          bud.context.manifest[type][signifier] = await execa(
-            this.bin,
-            this.isYarn
-              ? [`info`, signifier, `version`]
-              : [`view`, signifier, `version`],
-          ).then(({stdout}) => stdout.split(`\n`).shift().trim())
-        },
-        {cwd: bud.context.basedir},
-      ),
+      Object.keys(bud.context.manifest[type] ?? {})
+        .filter(
+          (signifier: string) =>
+            signifier.startsWith(`@roots/`) || signifier.includes(`bud-`),
+        )
+        ?.map(async signifier => {
+          const latest = await this.getLatestVersion(signifier)
+          bud.context.manifest[type][signifier] = latest
+        }),
     )
+  }
 
-    return dependencies
+  public async getLatestVersion(signifier: string) {
+    return await axios
+      .get(`https://registry.npmjs.org/${signifier}/latest`)
+      .then(async res => res.data?.version)
   }
 }

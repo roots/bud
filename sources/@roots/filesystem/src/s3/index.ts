@@ -1,13 +1,9 @@
 /* eslint-disable no-console */
 import type {Readable} from 'node:stream'
 
-import {
-  DeleteObjectCommand,
-  GetObjectCommand,
+import type {
   GetObjectOutput,
-  ListObjectsCommand,
   ListObjectsCommandOutput,
-  PutObjectCommand,
   PutObjectCommandInput,
   S3Client,
   S3ClientConfig,
@@ -24,7 +20,7 @@ import Config from './config.js'
  *
  * @public
  */
-export default class S3 {
+export class S3 {
   /**
    * The S3 bucket name
    *
@@ -44,29 +40,8 @@ export default class S3 {
    *
    * @internal
    */
-  public client: {make: (config: S3ClientConfig) => S3Client} = Client
-
-  /**
-   * S3 Client
-   *
-   * @public
-   */
-  public getClient(): S3Client {
-    if (!this.config.credentials) {
-      throw new Error(
-        `S3 credentials are required. Did you forget to set them?`,
-      )
-    }
-
-    let value: S3ClientConfig = {
-      credentials: this.config.credentials,
-      region: this.config.region,
-    }
-
-    if (this.config.endpoint) value.endpoint = this.config.endpoint
-
-    return this.client.make(value)
-  }
+  public client: {make: (config: S3ClientConfig) => Promise<S3Client>} =
+    Client
 
   /**
    * Permissions for uploaded files
@@ -83,6 +58,29 @@ export default class S3 {
   public constructor() {
     this.client = Client
     this.config = new Config()
+  }
+
+  /**
+   * S3 Client
+   *
+   * @public
+   */
+  @bind
+  public async getClient(): Promise<S3Client> {
+    if (!this.config.credentials) {
+      throw new Error(
+        `S3 credentials are required. Did you forget to set them?`,
+      )
+    }
+
+    let value: S3ClientConfig = {
+      credentials: this.config.credentials,
+      region: this.config.region,
+    }
+
+    if (this.config.endpoint) value.endpoint = this.config.endpoint
+
+    return await this.client.make(value)
   }
 
   /**
@@ -281,14 +279,18 @@ export default class S3 {
           .on(`end`, () => resolve(Buffer.concat(chunks).toString(`utf8`)))
       })
 
-    try {
-      const request = (await this.getClient().send(
+    const client = await this.getClient()
+    const GetObjectOutput = await import(`@aws-sdk/client-s3`).then(
+      ({GetObjectCommand}) =>
         new GetObjectCommand({Bucket: this.bucket, Key: key}),
-      )) as {Body: Readable}
+    )
 
-      if (raw) return request
+    try {
+      const request = (await client.send(GetObjectOutput)) as {
+        Body: Readable
+      }
 
-      return streamToString(request)
+      return raw ? request : streamToString(request)
     } catch (error) {
       throw error
     }
@@ -308,12 +310,16 @@ export default class S3 {
   @bind
   public async delete(key: string) {
     try {
-      await this.getClient().send(
-        new DeleteObjectCommand({
-          Bucket: this.bucket,
-          Key: key,
-        }),
+      const client = await this.getClient()
+      const DeleteObjectOutput = await import(`@aws-sdk/client-s3`).then(
+        ({DeleteObjectCommand}) =>
+          new DeleteObjectCommand({
+            Bucket: this.bucket,
+            Key: key,
+          }),
       )
+
+      await client.send(DeleteObjectOutput)
 
       return this
     } catch (error) {
@@ -356,15 +362,15 @@ export default class S3 {
   @bind
   public async list(raw = false) {
     try {
-      const results = await this.getClient().send(
-        new ListObjectsCommand({
-          Bucket: this.bucket,
-        }),
+      const client = await this.getClient()
+      const ListObjectsOutput = await import(`@aws-sdk/client-s3`).then(
+        ({ListObjectsCommand}) =>
+          new ListObjectsCommand({Bucket: this.bucket}),
       )
-
+      const results = await client.send(ListObjectsOutput)
       if (!results) return []
-      if (raw) return results
-      else return results?.Contents.map(({Key}) => Key)
+
+      return raw ? results : results?.Contents.map(({Key}) => Key)
     } catch (error) {
       throw error
     }
@@ -405,7 +411,9 @@ export default class S3 {
     }
 
     try {
-      await this.getClient().send(new PutObjectCommand(putProps))
+      const client = await this.getClient()
+      const {PutObjectCommand} = await import(`@aws-sdk/client-s3`)
+      await client.send(new PutObjectCommand(putProps))
 
       return this
     } catch (error) {

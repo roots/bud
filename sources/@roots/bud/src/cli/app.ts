@@ -12,11 +12,12 @@ import getContext from '@roots/bud/context'
 import {argv, basedir} from '@roots/bud/context/argv'
 import {Builtins, Cli, CommandClass} from '@roots/bud-support/clipanion'
 
-const context = await getContext(basedir, true)
+const context = await getContext({basedir})
 
 const application = new Cli({
   binaryLabel: `bud`,
   binaryName: `bud`,
+  binaryVersion: context.bud?.version ?? undefined,
   enableCapture: false,
   enableColors: true,
 })

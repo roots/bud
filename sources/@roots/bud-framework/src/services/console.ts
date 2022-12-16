@@ -55,7 +55,7 @@ export default class ConsoleBuffer extends Service {
    */
   @bind
   public override async init(bud: Bud) {
-    if (bud.context?.args?.ci) return
+    if (bud.context.args?.ci) return
 
     // Patch the console, and assign the restore function
     this.restore = patchConsole((stream, data) => {

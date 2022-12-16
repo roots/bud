@@ -5,22 +5,24 @@ import {beforeEach, describe, expect, it} from 'vitest'
 
 import Env from './env'
 
+const context = {
+  basedir: join(
+    paths.root,
+    `sources`,
+    `@roots`,
+    `bud`,
+    `src`,
+    `context`,
+    `__fixtures__`,
+    `mock`,
+  ),
+}
+
 describe(`@roots/bud/context/env`, () => {
   let env: Record<string, any>
 
   beforeEach(() => {
-    env = Env(
-      join(
-        paths.root,
-        `sources`,
-        `@roots`,
-        `bud`,
-        `src`,
-        `context`,
-        `__fixtures__`,
-        `mock`,
-      ),
-    )
+    env = Env(context)
   })
 
   it(`.env env`, () => {
@@ -51,8 +53,8 @@ describe(`@roots/bud/context/env`, () => {
   it(`malformed env throws`, () => {
     try {
       expect(
-        Env(
-          join(
+        Env({
+          basedir: join(
             paths.root,
             `sources`,
             `@roots`,
@@ -63,7 +65,7 @@ describe(`@roots/bud/context/env`, () => {
             `mock`,
             `bad-env`,
           ),
-        ),
+        }),
       ).toThrow()
     } catch (e) {}
   })

@@ -2,7 +2,7 @@ import {lowerCase} from '@roots/bud-support/lodash-es'
 import type {Instance as Signale} from '@roots/bud-support/signale'
 import Container from '@roots/container'
 
-import type {Bud} from './bud.js'
+import type {Bud} from './index.js'
 
 interface Contract {
   /**
