@@ -162,6 +162,7 @@
     "browserslist": "4.21.4",
     "dotenv": "16.0.3",
     "dotenv-expand": "9.0.0",
+    "execa": "6.1.0",
     "node-notifier": "10.0.1",
     "open": "8.4.0",
     "open-editor": "4.0.0",

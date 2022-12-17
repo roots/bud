@@ -4,7 +4,7 @@
 /* eslint-disable n/no-process-env */
 /* eslint-disable n/no-process-exit */
 
-import {execaCommandSync} from '@roots/bud-support/execa'
+import {execaCommandSync} from 'execa'
 
 const isDevelopment = process.env.npm_package_version === `0.0.0`
 const exit = () => process.exit(0)
