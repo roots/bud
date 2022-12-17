@@ -8,6 +8,7 @@ import getManifest from '@roots/bud/context/manifest'
 import services from '@roots/bud/context/services'
 import type {Context} from '@roots/bud-framework/options'
 import {Filesystem} from '@roots/bud-support/filesystem'
+import {omit} from '@roots/bud-support/lodash-es'
 import Signale from '@roots/bud-support/signale'
 
 import * as argv from './argv.js'
@@ -84,7 +85,7 @@ export default async (
     logger: overrides?.logger ?? logger,
   }
 
-  if (context.args?.debug) console.dir(context)
+  if (context.args?.debug) console.dir(omit(context, `env`))
 
   if (cache) {
     contexts[basedir] = context
