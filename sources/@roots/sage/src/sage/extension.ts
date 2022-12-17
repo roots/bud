@@ -41,6 +41,8 @@ export class Sage extends Extension<Options> {
     if (app.extensions.has(`@roots/bud-tailwindcss`))
       await app.extensions.add(`@roots/sage/wp-theme-json-tailwind`)
 
+    app.hooks.on(`build.output.uniqueName`, `@roots/bud/sage`)
+
     /* Set paths */
     app.setPath({
       '@src': `resources`,

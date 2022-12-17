@@ -32,12 +32,7 @@ export class Bud {
    *
    * @public
    */
-  public context: Options.Context = {
-    label: `bud`,
-    basedir: process.cwd(),
-    bud: {},
-    mode: `production`,
-  }
+  public context: Options.Context
 
   /**
    * Implementation

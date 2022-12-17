@@ -7,7 +7,6 @@ import {filename} from './filename.js'
 export const output: Factory<`output`> = async ({
   hooks: {filter},
   isProduction,
-  label,
   path,
 }) =>
   filter(`build.output`, {
@@ -24,5 +23,5 @@ export const output: Factory<`output`> = async ({
       `build.output.scriptType`,
       isMjs(filter) ? `module` : false,
     ),
-    uniqueName: filter(`build.output.uniqueName`, label),
+    uniqueName: filter(`build.output.uniqueName`, `@roots/bud`),
   })

@@ -84,9 +84,7 @@ export default async (
     logger: overrides?.logger ?? logger,
   }
 
-  if (context.args?.debug) {
-    console.dir(context)
-  }
+  if (context.args?.debug) console.dir(context)
 
   if (cache) {
     contexts[basedir] = context

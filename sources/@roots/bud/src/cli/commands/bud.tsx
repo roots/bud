@@ -208,11 +208,13 @@ export default class BudCommand extends Command {
 
     this.context.args = {
       ...this.context.args,
+
       basedir: this.basedir
         ? resolve(this.context.basedir, this.basedir)
         : this.context.basedir,
-      mode: this.context.mode,
+
       dry: this.dry,
+      mode: this.context.mode,
       level:
         this.verbose === true
           ? 4
@@ -221,6 +223,7 @@ export default class BudCommand extends Command {
           : this.log !== false
           ? 2
           : 1,
+
       log: this.log,
       notify: this.notify,
       target: this.filter,
