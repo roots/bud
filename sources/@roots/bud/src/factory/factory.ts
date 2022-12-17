@@ -1,7 +1,7 @@
 import {Bud} from '@roots/bud'
 import getContext from '@roots/bud/context'
-import type {Overrides} from '@roots/bud/factory/options'
 import {get, has, set} from '@roots/bud/instances'
+import type {Context} from '@roots/bud-framework/options'
 
 import * as argv from '../context/argv.js'
 
@@ -25,7 +25,7 @@ import * as argv from '../context/argv.js'
  * @public
  */
 export async function factory(
-  {basedir, ...overrides}: Overrides = {basedir: argv.basedir},
+  {basedir, ...overrides}: Partial<Context> = {basedir: argv.basedir},
   cache = true,
 ): Promise<Bud> {
   if (cache && has(basedir)) return get(basedir)

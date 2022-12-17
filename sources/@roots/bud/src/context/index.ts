@@ -20,12 +20,12 @@ export default async (
 ): Promise<Context> => {
   if (cache && contexts[basedir]) return contexts[basedir]
 
-  let config: Context[`config`]
-  let env: Context[`env`]
-  let extensions: Context[`extensions`]
-  let manifest: Context[`manifest`]
-
   const fs = new Filesystem(basedir)
+
+  let config: Context[`config`] | undefined
+  let env: Context[`env`] | undefined
+  let extensions: Context[`extensions`] | undefined
+  let manifest: Context[`manifest`] | undefined
 
   if (!argv.flag(`no-find`)) {
     env = getEnv({basedir, ...overrides})

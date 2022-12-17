@@ -1,4 +1,5 @@
-/// <reference path="../../bud/lib/index.d.ts" />
+/// <reference path="../../bud-framework/lib/index.d.ts" />
+/// <reference path="../../bud-build/lib/index.d.ts" />
 
 import type {Item} from '@roots/bud-build/item'
 import type {Loader} from '@roots/bud-build/loader'

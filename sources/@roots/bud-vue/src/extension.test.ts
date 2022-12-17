@@ -1,12 +1,12 @@
-import {factory} from '@repo/test-kit/bud'
+import {Bud, factory} from '@repo/test-kit/bud'
 import {Extension} from '@roots/bud-framework/extension'
 import {beforeEach, describe, expect, it} from 'vitest'
 
 import Vue from './index.js'
 
 describe(`@roots/bud-vue`, () => {
-  let bud
-  let instance
+  let bud: Bud
+  let instance: Vue
 
   beforeEach(async () => {
     bud = await factory()

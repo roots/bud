@@ -1,4 +1,4 @@
-/// <reference path="../../bud/lib/index.d.ts" />
+/// <reference path="../../bud-framework/lib/index.d.ts" />
 
 import type {extractCss} from './api/extract.js'
 import type BudCriticalCssExtension from './extension.js'
