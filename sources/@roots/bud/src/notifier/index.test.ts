@@ -75,6 +75,7 @@ describe(`notifier`, () => {
   })
 
   it(`should call openBrowser`, async () => {
+    bud.context.mode = `development`
     bud.context.args = {browser: true}
     const openBrowser = vi.spyOn(notifier, `open`)
 
@@ -90,12 +91,8 @@ describe(`notifier`, () => {
   })
 
   it(`should call notificationCenter.notify`, async () => {
-    const notificationCenterNotifyMock = vi.fn()
-    Notifier.notifier = {
-      notify: notificationCenterNotifyMock,
-    }
-
+    const notifySpy = vi.spyOn(notifier, `notify`)
     await notifier.compilationNotification()
-    expect(notificationCenterNotifyMock).toBeCalledTimes(1)
+    expect(notifySpy).toBeCalledTimes(1)
   })
 })
