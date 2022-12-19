@@ -1,6 +1,5 @@
 import {join, resolve} from 'node:path'
 
-import type {Bud} from '@roots/bud'
 import BudCommand from '@roots/bud/cli/commands/bud'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import execa from '@roots/bud-support/execa'
@@ -11,16 +10,7 @@ import execa from '@roots/bud-support/execa'
  * @public
  */
 export default class BudWebpackCommand extends BudCommand {
-  /**
-   * Command paths
-   * @public
-   */
   public static override paths = [[`webpack`]]
-
-  /**
-   * Command usage
-   * @public
-   */
   public static override usage = Command.Usage({
     description: `Webpack CLI passthrough`,
     category: `tools`,
@@ -34,9 +24,9 @@ export default class BudWebpackCommand extends BudCommand {
    *
    * @public
    */
-  public override async runCommand(bud: Bud) {
-    bud.context.config = {}
-    const webpackPath = await bud.module.getDirectory(`webpack`)
+  public override async execute() {
+    await this.makeBud(this)
+    const webpackPath = await this.bud.module.getDirectory(`webpack`)
     const bin = join(webpackPath, `bin`, `webpack.js`)
 
     const child = execa(`node`, [bin, ...this.options], {

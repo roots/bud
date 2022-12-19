@@ -1,6 +1,6 @@
 import {paths} from '@repo/constants'
 import {join} from 'node:path'
-import {beforeAll, describe, expect, it} from 'vitest'
+import {beforeEach, describe, expect, it} from 'vitest'
 import {Context} from '@roots/bud-framework/options'
 
 import getContext from './index.js'
@@ -8,7 +8,7 @@ import getContext from './index.js'
 describe(`context.get`, () => {
   let context: Context
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     context = await getContext({
       basedir: join(paths.root, `tests`, `util`, `project`),
     })
@@ -19,40 +19,6 @@ describe(`context.get`, () => {
   })
 
   it(`should match expectations`, async () => {
-    expect(context.args).toEqual(
-      expect.objectContaining({
-        basedir: undefined,
-        browser: undefined,
-        cache: undefined,
-        ci: undefined,
-        clean: undefined,
-        debug: undefined,
-        devtool: undefined,
-        discovery: undefined,
-        dry: undefined,
-        editor: undefined,
-        esm: undefined,
-        flush: undefined,
-        hash: undefined,
-        html: undefined,
-        immutable: undefined,
-        indicator: undefined,
-        input: undefined,
-        level: undefined,
-        log: undefined,
-        manifest: undefined,
-        minimize: undefined,
-        mode: undefined,
-        notify: true,
-        output: undefined,
-        overlay: undefined,
-        publicPath: undefined,
-        reload: undefined,
-        splitChunks: undefined,
-        target: undefined,
-      }),
-    )
-
     expect(context.basedir).toEqual(expect.stringMatching(/\/project$/))
     expect(context.bud).toEqual(
       expect.objectContaining({
@@ -79,7 +45,7 @@ describe(`context.get`, () => {
       ]),
     )
     expect(context.manifest.bud).toMatchSnapshot()
-    expect(context.mode).toBe(undefined)
+    expect(context.mode).toBe(`production`)
     expect(context.services).toEqual(
       expect.arrayContaining([
         `@roots/bud/services/env`,

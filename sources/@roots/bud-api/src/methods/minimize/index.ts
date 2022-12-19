@@ -48,7 +48,7 @@ export const minimize: minimize = function (this: Bud, value = true) {
     this.extensions.get(`@roots/bud-terser/css-minimizer`)?.disable()
   }
 
-  this.success(`minimize ${value ? `enabled` : `disabled`}`)
+  this.success(`minimize`, value)
 
   return this
 }

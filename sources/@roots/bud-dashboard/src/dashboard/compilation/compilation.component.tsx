@@ -23,32 +23,36 @@ import {
 } from '../format.js'
 import Messages from '../messages/messages.component.js'
 
-const onlyNotHot = ({name}: StatsAsset) => !name?.includes(`hot-update`)
-const onlyStatic = ({info}: StatsAsset) => info.copied
-const Compilation = ({
-  displayAssets,
-  displayEntrypoints,
-  stats,
-  id,
-  context,
-  mode,
-  compilerCount,
-}: {
+interface Props {
   displayAssets: boolean
   displayEntrypoints: boolean
-  stats: StatsCompilation
+  compilation: StatsCompilation
   id: number
   context: Context
   mode: `production` | `development`
   compilerCount: number
-}) => {
-  const enrich = (asset: StatsAsset) => {
-    const assetModule = stats?.assets?.find(a => a.name === asset.name)
-    return {...asset, ...assetModule}
+}
+
+const onlyNotHot = ({name}: StatsAsset) => !name?.includes(`hot-update`)
+const onlyStatic = ({info}: StatsAsset) => info?.copied
+const Compilation = ({
+  displayAssets,
+  displayEntrypoints,
+  compilation,
+  id,
+  context,
+  mode,
+  compilerCount,
+}: Props) => {
+  const enrich = (asset: Partial<StatsAsset>): Partial<StatsAsset> => {
+    const assetModule = compilation?.assets?.find(
+      a => a?.name === asset?.name,
+    )
+    return {...(asset ?? {}), ...(assetModule ?? {})}
   }
 
-  const entrypoints: StatsChunkGroup = stats?.entrypoints
-    ? Object.values(stats?.entrypoints)
+  const entrypoints: StatsChunkGroup = compilation?.entrypoints
+    ? Object.values(compilation?.entrypoints)
         .filter(Boolean)
         .map(entrypoint => ({
           ...entrypoint,
@@ -57,56 +61,65 @@ const Compilation = ({
     : []
 
   const longestEntrypointAssetLength: number = entrypoints.reduce(
-    (longest, entry) =>
+    (longest: number, entry) =>
       Math.max(longestAssetNameLength(entry.assets), longest),
     0,
   )
 
-  const staticAssets: Array<StatsAsset> = (stats?.assets ?? [])
+  const staticAssets: Array<Partial<StatsAsset>> = (
+    compilation?.assets ?? []
+  )
     .filter(onlyNotHot)
     .filter(onlyStatic)
     .filter(Boolean)
     .map(enrich)
 
-  const hiddenStaticAssets: Array<StatsAsset> = staticAssets.splice(5)
+  const hiddenStaticAssets: Array<Partial<StatsAsset>> =
+    staticAssets.splice(5)
+
+  if (!compilation) {
+    return <Text>Empty compilation</Text>
+  }
 
   return (
     <Box flexDirection="column">
       <Box flexDirection="row">
-        <Text color={colorFromStats(stats)}>
-          {stats?.errorsCount > 0 ? figures.cross : figures.circleFilled}
+        <Text color={colorFromStats(compilation)}>
+          {compilation?.errorsCount > 0
+            ? figures.cross
+            : figures.circleFilled}
         </Text>
 
         <Text>{`  `}</Text>
-        <Text>{stats.name}</Text>
+        <Text>{compilation?.name}</Text>
         <Text> {``}</Text>
 
-        {stats?.outputPath && (
+        {compilation?.outputPath && (
           <Text color={color.blue}>
-            ./{relative(context.basedir, stats.outputPath)}
+            ./{relative(context.basedir, compilation.outputPath)}
           </Text>
         )}
 
         <Text>{` `}</Text>
 
-        <Text dimColor>[{stats.hash}]</Text>
+        <Text dimColor>[{compilation?.hash}]</Text>
       </Box>
 
-      {!stats.isChild && (
+      {!compilation?.isChild && (
         <>
           <Text dimColor>{VERT}</Text>
 
           <Messages
             type="error"
             color={color.red}
-            messages={stats.errors}
+            messages={compilation.errors}
             figure={figures.cross}
           />
 
           <Messages
             type="warning"
             color={color.yellow}
-            messages={stats.warnings}
+            messages={compilation.warnings}
             figure={figures.warning}
           />
 
@@ -115,12 +128,13 @@ const Compilation = ({
               <Box flexDirection="column">
                 <Title>
                   <Text
-                    color={colorFromStats(stats)}
+                    color={colorFromStats(compilation)}
                     dimColor={displayEntrypoints === false}
                   >
                     <Text underline>e</Text>ntrypoints
                   </Text>
                 </Title>
+
                 {displayEntrypoints
                   ? entrypoints
                       .filter(({assets}) => assets.length > 0)
@@ -146,7 +160,7 @@ const Compilation = ({
             <Box flexDirection="column">
               <Title>
                 <Text
-                  color={colorFromStats(stats)}
+                  color={colorFromStats(compilation)}
                   dimColor={displayAssets === false}
                 >
                   <Text underline>a</Text>ssets
@@ -186,8 +200,8 @@ const Compilation = ({
 
       <Title final={true}>
         <Text dimColor>
-          compiled {stats?.modules?.length} modules in{` `}
-          {duration(stats?.time) as string}
+          compiled {compilation?.modules?.length} modules in{` `}
+          {duration(compilation?.time) as string}
         </Text>
       </Title>
     </Box>

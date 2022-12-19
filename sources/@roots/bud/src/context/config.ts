@@ -15,7 +15,7 @@ const get: get = async ({basedir, fs}) => {
 
   try {
     results = await fs.list(basedir)
-    if (!results) return {}
+    if (!results) return data
   } catch (error) {
     throw error
   }

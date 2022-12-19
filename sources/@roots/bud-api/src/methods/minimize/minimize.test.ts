@@ -35,20 +35,20 @@ describe(`bud.minimize`, () => {
   it(`should call bud.success to log param`, () => {
     const logSpy = vi.spyOn(bud, `success`)
     minimize()
-    expect(logSpy).toHaveBeenCalledWith(`minimize enabled`)
+    expect(logSpy).toHaveBeenCalledWith(`minimize`, true)
   })
 
   it(`should call bud.success to log param`, () => {
     const logSpy = vi.spyOn(bud, `success`)
     minimize(true)
-    expect(logSpy).toHaveBeenCalledWith(`minimize enabled`)
+    expect(logSpy).toHaveBeenCalledWith(`minimize`, true)
   })
 
   it(`should call bud.success to log param`, () => {
     const logSpy = vi.spyOn(bud, `success`)
 
     minimize(false)
-    expect(logSpy).toHaveBeenCalledWith(`minimize disabled`)
+    expect(logSpy).toHaveBeenCalledWith(`minimize`, false)
   })
 
   it(`should return bud`, () => {

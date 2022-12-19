@@ -1,3 +1,4 @@
+import type {Bud} from '../../../bud.js'
 import type {ServiceContainer} from '../../../service.js'
 
 /**
@@ -39,7 +40,7 @@ export interface Api extends ServiceContainer {
   /**
    * @public
    */
-  call(name: string, ...args: any): Promise<void>
+  call(name: string, ...args: Array<any>): Promise<Bud>
 
   /**
    * @public

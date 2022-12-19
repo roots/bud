@@ -1,24 +1,39 @@
 // @ts-check
 
-/* eslint-disable no-console */
 /* eslint-disable n/no-process-env */
 /* eslint-disable n/no-process-exit */
 
+import {platform} from 'node:os'
+import {dirname, resolve} from 'node:path'
+import {fileURLToPath} from 'node:url'
+
 import {execaCommandSync} from 'execa'
 
-const isDevelopment = process.env.npm_package_version === `0.0.0`
-const exit = () => process.exit(0)
-
-if (isDevelopment) exit()
-
-try {
-  execaCommandSync(`npx browserslist --update-db`, {
-    cwd: process.env.INIT_CWD ?? process.cwd(),
-    reject: false,
-    timeout: 10000,
-  })
-} catch (e) {
-  // fallthrough
+if (process.env.npm_package_version === `0.0.0`) {
+  process.exit(0)
 }
 
-exit()
+execaCommandSync(`npx browserslist --update-db`, {
+  cwd: process.env.INIT_CWD ?? process.cwd(),
+  reject: false,
+  timeout: 10000,
+})
+
+if (platform() === `darwin`) {
+  const notifierPath = resolve(
+    dirname(fileURLToPath(import.meta.url)),
+    `..`,
+    `vendor`,
+    `mac.no-index`,
+    `roots-notifier.app`,
+    `Contents`,
+    `MacOS`,
+    `roots-notifier`,
+  )
+
+  execaCommandSync(`chmod u+x ${notifierPath}`)
+}
+
+process.exit(0)
+
+export {}

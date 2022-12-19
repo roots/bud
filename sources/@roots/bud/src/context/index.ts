@@ -1,15 +1,14 @@
 /* eslint-disable no-console */
-import args from '@roots/bud/context/args'
 import bud from '@roots/bud/context/bud'
 import * as projectFiles from '@roots/bud/context/config'
 import getEnv from '@roots/bud/context/env'
 import getExtensions from '@roots/bud/context/extensions'
 import getManifest from '@roots/bud/context/manifest'
 import services from '@roots/bud/context/services'
+import {Logger} from '@roots/bud/logger'
 import type {Context} from '@roots/bud-framework/options'
 import {Filesystem} from '@roots/bud-support/filesystem'
 import {omit} from '@roots/bud-support/lodash-es'
-import Signale from '@roots/bud-support/signale'
 
 import * as argv from './argv.js'
 
@@ -23,6 +22,7 @@ export default async (
 
   const fs = new Filesystem(basedir)
 
+  let args: Context[`args`] | undefined
   let config: Context[`config`] | undefined
   let env: Context[`env`] | undefined
   let extensions: Context[`extensions`] | undefined
@@ -35,43 +35,19 @@ export default async (
     extensions = getExtensions(manifest)
   }
 
-  const logLevel = argv.flag(`verbose`)
-    ? `log`
-    : argv.flag(`log`)
-    ? `info`
-    : `warn`
+  const logger = new Logger()
 
-  const logger = new Signale({
-    logLevel,
-    disabled: argv.flag(`no-log`),
-    scope: manifest?.label ?? bud?.label ?? `default`,
-  })
-
-  const context = {
-    label: overrides?.label ?? manifest?.name ?? bud?.label,
+  const context: Context = {
+    label: overrides?.label ?? manifest?.name ?? bud?.label ?? `default`,
     basedir,
-    mode: overrides?.mode,
-    env: {
-      ...(env ?? {}),
-      ...(overrides?.env ?? {}),
-    },
-    config: {
-      ...(config ?? {}),
-      ...(overrides?.config ?? {}),
-    },
-    args: {
-      ...(args ?? {}),
-      ...(overrides?.args ?? {}),
-    },
+    ...overrides,
+    mode: overrides?.mode ?? `production`,
+    args: {...(args ?? {}), ...(overrides?.args ?? {})},
+    env: {...(env ?? {}), ...(overrides?.env ?? {})},
+    config: {...(config ?? {}), ...(overrides?.config ?? {})},
     services: [...(services ?? []), ...(overrides?.services ?? [])],
-    bud: {
-      ...(bud ?? {}),
-      ...(overrides?.bud ?? {}),
-    },
-    manifest: {
-      ...(manifest ?? {}),
-      ...(overrides?.manifest ?? {}),
-    },
+    bud: {...(bud ?? {}), ...(overrides?.bud ?? {})},
+    manifest: {...(manifest ?? {}), ...(overrides?.manifest ?? {})},
     extensions: {
       builtIn: [
         ...(extensions.builtIn ?? []),
@@ -85,7 +61,8 @@ export default async (
     logger: overrides?.logger ?? logger,
   }
 
-  if (context.args?.debug) console.dir(omit(context, `env`))
+  context.logger.scope(context.label).debug(omit(context, `env`))
+  await context.logger.setCommonPath(context.basedir)
 
   if (cache) {
     contexts[basedir] = context

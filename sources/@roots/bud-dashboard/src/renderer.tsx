@@ -4,30 +4,46 @@ import React from '@roots/bud-support/react'
 let instance: Ink.Instance
 
 export class Renderer {
-  public static async once(Element: React.ReactNode) {
+  public static async cleanup() {
+    instance?.cleanup()
     instance?.unmount()
-    instance = Ink.render(
-      <Ink.Static items={[Element]}>
-        {(Item, i) => <React.Fragment key={i}>{Item}</React.Fragment>}
-      </Ink.Static>,
-    )
+  }
+  public static async once(Element: React.ReactNode) {
+    try {
+      instance = Ink.render(
+        <Ink.Static items={[Element]}>
+          {(Item, i) => <React.Fragment key={i}>{Item}</React.Fragment>}
+        </Ink.Static>,
+      )
+      return instance
+    } catch (error) {
+      return instance
+    }
   }
 
   public static async text(text: string) {
-    Renderer.render(<Ink.Text>{text}</Ink.Text>)
+    try {
+      Renderer.render(<Ink.Text>{text}</Ink.Text>)
+      return instance
+    } catch (error) {
+      return instance
+    }
   }
 
   public static async render(Element: React.ReactElement) {
-    if (instance) {
-      instance.rerender(Element)
-    } else {
-      instance = Ink.render(Element)
+    try {
+      if (instance) {
+        instance.rerender(Element)
+      } else {
+        instance = Ink.render(Element)
+      }
+      return instance
+    } catch (error) {
+      return instance
     }
   }
 
-  public static unmount() {
-    if (instance) {
-      instance.unmount()
-    }
+  public static getInstance() {
+    return instance
   }
 }

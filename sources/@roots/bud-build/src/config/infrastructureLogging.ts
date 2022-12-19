@@ -6,27 +6,16 @@ export const infrastructureLogging: Factory<
   bud.hooks.filter(`build.infrastructureLogging`, {
     console: bud.hooks.filter(`build.infrastructureLogging.console`, {
       ...console,
-      log: bud.logger.instance.log,
-      info: bud.logger.instance.info,
-      warn: bud.logger.instance.warn,
-      error: bud.logger.instance.error,
-      debug: bud.logger.instance.debug,
+      log: bud.context.logger.log,
+      info: bud.context.logger.info,
+      warn: bud.context.logger.warn,
+      error: bud.context.logger.error,
+      debug: bud.context.logger.debug,
+      time: bud.context.logger.time,
+      timeEnd: bud.context.logger.timeEnd,
     }),
     level: bud.hooks.filter(
       `build.infrastructureLogging.level`,
-      getLevel(bud.context.args.level),
+      bud.context.args.verbose ? `log` : `info`,
     ),
   })
-
-const getLevel = (level?: number) => {
-  if (typeof level !== `number`) return `info`
-
-  const levels: [`error`, `warn`, `info`, `log`] = [
-    `error`,
-    `warn`,
-    `info`,
-    `log`,
-  ]
-
-  return levels[level - 1]
-}

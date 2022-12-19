@@ -1,22 +1,12 @@
-import {join, resolve} from 'node:path'
+import {join} from 'node:path'
 
-import type {Bud} from '@roots/bud'
 import BudCommand from '@roots/bud/cli/commands/bud'
+import {dry} from '@roots/bud/cli/decorators/command.dry'
 import {Command, Option} from '@roots/bud-support/clipanion'
 
+@dry
 export class BudTailwindCommand extends BudCommand {
-  /**
-   * Command paths
-   *
-   * @public
-   */
   public static override paths = [[`tailwindcss`]]
-
-  /**
-   * Comand usage
-   *
-   * @public
-   */
   public static override usage = Command.Usage({
     category: `tools`,
     description: `tailwindcss CLI passthrough`,
@@ -24,33 +14,20 @@ export class BudTailwindCommand extends BudCommand {
       [`View tailwindcss usage information`, `$0 tailwindcss --help`],
     ],
   })
-
-  public override dry = true
-
-  public override notify = false
-
+  public declare binPath: string | undefined
+  public bin = Option.String(`--bin`, undefined, {description: `bin path`})
   public options = Option.Proxy({name: `tailwindcss passthrough options`})
 
-  /**
-   * Command execute
-   *
-   * @public
-   */
-  public override async runCommand(bud: Bud) {
-    bud.context.config = {}
-    const tailwindPath = await bud.module.getDirectory(`tailwindcss`)
-    const bin = join(tailwindPath, `lib`, `cli.js`)
+  public override async execute() {
+    await this.makeBud(this)
 
-    if (!this.options?.length)
-      this.options = [
-        `-i`,
-        bud.path(`@src`, `index.css`),
-        `-o`,
-        bud.path(`@dist`),
-      ]
+    const path =
+      this.bin ?? (await this.bud.module.getDirectory(`tailwindcss`))
 
-    await bud.sh([`node`, bin, ...(this.options ?? [])], {
-      cwd: resolve(process.cwd(), this.basedir ?? `./`),
+    this.bin = join(path, `lib`, `cli.js`)
+
+    await this.bud.sh([`node`, this.bin, ...(this.options ?? [])], {
+      cwd: this.bud.path(),
     })
   }
 }

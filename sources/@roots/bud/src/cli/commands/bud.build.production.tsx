@@ -1,6 +1,7 @@
 import {Command} from '@roots/bud-support/clipanion'
 
 import BuildCommand from './bud.build.js'
+import type {CommandContext} from './bud.js'
 
 /**
  * `bud build production` command
@@ -8,17 +9,7 @@ import BuildCommand from './bud.build.js'
  * @public
  */
 export default class BuildProductionCommand extends BuildCommand {
-  /**
-   * Command paths
-   *
-   * @public
-   */
   public static override paths = [[`build`, `production`], [`production`]]
-
-  /**
-   * Command usage
-   * @public
-   */
   public static override usage = Command.Usage({
     category: `build`,
     description: `Compiles source assets in \`production\` mode.`,
@@ -28,13 +19,14 @@ export default class BuildProductionCommand extends BuildCommand {
       If you run this command without a bud configuration file \`bud\` will
       look for an entrypoint at \`@src/index.js\`.
     `,
-    examples: [[`compile source assets`, `$0 build`]],
+    examples: [[`compile source assets`, `$0 build production`]],
   })
-
-  /**
-   * --mode
-   *
-   * @public
-   */
-  public override mode: `production` = `production`
+  public override withSubcommandContext = async (
+    context: CommandContext,
+  ) => {
+    return {
+      ...context,
+      mode: `production` as `production`,
+    }
+  }
 }

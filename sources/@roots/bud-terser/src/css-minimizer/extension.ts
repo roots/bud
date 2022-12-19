@@ -43,13 +43,10 @@ export class BudMinimizeCss extends Extension {
    */
   @bind
   public override async buildBefore({hooks}: Bud) {
-    hooks.on(`build.optimization.minimizer`, minimizer => {
-      if (!minimizer) minimizer = []
-
+    hooks.on(`build.optimization.minimizer`, (minimizer = []) => {
       minimizer.push(
         new Plugin(this.options) as unknown as WebpackPluginInstance,
       )
-
       return minimizer
     })
   }

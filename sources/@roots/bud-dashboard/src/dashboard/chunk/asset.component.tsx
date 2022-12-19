@@ -17,7 +17,7 @@ const Asset = ({
 }: {
   cached?: boolean
   minWidth: number
-  name: string
+  name?: string
   size?: number
   emitted?: boolean
   final?: boolean

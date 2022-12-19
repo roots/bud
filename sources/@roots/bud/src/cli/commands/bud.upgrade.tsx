@@ -1,5 +1,5 @@
-import type {Bud} from '@roots/bud'
 import BudCommand from '@roots/bud/cli/commands/bud'
+import type {Context} from '@roots/bud-framework/options'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import axios from 'axios'
 
@@ -9,11 +9,6 @@ import axios from 'axios'
  * @public
  */
 export default class BudUpgradeCommand extends BudCommand {
-  /**
-   * Command paths
-   *
-   * @public
-   */
   public static override paths = [[`upgrade`]]
   public static override usage = Command.Usage({
     description: `Upgrade @roots dependencies`,
@@ -23,25 +18,26 @@ export default class BudUpgradeCommand extends BudCommand {
       [`Upgrade dependencies to specific version`, `$0 upgrade 6.6.6`],
     ],
   })
-
-  public override dry = true
-  public override notify = false
+  public override withArguments = async (args: Context[`args`]) => ({
+    ...args,
+    dry: true,
+  })
 
   public version = Option.String({required: false})
 
-  /**
-   * Command execute
-   *
-   * @public
-   */
-  public override async runCommand(bud: Bud) {
+  public override async execute() {
+    await this.makeBud(this)
+
     try {
-      await this.bumpDependenciesOfType(bud, `dependencies`)
-      await this.bumpDependenciesOfType(bud, `devDependencies`)
+      await this.doDepsOfType(`dependencies`)
+      await this.doDepsOfType(`devDependencies`)
 
-      await bud.fs.json.write(`package.json`, bud.context.manifest)
+      await this.bud.fs.json.write(
+        `package.json`,
+        this.bud.context.manifest,
+      )
 
-      this.text(
+      BudUpgradeCommand.text(
         `Dependencies upgraded in \`package.json\`.\n\nRun \`yarn install\` or \`npm install\` to install.\n\n`,
       )
     } catch (e) {
@@ -49,18 +45,17 @@ export default class BudUpgradeCommand extends BudCommand {
     }
   }
 
-  public async bumpDependenciesOfType(
-    bud: Bud,
+  public async doDepsOfType(
     type: `devDependencies` | `dependencies`,
   ): Promise<void> {
     await Promise.all(
-      Object.keys(bud.context.manifest[type] ?? {})
+      Object.keys(this.bud.context.manifest[type] ?? {})
         .filter(
           (signifier: string) =>
             signifier.startsWith(`@roots/`) || signifier.includes(`bud-`),
         )
         ?.map(async signifier => {
-          bud.context.manifest[type][signifier] =
+          this.bud.context.manifest[type][signifier] =
             this.version ?? (await this.getLatestVersion(signifier))
         }),
     )

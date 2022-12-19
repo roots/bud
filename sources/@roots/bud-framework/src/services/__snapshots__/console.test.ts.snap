@@ -1,14 +1,22 @@
 // Vitest Snapshot v1
 
 exports[`ConsoleBuffer > should store console.log to consoleBuffer.messages 1`] = `
-{
-  "stderr": [
-    "error-test",
-    "warn-test",
-  ],
-  "stdout": [
-    "log-test",
-    "info-test",
-  ],
-}
+[
+  {
+    "message": "log-test",
+    "stream": "stdout",
+  },
+  {
+    "message": "info-test",
+    "stream": "stdout",
+  },
+  {
+    "message": "error-test",
+    "stream": "stderr",
+  },
+  {
+    "message": "warn-test",
+    "stream": "stderr",
+  },
+]
 `;

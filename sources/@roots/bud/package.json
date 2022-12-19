@@ -74,6 +74,14 @@
       "types": "./lib/cli/commands/*.d.ts",
       "default": "./lib/cli/commands/*.js"
     },
+    "./cli/decorators": {
+      "types": "./lib/cli/decorators/index.d.ts",
+      "default": "./lib/cli/decorators/index.js"
+    },
+    "./cli/decorators/*": {
+      "types": "./lib/cli/decorators/*.d.ts",
+      "default": "./lib/cli/decorators/*.js"
+    },
     "./cli/helpers/*": {
       "types": "./lib/cli/helpers/*.d.ts",
       "default": "./lib/cli/helpers/*.js"
@@ -93,6 +101,10 @@
     "./factory/*": {
       "types": "./lib/factory/*.d.ts",
       "default": "./lib/factory/*.js"
+    },
+    "./logger": {
+      "types": "./lib/logger/index.d.ts",
+      "default": "./lib/logger/index.js"
     },
     "./notifier/*": {
       "types": "./lib/notifier/*.d.ts",
@@ -118,6 +130,9 @@
       "cli/commands": [
         "lib/cli/commands/index.d.ts"
       ],
+      "cli/decorators": [
+        "lib/cli/decorators/index.d.ts"
+      ],
       "context": [
         "lib/context/index.d.ts"
       ],
@@ -126,6 +141,9 @@
       ],
       "factory/*": [
         "lib/factory/*.d.ts"
+      ],
+      "logger": [
+        "lib/logger/index.d.ts"
       ],
       "notifier": [
         "lib/notifier/index.d.ts"

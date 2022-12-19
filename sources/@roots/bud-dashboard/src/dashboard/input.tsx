@@ -1,33 +1,34 @@
-import {useInput} from '@roots/bud-support/ink'
+import {useApp, useInput} from '@roots/bud-support/ink'
 import React, {useState} from '@roots/bud-support/react'
 
-export const useTTY = () => {
+import {App, Props} from './index.js'
+
+export const TTYApp = (props: Props) => {
   const [displayServerInfo, setDisplayServerInfo] = useState(true)
   const [displayEntrypoints, setDisplayEntrypoints] = useState(true)
   const [displayAssets, setDisplayAssets] = useState(false)
+  const app = useApp()
 
   useInput((key, input) => {
     key === `s` && setDisplayServerInfo(!displayServerInfo)
     key === `e` && setDisplayEntrypoints(!displayEntrypoints)
     key === `a` && setDisplayAssets(!displayAssets)
 
-    // eslint-disable-next-line
-    if (input.escape) process.exit()
+    if (input.escape) {
+      app.exit()
+      // eslint-disable-next-line n/no-process-exit
+      process.exit(0)
+    }
   })
-
-  return {displayAssets, displayEntrypoints, displayServerInfo}
-}
-
-export const TTYApp = ({App, ...props}: any) => {
-  const {displayAssets, displayEntrypoints, displayServerInfo} = useTTY()
 
   return (
     <App
-      {...props}
-      isTTY={true}
-      displayAssets={displayAssets}
-      displayEntrypoints={displayEntrypoints}
-      displayServerInfo={displayServerInfo}
+      {...{
+        ...props,
+        displayServerInfo,
+        displayEntrypoints,
+        displayAssets,
+      }}
     />
   )
 }

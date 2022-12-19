@@ -1,15 +1,11 @@
 import {join, resolve} from 'node:path'
 
-import type {Bud} from '@roots/bud'
 import BudCommand from '@roots/bud/cli/commands/bud'
+import {dry} from '@roots/bud/cli/decorators/command.dry'
 import {Command, Option} from '@roots/bud-support/clipanion'
 
+@dry
 export class BudStylelintCommand extends BudCommand {
-  /**
-   * Command paths
-   *
-   * @public
-   */
   public static override paths = [
     [`lint`],
     [`lint`, `css`],
@@ -18,10 +14,6 @@ export class BudStylelintCommand extends BudCommand {
     [`stylelint`],
   ]
 
-  /**
-   * Comand usage
-   * @public
-   */
   public static override usage = Command.Usage({
     category: `tools`,
     description: `stylelint CLI passthrough`,
@@ -30,26 +22,21 @@ export class BudStylelintCommand extends BudCommand {
     ],
   })
 
-  public override dry = true
-
-  public override notify = false
-
   public options = Option.Proxy({name: `stylelint passthrough options`})
 
-  /**
-   * Command execute
-   *
-   * @public
-   */
-  public override async runCommand(bud: Bud) {
-    const stylelint = await bud.module.getDirectory(`stylelint`)
+  public override async execute() {
+    await this.makeBud(this)
+    const stylelint = await this.bud.module.getDirectory(`stylelint`)
     const bin = join(stylelint, `bin`, `stylelint.js`)
 
     if (!this.options?.length)
-      this.options = [bud.path(`@src`, `**/*.{css,scss,sass}`)]
+      this.options = [this.bud.path(`@src`, `**/*.{css,scss,sass}`)]
 
-    await bud.sh([`node`, bin, ...(this.options ?? [])].filter(Boolean), {
-      cwd: resolve(process.cwd(), this.basedir ?? `./`),
-    })
+    await this.bud.sh(
+      [`node`, bin, ...(this.options ?? [])].filter(Boolean),
+      {
+        cwd: resolve(process.cwd(), this.basedir ?? `./`),
+      },
+    )
   }
 }

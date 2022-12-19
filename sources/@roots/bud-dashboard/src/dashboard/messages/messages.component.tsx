@@ -18,14 +18,24 @@ const Messages = ({
 }) => {
   const formatted = messages
     ?.reverse()
+    .filter(({message}) => !message?.includes(`HookWebpackError`))
     .map(({stack, message}: {stack: string; message: string}) => ({
       stack,
       message: message
+        .split(`SyntaxError`)
+        .pop()
+        .trim()
         .split(`\n`)
         .map(ln => `${chalk.dim(VERT)} ${ln.replace(process.cwd(), `.`)}`)
         .join(`\n`)
-        .split(`    at`)
-        .shift(),
+        .split(`Error:`)
+        .pop()
+        .split(`ModuleError`)
+        .pop()
+        .split(`\n`)
+        .filter(ln => ![``, ` `, `\n`].includes(ln))
+        .join(`\n`)
+        .trim(),
     }))
 
   if (!formatted) return null
@@ -43,7 +53,7 @@ const Messages = ({
           </Box>
 
           <Box flexDirection="column">
-            <Text>{message.trim() as string} </Text>
+            <Text>{message}</Text>
             <Text dimColor>{chalk.dim(VERT)}</Text>
           </Box>
         </Box>

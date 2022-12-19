@@ -1,7 +1,7 @@
-import type {Bud} from '@roots/bud'
 import BudCommand from '@roots/bud/cli/commands/bud'
 import {checkDependencies} from '@roots/bud/cli/helpers/checkDependencies'
 import {isPackageManagerError} from '@roots/bud/cli/helpers/isPackageManagerError'
+import type {Context} from '@roots/bud-framework/options'
 import {Command} from '@roots/bud-support/clipanion'
 import {Box, Text} from '@roots/bud-support/ink'
 import React from '@roots/bud-support/react'
@@ -44,27 +44,26 @@ for a lot of edge cases so it might return a false positive.
       [`Check compiled configuration against webpack`, `$0 doctor`],
     ],
   })
-
-  /**
-   * Args
-   * @public
-   */
-  public override get args() {
-    return {...this.context.args, dry: true}
+  public override withArguments = async (args: Context[`args`]) => {
+    return {...args, dry: true}
   }
 
-  public config: webpack.Configuration
+  public configuration: webpack.Configuration
 
   /**
    * Command execute
    *
    * @public
    */
-  public override async runCommand(bud: Bud) {
-    if (!isPackageManagerError(bud)) {
-      const errors = await checkDependencies(bud)
+  public override async execute() {
+    await this.makeBud(this)
+    await this.healthcheck(this)
+    await this.run(this)
+
+    if (!isPackageManagerError(this.bud)) {
+      const errors = await checkDependencies(this.bud)
       if (!errors) {
-        this.renderOnce(
+        BudDoctorCommand.renderOnce(
           <Box>
             <Text color="green">✅ dependencies are valid</Text>
           </Box>,
@@ -73,14 +72,14 @@ for a lot of edge cases so it might return a false positive.
     }
 
     try {
-      this.config = await bud.build.make()
-      this.renderOnce(
+      this.configuration = await this.bud.build.make()
+      BudDoctorCommand.renderOnce(
         <Box>
           <Text color="green">✅ bud.js generated configuration</Text>
         </Box>,
       )
     } catch (error) {
-      this.renderOnce(
+      BudDoctorCommand.renderOnce(
         <Box>
           <Text color="red">❌ {error?.message ?? error}</Text>
         </Box>,
@@ -88,32 +87,32 @@ for a lot of edge cases so it might return a false positive.
     }
 
     try {
-      webpack.validate(this.config)
+      webpack.validate(this.configuration)
 
-      this.renderOnce(
+      BudDoctorCommand.renderOnce(
         <Box>
           <Text color="green">✅ webpack validated configuration</Text>
         </Box>,
       )
     } catch (error) {
-      this.renderOnce(
+      BudDoctorCommand.renderOnce(
         <Box>
           <Text color="red">❌ {error?.message ?? error}</Text>
         </Box>,
       )
     }
 
-    this.renderOnce(
+    BudDoctorCommand.renderOnce(
       <Box flexDirection="column">
         <Text color="blue">Registered configurations</Text>
-        {Object.values(bud.context.config)
+        {Object.values(this.bud.context.config)
           .filter(({bud}) => bud)
           .map(({name, path}, i) => (
             <Box key={i}>
               <Text>- {name}</Text>
               <Text>{` `}</Text>
               <Text color="gray">
-                {path.replace(bud.context.basedir, `.`)}
+                {path.replace(this.bud.context.basedir, `.`)}
               </Text>
             </Box>
           ))}

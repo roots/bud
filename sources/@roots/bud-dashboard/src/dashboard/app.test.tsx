@@ -55,27 +55,6 @@ describe(`@roots/bud-dashboard app component`, () => {
     expect(lastFrame()).toContain(`external`)
   })
 
-  it(`should render messages`, async () => {
-    const {lastFrame} = render(
-      // @ts-ignore
-      <App
-        context={bud.context}
-        mode="development"
-        compilations={mockCompilations}
-        devUrl={new URL(`http://localhost:3000`)}
-        proxyUrl={new URL(`http://localhost:8080`)}
-        watchFiles={new Set([`foo`])}
-        isTTY={true}
-        displayServerInfo={true}
-        displayAssets={true}
-        displayEntrypoints={true}
-        messages={{stdout: [`stdout message`], stderr: []}}
-      />,
-    )
-
-    expect(lastFrame().split(`\n`)[1]).toContain(`stdout message`)
-  })
-
   it(`should render watch list`, async () => {
     const {lastFrame} = render(
       <App

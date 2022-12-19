@@ -212,8 +212,8 @@ export class BudImageminExtension extends Extension {
    */
   @bind
   public override async configAfter(bud: Bud) {
-    bud.hooks.on(`build.optimization.minimizer`, minimizer => [
-      ...(minimizer ?? []),
+    bud.hooks.on(`build.optimization.minimizer`, (minimizer = []) => [
+      ...minimizer,
       ...this.getMinimizers().map((value: Minimizer) => new Plugin(value)),
       new Plugin({generator: this.getGenerators()}),
     ])

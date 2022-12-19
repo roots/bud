@@ -4,6 +4,7 @@ import type {
   Optimization,
   RuleSetRule,
 } from '@roots/bud-support/webpack'
+import type {StatsOptions} from 'webpack'
 
 import type {EntryObject} from '../config/entry.js'
 
@@ -76,7 +77,7 @@ export interface Sync {
   profile: Configuration['profile']
   recordsPath: Configuration['recordsPath']
   'resolve.extensions': Set<string>
-  stats: Configuration['stats']
+  stats: StatsOptions
   'stats.preset': string
   target: Configuration['target']
   watch: Configuration['watch']

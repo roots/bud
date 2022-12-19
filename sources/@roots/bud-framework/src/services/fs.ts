@@ -27,7 +27,11 @@ export default class FileSystem extends FS {
    *
    * @public
    */
-  public logger: Bud['logger']['instance']
+  public get logger() {
+    const logger = this.app.context.logger.make(this.app.label, `fs`)
+
+    return logger
+  }
 
   /**
    * JSON handling
@@ -60,10 +64,6 @@ export default class FileSystem extends FS {
 
     this.s3 = new S3()
 
-    this.logger = this.app.logger
-      .makeInstance({logLevel: `info`, interactive: true})
-      .scope(...this.app.logger.scope, `fs`)
-
     Object.assign(this.app, {
       json: this.json,
       yml: this.yml,
@@ -76,9 +76,9 @@ export default class FileSystem extends FS {
    * @param bucket - {@link S3.bucket}
    * @public
    */
-  public setBucket: S3[`setBucket`] = function (bucket: string) {
+  public setBucket(bucket: string) {
     this.app.after(async (bud: Bud) => {
-      bud.fs.s3.setBucket(bucket)
+      bud.fs.s3.config.set(`bucket`, bucket)
     })
 
     return this
@@ -90,11 +90,9 @@ export default class FileSystem extends FS {
    * @param credentials - {@link S3.credentials}
    * @public
    */
-  public setCredentials: S3[`setCredentials`] = function (
-    credentials: S3[`config`][`credentials`],
-  ) {
+  public setCredentials(credentials: S3[`config`][`credentials`]) {
     this.app.after(async (bud: Bud) => {
-      bud.fs.s3.setCredentials(credentials)
+      bud.fs.s3.config.set(`credentials`, credentials)
     })
 
     return this
@@ -106,11 +104,9 @@ export default class FileSystem extends FS {
    * @param options - upload options
    * @public
    */
-  public setEndpoint: S3[`setEndpoint`] = function (
-    endpoint: S3[`config`][`endpoint`],
-  ) {
+  public setEndpoint(endpoint: S3[`config`][`endpoint`]) {
     this.app.after(async (bud: Bud) => {
-      bud.fs.s3.setEndpoint(endpoint)
+      bud.fs.s3.config.set(`endpoint`, endpoint)
     })
 
     return this
@@ -122,11 +118,9 @@ export default class FileSystem extends FS {
    * @param options - upload options
    * @public
    */
-  public setRegion: S3[`setRegion`] = function (
-    region: S3[`config`][`region`],
-  ) {
+  public setRegion(region: S3[`config`][`region`]) {
     this.app.after(async (bud: Bud) => {
-      bud.fs.s3.setRegion(region)
+      bud.fs.s3.config.set(`region`, region)
     })
 
     return this

@@ -5,7 +5,7 @@ import type {S3Client, S3ClientConfig} from '@aws-sdk/client-s3'
  *
  * @public
  */
-export default class Client {
+export class Client {
   /**
    * Make a new client
    *
@@ -14,7 +14,7 @@ export default class Client {
    *
    * @public
    */
-  public static async make(config: S3ClientConfig): Promise<S3Client> {
+  public async make(config: S3ClientConfig): Promise<S3Client> {
     return await import(`@aws-sdk/client-s3`).then(
       ({S3}) => new S3(config),
     )

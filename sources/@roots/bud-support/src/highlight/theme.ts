@@ -1,6 +1,6 @@
 import chalk from 'chalk'
 
-export const identity = (x: unknown): unknown => x
+export const identity = <X extends unknown>(x: X): X => x
 
 export const theme: Record<string, any> = {
   /**
@@ -32,22 +32,22 @@ export const theme: Record<string, any> = {
   /**
    * literal regular expression
    */
-  regexp: chalk.red,
+  regexp: chalk.blue,
 
   /**
    * literal string, character
    */
-  string: chalk.red,
+  string: chalk.white,
 
   /**
    * parsed section inside a literal string
    */
-  subst: identity,
+  subst: chalk.blue.dim,
 
   /**
    * symbolic constant, interned string, goto label
    */
-  symbol: identity,
+  symbol: chalk.magenta,
 
   /**
    * class or class-level declaration (interfaces, traits, modules, etc)
@@ -62,12 +62,12 @@ export const theme: Record<string, any> = {
   /**
    * name of a class or a function at the place of declaration
    */
-  title: identity,
+  title: chalk.magenta,
 
   /**
    * block of function arguments (parameters) at the place of declaration
    */
-  params: identity,
+  params: chalk.magenta,
 
   /**
    * comment
@@ -87,17 +87,17 @@ export const theme: Record<string, any> = {
   /**
    * keyword or built-in within meta construct
    */
-  'meta-keyword': identity,
+  'meta-keyword': chalk.dim,
 
   /**
    * string within meta construct
    */
-  'meta-string': identity,
+  'meta-string': chalk.dim,
 
   /**
    * heading of a section in a config file, heading in text markup
    */
-  section: identity,
+  section: chalk.dim,
 
   /**
    * XML/HTML tag
@@ -112,7 +112,7 @@ export const theme: Record<string, any> = {
   /**
    * s-expression name from the language standard library
    */
-  'builtin-name': identity,
+  'builtin-name': chalk.blue,
 
   /**
    * name of an attribute with no language defined semantics (keys in JSON, setting names in
@@ -123,22 +123,22 @@ export const theme: Record<string, any> = {
   /**
    * name of an attribute followed by a structured value part, like CSS properties
    */
-  attribute: identity,
+  attribute: chalk.dim,
 
   /**
    * variable in a config or a template file, environment var expansion in a script
    */
-  variable: identity,
+  variable: chalk.dim,
 
   /**
    * list item bullet in text markup
    */
-  bullet: identity,
+  bullet: chalk.dim,
 
   /**
    * code block in text markup
    */
-  code: identity,
+  code: chalk.dim,
 
   /**
    * emphasis in text markup
@@ -153,7 +153,7 @@ export const theme: Record<string, any> = {
   /**
    * mathematical formula in text markup
    */
-  formula: identity,
+  formula: chalk.dim,
 
   /**
    * hyperlink in text markup
@@ -163,42 +163,42 @@ export const theme: Record<string, any> = {
   /**
    * quotation in text markup
    */
-  quote: identity,
+  quote: chalk.dim,
 
   /**
    * tag selector in CSS
    */
-  'selector-tag': identity,
+  'selector-tag': chalk.dim,
 
   /**
    * #id selector in CSS
    */
-  'selector-id': identity,
+  'selector-id': chalk.dim,
 
   /**
    * .class selector in CSS
    */
-  'selector-class': identity,
+  'selector-class': chalk.dim,
 
   /**
    * [attr] selector in CSS
    */
-  'selector-attr': identity,
+  'selector-attr': chalk.dim,
 
   /**
    * :pseudo selector in CSS
    */
-  'selector-pseudo': identity,
+  'selector-pseudo': chalk.dim,
 
   /**
    * tag of a template language
    */
-  'template-tag': identity,
+  'template-tag': chalk.dim,
 
   /**
    * variable in a template language
    */
-  'template-variable': identity,
+  'template-variable': chalk.dim,
 
   /**
    * added or changed line in a diff
@@ -213,5 +213,5 @@ export const theme: Record<string, any> = {
   /**
    * things not matched by any token
    */
-  default: identity,
+  default: chalk.white,
 }

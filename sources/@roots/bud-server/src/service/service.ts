@@ -84,7 +84,7 @@ export class Server extends Service implements BaseService {
       .then(express => express())
     this.application.set(`x-powered-by`, false)
 
-    this.watcher = new Watcher(bud)
+    this.watcher = new Watcher(() => bud)
 
     bud.hooks.on(`dev.client.scripts`, clientScripts.callback)
 
