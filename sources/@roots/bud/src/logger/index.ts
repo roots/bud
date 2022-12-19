@@ -44,7 +44,7 @@ export class Logger {
    */
   @bind
   public format(...messages: Array<unknown>) {
-    messages = messages.map(message => {
+    return messages.map(message => {
       if (typeof message !== `string`) {
         try {
           return prettyFormat(message, {
@@ -59,13 +59,9 @@ export class Logger {
       }
 
       return message
-        ?.replaceAll(/(.*)\s(.*)\/node_modules\/(.*)/g, `$1 $3`)
-        .replaceAll(/file:\/\/~/g, `~`)
+        .replaceAll(/file:\/\//g, ``)
         .replaceAll(new RegExp(this.commonPath, `g`), ``)
-        .replaceAll(new RegExp(process.cwd(), `g`), `@project`)
     })
-
-    return messages
   }
 
   @bind
