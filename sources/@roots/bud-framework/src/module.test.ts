@@ -11,7 +11,7 @@ describe(`@roots/bud-framework`, () => {
   beforeEach(async () => {
     vi.clearAllMocks()
     bud = await factory()
-    moduleInstance = new Module(bud)
+    moduleInstance = new Module(() => bud)
   })
 
   it(`should be instantiable`, () => {

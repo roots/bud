@@ -26,8 +26,8 @@ export const checkDependencies = async (bud: Bud) => {
 
               <Box flexDirection="column" paddingLeft={1}>
                 <Text>
-                  package version <Text color="blue">({v})</Text> does not
-                  match bud.js version{` `}
+                  Installed version <Text color="blue">({v})</Text> does
+                  not match bud.js version{` `}
                   <Text color="blue">({bud.context.bud.version})</Text>
                 </Text>
               </Box>

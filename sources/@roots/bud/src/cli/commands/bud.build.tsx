@@ -1,9 +1,10 @@
 import type {Bud} from '@roots/bud'
 import BudCommand from '@roots/bud/cli/commands/bud'
-import type {Context} from '@roots/bud-framework/options/context'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators'
 import * as t from '@roots/bud-support/typanion'
+
+import type {CommandContext, Context} from './bud.js'
 
 /**
  * Build command
@@ -11,16 +12,7 @@ import * as t from '@roots/bud-support/typanion'
  * @public
  */
 export default class BudBuildCommand extends BudCommand {
-  /**
-   * Command paths
-   * @public
-   */
   public static override paths = [[`build`]]
-
-  /**
-   * Command usage
-   * @public
-   */
   public static override usage = Command.Usage({
     category: `build`,
     description: `Compile source assets`,
@@ -34,45 +26,15 @@ export default class BudBuildCommand extends BudCommand {
     examples: [[`compile source assets`, `$0 build`]],
   })
 
-  /**
-   * (dev only) browser
-   * @virtual
-   * @public
-   */
-  public declare browser?: boolean | string
+  public override withBud = async (bud: Bud) => {
+    bud.hooks.action(`compiler.close`, async bud => {
+      await this.notifier.compilationNotification()
+    })
 
-  /**
-   * hot
-   * @virtual
-   * @public
-   */
-  public declare hot?: boolean
+    return bud
+  }
 
-  /**
-   * reload
-   * @virtual
-   * @public
-   */
-  public declare reload?: boolean
-
-  /**
-   * overlay
-   * @virtual
-   * @public
-   */
-  public declare overlay?: boolean
-
-  /**
-   * indicator
-   * @virtual
-   * @public
-   */
-  public indicator?: boolean
-
-  /**
-   * cache
-   */
-  public override cache = Option.String(`--cache`, undefined, {
+  public cache = Option.String(`--cache`, undefined, {
     description: `Utilize compiler's filesystem cache`,
     tolerateBoolean: true,
     validator: t.isOneOf([
@@ -83,28 +45,10 @@ export default class BudBuildCommand extends BudCommand {
     ]),
     env: `APP_CACHE`,
   })
-
-  /**
-   * clean
-   * @public
-   */
-  public override clean = Option.Boolean(`--clean`, undefined, {
+  public clean = Option.Boolean(`--clean`, undefined, {
     description: `Clean artifacts and distributables prior to compilation`,
   })
-
-  /**
-   * debug
-   * @public
-   */
-  public debug = Option.Boolean(`--debug`, undefined, {
-    description: `Write debug files to storage directory`,
-  })
-
-  /**
-   * devtool
-   * @public
-   */
-  public override devtool = Option.String(`--devtool`, undefined, {
+  public devtool = Option.String(`--devtool`, undefined, {
     description: `Set devtool option`,
     validator: t.isOneOf([
       t.isLiteral(false),
@@ -135,137 +79,51 @@ export default class BudBuildCommand extends BudCommand {
     ]),
     env: `APP_DEVTOOL`,
   })
-
-  /**
-   * editor
-   * @public
-   */
-  public editor = Option.Boolean(`--editor`, undefined, {
+  public editor = Option.String(`--editor`, undefined, {
     description: `Open editor to file containing errors on unsuccessful development build`,
+    tolerateBoolean: true,
   })
-
-  /**
-   * esm
-   * @public
-   */
-  public override esm = Option.Boolean(`--esm`, undefined, {
+  public esm = Option.Boolean(`--esm`, undefined, {
     description: `build as es modules`,
   })
-
-  /**
-   * flush
-   * @public
-   */
   public flush = Option.Boolean(`--flush`, undefined, {
     description: `Force clearing bud internal cache`,
   })
-
-  /**
-   * hash
-   * @public
-   */
-  public override hash = Option.Boolean(`--hash`, undefined, {
+  public hash = Option.Boolean(`--hash`, undefined, {
     description: `Hash compiled filenames`,
   })
-
-  /**
-   * html
-   * @public
-   */
-  public override html = Option.String(`--html`, undefined, {
+  public html = Option.String(`--html`, undefined, {
     description: `Generate an html template`,
     tolerateBoolean: true,
   })
-
-  /**
-   * immutable
-   * @public
-   */
-  public override immutable = Option.Boolean(`--immutable`, undefined, {
+  public immutable = Option.Boolean(`--immutable`, undefined, {
     description: `bud.http: immutable module lockfile`,
   })
-
-  /**
-   * discovery
-   * @public
-   */
   public discovery = Option.Boolean(`--discovery`, undefined, {
     description: `Automatically register extensions`,
   })
-
-  /**
-   * notify
-   * @public
-   */
-  public override notify = Option.Boolean(`--notify`, true, {
+  public notify = Option.Boolean(`--notify`, true, {
     description: `Enable notfication center messages`,
   })
-
-  /**
-   * filter
-   * @public
-   */
-  public override filter = Option.Array(`--filter`, undefined, {
-    description: `Limit compilation to particular compilers`,
-    hidden: true,
-  })
-
-  /**
-   * manifest
-   * @public
-   */
-  public override manifest = Option.Boolean(`--manifest`, undefined, {
+  public manifest = Option.Boolean(`--manifest`, undefined, {
     description: `Generate a manifest of compiled assets`,
   })
-
-  /**
-   * minimize
-   * @public
-   */
-  public override minimize = Option.Boolean(`--minimize`, undefined, {
+  public minimize = Option.Boolean(`--minimize`, undefined, {
     description: `Minimize compiled assets`,
   })
-
-  /**
-   * src
-   * @public
-   */
-  public override input = Option.String(
-    `--input,-i,--@src,--src`,
-    undefined,
-    {
-      description: `Source directory (relative to project)`,
-      env: `APP_PATH_INPUT`,
-    },
-  )
-
-  /**
-   * dist
-   * @public
-   */
-  public override output = Option.String(
-    `--output,-o,--@dist,--dist`,
-    undefined,
-    {
-      description: `Distribution directory (relative to project)`,
-      env: `APP_PATH_OUTPUT`,
-    },
-  )
-
-  /**
-   * publicPath
-   * @public
-   */
-  public override publicPath = Option.String(`--publicPath`, undefined, {
+  public input = Option.String(`--input,-i,--@src,--src`, undefined, {
+    description: `Source directory (relative to project)`,
+    env: `APP_PATH_INPUT`,
+  })
+  public output = Option.String(`--output,-o,--@dist,--dist`, undefined, {
+    description: `Distribution directory (relative to project)`,
+    env: `APP_PATH_OUTPUT`,
+  })
+  public publicPath = Option.String(`--publicPath`, undefined, {
     description: `public path of emitted assets`,
     env: `APP_PUBLIC_PATH`,
   })
-
-  /**
-   * runtime
-   * @public
-   */
-  public override runtime: `single` | `multiple` | boolean = Option.String(
+  public runtime: `single` | `multiple` | boolean = Option.String(
     `--runtime`,
     undefined,
     {
@@ -277,43 +135,35 @@ export default class BudBuildCommand extends BudCommand {
       ]),
     },
   )
-
-  /**
-   * splitChunks
-   * @public
-   */
-  public override splitChunks = Option.Boolean(
+  public splitChunks = Option.Boolean(
     `--splitChunks,--vendor`,
     undefined,
     {
       description: `Separate vendor bundle`,
     },
   )
-
-  /**
-   * storage
-   * @public
-   */
-  public override storage = Option.String(`--storage`, undefined, {
+  public storage = Option.String(`--storage`, undefined, {
     description: `Storage directory (relative to project)`,
     env: `APP_PATH_STORAGE`,
   })
-
-  /**
-   * ci
-   */
   public ci = Option.Boolean(`--ci`, undefined, {
     description: `Simple build summaries for CI`,
   })
 
-  /**
-   * Context args object
-   *
-   * @public
-   */
-  public override get args(): Context[`args`] {
+  public override withContext = async (context: CommandContext) => {
+    if (this.withSubcommandContext) {
+      context = await this.withSubcommandContext(context)
+    }
+    return context
+  }
+
+  public override withArguments = async (args: Context[`args`]) => {
+    if (this.withSubcommandArguments) {
+      args = await this.withSubcommandArguments(args)
+    }
+
     return {
-      browser: this.browser,
+      ...args,
       cache: this.cache,
       ci: this.ci,
       clean: this.clean,
@@ -326,16 +176,13 @@ export default class BudBuildCommand extends BudCommand {
       hash: this.hash,
       html: this.html,
       immutable: this.immutable,
-      indicator: this.indicator,
       input: this.input,
       output: this.output,
       manifest: this.manifest,
       minimize: this.minimize,
       mode: this.mode,
       notify: this.notify,
-      overlay: this.overlay,
       publicPath: this.publicPath,
-      reload: this.reload,
       runtime: this.runtime,
       splitChunks: this.splitChunks,
       storage: this.storage,
@@ -350,12 +197,9 @@ export default class BudBuildCommand extends BudCommand {
    * @decorator `@bind`
    */
   @bind
-  public override async runCommand(bud: Bud) {
-    await this.applyEnv(bud)
-    await this.applyManifestOptions(bud)
-    await this.applyArgs(bud)
-    await bud.processConfigs()
-    await this.applyArgs(bud)
-    await bud.run()
+  public override async execute() {
+    await this.makeBud(this)
+    await this.healthcheck(this)
+    await this.run(this)
   }
 }

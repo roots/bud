@@ -5,7 +5,7 @@ import type {S3ClientConfig} from '@aws-sdk/client-s3'
  *
  * @public
  */
-export default class Config {
+export class Config {
   /**
    * S3 credentials
    *
@@ -28,15 +28,31 @@ export default class Config {
   public endpoint: S3ClientConfig[`endpoint`]
 
   /**
+   * S3 bucket
+   *
+   * @public
+   */
+  public bucket: string
+
+  /**
+   * Treat bucket contents as public
+   *
+   * @public
+   */
+  public public: boolean = true
+
+  /**
    * Get a config value
    *
    * @param key - {@link S3ClientConfig} key
    * @returns value - {@link S3ClientConfig} value
    * @public
    */
-  public get<K extends `${keyof S3ClientConfig & keyof Config & string}`>(
-    key: K,
-  ): this[K] {
+  public get<
+    K extends `${
+      | (keyof S3ClientConfig & keyof Config & string)
+      | (keyof Config & string)}`,
+  >(key: K): this[K] {
     return this[key]
   }
 
@@ -48,10 +64,11 @@ export default class Config {
    * @returns void
    * @public
    */
-  public set<K extends `${keyof S3ClientConfig & keyof Config & string}`>(
-    key: K,
-    value: this[K],
-  ): void {
+  public set<
+    K extends `${
+      | (keyof S3ClientConfig & keyof Config & string)
+      | (keyof Config & string)}`,
+  >(key: K, value: this[K]): void {
     this[key] = value
   }
 }

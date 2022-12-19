@@ -1,4 +1,5 @@
 import type {Bud} from '@roots/bud'
+import {dry} from '@roots/bud/cli/decorators'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {highlight} from '@roots/bud-support/highlight'
 import * as Ink from '@roots/bud-support/ink'
@@ -7,20 +8,22 @@ import {chunk} from '@roots/bud-support/lodash-es'
 import format from '@roots/bud-support/pretty-format'
 import React from '@roots/bud-support/react'
 
-import BudCommand from './bud.js'
+import BudCommand, {ArgsModifier} from './bud.js'
 
 /**
- * `bud repl` command
+ * `bud repl`
  *
  * @public
+ * @decorator `@dry` - dry run
  */
-export default class ReplCommand extends BudCommand {
-  public override dry = true
+@dry
+export default class BudReplCommand extends BudCommand {
   public static override paths = [[`repl`]]
   public static override usage = Command.Usage({
     description: `Use bud in a repl`,
     examples: [[`repl`, `$0 repl`]],
   })
+  public override withArguments = ArgsModifier({dry: true})
 
   public color = Option.Boolean(`--color,-c`, true, {
     description: `use syntax highlighting`,
@@ -40,15 +43,13 @@ export default class ReplCommand extends BudCommand {
    * Command execute
    * @public
    */
-  public override async runCommand(bud: Bud) {
-    await this.applyEnv(bud)
-    await this.applyManifestOptions(bud)
-    await this.applyArgs(bud)
-    await bud.processConfigs()
-    await this.applyArgs(bud)
-    await bud.run()
+  public override async execute() {
+    await this.makeBud(this)
+    await this.run(this)
 
-    this.render(<Repl app={bud} indent={this.indent} depth={this.depth} />)
+    BudReplCommand.render(
+      <Repl app={this.bud} indent={this.indent} depth={this.depth} />,
+    )
   }
 }
 
@@ -70,7 +71,7 @@ const Repl = ({app, indent, depth}: ReplProps) => {
   Ink.useInput((input, key) => {
     if (key.escape) {
       // eslint-disable-next-line
-      process.exit()
+      process.exit(0)
     }
 
     if (key.upArrow) {

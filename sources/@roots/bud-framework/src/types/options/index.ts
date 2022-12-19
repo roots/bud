@@ -1,3 +1,3 @@
-import type {Context, File, Overrides} from './context.js'
+import type {CommandContext, Context, File} from './context.js'
 
-export type {Context, Overrides, File}
+export type {CommandContext, Context, File}

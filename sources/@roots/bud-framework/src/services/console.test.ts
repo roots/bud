@@ -1,10 +1,9 @@
 import {factory} from '@repo/test-kit/bud'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
-import {Bud} from '@roots/bud'
 import ConsoleBuffer from './console.js'
 
 describe(`ConsoleBuffer`, () => {
-  let bud: Bud
+  let bud
   let consoleBuffer: ConsoleBuffer
 
   beforeEach(async () => {

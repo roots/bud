@@ -1,20 +1,17 @@
 import type {Readable, Writable} from 'node:stream'
 
-import type {Instance as Signale} from '@roots/bud-support/signale'
 import type {InspectResult} from '@roots/filesystem/filesystem'
 
 import type {Bud} from '../../bud.js'
+import type {Logger} from '../services/logger/index.js'
 
-export interface BaseContext {
+export interface BudContext {
   label: string
   basedir: string
   mode: 'development' | 'production'
   bud: Record<string, any>
-  root?: Bud
-  dependsOn?: Array<string>
-  manifest?: Record<string, any>
-  services?: Array<string>
-  args?: Partial<{
+  env: Record<string, string | undefined>
+  args: Partial<{
     basedir?: string
     browser?: string | boolean
     cache?: `filesystem` | `memory` | true | false
@@ -50,15 +47,15 @@ export interface BaseContext {
     discovery?: boolean
     dry?: boolean
     output?: string
-    editor?: boolean
+    editor?: string | boolean
     esm?: boolean
+    filter?: Array<string>
     flush?: boolean
     hash?: boolean
     html?: boolean | string
     immutable?: boolean
     indicator?: boolean
     input?: string
-    level?: number
     log?: boolean
     manifest?: boolean
     minimize?: boolean
@@ -74,23 +71,26 @@ export interface BaseContext {
     target?: Array<string>
     verbose?: boolean
   }>
+  root?: Bud
+  dependsOn?: Array<string>
+  manifest?: Record<string, any>
+  services?: Array<string>
   config?: Record<string, File>
-  env?: Record<string, string | undefined>
   extensions?: {
     builtIn?: Array<string>
     discovered?: Array<string>
   }
-  logger?: Signale
+  logger?: Logger
 }
 
-export interface Context extends BaseContext {
-  stdin?: Readable
-  stdout?: Writable
-  stderr?: Writable
-  colorDepth?: number
+export interface CommandContext extends BudContext {
+  stdin: Readable
+  stdout: Writable
+  stderr: Writable
+  colorDepth: number
 }
 
-export type Overrides = Partial<Context>
+export type {BudContext as Context}
 
 export interface File extends Omit<InspectResult, `type`> {
   name: string

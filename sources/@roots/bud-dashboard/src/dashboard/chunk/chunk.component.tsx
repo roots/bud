@@ -11,7 +11,7 @@ const Chunk = ({
   minWidth,
   ...chunk
 }: {
-  assets: Array<StatsAsset>
+  assets: Array<Partial<StatsAsset>>
   final?: boolean
   minWidth?: number
   indent?: any

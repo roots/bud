@@ -1,6 +1,4 @@
-import commonPath from '@roots/bud-support/common-path'
 import {bind} from '@roots/bud-support/decorators'
-import {resolve} from '@roots/bud-support/import-meta-resolve'
 import {
   isFunction,
   isNull,
@@ -9,7 +7,6 @@ import {
 } from '@roots/bud-support/lodash-es'
 
 import {bootstrap, LIFECYCLE_EVENT_MAP} from './lifecycle/bootstrap.js'
-import type {Logger} from './logger/index.js'
 import type * as methods from './methods/index.js'
 import type {Module} from './module.js'
 import type {Service} from './service.js'
@@ -134,13 +131,9 @@ export class Bud {
     )
   }
 
-  public commonPath: string
-
   public consoleBuffer: ConsoleBuffer
 
   public fs: FS
-
-  public logger: Logger
 
   public module: Module
 
@@ -211,12 +204,12 @@ export class Bud {
   public declare bindMethod: methods.bindMethod
 
   /**
-   * @deprecated - use {@link FS.json | bud.fs.json}
+   * @deprecated - use {@link bud.fs.json | bud.fs.json}
    */
   public json: FS['json']
 
   /**
-   * @deprecated - use {@link FS.yml | bud.fs.yml}
+   * @deprecated - use {@link bud.fs.yml | bud.fs.yml}
    */
   public yml: FS['yml']
 
@@ -235,7 +228,7 @@ export class Bud {
    */
   @bind
   public async make(
-    request: Options.Overrides | string,
+    request: Partial<Options.Context> | string,
     tap?: (app: Bud) => Promise<unknown>,
   ) {
     if (!this.isRoot)
@@ -277,12 +270,6 @@ export class Bud {
 
   @bind
   public async lifecycle(context: Options.Context): Promise<Bud> {
-    const supportPath = await resolve(
-      `@roots/bud-support/os`,
-      import.meta.url,
-    )
-    this.commonPath = commonPath([context.basedir, supportPath]).commonDir
-
     await bootstrap.bind(this)({...context})
 
     Object.entries(LIFECYCLE_EVENT_MAP).map(
@@ -334,14 +321,7 @@ export class Bud {
    */
   @bind
   public log(...messages: any[]) {
-    if (!this.context.args?.log) return this
-    if (this.context.args?.level && this.context.args?.level < 3)
-      return this
-
-    !this.logger?.instance
-      ? // eslint-disable-next-line no-console
-        console.info(...messages)
-      : this.logger.instance.log(...this.logger.format(...messages))
+    this.context.logger.log(...messages)
 
     return this
   }
@@ -354,14 +334,7 @@ export class Bud {
    */
   @bind
   public info(...messages: any[]) {
-    if (!this.context.args?.log) return this
-    if (!this.context.args?.level || this.context.args?.level < 4)
-      return this
-
-    !this.logger?.instance
-      ? // eslint-disable-next-line no-console
-        console.info(...messages)
-      : this.logger.instance.info(...this.logger.format(...messages))
+    this.context.logger.info(...messages)
 
     return this
   }
@@ -374,14 +347,7 @@ export class Bud {
    */
   @bind
   public success(...messages: any[]) {
-    if (!this.context.args?.log) return this
-    if (this.context.args?.level && this.context.args?.level < 2)
-      return this
-
-    !this.logger?.instance
-      ? // eslint-disable-next-line no-console
-        console.log(`[success]`, ...messages)
-      : this.logger.instance.success(...this.logger.format(...messages))
+    this.context.logger.success(...messages)
     return this
   }
 
@@ -393,13 +359,7 @@ export class Bud {
    */
   @bind
   public warn(...messages: any[]) {
-    if (this.context.args?.level && this.context.args?.level < 1)
-      return this
-
-    !this.logger?.instance
-      ? // eslint-disable-next-line no-console
-        console.warn(...messages)
-      : this.logger.instance.warn(...this.logger.format(...messages))
+    this.context.logger.warn(...messages)
 
     return this
   }
@@ -416,15 +376,7 @@ export class Bud {
    */
   @bind
   public error(...messages: Array<any>): Bud {
-    if (this.isProduction) process.exitCode = 1
-
-    !this.logger?.instance
-      ? // eslint-disable-next-line no-console
-        console.error(...messages)
-      : this.logger.instance.error(...this.logger.format(...messages))
-
-    this.close()
-
+    this.context.logger.error(...messages)
     return this
   }
 
@@ -440,11 +392,7 @@ export class Bud {
    */
   @bind
   public fatal(error: Error) {
-    if (this.isProduction) {
-      process.exitCode = 1
-      throw error
-    } else {
-      this.logger?.instance?.fatal(error)
-    }
+    this.context.logger.fatal(error)
+    return this
   }
 }

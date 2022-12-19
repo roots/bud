@@ -1,20 +1,11 @@
-import type {Bud} from '@roots/bud'
 import BudCommand from '@roots/bud/cli/commands/bud'
+import {dry} from '@roots/bud/cli/decorators/command.dry'
 import {bind} from '@roots/bud-support/decorators'
 
+@dry
 export class BudTSCheckCommand extends BudCommand {
-  /**
-   * Command paths
-   *
-   * @public
-   */
   public static override paths = [[`ts`, `check`]]
 
-  /**
-   * Comand usage
-   *
-   * @public
-   */
   public static override usage = BudCommand.Usage({
     category: `tools`,
     description: `Typecheck source code`,
@@ -26,15 +17,14 @@ export class BudTSCheckCommand extends BudCommand {
     examples: [[`bud ts check`, `Typecheck source`]],
   })
 
-  public override dry = true
-
   /**
    * Command execute
    *
    * @public
    */
   @bind
-  public override async runCommand(bud: Bud) {
-    await bud.sh([`bud`, `tsc`, `--noEmit`])
+  public override async execute() {
+    await this.makeBud(this)
+    await this.bud.sh([`bud`, `tsc`, `--noEmit`])
   }
 }

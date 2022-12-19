@@ -41,58 +41,22 @@ describe(`s3`, () => {
     s3.config = new mockConfigModule()
   })
 
-  it(`should set s3 credentials`, async () => {
-    await s3.setCredentials({
-      accessKeyId: `foo`,
-      secretAccessKey: `bar`,
-    })
-    expect(s3.config.set).toHaveBeenCalledWith(`credentials`, {
-      accessKeyId: `foo`,
-      secretAccessKey: `bar`,
-    })
-  })
-
   it(`should return the ident for DO`, async () => {
-    s3.setEndpoint(`https://nyc3.digitaloceanspaces.com`)
-    s3.setBucket(`foo`)
+    s3.config.set(`endpoint`, `https://nyc3.digitaloceanspaces.com`)
+    s3.config.set(`bucket`, `foo`)
     expect(s3.ident).toEqual(`https://foo.nyc3.digitaloceanspaces.com`)
   })
 
   it(`should return the ident for AWS`, async () => {
-    s3.setRegion(`us-west-1`)
-    s3.setEndpoint(null)
-    s3.setBucket(`foo`)
+    s3.config.set(`region`, `us-west-1`)
+    s3.config.set(`endpoint`, null)
+    s3.config.set(`bucket`, `foo`)
     expect(s3.ident).toEqual(`foo (us-west-1)`)
   })
 
   it(`should set s3 region`, async () => {
-    await s3.setRegion(`foo`)
+    await s3.config.set(`region`, `foo`)
     expect(s3.config.set).toHaveBeenCalledWith(`region`, `foo`)
-  })
-
-  it(`should get s3 region`, async () => {
-    await s3.getRegion()
-    expect(s3.config.get).toHaveBeenCalledWith(`region`)
-  })
-
-  it(`should set s3 endpoint`, async () => {
-    s3.setEndpoint(`foo`)
-    expect(s3.config.set).toHaveBeenCalledWith(`endpoint`, `foo`)
-  })
-
-  it(`should get the s3 endpoint`, async () => {
-    s3.getEndpoint()
-    expect(s3.config.get).toHaveBeenCalledWith(`endpoint`)
-  })
-
-  it(`should set s3 bucket`, () => {
-    s3.setBucket(`foo`)
-    expect(s3.bucket).toEqual(`foo`)
-  })
-
-  it(`should get s3 bucket`, () => {
-    s3.setBucket(`foo`)
-    expect(s3.getBucket()).toEqual(`foo`)
   })
 
   it(`should call sdk.send when writing a file`, async () => {
@@ -121,17 +85,7 @@ describe(`s3`, () => {
     expect(s3.client.make).toHaveBeenCalled()
   })
 
-  it(`should set public value when setPublic is called`, () => {
-    s3.setPublic(false)
-    expect(s3.isPublic).toBeFalsy()
-  })
-
-  it(`should return the value of s3.isPublic when calling getPublic`, () => {
-    expect(s3.getPublic()).toBeTruthy()
-  })
-
   it(`should throw if attempt to access client is made and credentials aren't set`, async () => {
-    s3.setCredentials(null)
     try {
       await s3.getClient()
     } catch (e) {

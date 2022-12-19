@@ -6,7 +6,7 @@ import type {Config} from '@roots/bud-support/signale'
  *
  * @internal
  */
-export const defaults: Config = {
+export const config: Config = {
   displayScope: true,
   displayBadge: true,
   displayDate: false,

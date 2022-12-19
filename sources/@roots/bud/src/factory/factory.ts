@@ -25,13 +25,15 @@ import * as argv from '../context/argv.js'
  * @public
  */
 export async function factory(
-  {basedir, ...overrides}: Partial<Context> = {basedir: argv.basedir},
+  {basedir, ...contextOverrides}: Partial<Context> = {
+    basedir: argv.basedir,
+  },
   cache = true,
 ): Promise<Bud> {
   if (cache && has(basedir)) return get(basedir)
 
   const bud = new Bud()
-  const context = await getContext({basedir, ...overrides}, cache)
+  const context = await getContext({basedir, ...contextOverrides}, cache)
 
   if (cache) {
     set(context.basedir, bud)

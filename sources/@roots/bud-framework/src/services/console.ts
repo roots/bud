@@ -9,10 +9,10 @@ import {Service} from '../service.js'
  *
  * @public
  */
-interface MessagesCache {
-  stdout: string[]
-  stderr: string[]
-}
+type MessagesCache = Array<{
+  stream: `stdout` | `stderr`
+  message: string
+}>
 
 /**
  * ConsoleBuffer service class
@@ -28,7 +28,7 @@ export default class ConsoleBuffer extends Service {
    * Received messages
    * @public
    */
-  public messages: MessagesCache = {stdout: [], stderr: []}
+  public messages: MessagesCache = []
 
   /**
    * Restore console function
@@ -41,10 +41,10 @@ export default class ConsoleBuffer extends Service {
    */
   public restore?: () => any
 
-  public fetchAndRemove(type: keyof MessagesCache) {
-    const fetchedMessages = [...this.messages[type]]
-    this.messages[type] = []
-    return fetchedMessages
+  public fetchAndRemove() {
+    const messages = [...this.messages]
+    this.messages = []
+    return messages
   }
 
   /**
@@ -54,7 +54,7 @@ export default class ConsoleBuffer extends Service {
    * @decorator `@bind`
    */
   @bind
-  public override async init(bud: Bud) {
+  public override async init?(bud: Bud) {
     if (bud.context.args?.ci) return
 
     // Patch the console, and assign the restore function
@@ -67,10 +67,15 @@ export default class ConsoleBuffer extends Service {
       if (!message) return
 
       // Ignore messages that have been logged before
-      if (this.messages[stream].some(stale => stale === message)) return
+      if (
+        this.messages.some(
+          stale => stale.message === message && stale.stream === stream,
+        )
+      )
+        return
 
       // Add message to buffer
-      this.messages[stream].push(message)
+      this.messages.push({stream, message})
     })
   }
 }

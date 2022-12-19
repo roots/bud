@@ -1,7 +1,6 @@
 import {camelCase, set} from '@roots/bud-support/lodash-es'
 
 import type {Bud} from '../bud.js'
-import {Logger} from '../logger/index.js'
 import * as methods from '../methods/index.js'
 import {Module} from '../module.js'
 import type {Service} from '../service.js'
@@ -112,13 +111,11 @@ const instantiateServices =
   }
 
 const initializeCoreUtilities = (bud: Bud) => {
-  bud.logger = new Logger(() => bud)
   bud.fs = new FS(() => bud)
   Object.entries(methods).map(([fn, method]) => {
     bud[fn] = method.bind(bud)
   })
-
-  bud.logger.instance.time(`initialize`)
+  bud.context.logger.time(`initialize`)
 }
 
 /**
@@ -134,7 +131,6 @@ export const bootstrap = async function (
   context: Options.Context,
 ) {
   this.context = {...context}
-
   if (!context.label) throw new Error(`options.label is required`)
 
   initializeCoreUtilities(this)
@@ -146,7 +142,7 @@ export const bootstrap = async function (
   }
 
   /* initialize module class */
-  this.module = new Module(this)
+  this.module = new Module(() => this)
 
   /* initialize services */
   await Promise.all(

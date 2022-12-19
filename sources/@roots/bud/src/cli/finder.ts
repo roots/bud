@@ -96,8 +96,8 @@ export class Commands {
       paths.map(async path => {
         try {
           return resolve(path, import.meta.url)
-        } catch (err) {
-          console.warn(err)
+        } catch (error) {
+          console.warn(error)
           return false
         }
       }),

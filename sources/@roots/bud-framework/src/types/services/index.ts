@@ -16,7 +16,7 @@ import type * as Server from './server/index.js'
  *
  * @virtual @public
  */
-export interface Registry extends Record<string, Service.Contract> {
+export interface Registry extends Record<string, any> {
   api: Api
   build: Build.Service
   cache: Cache.Service

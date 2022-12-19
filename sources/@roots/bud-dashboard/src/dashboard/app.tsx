@@ -1,53 +1,36 @@
-import type {Bud} from '@roots/bud-framework'
-import type ConsoleBufferService from '@roots/bud-framework/services/console'
-import {Box} from '@roots/bud-support/ink'
+import {Box, Text} from '@roots/bud-support/ink'
 import React from '@roots/bud-support/react'
-import type {StatsCompilation} from '@roots/bud-support/webpack'
 
 import Compilation from './compilation/compilation.component.js'
-import {Log} from './consoleBuffer/log.js'
+import type {Props} from './index.js'
 import {Server} from './server/index.js'
-
-interface Props {
-  context: Bud['context']
-  devUrl?: URL
-  proxyUrl?: URL
-  watchFiles?: Set<string>
-  mode: Bud['mode']
-  compilations: Array<StatsCompilation>
-  isTTY?: boolean
-  displayServerInfo?: boolean
-  displayAssets?: boolean
-  displayEntrypoints?: boolean
-  messages?: ConsoleBufferService['messages']
-}
 
 const App = ({
   compilations,
   context,
   devUrl,
   proxyUrl,
-  displayServerInfo = true,
-  displayAssets = true,
-  displayEntrypoints = true,
-  messages,
+  displayServerInfo,
+  displayAssets,
+  displayEntrypoints,
   mode,
   watchFiles = new Set(),
 }: Props) => {
+  if (!compilations.length)
+    return (
+      <Box flexDirection="column">
+        <Text>No compilations</Text>
+      </Box>
+    )
+
   return (
     <Box flexDirection="column">
-      <Log messages={messages} />
-
       {compilations.map((compilation, id) => (
-        <Box
-          key={id}
-          flexDirection="column"
-          paddingBottom={compilations?.length > 1 ? 1 : 0}
-        >
+        <Box key={id} flexDirection="column" paddingY={1}>
           <Compilation
             id={id}
             mode={mode}
-            stats={compilation}
+            compilation={compilation}
             context={context}
             compilerCount={compilations.length}
             displayAssets={displayAssets}

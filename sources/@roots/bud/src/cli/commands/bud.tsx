@@ -1,37 +1,43 @@
 import {resolve} from 'node:path/win32'
 
-import {Bud, factory} from '@roots/bud'
+import {Bud} from '@roots/bud'
 import {checkDependencies} from '@roots/bud/cli/helpers/checkDependencies'
-import {
-  checkNoPackageManager,
-  checkPackageManagerConflict,
-} from '@roots/bud/cli/helpers/checkPackageManagerErrors'
+import {checkPackageManagerErrors} from '@roots/bud/cli/helpers/checkPackageManagerErrors'
 import {isInternalDevelopmentEnv} from '@roots/bud/cli/helpers/isInternalDevelopmentEnv'
 import {isset} from '@roots/bud/cli/helpers/isset'
 import {Renderer} from '@roots/bud-dashboard/renderer'
-import type * as Options from '@roots/bud-framework/options'
-import type {Context} from '@roots/bud-framework/options/context'
+import type {
+  CommandContext,
+  Context,
+} from '@roots/bud-framework/options/context'
 import {BaseContext, Command, Option} from '@roots/bud-support/clipanion'
-import {bind, once} from '@roots/bud-support/decorators'
+import {bind} from '@roots/bud-support/decorators'
 import {Box, Text} from '@roots/bud-support/ink'
 import {isString} from '@roots/bud-support/lodash-es'
 import React from '@roots/bud-support/react'
-import Signale from '@roots/bud-support/signale'
 import * as t from '@roots/bud-support/typanion'
 
 import {Notifier} from '../../notifier/index.js'
+
+export type {BaseContext, CommandContext, Context}
+export {Option}
+
+export interface ArgsModifier {
+  <T extends Context[`args`]>(from: T): (on: T) => Promise<T>
+}
+export const ArgsModifier: ArgsModifier = from => async on => ({
+  ...from,
+  ...on,
+})
 
 /**
  * Bud command
  *
  * @public
  */
-export default class BudCommand extends Command {
-  /**
-   * Command usage
-   *
-   * @public
-   */
+export default class BudCommand extends Command<CommandContext> {
+  public declare bud?: Bud
+
   public static override usage = Command.Usage({
     description: `Run \`bud --help\` for usage information`,
     details: `\
@@ -42,256 +48,156 @@ export default class BudCommand extends Command {
     examples: [[`compile source assets`, `$0 build`]],
   })
 
-  /**
-   * Context
-   * @public
-   */
-  public override context: Options.Context & BaseContext
+  public declare withArguments?: (
+    args: Context[`args`],
+  ) => Promise<Context[`args`]>
 
-  public notify?: boolean
+  public declare withSubcommandArguments?: (
+    args: Context[`args`],
+  ) => Promise<Context[`args`]>
 
-  public runCommand?(bud: Bud): Promise<unknown>
+  public declare withContext?: (
+    context: CommandContext,
+  ) => Promise<CommandContext>
 
-  public declare input?: string
-  public declare output?: string
-  public declare manifest?: boolean
-  public declare publicPath?: string
-  public declare storage?: string
-  public declare cache?: boolean | `memory` | `filesystem`
-  public declare minimize?: boolean
-  public declare devtool?:
-    | false
-    | `eval`
-    | `eval-cheap-source-map`
-    | `eval-cheap-module-source-map`
-    | `eval-source-map`
-    | `cheap-source-map`
-    | `cheap-module-source-map`
-    | `source-map`
-    | `inline-cheap-source-map`
-    | `inline-cheap-module-source-map`
-    | `inline-source-map`
-    | `eval-nosources-cheap-source-map`
-    | `eval-nosources-cheap-modules-source-map`
-    | `eval-nosources-source-map`
-    | `inline-nosources-cheap-source-map`
-    | `inline-nosources-cheap-module-source-map`
-    | `inline-nosources-source-map`
-    | `nosources-cheap-source-map`
-    | `nosources-cheap-module-source-map`
-    | `hidden-nosources-cheap-source-map`
-    | `hidden-nosources-cheap-module-source-map`
-    | `hidden-nosources-source-map`
-    | `hidden-cheap-source-map`
-    | `hidden-cheap-module-source-map`
-    | `hidden-source-map`
-  public declare esm?: boolean
-  public declare immutable?: boolean
-  public declare clean?: boolean
-  public declare hash?: boolean
-  public declare runtime?: `single` | `multiple` | boolean
-  public declare splitChunks?: boolean
-  public declare html?: string | boolean
+  public declare withSubcommandContext?: (
+    context: CommandContext,
+  ) => Promise<CommandContext>
 
-  /**
-   * basedir
-   * @public
-   */
+  public declare withBud?: (bud: Bud) => Promise<Bud>
+
+  public declare notifier?: Notifier
+
   public basedir = Option.String(`--basedir,--cwd`, undefined, {
     description: `project base directory`,
     hidden: true,
   })
-
-  /**
-   *  dry
-   * @public
-   */
-  public dry = Option.Boolean(`--dry`, false, {
-    description: `Run without webpack or server process`,
-    hidden: true,
+  public debug = Option.Boolean(`--debug`, undefined, {
+    description: `Enable debug mode`,
   })
-
-  /**
-   * log
-   */
   public log = Option.Boolean(`--log`, undefined, {
     description: `Enable logging`,
     hidden: true,
   })
-
-  public verbose = Option.Boolean(`--verbose,-vvvv`, undefined, {
-    description: `Enable verbose logging`,
+  public verbose = Option.Boolean(`--verbose`, undefined, {
+    description: `Log verbose output`,
   })
-
-  /**
-   * mode
-   * @public
-   */
   public mode = Option.String(`--mode`, undefined, {
     description: `Compilation mode`,
     validator: t.isOneOf([
       t.isLiteral(`production`),
       t.isLiteral(`development`),
     ]),
-    hidden: true,
   })
-
-  /**
-   * label
-   * @public
-   */
   public filter = Option.Array(`--filter`, undefined, {
-    description: `Limit compilation to particular compilers`,
-    hidden: true,
+    description: `Limit command to particular compilers`,
   })
 
-  /**
-   * Application logger
-   *
-   * @public
-   */
-  public get logger() {
-    return new Signale()
-  }
-
-  /**
-   * Render ink component
-   *
-   * @param box - Ink box
-   * @returns
-   */
-  @bind
-  public async renderOnce(children: React.ReactElement) {
-    await Renderer.once(children)
-  }
-
-  /**
-   * Render ink component
-   *
-   * @param box - Ink box
-   * @returns
-   */
-  @bind
-  public async render(children: React.ReactElement) {
+  public static async render(children: React.ReactElement) {
     await Renderer.render(children)
   }
-
-  /**
-   * Render ink component
-   *
-   * @param box - Ink box
-   * @returns
-   */
-  @bind
-  public async text(text: string) {
+  public static async renderOnce(children: React.ReactElement) {
+    await Renderer.once(children)
+  }
+  public static async text(text: string) {
     await Renderer.text(text)
   }
+  public async execute() {}
 
-  /**
-   * Subcommand args
-   *
-   * @virtual
-   */
-  public get args(): Partial<Context[`args`]> {
-    return {}
-  }
-
-  /**
-   * Execute command
-   *
-   * @public
-   */
-  @bind
-  @once
-  public async execute() {
-    this.context.mode = this.mode ?? this.context.mode ?? `production`
-
-    this.context.args = {
-      ...this.context.args,
-
-      basedir: this.basedir
-        ? resolve(this.context.basedir, this.basedir)
-        : this.context.basedir,
-
-      dry: this.dry,
-      mode: this.context.mode,
-      level:
-        this.verbose === true
-          ? 4
-          : this.log === true
-          ? 3
-          : this.log !== false
-          ? 2
-          : 1,
-
-      log: this.log,
-      notify: this.notify,
-      target: this.filter,
-      verbose: this.verbose,
-      ...(this.args ?? {}),
-    }
-
-    const bud = await factory(this.context)
-
-    try {
-      if (!isInternalDevelopmentEnv(bud)) {
-        checkNoPackageManager(bud)
-        checkPackageManagerConflict(bud)
-        await checkDependencies(bud)
-      }
-    } catch (error) {
-      throw error
-    }
-
-    try {
-      if (this.runCommand) {
-        await this.runCommand(bud)
-      }
-    } catch (error) {
-      throw error
-    }
-
-    try {
-      if (this.context.args.notify !== false)
-        bud.hooks.action(`compiler.after`, async () => {
-          bud.compiler.instance.hooks.done.tap(
-            `bud-cli-notifier`,
-            new Notifier(bud).notify,
-          )
-        })
-    } catch (error) {
-      throw error
-    }
-  }
-
-  @bind
   public override async catch(error: string | {message: string}) {
-    this.renderOnce(
-      <Box>
-        <Text backgroundColor="red" color="white">
-          Error
-        </Text>
+    const message = isString(error)
+      ? error
+      : isString(error?.message)
+      ? error.message
+      : JSON.stringify(error)
 
-        <Text>
-          {typeof error === `string`
-            ? error
-            : isString(error?.message)
-            ? error.message
-            : JSON.stringify(error)}
-        </Text>
+    BudCommand.render(
+      <Box flexDirection="column" marginY={1}>
+        <Box>
+          <Text backgroundColor="red" color="white">
+            Error
+          </Text>
+        </Box>
+        <Text>{` `}</Text>
+        <Text wrap="end">{message}</Text>
       </Box>,
     )
-    // eslint-disable-next-line
-    process.exit(1)
+
+    if (this.bud?.context.args.notify !== false) {
+      this.notifier.notify({
+        title: `bud.js`,
+        subtitle: `Configuration error`,
+        message: message,
+        group: this.bud.path(),
+      })
+    }
+
+    if (this.bud.isProduction) {
+      // eslint-disable-next-line n/no-process-exit
+      process.exit(1)
+    }
   }
 
-  /**
-   * Apply context from .env
-   *
-   * @public
-   */
+  public async makeBud<T extends BudCommand>(command: T) {
+    command.context.basedir = command.basedir
+      ? resolve(command.context.basedir, command.basedir)
+      : command.context.basedir
+    command.context.mode = command.mode ?? command.context.mode
+
+    command.context.args = {
+      ...command.context.args,
+      basedir: command.context.basedir,
+      debug: command.debug,
+      mode: command.context.mode,
+      log: command.log,
+      target: command.filter,
+      verbose: command.verbose,
+    }
+
+    if (command.withArguments) {
+      command.context.args = await command.withArguments(
+        command.context.args,
+      )
+    }
+    if (command.withContext) {
+      command.context = await command.withContext(command.context)
+    }
+
+    command.bud = await new Bud().lifecycle(command.context)
+
+    command.notifier = new Notifier().setBud(command.bud)
+
+    await command.applyBudEnv(command.bud)
+    await command.applyBudManifestOptions(command.bud)
+    await command.applyBudArguments(command.bud)
+    await command.bud.processConfigs()
+
+    if (command.withBud) {
+      command.bud = await command.withBud(command.bud)
+    }
+  }
+
+  public async run(command: BudCommand) {
+    await command.applyBudArguments(command.bud)
+
+    try {
+      await command.bud.run()
+    } catch (error) {
+      throw error
+    }
+  }
+
+  public async healthcheck(command: BudCommand) {
+    try {
+      if (!isInternalDevelopmentEnv(command.bud)) {
+        checkPackageManagerErrors(command.bud)
+        await checkDependencies(command.bud)
+      }
+    } catch (error) {}
+  }
+
   @bind
-  public async applyEnv(bud: Bud) {
+  public async applyBudEnv(bud: Bud) {
     if (bud.env.isString(`APP_MODE`)) {
       bud.hooks.on(
         `build.mode`,
@@ -303,7 +209,6 @@ export default class BudCommand extends Command {
         `from environment`,
       )
     }
-
     if (bud.env.isString(`APP_BASE_PATH`)) {
       bud.context.basedir = bud.env.get(`APP_BASE_PATH`)
       bud.success(
@@ -312,7 +217,6 @@ export default class BudCommand extends Command {
         `from environment`,
       )
     }
-
     if (bud.env.isString(`APP_PUBLIC_PATH`)) {
       bud.hooks.on(
         `build.output.publicPath`,
@@ -324,7 +228,6 @@ export default class BudCommand extends Command {
         `from environment`,
       )
     }
-
     if (bud.env.isString(`APP_SRC_PATH`)) {
       bud.hooks.on(`location.@src`, bud.env.get(`APP_SRC_PATH`))
       bud.success(
@@ -333,7 +236,6 @@ export default class BudCommand extends Command {
         `from environment`,
       )
     }
-
     if (bud.env.isString(`APP_DIST_PATH`)) {
       bud.hooks.on(`location.@dist`, bud.env.get(`APP_DIST_PATH`))
 
@@ -343,7 +245,6 @@ export default class BudCommand extends Command {
         `from environment`,
       )
     }
-
     if (bud.env.isString(`APP_STORAGE_PATH`)) {
       bud.hooks.on(`location.@storage`, bud.env.get(`APP_STORAGE_PATH`))
 
@@ -355,33 +256,29 @@ export default class BudCommand extends Command {
     }
   }
 
-  /**
-   * Apply context from `package.json`
-   *
-   * @public
-   */
   @bind
-  public async applyManifestOptions(bud: Bud) {
-    if (isset(bud.context.manifest?.bud?.[`publicPath`]))
+  public async applyBudManifestOptions(bud: Bud) {
+    if (isset(bud.context.manifest?.bud?.[`publicPath`])) {
       bud.hooks.on(
         `build.output.publicPath`,
         bud.context.manifest.bud[`publicPath`],
       )
-
-    if (isset(bud.context.manifest?.bud?.paths?.[`src`]))
+    }
+    if (isset(bud.context.manifest?.bud?.paths?.[`src`])) {
       bud.hooks.on(`location.@src`, bud.context.manifest.bud.paths[`src`])
-
-    if (isset(bud.context.manifest?.bud?.paths?.[`dist`]))
+    }
+    if (isset(bud.context.manifest?.bud?.paths?.[`dist`])) {
       bud.hooks.on(
         `location.@dist`,
         bud.context.manifest.bud.paths[`dist`],
       )
-
-    if (isset(bud.context.manifest?.bud?.paths?.[`storage`]))
+    }
+    if (isset(bud.context.manifest?.bud?.paths?.[`storage`])) {
       bud.hooks.on(
         `location.@storage`,
         bud.context.manifest.bud.paths[`storage`],
       )
+    }
   }
 
   /**
@@ -390,130 +287,128 @@ export default class BudCommand extends Command {
    * @public
    */
   @bind
-  public async applyArgs(bud: Bud) {
-    if (isset(this.context.args.input)) bud.setPath(`@src`, this.input)
-    if (isset(this.context.args.output)) bud.setPath(`@dist`, this.output)
+  public async applyBudArguments(bud: Bud) {
+    if (isset(bud.context.args.input)) {
+      bud.setPath(`@src`, bud.context.args.input)
+    }
 
-    if (isset(this.manifest)) {
+    if (isset(bud.context.args.output)) {
+      bud.setPath(`@dist`, bud.context.args.output)
+    }
+
+    if (isset(bud.context.args.manifest)) {
       bud.log(`overriding manifest setting from cli`)
-      bud.hooks.on(`feature.manifest`, this.manifest)
-    }
-    if (isset(this.publicPath)) {
-      bud.setPublicPath(this.publicPath)
+      bud.hooks.on(`feature.manifest`, bud.context.args.manifest)
     }
 
-    if (
-      bud.isRoot &&
-      isset(this.filter) &&
-      bud.children &&
-      Object.keys(bud.children).length > 0
-    ) {
+    if (isset(bud.context.args.publicPath)) {
+      bud.setPublicPath(bud.context.args.publicPath)
+    }
+    if (isset(bud.context.args.filter) && bud.hasChildren) {
       Object.keys(bud.children)
-        .filter(name => !this.filter.includes(name))
+        .filter(name => !bud.context.args.filter.includes(name))
         .map(name => {
           delete bud.children[name]
           bud.log(`removing ${name} instance from the cli`)
         })
     }
 
-    if (isset(this.storage)) {
+    if (isset(bud.context.args.storage)) {
       bud.log(`overriding storage directory from the cli`)
-      bud.setPath(`@storage`, this.storage)
+      bud.setPath(`@storage`, bud.context.args.storage)
     }
 
-    if (isset(this.mode)) {
+    if (isset(bud.context.args.mode)) {
       bud.log(`overriding mode from the cli`)
-      bud.hooks.on(`build.mode`, this.mode)
+      bud.hooks.on(`build.mode`, bud.context.args.mode)
     }
-
-    if (isset(this.cache)) {
+    if (isset(bud.context.args.cache)) {
       bud.log(`overriding cache settings from cli`)
-      bud.persist(this.cache)
-      bud.children &&
-        Object.values(bud.children).map(child => child.persist(this.cache))
+      bud.persist(bud.context.args.cache)
+      bud.hasChildren &&
+        Object.values(bud.children).map(child =>
+          child.persist(bud.context.args.cache),
+        )
     }
 
-    if (isset(this.minimize)) {
+    if (isset(bud.context.args.minimize)) {
       bud.log(`overriding minimize setting from cli`)
-      bud.minimize(this.minimize)
-      bud.children &&
+      bud.minimize(bud.context.args.minimize)
+      bud.hasChildren &&
         Object.values(bud.children).map(child =>
-          child.minimize(this.minimize),
+          child.minimize(bud.context.args.minimize),
         )
     }
-
-    if (isset(this.devtool)) {
+    if (isset(bud.context.args.devtool)) {
       bud.log(`overriding devtool from cli`)
-      bud.devtool(this.devtool)
-      bud.children &&
+      bud.devtool(bud.context.args.devtool)
+      bud.hasChildren &&
         Object.values(bud.children).map(child =>
-          child.devtool(this.devtool),
+          child.devtool(bud.context.args.devtool),
         )
     }
-
-    if (isset(this.esm)) {
+    if (isset(bud.context.args.esm)) {
       bud.log(`overriding esm from cli`)
-      bud.esm.enable(this.esm)
-      bud.children &&
+      bud.esm.enable(bud.context.args.esm)
+      bud.hasChildren &&
         Object.values(bud.children).map(child =>
-          child.esm.enable(this.esm),
+          child.esm.enable(bud.context.args.esm),
         )
     }
-
-    if (isset(this.immutable)) {
+    if (isset(bud.context.args.immutable)) {
       bud.log(`overriding immutable from cli`)
-      bud.cdn.freeze(this.immutable)
-      bud.children &&
+      bud.cdn.freeze(bud.context.args.immutable)
+      bud.hasChildren &&
         Object.values(bud.children).map(child =>
-          child.cdn.freeze(this.immutable),
+          child.cdn.freeze(bud.context.args.immutable),
         )
     }
-
-    if (isset(this.clean)) {
+    if (isset(bud.context.args.clean)) {
       bud.log(`overriding clean setting from cli`)
       bud.extensions
         .get(`@roots/bud-extensions/clean-webpack-plugin`)
-        .enable(this.clean)
-
-      bud.hooks.on(`build.output.clean`, this.clean)
+        .enable(bud.context.args.clean)
+      bud.hooks.on(`build.output.clean`, bud.context.args.clean)
     }
+    if (isset(bud.context.args.hash)) {
+      bud.context.logger.log(`hash enabled by --hash`)
+      bud.hash(bud.context.args.hash)
 
-    if (isset(this.hash)) {
-      bud.log(`overriding hash setting from cli`)
-      bud.hash(this.hash)
-      bud.children &&
-        Object.values(bud.children).map(child => child.hash(this.hash))
-    }
-
-    if (isset(this.html)) {
-      isString(this.html) ? bud.html({template: this.html}) : bud.html()
-
-      bud.children &&
+      bud.hasChildren &&
         Object.values(bud.children).map(child =>
-          isString(this.html)
-            ? child.html({template: this.html})
+          child.hash(bud.context.args.hash),
+        )
+    }
+
+    if (isset(bud.context.args.html)) {
+      isString(bud.context.args.html)
+        ? bud.html({template: bud.context.args.html})
+        : bud.html()
+
+      bud.hasChildren &&
+        Object.values(bud.children).map(child =>
+          isString(bud.context.args.html)
+            ? child.html({template: bud.context.args.html})
             : child.html(),
         )
     }
 
-    if (isset(this.runtime)) {
+    if (isset(bud.context.args.runtime)) {
       bud.log(`overriding runtime setting from cli`)
-      bud.runtime(this.runtime)
-      bud.children &&
+      bud.runtime(bud.context.args.runtime)
+      bud.hasChildren &&
         Object.values(bud.children).map(child =>
-          child.runtime(this.runtime),
+          child.runtime(bud.context.args.runtime),
         )
     }
 
-    if (isset(this.splitChunks)) {
+    if (isset(bud.context.args.splitChunks)) {
       bud.log(`overriding runtime setting from cli`)
-      bud.splitChunks(this.splitChunks)
-      bud.children &&
+      bud.splitChunks(bud.context.args.splitChunks)
+      bud.hasChildren &&
         Object.values(bud.children).map(child =>
-          child.splitChunks(this.splitChunks),
+          child.splitChunks(bud.context.args.splitChunks),
         )
     }
-
-    await bud.api.processQueue()
   }
 }

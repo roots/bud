@@ -4,7 +4,7 @@ import type Cache from '@roots/bud-cache'
 import type Compiler from '@roots/bud-compiler'
 import type Dashboard from '@roots/bud-dashboard'
 import type Extensions from '@roots/bud-extensions'
-import * as Framework from '@roots/bud-framework'
+import {Bud as Framework} from '@roots/bud-framework'
 import {Service, ServiceContainer} from '@roots/bud-framework'
 import type Hooks from '@roots/bud-hooks'
 import type Server from '@roots/bud-server'
@@ -16,8 +16,8 @@ import type Server from '@roots/bud-server'
  *
  * @public
  */
-export class Bud extends Framework.Bud {
-  public override implementation = Bud
+export class Bud extends Framework {
+  public override implementation: new () => Bud & Framework = Bud
 
   public declare api: Api
 

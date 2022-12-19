@@ -3,7 +3,10 @@
   "compilerOptions": {
     "types": ["express"],
     "rootDir": "./src",
-    "outDir": "./lib"
+    "outDir": "./lib",
+    "paths": {
+      "@roots/bud-framework": ["./src/index.ts"],
+    }
   },
   "include": ["./src"],
   "exclude": ["./lib", "./node_modules", "**/*.test.ts"],

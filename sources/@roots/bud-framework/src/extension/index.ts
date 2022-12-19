@@ -257,8 +257,8 @@ export class Extension<
 
     Object.defineProperty(this, `logger`, {
       get: () =>
-        app.logger.instance.scope(
-          ...this.app.logger.scope,
+        app.context.logger.make(
+          this.app.label,
           this.label ?? `anonymous extension`,
         ),
     })
@@ -398,19 +398,15 @@ export class Extension<
    */
   @bind
   public async _make() {
-    this.logger.info(`trying to make`, this.label)
-
     if (isUndefined(this.make) && isUndefined(this.plugin)) {
-      this.logger.info(`no make, apply or plugin prop found. skipping.`)
       return false
     }
 
     const enabled = await this.isEnabled()
-
     if (enabled === false) {
-      this.logger.info(`${this.label} is disabled. skipping.`)
       return false
     }
+
     try {
       if (!isUndefined(this.apply)) {
         this.logger.info(`apply prop found. return extension instance`)

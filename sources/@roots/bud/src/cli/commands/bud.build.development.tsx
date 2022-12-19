@@ -1,6 +1,7 @@
-import {Command, Option} from '@roots/bud-support/clipanion'
-
-import BuildCommand from './bud.build.js'
+import {Option} from '@roots/bud/cli/commands/bud'
+import BuildCommand from '@roots/bud/cli/commands/bud.build'
+import type {Context} from '@roots/bud-framework/options'
+import type {CommandContext} from '@roots/bud-framework/options'
 
 /**
  * `bud build development` command
@@ -8,22 +9,12 @@ import BuildCommand from './bud.build.js'
  * @public
  */
 export default class BuildDevelopmentCommand extends BuildCommand {
-  /**
-   * Command paths
-   *
-   * @public
-   */
   public static override paths = [
     [`build`, `development`],
     [`dev`],
     [`development`],
   ]
-
-  /**
-   * Command usage
-   * @public
-   */
-  public static override usage = Command.Usage({
+  public static override usage = BuildCommand.Usage({
     category: `build`,
     description: `Compiles source assets in \`development\` mode.`,
     details: `\
@@ -46,42 +37,39 @@ export default class BuildDevelopmentCommand extends BuildCommand {
     ],
   })
 
-  /**
-   * --mode
-   * @public
-   */
-  public override mode: `development` = `development`
+  public reload = Option.Boolean(`--reload`, undefined, {
+    description: `Reload browser on unrecoverable errors`,
+  })
 
-  /**
-   * --browser
-   * @public
-   */
-  public override browser = Option.String(`--browser`, undefined, {
+  public overlay = Option.Boolean(`--overlay`, undefined, {
+    description: `Display error overlay in the browser`,
+  })
+
+  public indicator = Option.Boolean(`--indicator`, undefined, {
+    description: `Display status in the browser`,
+  })
+
+  public browser = Option.String(`--browser`, undefined, {
     description: `Open browser on successful development build.`,
-    tolerateBoolean: true,
   })
 
-  /**
-   * --indicator
-   * @public
-   */
-  public override indicator = Option.Boolean(`--indicator`, undefined, {
-    description: `Enable development status indicator`,
-  })
-
-  /**
-   * --overlay
-   * @public
-   */
-  public override overlay = Option.Boolean(`--overlay`, undefined, {
-    description: `Enable error overlay in development mode`,
-  })
-
-  /**
-   * --reload
-   * @public
-   */
-  public override reload = Option.Boolean(`--reload`, undefined, {
-    description: `Reload browser on unrecoverable error`,
-  })
+  public override withSubcommandContext = async (
+    context: CommandContext,
+  ) => {
+    return {
+      ...context,
+      mode: `development` as `development`,
+    }
+  }
+  public override withSubcommandArguments = async (
+    args: Context[`args`],
+  ) => {
+    return {
+      ...args,
+      browser: this.browser,
+      indicator: this.indicator,
+      overlay: this.overlay,
+      reload: this.reload,
+    }
+  }
 }

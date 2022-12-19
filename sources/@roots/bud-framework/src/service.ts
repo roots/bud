@@ -1,8 +1,8 @@
 import {lowerCase} from '@roots/bud-support/lodash-es'
-import type {Instance as Signale} from '@roots/bud-support/signale'
 import Container from '@roots/container'
 
 import type {Bud} from './index.js'
+import type {Logger} from './types/services/logger/index.js'
 
 interface Contract {
   /**
@@ -17,7 +17,7 @@ interface Contract {
    *
    * @public
    */
-  logger: Signale
+  logger: Logger
 
   /**
    * Lifecycle method: init
@@ -253,15 +253,15 @@ abstract class Base implements Partial<Contract> {
    *
    * @public
    */
-  public logger: Signale
+  public logger: Logger
 
   /**
    * Class constructor
    * @public
    */
   public constructor(public _app: () => Bud) {
-    this.logger = this.app.logger.instance.scope(
-      ...this.app.logger.scope,
+    this.logger = this.app.context.logger.make(
+      this.app.label,
       lowerCase(this.constructor.name),
     )
   }
@@ -295,7 +295,7 @@ abstract class BaseContainer
    *
    * @public
    */
-  public logger: Signale
+  public logger: Logger
 
   /**
    * Lifecycle method: init
@@ -408,8 +408,8 @@ abstract class BaseContainer
   public constructor(public _app: () => Bud) {
     super()
 
-    this.logger = this.app.logger.instance.scope(
-      ...this.app.logger.scope,
+    this.logger = this.app.context.logger.make(
+      this.app.label,
       lowerCase(this.constructor.name),
     )
   }

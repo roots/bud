@@ -5,16 +5,16 @@ import {fileURLToPath, pathToFileURL} from 'node:url'
 import chalk from '@roots/bud-support/chalk'
 import {bind} from '@roots/bud-support/decorators'
 import {resolve} from '@roots/bud-support/import-meta-resolve'
-import type {Instance} from '@roots/bud-support/signale'
 
 import type {Bud} from './bud.js'
+import {Service} from './service.js'
 
 /**
  * Module resolver
  *
  * @public
  */
-export class Module {
+export class Module extends Service {
   /**
    * Node require
    *
@@ -23,25 +23,15 @@ export class Module {
   public require: NodeRequire
 
   /**
-   * Logger
-   *
-   * @public
-   */
-  public logger: Instance
-
-  /**
    * Class constructor
    *
    * @public
    */
-  public constructor(public app: Bud) {
+  public constructor(args: () => Bud) {
+    super(args)
+
     this.require = createRequire(
       this.makeContextURL(this.app.root.context.basedir),
-    )
-
-    this.logger = this.app.logger.instance.scope(
-      ...this.app.logger.scope,
-      `module`,
     )
   }
 

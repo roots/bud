@@ -15,16 +15,10 @@ describe(`bud.html`, () => {
   let interpolateEnableSpy
   let interpolateSetOptionsSpy
 
-  let lodashesOmitSpy
-
   beforeEach(async () => {
+    bud = await factory()
     vi.clearAllMocks()
 
-    // @ts-ignore
-    const _ = await import('@roots/bud-support/lodash-es')
-    lodashesOmitSpy = vi.spyOn(_, `omit`)
-
-    bud = await factory()
     budPathSpy = vi.spyOn(bud, `path`)
     htmlPlugin = bud.extensions.get(
       `@roots/bud-extensions/html-webpack-plugin`,
@@ -34,7 +28,6 @@ describe(`bud.html`, () => {
     )
     htmlEnableSpy = vi.spyOn(htmlPlugin, `enable`)
     htmlSetOptionsSpy = vi.spyOn(htmlPlugin, `setOptions`)
-
     interpolateEnableSpy = vi.spyOn(interpolatePlugin, `enable`)
     interpolateSetOptionsSpy = vi.spyOn(interpolatePlugin, `setOptions`)
 
@@ -158,17 +151,26 @@ describe(`bud.html`, () => {
   })
 
   it(`getHtmlPluginOptions handles undefined`, async () => {
-    const returned = helpers.getHtmlPluginOptions(bud, undefined)
+    // @ts-ignore
+    const _ = await import('@roots/bud-support/lodash-es')
+    const lodashesOmitSpy = vi.spyOn(_, `omit`)
 
+    const returned = helpers.getHtmlPluginOptions(bud, undefined)
     expect(lodashesOmitSpy).not.toHaveBeenCalled()
     expect(budPathSpy).not.toHaveBeenCalled()
     expect(returned).toEqual(helpers.defaultHtmlPluginOptions)
   })
+
   it(`getHtmlPluginOptions handles object with replace key`, async () => {
+    // @ts-ignore
+    const _ = await import('@roots/bud-support/lodash-es')
+    const lodashesOmitSpy = vi.spyOn(_, `omit`)
+
     const returned = helpers.getHtmlPluginOptions(bud, {
       foo: `bar`,
       replace: {foo: `bar`},
     })
+
     expect(budPathSpy).not.toHaveBeenCalled()
     expect(lodashesOmitSpy).toHaveBeenCalledWith(
       expect.objectContaining({
