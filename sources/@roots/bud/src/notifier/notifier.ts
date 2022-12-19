@@ -2,12 +2,21 @@ import {platform} from 'node:os'
 
 import type {Bud} from '@roots/bud-framework'
 import {bind} from '@roots/bud-support/decorators'
-import {isEmpty, isFunction, isString} from '@roots/bud-support/lodash-es'
+import {
+  isEmpty,
+  isFunction,
+  isString,
+  isUndefined,
+} from '@roots/bud-support/lodash-es'
 import type {
   StatsCompilation,
   StatsError,
 } from '@roots/bud-support/webpack'
-import * as NodeNotifier from 'node-notifier'
+import {
+  Notification as NodeNotification,
+  NotificationCallback,
+  NotificationCenter,
+} from 'node-notifier'
 import open from 'open'
 import openEditor from 'open-editor'
 
@@ -18,7 +27,7 @@ interface EditorError {
   line: number
   column: number
 }
-interface Notification extends NodeNotifier.Notification {
+interface Notification extends NodeNotification {
   sound?: boolean | string | undefined
   subtitle?: string | undefined
   contentImage?: string | undefined
@@ -38,16 +47,52 @@ interface Notification extends NodeNotifier.Notification {
  */
 export class Notifier {
   public bud: Bud
+  public browser: string | boolean
+  public stats: StatsCompilation
+  public url: string
+  public message: string
+  public group: string
+  public title: string
+  public editor: string | boolean
+  public notifier = new NotificationCenter({customPath: notifierPath})
 
-  public static notifier = new NodeNotifier.NotificationCenter({
-    customPath: notifierPath,
-  })
+  public get notificationsEnabled(): boolean {
+    return this.bud?.context.args.notify !== false
+  }
+  public get openEditorEnabled(): boolean {
+    return isString(this.editor)
+  }
+  public get openBrowserEnabled(): boolean {
+    return this.browser === true || isString(this.browser)
+  }
 
-  public notify(
-    notification: Notification,
-    callback?: NodeNotifier.NotificationCallback,
-  ) {
-    Notifier.notifier.notify(notification, callback)
+  @bind
+  public setBrowser(name: string | boolean) {
+    this.browser = name
+    return this
+  }
+
+  @bind
+  public setTitle(title: string): this {
+    this.title = title
+    return this
+  }
+
+  @bind
+  public setGroup(group: string) {
+    this.group = group
+    return this
+  }
+
+  @bind
+  public setMessage(message: string | (() => string)) {
+    this.message = isFunction(message) ? message() : message
+  }
+
+  @bind
+  public setUrl(url: string): this {
+    this.url = url
+    return this
   }
 
   @bind
@@ -56,10 +101,6 @@ export class Notifier {
     return this
   }
 
-  public editor: string | boolean
-  public get autoOpenEditor(): boolean {
-    return isString(this.editor)
-  }
   @bind
   public setEditor(editor: string | boolean) {
     if (isString(editor)) {
@@ -76,66 +117,72 @@ export class Notifier {
     return this
   }
 
-  public browser: string | boolean
-  public get autoOpenBrowser(): boolean {
-    return this.browser === true || isString(this.browser)
-  }
   @bind
-  public setBrowser(name: string | boolean) {
-    this.browser = name
+  public setStats(stats: StatsCompilation): this {
+    this.stats = stats
     return this
   }
 
-  public title: string
   @bind
-  public setTitle(title: string): this {
-    this.title = title
-    return this
+  public hasStats(): boolean {
+    return !isEmpty(this.stats) || !isUndefined(this.stats)
   }
 
-  public group: string
   @bind
-  public setGroup(group: string) {
-    this.group = group
-    return this
+  public hasErrors(): boolean {
+    if (!this.hasStats()) return false
+    return this.getErrorCount() > 0
   }
 
-  public message: string
   @bind
-  public setMessage(message: string | (() => string)) {
-    this.message = isFunction(message) ? message() : message
+  public hasWarnings(): boolean {
+    if (!this.hasStats()) return false
+    return this.getWarningCount() > 0
   }
 
-  public url: string
   @bind
-  public setUrl(url: string): this {
-    this.url = url
-    return this
+  public getErrors(): StatsCompilation[`errors`] {
+    return [
+      ...(this.stats?.errors ?? []),
+      ...(this.stats?.children ?? []).map(c => c.errors).flat(),
+    ]
+      .flat()
+      .filter(Boolean)
+  }
+
+  @bind
+  public getErrorCount(): number {
+    return this.stats?.errorsCount ?? 0
+  }
+
+  @bind
+  public getWarnings(): StatsCompilation[`warnings`] {
+    return [
+      ...(this.stats?.warnings ?? []),
+      ...(this.stats?.children ?? []).map(c => c.warnings).flat(),
+    ].flat()
+  }
+
+  @bind
+  public getWarningCount(): number {
+    return this.stats?.warningsCount ?? 0
   }
 
   @bind
   public async compilationNotification() {
-    if (this.bud.context.args.notify === false) {
+    this.bud.info(`notification center called`)
+    if (!this.notificationsEnabled) {
       this.bud.info(`notification center disabled. exiting.`)
       return
     }
-    if (platform() !== `darwin`) {
-      this.bud.info(`notifications only currently supported on macos`)
-      return
-    }
-    this.bud.info(`notification center called`)
 
-    this.setStats(
-      isFunction(this.bud.compiler.stats?.toJson)
-        ? this.bud.compiler.stats.toJson()
-        : {},
-    )
+    this.setStats(this.bud?.compiler.stats?.toJson())
     this.setGroup(this.bud.path())
     this.setTitle(this.bud.label)
     this.setMessage(
-      this.hasErrors
+      this.hasErrors()
         ? `Compilation failed`
-        : this.hasWarnings
+        : this.hasWarnings()
         ? `Compilation succeeded (with warnings)`
         : `Successfully compiled`,
     )
@@ -147,27 +194,16 @@ export class Notifier {
     )
 
     try {
-      const urlProps =
-        this.bud.isDevelopment && this.url ? {open: this.url} : {}
-      this.notify(
-        {
-          title: this.title,
-          message: this.message,
-          group: this.group,
-          ...urlProps,
-        },
-        this.callback,
-      )
+      this.openEditor(this.parseErrors(this.stats?.errors))
     } catch (error) {}
 
-    if (this.hasErrors && this.autoOpenEditor) {
-      this.openEditor(this.parseErrors(this.stats.errors))
-    }
-    if (this.autoOpenBrowser) {
-      try {
-        await this.open(this.url)
-      } catch (error) {}
-    }
+    try {
+      await this.openBrowser(this.url)
+    } catch (error) {}
+
+    try {
+      this.notify()
+    } catch (error) {}
   }
 
   /**
@@ -176,16 +212,59 @@ export class Notifier {
    * @public
    */
   @bind
-  public async open(url: string) {
+  public async openBrowser(url: string) {
     if (!this.bud.isDevelopment) return
-    if (this.browser === false) return
-    if (isString(url) === false) return
+    if (!this.openBrowserEnabled) return
+    if (!isString(url)) return
 
     if (isString(this.browser)) {
       return await open(url, {app: {name: this.browser}})
     }
 
     return await open(url)
+  }
+
+  /**
+   * Emit OS notification center notice
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public notify(
+    notification?: Notification,
+    callback?: NotificationCallback,
+  ) {
+    if (!this.notificationsEnabled) return
+    if (platform() !== `darwin`) {
+      this.bud.info(`notifications only currently supported on macos`)
+    }
+
+    this.notifier.notify(
+      notification ?? {
+        title: this.title,
+        message: this.message,
+        group: this.group,
+        open: this.url,
+      },
+      callback ?? this.notifierCallback,
+    )
+  }
+
+  /**
+   * node notifier callback
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public async notifierCallback(
+    ...args: NotificationCallback[`arguments`]
+  ): Promise<void> {
+    const [_error, response, metadata] = args
+
+    if (response) this.bud.info(`notify response`, response)
+    if (metadata) this.bud.info(`notify metadata`, metadata)
   }
 
   /**
@@ -202,60 +281,19 @@ export class Notifier {
       column: number
     }>,
   ) {
-    if (!this.autoOpenEditor) return
-    if (isEmpty(errors)) return
+    if (!this.openEditorEnabled) return
+    if (!errors || isEmpty(errors)) return
     if (!isString(this.editor)) return
 
     return openEditor(errors, {editor: this.editor})
   }
 
   /**
-   * node notifier callback
+   * Parse errors from webpack stats
    *
    * @public
    * @decorator `@bind`
    */
-  @bind
-  public async callback(
-    ...args: NodeNotifier.NotificationCallback[`arguments`]
-  ): Promise<void> {
-    const [_error, response, metadata] = args
-
-    if (response) this.bud.info(`notify response`, response)
-    if (metadata) this.bud.info(`notify metadata`, metadata)
-  }
-
-  public stats: StatsCompilation = {}
-  @bind
-  public setStats(stats: StatsCompilation): this {
-    this.stats = stats
-    return this
-  }
-  public get errors(): StatsCompilation[`errors`] {
-    return [
-      ...(this.stats?.errors ?? []),
-      ...(this.stats?.children ?? []).map(c => c.errors).flat(),
-    ].flat()
-  }
-  public get errorCount(): number {
-    return this.errors.length
-  }
-  public get hasErrors(): boolean {
-    return this.errorCount > 0
-  }
-
-  public get warnings(): StatsCompilation[`warnings`] {
-    return [
-      ...(this.stats?.warnings ?? []),
-      ...(this.stats?.children ?? []).map(c => c.warnings).flat(),
-    ].flat()
-  }
-  public get warningCount(): number {
-    return this.warnings.length
-  }
-  public get hasWarnings(): boolean {
-    return this.warningCount > 0
-  }
   @bind
   public parseErrors(errors: Array<StatsError>): Array<EditorError> {
     if (!errors || !errors.length) return []

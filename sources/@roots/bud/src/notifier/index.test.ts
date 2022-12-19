@@ -10,16 +10,12 @@ describe(`notifier`, () => {
   let bud: Bud
 
   beforeEach(async () => {
-    // @ts-ignore
-    Notifier.notifier.notify.get = vi.fn((obj, callback) => {
-      callback(null, null, null)
-    })
-    bud = await factory({
-      args: {
-        log: false,
-      },
-    })
+    vi.mock('open', () => ({default: vi.fn()}))
+    vi.mock('open-editor', () => ({default: vi.fn()}))
+
+    bud = await factory({args: {notify: true}})
     notifier = new Notifier().setBud(bud)
+    notifier.notify = vi.fn()
   })
 
   it(`should be an instance of Notifier`, () => {
@@ -27,7 +23,7 @@ describe(`notifier`, () => {
   })
 
   it(`should have a notification center prop that is an instance of NotificationCenter`, () => {
-    expect(Notifier.notifier).toBeInstanceOf(
+    expect(notifier.notifier).toBeInstanceOf(
       nodeNotifier.NotificationCenter,
     )
   })
@@ -37,9 +33,9 @@ describe(`notifier`, () => {
     expect(notifier.stats).toEqual(expect.objectContaining({label: `foo`}))
   })
 
-  it(`should return empty object when jsonStats prop sourced from compiler is undefined`, () => {
+  it(`should return undefined when jsonStats prop sourced from compiler is undefined`, () => {
     bud.compiler.stats = vi.fn(() => undefined)
-    expect(notifier.stats).toEqual({})
+    expect(notifier.stats).toEqual(undefined)
   })
 
   it.skip(`should notify on errors`, async () => {
@@ -74,15 +70,17 @@ describe(`notifier`, () => {
     expect(notifier.message).toBe(`Compiled without errors`)
   })
 
-  it(`should call openBrowser`, async () => {
+  it(`should call open`, async () => {
     bud.context.mode = `development`
-    bud.context.args = {browser: true}
-    const openBrowser = vi.spyOn(notifier, `open`)
+    bud.context.args.browser = true
+    notifier.setStats({errors: [{message: `foo`}]})
+
+    const openBrowserSpy = vi.spyOn(notifier, `openBrowser`)
 
     try {
       await notifier.compilationNotification()
     } catch (e) {}
-    expect(openBrowser).toHaveBeenCalledTimes(1)
+    expect(openBrowserSpy).toHaveBeenCalledTimes(1)
   })
 
   it(`should have accessible "group" prop`, async () => {
