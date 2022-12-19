@@ -4,7 +4,7 @@ import type {
   Optimization,
   RuleSetRule,
 } from '@roots/bud-support/webpack'
-import type {StatsOptions} from 'webpack'
+import type {StatsOptions} from '@roots/bud-support/webpack'
 
 import type {EntryObject} from '../config/entry.js'
 

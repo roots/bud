@@ -1,6 +1,4 @@
 import BudCommand from '@roots/bud/cli/commands/bud'
-import {checkDependencies} from '@roots/bud/cli/helpers/checkDependencies'
-import {isPackageManagerError} from '@roots/bud/cli/helpers/isPackageManagerError'
 import type {Context} from '@roots/bud-framework/options'
 import {Command} from '@roots/bud-support/clipanion'
 import {Box, Text} from '@roots/bud-support/ink'
@@ -59,17 +57,6 @@ for a lot of edge cases so it might return a false positive.
     await this.makeBud(this)
     await this.healthcheck(this)
     await this.run(this)
-
-    if (!isPackageManagerError(this.bud)) {
-      const errors = await checkDependencies(this.bud)
-      if (!errors) {
-        BudDoctorCommand.renderOnce(
-          <Box>
-            <Text color="green">✅ dependencies are valid</Text>
-          </Box>,
-        )
-      }
-    }
 
     try {
       this.configuration = await this.bud.build.make()

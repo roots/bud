@@ -34,6 +34,7 @@ export default class BudViewCommand extends BudCommand {
 
   public override async execute() {
     await this.makeBud(this)
+    await this.run(this)
 
     let value = this.subject ? get(this.bud, this.subject) : this.bud
     let indent = 0

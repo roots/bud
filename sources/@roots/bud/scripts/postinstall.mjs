@@ -13,11 +13,13 @@ if (process.env.npm_package_version === `0.0.0`) {
   process.exit(0)
 }
 
-execaCommandSync(`npx browserslist --update-db`, {
+const execaOptions = {
   cwd: process.env.INIT_CWD ?? process.cwd(),
   reject: false,
   timeout: 10000,
-})
+}
+
+execaCommandSync(`npx browserslist --update-db`, execaOptions)
 
 if (platform() === `darwin`) {
   const notifierPath = resolve(
@@ -31,7 +33,7 @@ if (platform() === `darwin`) {
     `roots-notifier`,
   )
 
-  execaCommandSync(`chmod u+x ${notifierPath}`)
+  execaCommandSync(`chmod u+x ${notifierPath}`, execaOptions)
 }
 
 process.exit(0)

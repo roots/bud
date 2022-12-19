@@ -2,10 +2,7 @@ import {resolve} from 'node:path/win32'
 
 import {Bud} from '@roots/bud'
 import {checkDependencies} from '@roots/bud/cli/helpers/checkDependencies'
-import {
-  checkNoPackageManager,
-  checkPackageManagerConflict,
-} from '@roots/bud/cli/helpers/checkPackageManagerErrors'
+import {checkPackageManagerErrors} from '@roots/bud/cli/helpers/checkPackageManagerErrors'
 import {isInternalDevelopmentEnv} from '@roots/bud/cli/helpers/isInternalDevelopmentEnv'
 import {isset} from '@roots/bud/cli/helpers/isset'
 import {Renderer} from '@roots/bud-dashboard/renderer'
@@ -114,7 +111,7 @@ export default class BudCommand extends Command<CommandContext> {
       ? error.message
       : JSON.stringify(error)
 
-    BudCommand.renderOnce(
+    BudCommand.render(
       <Box flexDirection="column" marginY={1}>
         <Box>
           <Text backgroundColor="red" color="white">
@@ -193,13 +190,10 @@ export default class BudCommand extends Command<CommandContext> {
   public async healthcheck(command: BudCommand) {
     try {
       if (!isInternalDevelopmentEnv(command.bud)) {
-        checkNoPackageManager(command.bud)
-        checkPackageManagerConflict(command.bud)
+        checkPackageManagerErrors(command.bud)
         await checkDependencies(command.bud)
       }
-    } catch (error) {
-      throw error
-    }
+    } catch (error) {}
   }
 
   @bind

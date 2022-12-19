@@ -15,7 +15,7 @@ export class Renderer {
           {(Item, i) => <React.Fragment key={i}>{Item}</React.Fragment>}
         </Ink.Static>,
       )
-      return instance
+      await Renderer.cleanup()
     } catch (error) {
       return instance
     }
