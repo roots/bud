@@ -1,8 +1,9 @@
+import {execSync} from 'node:child_process'
+
 import BudCommand, {Context} from '@roots/bud/cli/commands/bud'
 import {dry} from '@roots/bud/cli/decorators/command.dry'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators'
-import {execa} from '@roots/bud-support/execa'
 
 import {detectPackageManager} from '../helpers/detectPackageManager.js'
 import {isInternalDevelopmentEnv} from '../helpers/isInternalDevelopmentEnv.js'
@@ -44,57 +45,26 @@ export default class BudUpgradeCommand extends BudCommand {
     dry: true,
   })
 
-  public version = Option.String({required: false})
-  public directory = Option.String(`--cwd`, undefined, {
+  public _version = Option.String({required: false})
+  public _directory = Option.String(`--cwd`, undefined, {
     description: `installation directory`,
   })
-  public registry = Option.String(`--registry`, undefined, {
+  public _registry = Option.String(`--registry`, undefined, {
     description: `private registry`,
   })
 
-  public override async execute() {
-    await this.makeBud(this)
-    await this.healthcheck(this)
-    await this.run(this)
+  public _latest: string | undefined
 
-    if (isInternalDevelopmentEnv(this.bud)) {
-      throw new Error(`Internal development environment`)
-    }
-
-    if (!this.directory) {
-      this.directory = this.context.basedir
-    }
-
-    if (!this.version) {
-      this.version = await this.latest()
-    }
-
-    const installDepsOfType = async (
-      type: `devDependencies` | `dependencies`,
-    ) =>
-      await execa(
-        this.getPacman(),
-        this.getInstallArgs(type),
-        this.getProcessOptions(),
-      )
-
-    try {
-      this.hasDependenciesOfType(`devDependencies`) &&
-        (await installDepsOfType(`devDependencies`))
-    } catch (error) {
-      throw error
-    }
-
-    try {
-      this.hasDependenciesOfType(`dependencies`) &&
-        (await installDepsOfType(`dependencies`))
-    } catch (error) {
-      throw error
-    }
+  public get version() {
+    return this._version ?? this._latest
   }
-
-  @bind
-  public getPacman(): `yarn` | `npm` {
+  public get directory() {
+    return this._directory ?? this.bud.context.basedir
+  }
+  public get registry() {
+    return this._registry
+  }
+  public get packageManager(): `yarn` | `npm` {
     const pacman = detectPackageManager(this.bud)
     if (pacman === false) {
       throw new Error(`Package manager is ambiguous`)
@@ -102,37 +72,58 @@ export default class BudUpgradeCommand extends BudCommand {
     return pacman
   }
 
-  @bind
-  public getInstallArgs(type: `devDependencies` | `dependencies`) {
-    const npmFlagMap = new Map([
-      [`dependencies`, `--save`],
-      [`devDependencies`, `--save-dev`],
-    ])
+  public override async execute() {
+    await this.makeBud(this)
+    if (isInternalDevelopmentEnv(this.bud)) {
+      throw new Error(`Internal development environment`)
+    }
+    await this.healthcheck(this)
+    await this.run(this)
+    await this.setLatest()
 
-    return (
-      /** `dependencies` or `devDependencies` */
-      this.getDependenciesOfType(type)
-        /** in the @roots/ scope or starting with bud- */
-        .filter(
-          signifier =>
-            signifier.startsWith(`@roots/`) || signifier.includes(`bud-`),
-        )
-        /** formatted as `{signifier}@{semver}` */
-        .reduce(
-          (args, dep) => [...args, `${dep}@${this.version}`],
-          /** prefix the packages with the install/add subcommand */
-          [this.getPacman() === `npm` ? `install` : `add`],
-        )
-        /** set install flags... */
-        .concat(
-          /** ... --save / --save-dev */
-          this.getPacman() === `npm` ? npmFlagMap.get(type) : undefined,
-          /** ... --registry */
-          this.registry ? `--registry=${this.registry}` : undefined,
-        )
-        /** remove unset flags */
-        .filter(Boolean)
-    )
+    if (this.hasBudDependencies(`devDependencies`)) {
+      const deps = this.getBudDependencies(`devDependencies`)
+      const upgrade = `${this.install} ${deps} ${this.devFlags}`
+      process.stdout.write(`Upgrading devDependencies...\n`)
+      execSync(upgrade, {encoding: `utf8`, stdio: null})
+    }
+  }
+
+  @bind
+  public async setLatest() {
+    const axios = await import(`axios`).then(axios => axios.default)
+    this._latest = await axios
+      .get(`https://registry.npmjs.org/@roots/bud/latest`)
+      .then(async res => res.data?.version)
+  }
+  public get install() {
+    return this.packageManager === `npm` ? `npm install` : `yarn add`
+  }
+
+  public get devFlags() {
+    return [
+      this.packageManager === `npm` ? `--save-dev` : `--dev`,
+      this.registry ? [`--registry`, this.registry] : null,
+    ]
+      .flat()
+      .filter(Boolean)
+      .join(` `)
+  }
+
+  @bind
+  public getBudDependencies(
+    type: `devDependencies` | `dependencies`,
+  ): string {
+    const onlyBudPackages = (pkg: string) =>
+      pkg.startsWith(`@roots/`) || pkg.includes(`bud-`)
+
+    const toScope = (pkg: string) => `${pkg}@${this.version}`
+
+    return this.getDependenciesOfType(type)
+      .filter(onlyBudPackages)
+      .map(toScope)
+      .filter(Boolean)
+      .join(` `)
   }
 
   @bind
@@ -146,27 +137,9 @@ export default class BudUpgradeCommand extends BudCommand {
   }
 
   @bind
-  public hasDependenciesOfType(
+  public hasBudDependencies(
     type: `devDependencies` | `dependencies`,
   ): boolean {
-    return this.bud?.context.manifest?.[type] !== undefined
-  }
-
-  @bind
-  public getProcessOptions() {
-    return {
-      reject: false,
-      cwd: this.directory,
-      stdout: this.context.stdout,
-      stderr: this.context.stderr,
-    }
-  }
-
-  @bind
-  public async latest() {
-    const axios = await import(`axios`).then(axios => axios.default)
-    return await axios
-      .get(`https://registry.npmjs.org/@roots/bud/latest`)
-      .then(async res => res.data?.version)
+    return this.getBudDependencies(type)?.length > 0
   }
 }

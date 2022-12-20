@@ -95,11 +95,8 @@ export class Commands {
     return await Promise.all(
       paths.map(async path => {
         try {
-          return resolve(path, import.meta.url)
-        } catch (error) {
-          console.warn(error)
-          return false
-        }
+          return await resolve(path, import.meta.url)
+        } catch (error) {}
       }),
     ).then(paths => paths.filter(isString).map(fileURLToPath))
   }
@@ -114,9 +111,7 @@ export class Commands {
   ) {
     try {
       await registerCallback(this.application)
-    } catch (error) {
-      console.warn(error)
-    }
+    } catch (error) {}
   }
 
   public static async importCommandsFromPaths(
@@ -129,13 +124,9 @@ export class Commands {
             return await import(path).then(
               ({default: register}) => register,
             )
-          } catch (error) {
-            throw new Error(error)
-          }
+          } catch (error) {}
         }),
       )
-    } catch (error) {
-      console.warn(error)
-    }
+    } catch (error) {}
   }
 }
