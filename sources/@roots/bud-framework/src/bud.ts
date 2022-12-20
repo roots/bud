@@ -1,6 +1,4 @@
-import commonPath from '@roots/bud-support/common-path'
 import {bind} from '@roots/bud-support/decorators'
-import {resolve} from '@roots/bud-support/import-meta-resolve'
 import {
   isFunction,
   isNull,
@@ -9,11 +7,9 @@ import {
 } from '@roots/bud-support/lodash-es'
 
 import {bootstrap, LIFECYCLE_EVENT_MAP} from './lifecycle/bootstrap.js'
-import type {Logger} from './logger/index.js'
 import type * as methods from './methods/index.js'
 import type {Module} from './module.js'
-import type * as Service from './service.js'
-import type * as Api from './services/api.js'
+import type {Service} from './service.js'
 import type ConsoleBuffer from './services/console.js'
 import type FS from './services/fs.js'
 import type * as Options from './types/options/index.js'
@@ -40,7 +36,7 @@ export class Bud {
    *
    * @public
    */
-  public implementation: Constructor
+  public implementation: new () => Bud
 
   /**
    * Compilation mode
@@ -72,7 +68,7 @@ export class Bud {
    * @readonly
    * @public
    */
-  public get root(): Bud {
+  public get root() {
     return this.context.root ?? this
   }
 
@@ -119,7 +115,7 @@ export class Bud {
    *
    * @public
    */
-  public children: Record<string, Bud>
+  public children?: Record<string, Bud>
 
   /**
    * True when child compilers
@@ -135,19 +131,15 @@ export class Bud {
     )
   }
 
-  public commonPath: string
-
   public consoleBuffer: ConsoleBuffer
 
   public fs: FS
-
-  public logger: Logger
 
   public module: Module
 
   public services: Array<string> = []
 
-  public api: Api.Service
+  public api: Services.Api
 
   public build: Services.Build.Service
 
@@ -157,7 +149,7 @@ export class Bud {
 
   public dashboard: Services.Dashboard.Service
 
-  public env: Services.Env.Service
+  public env: Services.Env
 
   public extensions: Services.Extensions.Service
 
@@ -167,57 +159,57 @@ export class Bud {
 
   public server: Services.Server.Service
 
-  public after: methods.after
+  public declare after: methods.after
 
-  public maybeCall: methods.maybeCall
+  public declare maybeCall: methods.maybeCall
 
-  public close: methods.close
+  public declare close: methods.close
 
-  public container: methods.container
+  public declare container: methods.container
 
-  public get: methods.get
+  public declare get: methods.get
 
-  public glob: methods.glob
+  public declare glob: methods.glob
 
-  public globSync: methods.globSync
+  public declare globSync: methods.globSync
 
-  public path: methods.path
+  public declare path: methods.path
 
-  public pipe: methods.pipe
+  public declare pipe: methods.pipe
 
-  public processConfigs: methods.processConfigs
+  public declare processConfigs: methods.processConfigs
 
-  public publicPath: methods.publicPath
+  public declare publicPath: methods.publicPath
 
-  public relPath: methods.relPath
+  public declare relPath: methods.relPath
 
-  public run: methods.run
+  public declare run: methods.run
 
-  public setPath: methods.setPath
+  public declare setPath: methods.setPath
 
-  public setPublicPath: methods.setPublicPath
+  public declare setPublicPath: methods.setPublicPath
 
-  public sequence: methods.sequence
+  public declare sequence: methods.sequence
 
-  public sequenceSync: methods.sequenceSync
+  public declare sequenceSync: methods.sequenceSync
 
-  public sh: methods.sh
+  public declare sh: methods.sh
 
-  public tap: methods.tap
+  public declare tap: methods.tap
 
-  public tapAsync: methods.tapAsync
+  public declare tapAsync: methods.tapAsync
 
-  public when: methods.when
+  public declare when: methods.when
 
-  public bindMethod: methods.bindMethod
+  public declare bindMethod: methods.bindMethod
 
   /**
-   * @deprecated - use {@link FS.json | bud.fs.json}
+   * @deprecated - use {@link bud.fs.json | bud.fs.json}
    */
   public json: FS['json']
 
   /**
-   * @deprecated - use {@link FS.yml | bud.fs.yml}
+   * @deprecated - use {@link bud.fs.yml | bud.fs.yml}
    */
   public yml: FS['yml']
 
@@ -236,7 +228,7 @@ export class Bud {
    */
   @bind
   public async make(
-    request: Options.Overrides | string,
+    request: Partial<Options.Context> | string,
     tap?: (app: Bud) => Promise<unknown>,
   ) {
     if (!this.isRoot)
@@ -246,7 +238,7 @@ export class Bud {
         ),
       )
 
-    let context: Options.Context = isString(request)
+    const context: Options.Context = isString(request)
       ? {...this.context, label: request, root: this}
       : {...this.context, ...request, root: this}
 
@@ -271,41 +263,34 @@ export class Bud {
     )
 
     if (tap) await tap(this.get(context.label))
-    await this.get(context.label).api.processQueue()
+    await this.get(context.label)?.api.processQueue()
 
     return this
   }
 
   @bind
   public async lifecycle(context: Options.Context): Promise<Bud> {
-    const supportPath = await resolve(
-      `@roots/bud-support`,
-      import.meta.url,
-    )
-    this.commonPath = commonPath([context.basedir, supportPath]).commonDir
-
     await bootstrap.bind(this)({...context})
-
-    const logger = this.logger.instance.scope(
-      ...this.logger.scope,
-      `bootstrap`,
-    )
 
     Object.entries(LIFECYCLE_EVENT_MAP).map(
       ([eventHandle, callbackName]: [
         keyof Registry.EventsStore,
-        keyof Service.Contract,
+        keyof Service,
       ]) =>
         this.services
           .map(service => [service, this[service]])
           .map(([label, service]) => {
+            if (!service) {
+              this.error(`service not found: ${label}`, this.services)
+            }
+
             if (!isFunction(service[callbackName])) return
 
             this.hooks.action(
               eventHandle,
               service[callbackName].bind(service),
             )
-            logger.success(
+            this.success(
               `registered service callback:`,
               `${label}.${callbackName}`,
             )
@@ -336,14 +321,7 @@ export class Bud {
    */
   @bind
   public log(...messages: any[]) {
-    if (
-      !this.logger?.instance ||
-      this.context.args.level?.length < 3 ||
-      this.context.args.log === false
-    )
-      return this
-
-    this.logger.instance.log(this.logger.format(messages))
+    this.context.logger.log(...messages)
 
     return this
   }
@@ -356,13 +334,8 @@ export class Bud {
    */
   @bind
   public info(...messages: any[]) {
-    if (
-      !this.logger?.instance ||
-      this.context.args.level?.length < 4 ||
-      this.context.args.log === false
-    )
-      return this
-    this.logger.instance.info(this.logger.format(messages))
+    this.context.logger.info(...messages)
+
     return this
   }
 
@@ -374,13 +347,7 @@ export class Bud {
    */
   @bind
   public success(...messages: any[]) {
-    if (
-      !this.logger?.instance ||
-      this.context.args.level?.length < 3 ||
-      this.context.args.log === false
-    )
-      return this
-    this.logger.instance.success(this.logger.format(messages))
+    this.context.logger.success(...messages)
     return this
   }
 
@@ -392,7 +359,8 @@ export class Bud {
    */
   @bind
   public warn(...messages: any[]) {
-    this.logger?.instance?.warn(this.logger.format(messages))
+    this.context.logger.warn(...messages)
+
     return this
   }
 
@@ -408,13 +376,7 @@ export class Bud {
    */
   @bind
   public error(...messages: Array<any>): Bud {
-    if (this.isProduction) process.exitCode = 1
-
-    if (messages.length > 0)
-      this.logger?.instance?.error(this.logger.format(messages))
-
-    this.close()
-
+    this.context.logger.error(...messages)
     return this
   }
 
@@ -430,16 +392,7 @@ export class Bud {
    */
   @bind
   public fatal(error: Error) {
-    if (this.isProduction) {
-      process.exitCode = 1
-      throw error
-    } else {
-      this.logger?.instance?.fatal(error)
-    }
+    this.context.logger.fatal(error)
+    return this
   }
 }
-
-/**
- * Bud Constructor
- */
-export type Constructor = new () => Bud

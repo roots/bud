@@ -5916,6 +5916,7 @@ __metadata:
     "@repo/constants": "workspace:sources/@repo/constants"
     "@repo/logger": "workspace:sources/@repo/logger"
     "@roots/bud": "workspace:sources/@roots/bud"
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@types/fs-extra": 9.0.13
     "@types/node": 16.18.6
@@ -6135,6 +6136,7 @@ __metadata:
   dependencies:
     "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
+    "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@roots/critical-css-webpack-plugin": "workspace:sources/@roots/critical-css-webpack-plugin"
     "@skypack/package-check": 0.2.2
     "@types/node": 16.18.6
@@ -6220,6 +6222,7 @@ __metadata:
   resolution: "@roots/bud-esbuild@workspace:sources/@roots/bud-esbuild"
   dependencies:
     "@roots/bud": "workspace:sources/@roots/bud"
+    "@roots/bud-build": "workspace:sources/@roots/bud-build"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
@@ -6301,6 +6304,7 @@ __metadata:
   dependencies:
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@roots/container": "workspace:sources/@roots/container"
+    "@roots/filesystem": "workspace:sources/@roots/filesystem"
     "@skypack/package-check": 0.2.2
     "@types/http-proxy": 1.17.9
     "@types/js-yaml": 4.0.5
@@ -6459,6 +6463,7 @@ __metadata:
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-preset-recommend": "workspace:sources/@roots/bud-preset-recommend"
     "@roots/bud-react": "workspace:sources/@roots/bud-react"
+    "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@roots/bud-wordpress-dependencies": "workspace:sources/@roots/bud-wordpress-dependencies"
     "@roots/bud-wordpress-externals": "workspace:sources/@roots/bud-wordpress-externals"
     "@roots/bud-wordpress-manifests": "workspace:sources/@roots/bud-wordpress-manifests"
@@ -6728,7 +6733,6 @@ __metadata:
     type-fest: 3.3.0
     webpack: 5.75.0
     zod: 3.19.1
-    zod-validation-error: 0.2.1
   peerDependencies:
     webpack: ">=5.75.0"
   peerDependenciesMeta:
@@ -6741,7 +6745,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-swc@workspace:sources/@roots/bud-swc"
   dependencies:
-    "@roots/bud": "workspace:sources/@roots/bud"
+    "@roots/bud-extensions": "workspace:sources/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
@@ -6954,17 +6958,24 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/node": 16.18.6
     "@types/node-notifier": 8.0.2
+    axios: 1.2.1
     browserslist: 4.21.4
     dotenv: 16.0.3
     dotenv-expand: 9.0.0
+    execa: 6.1.0
     node-notifier: 10.0.1
     open: 8.4.0
     open-editor: 4.0.0
     tslib: 2.4.1
     update-browserslist-db: 1.0.10
     webpack: 5.75.0
+  peerDependencies:
+    browserslist: ">=4.21.4"
+    update-browserslist-db: ">=1.0.10"
   peerDependenciesMeta:
     browserslist:
+      optional: true
+    update-browserslist-db:
       optional: true
   bin:
     bud: ./bin/bud.mjs
@@ -7568,15 +7579,6 @@ __metadata:
   bin:
     swcx: run_swcx.js
   checksum: c66cd9320c595c68b87c8d90dc9a978099dd25a84c5e9795a8c7fec95fecdd8481da82076a828880a226ad2c0e57155c0a2b97768e99dee042a74182056bda46
-  languageName: node
-  linkType: hard
-
-"@swc/helpers@npm:^0.4.11":
-  version: 0.4.12
-  resolution: "@swc/helpers@npm:0.4.12"
-  dependencies:
-    tslib: ^2.4.0
-  checksum: 3f9112f37d87815b6d4270137fc78d22bb98c75138e9b0eac7cac203ec2cf2bffbf13b20a713067c292affd5e9e70a724eb245b8daf0963e7fe528b901771c28
   languageName: node
   linkType: hard
 
@@ -33341,17 +33343,6 @@ __metadata:
     compress-commons: ^4.1.0
     readable-stream: ^3.6.0
   checksum: 4a73da856738b0634700b52f4ab3fe0bf0a532bea6820ad962d0bda0163d2d5525df4859f89a7238e204a378384e12551985049790c1894c3ac191866e85887f
-  languageName: node
-  linkType: hard
-
-"zod-validation-error@npm:0.2.1":
-  version: 0.2.1
-  resolution: "zod-validation-error@npm:0.2.1"
-  dependencies:
-    "@swc/helpers": ^0.4.11
-  peerDependencies:
-    zod: ^3.18.0
-  checksum: 13698ca2ac96550a33d2f6f50e0a2d1cedcac9eeb33e268e1f6c8d6ad1ab230b6f6ae3ad14522295eba094300ea5da42632ddc78eab5e24ff2c9875c4e8d8db0
   languageName: node
   linkType: hard
 

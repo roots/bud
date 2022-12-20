@@ -50,7 +50,7 @@ export default class BudTypeCheckPlugin extends Extension<
    * @public
    * @decorator `@bind`
    */
-  @bind public override async init(bud: Bud) {
+  @bind public override async init?(bud: Bud) {
     const typescriptPath = await this.resolve(`typescript`)
 
     this.setOptions(options => ({

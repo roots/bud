@@ -1,4 +1,4 @@
-import thumb from './owl.jpeg'
+import thumb from '@src/images/owl.jpeg'
 
 const target = document.querySelector('body')
 

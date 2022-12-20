@@ -5,7 +5,6 @@
     "rootDir": "src",
     "outDir": "lib",
     "module": "esnext",
-    "types": ["node", "@roots/bud-framework", "@roots/bud-babel", "@roots/bud-api", "@roots/bud-esbuild", "@roots/bud-swc", "@roots/bud-typescript"]
   },
   "include": ["src"],
   "exclude": ["**/*.test.ts"],

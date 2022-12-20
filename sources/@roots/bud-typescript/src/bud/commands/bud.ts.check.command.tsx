@@ -1,23 +1,12 @@
-import BaseCommand from '@roots/bud/cli/commands/base'
-import {Command} from '@roots/bud-support/clipanion'
+import BudCommand from '@roots/bud/cli/commands/bud'
+import {dry} from '@roots/bud/cli/decorators/command.dry'
 import {bind} from '@roots/bud-support/decorators'
-import execa from '@roots/bud-support/execa'
-import chalk from 'chalk'
 
-export class BudTSCheckCommand extends BaseCommand {
-  /**
-   * Command paths
-   *
-   * @public
-   */
+@dry
+export class BudTSCheckCommand extends BudCommand {
   public static override paths = [[`ts`, `check`]]
 
-  /**
-   * Comand usage
-   *
-   * @public
-   */
-  public static override usage = Command.Usage({
+  public static override usage = BudCommand.Usage({
     category: `tools`,
     description: `Typecheck source code`,
     details: `
@@ -28,42 +17,14 @@ export class BudTSCheckCommand extends BaseCommand {
     examples: [[`bud ts check`, `Typecheck source`]],
   })
 
-  public override dry = true
-
-  public override get args() {
-    return {
-      ...this.context.args,
-      dry: true,
-      mode: `production` as `production`,
-    }
-  }
-
   /**
    * Command execute
    *
    * @public
    */
   @bind
-  public override async runCommand() {
-    try {
-      const check = execa(`bud`, [`tsc`, `--noEmit`])
-
-      check.stdout.on(`data`, message => {
-        this.context.stdout.write(message.toString())
-      })
-      check.stderr.on(`data`, message => {
-        this.app.error(message.toString())
-      })
-
-      await check
-    } catch (error) {
-      this.context.stderr.write(
-        [chalk.bgRed.whiteBright(`error`), `bud ts check`].join(` `),
-      )
-      this.context.stderr.write(`\n${error.message}\n`)
-      return
-    }
-
-    this.context.stdout.write(chalk.green(`typecheck complete\n`))
+  public override async execute() {
+    await this.makeBud(this)
+    await this.bud.sh([`bud`, `tsc`, `--noEmit`])
   }
 }

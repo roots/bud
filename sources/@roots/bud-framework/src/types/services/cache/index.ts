@@ -30,13 +30,6 @@ export interface Service extends BaseService {
   type: 'memory' | 'filesystem'
 
   /**
-   * Build dependencies
-   *
-   * @public
-   */
-  buildDependencies: Record<string, Array<string>>
-
-  /**
    * Cache version
    *
    * @public
@@ -57,19 +50,5 @@ export interface Service extends BaseService {
    */
   configuration: Configuration['cache']
 
-  /**
-   * Memory cache configuration
-   *
-   * @public
-   */
-  memoryCache: Configuration['cache']
-
-  /**
-   * Filesystem cache configuration
-   *
-   * @public
-   */
-  filesystemCache: Configuration['cache']
-
-  flush: () => void
+  flush: () => Promise<void>
 }

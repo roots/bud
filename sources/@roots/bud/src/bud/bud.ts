@@ -1,10 +1,39 @@
-import {Bud as Core} from '@roots/bud-framework/bud'
+import type Api from '@roots/bud-api'
+import type Build from '@roots/bud-build'
+import type Cache from '@roots/bud-cache'
+import type Compiler from '@roots/bud-compiler'
+import type Dashboard from '@roots/bud-dashboard'
+import type Extensions from '@roots/bud-extensions'
+import {Bud as Framework} from '@roots/bud-framework'
+import {Service, ServiceContainer} from '@roots/bud-framework'
+import type Hooks from '@roots/bud-hooks'
+import type Server from '@roots/bud-server'
 
 /**
- * ⚡️ Bud
+ * ## ⚡️ Bud
+ *
+ * {@link https://bud.js.org/ bud.js}
  *
  * @public
  */
-export default class Bud extends Core {
-  public override implementation = Bud
+export class Bud extends Framework {
+  public override implementation: new () => Bud & Framework = Bud
+
+  public declare api: Api
+
+  public declare build: Build
+
+  public declare cache: Cache
+
+  public declare compiler: Compiler
+
+  public declare dashboard: Dashboard
+
+  public declare extensions: Extensions
+
+  public declare hooks: Hooks
+
+  public declare server: Server
 }
+
+export {Service, ServiceContainer}

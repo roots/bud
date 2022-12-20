@@ -1,7 +1,7 @@
 import {factory} from '@repo/test-kit/bud'
 import {Extension} from '@roots/bud-framework/extension'
 import webpack from '@roots/bud-support/webpack'
-import {describe, expect, it, test} from 'vitest'
+import {describe, expect, it, test, vi} from 'vitest'
 
 import hmrExtension from './index.js'
 
@@ -17,6 +17,7 @@ describe(`webpack-hot-module-replacement-plugin`, () => {
   })
 
   it(`is not enabled in production`, async () => {
+    vi.clearAllMocks()
     const bud = await factory({mode: `production`})
 
     // @ts-ignore
@@ -26,14 +27,18 @@ describe(`webpack-hot-module-replacement-plugin`, () => {
   })
 
   it(`is enabled in development`, async () => {
+    vi.restoreAllMocks()
+
     const bud = await factory({mode: `development`})
 
+    expect(bud.mode).toBe(`development`)
     // @ts-ignore
     const extension = new hmrExtension(bud)
     expect(await extension.isEnabled()).toBe(true)
   })
 
   it(`produces webpack hmr plugin`, async () => {
+    vi.clearAllMocks()
     const bud = await factory({mode: `development`})
 
     // @ts-ignore

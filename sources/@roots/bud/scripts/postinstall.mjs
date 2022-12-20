@@ -1,29 +1,41 @@
-/* eslint-disable no-console */
+// @ts-check
+
 /* eslint-disable n/no-process-env */
-// browerslist updater
-;(async () => {
-  if (process.env.npm_package_version === `0.0.0`) return
+/* eslint-disable n/no-process-exit */
 
-  const {execa} = await import(`@roots/bud-support/execa`)
+import {platform} from 'node:os'
+import {dirname, resolve} from 'node:path'
+import {fileURLToPath} from 'node:url'
 
-  try {
-    console.log(`updating browserslist database`)
+import {execaCommandSync} from 'execa'
 
-    const cwd = process.env.INIT_CWD
-    const sh = execa(`npx`, [`browserslist`, `--update-db`], {
-      cwd,
-      reject: false,
-      shell: true,
-    })
+if (process.env.npm_package_version === `0.0.0`) {
+  process.exit(0)
+}
 
-    console.log(cwd)
+const execaOptions = {
+  cwd: process.env.INIT_CWD ?? process.cwd(),
+  reject: false,
+  timeout: 10000,
+}
 
-    const handle = data => {
-      const message = data.toString()
-      console.log(message)
-      if (message.includes(`succ`)) sh.kill(`SIGQUIT`)
-    }
-    sh.stdout?.on(`data`, handle)
-    sh.stderr?.on(`data`, handle)
-  } catch (e) {}
-})()
+execaCommandSync(`npx browserslist --update-db`, execaOptions)
+
+if (platform() === `darwin`) {
+  const notifierPath = resolve(
+    dirname(fileURLToPath(import.meta.url)),
+    `..`,
+    `vendor`,
+    `mac.no-index`,
+    `roots-notifier.app`,
+    `Contents`,
+    `MacOS`,
+    `roots-notifier`,
+  )
+
+  execaCommandSync(`chmod u+x ${notifierPath}`, execaOptions)
+}
+
+process.exit(0)
+
+export {}

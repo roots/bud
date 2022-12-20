@@ -9,17 +9,29 @@ description: Modify internal bud values with callbacks.
 
 Callbacks and raw values are registered with `bud.hooks.on`
 
+`bud.hooks.on` takes two parameters:
+
+1. The `name` of the hook.
+2. Either a raw value or a callback which is passed the current value
+
+### Example defined with a raw value
+
 ```js title='bud.config.js'
-bud.hooks.on('build.externals', externals => ({
-  ...externals,
+bud.hooks.on('build.externals', {
   $: 'jquery',
 })
 ```
 
-`bud.hooks.on` takes two parameters:
+### Example defined with a callback
 
-- The `name` of the hook.
-- A function to filter the associated value through.
+You should always assume the value passed to the callback may be **undefined** and handle it appropriately.
+
+```js title='bud.config.js'
+bud.hooks.on('build.externals', (externals = {}) => ({
+  ...externals,
+  $: 'jquery',
+})
+```
 
 ## bud.hooks.fromMap
 
@@ -28,7 +40,7 @@ Set multiple hooks at once with `bud.hooks.fromMap`.
 ```ts
 bud.hooks.fromMap({
   'build.node': false,
-  'build.resolve.extensions': ext => ext.add('.mjml'),
+  'build.resolve.extensions': (ext = new Set()) => ext.add('.mjml'),
 })
 ```
 
@@ -37,22 +49,23 @@ bud.hooks.fromMap({
 Filters are registered with `bud.hooks.filter`.
 
 ```js
-const result = bud.hooks.filter('my.filter.key', value)
+const initialValue = `foo`
+const result = bud.hooks.filter('my.filter.key', initialValue)
 ```
 
 `bud.hooks.filter` takes two parameters:
 
-- The `name` of the `filter` to hook onto.
-- The `value` which is being filtered. If there is nothing hooked to this filter, the value will be returned as-is.
+- The `name` of the hook.
+- An initial value which is passed to the first registered function. If there is nothing hooked to this filter, the value will be returned as-is.
 
 ## bud.hooks.async
 
 Some hooks are asynchronous. An example of this are values for `build.resolve.modules`:
 
 ```js title='bud.config.js'
-bud.hooks.async('build.resolve.modules', async modulePaths => [
-  ...modulePaths,
-  await fs.promises.realpath('node_modules'),
+bud.hooks.async('build.resolve.modules', async (paths = []) => [
+  ...paths,
+  bud.path(`modules`),
 ])
 ```
 
@@ -64,16 +77,14 @@ Set multiple async hooks at once with `bud.hooks.fromAsyncMap`.
 
 ```ts
 bud.hooks.fromAsyncMap({
-  'build.resolve.modules': async paths => [
-    ...paths,
-    abud.path('@modules'),
-  ],
+  'build.resolve.modules': async paths => [...paths, bud.path('@modules')],
 })
 ```
 
 ## bud.hooks.action
 
-Actions are registered with `bud.hooks.action`.
+Actions are registered with `bud.hooks.action`. Every action is passed the **bud** object and it will never be **undefined**.
+You don't need to return anything.
 
 ```js
 bud.hooks.action('my.action.key', async bud => {
@@ -81,7 +92,19 @@ bud.hooks.action('my.action.key', async bud => {
 })
 ```
 
-All actions are asynchronous. The order of execution is not guaranteed.
+Multiple actions can be defined for the same key in one call:
+
+```js
+bud.hooks.action(
+  `my.action.key`,
+  async bud => bud.log(`action log 1`),
+  async bud => bud.log(`action log 2`),
+  async bud => bud.log(`action log 3`),
+)
+```
+
+All actions are asynchronous. The order of execution is not guaranteed. This matters whether you are
+specifying a single action or multiple actions.
 
 ## bud.hooks.fire
 
@@ -91,4 +114,71 @@ Actions are fired with `bud.hooks.fire`.
 await bud.hooks.fire('my.action.key')
 ```
 
-This function returns a `Promise`.
+## Putting it together
+
+```js title='bud.config.js'
+bud.hooks.filter(`my.hook`, 1)
+// => 1
+
+bud.hooks.on(`my.hook`, (value = 0) => value + 1)
+
+bud.hooks.filter(`my.hook`, 1)
+// => 2
+
+bud.hooks.on(`my.hook`, 5)
+
+bud.hooks.filter(`my.hook`, 1)
+// => 5 (since the last registered value is not a callback)
+
+bud.hooks.action(`my.action`, async bud => bud.log(`action log`))
+
+await bud.hooks.fire(`my.action`)
+// [stdout] action log
+```
+
+## What to do when a hook value is a function
+
+Consider this example, where we want to get a function that has been registered to a hook. We only want to run the
+last registered function and we only want to call it one time:
+
+```js
+const doThing = () => {
+  console.log(`thing`)
+}
+bud.hooks.on(`my.hook`, doThing)
+
+const doThing2 = () => {
+  console.log(`thing2`)
+}
+bud.hooks.on(`my.hook`, doThing2)
+
+const myFunction = bud.hooks.filter(`my.hook`)
+myFunction()
+```
+
+This is not what we want. That will log both `thing` and `thing2` and then cause a `TypeError` (because `myFunction` is `undefined`).
+
+But it makes sense -- every registered hook will always be called when
+the filter runs, and the functions we defined don't return anything. So the end result is `undefined` and every
+`console.log` call happened as each hook function was called.
+
+The way around it is to wrap our functions in a callback:
+
+```js
+const doThing = () => {
+  console.log(`thing`)
+}
+bud.hooks.on(`my.hook`, () => doThing)
+
+const doThing2 = () => {
+  console.log(`thing2`)
+}
+bud.hooks.on(`my.hook`, () => doThing2)
+
+const myFunction = bud.hooks.filter(`my.hook`)
+myFunction()
+```
+
+Now it will only log `thing2` from `doThing2`. `doThing` will remain unexecuted.
+
+Something to remember if you ever need to pass a function around in a hook.

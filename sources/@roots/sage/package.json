@@ -37,6 +37,7 @@
     "type": "extension"
   },
   "files": [
+    "config",
     "stylelint-config/",
     "tsconfig/",
     "lib/"
@@ -53,7 +54,8 @@
     "./client/lazy": "./lib/client/lazy.js",
     "./wp-theme-json": "./lib/wp-theme-json/index.js",
     "./wp-theme-json-tailwind": "./lib/wp-theme-json-tailwind/index.js",
-    "./stylelint-config": "./stylelint-config/index.cjs"
+    "./stylelint": "./config/stylelint.cjs",
+    "./stylelint-config": "./config/stylelint.cjs"
   },
   "typesVersions": {
     "*": {

@@ -9,21 +9,15 @@ describe(`bud.alias`, () => {
   let alias: typeof aliasFn
 
   beforeEach(async () => {
+    vi.restoreAllMocks()
     bud = await factory()
     alias = aliasFn.bind(bud)
-    vi.restoreAllMocks()
   })
 
   it(`should be operating in an expected env`, async () => {
     expect(bud.path(`@src`)).toBe(
       repoPath(`tests`, `util`, `project`, `src`),
     )
-
-    const value = await bud.hooks.filterAsync(`build.resolve.alias`)
-    expect(value).toEqual({
-      '@src': repoPath(`tests`, `util`, `project`, `src`),
-      '@dist': repoPath(`tests`, `util`, `project`, `dist`),
-    })
   })
 
   it(`should be a function`, () => {
@@ -35,14 +29,12 @@ describe(`bud.alias`, () => {
     await alias({'@foo': bud.path(`@src`, `foo`)})
 
     expect(asyncSpy).toHaveBeenCalledWith(`build.resolve.alias`, {
-      '@dist': bud.path(`@dist`),
       '@src': bud.path(`@src`),
       '@foo': bud.path(`@src`, `foo`),
     })
 
     const value = await bud.hooks.filterAsync(`build.resolve.alias`)
     expect(value).toEqual({
-      '@dist': bud.path(`@dist`),
       '@src': bud.path(`@src`),
       '@foo': bud.path(`@src`, `foo`),
     })
@@ -62,7 +54,6 @@ describe(`bud.alias`, () => {
     const value = await bud.hooks.filterAsync(`build.resolve.alias`)
 
     expect(value).toEqual({
-      '@dist': bud.path(`@dist`),
       '@src': bud.path(`@src`),
       '@foo': bud.path(`@src/foo`),
     })

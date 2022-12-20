@@ -7,6 +7,7 @@
   "include": ["./src"],
   "exclude": ["./lib", "./node_modules", "**/*.test.ts", "**/__fixtures__"],
   "references": [
+
     {"path": "./../bud-api/tsconfig.json"},
     {"path": "./../bud-framework/tsconfig.json"},
     {"path": "./../critical-css-webpack-plugin/tsconfig.json"}

@@ -1,3 +1,3 @@
-import Project from './project.js'
+import {Project} from './project.js'
 
 export default Project

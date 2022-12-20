@@ -9,6 +9,7 @@ describe(`bud.entry`, function () {
   let bud: Bud
 
   beforeEach(async () => {
+    // @ts-ignore
     bud = await factory()
     externals = subject.bind(bud)
     vi.clearAllMocks()

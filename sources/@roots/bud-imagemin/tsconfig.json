@@ -5,7 +5,8 @@
     "outDir": "lib"
   },
   "include": ["src"],
-  "exclude": ["lib", "node_modules", "**/*.test.ts"],
+  "exclude": ["./lib", "./node_modules", "**/*.test.ts", "**/*.test.tsx"],
+
   "references": [
     {"path": "../bud-framework/tsconfig.json"},
     {"path": "../bud/tsconfig.json"},

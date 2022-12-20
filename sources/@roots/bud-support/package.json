@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-support",
   "version": "0.0.0",
-  "description": "👨🏽‍🍳 Internal packages for @roots/bud",
+  "description": "Internal packages for @roots/bud",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -37,6 +37,7 @@
   ],
   "type": "module",
   "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "exports": {
     ".": {
       "types": "./lib/index.d.ts",
@@ -47,7 +48,16 @@
       "default": "./lib/*/index.js"
     }
   },
-  "types": "./lib/index.d.ts",
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ],
+      "*": [
+        "./lib/*/index.d.ts"
+      ]
+    }
+  },
   "devDependencies": {
     "@skypack/package-check": "0.2.2"
   },
@@ -78,8 +88,7 @@
     "typanion": "3.12.1",
     "type-fest": "3.3.0",
     "webpack": "5.75.0",
-    "zod": "3.19.1",
-    "zod-validation-error": "0.2.1"
+    "zod": "3.19.1"
   },
   "peerDependencies": {
     "webpack": ">=5.75.0"

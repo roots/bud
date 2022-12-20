@@ -3,7 +3,7 @@ import {join} from 'node:path'
 
 import {paths} from '@repo/constants'
 import * as fs from '@roots/bud-support/fs'
-import {execa} from 'execa'
+import {execa} from '@roots/bud-support/execa'
 import {beforeAll, describe, expect, it} from 'vitest'
 
 describe(`@roots/bud-criticalcss`, () => {

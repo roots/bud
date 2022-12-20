@@ -1,14 +1,16 @@
-import type {StatsCompilation} from '@roots/bud-support/webpack'
+import type {MultiStats} from '@roots/bud-support/webpack'
 
-import type {Service as Base} from '../../../service.js'
+import type {Service as Contract} from '../../../service.js'
 
 /**
  * Dashboard service container
  *
  * @public
  */
-export interface Service extends Base {
-  instance: any
+export interface Service extends Contract {
+  silent: boolean
+  renderLog?: any
+  renderCompilation?: any
 
   /**
    * Render the dashboard
@@ -17,5 +19,5 @@ export interface Service extends Base {
    *
    * @public
    */
-  stats(stats: StatsCompilation): Promise<unknown>
+  update(stats: MultiStats): Promise<this>
 }

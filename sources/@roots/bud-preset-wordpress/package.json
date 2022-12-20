@@ -75,6 +75,7 @@
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-preset-recommend": "workspace:sources/@roots/bud-preset-recommend",
     "@roots/bud-react": "workspace:sources/@roots/bud-react",
+    "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@roots/bud-wordpress-dependencies": "workspace:sources/@roots/bud-wordpress-dependencies",
     "@roots/bud-wordpress-externals": "workspace:sources/@roots/bud-wordpress-externals",
     "@roots/bud-wordpress-manifests": "workspace:sources/@roots/bud-wordpress-manifests",

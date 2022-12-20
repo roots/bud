@@ -15,10 +15,13 @@ const middlewarePath = `/bud/hot`
 
 let latestStats = null
 let closed = false
-let logger: Bud['logger']['instance']
+let logger: Bud[`context`][`logger`]
 
 export default (app: Bud) => {
-  logger = app.logger.instance.scope(...app.logger.scope, `hmr`)
+  logger = app.context.logger.scope(
+    app.label,
+    `hmr`,
+  ) as Bud[`context`][`logger`]
   return makeHandler(app.compiler.instance)
 }
 

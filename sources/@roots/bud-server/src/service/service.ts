@@ -21,13 +21,6 @@ import {Watcher} from '../server/server.watcher.js'
  */
 export class Server extends Service implements BaseService {
   /**
-   * Service label
-   *
-   * @public
-   */
-  public static override label = `server`
-
-  /**
    * Express instance
    *
    * @public
@@ -83,7 +76,7 @@ export class Server extends Service implements BaseService {
    * @decorator `@once`
    */
   @bind
-  public override async register(bud: Bud) {
+  public override async register?(bud: Bud) {
     if (!bud.isDevelopment) return
 
     this.application = await bud.module
@@ -91,7 +84,7 @@ export class Server extends Service implements BaseService {
       .then(express => express())
     this.application.set(`x-powered-by`, false)
 
-    this.watcher = new Watcher(bud)
+    this.watcher = new Watcher(() => bud)
 
     bud.hooks.on(`dev.client.scripts`, clientScripts.callback)
 

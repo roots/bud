@@ -1,1 +1,1 @@
-module.exports = async app => app.template().entry('app', 'app.js')
+module.exports = async bud => bud.template().entry('app', 'app.js')

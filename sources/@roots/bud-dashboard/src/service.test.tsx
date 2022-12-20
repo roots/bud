@@ -1,12 +1,12 @@
-import {factory} from '@repo/test-kit/bud'
+import {Bud, factory} from '@repo/test-kit/bud'
 import {Service} from '@roots/bud-framework/service'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import Dashboard from './index.js'
 
 describe(`Dashboard`, () => {
-  let bud
-  let dashboard
+  let bud: Bud
+  let dashboard: Dashboard
 
   beforeEach(async () => {
     bud = await factory()
@@ -18,54 +18,13 @@ describe(`Dashboard`, () => {
     expect(dashboard).toBeInstanceOf(Service)
   })
 
-  it(`should have a stats fn`, async () => {
-    expect(dashboard.stats).toBeInstanceOf(Function)
-  })
-
-  it(`should have a getLastHash fn that returns the value of dashboard.lastHash`, async () => {
-    dashboard.lastHash = `test`
-    expect(dashboard.getLastHash()).toBe(`test`)
-  })
-  it(`should have a setLastHash fn that set the value of dashboard.lastHash`, async () => {
-    dashboard.setLastHash(`test`)
-    expect(dashboard.lastHash).toBe(`test`)
-  })
-  it(`should have a hashIsStale fn that returns true if hash is equal to lastHash`, async () => {
-    dashboard.lastHash = `test`
-    expect(dashboard.hashIsStale(`test`)).toBeTruthy()
-  })
-
-  it(`should return early from dashboard.stats when there are no stats provided`, async () => {
+  it(`should return early from dashboard.update when there are no stats provided`, async () => {
     try {
-      await dashboard.stats(
+      await dashboard.update(
         // @ts-ignore
         undefined,
       )
     } catch (e) {}
-    expect(dashboard.lastHash).toBeUndefined()
-  })
-
-  it(`should call setLastHash when hash is fresh`, async () => {
-    const spy = vi.spyOn(dashboard, `setLastHash`)
-
-    try {
-      await dashboard.stats({hash: `test`})
-    } catch (error) {}
-
-    expect(spy).toHaveBeenCalledWith(`test`)
-  })
-
-  it(`should not call setLastHash when hash is stale`, async () => {
-    const spy = vi.spyOn(dashboard, `setLastHash`)
-
-    try {
-      await dashboard.stats({hash: `test`})
-    } catch (e) {}
-
-    try {
-      await dashboard.stats({hash: `test`})
-    } catch (error) {}
-
-    expect(spy).toHaveBeenCalledTimes(1)
+    expect(dashboard.stats).toBeUndefined()
   })
 })

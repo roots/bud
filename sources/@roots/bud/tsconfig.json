@@ -2,7 +2,11 @@
   "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
     "rootDir": "./src",
-    "outDir": "./lib"
+    "outDir": "./lib",
+    "paths": {
+      "@roots/bud": ["./src/index.ts"],
+      "@roots/bud/*": ["./src/*"]
+    }
   },
   "include": ["./src"],
   "exclude": ["./lib", "./node_modules", "**/*.test.ts"],

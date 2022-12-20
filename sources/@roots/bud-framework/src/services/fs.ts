@@ -1,8 +1,9 @@
 import {join} from 'node:path'
 
-import FS, {json, S3, yml} from '@roots/bud-support/filesystem'
+import {Filesystem as FS, json, yml} from '@roots/bud-support/filesystem'
 import globby from '@roots/bud-support/globby'
 import {isUndefined} from '@roots/bud-support/lodash-es'
+import {S3} from '@roots/filesystem/s3'
 
 import type {Bud} from '../bud.js'
 
@@ -11,14 +12,7 @@ import type {Bud} from '../bud.js'
  *
  * @public
  */
-export default class Service extends FS {
-  /**
-   * Service label
-   *
-   * @public
-   */
-  public static label = `fs`
-
+export default class FileSystem extends FS {
   /**
    * Access {@link Bud}
    *
@@ -33,7 +27,11 @@ export default class Service extends FS {
    *
    * @public
    */
-  public logger: Bud['logger']['instance']
+  public get logger() {
+    const logger = this.app.context.logger.make(this.app.label, `fs`)
+
+    return logger
+  }
 
   /**
    * JSON handling
@@ -63,13 +61,13 @@ export default class Service extends FS {
    */
   public constructor(public _app: () => Bud) {
     super(_app().context.basedir)
-    this.s3 = new S3()
-    this.logger = this.app.logger
-      .makeInstance({logLevel: `info`, interactive: true})
-      .scope(...this.app.logger.scope, `fs`)
 
-    this.app.json = this.json
-    this.app.yml = this.yml
+    this.s3 = new S3()
+
+    Object.assign(this.app, {
+      json: this.json,
+      yml: this.yml,
+    })
   }
 
   /**
@@ -78,8 +76,10 @@ export default class Service extends FS {
    * @param bucket - {@link S3.bucket}
    * @public
    */
-  public setBucket: S3[`setBucket`] = function (bucket: string) {
-    this.s3.setBucket(bucket)
+  public setBucket(bucket: string) {
+    this.app.after(async (bud: Bud) => {
+      bud.fs.s3.config.set(`bucket`, bucket)
+    })
 
     return this
   }
@@ -90,10 +90,10 @@ export default class Service extends FS {
    * @param credentials - {@link S3.credentials}
    * @public
    */
-  public setCredentials: S3[`setCredentials`] = function (
-    credentials: S3[`config`][`credentials`],
-  ) {
-    this.s3.setCredentials(credentials)
+  public setCredentials(credentials: S3[`config`][`credentials`]) {
+    this.app.after(async (bud: Bud) => {
+      bud.fs.s3.config.set(`credentials`, credentials)
+    })
 
     return this
   }
@@ -104,10 +104,11 @@ export default class Service extends FS {
    * @param options - upload options
    * @public
    */
-  public setEndpoint: S3[`setEndpoint`] = function (
-    endpoint: S3[`config`][`endpoint`],
-  ) {
-    this.s3.setEndpoint(endpoint)
+  public setEndpoint(endpoint: S3[`config`][`endpoint`]) {
+    this.app.after(async (bud: Bud) => {
+      bud.fs.s3.config.set(`endpoint`, endpoint)
+    })
+
     return this
   }
 
@@ -117,10 +118,11 @@ export default class Service extends FS {
    * @param options - upload options
    * @public
    */
-  public setRegion: S3[`setRegion`] = function (
-    region: S3[`config`][`region`],
-  ) {
-    this.s3.setRegion(region)
+  public setRegion(region: S3[`config`][`region`]) {
+    this.app.after(async (bud: Bud) => {
+      bud.fs.s3.config.set(`region`, region)
+    })
+
     return this
   }
 
@@ -135,7 +137,7 @@ export default class Service extends FS {
     destination?: string
     files?: string
     keep?: number | false
-  }): Service {
+  }): this {
     const {source, files, keep, destination} = {
       source: isUndefined(options?.source)
         ? this.app.path(`@dist`)
@@ -148,35 +150,38 @@ export default class Service extends FS {
     const s3Path = (path: string) =>
       destination ? join(destination, path) : path
 
-    this.app.after(async () => {
+    this.app.after(async (bud: Bud) => {
       await globby(files, {cwd: source}).then(async files => {
         const descriptions = await Promise.all(
           files.map(async file => {
-            const contents = await this.read(join(source, file), `buffer`)
+            const contents = await bud.fs.read(
+              join(source, file),
+              `buffer`,
+            )
             return {file, contents}
           }),
         )
 
-        const manifestExists = await this.s3.exists(
+        const manifestExists = await bud.fs.s3.exists(
           s3Path(`upload-manifest.json`),
         )
         const entries = Object.entries(
           manifestExists
-            ? await this.s3
+            ? await bud.fs.s3
                 .read(s3Path(`upload-manifest.json`))
-                .then(this.json.parse)
+                .then(bud.fs.json.parse)
             : {},
         )
 
         await Promise.all(
           descriptions.map(async ({file, contents}) => {
-            this.logger.await(`Upload ${file} to ${this.s3.ident}`)
+            bud.fs.logger.await(`Upload ${file} to ${bud.fs.s3.ident}`)
 
             try {
-              await this.s3.write(s3Path(file), contents)
-              this.logger.success(`Upload ${file} to ${this.s3.ident}`)
+              await bud.fs.s3.write(s3Path(file), contents)
+              bud.fs.logger.success(`Upload ${file} to ${bud.fs.s3.ident}`)
             } catch (error) {
-              this.logger.error(`Upload ${file} to ${this.s3.ident}`)
+              bud.fs.logger.error(`Upload ${file} to ${bud.fs.s3.ident}`)
               throw error
             }
           }),
@@ -197,31 +202,35 @@ export default class Service extends FS {
                 ),
             )
             .map(async key => {
-              const fileExists = await this.s3.exists(key)
+              const fileExists = await bud.fs.s3.exists(key)
               if (!fileExists) return
 
-              this.logger.await(
-                `Remove ${key} from ${this.s3.ident} (stale)`,
+              bud.fs.logger.await(
+                `Remove ${key} from ${bud.fs.s3.ident} (stale)`,
               )
-              await this.s3.delete(key)
-              this.logger.success(
-                `Remove ${key} from ${this.s3.ident} (stale)`,
+              await bud.fs.s3.delete(key)
+              bud.fs.logger.success(
+                `Remove ${key} from ${bud.fs.s3.ident} (stale)`,
               )
             }),
         )
 
-        this.logger.await(`Write upload-manifest.json to ${this.s3.ident}`)
-        await this.s3.write({
+        bud.fs.logger.await(
+          `Write upload-manifest.json to ${bud.fs.s3.ident}`,
+        )
+
+        await bud.fs.s3.write({
           Key: s3Path(`upload-manifest.json`),
           Body: Buffer.from(
-            this.json.stringify({
+            bud.fs.json.stringify({
               ...entries.reduce((acc, [k, v]) => ({...acc, [k]: v}), {}),
               [new Date().getTime()]: descriptions.map(({file}) => file),
             }),
           ),
         })
-        this.logger.success(
-          `Write upload-manifest.json to ${this.s3.ident}`,
+
+        bud.fs.logger.success(
+          `Write upload-manifest.json to ${bud.fs.s3.ident}`,
         )
       })
     })

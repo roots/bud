@@ -4,7 +4,6 @@
     "sourceMap": false,
     "rootDir": "./src",
     "outDir": "./lib",
-    "types": ["node", "@roots/bud-api"]
   },
   "include": ["./src/**/*.ts"],
   "exclude": ["**/*.test.ts"],

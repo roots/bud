@@ -1,10 +1,8 @@
-import './types.js'
-
-import resolveConfig from 'tailwindcss/resolveConfig'
+import resolveConfig from 'tailwindcss/resolveConfig.js'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {Bud, factory} from '@repo/test-kit/bud'
 
-import {BudTailwindCss} from './extension'
+import BudTailwindCss from './index.js'
 
 describe(`@roots/bud-tailwindcss extension`, () => {
   let bud: Bud
@@ -20,6 +18,12 @@ describe(`@roots/bud-tailwindcss extension`, () => {
       local: false,
       extension: null,
       type: `base`,
+      file: true,
+      dir: false,
+      symlink: false,
+      size: 1020,
+      md5: `test-md5`,
+      mode: 0o777,
       module: {
         content: [`**/*.stub`],
         theme: {

@@ -1,8 +1,10 @@
 import {createHash} from 'node:crypto'
 
+import type {Configuration} from '@roots/bud-framework/config'
 import {Service} from '@roots/bud-framework/service'
 import type * as Services from '@roots/bud-framework/services'
 import {bind} from '@roots/bud-support/decorators'
+import {isString} from '@roots/bud-support/lodash-es'
 
 import InvalidateCacheExtension from './invalidate-cache-extension/index.js'
 
@@ -16,13 +18,6 @@ export default class Cache
   implements Services.Cache.Service
 {
   /**
-   * Service label
-   *
-   * @public
-   */
-  public static override label = `cache`
-
-  /**
    * Enabled
    *
    * @public
@@ -35,7 +30,10 @@ export default class Cache
    * @public
    */
   public get name(): string {
-    return this.app.hooks.filter(`build.cache.name`)
+    return this.app.hooks.filter(
+      `build.cache.name`,
+      this.app.hooks.filter(`build.name`, this.app.context.label),
+    )
   }
   public set name(name: string) {
     this.app.hooks.on(`build.cache.name`, name)
@@ -47,7 +45,12 @@ export default class Cache
    * @public
    */
   public get type(): 'memory' | 'filesystem' {
-    return this.app.hooks.filter(`build.cache.type`)
+    return this.app.hooks.filter(
+      `build.cache.type`,
+      isString(this.app.context.args.cache)
+        ? this.app.context.args.cache
+        : `filesystem`,
+    )
   }
   public set type(type: 'memory' | 'filesystem') {
     this.app.hooks.on(`build.cache.type`, type)
@@ -59,21 +62,24 @@ export default class Cache
    * @public
    */
   public get version(): string {
-    return this.app.hooks.filter(`build.cache.version`)
+    return this.app.hooks.filter(
+      `build.cache.version`,
+      createHash(`sha1`)
+        .update(
+          this.app.fs.json.stringify([
+            Object.values(this.app.context.config ?? {})
+              .filter(({bud}) => bud)
+              .map(({module}) => module.toString()),
+            Object.entries(this.app.context.args),
+          ]),
+        )
+        .digest(`base64`)
+        .replace(/[^a-z0-9]/gi, `_`)
+        .toLowerCase(),
+    )
   }
   public set version(version: string) {
     this.app.hooks.on(`build.cache.version`, version)
-  }
-
-  /**
-   * Build dependencies
-   *
-   * @public
-   */
-  public get buildDependencies(): any {
-    return {
-      config: Object.values(this.app.context.config).map(({path}) => path),
-    }
   }
 
   /**
@@ -82,7 +88,10 @@ export default class Cache
    * @public
    */
   public get cacheDirectory(): string {
-    return this.app.hooks.filter(`build.cache.cacheDirectory`)
+    return this.app.hooks.filter(
+      `build.cache.cacheDirectory`,
+      this.app.path(`@storage`, this.app.label, `cache`, this.app.mode),
+    )
   }
   public set cacheDirectory(directory: string) {
     this.app.hooks.on(`build.cache.cacheDirectory`, directory)
@@ -93,91 +102,32 @@ export default class Cache
    *
    * @public
    */
-  public get configuration() {
+  public get configuration(): Configuration[`cache`] {
     if (this.enabled !== true) return false
-    return this.type == `memory` ? this.memoryCache : this.filesystemCache
+    return this.type === `memory`
+      ? true
+      : {
+          name: this.name,
+          type: this.type,
+          store: `pack` as `pack`,
+          allowCollectingMemory: true,
+          cacheDirectory: this.cacheDirectory,
+          idleTimeout: 10000,
+          idleTimeoutForInitialStore: 0,
+          profile: true,
+          version: this.version,
+        }
   }
 
   /**
-   * Memory cache
-   *
-   * @public
-   */
-  public get memoryCache() {
-    return true
-  }
-
-  /**
-   * Filesystem cache
-   *
-   * @public
-   */
-  public get filesystemCache() {
-    return {
-      name: this.name,
-      type: this.type,
-      store: `pack` as `pack`,
-      allowCollectingMemory: true,
-      cacheDirectory: this.cacheDirectory,
-      buildDependencies: this.buildDependencies,
-      idleTimeout: 10000,
-      idleTimeoutForInitialStore: 0,
-      profile: true,
-      version: this.version,
-    }
-  }
-
-  /**
-   * `boot` callback
+   * `booted` callback
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public override async booted() {
+  public override async booted?() {
     await this.app.extensions.add(InvalidateCacheExtension)
-
-    switch (this.app.context.args.cache) {
-      case `memory`:
-        this.enabled = true
-        this.type = `memory`
-        break
-      case `filesystem`:
-        this.enabled = true
-        this.type = `filesystem`
-        break
-      case undefined:
-        this.enabled = true
-        this.type = `filesystem`
-        break
-      case false:
-        this.enabled = false
-        break
-    }
-
-    this.name = `webpack`
-
-    this.cacheDirectory = this.app.path(
-      `@storage`,
-      this.app.label,
-      `cache`,
-      this.app.mode,
-    )
-
-    this.version = createHash(`sha1`)
-      .update(
-        this.app.fs.json.stringify([
-          this.app.context.config,
-          Object.entries(this.app.context.args)
-            .filter(([k, v]) => v !== undefined)
-            .map(([k, v]) => `${k}-${v}`)
-            .join(`.`),
-        ]),
-      )
-      .digest(`base64`)
-      .replace(/[^a-z0-9]/gi, `_`)
-      .toLowerCase()
-
     this.app.success(`cache initialized`)
   }
 
@@ -185,7 +135,7 @@ export default class Cache
    * Flush cache
    */
   @bind
-  public async flush() {
+  public async flush(): Promise<void> {
     await this.app.fs.remove(this.cacheDirectory)
   }
 }

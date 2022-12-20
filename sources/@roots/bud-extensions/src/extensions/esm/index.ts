@@ -1,5 +1,5 @@
 import type {Bud, Config} from '@roots/bud-framework'
-import {Extension} from '@roots/bud-framework/extension'
+import {Extension, ExtensionLiteral} from '@roots/bud-framework/extension'
 import {
   disabled,
   expose,
@@ -17,7 +17,7 @@ import {
 @label(`@roots/bud-extensions/esm`)
 @expose(`esm`)
 @disabled
-export default class Esm extends Extension {
+export default class Esm extends Extension implements ExtensionLiteral {
   /**
    * `buildBefore` callback
    *

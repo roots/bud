@@ -1,8 +1,8 @@
 import {lowerCase} from '@roots/bud-support/lodash-es'
-import type {Instance as Signale} from '@roots/bud-support/signale'
 import Container from '@roots/container'
 
-import type {Bud} from './bud.js'
+import type {Bud} from './index.js'
+import type {Logger} from './types/services/logger/index.js'
 
 interface Contract {
   /**
@@ -17,7 +17,7 @@ interface Contract {
    *
    * @public
    */
-  logger: Signale
+  logger: Logger
 
   /**
    * Lifecycle method: init
@@ -27,7 +27,7 @@ interface Contract {
    *
    * @public
    */
-  init?(app: Bud): Promise<unknown>
+  init?(app: Bud): Promise<void>
 
   /**
    * Lifecycle method: bootstrap
@@ -37,7 +37,7 @@ interface Contract {
    *
    * @public
    */
-  bootstrap?(app: Bud): Promise<any>
+  bootstrap?(app: Bud): Promise<void>
 
   /**
    * Lifecycle method: bootstrapped
@@ -97,38 +97,38 @@ interface Contract {
    * After config callback
    * @public
    */
-  configAfter?(app: Bud): Promise<unknown>
+  configAfter?(app: Bud): Promise<void>
 
   /**
    * Before build service
    * @public
    */
-  buildBefore?(app: Bud): Promise<unknown>
+  buildBefore?(app: Bud): Promise<void>
 
   /**
    * After build service
    * @public
    */
-  buildAfter?(app: Bud): Promise<unknown>
+  buildAfter?(app: Bud): Promise<void>
 
   /**
    * Before Compiler service
    * @public
    */
-  compilerBefore?(app: Bud): Promise<unknown>
+  compilerBefore?(app: Bud): Promise<void>
 
   /**
    * After Compiler service
    * @public
    */
-  compilerAfter?(app: Bud): Promise<unknown>
+  compilerAfter?(app: Bud): Promise<void>
 }
 
 /**
  * Service
  *
  * @remarks
- * The Service interface provides access to the {@link Bud} container.
+ * The Service interface provides access to the Bud parent container.
  *
  * A Service interfaces with the Framework through a series of callbacks at different points in the build.
  *
@@ -143,7 +143,7 @@ abstract class Base implements Partial<Contract> {
    *
    * @public
    */
-  public init?(app: Bud): Promise<unknown>
+  public init?(app?: Bud): Promise<void>
 
   /**
    * Lifecycle method: bootstrap
@@ -153,7 +153,7 @@ abstract class Base implements Partial<Contract> {
    *
    * @public
    */
-  public bootstrap?(app: Bud): Promise<any>
+  public bootstrap?(app?: Bud): Promise<any>
 
   /**
    * Lifecycle method: bootstrapped
@@ -164,7 +164,7 @@ abstract class Base implements Partial<Contract> {
    *
    * @public
    */
-  public bootstrapped?(app: Bud): Promise<any>
+  public bootstrapped?(app?: Bud): Promise<any>
 
   /**
    * Lifecycle method: register
@@ -175,7 +175,7 @@ abstract class Base implements Partial<Contract> {
    *
    * @public
    */
-  public register?(app: Bud): Promise<any>
+  public register?(app?: Bud): Promise<any>
 
   /**
    * Lifecycle method: registered
@@ -186,7 +186,7 @@ abstract class Base implements Partial<Contract> {
    *
    * @public
    */
-  public registered?(app: Bud): Promise<any>
+  public registered?(app?: Bud): Promise<any>
 
   /**
    * Lifecycle method: boot
@@ -197,7 +197,7 @@ abstract class Base implements Partial<Contract> {
    *
    * @public
    */
-  public boot?(app: Bud): Promise<any>
+  public boot?(app?: Bud): Promise<any>
 
   /**
    * Lifecycle method: booted
@@ -207,44 +207,37 @@ abstract class Base implements Partial<Contract> {
    *
    * @public
    */
-  public booted?(app: Bud): Promise<any>
+  public booted?(app?: Bud): Promise<any>
 
   /**
    * After config callback
    * @public
    */
-  public configAfter?(app: Bud): Promise<unknown>
+  public configAfter?(app?: Bud): Promise<void>
 
   /**
    * Before build service
    * @public
    */
-  public buildBefore?(app: Bud): Promise<unknown>
+  public buildBefore?(app?: Bud): Promise<void>
 
   /**
    * After build service
    * @public
    */
-  public buildAfter?(app: Bud): Promise<unknown>
+  public buildAfter?(app?: Bud): Promise<void>
 
   /**
    * Before Compiler service
    * @public
    */
-  public compilerBefore?(app: Bud): Promise<unknown>
+  public compilerBefore?(app?: Bud): Promise<void>
 
   /**
    * After Compiler service
    * @public
    */
-  public compilerAfter?(app: Bud): Promise<unknown>
-  /**
-   * Service label
-   *
-   * @public
-   * @virtual
-   */
-  public static label: string
+  public compilerAfter?(app?: Bud): Promise<void>
 
   /**
    * Access {@link Bud}
@@ -260,15 +253,15 @@ abstract class Base implements Partial<Contract> {
    *
    * @public
    */
-  public logger: Signale
+  public logger: Logger
 
   /**
    * Class constructor
    * @public
    */
   public constructor(public _app: () => Bud) {
-    this.logger = this.app.logger.instance.scope(
-      ...this.app.logger.scope,
+    this.logger = this.app.context.logger.make(
+      this.app.label,
       lowerCase(this.constructor.name),
     )
   }
@@ -289,14 +282,6 @@ abstract class BaseContainer
   implements Partial<Contract>
 {
   /**
-   * Service label
-   *
-   * @public
-   * @virtual
-   */
-  public static label: string
-
-  /**
    * Access {@link Bud}
    *
    * @public @readonly
@@ -310,7 +295,7 @@ abstract class BaseContainer
    *
    * @public
    */
-  public logger: Signale
+  public logger: Logger
 
   /**
    * Lifecycle method: init
@@ -320,7 +305,7 @@ abstract class BaseContainer
    *
    * @public
    */
-  public init?(app: Bud): Promise<unknown>
+  public init?(app?: Bud): Promise<void>
 
   /**
    * Lifecycle method: bootstrap
@@ -330,7 +315,7 @@ abstract class BaseContainer
    *
    * @public
    */
-  public bootstrap?(app: Bud): Promise<any>
+  public bootstrap?(app?: Bud): Promise<void>
 
   /**
    * Lifecycle method: bootstrapped
@@ -341,7 +326,7 @@ abstract class BaseContainer
    *
    * @public
    */
-  public bootstrapped?(app: Bud): Promise<any>
+  public bootstrapped?(app?: Bud): Promise<void>
 
   /**
    * Lifecycle method: register
@@ -352,7 +337,7 @@ abstract class BaseContainer
    *
    * @public
    */
-  public register?(app: Bud): Promise<any>
+  public register?(app?: Bud): Promise<void>
 
   /**
    * Lifecycle method: registered
@@ -363,7 +348,7 @@ abstract class BaseContainer
    *
    * @public
    */
-  public registered?(app: Bud): Promise<any>
+  public registered?(app?: Bud): Promise<void>
 
   /**
    * Lifecycle method: boot
@@ -374,7 +359,7 @@ abstract class BaseContainer
    *
    * @public
    */
-  public boot?(app: Bud): Promise<any>
+  public boot?(app?: Bud): Promise<void>
 
   /**
    * Lifecycle method: booted
@@ -384,37 +369,37 @@ abstract class BaseContainer
    *
    * @public
    */
-  public booted?(app: Bud): Promise<any>
+  public booted?(app?: Bud): Promise<void>
 
   /**
    * After config callback
    * @public
    */
-  public configAfter?(app: Bud): Promise<unknown>
+  public configAfter?(app?: Bud): Promise<void>
 
   /**
    * Before build service
    * @public
    */
-  public buildBefore?(app: Bud): Promise<unknown>
+  public buildBefore?(app?: Bud): Promise<void>
 
   /**
    * After build service
    * @public
    */
-  public buildAfter?(app: Bud): Promise<unknown>
+  public buildAfter?(app?: Bud): Promise<void>
 
   /**
    * Before Compiler service
    * @public
    */
-  public compilerBefore?(app: Bud): Promise<unknown>
+  public compilerBefore?(app?: Bud): Promise<void>
 
   /**
    * After Compiler service
    * @public
    */
-  public compilerAfter?(app: Bud): Promise<unknown>
+  public compilerAfter?(app?: Bud): Promise<void>
 
   /**
    * Class constructor
@@ -423,8 +408,8 @@ abstract class BaseContainer
   public constructor(public _app: () => Bud) {
     super()
 
-    this.logger = this.app.logger.instance.scope(
-      ...this.app.logger.scope,
+    this.logger = this.app.context.logger.make(
+      this.app.label,
       lowerCase(this.constructor.name),
     )
   }

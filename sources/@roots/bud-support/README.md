@@ -9,7 +9,7 @@
 <h1 align="center"><strong>@roots/bud-support</strong></h1>
 
 <p align="center">
-  👨🏽‍🍳 Internal packages for @roots/bud
+  Internal packages for @roots/bud
 </p>
 
 ---

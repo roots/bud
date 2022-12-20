@@ -1,11 +1,11 @@
-import {factory} from '@repo/test-kit/bud'
+import {Bud, factory} from '@repo/test-kit/bud'
 import type {MultiStats, WebpackError} from '@roots/bud-support/webpack'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import Compiler from './index.js'
 
 describe(`@roots/bud-compiler`, function () {
-  let bud
+  let bud: Bud
   let compiler: Compiler
 
   beforeEach(async () => {

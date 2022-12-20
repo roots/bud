@@ -12,10 +12,22 @@
 
 import './types.js'
 
-import Bud from './bud/index.js'
-import * as cache from './factory/cache.js'
-import {factory} from './factory/index.js'
+import makeContext from '@roots/bud/context'
+import {factory} from '@roots/bud/factory'
+import {get, has, instances, set} from '@roots/bud/instances'
 
-const {get, set} = cache
+import {Bud, Service, ServiceContainer} from './bud/bud.js'
 
-export {Bud, Bud as default, cache, factory, get, set}
+export {factory, makeContext}
+export {get, set, has, instances}
+
+export type {
+  Locations,
+  Modules,
+  Rules,
+  Items,
+  Loaders,
+} from '@roots/bud-framework'
+
+export {Bud}
+export {Service, ServiceContainer}

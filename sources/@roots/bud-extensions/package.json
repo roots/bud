@@ -37,6 +37,8 @@
     "lib/"
   ],
   "type": "module",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "exports": {
     ".": {
       "types": "./lib/index.d.ts",
@@ -51,8 +53,6 @@
       "default": "./lib/extensions/*/index.js"
     }
   },
-  "module": "./lib/index.js",
-  "types": "./lib/index.d.ts",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.18.6",

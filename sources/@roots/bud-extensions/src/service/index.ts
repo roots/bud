@@ -25,13 +25,6 @@ export default class Extensions
   implements Contract.Service
 {
   /**
-   * Service label
-   *
-   * @public
-   */
-  public static override label = `extensions`
-
-  /**
    * Registered extensions
    *
    * @public
@@ -82,7 +75,7 @@ export default class Extensions
    * @decorator `@bind`
    */
   @bind
-  public override async register(bud: Bud): Promise<void> {
+  public override async register?(bud: Bud): Promise<void> {
     handleManifestSchemaWarning.bind(this)(bud)
   }
 
@@ -93,7 +86,7 @@ export default class Extensions
    * @decorator `@bind`
    */
   @bind
-  public override async booted(bud: Bud): Promise<void> {
+  public override async booted?(bud: Bud): Promise<void> {
     const {manifest} = bud.context
 
     if (manifest?.bud?.extensions) {
@@ -163,7 +156,7 @@ export default class Extensions
    * @decorator `@bind`
    */
   @bind
-  public override async configAfter(): Promise<void> {
+  public override async configAfter?(): Promise<void> {
     await this.runAll(`configAfter`)
   }
 
@@ -171,7 +164,7 @@ export default class Extensions
    * `buildBefore` callback
    */
   @bind
-  public override async buildBefore(): Promise<void> {
+  public override async buildBefore?(): Promise<void> {
     await this.runAll(`buildBefore`)
   }
 
@@ -179,7 +172,7 @@ export default class Extensions
    * `buildBefore` callback
    */
   @bind
-  public override async buildAfter(): Promise<void> {
+  public override async buildAfter?(): Promise<void> {
     await this.runAll(`buildAfter`)
   }
 

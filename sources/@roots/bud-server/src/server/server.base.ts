@@ -39,10 +39,10 @@ export abstract class BaseServer implements Connection {
    *
    * @public
    */
-  public get logger(): Bud['logger']['instance'] {
-    return this.app.logger.instance.scope(
+  public get logger(): Bud[`context`][`logger`] {
+    return this.app.context.logger.scope(
       this.constructor.name.toLowerCase(),
-    )
+    ) as Bud[`context`][`logger`]
   }
 
   /**

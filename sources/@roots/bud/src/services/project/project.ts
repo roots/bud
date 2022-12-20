@@ -1,6 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
-import {Service as BaseService} from '@roots/bud-framework/service'
-import type {Service} from '@roots/bud-framework/services/project'
+import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators'
 import format from '@roots/bud-support/pretty-format'
 
@@ -9,23 +8,17 @@ import format from '@roots/bud-support/pretty-format'
  *
  * @public
  */
-export default class Project extends BaseService implements Service {
-  /**
-   * Service label
-   *
-   * @public
-   */
-  public static override label = `project`
-
+class Project extends Service {
   /**
    * `build.after` hook callback
    *
    * @public
    */
   @bind
-  public override async buildAfter(bud: Bud) {
+  public override async buildAfter?(bud: Bud) {
     if (!bud.context.args.debug) {
-      return bud.info(`--debug not \`true\`. skipping fs write.`)
+      bud.info(`--debug not \`true\`. skipping fs write.`)
+      return
     }
 
     try {
@@ -70,3 +63,5 @@ export default class Project extends BaseService implements Service {
     }
   }
 }
+
+export {Project}

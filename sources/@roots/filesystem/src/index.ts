@@ -7,10 +7,10 @@
  * @packageDocumentation
  */
 
-import FS from './filesystem.js'
-import S3 from './s3/index.js'
+import Filesystem from './filesystem.js'
+import {S3} from './s3/index.js'
 
-export {FS, S3}
+export {Filesystem, Filesystem as FS, S3}
 
 export * as json from './json.js'
 export * as yml from './yml.js'

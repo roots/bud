@@ -2,23 +2,36 @@
 import {dirname, join} from 'node:path/posix'
 import {fileURLToPath} from 'node:url'
 
+import type * as cli from '@roots/bud/cli/app'
 import type {Context} from '@roots/bud-framework/options'
+import {bind} from '@roots/bud-support/decorators'
 import globby from '@roots/bud-support/globby'
 import {resolve} from '@roots/bud-support/import-meta-resolve'
 import {isString} from '@roots/bud-support/lodash-es'
 
-import type * as cli from './app.js'
-
+/**
+ * Command finder class
+ *
+ * @public
+ */
 export class Commands {
-  public application: cli.Cli
-  public context: Partial<Context>
+  /**
+   * @public
+   */
   public static instance: Commands
 
-  private constructor(context: Partial<Context>, application: cli.Cli) {
-    this.context = context
-    this.application = application
-  }
+  /**
+   * @internal
+   */
+  private constructor(
+    public context: Partial<Context>,
+    public application: cli.Cli,
+  ) {}
 
+  /**
+   * @public
+   * @static
+   */
   public static get(application: cli.Cli, context: Partial<Context>) {
     if (Commands.instance) return Commands.instance
     else {
@@ -27,11 +40,21 @@ export class Commands {
     }
   }
 
+  /**
+   * @decorator `@bind`
+   * @public
+   */
+  @bind
   public async getCommands() {
     const resolvedExtensionPaths = await this.getRegistrationModulePaths()
     return resolvedExtensionPaths.filter(Boolean)
   }
 
+  /**
+   * @decorator `@bind`
+   * @public
+   */
+  @bind
   public async getRegistrationModulePaths(): Promise<Array<any>> {
     return await this.resolveExtensionCommandPaths(
       this.getProjectDependencySignifiers(),
@@ -40,7 +63,10 @@ export class Commands {
 
   /**
    * Get array of project dependency and devDependency signifiers
+   * @decorator `@bind`
+   * @public
    */
+  @bind
   public getProjectDependencySignifiers(): Array<string> {
     return Object.keys({
       ...(this.context.manifest?.dependencies ?? {}),
@@ -50,13 +76,17 @@ export class Commands {
 
   /**
    * Find commands shipped with a given extension
+   * @decorator `@bind`
+   * @public
    */
+  @bind
   public async findExtensionCommandPaths(paths: Array<string>) {
     return await Promise.all(
       paths
         .map(dirname)
-        .map(async path =>
-          globby(join(path, join(`bud`, `commands`, `index.js`))),
+        .map(
+          async path =>
+            await globby(join(path, join(`bud`, `commands`, `index.js`))),
         ),
     ).then(results => results.flat())
   }
@@ -65,26 +95,23 @@ export class Commands {
     return await Promise.all(
       paths.map(async path => {
         try {
-          return resolve(path, import.meta.url)
-        } catch (err) {
-          console.warn(err)
-          return false
-        }
+          return await resolve(path, import.meta.url)
+        } catch (error) {}
       }),
     ).then(paths => paths.filter(isString).map(fileURLToPath))
   }
 
   /**
    * Import and register commands with the clipanion app
+   * @decorator `@bind`
    */
+  @bind
   public async registerExtensionCommandPaths(
     registerCallback: CallableFunction,
   ) {
     try {
       await registerCallback(this.application)
-    } catch (error) {
-      console.warn(error)
-    }
+    } catch (error) {}
   }
 
   public static async importCommandsFromPaths(
@@ -97,13 +124,9 @@ export class Commands {
             return await import(path).then(
               ({default: register}) => register,
             )
-          } catch (error) {
-            throw new Error(error)
-          }
+          } catch (error) {}
         }),
       )
-    } catch (error) {
-      console.warn(error)
-    }
+    } catch (error) {}
   }
 }

@@ -41,6 +41,7 @@
   },
   "files": [
     "lib/",
+    "config/",
     "stylelint-config/"
   ],
   "type": "module",
@@ -49,8 +50,10 @@
   "exports": {
     ".": "./lib/index.js",
     "./extension": "./lib/extension.js",
-    "./stylelint-config": "./stylelint-config/default.cjs",
-    "./stylelint-config/scss": "./stylelint-config/scss.cjs"
+    "./stylelint-config": "./config/stylelint/default.cjs",
+    "./stylelint": "./config/stylelint/default.cjs",
+    "./stylelint-config/scss": "./config/stylelint/default.cjs",
+    "./stylelint/scss": "./stylelint-config/scss.cjs"
   },
   "typesVersions": {
     "*": {

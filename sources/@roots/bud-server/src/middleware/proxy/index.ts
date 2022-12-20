@@ -69,7 +69,7 @@ export const makeOptions = (app: Bud): Options => {
       logger: app.hooks.filter(
         `dev.middleware.proxy.options.logger`,
         app.context.args.log
-          ? new signale().scope(...app.logger.scope, `proxy`)
+          ? new signale().scope(app.label, `proxy`)
           : undefined,
       ),
       on: filterUndefined(
@@ -106,7 +106,7 @@ export const makeOptions = (app: Bud): Options => {
       ),
       protocolRewrite: app.hooks.filter(
         `dev.middleware.proxy.options.protocolRewrite`,
-        url.dev.protocol.startsWith(`https`) ? `https` : undefined,
+        url.proxy.protocol.startsWith(`https`) ? `https` : undefined,
       ),
       proxyTimeout: app.hooks.filter(
         `dev.middleware.proxy.options.proxyTimeout`,

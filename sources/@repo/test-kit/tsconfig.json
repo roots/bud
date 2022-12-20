@@ -2,19 +2,21 @@
   "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
     "outDir": "compiled",
-    "types": [
-      "node",
-    ],
-    "module": "esnext",
   },
   "include": [
-    "bud.ts",
-    "integration.ts",
-    "project.ts"
+    "./bud.ts",
+    "./integration.ts",
+    "./project.ts"
   ],
   "references": [
     {
       "path": "./../../@roots/bud/tsconfig.json"
     },
+    {
+      "path": "./../../@roots/bud-framework/tsconfig.json"
+    },
+    {
+      "path": "./../../@roots/bud-support/tsconfig.json"
+    }
   ]
 }

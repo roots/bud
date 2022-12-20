@@ -1,23 +1,29 @@
 import type {Readable, Writable} from 'node:stream'
 
-import type {Bud} from '../../bud.js'
+import type {InspectResult} from '@roots/filesystem/filesystem'
 
-export interface BaseContext {
+import type {Bud} from '../../bud.js'
+import type {Logger} from '../services/logger/index.js'
+
+export interface BudContext {
   label: string
-  root?: Bud
-  dependsOn?: Array<string>
   basedir: string
-  bud: Record<string, any>
-  manifest?: Record<string, any>
   mode: 'development' | 'production'
+  bud: Record<string, any>
+  config: Record<string, File>
+  env: Record<string, string | undefined>
+  extensions: {
+    builtIn: Array<string>
+    discovered: Array<string>
+  }
   args: Partial<{
-    basedir: string
-    browser: string | boolean
-    cache: `filesystem` | `memory` | true | false
-    ci: boolean
-    clean: boolean
-    debug: boolean
-    devtool:
+    basedir?: string
+    browser?: string | boolean
+    cache?: `filesystem` | `memory` | true | false
+    ci?: boolean
+    clean?: boolean
+    debug?: boolean
+    devtool?:
       | false
       | `eval`
       | `eval-cheap-source-map`
@@ -43,60 +49,48 @@ export interface BaseContext {
       | `hidden-cheap-source-map`
       | `hidden-cheap-module-source-map`
       | `hidden-source-map`
-    discovery: boolean
-    dry: boolean
-    output: string
-    editor: boolean
-    esm: boolean
-    flush: boolean
-    hash: boolean
-    html: boolean | string
-    immutable: boolean
-    indicator: boolean
-    input: string
-    level: Array<Boolean>
-    log: boolean
-    manifest: boolean
-    minimize: boolean
-    mode: `production` | `development`
-    modules: string
-    notify: boolean
-    overlay: boolean
-    publicPath: string
-    reload: boolean
-    runtime: `single` | `multiple` | boolean
-    splitChunks: boolean
-    storage: string
-    target: Array<string>
+    discovery?: boolean
+    dry?: boolean
+    output?: string
+    editor?: string | boolean
+    esm?: boolean
+    filter?: Array<string>
+    flush?: boolean
+    hash?: boolean
+    html?: boolean | string
+    immutable?: boolean
+    indicator?: boolean
+    input?: string
+    log?: boolean
+    manifest?: boolean
+    minimize?: boolean
+    mode?: `production` | `development`
+    modules?: string
+    notify?: boolean
+    overlay?: boolean
+    publicPath?: string
+    reload?: boolean
+    runtime?: `single` | `multiple` | boolean
+    splitChunks?: boolean
+    storage?: string
+    target?: Array<string>
+    verbose?: boolean
   }>
-  config: Record<string, ConfigDescription>
-  extensions?: {
-    builtIn?: Array<string>
-    discovered?: Array<string>
-  }
+  manifest: Record<string, any>
   services: Array<string>
-  env: Record<string, string | undefined>
+  logger: Logger
+  root?: Bud
+  dependsOn?: Array<string>
 }
 
-export interface InstanceContext extends BaseContext {
+export interface CommandContext extends BudContext {
   stdin: Readable
   stdout: Writable
   stderr: Writable
   colorDepth: number
 }
 
-export type BaseOverrides = {
-  [K in keyof BaseContext]?: Partial<BaseContext[K]>
-}
-
-export type InstanceOverrides = {
-  [K in keyof InstanceContext]?: InstanceContext[K]
-}
-
-export type Context = BaseContext & InstanceContext
-export type Overrides = BaseOverrides & InstanceOverrides
-
-export interface ConfigDescription {
+export interface File extends Omit<InspectResult, `type`> {
   name: string
   path: string
   bud: boolean
@@ -105,4 +99,12 @@ export interface ConfigDescription {
   extension: string | null
   type: `production` | `development` | `base`
   module: any
+  file: boolean
+  dir: boolean
+  symlink: boolean
+  size: number
+  md5: string
+  mode: number
 }
+
+export type {BudContext as Context}

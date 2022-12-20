@@ -1,6 +1,6 @@
 import type {FSWatcher, WatchOptions} from 'node:fs'
 
-import type {Logger} from '../../../logger/index.js'
+import type {Bud} from '../../../index.js'
 
 /**
  * Watcher
@@ -8,6 +8,10 @@ import type {Logger} from '../../../logger/index.js'
  * @public
  */
 export interface Watcher {
+  _app: () => Bud
+
+  app: Bud
+
   /**
    * Instance
    *
@@ -30,7 +34,7 @@ export interface Watcher {
    *
    * @public
    */
-  logger: Logger['instance']
+  logger: any
 
   /**
    * Initialize watch files

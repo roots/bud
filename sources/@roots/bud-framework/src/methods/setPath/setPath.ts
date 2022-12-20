@@ -5,20 +5,14 @@ import {isString, isUndefined} from '@roots/bud-support/lodash-es'
 import type {Bud} from '../../bud.js'
 import type * as Locations from '../../types/registry/locations.js'
 
-export interface setPath {
-  <T extends `${keyof Locations.Sync & string}`>(
-    arg1: T | Partial<Record<T, string>>,
-    arg2?: string,
-  ): Bud
-}
+export type Parameters =
+  | [string]
+  | [string, string]
+  | [Record<string, string>]
 
-type Value =
-  | `${keyof Locations.Sync & string}`
-  | `@file`
-  | `@name`
-  | `${keyof Locations.Sync & string}/${string}`
-  | `./${string}`
-  | `/${string}`
+export interface setPath {
+  (...parameters: Parameters): Bud
+}
 
 /**
  * Set a {@link Locations} value
@@ -42,35 +36,32 @@ type Value =
  *
  * @public
  */
-export const setPath: setPath = function (arg1, arg2) {
-  const app = this as Bud
+export const setPath: setPath = function (this: Bud, ...parameters) {
+  const [arg1, arg2] = parameters
 
   if (isString(arg1) && isUndefined(arg2)) {
-    Object.assign(app.context, {basedir: normalize(arg1)})
-    return app
+    Object.assign(this.context, {basedir: normalize(arg1)})
+    return this
   }
 
-  const input = isString(arg1) ? {[arg1]: arg2} : arg1
-
-  Object.entries(input).map(
-    ([key, value]: [`${keyof Locations.Sync & string}`, Value]) => {
+  Object.entries(isString(arg1) ? {[arg1]: arg2} : arg1).map(
+    ([key, value]: [`${keyof Locations.Sync & string}`, string]) => {
       if (!key.startsWith(`@`)) {
         throw new Error(
           `bud path keys should start with \`@\`. Please change \`${key}\` to \`@${key}\``,
         )
       }
 
-      const absolutePath = app.path(value)
-
+      const absolutePath = this.path(value)
       if (!absolutePath.startsWith(`/`))
         throw new Error(
           `the final result of a bud.setPath transform was not absolute: ${key} => ${value} => ${absolutePath}`,
         )
 
-      app.hooks.on(`location.${key}`, app.path(value))
-      app.info(`${key} set to ${value}`)
+      this.hooks.on(`location.${key}`, this.path(value))
+      this.log(`${key} set to ${value}`)
     },
   )
 
-  return app
+  return this
 }

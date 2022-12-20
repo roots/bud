@@ -257,8 +257,8 @@ export class Extension<
 
     Object.defineProperty(this, `logger`, {
       get: () =>
-        app.logger.instance.scope(
-          ...this.app.logger.scope,
+        app.context.logger.make(
+          this.app.label,
           this.label ?? `anonymous extension`,
         ),
     })
@@ -346,7 +346,11 @@ export class Extension<
   public async _buildBefore() {
     const enabled = await this.isEnabled()
     if (isUndefined(this.buildBefore) || enabled === false) return
-    this.logger.log(`buildBefore`)
+    this.logger.info(
+      `buildBefore:`,
+      this.label ?? this.constructor.name ?? `anonymous extension`,
+    )
+
     this.meta[`buildBefore`] = true
 
     await this.buildBefore(this.app, this.options)
@@ -361,6 +365,10 @@ export class Extension<
   public async _buildAfter() {
     const enabled = await this.isEnabled()
     if (isUndefined(this.buildAfter) || enabled === false) return
+    this.logger.info(
+      `buildAfter:`,
+      this.label ?? this.constructor.name ?? `anonymous extension`,
+    )
     this.logger.log(`buildAfter`)
     this.meta[`buildAfter`] = true
 
@@ -390,19 +398,15 @@ export class Extension<
    */
   @bind
   public async _make() {
-    this.logger.info(`trying to make`, this.label)
-
     if (isUndefined(this.make) && isUndefined(this.plugin)) {
-      this.logger.info(`no make, apply or plugin prop found. skipping.`)
       return false
     }
 
     const enabled = await this.isEnabled()
-
     if (enabled === false) {
-      this.logger.info(`${this.label} is disabled. skipping.`)
       return false
     }
+
     try {
       if (!isUndefined(this.apply)) {
         this.logger.info(`apply prop found. return extension instance`)
@@ -459,9 +463,7 @@ export class Extension<
       | ExtensionOptions
       | ((options: ExtensionOptions) => ExtensionOptions),
   ): this {
-    this.optionsMap = isFunction(value)
-      ? value(this.options ?? ({} as ExtensionOptions))
-      : value
+    this.optionsMap = isFunction(value) ? value(this.options) : value
 
     return this
   }
@@ -650,8 +652,8 @@ export class Extension<
    * @decorator `@bind`
    */
   @bind
-  public enable() {
-    this.enabled = true
+  public enable(enabled = true) {
+    this.enabled = enabled
   }
 
   /**

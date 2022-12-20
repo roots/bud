@@ -11,8 +11,8 @@ export interface experiments {
 }
 
 export const experiments: experiments = function (this: Bud, input): Bud {
-  this.hooks.on(`build.experiments`, experiments => ({
-    ...(experiments ?? {}),
+  this.hooks.on(`build.experiments`, (experiments = {}) => ({
+    ...experiments,
     ...input,
   }))
 

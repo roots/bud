@@ -8,7 +8,7 @@ import type {
 import {bind} from '@roots/bud-support/decorators'
 import {isFunction, isString} from '@roots/bud-support/lodash-es'
 
-import type Item from '../item/index.js'
+import type {Item} from '../item/index.js'
 import Base from '../shared/base.js'
 
 export {Interface, Options, Output, Parser}
@@ -18,43 +18,38 @@ export {Interface, Options, Output, Parser}
  *
  * @public
  */
-export default class Rule extends Base implements Interface {
+class Rule extends Base implements Interface {
   /**
-   * Rule test
-   *
    * @public
    */
-  public test: Interface['test']
+  public test: Options['test']
 
   /**
-   * {@inheritDoc @roots/bud-framework#Rule.Abstract.use}
-   *
    * @public
    */
-  public use?: Array<`${keyof Items & string}` | Item>
+  public use?: Options[`use`]
 
   /**
-   * Include paths
+   * @public
    */
   public include?: Options['include']
 
   /**
-   * {@inheritDoc @roots/bud-framework#Rule.Abstract.exclude}
-   *
    * @public
    */
   public exclude?: Options['exclude']
 
   /**
-   * {@inheritDoc @roots/bud-framework#Rule.Abstract."type"}
-   *
    * @public
    */
   public type?: Interface['type']
 
   /**
-   * Generator factory
-   *
+   * @public
+   */
+  public resourceQuery?: Interface['resourceQuery']
+
+  /**
    * @public
    */
   public parser?: Interface['parser']
@@ -77,13 +72,13 @@ export default class Rule extends Base implements Interface {
 
     if (!options) return
 
-    options.test && this.setTest(options.test)
-    options.use && this.setUse(options.use)
-    options.include && this.setInclude(options.include)
-    options.exclude && this.setExclude(options.exclude)
-    options.type && this.setType(options.type)
-    options.parser && this.setParser(options.parser)
-    options.generator && this.setGenerator(options.generator)
+    this.setTest(options.test)
+    this.setUse(options.use)
+    this.setInclude(options.include)
+    this.setExclude(options.exclude)
+    this.setType(options.type)
+    this.setParser(options.parser)
+    this.setGenerator(options.generator)
   }
 
   /**
@@ -106,8 +101,8 @@ export default class Rule extends Base implements Interface {
    * @decorator `@bind`
    */
   @bind
-  public setTest(test: Interface['test']): this {
-    this.test = this.wrap(test)
+  public setTest(test: Options['test']): this {
+    this.test = test
     return this
   }
 
@@ -153,13 +148,9 @@ export default class Rule extends Base implements Interface {
    */
   @bind
   public setUse(
-    input:
-      | Array<`${keyof Items & string}` | Item>
-      | ((
-          use: Array<`${keyof Items & string}` | Item>,
-        ) => Array<`${keyof Items & string}` | Item>),
+    use: Options[`use`] | ((use: Options[`use`]) => Options[`use`]),
   ): this {
-    this.use = isFunction(input) ? input(this.getUse() ?? []) : input
+    this.use = isFunction(use) ? use(this.getUse()) : use
     return this
   }
 
@@ -170,8 +161,10 @@ export default class Rule extends Base implements Interface {
    * @decorator `@bind`
    */
   @bind
-  public getInclude(): Options['include'] {
-    return this.include.map(this.unwrap)
+  public getInclude(): Array<string | RegExp> {
+    return this.include?.map(item =>
+      isFunction(item) ? item(this.app) : item,
+    )
   }
 
   /**
@@ -181,15 +174,31 @@ export default class Rule extends Base implements Interface {
    * @decorator `@bind`
    */
   @bind
-  public setInclude(
-    includes:
-      | Options['include']
-      | ((includes: Options['include']) => Options['include']),
-  ): this {
-    if (!this.include) this.include = []
-
+  public setInclude(includes: Options['include']): this {
     this.include = isFunction(includes) ? includes(this.include) : includes
+    return this
+  }
 
+  /**
+   * Get include value
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public getResourceQuery(): Output[`resourceQuery`] {
+    return this.resourceQuery
+  }
+
+  /**
+   * Set include value
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public setResourceQuery(query: Options['resourceQuery']): this {
+    this.resourceQuery = query
     return this
   }
 
@@ -200,8 +209,8 @@ export default class Rule extends Base implements Interface {
    * @decorator `@bind`
    */
   @bind
-  public getExclude(): Interface['exclude'] {
-    return this.exclude.map(this.unwrap)
+  public getExclude(): Array<string | RegExp> {
+    return this.exclude?.map(this.unwrap)
   }
 
   /**
@@ -216,11 +225,7 @@ export default class Rule extends Base implements Interface {
       | Options['exclude']
       | ((excludes: Options['exclude']) => Options['exclude']),
   ): this {
-    if (!this.exclude) this.exclude = []
-
-    if (isFunction(excludes)) this.exclude = excludes(this.exclude)
-    else this.exclude = excludes
-
+    this.exclude = isFunction(excludes) ? excludes(this.exclude) : excludes
     return this
   }
 
@@ -231,7 +236,7 @@ export default class Rule extends Base implements Interface {
    * @decorator `@bind`
    */
   @bind
-  public getType() {
+  public getType(): string {
     return this.unwrap(this.type)
   }
 
@@ -242,7 +247,7 @@ export default class Rule extends Base implements Interface {
    * @decorator `@bind`
    */
   @bind
-  public setType(type): this {
+  public setType(type: Options[`type`]): this {
     this.type = type
     return this
   }
@@ -281,26 +286,26 @@ export default class Rule extends Base implements Interface {
    */
   @bind
   public toWebpack(): Output {
-    const output: Output = {test: this.getTest()}
-
-    this.include && Object.assign(output, {include: this.getInclude()})
-    this.exclude && Object.assign(output, {exclude: this.getExclude()})
-    this.type && Object.assign(output, {type: this.getType()})
-    this.parser && Object.assign(output, {parser: this.getParser()})
-    this.generator &&
-      Object.assign(output, {generator: this.getGenerator()})
-
-    if (this.getUse()) {
-      Object.assign(output, {
-        use: this.getUse()
-          .map(item =>
-            isString(item) ? this.app.build.items[item] : item,
-          )
-          .map(item => item.toWebpack()),
-      })
-    }
+    const output: Output = Object.entries({
+      test: this.getTest(),
+      type: this.getType(),
+      parser: this.getParser(),
+      generator: this.getGenerator(),
+      use: this.getUse()
+        ?.map(item => (isString(item) ? this.app.build.items[item] : item))
+        .map(item => item.toWebpack()),
+      resourceQuery: this.getResourceQuery(),
+      include: this.getInclude(),
+      exclude: this.getExclude(),
+    }).reduce((a, [k, v]) => {
+      if (v === undefined) return a
+      return {...a, [k]: v}
+    }, {})
 
     this.app.info(output)
+
     return output
   }
 }
+
+export {Rule}

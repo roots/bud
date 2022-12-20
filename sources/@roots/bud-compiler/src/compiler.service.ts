@@ -15,13 +15,6 @@ import type {
  */
 export class Compiler extends Service implements Contract.Service {
   /**
-   * Service label
-   *
-   * @public
-   */
-  public static override label = `compiler`
-
-  /**
    * Compiler implementation
    *
    * @public
@@ -83,40 +76,52 @@ export class Compiler extends Service implements Contract.Service {
       )
     }
 
-    await this.app.hooks.fire(`compiler.before`)
+    try {
+      await this.app.hooks.fire(`compiler.before`)
+    } catch (error) {
+      throw error
+    }
+
+    this.app.context.logger.timeEnd(`initialize`)
 
     if (this.app.context.args.dry) {
       this.logger.log(`running in dry mode. exiting early.`)
       return
     }
 
-    this.instance = this.implementation(this.config)
+    try {
+      try {
+        this.instance = this.implementation(this.config)
+      } catch (error) {
+        throw error
+      }
 
-    this.app.isDevelopment &&
-      this.instance.hooks.done.tap(
-        `${this.app.label}-dev-handle`,
-        this.handleStats,
+      this.app.isDevelopment &&
+        this.instance.hooks.done.tap(
+          `${this.app.label}-dev-handle`,
+          this.handleStats,
+        )
+
+      this.instance.hooks.done.tap(this.app.label, async stats => {
+        this.handleStats(stats)
+        await this.app.hooks.fire(`compiler.close`)
+      })
+
+      this.instance.compilers.forEach(compiler =>
+        compiler.hooks.afterEmit.tapAsync(
+          this.app.label,
+          async (_stats, callback) => {
+            try {
+              await this.app.hooks.fire(`compiler.after`)
+            } catch (error) {}
+
+            return callback()
+          },
+        ),
       )
 
-    this.instance.hooks.done.tap(this.app.label, async stats => {
-      this.handleStats(stats)
-      await this.app.hooks.fire(`compiler.close`)
-    })
-
-    this.instance.compilers.forEach(compiler =>
-      compiler.hooks.afterEmit.tapAsync(
-        this.app.label,
-        async (stats, callback) => {
-          try {
-            await this.app.hooks.fire(`compiler.after`)
-          } catch (error) {}
-
-          return callback()
-        },
-      ),
-    )
-
-    return this.instance
+      return this.instance
+    } catch (error) {}
   }
 
   /**
@@ -141,7 +146,7 @@ export class Compiler extends Service implements Contract.Service {
   @bind
   public handleStats(stats: MultiStats) {
     this.stats = stats
-    this.app.dashboard.stats(stats)
+    this.app.dashboard.update(stats)
   }
 
   /**
@@ -166,9 +171,8 @@ export class Compiler extends Service implements Contract.Service {
     this.app.isDevelopment &&
       this.app.server.appliedMiddleware?.hot?.publish({error})
 
-    if (this.app.isProduction) {
-      process.exitCode = 1
-      this.app.error(error)
+    if (error && this.app.isProduction) {
+      throw error?.message ?? error
     }
   }
 }

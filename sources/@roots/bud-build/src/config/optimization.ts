@@ -1,15 +1,19 @@
-import type {Bud} from '@roots/bud-framework'
+import type {Factory} from './index.js'
 
-import type {ValueFactory} from './builder.js'
-
-export const optimization: ValueFactory<`optimization`> = async (
-  app: Bud,
-) =>
-  app.hooks.filter(`build.optimization`, {
-    emitOnErrors: app.hooks.filter(`build.optimization.emitOnErrors`),
-    minimize: app.hooks.filter(`build.optimization.minimize`),
-    minimizer: app.hooks.filter(`build.optimization.minimizer`, [`...`]),
-    moduleIds: app.hooks.filter(`build.optimization.moduleIds`),
-    runtimeChunk: app.hooks.filter(`build.optimization.runtimeChunk`),
-    splitChunks: app.hooks.filter(`build.optimization.splitChunks`),
+export const optimization: Factory<`optimization`> = async ({
+  hooks: {filter},
+  isDevelopment,
+  isProduction,
+}) =>
+  filter(`build.optimization`, {
+    emitOnErrors: filter(`build.optimization.emitOnErrors`, isDevelopment),
+    minimize: filter(`build.optimization.minimize`, isProduction),
+    minimizer: filter(`build.optimization.minimizer`, [`...`]),
+    moduleIds: filter(`build.optimization.moduleIds`, `named`),
+    removeEmptyChunks: filter(
+      `build.optimization.removeEmptyChunks`,
+      true,
+    ),
+    runtimeChunk: filter(`build.optimization.runtimeChunk`, false),
+    splitChunks: filter(`build.optimization.splitChunks`, false),
   })

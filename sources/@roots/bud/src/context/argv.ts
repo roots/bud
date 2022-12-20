@@ -1,12 +1,18 @@
 import {resolve} from 'node:path'
 
-export const args: Array<string> = process.argv.slice(2)
+export const argv = process.argv.slice(2)
 
-const basedirFind = args.findIndex(arg => arg == `--basedir`)
+export const has = (flag: string) => argv.some(arg => arg === `--${flag}`)
 
-export const basedir =
-  basedirFind !== -1
-    ? resolve(process.cwd(), args[basedirFind + 1])
-    : process.cwd()
+export const position = (flags: string) =>
+  argv.findIndex(arg => arg === flags)
 
-export const noDiscovery = args.some(arg => arg === `--no-discovery`)
+const basedirIndex = has(`--cwd`)
+  ? position(`--cwd`)
+  : has(`--basedir`)
+  ? position(`--basedir`)
+  : undefined
+
+export const basedir = basedirIndex
+  ? resolve(process.cwd(), argv[basedirIndex + 1])
+  : process.cwd()

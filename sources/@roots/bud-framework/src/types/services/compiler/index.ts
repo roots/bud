@@ -60,6 +60,8 @@ interface Service extends BaseService {
 
   handleStats(stats: Stats & MultiStats): void
 
+  onClose(): void
+
   onError(error: any): void
 }
 

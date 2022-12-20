@@ -52,7 +52,7 @@
     }
   },
   "devDependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud",
+    "@roots/bud-extensions": "workspace:sources/@roots/bud-extensions",
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.18.6",
     "webpack": "5.75.0"

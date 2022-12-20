@@ -43,6 +43,8 @@
     "./directories": "./lib/directories.js",
     "./filesystem": "./lib/filesystem.js",
     "./json": "./lib/json.js",
+    "./s3": "./lib/s3/index.js",
+    "./s3/*": "./lib/s3/*.js",
     "./yml": "./lib/yml.js"
   },
   "typesVersions": {
@@ -58,6 +60,12 @@
       ],
       "json": [
         "./lib/json.d.ts"
+      ],
+      "s3": [
+        "./lib/s3/index.d.ts"
+      ],
+      "s3/*": [
+        "./lib/s3/*.d.ts"
       ],
       "yml": [
         "./lib/yml.d.ts"

@@ -7,7 +7,11 @@ import {
 } from '@roots/bud-framework/extension/decorators'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 
-import InterpolateHtmlPlugin from './interpolate-html-webpack-plugin.js'
+import InterpolateHtmlPlugin, {
+  Options,
+} from './interpolate-html-webpack-plugin.js'
+
+export type {Options}
 
 /**
  * BudInterpolateHTMLPlugin
@@ -16,10 +20,10 @@ import InterpolateHtmlPlugin from './interpolate-html-webpack-plugin.js'
  * @decorator `@label`
  */
 @label(`@roots/bud-extensions/interpolate-html-webpack-plugin`)
-@options({})
+@options<Options>({})
 @disabled
 export default class BudInterpolateHtmlPlugin extends Extension<
-  Record<string, RegExp | string>,
+  Options,
   InterpolateHtmlPlugin
 > {
   /**

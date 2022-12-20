@@ -1,29 +1,22 @@
-import type {Bud, Items, Loaders, Rules} from '@roots/bud-framework'
-import * as Service from '@roots/bud-framework/service'
+import type {Items, Loaders, Rules} from '@roots/bud-framework'
+import {Service} from '@roots/bud-framework/service'
 import type * as Base from '@roots/bud-framework/services/build'
 import {bind} from '@roots/bud-support/decorators'
 import {isFunction, isUndefined} from '@roots/bud-support/lodash-es'
 import type {Configuration} from '@roots/bud-support/webpack'
 
-import type {ValueFactory} from './config/builder.js'
-import * as items from './handlers/items.js'
-import * as loaders from './handlers/loaders.js'
-import * as rules from './handlers/rules/rules.js'
-import Item from './item/index.js'
-import Loader from './loader/index.js'
-import Rule, {Options as RuleOptions} from './rule/index.js'
+import type {Records} from './config/index.js'
+import {register} from './handlers/register.js'
+import {Item} from './item/index.js'
+import {Loader} from './loader/index.js'
+import {Options as RuleOptions, Rule} from './rule/index.js'
 
 /**
  * Webpack configuration builder class
  *
  * @public
  */
-export default class Build extends Service.Base implements Base.Service {
-  /**
-   * @public
-   */
-  public static override label = `build`
-
+export class Build extends Service implements Base.Service {
   /**
    * @public
    */
@@ -63,43 +56,7 @@ export default class Build extends Service.Base implements Base.Service {
    * @public
    * @decorator `@bind`
    */
-  @bind
-  public override async register(bud: Bud) {
-    Object.entries(loaders).map(
-      <K extends keyof Loaders & string>([key, loaderFactory]: [
-        K,
-        (bud: Bud) => Loaders[K],
-      ]) => {
-        const value = loaderFactory(bud)
-        this.setLoader(key, value)
-      },
-    )
-
-    Object.entries(items).map(
-      <K extends keyof Items & string>([key, itemFactory]: [
-        K,
-        (bud: Bud) => Items[K],
-      ]) => {
-        const value = itemFactory(bud)
-        this.setItem(key, value as any)
-      },
-    )
-
-    this.items.precss = bud.isProduction
-      ? this.items.minicss
-      : this.items.style
-
-    Object.entries(rules)
-      .reverse()
-      .map(
-        <K extends keyof Rules & string>([key, ruleFactory]: [
-          K,
-          (bud: Bud) => Rules[K],
-        ]) => {
-          this.setRule(key, ruleFactory(bud))
-        },
-      )
-  }
+  public override register? = register.bind(this)
 
   /**
    * Make webpack configuration
@@ -117,18 +74,16 @@ export default class Build extends Service.Base implements Base.Service {
       throw error
     }
 
-    await import(`./config/builder.js`).then(
-      async (obj: {
-        [K in keyof Configuration as `${K & string}`]: ValueFactory<K>
-      }) =>
+    await import(`./config/index.js`).then(
+      async (records: Records) =>
         await Promise.all(
-          Object.entries(obj).map(async ([prop, factory]) => {
+          Object.entries(records).map(async ([prop, factory]) => {
             try {
               const value = await factory(this.app)
               if (isUndefined(value)) return
-              this.logger.success(`built`, prop)
-              this.logger.info(value)
+
               this.config[prop] = value
+              this.logger.success(`built`, prop)
             } catch (error) {
               throw error
             }
@@ -155,18 +110,17 @@ export default class Build extends Service.Base implements Base.Service {
   @bind
   public setRule<K extends `${keyof Rules & string}`>(
     name: K,
-    options?: RuleOptions | Rule,
+    input?: RuleOptions | Rule,
   ): this {
-    if (options instanceof Rule) {
-      this.rules[name] = options
-      this.logger.info(`set rule`, name, this.rules[name])
-      return this
-    }
+    this.rules[name] =
+      input instanceof Rule
+        ? input
+        : isFunction(input)
+        ? input(this.makeRule())
+        : this.makeRule(input as any)
 
-    this.rules[name] = isFunction(options)
-      ? options(this.makeRule())
-      : this.makeRule(options as any)
-    this.logger.info(`set rule`, name, this.rules[name])
+    this.logger.success(`set rule:`, name)
+    this.logger.info(`\n`, this.rules[name])
 
     return this
   }

@@ -20,14 +20,6 @@ export default class Acorn extends Extension {
    */
   @bind
   public override async register(bud: Bud) {
-    /**
-     * Override output directory for svg assets
-     *
-     * `@roots/bud-build` places them, by default, in `@dist/svg/`
-     */
-    bud.build.rules.svg.setGenerator(this.svgGenerator)
-    this.logger.success(`set svg generator path`)
-
     bud.extensions
       .get(`@roots/bud-entrypoints`)
       .setOption(`publicPath`, ``)
@@ -45,16 +37,5 @@ export default class Acorn extends Extension {
       bud.hooks.action(`compiler.close`, eventCompilerDone)
       this.logger.success(`registered compiler.close callback`)
     }
-  }
-
-  /**
-   * SVG generator
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public svgGenerator({path, relPath}) {
-    return {filename: relPath(path(`@dist`), path(`@dist/images/@name`))}
   }
 }

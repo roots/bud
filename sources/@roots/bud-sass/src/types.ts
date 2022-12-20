@@ -1,3 +1,5 @@
+/// <reference path="../../bud-build/lib/index.d.ts" />
+
 import type {Build} from '@roots/bud-framework/services'
 
 import type {BudSass} from './extension.js'

@@ -1,22 +1,12 @@
-import {join, resolve} from 'node:path'
+import {join} from 'node:path'
 
-import BaseCommand from '@roots/bud/cli/commands/base'
+import BudCommand from '@roots/bud/cli/commands/bud'
+import {dry} from '@roots/bud/cli/decorators/command.dry'
 import {Command, Option} from '@roots/bud-support/clipanion'
-import execa from '@roots/bud-support/execa'
 
-export class BudTailwindCommand extends BaseCommand {
-  /**
-   * Command paths
-   *
-   * @public
-   */
+@dry
+export class BudTailwindCommand extends BudCommand {
   public static override paths = [[`tailwindcss`]]
-
-  /**
-   * Comand usage
-   *
-   * @public
-   */
   public static override usage = Command.Usage({
     category: `tools`,
     description: `tailwindcss CLI passthrough`,
@@ -24,36 +14,20 @@ export class BudTailwindCommand extends BaseCommand {
       [`View tailwindcss usage information`, `$0 tailwindcss --help`],
     ],
   })
-
-  public override dry = true
-
-  public override notify = false
-
+  public declare binPath: string | undefined
+  public bin = Option.String(`--bin`, undefined, {description: `bin path`})
   public options = Option.Proxy({name: `tailwindcss passthrough options`})
 
-  /**
-   * Command execute
-   *
-   * @public
-   */
-  public override async runCommand() {
-    this.app.context.config = {}
-    const tailwindPath = await this.app.module.getDirectory(`tailwindcss`)
-    const bin = join(tailwindPath, `lib`, `cli.js`)
+  public override async execute() {
+    await this.makeBud(this)
 
-    if (!this.options?.length)
-      this.options = [
-        `-i`,
-        this.app.path(`@src`, `index.css`),
-        `o`,
-        this.app.path(`@dist`),
-      ]
+    const path =
+      this.bin ?? (await this.bud.module.getDirectory(`tailwindcss`))
 
-    const child = execa(`node`, [bin, ...(this.options ?? [])], {
-      cwd: resolve(process.cwd(), this.basedir ?? `./`),
+    this.bin = join(path, `lib`, `cli.js`)
+
+    await this.bud.sh([`node`, this.bin, ...(this.options ?? [])], {
+      cwd: this.bud.path(),
     })
-    child.stdout.pipe(process.stdout)
-    child.stderr.pipe(process.stderr)
-    await child
   }
 }

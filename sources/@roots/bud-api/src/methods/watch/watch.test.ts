@@ -13,10 +13,8 @@ describe(`bud.watch`, () => {
       watch = subject.bind(bud)
     })
 
-    it(`is a function`, () => expect(watch).toBeInstanceOf(Function))
-
-    it(`adds watch files`, () => {
-      watch(`1/*.js`)
+    it(`adds watch files`, async () => {
+      await watch(`1/*.js`)
 
       const value = bud.hooks.filter(`dev.watch.files`)
 
@@ -28,7 +26,7 @@ describe(`bud.watch`, () => {
       )
     })
 
-    it(`adds files even if none have ever been added`, () => {
+    it(`adds files even if none have ever been added`, async () => {
       let result
 
       // @ts-ignore
@@ -37,7 +35,9 @@ describe(`bud.watch`, () => {
         return bud
       })
 
-      watch(`1/*.js`)
+      await watch(`1/*.js`)
+
+      // @ts-ignore
       expect(Array.from(result)).toEqual(
         expect.arrayContaining([`1/*.js`]),
       )
@@ -45,14 +45,22 @@ describe(`bud.watch`, () => {
   })
 
   describe(`in production`, () => {
+    let bud: Bud
+    let watch: subject
+
+    beforeEach(async () => {
+      bud = await factory({mode: `production`})
+      watch = subject.bind(bud)
+    })
+
     it(`should not run`, async () => {
-      const bud = await factory({mode: `production`})
+      expect(bud.mode).toBe(`production`)
+
       const watch = subject.bind(bud)
 
-      watch(`1/*.js`)
+      await watch(`1/*.js`)
 
       const value = bud.hooks.filter(`dev.watch.files`)
-
       expect(value).toBeUndefined()
     })
   })

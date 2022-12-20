@@ -18,12 +18,6 @@ describe(`bud.minimize`, () => {
     expect(onSpy).toHaveBeenCalled()
   })
 
-  it(`should call bud.hooks.filter when called`, () => {
-    const filterSpy = vi.spyOn(bud.hooks, `filter`)
-    minimize()
-    expect(filterSpy).toHaveBeenCalled()
-  })
-
   it(`should call mockExtension.enable when called with truthy value`, () => {
     const terser = bud.extensions.get(`@roots/bud-terser`)
     const enableSpy = vi.spyOn(terser, `enable`)
@@ -41,20 +35,20 @@ describe(`bud.minimize`, () => {
   it(`should call bud.success to log param`, () => {
     const logSpy = vi.spyOn(bud, `success`)
     minimize()
-    expect(logSpy).toHaveBeenCalledWith(`minimize enabled`)
+    expect(logSpy).toHaveBeenCalledWith(`minimize`, true)
   })
 
   it(`should call bud.success to log param`, () => {
     const logSpy = vi.spyOn(bud, `success`)
     minimize(true)
-    expect(logSpy).toHaveBeenCalledWith(`minimize enabled`)
+    expect(logSpy).toHaveBeenCalledWith(`minimize`, true)
   })
 
   it(`should call bud.success to log param`, () => {
     const logSpy = vi.spyOn(bud, `success`)
 
     minimize(false)
-    expect(logSpy).toHaveBeenCalledWith(`minimize disabled`)
+    expect(logSpy).toHaveBeenCalledWith(`minimize`, false)
   })
 
   it(`should return bud`, () => {

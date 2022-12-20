@@ -23,7 +23,6 @@ export async function handleNamed(bud: Bud, input: Parameters) {
     )
 
   const current = bud.hooks.filter(`build.entry`, {})
-
   bud.hooks.on(`build.entry`, {
     ...current,
     [signifier.data]: {

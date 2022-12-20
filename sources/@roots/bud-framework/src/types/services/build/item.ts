@@ -59,7 +59,7 @@ export interface Item extends Base {
    *
    * @public
    */
-  options: Item.Options | ((app: Bud) => Item.Options)
+  options: Item.Options | ((app: Partial<Bud>) => Item.Options)
 
   /**
    * Set {@link Item.Options}

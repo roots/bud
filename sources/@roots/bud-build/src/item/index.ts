@@ -4,7 +4,7 @@ import {bind} from '@roots/bud-support/decorators'
 import {isString} from '@roots/bud-support/lodash-es'
 import {basename} from 'path'
 
-import Loader from '../loader/index.js'
+import {Loader} from '../loader/index.js'
 import Base from '../shared/base.js'
 
 export type ConstructorOptions = Build.Item.ConstructorOptions
@@ -168,8 +168,14 @@ class Item extends Base implements Build.Item {
       this.app.error(`error in ${this.ident}`, `no loader registered`)
     }
 
-    return output
+    return Object.entries(output).reduce(
+      (output, [key, value]) => ({
+        ...(output ?? {}),
+        ...(value ? {[key]: value} : {}),
+      }),
+      {},
+    )
   }
 }
 
-export {Item as default}
+export {Item}

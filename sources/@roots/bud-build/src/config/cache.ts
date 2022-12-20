@@ -1,4 +1,4 @@
-import type {ValueFactory} from './builder.js'
+import type {Factory} from './index.js'
 
-export const cache: ValueFactory<`cache`> = async app =>
-  app.hooks.filter(`build.cache`, app.cache.configuration)
+export const cache: Factory<`cache`> = async ({cache, hooks}) =>
+  hooks.filter(`build.cache`, cache.configuration)

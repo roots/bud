@@ -9,7 +9,7 @@ import {
 
 import {
   assignOptions,
-  assignOptionsFunction,
+  assignOptionsCallback,
   assignPort,
   assignReplacements,
   assignUrl,
@@ -44,7 +44,7 @@ export const proxy: proxy = async function (this: Bud, input, options) {
 
   if (isString(input) || isUrl(input)) assignUrl(this, input)
   if (isNumber(input)) assignPort(this, input)
-  if (isFunction(input)) assignOptionsFunction(this, input)
+  if (isFunction(input)) assignOptionsCallback(this, input)
   if (isOptionsObject(input)) assignOptions(this, input)
 
   if (isArray(options) || isFunction(options))

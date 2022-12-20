@@ -1,9 +1,10 @@
+import {camelCase, set} from '@roots/bud-support/lodash-es'
+
 import type {Bud} from '../bud.js'
-import {Logger} from '../logger/index.js'
 import * as methods from '../methods/index.js'
 import {Module} from '../module.js'
-import * as Process from '../process.js'
-import type * as Service from '../service.js'
+import type {Service} from '../service.js'
+import FS from '../services/fs.js'
 import type * as Options from '../types/options/index.js'
 import type * as Registry from '../types/registry/index.js'
 import {initialize} from './init.js'
@@ -25,7 +26,7 @@ export const lifecycleHookHandles: Partial<
   `compiler.after`,
 ]
 
-export const lifecycleMethods: Partial<Array<keyof Service.Contract>> = [
+export const lifecycleMethods: Partial<Array<keyof Service>> = [
   `init`,
   `bootstrap`,
   `bootstrapped`,
@@ -63,7 +64,7 @@ export const DEVELOPMENT_SERVICES: Array<string> = [`@roots/bud-server`]
  * @public
  */
 export const LIFECYCLE_EVENT_MAP: Partial<
-  Record<keyof Registry.EventsStore, keyof Service.Contract>
+  Record<keyof Registry.EventsStore, keyof Service>
 > = {
   init: `init`,
   bootstrap: `bootstrap`,
@@ -80,21 +81,12 @@ export const LIFECYCLE_EVENT_MAP: Partial<
 }
 
 /**
- * Bind framework methods
- * @public
- */
-const bindFrameworkMethods = (app: Bud) =>
-  Object.entries(methods).map(([key, method]) => {
-    app[key] = method.bind(app)
-  })
-
-/**
  * Create filter for validating services
  *
  * @param app - Bud instance
  * @returns filter fn
  */
-const filterFrameworkServices =
+const filterServices =
   (app: Bud) =>
   (signifier: string): Boolean =>
     (app.isDevelopment || !DEVELOPMENT_SERVICES.includes(signifier)) &&
@@ -105,25 +97,27 @@ const filterFrameworkServices =
  *
  * @public
  */
-const importAndBindFrameworkServices =
+const instantiateServices =
   (app: Bud) =>
   async (signifier: string): Promise<void> => {
-    const pkg = await import(signifier)
-    const imported = pkg?.default ?? pkg
-    app[imported.label] = new imported(() => app)
+    const importedModule = await import(signifier)
+    const imported = importedModule?.default ?? importedModule
+    const service = new imported(() => app)
+    const label = camelCase(service.constructor.name)
 
-    app.success(`imported`, imported.label)
-    app.services.push(imported.label)
+    set(app, label, service)
+    app.success(`instantiated`, label, `from`, signifier)
+    app.services.push(label)
   }
 
-/**
- * Initialize logger and log initial context
- * @public
- */
-const initializeLoggerAndReportContext = (app: Bud) => {
-  /* initialize logger */
-  app.logger = new Logger(app)
-  app.success(`logger ready`)
+const initializeCoreUtilities = (bud: Bud) => {
+  bud.fs = new FS(() => bud)
+  bud.module = new Module(() => bud)
+  Object.entries(methods).map(([fn, method]) => {
+    bud[fn] = method.bind(bud)
+  })
+
+  bud.context.logger.time(`initialize`)
 }
 
 /**
@@ -140,26 +134,12 @@ export const bootstrap = async function (
 ) {
   this.context = {...context}
 
-  if (!context.label) throw new Error(`options.label is required`)
+  initializeCoreUtilities(this)
 
-  bindFrameworkMethods(this)
-  initializeLoggerAndReportContext(this)
-
-  /* root specific */
-  if (this.isRoot) {
-    // eslint-disable-next-line n/no-process-env
-    process.env.NODE_ENV = context.mode
-    Process.initialize(this)
-  }
-
-  /* initialize module class */
-  this.module = new Module(this)
-
-  /* initialize services */
   await Promise.all(
     this.context.services
-      .filter(filterFrameworkServices(this))
-      .map(importAndBindFrameworkServices(this)),
+      .filter(filterServices(this))
+      .map(instantiateServices(this)),
   )
 
   return initialize(this)

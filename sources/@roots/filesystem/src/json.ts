@@ -9,7 +9,7 @@ export interface WriteOptions {
 
 export const read = async (path: string): Promise<any> => {
   const source = await fs.readAsync(path, `utf8`)
-  return json5.parse(source.trim())
+  return await json5.parse(source.trim())
 }
 
 export const {parse} = json5
@@ -19,7 +19,11 @@ export const write = async (
   data: any,
   options?: WriteOptions,
 ): Promise<void> => {
-  const source = json5.stringify(data, options)
+  const source = jsonStringify(
+    data,
+    options?.replacer ?? null,
+    options?.space ?? 2,
+  )
   await fs.writeAsync(path, source)
 }
 

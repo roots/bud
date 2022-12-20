@@ -61,17 +61,21 @@ const run = pacman => () => {
     })
   })
 
-  describe(`svg/logo.svg`, () => {
+  describe(`commponents/logo.svg`, () => {
     it(`should not be empty`, () => {
-      expect(project.assets[`svg/logo.svg`].length).toBeGreaterThan(10)
+      expect(project.assets[`components/logo.svg`].length).toBeGreaterThan(
+        10,
+      )
     })
 
     it(`should contain svg tag`, () => {
-      expect(project.assets[`svg/logo.svg`].includes(`<svg`)).toBeTruthy()
+      expect(
+        project.assets[`components/logo.svg`].includes(`<svg`),
+      ).toBeTruthy()
     })
 
     it(`should be present in the manifest`, () => {
-      expect(project.manifest[`svg/logo.svg`]).toMatchSnapshot()
+      expect(project.manifest[`components/logo.svg`]).toMatchSnapshot()
     })
   })
 

@@ -1,6 +1,8 @@
 import fs from 'fs-extra'
 
 export const {
+  copyFile,
+  copy,
   ensureDir,
   ensureFile,
   outputFile,

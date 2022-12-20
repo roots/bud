@@ -1,3 +1,5 @@
+import {join} from 'node:path'
+
 import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {bind, label} from '@roots/bud-framework/extension/decorators'
@@ -18,13 +20,12 @@ import stripAnsi from 'strip-ansi'
 @label(`@roots/bud-cache/invalidate-cache`)
 export default class InvalidateCacheExtension extends Extension {
   /**
-   * Cache invalidation file
-   *
+   * Invalidation file path
    * @public
    */
   public get invalidationFile(): string {
-    return this.app.path(
-      `@storage`,
+    return join(
+      this.app.cache.cacheDirectory,
       this.app.label,
       `${this.app.mode}.error.json`,
     )
@@ -38,20 +39,14 @@ export default class InvalidateCacheExtension extends Extension {
    */
   @bind
   public override async register(bud: Bud) {
-    const invalidate = await bud.fs.exists(
-      `@storage`,
-      bud.label,
-      `${bud.mode}.error.json`,
-    )
+    const invalidate = await bud.fs?.exists(this.invalidationFile)
 
     if (invalidate || bud.context.args.flush) {
       await bud.fs.remove(this.invalidationFile)
-      await bud.fs.remove(
-        bud.relPath(bud.path(`@storage`, bud.label, `cache`, bud.mode)),
-      )
+      await bud.fs.remove(bud.cache.cacheDirectory)
     }
 
-    bud.hooks.action(`compiler.after`, async () => {
+    bud.after(async () => {
       bud.compiler.instance.hooks.done.tap(this.label, async compiler => {
         try {
           if (!compiler.hasErrors()) return

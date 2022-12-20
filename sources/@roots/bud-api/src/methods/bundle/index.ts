@@ -34,45 +34,43 @@ export interface bundle {
  * @public
  */
 export const bundle: bundle = function (this: Bud, name, matcher) {
-  const app = this as Bud
-
   const test = normalize(matcher ?? name)
 
-  app.hooks.on(`build.optimization.splitChunks`, splitChunks => {
-    const template = app.hooks.filter(`feature.hash`)
+  this.hooks.on(`build.optimization.splitChunks`, splitChunks => {
+    const template = this.hooks.filter(`feature.hash`)
       ? `[name].[contenthash].js`
       : `[name].js`
 
-    const filename = join(`js`, `bundle`, name, template)
+    const entry = {
+      [name]: {
+        idHint: name,
+        filename: join(`js`, `bundle`, name, template),
+        test,
+        priority: -10,
+      },
+    }
 
-    const cacheGroups =
-      splitChunks &&
-      typeof splitChunks === `object` &&
-      splitChunks?.cacheGroups
-        ? splitChunks.cacheGroups
-        : {}
-
-    return {
-      ...(splitChunks ?? {
+    if (splitChunks === false || splitChunks === undefined) {
+      return {
         chunks: `all`,
         automaticNameDelimiter: `/`,
         minSize: 0,
-      }),
+        cacheGroups: {...entry},
+      }
+    }
+
+    return {
+      ...splitChunks,
       cacheGroups: {
-        ...cacheGroups,
-        [name]: {
-          idHint: name,
-          filename,
-          test,
-          priority: -10,
-        },
+        ...(splitChunks.cacheGroups ?? {}),
+        ...entry,
       },
     }
   })
 
-  app.api.logger.success(`bud.bundle: chunk settings registered`)
+  this.api.logger.success(`bud.bundle: chunk settings registered`)
 
-  return app
+  return this
 }
 
 const normalize = (matcher: string | Array<string> | RegExp): RegExp => {

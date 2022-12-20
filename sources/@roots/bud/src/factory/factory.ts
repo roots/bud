@@ -1,10 +1,9 @@
-import type {Options} from '@roots/bud-framework'
+import {Bud} from '@roots/bud'
+import getContext from '@roots/bud/context'
+import {get, has, set} from '@roots/bud/instances'
+import type {Context} from '@roots/bud-framework/options'
 
-import Bud from '../bud/index.js'
 import * as argv from '../context/argv.js'
-import * as applicationContext from '../context/index.js'
-import * as cache from './cache.js'
-import {mergeOptions} from './options.js'
 
 /**
  * Create a {@link Bud} instance programatically
@@ -26,30 +25,20 @@ import {mergeOptions} from './options.js'
  * @public
  */
 export async function factory(
-  overrides?: Options.Overrides,
-  skipCache?: boolean,
+  {basedir, ...contextOverrides}: Partial<Context> = {
+    basedir: argv.basedir,
+  },
+  cache = true,
 ): Promise<Bud> {
-  const basedir = overrides?.basedir ?? argv.basedir
+  if (cache && has(basedir)) return get(basedir)
 
-  if (skipCache !== true && cache.has(basedir)) {
-    return cache.get(basedir)
+  const bud = new Bud()
+  const context = await getContext({basedir, ...contextOverrides}, cache)
+
+  if (cache) {
+    set(context.basedir, bud)
+    return await get(context.basedir).lifecycle(context)
   }
 
-  const context = await applicationContext.get(basedir)
-
-  overrides?.services
-    ?.filter(service => !context?.services.includes(service))
-    .map(service => context.services.push(service))
-
-  overrides?.extensions?.builtIn
-    ?.filter(extension => !context.extensions.builtIn.includes(extension))
-    .map(extension => context.extensions.builtIn.push(extension))
-
-  overrides?.extensions?.discovered
-    ?.filter(
-      extension => !context.extensions.discovered.includes(extension),
-    )
-    .map(extension => context.extensions.discovered.push(extension))
-
-  return await new Bud().lifecycle(mergeOptions(context, overrides))
+  return await bud.lifecycle(context)
 }

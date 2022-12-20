@@ -3,24 +3,26 @@ import {join} from 'node:path'
 import {paths} from '@repo/constants'
 import {beforeEach, describe, expect, it} from 'vitest'
 
-import Env from './env'
+import Env from './env.js'
+
+const context = {
+  basedir: join(
+    paths.root,
+    `sources`,
+    `@roots`,
+    `bud`,
+    `src`,
+    `context`,
+    `__fixtures__`,
+    `mock`,
+  ),
+}
 
 describe(`@roots/bud/context/env`, () => {
   let env: Record<string, any>
 
   beforeEach(() => {
-    env = new Env(
-      join(
-        paths.root,
-        `sources`,
-        `@roots`,
-        `bud`,
-        `src`,
-        `context`,
-        `__fixtures__`,
-        `mock`,
-      ),
-    ).data
+    env = Env(context)
   })
 
   it(`.env env`, () => {
@@ -51,8 +53,8 @@ describe(`@roots/bud/context/env`, () => {
   it(`malformed env throws`, () => {
     try {
       expect(
-        new Env(
-          join(
+        Env({
+          basedir: join(
             paths.root,
             `sources`,
             `@roots`,
@@ -63,7 +65,7 @@ describe(`@roots/bud/context/env`, () => {
             `mock`,
             `bad-env`,
           ),
-        ),
+        }),
       ).toThrow()
     } catch (e) {}
   })

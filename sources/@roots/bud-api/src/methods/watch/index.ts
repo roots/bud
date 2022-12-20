@@ -8,10 +8,10 @@ export interface watch {
      * Watched files
      */
     ...files: Parameters
-  ): Bud
+  ): Promise<Bud>
 }
 
-export const watch: watch = function (this: Bud, input) {
+export const watch: watch = async function (this: Bud, input) {
   if (!this.isDevelopment) return this
 
   this.hooks.on(`dev.watch.files`, files => {

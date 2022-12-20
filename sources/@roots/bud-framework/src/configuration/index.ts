@@ -1,7 +1,7 @@
 import {sortBy} from '@roots/bud-support/lodash-es'
 
 import type {Bud} from '../bud.js'
-import type {ConfigDescription} from '../types/options/context.js'
+import type {File} from '../types/options/context.js'
 import Configuration from './configuration.js'
 
 /**
@@ -9,10 +9,12 @@ import Configuration from './configuration.js'
  * @public
  */
 export const process = async (app: Bud) => {
-  const configuration = new Configuration(app)
+  if (!app.context.config) return
 
   const configs = Object.values(app.context.config).filter(({bud}) => bud)
+  if (!configs.length) return
 
+  const configuration = new Configuration(app)
   const findConfigs = getAllMatchingConfigs.bind(configs)
 
   await Promise.all(
@@ -48,8 +50,8 @@ export const process = async (app: Bud) => {
 
   try {
     await app.hooks.fire(`config.after`)
-  } catch (err) {
-    throw err
+  } catch (error) {
+    throw error
   }
 
   if (app.hasChildren) {
@@ -67,7 +69,7 @@ export const process = async (app: Bud) => {
 }
 
 export function getAllMatchingConfigs(
-  this: Array<ConfigDescription>,
+  this: Array<File>,
   ofType: string,
   isLocal: boolean,
 ) {

@@ -55,52 +55,105 @@
   "types": "./lib/index.d.ts",
   "exports": {
     ".": {
-      "import": {
-        "types": "./lib/index.d.ts",
-        "default": "./lib/index.js"
-      }
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./bud": {
+      "types": "./lib/bud/bud.d.ts",
+      "default": "./lib/bud/bud.js"
+    },
+    "./instances": {
+      "types": "./lib/instances.d.ts",
+      "default": "./lib/instances.js"
     },
     "./cli/*": {
-      "import": {
-        "types": "./lib/cli/*.d.ts",
-        "default": "./lib/cli/*.js"
-      }
+      "types": "./lib/cli/*.d.ts",
+      "default": "./lib/cli/*.js"
     },
     "./cli/commands/*": {
-      "import": {
-        "types": "./lib/cli/commands/*.d.ts",
-        "default": "./lib/cli/commands/*.js"
-      }
+      "types": "./lib/cli/commands/*.d.ts",
+      "default": "./lib/cli/commands/*.js"
+    },
+    "./cli/decorators": {
+      "types": "./lib/cli/decorators/index.d.ts",
+      "default": "./lib/cli/decorators/index.js"
+    },
+    "./cli/decorators/*": {
+      "types": "./lib/cli/decorators/*.d.ts",
+      "default": "./lib/cli/decorators/*.js"
+    },
+    "./cli/helpers/*": {
+      "types": "./lib/cli/helpers/*.d.ts",
+      "default": "./lib/cli/helpers/*.js"
+    },
+    "./context": {
+      "types": "./lib/context/index.d.ts",
+      "default": "./lib/context/index.js"
     },
     "./context/*": {
-      "import": {
-        "types": "./lib/context/*.d.ts",
-        "default": "./lib/context/*.js"
-      }
+      "types": "./lib/context/*.d.ts",
+      "default": "./lib/context/*.js"
     },
     "./factory": {
-      "import": {
-        "types": "./lib/factory/index.d.ts",
-        "default": "./lib/factory/index.js"
-      }
+      "types": "./lib/factory/index.d.ts",
+      "default": "./lib/factory/index.js"
     },
     "./factory/*": {
-      "import": {
-        "types": "./lib/factory/*.d.ts",
-        "default": "./lib/factory/*.js"
-      }
+      "types": "./lib/factory/*.d.ts",
+      "default": "./lib/factory/*.js"
+    },
+    "./logger": {
+      "types": "./lib/logger/index.d.ts",
+      "default": "./lib/logger/index.js"
     },
     "./notifier/*": {
-      "import": {
-        "types": "./lib/notifier/*.d.ts",
-        "default": "./lib/notifier/*.js"
-      }
+      "types": "./lib/notifier/*.d.ts",
+      "default": "./lib/notifier/*.js"
     },
     "./services/*": {
-      "import": {
-        "types": "./lib/services/*/index.d.ts",
-        "default": "./lib/services/*/index.js"
-      }
+      "types": "./lib/services/*/index.d.ts",
+      "default": "./lib/services/*/index.js"
+    },
+    "./services/*/*": {
+      "types": "./lib/services/*/*.d.ts",
+      "default": "./lib/services/*/*.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "lib/index.d.ts"
+      ],
+      "cli": [
+        "lib/cli/index.d.ts"
+      ],
+      "cli/commands": [
+        "lib/cli/commands/index.d.ts"
+      ],
+      "cli/decorators": [
+        "lib/cli/decorators/index.d.ts"
+      ],
+      "context": [
+        "lib/context/index.d.ts"
+      ],
+      "factory": [
+        "lib/factory/index.d.ts"
+      ],
+      "factory/*": [
+        "lib/factory/*.d.ts"
+      ],
+      "logger": [
+        "lib/logger/index.d.ts"
+      ],
+      "notifier": [
+        "lib/notifier/index.d.ts"
+      ],
+      "services": [
+        "lib/services/index.d.ts"
+      ],
+      "services/*": [
+        "lib/services/*/index.d.ts"
+      ]
     }
   },
   "devDependencies": {
@@ -123,9 +176,11 @@
     "@roots/bud-terser": "workspace:sources/@roots/bud-terser",
     "@roots/container": "workspace:sources/@roots/container",
     "@roots/dependencies": "workspace:sources/@roots/dependencies",
+    "axios": "1.2.1",
     "browserslist": "4.21.4",
     "dotenv": "16.0.3",
     "dotenv-expand": "9.0.0",
+    "execa": "6.1.0",
     "node-notifier": "10.0.1",
     "open": "8.4.0",
     "open-editor": "4.0.0",
@@ -133,11 +188,15 @@
     "update-browserslist-db": "1.0.10",
     "webpack": "5.75.0"
   },
-  "peerDependcies": {
-    "browserslist": ">=4.21.4"
+  "peerDependencies": {
+    "browserslist": ">=4.21.4",
+    "update-browserslist-db": ">=1.0.10"
   },
   "peerDependenciesMeta": {
     "browserslist": {
+      "optional": true
+    },
+    "update-browserslist-db": {
       "optional": true
     }
   },

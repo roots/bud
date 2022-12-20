@@ -18,17 +18,21 @@ export interface Parser extends Record<string, any> {}
  * @public
  */
 export interface Options {
-  test?: ((app: Bud) => Output['test']) | Output['test']
-  use?:
-    | ((
-        loaders: Array<Item | `${keyof Items & string}`>,
-      ) => Array<Item | `${keyof Items & string}`>)
-    | Array<Item | `${keyof Items & string}`>
-  include?: Array<((app: Bud) => string | RegExp) | string | RegExp>
-  exclude?: Array<((app: Bud) => string | RegExp) | string | RegExp>
-  type?: ((app: Bud) => Output['type']) | Output['type']
-  parser?: ((app: Bud) => Output['parser']) | Output['parser']
-  generator?: ((app: Bud) => Output['generator']) | Output['generator']
+  test?: ((app: Bud) => Output['test']) | Output['test'] | undefined
+  use?: Array<Item | `${keyof Items & string}`> | undefined
+  include?:
+    | Array<((app: Bud) => string | RegExp) | string | RegExp>
+    | undefined
+  exclude?:
+    | Array<((app: Bud) => string | RegExp) | string | RegExp>
+    | undefined
+  type?: ((app: Bud) => Output['type']) | Output['type'] | undefined
+  parser?: ((app: Bud) => Output['parser']) | Output['parser'] | undefined
+  resourceQuery?: Output[`resourceQuery`] | undefined
+  generator?:
+    | ((app: Bud) => Output['generator'])
+    | Output['generator']
+    | undefined
 }
 
 /**
@@ -57,7 +61,7 @@ export interface Rule extends Base {
    *
    * @public
    */
-  getTest(): Options['test']
+  getTest(): Output[`test`]
 
   /**
    * Set the value of `test`
@@ -71,7 +75,7 @@ export interface Rule extends Base {
    *
    * @public
    */
-  use?: Array<`${keyof Items & string}` | Item>
+  use?: Options[`use`]
 
   /**
    * Get the value of `use`
@@ -105,7 +109,7 @@ export interface Rule extends Base {
    *
    * @public
    */
-  getExclude(): Options['exclude']
+  getExclude(): Output['exclude']
 
   /**
    * Set the value of `exclude`
@@ -130,18 +134,35 @@ export interface Rule extends Base {
    *
    * @public
    */
-  getInclude(): Options['include']
+  getInclude(): Output['include']
 
   /**
    * Set the value of `include`
    *
    * @public
    */
-  setInclude(
-    value:
-      | Options['include']
-      | ((includes: Options['include']) => Options['include']),
-  ): this
+  setInclude(value: Options['include']): this
+
+  /**
+   * Include paths
+   *
+   * @public
+   */
+  resourceQuery?: Output[`resourceQuery`] | undefined
+
+  /**
+   * Get the value of `resourceQuery`
+   *
+   * @public
+   */
+  getResourceQuery(): Output['resourceQuery']
+
+  /**
+   * Set the value of `resourceQuery`
+   *
+   * @public
+   */
+  setResourceQuery(value: Options[`resourceQuery`]): this
 
   /**
    * Type
@@ -155,7 +176,7 @@ export interface Rule extends Base {
    *
    * @public
    */
-  getType(): Options['type']
+  getType(): Output['type']
 
   /**
    * Set the value of `type`
@@ -169,7 +190,7 @@ export interface Rule extends Base {
    *
    * @public
    */
-  parser?: Options['parser']
+  parser?: Output['parser']
 
   /**
    * Get the value of `parser`
@@ -197,7 +218,7 @@ export interface Rule extends Base {
    *
    * @public
    */
-  getGenerator(): Options['generator']
+  getGenerator(): Output['generator']
 
   /**
    * Set the value of `generator`

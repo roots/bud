@@ -1,79 +1,27 @@
 /* eslint-disable no-console */
 import type {Readable} from 'node:stream'
 
-import {
-  DeleteObjectCommand,
-  GetObjectCommand,
+import type {
   GetObjectOutput,
-  ListObjectsCommand,
-  ListObjectsCommandOutput,
-  PutObjectCommand,
+  ListObjectsCommandInput,
   PutObjectCommandInput,
   S3Client,
-  S3ClientConfig,
 } from '@aws-sdk/client-s3'
 import {bind} from 'helpful-decorators'
-import {isString, isUndefined} from 'lodash-es'
+import {isString} from 'lodash-es'
 import * as mimetypes from 'mime-types'
 
-import Client from './client.js'
-import Config from './config.js'
+import {Client} from './client.js'
+import {Config} from './config.js'
 
 /**
  * S3 API
  *
  * @public
  */
-export default class S3 {
-  /**
-   * The S3 bucket name
-   *
-   * @public
-   */
-  public bucket: string
-
-  /**
-   * S3 config instance
-   *
-   * @public
-   */
+export class S3 {
   public config: Config
-
-  /**
-   * Client factory
-   *
-   * @internal
-   */
-  public client: {make: (config: S3ClientConfig) => S3Client} = Client
-
-  /**
-   * S3 Client
-   *
-   * @public
-   */
-  public getClient(): S3Client {
-    if (!this.config.credentials) {
-      throw new Error(
-        `S3 credentials are required. Did you forget to set them?`,
-      )
-    }
-
-    let value: S3ClientConfig = {
-      credentials: this.config.credentials,
-      region: this.config.region,
-    }
-
-    if (this.config.endpoint) value.endpoint = this.config.endpoint
-
-    return this.client.make(value)
-  }
-
-  /**
-   * Permissions for uploaded files
-   *
-   * @public
-   */
-  public isPublic: boolean = true
+  public client: Client
 
   /**
    * constructor
@@ -81,8 +29,28 @@ export default class S3 {
    * @public
    */
   public constructor() {
-    this.client = Client
     this.config = new Config()
+    this.client = new Client()
+  }
+
+  /**
+   * S3 Client
+   *
+   * @public
+   */
+  @bind
+  public async getClient(): Promise<S3Client> {
+    if (!this.config.credentials) {
+      throw new Error(
+        `S3 credentials are required. Did you forget to set them?`,
+      )
+    }
+
+    return await this.client.make({
+      credentials: this.config.credentials,
+      region: this.config.region,
+      ...(this.config.endpoint ? {endpoint: this.config.endpoint} : {}),
+    })
   }
 
   /**
@@ -91,164 +59,20 @@ export default class S3 {
    * @public
    */
   public get ident() {
-    const maybeEndpoint = this.getEndpoint()
+    const maybeEndpoint = this.config.get(`endpoint`)
 
-    if (!maybeEndpoint) return `${this.getBucket()} (${this.getRegion()})`
+    if (!maybeEndpoint)
+      return `${this.config.get(`bucket`)} (${this.config.get(`region`)})`
 
     if (
       isString(maybeEndpoint) &&
       maybeEndpoint.includes(`digitaloceanspaces`)
     )
-      return `https://${this.getBucket()}.${
+      return `https://${this.config.get(`bucket`)}.${
         new URL(maybeEndpoint).hostname
       }`
 
     return `https://${maybeEndpoint.toString()}`
-  }
-
-  /**
-   * Get the bucket name
-   *
-   * @returns bucket - {@link S3.bucket}
-   *
-   * @public
-   * @decorator {@link bind}
-   */
-  @bind
-  public getBucket() {
-    return this.bucket
-  }
-
-  /**
-   * Set the bucket name
-   *
-   * @param bucket - {@link S3.bucket}
-   * @returns S3 instance {@link S3}
-   *
-   * @public
-   * @decorator bind - {@link bind}
-   */
-  @bind
-  public setBucket(bucket: string) {
-    this.bucket = bucket
-
-    return this
-  }
-
-  /**
-   * Get config credentials
-   *
-   * @returns S3 credentials {@link Config.credentials}
-   *
-   * @public
-   * @decorator {@link bind}
-   */
-  @bind
-  public getCredentials() {
-    return this.config.get(`credentials`)
-  }
-
-  /**
-   * Set config credentials
-   *
-   * @param credentials - {@link Config.credentials}
-   * @returns S3 instance {@link S3}
-   *
-   * @public
-   * @decorator bind - {@link bind}
-   */
-  @bind
-  public setCredentials(credentials: Config['credentials']) {
-    this.config.set(`credentials`, credentials)
-
-    return this
-  }
-
-  /**
-   * Get config endpoint
-   *
-   * @returns S3 endpoint {@link Config.endpoint}
-   *
-   * @public
-   * @decorator {@link bind}
-   */
-  @bind
-  public getEndpoint() {
-    return this.config.get(`endpoint`)
-  }
-
-  /**
-   * Set config endpoint
-   *
-   * @param endpoint - {@link Config.endpoint}
-   * @returns S3 instance {@link S3}
-   *
-   * @public
-   * @decorator bind - {@link bind}
-   */
-  @bind
-  public setEndpoint(endpoint: Config['endpoint']) {
-    this.config.set(`endpoint`, endpoint)
-
-    return this
-  }
-
-  /**
-   * Get config region
-   *
-   * @returns S3 region {@link Config.region}
-   *
-   * @public
-   * @decorator {@link bind}
-   */
-  @bind
-  public getRegion() {
-    return this.config.get(`region`)
-  }
-
-  /**
-   * Set config region
-   *
-   * @param region - {@link Config.region}
-   * @returns S3 instance {@link S3}
-   *
-   * @public
-   * @decorator bind - {@link bind}
-   */
-  @bind
-  public setRegion(region: Config['region']) {
-    this.config.set(`region`, region)
-
-    return this
-  }
-
-  /**
-   * Get default ACL
-   *
-   * @returns acl {@link S3.isPublic}
-   *
-   * @public
-   * @decorator {@link bind}
-   */
-  @bind
-  public getPublic() {
-    return this.isPublic
-  }
-
-  /**
-   * Set default acl
-   *
-   * @param isPublic - {@link Config.isPublic}
-   * @returns S3 instance {@link S3}
-   *
-   * @public
-   * @decorator bind - {@link bind}
-   */
-  @bind
-  public setPublic(isPublic?: boolean) {
-    this.isPublic = isUndefined(isPublic) ? true : isPublic
-
-    return this
   }
 
   /**
@@ -281,14 +105,18 @@ export default class S3 {
           .on(`end`, () => resolve(Buffer.concat(chunks).toString(`utf8`)))
       })
 
+    const client = await this.getClient()
+    const GetObjectCommandOutput = await import(`@aws-sdk/client-s3`).then(
+      ({GetObjectCommand}) =>
+        new GetObjectCommand({Bucket: this.config.bucket, Key: key}),
+    )
+
     try {
-      const request = (await this.getClient().send(
-        new GetObjectCommand({Bucket: this.bucket, Key: key}),
-      )) as {Body: Readable}
+      const request = (await client.send(GetObjectCommandOutput)) as {
+        Body: Readable
+      }
 
-      if (raw) return request
-
-      return streamToString(request)
+      return raw ? request : streamToString(request)
     } catch (error) {
       throw error
     }
@@ -308,12 +136,16 @@ export default class S3 {
   @bind
   public async delete(key: string) {
     try {
-      await this.getClient().send(
-        new DeleteObjectCommand({
-          Bucket: this.bucket,
-          Key: key,
-        }),
+      const client = await this.getClient()
+      const DeleteObjectOutput = await import(`@aws-sdk/client-s3`).then(
+        ({DeleteObjectCommand}) =>
+          new DeleteObjectCommand({
+            Bucket: this.config.bucket,
+            Key: key,
+          }),
       )
+
+      await client.send(DeleteObjectOutput)
 
       return this
     } catch (error) {
@@ -347,24 +179,27 @@ export default class S3 {
    * By default the {@link ListObjectsCommandOutput} will be mapped so that the returned value is an array of file keys.
    * This can be disabled by setting `raw` to `true`.
    *
-   * @param raw - Whether to return {@link ListObjectsCommandOutput}
+   * @param props - {@link Omit<ListObjectsCommandInput, `Bucket`> command input props}
    * @returns Array of file keys
    *
    * @public
    * @decorator bind - {@link bind}
    */
   @bind
-  public async list(raw = false) {
+  public async list(
+    props?: Omit<ListObjectsCommandInput, `Bucket`>,
+  ): Promise<Array<string>> {
     try {
-      const results = await this.getClient().send(
-        new ListObjectsCommand({
-          Bucket: this.bucket,
-        }),
-      )
+      const client = await this.getClient()
+      const s3 = await import(`@aws-sdk/client-s3`)
 
-      if (!results) return []
-      if (raw) return results
-      else return results?.Contents.map(({Key}) => Key)
+      const command = new s3.ListObjectsCommand({
+        Bucket: this.config.bucket,
+        ...(props ?? {}),
+      })
+      const results = await client.send(command)
+
+      return results?.Contents.map(({Key}) => Key)
     } catch (error) {
       throw error
     }
@@ -386,8 +221,8 @@ export default class S3 {
       | [string, Readable | ReadableStream | Blob | string]
   ) {
     const putProps = {
-      Bucket: this.bucket,
-      ACL: this.isPublic ? `public-read` : `private`,
+      Bucket: this.config.bucket,
+      ACL: this.config.public ? `public-read` : `private`,
       Key: null,
       ContentType: null,
     }
@@ -405,7 +240,9 @@ export default class S3 {
     }
 
     try {
-      await this.getClient().send(new PutObjectCommand(putProps))
+      const client = await this.getClient()
+      const {PutObjectCommand} = await import(`@aws-sdk/client-s3`)
+      await client.send(new PutObjectCommand(putProps))
 
       return this
     } catch (error) {
