@@ -4,7 +4,7 @@ import {resolve} from '@roots/bud-support/import-meta-resolve'
 import prettyFormat from '@roots/bud-support/pretty-format'
 import Signale, {Instance, Options} from '@roots/bud-support/signale'
 
-import {flag} from '../context/argv.js'
+import * as argv from '../context/argv.js'
 import * as defaults from './options.js'
 
 export class Logger {
@@ -14,10 +14,10 @@ export class Logger {
 
   public constructor(options: Options = {}) {
     options = {...defaults, ...options}
-    if (flag(`no-log`)) options.disabled = true
-    if (flag(`log`)) options.logLevel = `info`
-    if (flag(`verbose`)) options.logLevel = `log`
-    if (!flag(`log`) && !flag(`no-log`)) options.logLevel = `warn`
+    if (argv.has(`no-log`)) options.disabled = true
+    if (argv.has(`log`)) options.logLevel = `info`
+    if (argv.has(`verbose`)) options.logLevel = `log`
+    if (!argv.has(`log`) && !argv.has(`no-log`)) options.logLevel = `warn`
 
     this.instance = new Signale(options)
   }
@@ -86,7 +86,7 @@ export class Logger {
   }
   @bind
   public info(...messages: Array<unknown>) {
-    if (!flag(`verbose`)) return this
+    if (!argv.has(`verbose`)) return this
     this.instance.info(...this.format(...messages))
     return this
   }
@@ -107,7 +107,7 @@ export class Logger {
   }
   @bind
   public debug(...messages: Array<unknown>) {
-    if (!flag(`debug`)) return this
+    if (!argv.has(`debug`)) return this
     this.instance.debug(...this.format(...messages))
     return this
   }

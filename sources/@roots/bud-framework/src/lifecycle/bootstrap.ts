@@ -112,9 +112,11 @@ const instantiateServices =
 
 const initializeCoreUtilities = (bud: Bud) => {
   bud.fs = new FS(() => bud)
+  bud.module = new Module(() => bud)
   Object.entries(methods).map(([fn, method]) => {
     bud[fn] = method.bind(bud)
   })
+
   bud.context.logger.time(`initialize`)
 }
 
@@ -131,20 +133,9 @@ export const bootstrap = async function (
   context: Options.Context,
 ) {
   this.context = {...context}
-  if (!context.label) throw new Error(`options.label is required`)
 
   initializeCoreUtilities(this)
 
-  /* root specific */
-  if (this.isRoot) {
-    // eslint-disable-next-line n/no-process-env
-    process.env.NODE_ENV = context.mode
-  }
-
-  /* initialize module class */
-  this.module = new Module(() => this)
-
-  /* initialize services */
   await Promise.all(
     this.context.services
       .filter(filterServices(this))

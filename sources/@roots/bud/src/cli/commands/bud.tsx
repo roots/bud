@@ -142,6 +142,7 @@ export default class BudCommand extends Command<CommandContext> {
     command.context.basedir = command.basedir
       ? resolve(command.context.basedir, command.basedir)
       : command.context.basedir
+
     command.context.mode = command.mode ?? command.context.mode
 
     command.context.args = {
@@ -159,12 +160,18 @@ export default class BudCommand extends Command<CommandContext> {
         command.context.args,
       )
     }
+
     if (command.withContext) {
       command.context = await command.withContext(command.context)
     }
 
-    command.bud = await new Bud().lifecycle(command.context)
+    if (command.context.mode === `development`) {
+      await import(`../env.development.js`)
+    } else {
+      await import(`../env.production.js`)
+    }
 
+    command.bud = await new Bud().lifecycle(command.context)
     command.notifier = new Notifier().setBud(command.bud)
 
     await command.applyBudEnv(command.bud)
@@ -185,6 +192,17 @@ export default class BudCommand extends Command<CommandContext> {
     } catch (error) {
       throw error
     }
+  }
+
+  public async $(bin: string, args: Array<string>, options = {}) {
+    const {execa: command} = await import(`@roots/bud-support/execa`)
+    return await command(bin, args, {
+      cwd: this.bud.path(),
+      encoding: `utf8`,
+      env: {NODE_ENV: `development`},
+      stdio: `inherit`,
+      ...options,
+    })
   }
 
   public async healthcheck(command: BudCommand) {

@@ -28,7 +28,7 @@ export default async (
   let extensions: Context[`extensions`] | undefined
   let manifest: Context[`manifest`] | undefined
 
-  if (!argv.flag(`no-find`)) {
+  if (!argv.has(`no-find`)) {
     env = getEnv({basedir, ...overrides})
     config = await projectFiles.get({basedir, fs})
     manifest = getManifest(config)

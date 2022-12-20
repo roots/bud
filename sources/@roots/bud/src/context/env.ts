@@ -9,13 +9,11 @@ import {expand} from 'dotenv-expand'
  * @public
  */
 export default ({basedir, ...overrides}) => {
-  let data
-
   /**
    * Apply process env
    */
   // eslint-disable-next-line n/no-process-env
-  data = process.env
+  let data: Record<string, string> = process.env
 
   /**
    * Apply .env & .env.local values in path
@@ -40,7 +38,7 @@ export default ({basedir, ...overrides}) => {
  * Apply expanded values from path
  */
 const getEnvFromPath = (path: string): Record<string, any> => {
-  let parsed = {}
+  let parsed: Record<string, string> = {}
 
   try {
     const env = dotenv.config({path})

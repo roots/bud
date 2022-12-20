@@ -4,25 +4,20 @@ import {set} from '@roots/bud-support/lodash-es'
 
 interface get {
   (props: {basedir: Context[`basedir`]; fs: Filesystem}): Promise<
-    Record<string, File>
+    Context[`config`]
   >
 }
 
-let data: Record<string, File> = {}
+let files: Array<string> = []
+let data: Context[`config`] = {}
 
 const get: get = async ({basedir, fs}) => {
-  let results: Array<string>
-
-  try {
-    results = await fs.list(basedir)
-    if (!results) return data
-  } catch (error) {
-    throw error
-  }
+  files = await fs.list(basedir)
+  if (!files) return data
 
   try {
     await Promise.all(
-      results?.map(async (name: string) => {
+      files.map(async (name: string) => {
         const file = await fs.inspect(name, {
           checksum: `md5`,
           mode: true,
@@ -32,31 +27,33 @@ const get: get = async ({basedir, fs}) => {
         set(data, [`${name}`], {
           path: file.absolutePath,
           name: file.name,
-          extension:
-            file.type === `file` ? file.name.split(`.`).pop() : null,
-          local: file.name.includes(`local`),
-          dynamic:
-            file.type === `file`
-              ? isDynamicConfig(file.absolutePath)
-              : null,
-          bud: name.includes(`bud`) && file.type === `file`,
-          type: name.includes(`production`)
-            ? `production`
-            : name.includes(`development`)
-            ? `development`
-            : `base`,
           size: file.size,
           md5: file.md5,
           mode: file.mode,
           file: file.type === `file`,
           dir: file.type === `dir`,
           symlink: file.type === `symlink`,
+
+          local: file.name.includes(`local`),
+          bud: name.includes(`bud`) && file.type === `file`,
+
+          dynamic:
+            file.type === `file`
+              ? isDynamicConfig(file.absolutePath)
+              : null,
+
+          type: name.includes(`production`)
+            ? `production`
+            : name.includes(`development`)
+            ? `development`
+            : `base`,
+
+          extension:
+            file.type === `file` ? file.name.split(`.`).pop() : null,
         })
       }),
     )
-  } catch (error) {
-    throw error
-  }
+  } catch (error) {}
 
   try {
     await Promise.all(
@@ -64,17 +61,13 @@ const get: get = async ({basedir, fs}) => {
         async ([name, description]: [string, File]) => {
           try {
             if (description.dynamic) {
-              try {
-                const dynamicConfig = await import(description.path)
+              const dynamicConfig = await import(description.path)
 
-                set(
-                  data,
-                  [name, `module`],
-                  dynamicConfig?.default ?? dynamicConfig,
-                )
-              } catch (error) {
-                throw error
-              }
+              set(
+                data,
+                [name, `module`],
+                dynamicConfig?.default ?? dynamicConfig,
+              )
             }
 
             if (description.extension === `json`) {
@@ -86,23 +79,17 @@ const get: get = async ({basedir, fs}) => {
               const ymlConfig = await yml.read(description.path)
               set(data, [name, `module`], ymlConfig)
             }
-          } catch (error) {
-            throw error
-          }
+          } catch (error) {}
         },
       ),
     )
-  } catch (error) {
-    throw error
-  }
+  } catch (error) {}
 
   return data
 }
 
 const isDynamicConfig = (path: string) =>
-  [`js`, `cjs`, `mjs`, `ts`, `cts`, `mts`].some((extension: string) =>
-    path.endsWith(extension),
-  )
+  [`js`, `cjs`, `mjs`, `ts`, `cts`, `mts`].some(ext => path.endsWith(ext))
 
-export {data, get}
+export {data, files, get}
 export type {File}

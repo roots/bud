@@ -40,7 +40,7 @@ const extensions: Extensions = {
 }
 
 export default (manifest: Context[`manifest`]) => {
-  if (argv.flag(`no-discovery`)) return extensions
+  if (argv.has(`no-discovery`)) return extensions
 
   Object.keys({
     ...(manifest?.devDependencies ?? {}),

@@ -10,7 +10,12 @@ export interface BudContext {
   basedir: string
   mode: 'development' | 'production'
   bud: Record<string, any>
+  config: Record<string, File>
   env: Record<string, string | undefined>
+  extensions: {
+    builtIn: Array<string>
+    discovered: Array<string>
+  }
   args: Partial<{
     basedir?: string
     browser?: string | boolean
@@ -71,16 +76,11 @@ export interface BudContext {
     target?: Array<string>
     verbose?: boolean
   }>
+  manifest: Record<string, any>
+  services: Array<string>
+  logger: Logger
   root?: Bud
   dependsOn?: Array<string>
-  manifest?: Record<string, any>
-  services?: Array<string>
-  config?: Record<string, File>
-  extensions?: {
-    builtIn?: Array<string>
-    discovered?: Array<string>
-  }
-  logger?: Logger
 }
 
 export interface CommandContext extends BudContext {
@@ -89,8 +89,6 @@ export interface CommandContext extends BudContext {
   stderr: Writable
   colorDepth: number
 }
-
-export type {BudContext as Context}
 
 export interface File extends Omit<InspectResult, `type`> {
   name: string
@@ -108,3 +106,5 @@ export interface File extends Omit<InspectResult, `type`> {
   md5: string
   mode: number
 }
+
+export type {BudContext as Context}
