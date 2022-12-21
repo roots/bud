@@ -3,10 +3,7 @@
 exports[`context.get > should match expectations 1`] = `
 {
   "extensions": {
-    "denylist": [
-      "@roots/bud-babel",
-    ],
-    "discover": false,
+    "discovery": false,
   },
 }
 `;
