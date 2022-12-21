@@ -5,7 +5,13 @@ import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import App from './app'
 
-const mockCompilations = [{}]
+const mockCompilations = [
+  {
+    assets: [],
+    entrypoints: {},
+    errors: [],
+  },
+]
 
 describe(`@roots/bud-dashboard app component`, () => {
   let bud

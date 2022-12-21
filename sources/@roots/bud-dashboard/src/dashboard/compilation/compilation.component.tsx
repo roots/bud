@@ -51,22 +51,21 @@ const Compilation = ({
 }: Props) => {
   if (!compilation) return null
 
-  const groupAssets = makeAssetGroupCallback(compilation?.assets)
+  const groupAssets = makeAssetGroupCallback(compilation.assets)
 
-  const entrypoints: AssetGroup = compilation?.entrypoints
-    ? Object.values(compilation?.entrypoints)
-        .filter(Boolean)
-        .map(entrypoint => ({
-          ...entrypoint,
-          assets: entrypoint.assets.map(groupAssets),
-        }))
-    : []
+  const entrypoints: AssetGroup = Object.values(compilation.entrypoints)
+    .filter(Boolean)
+    .map(entrypoint => ({
+      ...entrypoint,
+      assets: entrypoint.assets.map(groupAssets),
+    }))
 
-  const assets: Array<AssetGroup> = (compilation?.assets ?? [])
+  const assets: Array<AssetGroup> = compilation.assets
     .filter(onlyNotHot)
     .filter(onlyStatic)
     .filter(Boolean)
     .map(groupAssets)
+
   const truncatedAssets: Array<AssetGroup> = assets.splice(5)
 
   const longestEntrypointAssetLength: number = entrypoints.reduce(
@@ -79,16 +78,16 @@ const Compilation = ({
     <Box flexDirection="column">
       <Box flexDirection="row">
         <Text color={colorFromStats(compilation)}>
-          {compilation?.errorsCount > 0
+          {compilation.errorsCount > 0
             ? figures.cross
             : figures.circleFilled}
         </Text>
 
         <Text>{`  `}</Text>
-        <Text>{compilation?.name}</Text>
+        <Text>{compilation.name}</Text>
         <Text> {``}</Text>
 
-        {compilation?.outputPath && (
+        {compilation.outputPath && (
           <Text color={color.blue}>
             ./{relative(context.basedir, compilation.outputPath)}
           </Text>
@@ -96,10 +95,10 @@ const Compilation = ({
 
         <Text>{` `}</Text>
 
-        <Text dimColor>[{compilation?.hash}]</Text>
+        <Text dimColor>[{compilation.hash}]</Text>
       </Box>
 
-      {!compilation?.isChild && (
+      {!compilation.isChild && (
         <>
           <Text dimColor>{VERT}</Text>
 
@@ -194,8 +193,8 @@ const Compilation = ({
 
       <Title final={true}>
         <Text dimColor>
-          compiled {compilation?.modules?.length} modules in{` `}
-          {duration(compilation?.time) as string}
+          compiled {compilation.modules?.length} modules in{` `}
+          {duration(compilation.time) as string}
         </Text>
       </Title>
     </Box>
