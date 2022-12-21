@@ -27,59 +27,53 @@ interface Props {
   displayAssets: boolean
   displayEntrypoints: boolean
   compilation: StatsCompilation
-  id: number
   context: Context
-  mode: `production` | `development`
-  compilerCount: number
+}
+
+interface AssetGroup extends StatsChunkGroup {
+  assets?: Array<Partial<StatsAsset> & {name: string}>
 }
 
 const onlyNotHot = ({name}: StatsAsset) => !name?.includes(`hot-update`)
 const onlyStatic = ({info}: StatsAsset) => info?.copied
+const makeAssetGroupCallback =
+  (assets?: {name: string}[]) =>
+  (asset: Partial<StatsAsset>): Partial<StatsAsset> => {
+    const assetModule = assets?.find(a => a?.name === asset?.name)
+    return {...(asset ?? {}), ...(assetModule ?? {})}
+  }
+
 const Compilation = ({
   displayAssets,
   displayEntrypoints,
   compilation,
-  id,
   context,
-  mode,
-  compilerCount,
 }: Props) => {
-  const enrich = (asset: Partial<StatsAsset>): Partial<StatsAsset> => {
-    const assetModule = compilation?.assets?.find(
-      a => a?.name === asset?.name,
-    )
-    return {...(asset ?? {}), ...(assetModule ?? {})}
-  }
+  if (!compilation) return null
 
-  const entrypoints: StatsChunkGroup = compilation?.entrypoints
+  const groupAssets = makeAssetGroupCallback(compilation?.assets)
+
+  const entrypoints: AssetGroup = compilation?.entrypoints
     ? Object.values(compilation?.entrypoints)
         .filter(Boolean)
         .map(entrypoint => ({
           ...entrypoint,
-          assets: entrypoint.assets.map(enrich),
+          assets: entrypoint.assets.map(groupAssets),
         }))
     : []
 
-  const longestEntrypointAssetLength: number = entrypoints.reduce(
-    (longest: number, entry) =>
-      Math.max(longestAssetNameLength(entry.assets), longest),
-    0,
-  )
-
-  const staticAssets: Array<Partial<StatsAsset>> = (
-    compilation?.assets ?? []
-  )
+  const assets: Array<AssetGroup> = (compilation?.assets ?? [])
     .filter(onlyNotHot)
     .filter(onlyStatic)
     .filter(Boolean)
-    .map(enrich)
+    .map(groupAssets)
+  const truncatedAssets: Array<AssetGroup> = assets.splice(5)
 
-  const hiddenStaticAssets: Array<Partial<StatsAsset>> =
-    staticAssets.splice(5)
-
-  if (!compilation) {
-    return <Text>Empty compilation</Text>
-  }
+  const longestEntrypointAssetLength: number = entrypoints.reduce(
+    (longest: number, entry: AssetGroup) =>
+      Math.max(longestAssetNameLength(entry.assets), longest),
+    0,
+  )
 
   return (
     <Box flexDirection="column">
@@ -156,7 +150,7 @@ const Compilation = ({
             ) : null}
           </Box>
 
-          {staticAssets?.length > 0 ? (
+          {assets?.length > 0 ? (
             <Box flexDirection="column">
               <Title>
                 <Text
@@ -169,19 +163,19 @@ const Compilation = ({
 
               {displayAssets ? (
                 <>
-                  <Chunk assets={staticAssets} indent={[true]} />
+                  <Chunk assets={assets} indent={[true]} />
 
                   <Space>
                     <Text> </Text>
                   </Space>
 
-                  {hiddenStaticAssets?.length > 0 && (
+                  {truncatedAssets?.length > 0 && (
                     <Space>
                       <Text dimColor>
                         {` `}
                         {figures.ellipsis}
                         {` `}
-                        {hiddenStaticAssets.length}
+                        {truncatedAssets.length}
                         {` `}
                         additional asset(s) not shown
                       </Text>
