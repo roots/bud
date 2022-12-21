@@ -16,36 +16,12 @@ const Messages = ({
   messages: StatsCompilation['errors'] | StatsCompilation['warnings']
   color: string
 }) => {
-  const formatted = messages
-    ?.reverse()
-    .filter(({message}) => !message?.includes(`HookWebpackError`))
-    .map(({message}: {message: string}) => ({
-      message: message
-        /* Discard unhelpful stack traces */
-        .split(/  at /)
-        .shift()
-        /* Discard unhelpful stuff preceeding message */
-        .split(/SyntaxError:?/)
-        .pop()
-        .split(/Error:?/)
-        .pop()
-        .split(/ModuleError:?/)
-        .pop()
-        /* Discard empty lines */
-        .split(`\n`)
-        // trim and format
-        .filter(ln => ![``, ` `, `\n`].includes(ln))
-        // replace cwd with `.`
-        .map(ln => `${chalk.dim(VERT)} ${ln.replace(process.cwd(), `.`)}`)
-        .join(`\n`),
-    }))
-
-  if (!formatted) return null
+  if (!messages) return null
 
   return (
     <Box flexDirection="column">
-      {formatted?.map(({message}, index: number) => (
-        <Box key={index} flexDirection="column">
+      {messages.map(({message}, id: number) => (
+        <Box key={id} flexDirection="column">
           <Box flexDirection="row">
             <Text dimColor>├─</Text>
             <Text>{` `}</Text>

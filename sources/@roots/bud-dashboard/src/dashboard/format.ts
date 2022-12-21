@@ -1,8 +1,4 @@
-import type {
-  StatsAsset,
-  StatsChunkGroup,
-  StatsCompilation,
-} from '@roots/bud-support/webpack'
+import type {StatsAsset, StatsChunkGroup} from '@roots/bud-support/webpack'
 import figures from 'figures'
 import {durationFormatter, sizeFormatter} from 'human-readable'
 
@@ -32,9 +28,12 @@ export const longestAssetNameLength = (chunks: StatsChunkGroup) =>
 
 export const size: (int: number) => string = sizeFormatter()
 
-export const colorFromStats = (stats: StatsCompilation) =>
-  stats?.errorsCount > 0
+export const colorFromStats = (compilation: {
+  errorsCount?: number
+  warningsCount?: number
+}) =>
+  compilation.errorsCount > 0
     ? color.red
-    : stats?.warningsCount > 0
+    : compilation.warningsCount > 0
     ? color.yellow
     : color.green

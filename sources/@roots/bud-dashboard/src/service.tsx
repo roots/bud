@@ -1,12 +1,15 @@
 /* eslint-disable no-console */
 import {Service} from '@roots/bud-framework/service'
 import type {Service as Contract} from '@roots/bud-framework/services/dashboard'
+import chalk from '@roots/bud-support/chalk'
 import {bind} from '@roots/bud-support/decorators'
+import figures from '@roots/bud-support/figures'
 import {Box, Text} from '@roots/bud-support/ink'
 import React from '@roots/bud-support/react'
 import type {
   MultiStats,
   StatsCompilation,
+  StatsError,
 } from '@roots/bud-support/webpack'
 
 import {Console} from './dashboard/console/index.js'
@@ -99,7 +102,12 @@ export class Dashboard extends Service implements Contract {
         <Box flexDirection="column" marginTop={1}>
           <Console messages={this.app.consoleBuffer.fetchAndRemove()} />
           <App
-            compilations={compilations}
+            compilations={compilations.map(compilation => ({
+              ...compilation,
+              entrypoints: compilation.entrypoints ?? {},
+              assets: compilation.assets ?? {},
+              errors: this.compilationErrors(compilation.errors),
+            }))}
             displayAssets={true}
             displayEntrypoints={true}
             displayServerInfo={false}
@@ -117,5 +125,50 @@ export class Dashboard extends Service implements Contract {
         </Box>,
       )
     } catch (error) {}
+  }
+
+  /**
+   * Error formatter
+   *
+   * @public
+   */
+  @bind
+  public compilationErrors?(errors: StatsError[]) {
+    return (
+      errors
+        /* Unhelpful errors passed down the loader chain */
+        .filter(({message}) => !message?.includes(`HookWebpackError`))
+        /* Format errors */
+        .map(({message, ...error}: StatsError) => ({
+          ...error,
+          message: message
+            /* Discard unhelpful stack traces */
+            .split(/  at /)
+            .shift()
+
+            /* Discard unhelpful stuff preceeding message */
+            .split(/SyntaxError:?/)
+            .pop()
+            .split(/ModuleError:/)
+            .pop()
+            .split(/Error:/)
+            .pop()
+
+            /* Process line-by-line */
+            .split(`\n`)
+            /* Discard empty lines */
+            .filter(ln => ![``, ` `, `\n`].includes(ln))
+            /* Discard emoji */
+            .map(ln => ln.replaceAll(/×/g, ``))
+            /* Replace project path with . */
+            .map(ln =>
+              ln.replaceAll(new RegExp(this.app.path(), `g`), `.`),
+            )
+            /* Add left padding and vert line */
+            .map(ln => `${chalk.dim(figures.lineVertical)} ${ln}`)
+            /* Reform message */
+            .join(`\n`),
+        }))
+    )
   }
 }
