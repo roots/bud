@@ -22,11 +22,12 @@ import openEditor from 'open-editor'
 
 import {notifierPath} from './notifierPath.js'
 
-interface EditorError {
+interface SourceFile {
   file: string
-  line: number
-  column: number
+  line?: number
+  column?: number
 }
+
 interface Notification extends NodeNotification {
   sound?: boolean | string | undefined
   subtitle?: string | undefined
@@ -48,7 +49,7 @@ interface Notification extends NodeNotification {
 export class Notifier {
   public bud: Bud
   public browser: string | boolean
-  public stats: StatsCompilation
+  public stats?: StatsCompilation | undefined
   public url: string
   public message: string
   public group: string
@@ -110,6 +111,7 @@ export class Notifier {
     if (editor === true) {
       this.editor =
         this.bud.env.get(`VISUAL`) ?? this.bud.env.get(`EDITOR`)
+
       return this
     }
 
@@ -176,7 +178,14 @@ export class Notifier {
       return
     }
 
-    this.setStats(this.bud?.compiler.stats?.toJson())
+    if (!this.bud?.compiler?.stats) {
+      this.bud.warn(
+        `notification center called before stats were available. exiting.`,
+      )
+      return
+    }
+
+    this.setStats(this.bud.compiler.stats.toJson())
     this.setGroup(this.bud.path())
     this.setTitle(this.bud.label)
     this.setMessage(
@@ -274,18 +283,16 @@ export class Notifier {
    * @decorator `@bind`
    */
   @bind
-  public openEditor(
-    errors?: Array<{
-      file: string
-      line: number
-      column: number
-    }>,
-  ) {
+  public openEditor(files?: Array<SourceFile>) {
     if (!this.openEditorEnabled) return
-    if (!errors || isEmpty(errors)) return
+    if (!files || isEmpty(files)) return
     if (!isString(this.editor)) return
 
-    return openEditor(errors, {editor: this.editor})
+    files.map(file =>
+      this.bud.info(`opening editor`, this.editor, `w/ file`, file),
+    )
+
+    return openEditor(files, {editor: this.editor})
   }
 
   /**
@@ -295,17 +302,32 @@ export class Notifier {
    * @decorator `@bind`
    */
   @bind
-  public parseErrors(errors: Array<StatsError>): Array<EditorError> {
+  public parseErrors(errors: Array<StatsError>): Array<SourceFile> {
     if (!errors || !errors.length) return []
 
     try {
-      const parseError = (error: StatsError): EditorError => {
-        const file = (error?.moduleName ?? error?.message)
-          .replace(this.bud.path(), `.`)
-          .match(/\.\/(.+\.\w*)/)
-          .shift()
+      const parseError = (error: StatsError): SourceFile | undefined => {
+        let file: SourceFile[`file`] | undefined
+
+        if (!error.moduleId) return
+
+        const module = this.stats.children
+          ?.flatMap(child =>
+            child?.modules?.find(module => module.id === error.moduleId),
+          )
+          ?.pop()
+
+        if (!module) return
+
+        if (module.nameForCondition) {
+          file = module.nameForCondition
+        } else if (module.name) {
+          file = this.bud.path(`@src`, module.name)
+        }
+
         if (!file) return
-        return {file: file, line: 0, column: 0}
+
+        return {file}
       }
 
       return errors?.map(parseError).filter(Boolean)
