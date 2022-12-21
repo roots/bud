@@ -12,25 +12,20 @@ describe(`@roots/bud-cache/invalidate-cache-extension`, () => {
       async pkg => await pkg.factory(),
     )
 
-    expect(
-      new Extension(
-        // @ts-ignore
-        bud,
-      ),
-    ).toHaveProperty(`label`, `@roots/bud-cache/invalidate-cache`)
+    expect(new Extension(bud)).toHaveProperty(
+      `label`,
+      `@roots/bud-cache/invalidate-cache`,
+    )
   })
 
   it(`should have an error file accessor`, async () => {
     const bud = await import(`@repo/test-kit/bud`).then(
       async pkg => await pkg.factory(),
     )
-    const extension = new Extension(
-      // @ts-ignore
-      bud,
-    )
+    const extension = new Extension(bud)
 
     expect(extension.invalidationFile).toStrictEqual(
-      expect.stringContaining(`${bud.label}/production.error.json`),
+      expect.stringContaining(`${bud.label}/cache/production/error.json`),
     )
   })
 

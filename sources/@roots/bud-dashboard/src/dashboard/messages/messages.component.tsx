@@ -19,30 +19,32 @@ const Messages = ({
   const formatted = messages
     ?.reverse()
     .filter(({message}) => !message?.includes(`HookWebpackError`))
-    .map(({stack, message}: {stack: string; message: string}) => ({
-      stack,
+    .map(({message}: {message: string}) => ({
       message: message
-        .split(`SyntaxError`)
+        /* Discard unhelpful stack traces */
+        .split(/  at /)
+        .shift()
+        /* Discard unhelpful stuff preceeding message */
+        .split(/SyntaxError:?/)
         .pop()
-        .trim()
+        .split(/Error:?/)
+        .pop()
+        .split(/ModuleError:?/)
+        .pop()
+        /* Discard empty lines */
         .split(`\n`)
-        .map(ln => `${chalk.dim(VERT)} ${ln.replace(process.cwd(), `.`)}`)
-        .join(`\n`)
-        .split(`Error:`)
-        .pop()
-        .split(`ModuleError`)
-        .pop()
-        .split(`\n`)
+        // trim and format
         .filter(ln => ![``, ` `, `\n`].includes(ln))
-        .join(`\n`)
-        .trim(),
+        // replace cwd with `.`
+        .map(ln => `${chalk.dim(VERT)} ${ln.replace(process.cwd(), `.`)}`)
+        .join(`\n`),
     }))
 
   if (!formatted) return null
 
   return (
     <Box flexDirection="column">
-      {formatted?.map(({message, stack}, index: number) => (
+      {formatted?.map(({message}, index: number) => (
         <Box key={index} flexDirection="column">
           <Box flexDirection="row">
             <Text dimColor>├─</Text>

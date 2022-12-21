@@ -12,19 +12,19 @@ describe(`@roots/sage`, async () => {
     sage = new Sage(bud)
   })
 
-  it(`shouldn't try to call tailwindcss if it doesn't exist`, async () => {
-    // @ts-ignore
-    bud.extensions.remove(`@roots/bud-tailwindcss`)
-    const extensionsGetSpy = vi.spyOn(bud.extensions, `get`)
-
+  it(`shouldn't add @roots/sage/wp-theme-json-tailwind when @roots/bud-tailwindcss is not present`, async () => {
+    const addSpy = vi.spyOn(bud.extensions, `add`)
     await sage.register(bud)
-    expect(extensionsGetSpy).not.toHaveBeenCalled()
+    expect(addSpy).not.toHaveBeenCalled()
   })
 
-  it(`shouldn't try to call tailwindcss if it doesn't exist`, async () => {
-    const extensionsGetSpy = vi.spyOn(bud.extensions, `get`)
+  it(`should add @roots/sage/wp-theme-json-tailwind when @roots/bud-tailwindcss is present`, async () => {
+    await bud.extensions.add(`@roots/bud-tailwindcss`)
+    const addSpy = vi.spyOn(bud.extensions, `add`)
     await sage.register(bud)
-    expect(extensionsGetSpy).toHaveBeenCalled()
+    expect(addSpy).toHaveBeenCalledWith(
+      `@roots/sage/wp-theme-json-tailwind`,
+    )
   })
 
   it(`should register errything`, async () => {

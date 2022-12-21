@@ -7,4 +7,4 @@ const init = async () =>
 
 init()
 
-import.meta.webpackHot?.accept()
+import.meta.webpackHot?.accept(console.error)

@@ -28,11 +28,8 @@ const App = ({
       {compilations.map((compilation, id) => (
         <Box key={id} flexDirection="column" paddingY={1}>
           <Compilation
-            id={id}
-            mode={mode}
             compilation={compilation}
             context={context}
-            compilerCount={compilations.length}
             displayAssets={displayAssets}
             displayEntrypoints={displayEntrypoints}
           />

@@ -16,7 +16,7 @@
   force = true
 
 [[redirects]]
-  from = "https://bud.js.org/docs/bud.html"
+  from = "https://bud.js.org/docs/bud.template"
   to = "https://bud.js.org/docs/bud.html"
   status = 301
   force = true

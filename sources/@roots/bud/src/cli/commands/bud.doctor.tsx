@@ -5,24 +5,17 @@ import {Box, Text} from '@roots/bud-support/ink'
 import React from '@roots/bud-support/react'
 import webpack from '@roots/bud-support/webpack'
 
+import {dry} from '../decorators/command.dry.js'
+
 /**
  * `bud doctor` command
  *
  * @public
+ * @decorator `@dry`
  */
+@dry
 export default class BudDoctorCommand extends BudCommand {
-  /**
-   * Command paths
-   *
-   * @public
-   */
   public static override paths = [[`doctor`]]
-
-  /**
-   * Command usage
-   *
-   * @public
-   */
   public static override usage = Command.Usage({
     description: `Check project for common errors`,
     details: `\
@@ -49,9 +42,10 @@ for a lot of edge cases so it might return a false positive.
   public configuration: webpack.Configuration
 
   /**
-   * Command execute
+   * Execute command
    *
    * @public
+   * @decorator `@bind`
    */
   public override async execute() {
     await this.makeBud(this)

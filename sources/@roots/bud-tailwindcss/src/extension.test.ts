@@ -35,7 +35,7 @@ describe(`@roots/bud-tailwindcss extension`, () => {
         },
       },
     }
-
+    await bud.extensions.add(`@roots/bud-postcss`)
     extension = new BudTailwindCss(bud)
     await extension.init()
   })
@@ -60,13 +60,18 @@ describe(`@roots/bud-tailwindcss extension`, () => {
 
   it(`should attempt to resolve modules`, async () => {
     const bud = await factory()
+    const extension = new BudTailwindCss(bud)
+    await bud.extensions.add(`@roots/bud-postcss`)
     const resolveSpy = vi.spyOn(bud.module, `resolve`)
 
-    const extension = new BudTailwindCss(bud)
     await extension.init()
     await extension.configAfter(bud)
 
-    expect(resolveSpy).toHaveBeenCalledTimes(2)
+    expect(resolveSpy).toHaveBeenNthCalledWith(1, `tailwindcss`)
+    expect(resolveSpy).toHaveBeenNthCalledWith(
+      2,
+      `tailwindcss/nesting/index.js`,
+    )
   })
 
   it(`should return a copy of the resolved config`, async () => {

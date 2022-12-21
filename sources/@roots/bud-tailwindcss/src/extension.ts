@@ -175,7 +175,13 @@ export class BudTailwindCss extends Extension<{
    */
   @bind
   public override async configAfter(bud: Bud) {
-    bud.postcss.setPlugins({
+    if (!bud.postcss) {
+      throw new Error(
+        `@roots/bud-postcss is required to run @roots/bud-tailwindcss`,
+      )
+    }
+
+    bud.postcss?.setPlugins({
       nesting: this.dependencies.nesting,
       tailwindcss: this.dependencies.tailwindcss,
     })
@@ -199,8 +205,8 @@ export class BudTailwindCss extends Extension<{
         ),
     })
 
-    bud.hooks.async(`build.resolve.alias`, async alias => ({
-      ...alias,
+    bud.hooks.async(`build.resolve.alias`, async (aliases = {}) => ({
+      ...aliases,
       [`@tailwind`]: `${bud.path(`@src`, `__bud`, `@tailwind`)}`,
     }))
   }

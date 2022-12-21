@@ -24,13 +24,7 @@ export default class BabelExtension extends Extension {
    */
   public get cacheDirectory(): LoaderOptions[`cacheDirectory`] {
     return this.app.cache.enabled
-      ? this.app.path(
-          `@storage`,
-          this.app.label,
-          `cache`,
-          this.app.mode,
-          `babel`,
-        )
+      ? this.app.path(this.app.cache.cacheDirectory, `babel`)
       : false
   }
 
@@ -81,6 +75,7 @@ export default class BabelExtension extends Extension {
    */
   public get loaderOptions(): LoaderOptions {
     return {
+      cacheIdentifier: `babel`,
       cacheDirectory: this.cacheDirectory,
       presets: Object.values(this.presets),
       plugins: Object.values(this.plugins),

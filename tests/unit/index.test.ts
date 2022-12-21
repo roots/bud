@@ -13,8 +13,17 @@ describe(`test environment sanity checks`, () => {
     )
   })
 
-  it(`bud mock should be banning @roots/bud-swc`, async () => {
+  it(`bud should be prevented from auto-loading extensions`, async () => {
     const bud = await factory({mode: `production`})
-    expect(bud.extensions.repository).toHaveProperty(`@roots/bud-swc`)
+    expect(bud.extensions.repository).not.toHaveProperty(
+      `@roots/bud-postcss`,
+    )
+    expect(bud.extensions.repository).not.toHaveProperty(`@roots/bud-swc`)
+    expect(bud.extensions.repository).not.toHaveProperty(
+      `@roots/bud-tailwindcss`,
+    )
+    expect(bud.extensions.repository).not.toHaveProperty(
+      `@roots/bud-babel`,
+    )
   })
 })
