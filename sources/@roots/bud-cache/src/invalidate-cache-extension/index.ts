@@ -24,11 +24,7 @@ export default class InvalidateCacheExtension extends Extension {
    * @public
    */
   public get invalidationFile(): string {
-    return join(
-      this.app.cache.cacheDirectory,
-      this.app.label,
-      `${this.app.mode}.error.json`,
-    )
+    return join(this.app.cache.cacheDirectory, `error.json`)
   }
 
   /**
