@@ -77,6 +77,7 @@ export default class BudSWC extends Extension<Options> {
         ) => Options['jsc']['experimental']['plugins']),
   ) {
     const options = this.getOptions()
+
     const value =
       typeof plugins === `function`
         ? plugins(options?.jsc?.experimental?.plugins)
@@ -111,7 +112,7 @@ export default class BudSWC extends Extension<Options> {
         ...(options?.jsc ?? {}),
         experimental: {
           ...(options?.jsc?.experimental ?? {}),
-          cacheRoot: bud.path(bud.cache.cacheDirectory),
+          cacheRoot: bud.path(bud.cache.cacheDirectory, `swc`),
         },
         target: this.app.esm.enabled ? `es2022` : `es2019`,
       },
