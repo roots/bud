@@ -23,7 +23,7 @@ export type {BaseContext, CommandContext, Context}
 export {Option}
 
 export interface ArgsModifier {
-  <T extends Context[`args`]>(from: T): (on: T) => Promise<T>
+  <T extends CommandContext[`args`]>(from: T): (on: T) => Promise<T>
 }
 export const ArgsModifier: ArgsModifier = from => async on => ({
   ...from,
@@ -36,7 +36,9 @@ export const ArgsModifier: ArgsModifier = from => async on => ({
  * @public
  */
 export default class BudCommand extends Command<CommandContext> {
-  public declare bud?: Bud
+  public declare bud?: (Bud & {context: CommandContext}) | undefined
+
+  public declare context: CommandContext
 
   public static override usage = Command.Usage({
     description: `Run \`bud --help\` for usage information`,
@@ -49,12 +51,12 @@ export default class BudCommand extends Command<CommandContext> {
   })
 
   public declare withArguments?: (
-    args: Context[`args`],
-  ) => Promise<Context[`args`]>
+    args: CommandContext[`args`],
+  ) => Promise<CommandContext[`args`]>
 
   public declare withSubcommandArguments?: (
-    args: Context[`args`],
-  ) => Promise<Context[`args`]>
+    args: CommandContext[`args`],
+  ) => Promise<CommandContext[`args`]>
 
   public declare withContext?: (
     context: CommandContext,
@@ -64,7 +66,9 @@ export default class BudCommand extends Command<CommandContext> {
     context: CommandContext,
   ) => Promise<CommandContext>
 
-  public declare withBud?: (bud: Bud) => Promise<Bud>
+  public declare withBud?: (
+    bud: BudCommand[`bud`],
+  ) => Promise<BudCommand[`bud`]>
 
   public declare notifier?: Notifier
 
@@ -149,7 +153,7 @@ export default class BudCommand extends Command<CommandContext> {
       ...command.context.args,
       basedir: command.context.basedir,
       debug: command.debug,
-      mode: command.context.mode,
+      filter: command.filter,
       log: command.log,
       target: command.filter,
       verbose: command.verbose,
@@ -171,7 +175,10 @@ export default class BudCommand extends Command<CommandContext> {
       await import(`../env.production.js`)
     }
 
-    command.bud = await new Bud().lifecycle(command.context)
+    const bud = await new Bud().lifecycle(command.context)
+    if (!bud.isCLI()) throw new Error(`problem instantiating bud`)
+
+    command.bud = bud
     command.notifier = new Notifier().setBud(command.bud)
 
     await command.applyBudEnv(command.bud)
@@ -194,6 +201,7 @@ export default class BudCommand extends Command<CommandContext> {
     }
   }
 
+  @bind
   public async $(bin: string, args: Array<string>, options = {}) {
     const {execa: command} = await import(`@roots/bud-support/execa`)
     return await command(bin, args, {
@@ -217,10 +225,7 @@ export default class BudCommand extends Command<CommandContext> {
   @bind
   public async applyBudEnv(bud: Bud) {
     if (bud.env.isString(`APP_MODE`)) {
-      bud.hooks.on(
-        `build.mode`,
-        bud.env.get<`development` | `production`>(`APP_MODE`),
-      )
+      bud.hooks.on(`build.mode`, bud.env.get(`APP_MODE`))
       bud.success(
         `mode set to`,
         bud.env.get(`APP_MODE`),
@@ -276,27 +281,20 @@ export default class BudCommand extends Command<CommandContext> {
 
   @bind
   public async applyBudManifestOptions(bud: Bud) {
-    if (isset(bud.context.manifest?.bud?.[`publicPath`])) {
-      bud.hooks.on(
-        `build.output.publicPath`,
-        bud.context.manifest.bud[`publicPath`],
-      )
-    }
-    if (isset(bud.context.manifest?.bud?.paths?.[`src`])) {
-      bud.hooks.on(`location.@src`, bud.context.manifest.bud.paths[`src`])
-    }
-    if (isset(bud.context.manifest?.bud?.paths?.[`dist`])) {
-      bud.hooks.on(
-        `location.@dist`,
-        bud.context.manifest.bud.paths[`dist`],
-      )
-    }
-    if (isset(bud.context.manifest?.bud?.paths?.[`storage`])) {
-      bud.hooks.on(
-        `location.@storage`,
-        bud.context.manifest.bud.paths[`storage`],
-      )
-    }
+    const {bud: manifest} = bud.context.manifest
+    if (!manifest) return
+
+    if (isset(manifest.publicPath))
+      bud.hooks.on(`build.output.publicPath`, manifest.bud.publicPath)
+
+    if (isset(manifest.paths?.src))
+      bud.hooks.on(`location.@src`, manifest.bud.paths.src)
+
+    if (isset(manifest.paths?.dist))
+      bud.hooks.on(`location.@dist`, manifest.bud.paths.dist)
+
+    if (isset(manifest.paths?.[`storage`]))
+      bud.hooks.on(`location.@storage`, manifest.bud.paths[`storage`])
   }
 
   /**
@@ -305,108 +303,97 @@ export default class BudCommand extends Command<CommandContext> {
    * @public
    */
   @bind
-  public async applyBudArguments(bud: Bud) {
-    if (isset(bud.context.args.input)) {
-      bud.setPath(`@src`, bud.context.args.input)
-    }
+  public async applyBudArguments(bud: BudCommand[`bud`]) {
+    const {args, logger} = bud.context
 
-    if (isset(bud.context.args.output)) {
-      bud.setPath(`@dist`, bud.context.args.output)
-    }
+    if (isset(args.input)) bud.setPath(`@src`, args.input)
+    if (isset(args.output)) bud.setPath(`@dist`, args.output)
+    if (isset(args.publicPath)) bud.setPublicPath(args.publicPath)
 
-    if (isset(bud.context.args.manifest)) {
-      bud.log(`overriding manifest setting from cli`)
-      bud.hooks.on(`feature.manifest`, bud.context.args.manifest)
-    }
-
-    if (isset(bud.context.args.publicPath)) {
-      bud.setPublicPath(bud.context.args.publicPath)
-    }
-    if (isset(bud.context.args.filter) && bud.hasChildren) {
+    if (isset(args.filter) && bud.hasChildren) {
       Object.keys(bud.children)
-        .filter(name => !bud.context.args.filter.includes(name))
+        .filter(name => !args.filter.includes(name))
         .map(name => {
           delete bud.children[name]
           bud.log(`removing ${name} instance from the cli`)
         })
     }
 
-    if (isset(bud.context.args.storage)) {
+    if (isset(args.manifest)) {
+      bud.log(`overriding manifest setting from cli`)
+      bud.hooks.on(`feature.manifest`, args.manifest)
+    }
+
+    if (isset(args.storage)) {
       bud.log(`overriding storage directory from the cli`)
-      bud.setPath(`@storage`, bud.context.args.storage)
+      bud.setPath(`@storage`, args.storage)
     }
 
-    if (isset(bud.context.args.mode)) {
-      bud.log(`overriding mode from the cli`)
-      bud.hooks.on(`build.mode`, bud.context.args.mode)
-    }
-    if (isset(bud.context.args.cache)) {
+    if (isset(args.cache)) {
       bud.log(`overriding cache settings from cli`)
-      bud.persist(bud.context.args.cache)
+      bud.persist(args.cache)
+      bud.hasChildren &&
+        Object.values(bud.children).map(child => child.persist(args.cache))
+    }
+
+    if (isset(args.minimize)) {
+      bud.log(`overriding minimize setting from cli`)
+      bud.minimize(args.minimize)
       bud.hasChildren &&
         Object.values(bud.children).map(child =>
-          child.persist(bud.context.args.cache),
+          child.minimize(args.minimize),
         )
     }
 
-    if (isset(bud.context.args.minimize)) {
-      bud.log(`overriding minimize setting from cli`)
-      bud.minimize(bud.context.args.minimize)
-      bud.hasChildren &&
-        Object.values(bud.children).map(child =>
-          child.minimize(bud.context.args.minimize),
-        )
-    }
-    if (isset(bud.context.args.devtool)) {
+    if (isset(args.devtool)) {
       bud.log(`overriding devtool from cli`)
-      bud.devtool(bud.context.args.devtool)
+      bud.devtool(args.devtool)
       bud.hasChildren &&
         Object.values(bud.children).map(child =>
-          child.devtool(bud.context.args.devtool),
+          child.devtool(args.devtool),
         )
     }
-    if (isset(bud.context.args.esm)) {
+
+    if (isset(args.esm)) {
       bud.log(`overriding esm from cli`)
-      bud.esm.enable(bud.context.args.esm)
+      bud.esm.enable(args.esm)
       bud.hasChildren &&
         Object.values(bud.children).map(child =>
-          child.esm.enable(bud.context.args.esm),
+          child.esm.enable(args.esm),
         )
     }
-    if (isset(bud.context.args.immutable)) {
+
+    if (isset(args.immutable)) {
       bud.log(`overriding immutable from cli`)
-      bud.cdn.freeze(bud.context.args.immutable)
+      bud.cdn.freeze(args.immutable)
       bud.hasChildren &&
         Object.values(bud.children).map(child =>
-          child.cdn.freeze(bud.context.args.immutable),
+          child.cdn.freeze(args.immutable),
         )
     }
-    if (isset(bud.context.args.clean)) {
+    if (isset(args.clean)) {
       bud.log(`overriding clean setting from cli`)
       bud.extensions
         .get(`@roots/bud-extensions/clean-webpack-plugin`)
-        .enable(bud.context.args.clean)
-      bud.hooks.on(`build.output.clean`, bud.context.args.clean)
+        .enable(args.clean)
+      bud.hooks.on(`build.output.clean`, args.clean)
     }
-    if (isset(bud.context.args.hash)) {
-      bud.context.logger.log(`hash enabled by --hash`)
-      bud.hash(bud.context.args.hash)
+
+    if (isset(args.hash)) {
+      logger.log(`hash enabled by --hash`)
+      bud.hash(args.hash)
+
+      bud.hasChildren &&
+        Object.values(bud.children).map(child => child.hash(args.hash))
+    }
+
+    if (isset(args.html)) {
+      isString(args.html) ? bud.html({template: args.html}) : bud.html()
 
       bud.hasChildren &&
         Object.values(bud.children).map(child =>
-          child.hash(bud.context.args.hash),
-        )
-    }
-
-    if (isset(bud.context.args.html)) {
-      isString(bud.context.args.html)
-        ? bud.html({template: bud.context.args.html})
-        : bud.html()
-
-      bud.hasChildren &&
-        Object.values(bud.children).map(child =>
-          isString(bud.context.args.html)
-            ? child.html({template: bud.context.args.html})
+          isString(args.html)
+            ? child.html({template: args.html})
             : child.html(),
         )
     }

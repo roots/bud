@@ -9,10 +9,10 @@
     "build": "yarn ts-bud build"
   },
   "devDependencies": {
-    "@roots/browserslist-config": "0.0.0",
-    "@roots/bud": "0.0.0",
-    "@roots/bud-babel": "0.0.0",
-    "@roots/bud-typescript": "0.0.0",
+    "@roots/browserslist-config": "latest",
+    "@roots/bud": "latest",
+    "@roots/bud-babel": "latest",
+    "@roots/bud-typescript": "latest",
     "@types/webpack-env": "latest",
     "ts-node": "10.9.1"
   }

@@ -8,6 +8,12 @@ import React from '@roots/bud-support/react'
 import {dry} from '../decorators/command.dry.js'
 import BudCommand from './bud.js'
 
+/**
+ * `bud clean`
+ *
+ * @public
+ * @decorator `@dry`
+ */
 @dry
 export default class BudCleanCommand extends BudCommand {
   public static override paths = [[`clean`]]
@@ -16,9 +22,7 @@ export default class BudCleanCommand extends BudCommand {
     description: `Clean project artifacts and caches`,
     details: `
       \`bud clean\` empties the \`@dist\` and \`@storage\` directories.
-
       \`bud clean @dist\` empties the \`@dist\` directory.
-
       \`bud clean @storage\` empties the \`@storage\` directory.
 `,
     examples: [
@@ -28,35 +32,38 @@ export default class BudCleanCommand extends BudCommand {
     ],
   })
 
-  public shouldCleanStorage = Option.Boolean(`@storage`, false, {
+  public _cleanStorage = Option.Boolean(`@storage`, false, {
     description: `empty @storage`,
   })
-  public shouldCleanDist = Option.Boolean(`@dist`, false, {
+  public _cleanOutput = Option.Boolean(`@dist`, false, {
     description: `empty @dist`,
   })
 
+  /**
+   * Execute command
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
   public override async execute() {
     await this.makeBud(this)
     await this.healthcheck(this)
 
     if (
-      this.shouldCleanStorage ||
-      (!this.shouldCleanStorage && !this.shouldCleanDist)
+      this._cleanStorage ||
+      (!this._cleanStorage && !this._cleanOutput)
     ) {
       await this.cleanStorage()
     }
 
-    if (
-      this.shouldCleanDist ||
-      (!this.shouldCleanDist && !this.shouldCleanDist)
-    ) {
-      await this.cleanDist()
+    if (this._cleanOutput || (!this._cleanOutput && !this._cleanOutput)) {
+      await this.cleanOutput()
     }
   }
 
   @bind
-  public async cleanDist() {
+  public async cleanOutput() {
     try {
       await remove(this.bud.path(`@dist`))
 

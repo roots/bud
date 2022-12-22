@@ -5,35 +5,38 @@ import getEnv from '@roots/bud/context/env'
 import getExtensions from '@roots/bud/context/extensions'
 import getManifest from '@roots/bud/context/manifest'
 import services from '@roots/bud/context/services'
+import type * as Factory from '@roots/bud/factory'
 import {Logger} from '@roots/bud/logger'
-import type {Context} from '@roots/bud-framework/options'
+import type {CommandContext, Context} from '@roots/bud-framework/options'
 import {Filesystem} from '@roots/bud-support/filesystem'
 import {omit} from '@roots/bud-support/lodash-es'
-
-import * as argv from './argv.js'
 
 let contexts: Record<string, Context> = {}
 
 export default async (
-  {basedir, ...overrides}: Partial<Context>,
-  cache = true,
+  {basedir, ...overrides}: Partial<CommandContext>,
+  options: Factory.Options = {
+    cache: true,
+    find: false,
+  },
 ): Promise<Context> => {
-  if (cache && contexts[basedir]) return contexts[basedir]
+  if (!basedir) basedir = process.cwd()
+  if (options.cache && contexts[basedir]) return contexts[basedir]
 
   const fs = new Filesystem(basedir)
 
-  let args: Context[`args`] | undefined
   let config: Context[`config`] | undefined
   let env: Context[`env`] | undefined
   let extensions: Context[`extensions`] | undefined
   let manifest: Context[`manifest`] | undefined
 
-  if (!argv.has(`no-find`)) {
+  if (options.find) {
     env = getEnv({basedir, ...overrides})
     config = await projectFiles.get({basedir, fs})
     manifest = getManifest(config)
-    extensions = getExtensions(manifest)
   }
+
+  extensions = getExtensions(manifest, options.find)
 
   const logger = new Logger()
 
@@ -42,7 +45,6 @@ export default async (
     basedir,
     ...overrides,
     mode: overrides?.mode ?? `production`,
-    args: {...(args ?? {}), ...(overrides?.args ?? {})},
     env: {...(env ?? {}), ...(overrides?.env ?? {})},
     config: {...(config ?? {}), ...(overrides?.config ?? {})},
     services: [...(services ?? []), ...(overrides?.services ?? [])],
@@ -50,11 +52,11 @@ export default async (
     manifest: {...(manifest ?? {}), ...(overrides?.manifest ?? {})},
     extensions: {
       builtIn: [
-        ...(extensions.builtIn ?? []),
+        ...(extensions?.builtIn ?? []),
         ...(overrides?.extensions?.builtIn ?? []),
       ],
       discovered: [
-        ...(extensions.discovered ?? []),
+        ...(extensions?.discovered ?? []),
         ...(overrides?.extensions?.discovered ?? []),
       ],
     },
@@ -64,7 +66,7 @@ export default async (
   context.logger.scope(context.label).debug(omit(context, `env`))
   await context.logger.setCommonPath(context.basedir)
 
-  if (cache) {
+  if (options.cache) {
     contexts[basedir] = context
     return contexts[basedir]
   }

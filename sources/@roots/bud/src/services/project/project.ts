@@ -16,7 +16,11 @@ class Project extends Service {
    */
   @bind
   public override async buildAfter?(bud: Bud) {
-    if (!bud.context.args.debug) {
+    if (!bud.isCLI()) {
+      bud.info(`not a CLI build. skipping project profile.`)
+      return
+    }
+    if (!bud.context.args?.debug) {
       bud.info(`--debug not \`true\`. skipping fs write.`)
       return
     }

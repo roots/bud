@@ -1,6 +1,7 @@
 import {platform} from 'node:os'
 
 import type {Bud} from '@roots/bud-framework'
+import type {CommandContext} from '@roots/bud-framework/options'
 import {bind} from '@roots/bud-support/decorators'
 import {
   isEmpty,
@@ -47,7 +48,7 @@ interface Notification extends NodeNotification {
  * @public
  */
 export class Notifier {
-  public bud: Bud
+  public bud: Bud & {context: CommandContext}
   public browser: string | boolean
   public stats?: StatsCompilation | undefined
   public url: string
@@ -60,9 +61,11 @@ export class Notifier {
   public get notificationsEnabled(): boolean {
     return this.bud?.context.args.notify !== false
   }
+
   public get openEditorEnabled(): boolean {
     return isString(this.editor)
   }
+
   public get openBrowserEnabled(): boolean {
     return this.browser === true || isString(this.browser)
   }
@@ -97,7 +100,7 @@ export class Notifier {
   }
 
   @bind
-  public setBud(bud: Bud) {
+  public setBud(bud: Bud & {context: CommandContext}) {
     this.bud = bud
     return this
   }

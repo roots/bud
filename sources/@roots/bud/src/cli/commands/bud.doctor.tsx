@@ -1,5 +1,5 @@
 import BudCommand from '@roots/bud/cli/commands/bud'
-import type {Context} from '@roots/bud-framework/options'
+import type {CommandContext} from '@roots/bud-framework/options'
 import {Command} from '@roots/bud-support/clipanion'
 import {Box, Text} from '@roots/bud-support/ink'
 import React from '@roots/bud-support/react'
@@ -35,7 +35,7 @@ for a lot of edge cases so it might return a false positive.
       [`Check compiled configuration against webpack`, `$0 doctor`],
     ],
   })
-  public override withArguments = async (args: Context[`args`]) => {
+  public override withArguments = async (args: CommandContext[`args`]) => {
     return {...args, dry: true}
   }
 

@@ -1,3 +1,3 @@
-import type {CommandContext, Context, File} from './context.js'
+import type {CLIContext, CommandContext, Context, File} from './context.js'
 
-export type {CommandContext, Context, File}
+export type {CLIContext, CommandContext, Context, File}

@@ -1,5 +1,5 @@
 import type BudCommand from '@roots/bud/cli/commands/bud'
-import type {Context} from '@roots/bud-framework/options'
+import type {CommandContext} from '@roots/bud-framework/options'
 
 export function dry<T extends new (...args: any[]) => BudCommand>(
   constructor: T,
@@ -9,7 +9,7 @@ export function dry<T extends new (...args: any[]) => BudCommand>(
       super(...args)
       if (this.withArguments) {
         const existingFn = this.withArguments
-        this.withArguments = async (args: Context[`args`]) => {
+        this.withArguments = async (args: CommandContext[`args`]) => {
           args = await existingFn(args)
           return {
             ...args,

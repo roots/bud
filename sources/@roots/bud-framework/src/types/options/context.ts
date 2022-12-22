@@ -5,7 +5,7 @@ import type {InspectResult} from '@roots/filesystem/filesystem'
 import type {Bud} from '../../bud.js'
 import type {Logger} from '../services/logger/index.js'
 
-export interface BudContext {
+export interface Context {
   label: string
   basedir: string
   mode: 'development' | 'production'
@@ -16,13 +16,28 @@ export interface BudContext {
     builtIn: Array<string>
     discovered: Array<string>
   }
+  manifest: Record<string, any>
+  services: Array<string>
+  logger: Logger
+  root?: Bud | undefined
+  dependsOn?: Array<string> | undefined
+}
+
+export interface CLIContext extends Context {
+  stdin: Readable
+  stdout: Writable
+  stderr: Writable
+  colorDepth: number
+}
+
+export interface CommandContext extends CLIContext {
   args: Partial<{
-    basedir?: string
-    browser?: string | boolean
-    cache?: `filesystem` | `memory` | true | false
-    ci?: boolean
-    clean?: boolean
-    debug?: boolean
+    basedir: string | undefined
+    browser: string | boolean | undefined
+    cache: `filesystem` | `memory` | true | false | undefined
+    ci: boolean | undefined
+    clean: boolean | undefined | undefined
+    debug: boolean | undefined
     devtool?:
       | false
       | `eval`
@@ -49,45 +64,33 @@ export interface BudContext {
       | `hidden-cheap-source-map`
       | `hidden-cheap-module-source-map`
       | `hidden-source-map`
-    discovery?: boolean
-    dry?: boolean
-    output?: string
-    editor?: string | boolean
-    esm?: boolean
-    filter?: Array<string>
-    flush?: boolean
-    hash?: boolean
-    html?: boolean | string
-    immutable?: boolean
-    indicator?: boolean
-    input?: string
-    log?: boolean
-    manifest?: boolean
-    minimize?: boolean
-    mode?: `production` | `development`
-    modules?: string
-    notify?: boolean
-    overlay?: boolean
-    publicPath?: string
-    reload?: boolean
-    runtime?: `single` | `multiple` | boolean
-    splitChunks?: boolean
-    storage?: string
-    target?: Array<string>
-    verbose?: boolean
+      | undefined
+    discovery: boolean | undefined
+    dry: boolean | undefined
+    output: string | undefined
+    editor: string | boolean | undefined
+    esm: boolean | undefined
+    filter: Array<string> | undefined
+    flush: boolean | undefined
+    hash: boolean | undefined
+    html: boolean | string | undefined
+    immutable: boolean | undefined
+    indicator: boolean | undefined
+    input: string | undefined
+    log: boolean | undefined
+    manifest: boolean | undefined
+    minimize: boolean | undefined
+    modules: string | undefined
+    notify: boolean | undefined
+    overlay: boolean | undefined
+    publicPath: string | undefined
+    reload: boolean | undefined
+    runtime: `single` | `multiple` | boolean | undefined
+    splitChunks: boolean | undefined
+    storage: string | undefined
+    target: Array<string> | undefined
+    verbose: boolean | undefined
   }>
-  manifest: Record<string, any>
-  services: Array<string>
-  logger: Logger
-  root?: Bud
-  dependsOn?: Array<string>
-}
-
-export interface CommandContext extends BudContext {
-  stdin: Readable
-  stdout: Writable
-  stderr: Writable
-  colorDepth: number
 }
 
 export interface File extends Omit<InspectResult, `type`> {
@@ -106,5 +109,3 @@ export interface File extends Omit<InspectResult, `type`> {
   md5: string
   mode: number
 }
-
-export type {BudContext as Context}

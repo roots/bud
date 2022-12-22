@@ -101,7 +101,6 @@ export default class Extensions
     if (manifest?.[this.app.label]?.extensions) {
       const {discovery, allowlist, denylist} =
         manifest[this.app.label].extensions
-
       if (!isUndefined(discovery)) this.options.set(`discovery`, discovery)
       if (!isUndefined(allowlist))
         this.options.merge(`allowlist`, allowlist)
@@ -116,10 +115,10 @@ export default class Extensions
         bud.context.extensions.builtIn.filter(Boolean).map(this.import),
       )
 
-    if (!isUndefined(bud.context.args.discovery)) {
+    if (bud.isCLI() && !isUndefined(bud.context.args.discovery)) {
       this.options.set(`discovery`, bud.context.args.discovery)
     }
-    if (!isUndefined(bud.context.args.discovery)) {
+    if (bud.isCLI() && !isUndefined(bud.context.args.discovery)) {
       this.options.set(`discovery`, bud.context.args.discovery)
     }
 

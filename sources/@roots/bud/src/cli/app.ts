@@ -12,7 +12,7 @@ import getContext from '@roots/bud/context'
 import {argv, basedir} from '@roots/bud/context/argv'
 import {Builtins, Cli, CommandClass} from '@roots/bud-support/clipanion'
 
-const context = await getContext({basedir})
+const context = await getContext({basedir}, {cache: true, find: true})
 
 const application = new Cli({
   binaryLabel: `bud`,

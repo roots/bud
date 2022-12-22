@@ -4,7 +4,7 @@ import type {Configuration} from '@roots/bud-framework/config'
 import {Service} from '@roots/bud-framework/service'
 import type * as Services from '@roots/bud-framework/services'
 import {bind} from '@roots/bud-support/decorators'
-import {isString} from '@roots/bud-support/lodash-es'
+import {isString, join} from '@roots/bud-support/lodash-es'
 
 import InvalidateCacheExtension from './invalidate-cache-extension/index.js'
 
@@ -47,11 +47,12 @@ export default class Cache
   public get type(): 'memory' | 'filesystem' {
     return this.app.hooks.filter(
       `build.cache.type`,
-      isString(this.app.context.args.cache)
+      this.app.isCLI() && isString(this.app.context.args.cache)
         ? this.app.context.args.cache
         : `filesystem`,
     )
   }
+
   public set type(type: 'memory' | 'filesystem') {
     this.app.hooks.on(`build.cache.type`, type)
   }
@@ -62,20 +63,18 @@ export default class Cache
    * @public
    */
   public get version(): string {
+    const args = this.app.fs.json.stringify(
+      this.app.isCLI() ? this.app.context.args : {},
+    )
+    const files = Object.values(this.app.context.config ?? {}).filter(
+      file => file?.bud && file.sha1,
+    )
+
     return this.app.hooks.filter(
       `build.cache.version`,
       createHash(`sha1`)
-        .update(
-          this.app.fs.json.stringify([
-            Object.values(this.app.context.config ?? {})
-              .filter(({bud}) => bud)
-              .map(({module}) => module.toString()),
-            Object.entries(this.app.context.args),
-          ]),
-        )
-        .digest(`base64`)
-        .replace(/[^a-z0-9]/gi, `_`)
-        .toLowerCase(),
+        .update(join(args, ...files.map(({module: {sha1}}) => sha1)))
+        .digest(`base64`),
     )
   }
   public set version(version: string) {

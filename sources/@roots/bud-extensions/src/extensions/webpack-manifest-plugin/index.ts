@@ -5,6 +5,7 @@ import {
   options,
   plugin,
 } from '@roots/bud-framework/extension/decorators'
+import {isUndefined} from '@roots/bud-support/lodash-es'
 import {
   ManifestPluginOptions as Options,
   WebpackManifestPlugin,
@@ -41,9 +42,11 @@ export default class BudWebpackManifestPlugin extends Extension<
    */
   @bind
   public override async when(bud: Bud) {
-    return (
-      bud.hooks.filter(`feature.manifest`) &&
-      bud.context.args.manifest !== false
-    )
+    if (!bud.isCLI()) return bud.hooks.filter(`feature.manifest`, true)
+
+    if (!isUndefined(bud.context.args.manifest))
+      return bud.context.args.manifest
+
+    return bud.hooks.filter(`feature.manifest`, true)
   }
 }

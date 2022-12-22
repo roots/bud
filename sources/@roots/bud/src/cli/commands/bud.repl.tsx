@@ -1,5 +1,6 @@
 import type {Bud} from '@roots/bud'
 import {dry} from '@roots/bud/cli/decorators'
+import {bind} from '@roots/bud-framework/extension/decorators'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {highlight} from '@roots/bud-support/highlight'
 import * as Ink from '@roots/bud-support/ink'
@@ -40,9 +41,12 @@ export default class BudReplCommand extends BudCommand {
   })
 
   /**
-   * Command execute
+   * Execute command
+   *
    * @public
+   * @decorator `@bind`
    */
+  @bind
   public override async execute() {
     await this.makeBud(this)
     await this.run(this)

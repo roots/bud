@@ -1,6 +1,6 @@
 import type {Context, File} from '@roots/bud-framework/options'
 import {Filesystem, json, yml} from '@roots/bud-support/filesystem'
-import {set} from '@roots/bud-support/lodash-es'
+import {isEqual, set} from '@roots/bud-support/lodash-es'
 
 interface get {
   (props: {basedir: Context[`basedir`]; fs: Filesystem}): Promise<
@@ -19,28 +19,24 @@ const get: get = async ({basedir, fs}) => {
     await Promise.all(
       files.map(async (name: string) => {
         const file = await fs.inspect(name, {
-          checksum: `md5`,
+          checksum: `sha1` as `sha1`,
           mode: true,
           absolutePath: true,
         })
 
         set(data, [`${name}`], {
           path: file.absolutePath,
-          name: file.name,
-          size: file.size,
-          md5: file.md5,
-          mode: file.mode,
-          file: file.type === `file`,
-          dir: file.type === `dir`,
-          symlink: file.type === `symlink`,
+          ...file,
+          file: isEqual(file.type, `file`),
+          dir: isEqual(file.type, `dir`),
+          symlink: isEqual(file.type, `symlink`),
 
           local: file.name.includes(`local`),
-          bud: name.includes(`bud`) && file.type === `file`,
+          bud: name.includes(`bud`) && isEqual(file.type, `file`),
 
-          dynamic:
-            file.type === `file`
-              ? isDynamicConfig(file.absolutePath)
-              : null,
+          dynamic: isEqual(file.type, `file`)
+            ? isDynamicConfig(file.absolutePath)
+            : null,
 
           type: name.includes(`production`)
             ? `production`
@@ -48,8 +44,9 @@ const get: get = async ({basedir, fs}) => {
             ? `development`
             : `base`,
 
-          extension:
-            file.type === `file` ? file.name.split(`.`).pop() : null,
+          extension: isEqual(file.type, `file`)
+            ? file.name.split(`.`).pop()
+            : null,
         })
       }),
     )
@@ -58,27 +55,16 @@ const get: get = async ({basedir, fs}) => {
   try {
     await Promise.all(
       Object.entries(data).map(
-        async ([name, description]: [string, File]) => {
+        async ([name, {bud, dynamic, extension, path}]) => {
+          let config: unknown
+
           try {
-            if (description.dynamic) {
-              const dynamicConfig = await import(description.path)
+            if (extension === `json`) config = await json.read(path)
+            else if (extension === `yml`) config = await yml.read(path)
+            else if (dynamic && bud)
+              config = await import(path).then(mod => mod?.default ?? mod)
 
-              set(
-                data,
-                [name, `module`],
-                dynamicConfig?.default ?? dynamicConfig,
-              )
-            }
-
-            if (description.extension === `json`) {
-              const jsonConfig = await json.read(description.path)
-              set(data, [name, `module`], jsonConfig)
-            }
-
-            if (description.extension === `yml`) {
-              const ymlConfig = await yml.read(description.path)
-              set(data, [name, `module`], ymlConfig)
-            }
+            set(data, [name, `module`], config)
           } catch (error) {}
         },
       ),
