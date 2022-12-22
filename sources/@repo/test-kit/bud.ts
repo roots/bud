@@ -4,9 +4,11 @@ import '@roots/bud'
 import {join} from 'node:path'
 
 import {paths} from '@repo/constants'
-import {Bud} from '@roots/bud'
+import type {Bud as BaseBud} from '@roots/bud'
 import {factory as makeInstance} from '@roots/bud/factory'
 import type * as Options from '@roots/bud-framework/options'
+
+type Bud = BaseBud & {context: Options.CommandContext}
 
 export const repoPath = (...path: Array<string>) =>
   join(paths.root, ...(path ?? []))
@@ -14,9 +16,9 @@ export const repoPath = (...path: Array<string>) =>
 export const basedir = repoPath(`tests`, `util`, `project`)
 
 export const factory = async (
-  overrides?: Partial<Options.Context> | undefined,
+  overrides: Partial<Options.CommandContext> = {},
   run = false,
-): Promise<Bud> => {
+): Promise<Bud & {context: Options.CommandContext}> => {
   const bud = await makeInstance(
     {
       basedir,
@@ -28,8 +30,11 @@ export const factory = async (
         ...(overrides?.args ?? {}),
       },
     },
-    false,
+    {cache: false, find: true},
   )
+
+  if (!bud.isCLI())
+    throw new Error(`test error: bud is not a CLI instance`)
 
   if (run) await bud.run()
 
