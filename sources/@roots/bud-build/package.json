@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-build",
   "description": "bud.js core module",
-  "version": "0.0.0",
+  "version": "6.6.6",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
