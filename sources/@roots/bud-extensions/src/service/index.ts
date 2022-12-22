@@ -87,7 +87,7 @@ export default class Extensions
    */
   @bind
   public override async booted?(bud: Bud): Promise<void> {
-    const {manifest} = bud.context
+    const {extensions, manifest} = bud.context
 
     if (manifest?.bud?.extensions) {
       const {discovery, allowlist, denylist} = manifest.bud.extensions
@@ -108,16 +108,13 @@ export default class Extensions
     }
 
     if (
-      !isUndefined(bud.context.extensions.builtIn) &&
-      Array.isArray(bud.context.extensions.builtIn)
+      !isUndefined(extensions.builtIn) &&
+      Array.isArray(extensions.builtIn)
     )
       await Promise.all(
-        bud.context.extensions.builtIn.filter(Boolean).map(this.import),
+        extensions.builtIn.filter(Boolean).map(this.import),
       )
 
-    if (bud.isCLI() && !isUndefined(bud.context.args.discovery)) {
-      this.options.set(`discovery`, bud.context.args.discovery)
-    }
     if (bud.isCLI() && !isUndefined(bud.context.args.discovery)) {
       this.options.set(`discovery`, bud.context.args.discovery)
     }
@@ -125,7 +122,6 @@ export default class Extensions
     if (
       this.options.is(`discovery`, true) &&
       this.options.isEmpty(`allowlist`) &&
-      bud.context.extensions?.discovered &&
       Array.isArray(bud.context.extensions.discovered)
     )
       await Promise.all(

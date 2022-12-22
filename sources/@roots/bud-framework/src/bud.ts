@@ -35,7 +35,7 @@ export class Bud {
     | Options.Context
 
   public isCLI(): this is Bud & {context: Options.CommandContext} {
-    return !isUndefined((this as any).context.args)
+    return `args` in this.context
   }
 
   /**
