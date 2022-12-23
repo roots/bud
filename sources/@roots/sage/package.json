@@ -52,6 +52,8 @@
     "./client": "./lib/client/index.js",
     "./client/dom-ready": "./lib/client/dom-ready.js",
     "./client/lazy": "./lib/client/lazy.js",
+    "./config/jsconfig.json": "./config/jsconfig.json",
+    "./config/tsconfig.json": "./config/tsconfig.json",
     "./wp-theme-json": "./lib/wp-theme-json/index.js",
     "./wp-theme-json-tailwind": "./lib/wp-theme-json-tailwind/index.js",
     "./stylelint": "./config/stylelint.cjs",
