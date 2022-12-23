@@ -108,37 +108,61 @@ export default class BudCommand extends Command<CommandContext> {
   }
   public async execute() {}
 
-  public override async catch(error: string | {message: string}) {
-    const message = isString(error)
-      ? error
-      : isString(error?.message)
-      ? error.message
-      : JSON.stringify(error)
+  public override async catch(value: unknown) {
+    const normalizeError = (value: unknown): Error => {
+      if (value instanceof Error) return value
+      if (isString(value)) return new Error(value)
+      if (value instanceof Object) {
+        try {
+          return new Error(JSON.stringify(value, null, 2))
+        } catch (error) {
+          return new Error(value.toString())
+        }
+      }
+    }
+
+    process.exitCode = 1
+    const error = normalizeError(value)
+
+    error.name = error.name ? ` ${error.name} ` : ` Error `
+    error.message = (error.stack ?? error.message)
+      .split(`  at `)
+      .splice(0, 2)
+      .join(`  at `)
+
+    if (
+      this.bud?.context.args.notify !== false &&
+      this.notifier instanceof Notifier
+    ) {
+      try {
+        this.notifier.notify({
+          title: `bud.js`,
+          subtitle: `Configuration error`,
+          message: error.message,
+          group: this.bud.path(),
+        })
+      } catch (error) {
+        // fallthrough
+      }
+    }
 
     BudCommand.render(
-      <Box flexDirection="column" marginY={1}>
-        <Box>
+      <Box flexDirection="column" marginTop={1}>
+        <Box marginBottom={1}>
           <Text backgroundColor="red" color="white">
-            Error
+            {error.name}
           </Text>
         </Box>
-        <Text>{` `}</Text>
-        <Text wrap="end">{message}</Text>
+
+        <Box>
+          <Text>{error.message}</Text>
+        </Box>
       </Box>,
     )
 
-    if (this.bud?.context.args.notify !== false) {
-      this.notifier.notify({
-        title: `bud.js`,
-        subtitle: `Configuration error`,
-        message: message,
-        group: this.bud.path(),
-      })
-    }
-
     if (this.bud.isProduction) {
       // eslint-disable-next-line n/no-process-exit
-      process.exit(1)
+      process.exit()
     }
   }
 
