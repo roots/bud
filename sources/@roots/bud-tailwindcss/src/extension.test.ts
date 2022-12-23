@@ -10,31 +10,6 @@ describe(`@roots/bud-tailwindcss extension`, () => {
 
   beforeEach(async () => {
     bud = await factory()
-    bud.context.config[`tailwind.config.js`] = {
-      name: `tailwind.config.js`,
-      path: `test/path`,
-      bud: false,
-      dynamic: true,
-      local: false,
-      extension: null,
-      type: `base`,
-      file: true,
-      dir: false,
-      symlink: false,
-      size: 1020,
-      md5: `test-md5`,
-      mode: 0o777,
-      module: {
-        content: [`**/*.stub`],
-        theme: {
-          extend: {
-            colors: {
-              primary: `red`,
-            },
-          },
-        },
-      },
-    }
     await bud.extensions.add(`@roots/bud-postcss`)
     extension = new BudTailwindCss(bud)
     await extension.init()
@@ -76,15 +51,21 @@ describe(`@roots/bud-tailwindcss extension`, () => {
 
   it(`should return a copy of the resolved config`, async () => {
     const configInitial = resolveConfig(
-      bud.context.config[`tailwind.config.js`].module,
+      await bud.module
+        .import(bud.context.config[`tailwind.config.cjs`].path)
+        .then(mod => mod.default ?? mod),
     )
 
-    expect(extension.theme?.colors).not.toBe(configInitial?.theme?.colors)
+    expect(extension.getTheme()?.colors).not.toBe(
+      configInitial?.theme?.colors,
+    )
   })
 
   it(`should have a config prop`, async () => {
-    expect(extension.configSource).toBe(
-      bud.context.config[`tailwind.config.js`].module,
+    expect(await extension.getSource()).toBe(
+      await bud.module
+        .import(bud.context.config[`tailwind.config.cjs`].path)
+        .then(mod => mod.default ?? mod),
     )
   })
 
