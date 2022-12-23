@@ -86,6 +86,12 @@
       "types": "./lib/cli/helpers/*.d.ts",
       "default": "./lib/cli/helpers/*.js"
     },
+    "./config/jsconfig.json": {
+      "default": "./config/jsconfig.json"
+    },
+    "./config/tsconfig.json": {
+      "default": "./config/tsconfig.json"
+    },
     "./context": {
       "types": "./lib/context/index.d.ts",
       "default": "./lib/context/index.js"
