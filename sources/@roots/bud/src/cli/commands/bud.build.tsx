@@ -1,10 +1,9 @@
-import type {Bud} from '@roots/bud'
 import BudCommand from '@roots/bud/cli/commands/bud'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators'
 import * as t from '@roots/bud-support/typanion'
 
-import type {CommandContext, Context} from './bud.js'
+import type {CommandContext} from './bud.js'
 
 /**
  * Build command
@@ -26,7 +25,7 @@ export default class BudBuildCommand extends BudCommand {
     examples: [[`compile source assets`, `$0 build`]],
   })
 
-  public override withBud = async (bud: Bud) => {
+  public override withBud = async (bud: BudCommand[`bud`]) => {
     bud.hooks.action(`compiler.close`, async bud => {
       await this.notifier.compilationNotification()
     })
@@ -157,7 +156,9 @@ export default class BudBuildCommand extends BudCommand {
     return context
   }
 
-  public override withArguments = async (args: Context[`args`]) => {
+  public override withArguments = async (
+    args: BudCommand[`bud`][`context`][`args`],
+  ) => {
     if (this.withSubcommandArguments) {
       args = await this.withSubcommandArguments(args)
     }

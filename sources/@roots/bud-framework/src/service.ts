@@ -1,7 +1,9 @@
 import {lowerCase} from '@roots/bud-support/lodash-es'
 import Container from '@roots/container'
+import type {Context} from 'vm'
 
 import type {Bud} from './index.js'
+import type {CLIContext, CommandContext} from './types/options/context.js'
 import type {Logger} from './types/services/logger/index.js'
 
 interface Contract {
@@ -10,7 +12,7 @@ interface Contract {
    *
    * @public
    */
-  app: Bud
+  app?: Bud & {context: CommandContext | CLIContext | Context}
 
   /**
    * Scopoed logger
@@ -27,7 +29,7 @@ interface Contract {
    *
    * @public
    */
-  init?(app: Bud): Promise<void>
+  init?(app?: Bud): Promise<void>
 
   /**
    * Lifecycle method: bootstrap
@@ -37,7 +39,7 @@ interface Contract {
    *
    * @public
    */
-  bootstrap?(app: Bud): Promise<void>
+  bootstrap?(app?: Bud): Promise<void>
 
   /**
    * Lifecycle method: bootstrapped
@@ -48,7 +50,7 @@ interface Contract {
    *
    * @public
    */
-  bootstrapped?(app: Bud): Promise<any>
+  bootstrapped?(app?: Bud): Promise<any>
 
   /**
    * Lifecycle method: register
@@ -59,7 +61,7 @@ interface Contract {
    *
    * @public
    */
-  register?(app: Bud): Promise<any>
+  register?(app?: Bud): Promise<any>
 
   /**
    * Lifecycle method: registered
@@ -70,7 +72,7 @@ interface Contract {
    *
    * @public
    */
-  registered?(app: Bud): Promise<any>
+  registered?(app?: Bud): Promise<any>
 
   /**
    * Lifecycle method: boot
@@ -81,7 +83,7 @@ interface Contract {
    *
    * @public
    */
-  boot?(app: Bud): Promise<any>
+  boot?(app?: Bud): Promise<any>
 
   /**
    * Lifecycle method: booted
@@ -91,37 +93,37 @@ interface Contract {
    *
    * @public
    */
-  booted?(app: Bud): Promise<any>
+  booted?(app?: Bud): Promise<any>
 
   /**
    * After config callback
    * @public
    */
-  configAfter?(app: Bud): Promise<void>
+  configAfter?(app?: Bud): Promise<void>
 
   /**
    * Before build service
    * @public
    */
-  buildBefore?(app: Bud): Promise<void>
+  buildBefore?(app?: Bud): Promise<void>
 
   /**
    * After build service
    * @public
    */
-  buildAfter?(app: Bud): Promise<void>
+  buildAfter?(app?: Bud): Promise<void>
 
   /**
    * Before Compiler service
    * @public
    */
-  compilerBefore?(app: Bud): Promise<void>
+  compilerBefore?(app?: Bud): Promise<void>
 
   /**
    * After Compiler service
    * @public
    */
-  compilerAfter?(app: Bud): Promise<void>
+  compilerAfter?(app?: Bud): Promise<void>
 }
 
 /**
@@ -286,7 +288,9 @@ abstract class BaseContainer
    *
    * @public @readonly
    */
-  public get app(): Bud {
+  public get app(): Bud & {
+    context: CommandContext | CLIContext | Context
+  } {
     return this._app()
   }
 

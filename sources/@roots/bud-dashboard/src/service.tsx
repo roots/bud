@@ -32,7 +32,7 @@ export class Dashboard extends Service implements Contract {
   }
 
   public get silent() {
-    return this.app.context.args.log === false
+    return this.app.isCLI() && this.app.context.args.log === false
   }
 
   /**
@@ -46,7 +46,7 @@ export class Dashboard extends Service implements Contract {
     if (!stats || this.silent || this.stale(stats)) return this
     this.stats = stats
 
-    if (this.app.context.args?.ci === true) {
+    if (!this.app.isCLI() || this.app.context.args?.ci === true) {
       const stringCompilation = stats.toString({
         preset: `minimal`,
         colors: true,

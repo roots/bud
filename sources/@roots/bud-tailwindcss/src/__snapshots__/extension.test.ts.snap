@@ -531,7 +531,7 @@ exports[`@roots/bud-tailwindcss extension > should throw when key does not exist
 
 {
   \\"content\\": [
-    \\"**/*.stub\\"
+    \\"src/index.html\\"
   ],
   \\"theme\\": {
     \\"extend\\": {
@@ -539,6 +539,7 @@ exports[`@roots/bud-tailwindcss extension > should throw when key does not exist
         \\"primary\\": \\"red\\"
       }
     }
-  }
+  },
+  \\"plugins\\": []
 }"
 `;

@@ -1,22 +1,24 @@
 import {factory} from '@roots/bud'
 
 /**
- * For info on configuring webpack with a function or promise:
- * {@link https://webpack.js.org/configuration/configuration-types/#exporting-a-promise}
+ * Run this example with:
+ *
+ * ```sh
+ * yarn webpack
+ * ```
  */
-export default async env => {
-  /**
-   * Instantiate bud
-   */
-  const bud = await factory()
 
-  /**
-   * Set entrypoints and do other config as usual
-   */
-  bud.when(env.production, () => bud.minimize().splitChunks())
+/**
+ * Instantiate bud
+ */
+const bud = await factory()
 
-  /**
-   * This is our final config object. Return it for webpack.
-   */
-  return await bud.build.make()
-}
+/**
+ * Set entrypoints and do other config as usual
+ */
+bud.minimize().splitChunks()
+
+/**
+ * Export for webpack
+ */
+export default bud.build.make

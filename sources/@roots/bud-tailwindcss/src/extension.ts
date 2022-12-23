@@ -33,20 +33,32 @@ export class BudTailwindCss extends Extension<{
   generateImports: boolean | Array<string>
 }> {
   /**
-   * Get config module
+   * Get config path
    *
    * @public
    */
-  public get configSource(): Config {
+  private get path(): string | undefined {
     return (
-      this.app.context.config[`tailwind.config.js`]?.module ??
-      this.app.context.config[`tailwind.config.mjs`]?.module ??
-      this.app.context.config[`tailwind.config.cjs`]?.module ??
-      defaultConfig
+      this.app.context.config[`tailwind.config.js`]?.path ??
+      this.app.context.config[`tailwind.config.mjs`]?.path ??
+      this.app.context.config[`tailwind.config.cjs`]?.path
     )
   }
 
-  public config: ResolvedConfig | undefined
+  /**
+   * Tailwind config (source)
+   * @public
+   */
+  private declare source: Config | undefined
+
+  /**
+   * Tailwind config (resolved)
+   * @public
+   */
+  private declare config: ResolvedConfig | undefined
+  public getConfig(): this[`config`] {
+    return this.config
+  }
 
   /**
    * Resolved tailwind config
@@ -56,11 +68,32 @@ export class BudTailwindCss extends Extension<{
    *
    * @public
    */
-  public theme:
+  private declare theme:
     | (ResolvedConfig & {
         colors?: ResolvedConfig['colors']
       })
     | undefined
+  public getTheme(): this[`theme`] {
+    return this.theme
+  }
+
+  /**
+   * Get config source module
+   *
+   * @public
+   */
+  public async getSource(): Promise<Config> {
+    let config: Config
+
+    if (this.path) {
+      try {
+        config = await this.app.module.import(this.path)
+        return config
+      } catch (error) {}
+    }
+
+    return defaultConfig
+  }
 
   /**
    * Resolved paths
@@ -91,7 +124,8 @@ export class BudTailwindCss extends Extension<{
     key: K,
     extendedOnly?: boolean,
   ): Config[K] {
-    const rawValue = this.theme[key]
+    const rawValue = get(this.theme, key)
+
     if (!rawValue) {
       throw new Error(
         `@roots/bud-tailwindcss: ${key} is not a valid tailwind theme key.`,
@@ -107,15 +141,18 @@ export class BudTailwindCss extends Extension<{
 
     if (!extendedOnly) return value
 
-    const src = this.configSource?.theme?.extend?.[key]
-    if (!src)
+    const src = this.source?.theme?.extend?.[key]
+
+    if (!src) {
       throw new Error(
         `The key "${key}" is not extended in your tailwind config.\n\n${JSON.stringify(
-          this.configSource,
+          this.source,
           null,
           2,
         )}`,
       )
+    }
+
     const extended = isFunction(src) ? src(pluginUtils) : src
 
     return Object.entries(value).reduce(
@@ -160,7 +197,9 @@ export class BudTailwindCss extends Extension<{
       `tailwindcss/nesting/index.js`,
     )
 
-    const resolvedConfig = resolveConfig(this.configSource)
+    this.source = await this.getSource()
+
+    const resolvedConfig = resolveConfig(this.source)
     if (!resolvedConfig) return
 
     this.config = {...resolvedConfig}

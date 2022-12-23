@@ -158,7 +158,7 @@ export class Server extends Service implements BaseService {
   public async run() {
     await this.app.hooks.fire(`server.before`)
 
-    if (!this.app.context.args.dry) {
+    if (!this.app.isCLI() || !this.app.context.args.dry) {
       await this.connection.createServer(this.application)
       await this.connection.listen()
     }

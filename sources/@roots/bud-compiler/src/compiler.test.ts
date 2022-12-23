@@ -45,7 +45,7 @@ describe(`@roots/bud-compiler`, function () {
   })
 
   it(`should log early exit (--dry)`, async () => {
-    compiler.app.context.args.dry = true
+    bud.context.args.dry = true
     const logSpy = vi.spyOn(compiler.logger, `log`)
     await compiler.compile()
     expect(logSpy).toHaveBeenCalledTimes(3)

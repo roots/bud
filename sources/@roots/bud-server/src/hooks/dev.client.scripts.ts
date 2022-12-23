@@ -46,18 +46,21 @@ export const hmrClient = (app: Bud) => {
     name: app.label,
 
     indicator:
+      !app.isCLI() ||
       isUndefined(app.context.args.indicator) ||
       isNull(app.context.args.indicator)
         ? `true`
         : app.context.args.indicator.toString(),
 
     overlay:
+      !app.isCLI() ||
       isUndefined(app.context.args.overlay) ||
       isNull(app.context.args.overlay)
         ? `true`
         : app.context.args.overlay.toString(),
 
     reload:
+      !app.isCLI() ||
       isUndefined(app.context.args.reload) ||
       isNull(app.context.args.reload)
         ? `true`

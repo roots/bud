@@ -15,8 +15,8 @@ export class Logger {
   public constructor(options: Options = {}) {
     options = {...defaults, ...options}
     if (argv.has(`no-log`)) options.disabled = true
-    if (argv.has(`log`)) options.logLevel = `info`
-    if (argv.has(`verbose`)) options.logLevel = `log`
+    if (argv.has(`log`)) options.logLevel = `log`
+    if (argv.has(`verbose`)) options.logLevel = `info`
     if (!argv.has(`log`) && !argv.has(`no-log`)) options.logLevel = `warn`
 
     this.instance = new Signale(options)
@@ -107,7 +107,7 @@ export class Logger {
   }
   @bind
   public debug(...messages: Array<unknown>) {
-    if (!argv.has(`debug`)) return this
+    if (!argv.has(`verbose`)) return this
     this.instance.debug(...this.format(...messages))
     return this
   }

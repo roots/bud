@@ -9,9 +9,12 @@ describe(`context.get`, () => {
   let context: Context
 
   beforeEach(async () => {
-    context = await getContext({
-      basedir: join(paths.root, `tests`, `util`, `project`),
-    })
+    context = await getContext(
+      {
+        basedir: join(paths.root, `tests`, `util`, `project`),
+      },
+      {cache: false, find: true},
+    )
   })
 
   it(`should be accessible`, () => {

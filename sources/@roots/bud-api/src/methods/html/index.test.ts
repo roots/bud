@@ -1,4 +1,5 @@
-import {Bud, factory} from '@repo/test-kit/bud'
+import {factory} from '@repo/test-kit/bud'
+import {Bud} from '@roots/bud'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import * as source from './index.js'

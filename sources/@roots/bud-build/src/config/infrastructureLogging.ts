@@ -14,8 +14,5 @@ export const infrastructureLogging: Factory<
       time: bud.context.logger.time,
       timeEnd: bud.context.logger.timeEnd,
     }),
-    level: bud.hooks.filter(
-      `build.infrastructureLogging.level`,
-      bud.context.args.verbose ? `log` : `info`,
-    ),
+    level: bud.hooks.filter(`build.infrastructureLogging.level`, `log`),
   })

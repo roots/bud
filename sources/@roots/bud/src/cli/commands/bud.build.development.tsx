@@ -1,6 +1,5 @@
 import {Option} from '@roots/bud/cli/commands/bud'
 import BuildCommand from '@roots/bud/cli/commands/bud.build'
-import type {Context} from '@roots/bud-framework/options'
 import type {CommandContext} from '@roots/bud-framework/options'
 
 /**
@@ -62,7 +61,7 @@ export default class BuildDevelopmentCommand extends BuildCommand {
     }
   }
   public override withSubcommandArguments = async (
-    args: Context[`args`],
+    args: CommandContext[`args`],
   ) => {
     return {
       ...args,

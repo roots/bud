@@ -92,8 +92,8 @@ describe(`bud.glob`, function () {
   })
 
   it(`returns glob results with negation`, async () => {
-    const results = await glob(`src/**/*.js`, `!**/main.js`)
-    const syncResults = globSync(`src/**/*.js`, `!**/main.js`)
+    const results = await glob(`!**/main.js`, `src/**/*.js`)
+    const syncResults = globSync(`!**/main.js`, `src/**/*.js`)
 
     expect(results).toEqual(
       expect.arrayContaining([expect.stringContaining(`scripts/app.js`)]),

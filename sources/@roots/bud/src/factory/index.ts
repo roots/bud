@@ -1,3 +1,3 @@
-import {factory} from './factory.js'
+import {factory, Options} from './factory.js'
 
-export {factory}
+export {factory, Options}
