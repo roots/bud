@@ -23,18 +23,18 @@ describe(`@roots/bud-vue`, () => {
 
   it(`should have a vue2 method that returns true when manifest has vue in range of ^2`, async () => {
     bud.context.manifest.dependencies = {vue: `^2.6.1`}
-    expect(await instance.isVue2(bud)).toBe(true)
+    expect(instance.isVue2()).toBe(true)
     expect(instance.version).toBe(`2.6.1`)
   })
 
   it(`should have a vue2 method that returns false when manifest has vue in range of ^3`, async () => {
     bud.context.manifest.dependencies = {vue: `^3.1.0`}
-    expect(await instance.isVue2(bud)).toBe(false)
+    expect(instance.isVue2()).toBe(false)
     expect(instance.version).toBe(`3.1.0`)
   })
 
   it(`should have a vue2 method that returns false when vue is resolvable but not listed in manifest`, async () => {
-    expect(await instance.isVue2(bud)).toBe(false)
+    expect(instance.isVue2()).toBe(false)
     expect(instance.version).toMatch(/3\..*\..*/)
   })
 })

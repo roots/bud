@@ -599,12 +599,14 @@ export class Extension<
 
     modulePath = await this.app.module.resolve(signifier)
 
-    if (!modulePath) {
+    if (!modulePath && context) {
       modulePath = await this.app.module.resolve(signifier, context)
     }
 
     if (!modulePath) {
-      this.logger.error(`unresolvable:`, signifier)
+      const error = new Error(`could not resolve ${signifier}`)
+      error.name = `Extension Dependency Error`
+      throw error
     }
 
     return modulePath
@@ -678,19 +680,5 @@ export class Extension<
       return await this.when(this.app, this.options)
 
     return true
-  }
-
-  /**
-   * Alias for `.app`
-   *
-   * @remarks
-   * Utility to make it easier to chain config fn calls
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public done(): Bud {
-    return this.app
   }
 }

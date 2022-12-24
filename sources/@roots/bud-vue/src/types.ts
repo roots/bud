@@ -8,6 +8,10 @@ import type {Build} from '@roots/bud-framework/services'
 import type Vue from './extension.js'
 
 declare module '@roots/bud-framework' {
+  interface Bud {
+    vue: Vue
+  }
+
   interface Modules {
     '@roots/bud-vue': Vue
     'vue-loader-plugin': Extension

@@ -101,7 +101,7 @@ export default class BabelExtension extends Extension {
       )
       if (presetEnv) this.setPreset(`@babel/preset-env`, presetEnv)
     } catch (error) {
-      this.app.error(error)
+      throw error
     }
 
     try {
@@ -116,7 +116,7 @@ export default class BabelExtension extends Extension {
           {helpers: false},
         ])
     } catch (error) {
-      this.app.error(error)
+      throw error
     }
   }
   /**
@@ -135,9 +135,9 @@ export default class BabelExtension extends Extension {
       options: () => this.loaderOptions,
     })
 
-    bud.build.rules.js.setUse(items => [
+    bud.build.rules.js.setUse((items = []) => [
       bud.build.items.babel,
-      ...(items ?? []),
+      ...items,
     ])
   }
 
