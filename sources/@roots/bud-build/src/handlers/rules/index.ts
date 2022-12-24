@@ -8,6 +8,7 @@ import {inlineImage} from './image.inline.js'
 import {image} from './image.js'
 import {js} from './js.js'
 import {json} from './json.js'
+import {dataUriSvg} from './svg.data-uri.js'
 import {inlineSvg} from './svg.inline.js'
 import {svg} from './svg.js'
 import {toml} from './toml.js'
@@ -19,6 +20,7 @@ export const rules = {
   js,
   css,
   cssModule,
+  dataUriSvg,
   inlineSvg,
   inlineImage,
   inlineFont,
