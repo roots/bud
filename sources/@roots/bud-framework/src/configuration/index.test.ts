@@ -14,8 +14,4 @@ describe(`bud.configuration`, function () {
   it(`should have a process fn`, () => {
     expect(configuration.process).toBeInstanceOf(Function)
   })
-
-  it(`should have a getAllMatchingConfigs fn`, async () => {
-    expect(configuration.getAllMatchingConfigs).toBeInstanceOf(Function)
-  })
 })
