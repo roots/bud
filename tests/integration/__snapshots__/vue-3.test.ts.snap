@@ -2,16 +2,14 @@
 
 exports[`vue > npm > manifest.json > matches snapshot 1`] = `
 {
-  "app.css": "css/app.css",
-  "app.js": "js/app.js",
-  "index.html": "index.html",
+  "main.css": "css/main.css",
+  "main.js": "js/main.js",
 }
 `;
 
 exports[`vue > yarn > manifest.json > matches snapshot 1`] = `
 {
-  "app.css": "css/app.css",
-  "app.js": "js/app.js",
-  "index.html": "index.html",
+  "main.css": "css/main.css",
+  "main.js": "js/main.js",
 }
 `;

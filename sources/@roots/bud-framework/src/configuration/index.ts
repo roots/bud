@@ -1,7 +1,6 @@
 import {sortBy} from '@roots/bud-support/lodash-es'
 
 import type {Bud} from '../bud.js'
-import type {File} from '../types/options/context.js'
 import Configuration from './configuration.js'
 
 /**
@@ -9,13 +8,16 @@ import Configuration from './configuration.js'
  * @public
  */
 export const process = async (app: Bud) => {
-  if (!app.context.config) return
-
-  const configs = Object.values(app.context.config).filter(({bud}) => bud)
-  if (!configs.length) return
+  const findConfigs = (ofType: string, isLocal: boolean) =>
+    sortBy(
+      configs
+        .filter(({type}) => type === ofType)
+        .filter(({local}) => local === isLocal),
+      `name`,
+    )
 
   const configuration = new Configuration(app)
-  const findConfigs = getAllMatchingConfigs.bind(configs)
+  const configs = Object.values(app.context.config).filter(({bud}) => bud)
 
   await Promise.all(
     findConfigs(`base`, false).map(async description => {
@@ -66,17 +68,4 @@ export const process = async (app: Bud) => {
       throw error
     }
   }
-}
-
-export function getAllMatchingConfigs(
-  this: Array<File>,
-  ofType: string,
-  isLocal: boolean,
-) {
-  return sortBy(
-    this.filter(({type}) => type === ofType).filter(
-      ({local}) => local === isLocal,
-    ),
-    `name`,
-  )
 }
