@@ -6091,6 +6091,7 @@ __metadata:
     html-loader: ^4.2.0
     json5: 2.2.1
     mini-css-extract-plugin: 2.7.1
+    mini-svg-data-uri: 1.4.4
     remark: 14.0.2
     remark-html: 15.0.1
     remark-loader: 5.0.0
@@ -22929,6 +22930,15 @@ __metadata:
   peerDependencies:
     webpack: ^5.0.0
   checksum: 0da0db7befa4da5df2293440e540d9414b23b99768bbec4b8dab40c1c961ad31532239635be06c6ca9a6d4cfcb0caeb6dbd19d5e31d3271d734e0a39c3245c23
+  languageName: node
+  linkType: hard
+
+"mini-svg-data-uri@npm:1.4.4":
+  version: 1.4.4
+  resolution: "mini-svg-data-uri@npm:1.4.4"
+  bin:
+    mini-svg-data-uri: cli.js
+  checksum: 997f1fbd8d59a70f03761e18626d335197a3479cb9d1ff75678e4b64b864d32a0b8fc18115eabde035e5299b8b4a354a78e57dd6ac10f9d604162a6170898d09
   languageName: node
   linkType: hard
 
