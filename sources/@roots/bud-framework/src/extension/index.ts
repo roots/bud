@@ -602,6 +602,7 @@ export class Extension<
     if (!modulePath) {
       modulePath = await this.app.module.resolve(signifier, context)
     }
+
     if (!modulePath) {
       this.logger.error(`unresolvable:`, signifier)
     }
@@ -616,7 +617,10 @@ export class Extension<
    * @decorator `@bind`
    */
   @bind
-  public async import<T = any>(signifier: string): Promise<T> {
+  public async import<T = any>(
+    signifier: string,
+    context?: URL | string,
+  ): Promise<T | undefined> {
     try {
       const path = await this.resolve(signifier)
 
@@ -625,10 +629,14 @@ export class Extension<
         return
       }
 
-      const result = await import(path)
+      const result = await this.app.module.import(path)
+      if (!result) {
+        this.logger.error(`could not import`, signifier)
+        return
+      }
 
       this.logger.success(`imported`, signifier)
-      return result?.default ?? result ?? null
+      return result?.default ?? result ?? undefined
     } catch (error) {
       this.logger.error(`error importing`, signifier)
     }

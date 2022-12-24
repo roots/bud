@@ -13,6 +13,8 @@ import type {LoaderOptions, Registry} from './types.js'
  * Babel support for `@roots/bud`
  *
  * @public
+ * @decorator `@label`
+ * @decorator `@expose`
  */
 @label(`@roots/bud-babel`)
 @expose(`babel`)
@@ -92,44 +94,31 @@ export default class BabelExtension extends Extension {
    */
   @bind
   public override async register() {
-    const presetEnv = await this.resolve(`@babel/preset-env`)
+    try {
+      const presetEnv = await this.resolve(
+        `@babel/preset-env`,
+        import.meta.url,
+      )
+      if (presetEnv) this.setPreset(`@babel/preset-env`, presetEnv)
+    } catch (error) {
+      this.app.error(error)
+    }
 
-    if (presetEnv) this.setPreset(`@babel/preset-env`, presetEnv)
-
-    const transformRuntime = await this.resolve(
-      `@babel/plugin-transform-runtime`,
-    )
-    if (transformRuntime)
-      this.setPlugin(`@babel/plugin-transform-runtime`, [
-        transformRuntime,
-        {helpers: false},
-      ])
-
-    const objectRestSpread = await this.resolve(
-      `@babel/plugin-proposal-object-rest-spread`,
-    )
-    objectRestSpread &&
-      this.setPlugin(
-        `@babel/plugin-proposal-object-rest-spread`,
-        objectRestSpread,
+    try {
+      const transformRuntime = await this.resolve(
+        `@babel/plugin-transform-runtime`,
+        import.meta.url,
       )
 
-    const classProperties = await this.resolve(
-      `@babel/plugin-proposal-class-properties`,
-    )
-    classProperties &&
-      this.setPlugin(
-        `@babel/plugin-proposal-class-properties`,
-        classProperties,
-      )
-
-    const dynamicImport = await this.resolve(
-      `@babel/plugin-syntax-dynamic-import`,
-    )
-    dynamicImport &&
-      this.setPlugin(`@babel/plugin-syntax-dynamic-import`, dynamicImport)
+      if (transformRuntime)
+        this.setPlugin(`@babel/plugin-transform-runtime`, [
+          transformRuntime,
+          {helpers: false},
+        ])
+    } catch (error) {
+      this.app.error(error)
+    }
   }
-
   /**
    * `configAfter` callback
    *
@@ -139,7 +128,6 @@ export default class BabelExtension extends Extension {
   @bind
   public override async configAfter(bud: Bud) {
     const loader = await this.resolve(`babel-loader`, import.meta.url)
-
     if (!loader) return this.logger.error(`Babel loader not found`)
 
     bud.build.setLoader(`babel`, loader).setItem(`babel`, {

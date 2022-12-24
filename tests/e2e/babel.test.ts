@@ -3,15 +3,7 @@ import {execa, ExecaChildProcess} from 'execa'
 import fs from 'fs-extra'
 import {join} from 'path'
 import {Browser, chromium, Page} from 'playwright'
-import {
-  afterAll,
-  afterEach,
-  beforeAll,
-  beforeEach,
-  describe,
-  expect,
-  it,
-} from 'vitest'
+import {describe, expect, it} from 'vitest'
 
 import copy from './util/copy'
 import install from './util/install'
