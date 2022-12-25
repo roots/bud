@@ -19,8 +19,6 @@ import {Install} from '@site/src/docs/Install'
 
 - [@babel/preset-env](https://babeljs.io/docs/en/babel-preset-env)
 - [@babel/plugin-transform-runtime](https://babeljs.io/docs/en/babel-plugin-transform-runtime)
-- [@babel/plugin-proposal-object-rest-spread](https://babeljs.io/docs/en/babel-plugin-proposal-object-rest-spread)
-- [@babel/plugin-syntax-dynamic-import](https://babeljs.io/docs/en/babel-plugin-syntax-dynamic-import)
 
 ## Presets
 
@@ -95,9 +93,5 @@ bud.babel.setPluginOptions('@babel/plugin-transform-runtime', {
 ### Fully override plugins
 
 ```ts title='bud.config.mjs'
-bud.babel.setPlugins([
-  '@babel/plugin-transform-runtime',
-  '@babel/plugin-proposal-object-rest-spread',
-  ['@babel/plugin-syntax-dynamic-import', {helpers: false}],
-])
+bud.babel.setPlugins(['@babel/plugin-transform-runtime'])
 ```
