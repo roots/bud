@@ -5867,7 +5867,7 @@ __metadata:
     "@types/fs-extra": 9.0.13
     "@types/lodash-es": 4.17.6
     "@types/node": 16.18.6
-    "@vercel/ncc": 0.34.0
+    "@vercel/ncc": 0.36.0
     download-package-tarball: 1.0.7
     fs-extra: 10.1.0
     get-package-json-from-registry: 2.2.2
@@ -8957,14 +8957,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vercel/ncc@npm:0.34.0":
-  version: 0.34.0
-  resolution: "@vercel/ncc@npm:0.34.0"
+"@vercel/ncc@npm:0.36.0":
+  version: 0.36.0
+  resolution: "@vercel/ncc@npm:0.36.0"
   dependencies:
     node-gyp: latest
   bin:
     ncc: dist/ncc/cli.js
-  checksum: 3282578e990572759454f7f8d7ef025f2ae060b261fcb28a96d165350e3665438dc8fb72caf122081d6c57277e4899dab30ea0d8759bfd90baf37286cb887597
+  checksum: c796b2e435e6b6268ba795e61ec236d784f00f7d888637a372f353aa2b1ae7abf26fead42ba8172cee680eda6b42901883644cd7f43fa9c163d01c29f8678014
   languageName: node
   linkType: hard
 
