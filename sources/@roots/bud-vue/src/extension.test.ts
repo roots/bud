@@ -35,6 +35,5 @@ describe(`@roots/bud-vue`, () => {
 
   it(`should have a vue2 method that returns false when vue is resolvable but not listed in manifest`, async () => {
     expect(instance.isVue2()).toBe(false)
-    expect(instance.version).toMatch(/3\..*\..*/)
   })
 })

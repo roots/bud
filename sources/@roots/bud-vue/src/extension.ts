@@ -181,6 +181,8 @@ export default class Vue extends Extension<
       if (version) this.version = parseSemver(`vue@${version}`).version
     }
 
+    if (!this.version) return false
+
     return this.version?.startsWith(`2`)
   }
 }
