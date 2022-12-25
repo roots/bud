@@ -9214,12 +9214,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitest/ui@npm:0.25.4":
-  version: 0.25.4
-  resolution: "@vitest/ui@npm:0.25.4"
+"@vitest/ui@npm:0.26.2":
+  version: 0.26.2
+  resolution: "@vitest/ui@npm:0.26.2"
   dependencies:
+    fast-glob: ^3.2.12
+    flatted: ^3.2.7
     sirv: ^2.0.2
-  checksum: db9361ac3e01b02e942749a68e0bdc8afbd12dbae5a4c665ca57829c5cfe6816d33e03548c524d07187e1244f713cafa40003b14294d53bd1c5fb3f35c258302
+  checksum: 8c204f57e467e7a713cf9a99c0f636e376bfacd6168103d513825bb9cff319bec443ae373f4c363886bbf0386a819e796ff91c47d0a64dc7dd23267d441e6024
   languageName: node
   linkType: hard
 
@@ -11952,7 +11954,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": 5.45.1
     "@typescript-eslint/parser": 5.45.1
     "@vitest/coverage-istanbul": 0.25.8
-    "@vitest/ui": 0.25.4
+    "@vitest/ui": 0.26.2
     eslint: 8.29.0
     eslint-plugin-import: 2.26.0
     eslint-plugin-n: 15.6.0
@@ -17456,6 +17458,13 @@ __metadata:
   version: 3.2.2
   resolution: "flatted@npm:3.2.2"
   checksum: 9d5e03fd9309b9103f345cf6d0cef4fa46201baa053b0ca3d57fa489449b0bee687b7355407898f630afbb1a1286d2a6658e7e77dea3b85c3cd6c6ce2894a5c3
+  languageName: node
+  linkType: hard
+
+"flatted@npm:^3.2.7":
+  version: 3.2.7
+  resolution: "flatted@npm:3.2.7"
+  checksum: 427633049d55bdb80201c68f7eb1cbd533e03eac541f97d3aecab8c5526f12a20ccecaeede08b57503e772c769e7f8680b37e8d482d1e5f8d7e2194687f9ea35
   languageName: node
   linkType: hard
 
