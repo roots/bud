@@ -55,7 +55,7 @@
     "./sage": "./sage.cjs"
   },
   "devDependencies": {
-    "@babel/core": "7.20.5",
+    "@babel/core": "7.20.7",
     "@skypack/package-check": "0.2.2",
     "@types/babel__core": "7.1.20",
     "@types/node": "16.18.6",

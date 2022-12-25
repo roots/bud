@@ -5,13 +5,11 @@ import type {Bud} from '../bud.js'
 
 /**
  * User config parser
- *
  * @public
  */
 class Configuration {
   /**
    * Class constructor
-   *
    * @public
    */
   public constructor(public app: Bud) {}

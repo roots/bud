@@ -599,11 +599,14 @@ export class Extension<
 
     modulePath = await this.app.module.resolve(signifier)
 
-    if (!modulePath) {
+    if (!modulePath && context) {
       modulePath = await this.app.module.resolve(signifier, context)
     }
+
     if (!modulePath) {
-      this.logger.error(`unresolvable:`, signifier)
+      const error = new Error(`could not resolve ${signifier}`)
+      error.name = `Extension Dependency Error`
+      throw error
     }
 
     return modulePath
@@ -616,7 +619,10 @@ export class Extension<
    * @decorator `@bind`
    */
   @bind
-  public async import<T = any>(signifier: string): Promise<T> {
+  public async import<T = any>(
+    signifier: string,
+    context?: URL | string,
+  ): Promise<T | undefined> {
     try {
       const path = await this.resolve(signifier)
 
@@ -625,10 +631,14 @@ export class Extension<
         return
       }
 
-      const result = await import(path)
+      const result = await this.app.module.import(path)
+      if (!result) {
+        this.logger.error(`could not import`, signifier)
+        return
+      }
 
       this.logger.success(`imported`, signifier)
-      return result?.default ?? result ?? null
+      return result?.default ?? result ?? undefined
     } catch (error) {
       this.logger.error(`error importing`, signifier)
     }
@@ -670,19 +680,5 @@ export class Extension<
       return await this.when(this.app, this.options)
 
     return true
-  }
-
-  /**
-   * Alias for `.app`
-   *
-   * @remarks
-   * Utility to make it easier to chain config fn calls
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public done(): Bud {
-    return this.app
   }
 }

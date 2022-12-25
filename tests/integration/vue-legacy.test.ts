@@ -11,13 +11,13 @@ const run = pacman => () => {
     }).setup()
   })
 
-  describe(`app.js`, () => {
+  describe(`main.js`, () => {
     it(`has contents`, () => {
-      expect(project.assets[`app.js`].length).toBeGreaterThan(10)
+      expect(project.assets[`main.js`].length).toBeGreaterThan(10)
     })
 
     it(`is transpiled`, () => {
-      expect(project.assets[`app.js`].includes(`from '`)).toBeFalsy()
+      expect(project.assets[`main.js`].includes(`from '`)).toBeFalsy()
     })
   })
 

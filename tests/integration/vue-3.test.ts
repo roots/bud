@@ -1,7 +1,7 @@
 import {Project} from '@repo/test-kit/project'
 import {beforeAll, describe, expect, it} from 'vitest'
 
-const run = pacman => () => {
+const run = (pacman: `npm` | `yarn`) => () => {
   let project: Project
 
   beforeAll(async () => {
@@ -11,23 +11,23 @@ const run = pacman => () => {
     }).setup()
   })
 
-  describe(`app.css`, () => {
+  describe(`main.css`, () => {
     it(`has contents`, () => {
-      expect(project.assets[`app.css`].length).toBeGreaterThan(10)
+      expect(project.assets[`main.css`].length).toBeGreaterThan(10)
     })
 
     it(`is transpiled`, () => {
-      expect(project.assets[`app.css`].includes(`from '`)).toBeFalsy()
+      expect(project.assets[`main.css`].includes(`from '`)).toBeFalsy()
     })
   })
 
-  describe(`app.js`, () => {
+  describe(`main.js`, () => {
     it(`has contents`, () => {
-      expect(project.assets[`app.js`].length).toBeGreaterThan(10)
+      expect(project.assets[`main.js`].length).toBeGreaterThan(10)
     })
 
     it(`is transpiled`, () => {
-      expect(project.assets[`app.js`].includes(`from '`)).toBeFalsy()
+      expect(project.assets[`main.js`].includes(`from '`)).toBeFalsy()
     })
   })
 

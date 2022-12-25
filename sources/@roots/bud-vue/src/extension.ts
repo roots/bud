@@ -3,10 +3,14 @@ import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
   dependsOnOptional,
+  expose,
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
-import type {RuleSetRule} from '@roots/bud-support/webpack'
+import type {
+  RuleSetRule,
+  WebpackPluginInstance,
+} from '@roots/bud-support/webpack'
 import parseSemver from 'parse-semver'
 
 interface Options {
@@ -20,84 +24,105 @@ interface Options {
  * @decorator `@label`
  * @decorator `@options`
  * @decorator `@dependsOnOptional`
+ * @decorator `@expose`
  */
 @label(`@roots/bud-vue`)
 @options({runtimeOnly: true})
 @dependsOnOptional([`@roots/bud-postcss`, `@roots/bud-sass`])
-export default class Vue extends Extension<Options, null> {
+@expose(`vue`)
+export default class Vue extends Extension<
+  Options,
+  WebpackPluginInstance
+> {
+  /**
+   * Loader path
+   * @public
+   */
   public loader: string
 
+  /**
+   * Style loader path
+   * @public
+   */
+  public styleLoader: string
+
+  /**
+   * Resolved version
+   * @public
+   */
   public version: string
 
+  /**
+   * Set `runtimeOnly` option
+   *
+   * @param enabled - {@link Options.runtimeOnly}
+   * @returns {Vue}
+   *
+   * @public
+   * @decorator `@bind`
+   */
   @bind
-  public override async register() {
-    this.loader = await this.resolve(`vue-loader`)
+  public runtimeOnly(enabled: Options[`runtimeOnly`] = true): this {
+    this.setOption(`runtimeOnly`, enabled)
+    return this
   }
 
   /**
-   * `afterConfig` callback
+   * `register` callback
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public override async register() {
+    this.loader = await this.resolve(`vue-loader`, import.meta.url)
+    this.styleLoader = await this.resolve(
+      `vue-style-loader`,
+      import.meta.url,
+    )
+  }
+
+  /**
+   * `boot` callback
    *
    * @public
    * @decorator `@bind`
    */
   @bind
   public override async boot(bud: Bud) {
-    await this.addLoader()
-    await this.addStyleLoader()
+    bud.build
+      .setLoader(`vue`, this.loader)
+      .setItem(`vue`, {loader: `vue`})
+      .setLoader(`vue-style-loader`, this.styleLoader)
+      .setItem(`vue-style-loader`, {loader: `vue-style-loader`})
 
+    bud.build.rules.css.setUse((items = []) => [
+      `vue-style-loader`,
+      ...items,
+    ])
+    bud.build.rules.sass?.setUse((items = []) => [
+      `vue-style-loader`,
+      ...items,
+    ])
+    bud.build.items.precss.setOptions({esModule: false})
     bud.hooks.fromMap({
-      [`build.module.rules.before`]: this.moduleRulesBefore,
-      [`build.resolve.extensions`]: ext => ext.add(`.vue`),
+      'build.module.rules.before': this.moduleRulesBefore,
+      'build.resolve.extensions': (ext = new Set()) => ext.add(`.vue`),
     })
 
     bud.alias(this.resolveAlias)
   }
 
   /**
-   * Add `vue-loader`
+   * `make` callback
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public async addLoader(): Promise<this> {
-    this.app.build.setLoader(`vue`, this.loader)
-    this.app.build.setItem(`vue`, {loader: `vue`})
-
-    const {VueLoaderPlugin: Plugin} = await this.import(`vue-loader`)
-    await this.app.extensions.add({
-      label: `vue-loader-plugin`,
-      plugin: Plugin,
-    })
-
-    return this
-  }
-
-  /**
-   * Add `vue-style-loader`
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public async addStyleLoader(): Promise<this> {
-    this.app.build
-      .setLoader(`vue-style-loader`)
-      .setItem(`vue-style-loader`)
-
-    this.app.build.rules.css.setUse((items = []) => [
-      `vue-style-loader`,
-      ...items,
-    ])
-
-    this.app.build.rules.sass?.setUse((items = []) => [
-      `vue-style-loader`,
-      ...items,
-    ])
-
-    this.app.build.items.precss.setOptions({esModule: false})
-
-    return this
+  public override async make(): Promise<WebpackPluginInstance> {
+    const {VueLoaderPlugin} = await import(`vue-loader`)
+    return new VueLoaderPlugin()
   }
 
   /**
@@ -108,15 +133,17 @@ export default class Vue extends Extension<Options, null> {
    */
   @bind
   public moduleRulesBefore(
-    ruleset: Array<RuleSetRule>,
+    ruleset: Array<RuleSetRule> = [],
   ): Array<RuleSetRule> {
-    const rule = this.app.build
-      .makeRule()
-      .setTest(({hooks}) => hooks.filter(`pattern.vue`))
-      .setInclude([app => app.path(`@src`)])
-      .setUse((items = []) => [`vue`, ...items])
-
-    return [rule.toWebpack(), ...(ruleset ?? [])]
+    return [
+      this.app.build
+        .makeRule()
+        .setTest(({hooks}) => hooks.filter(`pattern.vue`))
+        .setInclude([app => app.path(`@src`)])
+        .setUse((items = []) => [`vue`, ...items])
+        .toWebpack(),
+      ...ruleset,
+    ]
   }
 
   /**
@@ -126,27 +153,14 @@ export default class Vue extends Extension<Options, null> {
    * @decorator `@bind`
    */
   @bind
-  public async resolveAlias(aliases: {
-    [key: string]: string | Array<string>
-  }): Promise<{
-    [key: string]: string | Array<string>
-  }> {
-    let isVue2 = false
-
-    try {
-      isVue2 = await this.isVue2(this.app)
-    } catch (e) {}
-
-    isVue2 &&
-      this.logger.log(`configuring for vue2 based on project dependencies`)
-
-    const type = isVue2 ? `esm` : `esm-bundler`
+  public async resolveAlias(
+    aliases: Record<string, string | Array<string>> = {},
+  ): Promise<Record<string, string | Array<string>>> {
+    const type = this.isVue2() ? `esm` : `esm-bundler`
 
     const vue = this.options.runtimeOnly
       ? `vue/dist/vue.runtime.${type}.js`
       : `vue/dist/vue.${type}.js`
-
-    if (aliases === undefined) return {vue}
 
     return {...aliases, vue}
   }
@@ -158,16 +172,16 @@ export default class Vue extends Extension<Options, null> {
    * @decorator `@bind`
    */
   @bind
-  public async isVue2(bud: Bud): Promise<boolean> {
-    let version = this.version
+  public isVue2(): boolean {
+    if (!this.version) {
+      const version =
+        this.app.context.manifest?.dependencies?.vue ??
+        this.app.context.manifest?.devDependencies?.vue
 
-    if (!version)
-      version =
-        bud.context.manifest?.dependencies?.vue ??
-        bud.context.manifest?.devDependencies?.vue ??
-        (await bud.module.readManifest(`vue`).then(({version}) => version))
+      if (version) this.version = parseSemver(`vue@${version}`).version
+    }
 
-    if (version) this.version = parseSemver(`vue@${version}`).version
+    if (!this.version) return false
 
     return this.version?.startsWith(`2`)
   }
