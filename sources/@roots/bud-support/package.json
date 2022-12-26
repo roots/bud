@@ -64,7 +64,7 @@
   "dependencies": {
     "@roots/filesystem": "workspace:sources/@roots/filesystem",
     "chalk": "5.1.2",
-    "clean-stack": "5.0.1",
+    "clean-stack": "5.1.0",
     "clipanion": "3.2.0-rc.14",
     "common-path": "1.0.1",
     "execa": "6.1.0",
