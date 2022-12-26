@@ -34,7 +34,7 @@
     "fs-extra": "10.1.0",
     "globby": "13.1.2",
     "helpful-decorators": "2.1.0",
-    "json5": "2.2.1",
+    "json5": "2.2.2",
     "tslib": "2.4.1",
     "vitest": "0.25.4"
   },

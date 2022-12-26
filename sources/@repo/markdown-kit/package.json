@@ -27,7 +27,7 @@
     "gray-matter": "4.0.3",
     "handlebars": "4.7.7",
     "helpful-decorators": "2.1.0",
-    "json5": "2.2.1",
+    "json5": "2.2.2",
     "lodash-es": "4.17.21",
     "octokit": "2.0.10",
     "prettier": "2.8.0",
