@@ -27,38 +27,26 @@ using this hook will guarantee that your customization takes precedence.
 ```ts
 bud.hooks.action(`config.after`, async bud => {
   bud.build.rules.js.setInclude([
-    bud => bud.path('@src'),
-    bud => bud.path('@modules/some-untranspiled-pkg'),
+    bud.path('@src'),
+    bud.path('@modules/some-untranspiled-pkg'),
   ])
 })
 ```
-
-:::info
-
-`@modules` is a [bud.path](/docs/bud.path) built-in handle referencing `node_modules`
-
-:::
 
 Or, you can be broad:
 
 ```ts
 bud.hooks.action(`config.after`, async bud => {
-  bud.build.rules.js.setInclude([
-    bud => bud.path('@src'),
-    bud => bud.path('@modules'),
-  ])
+  bud.build.rules.js.setInclude([bud.path('@src'), bud.path('@modules')])
 })
 ```
 
-To be maximally accepting of what you want to transpile, you can use the following snippet:
+Apply the above change to all registered rules:
 
 ```ts
 bud.hooks.action(`config.after`, async bud => {
   Object.values(bud.build.rules).map(rule =>
-    rule.setInclude([
-      bud => bud.path('@src'),
-      bud => bud.path('@modules'),
-    ]),
+    rule.setInclude([bud.path('@src'), bud.path('@modules')]),
   )
 })
 ```

@@ -10,10 +10,6 @@ import {Card} from '@site/src/components/card'
 
 **bud.js** is a web-focused build tool with add-on support for Babel, React, PostCSS, Sass, Typescript, esbuild, ESLint, Prettier, and more.
 
-The standard bud.js compiler leverages webpack, but is open to being extended to support other build tools.
-
-bud.js is written in TypeScript but fully supports projects written in vanilla JavaScript.
-
 ## Requirements
 
 <div className="card">
@@ -35,6 +31,34 @@ Add **@roots/bud** as a development dependency using your choice of package mana
 npm install @roots/bud --save-dev
 ```
 
-When installing extensions make sure that the extension version is compatible with bud core.
+## Usage
 
-All dependencies with the `@roots` namespace should share the same version.
+If your project's entrypoint is located at `./src/index.(js|css)` you can now compile it using the [bud build](./cli/build/index.mdx) command.
+No configuration is required. The bundled code will be output to `./dist/main.(js|css)`.
+
+If you need to customize the build process, see the guide on [configuration basics](configure) to get started.
+
+## Adding features
+
+**bud.js** is built modularly. This means features can be added as needed by adding extensions to your project.
+
+The [configuration basics](configure) guide has more information on how to add extensions, but most of them start and end with installing a package.
+
+For example, you can add babel and postcss support by
+installing [@roots/bud-babel](/extensions/bud-babel) and [@roots/bud-postcss](/extensions/bud-postcss/):
+
+```bash npm2yarn
+npm install @roots/bud-babel @roots/bud-postcss --save-dev
+```
+
+Consult the [extensions directory](/extensions/) for available first-party extensions.
+
+## Upgrading bud.js
+
+In general, all dependencies with the `@roots/*` namespace should share the same version.
+
+To make it easy to keep versions in sync you can use the [bud upgrade](./cli/index.mdx) command.
+
+```bash npm2yarn
+npm run bud upgrade
+```

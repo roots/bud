@@ -1,0 +1,65 @@
+---
+title: Optimization
+sidebar_label: Optimization
+---
+
+There are a number of optional optimizations you can perform on your application.
+
+## File hashing
+
+Use the [bud.hash](/docs/bud.hash) function to generate a hash for each file in the bundle. This hash will be added to outputted files.
+
+```js title='bud.config.mjs'
+export default async bud => {
+  bud.hash()
+}
+```
+
+## Minimizing code
+
+Use the [bud.minimize](/docs/bud.minimize) function to run your application code through a minifier.
+
+```js title='bud.config.mjs'
+export default async bud => {
+  bud.minimize()
+}
+```
+
+## Creating a runtime
+
+You may create an application runtime using [bud.runtime](/docs/bud.runtime). Using the `single` option is probably
+the simplest and best solution for most applications:
+
+```js title='bud.config.mjs'
+export default async bud => {
+  bud.runtime('single')
+}
+```
+
+## Creating a vendor chunk
+
+You can perform general code splitting with [bud.splitChunks](/docs/bud.splitChunks).
+
+```js title='bud.config.mjs'
+export default async bud => {
+  bud.splitChunks()
+}
+```
+
+## Overriding the generated configuration
+
+At the end of the day, you may find yourself needing to override the config. You may do so using the **bud.override** function.
+
+The most versatile way to do this is using a calback function:
+
+```js title='bud.config.mjs'
+export default async bud => {
+  bud.config(config => ({
+    ...config,
+    output: {
+      ...config.output,
+      filename: 'scripts/[name].js',
+    },
+  }))
+}
+```
