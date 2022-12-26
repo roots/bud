@@ -54,7 +54,7 @@
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.18.6",
+    "@types/node": "18.11.17",
     "@types/vinyl": "2.0.7"
   },
   "dependencies": {
