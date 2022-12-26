@@ -7048,7 +7048,7 @@ __metadata:
     "@roots/filesystem": "workspace:sources/@roots/filesystem"
     "@skypack/package-check": 0.2.2
     chalk: 5.1.2
-    clean-stack: 5.0.1
+    clean-stack: 5.1.0
     clipanion: 3.2.0-rc.14
     common-path: 1.0.1
     execa: 6.1.0
@@ -12830,12 +12830,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clean-stack@npm:5.0.1":
-  version: 5.0.1
-  resolution: "clean-stack@npm:5.0.1"
+"clean-stack@npm:5.1.0":
+  version: 5.1.0
+  resolution: "clean-stack@npm:5.1.0"
   dependencies:
     escape-string-regexp: 5.0.0
-  checksum: 8aa9cb09d69309281dcd095ae324364a76b37171348fd98e5a1c2b77834999225f9bd385731fbe0e9c9fc8e9166f4fd60f456c12df0eb7690984b214a134959a
+  checksum: 8c7b38da9b641fb3bfbecf98b9e825614d7843df28417f85283b1c617fda110d0efe9db53822d16905c160f12c82c482ea884780c243bf46f0e477951af5ed9a
   languageName: node
   linkType: hard
 
