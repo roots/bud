@@ -1,3 +1,5 @@
+import dataUri from 'mini-svg-data-uri'
+
 import type {Factory} from '../index.js'
 
 export const inlineSvg: Factory = ({filter, makeRule, path}) =>
@@ -5,4 +7,7 @@ export const inlineSvg: Factory = ({filter, makeRule, path}) =>
     .setTest(filter(`pattern.svg`))
     .setInclude([() => path(`@src`)])
     .setResourceQuery(/inline/)
+    .setGenerator({dataUrl})
     .setType(`asset/inline`)
+
+export const dataUrl = (data: Buffer) => dataUri(data.toString())

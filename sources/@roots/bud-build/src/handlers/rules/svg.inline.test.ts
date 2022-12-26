@@ -1,13 +1,13 @@
 import {describe, expect, it} from 'vitest'
 
-import {dataUriSvg, dataUrl} from './svg.data-uri.js'
+import {inlineSvg, dataUrl} from './svg.inline.js'
 
 describe(`svg-data-uri`, () => {
   it(`should return a rule`, async () => {
     const bud = await import(`@repo/test-kit/bud`).then(
       async ({factory}) => await factory(),
     )
-    const result = dataUriSvg({
+    const result = inlineSvg({
       filter: bud.hooks.filter,
       makeItem: bud.build.makeItem,
       makeLoader: bud.build.makeLoader,
