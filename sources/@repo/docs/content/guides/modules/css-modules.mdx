@@ -1,0 +1,38 @@
+---
+title: CSS modules
+description: Learn how to structure stylesheets in your bud.js app
+sidebar_label: CSS modules
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+This guide covers using CSS modules in your **bud.js** app.
+
+By default, **bud.js** only ships with support for [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS).
+
+However, support for CSS preprocessors can be added via extensions.
+
+## PostCSS
+
+Support for [PostCSS](https://postcss.org/) can be added to **bud.js** by installing the [@roots/bud-postcss](/extensions/bud-postcss) extension.
+
+```npm2yarn
+yarn add @roots/bud-postcss --dev
+```
+
+Once installed your stylesheets will be processed with postcss. The default configuration supports nested syntax, postcss-imports and autoprefixer.
+
+Refer to the [@roots/bud-postcss](/extensions/bud-postcss) documentation for more information.
+
+## Sass
+
+Support for [Sass](https://sass-lang.com/) can be added to **bud.js** by installing the [@roots/bud-sass](/extensions/bud-sass) extension.
+
+```npm2yarn
+yarn add @roots/bud-sass --dev
+```
+
+Once installed your `.scss` and `.sass` files will be processed with dart-sass.
+
+Refer to the [@roots/bud-sass](/extensions/bud-sass) documentation for more information.

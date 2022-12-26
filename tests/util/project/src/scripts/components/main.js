@@ -1,4 +1,4 @@
-import image from '@src/images/image.jpeg?inline'
+import image from '/images/image.jpeg?inline'
 
 export const main = () => {
   document.body.style.backgroundColor = `#f0f0f0`

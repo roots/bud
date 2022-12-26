@@ -1,0 +1,64 @@
+---
+title: Basics
+sidebar_label: Basics
+description: Creating a bud.config.js file and running a build
+---
+
+Create a `bud.config.js` file.
+
+### An example config
+
+```js title='bud.config.js'
+/**
+ * Build configuration for bud.js
+ * @param {import('@roots/bud').Bud} bud
+ */
+export default async bud => {
+  /**
+   * The bud instance
+   */
+  bud
+    /**
+     * Set the project source directory
+     */
+    .setPath(`@src`, `sources`)
+
+    /**
+     * Set the application entrypoints
+     * These paths are expressed relative to the `@src` directory
+     */
+    .entry({
+      app: [`app.js`, `app.css`], // [`./sources/app.js`, `./sources/app.css`]
+    })
+
+    /**
+     * Copy static assets from `sources/static` to `dist/static`
+     */
+    .assets({
+      from: bud.path(`@src/static`),
+      to: bud.path(`@dist/static`),
+    })
+}
+```
+
+To use `import`/`export` syntax and take advantage of ESM-only packages, we recommend setting `{"type": "module"}` package.json.
+
+The documentation on this site assumes users are using modular JavaScript.
+
+## Running the build
+
+Once you have configured your project the simplest way to actually run the compiler it is using the `bud build` command:
+
+### In production
+
+```bash npm2yarn
+yarn bud build production
+```
+
+### In development
+
+```bash npm2yarn
+yarn bud build development
+```
+
+`ctrl+c` will terminate the application when running in `development` mode.

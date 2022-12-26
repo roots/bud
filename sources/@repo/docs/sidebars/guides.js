@@ -1,7 +1,37 @@
 module.exports = {
   sidebar: [
     `index`,
-    `configure`,
+    {
+      type: `category`,
+      label: `Project config`,
+      link: {
+        type: `generated-index`,
+        description: `Get started configuring bud.js`,
+        slug: `/configure`,
+      },
+      items: [
+        `configure/bud.config.js`,
+        `configure/paths`,
+        `configure/assets`,
+        `configure/optimizing`,
+        `configure/extensions`,
+        `configure/editor-integration`,
+      ],
+    },
+    {
+      type: `category`,
+      label: `Modules`,
+      link: {
+        type: `generated-index`,
+        description: `Using JS, CSS and static assets in your application code.`,
+        slug: `/guides/modules`,
+      },
+      items: [
+        `modules/js-modules`,
+        `modules/css-modules`,
+        `modules/static-assets`,
+      ],
+    },
     {
       type: `category`,
       label: `CLI`,

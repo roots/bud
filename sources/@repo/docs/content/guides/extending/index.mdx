@@ -12,7 +12,7 @@ Extensions can be provided as either a plain JS object or a class.
 
 ```ts title="extension.ts"
 const MyExtension = {
-  register: async(app, options) {}
+  register: async(bud) {}
 }
 ```
 
@@ -30,24 +30,22 @@ The rest of this document assumes that extensions are being authored as a class 
 
 ## Interface
 
-Any extension method from the Extension base class prefixed with an underscore should be considered private. This method needs to be public
-for compatibility with class decorators, but it is not intended to be used as a public method. These methods can and will change without notice.
-
 ### label
 
-The extension `label` serves as a handle for other extensions or the user config.
-For a "top-level" extension (listed in the user's `package.json` manifest), the label should match the extension's `package.json` `name` field.
+The extension `label` serves as a handle for other extensions or the user config. It should be resolvable as a module signifier.
 
-A `label` is not strictly required but extensions without a `label` will have a unique id generated for them. Because this id is generated there is no
-straight forward way to reference the extension from the outside.
+For instance if your extension is published to npm as `bud-extension-name` then the `label` should match:
 
 ```ts title="extension.ts"
 import {Extension} from '@roots/bud-framework/extension'
 
 export default class MyExtension extends Extension {
-  public label = 'bud-extension'
+  public label = 'bud-extension-name'
 }
 ```
+
+A `label` is not strictly required but extensions without a `label` will have a unique id generated for them. Because this id is generated there is no
+straight forward way to reference the extension from the outside.
 
 ### dependsOn
 
@@ -60,7 +58,7 @@ The `dependsOn` property is expressed as a `Set`:
 import {Extension} from '@roots/bud-framework/extension'
 
 export default class MyExtension extends Extension {
-  public label = 'bud-extension'
+  public label = 'bud-extension-name'
 
   public dependsOn = new Set(['@roots/bud-postcss'])
 }
@@ -68,7 +66,7 @@ export default class MyExtension extends Extension {
 
 ### dependsOnOptional
 
-Extensions may depend on other extensions on an optional basis. Bud will attempt to register the extension if it is available. Otherwise, it will silently proceed.
+Extensions may depend on other extensions on an optional basis. **bud.js** will attempt to register the extension if it is available. Otherwise, it will silently proceed.
 
 ```ts title="extension.ts"
 import {Extension} from '@roots/bud-framework/extension'
@@ -98,7 +96,7 @@ export default class MyExtension extends Extension {
 
 The `options` property is treated specially (using `getters` and `setters`).
 
-Each option value can be expressed as either the literal value itself or a function receives the `Bud` object and returns the value.
+Each option value can be expressed as either the literal value itself or a function receives the **bud.js** instance object and returns the value.
 
 This is useful when you can't know the value up front (as is the case with user paths):
 
@@ -117,38 +115,45 @@ export default class MyExtension extends Extension {
 
 Now, if the user makes a change to the `@src` path, the reference will be updated in the extension.
 
-The only "gotcha" here is that if you have an extension option which is itself callable, you will need to account for that. Otherwise, bud will try to call the
-option fn.
+The only "gotcha" here is that if you have an extension option which is itself a function. Since **bud.js** will try to call the function to resolve the option value you
+may need to wrap it in another function:
 
 ```ts title="extension.ts"
 import {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 
+/**
+ * This is the function we want to use an an option value
+ */
 const callback = (prop: string): string => 'hello, world!'
 
 export default class MyExtension extends Extension {
   public label = 'bud-extension'
 
   public options = {
-    option: () => callback,
+    /**
+     * Rather than passing the function directly, we wrap it in another function.
+     * This way, **bud.js** will not call the function when resolving the option value.
+     */
+    prop: () => callback,
   }
 }
 ```
 
-Also note, the extension options are **read only**. There are helpers in the base class to assist you with update `options`:
+Theree are some additional methods available for working with extension options:
 
 #### setOption
 
-```ts title="extension.js"
-extension.setOptions('foo', (bud: Bud) => 'could have been a string')
+```ts title="extension.ts"
+extension.setOption('foo', value)
 ```
 
 #### setOptions
 
-```ts title="extension.js"
+```ts title="extension.ts"
 extension.setOptions({
-  foo: 'literal',
-  bar: (bud: Bud) => 'a callback is fine, as well'.
+  foo: `literal`,
+  bar: (bud: Bud) => () => `callback`.
 })
 ```
 
@@ -163,7 +168,7 @@ import {Extension} from '@roots/bud-framework/extension'
 export default class MyExtension extends Extension {
   public label = 'bud-extension'
 
-  public async init(app, options) {
+  public async init(bud) {
     // do something
   }
 }
@@ -180,7 +185,7 @@ import {Extension} from '@roots/bud-framework/extension'
 export default class MyExtension extends Extension {
   public label = 'bud-extension'
 
-  public async register(app, options) {
+  public async register(bud) {
     // do something
   }
 }
@@ -198,7 +203,7 @@ import {Extension} from '@roots/bud-framework/extension'
 export default class MyExtension extends Extension {
   public label = 'bud-extension'
 
-  public async boot(app, options) {
+  public async boot(bud) {
     // do something
   }
 }
@@ -215,7 +220,7 @@ import {Extension} from '@roots/bud-framework/extension'
 export default class MyExtension extends Extension {
   public label = 'bud-extension'
 
-  public async configAfter(app, options) {
+  public async configAfter(bud) {
     // do something
   }
 }
@@ -232,7 +237,7 @@ import {Extension} from '@roots/bud-framework/extension'
 export default class MyExtension extends Extension {
   public label = 'bud-extension'
 
-  public async buildBefore(app, options) {
+  public async buildBefore(bud) {
     // do something
   }
 }
@@ -321,7 +326,7 @@ export default class MyExtension extends Extension {
 
 ### apply
 
-An `apply` method indicates to **bud.js** that the extension is doing double duty as a compiler plugin and a bud extension.
+An `apply` method indicates to **bud.js** that the extension is doing double duty as a compiler plugin and a **bud.js** extension.
 
 ```ts title="extension.ts"
 import {Bud} from '@roots/bud-framework'
@@ -337,14 +342,14 @@ export default class MyExtension extends Extension {
 }
 ```
 
-When present **bud.js** will pass the extension itself to the compiler's `plugin` array.
+When present **bud.js** will pass the extension directly to the compiler.
 
 ### when
 
 A callback that returns a boolean. The extension will be registered regardless of the value returned by this function, but certain methods
 will not be called if this function returns `false`.
 
-This function is passed `bud` and the resolved extension `options`.
+This function is passed the **bud.js** instance.
 
 ```ts title="extension.ts"
 import {Bud} from '@roots/bud-framework'
@@ -353,8 +358,8 @@ import {Extension} from '@roots/bud-framework/extension'
 export default class MyExtension extends Extension {
   public label = 'bud-extension'
 
-  public async when(app, options) {
-    return app.isProduction && options.set.size > 0
+  public async when(bud) {
+    return bud.isProduction && this.options.set.size > 0
   }
 }
 ```
@@ -375,7 +380,7 @@ import {Extension} from '@roots/bud-framework/extension'
 export default class MyExtension extends Extension {
   public label = 'bud-extension'
 
-  public async register(app, options) {
+  public async register(bud) {
     // this overrides `when`
     this.enabled = true
   }
@@ -384,8 +389,8 @@ export default class MyExtension extends Extension {
    * This function will never be called because {@link Extension.enabled}
    * was set to `true` in {@link Extension.register}.
    */
-  public async when(app, options) {
-    return app.isProduction && options.set.size > 0
+  public async when(bud) {
+    return bud.isProduction && options.set.size > 0
   }
 }
 ```
