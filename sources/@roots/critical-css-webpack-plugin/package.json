@@ -58,7 +58,7 @@
     "@types/vinyl": "2.0.7"
   },
   "dependencies": {
-    "critical": "5.0.3",
+    "critical": "5.0.4",
     "helpful-decorators": "2.1.0",
     "vinyl": "3.0.0",
     "webpack": "5.75.0"

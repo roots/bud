@@ -61,7 +61,7 @@
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/critical-css-webpack-plugin": "workspace:sources/@roots/critical-css-webpack-plugin",
-    "critical": "5.0.3",
+    "critical": "5.0.4",
     "vinyl": "3.0.0"
   },
   "volta": {
