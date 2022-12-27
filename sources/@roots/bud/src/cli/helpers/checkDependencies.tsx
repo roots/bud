@@ -1,6 +1,5 @@
 import type {Bud} from '@roots/bud'
 import {isInternalDevelopmentEnv} from '@roots/bud/cli/helpers/isInternalDevelopmentEnv'
-import {Renderer} from '@roots/bud-dashboard/renderer'
 import {Box, Text} from '@roots/bud-support/ink'
 import React from '@roots/bud-support/react'
 
@@ -15,7 +14,7 @@ export const checkDependencies = async (bud: Bud) => {
     .filter(([_, v]) => v !== bud.context.bud.version)
 
   mismatches?.length &&
-    Renderer.once(
+    bud.dashboard.renderer.once(
       <Box flexDirection="column" marginY={1}>
         {mismatches.map(([k, v]: [string, string], key: number) => {
           return (
