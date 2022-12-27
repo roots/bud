@@ -230,7 +230,7 @@
     "@skypack/package-check": "0.2.2",
     "@types/http-proxy": "1.17.9",
     "@types/js-yaml": "4.0.5",
-    "@types/node": "16.18.6"
+    "@types/node": "18.11.18"
   },
   "dependencies": {
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
