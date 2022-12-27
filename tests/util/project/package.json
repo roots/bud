@@ -2,7 +2,7 @@
   "name": "@tests/project",
   "private": true,
   "browserslist": [
-    "extends @roots/browserslist-config/current"
+    "extends @roots/browserslist-config"
   ],
   "bud": {
     "extensions": {
@@ -11,7 +11,6 @@
   },
   "devDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
-    "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
     "@roots/bud-swc": "workspace:sources/@roots/bud-swc",
     "@roots/bud-tailwindcss": "workspace:sources/@roots/bud-tailwindcss"
   },

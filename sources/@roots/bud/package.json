@@ -164,8 +164,7 @@
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.18.6",
-    "@types/node-notifier": "8.0.2"
+    "@types/node": "16.18.6"
   },
   "dependencies": {
     "@roots/browserslist-config": "workspace:sources/@roots/browserslist-config",
@@ -187,10 +186,14 @@
     "webpack": "5.75.0"
   },
   "peerDependencies": {
+    "@roots/browserslist-config": "*",
     "browserslist": ">=4.21.4",
     "update-browserslist-db": ">=1.0.10"
   },
   "peerDependenciesMeta": {
+    "@roots/browserslist-config": {
+      "optional": true
+    },
     "browserslist": {
       "optional": true
     },

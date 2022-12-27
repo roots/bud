@@ -3,7 +3,7 @@
 /**
  * @param {import('@roots/bud').Bud} bud
  */
-export default async bud =>
+export default async bud => {
   bud
     .setPath(`@src`, `src`)
     .use([`@roots/bud-swc`, `@roots/bud-tailwindcss`])
@@ -13,3 +13,4 @@ export default async bud =>
     .serve(3015)
     .splitChunks(false)
     .minimize(false)
+}

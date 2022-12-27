@@ -64,9 +64,6 @@
     "critical": "5.0.3",
     "vinyl": "3.0.0"
   },
-  "peerDependencies": {
-    "@roots/bud": "*"
-  },
   "volta": {
     "extends": "../../../package.json"
   }

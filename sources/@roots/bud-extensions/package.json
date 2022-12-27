@@ -59,10 +59,10 @@
         "./lib/index.d.ts"
       ],
       "service": [
-        "lib/service/index.d.ts"
+        "./lib/service/index.d.ts"
       ],
       "*": [
-        "lib/extensions/*/index.d.ts"
+        "./lib/extensions/*/index.d.ts"
       ]
     }
   },

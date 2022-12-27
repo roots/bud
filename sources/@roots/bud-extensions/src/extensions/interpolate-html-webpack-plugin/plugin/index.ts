@@ -11,7 +11,7 @@ export interface Options {
  *
  * @public
  */
-export class InterpolatePlugin {
+export class InterpolateHtmlWebpackPlugin {
   /**
    * Plugin name
    *

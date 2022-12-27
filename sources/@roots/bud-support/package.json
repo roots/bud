@@ -60,7 +60,8 @@
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/cookie-parser": "1.4.3"
+    "@types/cookie-parser": "1.4.3",
+    "@types/node-notifier": "8.0.2"
   },
   "dependencies": {
     "@roots/filesystem": "workspace:sources/@roots/filesystem",
