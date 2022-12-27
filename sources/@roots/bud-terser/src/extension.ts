@@ -8,20 +8,20 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
-import type TerserPlugin from 'terser-webpack-plugin'
+import type {Plugin} from '@roots/bud-support/terser-webpack-plugin'
 
 /**
  * `terser-webpack-plugin` options
  *
  * @public
  */
-export type Options = TerserPlugin.BasePluginOptions & {
-  minify?: TerserPlugin.MinimizerImplementation<any>
+export type Options = Plugin.BasePluginOptions & {
+  minify?: Plugin.MinimizerImplementation<any>
   include: RegExp
   exclude: RegExp
   extractComments: boolean
   parallel: boolean
-  terserOptions?: TerserPlugin.MinimizerOptions<any>
+  terserOptions?: Plugin.MinimizerOptions<any>
 }
 
 /**

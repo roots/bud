@@ -5,7 +5,8 @@ import {
   plugin,
   when,
 } from '@roots/bud-framework/extension/decorators'
-import CopyWebpackPlugin, {PluginOptions} from 'copy-webpack-plugin'
+import type {Options} from '@roots/bud-support/copy-webpack-plugin'
+import {Plugin} from '@roots/bud-support/copy-webpack-plugin'
 
 /**
  * `copy-webpack-plugin` adapter
@@ -17,9 +18,9 @@ import CopyWebpackPlugin, {PluginOptions} from 'copy-webpack-plugin'
  * @decorator `@when`
  */
 @label(`@roots/bud-extensions/copy-webpack-plugin`)
-@plugin(CopyWebpackPlugin)
-@options<PluginOptions>({patterns: []})
+@plugin(Plugin)
+@options<Options>({patterns: []})
 @when(async (_app, options) => options.patterns?.length > 0)
-class BudCopyPlugin extends Extension<PluginOptions, CopyWebpackPlugin> {}
+class BudCopyPlugin extends Extension<Options, Plugin> {}
 
 export default BudCopyPlugin

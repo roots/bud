@@ -5,5 +5,5 @@
 }
 
 .icon {
-  background: url(@src/svg/icon.svg?inline);
+  background: url(@src/svg/icon.svg);
 }

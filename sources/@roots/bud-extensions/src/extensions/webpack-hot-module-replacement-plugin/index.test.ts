@@ -38,13 +38,10 @@ describe(`webpack-hot-module-replacement-plugin`, () => {
   })
 
   it(`produces webpack hmr plugin`, async () => {
-    vi.clearAllMocks()
     const bud = await factory({mode: `development`})
-
-    // @ts-ignore
     const extension = new hmrExtension(bud)
-    // @ts-ignore
-    expect(new extension.plugin()).toBeInstanceOf(
+
+    expect(await extension.make(bud)).toBeInstanceOf(
       webpack.HotModuleReplacementPlugin,
     )
   })

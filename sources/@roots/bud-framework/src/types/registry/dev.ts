@@ -1,6 +1,6 @@
 import type {ListenOptions} from 'node:net'
 
-import type {WatchOptions} from 'chokidar'
+import type {WatchOptions} from '@roots/bud-support/chokidar'
 
 import type {Bud} from '../../bud.js'
 import type * as Server from '../services/server/index.js'

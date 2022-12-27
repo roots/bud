@@ -1,8 +1,8 @@
 export const isConstructor = (
-  f: any,
-): f is new (...args: any[]) => any => {
+  subject: any,
+): subject is new (...args: any[]) => any => {
   try {
-    Reflect.construct(String, [], f)
+    Reflect.construct(String, [], subject)
   } catch (e) {
     return false
   }

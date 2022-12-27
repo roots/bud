@@ -8,11 +8,7 @@ export async function handleNormalRecord(bud: Bud, input: Parameters) {
   const [value] = input
   const records = await schema.entrypointsRecord.safeParseAsync(value)
   if (!records.success) {
-    return handleTypeError(
-      bud,
-      `bud.entry: invalid object parameter`,
-      records,
-    )
+    return handleTypeError(bud, `bud.entry`, records)
   }
 
   const current = bud.hooks.filter(`build.entry`, {})

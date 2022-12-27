@@ -1,12 +1,12 @@
-import {factory} from '@repo/test-kit/bud'
-// @ts-ignore
+import {Bud, factory} from '@repo/test-kit/bud'
 import signale from '@roots/bud-support/signale'
 import {beforeEach, describe, expect, it} from 'vitest'
 
-import {makeOptions, proxy} from './index.js'
+import {makeOptions, middleware} from './middleware.js'
 
 describe(`proxy middleware`, () => {
-  let bud
+  let bud: Bud
+
   beforeEach(async () => {
     bud = await factory({mode: `development`})
   })
@@ -34,7 +34,7 @@ describe(`proxy middleware`, () => {
 
   it(`should have logger when --log flag is used`, async () => {
     bud.context.args.log = true
-
+    // @ts-ignore
     expect(makeOptions(bud).logger).toBeInstanceOf(signale)
   })
 
@@ -62,11 +62,5 @@ describe(`proxy middleware`, () => {
     bud.proxy(`http://example.com`)
     await bud.api.processQueue()
     expect(makeOptions(bud).protocolRewrite).toBe(undefined)
-  })
-
-  it(`proxy func should return RequestHandler`, async () => {
-    expect(proxy(bud)).toEqual(
-      expect.objectContaining({upgrade: expect.any(Function)}),
-    )
   })
 })

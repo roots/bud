@@ -120,22 +120,22 @@ export class Module extends Service {
    * @decorator `@bind`
    */
   @bind
-  public async import<T = any>(
-    signifier: string,
-    context?: URL | URL | string,
-  ): Promise<T> {
-    const modulePath = await this.resolve(signifier, context)
-    if (!modulePath) {
-      throw new Error(`Could not resolve ${signifier}`)
-    }
+  public async import<T = any>(signifier: string): Promise<T> {
+    try {
+      const result = await import(signifier)
 
-    const result = await import(modulePath)
-    if (!result) {
-      throw new Error(`Could not import ${signifier}`)
-    }
+      if (!result) {
+        throw new Error(`Could not import ${signifier}`)
+      }
 
-    this.logger.info(chalk.dim(`imported ${signifier}`))
-    return result?.default ?? result
+      this.logger.info(chalk.dim(`imported ${signifier}`))
+
+      return `default` in result ? result.default : result
+    } catch (error) {
+      const err = new Error(error.toString())
+      err.name = `Could not import ${signifier}`
+      throw err
+    }
   }
 
   /**

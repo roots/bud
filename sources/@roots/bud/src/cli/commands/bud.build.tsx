@@ -1,9 +1,8 @@
+import type {CommandContext} from '@roots/bud/cli/commands/bud'
 import BudCommand from '@roots/bud/cli/commands/bud'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators'
 import * as t from '@roots/bud-support/typanion'
-
-import type {CommandContext} from './bud.js'
 
 /**
  * Build command
@@ -26,9 +25,11 @@ export default class BudBuildCommand extends BudCommand {
   })
 
   public override withBud = async (bud: BudCommand[`bud`]) => {
-    bud.hooks.action(`compiler.close`, async bud => {
-      await this.notifier.compilationNotification()
-    })
+    if (this.notify && this.notifier) {
+      bud.hooks.action(`compiler.close`, async bud => {
+        await this.notifier.compilationNotification()
+      })
+    }
 
     return bud
   }
@@ -101,7 +102,7 @@ export default class BudBuildCommand extends BudCommand {
   public discovery = Option.Boolean(`--discovery`, undefined, {
     description: `Automatically register extensions`,
   })
-  public notify = Option.Boolean(`--notify`, true, {
+  public override notify = Option.Boolean(`--notify`, true, {
     description: `Enable notfication center messages`,
   })
   public manifest = Option.Boolean(`--manifest`, undefined, {

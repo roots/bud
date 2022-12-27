@@ -5,7 +5,7 @@ import type {Bud} from '@roots/bud-framework'
  *
  * @public
  */
-export const on = async (
+export const inject = async (
   app: Bud,
   injection: Array<(app: Bud) => string>,
 ) => {

@@ -1,4 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
+import getPort from '@roots/bud-support/get-port'
 import {
   isArray,
   isEqual,
@@ -6,7 +7,6 @@ import {
   isString,
   isUndefined,
 } from '@roots/bud-support/lodash-es'
-import getPort from 'get-port'
 
 import {checkChildInstanceError} from './childError.js'
 import type {Options, Parameters, ServerOptions} from './serve.types.js'

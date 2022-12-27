@@ -6,20 +6,19 @@ import type {Bud} from '@roots/bud-framework'
  * @public
  */
 export function handleTypeError(
-  bud: Bud,
+  _bud: Bud,
   label: string,
   {error}: Zod.SafeParseError<any>,
 ): never {
-  bud.api.logger.error(
-    `\n\n`,
-    label,
-    `\n`,
-    error
-      .format()
-      ._errors.filter(item => item.trim())
-      .filter(item => item !== ``)
-      .join(`\n`) ?? `type error`,
+  const x = `\u2717`
+
+  const err = new Error(
+    error.issues
+      .map(issue => `${x} ${label} -> ${issue.path}: ${issue.message}`)
+      .join(`\n\n`)
+      .concat(`\n`),
   )
 
-  throw new TypeError()
+  err.name = `Config error`
+  throw err
 }

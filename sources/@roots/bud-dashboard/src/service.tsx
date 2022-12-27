@@ -5,6 +5,7 @@ import chalk from '@roots/bud-support/chalk'
 import {bind} from '@roots/bud-support/decorators'
 import figures from '@roots/bud-support/figures'
 import {Box, Text} from '@roots/bud-support/ink'
+import {isUndefined} from '@roots/bud-support/lodash-es'
 import React from '@roots/bud-support/react'
 import type {
   MultiStats,
@@ -13,7 +14,6 @@ import type {
 } from '@roots/bud-support/webpack'
 
 import {Console} from './dashboard/console/index.js'
-import {Renderer} from './renderer.js'
 
 type Compilations = Array<Omit<StatsCompilation, `children`>>
 
@@ -23,7 +23,13 @@ type Compilations = Array<Omit<StatsCompilation, `children`>>
  * @public
  */
 export class Dashboard extends Service implements Contract {
+  public renderer?: any
+
   public stats?: StatsCompilation
+
+  public get silent() {
+    return this.app.isCLI() && this.app.context.args.log === false
+  }
 
   @bind
   public stale?(stats: StatsCompilation) {
@@ -31,8 +37,10 @@ export class Dashboard extends Service implements Contract {
     return stale
   }
 
-  public get silent() {
-    return this.app.isCLI() && this.app.context.args.log === false
+  @bind
+  public setRenderer(renderer: any): this {
+    this.renderer = renderer
+    return this
   }
 
   /**
@@ -44,7 +52,21 @@ export class Dashboard extends Service implements Contract {
   @bind
   public async update(stats: MultiStats): Promise<this> {
     if (!stats || this.silent || this.stale(stats)) return this
+
     this.stats = stats
+
+    if (isUndefined(this.renderer)) {
+      if (this.app.isCLI() && this.app.context.stdout) {
+        this.app.context.stdout.write(
+          stats.toString({
+            preset: `minimal`,
+            colors: true,
+          }),
+        )
+      }
+
+      return this
+    }
 
     if (!this.app.isCLI() || this.app.context.args?.ci === true) {
       const stringCompilation = stats.toString({
@@ -52,7 +74,7 @@ export class Dashboard extends Service implements Contract {
         colors: true,
       })
 
-      await Renderer.once(
+      await this.renderer.once(
         <Box flexDirection="column">
           <Console messages={this.app.consoleBuffer.fetchAndRemove()} />
           <Text>{stringCompilation}</Text>
@@ -90,7 +112,9 @@ export class Dashboard extends Service implements Contract {
       ? [...stats.children, ...stats.children?.map(tagInnerChilds)].flat()
       : [stats]
 
-    const Render = this.app.isProduction ? Renderer.once : Renderer.render
+    const Render = this.app.isProduction
+      ? this.renderer.once
+      : this.renderer.render
 
     const App =
       process.stdout.isTTY && !this.app.isProduction

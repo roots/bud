@@ -1,9 +1,12 @@
 import {lowerCase} from '@roots/bud-support/lodash-es'
 import Container from '@roots/container'
-import type {Context} from 'vm'
 
 import type {Bud} from './index.js'
-import type {CLIContext, CommandContext} from './types/options/context.js'
+import type {
+  CLIContext,
+  CommandContext,
+  Context,
+} from './types/options/context.js'
 import type {Logger} from './types/services/logger/index.js'
 
 interface Contract {

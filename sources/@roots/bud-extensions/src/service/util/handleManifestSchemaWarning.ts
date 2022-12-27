@@ -1,9 +1,10 @@
+import type Extensions from '@roots/bud-extensions'
 import type {Bud} from '@roots/bud-framework'
 
-import type Extensions from '../index.js'
-
 export function handleManifestSchemaWarning(this: Extensions, bud: Bud) {
-  if (bud.context.manifest?.bud?.allowlist) {
+  if (!bud.context.manifest?.bud) return
+
+  if (bud.context.manifest.bud.allowlist) {
     bud.context.manifest.bud.extensions = {
       ...(bud.context.manifest.bud.extensions ?? {}),
       allowlist: bud.context.manifest.bud.allowlist,
@@ -14,7 +15,7 @@ export function handleManifestSchemaWarning(this: Extensions, bud: Bud) {
     )
   }
 
-  if (bud.context.manifest?.bud?.denylist) {
+  if (bud.context.manifest.bud.denylist) {
     bud.context.manifest.bud.extensions = {
       ...(bud.context.manifest.bud.extensions ?? {}),
       denylist: bud.context.manifest.bud.denylist,

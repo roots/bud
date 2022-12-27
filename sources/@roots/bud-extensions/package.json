@@ -53,6 +53,19 @@
       "default": "./lib/extensions/*/index.js"
     }
   },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ],
+      "service": [
+        "./lib/service/index.d.ts"
+      ],
+      "*": [
+        "./lib/extensions/*/index.d.ts"
+      ]
+    }
+  },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.18.6",
@@ -62,37 +75,7 @@
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@roots/bud-terser": "workspace:sources/@roots/bud-terser",
-    "@roots/container": "workspace:sources/@roots/container",
-    "clean-webpack-plugin": "4.0.0",
-    "copy-webpack-plugin": "11.0.0",
-    "html-webpack-plugin": "5.5.0",
-    "mini-css-extract-plugin": "2.7.1",
-    "webpack": "5.75.0",
-    "webpack-manifest-plugin": "5.0.0"
-  },
-  "peerDependencies": {
-    "clean-webpack-plugin": "*",
-    "copy-webpack-plugin": "*",
-    "html-webpack-plugin": "*",
-    "mini-css-extract-plugin": "*",
-    "webpack-manifest-plugin": "*"
-  },
-  "peerDependenciesMeta": {
-    "clean-webpack-plugin": {
-      "optional": true
-    },
-    "copy-webpack-plugin": {
-      "optional": true
-    },
-    "html-webpack-plugin": {
-      "optional": true
-    },
-    "mini-css-extract-plugin": {
-      "optional": true
-    },
-    "webpack-manifest-plugin": {
-      "optional": true
-    }
+    "@roots/container": "workspace:sources/@roots/container"
   },
   "volta": {
     "extends": "../../../package.json"

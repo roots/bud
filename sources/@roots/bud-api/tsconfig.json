@@ -1,6 +1,9 @@
 {
   "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
+    "paths": {
+      "@roots/bud-api/*": ["./src/*"]
+    },
     "strict": true,
     "rootDir": "./src",
     "outDir": "./lib",

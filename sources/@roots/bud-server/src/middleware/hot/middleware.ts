@@ -1,15 +1,14 @@
 /* eslint-disable no-console */
 
 import type {Bud} from '@roots/bud-framework'
+import type {Payload} from '@roots/bud-server/middleware/hot'
+import {HotEventStream} from '@roots/bud-server/middleware/hot'
+import type {RequestHandler} from '@roots/bud-support/express'
 import type {
   MultiCompiler,
   StatsCompilation,
   StatsModule,
 } from '@roots/bud-support/webpack'
-import type {RequestHandler} from 'express'
-
-import type {Payload} from './payload.js'
-import {HotEventStream} from './stream.js'
 
 const middlewarePath = `/bud/hot`
 
@@ -17,7 +16,7 @@ let latestStats = null
 let closed = false
 let logger: Bud[`context`][`logger`]
 
-export default (app: Bud) => {
+export const middleware = (app: Bud) => {
   logger = app.context.logger.scope(
     app.label,
     `hmr`,

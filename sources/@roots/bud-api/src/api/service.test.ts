@@ -51,6 +51,7 @@ describe(`@roots/bud-api`, () => {
 
     api.set(`foo`, mockFn)
 
+    // @ts-ignore
     await api.call(`foo`, `bar`)
 
     expect(hasSpy).toHaveBeenCalledTimes(1)

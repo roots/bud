@@ -5,11 +5,8 @@ import {
   plugin,
   production,
 } from '@roots/bud-framework/extension/decorators'
-import {
-  CleanWebpackPlugin,
-  Options as PluginOptions,
-} from 'clean-webpack-plugin'
-
+import type {Options} from '@roots/bud-support/clean-webpack-plugin'
+import {Plugin} from '@roots/bud-support/clean-webpack-plugin'
 /**
  * `clean-webpack-plugin` adapter
  *
@@ -20,8 +17,8 @@ import {
  * @decorator `@production`
  */
 @label(`@roots/bud-extensions/clean-webpack-plugin`)
-@plugin(CleanWebpackPlugin)
-@options({
+@plugin(Plugin)
+@options<Options>({
   /**
    * Clean stale assets
    *
@@ -44,7 +41,4 @@ import {
   cleanOnceBeforeBuildPatterns: [`**/*`],
 })
 @production
-export default class BudClean extends Extension<
-  PluginOptions,
-  CleanWebpackPlugin
-> {}
+export default class BudClean extends Extension<Options, Plugin> {}

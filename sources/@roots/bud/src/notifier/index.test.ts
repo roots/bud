@@ -1,5 +1,4 @@
-import {factory} from '@repo/test-kit/bud'
-import type {Bud} from '@roots/bud-framework'
+import {Bud, factory} from '@repo/test-kit/bud'
 import nodeNotifier from 'node-notifier'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 

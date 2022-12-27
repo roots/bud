@@ -1,8 +1,14 @@
-import type HttpProxy from 'http-proxy-middleware'
+import type {HttpProxy} from '@roots/bud-support/http-proxy-middleware'
 
 import type {Bud} from '../../../bud.js'
 
-export interface ProxyOptions extends HttpProxy.Options {}
+export interface ProxyOptions extends HttpProxy.Options {
+  logger: any
+  ejectPlugins: any
+  on: any
+  pathFilter: any
+  plugins: any
+}
 
 export interface DevOptions {
   /**

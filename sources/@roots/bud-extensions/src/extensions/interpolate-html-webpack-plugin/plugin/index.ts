@@ -1,6 +1,6 @@
 import {bind} from '@roots/bud-support/decorators'
+import type {Plugin} from '@roots/bud-support/html-webpack-plugin'
 import type {Compiler} from '@roots/bud-support/webpack'
-import type HtmlWebpackPlugin from 'html-webpack-plugin'
 
 export interface Options {
   [key: string]: RegExp | string
@@ -11,7 +11,7 @@ export interface Options {
  *
  * @public
  */
-export default class InterpolateHtmlWebpackPlugin {
+export class InterpolateHtmlWebpackPlugin {
   /**
    * Plugin name
    *
@@ -22,13 +22,13 @@ export default class InterpolateHtmlWebpackPlugin {
   /**
    * Class constructor
    *
-   * @param getHooks - {@link HtmlWebpackPlugin.getHooks}
+   * @param getHooks - {@link Plugin.getHooks}
    * @param replacements - {@link Options}
    *
    * @public
    */
   public constructor(
-    public getHooks: (...args: any[]) => HtmlWebpackPlugin.Hooks,
+    public getHooks: (...args: any[]) => Plugin.Hooks,
     public replacements: Options,
   ) {}
 
