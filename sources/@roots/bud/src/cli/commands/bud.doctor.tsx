@@ -49,18 +49,17 @@ for a lot of edge cases so it might return a false positive.
    */
   public override async execute() {
     await this.makeBud(this)
-    await this.healthcheck(this)
     await this.run(this)
 
     try {
       this.configuration = await this.bud.build.make()
-      BudDoctorCommand.renderOnce(
+      await this.renderOnce(
         <Box>
           <Text color="green">✅ bud.js generated configuration</Text>
         </Box>,
       )
     } catch (error) {
-      BudDoctorCommand.renderOnce(
+      await this.renderOnce(
         <Box>
           <Text color="red">❌ {error?.message ?? error}</Text>
         </Box>,
@@ -70,20 +69,20 @@ for a lot of edge cases so it might return a false positive.
     try {
       webpack.validate(this.configuration)
 
-      BudDoctorCommand.renderOnce(
+      await this.renderOnce(
         <Box>
           <Text color="green">✅ webpack validated configuration</Text>
         </Box>,
       )
     } catch (error) {
-      BudDoctorCommand.renderOnce(
+      await this.renderOnce(
         <Box>
           <Text color="red">❌ {error?.message ?? error}</Text>
         </Box>,
       )
     }
 
-    BudDoctorCommand.renderOnce(
+    await this.renderOnce(
       <Box flexDirection="column">
         <Text color="blue">Registered configurations</Text>
         {Object.values(this.bud.context.config)

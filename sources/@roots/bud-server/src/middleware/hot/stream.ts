@@ -1,8 +1,10 @@
-import type {NextHandleFunction} from 'connect'
-import type {NextFunction} from 'express'
-import type {IncomingMessage, ServerResponse} from 'http'
+import type {IncomingMessage, ServerResponse} from 'node:http'
 
-import type {Payload} from './payload.js'
+import type {Payload} from '@roots/bud-server/middleware/hot'
+import type {
+  NextFunction,
+  NextHandleFunction,
+} from '@roots/bud-support/express'
 
 export interface HotEventStream {
   handler: NextHandleFunction

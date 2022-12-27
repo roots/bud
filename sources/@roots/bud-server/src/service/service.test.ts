@@ -1,14 +1,13 @@
 import {Bud, factory} from '@repo/test-kit/bud'
-import {beforeAll, describe, expect, it} from 'vitest'
+import {beforeEach, describe, expect, it} from 'vitest'
 
-import {Watcher} from '../server/server.watcher'
-import {Server} from './service'
+import {Server} from './index.js'
 
 describe(`@roots/bud-server`, () => {
   let bud: Bud
   let instance: Server
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     bud = await factory({mode: `development`})
 
     expect(bud.context.args.dry).toBe(true)
@@ -46,6 +45,10 @@ describe(`@roots/bud-server`, () => {
   })
 
   it(`should have a watcher property`, async () => {
-    expect(instance.watcher).toBeInstanceOf(Watcher)
+    expect(instance.watcher).toBeInstanceOf(
+      await import(`@roots/bud-server/server/watcher`).then(
+        ({Watcher}) => Watcher,
+      ),
+    )
   })
 })

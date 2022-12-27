@@ -1,4 +1,4 @@
-import * as tomlParser from 'toml'
+import tomlParser from '@roots/bud-support/toml'
 
 import type {Factory} from '../index.js'
 

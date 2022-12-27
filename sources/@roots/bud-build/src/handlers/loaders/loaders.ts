@@ -1,5 +1,5 @@
 import type {Loader} from '@roots/bud-framework/services/build'
-import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import * as MiniCss from '@roots/bud-support/mini-css-extract-plugin'
 
 import type {Factory} from '../index.js'
 
@@ -19,7 +19,7 @@ export const remark: Factory<Loader> = ({makeLoader}) =>
   makeLoader(`remark-loader`)
 
 export const minicss: Factory<Loader> = ({makeLoader}) =>
-  makeLoader(MiniCssExtractPlugin.loader)
+  makeLoader(MiniCss.loader)
 
 export const style: Factory<Loader> = ({makeLoader}) =>
   makeLoader(`style-loader`)

@@ -90,6 +90,7 @@ describe(`bud.entry`, function () {
   it(`should accept a mixed type`, async () => {
     const onSpy = vi.spyOn(bud.hooks, `on`)
 
+    // @ts-ignore
     await entry({
       primitiveString: `primitiveString.js`,
       primitiveArray: [`primitiveArray1.js`, `primitiveArray2.js`],

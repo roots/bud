@@ -1,15 +1,19 @@
-import type {Server} from '@roots/bud-framework/services'
-import {bind} from '@roots/bud-support/decorators'
-import {createServer, RequestListener, Server as HttpServer} from 'http'
+import {
+  createServer,
+  RequestListener,
+  Server as HttpServer,
+} from 'node:http'
 
-import {BaseServer} from './server.base.js'
+import type {Connection} from '@roots/bud-framework/services/server'
+import {BaseServer} from '@roots/bud-server/server/base'
+import {bind} from '@roots/bud-support/decorators'
 
 /**
  * HTTP Server
  *
  * @public
  */
-export class Http extends BaseServer implements Server.Connection {
+export class Server extends BaseServer implements Connection {
   /**
    * Server instance
    *

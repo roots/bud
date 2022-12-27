@@ -63,10 +63,7 @@
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "css-minimizer-webpack-plugin": "4.2.2",
-    "terser-webpack-plugin": "^5.3.6",
-    "webpack": "5.75.0"
+    "@roots/bud-support": "workspace:sources/@roots/bud-support"
   },
   "volta": {
     "extends": "../../../package.json"

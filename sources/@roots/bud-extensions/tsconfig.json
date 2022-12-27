@@ -1,6 +1,9 @@
 {
   "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
+    "paths": {
+      "@roots/bud-extensions/*": ["./src/*"]
+    },
     "rootDir": "./src",
     "outDir": "./lib"
   },

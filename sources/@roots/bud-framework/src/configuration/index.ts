@@ -19,36 +19,40 @@ export const process = async (app: Bud) => {
   const configuration = new Configuration(app)
   const configs = Object.values(app.context.config).filter(({bud}) => bud)
 
-  await Promise.all(
-    findConfigs(`base`, false).map(async description => {
-      app.log(`processing base configuration`, description.name)
-      await configuration.run(description)
-    }),
-  ).then(async () => await app.api.processQueue())
+  try {
+    await Promise.all(
+      findConfigs(`base`, false).map(async description => {
+        app.log(`processing base configuration`, description.name)
+        await configuration.run(description)
+      }),
+    ).then(async () => await app.api.processQueue())
 
-  await Promise.all(
-    findConfigs(`base`, true).map(async description => {
-      app.log(`processing local configuration`, description.name)
-      await configuration.run(description)
-    }),
-  ).then(async () => await app.api.processQueue())
+    await Promise.all(
+      findConfigs(`base`, true).map(async description => {
+        app.log(`processing local configuration`, description.name)
+        await configuration.run(description)
+      }),
+    ).then(async () => await app.api.processQueue())
 
-  await Promise.all(
-    findConfigs(app.mode, false).map(async description => {
-      app.log(`processing ${app.mode} configuration`, description.name)
-      await configuration.run(description)
-    }),
-  ).then(async () => await app.api.processQueue())
+    await Promise.all(
+      findConfigs(app.mode, false).map(async description => {
+        app.log(`processing ${app.mode} configuration`, description.name)
+        await configuration.run(description)
+      }),
+    ).then(async () => await app.api.processQueue())
 
-  await Promise.all(
-    findConfigs(app.mode, true).map(async description => {
-      app.log(
-        `processing ${app.mode} local configuration`,
-        description.name,
-      )
-      await configuration.run(description)
-    }),
-  ).then(async () => await app.api.processQueue())
+    await Promise.all(
+      findConfigs(app.mode, true).map(async description => {
+        app.log(
+          `processing ${app.mode} local configuration`,
+          description.name,
+        )
+        await configuration.run(description)
+      }),
+    ).then(async () => await app.api.processQueue())
+  } catch (error) {
+    throw error
+  }
 
   try {
     await app.hooks.fire(`config.after`)

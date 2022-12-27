@@ -66,7 +66,7 @@ export default class BudUpgradeCommand extends BudCommand {
     }
 
     if (!this.version) {
-      const get = await import(`axios`).then(
+      const get = await import(`@roots/bud-support/axios`).then(
         ({default: axios}) => axios.get,
       )
       this.version = await get(

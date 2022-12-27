@@ -1,7 +1,6 @@
 import {join, sep} from 'node:path'
 
-import dotenv from 'dotenv'
-import {expand} from 'dotenv-expand'
+import {dotenv, dotenvExpand} from '@roots/bud-support/dotenv'
 
 /**
  * Context: env
@@ -46,7 +45,7 @@ const getEnvFromPath = (path: string): Record<string, any> => {
   } catch (error) {}
 
   try {
-    const expanded = expand({parsed})
+    const expanded = dotenvExpand.expand({parsed})
     if (expanded?.parsed && !expanded?.error)
       Object.assign(parsed, expanded.parsed)
   } catch (error) {}

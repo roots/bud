@@ -26,14 +26,7 @@ export const entry: entry = async function (this: Bud, ...input) {
 
   await Promise.all(
     Object.entries(records).map(async ([ident, value]) => {
-      try {
-        await processEntry.bind(this)({[ident]: value})
-      } catch (e) {
-        this.api.logger.error(
-          `There was an error processing the ${ident} entrypoint`,
-          e,
-        )
-      }
+      await processEntry.bind(this)({[ident]: value})
     }),
   )
 

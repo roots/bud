@@ -3,16 +3,11 @@ import type {ServerOptions as HttpsServerOptions} from 'node:https'
 import type {Stream} from 'node:stream'
 
 import type {
-  ProxyReqCallback,
-  ProxyResCallback,
-  ProxyTarget,
-  ProxyTargetUrl,
-  ServerOptions,
-} from 'http-proxy'
-import type * as HttpProxy from 'http-proxy'
-import type * as ProxyMiddleware from 'http-proxy-middleware'
+  HttpProxy,
+  Options as ProxyOptions,
+} from '@roots/bud-support/http-proxy-middleware'
 
-export interface Options extends ProxyMiddleware.Options {
+export interface Options extends HttpProxy.Options {
   agent?: Agent
   auth?: string
   autoRewrite?: boolean
@@ -22,23 +17,23 @@ export interface Options extends ProxyMiddleware.Options {
   cookiePathRewrite?: Record<string, string>
   ejectPlugins?: boolean
   followRedirects?: boolean
-  forward?: ProxyTargetUrl
+  forward?: ProxyOptions[`forward`]
   headers?: Record<string, string>
   hostRewrite?: string
   ignorePath?: boolean
   localAddress?: string
   logger?: Pick<Console, `info` | `warn` | `error`>
-  on?: ProxyMiddleware.Options[`on`]
-  onProxyReq?: ProxyReqCallback
-  onProxyRes?: ProxyResCallback
+  on?: ProxyOptions[`on`]
+  onProxyReq?: any
+  onProxyRes?: any
   pathFilter?: Array<string>
   pathRewrite?: Record<string, string>
-  plugins?: Array<(proxyServer: HttpProxy, options: ServerOptions) => void>
+  plugins?: ProxyOptions[`plugins`]
   prependPath?: boolean
   preserveHeaderKeyCase?: boolean
   protocolRewrite?: `http` | `https`
   proxyTimeout?: number
-  router?: Record<string, ProxyTargetUrl | ProxyTarget>
+  router?: Record<string, URL | string>
   secure?: boolean
   selfHandleResponse?: boolean
   ssl?: HttpsServerOptions

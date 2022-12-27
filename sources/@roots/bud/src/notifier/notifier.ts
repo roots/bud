@@ -9,17 +9,16 @@ import {
   isString,
   isUndefined,
 } from '@roots/bud-support/lodash-es'
-import type {
-  StatsCompilation,
-  StatsError,
-} from '@roots/bud-support/webpack'
 import {
   Notification as NodeNotification,
   NotificationCallback,
   NotificationCenter,
-} from 'node-notifier'
-import open from 'open'
-import openEditor from 'open-editor'
+} from '@roots/bud-support/node-notifier'
+import {open, openEditor} from '@roots/bud-support/open'
+import type {
+  StatsCompilation,
+  StatsError,
+} from '@roots/bud-support/webpack'
 
 import {notifierPath} from './notifierPath.js'
 

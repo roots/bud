@@ -7,7 +7,8 @@ import {
   plugin,
   production,
 } from '@roots/bud-framework/extension/decorators'
-import MiniCssPlugin, {PluginOptions} from 'mini-css-extract-plugin'
+import type {Options} from '@roots/bud-support/mini-css-extract-plugin'
+import {Plugin} from '@roots/bud-support/mini-css-extract-plugin'
 
 /**
  * `mini-css-extract-plugin` adapter
@@ -19,7 +20,7 @@ import MiniCssPlugin, {PluginOptions} from 'mini-css-extract-plugin'
  * @decorator `@production`
  */
 @label(`@roots/bud-extensions/mini-css-extract-plugin`)
-@plugin(MiniCssPlugin)
+@plugin(Plugin)
 @options({
   /**
    * css output filename
@@ -32,7 +33,4 @@ import MiniCssPlugin, {PluginOptions} from 'mini-css-extract-plugin'
   filename: (app: Bud) => join(`css`, app.path(`@name`).concat(`.css`)),
 })
 @production
-export default class MiniCssExtract extends Extension<
-  PluginOptions,
-  MiniCssPlugin
-> {}
+export default class MiniCssExtract extends Extension<Options, Plugin> {}

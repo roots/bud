@@ -5,14 +5,9 @@ import type {
   Middleware,
   Service as BaseService,
 } from '@roots/bud-framework/services/server'
+import {inject} from '@roots/bud-server/inject'
+import type {Watcher} from '@roots/bud-server/server/watcher'
 import {bind} from '@roots/bud-support/decorators'
-
-import * as clientScripts from '../hooks/dev.client.scripts.js'
-import * as inject from '../inject.js'
-import * as middlewareMap from '../middleware/middleware.js'
-import {Http} from '../server/server.http.js'
-import {Https} from '../server/server.https.js'
-import {Watcher} from '../server/server.watcher.js'
 
 /**
  * Server service class
@@ -44,7 +39,12 @@ export class Server extends Service implements BaseService {
    * Available middleware
    * @public
    */
-  public availableMiddleware = middlewareMap
+  public availableMiddleware = {
+    proxy: `@roots/bud-server/middleware/proxy`,
+    cookie: `@roots/bud-server/middleware/cookie`,
+    hot: `@roots/bud-server/middleware/hot`,
+    dev: `@roots/bud-server/middleware/dev`,
+  }
 
   /**
    * Utilized middleware
@@ -79,14 +79,22 @@ export class Server extends Service implements BaseService {
   public override async register?(bud: Bud) {
     if (!bud.isDevelopment) return
 
-    this.application = await bud.module
-      .import(`express`)
-      .then(express => express())
+    this.application = await import(`@roots/bud-support/express`).then(
+      ({default: express}) => express(),
+    )
+
+    this.watcher = await import(`@roots/bud-server/server/watcher`).then(
+      ({Watcher}) => new Watcher(() => bud),
+    )
+
+    bud.hooks.on(
+      `dev.client.scripts`,
+      await import(`@roots/bud-server/hooks`).then(
+        ({devClientScripts}) => devClientScripts.callback,
+      ),
+    )
+
     this.application.set(`x-powered-by`, false)
-
-    this.watcher = new Watcher(() => bud)
-
-    bud.hooks.on(`dev.client.scripts`, clientScripts.callback)
 
     bud.hooks.action(
       `server.before`,
@@ -105,9 +113,18 @@ export class Server extends Service implements BaseService {
    * @decorator `@once`
    */
   @bind
-  public async setConnection() {
-    const isHttps = this.app.hooks.filter(`dev.url`).protocol === `https:`
-    this.connection = isHttps ? new Https(this.app) : new Http(this.app)
+  public async setConnection(bud: Bud) {
+    const isHttps =
+      bud.hooks.filter(`dev.url`, new URL(`http://0.0.0.0:3000`))
+        .protocol === `https:`
+
+    this.connection = await bud.module
+      .import(
+        isHttps
+          ? `@roots/bud-server/server/https`
+          : `@roots/bud-server/server/http`,
+      )
+      .then(({Server}) => new Server(bud))
   }
 
   /**
@@ -121,7 +138,7 @@ export class Server extends Service implements BaseService {
     this.app.log(`injecting client scripts`)
 
     const injectOn = async (instance: Bud) =>
-      inject.on(
+      inject(
         instance,
         Array.from(
           this.app.hooks.filter(`dev.client.scripts`, new Set([])),
@@ -142,10 +159,31 @@ export class Server extends Service implements BaseService {
    */
   @bind
   public async applyMiddleware() {
-    Object.entries(this.enabledMiddleware).map(([key, middleware]) => {
-      this.appliedMiddleware[key] = middleware(this.app)
-      this.application.use(this.appliedMiddleware[key])
-    })
+    if (this.app.isCLI() && this.app.context.args.dry) return
+
+    try {
+      await Promise.all(
+        Object.entries(this.enabledMiddleware).map(
+          async ([key, signifier]) => {
+            try {
+              /** import middleware */
+              const {middleware} = await this.app.module.import(signifier)
+              /** save reference to middleware instance */
+              this.appliedMiddleware[key] = middleware(this.app)
+              /** apply middleware */
+              this.application.use(this.appliedMiddleware[key])
+            } catch (error) {
+              this.logger.error(
+                `Failed to apply middleware: ${key}`,
+                error,
+              )
+            }
+          },
+        ),
+      )
+    } catch (error) {
+      this.logger.error(`Failed to apply middleware`, error)
+    }
   }
 
   /**

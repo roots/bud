@@ -16,28 +16,24 @@ import type {
 export class Compiler extends Service implements Contract.Service {
   /**
    * Compiler implementation
-   *
-   * @public
+d   * @public
    */
-  public implementation: Contract.Service[`implementation`]
+  public implementation: Contract.Implementation
 
   /**
    * Compiler instance
-   *
    * @public
    */
   public instance: Contract.Service[`instance`]
 
   /**
    * Compilation stats
-   *
    * @public
    */
   public stats: Contract.Service[`stats`]
 
   /**
    * Configuration
-   *
    * @public
    */
   public config: Contract.Service[`config`] = []
@@ -59,22 +55,17 @@ export class Compiler extends Service implements Contract.Service {
 
     this.logger.log(`imported webpack`, webpack.default.version)
 
-    this.config = []
-
-    if (!this.app.hasChildren) {
-      this.logger.log(`no children found, processing parent instance`)
-      const config = await this.app.build.make()
-      this.config.push(config)
-    } else {
-      await Promise.all(
-        Object.values(this.app.children).map(async (child: Bud) => {
-          const config = await child.build.make()
-          this.logger.log(`child config`, child.label)
-          this.logger.info(child.label, child.build.config)
-          this.config.push(config)
-        }),
-      )
-    }
+    this.config = !this.app.hasChildren
+      ? [await this.app.build.make()]
+      : await Promise.all(
+          Object.values(this.app.children).map(async (child: Bud) => {
+            try {
+              return await child.build.make()
+            } catch (error) {
+              throw error
+            }
+          }),
+        )
 
     try {
       await this.app.hooks.fire(`compiler.before`)
@@ -102,11 +93,6 @@ export class Compiler extends Service implements Contract.Service {
           this.handleStats,
         )
 
-      this.instance.hooks.done.tap(this.app.label, async stats => {
-        this.handleStats(stats)
-        await this.app.hooks.fire(`compiler.close`)
-      })
-
       this.instance.compilers.forEach(compiler =>
         compiler.hooks.afterEmit.tapAsync(
           this.app.label,
@@ -119,6 +105,11 @@ export class Compiler extends Service implements Contract.Service {
           },
         ),
       )
+
+      this.instance.hooks.done.tap(this.app.label, async stats => {
+        this.handleStats(stats)
+        await this.app.hooks.fire(`compiler.close`)
+      })
 
       return this.instance
     } catch (error) {}

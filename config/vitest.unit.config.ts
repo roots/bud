@@ -16,5 +16,6 @@ export default {
       `tests/unit/*.test.ts`,
       `tests/reproductions/*.test.ts`,
     ],
+    setupFiles: [`config/vitest.setup.js`],
   },
 }

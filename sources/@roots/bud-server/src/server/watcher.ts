@@ -3,8 +3,8 @@ import type {FSWatcher} from 'node:fs'
 import type {Logger} from '@roots/bud-framework'
 import type {Bud} from '@roots/bud-framework/bud'
 import type {Server} from '@roots/bud-framework/services'
+import chokidar from '@roots/bud-support/chokidar'
 import {bind} from '@roots/bud-support/decorators'
-import chokidar from 'chokidar'
 
 /**
  * FS Watcher

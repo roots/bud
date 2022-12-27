@@ -1,3 +1,8 @@
+import type {
+  InterpolatePlugin,
+  Options,
+} from '@roots/bud-extensions/interpolate-html-webpack-plugin/plugin'
+import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
@@ -5,11 +10,6 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
-
-import InterpolateHtmlPlugin, {
-  Options,
-} from './interpolate-html-webpack-plugin.js'
 
 export type {Options}
 
@@ -24,7 +24,7 @@ export type {Options}
 @disabled
 export default class BudInterpolateHtmlPlugin extends Extension<
   Options,
-  InterpolateHtmlPlugin
+  InterpolatePlugin
 > {
   /**
    * `make` callback
@@ -33,10 +33,15 @@ export default class BudInterpolateHtmlPlugin extends Extension<
    * @decorator `@bind`
    */
   @bind
-  public override async make() {
-    return new InterpolateHtmlPlugin(
-      HtmlWebpackPlugin.getHooks,
-      this.options,
+  public override async make(bud: Bud) {
+    const {InterpolatePlugin} = await bud.module.import(
+      `@roots/bud-extensions/interpolate-html-webpack-plugin/plugin`,
     )
+
+    const HTMLWebpackPlugin = await bud.module.import(
+      `@roots/bud-support/html-webpack-plugin`,
+    )
+
+    return new InterpolatePlugin(HTMLWebpackPlugin.getHooks, this.options)
   }
 }

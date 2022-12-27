@@ -5,9 +5,9 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
-import type Plugin from 'html-webpack-plugin'
+import type {Options, Plugin} from '@roots/bud-support/html-webpack-plugin'
 
-export type Options = Plugin.Options
+export type {Options}
 
 /**
  * `@roots/bud-extensions/html-webpack-plugin` adapter
@@ -31,16 +31,16 @@ export default class BudHtmlWebpackPlugin extends Extension<
   /**
    * Make extension
    *
-   * @param _bud - bud instance
+   * @param bud - bud instance
    * @param options - plugin options
    *
    * @public
    */
-  public override async make(_bud: Bud, options: Options) {
-    const HTMLWebpackPlugin = await import(`html-webpack-plugin`).then(
-      m => m.default,
+  public override async make(bud: Bud, options: Options) {
+    const {Plugin} = await bud.module.import(
+      `@roots/bud-support/html-webpack-plugin`,
     )
 
-    return new HTMLWebpackPlugin(options)
+    return new Plugin(options)
   }
 }

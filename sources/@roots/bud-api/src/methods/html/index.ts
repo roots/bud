@@ -2,11 +2,6 @@ import type * as HTMLExtension from '@roots/bud-extensions/html-webpack-plugin'
 import type * as InterpolateHTMLExtension from '@roots/bud-extensions/interpolate-html-webpack-plugin'
 import type {Bud} from '@roots/bud-framework'
 
-import {
-  getHtmlPluginOptions,
-  getInterpolatePluginOptions,
-} from './helpers.js'
-
 export type Parameters = [
   ((HTMLExtension.Options & InterpolateHTMLExtension.Options) | boolean)?,
 ]
@@ -21,6 +16,10 @@ export interface html {
  * @public
  */
 export const html: html = async function (this: Bud, options) {
+  const {getHtmlPluginOptions, getInterpolatePluginOptions} = await import(
+    `./helpers.js`
+  )
+
   const enabled = options !== false
 
   this.extensions

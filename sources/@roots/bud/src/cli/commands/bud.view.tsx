@@ -62,7 +62,7 @@ export default class BudViewCommand extends BudCommand {
 
     if (this.color) value = highlight(value)
 
-    BudViewCommand.render(
+    await this.render(
       <Box marginBottom={1}>
         <Static items={[0]}>
           {id => (

@@ -1,7 +1,7 @@
 import type {IncomingMessage, ServerResponse} from 'node:http'
 
 import type {Bud} from '@roots/bud-framework'
-import {responseInterceptor} from 'http-proxy-middleware'
+import {responseInterceptor} from '@roots/bud-support/http-proxy-middleware'
 
 import type {ApplicationURL} from '../url.js'
 

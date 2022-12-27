@@ -51,7 +51,7 @@ export default class BudReplCommand extends BudCommand {
     await this.makeBud(this)
     await this.run(this)
 
-    BudReplCommand.render(
+    await this.render(
       <Repl app={this.bud} indent={this.indent} depth={this.depth} />,
     )
   }

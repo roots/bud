@@ -5,7 +5,7 @@ import {checkDependencies} from '@roots/bud/cli/helpers/checkDependencies'
 import {checkPackageManagerErrors} from '@roots/bud/cli/helpers/checkPackageManagerErrors'
 import {isInternalDevelopmentEnv} from '@roots/bud/cli/helpers/isInternalDevelopmentEnv'
 import {isset} from '@roots/bud/cli/helpers/isset'
-import {Renderer} from '@roots/bud-dashboard/renderer'
+import {Renderer} from '@roots/bud/cli/renderer'
 import type {
   CommandContext,
   Context,
@@ -17,7 +17,7 @@ import {isString} from '@roots/bud-support/lodash-es'
 import React from '@roots/bud-support/react'
 import * as t from '@roots/bud-support/typanion'
 
-import {Notifier} from '../../notifier/index.js'
+import type {Notifier} from '../../notifier/index.js'
 
 export type {BaseContext, CommandContext, Context}
 export {Option}
@@ -71,6 +71,7 @@ export default class BudCommand extends Command<CommandContext> {
   ) => Promise<BudCommand[`bud`]>
 
   public declare notifier?: Notifier
+  public declare notify?: boolean
 
   public basedir = Option.String(`--basedir,--cwd`, undefined, {
     description: `project base directory`,
@@ -97,15 +98,17 @@ export default class BudCommand extends Command<CommandContext> {
     description: `Limit command to particular compilers`,
   })
 
-  public static async render(children: React.ReactElement) {
-    await Renderer.render(children)
+  public declare renderer: Renderer
+  public async render(children: React.ReactElement) {
+    await this.renderer?.render(children)
   }
-  public static async renderOnce(children: React.ReactElement) {
-    await Renderer.once(children)
+  public async renderOnce(children: React.ReactElement) {
+    await this.renderer?.once(children)
   }
-  public static async text(text: string) {
-    await Renderer.text(text)
+  public async text(text: string) {
+    await this.renderer?.text(text)
   }
+
   public async execute() {}
 
   public override async catch(value: unknown) {
@@ -125,17 +128,11 @@ export default class BudCommand extends Command<CommandContext> {
     const error = normalizeError(value)
 
     error.name = error.name ? ` ${error.name} ` : ` Error `
-    error.message = (error.stack ?? error.message)
-      .split(`  at `)
-      .splice(0, 2)
-      .join(`  at `)
+    error.stack = error.stack?.split(`  at `).splice(0, 2).join(`  at `)
 
-    if (
-      this.bud?.context.args.notify !== false &&
-      this.notifier instanceof Notifier
-    ) {
+    if (this.notifier) {
       try {
-        this.notifier.notify({
+        this.notifier?.notify({
           title: `bud.js`,
           subtitle: `Configuration error`,
           message: error.message,
@@ -146,7 +143,7 @@ export default class BudCommand extends Command<CommandContext> {
       }
     }
 
-    BudCommand.render(
+    this.render(
       <Box flexDirection="column" marginTop={1}>
         <Box marginBottom={1}>
           <Text backgroundColor="red" color="white">
@@ -160,13 +157,17 @@ export default class BudCommand extends Command<CommandContext> {
       </Box>,
     )
 
-    if (this.bud.isProduction) {
+    if (this.bud?.isProduction) {
       // eslint-disable-next-line n/no-process-exit
-      process.exit()
+      this.bud.close()
+      this.renderer.cleanup()
+      await this.renderer.instance?.waitUntilExit()
     }
   }
 
   public async makeBud<T extends BudCommand>(command: T) {
+    this.renderer = new Renderer(process.stdout)
+
     command.context.basedir = command.basedir
       ? resolve(command.context.basedir, command.basedir)
       : command.context.basedir
@@ -200,10 +201,17 @@ export default class BudCommand extends Command<CommandContext> {
     }
 
     const bud = await new Bud().lifecycle(command.context)
+
+    bud.dashboard.setRenderer(this.renderer)
+
     if (!bud.isCLI()) throw new Error(`problem instantiating bud`)
 
     command.bud = bud
-    command.notifier = new Notifier().setBud(command.bud)
+
+    if (command.notify !== false) {
+      const {Notifier} = await import(`../../notifier/index.js`)
+      command.notifier = new Notifier().setBud(command.bud)
+    }
 
     await command.applyBudEnv(command.bud)
     await command.applyBudManifestOptions(command.bud)

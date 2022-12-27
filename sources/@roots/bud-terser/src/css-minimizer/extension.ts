@@ -1,14 +1,16 @@
 import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
-  bind,
   disabled,
   expose,
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
+import type {
+  BasePluginOptions,
+  Plugin,
+} from '@roots/bud-support/css-minimizer-webpack-plugin'
 import type {WebpackPluginInstance} from '@roots/bud-support/webpack'
-import Plugin from 'css-minimizer-webpack-plugin'
 
 /**
  * Terser extension
@@ -34,15 +36,18 @@ import Plugin from 'css-minimizer-webpack-plugin'
   },
 })
 @disabled
-export class BudMinimizeCss extends Extension {
+export class BudMinimizeCss extends Extension<BasePluginOptions, Plugin> {
   /**
    * `buildBefore` callback
    *
    * @public
    * @decorator `@bind`
    */
-  @bind
-  public override async buildBefore({hooks}: Bud) {
+  public override async buildBefore({hooks, module}: Bud) {
+    const {Plugin} = await module.import(
+      `@roots/bud-support/css-minimizer-webpack-plugin`,
+    )
+
     hooks.on(`build.optimization.minimizer`, (minimizer = []) => {
       minimizer.push(
         new Plugin(this.options) as unknown as WebpackPluginInstance,

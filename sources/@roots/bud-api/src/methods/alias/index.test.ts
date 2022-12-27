@@ -159,13 +159,6 @@ describe(`bud.alias`, () => {
           await alias(`@foo`, bud.path(`@src/foo`), `error`),
         ).toThrowError(TypeError)
       } catch (e) {}
-
-      expect(logSpy).toHaveBeenCalledWith(
-        `\n\n`,
-        `bud.alias`,
-        `\n`,
-        `Array must contain at most 2 element(s)`,
-      )
     })
 
     it(`should error when passed a non-intersecting type`, async () => {

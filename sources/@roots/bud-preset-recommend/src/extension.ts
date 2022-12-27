@@ -36,16 +36,11 @@ export default class BudPresetRecommend extends Extension {
   @bind
   public override async register(bud: Bud) {
     if (
-      bud.extensions.has(`@roots/bud-esbuild`) ||
-      bud.extensions.has(`@roots/bud-swc`)
-    )
-      return
-
-    if (!bud.extensions.has(`@roots/bud-babel`)) {
-      const babel = await bud.module.import(
-        `@roots/bud-babel`,
-        import.meta.url,
-      )
+      !bud.extensions.has(`@roots/bud-esbuild`) &&
+      !bud.extensions.has(`@roots/bud-swc`) &&
+      !bud.extensions.has(`@roots/bud-babel`)
+    ) {
+      const babel = await bud.module.import(`@roots/bud-babel`)
       this.logger.log(babel)
       await bud.extensions.add(babel)
     }

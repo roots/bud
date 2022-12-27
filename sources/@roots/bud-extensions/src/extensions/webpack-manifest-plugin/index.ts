@@ -6,10 +6,8 @@ import {
   plugin,
 } from '@roots/bud-framework/extension/decorators'
 import {isUndefined} from '@roots/bud-support/lodash-es'
-import {
-  ManifestPluginOptions as Options,
-  WebpackManifestPlugin,
-} from 'webpack-manifest-plugin'
+import type {Options} from '@roots/bud-support/webpack-manifest-plugin'
+import {Plugin} from '@roots/bud-support/webpack-manifest-plugin'
 
 /**
  * `webpack-manifest-plugin` adapter
@@ -20,16 +18,16 @@ import {
  * @decorator `@options`
  */
 @label(`@roots/bud-extensions/webpack-manifest-plugin`)
-@plugin(WebpackManifestPlugin)
+@plugin(Plugin)
 @options({
   fileName: `manifest.json`,
   writeToFileEmit: true,
   publicPath: ({hooks}: Bud) =>
     (hooks.filter(`build.output.publicPath`) ?? ``).replace(`auto`, ``),
 })
-export default class BudWebpackManifestPlugin extends Extension<
+export default class BudManifestExtension extends Extension<
   Options,
-  WebpackManifestPlugin
+  Plugin
 > {
   /**
    * `when` callback

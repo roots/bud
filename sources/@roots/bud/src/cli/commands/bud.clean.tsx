@@ -1,12 +1,11 @@
+import BudCommand from '@roots/bud/cli/commands/bud'
+import {dry} from '@roots/bud/cli/decorators/command.dry'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators'
 import {ensureDir, remove} from '@roots/bud-support/fs'
 import {Box, Text} from '@roots/bud-support/ink'
 import {isString} from '@roots/bud-support/lodash-es'
 import React from '@roots/bud-support/react'
-
-import {dry} from '../decorators/command.dry.js'
-import BudCommand from './bud.js'
 
 /**
  * `bud clean`
@@ -48,7 +47,7 @@ export default class BudCleanCommand extends BudCommand {
   @bind
   public override async execute() {
     await this.makeBud(this)
-    await this.healthcheck(this)
+    await this.run(this)
 
     if (
       this._cleanStorage ||
@@ -67,7 +66,7 @@ export default class BudCleanCommand extends BudCommand {
     try {
       await remove(this.bud.path(`@dist`))
 
-      BudCleanCommand.renderOnce(
+      await this.renderOnce(
         <Box>
           <Text color="green">✔ emptied {this.bud.path(`@dist`)}</Text>
         </Box>,
@@ -82,13 +81,13 @@ export default class BudCleanCommand extends BudCommand {
     try {
       await ensureDir(this.bud.path(`@storage`))
       await remove(this.bud.path(`@storage`))
-      BudCleanCommand.renderOnce(
+      await this.renderOnce(
         <Box>
           <Text color="green">✔ emptied {this.bud.path(`@storage`)}</Text>
         </Box>,
       )
     } catch (err) {
-      BudCleanCommand.renderOnce(
+      await this.renderOnce(
         <Box>
           <Text>
             {err?.message ?? isString(err) ? err : JSON.stringify(err)}

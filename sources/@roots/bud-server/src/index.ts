@@ -7,6 +7,6 @@
  * @packageDocumentation
  */
 
-import {Server} from './service/service.js'
+import {Server} from '@roots/bud-server/service'
 
 export default Server

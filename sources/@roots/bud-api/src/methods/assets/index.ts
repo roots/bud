@@ -1,7 +1,7 @@
 import {relative} from 'node:path'
 
 import type {Bud} from '@roots/bud-framework'
-import type CopyPlugin from 'copy-webpack-plugin'
+import type {Plugin as CopyPlugin} from '@roots/bud-support/copy-webpack-plugin'
 
 type FromToTuple = [CopyPlugin.StringPattern, CopyPlugin.StringPattern]
 
