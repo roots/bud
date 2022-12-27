@@ -77,7 +77,7 @@
     "@emotion/styled": "^11.10.5",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "@swc/plugin-emotion": "2.5.29"
+    "@swc/plugin-emotion": "2.5.33"
   },
   "peerDependencies": {
     "@emotion/babel-plugin": "*",
