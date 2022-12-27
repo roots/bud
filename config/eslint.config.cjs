@@ -84,6 +84,7 @@ module.exports = {
     ],
     [`n/no-missing-import`]: OFF,
     [`n/no-path-concat`]: ERROR,
+    [`n/shebang`]: OFF,
     [`react/prop-types`]: OFF,
     [`react/react-in-jsx-scope`]: ERROR,
     [`react-hooks/rules-of-hooks`]: ERROR,

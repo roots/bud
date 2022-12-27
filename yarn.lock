@@ -7275,6 +7275,7 @@ __metadata:
       optional: true
   bin:
     bud: ./bin/bud.mjs
+    bud-trace: ./bin/bud-trace.mjs
     ts-bud: ./bin/ts-bud.mjs
   languageName: unknown
   linkType: soft

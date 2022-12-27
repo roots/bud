@@ -99,7 +99,13 @@ d   * @public
           async (_stats, callback) => {
             try {
               await this.app.hooks.fire(`compiler.after`)
-            } catch (error) {}
+            } catch (error) {
+              const err = new Error(
+                error?.message ?? error?.toString() ?? ``,
+              )
+              err.name = `CompilerError (afterEmit)`
+              throw err
+            }
 
             return callback()
           },
@@ -112,7 +118,9 @@ d   * @public
       })
 
       return this.instance
-    } catch (error) {}
+    } catch (error) {
+      throw error
+    }
   }
 
   /**

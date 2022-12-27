@@ -23,21 +23,39 @@ export const process = async (app: Bud) => {
     await Promise.all(
       findConfigs(`base`, false).map(async description => {
         app.log(`processing base configuration`, description.name)
-        await configuration.run(description)
+        try {
+          await configuration.run(description)
+        } catch (error) {
+          const err = new Error(error?.toString() ?? ``)
+          err.name = `Configuration Error: ${description.name}`
+          throw err
+        }
       }),
     ).then(async () => await app.api.processQueue())
 
     await Promise.all(
       findConfigs(`base`, true).map(async description => {
         app.log(`processing local configuration`, description.name)
-        await configuration.run(description)
+        try {
+          await configuration.run(description)
+        } catch (error) {
+          const err = new Error(error?.toString() ?? ``)
+          err.name = `Configuration Error: ${description.name}`
+          throw err
+        }
       }),
     ).then(async () => await app.api.processQueue())
 
     await Promise.all(
       findConfigs(app.mode, false).map(async description => {
         app.log(`processing ${app.mode} configuration`, description.name)
-        await configuration.run(description)
+        try {
+          await configuration.run(description)
+        } catch (error) {
+          const err = new Error(error?.toString() ?? ``)
+          err.name = `Configuration Error: ${description.name}`
+          throw err
+        }
       }),
     ).then(async () => await app.api.processQueue())
 
@@ -47,7 +65,13 @@ export const process = async (app: Bud) => {
           `processing ${app.mode} local configuration`,
           description.name,
         )
-        await configuration.run(description)
+        try {
+          await configuration.run(description)
+        } catch (error) {
+          const err = new Error(error?.toString() ?? ``)
+          err.name = `Configuration Error: ${description.name}`
+          throw err
+        }
       }),
     ).then(async () => await app.api.processQueue())
   } catch (error) {
@@ -57,19 +81,23 @@ export const process = async (app: Bud) => {
   try {
     await app.hooks.fire(`config.after`)
   } catch (error) {
-    throw error
+    const err = new Error(error?.toString() ?? ``)
+    err.name = `Post configuration error`
+    throw err
   }
 
   if (app.hasChildren) {
-    try {
-      await Promise.all(
-        Object.values(app.children).map(async child => {
+    await Promise.all(
+      Object.values(app.children).map(async child => {
+        try {
           await child.api.processQueue()
           await child.hooks.fire(`config.after`)
-        }),
-      )
-    } catch (error) {
-      throw error
-    }
+        } catch (error) {
+          const err = new Error(error?.toString() ?? ``)
+          err.name = `Post config: error processing ${child.label}`
+          throw err
+        }
+      }),
+    )
   }
 }
