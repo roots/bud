@@ -6299,7 +6299,7 @@ __metadata:
     semver: 7.3.8
     tslib: 2.4.1
     typescript: 4.9.3
-    verdaccio: 5.18.0
+    verdaccio: 5.19.0
   languageName: unknown
   linkType: soft
 
@@ -9273,10 +9273,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@verdaccio/ui-theme@npm:6.0.0-6-next.51":
-  version: 6.0.0-6-next.51
-  resolution: "@verdaccio/ui-theme@npm:6.0.0-6-next.51"
-  checksum: b478cb7cd8bef2b6dfe924728d9869765b5f540536df84dfdb2318406c595cef39ab80d5f4a2296795ad476ea427f477830212170f9c10cd01f74dc728fe0481
+"@verdaccio/ui-theme@npm:6.0.0-6-next.52":
+  version: 6.0.0-6-next.52
+  resolution: "@verdaccio/ui-theme@npm:6.0.0-6-next.52"
+  checksum: 5f93176b0ddabe02b26d7ac10d1f5b8bc6429d76af33cbecea00731cdad2433969cda91140348b361911876309ddeac89423af278e5a748bda9b035af58f3584
   languageName: node
   linkType: hard
 
@@ -14356,10 +14356,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dayjs@npm:1.11.6":
-  version: 1.11.6
-  resolution: "dayjs@npm:1.11.6"
-  checksum: 18bdfd927009b68eab08dca578e421d4a581cefcbe9337f54c5d9e0d941ffb6b221c4b2c1cab15cdd9d419940e768ac4c984531461a90bbe1c158b75fe160580
+"dayjs@npm:1.11.7":
+  version: 1.11.7
+  resolution: "dayjs@npm:1.11.7"
+  checksum: 5003a7c1dd9ed51385beb658231c3548700b82d3548c0cfbe549d85f2d08e90e972510282b7506941452c58d32136d6362f009c77ca55381a09c704e9f177ebb
   languageName: node
   linkType: hard
 
@@ -21384,7 +21384,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jsonwebtoken@npm:8.5.1, jsonwebtoken@npm:^8.5.1":
+"jsonwebtoken@npm:9.0.0":
+  version: 9.0.0
+  resolution: "jsonwebtoken@npm:9.0.0"
+  dependencies:
+    jws: ^3.2.2
+    lodash: ^4.17.21
+    ms: ^2.1.1
+    semver: ^7.3.8
+  checksum: b9181cecf9df99f1dc0253f91ba000a1aa4d91f5816d1608c0dba61a5623726a0bfe200b51df25de18c1a6000825d231ad7ce2788aa54fd48dcb760ad9eb9514
+  languageName: node
+  linkType: hard
+
+"jsonwebtoken@npm:^8.5.1":
   version: 8.5.1
   resolution: "jsonwebtoken@npm:8.5.1"
   dependencies:
@@ -22224,10 +22236,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lru-cache@npm:7.14.0, lru-cache@npm:^7.5.1":
-  version: 7.14.0
-  resolution: "lru-cache@npm:7.14.0"
-  checksum: efdd329f2c1bb790b71d497c6c59272e6bc2d7dd060ba55fc136becd3dd31fc8346edb446275504d94cb60d3c8385dbf5267b79b23789e409b2bdf302d13f0d7
+"lru-cache@npm:7.14.1":
+  version: 7.14.1
+  resolution: "lru-cache@npm:7.14.1"
+  checksum: d72c6713c6a6d86836a7a6523b3f1ac6764768cca47ec99341c3e76db06aacd4764620e5e2cda719a36848785a52a70e531822dc2b33fb071fa709683746c104
   languageName: node
   linkType: hard
 
@@ -22246,6 +22258,13 @@ __metadata:
   dependencies:
     yallist: ^4.0.0
   checksum: f97f499f898f23e4585742138a22f22526254fdba6d75d41a1c2526b3b6cc5747ef59c5612ba7375f42aca4f8461950e925ba08c991ead0651b4918b7c978297
+  languageName: node
+  linkType: hard
+
+"lru-cache@npm:^7.5.1":
+  version: 7.14.0
+  resolution: "lru-cache@npm:7.14.0"
+  checksum: efdd329f2c1bb790b71d497c6c59272e6bc2d7dd060ba55fc136becd3dd31fc8346edb446275504d94cb60d3c8385dbf5267b79b23789e409b2bdf302d13f0d7
   languageName: node
   linkType: hard
 
@@ -22411,15 +22430,6 @@ __metadata:
   version: 1.1.1
   resolution: "markdown-extensions@npm:1.1.1"
   checksum: 8a6dd128be1c524049ea6a41a9193715c2835d3d706af4b8b714ff2043a82786dbcd4a8f1fa9ddd28facbc444426c97515aef2d1f3dd11d5e2d63749ba577b1e
-  languageName: node
-  linkType: hard
-
-"marked@npm:4.2.2":
-  version: 4.2.2
-  resolution: "marked@npm:4.2.2"
-  bin:
-    marked: bin/marked.js
-  checksum: 1593e0632ff8dee1b9c8b669f26c8ce41e675bcb08ef75052845d4943db2c4d887edacd5b2120cf99a2cc06e9fbffc346ebaf98a7555273fda6a935adbfacf50
   languageName: node
   linkType: hard
 
@@ -23390,6 +23400,15 @@ __metadata:
   dependencies:
     brace-expansion: ^2.0.1
   checksum: 15ce53d31a06361e8b7a629501b5c75491bc2b59712d53e802b1987121d91b433d73fcc5be92974fde66b2b51d8fb28d75a9ae900d249feb792bb1ba2a4f0a90
+  languageName: node
+  linkType: hard
+
+"minimatch@npm:5.1.1":
+  version: 5.1.1
+  resolution: "minimatch@npm:5.1.1"
+  dependencies:
+    brace-expansion: ^2.0.1
+  checksum: 215edd0978320a3354188f84a537d45841f2449af4df4379f79b9b777e71aa4f5722cc9d1717eabd2a70d38ef76ab7b708d24d83ea6a6c909dfd8833de98b437
   languageName: node
   linkType: hard
 
@@ -29133,17 +29152,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:7.3.7":
-  version: 7.3.7
-  resolution: "semver@npm:7.3.7"
-  dependencies:
-    lru-cache: ^6.0.0
-  bin:
-    semver: bin/semver.js
-  checksum: 2fa3e877568cd6ce769c75c211beaed1f9fce80b28338cadd9d0b6c40f2e2862bafd62c19a6cff42f3d54292b7c623277bcab8816a2b5521cf15210d43e75232
-  languageName: node
-  linkType: hard
-
 "semver@npm:7.3.8, semver@npm:^7.0.0, semver@npm:^7.1.2, semver@npm:^7.2, semver@npm:^7.3.2, semver@npm:^7.3.4, semver@npm:^7.3.5, semver@npm:^7.3.7, semver@npm:^7.3.8":
   version: 7.3.8
   resolution: "semver@npm:7.3.8"
@@ -32666,14 +32674,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"verdaccio@npm:5.18.0":
-  version: 5.18.0
-  resolution: "verdaccio@npm:5.18.0"
+"verdaccio@npm:5.19.0":
+  version: 5.19.0
+  resolution: "verdaccio@npm:5.19.0"
   dependencies:
     "@verdaccio/commons-api": 10.2.0
     "@verdaccio/local-storage": 10.3.1
     "@verdaccio/streams": 10.2.0
-    "@verdaccio/ui-theme": 6.0.0-6-next.51
+    "@verdaccio/ui-theme": 6.0.0-6-next.52
     JSONStream: 1.3.5
     async: 3.2.4
     body-parser: 1.20.1
@@ -32681,7 +32689,7 @@ __metadata:
     compression: 1.7.4
     cookies: 0.8.0
     cors: 2.8.5
-    dayjs: 1.11.6
+    dayjs: 1.11.7
     debug: ^4.3.4
     envinfo: 7.8.1
     eslint-import-resolver-node: 0.3.6
@@ -32691,15 +32699,14 @@ __metadata:
     handlebars: 4.7.7
     http-errors: 2.0.0
     js-yaml: 4.1.0
-    jsonwebtoken: 8.5.1
+    jsonwebtoken: 9.0.0
     kleur: 4.1.5
     lodash: 4.17.21
-    lru-cache: 7.14.0
+    lru-cache: 7.14.1
     lunr-mutable-indexes: 2.3.2
-    marked: 4.2.2
     memoizee: 0.4.15
     mime: 3.0.0
-    minimatch: 5.1.0
+    minimatch: 5.1.1
     mkdirp: 1.0.4
     mv: 2.1.1
     pino: 6.14.0
@@ -32707,13 +32714,13 @@ __metadata:
     prettier-bytes: ^1.0.4
     pretty-ms: ^7.0.1
     request: 2.88.0
-    semver: 7.3.7
+    semver: 7.3.8
     validator: 13.7.0
     verdaccio-audit: 10.2.3
     verdaccio-htpasswd: 10.5.1
   bin:
     verdaccio: bin/verdaccio
-  checksum: f54fc545bb0e39ccc5e10b600ede60bacc9f7076b684f5f026b606efd8f2546cd5c093a1e15a21cc79bdde0f4a94c218fb8b8c09668cb2705f6b5fc70bee1880
+  checksum: 002c5d6463f802d9179fe2bf53ac5bb527b80f6a483085582e33f0470cd67387d27798dcbf60147a6cf9e3b1401aaaa90fd4fb0675d19e018859cfbc8251e189
   languageName: node
   linkType: hard
 
