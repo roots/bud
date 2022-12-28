@@ -15,19 +15,18 @@ export class BudTailwindCommand extends BudCommand {
     ],
   })
   public declare binPath: string | undefined
-  public bin = Option.String(`--bin`, undefined, {description: `bin path`})
   public options = Option.Proxy({name: `tailwindcss passthrough options`})
 
   public override async execute() {
     await this.makeBud(this)
+    await this.run(this)
 
-    const path =
-      this.bin ?? (await this.bud.module.getDirectory(`tailwindcss`))
+    const tw = join(
+      await this.bud.module.getDirectory(`tailwindcss`),
+      `lib`,
+      `cli.js`,
+    )
 
-    this.bin = join(path, `lib`, `cli.js`)
-
-    await this.bud.sh([`node`, this.bin, ...(this.options ?? [])], {
-      cwd: this.bud.path(),
-    })
+    await this.$(this.bin, [tw, ...(this.options ?? [])])
   }
 }

@@ -73,6 +73,7 @@ export interface CommandContext extends CLIContext {
     filter: Array<string> | undefined
     flush: boolean | undefined
     hash: boolean | undefined
+    hot: boolean | undefined
     html: boolean | string | undefined
     immutable: boolean | undefined
     indicator: boolean | undefined
@@ -84,6 +85,8 @@ export interface CommandContext extends CLIContext {
     notify: boolean | undefined
     overlay: boolean | undefined
     publicPath: string | undefined
+    port: string | undefined
+    proxy: string | undefined
     reload: boolean | undefined
     runtime: `single` | `multiple` | boolean | undefined
     splitChunks: boolean | undefined
@@ -91,6 +94,7 @@ export interface CommandContext extends CLIContext {
     target: Array<string> | undefined
     verbose: boolean | undefined
   }>
+  bin?: `node` | `ts-node` | `bun`
 }
 
 export interface File extends Omit<InspectResult, `type`> {

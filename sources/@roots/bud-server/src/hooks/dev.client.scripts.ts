@@ -42,6 +42,8 @@ export const proxyClickInterceptor = (app: Bud) => {
  * @public
  */
 export const hmrClient = (app: Bud) => {
+  if (app.isCLI() && app.context.args.hot === false) return
+
   const params = new URLSearchParams({
     name: app.label,
 

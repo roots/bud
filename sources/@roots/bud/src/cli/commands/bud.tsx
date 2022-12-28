@@ -38,6 +38,11 @@ export const ArgsModifier: ArgsModifier = from => async on => ({
 export default class BudCommand extends Command<CommandContext> {
   public declare bud?: (Bud & {context: CommandContext}) | undefined
 
+  public get bin() {
+    // eslint-disable-next-line n/no-process-env
+    return process.env.BUD_JS_BIN
+  }
+
   public declare context: CommandContext
 
   public static override usage = Command.Usage({
@@ -73,7 +78,7 @@ export default class BudCommand extends Command<CommandContext> {
   public declare notifier?: Notifier
   public declare notify?: boolean
 
-  public basedir = Option.String(`--basedir,--cwd`, undefined, {
+  public cwd = Option.String(`--basedir,--cwd`, undefined, {
     description: `project base directory`,
     hidden: true,
   })
@@ -171,8 +176,8 @@ export default class BudCommand extends Command<CommandContext> {
   }
 
   public async makeBud<T extends BudCommand>(command: T) {
-    command.context.basedir = command.basedir
-      ? resolve(command.context.basedir, command.basedir)
+    command.context.basedir = command.cwd
+      ? resolve(command.context.basedir, command.cwd)
       : command.context.basedir
 
     command.context.mode = command.mode ?? command.context.mode
@@ -239,7 +244,7 @@ export default class BudCommand extends Command<CommandContext> {
   @bind
   public async $(bin: string, args: Array<string>, options = {}) {
     const {execa: command} = await import(`@roots/bud-support/execa`)
-    return await command(bin, args, {
+    return await command(bin, args.filter(Boolean), {
       cwd: this.bud.path(),
       encoding: `utf8`,
       env: {NODE_ENV: `development`},
@@ -450,5 +455,12 @@ export default class BudCommand extends Command<CommandContext> {
           child.splitChunks(bud.context.args.splitChunks),
         )
     }
+
+    if (isset(args.hot))
+      bud.hooks.on(`dev.middleware.enabled`, (middleware = []) => {
+        return middleware.filter(key => key !== `hot`)
+      })
+
+    if (isset(args.port)) bud.serve(args.port)
   }
 }

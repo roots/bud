@@ -43,6 +43,8 @@ export default async (
   const context: Context = {
     label: overrides?.label ?? manifest?.name ?? bud?.label ?? `default`,
     basedir,
+    // eslint-disable-next-line n/no-process-env
+    bin: process.env.BUD_JS_BIN ?? `node`,
     ...overrides,
     mode: overrides?.mode ?? `production`,
     env: {...(env ?? {}), ...(overrides?.env ?? {})},

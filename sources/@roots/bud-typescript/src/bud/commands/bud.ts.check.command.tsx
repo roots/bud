@@ -1,3 +1,5 @@
+import {join} from 'node:path'
+
 import BudCommand from '@roots/bud/cli/commands/bud'
 import {dry} from '@roots/bud/cli/decorators/command.dry'
 import {bind} from '@roots/bud-support/decorators'
@@ -25,6 +27,14 @@ export class BudTSCheckCommand extends BudCommand {
   @bind
   public override async execute() {
     await this.makeBud(this)
-    await this.bud.sh([`bud`, `tsc`, `--noEmit`])
+    await this.run(this)
+
+    const tsc = join(
+      await this.bud.module.getDirectory(`tsc`),
+      `bin`,
+      `tsc`,
+    )
+
+    await this.$(this.bin, [tsc, `--noEmit`])
   }
 }

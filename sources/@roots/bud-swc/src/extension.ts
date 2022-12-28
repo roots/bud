@@ -16,8 +16,7 @@ import type {Options} from '@swc/core'
  */
 @label(`@roots/bud-swc`)
 @options<Options>({
-  module: {type: `commonjs`},
-  isModule: `unknown`,
+  module: {type: `commonjs`, noInterop: false},
   jsc: {
     experimental: {
       plugins: [],
@@ -25,11 +24,8 @@ import type {Options} from '@swc/core'
     parser: {
       syntax: `typescript`,
       tsx: true,
-      decorators: false,
-      dynamicImport: true,
     },
-    transform: null,
-    target: `es2019`,
+    target: `es2015`,
     loose: false,
   },
   minify: false,
@@ -114,9 +110,12 @@ export default class BudSWC extends Extension<Options> {
           ...(options?.jsc?.experimental ?? {}),
           cacheRoot: bud.path(bud.cache.cacheDirectory, `swc`),
         },
-        target: this.app.esm.enabled ? `es2022` : `es2019`,
+        target: this.app.esm.enabled ? `es2022` : `es2015`,
+        transform: null,
+        externalHelpers: true,
       },
       module: {
+        ...(options.module ?? {}),
         type: this.app.esm.enabled ? `es6` : `commonjs`,
       },
     })
