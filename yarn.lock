@@ -293,16 +293,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/abort-controller@npm:3.224.0":
-  version: 3.224.0
-  resolution: "@aws-sdk/abort-controller@npm:3.224.0"
-  dependencies:
-    "@aws-sdk/types": 3.224.0
-    tslib: ^2.3.1
-  checksum: 6d272d21e7cc0aa020f44f97c002b13dd2ad164fe96d6c6caa73b96e429101cb867188b50c452462e8f0092e680fe87f3d033beacda1366c632b5cf41f5b7207
-  languageName: node
-  linkType: hard
-
 "@aws-sdk/abort-controller@npm:3.226.0":
   version: 3.226.0
   resolution: "@aws-sdk/abort-controller@npm:3.226.0"
@@ -7362,7 +7352,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/filesystem@workspace:sources/@roots/filesystem"
   dependencies:
-    "@aws-sdk/abort-controller": 3.224.0
+    "@aws-sdk/abort-controller": 3.226.0
     "@aws-sdk/client-s3": 3.238.0
     "@aws-sdk/lib-storage": 3.224.0
     "@skypack/package-check": 0.2.2
