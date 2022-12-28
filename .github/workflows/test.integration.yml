@@ -37,8 +37,8 @@ jobs:
       - name: yarn @bud registry start
         run: yarn @bud registry start
 
-      - name: yarn @bud release --tag latest --version ${{ github.head_ref }}.${{ github.sha }}
-        run: yarn @bud release --tag latest --version ${{ github.head_ref }}.${{ github.sha }}
+      - name: yarn @bud release --tag latest
+        run: yarn @bud release --tag latest
 
       - name: yarn @bud test integration
         run: yarn @bud test integration run
