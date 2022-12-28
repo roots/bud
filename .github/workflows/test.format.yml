@@ -16,49 +16,32 @@ jobs:
         node:
           - 16.18.0
 
-    name: test node@${{matrix.node}}/${{matrix.platform}}
+    name: format-check (node@v${{matrix.node}}/${{matrix.platform}})
     runs-on: ${{matrix.platform}}
 
     steps:
-      - name: Setup
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{matrix.node}}
-
       - name: Checkout
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      - name: Cache
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
-
-      - name: Restore
-        uses: actions/cache@v3
-        id: yarn-cache
+      - name: Setup
+        uses: actions/setup-node@v3
         with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+          node-version: ${{matrix.node}}
+          cache: yarn
 
-      - name: yarn install
-        run: |
-          yarn install
+      - name: yarn
+        run: yarn
 
       - name: yarn @bud lint dependencies
-        run: |
-          yarn @bud lint dependencies
+        run: yarn @bud lint dependencies
 
       - name: yarn @bud lint
-        run: |
-          yarn @bud lint
+        run: yarn @bud lint
 
       - name: yarn @bud format
-        run: |
-          yarn @bud format --no-fix
+        run: yarn @bud format --no-fix
 
       - name: yarn @bud lint exports
-        run: |
-          yarn @bud lint exports
+        run: yarn @bud lint exports

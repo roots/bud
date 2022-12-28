@@ -16,45 +16,29 @@ jobs:
         node:
           - 16.18.0
 
-    name: test node@${{matrix.node}}/${{matrix.platform}}
+    name: integration test (node@v${{matrix.node}}/${{matrix.platform}})
     runs-on: ${{matrix.platform}}
 
     steps:
-      - name: Setup
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{matrix.node}}
-
       - name: Checkout
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      - name: Cache
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
-
-      - name: Restore
-        uses: actions/cache@v3
-        id: yarn-cache
+      - name: Setup
+        uses: actions/setup-node@v3
         with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+          node-version: ${{matrix.node}}
+          cache: yarn
 
-      - name: yarn install
-        run: |
-          yarn install
+      - name: yarn
+        run: yarn
 
       - name: yarn @bud registry start
-        run: |
-          yarn @bud registry start
+        run: yarn @bud registry start
 
-      - name: yarn @bud release --tag latest
-        run: |
-          yarn @bud release --tag latest
+      - name: yarn @bud release --tag latest --version ${{ github.head_ref }}.${{ github.sha }}
+        run: yarn @bud release --tag latest --version ${{ github.head_ref }}.${{ github.sha }}
 
       - name: yarn @bud test integration
-        run: |
-          yarn @bud test integration run
+        run: yarn @bud test integration run
