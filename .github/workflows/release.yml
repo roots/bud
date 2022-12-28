@@ -20,39 +20,23 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.18.0
-
-      - name: Cache
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
-
-      - name: Restore
-        uses: actions/cache@v3
-        id: yarn-cache
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+          cache: yarn
 
       - name: set npmAuthToken
         run: |
           yarn config set npmAuthToken ${{ secrets.NODE_AUTH_TOKEN }}
 
       - name: Set npmPublishRegistry
-        run: |
-          yarn config set npmPublishRegistry https://registry.npmjs.org/
+        run: yarn config set npmPublishRegistry https://registry.npmjs.org/
 
       - name: Set npmRegistryServer
-        run: |
-          yarn config set npmRegistryServer https://registry.npmjs.org/
+        run: yarn config set npmRegistryServer https://registry.npmjs.org/
 
       - name: Release v${{ github.event.inputs.version }}
-        run: |
-          yarn @bud release --tag latest --version ${{ github.event.inputs.version }}
+        run: yarn @bud release --tag latest --version ${{ github.event.inputs.version }}
 
-      - name: reset npmAuthToken
-        run: |
-          yarn config set npmAuthToken "${NPM_AUTH_TOKEN:-fallback}"
+      - name: Reset npmAuthToken
+        run: yarn config set npmAuthToken "${NPM_AUTH_TOKEN:-fallback}"
 
       - name: Configure Git
         run: |
@@ -60,8 +44,7 @@ jobs:
           git config user.email "<>"
 
       - name: Create v${{ github.event.inputs.version }} branch
-        run: |
-          git checkout -b v${{ github.event.inputs.version }}
+        run: git checkout -b v${{ github.event.inputs.version }}
 
       - name: Commit v${{ github.event.inputs.version }}
         run: |

@@ -109,6 +109,11 @@ export default class BudCommand extends Command<CommandContext> {
     await this.renderer?.text(text)
   }
 
+  public constructor() {
+    super()
+    this.renderer = new Renderer(process.stdout)
+  }
+
   public async execute() {}
 
   public override async catch(value: unknown) {
@@ -166,8 +171,6 @@ export default class BudCommand extends Command<CommandContext> {
   }
 
   public async makeBud<T extends BudCommand>(command: T) {
-    this.renderer = new Renderer(process.stdout)
-
     command.context.basedir = command.basedir
       ? resolve(command.context.basedir, command.basedir)
       : command.context.basedir

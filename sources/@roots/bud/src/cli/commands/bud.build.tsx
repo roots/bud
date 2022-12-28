@@ -200,8 +200,12 @@ export default class BudBuildCommand extends BudCommand {
    */
   @bind
   public override async execute() {
-    await this.makeBud(this)
-    await this.healthcheck(this)
-    await this.run(this)
+    try {
+      await this.makeBud(this)
+      await this.healthcheck(this)
+      await this.run(this)
+    } catch (error) {
+      throw error
+    }
   }
 }

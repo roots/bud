@@ -7,15 +7,12 @@ export function dry<T extends new (...args: any[]) => BudCommand>(
   return class extends constructor {
     public constructor(...args: any[]) {
       super(...args)
-      if (this.withArguments) {
-        const existingFn = this.withArguments
-        this.withArguments = async (args: CommandContext[`args`]) => {
-          args = await existingFn(args)
-          return {
-            ...args,
-            dry: true,
-          }
-        }
+
+      const fn = this.withArguments?.bind(this) ?? (value => value)
+
+      this.withArguments = async (args: CommandContext[`args`]) => {
+        args = await fn(args)
+        return {...args, dry: true}
       }
     }
   }

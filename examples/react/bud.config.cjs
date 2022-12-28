@@ -9,4 +9,5 @@ module.exports = async app => {
     .when(app.isProduction, () => {
       app.runtime('single').splitChunks().minimize()
     })
+    .serve(3015)
 }
