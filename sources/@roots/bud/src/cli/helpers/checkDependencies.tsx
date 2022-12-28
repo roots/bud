@@ -11,7 +11,10 @@ export const checkDependencies = async (bud: Bud) => {
     ...(bud.context.manifest?.devDependencies ?? {}),
   })
     .filter(([name]) => name.startsWith(`@roots/`))
-    .filter(([_, v]) => v !== bud.context.bud.version)
+    .filter(([signifier, version]: [string, string]) => {
+      version = version.replace(`^`, ``)
+      return version !== bud.context.bud.version
+    })
 
   mismatches?.length &&
     bud.dashboard.renderer.once(
