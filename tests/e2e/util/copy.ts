@@ -3,12 +3,7 @@ import {logger} from '@repo/logger'
 import fs from 'fs-extra'
 import {join} from 'path'
 
-const options = {
-  overwrite: true,
-  recursive: true,
-}
-
-const copy = async (designator: string) => {
+export const example = async (designator: string) => {
   try {
     logger.log(`copying @examples/${designator}`)
 
@@ -22,6 +17,7 @@ const copy = async (designator: string) => {
         designator,
       ),
     )
+
     await fs.copy(
       join(paths.root, `examples`, designator),
       join(
@@ -32,7 +28,10 @@ const copy = async (designator: string) => {
         `@examples`,
         designator,
       ),
-      options,
+      {
+        overwrite: true,
+        recursive: true,
+      },
     )
 
     const file = await fs.readFile(
@@ -59,4 +58,37 @@ const copy = async (designator: string) => {
   }
 }
 
-export default copy
+export const source = async (designator: string) => {
+  try {
+    await fs.remove(
+      join(
+        paths.root,
+        `storage`,
+        `mocks`,
+        `yarn`,
+        `@examples`,
+        designator,
+        `src`,
+      ),
+    )
+
+    await fs.copy(
+      join(paths.root, `examples`, designator, `src`),
+      join(
+        paths.root,
+        `storage`,
+        `mocks`,
+        `yarn`,
+        `@examples`,
+        designator,
+        `src`,
+      ),
+      {
+        overwrite: true,
+        recursive: true,
+      },
+    )
+  } catch (error) {
+    throw error
+  }
+}

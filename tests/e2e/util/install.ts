@@ -14,7 +14,7 @@ const options = (designator: string): Options => ({
   ),
 })
 
-const install = (designator: string) => async () => {
+const install = async (designator: string) => {
   try {
     logger.log(`installing @examples/${designator}`)
 
