@@ -7056,14 +7056,18 @@ __metadata:
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
     "@swc/core": 1.3.21
+    "@swc/helpers": 0.4.14
     "@types/node": 16.18.6
     swc-loader: 0.2.3
     webpack: 5.75.0
   peerDependencies:
     "@swc/core": "*"
+    "@swc/helpers": "*"
     swc-loader: "*"
   peerDependenciesMeta:
     "@swc/core":
+      optional: true
+    "@swc/helpers":
       optional: true
     swc-loader:
       optional: true
@@ -7275,6 +7279,7 @@ __metadata:
       optional: true
   bin:
     bud: ./bin/bud.mjs
+    bund: ./bin/bund.mjs
     ts-bud: ./bin/ts-bud.mjs
   languageName: unknown
   linkType: soft
@@ -7875,6 +7880,15 @@ __metadata:
   bin:
     swcx: run_swcx.js
   checksum: c66cd9320c595c68b87c8d90dc9a978099dd25a84c5e9795a8c7fec95fecdd8481da82076a828880a226ad2c0e57155c0a2b97768e99dee042a74182056bda46
+  languageName: node
+  linkType: hard
+
+"@swc/helpers@npm:0.4.14":
+  version: 0.4.14
+  resolution: "@swc/helpers@npm:0.4.14"
+  dependencies:
+    tslib: ^2.4.0
+  checksum: 273fd3f3fc461a92f3790cc551ea054745c6d6959afbe1232e6d7aa1c722bbc114d308aab96bef5c78fc0303c85c7b472ef00e2253251cc89737f3b1af56e5a5
   languageName: node
   linkType: hard
 
