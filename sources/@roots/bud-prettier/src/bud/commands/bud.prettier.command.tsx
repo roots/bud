@@ -1,4 +1,4 @@
-import {join, resolve} from 'node:path'
+import {join} from 'node:path'
 
 import BudCommand from '@roots/bud/cli/commands/bud'
 import {dry} from '@roots/bud/cli/decorators/command.dry'
@@ -17,6 +17,7 @@ export class BudPrettierCommand extends BudCommand {
 
   public override async execute() {
     await this.makeBud(this)
+    await this.run(this)
 
     const prettier = await this.bud.module.getDirectory(`prettier`)
     const bin = join(prettier, `bin-prettier.js`)
@@ -27,11 +28,6 @@ export class BudPrettierCommand extends BudCommand {
         `--write`,
       ]
 
-    await this.bud.sh(
-      [`node`, bin, ...(this.options ?? [])].filter(Boolean),
-      {
-        cwd: resolve(process.cwd(), this.basedir ?? `./`),
-      },
-    )
+    await this.$(this.bin, [bin, ...(this.options ?? [])])
   }
 }

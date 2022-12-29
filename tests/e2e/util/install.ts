@@ -1,33 +1,44 @@
-import {paths} from '@repo/constants'
-import {logger} from '@repo/logger'
-import {execa, ExecaChildProcess, Options} from 'execa'
-import {join} from 'path'
+import execa, {ExecaReturnValue} from '@roots/bud-support/execa'
+import getPort from '@roots/bud-support/get-port'
 
-const options = (designator: string): Options => ({
-  cwd: join(
-    paths.root,
-    `storage`,
-    `mocks`,
-    `yarn`,
-    `@examples`,
-    designator,
-  ),
-})
+import * as fs from './copy'
 
-const install = async (designator: string) => {
+export const e2eBeforeAll = async (dirname: string) => {
+  await fs.copyDir(dirname)
+
   try {
-    logger.log(`installing @examples/${designator}`)
-
-    const child: ExecaChildProcess = execa(
-      `yarn`,
+    await execa(
+      `npm`,
       [`install`, `--registry`, `http://localhost:4873`],
-      options(designator),
+      {
+        cwd: fs.testPath(dirname),
+        env: {NODE_ENV: `development`},
+      },
     )
-    child.stdout?.pipe(process.stdout)
-    return await child
   } catch (error) {
-    return
+    throw error
   }
+
+  return await getPort()
 }
 
-export default install
+export const runDev = async (
+  dirname: string,
+  port: number,
+): Promise<ExecaReturnValue> => {
+  try {
+    await fs.copyOriginalSource(dirname)
+  } catch (error) {
+    throw error
+  }
+
+  try {
+    return execa(
+      `./node_modules/.bin/bud`,
+      [`dev`, `--no-cache`, `--html`, `--port`, `${port}`],
+      {cwd: fs.testPath(dirname)},
+    )
+  } catch (error) {
+    throw error
+  }
+}

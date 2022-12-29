@@ -46,14 +46,14 @@ export default class BudUpgradeCommand extends BudCommand {
     description: `custom registry`,
   })
 
-  public get bin(): `yarn` | `npm` {
+  public get pacman(): `yarn` | `npm` {
     const pacman = detectPackageManager(this.bud)
     if (pacman === false) throw new Error(`Package manager is ambiguous`)
     return pacman
   }
 
   public get command() {
-    return this.bin === `npm` ? `install` : `add`
+    return this.pacman === `npm` ? `install` : `add`
   }
 
   public override async execute() {

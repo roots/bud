@@ -39,28 +39,6 @@ const run = pacman => () => {
     })
   })
 
-  describe(`index.html`, () => {
-    it(`should not be empty`, () => {
-      expect(project.assets[`index.html`].length).toBeGreaterThan(10)
-    })
-
-    it(`should have title: \`Create Bud App\``, () => {
-      expect(
-        project.assets[`index.html`].includes(
-          `<title>Create Bud App</title>`,
-        ),
-      ).toBeTruthy()
-    })
-
-    it(`should contain a script tag`, () => {
-      expect(project.assets[`index.html`].includes(`<script`)).toBeTruthy()
-    })
-
-    it(`should be present in the manifest`, () => {
-      expect(project.manifest[`index.html`]).toMatchSnapshot()
-    })
-  })
-
   describe(`commponents/logo.svg`, () => {
     it(`should not be empty`, () => {
       expect(project.assets[`components/logo.svg`].length).toBeGreaterThan(
@@ -81,7 +59,7 @@ const run = pacman => () => {
 
   describe(`manifest.json`, () => {
     it(`should have expected number of items`, () => {
-      expect(Object.keys(project.manifest)).toHaveLength(6)
+      expect(Object.keys(project.manifest)).toHaveLength(5)
     })
   })
 }

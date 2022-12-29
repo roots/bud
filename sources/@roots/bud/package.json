@@ -48,6 +48,7 @@
   ],
   "bin": {
     "bud": "./bin/bud.mjs",
+    "bund": "./bin/bund.mjs",
     "ts-bud": "./bin/ts-bud.mjs"
   },
   "type": "module",

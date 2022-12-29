@@ -4,7 +4,7 @@ body {
   margin: 0;
 }
 
-.app {
+#root {
   align-items: center;
   background: rgb(88, 19, 213);
   color: white;

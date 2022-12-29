@@ -135,14 +135,14 @@ const requestPorts = async (
 }
 
 /**
- * Convert a string, number, or array of strings or numbers
- * to an array of portOrPortsToNumbers
+ * Convert a string, number, or array of strings/numbers
+ * to an array of numbers
  *
  * @public
  */
 const portOrPortsToNumbers = (
   port: number | string | Array<number | string>,
-): Array<number> => {
-  if (Array.isArray(port)) return port.map(port => Number(port))
-  return [Number(port)]
-}
+): Array<number> =>
+  Array.isArray(port)
+    ? port.map(port => (isString(port) ? parseInt(port) : port))
+    : [isString(port) ? parseInt(port) : port]

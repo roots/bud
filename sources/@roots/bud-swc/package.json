@@ -61,14 +61,19 @@
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@swc/core": "1.3.21",
+    "@swc/helpers": "0.4.14",
     "swc-loader": "0.2.3"
   },
   "peerDependencies": {
     "@swc/core": "*",
+    "@swc/helpers": "*",
     "swc-loader": "*"
   },
   "peerDependenciesMeta": {
     "@swc/core": {
+      "optional": true
+    },
+    "@swc/helpers": {
       "optional": true
     },
     "swc-loader": {
