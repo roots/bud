@@ -1,9 +1,4 @@
-/* eslint-disable no-console */
-
-import {join} from 'node:path'
-
-import {paths} from '@repo/constants'
-import {execa, ExecaChildProcess} from 'execa'
+import {ExecaReturnValue} from 'execa'
 import fs from 'fs-extra'
 import {Browser, chromium, Page} from 'playwright'
 import {
@@ -15,20 +10,49 @@ import {
   it,
 } from 'vitest'
 
-import * as cp from './util/copy'
-import install from './util/install'
+import {e2eBeforeAll, runDev} from './util/install'
+import {testPath} from './util/copy'
+
+describe(`html output of examples/react`, () => {
+  let browser: Browser
+  let page: Page
+  let dev: Promise<ExecaReturnValue>
+  let port: number
+
+  beforeAll(async () => {
+    port = await e2eBeforeAll(`react`)
+  })
+
+  beforeEach(async () => {
+    dev = runDev(`react`, port)
+    browser = await chromium.launch()
+    page = await browser?.newPage()
+    await page?.waitForTimeout(5000)
+  })
+
+  afterEach(async () => {
+    await page?.close()
+    await browser?.close()
+  })
+
+  it(`rebuilds on change`, async () => {
+    await page?.goto(`http://0.0.0.0:${port}/`)
+
+    expect(await page.$(`#root`)).toBeTruthy()
+    expect(await page.$(`#App`)).toBeFalsy()
+
+    await update()
+    await page.waitForTimeout(12000)
+
+    const target = await page.$(`.target`)
+    const text = await target.textContent()
+    expect(text).toBe(`Noice.`)
+  })
+})
 
 const update = async () =>
   fs.writeFile(
-    join(
-      paths.mocks,
-      `yarn`,
-      `@examples`,
-      `react`,
-      `src`,
-      `components`,
-      `App.js`,
-    ),
+    testPath(`react`, `src`, `components`, `App.js`),
     `\
 import React from 'react'
 
@@ -46,51 +70,3 @@ export const App = () => {
 }
 `,
   )
-
-describe(`html output of examples/react`, () => {
-  let browser: Browser
-  let page: Page
-  let devProcess: ExecaChildProcess
-
-  beforeAll(async () => {
-    await cp.example(`react`)
-    await install(`react`)
-  })
-
-  beforeEach(async () => {
-    try {
-      await cp.source(`react`)
-
-      devProcess = execa(
-        `node`,
-        [`./node_modules/.bin/bud`, `dev`, `--no-cache`],
-        {
-          cwd: join(paths.mocks, `yarn`, `@examples`, `react`),
-        },
-      )
-    } catch (error) {
-      throw error
-    }
-
-    browser = await chromium.launch()
-    page = await browser?.newPage()
-    await page.waitForTimeout(5000)
-  })
-
-  afterEach(async () => {
-    await page?.close()
-    await browser?.close()
-    devProcess?.kill(`SIGINT`)
-  })
-
-  it(`rebuilds on change`, async () => {
-    await page?.goto(`http://0.0.0.0:3015/`)
-
-    expect(await page.$(`.App`)).toBeTruthy()
-    expect(await page.$(`.target`)).toBeFalsy()
-
-    await update()
-    await page.waitForTimeout(12000)
-    expect(await page.$(`.target`)).toBeTruthy()
-  })
-})

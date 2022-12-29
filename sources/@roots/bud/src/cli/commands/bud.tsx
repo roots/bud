@@ -450,17 +450,28 @@ export default class BudCommand extends Command<CommandContext> {
     if (isset(bud.context.args.splitChunks)) {
       bud.log(`overriding runtime setting from cli`)
       bud.splitChunks(bud.context.args.splitChunks)
+
       bud.hasChildren &&
         Object.values(bud.children).map(child =>
           child.splitChunks(bud.context.args.splitChunks),
         )
     }
 
-    if (isset(args.hot))
+    if (isset(args.hot) && args.hot === false) {
+      bud.log(`disabling hot module replacement`)
+
       bud.hooks.on(`dev.middleware.enabled`, (middleware = []) => {
         return middleware.filter(key => key !== `hot`)
       })
+    }
 
-    if (isset(args.port)) bud.serve(args.port)
+    if (isset(args.port)) {
+      bud.log(`overriding port from cli`)
+
+      bud.hooks.on(`dev.url`, (url = new URL(`http://0.0.0.0:3000`)) => {
+        url.port = args.port
+        return url
+      })
+    }
   }
 }
