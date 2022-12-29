@@ -349,7 +349,37 @@ export default class BudCommand extends Command<CommandContext> {
     if (isset(args.input)) bud.setPath(`@src`, args.input)
     if (isset(args.output)) bud.setPath(`@dist`, args.output)
     if (isset(args.publicPath)) bud.setPublicPath(args.publicPath)
+    if (isset(args.storage)) bud.setPath(`@storage`, args.storage)
+    if (isset(args.modules)) bud.setPath(`@modules`, args.modules)
 
+    if (isset(args.hot)) {
+      bud.log(`disabling hot module replacement`)
+      bud.hooks.on(`dev.middleware.enabled`, (middleware = []) =>
+        middleware.filter(key =>
+          args.hot === false ? key !== `hot` : args.hot,
+        ),
+      )
+    }
+
+    if (isset(args.port)) {
+      bud.log(`overriding port from cli`)
+      bud.hooks.on(`dev.url`, (url = new URL(`http://0.0.0.0:3000`)) => {
+        url.port = args.port
+        return url
+      })
+    }
+
+    if (isset(args.proxy)) {
+      bud.log(`overriding proxy from cli`)
+      bud.hooks.on(
+        `dev.middleware.proxy.options.target`,
+        new URL(args.proxy),
+      )
+    }
+
+    /**
+     * Filter instances
+     */
     if (isset(args.filter) && bud.hasChildren) {
       Object.keys(bud.children)
         .filter(name => !args.filter.includes(name))
@@ -358,120 +388,83 @@ export default class BudCommand extends Command<CommandContext> {
           bud.log(`removing ${name} instance from the cli`)
         })
     }
+    if (isset(args.filter) && !bud.hasChildren) {
+      throw new Error(
+        `After filtering there are no instances left to build.`,
+      )
+    }
+
+    /**
+     * Override settings for either:
+     * - the parent (if children do not exist), or;
+     * - all children but not the parent (if children exist)
+     */
+    const override = (override: (bud: Bud) => void) =>
+      bud.hasChildren
+        ? Object.values(bud.children).map(override)
+        : override(bud)
 
     if (isset(args.manifest)) {
       bud.log(`overriding manifest setting from cli`)
-      bud.hooks.on(`feature.manifest`, args.manifest)
-    }
-
-    if (isset(args.storage)) {
-      bud.log(`overriding storage directory from the cli`)
-      bud.setPath(`@storage`, args.storage)
+      override(bud => bud.hooks.on(`feature.manifest`, args.manifest))
     }
 
     if (isset(args.cache)) {
       bud.log(`overriding cache settings from cli`)
-      bud.persist(args.cache)
-      bud.hasChildren &&
-        Object.values(bud.children).map(child => child.persist(args.cache))
+      override(bud => bud.persist(args.cache))
     }
 
     if (isset(args.minimize)) {
       bud.log(`overriding minimize setting from cli`)
-      bud.minimize(args.minimize)
-      bud.hasChildren &&
-        Object.values(bud.children).map(child =>
-          child.minimize(args.minimize),
-        )
+      override(bud => bud.minimize(args.minimize))
     }
 
     if (isset(args.devtool)) {
       bud.log(`overriding devtool from cli`)
-      bud.devtool(args.devtool)
-      bud.hasChildren &&
-        Object.values(bud.children).map(child =>
-          child.devtool(args.devtool),
-        )
+      override(bud => bud.devtool(args.devtool))
     }
 
     if (isset(args.esm)) {
       bud.log(`overriding esm from cli`)
-      bud.esm.enable(args.esm)
-      bud.hasChildren &&
-        Object.values(bud.children).map(child =>
-          child.esm.enable(args.esm),
-        )
+      override((bud: Bud) => bud.esm.enable(args.esm))
     }
 
     if (isset(args.immutable)) {
       bud.log(`overriding immutable from cli`)
-      bud.cdn.freeze(args.immutable)
-      bud.hasChildren &&
-        Object.values(bud.children).map(child =>
-          child.cdn.freeze(args.immutable),
-        )
+      override((bud: Bud) => bud.cdn.freeze(args.immutable))
     }
+
     if (isset(args.clean)) {
       bud.log(`overriding clean setting from cli`)
-      bud.extensions
-        .get(`@roots/bud-extensions/clean-webpack-plugin`)
-        .enable(args.clean)
-      bud.hooks.on(`build.output.clean`, args.clean)
+      override((bud: Bud) => {
+        bud.extensions
+          .get(`@roots/bud-extensions/clean-webpack-plugin`)
+          .enable(args.clean)
+
+        bud.hooks.on(`build.output.clean`, args.clean)
+      })
     }
 
     if (isset(args.hash)) {
-      logger.log(`hash enabled by --hash`)
-      bud.hash(args.hash)
-
-      bud.hasChildren &&
-        Object.values(bud.children).map(child => child.hash(args.hash))
+      logger.log(`overriding hash setting from cli`)
+      override((bud: Bud) => bud.hash(args.hash))
     }
 
     if (isset(args.html)) {
-      isString(args.html) ? bud.html({template: args.html}) : bud.html()
-
-      bud.hasChildren &&
-        Object.values(bud.children).map(child =>
-          isString(args.html)
-            ? child.html({template: args.html})
-            : child.html(),
-        )
+      logger.log(`overriding html setting from cli`)
+      override((bud: Bud) =>
+        isString(args.html) ? bud.html({template: args.html}) : bud.html(),
+      )
     }
 
-    if (isset(bud.context.args.runtime)) {
+    if (isset(args.runtime)) {
       bud.log(`overriding runtime setting from cli`)
-      bud.runtime(bud.context.args.runtime)
-      bud.hasChildren &&
-        Object.values(bud.children).map(child =>
-          child.runtime(bud.context.args.runtime),
-        )
+      override((bud: Bud) => bud.runtime(args.runtime))
     }
 
-    if (isset(bud.context.args.splitChunks)) {
-      bud.log(`overriding runtime setting from cli`)
-      bud.splitChunks(bud.context.args.splitChunks)
-
-      bud.hasChildren &&
-        Object.values(bud.children).map(child =>
-          child.splitChunks(bud.context.args.splitChunks),
-        )
-    }
-
-    if (isset(args.hot) && args.hot === false) {
-      bud.log(`disabling hot module replacement`)
-
-      bud.hooks.on(`dev.middleware.enabled`, (middleware = []) => {
-        return middleware.filter(key => key !== `hot`)
-      })
-    }
-
-    if (isset(args.port)) {
-      bud.log(`overriding port from cli`)
-
-      bud.hooks.on(`dev.url`, (url = new URL(`http://0.0.0.0:3000`)) => {
-        url.port = args.port
-        return url
-      })
+    if (isset(args.splitChunks)) {
+      bud.log(`overriding splitChunks setting from cli`)
+      override((bud: Bud) => bud.splitChunks(args.splitChunks))
     }
   }
 }
