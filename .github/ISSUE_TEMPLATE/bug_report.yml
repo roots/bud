@@ -11,13 +11,6 @@ body:
 
         If you have a general question or you're looking for support, please visit [Roots Discourse](https://discourse.roots.io/).
 
-        Please attempt the following before filing an issue:
-          - Try running `yarn bud doctor`
-          - Ensure all `@roots/*` packages are using the same version, and are up-to-date.
-          - Run `bud clean` to remove any stale files.
-          - Run `bud build` using the `--no-cache` flag.
-          - If `.budfiles/bud/profile.json` or `.budfiles/bud/webpack.config.js` have been emitted, please include them in your issue.
-
   - type: checkboxes
     id: terms
     attributes:
@@ -60,7 +53,6 @@ body:
       label: Steps To Reproduce
       description: |
         Non-reproducible issues may be immediately closed as not actionable.
-        Please provide reproduction steps as detailed as possible.
       value: |
         1.
         1.
@@ -77,31 +69,13 @@ body:
     validations:
       required: true
 
-  - type: dropdown
-    id: package-manager
-    attributes:
-      label: What package manager are you using?
-      options:
-        - yarn classic
-        - yarn
-        - npm
-    validations:
-      required: true
-
-  - type: input
-    id: package-manager-version
-    attributes:
-      label: version
-      description: What version are you using? (`yarn -v` or `npm -v`)
-      placeholder: '3.1.1'
-
   - type: textarea
     id: logs
     attributes:
       label: Logs
       description: |
-        Copy/paste any logging output. If applicable, run the command with `--log` flag.
-        Review what you are submitting to ensure it doesn't contain any sensitive information. It is okay to redact information as necessary
+        If applicable, run the command with `--log` (or `--log --verbose`) flag and copy/paste relevant items here.
+        Review what you are submitting to ensure it doesn't contain any sensitive information. It is okay to redact information.
       render: zsh
     validations:
       required: false
@@ -111,8 +85,7 @@ body:
     attributes:
       label: Configuration
       description: |
-        Please attach your bud configuration file(s).
-        Review what you are submitting to ensure it doesn't contain any sensitive information. It is okay to redact information as necessary.
+        Review what you are submitting to ensure it doesn't contain any sensitive information. It is okay to redact information.
       render: zsh
     validations:
       required: false
@@ -121,11 +94,12 @@ body:
     attributes:
       label: Relevant .budfiles
       description: |
-        If they were emitted, please attach:
-          - `.budfiles/bud/profile.json`, and;
-          - `.budfiles/bud/webpack.config.js`
+        If applicable, run the command with the `--debug` flag. Please attach any relevant excerpts from these emitted files:
+          - `.budfiles/[project name]/profile.json`, and;
+          - `.budfiles/[project name]/webpack.config.js`
 
-        Review what you are submitting to ensure it doesn't contain any sensitive information. It is okay to redact information as necessary.
+        Review what you are submitting to ensure it doesn't contain any sensitive information. It is okay to redact information.
+      render: zsh
     validations:
       required: false
 
