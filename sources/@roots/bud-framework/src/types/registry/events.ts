@@ -13,7 +13,7 @@ export interface Events {
   'compiler.before': (app?: Bud) => Promise<unknown>
   'compiler.after': (app?: Bud) => Promise<unknown>
   'compiler.close': (app?: Bud) => Promise<unknown>
-  'compiler.success': (app?: Bud) => Promise<unknown>
+  'compiler.stats': (app?: Bud) => Promise<unknown>
   'compiler.error': (app?: Bud) => Promise<unknown>
   'project.write': (app?: Bud) => Promise<unknown>
   'config.after': (app?: Bud) => Promise<unknown>

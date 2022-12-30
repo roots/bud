@@ -56,7 +56,7 @@ describe(`@roots/bud-compiler`, function () {
       await compiler.compile()
       expect(compiler.instance.hooks.done.tap).toHaveBeenCalledWith(
         `MOCK-dev-handle`,
-        compiler.handleStats,
+        compiler.onStats,
       )
     } catch (e) {}
   })
@@ -80,24 +80,24 @@ describe(`@roots/bud-compiler`, function () {
   })
 
   it(`should call stats handler from callback when stats is truthy`, async () => {
-    const handleStatsSpy = vi.spyOn(compiler, `handleStats`)
+    const onStatsSpy = vi.spyOn(compiler, `onStats`)
     // @ts-ignore
     compiler.callback(null, {
       toJson: vi.fn(() => {}),
       hasErrors: () => false,
     } as unknown as MultiStats)
-    expect(handleStatsSpy).toHaveBeenCalled()
+    expect(onStatsSpy).toHaveBeenCalled()
   })
 
   it(`should not call stats handler from callback when stats is falsey`, async () => {
-    const handleStatsSpy = vi.spyOn(compiler, `handleStats`)
+    const onStatsSpy = vi.spyOn(compiler, `onStats`)
     // @ts-ignore
     compiler.callback(null, null)
-    expect(handleStatsSpy).not.toHaveBeenCalled()
+    expect(onStatsSpy).not.toHaveBeenCalled()
   })
 
-  it(`has handleStats fn`, () => {
-    expect(compiler.handleStats).toBeInstanceOf(Function)
+  it(`has onStats fn`, () => {
+    expect(compiler.onStats).toBeInstanceOf(Function)
   })
 
   it(`has error handler`, () => {
@@ -105,12 +105,6 @@ describe(`@roots/bud-compiler`, function () {
   })
 
   it(`has close handler`, () => {
-    expect(compiler.onClose).toBeInstanceOf(Function)
-  })
-
-  it(`should call onError when onClose is called with error`, async () => {
-    const onErrorSpy = vi.spyOn(compiler, `onError`)
-    compiler.onClose(new Error() as WebpackError)
-    expect(onErrorSpy).toHaveBeenCalled()
+    expect(compiler.onError).toBeInstanceOf(Function)
   })
 })

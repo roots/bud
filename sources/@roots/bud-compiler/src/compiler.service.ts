@@ -2,6 +2,7 @@ import type {Bud} from '@roots/bud-framework/bud'
 import {Service} from '@roots/bud-framework/service'
 import type {Compiler as Contract} from '@roots/bud-framework/services'
 import {bind} from '@roots/bud-support/decorators'
+import type webpack from '@roots/bud-support/webpack'
 import type {
   MultiCompiler,
   MultiStats,
@@ -16,9 +17,9 @@ import type {
 export class Compiler extends Service implements Contract.Service {
   /**
    * Compiler implementation
-d   * @public
+   * @public
    */
-  public implementation: Contract.Implementation
+  public implementation: typeof webpack
 
   /**
    * Compiler instance
@@ -49,11 +50,8 @@ d   * @public
    */
   @bind
   public async compile(): Promise<MultiCompiler> {
-    const webpack = await import(`webpack`)
-
-    this.implementation = webpack.default
-
-    this.logger.log(`imported webpack`, webpack.default.version)
+    this.implementation = await this.app.module.import(`webpack`)
+    this.logger.log(`imported webpack`, this.implementation.version)
 
     this.config = !this.app.hasChildren
       ? [await this.app.build.make()]
@@ -72,55 +70,18 @@ d   * @public
     } catch (error) {
       throw error
     }
-
-    this.app.context.logger.timeEnd(`initialize`)
-
     if (this.app.isCLI() && this.app.context.args.dry) {
       this.logger.log(`running in dry mode. exiting early.`)
       return
     }
+    this.app.context.logger.timeEnd(`initialize`)
 
-    try {
-      try {
-        this.instance = this.implementation(this.config)
-      } catch (error) {
-        throw error
-      }
+    this.instance = this.implementation(this.config)
+    this.instance.hooks.done.tap(this.app.label, this.onStats)
 
-      this.app.isDevelopment &&
-        this.instance.hooks.done.tap(
-          `${this.app.label}-dev-handle`,
-          this.handleStats,
-        )
+    await this.app.hooks.fire(`compiler.after`)
 
-      this.instance.compilers.forEach(compiler =>
-        compiler.hooks.afterEmit.tapAsync(
-          this.app.label,
-          async (_stats, callback) => {
-            try {
-              await this.app.hooks.fire(`compiler.after`)
-            } catch (error) {
-              const err = new Error(
-                error?.message ?? error?.toString() ?? ``,
-              )
-              err.name = `CompilerError (afterEmit)`
-              throw err
-            }
-
-            return callback()
-          },
-        ),
-      )
-
-      this.instance.hooks.done.tap(this.app.label, async stats => {
-        this.handleStats(stats)
-        await this.app.hooks.fire(`compiler.close`)
-      })
-
-      return this.instance
-    } catch (error) {
-      throw error
-    }
+    return this.instance
   }
 
   /**
@@ -132,8 +93,8 @@ d   * @public
    */
   @bind
   public callback(error: WebpackError, stats: MultiStats) {
-    if (error) return this.onError(error)
-    if (stats) return this.handleStats(stats)
+    if (stats) this.onStats(stats)
+    if (error) this.onError(error)
   }
 
   /**
@@ -143,20 +104,9 @@ d   * @public
    * @decorator `@bind`
    */
   @bind
-  public handleStats(stats: MultiStats) {
+  public onStats(stats: MultiStats) {
     this.stats = stats
     this.app.dashboard.update(stats)
-  }
-
-  /**
-   * Compiler close event
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public onClose(error?: WebpackError) {
-    if (error) return this.onError(error)
   }
 
   /**
@@ -170,8 +120,6 @@ d   * @public
     this.app.isDevelopment &&
       this.app.server.appliedMiddleware?.hot?.publish({error})
 
-    if (error && this.app.isProduction) {
-      throw error?.message ?? error
-    }
+    throw error
   }
 }

@@ -19,7 +19,7 @@ import type {Service as BaseService} from '../../../service.js'
  * @public
  */
 interface Service extends BaseService {
-  implementation: Implementation
+  implementation: any
 
   /**
    * The compiler instance
@@ -58,9 +58,7 @@ interface Service extends BaseService {
 
   callback(error: Error, stats: Stats & MultiStats): void
 
-  handleStats(stats: Stats & MultiStats): void
-
-  onClose(): void
+  onStats(stats: Stats & MultiStats): void
 
   onError(error: any): void
 }
@@ -72,8 +70,8 @@ export type BudError = {
   message: string
   type: 'syntax' | 'export'
 }
+
 export type Config = Configuration
-export type Implementation = (...params: any[]) => any
 
 export type Progress = [number, string]
 

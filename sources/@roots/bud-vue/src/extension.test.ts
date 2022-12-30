@@ -36,4 +36,16 @@ describe(`@roots/bud-vue`, () => {
   it(`should have a vue2 method that returns false when vue is resolvable but not listed in manifest`, async () => {
     expect(instance.isVue2()).toBe(false)
   })
+
+  it(`should have a runtimeOnly method modifies options.runtimeOnly`, async () => {
+    instance.runtimeOnly(false)
+    expect(instance.options.runtimeOnly).toBe(false)
+
+    instance.runtimeOnly(true)
+    expect(instance.options.runtimeOnly).toBe(true)
+
+    instance.runtimeOnly(false)
+    instance.runtimeOnly()
+    expect(instance.options.runtimeOnly).toBe(true)
+  })
 })
