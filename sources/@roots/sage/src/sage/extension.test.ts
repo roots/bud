@@ -36,7 +36,7 @@ describe(`@roots/sage`, async () => {
     expect(hooksSpy).toHaveBeenNthCalledWith(
       1,
       `build.output.uniqueName`,
-      `@roots/bud/sage`,
+      `@roots/bud/sage/${bud.label}`,
     )
 
     expect(setPathSpy).toHaveBeenCalledWith({
