@@ -70,17 +70,23 @@ export class Compiler extends Service implements Contract.Service {
     } catch (error) {
       throw error
     }
+
     if (this.app.isCLI() && this.app.context.args.dry) {
       this.logger.log(`running in dry mode. exiting early.`)
       return
     }
+
     this.app.context.logger.timeEnd(`initialize`)
 
     this.instance = this.implementation(this.config)
+
     this.instance.hooks.done.tap(this.app.label, this.onStats)
+    this.instance.hooks.done.tap(
+      `${this.app.label}-close`,
+      async () => await this.app.hooks.fire(`compiler.after`),
+    )
 
     await this.app.hooks.fire(`compiler.after`)
-
     return this.instance
   }
 
