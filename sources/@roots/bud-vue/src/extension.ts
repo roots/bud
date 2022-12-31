@@ -7,11 +7,11 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
+import parseSemver from '@roots/bud-support/parse-semver'
 import type {
   RuleSetRule,
   WebpackPluginInstance,
 } from '@roots/bud-support/webpack'
-import parseSemver from 'parse-semver'
 
 interface Options {
   runtimeOnly: boolean
@@ -38,19 +38,19 @@ export default class Vue extends Extension<
    * Loader path
    * @public
    */
-  public loader: string
+  public declare loader: string
 
   /**
    * Style loader path
    * @public
    */
-  public styleLoader: string
+  public declare styleLoader: string
 
   /**
    * Resolved version
    * @public
    */
-  public version: string
+  public declare version: string
 
   /**
    * Set `runtimeOnly` option
@@ -96,7 +96,7 @@ export default class Vue extends Extension<
       .setLoader(`vue-style-loader`, this.styleLoader)
       .setItem(`vue-style-loader`, {loader: `vue-style-loader`})
 
-    bud.build.rules.css.setUse((items = []) => [
+    bud.build.rules.css?.setUse((items = []) => [
       `vue-style-loader`,
       ...items,
     ])
@@ -104,7 +104,7 @@ export default class Vue extends Extension<
       `vue-style-loader`,
       ...items,
     ])
-    bud.build.items.precss.setOptions({esModule: false})
+    bud.build.items.precss?.setOptions({esModule: false})
     bud.hooks.fromMap({
       'build.module.rules.before': this.moduleRulesBefore,
       'build.resolve.extensions': (ext = new Set()) => ext.add(`.vue`),
@@ -138,7 +138,7 @@ export default class Vue extends Extension<
     return [
       this.app.build
         .makeRule()
-        .setTest(({hooks}) => hooks.filter(`pattern.vue`))
+        .setTest(({hooks}: Bud) => hooks.filter(`pattern.vue`))
         .setInclude([app => app.path(`@src`)])
         .setUse((items = []) => [`vue`, ...items])
         .toWebpack(),
@@ -154,7 +154,7 @@ export default class Vue extends Extension<
    */
   @bind
   public async resolveAlias(
-    aliases: Record<string, string | Array<string>> = {},
+    aliases = {},
   ): Promise<Record<string, string | Array<string>>> {
     const type = this.isVue2() ? `esm` : `esm-bundler`
 

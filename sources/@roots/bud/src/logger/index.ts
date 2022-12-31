@@ -2,10 +2,17 @@ import commonPath from '@roots/bud-support/common-path'
 import {bind} from '@roots/bud-support/decorators'
 import {resolve} from '@roots/bud-support/import-meta-resolve'
 import prettyFormat from '@roots/bud-support/pretty-format'
-import Signale, {Instance, Options} from '@roots/bud-support/signale'
+import Signale, {
+  Instance,
+  Options as SignaleOptions,
+} from '@roots/bud-support/signale'
 
 import * as argv from '../context/argv.js'
 import * as defaults from './options.js'
+
+interface Options extends SignaleOptions {
+  logLevel?: `log` | `info` | `warn`
+}
 
 export class Logger {
   public commonPath: string = ``

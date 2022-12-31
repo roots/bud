@@ -61,7 +61,7 @@
     "@roots/bud-build": "workspace:sources/@roots/bud-build",
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.18.6",
-    "@types/signale": "1.4.4",
+    "@types/postcss-import": "14.0.0",
     "webpack": "5.75.0"
   },
   "dependencies": {

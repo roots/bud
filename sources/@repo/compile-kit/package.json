@@ -29,5 +29,8 @@
     "npm-package-arg": "10.1.0",
     "registry-info": "1.0.0",
     "vitest": "0.25.4"
+  },
+  "devDependencies": {
+    "@types/npm-package-arg": "6.1.1"
   }
 }

@@ -8,8 +8,6 @@ import {
 @label(`@roots/bud-preset-wordpress`)
 @dependsOn([
   `@roots/bud-preset-recommend`,
-  `@roots/bud-wordpress-externals`,
-  `@roots/bud-wordpress-dependencies`,
   `@roots/bud-wordpress-manifests`,
   `@roots/bud-react`,
 ])

@@ -57,12 +57,27 @@
     "@types/node": "16.18.6"
   },
   "dependencies": {
+    "@roots/bud-entrypoints": "workspace:sources/@roots/bud-entrypoints",
+    "@roots/bud-wordpress-dependencies": "workspace:sources/@roots/bud-wordpress-dependencies",
+    "@roots/bud-wordpress-externals": "workspace:sources/@roots/bud-wordpress-externals",
     "@roots/merged-manifest-webpack-plugin": "workspace:sources/@roots/merged-manifest-webpack-plugin"
   },
   "peerDependencies": {
+    "@roots/bud-entrypoints": "*",
+    "@roots/bud-wordpress-dependencies": "*",
+    "@roots/bud-wordpress-externals": "*",
     "@roots/merged-manifest-webpack-plugin": "*"
   },
   "peerDependenciesMeta": {
+    "@roots/bud-entrypoints": {
+      "optional": true
+    },
+    "@roots/bud-wordpress-dependencies": {
+      "optional": true
+    },
+    "@roots/bud-wordpress-externals": {
+      "optional": true
+    },
     "@roots/merged-manifest-webpack-plugin": {
       "optional": true
     }

@@ -1,0 +1,35 @@
+---
+title: '@roots/bud-wordpress-manifests'
+description: 'Include wordpress dependencies in entrypoints.json'
+sidebar_label: '@roots/bud-wordpress-manifests'
+---
+
+import {Install} from '@site/src/docs/Install'
+
+Installs the following extensions:
+
+- [@roots/bud-entrypoints](bud-entrypoints.mdx)
+- [@roots/bud-wordpress-dependencies](https://github.com/roots/bud/tree/main/sources/@roots/bud-wordpress-dependencies)
+- [@roots/bud-wordpress-externals](https://github.com/roots/bud/tree/main/sources/@roots/bud-wordpress-externals)
+
+## Installation
+
+<Install packages="@roots/bud-wordpress-manifests" />
+
+## Usage
+
+After installation you'll find any wordpress dependencies utilized in an entrypoint incorporated into `entrypoints.json` under a new `dependencies` key.
+
+Example:
+
+```json title="entrypoints.json"
+{
+  "entrypoint-a": {
+    "js": ["runtime.js", "entrypoint-a.js"],
+    "css": ["entrypoint-a.css"],
+    "dependencies": ["jquery", "lodash", "wp-i18n"]
+  }
+}
+```
+
+You can use this information to load wordpress dependencies in [wp_enqueue_scripts](https://developer.wordpress.org/reference/hooks/wp_enqueue_scripts/) or [admin_enqueue_scripts](https://developer.wordpress.org/reference/hooks/admin_enqueue_scripts/).

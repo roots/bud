@@ -10,12 +10,14 @@ import {
 } from '@roots/bud-support/http-proxy-middleware'
 import signale from '@roots/bud-support/signale'
 
+import type {MiddlewareFactory} from '../index.js'
+
 /**
  * Proxy middleware factory
  *
  * @public
  */
-export const middleware = (app: Bud) =>
+export const factory: MiddlewareFactory = (app: Bud) =>
   createProxyMiddleware(makeOptions(app))
 
 export const makeOptions = (app: Bud): Options => {

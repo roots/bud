@@ -1,13 +1,13 @@
 {
   "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
-    "allowJs": true,
-    "strict": true,
     "rootDir": "src",
-    "outDir": "lib"
+    "outDir": "lib",
+    "strict": true,
+    "types": ["express", "node", "react", "webpack"]
   },
   "files": ["src/highlight/index.d.ts", "src/common-path/index.d.ts"],
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "include": ["src"],
   "exclude": ["./lib", "./node_modules", "**/*.test.ts", "**/*.test.tsx"],
   "references": [
     {"path": "./../filesystem/tsconfig.json"}
