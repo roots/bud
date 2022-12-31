@@ -27,13 +27,13 @@ export type SettingsProperties = SettingsPropertiesAppearanceTools &
  * via the `patternProperty` "[a-z0-9]/[a-z0-9]$".
  */
 export type SettingsPropertiesComplete = SettingsProperties & {
-  appearanceTools?: unknown
-  border?: unknown
-  color?: unknown
-  layout?: unknown
-  spacing?: unknown
-  typography?: unknown
-  custom?: unknown
+  appearanceTools?: SettingsPropertiesAppearanceTools[`appearanceTools`]
+  color?: SettingsPropertiesColor[`color`]
+  layout?: SettingsPropertiesLayout[`layout`]
+  spacing?: SettingsPropertiesSpacing[`spacing`]
+  typography?: SettingsPropertiesTypography[`typography`]
+  border?: SettingsPropertiesBorder[`border`]
+  custom?: SettingsPropertiesCustom[`custom`]
 }
 
 /**
@@ -84,13 +84,13 @@ export interface GlobalSettingsAndStyles {
    * - And the default layout of the editor (widths and available alignments).
    */
   settings?: SettingsProperties & {
-    appearanceTools?: unknown
-    color?: unknown
-    layout?: unknown
-    spacing?: unknown
-    typography?: unknown
-    border?: unknown
-    custom?: unknown
+    appearanceTools?: SettingsPropertiesAppearanceTools[`appearanceTools`]
+    color?: SettingsPropertiesColor[`color`]
+    layout?: SettingsPropertiesLayout[`layout`]
+    spacing?: SettingsPropertiesSpacing[`spacing`]
+    typography?: SettingsPropertiesTypography[`typography`]
+    border?: SettingsPropertiesBorder[`border`]
+    custom?: SettingsPropertiesCustom[`custom`]
 
     /**
      * Settings defined on a per-block basis.

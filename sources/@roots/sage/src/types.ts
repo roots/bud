@@ -13,16 +13,12 @@ declare module '@roots/bud-framework' {
     /**
      * Set options related to sage
      *
-     * @public
+     * @see {@link https://bud.js.org/extensions/sage/}
      */
     sage: Sage
 
     /**
      * Generate a WordPress `theme.json`
-     *
-     * @example
-     * ```js
-     * bud.wpjson.
      *
      * @see {@link https://bud.js.org/extensions/sage/theme.json/}
      * @see {@link https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-json/}
