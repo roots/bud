@@ -79,11 +79,10 @@ export class Compiler extends Service implements Contract.Service {
     this.app.context.logger.timeEnd(`initialize`)
 
     this.instance = this.implementation(this.config)
-
     this.instance.hooks.done.tap(this.app.label, this.onStats)
     this.instance.hooks.done.tap(
       `${this.app.label}-close`,
-      async () => await this.app.hooks.fire(`compiler.after`),
+      async () => await this.app.hooks.fire(`compiler.close`),
     )
 
     await this.app.hooks.fire(`compiler.after`)
