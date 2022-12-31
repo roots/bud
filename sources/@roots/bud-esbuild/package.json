@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-esbuild",
-  "version": "0.0.0",
+  "version": "6.6.7",
   "description": "esbuild support for bud.js",
   "homepage": "https://roots.io/bud",
   "repository": {
