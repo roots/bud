@@ -6,7 +6,6 @@ import {
   dependsOnOptional,
   expose,
   label,
-  options,
 } from '@roots/bud-framework/extension/decorators'
 
 interface Options {
@@ -16,9 +15,7 @@ interface Options {
 /**
  * roots/sage support extension
  *
- * @public
- * @decorator `@label`
- * @decorator `@dependsOn`
+ * @see https://bud.js.org/extensions/sage/
  */
 @label(`@roots/sage`)
 @dependsOn([
@@ -27,14 +24,10 @@ interface Options {
   `@roots/sage/acorn`,
 ])
 @dependsOnOptional([`@roots/bud-tailwindcss`])
-@options<Options>({acorn: `v2`})
 @expose(`sage`)
 export class Sage extends Extension<Options> {
   /**
    * `boot` callback
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public override async register(app: Bud) {
@@ -74,23 +67,19 @@ export class Sage extends Extension<Options> {
   }
 
   /**
-   * `configAfter` callback
-   *
-   * @public
-   */
-  @bind
-  public override async configAfter(app: Bud) {
-    if (this.options.acorn === `v2`)
-      await app.extensions.add(`@roots/sage/acorn-v2-public-path`)
-  }
-
-  /**
    * Set acorn version
    *
-   * @public
+   * @deprecated - This function is deprecated. It is unneeded; you can just remove the call.
    */
   @bind
-  public setAcornVersion(version: 'v2' | 'v3') {
-    this.setOption(`acorn`, version)
+  public setAcornVersion(version?: 'v2' | 'v3') {
+    this.logger.warn(
+      `\n\n`,
+      `bud.sage.setAcornVersion: This function is deprecated.\n It is unneeded; you can just remove the call.\n\n`,
+      `If you feel that you need to run it you can add the following to your config:\n\n`,
+      `bud.use(\`@roots/sage/acorn-v2-public-path\`)\n\n`,
+      `If you are experiencing an issue and adding this extension fixes it, please open an issue.\n\n`,
+      `https://github.com/roots/bud.\n\n`,
+    )
   }
 }
