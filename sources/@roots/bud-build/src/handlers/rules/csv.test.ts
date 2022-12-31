@@ -19,7 +19,10 @@ describe(`csv loader`, () => {
     const webpackOutput = result.toWebpack()
 
     expect(webpackOutput.use?.[0]).toEqual(
-      expect.objectContaining({ident: `csv`, loader: `csv-loader`}),
+      expect.objectContaining({
+        ident: `csv`,
+        loader: `@roots/bud-support/csv-loader`,
+      }),
     )
   })
 })

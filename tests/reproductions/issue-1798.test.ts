@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import {execa} from 'execa'
+import execa from '@roots/bud-support/execa'
 import {describe, expect, it} from 'vitest'
 
 describe(`@roots/bud-sass`, () => {
