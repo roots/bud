@@ -28,11 +28,11 @@ describe(`@roots/bud-criticalcss`, () => {
 
     it(`should generate criticalcss`, async () => {
       expect(await readCritical(`no-extract`)).toMatchSnapshot()
-    })
+    }, 30000)
 
     it(`should emit critical styles in stylesheet`, async () => {
       expect(await readOriginal(`no-extract`)).toMatchSnapshot()
-    })
+    }, 30000)
   })
 }, 120000)
 

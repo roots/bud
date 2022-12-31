@@ -32,12 +32,6 @@ export class Dashboard extends Service implements Contract {
   }
 
   @bind
-  public stale?(stats: StatsCompilation) {
-    const stale = this.stats && this.stats.hash === stats.hash
-    return stale
-  }
-
-  @bind
   public setRenderer(renderer: any): this {
     this.renderer = renderer
     return this
@@ -51,7 +45,14 @@ export class Dashboard extends Service implements Contract {
    */
   @bind
   public async update(stats: MultiStats): Promise<this> {
-    if (!stats || this.silent || this.stale(stats)) return this
+    if (!stats) {
+      this.logger.info(`dashboard called but no stats received.`)
+      return this
+    }
+    if (this.silent) {
+      this.logger.info(`dashboard called but silent mode is on.`)
+      return this
+    }
 
     this.stats = stats
 
@@ -68,7 +69,7 @@ export class Dashboard extends Service implements Contract {
       return this
     }
 
-    if (!this.app.isCLI() || this.app.context.args?.ci === true) {
+    if (!this.app.isCLI() || this.app.context.args.ci === true) {
       const stringCompilation = stats.toString({
         preset: `minimal`,
         colors: true,

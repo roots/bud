@@ -26,8 +26,11 @@ export default class BudBuildCommand extends BudCommand {
 
   public override withBud = async (bud: BudCommand[`bud`]) => {
     if (this.notify && this.notifier) {
-      bud.hooks.action(`compiler.close`, async bud => {
-        await this.notifier.compilationNotification()
+      bud.hooks.action(`compiler.after`, async () => {
+        bud.compiler.instance.hooks.done.tap(
+          `bud-cli-notifier`,
+          this.notifier.compilationNotification,
+        )
       })
     }
 
