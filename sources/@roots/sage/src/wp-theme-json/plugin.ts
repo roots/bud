@@ -15,36 +15,28 @@ import type {
 export interface Options {
   /**
    * WordPress `settings`
-   *
-   * @public
+   * @see https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-json/
    */
   settings?: Partial<ThemeJSON.GlobalSettingsAndStyles['settings']>
 
   /**
    * WordPress `customTemplates`
-   *
-   * @public
+   * @see https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-json/
    */
   customTemplates?: ThemeJSON.GlobalSettingsAndStyles['customTemplates']
 
   /**
    * Emit path
-   *
-   * @public
    */
   path: string
 }
 
 /**
  * ThemeJSONWebpackPlugin
- *
- * @public
  */
 export class ThemeJsonWebpackPlugin implements WebpackPluginInstance {
   /**
    * theme.json path
-   *
-   * @public
    */
   public get path(): string {
     return this.options.path
@@ -52,8 +44,6 @@ export class ThemeJsonWebpackPlugin implements WebpackPluginInstance {
 
   /**
    * theme.json settings
-   *
-   * @public
    */
   public get settings(): string {
     return JSON.stringify(
@@ -72,8 +62,6 @@ export class ThemeJsonWebpackPlugin implements WebpackPluginInstance {
    * Class constructor
    *
    * @param options - Plugin options
-   *
-   * @public
    */
   public constructor(public options: Options) {}
 
@@ -82,9 +70,6 @@ export class ThemeJsonWebpackPlugin implements WebpackPluginInstance {
    *
    * @param compiler - Webpack compiler
    * @returns void
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public apply(compiler: Compiler) {
@@ -92,12 +77,9 @@ export class ThemeJsonWebpackPlugin implements WebpackPluginInstance {
   }
 
   /**
-   * Compiler done
+   * Compiler done callback
    *
    * @returns Promise
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public async done() {
