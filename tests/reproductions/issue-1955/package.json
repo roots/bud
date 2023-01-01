@@ -1,10 +1,10 @@
 {
-  "name": "react-18",
+  "name": "issue-1955",
   "private": true,
   "type": "module",
   "bud": {
     "extensions": {
-      "discover": false
+      "discovery": false
     }
   },
   "devDependencies": {

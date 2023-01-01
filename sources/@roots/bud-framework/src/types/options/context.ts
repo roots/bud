@@ -65,7 +65,7 @@ export interface CommandContext extends CLIContext {
       | `hidden-cheap-module-source-map`
       | `hidden-source-map`
       | undefined
-    discovery: boolean | undefined
+    discover: boolean | undefined
     dry: boolean | undefined
     output: string | undefined
     editor: string | boolean | undefined
@@ -92,6 +92,7 @@ export interface CommandContext extends CLIContext {
     splitChunks: boolean | undefined
     storage: string | undefined
     target: Array<string> | undefined
+    use: Array<string> | undefined
     verbose: boolean | undefined
   }>
   bin?: `node` | `ts-node` | `bun`

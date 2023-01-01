@@ -231,6 +231,11 @@ export default class BudCommand extends Command<CommandContext> {
     await command.applyBudEnv(command.bud)
     await command.applyBudManifestOptions(command.bud)
     await command.applyBudArguments(command.bud)
+
+    if (command.context.args.use) {
+      await command.bud.extensions.add(command.context.args.use)
+    }
+
     await command.bud.processConfigs()
 
     if (command.withBud) {

@@ -24,5 +24,13 @@ module.exports = {
       dependencies: [`@types/react`, `react`, `react-dom`],
       packages: [`@roots/bud-dashboard`, `@roots/bud`],
     },
+    {
+      dependencies: [`**`],
+      packages: [`@roots/bud-support`],
+    },
+    {
+      dependencies: [`**`],
+      packages: [`issue-*`],
+    },
   ],
 }

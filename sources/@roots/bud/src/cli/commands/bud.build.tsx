@@ -89,7 +89,7 @@ export default class BudBuildCommand extends BudCommand {
   public esm = Option.Boolean(`--esm`, undefined, {
     description: `build as es modules`,
   })
-  public flush = Option.Boolean(`--flush`, undefined, {
+  public flush = Option.Boolean(`--flush,--force`, undefined, {
     description: `Force clearing bud internal cache`,
   })
   public hash = Option.Boolean(`--hash`, undefined, {
@@ -102,11 +102,8 @@ export default class BudBuildCommand extends BudCommand {
   public immutable = Option.Boolean(`--immutable`, undefined, {
     description: `bud.http: immutable module lockfile`,
   })
-  public discovery = Option.Boolean(`--discovery`, undefined, {
+  public discover = Option.Boolean(`--discover,--discovery`, undefined, {
     description: `Automatically register extensions`,
-  })
-  public override notify = Option.Boolean(`--notify`, true, {
-    description: `Enable notfication center messages`,
   })
   public manifest = Option.Boolean(`--manifest`, undefined, {
     description: `Generate a manifest of compiled assets`,
@@ -136,6 +133,7 @@ export default class BudBuildCommand extends BudCommand {
         t.isLiteral(`multiple`),
         t.isBoolean(),
       ]),
+      tolerateBoolean: true,
     },
   )
   public splitChunks = Option.Boolean(
@@ -151,6 +149,9 @@ export default class BudBuildCommand extends BudCommand {
   })
   public ci = Option.Boolean(`--ci`, undefined, {
     description: `Simple build summaries for CI`,
+  })
+  public use = Option.Array(`--use`, undefined, {
+    description: `Enable an extension`,
   })
 
   public override withContext = async (context: CommandContext) => {
@@ -173,7 +174,7 @@ export default class BudBuildCommand extends BudCommand {
       ci: this.ci,
       clean: this.clean,
       debug: this.debug,
-      discovery: this.discovery,
+      discover: this.discover,
       devtool: this.devtool,
       editor: this.editor,
       esm: this.esm,
@@ -192,6 +193,7 @@ export default class BudBuildCommand extends BudCommand {
       splitChunks: this.splitChunks,
       storage: this.storage,
       target: this.filter,
+      use: this.use,
     }
   }
 
