@@ -48,4 +48,9 @@ describe(`@roots/bud-vue`, () => {
     instance.runtimeOnly()
     expect(instance.options.runtimeOnly).toBe(true)
   })
+
+  it(`should be registrable`, async () => {
+    await bud.extensions.add(Vue)
+    expect(bud.vue).toBeInstanceOf(Vue)
+  })
 })

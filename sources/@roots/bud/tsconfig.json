@@ -6,7 +6,8 @@
     "paths": {
       "@roots/bud": ["./src/index.ts"],
       "@roots/bud/*": ["./src/*"]
-    }
+    },
+    "types": ["@roots/bud-framework", "@roots/bud-support", "react"]
   },
   "include": ["./src"],
   "exclude": ["./lib", "./node_modules", "**/*.test.ts"],

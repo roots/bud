@@ -10,6 +10,7 @@ import type {
   RequestHandler,
   RequestParamHandler,
 } from 'express'
+import type * as ExpressLibrary from 'express'
 import express from 'express'
 
 export default express
@@ -18,6 +19,7 @@ export type {
   CookieOptions,
   Errback,
   Express,
+  ExpressLibrary,
   Handler,
   NextFunction,
   Request,

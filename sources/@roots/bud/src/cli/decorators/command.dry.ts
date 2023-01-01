@@ -1,7 +1,7 @@
 export function dry(constructor: any): any {
   return class extends constructor {
-    public constructor(...args: any[]) {
-      super(...args)
+    public constructor() {
+      super()
 
       const fn = this.withArguments?.bind(this) ?? (value => value)
 
