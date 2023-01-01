@@ -1,9 +1,9 @@
 import Ink from '@roots/bud-support/ink'
+import React from '@roots/bud-support/react'
 
 import Title from '../display/title.component.js'
 import {color} from '../format.js'
 import Asset from './asset.component.js'
-import React from '@roots/bud-support/react'
 
 const ChunkGroup = ({
   indent,
