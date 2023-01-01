@@ -1,5 +1,5 @@
-import {bind} from '@roots/bud-framework/extension/decorators'
-import * as Ink from '@roots/bud-support/ink'
+import {bind} from '@roots/bud-support/decorators'
+import Ink from '@roots/bud-support/ink'
 import React from '@roots/bud-support/react'
 
 export class Renderer {
@@ -18,7 +18,7 @@ export class Renderer {
     try {
       this.instance = Ink.render(
         <Ink.Static items={[Element]}>
-          {(Item, i) => <React.Fragment key={i}>{Item}</React.Fragment>}
+          {(Item, i) => <Ink.Box key={i}>{Item}</Ink.Box>}
         </Ink.Static>,
         {stdout: this.stdout},
       )

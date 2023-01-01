@@ -1,9 +1,9 @@
-import {Box, Text} from '@roots/bud-support/ink'
-import React from '@roots/bud-support/react'
+import Ink from '@roots/bud-support/ink'
 
 import Title from '../display/title.component.js'
 import {color} from '../format.js'
 import Asset from './asset.component.js'
+import React from '@roots/bud-support/react'
 
 const ChunkGroup = ({
   indent,
@@ -21,16 +21,18 @@ const ChunkGroup = ({
   cached?: boolean
 }) => {
   return (
-    <Box flexDirection="column">
-      <Box flexDirection="row">
+    <Ink.Box flexDirection="column">
+      <Ink.Box flexDirection="row">
         <Title indent={indent} final={final}>
           {chunk.name ? (
-            <Text color={color.foregroundColor}>{chunk.name}</Text>
+            <Ink.Text color={color.foregroundColor}>{chunk.name}</Ink.Text>
           ) : (
-            <Text color={color.foregroundColor}>unnamed chunk</Text>
+            <Ink.Text color={color.foregroundColor}>
+              unnamed chunk
+            </Ink.Text>
           )}
         </Title>
-      </Box>
+      </Ink.Box>
 
       {chunk.assets?.map((asset, index) => (
         <Asset
@@ -41,7 +43,7 @@ const ChunkGroup = ({
           indent={[true, !final]}
         />
       ))}
-    </Box>
+    </Ink.Box>
   )
 }
 

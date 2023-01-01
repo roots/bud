@@ -102,13 +102,18 @@
     "react-refresh": "^0.14.0"
   },
   "peerDependencies": {
+    "@babel/preset-react": "*",
     "@pmmmwh/react-refresh-webpack-plugin": "*",
-    "@roots/bud": "*",
     "@roots/bud-babel": "*",
     "react": "*",
-    "react-dom": "*"
+    "react-dom": "*",
+    "react-hot-loader": "*",
+    "react-refresh": "*"
   },
   "peerDependenciesMeta": {
+    "@babel/preset-react": {
+      "optional": true
+    },
     "@pmmmwh/react-refresh-webpack-plugin": {
       "optional": true
     },
@@ -119,6 +124,12 @@
       "optional": true
     },
     "react-dom": {
+      "optional": true
+    },
+    "react-hot-loader": {
+      "optional": true
+    },
+    "react-refresh": {
       "optional": true
     }
   },

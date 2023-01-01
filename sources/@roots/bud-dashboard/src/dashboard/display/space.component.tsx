@@ -1,4 +1,4 @@
-import {Box, Text} from '@roots/bud-support/ink'
+import Ink from '@roots/bud-support/ink'
 import React from '@roots/bud-support/react'
 
 import {VERT} from '../format.js'
@@ -10,14 +10,14 @@ const Space = ({
   const arrayedChildren = Array.isArray(children) ? children : [children]
 
   return (
-    <Box flexDirection="column">
+    <Ink.Box flexDirection="column">
       {arrayedChildren.map((Child, index) => (
-        <Box key={index} flexDirection="row">
-          <Text dimColor>{!final ? VERT : `  `}</Text>
+        <Ink.Box key={index} flexDirection="row">
+          <Ink.Text dimColor>{!final ? VERT : `  `}</Ink.Text>
           {Child}
-        </Box>
+        </Ink.Box>
       ))}
-    </Box>
+    </Ink.Box>
   )
 }
 

@@ -85,7 +85,8 @@
     "@emotion/react": "*",
     "@emotion/styled": "*",
     "@roots/bud-babel": "*",
-    "@roots/bud-swc": "*"
+    "@roots/bud-swc": "*",
+    "react": "*"
   },
   "peerDependenciesMeta": {
     "@emotion/babel-plugin": {
@@ -107,6 +108,9 @@
       "optional": true
     },
     "@swc/plugin-emotion": {
+      "optional": true
+    },
+    "react": {
       "optional": true
     }
   },

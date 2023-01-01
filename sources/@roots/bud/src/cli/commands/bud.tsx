@@ -5,16 +5,14 @@ import {checkDependencies} from '@roots/bud/cli/helpers/checkDependencies'
 import {checkPackageManagerErrors} from '@roots/bud/cli/helpers/checkPackageManagerErrors'
 import {isInternalDevelopmentEnv} from '@roots/bud/cli/helpers/isInternalDevelopmentEnv'
 import {isset} from '@roots/bud/cli/helpers/isset'
-import {Renderer} from '@roots/bud/cli/renderer'
 import type {
   CommandContext,
   Context,
 } from '@roots/bud-framework/options/context'
 import {BaseContext, Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators'
-import {Box, Text} from '@roots/bud-support/ink'
+import Ink, {React, Renderer} from '@roots/bud-support/ink'
 import {isString} from '@roots/bud-support/lodash-es'
-import React from '@roots/bud-support/react'
 import * as t from '@roots/bud-support/typanion'
 
 import type {Notifier} from '../../notifier/index.js'
@@ -122,6 +120,7 @@ export default class BudCommand extends Command<CommandContext> {
   public async execute() {}
 
   public override async catch(value: unknown) {
+    this.bud.context.logger.info(`bud cli caught error`, value)
     const normalizeError = (value: unknown): Error => {
       if (value instanceof Error) return value
       if (isString(value)) return new Error(value)
@@ -135,10 +134,14 @@ export default class BudCommand extends Command<CommandContext> {
     }
 
     process.exitCode = 1
-    const error = normalizeError(value)
 
-    error.name = error.name ? ` ${error.name} ` : ` Error `
-    error.stack = error.stack?.split(`  at `).splice(0, 2).join(`  at `)
+    let error: Error
+
+    try {
+      error = normalizeError(value)
+      error.name = error.name ? ` ${error.name} ` : ` Error `
+      error.stack = error.stack?.split(`  at `).splice(0, 2).join(`  at `)
+    } catch (e) {}
 
     if (this.notifier) {
       try {
@@ -153,19 +156,23 @@ export default class BudCommand extends Command<CommandContext> {
       }
     }
 
-    this.render(
-      <Box flexDirection="column" marginTop={1}>
-        <Box marginBottom={1}>
-          <Text backgroundColor="red" color="white">
-            {error.name}
-          </Text>
-        </Box>
+    try {
+      this.render(
+        <Ink.Box flexDirection="column" marginTop={1}>
+          <Ink.Box marginBottom={1}>
+            <Ink.Text backgroundColor="red" color="white">
+              {error.name}
+            </Ink.Text>
+          </Ink.Box>
 
-        <Box>
-          <Text>{error.message}</Text>
-        </Box>
-      </Box>,
-    )
+          <Ink.Box>
+            <Ink.Text>{error.message}</Ink.Text>
+          </Ink.Box>
+        </Ink.Box>,
+      )
+    } catch (error) {
+      this.context.stderr.write(value.toString())
+    }
 
     if (this.bud?.isProduction) {
       // eslint-disable-next-line n/no-process-exit

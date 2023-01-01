@@ -1,6 +1,6 @@
 import type {Bud} from '@roots/bud'
 import {isInternalDevelopmentEnv} from '@roots/bud/cli/helpers/isInternalDevelopmentEnv'
-import {Box, Text} from '@roots/bud-support/ink'
+import Ink from '@roots/bud-support/ink'
 import React from '@roots/bud-support/react'
 
 export const checkDependencies = async (bud: Bud) => {
@@ -18,25 +18,28 @@ export const checkDependencies = async (bud: Bud) => {
 
   mismatches?.length &&
     bud.dashboard.renderer.once(
-      <Box flexDirection="column" marginY={1}>
+      <Ink.Box flexDirection="column" marginY={1}>
         {mismatches.map(([k, v]: [string, string], key: number) => {
           return (
-            <Box flexDirection="row" key={key}>
-              <Box>
-                <Text color="red">{k}</Text>
-              </Box>
+            <Ink.Box flexDirection="row" key={key}>
+              <Ink.Box>
+                <Ink.Text color="red">{k}</Ink.Text>
+              </Ink.Box>
 
-              <Box flexDirection="column" paddingLeft={1}>
-                <Text>
-                  Installed version <Text color="blue">({v})</Text> does
-                  not match bud.js version{` `}
-                  <Text color="blue">({bud.context.bud.version})</Text>
-                </Text>
-              </Box>
-            </Box>
+              <Ink.Box flexDirection="column" paddingLeft={1}>
+                <Ink.Text>
+                  Installed version <Ink.Text color="blue">({v})</Ink.Text>
+                  {` `}
+                  does not match bud.js version{` `}
+                  <Ink.Text color="blue">
+                    ({bud.context.bud.version})
+                  </Ink.Text>
+                </Ink.Text>
+              </Ink.Box>
+            </Ink.Box>
           )
         })}
-      </Box>,
+      </Ink.Box>,
     )
 
   return mismatches?.length

@@ -1,5 +1,3 @@
-import {noop} from '@roots/bud-support/lodash-es'
-
 import type {Bud} from '../bud.js'
 
 /**
@@ -13,9 +11,15 @@ export interface run {
 
 export const run: run = async function (this: Bud): Promise<void> {
   if (this.isProduction) {
-    return await this.compiler
-      .compile()
-      .then(compilation => compilation?.run(noop))
+    return await this.compiler.compile().then(compilation =>
+      compilation?.run((error, stats) => {
+        if (error) throw error.message
+        if (this.isProduction)
+          compilation.close(error => {
+            if (error) throw error.message
+          })
+      }),
+    )
   }
 
   await this.server.run()

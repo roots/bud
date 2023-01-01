@@ -73,13 +73,17 @@
     "@types/wordpress__data": "6.0.1",
     "@wordpress/blocks": "11.21.0",
     "@wordpress/data": "7.6.0",
-    "@wordpress/hooks": "3.22.0",
+    "@wordpress/hooks": "3.23.0",
     "@wordpress/plugins": "4.20.0",
     "@wordpress/rich-text": "5.20.0"
   },
   "dependencies": {
     "lodash-es": "4.17.21",
     "react": "17.0.2"
+  },
+  "peerDependencies": {
+    "lodash-es": ">=4",
+    "react": ">=17"
   },
   "volta": {
     "extends": "../../../package.json"

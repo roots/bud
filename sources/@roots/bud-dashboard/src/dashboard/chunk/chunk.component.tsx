@@ -1,4 +1,4 @@
-import {Box} from '@roots/bud-support/ink'
+import Ink from '@roots/bud-support/ink'
 import React from '@roots/bud-support/react'
 import type {StatsAsset} from '@roots/bud-support/webpack'
 
@@ -18,7 +18,7 @@ const Chunk = ({
   emitted?: boolean
 }) => {
   return (
-    <Box flexDirection="column">
+    <Ink.Box flexDirection="column">
       {chunk?.assets?.map((asset, index) => (
         <Asset
           key={index}
@@ -29,7 +29,7 @@ const Chunk = ({
           indent={[!final]}
         />
       ))}
-    </Box>
+    </Ink.Box>
   )
 }
 

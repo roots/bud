@@ -3,7 +3,7 @@ import {dry} from '@roots/bud/cli/decorators/command.dry'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators'
 import {ensureDir, remove} from '@roots/bud-support/fs'
-import {Box, Text} from '@roots/bud-support/ink'
+import Ink from '@roots/bud-support/ink'
 import React from '@roots/bud-support/react'
 
 /**
@@ -70,11 +70,11 @@ export default class BudCleanCommand extends BudCommand {
             try {
               await remove(child.path(`@dist`))
               await this.renderOnce(
-                <Box>
-                  <Text color="green">
+                <Ink.Box>
+                  <Ink.Text color="green">
                     ✔ emptied {child.path(`@dist`)}
-                  </Text>
-                </Box>,
+                  </Ink.Text>
+                </Ink.Box>,
               )
             } catch (error) {
               throw error
@@ -85,9 +85,11 @@ export default class BudCleanCommand extends BudCommand {
 
       await remove(this.bud.path(`@dist`))
       await this.renderOnce(
-        <Box>
-          <Text color="green">✔ emptied {this.bud.path(`@dist`)}</Text>
-        </Box>,
+        <Ink.Box>
+          <Ink.Text color="green">
+            ✔ emptied {this.bud.path(`@dist`)}
+          </Ink.Text>
+        </Ink.Box>,
       )
     } catch (error) {
       throw error
@@ -102,11 +104,11 @@ export default class BudCleanCommand extends BudCommand {
           try {
             await remove(child.path(`@dist`))
             await this.renderOnce(
-              <Box>
-                <Text color="green">
+              <Ink.Box>
+                <Ink.Text color="green">
                   ✔ emptied {child.path(`@storage`)}
-                </Text>
-              </Box>,
+                </Ink.Text>
+              </Ink.Box>,
             )
           } catch (error) {
             throw error
@@ -119,9 +121,11 @@ export default class BudCleanCommand extends BudCommand {
       await ensureDir(this.bud.path(`@storage`))
       await remove(this.bud.path(`@storage`))
       await this.renderOnce(
-        <Box>
-          <Text color="green">✔ emptied {this.bud.path(`@storage`)}</Text>
-        </Box>,
+        <Ink.Box>
+          <Ink.Text color="green">
+            ✔ emptied {this.bud.path(`@storage`)}
+          </Ink.Text>
+        </Ink.Box>,
       )
     } catch (error) {
       throw error

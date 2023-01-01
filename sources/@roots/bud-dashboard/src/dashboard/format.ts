@@ -1,5 +1,5 @@
+import figures from '@roots/bud-support/figures'
 import type {StatsAsset, StatsChunkGroup} from '@roots/bud-support/webpack'
-import figures from 'figures'
 import {durationFormatter, sizeFormatter} from 'human-readable'
 
 export const VERT = figures.lineVertical
