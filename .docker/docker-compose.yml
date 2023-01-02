@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  bud:
+    container_name: bud
+    build:
+      context: ../
+      dockerfile: ./bud.dockerfile
+    networks:
+      - node-network
+    working_dir: /srv/bud
+    user: root
+    command: sh ./bud/up.sh
+    volumes:
+      - ../:/srv/bud
+
+networks:
+  node-network:
+    driver: bridge
+
+volumes:
+  bud:
+    driver: local

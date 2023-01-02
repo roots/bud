@@ -38,52 +38,55 @@
   },
   "files": [
     "config",
-    "stylelint-config/",
-    "tsconfig/",
-    "lib/"
+    "docs",
+    "lib/",
+    "stylelint-config"
   ],
   "type": "module",
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "exports": {
-    ".": "./lib/index.js",
-    "./acorn": "./lib/acorn/index.js",
-    "./acorn-v2-public-path": "./lib/acorn-v2-public-path/index.js",
-    "./client": "./lib/client/index.js",
-    "./client/dom-ready": "./lib/client/dom-ready.js",
-    "./client/lazy": "./lib/client/lazy.js",
-    "./config/jsconfig.json": "./config/jsconfig.json",
-    "./config/tsconfig.json": "./config/tsconfig.json",
-    "./wp-theme-json": "./lib/wp-theme-json/index.js",
-    "./wp-theme-json-tailwind": "./lib/wp-theme-json-tailwind/index.js",
-    "./stylelint": "./config/stylelint.cjs",
-    "./stylelint-config": "./config/stylelint.cjs"
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./client/*": {
+      "types": "./lib/client/*.d.ts",
+      "default": "./lib/client/*.js"
+    },
+    "./config/stylelint": {
+      "default": "./config/stylelint.cjs"
+    },
+    "./stylelint": {
+      "default": "./config/stylelint.cjs"
+    },
+    "./stylelint-config": {
+      "default": "./config/stylelint.cjs"
+    },
+    "./config/jsconfig": {
+      "default": "./config/jsconfig.json"
+    },
+    "./config/tsconfig": {
+      "default": "./config/tsconfig.cjs"
+    },
+    "./config/*": {
+      "default": "./config/*"
+    },
+    "./*": {
+      "types": "./lib/*/index.d.ts",
+      "default": "./lib/*/index.js"
+    }
   },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.d.ts"
       ],
-      "acorn": [
-        "./lib/acorn/index.d.ts"
+      "client/*": [
+        "./lib/*/dom-ready.d.ts"
       ],
-      "acorn-v2-public-path": [
-        "./lib/acorn-v2-public-path/index.d.ts"
-      ],
-      "client": [
-        "./lib/client/index.d.ts"
-      ],
-      "client/dom-ready": [
-        "./lib/client/dom-ready.d.ts"
-      ],
-      "client/lazy": [
-        "./lib/client/lazy.d.ts"
-      ],
-      "wp-theme-json": [
-        "./lib/wp-theme-json/index.d.ts"
-      ],
-      "wp-theme-json-tailwind": [
-        "./lib/wp-theme-json-tailwind/index.d.ts"
+      "*": [
+        "./lib/*/index.d.ts"
       ]
     }
   },

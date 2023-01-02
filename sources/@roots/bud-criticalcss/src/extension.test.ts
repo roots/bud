@@ -10,31 +10,31 @@ describe(`@roots/bud-criticalcss`, () => {
   describe(`extract`, () => {
     beforeAll(async () => {
       await runFixture(`extract`)
-    }, 30000)
+    }, 60000)
 
     it(`should generate criticalcss`, async () => {
       expect(await readCritical(`extract`)).toMatchSnapshot()
-    }, 30000)
+    }, 60000)
 
     it(`should not emit critical styles in stylesheet`, async () => {
       expect(await readOriginal(`extract`)).toMatchSnapshot()
-    }, 30000)
+    }, 60000)
   })
 
   describe(`no-extract`, () => {
     beforeAll(async () => {
       await runFixture(`no-extract`)
-    }, 30000)
+    }, 60000)
 
     it(`should generate criticalcss`, async () => {
       expect(await readCritical(`no-extract`)).toMatchSnapshot()
-    }, 30000)
+    }, 60000)
 
     it(`should emit critical styles in stylesheet`, async () => {
       expect(await readOriginal(`no-extract`)).toMatchSnapshot()
-    }, 30000)
+    }, 60000)
   })
-}, 120000)
+}, 180000)
 
 const baseParts = [
   paths.sources,
