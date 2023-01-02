@@ -1,1 +1,1 @@
-export {middleware} from './middleware.js'
+export {factory} from './factory.js'

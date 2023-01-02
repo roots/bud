@@ -1,6 +1,7 @@
 import {Bud, factory} from '@repo/test-kit/bud'
 import {Service} from '@roots/bud-framework/service'
-import {beforeEach, describe, expect, it, vi} from 'vitest'
+import {beforeEach, describe, expect, it} from 'vitest'
+import React from '@roots/bud-support/react'
 
 import Dashboard from './index.js'
 

@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 
 import type {Bud} from '@roots/bud-framework'
+import type {MiddlewareFactory} from '@roots/bud-server/middleware'
 import type {Payload} from '@roots/bud-server/middleware/hot'
 import {HotEventStream} from '@roots/bud-server/middleware/hot'
 import type {RequestHandler} from '@roots/bud-support/express'
@@ -16,7 +17,7 @@ let latestStats = null
 let closed = false
 let logger: Bud[`context`][`logger`]
 
-export const middleware = (app: Bud) => {
+export const factory: MiddlewareFactory = (app: Bud) => {
   logger = app.context.logger.scope(
     app.label,
     `hmr`,

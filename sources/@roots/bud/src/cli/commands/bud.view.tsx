@@ -1,10 +1,10 @@
 import BudCommand from '@roots/bud/cli/commands/bud'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {highlight} from '@roots/bud-support/highlight'
-import {Box, Static, Text} from '@roots/bud-support/ink'
+import Ink from '@roots/bud-support/ink'
 import {get} from '@roots/bud-support/lodash-es'
 import format from '@roots/bud-support/pretty-format'
-import React, {Fragment} from '@roots/bud-support/react'
+import React from '@roots/bud-support/react'
 
 /**
  * `bud view` command
@@ -62,18 +62,14 @@ export default class BudViewCommand extends BudCommand {
 
     if (this.color) value = highlight(value)
 
-    await this.render(
-      <Box marginBottom={1}>
-        <Static items={[0]}>
-          {id => (
-            <Fragment key={id}>
-              <Text color="magenta">{this.subject ?? `build.config`}</Text>
-              <Text>{` `}</Text>
-              <Text key={id}>{value}</Text>
-            </Fragment>
-          )}
-        </Static>
-      </Box>,
+    await this.renderOnce(
+      <Ink.Box>
+        <Ink.Text color="magenta">
+          {this.subject ?? `build.config`}
+        </Ink.Text>
+        <Ink.Text>{` `}</Ink.Text>
+        <Ink.Text>{value}</Ink.Text>
+      </Ink.Box>,
     )
   }
 }

@@ -1,7 +1,7 @@
 import BudCommand from '@roots/bud/cli/commands/bud'
 import type {CommandContext} from '@roots/bud-framework/options'
 import {Command} from '@roots/bud-support/clipanion'
-import {Box, Text} from '@roots/bud-support/ink'
+import Ink from '@roots/bud-support/ink'
 import React from '@roots/bud-support/react'
 import webpack from '@roots/bud-support/webpack'
 
@@ -54,15 +54,17 @@ for a lot of edge cases so it might return a false positive.
     try {
       this.configuration = await this.bud.build.make()
       await this.renderOnce(
-        <Box>
-          <Text color="green">✅ bud.js generated configuration</Text>
-        </Box>,
+        <Ink.Box>
+          <Ink.Text color="green">
+            ✅ bud.js generated configuration
+          </Ink.Text>
+        </Ink.Box>,
       )
     } catch (error) {
       await this.renderOnce(
-        <Box>
-          <Text color="red">❌ {error?.message ?? error}</Text>
-        </Box>,
+        <Ink.Box>
+          <Ink.Text color="red">❌ {error?.message ?? error}</Ink.Text>
+        </Ink.Box>,
       )
     }
 
@@ -70,33 +72,35 @@ for a lot of edge cases so it might return a false positive.
       webpack.validate(this.configuration)
 
       await this.renderOnce(
-        <Box>
-          <Text color="green">✅ webpack validated configuration</Text>
-        </Box>,
+        <Ink.Box>
+          <Ink.Text color="green">
+            ✅ webpack validated configuration
+          </Ink.Text>
+        </Ink.Box>,
       )
     } catch (error) {
       await this.renderOnce(
-        <Box>
-          <Text color="red">❌ {error?.message ?? error}</Text>
-        </Box>,
+        <Ink.Box>
+          <Ink.Text color="red">❌ {error?.message ?? error}</Ink.Text>
+        </Ink.Box>,
       )
     }
 
     await this.renderOnce(
-      <Box flexDirection="column">
-        <Text color="blue">Registered configurations</Text>
+      <Ink.Box flexDirection="column">
+        <Ink.Text color="blue">Registered configurations</Ink.Text>
         {Object.values(this.bud.context.config)
           .filter(({bud}) => bud)
           .map(({name, path}, i) => (
-            <Box key={i}>
-              <Text>- {name}</Text>
-              <Text>{` `}</Text>
-              <Text color="gray">
+            <Ink.Box key={i}>
+              <Ink.Text>- {name}</Ink.Text>
+              <Ink.Text>{` `}</Ink.Text>
+              <Ink.Text color="gray">
                 {path.replace(this.bud.context.basedir, `.`)}
-              </Text>
-            </Box>
+              </Ink.Text>
+            </Ink.Box>
           ))}
-      </Box>,
+      </Ink.Box>,
     )
   }
 }

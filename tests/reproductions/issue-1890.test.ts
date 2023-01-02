@@ -1,8 +1,8 @@
 import {join} from 'node:path'
 import {paths} from '@repo/constants'
-import {execa} from 'execa'
+import execa from '@roots/bud-support/execa'
 import {beforeAll, describe, expect, it} from 'vitest'
-import {readFile} from 'fs-extra'
+import {readFile} from '@roots/bud-support/fs'
 
 describe('issue-1886', () => {
   beforeAll(async () => {

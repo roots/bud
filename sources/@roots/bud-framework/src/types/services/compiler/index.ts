@@ -56,9 +56,7 @@ interface Service extends BaseService {
    */
   compile(): Promise<MultiCompiler>
 
-  callback(error: Error, stats: Stats & MultiStats): void
-
-  onStats(stats: Stats & MultiStats): void
+  onStats(stats: Stats & MultiStats): Promise<void>
 
   onError(error: any): void
 }

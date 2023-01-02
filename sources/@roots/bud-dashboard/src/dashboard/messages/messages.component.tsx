@@ -1,5 +1,5 @@
 import chalk from '@roots/bud-support/chalk'
-import {Box, Text} from '@roots/bud-support/ink'
+import Ink from '@roots/bud-support/ink'
 import React from '@roots/bud-support/react'
 import type {StatsCompilation} from '@roots/bud-support/webpack'
 
@@ -19,24 +19,24 @@ const Messages = ({
   if (!messages) return null
 
   return (
-    <Box flexDirection="column">
+    <Ink.Box flexDirection="column">
       {messages.map(({message}, id: number) => (
-        <Box key={id} flexDirection="column">
-          <Box flexDirection="row">
-            <Text dimColor>├─</Text>
-            <Text>{` `}</Text>
-            <Text color={color}>{figure}</Text>
-            <Text>{` `}</Text>
-            <Text color={color}>{type}</Text>
-          </Box>
+        <Ink.Box key={id} flexDirection="column">
+          <Ink.Box flexDirection="row">
+            <Ink.Text dimColor>├─</Ink.Text>
+            <Ink.Text>{` `}</Ink.Text>
+            <Ink.Text color={color}>{figure}</Ink.Text>
+            <Ink.Text>{` `}</Ink.Text>
+            <Ink.Text color={color}>{type}</Ink.Text>
+          </Ink.Box>
 
-          <Box flexDirection="column">
-            <Text>{message}</Text>
-            <Text dimColor>{chalk.dim(VERT)}</Text>
-          </Box>
-        </Box>
+          <Ink.Box flexDirection="column">
+            <Ink.Text>{message}</Ink.Text>
+            <Ink.Text dimColor>{chalk.dim(VERT)}</Ink.Text>
+          </Ink.Box>
+        </Ink.Box>
       ))}
-    </Box>
+    </Ink.Box>
   )
 }
 

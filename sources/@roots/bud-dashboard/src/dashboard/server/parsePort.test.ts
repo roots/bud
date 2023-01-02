@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vitest'
 
-import parsePort from './parsePort'
+import parsePort from './parsePort.js'
 
 describe(`parsePort`, () => {
   it(`should parse string port`, () => {

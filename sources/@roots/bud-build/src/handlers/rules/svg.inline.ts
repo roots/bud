@@ -1,4 +1,4 @@
-import dataUri from 'mini-svg-data-uri'
+import dataUri from '@roots/bud-support/mini-svg-data-uri'
 
 import type {Factory} from '../index.js'
 

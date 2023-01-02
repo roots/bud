@@ -1,11 +1,9 @@
-import {describe, expect, it, vi} from 'vitest'
+import {describe, expect, it} from 'vitest'
 
-import getServer from './getServer'
+import getServer from './getServer.js'
 
 describe(`getServer`, () => {
   it(`should return false for no dev url`, () => {
-    const mockFilter = vi.fn(() => undefined)
-
     expect(getServer(undefined)).toBe(false)
   })
 

@@ -1,7 +1,6 @@
-import chalk from 'chalk'
-import {Text, useInput} from 'ink'
-import type {FC} from 'react'
-import React from 'react'
+import chalk from '@roots/bud-support/chalk'
+import Ink from '@roots/bud-support/ink'
+import React, {useEffect, useState} from '@roots/bud-support/react'
 
 import {highlight} from '../highlight/index.js'
 
@@ -48,7 +47,7 @@ interface Props {
   onSubmit?: (value: string) => void
 }
 
-const Prompt: FC<Props> = ({
+const Prompt = ({
   value: originalValue,
   placeholder = ``,
   focus = true,
@@ -56,13 +55,13 @@ const Prompt: FC<Props> = ({
   showCursor = true,
   onChange,
   onSubmit,
-}) => {
-  const [{cursorOffset}, setState] = React.useState({
+}: Props) => {
+  const [{cursorOffset}, setState] = useState({
     cursorOffset: (originalValue || ``).length,
     cursorWidth: 0,
   })
 
-  React.useEffect(() => {
+  useEffect(() => {
     setState(previousState => {
       if (!focus || !showCursor) {
         return previousState
@@ -86,7 +85,7 @@ const Prompt: FC<Props> = ({
     ? chalk.grey(placeholder)
     : undefined
 
-  useInput(
+  Ink.useInput(
     (input, key) => {
       if (
         key.upArrow ||
@@ -160,13 +159,13 @@ const Prompt: FC<Props> = ({
   )
 
   return (
-    <Text>
+    <Ink.Text>
       {placeholder
         ? value.length > 0
           ? highlight(`async (bud: Bud) => ${value}`)
           : renderedPlaceholder
         : highlight(`async (bud: Bud) => ${value}`)}
-    </Text>
+    </Ink.Text>
   )
 }
 

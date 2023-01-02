@@ -1,3 +1,4 @@
+import Ink from '@roots/bud-support/ink'
 import React from '@roots/bud-support/react'
 
 import {Log, LogProps, Stderr, Stdout} from './log.js'
@@ -10,11 +11,11 @@ export const Console = ({messages}: Props) => {
   if (!messages?.length) return null
 
   return (
-    <React.Fragment>
+    <Ink.Box>
       {messages.map((item, i) => (
         <Log key={i} {...item} />
       ))}
-    </React.Fragment>
+    </Ink.Box>
   )
 }
 

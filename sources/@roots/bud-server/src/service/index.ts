@@ -172,9 +172,9 @@ export class Server extends Service implements BaseService {
 
             try {
               /** import middleware */
-              const {middleware} = await this.app.module.import(signifier)
+              const {factory} = await this.app.module.import(signifier)
               /** save reference to middleware instance */
-              this.appliedMiddleware[key] = middleware(this.app)
+              this.appliedMiddleware[key] = factory(this.app)
               /** apply middleware */
               this.application.use(this.appliedMiddleware[key])
             } catch (error) {

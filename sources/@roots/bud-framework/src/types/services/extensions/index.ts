@@ -34,7 +34,7 @@ export interface Service extends BaseService {
   unresolvable: Set<string>
 
   options: Container<{
-    discovery: boolean
+    discover: boolean
     allowlist: Array<string>
     denylist: Array<string>
   }>

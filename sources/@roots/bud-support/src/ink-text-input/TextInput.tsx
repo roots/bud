@@ -1,7 +1,6 @@
-import chalk from 'chalk'
-import {Text, useInput} from 'ink'
-import type {FC} from 'react'
-import React from 'react'
+import chalk from '@roots/bud-support/chalk'
+import Ink from '@roots/bud-support/ink'
+import React, {useEffect, useState} from '@roots/bud-support/react'
 
 interface Props {
   /**
@@ -46,7 +45,7 @@ interface Props {
   onSubmit?: (value: string) => void
 }
 
-const TextInput: FC<Props> = ({
+const TextInput = ({
   value: originalValue,
   placeholder = ``,
   focus = true,
@@ -55,13 +54,13 @@ const TextInput: FC<Props> = ({
   showCursor = true,
   onChange,
   onSubmit,
-}) => {
-  const [{cursorOffset, cursorWidth}, setState] = React.useState({
+}: Props) => {
+  const [{cursorOffset, cursorWidth}, setState] = useState({
     cursorOffset: (originalValue || ``).length,
     cursorWidth: 0,
   })
 
-  React.useEffect(() => {
+  useEffect(() => {
     setState(previousState => {
       if (!focus || !showCursor) {
         return previousState
@@ -114,7 +113,7 @@ const TextInput: FC<Props> = ({
     }
   }
 
-  useInput(
+  Ink.useInput(
     (input, key) => {
       if (
         key.upArrow ||
@@ -188,13 +187,13 @@ const TextInput: FC<Props> = ({
   )
 
   return (
-    <Text>
+    <Ink.Text>
       {placeholder
         ? value.length > 0
           ? renderedValue
           : renderedPlaceholder
         : renderedValue}
-    </Text>
+    </Ink.Text>
   )
 }
 

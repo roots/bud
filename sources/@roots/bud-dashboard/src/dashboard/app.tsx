@@ -1,4 +1,4 @@
-import {Box, Text} from '@roots/bud-support/ink'
+import Ink from '@roots/bud-support/ink'
 import React from '@roots/bud-support/react'
 
 import Compilation from './compilation/compilation.component.js'
@@ -18,22 +18,22 @@ const App = ({
 }: Props) => {
   if (!compilations.length)
     return (
-      <Box flexDirection="column">
-        <Text>No compilations</Text>
-      </Box>
+      <Ink.Box flexDirection="column">
+        <Ink.Text>No compilations</Ink.Text>
+      </Ink.Box>
     )
 
   return (
-    <Box flexDirection="column">
+    <Ink.Box flexDirection="column">
       {compilations.map((compilation, id) => (
-        <Box key={id} flexDirection="column" paddingY={1}>
+        <Ink.Box key={id} flexDirection="column" paddingY={1}>
           <Compilation
             compilation={compilation}
             context={context}
             displayAssets={displayAssets}
             displayEntrypoints={displayEntrypoints}
           />
-        </Box>
+        </Ink.Box>
       ))}
 
       {mode === `development` ? (
@@ -44,7 +44,7 @@ const App = ({
           displayServerInfo={displayServerInfo}
         />
       ) : null}
-    </Box>
+    </Ink.Box>
   )
 }
 

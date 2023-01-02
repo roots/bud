@@ -79,27 +79,15 @@ export class Compiler extends Service implements Contract.Service {
     this.app.context.logger.timeEnd(`initialize`)
 
     this.instance = this.implementation(this.config)
-    this.instance.hooks.done.tap(this.app.label, this.onStats)
-    this.instance.hooks.done.tap(
-      `${this.app.label}-close`,
-      async () => await this.app.hooks.fire(`compiler.close`),
-    )
+    this.instance.hooks.done.tap(this.app.label, async (stats: any) => {
+      await this.onStats(stats)
+    })
+    this.instance.hooks.done.tap(`${this.app.label}-close`, async () => {
+      await this.app.hooks.fire(`compiler.close`)
+    })
 
     await this.app.hooks.fire(`compiler.after`)
     return this.instance
-  }
-
-  /**
-   * Webpack callback
-   *
-   * @public
-   * @decorator `@bind`
-   * @decorator `@once`
-   */
-  @bind
-  public callback(error: WebpackError, stats: MultiStats) {
-    if (stats) this.onStats(stats)
-    if (error) this.onError(error)
   }
 
   /**
@@ -109,9 +97,9 @@ export class Compiler extends Service implements Contract.Service {
    * @decorator `@bind`
    */
   @bind
-  public onStats(stats: MultiStats) {
+  public async onStats(stats: MultiStats) {
     this.stats = stats
-    this.app.dashboard.update(stats)
+    await this.app.dashboard.update(stats)
   }
 
   /**

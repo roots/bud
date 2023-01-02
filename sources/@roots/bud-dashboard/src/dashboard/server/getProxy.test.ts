@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vitest'
 
-import getProxy from './getProxy'
+import getProxy from './getProxy.js'
 
 describe(`getProxy`, () => {
   it(`should return false for no dev url`, () => {

@@ -67,19 +67,25 @@
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@types/lodash-es": "4.17.6",
-    "@types/node": "16.18.6",
-    "@types/react": "17.0.52",
-    "@types/wordpress__blocks": "11.0.9",
+    "@types/node": "16.18.11",
+    "@types/react": "18.0.26",
+    "@types/wordpress__blocks": "12.0.1",
     "@types/wordpress__data": "6.0.1",
-    "@wordpress/blocks": "11.21.0",
-    "@wordpress/data": "7.6.0",
-    "@wordpress/hooks": "3.22.0",
-    "@wordpress/plugins": "4.20.0",
-    "@wordpress/rich-text": "5.20.0"
+    "@types/wordpress__plugins": "3.0.0",
+    "@types/wordpress__rich-text": "3.4.6",
+    "@wordpress/blocks": "12.0.0",
+    "@wordpress/data": "8.0.0",
+    "@wordpress/hooks": "3.23.0",
+    "@wordpress/plugins": "5.0.0",
+    "@wordpress/rich-text": "6.0.0",
+    "react": "18.2.0"
   },
   "dependencies": {
-    "lodash-es": "4.17.21",
-    "react": "17.0.2"
+    "lodash-es": "4.17.21"
+  },
+  "peerDependencies": {
+    "lodash-es": "*",
+    "react": "*"
   },
   "volta": {
     "extends": "../../../package.json"

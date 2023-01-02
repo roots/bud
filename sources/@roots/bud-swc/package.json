@@ -54,13 +54,13 @@
   "devDependencies": {
     "@roots/bud-extensions": "workspace:sources/@roots/bud-extensions",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.18.6",
+    "@types/node": "16.18.11",
     "webpack": "5.75.0"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "@swc/core": "1.3.21",
+    "@swc/core": "1.3.24",
     "@swc/helpers": "0.4.14",
     "swc-loader": "0.2.3"
   },

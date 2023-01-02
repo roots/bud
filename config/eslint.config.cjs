@@ -86,7 +86,7 @@ module.exports = {
     [`n/no-path-concat`]: ERROR,
     [`n/shebang`]: OFF,
     [`react/prop-types`]: OFF,
-    [`react/react-in-jsx-scope`]: ERROR,
+    [`react/react-in-jsx-scope`]: OFF,
     [`react-hooks/rules-of-hooks`]: ERROR,
     [`react-hooks/exhaustive-deps`]: WARN,
     [`simple-import-sort/imports`]: ERROR,
