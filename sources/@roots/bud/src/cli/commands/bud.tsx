@@ -1,4 +1,4 @@
-import {resolve} from 'node:path/win32'
+import {resolve} from 'node:path'
 
 import {Bud} from '@roots/bud'
 import {checkDependencies} from '@roots/bud/cli/helpers/checkDependencies'
