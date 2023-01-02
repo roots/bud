@@ -1,7 +1,7 @@
 import type {RequestListener} from 'node:http'
 import {createServer, Server as HttpsServer} from 'node:https'
 
-import type {Server} from '@roots/bud-framework/services'
+import type {Connection} from '@roots/bud-framework/services/server'
 import {BaseServer} from '@roots/bud-server/server/base'
 import {bind} from '@roots/bud-support/decorators'
 
@@ -10,7 +10,7 @@ import {bind} from '@roots/bud-support/decorators'
  *
  * @public
  */
-export class Https extends BaseServer implements Server.Connection {
+export class Server extends BaseServer implements Connection {
   /**
    * Server instance
    *

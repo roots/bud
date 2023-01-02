@@ -207,7 +207,6 @@
     "parse5-htmlparser2-tree-adapter": ">=7",
     "patch-console": ">=2",
     "pretty-format": ">=29",
-    "react": "*",
     "signale": ">=1",
     "terser-webpack-plugin": "*",
     "toml": "*",
@@ -328,9 +327,6 @@
       "optional": true
     },
     "pretty-format": {
-      "optional": true
-    },
-    "react": {
       "optional": true
     },
     "signale": {
