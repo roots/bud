@@ -18,6 +18,8 @@
     "vitest": "0.26.3"
   },
   "dependencies": {
+    "@octokit/core": "4.1.0",
+    "@octokit/plugin-paginate-rest": "5.0.1",
     "@repo/constants": "workspace:sources/@repo/constants",
     "@repo/logger": "workspace:sources/@repo/logger",
     "@roots/bud": "workspace:sources/@roots/bud",

@@ -5603,7 +5603,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@octokit/core@npm:^4.0.0, @octokit/core@npm:^4.0.4, @octokit/core@npm:^4.1.0":
+"@octokit/core@npm:4.1.0, @octokit/core@npm:^4.0.0, @octokit/core@npm:^4.0.4, @octokit/core@npm:^4.1.0":
   version: 4.1.0
   resolution: "@octokit/core@npm:4.1.0"
   dependencies:
@@ -5684,7 +5684,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@octokit/plugin-paginate-rest@npm:^5.0.0":
+"@octokit/plugin-paginate-rest@npm:5.0.1, @octokit/plugin-paginate-rest@npm:^5.0.0":
   version: 5.0.1
   resolution: "@octokit/plugin-paginate-rest@npm:5.0.1"
   dependencies:
@@ -6053,6 +6053,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@repo/markdown-kit@workspace:sources/@repo/markdown-kit"
   dependencies:
+    "@octokit/core": 4.1.0
+    "@octokit/plugin-paginate-rest": 5.0.1
     "@repo/constants": "workspace:sources/@repo/constants"
     "@repo/logger": "workspace:sources/@repo/logger"
     "@roots/bud": "workspace:sources/@roots/bud"
