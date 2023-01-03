@@ -46,7 +46,7 @@
     "@types/node": "16.18.11",
     "@types/prettier": "2.7.2",
     "@typescript-eslint/eslint-plugin": "5.47.1",
-    "@typescript-eslint/parser": "5.47.1",
+    "@typescript-eslint/parser": "5.48.0",
     "@vitest/coverage-istanbul": "0.26.3",
     "@vitest/ui": "0.26.3",
     "eslint": "8.31.0",
