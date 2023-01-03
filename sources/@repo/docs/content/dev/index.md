@@ -37,9 +37,7 @@ yarn @bud build
 
 ## Testing
 
-Unit and integration tests are run with [vitest](https://vitest.dev).
-
-Most tests are stored in `tests/`. Integration and e2e tests have too complex a setup to be run in watchmode.
+Tests are run with [vitest](https://vitest.dev).
 
 ### Unit testing
 
@@ -61,14 +59,19 @@ yarn @bud test run e2e
 
 ## Linting
 
-Run eslint:
+### Eslint
 
 ```sh
 yarn @bud lint
+```
+
+Autofix issues:
+
+```sh
 yarn @bud lint --fix
 ```
 
-Run prettier:
+### Prettier
 
 ```sh
 yarn @bud lint format

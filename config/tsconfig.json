@@ -63,6 +63,9 @@
     {"path": "./../sources/@roots/bud-stylelint/tsconfig.json"},
     {"path": "./../sources/@roots/bud-swc/tsconfig.json"},
     {"path": "./../sources/@roots/bud-tailwindcss/tsconfig.json"},
+    {
+      "path": "./../sources/@roots/bud-tailwindcss-theme-json/tsconfig.json"
+    },
     {"path": "./../sources/@roots/bud-terser/tsconfig.json"},
     {"path": "./../sources/@roots/bud-typescript/tsconfig.json"},
     {"path": "./../sources/@roots/bud-vue/tsconfig.json"},
@@ -71,6 +74,7 @@
     },
     {"path": "./../sources/@roots/bud-wordpress-externals/tsconfig.json"},
     {"path": "./../sources/@roots/bud-wordpress-manifests/tsconfig.json"},
+    {"path": "./../sources/@roots/bud-wordpress-theme-json/tsconfig.json"},
     {"path": "./../sources/@roots/container/tsconfig.json"},
     {
       "path": "./../sources/@roots/critical-css-webpack-plugin/tsconfig.json"
@@ -90,6 +94,9 @@
     {
       "path": "./../sources/@roots/wordpress-externals-webpack-plugin/tsconfig.json"
     },
-    {"path": "./../sources/@roots/wordpress-hmr/tsconfig.json"}
+    {"path": "./../sources/@roots/wordpress-hmr/tsconfig.json"},
+    {
+      "path": "./../sources/@roots/wordpress-theme-json-webpack-plugin/tsconfig.json"
+    }
   ]
 }

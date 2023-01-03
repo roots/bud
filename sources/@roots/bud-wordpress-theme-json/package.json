@@ -1,0 +1,65 @@
+{
+  "name": "@roots/bud-wordpress-theme-json",
+  "description": "Webpack plugin to help with wp_enqueue_script",
+  "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "sources/@roots/bud-wordpress-theme-json"
+  },
+  "bugs": {
+    "url": "https://github.com/roots/bud/issues"
+  },
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "license": "MIT",
+  "contributors": [
+    {
+      "name": "kellymears",
+      "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "QWp6t",
+      "url": "https://github.com/QWp6t"
+    }
+  ],
+  "keywords": [
+    "webpack",
+    "wordpress"
+  ],
+  "engines": {
+    "node": ">=16"
+  },
+  "files": [
+    "lib/"
+  ],
+  "type": "module",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": "./lib/index.js"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ]
+    }
+  },
+  "devDependencies": {
+    "@roots/bud-preset-wordpress": "workspace:sources/@roots/bud-preset-wordpress",
+    "@skypack/package-check": "0.2.2",
+    "@types/node": "16.18.11"
+  },
+  "dependencies": {
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "@roots/bud-support": "workspace:sources/@roots/bud-support",
+    "@roots/container": "workspace:sources/@roots/container",
+    "@roots/wordpress-theme-json-webpack-plugin": "workspace:sources/@roots/wordpress-theme-json-webpack-plugin"
+  },
+  "volta": {
+    "extends": "../../../package.json"
+  }
+}

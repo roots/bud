@@ -9,7 +9,8 @@ import {
 @dependsOn([
   `@roots/bud-preset-recommend`,
   `@roots/bud-wordpress-manifests`,
+  `@roots/bud-wordpress-theme-json`,
   `@roots/bud-react`,
 ])
-@expose(`wordpress`)
+@expose(`wp`)
 export default class BudPresetWordPress extends Extension {}

@@ -5,8 +5,8 @@ import {
   dependsOn,
   label,
 } from '@roots/bud-framework/extension/decorators'
+import type WordPressThemeJSON from '@roots/bud-wordpress-theme-json'
 
-import type WpThemeJson from '../wp-theme-json/index.js'
 import * as tailwindAdapter from './tailwind/index.js'
 
 /**
@@ -15,9 +15,9 @@ import * as tailwindAdapter from './tailwind/index.js'
  * @public
  * @decorator `@label`
  */
-@label(`@roots/sage/wp-theme-json-tailwind`)
-@dependsOn([`@roots/sage/wp-theme-json`])
-export class WPThemeJsonTailwind extends Extension {
+@label(`@roots/bud-tailwindcss-theme-json`)
+@dependsOn([`@roots/bud-wordpress-theme-json`])
+export class TailwindThemeJSON extends Extension {
   /**
    * `register` callback
    *
@@ -36,9 +36,9 @@ export class WPThemeJsonTailwind extends Extension {
   }
 
   public useTailwindColors(
-    this: WpThemeJson,
+    this: WordPressThemeJSON,
     extendOnly?: boolean,
-  ): WpThemeJson {
+  ): WordPressThemeJSON {
     this.setOption(`settings`, {
       ...(this.options.settings ?? {}),
       color: {
@@ -53,9 +53,9 @@ export class WPThemeJsonTailwind extends Extension {
   }
 
   public useTailwindFontFamily(
-    this: WpThemeJson,
+    this: WordPressThemeJSON,
     extendOnly?: boolean,
-  ): WpThemeJson {
+  ): WordPressThemeJSON {
     this.setOption(`settings`, {
       ...(this.options.settings ?? {}),
       typography: {
@@ -78,9 +78,9 @@ export class WPThemeJsonTailwind extends Extension {
   }
 
   public useTailwindFontSize(
-    this: WpThemeJson,
+    this: WordPressThemeJSON,
     extendOnly?: boolean,
-  ): WpThemeJson {
+  ): WordPressThemeJSON {
     this.setOption(`settings`, {
       ...(this.options.settings ?? {}),
       typography: {

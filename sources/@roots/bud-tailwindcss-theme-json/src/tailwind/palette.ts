@@ -1,7 +1,8 @@
-import type {GlobalSettingsAndStyles as WPThemeJson} from '@roots/bud-preset-wordpress/theme'
 import {isString} from '@roots/bud-support/lodash-es'
+import type {Theme} from '@roots/bud-wordpress-theme-json'
 
-export type WordPressColors = WPThemeJson['settings']['color']['palette']
+export type WordPressColors =
+  Theme.GlobalSettingsAndStyles['settings']['color']['palette']
 
 export interface TailwindColors {
   [key: string]: string | TailwindColors

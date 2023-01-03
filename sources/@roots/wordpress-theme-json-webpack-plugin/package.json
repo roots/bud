@@ -1,0 +1,65 @@
+{
+  "name": "@roots/wordpress-theme-json-webpack-plugin",
+  "description": "Webpack plugin to help with wp_enqueue_script",
+  "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "sources/@roots/wordpress-theme-json-webpack-plugin"
+  },
+  "bugs": {
+    "url": "https://github.com/roots/bud/issues"
+  },
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "license": "MIT",
+  "contributors": [
+    {
+      "name": "kellymears",
+      "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "QWp6t",
+      "url": "https://github.com/QWp6t"
+    }
+  ],
+  "keywords": [
+    "webpack",
+    "wordpress"
+  ],
+  "engines": {
+    "node": ">=16"
+  },
+  "files": [
+    "lib/"
+  ],
+  "type": "module",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": "./lib/index.js"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ]
+    }
+  },
+  "devDependencies": {
+    "@skypack/package-check": "0.2.2",
+    "@types/lodash-es": "4.17.6",
+    "@types/node": "16.18.11",
+    "webpack": "5.75.0"
+  },
+  "dependencies": {
+    "fs-extra": "11.1.0",
+    "helpful-decorators": "2.1.0",
+    "lodash-es": "4.17.21"
+  },
+  "volta": {
+    "extends": "../../../package.json"
+  }
+}
