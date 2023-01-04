@@ -666,6 +666,7 @@ export class Extension<
   @bind
   public enable(enabled = true) {
     this.enabled = enabled
+    return this
   }
 
   /**

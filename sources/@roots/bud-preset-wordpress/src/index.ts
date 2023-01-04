@@ -14,4 +14,7 @@ import './types.js'
 
 import BudPresetWordPress from './extension.js'
 
+interface WordPressPublicInterface {}
+
 export default BudPresetWordPress
+export type {WordPressPublicInterface}

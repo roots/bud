@@ -66,6 +66,7 @@ const after = (changed?: Array<{name: string}>) => {
   selected
     ? dispatch(`core/block-editor`).selectBlock(selected)
     : dispatch(`core/block-editor`).clearSelectedBlock()
+
   selected = null
 }
 

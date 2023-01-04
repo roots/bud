@@ -9,7 +9,7 @@
  * @packageDocumentation
  */
 
-import './env.js'
+import './types.js'
 
 import BudWordPressDependencies from './extension.js'
 

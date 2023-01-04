@@ -37,10 +37,12 @@
   "exports": {
     ".": "./lib/index.js",
     "./block": "./lib/block.js",
+    "./blocks": "./lib/block.js",
     "./cache": "./lib/cache.js",
     "./editor": "./lib/editor.js",
     "./format": "./lib/format.js",
-    "./plugin": "./lib/plugin.js"
+    "./plugin": "./lib/plugin.js",
+    "./plugins": "./lib/plugin.js"
   },
   "typesVersions": {
     "*": {
@@ -48,6 +50,9 @@
         "./lib/index.d.ts"
       ],
       "block": [
+        "./lib/block.d.ts"
+      ],
+      "blocks": [
         "./lib/block.d.ts"
       ],
       "cache": [
@@ -60,6 +65,9 @@
         "./lib/format.d.ts"
       ],
       "plugin": [
+        "./lib/plugin.d.ts"
+      ],
+      "plugins": [
         "./lib/plugin.d.ts"
       ]
     }
@@ -84,8 +92,7 @@
     "lodash-es": "4.17.21"
   },
   "peerDependencies": {
-    "lodash-es": "*",
-    "react": "*"
+    "lodash-es": "*"
   },
   "volta": {
     "extends": "../../../package.json"

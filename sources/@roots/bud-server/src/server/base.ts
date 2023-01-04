@@ -85,6 +85,7 @@ export abstract class BaseServer implements Connection {
     this.instance
       .listen(
         this.app.hooks.filter(`dev.listenOptions`, {
+          host: this.url.hostname,
           port: Number(this.url.port),
         }),
       )

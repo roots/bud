@@ -1,10 +1,10 @@
-import type {GlobalSettingsAndStyles as WPThemeJson} from '@roots/bud-preset-wordpress/theme'
+import type {Theme} from '@roots/bud-wordpress-theme-json'
 
 export interface TailwindFontFamily {
   [key: string]: Array<string> | string
 }
 export type WordPressFonts =
-  WPThemeJson['settings']['typography']['fontFamilies']
+  Theme.GlobalSettingsAndStyles['settings']['typography']['fontFamilies']
 
 /**
  * Make a color name from a color label
