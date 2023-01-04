@@ -15,5 +15,6 @@
     {"path": "../bud-preset-recommend/tsconfig.json"},
     {"path": "../bud-preset-wordpress/tsconfig.json"},
     {"path": "../bud-tailwindcss/tsconfig.json"},
+    {"path": "../bud-tailwindcss-theme-json/tsconfig.json"}
   ]
 }

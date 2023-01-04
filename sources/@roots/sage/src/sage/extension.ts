@@ -18,11 +18,7 @@ interface Options {
  * @see https://bud.js.org/extensions/sage/
  */
 @label(`@roots/sage`)
-@dependsOn([
-  `@roots/sage/wp-theme-json`,
-  `@roots/bud-preset-wordpress`,
-  `@roots/sage/acorn`,
-])
+@dependsOn([`@roots/bud-preset-wordpress`, `@roots/sage/acorn`])
 @dependsOnOptional([`@roots/bud-tailwindcss`])
 @expose(`sage`)
 export class Sage extends Extension<Options> {
@@ -30,14 +26,11 @@ export class Sage extends Extension<Options> {
    * `boot` callback
    */
   @bind
-  public override async register(app: Bud) {
-    if (app.extensions.has(`@roots/bud-tailwindcss`))
-      await app.extensions.add(`@roots/sage/wp-theme-json-tailwind`)
-
-    app.hooks.on(`build.output.uniqueName`, `@roots/bud/sage/${app.label}`)
+  public override async register(bud: Bud) {
+    bud.hooks.on(`build.output.uniqueName`, `@roots/bud/sage/${bud.label}`)
 
     /* Set paths */
-    app.setPath({
+    bud.setPath({
       '@src': `resources`,
       '@resources': `@src`,
       '@fonts': `@src/fonts`,
@@ -49,20 +42,20 @@ export class Sage extends Extension<Options> {
     })
 
     /* Set aliases */
-    app.alias({
-      '@fonts': app.path(`@fonts`),
-      '@images': app.path(`@images`),
-      '@scripts': app.path(`@scripts`),
-      '@styles': app.path(`@styles`),
+    bud.alias({
+      '@fonts': bud.path(`@fonts`),
+      '@images': bud.path(`@images`),
+      '@scripts': bud.path(`@scripts`),
+      '@styles': bud.path(`@styles`),
     })
 
     /**
      * Optimize
      */
-    app.when(
-      app.isProduction,
-      () => app.minimize().hash().runtime(`single`).splitChunks(),
-      () => app.devtool(),
+    bud.when(
+      bud.isProduction,
+      () => bud.minimize().hash().runtime(`single`).splitChunks(),
+      () => bud.devtool(),
     )
   }
 

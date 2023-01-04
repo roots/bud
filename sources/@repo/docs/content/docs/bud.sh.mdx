@@ -17,7 +17,7 @@ export default async bud => {
 
 You may use an array of arguments instead of a string:
 
-```js
+```js title='bud.config.js'
 export default async bud => {
   await bud.sh([`ls`, `-la`])
 }
@@ -25,7 +25,7 @@ export default async bud => {
 
 Additionally, you can pass on configuration options to the underlying package:
 
-```js
+```js title='bud.config.js'
 export default async bud => {
   await bud.sh([`ls`, `-la`], {
     shell: true,

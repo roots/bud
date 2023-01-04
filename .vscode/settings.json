@@ -38,5 +38,6 @@
   "prettier.configPath": "config/prettier.config.cjs",
   "prettier.ignorePath": "config/.prettierignore",
   "typescript.enablePromptUseWorkspaceTsdk": true,
-  "vitest.commandLine": "yarn @bud test unit "
+  "vitest.commandLine": "yarn @bud test unit ",
+  "testing.automaticallyOpenPeekView": "never"
 }

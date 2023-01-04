@@ -7,11 +7,12 @@ import {
   options,
   plugin,
 } from '@roots/bud-framework/extension/decorators'
-import type {GlobalSettingsAndStyles as WPThemeJson} from '@roots/bud-preset-wordpress/theme'
 import {isBoolean, isFunction} from '@roots/bud-support/lodash-es'
 import Container from '@roots/container'
-
-import {Options, ThemeJsonWebpackPlugin} from './plugin.js'
+import ThemeJsonWebpackPlugin, {
+  Options,
+  Theme,
+} from '@roots/wordpress-theme-json-webpack-plugin'
 
 /**
  * Callback function used to configure wordpress `theme.json`
@@ -21,11 +22,11 @@ import {Options, ThemeJsonWebpackPlugin} from './plugin.js'
 export interface Mutator {
   (
     json:
-      | Partial<WPThemeJson['settings']>
-      | Container<Partial<WPThemeJson['settings']>>,
+      | Partial<Theme.GlobalSettingsAndStyles['settings']>
+      | Container<Partial<Theme.GlobalSettingsAndStyles['settings']>>,
   ):
-    | Partial<WPThemeJson['settings']>
-    | Container<Partial<WPThemeJson['settings']>>
+    | Partial<Theme.GlobalSettingsAndStyles['settings']>
+    | Container<Partial<Theme.GlobalSettingsAndStyles['settings']>>
 }
 
 /**
@@ -49,7 +50,7 @@ export interface Mutator {
  * @decorator `@expose`
  * @decorator `@disabled`
  */
-@label(`@roots/sage/wp-theme-json`)
+@label(`@roots/bud-wordpress-theme-json`)
 @options({
   path: ({path}) => path(`./theme.json`),
   settings: {
@@ -74,7 +75,7 @@ export interface Mutator {
 @plugin(ThemeJsonWebpackPlugin)
 @expose(`wpjson`)
 @disabled
-export class WpThemeJson extends Extension<
+export class WordPressThemeJSON extends Extension<
   Options,
   ThemeJsonWebpackPlugin
 > {
@@ -82,8 +83,8 @@ export class WpThemeJson extends Extension<
   public settings(
     input?:
       | Mutator
-      | Container<Partial<WPThemeJson['settings']>>
-      | Partial<WPThemeJson['settings']>
+      | Container<Partial<Theme.GlobalSettingsAndStyles['settings']>>
+      | Partial<Theme.GlobalSettingsAndStyles['settings']>
       | boolean,
     raw?: boolean,
   ): this {

@@ -1,4 +1,4 @@
-import type {GlobalSettingsAndStyles as WPThemeJson} from '@roots/bud-preset-wordpress/theme'
+import type {Theme} from '@roots/bud-wordpress-theme-json'
 
 export interface TailwindSize {
   [key: string]:
@@ -14,7 +14,7 @@ export interface TailwindSize {
       ]
 }
 export type WordPressSizes =
-  WPThemeJson['settings']['typography']['fontSizes']
+  Theme.GlobalSettingsAndStyles['settings']['typography']['fontSizes']
 
 /**
  * Make a theme.json fonts.color item from a slug and a color

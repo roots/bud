@@ -6595,12 +6595,13 @@ __metadata:
     "@roots/bud-preset-recommend": "workspace:sources/@roots/bud-preset-recommend"
     "@roots/bud-react": "workspace:sources/@roots/bud-react"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
+    "@roots/bud-tailwindcss-theme-json": "workspace:sources/@roots/bud-tailwindcss-theme-json"
     "@roots/bud-wordpress-dependencies": "workspace:sources/@roots/bud-wordpress-dependencies"
     "@roots/bud-wordpress-externals": "workspace:sources/@roots/bud-wordpress-externals"
     "@roots/bud-wordpress-manifests": "workspace:sources/@roots/bud-wordpress-manifests"
+    "@roots/bud-wordpress-theme-json": "workspace:sources/@roots/bud-wordpress-theme-json"
     "@skypack/package-check": 0.2.2
     "@types/node": 16.18.11
-    webpack: 5.75.0
   peerDependencies:
     "@roots/bud-preset-recommend": "*"
     "@roots/bud-react": "*"
@@ -7079,6 +7080,19 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@roots/bud-tailwindcss-theme-json@workspace:sources/@roots/bud-tailwindcss-theme-json":
+  version: 0.0.0-use.local
+  resolution: "@roots/bud-tailwindcss-theme-json@workspace:sources/@roots/bud-tailwindcss-theme-json"
+  dependencies:
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
+    "@roots/bud-support": "workspace:sources/@roots/bud-support"
+    "@roots/bud-tailwindcss": "workspace:sources/@roots/bud-tailwindcss"
+    "@roots/bud-wordpress-theme-json": "workspace:sources/@roots/bud-wordpress-theme-json"
+    "@skypack/package-check": 0.2.2
+    "@types/node": 16.18.11
+  languageName: unknown
+  linkType: soft
+
 "@roots/bud-tailwindcss@workspace:sources/@roots/bud-tailwindcss":
   version: 0.0.0-use.local
   resolution: "@roots/bud-tailwindcss@workspace:sources/@roots/bud-tailwindcss"
@@ -7257,6 +7271,20 @@ __metadata:
       optional: true
     "@roots/merged-manifest-webpack-plugin":
       optional: true
+  languageName: unknown
+  linkType: soft
+
+"@roots/bud-wordpress-theme-json@workspace:sources/@roots/bud-wordpress-theme-json":
+  version: 0.0.0-use.local
+  resolution: "@roots/bud-wordpress-theme-json@workspace:sources/@roots/bud-wordpress-theme-json"
+  dependencies:
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
+    "@roots/bud-preset-wordpress": "workspace:sources/@roots/bud-preset-wordpress"
+    "@roots/bud-support": "workspace:sources/@roots/bud-support"
+    "@roots/container": "workspace:sources/@roots/container"
+    "@roots/wordpress-theme-json-webpack-plugin": "workspace:sources/@roots/wordpress-theme-json-webpack-plugin"
+    "@skypack/package-check": 0.2.2
+    "@types/node": 16.18.11
   languageName: unknown
   linkType: soft
 
@@ -7503,7 +7531,20 @@ __metadata:
     react: 18.2.0
   peerDependencies:
     lodash-es: "*"
-    react: "*"
+  languageName: unknown
+  linkType: soft
+
+"@roots/wordpress-theme-json-webpack-plugin@workspace:sources/@roots/wordpress-theme-json-webpack-plugin":
+  version: 0.0.0-use.local
+  resolution: "@roots/wordpress-theme-json-webpack-plugin@workspace:sources/@roots/wordpress-theme-json-webpack-plugin"
+  dependencies:
+    "@skypack/package-check": 0.2.2
+    "@types/lodash-es": 4.17.6
+    "@types/node": 16.18.11
+    fs-extra: 10.1.0
+    helpful-decorators: 2.1.0
+    lodash-es: 4.17.21
+    webpack: 5.75.0
   languageName: unknown
   linkType: soft
 
