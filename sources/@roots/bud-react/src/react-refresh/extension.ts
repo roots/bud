@@ -9,7 +9,8 @@ import {
   options,
   plugin,
 } from '@roots/bud-framework/extension/decorators'
-import {isBoolean, isUndefined} from '@roots/bud-support/lodash-es'
+import isBoolean from '@roots/bud-support/lodash/isBoolean'
+import isUndefined from '@roots/bud-support/lodash/isUndefined'
 
 /**
  * Wrapper for `@pmmmwh/react-refresh-webpack-plugin`

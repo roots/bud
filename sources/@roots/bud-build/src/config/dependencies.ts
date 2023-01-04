@@ -1,4 +1,4 @@
-import {isUndefined} from '@roots/bud-support/lodash-es'
+import isUndefined from '@roots/bud-support/lodash/isUndefined'
 
 import type {Factory} from './index.js'
 

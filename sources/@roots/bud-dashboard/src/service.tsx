@@ -5,7 +5,7 @@ import chalk from '@roots/bud-support/chalk'
 import {bind} from '@roots/bud-support/decorators'
 import figures from '@roots/bud-support/figures'
 import Ink from '@roots/bud-support/ink'
-import {isUndefined} from '@roots/bud-support/lodash-es'
+import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import React from '@roots/bud-support/react'
 import type {
   MultiStats,

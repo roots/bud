@@ -8,7 +8,8 @@ import {
   plugin,
 } from '@roots/bud-framework/extension/decorators'
 import type {GlobalSettingsAndStyles as WPThemeJson} from '@roots/bud-preset-wordpress/theme'
-import {isBoolean, isFunction} from '@roots/bud-support/lodash-es'
+import isBoolean from '@roots/bud-support/lodash/isBoolean'
+import isFunction from '@roots/bud-support/lodash/isFunction'
 import Container from '@roots/container'
 
 import {Options, ThemeJsonWebpackPlugin} from './plugin.js'

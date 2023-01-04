@@ -2,7 +2,7 @@ import BudCommand from '@roots/bud/cli/commands/bud'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {highlight} from '@roots/bud-support/highlight'
 import Ink from '@roots/bud-support/ink'
-import {get} from '@roots/bud-support/lodash-es'
+import get from '@roots/bud-support/lodash/get'
 import format from '@roots/bud-support/pretty-format'
 import React from '@roots/bud-support/react'
 

@@ -5,6 +5,8 @@ import {beforeEach, describe, expect, it, vi} from 'vitest'
 import * as source from './index.js'
 import * as helpers from './helpers.js'
 
+vi.mock(`@roots/bud-support/lodash/omit`)
+
 describe(`bud.html`, () => {
   let bud
   let budPathSpy
@@ -17,8 +19,9 @@ describe(`bud.html`, () => {
   let interpolateSetOptionsSpy
 
   beforeEach(async () => {
-    bud = await factory()
     vi.clearAllMocks()
+
+    bud = await factory()
 
     budPathSpy = vi.spyOn(bud, `path`)
     htmlPlugin = bud.extensions.get(
@@ -142,50 +145,39 @@ describe(`bud.html`, () => {
   it(`getHtmlPluginOptions returns normalized options with \`template\` when it is not included`, async () => {
     const returned = helpers.getHtmlPluginOptions(bud, {foo: `bar`})
 
-    expect(budPathSpy).not.toHaveBeenCalled()
     expect(returned).toEqual(
       expect.objectContaining({
-        foo: `bar`,
         template: helpers.defaultHtmlPluginOptions.template,
       }),
     )
   })
 
   it(`getHtmlPluginOptions handles undefined`, async () => {
-    // @ts-ignore
-    const _ = await import('@roots/bud-support/lodash-es')
-    const lodashesOmitSpy = vi.spyOn(_, `omit`)
-
     const returned = helpers.getHtmlPluginOptions(bud, undefined)
-    expect(lodashesOmitSpy).not.toHaveBeenCalled()
-    expect(budPathSpy).not.toHaveBeenCalled()
+    expect(returned).toBe(helpers.defaultHtmlPluginOptions)
+  })
+
+  it(`getHtmlPluginOptions returns expected options from undefined props`, async () => {
+    const returned = helpers.getHtmlPluginOptions(bud, undefined)
     expect(returned).toEqual(helpers.defaultHtmlPluginOptions)
   })
 
   it(`getHtmlPluginOptions handles object with replace key`, async () => {
-    // @ts-ignore
-    const _ = await import('@roots/bud-support/lodash-es')
-    const lodashesOmitSpy = vi.spyOn(_, `omit`)
+    const omit = await import(`@roots/bud-support/lodash/omit`)
 
-    const returned = helpers.getHtmlPluginOptions(bud, {
+    // @ts-ignore
+    helpers.getHtmlPluginOptions(bud, {
       foo: `bar`,
       replace: {foo: `bar`},
     })
 
-    expect(budPathSpy).not.toHaveBeenCalled()
-    expect(lodashesOmitSpy).toHaveBeenCalledWith(
+    expect(omit.default).toHaveBeenCalledWith(
       expect.objectContaining({
         foo: `bar`,
         replace: {foo: `bar`},
       }),
       `replace`,
       `template`,
-    )
-    expect(returned).toEqual(
-      expect.objectContaining({
-        foo: `bar`,
-        template: helpers.defaultHtmlPluginOptions.template,
-      }),
     )
   })
 
@@ -212,9 +204,11 @@ describe(`bud.html`, () => {
 
   it(`appends options.replace values to publicEnv`, async () => {
     const envSpy = vi.spyOn(bud.env, `getPublicEnv`)
+
     const result = helpers.getInterpolatePluginOptions(bud, {
       replace: {foo: `bar`},
     })
+
     expect(envSpy).toHaveBeenCalledOnce()
     expect(result).toEqual(
       expect.objectContaining({

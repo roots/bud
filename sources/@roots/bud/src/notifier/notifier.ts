@@ -3,12 +3,10 @@ import {platform} from 'node:os'
 import type {Bud} from '@roots/bud-framework'
 import type {CommandContext} from '@roots/bud-framework/options'
 import {bind} from '@roots/bud-support/decorators'
-import {
-  isEmpty,
-  isFunction,
-  isString,
-  isUndefined,
-} from '@roots/bud-support/lodash-es'
+import isEmpty from '@roots/bud-support/lodash/isEmpty'
+import isFunction from '@roots/bud-support/lodash/isFunction'
+import isString from '@roots/bud-support/lodash/isString'
+import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import {
   Notification as NodeNotification,
   NotificationCallback,

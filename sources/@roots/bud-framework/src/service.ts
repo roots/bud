@@ -1,4 +1,4 @@
-import {lowerCase} from '@roots/bud-support/lodash-es'
+import {lowerCase} from '../../bud-support/lib/lodash/index.js'
 import Container from '@roots/container'
 
 import type {Bud} from './index.js'

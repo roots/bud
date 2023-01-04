@@ -1,4 +1,4 @@
-import {sortBy} from '@roots/bud-support/lodash-es'
+import sortBy from '@roots/bud-support/lodash/sortBy'
 
 import type {Bud} from '../bud.js'
 import Configuration from './configuration.js'

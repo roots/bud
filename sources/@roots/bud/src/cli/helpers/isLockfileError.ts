@@ -1,5 +1,5 @@
 import type {Bud} from '@roots/bud'
-import {isUndefined} from '@roots/bud-support/lodash-es'
+import isUndefined from '@roots/bud-support/lodash/isUndefined'
 
 export const isLockConflict = (bud: Bud) =>
   !isUndefined(bud.context.config?.[`yarn.lock`]) &&

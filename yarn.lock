@@ -6882,6 +6882,7 @@ __metadata:
     ink-link: 2.0.1
     ink-text-input: 4.0.3
     json5: 2.2.3
+    lodash: 4.17.21
     lodash-es: 4.17.21
     mini-css-extract-plugin: 2.7.2
     mini-svg-data-uri: 1.4.4
@@ -7304,12 +7305,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/container@workspace:sources/@roots/container"
   dependencies:
-    "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
-    "@types/lodash-es": 4.17.6
     "@types/node": 16.18.11
     helpful-decorators: 2.1.0
-    lodash-es: 4.17.21
+    lodash: 4.17.21
     type-fest: 3.5.0
   languageName: unknown
   linkType: soft
@@ -7465,7 +7464,7 @@ __metadata:
     "@types/lodash-es": 4.17.6
     "@types/node": 16.18.11
     helpful-decorators: 2.1.0
-    lodash-es: 4.17.21
+    lodash: 4.17.21
     webpack: 5.75.0
   languageName: unknown
   linkType: soft

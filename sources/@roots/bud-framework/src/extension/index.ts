@@ -1,5 +1,7 @@
 import {bind} from '@roots/bud-support/decorators'
-import {has, isFunction, isUndefined} from '@roots/bud-support/lodash-es'
+import has from '@roots/bud-support/lodash/has'
+import isFunction from '@roots/bud-support/lodash/isFunction'
+import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import type {Instance as Signale} from '@roots/bud-support/signale'
 
 import type {Bud} from '../bud.js'

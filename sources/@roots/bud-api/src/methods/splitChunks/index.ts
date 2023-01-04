@@ -1,5 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
-import {isUndefined} from '@roots/bud-support/lodash-es'
+import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import type {Optimization} from '@roots/bud-support/webpack'
 
 export type Parameters = [

@@ -1,5 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
-import {isString} from '@roots/bud-support/lodash-es'
+import isString from '@roots/bud-support/lodash/isString'
 
 export type Parameters = [(`memory` | `filesystem` | boolean)?]
 

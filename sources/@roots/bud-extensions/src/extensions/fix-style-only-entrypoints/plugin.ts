@@ -1,4 +1,4 @@
-import {isString} from '@roots/bud-support/lodash-es'
+import isString from '@roots/bud-support/lodash/isString'
 import type {Compiler} from '@roots/bud-support/webpack'
 
 /**

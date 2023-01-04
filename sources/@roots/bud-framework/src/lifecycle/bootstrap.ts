@@ -1,4 +1,5 @@
-import {camelCase, set} from '@roots/bud-support/lodash-es'
+import camelCase from '@roots/bud-support/lodash/camelCase'
+import set from '@roots/bud-support/lodash/set'
 
 import type {Bud} from '../bud.js'
 import * as methods from '../methods/index.js'

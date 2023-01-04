@@ -1,10 +1,8 @@
 import {bind} from '@roots/bud-support/decorators'
-import {
-  isFunction,
-  isNull,
-  isString,
-  isUndefined,
-} from '@roots/bud-support/lodash-es'
+import isFunction from '@roots/bud-support/lodash/isFunction'
+import isNull from '@roots/bud-support/lodash/isNull'
+import isString from '@roots/bud-support/lodash/isString'
+import isUndefined from '@roots/bud-support/lodash/isUndefined'
 
 import {bootstrap, LIFECYCLE_EVENT_MAP} from './lifecycle/bootstrap.js'
 import type * as methods from './methods/index.js'

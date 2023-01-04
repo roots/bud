@@ -5,7 +5,7 @@ import {
   options,
   plugin,
 } from '@roots/bud-framework/extension/decorators'
-import {isUndefined} from '@roots/bud-support/lodash-es'
+import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import type {Options} from '@roots/bud-support/webpack-manifest-plugin'
 import {Plugin} from '@roots/bud-support/webpack-manifest-plugin'
 

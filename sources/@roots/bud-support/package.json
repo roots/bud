@@ -76,6 +76,14 @@
       "types": "./lib/yml-loader/index.d.cts",
       "default": "./lib/yml-loader/index.cjs"
     },
+    "./lodash-es": {
+      "types": "./lib/lodash/index.d.ts",
+      "default": "./lib/lodash/index.js"
+    },
+    "./lodash-es/*": {
+      "types": "./lib/lodash/*/index.d.ts",
+      "default": "./lib/lodash/*/index.js"
+    },
     "./*": {
       "types": "./lib/*/index.d.ts",
       "default": "./lib/*/index.js"
@@ -141,6 +149,7 @@
     "ink-link": "2.0.1",
     "ink-text-input": "4.0.3",
     "json5": "2.2.3",
+    "lodash": "4.17.21",
     "lodash-es": "4.17.21",
     "mini-css-extract-plugin": "2.7.2",
     "mini-svg-data-uri": "1.4.4",
