@@ -47,7 +47,9 @@
       "types": "./lib/extension.d.ts",
       "default": "./lib/extension.js"
     },
-    "./stylelint-config": "./stylelint-config/index.cjs",
+    "./stylelint-config": {
+      "default": "./stylelint-config/index.cjs"
+    },
     "./theme": {
       "types": "./lib/theme.d.ts",
       "default": "./lib/theme.js"
