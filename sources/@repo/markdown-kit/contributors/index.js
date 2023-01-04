@@ -6,7 +6,7 @@ import {paginateRest} from '@octokit/plugin-paginate-rest'
 import {paths} from '@repo/constants'
 import {yml} from '@roots/bud-support/filesystem'
 import fs from '@roots/bud-support/fs-jetpack'
-import {sortBy} from '@roots/bud-support/lodash-es'
+import sortBy from '@roots/bud-support/lodash/sortBy'
 
 let {root, sources} = paths
 
