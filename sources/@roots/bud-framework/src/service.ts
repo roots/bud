@@ -1,6 +1,6 @@
-import {lowerCase} from '../../bud-support/lib/lodash/index.js'
 import Container from '@roots/container'
 
+import {lowerCase} from '../../bud-support/lib/lodash/index.js'
 import type {Bud} from './index.js'
 import type {
   CLIContext,

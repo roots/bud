@@ -6883,7 +6883,6 @@ __metadata:
     ink-text-input: 4.0.3
     json5: 2.2.3
     lodash: 4.17.21
-    lodash-es: 4.17.21
     mini-css-extract-plugin: 2.7.2
     mini-svg-data-uri: 1.4.4
     node-notifier: 10.0.1
@@ -6939,7 +6938,7 @@ __metadata:
     ink-link: "*"
     ink-text-input: "*"
     json5: "*"
-    lodash-es: ">=4"
+    lodash: ">=4"
     mini-css-extract-plugin: ">=2"
     node-notifier: ">=10"
     open: ">=8"
