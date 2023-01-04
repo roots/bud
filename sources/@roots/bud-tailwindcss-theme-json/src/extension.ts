@@ -49,7 +49,7 @@ export class TailwindThemeJSON extends Extension {
       },
     })
 
-    return this
+    return this.enable()
   }
 
   public useTailwindFontFamily(
@@ -74,7 +74,7 @@ export class TailwindThemeJSON extends Extension {
       },
     })
 
-    return this
+    return this.enable()
   }
 
   public useTailwindFontSize(
@@ -99,6 +99,6 @@ export class TailwindThemeJSON extends Extension {
       },
     })
 
-    return this
+    return this.enable()
   }
 }
