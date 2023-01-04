@@ -2,8 +2,7 @@ import {Bud, factory} from '@repo/test-kit/bud'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import BudPresetWordPress from './index.js'
-import BudPostCss from '@roots/bud-postcss'
-import BudPresetRecommend from '@roots/bud-preset-recommend'
+
 describe(`@roots/bud-preset-wordpress`, () => {
   let bud: Bud
   let extension: BudPresetWordPress
