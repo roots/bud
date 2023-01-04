@@ -14,6 +14,7 @@
     "incremental": true,
     "jsx": "react",
     "lib": ["ES2021", "DOM", "DOM.Iterable"],
+    "listFiles": true,
     "module": "NodeNext",
     "moduleDetection": "force",
     "moduleResolution": "NodeNext",
@@ -29,74 +30,74 @@
   },
   "files": [],
   "references": [
-    {"path": "./../sources/@repo/markdown-kit/tsconfig.json"},
-    {"path": "./../sources/@repo/test-kit/tsconfig.json"},
-    {"path": "./../sources/@roots/bud/tsconfig.json"},
-    {"path": "./../sources/@roots/bud-api/tsconfig.json"},
-    {"path": "./../sources/@roots/bud-babel/tsconfig.json"},
-    {"path": "./../sources/@roots/bud-build/tsconfig.json"},
-    {"path": "./../sources/@roots/bud-cache/tsconfig.json"},
-    {"path": "./../sources/@roots/bud-client/tsconfig.json"},
-    {"path": "./../sources/@roots/bud-compiler/tsconfig.json"},
-    {"path": "./../sources/@roots/bud-compress/tsconfig.json"},
-    {"path": "./../sources/@roots/bud-criticalcss/tsconfig.json"},
-    {"path": "./../sources/@roots/bud-dashboard/tsconfig.json"},
-    {"path": "./../sources/@roots/bud-emotion/tsconfig.json"},
-    {"path": "./../sources/@roots/bud-framework/tsconfig.json"},
-    {"path": "./../sources/@roots/bud-entrypoints/tsconfig.json"},
-    {"path": "./../sources/@roots/bud-esbuild/tsconfig.json"},
-    {"path": "./../sources/@roots/bud-eslint/tsconfig.json"},
-    {"path": "./../sources/@roots/bud-extensions/tsconfig.json"},
-    {"path": "./../sources/@roots/bud-hooks/tsconfig.json"},
-    {"path": "./../sources/@roots/bud-imagemin/tsconfig.json"},
-    {"path": "./../sources/@roots/bud-mdx/tsconfig.json"},
-    {"path": "./../sources/@roots/bud-postcss/tsconfig.json"},
-    {"path": "./../sources/@roots/bud-preset-recommend/tsconfig.json"},
-    {"path": "./../sources/@roots/bud-preset-wordpress/tsconfig.json"},
-    {"path": "./../sources/@roots/bud-prettier/tsconfig.json"},
-    {"path": "./../sources/@roots/bud-purgecss/tsconfig.json"},
-    {"path": "./../sources/@roots/bud-react/tsconfig.json"},
-    {"path": "./../sources/@roots/bud-sass/tsconfig.json"},
-    {"path": "./../sources/@roots/bud-server/tsconfig.json"},
-    {"path": "./../sources/@roots/bud-solid/tsconfig.json"},
-    {"path": "./../sources/@roots/bud-support/tsconfig.json"},
-    {"path": "./../sources/@roots/bud-stylelint/tsconfig.json"},
-    {"path": "./../sources/@roots/bud-swc/tsconfig.json"},
-    {"path": "./../sources/@roots/bud-tailwindcss/tsconfig.json"},
+    {"path": "../sources/@repo/markdown-kit/tsconfig.json"},
+    {"path": "../sources/@repo/test-kit/tsconfig.json"},
+    {"path": "../sources/@roots/bud/tsconfig.json"},
+    {"path": "../sources/@roots/bud-api/tsconfig.json"},
+    {"path": "../sources/@roots/bud-babel/tsconfig.json"},
+    {"path": "../sources/@roots/bud-build/tsconfig.json"},
+    {"path": "../sources/@roots/bud-cache/tsconfig.json"},
+    {"path": "../sources/@roots/bud-client/tsconfig.json"},
+    {"path": "../sources/@roots/bud-compiler/tsconfig.json"},
+    {"path": "../sources/@roots/bud-compress/tsconfig.json"},
+    {"path": "../sources/@roots/bud-criticalcss/tsconfig.json"},
+    {"path": "../sources/@roots/bud-dashboard/tsconfig.json"},
+    {"path": "../sources/@roots/bud-emotion/tsconfig.json"},
+    {"path": "../sources/@roots/bud-framework/tsconfig.json"},
+    {"path": "../sources/@roots/bud-entrypoints/tsconfig.json"},
+    {"path": "../sources/@roots/bud-esbuild/tsconfig.json"},
+    {"path": "../sources/@roots/bud-eslint/tsconfig.json"},
+    {"path": "../sources/@roots/bud-extensions/tsconfig.json"},
+    {"path": "../sources/@roots/bud-hooks/tsconfig.json"},
+    {"path": "../sources/@roots/bud-imagemin/tsconfig.json"},
+    {"path": "../sources/@roots/bud-mdx/tsconfig.json"},
+    {"path": "../sources/@roots/bud-postcss/tsconfig.json"},
+    {"path": "../sources/@roots/bud-preset-recommend/tsconfig.json"},
+    {"path": "../sources/@roots/bud-preset-wordpress/tsconfig.json"},
+    {"path": "../sources/@roots/bud-prettier/tsconfig.json"},
+    {"path": "../sources/@roots/bud-purgecss/tsconfig.json"},
+    {"path": "../sources/@roots/bud-react/tsconfig.json"},
+    {"path": "../sources/@roots/bud-sass/tsconfig.json"},
+    {"path": "../sources/@roots/bud-server/tsconfig.json"},
+    {"path": "../sources/@roots/bud-solid/tsconfig.json"},
+    {"path": "../sources/@roots/bud-support/tsconfig.json"},
+    {"path": "../sources/@roots/bud-stylelint/tsconfig.json"},
+    {"path": "../sources/@roots/bud-swc/tsconfig.json"},
+    {"path": "../sources/@roots/bud-tailwindcss/tsconfig.json"},
     {
-      "path": "./../sources/@roots/bud-tailwindcss-theme-json/tsconfig.json"
+      "path": "../sources/@roots/bud-tailwindcss-theme-json/tsconfig.json"
     },
-    {"path": "./../sources/@roots/bud-terser/tsconfig.json"},
-    {"path": "./../sources/@roots/bud-typescript/tsconfig.json"},
-    {"path": "./../sources/@roots/bud-vue/tsconfig.json"},
+    {"path": "../sources/@roots/bud-terser/tsconfig.json"},
+    {"path": "../sources/@roots/bud-typescript/tsconfig.json"},
+    {"path": "../sources/@roots/bud-vue/tsconfig.json"},
     {
-      "path": "./../sources/@roots/bud-wordpress-dependencies/tsconfig.json"
+      "path": "../sources/@roots/bud-wordpress-dependencies/tsconfig.json"
     },
-    {"path": "./../sources/@roots/bud-wordpress-externals/tsconfig.json"},
-    {"path": "./../sources/@roots/bud-wordpress-manifests/tsconfig.json"},
-    {"path": "./../sources/@roots/bud-wordpress-theme-json/tsconfig.json"},
-    {"path": "./../sources/@roots/container/tsconfig.json"},
+    {"path": "../sources/@roots/bud-wordpress-externals/tsconfig.json"},
+    {"path": "../sources/@roots/bud-wordpress-manifests/tsconfig.json"},
+    {"path": "../sources/@roots/bud-wordpress-theme-json/tsconfig.json"},
+    {"path": "../sources/@roots/container/tsconfig.json"},
     {
-      "path": "./../sources/@roots/critical-css-webpack-plugin/tsconfig.json"
+      "path": "../sources/@roots/critical-css-webpack-plugin/tsconfig.json"
     },
-    {"path": "./../sources/@roots/dependencies/tsconfig.json"},
+    {"path": "../sources/@roots/dependencies/tsconfig.json"},
     {
-      "path": "./../sources/@roots/entrypoints-webpack-plugin/tsconfig.json"
+      "path": "../sources/@roots/entrypoints-webpack-plugin/tsconfig.json"
     },
-    {"path": "./../sources/@roots/filesystem/tsconfig.json"},
+    {"path": "../sources/@roots/filesystem/tsconfig.json"},
     {
-      "path": "./../sources/@roots/merged-manifest-webpack-plugin/tsconfig.json"
+      "path": "../sources/@roots/merged-manifest-webpack-plugin/tsconfig.json"
     },
-    {"path": "./../sources/@roots/sage/tsconfig.json"},
+    {"path": "../sources/@roots/sage/tsconfig.json"},
     {
-      "path": "./../sources/@roots/wordpress-dependencies-webpack-plugin/tsconfig.json"
+      "path": "../sources/@roots/wordpress-dependencies-webpack-plugin/tsconfig.json"
     },
     {
-      "path": "./../sources/@roots/wordpress-externals-webpack-plugin/tsconfig.json"
+      "path": "../sources/@roots/wordpress-externals-webpack-plugin/tsconfig.json"
     },
-    {"path": "./../sources/@roots/wordpress-hmr/tsconfig.json"},
+    {"path": "../sources/@roots/wordpress-hmr/tsconfig.json"},
     {
-      "path": "./../sources/@roots/wordpress-theme-json-webpack-plugin/tsconfig.json"
+      "path": "../sources/@roots/wordpress-theme-json-webpack-plugin/tsconfig.json"
     }
   ]
 }

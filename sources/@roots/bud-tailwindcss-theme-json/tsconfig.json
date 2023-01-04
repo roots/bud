@@ -7,6 +7,7 @@
   "include": ["src"],
   "exclude": ["lib", "types", "node_modules"],
   "references": [
-    {"path": "../bud-wordpress-theme-json/tsconfig.json"},
+    {"path": "../bud-tailwindcss/tsconfig.json"},
+    {"path": "../bud-wordpress-theme-json/tsconfig.json"}
   ]
 }

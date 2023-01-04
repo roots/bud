@@ -17,7 +17,7 @@ import type Server from '@roots/bud-server'
  * @public
  */
 export class Bud extends Framework {
-  public override implementation: new () => Bud & Framework = Bud
+  public override implementation = Bud
 
   public declare api: Api
 

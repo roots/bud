@@ -1,7 +1,6 @@
 {
   "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
-
     "rootDir": "src",
     "outDir": "lib",
     "types": ["node", "@roots/bud-framework"]
@@ -9,7 +8,9 @@
   "include": ["src"],
   "exclude": ["./lib", "./node_modules", "**/*.test.ts", "**/*.test.tsx"],
   "references": [
-    {"path": "./../bud-framework/tsconfig.json"},
-    {"path": "./../merged-manifest-webpack-plugin/tsconfig.json"}
+    {"path": "../bud-framework/tsconfig.json"},
+    {"path": "../bud-wordpress-dependencies/tsconfig.json"},
+    {"path": "../bud-wordpress-externals/tsconfig.json"},
+    {"path": "../merged-manifest-webpack-plugin/tsconfig.json"}
   ]
 }

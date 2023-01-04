@@ -1,4 +1,5 @@
 /// <reference path="../../bud/lib/index.d.ts" />
+/// <reference path="../../bud-framework/lib/index.d.ts" />
 /// <reference path="../../bud-preset-recommend/lib/index.d.ts" />
 /// <reference path="../../bud-react/lib/index.d.ts" />
 /// <reference path="../../bud-wordpress-externals/lib/index.d.ts" />
