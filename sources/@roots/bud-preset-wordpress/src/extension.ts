@@ -1,7 +1,8 @@
+import type {Bud} from '@roots/bud'
 import {Extension} from '@roots/bud-framework/extension'
 import {
   dependsOn,
-  expose,
+  dependsOnOptional,
   label,
 } from '@roots/bud-framework/extension/decorators'
 
@@ -12,5 +13,11 @@ import {
   `@roots/bud-wordpress-theme-json`,
   `@roots/bud-react`,
 ])
-@expose(`wp`)
-export default class BudPresetWordPress extends Extension {}
+@dependsOnOptional([`@roots/bud-tailwindcss`])
+export default class BudPresetWordPress extends Extension {
+  public override async register(bud: Bud) {
+    if (bud.extensions.has(`@roots/bud-tailwindcss`)) {
+      await bud.extensions.add(`@roots/bud-tailwindcss-theme-json`)
+    }
+  }
+}

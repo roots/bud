@@ -13,6 +13,8 @@
     {"path": "./../bud-react/tsconfig.json"},
     {"path": "./../bud-wordpress-manifests/tsconfig.json"},
     {"path": "./../bud-wordpress-externals/tsconfig.json"},
-    {"path": "./../bud-wordpress-dependencies/tsconfig.json"}
+    {"path": "./../bud-wordpress-dependencies/tsconfig.json"},
+    {"path": "./../bud-wordpress-theme-json/tsconfig.json"},
+    {"path": "./../bud-tailwindcss-theme-json/tsconfig.json"},
   ]
 }

@@ -27,10 +27,6 @@ export class Sage extends Extension<Options> {
    */
   @bind
   public override async register(bud: Bud) {
-    if (bud.extensions.has(`@roots/bud-tailwindcss`)) {
-      await bud.extensions.add(`@roots/bud-tailwindcss-theme-json`)
-    }
-
     bud.hooks.on(`build.output.uniqueName`, `@roots/bud/sage/${bud.label}`)
 
     /* Set paths */

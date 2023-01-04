@@ -68,6 +68,7 @@
   },
   "devDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
+    "@roots/bud-tailwindcss-theme-json": "workspace:sources/@roots/bud-tailwindcss-theme-json",
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.18.11"
   },
@@ -79,6 +80,7 @@
     "@roots/bud-wordpress-dependencies": "workspace:sources/@roots/bud-wordpress-dependencies",
     "@roots/bud-wordpress-externals": "workspace:sources/@roots/bud-wordpress-externals",
     "@roots/bud-wordpress-manifests": "workspace:sources/@roots/bud-wordpress-manifests",
+    "@roots/bud-wordpress-theme-json": "workspace:sources/@roots/bud-wordpress-theme-json",
     "webpack": "5.75.0"
   },
   "peerDependencies": {
