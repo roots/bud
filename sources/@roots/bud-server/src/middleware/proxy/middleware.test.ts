@@ -20,7 +20,6 @@ describe(`proxy middleware`, () => {
         "followRedirects": false,
         "hostRewrite": "0.0.0.0:3000",
         "on": {
-          "proxyReq": [Function],
           "proxyRes": [Function],
         },
         "pathFilter": [
