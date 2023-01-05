@@ -4,7 +4,7 @@ import {posix} from 'node:path'
 
 import {paths, REGISTRY_PROXY} from '@repo/constants'
 import {execa, ExecaChildProcess} from 'execa'
-import fs from 'fs-extra'
+import * as fs from 'fs-extra'
 import {bind} from 'helpful-decorators'
 import json5 from 'json5'
 
