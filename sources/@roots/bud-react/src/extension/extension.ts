@@ -8,7 +8,7 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
-import {isUndefined} from '@roots/bud-support/lodash-es'
+import isUndefined from '@roots/bud-support/lodash/isUndefined'
 
 import type BudReactRefresh from '../react-refresh/index.js'
 

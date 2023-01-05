@@ -7,7 +7,7 @@ import type {Context} from '@roots/bud-framework/options'
 import {bind} from '@roots/bud-support/decorators'
 import globby from '@roots/bud-support/globby'
 import {resolve} from '@roots/bud-support/import-meta-resolve'
-import {isString} from '@roots/bud-support/lodash-es'
+import isString from '@roots/bud-support/lodash/isString'
 
 /**
  * Command finder class

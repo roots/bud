@@ -1,5 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
-import {isNull, isUndefined} from '@roots/bud-support/lodash-es'
+import isNull from '@roots/bud-support/lodash/isNull'
+import isUndefined from '@roots/bud-support/lodash/isUndefined'
 
 /**
  * Overlay

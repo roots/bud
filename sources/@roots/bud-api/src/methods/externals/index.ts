@@ -1,5 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
-import {isFunction} from '@roots/bud-support/lodash-es'
+import isFunction from '@roots/bud-support/lodash/isFunction'
 
 export type Parameters = [
   | Record<string, RegExp | string | Array<string | RegExp>>

@@ -1,4 +1,4 @@
-import {isFunction} from '@roots/bud-support/lodash-es'
+import isFunction from '@roots/bud-support/lodash/isFunction'
 
 import type {Bud} from '../bud.js'
 

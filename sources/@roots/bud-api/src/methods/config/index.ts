@@ -1,5 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
-import {isFunction} from '@roots/bud-support/lodash-es'
+import isFunction from '@roots/bud-support/lodash/isFunction'
 import type {Configuration} from '@roots/bud-support/webpack'
 
 export type Parameters = [

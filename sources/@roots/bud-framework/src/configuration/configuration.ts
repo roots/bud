@@ -1,5 +1,5 @@
 import {bind} from '@roots/bud-support/decorators'
-import {isFunction} from '@roots/bud-support/lodash-es'
+import isFunction from '@roots/bud-support/lodash/isFunction'
 
 import type {Bud} from '../bud.js'
 import type {File} from '../types/options/context.js'

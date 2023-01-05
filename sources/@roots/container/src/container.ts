@@ -1,19 +1,17 @@
-import {
-  get,
-  has,
-  isArray,
-  isEmpty,
-  isEqual,
-  isFunction,
-  isNull,
-  isNumber,
-  isString,
-  isUndefined,
-  set,
-  size,
-  uniq,
-} from '@roots/bud-support/lodash-es'
 import {bind} from 'helpful-decorators'
+import get from 'lodash/get.js'
+import has from 'lodash/has.js'
+import isArray from 'lodash/isArray.js'
+import isEmpty from 'lodash/isEmpty.js'
+import isEqual from 'lodash/isEqual.js'
+import isFunction from 'lodash/isFunction.js'
+import isNull from 'lodash/isNull.js'
+import isNumber from 'lodash/isNumber.js'
+import isString from 'lodash/isString.js'
+import isUndefined from 'lodash/isUndefined.js'
+import set from 'lodash/set.js'
+import size from 'lodash/size.js'
+import uniq from 'lodash/uniq.js'
 import type {ValueOf} from 'type-fest'
 
 import {mergeable} from './utilities.js'

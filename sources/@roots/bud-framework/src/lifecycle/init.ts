@@ -1,4 +1,4 @@
-import {isString} from '@roots/bud-support/lodash-es'
+import isString from '@roots/bud-support/lodash/isString'
 
 import type {Bud} from '../bud.js'
 

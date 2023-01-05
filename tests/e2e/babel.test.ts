@@ -1,7 +1,5 @@
-import {paths} from '@repo/constants'
 import {ExecaReturnValue} from 'execa'
 import fs from 'fs-extra'
-import {join} from 'path'
 import {Browser, chromium, Page} from 'playwright'
 import {
   afterEach,

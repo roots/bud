@@ -7,7 +7,9 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
-import {get, isFunction, isUndefined} from '@roots/bud-support/lodash-es'
+import get from '@roots/bud-support/lodash/get'
+import isFunction from '@roots/bud-support/lodash/isFunction'
+import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import defaultConfig from 'tailwindcss/defaultConfig.js'
 import pluginUtils from 'tailwindcss/lib/util/pluginUtils.js'
 import resolveConfig from 'tailwindcss/resolveConfig.js'

@@ -1,5 +1,5 @@
 import type {Item} from '@roots/bud-framework/services/build'
-import {isBoolean} from '@roots/bud-support/lodash-es'
+import isBoolean from '@roots/bud-support/lodash/isBoolean'
 
 import type {Factory} from '../index.js'
 

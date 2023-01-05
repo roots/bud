@@ -9,7 +9,7 @@ import {
 import {Service} from '@roots/bud-framework/service'
 import type {Extensions as Contract} from '@roots/bud-framework/services'
 import {bind} from '@roots/bud-support/decorators'
-import {isUndefined} from '@roots/bud-support/lodash-es'
+import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import Container from '@roots/container'
 
 import {handleManifestSchemaWarning} from './util/handleManifestSchemaWarning.js'

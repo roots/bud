@@ -1,17 +1,17 @@
 {
   "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
-    "types": ["express"],
     "rootDir": "./src",
     "outDir": "./lib",
     "paths": {
       "@roots/bud-framework": ["./src/index.ts"],
-    }
+    },
+    "types": ["express"]
   },
   "include": ["./src"],
   "exclude": ["./lib", "./node_modules", "**/*.test.ts"],
   "references": [
-    {"path": "./../container/tsconfig.json"},
-    {"path": "./../bud-support/tsconfig.json"}
+    {"path": "../container/tsconfig.json"},
+    {"path": "../bud-support/tsconfig.json"}
   ],
 }

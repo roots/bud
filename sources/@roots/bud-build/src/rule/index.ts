@@ -6,7 +6,8 @@ import type {
   Rule as Interface,
 } from '@roots/bud-framework/services/build/rule'
 import {bind} from '@roots/bud-support/decorators'
-import {isFunction, isString} from '@roots/bud-support/lodash-es'
+import isFunction from '@roots/bud-support/lodash/isFunction'
+import isString from '@roots/bud-support/lodash/isString'
 
 import type {Item} from '../item/index.js'
 import Base from '../shared/base.js'

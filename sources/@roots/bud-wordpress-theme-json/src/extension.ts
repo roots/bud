@@ -7,7 +7,8 @@ import {
   options,
   plugin,
 } from '@roots/bud-framework/extension/decorators'
-import {isBoolean, isFunction} from '@roots/bud-support/lodash-es'
+import isBoolean from '@roots/bud-support/lodash/isBoolean'
+import isFunction from '@roots/bud-support/lodash/isFunction'
 import Container from '@roots/container'
 import ThemeJsonWebpackPlugin, {
   Options,

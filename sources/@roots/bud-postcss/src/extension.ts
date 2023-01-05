@@ -5,7 +5,8 @@ import {
   expose,
   label,
 } from '@roots/bud-framework/extension/decorators'
-import {isFunction, isUndefined} from '@roots/bud-support/lodash-es'
+import isFunction from '@roots/bud-support/lodash/isFunction'
+import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import type {Plugin, Processor} from 'postcss'
 
 type Input =

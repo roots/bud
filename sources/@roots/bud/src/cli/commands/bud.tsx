@@ -12,8 +12,8 @@ import type {
 import {BaseContext, Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators'
 import Ink, {React, Renderer} from '@roots/bud-support/ink'
+import isString from '@roots/bud-support/lodash/isString'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
-import {isString} from '@roots/bud-support/lodash-es'
 import * as t from '@roots/bud-support/typanion'
 
 import type {Notifier} from '../../notifier/index.js'
