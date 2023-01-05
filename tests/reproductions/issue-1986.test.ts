@@ -4,35 +4,35 @@ import execa, {ExecaReturnValue} from '@roots/bud-support/execa'
 import {beforeAll, describe, expect, it} from 'vitest'
 import fs from '@roots/bud-support/fs-jetpack'
 
-describe('issue-error-code', () => {
+describe(`issue-1986`, () => {
   let child: ExecaReturnValue
 
   beforeAll(async () => {
     await execa(`yarn`, [`bud`, `clean`], {
-      cwd: join(paths.tests, `reproductions`, `error-code`),
+      cwd: join(paths.tests, `reproductions`, `issue-1986`),
     })
 
     try {
       child = await execa(`yarn`, [`bud`, `build`], {
-        cwd: join(paths.tests, `reproductions`, `error-code`),
+        cwd: join(paths.tests, `reproductions`, `issue-1986`),
         reject: false,
       })
     } catch (error) {}
   }, 30000)
 
-  it('should have an exit code of 1', async () => {
+  it(`should have an exit code of 1`, async () => {
     expect(child.failed).toBe(true)
   })
 
-  it('should not generate app.css', async () => {
+  it(`should not generate app.css`, async () => {
     expect(
       await fs.existsAsync(
         join(
           paths.tests,
           `reproductions`,
-          `error-code`,
+          `issue-1986`,
           `dist`,
-          `js`,
+          `css`,
           `app.css`,
         ),
       ),

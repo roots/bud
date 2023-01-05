@@ -1,5 +1,5 @@
 {
-  "name": "@tests/issue-error-code",
+  "name": "@tests/issue-1986",
   "type": "module",
   "private": true,
   "bud": {

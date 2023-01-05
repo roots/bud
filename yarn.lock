@@ -8068,9 +8068,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@tests/issue-error-code@workspace:tests/reproductions/error-code":
+"@tests/issue-1986@workspace:tests/reproductions/issue-1986":
   version: 0.0.0-use.local
-  resolution: "@tests/issue-error-code@workspace:tests/reproductions/error-code"
+  resolution: "@tests/issue-1986@workspace:tests/reproductions/issue-1986"
   dependencies:
     "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss"
