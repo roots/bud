@@ -98,8 +98,19 @@ export class Compiler extends Service implements Contract.Service {
    */
   @bind
   public async onStats(stats: MultiStats) {
-    this.stats = stats
-    await this.app.dashboard.update(stats)
+    this.stats = stats.toJson(this.app.hooks.filter(`build.stats`))
+    if (
+      this.stats.errorsCount > 0 ||
+      this.stats.children?.some(child => child.errorsCount > 0)
+    ) {
+      process.exitCode = 1
+    }
+
+    try {
+      await this.app.dashboard.update(stats)
+    } catch (error) {
+      throw error
+    }
   }
 
   /**
