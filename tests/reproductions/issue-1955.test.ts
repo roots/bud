@@ -1,17 +1,17 @@
 import {join} from 'node:path'
 import {paths} from '@repo/constants'
-import {execa} from 'execa'
+import execa from '@roots/bud-support/execa'
 import {beforeAll, describe, expect, it} from 'vitest'
-import {readFile} from 'fs-extra'
+import {readFile} from '@roots/bud-support/fs'
 
-describe('issue-1886', () => {
+describe('issue-1995', () => {
   beforeAll(async () => {
     await execa(`yarn`, [`bud`, `clean`], {
-      cwd: join(paths.tests, `reproductions`, `react-18`),
+      cwd: join(paths.tests, `reproductions`, `issue-1955`),
     })
 
     await execa(`yarn`, [`bud`, `build`, `--debug`], {
-      cwd: join(paths.tests, `reproductions`, `react-18`),
+      cwd: join(paths.tests, `reproductions`, `issue-1955`),
     })
   }, 30000)
 
@@ -20,7 +20,7 @@ describe('issue-1886', () => {
       join(
         paths.tests,
         `reproductions`,
-        `react-18`,
+        `issue-1955`,
         `dist`,
         `js`,
         `app.js`,

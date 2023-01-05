@@ -1,5 +1,4 @@
 import {Bud, factory} from '@repo/test-kit/bud'
-import type {MultiStats, WebpackError} from '@roots/bud-support/webpack'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import Compiler from './index.js'
@@ -45,6 +44,7 @@ describe(`@roots/bud-compiler`, function () {
   })
 
   it(`should log early exit (--dry)`, async () => {
+    // @ts-ignore
     bud.context.args.dry = true
     const logSpy = vi.spyOn(compiler.logger, `log`)
     await compiler.compile()

@@ -2,6 +2,7 @@ import type {CommandContext} from '@roots/bud/cli/commands/bud'
 import BudCommand from '@roots/bud/cli/commands/bud'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators'
+import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import * as t from '@roots/bud-support/typanion'
 
 /**
@@ -25,7 +26,7 @@ export default class BudBuildCommand extends BudCommand {
   })
 
   public override withBud = async (bud: BudCommand[`bud`]) => {
-    if (this.notify && this.notifier) {
+    if (!isUndefined(this.notifier)) {
       bud.hooks.action(`compiler.after`, async () => {
         bud.compiler.instance.hooks.done.tap(
           `bud-cli-notifier`,
@@ -187,7 +188,6 @@ export default class BudBuildCommand extends BudCommand {
       manifest: this.manifest,
       minimize: this.minimize,
       mode: this.mode,
-      notify: this.notify,
       publicPath: this.publicPath,
       runtime: this.runtime,
       splitChunks: this.splitChunks,

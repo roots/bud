@@ -13,6 +13,7 @@ import {BaseContext, Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators'
 import Ink, {React, Renderer} from '@roots/bud-support/ink'
 import isString from '@roots/bud-support/lodash/isString'
+import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import * as t from '@roots/bud-support/typanion'
 
 import type {Notifier} from '../../notifier/index.js'
@@ -74,7 +75,9 @@ export default class BudCommand extends Command<CommandContext> {
   ) => Promise<BudCommand[`bud`]>
 
   public declare notifier?: Notifier
-  public declare notify?: boolean
+  public notify: boolean = Option.Boolean(`--notify`, undefined, {
+    description: `Enable notification`,
+  })
 
   public cwd = Option.String(`--basedir,--cwd`, undefined, {
     description: `project base directory`,
@@ -120,6 +123,8 @@ export default class BudCommand extends Command<CommandContext> {
   public async execute() {}
 
   public override async catch(value: unknown) {
+    process.exitCode = 1
+
     this.bud.context.logger.info(`bud cli caught error`, value)
     const normalizeError = (value: unknown): Error => {
       if (value instanceof Error) return value
@@ -132,8 +137,6 @@ export default class BudCommand extends Command<CommandContext> {
         }
       }
     }
-
-    process.exitCode = 1
 
     let error: Error
 
@@ -195,6 +198,7 @@ export default class BudCommand extends Command<CommandContext> {
       debug: command.debug,
       filter: command.filter,
       log: command.log,
+      notify: command.notify,
       target: command.filter,
       verbose: command.verbose,
     }
@@ -223,7 +227,7 @@ export default class BudCommand extends Command<CommandContext> {
 
     command.bud = bud
 
-    if (command.notify !== false) {
+    if (isUndefined(command.notify) || command.notify === true) {
       const {Notifier} = await import(`../../notifier/index.js`)
       command.notifier = new Notifier().setBud(command.bud)
     }

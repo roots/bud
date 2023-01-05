@@ -8066,6 +8066,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@tests/issue-1986@workspace:tests/reproductions/issue-1986":
+  version: 0.0.0-use.local
+  resolution: "@tests/issue-1986@workspace:tests/reproductions/issue-1986"
+  dependencies:
+    "@roots/bud": "workspace:sources/@roots/bud"
+    "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss"
+  languageName: unknown
+  linkType: soft
+
 "@tests/project@workspace:tests/util/project":
   version: 0.0.0-use.local
   resolution: "@tests/project@workspace:tests/util/project"
