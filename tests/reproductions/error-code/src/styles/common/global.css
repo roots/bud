@@ -1,0 +1,9 @@
+#root {
+  @apply text-indigo-500;
+
+  background: url(@src/images/nested/image.jpeg);
+}
+
+.icon {
+  background: url(@src/svg/icon.svg);
+}

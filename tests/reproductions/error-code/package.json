@@ -1,0 +1,17 @@
+{
+  "name": "@tests/issue-error-code",
+  "type": "module",
+  "private": true,
+  "bud": {
+    "extensions": {
+      "discovery": false
+    }
+  },
+  "devDependencies": {
+    "@roots/bud": "workspace:sources/@roots/bud",
+    "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss"
+  },
+  "volta": {
+    "node": "16.18.0"
+  }
+}
