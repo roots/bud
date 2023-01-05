@@ -1,16 +1,13 @@
 import type {Bud} from '@roots/bud-framework'
 import {
-  ApplicationURL,
-  requestInterceptor,
-  responseInterceptor,
-} from '@roots/bud-server/middleware/proxy'
-import {
   createProxyMiddleware,
   Options,
 } from '@roots/bud-support/http-proxy-middleware'
 import signale from '@roots/bud-support/signale'
 
 import type {MiddlewareFactory} from '../index.js'
+import * as responseInterceptor from './responseInterceptor.js'
+import {ApplicationURL} from './url.js'
 
 /**
  * Proxy middleware factory
@@ -85,7 +82,7 @@ export const makeOptions = (app: Bud): Options => {
         app.hooks.filter(`dev.middleware.proxy.options.on`, {
           proxyReq: app.hooks.filter(
             `dev.middleware.proxy.options.onProxyReq`,
-            requestInterceptor.factory(app, url),
+            undefined,
           ),
           proxyRes: app.hooks.filter(
             `dev.middleware.proxy.options.onProxyRes`,

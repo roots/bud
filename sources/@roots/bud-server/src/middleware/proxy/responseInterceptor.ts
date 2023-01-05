@@ -3,7 +3,7 @@ import type {IncomingMessage, ServerResponse} from 'node:http'
 import type {Bud} from '@roots/bud-framework'
 import {responseInterceptor} from '@roots/bud-support/http-proxy-middleware'
 
-import type {ApplicationURL} from '../url.js'
+import type {ApplicationURL} from './url.js'
 
 declare module 'node:http' {
   interface IncomingMessage {
@@ -16,14 +16,7 @@ declare module 'node:http' {
 
 const factory = (bud: Bud, url: ApplicationURL) =>
   responseInterceptor(async (buffer, proxy, request, response) => {
-    response
-      .setHeader(`x-proxy-by`, `@roots/bud`)
-      .setHeader(`x-bud-origin`, url.dev.origin)
-      .setHeader(`x-bud-dev-origin`, url.dev.origin)
-      .setHeader(`x-bud-dev-protocol`, url.dev.protocol)
-      .setHeader(`x-bud-dev-hostname`, url.dev.hostname)
-      .setHeader(`x-bud-proxy-origin`, url.proxy.origin)
-
+    response.setHeader(`x-proxy-by`, `@roots/bud`)
     response.removeHeader(`content-security-policy`)
     response.removeHeader(`x-http-method-override`)
 
