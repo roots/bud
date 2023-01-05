@@ -1,5 +1,5 @@
 import type * as Theme from '@roots/wordpress-theme-json-webpack-plugin/theme'
-import * as fs from 'fs-extra'
+import fs from 'fs-extra'
 import {bind} from 'helpful-decorators'
 import omit from 'lodash/omit.js'
 import type {Compiler, WebpackPluginInstance} from 'webpack'
