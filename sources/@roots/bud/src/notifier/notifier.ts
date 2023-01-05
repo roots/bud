@@ -187,7 +187,7 @@ export class Notifier {
       return
     }
 
-    this.setStats(this.bud.compiler.stats.toJson())
+    this.setStats(this.bud.compiler.stats)
     this.setGroup(this.bud.path())
     this.setTitle(this.bud.label)
     this.setMessage(
