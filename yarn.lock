@@ -7541,7 +7541,7 @@ __metadata:
     "@types/node": 16.18.11
     fs-extra: 10.1.0
     helpful-decorators: 2.1.0
-    lodash-es: 4.17.21
+    lodash: 4.17.21
     webpack: 5.75.0
   languageName: unknown
   linkType: soft

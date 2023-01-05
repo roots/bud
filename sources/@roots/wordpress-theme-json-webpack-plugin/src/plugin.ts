@@ -1,11 +1,8 @@
-import type * as ThemeJSON from '@roots/bud-preset-wordpress/theme'
-import {bind} from '@roots/bud-support/decorators'
-import * as fs from '@roots/bud-support/fs'
-import omit from '@roots/bud-support/lodash/omit'
-import type {
-  Compiler,
-  WebpackPluginInstance,
-} from '@roots/bud-support/webpack'
+import type * as Theme from '@roots/wordpress-theme-json-webpack-plugin/theme'
+import * as fs from 'fs-extra'
+import {bind} from 'helpful-decorators'
+import omit from 'lodash/omit.js'
+import type {Compiler, WebpackPluginInstance} from 'webpack'
 
 /**
  * Plugin options
@@ -17,13 +14,13 @@ export interface Options {
    * WordPress `settings`
    * @see https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-json/
    */
-  settings?: Partial<ThemeJSON.GlobalSettingsAndStyles['settings']>
+  settings?: Partial<Theme.GlobalSettingsAndStyles['settings']>
 
   /**
    * WordPress `customTemplates`
    * @see https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-json/
    */
-  customTemplates?: ThemeJSON.GlobalSettingsAndStyles['customTemplates']
+  customTemplates?: Theme.GlobalSettingsAndStyles['customTemplates']
 
   /**
    * Emit path

@@ -42,12 +42,19 @@
     ".": {
       "types": "./lib/index.d.ts",
       "default": "./lib/index.js"
+    },
+    "./theme": {
+      "types": "./lib/theme.d.ts",
+      "default": "./lib/theme.js"
     }
   },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.d.ts"
+      ],
+      "*": [
+        "./lib/*.d.ts"
       ]
     }
   },
@@ -60,7 +67,7 @@
   "dependencies": {
     "fs-extra": "10.1.0",
     "helpful-decorators": "2.1.0",
-    "lodash-es": "4.17.21"
+    "lodash": "4.17.21"
   },
   "volta": {
     "extends": "../../../package.json"
