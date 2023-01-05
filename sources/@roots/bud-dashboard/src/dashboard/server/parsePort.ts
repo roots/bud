@@ -1,4 +1,5 @@
-import {isNumber, isString} from '@roots/bud-support/lodash-es'
+import isNumber from '@roots/bud-support/lodash/isNumber'
+import isString from '@roots/bud-support/lodash/isString'
 
 /**
  * Parse port and return as a string with `:` prefix

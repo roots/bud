@@ -1,7 +1,7 @@
 import type {Bud, Loaders} from '@roots/bud-framework'
 import type * as Build from '@roots/bud-framework/services/build'
 import {bind} from '@roots/bud-support/decorators'
-import {isString} from '@roots/bud-support/lodash-es'
+import isString from '@roots/bud-support/lodash/isString'
 import {basename} from 'path'
 
 import {Loader} from '../loader/index.js'

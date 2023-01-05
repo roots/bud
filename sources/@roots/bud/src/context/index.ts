@@ -9,7 +9,7 @@ import type * as Factory from '@roots/bud/factory'
 import {Logger} from '@roots/bud/logger'
 import type {CommandContext, Context} from '@roots/bud-framework/options'
 import {Filesystem} from '@roots/bud-support/filesystem'
-import {omit} from '@roots/bud-support/lodash-es'
+import omit from '@roots/bud-support/lodash/omit'
 
 let contexts: Record<string, Context> = {}
 

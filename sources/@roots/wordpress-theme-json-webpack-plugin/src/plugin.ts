@@ -1,9 +1,8 @@
+import type * as Theme from '@roots/wordpress-theme-json-webpack-plugin/theme'
 import fs from 'fs-extra'
 import {bind} from 'helpful-decorators'
-import {omit} from 'lodash-es'
+import omit from 'lodash/omit.js'
 import type {Compiler, WebpackPluginInstance} from 'webpack'
-
-import type * as ThemeJSON from './theme.js'
 
 /**
  * Plugin options
@@ -15,13 +14,13 @@ export interface Options {
    * WordPress `settings`
    * @see https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-json/
    */
-  settings?: Partial<ThemeJSON.GlobalSettingsAndStyles['settings']>
+  settings?: Partial<Theme.GlobalSettingsAndStyles['settings']>
 
   /**
    * WordPress `customTemplates`
    * @see https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-json/
    */
-  customTemplates?: ThemeJSON.GlobalSettingsAndStyles['customTemplates']
+  customTemplates?: Theme.GlobalSettingsAndStyles['customTemplates']
 
   /**
    * Emit path

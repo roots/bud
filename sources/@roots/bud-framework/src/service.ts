@@ -1,4 +1,4 @@
-import {lowerCase} from '@roots/bud-support/lodash-es'
+import lowerCase from '@roots/bud-support/lodash/lowerCase'
 import Container from '@roots/container'
 
 import type {Bud} from './index.js'
@@ -11,16 +11,12 @@ import type {Logger} from './types/services/logger/index.js'
 
 interface Contract {
   /**
-   * Bud instance getter
-   *
-   * @public
+   * Bud instance
    */
   app?: Bud & {context: CommandContext | CLIContext | Context}
 
   /**
-   * Scopoed logger
-   *
-   * @public
+   * Scoped logger
    */
   logger: Logger
 
@@ -29,8 +25,6 @@ interface Contract {
    *
    * @remarks
    * `init` is called when the Service is instantiated
-   *
-   * @public
    */
   init?(app?: Bud): Promise<void>
 
@@ -39,8 +33,6 @@ interface Contract {
    *
    * @remarks
    * `bootstrap` is called when the Service is instantiated (but before all services are guaranteed to be instantiated).
-   *
-   * @public
    */
   bootstrap?(app?: Bud): Promise<void>
 
@@ -50,8 +42,6 @@ interface Contract {
    * @remarks
    * Called once all Service instances are available
 
-   *
-   * @public
    */
   bootstrapped?(app?: Bud): Promise<any>
 
@@ -61,8 +51,6 @@ interface Contract {
    * @remarks
    * Intended for Service instances to register functionalities, modules,
    * and bind functions to {@link Bud}
-   *
-   * @public
    */
   register?(app?: Bud): Promise<any>
 
@@ -72,8 +60,6 @@ interface Contract {
    * @remarks
    * `registered` is called after `register` is complete
 
-   *
-   * @public
    */
   registered?(app?: Bud): Promise<any>
 
@@ -83,8 +69,6 @@ interface Contract {
    * @remarks
    * `boot` is called once all services are registered.
 
-   *
-   * @public
    */
   boot?(app?: Bud): Promise<any>
 
@@ -93,38 +77,31 @@ interface Contract {
    *
    * @remarks
    * `booted` is called after `boot`
-   *
-   * @public
    */
   booted?(app?: Bud): Promise<any>
 
   /**
    * After config callback
-   * @public
    */
   configAfter?(app?: Bud): Promise<void>
 
   /**
    * Before build service
-   * @public
    */
   buildBefore?(app?: Bud): Promise<void>
 
   /**
    * After build service
-   * @public
    */
   buildAfter?(app?: Bud): Promise<void>
 
   /**
    * Before Compiler service
-   * @public
    */
   compilerBefore?(app?: Bud): Promise<void>
 
   /**
    * After Compiler service
-   * @public
    */
   compilerAfter?(app?: Bud): Promise<void>
 }
@@ -145,8 +122,6 @@ abstract class Base implements Partial<Contract> {
    *
    * @remarks
    * `init` is called when the Service is instantiated
-   *
-   * @public
    */
   public init?(app?: Bud): Promise<void>
 
@@ -155,8 +130,6 @@ abstract class Base implements Partial<Contract> {
    *
    * @remarks
    * `bootstrap` is called when the Service is instantiated (but before all services are guaranteed to be instantiated).
-   *
-   * @public
    */
   public bootstrap?(app?: Bud): Promise<any>
 
@@ -166,8 +139,6 @@ abstract class Base implements Partial<Contract> {
    * @remarks
    * Called once all Service instances are available
 
-   *
-   * @public
    */
   public bootstrapped?(app?: Bud): Promise<any>
 
@@ -177,8 +148,6 @@ abstract class Base implements Partial<Contract> {
    * @remarks
    * Intended for Service instances to register functionalities, modules,
    * and bind functions to {@link Bud}
-   *
-   * @public
    */
   public register?(app?: Bud): Promise<any>
 
@@ -188,8 +157,6 @@ abstract class Base implements Partial<Contract> {
    * @remarks
    * `registered` is called after `register` is complete
 
-   *
-   * @public
    */
   public registered?(app?: Bud): Promise<any>
 
@@ -199,8 +166,6 @@ abstract class Base implements Partial<Contract> {
    * @remarks
    * `boot` is called once all services are registered.
 
-   *
-   * @public
    */
   public boot?(app?: Bud): Promise<any>
 
@@ -209,45 +174,37 @@ abstract class Base implements Partial<Contract> {
    *
    * @remarks
    * `booted` is called after `boot`
-   *
-   * @public
    */
   public booted?(app?: Bud): Promise<any>
 
   /**
    * After config callback
-   * @public
    */
   public configAfter?(app?: Bud): Promise<void>
 
   /**
    * Before build service
-   * @public
    */
   public buildBefore?(app?: Bud): Promise<void>
 
   /**
    * After build service
-   * @public
    */
   public buildAfter?(app?: Bud): Promise<void>
 
   /**
    * Before Compiler service
-   * @public
    */
   public compilerBefore?(app?: Bud): Promise<void>
 
   /**
    * After Compiler service
-   * @public
    */
   public compilerAfter?(app?: Bud): Promise<void>
 
   /**
-   * Access {@link Bud}
-   *
-   * @public @readonly
+   * Bud instance
+   * @readonly
    */
   public get app(): Bud {
     return this._app()
@@ -255,14 +212,11 @@ abstract class Base implements Partial<Contract> {
 
   /**
    * Logger instance
-   *
-   * @public
    */
   public logger: Logger
 
   /**
    * Class constructor
-   * @public
    */
   public constructor(public _app: () => Bud) {
     this.logger = this.app.context.logger.make(
@@ -287,9 +241,8 @@ abstract class BaseContainer
   implements Partial<Contract>
 {
   /**
-   * Access {@link Bud}
-   *
-   * @public @readonly
+   * Bud instance
+   * @readonly
    */
   public get app(): Bud & {
     context: CommandContext | CLIContext | Context
@@ -299,8 +252,6 @@ abstract class BaseContainer
 
   /**
    * Logger instance
-   *
-   * @public
    */
   public logger: Logger
 
@@ -309,8 +260,6 @@ abstract class BaseContainer
    *
    * @remarks
    * `init` is called when the Service is instantiated
-   *
-   * @public
    */
   public init?(app?: Bud): Promise<void>
 
@@ -319,8 +268,6 @@ abstract class BaseContainer
    *
    * @remarks
    * `bootstrap` is called when the Service is instantiated (but before all services are guaranteed to be instantiated).
-   *
-   * @public
    */
   public bootstrap?(app?: Bud): Promise<void>
 
@@ -329,9 +276,6 @@ abstract class BaseContainer
    *
    * @remarks
    * Called once all Service instances are available
-
-   *
-   * @public
    */
   public bootstrapped?(app?: Bud): Promise<void>
 
@@ -341,8 +285,6 @@ abstract class BaseContainer
    * @remarks
    * Intended for Service instances to register functionalities, modules,
    * and bind functions to {@link Bud}
-   *
-   * @public
    */
   public register?(app?: Bud): Promise<void>
 
@@ -351,9 +293,6 @@ abstract class BaseContainer
    *
    * @remarks
    * `registered` is called after `register` is complete
-
-   *
-   * @public
    */
   public registered?(app?: Bud): Promise<void>
 
@@ -362,9 +301,6 @@ abstract class BaseContainer
    *
    * @remarks
    * `boot` is called once all services are registered.
-
-   *
-   * @public
    */
   public boot?(app?: Bud): Promise<void>
 
@@ -373,44 +309,36 @@ abstract class BaseContainer
    *
    * @remarks
    * `booted` is called after `boot`
-   *
-   * @public
    */
   public booted?(app?: Bud): Promise<void>
 
   /**
    * After config callback
-   * @public
    */
   public configAfter?(app?: Bud): Promise<void>
 
   /**
    * Before build service
-   * @public
    */
   public buildBefore?(app?: Bud): Promise<void>
 
   /**
    * After build service
-   * @public
    */
   public buildAfter?(app?: Bud): Promise<void>
 
   /**
    * Before Compiler service
-   * @public
    */
   public compilerBefore?(app?: Bud): Promise<void>
 
   /**
    * After Compiler service
-   * @public
    */
   public compilerAfter?(app?: Bud): Promise<void>
 
   /**
    * Class constructor
-   * @public
    */
   public constructor(public _app: () => Bud) {
     super()

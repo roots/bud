@@ -4,6 +4,14 @@
     "rootDir": "src",
     "outDir": "lib",
     "strict": true,
+    "paths": {
+      "@roots/bud-support": ["./src/index.ts"],
+      "@roots/bud-support/lodash-es": ["./src/lodash/index.ts"],
+      "@roots/bud-support/lodash-es/*": ["./src/lodash/*/index.ts"],
+      "@roots/bud-support/lodash": ["./src/lodash/index.ts"],
+      "@roots/bud-support/lodash/*": ["./src/lodash/*/index.ts"],
+      "@roots/bud-support/*": ["./src/*"]
+    },
     "types": ["express", "node", "react", "webpack"]
   },
   "files": ["types.d.ts"],

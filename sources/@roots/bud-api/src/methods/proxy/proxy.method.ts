@@ -1,11 +1,9 @@
 import type {Bud} from '@roots/bud-framework/bud'
-import {
-  isArray,
-  isFunction,
-  isNumber,
-  isString,
-  isUndefined,
-} from '@roots/bud-support/lodash-es'
+import isArray from '@roots/bud-support/lodash/isArray'
+import isFunction from '@roots/bud-support/lodash/isFunction'
+import isNumber from '@roots/bud-support/lodash/isNumber'
+import isString from '@roots/bud-support/lodash/isString'
+import isUndefined from '@roots/bud-support/lodash/isUndefined'
 
 import {
   assignOptions,

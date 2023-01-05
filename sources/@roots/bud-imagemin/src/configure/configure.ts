@@ -1,4 +1,5 @@
-import {get, set} from '@roots/bud-support/lodash-es'
+import get from '@roots/bud-support/lodash/get'
+import set from '@roots/bud-support/lodash/set'
 
 import type {BudImageminExtension} from '../extension.js'
 import type {Minimizer} from '../index.js'
