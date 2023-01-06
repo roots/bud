@@ -36,14 +36,26 @@
     "type": "extension"
   },
   "files": [
-    "lib/"
+    "docs",
+    "lib",
+    "src"
   ],
   "type": "module",
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "exports": {
-    ".": "./lib/index.js",
-    "./extension": "./lib/extension.js"
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./extension": {
+      "types": "./lib/extension.d.ts",
+      "default": "./lib/extension.js"
+    },
+    "./types": {
+      "types": "./lib/types.d.ts",
+      "default": "./lib/types.js"
+    }
   },
   "typesVersions": {
     "*": {
@@ -62,6 +74,14 @@
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/entrypoints-webpack-plugin": "workspace:sources/@roots/entrypoints-webpack-plugin"
+  },
+  "peerDependencies": {
+    "@roots/bud": "*"
+  },
+  "peerDependenciesMeta": {
+    "@roots/bud": {
+      "optional": true
+    }
   },
   "volta": {
     "extends": "../../../package.json"

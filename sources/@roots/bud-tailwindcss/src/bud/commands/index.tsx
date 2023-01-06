@@ -1,8 +1,7 @@
-import {BudTailwindCommand} from './bud.tailwind.command.js'
+import type {Cli} from '@roots/bud-support/clipanion'
+import {BudTailwindCommand} from '@roots/bud-tailwindcss/bud/commands/tailwindcss'
 
 /**
- * Register bud cli commands
- *
- * @public
+ * Register bud cli command
  */
-export default async clipanion => clipanion.register(BudTailwindCommand)
+export default async (cli: Cli) => cli.register(BudTailwindCommand)

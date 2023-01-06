@@ -33,7 +33,9 @@
     "node": ">=16"
   },
   "files": [
-    "lib/"
+    "docs",
+    "lib",
+    "src"
   ],
   "type": "module",
   "module": "./lib/index.js",
@@ -52,7 +54,7 @@
     }
   },
   "devDependencies": {
-    "@roots/bud-preset-wordpress": "workspace:sources/@roots/bud-preset-wordpress",
+    "@roots/bud": "workspace:sources/@roots/bud",
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.18.11"
   },
@@ -61,6 +63,14 @@
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@roots/container": "workspace:sources/@roots/container",
     "@roots/wordpress-theme-json-webpack-plugin": "workspace:sources/@roots/wordpress-theme-json-webpack-plugin"
+  },
+  "peerDependencies": {
+    "@roots/bud": "*"
+  },
+  "peerDependenciesMeta": {
+    "@roots/bud": {
+      "optional": true
+    }
   },
   "volta": {
     "extends": "../../../package.json"

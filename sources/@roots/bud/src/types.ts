@@ -4,6 +4,7 @@
 /// <reference path="../../bud-cache/lib/index.d.ts" />
 /// <reference path="../../bud-compiler/lib/index.d.ts" />
 /// <reference path="../../bud-dashboard/lib/index.d.ts" />
+/// <reference path="../../bud-entrypoints/lib/index.d.ts" />
 /// <reference path="../../bud-extensions/lib/index.d.ts" />
 /// <reference path="../../bud-hooks/lib/index.d.ts" />
 /// <reference path="../../bud-support/lib/index.d.ts" />

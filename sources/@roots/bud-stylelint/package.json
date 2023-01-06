@@ -72,12 +72,16 @@
     "stylelint-webpack-plugin": "3.3.0"
   },
   "peerDependencies": {
+    "@roots/bud": "*",
     "stylelint": "*",
     "stylelint-config-standard": "*",
     "stylelint-scss": "*",
     "stylelint-webpack-plugin": "*"
   },
   "peerDependenciesMeta": {
+    "@roots/bud": {
+      "optional": true
+    },
     "stylelint": {
       "optional": true
     },

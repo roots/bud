@@ -33,7 +33,9 @@
     "node": ">=16"
   },
   "files": [
-    "lib/"
+    "docs",
+    "lib",
+    "src"
   ],
   "type": "module",
   "module": "./lib/index.js",
@@ -44,12 +46,12 @@
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@types/lodash-es": "4.17.6",
-    "@types/node": "16.18.11",
-    "webpack": "5.75.0"
+    "@types/node": "16.18.11"
   },
   "dependencies": {
     "helpful-decorators": "2.1.0",
-    "lodash": "4.17.21"
+    "lodash": "4.17.21",
+    "webpack": "5.75.0"
   },
   "volta": {
     "extends": "../../../package.json"

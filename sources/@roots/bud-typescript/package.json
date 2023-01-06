@@ -69,13 +69,13 @@
     "@skypack/package-check": "0.2.2",
     "@types/fork-ts-checker-webpack-plugin": "0.4.5",
     "@types/node": "16.18.11",
+    "@types/webpack-env": "1.18.0",
     "react-refresh": "^0.14.0",
     "webpack": "5.75.0"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "@types/webpack-env": "1.18.0",
     "fork-ts-checker-webpack-plugin": "^7.2.14",
     "react-refresh-typescript": "2.0.7",
     "ts-loader": "^9.4.2",
@@ -91,6 +91,9 @@
     "typescript": "*"
   },
   "peerDependenciesMeta": {
+    "@roots/bud": {
+      "optional": true
+    },
     "fork-ts-checker-webpack-plugin": {
       "optional": true
     },

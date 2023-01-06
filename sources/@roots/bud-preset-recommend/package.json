@@ -69,23 +69,21 @@
   },
   "dependencies": {
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
-    "@roots/bud-entrypoints": "workspace:sources/@roots/bud-entrypoints",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
-    "webpack": "5.75.0"
+    "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss"
   },
   "peerDependencies": {
     "@roots/bud": "*",
     "@roots/bud-babel": "*",
-    "@roots/bud-entrypoints": "*",
     "@roots/bud-esbuild": "*",
-    "@roots/bud-postcss": "*"
+    "@roots/bud-postcss": "*",
+    "@roots/bud-swc": "*"
   },
   "peerDependenciesMeta": {
-    "@roots/bud-babel": {
+    "@roots/bud": {
       "optional": true
     },
-    "@roots/bud-entrypoints": {
+    "@roots/bud-babel": {
       "optional": true
     },
     "@roots/bud-esbuild": {

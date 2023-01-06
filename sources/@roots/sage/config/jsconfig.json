@@ -1,4 +1,6 @@
 {
+  "$schema": "https://json.schemastore.org/jsconfig",
+  "display": "@roots/sage",
   "extends": "@roots/bud/config/jsconfig.json",
   "compilerOptions": {
     "types": ["@roots/bud", "@roots/sage"]

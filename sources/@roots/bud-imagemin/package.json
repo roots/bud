@@ -60,6 +60,9 @@
     "image-minimizer-webpack-plugin": "*"
   },
   "peerDependenciesMeta": {
+    "@roots/bud": {
+      "optional": true
+    },
     "@squoosh/lib": {
       "optional": true
     },

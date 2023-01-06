@@ -33,7 +33,9 @@
     "node": ">=16"
   },
   "files": [
-    "lib/"
+    "docs",
+    "lib",
+    "src"
   ],
   "type": "module",
   "module": "./lib/index.js",

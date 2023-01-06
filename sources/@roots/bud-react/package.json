@@ -38,7 +38,9 @@
     "type": "extension"
   },
   "files": [
-    "lib/"
+    "docs",
+    "lib",
+    "src"
   ],
   "type": "module",
   "module": "./lib/index.js",
@@ -98,19 +100,25 @@
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-hot-loader": "^4.13.1",
     "react-refresh": "^0.14.0"
   },
   "peerDependencies": {
+    "@babel/core": "*",
     "@babel/preset-react": "*",
     "@pmmmwh/react-refresh-webpack-plugin": "*",
+    "@roots/bud": "*",
     "@roots/bud-babel": "*",
+    "@types/babel__core": "*",
+    "@types/react": "*",
+    "@types/react-dom": "*",
     "react": "*",
     "react-dom": "*",
-    "react-hot-loader": "*",
-    "react-refresh": "*"
+    "react-refresh": "0.14.0"
   },
   "peerDependenciesMeta": {
+    "@babel/core": {
+      "optional": true
+    },
     "@babel/preset-react": {
       "optional": true
     },
@@ -120,13 +128,28 @@
     "@roots/bud-babel": {
       "optional": true
     },
+    "@roots/bud-esbuild": {
+      "optional": true
+    },
+    "@roots/bud-swc": {
+      "optional": true
+    },
+    "@roots/bud-typescript": {
+      "optional": true
+    },
+    "@types/babel__core": {
+      "optional": true
+    },
+    "@types/react": {
+      "optional": true
+    },
+    "@types/react-dom": {
+      "optional": true
+    },
     "react": {
       "optional": true
     },
     "react-dom": {
-      "optional": true
-    },
-    "react-hot-loader": {
       "optional": true
     },
     "react-refresh": {

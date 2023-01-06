@@ -1,11 +1,9 @@
-/// <reference path="../../bud/lib/index.d.ts" />
-/// <reference path="../../bud-preset-wordpress/lib/index.d.ts" />
-/// <reference path="../../bud-tailwindcss/lib/index.d.ts" />
-/// <reference path="../../bud-tailwindcss-theme-json/lib/index.d.ts" />
+/// <reference path="../../../bud/lib/index.d.ts" />
+/// <reference path="../../../bud-preset-wordpress/lib/index.d.ts" />
 
-import type Acorn from './acorn/index.js'
-import type AcornV2PublicPath from './acorn-v2-public-path/index.js'
-import type Sage from './sage/index.js'
+import type Acorn from '@roots/sage/acorn'
+import type AcornV2PublicPath from '@roots/sage/acorn-v2-public-path'
+import type Sage from '@roots/sage/sage'
 
 declare module '@roots/bud-framework' {
   interface Bud {

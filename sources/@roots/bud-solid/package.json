@@ -31,7 +31,9 @@
     "node": ">=16"
   },
   "files": [
-    "lib/"
+    "docs",
+    "lib",
+    "src"
   ],
   "type": "module",
   "module": "./lib/index.js",
@@ -67,11 +69,18 @@
   "peerDependencies": {
     "@babel/plugin-syntax-jsx": "*",
     "@roots/bud": "*",
+    "@types/babel__core": "*",
     "babel-preset-solid": "*",
     "solid-js": "*"
   },
   "peerDependenciesMeta": {
     "@babel/plugin-syntax-jsx": {
+      "optional": true
+    },
+    "@roots/bud": {
+      "optional": true
+    },
+    "@types/babel__core": {
       "optional": true
     },
     "babel-preset-solid": {

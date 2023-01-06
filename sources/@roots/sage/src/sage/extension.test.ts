@@ -1,3 +1,5 @@
+import '@roots/sage'
+
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {Bud, factory} from '@repo/test-kit/bud'
 
@@ -19,6 +21,7 @@ describe(`@roots/sage`, async () => {
   })
 
   it.skip(`should add @roots/sage/wp-theme-json-tailwind when @roots/bud-tailwindcss is present`, async () => {
+    // @ts-ignore
     await bud.extensions.add(`@roots/bud-tailwindcss`)
     const addSpy = vi.spyOn(bud.extensions, `add`)
     await sage.register(bud)

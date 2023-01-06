@@ -36,35 +36,64 @@
   "engines": {
     "node": ">=16"
   },
-  "bud": {
-    "type": "extension"
-  },
   "files": [
-    "lib/",
-    "config/",
-    "stylelint-config/"
+    "config",
+    "docs",
+    "lib"
   ],
   "type": "module",
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "exports": {
-    ".": "./lib/index.js",
-    "./extension": "./lib/extension.js",
-    "./stylelint-config": "./config/stylelint/default.cjs",
-    "./stylelint": "./config/stylelint/default.cjs",
-    "./stylelint-config/scss": "./config/stylelint/default.cjs",
-    "./stylelint/scss": "./stylelint-config/scss.cjs"
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./extension": {
+      "types": "./lib/extension/index.d.ts",
+      "default": "./lib/extension/index.js"
+    },
+    "./types": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/types/index.js"
+    },
+    "./bud/commands": {
+      "types": "./lib/bud/commands/index.d.ts",
+      "default": "./lib/bud/commands/index.js"
+    },
+    "./bud/commands/tailwindcss": {
+      "types": "./lib/bud/commands/tailwindcss/index.d.ts",
+      "default": "./lib/bud/commands/tailwindcss/index.js"
+    },
+    "./stylelint-config": {
+      "default": "./config/stylelint/default.cjs"
+    },
+    "./stylelint-config/scss": {
+      "default": "./config/stylelint/scss.cjs"
+    },
+    "./stylelint": {
+      "default": "./config/stylelint/default.cjs"
+    },
+    "./stylelint/scss": {
+      "default": "./config/stylelint/scss.cjs"
+    }
   },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.d.ts"
       ],
-      "env": [
-        "./lib/env.d.ts"
-      ],
       "extension": [
-        "./lib/extension.d.ts"
+        "./lib/extension/index.d.ts"
+      ],
+      "types": [
+        "./lib/types/index.d.ts"
+      ],
+      "bud/commands": [
+        "./lib/bud/commands/index.d.ts"
+      ],
+      "bud/commands/tailwindcss": [
+        "./lib/bud/commands/tailwindcss/index.d.ts"
       ]
     }
   },
@@ -73,21 +102,22 @@
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.18.11",
     "@types/tailwindcss": "3.1.0",
-    "@types/webpack-virtual-modules": "0.1.1"
+    "@types/webpack-virtual-modules": "0.1.1",
+    "webpack": "5.75.0"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "tailwindcss": "3.2.4",
-    "webpack": "5.75.0",
     "webpack-virtual-modules": "0.5.0"
   },
   "peerDependencies": {
+    "@roots/bud": "*",
     "tailwindcss": "*"
   },
   "peerDependenciesMeta": {
-    "caniuse-lite": {
+    "@roots/bud": {
       "optional": true
     },
     "tailwindcss": {

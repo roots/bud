@@ -35,7 +35,9 @@
     "node": ">=16"
   },
   "files": [
-    "lib/"
+    "docs",
+    "lib",
+    "src"
   ],
   "bud": {
     "type": "extension"
@@ -70,10 +72,14 @@
     "webpack": "5.75.0"
   },
   "peerDependencies": {
+    "@roots/bud": "*",
     "esbuild-loader": "*",
     "ts-node": "*"
   },
   "peerDependenciesMeta": {
+    "@roots/bud": {
+      "optional": true
+    },
     "esbuild-loader": {
       "optional": true
     },

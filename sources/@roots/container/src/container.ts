@@ -12,6 +12,7 @@ import isUndefined from 'lodash/isUndefined.js'
 import set from 'lodash/set.js'
 import size from 'lodash/size.js'
 import uniq from 'lodash/uniq.js'
+// eslint-disable-next-line n/no-unpublished-import
 import type {ValueOf} from 'type-fest'
 
 import {mergeable} from './utilities.js'

@@ -310,7 +310,7 @@
     "json5": {
       "optional": true
     },
-    "lodash-es": {
+    "lodash": {
       "optional": true
     },
     "mini-css-extract-plugin": {

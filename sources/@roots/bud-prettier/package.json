@@ -38,7 +38,9 @@
     "type": "extension"
   },
   "files": [
-    "lib/"
+    "docs",
+    "lib",
+    "src"
   ],
   "type": "module",
   "module": "./lib/index.js",
@@ -69,9 +71,13 @@
     "prettier": "2.8.1"
   },
   "peerDependencies": {
+    "@roots/bud": "*",
     "prettier": "*"
   },
   "peerDependenciesMeta": {
+    "@roots/bud": {
+      "optional": true
+    },
     "prettier": {
       "optional": true
     }

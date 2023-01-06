@@ -87,7 +87,6 @@
   },
   "peerDependencies": {
     "@roots/bud": "*",
-    "@roots/bud-postcss": "*",
     "postcss-scss": "*",
     "sass": "*",
     "sass-loader": "*",
@@ -95,7 +94,7 @@
     "stylelint-scss": "*"
   },
   "peerDependenciesMeta": {
-    "@roots/bud-postcss": {
+    "@roots/bud": {
       "optional": true
     },
     "postcss-scss": {

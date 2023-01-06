@@ -10,8 +10,8 @@
  * @packageDocumentation
  */
 
-import './types.js'
+import '@roots/sage/types'
 
-import Sage from './sage/index.js'
+import Sage from '@roots/sage/sage'
 
 export default Sage

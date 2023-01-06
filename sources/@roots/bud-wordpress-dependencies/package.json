@@ -36,7 +36,9 @@
     "type": "extension"
   },
   "files": [
-    "lib/"
+    "docs",
+    "lib",
+    "src"
   ],
   "type": "module",
   "module": "./lib/index.js",
@@ -56,6 +58,7 @@
     }
   },
   "devDependencies": {
+    "@roots/bud": "workspace:sources/@roots/bud",
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.18.11"
   },
@@ -64,9 +67,13 @@
     "@roots/wordpress-dependencies-webpack-plugin": "workspace:sources/@roots/wordpress-dependencies-webpack-plugin"
   },
   "peerDependencies": {
+    "@roots/bud": "*",
     "@roots/wordpress-dependencies-webpack-plugin": "*"
   },
   "peerDependenciesMeta": {
+    "@roots/bud": {
+      "optional": true
+    },
     "@roots/wordpress-dependencies-webpack-plugin": {
       "optional": true
     }

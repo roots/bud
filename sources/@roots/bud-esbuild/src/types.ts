@@ -1,3 +1,5 @@
+/* eslint-disable n/no-unpublished-import */
+
 /// <reference path="../../bud/lib/index.d.ts" />
 /// <reference path="../../bud-framework/lib/index.d.ts" />
 
