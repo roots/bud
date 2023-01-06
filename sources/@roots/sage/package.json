@@ -10,8 +10,19 @@
   "documentation": "https://bud.js.org/extensions/sage",
   "contributors": [
     {
-      "name": "kellymears",
+      "name": "Kelly Mears",
+      "email": "developers@tinypixel.dev",
       "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "Ben Word",
+      "email": "ben@benword.com",
+      "url": "https://github.com/retlehs"
+    },
+    {
+      "name": "Joshua Fredrickson",
+      "email": "joshua@orangepineapple.com",
+      "url": "https://github.com/joshuafredrickson"
     },
     {
       "name": "QWp6t",

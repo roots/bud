@@ -4,7 +4,7 @@ import {join} from 'node:path'
 import {Octokit} from '@octokit/core'
 import {paginateRest} from '@octokit/plugin-paginate-rest'
 import {paths} from '@repo/constants'
-import {yml} from '@roots/bud-support/filesystem'
+import {json, yml} from '@roots/bud-support/filesystem'
 import fs from '@roots/bud-support/fs-jetpack'
 import sortBy from '@roots/bud-support/lodash/sortBy'
 
@@ -25,10 +25,32 @@ await fs.listAsync(join(sources, `@roots`)).then(
       .map(signifier => join(`@roots`, signifier))
       .reduce(async (promised, signifier) => {
         await promised
-        await yml.write(
-          join(sources, signifier, `contributors.yml`),
-          await getContributorsFromCommits(join(`sources`, signifier)),
+
+        const pkgPath = join(sources, signifier)
+        const jsonPath = join(pkgPath, `package.json`)
+        const ymlPath = join(pkgPath, `contributors.yml`)
+
+        const contributors = await getContributorsFromCommits(
+          join(`sources`, signifier),
         )
+
+        // eslint-disable-next-line no-console
+        console.log(signifier, contributors.length, `contributors`)
+
+        try {
+          const pkgJson = await json.read(jsonPath)
+
+          await json.write(jsonPath, {
+            ...pkgJson,
+            contributors: contributors.map(({name, email, url}) => ({
+              name,
+              email,
+              url,
+            })),
+          })
+        } catch (e) {}
+
+        await yml.write(ymlPath, contributors)
       }, Promise.resolve()),
 )
 
@@ -51,11 +73,19 @@ async function getContributorsFromCommits(path) {
         contributors[commit.author.login] = {
           ...(contributors[commit.author.login] ?? {}),
           name: commit.commit.author.name,
-          email: commit.commit.author.email,
           login: commit.author.login,
           avatar: commit.author.avatar_url,
+          url: commit.author.html_url,
           contributions:
             (contributors[commit.author.login]?.contributions ?? 0) + 1,
+        }
+
+        if (
+          commit.commit.author.email &&
+          !commit.commit.author.email.includes(`noreply`)
+        ) {
+          contributors[commit.author.login].email =
+            commit.commit.author.email
         }
       })
     },

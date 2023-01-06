@@ -9,16 +9,32 @@
   },
   "contributors": [
     {
-      "name": "kellymears",
+      "name": "Kelly Mears",
+      "email": "developers@tinypixel.dev",
       "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "Ben Word",
+      "email": "ben@benword.com",
+      "url": "https://github.com/retlehs"
+    },
+    {
+      "name": "Joshua Fredrickson",
+      "email": "joshua@orangepineapple.com",
+      "url": "https://github.com/joshuafredrickson"
+    },
+    {
+      "name": "David Beentjes",
+      "url": "https://github.com/unlocdavid"
     },
     {
       "name": "QWp6t",
       "url": "https://github.com/QWp6t"
     },
     {
-      "name": "joshuafredrickson",
-      "url": "https://github.com/joshuafredrickson"
+      "name": "Alex Danylyschyn",
+      "email": "alex@dyyy.dev",
+      "url": "https://github.com/alexdanylyschyn"
     }
   ],
   "license": "MIT",

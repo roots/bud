@@ -13020,7 +13020,7 @@ __metadata:
 
 "caniuse-lite@npm:^1.0.0, caniuse-lite@npm:^1.0.30001400, caniuse-lite@npm:^1.0.30001407, caniuse-lite@npm:^1.0.30001426":
   version: 1.0.30001442
-  resolution: "caniuse-lite@npm:1.0.30001442::__archiveUrl=http%3A%2F%2Flocalhost%3A4873%2Fcaniuse-lite%2F-%2Fcaniuse-lite-1.0.30001442.tgz"
+  resolution: "caniuse-lite@npm:1.0.30001442"
   checksum: c1bff65bd4f53da2d288e7f55be40706ee0119b983eae5a9dcc884046990476891630aef72d708f7989f8f1964200c44e4c37ea40deecaa2fb4a480df23e6317
   languageName: node
   linkType: hard

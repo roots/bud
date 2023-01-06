@@ -5,7 +5,8 @@
   "homepage": "https://roots.io/bud",
   "contributors": [
     {
-      "name": "kellymears",
+      "name": "Kelly Mears",
+      "email": "developers@tinypixel.dev",
       "url": "https://github.com/kellymears"
     },
     {
@@ -13,8 +14,9 @@
       "url": "https://github.com/QWp6t"
     },
     {
-      "name": "clayrisser",
-      "url": "https://github.com/clayrisser"
+      "name": "Ben Word",
+      "email": "ben@benword.com",
+      "url": "https://github.com/retlehs"
     }
   ],
   "license": "MIT",

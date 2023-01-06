@@ -18,6 +18,7 @@
     {"path": "./../bud-cache/tsconfig.json"},
     {"path": "./../bud-compiler/tsconfig.json"},
     {"path": "./../bud-dashboard/tsconfig.json"},
+    {"path": "./../bud-entrypoints/tsconfig.json"},
     {"path": "./../bud-extensions/tsconfig.json"},
     {"path": "./../bud-hooks/tsconfig.json"},
     {"path": "./../bud-server/tsconfig.json"},

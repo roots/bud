@@ -1,15 +1,17 @@
 - name: Kelly Mears
-  email: developers@tinypixel.dev
   login: kellymears
   avatar: https://avatars.githubusercontent.com/u/397606?v=4
-  contributions: 30
+  url: https://github.com/kellymears
+  contributions: 31
+  email: developers@tinypixel.dev
 - name: Ben Word
-  email: ben@benword.com
   login: retlehs
   avatar: https://avatars.githubusercontent.com/u/115911?v=4
+  url: https://github.com/retlehs
   contributions: 3
+  email: ben@benword.com
 - name: QWp6t
-  email: QWp6t@users.noreply.github.com
   login: QWp6t
   avatar: https://avatars.githubusercontent.com/u/2104321?v=4
+  url: https://github.com/QWp6t
   contributions: 1
