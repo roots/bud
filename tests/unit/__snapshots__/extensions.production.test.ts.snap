@@ -3,6 +3,7 @@
 exports[`production extensions > should match snapshot 1`] = `
 [
   "@roots/bud-cache/invalidate-cache",
+  "@roots/bud-entrypoints",
   "@roots/bud-extensions/cdn",
   "@roots/bud-extensions/clean-webpack-plugin",
   "@roots/bud-extensions/copy-webpack-plugin",
