@@ -15,8 +15,6 @@ export interface glob {
  *
  * @remarks
  * Uses fast-glob syntax
- *
- * @public
  */
 export const globSync: globSync = function (...searches) {
   const app = this as Bud
@@ -39,8 +37,6 @@ export const globSync: globSync = function (...searches) {
  *
  * @remarks
  * Uses fast-glob syntax
- *
- * @public
  */
 export const glob: glob = async function (...searches) {
   const app = this as Bud

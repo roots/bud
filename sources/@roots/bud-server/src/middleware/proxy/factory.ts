@@ -11,8 +11,6 @@ import {ApplicationURL} from './url.js'
 
 /**
  * Proxy middleware factory
- *
- * @public
  */
 export const factory: MiddlewareFactory = (app: Bud) =>
   createProxyMiddleware(makeOptions(app))

@@ -1,7 +1,5 @@
 /**
  * Webpack plugin.
- *
- * @public
  */
 export interface ApplyPlugin {
   /**
@@ -24,8 +22,6 @@ export interface ApplyPlugin {
 /**
  * Newable function or class that returns
  * an {@link ApplyPlugin} instance.
- *
- * @public
  */
 export interface ApplyPluginConstructor {
   new (...args: any[]): ApplyPlugin

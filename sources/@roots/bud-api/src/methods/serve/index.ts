@@ -11,8 +11,6 @@ import type {Options, Parameters, ServerOptions} from './serve.types.js'
 
 /**
  * bud.serve
- *
- * @public
  */
 export interface serve {
   (...parameters: Parameters): Promise<Bud>
@@ -21,8 +19,6 @@ export type {Options, Parameters, ServerOptions}
 
 /**
  * bud.serve
- *
- * @public
  */
 export const serve: serve = async function (this: Bud, input, options) {
   if (!this.isDevelopment) return this
@@ -112,8 +108,6 @@ const makeHttpOptions = async function (
 
 /**
  * Get a free port
- *
- * @public
  */
 const requestPorts = async (
   bud: Bud,
@@ -135,8 +129,6 @@ const requestPorts = async (
 /**
  * Convert a string, number, or array of strings/numbers
  * to an array of numbers
- *
- * @public
  */
 const portOrPortsToNumbers = (
   port: number | string | Array<number | string>,

@@ -6,8 +6,6 @@
  *
  * Use for plugins and extensions which are chonky and not strictly
  * required for the application to function (minimizers, etc.)
- *
- * @public
  */
 export const production = <Extension extends {new (...args: any[]): any}>(
   constructor: Extension,

@@ -1,8 +1,8 @@
-/// <reference path="../../bud-framework/lib/index.d.ts" />
-/// <reference path="../../bud-babel/lib/index.d.ts" />
-/// <reference path="../../bud-esbuild/lib/index.d.ts" />
-/// <reference path="../../bud-swc/lib/index.d.ts" />
-/// <reference path="../../bud-typescript/lib/index.d.ts" />
+/// <reference types="@roots/bud-framework" />
+/// <reference types="@roots/bud-babel" />
+/// <reference types="@roots/bud-esbuild" />
+/// <reference types="@roots/bud-swc" />
+/// <reference types="@roots/bud-typescript" />
 
 import type BudBabelRefresh from './babel-refresh/index.js'
 import type BudReact from './extension/extension.js'

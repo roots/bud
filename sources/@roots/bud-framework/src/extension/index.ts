@@ -20,8 +20,6 @@ export type OptionsMap<MappedOptions extends Options> = {
 
 /**
  * Webpack plugin.
- *
- * @public
  */
 export interface ApplyPlugin {
   /**
@@ -51,8 +49,6 @@ export type ExtensionLiteral = {
 
 /**
  * Bud extension
- *
- * @public
  */
 export class Extension<
   ExtensionOptions extends Options = Options,

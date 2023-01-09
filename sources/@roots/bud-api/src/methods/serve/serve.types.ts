@@ -5,8 +5,6 @@ export type ServerOptions = Https.ServerOptions | Http.ServerOptions
 
 /**
  * Options object
- *
- * @public
  */
 export interface Options {
   /**

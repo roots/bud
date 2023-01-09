@@ -1,6 +1,6 @@
-/// <reference path="../../bud/lib/index.d.ts" />
-/// <reference path="../../bud-tailwindcss/lib/index.d.ts" />
-/// <reference path="../../bud-wordpress-theme-json/lib/index.d.ts" />
+/// <reference types="@roots/bud" />
+/// <reference types="@roots/bud-tailwindcss" />
+/// <reference types="@roots/bud-wordpress-theme-json" />
 
 import type {TailwindThemeJSON} from './extension.js'
 

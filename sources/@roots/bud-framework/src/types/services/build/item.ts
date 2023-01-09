@@ -5,8 +5,6 @@ import type {Loader} from './loader.js'
 
 /**
  * Item interface
- *
- * @public
  */
 export interface Item extends Base {
   _app: () => Bud

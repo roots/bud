@@ -6,8 +6,6 @@ import {Command, Option} from '@roots/bud-support/clipanion'
 
 /**
  * `bud webpack` command
- *
- * @public
  */
 @dry
 export default class BudWebpackCommand extends BudCommand {

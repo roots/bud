@@ -9,8 +9,6 @@ export interface after {
 
 /**
  * Execute a function after compiler has finished
- *
- * @public
  */
 export const after: after = function (
   action: (app: Bud) => Promise<unknown>,

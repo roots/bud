@@ -21,8 +21,6 @@ export const maybeEnable = (bud: Bud, input: unknown) => {
  *
  * @param bud
  * @param port
- *
- * @public
  */
 export const assignPort = (bud: Bud, port: number) => {
   bud.hooks.on(
@@ -39,8 +37,6 @@ export const assignPort = (bud: Bud, port: number) => {
  *
  * @param bud
  * @param maybeURL
- *
- * @public
  */
 export const assignUrl = (bud: Bud, maybeURL: string | URL) => {
   bud.hooks.on(
@@ -67,8 +63,6 @@ export const assignOptionsCallback = (
  *
  * @param bud - bud instance
  * @param replacements - replacement tuples
- *
- * @public
  */
 export const assignReplacements = (
   bud: Bud,
@@ -83,8 +77,6 @@ export const assignReplacements = (
  * @remarks
  * Callback for the `dev.middleware.enabled` hook
  * If proxy middleware is already enabled it will be removed before it is re-added
- *
- * @public
  */
 export const enableMiddleware = (
   middleware: Array<keyof Server.Middleware.Available> | undefined = [],
@@ -98,8 +90,6 @@ export const enableMiddleware = (
  * @remarks
  * Callback for the `dev.middleware.enabled` hook
  * If proxy middleware is already enabled it will be removed before it is re-added
- *
- * @public
  */
 export const disableMiddleware = (
   middleware: Array<keyof Server.Middleware.Available> | undefined = [],
@@ -133,8 +123,6 @@ export const isOptionsObject = (
  *
  * @param bud
  * @param options
- *
- * @public
  */
 export const assignOptions = (bud: Bud, options: Options): void => {
   Object.entries(options).map(([key, value]) => {

@@ -1,7 +1,7 @@
 /* eslint-disable n/no-unpublished-import */
 
-/// <reference path="../../bud/lib/index.d.ts" />
-/// <reference path="../../bud-framework/lib/index.d.ts" />
+/// <reference types="@roots/bud" />
+/// <reference types="@roots/bud-framework" />
 
 import type {Item} from '@roots/bud-build/item'
 import type {Loader} from '@roots/bud-build/loader'

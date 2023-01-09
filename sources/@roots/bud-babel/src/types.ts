@@ -1,4 +1,4 @@
-/// <reference path="../../bud-build/lib/index.d.ts" />
+/// <reference types="@roots/bud-build" />
 
 import type BabelExtension from './extension.js'
 
@@ -17,15 +17,11 @@ export interface LoaderOptions {
  * Babel plugin value
  *
  * @see https://babeljs.io/docs/en/plugins
- *
- * @public
  */
 export type Plugin = string | NormalizedPlugin | CallableFunction
 
 /**
  * Babel transpiler options
- *
- * @public
  */
 export type Options = {
   plugins?: Plugin[]
@@ -37,8 +33,6 @@ export type Options = {
  *
  * @remarks
  * Expressed as a tuple of `[name, options]`
- *
- * @public
  */
 export type NormalizedPlugin = [any, Record<string, any>]
 
@@ -46,15 +40,11 @@ export type NormalizedPlugin = [any, Record<string, any>]
  * Registrable plugin value
  *
  * @see https://babeljs.io/docs/en/plugins#using-a-plugin
- *
- * @public
  */
 export type Registrable = string | NormalizedPlugin
 
 /**
  * Plugins and presets registry interface
- *
- * @public
  */
 export interface Registry {
   [key: string]: [string, any?]

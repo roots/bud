@@ -10,8 +10,8 @@
  * @packageDocumentation
  */
 
-import '@roots/bud-entrypoints/types'
+import './types.js'
 
-import BudEntrypoints from '@roots/bud-entrypoints/extension'
+import BudEntrypoints from './extension.js'
 
 export default BudEntrypoints

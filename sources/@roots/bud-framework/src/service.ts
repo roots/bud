@@ -113,8 +113,6 @@ interface Contract {
  * The Service interface provides access to the Bud parent container.
  *
  * A Service interfaces with the Framework through a series of callbacks at different points in the build.
- *
- * @public
  */
 abstract class Base implements Partial<Contract> {
   /**
@@ -233,8 +231,6 @@ abstract class Base implements Partial<Contract> {
  * The Service interface provides access to the {@link Bud} container.
  *
  * A Service interfaces with the Framework through a series of callbacks at different points in the build.
- *
- * @public
  */
 abstract class BaseContainer
   extends Container
@@ -357,4 +353,5 @@ export {
   BaseContainer,
   BaseContainer as ServiceContainer,
 }
+
 export type {Contract}

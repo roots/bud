@@ -5,8 +5,6 @@ import {Command} from './base.command.js'
 
 /**
  * Yarn command
- *
- * @public
  */
 export class Yarn extends Command implements IDependencyManager {
   /**

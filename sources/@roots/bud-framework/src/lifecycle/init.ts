@@ -7,8 +7,6 @@ import type {Bud} from '../bud.js'
  *
  * @param bud - the Bud instance
  * @returns Promise
- *
- * @public
  */
 export const initialize = (bud: Bud): Bud =>
   bud.hooks

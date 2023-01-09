@@ -9,8 +9,6 @@ import {ESBuildMinifyPlugin} from 'esbuild-loader'
 
 /**
  * Esbuild options
- *
- * @public
  */
 export interface Options {
   /**

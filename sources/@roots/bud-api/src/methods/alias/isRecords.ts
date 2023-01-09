@@ -2,8 +2,6 @@ import type {Parameters, Records} from './types.js'
 
 /**
  * Type guard: isObject
- *
- * @public
  */
 export const isRecords = (value: Parameters): value is [Records] => {
   return (

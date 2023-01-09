@@ -1,4 +1,3 @@
-/* eslint-disable simple-import-sort/imports */
 // Copyright © Roots Software Foundation LLC
 // Licensed under the MIT license.
 
@@ -10,6 +9,8 @@
  *
  * @packageDocumentation
  */
+
+/* eslint-disable simple-import-sort/imports */
 
 import {Bud} from './bud.js'
 import {Extension} from './extension/index.js'

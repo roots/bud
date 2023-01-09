@@ -2,8 +2,6 @@ import {spawn} from 'child_process'
 
 /**
  * Base command
- *
- * @public
  */
 export abstract class Command {
   public abstract getLatestVersion(signifier: string): Promise<string>

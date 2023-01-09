@@ -34,8 +34,6 @@ export interface setPath {
  *
  * @param arg1 - path handler
  * @param arg2 - path value
- *
- * @public
  */
 export const setPath: setPath = function (this: Bud, ...parameters) {
   const [arg1, arg2] = parameters

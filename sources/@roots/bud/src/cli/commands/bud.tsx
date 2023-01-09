@@ -31,8 +31,6 @@ export const ArgsModifier: ArgsModifier = from => async on => ({
 
 /**
  * Bud command
- *
- * @public
  */
 export default class BudCommand extends Command<CommandContext> {
   public declare bud?: (Bud & {context: CommandContext}) | undefined

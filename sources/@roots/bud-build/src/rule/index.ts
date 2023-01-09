@@ -16,8 +16,6 @@ export {Interface, Options, Output, Parser}
 
 /**
  * Bud Rule
- *
- * @public
  */
 class Rule extends Base implements Interface {
   /**

@@ -14,8 +14,6 @@ import {Options as RuleOptions, Rule} from './rule/index.js'
 
 /**
  * Webpack configuration builder class
- *
- * @public
  */
 export class Build extends Service implements Base.Service {
   /**

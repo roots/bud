@@ -7,8 +7,6 @@ import type {Base} from './base.js'
  * @remarks
  * Contains the path to the loader source.
  * Loader options are associated with the loader using the {@link @roots/bud-Bud#Item} interface
- *
- * @public
  */
 export interface Loader extends Base {
   _app: () => Bud

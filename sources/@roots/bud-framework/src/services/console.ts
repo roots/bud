@@ -6,8 +6,6 @@ import {Service} from '../service.js'
 
 /**
  * Received messages
- *
- * @public
  */
 type MessagesCache = Array<{
   stream: `stdout` | `stderr`
@@ -20,8 +18,6 @@ type MessagesCache = Array<{
  * @remarks
  * Intercepts console function calls and emits them using the bud logger.
  * Deduplicates and trims console output.
- *
- * @public
  */
 export default class ConsoleBuffer extends Service {
   /**

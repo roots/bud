@@ -15,8 +15,6 @@ export type Parameters = [string, (string | Array<string> | RegExp)?]
  * ```js
  * bud.bundle('alpine')
  * ```
- *
- * @public
  */
 export interface bundle {
   (...params: Parameters): Bud
@@ -31,8 +29,6 @@ export interface bundle {
  * ```js
  * bud.bundle('alpine')
  * ```
- *
- * @public
  */
 export const bundle: bundle = function (this: Bud, name, matcher) {
   const test = normalize(matcher ?? name)

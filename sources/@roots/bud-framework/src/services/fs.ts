@@ -9,8 +9,6 @@ import type {Bud} from '../bud.js'
 
 /**
  * Filesystem service
- *
- * @public
  */
 export default class FileSystem extends FS {
   /**

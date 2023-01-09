@@ -4,8 +4,6 @@ export type Parameters = [(boolean | ((value?: boolean) => boolean))?]
 
 /**
  * Minimize function interface
- *
- * @public
  */
 export interface minimize {
   (...parameters: Parameters): Bud
@@ -34,8 +32,6 @@ export interface minimize {
  * ```js
  * bud.minimize(true)
  * ```
- *
- * @public
  */
 export const minimize: minimize = function (this: Bud, value = true) {
   this.hooks.on(`build.optimization.minimize`, value)

@@ -17,8 +17,6 @@ interface Props {
 
 /**
  * Server info ink component
- *
- * @public
  */
 export const Server = ({
   devUrl,

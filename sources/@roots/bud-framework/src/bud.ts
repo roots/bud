@@ -18,8 +18,6 @@ import Value from './value.js'
 
 /**
  * Framework abstract
- *
- * @public
  */
 export class Bud {
   /**

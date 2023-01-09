@@ -30,8 +30,6 @@ export interface Options {
  * ```
  *
  * @returns Bud instance
- *
- * @public
  */
 export async function factory(
   {

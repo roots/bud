@@ -1,10 +1,9 @@
-/// <reference path="../../bud/lib/index.d.ts" />
-/// <reference path="../../bud-babel/lib/index.d.ts" />
-/// <reference path="../../bud-postcss/lib/index.d.ts" />
-/// <reference path="../../bud-entrypoints/lib/index.d.ts" />
-
-/// <reference path="../../bud-esbuild/lib/index.d.ts" />
-/// <reference path="../../bud-swc/lib/index.d.ts" />
+/// <reference types="@roots/bud" />
+/// <reference types="@roots/bud-babel" />
+/// <reference types="@roots/bud-postcss" />
+/// <reference types="@roots/bud-entrypoints" />
+/// <reference types="@roots/bud-esbuild" />
+/// <reference types="@roots/bud-swc" />
 
 import type BudPresetRecommend from './extension.js'
 

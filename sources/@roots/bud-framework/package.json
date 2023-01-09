@@ -54,10 +54,6 @@
       "types": "./lib/bud.d.ts",
       "default": "./lib/bud.js"
     },
-    "./config": {
-      "types": "./lib/types/config/index.d.ts",
-      "default": "./lib/types/config/index.js"
-    },
     "./configuration": {
       "types": "./lib/configuration/index.d.ts",
       "default": "./lib/configuration/index.js"
@@ -159,9 +155,6 @@
       ],
       "bud": [
         "./lib/bud/index.d.ts"
-      ],
-      "config": [
-        "./lib/types/config/index.d.ts"
       ],
       "console": [
         "./lib/services/console.d.ts"

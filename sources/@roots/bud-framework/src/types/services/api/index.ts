@@ -7,8 +7,6 @@ import type {ServiceContainer} from '../../../service.js'
  * @remarks
  * Binds facade methods to the framework and provides a way to list them,
  * call them, and otherwise manipulate them.
- *
- * @public
  */
 export interface Api extends ServiceContainer {
   /**

@@ -30,8 +30,6 @@ export interface setPublicPath {
  * ```
  *
  * @see {@link https://bud.js.org/docs/bud.setPublicPath}
- *
- * @public
  */
 export const setPublicPath: setPublicPath = function (publicPath) {
   const app = this as Bud

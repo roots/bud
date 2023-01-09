@@ -13,8 +13,6 @@ import isUndefined from '@roots/bud-support/lodash/isUndefined'
 
 /**
  * `esm-http` extension options
- *
- * @public
  */
 export interface Options {
   allowedUris?: Array<string | RegExp | ((uri: string) => boolean)>

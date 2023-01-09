@@ -3,8 +3,6 @@ import isString from '@roots/bud-support/lodash/isString'
 
 /**
  * Parse port and return as a string with `:` prefix
- *
- * @public
  */
 const parsePort = (port: string | number | undefined): string => {
   if (

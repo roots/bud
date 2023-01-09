@@ -11,8 +11,6 @@ import {bind} from '@roots/bud-support/decorators'
 
 /**
  * Server service class
- *
- * @public
  */
 export class Server extends Service implements BaseService {
   /**

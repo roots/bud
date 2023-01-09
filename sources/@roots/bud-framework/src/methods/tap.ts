@@ -27,8 +27,6 @@ export interface tap<T = Bud> {
  *  this.log('this references bud from the outer scope')
  * })
  * ```
- *
- * @public
  */
 export const tap: tap = function (
   fn: (app: Bud) => unknown,
@@ -67,8 +65,6 @@ export interface tapAsync<T = Bud> {
  *  // do something with this
  * })
  * ```
- *
- * @public
  */
 export const tapAsync: tapAsync = async function (
   fn: (app: Bud) => Promise<unknown>,

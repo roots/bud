@@ -1,6 +1,6 @@
 import {urlToHttpOptions} from 'node:url'
 
-import type {Bud} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud'
 
 /**
  * `compiler.done` callback
@@ -8,8 +8,6 @@ import type {Bud} from '@roots/bud-framework'
  * @remarks
  * Generates and emits `hmr.json` with proxy/dev server information
  * for use in Acorn.
- *
- * @public
  */
 export default async function (bud: Bud) {
   try {

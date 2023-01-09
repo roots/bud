@@ -1,6 +1,6 @@
-/// <reference path="../../bud/lib/index.d.ts" />
-/// <reference path="../../bud-postcss/lib/index.d.ts" />
-/// <reference path="../../bud-sass/lib/index.d.ts" />
+/// <reference types="@roots/bud" />
+/// <reference types="@roots/bud-postcss" />
+/// <reference types="@roots/bud-sass" />
 
 import type {Extension} from '@roots/bud-framework/extension'
 import type {Build} from '@roots/bud-framework/services'

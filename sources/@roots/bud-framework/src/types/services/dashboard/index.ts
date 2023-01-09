@@ -4,8 +4,6 @@ import type {Service as Contract} from '../../../service.js'
 
 /**
  * Dashboard service container
- *
- * @public
  */
 export interface Service extends Contract {
   silent: boolean

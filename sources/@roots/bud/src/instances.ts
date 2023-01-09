@@ -5,7 +5,6 @@ import _set from '@roots/bud-support/lodash/set'
 
 /**
  * Bud instance cache
- * @public
  */
 let instances: Record<string, Bud> = {}
 

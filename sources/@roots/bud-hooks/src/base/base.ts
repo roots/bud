@@ -7,8 +7,6 @@ import isUndefined from '@roots/bud-support/lodash/isUndefined'
  *
  * @remarks
  * Supports sync values
- *
- * @public
  */
 export abstract class Hooks<Store> {
   /**

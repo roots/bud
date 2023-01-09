@@ -1,10 +1,11 @@
-/// <reference path="../../bud/lib/index.d.ts" />
-/// <reference path="../../bud-framework/lib/index.d.ts" />
-/// <reference path="../../bud-preset-recommend/lib/index.d.ts" />
-/// <reference path="../../bud-react/lib/index.d.ts" />
-/// <reference path="../../bud-wordpress-manifests/lib/index.d.ts" />
-/// <reference path="../../bud-wordpress-theme-json/lib/index.d.ts" />
-/// <reference path="../../bud-tailwindcss-theme-json/lib/index.d.ts" />
+/// <reference types="@roots/bud" />
+/// <reference types="@roots/bud-framework" />
+/// <reference types="@roots/bud-preset-recommend" />
+/// <reference types="@roots/bud-react" />
+/// <reference types="@roots/bud-wordpress-manifests" />
+/// <reference types="@roots/bud-wordpress-theme-json" />
+/// <reference types="@roots/bud-tailwindcss" />
+/// <reference types="@roots/bud-tailwindcss-theme-json" />
 
 import type BudTailwindThemeJSON from '@roots/bud-tailwindcss-theme-json'
 

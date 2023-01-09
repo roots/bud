@@ -19,15 +19,11 @@ import {mergeable} from './utilities.js'
 
 /**
  * Container repository interface
- *
- * @public
  */
 export interface Repository extends Record<string, any> {}
 
 /**
  * Provides a simple chainable interface for working with collections of data
- *
- * @public
  */
 export default class Container<I = any> {
   /**

@@ -39,8 +39,6 @@ export interface splitChunks {
  * ```js
  * bud.splitChunks({chunks: 'all'})
  * ```
- *
- * @public
  */
 export const splitChunks: splitChunks = async function (
   this: Bud,

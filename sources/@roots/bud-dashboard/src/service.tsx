@@ -19,8 +19,6 @@ type Compilations = Array<Omit<StatsCompilation, `children`>>
 
 /**
  * Dashboard service
- *
- * @public
  */
 export class Dashboard extends Service implements Contract {
   public renderer?: any

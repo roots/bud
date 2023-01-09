@@ -2,8 +2,6 @@ import type {Bud} from '../bud.js'
 
 /**
  * Run the build
- *
- * @public
  */
 export interface run {
   (): Promise<void>

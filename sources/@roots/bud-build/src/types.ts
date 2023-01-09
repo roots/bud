@@ -1,5 +1,5 @@
-/// <reference path="../../bud-framework/lib/index.d.ts" />
-/// <reference path="../../bud-hooks/lib/index.d.ts" />
+/// <reference types="@roots/bud-framework" />
+/// <reference types="@roots/bud-hooks" />
 
 import type {Item} from './item/index.js'
 import type {Loader} from './loader/index.js'

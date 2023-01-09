@@ -15,8 +15,6 @@ import type {Service as BaseService} from '../../../service.js'
  * @remarks
  * Compiles {@link @roots/bud-Bud#Build.config | Build config}
  * and reports on stats, progress, and errors encountered during compilation.
- *
- * @public
  */
 interface Service extends BaseService {
   implementation: any

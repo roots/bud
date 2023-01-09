@@ -41,8 +41,6 @@ interface Notification extends NodeNotification {
 
 /**
  * Notifier
- *
- * @public
  */
 export class Notifier {
   public bud: Bud & {context: CommandContext}

@@ -1,4 +1,4 @@
-/// <reference path="../../bud-build/lib/index.d.ts" />
+/// <reference types="@roots/bud-build" />
 
 import type {Build} from '@roots/bud-framework/services'
 

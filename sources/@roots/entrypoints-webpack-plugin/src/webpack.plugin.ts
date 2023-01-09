@@ -6,8 +6,6 @@ import {HtmlEmitter} from './html.emitter.js'
 
 /**
  * Entrypoints
- *
- * @public
  */
 export interface Entry extends Record<string, unknown> {
   [entry: string]: {
@@ -17,8 +15,6 @@ export interface Entry extends Record<string, unknown> {
 
 /**
  * EntrypointsWebpackPlugin options
- *
- * @public
  */
 export interface Options {
   /**
@@ -61,8 +57,6 @@ export interface Options {
  *   plugins: [new EntrypointsWebpackPlugin()]
  * }
  * ```
- *
- * @public
  */
 export class EntrypointsWebpackPlugin {
   /**

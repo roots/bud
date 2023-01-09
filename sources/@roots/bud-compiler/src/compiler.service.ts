@@ -11,8 +11,6 @@ import type {
 
 /**
  * Wepback compilation controller class
- *
- * @public
  */
 export class Compiler extends Service implements Contract.Service {
   /**

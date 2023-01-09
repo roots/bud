@@ -1,6 +1,6 @@
-/// <reference path="../../bud-framework/lib/index.d.ts" />
+/// <reference types="@roots/bud-framework" />
 
-import type BudEntrypoints from '@roots/bud-entrypoints/extension'
+import type BudEntrypoints from './extension.js'
 
 declare module '@roots/bud-framework' {
   interface Modules {

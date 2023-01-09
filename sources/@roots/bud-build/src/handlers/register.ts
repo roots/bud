@@ -7,8 +7,6 @@ import {rules} from './rules/index.js'
 
 /**
  * Registry factory curry function
- *
- * @public
  */
 export interface makeRegister {
   <T, F extends CallableFunction>(props: Partial<Bud>, setRule: F): <
@@ -18,8 +16,6 @@ export interface makeRegister {
 
 /**
  * Register built-in {@link loaders}, {@link items} and {@link rules}
- *
- * @public
  */
 export async function register(bud: Bud) {
   Object.entries(loaders).map(makeRegister(bud, bud.build.setLoader))
