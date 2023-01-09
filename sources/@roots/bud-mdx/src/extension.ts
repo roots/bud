@@ -9,8 +9,6 @@ import {
 
 /**
  * MDX2 support for `@roots/bud`
- *
- * @public
  */
 @label(`@roots/bud-mdx`)
 @dependsOn([`@roots/bud-babel`, `@roots/bud-react`])

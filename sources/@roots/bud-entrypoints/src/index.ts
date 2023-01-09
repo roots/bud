@@ -2,7 +2,7 @@
 // Licensed under the MIT license.
 
 /**
- * Entrypoints manifest webpack plugin
+ * Bud entrypoints extension
  *
  * @see https://bud.js.org
  * @see https://github.com/roots/bud
@@ -10,11 +10,8 @@
  * @packageDocumentation
  */
 
-declare module '@roots/bud-framework' {
-  interface Modules {
-    '@roots/bud-entrypoints': BudEntrypoints
-  }
-}
+import './types.js'
 
 import BudEntrypoints from './extension.js'
+
 export default BudEntrypoints

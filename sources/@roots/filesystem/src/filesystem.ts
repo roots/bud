@@ -27,8 +27,6 @@ import * as yml from './yml.js'
 
 /**
  * Filesystem
- *
- * @public
  */
 export default class Filesystem {
   /**

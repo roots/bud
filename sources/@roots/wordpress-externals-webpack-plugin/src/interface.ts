@@ -1,7 +1,5 @@
 /**
  * WordPress externals plugin
- *
- * @public
  */
 export type Output = {
   dir: string

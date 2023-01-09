@@ -4,8 +4,6 @@ import Base from '../shared/base.js'
 
 /**
  * Bud Loader
- *
- * @public
  */
 class Loader extends Base {
   /**

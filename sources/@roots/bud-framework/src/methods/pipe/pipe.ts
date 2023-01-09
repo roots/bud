@@ -7,8 +7,6 @@ import type {Bud} from '../../bud.js'
  *
  * @remarks
  * The output of this function becomes the input to the next
- *
- * @public
  */
 interface Callback<T = any> {
   (input: T): Promise<T>
@@ -39,8 +37,6 @@ export interface pipe {
  *   1, // initial value
  * ) // resulting value is 3
  * ```
- *
- * @public
  */
 export const pipe: pipe = async function <T = unknown>(
   this: Bud,

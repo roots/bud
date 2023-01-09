@@ -2,8 +2,6 @@ import type {Parameters, Signifier, Value} from './types.js'
 
 /**
  * Type guard: isSignifierValuePair
- *
- * @public
  */
 export const isSignifierValuePair = (
   value: Parameters,

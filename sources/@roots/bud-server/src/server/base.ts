@@ -15,8 +15,6 @@ import {bind} from '@roots/bud-support/decorators'
  *
  * @remarks
  * Base class. Extended by either `http` or `https` class.
- *
- * @public
  */
 export abstract class BaseServer implements Connection {
   /**

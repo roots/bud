@@ -11,8 +11,6 @@ export type WordPressFonts =
  *
  * @param label - color label
  * @returns string
- *
- * @public
  */
 interface name {
   (label: string): string
@@ -40,8 +38,6 @@ export const transformEntry: transformEntry = ([slug, fontFamily]) => ({
  * Transform tailwindcss fonts to wordpress theme.json fonts
  *
  * @param fonts - from tailwindcss
- *
- * @public
  */
 export interface transform {
   (fonts: TailwindFontFamily): WordPressFonts

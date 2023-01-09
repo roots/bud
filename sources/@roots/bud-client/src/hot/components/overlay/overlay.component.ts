@@ -1,7 +1,5 @@
 /**
  * Component container
- *
- * @public
  */
 export class Component extends HTMLElement {
   public name: string = `bud-overlay`

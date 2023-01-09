@@ -13,8 +13,6 @@ import type Server from '@roots/bud-server'
  * ## ⚡️ Bud
  *
  * {@link https://bud.js.org/ bud.js}
- *
- * @public
  */
 export class Bud extends Framework {
   public override implementation = Bud

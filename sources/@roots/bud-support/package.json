@@ -10,8 +10,14 @@
   },
   "contributors": [
     {
-      "name": "kellymears",
+      "name": "Kelly Mears",
+      "email": "developers@tinypixel.dev",
       "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "Ben Word",
+      "email": "ben@benword.com",
+      "url": "https://github.com/retlehs"
     },
     {
       "name": "QWp6t",
@@ -310,7 +316,7 @@
     "json5": {
       "optional": true
     },
-    "lodash-es": {
+    "lodash": {
       "optional": true
     },
     "mini-css-extract-plugin": {

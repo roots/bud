@@ -27,8 +27,6 @@ import type * as Registry from '../../registry/index.js'
  *   () => '[name].[hash:4]',
  * )
  * ```
- *
- * @public
  */
 export default interface Hooks extends BaseService {
   /**

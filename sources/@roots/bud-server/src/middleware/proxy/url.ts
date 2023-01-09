@@ -2,8 +2,6 @@ import type {Bud} from '@roots/bud-framework'
 
 /**
  * URL helpers for proxy middleware
- *
- * @public
  */
 export class ApplicationURL {
   /**

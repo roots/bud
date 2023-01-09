@@ -4,8 +4,6 @@ import {externals} from './externals.js'
 
 /**
  * WordPress Externals Webpack Plugin
- *
- * @public
  */
 export default class WordPressExternals {
   /**

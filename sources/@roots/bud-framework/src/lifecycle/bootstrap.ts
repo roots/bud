@@ -44,8 +44,6 @@ export const lifecycleMethods: Partial<Array<keyof Service>> = [
 
 /**
  * Services which are only instantiated in the parent compiler context.
- *
- * @public
  */
 export const PARENT_SERVICES: Array<string> = [
   `@roots/bud-compiler`,
@@ -55,8 +53,6 @@ export const PARENT_SERVICES: Array<string> = [
 
 /**
  * Services which are only instantiated in development
- *
- * @public
  */
 export const DEVELOPMENT_SERVICES: Array<string> = [`@roots/bud-server`]
 
@@ -95,8 +91,6 @@ const filterServices =
 
 /**
  * Import and bind framework services
- *
- * @public
  */
 const instantiateServices =
   (app: Bud) =>

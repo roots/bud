@@ -11,8 +11,6 @@ export type ConstructorOptions = Build.Item.ConstructorOptions
 
 /**
  * Item class
- *
- * @public
  */
 class Item extends Base implements Build.Item {
   /**

@@ -1,4 +1,4 @@
-/// <reference path="../../bud-framework/lib/index.d.ts" />
+/// <reference types="@roots/bud-framework" />
 
 import type BudCDN from './extensions/cdn/index.js'
 import type CleanWebpackPlugin from './extensions/clean-webpack-plugin/index.js'

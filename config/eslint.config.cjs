@@ -78,6 +78,25 @@ module.exports = {
     [`n/callback-return`]: ERROR,
     [`n/no-missing-import`]: OFF,
     [`n/no-process-env`]: ERROR,
+    'n/no-unpublished-import': [
+      ERROR,
+      {
+        allowModules: [
+          `@wordpress/blocks`,
+          `@wordpress/components`,
+          `@wordpress/data`,
+          `@wordpress/hooks`,
+          `@wordpress/i18n`,
+          `@wordpress/element`,
+          `@wordpress/compose`,
+          `@wordpress/block-editor`,
+          `@wordpress/block-library`,
+          `@wordpress/plugins`,
+          `@wordpress/rich-text`,
+          `type-fest`,
+        ],
+      },
+    ],
     [`n/no-unsupported-features/es-syntax`]: [
       ERROR,
       {ignores: [`modules`], version: `>=16.0.0`},

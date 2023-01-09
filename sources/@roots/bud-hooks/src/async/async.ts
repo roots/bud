@@ -12,8 +12,6 @@ import {Hooks} from '../base/base.js'
 
 /**
  * Asynchronous hooks registry
- *
- * @public
  */
 export class AsyncHooks extends Hooks<AsyncStore> {
   /**

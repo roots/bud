@@ -6,8 +6,6 @@ import type {Compiler, WebpackPluginInstance} from 'webpack'
 
 /**
  * Plugin options
- *
- * @public
  */
 export interface Options {
   /**

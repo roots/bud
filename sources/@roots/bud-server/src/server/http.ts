@@ -10,8 +10,6 @@ import {bind} from '@roots/bud-support/decorators'
 
 /**
  * HTTP Server
- *
- * @public
  */
 export class Server extends BaseServer implements Connection {
   /**

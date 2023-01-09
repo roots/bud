@@ -5,8 +5,6 @@ import type {Bud} from '../../index.js'
  *
  * @remarks
  * Extension decorator
- *
- * @public
  */
 export const development = <Type extends {new (...args: any[]): any}>(
   constructor: Type,

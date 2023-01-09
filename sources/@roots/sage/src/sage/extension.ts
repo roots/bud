@@ -1,16 +1,11 @@
-import type {Bud} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud'
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
   dependsOn,
-  dependsOnOptional,
   expose,
   label,
 } from '@roots/bud-framework/extension/decorators'
-
-interface Options {
-  acorn: `v2` | `v3`
-}
 
 /**
  * roots/sage support extension
@@ -19,11 +14,10 @@ interface Options {
  */
 @label(`@roots/sage`)
 @dependsOn([`@roots/bud-preset-wordpress`, `@roots/sage/acorn`])
-@dependsOnOptional([`@roots/bud-tailwindcss`])
 @expose(`sage`)
-export class Sage extends Extension<Options> {
+export class Sage extends Extension {
   /**
-   * `boot` callback
+   * `register` callback
    */
   @bind
   public override async register(bud: Bud) {

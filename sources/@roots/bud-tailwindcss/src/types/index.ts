@@ -1,7 +1,7 @@
-/// <reference path="../../bud-framework/lib/index.d.ts" />
-/// <reference path="../../bud-postcss/lib/index.d.ts" />
+/// <reference types="@roots/bud-framework" />
+/// <reference types="@roots/bud-postcss" />
 
-import type {BudTailwindCss} from './extension.js'
+import type {BudTailwindCss} from '@roots/bud-tailwindcss/extension'
 
 declare module '@roots/bud-framework' {
   interface Bud {

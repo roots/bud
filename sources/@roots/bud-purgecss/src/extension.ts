@@ -2,8 +2,6 @@ import type {Bud, Extension} from '@roots/bud-framework'
 
 /**
  * Module registration
- *
- * @public
  */
 export interface register {
   (options: any, app: Bud): Promise<void>
@@ -37,8 +35,6 @@ export interface Purge extends Extension {
  * PurgeCSS UserOptions
  *
  * @see https://purgecss.com/plugins/postcss.html#options
- *
- * @public
  */
 export interface UserOptions {
   content?: Array<

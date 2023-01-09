@@ -42,8 +42,6 @@ export interface when {
  *   () => bud.devtool('hidden-source-map'),
  * )
  * ```
- *
- * @public
  */
 export function when(
   test:

@@ -2,6 +2,7 @@
 
 exports[`@roots/bud-extensions > bud.extensions.repository options should match snapshot in development 1`] = `
 [
+  "@roots/bud-entrypoints",
   "@roots/bud-extensions/cdn",
   "@roots/bud-extensions/clean-webpack-plugin",
   "@roots/bud-extensions/copy-webpack-plugin",

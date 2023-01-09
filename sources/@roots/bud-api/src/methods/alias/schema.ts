@@ -46,8 +46,6 @@ export const records = z.record(signifier, value)
  * @remarks
  * a function that accepts {@link records} and returns {@link records}
  * the {@link records} value received by the function may be `undefined`
- *
- * @public
  */
 export const callback = z
   .function()

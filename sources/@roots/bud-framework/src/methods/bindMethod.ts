@@ -28,8 +28,6 @@ export interface bindMethod {
  *  }
  * }
  * ```
- *
- * @public
  */
 export function bindMethod(
   key: string,

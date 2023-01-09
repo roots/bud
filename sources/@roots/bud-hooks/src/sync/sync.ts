@@ -12,8 +12,6 @@ import {Hooks} from '../base/base.js'
 
 /**
  * Synchronous hooks registry
- *
- * @public
  */
 export class SyncHooks extends Hooks<SyncStore> {
   /**

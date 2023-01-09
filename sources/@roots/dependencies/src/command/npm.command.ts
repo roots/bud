@@ -5,8 +5,6 @@ import {Command} from './base.command.js'
 
 /**
  * Npm command
- *
- * @public
  */
 export class Npm extends Command implements IDependencyManager {
   /**

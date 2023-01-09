@@ -10,8 +10,14 @@
   },
   "contributors": [
     {
-      "name": "kellymears",
+      "name": "Kelly Mears",
+      "email": "developers@tinypixel.dev",
       "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "Ben Word",
+      "email": "ben@benword.com",
+      "url": "https://github.com/retlehs"
     },
     {
       "name": "QWp6t",
@@ -38,7 +44,9 @@
     "type": "extension"
   },
   "files": [
-    "lib/"
+    "docs",
+    "lib",
+    "src"
   ],
   "type": "module",
   "module": "./lib/index.js",
@@ -65,9 +73,7 @@
     "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.18.11",
-    "postcss": "8.4.20",
-    "webpack": "5.75.0"
+    "@types/node": "16.18.11"
   },
   "dependencies": {
     "@fullhuman/postcss-purgecss": "5.0.0",
@@ -76,10 +82,20 @@
   "peerDependencies": {
     "@fullhuman/postcss-purgecss": "*",
     "@roots/bud": "*",
-    "@roots/bud-postcss": "*"
+    "@roots/bud-postcss": "*",
+    "postcss": "*"
   },
   "peerDependenciesMeta": {
     "@fullhuman/postcss-purgecss": {
+      "optional": true
+    },
+    "@roots/bud": {
+      "optional": true
+    },
+    "@roots/bud-postcss": {
+      "optional": true
+    },
+    "postcss": {
       "optional": true
     }
   },

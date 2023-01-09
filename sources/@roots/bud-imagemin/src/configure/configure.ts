@@ -28,8 +28,6 @@ export interface configure {
  * Configure
  *
  * @see {@link https://bud.js.org/extensions/bud-imagemin/configure}
- *
- * @public
  */
 export const configure: configure = function (...args) {
   const [id, key, input] =

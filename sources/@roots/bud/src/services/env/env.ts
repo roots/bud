@@ -4,8 +4,6 @@ import {bind} from '@roots/bud-support/decorators'
 
 /**
  * Env service
- *
- * @public
  */
 export default class Env extends ServiceContainer {
   /**

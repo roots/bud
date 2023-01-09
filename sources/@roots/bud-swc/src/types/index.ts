@@ -1,9 +1,8 @@
-/// <reference path="../../bud-framework/lib/index.d.ts" />
-/// <reference path="../../bud-extensions/lib/index.d.ts" />
+/// <reference types="@roots/bud-framework" />
+/// <reference types="@roots/bud-extensions" />
 
 import type {Build} from '@roots/bud-framework/services'
-
-import type BudSWC from './extension.js'
+import type BudSWC from '@roots/bud-swc/extension'
 
 declare module '@roots/bud-framework' {
   interface Bud {

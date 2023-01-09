@@ -9,8 +9,6 @@ import * as clientOptions from './options.js'
 
 /**
  * Initializes bud.js HMR handling
- *
- * @public
  */
 export const client = async (
   queryString: string,

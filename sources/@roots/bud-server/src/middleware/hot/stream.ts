@@ -45,8 +45,6 @@ let currentClientId = 0
 
 /**
  * Static fn to execute a callback on every registered client
- *
- * @public
  */
 const tapClients = (fn: CallableFunction) =>
   Object.values(clients)
@@ -64,8 +62,6 @@ const closeClient = client => {
 
 /**
  * Hot Module Replacement event stream
- *
- * @public
  */
 export class HotEventStream {
   /**

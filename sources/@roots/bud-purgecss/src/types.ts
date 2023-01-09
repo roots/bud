@@ -1,4 +1,4 @@
-/// <reference path="../../bud-postcss/lib/index.d.ts" />
+/// <reference types="@roots/bud-postcss" />
 
 import type {purgecss} from './api.js'
 import type * as purgeExtension from './extension.js'

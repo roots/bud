@@ -10,8 +10,19 @@
   "documentation": "https://bud.js.org/extensions/sage",
   "contributors": [
     {
-      "name": "kellymears",
+      "name": "Kelly Mears",
+      "email": "developers@tinypixel.dev",
       "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "Ben Word",
+      "email": "ben@benword.com",
+      "url": "https://github.com/retlehs"
+    },
+    {
+      "name": "Joshua Fredrickson",
+      "email": "joshua@orangepineapple.com",
+      "url": "https://github.com/joshuafredrickson"
     },
     {
       "name": "QWp6t",
@@ -39,8 +50,7 @@
   "files": [
     "config",
     "docs",
-    "lib/",
-    "stylelint-config"
+    "lib"
   ],
   "type": "module",
   "module": "./lib/index.js",
@@ -50,12 +60,29 @@
       "types": "./lib/index.d.ts",
       "default": "./lib/index.js"
     },
+    "./acorn": {
+      "types": "./lib/acorn/index.d.ts",
+      "default": "./lib/acorn/index.js"
+    },
+    "./acorn-v2-public-path": {
+      "types": "./lib/acorn-v2-public-path/index.d.ts",
+      "default": "./lib/acorn-v2-public-path/index.js"
+    },
+    "./client": {
+      "types": "./lib/client/index.d.ts",
+      "default": "./lib/client/index.js"
+    },
     "./client/*": {
       "types": "./lib/client/*.d.ts",
       "default": "./lib/client/*.js"
     },
-    "./config/stylelint": {
-      "default": "./config/stylelint.cjs"
+    "./sage": {
+      "types": "./lib/sage/index.d.ts",
+      "default": "./lib/sage/index.js"
+    },
+    "./types": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/types/index.js"
     },
     "./stylelint": {
       "default": "./config/stylelint.cjs"
@@ -63,18 +90,14 @@
     "./stylelint-config": {
       "default": "./config/stylelint.cjs"
     },
-    "./config/jsconfig": {
+    "./config/stylelint": {
+      "default": "./config/stylelint.cjs"
+    },
+    "./config/jsconfig.json": {
       "default": "./config/jsconfig.json"
     },
-    "./config/tsconfig": {
-      "default": "./config/tsconfig.cjs"
-    },
-    "./config/*": {
-      "default": "./config/*"
-    },
-    "./*": {
-      "types": "./lib/*/index.d.ts",
-      "default": "./lib/*/index.js"
+    "./config/tsconfig.json": {
+      "default": "./config/tsconfig.json"
     }
   },
   "typesVersions": {
@@ -82,20 +105,27 @@
       ".": [
         "./lib/index.d.ts"
       ],
+      "acorn": [
+        "./lib/acorn/index.d.ts"
+      ],
+      "acorn-v2-public-path": [
+        "./lib/acorn-v2-public-path/index.d.ts"
+      ],
+      "client": [
+        "./lib/client/index.d.ts"
+      ],
       "client/*": [
         "./lib/*/dom-ready.d.ts"
       ],
-      "*": [
-        "./lib/*/index.d.ts"
+      "sage": [
+        "./lib/sage/index.d.ts"
       ]
     }
   },
   "devDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
-    "@roots/bud-tailwindcss": "workspace:sources/@roots/bud-tailwindcss",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.18.11",
-    "tailwindcss": "3.2.4"
+    "@types/node": "16.18.11"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
@@ -104,34 +134,14 @@
     "@roots/container": "workspace:sources/@roots/container"
   },
   "peerDependencies": {
-    "@roots/bud-preset-recommend": "*",
-    "@roots/bud-preset-wordpress": "*",
-    "@roots/bud-react": "*",
-    "@roots/bud-tailwindcss": "*",
-    "@roots/bud-wordpress-dependencies": "*",
-    "@roots/bud-wordpress-externals": "*",
-    "@roots/bud-wordpress-manifests": "*"
+    "@roots/bud": "*",
+    "@roots/bud-preset-wordpress": "*"
   },
   "peerDependenciesMeta": {
-    "@roots/bud-preset-recommend": {
+    "@roots/bud": {
       "optional": true
     },
     "@roots/bud-preset-wordpress": {
-      "optional": true
-    },
-    "@roots/bud-react": {
-      "optional": true
-    },
-    "@roots/bud-tailwindcss": {
-      "optional": true
-    },
-    "@roots/bud-wordpress-dependencies": {
-      "optional": true
-    },
-    "@roots/bud-wordpress-externals": {
-      "optional": true
-    },
-    "@roots/bud-wordpress-manifests": {
       "optional": true
     }
   },

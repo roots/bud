@@ -16,8 +16,6 @@ import {Config} from './config.js'
 
 /**
  * S3 API
- *
- * @public
  */
 export class S3 {
   public config: Config

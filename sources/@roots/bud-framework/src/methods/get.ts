@@ -14,8 +14,6 @@ export interface get {
  * ```js
  * bud.get(label)
  * ```
- *
- * @public
  */
 export const get: get = function (label, tap) {
   const {isRoot, root, warn} = this as Bud

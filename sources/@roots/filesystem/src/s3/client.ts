@@ -2,8 +2,6 @@ import type {S3Client, S3ClientConfig} from '@aws-sdk/client-s3'
 
 /**
  * S3 client
- *
- * @public
  */
 export class Client {
   /**

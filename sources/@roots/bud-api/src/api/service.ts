@@ -14,8 +14,6 @@ import * as methods from '../methods/index.js'
  * @remarks
  * Binds facade methods to the framework and provides a way to list them,
  * call them, and otherwise manipulate them.
- *
- * @public
  */
 export class Api extends ServiceContainer implements Contract {
   /**

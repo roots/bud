@@ -26,6 +26,7 @@ import isWeakSet from '@roots/bud-support/lodash/isWeakSet'
 import join from '@roots/bud-support/lodash/join'
 import lowerCase from '@roots/bud-support/lodash/lowerCase'
 import lowerFirst from '@roots/bud-support/lodash/lowerFirst'
+import map from '@roots/bud-support/lodash/map'
 import merge from '@roots/bud-support/lodash/merge'
 import noop from '@roots/bud-support/lodash/noop'
 import omit from '@roots/bud-support/lodash/omit'
@@ -45,12 +46,14 @@ export {
   has,
   isArray,
   isBoolean,
+  isDate,
   isEmpty,
   isEqual,
   isFunction,
   isNil,
   isNumber,
   isNull,
+  isSet,
   isWeakMap,
   isWeakSet,
   isObject,
@@ -63,15 +66,14 @@ export {
   join,
   lowerCase,
   lowerFirst,
-  upperFirst,
-  uniq,
+  map,
   merge,
-  set,
-  unset,
-  omit,
   noop,
+  omit,
+  set,
   size,
   sortBy,
-  isDate,
-  isSet,
+  uniq,
+  unset,
+  upperFirst,
 }

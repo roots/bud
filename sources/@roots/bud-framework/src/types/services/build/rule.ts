@@ -7,15 +7,11 @@ import type {Item} from './item.js'
 
 /**
  * File parser interface
- *
- * @public
  */
 export interface Parser extends Record<string, any> {}
 
 /**
  * Options interface
- *
- * @public
  */
 export interface Options {
   test?: ((app: Bud) => Output['test']) | Output['test'] | undefined
@@ -37,8 +33,6 @@ export interface Options {
 
 /**
  * Output
- *
- * @public
  */
 export interface Output extends RuleSetRule {
   include?: Array<RegExp | string>

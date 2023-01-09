@@ -10,8 +10,14 @@
   },
   "contributors": [
     {
-      "name": "kellymears",
+      "name": "Kelly Mears",
+      "email": "developers@tinypixel.dev",
       "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "Ben Word",
+      "email": "ben@benword.com",
+      "url": "https://github.com/retlehs"
     },
     {
       "name": "QWp6t",
@@ -87,7 +93,6 @@
   },
   "peerDependencies": {
     "@roots/bud": "*",
-    "@roots/bud-postcss": "*",
     "postcss-scss": "*",
     "sass": "*",
     "sass-loader": "*",
@@ -95,7 +100,7 @@
     "stylelint-scss": "*"
   },
   "peerDependenciesMeta": {
-    "@roots/bud-postcss": {
+    "@roots/bud": {
       "optional": true
     },
     "postcss-scss": {

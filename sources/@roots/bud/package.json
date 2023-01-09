@@ -5,7 +5,8 @@
   "homepage": "https://roots.io/bud",
   "contributors": [
     {
-      "name": "kellymears",
+      "name": "Kelly Mears",
+      "email": "developers@tinypixel.dev",
       "url": "https://github.com/kellymears"
     },
     {
@@ -13,8 +14,9 @@
       "url": "https://github.com/QWp6t"
     },
     {
-      "name": "clayrisser",
-      "url": "https://github.com/clayrisser"
+      "name": "Ben Word",
+      "email": "ben@benword.com",
+      "url": "https://github.com/retlehs"
     }
   ],
   "license": "MIT",
@@ -172,8 +174,10 @@
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@roots/bud-build": "workspace:sources/@roots/bud-build",
     "@roots/bud-cache": "workspace:sources/@roots/bud-cache",
+    "@roots/bud-client": "workspace:sources/@roots/bud-client",
     "@roots/bud-compiler": "workspace:sources/@roots/bud-compiler",
     "@roots/bud-dashboard": "workspace:sources/@roots/bud-dashboard",
+    "@roots/bud-entrypoints": "workspace:sources/@roots/bud-entrypoints",
     "@roots/bud-extensions": "workspace:sources/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-hooks": "workspace:sources/@roots/bud-hooks",
@@ -187,14 +191,74 @@
   },
   "peerDependencies": {
     "@roots/browserslist-config": "*",
+    "@roots/bud-api": "*",
+    "@roots/bud-build": "*",
+    "@roots/bud-cache": "*",
+    "@roots/bud-client": "*",
+    "@roots/bud-compiler": "*",
+    "@roots/bud-dashboard": "*",
+    "@roots/bud-entrypoints": "*",
+    "@roots/bud-extensions": "*",
+    "@roots/bud-framework": "*",
+    "@roots/bud-hooks": "*",
+    "@roots/bud-server": "*",
+    "@roots/bud-support": "*",
+    "@roots/bud-terser": "*",
     "browserslist": ">=4.21.4",
+    "execa": ">=6.1.0",
+    "tslib": ">=2.4.0",
     "update-browserslist-db": ">=1.0.10"
   },
   "peerDependenciesMeta": {
     "@roots/browserslist-config": {
       "optional": true
     },
+    "@roots/bud-api": {
+      "optional": true
+    },
+    "@roots/bud-build": {
+      "optional": true
+    },
+    "@roots/bud-cache": {
+      "optional": true
+    },
+    "@roots/bud-client": {
+      "optional": true
+    },
+    "@roots/bud-compiler": {
+      "optional": true
+    },
+    "@roots/bud-dashboard": {
+      "optional": true
+    },
+    "@roots/bud-entrypoints": {
+      "optional": true
+    },
+    "@roots/bud-extensions": {
+      "optional": true
+    },
+    "@roots/bud-framework": {
+      "optional": true
+    },
+    "@roots/bud-hooks": {
+      "optional": true
+    },
+    "@roots/bud-server": {
+      "optional": true
+    },
+    "@roots/bud-support": {
+      "optional": true
+    },
+    "@roots/bud-terser": {
+      "optional": true
+    },
     "browserslist": {
+      "optional": true
+    },
+    "execa": {
+      "optional": true
+    },
+    "tslib": {
       "optional": true
     },
     "update-browserslist-db": {

@@ -9,4 +9,5 @@
  */
 
 export {EntrypointsWebpackPlugin} from './webpack.plugin.js'
+
 export type {Entry, Options} from './webpack.plugin.js'

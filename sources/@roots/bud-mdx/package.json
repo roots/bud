@@ -10,8 +10,14 @@
   },
   "contributors": [
     {
-      "name": "kellymears",
+      "name": "Kelly Mears",
+      "email": "developers@tinypixel.dev",
       "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "Ben Word",
+      "email": "ben@benword.com",
+      "url": "https://github.com/retlehs"
     },
     {
       "name": "QWp6t",
@@ -38,7 +44,9 @@
     "type": "extension"
   },
   "files": [
-    "lib/"
+    "docs",
+    "lib",
+    "src"
   ],
   "type": "module",
   "module": "./lib/index.js",
@@ -58,6 +66,7 @@
     }
   },
   "devDependencies": {
+    "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-build": "workspace:sources/@roots/bud-build",
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.18.11",
@@ -75,6 +84,7 @@
   },
   "peerDependencies": {
     "@mdx-js/loader": "*",
+    "@roots/bud": "*",
     "@roots/bud-babel": "*",
     "@roots/bud-react": "*",
     "react": "*",
@@ -82,6 +92,9 @@
   },
   "peerDependenciesMeta": {
     "@mdx-js/loader": {
+      "optional": true
+    },
+    "@roots/bud": {
       "optional": true
     },
     "@roots/bud-babel": {

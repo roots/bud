@@ -10,7 +10,17 @@
   "contributors": [
     {
       "name": "Kelly Mears",
+      "email": "developers@tinypixel.dev",
       "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "Ben Word",
+      "email": "ben@benword.com",
+      "url": "https://github.com/retlehs"
+    },
+    {
+      "name": "QWp6t",
+      "url": "https://github.com/QWp6t"
     }
   ],
   "license": "MIT",
@@ -32,8 +42,10 @@
     "type": "extension"
   },
   "files": [
-    "lib/",
-    "stylelint-config"
+    "config",
+    "docs",
+    "lib",
+    "src"
   ],
   "type": "module",
   "module": "./lib/index.js",
@@ -48,11 +60,10 @@
       "default": "./lib/extension.js"
     },
     "./stylelint-config": {
-      "default": "./stylelint-config/index.cjs"
+      "default": "./config/stylelint.cjs"
     },
-    "./theme": {
-      "types": "./lib/theme.d.ts",
-      "default": "./lib/theme.js"
+    "./config/stylelint": {
+      "default": "./config/stylelint.cjs"
     }
   },
   "typesVersions": {
@@ -70,7 +81,6 @@
   },
   "devDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
-    "@roots/bud-tailwindcss-theme-json": "workspace:sources/@roots/bud-tailwindcss-theme-json",
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.18.11"
   },
@@ -79,29 +89,28 @@
     "@roots/bud-preset-recommend": "workspace:sources/@roots/bud-preset-recommend",
     "@roots/bud-react": "workspace:sources/@roots/bud-react",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "@roots/bud-wordpress-dependencies": "workspace:sources/@roots/bud-wordpress-dependencies",
-    "@roots/bud-wordpress-externals": "workspace:sources/@roots/bud-wordpress-externals",
+    "@roots/bud-tailwindcss-theme-json": "workspace:sources/@roots/bud-tailwindcss-theme-json",
     "@roots/bud-wordpress-manifests": "workspace:sources/@roots/bud-wordpress-manifests",
     "@roots/bud-wordpress-theme-json": "workspace:sources/@roots/bud-wordpress-theme-json"
   },
   "peerDependencies": {
+    "@roots/bud": "*",
     "@roots/bud-preset-recommend": "*",
     "@roots/bud-react": "*",
-    "@roots/bud-wordpress-dependencies": "*",
-    "@roots/bud-wordpress-externals": "*",
+    "@roots/bud-tailwindcss-theme-json": "*",
     "@roots/bud-wordpress-manifests": "*"
   },
   "peerDependenciesMeta": {
+    "@roots/bud": {
+      "optional": true
+    },
     "@roots/bud-preset-recommend": {
       "optional": true
     },
     "@roots/bud-react": {
       "optional": true
     },
-    "@roots/bud-wordpress-dependencies": {
-      "optional": true
-    },
-    "@roots/bud-wordpress-externals": {
+    "@roots/bud-tailwindcss-theme-json": {
       "optional": true
     },
     "@roots/bud-wordpress-manifests": {

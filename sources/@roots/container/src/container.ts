@@ -12,21 +12,18 @@ import isUndefined from 'lodash/isUndefined.js'
 import set from 'lodash/set.js'
 import size from 'lodash/size.js'
 import uniq from 'lodash/uniq.js'
+// eslint-disable-next-line n/no-unpublished-import
 import type {ValueOf} from 'type-fest'
 
 import {mergeable} from './utilities.js'
 
 /**
  * Container repository interface
- *
- * @public
  */
 export interface Repository extends Record<string, any> {}
 
 /**
  * Provides a simple chainable interface for working with collections of data
- *
- * @public
  */
 export default class Container<I = any> {
   /**

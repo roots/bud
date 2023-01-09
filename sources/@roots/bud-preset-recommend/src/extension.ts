@@ -21,7 +21,7 @@ import {
  * @decorator `@dependsOnOptional`
  */
 @label(`@roots/bud-preset-recommend`)
-@dependsOn([`@roots/bud-entrypoints`, `@roots/bud-postcss`])
+@dependsOn([`@roots/bud-postcss`])
 @dependsOnOptional([`@roots/bud-esbuild`, `@roots/bud-swc`])
 export default class BudPresetRecommend extends Extension {
   /**

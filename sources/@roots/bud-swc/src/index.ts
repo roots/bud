@@ -10,8 +10,8 @@
  * @packageDocumentation
  */
 
-import './types.js'
+import '@roots/bud-swc/types'
 
-import BudSWC from './extension.js'
+import BudSWC from '@roots/bud-swc/extension'
 
 export default BudSWC

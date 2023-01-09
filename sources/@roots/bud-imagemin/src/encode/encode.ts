@@ -15,8 +15,6 @@ export interface encode {
  * Allows you to set the encoder options for a given filetype.
  *
  * @see {@link https://bud.js.org/extensions/bud-imagemin/encode}
- *
- * @public
  */
 export function encode(
   this: BudImageminExtension,

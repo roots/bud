@@ -3,6 +3,10 @@
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./lib",
+    "paths": {
+      "@roots/bud-tailwindcss": ["./src/index.ts", "./src/index.tsx"],
+      "@roots/bud-tailwindcss/*": ["./src/*/index.ts", "./src/*/index.tsx"]
+    }
   },
   "include": ["./src"],
   "exclude": ["./lib", "./node_modules", "./**/*.test.ts"],

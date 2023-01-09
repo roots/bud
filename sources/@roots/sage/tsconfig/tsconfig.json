@@ -1,6 +1,0 @@
-{
-  "extends": "@roots/bud/config/tsconfig.json",
-  "compilerOptions": {
-    "types": ["@roots/bud", "@roots/sage"]
-  }
-}

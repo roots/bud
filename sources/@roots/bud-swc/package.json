@@ -10,8 +10,14 @@
   },
   "contributors": [
     {
-      "name": "kellymears",
+      "name": "Kelly Mears",
+      "email": "developers@tinypixel.dev",
       "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "Ben Word",
+      "email": "ben@benword.com",
+      "url": "https://github.com/retlehs"
     }
   ],
   "license": "MIT",
@@ -31,28 +37,35 @@
     "node": ">=16"
   },
   "files": [
-    "lib/",
-    "src/"
+    "docs",
+    "lib",
+    "src"
   ],
   "type": "module",
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "exports": {
-    ".": "./lib/index.js",
-    "./extension": "./lib/extension.js"
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./*": {
+      "types": "./lib/*/index.d.ts",
+      "default": "./lib/*/index.js"
+    }
   },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.d.ts"
       ],
-      "extension": [
-        "./lib/extension.d.ts"
+      "*": [
+        "./lib/*/index.d.ts"
       ]
     }
   },
   "devDependencies": {
-    "@roots/bud-extensions": "workspace:sources/@roots/bud-extensions",
+    "@roots/bud": "workspace:sources/@roots/bud",
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.18.11",
     "webpack": "5.75.0"
@@ -65,11 +78,15 @@
     "swc-loader": "0.2.3"
   },
   "peerDependencies": {
+    "@roots/bud": "*",
     "@swc/core": "*",
     "@swc/helpers": "*",
     "swc-loader": "*"
   },
   "peerDependenciesMeta": {
+    "@roots/bud": {
+      "optional": true
+    },
     "@swc/core": {
       "optional": true
     },

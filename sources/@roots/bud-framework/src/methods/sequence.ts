@@ -13,8 +13,6 @@ export interface sequence<T = Bud> {
  *
  * @remarks
  * Unlike {@link pipe} the value returned from each function is ignored.
- *
- * @public
  */
 export const sequence = async function (
   fns: Array<Callback>,
@@ -42,8 +40,6 @@ export interface sequenceSync {
  *
  * @remarks
  * Unlike {@link pipe} the value returned from each function is ignored.
- *
- * @public
  */
 export const sequenceSync: sequenceSync = (
   fns: Array<SyncCallback>,

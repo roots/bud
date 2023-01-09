@@ -36,8 +36,6 @@ export const transformEntry: transformEntry = ([slug, fontSize]) => ({
  * Transform tailwindcss fonts to wordpress theme.json fonts
  *
  * @param fonts - from tailwindcss
- *
- * @public
  */
 export interface transform {
   (fonts: TailwindSize): WordPressSizes

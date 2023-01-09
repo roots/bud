@@ -7,8 +7,6 @@ import * as t from '@roots/bud-support/typanion'
 
 /**
  * Build command
- *
- * @public
  */
 export default class BudBuildCommand extends BudCommand {
   public static override paths = [[`build`]]

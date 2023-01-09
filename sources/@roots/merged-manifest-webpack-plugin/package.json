@@ -10,12 +10,18 @@
   "license": "MIT",
   "contributors": [
     {
-      "name": "kellymears",
+      "name": "Kelly Mears",
+      "email": "developers@tinypixel.dev",
       "url": "https://github.com/kellymears"
     },
     {
       "name": "QWp6t",
       "url": "https://github.com/QWp6t"
+    },
+    {
+      "name": "Ben Word",
+      "email": "ben@benword.com",
+      "url": "https://github.com/retlehs"
     }
   ],
   "bugs": {
@@ -33,7 +39,9 @@
     "node": ">=16"
   },
   "files": [
-    "lib/"
+    "docs",
+    "lib",
+    "src"
   ],
   "type": "module",
   "module": "./lib/index.js",
@@ -44,12 +52,12 @@
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@types/fs-extra": "9.0.13",
-    "@types/node": "16.18.11",
-    "webpack": "5.75.0"
+    "@types/node": "16.18.11"
   },
   "dependencies": {
     "fs-extra": "10.1.0",
-    "helpful-decorators": "2.1.0"
+    "helpful-decorators": "2.1.0",
+    "webpack": "5.75.0"
   },
   "volta": {
     "extends": "../../../package.json"

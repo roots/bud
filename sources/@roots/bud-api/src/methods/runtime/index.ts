@@ -1,5 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
-import type {EntryObject, Optimization} from '@roots/bud-framework/config'
+import type {EntryObject, Optimization} from '@roots/bud-support/webpack'
 
 export type Parameters = [
   | undefined

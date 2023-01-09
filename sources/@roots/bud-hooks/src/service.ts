@@ -46,8 +46,6 @@ import {SyncHooks} from './sync/sync.js'
  * ```ts
  * await hooks.filterAsync('my-event-name', async () => DEFAULT_VALUE)
  * ```
- *
- * @public
  */
 export class Hooks extends Base implements Service {
   public asyncStore: AsyncHooks

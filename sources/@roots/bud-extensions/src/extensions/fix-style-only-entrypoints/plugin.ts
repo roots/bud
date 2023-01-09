@@ -3,8 +3,6 @@ import type {Compiler} from '@roots/bud-support/webpack'
 
 /**
  * Remove empty modules from the compilation
- *
- * @public
  */
 export default class FixStyleOnlyEntrypoints {
   /**

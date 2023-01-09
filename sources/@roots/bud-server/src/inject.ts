@@ -2,8 +2,6 @@ import type {Bud} from '@roots/bud-framework'
 
 /**
  * Inject webpack entrypoints with client scripts
- *
- * @public
  */
 export const inject = async (
   app: Bud,

@@ -20,8 +20,6 @@ import type {Parameters} from './proxy.types.js'
 
 /**
  * bud.proxy interface
- *
- * @public
  */
 export interface proxy {
   (...params: Parameters): Promise<Bud>
@@ -29,8 +27,6 @@ export interface proxy {
 
 /**
  * bud.proxy method
- *
- * @public
  */
 export const proxy: proxy = async function (this: Bud, input, options) {
   // Bail early in production

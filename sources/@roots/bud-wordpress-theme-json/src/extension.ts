@@ -17,8 +17,6 @@ import ThemeJsonWebpackPlugin, {
 
 /**
  * Callback function used to configure wordpress `theme.json`
- *
- * @public
  */
 export interface Mutator {
   (

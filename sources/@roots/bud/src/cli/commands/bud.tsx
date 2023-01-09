@@ -31,8 +31,6 @@ export const ArgsModifier: ArgsModifier = from => async on => ({
 
 /**
  * Bud command
- *
- * @public
  */
 export default class BudCommand extends Command<CommandContext> {
   public declare bud?: (Bud & {context: CommandContext}) | undefined
@@ -123,12 +121,14 @@ export default class BudCommand extends Command<CommandContext> {
   public async execute() {}
 
   public override async catch(value: unknown) {
+    let error: Error
+
     process.exitCode = 1
 
-    this.bud.context.logger.info(`bud cli caught error`, value)
     const normalizeError = (value: unknown): Error => {
       if (value instanceof Error) return value
       if (isString(value)) return new Error(value)
+
       if (value instanceof Object) {
         try {
           return new Error(JSON.stringify(value, null, 2))
@@ -138,17 +138,15 @@ export default class BudCommand extends Command<CommandContext> {
       }
     }
 
-    let error: Error
-
     try {
       error = normalizeError(value)
       error.name = error.name ? ` ${error.name} ` : ` Error `
       error.stack = error.stack?.split(`  at `).splice(0, 2).join(`  at `)
     } catch (e) {}
 
-    if (this.notifier) {
+    if (this.notifier?.notify) {
       try {
-        this.notifier?.notify({
+        this.notifier.notify({
           title: `bud.js`,
           subtitle: `Configuration error`,
           message: error.message,

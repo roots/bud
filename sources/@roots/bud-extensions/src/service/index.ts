@@ -17,8 +17,6 @@ import {isConstructor} from './util/isConstructor.js'
 
 /**
  * Extensions Service
- *
- * @public
  */
 export default class Extensions
   extends Service

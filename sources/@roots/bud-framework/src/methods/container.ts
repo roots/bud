@@ -18,8 +18,6 @@ export interface container<T = any> {
  *
  * myContainer.get('key') // returns 'value'
  * ```
- *
- * @public
  */
 export const container: container = function <T = any>(
   repository?: T,

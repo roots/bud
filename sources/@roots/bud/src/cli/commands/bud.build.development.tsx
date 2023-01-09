@@ -4,8 +4,6 @@ import type {CommandContext} from '@roots/bud-framework/options'
 
 /**
  * `bud build development` command
- *
- * @public
  */
 export default class BuildDevelopmentCommand extends BuildCommand {
   public static override paths = [

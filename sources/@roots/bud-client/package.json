@@ -10,12 +10,14 @@
   },
   "contributors": [
     {
-      "name": "kellymears",
+      "name": "Kelly Mears",
+      "email": "developers@tinypixel.dev",
       "url": "https://github.com/kellymears"
     },
     {
-      "name": "QWp6t",
-      "url": "https://github.com/QWp6t"
+      "name": "Ben Word",
+      "email": "ben@benword.com",
+      "url": "https://github.com/retlehs"
     }
   ],
   "license": "MIT",
@@ -34,7 +36,9 @@
     "node": ">=16"
   },
   "files": [
-    "lib/"
+    "docs",
+    "lib",
+    "src"
   ],
   "main": "./lib/index.cjs",
   "module": "./lib/index.mjs",
@@ -52,9 +56,22 @@
     }
   },
   "devDependencies": {
+    "@roots/bud": "workspace:sources/@roots/bud",
     "@skypack/package-check": "0.2.2",
     "@types/node": "16.18.11",
     "@types/webpack-env": "1.18.0"
+  },
+  "peerDependencies": {
+    "@roots/bud": "*",
+    "@types/webpack-env": "*"
+  },
+  "peerDependenciesMeta": {
+    "@roots/bud": {
+      "optional": true
+    },
+    "@types/webpack-env": {
+      "optional": true
+    }
   },
   "volta": {
     "extends": "../../../package.json"

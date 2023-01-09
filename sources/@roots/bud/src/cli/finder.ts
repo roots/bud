@@ -11,8 +11,6 @@ import isString from '@roots/bud-support/lodash/isString'
 
 /**
  * Command finder class
- *
- * @public
  */
 export class Commands {
   /**

@@ -6,8 +6,6 @@
  *
  * @param onReady - callback function
  * @returns void
- *
- * @public
  */
 interface lazy {
   <T = any>(

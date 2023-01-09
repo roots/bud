@@ -7,8 +7,6 @@ import Gzip from './gzip.js'
 
 /**
  * Bud compression extension options
- *
- * @public
  */
 export interface Options {
   filename: string

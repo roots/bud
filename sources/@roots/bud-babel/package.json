@@ -9,8 +9,14 @@
   },
   "contributors": [
     {
-      "name": "kellymears",
+      "name": "Kelly Mears",
+      "email": "developers@tinypixel.dev",
       "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "Ben Word",
+      "email": "ben@benword.com",
+      "url": "https://github.com/retlehs"
     },
     {
       "name": "QWp6t",
@@ -37,7 +43,9 @@
     "type": "extension"
   },
   "files": [
-    "lib/"
+    "docs",
+    "lib",
+    "src"
   ],
   "type": "module",
   "module": "./lib/index.js",
@@ -80,6 +88,9 @@
     "@babel/preset-env": "*",
     "@babel/runtime": "*",
     "@roots/bud": "*",
+    "@types/babel__core": "*",
+    "@types/babel__plugin-transform-runtime": "*",
+    "@types/babel__preset-env": "*",
     "babel-loader": "*"
   },
   "peerDependenciesMeta": {
@@ -93,6 +104,18 @@
       "optional": true
     },
     "@babel/runtime": {
+      "optional": true
+    },
+    "@roots/bud": {
+      "optional": true
+    },
+    "@types/babel__core": {
+      "optional": true
+    },
+    "@types/babel__plugin-transform-runtime": {
+      "optional": true
+    },
+    "@types/babel__preset-env": {
       "optional": true
     },
     "babel-loader": {

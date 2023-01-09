@@ -8,8 +8,6 @@ import React from '@roots/bud-support/react'
 
 /**
  * `bud view` command
- *
- * @public
  */
 export default class BudViewCommand extends BudCommand {
   public static override paths = [[`view`]]

@@ -10,8 +10,14 @@
   },
   "contributors": [
     {
-      "name": "kellymears",
+      "name": "Kelly Mears",
+      "email": "developers@tinypixel.dev",
       "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "Ben Word",
+      "email": "ben@benword.com",
+      "url": "https://github.com/retlehs"
     },
     {
       "name": "QWp6t",
@@ -34,7 +40,9 @@
     "node": ">=16"
   },
   "files": [
-    "lib/"
+    "docs",
+    "lib",
+    "src"
   ],
   "type": "module",
   "exports": {
@@ -45,10 +53,6 @@
     "./bud": {
       "types": "./lib/bud.d.ts",
       "default": "./lib/bud.js"
-    },
-    "./config": {
-      "types": "./lib/types/config/index.d.ts",
-      "default": "./lib/types/config/index.js"
     },
     "./configuration": {
       "types": "./lib/configuration/index.d.ts",
@@ -151,9 +155,6 @@
       ],
       "bud": [
         "./lib/bud/index.d.ts"
-      ],
-      "config": [
-        "./lib/types/config/index.d.ts"
       ],
       "console": [
         "./lib/services/console.d.ts"

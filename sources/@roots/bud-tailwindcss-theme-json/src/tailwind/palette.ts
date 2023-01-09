@@ -13,8 +13,6 @@ export interface TailwindColors {
  *
  * @param label - color label
  * @returns string
- *
- * @public
  */
 interface name {
   (label: Array<string>): string
@@ -69,8 +67,6 @@ export const toWordPressEntries: toWordPressEntries = ([entry, path]) => {
  * Transform tailwindcss palette to wordpress theme.json palette
  *
  * @param palette - from tailwindcss
- *
- * @public
  */
 export interface transform {
   (palette: TailwindColors): WordPressColors

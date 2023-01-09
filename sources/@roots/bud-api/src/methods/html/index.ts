@@ -12,8 +12,6 @@ export interface html {
 
 /**
  * Set HTML template
- *
- * @public
  */
 export const html: html = async function (this: Bud, options) {
   const {getHtmlPluginOptions, getInterpolatePluginOptions} = await import(

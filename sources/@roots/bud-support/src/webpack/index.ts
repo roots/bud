@@ -5,7 +5,7 @@ import type {
   Compiler,
   Configuration,
   DefinePlugin,
-  EntryObject,
+  EntryObject as WebpackEntryObject,
   MultiCompiler,
   MultiStats,
   PathData,
@@ -25,6 +25,11 @@ import type {
 } from 'webpack'
 import webpack from 'webpack'
 
+export type EntryObject = WebpackEntryObject & {
+  import: Array<string>
+  dependOn?: string | string[]
+}
+
 export default webpack
 export type {
   Chunk,
@@ -33,7 +38,6 @@ export type {
   Compilation,
   Configuration,
   DefinePlugin,
-  EntryObject,
   MultiCompiler,
   MultiStats,
   PathData,

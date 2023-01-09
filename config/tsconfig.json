@@ -14,7 +14,6 @@
     "incremental": true,
     "jsx": "react",
     "lib": ["ES2021", "DOM", "DOM.Iterable"],
-    "listFiles": true,
     "module": "NodeNext",
     "moduleDetection": "force",
     "moduleResolution": "NodeNext",

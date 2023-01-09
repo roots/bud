@@ -23,9 +23,10 @@ type ResolvedConfig = Partial<{
 /**
  * TailwindCSS support for `@roots/bud`
  *
- * @public
+ * @decorator `@expose`
  * @decorator `@label`
  * @decorator `@dependsOn`
+ * @decorator `@options`
  */
 @label(`@roots/bud-tailwindcss`)
 @dependsOn([`@roots/bud-postcss`])
@@ -36,8 +37,6 @@ export class BudTailwindCss extends Extension<{
 }> {
   /**
    * Get config path
-   *
-   * @public
    */
   private get path(): string | undefined {
     return (
@@ -49,13 +48,11 @@ export class BudTailwindCss extends Extension<{
 
   /**
    * Tailwind config (source)
-   * @public
    */
   private declare source: Config | undefined
 
   /**
    * Tailwind config (resolved)
-   * @public
    */
   private declare config: ResolvedConfig | undefined
   public getConfig(): this[`config`] {
@@ -67,8 +64,6 @@ export class BudTailwindCss extends Extension<{
    *
    * @remarks
    * 🚨 Any mutations to this object will be applied to the generated tailwindcss!
-   *
-   * @public
    */
   private declare theme:
     | (ResolvedConfig & {
@@ -81,8 +76,6 @@ export class BudTailwindCss extends Extension<{
 
   /**
    * Get config source module
-   *
-   * @public
    */
   public async getSource(): Promise<Config> {
     let config: Config
@@ -99,7 +92,6 @@ export class BudTailwindCss extends Extension<{
 
   /**
    * Resolved paths
-   * @public
    */
   public dependencies: {tailwindcss: string; nesting: string} = {
     tailwindcss: null,
@@ -108,8 +100,6 @@ export class BudTailwindCss extends Extension<{
 
   /**
    * Keys that can be imported from `@tailwind` alias
-   *
-   * @public
    */
   public get importableKeys(): Array<string> {
     return Array.isArray(this.options.generateImports)
@@ -119,7 +109,7 @@ export class BudTailwindCss extends Extension<{
 
   /**
    * Resolve a tailwind config value
-   * @public
+   * @decorator `@bind`
    */
   @bind
   public resolveThemeValue<K extends `${keyof ThemeConfig & string}`>(
@@ -168,14 +158,17 @@ export class BudTailwindCss extends Extension<{
 
   /**
    * Generate a static module for a tailwind theme key
-   * @param key - a tailwind confg key
-   * @returns
+   * @decorator `@bind`
    */
   @bind
   public makeStaticModule(key: keyof ThemeConfig) {
     return `export default ${JSON.stringify(get(this.theme, key))}\n`
   }
 
+  /**
+   * Generate import mapping
+   * @decorator `@bind`
+   */
   @bind
   public async generateImports(
     imports?: Array<`${keyof ThemeConfig & string}`> | boolean,
@@ -189,8 +182,7 @@ export class BudTailwindCss extends Extension<{
 
   /**
    * `init` callback
-   *
-   * @public
+   * @decorator `@bind`
    */
   @bind
   public override async init() {
@@ -210,8 +202,6 @@ export class BudTailwindCss extends Extension<{
 
   /**
    * `configAfter` callback
-   *
-   * @public
    * @decorator `@bind`
    */
   @bind

@@ -11,8 +11,6 @@ import {Service} from './service.js'
 
 /**
  * Module resolver
- *
- * @public
  */
 export class Module extends Service {
   /**

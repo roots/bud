@@ -10,7 +10,7 @@
  * @packageDocumentation
  */
 
-import './types.js'
+import '@roots/bud-tailwindcss/types'
 
-import {BudTailwindCss} from './extension.js'
+import {BudTailwindCss} from '@roots/bud-tailwindcss/extension'
 export default BudTailwindCss

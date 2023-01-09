@@ -7,8 +7,6 @@ import {bind} from '@roots/bud-support/decorators'
 
 /**
  * HTTPS Server
- *
- * @public
  */
 export class Server extends BaseServer implements Connection {
   /**
