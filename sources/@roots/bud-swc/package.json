@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-swc",
-  "version": "0.0.0",
+  "version": "6.6.10",
   "description": "SWC transpilation extension for Bud projects",
   "homepage": "https://roots.io/bud",
   "repository": {
