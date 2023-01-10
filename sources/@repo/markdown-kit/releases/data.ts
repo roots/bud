@@ -42,7 +42,7 @@ const octokit = new Octokit({auth: process.env.GITHUB_TOKEN})
 /**
  * Filter out older releases with weird titles
  */
-const filter = ({tag_name}: ghRelease) => tag_name.length === 6
+const filter = ({tag_name}: ghRelease) => tag_name.match(/^v\d+\.\d+\.\d+$/)
 
 /**
  * Parse a version string to a number
