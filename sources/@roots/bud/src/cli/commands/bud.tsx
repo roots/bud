@@ -394,18 +394,13 @@ export default class BudCommand extends Command<CommandContext> {
     /**
      * Filter instances
      */
-    if (isset(args.filter) && bud.hasChildren) {
-      Object.keys(bud.children)
-        .filter(name => !args.filter.includes(name))
-        .map(name => {
-          delete bud.children[name]
-          bud.log(`removing ${name} instance from the cli`)
+    if (args.filter?.length && bud.hasChildren) {
+      Object.values(bud.children)
+        .filter(child => args.filter.includes(child.label))
+        .map(child => {
+          delete bud.children[child.label]
+          bud.log(`removing ${child.label} instance from the cli`)
         })
-    }
-    if (isset(args.filter) && !bud.hasChildren) {
-      throw new Error(
-        `After filtering there are no instances left to build.`,
-      )
     }
 
     /**
