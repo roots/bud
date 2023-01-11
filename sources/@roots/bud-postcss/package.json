@@ -76,7 +76,7 @@
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "postcss": "8.4.20",
+    "postcss": "8.4.21",
     "postcss-import": "15.1.0",
     "postcss-loader": "7.0.2",
     "postcss-nested": "6.0.0",
