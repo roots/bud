@@ -396,7 +396,7 @@ export default class BudCommand extends Command<CommandContext> {
      */
     if (args.filter?.length && bud.hasChildren) {
       Object.values(bud.children)
-        .filter(child => args.filter.includes(child.label))
+        .filter(child => !args.filter.includes(child.label))
         .map(child => {
           delete bud.children[child.label]
           bud.log(`removing ${child.label} instance from the cli`)

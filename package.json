@@ -25,6 +25,7 @@
     "packages": [
       "sources/@roots/*",
       "sources/@repo/*",
+      "sources/@roots/*/test/**/*",
       "sources/@roots/*/src/__fixtures__/*",
       "examples/node-api",
       "tests/util/project",
