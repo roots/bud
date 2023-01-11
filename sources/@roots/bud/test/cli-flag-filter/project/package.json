@@ -1,0 +1,8 @@
+{
+  "name": "@tests/bud-filter-flag",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@roots/bud": "workspace:sources/@roots/bud"
+  }
+}

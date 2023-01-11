@@ -8241,6 +8241,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@tests/bud-filter-flag@workspace:sources/@roots/bud/test/cli-flag-filter/project":
+  version: 0.0.0-use.local
+  resolution: "@tests/bud-filter-flag@workspace:sources/@roots/bud/test/cli-flag-filter/project"
+  dependencies:
+    "@roots/bud": "workspace:sources/@roots/bud"
+  languageName: unknown
+  linkType: soft
+
 "@tests/issue-1798@workspace:tests/reproductions/issue-1798":
   version: 0.0.0-use.local
   resolution: "@tests/issue-1798@workspace:tests/reproductions/issue-1798"
