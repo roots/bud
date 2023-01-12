@@ -10,9 +10,8 @@ import Plugin from 'compression-webpack-plugin'
 import type {Options} from './extension.js'
 
 /**
- * Bud compression extension brotli adapter
+ * Brotli adapter
  *
- * @public
  * @decorator `@label`
  * @decorator `@plugin`
  * @decorator `@options`
@@ -41,7 +40,7 @@ export default class BudBrotli extends Extension<Options, Plugin> {
   }
 
   /**
-   * `bud.brotli` fn
+   * Configure brotli compression
    *
    * @public
    * @decorator `@bind`

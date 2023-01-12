@@ -38,6 +38,8 @@ describe(`@roots/bud-extensions`, () => {
     await extensions.add(mockModule)
 
     const instance = extensions.get(`mock_extension` as keyof Modules)
+    if (!instance) throw new Error(`mock extension not returned`)
+
     expect(instance.label).toBe(`mock_extension`)
 
     expect(extensions.get(mockModule.label)?.options?.test).toEqual(

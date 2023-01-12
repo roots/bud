@@ -5,8 +5,6 @@ import type CleanWebpackPlugin from './extensions/clean-webpack-plugin/index.js'
 import type CopyWebpackPlugin from './extensions/copy-webpack-plugin/index.js'
 import type BudESM from './extensions/esm/index.js'
 import type BudFixStyleOnlyEntrypoints from './extensions/fix-style-only-entrypoints/index.js'
-import type HtmlWebpackPlugin from './extensions/html-webpack-plugin/index.js'
-import type InterpolateHtmlPlugin from './extensions/interpolate-html-webpack-plugin/index.js'
 import type MiniCssExtractPlugin from './extensions/mini-css-extract-plugin/index.js'
 import type WebpackDefinePlugin from './extensions/webpack-define-plugin/index.js'
 import type WebpackHotModuleReplacementPlugin from './extensions/webpack-hot-module-replacement-plugin/index.js'
@@ -25,8 +23,6 @@ declare module '@roots/bud-framework' {
     '@roots/bud-extensions/fix-style-only-entrypoints': BudFixStyleOnlyEntrypoints
     '@roots/bud-extensions/clean-webpack-plugin': CleanWebpackPlugin
     '@roots/bud-extensions/copy-webpack-plugin': CopyWebpackPlugin
-    '@roots/bud-extensions/html-webpack-plugin': HtmlWebpackPlugin
-    '@roots/bud-extensions/interpolate-html-webpack-plugin': InterpolateHtmlPlugin
     '@roots/bud-extensions/mini-css-extract-plugin': MiniCssExtractPlugin
     '@roots/bud-extensions/webpack-define-plugin': WebpackDefinePlugin
     '@roots/bud-extensions/webpack-hot-module-replacement-plugin': WebpackHotModuleReplacementPlugin

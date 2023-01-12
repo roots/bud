@@ -20,7 +20,7 @@ export class InterpolateHtmlWebpackPlugin {
   /**
    * Class constructor
    *
-   * @param getHooks - {@link Plugin.getHooks}
+   * @param getHooks - html webpack plugin getHooks
    * @param replacements - {@link Options}
    *
    * @public

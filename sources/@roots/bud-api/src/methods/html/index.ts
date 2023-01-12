@@ -1,9 +1,10 @@
-import type * as HTMLExtension from '@roots/bud-extensions/html-webpack-plugin'
-import type * as InterpolateHTMLExtension from '@roots/bud-extensions/interpolate-html-webpack-plugin'
 import type {Bud} from '@roots/bud-framework'
+import type * as HTMLWebpackPlugin from '@roots/bud-support/html-webpack-plugin'
+
+import type * as InterpolateHTMLExtension from './interpolate-html-webpack-plugin/index.js'
 
 export type Parameters = [
-  ((HTMLExtension.Options & InterpolateHTMLExtension.Options) | boolean)?,
+  (HTMLWebpackPlugin.Options & InterpolateHTMLExtension.Options & {filename?: string})?,
 ]
 
 export interface html {
@@ -14,21 +15,18 @@ export interface html {
  * Set HTML template
  */
 export const html: html = async function (this: Bud, options) {
-  const {getHtmlPluginOptions, getInterpolatePluginOptions} = await import(
-    `./helpers.js`
-  )
+  const helpers = await import(`./helpers.js`)
 
-  const enabled = options !== false
+  const {Plugin} = await import(`@roots/bud-support/html-webpack-plugin`)
+  const {InterpolateHtmlWebpackPlugin} = await import(`./interpolate-html-webpack-plugin/index.js`)
 
-  this.extensions
-    .get(`@roots/bud-extensions/html-webpack-plugin`)
-    ?.setOptions(getHtmlPluginOptions(this, options))
-    .enable(enabled)
+  const htmlPlugin = new Plugin(helpers.getHtmlPluginOptions(this, options))
+  const interpolatePlugin = new InterpolateHtmlWebpackPlugin(Plugin.getHooks, helpers.getInterpolatePluginOptions(this, options))
 
-  this.extensions
-    .get(`@roots/bud-extensions/interpolate-html-webpack-plugin`)
-    ?.setOptions(getInterpolatePluginOptions(this, options))
-    .enable(enabled)
+  this.hooks.async(`build.plugins`, async (plugins = []) => {
+    plugins.push(htmlPlugin, interpolatePlugin)
+    return plugins
+  })
 
   return this
 }

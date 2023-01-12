@@ -29,8 +29,6 @@ const extensions: Extensions = {
     `@roots/bud-extensions/fix-style-only-entrypoints`,
     `@roots/bud-extensions/clean-webpack-plugin`,
     `@roots/bud-extensions/copy-webpack-plugin`,
-    `@roots/bud-extensions/html-webpack-plugin`,
-    `@roots/bud-extensions/interpolate-html-webpack-plugin`,
     `@roots/bud-extensions/mini-css-extract-plugin`,
     `@roots/bud-extensions/webpack-define-plugin`,
     `@roots/bud-extensions/webpack-hot-module-replacement-plugin`,

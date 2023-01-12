@@ -9,8 +9,6 @@ describe(`@roots/bud-extensions`, () => {
     expect(Extensions.BudFixStyleOnlyEntrypoints).toBeInstanceOf(Function)
     expect(Extensions.CleanWebpackPlugin).toBeInstanceOf(Function)
     expect(Extensions.CopyWebpackPlugin).toBeInstanceOf(Function)
-    expect(Extensions.HtmlWebpackPlugin).toBeInstanceOf(Function)
-    expect(Extensions.InterpolateHtmlPlugin).toBeInstanceOf(Function)
     expect(Extensions.MiniCssExtractPlugin).toBeInstanceOf(Function)
     expect(Extensions.WebpackDefinePlugin).toBeInstanceOf(Function)
     expect(Extensions.WebpackHotModuleReplacementPlugin).toBeInstanceOf(
