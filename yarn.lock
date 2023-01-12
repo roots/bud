@@ -6588,7 +6588,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/node": 16.18.11
     "@types/postcss-import": 14.0.0
-    postcss: 8.4.20
+    postcss: 8.4.21
     postcss-import: 15.1.0
     postcss-loader: 7.0.2
     postcss-nested: 6.0.0
@@ -6807,7 +6807,7 @@ __metadata:
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss"
     "@skypack/package-check": 0.2.2
     "@types/node": 16.18.11
-    postcss: 8.4.20
+    postcss: 8.4.21
     postcss-scss: ^4.0.6
     resolve-url-loader: 5.0.0
     sass: ^1.57.1
@@ -27478,7 +27478,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:8.4.20, postcss@npm:^8.0.0, postcss@npm:^8.4.20":
+"postcss@npm:8.4.21":
+  version: 8.4.21
+  resolution: "postcss@npm:8.4.21"
+  dependencies:
+    nanoid: ^3.3.4
+    picocolors: ^1.0.0
+    source-map-js: ^1.0.2
+  checksum: e39ac60ccd1542d4f9d93d894048aac0d686b3bb38e927d8386005718e6793dbbb46930f0a523fe382f1bbd843c6d980aaea791252bf5e176180e5a4336d9679
+  languageName: node
+  linkType: hard
+
+"postcss@npm:^8.0.0, postcss@npm:^8.4.20":
   version: 8.4.20
   resolution: "postcss@npm:8.4.20"
   dependencies:
