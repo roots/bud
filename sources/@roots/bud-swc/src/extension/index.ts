@@ -46,7 +46,7 @@ export default class BudSWC extends Extension<Options> {
   }
 
   /**
-   * `configAfter` callback
+   * `buildBefore` callback
    *
    * @public
    * @decorator `@bind`
@@ -102,6 +102,7 @@ export default class BudSWC extends Extension<Options> {
     }
 
     const options = this.getOptions()
+
     this.setOptions({
       ...options,
       jsc: {

@@ -42,28 +42,22 @@
     "src"
   ],
   "type": "module",
-  "module": "./lib/index.js",
-  "types": "./lib/index.d.ts",
   "exports": {
     ".": {
       "types": "./lib/index.d.ts",
       "default": "./lib/index.js"
     },
-    "./*": {
-      "types": "./lib/*/index.d.ts",
-      "default": "./lib/*/index.js"
+    "./extension": {
+      "types": "./lib/extension/index.d.ts",
+      "default": "./lib/extension/index.js"
+    },
+    "./types": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/types/index.js"
     }
   },
-  "typesVersions": {
-    "*": {
-      ".": [
-        "./lib/index.d.ts"
-      ],
-      "*": [
-        "./lib/*/index.d.ts"
-      ]
-    }
-  },
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "devDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
     "@skypack/package-check": "0.2.2",
