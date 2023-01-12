@@ -7,7 +7,7 @@
     "build": "builder build plugin"
   },
   "dependencies": {
-    "@types/fs-extra": "9.0.13",
+    "@types/fs-extra": "11.0.1",
     "@types/lodash-es": "4.17.6",
     "@types/node": "16.18.11",
     "@yarnpkg/builder": "3.2.6",
@@ -15,7 +15,7 @@
     "@yarnpkg/core": "3.3.1",
     "@yarnpkg/shell": "3.2.5",
     "clipanion": "3.2.0-rc.14",
-    "fs-extra": "10.1.0",
+    "fs-extra": "11.1.0",
     "helpful-decorators": "2.1.0",
     "lodash-es": "4.17.21",
     "tslib": "2.4.1",
