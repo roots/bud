@@ -7,7 +7,7 @@
     "build": "builder build plugin"
   },
   "devDependencies": {
-    "@types/fs-extra": "9.0.13",
+    "@types/fs-extra": "11.0.1",
     "@types/js-yaml": "4.0.5",
     "@types/lodash": "4.14.191",
     "@types/node": "16.18.11",
@@ -20,7 +20,7 @@
     "@yarnpkg/core": "3.3.1",
     "@yarnpkg/shell": "3.2.5",
     "clipanion": "3.2.0-rc.14",
-    "fs-extra": "10.1.0",
+    "fs-extra": "11.1.0",
     "helpful-decorators": "2.1.0",
     "js-yaml": "4.1.0",
     "lodash": "4.17.21",
