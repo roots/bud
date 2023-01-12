@@ -8,7 +8,6 @@ export default async bud => {
     .setPath(`@src`, `src`)
     .use([`@roots/bud-swc`, `@roots/bud-tailwindcss`])
     .copy([`images`])
-    .html()
     .entry(`app`, [`scripts/app`, `styles/app`])
     .watch([bud.path(`@src`, `*.html`), bud.path(`@src`, `images`)])
     .serve(3015)
