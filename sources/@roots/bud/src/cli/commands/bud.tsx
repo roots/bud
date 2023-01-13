@@ -42,6 +42,8 @@ export default class BudCommand extends Command<CommandContext> {
 
   public declare context: CommandContext
 
+  public static override paths = [[]]
+
   public static override usage = Command.Usage({
     description: `Run \`bud --help\` for usage information`,
     details: `\
@@ -117,8 +119,6 @@ export default class BudCommand extends Command<CommandContext> {
     super()
     this.renderer = new Renderer(process.stdout)
   }
-
-  public async execute() {}
 
   public override async catch(value: unknown) {
     let error: Error
@@ -475,5 +475,58 @@ export default class BudCommand extends Command<CommandContext> {
       bud.log(`overriding splitChunks setting from cli`)
       override((bud: Bud) => bud.splitChunks(args.splitChunks))
     }
+  }
+
+  public async execute() {
+    const options: Array<[string, string, Array<string>]> = [
+      [`build`, `build application for production`, [`build`, `production`]],
+      [`dev`, `start development server`, [`build`, `development`]],
+      [`doctor`, `check bud.js configuration for common errors and issues`, [`doctor`]],
+    ]
+
+    const Menu = () => {
+      const [selected, setSelected] = React.useState(0)
+      const [running, setRunning] = React.useState(false)
+
+      Ink.useInput((key, input) => {
+        if (running) return
+
+        input[`downArrow`] && setSelected(selected + 1)
+        input[`upArrow`] && setSelected(selected - 1)
+
+        if (input.escape) {
+          // eslint-disable-next-line n/no-process-exit
+          process.exit(0)
+        }
+
+        if (input.return) {
+          setRunning(true)
+          this.renderOnce(<Ink.Text>Running <Ink.Text color="blue">`bud {options[selected][0]}`</Ink.Text>...</Ink.Text>)
+          this.cli.run(options[selected][2])
+        }
+      })
+
+      React.useEffect(() => {
+        if (selected > options.length - 1) setSelected(0)
+        if (selected < 0) setSelected(options.length - 1)
+      }, [selected])
+
+      return (
+        <Ink.Box flexDirection="column">
+          {options.map(([option, description, command], index) => {
+            return (
+              <Ink.Text
+                key={index}
+                color={selected === index ? `blue` : `white`}>
+                {option}
+                <Ink.Text dimColor> {description}</Ink.Text>
+              </Ink.Text>
+            )
+          })}
+        </Ink.Box>
+      )
+    }
+
+    this.render(<Menu />)
   }
 }

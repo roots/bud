@@ -34,14 +34,10 @@
   },
   "keywords": [
     "bud",
-    "bud-extension",
     "react"
   ],
   "engines": {
     "node": ">=16"
-  },
-  "bud": {
-    "type": "extension"
   },
   "files": [
     "docs",
@@ -49,42 +45,34 @@
     "src"
   ],
   "type": "module",
-  "module": "./lib/index.js",
-  "types": "./lib/index.d.ts",
   "exports": {
-    ".": "./lib/index.js",
-    "./babel-refresh": "./lib/babel-refresh/index.js",
-    "./extension": "./lib/extension.js",
-    "./react-refresh": "./lib/react-refresh/index.js",
-    "./react-refresh/*": "./lib/react-refresh/*.js",
-    "./swc-refresh": "./lib/swc-refresh/index.js",
-    "./typescript-refresh": "./lib/typescript-refresh/index.js"
-  },
-  "typesVersions": {
-    "*": {
-      ".": [
-        "./lib/index.d.ts"
-      ],
-      "babel-refresh": [
-        "./lib/babel-refresh/index.d.ts"
-      ],
-      "extension": [
-        "./lib/extension.d.ts"
-      ],
-      "react-refresh": [
-        "./lib/react-refresh/index.d.ts"
-      ],
-      "react-refresh/*": [
-        "./lib/react-refresh/*.d.ts"
-      ],
-      "swc-refresh": [
-        "./lib/swc-refresh/index.d.ts"
-      ],
-      "typescript-refresh": [
-        "./lib/typescript-refresh/index.d.ts"
-      ]
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./babel-refresh": {
+      "types": "./lib/babel-refresh/index.d.ts",
+      "default": "./lib/babel-refresh/index.js"
+    },
+    "./extension": {
+      "types": "./lib/extension.d.ts",
+      "default": "./lib/extension.js"
+    },
+    "./react-refresh": {
+      "types": "./lib/react-refresh/index.d.ts",
+      "default": "./lib/react-refresh/index.js"
+    },
+    "./swc-refresh": {
+      "types": "./lib/swc-refresh/index.d.ts",
+      "default": "./lib/swc-refresh/index.js"
+    },
+    "./typescript-refresh": {
+      "types": "./lib/typescript-refresh/index.d.ts",
+      "default": "./lib/typescript-refresh/index.js"
     }
   },
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "devDependencies": {
     "@babel/core": "7.20.7",
     "@roots/bud": "workspace:sources/@roots/bud",
@@ -119,7 +107,8 @@
     "@types/react-dom": "*",
     "react": "*",
     "react-dom": "*",
-    "react-refresh": "0.14.0"
+    "react-refresh": "0.14.0",
+    "webpack": "*"
   },
   "peerDependenciesMeta": {
     "@babel/core": {
@@ -159,6 +148,9 @@
       "optional": true
     },
     "react-refresh": {
+      "optional": true
+    },
+    "webpack": {
       "optional": true
     }
   },
