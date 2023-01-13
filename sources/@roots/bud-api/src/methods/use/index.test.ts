@@ -109,21 +109,15 @@ describe(`use`, () => {
 
   it(`registers a webpack plugin`, async () => {
     const bud = await factory()
+    const use = subject.bind(bud)
 
     bud.extensions.repository = {} as any // reset extensions
 
-    const use = subject.bind(bud)
-
-    await use({
-      // @ts-ignore
-      label: `css-minimizer-webpack-plugin`,
-      options: {},
-    })
-
-    await use(`@roots/bud-extensions/html-webpack-plugin`)
+    await use(`@roots/bud-extensions/webpack-define-plugin`)
 
     expect(
-      bud.extensions.has(`@roots/bud-extensions/html-webpack-plugin`),
+      // @ts-ignore
+      bud.extensions.has(`@roots/bud-extensions/webpack-define-plugin`),
     ).toBe(true)
   })
 
@@ -155,9 +149,10 @@ describe(`use`, () => {
       label: `css-minimizer-webpack-plugin`,
       options: {},
     })
-    await use(`@roots/bud-extensions/html-webpack-plugin`)
+    await use(`@roots/bud-extensions/webpack-define-plugin`)
     expect(
-      bud.extensions.has(`@roots/bud-extensions/html-webpack-plugin`),
+      // @ts-ignore
+      bud.extensions.has(`@roots/bud-extensions/webpack-define-plugin`),
     ).toBe(true)
   })
 
@@ -174,7 +169,7 @@ describe(`use`, () => {
         label: `css-minimizer-webpack-plugin`,
         options: {},
       },
-      `@roots/bud-extensions/html-webpack-plugin`,
+      `@roots/bud-extensions/webpack-define-plugin`,
     ])
     expect(
       bud.extensions.has(
@@ -183,7 +178,8 @@ describe(`use`, () => {
       ),
     ).toBe(true)
     expect(
-      bud.extensions.has(`@roots/bud-extensions/html-webpack-plugin`),
+      // @ts-ignore
+      bud.extensions.has(`@roots/bud-extensions/webpack-define-plugin`),
     ).toBe(true)
   })
 
