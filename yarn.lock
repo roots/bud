@@ -6552,30 +6552,21 @@ __metadata:
     "@roots/bud-react": "workspace:sources/@roots/bud-react"
     "@skypack/package-check": 0.2.2
     "@types/node": 16.18.11
-    "@types/react": 18.0.26
-    "@types/react-dom": 18.0.10
-    react: 18.2.0
-    react-dom: 18.2.0
     webpack: 5.75.0
   peerDependencies:
     "@mdx-js/loader": "*"
     "@roots/bud": "*"
     "@roots/bud-babel": "*"
     "@roots/bud-react": "*"
-    react: "*"
-    react-dom: "*"
+    webpack: "*"
   peerDependenciesMeta:
     "@mdx-js/loader":
-      optional: true
-    "@roots/bud":
       optional: true
     "@roots/bud-babel":
       optional: true
     "@roots/bud-react":
       optional: true
-    react:
-      optional: true
-    react-dom:
+    webpack:
       optional: true
   languageName: unknown
   linkType: soft
