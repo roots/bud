@@ -209,7 +209,7 @@ export default class BudBuildCommand extends BudCommand {
       const [status, setStatus] = React.useState<string>(`Initializing`)
 
       React.useEffect(() => {
-        (async () => {
+        ;(async () => {
           try {
             await this.makeBud(this)
           } catch (error) {}
@@ -230,7 +230,9 @@ export default class BudBuildCommand extends BudCommand {
 
       return (
         <Ink.Box>
-          <Ink.Text color="white" dimColor>{status}</Ink.Text>
+          <Ink.Text color="white" dimColor>
+            {status}
+          </Ink.Text>
         </Ink.Box>
       )
     }

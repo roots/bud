@@ -479,9 +479,17 @@ export default class BudCommand extends Command<CommandContext> {
 
   public async execute() {
     const options: Array<[string, string, Array<string>]> = [
-      [`build`, `build application for production`, [`build`, `production`]],
+      [
+        `build`,
+        `build application for production`,
+        [`build`, `production`],
+      ],
       [`dev`, `start development server`, [`build`, `development`]],
-      [`doctor`, `check bud.js configuration for common errors and issues`, [`doctor`]],
+      [
+        `doctor`,
+        `check bud.js configuration for common errors and issues`,
+        [`doctor`],
+      ],
     ]
 
     const Menu = () => {
@@ -501,7 +509,15 @@ export default class BudCommand extends Command<CommandContext> {
 
         if (input.return) {
           setRunning(true)
-          this.renderOnce(<Ink.Text>Running <Ink.Text color="blue">`bud {options[selected][0]}`</Ink.Text>...</Ink.Text>)
+          this.renderOnce(
+            <Ink.Text>
+              Running{' '}
+              <Ink.Text color="blue">
+                `bud {options[selected][0]}`
+              </Ink.Text>
+              ...
+            </Ink.Text>,
+          )
           this.cli.run(options[selected][2])
         }
       })
@@ -517,7 +533,8 @@ export default class BudCommand extends Command<CommandContext> {
             return (
               <Ink.Text
                 key={index}
-                color={selected === index ? `blue` : `white`}>
+                color={selected === index ? `blue` : `white`}
+              >
                 {option}
                 <Ink.Text dimColor> {description}</Ink.Text>
               </Ink.Text>
