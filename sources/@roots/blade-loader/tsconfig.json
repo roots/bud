@@ -1,0 +1,15 @@
+{
+  "extends": "../../../config/tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./lib",
+    "paths": {
+      "@roots/blade-loader": ["./src/index.cts"],
+      "@roots/blade-loader/*": ["./src/*"]
+    },
+    "types": ["node"]
+  },
+  "include": ["./src"],
+  "exclude": ["./lib", "./node_modules", "**/*.test.ts"],
+  "references": []
+}

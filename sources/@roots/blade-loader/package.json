@@ -1,0 +1,49 @@
+{
+  "name": "@roots/blade-loader",
+  "version": "0.0.0",
+  "description": "Blade loader",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "sources/@roots/blade-loader"
+  },
+  "bugs": {
+    "url": "https://github.com/roots/bud/issues"
+  },
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "license": "MIT",
+  "contributors": [],
+  "keywords": [
+    "roots",
+    "browserslist"
+  ],
+  "engines": {
+    "node": ">=16"
+  },
+  "files": [
+    "src",
+    "dist"
+  ],
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.cts",
+      "require": "./lib/index.cjs"
+    }
+  },
+  "main": "./lib/index.cjs",
+  "types": "./lib/index.d.ts",
+  "devDependencies": {
+    "@skypack/package-check": "0.2.2",
+    "webpack": "5.75.0"
+  },
+  "dependencies": {
+    "loader-utils": "3.2.1"
+  },
+  "volta": {
+    "extends": "../../../package.json"
+  }
+}
