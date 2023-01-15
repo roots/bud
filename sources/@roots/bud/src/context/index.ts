@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import * as argv from '@roots/bud/context/argv'
 import bud from '@roots/bud/context/bud'
 import * as projectFiles from '@roots/bud/context/config'
 import getEnv from '@roots/bud/context/env'
@@ -20,7 +21,7 @@ export default async (
     find: false,
   },
 ): Promise<Context> => {
-  if (!basedir) basedir = process.cwd()
+  if (!basedir) basedir = argv.basedir
   if (options.cache && contexts[basedir]) return contexts[basedir]
 
   const fs = new Filesystem(basedir)
