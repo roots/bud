@@ -1,26 +1,31 @@
-// import loaderUtils from 'loader-utils'
 import {join} from 'node:path'
 
 // eslint-disable-next-line n/no-unpublished-import
-import type {LoaderContext} from 'webpack'
+import type {LoaderDefinitionFunction} from 'webpack'
 
-async function loader (
-  this: LoaderContext<any>,
-  content: string | Buffer,
-  _map?: Record<string, string>,
-  _meta?: any
-) {
-  const stringContents = typeof content !== `string` ? content.toString() : content
-  const assetDirectiveRegExp = /@asset\('(.+?)'\)/g;
-  const assetMatches = stringContents.matchAll(assetDirectiveRegExp)
+// This loader matches and replaces all instances of `@asset(…)` with the asset path.
+// It also adds the asset path as a dependency so that the loader will re-run if the path changes.
+const loader: LoaderDefinitionFunction<{publicPath?: string}> = async function (source: string) {
+  const options = this.getOptions()
+  const assetMatches = source.matchAll(/@asset\((.*)\)/g)
 
-  if (!assetMatches) return ``
+  if (assetMatches) {
+    await Promise.all(
+      [...assetMatches].map(async ([match, request]) => {
+        request = request.replaceAll(`'`, ``).replaceAll(`"`, ``)
 
-  return [...assetMatches]
-    .reduce((assets, [_match, asset]) => {
-      this.addDependency(join(this.context, asset))
-      return `${assets}import '${asset}'\n`
-    }, ``)
+        this.addDependency(join(this.context, request))
+
+        const asset = await this.importModule(request, {
+          publicPath: options?.publicPath ?? ``,
+        })
+
+        source = source.replace(match, asset)
+      }),
+    )
+  }
+
+  return source
 }
 
 export default loader
