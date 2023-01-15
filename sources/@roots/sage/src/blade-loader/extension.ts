@@ -19,7 +19,10 @@ export class BladeLoaderExtension extends Extension {
   @bind
   public override async register(bud: Bud) {
     bud.build
-      .setLoader(`@roots/blade-loader`, await bud.module.resolve(`@roots/blade-loader`))
+      .setLoader(
+        `@roots/blade-loader`,
+        await bud.module.resolve(`@roots/blade-loader`),
+      )
       .setItem(`no-emit`, {loader: `file`, options: {emit: false}})
       .setItem(`@roots/blade-loader`, {loader: `@roots/blade-loader`})
       .setRule(`blade`, {

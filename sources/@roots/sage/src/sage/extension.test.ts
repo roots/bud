@@ -77,7 +77,11 @@ describe(`@roots/sage`, async () => {
     const whenSpy = vi.spyOn(bud, `when`)
     const spy = vi.spyOn(bud, `minimize`)
     await sage.register(bud)
-    expect(whenSpy).toHaveBeenCalledWith(true, expect.any(Function), expect.any(Function))
+    expect(whenSpy).toHaveBeenCalledWith(
+      true,
+      expect.any(Function),
+      expect.any(Function),
+    )
     expect(spy).toHaveBeenCalled()
   })
 
@@ -88,7 +92,11 @@ describe(`@roots/sage`, async () => {
     const whenSpy = vi.spyOn(bud, `when`)
     const spy = vi.spyOn(bud, `runtime`)
     await sage.register(bud)
-    expect(whenSpy).toHaveBeenCalledWith(true, expect.any(Function), expect.any(Function))
+    expect(whenSpy).toHaveBeenCalledWith(
+      true,
+      expect.any(Function),
+      expect.any(Function),
+    )
     expect(spy).toHaveBeenCalledWith(`single`)
   })
 
@@ -100,7 +108,11 @@ describe(`@roots/sage`, async () => {
     const spy = vi.spyOn(bud, `splitChunks`)
     const devtoolSpy = vi.spyOn(bud, `devtool`)
     await sage.register(bud)
-    expect(whenSpy).toHaveBeenCalledWith(true, expect.any(Function), expect.any(Function))
+    expect(whenSpy).toHaveBeenCalledWith(
+      true,
+      expect.any(Function),
+      expect.any(Function),
+    )
     expect(spy).toHaveBeenCalled()
     expect(devtoolSpy).not.toHaveBeenCalled()
   })
@@ -112,7 +124,11 @@ describe(`@roots/sage`, async () => {
     const devtoolSpy = vi.spyOn(bud, `devtool`)
     const splitChunksSpy = vi.spyOn(bud, `splitChunks`)
     await sage.register(bud)
-    expect(whenSpy).toHaveBeenCalledWith(false, expect.any(Function), expect.any(Function))
+    expect(whenSpy).toHaveBeenCalledWith(
+      false,
+      expect.any(Function),
+      expect.any(Function),
+    )
     expect(devtoolSpy).toHaveBeenCalled()
     expect(splitChunksSpy).not.toHaveBeenCalled()
   })

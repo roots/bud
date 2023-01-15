@@ -2,9 +2,9 @@
 /// <reference types="@roots/bud-preset-wordpress" />
 /// <reference types="@roots/bud-entrypoints" />
 
-import type { Item } from '@roots/bud-build/item'
-import type { Loader } from '@roots/bud-build/loader'
-import type { Rule } from '@roots/bud-build/rule'
+import type {Item} from '@roots/bud-build/item'
+import type {Loader} from '@roots/bud-build/loader'
+import type {Rule} from '@roots/bud-build/rule'
 
 import type Acorn from '../acorn/index.js'
 import type AcornV2PublicPath from '../acorn-v2-public-path/index.js'
@@ -48,6 +48,6 @@ declare module '@roots/bud-framework' {
   }
 
   interface Rules {
-    'blade': Rule
+    blade: Rule
   }
 }

@@ -13,7 +13,11 @@ import {
  * @see https://bud.js.org/extensions/sage/
  */
 @label(`@roots/sage`)
-@dependsOn([`@roots/bud-preset-wordpress`, `@roots/sage/acorn`, `@roots/sage/blade-loader`])
+@dependsOn([
+  `@roots/bud-preset-wordpress`,
+  `@roots/sage/acorn`,
+  `@roots/sage/blade-loader`,
+])
 @expose(`sage`)
 export class Sage extends Extension {
   /**
