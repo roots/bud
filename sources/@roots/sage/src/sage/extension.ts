@@ -13,7 +13,7 @@ import {
  * @see https://bud.js.org/extensions/sage/
  */
 @label(`@roots/sage`)
-@dependsOn([`@roots/bud-preset-wordpress`, `@roots/sage/acorn`])
+@dependsOn([`@roots/bud-preset-wordpress`, `@roots/sage/acorn`, `@roots/sage/blade-loader`])
 @expose(`sage`)
 export class Sage extends Extension {
   /**
@@ -59,7 +59,9 @@ export class Sage extends Extension {
    * @deprecated - This function is deprecated. It is unneeded; you can just remove the call.
    */
   @bind
-  public setAcornVersion(version?: 'v2' | 'v3') {
+  /* istanbul ignore next -- @preserve */
+  public setAcornVersion(version: 'v2' | 'v3') {
+    /* istanbul ignore next -- @preserve */
     this.logger.warn(
       `\n\n`,
       `bud.sage.setAcornVersion: This function is deprecated.\n It is unneeded; you can just remove the call.\n\n`,
