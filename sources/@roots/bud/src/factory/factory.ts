@@ -38,7 +38,8 @@ export async function factory(
   if (!overrides.basedir) overrides.basedir = argv.basedir
   if (!overrides.mode) overrides.mode = `production`
 
-  if (options.cache && has(overrides.basedir)) return get(overrides.basedir)
+  if (options.cache && has(overrides.basedir))
+    return get(overrides.basedir)
 
   const bud = new Bud()
   const context = await getContext(overrides, options)
