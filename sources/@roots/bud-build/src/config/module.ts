@@ -30,7 +30,9 @@ const getRules = ({filter, path, rules}: Props) => [
   {
     oneOf: filter(
       `build.module.rules.oneOf`,
-      Object.values(rules).map(rule => rule.toWebpack()),
+      Object.values(rules).map(rule =>
+        `toWebpack` in rule ? rule.toWebpack() : rule,
+      ),
     ),
   },
   ...filter(`build.module.rules.after`, []),

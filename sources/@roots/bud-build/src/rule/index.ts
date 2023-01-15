@@ -292,7 +292,7 @@ class Rule extends Base implements Interface {
       generator: this.getGenerator(),
       use: this.getUse()
         ?.map(item => (isString(item) ? this.app.build.items[item] : item))
-        .map(item => item.toWebpack()),
+        .map(item => (`toWebpack` in item ? item.toWebpack() : item)),
       resourceQuery: this.getResourceQuery(),
       include: this.getInclude(),
       exclude: this.getExclude(),
