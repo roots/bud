@@ -8289,9 +8289,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@tests/project@workspace:tests/util/project"
   dependencies:
-    "@roots/blade-loader": "workspace:sources/@roots/blade-loader"
     "@roots/bud": "workspace:sources/@roots/bud"
-    "@roots/bud-imagemin": "workspace:sources/@roots/bud-imagemin"
     "@roots/bud-swc": "workspace:sources/@roots/bud-swc"
     "@roots/bud-tailwindcss": "workspace:sources/@roots/bud-tailwindcss"
   languageName: unknown
