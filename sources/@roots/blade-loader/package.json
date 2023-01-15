@@ -38,6 +38,7 @@
   "types": "./lib/index.d.ts",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
+    "memfs": "3.4.13",
     "webpack": "5.75.0"
   },
   "volta": {
