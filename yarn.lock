@@ -6159,6 +6159,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@roots/blade-loader@workspace:sources/@roots/blade-loader":
+  version: 0.0.0-use.local
+  resolution: "@roots/blade-loader@workspace:sources/@roots/blade-loader"
+  dependencies:
+    "@skypack/package-check": 0.2.2
+    webpack: 5.75.0
+  languageName: unknown
+  linkType: soft
+
 "@roots/browserslist-config@workspace:sources/@roots/browserslist-config":
   version: 0.0.0-use.local
   resolution: "@roots/browserslist-config@workspace:sources/@roots/browserslist-config"
@@ -8280,7 +8289,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@tests/project@workspace:tests/util/project"
   dependencies:
+    "@roots/blade-loader": "workspace:sources/@roots/blade-loader"
     "@roots/bud": "workspace:sources/@roots/bud"
+    "@roots/bud-imagemin": "workspace:sources/@roots/bud-imagemin"
     "@roots/bud-swc": "workspace:sources/@roots/bud-swc"
     "@roots/bud-tailwindcss": "workspace:sources/@roots/bud-tailwindcss"
   languageName: unknown
