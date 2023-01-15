@@ -42,7 +42,10 @@ export class BudTailwindCss extends Extension<{
     return (
       this.app.context.config[`tailwind.config.js`]?.path ??
       this.app.context.config[`tailwind.config.mjs`]?.path ??
-      this.app.context.config[`tailwind.config.cjs`]?.path
+      this.app.context.config[`tailwind.config.cjs`]?.path ??
+      this.app.root.context.config[`tailwind.config.js`]?.path ??
+      this.app.root.context.config[`tailwind.config.mjs`]?.path ??
+      this.app.root.context.config[`tailwind.config.cjs`]?.path
     )
   }
 
@@ -55,8 +58,10 @@ export class BudTailwindCss extends Extension<{
    * Tailwind config (resolved)
    */
   private declare config: ResolvedConfig | undefined
+
+  @bind
   public getConfig(): this[`config`] {
-    return this.config
+    return this.config ? this.config : this.resolveConfig()
   }
 
   /**
@@ -70,6 +75,8 @@ export class BudTailwindCss extends Extension<{
         colors?: ResolvedConfig['colors']
       })
     | undefined
+
+  @bind
   public getTheme(): this[`theme`] {
     return this.theme
   }
@@ -77,6 +84,7 @@ export class BudTailwindCss extends Extension<{
   /**
    * Get config source module
    */
+  @bind
   public async getSource(): Promise<Config> {
     let config: Config
 
@@ -214,7 +222,7 @@ export class BudTailwindCss extends Extension<{
 
     bud.postcss?.setPlugins({
       nesting: this.dependencies.nesting,
-      tailwindcss: this.dependencies.tailwindcss,
+      tailwindcss: [this.dependencies.tailwindcss, {config: this.config}],
     })
 
     this.logger.success(`postcss configured for tailwindcss`)
