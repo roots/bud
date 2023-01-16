@@ -1,8 +1,8 @@
 ---
-title: Convering asets to webp
+title: Converting assets to webp
 ---
 
-You may convert an asset to `webp` format using the `?as=webp` url parameter.
+You can convert an asset to `webp` format using the `?as=webp` url parameter.
 
 It works in both styles and scripts:
 
@@ -15,3 +15,4 @@ body {
 ```typescript title="app.js"
 import image from './images/image.jpg?as=webp'
 ```
+

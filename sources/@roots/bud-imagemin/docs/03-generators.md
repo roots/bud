@@ -14,11 +14,15 @@ For example, this custom generator will convert an asset to `png` at 80% quality
 
 ```typescript title="bud.config.mjs"
 export default async bud => {
-  bud.imagemin.sharp.setGenerator(`png`, {options: {quality: 80}})
+  bud.imagemin.sharp.setGenerator(`png`, {
+    options: {
+      encodeOptions: {quality: 80}
+    },
+  })
 }
 ```
 
-Once set, it can be called using `?as=png` from application scripts and styles.
+Once set, you can transform assets by appending `?as=png` to asset URLs and imports in application scripts and styles.
 
 ```css title="app.css"
 .selector {
