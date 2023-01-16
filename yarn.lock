@@ -8286,6 +8286,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@tests/tailwind-integration@workspace:sources/@roots/bud-tailwindcss/test/implementation":
+  version: 0.0.0-use.local
+  resolution: "@tests/tailwind-integration@workspace:sources/@roots/bud-tailwindcss/test/implementation"
+  dependencies:
+    "@roots/bud": "workspace:sources/@roots/bud"
+    "@roots/bud-tailwindcss": "workspace:sources/@roots/bud-tailwindcss"
+  languageName: unknown
+  linkType: soft
+
 "@tootallnate/once@npm:1":
   version: 1.1.2
   resolution: "@tootallnate/once@npm:1.1.2"
