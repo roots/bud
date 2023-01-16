@@ -80,7 +80,7 @@
     "@babel/runtime": "7.20.7",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "babel-loader": "9.1.0"
+    "babel-loader": "9.1.2"
   },
   "peerDependencies": {
     "@babel/core": "*",
