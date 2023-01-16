@@ -27,22 +27,22 @@ describe('issue-1886', () => {
       ),
       `utf-8`,
     )
-    expect(image.length).toMatchInlineSnapshot('7307')
+    expect(image.length).toMatchInlineSnapshot('8377')
   })
 
   it('should generate jpg from png included in js source', async () => {
-    const image = await readFile(
+    const dist = await readFile(
       join(
         paths.tests,
         `reproductions`,
         `issue-1886`,
         `dist`,
         `images`,
-        `bud.jpg`,
+        `bud.jpeg`,
       ),
       `utf-8`,
     )
-    expect(image.length).toMatchInlineSnapshot('13008')
+    expect(dist.length).toMatchInlineSnapshot('16877')
   })
 
   it('should generate webp@50 from png included in js source', async () => {
@@ -72,6 +72,6 @@ describe('issue-1886', () => {
       ),
       `utf-8`,
     )
-    expect(image.length).toMatchInlineSnapshot('7307')
+    expect(image.length).toMatchInlineSnapshot('8377')
   })
 })

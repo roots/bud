@@ -2,7 +2,7 @@ export default async bud =>
   bud
     .persist(false)
     .minimize()
-    .imagemin.sharp.setGenerator(`jpg`, {
+    .imagemin.sharp.setGenerator(`jpeg`, {
       options: {
         encodeOptions: {
           jpeg: {
