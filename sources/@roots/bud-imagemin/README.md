@@ -36,11 +36,6 @@ npm install @roots/bud-imagemin --save-dev
 
 Ultimately, this extension is a relatively thin wrapper around the [webpack-contrib/image-minimizer-webpack-plugin](https://github.com/webpack-contrib/image-minimizer-webpack-plugin). Refer to the [plugin documentation](https://github.com/webpack-contrib/image-minimizer-webpack-plugin) for a better understanding of how it all works.
 
-### Functions
-
-- [bud.imagemin.encode](https://bud.js.org/extensions/bud-imagemin/encode)
-- [bud.imagemin.configure](https://bud.js.org/extensions/bud-imagemin/configure)
-
 ## Convering asets to webp
 
 You may convert an asset to `webp` format using the `?as=webp` url parameter.
@@ -57,35 +52,25 @@ body {
 import image from "./images/image.jpg?as=webp";
 ```
 
-You're able [to add additional generators](#generators) if you want to do the same thing with another filetype.
-
 ## Setting encoder options
 
-You may wish to customize the encoder settings. This is done with [bud.imagemin.encode](https://bud.js.org/extensions/bud-imagemin/encode).
+You may wish to customize the encoder settings. This is done with **bud.imagemin.svgo.setEncodeOptions** and **bud.imagemin.sharp.setEncodeOptions**.
+
+## Setting sharp encoder options
 
 ```typescript title="bud.config.mjs"
 export default async (bud) => {
-  bud.imagemin.encode(`jpg`, { quality: 50 });
+  bud.imagemin.sharp.setEncodeOptions({ jpeg: { quality: 50 } });
 };
 ```
 
-Some of the default squoosh encoders have a name that does not match the filetype. For example, the `mozjpeg` encoder is used to encode `jpg` files.
-
-When setting the encoder options the function will automatically map filetypes to the encoder name for you.
-
-### Mapping new encoders
-
-If you are adding [support for a new minimizer](#minimizers), you may want to add to the encoder map or modify existing map entries.
-
-You can do that with the **bud.imagemin.encoders** map object:
+## Setting svgo encoder options
 
 ```typescript title="bud.config.mjs"
 export default async (bud) => {
-  bud.imagemin.encoders.set(`png`, [`squoosh`, `oxipng`]);
+  bud.imagemin.svgo.setEncodeOptions({ multipass: false });
 };
 ```
-
-This allows [bud.imagemin.encode](https://bud.js.org/extensions/bud-imagemin/encode) to work with the new minimizer.
 
 ## Generators
 
@@ -95,14 +80,13 @@ With the default configuration, you [can convert an image to `webp` using the `?
 
 ### Adding generators
 
-You may add additional generators using `bud.imagemin.setGenerator`.
+You may add additional generators using **bud.imagemin.sharp.setGenerator**.
 
 For example, this custom generator will convert an asset to `png` at 80% quality when `?as=png` is appended to an image asset path.
 
 ```typescript title="bud.config.mjs"
 export default async (bud) => {
-  const options = { oxipng: { quality: 80 } };
-  bud.imagemin.setGenerator(`png`, options);
+  bud.imagemin.sharp.setGenerator(`png`, { options: { quality: 80 } });
 };
 ```
 
@@ -112,51 +96,6 @@ Once set, it can be called using `?as=png` from application scripts and styles.
 .selector {
   background-image: url(./images/image.jpg?as=png);
 }
-```
-
-### Operating on generators directly
-
-You may access the generator map directly using **bud.imagemin.generators**.
-
-```typescript title="bud.config.mjs"
-export default async (bud) => {
-  bud.imagemin.generators.clear();
-};
-```
-
-## Minimizers
-
-### Modifying minimizers
-
-Use [bud.imagemin.configure](https://bud.js.org/extensions/bud-imagemin/configure) to customize minimizer options.
-
-### Adding minimizers
-
-You can add support for other minimizers beyond the included default using **bud.imagemin.setMinimizer**.
-
-```typescript title="bud.config.mjs"
-import MinimizerFunction from "minimizer-lib";
-
-export default async (bud) => {
-  bud.imagemin.setMinimizer(`minimizer-lib`, {
-    minimizer: {
-      implementation: MinimizerFunction,
-      options: {
-        encodeOptions: bud.imagemin.encoders,
-      },
-    },
-  });
-};
-```
-
-### Operating on minimizers directly
-
-You may access the minimizer map directly using **bud.imagemin.minimizers**.
-
-```typescript title="bud.config.mjs"
-export default async (bud) => {
-  bud.imagemin.minimizers.clear();
-};
 ```
 
 ## Contributing
