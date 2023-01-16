@@ -7,8 +7,8 @@ import {
   label,
 } from '@roots/bud-framework/extension/decorators'
 
-import type {BudImageminSharp} from './sharp/sharp.js'
-import type {BudImageminSvgo} from './svgo/svgo.js'
+import type BudImageminSharp from '../sharp/index.js'
+import type BudImageminSvgo from '../svgo/index.js'
 
 /**
  * `@roots/bud-imagemin`

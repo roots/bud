@@ -1,9 +1,9 @@
-import '../types.js'
+import '@roots/bud-imagemin/types'
 
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {Bud, factory} from '@repo/test-kit/bud'
 
-import {BudImageminSvgo} from './svgo.js'
+import BudImageminSvgo from './index.js'
 
 describe(`@roots/bud-imagemin`, () => {
   let bud: Bud
@@ -23,9 +23,13 @@ describe(`@roots/bud-imagemin`, () => {
     expect(svgo).toBeInstanceOf(BudImageminSvgo)
   })
 
-  it(`should call build.optimization.minimizer hook from configAfter`, async () => {
-    await bud.extensions.add(BudImageminSvgo)
+  it(`should set options from setEncodeOptions`, async () => {
+    const spy = vi.spyOn(svgo, `setOption`)
+    svgo.setEncodeOptions({foo: `bar`})
+    expect(spy).toHaveBeenCalledWith(`encodeOptions`, {foo: `bar`})
+  })
 
+  it(`should call build.optimization.minimizer hook from configAfter`, async () => {
     const onSpy = vi.spyOn(bud.hooks, `on`)
     await svgo.configAfter(bud)
 

@@ -1,4 +1,4 @@
-import './types.js'
+import '../types/index.js'
 
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {Bud, factory} from '@repo/test-kit/bud'

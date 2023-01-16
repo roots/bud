@@ -35,18 +35,17 @@ export class BudImageminSharp extends Extension {
    *
    * @param label - key of {@link BudImageminExtension.generators}
    * @param generator - value of {@link Generator}
-   * @returns instance - {@link BudImageminExtension}
-   *
+   * @decorator `@bind`
    */
   @bind
   public setGenerator(
     preset: string,
-    generator?: Partial<Generator>,
+    generator: Partial<Generator>,
   ): this {
     this.generators.set(preset, {
-      preset,
-      implementation: Plugin.sharpGenerate,
-      ...(generator ?? {}),
+      preset: generator?.preset ?? preset,
+      implementation: generator?.implementation ?? Plugin.sharpGenerate,
+      ...generator,
     })
 
     return this
@@ -71,7 +70,23 @@ export class BudImageminSharp extends Extension {
    */
   @bind
   public override async configAfter(bud: Bud) {
-    const sharpPlugins = [
+    this.configureBudMinimizer(bud)
+    if (this.generators.size <= 0) return
+    this.configureBudGenerators(bud)
+  }
+
+  @bind
+  public configureBudGenerators(bud: Bud) {
+    bud.hooks.on(`build.optimization.minimizer`, (minimizers = []) => [
+      ...minimizers,
+      new Plugin({generator: [...this.generators.values()]}),
+    ])
+  }
+
+  @bind
+  public configureBudMinimizer(bud: Bud) {
+    bud.hooks.on(`build.optimization.minimizer`, (minimizers = []) => [
+      ...minimizers,
       new Plugin({
         test: bud.hooks.filter(`pattern.image`),
         minimizer: {
@@ -79,16 +94,6 @@ export class BudImageminSharp extends Extension {
           options: this.options,
         },
       }),
-    ]
-
-    this.generators.size &&
-      sharpPlugins.push(
-        new Plugin({generator: [...this.generators.values()]}),
-      )
-
-    bud.hooks.on(`build.optimization.minimizer`, (minimizer = []) => [
-      ...minimizer,
-      ...sharpPlugins,
     ])
   }
 }
