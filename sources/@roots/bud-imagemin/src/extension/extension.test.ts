@@ -51,6 +51,8 @@ describe(`@roots/bud-imagemin`, () => {
     imagemin.sharp.setOptions({})
     imagemin.svgo.setOptions({})
     imagemin.encode(`jpeg`, {quality: 10})
-    expect(imagemin.sharp.options.encodeOptions).toEqual({jpeg: {quality: 10}})
+    expect(imagemin.sharp.options.encodeOptions).toEqual({
+      jpeg: {quality: 10},
+    })
   })
 })

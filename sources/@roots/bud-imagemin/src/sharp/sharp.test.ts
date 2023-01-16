@@ -39,8 +39,8 @@ describe(`@roots/bud-imagemin/sharp`, () => {
       preset: `webp`,
       options: {
         encodeOptions: {
-          webp: {}
-        }
+          webp: {},
+        },
       },
     })
   })
@@ -52,8 +52,8 @@ describe(`@roots/bud-imagemin/sharp`, () => {
       options: {
         encodeOptions: {
           foo: `bar`,
-        }
-      }
+        },
+      },
     }
     const result = sharp.setGenerator(`foo`, definition)
     expect(sharp.generators.get(`foo`)).toStrictEqual({
@@ -90,7 +90,10 @@ describe(`@roots/bud-imagemin/sharp`, () => {
     sharp.generators.clear()
     expect(sharp.generators.size).toBe(0)
 
-    const configureBudGenerators = vi.spyOn(sharp, `configureBudGenerators`)
+    const configureBudGenerators = vi.spyOn(
+      sharp,
+      `configureBudGenerators`,
+    )
     const configureBudMinimizer = vi.spyOn(sharp, `configureBudMinimizer`)
     const onSpy = vi.spyOn(bud.hooks, `on`)
     await sharp.configAfter(bud)
@@ -105,7 +108,10 @@ describe(`@roots/bud-imagemin/sharp`, () => {
     expect(sharp.generators.size).toBe(1)
 
     const configureBudMinimizer = vi.spyOn(sharp, `configureBudMinimizer`)
-    const configureBudGenerators = vi.spyOn(sharp, `configureBudGenerators`)
+    const configureBudGenerators = vi.spyOn(
+      sharp,
+      `configureBudGenerators`,
+    )
     const onSpy = vi.spyOn(bud.hooks, `on`)
     await sharp.configAfter(bud)
 

@@ -24,10 +24,16 @@ type MinimizerMap = Map<string, Minimizer>
 
 type GeneratorMap = Map<string, Generator>
 
-type MutateMinimizerOptions<
-  K extends `${keyof Minimizer & string}`,
-> = (minimizer: Minimizer[K]) => Minimizer[K]
+type MutateMinimizerOptions<K extends `${keyof Minimizer & string}`> = (
+  minimizer: Minimizer[K],
+) => Minimizer[K]
 
 export default BudImageminExtension
 
-export type {Generator, Minimizer, MinimizerMap, GeneratorMap, MutateMinimizerOptions}
+export type {
+  Generator,
+  Minimizer,
+  MinimizerMap,
+  GeneratorMap,
+  MutateMinimizerOptions,
+}

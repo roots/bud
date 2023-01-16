@@ -24,7 +24,7 @@ export class BudImageminSvgo extends Extension {
   @bind
   public async setEncodeOptions(options: SvgoEncodeOptions) {
     this.setOption(`encodeOptions`, {
-      ...this.options.encodeOptions ?? {},
+      ...(this.options.encodeOptions ?? {}),
       ...options,
     })
   }

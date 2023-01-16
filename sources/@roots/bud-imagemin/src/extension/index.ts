@@ -1,2 +1,2 @@
-import { BudImageminExtension } from "./extension.js";
-export default BudImageminExtension;
+import {BudImageminExtension} from './extension.js'
+export default BudImageminExtension
