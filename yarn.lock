@@ -7716,7 +7716,7 @@ __metadata:
     "@wordpress/blocks": 12.0.0
     "@wordpress/data": 8.0.0
     "@wordpress/hooks": 3.24.0
-    "@wordpress/plugins": 5.0.0
+    "@wordpress/plugins": 5.1.0
     "@wordpress/rich-text": 6.1.0
     lodash-es: 4.17.21
     react: 18.2.0
@@ -10446,14 +10446,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wordpress/icons@npm:^9.14.0":
-  version: 9.14.0
-  resolution: "@wordpress/icons@npm:9.14.0"
+"@wordpress/icons@npm:^9.15.0":
+  version: 9.15.0
+  resolution: "@wordpress/icons@npm:9.15.0"
   dependencies:
     "@babel/runtime": ^7.16.0
-    "@wordpress/element": ^5.0.0
-    "@wordpress/primitives": ^3.21.0
-  checksum: df0bd7416a3fccf8219bb6a28809ff3b2154566029ff728a5e074e06cb7edbf08094710bf7663b47ab715b4d21d00d34385d514fd9c5e7735ffda78c506cde29
+    "@wordpress/element": ^5.1.0
+    "@wordpress/primitives": ^3.22.0
+  checksum: ea3190219931b13580aa0afe97e45946d0cd697cba7c0120e31aa32a0b5a4c1386fd74b609cb15fc9c1c069dc38616d8350b62b56f9118f4ab967c959e6026cb
   languageName: node
   linkType: hard
 
@@ -10499,30 +10499,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wordpress/plugins@npm:5.0.0":
-  version: 5.0.0
-  resolution: "@wordpress/plugins@npm:5.0.0"
+"@wordpress/plugins@npm:5.1.0":
+  version: 5.1.0
+  resolution: "@wordpress/plugins@npm:5.1.0"
   dependencies:
     "@babel/runtime": ^7.16.0
-    "@wordpress/compose": ^6.0.0
-    "@wordpress/element": ^5.0.0
-    "@wordpress/hooks": ^3.23.0
-    "@wordpress/icons": ^9.14.0
+    "@wordpress/compose": ^6.1.0
+    "@wordpress/element": ^5.1.0
+    "@wordpress/hooks": ^3.24.0
+    "@wordpress/icons": ^9.15.0
     memize: ^1.1.0
   peerDependencies:
     react: ^18.0.0
-  checksum: 8b530382775780c13acc80e2fddf170f54beb64cf54b9372ca1ceca7afb6f1d774757aa911f8456d10e5920e1b3adcbd9570b45f362bce8516482470f0c0e09b
+  checksum: daf2406cbe794dc9a12997d88a33091599051a0225a291a403957a0692e058ce12015e752bd0538ca8d7e8bd9ec97f05bdbe290fb85d112a4e61225046aef1ab
   languageName: node
   linkType: hard
 
-"@wordpress/primitives@npm:^3.21.0":
-  version: 3.21.0
-  resolution: "@wordpress/primitives@npm:3.21.0"
+"@wordpress/primitives@npm:^3.22.0":
+  version: 3.22.0
+  resolution: "@wordpress/primitives@npm:3.22.0"
   dependencies:
     "@babel/runtime": ^7.16.0
-    "@wordpress/element": ^5.0.0
+    "@wordpress/element": ^5.1.0
     classnames: ^2.3.1
-  checksum: 2b617b5a941707a01876b4a9f2a58af395d95f3db143b3606b7f4731ab7f02081330c8d8d9631e9ac95eccea615f86d836416dc87558ea520ce8aa0f38e5fc13
+  checksum: 307368915a78feb535743dabf2883a48b400eaef7b5c1a9bcf75aa663a98f6dd803985f8e307768d310e6f7fb53bdbd0e05031ebd9ff6d74a9fb27ebf367b10f
   languageName: node
   linkType: hard
 
