@@ -15,5 +15,3 @@ body {
 ```typescript title="app.js"
 import image from './images/image.jpg?as=webp'
 ```
-
-You're able [to add additional generators](#generators) if you want to do the same thing with another filetype.
