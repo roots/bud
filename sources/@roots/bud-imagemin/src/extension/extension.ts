@@ -6,7 +6,9 @@ import {
   expose,
   label,
 } from '@roots/bud-framework/extension/decorators'
+import type { SharpEncodeOptions, SvgoEncodeOptions } from 'image-minimizer-webpack-plugin/types/utils.js'
 
+import type { Generator } from '../index.js'
 import type BudImageminSharp from '../sharp/index.js'
 import type BudImageminSvgo from '../svgo/index.js'
 
@@ -38,20 +40,22 @@ export class BudImageminExtension extends Extension {
   public declare svgo: BudImageminSvgo
 
   /**
-   * {@link Extension.init}
-   *
-   * @decorator `@bind`
+   * Set encoder options
    */
   @bind
-  public override async init(bud: Bud): Promise<void> {
-    this.sharp = bud.extensions.get(`@roots/bud-imagemin/sharp`)
-    this.svgo = bud.extensions.get(`@roots/bud-imagemin/svgo`)
+  public encode<K extends keyof SharpEncodeOptions>(...params:
+    | [key: K, value: SharpEncodeOptions[K]]
+    | [key: `svg`, value: SvgoEncodeOptions]
+  ) {
+    const [key, value] = params
+    const target = key === `svg` ? this.svgo : this.sharp
+
+    target.setEncodeOptions({[key]: value})
+    return this
   }
 
   /**
    * Enable lossless compression
-   *
-   * @returns this - {@link BudImageminExtension}
    */
   @bind
   public lossless() {
@@ -80,5 +84,28 @@ export class BudImageminExtension extends Extension {
       gif: {},
     })
     return this
+  }
+
+  /**
+   * Add a generator preset
+   */
+  @bind
+  public addPreset<K extends keyof SharpEncodeOptions>(...params:
+    | [key: K, value: Partial<Generator>]
+  ) {
+    const [key, value] = params
+    this.sharp.setGenerator(key, value)
+    return this
+  }
+
+  /**
+   * {@link Extension.init}
+   *
+   * @decorator `@bind`
+   */
+  @bind
+  public override async init(bud: Bud): Promise<void> {
+    this.sharp = bud.extensions.get(`@roots/bud-imagemin/sharp`)
+    this.svgo = bud.extensions.get(`@roots/bud-imagemin/svgo`)
   }
 }

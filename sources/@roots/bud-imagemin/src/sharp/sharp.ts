@@ -27,7 +27,10 @@ export class BudImageminSharp extends Extension {
 
   @bind
   public async setEncodeOptions(options: SharpEncodeOptions) {
-    this.setOption(`encodeOptions`, options)
+    this.setOption(`encodeOptions`, (existant = {}) => ({
+      ...existant,
+      ...options,
+    }))
   }
 
   /**

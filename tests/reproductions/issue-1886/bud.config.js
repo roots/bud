@@ -2,7 +2,7 @@ export default async bud =>
   bud
     .persist(false)
     .minimize()
-    .imagemin.sharp.setGenerator(`jpeg`, {
+    .imagemin.addPreset(`jpeg`, {
       options: {
         encodeOptions: {
           jpeg: {
@@ -11,7 +11,7 @@ export default async bud =>
         },
       },
     })
-    .setGenerator(`webp@50`, {
+    .addPreset(`webp@50`, {
       options: {
         encodeOptions: {
           webp: {quality: 50},

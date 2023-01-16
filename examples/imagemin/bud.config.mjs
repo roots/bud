@@ -3,5 +3,5 @@
  */
 export default async app => {
   app.entry(`app`, `app.js`).minimize()
-  app.imagemin.encode(`jpg`, {quality: 75}).encode(`png`, {quality: 100})
+  app.imagemin.encode(`jpeg`, {quality: 75}).encode(`png`, {quality: 100})
 }

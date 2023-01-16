@@ -23,7 +23,10 @@ export class BudImageminSvgo extends Extension {
 
   @bind
   public async setEncodeOptions(options: SvgoEncodeOptions) {
-    this.setOption(`encodeOptions`, options)
+    this.setOption(`encodeOptions`, {
+      ...this.options.encodeOptions ?? {},
+      ...options,
+    })
   }
 
   /**
@@ -49,7 +52,9 @@ export class BudImageminSvgo extends Extension {
         test: bud.hooks.filter(`pattern.svg`),
         minimizer: {
           implementation: this.implementation,
-          options: this.getOption(`encodeOptions`),
+          options: {
+            encodeOptions: this.options.encodeOptions ?? {},
+          },
         },
       }),
     ])
