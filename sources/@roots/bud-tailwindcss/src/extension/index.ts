@@ -222,7 +222,7 @@ export class BudTailwindCss extends Extension<{
 
     bud.postcss?.setPlugins({
       nesting: this.dependencies.nesting,
-      tailwindcss: [this.dependencies.tailwindcss, {config: this.config}],
+      tailwindcss: [this.dependencies.tailwindcss, this.path],
     })
 
     this.logger.success(`postcss configured for tailwindcss`)
