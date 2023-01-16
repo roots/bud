@@ -56,20 +56,20 @@
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "@squoosh/lib": "^0.4.0",
+    "sharp": "0.31.3",
     "image-minimizer-webpack-plugin": "^3.8.1",
     "webpack": "5.75.0"
   },
   "peerDependencies": {
     "@roots/bud": "*",
-    "@squoosh/lib": "*",
+    "sharp": "*",
     "image-minimizer-webpack-plugin": "*"
   },
   "peerDependenciesMeta": {
     "@roots/bud": {
       "optional": true
     },
-    "@squoosh/lib": {
+    "sharp": {
       "optional": true
     },
     "image-minimizer-webpack-plugin": {
