@@ -20,4 +20,27 @@ describe(`@roots/bud-imagemin`, () => {
     await bud.extensions.add(BudImageminExtension)
     expect(bud.imagemin).toBeInstanceOf(BudImageminExtension)
   })
+
+  it(`should enable lossless compression when calling bud.imagemin.lossless()`, async () => {
+    const imagemin = new BudImageminExtension(bud)
+    await bud.extensions.add(`@roots/bud-imagemin/sharp`)
+    await bud.extensions.add(`@roots/bud-imagemin/svgo`)
+    await imagemin.init(bud)
+
+    vi.spyOn(imagemin.sharp, `setEncodeOptions`)
+    imagemin.lossless()
+    expect(imagemin.sharp.setEncodeOptions).toHaveBeenCalledWith({
+      jpeg: {
+        quality: 100,
+      },
+      webp: {
+        lossless: true,
+      },
+      avif: {
+        lossless: true,
+      },
+      png: {},
+      gif: {},
+    })
+  })
 })

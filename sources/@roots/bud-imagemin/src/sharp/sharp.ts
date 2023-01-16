@@ -6,12 +6,9 @@ import {
   options,
 } from '@roots/bud-framework/extension/decorators'
 import Plugin from 'image-minimizer-webpack-plugin'
-import type { SharpEncodeOptions } from 'image-minimizer-webpack-plugin/types/utils.js'
+import type {SharpEncodeOptions} from 'image-minimizer-webpack-plugin/types/utils.js'
 
-import type {
-  Generator,
-  GeneratorMap,
-} from '../index.js'
+import type {Generator, GeneratorMap} from '../index.js'
 
 /**
  * `@roots/bud-imagemin/sharp`
@@ -34,19 +31,6 @@ export class BudImageminSharp extends Extension {
   }
 
   /**
-   * Get generator
-   *
-   * @param key - key of {@link BudImageminExtension.generators}
-   * @returns generator - value of {@link BudImageminExtension.generators}
-   *
-   * @decorator `@bind`
-   */
-  @bind
-  public getGenerator(key: string): Generator {
-    return this.generators.get(key)
-  }
-
-  /**
    * Set generator
    *
    * @param label - key of {@link BudImageminExtension.generators}
@@ -56,26 +40,16 @@ export class BudImageminSharp extends Extension {
    */
   @bind
   public setGenerator(
-    label: string,
+    preset: string,
     generator?: Partial<Generator>,
   ): this {
-    this.generators.set(label, {
-      preset: label,
+    this.generators.set(preset, {
+      preset,
       implementation: Plugin.sharpGenerate,
-      ...generator,
+      ...(generator ?? {}),
     })
 
     return this
-  }
-
-  /**
-   * Get generators as an array
-   *
-   * @returns Array of {@link Generator}
-   */
-  @bind
-  public getGenerators(): Array<Generator> {
-    return [...this.generators.values()]
   }
 
   /**
@@ -97,8 +71,7 @@ export class BudImageminSharp extends Extension {
    */
   @bind
   public override async configAfter(bud: Bud) {
-    bud.hooks.on(`build.optimization.minimizer`, (minimizer = []) => [
-      ...minimizer,
+    const sharpPlugins = [
       new Plugin({
         test: bud.hooks.filter(`pattern.image`),
         minimizer: {
@@ -106,7 +79,16 @@ export class BudImageminSharp extends Extension {
           options: this.options,
         },
       }),
-      new Plugin({generator: this.getGenerators()}),
+    ]
+
+    this.generators.size &&
+      sharpPlugins.push(
+        new Plugin({generator: [...this.generators.values()]}),
+      )
+
+    bud.hooks.on(`build.optimization.minimizer`, (minimizer = []) => [
+      ...minimizer,
+      ...sharpPlugins,
     ])
   }
 }

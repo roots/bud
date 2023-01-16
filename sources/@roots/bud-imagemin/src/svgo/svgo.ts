@@ -6,7 +6,7 @@ import {
   options,
 } from '@roots/bud-framework/extension/decorators'
 import Plugin from 'image-minimizer-webpack-plugin'
-import type { SvgoEncodeOptions } from 'image-minimizer-webpack-plugin/types/utils.js'
+import type {SvgoEncodeOptions} from 'image-minimizer-webpack-plugin/types/utils.js'
 
 /**
  * `@roots/bud-imagemin/svgo`

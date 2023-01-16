@@ -7,8 +7,8 @@ import {
   label,
 } from '@roots/bud-framework/extension/decorators'
 
-import type { BudImageminSharp } from './sharp/sharp.js'
-import type { BudImageminSvgo } from './svgo/svgo.js'
+import type {BudImageminSharp} from './sharp/sharp.js'
+import type {BudImageminSvgo} from './svgo/svgo.js'
 
 /**
  * `@roots/bud-imagemin`
@@ -24,14 +24,14 @@ import type { BudImageminSvgo } from './svgo/svgo.js'
 @dependsOn([`@roots/bud-imagemin/sharp`, `@roots/bud-imagemin/svgo`])
 export class BudImageminExtension extends Extension {
   /**
-   * Sharp
+   * Binary settings
    *
    * {@link BudImageminSharp}
    */
   public declare sharp: BudImageminSharp
 
   /**
-   * Svgo
+   * SVG settings
    *
    * {@link BudImageminSvgo}
    */
@@ -46,5 +46,39 @@ export class BudImageminExtension extends Extension {
   public override async init(bud: Bud): Promise<void> {
     this.sharp = bud.extensions.get(`@roots/bud-imagemin/sharp`)
     this.svgo = bud.extensions.get(`@roots/bud-imagemin/svgo`)
+  }
+
+  /**
+   * Enable lossless compression
+   *
+   * @returns this - {@link BudImageminExtension}
+   */
+  @bind
+  public lossless() {
+    this.sharp.setEncodeOptions({
+      jpeg: {
+        // https://sharp.pixelplumbing.com/api-output#jpeg
+        quality: 100,
+      },
+
+      webp: {
+        // https://sharp.pixelplumbing.com/api-output#webp
+        lossless: true,
+      },
+
+      avif: {
+        // https://sharp.pixelplumbing.com/api-output#avif
+        lossless: true,
+      },
+
+      // png by default sets the quality to 100%, which is same as lossless
+      // https://sharp.pixelplumbing.com/api-output#png
+      png: {},
+
+      // gif does not support lossless compression at all
+      // https://sharp.pixelplumbing.com/api-output#gif
+      gif: {},
+    })
+    return this
   }
 }
