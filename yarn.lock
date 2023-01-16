@@ -7714,7 +7714,7 @@ __metadata:
     "@types/wordpress__plugins": 3.0.0
     "@types/wordpress__rich-text": 3.4.6
     "@wordpress/blocks": 12.0.0
-    "@wordpress/data": 8.0.0
+    "@wordpress/data": 8.1.0
     "@wordpress/hooks": 3.24.0
     "@wordpress/plugins": 5.1.0
     "@wordpress/rich-text": 6.1.0
@@ -10200,31 +10200,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wordpress/data@npm:8.0.0, @wordpress/data@npm:^8.0.0":
-  version: 8.0.0
-  resolution: "@wordpress/data@npm:8.0.0"
-  dependencies:
-    "@babel/runtime": ^7.16.0
-    "@wordpress/compose": ^6.0.0
-    "@wordpress/deprecated": ^3.23.0
-    "@wordpress/element": ^5.0.0
-    "@wordpress/is-shallow-equal": ^4.23.0
-    "@wordpress/priority-queue": ^2.23.0
-    "@wordpress/redux-routine": ^4.23.0
-    equivalent-key-map: ^0.2.2
-    is-plain-object: ^5.0.0
-    is-promise: ^4.0.0
-    lodash: ^4.17.21
-    redux: ^4.1.2
-    turbo-combine-reducers: ^1.0.2
-    use-memo-one: ^1.1.1
-  peerDependencies:
-    react: ^18.0.0
-  checksum: 9b65729a882c5ff57f1c019afaeaa688d21c654f918054fe2eba9fd7fe760436e339d42a34af33b0daf5081f30b17c53b81232be7a8fbd3f538eded01bd2257d
-  languageName: node
-  linkType: hard
-
-"@wordpress/data@npm:^8.1.0":
+"@wordpress/data@npm:8.1.0, @wordpress/data@npm:^8.1.0":
   version: 8.1.0
   resolution: "@wordpress/data@npm:8.1.0"
   dependencies:
@@ -10245,6 +10221,30 @@ __metadata:
   peerDependencies:
     react: ^18.0.0
   checksum: 100e6713f61999d1e0f68a1717576511b04d29fa2fcbedd12fb47e135796cda5613a5c13f70996614feb9609d54354144a3391e331648360d9d4b9fb886f079b
+  languageName: node
+  linkType: hard
+
+"@wordpress/data@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "@wordpress/data@npm:8.0.0"
+  dependencies:
+    "@babel/runtime": ^7.16.0
+    "@wordpress/compose": ^6.0.0
+    "@wordpress/deprecated": ^3.23.0
+    "@wordpress/element": ^5.0.0
+    "@wordpress/is-shallow-equal": ^4.23.0
+    "@wordpress/priority-queue": ^2.23.0
+    "@wordpress/redux-routine": ^4.23.0
+    equivalent-key-map: ^0.2.2
+    is-plain-object: ^5.0.0
+    is-promise: ^4.0.0
+    lodash: ^4.17.21
+    redux: ^4.1.2
+    turbo-combine-reducers: ^1.0.2
+    use-memo-one: ^1.1.1
+  peerDependencies:
+    react: ^18.0.0
+  checksum: 9b65729a882c5ff57f1c019afaeaa688d21c654f918054fe2eba9fd7fe760436e339d42a34af33b0daf5081f30b17c53b81232be7a8fbd3f538eded01bd2257d
   languageName: node
   linkType: hard
 
