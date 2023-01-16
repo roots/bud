@@ -7324,7 +7324,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/bud-tailwindcss@workspace:sources/@roots/bud-tailwindcss":
+"@roots/bud-tailwindcss@workspace:*, @roots/bud-tailwindcss@workspace:sources/@roots/bud-tailwindcss":
   version: 0.0.0-use.local
   resolution: "@roots/bud-tailwindcss@workspace:sources/@roots/bud-tailwindcss"
   dependencies:
@@ -7536,7 +7536,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/bud@workspace:sources/@roots/bud":
+"@roots/bud@workspace:*, @roots/bud@workspace:sources/@roots/bud":
   version: 0.0.0-use.local
   resolution: "@roots/bud@workspace:sources/@roots/bud"
   dependencies:
@@ -8414,6 +8414,15 @@ __metadata:
     "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-swc": "workspace:sources/@roots/bud-swc"
     "@roots/bud-tailwindcss": "workspace:sources/@roots/bud-tailwindcss"
+  languageName: unknown
+  linkType: soft
+
+"@tests/tailwind-integration@workspace:sources/@roots/bud-tailwindcss/test/implementation":
+  version: 0.0.0-use.local
+  resolution: "@tests/tailwind-integration@workspace:sources/@roots/bud-tailwindcss/test/implementation"
+  dependencies:
+    "@roots/bud": "workspace:*"
+    "@roots/bud-tailwindcss": "workspace:*"
   languageName: unknown
   linkType: soft
 
