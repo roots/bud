@@ -1,4 +1,4 @@
-import type {Bud} from '@roots/bud'
+import BladeLoaderPlugin from '@roots/blade-loader'
 import {Extension} from '@roots/bud-framework/extension'
 import {bind, label} from '@roots/bud-framework/extension/decorators'
 
@@ -11,23 +11,13 @@ import {bind, label} from '@roots/bud-framework/extension/decorators'
 @label(`@roots/sage/blade-loader`)
 export class BladeLoaderExtension extends Extension {
   /**
-   * `register` callback
+   * `make` callback
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public override async register(bud: Bud) {
-    bud.build
-      .setLoader(
-        `@roots/blade-loader`,
-        await bud.module.resolve(`@roots/blade-loader`),
-      )
-      .setItem(`no-emit`, {loader: `file`, options: {emit: false}})
-      .setItem(`@roots/blade-loader`, {loader: `@roots/blade-loader`})
-      .setRule(`blade`, {
-        test: /\.blade\.php$/,
-        use: [`no-emit`, `@roots/blade-loader`],
-      })
+  public override async make() {
+    return new BladeLoaderPlugin({directory: `views`})
   }
 }

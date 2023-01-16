@@ -6164,6 +6164,7 @@ __metadata:
   resolution: "@roots/blade-loader@workspace:sources/@roots/blade-loader"
   dependencies:
     "@skypack/package-check": 0.2.2
+    globby: 13.1.3
     memfs: 3.4.13
     webpack: 5.75.0
   languageName: unknown

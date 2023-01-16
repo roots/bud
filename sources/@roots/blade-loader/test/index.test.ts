@@ -2,11 +2,13 @@ import path from 'node:path';
 import webpack from 'webpack';
 import { createFsFromVolume, Volume } from 'memfs';
 import {beforeEach, expect, describe, it} from 'vitest'
+import BladeWebpackPlugin from '../lib/plugin';
 
 describe('@roots/blade-loader', () => {
   let compiler
   let source
   let errors
+  let bladeChunk
 
   beforeEach(async () => {
     compiler = webpack({
@@ -22,16 +24,11 @@ describe('@roots/blade-loader', () => {
             test: /\.jpg$/,
             type: 'asset/resource',
           },
-          {
-            test: /\.blade\.php$/,
-            use: [{
-              loader: 'file-loader',
-            }, {
-              loader: path.resolve(__dirname, '../lib/index.cjs'),
-            }]
-          },
         ],
       },
+      plugins: [
+        new BladeWebpackPlugin()
+      ],
       resolve: {
         modules: [__dirname],
       }
@@ -44,6 +41,7 @@ describe('@roots/blade-loader', () => {
       compiler.run((err, stats) => {
         if (err) reject(err);
         source = stats.toJson({source: true}).modules[0];
+        bladeChunk = stats.toJson().assetsByChunkName.blade
         return resolve(source)
       });
     });
@@ -54,7 +52,7 @@ describe('@roots/blade-loader', () => {
   })
 
   it('works good', async ()  => {
+    expect(bladeChunk).toEqual(expect.arrayContaining([`bundle.js`]))
     expect(source.assets[0]).toStrictEqual(expect.stringMatching(/\.jpg$/));
-    expect(source.assets[1]).toStrictEqual(expect.stringMatching(/\.php$/))
   });
 });

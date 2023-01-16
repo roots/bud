@@ -4,8 +4,9 @@
     "rootDir": "./src",
     "outDir": "./lib",
     "paths": {
-      "@roots/blade-loader": ["./src/index.cts"],
-      "@roots/blade-loader/*": ["./src/*"]
+      "@roots/blade-loader": ["./src/plugin.ts"],
+      "@roots/blade-loader/loader": ["./src/loader.cts"],
+      "@roots/blade-loader/plugin": ["./src/plugin.ts"]
     },
     "types": ["node"]
   },

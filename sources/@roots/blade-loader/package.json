@@ -27,18 +27,29 @@
     "src",
     "dist"
   ],
-  "type": "module",
   "exports": {
     ".": {
-      "types": "./lib/index.d.cts",
-      "require": "./lib/index.cjs"
+      "types": "./lib/plugin.d.ts",
+      "import": "./lib/plugin.js"
+    },
+    "./loader": {
+      "types": "./lib/loader.d.cts",
+      "require": "./lib/loader.cjs"
+    },
+    "./plugin": {
+      "types": "./lib/plugin.d.ts",
+      "import": "./lib/plugin.js"
     }
   },
-  "main": "./lib/index.cjs",
-  "types": "./lib/index.d.ts",
+  "type": "module",
+  "main": "./lib/plugin.js",
+  "types": "./lib/plugin.d.ts",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "memfs": "3.4.13",
+    "memfs": "3.4.13"
+  },
+  "dependencies": {
+    "globby": "13.1.3",
     "webpack": "5.75.0"
   },
   "volta": {

@@ -26,7 +26,7 @@ const loader: LoaderDefinitionFunction<{publicPath?: string}> =
       )
     }
 
-    return source
+    return ``
   }
 
 export default loader
