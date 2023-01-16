@@ -6969,7 +6969,7 @@ __metadata:
     html-loader: ^4.2.0
     html-webpack-plugin: 5.5.0
     http-proxy-middleware: 3.0.0-beta.0
-    import-meta-resolve: 2.2.0
+    import-meta-resolve: 2.2.1
     ink: 3.2.0
     ink-link: 2.0.1
     ink-text-input: 4.0.3
@@ -12876,7 +12876,7 @@ __metadata:
     eslint-plugin-simple-import-sort: 8.0.0
     execa: 6.1.0
     fs-extra: 11.1.0
-    import-meta-resolve: 2.2.0
+    import-meta-resolve: 2.2.1
     lodash: 4.17.21
     playwright: 1.29.2
     prettier: 2.8.1
@@ -20446,10 +20446,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"import-meta-resolve@npm:2.2.0":
-  version: 2.2.0
-  resolution: "import-meta-resolve@npm:2.2.0"
-  checksum: 35a012c07bdaaed907ad150021b47a4bd8b2c77c88f02a2c5a15a5cb5c146072a94b6633cc528eaccf187bca12196c0fb2ff44a54b3b2a03bcf200511b3f1e50
+"import-meta-resolve@npm:2.2.1":
+  version: 2.2.1
+  resolution: "import-meta-resolve@npm:2.2.1"
+  checksum: 8dd5ff7f6e96dea13653cbf79457588b9850949fde0412dba3cc944f8a61a155a3713d65878d903af6b0db7da960600ef66dfe994311743cdd49fe33dc91b0c5
   languageName: node
   linkType: hard
 
