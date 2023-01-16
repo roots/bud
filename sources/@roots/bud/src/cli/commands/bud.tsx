@@ -511,7 +511,7 @@ export default class BudCommand extends Command<CommandContext> {
           setRunning(true)
           this.renderOnce(
             <Ink.Text>
-              Running{' '}
+              Running{` `}
               <Ink.Text color="blue">
                 `bud {options[selected][0]}`
               </Ink.Text>

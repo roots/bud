@@ -45,7 +45,9 @@ export default async bud => {
   bud.imagemin.configure(
     `squoosh`,
     `minimizer.options.encodeOptions.mozjpeg`,
-    {quality: 50},
+    {
+      quality: 50,
+    },
   )
 }
 ```
