@@ -52,7 +52,9 @@ export class BudImageminExtension extends Extension {
       | [key: `svg`, value: SvgoEncodeOptions]
   ) {
     const [key, value] = params
-    key === `svg` ? this.svgo.setOptions(value) : this.sharp.setEncodeOptions(key, value)
+    key === `svg`
+      ? this.svgo.setOptions(value)
+      : this.sharp.setEncodeOptions(key, value)
     return this
   }
 

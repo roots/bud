@@ -28,7 +28,7 @@ export class BudImageminSharp extends Extension {
   @bind
   public async setEncodeOptions<K extends keyof SharpEncodeOptions>(
     key: K,
-    value: SharpEncodeOptions[K]
+    value: SharpEncodeOptions[K],
   ) {
     this.setOptions({
       ...(this.options ?? {}),
