@@ -1,5 +1,6 @@
 import {
   BlockInstance,
+  getBlockType,
   registerBlockStyle,
   registerBlockType,
   unregisterBlockStyle,
@@ -14,11 +15,14 @@ import * as editor from './editor.js'
  * Register block
  */
 export const register = ({name, settings, filters, styles}) => {
+  if (getBlockType(name)) {
+    unregister({name, filters, styles})
+  }
+
   registerBlockType(name, settings)
 
   styles?.map(style => registerBlockStyle(name, style))
-
-  filters?.forEach(({name, namespace, callback}) => {
+  filters?.map(({name, namespace, callback}) => {
     addFilter(name, namespace, callback)
   })
 }
