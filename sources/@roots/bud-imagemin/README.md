@@ -32,18 +32,15 @@ npm install @roots/bud-imagemin --save-dev
 
 ## Usage
 
-**@roots/bud-imagemin** works out of the box with no configuration. It uses the [squoosh](https://squoosh.app/) library to optimize images, and sticks to the default options provided by the library.
+**@roots/bud-imagemin** works out of the box with no configuration. It uses the [sharp library](https://sharp.pixelplumbing.com/) to optimize images, and sticks to the default options provided by sharp.
 
-Ultimately, this extension is a relatively thin wrapper around the [webpack-contrib/image-minimizer-webpack-plugin](https://github.com/webpack-contrib/image-minimizer-webpack-plugin). Refer to the [plugin documentation](https://github.com/webpack-contrib/image-minimizer-webpack-plugin) for a better understanding of how it all works.
+This extension is a relatively thin wrapper around the [webpack-contrib/image-minimizer-webpack-plugin](https://github.com/webpack-contrib/image-minimizer-webpack-plugin). Refer to the [plugin documentation](https://github.com/webpack-contrib/image-minimizer-webpack-plugin) for more information on how to configure it.
 
-### Functions
+## Manipulating images with URL parameters
 
-- [bud.imagemin.encode](https://bud.js.org/extensions/bud-imagemin/encode)
-- [bud.imagemin.configure](https://bud.js.org/extensions/bud-imagemin/configure)
+### Convert to `webp`
 
-## Convering asets to webp
-
-You may convert an asset to `webp` format using the `?as=webp` url parameter.
+You can convert an asset to `webp` format using the `?as=webp` url parameter.
 
 It works in both styles and scripts:
 
@@ -57,105 +54,73 @@ body {
 import image from "./images/image.jpg?as=webp";
 ```
 
-You're able [to add additional generators](#generators) if you want to do the same thing with another filetype.
+### Adding additional presets
 
-## Setting encoder options
-
-You may wish to customize the encoder settings. This is done with [bud.imagemin.encode](https://bud.js.org/extensions/bud-imagemin/encode).
-
-```typescript title="bud.config.mjs"
-export default async (bud) => {
-  bud.imagemin.encode(`jpg`, { quality: 50 });
-};
-```
-
-Some of the default squoosh encoders have a name that does not match the filetype. For example, the `mozjpeg` encoder is used to encode `jpg` files.
-
-When setting the encoder options the function will automatically map filetypes to the encoder name for you.
-
-### Mapping new encoders
-
-If you are adding [support for a new minimizer](#minimizers), you may want to add to the encoder map or modify existing map entries.
-
-You can do that with the **bud.imagemin.encoders** map object:
-
-```typescript title="bud.config.mjs"
-export default async (bud) => {
-  bud.imagemin.encoders.set(`png`, [`squoosh`, `oxipng`]);
-};
-```
-
-This allows [bud.imagemin.encode](https://bud.js.org/extensions/bud-imagemin/encode) to work with the new minimizer.
-
-## Generators
-
-Generators allow you to convert one type of image asset to another by appending a URL parameter to the asset path.
-
-With the default configuration, you [can convert an image to `webp` using the `?as=webp` url parameter](#using-the-webp-preset).
-
-### Adding generators
-
-You may add additional generators using `bud.imagemin.setGenerator`.
+In addition to the preconfigured `?as=webp` parameter, you may define additional generators using **bud.imagemin.addPreset**.
 
 For example, this custom generator will convert an asset to `png` at 80% quality when `?as=png` is appended to an image asset path.
 
-```typescript title="bud.config.mjs"
+```typescript title="bud.config.js"
 export default async (bud) => {
-  const options = { oxipng: { quality: 80 } };
-  bud.imagemin.setGenerator(`png`, options);
-};
-```
-
-Once set, it can be called using `?as=png` from application scripts and styles.
-
-```css title="app.css"
-.selector {
-  background-image: url(./images/image.jpg?as=png);
-}
-```
-
-### Operating on generators directly
-
-You may access the generator map directly using **bud.imagemin.generators**.
-
-```typescript title="bud.config.mjs"
-export default async (bud) => {
-  bud.imagemin.generators.clear();
-};
-```
-
-## Minimizers
-
-### Modifying minimizers
-
-Use [bud.imagemin.configure](https://bud.js.org/extensions/bud-imagemin/configure) to customize minimizer options.
-
-### Adding minimizers
-
-You can add support for other minimizers beyond the included default using **bud.imagemin.setMinimizer**.
-
-```typescript title="bud.config.mjs"
-import MinimizerFunction from "minimizer-lib";
-
-export default async (bud) => {
-  bud.imagemin.setMinimizer(`minimizer-lib`, {
-    minimizer: {
-      implementation: MinimizerFunction,
-      options: {
-        encodeOptions: bud.imagemin.encoders,
+  bud.imagemin.sharp.setGenerator(`png`, {
+    options: {
+      encodeOptions: {
+        quality: 80,
       },
     },
   });
 };
 ```
 
-### Operating on minimizers directly
+The preset label does not necessarily need to match one of the sharp encoder keys. For example, you might want to set up something a little more
+persnickity like:
 
-You may access the minimizer map directly using **bud.imagemin.minimizers**.
-
-```typescript title="bud.config.mjs"
+```typescript title="bud.config.js"
 export default async (bud) => {
-  bud.imagemin.minimizers.clear();
+  bud.imagemin.addPreset(`webp@50`, {
+    options: {
+      encodeOptions: {
+        webp: {
+          quality: 50,
+        },
+      },
+    },
+  });
+};
+```
+
+### Set dimensions
+
+You can set an explicit width for an image with the `?width=n` url parameter. Likewise, you can set an explicit height with `?height=n`.
+
+It works in both styles and scripts:
+
+```css title="app.css"
+body {
+  background-image: url(./images/image.jpg?width=500&height=500);
+}
+```
+
+```typescript title="app.js"
+import image from "./images/image.jpg?width=500&height=500";
+```
+
+## Setting encoder options
+
+You may wish to customize the encoder settings. This is done with **bud.imagemin.encode**.
+
+```typescript title="bud.config.js"
+export default async (bud) => {
+  bud.imagemin.encode(`jpeg`, { quality: 50 });
+  bud.imagemin.encode(`svg`, { multipass: false });
+};
+```
+
+### Enable lossless compression
+
+```typescript
+export default async (bud) => {
+  bud.imagemin.lossless();
 };
 ```
 

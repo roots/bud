@@ -1,5 +1,5 @@
 {
-  "name": "@tests/issue-1886",
+  "name": "@tests/bud-imagemin-quality-50",
   "type": "module",
   "private": true,
   "dependencies": {
