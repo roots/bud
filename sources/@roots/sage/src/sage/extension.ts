@@ -7,6 +7,8 @@ import {
   label,
 } from '@roots/bud-framework/extension/decorators'
 
+import type { BladeLoaderExtension } from '../blade-loader/extension.js'
+
 /**
  * roots/sage support extension
  *
@@ -74,5 +76,15 @@ export class Sage extends Extension {
       `If you are experiencing an issue and adding this extension fixes it, please open an issue.\n\n`,
       `https://github.com/roots/bud.\n\n`,
     )
+  }
+
+  @bind
+  public copyBladeAssets(files?: BladeLoaderExtension[`options`][`templates`]) {
+    if (files) {
+      this.app.extensions.get(`@roots/sage/blade-loader`).setOption(`templates`, files)
+    }
+
+    this.app.extensions.get(`@roots/sage/blade-loader`).enable()
+    return this
   }
 }

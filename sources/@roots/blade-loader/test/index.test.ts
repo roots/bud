@@ -6,17 +6,16 @@ import BladeWebpackPlugin from '../lib/plugin';
 
 describe('@roots/blade-loader', () => {
   let compiler
-  let source
+  let modules
   let errors
-  let bladeChunk
+  let chunks
 
   beforeEach(async () => {
     compiler = webpack({
       context: __dirname,
-      entry: `./index.blade.php`,
+      entry: [`./index.js`],
       output: {
         path: path.resolve(__dirname),
-        filename: 'bundle.js',
       },
       module: {
         rules: [
@@ -40,19 +39,20 @@ describe('@roots/blade-loader', () => {
     await new Promise((resolve, reject) => {
       compiler.run((err, stats) => {
         if (err) reject(err);
-        source = stats.toJson({source: true}).modules[0];
-        bladeChunk = stats.toJson().assetsByChunkName.blade
-        return resolve(source)
+        modules = stats?.toJson({assets: true});
+        chunks = stats?.toJson().assetsByChunkName
+        return resolve(modules)
       });
     });
   })
 
-  it('does not error', async () => {
+  it('does not error', () => {
     expect(errors).toBe(undefined)
   })
 
-  it('works good', async ()  => {
-    expect(bladeChunk).toEqual(expect.arrayContaining([`bundle.js`]))
-    expect(source.assets[0]).toStrictEqual(expect.stringMatching(/\.jpg$/));
+  it('works good', ()  => {
+    expect(Object.values(chunks)).toHaveLength(1)
+    expect(Object.values(chunks)[0]).toEqual(expect.arrayContaining([`main.js`]))
+    expect(modules.assets[0].info.sourceFilename).toStrictEqual(`loader-test.jpg`);
   });
 });

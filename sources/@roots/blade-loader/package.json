@@ -25,20 +25,20 @@
   },
   "files": [
     "src",
-    "dist"
+    "lib"
   ],
   "exports": {
     ".": {
       "types": "./lib/plugin.d.ts",
       "import": "./lib/plugin.js"
     },
-    "./loader": {
-      "types": "./lib/loader.d.cts",
-      "require": "./lib/loader.cjs"
-    },
     "./plugin": {
       "types": "./lib/plugin.d.ts",
       "import": "./lib/plugin.js"
+    },
+    "./loader": {
+      "types": "./lib/loader.d.cts",
+      "require": "./lib/loader.cjs"
     }
   },
   "type": "module",
@@ -49,6 +49,7 @@
     "memfs": "3.4.13"
   },
   "dependencies": {
+    "file-loader": "6.2.0",
     "globby": "13.1.3",
     "webpack": "5.75.0"
   },
