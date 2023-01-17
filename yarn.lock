@@ -7669,7 +7669,7 @@ __metadata:
     "@types/lodash-es": 4.17.6
     "@types/node": 16.18.11
     helpful-decorators: 2.1.0
-    lodash-es: 4.17.21
+    lodash: 4.17.21
     tslib: 2.4.1
     webpack: 5.75.0
   peerDependencies:
@@ -7766,7 +7766,7 @@ __metadata:
     helpful-decorators: 2.1.0
     js-yaml: 4.1.0
     json5: 2.2.3
-    lodash-es: 4.17.21
+    lodash: 4.17.21
     mime-types: 2.1.35
     safe-json-stringify: 1.2.0
   languageName: unknown
@@ -7825,9 +7825,8 @@ __metadata:
   resolution: "@roots/wordpress-externals-webpack-plugin@workspace:sources/@roots/wordpress-externals-webpack-plugin"
   dependencies:
     "@skypack/package-check": 0.2.2
-    "@types/lodash-es": 4.17.6
     "@types/node": 16.18.11
-    lodash-es: 4.17.21
+    lodash: 4.17.21
     webpack: 5.75.0
   languageName: unknown
   linkType: soft
@@ -7837,7 +7836,6 @@ __metadata:
   resolution: "@roots/wordpress-hmr@workspace:sources/@roots/wordpress-hmr"
   dependencies:
     "@skypack/package-check": 0.2.2
-    "@types/lodash-es": 4.17.6
     "@types/node": 16.18.11
     "@types/react": 18.0.26
     "@types/wordpress__blocks": 12.0.1
@@ -7849,10 +7847,6 @@ __metadata:
     "@wordpress/hooks": 3.24.0
     "@wordpress/plugins": 5.1.0
     "@wordpress/rich-text": 6.1.0
-    lodash-es: 4.17.21
-    react: 18.2.0
-  peerDependencies:
-    lodash-es: "*"
   languageName: unknown
   linkType: soft
 

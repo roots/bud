@@ -20,7 +20,7 @@ import type {
   WriteOptions,
 } from 'fs-jetpack/types.js'
 import {bind} from 'helpful-decorators'
-import {isNumber} from 'lodash-es'
+import isNumber from 'lodash/isNumber.js'
 
 import * as json from './json.js'
 import * as yml from './yml.js'

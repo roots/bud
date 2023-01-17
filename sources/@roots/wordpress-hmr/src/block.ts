@@ -1,5 +1,6 @@
 import {
   BlockInstance,
+  getBlockType,
   registerBlockStyle,
   registerBlockType,
   unregisterBlockStyle,
@@ -14,11 +15,14 @@ import * as editor from './editor.js'
  * Register block
  */
 export const register = ({name, settings, filters, styles}) => {
+  if (getBlockType(name)) {
+    unregister({name, filters, styles})
+  }
+
   registerBlockType(name, settings)
 
   styles?.map(style => registerBlockStyle(name, style))
-
-  filters?.forEach(({name, namespace, callback}) => {
+  filters?.map(({name, namespace, callback}) => {
     addFilter(name, namespace, callback)
   })
 }
@@ -29,11 +33,10 @@ export const register = ({name, settings, filters, styles}) => {
 export const unregister = ({name, filters, styles}) => {
   unregisterBlockType(name)
 
-  filters?.forEach(({hook, namespace}) => {
+  filters?.map(({hook, namespace}) => {
     removeFilter(hook, namespace)
   })
-
-  styles?.forEach(style => unregisterBlockStyle(name, style.name))
+  styles?.map(style => unregisterBlockStyle(name, style.name))
 }
 
 let selected = null
@@ -71,6 +74,12 @@ const after = (changed?: Array<{name: string}>) => {
 }
 
 export const load = (getContext, callback): void => {
-  const blockContextProps = {register, unregister, before, after}
-  editor.load({getContext, callback, ...blockContextProps})
+  editor.load({
+    getContext,
+    callback,
+    register,
+    unregister,
+    before,
+    after,
+  })
 }
