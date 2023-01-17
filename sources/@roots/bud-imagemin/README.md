@@ -32,13 +32,15 @@ npm install @roots/bud-imagemin --save-dev
 
 ## Usage
 
-**@roots/bud-imagemin** works out of the box with no configuration. It uses the [squoosh](https://squoosh.app/) library to optimize images, and sticks to the default options provided by the library.
+**@roots/bud-imagemin** works out of the box with no configuration. It uses the [sharp library](https://sharp.pixelplumbing.com/) to optimize images, and sticks to the default options provided by sharp.
 
-Ultimately, this extension is a relatively thin wrapper around the [webpack-contrib/image-minimizer-webpack-plugin](https://github.com/webpack-contrib/image-minimizer-webpack-plugin). Refer to the [plugin documentation](https://github.com/webpack-contrib/image-minimizer-webpack-plugin) for a better understanding of how it all works.
+This extension is a relatively thin wrapper around the [webpack-contrib/image-minimizer-webpack-plugin](https://github.com/webpack-contrib/image-minimizer-webpack-plugin). Refer to the [plugin documentation](https://github.com/webpack-contrib/image-minimizer-webpack-plugin) for more information on how to configure it.
 
-## Convering asets to webp
+## Manipulating images with URL parameters
 
-You may convert an asset to `webp` format using the `?as=webp` url parameter.
+## Convert to `webp`
+
+You can convert an asset to `webp` format using the `?as=webp` url parameter.
 
 It works in both styles and scripts:
 
@@ -52,50 +54,59 @@ body {
 import image from "./images/image.jpg?as=webp";
 ```
 
-## Setting encoder options
+## Adding additional presets
 
-You may wish to customize the encoder settings. This is done with **bud.imagemin.svgo.setEncodeOptions** and **bud.imagemin.sharp.setEncodeOptions**.
-
-## Setting sharp encoder options
-
-```typescript title="bud.config.mjs"
-export default async (bud) => {
-  bud.imagemin.sharp.setEncodeOptions({ jpeg: { quality: 50 } });
-};
-```
-
-## Setting svgo encoder options
-
-```typescript title="bud.config.mjs"
-export default async (bud) => {
-  bud.imagemin.svgo.setEncodeOptions({ multipass: false });
-};
-```
-
-## Generators
-
-Generators allow you to convert one type of image asset to another by appending a URL parameter to the asset path.
-
-With the default configuration, you [can convert an image to `webp` using the `?as=webp` url parameter](#using-the-webp-preset).
-
-### Adding generators
-
-You may add additional generators using **bud.imagemin.sharp.setGenerator**.
+In addition to the preconfigured `?as=webp` parameter, you may define additional generators using **bud.imagemin.addPreset**.
 
 For example, this custom generator will convert an asset to `png` at 80% quality when `?as=png` is appended to an image asset path.
 
 ```typescript title="bud.config.mjs"
 export default async (bud) => {
-  bud.imagemin.sharp.setGenerator(`png`, { options: { quality: 80 } });
+  bud.imagemin.sharp.setGenerator(`png`, {
+    options: {
+      encodeOptions: {
+        quality: 80,
+      },
+    },
+  });
 };
 ```
 
-Once set, it can be called using `?as=png` from application scripts and styles.
+## Set dimensions
+
+You can set an explicit width for an image with the `?width=n` url parameter. Likewise, you can set an explicit height with `?height=n`.
+
+It works in both styles and scripts:
 
 ```css title="app.css"
-.selector {
-  background-image: url(./images/image.jpg?as=png);
+body {
+  background-image: url(./images/image.jpg?width=500&height=500);
 }
+```
+
+```typescript title="app.js"
+import image from "./images/image.jpg?width=500&height=500";
+```
+
+## Setting encoder options
+
+You may wish to customize the encoder settings. This is done with **bud.imagemin.encode**.
+
+## Enable lossless compression
+
+```typescript
+export default async (bud) => {
+  bud.imagemin.lossless();
+};
+```
+
+## Setting encoder options
+
+```typescript title="bud.config.js"
+export default async (bud) => {
+  bud.imagemin.encode(`jpeg`, { quality: 50 });
+  bud.imagemin.encode(`svg`, { multipass: false });
+};
 ```
 
 ## Contributing

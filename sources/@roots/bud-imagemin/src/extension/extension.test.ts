@@ -29,19 +29,12 @@ describe(`@roots/bud-imagemin`, () => {
 
     vi.spyOn(imagemin.sharp, `setEncodeOptions`)
     imagemin.lossless()
-    expect(imagemin.sharp.setEncodeOptions).toHaveBeenCalledWith({
-      jpeg: {
-        quality: 100,
-      },
-      webp: {
-        lossless: true,
-      },
-      avif: {
-        lossless: true,
-      },
-      png: {},
-      gif: {},
-    })
+    expect(imagemin.sharp.setEncodeOptions).toHaveBeenNthCalledWith(1, `jpeg`, {quality: 100})
+    expect(imagemin.sharp.setEncodeOptions).toHaveBeenNthCalledWith(2, `webp`, {lossless: true})
+    expect(imagemin.sharp.setEncodeOptions).toHaveBeenNthCalledWith(3, `avif`, {lossless: true})
+    expect(imagemin.sharp.setEncodeOptions).toHaveBeenNthCalledWith(4, `png`, {})
+    expect(imagemin.sharp.setEncodeOptions).toHaveBeenNthCalledWith(5, `gif`, {})
+    expect(imagemin.sharp.setEncodeOptions).toHaveBeenCalledTimes(5)
   })
 
   it(`should set encode options`, async () => {

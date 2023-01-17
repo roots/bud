@@ -8239,6 +8239,24 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@tests/bud-imagemin-quality-50@workspace:sources/@roots/bud-imagemin/test/quality-50":
+  version: 0.0.0-use.local
+  resolution: "@tests/bud-imagemin-quality-50@workspace:sources/@roots/bud-imagemin/test/quality-50"
+  dependencies:
+    "@roots/bud": "workspace:sources/@roots/bud"
+    "@roots/bud-imagemin": "workspace:sources/@roots/bud-imagemin"
+  languageName: unknown
+  linkType: soft
+
+"@tests/bud-imagemin-quality-default@workspace:sources/@roots/bud-imagemin/test/quality-default":
+  version: 0.0.0-use.local
+  resolution: "@tests/bud-imagemin-quality-default@workspace:sources/@roots/bud-imagemin/test/quality-default"
+  dependencies:
+    "@roots/bud": "workspace:sources/@roots/bud"
+    "@roots/bud-imagemin": "workspace:sources/@roots/bud-imagemin"
+  languageName: unknown
+  linkType: soft
+
 "@tests/issue-1798@workspace:tests/reproductions/issue-1798":
   version: 0.0.0-use.local
   resolution: "@tests/issue-1798@workspace:tests/reproductions/issue-1798"

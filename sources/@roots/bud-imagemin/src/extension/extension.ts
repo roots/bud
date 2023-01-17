@@ -52,9 +52,7 @@ export class BudImageminExtension extends Extension {
       | [key: `svg`, value: SvgoEncodeOptions]
   ) {
     const [key, value] = params
-    const target = key === `svg` ? this.svgo : this.sharp
-
-    target.setEncodeOptions({[key]: value})
+    key === `svg` ? this.svgo.setOptions(value) : this.sharp.setEncodeOptions(key, value)
     return this
   }
 
@@ -63,30 +61,11 @@ export class BudImageminExtension extends Extension {
    */
   @bind
   public lossless() {
-    this.sharp.setEncodeOptions({
-      jpeg: {
-        // https://sharp.pixelplumbing.com/api-output#jpeg
-        quality: 100,
-      },
-
-      webp: {
-        // https://sharp.pixelplumbing.com/api-output#webp
-        lossless: true,
-      },
-
-      avif: {
-        // https://sharp.pixelplumbing.com/api-output#avif
-        lossless: true,
-      },
-
-      // png by default sets the quality to 100%, which is same as lossless
-      // https://sharp.pixelplumbing.com/api-output#png
-      png: {},
-
-      // gif does not support lossless compression at all
-      // https://sharp.pixelplumbing.com/api-output#gif
-      gif: {},
-    })
+    this.sharp.setEncodeOptions(`jpeg`, {quality: 100})
+    this.sharp.setEncodeOptions(`webp`, {lossless: true})
+    this.sharp.setEncodeOptions(`avif`, {lossless: true})
+    this.sharp.setEncodeOptions(`png`, {})
+    this.sharp.setEncodeOptions(`gif`, {})
     return this
   }
 

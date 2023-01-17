@@ -2,7 +2,7 @@
 title: Setting encoder options
 ---
 
-You may wish to customize the encoder settings. This is done with **bud.imagemin.svgo.setEncodeOptions** and **bud.imagemin.sharp.setEncodeOptions**.
+You may wish to customize the encoder settings. This is done with **bud.imagemin.encode**.
 
 ## Enable lossless compression
 
@@ -12,18 +12,11 @@ export default async bud => {
 }
 ```
 
-## Setting sharp encoder options
+## Setting encoder options
 
-```typescript title="bud.config.mjs"
+```typescript title="bud.config.js"
 export default async bud => {
-  bud.imagemin.sharp.setEncodeOptions({jpeg: {quality: 50}})
-}
-```
-
-## Setting svgo encoder options
-
-```typescript title="bud.config.mjs"
-export default async bud => {
-  bud.imagemin.svgo.setEncodeOptions({multipass: false})
+  bud.imagemin.encode(`jpeg`, {quality: 50})
+  bud.imagemin.encode(`svg`, {multipass: false})
 }
 ```

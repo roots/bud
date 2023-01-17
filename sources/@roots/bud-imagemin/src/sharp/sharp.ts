@@ -23,14 +23,20 @@ import type {Generator, GeneratorMap} from '../index.js'
 export class BudImageminSharp extends Extension {
   public generators: GeneratorMap
 
-  public implementation: any
+  public implementation: typeof Plugin.sharpGenerate
 
   @bind
-  public async setEncodeOptions(options: SharpEncodeOptions) {
-    this.setOption(`encodeOptions`, (existant = {}) => ({
-      ...existant,
-      ...options,
-    }))
+  public async setEncodeOptions<K extends keyof SharpEncodeOptions>(
+    key: K,
+    value: SharpEncodeOptions[K]
+  ) {
+    this.setOptions({
+      ...(this.options ?? {}),
+      encodeOptions: {
+        ...(this.options.encodeOptions ?? {}),
+        [key]: value,
+      },
+    })
   }
 
   /**

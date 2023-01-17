@@ -23,12 +23,6 @@ describe(`@roots/bud-imagemin`, () => {
     expect(svgo).toBeInstanceOf(BudImageminSvgo)
   })
 
-  it(`should set options from setEncodeOptions`, async () => {
-    svgo.setOptions({})
-    svgo.setEncodeOptions({foo: `bar`})
-    expect(svgo.options.encodeOptions).toStrictEqual({foo: `bar`})
-  })
-
   it(`should call build.optimization.minimizer hook from configAfter`, async () => {
     const onSpy = vi.spyOn(bud.hooks, `on`)
     await svgo.configAfter(bud)
