@@ -2,7 +2,7 @@
 title: Manipulating images with URL parameters
 ---
 
-## Convert to `webp`
+### Convert to `webp`
 
 You can convert an asset to `webp` format using the `?as=webp` url parameter.
 
@@ -18,7 +18,7 @@ body {
 import image from './images/image.jpg?as=webp'
 ```
 
-## Adding additional presets
+### Adding additional presets
 
 In addition to the preconfigured `?as=webp` parameter, you may define additional generators using **bud.imagemin.addPreset**.
 
@@ -36,7 +36,24 @@ export default async bud => {
 }
 ```
 
-## Set dimensions
+The preset label does not necessarily need to match one of the sharp encoder keys. For example, you might want to set up something a little more
+persnickity like:
+
+```typescript title="bud.config.mjs"
+export default async bud => {
+  bud.imagemin.addPreset(`webp@50`, {
+    options: {
+      encodeOptions: {
+        webp: {
+          quality: 50
+        },
+      },
+    },
+  })
+}
+```
+
+### Set dimensions
 
 You can set an explicit width for an image with the `?width=n` url parameter. Likewise, you can set an explicit height with `?height=n`.
 
