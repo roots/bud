@@ -1,6 +1,7 @@
-import {isFunction, noop} from 'lodash-es'
-
 import {Cache} from './cache.js'
+
+const isFunction = (value: any): boolean => typeof value === `function`
+const noop = (...args: Array<any>) => null
 
 export const load = ({
   getContext,
