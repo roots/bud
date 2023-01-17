@@ -22,18 +22,14 @@ export default class BladeWebpackPlugin implements WebpackPluginInstance {
           files.map(file => relative(compiler.context, file)),
         ),
         runtime: false,
+        filename: () => `__bud_blade.js`,
       },
     })).apply(compiler)
 
-    compiler.hooks.thisCompilation.tap(this.constructor.name, compilation =>
-      compilation.hooks.chunkAsset.tap(
-        this.constructor.name,
-        (_chunk, file) => {
-          if (!file.includes(`__bud_blade`)) return
-          compilation.deleteAsset(file)
-        },
-      ),
-    )
+    compiler.hooks.shouldEmit.tap(this.constructor.name, compilation => {
+      compilation.entrypoints.delete(`__bud_blade`)
+      return true
+    })
 
     compiler.hooks.afterEnvironment.tap(this.constructor.name, () => {
       compiler.options.module.rules.unshift({

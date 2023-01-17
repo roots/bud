@@ -8,7 +8,7 @@ describe('@roots/blade-loader', () => {
   let compiler
   let modules
   let errors
-  let chunks
+  let entrypoints
 
   beforeEach(async () => {
     compiler = webpack({
@@ -40,7 +40,7 @@ describe('@roots/blade-loader', () => {
       compiler.run((err, stats) => {
         if (err) reject(err);
         modules = stats?.toJson({assets: true});
-        chunks = stats?.toJson().assetsByChunkName
+        entrypoints = stats?.toJson().entrypoints
         return resolve(modules)
       });
     });
@@ -51,8 +51,13 @@ describe('@roots/blade-loader', () => {
   })
 
   it('works good', ()  => {
-    expect(Object.values(chunks)).toHaveLength(1)
-    expect(Object.values(chunks)[0]).toEqual(expect.arrayContaining([`main.js`]))
+    expect(Object.values(entrypoints)).toHaveLength(1)
+    expect(Object.values(entrypoints)[0]).toEqual(expect.objectContaining({
+      assets: [expect.objectContaining({
+        name: `main.js`,
+        size: 0,
+      })],
+    }))
     expect(modules.assets[0].info.sourceFilename).toStrictEqual(`loader-test.jpg`);
   });
 });

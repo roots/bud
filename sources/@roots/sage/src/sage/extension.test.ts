@@ -136,7 +136,7 @@ describe(`@roots/sage`, async () => {
   it(`blade-loader should be disabled by default`, async () => {
     await bud.extensions.add(`@roots/sage`)
     expect(
-      await bud.extensions.get(`@roots/sage/blade-loader`).isEnabled()
+      await bud.extensions.get(`@roots/sage/blade-loader`).isEnabled(),
     ).toBe(false)
   })
 
@@ -144,7 +144,7 @@ describe(`@roots/sage`, async () => {
     await bud.extensions.add(`@roots/sage`)
     bud.sage.copyBladeAssets()
     expect(
-      await bud.extensions.get(`@roots/sage/blade-loader`).isEnabled()
+      await bud.extensions.get(`@roots/sage/blade-loader`).isEnabled(),
     ).toBe(true)
   })
 
@@ -152,9 +152,11 @@ describe(`@roots/sage`, async () => {
     await bud.extensions.add(`@roots/sage`)
     bud.sage.copyBladeAssets([`foo`, `bar`])
     expect(
-      bud.extensions.get(`@roots/sage/blade-loader`).getOptions()
-    ).toEqual(expect.objectContaining({
-      templates: [`foo`, `bar`]
-    }))
+      bud.extensions.get(`@roots/sage/blade-loader`).getOptions(),
+    ).toEqual(
+      expect.objectContaining({
+        templates: [`foo`, `bar`],
+      }),
+    )
   })
 })

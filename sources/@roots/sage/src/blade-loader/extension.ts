@@ -1,7 +1,12 @@
 import BladeLoaderPlugin from '@roots/blade-loader'
-import type { Bud } from '@roots/bud'
+import type {Bud} from '@roots/bud'
 import {Extension} from '@roots/bud-framework/extension'
-import {bind, disabled, label, options} from '@roots/bud-framework/extension/decorators'
+import {
+  bind,
+  disabled,
+  label,
+  options,
+} from '@roots/bud-framework/extension/decorators'
 
 interface Options {
   templates: string | Array<string>
