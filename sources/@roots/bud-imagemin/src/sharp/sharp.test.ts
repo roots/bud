@@ -35,6 +35,7 @@ describe(`@roots/bud-imagemin/sharp`, () => {
     await sharp.init()
 
     expect(sharp.generators.get(`webp`)).toStrictEqual({
+      filename: `[path][name]-[width]x[height][ext]`,
       implementation: Plugin.sharpGenerate,
       preset: `webp`,
       options: {
@@ -59,6 +60,7 @@ describe(`@roots/bud-imagemin/sharp`, () => {
     expect(sharp.generators.get(`foo`)).toStrictEqual({
       preset: `foo`,
       implementation: expect.any(Function),
+      filename: `[path][name]-[width]x[height][ext]`,
       options: definition.options,
     })
     expect(result).toBe(sharp)

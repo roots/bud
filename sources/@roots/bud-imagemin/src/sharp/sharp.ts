@@ -53,6 +53,7 @@ export class BudImageminSharp extends Extension {
   ): this {
     this.generators.set(preset, {
       preset: generator?.preset ?? preset,
+      filename: `[path][name]-[width]x[height][ext]`,
       implementation: generator?.implementation ?? Plugin.sharpGenerate,
       ...generator,
     })

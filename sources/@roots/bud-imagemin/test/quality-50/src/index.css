@@ -1,3 +1,7 @@
 body {
   background: url(@src/images/bud.png?as=webp);
 }
+
+.test {
+  background: url(@src/images/bud.png?as=webp&w=100&h=100);
+}
