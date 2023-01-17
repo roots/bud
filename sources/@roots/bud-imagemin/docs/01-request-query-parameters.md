@@ -24,7 +24,7 @@ In addition to the preconfigured `?as=webp` parameter, you may define additional
 
 For example, this custom generator will convert an asset to `png` at 80% quality when `?as=png` is appended to an image asset path.
 
-```typescript title="bud.config.mjs"
+```typescript title="bud.config.js"
 export default async bud => {
   bud.imagemin.sharp.setGenerator(`png`, {
     options: {
@@ -39,7 +39,7 @@ export default async bud => {
 The preset label does not necessarily need to match one of the sharp encoder keys. For example, you might want to set up something a little more
 persnickity like:
 
-```typescript title="bud.config.mjs"
+```typescript title="bud.config.js"
 export default async bud => {
   bud.imagemin.addPreset(`webp@50`, {
     options: {
