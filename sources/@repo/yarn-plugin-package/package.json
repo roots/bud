@@ -9,7 +9,7 @@
   "dependencies": {
     "@types/fs-extra": "11.0.1",
     "@types/lodash-es": "4.17.6",
-    "@types/node": "16.18.11",
+    "@types/node": "18.11.18",
     "@yarnpkg/builder": "3.2.6",
     "@yarnpkg/cli": "3.3.1",
     "@yarnpkg/core": "3.3.1",

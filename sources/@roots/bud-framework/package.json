@@ -230,7 +230,7 @@
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@types/js-yaml": "4.0.5",
-    "@types/node": "16.18.11"
+    "@types/node": "18.11.18"
   },
   "dependencies": {
     "@roots/bud-support": "workspace:sources/@roots/bud-support",

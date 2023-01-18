@@ -65,7 +65,6 @@ export class RegistryStop extends Command {
     } catch (e) {}
 
     try {
-      await execute(`yarn`, [`config`, `unset`, `unsafeHttpWhitelist`])
       await execute(`yarn`, [
         `config`,
         `set`,

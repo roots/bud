@@ -6113,7 +6113,7 @@ __metadata:
     "@repo/logger": "workspace:sources/@repo/logger"
     "@types/fs-extra": 11.0.1
     "@types/lodash-es": 4.17.6
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
     "@types/npm-package-arg": 6.1.1
     "@vercel/ncc": 0.36.0
     download-package-tarball: 1.0.7
@@ -6130,7 +6130,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@repo/constants@workspace:sources/@repo/constants"
   dependencies:
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
     vitest: 0.27.1
   languageName: unknown
   linkType: soft
@@ -6149,7 +6149,7 @@ __metadata:
     "@svgr/webpack": 6.5.1
     "@tsconfig/docusaurus": 1.0.6
     "@types/file-loader": 5.0.1
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
     "@types/react": 17.0.52
     "@types/react-dom": 17.0.18
     axios: 1.2.2
@@ -6173,7 +6173,7 @@ __metadata:
   resolution: "@repo/logger@workspace:sources/@repo/logger"
   dependencies:
     "@repo/constants": "workspace:sources/@repo/constants"
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
     "@types/signale": 1.4.4
     signale: 1.4.0
     vitest: 0.27.1
@@ -6192,7 +6192,7 @@ __metadata:
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@types/fs-extra": 11.0.1
     "@types/lodash-es": 4.17.6
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
     "@types/prettier": 2.7.2
     dotenv: 16.0.3
     execa: 6.1.0
@@ -6215,7 +6215,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@repo/notifier@workspace:sources/@repo/notifier"
   dependencies:
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
     vitest: 0.27.1
   languageName: unknown
   linkType: soft
@@ -6230,7 +6230,7 @@ __metadata:
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@types/fs-extra": 11.0.1
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
     chalk: 5.2.0
     execa: 6.1.0
     fs-extra: 11.1.0
@@ -6250,7 +6250,7 @@ __metadata:
     "@types/fs-extra": 11.0.1
     "@types/js-yaml": 4.0.5
     "@types/lodash": 4.14.191
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
     "@types/semver": 7.3.13
     "@yarnpkg/builder": 3.2.6
     "@yarnpkg/cli": 3.3.1
@@ -6275,7 +6275,7 @@ __metadata:
   dependencies:
     "@types/fs-extra": 11.0.1
     "@types/lodash-es": 4.17.6
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
     "@yarnpkg/builder": 3.2.6
     "@yarnpkg/cli": 3.3.1
     "@yarnpkg/core": 3.3.1
@@ -6312,7 +6312,7 @@ __metadata:
     "@roots/bud-terser": "workspace:sources/@roots/bud-terser"
     "@roots/container": "workspace:sources/@roots/container"
     "@skypack/package-check": 0.2.2
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
   languageName: unknown
   linkType: soft
 
@@ -6331,7 +6331,7 @@ __metadata:
     "@types/babel__core": 7.1.20
     "@types/babel__plugin-transform-runtime": 7.9.2
     "@types/babel__preset-env": 7.9.2
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
     babel-loader: 9.1.2
     webpack: 5.75.0
   peerDependencies:
@@ -6375,7 +6375,7 @@ __metadata:
     "@roots/bud-hooks": "workspace:sources/@roots/bud-hooks"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
   languageName: unknown
   linkType: soft
 
@@ -6396,7 +6396,7 @@ __metadata:
   dependencies:
     "@roots/bud": "workspace:sources/@roots/bud"
     "@skypack/package-check": 0.2.2
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
     "@types/webpack-env": 1.18.0
   peerDependencies:
     "@roots/bud": "*"
@@ -6417,7 +6417,7 @@ __metadata:
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
   languageName: unknown
   linkType: soft
 
@@ -6428,7 +6428,7 @@ __metadata:
     "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@skypack/package-check": 0.2.2
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
     compression-webpack-plugin: ^10.0.0
     webpack: 5.75.0
   peerDependencies:
@@ -6451,7 +6451,7 @@ __metadata:
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@roots/critical-css-webpack-plugin": "workspace:sources/@roots/critical-css-webpack-plugin"
     "@skypack/package-check": 0.2.2
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
     "@types/vinyl": 2.0.7
     critical: 5.0.4
     vinyl: 3.0.0
@@ -6479,7 +6479,7 @@ __metadata:
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
     human-readable: 0.2.1
     ink-testing-library: 2.1.0
   languageName: unknown
@@ -6501,7 +6501,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@swc/plugin-emotion": 2.5.33
     "@types/babel__core": 7.1.20
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
     "@types/react": 18.0.26
     react: 18.2.0
   peerDependencies:
@@ -6543,7 +6543,7 @@ __metadata:
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/entrypoints-webpack-plugin": "workspace:sources/@roots/entrypoints-webpack-plugin"
     "@skypack/package-check": 0.2.2
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
   peerDependencies:
     "@roots/bud": "*"
   peerDependenciesMeta:
@@ -6561,7 +6561,7 @@ __metadata:
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
     esbuild-loader: 2.21.0
     webpack: 5.75.0
   peerDependencies:
@@ -6587,7 +6587,7 @@ __metadata:
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
     "@types/eslint": 8.4.10
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
     eslint: 8.31.0
     eslint-webpack-plugin: ^3.2.0
     webpack: 5.75.0
@@ -6611,7 +6611,7 @@ __metadata:
     "@roots/bud-terser": "workspace:sources/@roots/bud-terser"
     "@roots/container": "workspace:sources/@roots/container"
     "@skypack/package-check": 0.2.2
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
     palette-webpack-plugin: 1.0.5
     webpack: 5.75.0
   languageName: unknown
@@ -6626,7 +6626,7 @@ __metadata:
     "@roots/filesystem": "workspace:sources/@roots/filesystem"
     "@skypack/package-check": 0.2.2
     "@types/js-yaml": 4.0.5
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
     tslib: 2.4.1
   languageName: unknown
   linkType: soft
@@ -6638,7 +6638,7 @@ __metadata:
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
   languageName: unknown
   linkType: soft
 
@@ -6650,7 +6650,7 @@ __metadata:
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
     image-minimizer-webpack-plugin: ^3.8.1
     sharp: 0.31.3
     webpack: 5.75.0
@@ -6679,7 +6679,7 @@ __metadata:
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-react": "workspace:sources/@roots/bud-react"
     "@skypack/package-check": 0.2.2
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
     "@types/react": 18.0.26
     "@types/react-dom": 18.0.10
     react: 18.2.0
@@ -6717,7 +6717,7 @@ __metadata:
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
     "@types/postcss-import": 14.0.0
     postcss: 8.4.21
     postcss-import: 15.1.0
@@ -6759,7 +6759,7 @@ __metadata:
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss"
     "@roots/bud-swc": "workspace:sources/@roots/bud-swc"
     "@skypack/package-check": 0.2.2
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
   peerDependencies:
     "@roots/bud": "*"
     "@roots/bud-babel": "*"
@@ -6793,7 +6793,7 @@ __metadata:
     "@roots/bud-wordpress-manifests": "workspace:sources/@roots/bud-wordpress-manifests"
     "@roots/bud-wordpress-theme-json": "workspace:sources/@roots/bud-wordpress-theme-json"
     "@skypack/package-check": 0.2.2
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
   peerDependencies:
     "@roots/bud": "*"
     "@roots/bud-preset-recommend": "*"
@@ -6822,7 +6822,7 @@ __metadata:
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
     "@types/prettier": 2.7.2
     prettier: 2.8.1
   peerDependencies:
@@ -6845,7 +6845,7 @@ __metadata:
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss"
     "@skypack/package-check": 0.2.2
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
   peerDependencies:
     "@fullhuman/postcss-purgecss": "*"
     "@roots/bud": "*"
@@ -6879,7 +6879,7 @@ __metadata:
     "@roots/bud-typescript": "workspace:sources/@roots/bud-typescript"
     "@skypack/package-check": 0.2.2
     "@types/babel__core": 7.1.20
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
     "@types/react": 18.0.26
     "@types/react-dom": 18.0.10
     react: 18.2.0
@@ -6937,7 +6937,7 @@ __metadata:
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss"
     "@skypack/package-check": 0.2.2
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
     postcss: 8.4.21
     postcss-scss: ^4.0.6
     resolve-url-loader: 5.0.0
@@ -6998,7 +6998,7 @@ __metadata:
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@skypack/package-check": 0.2.2
     "@types/babel__core": 7.1.20
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
     babel-preset-solid: 1.6.9
     solid-js: 1.6.6
   peerDependencies:
@@ -7029,7 +7029,7 @@ __metadata:
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
     stylelint: 14.16.1
     stylelint-config-standard: 29.0.0
     stylelint-webpack-plugin: 3.3.0
@@ -7285,7 +7285,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@swc/core": 1.3.24
     "@swc/helpers": 0.4.14
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
     swc-loader: 0.2.3
     webpack: 5.75.0
   peerDependencies:
@@ -7315,7 +7315,7 @@ __metadata:
     "@roots/bud-tailwindcss": "workspace:sources/@roots/bud-tailwindcss"
     "@roots/bud-wordpress-theme-json": "workspace:sources/@roots/bud-wordpress-theme-json"
     "@skypack/package-check": 0.2.2
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
   peerDependencies:
     "@roots/bud": "*"
   peerDependenciesMeta:
@@ -7333,7 +7333,7 @@ __metadata:
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
     "@types/tailwindcss": 3.1.0
     "@types/webpack-virtual-modules": 0.1.1
     tailwindcss: 3.2.4
@@ -7358,7 +7358,7 @@ __metadata:
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
   peerDependencies:
     "@roots/bud": "*"
   peerDependenciesMeta:
@@ -7377,7 +7377,7 @@ __metadata:
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
     "@types/fork-ts-checker-webpack-plugin": 0.4.5
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
     "@types/webpack-env": 1.18.0
     fork-ts-checker-webpack-plugin: ^7.3.0
     react-refresh: ^0.14.0
@@ -7419,7 +7419,7 @@ __metadata:
     "@roots/bud-sass": "workspace:sources/@roots/bud-sass"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
     "@vue/compiler-sfc": ^3.2.45
     vue: ^3.2.45
     vue-loader: ^17.0.1
@@ -7457,7 +7457,7 @@ __metadata:
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/wordpress-dependencies-webpack-plugin": "workspace:sources/@roots/wordpress-dependencies-webpack-plugin"
     "@skypack/package-check": 0.2.2
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
   peerDependencies:
     "@roots/bud": "*"
     "@roots/wordpress-dependencies-webpack-plugin": "*"
@@ -7477,7 +7477,7 @@ __metadata:
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/wordpress-externals-webpack-plugin": "workspace:sources/@roots/wordpress-externals-webpack-plugin"
     "@skypack/package-check": 0.2.2
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
   peerDependencies:
     "@roots/bud": "*"
     "@roots/wordpress-externals-webpack-plugin": "*"
@@ -7499,7 +7499,7 @@ __metadata:
     "@roots/bud-wordpress-externals": "workspace:sources/@roots/bud-wordpress-externals"
     "@roots/merged-manifest-webpack-plugin": "workspace:sources/@roots/merged-manifest-webpack-plugin"
     "@skypack/package-check": 0.2.2
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
   peerDependencies:
     "@roots/bud": "*"
     "@roots/bud-wordpress-dependencies": "*"
@@ -7527,7 +7527,7 @@ __metadata:
     "@roots/container": "workspace:sources/@roots/container"
     "@roots/wordpress-theme-json-webpack-plugin": "workspace:sources/@roots/wordpress-theme-json-webpack-plugin"
     "@skypack/package-check": 0.2.2
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
   peerDependencies:
     "@roots/bud": "*"
   peerDependenciesMeta:
@@ -7555,7 +7555,7 @@ __metadata:
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@roots/bud-terser": "workspace:sources/@roots/bud-terser"
     "@skypack/package-check": 0.2.2
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
     browserslist: 4.21.4
     execa: 6.1.0
     tslib: 2.4.1
@@ -7628,7 +7628,7 @@ __metadata:
   resolution: "@roots/container@workspace:sources/@roots/container"
   dependencies:
     "@skypack/package-check": 0.2.2
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
     helpful-decorators: 2.1.0
     lodash: 4.17.21
     type-fest: 3.5.0
@@ -7640,7 +7640,7 @@ __metadata:
   resolution: "@roots/critical-css-webpack-plugin@workspace:sources/@roots/critical-css-webpack-plugin"
   dependencies:
     "@skypack/package-check": 0.2.2
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
     "@types/vinyl": 2.0.7
     critical: 5.0.4
     helpful-decorators: 2.1.0
@@ -7656,7 +7656,7 @@ __metadata:
   resolution: "@roots/dependencies@workspace:sources/@roots/dependencies"
   dependencies:
     "@skypack/package-check": 0.2.2
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
     helpful-decorators: 2.1.0
   languageName: unknown
   linkType: soft
@@ -7667,7 +7667,7 @@ __metadata:
   dependencies:
     "@skypack/package-check": 0.2.2
     "@types/lodash-es": 4.17.6
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
     helpful-decorators: 2.1.0
     lodash: 4.17.21
     tslib: 2.4.1
@@ -7687,7 +7687,7 @@ __metadata:
     "@types/babel__core": 7.1.20
     "@types/eslint": 8.4.10
     "@types/eslint-plugin-prettier": ^3.1.0
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
     "@types/prettier": 2.7.2
     "@typescript-eslint/eslint-plugin": 5.48.0
     "@typescript-eslint/parser": 5.48.1
@@ -7759,7 +7759,7 @@ __metadata:
     "@types/js-yaml": 4.0.5
     "@types/lodash-es": 4.17.6
     "@types/mime-types": 2.1.1
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
     "@types/safe-json-stringify": 1.1.2
     fs-jetpack: 5.1.0
     globby: 13.1.3
@@ -7778,7 +7778,7 @@ __metadata:
   dependencies:
     "@skypack/package-check": 0.2.2
     "@types/fs-extra": 11.0.1
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
     fs-extra: 11.1.0
     helpful-decorators: 2.1.0
     webpack: 5.75.0
@@ -7795,7 +7795,7 @@ __metadata:
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@roots/container": "workspace:sources/@roots/container"
     "@skypack/package-check": 0.2.2
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
   peerDependencies:
     "@roots/bud": "*"
     "@roots/bud-preset-wordpress": "*"
@@ -7812,8 +7812,7 @@ __metadata:
   resolution: "@roots/wordpress-dependencies-webpack-plugin@workspace:sources/@roots/wordpress-dependencies-webpack-plugin"
   dependencies:
     "@skypack/package-check": 0.2.2
-    "@types/lodash-es": 4.17.6
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
     helpful-decorators: 2.1.0
     lodash: 4.17.21
     webpack: 5.75.0
@@ -7825,7 +7824,7 @@ __metadata:
   resolution: "@roots/wordpress-externals-webpack-plugin@workspace:sources/@roots/wordpress-externals-webpack-plugin"
   dependencies:
     "@skypack/package-check": 0.2.2
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
     lodash: 4.17.21
     webpack: 5.75.0
   languageName: unknown
@@ -7836,7 +7835,7 @@ __metadata:
   resolution: "@roots/wordpress-hmr@workspace:sources/@roots/wordpress-hmr"
   dependencies:
     "@skypack/package-check": 0.2.2
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
     "@types/react": 18.0.26
     "@types/wordpress__blocks": 12.0.1
     "@types/wordpress__data": 6.0.1
@@ -7856,7 +7855,7 @@ __metadata:
   dependencies:
     "@skypack/package-check": 0.2.2
     "@types/lodash-es": 4.17.6
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
     fs-extra: 11.1.0
     helpful-decorators: 2.1.0
     lodash: 4.17.21
@@ -9102,10 +9101,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:16.18.11":
-  version: 16.18.11
-  resolution: "@types/node@npm:16.18.11"
-  checksum: 2a3b1da13063debe6e26f732defb5f03ef4ef732c3e08daba838d8850433bd00e537ce1a97ce9bcfc4b15db5218d701d1265fae94e0d6926906bec157e6b46e0
+"@types/node@npm:18.11.18":
+  version: 18.11.18
+  resolution: "@types/node@npm:18.11.18"
+  checksum: 03f17f9480f8d775c8a72da5ea7e9383db5f6d85aa5fefde90dd953a1449bd5e4ffde376f139da4f3744b4c83942166d2a7603969a6f8ea826edfb16e6e3b49d
   languageName: node
   linkType: hard
 
@@ -13006,7 +13005,7 @@ __metadata:
     "@types/express": 4.17.15
     "@types/fs-extra": 11.0.1
     "@types/lodash": 4.14.191
-    "@types/node": 16.18.11
+    "@types/node": 18.11.18
     "@types/prettier": 2.7.2
     "@typescript-eslint/eslint-plugin": 5.48.0
     "@typescript-eslint/parser": 5.48.1
@@ -18585,7 +18584,7 @@ __metadata:
 
 "fsevents@patch:fsevents@~2.3.2#~builtin<compat/fsevents>":
   version: 2.3.2
-  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=18f3a7"
+  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=df0bf1"
   dependencies:
     node-gyp: latest
   conditions: os=darwin
@@ -29453,7 +29452,7 @@ __metadata:
 
 "resolve@patch:resolve@^1.1.6#~builtin<compat/resolve>, resolve@patch:resolve@^1.1.7#~builtin<compat/resolve>, resolve@patch:resolve@^1.10.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.12.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.14.2#~builtin<compat/resolve>, resolve@patch:resolve@^1.19.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.20.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.22.1#~builtin<compat/resolve>, resolve@patch:resolve@^1.3.2#~builtin<compat/resolve>":
   version: 1.22.1
-  resolution: "resolve@patch:resolve@npm%3A1.22.1#~builtin<compat/resolve>::version=1.22.1&hash=07638b"
+  resolution: "resolve@patch:resolve@npm%3A1.22.1#~builtin<compat/resolve>::version=1.22.1&hash=c3c19d"
   dependencies:
     is-core-module: ^2.9.0
     path-parse: ^1.0.7
@@ -29466,7 +29465,7 @@ __metadata:
 
 "resolve@patch:resolve@^2.0.0-next.1#~builtin<compat/resolve>, resolve@patch:resolve@^2.0.0-next.4#~builtin<compat/resolve>":
   version: 2.0.0-next.4
-  resolution: "resolve@patch:resolve@npm%3A2.0.0-next.4#~builtin<compat/resolve>::version=2.0.0-next.4&hash=07638b"
+  resolution: "resolve@patch:resolve@npm%3A2.0.0-next.4#~builtin<compat/resolve>::version=2.0.0-next.4&hash=c3c19d"
   dependencies:
     is-core-module: ^2.9.0
     path-parse: ^1.0.7
@@ -32732,17 +32731,17 @@ __metadata:
 
 "typescript@patch:typescript@4.9.4#~builtin<compat/typescript>":
   version: 4.9.4
-  resolution: "typescript@patch:typescript@npm%3A4.9.4#~builtin<compat/typescript>::version=4.9.4&hash=701156"
+  resolution: "typescript@patch:typescript@npm%3A4.9.4#~builtin<compat/typescript>::version=4.9.4&hash=ad5954"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 37f6e2c3c5e2aa5934b85b0fddbf32eeac8b1bacf3a5b51d01946936d03f5377fe86255d4e5a4ae628fd0cd553386355ad362c57f13b4635064400f3e8e05b9d
+  checksum: 1caaea6cb7f813e64345190fddc4e6c924d0b698ab81189b503763c4a18f7f5501c69362979d36e19c042d89d936443e768a78b0675690b35eb663d19e0eae71
   languageName: node
   linkType: hard
 
 "typescript@patch:typescript@^4.5.5#~builtin<compat/typescript>, typescript@patch:typescript@^4.8.4#~builtin<compat/typescript>":
   version: 4.8.4
-  resolution: "typescript@patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=701156"
+  resolution: "typescript@patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=0102e9"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver

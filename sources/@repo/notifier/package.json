@@ -2,7 +2,7 @@
   "name": "@repo/notifier",
   "private": true,
   "devDependencies": {
-    "@types/node": "16.18.11",
+    "@types/node": "18.11.18",
     "vitest": "0.27.1"
   },
   "volta": {

@@ -1,6 +1,6 @@
 {
   "name": "bud",
-  "packageManager": "yarn@3.2.4",
+  "packageManager": "yarn@3.3.1",
   "private": true,
   "description": "⚡️ Lightning fast frontend build tools combining the best parts of Symfony Encore and Laravel Mix",
   "repository": {
@@ -9,10 +9,10 @@
   },
   "license": "MIT",
   "engines": {
-    "node": "16.18.0"
+    "node": "18.12.1"
   },
   "volta": {
-    "node": "16.18.0",
+    "node": "18.12.1",
     "yarn": "1.22.19",
     "npm": "8.19.2"
   },
@@ -44,7 +44,7 @@
     "@types/express": "4.17.15",
     "@types/fs-extra": "11.0.1",
     "@types/lodash": "4.14.191",
-    "@types/node": "16.18.11",
+    "@types/node": "18.11.18",
     "@types/prettier": "2.7.2",
     "@typescript-eslint/eslint-plugin": "5.48.0",
     "@typescript-eslint/parser": "5.48.1",

@@ -139,7 +139,7 @@ export abstract class Command extends BaseCommand {
       }
       return code
     } catch (e) {
-      throw new Error(e)
+      
     }
   }
 }

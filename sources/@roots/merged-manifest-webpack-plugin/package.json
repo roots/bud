@@ -52,7 +52,7 @@
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@types/fs-extra": "11.0.1",
-    "@types/node": "16.18.11"
+    "@types/node": "18.11.18"
   },
   "dependencies": {
     "fs-extra": "11.1.0",
