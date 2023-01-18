@@ -18,16 +18,19 @@
   "dependencies": {
     "@repo/constants": "workspace:sources/@repo/constants",
     "@repo/logger": "workspace:sources/@repo/logger",
-    "@types/fs-extra": "9.0.13",
+    "@types/fs-extra": "11.0.1",
     "@types/lodash-es": "4.17.6",
     "@types/node": "18.11.18",
     "@vercel/ncc": "0.36.0",
     "download-package-tarball": "1.0.7",
-    "fs-extra": "10.1.0",
+    "fs-extra": "11.1.0",
     "get-package-json-from-registry": "2.2.2",
     "lodash-es": "4.17.21",
     "npm-package-arg": "10.1.0",
     "registry-info": "1.0.0",
-    "vitest": "0.25.4"
+    "vitest": "0.27.1"
+  },
+  "devDependencies": {
+    "@types/npm-package-arg": "6.1.1"
   }
 }

@@ -3,10 +3,10 @@
 import {posix} from 'node:path'
 
 import {paths, REGISTRY_PROXY} from '@repo/constants'
+import {bind} from '@roots/bud-support/decorators'
+import {json} from '@roots/bud-support/filesystem'
+import * as fs from '@roots/bud-support/fs'
 import {execa, ExecaChildProcess} from 'execa'
-import fs from 'fs-extra'
-import {bind} from 'helpful-decorators'
-import json5 from 'json5'
 
 const {join} = posix
 
@@ -230,7 +230,7 @@ export class Project {
   @bind
   public async readJson(file: string) {
     const buffer = await fs.readFile(file)
-    return json5.parse(buffer.toString())
+    return json.parse(buffer.toString())
   }
 
   /**

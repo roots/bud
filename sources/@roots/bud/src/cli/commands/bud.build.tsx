@@ -2,12 +2,11 @@ import type {CommandContext} from '@roots/bud/cli/commands/bud'
 import BudCommand from '@roots/bud/cli/commands/bud'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators'
+import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import * as t from '@roots/bud-support/typanion'
 
 /**
  * Build command
- *
- * @public
  */
 export default class BudBuildCommand extends BudCommand {
   public static override paths = [[`build`]]
@@ -25,9 +24,12 @@ export default class BudBuildCommand extends BudCommand {
   })
 
   public override withBud = async (bud: BudCommand[`bud`]) => {
-    if (this.notify && this.notifier) {
-      bud.hooks.action(`compiler.close`, async bud => {
-        await this.notifier.compilationNotification()
+    if (!isUndefined(this.notifier)) {
+      bud.hooks.action(`compiler.after`, async () => {
+        bud.compiler.instance.hooks.done.tap(
+          `bud-cli-notifier`,
+          this.notifier.compilationNotification,
+        )
       })
     }
 
@@ -86,7 +88,7 @@ export default class BudBuildCommand extends BudCommand {
   public esm = Option.Boolean(`--esm`, undefined, {
     description: `build as es modules`,
   })
-  public flush = Option.Boolean(`--flush`, undefined, {
+  public flush = Option.Boolean(`--flush,--force`, undefined, {
     description: `Force clearing bud internal cache`,
   })
   public hash = Option.Boolean(`--hash`, undefined, {
@@ -99,11 +101,8 @@ export default class BudBuildCommand extends BudCommand {
   public immutable = Option.Boolean(`--immutable`, undefined, {
     description: `bud.http: immutable module lockfile`,
   })
-  public discovery = Option.Boolean(`--discovery`, undefined, {
+  public discover = Option.Boolean(`--discover,--discovery`, undefined, {
     description: `Automatically register extensions`,
-  })
-  public override notify = Option.Boolean(`--notify`, true, {
-    description: `Enable notfication center messages`,
   })
   public manifest = Option.Boolean(`--manifest`, undefined, {
     description: `Generate a manifest of compiled assets`,
@@ -133,6 +132,7 @@ export default class BudBuildCommand extends BudCommand {
         t.isLiteral(`multiple`),
         t.isBoolean(),
       ]),
+      tolerateBoolean: true,
     },
   )
   public splitChunks = Option.Boolean(
@@ -148,6 +148,9 @@ export default class BudBuildCommand extends BudCommand {
   })
   public ci = Option.Boolean(`--ci`, undefined, {
     description: `Simple build summaries for CI`,
+  })
+  public use = Option.Array(`--use`, undefined, {
+    description: `Enable an extension`,
   })
 
   public override withContext = async (context: CommandContext) => {
@@ -170,7 +173,7 @@ export default class BudBuildCommand extends BudCommand {
       ci: this.ci,
       clean: this.clean,
       debug: this.debug,
-      discovery: this.discovery,
+      discover: this.discover,
       devtool: this.devtool,
       editor: this.editor,
       esm: this.esm,
@@ -183,12 +186,12 @@ export default class BudBuildCommand extends BudCommand {
       manifest: this.manifest,
       minimize: this.minimize,
       mode: this.mode,
-      notify: this.notify,
       publicPath: this.publicPath,
       runtime: this.runtime,
       splitChunks: this.splitChunks,
       storage: this.storage,
       target: this.filter,
+      use: this.use,
     }
   }
 
@@ -200,8 +203,12 @@ export default class BudBuildCommand extends BudCommand {
    */
   @bind
   public override async execute() {
-    await this.makeBud(this)
-    await this.healthcheck(this)
-    await this.run(this)
+    try {
+      await this.makeBud(this)
+      await this.healthcheck(this)
+      await this.run(this)
+    } catch (error) {
+      throw error
+    }
   }
 }

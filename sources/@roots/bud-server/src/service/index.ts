@@ -11,8 +11,6 @@ import {bind} from '@roots/bud-support/decorators'
 
 /**
  * Server service class
- *
- * @public
  */
 export class Server extends Service implements BaseService {
   /**
@@ -135,8 +133,6 @@ export class Server extends Service implements BaseService {
    */
   @bind
   public async injectScripts() {
-    this.app.log(`injecting client scripts`)
-
     const injectOn = async (instance: Bud) =>
       inject(
         instance,
@@ -165,11 +161,18 @@ export class Server extends Service implements BaseService {
       await Promise.all(
         Object.entries(this.enabledMiddleware).map(
           async ([key, signifier]) => {
+            if (
+              this.app.isCLI() &&
+              this.app.context.args.hot === false &&
+              key === `hot`
+            )
+              return
+
             try {
               /** import middleware */
-              const {middleware} = await this.app.module.import(signifier)
+              const {factory} = await this.app.module.import(signifier)
               /** save reference to middleware instance */
-              this.appliedMiddleware[key] = middleware(this.app)
+              this.appliedMiddleware[key] = factory(this.app)
               /** apply middleware */
               this.application.use(this.appliedMiddleware[key])
             } catch (error) {
@@ -182,7 +185,7 @@ export class Server extends Service implements BaseService {
         ),
       )
     } catch (error) {
-      this.logger.error(`Failed to apply middleware`, error)
+      throw error
     }
   }
 

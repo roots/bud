@@ -10,8 +10,14 @@
   },
   "contributors": [
     {
-      "name": "kellymears",
+      "name": "Kelly Mears",
+      "email": "developers@tinypixel.dev",
       "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "Ben Word",
+      "email": "ben@benword.com",
+      "url": "https://github.com/retlehs"
     },
     {
       "name": "QWp6t",
@@ -35,10 +41,13 @@
     "container"
   ],
   "files": [
-    "lib/"
+    "docs",
+    "lib",
+    "src"
   ],
   "type": "module",
   "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "exports": {
     ".": {
       "types": "./lib/index.d.ts",
@@ -49,7 +58,6 @@
       "default": "./lib/container.js"
     }
   },
-  "types": "./lib/index.d.ts",
   "typesVersions": {
     "*": {
       ".": [
@@ -62,14 +70,12 @@
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/lodash-es": "4.17.6",
     "@types/node": "18.11.18",
-    "type-fest": "3.3.0"
+    "type-fest": "3.5.0"
   },
   "dependencies": {
-    "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "helpful-decorators": "2.1.0",
-    "lodash-es": "4.17.21"
+    "lodash": "4.17.21"
   },
   "volta": {
     "extends": "../../../package.json"

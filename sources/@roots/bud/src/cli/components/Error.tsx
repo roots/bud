@@ -1,4 +1,4 @@
-import {Box, Text} from '@roots/bud-support/ink'
+import Ink from '@roots/bud-support/ink'
 import React from '@roots/bud-support/react'
 
 export type Props = React.PropsWithChildren<{
@@ -8,18 +8,18 @@ export type Props = React.PropsWithChildren<{
 
 export const Error = ({children, label, message}: Props) => {
   return (
-    <Box flexDirection="column" marginY={1}>
-      <Text backgroundColor="red" color="white">
+    <Ink.Box flexDirection="column" marginY={1}>
+      <Ink.Text backgroundColor="red" color="white">
         {label}
-      </Text>
+      </Ink.Text>
 
       {children ? children : <Message>{message}</Message>}
-    </Box>
+    </Ink.Box>
   )
 }
 
 export const Message = ({children}: React.PropsWithChildren<{}>) => (
-  <Box flexDirection="column">
-    <Text>{children}</Text>
-  </Box>
+  <Ink.Box flexDirection="column">
+    <Ink.Text>{children}</Ink.Text>
+  </Ink.Box>
 )

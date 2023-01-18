@@ -17,8 +17,14 @@
   "license": "MIT",
   "contributors": [
     {
-      "name": "kellymears",
+      "name": "Kelly Mears",
+      "email": "developers@tinypixel.dev",
       "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "Ben Word",
+      "email": "ben@benword.com",
+      "url": "https://github.com/retlehs"
     },
     {
       "name": "QWp6t",
@@ -58,21 +64,86 @@
     "@babel/core": "7.20.7",
     "@skypack/package-check": "0.2.2",
     "@types/babel__core": "7.1.20",
+    "@types/eslint": "8.4.10",
+    "@types/eslint-plugin-prettier": "^3.1.0",
     "@types/node": "18.11.18",
-    "@types/prettier": "2.7.1",
-    "eslint": "8.29.0",
-    "prettier": "2.8.0"
+    "@types/prettier": "2.7.2",
+    "eslint": "8.31.0",
+    "prettier": "2.8.1"
   },
   "dependencies": {
     "@babel/eslint-parser": "7.19.1",
-    "@typescript-eslint/eslint-plugin": "5.45.1",
-    "@typescript-eslint/parser": "5.45.1",
+    "@typescript-eslint/eslint-plugin": "5.48.0",
+    "@typescript-eslint/parser": "5.48.1",
     "eslint-config-prettier": "8.5.0",
-    "eslint-plugin-import": "2.26.0",
+    "eslint-plugin-import": "2.27.5",
     "eslint-plugin-jsx-a11y": "^6.6.1",
     "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-react": "7.31.11",
+    "eslint-plugin-react": "7.32.1",
     "eslint-plugin-react-hooks": "4.6.0"
+  },
+  "peerDependencies": {
+    "@babel/core": "*",
+    "@babel/eslint-parser": "*",
+    "@types/babel__core": "*",
+    "@types/eslint": "*",
+    "@types/eslint-plugin-prettier": "*",
+    "@typescript-eslint/eslint-plugin": "*",
+    "@typescript-eslint/parser": "*",
+    "eslint": "*",
+    "eslint-config-prettier": "*",
+    "eslint-plugin-import": "*",
+    "eslint-plugin-jsx-a11y": "*",
+    "eslint-plugin-prettier": "*",
+    "eslint-plugin-react": "*",
+    "eslint-plugin-react-hooks": "*"
+  },
+  "peerDependenciesMeta": {
+    "@babel/core": {
+      "optional": true
+    },
+    "@babel/eslint-parser": {
+      "optional": true
+    },
+    "@types/babel__core": {
+      "optional": true
+    },
+    "@types/eslint": {
+      "optional": true
+    },
+    "@types/eslint-plugin-prettier": {
+      "optional": true
+    },
+    "@types/prettier": {
+      "optional": true
+    },
+    "@typescript-eslint/eslint-plugin": {
+      "optional": true
+    },
+    "@typescript-eslint/parser": {
+      "optional": true
+    },
+    "eslint": {
+      "optional": true
+    },
+    "eslint-config-prettier": {
+      "optional": true
+    },
+    "eslint-plugin-import": {
+      "optional": true
+    },
+    "eslint-plugin-jsx-a11y": {
+      "optional": true
+    },
+    "eslint-plugin-prettier": {
+      "optional": true
+    },
+    "eslint-plugin-react": {
+      "optional": true
+    },
+    "eslint-plugin-react-hooks": {
+      "optional": true
+    }
   },
   "volta": {
     "extends": "../../../package.json"

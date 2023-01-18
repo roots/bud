@@ -4,28 +4,28 @@ import * as MiniCss from '@roots/bud-support/mini-css-extract-plugin'
 import type {Factory} from '../index.js'
 
 export const css: Factory<Loader> = ({makeLoader}) =>
-  makeLoader(`css-loader`)
+  makeLoader(`@roots/bud-support/css-loader`)
 
 export const csv: Factory<Loader> = ({makeLoader}) =>
-  makeLoader(`csv-loader`)
+  makeLoader(`@roots/bud-support/csv-loader`)
 
 export const file: Factory<Loader> = ({makeLoader}) =>
-  makeLoader(`file-loader`)
+  makeLoader(`@roots/bud-support/file-loader`)
 
 export const html: Factory<Loader> = ({makeLoader}) =>
-  makeLoader(`html-loader`)
+  makeLoader(`@roots/bud-support/html-loader`)
 
 export const remark: Factory<Loader> = ({makeLoader}) =>
-  makeLoader(`remark-loader`)
+  makeLoader(`@roots/bud-support/remark-loader`)
 
 export const minicss: Factory<Loader> = ({makeLoader}) =>
   makeLoader(MiniCss.loader)
 
 export const style: Factory<Loader> = ({makeLoader}) =>
-  makeLoader(`style-loader`)
+  makeLoader(`@roots/bud-support/style-loader`)
 
 export const xml: Factory<Loader> = ({makeLoader}) =>
-  makeLoader(`xml-loader`)
+  makeLoader(`@roots/bud-support/xml-loader`)
 
 export const yml: Factory<Loader> = ({makeLoader}) =>
-  makeLoader(`yml-loader`)
+  makeLoader(`@roots/bud-support/yml-loader`)

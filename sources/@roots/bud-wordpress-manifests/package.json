@@ -17,8 +17,14 @@
   "license": "MIT",
   "contributors": [
     {
-      "name": "kellymears",
+      "name": "Kelly Mears",
+      "email": "developers@tinypixel.dev",
       "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "Ben Word",
+      "email": "ben@benword.com",
+      "url": "https://github.com/retlehs"
     },
     {
       "name": "QWp6t",
@@ -36,33 +42,53 @@
     "type": "extension"
   },
   "files": [
-    "lib/"
+    "docs",
+    "lib",
+    "src"
   ],
   "type": "module",
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "exports": {
-    ".": "./lib/index.js"
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    }
   },
   "typesVersions": {
     "*": {
       ".": [
-        "./lib/index.js"
+        "./lib/index.d.ts"
       ]
     }
   },
   "devDependencies": {
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "@roots/bud": "workspace:sources/@roots/bud",
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.11.18"
   },
   "dependencies": {
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "@roots/bud-wordpress-dependencies": "workspace:sources/@roots/bud-wordpress-dependencies",
+    "@roots/bud-wordpress-externals": "workspace:sources/@roots/bud-wordpress-externals",
     "@roots/merged-manifest-webpack-plugin": "workspace:sources/@roots/merged-manifest-webpack-plugin"
   },
   "peerDependencies": {
+    "@roots/bud": "*",
+    "@roots/bud-wordpress-dependencies": "*",
+    "@roots/bud-wordpress-externals": "*",
     "@roots/merged-manifest-webpack-plugin": "*"
   },
   "peerDependenciesMeta": {
+    "@roots/bud": {
+      "optional": true
+    },
+    "@roots/bud-wordpress-dependencies": {
+      "optional": true
+    },
+    "@roots/bud-wordpress-externals": {
+      "optional": true
+    },
     "@roots/merged-manifest-webpack-plugin": {
       "optional": true
     }

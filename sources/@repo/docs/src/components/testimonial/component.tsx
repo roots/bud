@@ -35,7 +35,8 @@ export default function Testimony({
           <div className="avatar__intro">
             <div className={styles.tweet}>
               <div>
-                <strong>{name}</strong>{` `}
+                <strong>{name}</strong>
+                {` `}
                 <span className={styles.tweetMeta}>@{handle}</span>
               </div>
             </div>

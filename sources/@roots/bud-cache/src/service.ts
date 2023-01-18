@@ -1,17 +1,16 @@
 import {createHash} from 'node:crypto'
 
-import type {Configuration} from '@roots/bud-framework/config'
 import {Service} from '@roots/bud-framework/service'
 import type * as Services from '@roots/bud-framework/services'
 import {bind} from '@roots/bud-support/decorators'
-import {isString, join} from '@roots/bud-support/lodash-es'
+import isString from '@roots/bud-support/lodash/isString'
+import join from '@roots/bud-support/lodash/join'
+import type {Configuration} from '@roots/bud-support/webpack'
 
 import InvalidateCacheExtension from './invalidate-cache-extension/index.js'
 
 /**
  * Cache service class
- *
- * @public
  */
 export default class Cache
   extends Service

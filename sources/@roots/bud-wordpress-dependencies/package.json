@@ -9,8 +9,14 @@
   },
   "contributors": [
     {
-      "name": "kellymears",
+      "name": "Kelly Mears",
+      "email": "developers@tinypixel.dev",
       "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "Ben Word",
+      "email": "ben@benword.com",
+      "url": "https://github.com/retlehs"
     },
     {
       "name": "QWp6t",
@@ -36,7 +42,9 @@
     "type": "extension"
   },
   "files": [
-    "lib/"
+    "docs",
+    "lib",
+    "src"
   ],
   "type": "module",
   "module": "./lib/index.js",
@@ -56,6 +64,7 @@
     }
   },
   "devDependencies": {
+    "@roots/bud": "workspace:sources/@roots/bud",
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.11.18"
   },
@@ -64,9 +73,13 @@
     "@roots/wordpress-dependencies-webpack-plugin": "workspace:sources/@roots/wordpress-dependencies-webpack-plugin"
   },
   "peerDependencies": {
+    "@roots/bud": "*",
     "@roots/wordpress-dependencies-webpack-plugin": "*"
   },
   "peerDependenciesMeta": {
+    "@roots/bud": {
+      "optional": true
+    },
     "@roots/wordpress-dependencies-webpack-plugin": {
       "optional": true
     }

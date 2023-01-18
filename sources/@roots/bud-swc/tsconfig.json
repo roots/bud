@@ -2,10 +2,13 @@
   "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
     "rootDir": "./src",
-    "outDir": "./lib"
+    "outDir": "./lib",
+    "paths": {
+      "@roots/bud-swc": ["./src/index.ts", "./src/index.tsx", "./src/index.d.ts"],
+      "@roots/bud-swc/*": ["./src/*/index.ts", "./src/*/index.tsx", "./src/*/index.d.ts"]
+    }
   },
   "include": ["./src"],
-  "exclude": ["./lib", "./node_modules", "**/*.test.ts"],
   "references": [
     {"path": "./../bud-framework/tsconfig.json"},
     {"path": "./../bud-extensions/tsconfig.json"},

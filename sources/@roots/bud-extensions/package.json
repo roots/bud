@@ -18,8 +18,14 @@
   "license": "MIT",
   "contributors": [
     {
-      "name": "kellymears",
+      "name": "Kelly Mears",
+      "email": "developers@tinypixel.dev",
       "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "Ben Word",
+      "email": "ben@benword.com",
+      "url": "https://github.com/retlehs"
     },
     {
       "name": "QWp6t",
@@ -34,7 +40,8 @@
     "node": ">=16"
   },
   "files": [
-    "lib/"
+    "docs",
+    "lib"
   ],
   "type": "module",
   "module": "./lib/index.js",
@@ -69,7 +76,8 @@
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.11.18",
-    "palette-webpack-plugin": "1.0.5"
+    "palette-webpack-plugin": "1.0.5",
+    "webpack": "5.75.0"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",

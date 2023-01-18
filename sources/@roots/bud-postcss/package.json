@@ -18,8 +18,14 @@
   },
   "contributors": [
     {
-      "name": "kellymears",
+      "name": "Kelly Mears",
+      "email": "developers@tinypixel.dev",
       "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "Ben Word",
+      "email": "ben@benword.com",
+      "url": "https://github.com/retlehs"
     },
     {
       "name": "QWp6t",
@@ -38,7 +44,9 @@
     "type": "extension"
   },
   "files": [
-    "lib/"
+    "docs",
+    "lib",
+    "src"
   ],
   "type": "module",
   "module": "./lib/index.js",
@@ -58,17 +66,18 @@
     }
   },
   "devDependencies": {
+    "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-build": "workspace:sources/@roots/bud-build",
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.11.18",
-    "@types/signale": "1.4.4",
+    "@types/postcss-import": "14.0.0",
     "webpack": "5.75.0"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "postcss": "8.4.19",
-    "postcss-import": "15.0.1",
+    "postcss": "8.4.21",
+    "postcss-import": "15.1.0",
     "postcss-loader": "7.0.2",
     "postcss-nested": "6.0.0",
     "postcss-preset-env": "7.8.3"
@@ -82,6 +91,9 @@
     "postcss-preset-env": "*"
   },
   "peerDependenciesMeta": {
+    "@roots/bud": {
+      "optional": true
+    },
     "postcss": {
       "optional": true
     },

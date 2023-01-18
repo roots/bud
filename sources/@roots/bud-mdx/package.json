@@ -10,8 +10,14 @@
   },
   "contributors": [
     {
-      "name": "kellymears",
+      "name": "Kelly Mears",
+      "email": "developers@tinypixel.dev",
       "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "Ben Word",
+      "email": "ben@benword.com",
+      "url": "https://github.com/retlehs"
     },
     {
       "name": "QWp6t",
@@ -38,7 +44,9 @@
     "type": "extension"
   },
   "files": [
-    "lib/"
+    "docs",
+    "lib",
+    "src"
   ],
   "type": "module",
   "module": "./lib/index.js",
@@ -58,40 +66,47 @@
     }
   },
   "devDependencies": {
+    "@roots/bud": "workspace:sources/@roots/bud",
+    "@roots/bud-build": "workspace:sources/@roots/bud-build",
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.11.18",
-    "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "@types/react": "18.0.26",
+    "@types/react-dom": "18.0.10",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "webpack": "5.75.0"
   },
   "dependencies": {
-    "@mdx-js/loader": "^2.1.5",
+    "@mdx-js/loader": "^2.2.1",
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
-    "@roots/bud-build": "workspace:sources/@roots/bud-build",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/bud-react": "workspace:sources/@roots/bud-react",
-    "webpack": "5.75.0"
+    "@roots/bud-react": "workspace:sources/@roots/bud-react"
   },
   "peerDependencies": {
     "@mdx-js/loader": "*",
+    "@roots/bud": "*",
     "@roots/bud-babel": "*",
-    "@roots/bud-build": "*",
-    "@roots/bud-framework": "*",
-    "@roots/bud-react": "*"
+    "@roots/bud-react": "*",
+    "react": "*",
+    "react-dom": "*"
   },
   "peerDependenciesMeta": {
     "@mdx-js/loader": {
       "optional": true
     },
+    "@roots/bud": {
+      "optional": true
+    },
     "@roots/bud-babel": {
       "optional": true
     },
-    "@roots/bud-build": {
-      "optional": true
-    },
-    "@roots/bud-framework": {
-      "optional": true
-    },
     "@roots/bud-react": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
       "optional": true
     }
   },

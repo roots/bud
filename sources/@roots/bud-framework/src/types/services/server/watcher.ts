@@ -4,8 +4,6 @@ import type {Bud} from '../../../index.js'
 
 /**
  * Watcher
- *
- * @public
  */
 export interface Watcher {
   _app: () => Bud

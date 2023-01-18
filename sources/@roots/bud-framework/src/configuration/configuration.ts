@@ -1,7 +1,8 @@
 import {bind} from '@roots/bud-support/decorators'
-import {isFunction} from '@roots/bud-support/lodash-es'
+import isFunction from '@roots/bud-support/lodash/isFunction'
 
 import type {Bud} from '../bud.js'
+import type {File} from '../types/options/context.js'
 
 /**
  * User config parser
@@ -12,7 +13,7 @@ class Configuration {
    * Class constructor
    * @public
    */
-  public constructor(public app: Bud) {}
+  public constructor(public bud: Bud) {}
 
   /**
    * Process configuration
@@ -21,21 +22,22 @@ class Configuration {
    * @decorator `@bind`
    */
   @bind
-  public async run(description: any): Promise<unknown> {
-    if (description.dynamic) {
-      this.app.log(
-        `processing as dynamic configuration:`,
-        description.name,
-      )
+  public async run(description: File): Promise<unknown> {
+    if (!description.module) return
 
-      const configCallable =
-        description.module?.default ?? description.module
-      await configCallable(this.app)
-    } else {
-      this.app.log(`processing as static configuration:`, description.name)
+    return description.dynamic
+      ? await this.dynamicConfig(description)
+      : await this.staticConfig(description)
+  }
 
-      return await this.processStaticConfiguration(description)
-    }
+  @bind
+  public async dynamicConfig(description: any): Promise<unknown> {
+    this.bud.log(`processing as dynamic configuration:`, description.name)
+
+    const configCallable =
+      description.module?.default ?? description.module
+
+    return await configCallable(this.bud)
   }
 
   /**
@@ -45,16 +47,14 @@ class Configuration {
    * @decorator `@bind`
    */
   @bind
-  public async processStaticConfiguration(
+  public async staticConfig(
     description: Record<string, any>,
   ): Promise<unknown> {
-    this.app.info(
-      `${description.name} is being processed as a static config`,
-    )
+    this.bud.log(`processing as static configuration:`, description.name)
 
     return await Promise.all(
       Object.entries(description.module).map(async ([key, value]) => {
-        const request = this.app[key]
+        const request = this.bud[key]
         if (isFunction(request)) await request(value)
       }),
     )

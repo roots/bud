@@ -32,7 +32,7 @@ export default class BudTypeCheckPlugin extends Extension<
    * @override
    * @decorator `@bind`
    */
-  @bind public override async enable(state: boolean = true) {
+  @bind public override enable(state: boolean = true) {
     this.app.extensions
       .get(`@roots/bud-typescript`)
       .setOption(`transpileOnly`, !state)
@@ -42,6 +42,8 @@ export default class BudTypeCheckPlugin extends Extension<
         .get(`@roots/bud-typescript`)
         .getOption(`transpileOnly`)}`,
     )
+
+    return this
   }
 
   /**

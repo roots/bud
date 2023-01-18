@@ -3,8 +3,7 @@ import {dry} from '@roots/bud/cli/decorators/command.dry'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators'
 import {ensureDir, remove} from '@roots/bud-support/fs'
-import {Box, Text} from '@roots/bud-support/ink'
-import {isString} from '@roots/bud-support/lodash-es'
+import Ink from '@roots/bud-support/ink'
 import React from '@roots/bud-support/react'
 
 /**
@@ -16,6 +15,7 @@ import React from '@roots/bud-support/react'
 @dry
 export default class BudCleanCommand extends BudCommand {
   public static override paths = [[`clean`]]
+
   public static override usage = Command.Usage({
     category: `tasks`,
     description: `Clean project artifacts and caches`,
@@ -64,36 +64,71 @@ export default class BudCleanCommand extends BudCommand {
   @bind
   public async cleanOutput() {
     try {
-      await remove(this.bud.path(`@dist`))
+      if (this.bud.hasChildren) {
+        return await Promise.all(
+          Object.values(this.bud.children).map(async child => {
+            try {
+              await remove(child.path(`@dist`))
+              await this.renderOnce(
+                <Ink.Box>
+                  <Ink.Text color="green">
+                    ✔ emptied {child.path(`@dist`)}
+                  </Ink.Text>
+                </Ink.Box>,
+              )
+            } catch (error) {
+              throw error
+            }
+          }),
+        )
+      }
 
+      await remove(this.bud.path(`@dist`))
       await this.renderOnce(
-        <Box>
-          <Text color="green">✔ emptied {this.bud.path(`@dist`)}</Text>
-        </Box>,
+        <Ink.Box>
+          <Ink.Text color="green">
+            ✔ emptied {this.bud.path(`@dist`)}
+          </Ink.Text>
+        </Ink.Box>,
       )
-    } catch (err) {
-      this.context.stderr.write(err)
+    } catch (error) {
+      throw error
     }
   }
 
   @bind
   public async cleanStorage() {
+    if (this.bud.hasChildren) {
+      return await Promise.all(
+        Object.values(this.bud.children).map(async child => {
+          try {
+            await remove(child.path(`@dist`))
+            await this.renderOnce(
+              <Ink.Box>
+                <Ink.Text color="green">
+                  ✔ emptied {child.path(`@storage`)}
+                </Ink.Text>
+              </Ink.Box>,
+            )
+          } catch (error) {
+            throw error
+          }
+        }),
+      )
+    }
+
     try {
       await ensureDir(this.bud.path(`@storage`))
       await remove(this.bud.path(`@storage`))
       await this.renderOnce(
-        <Box>
-          <Text color="green">✔ emptied {this.bud.path(`@storage`)}</Text>
-        </Box>,
+        <Ink.Box>
+          <Ink.Text color="green">
+            ✔ emptied {this.bud.path(`@storage`)}
+          </Ink.Text>
+        </Ink.Box>,
       )
-    } catch (err) {
-      await this.renderOnce(
-        <Box>
-          <Text>
-            {err?.message ?? isString(err) ? err : JSON.stringify(err)}
-          </Text>
-        </Box>,
-      )
+    } catch (error) {
+      throw error
     }
   }
 }

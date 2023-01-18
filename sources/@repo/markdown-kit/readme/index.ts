@@ -1,8 +1,8 @@
 import {join} from 'node:path'
 
 import {paths, projectConfig, REPO_PATH} from '@repo/constants'
-import fs from 'fs-extra'
-import {globby} from 'globby'
+import * as fs from '@roots/bud-support/fs'
+import globby from '@roots/bud-support/globby'
 import matter, {GrayMatterFile} from 'gray-matter'
 import {format} from 'prettier'
 

@@ -1,7 +1,7 @@
-import {Box, Text} from '@roots/bud-support/ink'
+import figures from '@roots/bud-support/figures'
+import Ink from '@roots/bud-support/ink'
 import Link from '@roots/bud-support/ink-link'
 import React from '@roots/bud-support/react'
-import figures from 'figures'
 
 import {color} from '../format.js'
 import getProxy from './getProxy.js'
@@ -17,8 +17,6 @@ interface Props {
 
 /**
  * Server info ink component
- *
- * @public
  */
 export const Server = ({
   devUrl,
@@ -31,16 +29,16 @@ export const Server = ({
   const watchedFilesCount = useWatchedFilesCount(watchFiles)
 
   return (
-    <Box flexDirection="column">
-      <Box flexDirection="row">
-        <Text color={color.cyan} dimColor={!displayServerInfo}>
-          {figures.info} <Text underline>s</Text>erver
-        </Text>
-      </Box>
+    <Ink.Box flexDirection="column">
+      <Ink.Box flexDirection="row">
+        <Ink.Text color={color.cyan} dimColor={!displayServerInfo}>
+          {figures.info} <Ink.Text underline>s</Ink.Text>erver
+        </Ink.Text>
+      </Ink.Box>
 
       {displayServerInfo ? (
         <>
-          <Text dimColor>{figures.lineVerticalDashed7}</Text>
+          <Ink.Text dimColor>{figures.lineVerticalDashed7}</Ink.Text>
 
           {proxy && <Value label="proxy" value={proxy} />}
 
@@ -51,30 +49,30 @@ export const Server = ({
             </>
           ) : null}
 
-          <Box
+          <Ink.Box
             marginTop={1}
             minWidth="100%"
             flexDirection="row"
             justifyContent="space-between"
           >
-            <Text>
+            <Ink.Text>
               {figures.ellipsis} watching project sources
               {watchedFilesCount > 0 && (
-                <Text dimColor>
+                <Ink.Text dimColor>
                   {` `}
                   (and {watchedFilesCount} other{` `}
                   {watchedFilesCount > 1 ? `files` : `file`}){` `}
-                </Text>
+                </Ink.Text>
               )}
-            </Text>
+            </Ink.Text>
 
-            <Text>
-              {figures.info} <Text dimColor>ctrl+c to exit</Text>
-            </Text>
-          </Box>
+            <Ink.Text>
+              {figures.info} <Ink.Text dimColor>ctrl+c to exit</Ink.Text>
+            </Ink.Text>
+          </Ink.Box>
         </>
       ) : null}
-    </Box>
+    </Ink.Box>
   )
 }
 
@@ -87,18 +85,18 @@ const Value = ({
   value: string
   last?: boolean
 }) => (
-  <Box flexDirection="row">
-    <Box marginRight={1}>
-      <Text dimColor>
+  <Ink.Box flexDirection="row">
+    <Ink.Box marginRight={1}>
+      <Ink.Text dimColor>
         {last ? `└─` : `├─`} {label}:
-      </Text>
-    </Box>
+      </Ink.Text>
+    </Ink.Box>
 
-    <Box>
+    <Ink.Box>
       {/* @ts-ignore */}
       <Link url={value}>
-        <Text>{value}</Text>
+        <Ink.Text>{value}</Ink.Text>
       </Link>
-    </Box>
-  </Box>
+    </Ink.Box>
+  </Ink.Box>
 )

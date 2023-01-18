@@ -9,16 +9,18 @@
   },
   "contributors": [
     {
-      "name": "kellymears",
+      "name": "Kelly Mears",
+      "email": "developers@tinypixel.dev",
       "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "Ben Word",
+      "email": "ben@benword.com",
+      "url": "https://github.com/retlehs"
     },
     {
       "name": "QWp6t",
       "url": "https://github.com/QWp6t"
-    },
-    {
-      "name": "catgofire",
-      "url": "https://github.com/catgofire"
     }
   ],
   "license": "MIT",
@@ -69,23 +71,21 @@
   },
   "dependencies": {
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
-    "@roots/bud-entrypoints": "workspace:sources/@roots/bud-entrypoints",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
-    "webpack": "5.75.0"
+    "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss"
   },
   "peerDependencies": {
     "@roots/bud": "*",
     "@roots/bud-babel": "*",
-    "@roots/bud-entrypoints": "*",
     "@roots/bud-esbuild": "*",
-    "@roots/bud-postcss": "*"
+    "@roots/bud-postcss": "*",
+    "@roots/bud-swc": "*"
   },
   "peerDependenciesMeta": {
-    "@roots/bud-babel": {
+    "@roots/bud": {
       "optional": true
     },
-    "@roots/bud-entrypoints": {
+    "@roots/bud-babel": {
       "optional": true
     },
     "@roots/bud-esbuild": {

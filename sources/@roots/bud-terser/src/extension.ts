@@ -12,8 +12,6 @@ import type {Plugin} from '@roots/bud-support/terser-webpack-plugin'
 
 /**
  * `terser-webpack-plugin` options
- *
- * @public
  */
 export type Options = Plugin.BasePluginOptions & {
   minify?: Plugin.MinimizerImplementation<any>

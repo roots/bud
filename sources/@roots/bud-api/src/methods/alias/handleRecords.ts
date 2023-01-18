@@ -6,8 +6,6 @@ import type {Parameters} from './types.js'
 
 /**
  * Handle {[key]: value} records
- *
- * @public
  */
 export async function handleRecords(bud: Bud, input: Parameters) {
   const validation = await schema.records.safeParseAsync(input[0])

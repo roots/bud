@@ -1,7 +1,7 @@
 import {externalNetworkInterface} from '@roots/bud-support/os'
 import {describe, expect, it} from 'vitest'
 
-import {formatUrl} from './formatUrl'
+import {formatUrl} from './formatUrl.js'
 
 describe(`formatUrl`, () => {
   describe(`internal`, () => {

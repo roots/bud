@@ -2,8 +2,8 @@ name: Deploy docs
 
 on:
   push:
-    tags:
-      - 'v*'
+    branches:
+      - main
 
 jobs:
   release:
@@ -18,22 +18,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18.12.1
+          cache: yarn
 
-      - name: Cache
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
-
-      - name: Restore
-        uses: actions/cache@v3
-        id: yarn-cache
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-
-      - name: yarn install
-        run: yarn install
+      - name: yarn
+        run: yarn
 
       - name: yarn @bud build
         run: yarn @bud build

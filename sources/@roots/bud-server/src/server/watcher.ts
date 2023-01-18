@@ -8,8 +8,6 @@ import {bind} from '@roots/bud-support/decorators'
 
 /**
  * FS Watcher
- *
- * @public
  */
 export class Watcher implements Server.Watcher {
   /**

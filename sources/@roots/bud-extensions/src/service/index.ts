@@ -9,7 +9,7 @@ import {
 import {Service} from '@roots/bud-framework/service'
 import type {Extensions as Contract} from '@roots/bud-framework/services'
 import {bind} from '@roots/bud-support/decorators'
-import {isUndefined} from '@roots/bud-support/lodash-es'
+import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import Container from '@roots/container'
 
 import {handleManifestSchemaWarning} from './util/handleManifestSchemaWarning.js'
@@ -17,8 +17,6 @@ import {isConstructor} from './util/isConstructor.js'
 
 /**
  * Extensions Service
- *
- * @public
  */
 export default class Extensions
   extends Service
@@ -40,7 +38,7 @@ export default class Extensions
   public options: Container<{
     allowlist: Array<string>
     denylist: Array<string>
-    discovery: boolean
+    discover: boolean
   }>
 
   /**
@@ -60,7 +58,7 @@ export default class Extensions
     this.options = new Container({
       allowlist: [],
       denylist: [],
-      discovery: true,
+      discover: true,
     })
   }
 
@@ -90,18 +88,25 @@ export default class Extensions
     const {extensions, manifest} = bud.context
 
     if (manifest?.bud?.extensions) {
-      const {discovery, allowlist, denylist} = manifest.bud.extensions
+      const {
+        discover: _discover,
+        discovery: _discovery,
+        allowlist,
+        denylist,
+      } = manifest.bud.extensions
 
-      if (!isUndefined(discovery)) this.options.set(`discovery`, discovery)
+      const discover = _discover ?? _discovery
+
+      if (!isUndefined(discover)) this.options.set(`discover`, discover)
       if (!isUndefined(allowlist))
         this.options.merge(`allowlist`, allowlist)
       if (!isUndefined(denylist)) this.options.merge(`denylist`, denylist)
     }
 
     if (manifest?.[this.app.label]?.extensions) {
-      const {discovery, allowlist, denylist} =
+      const {discover, allowlist, denylist} =
         manifest[this.app.label].extensions
-      if (!isUndefined(discovery)) this.options.set(`discovery`, discovery)
+      if (!isUndefined(discover)) this.options.set(`discover`, discover)
       if (!isUndefined(allowlist))
         this.options.merge(`allowlist`, allowlist)
       if (!isUndefined(denylist)) this.options.merge(`denylist`, denylist)
@@ -115,17 +120,18 @@ export default class Extensions
         extensions.builtIn.filter(Boolean).map(this.import),
       )
 
-    if (bud.isCLI() && !isUndefined(bud.context.args.discovery)) {
-      this.options.set(`discovery`, bud.context.args.discovery)
+    if (bud.isCLI() && !isUndefined(bud.context.args.discover)) {
+      this.options.set(`discover`, bud.context.args.discover)
     }
 
     if (
-      this.options.is(`discovery`, true) &&
+      this.options.is(`discover`, true) &&
       this.options.isEmpty(`allowlist`) &&
-      Array.isArray(bud.context.extensions.discovered)
+      !isUndefined(extensions.discovered) &&
+      Array.isArray(extensions.discovered)
     )
       await Promise.all(
-        bud.context.extensions.discovered
+        extensions.discovered
           .filter(Boolean)
           .filter(this.isAllowed)
           .map(this.import),
@@ -298,7 +304,7 @@ export default class Extensions
           .map(async (dependency: K) => await this.import(dependency)),
       )
 
-    if (instance.dependsOnOptional)
+    if (this.options.is(`discover`, true) && instance.dependsOnOptional)
       await Promise.all(
         Array.from(instance.dependsOnOptional)
           .filter(this.isAllowed)
@@ -445,7 +451,7 @@ export default class Extensions
         }, Promise.resolve())
     }
 
-    if (extension.dependsOnOptional)
+    if (this.options.is(`discover`, true) && extension.dependsOnOptional)
       await Array.from(extension.dependsOnOptional)
         .filter(this.isAllowed)
         .filter((signifier: K) => !this.unresolvable.has(signifier))

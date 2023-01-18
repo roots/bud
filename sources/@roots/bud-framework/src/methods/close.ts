@@ -1,4 +1,4 @@
-import {isFunction} from '@roots/bud-support/lodash-es'
+import isFunction from '@roots/bud-support/lodash/isFunction'
 
 import type {Bud} from '../bud.js'
 
@@ -7,8 +7,6 @@ import type {Bud} from '../bud.js'
  *
  * @param this - {@link @roots/bud-Bud#Bud}
  * @param done - Callback function to be called before end of run
- *
- * @public
  */
 export interface close {
   (done?: () => unknown): Promise<void>
@@ -21,8 +19,6 @@ export interface close {
  * ```js
  * bud.close()
  * ```
- *
- * @public
  */
 export function close(onComplete?: any) {
   const application = this as Bud

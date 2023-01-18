@@ -1,3 +1,5 @@
-document.querySelector('.app')?.classList.add('init')
+import './global.css'
 
-module?.hot?.accept()
+document.querySelector('#root')?.classList.add('init')
+
+module?.hot?.accept(console.error)

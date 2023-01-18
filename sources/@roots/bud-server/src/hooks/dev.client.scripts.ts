@@ -1,12 +1,11 @@
 import type {Bud} from '@roots/bud-framework'
-import {isNull, isUndefined} from '@roots/bud-support/lodash-es'
+import isNull from '@roots/bud-support/lodash/isNull'
+import isUndefined from '@roots/bud-support/lodash/isUndefined'
 
 /**
  * Overlay
  *
  * @returns Set of client script callbacks
- *
- * @public
  */
 export const callback = () => new Set([hmrClient])
 
@@ -15,8 +14,6 @@ export const callback = () => new Set([hmrClient])
  *
  * @param app - Bud instance
  * @returns string
- *
- * @public
  */
 export const proxyClickInterceptor = (app: Bud) => {
   if (!app.hooks.filter(`dev.middleware.enabled`, []).includes(`proxy`))
@@ -38,10 +35,10 @@ export const proxyClickInterceptor = (app: Bud) => {
  *
  * @param app - Bud instance
  * @returns string
- *
- * @public
  */
 export const hmrClient = (app: Bud) => {
+  if (app.isCLI() && app.context.args.hot === false) return
+
   const params = new URLSearchParams({
     name: app.label,
 

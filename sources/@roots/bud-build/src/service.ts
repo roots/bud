@@ -2,7 +2,8 @@ import type {Items, Loaders, Rules} from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework/service'
 import type * as Base from '@roots/bud-framework/services/build'
 import {bind} from '@roots/bud-support/decorators'
-import {isFunction, isUndefined} from '@roots/bud-support/lodash-es'
+import isFunction from '@roots/bud-support/lodash/isFunction'
+import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import type {Configuration} from '@roots/bud-support/webpack'
 
 import type {Records} from './config/index.js'
@@ -13,8 +14,6 @@ import {Options as RuleOptions, Rule} from './rule/index.js'
 
 /**
  * Webpack configuration builder class
- *
- * @public
  */
 export class Build extends Service implements Base.Service {
   /**

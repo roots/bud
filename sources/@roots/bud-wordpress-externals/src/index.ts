@@ -17,12 +17,8 @@
  * @packageDocumentation
  */
 
-import BudWordPressExternals from './extension.js'
+import './types.js'
 
-declare module '@roots/bud-framework' {
-  interface Modules {
-    '@roots/bud-wordpress-externals': BudWordPressExternals
-  }
-}
+import BudWordPressExternals from './extension.js'
 
 export default BudWordPressExternals

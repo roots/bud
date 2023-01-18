@@ -1,0 +1,13 @@
+{
+  "extends": "../../../config/tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "lib",
+  },
+  "include": ["src"],
+  "exclude": ["lib", "types", "node_modules"],
+  "references": [
+    {"path": "../wordpress-theme-json-webpack-plugin/tsconfig.json"},
+    {"path": "../bud-framework/tsconfig.json"}
+  ]
+}

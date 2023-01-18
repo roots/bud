@@ -1,4 +1,4 @@
-import {join, resolve} from 'node:path'
+import {join} from 'node:path'
 
 import BudCommand from '@roots/bud/cli/commands/bud'
 import {dry} from '@roots/bud/cli/decorators/command.dry'
@@ -18,17 +18,14 @@ export class BudTSCCommand extends BudCommand {
 
   public override async execute() {
     await this.makeBud(this)
-    const tsc = await this.bud.module.getDirectory(`tsc`)
-    const bin = join(tsc, `bin`, `tsc`)
+    await this.run(this)
 
-    const child = this.bud.sh(
-      [`node`, bin, ...(this.options ?? [])].filter(Boolean),
-      {
-        cwd: resolve(process.cwd(), this.basedir ?? `./`),
-      },
+    const tsc = join(
+      await this.bud.module.getDirectory(`tsc`),
+      `bin`,
+      `tsc`,
     )
-    child.stdout.pipe(process.stdout)
-    child.stderr.pipe(process.stderr)
-    await child
+
+    await this.$(this.bin, [tsc, ...(this.options ?? [])])
   }
 }

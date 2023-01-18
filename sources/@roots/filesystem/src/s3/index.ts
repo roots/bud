@@ -8,7 +8,7 @@ import type {
   S3Client,
 } from '@aws-sdk/client-s3'
 import {bind} from 'helpful-decorators'
-import {isString} from 'lodash-es'
+import isString from 'lodash/isString.js'
 import * as mimetypes from 'mime-types'
 
 import {Client} from './client.js'
@@ -16,8 +16,6 @@ import {Config} from './config.js'
 
 /**
  * S3 API
- *
- * @public
  */
 export class S3 {
   public config: Config

@@ -1,6 +1,5 @@
-import type {FC} from 'react'
-import React from 'react'
-import type {Except} from 'type-fest'
+import React from '@roots/bud-support/react'
+import type {Except} from '@roots/bud-support/type-fest'
 
 import {TextInput} from './TextInput.js'
 
@@ -54,7 +53,7 @@ interface UncontrolledProps extends Except<Props, 'value' | 'onChange'> {
   initialValue?: string
 }
 
-export const UncontrolledTextInput: FC<UncontrolledProps> = ({
+export const UncontrolledTextInput: React.FC<UncontrolledProps> = ({
   initialValue = ``,
   ...props
 }) => {

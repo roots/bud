@@ -9,12 +9,18 @@
   },
   "contributors": [
     {
-      "name": "kellymears",
+      "name": "Kelly Mears",
+      "email": "developers@tinypixel.dev",
       "url": "https://github.com/kellymears"
     },
     {
       "name": "QWp6t",
       "url": "https://github.com/QWp6t"
+    },
+    {
+      "name": "Ben Word",
+      "email": "ben@benword.com",
+      "url": "https://github.com/retlehs"
     }
   ],
   "license": "MIT",
@@ -33,7 +39,9 @@
     "node": ">=16"
   },
   "files": [
-    "lib/"
+    "docs",
+    "lib",
+    "src"
   ],
   "type": "module",
   "module": "./lib/index.js",
@@ -50,11 +58,10 @@
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/lodash-es": "4.17.6",
     "@types/node": "18.11.18"
   },
   "dependencies": {
-    "lodash-es": "4.17.21",
+    "lodash": "4.17.21",
     "webpack": "5.75.0"
   },
   "volta": {

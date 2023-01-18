@@ -1,4 +1,4 @@
-import {join} from 'lodash-es'
+import join from 'lodash/join.js'
 
 export type WordPressScopePkg = `@wordpress/${string}`
 
@@ -103,8 +103,6 @@ export const transform = (packageName: string): any => {
 
 /**
  * Externals plugin
- *
- * @public
  */
 export const externals = (
   {_context, request},

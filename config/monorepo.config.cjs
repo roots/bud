@@ -76,6 +76,11 @@ module.exports = {
       title: `Pantheon`,
       url: `https://pantheon.io/`,
     },
+    {
+      image: `https://cdn.roots.io/app/uploads/worksite-safety.svg`,
+      title: `Worksite Safety`,
+      url: `https://worksitesafety.ca/careers/`,
+    },
   ],
   packages: {
     core: [

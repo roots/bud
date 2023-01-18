@@ -6,7 +6,8 @@
     "paths": {
       "@roots/bud": ["./src/index.ts"],
       "@roots/bud/*": ["./src/*"]
-    }
+    },
+    "types": ["@roots/bud-framework", "@roots/bud-support", "react"]
   },
   "include": ["./src"],
   "exclude": ["./lib", "./node_modules", "**/*.test.ts"],
@@ -17,6 +18,7 @@
     {"path": "./../bud-cache/tsconfig.json"},
     {"path": "./../bud-compiler/tsconfig.json"},
     {"path": "./../bud-dashboard/tsconfig.json"},
+    {"path": "./../bud-entrypoints/tsconfig.json"},
     {"path": "./../bud-extensions/tsconfig.json"},
     {"path": "./../bud-hooks/tsconfig.json"},
     {"path": "./../bud-server/tsconfig.json"},

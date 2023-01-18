@@ -2,8 +2,6 @@ import type {ServiceContainer} from '../../../service.js'
 
 /**
  * Env container interface
- *
- * @public
  */
 export interface Env extends ServiceContainer {
   /**

@@ -10,8 +10,6 @@ export {Options}
 
 /**
  * CriticalCSSWebpackPlugin
- *
- * @public
  */
 export default class CriticalCssWebpackPlugin {
   /**

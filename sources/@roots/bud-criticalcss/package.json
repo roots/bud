@@ -9,8 +9,14 @@
   },
   "contributors": [
     {
-      "name": "kellymears",
+      "name": "Kelly Mears",
+      "email": "developers@tinypixel.dev",
       "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "Ben Word",
+      "email": "ben@benword.com",
+      "url": "https://github.com/retlehs"
     },
     {
       "name": "QWp6t",
@@ -33,14 +39,22 @@
     "type": "extension"
   },
   "files": [
-    "lib/"
+    "docs",
+    "lib",
+    "src"
   ],
   "type": "module",
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "exports": {
-    ".": "./lib/index.js",
-    "./extension": "./lib/extension.js"
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./extension": {
+      "types": "./lib/extension.d.ts",
+      "default": "./lib/extension.js"
+    }
   },
   "typesVersions": {
     "*": {
@@ -54,15 +68,36 @@
   },
   "devDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
-    "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.11.18"
+    "@types/node": "18.11.18",
+    "@types/vinyl": "2.0.7"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@roots/critical-css-webpack-plugin": "workspace:sources/@roots/critical-css-webpack-plugin",
-    "critical": "5.0.3",
+    "critical": "5.0.4",
     "vinyl": "3.0.0"
+  },
+  "peerDependencies": {
+    "@roots/bud": "*",
+    "@roots/critical-css-webpack-plugin": "*",
+    "critical": "*",
+    "vinyl": "*"
+  },
+  "peerDependenciesMeta": {
+    "@roots/bud": {
+      "optional": true
+    },
+    "@roots/critical-css-webpack-plugin": {
+      "optional": true
+    },
+    "critical": {
+      "optional": true
+    },
+    "vinyl": {
+      "optional": true
+    }
   },
   "volta": {
     "extends": "../../../package.json"

@@ -4,8 +4,6 @@ import type {CommandContext} from '@roots/bud-framework/options'
 
 /**
  * `bud build development` command
- *
- * @public
  */
 export default class BuildDevelopmentCommand extends BuildCommand {
   public static override paths = [
@@ -36,6 +34,18 @@ export default class BuildDevelopmentCommand extends BuildCommand {
     ],
   })
 
+  public hot = Option.Boolean(`--hot`, undefined, {
+    description: `Enable hot module replacement`,
+  })
+
+  public port = Option.String(`--port`, undefined, {
+    description: `Port to serve on`,
+  })
+
+  public proxy = Option.String(`--proxy`, undefined, {
+    description: `Proxy request URL`,
+  })
+
   public reload = Option.Boolean(`--reload`, undefined, {
     description: `Reload browser on unrecoverable errors`,
   })
@@ -50,6 +60,7 @@ export default class BuildDevelopmentCommand extends BuildCommand {
 
   public browser = Option.String(`--browser`, undefined, {
     description: `Open browser on successful development build.`,
+    tolerateBoolean: true,
   })
 
   public override withSubcommandContext = async (
@@ -60,14 +71,18 @@ export default class BuildDevelopmentCommand extends BuildCommand {
       mode: `development` as `development`,
     }
   }
+
   public override withSubcommandArguments = async (
     args: CommandContext[`args`],
   ) => {
     return {
       ...args,
       browser: this.browser,
+      hot: this.hot,
       indicator: this.indicator,
       overlay: this.overlay,
+      port: this.port,
+      proxy: this.proxy,
       reload: this.reload,
     }
   }

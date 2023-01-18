@@ -18,7 +18,10 @@ describe(`xml loader`, () => {
 
     const webpackOutput = result.toWebpack()
     expect(webpackOutput.use?.[0]).toEqual(
-      expect.objectContaining({ident: `xml`, loader: `xml-loader`}),
+      expect.objectContaining({
+        ident: `xml`,
+        loader: `@roots/bud-support/xml-loader`,
+      }),
     )
   })
 })

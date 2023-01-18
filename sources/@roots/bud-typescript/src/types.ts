@@ -1,5 +1,5 @@
-/// <reference path="../../bud-babel/lib/index.d.ts" />
-/// <reference path="../../bud/lib/index.d.ts" />
+/// <reference types="@roots/bud-babel" />
+/// <reference types="@roots/bud" />
 
 import type {Item, Loader, Rule} from '@roots/bud-framework'
 

@@ -8,8 +8,6 @@ export interface Options {
 
 /**
  * Template variable interpolation plugin for webpack
- *
- * @public
  */
 export class InterpolateHtmlWebpackPlugin {
   /**

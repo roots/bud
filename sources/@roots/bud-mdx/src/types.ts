@@ -1,3 +1,5 @@
+/* eslint-disable n/no-unpublished-import */
+
 import type {Item} from '@roots/bud-build/item'
 import type {Loader} from '@roots/bud-build/loader'
 import type {Rule} from '@roots/bud-build/rule'

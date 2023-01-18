@@ -13,8 +13,6 @@ export interface sh {
  * ```js
  * bud.sh(`ls -la`)
  * ```
- *
- * @public
  */
 export const sh: sh = function (
   command: string | Array<string>,

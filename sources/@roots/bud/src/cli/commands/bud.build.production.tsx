@@ -5,8 +5,6 @@ import type {CommandContext} from './bud.js'
 
 /**
  * `bud build production` command
- *
- * @public
  */
 export default class BuildProductionCommand extends BuildCommand {
   public static override paths = [[`build`, `production`], [`production`]]

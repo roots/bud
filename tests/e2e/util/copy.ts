@@ -1,62 +1,31 @@
 import {paths} from '@repo/constants'
-import {logger} from '@repo/logger'
-import fs from 'fs-extra'
+import {copy, remove} from 'fs-extra'
 import {join} from 'path'
 
-const options = {
+const rf = {
   overwrite: true,
   recursive: true,
 }
 
-const copy = async (designator: string) => {
+export const originalPath = (...parts: Array<string>) =>
+  join(paths.root, `examples`, ...parts)
+
+export const testPath = (...parts: Array<string>) =>
+  join(paths.root, `storage`, `mocks`, `yarn`, `@examples`, ...parts)
+
+export const copyDir = async (dir: string) => {
   try {
-    logger.log(`copying @examples/${designator}`)
-
-    await fs.remove(
-      join(
-        paths.root,
-        `storage`,
-        `mocks`,
-        `yarn`,
-        `@examples`,
-        designator,
-      ),
-    )
-    await fs.copy(
-      join(paths.root, `examples`, designator),
-      join(
-        paths.root,
-        `storage`,
-        `mocks`,
-        `yarn`,
-        `@examples`,
-        designator,
-      ),
-      options,
-    )
-
-    const file = await fs.readFile(
-      join(paths.sources, `@repo`, `test-kit`, `.yarnrc.stub.yml`),
-      `utf8`,
-    )
-
-    await fs.outputFile(
-      join(
-        paths.root,
-        `storage`,
-        `mocks`,
-        `yarn`,
-        `@examples`,
-        designator,
-        `.yarnrc.yml`,
-      ),
-      file,
-    )
-
-    return
+    await remove(testPath(dir))
+    await copy(originalPath(dir), testPath(dir), rf)
   } catch (error) {
-    return
+    throw error
   }
 }
 
-export default copy
+export const copyOriginalSource = async (dir: string) => {
+  try {
+    await copy(originalPath(dir, `src`), testPath(dir, `src`), rf)
+  } catch (error) {
+    throw error
+  }
+}

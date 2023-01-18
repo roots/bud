@@ -1,20 +1,17 @@
-import {resolve} from 'node:path/win32'
-
 import {Bud} from '@roots/bud'
 import {checkDependencies} from '@roots/bud/cli/helpers/checkDependencies'
 import {checkPackageManagerErrors} from '@roots/bud/cli/helpers/checkPackageManagerErrors'
 import {isInternalDevelopmentEnv} from '@roots/bud/cli/helpers/isInternalDevelopmentEnv'
 import {isset} from '@roots/bud/cli/helpers/isset'
-import {Renderer} from '@roots/bud/cli/renderer'
 import type {
   CommandContext,
   Context,
 } from '@roots/bud-framework/options/context'
 import {BaseContext, Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators'
-import {Box, Text} from '@roots/bud-support/ink'
-import {isString} from '@roots/bud-support/lodash-es'
-import React from '@roots/bud-support/react'
+import Ink, {React, Renderer} from '@roots/bud-support/ink'
+import isString from '@roots/bud-support/lodash/isString'
+import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import * as t from '@roots/bud-support/typanion'
 
 import type {Notifier} from '../../notifier/index.js'
@@ -32,11 +29,14 @@ export const ArgsModifier: ArgsModifier = from => async on => ({
 
 /**
  * Bud command
- *
- * @public
  */
 export default class BudCommand extends Command<CommandContext> {
   public declare bud?: (Bud & {context: CommandContext}) | undefined
+
+  public get bin() {
+    // eslint-disable-next-line n/no-process-env
+    return process.env.BUD_JS_BIN
+  }
 
   public declare context: CommandContext
 
@@ -71,9 +71,11 @@ export default class BudCommand extends Command<CommandContext> {
   ) => Promise<BudCommand[`bud`]>
 
   public declare notifier?: Notifier
-  public declare notify?: boolean
+  public notify: boolean = Option.Boolean(`--notify`, undefined, {
+    description: `Enable notification`,
+  })
 
-  public basedir = Option.String(`--basedir,--cwd`, undefined, {
+  public cwd = Option.String(`--basedir,--cwd`, undefined, {
     description: `project base directory`,
     hidden: true,
   })
@@ -109,12 +111,22 @@ export default class BudCommand extends Command<CommandContext> {
     await this.renderer?.text(text)
   }
 
+  public constructor() {
+    super()
+    this.renderer = new Renderer(process.stdout)
+  }
+
   public async execute() {}
 
   public override async catch(value: unknown) {
+    let error: Error
+
+    process.exitCode = 1
+
     const normalizeError = (value: unknown): Error => {
       if (value instanceof Error) return value
       if (isString(value)) return new Error(value)
+
       if (value instanceof Object) {
         try {
           return new Error(JSON.stringify(value, null, 2))
@@ -124,15 +136,15 @@ export default class BudCommand extends Command<CommandContext> {
       }
     }
 
-    process.exitCode = 1
-    const error = normalizeError(value)
+    try {
+      error = normalizeError(value)
+      error.name = error.name ? ` ${error.name} ` : ` Error `
+      error.stack = error.stack?.split(`  at `).splice(0, 2).join(`  at `)
+    } catch (e) {}
 
-    error.name = error.name ? ` ${error.name} ` : ` Error `
-    error.stack = error.stack?.split(`  at `).splice(0, 2).join(`  at `)
-
-    if (this.notifier) {
+    if (this.notifier?.notify) {
       try {
-        this.notifier?.notify({
+        this.notifier.notify({
           title: `bud.js`,
           subtitle: `Configuration error`,
           message: error.message,
@@ -143,19 +155,23 @@ export default class BudCommand extends Command<CommandContext> {
       }
     }
 
-    this.render(
-      <Box flexDirection="column" marginTop={1}>
-        <Box marginBottom={1}>
-          <Text backgroundColor="red" color="white">
-            {error.name}
-          </Text>
-        </Box>
+    try {
+      this.render(
+        <Ink.Box flexDirection="column" marginTop={1}>
+          <Ink.Box marginBottom={1}>
+            <Ink.Text backgroundColor="red" color="white">
+              {error.name}
+            </Ink.Text>
+          </Ink.Box>
 
-        <Box>
-          <Text>{error.message}</Text>
-        </Box>
-      </Box>,
-    )
+          <Ink.Box>
+            <Ink.Text>{error.message}</Ink.Text>
+          </Ink.Box>
+        </Ink.Box>,
+      )
+    } catch (error) {
+      this.context.stderr.write(value.toString())
+    }
 
     if (this.bud?.isProduction) {
       // eslint-disable-next-line n/no-process-exit
@@ -166,12 +182,6 @@ export default class BudCommand extends Command<CommandContext> {
   }
 
   public async makeBud<T extends BudCommand>(command: T) {
-    this.renderer = new Renderer(process.stdout)
-
-    command.context.basedir = command.basedir
-      ? resolve(command.context.basedir, command.basedir)
-      : command.context.basedir
-
     command.context.mode = command.mode ?? command.context.mode
 
     command.context.args = {
@@ -180,6 +190,7 @@ export default class BudCommand extends Command<CommandContext> {
       debug: command.debug,
       filter: command.filter,
       log: command.log,
+      notify: command.notify,
       target: command.filter,
       verbose: command.verbose,
     }
@@ -208,7 +219,7 @@ export default class BudCommand extends Command<CommandContext> {
 
     command.bud = bud
 
-    if (command.notify !== false) {
+    if (isUndefined(command.notify) || command.notify === true) {
       const {Notifier} = await import(`../../notifier/index.js`)
       command.notifier = new Notifier().setBud(command.bud)
     }
@@ -216,6 +227,11 @@ export default class BudCommand extends Command<CommandContext> {
     await command.applyBudEnv(command.bud)
     await command.applyBudManifestOptions(command.bud)
     await command.applyBudArguments(command.bud)
+
+    if (command.context.args.use) {
+      await command.bud.extensions.add(command.context.args.use)
+    }
+
     await command.bud.processConfigs()
 
     if (command.withBud) {
@@ -236,7 +252,7 @@ export default class BudCommand extends Command<CommandContext> {
   @bind
   public async $(bin: string, args: Array<string>, options = {}) {
     const {execa: command} = await import(`@roots/bud-support/execa`)
-    return await command(bin, args, {
+    return await command(bin, args.filter(Boolean), {
       cwd: this.bud.path(),
       encoding: `utf8`,
       env: {NODE_ENV: `development`},
@@ -341,111 +357,117 @@ export default class BudCommand extends Command<CommandContext> {
     if (isset(args.input)) bud.setPath(`@src`, args.input)
     if (isset(args.output)) bud.setPath(`@dist`, args.output)
     if (isset(args.publicPath)) bud.setPublicPath(args.publicPath)
+    if (isset(args.storage)) bud.setPath(`@storage`, args.storage)
+    if (isset(args.modules)) bud.setPath(`@modules`, args.modules)
 
-    if (isset(args.filter) && bud.hasChildren) {
-      Object.keys(bud.children)
-        .filter(name => !args.filter.includes(name))
-        .map(name => {
-          delete bud.children[name]
-          bud.log(`removing ${name} instance from the cli`)
+    if (isset(args.hot)) {
+      bud.log(`disabling hot module replacement`)
+      bud.hooks.on(`dev.middleware.enabled`, (middleware = []) =>
+        middleware.filter(key =>
+          args.hot === false ? key !== `hot` : args.hot,
+        ),
+      )
+    }
+
+    if (isset(args.port)) {
+      bud.log(`overriding port from cli`)
+      bud.hooks.on(`dev.url`, (url = new URL(`http://0.0.0.0:3000`)) => {
+        url.port = args.port
+        return url
+      })
+    }
+
+    if (isset(args.proxy)) {
+      bud.log(`overriding proxy from cli`)
+      bud.hooks.on(
+        `dev.middleware.proxy.options.target`,
+        new URL(args.proxy),
+      )
+    }
+
+    /**
+     * Filter instances
+     */
+    if (args.filter?.length && bud.hasChildren) {
+      Object.values(bud.children)
+        .filter(child => !args.filter.includes(child.label))
+        .map(child => {
+          delete bud.children[child.label]
+          bud.log(`removing ${child.label} instance from the cli`)
         })
     }
 
+    /**
+     * Override settings for either:
+     * - the parent (if children do not exist), or;
+     * - all children but not the parent (if children exist)
+     */
+    const override = (override: (bud: Bud) => void) =>
+      bud.hasChildren
+        ? Object.values(bud.children).map(override)
+        : override(bud)
+
     if (isset(args.manifest)) {
       bud.log(`overriding manifest setting from cli`)
-      bud.hooks.on(`feature.manifest`, args.manifest)
-    }
-
-    if (isset(args.storage)) {
-      bud.log(`overriding storage directory from the cli`)
-      bud.setPath(`@storage`, args.storage)
+      override(bud => bud.hooks.on(`feature.manifest`, args.manifest))
     }
 
     if (isset(args.cache)) {
       bud.log(`overriding cache settings from cli`)
-      bud.persist(args.cache)
-      bud.hasChildren &&
-        Object.values(bud.children).map(child => child.persist(args.cache))
+      override(bud => bud.persist(args.cache))
     }
 
     if (isset(args.minimize)) {
       bud.log(`overriding minimize setting from cli`)
-      bud.minimize(args.minimize)
-      bud.hasChildren &&
-        Object.values(bud.children).map(child =>
-          child.minimize(args.minimize),
-        )
+      override(bud => bud.minimize(args.minimize))
     }
 
     if (isset(args.devtool)) {
       bud.log(`overriding devtool from cli`)
-      bud.devtool(args.devtool)
-      bud.hasChildren &&
-        Object.values(bud.children).map(child =>
-          child.devtool(args.devtool),
-        )
+      override(bud => bud.devtool(args.devtool))
     }
 
     if (isset(args.esm)) {
       bud.log(`overriding esm from cli`)
-      bud.esm.enable(args.esm)
-      bud.hasChildren &&
-        Object.values(bud.children).map(child =>
-          child.esm.enable(args.esm),
-        )
+      override((bud: Bud) => bud.esm.enable(args.esm))
     }
 
     if (isset(args.immutable)) {
       bud.log(`overriding immutable from cli`)
-      bud.cdn.freeze(args.immutable)
-      bud.hasChildren &&
-        Object.values(bud.children).map(child =>
-          child.cdn.freeze(args.immutable),
-        )
+      override((bud: Bud) => bud.cdn.freeze(args.immutable))
     }
+
     if (isset(args.clean)) {
       bud.log(`overriding clean setting from cli`)
-      bud.extensions
-        .get(`@roots/bud-extensions/clean-webpack-plugin`)
-        .enable(args.clean)
-      bud.hooks.on(`build.output.clean`, args.clean)
+      override((bud: Bud) => {
+        bud.extensions
+          .get(`@roots/bud-extensions/clean-webpack-plugin`)
+          .enable(args.clean)
+
+        bud.hooks.on(`build.output.clean`, args.clean)
+      })
     }
 
     if (isset(args.hash)) {
-      logger.log(`hash enabled by --hash`)
-      bud.hash(args.hash)
-
-      bud.hasChildren &&
-        Object.values(bud.children).map(child => child.hash(args.hash))
+      logger.log(`overriding hash setting from cli`)
+      override((bud: Bud) => bud.hash(args.hash))
     }
 
     if (isset(args.html)) {
-      isString(args.html) ? bud.html({template: args.html}) : bud.html()
-
-      bud.hasChildren &&
-        Object.values(bud.children).map(child =>
-          isString(args.html)
-            ? child.html({template: args.html})
-            : child.html(),
-        )
+      logger.log(`overriding html setting from cli`)
+      override((bud: Bud) =>
+        isString(args.html) ? bud.html({template: args.html}) : bud.html(),
+      )
     }
 
-    if (isset(bud.context.args.runtime)) {
+    if (isset(args.runtime)) {
       bud.log(`overriding runtime setting from cli`)
-      bud.runtime(bud.context.args.runtime)
-      bud.hasChildren &&
-        Object.values(bud.children).map(child =>
-          child.runtime(bud.context.args.runtime),
-        )
+      override((bud: Bud) => bud.runtime(args.runtime))
     }
 
-    if (isset(bud.context.args.splitChunks)) {
-      bud.log(`overriding runtime setting from cli`)
-      bud.splitChunks(bud.context.args.splitChunks)
-      bud.hasChildren &&
-        Object.values(bud.children).map(child =>
-          child.splitChunks(bud.context.args.splitChunks),
-        )
+    if (isset(args.splitChunks)) {
+      bud.log(`overriding splitChunks setting from cli`)
+      override((bud: Bud) => bud.splitChunks(args.splitChunks))
     }
   }
 }

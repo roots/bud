@@ -1,6 +1,6 @@
 {
   "name": "bud",
-  "dockerComposeFile": ["../docker-compose.yml"],
+  "dockerComposeFile": ["../.docker/docker-compose.yml"],
   "extensions": [
     "arcanis.vscode-zipfs",
     "dbaeumer.vscode-eslint",

@@ -5,7 +5,7 @@ import {
   expose,
   label,
 } from '@roots/bud-framework/extension/decorators'
-import {isUndefined} from '@roots/bud-support/lodash-es'
+import isUndefined from '@roots/bud-support/lodash/isUndefined'
 
 import type {LoaderOptions, Registry} from './types.js'
 

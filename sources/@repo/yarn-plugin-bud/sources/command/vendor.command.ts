@@ -4,9 +4,6 @@ import {join} from 'path'
 
 import {Command} from './base.command'
 
-const tsConfig = join(paths.config, `tsconfig.json`)
-const vendor = join(paths.sources, `@repo/compile-kit/src/vendor/index.ts`)
-
 /**
  * `@bud vendor` command
  *
@@ -50,6 +47,12 @@ export class Vendor extends Command {
    * @internal
    */
   public async execute() {
+    const tsConfig = join(paths.config, `tsconfig.json`)
+    const vendor = join(
+      paths.sources,
+      `@repo/compile-kit/src/vendor/index.js`,
+    )
+
     await this.$(
       `yarn ts-node-esm --project ${tsConfig} ${vendor} ${this.request}`,
     )

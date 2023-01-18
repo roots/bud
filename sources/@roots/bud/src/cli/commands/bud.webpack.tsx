@@ -1,16 +1,16 @@
-import {join, resolve} from 'node:path'
+import {join} from 'node:path'
 
 import BudCommand from '@roots/bud/cli/commands/bud'
+import {dry} from '@roots/bud/cli/decorators/command.dry'
 import {Command, Option} from '@roots/bud-support/clipanion'
-import execa from '@roots/bud-support/execa'
 
 /**
  * `bud webpack` command
- *
- * @public
  */
+@dry
 export default class BudWebpackCommand extends BudCommand {
   public static override paths = [[`webpack`]]
+
   public static override usage = Command.Usage({
     description: `Webpack CLI passthrough`,
     category: `tools`,
@@ -26,14 +26,19 @@ export default class BudWebpackCommand extends BudCommand {
    */
   public override async execute() {
     await this.makeBud(this)
-    const webpackPath = await this.bud.module.getDirectory(`webpack`)
-    const bin = join(webpackPath, `bin`, `webpack.js`)
+    await this.run(this)
 
-    const child = execa(`node`, [bin, ...this.options], {
-      cwd: resolve(process.cwd(), this.basedir ?? ``),
-    })
-    child.stdout.pipe(process.stdout)
-    child.stderr.pipe(process.stderr)
-    await child
+    const bin = join(
+      await this.bud.module.getDirectory(`webpack`),
+      `bin`,
+      `webpack.js`,
+    )
+
+    this.text(`\n\n$ ${this.bin} ${bin}\n\n`)
+
+    await this.$(this.bin, [
+      bin,
+      ...this.options.filter(key => key !== `--log`),
+    ])
   }
 }

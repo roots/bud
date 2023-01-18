@@ -9,8 +9,6 @@ import type {Compiler, Stats} from 'webpack'
 
 /**
  * Merged Manifest Webpack Plugin
- *
- * @public
  */
 export default class MergedManifestWebpackPlugin {
   /**

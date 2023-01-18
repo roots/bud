@@ -4,8 +4,6 @@ import {formatUrl} from './formatUrl.js'
 
 /**
  * Get formatted server url
- *
- * @public
  */
 const getServer = (
   url?: URL,

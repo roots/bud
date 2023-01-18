@@ -1,7 +1,11 @@
 import {Bud} from '@roots/bud'
 import getContext from '@roots/bud/context'
 import {get, has, set} from '@roots/bud/instances'
-import type {CommandContext, Context} from '@roots/bud-framework/options'
+import type {
+  CLIContext,
+  CommandContext,
+  Context,
+} from '@roots/bud-framework/options'
 
 import * as argv from '../context/argv.js'
 
@@ -26,20 +30,19 @@ export interface Options {
  * ```
  *
  * @returns Bud instance
- *
- * @public
  */
 export async function factory(
-  {basedir, ...overrides}: Partial<Context | CommandContext> = {},
+  overrides: Partial<CLIContext | Context | CommandContext> = {},
   options: Options = {cache: true, find: false},
 ): Promise<Bud> {
-  if (!basedir) basedir = argv.basedir ?? process.cwd()
+  if (!overrides.basedir) overrides.basedir = argv.basedir
   if (!overrides.mode) overrides.mode = `production`
 
-  if (options.cache && has(basedir)) return get(basedir)
+  if (options.cache && has(overrides.basedir))
+    return get(overrides.basedir)
 
   const bud = new Bud()
-  const context = await getContext({basedir, ...overrides}, options)
+  const context = await getContext(overrides, options)
 
   if (options.cache) {
     set(context.basedir, bud)

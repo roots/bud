@@ -16,37 +16,23 @@ jobs:
         node:
           - 18.12.1
 
-    name: test node@${{matrix.node}}/${{matrix.platform}}
+    name: unit test (node@v${{matrix.node}}/${{matrix.platform}})
     runs-on: ${{matrix.platform}}
 
     steps:
-      - name: Setup
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{matrix.node}}
-
       - name: Checkout
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      - name: Cache
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
-
-      - name: Restore
-        uses: actions/cache@v3
-        id: yarn-cache
+      - name: Setup
+        uses: actions/setup-node@v3
         with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+          node-version: ${{matrix.node}}
+          cache: yarn
 
-      - name: yarn install
-        run: |
-          yarn install
+      - name: yarn
+        run: yarn
 
       - name: yarn @bud test unit
-        run: |
-          yarn @bud test unit run --coverage
+        run: yarn @bud test unit run --coverage

@@ -38,8 +38,6 @@ import type {
  * ```js
  * bud.hooks.filter('build.entry', {})
  * ```
- *
- * @public
  */
 export interface Service extends BaseService {
   /**

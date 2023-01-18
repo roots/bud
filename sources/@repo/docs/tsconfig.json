@@ -9,7 +9,7 @@
     "resolveJsonModule": true,
     "baseUrl": ".",
     "paths": {
-      "@site/*": ["*"],
+      "@site/*": ["./*"],
     },
     "types": [
       "node",

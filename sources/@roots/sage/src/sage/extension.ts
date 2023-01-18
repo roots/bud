@@ -1,50 +1,30 @@
-import type {Bud} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud'
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
   dependsOn,
-  dependsOnOptional,
   expose,
   label,
-  options,
 } from '@roots/bud-framework/extension/decorators'
-
-interface Options {
-  acorn: `v2` | `v3`
-}
 
 /**
  * roots/sage support extension
  *
- * @public
- * @decorator `@label`
- * @decorator `@dependsOn`
+ * @see https://bud.js.org/extensions/sage/
  */
 @label(`@roots/sage`)
-@dependsOn([
-  `@roots/sage/wp-theme-json`,
-  `@roots/bud-preset-wordpress`,
-  `@roots/sage/acorn`,
-])
-@dependsOnOptional([`@roots/bud-tailwindcss`])
-@options<Options>({acorn: `v2`})
+@dependsOn([`@roots/bud-preset-wordpress`, `@roots/sage/acorn`])
 @expose(`sage`)
-export class Sage extends Extension<Options> {
+export class Sage extends Extension {
   /**
-   * `boot` callback
-   *
-   * @public
-   * @decorator `@bind`
+   * `register` callback
    */
   @bind
-  public override async register(app: Bud) {
-    if (app.extensions.has(`@roots/bud-tailwindcss`))
-      await app.extensions.add(`@roots/sage/wp-theme-json-tailwind`)
-
-    app.hooks.on(`build.output.uniqueName`, `@roots/bud/sage`)
+  public override async register(bud: Bud) {
+    bud.hooks.on(`build.output.uniqueName`, `@roots/bud/sage/${bud.label}`)
 
     /* Set paths */
-    app.setPath({
+    bud.setPath({
       '@src': `resources`,
       '@resources': `@src`,
       '@fonts': `@src/fonts`,
@@ -56,41 +36,37 @@ export class Sage extends Extension<Options> {
     })
 
     /* Set aliases */
-    app.alias({
-      '@fonts': app.path(`@fonts`),
-      '@images': app.path(`@images`),
-      '@scripts': app.path(`@scripts`),
-      '@styles': app.path(`@styles`),
+    bud.alias({
+      '@fonts': bud.path(`@fonts`),
+      '@images': bud.path(`@images`),
+      '@scripts': bud.path(`@scripts`),
+      '@styles': bud.path(`@styles`),
     })
 
     /**
      * Optimize
      */
-    app.when(
-      app.isProduction,
-      () => app.minimize().hash().runtime(`single`).splitChunks(),
-      () => app.devtool(),
+    bud.when(
+      bud.isProduction,
+      () => bud.minimize().hash().runtime(`single`).splitChunks(),
+      () => bud.devtool(),
     )
-  }
-
-  /**
-   * `configAfter` callback
-   *
-   * @public
-   */
-  @bind
-  public override async configAfter(app: Bud) {
-    if (this.options.acorn === `v2`)
-      await app.extensions.add(`@roots/sage/acorn-v2-public-path`)
   }
 
   /**
    * Set acorn version
    *
-   * @public
+   * @deprecated - This function is deprecated. It is unneeded; you can just remove the call.
    */
   @bind
-  public setAcornVersion(version: 'v2' | 'v3') {
-    this.setOption(`acorn`, version)
+  public setAcornVersion(version?: 'v2' | 'v3') {
+    this.logger.warn(
+      `\n\n`,
+      `bud.sage.setAcornVersion: This function is deprecated.\n It is unneeded; you can just remove the call.\n\n`,
+      `If you feel that you need to run it you can add the following to your config:\n\n`,
+      `bud.use(\`@roots/sage/acorn-v2-public-path\`)\n\n`,
+      `If you are experiencing an issue and adding this extension fixes it, please open an issue.\n\n`,
+      `https://github.com/roots/bud.\n\n`,
+    )
   }
 }

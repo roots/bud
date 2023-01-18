@@ -13,8 +13,6 @@ import {Hooks} from '../base/base.js'
  *
  * @remarks
  * Supports sync values
- *
- * @public
  */
 export class EventHooks extends Hooks<EventsStore> {
   /**

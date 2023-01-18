@@ -22,6 +22,7 @@ interface Extensions {
 
 const extensions: Extensions = {
   builtIn: [
+    `@roots/bud-entrypoints`,
     `@roots/bud-terser`,
     `@roots/bud-extensions/cdn`,
     `@roots/bud-extensions/esm`,

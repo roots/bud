@@ -7,8 +7,6 @@ import type {Parameters} from './types.js'
 
 /**
  * Handle fallthrough
- *
- * @public
  */
 export async function handleFallthrough(
   bud: Bud,

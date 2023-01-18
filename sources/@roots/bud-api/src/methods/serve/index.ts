@@ -1,20 +1,16 @@
 import type {Bud} from '@roots/bud-framework'
 import getPort from '@roots/bud-support/get-port'
-import {
-  isArray,
-  isEqual,
-  isNumber,
-  isString,
-  isUndefined,
-} from '@roots/bud-support/lodash-es'
+import isArray from '@roots/bud-support/lodash/isArray'
+import isEqual from '@roots/bud-support/lodash/isEqual'
+import isNumber from '@roots/bud-support/lodash/isNumber'
+import isString from '@roots/bud-support/lodash/isString'
+import isUndefined from '@roots/bud-support/lodash/isUndefined'
 
 import {checkChildInstanceError} from './childError.js'
 import type {Options, Parameters, ServerOptions} from './serve.types.js'
 
 /**
  * bud.serve
- *
- * @public
  */
 export interface serve {
   (...parameters: Parameters): Promise<Bud>
@@ -23,8 +19,6 @@ export type {Options, Parameters, ServerOptions}
 
 /**
  * bud.serve
- *
- * @public
  */
 export const serve: serve = async function (this: Bud, input, options) {
   if (!this.isDevelopment) return this
@@ -114,8 +108,6 @@ const makeHttpOptions = async function (
 
 /**
  * Get a free port
- *
- * @public
  */
 const requestPorts = async (
   bud: Bud,
@@ -135,14 +127,12 @@ const requestPorts = async (
 }
 
 /**
- * Convert a string, number, or array of strings or numbers
- * to an array of portOrPortsToNumbers
- *
- * @public
+ * Convert a string, number, or array of strings/numbers
+ * to an array of numbers
  */
 const portOrPortsToNumbers = (
   port: number | string | Array<number | string>,
-): Array<number> => {
-  if (Array.isArray(port)) return port.map(port => Number(port))
-  return [Number(port)]
-}
+): Array<number> =>
+  Array.isArray(port)
+    ? port.map(port => (isString(port) ? parseInt(port) : port))
+    : [isString(port) ? parseInt(port) : port]

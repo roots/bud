@@ -2,15 +2,13 @@ import {join} from 'node:path'
 
 import {Filesystem as FS, json, yml} from '@roots/bud-support/filesystem'
 import globby from '@roots/bud-support/globby'
-import {isUndefined} from '@roots/bud-support/lodash-es'
+import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import {S3} from '@roots/filesystem/s3'
 
 import type {Bud} from '../bud.js'
 
 /**
  * Filesystem service
- *
- * @public
  */
 export default class FileSystem extends FS {
   /**

@@ -14,8 +14,6 @@ import type * as purge from './extension.js'
  *   allowPatterns: require('purgecss-with-wordpress').whitelistPatterns,
  * })
  * ```
- *
- * @public
  */
 export const purgecss: purge.api = function (
   userOptions: purge.UserOptions,

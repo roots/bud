@@ -6,12 +6,10 @@
  *
  * @see https://bud.js.org
  * @see https://github.com/roots/bud
- *
- * @packageDocumentation
  */
 
-import './types.js'
+import './types/index.js'
 
-import BudSWC from './extension.js'
+import BudSWC from './extension/index.js'
 
 export default BudSWC

@@ -9,8 +9,14 @@
   },
   "contributors": [
     {
-      "name": "kellymears",
+      "name": "Kelly Mears",
+      "email": "developers@tinypixel.dev",
       "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "Ben Word",
+      "email": "ben@benword.com",
+      "url": "https://github.com/retlehs"
     },
     {
       "name": "QWp6t",
@@ -38,7 +44,9 @@
     "type": "extension"
   },
   "files": [
-    "lib/"
+    "docs",
+    "lib",
+    "src"
   ],
   "type": "module",
   "module": "./lib/index.js",
@@ -66,7 +74,7 @@
     }
   },
   "devDependencies": {
-    "@roots/bud-api": "workspace:sources/@roots/bud-api",
+    "@roots/bud": "workspace:sources/@roots/bud",
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.11.18"
   },
@@ -74,6 +82,18 @@
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "compression-webpack-plugin": "^10.0.0",
     "webpack": "5.75.0"
+  },
+  "peerDependencies": {
+    "@roots/bud": "*",
+    "compression-webpack-plugin": "*"
+  },
+  "peerDependenciesMeta": {
+    "@roots/bud": {
+      "optional": true
+    },
+    "compression-webpack-plugin": {
+      "optional": true
+    }
   },
   "volta": {
     "extends": "../../../package.json"

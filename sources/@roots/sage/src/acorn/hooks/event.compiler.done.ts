@@ -1,6 +1,6 @@
 import {urlToHttpOptions} from 'node:url'
 
-import type {Bud} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud'
 
 /**
  * `compiler.done` callback
@@ -8,8 +8,6 @@ import type {Bud} from '@roots/bud-framework'
  * @remarks
  * Generates and emits `hmr.json` with proxy/dev server information
  * for use in Acorn.
- *
- * @public
  */
 export default async function (bud: Bud) {
   try {
@@ -38,10 +36,15 @@ const writeIfEnabled = async (bud: Bud) => {
 }
 
 const writeJson = async function (bud: Bud) {
-  const devUrl = bud.root.hooks.filter(`dev.url`)
+  const devUrl = bud.root.hooks.filter(
+    `dev.url`,
+    new URL(`http://0.0.0.0:3000`),
+  )
   const proxyUrl = bud.root.hooks.filter(
     `dev.middleware.proxy.options.target`,
+    new URL(`http://0.0.0.0`),
   )
+
   const publicPath = bud.root.hooks.filter(`build.output.publicPath`)
   const writePath = bud.path(`@dist`, `hmr.json`)
 

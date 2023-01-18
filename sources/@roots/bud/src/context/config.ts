@@ -1,6 +1,7 @@
 import type {Context, File} from '@roots/bud-framework/options'
 import {Filesystem, json, yml} from '@roots/bud-support/filesystem'
-import {isEqual, set} from '@roots/bud-support/lodash-es'
+import isEqual from '@roots/bud-support/lodash/isEqual'
+import set from '@roots/bud-support/lodash/set'
 
 interface get {
   (props: {basedir: Context[`basedir`]; fs: Filesystem}): Promise<

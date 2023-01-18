@@ -65,7 +65,7 @@ export interface CommandContext extends CLIContext {
       | `hidden-cheap-module-source-map`
       | `hidden-source-map`
       | undefined
-    discovery: boolean | undefined
+    discover: boolean | undefined
     dry: boolean | undefined
     output: string | undefined
     editor: string | boolean | undefined
@@ -73,6 +73,7 @@ export interface CommandContext extends CLIContext {
     filter: Array<string> | undefined
     flush: boolean | undefined
     hash: boolean | undefined
+    hot: boolean | undefined
     html: boolean | string | undefined
     immutable: boolean | undefined
     indicator: boolean | undefined
@@ -84,13 +85,17 @@ export interface CommandContext extends CLIContext {
     notify: boolean | undefined
     overlay: boolean | undefined
     publicPath: string | undefined
+    port: string | undefined
+    proxy: string | undefined
     reload: boolean | undefined
     runtime: `single` | `multiple` | boolean | undefined
     splitChunks: boolean | undefined
     storage: string | undefined
     target: Array<string> | undefined
+    use: Array<string> | undefined
     verbose: boolean | undefined
   }>
+  bin?: `node` | `ts-node` | `bun`
 }
 
 export interface File extends Omit<InspectResult, `type`> {

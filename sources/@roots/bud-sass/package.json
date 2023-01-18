@@ -10,8 +10,14 @@
   },
   "contributors": [
     {
-      "name": "kellymears",
+      "name": "Kelly Mears",
+      "email": "developers@tinypixel.dev",
       "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "Ben Word",
+      "email": "ben@benword.com",
+      "url": "https://github.com/retlehs"
     },
     {
       "name": "QWp6t",
@@ -72,22 +78,21 @@
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.11.18",
-    "postcss": "8.4.19",
-    "stylelint": "14.16.0",
+    "postcss": "8.4.21",
+    "stylelint": "14.16.1",
     "webpack": "5.75.0"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "postcss-scss": "^4.0.6",
     "resolve-url-loader": "5.0.0",
-    "sass": "^1.56.1",
+    "sass": "^1.57.1",
     "sass-loader": "^13.2.0",
     "stylelint-config-recommended-scss": "^8.0.0",
     "stylelint-scss": "^4.3.0"
   },
   "peerDependencies": {
     "@roots/bud": "*",
-    "@roots/bud-postcss": "*",
     "postcss-scss": "*",
     "sass": "*",
     "sass-loader": "*",
@@ -95,7 +100,7 @@
     "stylelint-scss": "*"
   },
   "peerDependenciesMeta": {
-    "@roots/bud-postcss": {
+    "@roots/bud": {
       "optional": true
     },
     "postcss-scss": {

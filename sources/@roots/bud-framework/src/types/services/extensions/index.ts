@@ -27,14 +27,12 @@ export type LifecycleMethods =
  *
  * They can also be defined as a {@link Plugin} which is a {@link Module}
  * yielding a {@link PluginInstance}.
- *
- * @public
  */
 export interface Service extends BaseService {
   unresolvable: Set<string>
 
   options: Container<{
-    discovery: boolean
+    discover: boolean
     allowlist: Array<string>
     denylist: Array<string>
   }>

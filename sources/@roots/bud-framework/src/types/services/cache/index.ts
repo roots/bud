@@ -4,8 +4,6 @@ import type {Service as BaseService} from '../../../service.js'
 
 /**
  * Cache service Interface
- *
- * @public
  */
 export interface Service extends BaseService {
   /**

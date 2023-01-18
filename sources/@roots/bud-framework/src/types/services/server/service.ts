@@ -11,15 +11,11 @@ export {Watcher}
  * Application interface
  *
  * @defaultValue express
- *
- * @public
  */
 export interface Application extends Express.Application {}
 
 /**
  * Application server connections
- *
- * @public
  */
 export interface Connections extends Record<string, Connection> {
   http: Connection
@@ -28,8 +24,6 @@ export interface Connections extends Record<string, Connection> {
 
 /**
  * Server interface
- *
- * @public
  */
 export interface Server extends Service {
   /**

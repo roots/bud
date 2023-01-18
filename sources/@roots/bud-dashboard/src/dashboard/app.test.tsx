@@ -1,9 +1,9 @@
 import {factory} from '@repo/test-kit/bud'
-import React from '@roots/bud-support/react'
 import {render} from 'ink-testing-library'
-import {beforeEach, describe, expect, it, vi} from 'vitest'
+import {beforeEach, describe, expect, it} from 'vitest'
+import React from '@roots/bud-support/react'
 
-import App from './app'
+import App from './app.js'
 
 const mockCompilations = [
   {

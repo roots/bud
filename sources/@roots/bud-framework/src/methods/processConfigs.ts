@@ -3,8 +3,6 @@ import * as configuration from '../configuration/index.js'
 
 /**
  * Process user configurations
- *
- * @public
  */
 export interface processConfigs {
   (): Promise<Bud>

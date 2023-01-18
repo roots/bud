@@ -1,13 +1,10 @@
 import {Bud} from '@roots/bud'
-import {
-  get as _get,
-  has as _has,
-  set as _set,
-} from '@roots/bud-support/lodash-es'
+import _get from '@roots/bud-support/lodash/get'
+import _has from '@roots/bud-support/lodash/has'
+import _set from '@roots/bud-support/lodash/set'
 
 /**
  * Bud instance cache
- * @public
  */
 let instances: Record<string, Bud> = {}
 

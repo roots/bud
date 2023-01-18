@@ -1,4 +1,4 @@
-/// <reference path="../../bud/lib/index.d.ts" />
+/// <reference types="@roots/bud" />
 
 import type BudStylelint from './extension.js'
 

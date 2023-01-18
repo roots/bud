@@ -4,7 +4,6 @@ exports[`babel > npm > manifest.json > matches snapshot 1`] = `
 {
   "app.css": "css/app.css",
   "app.js": "js/app.js",
-  "index.html": "index.html",
   "runtime.js": "js/runtime.js",
 }
 `;
@@ -13,7 +12,6 @@ exports[`babel > yarn > manifest.json > matches snapshot 1`] = `
 {
   "app.css": "css/app.css",
   "app.js": "js/app.js",
-  "index.html": "index.html",
   "runtime.js": "js/runtime.js",
 }
 `;

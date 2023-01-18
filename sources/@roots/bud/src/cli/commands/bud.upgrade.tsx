@@ -46,14 +46,14 @@ export default class BudUpgradeCommand extends BudCommand {
     description: `custom registry`,
   })
 
-  public get bin(): `yarn` | `npm` {
+  public get pacman(): `yarn` | `npm` {
     const pacman = detectPackageManager(this.bud)
     if (pacman === false) throw new Error(`Package manager is ambiguous`)
     return pacman
   }
 
   public get command() {
-    return this.bin === `npm` ? `install` : `add`
+    return this.pacman === `npm` ? `install` : `add`
   }
 
   public override async execute() {
@@ -75,7 +75,7 @@ export default class BudUpgradeCommand extends BudCommand {
     }
 
     if (this.hasUpgradeableDependencies(`devDependencies`)) {
-      await this.$(this.bin, [
+      await this.$(this.pacman, [
         this.command,
         ...this.getUpgradeableDependencies(`devDependencies`),
         ...this.getFlags(`devDependencies`),
@@ -83,7 +83,7 @@ export default class BudUpgradeCommand extends BudCommand {
     }
 
     if (this.hasUpgradeableDependencies(`dependencies`)) {
-      await this.$(this.bin, [
+      await this.$(this.pacman, [
         this.command,
         ...this.getUpgradeableDependencies(`dependencies`),
         ...this.getFlags(`dependencies`),
@@ -128,7 +128,7 @@ export default class BudUpgradeCommand extends BudCommand {
     const flags = []
 
     if (type === `devDependencies`) {
-      switch (this.bin) {
+      switch (this.pacman) {
         case `npm`:
           flags.push(`--save-dev`)
           break
@@ -138,7 +138,7 @@ export default class BudUpgradeCommand extends BudCommand {
       }
     }
 
-    if (type === `dependencies` && this.bin === `npm`) {
+    if (type === `dependencies` && this.pacman === `npm`) {
       flags.push(`--save`)
     }
 

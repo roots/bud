@@ -3,10 +3,11 @@ import {dry} from '@roots/bud/cli/decorators'
 import {bind} from '@roots/bud-framework/extension/decorators'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {highlight} from '@roots/bud-support/highlight'
-import * as Ink from '@roots/bud-support/ink'
+import Ink from '@roots/bud-support/ink'
 import {TextInput} from '@roots/bud-support/ink-text-input'
-import {chunk} from '@roots/bud-support/lodash-es'
+import chunk from '@roots/bud-support/lodash/chunk'
 import format from '@roots/bud-support/pretty-format'
+import {useEffect, useState} from '@roots/bud-support/react'
 import React from '@roots/bud-support/react'
 
 import BudCommand, {ArgsModifier} from './bud.js'
@@ -64,11 +65,11 @@ interface ReplProps {
 }
 
 const Repl = ({app, indent, depth}: ReplProps) => {
-  const [search, setSearch] = React.useState(``)
-  const [result, setResult] = React.useState(``)
-  const [paged, setPaged] = React.useState([])
-  const [page, setPage] = React.useState(0)
-  const [action, setAction] = React.useState(``)
+  const [search, setSearch] = useState(``)
+  const [result, setResult] = useState(``)
+  const [paged, setPaged] = useState([])
+  const [page, setPage] = useState(0)
+  const [action, setAction] = useState(``)
 
   const pageSize = 10
 
@@ -101,14 +102,14 @@ const Repl = ({app, indent, depth}: ReplProps) => {
     }
   })
 
-  React.useEffect(() => {
+  useEffect(() => {
     action !== `` &&
       setTimeout(() => {
         setAction(``)
       }, 500)
   }, [action])
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (result) {
       setPaged(
         chunk<string>(result.split(`\n`), pageSize).map(page =>
@@ -118,7 +119,7 @@ const Repl = ({app, indent, depth}: ReplProps) => {
     }
   }, [result, pageSize])
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (page > paged.length) {
       setPage(paged.length - 1)
     }

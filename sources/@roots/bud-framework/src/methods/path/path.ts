@@ -15,8 +15,6 @@ type FileHandle = `@path` | `@name` | `@file` | `@project`
  * @param app - Bud instance
  * @param base - Path segment(s)
  * @returns string
- *
- * @public
  */
 export const parseAlias: (app: Bud, ...base: Array<string>) => string = (
   app,
@@ -48,8 +46,6 @@ export const parseAlias: (app: Bud, ...base: Array<string>) => string = (
  * @param app - Bud instance
  * @param base - Path segment
  * @returns string
- *
- * @public
  */
 export interface path {
   (

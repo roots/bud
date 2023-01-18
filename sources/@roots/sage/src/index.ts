@@ -10,7 +10,7 @@
  * @packageDocumentation
  */
 
-import './types.js'
+import './types/index.js'
 
 import Sage from './sage/index.js'
 

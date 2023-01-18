@@ -1,4 +1,4 @@
-import {Box, Text} from '@roots/bud-support/ink'
+import Ink from '@roots/bud-support/ink'
 import React from '@roots/bud-support/react'
 
 export interface Props {
@@ -8,11 +8,11 @@ export interface Props {
 }
 
 export const Message = ({label, message, color}: Props) => (
-  <Box flexDirection="column">
-    <Text>
-      <Text color={color}>[{label}]</Text>
+  <Ink.Box flexDirection="column">
+    <Ink.Text>
+      <Ink.Text color={color}>[{label}]</Ink.Text>
       {` `}
-      <Text>{message}</Text>
-    </Text>
-  </Box>
+      <Ink.Text>{message}</Ink.Text>
+    </Ink.Text>
+  </Ink.Box>
 )

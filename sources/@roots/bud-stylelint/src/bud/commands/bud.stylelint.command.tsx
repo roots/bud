@@ -1,4 +1,4 @@
-import {join, resolve} from 'node:path'
+import {join} from 'node:path'
 
 import BudCommand from '@roots/bud/cli/commands/bud'
 import {dry} from '@roots/bud/cli/decorators/command.dry'
@@ -26,17 +26,14 @@ export class BudStylelintCommand extends BudCommand {
 
   public override async execute() {
     await this.makeBud(this)
+    await this.run(this)
+
     const stylelint = await this.bud.module.getDirectory(`stylelint`)
     const bin = join(stylelint, `bin`, `stylelint.js`)
 
-    if (!this.options?.length)
+    if (!this.options)
       this.options = [this.bud.path(`@src`, `**/*.{css,scss,sass}`)]
 
-    await this.bud.sh(
-      [`node`, bin, ...(this.options ?? [])].filter(Boolean),
-      {
-        cwd: resolve(process.cwd(), this.basedir ?? `./`),
-      },
-    )
+    await this.$(this.bin, [bin, ...(this.options ?? [])])
   }
 }

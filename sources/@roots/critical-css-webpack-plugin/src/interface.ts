@@ -1,7 +1,5 @@
 /**
  * Plugin constructor options
- *
- * @public
  */
 export interface Options {
   /**

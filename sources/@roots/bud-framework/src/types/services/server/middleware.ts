@@ -30,8 +30,6 @@ export interface DevOptions {
 
 /**
  * Middleware
- *
- * @public
  */
 export type Middleware<V extends 'options' | 'factory'> = {
   [K in keyof Available as `middleware.${K &
@@ -40,8 +38,6 @@ export type Middleware<V extends 'options' | 'factory'> = {
 
 /**
  * Key mapped middleware
- *
- * @public
  */
 export interface Available {
   dev?: Definition<DevOptions>
@@ -52,15 +48,11 @@ export interface Available {
 
 /**
  * Middleware options keys
- *
- * @public
  */
 export type OptionsKey = `middleware.${keyof Available}.options.${string}`
 
 /**
  * Middleware records
- *
- * @public
  */
 export interface Definition<Opts> {
   factory: (app: Bud) => any

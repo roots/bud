@@ -1,5 +1,5 @@
 import './styles.css'
 
-document.querySelector('body')?.classList.add('init')
+document.querySelector('#root')?.classList.add('init')
 
 module?.hot?.accept()

@@ -15,8 +15,6 @@ import {bind} from '@roots/bud-support/decorators'
  *
  * @remarks
  * Base class. Extended by either `http` or `https` class.
- *
- * @public
  */
 export abstract class BaseServer implements Connection {
   /**
@@ -54,7 +52,7 @@ export abstract class BaseServer implements Connection {
    * @public
    */
   public get url(): URL {
-    return this.app.hooks.filter(`dev.url`)
+    return this.app.hooks.filter(`dev.url`, new URL(`http://0.0.0.0:3000`))
   }
 
   /**
@@ -85,6 +83,7 @@ export abstract class BaseServer implements Connection {
     this.instance
       .listen(
         this.app.hooks.filter(`dev.listenOptions`, {
+          host: this.url.hostname,
           port: Number(this.url.port),
         }),
       )
@@ -138,6 +137,8 @@ export abstract class BaseServer implements Connection {
    */
   @bind
   public onError(error: Error) {
-    this.app.error(error)
+    error.name = `bud.js server error`
+    error.message = error?.message ?? error.toString()
+    throw error
   }
 }

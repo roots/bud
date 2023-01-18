@@ -5,8 +5,6 @@ import format from '@roots/bud-support/pretty-format'
 
 /**
  * Project service
- *
- * @public
  */
 class Project extends Service {
   /**

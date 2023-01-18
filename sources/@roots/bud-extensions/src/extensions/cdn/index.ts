@@ -7,16 +7,12 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
-import {
-  isFunction,
-  isString,
-  isUndefined,
-} from '@roots/bud-support/lodash-es'
+import isFunction from '@roots/bud-support/lodash/isFunction'
+import isString from '@roots/bud-support/lodash/isString'
+import isUndefined from '@roots/bud-support/lodash/isUndefined'
 
 /**
  * `esm-http` extension options
- *
- * @public
  */
 export interface Options {
   allowedUris?: Array<string | RegExp | ((uri: string) => boolean)>

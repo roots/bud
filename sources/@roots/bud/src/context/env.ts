@@ -4,8 +4,6 @@ import {dotenv, dotenvExpand} from '@roots/bud-support/dotenv'
 
 /**
  * Context: env
- *
- * @public
  */
 export default ({basedir, ...overrides}) => {
   /**

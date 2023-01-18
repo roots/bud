@@ -6,14 +6,12 @@ import type {
 } from '@roots/bud-framework/registry'
 import type Value from '@roots/bud-framework/value'
 import {bind} from '@roots/bud-support/decorators'
-import {isFunction} from '@roots/bud-support/lodash-es'
+import isFunction from '@roots/bud-support/lodash/isFunction'
 
 import {Hooks} from '../base/base.js'
 
 /**
  * Asynchronous hooks registry
- *
- * @public
  */
 export class AsyncHooks extends Hooks<AsyncStore> {
   /**

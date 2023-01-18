@@ -1,14 +1,14 @@
 import {relative} from 'node:path/posix'
 
 import type {Context} from '@roots/bud-framework/options/context'
-import {Box, Text} from '@roots/bud-support/ink'
+import figures from '@roots/bud-support/figures'
+import Ink from '@roots/bud-support/ink'
 import React from '@roots/bud-support/react'
 import type {
   StatsAsset,
   StatsChunkGroup,
   StatsCompilation,
 } from '@roots/bud-support/webpack'
-import figures from 'figures'
 
 import Chunk from '../chunk/chunk.component.js'
 import ChunkGroup from '../chunk/chunkgroup.component.js'
@@ -75,32 +75,32 @@ const Compilation = ({
   )
 
   return (
-    <Box flexDirection="column">
-      <Box flexDirection="row">
-        <Text color={colorFromStats(compilation)}>
+    <Ink.Box flexDirection="column">
+      <Ink.Box flexDirection="row">
+        <Ink.Text color={colorFromStats(compilation)}>
           {compilation.errorsCount > 0
             ? figures.cross
             : figures.circleFilled}
-        </Text>
+        </Ink.Text>
 
-        <Text>{`  `}</Text>
-        <Text>{compilation.name}</Text>
-        <Text> {``}</Text>
+        <Ink.Text>{`  `}</Ink.Text>
+        <Ink.Text>{compilation.name}</Ink.Text>
+        <Ink.Text> {``}</Ink.Text>
 
         {compilation.outputPath && (
-          <Text color={color.blue}>
+          <Ink.Text color={color.blue}>
             ./{relative(context.basedir, compilation.outputPath)}
-          </Text>
+          </Ink.Text>
         )}
 
-        <Text>{` `}</Text>
+        <Ink.Text>{` `}</Ink.Text>
 
-        <Text dimColor>[{compilation.hash}]</Text>
-      </Box>
+        <Ink.Text dimColor>[{compilation.hash}]</Ink.Text>
+      </Ink.Box>
 
       {!compilation.isChild && (
         <>
-          <Text dimColor>{VERT}</Text>
+          <Ink.Text dimColor>{VERT}</Ink.Text>
 
           <Messages
             type="error"
@@ -116,48 +116,48 @@ const Compilation = ({
             figure={figures.warning}
           />
 
-          <Box flexDirection="column">
+          <Ink.Box flexDirection="column">
             {entrypoints.some(({assets}) => assets?.length > 0) ? (
-              <Box flexDirection="column">
+              <Ink.Box flexDirection="column">
                 <Title>
-                  <Text
+                  <Ink.Text
                     color={colorFromStats(compilation)}
                     dimColor={displayEntrypoints === false}
                   >
-                    <Text underline>e</Text>ntrypoints
-                  </Text>
+                    <Ink.Text underline>e</Ink.Text>ntrypoints
+                  </Ink.Text>
                 </Title>
 
                 {displayEntrypoints
                   ? entrypoints
                       .filter(({assets}) => assets.length > 0)
                       .map((chunk: StatsChunkGroup, id: number) => (
-                        <Box key={id} flexDirection="column">
+                        <Ink.Box key={id} flexDirection="column">
                           <ChunkGroup
                             indent={[true]}
                             {...chunk}
                             minWidth={longestEntrypointAssetLength}
                             final={id === entrypoints.length - 1}
                           />
-                        </Box>
+                        </Ink.Box>
                       ))
                   : null}
                 <Space>
-                  <Text> </Text>
+                  <Ink.Text> </Ink.Text>
                 </Space>
-              </Box>
+              </Ink.Box>
             ) : null}
-          </Box>
+          </Ink.Box>
 
           {assets?.length > 0 ? (
-            <Box flexDirection="column">
+            <Ink.Box flexDirection="column">
               <Title>
-                <Text
+                <Ink.Text
                   color={colorFromStats(compilation)}
                   dimColor={displayAssets === false}
                 >
-                  <Text underline>a</Text>ssets
-                </Text>
+                  <Ink.Text underline>a</Ink.Text>ssets
+                </Ink.Text>
               </Title>
 
               {displayAssets ? (
@@ -165,39 +165,39 @@ const Compilation = ({
                   <Chunk assets={assets} indent={[true]} />
 
                   <Space>
-                    <Text> </Text>
+                    <Ink.Text> </Ink.Text>
                   </Space>
 
                   {truncatedAssets?.length > 0 && (
                     <Space>
-                      <Text dimColor>
+                      <Ink.Text dimColor>
                         {` `}
                         {figures.ellipsis}
                         {` `}
                         {truncatedAssets.length}
                         {` `}
                         additional asset(s) not shown
-                      </Text>
+                      </Ink.Text>
                     </Space>
                   )}
                 </>
               ) : null}
-            </Box>
+            </Ink.Box>
           ) : null}
 
           <Space>
-            <Text> </Text>
+            <Ink.Text> </Ink.Text>
           </Space>
         </>
       )}
 
       <Title final={true}>
-        <Text dimColor>
+        <Ink.Text dimColor>
           compiled {compilation.modules?.length} modules in{` `}
           {duration(compilation.time) as string}
-        </Text>
+        </Ink.Text>
       </Title>
-    </Box>
+    </Ink.Box>
   )
 }
 

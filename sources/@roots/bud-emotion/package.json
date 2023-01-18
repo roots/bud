@@ -10,8 +10,14 @@
   },
   "contributors": [
     {
-      "name": "kellymears",
+      "name": "Kelly Mears",
+      "email": "developers@tinypixel.dev",
       "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "Ben Word",
+      "email": "ben@benword.com",
+      "url": "https://github.com/retlehs"
     },
     {
       "name": "QWp6t",
@@ -38,7 +44,9 @@
     "type": "extension"
   },
   "files": [
-    "lib/"
+    "docs",
+    "lib",
+    "src"
   ],
   "type": "module",
   "module": "./lib/index.js",
@@ -61,14 +69,14 @@
     }
   },
   "devDependencies": {
-    "@babel/core": "7.20.7",
     "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
     "@roots/bud-swc": "workspace:sources/@roots/bud-swc",
     "@skypack/package-check": "0.2.2",
+    "@types/babel__core": "7.1.20",
     "@types/node": "18.11.18",
-    "@types/react": "17.0.52",
-    "react": "17.0.2"
+    "@types/react": "18.0.26",
+    "react": "18.2.0"
   },
   "dependencies": {
     "@emotion/babel-plugin": "^11.10.5",
@@ -77,15 +85,18 @@
     "@emotion/styled": "^11.10.5",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "@swc/plugin-emotion": "2.5.29"
+    "@swc/plugin-emotion": "2.5.33"
   },
   "peerDependencies": {
+    "@babel/core": "7.20.7",
     "@emotion/babel-plugin": "*",
     "@emotion/css": "*",
     "@emotion/react": "*",
     "@emotion/styled": "*",
+    "@roots/bud": "*",
     "@roots/bud-babel": "*",
-    "@roots/bud-swc": "*"
+    "@roots/bud-swc": "*",
+    "@swc/plugin-emotion": "*"
   },
   "peerDependenciesMeta": {
     "@emotion/babel-plugin": {
@@ -100,6 +111,9 @@
     "@emotion/styled": {
       "optional": true
     },
+    "@roots/bud": {
+      "optional": true
+    },
     "@roots/bud-babel": {
       "optional": true
     },
@@ -107,6 +121,9 @@
       "optional": true
     },
     "@swc/plugin-emotion": {
+      "optional": true
+    },
+    "react": {
       "optional": true
     }
   },

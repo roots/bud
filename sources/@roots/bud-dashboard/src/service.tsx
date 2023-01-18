@@ -4,8 +4,8 @@ import type {Service as Contract} from '@roots/bud-framework/services/dashboard'
 import chalk from '@roots/bud-support/chalk'
 import {bind} from '@roots/bud-support/decorators'
 import figures from '@roots/bud-support/figures'
-import {Box, Text} from '@roots/bud-support/ink'
-import {isUndefined} from '@roots/bud-support/lodash-es'
+import Ink from '@roots/bud-support/ink'
+import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import React from '@roots/bud-support/react'
 import type {
   MultiStats,
@@ -19,8 +19,6 @@ type Compilations = Array<Omit<StatsCompilation, `children`>>
 
 /**
  * Dashboard service
- *
- * @public
  */
 export class Dashboard extends Service implements Contract {
   public renderer?: any
@@ -29,12 +27,6 @@ export class Dashboard extends Service implements Contract {
 
   public get silent() {
     return this.app.isCLI() && this.app.context.args.log === false
-  }
-
-  @bind
-  public stale?(stats: StatsCompilation) {
-    const stale = this.stats && this.stats.hash === stats.hash
-    return stale
   }
 
   @bind
@@ -51,7 +43,16 @@ export class Dashboard extends Service implements Contract {
    */
   @bind
   public async update(stats: MultiStats): Promise<this> {
-    if (!stats || this.silent || this.stale(stats)) return this
+    if (!stats) {
+      this.logger.info(`dashboard called but no stats received.`)
+      return this
+    }
+    if (this.silent) {
+      this.logger.info(`dashboard called but silent mode is on.`)
+      return this
+    }
+
+    this.logger.info(`stats received`, stats)
 
     this.stats = stats
 
@@ -68,17 +69,17 @@ export class Dashboard extends Service implements Contract {
       return this
     }
 
-    if (!this.app.isCLI() || this.app.context.args?.ci === true) {
+    if (!this.app.isCLI() || this.app.context.args.ci === true) {
       const stringCompilation = stats.toString({
         preset: `minimal`,
         colors: true,
       })
 
       await this.renderer.once(
-        <Box flexDirection="column">
+        <Ink.Box flexDirection="column">
           <Console messages={this.app.consoleBuffer.fetchAndRemove()} />
-          <Text>{stringCompilation}</Text>
-        </Box>,
+          <Ink.Text>{stringCompilation}</Ink.Text>
+        </Ink.Box>,
       )
 
       return this
@@ -123,7 +124,7 @@ export class Dashboard extends Service implements Contract {
 
     try {
       await Render(
-        <Box flexDirection="column" marginTop={1}>
+        <Ink.Box flexDirection="column" marginTop={1}>
           <Console messages={this.app.consoleBuffer.fetchAndRemove()} />
           <App
             compilations={compilations.map(compilation => ({
@@ -146,7 +147,7 @@ export class Dashboard extends Service implements Contract {
             )}
             watchFiles={this.app.server?.watcher?.files}
           />
-        </Box>,
+        </Ink.Box>,
       )
     } catch (error) {}
   }
@@ -158,41 +159,45 @@ export class Dashboard extends Service implements Contract {
    */
   @bind
   public compilationErrors?(errors: StatsError[]) {
-    return (
-      errors
-        /* Unhelpful errors passed down the loader chain */
-        .filter(({message}) => !message?.includes(`HookWebpackError`))
-        /* Format errors */
-        .map(({message, ...error}: StatsError) => ({
-          ...error,
-          message: message
-            /* Discard unhelpful stack traces */
-            .split(/  at /)
-            .shift()
+    try {
+      return (
+        errors
+          /* Unhelpful errors passed down the loader chain */
+          .filter(({message}) => !message?.includes(`HookWebpackError`))
+          /* Format errors */
+          .map(({message, ...error}: StatsError) => ({
+            ...error,
+            message: message
+              /* Discard unhelpful stack traces */
+              .split(/  at /)
+              .shift()
 
-            /* Discard unhelpful stuff preceeding message */
-            .split(/SyntaxError:?/)
-            .pop()
-            .split(/ModuleError:/)
-            .pop()
-            .split(/Error:/)
-            .pop()
+              /* Discard unhelpful stuff preceeding message */
+              .split(/SyntaxError:?/)
+              .pop()
+              .split(/ModuleError:/)
+              .pop()
+              .split(/Error:/)
+              .pop()
 
-            /* Process line-by-line */
-            .split(`\n`)
-            /* Discard empty lines */
-            .filter(ln => ![``, ` `, `\n`].includes(ln))
-            /* Discard emoji */
-            .map(ln => ln.replaceAll(/×/g, ``))
-            /* Replace project path with . */
-            .map(ln =>
-              ln.replaceAll(new RegExp(this.app.path(), `g`), `.`),
-            )
-            /* Add left padding and vert line */
-            .map(ln => `${chalk.dim(figures.lineVertical)} ${ln}`)
-            /* Reform message */
-            .join(`\n`),
-        }))
-    )
+              /* Process line-by-line */
+              .split(`\n`)
+              /* Discard empty lines */
+              .filter(ln => ![``, ` `, `\n`].includes(ln))
+              /* Discard emoji */
+              .map(ln => ln.replaceAll(/×/g, ``))
+              /* Replace project path with . */
+              .map(ln =>
+                ln.replaceAll(new RegExp(this.app.path(), `g`), `.`),
+              )
+              /* Add left padding and vert line */
+              .map(ln => `${chalk.dim(figures.lineVertical)} ${ln}`)
+              /* Reform message */
+              .join(`\n`),
+          }))
+      )
+    } catch (error) {
+      throw error
+    }
   }
 }

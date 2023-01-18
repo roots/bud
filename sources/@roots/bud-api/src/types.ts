@@ -1,6 +1,6 @@
-/// <reference path="../../bud-framework/lib/index.d.ts" />
-/// <reference path="../../bud-extensions/lib/index.d.ts" />
-/// <reference path="../../bud-terser/lib/index.d.ts" />
+/// <reference types="@roots/bud-framework" />
+/// <reference types="@roots/bud-extensions" />
+/// <reference types="@roots/bud-terser" />
 
 import type {Repository} from './repository.js'
 

@@ -29,7 +29,7 @@ const footer = {
         },
         {
           label: `Configuration`,
-          to: `/docs/`,
+          to: `/docs/config/`,
         },
         {
           label: `Extensions`,
@@ -99,11 +99,7 @@ const metadata = [
   {name: `twitter:url`, content: config.url.docs},
 ]
 
-/**
- * Navbar config
- *
- * @public
- */
+/** @type {import('@docusaurus/preset-classic').ThemeConfig['navbar']} */
 const navbar = {
   hideOnScroll: true,
   logo: {
@@ -119,10 +115,9 @@ const navbar = {
       docsPluginId: `guides`,
     },
     {
-      type: `doc`,
-      docId: `index`,
-      position: `left`,
       label: `Docs`,
+      href: `/docs/config`,
+      position: `left`,
     },
     {
       type: `doc`,
