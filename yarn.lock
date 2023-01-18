@@ -741,9 +741,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/lib-storage@npm:3.245.0":
-  version: 3.245.0
-  resolution: "@aws-sdk/lib-storage@npm:3.245.0"
+"@aws-sdk/lib-storage@npm:3.252.0":
+  version: 3.252.0
+  resolution: "@aws-sdk/lib-storage@npm:3.252.0"
   dependencies:
     "@aws-sdk/middleware-endpoint": 3.226.0
     "@aws-sdk/smithy-client": 3.234.0
@@ -754,7 +754,7 @@ __metadata:
   peerDependencies:
     "@aws-sdk/abort-controller": ^3.0.0
     "@aws-sdk/client-s3": ^3.0.0
-  checksum: 580221e5f577aad98a8b2ea362ec1c8198e8766ddc1503c4a0bb4afd2c96ad09b6cfc2d5aa252c7d0d3d8215a55bb39c65df1aceb525fb4f1118b4a1b801818d
+  checksum: 53e91088d33b1112dd4e406e7151272db8219c5dd3df757fb54ffa94501db4da99dcff51269f6378c8cba124745d66d769ea2ee011a13a0c4041ddca820d2679
   languageName: node
   linkType: hard
 
@@ -7754,7 +7754,7 @@ __metadata:
   dependencies:
     "@aws-sdk/abort-controller": 3.226.0
     "@aws-sdk/client-s3": 3.241.0
-    "@aws-sdk/lib-storage": 3.245.0
+    "@aws-sdk/lib-storage": 3.252.0
     "@skypack/package-check": 0.2.2
     "@types/js-yaml": 4.0.5
     "@types/lodash-es": 4.17.6
