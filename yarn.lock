@@ -5641,24 +5641,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@octokit/app@npm:^13.0.5":
-  version: 13.0.11
-  resolution: "@octokit/app@npm:13.0.11"
+"@octokit/app@npm:^13.1.1":
+  version: 13.1.1
+  resolution: "@octokit/app@npm:13.1.1"
   dependencies:
-    "@octokit/auth-app": ^4.0.0
+    "@octokit/auth-app": ^4.0.8
     "@octokit/auth-unauthenticated": ^3.0.0
     "@octokit/core": ^4.0.0
     "@octokit/oauth-app": ^4.0.7
     "@octokit/plugin-paginate-rest": ^5.0.0
     "@octokit/types": ^8.0.0
     "@octokit/webhooks": ^10.0.0
-  checksum: 7de7a7058945cb5151c92ae9f968f6c8d2115be60f7894493166f19243ac6714b63fadb63246f34e421f30579a1beb3541301994ae71dd0c529538698c181284
+  checksum: d4907ee0d20e075b13985ca6c67cb14d6341fbefac7145013c09c623903b4b889b2671cfd841baf29eeb3b7b5d07fe233a99bd2389a1259eced6e2672bf016d2
   languageName: node
   linkType: hard
 
-"@octokit/auth-app@npm:^4.0.0":
-  version: 4.0.7
-  resolution: "@octokit/auth-app@npm:4.0.7"
+"@octokit/auth-app@npm:^4.0.8":
+  version: 4.0.8
+  resolution: "@octokit/auth-app@npm:4.0.8"
   dependencies:
     "@octokit/auth-oauth-app": ^5.0.0
     "@octokit/auth-oauth-user": ^2.0.0
@@ -5668,9 +5668,9 @@ __metadata:
     "@types/lru-cache": ^5.1.0
     deprecation: ^2.3.1
     lru-cache: ^6.0.0
-    universal-github-app-jwt: ^1.0.1
+    universal-github-app-jwt: ^1.1.1
     universal-user-agent: ^6.0.0
-  checksum: 880de7341f47c5a48822612f50ae453fb0990a188b29afdb2f80a1f7e703c88e068d05a4edc1aa9a8204c730b6f70cf2772fbd5da032fee4986a5266ebdda4c7
+  checksum: 819c048db51ee041697bb4cbba5fc39fbc0849e76cda63dd34ff9e77d60be62c5f93c478a9c1edf6643a88afaefc7aefe562e86b73f6ef6874df1bc797b9b617
   languageName: node
   linkType: hard
 
@@ -6203,7 +6203,7 @@ __metadata:
     helpful-decorators: 2.1.0
     json5: 2.2.3
     lodash-es: 4.17.21
-    octokit: 2.0.10
+    octokit: 2.0.11
     prettier: 2.8.1
     strip-ansi: 7.0.1
     typescript: 4.9.4
@@ -8976,12 +8976,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jsonwebtoken@npm:^8.3.3":
-  version: 8.5.9
-  resolution: "@types/jsonwebtoken@npm:8.5.9"
+"@types/jsonwebtoken@npm:^9.0.0":
+  version: 9.0.1
+  resolution: "@types/jsonwebtoken@npm:9.0.1"
   dependencies:
     "@types/node": "*"
-  checksum: 33815ab02d1371b423118316b7706d2f2ec03eeee5e1494be72da50425d2384e5e0a09ea193f7a5ab4b4f6a9c5847147305f50e965f3d927a95bdf8adb471b2a
+  checksum: a7f0925e9a42ad3ae970364c63c5986d40da5c83d51d3f4e624eb0f064a380376f9e3fb3f2f837390a9ab80143f5d75fd51866da30e110f6b486a3379e1c768f
   languageName: node
   linkType: hard
 
@@ -22112,7 +22112,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jsonwebtoken@npm:9.0.0":
+"jsonwebtoken@npm:9.0.0, jsonwebtoken@npm:^9.0.0":
   version: 9.0.0
   resolution: "jsonwebtoken@npm:9.0.0"
   dependencies:
@@ -25340,11 +25340,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"octokit@npm:2.0.10":
-  version: 2.0.10
-  resolution: "octokit@npm:2.0.10"
+"octokit@npm:2.0.11":
+  version: 2.0.11
+  resolution: "octokit@npm:2.0.11"
   dependencies:
-    "@octokit/app": ^13.0.5
+    "@octokit/app": ^13.1.1
     "@octokit/core": ^4.0.4
     "@octokit/oauth-app": ^4.0.6
     "@octokit/plugin-paginate-rest": ^5.0.0
@@ -25352,7 +25352,7 @@ __metadata:
     "@octokit/plugin-retry": ^4.0.3
     "@octokit/plugin-throttling": ^4.0.1
     "@octokit/types": ^8.0.0
-  checksum: 9a60fdd781a4736fd11d243bc38526f75b4a6f439c2bb2b4299048204292e808bebf322e8eaf1b58f67395152c357b0616616b022ba68b812236f79ccd8f6812
+  checksum: 77d37b70f2b54f2f7e4ca7fb38e31dc54bfe697eb91ba9b6a5b3995f47566583d957a4ebdcf46016cfc87f6a61f9fe0cd623046d169a582d49868e29ea608202
   languageName: node
   linkType: hard
 
@@ -33143,13 +33143,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"universal-github-app-jwt@npm:^1.0.1":
-  version: 1.1.0
-  resolution: "universal-github-app-jwt@npm:1.1.0"
+"universal-github-app-jwt@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "universal-github-app-jwt@npm:1.1.1"
   dependencies:
-    "@types/jsonwebtoken": ^8.3.3
-    jsonwebtoken: ^8.5.1
-  checksum: b6ebbe2533881639701e936ca54c9ec02aae1e9b36bf2495ed66632d5057e06a7d4a118ac38a3d96f63993e19a47ee6e282858e1f4a9c2ceede19a856ca08fcc
+    "@types/jsonwebtoken": ^9.0.0
+    jsonwebtoken: ^9.0.0
+  checksum: 31d30150b9eafa9fa8bf57bd6f97d7d91d4509ad24fa673a6e29ac2295b8f1fc293a70cb44fa807af7cfd787db1cf6edd3876fc0cae31230c5292b76677159fc
   languageName: node
   linkType: hard
 
