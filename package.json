@@ -61,7 +61,7 @@
     "import-meta-resolve": "2.2.1",
     "lodash": "4.17.21",
     "playwright": "1.29.2",
-    "prettier": "2.8.1",
+    "prettier": "2.8.3",
     "syncpack": "8.4.11",
     "ts-node": "10.9.1",
     "tslib": "2.4.1",
