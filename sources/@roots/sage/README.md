@@ -34,17 +34,14 @@ npm install @roots/sage --save-dev
 
 The @roots/sage extension depends on [@roots/bud-preset-wordpress](https://bud.js.org/extensions/bud-preset-wordpress) which in turn depends on [@roots/bud-preset-recommend](https://bud.js.org/extensions/bud-preset-recommend).
 
-All told, these are the extensions which are installed as peers of @roots/sage:
+These are the packages which are installed as peers and registered by the **@roots/sage** main extension:
 
-| Extension                                                               | Description                                                    |
-| ----------------------------------------------------------------------- | -------------------------------------------------------------- |
-| [@roots/bud-babel](https://bud.js.org/extensions/bud-babel)             | Babel transpiler                                               |
-| [@roots/bud-entrypoints](https://bud.js.org/extensions/bud-entrypoints) | Emits `entrypoints.json` manifest                              |
-| [@roots/bud-postcss](https://bud.js.org/extensions/bud-postcss)         | PostCSS transpiler                                             |
-| [@roots/bud-react](https://bud.js.org/extensions/bud-react)             | React support                                                  |
-| @roots/bud-wordpress-dependencies                                       | emits `wordpress.json` manifest                                |
-| @roots/bud-wordpress-externals                                          | Externalizes references to code provided by `window.wp`        |
-| @roots/bud-wordpress-manifests                                          | Combines the `entrypoints.json` and `wordpress.json` manifests |
+| Extension                                                                         | Description        |
+| --------------------------------------------------------------------------------- | ------------------ |
+| [@roots/bud-babel](https://bud.js.org/extensions/bud-babel)                       | Babel transpiler   |
+| [@roots/bud-postcss](https://bud.js.org/extensions/bud-postcss)                   | PostCSS transpiler |
+| [@roots/bud-react](https://bud.js.org/extensions/bud-react)                       | React support      |
+| [@roots/bud-preset-wordpress](https://bud.js.org/extensions/bud-preset-wordpress) | WordPress preset   |
 
 ## Using with eslint
 
@@ -84,92 +81,6 @@ module.exports = {
 
 If you aren't using `@roots/bud-tailwindcss` you may remove the `@roots/bud-tailwindcss/stylelint` value from `extends`.
 
-## Managing `theme.json`
-
-You can manage [WordPress' `theme.json` config file](https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-json/) from the context of your bud config using `bud.wptheme`.
-
-### Enabling `theme.json` support
-
-In order to emit the file you will need to enable the feature:
-
-```ts title="bud.config.mjs"
-bud.wpjson.enable();
-```
-
-### Managing generic `theme.json` values
-
-You can use `setOption` from the bud.js extensions API to set `theme.json` values:
-
-```ts title="bud.config.mjs"
-bud.wpjson.setOption("customTemplates", []).enable();
-```
-
-### Managing the `settings` field
-
-Most `theme.json` configuration centers around the `settings` property. You can modify these values using a fluent
-container interface exposed by `bud.wpjson.settings`.
-
-```ts title="bud.config.mjs"
-bud.wptheme
-  .settings((theme) =>
-    theme
-      .set("typography.customFontSizes", true)
-      .set("typography.fontWeight", false)
-      .merge("spacing.units", ["px", "%", "em"])
-  )
-  .enable();
-```
-
-### Using tailwindcss config values
-
-If you use [@roots/bud-tailwindcss](https://bud.js.org/extensions/bud-tailwindcss) in your project there are several
-opt-in config functions that allow you to generate `theme.json` values directly from your tailwind config.
-
-#### wpjson.useTailwindColors()
-
-Convert `theme.colors` to a `theme.json` palette.
-
-```ts title="bud.config.mjs"
-bud.wpjson.useTailwindColors().enable();
-```
-
-#### wpjson.useTailwindFontSize()
-
-Emits values from `theme.fontSize` as the `typography.fontSizes` property of `theme.json`.
-
-```ts title="bud.config.mjs"
-bud.wpjson.useTailwindFontSize().enable();
-```
-
-#### wpjson.useTailwindFontFamily()
-
-Emits values from `theme.fontFamily` as the `typography.fontFamilies` property of `theme.json`.
-
-```ts title="bud.config.mjs"
-bud.wpjson.useTailwindFontFamily().enable();
-```
-
-#### Limiting values to those defined in `theme.extend`
-
-You can pass `true` to any of the the above functions to limit the values emitted to those defined under tailwind's `theme.extend` key.
-
-```ts title="bud.config.mjs"
-bud.wpjson.useTailwindColors(true).enable();
-```
-
-### In combination
-
-You can use any of these methods in combination:
-
-```ts title="bud.config.mjs"
-bud.wpjson
-  .useTailwindColors()
-  .useTailwindFontSize()
-  .useTailwindFontFamily()
-  .setOption("typography.fontWeight", false)
-  .enable();
-```
-
 ## Using with sass
 
 Install the [@roots/bud-sass extension](https://bud.js.org/extensions/bud-sass):
@@ -189,6 +100,34 @@ module.exports = {
   ],
 };
 ```
+
+## Handling blade `@asset` directives
+
+It is probable that you have assets which are only referenced in the context of blade template files. However, by default **bud.js** ignores the Sage views directory. This means that **bud.js** will not build assets which are used only in blade template files.
+
+The standard way of handling this predicament has been by calling [bud.assets](https://bud.js.org/docs/bud.copy) on the `resources/images` directory, which informs the compiler that it should include those files in the compilation.
+
+However, as an alternative, you can opt-in to the processing of blade templates using **bud.sage.copyBladeAssets**. Once enabled, files referenced in blade templates using the `@assets` directive will be extracted and included in the compilation without the need for copying them.
+
+```typescript file=bud.config.js
+export default async (bud) => {
+  bud.sage.copyBladeAssets();
+};
+```
+
+The possible downside of this approach is that it may be slower than simply copying the directory contents, especially if you have a large number of blade partials. Conversely, if you had a very large number of images in your assets directory it could significantly reduce build times. It is very project dependent and thus opt-in.
+
+That said, compilation speed isn't the full story, and the results of this process are cached so subsequent builds and dev server builds are not really effected much either way. There are other reasons you may want to consider processing blade partials as part of your build step -- namely image optimization.
+
+With [@roots/bud-imagemin](https://bud.js.org/extensions/bud-imagemin) installed enabling this feature allows you to manipulate images using URL query parameters:
+
+```php
+<div class=foo>
+  <img src=@asset('images/example.png?as=webp&width=200&height=200') alt="Example image" />
+</div>
+```
+
+This may very well turn out to be worth trading a few extra seconds for!
 
 ## Contributing
 

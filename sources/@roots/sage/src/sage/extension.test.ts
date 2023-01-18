@@ -14,20 +14,22 @@ describe(`@roots/sage`, async () => {
     sage = new Sage(bud)
   })
 
-  it(`shouldn't add @roots/sage/wp-theme-json-tailwind when @roots/bud-tailwindcss is not present`, async () => {
-    const addSpy = vi.spyOn(bud.extensions, `add`)
-    await sage.register(bud)
-    expect(addSpy).not.toHaveBeenCalled()
+  it(`should register '@roots/sage/blade-loader'`, async () => {
+    expect(bud.extensions.has(`@roots/sage/blade-loader`)).toBeFalsy()
+    await bud.extensions.add(`@roots/sage`)
+    expect(bud.extensions.has(`@roots/sage/blade-loader`)).toBeTruthy()
   })
 
-  it.skip(`should add @roots/sage/wp-theme-json-tailwind when @roots/bud-tailwindcss is present`, async () => {
-    // @ts-ignore
-    await bud.extensions.add(`@roots/bud-tailwindcss`)
-    const addSpy = vi.spyOn(bud.extensions, `add`)
-    await sage.register(bud)
-    expect(addSpy).toHaveBeenCalledWith(
-      `@roots/sage/wp-theme-json-tailwind`,
-    )
+  it(`should register '@roots/bud-preset-wordpress'`, async () => {
+    expect(bud.extensions.has(`@roots/bud-preset-wordpress`)).toBeFalsy()
+    await bud.extensions.add(`@roots/sage`)
+    expect(bud.extensions.has(`@roots/bud-preset-wordpress`)).toBeTruthy()
+  })
+
+  it(`should register '@roots/sage/acorn'`, async () => {
+    expect(bud.extensions.has(`@roots/sage/acorn`)).toBeFalsy()
+    await bud.extensions.add(`@roots/sage`)
+    expect(bud.extensions.has(`@roots/sage/acorn`)).toBeTruthy()
   })
 
   it(`should register errything`, async () => {
@@ -59,5 +61,102 @@ describe(`@roots/sage`, async () => {
       '@scripts': bud.path(`@scripts`),
       '@styles': bud.path(`@styles`),
     })
+  })
+
+  it(`should call bud.hash in production`, async () => {
+    const bud = await factory({mode: `production`})
+    const spy = vi.spyOn(bud, `hash`)
+    await sage.register(bud)
+    expect(spy).toHaveBeenCalled()
+  })
+
+  it(`should call bud.minimize in production`, async () => {
+    const bud = await factory({mode: `production`})
+    expect(bud.isProduction).toBe(true)
+
+    const whenSpy = vi.spyOn(bud, `when`)
+    const spy = vi.spyOn(bud, `minimize`)
+    await sage.register(bud)
+    expect(whenSpy).toHaveBeenCalledWith(
+      true,
+      expect.any(Function),
+      expect.any(Function),
+    )
+    expect(spy).toHaveBeenCalled()
+  })
+
+  it(`should call bud.runtime('single') in production`, async () => {
+    const bud = await factory({mode: `production`})
+    expect(bud.isProduction).toBe(true)
+
+    const whenSpy = vi.spyOn(bud, `when`)
+    const spy = vi.spyOn(bud, `runtime`)
+    await sage.register(bud)
+    expect(whenSpy).toHaveBeenCalledWith(
+      true,
+      expect.any(Function),
+      expect.any(Function),
+    )
+    expect(spy).toHaveBeenCalledWith(`single`)
+  })
+
+  it(`should call bud.splitChunks in production`, async () => {
+    const bud = await factory({mode: `production`})
+    expect(bud.isProduction).toBe(true)
+
+    const whenSpy = vi.spyOn(bud, `when`)
+    const spy = vi.spyOn(bud, `splitChunks`)
+    const devtoolSpy = vi.spyOn(bud, `devtool`)
+    await sage.register(bud)
+    expect(whenSpy).toHaveBeenCalledWith(
+      true,
+      expect.any(Function),
+      expect.any(Function),
+    )
+    expect(spy).toHaveBeenCalled()
+    expect(devtoolSpy).not.toHaveBeenCalled()
+  })
+
+  it(`should call bud.devtool in development`, async () => {
+    const bud = await factory({mode: `development`})
+    expect(bud.isProduction).toBe(false)
+    const whenSpy = vi.spyOn(bud, `when`)
+    const devtoolSpy = vi.spyOn(bud, `devtool`)
+    const splitChunksSpy = vi.spyOn(bud, `splitChunks`)
+    await sage.register(bud)
+    expect(whenSpy).toHaveBeenCalledWith(
+      false,
+      expect.any(Function),
+      expect.any(Function),
+    )
+    expect(devtoolSpy).toHaveBeenCalled()
+    expect(splitChunksSpy).not.toHaveBeenCalled()
+  })
+
+  it(`blade-loader should be disabled by default`, async () => {
+    await bud.extensions.add(`@roots/sage`)
+    expect(
+      await bud.extensions.get(`@roots/sage/blade-loader`).isEnabled(),
+    ).toBe(false)
+  })
+
+  it(`blade-loader should be enabled by copyBladeAssets`, async () => {
+    await bud.extensions.add(`@roots/sage`)
+    bud.sage.copyBladeAssets()
+    expect(
+      await bud.extensions.get(`@roots/sage/blade-loader`).isEnabled(),
+    ).toBe(true)
+  })
+
+  it(`copyBladeAssets should pass along file match strings`, async () => {
+    await bud.extensions.add(`@roots/sage`)
+    bud.sage.copyBladeAssets([`foo`, `bar`])
+    expect(
+      bud.extensions.get(`@roots/sage/blade-loader`).getOptions(),
+    ).toEqual(
+      expect.objectContaining({
+        templates: [`foo`, `bar`],
+      }),
+    )
   })
 })

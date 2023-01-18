@@ -1,8 +1,8 @@
 ---
-title: Managing `theme.json`
+title: Usage
 ---
 
-You can manage [WordPress' `theme.json` config file](https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-json/) from the context of your bud config using `bud.wptheme`.
+You can manage [WordPress' `theme.json` config file](https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-json/) from the context of your bud config using **bud.wptheme**.
 
 ### Enabling `theme.json` support
 

@@ -7,13 +7,19 @@ import {
   label,
 } from '@roots/bud-framework/extension/decorators'
 
+import type {BladeLoaderExtension} from '../blade-loader/extension.js'
+
 /**
  * roots/sage support extension
  *
  * @see https://bud.js.org/extensions/sage/
  */
 @label(`@roots/sage`)
-@dependsOn([`@roots/bud-preset-wordpress`, `@roots/sage/acorn`])
+@dependsOn([
+  `@roots/bud-preset-wordpress`,
+  `@roots/sage/acorn`,
+  `@roots/sage/blade-loader`,
+])
 @expose(`sage`)
 export class Sage extends Extension {
   /**
@@ -59,7 +65,9 @@ export class Sage extends Extension {
    * @deprecated - This function is deprecated. It is unneeded; you can just remove the call.
    */
   @bind
-  public setAcornVersion(version?: 'v2' | 'v3') {
+  /* istanbul ignore next -- @preserve */
+  public setAcornVersion(version: 'v2' | 'v3') {
+    /* istanbul ignore next -- @preserve */
     this.logger.warn(
       `\n\n`,
       `bud.sage.setAcornVersion: This function is deprecated.\n It is unneeded; you can just remove the call.\n\n`,
@@ -68,5 +76,19 @@ export class Sage extends Extension {
       `If you are experiencing an issue and adding this extension fixes it, please open an issue.\n\n`,
       `https://github.com/roots/bud.\n\n`,
     )
+  }
+
+  @bind
+  public copyBladeAssets(
+    files?: BladeLoaderExtension[`options`][`templates`],
+  ) {
+    if (files) {
+      this.app.extensions
+        .get(`@roots/sage/blade-loader`)
+        .setOption(`templates`, files)
+    }
+
+    this.app.extensions.get(`@roots/sage/blade-loader`).enable()
+    return this
   }
 }
