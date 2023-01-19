@@ -15,7 +15,13 @@
     "url": "https://github.com/sponsors/roots"
   },
   "license": "MIT",
-  "contributors": [],
+  "contributors": [
+    {
+      "name": "Kelly Mears",
+      "email": "developers@tinypixel.dev",
+      "url": "https://github.com/kellymears"
+    }
+  ],
   "keywords": [
     "roots",
     "browserslist"
