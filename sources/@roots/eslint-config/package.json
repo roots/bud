@@ -69,7 +69,7 @@
     "@types/node": "18.11.18",
     "@types/prettier": "2.7.2",
     "eslint": "8.31.0",
-    "prettier": "2.8.1"
+    "prettier": "2.8.3"
   },
   "dependencies": {
     "@babel/eslint-parser": "7.19.1",
