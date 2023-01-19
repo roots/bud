@@ -7012,7 +7012,7 @@ __metadata:
     "@types/babel__core": 7.1.20
     "@types/node": 18.11.18
     babel-preset-solid: 1.6.9
-    solid-js: 1.6.6
+    solid-js: 1.6.9
   peerDependencies:
     "@babel/plugin-syntax-jsx": "*"
     "@roots/bud": "*"
@@ -30536,12 +30536,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"solid-js@npm:1.6.6":
-  version: 1.6.6
-  resolution: "solid-js@npm:1.6.6"
+"solid-js@npm:1.6.9":
+  version: 1.6.9
+  resolution: "solid-js@npm:1.6.9"
   dependencies:
     csstype: ^3.1.0
-  checksum: 7b206d30936b3616d7382594fe34e82fec6f448346a44b7ccd9621bde11868ffb6eb7b50669fafa783398b9f79eb238467665ea42ebd5673774d427cdca79dc2
+  checksum: f71c2d784107e62cf3f7155e561af2557df697b41de597bd12f443bd42fbb8bd5e270daaa3eeba96e2a4da87e848d6ba2ae0d24791e16bf0504ba22a4ce51c38
   languageName: node
   linkType: hard
 
