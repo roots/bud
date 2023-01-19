@@ -6511,7 +6511,7 @@ __metadata:
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@roots/bud-swc": "workspace:sources/@roots/bud-swc"
     "@skypack/package-check": 0.2.2
-    "@swc/plugin-emotion": 2.5.33
+    "@swc/plugin-emotion": 2.5.36
     "@types/babel__core": 7.1.20
     "@types/node": 18.11.18
     "@types/react": 18.0.26
@@ -8275,10 +8275,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@swc/plugin-emotion@npm:2.5.33":
-  version: 2.5.33
-  resolution: "@swc/plugin-emotion@npm:2.5.33"
-  checksum: 4bda6460ed697b1b9e0648fcbee8acd5b6b9109516d5d081e7c6880a678d4347a8109a03bc39ee09af38c6401ee86c4be1123f37682d239da1d90db8b0c214d9
+"@swc/plugin-emotion@npm:2.5.36":
+  version: 2.5.36
+  resolution: "@swc/plugin-emotion@npm:2.5.36"
+  checksum: f7ed9513a2cb20f0a3dd1fe34a219f3daffc8d8254d9011685d5197aaed9c71fc98bb268b736f94fdc9ce622ad4b5338c940f20daf26d080d25a98fbf6b48a7d
   languageName: node
   linkType: hard
 
