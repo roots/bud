@@ -93,7 +93,8 @@ export class BudImageminExtension extends Extension {
     this.sharp = bud.extensions.get(`@roots/bud-imagemin/sharp`)
     this.svgo = bud.extensions.get(`@roots/bud-imagemin/svgo`)
 
-    bud.extensions.get(`@roots/bud-extensions/webpack-manifest-plugin`)
+    bud.extensions
+      .get(`@roots/bud-extensions/webpack-manifest-plugin`)
       .setOption(`generate`, () => () => (_seed, files, _entrypoints) => {
         return files.reduce((acc, file) => {
           const match = file.path.match(/generated\..*@(\d*)x(\d*)\.(.*)$/)
@@ -105,7 +106,8 @@ export class BudImageminExtension extends Extension {
               ...acc,
               [`${file.name}?as=${as}`]: file.path,
               [`${file.name}?as=${as}&width=${width}`]: file.path,
-              [`${file.name}?as=${as}&width=${width}&height=${height}`]: file.path,
+              [`${file.name}?as=${as}&width=${width}&height=${height}`]:
+                file.path,
             }
           }
 
@@ -113,7 +115,7 @@ export class BudImageminExtension extends Extension {
             ...acc,
             [file.name]: file.path,
           }
-        },{})
+        }, {})
       })
   }
 }
