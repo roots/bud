@@ -20,9 +20,9 @@ import type BudImageminSvgo from '../svgo/index.js'
  *
  * @see {@link https://bud.js.org/extensions/bud-imagemin}
  *
- * @public
  * @decorator `@label`
  * @decorator `@expose`
+ * @decorator `@dependsOn`
  */
 @label(`@roots/bud-imagemin`)
 @expose(`imagemin`)
@@ -78,8 +78,7 @@ export class BudImageminExtension extends Extension {
   public addPreset<K extends keyof SharpEncodeOptions>(
     ...params: [key: K, value: Partial<Generator>]
   ) {
-    const [key, value] = params
-    this.sharp.setGenerator(key, value)
+    this.sharp.setGenerator(...params)
     return this
   }
 
@@ -104,17 +103,24 @@ export class BudImageminExtension extends Extension {
             const as = rest.split(`.`).pop()
             return {
               ...acc,
-              [`${file.name}?as=${as}`]: file.path,
+
+              /**
+               * Prevent overwriting of full resolution
+               *
+               * Not sure that this behaves exactly as expected. But, it's
+               * more predictable in practice than leaving it unhandled.
+               */
+              ...(!acc[`${file.name}?as=${as}`]
+                ? {[`${file.name}?as=${as}`]: file.path}
+                : {}),
+
               [`${file.name}?as=${as}&width=${width}`]: file.path,
               [`${file.name}?as=${as}&width=${width}&height=${height}`]:
                 file.path,
             }
           }
 
-          return {
-            ...acc,
-            [file.name]: file.path,
-          }
+          return {...acc, [file.name]: file.path}
         }, {})
       })
   }
