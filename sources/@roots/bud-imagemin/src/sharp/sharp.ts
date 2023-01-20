@@ -53,7 +53,7 @@ export class BudImageminSharp extends Extension {
   ): this {
     this.generators.set(preset, {
       preset: generator?.preset ?? preset,
-      filename: `[path][name]-[width]x[height][ext]`,
+      filename: `[path]generated.[name]@[width]x[height][ext]`,
       implementation: generator?.implementation ?? Plugin.sharpGenerate,
       ...generator,
     })
@@ -70,7 +70,11 @@ export class BudImageminSharp extends Extension {
   public override async init() {
     this.generators = new Map()
     this.implementation = Plugin.sharpMinify
-    this.setGenerator(`webp`, {options: {encodeOptions: {webp: {}}}})
+    this.setGenerator(`webp`, {
+      options: {
+        encodeOptions: {webp: {}},
+      },
+    })
   }
 
   /**

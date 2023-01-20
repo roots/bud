@@ -92,5 +92,28 @@ export class BudImageminExtension extends Extension {
   public override async init(bud: Bud): Promise<void> {
     this.sharp = bud.extensions.get(`@roots/bud-imagemin/sharp`)
     this.svgo = bud.extensions.get(`@roots/bud-imagemin/svgo`)
+
+    bud.extensions.get(`@roots/bud-extensions/webpack-manifest-plugin`)
+      .setOption(`generate`, () => () => (_seed, files, _entrypoints) => {
+        return files.reduce((acc, file) => {
+          const match = file.path.match(/generated\..*@(\d*)x(\d*)\.(.*)$/)
+
+          if (match) {
+            const [_, width, height, rest] = match
+            const as = rest.split(`.`).pop()
+            return {
+              ...acc,
+              [`${file.name}?as=${as}`]: file.path,
+              [`${file.name}?as=${as}&width=${width}`]: file.path,
+              [`${file.name}?as=${as}&width=${width}&height=${height}`]: file.path,
+            }
+          }
+
+          return {
+            ...acc,
+            [file.name]: file.path,
+          }
+        },{})
+      })
   }
 }
