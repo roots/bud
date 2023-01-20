@@ -23,7 +23,7 @@ describe('issue-1886', () => {
         `issue-1886`,
         `dist`,
         `images`,
-        `bud-1200x630.webp`,
+        `generated.bud@1200x630.webp`,
       ),
       `utf-8`,
     )
@@ -38,7 +38,7 @@ describe('issue-1886', () => {
         `issue-1886`,
         `dist`,
         `images`,
-        `bud-1200x630.jpeg`,
+        `generated.bud@1200x630.jpeg`,
       ),
       `utf-8`,
     )
@@ -53,7 +53,7 @@ describe('issue-1886', () => {
         `issue-1886`,
         `dist`,
         `images`,
-        `bud-50-1200x630.webp`,
+        `generated.bud-50@1200x630.webp`,
       ),
       `utf-8`,
     )
@@ -68,7 +68,7 @@ describe('issue-1886', () => {
         `issue-1886`,
         `dist`,
         `images`,
-        `bud-css-1200x630.webp`,
+        `generated.bud-css@1200x630.webp`,
       ),
       `utf-8`,
     )

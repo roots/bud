@@ -62,7 +62,7 @@ describe(`@roots/bud-imagemin test projects`, () => {
         `quality-50`,
         `dist`,
         `images`,
-        `bud-1200x630.webp`,
+        `generated.bud@1200x630.webp`,
       ),
       `utf-8`,
     )
@@ -72,7 +72,7 @@ describe(`@roots/bud-imagemin test projects`, () => {
         `quality-default`,
         `dist`,
         `images`,
-        `bud-1200x630.webp`,
+        `generated.bud@1200x630.webp`,
       ),
       `utf-8`,
     )

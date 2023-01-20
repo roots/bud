@@ -26,18 +26,28 @@ export default class BladeWebpackPlugin implements WebpackPluginInstance {
       },
     })).apply(compiler)
 
-    compiler.hooks.shouldEmit.tap(this.constructor.name, compilation => {
-      compilation.entrypoints.delete(`__bud_blade`)
-      return true
+    compiler.hooks.compilation.tap(this.constructor.name, compilation => {
+      compilation.hooks.processAssets.tap(
+        this.constructor.name,
+        assets => {
+          try {
+            Object.keys(assets).map(asset => {
+              if (!asset.includes(`__bud_blade`)) return
+              compilation.deleteAsset(asset)
+            })
+          } catch (error) {
+            throw error
+          }
+        },
+      )
     })
 
     compiler.hooks.afterEnvironment.tap(this.constructor.name, () => {
       compiler.options.module.rules.unshift({
         test: /\.blade\.php$/,
-        use: [
-          {loader: `file-loader`, options: {emitFile: false}},
-          {loader: `@roots/blade-loader/loader`},
-        ],
+        type: `asset/source`,
+        generator: {emit: false},
+        loader: `@roots/blade-loader/loader`,
       })
     })
   }

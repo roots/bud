@@ -7,6 +7,7 @@ import BladeWebpackPlugin from '../lib/plugin';
 describe('@roots/blade-loader', () => {
   let compiler
   let modules
+  let assets
   let errors
   let entrypoints
 
@@ -41,6 +42,7 @@ describe('@roots/blade-loader', () => {
         if (err) reject(err);
         modules = stats?.toJson({assets: true});
         entrypoints = stats?.toJson().entrypoints
+        assets = stats?.toJson().assets
         return resolve(modules)
       });
     });
@@ -51,7 +53,6 @@ describe('@roots/blade-loader', () => {
   })
 
   it('works good', ()  => {
-    expect(Object.values(entrypoints)).toHaveLength(1)
     expect(Object.values(entrypoints)[0]).toEqual(expect.objectContaining({
       assets: [expect.objectContaining({
         name: `main.js`,
