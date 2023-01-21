@@ -147,16 +147,4 @@ describe(`@roots/sage`, async () => {
       await bud.extensions.get(`@roots/sage/blade-loader`).isEnabled(),
     ).toBe(true)
   })
-
-  it(`copyBladeAssets should pass along file match strings`, async () => {
-    await bud.extensions.add(`@roots/sage`)
-    bud.sage.copyBladeAssets([`foo`, `bar`])
-    expect(
-      bud.extensions.get(`@roots/sage/blade-loader`).getOptions(),
-    ).toEqual(
-      expect.objectContaining({
-        templates: [`foo`, `bar`],
-      }),
-    )
-  })
 })

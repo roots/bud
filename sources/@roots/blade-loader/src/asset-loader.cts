@@ -12,14 +12,16 @@ const loader: LoaderDefinitionFunction<{publicPath?: string}> =
 
     if (assetMatches) {
       await Promise.all(
-        [...assetMatches].map(async ([_, request]) => {
+        [...assetMatches].map(async ([match, request]) => {
           request = request.replaceAll(`'`, ``).replaceAll(`"`, ``)
 
           this.addDependency(join(this.context, request))
 
-          await this.importModule(request, {
+          const imageUrl = await this.importModule(request, {
             publicPath: options?.publicPath ?? ``,
           })
+
+          source.replace(match, imageUrl)
         }),
       )
     }

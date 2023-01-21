@@ -4,14 +4,13 @@ import type {
   WebpackPluginInstance,
 } from 'webpack'
 
-interface Options {
-  templates?: string | Array<string>
-}
-
 const scriptLoaderIdents = [`babel`, `swc`, `ts`]
+
 const catsAndDogs = /\.(js|mjs|jsx|ts|tsx|php)$/
+
 const hasMatchingIdent = (ident: string) =>
   scriptLoaderIdents.includes(ident)
+
 const testRuleSetUseItem = (item: RuleSetUseItem) => {
   if (typeof item === `string`) return false
   if (typeof item === `object` && typeof item.ident === `string`)
@@ -20,11 +19,19 @@ const testRuleSetUseItem = (item: RuleSetUseItem) => {
 }
 
 export default class BladeWebpackPlugin implements WebpackPluginInstance {
-  public constructor(public options?: Options) {
+  public constructor() {
     this.apply = this.apply.bind(this)
   }
 
   public async apply(compiler: Compiler) {
+    const assetLoader = {
+      loader: `@roots/blade-loader/asset-loader`,
+      type: `asset/source`,
+    }
+    const scriptLoader = {
+      loader: `@roots/blade-loader/script-loader`,
+    }
+
     compiler.hooks.afterEnvironment.tap(this.constructor.name, () => {
       compiler.options.module.rules = compiler.options.module.rules.map(
         rule => {
@@ -35,11 +42,7 @@ export default class BladeWebpackPlugin implements WebpackPluginInstance {
               return {
                 ...rule,
                 test: catsAndDogs,
-                use: [
-                  rule.loader,
-                  {loader: `@roots/blade-loader/script-loader`},
-                  {loader: `@roots/blade-loader/asset-loader`},
-                ],
+                use: [rule.loader, scriptLoader, assetLoader],
               }
             }
 
@@ -47,11 +50,7 @@ export default class BladeWebpackPlugin implements WebpackPluginInstance {
               return {
                 ...rule,
                 test: catsAndDogs,
-                use: [
-                  ...rule.use,
-                  {loader: `@roots/blade-loader/script-loader`},
-                  {loader: `@roots/blade-loader/asset-loader`},
-                ],
+                use: [...rule.use, scriptLoader, assetLoader],
               }
             }
 
@@ -59,11 +58,7 @@ export default class BladeWebpackPlugin implements WebpackPluginInstance {
               return {
                 ...rule,
                 test: catsAndDogs,
-                use: [
-                  rule.use,
-                  {loader: `@roots/blade-loader/script-loader`},
-                  {loader: `@roots/blade-loader/asset-loader`},
-                ],
+                use: [rule.use, scriptLoader, assetLoader],
               }
             }
           }
@@ -81,11 +76,7 @@ export default class BladeWebpackPlugin implements WebpackPluginInstance {
                   return {
                     ...ruleSetItem,
                     test: catsAndDogs,
-                    use: [
-                      ...ruleSetItem.use,
-                      {loader: `@roots/blade-loader/script-loader`},
-                      {loader: `@roots/blade-loader/asset-loader`},
-                    ],
+                    use: [...ruleSetItem.use, scriptLoader, assetLoader],
                   }
                 }
 
