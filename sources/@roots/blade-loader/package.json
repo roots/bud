@@ -42,9 +42,13 @@
       "types": "./lib/plugin.d.ts",
       "import": "./lib/plugin.js"
     },
-    "./loader": {
-      "types": "./lib/loader.d.cts",
-      "require": "./lib/loader.cjs"
+    "./script-loader": {
+      "types": "./lib/script-loader.d.cts",
+      "require": "./lib/script-loader.cjs"
+    },
+    "./asset-loader": {
+      "types": "./lib/asset-loader.d.cts",
+      "require": "./lib/asset-loader.cjs"
     }
   },
   "type": "module",

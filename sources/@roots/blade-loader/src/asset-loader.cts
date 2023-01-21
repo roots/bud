@@ -12,21 +12,19 @@ const loader: LoaderDefinitionFunction<{publicPath?: string}> =
 
     if (assetMatches) {
       await Promise.all(
-        [...assetMatches].map(async ([match, request]) => {
+        [...assetMatches].map(async ([_, request]) => {
           request = request.replaceAll(`'`, ``).replaceAll(`"`, ``)
 
           this.addDependency(join(this.context, request))
 
-          const asset = await this.importModule(request, {
+          await this.importModule(request, {
             publicPath: options?.publicPath ?? ``,
           })
-
-          source = source.replace(match, asset)
         }),
       )
     }
 
-    return ``
+    return source
   }
 
 export default loader
