@@ -17,8 +17,8 @@ import {yml} from './yml.js'
 
 export const rules = {
   js,
-  css,
   cssModule,
+  css,
   inlineSvg,
   inlineImage,
   inlineFont,
