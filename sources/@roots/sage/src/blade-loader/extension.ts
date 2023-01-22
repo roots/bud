@@ -1,10 +1,7 @@
 import BladeLoaderPlugin from '@roots/blade-loader'
+import type {Bud} from '@roots/bud'
 import {Extension} from '@roots/bud-framework/extension'
-import {
-  disabled,
-  label,
-  plugin,
-} from '@roots/bud-framework/extension/decorators'
+import {label, plugin} from '@roots/bud-framework/extension/decorators'
 
 /**
  * Blade loader extension
@@ -13,5 +10,10 @@ import {
  */
 @label(`@roots/sage/blade-loader`)
 @plugin(BladeLoaderPlugin)
-@disabled
-export class BladeLoaderExtension extends Extension {}
+export class BladeLoaderExtension extends Extension {
+  public override async register(bud: Bud) {
+    bud.hooks.on(`build.resolve.extensions`, (extensions = new Set([])) =>
+      extensions.add(`.blade.php`),
+    )
+  }
+}

@@ -75,11 +75,4 @@ export class Sage extends Extension {
       `https://github.com/roots/bud.\n\n`,
     )
   }
-
-  @bind
-  public copyBladeAssets() {
-    this.app.extensions.get(`@roots/sage/blade-loader`).enable()
-
-    return this
-  }
 }

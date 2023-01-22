@@ -8,22 +8,12 @@ const loader: LoaderDefinitionFunction<{
 }> = function (source) {
   if (!this.resourcePath.match(/\.php$/)) return source
 
-  const matcher = /@script\('([^']+)'\)([\s\S]+?)@endscript/g
+  const matcher = /@module\('([^']+)'\)([\s\S]+?)@endmodule/g
 
   const matches = [...(source.matchAll(matcher) ?? [])].map(match => {
-    const [_, routeExpression, script] = match
+    const [_, _route, script] = match
     const imports: Array<string> = []
     const code: Array<string> = []
-
-    let route = routeExpression
-      .replaceAll(`*`, `.*`)
-      .replaceAll(`/`, `\\/`)
-      .replaceAll(`'`, ``)
-      .replaceAll(`"`, ``)
-
-    if (route !== `\\/`) {
-      route = `\\/${route}`
-    }
 
     script.split(`\n`).map((line: string) => {
       const importStatement = line.match(
@@ -44,23 +34,15 @@ const loader: LoaderDefinitionFunction<{
       return code.push(line)
     })
 
-    return {
-      route,
-      imports,
-      code,
-    }
+    return {imports, code}
   })
 
   return matches
     .filter(Boolean)
-    .map(({route, imports, code}) => {
-      return `if (/^${route}\\/?$/.test(window.location.pathname)) {
-      ;(async () => {
-        ${imports.join(`\n`)}
-        ${code.join(`\n`)}
-      })();
-    }`
-    })
+    .map(
+      ({imports, code}) =>
+        `(async () => {\n${imports.join(`\n`)}\n${code.join(`\n`)}})();`,
+    )
     .join(`\n\n`)
 }
 

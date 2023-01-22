@@ -31,7 +31,8 @@
   },
   "files": [
     "src",
-    "lib"
+    "lib",
+    "vendor"
   ],
   "exports": {
     ".": {

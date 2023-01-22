@@ -17,11 +17,11 @@ const loader: LoaderDefinitionFunction<{publicPath?: string}> =
 
           this.addDependency(join(this.context, request))
 
-          const imageUrl = await this.importModule(request, {
+          const signifier = await this.importModule(request, {
             publicPath: options?.publicPath ?? ``,
           })
 
-          source.replace(match, imageUrl)
+          source.replace(match, signifier)
         }),
       )
     }

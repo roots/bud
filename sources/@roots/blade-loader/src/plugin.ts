@@ -4,17 +4,18 @@ import type {
   WebpackPluginInstance,
 } from 'webpack'
 
-const scriptLoaderIdents = [`babel`, `swc`, `ts`]
+const jsIdents = [`babel`, `swc`, `ts`, `vue`]
 
 const catsAndDogs = /\.(js|mjs|jsx|ts|tsx|php)$/
 
-const hasMatchingIdent = (ident: string) =>
-  scriptLoaderIdents.includes(ident)
+const matchingIdent = (ident: string) => jsIdents.includes(ident)
 
 const testRuleSetUseItem = (item: RuleSetUseItem) => {
   if (typeof item === `string`) return false
+
   if (typeof item === `object` && typeof item.ident === `string`)
-    return hasMatchingIdent(item.ident)
+    return matchingIdent(item.ident)
+
   return false
 }
 
