@@ -2,10 +2,10 @@
 
 namespace App\View\Directives;
 
-class Module
+class JS
 {
     /**
-     * Invoke the @module directive.
+     * Invoke the @js directive.
      *
      * @param  string $view
      * @return string

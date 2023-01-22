@@ -2,10 +2,10 @@
 
 namespace App\View\Directives;
 
-class EndModule
+class EndJS
 {
     /**
-     * Invoke the @endmodule directive.
+     * Invoke the @endjs directive.
      *
      * @return string
      */
