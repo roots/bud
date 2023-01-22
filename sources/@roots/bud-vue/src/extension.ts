@@ -94,7 +94,10 @@ export default class Vue extends Extension<
       .setLoader(`vue`, this.loader)
       .setItem(`vue`, {ident: `vue`, loader: `vue`})
       .setLoader(`vue-style-loader`, this.styleLoader)
-      .setItem(`vue-style-loader`, {ident: `vue-style`, loader: `vue-style-loader`})
+      .setItem(`vue-style-loader`, {
+        ident: `vue-style`,
+        loader: `vue-style-loader`,
+      })
 
     bud.build.rules.css?.setUse((items = []) => [
       `vue-style-loader`,
