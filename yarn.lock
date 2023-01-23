@@ -6295,6 +6295,7 @@ __metadata:
   resolution: "@roots/blade-loader@workspace:sources/@roots/blade-loader"
   dependencies:
     "@skypack/package-check": 0.2.2
+    babel-loader: 9.1.2
     helpful-decorators: 2.1.0
     lodash: 4.17.21
     memfs: 3.4.13
