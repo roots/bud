@@ -57,6 +57,7 @@
   "types": "./lib/plugin.d.ts",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
+    "babel-loader": "9.1.2",
     "memfs": "3.4.13"
   },
   "dependencies": {
