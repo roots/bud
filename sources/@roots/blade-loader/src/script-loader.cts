@@ -11,9 +11,7 @@ const loader: LoaderDefinitionFunction<any> = function (source) {
 
   let result: Array<string> = []
 
-  const css = [
-    ...(source.match(/@css([\s\S]*?)@endcss/g) ?? []),
-  ]
+  const css = [...(source.match(/@css([\s\S]*?)@endcss/g) ?? [])]
   if (css.length) {
     result.push(
       `import ${JSON.stringify(
@@ -25,9 +23,7 @@ const loader: LoaderDefinitionFunction<any> = function (source) {
     )
   }
 
-  const scss = [
-    ...(source.match(/@scss([\s\S]*?)@endscss/g) ?? []),
-  ]
+  const scss = [...(source.match(/@scss([\s\S]*?)@endscss/g) ?? [])]
   if (scss.length) {
     result.push(
       `import ${JSON.stringify(
@@ -51,9 +47,7 @@ const loader: LoaderDefinitionFunction<any> = function (source) {
     )
   }
 
-  const ts = [
-    ...(source.match(/@ts([\s\S]*?)@endts/g) ?? []),
-  ]
+  const ts = [...(source.match(/@ts([\s\S]*?)@endts/g) ?? [])]
   if (ts.length) {
     result.push(
       `import ${JSON.stringify(
@@ -65,9 +59,7 @@ const loader: LoaderDefinitionFunction<any> = function (source) {
     )
   }
 
-  const vue = [
-    ...(source.match(/@vue([\s\S]*?)@endvue/g) ?? []),
-  ]
+  const vue = [...(source.match(/@vue([\s\S]*?)@endvue/g) ?? [])]
   if (vue.length) {
     result.push(
       `import ${JSON.stringify(
