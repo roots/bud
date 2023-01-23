@@ -35,6 +35,7 @@ export class Sage extends Extension {
       '@images': `@src/images`,
       '@scripts': `@src/scripts`,
       '@styles': `@src/styles`,
+      '@views': `@src/views`,
       '@dist': `public`,
       '@public': `@dist`,
     })
@@ -45,14 +46,18 @@ export class Sage extends Extension {
       '@images': bud.path(`@images`),
       '@scripts': bud.path(`@scripts`),
       '@styles': bud.path(`@styles`),
+      '@views': bud.path(`@views`),
     })
+
+    /* Set runtime single */
+    bud.runtime(`single`)
 
     /**
      * Optimize
      */
     bud.when(
       bud.isProduction,
-      () => bud.minimize().hash().runtime(`single`).splitChunks(),
+      () => bud.minimize().hash().splitChunks(),
       () => bud.devtool(),
     )
   }
