@@ -78,8 +78,7 @@ export const injectEvents = (
             return await listener(data)
           }),
         )
-      } catch (ex) {
-      }
+      } catch (ex) {}
     }
 
     /**
