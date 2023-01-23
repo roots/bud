@@ -53,6 +53,7 @@ describe(`@roots/sage`, async () => {
       '@styles': `@src/styles`,
       '@dist': `public`,
       '@public': `@dist`,
+      '@views': `@src/views`,
     })
 
     expect(aliasSpy).toHaveBeenCalledWith({
@@ -60,6 +61,7 @@ describe(`@roots/sage`, async () => {
       '@images': bud.path(`@images`),
       '@scripts': bud.path(`@scripts`),
       '@styles': bud.path(`@styles`),
+      '@views': bud.path(`@views`),
     })
   })
 
