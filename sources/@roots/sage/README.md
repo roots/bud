@@ -103,31 +103,71 @@ module.exports = {
 
 ## Handling blade `@asset` directives
 
-It is probable that you have assets which are only referenced in the context of blade template files. However, by default **bud.js** ignores the Sage views directory. This means that **bud.js** will not build assets which are used only in blade template files.
+You can add blade template files to entrypoints as if they were javascript modules.
 
-The standard way of handling this predicament has been by calling [bud.assets](https://bud.js.org/docs/bud.copy) on the `resources/images` directory, which informs the compiler that it should include those files in the compilation.
-
-However, as an alternative, you can opt-in to the processing of blade templates using **bud.sage.copyBladeAssets**. Once enabled, files referenced in blade templates using the `@assets` directive will be extracted and included in the compilation without the need for copying them.
-
-```typescript file=bud.config.js
+```js
 export default async (bud) => {
-  bud.sage.copyBladeAssets();
+  bud.entry({
+    app: ["@scripts/app", "@styles/app"],
+    editor: ["@scripts/editor", "@styles/editor"],
+    index: ["@views/index"],
+  });
 };
 ```
 
-The possible downside of this approach is that it may be slower than simply copying the directory contents, especially if you have a large number of blade partials. Conversely, if you had a very large number of images in your assets directory it could significantly reduce build times. It is very project dependent and thus opt-in.
+Any modules referenced with the `@asset` directive will be included in the compilation.
 
-That said, compilation speed isn't the full story, and the results of this process are cached so subsequent builds and dev server builds are not really effected much either way. There are other reasons you may want to consider processing blade partials as part of your build step -- namely image optimization.
+If you wanted to include _all_ blade templates, you could do so with `bud.glob`.
 
-With [@roots/bud-imagemin](https://bud.js.org/extensions/bud-imagemin) installed enabling this feature allows you to manipulate images using URL query parameters:
-
-```php
-<div class=foo>
-  <img src=@asset('images/example.png?as=webp&width=200&height=200') alt="Example image" />
-</div>
+```js
+export default async (bud) => {
+  bud.entry({
+    app: [
+      "@scripts/app",
+      "@styles/app",
+      ...(await bud.glob(`@views/**/*.blade.php`)),
+    ],
+    editor: ["@scripts/editor", "@styles/editor"],
+  });
+};
 ```
 
-This may very well turn out to be worth trading a few extra seconds for!
+## Adding scripts and styles to blade templates
+
+You may include client scripts and styles directly in blade templates using directives. This is different than other community packages because the code is extracted and ran through the compiler This means you can write postcss, sass, typescript, etc.
+
+```js
+@extends('layouts.app')
+
+@section('content')
+  <img src=@asset('images/404.png?as=webp') />
+  <img src=@asset('images/404.png?as=webp&width=200') />
+  <div id="target-el"></div>
+@endsection
+
+@js
+import {render} from '@scripts/render'
+
+ReactDOM.render(
+  <h1>Hello, world!</h1>,
+  document.getElementById('target-el')
+);
+@endjs
+
+@css
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+body {
+  @apply bg-blue-500;
+}
+@endcss
+```
+
+Current supported extensions: `js`, `ts`, `css`, `scss`, `vue`.
+
+Note that in order to use `ts`, `scss` or `vue` you will need to have installed a bud extension that supports that language or framework.
 
 ## Contributing
 
