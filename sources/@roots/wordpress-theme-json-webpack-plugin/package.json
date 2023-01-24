@@ -1,7 +1,7 @@
 {
   "name": "@roots/wordpress-theme-json-webpack-plugin",
   "description": "Webpack plugin to help with wp_enqueue_script",
-  "version": "0.0.0",
+  "version": "6.7.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
