@@ -3,7 +3,6 @@ import {
   bind,
   disabled,
   label,
-  options,
   plugin,
 } from '@roots/bud-framework/extension/decorators'
 import Plugin from 'fork-ts-checker-webpack-plugin'
@@ -11,60 +10,35 @@ import type {ForkTsCheckerWebpackPluginOptions as Options} from 'fork-ts-checker
 
 @label(`@roots/bud-typescript/typecheck`)
 @plugin(Plugin)
-@options<Options>({
-  async: () => false,
-  typescript: () => ({
-    diagnosticOptions: {
-      semantic: true,
-      syntactic: true,
-    },
-    mode: `readonly`,
-  }),
-})
 @disabled
 export default class BudTypeCheckPlugin extends Extension<
   Options,
   Plugin
 > {
   /**
-   * Enable typechecking
-   *
-   * @override
-   * @decorator `@bind`
-   */
-  @bind public override enable(state: boolean = true) {
-    this.app.extensions
-      .get(`@roots/bud-typescript`)
-      .setOption(`transpileOnly`, !state)
-
-    this.logger.log(
-      `transpileOnly set to ${this.app.extensions
-        .get(`@roots/bud-typescript`)
-        .getOption(`transpileOnly`)}`,
-    )
-
-    return this
-  }
-
-  /**
    * `init` callback
    *
-   * @public
    * @decorator `@bind`
    */
-  @bind public override async init?(bud: Bud) {
+  @bind
+  public override async init?(bud: Bud) {
     const typescriptPath = await this.resolve(`typescript`)
 
-    this.setOptions(options => ({
-      ...options,
+    this.setOptions({
+      async: true,
       logger: {
         log: this.logger.log,
         error: this.logger.error,
       },
       typescript: {
-        ...(options.typescript ?? {}),
+        configFile: bud.path(`tsconfig.json`),
+        diagnosticOptions: {
+          semantic: true,
+          syntactic: true,
+        },
+        mode: `readonly`,
         typescriptPath,
       },
-    }))
+    })
   }
 }
