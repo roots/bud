@@ -7,12 +7,9 @@ const tsLoader = require.resolve(`./loaders/ts.cjs`)
 const vueLoader = require.resolve(`./loaders/vue.cjs`)
 
 const loader: LoaderDefinitionFunction<any> = function (source) {
-  if (!this.resourcePath.match(/\.php$/)) return source
-
   let result: Array<string> = []
 
-  const css = [...(source.match(/@css([\s\S]*?)@endcss/g) ?? [])]
-  if (css.length) {
+  if (source.match(/@css([\s\S]*?)@endcss/g)) {
     result.push(
       `import ${JSON.stringify(
         this.utils.contextify(
@@ -23,8 +20,7 @@ const loader: LoaderDefinitionFunction<any> = function (source) {
     )
   }
 
-  const scss = [...(source.match(/@scss([\s\S]*?)@endscss/g) ?? [])]
-  if (scss.length) {
+  if (source.match(/@scss([\s\S]*?)@endscss/g)) {
     result.push(
       `import ${JSON.stringify(
         this.utils.contextify(
@@ -35,8 +31,7 @@ const loader: LoaderDefinitionFunction<any> = function (source) {
     )
   }
 
-  const js = source.match(/@js([\s\S]*?)@endjs/g)
-  if (js.length) {
+  if (source.match(/@js([\s\S]*?)@endjs/g)) {
     result.push(
       `import ${JSON.stringify(
         this.utils.contextify(
@@ -47,8 +42,7 @@ const loader: LoaderDefinitionFunction<any> = function (source) {
     )
   }
 
-  const ts = [...(source.match(/@ts([\s\S]*?)@endts/g) ?? [])]
-  if (ts.length) {
+  if (source.match(/@ts([\s\S]*?)@endts/g)) {
     result.push(
       `import ${JSON.stringify(
         this.utils.contextify(
@@ -59,8 +53,7 @@ const loader: LoaderDefinitionFunction<any> = function (source) {
     )
   }
 
-  const vue = [...(source.match(/@vue([\s\S]*?)@endvue/g) ?? [])]
-  if (vue.length) {
+  if (source.match(/@vue([\s\S]*?)@endvue/g)) {
     result.push(
       `import ${JSON.stringify(
         this.utils.contextify(

@@ -1,7 +1,6 @@
 export default function (source: string) {
-  return source
-    .match(/@css([\s\S]*?)@endcss/g)
+  return [...source.matchAll(/@css(?<content>[\s\S]*?)@endcss/g)]
+    .map(match => match.groups.content)
+    .filter(Boolean)
     .join(`\n`)
-    .replace(`@css`, ``)
-    .replace(`@endcss`, ``)
 }

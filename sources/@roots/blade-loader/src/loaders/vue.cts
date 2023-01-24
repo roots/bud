@@ -1,7 +1,6 @@
 export default function (source: string) {
-  return source
-    .match(/@vue([\s\S]*?)@endvue/g)
+  return [...source.matchAll(/@vue(?<content>[\s\S]*?)@endvue/g)]
+    .map(match => match.groups.content)
+    .filter(Boolean)
     .join(`\n`)
-    .replace(`@vue`, ``)
-    .replace(`@endvue`, ``)
 }

@@ -59,7 +59,7 @@ export default class WordPressDependenciesWebpackPlugin {
     compiler.hooks.thisCompilation.tap(this.plugin, compilation => {
       this.compilation = compilation
       this.compilation.hooks.processAssets.tap(
-        this.plugin,
+        {...this.plugin, additionalAssets: true},
         this.processAssets,
       )
     })
@@ -75,11 +75,9 @@ export default class WordPressDependenciesWebpackPlugin {
       ({contextInfo, request}) => {
         const {issuer} = contextInfo
 
-        if (!issuer) return
-
         this.usedDependencies = {
           ...this.usedDependencies,
-          [issuer]: [
+          [issuer ?? `unknown`]: [
             ...(this.usedDependencies[issuer] ?? []),
             request,
           ].filter(wpPkgs.isProvided),
@@ -96,7 +94,7 @@ export default class WordPressDependenciesWebpackPlugin {
   @bind
   public processAssets(assets: Webpack.Compilation['assets']) {
     this.compilation.entrypoints.forEach(entry => {
-      this.manifest[entry.name] = []
+      this.manifest[entry.name] = this.manifest[entry.name] ?? new Set([])
 
       for (const chunk of entry.chunks) {
         this.compilation.chunkGraph
@@ -105,8 +103,7 @@ export default class WordPressDependenciesWebpackPlugin {
             this.usedDependencies[userRequest]
               ?.map((request: string) => wpPkgs.transform(request).enqueue)
               .forEach((request: string) => {
-                !this.manifest[entry.name].includes(request) &&
-                  this.manifest[entry.name].push(request)
+                this.manifest[entry.name].add(request)
               })
 
             modules?.forEach(({userRequest}) => {
@@ -115,8 +112,7 @@ export default class WordPressDependenciesWebpackPlugin {
                   (request: string) => wpPkgs.transform(request).enqueue,
                 )
                 .forEach((request: string) => {
-                  !this.manifest[entry.name].includes(request) &&
-                    this.manifest[entry.name].push(request)
+                  this.manifest[entry.name].add(request)
                 })
             })
           })
@@ -124,7 +120,15 @@ export default class WordPressDependenciesWebpackPlugin {
     })
 
     assets[this.fileName] = new Webpack.sources.RawSource(
-      JSON.stringify(this.manifest),
+      JSON.stringify(
+        Object.entries(this.manifest).reduce(
+          (manifest, [key, value]) => ({
+            ...manifest,
+            [key]: [...value],
+          }),
+          {},
+        ),
+      ),
       true,
     )
   }
