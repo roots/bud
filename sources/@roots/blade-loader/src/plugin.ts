@@ -1,53 +1,24 @@
-import {relative} from 'node:path'
-
-import {globby} from 'globby'
+import {bind} from 'helpful-decorators'
 import type {Compiler, WebpackPluginInstance} from 'webpack'
-import webpack from 'webpack'
 
 interface Options {
-  templates?: string | Array<string>
+  extractScripts?: boolean
 }
 
 export default class BladeWebpackPlugin implements WebpackPluginInstance {
-  public constructor(public options?: Options) {
-    this.apply = this.apply.bind(this)
-  }
+  public constructor(public options?: Options) {}
 
+  @bind
   public async apply(compiler: Compiler) {
-    new webpack.DynamicEntryPlugin(compiler.context, async () => ({
-      __bud_blade: {
-        import: await globby(
-          this.options?.templates ?? `**/*.blade.php`,
-        ).then(files =>
-          files.map(file => relative(compiler.context, file)),
-        ),
-        runtime: false,
-        filename: () => `__bud_blade.js`,
-      },
-    })).apply(compiler)
-
-    compiler.hooks.compilation.tap(this.constructor.name, compilation => {
-      compilation.hooks.processAssets.tap(
-        this.constructor.name,
-        assets => {
-          try {
-            Object.keys(assets).map(asset => {
-              if (!asset.includes(`__bud_blade`)) return
-              compilation.deleteAsset(asset)
-            })
-          } catch (error) {
-            throw error
-          }
-        },
-      )
-    })
+    const use = [`@roots/blade-loader/asset-loader`]
+    if (this.options?.extractScripts !== false) {
+      use.unshift(`@roots/blade-loader/script-loader`)
+    }
 
     compiler.hooks.afterEnvironment.tap(this.constructor.name, () => {
-      compiler.options.module.rules.unshift({
-        test: /\.blade\.php$/,
-        type: `asset/source`,
-        generator: {emit: false},
-        loader: `@roots/blade-loader/loader`,
+      compiler.options.module.rules.push({
+        test: /\.php$/,
+        use,
       })
     })
   }

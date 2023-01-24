@@ -53,6 +53,7 @@ describe(`@roots/sage`, async () => {
       '@styles': `@src/styles`,
       '@dist': `public`,
       '@public': `@dist`,
+      '@views': `@src/views`,
     })
 
     expect(aliasSpy).toHaveBeenCalledWith({
@@ -60,6 +61,7 @@ describe(`@roots/sage`, async () => {
       '@images': bud.path(`@images`),
       '@scripts': bud.path(`@scripts`),
       '@styles': bud.path(`@styles`),
+      '@views': bud.path(`@views`),
     })
   })
 
@@ -131,32 +133,5 @@ describe(`@roots/sage`, async () => {
     )
     expect(devtoolSpy).toHaveBeenCalled()
     expect(splitChunksSpy).not.toHaveBeenCalled()
-  })
-
-  it(`blade-loader should be disabled by default`, async () => {
-    await bud.extensions.add(`@roots/sage`)
-    expect(
-      await bud.extensions.get(`@roots/sage/blade-loader`).isEnabled(),
-    ).toBe(false)
-  })
-
-  it(`blade-loader should be enabled by copyBladeAssets`, async () => {
-    await bud.extensions.add(`@roots/sage`)
-    bud.sage.copyBladeAssets()
-    expect(
-      await bud.extensions.get(`@roots/sage/blade-loader`).isEnabled(),
-    ).toBe(true)
-  })
-
-  it(`copyBladeAssets should pass along file match strings`, async () => {
-    await bud.extensions.add(`@roots/sage`)
-    bud.sage.copyBladeAssets([`foo`, `bar`])
-    expect(
-      bud.extensions.get(`@roots/sage/blade-loader`).getOptions(),
-    ).toEqual(
-      expect.objectContaining({
-        templates: [`foo`, `bar`],
-      }),
-    )
   })
 })

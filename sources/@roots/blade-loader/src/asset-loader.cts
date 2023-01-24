@@ -17,16 +17,16 @@ const loader: LoaderDefinitionFunction<{publicPath?: string}> =
 
           this.addDependency(join(this.context, request))
 
-          const asset = await this.importModule(request, {
+          const signifier = await this.importModule(request, {
             publicPath: options?.publicPath ?? ``,
           })
 
-          source = source.replace(match, asset)
+          source.replace(match, signifier)
         }),
       )
     }
 
-    return ``
+    return source
   }
 
 export default loader

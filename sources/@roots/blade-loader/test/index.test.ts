@@ -1,20 +1,17 @@
-import path from 'node:path';
-import webpack from 'webpack';
-import { createFsFromVolume, Volume } from 'memfs';
+import path from 'node:path'
+import webpack from 'webpack'
+import {createFsFromVolume, Volume} from 'memfs'
 import {beforeEach, expect, describe, it} from 'vitest'
-import BladeWebpackPlugin from '../lib/plugin';
+import BladeWebpackPlugin from '../lib/plugin'
 
 describe('@roots/blade-loader', () => {
   let compiler
-  let modules
-  let assets
-  let errors
-  let entrypoints
+  let compilationStats
 
   beforeEach(async () => {
     compiler = webpack({
       context: __dirname,
-      entry: [`./index.js`],
+      entry: [`./index.js`, `./index.blade.php`],
       output: {
         path: path.resolve(__dirname),
       },
@@ -24,41 +21,53 @@ describe('@roots/blade-loader', () => {
             test: /\.jpg$/,
             type: 'asset/resource',
           },
+          {
+            test: /\.js$/,
+            use: [`babel-loader`],
+          },
         ],
       },
-      plugins: [
-        new BladeWebpackPlugin()
-      ],
+      plugins: [new BladeWebpackPlugin()],
       resolve: {
         modules: [__dirname],
-      }
-    });
+      },
+    })
 
-    compiler.outputFileSystem = createFsFromVolume(new Volume());
-    compiler.outputFileSystem.join = path.join.bind(path);
+    compiler.outputFileSystem = createFsFromVolume(new Volume())
+    compiler.outputFileSystem.join = path.join.bind(path)
 
     await new Promise((resolve, reject) => {
       compiler.run((err, stats) => {
-        if (err) reject(err);
-        modules = stats?.toJson({assets: true});
-        entrypoints = stats?.toJson().entrypoints
-        assets = stats?.toJson().assets
-        return resolve(modules)
-      });
-    });
+        if (err) reject(err)
+
+        compilationStats = stats?.toJson({
+          assets: true,
+          modules: true,
+          entrypoints: true,
+        })
+        return resolve(null)
+      })
+    })
   })
 
   it('does not error', () => {
-    expect(errors).toBe(undefined)
+    expect(compilationStats.errors).toStrictEqual([])
   })
 
-  it('works good', ()  => {
-    expect(Object.values(entrypoints)[0]).toEqual(expect.objectContaining({
-      assets: [expect.objectContaining({
-        name: `main.js`,
-        size: 0,
-      })],
-    }))
-    expect(modules.assets[0].info.sourceFilename).toStrictEqual(`loader-test.jpg`);
-  });
-});
+  it('works good', () => {
+    expect(
+      // @ts-ignore
+      Object.values(compilationStats.entrypoints).pop(),
+    ).toEqual(
+      expect.objectContaining({
+        auxiliaryAssets: [
+          expect.objectContaining({
+            name: expect.stringMatching(/\.jpg$/),
+            size: 761411,
+          }),
+        ],
+      }),
+    )
+    expect(compilationStats.assets).toHaveLength(2)
+  })
+})
