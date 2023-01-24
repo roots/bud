@@ -16,8 +16,7 @@ describe(`@roots/bud-typescript/typecheck`, () => {
 
     typecheck = new BudTypeCheck(bud)
 
-    if (typeof typecheck.init === `function`)
-      await typecheck.init(bud)
+    if (typeof typecheck.init === `function`) await typecheck.init(bud)
   })
 
   it(`has expected default options`, () => {
@@ -52,15 +51,24 @@ describe(`@roots/bud-typescript/typecheck`, () => {
     })
 
     it(`typecheck.enable`, async () => {
-      expect(await bud.extensions.get(`@roots/bud-typescript/typecheck`).isEnabled()).toBe(false)
+      expect(
+        await bud.extensions
+          .get(`@roots/bud-typescript/typecheck`)
+          .isEnabled(),
+      ).toBe(false)
 
       bud.typescript.typecheck.enable()
 
-      expect(bud.extensions
-        .get(`@roots/bud-typescript`)
-        .getOption(`loader`).transpileOnly).toBe(true)
+      expect(
+        bud.extensions.get(`@roots/bud-typescript`).getOption(`loader`)
+          .transpileOnly,
+      ).toBe(true)
 
-      expect(await bud.extensions.get(`@roots/bud-typescript/typecheck`).isEnabled()).toBe(true)
+      expect(
+        await bud.extensions
+          .get(`@roots/bud-typescript/typecheck`)
+          .isEnabled(),
+      ).toBe(true)
     })
 
     it(`typecheck.disable`, async () => {
