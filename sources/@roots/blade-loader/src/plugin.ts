@@ -14,6 +14,7 @@ export default class BladeWebpackPlugin implements WebpackPluginInstance {
     if (this.options?.extractScripts !== false) {
       use.unshift(`@roots/blade-loader/script-loader`)
     }
+
     compiler.hooks.afterEnvironment.tap(this.constructor.name, () => {
       compiler.options.module.rules.push({
         test: /\.php$/,
