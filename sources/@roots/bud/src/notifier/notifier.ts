@@ -53,6 +53,19 @@ export class Notifier {
   public editor: string | boolean
   public notifier = new NotificationCenter({customPath: notifierPath})
 
+  /**
+   * Track if browser has already been opened once
+   * to prevent multiple browser tabs from opening
+   * when changes are saved.
+   *
+   * When {@link Notifier.openBrowser} is called and this
+   * prop is true the call exits early. Otherwise, the
+   * browser is opened and this prop is set to true.
+   *
+   * @see {@link https://github.com/roots/bud/issues/2041}
+   */
+  public browserOpened = false
+
   public get notificationsEnabled(): boolean {
     return this.bud?.context.args.notify !== false
   }
@@ -223,6 +236,9 @@ export class Notifier {
     if (!this.bud.isDevelopment) return
     if (!this.openBrowserEnabled) return
     if (!isString(url)) return
+
+    if (this.browserOpened) return
+    this.browserOpened = true
 
     if (isString(this.browser)) {
       return await open(url, {app: {name: this.browser}})
