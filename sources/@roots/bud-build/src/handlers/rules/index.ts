@@ -26,10 +26,10 @@ export const rules = {
   svg,
   webp,
   image,
+  inlineFont,
   inlineSvg,
   inlineImage,
-  inlineFont,
-  css,
   cssModule,
+  css,
   js,
 }
