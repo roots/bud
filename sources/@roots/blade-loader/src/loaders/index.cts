@@ -1,10 +1,10 @@
-import type { LoaderContext } from "webpack"
+import type {LoaderContext} from 'webpack'
 
 export interface repository {
   [key: string]: {
-    pattern: RegExp,
-    extension: `.${string}`,
-    loader: string,
+    pattern: RegExp
+    extension: `.${string}`
+    loader: string
   }
 }
 
@@ -38,7 +38,7 @@ export const repository: repository = {
 
 export const make = function <K extends keyof typeof repository>(
   this: LoaderContext<any>,
-  entry: typeof repository[K]
+  entry: (typeof repository)[K],
 ) {
   return `import ${JSON.stringify(
     this.utils.contextify(
