@@ -1,0 +1,88 @@
+{
+  "scopeName": "budjs.blade.injection",
+  "fileTypes": [],
+  "injectionSelector": "L:text.html.php.blade -comment",
+  "name": "bud.js",
+  "patterns": [
+    {
+      "begin": "@js",
+      "beginCaptures": {
+        "0": {
+          "name": "entity.other.attribute-name"
+        }
+      },
+      "end": "@endjs",
+      "endCaptures": {
+        "0": {
+          "name": "entity.other.attribute-name"
+        }
+      },
+      "contentName": "source.js",
+      "patterns": [
+        {
+          "include": "source.js"
+        }
+      ]
+    },
+    {
+      "begin": "@css",
+      "beginCaptures": {
+        "0": {
+          "name": "entity.other.attribute-name"
+        }
+      },
+      "end": "@endcss",
+      "endCaptures": {
+        "0": {
+          "name": "entity.other.attribute-name"
+        }
+      },
+      "contentName": "source.css",
+      "patterns": [
+        {
+          "include": "source.css"
+        }
+      ]
+    },
+    {
+      "begin": "@vue",
+      "beginCaptures": {
+        "0": {
+          "name": "entity.other.attribute-name"
+        }
+      },
+      "end": "@endvue",
+      "endCaptures": {
+        "0": {
+          "name": "entity.other.attribute-name"
+        }
+      },
+      "contentName": "source.vue",
+      "patterns": [
+        {
+          "include": "source.vue"
+        }
+      ]
+    },
+    {
+      "begin": "@ts",
+      "beginCaptures": {
+        "0": {
+          "name": "entity.other.attribute-name"
+        }
+      },
+      "end": "@endts",
+      "endCaptures": {
+        "0": {
+          "name": "entity.other.attribute-name"
+        }
+      },
+      "contentName": "source.ts",
+      "patterns": [
+        {
+          "include": "source.ts"
+        }
+      ]
+    }
+  ]
+}

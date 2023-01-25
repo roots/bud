@@ -1,0 +1,24 @@
+{
+  "name": "roots-blade-syntax",
+  "displayName": "Roots Blade Syntax",
+  "description": "Adds Roots specific syntax highlighting to blade template files",
+  "private": true,
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "grammars": [
+      {
+        "scopeName": "budjs.blade.injection",
+        "path": "./syntaxes/bud.injection.json",
+        "injectTo": [
+          "text.html.php.blade"
+        ]
+      }
+    ]
+  }  
+}
