@@ -20,9 +20,9 @@ export const initialize = (bud: Bud): Bud =>
     .hooks.fromMap({
       'pattern.js': /\.(mjs|jsx?)$/,
       'pattern.ts': /\.(tsx?)$/,
-      'pattern.sass': /\.(scss|sass)$/,
+      'pattern.sass': /(?!.*\.module)\.(scss|sass)$/,
       'pattern.sassModule': /\.module\.(scss|sass)$/,
-      'pattern.css': /\.css$/,
+      'pattern.css': /(?!.*\.module)\.css$/,
       'pattern.cssModule': /\.module\.css$/,
       'pattern.font': /\.(ttf|otf|eot|woff2?|ico)$/,
       'pattern.html': /\.(html?)$/,

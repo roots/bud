@@ -11,6 +11,7 @@ export default class BladeWebpackPlugin implements WebpackPluginInstance {
   @bind
   public async apply(compiler: Compiler) {
     const use = [`@roots/blade-loader/asset-loader`]
+
     if (this.options?.extractScripts !== false) {
       use.unshift(`@roots/blade-loader/script-loader`)
     }
