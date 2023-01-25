@@ -152,11 +152,15 @@ export default class FileSystem extends FS {
       await globby(files, {cwd: source}).then(async files => {
         const descriptions = await Promise.all(
           files.map(async file => {
-            const contents = await bud.fs.read(
-              join(source, file),
-              `buffer`,
-            )
-            return {file, contents}
+            const contents = await bud.fs.read(join(source, file))
+
+            return {
+              file,
+              contents:
+                typeof contents !== `string`
+                  ? bud.fs.json.stringify(contents)
+                  : contents,
+            }
           }),
         )
 
