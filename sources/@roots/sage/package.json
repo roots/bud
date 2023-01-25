@@ -50,11 +50,10 @@
   "files": [
     "config",
     "docs",
-    "lib"
+    "lib",
+    "src"
   ],
   "type": "module",
-  "module": "./lib/index.js",
-  "types": "./lib/index.d.ts",
   "exports": {
     ".": {
       "types": "./lib/index.d.ts",
@@ -68,13 +67,21 @@
       "types": "./lib/acorn-v2-public-path/index.d.ts",
       "default": "./lib/acorn-v2-public-path/index.js"
     },
+    "./blade-loader": {
+      "types": "./lib/blade-loader/index.d.ts",
+      "default": "./lib/blade-loader/index.js"
+    },
     "./client": {
       "types": "./lib/client/index.d.ts",
       "default": "./lib/client/index.js"
     },
-    "./client/*": {
-      "types": "./lib/client/*.d.ts",
-      "default": "./lib/client/*.js"
+    "./client/dom-ready": {
+      "types": "./lib/client/dom-ready.d.ts",
+      "default": "./lib/client/dom-ready.js"
+    },
+    "./client/lazy": {
+      "types": "./lib/client/lazy.d.ts",
+      "default": "./lib/client/lazy.js"
     },
     "./sage": {
       "types": "./lib/sage/index.d.ts",
@@ -100,6 +107,8 @@
       "default": "./config/tsconfig.json"
     }
   },
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "typesVersions": {
     "*": {
       ".": [
@@ -111,23 +120,34 @@
       "acorn-v2-public-path": [
         "./lib/acorn-v2-public-path/index.d.ts"
       ],
+      "blade-loader": [
+        "./lib/blade-loader/index.d.ts"
+      ],
       "client": [
         "./lib/client/index.d.ts"
       ],
-      "client/*": [
-        "./lib/*/dom-ready.d.ts"
+      "client/dom-ready": [
+        "./lib/client/dom-ready.d.ts"
+      ],
+      "client/lazy": [
+        "./lib/client/lazy.d.ts"
       ],
       "sage": [
         "./lib/sage/index.d.ts"
+      ],
+      "types": [
+        "./lib/types/index.d.ts"
       ]
     }
   },
   "devDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.18.11"
+    "@types/node": "18.11.18"
   },
   "dependencies": {
+    "@roots/blade-loader": "workspace:sources/@roots/blade-loader",
+    "@roots/bud-build": "workspace:sources/@roots/bud-build",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-preset-wordpress": "workspace:sources/@roots/bud-preset-wordpress",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",

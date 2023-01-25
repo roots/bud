@@ -6,7 +6,10 @@ import {paginateRest} from '@octokit/plugin-paginate-rest'
 import {paths} from '@repo/constants'
 import {json, yml} from '@roots/bud-support/filesystem'
 import fs from '@roots/bud-support/fs-jetpack'
+import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import sortBy from '@roots/bud-support/lodash/sortBy'
+
+import ignoredCommits from './ignored_sha.js'
 
 let {root, sources} = paths
 
@@ -58,7 +61,7 @@ async function getContributorsFromCommits(path) {
   let contributors = {}
 
   await octokit.paginate(
-    `GET /repos/{owner}/{repo}/commits{?sha,path,author,since,until,per_page,page}`,
+    `GET /repos/{owner}/{repo}/commits{?sha,path,author,tag,since,until,per_page,page}`,
     {
       owner: `roots`,
       repo: `bud`,
@@ -66,28 +69,29 @@ async function getContributorsFromCommits(path) {
       per_page: 100,
     },
     response => {
-      response?.data?.map(commit => {
-        if (!commit.author?.login) return
-        if (commit.author.login.includes(`bot`)) return
+      response?.data
+        ?.filter(({sha}) => !ignoredCommits.includes(sha))
+        .filter(({author}) => !isUndefined(author?.login))
+        .filter(({author}) => !author.login.includes(`bot`))
+        .filter(({commit}) => {
+          const message = commit.message.split(`\n`).shift()
+          return !message.startsWith(`chore`) && !message.startsWith(`🧹 chore`)
+        })
+        .map(({author, commit}) => {
+          contributors[author.login] = {
+            ...(contributors[author.login] ?? {}),
+            name: commit.author.name,
+            login: author.login,
+            avatar: author.avatar_url,
+            url: author.html_url,
+            contributions:
+              (contributors[author.login]?.contributions ?? 0) + 1,
+          }
 
-        contributors[commit.author.login] = {
-          ...(contributors[commit.author.login] ?? {}),
-          name: commit.commit.author.name,
-          login: commit.author.login,
-          avatar: commit.author.avatar_url,
-          url: commit.author.html_url,
-          contributions:
-            (contributors[commit.author.login]?.contributions ?? 0) + 1,
-        }
-
-        if (
-          commit.commit.author.email &&
-          !commit.commit.author.email.includes(`noreply`)
-        ) {
-          contributors[commit.author.login].email =
-            commit.commit.author.email
-        }
-      })
+          if (
+            commit.author?.email && !commit.author.email.includes(`noreply`)
+          ) contributors[author.login].email = commit.author.email
+        })
     },
   )
 

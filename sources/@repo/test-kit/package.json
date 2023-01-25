@@ -27,16 +27,16 @@
     "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "@types/fs-extra": "9.0.13",
-    "@types/node": "16.18.11",
+    "@types/fs-extra": "11.0.1",
+    "@types/node": "18.11.18",
     "chalk": "5.2.0",
     "execa": "6.1.0",
-    "fs-extra": "10.1.0",
+    "fs-extra": "11.1.0",
     "globby": "13.1.3",
     "helpful-decorators": "2.1.0",
     "json5": "2.2.3",
     "tslib": "2.4.1",
-    "vitest": "0.26.3"
+    "vitest": "0.27.1"
   },
   "volta": {
     "extends": "../../../package.json"

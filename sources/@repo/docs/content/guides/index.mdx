@@ -15,11 +15,15 @@ import {Card} from '@site/src/components/card'
 <div className="card">
   <div className="card__body">
     <ul>
-      <li>node 16+</li>
-      <li>yarn 1.22 or higher</li>
-      <li>npm 8.3 or higher</li>
+      <li>
+        Node v18.12.1 (LTS). **bud.js** v7.x.x will drop support for Node
+        v16.x.x.
+      </li>
+      <li>yarn v1.22</li>
+      <li>npm v8.3</li>
       <li>Windows users must use Windows Subsystem for Linux</li>
     </ul>
+
   </div>
 </div>
 
@@ -36,7 +40,7 @@ npm install @roots/bud --save-dev
 If your project's entrypoint is located at `./src/index.(js|css)` you can now compile it using the [bud build](./cli/build/index.mdx) command.
 No configuration is required. The bundled code will be output to `./dist/main.(js|css)`.
 
-If you need to customize the build process, see the guide on [configuration basics](configure) to get started.
+For information on customizing the build for your application see the [configuration basics](configure) guide.
 
 ## Adding features
 

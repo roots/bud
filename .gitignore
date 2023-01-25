@@ -2,13 +2,14 @@
 .env
 !tests/unit/bud/context/**/.env
 
-.swc
+**/.swc
 
 coverage
 storage/**/*
 !storage/yarn.lock
 !storage/package.json
 
+# Yarn
 **/*.log
 **/lib
 **/*.tsbuildinfo
@@ -18,10 +19,10 @@ storage/**/*
 **/.yarn
 !/.yarn
 
-**/node_modules
+# Netlify
+**/.netlify
 
 # Sources
-/sources/@roots/*/types
 /sources/@repo/docs/content/dev/api/**/*
 /sources/@repo/docs/build
 /sources/@repo/docs/.docusaurus
@@ -29,9 +30,6 @@ storage/**/*
 !/sources/@repo/docs/generated/*/.gitkeep
 /sources/@repo/*/compiled
 
-# Examples
-/examples/*/dist
-/examples/*/.budfiles
-
-# Local Netlify folder
-**/.netlify
+**/dist
+**/.budfiles
+**/node_modules

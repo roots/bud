@@ -1,5 +1,3 @@
-import {resolve} from 'node:path'
-
 import {Bud} from '@roots/bud'
 import {checkDependencies} from '@roots/bud/cli/helpers/checkDependencies'
 import {checkPackageManagerErrors} from '@roots/bud/cli/helpers/checkPackageManagerErrors'
@@ -184,10 +182,6 @@ export default class BudCommand extends Command<CommandContext> {
   }
 
   public async makeBud<T extends BudCommand>(command: T) {
-    command.context.basedir = command.cwd
-      ? resolve(command.context.basedir, command.cwd)
-      : command.context.basedir
-
     command.context.mode = command.mode ?? command.context.mode
 
     command.context.args = {
@@ -394,18 +388,13 @@ export default class BudCommand extends Command<CommandContext> {
     /**
      * Filter instances
      */
-    if (isset(args.filter) && bud.hasChildren) {
-      Object.keys(bud.children)
-        .filter(name => !args.filter.includes(name))
-        .map(name => {
-          delete bud.children[name]
-          bud.log(`removing ${name} instance from the cli`)
+    if (args.filter?.length && bud.hasChildren) {
+      Object.values(bud.children)
+        .filter(child => !args.filter.includes(child.label))
+        .map(child => {
+          delete bud.children[child.label]
+          bud.log(`removing ${child.label} instance from the cli`)
         })
-    }
-    if (isset(args.filter) && !bud.hasChildren) {
-      throw new Error(
-        `After filtering there are no instances left to build.`,
-      )
     }
 
     /**

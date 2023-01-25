@@ -15,13 +15,13 @@
       "url": "https://github.com/kellymears"
     },
     {
-      "name": "QWp6t",
-      "url": "https://github.com/QWp6t"
-    },
-    {
       "name": "Ben Word",
       "email": "ben@benword.com",
       "url": "https://github.com/retlehs"
+    },
+    {
+      "name": "QWp6t",
+      "url": "https://github.com/QWp6t"
     }
   ],
   "bugs": {
@@ -51,11 +51,11 @@
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/fs-extra": "9.0.13",
-    "@types/node": "16.18.11"
+    "@types/fs-extra": "11.0.1",
+    "@types/node": "18.11.18"
   },
   "dependencies": {
-    "fs-extra": "10.1.0",
+    "fs-extra": "11.1.0",
     "helpful-decorators": "2.1.0",
     "webpack": "5.75.0"
   },

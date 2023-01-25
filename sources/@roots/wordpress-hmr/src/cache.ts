@@ -1,12 +1,10 @@
-import {isUndefined} from 'lodash-es'
-
 type Module = any
 
 export class Cache {
   public store: {[key: string]: Module} = {}
 
   public has(key: string): boolean {
-    return !isUndefined(this.store[key])
+    return typeof this.store[key] !== `undefined`
   }
 
   public set(key: string, value: Module): void {

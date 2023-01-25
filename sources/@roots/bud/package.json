@@ -10,13 +10,13 @@
       "url": "https://github.com/kellymears"
     },
     {
-      "name": "QWp6t",
-      "url": "https://github.com/QWp6t"
-    },
-    {
       "name": "Ben Word",
       "email": "ben@benword.com",
       "url": "https://github.com/retlehs"
+    },
+    {
+      "name": "QWp6t",
+      "url": "https://github.com/QWp6t"
     }
   ],
   "license": "MIT",
@@ -167,7 +167,7 @@
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.18.11"
+    "@types/node": "18.11.18"
   },
   "dependencies": {
     "@roots/browserslist-config": "workspace:sources/@roots/browserslist-config",

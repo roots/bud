@@ -1,5 +1,5 @@
 import {bind} from 'helpful-decorators'
-import {uniq} from 'lodash-es'
+import uniq from 'lodash/uniq.js'
 import Webpack from 'webpack'
 
 import {HtmlEmitter} from './html.emitter.js'

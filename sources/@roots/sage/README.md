@@ -34,17 +34,14 @@ npm install @roots/sage --save-dev
 
 The @roots/sage extension depends on [@roots/bud-preset-wordpress](https://bud.js.org/extensions/bud-preset-wordpress) which in turn depends on [@roots/bud-preset-recommend](https://bud.js.org/extensions/bud-preset-recommend).
 
-All told, these are the extensions which are installed as peers of @roots/sage:
+These are the packages which are installed as peers and registered by the **@roots/sage** main extension:
 
-| Extension                                                               | Description                                                    |
-| ----------------------------------------------------------------------- | -------------------------------------------------------------- |
-| [@roots/bud-babel](https://bud.js.org/extensions/bud-babel)             | Babel transpiler                                               |
-| [@roots/bud-entrypoints](https://bud.js.org/extensions/bud-entrypoints) | Emits `entrypoints.json` manifest                              |
-| [@roots/bud-postcss](https://bud.js.org/extensions/bud-postcss)         | PostCSS transpiler                                             |
-| [@roots/bud-react](https://bud.js.org/extensions/bud-react)             | React support                                                  |
-| @roots/bud-wordpress-dependencies                                       | emits `wordpress.json` manifest                                |
-| @roots/bud-wordpress-externals                                          | Externalizes references to code provided by `window.wp`        |
-| @roots/bud-wordpress-manifests                                          | Combines the `entrypoints.json` and `wordpress.json` manifests |
+| Extension                                                                         | Description        |
+| --------------------------------------------------------------------------------- | ------------------ |
+| [@roots/bud-babel](https://bud.js.org/extensions/bud-babel)                       | Babel transpiler   |
+| [@roots/bud-postcss](https://bud.js.org/extensions/bud-postcss)                   | PostCSS transpiler |
+| [@roots/bud-react](https://bud.js.org/extensions/bud-react)                       | React support      |
+| [@roots/bud-preset-wordpress](https://bud.js.org/extensions/bud-preset-wordpress) | WordPress preset   |
 
 ## Using with eslint
 
@@ -84,92 +81,6 @@ module.exports = {
 
 If you aren't using `@roots/bud-tailwindcss` you may remove the `@roots/bud-tailwindcss/stylelint` value from `extends`.
 
-## Managing `theme.json`
-
-You can manage [WordPress' `theme.json` config file](https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-json/) from the context of your bud config using `bud.wptheme`.
-
-### Enabling `theme.json` support
-
-In order to emit the file you will need to enable the feature:
-
-```ts title="bud.config.mjs"
-bud.wpjson.enable();
-```
-
-### Managing generic `theme.json` values
-
-You can use `setOption` from the bud.js extensions API to set `theme.json` values:
-
-```ts title="bud.config.mjs"
-bud.wpjson.setOption("customTemplates", []).enable();
-```
-
-### Managing the `settings` field
-
-Most `theme.json` configuration centers around the `settings` property. You can modify these values using a fluent
-container interface exposed by `bud.wpjson.settings`.
-
-```ts title="bud.config.mjs"
-bud.wptheme
-  .settings((theme) =>
-    theme
-      .set("typography.customFontSizes", true)
-      .set("typography.fontWeight", false)
-      .merge("spacing.units", ["px", "%", "em"])
-  )
-  .enable();
-```
-
-### Using tailwindcss config values
-
-If you use [@roots/bud-tailwindcss](https://bud.js.org/extensions/bud-tailwindcss) in your project there are several
-opt-in config functions that allow you to generate `theme.json` values directly from your tailwind config.
-
-#### wpjson.useTailwindColors()
-
-Convert `theme.colors` to a `theme.json` palette.
-
-```ts title="bud.config.mjs"
-bud.wpjson.useTailwindColors().enable();
-```
-
-#### wpjson.useTailwindFontSize()
-
-Emits values from `theme.fontSize` as the `typography.fontSizes` property of `theme.json`.
-
-```ts title="bud.config.mjs"
-bud.wpjson.useTailwindFontSize().enable();
-```
-
-#### wpjson.useTailwindFontFamily()
-
-Emits values from `theme.fontFamily` as the `typography.fontFamilies` property of `theme.json`.
-
-```ts title="bud.config.mjs"
-bud.wpjson.useTailwindFontFamily().enable();
-```
-
-#### Limiting values to those defined in `theme.extend`
-
-You can pass `true` to any of the the above functions to limit the values emitted to those defined under tailwind's `theme.extend` key.
-
-```ts title="bud.config.mjs"
-bud.wpjson.useTailwindColors(true).enable();
-```
-
-### In combination
-
-You can use any of these methods in combination:
-
-```ts title="bud.config.mjs"
-bud.wpjson
-  .useTailwindColors()
-  .useTailwindFontSize()
-  .useTailwindFontFamily()
-  .setOption("typography.fontWeight", false)
-  .enable();
-```
-
 ## Using with sass
 
 Install the [@roots/bud-sass extension](https://bud.js.org/extensions/bud-sass):
@@ -189,6 +100,74 @@ module.exports = {
   ],
 };
 ```
+
+## Handling blade `@asset` directives
+
+You can add blade template files to entrypoints as if they were javascript modules.
+
+```js
+export default async (bud) => {
+  bud.entry({
+    app: ["@scripts/app", "@styles/app"],
+    editor: ["@scripts/editor", "@styles/editor"],
+    index: ["@views/index"],
+  });
+};
+```
+
+Any modules referenced with the `@asset` directive will be included in the compilation.
+
+If you wanted to include _all_ blade templates, you could do so with `bud.glob`.
+
+```js
+export default async (bud) => {
+  bud.entry({
+    app: [
+      "@scripts/app",
+      "@styles/app",
+      ...(await bud.glob(`@views/**/*.blade.php`)),
+    ],
+    editor: ["@scripts/editor", "@styles/editor"],
+  });
+};
+```
+
+## Adding scripts and styles to blade templates
+
+You may include client scripts and styles directly in blade templates using directives. This is different than other community packages because the code is extracted and ran through the compiler This means you can write postcss, sass, typescript, etc.
+
+```js
+@extends('layouts.app')
+
+@section('content')
+  <img src=@asset('images/404.png?as=webp') />
+  <img src=@asset('images/404.png?as=webp&width=200') />
+  <div id="target-el"></div>
+@endsection
+
+@js
+import {render} from '@scripts/render'
+
+ReactDOM.render(
+  <h1>Hello, world!</h1>,
+  document.getElementById('target-el')
+);
+@endjs
+
+@css
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+body {
+  @apply bg-blue-500;
+}
+@endcss
+```
+
+Current supported extensions: `js`, `ts`, `css`, `scss`, `vue`.
+
+Note that in order to use `ts`, `scss` or `vue` you will need to have installed a bud extension that supports that language or framework.
 
 ## Contributing
 
@@ -226,4 +205,7 @@ Help support our open-source development efforts by [becoming a patron](https://
 </a>
 <a href="https://pantheon.io/">
 <img src="https://cdn.roots.io/app/uploads/pantheon.svg" alt="Pantheon" width="200" height="150"/>
+</a>
+<a href="https://worksitesafety.ca/careers/">
+<img src="https://cdn.roots.io/app/uploads/worksite-safety.svg" alt="Worksite Safety" width="200" height="150"/>
 </a>

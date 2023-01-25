@@ -1,0 +1,8 @@
+{
+  "name": "@tests/tailwind-integration",
+  "private": true,
+  "dependencies": {
+    "@roots/bud": "workspace:*",
+    "@roots/bud-tailwindcss": "workspace:*"
+  }
+}
