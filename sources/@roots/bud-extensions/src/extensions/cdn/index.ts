@@ -7,7 +7,6 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
-import isFunction from '@roots/bud-support/lodash/isFunction'
 import isString from '@roots/bud-support/lodash/isString'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 
@@ -15,7 +14,7 @@ import isUndefined from '@roots/bud-support/lodash/isUndefined'
  * `esm-http` extension options
  */
 export interface Options {
-  allowedUris?: Array<string | RegExp | ((uri: string) => boolean)>
+  allowedUris?: Set<string | RegExp | ((uri: string) => boolean)>
   cacheLocation: false | string
   frozen: boolean
   lockfileLocation: string
@@ -38,7 +37,7 @@ export interface Options {
 @label(`@roots/bud-extensions/cdn`)
 @expose(`cdn`)
 @options<Options>({
-  allowedUris: [],
+  allowedUris: new Set([/^http:\/\//, /^https:\/\//]),
   cacheLocation: (app: Bud) => app.path(`@storage`, app.label, `modules`),
   frozen: false,
   lockfileLocation: (app: Bud): string =>
@@ -79,38 +78,17 @@ export default class Cdn extends Extension<Options, null> {
   }
 
   /**
-   * Register CDN
-   *
-   * @public
-   */
-  @bind
-  public registerSource(name: string, url: string): this {
-    this.sources.set(name, url)
-    return this
-  }
-
-  /**
    * Allowed URIs getter/setter
    *
    * @public
    */
-  public get allowedUris(): Array<
+  public get allowedUris(): Set<
     string | RegExp | ((uri: string) => boolean)
   > {
-    return Array.from(
-      new Set([
-        ...this.getOption(`allowedUris`),
-        ...(this.sources.values() ?? []),
-      ]),
-    ).filter(
-      v => typeof v === `string` || v instanceof RegExp || isFunction(v),
-    )
+    return this.getOption(`allowedUris`)
   }
-
   public set allowedUris(
-    value:
-      | Array<string | RegExp | ((uri: string) => boolean)>
-      | Options['allowedUris'],
+    value: Set<string | RegExp | ((uri: string) => boolean)>,
   ) {
     this.setOption(`allowedUris`, value)
   }
@@ -187,9 +165,7 @@ export default class Cdn extends Extension<Options, null> {
    */
   @bind
   public setAllowedUris(
-    value:
-      | Array<string | RegExp | ((uri: string) => boolean)>
-      | Options['allowedUris'],
+    value: Set<string | RegExp | ((uri: string) => boolean)>,
   ): this {
     this.allowedUris = value
     return this
@@ -257,14 +233,6 @@ export default class Cdn extends Extension<Options, null> {
     return this
   }
 
-  @bind
-  public async beforeBuild() {
-    for (const cdnKey of this.sources.keys()) {
-      this.logger.log(`registering`, cdnKey)
-      this.app.context.manifest?.bud?.[cdnKey] && this.enable()
-    }
-  }
-
   /**
    * `buildBefore` callback
    *
@@ -273,13 +241,10 @@ export default class Cdn extends Extension<Options, null> {
    */
   @bind
   public override async buildBefore(bud: Bud) {
-    const manifest = bud.context.manifest.bud
-
     bud.hooks.on(`build.experiments`, experiments => ({
       ...(experiments ?? {}),
       buildHttp: {
-        allowedUris:
-          this.allowedUris.length > 0 ? this.allowedUris : undefined,
+        allowedUris: Array.from(this.allowedUris),
         cacheLocation: this.cacheEnabled ? this.cacheLocation : false,
         frozen: this.frozen,
         lockfileLocation: this.lockfileLocation,
@@ -288,53 +253,48 @@ export default class Cdn extends Extension<Options, null> {
       },
     }))
 
-    for (const source of this.sources.entries()) {
-      const cdn = {
-        ident: source[0],
-        url: source[1],
-        schema: `${source[0]}:`,
-      }
+    Object.entries(bud.build.rules).map(([key, rule]) => {
+      if (key === `js` || key === `ts`) return
 
+      rule.setInclude([
+        ...(!bud.build.rules[key].include
+          ? [bud.path()]
+          : Array.isArray(bud.build.rules[key].include)
+          ? bud.build.rules[key].include
+          : []),
+        ...Array.from(this.allowedUris),
+      ])
+    })
+
+    const {NormalModuleReplacementPlugin} = await import(`webpack`).then(
+      m => m.default,
+    )
+
+    for (const [ident, url] of this.sources.entries()) {
       await bud.extensions.add({
-        label: `bud-cdn-${cdn.ident}` as keyof Modules & string,
-        make: async () => {
-          const {NormalModuleReplacementPlugin} = await import(
-            `webpack`
-          ).then(m => m.default)
-          return new NormalModuleReplacementPlugin(
-            new RegExp(`^${cdn.schema}`),
+        label: `bud-cdn-${ident}` as keyof Modules,
+        make: async () =>
+          new NormalModuleReplacementPlugin(
+            new RegExp(`^${ident}:`),
             result => {
-              result.request = result.request.replace(cdn.schema, cdn.url)
+              result.request = result.request.replace(`${ident}:`, url)
             },
-          )
-        },
+          ),
       })
 
-      const imports = manifest?.imports?.[cdn.ident]
-      if (isUndefined(imports)) return
-
       await Promise.all(
-        imports.map(async ([signifier, remotePath]) => {
-          await bud.extensions.add({
-            label: `bud-cdn-${cdn.ident}-${remotePath}` as keyof Modules &
-              string,
-            make: async () => {
-              const {NormalModuleReplacementPlugin} = await import(
-                `webpack`
-              ).then(m => m.default)
-
-              return new NormalModuleReplacementPlugin(
-                new RegExp(`^${signifier}`),
-                result => {
-                  result.request = result.request.replace(
-                    signifier,
-                    [cdn.url, remotePath].join(``),
-                  )
-                },
-              )
-            },
-          })
-        }),
+        (bud.context.manifest?.bud?.imports?.[ident] ?? []).map(
+          async ([signifier, remote]) => {
+            await bud.extensions.add({
+              label: `bud-cdn-${ident}-${remote}` as keyof Modules,
+              make: async () =>
+                new NormalModuleReplacementPlugin(
+                  new RegExp(`^${signifier}`),
+                  `${url}${remote}`,
+                ),
+            })
+          },
+        ),
       )
     }
   }

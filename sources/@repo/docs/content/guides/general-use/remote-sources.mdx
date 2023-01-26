@@ -16,101 +16,91 @@ a PR that implements the change you would like to see.
 
 You can build remote packages at compile time, serve them locally, and generate a lockfile to guarantee deployed dependencies match your development environment.
 
-Ships with following sources, but you can add more:
+Ships with support for the following sources, but you can add more:
 
 - `skypack`
 - `gist`
 - `github`
 - `unpkg`
 
+## Basic usage
+
+First, enable the feature:
+
+```ts title=bud.config.js
+export default async bud => {
+  bud.cdn.enable()
+}
+```
+
+Once enabled, try importing a module using one of the built in sources:
+
+```ts title=app.js
+import confetti from 'skypack:canvas-confetti'
+confetti()
+```
+
+If you are referencing a github URL, note that you will need to include a branch:
+
+```ts title=app.js
+import readme from 'github:roots/bud/main/README.md'
+```
+
+If you are specifying any asset with a remote URL (e.g. an image) it will automatically convert it to a local module:
+
+```css title=app.css
+body {
+  background-image: url('https://example.com/image.png');
+}
+```
+
+## Add local module store to `.gitignore`
+
+Add `!.budfiles/[name]/modules` to your `.gitignore` file to version control the local copy of whatever remote assets you have pulled.
+
+This ensures your application can be built even if the original assets are not available.
+
 ## Import mapping
 
-Use any registered source as a key in `package.json` to map imports to it. It can be done with either an object or an array:
-
-```json title="package.json"
-"skypack": [
-  "alpinejs"
-]
-```
-
-```json title="package.json"
-"skypack": {
-  "alpinejs": "3.10.0"
-}
-```
-
-If the CDN supports it you can pass params in addition to the version:
-
-```json title="package.json"
-"skypack": {
-  "alpinejs": "latest?dist=es2015"
-}
-```
-
-Once set you can import from `'alpinejs'` anywhere in your application source and the remote source will be compiled with it (as if the module were local).
-
-## `[source]:` schema
-
-It isn't required to set up an import map to bring in a module. You can also import from a registered remote using its schema:
-
-```ts title="app.js"
-import lodash from 'skypack:lodash'
-import Gist from 'gist:kellymears/a9ab48c40a6f757a8814301e2dea7582/raw/55807c18a2e84246f99486f385dcf2e8ec07e0e9/module-import-test.js'
-import Confetti from 'github:catdad/canvas-confetti/master/src/confetti.js'
-import * as preact from 'unpkg:preact'
-```
-
-## Setting custom sources
-
-You can add your own sources
-
-```ts title="bud.config.mjs"
-bud.cdn.setSource('localhost', 'https://localhost:8080/')
-```
-
-If you want to remove a source it's easy to access the mapping directly:
-
-```ts title="bud.config.mjs"
-bud.cdn.sources.delete('gist')
-```
-
-## Module caching
-
-Modules are by default cached to `.budfiles/[compiler name]/modules/[source ident]/[module]`. This means that after the initial download you won't need to hit up the CDN again.
-
-To disable this behavior use `cdn.disableCache()`.
-
-## Module versioning
-
-The current version & an SHA512 of the remote resource is stored at `.budfiles/[compiler name]/bud.lock`.
-
-Module versions are updated and a new source is cached when the remote changes, by default. To disable this behavior try `bud.cdn.setUpgrade(false)`.
-
-You can prevent version upgrades during deployment with the `--immutable` flag or by calling `cdn.freeze()`. If you use this feature you must include the lockfile and module cache in version control. The build will obviously fail if the lockfile/cache is set as frozen but is not available.
-
-## URL imports from ESM
-
-If [outputting esmodules](/guides/general-use/esmodules) packages can be listed in the `imports` field of `package.json`:
+You can use `bud.imports` in `package.json` to map sources to application modules.
 
 ```json title="package.json"
 {
-  "imports": {
-    "alpinejs": "https://cdn.skypack.dev/alpinejs",
-    "animejs": "https://cdn.skypack.dev/animejs",
-    "axios": "https://cdn.skypack.dev/axios"
+  "bud": {
+    "imports": {
+      "skypack": ["canvas-confetti"]
+    },
   }
 }
 ```
 
-Imports of these packages will be resolved to the specified URL. This structure
-allows you to use es modules without touching application code.
+Now, in your application code you can import `canvas-confetti` as if it were a traditionally installed module:
 
-```ts title="app.ts"
-import Alpine from 'alpinejs' // resolves to `https://cdn.skypack.dev/alpinejs`
-
-window.Alpine = Alpine
+```js title=app.js
+import confetti from 'canvas-confetti'
+confetti()
 ```
 
-For this to work correctly, ensure that `type="module"` is set on the `<script>` tag.
+This approach makes your application more standard and less dependant on build tool magic.
 
-Outputted scripts will be emitted with the `.mjs` extension.
+## Setting custom sources
+
+Registered sources are stored as a `Map` in `bud.cdn.sources`.
+
+To add your own source:
+
+```ts title="bud.config.mjs"
+bud.cdn.sources.set('localhost', 'https://localhost:8080/')
+```
+
+Once added it can be used in the same way as the built-in sources:
+
+```ts title=app.js
+import test from 'localhost:8080/test.js'
+```
+
+To remove a source (built-in or custom):
+
+```ts title="bud.config.mjs"
+bud.cdn.sources.delete('gist')
+```
