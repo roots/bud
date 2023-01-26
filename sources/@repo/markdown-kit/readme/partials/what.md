@@ -1,7 +1,5 @@
 **bud.js** is a web-focused build tool with add-on support for Babel, React, PostCSS, Sass, Typescript, esbuild, ESLint, Prettier, and more.
 
-The standard **bud.js** compiler leverages webpack, but is open to being extended to support other build tools. In the future, we hope to provide support for alternatives.
-
 **bud.js** is written in TypeScript but fully supports projects written in vanilla JavaScript.
 
 ### Goals
@@ -22,5 +20,4 @@ The standard **bud.js** compiler leverages webpack, but is open to being extende
 - Lux developer tooling and semi-automated dependency management.
 - Support for configuration files authored with TypeScript, JSON, YML, CJS and ESM.
 - Support for CDNs like skypack and unpkg. [See documentation on using remote sources](https://bud.js.org/guides/general-use/remote-sources) or this [example sandbox using skypack modules](https://codesandbox.io/s/bud-remote-sources-q5ghzh?)
-- Support for outputting Ecmascript modules (experimental). [See documentation on outputting ESM](https://bud.js.org/guides/general-use/esmodules).
 - Customizable and extensible. Add new features. Swap our core components with your own.
