@@ -535,9 +535,7 @@ export default class BudCommand extends Command<CommandContext> {
                 key={index}
                 color={selected === index ? `blue` : `white`}
               >
-                {selected === index
-                  ? figures.circleFilled
-                  : figures.circle}
+                {selected === index ? figures.radioOn : figures.radioOff}
                 {`  `}
                 {option}
                 <Ink.Text color="white" dimColor>

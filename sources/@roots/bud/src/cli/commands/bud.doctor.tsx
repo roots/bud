@@ -2,10 +2,12 @@ import BudCommand from '@roots/bud/cli/commands/bud'
 import type {Extension} from '@roots/bud-framework'
 import type {CommandContext} from '@roots/bud-framework/options'
 import {Command} from '@roots/bud-support/clipanion'
+import figures from '@roots/bud-support/figures'
 import Ink from '@roots/bud-support/ink'
 import prettyFormat from '@roots/bud-support/pretty-format'
 import React from '@roots/bud-support/react'
 import webpack from '@roots/bud-support/webpack'
+import type {InspectTreeResult} from 'fs-jetpack/types.js'
 
 import {Error} from '../components/Error.js'
 import {dry} from '../decorators/command.dry.js'
@@ -67,28 +69,20 @@ for a lot of edge cases so it might return a false positive.
       </Ink.Box>,
     )
 
-    if (await this.bud.fs.exists(this.bud.path(`@storage/cache`))) {
-      await this.renderOnce(
-        <Ink.Box flexDirection="column">
-          <Ink.Text color="yellow">
-            {`bud.js has detected a cache directory. This directory is used to store various compiler caches. If you are experiencing issues with bud.js, you may want to delete this directory and try again.`}
-          </Ink.Text>
-          <Ink.Text color="yellow">
-            {`The cache directory can be found at: ${this.bud.path(
-              `@storage/cache`,
-            )}`}
-          </Ink.Text>
-          <Ink.Text>
-            To delete this directory with the CLI run{` `}
-            <Ink.Text color="green">`bud clean`</Ink.Text>
-          </Ink.Text>
-          <Ink.Text>
-            Or, use the <Ink.Text color="green">`--force`</Ink.Text> flag
-            on your next build
-          </Ink.Text>
-        </Ink.Box>,
-      )
-    }
+    await this.renderOnce(
+      <Ink.Box flexDirection="column">
+        <Ink.Text color="blue">Core modules</Ink.Text>
+        {await this.packageCheck(`@roots/bud-api`)}
+        {await this.packageCheck(`@roots/bud-build`)}
+        {await this.packageCheck(`@roots/bud-cache`)}
+        {await this.packageCheck(`@roots/bud-dashboard`)}
+        {await this.packageCheck(`@roots/bud-extensions`)}
+        {await this.packageCheck(`@roots/bud-framework`)}
+        {await this.packageCheck(`@roots/bud-hooks`)}
+        {await this.packageCheck(`@roots/bud-server`)}
+        {await this.packageCheck(`@roots/bud-support`)}
+      </Ink.Box>,
+    )
 
     await this.renderOnce(
       <Ink.Box flexDirection="column">
@@ -106,8 +100,36 @@ for a lot of edge cases so it might return a false positive.
           storage:{` `}
           {this.bud.path(`@storage`).replace(this.bud.path(), `@project`)}
         </Ink.Text>
+        <Ink.Text>
+          cache: {` `}
+          @project/{this.bud.relPath(this.bud.cache.cacheDirectory)}
+        </Ink.Text>
       </Ink.Box>,
     )
+
+    if (await this.bud.fs.exists(this.bud.cache.cacheDirectory)) {
+      await this.renderOnce(
+        <Ink.Box flexDirection="column">
+          <Ink.Text color="yellow">
+            Detected compilation cache:{` `}
+            {this.bud.relPath(this.bud.cache.cacheDirectory)}
+          </Ink.Text>
+
+          <Ink.Text>
+            If you are experiencing issues with bud.js you may want to
+            delete this directory and try again.
+          </Ink.Text>
+          <Ink.Text>
+            To delete this directory with the CLI run{` `}
+            <Ink.Text color="green">`bud clean`</Ink.Text>
+          </Ink.Text>
+          <Ink.Text>
+            Or, use the <Ink.Text color="green">`--force`</Ink.Text> flag
+            on your next build
+          </Ink.Text>
+        </Ink.Box>,
+      )
+    }
 
     await this.renderOnce(
       <Ink.Box flexDirection="column">
@@ -178,6 +200,7 @@ for a lot of edge cases so it might return a false positive.
       this.entrypoints = this.configuration.entry
         ? Object.entries(this.configuration.entry)
         : []
+
       await Promise.all(
         Object.entries(this.bud.extensions.repository).map(
           async ([name, extension]: [string, Extension]) => {
@@ -353,5 +376,55 @@ for a lot of edge cases so it might return a false positive.
         </Ink.Box>
       )
     })
+  }
+
+  public async ls(path: string) {
+    const formatFilesArray = (files: Array<InspectTreeResult>) => {
+      return files.map((file, id) => {
+        return (
+          <Ink.Box
+            key={`${file.name}-file`}
+            flexDirection={file.children ? `column` : `row`}
+          >
+            <Ink.Text>
+              <Ink.Text dimColor>
+                {file.children ? figures.ellipsis : figures.pointerSmall}
+              </Ink.Text>
+              {` `}
+              {file.name}
+            </Ink.Text>
+            {file.children ? (
+              <Ink.Box paddingLeft={2} flexDirection="column">
+                {formatFilesArray(file.children)}
+              </Ink.Box>
+            ) : null}
+          </Ink.Box>
+        )
+      })
+    }
+
+    const files = await this.bud.fs.inspectTree(path)
+    return files.children ? formatFilesArray(files.children) : null
+  }
+
+  public async packageCheck(signifier: string) {
+    const manifest = await this.bud.module.getManifestPath(signifier)
+    const {version: packageVersion} = await this.bud.fs.read(manifest)
+    if (packageVersion !== this.bud.context.bud.version) {
+      return (
+        <Error
+          label={signifier}
+          message={`${signifier} is not installed at the same version as @roots/bud (required: ${this.bud.context.bud.version}, installed: ${packageVersion}). Your installation may be corrupted; consider reinstalling with the \`--force\` flag.`}
+        />
+      )
+    } else {
+      return (
+        <Ink.Text>
+          <Ink.Text color="green">{signifier} meets requirements</Ink.Text>{` `}
+          (required:{` `}
+          {this.bud.context.bud.version}, installed: {packageVersion})
+        </Ink.Text>
+      )
+    }
   }
 }
