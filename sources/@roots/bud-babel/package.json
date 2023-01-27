@@ -77,7 +77,7 @@
     "@babel/core": "7.20.7",
     "@babel/plugin-transform-runtime": "7.19.6",
     "@babel/preset-env": "7.20.2",
-    "@babel/runtime": "7.20.7",
+    "@babel/runtime": "7.20.13",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "babel-loader": "9.1.2"

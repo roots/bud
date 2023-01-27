@@ -22,7 +22,19 @@ const getExtensions = (bud: Bud) =>
   Array.from(
     bud.hooks.filter(
       `build.resolve.extensions`,
-      new Set([`.mjs`, `.js`, `.jsx`, `.css`, `.json`, `.wasm`, `.yml`]),
+      new Set([
+        `.mjs`,
+        `.js`,
+        `.jsx`,
+        `.css`,
+        `.json`,
+        `.wasm`,
+        `.yml`,
+        `.yaml`,
+        `.xml`,
+        `.toml`,
+        `.csv`,
+      ]),
     ),
   )
 

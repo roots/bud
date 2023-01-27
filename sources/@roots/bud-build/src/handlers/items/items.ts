@@ -26,9 +26,7 @@ export const cssModule: Factory<Item> = ({makeItem}) =>
     .setIdent(`cssModule`)
     .setLoader(`css`)
     .setOptions(({build: {rules}, hooks: {filter}}) => ({
-      esModule: true,
       importLoaders: rules.cssModule.getUse().length - 2,
-      localIdentName: `[name]__[local]___[hash:base64:5]`,
       modules: true,
       sourceMap: isBoolean(filter(`build.devtool`, false))
         ? filter(`build.devtool`, false)

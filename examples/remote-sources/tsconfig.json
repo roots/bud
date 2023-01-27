@@ -1,0 +1,12 @@
+{
+  "extends": "@roots/bud/config/tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "@scripts/*": ["./src/scripts/*"],
+      "@styles/*": ["./src/styles/*"]
+    },
+    "types": ["node", "webpack-env", "@roots/bud"]
+  },
+  "include": ["./src", "./bud.config.mjs"],
+  "exclude": ["./node_modules"]
+}
