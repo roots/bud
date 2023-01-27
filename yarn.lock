@@ -30389,6 +30389,12 @@ __metadata:
   languageName: node
   linkType: hard
 
+"roots-blade-syntax@workspace:sources/@roots/vscode-bud-blade-syntax":
+  version: 0.0.0-use.local
+  resolution: "roots-blade-syntax@workspace:sources/@roots/vscode-bud-blade-syntax"
+  languageName: unknown
+  linkType: soft
+
 "rtl-detect@npm:^1.0.4":
   version: 1.0.4
   resolution: "rtl-detect@npm:1.0.4"

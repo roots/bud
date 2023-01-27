@@ -46,6 +46,7 @@ module.exports = {
     `**/dist`,
     `**/lib`,
     `**/node_modules`,
+    `**/package.json`,
     `examples`,
     `sources/@repo/docs/build`,
     `sources/deprecated`,
