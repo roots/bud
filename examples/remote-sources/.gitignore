@@ -1,0 +1,6 @@
+.budfiles
+!.budfiles/@examples/remote-sources/node_modules
+!.budfiles/@examples/remote-sources/bud.lock
+/dist
+/node_modules
+!.env

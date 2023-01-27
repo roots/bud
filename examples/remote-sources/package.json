@@ -1,0 +1,20 @@
+{
+  "name": "@examples/remote-sources",
+  "private": true,
+  "browserslist": [
+    "extends @roots/browserslist-config"
+  ],
+  "bud": {
+    "extensions": {
+      "discovery": false
+    }
+  },
+  "devDependencies": {
+    "@roots/bud": "latest",
+    "@roots/bud-swc": "latest",
+    "@roots/bud-tailwindcss": "latest"
+  },
+  "volta": {
+    "node": "18.12.1"
+  }
+}
