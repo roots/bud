@@ -71,6 +71,28 @@
       "default": "./lib/typescript-refresh/index.js"
     }
   },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ],
+      "babel-refresh": [
+        "./lib/babel-refresh/index.d.ts"
+      ],
+      "extension": [
+        "./lib/extension.d.ts"
+      ],
+      "react-refresh": [
+        "./lib/react-refresh/index.d.ts"
+      ],
+      "swc-refresh": [
+        "./lib/swc-refresh/index.d.ts"
+      ],
+      "typescript-refresh": [
+        "./lib/typescript-refresh/index.d.ts"
+      ]
+    }
+  },
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "devDependencies": {
