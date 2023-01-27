@@ -78,9 +78,7 @@ export const injectEvents = (
             return await listener(data)
           }),
         )
-      } catch (ex) {
-        console.warn(`Invalid HMR message: ${payload.data} \n  ${ex}`)
-      }
+      } catch (ex) {}
     }
 
     /**

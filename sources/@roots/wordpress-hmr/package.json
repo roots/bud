@@ -40,67 +40,55 @@
     "src"
   ],
   "type": "module",
-  "module": "./lib/index.js",
-  "types": "./lib/index.d.ts",
   "exports": {
-    ".": "./lib/index.js",
-    "./block": "./lib/block.js",
-    "./blocks": "./lib/block.js",
-    "./cache": "./lib/cache.js",
-    "./editor": "./lib/editor.js",
-    "./format": "./lib/format.js",
-    "./plugin": "./lib/plugin.js",
-    "./plugins": "./lib/plugin.js"
-  },
-  "typesVersions": {
-    "*": {
-      ".": [
-        "./lib/index.d.ts"
-      ],
-      "block": [
-        "./lib/block.d.ts"
-      ],
-      "blocks": [
-        "./lib/block.d.ts"
-      ],
-      "cache": [
-        "./lib/cache.d.ts"
-      ],
-      "editor": [
-        "./lib/editor.d.ts"
-      ],
-      "format": [
-        "./lib/format.d.ts"
-      ],
-      "plugin": [
-        "./lib/plugin.d.ts"
-      ],
-      "plugins": [
-        "./lib/plugin.d.ts"
-      ]
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./block": {
+      "types": "./lib/block.d.ts",
+      "default": "./lib/block.js"
+    },
+    "./blocks": {
+      "types": "./lib/block.d.ts",
+      "default": "./lib/block.js"
+    },
+    "./cache": {
+      "types": "./lib/cache.d.ts",
+      "default": "./lib/cache.js"
+    },
+    "./editor": {
+      "types": "./lib/editor.d.ts",
+      "default": "./lib/editor.js"
+    },
+    "./format": {
+      "types": "./lib/format.d.ts",
+      "default": "./lib/format.js"
+    },
+    "./plugin": {
+      "types": "./lib/plugin.d.ts",
+      "default": "./lib/plugin.js"
+    },
+    "./plugins": {
+      "types": "./lib/plugins.d.ts",
+      "default": "./lib/plugins.js"
     }
   },
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/lodash-es": "4.17.6",
-    "@types/node": "16.18.11",
+    "@types/node": "18.11.18",
     "@types/react": "18.0.26",
     "@types/wordpress__blocks": "12.0.1",
     "@types/wordpress__data": "6.0.1",
     "@types/wordpress__plugins": "3.0.0",
     "@types/wordpress__rich-text": "3.4.6",
     "@wordpress/blocks": "12.0.0",
-    "@wordpress/data": "8.0.0",
+    "@wordpress/data": "8.1.0",
     "@wordpress/hooks": "3.24.0",
-    "@wordpress/plugins": "5.0.0",
-    "@wordpress/rich-text": "6.1.0",
-    "react": "18.2.0"
-  },
-  "dependencies": {
-    "lodash-es": "4.17.21"
-  },
-  "peerDependencies": {
-    "lodash-es": "*"
+    "@wordpress/plugins": "5.1.0",
+    "@wordpress/rich-text": "6.1.0"
   },
   "volta": {
     "extends": "../../../package.json"

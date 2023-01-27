@@ -1,5 +1,3 @@
-import {resolve} from 'node:path'
-
 import {Bud} from '@roots/bud'
 import {checkDependencies} from '@roots/bud/cli/helpers/checkDependencies'
 import {checkPackageManagerErrors} from '@roots/bud/cli/helpers/checkPackageManagerErrors'
@@ -184,10 +182,6 @@ export default class BudCommand extends Command<CommandContext> {
   }
 
   public async makeBud<T extends BudCommand>(command: T) {
-    command.context.basedir = command.cwd
-      ? resolve(command.context.basedir, command.cwd)
-      : command.context.basedir
-
     command.context.mode = command.mode ?? command.context.mode
 
     command.context.args = {

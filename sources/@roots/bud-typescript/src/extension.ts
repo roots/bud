@@ -3,12 +3,10 @@ import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
   dependsOn,
-  dependsOnOptional,
   expose,
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
-import isUndefined from '@roots/bud-support/lodash/isUndefined'
 
 /**
  * BudTypeScript configures the TypeScript compiler
@@ -22,18 +20,15 @@ import isUndefined from '@roots/bud-support/lodash/isUndefined'
 @label(`@roots/bud-typescript`)
 @expose(`typescript`)
 @options({
-  babel: true,
   loader: {
     transpileOnly: true,
   },
 })
 @dependsOn([`@roots/bud-typescript/typecheck`])
-@dependsOnOptional([`@roots/bud-babel`])
 export default class BudTypeScript extends Extension {
   /**
    * Typechecking controls
    *
-   * @public
    * @decorator `@bind`
    */
   public get typecheck() {
@@ -43,12 +38,10 @@ export default class BudTypeScript extends Extension {
   /**
    * Disable or enable babel
    *
-   * @public
    * @decorator `@bind`
    */
   @bind
-  public useBabel(enable?: boolean): this {
-    if (isUndefined(enable)) this.setOption(`babel`, true)
+  public useBabel(enable: boolean = true): this {
     this.setOption(`babel`, enable)
     return this
   }
@@ -56,12 +49,10 @@ export default class BudTypeScript extends Extension {
   /**
    * `register` callback
    *
-   * @public
    * @decorator `@bind`
    */
   @bind
   public override async register(bud: Bud) {
-    this.useBabel = this.useBabel.bind(this)
     this.setOption(`context`, bud.context.basedir)
 
     bud.hooks.on(`build.resolve.extensions`, (extensions = new Set([])) =>
@@ -72,7 +63,6 @@ export default class BudTypeScript extends Extension {
   /**
    * `configAfter` callback
    *
-   * @public
    * @decorator `@bind`
    */
   @bind

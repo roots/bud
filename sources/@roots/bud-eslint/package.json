@@ -61,7 +61,7 @@
     "@roots/bud": "workspace:sources/@roots/bud",
     "@skypack/package-check": "0.2.2",
     "@types/eslint": "8.4.10",
-    "@types/node": "16.18.11",
+    "@types/node": "18.11.18",
     "webpack": "5.75.0"
   },
   "dependencies": {

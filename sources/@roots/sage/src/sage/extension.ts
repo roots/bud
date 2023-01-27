@@ -13,7 +13,11 @@ import {
  * @see https://bud.js.org/extensions/sage/
  */
 @label(`@roots/sage`)
-@dependsOn([`@roots/bud-preset-wordpress`, `@roots/sage/acorn`])
+@dependsOn([
+  `@roots/bud-preset-wordpress`,
+  `@roots/sage/acorn`,
+  `@roots/sage/blade-loader`,
+])
 @expose(`sage`)
 export class Sage extends Extension {
   /**
@@ -31,6 +35,7 @@ export class Sage extends Extension {
       '@images': `@src/images`,
       '@scripts': `@src/scripts`,
       '@styles': `@src/styles`,
+      '@views': `@src/views`,
       '@dist': `public`,
       '@public': `@dist`,
     })
@@ -41,14 +46,18 @@ export class Sage extends Extension {
       '@images': bud.path(`@images`),
       '@scripts': bud.path(`@scripts`),
       '@styles': bud.path(`@styles`),
+      '@views': bud.path(`@views`),
     })
+
+    /* Set runtime single */
+    bud.runtime(`single`)
 
     /**
      * Optimize
      */
     bud.when(
       bud.isProduction,
-      () => bud.minimize().hash().runtime(`single`).splitChunks(),
+      () => bud.minimize().hash().splitChunks(),
       () => bud.devtool(),
     )
   }
@@ -59,7 +68,9 @@ export class Sage extends Extension {
    * @deprecated - This function is deprecated. It is unneeded; you can just remove the call.
    */
   @bind
-  public setAcornVersion(version?: 'v2' | 'v3') {
+  /* istanbul ignore next -- @preserve */
+  public setAcornVersion(version: 'v2' | 'v3') {
+    /* istanbul ignore next -- @preserve */
     this.logger.warn(
       `\n\n`,
       `bud.sage.setAcornVersion: This function is deprecated.\n It is unneeded; you can just remove the call.\n\n`,

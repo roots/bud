@@ -65,7 +65,7 @@
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
     "@roots/bud-sass": "workspace:sources/@roots/bud-sass",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.18.11",
+    "@types/node": "18.11.18",
     "webpack": "5.75.0"
   },
   "dependencies": {

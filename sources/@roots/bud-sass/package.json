@@ -74,7 +74,7 @@
     "@roots/bud-build": "workspace:sources/@roots/bud-build",
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.18.11",
+    "@types/node": "18.11.18",
     "postcss": "8.4.21",
     "stylelint": "14.16.1",
     "webpack": "5.75.0"

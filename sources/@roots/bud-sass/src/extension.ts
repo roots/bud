@@ -50,11 +50,12 @@ export class BudSass extends Extension {
     bud.build
       .setLoader(`sass-loader`)
       .setItem(`sass`, {
+        ident: `sass`,
         loader: `sass-loader`,
         options: this.options,
       })
       .setRule(`sass`, {
-        test: app => app.hooks.filter(`pattern.sass`),
+        test: (app: Bud) => app.hooks.filter(`pattern.sass`),
         include: [app => app.path(`@src`)],
         use: [`precss`, `css`, `postcss`, `resolveUrl`, `sass`],
       })

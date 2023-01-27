@@ -64,7 +64,7 @@
     "@roots/bud-esbuild": "workspace:sources/@roots/bud-esbuild",
     "@roots/bud-swc": "workspace:sources/@roots/bud-swc",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.18.11"
+    "@types/node": "18.11.18"
   },
   "dependencies": {
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel",

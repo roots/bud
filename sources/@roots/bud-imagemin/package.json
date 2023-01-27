@@ -42,37 +42,49 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./lib/index.d.ts",
-      "default": "./lib/index.js"
+      "types": "./lib/extension/index.d.ts",
+      "default": "./lib/extension/index.js"
+    },
+    "./sharp": {
+      "types": "./lib/sharp/index.d.ts",
+      "default": "./lib/sharp/index.js"
+    },
+    "./svgo": {
+      "types": "./lib/svgo/index.d.ts",
+      "default": "./lib/svgo/index.js"
+    },
+    "./types": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/types/index.js"
     }
   },
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "devDependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "16.18.11"
+    "@types/node": "18.11.18"
   },
   "dependencies": {
+    "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "@squoosh/lib": "^0.4.0",
     "image-minimizer-webpack-plugin": "^3.8.1",
+    "sharp": "0.31.3",
     "webpack": "5.75.0"
   },
   "peerDependencies": {
     "@roots/bud": "*",
-    "@squoosh/lib": "*",
-    "image-minimizer-webpack-plugin": "*"
+    "image-minimizer-webpack-plugin": "*",
+    "sharp": "*"
   },
   "peerDependenciesMeta": {
     "@roots/bud": {
       "optional": true
     },
-    "@squoosh/lib": {
+    "image-minimizer-webpack-plugin": {
       "optional": true
     },
-    "image-minimizer-webpack-plugin": {
+    "sharp": {
       "optional": true
     }
   },

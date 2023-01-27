@@ -20,7 +20,7 @@ import type {
   WriteOptions,
 } from 'fs-jetpack/types.js'
 import {bind} from 'helpful-decorators'
-import {isNumber} from 'lodash-es'
+import isNumber from 'lodash/isNumber.js'
 
 import * as json from './json.js'
 import * as yml from './yml.js'
@@ -267,7 +267,10 @@ export default class Filesystem {
    * @param type - a custom return type (`utf8`, `json` or `buffer`)
    * @public
    */
-  public async read(path: string, type?: 'utf8' | 'buffer'): Promise<any> {
+  public async read(path: string, type?: `utf8` | `buffer`): Promise<any> {
+    if (type === `utf8`) return await this.fs.readAsync(path, type)
+    if (type === `buffer`) return await this.fs.readAsync(path, type)
+
     if (path.endsWith(`.json`) || path.endsWith(`.json5`)) {
       return await json.read(path)
     }
@@ -275,8 +278,6 @@ export default class Filesystem {
     if (path.endsWith(`.yml`) || path.endsWith(`.yaml`)) {
       return await yml.read(path)
     }
-
-    if (type === `buffer`) return await this.fs.readAsync(path, type)
 
     return await this.fs.readAsync(path)
   }

@@ -1,6 +1,7 @@
 import {factory} from '@repo/test-kit/bud'
 import esbuild from '@roots/bud-esbuild'
-import {isArray, isUndefined} from 'lodash-es'
+import isArray from 'lodash/isArray.js'
+import isUndefined from 'lodash/isUndefined.js'
 import {beforeEach, describe, expect, it} from 'vitest'
 
 import Extension from './index.js'

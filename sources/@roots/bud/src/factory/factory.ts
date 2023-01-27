@@ -32,19 +32,17 @@ export interface Options {
  * @returns Bud instance
  */
 export async function factory(
-  {
-    basedir,
-    ...overrides
-  }: Partial<CLIContext | Context | CommandContext> = {},
+  overrides: Partial<CLIContext | Context | CommandContext> = {},
   options: Options = {cache: true, find: false},
 ): Promise<Bud> {
-  if (!basedir) basedir = argv.basedir ?? process.cwd()
+  if (!overrides.basedir) overrides.basedir = argv.basedir
   if (!overrides.mode) overrides.mode = `production`
 
-  if (options.cache && has(basedir)) return get(basedir)
+  if (options.cache && has(overrides.basedir))
+    return get(overrides.basedir)
 
   const bud = new Bud()
-  const context = await getContext({basedir, ...overrides}, options)
+  const context = await getContext(overrides, options)
 
   if (options.cache) {
     set(context.basedir, bud)

@@ -13,7 +13,11 @@ export const checkDependencies = async (bud: Bud) => {
     .filter(([name]) => name.startsWith(`@roots/`))
     .filter(([signifier, version]: [string, string]) => {
       version = version.replace(`^`, ``)
-      return version !== bud.context.bud.version
+      return (
+        version !== `latest` &&
+        !version.includes(`workspace:`) &&
+        version !== bud.context.bud.version
+      )
     })
 
   mismatches?.length &&

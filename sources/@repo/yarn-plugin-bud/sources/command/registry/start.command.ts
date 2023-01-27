@@ -47,11 +47,10 @@ export class RegistryStart extends Command {
     const pm2BinaryAvailable = await realpath(
       `${paths.root}/storage/node_modules/pm2/bin/pm2`,
     )
-
     if (!pm2BinaryAvailable) {
       await this.tryExecuting(`yarn`, [`@bud`, `registry`, `install`])
     }
-
+    
     await this.tryExecuting(`yarn`, [
       `@bud`,
       `pm2`,
@@ -60,25 +59,17 @@ export class RegistryStart extends Command {
       `--`,
       `--config=${paths.root}/config/verdaccio/config.yaml`,
     ])
-
-    await this.tryExecuting(`yarn`, [
-      `config`,
-      `set`,
-      `unsafeHttpWhitelist`,
-      `--json`,
-      `["0.0.0.0","localhost"]`,
-    ])
     await this.tryExecuting(`yarn`, [
       `config`,
       `set`,
       `npmPublishRegistry`,
-      `http://0.0.0.0:4873`,
+      `http://localhost:4873`,
     ])
     await this.tryExecuting(`yarn`, [
       `config`,
       `set`,
       `npmRegistryServer`,
-      `http://0.0.0.0:4873`,
+      `http://localhost:4873`,
     ])
   }
 }

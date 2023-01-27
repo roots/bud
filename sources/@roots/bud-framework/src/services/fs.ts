@@ -156,6 +156,7 @@ export default class FileSystem extends FS {
               join(source, file),
               `buffer`,
             )
+
             return {file, contents}
           }),
         )

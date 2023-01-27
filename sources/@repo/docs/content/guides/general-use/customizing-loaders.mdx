@@ -7,6 +7,37 @@ sidebar_label: Customizing loaders
 
 The **bud.build** service allows you to customize the loaders used to process modules.
 
+## Adding a rule
+
+The majority of this guide is focused on adding support for additional filetypes to bud.js in a way that is compatible
+with the rest of the framework and composable with rules added by other extensions.
+
+However, if you just want to add a rule in the context of the bud config file, you might find it easiest to use the `build.module.rules.oneOf` hook:
+
+```js title=bud.config.js
+export default async bud => {
+  bud.hooks.on(`build.module.rules.oneOf`, (rules = []) => {
+    rules.push({
+      test: /\.example$/,
+      use: [
+        {
+          loader: `babel-loader`,
+          options: {
+            presets: [`@babel/preset-env`],
+          },
+        },
+      ],
+    })
+
+    return rules
+  })
+}
+```
+
+If you are authoring an extension, you should use the API described below.
+
+## Overview
+
 **bud.build** divides its handling of loaders into three related objects:
 
 - [Loaders](#loaders) — A resolved path to a script which processes source modules

@@ -1,0 +1,71 @@
+{
+  "name": "@roots/blade-loader",
+  "version": "0.0.0",
+  "description": "Blade loader",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "sources/@roots/blade-loader"
+  },
+  "bugs": {
+    "url": "https://github.com/roots/bud/issues"
+  },
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "license": "MIT",
+  "contributors": [
+    {
+      "name": "Kelly Mears",
+      "email": "developers@tinypixel.dev",
+      "url": "https://github.com/kellymears"
+    }
+  ],
+  "keywords": [
+    "roots",
+    "browserslist"
+  ],
+  "engines": {
+    "node": ">=16"
+  },
+  "files": [
+    "src",
+    "lib",
+    "vendor"
+  ],
+  "exports": {
+    ".": {
+      "types": "./lib/plugin.d.ts",
+      "import": "./lib/plugin.js"
+    },
+    "./plugin": {
+      "types": "./lib/plugin.d.ts",
+      "import": "./lib/plugin.js"
+    },
+    "./script-loader": {
+      "types": "./lib/script-loader.d.cts",
+      "require": "./lib/script-loader.cjs"
+    },
+    "./asset-loader": {
+      "types": "./lib/asset-loader.d.cts",
+      "require": "./lib/asset-loader.cjs"
+    }
+  },
+  "type": "module",
+  "main": "./lib/plugin.js",
+  "types": "./lib/plugin.d.ts",
+  "devDependencies": {
+    "@skypack/package-check": "0.2.2",
+    "babel-loader": "9.1.2",
+    "memfs": "3.4.13"
+  },
+  "dependencies": {
+    "helpful-decorators": "2.1.0",
+    "lodash": "4.17.21",
+    "webpack": "5.75.0"
+  },
+  "volta": {
+    "extends": "../../../package.json"
+  }
+}

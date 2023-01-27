@@ -23,26 +23,26 @@ describe('issue-1886', () => {
         `issue-1886`,
         `dist`,
         `images`,
-        `bud.webp`,
+        `generated.bud@1200x630.webp`,
       ),
       `utf-8`,
     )
-    expect(image.length).toMatchInlineSnapshot('7307')
+    expect(image.length).toMatchInlineSnapshot('8377')
   })
 
   it('should generate jpg from png included in js source', async () => {
-    const image = await readFile(
+    const dist = await readFile(
       join(
         paths.tests,
         `reproductions`,
         `issue-1886`,
         `dist`,
         `images`,
-        `bud.jpg`,
+        `generated.bud@1200x630.jpeg`,
       ),
       `utf-8`,
     )
-    expect(image.length).toMatchInlineSnapshot('13008')
+    expect(dist.length).toMatchInlineSnapshot('16877')
   })
 
   it('should generate webp@50 from png included in js source', async () => {
@@ -53,7 +53,7 @@ describe('issue-1886', () => {
         `issue-1886`,
         `dist`,
         `images`,
-        `bud-50.webp`,
+        `generated.bud-50@1200x630.webp`,
       ),
       `utf-8`,
     )
@@ -68,10 +68,10 @@ describe('issue-1886', () => {
         `issue-1886`,
         `dist`,
         `images`,
-        `bud-css.webp`,
+        `generated.bud-css@1200x630.webp`,
       ),
       `utf-8`,
     )
-    expect(image.length).toMatchInlineSnapshot('7307')
+    expect(image.length).toMatchInlineSnapshot('8377')
   })
 })
