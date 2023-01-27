@@ -420,7 +420,8 @@ for a lot of edge cases so it might return a false positive.
     } else {
       return (
         <Ink.Text>
-          <Ink.Text color="green">{signifier} meets requirements</Ink.Text>{` `}
+          <Ink.Text color="green">{signifier} meets requirements</Ink.Text>
+          {` `}
           (required:{` `}
           {this.bud.context.bud.version}, installed: {packageVersion})
         </Ink.Text>
