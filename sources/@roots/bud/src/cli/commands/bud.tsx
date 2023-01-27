@@ -479,14 +479,26 @@ export default class BudCommand extends Command<CommandContext> {
         `build application for production`,
         [`build`, `production`],
       ],
-      [`build development`, `start development server`, [`build`, `development`]],
+      [
+        `build development`,
+        `start development server`,
+        [`build`, `development`],
+      ],
       [
         `doctor`,
         `check bud.js configuration for common errors and issues`,
         [`doctor`],
       ],
-      [`repl`, `open a repl to explore bud just prior to compilation`, [`repl`]],
-      [`upgrade`, `upgrade bud.js and extensions to the latest stable version`, [`upgrade`]],
+      [
+        `repl`,
+        `open a repl to explore bud just prior to compilation`,
+        [`repl`],
+      ],
+      [
+        `upgrade`,
+        `upgrade bud.js and extensions to the latest stable version`,
+        [`upgrade`],
+      ],
     ]
 
     const Menu = () => {
@@ -523,8 +535,15 @@ export default class BudCommand extends Command<CommandContext> {
                 key={index}
                 color={selected === index ? `blue` : `white`}
               >
-                {selected === index ? figures.circleFilled : figures.circle}{`  `}{option}
-                <Ink.Text color="white" dimColor> {description}</Ink.Text>
+                {selected === index
+                  ? figures.circleFilled
+                  : figures.circle}
+                {`  `}
+                {option}
+                <Ink.Text color="white" dimColor>
+                  {' '}
+                  {description}
+                </Ink.Text>
               </Ink.Text>
             )
           })}
