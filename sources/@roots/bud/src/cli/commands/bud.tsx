@@ -9,6 +9,7 @@ import type {
 } from '@roots/bud-framework/options/context'
 import {BaseContext, Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators'
+import figures from '@roots/bud-support/figures'
 import Ink, {React, Renderer} from '@roots/bud-support/ink'
 import isString from '@roots/bud-support/lodash/isString'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
@@ -120,7 +121,6 @@ export default class BudCommand extends Command<CommandContext> {
 
   public override async catch(value: unknown) {
     let error: Error
-
     process.exitCode = 1
 
     const normalizeError = (value: unknown): Error => {
@@ -156,7 +156,8 @@ export default class BudCommand extends Command<CommandContext> {
     }
 
     try {
-      this.render(
+      await this.renderer.instance?.waitUntilExit()
+      await this.renderOnce(
         <Ink.Box flexDirection="column" marginTop={1}>
           <Ink.Box marginBottom={1}>
             <Ink.Text backgroundColor="red" color="white">
@@ -474,16 +475,18 @@ export default class BudCommand extends Command<CommandContext> {
   public async execute() {
     const options: Array<[string, string, Array<string>]> = [
       [
-        `build`,
+        `build production`,
         `build application for production`,
         [`build`, `production`],
       ],
-      [`dev`, `start development server`, [`build`, `development`]],
+      [`build development`, `start development server`, [`build`, `development`]],
       [
         `doctor`,
         `check bud.js configuration for common errors and issues`,
         [`doctor`],
       ],
+      [`repl`, `open a repl to explore bud just prior to compilation`, [`repl`]],
+      [`upgrade`, `upgrade bud.js and extensions to the latest stable version`, [`upgrade`]],
     ]
 
     const Menu = () => {
@@ -503,15 +506,6 @@ export default class BudCommand extends Command<CommandContext> {
 
         if (input.return) {
           setRunning(true)
-          this.renderOnce(
-            <Ink.Text>
-              Running{` `}
-              <Ink.Text color="blue">
-                `bud {options[selected][0]}`
-              </Ink.Text>
-              ...
-            </Ink.Text>,
-          )
           this.cli.run(options[selected][2])
         }
       })
@@ -522,15 +516,15 @@ export default class BudCommand extends Command<CommandContext> {
       }, [selected])
 
       return (
-        <Ink.Box flexDirection="column">
+        <Ink.Box flexDirection="column" marginTop={1}>
           {options.map(([option, description, command], index) => {
             return (
               <Ink.Text
                 key={index}
                 color={selected === index ? `blue` : `white`}
               >
-                {option}
-                <Ink.Text dimColor> {description}</Ink.Text>
+                {selected === index ? figures.circleFilled : figures.circle}{`  `}{option}
+                <Ink.Text color="white" dimColor> {description}</Ink.Text>
               </Ink.Text>
             )
           })}

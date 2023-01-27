@@ -2,9 +2,7 @@ import type {CommandContext} from '@roots/bud/cli/commands/bud'
 import BudCommand from '@roots/bud/cli/commands/bud'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators'
-import Ink from '@roots/bud-support/ink'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
-import React from '@roots/bud-support/react'
 import * as t from '@roots/bud-support/typanion'
 
 /**
@@ -205,40 +203,8 @@ export default class BudBuildCommand extends BudCommand {
    */
   @bind
   public override async execute() {
-    const Application: React.FunctionComponent = () => {
-      const [status, setStatus] = React.useState<string>(`Initializing`)
-
-      React.useEffect(() => {
-        ;(async () => {
-          try {
-            await this.makeBud(this)
-          } catch (error) {}
-
-          try {
-            setStatus(`Checking project health`)
-            await this.healthcheck(this)
-          } catch (error) {}
-
-          try {
-            setStatus(`Processing`)
-            await this.run(this)
-          } catch (error) {
-            throw error
-          }
-        })()
-      }, [])
-
-      return (
-        <Ink.Box>
-          <Ink.Text color="white" dimColor>
-            {status}
-          </Ink.Text>
-        </Ink.Box>
-      )
-    }
-
-    try {
-      await this.render(<Application />)
-    } catch (error) {}
+    await this.makeBud(this)
+    await this.healthcheck(this)
+    await this.run(this)
   }
 }
