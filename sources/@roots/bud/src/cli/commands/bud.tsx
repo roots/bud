@@ -541,7 +541,7 @@ export default class BudCommand extends Command<CommandContext> {
                 {`  `}
                 {option}
                 <Ink.Text color="white" dimColor>
-                  {' '}
+                  {` `}
                   {description}
                 </Ink.Text>
               </Ink.Text>
