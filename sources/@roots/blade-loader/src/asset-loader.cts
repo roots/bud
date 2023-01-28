@@ -15,9 +15,9 @@ const loader: LoaderDefinitionFunction<{publicPath?: string}> =
           this.addBuildDependency(absolutePath)
           const resolvedPath = await this.importModule(request, {
             publicPath: options?.publicPath ?? ``,
-          });
+          })
           source = source.replace(match, resolvedPath)
-        })
+        }),
       )
     }
 
