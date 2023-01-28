@@ -5984,7 +5984,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@octokit/core@npm:4.1.0, @octokit/core@npm:^4.0.0, @octokit/core@npm:^4.0.4, @octokit/core@npm:^4.1.0":
+"@octokit/core@npm:4.2.0":
+  version: 4.2.0
+  resolution: "@octokit/core@npm:4.2.0"
+  dependencies:
+    "@octokit/auth-token": ^3.0.0
+    "@octokit/graphql": ^5.0.0
+    "@octokit/request": ^6.0.0
+    "@octokit/request-error": ^3.0.0
+    "@octokit/types": ^9.0.0
+    before-after-hook: ^2.2.0
+    universal-user-agent: ^6.0.0
+  checksum: 5ac56e7f14b42a5da8d3075a2ae41483521a78bee061a01f4a81d8c0ecd6a684b2e945d66baba0cd1fdf264639deedc3a96d0f32c4d2fc39b49ca10f52f4de39
+  languageName: node
+  linkType: hard
+
+"@octokit/core@npm:^4.0.0, @octokit/core@npm:^4.0.4, @octokit/core@npm:^4.1.0":
   version: 4.1.0
   resolution: "@octokit/core@npm:4.1.0"
   dependencies:
@@ -6473,7 +6488,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@repo/markdown-kit@workspace:sources/@repo/markdown-kit"
   dependencies:
-    "@octokit/core": 4.1.0
+    "@octokit/core": 4.2.0
     "@octokit/plugin-paginate-rest": 6.0.0
     "@repo/constants": "workspace:sources/@repo/constants"
     "@repo/logger": "workspace:sources/@repo/logger"
