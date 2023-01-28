@@ -38,9 +38,6 @@
     "bud",
     "vue"
   ],
-  "bud": {
-    "type": "extension"
-  },
   "files": [
     "docs",
     "lib",

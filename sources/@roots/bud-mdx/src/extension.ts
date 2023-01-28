@@ -8,7 +8,11 @@ import {
 } from '@roots/bud-framework/extension/decorators'
 
 /**
- * MDX2 support for `@roots/bud`
+ * MDX support for `@roots/bud`
+ *
+ * @decorator `@label`
+ * @decorator `@dependsOn`
+ * @decorator `@options`
  */
 @label(`@roots/bud-mdx`)
 @dependsOn([`@roots/bud-babel`, `@roots/bud-react`])
@@ -44,7 +48,7 @@ export class BudMDX extends Extension {
   }
 
   /**
-   * `boot` callback
+   * `configAfter` callback
    */
   @bind
   public override async configAfter(bud: Bud) {

@@ -45,9 +45,6 @@
     "lib",
     "src"
   ],
-  "bud": {
-    "type": "extension"
-  },
   "type": "module",
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",

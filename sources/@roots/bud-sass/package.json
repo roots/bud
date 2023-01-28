@@ -40,9 +40,6 @@
   "engines": {
     "node": ">=16"
   },
-  "bud": {
-    "type": "extension"
-  },
   "files": [
     "lib/",
     "stylelint-config/"

@@ -25,8 +25,7 @@ export interface Sync {
   externals: Record<string, RegExp | string | Array<string | RegExp>>
   externalsType: Configuration['externalsType']
   infrastructureLogging: Configuration['infrastructureLogging']
-  'infrastructureLogging.level':
-    | Configuration['infrastructureLogging']['level']
+  'infrastructureLogging.level': Configuration['infrastructureLogging']['level']
   'infrastructureLogging.console':
     | Configuration['infrastructureLogging']['console']
   loader: Configuration['loader']
@@ -41,8 +40,7 @@ export interface Sync {
   name: Configuration['name']
   node: Configuration['node']
   optimization: Configuration['optimization']
-  'optimization.emitOnErrors':
-    | Configuration['optimization']['emitOnErrors']
+  'optimization.emitOnErrors': Configuration['optimization']['emitOnErrors']
   'optimization.minimize': Configuration['optimization']['minimize']
   'optimization.minimizer': Array<
     ((compiler: Compiler) => void) | {apply: any} | '...'
@@ -50,12 +48,10 @@ export interface Sync {
   'optimization.moduleIds': Configuration['optimization']['moduleIds']
   'optimization.removeEmptyChunks':
     | Configuration['optimization']['removeEmptyChunks']
-  'optimization.runtimeChunk':
-    | Configuration['optimization']['runtimeChunk']
+  'optimization.runtimeChunk': Configuration['optimization']['runtimeChunk']
   'optimization.splitChunks': Optimization.SplitChunks | false
   output: Configuration['output']
-  'output.assetModuleFilename':
-    | Configuration['output']['assetModuleFilename']
+  'output.assetModuleFilename': Configuration['output']['assetModuleFilename']
   'output.chunkFilename': Configuration['output']['chunkFilename']
   'output.chunkFormat': Configuration['output']['chunkFormat']
   'output.chunkLoading': Configuration['output']['chunkLoading']

@@ -6637,6 +6637,7 @@ __metadata:
     "@types/babel__plugin-transform-runtime": "*"
     "@types/babel__preset-env": "*"
     babel-loader: "*"
+    webpack: "*"
   peerDependenciesMeta:
     "@babel/core":
       optional: true
@@ -6655,6 +6656,8 @@ __metadata:
     "@types/babel__preset-env":
       optional: true
     babel-loader:
+      optional: true
+    webpack:
       optional: true
   languageName: unknown
   linkType: soft
@@ -6983,20 +6986,15 @@ __metadata:
     "@roots/bud": "*"
     "@roots/bud-babel": "*"
     "@roots/bud-react": "*"
-    react: "*"
-    react-dom: "*"
+    webpack: "*"
   peerDependenciesMeta:
     "@mdx-js/loader":
-      optional: true
-    "@roots/bud":
       optional: true
     "@roots/bud-babel":
       optional: true
     "@roots/bud-react":
       optional: true
-    react:
-      optional: true
-    react-dom:
+    webpack:
       optional: true
   languageName: unknown
   linkType: soft
@@ -7025,9 +7023,8 @@ __metadata:
     postcss-loader: "*"
     postcss-nested: "*"
     postcss-preset-env: "*"
+    webpack: 5.75.0
   peerDependenciesMeta:
-    "@roots/bud":
-      optional: true
     postcss:
       optional: true
     postcss-import:
@@ -7037,6 +7034,8 @@ __metadata:
     postcss-nested:
       optional: true
     postcss-preset-env:
+      optional: true
+    webpack:
       optional: true
   languageName: unknown
   linkType: soft
@@ -7191,6 +7190,7 @@ __metadata:
     react: "*"
     react-dom: "*"
     react-refresh: 0.14.0
+    webpack: "*"
   peerDependenciesMeta:
     "@babel/core":
       optional: true
@@ -7217,6 +7217,8 @@ __metadata:
     react-dom:
       optional: true
     react-refresh:
+      optional: true
+    webpack:
       optional: true
   languageName: unknown
   linkType: soft
