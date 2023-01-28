@@ -35,9 +35,6 @@
   "engines": {
     "node": ">=16"
   },
-  "bud": {
-    "type": "extension"
-  },
   "files": [
     "lib/",
     "src/"

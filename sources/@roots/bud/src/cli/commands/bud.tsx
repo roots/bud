@@ -9,6 +9,7 @@ import type {
 } from '@roots/bud-framework/options/context'
 import {BaseContext, Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators'
+import figures from '@roots/bud-support/figures'
 import Ink, {React, Renderer} from '@roots/bud-support/ink'
 import isString from '@roots/bud-support/lodash/isString'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
@@ -39,6 +40,8 @@ export default class BudCommand extends Command<CommandContext> {
   }
 
   public declare context: CommandContext
+
+  public static override paths = [[]]
 
   public static override usage = Command.Usage({
     description: `Run \`bud --help\` for usage information`,
@@ -116,11 +119,8 @@ export default class BudCommand extends Command<CommandContext> {
     this.renderer = new Renderer(process.stdout)
   }
 
-  public async execute() {}
-
   public override async catch(value: unknown) {
     let error: Error
-
     process.exitCode = 1
 
     const normalizeError = (value: unknown): Error => {
@@ -156,7 +156,8 @@ export default class BudCommand extends Command<CommandContext> {
     }
 
     try {
-      this.render(
+      await this.renderer.instance?.waitUntilExit()
+      await this.renderOnce(
         <Ink.Box flexDirection="column" marginTop={1}>
           <Ink.Box marginBottom={1}>
             <Ink.Text backgroundColor="red" color="white">
@@ -469,5 +470,85 @@ export default class BudCommand extends Command<CommandContext> {
       bud.log(`overriding splitChunks setting from cli`)
       override((bud: Bud) => bud.splitChunks(args.splitChunks))
     }
+  }
+
+  public async execute() {
+    const options: Array<[string, string, Array<string>]> = [
+      [
+        `build production`,
+        `build application for production`,
+        [`build`, `production`],
+      ],
+      [
+        `build development`,
+        `start development server`,
+        [`build`, `development`],
+      ],
+      [
+        `doctor`,
+        `check bud.js configuration for common errors and issues`,
+        [`doctor`],
+      ],
+      [
+        `repl`,
+        `open a repl to explore bud just prior to compilation`,
+        [`repl`],
+      ],
+      [
+        `upgrade`,
+        `upgrade bud.js and extensions to the latest stable version`,
+        [`upgrade`],
+      ],
+    ]
+
+    const Menu = () => {
+      const [selected, setSelected] = React.useState(0)
+      const [running, setRunning] = React.useState(false)
+
+      Ink.useInput((key, input) => {
+        if (running) return
+
+        input[`downArrow`] && setSelected(selected + 1)
+        input[`upArrow`] && setSelected(selected - 1)
+
+        if (input.escape) {
+          // eslint-disable-next-line n/no-process-exit
+          process.exit(0)
+        }
+
+        if (input.return) {
+          setRunning(true)
+          this.cli.run(options[selected][2])
+        }
+      })
+
+      React.useEffect(() => {
+        if (selected > options.length - 1) setSelected(0)
+        if (selected < 0) setSelected(options.length - 1)
+      }, [selected])
+
+      return (
+        <Ink.Box flexDirection="column" marginTop={1}>
+          {options.map(([option, description, command], index) => {
+            return (
+              <Ink.Text
+                key={index}
+                color={selected === index ? `blue` : `white`}
+              >
+                {selected === index ? figures.radioOn : figures.radioOff}
+                {`  `}
+                {option}
+                <Ink.Text color="white" dimColor>
+                  {` `}
+                  {description}
+                </Ink.Text>
+              </Ink.Text>
+            )
+          })}
+        </Ink.Box>
+      )
+    }
+
+    this.render(<Menu />)
   }
 }
