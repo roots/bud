@@ -5,21 +5,19 @@ import type {LoaderDefinitionFunction} from 'webpack'
 const loader: LoaderDefinitionFunction<{publicPath?: string}> =
   async function (source: string) {
     const options = this.getOptions()
-    const assetMatches = source.matchAll(/@asset\((.*)\)/g)
+    this.addBuildDependency(this.resource)
+    const matches = source.matchAll(/@asset\(['"](.*?)['"]\)/g)
 
-    if (assetMatches) {
+    if (matches) {
       await Promise.all(
-        [...assetMatches].map(async ([match, request]) => {
-          request = request.replaceAll(`'`, ``).replaceAll(`"`, ``)
-
-          this.addDependency(join(this.context, request))
-
-          const signifier = await this.importModule(request, {
+        [...matches].map(async ([match, request]) => {
+          const absolutePath = join(this.rootContext, request)
+          this.addBuildDependency(absolutePath)
+          const resolvedPath = await this.importModule(request, {
             publicPath: options?.publicPath ?? ``,
-          })
-
-          source.replace(match, signifier)
-        }),
+          });
+          source = source.replace(match, resolvedPath)
+        })
       )
     }
 
