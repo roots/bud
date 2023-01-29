@@ -78,18 +78,24 @@ export class Release extends Command {
   public async execute() {
     await this.$(`yarn install --immutable`)
 
-    if (!this.tag) {
-      const [prerelease] = parse(this.version).prerelease
-      this.tag = `${prerelease ?? `latest`}`
+    if (this.tag === `nightly`) {
+      const date = new Date()
+      const utcSemver = `${date.getUTCFullYear()}.${date.getUTCMonth()}.${date.getUTCDate()}`
+      try {
+        await this.$(`npm show @roots/bud@${utcSemver} --tag latest`)
+        this.version = `${utcSemver}-${date.getUTCHours()}${date.getUTCMinutes()}`
+      } catch (e) {
+        this.version = utcSemver
+      }
     }
 
     if (this.version) {
       await this.$(`yarn @bud version ${this.version}`)
     }
 
-    await this.$(`yarn @bud build`)
+    await this.$(`yarn @bud build --force`)
     await this.$(
-      `yarn workspaces foreach --no-private npm publish --access public --tag ${this.tag}`,
+      `yarn workspaces foreach --no-private npm publish --access public --tag ${this.tag ?? `latest`}`,
     )
   }
 }
