@@ -1,6 +1,5 @@
-import {paths, REPO_PATH} from '@repo/constants'
+import {paths} from '@repo/constants'
 import {CommandClass, Option} from 'clipanion'
-import {readJSON} from 'fs-extra'
 import {join} from 'path'
 
 import {Command} from './base.command'

@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 import {paths} from '@repo/constants'
 import {CommandClass, Option} from 'clipanion'
-import {ensureDir, ensureFile, remove} from 'fs-extra'
 import {join} from 'path/posix'
 
 import {Command} from '../base.command'

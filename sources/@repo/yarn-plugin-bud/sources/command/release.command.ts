@@ -66,6 +66,14 @@ export class Release extends Command {
     description: `tag`,
   })
 
+  public _registry = Option.String(`-r,--registry`, null, {
+    description: `Registry to publish to. Defaults to npm in CI.`,
+  })
+  public get registry() {
+    // eslint-disable-next-line n/no-process-env
+    return this._registry ?? `https://registry.npmjs.org/`
+  }
+
   /**
    * Execute command
    *
@@ -82,7 +90,8 @@ export class Release extends Command {
       const date = new Date()
       const utcSemver = `${date.getUTCFullYear()}.${date.getUTCMonth()}.${date.getUTCDate()}`
       try {
-        await this.$(`npm show @roots/bud@${utcSemver} --tag latest`)
+        // eslint-disable-next-line n/no-process-env
+        await this.$(`npm show @roots/bud@${utcSemver} --tag nightly --registry ${this.registry}`)
         this.version = `${utcSemver}-${date.getUTCHours()}${date.getUTCMinutes()}`
       } catch (e) {
         this.version = utcSemver
