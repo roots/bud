@@ -115,13 +115,10 @@ export abstract class Command extends BaseCommand {
 
         this.log(task)
 
-        try {
-          const code = await execute(task, [], {cwd: project.cwd})
-          if (code !== 0)
-            throw new Error(`${task} failed with code ${code}`)
-        } catch (e) {
-          this.err(e)
-        }
+        const code = await execute(task, [], {cwd: project.cwd})
+
+        if (code !== 0)
+          throw new Error(`${task} failed with code ${code}`)
       }),
     )
   }
@@ -139,7 +136,7 @@ export abstract class Command extends BaseCommand {
       }
       return code
     } catch (e) {
-      
+      this.context.stderr.write(e.message)
     }
   }
 }

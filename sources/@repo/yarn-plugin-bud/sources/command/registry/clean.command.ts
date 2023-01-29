@@ -42,7 +42,6 @@ export class RegistryClean extends Command {
   }
 
   public async execute() {
-    try {
       await ensureDir(join(paths.root, `storage`, `packages`))
       await remove(join(paths.root, `storage`, `packages`))
 
@@ -61,8 +60,5 @@ export class RegistryClean extends Command {
           verdaccioDb,
         )
       }
-    } catch (e) {
-      throw new Error(e)
-    }
   }
 }

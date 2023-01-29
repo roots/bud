@@ -38,12 +38,16 @@ export class Dev extends Command {
    * @public
    */
   public async execute() {
-    await this.$(`yarn @bud tsc`)
+    await this.$(`yarn @bud tsc --force`)
 
-    await this.$(
-      `yarn @bud tsc --watch`,
-      `yarn @bud test unit`,
-      `yarn @bud docs dev`,
-    )
+    try {
+      await this.$(
+        `yarn @bud tsc --watch`,
+        `yarn @bud test unit`,
+        `yarn @bud docs dev`,
+      )
+    } catch (e) {
+      this.context.stderr.write(e)
+    }
   }
 }
