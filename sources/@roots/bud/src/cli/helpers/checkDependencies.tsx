@@ -15,6 +15,7 @@ export const checkDependencies = async (bud: Bud) => {
       version = version.replace(`^`, ``)
       return (
         version !== `latest` &&
+        version !== `nightly` &&
         !version.includes(`workspace:`) &&
         version !== bud.context.bud.version
       )
