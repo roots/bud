@@ -28,12 +28,6 @@ export interface Connection {
   instance: HttpServer | HttpsServer
 
   /**
-   * Resolved URL
-   * @public
-   */
-  url: URL
-
-  /**
    * Create server
    * @public
    */
