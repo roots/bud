@@ -19,7 +19,7 @@ export class ApplicationURL {
    * @public
    */
   public get dev(): URL {
-    return this.app.hooks.filter(`dev.url`, new URL(`http://0.0.0.0:3000`))
+    return this.app.server.externalUrl
   }
 
   /**

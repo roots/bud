@@ -1,15 +1,15 @@
 import figures from '@roots/bud-support/figures'
 import Ink from '@roots/bud-support/ink'
 import Link from '@roots/bud-support/ink-link'
+import {externalNetworkInterface} from '@roots/bud-support/os'
 import React from '@roots/bud-support/react'
 
 import {color} from '../format.js'
-import getProxy from './getProxy.js'
-import getServer from './getServer.js'
 import useWatchedFilesCount from './useWatchedFilesCount.js'
 
 interface Props {
   devUrl?: URL
+  externalDevUrl?: URL
   watchFiles: Set<string>
   displayServerInfo: boolean
   proxyUrl?: URL
@@ -20,12 +20,16 @@ interface Props {
  */
 export const Server = ({
   devUrl,
+  externalDevUrl,
   displayServerInfo,
   watchFiles = new Set(),
   proxyUrl,
 }: Props) => {
-  const server = getServer(devUrl)
-  const proxy = getProxy(proxyUrl)
+  const hasMappedExternalUrl = externalDevUrl.origin !== devUrl.origin
+
+  const ipv4 = externalNetworkInterface.ipv4Url(externalDevUrl.protocol)
+  ipv4.port = externalDevUrl.port
+
   const watchedFilesCount = useWatchedFilesCount(watchFiles)
 
   return (
@@ -40,14 +44,15 @@ export const Server = ({
         <>
           <Ink.Text dimColor>{figures.lineVerticalDashed7}</Ink.Text>
 
-          {proxy && <Value label="proxy" value={proxy} />}
-
-          {server ? (
+          {proxyUrl && <Value label="proxy" value={proxyUrl.origin} />}
+          {hasMappedExternalUrl ? (
             <>
-              <Value label="internal" value={server.internal} />
-              <Value label="external" last value={server.external} />
+              {devUrl && <Value label="internal" value={devUrl.origin} />}
+              {devUrl && <Value label="external" value={externalDevUrl.origin} />}
             </>
-          ) : null}
+          ) : <>{devUrl && <Value label="dev" value={devUrl.origin} />}</>}
+
+          <Value label="ipv4" value={ipv4.origin} last />
 
           <Ink.Box
             marginTop={1}

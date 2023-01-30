@@ -25,11 +25,7 @@ export const serve: serve = async function (this: Bud, input, options) {
 
   checkChildInstanceError(this, input)
 
-  let resolvedUrl =
-    input instanceof URL
-      ? input
-      : this.hooks.filter(`dev.url`, new URL(`http://0.0.0.0:3000`))
-
+  let resolvedUrl = input instanceof URL ? input : this.server.url
   let resolvedOptions = options ?? this.hooks.filter(`dev.options`, {})
 
   if (isString(input)) resolvedUrl = new URL(input)

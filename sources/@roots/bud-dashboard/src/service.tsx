@@ -138,10 +138,8 @@ export class Dashboard extends Service implements Contract {
             displayServerInfo={false}
             context={this.app.context}
             mode={this.app.mode}
-            devUrl={this.app.hooks.filter(
-              `dev.url`,
-              new URL(`http://0.0.0.0:3000`),
-            )}
+            devUrl={this.app.server?.url}
+            externalDevUrl={this.app.server?.externalUrl}
             proxyUrl={this.app.hooks.filter(
               `dev.middleware.proxy.options.target`,
             )}

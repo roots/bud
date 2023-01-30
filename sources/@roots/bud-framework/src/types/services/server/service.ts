@@ -74,6 +74,17 @@ export interface Server extends Service {
    * @public
    */
   run: () => Promise<void>
+
+   /**
+   * Development server URL
+   */
+  url: URL
+
+  /**
+   * External development server URL
+   */
+  externalUrl: URL
+
   setConnection: any
   injectScripts: any
   applyMiddleware: any

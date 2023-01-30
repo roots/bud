@@ -17,6 +17,8 @@ import type * as Provide from './methods/provide/index.js'
 import type * as Proxy from './methods/proxy/index.js'
 import type * as Runtime from './methods/runtime/index.js'
 import type * as Serve from './methods/serve/index.js'
+import type * as SetExternalUrl from './methods/setExternalUrl/index.js'
+import type * as SetUrl from './methods/setUrl/index.js'
 import type * as SplitChunks from './methods/splitChunks/index.js'
 import type * as Use from './methods/use/index.js'
 import type * as Watch from './methods/watch/index.js'
@@ -192,6 +194,20 @@ export interface Repository {
    * {@link https://bud.js.org/docs/bud.serve 📕 Documentation}
    */
   serve(...params: Serve.Parameters): Bud
+
+  /**
+   * ## bud.setUrl
+   *
+   * {@link https://bud.js.org/docs/bud.setUrl 📕 Documentation}
+   */
+  setUrl(...params: SetUrl.Parameters): Bud
+
+  /**
+   * ## bud.setExternalUrl
+   *
+   * {@link https://bud.js.org/docs/bud.setExternalUrl 📕 Documentation}
+   */
+  setExternalUrl(...params: SetExternalUrl.Parameters): Bud
 
   /**
    * ## bud.splitChunks

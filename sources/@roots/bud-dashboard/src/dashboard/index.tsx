@@ -8,6 +8,7 @@ export interface Props {
   isTTY?: boolean
   context: Bud['context']
   devUrl?: URL
+  externalDevUrl?: URL
   mode: Bud['mode']
   proxyUrl?: URL
   compilations: Array<StatsCompilation>
