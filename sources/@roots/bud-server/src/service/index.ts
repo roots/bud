@@ -70,7 +70,7 @@ export class Server extends Service implements BaseService {
    * Development server URL
    */
   public get url(): URL {
-    return this.app.server.url
+    return this.app.hooks.filter(`dev.url`, new URL(`http://0.0.0.0:3000`))
   }
 
   /**
