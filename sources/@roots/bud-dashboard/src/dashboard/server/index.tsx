@@ -48,9 +48,13 @@ export const Server = ({
           {hasMappedExternalUrl ? (
             <>
               {devUrl && <Value label="internal" value={devUrl.origin} />}
-              {devUrl && <Value label="external" value={externalDevUrl.origin} />}
+              {devUrl && (
+                <Value label="external" value={externalDevUrl.origin} />
+              )}
             </>
-          ) : <>{devUrl && <Value label="dev" value={devUrl.origin} />}</>}
+          ) : (
+            <>{devUrl && <Value label="dev" value={devUrl.origin} />}</>
+          )}
 
           <Value label="ipv4" value={ipv4.origin} last />
 

@@ -75,7 +75,7 @@ export interface Server extends Service {
    */
   run: () => Promise<void>
 
-   /**
+  /**
    * Development server URL
    */
   url: URL

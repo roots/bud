@@ -210,9 +210,7 @@ export class Notifier {
     )
     this.setEditor(this.bud.context.args.editor)
     this.setBrowser(this.bud.context.args.browser)
-    this.setUrl(
-      this.bud.server?.externalUrl.origin,
-    )
+    this.setUrl(this.bud.server?.externalUrl.origin)
 
     try {
       this.openEditor(this.parseErrors(this.stats?.errors))
