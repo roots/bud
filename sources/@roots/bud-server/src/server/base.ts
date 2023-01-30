@@ -44,20 +44,6 @@ export abstract class BaseServer implements Connection {
   }
 
   /**
-   * Development server URL
-   */
-  public get url(): URL {
-    return this.app.hooks.filter(`dev.url`, new URL(`http://0.0.0.0:3000`))
-  }
-
-  /**
-   * External development server URL
-   */
-  public get externalUrl(): URL {
-    return this.app.hooks.filter(`dev.externalUrl`, this.url)
-  }
-
-  /**
    * Options
    *
    * @public
@@ -85,8 +71,8 @@ export abstract class BaseServer implements Connection {
     this.instance
       .listen(
         this.app.hooks.filter(`dev.listenOptions`, {
-          host: this.url.hostname,
-          port: Number(this.url.port),
+          host: this.app.server.url.hostname,
+          port: Number(this.app.server.url.port),
         }),
       )
       .on(
