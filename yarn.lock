@@ -6456,7 +6456,7 @@ __metadata:
     "@types/node": 18.11.18
     "@types/react": 17.0.52
     "@types/react-dom": 17.0.18
-    axios: 1.2.4
+    axios: 1.2.6
     clsx: 1.2.1
     docusaurus-lunr-search: 2.3.2
     file-loader: 6.2.0
@@ -7391,7 +7391,7 @@ __metadata:
     "@types/signale": 1.4.4
     "@types/webpack-manifest-plugin": 3.0.5
     "@vercel/ncc": 0.36.0
-    axios: 1.2.4
+    axios: 1.2.6
     chalk: 5.2.0
     chokidar: 3.5.3
     clean-stack: 5.1.0
@@ -12895,14 +12895,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:1.2.4":
-  version: 1.2.4
-  resolution: "axios@npm:1.2.4"
+"axios@npm:1.2.6":
+  version: 1.2.6
+  resolution: "axios@npm:1.2.6"
   dependencies:
     follow-redirects: ^1.15.0
     form-data: ^4.0.0
     proxy-from-env: ^1.1.0
-  checksum: 3454248d72028d69e90e348542140136c1226b448529e78beae5b88e65d6c67f85a3d0eb49f089b338cb54f173671b585c95ef3339f3cb28286eb2878fe47880
+  checksum: cbd19be3e07d2fbb6a0b126e49880cecdd44c1f68496ae0e7d21e7dc1c31fd59703a8eec51c9fd69034344f519cc1cdc22c22153131063657c4cef50195f0c00
   languageName: node
   linkType: hard
 
