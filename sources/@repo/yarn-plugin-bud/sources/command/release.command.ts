@@ -88,7 +88,7 @@ export class Release extends Command {
 
     if (this.tag === `nightly`) {
       const date = new Date()
-      const utcSemver = `${date.getUTCFullYear()}.${date.getUTCMonth()}.${date.getUTCDate()}`
+      const utcSemver = `${date.getUTCFullYear()}.${date.getUTCMonth() + 1}.${date.getUTCDate()}`
       try {
         // eslint-disable-next-line n/no-process-env
         await this.$(`npm show @roots/bud@${utcSemver} --tag nightly --registry ${this.registry}`)
