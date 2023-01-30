@@ -21,6 +21,8 @@ exports[`@roots/bud-api > should add methods when bootstrapped 1`] = `
   "proxy": [Function],
   "runtime": [Function],
   "serve": [Function],
+  "setExternalUrl": [Function],
+  "setUrl": [Function],
   "splitChunks": [Function],
   "template": [Function],
   "use": [Function],

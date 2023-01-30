@@ -103,6 +103,8 @@ export class Notifier {
 
   @bind
   public setUrl(url: string): this {
+    if (!url) return
+
     this.url = url
     return this
   }
@@ -208,10 +210,7 @@ export class Notifier {
     )
     this.setEditor(this.bud.context.args.editor)
     this.setBrowser(this.bud.context.args.browser)
-    this.setUrl(
-      this.bud.hooks.filter(`dev.url`, new URL(`http://0.0.0.0:3000`))
-        .origin,
-    )
+    this.setUrl(this.bud.server?.externalUrl.origin)
 
     try {
       this.openEditor(this.parseErrors(this.stats?.errors))

@@ -10,49 +10,46 @@ export interface Sync {
 
   /**
    * On listening callback
-   * @public
    */
   onListening: Server.Connection['onListening']
 
   /**
    * Request callback
-   * @public
    */
   onRequest: Server.Connection['onRequest']
 
   /**
    * Error callback
-   * @public
    */
   onError: Server.Connection['onError']
 
   /**
    * Dev server connection options
-   * @public
    */
   options: Server.Options
 
   /**
    * Server URL
-   * @public
    */
   url: URL
 
   /**
+   * External URL
+   */
+  externalUrl: URL
+
+  /**
    * Files which trigger a full browser reload
-   * @public
    */
   'watch.files': Set<string>
 
   /**
    * FS.Watcher options
-   * @public
    */
   'watch.options': WatchOptions
 
   /**
    * Scripts included in dev builds
-   * @public
    */
   'client.scripts': Set<(app: Bud) => string>
   'client.standalone': boolean
@@ -61,7 +58,6 @@ export interface Sync {
 
   /**
    * Enabled middleware
-   * @public
    */
   'middleware.enabled': Array<keyof Server.Middleware.Available>
 
@@ -111,7 +107,6 @@ export interface Sync {
 
   /**
    * Proxy middleware replacements
-   * @public
    */
   'middleware.proxy.replacements': Array<[string, string]>
 }

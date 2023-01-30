@@ -27,6 +27,7 @@ describe(`@roots/bud-dashboard app component`, () => {
         mode="development"
         compilations={mockCompilations}
         devUrl={new URL(`http://localhost:3000`)}
+        externalDevUrl={new URL(`http://localhost:3000`)}
         proxyUrl={new URL(`http://localhost:8080`)}
         watchFiles={new Set([`foo`])}
         isTTY={true}
@@ -47,6 +48,7 @@ describe(`@roots/bud-dashboard app component`, () => {
         mode="development"
         compilations={mockCompilations}
         devUrl={new URL(`http://localhost:3000`)}
+        externalDevUrl={new URL(`http://example.test`)}
         proxyUrl={new URL(`http://localhost:8080`)}
         watchFiles={new Set([`foo`])}
         isTTY={true}
@@ -61,6 +63,30 @@ describe(`@roots/bud-dashboard app component`, () => {
     expect(lastFrame()).toContain(`external`)
   })
 
+  it(`should render server info`, async () => {
+    const {lastFrame} = render(
+      // @ts-ignore
+      <App
+        context={bud.context}
+        mode="development"
+        compilations={mockCompilations}
+        devUrl={new URL(`http://localhost:3000`)}
+        externalDevUrl={new URL(`http://localhost:3000`)}
+        proxyUrl={new URL(`http://localhost:8080`)}
+        watchFiles={new Set([`foo`])}
+        isTTY={true}
+        displayServerInfo={true}
+        displayAssets={true}
+        displayEntrypoints={true}
+      />,
+    )
+
+    expect(lastFrame()).toContain(`proxy`)
+    expect(lastFrame()).toContain(`dev`)
+    expect(lastFrame()).not.toContain(`internal`)
+    expect(lastFrame()).not.toContain(`external`)
+  })
+
   it(`should render watch list`, async () => {
     const {lastFrame} = render(
       <App
@@ -68,6 +94,7 @@ describe(`@roots/bud-dashboard app component`, () => {
         mode="development"
         compilations={mockCompilations}
         devUrl={new URL(`http://localhost:3000`)}
+        externalDevUrl={new URL(`http://localhost:3000`)}
         proxyUrl={new URL(`http://localhost:8080`)}
         watchFiles={new Set([`foo`])}
         isTTY={true}
@@ -87,6 +114,7 @@ describe(`@roots/bud-dashboard app component`, () => {
         mode="production"
         compilations={mockCompilations}
         devUrl={new URL(`http://localhost:3000`)}
+        externalDevUrl={new URL(`http://localhost:3000`)}
         proxyUrl={new URL(`http://localhost:8080`)}
         watchFiles={new Set([`foo`])}
         isTTY={true}

@@ -67,6 +67,20 @@ export class Server extends Service implements BaseService {
   > = {}
 
   /**
+   * Development server URL
+   */
+  public get url(): URL {
+    return this.app.hooks.filter(`dev.url`, new URL(`http://0.0.0.0:3000`))
+  }
+
+  /**
+   * External development server URL
+   */
+  public get externalUrl(): URL {
+    return this.app.hooks.filter(`dev.externalUrl`, this.url)
+  }
+
+  /**
    * `register` callback
    *
    * @public
@@ -112,9 +126,7 @@ export class Server extends Service implements BaseService {
    */
   @bind
   public async setConnection(bud: Bud) {
-    const isHttps =
-      bud.hooks.filter(`dev.url`, new URL(`http://0.0.0.0:3000`))
-        .protocol === `https:`
+    const isHttps = this.url.protocol === `https:`
 
     this.connection = await bud.module
       .import(
