@@ -58,6 +58,12 @@ If no entrypoint is provided **bud.js** will attempt to compile **src/index.js**
 
 You don't need to call this function unless you want to change the default server configuration.
 
+### bud.setExternalUrl
+
+**bud.setExternalUrl** is used to specify the site-accessible URL for the dev server (if it differs from the internal URL).
+
+For example: a dockerized app that needs to be accessible from the host at `http://example.test` but serves over `http://0.0.0.0:8080`.
+
 ### bud.watch
 
 **bud.watch** is used to specify files which will trigger a full browser reload when changed.
