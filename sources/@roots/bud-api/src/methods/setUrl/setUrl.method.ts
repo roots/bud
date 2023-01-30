@@ -8,6 +8,6 @@ export interface setUrl {
 
 export const setUrl: setUrl = function (this: Bud, url) {
   const normalUrl = !(url instanceof URL) ? new URL(url) : url
-  this.hooks.filter(`dev.url`, normalUrl)
+  this.hooks.on(`dev.url`, normalUrl)
   return this
 }
