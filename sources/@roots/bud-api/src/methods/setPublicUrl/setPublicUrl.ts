@@ -2,12 +2,12 @@ import type {Bud} from '@roots/bud-framework'
 
 export type Parameters = [string | URL]
 
-export interface setExternalUrl {
+export interface setPublicUrl {
   (...parameters: Parameters): Bud
 }
 
-export const setExternalUrl: setExternalUrl = function (this: Bud, url) {
+export const setPublicUrl: setPublicUrl = function (this: Bud, url) {
   const normalUrl = !(url instanceof URL) ? new URL(url) : url
-  this.hooks.on(`dev.externalUrl`, normalUrl)
+  this.hooks.on(`dev.publicUrl`, normalUrl)
   return this
 }

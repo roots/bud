@@ -23,13 +23,10 @@ export const maybeEnable = (bud: Bud, input: unknown) => {
  * @param port
  */
 export const assignPort = (bud: Bud, port: number) => {
-  bud.hooks.on(
-    `dev.middleware.proxy.options.target`,
-    (url = fallbackUrl) => {
-      url.port = `${port}`
-      return url
-    },
-  )
+  bud.hooks.on(`dev.proxyUrl`, (url = fallbackUrl) => {
+    url.port = `${port}`
+    return url
+  })
 }
 
 /**
@@ -40,7 +37,7 @@ export const assignPort = (bud: Bud, port: number) => {
  */
 export const assignUrl = (bud: Bud, maybeURL: string | URL) => {
   bud.hooks.on(
-    `dev.middleware.proxy.options.target`,
+    `dev.proxyUrl`,
     maybeURL instanceof URL ? maybeURL : new URL(maybeURL),
   )
 }

@@ -58,7 +58,7 @@ const transformResponseBuffer = (
 
   return bud.hooks
     .filter(`dev.middleware.proxy.replacements`, [
-      [url.proxy.href, url.dev.href],
+      [url.publicProxy.origin, url.dev.origin],
     ])
     .reduce(transformBody, buffer.toString(`utf8`))
 }

@@ -19,7 +19,7 @@ export class ApplicationURL {
    * @public
    */
   public get dev(): URL {
-    return this.app.server.externalUrl
+    return this.app.server.publicUrl
   }
 
   /**
@@ -29,9 +29,13 @@ export class ApplicationURL {
    */
   public get proxy(): URL {
     return this.app.hooks.filter(
-      `dev.middleware.proxy.options.target`,
+      `dev.proxyUrl`,
       new URL(`http://0.0.0.0`),
     )
+  }
+
+  public get publicProxy(): URL {
+    return this.app.hooks.filter(`dev.publicProxyUrl`, this.proxy)
   }
 
   /**

@@ -17,7 +17,9 @@ import type * as Provide from './methods/provide/index.js'
 import type * as Proxy from './methods/proxy/index.js'
 import type * as Runtime from './methods/runtime/index.js'
 import type * as Serve from './methods/serve/index.js'
-import type * as SetExternalUrl from './methods/setExternalUrl/index.js'
+import type * as SetProxyUrl from './methods/setProxyUrl/index.js'
+import type * as SetPublicProxyUrl from './methods/setPublicProxyUrl/index.js'
+import type * as SetPublicUrl from './methods/setPublicUrl/index.js'
 import type * as SetUrl from './methods/setUrl/index.js'
 import type * as SplitChunks from './methods/splitChunks/index.js'
 import type * as Use from './methods/use/index.js'
@@ -203,11 +205,25 @@ export interface Repository {
   setUrl(...params: SetUrl.Parameters): Bud
 
   /**
-   * ## bud.setExternalUrl
+   * ## bud.setPublicUrl
    *
-   * {@link https://bud.js.org/docs/bud.setExternalUrl 📕 Documentation}
+   * {@link https://bud.js.org/docs/bud.SetPublicUrl 📕 Documentation}
    */
-  setExternalUrl(...params: SetExternalUrl.Parameters): Bud
+  setPublicUrl(...params: SetPublicUrl.Parameters): Bud
+
+  /**
+   * ## bud.setProxyUrl
+   *
+   * {@link https://bud.js.org/docs/bud.setProxyUrl 📕 Documentation}
+   */
+  setProxyUrl(...params: SetProxyUrl.Parameters): Bud
+
+  /**
+   * ## bud.setPublicProxyUrl
+   *
+   * {@link https://bud.js.org/docs/bud.SetPublicProxyUrl 📕 Documentation}
+   */
+  setPublicProxyUrl(...params: SetPublicProxyUrl.Parameters): Bud
 
   /**
    * ## bud.splitChunks

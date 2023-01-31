@@ -22,7 +22,7 @@ describe(`bud.proxy`, () => {
     await proxy(3005)
 
     expect(onSpy).toHaveBeenLastCalledWith(
-      `dev.middleware.proxy.options.target`,
+      `dev.proxyUrl`,
       expect.any(Function),
     )
   })
@@ -30,7 +30,7 @@ describe(`bud.proxy`, () => {
   it(`should set port when called with a number`, async () => {
     await proxy(3005)
     expect(
-      bud.hooks.filter(`dev.middleware.proxy.options.target`).port,
+      bud.hooks.filter(`dev.proxyUrl`).port,
     ).toBe(`3005`)
   })
 
@@ -44,7 +44,7 @@ describe(`bud.proxy`, () => {
       expect.any(Function),
     )
     expect(onSpy).toHaveBeenLastCalledWith(
-      `dev.middleware.proxy.options.target`,
+      `dev.proxyUrl`,
       expect.any(URL),
     )
   })
@@ -55,7 +55,7 @@ describe(`bud.proxy`, () => {
     await proxy(`https://example.com`)
 
     expect(onSpy).toHaveBeenCalledWith(
-      `dev.middleware.proxy.options.target`,
+      `dev.proxyUrl`,
       expect.any(URL),
     )
   })
