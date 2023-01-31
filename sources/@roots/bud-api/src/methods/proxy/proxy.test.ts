@@ -29,9 +29,7 @@ describe(`bud.proxy`, () => {
 
   it(`should set port when called with a number`, async () => {
     await proxy(3005)
-    expect(
-      bud.hooks.filter(`dev.proxyUrl`).port,
-    ).toBe(`3005`)
+    expect(bud.hooks.filter(`dev.proxyUrl`).port).toBe(`3005`)
   })
 
   it(`should call bud.hooks.on with a URL when called with a URL`, async () => {
@@ -43,10 +41,7 @@ describe(`bud.proxy`, () => {
       `dev.middleware.enabled`,
       expect.any(Function),
     )
-    expect(onSpy).toHaveBeenLastCalledWith(
-      `dev.proxyUrl`,
-      expect.any(URL),
-    )
+    expect(onSpy).toHaveBeenLastCalledWith(`dev.proxyUrl`, expect.any(URL))
   })
 
   it(`should call bud.hooks.on with a URL when called with a string`, async () => {
@@ -54,10 +49,7 @@ describe(`bud.proxy`, () => {
 
     await proxy(`https://example.com`)
 
-    expect(onSpy).toHaveBeenCalledWith(
-      `dev.proxyUrl`,
-      expect.any(URL),
-    )
+    expect(onSpy).toHaveBeenCalledWith(`dev.proxyUrl`, expect.any(URL))
   })
 
   it(`should enable middleware when called with true`, () => {

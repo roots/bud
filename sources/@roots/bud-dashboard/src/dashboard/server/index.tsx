@@ -27,7 +27,8 @@ export const Server = ({
   proxyUrl,
   publicProxyUrl,
 }: Props) => {
-  const hasMappedProxyUrl = publicProxyUrl?.origin && (publicProxyUrl?.origin !== proxyUrl.origin)
+  const hasMappedProxyUrl =
+    publicProxyUrl?.origin && publicProxyUrl?.origin !== proxyUrl.origin
   const hasMappedDevUrl = publicDevUrl.origin !== devUrl.origin
 
   const ipv4 = externalNetworkInterface.ipv4Url(publicDevUrl.protocol)
