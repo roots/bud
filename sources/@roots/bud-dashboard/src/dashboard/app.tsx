@@ -13,7 +13,8 @@ const App = ({
   displayServerInfo,
   displayAssets,
   displayEntrypoints,
-  externalDevUrl,
+  publicDevUrl,
+  publicProxyUrl,
   mode,
   watchFiles = new Set(),
 }: Props) => {
@@ -40,8 +41,9 @@ const App = ({
       {mode === `development` ? (
         <Server
           devUrl={devUrl}
-          externalDevUrl={externalDevUrl}
+          publicDevUrl={publicDevUrl}
           proxyUrl={proxyUrl}
+          publicProxyUrl={publicProxyUrl}
           watchFiles={watchFiles}
           displayServerInfo={displayServerInfo}
         />

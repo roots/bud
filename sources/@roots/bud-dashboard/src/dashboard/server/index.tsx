@@ -9,10 +9,11 @@ import useWatchedFilesCount from './useWatchedFilesCount.js'
 
 interface Props {
   devUrl?: URL
-  externalDevUrl?: URL
+  publicDevUrl?: URL
   watchFiles: Set<string>
   displayServerInfo: boolean
   proxyUrl?: URL
+  publicProxyUrl?: URL
 }
 
 /**
@@ -20,22 +21,24 @@ interface Props {
  */
 export const Server = ({
   devUrl,
-  externalDevUrl,
+  publicDevUrl,
   displayServerInfo,
   watchFiles = new Set(),
   proxyUrl,
+  publicProxyUrl,
 }: Props) => {
-  const hasMappedExternalUrl = externalDevUrl.origin !== devUrl.origin
+  const hasMappedProxyUrl = publicProxyUrl?.origin && (publicProxyUrl?.origin !== proxyUrl.origin)
+  const hasMappedDevUrl = publicDevUrl.origin !== devUrl.origin
 
-  const ipv4 = externalNetworkInterface.ipv4Url(externalDevUrl.protocol)
-  ipv4.port = externalDevUrl.port
+  const ipv4 = externalNetworkInterface.ipv4Url(publicDevUrl.protocol)
+  ipv4.port = publicDevUrl.port
 
   const watchedFilesCount = useWatchedFilesCount(watchFiles)
 
   return (
     <Ink.Box flexDirection="column">
       <Ink.Box flexDirection="row">
-        <Ink.Text color={color.cyan} dimColor={!displayServerInfo}>
+        <Ink.Text color={color.blue} dimColor={!displayServerInfo}>
           {figures.info} <Ink.Text underline>s</Ink.Text>erver
         </Ink.Text>
       </Ink.Box>
@@ -44,16 +47,44 @@ export const Server = ({
         <>
           <Ink.Text dimColor>{figures.lineVerticalDashed7}</Ink.Text>
 
-          {proxyUrl && <Value label="proxy" value={proxyUrl.origin} />}
-          {hasMappedExternalUrl ? (
+          {hasMappedProxyUrl ? (
             <>
-              {devUrl && <Value label="internal" value={devUrl.origin} />}
-              {devUrl && (
-                <Value label="external" value={externalDevUrl.origin} />
+              {proxyUrl && (
+                <Value label="proxy (internal)" value={proxyUrl.origin} />
               )}
+              {publicProxyUrl && (
+                <Value
+                  label="proxy (external)"
+                  value={publicProxyUrl.origin}
+                />
+              )}
+              <Ink.Text dimColor>{figures.lineVertical}</Ink.Text>
             </>
           ) : (
-            <>{devUrl && <Value label="dev" value={devUrl.origin} />}</>
+            <>
+              {proxyUrl && <Value label="proxy" value={proxyUrl.origin} />}
+              <Ink.Text dimColor>{figures.lineVertical}</Ink.Text>
+            </>
+          )}
+
+          {hasMappedDevUrl ? (
+            <>
+              {devUrl && (
+                <Value label="dev (internal)" value={devUrl.origin} />
+              )}
+              {devUrl && (
+                <Value
+                  label="dev (external)"
+                  value={publicDevUrl.origin}
+                />
+              )}
+              <Ink.Text dimColor>{figures.lineVertical}</Ink.Text>
+            </>
+          ) : (
+            <>
+              {devUrl && <Value label="dev" value={devUrl.origin} />}
+              <Ink.Text dimColor>{figures.lineVertical}</Ink.Text>
+            </>
           )}
 
           <Value label="ipv4" value={ipv4.origin} last />
