@@ -121,7 +121,6 @@ describe(`@roots/bud-dashboard app component`, () => {
         publicDevUrl={new URL(`http://localhost:3000`)}
         proxyUrl={new URL(`http://localhost:8080`)}
         publicProxyUrl={new URL(`http://localhost:8080`)}
-
         watchFiles={new Set([`foo`])}
         isTTY={true}
         displayServerInfo={true}

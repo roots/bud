@@ -28,10 +28,7 @@ export class ApplicationURL {
    * @public
    */
   public get proxy(): URL {
-    return this.app.hooks.filter(
-      `dev.proxyUrl`,
-      new URL(`http://0.0.0.0`),
-    )
+    return this.app.hooks.filter(`dev.proxyUrl`, new URL(`http://0.0.0.0`))
   }
 
   public get publicProxy(): URL {
