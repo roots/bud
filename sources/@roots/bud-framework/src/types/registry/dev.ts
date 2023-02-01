@@ -36,7 +36,17 @@ export interface Sync {
   /**
    * External URL
    */
-  externalUrl: URL
+  publicUrl: URL
+
+  /**
+   * Proxy URL
+   */
+  proxyUrl: URL
+
+  /**
+   * Public proxy URL
+   */
+  publicProxyUrl: URL
 
   /**
    * Files which trigger a full browser reload

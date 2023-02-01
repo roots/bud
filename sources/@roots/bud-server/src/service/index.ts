@@ -76,8 +76,8 @@ export class Server extends Service implements BaseService {
   /**
    * External development server URL
    */
-  public get externalUrl(): URL {
-    return this.app.hooks.filter(`dev.externalUrl`, this.url)
+  public get publicUrl(): URL {
+    return this.app.hooks.filter(`dev.publicUrl`, this.url)
   }
 
   /**

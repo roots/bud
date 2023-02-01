@@ -6,7 +6,8 @@ parts:
   - provide/overview.md
   - proxy/overview.md
   - serve/overview.md
-  - setExternalUrl/overview.md
+  - setPublicUrl/overview.md
+  - setPublicProxyUrl/overview.md
   - watch/overview.md
 ---
 

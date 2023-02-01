@@ -139,10 +139,9 @@ export class Dashboard extends Service implements Contract {
             context={this.app.context}
             mode={this.app.mode}
             devUrl={this.app.server?.url}
-            externalDevUrl={this.app.server?.externalUrl}
-            proxyUrl={this.app.hooks.filter(
-              `dev.middleware.proxy.options.target`,
-            )}
+            publicDevUrl={this.app.server?.publicUrl}
+            proxyUrl={this.app.hooks.filter(`dev.proxyUrl`)}
+            publicProxyUrl={this.app.hooks.filter(`dev.publicProxyUrl`)}
             watchFiles={this.app.server?.watcher?.files}
           />
         </Ink.Box>,

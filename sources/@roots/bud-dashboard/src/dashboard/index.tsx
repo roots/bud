@@ -8,9 +8,10 @@ export interface Props {
   isTTY?: boolean
   context: Bud['context']
   devUrl?: URL
-  externalDevUrl?: URL
+  publicDevUrl?: URL
   mode: Bud['mode']
   proxyUrl?: URL
+  publicProxyUrl?: URL
   compilations: Array<StatsCompilation>
   watchFiles?: Set<string>
   displayAssets: boolean

@@ -83,7 +83,7 @@ export interface Server extends Service {
   /**
    * External development server URL
    */
-  externalUrl: URL
+  publicUrl: URL
 
   setConnection: any
   injectScripts: any
