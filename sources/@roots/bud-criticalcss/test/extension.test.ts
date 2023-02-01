@@ -40,7 +40,7 @@ const baseParts = [
   paths.sources,
   `@roots`,
   `bud-criticalcss`,
-  `src`,
+  `test`,
   `__fixtures__`,
 ]
 
