@@ -7737,6 +7737,7 @@ __metadata:
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss"
     "@roots/bud-sass": "workspace:sources/@roots/bud-sass"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
+    "@roots/bud-typescript": "workspace:sources/@roots/bud-typescript"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.11.18
     "@vue/compiler-sfc": ^3.2.45
@@ -8654,27 +8655,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tests/bud-criticalcss__extract-func@workspace:sources/@roots/bud-criticalcss/src/__fixtures__/extract-func":
+"@tests/bud-criticalcss__extract-func@workspace:sources/@roots/bud-criticalcss/test/__fixtures__/extract-func":
   version: 0.0.0-use.local
-  resolution: "@tests/bud-criticalcss__extract-func@workspace:sources/@roots/bud-criticalcss/src/__fixtures__/extract-func"
+  resolution: "@tests/bud-criticalcss__extract-func@workspace:sources/@roots/bud-criticalcss/test/__fixtures__/extract-func"
   dependencies:
     "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-criticalcss": "workspace:sources/@roots/bud-criticalcss"
   languageName: unknown
   linkType: soft
 
-"@tests/bud-criticalcss__extract@workspace:sources/@roots/bud-criticalcss/src/__fixtures__/extract":
+"@tests/bud-criticalcss__extract@workspace:sources/@roots/bud-criticalcss/test/__fixtures__/extract":
   version: 0.0.0-use.local
-  resolution: "@tests/bud-criticalcss__extract@workspace:sources/@roots/bud-criticalcss/src/__fixtures__/extract"
+  resolution: "@tests/bud-criticalcss__extract@workspace:sources/@roots/bud-criticalcss/test/__fixtures__/extract"
   dependencies:
     "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-criticalcss": "workspace:sources/@roots/bud-criticalcss"
   languageName: unknown
   linkType: soft
 
-"@tests/bud-criticalcss__no-extract@workspace:sources/@roots/bud-criticalcss/src/__fixtures__/no-extract":
+"@tests/bud-criticalcss__no-extract@workspace:sources/@roots/bud-criticalcss/test/__fixtures__/no-extract":
   version: 0.0.0-use.local
-  resolution: "@tests/bud-criticalcss__no-extract@workspace:sources/@roots/bud-criticalcss/src/__fixtures__/no-extract"
+  resolution: "@tests/bud-criticalcss__no-extract@workspace:sources/@roots/bud-criticalcss/test/__fixtures__/no-extract"
   dependencies:
     "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-criticalcss": "workspace:sources/@roots/bud-criticalcss"

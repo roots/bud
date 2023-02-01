@@ -116,6 +116,13 @@ export default class Vue extends Extension<
     bud.alias(this.resolveAlias)
   }
 
+  public override async buildBefore(bud: Bud) {
+    bud.build.items.ts?.setOptions({
+      ...(bud.build.items.ts.getOptions() ?? {}),
+      appendTsSuffixTo: [bud.hooks.filter(`pattern.vue`)],
+    })
+  }
+
   /**
    * `make` callback
    *

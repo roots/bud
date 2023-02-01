@@ -1,0 +1,14 @@
+{
+  "name": "@examples/vue-typescript",
+  "private": true,
+  "browserslist": [
+    "extends @roots/browserslist-config"
+  ],
+  "type": "module",
+  "devDependencies": {
+    "@roots/bud": "latest",
+    "@roots/bud-sass": "latest",
+    "@roots/bud-typescript": "latest",
+    "@roots/bud-vue": "latest"
+  }
+}

@@ -49,8 +49,18 @@ describe(`@roots/bud-vue`, () => {
     expect(instance.options.runtimeOnly).toBe(true)
   })
 
-  it(`should be registrable`, async () => {
+  it(`should expose bud.vue interface`, async () => {
     await bud.extensions.add(Vue)
     expect(bud.vue).toBeInstanceOf(Vue)
+  })
+
+  it(`should register typescript support if @roots/bud-typescript is installed`, async () => {
+    await bud.extensions.add(`@roots/bud-typescript`)
+    await bud.extensions.get(`@roots/bud-typescript`).configAfter(bud)
+    await instance.buildBefore(bud)
+
+    expect(bud.build.items.ts.getOptions().appendTsSuffixTo).toStrictEqual(
+      expect.arrayContaining([/\.vue$/]),
+    )
   })
 })

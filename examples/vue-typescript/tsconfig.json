@@ -1,0 +1,12 @@
+{
+  "extends": "@roots/bud-typescript/tsconfig/tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "@*": ["./*"]
+    },
+    "types": ["@roots/bud", "@roots/bud-vue", "@roots/bud-typescript"],
+  },
+  "files": ["types/index.d.ts"],
+  "include": ["src", "bud.config.js"],
+  "exclude": ["node_modules", "dist"]
+}

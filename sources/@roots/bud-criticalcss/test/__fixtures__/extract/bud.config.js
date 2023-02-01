@@ -1,7 +1,9 @@
 export default async bud => {
-  bud
-    .entry(`index.css`)
-    .critical.html(
+  await bud.extensions.add(`@roots/bud-criticalcss`)
+
+  bud.entry(`index.css`)
+
+  bud.critical.html(
       `<html>
         <body>
           <div class="foo"></div>
