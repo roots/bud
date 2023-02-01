@@ -1,0 +1,42 @@
+---
+title: '@roots/bud-vue'
+description: Use Vue in your Bud projects
+sidebar_label: '@roots/bud-vue'
+hide_table_of_contents: false
+---
+
+import Code from '@theme/CodeBlock'
+import {Install} from '@site/src/docs/Install'
+import {Sandbox} from '@site/src/components/sandbox'
+import Usage from '@site/../../@roots/bud-vue/docs/01-usage.md'
+import LanguageSupport from '@site/../../@roots/bud-vue/docs/02-language-support.md'
+import LegacySupport from '@site/../../@roots/bud-vue/docs/03-legacy-support.md'
+import Vue2PackageJson from '@site/../../../examples/vue-legacy/package.json'
+
+[Vue](https://vuejs.org) support can be added by installing the **@roots/bud-vue** package.
+
+## Installation
+
+<Install packages="@roots/bud-vue" />
+
+## Usage
+
+<Usage />
+
+## Language support
+
+<LanguageSupport />
+
+### Legacy support
+
+<LegacySupport />
+
+This is the **package.json** we use to test releases for vue 2 compatibility:
+
+<Code title="package.json" langage="json">
+  {JSON.stringify(Vue2PackageJson, null, 2)}
+</Code>
+
+## Example
+
+<Sandbox id="bud-example-vue-3-gf1lkk" title="bud-example-vue-3" />

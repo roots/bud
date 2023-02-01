@@ -32,8 +32,6 @@ npm install @roots/bud-typescript --save-dev
 
 ## Configuration
 
-If you are authoring your config file in TypeScript you must use the `ts-bud` command instead of `bud`.
-
 General ts configuration is handled using a standard **tsconfig.json** in your project root. See [the TypeScript docs on tsconfig.json](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html) for more information.
 
 There is a base tsconfig available for you to extend:
@@ -43,6 +41,8 @@ There is a base tsconfig available for you to extend:
   "extends": "@roots/bud-typescript/tsconfig/tsconfig.json"
 }
 ```
+
+If you are authoring your config file in TypeScript you must use the `ts-bud` command instead of `bud`.
 
 ## Typechecking
 
