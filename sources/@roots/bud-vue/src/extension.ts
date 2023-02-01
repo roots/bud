@@ -118,7 +118,7 @@ export default class Vue extends Extension<
 
   public override async buildBefore(bud: Bud) {
     bud.build.items.ts?.setOptions({
-      ...bud.build.items.ts.getOptions() ?? {},
+      ...(bud.build.items.ts.getOptions() ?? {}),
       appendTsSuffixTo: [bud.hooks.filter(`pattern.vue`)],
     })
   }
