@@ -122,7 +122,7 @@
   },
   "dependencies": {
     "@roots/filesystem": "workspace:sources/@roots/filesystem",
-    "axios": "1.2.4",
+    "axios": "1.3.0",
     "chalk": "5.2.0",
     "chokidar": "3.5.3",
     "clean-stack": "5.1.0",
