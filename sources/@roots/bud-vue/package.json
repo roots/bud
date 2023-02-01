@@ -64,6 +64,7 @@
     "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
     "@roots/bud-sass": "workspace:sources/@roots/bud-sass",
+    "@roots/bud-typescript": "workspace:sources/@roots/bud-typescript",
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.11.18",
     "webpack": "5.75.0"

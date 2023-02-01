@@ -7737,6 +7737,7 @@ __metadata:
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss"
     "@roots/bud-sass": "workspace:sources/@roots/bud-sass"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
+    "@roots/bud-typescript": "workspace:sources/@roots/bud-typescript"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.11.18
     "@vue/compiler-sfc": ^3.2.45
