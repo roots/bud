@@ -60,8 +60,7 @@ describe(`@roots/bud-typescript/typecheck`, () => {
       bud.typescript.typecheck.enable()
 
       expect(
-        bud.extensions.get(`@roots/bud-typescript`).getOption(`loader`)
-          .transpileOnly,
+        bud.extensions.get(`@roots/bud-typescript`).getOption(`transpileOnly`)
       ).toBe(true)
 
       expect(

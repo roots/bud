@@ -1,7 +1,9 @@
 import {bind} from '@roots/bud-support/decorators'
+import get from '@roots/bud-support/lodash/get'
 import has from '@roots/bud-support/lodash/has'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
+import set from '@roots/bud-support/lodash/set'
 import type {Instance as Signale} from '@roots/bud-support/signale'
 
 import type {Bud} from '../bud.js'
@@ -476,8 +478,10 @@ export class Extension<
   public getOption<K extends keyof ExtensionOptions & string>(
     key: K,
   ): ExtensionOptions[K] {
-    return this.options[key]
+    const raw = this.getOptions()
+    return get(raw, key)
   }
+  public get = this.getOption
 
   /**
    * Set extension option
@@ -492,12 +496,13 @@ export class Extension<
   ): this {
     if (!this.optionsMap) this.optionsMap = {}
 
-    this.optionsMap[key] = isFunction(value)
-      ? value(this.options[key])
-      : () => value
+    set(this.optionsMap, key, isFunction(value)
+      ? value(this.getOption(key))
+      : value)
 
     return this
   }
+  public set = this.setOption
 
   /**
    * Normalize options to functions

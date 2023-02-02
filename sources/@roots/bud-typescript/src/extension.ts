@@ -7,6 +7,7 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
+import omit from '@roots/bud-support/lodash/omit'
 
 /**
  * BudTypeScript configures the TypeScript compiler
@@ -20,9 +21,8 @@ import {
 @label(`@roots/bud-typescript`)
 @expose(`typescript`)
 @options({
-  loader: {
-    transpileOnly: true,
-  },
+  babel: false,
+  transpileOnly: true,
 })
 @dependsOn([`@roots/bud-typescript/typecheck`])
 export default class BudTypeScript extends Extension {
@@ -42,7 +42,7 @@ export default class BudTypeScript extends Extension {
    */
   @bind
   public useBabel(enable: boolean = true): this {
-    this.setOption(`babel`, enable)
+    this.set(`babel`, enable)
     return this
   }
 
@@ -53,8 +53,6 @@ export default class BudTypeScript extends Extension {
    */
   @bind
   public override async register(bud: Bud) {
-    this.setOption(`context`, bud.context.basedir)
-
     bud.hooks.on(`build.resolve.extensions`, (extensions = new Set([])) =>
       extensions.add(`.ts`).add(`.jsx`).add(`.tsx`),
     )
@@ -67,11 +65,13 @@ export default class BudTypeScript extends Extension {
    */
   @bind
   public override async configAfter(bud: Bud) {
+    this.set(`context`, bud.context.basedir)
+
     bud.build
       .setLoader(`ts`, await this.resolve(`ts-loader`))
       .setItem(`ts`, {
         loader: `ts`,
-        options: () => this.options.loader,
+        options: () => omit(this.options, `babel`),
       })
       .setRule(`ts`, {
         test: ({hooks}) => hooks.filter(`pattern.ts`),
