@@ -496,9 +496,11 @@ export class Extension<
   ): this {
     if (!this.optionsMap) this.optionsMap = {}
 
-    set(this.optionsMap, key, isFunction(value)
-      ? value(this.getOption(key))
-      : value)
+    set(
+      this.optionsMap,
+      key,
+      isFunction(value) ? value(this.getOption(key)) : value,
+    )
 
     return this
   }

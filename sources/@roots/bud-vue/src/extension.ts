@@ -114,7 +114,9 @@ export default class Vue extends Extension<
     })
 
     bud.alias(this.resolveAlias)
-    bud.typescript?.set(`appendTsSuffixTo`, [bud.hooks.filter(`pattern.vue`)])
+    bud.typescript?.set(`appendTsSuffixTo`, [
+      bud.hooks.filter(`pattern.vue`),
+    ])
   }
 
   /**
