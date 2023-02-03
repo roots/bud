@@ -57,7 +57,7 @@ describe(`@roots/bud-vue`, () => {
   it(`should register typescript support if @roots/bud-typescript is installed`, async () => {
     await bud.extensions.add(`@roots/bud-typescript`)
     await bud.extensions.get(`@roots/bud-typescript`).configAfter(bud)
-    await instance.buildBefore(bud)
+    await instance.boot(bud)
 
     expect(bud.build.items.ts.getOptions().appendTsSuffixTo).toStrictEqual(
       expect.arrayContaining([/\.vue$/]),
