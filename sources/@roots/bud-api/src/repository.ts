@@ -62,8 +62,7 @@ export interface Repository {
    *
    * {@link https://bud.js.org/docs/bud.compilePaths 📕 Documentation}
    */
-    compilePaths(...params: CompilePaths.Parameters): Bud
-
+  compilePaths(...params: CompilePaths.Parameters): Bud
 
   /**
    * ## bud.config

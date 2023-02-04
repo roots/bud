@@ -1,4 +1,4 @@
-import type {Rules} from "@roots/bud-framework"
+import type {Rules} from '@roots/bud-framework'
 
 type Source = string | RegExp | Array<string | RegExp>
 

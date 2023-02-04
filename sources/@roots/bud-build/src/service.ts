@@ -86,9 +86,7 @@ export class Build extends Service implements Base.Service {
    * Get rule
    */
   @bind
-  public getRule<K extends `${keyof Rules & string}`>(
-    ident: K,
-  ): Rules[K] {
+  public getRule<K extends `${keyof Rules & string}`>(ident: K): Rules[K] {
     return this.rules[ident]
   }
 
