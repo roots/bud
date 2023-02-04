@@ -1,13 +1,6 @@
 // Vitest Snapshot v1
 
-exports[`vue (typescript) > npm > manifest.json > matches snapshot 1`] = `
-{
-  "main.css": "css/main.css",
-  "main.js": "js/main.js",
-}
-`;
-
-exports[`vue (typescript) > yarn > manifest.json > matches snapshot 1`] = `
+exports[`vue (typescript) > should compile js and css as expected 1`] = `
 {
   "main.css": "css/main.css",
   "main.js": "js/main.js",

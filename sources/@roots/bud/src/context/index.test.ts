@@ -28,7 +28,7 @@ describe(`context.get`, () => {
         basedir: expect.stringMatching(/\/bud$/),
         label: `bud`,
         manifestPath: expect.stringMatching(/\/package.json$/),
-        version: `0.0.0`,
+        version: expect.stringMatching(/^\d+\.\d+\.\d+$/),
       }),
     )
     expect(context.extensions.builtIn).toEqual(

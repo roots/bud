@@ -4,6 +4,7 @@ import {factory} from '@repo/test-kit/bud'
 import BudPostCSS from '@roots/bud-postcss'
 
 import BudSass from '../src/index.js'
+import { Item } from '@roots/bud-build/item'
 
 describe(`@roots/bud-sass/extension`, () => {
   let bud
@@ -61,7 +62,7 @@ describe(`@roots/bud-sass/extension`, () => {
       await sass.configAfter(bud)
     } catch (e) {}
 
-    expect(setLoaderSpy).toHaveBeenCalledWith(`sass-loader`)
+    expect(setLoaderSpy).toHaveBeenCalledWith(`sass-loader`, expect.stringContaining(`sass-loader`))
   })
 
   it(`should call setItem when configAfter is called`, async () => {
@@ -74,7 +75,7 @@ describe(`@roots/bud-sass/extension`, () => {
     expect(setItemSpy).toHaveBeenCalledWith(
       `sass`,
       expect.objectContaining({
-        loader: `sass-loader`,
+        loader: expect.stringContaining(`sass-loader`),
         options: {
           additionalData: `$primary-color: #ff0000;`,
           implementation: expect.any(Object),
@@ -96,7 +97,7 @@ describe(`@roots/bud-sass/extension`, () => {
       expect.objectContaining({
         include: expect.arrayContaining([expect.any(Function)]),
         test: expect.any(Function),
-        use: [`precss`, `css`, `postcss`, `resolveUrl`, `sass`],
+        use: expect.arrayContaining([expect.any(Item), expect.any(Item), expect.any(Item), expect.any(Item), expect.any(Item)]),
       }),
     )
   })

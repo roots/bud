@@ -108,12 +108,15 @@ export default class Vue extends Extension<
       ...items,
     ])
     bud.build.items.precss?.setOptions({esModule: false})
+
     bud.hooks.fromMap({
       'build.module.rules.before': this.moduleRulesBefore,
+      'build.module.rules.oneOf': this.moduleRulesOneOf,
       'build.resolve.extensions': (ext = new Set()) => ext.add(`.vue`),
     })
 
     bud.alias(this.resolveAlias)
+
     bud.typescript?.set(`appendTsSuffixTo`, [
       bud.hooks.filter(`pattern.vue`),
     ])
@@ -141,15 +144,52 @@ export default class Vue extends Extension<
   public moduleRulesBefore(
     ruleset: Array<RuleSetRule> = [],
   ): Array<RuleSetRule> {
-    return [
+    ruleset.push(
       this.app.build
         .makeRule()
-        .setTest(({hooks}: Bud) => hooks.filter(`pattern.vue`))
-        .setInclude([app => app.path(`@src`)])
-        .setUse((items = []) => [`vue`, ...items])
+        .setTest(this.app.hooks.filter(`pattern.vue`))
+        .setInclude([this.app.path(`@src`)])
+        .setUse([this.app.build.items.vue])
         .toWebpack(),
-      ...ruleset,
-    ]
+      this.app.build.rules.css.toWebpack(),
+    )
+
+    if (this.app.typescript) {
+      ruleset.push(this.app.build.rules.ts.toWebpack())
+    }
+
+    if (this.app.sass) {
+      ruleset.push(this.app.build.rules.sass.toWebpack())
+    }
+
+    return ruleset
+  }
+
+  /**
+   * `build.module.rules.before` callback
+   *
+   * @public
+   * @decorator `@bind`
+   */
+  @bind
+  public moduleRulesOneOf(
+    ruleset: Array<RuleSetRule> = [],
+  ): Array<RuleSetRule> {
+    ruleset = ruleset.filter(
+      ({test}) => !(test instanceof RegExp) || !`.css`.match(test),
+    )
+
+    if (this.app.typescript)
+      ruleset = ruleset.filter(
+        ({test}) => !(test instanceof RegExp) || `.ts`.match(test),
+      )
+
+    if (this.app.sass)
+      ruleset = ruleset.filter(
+        ({test}) => !(test instanceof RegExp) || `.scss`.match(test),
+      )
+
+    return ruleset
   }
 
   /**

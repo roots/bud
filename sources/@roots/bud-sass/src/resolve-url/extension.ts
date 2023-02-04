@@ -12,8 +12,7 @@ export class BudResolveUrl extends Extension {
   public override async register(bud: Bud) {
     const loader = await this.resolve(`resolve-url-loader`)
 
-    bud.build.setLoader(`resolveUrl`, loader)
-    bud.build.setItem(`resolveUrl`, {
+    bud.build.setLoader(`resolveUrl`, loader).setItem(`resolveUrl`, {
       loader: `resolveUrl`,
       options: ({path, hooks}) => ({
         root: path(`@src`),
