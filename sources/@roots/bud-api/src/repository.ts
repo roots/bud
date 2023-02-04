@@ -3,6 +3,7 @@ import type {Bud} from '@roots/bud-framework'
 import type * as Alias from './methods/alias/index.js'
 import type * as Assets from './methods/assets/index.js'
 import type * as Bundle from './methods/bundle/index.js'
+import type * as CompilePaths from './methods/compilePaths/index.js'
 import type * as Config from './methods/config/index.js'
 import type * as Define from './methods/define/index.js'
 import type * as Devtool from './methods/devtool/index.js'
@@ -55,6 +56,14 @@ export interface Repository {
    * {@link https://bud.js.org/docs/bud.bundle 📕 Documentation}
    */
   bundle(...params: Bundle.Parameters): Bud
+
+  /**
+   * ## bud.compilePaths
+   *
+   * {@link https://bud.js.org/docs/bud.compilePaths 📕 Documentation}
+   */
+    compilePaths(...params: CompilePaths.Parameters): Bud
+
 
   /**
    * ## bud.config
