@@ -48,16 +48,22 @@ export class BudSass extends Extension {
   @bind
   public override async configAfter(bud: Bud) {
     bud.build
-      .setLoader(`sass-loader`)
+      .setLoader(`sass-loader`, await this.resolve(`sass-loader`))
       .setItem(`sass`, {
         ident: `sass`,
         loader: `sass-loader`,
-        options: this.options,
+        options: () => this.options,
       })
       .setRule(`sass`, {
         test: (app: Bud) => app.hooks.filter(`pattern.sass`),
         include: [app => app.path(`@src`)],
-        use: [`precss`, `css`, `postcss`, `resolveUrl`, `sass`],
+        use: [
+          bud.build.items.precss,
+          bud.build.items.css,
+          bud.build.items.postcss,
+          bud.build.items.resolveUrl,
+          bud.build.items.sass,
+        ].filter(Boolean),
       })
 
     bud.hooks.on(`build.resolve.extensions`, ext =>
