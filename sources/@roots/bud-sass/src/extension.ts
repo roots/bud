@@ -52,7 +52,7 @@ export class BudSass extends Extension {
       .setItem(`sass`, {
         ident: `sass`,
         loader: `sass-loader`,
-        options: () => this.options,
+        options: this.options,
       })
       .setRule(`sass`, {
         test: (app: Bud) => app.hooks.filter(`pattern.sass`),
