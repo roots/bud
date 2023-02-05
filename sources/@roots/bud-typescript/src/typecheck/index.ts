@@ -17,8 +17,6 @@ export default class BudTypeCheckPlugin extends Extension<
 > {
   /**
    * `init` callback
-   *
-   * @decorator `@bind`
    */
   @bind
   public override async init?(bud: Bud) {

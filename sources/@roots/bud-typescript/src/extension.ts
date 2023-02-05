@@ -10,13 +10,7 @@ import {
 import omit from '@roots/bud-support/lodash/omit'
 
 /**
- * BudTypeScript configures the TypeScript compiler
- *
- * @public
- * @decorator `@label`
- * @decorator `@expose`
- * @decorator `@options`
- * @decorator `@dependsOn`
+ * Typescript configuration
  */
 @label(`@roots/bud-typescript`)
 @expose(`typescript`)
@@ -28,8 +22,6 @@ import omit from '@roots/bud-support/lodash/omit'
 export default class BudTypeScript extends Extension {
   /**
    * Typechecking controls
-   *
-   * @decorator `@bind`
    */
   public get typecheck() {
     return this.app.extensions.get(`@roots/bud-typescript/typecheck`)
@@ -38,7 +30,11 @@ export default class BudTypeScript extends Extension {
   /**
    * Disable or enable babel
    *
-   * @decorator `@bind`
+   * @deprecated Use {@link Extension.set} instead
+   * @example
+   * ```js
+   * bud.typescript.set('babel', false)
+   * ```
    */
   @bind
   public useBabel(enable: boolean = true): this {
@@ -48,43 +44,41 @@ export default class BudTypeScript extends Extension {
 
   /**
    * `register` callback
-   *
-   * @decorator `@bind`
    */
   @bind
   public override async register(bud: Bud) {
     bud.hooks.on(`build.resolve.extensions`, (extensions = new Set([])) =>
       extensions.add(`.ts`).add(`.jsx`).add(`.tsx`),
     )
+
+    bud.build
+      .setLoader(`ts`, await this.resolve(`ts-loader`))
+      .setItem(`ts`, {loader: `ts`})
+      .setRule(`ts`, {
+        test: ({hooks}) => hooks.filter(`pattern.ts`),
+        include: [({path}) => path(`@src`)],
+      })
   }
 
   /**
    * `configAfter` callback
-   *
-   * @decorator `@bind`
    */
   @bind
   public override async configAfter(bud: Bud) {
     this.set(`context`, bud.context.basedir)
 
-    bud.build
-      .setLoader(`ts`, await this.resolve(`ts-loader`))
-      .setItem(`ts`, {
-        loader: `ts`,
-        options: () => omit(this.options, `babel`),
-      })
-      .setRule(`ts`, {
-        test: ({hooks}) => hooks.filter(`pattern.ts`),
-        include: [({path}) => path(`@src`)],
-        use: [this.options.babel ? `babel` : null, `ts`].filter(
-          Boolean,
-        ) as Array<any>,
-      })
-
-    bud.build.rules.js.setUse(
-      [this.options.babel ? `babel` : null, `ts`].filter(
-        Boolean,
-      ) as Array<any>,
+    bud.build.items.ts.setOptions(options =>
+      options
+        ? {...options, ...omit(this.options, `babel`)}
+        : omit(this.options, `babel`),
     )
+
+    const items = [bud.build.items.ts]
+    if (this.options.babel && bud.build.items.babel) {
+      items.unshift(bud.build.items.babel)
+    }
+
+    bud.build.rules.ts.setUse(items)
+    bud.build.rules.js.setUse(items)
   }
 }
