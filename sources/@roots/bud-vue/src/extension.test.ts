@@ -63,7 +63,7 @@ describe(`@roots/bud-vue`, () => {
     }
 
     expect(bud.typescript.get(`appendTsSuffixTo`)).toStrictEqual(
-      expect.arrayContaining([/\.vue$/])
+      expect.arrayContaining([/\.vue$/]),
     )
     expect(bud.build.items.ts.getOptions().appendTsSuffixTo).toStrictEqual(
       expect.arrayContaining([/\.vue$/]),

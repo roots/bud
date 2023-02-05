@@ -62,15 +62,14 @@ export default class Vue extends Extension<
       .setItem(`vue`, {ident: `vue`, loader: `vue`})
 
     bud.build
-      .setLoader(`vue-style`, await this.resolve(
-        `vue-style-loader`,
-        import.meta.url,
-      ))
+      .setLoader(
+        `vue-style`,
+        await this.resolve(`vue-style-loader`, import.meta.url),
+      )
       .setItem(`vue-style`, {
         ident: `vue-style`,
         loader: `vue-style`,
       })
-
   }
 
   /**
@@ -80,14 +79,8 @@ export default class Vue extends Extension<
   public override async boot(bud: Bud) {
     bud.alias(this.resolveAlias)
 
-    bud.build.rules.css?.setUse((items = []) => [
-      `vue-style`,
-      ...items,
-    ])
-    bud.build.rules.sass?.setUse((items = []) => [
-      `vue-style`,
-      ...items,
-    ])
+    bud.build.rules.css?.setUse((items = []) => [`vue-style`, ...items])
+    bud.build.rules.sass?.setUse((items = []) => [`vue-style`, ...items])
     bud.build.items.precss?.setOptions({esModule: false})
 
     bud.typescript?.set(`appendTsSuffixTo`, [
@@ -124,10 +117,7 @@ export default class Vue extends Extension<
       .setUse([this.app.build.items.vue])
       .toWebpack()
 
-    ruleset.push(
-      vue,
-      this.app.build.rules.css.toWebpack(),
-    )
+    ruleset.push(vue, this.app.build.rules.css.toWebpack())
 
     if (this.app.typescript) {
       ruleset.push(this.app.build.rules.ts.toWebpack())
