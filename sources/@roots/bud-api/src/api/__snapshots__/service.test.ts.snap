@@ -5,6 +5,7 @@ exports[`@roots/bud-api > should add methods when bootstrapped 1`] = `
   "alias": [Function],
   "assets": [Function],
   "bundle": [Function],
+  "compilePaths": [Function],
   "config": [Function],
   "copy": [Function],
   "define": [Function],

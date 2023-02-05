@@ -41,51 +41,37 @@ import type {
  */
 export interface Service extends BaseService {
   /**
-   * Arrayed {@link Loader} instances
-   *
-   * @public
+   * {@link Loader} instances
    */
   loaders: Loaders
 
   /**
-   * Arrayed {@link Item} instances
-   *
-   * @public
+   * {@link Item} instances
    */
   items: Items
 
   /**
-   * Arrayed {@link Rule} instances
-   *
-   * @public
+   * {@link Rule} instances
    */
   rules: Rules
 
   /**
    * Compiler configuration
-   *
-   * @public
    */
   config: Configuration
 
   /**
    * Make {@link Build.config}
-   *
-   * @public
    */
   make(): Promise<Service['config']>
 
   /**
    * Set a {@link Loader} instance
-   *
-   * @public
    */
   getLoader<K extends `${keyof Loaders & string}`>(name: K): Loaders[K]
 
   /**
    * Set a {@link Loader} instance
-   *
-   * @public
    */
   setLoader<K extends `${keyof Loaders & string}`>(
     name: K,
@@ -94,15 +80,16 @@ export interface Service extends BaseService {
 
   /**
    * Make a {@link Loader} instance
-   *
-   * @public
    */
   makeLoader(src?: string): Loader
 
   /**
+   * Get a {@link Rule} instance
+   */
+  getRule<K extends `${keyof Rules & string}`>(name: K): Rules[K]
+
+  /**
    * Set a {@link Rule} instance
-   *
-   * @public
    */
   setRule<K extends `${keyof Rules & string}`>(
     name: K,
@@ -111,22 +98,16 @@ export interface Service extends BaseService {
 
   /**
    * Make a new {@link Rule} instance
-   *
-   * @public
    */
   makeRule(options?: Partial<RuleOptions> | RuleOutput): Rule
 
   /**
    * Get a {@link Item} instance
-   *
-   * @public
    */
   getItem<K extends `${keyof Items & string}`>(name: K): Items[K]
 
   /**
    * Set a {@link Item} instance
-   *
-   * @public
    */
   setItem<K extends `${keyof Items & string}`>(
     name: K,
@@ -135,8 +116,6 @@ export interface Service extends BaseService {
 
   /**
    * Make a new {@link Item} instance
-   *
-   * @public
    */
   makeItem(options?: Partial<Item['options']>): Item
 }
