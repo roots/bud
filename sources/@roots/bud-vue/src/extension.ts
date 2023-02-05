@@ -18,115 +18,91 @@ interface Options {
 }
 
 /**
- * Vue support
- *
- * @public
- * @decorator `@label`
- * @decorator `@options`
- * @decorator `@dependsOnOptional`
- * @decorator `@expose`
+ * Vue configuration
  */
 @label(`@roots/bud-vue`)
 @options({runtimeOnly: true})
-@dependsOnOptional([`@roots/bud-postcss`, `@roots/bud-sass`])
+@dependsOnOptional([
+  `@roots/bud-postcss`,
+  `@roots/bud-sass`,
+  `@roots/bud-typescript`,
+])
 @expose(`vue`)
 export default class Vue extends Extension<
   Options,
   WebpackPluginInstance
 > {
   /**
-   * Loader path
-   * @public
-   */
-  public declare loader: string
-
-  /**
-   * Style loader path
-   * @public
-   */
-  public declare styleLoader: string
-
-  /**
    * Resolved version
-   * @public
    */
   public declare version: string
 
   /**
    * Set `runtimeOnly` option
    *
-   * @param enabled - {@link Options.runtimeOnly}
-   * @returns {Vue}
-   *
-   * @public
-   * @decorator `@bind`
+   * @deprecated Use {@link Extension.set} instead
+   * @example
+   * ```js
+   * bud.vue.set('runtimeOnly', false)
+   * ```
    */
   @bind
   public runtimeOnly(enabled: Options[`runtimeOnly`] = true): this {
-    this.setOption(`runtimeOnly`, enabled)
+    this.set(`runtimeOnly`, enabled)
     return this
   }
 
   /**
    * `register` callback
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
-  public override async register() {
-    this.loader = await this.resolve(`vue-loader`, import.meta.url)
-    this.styleLoader = await this.resolve(
-      `vue-style-loader`,
-      import.meta.url,
-    )
+  public override async register(bud: Bud) {
+    bud.build
+      .setLoader(`vue`, await this.resolve(`vue-loader`, import.meta.url))
+      .setItem(`vue`, {ident: `vue`, loader: `vue`})
+
+    bud.build
+      .setLoader(`vue-style`, await this.resolve(
+        `vue-style-loader`,
+        import.meta.url,
+      ))
+      .setItem(`vue-style`, {
+        ident: `vue-style`,
+        loader: `vue-style`,
+      })
+
   }
 
   /**
    * `boot` callback
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public override async boot(bud: Bud) {
-    bud.build
-      .setLoader(`vue`, this.loader)
-      .setItem(`vue`, {ident: `vue`, loader: `vue`})
-      .setLoader(`vue-style-loader`, this.styleLoader)
-      .setItem(`vue-style-loader`, {
-        ident: `vue-style`,
-        loader: `vue-style-loader`,
-      })
+    bud.alias(this.resolveAlias)
 
     bud.build.rules.css?.setUse((items = []) => [
-      `vue-style-loader`,
+      `vue-style`,
       ...items,
     ])
     bud.build.rules.sass?.setUse((items = []) => [
-      `vue-style-loader`,
+      `vue-style`,
       ...items,
     ])
     bud.build.items.precss?.setOptions({esModule: false})
+
+    bud.typescript?.set(`appendTsSuffixTo`, [
+      bud.hooks.filter(`pattern.vue`),
+    ])
 
     bud.hooks.fromMap({
       'build.module.rules.before': this.moduleRulesBefore,
       'build.module.rules.oneOf': this.moduleRulesOneOf,
       'build.resolve.extensions': (ext = new Set()) => ext.add(`.vue`),
     })
-
-    bud.alias(this.resolveAlias)
-
-    bud.typescript?.set(`appendTsSuffixTo`, [
-      bud.hooks.filter(`pattern.vue`),
-    ])
   }
 
   /**
    * `make` callback
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public override async make(): Promise<WebpackPluginInstance> {
@@ -136,21 +112,20 @@ export default class Vue extends Extension<
 
   /**
    * `build.module.rules.before` callback
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public moduleRulesBefore(
     ruleset: Array<RuleSetRule> = [],
   ): Array<RuleSetRule> {
+    const vue = this.app.build
+      .makeRule()
+      .setTest(this.app.hooks.filter(`pattern.vue`))
+      .setInclude([this.app.path(`@src`)])
+      .setUse([this.app.build.items.vue])
+      .toWebpack()
+
     ruleset.push(
-      this.app.build
-        .makeRule()
-        .setTest(this.app.hooks.filter(`pattern.vue`))
-        .setInclude([this.app.path(`@src`)])
-        .setUse([this.app.build.items.vue])
-        .toWebpack(),
+      vue,
       this.app.build.rules.css.toWebpack(),
     )
 
@@ -167,9 +142,6 @@ export default class Vue extends Extension<
 
   /**
    * `build.module.rules.before` callback
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public moduleRulesOneOf(
@@ -194,9 +166,6 @@ export default class Vue extends Extension<
 
   /**
    * `build.resolve.alias` callback
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public async resolveAlias(
@@ -213,9 +182,6 @@ export default class Vue extends Extension<
 
   /**
    * Returns true if user has installed a 2.x.x version of vue
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public isVue2(): boolean {
