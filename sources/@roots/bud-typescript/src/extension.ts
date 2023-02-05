@@ -67,16 +67,11 @@ export default class BudTypeScript extends Extension {
   public override async configAfter(bud: Bud) {
     this.set(`context`, bud.context.basedir)
 
-    bud.build.items.ts.setOptions(options =>
-      options
-        ? {...options, ...omit(this.options, `babel`)}
-        : omit(this.options, `babel`),
-    )
+    bud.build.items.ts.setOptions(omit(this.options, `babel`))
 
     const items = [bud.build.items.ts]
-    if (this.options.babel && bud.build.items.babel) {
+    if (this.get(`babel`) && bud.build.items.babel)
       items.unshift(bud.build.items.babel)
-    }
 
     bud.build.rules.ts.setUse(items)
     bud.build.rules.js.setUse(items)
