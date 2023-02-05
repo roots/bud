@@ -1,0 +1,9 @@
+// Vitest Snapshot v1
+
+exports[`context.get > should match expectations 1`] = `
+{
+  "extensions": {
+    "discovery": false,
+  },
+}
+`;
