@@ -143,7 +143,10 @@ export default class CriticalCssWebpackPlugin {
               }
 
               this.webpack.compilation.emitAsset(
-                join(`critical`, asset.name.split(`.`).shift().concat(`.css`)),
+                join(
+                  `critical`,
+                  asset.name.split(`.`).shift().concat(`.css`),
+                ),
                 new Webpack.sources.RawSource(css),
                 asset.info,
               )
