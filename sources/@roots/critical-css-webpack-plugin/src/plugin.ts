@@ -1,4 +1,6 @@
 /* eslint-disable no-console */
+import {join} from 'node:path'
+
 import * as critical from 'critical'
 import {bind} from 'helpful-decorators'
 import vinyl from 'vinyl'
@@ -141,7 +143,7 @@ export default class CriticalCssWebpackPlugin {
               }
 
               this.webpack.compilation.emitAsset(
-                `critical/${asset.name.split(`.`).shift().concat(`.css`)}`,
+                join(`critical`, asset.name.split(`.`).shift().concat(`.css`)),
                 new Webpack.sources.RawSource(css),
                 asset.info,
               )

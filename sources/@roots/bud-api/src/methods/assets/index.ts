@@ -1,4 +1,4 @@
-import {relative} from 'node:path'
+import {isAbsolute, relative, sep} from 'node:path'
 
 import type {Bud} from '@roots/bud-framework'
 import type {Plugin as CopyPlugin} from '@roots/bud-support/copy-webpack-plugin'
@@ -79,8 +79,8 @@ export const assets: assets = async function assets(
 export const fromStringFactory =
   (app: Bud, overrides: Partial<CopyPlugin.ObjectPattern>) =>
   (from: string): CopyPlugin.ObjectPattern => ({
-    from: from.startsWith(`/`) ? from : app.path(`@src`, from),
-    to: from.startsWith(`/`)
+    from: isAbsolute(from) ? from : app.path(`@src`, from),
+    to: isAbsolute(from)
       ? relative(app.path(`@src`), from)
       : app.path(`@dist`, from, `@file`),
     context: app.path(`@src`),
@@ -98,8 +98,8 @@ export const fromStringFactory =
 export const fromTupleFactory =
   (app: Bud, overrides: Partial<CopyPlugin.ObjectPattern>) =>
   ([from, to]: [string, string]): CopyPlugin.ObjectPattern => ({
-    from: from.startsWith(`/`) ? from : app.path(`@src`, from),
-    to: to.startsWith(`/`) ? to : app.path(`@dist`, to, `@file`),
+    from: isAbsolute(from) ? from : app.path(`@src`, from),
+    to: isAbsolute(to) ? to : app.path(`@dist`, to, `@file`),
     filter: filterDotFiles,
     context: app.path(`@src`),
     noErrorOnMissing: true,
@@ -108,4 +108,4 @@ export const fromTupleFactory =
   })
 
 const filterDotFiles = (resourcePath: string) =>
-  !resourcePath.split(`/`).pop()?.startsWith(`.`)
+  !resourcePath.split(sep).pop()?.startsWith(`.`)

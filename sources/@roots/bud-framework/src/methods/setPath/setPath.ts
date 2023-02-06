@@ -1,4 +1,4 @@
-import {normalize} from 'node:path'
+import {isAbsolute, normalize} from 'node:path'
 
 import isString from '@roots/bud-support/lodash/isString'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
@@ -51,10 +51,10 @@ export const setPath: setPath = function (this: Bud, ...parameters) {
         )
       }
 
-      const absolutePath = this.path(value)
-      if (!absolutePath.startsWith(`/`))
+      const path = this.path(value)
+      if (isAbsolute(path))
         throw new Error(
-          `the final result of a bud.setPath transform was not absolute: ${key} => ${value} => ${absolutePath}`,
+          `the final result of a bud.setPath transform was not absolute: ${key} => ${value} => ${path}`,
         )
 
       this.hooks.on(`location.${key}`, this.path(value))

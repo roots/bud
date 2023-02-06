@@ -1,3 +1,5 @@
+import {join, sep} from 'node:path'
+
 import type {Bud} from '@roots/bud-framework'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import type {Optimization} from '@roots/bud-support/webpack'
@@ -61,12 +63,12 @@ export const splitChunks: splitChunks = async function (
   if (options === true || isUndefined(options)) {
     this.hooks.on(`build.optimization.splitChunks`, {
       chunks: `all`,
-      automaticNameDelimiter: `/`,
+      automaticNameDelimiter: sep,
       minSize: 0,
       cacheGroups: {
         vendor: {
           idHint: `vendor`,
-          filename: `js/bundle/vendor/[name].js`,
+          filename: join(`js`, `bundle`, `vendor`, `[name].js`),
           test: /[\\/]node_modules[\\/]/,
           priority: -20,
         },
