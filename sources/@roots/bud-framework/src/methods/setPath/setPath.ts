@@ -52,7 +52,8 @@ export const setPath: setPath = function (this: Bud, ...parameters) {
       }
 
       const path = this.path(value)
-      if (isAbsolute(path))
+
+      if (!isAbsolute(path))
         throw new Error(
           `the final result of a bud.setPath transform was not absolute: ${key} => ${value} => ${path}`,
         )
