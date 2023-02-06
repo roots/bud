@@ -192,7 +192,9 @@ Keep track of development and community news.
 
 ## Sponsors
 
-Help support our open-source development efforts by [becoming a patron](https://www.patreon.com/rootsdev).
+**Bud** is an open source project and completely free to use.
+
+However, the amount of effort needed to maintain and develop new features and projects within the Roots ecosystem is not sustainable without proper financial backing. If you have the capability, please consider [sponsoring Roots](https://github.com/sponsors/roots).
 
 <a href="https://k-m.com/">
 <img src="https://cdn.roots.io/app/uploads/km-digital.svg" alt="KM Digital" width="200" height="150"/>
