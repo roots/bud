@@ -1,6 +1,6 @@
 {
   "name": "@roots/filesystem",
-  "version": "0.0.0",
+  "version": "6.9.0",
   "description": "A simple, high-level virtual filesystem",
   "homepage": "https://roots.io/bud",
   "repository": {
