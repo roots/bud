@@ -60,7 +60,7 @@ module.exports = {
       items: [
         `general-use/development-server`,
         `general-use/customizing-loaders`,
-        `general-use/transpiler-sources`,
+        `general-use/compiler-sources`,
         `general-use/alternative-config-syntax`,
         `general-use/config-layers`,
         `general-use/extensions`,
