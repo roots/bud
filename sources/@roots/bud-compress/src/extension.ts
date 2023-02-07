@@ -1,7 +1,11 @@
 import type {Bud} from '@roots/bud-framework'
-import type { Modules } from '@roots/bud-framework'
+import type {Modules} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
-import {bind, dependsOn, label} from '@roots/bud-framework/extension/decorators'
+import {
+  bind,
+  dependsOn,
+  label,
+} from '@roots/bud-framework/extension/decorators'
 
 /**
  * Compression options
