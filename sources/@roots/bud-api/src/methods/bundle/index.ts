@@ -1,4 +1,4 @@
-import {join} from 'node:path'
+import {join, sep} from 'node:path'
 
 import type {Bud} from '@roots/bud-framework'
 import isRegExp from '@roots/bud-support/lodash/isRegExp'
@@ -50,7 +50,7 @@ export const bundle: bundle = function (this: Bud, name, matcher) {
     if (splitChunks === false || splitChunks === undefined) {
       return {
         chunks: `all`,
-        automaticNameDelimiter: `/`,
+        automaticNameDelimiter: sep,
         minSize: 0,
         cacheGroups: {...entry},
       }

@@ -1,3 +1,5 @@
+import {sep} from 'node:path'
+
 import type {Bud} from '../bud.js'
 
 /**
@@ -39,7 +41,7 @@ export const setPublicPath: setPublicPath = function (publicPath) {
   // Normalize the publicPath in case the user did not end it with a slash.
   app.hooks.on(`build.output.publicPath`, value => {
     if (value === `` || value === `auto`) return value
-    return !value.endsWith(`/`) ? `${value}/` : value
+    return !value.endsWith(sep) ? `${value}${sep}` : value
   })
 
   return app

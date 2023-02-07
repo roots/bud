@@ -1,3 +1,5 @@
+import {join} from 'node:path'
+
 import type {Bud} from '@roots/bud-framework'
 import type {EntryObject, Optimization} from '@roots/bud-support/webpack'
 
@@ -17,7 +19,7 @@ export interface runtime {
  * Default options for runtime if no options are passed as parameters.
  */
 const DEFAULT_RUNTIME: Optimization.RuntimeChunk = {
-  name: (entrypoint: EntryObject) => `runtime/${entrypoint.name}`,
+  name: (entrypoint: EntryObject) => join(`runtime`, `${entrypoint.name}`),
 }
 
 export const runtime: runtime = async function (

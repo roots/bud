@@ -1,3 +1,5 @@
+import {join} from 'node:path'
+
 import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
@@ -205,8 +207,8 @@ export default class Vue extends Extension<
     const type = this.isVue2() ? `esm` : `esm-bundler`
 
     const vue = this.options.runtimeOnly
-      ? `vue/dist/vue.runtime.${type}.js`
-      : `vue/dist/vue.${type}.js`
+      ? join(`vue`, `dist`, `vue.runtime.${type}.js`)
+      : join(`vue`, `dist`, `vue.${type}.js`)
 
     return {...aliases, vue}
   }
