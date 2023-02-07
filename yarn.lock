@@ -4840,6 +4840,31 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fortawesome/fontawesome-common-types@npm:6.2.1":
+  version: 6.2.1
+  resolution: "@fortawesome/fontawesome-common-types@npm:6.2.1"
+  checksum: 1a6e202beac46bc7e7bf791b37b6164b15453cc70b078456121c77d516a1077a1cfdab8aa9c77358c71f87f54560c0d9cbfb440cfb871f6d0f1f4671aabf9a0a
+  languageName: node
+  linkType: hard
+
+"@fortawesome/fontawesome-svg-core@npm:^6.1.1":
+  version: 6.2.1
+  resolution: "@fortawesome/fontawesome-svg-core@npm:6.2.1"
+  dependencies:
+    "@fortawesome/fontawesome-common-types": 6.2.1
+  checksum: 16caf6052b77c03826274325d4bd76d11cba486411c3101a635d3342dd764df8f5b4789456c9caa1667c232853a670f91dddf0449218e5fea7a27f4396b838af
+  languageName: node
+  linkType: hard
+
+"@fortawesome/free-solid-svg-icons@npm:^6.1.1":
+  version: 6.2.1
+  resolution: "@fortawesome/free-solid-svg-icons@npm:6.2.1"
+  dependencies:
+    "@fortawesome/fontawesome-common-types": 6.2.1
+  checksum: a24170b676fced926cccdd08171357b20714483ceddeb052985a9acae3a347ffe853de2e757bf95cc7add74807d82eb1cc578e17430c32ca2c6a844c8276f91a
+  languageName: node
+  linkType: hard
+
 "@fullhuman/postcss-purgecss@npm:5.0.0":
   version: 5.0.0
   resolution: "@fullhuman/postcss-purgecss@npm:5.0.0"
@@ -8732,6 +8757,17 @@ __metadata:
   dependencies:
     "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss"
+  languageName: unknown
+  linkType: soft
+
+"@tests/issue-2088@workspace:tests/reproductions/issue-2088":
+  version: 0.0.0-use.local
+  resolution: "@tests/issue-2088@workspace:tests/reproductions/issue-2088"
+  dependencies:
+    "@fortawesome/fontawesome-svg-core": ^6.1.1
+    "@fortawesome/free-solid-svg-icons": ^6.1.1
+    "@roots/bud": "workspace:sources/@roots/bud"
+    "@roots/bud-swc": "workspace:sources/@roots/bud-swc"
   languageName: unknown
   linkType: soft
 
