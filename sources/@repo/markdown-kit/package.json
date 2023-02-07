@@ -15,7 +15,7 @@
     "@types/lodash-es": "4.17.6",
     "@types/node": "18.11.18",
     "@types/prettier": "2.7.2",
-    "vitest": "0.27.1"
+    "vitest": "0.28.4"
   },
   "dependencies": {
     "@octokit/core": "4.2.0",

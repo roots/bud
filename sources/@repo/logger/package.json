@@ -17,7 +17,7 @@
     "@repo/constants": "workspace:sources/@repo/constants",
     "@types/node": "18.11.18",
     "signale": "1.4.0",
-    "vitest": "0.27.1"
+    "vitest": "0.28.4"
   },
   "volta": {
     "extends": "../../../package.json"
