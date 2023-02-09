@@ -1,7 +1,6 @@
-import type BudBrotliWebpackPlugin from './brotli.js'
-import type BudCompressionExtension from './extension.js'
+import type * as BudBrotli from './brotli.js'
 import type {Options} from './extension.js'
-import type BudGzipWebpackPlugin from './gzip.js'
+import type * as BudGzip from './gzip.js'
 
 declare module '@roots/bud-framework/registry/flags' {
   interface Flags {
@@ -12,53 +11,111 @@ declare module '@roots/bud-framework/registry/flags' {
 
 declare module '@roots/bud-framework' {
   interface Modules {
-    '@roots/bud-compress': BudCompressionExtension
-    '@roots/bud-compress/brotli': BudBrotliWebpackPlugin
-    '@roots/bud-compress/gzip': BudGzipWebpackPlugin
+    '@roots/bud-compress': {
+      brotli: Modules[`@roots/bud-compress/brotli`]
+      gzip: Modules[`@roots/bud-compress/gzip`]
+    }
+
+    '@roots/bud-compress/brotli': {
+      /**
+       * Is brotli compression enabled?
+       */
+      enabled: BudBrotli.default[`enabled`]
+
+      /**
+       * Disable brotli compression.
+       */
+      disable: BudBrotli.default[`disable`]
+
+      /**
+       * Enable brotli compression.
+       */
+      enable: BudBrotli.default[`enable`]
+
+      /**
+       * Set compression options
+       */
+      setOptions: BudBrotli.default[`setOptions`]
+
+      /**
+       * Set compression options
+       *
+       * @example
+       * ```js
+       * bud.compress.gzip.set('filename', '[name].br[query]')
+       * ```
+       */
+      set: BudBrotli.default[`set`]
+
+      /**
+       * @deprecated Use `bud.compress.brotli.setOptions()` instead.
+       */
+      config: BudBrotli.default[`config`]
+    }
+
+    '@roots/bud-compress/gzip': {
+      /**
+       * Is gzip compression enabled?
+       */
+      enabled: BudGzip.default[`enabled`]
+
+      /**
+       * Disable gzip compression.
+       */
+      disable: BudGzip.default[`disable`]
+
+      /**
+       * Enable gzip compression.
+       */
+      enable: BudGzip.default[`enable`]
+
+      /**
+       * Set compression options.
+       */
+      setOptions: BudGzip.default[`setOptions`]
+
+      /**
+       * Set compression options
+       *
+       * @example
+       * ```js
+       * bud.compress.gzip.set('filename', '[name].gz[query]')
+       * ```
+       */
+      set: BudGzip.default[`set`]
+
+      /**
+       * @deprecated Use `bud.compress.gzip.setOptions()` instead.
+       */
+      config: BudGzip.default[`config`]
+    }
   }
 
   interface Bud {
     /**
-     * Compress static assets with brotli compression.
-     *
-     * @remarks
-     * It's arguments are optional. For more information on
-     * configuration consult [the compression webpack
-     * plugin documentation](#).
+     * Compress static assets
      *
      * @example
-     * This is likely a fine default config.
-     *
      * ```js
-     * bud.brotli()
+     * bud.compress.gzip
+     *  .enable()
+     *  .set('filename', '[name].gz[query]')
+     *
+     * bud.compress.brotli
+     *  .enable()
+     *  .set('filename', '[name].br[query]')
      * ```
-     *
-     * @example
-     * With default options:
-     *
-     * ```js
-     * bud.brotli({
-     *   filename: '[name].br[query]',
-     *   algorithm: 'brotliCompress',
-     *   test: /\.js$|\.css$|\.html$|\.html$/,
-     *   compressionOptions: {
-     *     level: 11,
-     *   },
-     *   threshold: 10240,
-     *   minRatio: 0.8,
-     *   deleteOriginalAssets: false,
-     * })
-     * ```
-     *
-     * @public
      */
-    brotli(options?: Options): Bud
+    compress: Modules[`@roots/bud-compress`]
 
     /**
-     * Gzip static assets.
-     *
-     * @public
+     * @deprecated Use `bud.compress.gzip` instead.
      */
     gzip(options?: Options): Bud
+
+    /**
+     * @deprecated Use `bud.compress.brotli` instead.
+     */
+    brotli(options?: Options): Bud
   }
 }

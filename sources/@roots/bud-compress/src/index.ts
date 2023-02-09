@@ -12,5 +12,8 @@
 
 import './types'
 
+import type {Options} from './extension.js'
 import BudCompressionExtension from './extension.js'
+
 export default BudCompressionExtension
+export type {Options}
