@@ -1,0 +1,9 @@
+{
+  entry: ['app', ['app.js']],
+  babel: {
+    setPluginOptions: [
+      '@babel/plugin-transform-runtime',
+      {helpers: false, regenerator: false},
+    ],
+  },
+}

@@ -1,0 +1,65 @@
+# for functions args you typically want to use
+# array syntax
+entry:
+  - 'app.js'
+
+# However, if a function accepts a single arg
+# and the value you are passing isn't an array
+# you can pass the value without wrapping it in
+# an args array.
+runtime: true
+
+# But remember! If the arg value is an array you MUST
+# pass it as an item in an array of args.
+# Otherwise, it'll be caught up in the above rule.
+assets:
+  - ['src/**/*.html']
+
+# Inner properties of bud are fair game
+babel:
+  setPluginOptions:
+    - '@babel/plugin-transform-runtime'
+    - {helpers: true}
+
+# prefix bud properties with _
+# to reference the value
+splitChunks: _bud.isProduction
+
+# `bud => ...` will be called as a fn and passed bud
+minimize: bud => bud.isProduction
+
+# use `>` for multiline
+hash: >
+  bud => bud.isProduction
+
+# if you want to treat a value as code
+# prefix the `=>`
+webpackConfig: >
+  => config => ({...config, parallelism: 1})
+
+# or dynamic values
+log:
+  - 'example:'
+  - => 2 + 2
+  - => `equals ${2 + 2}`
+
+# For anything that can't be accomplished
+# with the above rules, you can use tap/tapAsync
+tap: >
+  => bud => {
+    // this is a very flexible
+    // area to do all sorts of dynamic config stuff
+    bud.log('hi!')
+  }
+
+tapAsync: >
+  => async bud => {
+    // same as above but async
+    bud.log('hi!', '...eventually')
+  }
+
+# Bringin' it all together
+when:
+  - _bud.cache.enabled
+  - => bud => bud.log('cache enabled')
+  - => bud => bud.log('cache disabled')
