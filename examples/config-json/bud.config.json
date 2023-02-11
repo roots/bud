@@ -1,8 +1,10 @@
 {
   entry: ['app', ['app.js']],
+  runtime: [true],
+  assets: [['src/**/*.html']],
   babel: {
     setPluginOptions: [
-      '@babel/plugin-transform-runtime',
+      "@babel/plugin-transform-runtime",
       {helpers: false, regenerator: false},
     ],
   },

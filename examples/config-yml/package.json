@@ -1,5 +1,5 @@
 {
-  "name": "@examples/config-json",
+  "name": "@examples/config-yml",
   "private": true,
   "browserslist": [
     "extends @roots/browserslist-config"

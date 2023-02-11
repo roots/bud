@@ -1,7 +1,6 @@
 # for functions args you typically want to use
 # array syntax
-entry:
-  - 'app.js'
+entry: ['app', 'app.js']
 
 # However, if a function accepts a single arg
 # and the value you are passing isn't an array
@@ -33,7 +32,7 @@ hash: >
   bud => bud.isProduction
 
 # if you want to treat a value as code
-# prefix the `=>`
+# prefix with `=>`
 webpackConfig: >
   => config => ({...config, parallelism: 1})
 
