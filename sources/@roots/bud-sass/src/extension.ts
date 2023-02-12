@@ -49,7 +49,7 @@ export class BudSass extends Extension {
   @bind
   public override async boot(bud: Bud) {
     if (bud.postcss) {
-      bud.postcss.syntax = `postcss-scss`
+      bud.postcss.set(`postcssOptions.syntax`, `postcss-scss`)
     }
 
     bud.build.rules.sass.setUse(() =>

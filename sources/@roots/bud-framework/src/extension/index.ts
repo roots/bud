@@ -26,8 +26,6 @@ export type OptionsMap<MappedOptions extends Options> = {
 export interface ApplyPlugin {
   /**
    * Loose defined
-   *
-   * @public
    */
   [key: string]: any
 
@@ -35,8 +33,6 @@ export interface ApplyPlugin {
    * Apply callback
    *
    * @see {@link https://webpack.js.org/contribute/writing-a-plugin/#basic-plugin-architecture}
-   *
-   * @public
    */
   apply: (...args: any[]) => unknown
 }
@@ -58,22 +54,16 @@ export class Extension<
 > {
   /**
    * Loose definition
-   *
-   * @public
    */
   [key: string]: any
 
   /**
    * Application
-   *
-   * @internal
    */
   public _app: () => Bud
 
   /**
    * Application accessor
-   *
-   * @public
    */
   public app: Bud
 
@@ -84,8 +74,6 @@ export class Extension<
 
   /**
    * Extension options
-   *
-   * @internal
    */
   public optionsMap: OptionsMap<ExtensionOptions> = {}
 
@@ -93,13 +81,10 @@ export class Extension<
    * Extension options
    *
    * @readonly
-   * @public
    */
   public readonly options: ExtensionOptions
   /**
    * Extension meta
-   *
-   * @public
    */
   public meta: {
     init: boolean
@@ -119,27 +104,20 @@ export class Extension<
 
   /**
    * The module name
-   *
-   * @public
    */
   public label: keyof Modules & string
 
   /**
-   * @public
    */
   public logger: Signale
 
   /**
    * Depends on
-   *
-   * @public
    */
   public dependsOn?: Set<keyof Modules & string>
 
   /**
    * Depends on (optional)
-   *
-   * @public
    */
   public dependsOnOptional?: Set<`${keyof Modules & string}`>
 
@@ -148,8 +126,6 @@ export class Extension<
    *
    * @remarks
    * By default returns {@link Extension.enabled}
-   *
-   * @public
    */
   public async when(
     _app: Bud,
@@ -163,8 +139,6 @@ export class Extension<
    *
    * @param options - Extension options
    * @param app - Bud instance
-   *
-   * @public
    */
   public async init?(
     app: Bud,
@@ -176,8 +150,6 @@ export class Extension<
    *
    * @param options - Extension options
    * @param app - Bud instance
-   *
-   * @public
    */
   public async register?(
     app: Bud,
@@ -189,8 +161,6 @@ export class Extension<
    *
    * @param options - Extension options
    * @param app - Bud instance
-   *
-   * @public
    */
   public async boot?(
     app: Bud,
@@ -199,8 +169,6 @@ export class Extension<
 
   /**
    * `configAfter` callback
-   *
-   * @public
    */
   public async configAfter?(
     app: Bud,
@@ -209,8 +177,6 @@ export class Extension<
 
   /**
    * `buildBefore` callback
-   *
-   * @public
    */
   public async buildBefore?(
     app: Bud,
@@ -219,8 +185,6 @@ export class Extension<
 
   /**
    * `buildAfter` callback
-   *
-   * @public
    */
   public async buildAfter?(
     app: Bud,
@@ -232,22 +196,16 @@ export class Extension<
    *
    * @param options - Extension options
    * @param app - Bud instance
-   *
-   * @public
    */
   public async make?(app: Bud, options?: ExtensionOptions): Promise<Plugin>
 
   /**
    * Plugin constructor
-   *
-   * @public
    */
   public plugin?: ApplyPluginConstructor
 
   /**
    * Class constructor
-   *
-   * @public
    */
   public constructor(app: Bud) {
     this._app = () => app
@@ -275,9 +233,6 @@ export class Extension<
 
   /**
    * `init` callback handler
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public async _init() {
@@ -294,9 +249,6 @@ export class Extension<
 
   /**
    * `register` callback handler
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public async _register() {
@@ -316,9 +268,6 @@ export class Extension<
 
   /**
    * `boot` callback handler
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public async _boot() {
@@ -339,8 +288,6 @@ export class Extension<
 
   /**
    * `buildBefore` callback handler
-   *
-   * @public
    */
   @bind
   public async _buildBefore() {
@@ -358,8 +305,6 @@ export class Extension<
 
   /**
    * `buildAfter` callback handler
-   *
-   * @public
    */
   @bind
   public async _buildAfter() {
@@ -377,8 +322,6 @@ export class Extension<
 
   /**
    * `configAfter` callback handler
-   *
-   * @public
    */
   @bind
   public async _configAfter() {
@@ -392,9 +335,6 @@ export class Extension<
 
   /**
    * `make` callback handler
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public async _make() {
@@ -439,9 +379,6 @@ export class Extension<
 
   /**
    * Get extension options
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public getOptions(): ExtensionOptions {
@@ -453,9 +390,6 @@ export class Extension<
 
   /**
    * Set extension options
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public setOptions(
@@ -470,14 +404,9 @@ export class Extension<
 
   /**
    * Get extension option
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
-  public getOption<K extends keyof ExtensionOptions & string>(
-    key: K,
-  ): ExtensionOptions[K] {
+  public getOption<K extends string>(key: K): ExtensionOptions[K] {
     const raw = this.getOptions()
     return get(raw, key)
   }
@@ -485,12 +414,9 @@ export class Extension<
 
   /**
    * Set extension option
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
-  public setOption<K extends keyof ExtensionOptions & string>(
+  public setOption<K extends string>(
     key: K,
     value: ExtensionOptions[K],
   ): this {
@@ -508,9 +434,6 @@ export class Extension<
 
   /**
    * Normalize options to functions
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public toOptionsMap<K extends keyof ExtensionOptions & string>(
@@ -525,9 +448,6 @@ export class Extension<
 
   /**
    * Get options from function map
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public fromOptionsMap<K extends keyof OptionsMap<ExtensionOptions>>(
@@ -542,9 +462,6 @@ export class Extension<
 
   /**
    * Assign properties from an object
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public fromObject(extensionObject: ExtensionLiteral): this {
@@ -561,9 +478,6 @@ export class Extension<
    *
    * @param key - property name
    * @returns true if property exists on extension
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public has<K extends `${keyof Extension}`>(key: K): boolean {
@@ -575,9 +489,6 @@ export class Extension<
    *
    * @param key - property name
    * @returns true if property exists on extension
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public isFunction<K extends `${keyof Extension}`>(key: K): boolean {
@@ -591,9 +502,6 @@ export class Extension<
    * Uses `import-meta-resolve` (npm package).
    * Will transition to node `import.meta.resolve` api when it is marked
    * non-experimental. It currently requires a flag to enable.
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public async resolve(
@@ -619,9 +527,6 @@ export class Extension<
 
   /**
    * Import ESM module
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public async import<T = any>(
@@ -651,9 +556,6 @@ export class Extension<
 
   /**
    * Disable extension
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public disable() {
@@ -662,9 +564,6 @@ export class Extension<
 
   /**
    * Enable extension
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public enable(enabled = true) {
@@ -674,9 +573,6 @@ export class Extension<
 
   /**
    * Value determining if the extension should be utilized
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public async isEnabled(): Promise<boolean> {
