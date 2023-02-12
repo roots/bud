@@ -7266,10 +7266,13 @@ __metadata:
   peerDependencies:
     "@roots/bud": "*"
     eslint: "*"
+    eslint-webpack-plugin: "*"
   peerDependenciesMeta:
     "@roots/bud":
       optional: true
     eslint:
+      optional: true
+    eslint-webpack-plugin:
       optional: true
   languageName: unknown
   linkType: soft

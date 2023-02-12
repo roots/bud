@@ -11,12 +11,6 @@ import EslintPlugin from 'eslint-webpack-plugin'
 
 /**
  * Eslint webpack plugin adapter
- *
- * @public
- * @decorator `@label`
- * @decorator `@expose`
- * @decorator `@plugin`
- * @decorator `@options`
  */
 @label(`@roots/bud-eslint`)
 @expose(`eslint`)
@@ -29,17 +23,13 @@ import EslintPlugin from 'eslint-webpack-plugin'
   resolvePluginsRelativeTo: app => app.context.basedir,
   threads: false,
 })
-export default class BudEslint extends Extension<Options, EslintPlugin> {
+export class BudEslint extends Extension<Options, EslintPlugin> {
   /**
    * `register` callback
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public override async register(bud: Bud) {
-    const eslintPath = await this.resolve(`eslint`)
-    this.setOption(`eslintPath`, eslintPath)
+    this.set(`eslintPath`, await this.resolve(`eslint`))
 
     const findFlatConfig = ({name}) => name.includes(`eslint.config`)
 
@@ -47,18 +37,17 @@ export default class BudEslint extends Extension<Options, EslintPlugin> {
     if (!userConfigs.some(findFlatConfig)) return
 
     const flatConfig = userConfigs.find(findFlatConfig)
-    this.setOption(`baseConfig`, flatConfig.module)
+    this.set(`baseConfig`, flatConfig.module)
   }
 
   /**
    * auto-fix rule violations
    *
-   * @public
-   * @decorator `@bind`
+   * @deprecated - Use `bud.eslint.set('fix', true)` instead.
    */
   @bind
   public fix(fix: boolean = true): this {
-    this.setOption(`fix`, fix)
+    this.set(`fix`, fix)
     return this
   }
 }
