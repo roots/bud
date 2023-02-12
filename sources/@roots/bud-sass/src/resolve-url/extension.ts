@@ -6,18 +6,13 @@ import {label} from '@roots/bud-framework/extension/decorators'
 export class BudResolveUrl extends Extension {
   /**
    * `register` callback
-   *
-   * @public
    */
   public override async register(bud: Bud) {
     const loader = await this.resolve(`resolve-url-loader`)
 
     bud.build.setLoader(`resolveUrl`, loader).setItem(`resolveUrl`, {
       loader: `resolveUrl`,
-      options: ({path, hooks}) => ({
-        root: path(`@src`),
-        sourceMap: true,
-      }),
+      options: ({path}) => ({root: path(`@src`), sourceMap: true}),
     })
   }
 }
