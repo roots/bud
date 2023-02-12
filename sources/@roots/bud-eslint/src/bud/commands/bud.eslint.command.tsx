@@ -27,7 +27,7 @@ export class BudEslintCommand extends BudCommand {
     )
 
     if (!this.options?.length)
-      this.options = [this.bud.path(`@src`, `**/*.{ts,tsx,js,jsx}`)]
+      this.options = [this.bud.path(`@src`, `**`, `*.{ts,tsx,js,jsx}`)]
 
     await this.$(this.bin, [eslint, ...this.options])
   }

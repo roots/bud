@@ -1,10 +1,13 @@
 /// <reference types="@roots/bud" />
 
-import type BudEslint from './extension.js'
+import type {BudEslint} from './extension.js'
 
 declare module '@roots/bud-framework' {
   interface Bud {
-    eslint: BudEslint
+    eslint: {
+      enable: BudEslint[`enable`]
+      set: BudEslint[`set`]
+    }
   }
 
   interface Modules {
