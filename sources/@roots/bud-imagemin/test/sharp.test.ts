@@ -1,10 +1,10 @@
-import '../types/index.js'
+import '../src/types/index.js'
 
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {Bud, factory} from '@repo/test-kit/bud'
 import Plugin from 'image-minimizer-webpack-plugin'
 
-import {BudImageminSharp} from './sharp.js'
+import {BudImageminSharp} from '../src/sharp/sharp.js'
 
 describe(`@roots/bud-imagemin/sharp`, () => {
   let bud: Bud
@@ -22,17 +22,17 @@ describe(`@roots/bud-imagemin/sharp`, () => {
   })
 
   it(`should assign sharp.implementation on init`, async () => {
-    await sharp.init()
+    await sharp.register()
     expect(sharp.implementation).toBe(Plugin.sharpMinify)
   })
 
   it(`should create sharp.generators map on init`, async () => {
-    await sharp.init()
+    await sharp.register()
     expect(sharp.generators).toBeInstanceOf(Map)
   })
 
   it(`should create webp generator on init`, async () => {
-    await sharp.init()
+    await sharp.register()
 
     expect(sharp.generators.get(`webp`)).toStrictEqual({
       filename: `[path]generated.[name]@[width]x[height][ext]`,
@@ -47,7 +47,7 @@ describe(`@roots/bud-imagemin/sharp`, () => {
   })
 
   it(`should set generator with sharp.setGenerator`, async () => {
-    await sharp.init()
+    await sharp.register()
     sharp.generators.clear()
     const definition = {
       options: {
@@ -67,7 +67,7 @@ describe(`@roots/bud-imagemin/sharp`, () => {
   })
 
   it(`should call build.optimization.minimizer hook from sharp.configureBudMinimizer()`, async () => {
-    await sharp.init()
+    await sharp.register()
 
     const onSpy = vi.spyOn(bud.hooks, `on`)
     sharp.configureBudMinimizer(bud)
@@ -79,7 +79,7 @@ describe(`@roots/bud-imagemin/sharp`, () => {
   })
 
   it(`should call sharp.configureBudMinimizer`, async () => {
-    await sharp.init()
+    await sharp.register()
 
     const configureBudMinimizer = vi.spyOn(sharp, `configureBudMinimizer`)
     await sharp.configAfter(bud)
@@ -88,7 +88,7 @@ describe(`@roots/bud-imagemin/sharp`, () => {
   })
 
   it(`should not call sharp.configureBudGenerators when there are no generators`, async () => {
-    await sharp.init()
+    await sharp.register()
     sharp.generators.clear()
     expect(sharp.generators.size).toBe(0)
 
@@ -106,7 +106,7 @@ describe(`@roots/bud-imagemin/sharp`, () => {
   })
 
   it(`should call sharp.configureBudGenerators when there are generators`, async () => {
-    await sharp.init()
+    await sharp.register()
     expect(sharp.generators.size).toBe(1)
 
     const configureBudMinimizer = vi.spyOn(sharp, `configureBudMinimizer`)

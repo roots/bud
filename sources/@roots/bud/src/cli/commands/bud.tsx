@@ -230,7 +230,7 @@ export default class BudCommand extends Command<CommandContext> {
     await command.applyBudArguments(command.bud)
 
     if (command.context.args.use) {
-      await command.bud.extensions.add(command.context.args.use)
+      await command.bud.extensions.add(command.context.args.use as any)
     }
 
     await command.bud.processConfigs()

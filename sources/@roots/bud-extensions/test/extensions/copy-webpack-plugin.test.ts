@@ -1,8 +1,8 @@
 import {describe, expect, it, test} from 'vitest'
 
-import extensionConstructor from './index.js'
+import extensionConstructor from '../../src/extensions/copy-webpack-plugin/index.js'
 
-describe(`copy-webpack-plugin`, () => {
+describe(`@roots/bud-extensions/copy-webpack-plugin`, () => {
   it(`is an instance of Extension`, () => {
     expect(extensionConstructor).toBeInstanceOf(Function)
   })

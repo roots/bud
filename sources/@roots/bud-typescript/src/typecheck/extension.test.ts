@@ -15,8 +15,7 @@ describe(`@roots/bud-typescript/typecheck`, () => {
     })
 
     typecheck = new BudTypeCheck(bud)
-
-    if (typeof typecheck.init === `function`) await typecheck.init(bud)
+    await typecheck.register(bud)
   })
 
   it(`has expected default options`, () => {

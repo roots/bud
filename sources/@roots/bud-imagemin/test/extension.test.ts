@@ -1,9 +1,9 @@
-import '../types/index.js'
+import '../src/types/index.js'
 
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {Bud, factory} from '@repo/test-kit/bud'
 
-import {BudImageminExtension} from './extension.js'
+import {BudImageminExtension} from '../src/extension/extension.js'
 
 describe(`@roots/bud-imagemin`, () => {
   let bud: Bud
@@ -25,7 +25,7 @@ describe(`@roots/bud-imagemin`, () => {
   it(`should enable lossless compression when calling bud.imagemin.lossless()`, async () => {
     await bud.extensions.add(`@roots/bud-imagemin/sharp`)
     await bud.extensions.add(`@roots/bud-imagemin/svgo`)
-    await imagemin.init(bud)
+    await imagemin.register(bud)
 
     vi.spyOn(imagemin.sharp, `setEncodeOptions`)
     imagemin.lossless()
@@ -60,7 +60,7 @@ describe(`@roots/bud-imagemin`, () => {
   it(`should set encode options`, async () => {
     await bud.extensions.add(`@roots/bud-imagemin/sharp`)
     await bud.extensions.add(`@roots/bud-imagemin/svgo`)
-    await imagemin.init(bud)
+    await imagemin.register(bud)
     imagemin.sharp.setOptions({})
     imagemin.svgo.setOptions({})
     imagemin.encode(`jpeg`, {quality: 10})

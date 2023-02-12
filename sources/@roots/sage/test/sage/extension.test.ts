@@ -1,9 +1,7 @@
-import '@roots/sage'
-
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {Bud, factory} from '@repo/test-kit/bud'
 
-import Sage from './index.js'
+import Sage from '../../src'
 
 describe(`@roots/sage`, async () => {
   let bud: Bud

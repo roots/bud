@@ -21,13 +21,13 @@ import {
 @development
 export default class BudBabelRefresh extends Extension {
   /**
-   * `init` callback
+   * {@link Extension.register}
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public override async init(bud: Bud) {
+  public override async register(bud: Bud) {
     this.logger.log(`Registering react-refresh-babel transformer`)
 
     if (!bud.react.useBabel) return

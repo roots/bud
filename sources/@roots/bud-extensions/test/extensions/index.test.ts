@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vitest'
 
-import * as Extensions from './index.js'
+import * as Extensions from '../../src/extensions/index.js'
 
 describe(`@roots/bud-extensions`, () => {
   it(`exports extensions`, async () => {

@@ -54,39 +54,39 @@
   "exports": {
     ".": {
       "types": "./lib/index.d.ts",
-      "default": "./lib/index.js"
+      "import": "./lib/index.js"
     },
     "./acorn": {
       "types": "./lib/acorn/index.d.ts",
-      "default": "./lib/acorn/index.js"
+      "import": "./lib/acorn/index.js"
     },
     "./acorn-v2-public-path": {
       "types": "./lib/acorn-v2-public-path/index.d.ts",
-      "default": "./lib/acorn-v2-public-path/index.js"
+      "import": "./lib/acorn-v2-public-path/index.js"
     },
     "./blade-loader": {
       "types": "./lib/blade-loader/index.d.ts",
-      "default": "./lib/blade-loader/index.js"
+      "import": "./lib/blade-loader/index.js"
     },
     "./client": {
       "types": "./lib/client/index.d.ts",
-      "default": "./lib/client/index.js"
+      "import": "./lib/client/index.js"
     },
     "./client/dom-ready": {
       "types": "./lib/client/dom-ready.d.ts",
-      "default": "./lib/client/dom-ready.js"
+      "import": "./lib/client/dom-ready.js"
     },
     "./client/lazy": {
       "types": "./lib/client/lazy.d.ts",
-      "default": "./lib/client/lazy.js"
+      "import": "./lib/client/lazy.js"
     },
     "./sage": {
       "types": "./lib/sage/index.d.ts",
-      "default": "./lib/sage/index.js"
+      "import": "./lib/sage/index.js"
     },
     "./types": {
       "types": "./lib/types/index.d.ts",
-      "default": "./lib/types/index.js"
+      "import": "./lib/types/index.js"
     },
     "./stylelint": {
       "default": "./config/stylelint.cjs"
@@ -104,8 +104,6 @@
       "default": "./config/tsconfig.json"
     }
   },
-  "module": "./lib/index.js",
-  "types": "./lib/index.d.ts",
   "typesVersions": {
     "*": {
       ".": [
@@ -137,6 +135,8 @@
       ]
     }
   },
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "devDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
     "@skypack/package-check": "0.2.2",

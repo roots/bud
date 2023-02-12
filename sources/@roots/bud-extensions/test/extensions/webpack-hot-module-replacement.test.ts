@@ -3,7 +3,7 @@ import {Extension} from '@roots/bud-framework/extension'
 import webpack from '@roots/bud-support/webpack'
 import {describe, expect, it, test, vi} from 'vitest'
 
-import hmrExtension from './index.js'
+import hmrExtension from '../../src/extensions/webpack-hot-module-replacement-plugin/index.js'
 
 describe(`webpack-hot-module-replacement-plugin`, () => {
   it(`is an instance of Extension`, () => {

@@ -27,7 +27,7 @@ export default class BudDefine extends Extension<
    * @decorator `@bind`
    */
   @bind
-  public override async init({env}: Bud) {
+  public override async register({env}: Bud) {
     if (!env.getPublicEnv()) return
 
     this.setOptions(

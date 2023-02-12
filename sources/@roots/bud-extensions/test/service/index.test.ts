@@ -1,10 +1,9 @@
-import {factory} from '@repo/test-kit/bud'
-import type {Bud} from '@roots/bud-framework/bud'
+import {Bud, factory} from '@repo/test-kit/bud'
 import type {Modules} from '@roots/bud-framework'
 import type {ApplyPlugin} from '@roots/bud-framework/extension'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import Extensions from './index.js'
+import Extensions from '../../src/service/index.js'
 
 describe(`@roots/bud-extensions`, () => {
   let bud: Bud
@@ -38,6 +37,8 @@ describe(`@roots/bud-extensions`, () => {
     await extensions.add(mockModule)
 
     const instance = extensions.get(`mock_extension` as keyof Modules)
+    if (!instance) throw new Error(`Extension not found`)
+
     expect(instance.label).toBe(`mock_extension`)
 
     expect(extensions.get(mockModule.label)?.options?.test).toEqual(
@@ -120,8 +121,14 @@ describe(`@roots/bud-extensions`, () => {
     bud = await factory({mode: `development`})
 
     const extensions = new Extensions(() => bud)
+    if (!extensions) throw new Error(`Extensions not found`)
+
+    if (!extensions.register) throw new Error(`Extensions.register not found`)
     await extensions.register(bud)
+
+    if (!extensions.booted) throw new Error(`Extensions.booted not found`)
     await extensions.booted(bud)
+
     expect(Object.keys(extensions.repository).sort()).toMatchSnapshot()
   })
 })

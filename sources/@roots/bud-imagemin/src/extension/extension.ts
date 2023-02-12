@@ -12,35 +12,16 @@ import type {
 } from 'image-minimizer-webpack-plugin/types/utils.js'
 
 import type {Generator} from '../index.js'
-import type BudImageminSharp from '../sharp/index.js'
-import type BudImageminSvgo from '../svgo/index.js'
 
 /**
- * `@roots/bud-imagemin`
- *
- * @see {@link https://bud.js.org/extensions/bud-imagemin}
- *
- * @decorator `@label`
- * @decorator `@expose`
- * @decorator `@dependsOn`
+ * Image minimizer configuration
  */
 @label(`@roots/bud-imagemin`)
 @expose(`imagemin`)
 @dependsOn([`@roots/bud-imagemin/sharp`, `@roots/bud-imagemin/svgo`])
 export class BudImageminExtension extends Extension {
-  /**
-   * Binary settings
-   *
-   * {@link BudImageminSharp}
-   */
-  public declare sharp: BudImageminSharp
-
-  /**
-   * SVG settings
-   *
-   * {@link BudImageminSvgo}
-   */
-  public declare svgo: BudImageminSvgo
+  public declare sharp: Bud[`imagemin`][`sharp`]
+  public declare svgo: Bud[`imagemin`][`svgo`]
 
   /**
    * Set encoder options
@@ -83,12 +64,10 @@ export class BudImageminExtension extends Extension {
   }
 
   /**
-   * {@link Extension.init}
-   *
-   * @decorator `@bind`
+   * {@link Extension.register}
    */
   @bind
-  public override async init(bud: Bud): Promise<void> {
+  public override async register(bud: Bud) {
     this.sharp = bud.extensions.get(`@roots/bud-imagemin/sharp`)
     this.svgo = bud.extensions.get(`@roots/bud-imagemin/svgo`)
 

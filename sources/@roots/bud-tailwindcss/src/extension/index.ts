@@ -56,8 +56,8 @@ export class BudTailwindCss extends Extension<Options> {
   private declare config: ResolvedConfig | undefined
 
   @bind
-  public getConfig(): this[`config`] {
-    return this.config ? this.config : this.resolveConfig()
+  public getConfig(): BudTailwindCss[`config`] {
+    return this.config ?? undefined
   }
   /**
    * Get config source module
@@ -89,7 +89,7 @@ export class BudTailwindCss extends Extension<Options> {
     | undefined
 
   @bind
-  public getTheme(): this[`theme`] {
+  public getTheme() {
     return this.theme
   }
 
@@ -225,7 +225,7 @@ export class BudTailwindCss extends Extension<Options> {
             {},
           ),
         ),
-    })
+    } as any)
 
     bud.hooks.async(`build.resolve.alias`, async (aliases = {}) => ({
       ...aliases,

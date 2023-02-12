@@ -27,8 +27,8 @@ export default class BudSWCRefresh extends Extension {
    * @decorator `@bind`
    */
   @bind
-  public override async init(bud: Bud) {
-    bud.hooks.action(`build.before`, this.registerTransform.bind(this))
+  public override async buildBefore(bud: Bud) {
+    this.registerTransform(bud)
   }
 
   /**
@@ -37,15 +37,15 @@ export default class BudSWCRefresh extends Extension {
    * @public
    * @decorator `@bind`
    */
-  public async registerTransform() {
+  public async registerTransform(bud: Bud) {
     this.logger.log(`Registering swc react-refresh transformer`)
 
-    this.app.swc.setOptions(options => ({
+    bud.swc.setOptions(options => ({
       ...options,
       transform: {
         react: {
-          development: this.app.isDevelopment,
-          refresh: this.app.isDevelopment,
+          development: bud.isDevelopment,
+          refresh: bud.isDevelopment,
         },
       },
     }))

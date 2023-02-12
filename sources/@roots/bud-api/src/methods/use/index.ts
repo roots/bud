@@ -1,19 +1,13 @@
 import type {Bud, Modules} from '@roots/bud-framework'
-import type {
-  Constructor,
-  Extension,
-  ExtensionLiteral,
-} from '@roots/bud-framework/extension'
+import type {Extension} from '@roots/bud-framework/extension'
 
 export type Parameters = [
   | Extension
-  | Constructor
-  | ExtensionLiteral
+  | (new (bud: Bud) => Extension)
   | `${keyof Modules & string}`
   | Array<
       | Extension
-      | Constructor
-      | ExtensionLiteral
+      | (new (bud: Bud) => Extension)
       | `${keyof Modules & string}`
     >,
 ]

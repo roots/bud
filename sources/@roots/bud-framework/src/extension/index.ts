@@ -25,11 +25,6 @@ export type OptionsMap<MappedOptions extends Options> = {
  */
 export interface ApplyPlugin {
   /**
-   * Loose defined
-   */
-  [key: string]: any
-
-  /**
    * Apply callback
    *
    * @see {@link https://webpack.js.org/contribute/writing-a-plugin/#basic-plugin-architecture}
@@ -53,11 +48,6 @@ export class Extension<
   Plugin extends ApplyPlugin = ApplyPlugin,
 > {
   /**
-   * Loose definition
-   */
-  [key: string]: any
-
-  /**
    * Application
    */
   public _app: () => Bud
@@ -66,6 +56,8 @@ export class Extension<
    * Application accessor
    */
   public app: Bud
+
+  public declare apply?: ApplyPlugin[`apply`]
 
   /**
    * Extension is enabled
@@ -87,14 +79,12 @@ export class Extension<
    * Extension meta
    */
   public meta: {
-    init: boolean
     register: boolean
     boot: boolean
     configAfter: boolean
     buildBefore: boolean
     buildAfter: boolean
   } = {
-    init: false,
     register: false,
     boot: false,
     configAfter: false,
@@ -232,29 +222,11 @@ export class Extension<
   }
 
   /**
-   * `init` callback handler
-   */
-  @bind
-  public async _init() {
-    if (isUndefined(this.init)) return
-    this.logger.log(`initialized`)
-
-    try {
-      await this.init(this.app, this.options)
-      this.meta[`init`] = true
-    } catch (error) {
-      throw error
-    }
-  }
-
-  /**
    * `register` callback handler
    */
   @bind
   public async _register() {
     if (isUndefined(this.register)) return
-
-    if (!this.meta[`init`]) await this._init()
 
     try {
       await this.register(this.app, this.options)
@@ -273,7 +245,6 @@ export class Extension<
   public async _boot() {
     if (isUndefined(this.boot)) return
 
-    if (!this.meta[`init`]) await this._init()
     if (!this.meta[`register`]) await this._register()
 
     try {

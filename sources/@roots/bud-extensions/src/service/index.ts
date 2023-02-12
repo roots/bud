@@ -68,9 +68,6 @@ export default class Extensions
    * @todo
    * All this is doing is helping transition people to using `bud.extensions` key for
    * `allowList` and `denyList`. It can be removed in a future release. (2022-10-18)
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public override async register?(bud: Bud): Promise<void> {
@@ -79,9 +76,6 @@ export default class Extensions
 
   /**
    * `booted` callback
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public override async booted?(bud: Bud): Promise<void> {
@@ -145,16 +139,12 @@ export default class Extensions
           .map(this.import),
       )
 
-    await this.runAll(`init`)
     await this.runAll(`register`)
     await this.runAll(`boot`)
   }
 
   /**
    * `configAfter` callback
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public override async configAfter?(): Promise<void> {
@@ -179,20 +169,14 @@ export default class Extensions
 
   /**
    * Has extension
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
-  public has<K extends `${keyof Modules & string}`>(key: K): boolean {
+  public has(key: string): key is keyof Modules {
     return this.repository[key] ? true : false
   }
 
   /**
    * Get extension
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public get<K extends `${keyof Modules & string}`>(key: K): Modules[K] {
@@ -201,9 +185,6 @@ export default class Extensions
 
   /**
    * Remove extension
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public remove<K extends `${keyof Modules & string}`>(key: K): this {
@@ -213,12 +194,9 @@ export default class Extensions
 
   /**
    * Set extension
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
-  public set(value: Extension | ApplyPlugin): this {
+  public set(value: Extension): this {
     this.repository[value.label ?? randomUUID()] = value
 
     return this
@@ -226,9 +204,6 @@ export default class Extensions
 
   /**
    * Instantiate a Framework extension class or object
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public async instantiate(
@@ -236,7 +211,7 @@ export default class Extensions
       | (new (...args: any[]) => Extension)
       | ExtensionLiteral
       | {apply: (...args: any[]) => any},
-  ): Promise<Extension | ApplyPlugin> {
+  ): Promise<Extension> {
     if (source instanceof Extension) return source
 
     if (typeof source === `function`) {
@@ -248,7 +223,7 @@ export default class Extensions
     }
 
     if (typeof source.apply === `function`) {
-      return source as ApplyPlugin
+      return source as Extension
     }
 
     if (!isConstructor(source)) {
@@ -270,24 +245,26 @@ export default class Extensions
 
   /**
    * Import an extension
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
-  public async import<K extends `${keyof Modules & string}`>(
-    signifier: K,
+  public async import(
+    signifier: string,
     fatalOnError: boolean | number = true,
-  ): Promise<Extension | ApplyPlugin> {
+  ): Promise<Extension> {
     if (fatalOnError && this.unresolvable.has(signifier))
       throw new Error(`Extension ${signifier} is not importable`)
+
+    this.logger.info(`importing`, signifier)
+
+    if (signifier.startsWith(`.`)) {
+      signifier = this.app.path(signifier)
+      this.logger.info(`path resolved to`, signifier)
+    }
 
     if (this.has(signifier)) {
       this.logger.info(signifier, `extension already imported`)
       return
     }
-
-    this.logger.info(`importing`, signifier)
 
     const extensionClass: ExtensionLiteral = fatalOnError
       ? await this.app.module.import(signifier)
@@ -300,8 +277,8 @@ export default class Extensions
     if (instance.dependsOn)
       await Promise.all(
         Array.from(instance.dependsOn)
-          .filter((dependency: K) => !this.has(dependency))
-          .map(async (dependency: K) => await this.import(dependency)),
+          .filter(dependency => !this.has(dependency))
+          .map(async dependency => await this.import(dependency)),
       )
 
     if (this.options.is(`discover`, true) && instance.dependsOnOptional)
@@ -309,11 +286,11 @@ export default class Extensions
         Array.from(instance.dependsOnOptional)
           .filter(this.isAllowed)
           .filter(
-            (optionalDependency: K) =>
+            optionalDependency =>
               !this.unresolvable.has(optionalDependency),
           )
-          .filter((optionalDependency: K) => !this.has(optionalDependency))
-          .map(async (optionalDependency: K) => {
+          .filter(optionalDependency => !this.has(optionalDependency))
+          .map(async optionalDependency => {
             await this.import(optionalDependency, false)
             if (!this.has(optionalDependency))
               this.unresolvable.add(optionalDependency)
@@ -329,18 +306,16 @@ export default class Extensions
 
   /**
    * Add a {@link Extension} to the extensions repository
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public async add<K extends `${keyof Modules & string}`>(
     extension:
-      | Extension<any, any>
-      | ExtensionLiteral
-      | Array<Extension<any, any> | ExtensionLiteral>
+      | Partial<Extension>
+      | (new (bud: Bud) => Partial<Extension>)
       | K
-      | Array<K>,
+      | Array<
+          Partial<Extension> | (new (bud: Bud) => Partial<Extension>) | K
+        >,
   ): Promise<void> {
     const arrayed = Array.isArray(extension) ? extension : [extension]
 
@@ -356,7 +331,6 @@ export default class Extensions
 
       this.set(extension)
 
-      await this.run(extension, `init`)
       await this.run(extension, `register`)
       await this.run(extension, `boot`)
     }, Promise.resolve())
@@ -366,18 +340,14 @@ export default class Extensions
    * Run an extension lifecycle method
    *
    * @remarks
-   * - `_init`
    * - `_register`
    * - `_boot`
    * - `_buildBefore`
    * - `_make`
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public async run(
-    extension: Extension | ApplyPlugin,
+    extension: Extension,
     methodName: Contract.LifecycleMethods,
   ): Promise<this> {
     if (
@@ -403,9 +373,6 @@ export default class Extensions
 
   /**
    * Execute a extension lifecycle method on all registered extensions
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public async runAll(
@@ -426,13 +393,10 @@ export default class Extensions
    * @remarks
    * Called from {@link Extension.run}. Ensures a method is run for an
    * extension's dependencies before it is run for the extension itself.
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public async runDependencies<K extends `${keyof Modules & string}`>(
-    extension: Extension | ApplyPlugin | K,
+    extension: Extension | K,
     methodName: Contract.LifecycleMethods,
   ): Promise<void> {
     extension =
@@ -477,9 +441,6 @@ export default class Extensions
    * container and are set to be used in the compilation
    *
    * @returns An array of plugin instances
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public async make(): Promise<ApplyPlugin[]> {

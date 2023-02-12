@@ -72,7 +72,7 @@ export class BudTerser extends Extension<Options> {
   public override async buildBefore(bud: Bud) {
     const terser = await this.import(`terser-webpack-plugin`)
     if (!terser) return
-    if (this.disabled) return
+    if (!this.enabled) return
 
     if (
       bud.extensions.has(

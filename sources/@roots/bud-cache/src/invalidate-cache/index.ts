@@ -13,15 +13,11 @@ import stripAnsi from 'strip-ansi'
  * `ts-loader` have issues with fs caching. This extension writes a file
  * to the cache directory which is used to invalidate the cache before
  * webpack is invoked on subsequent builds
- *
- * @public
- * @decorator `@label`
  */
 @label(`@roots/bud-cache/invalidate-cache`)
 export default class InvalidateCacheExtension extends Extension {
   /**
    * Invalidation file path
-   * @public
    */
   public get invalidationFile(): string {
     return join(this.app.cache.cacheDirectory, `error.json`)
@@ -29,9 +25,6 @@ export default class InvalidateCacheExtension extends Extension {
 
   /**
    * `register` callback
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public override async register(bud: Bud) {

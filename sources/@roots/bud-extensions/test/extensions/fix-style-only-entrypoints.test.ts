@@ -1,8 +1,8 @@
 import {describe, expect, it, test} from 'vitest'
 
-import extensionConstructor from './index.js'
+import extensionConstructor from '../../src/extensions/fix-style-only-entrypoints/index.js'
 
-describe(`mini-css-extract-plugin`, () => {
+describe(`bud-esm`, () => {
   it(`is an instance of Extension`, () => {
     expect(extensionConstructor).toBeInstanceOf(Function)
   })

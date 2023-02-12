@@ -5,7 +5,6 @@ import {
   dependsOn,
   label,
 } from '@roots/bud-framework/extension/decorators'
-import type WordPressThemeJSON from '@roots/bud-wordpress-theme-json'
 
 import * as tailwindAdapter from './tailwind/index.js'
 
@@ -36,13 +35,13 @@ export class TailwindThemeJSON extends Extension {
   }
 
   public useTailwindColors(
-    this: WordPressThemeJSON,
+    this: Bud[`wpjson`],
     extendOnly?: boolean,
-  ): WordPressThemeJSON {
-    this.setOption(`settings`, {
-      ...(this.options.settings ?? {}),
+  ): Bud[`wpjson`] {
+    this.set(`settings`, {
+      ...(this.get(`settings`) ?? {}),
       color: {
-        ...(this.options.settings?.color ?? {}),
+        ...((this.get(`settings.color`) as {}) ?? {}),
         palette: tailwindAdapter.palette.transform(
           this.app.tailwind.resolveThemeValue(`colors`, extendOnly),
         ),
@@ -53,13 +52,13 @@ export class TailwindThemeJSON extends Extension {
   }
 
   public useTailwindFontFamily(
-    this: WordPressThemeJSON,
+    this: Bud[`wpjson`],
     extendOnly?: boolean,
-  ): WordPressThemeJSON {
-    this.setOption(`settings`, {
-      ...(this.options.settings ?? {}),
+  ): Bud[`wpjson`] {
+    this.set(`settings`, {
+      ...(this.get(`settings`) ?? {}),
       typography: {
-        ...(this.options.settings?.typography ?? {}),
+        ...((this.get(`settings.typography`) as {}) ?? {}),
         fontFamilies: tailwindAdapter.fontFamily.transform(
           Object.assign(
             {},
@@ -78,13 +77,13 @@ export class TailwindThemeJSON extends Extension {
   }
 
   public useTailwindFontSize(
-    this: WordPressThemeJSON,
+    this: Bud[`wpjson`],
     extendOnly?: boolean,
-  ): WordPressThemeJSON {
-    this.setOption(`settings`, {
-      ...(this.options.settings ?? {}),
+  ): Bud[`wpjson`] {
+    this.set(`settings`, {
+      ...(this.get(`settings`) ?? {}),
       typography: {
-        ...(this.options.settings?.typography ?? {}),
+        ...((this.get(`settings.typography`) as {}) ?? {}),
         fontSizes: tailwindAdapter.fontSize.transform(
           Object.assign(
             {},

@@ -1,17 +1,11 @@
 import type Container from '@roots/container'
 
 import type {Bud} from '../../../bud.js'
-import type {
-  ApplyPlugin,
-  Constructor,
-  Extension,
-  ExtensionLiteral,
-} from '../../../extension/index.js'
+import type {ApplyPlugin, Extension} from '../../../extension/index.js'
 import type {Service as BaseService} from '../../../service.js'
 import type {Modules} from '../../registry/modules.js'
 
 export type LifecycleMethods =
-  | 'init'
   | 'register'
   | 'boot'
   | 'configAfter'
@@ -44,11 +38,11 @@ export interface Service extends BaseService {
   isAllowed(key: string): boolean
 
   instantiate<K extends `${keyof Modules & string}`>(
-    extension: (new (...args: any[]) => Modules[K]) | ExtensionLiteral,
+    extension: (new (...args: any[]) => Modules[K]) | Extension,
     options?: Record<string, any>,
-  ): Promise<Extension | ApplyPlugin>
+  ): Promise<Extension>
 
-  has<K extends keyof Modules & string>(key: K): boolean
+  has(key: string): key is keyof Modules
 
   get<K extends keyof Modules & string>(key: K): Modules[K]
 
@@ -62,15 +56,13 @@ export interface Service extends BaseService {
    * @public
    */
   add(
-    input:
-      | Constructor
-      | ExtensionLiteral
-      | Extension
-      | (keyof Modules & string)
+    extension:
+      | Partial<Extension>
+      | (new (bud: Bud) => Partial<Extension>)
+      | `${keyof Modules & string}`
       | Array<
-          | Constructor
-          | ExtensionLiteral
-          | Extension
+          | Partial<Extension>
+          | (new (bud: Bud) => Partial<Extension>)
           | `${keyof Modules & string}`
         >,
     options?: Record<string, any>,
@@ -79,12 +71,12 @@ export interface Service extends BaseService {
   import<K extends `${keyof Modules}`>(
     signifier: K,
     fatalOnError?: boolean,
-  ): Promise<Extension | ApplyPlugin>
+  ): Promise<Extension>
 
   runAll(methodName: LifecycleMethods): Promise<Array<void>>
 
   run<K extends `${keyof Modules & string}`>(
-    extension: Extension | ApplyPlugin | K,
+    extension: Extension | K,
     methodName: LifecycleMethods,
   ): Promise<this>
 
@@ -94,9 +86,7 @@ export interface Service extends BaseService {
   ): Promise<void>
 
   /**
-   * Returns array of {@link PluginInstance}s
-   *
-   * @public
+   * Returns array of {@link PluginInstance} instances.
    */
   make(): Promise<Array<ApplyPlugin>>
 }

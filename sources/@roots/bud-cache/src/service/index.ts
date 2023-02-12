@@ -1,5 +1,6 @@
 import {createHash} from 'node:crypto'
 
+import type {Bud} from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework/service'
 import type * as Services from '@roots/bud-framework/services'
 import {bind} from '@roots/bud-support/decorators'
@@ -7,7 +8,7 @@ import isString from '@roots/bud-support/lodash/isString'
 import join from '@roots/bud-support/lodash/join'
 import type {Configuration} from '@roots/bud-support/webpack'
 
-import InvalidateCacheExtension from './invalidate-cache-extension/index.js'
+import InvalidateCacheExtension from '../invalidate-cache/index.js'
 
 /**
  * Cache service class
@@ -124,8 +125,8 @@ export default class Cache
    * @decorator `@bind`
    */
   @bind
-  public override async booted?() {
-    await this.app.extensions.add(InvalidateCacheExtension)
+  public override async booted?(bud: Bud) {
+    await bud.extensions.add(InvalidateCacheExtension)
     this.app.success(`cache initialized`)
   }
 

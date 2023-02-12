@@ -28,8 +28,6 @@ export interface Options {
  * ```ts
  * const bud = await factory({mode: 'development'})
  * ```
- *
- * @returns Bud instance
  */
 export async function factory(
   overrides: Partial<CLIContext | Context | CommandContext> = {},
@@ -45,8 +43,7 @@ export async function factory(
   const context = await getContext(overrides, options)
 
   if (options.cache) {
-    set(context.basedir, bud)
-    return await get(context.basedir).lifecycle(context)
+    return await set(context.basedir, bud).lifecycle(context)
   }
 
   return await bud.lifecycle(context)

@@ -5,8 +5,8 @@
       "@scripts/*": ["./src/scripts/*"],
       "@styles/*": ["./src/styles/*"]
     },
-    "types": ["node", "webpack-env", "@roots/bud"]
+    "types": ["node", "webpack-env", "@roots/bud", "@roots/bud-tailwindcss", "@roots/bud-postcss", "@roots/bud-swc"]
   },
-  "include": ["./src"],
+  "include": ["./src", "./bud.config.mjs"],
   "exclude": ["./node_modules"]
 }

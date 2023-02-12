@@ -1,4 +1,4 @@
-import type {Bud, Modules} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
@@ -272,7 +272,7 @@ export default class Cdn extends Extension<Options, null> {
 
     for (const [ident, url] of this.sources.entries()) {
       await bud.extensions.add({
-        label: `bud-cdn-${ident}` as keyof Modules,
+        label: `bud-cdn-${ident}`,
         make: async () =>
           new NormalModuleReplacementPlugin(
             new RegExp(`^${ident}:`),
@@ -280,19 +280,19 @@ export default class Cdn extends Extension<Options, null> {
               result.request = result.request.replace(`${ident}:`, url)
             },
           ),
-      })
+      } as any)
 
       await Promise.all(
         (bud.context.manifest?.bud?.imports?.[ident] ?? []).map(
           async ([signifier, remote]) => {
             await bud.extensions.add({
-              label: `bud-cdn-${ident}-${remote}` as keyof Modules,
+              label: `bud-cdn-${ident}-${remote}`,
               make: async () =>
                 new NormalModuleReplacementPlugin(
                   new RegExp(`^${signifier}`),
                   `${url}${remote}`,
                 ),
-            })
+            } as any)
           },
         ),
       )

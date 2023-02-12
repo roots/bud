@@ -62,6 +62,7 @@
   },
   "devDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
+    "@roots/bud-swc": "workspace:sources/@roots/bud-swc",
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.11.18"
   },

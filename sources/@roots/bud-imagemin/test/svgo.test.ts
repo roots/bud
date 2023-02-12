@@ -3,7 +3,7 @@ import '@roots/bud-imagemin/types'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {Bud, factory} from '@repo/test-kit/bud'
 
-import BudImageminSvgo from './index.js'
+import BudImageminSvgo from '../src/svgo/index.js'
 
 describe(`@roots/bud-imagemin`, () => {
   let bud: Bud

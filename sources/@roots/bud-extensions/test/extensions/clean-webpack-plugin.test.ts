@@ -1,9 +1,9 @@
 import {factory} from '@repo/test-kit/bud'
 import {describe, expect, it} from 'vitest'
 
-import extensionConstructor from './index.js'
+import extensionConstructor from '../../src/extensions/clean-webpack-plugin/index.js'
 
-describe(`clean-webpack-plugin`, () => {
+describe(`@roots/bud-extensions/clean-webpack-plugin`, () => {
   it(`is an instance of Extension`, () => {
     expect(extensionConstructor).toBeInstanceOf(Function)
   })

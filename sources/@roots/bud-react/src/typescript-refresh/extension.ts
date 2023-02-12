@@ -27,8 +27,8 @@ export default class BudTypeScriptRefresh extends Extension {
    * @decorator `@bind`
    */
   @bind
-  public override async init(bud: Bud) {
-    bud.hooks.action(`build.before`, this.registerTransform)
+  public override async buildBefore(bud: Bud) {
+    this.registerTransform(bud)
   }
 
   /**
@@ -38,12 +38,12 @@ export default class BudTypeScriptRefresh extends Extension {
    * @decorator `@bind`
    */
   @bind
-  public async registerTransform() {
+  public async registerTransform(bud: Bud) {
     this.logger.log(`Registering react-refresh-typescript transformer`)
 
     const transform = await this.import(`react-refresh-typescript`)
 
-    this.app.extensions
+    bud.extensions
       .get(`@roots/bud-typescript`)
       .setOption(`loader`, options => ({
         ...(options ?? {}),
