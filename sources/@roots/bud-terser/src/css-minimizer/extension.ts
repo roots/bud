@@ -36,7 +36,7 @@ export class BudMinimizeCss extends Extension<BasePluginOptions, Plugin> {
    * @public
    * @decorator `@bind`
    */
-  public override async buildBefore({hooks, module}: Bud) {
+  public override async buildBefore({hooks}: Bud) {
     const {Plugin} = await import(
       `@roots/bud-support/css-minimizer-webpack-plugin`
     )

@@ -8034,13 +8034,17 @@ __metadata:
     "@roots/bud-swc": "workspace:sources/@roots/bud-swc"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.11.18
+    terser-webpack-plugin: 5.3.6
   peerDependencies:
     "@roots/bud": "*"
     "@roots/bud-support": "*"
+    terser-webpack-plugin: "*"
   peerDependenciesMeta:
     "@roots/bud":
       optional: true
     "@roots/bud-support":
+      optional: true
+    terser-webpack-plugin:
       optional: true
   languageName: unknown
   linkType: soft

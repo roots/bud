@@ -53,8 +53,8 @@ export class BudTerser extends Extension<Options> {
   public override async configAfter(bud: Bud) {
     if (!this.enabled) return
 
-    const {Plugin} = await import(
-      `@roots/bud-support/terser-webpack-plugin`
+    const {default: Plugin} = await import(
+      `terser-webpack-plugin`
     )
     if (!Plugin) return
 
