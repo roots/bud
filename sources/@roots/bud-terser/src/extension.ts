@@ -51,27 +51,24 @@ export class BudTerser extends Extension<Options> {
    */
   @bind
   public override async buildBefore(bud: Bud) {
-    const terser = await this.import(`terser-webpack-plugin`)
-    if (!terser) return
     if (!this.enabled) return
 
-    if (
-      bud.extensions.has(
-        // @ts-ignore
-        `@roots/bud-swc`,
-      )
-    ) {
-      const {swcMinify} = await this.import(`terser-webpack-plugin`)
-      this.set(`terserOptions.minify`, swcMinify)
+    const {Plugin} = await this.import(
+      `@roots/bud-support/terser-webpack-plugin`,
+    )
+    if (!Plugin) return
+
+    if (bud.extensions.has(`@roots/bud-swc`)) {
+      this.set(`terserOptions.minify`, Plugin.swcMinify)
     }
 
     bud.hooks.on(`build.optimization.minimizer`, (minimizers = []) => {
       this.logger.info(`current minimizers:`, minimizers)
 
-      const terserMinimizerInstance = new terser(this.options)
-      this.logger.info(`terser instance`, terserMinimizerInstance)
+      const instance = new Plugin(this.options)
+      this.logger.info(`terser instance`, instance)
 
-      minimizers.push(terserMinimizerInstance)
+      minimizers.push(instance)
       this.logger.success(`terser added to minimizers`, minimizers)
 
       return minimizers
