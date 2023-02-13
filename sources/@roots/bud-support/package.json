@@ -39,16 +39,33 @@
     "node": ">=16"
   },
   "files": [
-    "lib/",
-    "types.d.ts"
+    "lib"
   ],
   "type": "module",
-  "module": "./lib/index.js",
-  "types": "./lib/index.d.ts",
   "exports": {
     ".": {
       "types": "./lib/index.d.ts",
       "default": "./lib/index.js"
+    },
+    "./axios": {
+      "types": "./lib/axios/index.d.ts",
+      "import": "./lib/axios/index.js"
+    },
+    "./chalk": {
+      "types": "./lib/chalk/index.d.ts",
+      "import": "./lib/chalk/index.js"
+    },
+    "./chokidar": {
+      "types": "./lib/chokidar/index.d.ts",
+      "import": "./lib/chokidar/index.js"
+    },
+    "./clean-stack": {
+      "types": "./lib/clean-stack/index.d.ts",
+      "import": "./lib/clean-stack/index.js"
+    },
+    "./clean-webpack-plugin": {
+      "types": "./lib/clean-webpack-plugin/index.d.ts",
+      "import": "./lib/clean-webpack-plugin/index.js"
     },
     "./css-loader": {
       "types": "./lib/css-loader/index.d.cts",
@@ -73,6 +90,10 @@
     "./style-loader": {
       "types": "./lib/style-loader/index.d.cts",
       "default": "./lib/style-loader/index.cjs"
+    },
+    "./terser-webpack-plugin": {
+      "types": "./lib/terser-webpack-plugin/index.d.ts",
+      "import": "./lib/terser-webpack-plugin/index.js"
     },
     "./xml-loader": {
       "types": "./lib/xml-loader/index.d.cts",
@@ -105,6 +126,8 @@
       ]
     }
   },
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@types/connect": "3.4.35",

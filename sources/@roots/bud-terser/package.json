@@ -71,10 +71,14 @@
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
   },
   "peerDependencies": {
-    "@roots/bud": "*"
+    "@roots/bud": "*",
+    "@roots/bud-support": "*"
   },
   "peerDependenciesMeta": {
     "@roots/bud": {
+      "optional": true
+    },
+    "@roots/bud-support": {
       "optional": true
     }
   },

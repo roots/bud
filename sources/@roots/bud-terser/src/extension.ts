@@ -47,15 +47,13 @@ export type Options = Plugin.BasePluginOptions & {
 @disabled
 export class BudTerser extends Extension<Options> {
   /**
-   * `buildBefore` callback
+   * {@link Extension.buildBefore}
    */
   @bind
   public override async buildBefore(bud: Bud) {
     if (!this.enabled) return
 
-    const {Plugin} = await this.import(
-      `@roots/bud-support/terser-webpack-plugin`,
-    )
+    const {Plugin} = await import(`@roots/bud-support/terser-webpack-plugin`)
     if (!Plugin) return
 
     if (bud.extensions.has(`@roots/bud-swc`)) {
@@ -112,7 +110,7 @@ export class BudTerser extends Extension<Options> {
    * ```
    */
   @bind
-  public mangle(mangle: Options['terserOptions']['mangle']): this {
+  public mangle(mangle: Plugin.TerserOptions['mangle']): this {
     this.set(`terserOptions.mangle`, mangle)
     return this
   }
