@@ -46,7 +46,10 @@
   ],
   "type": "module",
   "exports": {
-    ".": "./lib/index.js",
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    },
     "./service": {
       "types": "./lib/service/index.js",
       "import": "./lib/service.js"
@@ -54,6 +57,10 @@
     "./invalidate-cache": {
       "types": "./lib/invalidate-cache/index.d.ts",
       "import": "./lib/invalidate-cache/index.js"
+    },
+    "./types": {
+      "types": "./lib/types.d.ts",
+      "import": "./lib/types.js"
     }
   },
   "typesVersions": {
@@ -63,6 +70,9 @@
       ],
       "./service": [
         "./lib/service.d.ts"
+      ],
+      "./types": [
+        "./lib/types.d.ts"
       ]
     }
   },

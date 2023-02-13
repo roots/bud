@@ -41,12 +41,12 @@
     "node": ">=16.0.0"
   },
   "files": [
-    "bin/",
-    "docs/",
-    "lib/",
-    "config/",
-    "scripts/",
-    "vendor/"
+    "bin",
+    "docs",
+    "lib",
+    "config",
+    "scripts",
+    "vendor"
   ],
   "bin": {
     "bud": "./bin/bud.mjs",
@@ -54,78 +54,80 @@
     "ts-bud": "./bin/ts-bud.mjs"
   },
   "type": "module",
-  "module": "./lib/index.js",
-  "types": "./lib/index.d.ts",
   "exports": {
     ".": {
       "types": "./lib/index.d.ts",
-      "default": "./lib/index.js"
+      "import": "./lib/index.js"
     },
     "./bud": {
       "types": "./lib/bud/bud.d.ts",
-      "default": "./lib/bud/bud.js"
+      "import": "./lib/bud/bud.js"
     },
     "./instances": {
       "types": "./lib/instances.d.ts",
-      "default": "./lib/instances.js"
+      "import": "./lib/instances.js"
     },
     "./cli/*": {
       "types": "./lib/cli/*.d.ts",
-      "default": "./lib/cli/*.js"
+      "import": "./lib/cli/*.js"
     },
     "./cli/commands/*": {
       "types": "./lib/cli/commands/*.d.ts",
-      "default": "./lib/cli/commands/*.js"
+      "import": "./lib/cli/commands/*.js"
     },
     "./cli/decorators": {
       "types": "./lib/cli/decorators/index.d.ts",
-      "default": "./lib/cli/decorators/index.js"
+      "import": "./lib/cli/decorators/index.js"
     },
     "./cli/decorators/*": {
       "types": "./lib/cli/decorators/*.d.ts",
-      "default": "./lib/cli/decorators/*.js"
+      "import": "./lib/cli/decorators/*.js"
     },
     "./cli/helpers/*": {
       "types": "./lib/cli/helpers/*.d.ts",
-      "default": "./lib/cli/helpers/*.js"
+      "import": "./lib/cli/helpers/*.js"
+    },
+    "./context": {
+      "types": "./lib/context/index.d.ts",
+      "import": "./lib/context/index.js"
+    },
+    "./context/*": {
+      "types": "./lib/context/*.d.ts",
+      "import": "./lib/context/*.js"
+    },
+    "./factory": {
+      "types": "./lib/factory/index.d.ts",
+      "import": "./lib/factory/index.js"
+    },
+    "./factory/*": {
+      "types": "./lib/factory/*.d.ts",
+      "import": "./lib/factory/*.js"
+    },
+    "./logger": {
+      "types": "./lib/logger/index.d.ts",
+      "import": "./lib/logger/index.js"
+    },
+    "./notifier/*": {
+      "types": "./lib/notifier/*.d.ts",
+      "import": "./lib/notifier/*.js"
+    },
+    "./services/*": {
+      "types": "./lib/services/*/index.d.ts",
+      "import": "./lib/services/*/index.js"
+    },
+    "./services/*/*": {
+      "types": "./lib/services/*/*.d.ts",
+      "import": "./lib/services/*/*.js"
+    },
+    "./types": {
+      "types": "./lib/types.d.ts",
+      "import": "./lib/types.js"
     },
     "./config/jsconfig.json": {
       "default": "./config/jsconfig.json"
     },
     "./config/tsconfig.json": {
       "default": "./config/tsconfig.json"
-    },
-    "./context": {
-      "types": "./lib/context/index.d.ts",
-      "default": "./lib/context/index.js"
-    },
-    "./context/*": {
-      "types": "./lib/context/*.d.ts",
-      "default": "./lib/context/*.js"
-    },
-    "./factory": {
-      "types": "./lib/factory/index.d.ts",
-      "default": "./lib/factory/index.js"
-    },
-    "./factory/*": {
-      "types": "./lib/factory/*.d.ts",
-      "default": "./lib/factory/*.js"
-    },
-    "./logger": {
-      "types": "./lib/logger/index.d.ts",
-      "default": "./lib/logger/index.js"
-    },
-    "./notifier/*": {
-      "types": "./lib/notifier/*.d.ts",
-      "default": "./lib/notifier/*.js"
-    },
-    "./services/*": {
-      "types": "./lib/services/*/index.d.ts",
-      "default": "./lib/services/*/index.js"
-    },
-    "./services/*/*": {
-      "types": "./lib/services/*/*.d.ts",
-      "default": "./lib/services/*/*.js"
     }
   },
   "typesVersions": {
@@ -162,9 +164,14 @@
       ],
       "services/*": [
         "lib/services/*/index.d.ts"
+      ],
+      "types": [
+        "lib/types.d.ts"
       ]
     }
   },
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.11.18"

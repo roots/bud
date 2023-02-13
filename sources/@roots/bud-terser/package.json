@@ -36,16 +36,23 @@
     "node": ">=16"
   },
   "files": [
-    "lib/",
-    "src/"
+    "lib",
+    "src"
   ],
   "type": "module",
-  "module": "./lib/index.js",
-  "types": "./lib/index.d.ts",
   "exports": {
-    ".": "./lib/index.js",
-    "./extension": "./lib/extension.js",
-    "./css-minimizer": "./lib/css-minimizer/index.js"
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    },
+    "./css-minimizer": {
+      "types": "./lib/css-minimizer/index.d.ts",
+      "import": "./lib/css-minimizer/index.js"
+    },
+    "./types": {
+      "types": "./lib/types.d.ts",
+      "import": "./lib/types.js"
+    }
   },
   "typesVersions": {
     "*": {
@@ -55,11 +62,13 @@
       "css-minimizer": [
         "./lib/css-minimizer/index.d.ts"
       ],
-      "extension": [
-        "./lib/extension.d.ts"
+      "types": [
+        "./lib/types.d.ts"
       ]
     }
   },
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "devDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-swc": "workspace:sources/@roots/bud-swc",

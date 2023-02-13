@@ -40,30 +40,54 @@
     "bud-framework"
   ],
   "files": [
-    "lib/",
-    "vendor/"
+    "lib",
+    "src",
+    "vendor"
   ],
   "type": "module",
-  "module": "./lib/index.js",
-  "types": "./lib/index.d.ts",
   "exports": {
     ".": {
       "types": "./lib/index.d.ts",
-      "default": "./lib/index.js"
+      "import": "./lib/index.js"
     },
     "./api": {
       "types": "./lib/api/index.d.ts",
-      "default": "./lib/api/index.js"
+      "import": "./lib/api/index.js"
     },
     "./methods": {
       "types": "./lib/methods/index.d.ts",
-      "default": "./lib/methods/index.js"
+      "import": "./lib/methods/index.js"
     },
     "./methods/*": {
       "types": "./lib/methods/*.d.ts",
-      "default": "./lib/methods/*.js"
+      "import": "./lib/methods/*.js"
+    },
+    "./types": {
+      "types": "./lib/types.d.ts",
+      "import": "./lib/types.js"
     }
   },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "lib/index.d.ts"
+      ],
+      "api": [
+        "lib/api/index.d.ts"
+      ],
+      "methods": [
+        "lib/methods/index.d.ts"
+      ],
+      "methods/*": [
+        "lib/methods/*.d.ts"
+      ],
+      "types": [
+        "lib/types.d.ts"
+      ]
+    }
+  },
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "devDependencies": {
     "@roots/bud-extensions": "workspace:sources/@roots/bud-extensions",
     "@roots/bud-terser": "workspace:sources/@roots/bud-terser",
