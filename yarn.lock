@@ -8036,8 +8036,11 @@ __metadata:
     "@types/node": 18.11.18
   peerDependencies:
     "@roots/bud": "*"
+    "@roots/bud-support": "*"
   peerDependenciesMeta:
     "@roots/bud":
+      optional: true
+    "@roots/bud-support":
       optional: true
   languageName: unknown
   linkType: soft
