@@ -29,43 +29,50 @@ export type Options = Plugin.BasePluginOptions & {
 @dependsOn([`@roots/bud-terser/css-minimizer`])
 @expose(`terser`)
 @options<Options>({
-  include: ({hooks}) => hooks.filter(`pattern.js`),
-  exclude: ({hooks}) => hooks.filter(`pattern.modules`),
   extractComments: false,
   parallel: true,
   terserOptions: {
-    compress: false,
+    compress: {
+      drop_console: false,
+      drop_debugger: true,
+    },
+    format: {
+      ascii_only: true,
+      comments: false,
+    },
     mangle: {
       safari10: true,
-    },
-    output: {
-      comments: false,
-      ascii_only: true,
     },
   },
 })
 @disabled
 export class BudTerser extends Extension<Options> {
   /**
-   * {@link Extension.configAfter}
+   * {@link Extension.buildBefore}
    */
   @bind
-  public override async configAfter(bud: Bud) {
-    if (!this.enabled) return
+  public override async buildBefore(bud: Bud) {
+    if (!this.enabled) {
+      this.logger.info(`minimizer disabled. skipping terser config.`)
+      return
+    }
 
-    const {default: Plugin} = await import(
-      `terser-webpack-plugin`
-    )
-    if (!Plugin) return
+    const Terser = await import(`terser-webpack-plugin`)
 
     if (bud.extensions.has(`@roots/bud-swc`)) {
-      this.set(`terserOptions.minify`, Plugin.swcMinify)
+      this.set(`minify`, Terser.swcMinify)
+    } else if (bud.extensions.has(`@roots/bud-esbuild`)) {
+      this.set(`minify`, Terser.esbuildMinify)
+    } else {
+      this.set(`minify`, Terser.terserMinify)
     }
 
     bud.hooks.on(`build.optimization.minimizer`, (minimizers = []) => {
       this.logger.info(`current minimizers:`, minimizers)
 
-      const instance = new Plugin(this.options)
+      minimizers = minimizers.filter(minimizer => minimizer !== `...`)
+
+      const instance = new Terser.default(this.options)
       this.logger.info(`terser instance`, instance)
 
       minimizers.push(instance)
@@ -89,7 +96,7 @@ export class BudTerser extends Extension<Options> {
    */
   @bind
   public dropComments(enable: boolean = true): this {
-    this.set(`terserOptions.output.comments`, enable)
+    this.set(`terserOptions.format.comments`, !enable)
     return this
   }
 
@@ -122,7 +129,7 @@ export class BudTerser extends Extension<Options> {
    */
   @bind
   public comments(comments: boolean = true): this {
-    this.set(`terserOptions.output.comments`, comments)
+    this.set(`terserOptions.format.comments`, comments)
     return this
   }
 
