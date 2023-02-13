@@ -53,7 +53,9 @@ export class BudTerser extends Extension<Options> {
   public override async buildBefore(bud: Bud) {
     if (!this.enabled) return
 
-    const {Plugin} = await import(`@roots/bud-support/terser-webpack-plugin`)
+    const {Plugin} = await import(
+      `@roots/bud-support/terser-webpack-plugin`
+    )
     if (!Plugin) return
 
     if (bud.extensions.has(`@roots/bud-swc`)) {

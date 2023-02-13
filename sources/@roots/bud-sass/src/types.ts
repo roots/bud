@@ -16,6 +16,7 @@ declare module '@roots/bud-framework' {
       registerGlobal: BudSass[`registerGlobal`]
     }
   }
+
   interface Modules {
     '@roots/bud-sass': Bud[`sass`]
     '@roots/bud-sass/resolve-url': BudResolveUrl

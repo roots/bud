@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-solid",
   "version": "0.0.0",
-  "description": "solid-js support for @roots/bud projects.",
+  "description": "solid-js support for @roots/bud projects",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -34,7 +34,6 @@
   },
   "keywords": [
     "bud",
-    "bud-extension",
     "solid-js"
   ],
   "engines": {
@@ -46,22 +45,21 @@
     "src"
   ],
   "type": "module",
-  "module": "./lib/index.js",
-  "types": "./lib/index.d.ts",
   "exports": {
-    ".": "./lib/index.js",
-    "./extension": "./lib/extension.js"
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    }
   },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.d.ts"
-      ],
-      "extension": [
-        "./lib/extension.d.ts"
       ]
     }
   },
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "devDependencies": {
     "@babel/core": "7.20.7",
     "@roots/bud": "workspace:sources/@roots/bud",
