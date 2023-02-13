@@ -53,7 +53,9 @@ describe(`@roots/bud-terser`, () => {
 
   it(`bud.terser.dropDebugger`, async () => {
     bud.terser.dropDebugger()
-    expect(bud.terser.options.terserOptions.compress.drop_debugger).toBe(true)
+    expect(bud.terser.options.terserOptions.compress.drop_debugger).toBe(
+      true,
+    )
   })
 
   it(`bud.terser.dropConsole`, async () => {
