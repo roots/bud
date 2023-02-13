@@ -48,7 +48,7 @@ export interface Service extends BaseService {
 
   remove<K extends keyof Modules & string>(key: K): this
 
-  set<K extends keyof Modules & string>(value: Modules[K]): this
+  set(value: Extension): this
 
   /**
    * Add an extension
@@ -81,7 +81,7 @@ export interface Service extends BaseService {
   ): Promise<this>
 
   runDependencies<K extends `${keyof Modules & string}`>(
-    extension: Modules[K],
+    extension: Extension | K,
     methodName: LifecycleMethods,
   ): Promise<void>
 

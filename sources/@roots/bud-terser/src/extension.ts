@@ -23,13 +23,7 @@ export type Options = Plugin.BasePluginOptions & {
 }
 
 /**
- * Terser extension
- *
- * @public
- * @decorator `@label`
- * @decorator `@expose`
- * @decorator `@options`
- * @decorator `@disabled`
+ * Terser configuration
  */
 @label(`@roots/bud-terser`)
 @dependsOn([`@roots/bud-terser/css-minimizer`])
@@ -53,20 +47,7 @@ export type Options = Plugin.BasePluginOptions & {
 @disabled
 export class BudTerser extends Extension<Options> {
   /**
-   * Terser options getter/setter
-   */
-  public get terserOptions() {
-    return this.getOption(`terserOptions`) ?? {}
-  }
-  public set terserOptions(terserOptions: Options['terserOptions']) {
-    this.setOption(`terserOptions`, terserOptions)
-  }
-
-  /**
    * `buildBefore` callback
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public override async buildBefore(bud: Bud) {
@@ -81,129 +62,120 @@ export class BudTerser extends Extension<Options> {
       )
     ) {
       const {swcMinify} = await this.import(`terser-webpack-plugin`)
-      this.setMinifier(swcMinify)
+      this.set(`terserOptions.minify`, swcMinify)
     }
 
     bud.hooks.on(`build.optimization.minimizer`, (minimizers = []) => {
-      this.logger.log(`current minimizers:`, minimizers)
+      this.logger.info(`current minimizers:`, minimizers)
+
       const terserMinimizerInstance = new terser(this.options)
-      this.logger.log(`registering terser`, terserMinimizerInstance)
-      this.logger.log(`with options`, this.options)
+      this.logger.info(`terser instance`, terserMinimizerInstance)
 
       minimizers.push(terserMinimizerInstance)
       this.logger.success(`terser added to minimizers`, minimizers)
+
       return minimizers
     })
   }
 
   /**
-   * Set minify implementation
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public setMinifier(minify: any): this {
-    this.terserOptions = {...this.terserOptions, minify}
-    return this
-  }
-
-  /**
    * Drop console
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public dropConsole(enable: boolean = true): this {
-    this.terserOptions = {
-      ...this.terserOptions,
-      compress: {
-        ...(this.terserOptions.compress ?? {}),
-        drop_console: enable,
-      },
-    }
-
+    this.set(`terserOptions.compress.drop_console`, enable)
     return this
   }
 
   /**
    * Drop comments
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public dropComments(enable: boolean = true): this {
-    this.comments(enable === false)
-
-    return this
-  }
-
-  /**
-   * Output comments
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public comments(comments: boolean = true): this {
-    this.terserOptions = {
-      ...this.terserOptions,
-      output: {
-        ...(this.terserOptions.output ?? {}),
-        comments,
-      },
-    }
-
-    return this
-  }
-
-  /**
-   * Output debugger statements
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public debugger(enable: boolean = true): this {
-    this.terserOptions = {
-      ...this.terserOptions,
-      output: {
-        ...(this.terserOptions.output ?? {}),
-        debugger: enable,
-      },
-    }
-
+    this.set(`terserOptions.output.comments`, enable)
     return this
   }
 
   /**
    * Drop debugger statements
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public dropDebugger(enable: boolean = true): this {
-    this.debugger(enable === false)
-
+    this.set(`terserOptions.compress.drop_debugger`, enable)
     return this
   }
 
   /**
    * Mangle output
+   * @deprecated Use {@link BudTerser.set} instead
    *
-   * @public
-   * @decorator `@bind`
+   * @example
+   * ```js
+   * bud.terser.set(`terserOptions.mangle`, {})
+   * ```
    */
   @bind
   public mangle(mangle: Options['terserOptions']['mangle']): this {
-    this.terserOptions = {
-      ...this.terserOptions,
-      mangle,
-    }
-
+    this.set(`terserOptions.mangle`, mangle)
     return this
+  }
+
+  /**
+   * @deprecated Use {@link BudTerser.dropComments} instead
+   */
+  @bind
+  public comments(comments: boolean = true): this {
+    this.set(`terserOptions.output.comments`, comments)
+    return this
+  }
+
+  /**
+   * @deprecated Use {@link BudTerser.dropDebugger} instead
+   */
+  @bind
+  public debugger(enable: boolean = true): this {
+    this.set(`terserOptions.compress.drop_debugger`, enable)
+    return this
+  }
+
+  /**
+   * @deprecated Use {@link BudTerser.set} instead
+   *
+   * @example
+   * ```js
+   * bud.terser.set(`terserOptions.minify`, () => {})
+   * ```
+   */
+  @bind
+  public setMinifier(minify: any): this {
+    this.set(`terserOptions.minify`, minify)
+    return this
+  }
+
+  /**
+   * Terser options getter/setter
+   *
+   * @deprecated Use {@link BudTerser.set} and {@link BudTerser.get} instead
+   *
+   * @example
+   * ```js
+   * bud.terser.set('terserOptions', {})
+   * ```
+   *
+   * @example
+   * ```js
+   * bud.terser.set('terserOptions.compress', true)
+   * ```
+   *
+   * @example
+   * ```js
+   * bud.terser.get('terserOptions')
+   * ```
+   */
+  public get terserOptions() {
+    return this.get(`terserOptions`) ?? {}
+  }
+  public set terserOptions(terserOptions: Options['terserOptions']) {
+    this.set(`terserOptions`, terserOptions)
   }
 }

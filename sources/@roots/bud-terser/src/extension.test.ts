@@ -48,12 +48,12 @@ describe(`@roots/bud-terser`, () => {
 
   it(`bud.terser.dropComments`, async () => {
     bud.terser.dropComments()
-    expect(bud.terser.options.terserOptions.output.comments).toBe(false)
+    expect(bud.terser.options.terserOptions.output.comments).toBe(true)
   })
 
   it(`bud.terser.dropDebugger`, async () => {
     bud.terser.dropDebugger()
-    expect(bud.terser.options.terserOptions.output.debugger).toBe(false)
+    expect(bud.terser.options.terserOptions.compress.drop_debugger).toBe(true)
   })
 
   it(`bud.terser.dropConsole`, async () => {

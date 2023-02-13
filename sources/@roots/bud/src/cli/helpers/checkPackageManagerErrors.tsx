@@ -1,4 +1,4 @@
-import type {Bud} from '@roots/bud'
+import type {Bud} from '@roots/bud-framework'
 import React from '@roots/bud-support/react'
 
 import {Error} from '../components/Error.js'

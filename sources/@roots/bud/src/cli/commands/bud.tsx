@@ -1,8 +1,8 @@
-import {Bud} from '@roots/bud'
 import {checkDependencies} from '@roots/bud/cli/helpers/checkDependencies'
 import {checkPackageManagerErrors} from '@roots/bud/cli/helpers/checkPackageManagerErrors'
 import {isInternalDevelopmentEnv} from '@roots/bud/cli/helpers/isInternalDevelopmentEnv'
 import {isset} from '@roots/bud/cli/helpers/isset'
+import {Bud} from '@roots/bud-framework'
 import type {
   CommandContext,
   Context,
@@ -405,7 +405,7 @@ export default class BudCommand extends Command<CommandContext> {
      */
     const override = (override: (bud: Bud) => void) =>
       bud.hasChildren
-        ? Object.values(bud.children).map(override)
+        ? Object.values(bud.children).map(child => override(child))
         : override(bud)
 
     if (isset(args.manifest)) {

@@ -10,16 +10,9 @@ import type {
   BasePluginOptions,
   Plugin,
 } from '@roots/bud-support/css-minimizer-webpack-plugin'
-import type {WebpackPluginInstance} from '@roots/bud-support/webpack'
 
 /**
- * Terser extension
- *
- * @public
- * @decorator `@label`
- * @decorator `@expose`
- * @decorator `@options`
- * @decorator `@disabled`
+ * Terser minimize css
  */
 @label(`@roots/bud-terser/css-minimizer`)
 @expose(`minimizeCss`)
@@ -50,7 +43,7 @@ export class BudMinimizeCss extends Extension<BasePluginOptions, Plugin> {
 
     hooks.on(`build.optimization.minimizer`, (minimizer = []) => {
       minimizer.push(
-        new Plugin(this.options) as unknown as WebpackPluginInstance,
+        new Plugin(this.options),
       )
       return minimizer
     })

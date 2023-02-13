@@ -32,14 +32,15 @@ export interface Options {
    * JS settings
    */
   js: {
-    loader: 'jsx' | 'jsx'
+    loader: `jsx` | `js`
     target: string
   }
+
   /**
    *TS settings
    */
   ts: {
-    loader: 'tsx' | 'ts'
+    loader: `tsx` | `ts`
     target: string
     tsconfigRaw: Record<string, any>
   }
@@ -80,8 +81,9 @@ export default class BudEsbuild extends Extension<Options> {
    */
   @bind
   public override async register(bud: Bud) {
-    bud.build
-      .setLoader(`esbuild`, await this.resolve(`esbuild-loader`))
+    bud.hooks
+      .on(`build.resolve.extensions`, ext => ext.add(`.ts`).add(`.tsx`))
+      .build.setLoader(`esbuild`, await this.resolve(`esbuild-loader`))
       .setItem(`esbuild-js`, {
         loader: `esbuild`,
         options: () => this.options.js,
@@ -90,16 +92,6 @@ export default class BudEsbuild extends Extension<Options> {
         loader: `esbuild`,
         options: () => this.options.ts,
       })
-
-    bud.hooks.on(`build.resolve.extensions`, ext =>
-      ext.add(`.ts`).add(`.tsx`),
-    )
-
-    bud.hooks.on(`build.optimization.minimizer`, minimizer => [
-      new ESBuildMinifyPlugin(
-        this.get(`minify`),
-      ),
-    ])
   }
 
   /**
@@ -111,19 +103,27 @@ export default class BudEsbuild extends Extension<Options> {
   }
 
   /**
-   * Use esbuild
+   * Use esbuild. This method is called automatically
+   * when the extension is booted. If you have multiple
+   * compilers installed you may need to call this manually.
    *
    * @example
-   *
+   * ```js
+   * bud.esbuild.use()
+   * ```
    */
   @bind
   public use(): Bud[`esbuild`] {
-    this.app.build.setRule(`ts`, {
-      test: ({hooks}) => hooks.filter(`pattern.ts`),
-      include: [({path}) => path(`@src`)],
-      use: [`esbuild-ts`],
-    })
-    .rules.js.setUse([`esbuild-js`])
+    this.app.hooks
+      .on(`build.optimization.minimizer`, minimizer => [
+        new ESBuildMinifyPlugin(this.get(`minify`)),
+      ])
+      .build.setRule(`ts`, {
+        test: ({hooks}) => hooks.filter(`pattern.ts`),
+        include: [({path}) => path(`@src`)],
+        use: [`esbuild-ts`],
+      })
+      .rules.js.setUse([`esbuild-js`])
 
     return this
   }

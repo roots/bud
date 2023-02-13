@@ -1,4 +1,4 @@
-import type {Bud} from '@roots/bud'
+import type {Bud} from '@roots/bud-framework'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 
 export const isLockConflict = (bud: Bud) =>

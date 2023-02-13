@@ -1,5 +1,5 @@
-import type {Bud} from '@roots/bud'
 import {dry} from '@roots/bud/cli/decorators'
+import type {Bud} from '@roots/bud-framework'
 import {bind} from '@roots/bud-framework/extension/decorators'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {highlight} from '@roots/bud-support/highlight'

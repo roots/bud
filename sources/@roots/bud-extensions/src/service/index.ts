@@ -1,11 +1,7 @@
 import {randomUUID} from 'node:crypto'
 
 import type {Bud, Modules} from '@roots/bud-framework'
-import {
-  ApplyPlugin,
-  Extension,
-  ExtensionLiteral,
-} from '@roots/bud-framework/extension'
+import {ApplyPlugin, Extension} from '@roots/bud-framework/extension'
 import {Service} from '@roots/bud-framework/service'
 import type {Extensions as Contract} from '@roots/bud-framework/services'
 import {bind} from '@roots/bud-support/decorators'
@@ -209,7 +205,7 @@ export default class Extensions
   public async instantiate(
     source:
       | (new (...args: any[]) => Extension)
-      | ExtensionLiteral
+      | Extension
       | {apply: (...args: any[]) => any},
   ): Promise<Extension> {
     if (source instanceof Extension) return source
@@ -266,7 +262,7 @@ export default class Extensions
       return
     }
 
-    const extensionClass: ExtensionLiteral = fatalOnError
+    const extensionClass: Extension = fatalOnError
       ? await this.app.module.import(signifier)
       : await this.app.module.tryImport(signifier)
 
