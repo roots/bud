@@ -47,10 +47,10 @@ export type Options = Plugin.BasePluginOptions & {
 @disabled
 export class BudTerser extends Extension<Options> {
   /**
-   * {@link Extension.buildBefore}
+   * {@link Extension.configAfter}
    */
   @bind
-  public override async buildBefore(bud: Bud) {
+  public override async configAfter(bud: Bud) {
     if (!this.enabled) return
 
     const {Plugin} = await import(

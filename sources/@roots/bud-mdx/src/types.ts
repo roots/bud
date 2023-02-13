@@ -39,6 +39,6 @@ declare module '@roots/bud-framework' {
   }
 
   interface Modules {
-    '@roots/bud-mdx': BudMDX
+    '@roots/bud-mdx': Bud[`mdx`]
   }
 }
