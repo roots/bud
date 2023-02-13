@@ -83,7 +83,7 @@
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "postcss-scss": "^4.0.6",
     "resolve-url-loader": "5.0.0",
-    "sass": "^1.57.1",
+    "sass": "^1.58.0",
     "sass-loader": "^13.2.0",
     "stylelint-config-recommended-scss": "^8.0.0",
     "stylelint-scss": "^4.3.0"
