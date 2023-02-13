@@ -1,10 +1,10 @@
 import {Bud, Extension} from '@roots/bud-framework'
 import {
   bind,
+  expose,
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
-import type {WebpackPluginInstance} from '@roots/bud-support/webpack'
 import {ESBuildMinifyPlugin} from 'esbuild-loader'
 
 /**
@@ -13,12 +13,10 @@ import {ESBuildMinifyPlugin} from 'esbuild-loader'
 export interface Options {
   /**
    * Minify settings
-   * @public
    */
   minify: {
     /**
      * Esbuild should minify CSS
-     * @public
      */
     css: boolean
     /**
@@ -55,6 +53,7 @@ export interface Options {
  * @decorator `@options`
  */
 @label(`@roots/bud-esbuild`)
+@expose(`esbuild`)
 @options<Options>({
   minify: app => ({
     css: true,
@@ -77,18 +76,12 @@ export interface Options {
 })
 export default class BudEsbuild extends Extension<Options> {
   /**
-   * `buildBefore` callback
-   *
-   * @remarks
-   *
-   * @public
+   * {@link Extension.register}
    */
   @bind
-  public override async buildBefore(bud: Bud) {
-    const loader = await this.resolve(`esbuild-loader`)
-
+  public override async register(bud: Bud) {
     bud.build
-      .setLoader(`esbuild`, loader)
+      .setLoader(`esbuild`, await this.resolve(`esbuild-loader`))
       .setItem(`esbuild-js`, {
         loader: `esbuild`,
         options: () => this.options.js,
@@ -97,12 +90,6 @@ export default class BudEsbuild extends Extension<Options> {
         loader: `esbuild`,
         options: () => this.options.ts,
       })
-      .setRule(`ts`, {
-        test: ({hooks}) => hooks.filter(`pattern.ts`),
-        include: [({path}) => path(`@src`)],
-        use: [`esbuild-ts`],
-      })
-      .rules.js.setUse([`esbuild-js`])
 
     bud.hooks.on(`build.resolve.extensions`, ext =>
       ext.add(`.ts`).add(`.tsx`),
@@ -110,8 +97,34 @@ export default class BudEsbuild extends Extension<Options> {
 
     bud.hooks.on(`build.optimization.minimizer`, minimizer => [
       new ESBuildMinifyPlugin(
-        this.options.minify,
-      ) as unknown as WebpackPluginInstance,
+        this.get(`minify`),
+      ),
     ])
+  }
+
+  /**
+   * {@link Extension.boot}
+   */
+  @bind
+  public override async boot(bud: Bud) {
+    this.use()
+  }
+
+  /**
+   * Use esbuild
+   *
+   * @example
+   *
+   */
+  @bind
+  public use(): Bud[`esbuild`] {
+    this.app.build.setRule(`ts`, {
+      test: ({hooks}) => hooks.filter(`pattern.ts`),
+      include: [({path}) => path(`@src`)],
+      use: [`esbuild-ts`],
+    })
+    .rules.js.setUse([`esbuild-js`])
+
+    return this
   }
 }

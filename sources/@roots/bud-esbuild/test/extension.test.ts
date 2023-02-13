@@ -1,13 +1,13 @@
-import {factory} from '@repo/test-kit/bud'
+import {Bud, factory} from '@repo/test-kit/bud'
 import esbuild from '@roots/bud-esbuild'
 import isArray from 'lodash/isArray.js'
 import isUndefined from 'lodash/isUndefined.js'
 import {beforeEach, describe, expect, it} from 'vitest'
 
-import Extension from './index.js'
+import Extension from '../src/index.js'
 
 describe(`@roots/bud-esbuild`, () => {
-  let bud
+  let bud: Bud
   let extension: any
 
   beforeEach(async () => {
@@ -15,17 +15,12 @@ describe(`@roots/bud-esbuild`, () => {
 
     await bud.extensions.add(esbuild)
     extension = bud.extensions.get(`@roots/bud-esbuild`)
-    await extension.buildBefore(bud)
+    await extension.register(bud)
+    await extension.boot(bud)
   })
 
   it(`should be constructable`, () => {
     expect(Extension).toBeInstanceOf(Function)
-  })
-
-  it(`has name prop`, () => {
-    expect(bud.extensions.get(`@roots/bud-esbuild`).label).toBe(
-      `@roots/bud-esbuild`,
-    )
   })
 
   it(`has label prop`, () => {
@@ -127,13 +122,11 @@ describe(`@roots/bud-esbuild`, () => {
   })
 
   describe(`does its job`, () => {
-    let bud
-    let extension: any
+    let bud: Bud
 
     beforeEach(async () => {
       bud = await factory()
       await bud.extensions.add(esbuild)
-      extension = bud.extensions.get(`@roots/bud-esbuild`)
       await bud.build.make()
     })
 
