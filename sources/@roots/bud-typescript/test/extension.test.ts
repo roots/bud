@@ -1,7 +1,7 @@
 import {factory} from '@repo/test-kit/bud'
 import {describe, expect, it} from 'vitest'
 
-import Extension from '../src/extension.js'
+import Extension from '../src/index.js'
 
 describe(`@roots/bud-typescript`, () => {
   it(`is exposed`, async () => {
