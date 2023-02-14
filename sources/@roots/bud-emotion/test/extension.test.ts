@@ -1,6 +1,6 @@
 import {describe, expect, it, test} from 'vitest'
 
-import {BudEmotion} from './extension.js'
+import {BudEmotion} from '../src/extension.js'
 
 describe(`@roots/bud-emotion`, () => {
   it(`should be constructable`, () => {

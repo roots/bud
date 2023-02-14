@@ -7187,6 +7187,8 @@ __metadata:
     "@roots/bud-swc": "*"
     "@swc/plugin-emotion": "*"
   peerDependenciesMeta:
+    "@babel/core":
+      optional: true
     "@emotion/babel-plugin":
       optional: true
     "@emotion/css":

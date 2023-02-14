@@ -1,13 +1,6 @@
 // Vitest Snapshot v1
 
-exports[`vue (legacy) > npm > manifest.json > matches snapshot 1`] = `
-{
-  "index.html": "index.html",
-  "main.js": "js/main.js",
-}
-`;
-
-exports[`vue (legacy) > yarn > manifest.json > matches snapshot 1`] = `
+exports[`examples/vue-legacy > should compile js and css as expected 1`] = `
 {
   "index.html": "index.html",
   "main.js": "js/main.js",

@@ -1,7 +1,16 @@
 {
   "name": "@examples/sass",
   "private": true,
-  "devDependencies": {
+  "type": "module",
+  "bud": {
+    "extensions": {
+      "allowlist": [
+        "@roots/bud-postcss",
+        "@roots/bud-sass"
+      ]
+    }
+  },
+  "dependencies": {
     "@roots/bud": "latest",
     "@roots/bud-postcss": "latest",
     "@roots/bud-sass": "latest"
