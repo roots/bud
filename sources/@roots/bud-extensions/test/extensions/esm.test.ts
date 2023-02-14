@@ -60,7 +60,6 @@ describe(`@roots/bud-extensions/esm`, () => {
 
   it(`should call hooks from buildBefore`, async () => {
     let bud = await factory()
-
     let instance = new extensionConstructor(bud)
 
     instance.enable()
@@ -96,9 +95,7 @@ describe(`@roots/bud-extensions/esm`, () => {
 
   it(`should not call externals when imports is undefined in package.json`, async () => {
     let bud = await factory()
-    bud.context.manifest = {
-      imports: undefined,
-    }
+    bud.context.manifest = {}
 
     const externalsSpy = vi.spyOn(
       bud.hooks,

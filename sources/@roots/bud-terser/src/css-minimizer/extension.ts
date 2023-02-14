@@ -13,7 +13,7 @@ import type {
 } from '@roots/bud-support/css-minimizer-webpack-plugin'
 
 /**
- * Terser minimize css
+ * Terser css minimizer configuration
  */
 @label(`@roots/bud-terser/css-minimizer`)
 @expose(`minimizeCss`)

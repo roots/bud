@@ -7,24 +7,13 @@ import {
 } from '@roots/bud-framework/extension/decorators'
 
 /**
- * Register `react-refresh-typescript` transform with TSC compiler
- *
- * @remarks
- * Used when `@roots/bud-typescript` is being used with babel loader
- * disabled
- *
- * @public
- * @decorator `@label`
- * @decorator `@development`
+ * Typescript react-refresh configuration
  */
 @label(`@roots/bud-react/typescript-refresh`)
 @development
 export default class BudTypeScriptRefresh extends Extension {
   /**
-   * `buildBefore` callback
-   *
-   * @public
-   * @decorator `@bind`
+   * {@link Extension.buildBefore}
    */
   @bind
   public override async buildBefore(bud: Bud) {
@@ -33,9 +22,6 @@ export default class BudTypeScriptRefresh extends Extension {
 
   /**
    * Register tsc react-refresh transform
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public async registerTransform(bud: Bud) {

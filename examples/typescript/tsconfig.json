@@ -1,5 +1,5 @@
 {
-  "extends": "@roots/bud-typescript/tsconfig/tsconfig.json",
+  "extends": "@roots/bud/config/tsconfig.json",
   "compilerOptions": {
     "module": "esnext",
     "target": "esnext",

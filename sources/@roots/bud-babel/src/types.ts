@@ -52,11 +52,22 @@ export interface Registry {
 
 declare module '@roots/bud-framework' {
   interface Bud {
-    babel: BabelExtension
+    babel: {
+      plugins: BabelExtension[`plugins`]
+      presets: BabelExtension[`presets`]
+      setPlugin: BabelExtension[`setPlugin`]
+      setPreset: BabelExtension[`setPreset`]
+      unsetPlugin: BabelExtension[`unsetPlugin`]
+      unsetPreset: BabelExtension[`unsetPreset`]
+      setPlugins: BabelExtension[`setPlugins`]
+      setPresets: BabelExtension[`setPresets`]
+      setPluginOptions: BabelExtension[`setPluginOptions`]
+      setPresetOptions: BabelExtension[`setPresetOptions`]
+    }
   }
 
   interface Modules {
-    '@roots/bud-babel': BabelExtension
+    '@roots/bud-babel': Bud[`babel`]
   }
 
   interface Loaders {

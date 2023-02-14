@@ -272,7 +272,6 @@ export default class Cdn extends Extension<Options, null> {
 
     for (const [ident, url] of this.sources.entries()) {
       await bud.extensions.add({
-        label: `bud-cdn-${ident}`,
         make: async () =>
           new NormalModuleReplacementPlugin(
             new RegExp(`^${ident}:`),
@@ -286,13 +285,12 @@ export default class Cdn extends Extension<Options, null> {
         (bud.context.manifest?.bud?.imports?.[ident] ?? []).map(
           async ([signifier, remote]) => {
             await bud.extensions.add({
-              label: `bud-cdn-${ident}-${remote}`,
               make: async () =>
                 new NormalModuleReplacementPlugin(
                   new RegExp(`^${signifier}`),
                   `${url}${remote}`,
                 ),
-            } as any)
+            })
           },
         ),
       )

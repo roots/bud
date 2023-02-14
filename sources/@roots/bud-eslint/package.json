@@ -45,10 +45,6 @@
       "types": "./lib/index.d.ts",
       "import": "./lib/index.js"
     },
-    "./extension": {
-      "types": "./lib/extension.d.ts",
-      "import": "./lib/extension.js"
-    },
     "./commands": {
       "types": "./lib/bud/commands.d.ts",
       "import": "./lib/bud/commands.js"
@@ -58,9 +54,6 @@
     "*": {
       ".": [
         "./lib/index.d.ts"
-      ],
-      "extension": [
-        "./lib/extension.d.ts"
       ],
       "commands": [
         "./lib/bud/commands.d.ts"
