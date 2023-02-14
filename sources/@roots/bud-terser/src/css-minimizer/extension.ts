@@ -1,10 +1,11 @@
 import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
-  disabled,
+  bind,
   expose,
   label,
   options,
+  production,
 } from '@roots/bud-framework/extension/decorators'
 import type {
   BasePluginOptions,
@@ -28,14 +29,12 @@ import type {
     ],
   },
 })
-@disabled
+@production
 export class BudMinimizeCss extends Extension<BasePluginOptions, Plugin> {
   /**
-   * `buildBefore` callback
-   *
-   * @public
-   * @decorator `@bind`
+   * {@link Extension.buildBefore}
    */
+  @bind
   public override async buildBefore({hooks}: Bud) {
     const {Plugin} = await import(
       `@roots/bud-support/css-minimizer-webpack-plugin`

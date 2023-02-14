@@ -410,7 +410,7 @@ export default class BudCommand extends Command<CommandContext> {
 
     if (isset(args.manifest)) {
       bud.log(`overriding manifest setting from cli`)
-      override(bud => bud.hooks.on(`feature.manifest`, args.manifest))
+      override(bud => bud.manifest.enable(args.manifest))
     }
 
     if (isset(args.cache)) {

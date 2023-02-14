@@ -3,10 +3,10 @@ import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
   dependsOn,
-  disabled,
   expose,
   label,
   options,
+  production,
 } from '@roots/bud-framework/extension/decorators'
 import type {Plugin} from '@roots/bud-support/terser-webpack-plugin'
 
@@ -46,7 +46,7 @@ export type Options = Plugin.BasePluginOptions & {
     },
   },
 })
-@disabled
+@production
 export class BudTerser extends Extension<Options> {
   /**
    * {@link Extension.buildBefore}

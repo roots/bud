@@ -2,7 +2,7 @@ import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
-  dependsOn,
+  dependsOnOptional,
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
@@ -11,7 +11,7 @@ import {
  * MDX configuration
  */
 @label(`@roots/bud-mdx`)
-@dependsOn([
+@dependsOnOptional([
   `@roots/bud-babel`,
   `@roots/bud-esbuild`,
   `@roots/bud-swc`,

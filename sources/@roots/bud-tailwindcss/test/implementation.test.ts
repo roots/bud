@@ -8,10 +8,22 @@ describe(`@tests/tailwind-implementation`, () => {
   let child: ExecaReturnValue
 
   beforeAll(async () => {
-    await execa(`yarn`, [`bud`, `clean`, `--cwd`, `sources/@roots/bud-tailwindcss/test/implementation`])
+    await execa(`yarn`, [
+      `bud`,
+      `clean`,
+      `--cwd`,
+      `sources/@roots/bud-tailwindcss/test/implementation`,
+    ])
 
     try {
-      child = await execa(`yarn`, [`bud`, `build`, `--no-cache`, `--debug`, `--cwd`, `sources/@roots/bud-tailwindcss/test/implementation`])
+      child = await execa(`yarn`, [
+        `bud`,
+        `build`,
+        `--no-cache`,
+        `--debug`,
+        `--cwd`,
+        `sources/@roots/bud-tailwindcss/test/implementation`,
+      ])
     } catch (error) {}
   }, 30000)
 
@@ -19,16 +31,30 @@ describe(`@tests/tailwind-implementation`, () => {
     expect(
       await fs.existsAsync(
         join(
-          paths.sources, `@roots`, `bud-tailwindcss`, `test`, `implementation`, `dist`, `css`, `main.css`
+          paths.sources,
+          `@roots`,
+          `bud-tailwindcss`,
+          `test`,
+          `implementation`,
+          `dist`,
+          `css`,
+          `main.css`,
         ),
       ),
     ).toBe(`file`)
     expect(
       await fs.readAsync(
-       join(
-        paths.sources, `@roots`, `bud-tailwindcss`, `test`, `implementation`, `dist`, `css`, `main.css`
-       )
-      )
-    ).toEqual(expect.stringContaining(`.bg-primary {`))
+        join(
+          paths.sources,
+          `@roots`,
+          `bud-tailwindcss`,
+          `test`,
+          `implementation`,
+          `dist`,
+          `css`,
+          `main.css`,
+        ),
+      ),
+    ).toEqual(expect.stringContaining(`.bg-primary{`))
   })
 })

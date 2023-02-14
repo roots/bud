@@ -1,7 +1,7 @@
 import {join} from 'node:path'
 import {paths} from '@repo/constants'
 import execa from '@roots/bud-support/execa'
-import {beforeAll, describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vitest'
 import {readFile} from '@roots/bud-support/fs'
 
 describe('issue-2088', () => {
@@ -10,7 +10,7 @@ describe('issue-2088', () => {
       cwd: join(paths.tests, `reproductions`, `issue-2088`),
     })
 
-    await execa(`yarn`, [`bud`, `build`, `--force`], {
+    await execa(`yarn`, [`bud`, `build`, `--force`, `--minimize`], {
       cwd: join(paths.tests, `reproductions`, `issue-2088`),
     })
 
