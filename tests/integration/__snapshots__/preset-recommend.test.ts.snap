@@ -1,6 +1,3 @@
 // Vitest Snapshot v1
 
-exports[`examples/preset-recommend > should compile js and css as expected 1`] = `
-"h2 .class{margin-top:5rem}
-"
-`;
+exports[`examples/preset-recommend > should compile js and css as expected 1`] = `"h2 .class{margin-top:5rem}"`;
