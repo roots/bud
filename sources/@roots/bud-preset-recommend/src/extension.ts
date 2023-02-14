@@ -17,7 +17,12 @@ export default class BudPresetRecommend extends Extension {
    */
   @bind
   public override async register(bud: Bud) {
-    const compilers = [`@roots/bud-swc`, `@roots/bud-typescript`, `@roots/bud-esbuild`, `@roots/bud-babel`]
+    const compilers = [
+      `@roots/bud-swc`,
+      `@roots/bud-typescript`,
+      `@roots/bud-esbuild`,
+      `@roots/bud-babel`,
+    ]
     if (compilers.some(compiler => bud.extensions.has(compiler))) {
       return
     }
