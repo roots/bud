@@ -42,7 +42,8 @@
     "config",
     "docs",
     "lib",
-    "src"
+    "src",
+    "tsconfig"
   ],
   "type": "module",
   "exports": {
