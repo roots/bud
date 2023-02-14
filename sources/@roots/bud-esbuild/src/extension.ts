@@ -98,14 +98,17 @@ export default class BudEsbuild extends Extension<Options> {
    * {@link Extension.boot}
    */
   @bind
-  public override async boot(bud: Bud) {
+  public override async boot(_bud: Bud) {
     this.use()
   }
 
   /**
-   * Use esbuild. This method is called automatically
-   * when the extension is booted. If you have multiple
-   * compilers installed you may need to call this manually.
+   * Use esbuild
+   *
+   * @remarks
+   * This method is called automatically when the extension is booted.
+   *
+   * If you have multiple compilers installed you may need to call this manually.
    *
    * @example
    * ```js
