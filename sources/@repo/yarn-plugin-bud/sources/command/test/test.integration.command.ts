@@ -59,7 +59,9 @@ export class TestIntegration extends Command {
           )}`,
         ),
       )
-    } catch (e) {}
+    } catch (e) {
+      await this.$(`yarn @bud registry stop`)
+    }
 
     await this.$(`yarn @bud registry stop`)
   }

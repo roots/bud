@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import {paths} from '@repo/constants'
 import {CommandClass, Option} from 'clipanion'
+import {ensureDir, ensureFile, remove} from 'fs-extra'
 import {join} from 'path/posix'
 
 import {Command} from '../base.command'
@@ -49,13 +50,23 @@ export class TestE2E extends Command {
    * @internal
    */
   public async execute() {
-    await this.$(
-      this.withPassthrough(
-        `yarn vitest --config ${join(
-          paths.root,
-          `config/vitest.e2e.config.ts`,
-        )}`,
-      ),
-    )
+    await this.$(`yarn @bud registry start`)
+    await this.$(`yarn @bud registry clean`)
+    await this.$(`yarn @bud release --tag latest`)
+
+    try {
+      await this.$(
+        this.withPassthrough(
+          `yarn vitest --config ${join(
+            paths.root,
+            `config/vitest.e2e.config.ts`,
+          )}`,
+        ),
+      )
+    } catch (e) {
+      await this.$(`yarn @bud registry stop`)
+    }
+
+    await this.$(`yarn @bud registry stop`)
   }
 }
