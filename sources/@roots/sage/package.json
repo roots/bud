@@ -97,12 +97,8 @@
     "./config/stylelint": {
       "default": "./config/stylelint.cjs"
     },
-    "./config/jsconfig.json": {
-      "default": "./config/jsconfig.json"
-    },
-    "./config/tsconfig.json": {
-      "default": "./config/tsconfig.json"
-    }
+    "./config/jsconfig.json": "./config/jsconfig.json",
+    "./config/tsconfig.json": "./config/tsconfig.json"
   },
   "typesVersions": {
     "*": {

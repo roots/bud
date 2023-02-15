@@ -83,6 +83,10 @@
       "types": "./lib/html-loader/index.d.cts",
       "default": "./lib/html-loader/index.cjs"
     },
+    "./ink-link": {
+      "types": "./lib/ink-link/index.d.ts",
+      "import": "./lib/ink-link/index.js"
+    },
     "./remark-loader": {
       "types": "./lib/remark-loader/index.d.cts",
       "default": "./lib/remark-loader/index.cjs"

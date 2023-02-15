@@ -133,6 +133,14 @@ const Compilation = ({
                       .filter(({assets}) => assets.length > 0)
                       .map((chunk: StatsChunkGroup, id: number) => (
                         <Ink.Box key={id} flexDirection="column">
+                          <Space>
+                            <Ink.Text dimColor>
+                              {` `}
+                              {VERT}
+                              {` `}
+                            </Ink.Text>
+                          </Space>
+
                           <ChunkGroup
                             indent={[true]}
                             {...chunk}
@@ -142,56 +150,58 @@ const Compilation = ({
                         </Ink.Box>
                       ))
                   : null}
-                <Space>
-                  <Ink.Text> </Ink.Text>
-                </Space>
               </Ink.Box>
             ) : null}
           </Ink.Box>
 
           {assets?.length > 0 ? (
-            <Ink.Box flexDirection="column">
-              <Title>
-                <Ink.Text
-                  color={colorFromStats(compilation)}
-                  dimColor={displayAssets === false}
-                >
-                  <Ink.Text underline>a</Ink.Text>ssets
-                </Ink.Text>
-              </Title>
+            <>
+              <Space>
+                <Ink.Text> </Ink.Text>
+              </Space>
 
-              {displayAssets ? (
-                <>
-                  <Chunk assets={assets} indent={[true]} />
+              <Ink.Box flexDirection="column">
+                <Title>
+                  <Ink.Text
+                    color={colorFromStats(compilation)}
+                    dimColor={displayAssets === false}
+                  >
+                    <Ink.Text underline>a</Ink.Text>ssets
+                  </Ink.Text>
+                </Title>
 
-                  <Space>
-                    <Ink.Text> </Ink.Text>
-                  </Space>
+                {displayAssets ? (
+                  <>
+                    <Chunk assets={assets} indent={[true]} />
 
-                  {truncatedAssets?.length > 0 && (
                     <Space>
-                      <Ink.Text dimColor>
-                        {` `}
-                        {figures.ellipsis}
-                        {` `}
-                        {truncatedAssets.length}
-                        {` `}
-                        additional asset(s) not shown
-                      </Ink.Text>
+                      <Ink.Text> </Ink.Text>
                     </Space>
-                  )}
-                </>
-              ) : null}
-            </Ink.Box>
-          ) : null}
 
-          <Space>
-            <Ink.Text> </Ink.Text>
-          </Space>
+                    {truncatedAssets?.length > 0 && (
+                      <Space>
+                        <Ink.Text dimColor>
+                          {` `}
+                          {figures.ellipsis}
+                          {` `}
+                          {truncatedAssets.length}
+                          {` `}
+                          additional asset(s) not shown
+                        </Ink.Text>
+                      </Space>
+                    )}
+                  </>
+                ) : null}
+              </Ink.Box>
+            </>
+          ) : null}
         </>
       )}
 
-      <Title final={true}>
+      <Space>
+        <Ink.Text> </Ink.Text>
+      </Space>
+      <Title final>
         <Ink.Text dimColor>
           compiled {compilation.modules?.length} modules in{` `}
           {duration(compilation.time) as string}

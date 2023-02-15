@@ -1,19 +1,29 @@
 import Ink from '@roots/bud-support/ink'
 import React from '@roots/bud-support/react'
 
+import {isWindows} from '../helpers/isWindows.js'
+import {WinError} from './WinError.js'
+
 export type Props = React.PropsWithChildren<{
-  label: string
+  name: string
   message?: React.ReactElement | string
+  stack?: React.ReactElement | string
 }>
 
-export const Error = ({children, label, message}: Props) => {
+export const Error = ({children, name, message, stack}: Props) => {
   return (
-    <Ink.Box flexDirection="column" marginY={1}>
+    <Ink.Box flexDirection="column" marginTop={1}>
       <Ink.Text backgroundColor="red" color="white">
-        {label}
+        {` `}
+        {name}
+        {` `}
       </Ink.Text>
 
       {children ? children : <Message>{message}</Message>}
+
+      {stack && <Message>{stack}</Message>}
+
+      {isWindows() && <WinError />}
     </Ink.Box>
   )
 }

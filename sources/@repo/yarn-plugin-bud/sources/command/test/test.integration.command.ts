@@ -8,21 +8,15 @@ import {Command} from '../base.command'
 
 /**
  * Run tests
- *
- * @internal
  */
 export class TestIntegration extends Command {
   /**
    * Command name
-   *
-   * @internal
    */
   public static label = `@bud test integration`
 
   /**
    * Command paths
-   *
-   * @internal
    */
   public static paths: CommandClass['paths'] = [
     [`@bud`, `test`, `integration`],
@@ -30,8 +24,6 @@ export class TestIntegration extends Command {
 
   /**
    * Command usage
-   *
-   * @internal
    */
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
@@ -41,29 +33,34 @@ export class TestIntegration extends Command {
 
   /**
    * Variadic arguments
-   *
-   * @internal
    */
   public passthrough = Option.Proxy({name: `jest passthrough options`})
 
   /**
    * Execute command
-   *
-   * @internal
    */
   public async execute() {
     await ensureFile(join(paths.root, `storage/yarn.lock`))
     await ensureDir(join(paths.root, `storage/mocks`))
     await remove(join(paths.root, `storage/mocks`))
+
     this.log(`integration tests directory cleaned`)
 
-    await this.$(
-      this.withPassthrough(
-        `yarn vitest --config ${join(
-          paths.root,
-          `config/vitest.integration.config.js`,
-        )}`,
-      ),
-    )
+    await this.$(`yarn @bud registry start`)
+    await this.$(`yarn @bud registry clean`)
+    await this.$(`yarn @bud release --tag latest`)
+
+    try {
+      await this.$(
+        this.withPassthrough(
+          `yarn vitest --config ${join(
+            paths.root,
+            `config/vitest.integration.config.js`,
+          )}`,
+        ),
+      )
+    } catch (e) {}
+
+    await this.$(`yarn @bud registry stop`)
   }
 }

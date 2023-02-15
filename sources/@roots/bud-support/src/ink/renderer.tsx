@@ -16,13 +16,11 @@ export class Renderer {
   @bind
   public async once(Element: React.ReactNode) {
     try {
-      this.instance = Ink.render(
+      this.render(
         <Ink.Static items={[Element]}>
           {(Item, i) => <Ink.Box key={i}>{Item}</Ink.Box>}
         </Ink.Static>,
-        {stdout: this.stdout},
       )
-      await this.cleanup()
     } catch (error) {
       return this.instance
     }
@@ -41,11 +39,8 @@ export class Renderer {
   @bind
   public async render(Element: React.ReactElement) {
     try {
-      if (this.instance) {
-        this.instance.rerender(Element)
-      } else {
-        this.instance = Ink.render(Element, {stdout: this.stdout})
-      }
+      if (this.instance) await this.cleanup()
+      this.instance = Ink.render(Element, {stdout: this.stdout})
       return this.instance
     } catch (error) {
       return this.instance

@@ -6,7 +6,7 @@
   ],
   "bud": {
     "extensions": {
-      "discovery": false
+      "discover": false
     }
   },
   "devDependencies": {

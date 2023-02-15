@@ -191,10 +191,8 @@
     "@roots/bud-server": "workspace:sources/@roots/bud-server",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@roots/bud-terser": "workspace:sources/@roots/bud-terser",
-    "browserslist": "4.21.4",
     "execa": "6.1.0",
-    "tslib": "2.4.1",
-    "update-browserslist-db": "1.0.10"
+    "tslib": "2.4.1"
   },
   "peerDependencies": {
     "@roots/browserslist-config": "*",
@@ -211,10 +209,8 @@
     "@roots/bud-server": "*",
     "@roots/bud-support": "*",
     "@roots/bud-terser": "*",
-    "browserslist": ">=4.21.4",
     "execa": ">=6.1.0",
-    "tslib": ">=2.4.0",
-    "update-browserslist-db": ">=1.0.10"
+    "tslib": ">=2.4.0"
   },
   "peerDependenciesMeta": {
     "@roots/browserslist-config": {
@@ -259,16 +255,10 @@
     "@roots/bud-terser": {
       "optional": true
     },
-    "browserslist": {
-      "optional": true
-    },
     "execa": {
       "optional": true
     },
     "tslib": {
-      "optional": true
-    },
-    "update-browserslist-db": {
       "optional": true
     }
   },

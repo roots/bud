@@ -16,7 +16,7 @@ const Messages = ({
   messages: StatsCompilation['errors'] | StatsCompilation['warnings']
   color: string
 }) => {
-  if (!messages) return null
+  if (!messages.length) return null
 
   return (
     <Ink.Box flexDirection="column">
@@ -31,7 +31,7 @@ const Messages = ({
           </Ink.Box>
 
           <Ink.Box flexDirection="column">
-            <Ink.Text>{message}</Ink.Text>
+            <Ink.Text>{`${chalk.dim(VERT)}\n${message.trim()}`}</Ink.Text>
             <Ink.Text dimColor>{chalk.dim(VERT)}</Ink.Text>
           </Ink.Box>
         </Ink.Box>

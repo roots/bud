@@ -36,31 +36,63 @@
   },
   "files": [
     "default.cjs",
-    "next.cjs",
-    "wordpress.cjs",
     "last-2-versions.cjs",
     "last-3-versions.cjs",
-    "scripts/"
+    "next.cjs",
+    "scripts",
+    "types.d.ts",
+    "wordpress.cjs"
   ],
+  "exports": {
+    ".": {
+      "require": "./default.cjs"
+    },
+    "./default": {
+      "require": "./default.cjs"
+    },
+    "./broad": {
+      "require": "./last-3-versions.cjs"
+    },
+    "./current": {
+      "require": "./last-2-versions.cjs"
+    },
+    "./next": {
+      "require": "./next.cjs"
+    },
+    "./wordpress": {
+      "require": "./wordpress.cjs"
+    }
+  },
   "main": "./index.cjs",
   "module": "./index.cjs",
   "types": "./types.d.ts",
-  "exports": {
-    ".": "./default.cjs",
-    "./default": "./default.cjs",
-    "./broad": "./last-3-versions.cjs",
-    "./current": "./last-2-versions.cjs",
-    "./next": "./next.cjs",
-    "./wordpress": "./wordpress.cjs"
-  },
   "devDependencies": {
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "@skypack/package-check": "0.2.2",
-    "execa": "6.1.0",
-    "fs-jetpack": "5.1.0"
+    "@skypack/package-check": "0.2.2"
   },
   "dependencies": {
-    "browserslist": "4.21.4"
+    "browserslist": ">=4.21.4",
+    "execa": "6.1.0",
+    "update-browserslist-db": ">=1.0.10"
+  },
+  "peerDependencies": {
+    "browserslist": ">=4.21.4",
+    "execa": "*",
+    "update-browserslist-db": "*"
+  },
+  "peerDependenciesMeta": {
+    "browserslist": {
+      "optional": true
+    },
+    "execa": {
+      "optional": true
+    },
+    "update-browserslist-db": {
+      "optional": true
+    }
+  },
+  "scripts": {
+    "postinstall": "node scripts/postinstall.mjs"
   },
   "volta": {
     "extends": "../../../package.json"

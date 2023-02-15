@@ -16,6 +16,7 @@ import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import * as t from '@roots/bud-support/typanion'
 
 import type {Notifier} from '../../notifier/index.js'
+import * as Display from '../components/Error.js'
 
 export type {BaseContext, CommandContext, Context}
 export {Option}
@@ -128,6 +129,9 @@ export default class BudCommand extends Command<CommandContext> {
       if (isString(value)) return new Error(value)
 
       if (value instanceof Object) {
+        if (`message` in value && isString(value.message))
+          return new Error(value.message)
+
         try {
           return new Error(JSON.stringify(value, null, 2))
         } catch (error) {
@@ -156,26 +160,14 @@ export default class BudCommand extends Command<CommandContext> {
     }
 
     try {
-      await this.renderer.instance?.waitUntilExit()
       await this.renderOnce(
-        <Ink.Box flexDirection="column" marginTop={1}>
-          <Ink.Box marginBottom={1}>
-            <Ink.Text backgroundColor="red" color="white">
-              {error.name}
-            </Ink.Text>
-          </Ink.Box>
-
-          <Ink.Box>
-            <Ink.Text>{error.message}</Ink.Text>
-          </Ink.Box>
-        </Ink.Box>,
+        <Display.Error {...error} />
       )
     } catch (error) {
       this.context.stderr.write(value.toString())
     }
 
     if (this.bud?.isProduction) {
-      // eslint-disable-next-line n/no-process-exit
       this.bud.close()
       this.renderer.cleanup()
       await this.renderer.instance?.waitUntilExit()
@@ -263,12 +255,10 @@ export default class BudCommand extends Command<CommandContext> {
   }
 
   public async healthcheck(command: BudCommand) {
-    try {
-      if (!isInternalDevelopmentEnv(command.bud)) {
-        checkPackageManagerErrors(command.bud)
-        await checkDependencies(command.bud)
-      }
-    } catch (error) {}
+    if (isInternalDevelopmentEnv(command.bud)) return
+
+    checkPackageManagerErrors(command.bud)
+    await checkDependencies(command.bud)
   }
 
   @bind
