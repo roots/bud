@@ -16,7 +16,7 @@ const Messages = ({
   messages: StatsCompilation['errors'] | StatsCompilation['warnings']
   color: string
 }) => {
-  if (!messages.length) return null
+  if (!messages?.length) return null
 
   return (
     <Ink.Box flexDirection="column">
