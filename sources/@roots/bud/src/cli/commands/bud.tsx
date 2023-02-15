@@ -160,9 +160,7 @@ export default class BudCommand extends Command<CommandContext> {
     }
 
     try {
-      await this.renderOnce(
-        <Display.Error {...error} />
-      )
+      await this.renderOnce(<Display.Error {...error} />)
     } catch (error) {
       this.context.stderr.write(value.toString())
     }
