@@ -73,7 +73,7 @@
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
     "@roots/bud-swc": "workspace:sources/@roots/bud-swc",
     "@skypack/package-check": "0.2.2",
-    "@types/babel__core": "7.1.20",
+    "@types/babel__core": "7.20.0",
     "@types/node": "18.11.18",
     "@types/react": "18.0.26",
     "react": "18.2.0"
