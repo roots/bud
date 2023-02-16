@@ -11,24 +11,13 @@ import type {Options} from '@roots/bud-support/mini-css-extract-plugin'
 import {Plugin} from '@roots/bud-support/mini-css-extract-plugin'
 
 /**
- * `mini-css-extract-plugin` adapter
- *
- * @public
- * @decorator `@label`
- * @decorator `@plugin`
- * @decorator `@options`
- * @decorator `@production`
+ * Mini CSS Extract Plugin configuration
  */
 @label(`@roots/bud-extensions/mini-css-extract-plugin`)
 @plugin(Plugin)
-@options({
+@options<Options>({
   /**
    * css output filename
-   *
-   * @param app - Bud
-   * @returns filename
-   *
-   * @public
    */
   filename: (app: Bud) => join(`css`, app.path(`@name.css`)),
 })

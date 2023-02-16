@@ -19,29 +19,21 @@ export class Watcher implements Server.Watcher {
 
   /**
    * Watcher instance
-   *
-   * @public
    */
   public instance: FSWatcher
 
   /**
    * Watch files
-   *
-   * @public
    */
   public files: Set<string>
 
   /**
    * Watch options
-   *
-   * @public
    */
   public options: chokidar.WatchOptions
 
   /**
    * Logger
-   *
-   * @public
    */
   public logger: Logger
 
@@ -56,11 +48,6 @@ export class Watcher implements Server.Watcher {
 
   /**
    * Watcher callback
-   *
-   * @param path - changed file
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public watcherCallback(path: string): void {
@@ -78,9 +65,6 @@ export class Watcher implements Server.Watcher {
 
   /**
    * Initialize watch files
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public async watch(): Promise<Watcher['instance']> {

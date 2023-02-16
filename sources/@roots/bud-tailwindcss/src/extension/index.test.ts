@@ -4,7 +4,7 @@ import resolveConfig from 'tailwindcss/resolveConfig.js'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {Bud, factory} from '@repo/test-kit/bud'
 
-import {BudTailwindCss} from '@roots/bud-tailwindcss/extension'
+import BudTailwindCss from '@roots/bud-tailwindcss'
 
 describe(`@roots/bud-tailwindcss extension`, () => {
   let bud: Bud

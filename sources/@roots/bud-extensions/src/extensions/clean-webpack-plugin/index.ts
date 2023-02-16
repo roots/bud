@@ -8,35 +8,23 @@ import {
 import type {Options} from '@roots/bud-support/clean-webpack-plugin'
 import {Plugin} from '@roots/bud-support/clean-webpack-plugin'
 /**
- * `clean-webpack-plugin` adapter
- *
- * @public
- * @decorator `@label`
- * @decorator `@plugin`
- * @decorator `@options`
- * @decorator `@production`
+ * Clean webpack plugin configuration
  */
 @label(`@roots/bud-extensions/clean-webpack-plugin`)
 @plugin(Plugin)
 @options<Options>({
   /**
    * Clean stale assets
-   *
-   * @public
    */
   cleanStaleWebpackAssets: true,
 
   /**
    * Protect webpack assets from accidental deletion
-   *
-   * @public
    */
   protectWebpackAssets: true,
 
   /**
    * Clean before path patterns
-   *
-   * @public
    */
   cleanOnceBeforeBuildPatterns: [`**/*`],
 })

@@ -3,7 +3,7 @@ import {Extension} from '@roots/bud-framework/extension'
 import {label} from '@roots/bud-framework/extension/decorators'
 
 /**
- * resolve-url-loader
+ * resolve-url-loader configuration
  */
 @label(`@roots/bud-sass/resolve-url`)
 export class BudResolveUrl extends Extension {

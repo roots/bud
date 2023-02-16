@@ -50,9 +50,19 @@
       "default": "./lib/index.js",
       "types": "./lib/index.d.ts"
     },
-    "./extension": {
-      "default": "./lib/extension.js",
-      "types": "./lib/extension.d.ts"
+    "./types": {
+      "default": "./lib/types.d.ts",
+      "types": "./lib/types.d.ts"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ],
+      "types": [
+        "./lib/types.d.ts"
+      ]
     }
   },
   "module": "./lib/index.js",

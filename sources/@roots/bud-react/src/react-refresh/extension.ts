@@ -4,7 +4,7 @@ import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
-  disabled,
+  development,
   label,
   options,
   plugin,
@@ -13,49 +13,38 @@ import isBoolean from '@roots/bud-support/lodash/isBoolean'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 
 /**
- * Wrapper for `@pmmmwh/react-refresh-webpack-plugin`
- *
- * @remarks
- * Disabled by default
- *
- * @public
- * @decorator `@label`
- * @decorator `@plugin`
- * @decorator `@options`
- * @decorator `@disabled`
+ * @pmmmwh/react-refresh-webpack-plugin configuration
  */
 @label(`@roots/bud-react/react-refresh`)
 @plugin(RefreshPlugin)
 @options({overlay: false})
-@disabled
+@development
 export default class BudReactRefresh extends Extension<
   Options,
   RefreshPlugin
 > {
   /**
    * Extension to handle transformer
-   *
-   * @public
    */
   public transformExtension?: Extension
 
   /**
    * Set extension to handle react-refresh code transforms
-   *
-   * @public
    */
   public setTransformExtension(extension: Extension) {
     this.transformExtension = extension
   }
 
   /**
-   * `configAfter` callback
-   *
-   * @public
-   * @decorator `@bind`
+   * {@link Extension.configAfter}
    */
   @bind
   public override async configAfter(bud: Bud) {
+    if (
+      bud.isCLI() &&
+      bud.context.args.hot === false
+    ) return
+
     this.logger.log(`Injecting react-refresh/client scripts`)
     if (!bud.hasChildren)
       bud.hooks.on(`dev.client.scripts`, scripts =>
@@ -117,9 +106,6 @@ export default class BudReactRefresh extends Extension<
    *
    * @remarks
    * Configuration takes place during the `config.after` event
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public configure(userOptions?: Options | boolean): this {
@@ -133,9 +119,6 @@ export default class BudReactRefresh extends Extension<
 
   /**
    * Callback handling react-refresh-webpack-plugin configuration
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   protected makeReactRefreshCallback(
@@ -144,7 +127,7 @@ export default class BudReactRefresh extends Extension<
     return async () => {
       if (!this.app.isDevelopment) return
 
-      userOptions === false ? this.disable() : this.enable()
+      userOptions === false ? this.enable(false) : this.enable()
 
       if (isUndefined(userOptions) || isBoolean(userOptions)) return
 

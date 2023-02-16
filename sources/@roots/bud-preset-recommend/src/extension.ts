@@ -7,12 +7,15 @@ import {
 } from '@roots/bud-framework/extension/decorators'
 
 /**
- * Recommended preset configuration
+ * Recommended preset
  */
 @label(`@roots/bud-preset-recommend`)
 @dependsOn([`@roots/bud-postcss`])
 export default class BudPresetRecommend extends Extension {
   /**
+   * This should be unnecessary in bud 7.0.0 as the user
+   * will be required to explicitly install a compiler.
+   *
    * {@link Extension.register}
    */
   @bind

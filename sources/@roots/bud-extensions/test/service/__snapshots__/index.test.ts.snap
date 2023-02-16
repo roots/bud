@@ -15,6 +15,11 @@ exports[`@roots/bud-extensions > bud.extensions.repository options should match 
   "@roots/bud-extensions/webpack-hot-module-replacement-plugin",
   "@roots/bud-extensions/webpack-manifest-plugin",
   "@roots/bud-extensions/webpack-provide-plugin",
+  "@roots/bud-postcss",
+  "@roots/bud-react",
+  "@roots/bud-react/react-refresh",
+  "@roots/bud-swc",
+  "@roots/bud-tailwindcss",
   "@roots/bud-terser",
   "@roots/bud-terser/css-minimizer",
 ]

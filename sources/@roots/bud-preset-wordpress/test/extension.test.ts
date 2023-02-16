@@ -1,7 +1,11 @@
+import '@roots/bud'
+import '@roots/bud-preset-wordpress'
+import '@roots/bud-tailwindcss'
+
 import {Bud, factory} from '@repo/test-kit/bud'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import BudPresetWordPress from './index.js'
+import BudPresetWordPress from '../src/index.js'
 
 describe(`@roots/bud-preset-wordpress`, () => {
   let bud: Bud
@@ -17,12 +21,12 @@ describe(`@roots/bud-preset-wordpress`, () => {
   })
 
   it(`should have register method`, async () => {
-    expect(extension.register).toBeInstanceOf(Function)
+    expect(extension.boot).toBeInstanceOf(Function)
   })
 
   it(`should register @roots/bud-tailwind-theme-json when @roots/bud-tailwindcss is available`, async () => {
     await bud.extensions.add(`@roots/bud-tailwindcss`)
-    await extension.register(bud)
+    await extension.boot(bud)
     expect(
       bud.extensions.get(`@roots/bud-tailwindcss-theme-json`),
     ).toBeTruthy()

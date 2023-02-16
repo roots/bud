@@ -1,6 +1,5 @@
 import {bind} from '@roots/bud-support/decorators'
 import get from '@roots/bud-support/lodash/get'
-import has from '@roots/bud-support/lodash/has'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import set from '@roots/bud-support/lodash/set'
@@ -25,20 +24,16 @@ export type OptionsMap<MappedOptions extends Options> = {
  */
 export interface ApplyPlugin {
   /**
-   * Apply callback
-   *
    * @see {@link https://webpack.js.org/contribute/writing-a-plugin/#basic-plugin-architecture}
    */
   apply: (...args: any[]) => unknown
 }
 
 export interface Constructor {
-  new (...args: any[]): Extension | ApplyPlugin
+  new (...args: any[]): Extension
 }
 
-export type ExtensionLiteral = {
-  [K in keyof Extension]?: Extension[K]
-}
+export type ExtensionLiteral = Partial<Extension>
 
 /**
  * Bud extension
@@ -57,12 +52,12 @@ export class Extension<
    */
   public app: Bud
 
+  /**
+   * {@link ApplyPlugin.apply}
+   */
   public declare apply?: ApplyPlugin[`apply`]
 
-  /**
-   * Extension is enabled
-   */
-  public enabled?: boolean = undefined
+  public enabled?: boolean
 
   /**
    * Extension options
@@ -117,18 +112,12 @@ export class Extension<
    * @remarks
    * By default returns {@link Extension.enabled}
    */
-  public async when(
-    _app: Bud,
-    _options?: ExtensionOptions,
-  ): Promise<boolean> {
+  public when(bud: Bud, options?: ExtensionOptions): boolean {
     return !isUndefined(this.enabled) ? this.enabled : true
   }
 
   /**
    * `init` callback
-   *
-   * @param options - Extension options
-   * @param app - Bud instance
    */
   public async init?(
     app: Bud,
@@ -137,9 +126,6 @@ export class Extension<
 
   /**
    * `register` callback
-   *
-   * @param options - Extension options
-   * @param app - Bud instance
    */
   public async register?(
     app: Bud,
@@ -183,9 +169,6 @@ export class Extension<
 
   /**
    * `make` callback
-   *
-   * @param options - Extension options
-   * @param app - Bud instance
    */
   public async make?(app: Bud, options?: ExtensionOptions): Promise<Plugin>
 
@@ -445,34 +428,15 @@ export class Extension<
   }
 
   /**
-   * Returns true if extension property is set
-   *
-   * @param key - property name
-   * @returns true if property exists on extension
-   */
-  @bind
-  public has<K extends `${keyof Extension}`>(key: K): boolean {
-    return has(this, key)
-  }
-
-  /**
    * Returns true if extension property is set and is a function
-   *
-   * @param key - property name
-   * @returns true if property exists on extension
    */
   @bind
   public isFunction<K extends `${keyof Extension}`>(key: K): boolean {
-    return this.has(key) && isFunction(this[key]) ? true : false
+    return key in this && isFunction(this[key]) ? true : false
   }
 
   /**
    * Resolve module using `import.meta.resolve` api
-   *
-   * @remarks
-   * Uses `import-meta-resolve` (npm package).
-   * Will transition to node `import.meta.resolve` api when it is marked
-   * non-experimental. It currently requires a flag to enable.
    */
   @bind
   public async resolve(
@@ -500,10 +464,7 @@ export class Extension<
    * Import ESM module
    */
   @bind
-  public async import<T = any>(
-    signifier: string,
-    context?: URL | string,
-  ): Promise<T | undefined> {
+  public async import<T = any>(signifier: string): Promise<T | undefined> {
     try {
       const path = await this.resolve(signifier)
 
@@ -527,6 +488,7 @@ export class Extension<
 
   /**
    * Disable extension
+   * @deprecated - pass `false` to {@link Extension.enable}
    */
   @bind
   public disable() {
@@ -543,15 +505,10 @@ export class Extension<
   }
 
   /**
-   * Value determining if the extension should be utilized
+   * Is extension enabled?
    */
   @bind
-  public async isEnabled(): Promise<boolean> {
-    if (!isUndefined(this.enabled)) return this.enabled
-
-    if (isFunction(this.when))
-      return await this.when(this.app, this.options)
-
-    return true
+  public isEnabled(): boolean {
+    return this.when(this.app, this.options)
   }
 }

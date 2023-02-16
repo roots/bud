@@ -63,10 +63,6 @@
       "types": "./lib/index.d.ts",
       "import": "./lib/index.js"
     },
-    "./extension": {
-      "types": "./lib/extension/index.d.ts",
-      "import": "./lib/extension/index.js"
-    },
     "./types": {
       "types": "./lib/types/index.d.ts",
       "import": "./lib/types/index.js"
@@ -96,9 +92,6 @@
     "*": {
       ".": [
         "./lib/index.d.ts"
-      ],
-      "extension": [
-        "./lib/extension/index.d.ts"
       ],
       "types": [
         "./lib/types/index.d.ts"

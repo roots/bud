@@ -22,7 +22,7 @@ import {
 @expose(`sass`)
 export class BudSass extends Extension {
   /**
-   * `register` callback
+   * {@link Extension.register}
    */
   @bind
   public override async register(bud: Bud) {
@@ -46,6 +46,9 @@ export class BudSass extends Extension {
     )
   }
 
+  /**
+   * {@link Extension.boot}
+   */
   @bind
   public override async boot(bud: Bud) {
     if (bud.postcss) {

@@ -78,7 +78,7 @@ export class WordPressThemeJSON extends Extension<
   ): this {
     if (!input) return this
 
-    this.when = async () => true
+    this.enable()
 
     const value = isFunction(input)
       ? input(

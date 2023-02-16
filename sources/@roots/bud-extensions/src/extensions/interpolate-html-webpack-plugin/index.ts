@@ -14,10 +14,7 @@ import {
 export type {Options}
 
 /**
- * BudInterpolateHTMLPlugin
- *
- * @public
- * @decorator `@label`
+ * Interpolate html webpack plugin configuration
  */
 @label(`@roots/bud-extensions/interpolate-html-webpack-plugin`)
 @options<Options>({})
@@ -27,10 +24,7 @@ export default class BudInterpolateHtmlExtension extends Extension<
   InterpolateHtmlWebpackPlugin
 > {
   /**
-   * `make` callback
-   *
-   * @public
-   * @decorator `@bind`
+   * {@link Extension.make}
    */
   @bind
   public override async make(bud: Bud) {

@@ -2,7 +2,7 @@
 // Licensed under the MIT license.
 
 /**
- * bud.js wrapper extension for {@link https://npmjs.com/package/@roots/critical-css-webpack-plugin}
+ * @see {@link https://npmjs.com/package/@roots/critical-css-webpack-plugin}
  */
 
 import './types.js'

@@ -21,6 +21,9 @@ type InputRecords = Record<string, Input>
 type InputMap = Map<string, Input>
 type Registry = Map<string, [string | Plugin | Processor, any?]>
 
+/**
+ * PostCSS configuration options
+ */
 interface Options {
   sourceMap?: boolean
   postcssOptions?: {

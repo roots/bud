@@ -11,7 +11,7 @@ import isString from '@roots/bud-support/lodash/isString'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 
 /**
- * `esm-http` extension options
+ * Http modules configuration options
  */
 export interface Options {
   allowedUris?: Set<string | RegExp | ((uri: string) => boolean)>
@@ -23,16 +23,7 @@ export interface Options {
 }
 
 /**
- * `@roots/bud-extensions/cdn
- *
- * @remarks
- * Include remote modules in compilation
- *
- * @public
- * @decorator `@label`
- * @decorator `@expose`
- * @decorator `@options`
- * @decorator `@disabled`
+ * Http modules configuration
  */
 @label(`@roots/bud-extensions/cdn`)
 @expose(`cdn`)
@@ -49,8 +40,6 @@ export interface Options {
 export default class Cdn extends Extension<Options, null> {
   /**
    * CDN key to URL mapping
-   *
-   * @public
    */
   public sources = new Map<string, string>([
     [`gist`, `https://gist.githubusercontent.com/`],
@@ -61,15 +50,11 @@ export default class Cdn extends Extension<Options, null> {
 
   /**
    * Whether to cache modules locally
-   *
-   * @public
    */
   public cacheEnabled = true
 
   /**
    * Disable local caching of modules
-   *
-   * @public
    */
   @bind
   public disableCache(): this {
@@ -79,8 +64,6 @@ export default class Cdn extends Extension<Options, null> {
 
   /**
    * Allowed URIs getter/setter
-   *
-   * @public
    */
   public get allowedUris(): Set<
     string | RegExp | ((uri: string) => boolean)
@@ -95,8 +78,6 @@ export default class Cdn extends Extension<Options, null> {
 
   /**
    * Cache location getter/setter
-   *
-   * @public
    */
   public get cacheLocation(): string | false {
     return this.app.maybeCall(this.getOption(`cacheLocation`))
@@ -109,8 +90,6 @@ export default class Cdn extends Extension<Options, null> {
 
   /**
    * Frozen getter/setter
-   *
-   * @public
    */
   public get frozen(): boolean {
     return this.app.maybeCall(this.getOption(`frozen`))
@@ -121,8 +100,6 @@ export default class Cdn extends Extension<Options, null> {
 
   /**
    * Lockfile location getter/setter
-   *
-   * @public
    */
   public get lockfileLocation(): string {
     return this.getOption(`lockfileLocation`)
@@ -135,8 +112,6 @@ export default class Cdn extends Extension<Options, null> {
 
   /**
    * Proxy getter/setter
-   *
-   * @public
    */
   public get proxy(): string {
     return this.app.maybeCall(this.getOption(`proxy`))
@@ -147,8 +122,6 @@ export default class Cdn extends Extension<Options, null> {
 
   /**
    * Upgrade location getter/setter
-   *
-   * @public
    */
   public get upgrade(): boolean {
     return this.app.maybeCall(this.getOption(`upgrade`))
@@ -159,9 +132,6 @@ export default class Cdn extends Extension<Options, null> {
 
   /**
    * Set allowed URLs
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public setAllowedUris(
@@ -173,9 +143,6 @@ export default class Cdn extends Extension<Options, null> {
 
   /**
    * Set cache location
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public setCacheLocation(value: string | Options['cacheLocation']): this {
@@ -185,9 +152,6 @@ export default class Cdn extends Extension<Options, null> {
 
   /**
    * Freeze?
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public freeze(value?: boolean): this {
@@ -197,9 +161,6 @@ export default class Cdn extends Extension<Options, null> {
 
   /**
    * Set lockfile location
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public setLockfileLocation(
@@ -211,9 +172,6 @@ export default class Cdn extends Extension<Options, null> {
 
   /**
    * Set proxy location
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public setProxy(value: string | Options['proxy']): this {
@@ -223,9 +181,6 @@ export default class Cdn extends Extension<Options, null> {
 
   /**
    * Set upgrade
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public setUpgrade(value: boolean | Options['upgrade']): this {
@@ -235,9 +190,6 @@ export default class Cdn extends Extension<Options, null> {
 
   /**
    * `buildBefore` callback
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public override async buildBefore(bud: Bud) {

@@ -19,15 +19,11 @@ export default class Cache
 {
   /**
    * Enabled
-   *
-   * @public
    */
   public enabled: boolean = true
 
   /**
    * Type
-   *
-   * @public
    */
   public get name(): string {
     return this.app.hooks.filter(
@@ -41,8 +37,6 @@ export default class Cache
 
   /**
    * Type
-   *
-   * @public
    */
   public get type(): 'memory' | 'filesystem' {
     return this.app.hooks.filter(
@@ -59,8 +53,6 @@ export default class Cache
 
   /**
    * version
-   *
-   * @public
    */
   public get version(): string {
     const args = this.app.fs.json.stringify(
@@ -83,8 +75,6 @@ export default class Cache
 
   /**
    * Cache directory
-   *
-   * @public
    */
   public get cacheDirectory(): string {
     return this.app.hooks.filter(
@@ -98,8 +88,6 @@ export default class Cache
 
   /**
    * Webpack configuration
-   *
-   * @public
    */
   public get configuration(): Configuration[`cache`] {
     if (this.enabled !== true) return false
@@ -119,10 +107,7 @@ export default class Cache
   }
 
   /**
-   * `booted` callback
-   *
-   * @public
-   * @decorator `@bind`
+   * {@link Extension.booted}
    */
   @bind
   public override async booted?(bud: Bud) {

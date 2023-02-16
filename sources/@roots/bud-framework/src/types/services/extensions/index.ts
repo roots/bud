@@ -1,7 +1,7 @@
 import type Container from '@roots/container'
 
 import type {Bud} from '../../../bud.js'
-import type {ApplyPlugin, Extension} from '../../../extension/index.js'
+import type {ApplyPlugin, Extension, ExtensionLiteral} from '../../../extension/index.js'
 import type {Service as BaseService} from '../../../service.js'
 import type {Modules} from '../../registry/modules.js'
 
@@ -57,15 +57,16 @@ export interface Service extends BaseService {
    */
   add(
     extension:
-      | Partial<Extension>
-      | (new (bud: Bud) => Partial<Extension>)
+      | ExtensionLiteral
+      | Extension
+      | (new (bud: Bud) => ExtensionLiteral)
       | `${keyof Modules & string}`
       | Array<
-          | Partial<Extension>
-          | (new (bud: Bud) => Partial<Extension>)
+          | ExtensionLiteral
+          | Extension
+          | (new (bud: Bud) => ExtensionLiteral)
           | `${keyof Modules & string}`
         >,
-    options?: Record<string, any>,
   ): Promise<void>
 
   import<K extends `${keyof Modules}`>(
