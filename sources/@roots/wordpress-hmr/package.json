@@ -88,7 +88,7 @@
     "@wordpress/data": "8.1.0",
     "@wordpress/hooks": "3.24.0",
     "@wordpress/plugins": "5.1.0",
-    "@wordpress/rich-text": "6.1.0"
+    "@wordpress/rich-text": "6.3.0"
   },
   "volta": {
     "extends": "../../../package.json"

@@ -4,16 +4,12 @@
 /// <reference types="@roots/bud-react" />
 /// <reference types="@roots/bud-wordpress-manifests" />
 /// <reference types="@roots/bud-wordpress-theme-json" />
-/// <reference types="@roots/bud-tailwindcss" />
-/// <reference types="@roots/bud-tailwindcss-theme-json" />
 
-import type BudTailwindThemeJSON from '@roots/bud-tailwindcss-theme-json'
-
-import type BudPresetWordPress from './extension.js'
+import '@roots/bud-tailwindcss-theme-json/types'
 
 declare module '@roots/bud-framework' {
   interface Modules {
-    '@roots/bud-preset-wordpress': BudPresetWordPress
-    '@roots/bud-tailwind-theme-json'?: BudTailwindThemeJSON
+    '@roots/bud-preset-wordpress': {}
+    '@roots/bud-tailwind-theme-json'?: {}
   }
 }

@@ -10,13 +10,7 @@ import {
 } from '@roots/bud-framework/extension/decorators'
 
 /**
- * Sass support extension for `@roots/bud-sass`
- *
- * @public
- * @decorator `@label`
- * @decorator `@expose`
- * @decorator `@dependsOn`
- * @decorator `@dependsOnOptional`
+ * Sass configuration
  */
 @label(`@roots/bud-sass`)
 @dependsOn([`@roots/bud-sass/resolve-url`])
@@ -28,51 +22,48 @@ import {
 @expose(`sass`)
 export class BudSass extends Extension {
   /**
-   * `register` callback
-   *
-   * @public
-   * @decorator `@bind`
+   * {@link Extension.register}
    */
   @bind
-  public override async register(_bud: Bud) {
+  public override async register(bud: Bud) {
     const implementation = await this.import(`sass`)
     this.setOptions({implementation, sourceMap: true})
-  }
 
-  /**
-   * `configAfter` callback
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public override async configAfter(bud: Bud) {
     bud.build
       .setLoader(`sass-loader`, await this.resolve(`sass-loader`))
       .setItem(`sass`, {
         ident: `sass`,
         loader: `sass-loader`,
-        options: this.options,
+        options: () => this.options,
       })
       .setRule(`sass`, {
         test: (app: Bud) => app.hooks.filter(`pattern.sass`),
         include: [app => app.path(`@src`)],
-        use: [
-          bud.build.items.precss,
-          bud.build.items.css,
-          bud.build.items.postcss,
-          bud.build.items.resolveUrl,
-          bud.build.items.sass,
-        ].filter(Boolean),
       })
 
     bud.hooks.on(`build.resolve.extensions`, ext =>
       ext.add(`.scss`).add(`.sass`),
     )
+  }
 
+  /**
+   * {@link Extension.boot}
+   */
+  @bind
+  public override async boot(bud: Bud) {
     if (bud.postcss) {
-      bud.postcss.syntax = `postcss-scss`
+      bud.postcss.set(`postcssOptions.syntax`, `postcss-scss`)
     }
+
+    bud.build.rules.sass.setUse(() =>
+      [
+        bud.build.items.precss,
+        bud.build.items.css,
+        bud.build.items.postcss,
+        bud.build.items.resolveUrl,
+        bud.build.items.sass,
+      ].filter(Boolean),
+    )
   }
 
   /**
@@ -85,16 +76,17 @@ export class BudSass extends Extension {
    * ```ts
    * bud.sass.registerGlobal(`$primary-color: #ff0000;`)
    * ```
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public registerGlobal(data: string | Array<string>): this {
-    data = Array.isArray(data) ? data : [data]
-    return this.setOption(`additionalData`, value =>
-      [value ?? null, ...data].filter(Boolean).join(`\n`),
-    )
+    return this.set(`additionalData`, (value = ``) => {
+      const code = (Array.isArray(data) ? data : [data])
+        .map(str => str.trim())
+        .filter(Boolean)
+        .join(`\n`)
+
+      return value.concat(code)
+    })
   }
 
   /**
@@ -104,16 +96,27 @@ export class BudSass extends Extension {
    * Used to import a partial globally (such as a `variables.scss` file)
    *
    * @example
+   * With a single module signifier:
    * ```ts
-   * bud.sass.importPartial()
+   * bud.sass.importGlobal('styles/variables.scss')
    * ```
    *
-   * @public
-   * @decorator `@bind`
+   * @example
+   * With an array of module signifiers:
+   * ```ts
+   * bud.sass.importGlobal([
+   *  'styles/variables.scss',
+   *  'styles/mixins.scss',
+   * ])
+   * ```
    */
   @bind
   public importGlobal(data: string | Array<string>): this {
-    data = Array.isArray(data) ? data : [data]
-    return this.registerGlobal(data.map(item => `@import "${item}";`))
+    const globals = (Array.isArray(data) ? data : [data])
+      .map(str => str.trim())
+      .filter(Boolean)
+      .map(item => `@import "${item}";`)
+
+    return this.registerGlobal(globals)
   }
 }

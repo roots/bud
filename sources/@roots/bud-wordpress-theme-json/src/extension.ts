@@ -29,10 +29,7 @@ export interface Mutator {
 }
 
 /**
- * WP Theme JSON plugin adapter
- *
- * @remarks
- * Produces a WordPress `theme.json`
+ * WordPress theme.json configuration
  *
  * @example
  * ```ts
@@ -40,14 +37,6 @@ export interface Mutator {
  *   theme.set('color', {})
  * )
  * ```
- *
- * @public
- * @decorator `@label`
- * @decorator `@options`
- * @decorator `@when`
- * @decorator `@plugin`
- * @decorator `@expose`
- * @decorator `@disabled`
  */
 @label(`@roots/bud-wordpress-theme-json`)
 @options({
@@ -89,7 +78,7 @@ export class WordPressThemeJSON extends Extension<
   ): this {
     if (!input) return this
 
-    this.when = async () => true
+    this.enable()
 
     const value = isFunction(input)
       ? input(

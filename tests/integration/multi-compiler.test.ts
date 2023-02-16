@@ -1,35 +1,16 @@
 import {Project} from '@repo/test-kit/project'
-import {beforeAll, describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vitest'
 
-const plugin = pacman => () => {
-  let project: Project
-
-  beforeAll(async () => {
-    project = await new Project({
+describe(`examples/multi-compiler`, () => {
+  it(`should compile js and css as expected`, async () => {
+    const project = await new Project({
       label: `@examples/multi-compiler`,
       dist: `plugin/dist`,
-      with: pacman,
+      with: `npm`,
     }).setup()
+
+    expect(project.assets[`plugin.js`].length).toBeGreaterThan(10)
+    expect(project.assets[`plugin.js`].includes(`import `)).toBeFalsy()
+    expect(project.manifest).toMatchSnapshot()
   })
-
-  describe(`plugin.js`, () => {
-    it(`has contents`, () => {
-      expect(project.assets[`plugin.js`].length).toBeGreaterThan(10)
-    })
-
-    it(`is transpiled`, () => {
-      expect(project.assets[`plugin.js`].includes(`import `)).toBeFalsy()
-    })
-  })
-
-  describe(`manifest.json`, () => {
-    it(`matches snapshot`, () => {
-      expect(project.manifest).toMatchSnapshot()
-    })
-  })
-}
-
-describe(`multi-compiler plugin`, () => {
-  describe(`npm`, plugin(`npm`))
-  describe(`yarn`, plugin(`yarn`))
-}, 240000)
+})

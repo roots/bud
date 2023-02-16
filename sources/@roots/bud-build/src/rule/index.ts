@@ -1,4 +1,4 @@
-import type {Bud, Items} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
 import type {
   Options,
   Output,
@@ -8,62 +8,56 @@ import type {
 import {bind} from '@roots/bud-support/decorators'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import isString from '@roots/bud-support/lodash/isString'
+import type {RuleSetRule} from '@roots/bud-support/webpack'
 
-import type {Item} from '../item/index.js'
 import Base from '../shared/base.js'
 
-export {Interface, Options, Output, Parser}
-
 /**
- * Bud Rule
+ * RuleSetRule
  */
 class Rule extends Base implements Interface {
   /**
-   * @public
+   * RuleSetRule test
    */
   public test: Options['test']
 
   /**
-   * @public
+   * RuleSetRule use
    */
   public use?: Options[`use`]
 
   /**
-   * @public
+   * RuleSetRule include
    */
   public include?: Options['include']
 
   /**
-   * @public
+   * RuleSetRule exclude
    */
   public exclude?: Options['exclude']
 
   /**
-   * @public
+   * RuleSetRule type
    */
-  public type?: Interface['type']
+  public type?: Options['type']
 
   /**
-   * @public
+   * RuleSetRule resourceQuery
    */
-  public resourceQuery?: Interface['resourceQuery']
+  public resourceQuery?: Options['resourceQuery']
 
   /**
-   * @public
+   * RuleSetRule parser
    */
-  public parser?: Interface['parser']
+  public parser?: Options['parser']
 
   /**
-   * Generator factory
-   *
-   * @public
+   * RuleSetRule generator
    */
-  public generator?: Interface['generator']
+  public generator?: Options['generator']
 
   /**
    * Class constructor
-   *
-   * @public
    */
   public constructor(_app: () => Bud, options?: Options) {
     super(_app)
@@ -82,11 +76,6 @@ class Rule extends Base implements Interface {
 
   /**
    * Test value
-   *
-   * @param app - Bud instance
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public getTest(): Output['test'] {
@@ -95,9 +84,6 @@ class Rule extends Base implements Interface {
 
   /**
    * Set test value
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public setTest(test: Options['test']): this {
@@ -107,9 +93,6 @@ class Rule extends Base implements Interface {
 
   /**
    * Get parser value
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public getParser(): Output['parser'] {
@@ -118,9 +101,6 @@ class Rule extends Base implements Interface {
 
   /**
    * Set parser value
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public setParser(parser: Interface['parser']): this {
@@ -130,20 +110,14 @@ class Rule extends Base implements Interface {
 
   /**
    * Get use value
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
-  public getUse(): Array<`${keyof Items & string}` | Item> {
+  public getUse(): Options[`use`] {
     return this.use
   }
 
   /**
    * Set use value
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public setUse(
@@ -155,9 +129,6 @@ class Rule extends Base implements Interface {
 
   /**
    * Get include value
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public getInclude(): Array<string | RegExp> {
@@ -168,9 +139,6 @@ class Rule extends Base implements Interface {
 
   /**
    * Set include value
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public setInclude(includes: Options['include']): this {
@@ -180,9 +148,6 @@ class Rule extends Base implements Interface {
 
   /**
    * Get include value
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public getResourceQuery(): Output[`resourceQuery`] {
@@ -191,9 +156,6 @@ class Rule extends Base implements Interface {
 
   /**
    * Set include value
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public setResourceQuery(query: Options['resourceQuery']): this {
@@ -203,9 +165,6 @@ class Rule extends Base implements Interface {
 
   /**
    * Get exclude value
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public getExclude(): Array<string | RegExp> {
@@ -214,9 +173,6 @@ class Rule extends Base implements Interface {
 
   /**
    * Set exclude value
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public setExclude(
@@ -230,9 +186,6 @@ class Rule extends Base implements Interface {
 
   /**
    * Get type value
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public getType(): string {
@@ -241,9 +194,6 @@ class Rule extends Base implements Interface {
 
   /**
    * Set type value
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public setType(type: Options[`type`]): this {
@@ -253,9 +203,6 @@ class Rule extends Base implements Interface {
 
   /**
    * Get generator value
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public getGenerator() {
@@ -264,27 +211,18 @@ class Rule extends Base implements Interface {
 
   /**
    * Set generator value
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
-  public setGenerator(generator: Interface['generator']): this {
+  public setGenerator(generator: Options['generator']): this {
     this.generator = this.wrap(generator)
     return this
   }
 
   /**
    * Produce final Base output
-   *
-   * @param app - {@link @roots/bud-framework#Bud}
-   * @returns finalized rule
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
-  public toWebpack(): Output {
+  public toWebpack(): Output & RuleSetRule {
     const output: Output = Object.entries({
       test: this.getTest(),
       type: this.getType(),
@@ -316,3 +254,4 @@ class Rule extends Base implements Interface {
 }
 
 export {Rule}
+export {Interface, Options, Output, Parser}

@@ -27,9 +27,9 @@ describe(`bud.minimize`, () => {
 
   it(`should call mockExtension.enable when called with falsy value`, () => {
     const terser = bud.extensions.get(`@roots/bud-terser`)
-    const enableSpy = vi.spyOn(terser, `disable`)
+    const enableSpy = vi.spyOn(terser, `enable`)
     minimize(false)
-    expect(enableSpy).toHaveBeenCalled()
+    expect(enableSpy).toHaveBeenCalledWith(false)
   })
 
   it(`should call bud.success to log param`, () => {

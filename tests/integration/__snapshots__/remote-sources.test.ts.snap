@@ -1,5 +1,3 @@
 // Vitest Snapshot v1
 
-exports[`remote-sources > npm > app.js > should be present in the manifest 1`] = `"js/app.js"`;
-
-exports[`remote-sources > yarn > app.js > should be present in the manifest 1`] = `"js/app.js"`;
+exports[`examples/remote-sources > should compile js and css as expected 1`] = `"js/app.js"`;

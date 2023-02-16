@@ -6,12 +6,10 @@
  *
  * @see https://bud.js.org
  * @see https://github.com/roots/bud
- *
- * @packageDocumentation
  */
 
 import './types.js'
 
-import BudEntrypoints from './extension.js'
+import {BudEntrypoints} from './extension.js'
 
 export default BudEntrypoints

@@ -8,44 +8,33 @@ import {
 
 /**
  * Register `react-refresh-swc` transform with TSC compiler
- *
- * @remarks
- * Used when `@roots/bud-swc` is being used with babel loader
- * disabled
- *
- * @public
- * @decorator `@label`
- * @decorator `@development`
  */
 @label(`@roots/bud-react/swc-refresh`)
 @development
 export default class BudSWCRefresh extends Extension {
   /**
-   * `init` callback
-   *
-   * @public
-   * @decorator `@bind`
+   * {@link Extension.buildBefore}
    */
   @bind
-  public override async init(bud: Bud) {
-    bud.hooks.action(`build.before`, this.registerTransform.bind(this))
+  public override async buildBefore(bud: Bud) {
+    this.registerTransform(bud)
   }
 
   /**
-   * Register `react-refresh-swc` transform
-   *
-   * @public
-   * @decorator `@bind`
+   * Register `react-refresh-swc` transform plugin
    */
-  public async registerTransform() {
+  public async registerTransform(bud: Bud) {
     this.logger.log(`Registering swc react-refresh transformer`)
 
     this.app.swc.setOptions(options => ({
       ...options,
-      transform: {
-        react: {
-          development: this.app.isDevelopment,
-          refresh: this.app.isDevelopment,
+      jsc: {
+        ...(options.jsc ?? {}),
+        transform: {
+          react: {
+            development: this.app.isDevelopment,
+            refresh: this.app.isDevelopment,
+          },
         },
       },
     }))

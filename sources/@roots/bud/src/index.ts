@@ -12,7 +12,7 @@
 
 import './types.js'
 
-import {Bud, Service, ServiceContainer} from './bud/bud.js'
+import Bud, {Service, ServiceContainer} from './bud/bud.js'
 import makeContext from './context/index.js'
 import {factory} from './factory/index.js'
 import {get, has, instances, set} from './instances.js'

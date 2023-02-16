@@ -17,7 +17,7 @@ import {Options as RuleOptions, Rule} from './rule/index.js'
  */
 export class Build extends Service implements Base.Service {
   /**
-   * @public
+   * Built config object
    */
   public config: Partial<Configuration> = {}
 
@@ -26,24 +26,21 @@ export class Build extends Service implements Base.Service {
    *
    * @public
    */
-  // @ts-ignore
-  public loaders: Loaders = {}
+  public loaders: Loaders = {} as Loaders
 
   /**
    * Registered rules
    *
    * @public
    */
-  // @ts-ignore
-  public rules: Rules = {}
+  public rules: Rules = {} as Rules
 
   /**
    * Registered items
    *
    * @public
    */
-  // @ts-ignore
-  public items: Items = {}
+  public items: Items = {} as Items
 
   /**
    * Service register event
@@ -51,27 +48,16 @@ export class Build extends Service implements Base.Service {
    * @remarks
    * `loaders`, `items`, and `rules` are instantiated dumbly
    * because it is painful to think about how to map the typings..
-   *
-   * @public
-   * @decorator `@bind`
    */
   public override register? = register.bind(this)
 
   /**
    * Make webpack configuration
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public async make(): Promise<Configuration> {
-    this.app.log(`bud.build.make called`)
-
-    try {
-      await this.app.hooks.fire(`build.before`)
-    } catch (error) {
-      throw error
-    }
+    this.logger.log(`bud.build.make called`)
+    await this.app.hooks.fire(`build.before`)
 
     await import(`./config/index.js`).then(
       async (records: Records) =>
@@ -91,20 +77,21 @@ export class Build extends Service implements Base.Service {
     )
 
     this.logger.success(`configuration successfully built`)
-
     await this.app.hooks.fire(`build.after`)
+
     return this.config
   }
 
   /**
+   * Get rule
+   */
+  @bind
+  public getRule<K extends `${keyof Rules & string}`>(ident: K): Rules[K] {
+    return this.rules[ident]
+  }
+
+  /**
    * Set Rule
-   *
-   * @param name - Rule key
-   * @param options - Rule constructor properties
-   * @returns the Rule
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public setRule<K extends `${keyof Rules & string}`>(
@@ -126,18 +113,15 @@ export class Build extends Service implements Base.Service {
 
   /**
    * Make Rule
-   *
-   * @param options - rule constructor properties
-   * @returns the rule
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public makeRule(options?: RuleOptions): Rule {
     return new Rule(() => this.app, options)
   }
 
+  /**
+   * Get loader
+   */
   @bind
   public getLoader(name: string): Loader {
     if (!this.loaders[name])
@@ -147,16 +131,8 @@ export class Build extends Service implements Base.Service {
 
     return this.loaders[name]
   }
-
   /**
-   * Set Loader
-   *
-   * @param name - Loader key
-   * @param definition - Loader constructor properties
-   * @returns the Loader
-   *
-   * @public
-   * @decorator `@bind`
+   * Set loader
    */
   @bind
   public setLoader<K extends `${keyof Loaders & string}`>(
@@ -176,19 +152,16 @@ export class Build extends Service implements Base.Service {
   }
 
   /**
-   * Make Loader
-   *
-   * @param options - rule constructor properties
-   * @returns the rule
-   *
-   * @public
-   * @decorator `@bind`
+   * Make loader
    */
   @bind
   public makeLoader(src?: string): Loader {
     return new Loader(() => this.app, src)
   }
 
+  /**
+   * Get item
+   */
   @bind
   public getItem(name: `${keyof Items & string}`): Item {
     if (!this.items[name])
@@ -200,42 +173,29 @@ export class Build extends Service implements Base.Service {
   }
 
   /**
-   * Set Item
-   *
-   * @param name - Item key
-   * @param options - Item constructor properties
-   * @returns the Item
-   *
-   * @public
-   * @decorator `@bind`
+   * Set item
    */
   @bind
   public setItem<K extends `${keyof Items & string}`>(
-    name: K,
+    ident: K,
     options?: Items[K]['options'] | ((item: Items[K]) => Items[K]),
   ): this {
     const maybeOptionsCallback = isUndefined(options)
-      ? {ident: name, loader: name}
+      ? {ident, loader: ident}
       : options
 
     const item = isFunction(maybeOptionsCallback)
       ? maybeOptionsCallback(this.makeItem())
       : this.makeItem(maybeOptionsCallback)
 
-    this.items[name] = item
+    this.items[ident] = item
     this.logger.info(`set item`, item)
 
     return this
   }
 
   /**
-   * Make Item
-   *
-   * @param options - rule constructor properties
-   * @returns the rule
-   *
-   * @public
-   * @decorator `@bind`
+   * Make item
    */
   @bind
   public makeItem(options?: Partial<Item['options']>): Item {

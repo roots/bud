@@ -2,18 +2,40 @@ import Ink from '@roots/bud-support/ink'
 import React from '@roots/bud-support/react'
 
 export type Props = React.PropsWithChildren<{
-  label: string
+  name: string
   message?: React.ReactElement | string
+  stack?: React.ReactElement | string
 }>
 
-export const Error = ({children, label, message}: Props) => {
+export const Error = ({children, name, message, stack}: Props) => {
   return (
-    <Ink.Box flexDirection="column" marginY={1}>
+    <Ink.Box flexDirection="column" paddingTop={1}>
       <Ink.Text backgroundColor="red" color="white">
-        {label}
+        {` `}
+        {name}
+        {` `}
       </Ink.Text>
 
-      {children ? children : <Message>{message}</Message>}
+      {message && (
+        <>
+          <Ink.Text>{` `}</Ink.Text>
+          <Message>{message}</Message>
+        </>
+      )}
+
+      {children && (
+        <>
+          <Ink.Text>{` `}</Ink.Text>
+          {children}
+        </>
+      )}
+
+      {stack && (
+        <>
+          <Ink.Text>{` `}</Ink.Text>
+          <Ink.Text dimColor>{stack}</Ink.Text>
+        </>
+      )}
     </Ink.Box>
   )
 }

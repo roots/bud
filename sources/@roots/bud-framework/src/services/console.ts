@@ -44,13 +44,13 @@ export default class ConsoleBuffer extends Service {
   }
 
   /**
-   * `init` callback
+   * `register` callback
    *
    * @public
    * @decorator `@bind`
    */
   @bind
-  public override async init?(bud: Bud) {
+  public override async register(bud: Bud) {
     if (!bud.isCLI() || (bud.isCLI() && bud.context.args?.ci)) return
 
     // Patch the console, and assign the restore function

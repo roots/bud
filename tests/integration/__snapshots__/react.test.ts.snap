@@ -1,13 +1,7 @@
 // Vitest Snapshot v1
 
-exports[`react > npm > app.js > should be present in the manifest 1`] = `"js/app.js"`;
+exports[`examples/react > should compile js and css as expected 1`] = `"js/app.js"`;
 
-exports[`react > npm > commponents/logo.svg > should be present in the manifest 1`] = `"components/logo.svg"`;
+exports[`examples/react > should compile js and css as expected 2`] = `"js/runtime.js"`;
 
-exports[`react > npm > runtime.js > should be present in the manifest 1`] = `"js/runtime.js"`;
-
-exports[`react > yarn > app.js > should be present in the manifest 1`] = `"js/app.js"`;
-
-exports[`react > yarn > commponents/logo.svg > should be present in the manifest 1`] = `"components/logo.svg"`;
-
-exports[`react > yarn > runtime.js > should be present in the manifest 1`] = `"js/runtime.js"`;
+exports[`examples/react > should compile js and css as expected 3`] = `"components/logo.svg"`;

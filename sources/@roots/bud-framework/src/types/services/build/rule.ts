@@ -15,7 +15,7 @@ export interface Parser extends Record<string, any> {}
  */
 export interface Options {
   test?: ((app: Bud) => Output['test']) | Output['test'] | undefined
-  use?: Array<Item | `${keyof Items & string}`> | undefined
+  use?: Array<Item | `${keyof Items & string}` | undefined> | undefined
   include?:
     | Array<((app: Bud) => string | RegExp) | string | RegExp>
     | undefined
@@ -37,6 +37,7 @@ export interface Options {
 export interface Output extends RuleSetRule {
   include?: Array<RegExp | string>
   exclude?: Array<RegExp | string>
+  test?: RegExp | string | Array<RegExp | string>
 }
 
 export interface Rule extends Base {

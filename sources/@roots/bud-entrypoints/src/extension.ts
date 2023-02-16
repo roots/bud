@@ -1,5 +1,6 @@
 import {Extension} from '@roots/bud-framework'
 import {
+  expose,
   label,
   options,
   plugin,
@@ -8,9 +9,10 @@ import type {Options} from '@roots/entrypoints-webpack-plugin'
 import {EntrypointsWebpackPlugin} from '@roots/entrypoints-webpack-plugin'
 
 @label(`@roots/bud-entrypoints`)
+@expose(`entrypoints`)
 @options({emitHtml: false})
 @plugin(EntrypointsWebpackPlugin)
-export default class BudEntrypoints extends Extension<
+export class BudEntrypoints extends Extension<
   Options,
   EntrypointsWebpackPlugin
 > {}

@@ -17,6 +17,15 @@ declare module '@roots/bud-framework' {
   interface Bud {
     cdn: Modules[`@roots/bud-extensions/cdn`]
     esm: Modules[`@roots/bud-extensions/esm`]
+    manifest: {
+      get: WebpackManifestPlugin[`get`]
+      getOption: WebpackManifestPlugin[`getOption`]
+      getOptions: WebpackManifestPlugin[`getOptions`]
+      set: WebpackManifestPlugin[`set`]
+      setOption: WebpackManifestPlugin[`setOption`]
+      setOptions: WebpackManifestPlugin[`setOptions`]
+      enable: WebpackManifestPlugin[`enable`]
+    }
   }
 
   interface Modules {

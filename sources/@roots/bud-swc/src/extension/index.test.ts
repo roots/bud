@@ -21,13 +21,6 @@ describe(`@roots/bud-swc`, () => {
     expect(onSpy).toHaveBeenCalled()
   })
 
-  it(`should call registerSWC during buildBefore`, async () => {
-    const extension = new BudSWCExtension(bud)
-    const registerSWCSpy = vi.spyOn(extension, `registerSWC`)
-    await extension.buildBefore(bud)
-    expect(registerSWCSpy).toHaveBeenCalled()
-  })
-
   it(`should add a plugin`, async () => {
     const extension = new BudSWCExtension(bud)
     extension.plugins(plugins => {

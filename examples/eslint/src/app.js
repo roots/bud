@@ -1,6 +1,6 @@
 const target = document.querySelector('body')
 target.innerHTML = `
   <div>
-    <h1>Hello from esbuild!</h1>
+    <h1>Hello</h1>
   </div>
 `

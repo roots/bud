@@ -2,13 +2,13 @@ import {describe, expect, it} from 'vitest'
 
 import {when} from './when'
 
-@when(async () => true)
+@when(() => true)
 // @ts-ignore
 class TestClass {}
 
 describe(`when`, () => {
   it(`should return a decorator`, async () => {
-    expect(when(async () => true)).toBeInstanceOf(Function)
+    expect(when(() => true)).toBeInstanceOf(Function)
   })
 
   it(`should add a when property to the class`, async () => {

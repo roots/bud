@@ -28,8 +28,14 @@ export const Server = ({
   publicProxyUrl,
 }: Props) => {
   const hasMappedProxyUrl =
-    publicProxyUrl?.origin && publicProxyUrl?.origin !== proxyUrl.origin
-  const hasMappedDevUrl = publicDevUrl.origin !== devUrl.origin
+    publicProxyUrl?.origin &&
+    proxyUrl.origin &&
+    publicProxyUrl?.origin !== proxyUrl.origin
+
+  const hasMappedDevUrl =
+    devUrl?.origin &&
+    publicDevUrl?.origin &&
+    publicDevUrl.origin !== devUrl.origin
 
   const ipv4 = externalNetworkInterface.ipv4Url(publicDevUrl.protocol)
   ipv4.port = publicDevUrl.port
@@ -48,47 +54,34 @@ export const Server = ({
         <>
           <Ink.Text dimColor>{figures.lineVerticalDashed7}</Ink.Text>
 
-          {hasMappedProxyUrl ? (
+          {hasMappedProxyUrl && proxyUrl && publicProxyUrl ? (
             <>
-              {proxyUrl && (
-                <Value label="proxy (internal)" value={proxyUrl.origin} />
-              )}
-              {publicProxyUrl && (
-                <Value
-                  label="proxy (external)"
-                  value={publicProxyUrl.origin}
-                />
-              )}
+              <Value label="proxy (internal)" value={proxyUrl.origin} />
+              <Value
+                label="proxy (external)"
+                value={publicProxyUrl.origin}
+              />
               <Ink.Text dimColor>{figures.lineVertical}</Ink.Text>
             </>
-          ) : (
+          ) : proxyUrl ? (
             <>
-              {proxyUrl && <Value label="proxy" value={proxyUrl.origin} />}
+              {<Value label="proxy" value={proxyUrl.origin} />}
               <Ink.Text dimColor>{figures.lineVertical}</Ink.Text>
             </>
-          )}
+          ) : null}
 
-          {hasMappedDevUrl ? (
+          {hasMappedDevUrl && devUrl && publicDevUrl ? (
             <>
-              {devUrl && (
-                <Value label="dev (internal)" value={devUrl.origin} />
-              )}
-              {devUrl && (
-                <Value
-                  label="dev (external)"
-                  value={publicDevUrl.origin}
-                />
-              )}
-              <Ink.Text dimColor>{figures.lineVertical}</Ink.Text>
+              <Value label="dev (internal)" value={devUrl.origin} />
+              <Value label="dev (external)" value={publicDevUrl.origin} />
+              <Value label="ipv4" value={ipv4.origin} last />
             </>
-          ) : (
+          ) : devUrl ? (
             <>
               {devUrl && <Value label="dev" value={devUrl.origin} />}
-              <Ink.Text dimColor>{figures.lineVertical}</Ink.Text>
+              <Value label="ipv4" value={ipv4.origin} last />
             </>
-          )}
-
-          <Value label="ipv4" value={ipv4.origin} last />
+          ) : null}
 
           <Ink.Box
             marginTop={1}

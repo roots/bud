@@ -24,13 +24,9 @@ const ChunkGroup = ({
     <Ink.Box flexDirection="column">
       <Ink.Box flexDirection="row">
         <Title indent={indent} final={final}>
-          {chunk.name ? (
-            <Ink.Text color={color.foregroundColor}>{chunk.name}</Ink.Text>
-          ) : (
-            <Ink.Text color={color.foregroundColor}>
-              unnamed chunk
-            </Ink.Text>
-          )}
+          <Ink.Text color={color.foregroundColor}>
+            {chunk.name ?? ``}
+          </Ink.Text>
         </Title>
       </Ink.Box>
 

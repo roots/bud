@@ -48,7 +48,7 @@ export class Dashboard extends Service implements Contract {
       return this
     }
     if (this.silent) {
-      this.logger.info(`dashboard called but silent mode is on.`)
+      this.logger.info(`dashboard called but --silent flag is set.`)
       return this
     }
 

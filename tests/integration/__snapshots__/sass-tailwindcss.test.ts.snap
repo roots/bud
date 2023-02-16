@@ -1,12 +1,6 @@
 // Vitest Snapshot v1
 
-exports[`sass-tailwindcss > npm > manifest.json > matches snapshot 1`] = `
-{
-  "app.css": "css/app.css",
-}
-`;
-
-exports[`sass-tailwindcss > yarn > manifest.json > matches snapshot 1`] = `
+exports[`examples/sass-tailwindcss > should compile js and css as expected 1`] = `
 {
   "app.css": "css/app.css",
 }

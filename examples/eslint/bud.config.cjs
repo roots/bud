@@ -1,1 +1,6 @@
-module.exports = async bud => bud.template().entry('app', 'app.js')
+module.exports = async bud => {
+  bud
+    .html()
+    .entry('app', 'app.js')
+    .eslint.set(`fix`, true)
+}

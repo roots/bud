@@ -1,8 +1,8 @@
-import {Bud} from '@roots/bud'
 import {checkDependencies} from '@roots/bud/cli/helpers/checkDependencies'
 import {checkPackageManagerErrors} from '@roots/bud/cli/helpers/checkPackageManagerErrors'
 import {isInternalDevelopmentEnv} from '@roots/bud/cli/helpers/isInternalDevelopmentEnv'
 import {isset} from '@roots/bud/cli/helpers/isset'
+import {Bud} from '@roots/bud-framework'
 import type {
   CommandContext,
   Context,
@@ -16,6 +16,9 @@ import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import * as t from '@roots/bud-support/typanion'
 
 import type {Notifier} from '../../notifier/index.js'
+import * as Display from '../components/Error.js'
+import {WinError} from '../components/WinError.js'
+import {isWindows} from '../helpers/isWindows.js'
 
 export type {BaseContext, CommandContext, Context}
 export {Option}
@@ -125,21 +128,21 @@ export default class BudCommand extends Command<CommandContext> {
 
     const normalizeError = (value: unknown): Error => {
       if (value instanceof Error) return value
-      if (isString(value)) return new Error(value)
+      if (isString(value)) return new Error(value.trim())
 
       if (value instanceof Object) {
         try {
+          if (isString(error.message))
+            return new Error(error.message.trim())
           return new Error(JSON.stringify(value, null, 2))
         } catch (error) {
-          return new Error(value.toString())
+          return new Error(value.toString().trim())
         }
       }
     }
 
     try {
       error = normalizeError(value)
-      error.name = error.name ? ` ${error.name} ` : ` Error `
-      error.stack = error.stack?.split(`  at `).splice(0, 2).join(`  at `)
     } catch (e) {}
 
     if (this.notifier?.notify) {
@@ -156,18 +159,14 @@ export default class BudCommand extends Command<CommandContext> {
     }
 
     try {
-      await this.renderer.instance?.waitUntilExit()
       await this.renderOnce(
-        <Ink.Box flexDirection="column" marginTop={1}>
-          <Ink.Box marginBottom={1}>
-            <Ink.Text backgroundColor="red" color="white">
-              {error.name}
-            </Ink.Text>
-          </Ink.Box>
-
-          <Ink.Box>
-            <Ink.Text>{error.message}</Ink.Text>
-          </Ink.Box>
+        <Ink.Box flexDirection="column">
+          <Display.Error
+            name={error.name}
+            message={error.message}
+            stack={this.bud.context.args.debug && error.stack}
+          />
+          {isWindows() && <WinError />}
         </Ink.Box>,
       )
     } catch (error) {
@@ -175,7 +174,6 @@ export default class BudCommand extends Command<CommandContext> {
     }
 
     if (this.bud?.isProduction) {
-      // eslint-disable-next-line n/no-process-exit
       this.bud.close()
       this.renderer.cleanup()
       await this.renderer.instance?.waitUntilExit()
@@ -230,7 +228,7 @@ export default class BudCommand extends Command<CommandContext> {
     await command.applyBudArguments(command.bud)
 
     if (command.context.args.use) {
-      await command.bud.extensions.add(command.context.args.use)
+      await command.bud.extensions.add(command.context.args.use as any)
     }
 
     await command.bud.processConfigs()
@@ -263,12 +261,10 @@ export default class BudCommand extends Command<CommandContext> {
   }
 
   public async healthcheck(command: BudCommand) {
-    try {
-      if (!isInternalDevelopmentEnv(command.bud)) {
-        checkPackageManagerErrors(command.bud)
-        await checkDependencies(command.bud)
-      }
-    } catch (error) {}
+    if (isInternalDevelopmentEnv(command.bud)) return
+
+    checkPackageManagerErrors(command.bud)
+    await checkDependencies(command.bud)
   }
 
   @bind
@@ -405,12 +401,12 @@ export default class BudCommand extends Command<CommandContext> {
      */
     const override = (override: (bud: Bud) => void) =>
       bud.hasChildren
-        ? Object.values(bud.children).map(override)
+        ? Object.values(bud.children).map(child => override(child))
         : override(bud)
 
     if (isset(args.manifest)) {
       bud.log(`overriding manifest setting from cli`)
-      override(bud => bud.hooks.on(`feature.manifest`, args.manifest))
+      override(bud => bud.manifest.enable(args.manifest))
     }
 
     if (isset(args.cache)) {

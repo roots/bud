@@ -531,7 +531,8 @@ exports[`@roots/bud-tailwindcss extension > should throw when key does not exist
 
 {
   \\"content\\": [
-    \\"./src/index.html\\"
+    \\"./src/index.html\\",
+    \\"./src/**/*.js\\"
   ],
   \\"theme\\": {
     \\"extend\\": {

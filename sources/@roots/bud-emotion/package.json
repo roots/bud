@@ -46,25 +46,28 @@
     "src"
   ],
   "type": "module",
-  "module": "./lib/index.js",
-  "types": "./lib/index.d.ts",
   "exports": {
-    ".": "./lib/index.js",
-    "./extension": "./lib/extension.js"
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    },
+    "./types": {
+      "types": "./lib/types.d.ts",
+      "import": "./lib/types.js"
+    }
   },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.d.ts"
       ],
-      "extension": [
-        "./lib/extension.d.ts"
-      ],
-      "env": [
-        "./lib/env.d.ts"
+      "types": [
+        "./lib/types.d.ts"
       ]
     }
   },
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "devDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
@@ -82,7 +85,7 @@
     "@emotion/styled": "^11.10.5",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "@swc/plugin-emotion": "2.5.36"
+    "@swc/plugin-emotion": "2.5.40"
   },
   "peerDependencies": {
     "@babel/core": "7.20.7",
@@ -96,6 +99,9 @@
     "@swc/plugin-emotion": "*"
   },
   "peerDependenciesMeta": {
+    "@babel/core": {
+      "optional": true
+    },
     "@emotion/babel-plugin": {
       "optional": true
     },

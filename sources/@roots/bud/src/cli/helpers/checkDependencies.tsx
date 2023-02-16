@@ -1,5 +1,5 @@
-import type {Bud} from '@roots/bud'
 import {isInternalDevelopmentEnv} from '@roots/bud/cli/helpers/isInternalDevelopmentEnv'
+import type {Bud} from '@roots/bud-framework'
 import Ink from '@roots/bud-support/ink'
 import React from '@roots/bud-support/react'
 

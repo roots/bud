@@ -1,6 +1,7 @@
 ---
 title: API
 parts:
+  - compilePaths/overview.md
   - entry/overview.md
   - html/overview.md
   - provide/overview.md

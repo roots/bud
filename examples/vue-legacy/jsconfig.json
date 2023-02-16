@@ -4,8 +4,8 @@
     "paths": {
       "@*": ["./*"]
     },
-    "types": ["@roots/bud-vue"]
+    "types": ["@roots/bud", "@roots/bud-vue"]
   },
-  "include": ["./src", "bud.config.js"],
+  "include": ["src", "bud.config.js"],
   "exclude": ["node_modules", "dist"]
 }

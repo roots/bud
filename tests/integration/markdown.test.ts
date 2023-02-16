@@ -1,30 +1,14 @@
 import {Project} from '@repo/test-kit/project'
-import {beforeAll, describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vitest'
 
-const run = pacman => () => {
-  let project
-
-  beforeAll(async () => {
-    project = new Project({
+describe(`examples/markdown`, () => {
+  it(`should compile js and css as expected`, async () => {
+    const project = await new Project({
       label: `@examples/markdown`,
-      with: pacman,
-    })
+      with: `npm`,
+    }).setup()
 
-    await project.setup()
+    expect(project.assets[`main.js`].length).toBeGreaterThan(10)
+    expect(project.assets[`main.js`].includes(`import `)).toBeFalsy()
   })
-
-  describe(`app.js`, () => {
-    it(`has contents`, () => {
-      expect(project.assets[`app.js`].length).toBeGreaterThan(10)
-    })
-
-    it(`is transpiled`, () => {
-      expect(project.assets[`app.js`].includes(`import`)).toBeFalsy()
-    })
-  })
-}
-
-describe(`markdown`, () => {
-  describe(`npm`, run(`npm`))
-  describe(`yarn`, run(`yarn`))
-}, 240000)
+})

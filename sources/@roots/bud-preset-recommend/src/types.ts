@@ -4,6 +4,7 @@
 /// <reference types="@roots/bud-entrypoints" />
 /// <reference types="@roots/bud-esbuild" />
 /// <reference types="@roots/bud-swc" />
+/// <reference types="@roots/bud-typescript" />
 
 import type BudPresetRecommend from './extension.js'
 

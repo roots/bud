@@ -29,7 +29,6 @@
   },
   "keywords": [
     "bud",
-    "bud-extension",
     "eslint"
   ],
   "engines": {
@@ -41,22 +40,28 @@
     "src"
   ],
   "type": "module",
-  "module": "./lib/index.js",
-  "types": "./lib/index.d.ts",
   "exports": {
-    ".": "./lib/index.js",
-    "./extension": "./lib/extension.js"
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    },
+    "./commands": {
+      "types": "./lib/bud/commands.d.ts",
+      "import": "./lib/bud/commands.js"
+    }
   },
   "typesVersions": {
     "*": {
       ".": [
-        "./lib/index.js"
+        "./lib/index.d.ts"
       ],
-      "extension": [
-        "./lib/extension.js"
+      "commands": [
+        "./lib/bud/commands.d.ts"
       ]
     }
   },
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "devDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
     "@skypack/package-check": "0.2.2",
@@ -72,13 +77,17 @@
   },
   "peerDependencies": {
     "@roots/bud": "*",
-    "eslint": "*"
+    "eslint": "*",
+    "eslint-webpack-plugin": "*"
   },
   "peerDependenciesMeta": {
     "@roots/bud": {
       "optional": true
     },
     "eslint": {
+      "optional": true
+    },
+    "eslint-webpack-plugin": {
       "optional": true
     }
   },

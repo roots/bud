@@ -1,7 +1,7 @@
 /**
  * Configuration which runs two instances of bud.
  *
- * Each can be uniqueuely configured.
+ * Each can be uniquely configured.
  * ```
  */
 module.exports = async ({make, path}) => {

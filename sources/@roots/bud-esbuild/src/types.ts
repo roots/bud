@@ -10,8 +10,19 @@ import type {Rule} from '@roots/bud-build/rule'
 import type Esbuild from './extension.js'
 
 declare module '@roots/bud-framework' {
+  interface Bud {
+    esbuild: {
+      set: Esbuild[`set`]
+      get: Esbuild[`get`]
+      getOptions: Esbuild[`getOptions`]
+      setOptions: Esbuild[`setOptions`]
+      enable: Esbuild[`enable`]
+      use: Esbuild[`use`]
+    }
+  }
+
   interface Modules {
-    '@roots/bud-esbuild': Esbuild
+    '@roots/bud-esbuild': Bud[`esbuild`]
   }
 
   interface Loaders {

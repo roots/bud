@@ -3,7 +3,6 @@ import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
   dependsOn,
-  dependsOnOptional,
   expose,
   label,
   options,
@@ -13,22 +12,10 @@ import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import type BudReactRefresh from '../react-refresh/index.js'
 
 /**
- * `BudReact` adds the `@babel/preset-react` preset to the babel configuration
- * and registers the `@roots/bud-react/react-refresh` extension
- *
- * @remarks
- * If `@roots/bud-esbuild` or `@roots/bud-swc` is registered, the babel preset registration is skipped
- *
- * @public
- * @decorator `@label`
- * @decorator `@dependsOn`
- * @decorator `@dependsOnOptional`
- * @decorator `@options`
- * @decorator `@expose`
+ * React configuration
  */
 @label(`@roots/bud-react`)
 @dependsOn([`@roots/bud-react/react-refresh`])
-@dependsOnOptional([`@roots/bud-esbuild`, `@roots/bud-swc`])
 @options({babel: undefined})
 @expose(`react`)
 export default class BudReact extends Extension {
@@ -63,7 +50,7 @@ export default class BudReact extends Extension {
   }
 
   /**
-   * `configAfter` callback
+   * {@link Extension.configAfter}
    *
    * @remarks
    * Adds the `@babel/preset-react` preset to babel if `@roots/bud-esbuild` is not

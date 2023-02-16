@@ -30,6 +30,26 @@ npm:
 npm install @roots/bud-esbuild --save-dev
 ```
 
+## Usage
+
+Once installed, esbuild should be ready to use in your project.
+
+If you have a `tsconfig.json` in your project root it will automatically be registered with the compiler.
+
+## API
+
+### bud.esbuild.use
+
+If you have one or more compilers installed alongside the esbuild extension you will want to call **bud.esbuild.use** in your config to ensure
+esbuild is used to compile your code.
+
+```ts title=bud.config.js
+export default async (bud) => {
+  bud.esbuild.use();
+  // ...config
+};
+```
+
 ## Contributing
 
 Contributions are welcome from everyone.
@@ -53,7 +73,9 @@ Keep track of development and community news.
 
 ## Sponsors
 
-Help support our open-source development efforts by [becoming a patron](https://www.patreon.com/rootsdev).
+**Bud** is an open source project and completely free to use.
+
+However, the amount of effort needed to maintain and develop new features and projects within the Roots ecosystem is not sustainable without proper financial backing. If you have the capability, please consider [sponsoring Roots](https://github.com/sponsors/roots).
 
 <a href="https://k-m.com/">
 <img src="https://cdn.roots.io/app/uploads/km-digital.svg" alt="KM Digital" width="200" height="150"/>
