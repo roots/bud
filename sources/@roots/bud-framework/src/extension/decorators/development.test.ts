@@ -22,7 +22,7 @@ describe(`development`, () => {
 
     expect(
       // @ts-ignore
-      await new TestClass(bud).enabled
+      await new TestClass(bud).enabled,
     ).toBeTruthy()
   })
 
@@ -31,7 +31,7 @@ describe(`development`, () => {
 
     expect(
       // @ts-ignore
-      await new TestClass(bud).enabled
+      await new TestClass(bud).enabled,
     ).toBeFalsy()
   })
 })

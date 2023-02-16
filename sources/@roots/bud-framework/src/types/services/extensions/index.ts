@@ -1,7 +1,11 @@
 import type Container from '@roots/container'
 
 import type {Bud} from '../../../bud.js'
-import type {ApplyPlugin, Extension, ExtensionLiteral} from '../../../extension/index.js'
+import type {
+  ApplyPlugin,
+  Extension,
+  ExtensionLiteral,
+} from '../../../extension/index.js'
 import type {Service as BaseService} from '../../../service.js'
 import type {Modules} from '../../registry/modules.js'
 

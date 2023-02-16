@@ -29,7 +29,7 @@ export default class BudSWCRefresh extends Extension {
     this.app.swc.setOptions(options => ({
       ...options,
       jsc: {
-        ...options.jsc ?? {},
+        ...(options.jsc ?? {}),
         transform: {
           react: {
             development: this.app.isDevelopment,

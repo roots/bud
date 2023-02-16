@@ -40,10 +40,7 @@ export default class BudReactRefresh extends Extension<
    */
   @bind
   public override async configAfter(bud: Bud) {
-    if (
-      bud.isCLI() &&
-      bud.context.args.hot === false
-    ) return
+    if (bud.isCLI() && bud.context.args.hot === false) return
 
     this.logger.log(`Injecting react-refresh/client scripts`)
     if (!bud.hasChildren)

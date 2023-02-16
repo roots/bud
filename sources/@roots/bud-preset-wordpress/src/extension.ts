@@ -1,9 +1,6 @@
 import type {Bud} from '@roots/bud'
 import {Extension} from '@roots/bud-framework/extension'
-import {
-  dependsOn,
-  label,
-} from '@roots/bud-framework/extension/decorators'
+import {dependsOn, label} from '@roots/bud-framework/extension/decorators'
 
 /**
  * WordPress preset
