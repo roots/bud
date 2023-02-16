@@ -6851,7 +6851,7 @@ __metadata:
     "@types/node": 18.11.18
     "@types/prettier": 2.7.2
     dotenv: 16.0.3
-    execa: 6.1.0
+    execa: 7.0.0
     fs-extra: 11.1.0
     globby: 13.1.3
     gray-matter: 4.0.3
@@ -6888,7 +6888,7 @@ __metadata:
     "@types/fs-extra": 11.0.1
     "@types/node": 18.11.18
     chalk: 5.2.0
-    execa: 6.1.0
+    execa: 7.0.0
     fs-extra: 11.1.0
     globby: 13.1.3
     helpful-decorators: 2.1.0
@@ -6966,7 +6966,7 @@ __metadata:
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
     browserslist: ">=4.21.4"
-    execa: 6.1.0
+    execa: 7.0.0
     update-browserslist-db: ">=1.0.10"
   peerDependencies:
     browserslist: ">=4.21.4"
@@ -7774,7 +7774,7 @@ __metadata:
     csv-loader: ^3.0.5
     dotenv: 16.0.3
     dotenv-expand: 10.0.0
-    execa: 6.1.0
+    execa: 7.0.0
     express: 4.18.2
     figures: 5.0.0
     file-loader: ^6.2.0
@@ -8252,7 +8252,7 @@ __metadata:
     "@roots/bud-terser": "workspace:sources/@roots/bud-terser"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.11.18
-    execa: 6.1.0
+    execa: 7.0.0
     tslib: 2.4.1
   peerDependencies:
     "@roots/browserslist-config": "*"
@@ -14093,7 +14093,7 @@ __metadata:
     eslint-plugin-react: 7.32.1
     eslint-plugin-react-hooks: 4.6.0
     eslint-plugin-simple-import-sort: 9.0.0
-    execa: 6.1.0
+    execa: 7.0.0
     fs-extra: 11.1.0
     import-meta-resolve: 2.2.1
     lodash: 4.17.21
@@ -18488,20 +18488,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"execa@npm:6.1.0, execa@npm:^6.0.0":
-  version: 6.1.0
-  resolution: "execa@npm:6.1.0"
+"execa@npm:7.0.0":
+  version: 7.0.0
+  resolution: "execa@npm:7.0.0"
   dependencies:
     cross-spawn: ^7.0.3
     get-stream: ^6.0.1
-    human-signals: ^3.0.1
+    human-signals: ^4.3.0
     is-stream: ^3.0.0
     merge-stream: ^2.0.0
     npm-run-path: ^5.1.0
     onetime: ^6.0.0
     signal-exit: ^3.0.7
     strip-final-newline: ^3.0.0
-  checksum: 1a4af799839134f5c72eb63d525b87304c1114a63aa71676c91d57ccef2e26f2f53e14c11384ab11c4ec479be1efa83d11c8190e00040355c2c5c3364327fa8e
+  checksum: be7c7b6d1e5473f628e46888b0cf8279da483c1a6000dd494a2059cc26591ded57ba46be1c9bdde1ec895e7eb8b18911174aba425cd971d41d140a9405da9a02
   languageName: node
   linkType: hard
 
@@ -18519,6 +18519,23 @@ __metadata:
     signal-exit: ^3.0.3
     strip-final-newline: ^2.0.0
   checksum: fba9022c8c8c15ed862847e94c252b3d946036d7547af310e344a527e59021fd8b6bb0723883ea87044dc4f0201f949046993124a42ccb0855cae5bf8c786343
+  languageName: node
+  linkType: hard
+
+"execa@npm:^6.0.0":
+  version: 6.1.0
+  resolution: "execa@npm:6.1.0"
+  dependencies:
+    cross-spawn: ^7.0.3
+    get-stream: ^6.0.1
+    human-signals: ^3.0.1
+    is-stream: ^3.0.0
+    merge-stream: ^2.0.0
+    npm-run-path: ^5.1.0
+    onetime: ^6.0.0
+    signal-exit: ^3.0.7
+    strip-final-newline: ^3.0.0
+  checksum: 1a4af799839134f5c72eb63d525b87304c1114a63aa71676c91d57ccef2e26f2f53e14c11384ab11c4ec479be1efa83d11c8190e00040355c2c5c3364327fa8e
   languageName: node
   linkType: hard
 
@@ -21538,6 +21555,13 @@ __metadata:
   version: 3.0.1
   resolution: "human-signals@npm:3.0.1"
   checksum: f252a7769c8094a5c9dc6772816bdb417b188820b04c8b42d0fc468e03a0ba905b1dd07afabe9385cc83504af1ccc2b985cd1e4aeeeb8e0029896c5af2e6f354
+  languageName: node
+  linkType: hard
+
+"human-signals@npm:^4.3.0":
+  version: 4.3.0
+  resolution: "human-signals@npm:4.3.0"
+  checksum: 662b976b1063a8afb8fd7fa50bde6975997e17ea6ceba2aad54aacf1dc239a2cd7d14d27b3ceca0c6288627f4b45c56c2c89618455ff52cd9377c02d6328cd7c
   languageName: node
   linkType: hard
 
