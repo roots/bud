@@ -11,11 +11,7 @@ import type {Bud} from '../bud.js'
 export const initialize = (bud: Bud): Bud =>
   bud.hooks
     .fromMap({
-      'feature.clean': () => bud.isProduction,
       'feature.hash': () => false,
-      'feature.manifest': () => true,
-      'feature.runtimeChunk': () => false,
-      'feature.splitChunks': () => false,
     })
     .hooks.fromMap({
       'pattern.js': /\.(mjs|jsx?)$/,

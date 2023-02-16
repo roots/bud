@@ -12,8 +12,8 @@ declare module '@roots/bud-framework/registry/flags' {
 declare module '@roots/bud-framework' {
   interface Modules {
     '@roots/bud-compress': {
-      brotli: Modules[`@roots/bud-compress/brotli`]
-      gzip: Modules[`@roots/bud-compress/gzip`]
+      brotli: Bud[`compress`][`brotli`]
+      gzip: Bud[`compress`][`gzip`]
     }
 
     '@roots/bud-compress/brotli': {
@@ -106,7 +106,10 @@ declare module '@roots/bud-framework' {
      *  .set('filename', '[name].br[query]')
      * ```
      */
-    compress: Modules[`@roots/bud-compress`]
+    compress: {
+      gzip: Modules[`@roots/bud-compress/gzip`]
+      brotli: Modules[`@roots/bud-compress/brotli`]
+    }
 
     /**
      * @deprecated Use `bud.compress.gzip` instead.

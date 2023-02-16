@@ -1,6 +1,6 @@
 module.exports = async app => {
   app
-    .entry('app', ['app.js', 'global.css'])
+    .entry('app', ['app.js', 'app.css'])
     .when(app.isProduction, app => {
       app.splitChunks().minimize().runtime('single')
     })

@@ -39,33 +39,45 @@
     "node": ">=16"
   },
   "files": [
-    "docs/",
-    "lib/",
-    "tsconfig/"
+    "config",
+    "docs",
+    "lib",
+    "src",
+    "tsconfig"
   ],
   "type": "module",
-  "module": "./lib/index.js",
-  "types": "./lib/index.d.ts",
   "exports": {
-    ".": "./lib/index.js",
-    "./bud/*": "./lib/bud/*.js",
-    "./extension": "./lib/extension.js",
-    "./tsconfig/tsconfig.json": "./tsconfig/tsconfig.json",
-    "./typecheck": "./lib/typecheck/index.js"
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    },
+    "./typecheck": {
+      "types": "./lib/typecheck/index.d.ts",
+      "import": "./lib/typecheck/index.js"
+    },
+    "./bud/commands": {
+      "types": "./lib/bud/commands/index.d.ts",
+      "import": "./lib/bud/commands/index.js"
+    },
+    "./config/tsconfig.json": {
+      "default": "./config/tsconfig.json"
+    },
+    "./tsconfig/tsconfig.json": {
+      "default": "./config/tsconfig.json"
+    }
   },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.d.ts"
       ],
-      "extension": [
-        "./lib/extension.d.ts"
-      ],
       "typecheck": [
         "./lib/typecheck/index.d.ts"
       ]
     }
   },
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "devDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel",

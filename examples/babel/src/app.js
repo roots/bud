@@ -1,4 +1,4 @@
-import './global.css'
+import '@src/app.css'
 
 document.querySelector('#root')?.classList.add('init')
 

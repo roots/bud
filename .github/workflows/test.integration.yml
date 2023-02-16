@@ -34,11 +34,5 @@ jobs:
       - name: yarn
         run: yarn
 
-      - name: yarn @bud registry start
-        run: yarn @bud registry start
-
-      - name: yarn @bud release --tag latest
-        run: yarn @bud release --tag latest
-
       - name: yarn @bud test integration
         run: yarn @bud test integration run

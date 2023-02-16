@@ -12,18 +12,11 @@ export interface Options {
 export class InterpolateHtmlWebpackPlugin {
   /**
    * Plugin name
-   *
-   * @public
    */
   public name = `interpolate-html-webpack-plugin`
 
   /**
    * Class constructor
-   *
-   * @param getHooks - {@link Plugin.getHooks}
-   * @param replacements - {@link Options}
-   *
-   * @public
    */
   public constructor(
     public getHooks: (...args: any[]) => Plugin.Hooks,
@@ -32,9 +25,6 @@ export class InterpolateHtmlWebpackPlugin {
 
   /**
    * {@link WebpackPluginInstance.apply}
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public apply(compiler: Compiler): void {

@@ -41,17 +41,29 @@
     "node": ">=16"
   },
   "files": [
-    "lib/",
-    "stylelint-config/"
+    "lib",
+    "config"
   ],
   "type": "module",
-  "module": "./lib/index.js",
-  "types": "./lib/index.d.ts",
   "exports": {
-    ".": "./lib/index.js",
-    "./extension": "./lib/extension.js",
-    "./resolve-url": "./lib/resolve-url/index.js",
-    "./stylelint-config": "./stylelint-config/index.cjs"
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    },
+    "./extension": {
+      "types": "./lib/extension.d.ts",
+      "import": "./lib/extension.js"
+    },
+    "./resolve-url": {
+      "types": "./lib/resolve-url/index.d.ts",
+      "import": "./lib/resolve-url/index.js"
+    },
+    "./stylelint-config": {
+      "require": "./config/stylelint.cjs"
+    },
+    "./config/stylelint": {
+      "require": "./config/stylelint.cjs"
+    }
   },
   "typesVersions": {
     "*": {
@@ -69,6 +81,8 @@
       ]
     }
   },
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "devDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-build": "workspace:sources/@roots/bud-build",

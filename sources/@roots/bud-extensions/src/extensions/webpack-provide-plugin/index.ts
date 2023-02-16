@@ -8,11 +8,7 @@ import {
 import webpack from '@roots/bud-support/webpack'
 
 /**
- * `@roots/bud-extensions/webpack-provide-plugin` adapter
- *
- * @public
- * @decorator `@label`
- * @decorator `@plugin`
+ * Webpack provide plugin configuration
  */
 @label(`@roots/bud-extensions/webpack-provide-plugin`)
 @plugin(webpack.ProvidePlugin)
@@ -22,16 +18,10 @@ export default class BudProvide extends Extension<
   webpack.ProvidePlugin
 > {
   /**
-   * `when` callback
-   *
-   * @remarks
-   * Returns `true` when `options` are defined
-   *
-   * @public
-   * @decorator `@bind`
+   * {@link Extension.when}
    */
   @bind
-  public override async when() {
+  public override when() {
     return this.options && Object.keys(this.options).length > 0
   }
 }

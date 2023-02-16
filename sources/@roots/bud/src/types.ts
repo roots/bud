@@ -10,3 +10,13 @@
 /// <reference types="@roots/bud-support" />
 /// <reference types="@roots/bud-server" />
 /// <reference types="@roots/bud-terser" />
+
+import '@roots/bud-api/types'
+import '@roots/bud-build/types'
+import '@roots/bud-cache/types'
+import '@roots/bud-entrypoints/types'
+import '@roots/bud-terser/types'
+
+declare module '@roots/bud-framework' {
+  interface Bud {}
+}

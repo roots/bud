@@ -7,11 +7,15 @@ declare module '@roots/bud-framework' {
     eslint: {
       enable: BudEslint[`enable`]
       get: BudEslint[`get`]
+      getOption: BudEslint[`getOption`]
+      getOptions: BudEslint[`getOptions`]
       set: BudEslint[`set`]
+      setOption: BudEslint[`setOption`]
+      setOptions: BudEslint[`setOptions`]
     }
   }
 
   interface Modules {
-    '@roots/bud-eslint': BudEslint
+    '@roots/bud-eslint': Bud[`eslint`]
   }
 }

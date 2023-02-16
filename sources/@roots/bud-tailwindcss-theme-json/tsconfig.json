@@ -3,6 +3,7 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "lib",
+    "types": ["@roots/bud-tailwindcss", "@roots/bud-wordpress-theme-json"]
   },
   "include": ["src"],
   "exclude": ["lib", "types", "node_modules"],

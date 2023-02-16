@@ -20,9 +20,7 @@ import type {LoaderOptions, Registry} from './types.js'
 @expose(`babel`)
 export default class BabelExtension extends Extension {
   /**
-   * Babel cache directory
-   *
-   * @public
+   * Cache directory
    */
   public get cacheDirectory(): LoaderOptions[`cacheDirectory`] {
     return this.app.cache.enabled
@@ -32,8 +30,6 @@ export default class BabelExtension extends Extension {
 
   /**
    * Babel env
-   *
-   * @public
    */
   public env: LoaderOptions[`env`] = {
     development: {compact: false},
@@ -48,22 +44,16 @@ export default class BabelExtension extends Extension {
 
   /**
    * Plugins registry
-   *
-   * @public
    */
   public plugins: Registry = {}
 
   /**
    * Presets registry
-   *
-   * @public
    */
   public presets: Registry = {}
 
   /**
    * Root directory
-   *
-   * @public
    */
   public get root() {
     return this.app.path()
@@ -73,7 +63,6 @@ export default class BabelExtension extends Extension {
    * Loader options
    *
    * @readonly
-   * @public
    */
   public get loaderOptions(): LoaderOptions {
     return {
@@ -87,10 +76,7 @@ export default class BabelExtension extends Extension {
   }
 
   /**
-   * Register extension
-   *
-   * @public
-   * @decorator `@bind`
+   * {@link Extension.register}
    */
   @bind
   public override async register() {
@@ -119,11 +105,9 @@ export default class BabelExtension extends Extension {
       throw error
     }
   }
+
   /**
-   * `configAfter` callback
-   *
-   * @public
-   * @decorator `@bind`
+   * {@link Extension.configAfter}
    */
   @bind
   public override async configAfter(bud: Bud) {
@@ -143,13 +127,6 @@ export default class BabelExtension extends Extension {
 
   /**
    * Set a babel preset
-   *
-   * @param name - babel preset name
-   * @param preset - path to the babel preset or the preset itself
-   * @returns The babel configuration class
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public setPreset(name: string, preset?: [string, any] | string): this {
@@ -164,12 +141,6 @@ export default class BabelExtension extends Extension {
 
   /**
    * Set babel presets
-   *
-   * @remarks
-   * Completely overrides existing registry
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public setPresets(presets: {
@@ -193,12 +164,6 @@ export default class BabelExtension extends Extension {
 
   /**
    * Remove a babel preset
-   *
-   * @param preset - preset name
-   * @returns The babel configuration class
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public unsetPreset(preset: string) {
@@ -210,13 +175,6 @@ export default class BabelExtension extends Extension {
 
   /**
    * Set options on a babel preset
-   *
-   * @param preset - preset name
-   * @param options - preset options
-   * @returns The babel configuration class
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public setPresetOptions(preset: string, options: any): this {
@@ -226,13 +184,6 @@ export default class BabelExtension extends Extension {
 
   /**
    * Set a babel plugin
-   *
-   * @param name - babel plugin name
-   * @param plugin - path to the babel plugin or the plugin itself
-   * @returns The babel configuration class
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public setPlugin(
@@ -259,12 +210,6 @@ export default class BabelExtension extends Extension {
 
   /**
    * Set babel presets
-   *
-   * @remarks
-   * Completely overrides existingplugins  registry
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public setPlugins(plugins: {[key: string]: [any, any] | string}): this {
@@ -286,12 +231,6 @@ export default class BabelExtension extends Extension {
 
   /**
    * Remove a babel plugin
-   *
-   * @param plugin - plugin name
-   * @returns The babel configuration class
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public unsetPlugin(plugin: string) {
@@ -303,13 +242,6 @@ export default class BabelExtension extends Extension {
 
   /**
    * Set options on a babel plugin
-   *
-   * @param plugin - plugin name
-   * @param options - plugin options
-   * @returns The babel configuration class
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public setPluginOptions(plugin: string, options: any): this {

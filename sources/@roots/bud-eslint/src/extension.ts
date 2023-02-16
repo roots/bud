@@ -19,8 +19,8 @@ import EslintPlugin from 'eslint-webpack-plugin'
   extensions: [`js`, `jsx`, `ts`, `tsx`, `vue`],
   cacheLocation: app => app.path(`@storage`, app.label, `cache`, `eslint`),
   fix: false,
-  context: app => app.context.basedir,
-  resolvePluginsRelativeTo: app => app.context.basedir,
+  context: app => app.path(),
+  resolvePluginsRelativeTo: app => app.path(),
   threads: false,
 })
 export class BudEslint extends Extension<Options, EslintPlugin> {

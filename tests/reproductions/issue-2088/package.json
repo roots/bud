@@ -4,7 +4,9 @@
   "private": true,
   "bud": {
     "extensions": {
-      "discovery": false
+      "allowlist": [
+        "@roots/bud-swc"
+      ]
     }
   },
   "dependencies": {

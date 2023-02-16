@@ -12,9 +12,6 @@ import type {SvgoEncodeOptions} from 'image-minimizer-webpack-plugin/types/utils
  * `@roots/bud-imagemin/svgo`
  *
  * @see {@link https://bud.js.org/extensions/bud-imagemin}
- *
- * @decorator `@label`
- * @decorator `@options`
  */
 @label(`@roots/bud-imagemin/svgo`)
 @options({encodeOptions: {}})
@@ -36,12 +33,10 @@ export class BudImageminSvgo extends Extension {
   }
 
   /**
-   * {@link Extension.init}
-   *
-   * @decorator `@bind`
+   * {@link Extension.register}
    */
   @bind
-  public override async init() {
+  public override async register() {
     this.implementation = Plugin.svgoMinify
   }
 

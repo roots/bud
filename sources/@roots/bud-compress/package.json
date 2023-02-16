@@ -47,10 +47,9 @@
   ],
   "type": "module",
   "exports": {
-    ".": "./lib/index.js",
-    "./extension": {
-      "types": "./lib/extension.d.ts",
-      "import": "./lib/extension.js"
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
     },
     "./brotli": {
       "types": "./lib/brotli.d.ts",
@@ -65,9 +64,6 @@
     "*": {
       ".": [
         "./lib/index.d.ts"
-      ],
-      "extension": [
-        "./lib/extension.d.ts"
       ],
       "brotli": [
         "./lib/brotli.d.ts"

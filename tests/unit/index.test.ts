@@ -12,18 +12,4 @@ describe(`test environment sanity checks`, () => {
       setTimeout(() => resolve(expect(true).toBe(true)), 10),
     )
   })
-
-  it(`bud should be prevented from auto-loading extensions`, async () => {
-    const bud = await factory({mode: `production`})
-    expect(bud.extensions.repository).not.toHaveProperty(
-      `@roots/bud-postcss`,
-    )
-    expect(bud.extensions.repository).not.toHaveProperty(`@roots/bud-swc`)
-    expect(bud.extensions.repository).not.toHaveProperty(
-      `@roots/bud-tailwindcss`,
-    )
-    expect(bud.extensions.repository).not.toHaveProperty(
-      `@roots/bud-babel`,
-    )
-  })
 })

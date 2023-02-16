@@ -1,8 +1,8 @@
-import {Bud} from '@roots/bud'
 import {checkDependencies} from '@roots/bud/cli/helpers/checkDependencies'
 import {checkPackageManagerErrors} from '@roots/bud/cli/helpers/checkPackageManagerErrors'
 import {isInternalDevelopmentEnv} from '@roots/bud/cli/helpers/isInternalDevelopmentEnv'
 import {isset} from '@roots/bud/cli/helpers/isset'
+import {Bud} from '@roots/bud-framework'
 import type {
   CommandContext,
   Context,
@@ -16,6 +16,7 @@ import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import * as t from '@roots/bud-support/typanion'
 
 import type {Notifier} from '../../notifier/index.js'
+import * as Display from '../components/Error.js'
 
 export type {BaseContext, CommandContext, Context}
 export {Option}
@@ -128,6 +129,9 @@ export default class BudCommand extends Command<CommandContext> {
       if (isString(value)) return new Error(value)
 
       if (value instanceof Object) {
+        if (`message` in value && isString(value.message))
+          return new Error(value.message)
+
         try {
           return new Error(JSON.stringify(value, null, 2))
         } catch (error) {
@@ -156,26 +160,12 @@ export default class BudCommand extends Command<CommandContext> {
     }
 
     try {
-      await this.renderer.instance?.waitUntilExit()
-      await this.renderOnce(
-        <Ink.Box flexDirection="column" marginTop={1}>
-          <Ink.Box marginBottom={1}>
-            <Ink.Text backgroundColor="red" color="white">
-              {error.name}
-            </Ink.Text>
-          </Ink.Box>
-
-          <Ink.Box>
-            <Ink.Text>{error.message}</Ink.Text>
-          </Ink.Box>
-        </Ink.Box>,
-      )
+      await this.renderOnce(<Display.Error {...error} />)
     } catch (error) {
       this.context.stderr.write(value.toString())
     }
 
     if (this.bud?.isProduction) {
-      // eslint-disable-next-line n/no-process-exit
       this.bud.close()
       this.renderer.cleanup()
       await this.renderer.instance?.waitUntilExit()
@@ -230,7 +220,7 @@ export default class BudCommand extends Command<CommandContext> {
     await command.applyBudArguments(command.bud)
 
     if (command.context.args.use) {
-      await command.bud.extensions.add(command.context.args.use)
+      await command.bud.extensions.add(command.context.args.use as any)
     }
 
     await command.bud.processConfigs()
@@ -263,12 +253,10 @@ export default class BudCommand extends Command<CommandContext> {
   }
 
   public async healthcheck(command: BudCommand) {
-    try {
-      if (!isInternalDevelopmentEnv(command.bud)) {
-        checkPackageManagerErrors(command.bud)
-        await checkDependencies(command.bud)
-      }
-    } catch (error) {}
+    if (isInternalDevelopmentEnv(command.bud)) return
+
+    checkPackageManagerErrors(command.bud)
+    await checkDependencies(command.bud)
   }
 
   @bind
@@ -405,12 +393,12 @@ export default class BudCommand extends Command<CommandContext> {
      */
     const override = (override: (bud: Bud) => void) =>
       bud.hasChildren
-        ? Object.values(bud.children).map(override)
+        ? Object.values(bud.children).map(child => override(child))
         : override(bud)
 
     if (isset(args.manifest)) {
       bud.log(`overriding manifest setting from cli`)
-      override(bud => bud.hooks.on(`feature.manifest`, args.manifest))
+      override(bud => bud.manifest.enable(args.manifest))
     }
 
     if (isset(args.cache)) {

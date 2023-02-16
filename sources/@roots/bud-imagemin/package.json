@@ -36,14 +36,15 @@
     "node": ">=16"
   },
   "files": [
-    "docs/",
-    "lib/"
+    "docs",
+    "lib",
+    "src"
   ],
   "type": "module",
   "exports": {
     ".": {
-      "types": "./lib/extension/index.d.ts",
-      "default": "./lib/extension/index.js"
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
     },
     "./sharp": {
       "types": "./lib/sharp/index.d.ts",
@@ -56,6 +57,16 @@
     "./types": {
       "types": "./lib/types/index.d.ts",
       "default": "./lib/types/index.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ],
+      "types": [
+        "./lib/types/index.d.ts"
+      ]
     }
   },
   "module": "./lib/index.js",

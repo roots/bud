@@ -3,6 +3,5 @@ module.exports = async bud => {
     .entry({app: ['app.css', 'app.js']})
     .minimize()
     .template()
-
     .tailwind.generateImports(['colors'])
 }

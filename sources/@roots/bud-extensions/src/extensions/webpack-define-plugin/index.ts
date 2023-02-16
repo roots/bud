@@ -8,11 +8,7 @@ import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import Webpack from '@roots/bud-support/webpack'
 
 /**
- * `@roots/bud-extensions/webpack-define-plugin` adapter
- *
- * @public
- * @decorator `@label`
- * @decorator `@plugin`
+ * Define plugin configuration
  */
 @label(`@roots/bud-extensions/webpack-define-plugin`)
 @plugin(Webpack.DefinePlugin)
@@ -21,13 +17,10 @@ export default class BudDefine extends Extension<
   Webpack.DefinePlugin
 > {
   /**
-   * `init` callback
-   *
-   * @public
-   * @decorator `@bind`
+   * {@link Extension.register}
    */
   @bind
-  public override async init({env}: Bud) {
+  public override async register({env}: Bud) {
     if (!env.getPublicEnv()) return
 
     this.setOptions(
@@ -42,13 +35,10 @@ export default class BudDefine extends Extension<
   }
 
   /**
-   * `when` callback
-   *
-   * @public
-   * @decorator `@bind`
+   * {@link Extension.when}
    */
   @bind
-  public override async when(
+  public override when(
     _bud: Bud,
     options?: Webpack.DefinePlugin['definitions'],
   ) {

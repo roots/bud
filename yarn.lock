@@ -6965,9 +6965,20 @@ __metadata:
   dependencies:
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
-    browserslist: 4.21.4
+    browserslist: ">=4.21.4"
     execa: 6.1.0
-    fs-jetpack: 5.1.0
+    update-browserslist-db: ">=1.0.10"
+  peerDependencies:
+    browserslist: ">=4.21.4"
+    execa: "*"
+    update-browserslist-db: "*"
+  peerDependenciesMeta:
+    browserslist:
+      optional: true
+    execa:
+      optional: true
+    update-browserslist-db:
+      optional: true
   languageName: unknown
   linkType: soft
 
@@ -7187,6 +7198,8 @@ __metadata:
     "@roots/bud-swc": "*"
     "@swc/plugin-emotion": "*"
   peerDependenciesMeta:
+    "@babel/core":
+      optional: true
     "@emotion/babel-plugin":
       optional: true
     "@emotion/css":
@@ -8031,12 +8044,20 @@ __metadata:
     "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
+    "@roots/bud-swc": "workspace:sources/@roots/bud-swc"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.11.18
+    terser-webpack-plugin: 5.3.6
   peerDependencies:
     "@roots/bud": "*"
+    "@roots/bud-support": "*"
+    terser-webpack-plugin: "*"
   peerDependenciesMeta:
     "@roots/bud":
+      optional: true
+    "@roots/bud-support":
+      optional: true
+    terser-webpack-plugin:
       optional: true
   languageName: unknown
   linkType: soft
@@ -8231,10 +8252,8 @@ __metadata:
     "@roots/bud-terser": "workspace:sources/@roots/bud-terser"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.11.18
-    browserslist: 4.21.4
     execa: 6.1.0
     tslib: 2.4.1
-    update-browserslist-db: 1.0.10
   peerDependencies:
     "@roots/browserslist-config": "*"
     "@roots/bud-api": "*"
@@ -8250,10 +8269,8 @@ __metadata:
     "@roots/bud-server": "*"
     "@roots/bud-support": "*"
     "@roots/bud-terser": "*"
-    browserslist: ">=4.21.4"
     execa: ">=6.1.0"
     tslib: ">=2.4.0"
-    update-browserslist-db: ">=1.0.10"
   peerDependenciesMeta:
     "@roots/browserslist-config":
       optional: true
@@ -8283,13 +8300,9 @@ __metadata:
       optional: true
     "@roots/bud-terser":
       optional: true
-    browserslist:
-      optional: true
     execa:
       optional: true
     tslib:
-      optional: true
-    update-browserslist-db:
       optional: true
   bin:
     bud: ./bin/bud.mjs
@@ -9106,6 +9119,7 @@ __metadata:
   resolution: "@tests/project@workspace:tests/util/project"
   dependencies:
     "@roots/bud": "workspace:sources/@roots/bud"
+    "@roots/bud-react": "workspace:sources/@roots/bud-react"
     "@roots/bud-swc": "workspace:sources/@roots/bud-swc"
     "@roots/bud-tailwindcss": "workspace:sources/@roots/bud-tailwindcss"
   languageName: unknown
@@ -14018,7 +14032,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"browserslist@npm:4.21.4, browserslist@npm:^4.0.0, browserslist@npm:^4.14.5, browserslist@npm:^4.16.6, browserslist@npm:^4.18.1, browserslist@npm:^4.20.3, browserslist@npm:^4.21.3, browserslist@npm:^4.21.4":
+"browserslist@npm:>=4.21.4":
+  version: 4.21.5
+  resolution: "browserslist@npm:4.21.5"
+  dependencies:
+    caniuse-lite: ^1.0.30001449
+    electron-to-chromium: ^1.4.284
+    node-releases: ^2.0.8
+    update-browserslist-db: ^1.0.10
+  bin:
+    browserslist: cli.js
+  checksum: 9755986b22e73a6a1497fd8797aedd88e04270be33ce66ed5d85a1c8a798292a65e222b0f251bafa1c2522261e237d73b08b58689d4920a607e5a53d56dc4706
+  languageName: node
+  linkType: hard
+
+"browserslist@npm:^4.0.0, browserslist@npm:^4.14.5, browserslist@npm:^4.16.6, browserslist@npm:^4.18.1, browserslist@npm:^4.20.3, browserslist@npm:^4.21.3, browserslist@npm:^4.21.4":
   version: 4.21.4
   resolution: "browserslist@npm:4.21.4"
   dependencies:
@@ -14454,6 +14482,13 @@ __metadata:
   version: 1.0.30001442
   resolution: "caniuse-lite@npm:1.0.30001442"
   checksum: c1bff65bd4f53da2d288e7f55be40706ee0119b983eae5a9dcc884046990476891630aef72d708f7989f8f1964200c44e4c37ea40deecaa2fb4a480df23e6317
+  languageName: node
+  linkType: hard
+
+"caniuse-lite@npm:^1.0.30001449":
+  version: 1.0.30001452
+  resolution: "caniuse-lite@npm:1.0.30001452"
+  checksum: de02aad7b71112409f30de53e8080bef0fe612ed95bba8b14fb830f59683e8caabc27bdd520563686965be77f2cb56e239e44b920144630b91d7fe9911ba8ad5
   languageName: node
   linkType: hard
 
@@ -17372,6 +17407,13 @@ __metadata:
   version: 1.4.264
   resolution: "electron-to-chromium@npm:1.4.264"
   checksum: c716e480224164f7340033956adb95593bf2518571733c66ec647b30c9920b070923787ddfd3b1c466cb493c8e85f36c864e224e55a0e28fba1f1bc0fbf95d13
+  languageName: node
+  linkType: hard
+
+"electron-to-chromium@npm:^1.4.284":
+  version: 1.4.295
+  resolution: "electron-to-chromium@npm:1.4.295"
+  checksum: 66fff1341d3c94c2ccd1f2a39cffdb92118304f4b949d3194427e7022d6a6bd8c482b5c4afd9dce210117ba20cac01c1a1466089f5a862fe9c563113b86ff829
   languageName: node
   linkType: hard
 
@@ -26089,6 +26131,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"node-releases@npm:^2.0.8":
+  version: 2.0.10
+  resolution: "node-releases@npm:2.0.10"
+  checksum: d784ecde25696a15d449c4433077f5cce620ed30a1656c4abf31282bfc691a70d9618bae6868d247a67914d1be5cc4fde22f65a05f4398cdfb92e0fc83cadfbc
+  languageName: node
+  linkType: hard
+
 "node-source-walk@npm:^4.0.0":
   version: 4.3.0
   resolution: "node-source-walk@npm:4.3.0"
@@ -34531,7 +34580,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"update-browserslist-db@npm:1.0.10":
+"update-browserslist-db@npm:>=1.0.10, update-browserslist-db@npm:^1.0.10":
   version: 1.0.10
   resolution: "update-browserslist-db@npm:1.0.10"
   dependencies:

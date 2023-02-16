@@ -8,11 +8,7 @@ import {
 import FixStyleOnlyEntrypoints from './plugin.js'
 
 /**
- * `fix-style-only-entrypoints` adapter
- *
- * @public
- * @decorator `@label`
- * @decorator `@plugin`
+ * Fix style only entrypoints
  */
 @label(`@roots/bud-extensions/fix-style-only-entrypoints`)
 @plugin(FixStyleOnlyEntrypoints)

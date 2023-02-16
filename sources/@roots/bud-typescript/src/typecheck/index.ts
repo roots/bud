@@ -16,12 +16,10 @@ export default class BudTypeCheckPlugin extends Extension<
   Plugin
 > {
   /**
-   * `init` callback
-   *
-   * @decorator `@bind`
+   * {@link Extension.register}
    */
   @bind
-  public override async init?(bud: Bud) {
+  public override async register(bud: Bud) {
     const typescriptPath = await this.resolve(`typescript`)
 
     this.setOptions({

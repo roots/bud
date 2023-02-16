@@ -3,7 +3,6 @@ import type Container from '@roots/container'
 import type {Bud} from '../../../bud.js'
 import type {
   ApplyPlugin,
-  Constructor,
   Extension,
   ExtensionLiteral,
 } from '../../../extension/index.js'
@@ -11,7 +10,6 @@ import type {Service as BaseService} from '../../../service.js'
 import type {Modules} from '../../registry/modules.js'
 
 export type LifecycleMethods =
-  | 'init'
   | 'register'
   | 'boot'
   | 'configAfter'
@@ -44,17 +42,17 @@ export interface Service extends BaseService {
   isAllowed(key: string): boolean
 
   instantiate<K extends `${keyof Modules & string}`>(
-    extension: (new (...args: any[]) => Modules[K]) | ExtensionLiteral,
+    extension: (new (...args: any[]) => Modules[K]) | Extension,
     options?: Record<string, any>,
-  ): Promise<Extension | ApplyPlugin>
+  ): Promise<Extension>
 
-  has<K extends keyof Modules & string>(key: K): boolean
+  has(key: string): key is keyof Modules
 
   get<K extends keyof Modules & string>(key: K): Modules[K]
 
   remove<K extends keyof Modules & string>(key: K): this
 
-  set<K extends keyof Modules & string>(value: Modules[K]): this
+  set(value: Extension): this
 
   /**
    * Add an extension
@@ -62,41 +60,38 @@ export interface Service extends BaseService {
    * @public
    */
   add(
-    input:
-      | Constructor
+    extension:
       | ExtensionLiteral
       | Extension
-      | (keyof Modules & string)
+      | (new (bud: Bud) => ExtensionLiteral)
+      | `${keyof Modules & string}`
       | Array<
-          | Constructor
           | ExtensionLiteral
           | Extension
+          | (new (bud: Bud) => ExtensionLiteral)
           | `${keyof Modules & string}`
         >,
-    options?: Record<string, any>,
   ): Promise<void>
 
   import<K extends `${keyof Modules}`>(
     signifier: K,
     fatalOnError?: boolean,
-  ): Promise<Extension | ApplyPlugin>
+  ): Promise<Extension>
 
   runAll(methodName: LifecycleMethods): Promise<Array<void>>
 
   run<K extends `${keyof Modules & string}`>(
-    extension: Extension | ApplyPlugin | K,
+    extension: Extension | K,
     methodName: LifecycleMethods,
   ): Promise<this>
 
   runDependencies<K extends `${keyof Modules & string}`>(
-    extension: Modules[K],
+    extension: Extension | K,
     methodName: LifecycleMethods,
   ): Promise<void>
 
   /**
-   * Returns array of {@link PluginInstance}s
-   *
-   * @public
+   * Returns array of {@link PluginInstance} instances.
    */
   make(): Promise<Array<ApplyPlugin>>
 }

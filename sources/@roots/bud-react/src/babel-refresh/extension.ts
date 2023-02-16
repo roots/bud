@@ -8,26 +8,15 @@ import {
 
 /**
  * Register `react-refresh-typescript` transform with TSC compiler
- *
- * @remarks
- * Used when `@roots/bud-typescript` is being used with babel loader
- * disabled
- *
- * @public
- * @decorator `@label`
- * @decorator `@development`
  */
 @label(`@roots/bud-react/babel-refresh`)
 @development
 export default class BudBabelRefresh extends Extension {
   /**
-   * `init` callback
-   *
-   * @public
-   * @decorator `@bind`
+   * {@link Extension.register}
    */
   @bind
-  public override async init(bud: Bud) {
+  public override async register(bud: Bud) {
     this.logger.log(`Registering react-refresh-babel transformer`)
 
     if (!bud.react.useBabel) return

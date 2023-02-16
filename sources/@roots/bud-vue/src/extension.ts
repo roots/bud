@@ -59,9 +59,6 @@ export default class Vue extends Extension<
    *
    * @param enabled - {@link Options.runtimeOnly}
    * @returns {Vue}
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public runtimeOnly(enabled: Options[`runtimeOnly`] = true): this {
@@ -71,9 +68,6 @@ export default class Vue extends Extension<
 
   /**
    * `register` callback
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public override async register() {
@@ -86,9 +80,6 @@ export default class Vue extends Extension<
 
   /**
    * `boot` callback
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public override async boot(bud: Bud) {
@@ -126,9 +117,6 @@ export default class Vue extends Extension<
 
   /**
    * `make` callback
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public override async make(): Promise<WebpackPluginInstance> {
@@ -138,9 +126,6 @@ export default class Vue extends Extension<
 
   /**
    * `build.module.rules.before` callback
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public moduleRulesBefore(
@@ -169,9 +154,6 @@ export default class Vue extends Extension<
 
   /**
    * `build.module.rules.before` callback
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public moduleRulesOneOf(
@@ -196,9 +178,6 @@ export default class Vue extends Extension<
 
   /**
    * `build.resolve.alias` callback
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public async resolveAlias(
@@ -215,9 +194,6 @@ export default class Vue extends Extension<
 
   /**
    * Returns true if user has installed a 2.x.x version of vue
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public isVue2(): boolean {

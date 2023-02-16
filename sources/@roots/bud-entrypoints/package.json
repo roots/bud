@@ -44,20 +44,14 @@
     "src"
   ],
   "type": "module",
-  "module": "./lib/index.js",
-  "types": "./lib/index.d.ts",
   "exports": {
     ".": {
       "types": "./lib/index.d.ts",
-      "default": "./lib/index.js"
-    },
-    "./extension": {
-      "types": "./lib/extension.d.ts",
-      "default": "./lib/extension.js"
+      "import": "./lib/index.js"
     },
     "./types": {
       "types": "./lib/types.d.ts",
-      "default": "./lib/types.js"
+      "import": "./lib/types.js"
     }
   },
   "typesVersions": {
@@ -65,11 +59,13 @@
       ".": [
         "./lib/index.d.ts"
       ],
-      "./extension": [
-        "./lib/extension.d.ts"
+      "types": [
+        "./lib/types.d.ts"
       ]
     }
   },
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.11.18"

@@ -4,20 +4,18 @@ import {bind, label} from '@roots/bud-framework/extension/decorators'
 import type Webpack from '@roots/bud-support/webpack'
 
 /**
- * This is the extension that enables hot module replacement in `development` mode
- *
- * @public
- * @decorator `@label`
- * @decorator `@plugin`
- * @decorator `@development`
+ * Hot module replacement plugin configuration
  */
 @label(`@roots/bud-extensions/webpack-hot-module-replacement-plugin`)
 export default class BudHMR extends Extension<
   {},
   Webpack.HotModuleReplacementPlugin
 > {
+  /**
+   * {@link Extension.make}
+   */
   @bind
-  public override async make(bud: Bud) {
+  public override async make() {
     const {HotModuleReplacementPlugin} = await this.import(
       `@roots/bud-support/webpack`,
     )
@@ -25,8 +23,10 @@ export default class BudHMR extends Extension<
     return new HotModuleReplacementPlugin()
   }
 
-  @bind
-  public override async when(bud: Bud) {
+  /**
+   * {@link Extension.when}
+   */
+  public override when(bud: Bud) {
     if (bud.isProduction) return false
     if (bud.isCLI() && bud.context.args.hot === false) return false
 
