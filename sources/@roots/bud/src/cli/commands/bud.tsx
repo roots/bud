@@ -17,6 +17,8 @@ import * as t from '@roots/bud-support/typanion'
 
 import type {Notifier} from '../../notifier/index.js'
 import * as Display from '../components/Error.js'
+import {WinError} from '../components/WinError.js'
+import {isWindows} from '../helpers/isWindows.js'
 
 export type {BaseContext, CommandContext, Context}
 export {Option}
@@ -126,24 +128,21 @@ export default class BudCommand extends Command<CommandContext> {
 
     const normalizeError = (value: unknown): Error => {
       if (value instanceof Error) return value
-      if (isString(value)) return new Error(value)
+      if (isString(value)) return new Error(value.trim())
 
       if (value instanceof Object) {
-        if (`message` in value && isString(value.message))
-          return new Error(value.message)
-
         try {
+          if (isString(error.message))
+            return new Error(error.message.trim())
           return new Error(JSON.stringify(value, null, 2))
         } catch (error) {
-          return new Error(value.toString())
+          return new Error(value.toString().trim())
         }
       }
     }
 
     try {
       error = normalizeError(value)
-      error.name = error.name ? ` ${error.name} ` : ` Error `
-      error.stack = error.stack?.split(`  at `).splice(0, 2).join(`  at `)
     } catch (e) {}
 
     if (this.notifier?.notify) {
@@ -160,7 +159,16 @@ export default class BudCommand extends Command<CommandContext> {
     }
 
     try {
-      await this.renderOnce(<Display.Error {...error} />)
+      await this.renderOnce(
+        <Ink.Box flexDirection="column">
+          <Display.Error
+            name={error.name}
+            message={error.message}
+            stack={this.bud.context.args.debug && error.stack}
+          />
+          {isWindows() && <WinError />}
+        </Ink.Box>,
+      )
     } catch (error) {
       this.context.stderr.write(value.toString())
     }
