@@ -15,36 +15,26 @@ import type {
 export class Compiler extends Service implements Contract.Service {
   /**
    * Compiler implementation
-   * @public
    */
   public implementation: typeof webpack
 
   /**
    * Compiler instance
-   * @public
    */
   public instance: Contract.Service[`instance`]
 
   /**
    * Compilation stats
-   * @public
    */
   public stats: Contract.Service[`stats`]
 
   /**
    * Configuration
-   * @public
    */
   public config: Contract.Service[`config`] = []
 
   /**
    * Initiates compilation
-   *
-   * @returns the compiler instance
-   *
-   * @public
-   * @decorator `@bind`
-   * @decorator `@once`
    */
   @bind
   public async compile(): Promise<MultiCompiler> {
@@ -70,13 +60,15 @@ export class Compiler extends Service implements Contract.Service {
     }
 
     if (this.app.isCLI() && this.app.context.args.dry) {
-      this.logger.log(`running in dry mode. exiting early.`)
+      this.app.context.logger.timeEnd(`initialize`)
+      this.app.context.logger.log(`running in dry mode. exiting early.`)
       return
     }
 
     this.app.context.logger.timeEnd(`initialize`)
 
     this.instance = this.implementation(this.config)
+
     this.instance.hooks.done.tap(this.app.label, async (stats: any) => {
       await this.onStats(stats)
     })
@@ -90,13 +82,11 @@ export class Compiler extends Service implements Contract.Service {
 
   /**
    * Stats handler
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public async onStats(stats: MultiStats) {
     this.stats = stats.toJson(this.app.hooks.filter(`build.stats`))
+
     if (
       this.stats.errorsCount > 0 ||
       this.stats.children?.some(child => child.errorsCount > 0)
@@ -107,21 +97,21 @@ export class Compiler extends Service implements Contract.Service {
     try {
       await this.app.dashboard.update(stats)
     } catch (error) {
+      error.name = `Stats error`
       throw error
     }
   }
 
   /**
    * Compiler error event
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public onError(error: WebpackError) {
     this.app.isDevelopment &&
       this.app.server.appliedMiddleware?.hot?.publish({error})
 
+    const err = new Error(error.message)
+    err.name = `Compiler Error`
     throw error
   }
 }
