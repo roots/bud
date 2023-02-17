@@ -9147,6 +9147,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@tests/swc-js@workspace:tests/reproductions/issue-2116":
+  version: 0.0.0-use.local
+  resolution: "@tests/swc-js@workspace:tests/reproductions/issue-2116"
+  dependencies:
+    "@roots/bud": "workspace:sources/@roots/bud"
+    "@roots/bud-swc": "workspace:sources/@roots/bud-swc"
+    lodash: ^4.17.21
+  languageName: unknown
+  linkType: soft
+
 "@tests/tailwind-integration@workspace:sources/@roots/bud-tailwindcss/test/implementation":
   version: 0.0.0-use.local
   resolution: "@tests/tailwind-integration@workspace:sources/@roots/bud-tailwindcss/test/implementation"

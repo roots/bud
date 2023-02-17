@@ -45,6 +45,20 @@ export default class BudSWC extends Extension<Options> {
         loader: bud.build.getLoader(`swc`),
         options: () => this.options,
       })
+      .setItem(`swc-js`, {
+        loader: bud.build.getLoader(`swc`),
+        options: () => ({
+          ...this.options,
+          jsc: {
+            ...(this.options.jsc ?? {}),
+            parser: {
+              ...(this.options.jsc?.parser ?? {}),
+              syntax: `ecmascript`,
+              jsx: true,
+            },
+          },
+        }),
+      })
 
     bud.hooks.on(`build.resolve.extensions`, (extensions = new Set()) =>
       extensions.add(`.ts`).add(`.tsx`).add(`.jsx`),
@@ -62,7 +76,7 @@ export default class BudSWC extends Extension<Options> {
       use: [`swc`],
     })
 
-    build.getRule(`js`).setUse(() => [`swc`])
+    build.getRule(`js`).setUse(() => [`swc-js`])
   }
 
   /**
