@@ -43,6 +43,7 @@ export default class BudSWC extends Extension<Options> {
       .setLoader(`swc`, await this.resolve(`swc-loader`))
       .setItem(`swc`, {
         loader: bud.build.getLoader(`swc`),
+        options: () => this.options,
       })
 
     bud.hooks.on(`build.resolve.extensions`, (extensions = new Set()) =>
@@ -71,7 +72,7 @@ export default class BudSWC extends Extension<Options> {
   public override async configAfter(bud: Bud) {
     this.set(
       `jsc.experimental.cacheRoot` as any,
-      cacheRoot => cacheRoot ?? bud.path(bud.cache.cacheDirectory, `swc`),
+      (cacheRoot: string) => cacheRoot ?? bud.path(bud.cache.cacheDirectory, `swc`),
     )
     bud.build.getItem(`swc`).setOptions(this.options)
   }
