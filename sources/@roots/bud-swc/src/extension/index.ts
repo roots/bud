@@ -72,7 +72,8 @@ export default class BudSWC extends Extension<Options> {
   public override async configAfter(bud: Bud) {
     this.set(
       `jsc.experimental.cacheRoot` as any,
-      (cacheRoot: string) => cacheRoot ?? bud.path(bud.cache.cacheDirectory, `swc`),
+      (cacheRoot: string) =>
+        cacheRoot ?? bud.path(bud.cache.cacheDirectory, `swc`),
     )
     bud.build.getItem(`swc`).setOptions(this.options)
   }
