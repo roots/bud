@@ -74,9 +74,7 @@
     "@roots/bud-swc": "workspace:sources/@roots/bud-swc",
     "@skypack/package-check": "0.2.2",
     "@types/babel__core": "7.20.0",
-    "@types/node": "18.11.18",
-    "@types/react": "18.0.26",
-    "react": "18.2.0"
+    "@types/node": "18.11.18"
   },
   "dependencies": {
     "@emotion/babel-plugin": "^11.10.5",
@@ -93,10 +91,7 @@
     "@emotion/css": "*",
     "@emotion/react": "*",
     "@emotion/styled": "*",
-    "@roots/bud": "*",
-    "@roots/bud-babel": "*",
-    "@roots/bud-swc": "*",
-    "@swc/plugin-emotion": "*"
+    "@roots/bud": "*"
   },
   "peerDependenciesMeta": {
     "@babel/core": {
