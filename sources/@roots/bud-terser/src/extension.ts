@@ -1,4 +1,3 @@
-/* eslint-disable n/no-extraneous-import */
 import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
@@ -9,18 +8,18 @@ import {
   options,
   production,
 } from '@roots/bud-framework/extension/decorators'
-import Terser from 'terser-webpack-plugin'
+import type Plugin from '@roots/bud-support/terser-webpack-plugin'
 
 /**
  * `terser-webpack-plugin` options
  */
-export type Options = Terser.BasePluginOptions & {
-  minify?: Terser.MinimizerImplementation<any>
+export type Options = Plugin.BasePluginOptions & {
+  minify?: Plugin.MinimizerImplementation<any>
   include: RegExp
   exclude: RegExp
   extractComments: boolean
   parallel: boolean
-  terserOptions?: Terser.MinimizerOptions<any>
+  terserOptions?: Plugin.MinimizerOptions<any>
 }
 
 /**
@@ -55,18 +54,30 @@ export class BudTerser extends Extension<Options> {
    */
   @bind
   public override async buildBefore(bud: Bud) {
-    bud.hooks.on(`build.optimization.minimizer`, (minimizers = []) => {
-      if (this.options.minify) {
-        minimizers.push(new Terser(this.options))
-        this.logger.log(`using custom minify function`)
-      } else {
-        minimizers.push(
-          new Terser({...this.options, minify: Terser.terserMinify}),
-        )
-        this.logger.log(`using default minifier`)
-      }
+    if (!this.enabled) {
+      this.logger.info(`minimizer disabled. skipping terser config.`)
+      return
+    }
 
-      this.logger.success(`terser added to minimizers`)
+    const Terser = await import(`terser-webpack-plugin`)
+
+    if (bud.extensions.has(`@roots/bud-swc`)) {
+      const value = (_bud: Bud) => Terser.swcMinify
+      const callback = (_minify: Options[`minify`]) => value
+      this.set(`minify`, callback)
+    } else if (bud.extensions.has(`@roots/bud-esbuild`)) {
+      const value = (_bud: Bud) => Terser.esbuildMinify
+      const callback = (_minify: Options[`minify`]) => value
+      this.set(`minify`, callback)
+    } else {
+      const value = (_bud: Bud) => Terser.terserMinify
+      const callback = (_minify: Options[`minify`]) => value
+      this.set(`minify`, callback)
+    }
+
+    bud.hooks.on(`build.optimization.minimizer`, (minimizers = []) => {
+      minimizers.push(new Terser.default(this.options))
+      this.logger.success(`terser added to minimizers`, minimizers)
       return minimizers
     })
   }
@@ -108,7 +119,7 @@ export class BudTerser extends Extension<Options> {
    * ```
    */
   @bind
-  public mangle(mangle: Terser.TerserOptions['mangle']): this {
+  public mangle(mangle: Plugin.TerserOptions['mangle']): this {
     this.set(`terserOptions.mangle`, mangle)
     return this
   }

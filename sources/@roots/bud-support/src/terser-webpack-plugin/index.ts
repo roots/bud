@@ -1,2 +1,3 @@
-import Terser = require('terser-webpack-plugin')
-export default Terser
+import Plugin from 'terser-webpack-plugin'
+
+export default Plugin
