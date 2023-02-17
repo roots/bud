@@ -42,6 +42,7 @@ export class BudMinimizeCss extends Extension<BasePluginOptions, Plugin> {
 
     hooks.on(`build.optimization.minimizer`, (minimizer = []) => {
       minimizer.push(new Plugin(this.options))
+      this.logger.success(`css-minimizer added to minimizers`)
       return minimizer
     })
   }

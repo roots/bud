@@ -22,35 +22,28 @@ import type {Options} from '@swc/core'
       decorators: true,
       dynamicImport: true,
     },
-    loose: false,
   },
   minify: false,
 })
 @expose(`swc`)
 export default class BudSWC extends Extension<Options> {
   /**
-   * `register` callback
+   * {@link Extension.register}
    */
   @bind
   public override async register(bud: Bud) {
-    const config = await bud.fs.exists(`.swcrc`)
-    if (config === `file`) {
-      this.setOptions(bud.fs.json.parse(await bud.fs.read(`.swcrc`)))
-    }
+    try {
+      const config = await bud.fs.exists(`.swcrc`)
+      if (config === `file`) {
+        this.setOptions(bud.fs.json.parse(await bud.fs.read(`.swcrc`)))
+      }
+    } catch (e) {}
 
     bud.build
       .setLoader(`swc`, await this.resolve(`swc-loader`))
       .setItem(`swc`, {
         loader: bud.build.getLoader(`swc`),
-        options: ({swc}) => swc.options,
       })
-      .setRule(`ts`, {
-        test: ({hooks}) => hooks.filter(`pattern.ts`),
-        include: [({path}) => path(`@src`)],
-        use: [`swc`],
-      })
-
-    bud.build.getRule(`js`)?.setUse(() => [`swc`])
 
     bud.hooks.on(`build.resolve.extensions`, (extensions = new Set()) =>
       extensions.add(`.ts`).add(`.tsx`).add(`.jsx`),
@@ -58,14 +51,30 @@ export default class BudSWC extends Extension<Options> {
   }
 
   /**
-   * `buildBefore` callback
+   * {@link Extension.boot}
    */
   @bind
-  public override async buildBefore?(bud: Bud) {
+  public override async boot({build}: Bud) {
+    build
+      .setRule(`ts`, {
+        test: ({hooks}) => hooks.filter(`pattern.ts`),
+        include: [({path}) => path(`@src`)],
+        use: [`swc`],
+      })
+
+    build.getRule(`js`).setUse(() => [`swc`])
+  }
+
+  /**
+   *{@link Extension.configAfter}
+   */
+  @bind
+  public override async configAfter(bud: Bud) {
     this.set(
       `jsc.experimental.cacheRoot` as any,
       cacheRoot => cacheRoot ?? bud.path(bud.cache.cacheDirectory, `swc`),
     )
+    bud.build.getItem(`swc`).setOptions(this.options)
   }
 
   /**
