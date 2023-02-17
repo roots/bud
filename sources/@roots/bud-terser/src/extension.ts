@@ -1,3 +1,4 @@
+/* eslint-disable n/no-extraneous-import */
 import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
@@ -8,18 +9,18 @@ import {
   options,
   production,
 } from '@roots/bud-framework/extension/decorators'
-import type {Plugin} from '@roots/bud-support/terser-webpack-plugin'
+import Terser from 'terser-webpack-plugin'
 
 /**
  * `terser-webpack-plugin` options
  */
-export type Options = Plugin.BasePluginOptions & {
-  minify?: Plugin.MinimizerImplementation<any>
+export type Options = Terser.BasePluginOptions & {
+  minify?: Terser.MinimizerImplementation<any>
   include: RegExp
   exclude: RegExp
   extractComments: boolean
   parallel: boolean
-  terserOptions?: Plugin.MinimizerOptions<any>
+  terserOptions?: Terser.MinimizerOptions<any>
 }
 
 /**
@@ -29,13 +30,14 @@ export type Options = Plugin.BasePluginOptions & {
 @dependsOn([`@roots/bud-terser/css-minimizer`])
 @expose(`terser`)
 @options<Options>({
-  exclude: ({hooks}) => hooks.filter(`pattern.modules`),
   extractComments: false,
   parallel: true,
   terserOptions: {
     compress: {
       drop_console: false,
       drop_debugger: true,
+      defaults: true,
+      unused: true,
     },
     format: {
       ascii_only: true,
@@ -53,32 +55,18 @@ export class BudTerser extends Extension<Options> {
    */
   @bind
   public override async buildBefore(bud: Bud) {
-    if (!this.enabled) {
-      this.logger.info(`minimizer disabled. skipping terser config.`)
-      return
-    }
-
-    const Terser = await import(`terser-webpack-plugin`)
-
-    if (bud.extensions.has(`@roots/bud-swc`)) {
-      this.set(`minify`, Terser.swcMinify)
-    } else if (bud.extensions.has(`@roots/bud-esbuild`)) {
-      this.set(`minify`, Terser.esbuildMinify)
-    } else {
-      this.set(`minify`, Terser.terserMinify)
-    }
-
     bud.hooks.on(`build.optimization.minimizer`, (minimizers = []) => {
-      this.logger.info(`current minimizers:`, minimizers)
+      if (this.options.minify) {
+        minimizers.push(new Terser(this.options))
+        this.logger.log(`using custom minify function`)
+      } else {
+        minimizers.push(
+          new Terser({...this.options, minify: Terser.terserMinify}),
+        )
+        this.logger.log(`using default minifier`)
+      }
 
-      minimizers = minimizers.filter(minimizer => minimizer !== `...`)
-
-      const instance = new Terser.default(this.options)
-      this.logger.info(`terser instance`, instance)
-
-      minimizers.push(instance)
-      this.logger.success(`terser added to minimizers`, minimizers)
-
+      this.logger.success(`terser added to minimizers`)
       return minimizers
     })
   }
@@ -120,7 +108,7 @@ export class BudTerser extends Extension<Options> {
    * ```
    */
   @bind
-  public mangle(mangle: Plugin.TerserOptions['mangle']): this {
+  public mangle(mangle: Terser.TerserOptions['mangle']): this {
     this.set(`terserOptions.mangle`, mangle)
     return this
   }

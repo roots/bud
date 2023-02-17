@@ -509,6 +509,7 @@ export class Extension<
    */
   @bind
   public isEnabled(): boolean {
+    if (!isUndefined(this.enabled)) return this.enabled
     return this.when(this.app, this.options)
   }
 }
