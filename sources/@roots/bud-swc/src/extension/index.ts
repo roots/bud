@@ -55,12 +55,11 @@ export default class BudSWC extends Extension<Options> {
    */
   @bind
   public override async boot({build}: Bud) {
-    build
-      .setRule(`ts`, {
-        test: ({hooks}) => hooks.filter(`pattern.ts`),
-        include: [({path}) => path(`@src`)],
-        use: [`swc`],
-      })
+    build.setRule(`ts`, {
+      test: ({hooks}) => hooks.filter(`pattern.ts`),
+      include: [({path}) => path(`@src`)],
+      use: [`swc`],
+    })
 
     build.getRule(`js`).setUse(() => [`swc`])
   }
