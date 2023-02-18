@@ -21,12 +21,13 @@ describe(`@roots/bud-terser`, () => {
   it(`has options prop`, () => {
     expect(bud.terser.options).toStrictEqual({
       extractComments: false,
-      exclude: /(node_modules|bower_components)/,
       parallel: true,
       terserOptions: {
         compress: {
           drop_console: false,
           drop_debugger: true,
+          defaults: true,
+          unused: true,
         },
         format: {
           ascii_only: true,

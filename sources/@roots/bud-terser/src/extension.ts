@@ -8,7 +8,7 @@ import {
   options,
   production,
 } from '@roots/bud-framework/extension/decorators'
-import type {Plugin} from '@roots/bud-support/terser-webpack-plugin'
+import type Plugin from '@roots/bud-support/terser-webpack-plugin'
 
 /**
  * `terser-webpack-plugin` options
@@ -29,13 +29,14 @@ export type Options = Plugin.BasePluginOptions & {
 @dependsOn([`@roots/bud-terser/css-minimizer`])
 @expose(`terser`)
 @options<Options>({
-  exclude: ({hooks}) => hooks.filter(`pattern.modules`),
   extractComments: false,
   parallel: true,
   terserOptions: {
     compress: {
       drop_console: false,
       drop_debugger: true,
+      defaults: true,
+      unused: true,
     },
     format: {
       ascii_only: true,
@@ -61,24 +62,22 @@ export class BudTerser extends Extension<Options> {
     const Terser = await import(`terser-webpack-plugin`)
 
     if (bud.extensions.has(`@roots/bud-swc`)) {
-      this.set(`minify`, Terser.swcMinify)
+      const value = (_bud: Bud) => Terser.swcMinify
+      const callback = (_minify: Options[`minify`]) => value
+      this.set(`minify`, callback)
     } else if (bud.extensions.has(`@roots/bud-esbuild`)) {
-      this.set(`minify`, Terser.esbuildMinify)
+      const value = (_bud: Bud) => Terser.esbuildMinify
+      const callback = (_minify: Options[`minify`]) => value
+      this.set(`minify`, callback)
     } else {
-      this.set(`minify`, Terser.terserMinify)
+      const value = (_bud: Bud) => Terser.terserMinify
+      const callback = (_minify: Options[`minify`]) => value
+      this.set(`minify`, callback)
     }
 
     bud.hooks.on(`build.optimization.minimizer`, (minimizers = []) => {
-      this.logger.info(`current minimizers:`, minimizers)
-
-      minimizers = minimizers.filter(minimizer => minimizer !== `...`)
-
-      const instance = new Terser.default(this.options)
-      this.logger.info(`terser instance`, instance)
-
-      minimizers.push(instance)
+      minimizers.push(new Terser.default(this.options))
       this.logger.success(`terser added to minimizers`, minimizers)
-
       return minimizers
     })
   }

@@ -372,7 +372,11 @@ export class Extension<
   @bind
   public setOption<K extends string>(
     key: K,
-    value: ExtensionOptions[K],
+    value:
+      | OptionsMap<ExtensionOptions>[K]
+      | ((
+          value: OptionsMap<ExtensionOptions>[K],
+        ) => OptionsMap<ExtensionOptions>[K]),
   ): this {
     if (!this.optionsMap) this.optionsMap = {}
 
