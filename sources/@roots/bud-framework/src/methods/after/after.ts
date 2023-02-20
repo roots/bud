@@ -1,4 +1,4 @@
-import type {Bud} from '../../bud.js'
+import {Bud} from '../../bud.js'
 
 export interface after {
   (
@@ -17,6 +17,8 @@ export const after: after = function (
   const bud = this as Bud
 
   bud.hooks.action(`compiler.close`, async bud => {
+    if (!(bud instanceof Bud)) return
+
     try {
       await action(bud)
     } catch (error) {

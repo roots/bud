@@ -1,21 +1,19 @@
 import {join} from 'node:path'
 import {paths} from '@repo/constants'
 import execa from '@roots/bud-support/execa'
-import {beforeAll, describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vitest'
 import {readFile} from '@roots/bud-support/fs'
 
 describe('issue-1886', () => {
-  beforeAll(async () => {
-    await execa(`yarn`, [`bud`, `clean`], {
+  it('should generate webp from png included in js source', async () => {
+    await execa(`yarn`, [`bud`, `clean`, `dist`, `storage`], {
       cwd: join(paths.tests, `reproductions`, `issue-1886`),
     })
 
     await execa(`yarn`, [`bud`, `build`, `--no-log`, `--debug`], {
       cwd: join(paths.tests, `reproductions`, `issue-1886`),
     })
-  }, 30000)
 
-  it('should generate webp from png included in js source', async () => {
     const image = await readFile(
       join(
         paths.tests,

@@ -57,7 +57,7 @@ export class Extension<
    */
   public declare apply?: ApplyPlugin[`apply`]
 
-  public enabled?: boolean
+  public enabled: boolean = true
 
   /**
    * Extension options
@@ -113,7 +113,7 @@ export class Extension<
    * By default returns {@link Extension.enabled}
    */
   public when(bud: Bud, options?: ExtensionOptions): boolean {
-    return !isUndefined(this.enabled) ? this.enabled : true
+    return this.enabled
   }
 
   /**

@@ -8,12 +8,14 @@ describe(`issue-1986`, () => {
   let child: ExecaReturnValue
 
   beforeAll(async () => {
-    await execa(`yarn`, [`bud`, `clean`], {
-      cwd: join(paths.tests, `reproductions`, `issue-1986`),
-    })
+    try {
+      await execa(`yarn`, [`bud`, `clean`, `dist`, `storage`], {
+        cwd: join(paths.tests, `reproductions`, `issue-1986`),
+      })
+    } catch (error) {}
 
     try {
-      child = await execa(`yarn`, [`bud`, `build`], {
+      child = await execa(`yarn`, [`bud`, `build`, `--force`], {
         cwd: join(paths.tests, `reproductions`, `issue-1986`),
         reject: false,
       })

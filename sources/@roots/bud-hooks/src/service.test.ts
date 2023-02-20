@@ -59,13 +59,13 @@ describe(`@roots/bud-hooks`, function () {
     const value = vi.fn(async (app: Bud) => null)
     // @ts-ignore
     hooks.action(`app.build`, value)
-    expect(hooks.events.store[`app.build`].pop().get()).toBe(value)
+    expect(hooks.events.store[`app.build`].pop()).toBe(value)
   })
 
   it(`fire calls action function`, async () => {
     const value = vi.fn(async () => null)
     hooks.action(`build.before`, value)
-    await hooks.fire(`build.before`)
+    await hooks.fire(`build.before`, bud)
     expect(value).toHaveBeenCalled()
   })
 })

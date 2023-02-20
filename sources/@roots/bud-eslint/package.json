@@ -45,6 +45,10 @@
       "types": "./lib/index.d.ts",
       "import": "./lib/index.js"
     },
+    "./cache-fix": {
+      "types": "./lib/cache-fix/index.d.ts",
+      "import": "./lib/cache-fix/index.js"
+    },
     "./commands": {
       "types": "./lib/bud/commands.d.ts",
       "import": "./lib/bud/commands.js"
@@ -54,6 +58,9 @@
     "*": {
       ".": [
         "./lib/index.d.ts"
+      ],
+      "cache-fix": [
+        "./lib/cache-fix/index.d.ts"
       ],
       "commands": [
         "./lib/bud/commands.d.ts"

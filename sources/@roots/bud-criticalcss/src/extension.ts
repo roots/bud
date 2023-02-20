@@ -8,6 +8,7 @@ import {
   options,
   plugin,
 } from '@roots/bud-framework/extension/decorators'
+import {deprecated} from '@roots/bud-support/decorators'
 import CriticalCssWebpackPlugin, {
   Options,
 } from '@roots/critical-css-webpack-plugin'
@@ -52,6 +53,10 @@ export default class BudCriticalCss extends Extension<
    * ```
    */
   @bind
+  @deprecated(`bud.critical`, `Use bud.critical.set instead`, [
+    [`Enable extract`, `bud.critical.set('extract', true)`],
+    [`Disable extract`, `bud.critical.set('extract', false)`],
+  ])
   public extract(extract: boolean = true) {
     this.set(`extract`, extract)
     return this
@@ -68,6 +73,9 @@ export default class BudCriticalCss extends Extension<
    * ```
    */
   @bind
+  @deprecated(`bud.critical`, `Use bud.critical.set instead`, [
+    [`Set src`, `bud.critical.set('src', 'https://example.com')`],
+  ])
   public src(src: string) {
     this.set(`src`, src)
     return this
@@ -84,6 +92,9 @@ export default class BudCriticalCss extends Extension<
    * ```
    */
   @bind
+  @deprecated(`bud.critical`, `Use bud.critical.set instead`, [
+    [`Set html`, `bud.critical.set('html', '<html>...</html>')`],
+  ])
   public html(html: string) {
     this.set(`html`, html)
     return this
@@ -100,6 +111,9 @@ export default class BudCriticalCss extends Extension<
    * ```
    */
   @bind
+  @deprecated(`bud.critical`, `Use bud.critical.set instead`, [
+    [`Set base`, `bud.critical.set('base', 'https://example.com/')`],
+  ])
   public base(base: string) {
     this.set(`base`, base)
     return this
@@ -116,6 +130,9 @@ export default class BudCriticalCss extends Extension<
    * ```
    */
   @bind
+  @deprecated(`bud.critical`, `Use bud.critical.set instead`, [
+    [`Set width`, `bud.critical.set('width', 1920)`],
+  ])
   public width(width: number) {
     this.set(`width`, width)
     return this
@@ -123,7 +140,6 @@ export default class BudCriticalCss extends Extension<
 
   /**
    * Set browser height
-   *
    *
    * @deprecated use {@link BudCriticalCss.set} instead
    *
@@ -133,6 +149,9 @@ export default class BudCriticalCss extends Extension<
    * ```
    */
   @bind
+  @deprecated(`bud.critical`, `Use bud.critical.set instead`, [
+    [`Set height`, `bud.critical.set('height', 1080)`],
+  ])
   public height(height: number) {
     this.set(`height`, height)
     return this
@@ -140,7 +159,6 @@ export default class BudCriticalCss extends Extension<
 
   /**
    * Ignore css
-   *
    *
    * @deprecated use {@link BudCriticalCss.set} instead
    *
@@ -150,6 +168,9 @@ export default class BudCriticalCss extends Extension<
    * ```
    */
   @bind
+  @deprecated(`bud.critical`, `Use bud.critical.set instead`, [
+    [`Set ignore`, `bud.critical.set('ignore', ['@font-face'])`],
+  ])
   public ignore(ignore: Options['ignore']) {
     this.set(`ignore`, ignore)
     return this
@@ -166,6 +187,12 @@ export default class BudCriticalCss extends Extension<
    * ```
    */
   @bind
+  @deprecated(`bud.critical`, `Use bud.critical.set instead`, [
+    [
+      `Set request options`,
+      `bud.critical.set('request', {https: {rejectUnauthorized: false}})`,
+    ],
+  ])
   public request(request: number) {
     this.set(`request`, request)
     return this

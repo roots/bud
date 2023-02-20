@@ -1,3 +1,5 @@
+import {platform} from 'node:os'
+
 import Ink from '@roots/bud-support/ink'
 import React from '@roots/bud-support/react'
 
@@ -27,6 +29,32 @@ const App = ({
 
   return (
     <Ink.Box flexDirection="column">
+      {platform() === `win32` ? (
+        <Ink.Box
+          borderColor="red"
+          borderStyle="double"
+          flexDirection="column"
+          padding={1}
+        >
+          <Ink.Text>🚫 Your OS is not a supported platform</Ink.Text>
+          <Ink.Text>{` `}</Ink.Text>
+          <Ink.Text>
+            You will likely encounter problems.{` `}
+            <Ink.Text bold underline>
+              Do not make github issues or support requests about Windows
+              builds
+            </Ink.Text>
+            {` `}
+            unless you are also submitting accompanying PRs.
+          </Ink.Text>
+          <Ink.Text>{` `}</Ink.Text>
+          <Ink.Text>
+            bud.js supports Windows through the Windows Subsystem for Linux
+            (WSL): https://learn.microsoft.com/en-us/windows/wsl/install
+          </Ink.Text>
+        </Ink.Box>
+      ) : null}
+
       {compilations.map((compilation, id) => (
         <Ink.Box key={id} flexDirection="column" paddingY={1}>
           <Compilation

@@ -162,11 +162,11 @@ export default class BudCommand extends Command<CommandContext> {
       error = normalizeError(value)
     } catch (e) {}
 
-    if (this.bud.notifier?.notify) {
+    if (this.bud?.notifier?.notify) {
       try {
         this.bud.notifier.notify({
-          title: `bud.js`,
-          subtitle: `Error`,
+          title: this.bud.label ?? `bud.js`,
+          subtitle: error.name ?? `Error`,
           message: error.message,
           group: this.bud.label,
         })
@@ -178,11 +178,7 @@ export default class BudCommand extends Command<CommandContext> {
     try {
       await this.renderOnce(
         <Ink.Box flexDirection="column">
-          <Display.Error
-            name={error.name}
-            message={error.message}
-            stack={error.stack}
-          />
+          <Display.Error name={error.name} message={error.message} />
 
           {isWindows() ? <WinError /> : null}
         </Ink.Box>,

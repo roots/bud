@@ -5,6 +5,7 @@ import chalk from '@roots/bud-support/chalk'
 import {bind} from '@roots/bud-support/decorators'
 import figures from '@roots/bud-support/figures'
 import Ink from '@roots/bud-support/ink'
+import isString from '@roots/bud-support/lodash/isString'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import React from '@roots/bud-support/react'
 import type {
@@ -124,6 +125,7 @@ export class Dashboard extends Service implements Contract {
               entrypoints: compilation.entrypoints ?? {},
               assets: compilation.assets ?? {},
               errors: this.compilationErrors(compilation.errors),
+              warnings: this.compilationErrors(compilation.warnings),
             }))}
             displayAssets={true}
             displayEntrypoints={true}
@@ -182,16 +184,26 @@ export class Dashboard extends Service implements Contract {
 
               /* Process line-by-line */
               .split(`\n`)
-              /* Discard empty lines */
-              .filter(ln => ![``, ` `, `\n`].includes(ln))
+
               /* Discard emoji */
               .map(ln => ln.replaceAll(/×/g, ``))
+              /* Discard origin */
+              .map(ln => ln.replaceAll(/\[.*\]/g, ``))
               /* Replace project path with . */
               .map(ln =>
                 ln.replaceAll(new RegExp(this.app.path(), `g`), `.`),
               )
               /* Add left padding and vert line */
               .map(ln => `${chalk.dim(figures.lineVertical)} ${ln}`)
+
+              /* Discard empty lines */
+              .filter(
+                ln =>
+                  isString(ln) &&
+                  ![``, ` `, `\n`].includes(ln) &&
+                  !ln.match(/^\s*$/),
+              )
+
               /* Reform message */
               .join(`\n`),
           }))

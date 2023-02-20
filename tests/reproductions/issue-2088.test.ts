@@ -6,11 +6,11 @@ import {readFile} from '@roots/bud-support/fs'
 
 describe('issue-2088', () => {
   it('should generate app.js', async () => {
-    await execa(`yarn`, [`bud`, `clean`, `@dist`], {
+    await execa(`yarn`, [`bud`, `clean`, `dist`, `storage`], {
       cwd: join(paths.tests, `reproductions`, `issue-2088`),
     })
 
-    await execa(`yarn`, [`bud`, `build`, `--force`, `--minimize`], {
+    await execa(`yarn`, [`bud`, `build`, `--minimize`], {
       cwd: join(paths.tests, `reproductions`, `issue-2088`),
     })
 

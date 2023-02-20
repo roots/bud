@@ -1,9 +1,8 @@
 import chalk from '@roots/bud-support/chalk'
+import figures from '@roots/bud-support/figures'
 import Ink from '@roots/bud-support/ink'
 import React from '@roots/bud-support/react'
 import type {StatsCompilation} from '@roots/bud-support/webpack'
-
-import {VERT} from '../format.js'
 
 const Messages = ({
   figure,
@@ -26,13 +25,14 @@ const Messages = ({
             <Ink.Text dimColor>├─</Ink.Text>
             <Ink.Text>{` `}</Ink.Text>
             <Ink.Text color={color}>{figure}</Ink.Text>
-            <Ink.Text>{` `}</Ink.Text>
+            <Ink.Text>{`  `}</Ink.Text>
             <Ink.Text color={color}>{type}</Ink.Text>
           </Ink.Box>
 
           <Ink.Box flexDirection="column">
-            <Ink.Text>{`${chalk.dim(VERT)}\n${message.trim()}`}</Ink.Text>
-            <Ink.Text dimColor>{chalk.dim(VERT)}</Ink.Text>
+            <Ink.Text>{chalk.dim(figures.lineVertical)}</Ink.Text>
+            <Ink.Text>{message.trim()}</Ink.Text>
+            <Ink.Text dimColor>{chalk.dim(figures.lineVertical)}</Ink.Text>
           </Ink.Box>
         </Ink.Box>
       ))}

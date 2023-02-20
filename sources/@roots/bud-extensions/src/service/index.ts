@@ -347,9 +347,8 @@ export default class Extensions
     methodName: Contract.LifecycleMethods,
   ): Promise<this> {
     if (
-      isUndefined(extension?.meta) ||
       isUndefined(extension?.meta?.[methodName]) ||
-      extension?.meta?.[methodName] === true
+      extension.meta?.[methodName] === true
     )
       return this
 
@@ -406,7 +405,10 @@ export default class Extensions
           await promised
           if (!this.has(signifier)) await this.import(signifier)
 
-          if (!this.get(signifier).meta[methodName])
+          if (
+            this.get(signifier) &&
+            !this.get(signifier).meta?.[methodName]
+          )
             await this.run(this.get(signifier), methodName)
         }, Promise.resolve())
     }
@@ -425,8 +427,7 @@ export default class Extensions
 
           if (
             this.get(signifier) &&
-            !isUndefined(this.get(signifier).meta) &&
-            !this.get(signifier).meta[methodName]
+            !this.get(signifier).meta?.[methodName]
           )
             await this.run(this.get(signifier), methodName)
         }, Promise.resolve())

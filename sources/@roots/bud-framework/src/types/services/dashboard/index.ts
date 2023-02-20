@@ -21,8 +21,5 @@ export interface Service extends Contract {
    */
   render: any
 
-  /**
-   * Render stats as a simple string
-   */
   renderString(stats: MultiStats): Promise<void>
 }

@@ -1,9 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
-import type {
-  EventsCallback,
-  EventsStore,
-} from '@roots/bud-framework/registry'
-import type Value from '@roots/bud-framework/value'
+import type {Events, EventsStore} from '@roots/bud-framework/registry'
 import {bind} from '@roots/bud-support/decorators'
 
 import {Hooks} from '../base/base.js'
@@ -15,52 +11,56 @@ import {Hooks} from '../base/base.js'
  * Supports sync values
  */
 export class EventHooks extends Hooks<EventsStore> {
-  /**
-   * Register a function to filter a value.
-   *
-   * @public
-   * @decorator `@bind`
-   */
   @bind
   public set<T extends keyof EventsStore & string>(
     id: T,
-    ...input: Array<EventsCallback>
+    ...input: Array<(value: Events[T]) => Promise<unknown>>
   ): Bud {
     if (!this.has(id)) this.store[id] = []
 
-    input
-      .map(this.app.value.make)
-      .map((value: Value<EventsCallback>) => this.store[id].push(value))
+    input.map(value => {
+      this.store[id].push(value as any)
+    })
 
     return this.app
   }
 
-  /**
-   * Fire actions registered to an event.
-   *
-   * @example
-   * ```js
-   * await app.hooks.fire('namespace.key')
-   * ```
-   *
-   * @public
-   * @decorator `@bind`
-   */
   @bind
-  public async get<T extends keyof EventsStore & string>(
+  public async get<T extends keyof Events & string>(
     id: T,
+    value: Events[T],
   ): Promise<Bud> {
-    if (!this.has(id)) return this.app
+    if (!this.has(id)) {
+      this.app.hooks.logger.info(
+        id,
+        `was called but no hooks registered for this event`,
+      )
+      return this.app
+    }
 
-    const events = [...this.store[id]]
-    this.store[id] = []
+    this.app.hooks.logger.time(id)
 
-    await events
-      .map(this.app.value.get)
-      .reduce(async (promise, action) => {
-        await promise
-        await action(this.app)
-      }, Promise.resolve())
+    const actions = [...this.store[id]]
+
+    await Promise.all(
+      actions.map(async (action, iteration) => {
+        try {
+          await action(value as any)
+        } catch (e) {
+          e.name = `bud.hooks.event.get error: ${id}`
+          e.message = [
+            `There was an error while running a hook for the "${id}" event.`,
+            `The error occurred in hook #${iteration}.`,
+            `The error message was:`,
+            e.message,
+          ].join(`\n`)
+          throw e
+        }
+      }),
+    )
+
+    this.app.hooks.logger.timeEnd(id)
+    this.app.hooks.logger.success(id, this.store[id].length, `hooks fired`)
 
     return this.app
   }

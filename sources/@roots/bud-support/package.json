@@ -177,6 +177,7 @@
     "html-loader": "^4.2.0",
     "html-webpack-plugin": "5.5.0",
     "http-proxy-middleware": "3.0.0-beta.0",
+    "human-readable": "0.2.1",
     "import-meta-resolve": "2.2.1",
     "ink": "3.2.0",
     "ink-link": "2.0.1",

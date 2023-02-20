@@ -1,8 +1,11 @@
+import {pathToFileURL} from 'node:url'
+
 import * as App from '@roots/bud-dashboard/app'
 import type {Bud} from '@roots/bud-framework/bud'
 import {Service} from '@roots/bud-framework/service'
 import type {Compiler as Contract} from '@roots/bud-framework/services'
 import {bind} from '@roots/bud-support/decorators'
+import {duration} from '@roots/bud-support/human-readable'
 import type {
   ErrorWithSourceFile,
   SourceFile,
@@ -16,7 +19,6 @@ import type {
   StatsCompilation,
   StatsError,
 } from '@roots/bud-support/webpack'
-import {pathToFileURL} from 'url'
 
 /**
  * Wepback compilation controller class
@@ -62,7 +64,7 @@ export class Compiler extends Service implements Contract.Service {
           }),
         )
 
-    await this.app.hooks.fire(`compiler.before`)
+    await this.app.hooks.fire(`compiler.before`, this.app)
 
     if (this.app.isCLI() && this.app.context.args.dry) {
       this.app.context.logger.timeEnd(`initialize`)
@@ -76,10 +78,10 @@ export class Compiler extends Service implements Contract.Service {
 
     this.instance.hooks.done.tap(this.app.label, async (stats: any) => {
       await this.onStats(stats)
-      await this.app.hooks.fire(`compiler.close`)
+      await this.app.hooks.fire(`compiler.close`, this.app)
     })
 
-    await this.app.hooks.fire(`compiler.after`)
+    await this.app.hooks.fire(`compiler.after`, this.app)
     return this.instance
   }
 
@@ -94,6 +96,8 @@ export class Compiler extends Service implements Contract.Service {
         : child.name
 
     this.stats = stats.toJson(this.app.hooks.filter(`build.stats`))
+
+    await this.app.hooks.fire(`compiler.stats`, stats)
 
     const statsUpdate = this.app.dashboard.update(stats)
 
@@ -127,7 +131,11 @@ export class Compiler extends Service implements Contract.Service {
         this.app.notifier.notify({
           title: makeNoticeTitle(child),
           subtitle: `Build successful`,
-          message: `${child.modules.length} modules compiled in ${child.time}ms`,
+          message: child.modules
+            ? `${child.modules.length} modules compiled in ${duration(
+                child.time,
+              )}`
+            : `Compiled in ${duration(child.time)}`,
           group: `${this.app.label}-${child.name}`,
           open: this.app.server?.publicUrl.href,
         })
@@ -143,6 +151,8 @@ export class Compiler extends Service implements Contract.Service {
   @bind
   public async onError(error: Error) {
     process.exitCode = 1
+
+    await this.app.hooks.fire(`compiler.error`, error)
 
     this.app.isDevelopment &&
       this.app.server.appliedMiddleware?.hot?.publish({error})
@@ -182,7 +192,7 @@ export class Compiler extends Service implements Contract.Service {
 
         const module = modules.find(
           module =>
-            module.id === moduleIdent || module.name === moduleIdent,
+            module?.id === moduleIdent || module?.name === moduleIdent,
         )
 
         if (!module) {

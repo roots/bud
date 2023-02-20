@@ -6,7 +6,7 @@ import {readFile} from '@roots/bud-support/fs'
 
 describe('issue-1995', () => {
   beforeAll(async () => {
-    await execa(`yarn`, [`bud`, `clean`], {
+    await execa(`yarn`, [`bud`, `clean`, `dist`, `storage`], {
       cwd: join(paths.tests, `reproductions`, `issue-1955`),
     })
 

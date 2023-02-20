@@ -324,7 +324,7 @@ export class Bud {
       `booted`,
     ].reduce(async (promised, event: keyof Registry.EventsStore) => {
       await promised
-      await this.hooks.fire(event)
+      await this.hooks.fire(event, this)
     }, Promise.resolve())
 
     return this

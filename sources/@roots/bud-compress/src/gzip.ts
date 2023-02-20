@@ -7,6 +7,7 @@ import {
   options,
   plugin,
 } from '@roots/bud-framework/extension/decorators'
+import {deprecated} from '@roots/bud-support/decorators'
 import Plugin from 'compression-webpack-plugin'
 
 import type {Options} from './extension.js'
@@ -39,6 +40,16 @@ export default class BudGzip extends Extension<Options, Plugin> {
    * @deprecated Use `bud.compress.gzip.setOptions()` instead.
    */
   @bind
+  @deprecated(
+    `bud.compress.gzip.config`,
+    `Use bud.compress.gzip.set instead`,
+    [
+      [
+        `set deleteOriginalAssets`,
+        `bud.compress.gzip.set('deleteOriginalAssets', true)`,
+      ],
+    ],
+  )
   public async config(options?: Options): Promise<Bud> {
     this.enable()
     options && this.setOptions(options)
