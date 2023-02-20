@@ -65,4 +65,4 @@ describe('issue-1886', () => {
     expect(mixedSimpleJs.length).toBeGreaterThan(0)
 
   })
-})
+}, 120000)

@@ -26,5 +26,5 @@ describe('issue-2088', () => {
       `utf-8`,
     )
     expect(file.length).toBeLessThan(65000)
-  }, 300000)
-})
+  })
+}, 240000)

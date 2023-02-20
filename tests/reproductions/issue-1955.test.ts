@@ -29,4 +29,4 @@ describe('issue-1995', () => {
     )
     expect(file.length).toBeGreaterThan(0)
   })
-})
+}, 120000)

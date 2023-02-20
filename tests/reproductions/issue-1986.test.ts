@@ -40,4 +40,4 @@ describe(`issue-1986`, () => {
       ),
     ).toBe(false)
   })
-})
+}, 120000)

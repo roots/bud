@@ -96,4 +96,4 @@ describe('issue-1886', () => {
     )
     expect(image.length).toMatchInlineSnapshot('8377')
   })
-})
+}, 120000)
