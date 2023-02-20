@@ -107,10 +107,6 @@
       "types": "./lib/logger/index.d.ts",
       "import": "./lib/logger/index.js"
     },
-    "./notifier/*": {
-      "types": "./lib/notifier/*.d.ts",
-      "import": "./lib/notifier/*.js"
-    },
     "./services/*": {
       "types": "./lib/services/*/index.d.ts",
       "import": "./lib/services/*/index.js"
@@ -155,9 +151,6 @@
       ],
       "logger": [
         "lib/logger/index.d.ts"
-      ],
-      "notifier": [
-        "lib/notifier/index.d.ts"
       ],
       "services": [
         "lib/services/index.d.ts"

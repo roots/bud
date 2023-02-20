@@ -158,6 +158,8 @@ export class Bud {
 
   public hooks: Hooks
 
+  public notifier: any
+
   public project: Services.Project.Service
 
   public server: Services.Server.Service

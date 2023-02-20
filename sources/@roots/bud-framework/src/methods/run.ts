@@ -7,23 +7,17 @@ export interface run {
   (): Promise<void>
 }
 
-export const run: run = async function (this: Bud): Promise<void> {
+export const run: run = async function (this: Bud) {
   if (this.isProduction) {
-    await this.compiler.compile().then(compilation =>
-      compilation?.run((error, stats) => {
-        if (error) {
-          this.error(`Compiler error\n`, error.message, `\n`)
-          throw new Error()
-        }
+    const compilation = await this.compiler.compile()
 
-        compilation.close(error => {
-          if (error) {
-            this.error(`Compiler error\n`, error.message, `\n`)
-            throw new Error()
-          }
-        })
-      }),
-    )
+    compilation.run(async (error, stats) => {
+      if (error) await this.compiler.onError(error)
+
+      compilation.close(async error => {
+        if (error) await this.compiler.onError(error)
+      })
+    })
   }
 
   if (this.isDevelopment) {

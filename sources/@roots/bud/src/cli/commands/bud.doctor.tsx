@@ -18,9 +18,6 @@ import {isWindows} from '../helpers/isWindows.js'
 
 /**
  * `bud doctor` command
- *
- * @public
- * @decorator `@dry`
  */
 @dry
 export default class BudDoctorCommand extends BudCommand {
@@ -67,15 +64,12 @@ for a lot of edge cases so it might return a false positive.
 
   /**
    * Execute command
-   *
-   * @public
-   * @decorator `@bind`
    */
   public override async execute() {
     try {
       const buildTimer = this.makeTimer()
       await this.makeBud(this)
-      await this.run(this)
+      await this.bud.run()
       this.timings.build = buildTimer()
     } catch (e) {
       throw e

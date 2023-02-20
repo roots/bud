@@ -26,6 +26,7 @@ export interface Registry extends Record<string, any> {
   extensions: Extensions.Service
   fs: FS & Service.Contract
   hooks: Hooks
+  notifier: Service.Contract
   project: Project.Service
   server: Server.Service
 }

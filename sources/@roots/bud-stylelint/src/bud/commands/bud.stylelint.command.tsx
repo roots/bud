@@ -26,7 +26,7 @@ export class BudStylelintCommand extends BudCommand {
 
   public override async execute() {
     await this.makeBud(this)
-    await this.run(this)
+    await this.bud.run()
 
     const stylelint = await this.bud.module.getDirectory(`stylelint`)
     const bin = join(stylelint, `bin`, `stylelint.js`)

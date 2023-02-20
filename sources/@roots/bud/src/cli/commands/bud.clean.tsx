@@ -1,3 +1,4 @@
+import type {Bud} from '@roots/bud'
 import BudCommand from '@roots/bud/cli/commands/bud'
 import {dry} from '@roots/bud/cli/decorators/command.dry'
 import {Command, Option} from '@roots/bud-support/clipanion'
@@ -8,9 +9,6 @@ import React from '@roots/bud-support/react'
 
 /**
  * `bud clean`
- *
- * @public
- * @decorator `@dry`
  */
 @dry
 export default class BudCleanCommand extends BudCommand {
@@ -23,6 +21,7 @@ export default class BudCleanCommand extends BudCommand {
       \`bud clean\` empties the \`@dist\` and \`@storage\` directories.
       \`bud clean @dist\` empties the \`@dist\` directory.
       \`bud clean @storage\` empties the \`@storage\` directory.
+      \`bud clean cache\` empties the \`@storage/cache\` directory.
 `,
     examples: [
       [`Clean artifacts/caches`, `$0 clean`],
@@ -31,34 +30,42 @@ export default class BudCleanCommand extends BudCommand {
     ],
   })
 
-  public _cleanStorage = Option.Boolean(`@storage`, false, {
+  public _cleanStorage = Option.Boolean(`@storage,storage`, false, {
     description: `empty @storage`,
   })
-  public _cleanOutput = Option.Boolean(`@dist`, false, {
+  public _cleanOutput = Option.Boolean(`@dist,dist,output`, false, {
     description: `empty @dist`,
+  })
+  public _cleanCache = Option.Boolean(`@cache,cache`, false, {
+    description: `empty @storage/cache`,
   })
 
   /**
    * Execute command
-   *
-   * @public
-   * @decorator `@bind`
    */
-  @bind
   public override async execute() {
     await this.makeBud(this)
-    await this.run(this)
+    await this.healthcheck(this)
 
-    if (
-      this._cleanStorage ||
-      (!this._cleanStorage && !this._cleanOutput)
-    ) {
+    const cleanAll =
+      !this._cleanOutput && !this._cleanOutput && !this._cleanCache
+
+    if (this._cleanStorage || cleanAll) {
       await this.cleanStorage()
     }
 
-    if (this._cleanOutput || (!this._cleanOutput && !this._cleanOutput)) {
+    if (this._cleanOutput || cleanAll) {
       await this.cleanOutput()
     }
+
+    if (this._cleanCache || cleanAll) {
+      await this.cleanCache()
+    }
+  }
+
+  @bind
+  public filterCompiler(child: Bud): boolean {
+    return !this.filter || this.filter.includes(child.label)
   }
 
   @bind
@@ -66,20 +73,22 @@ export default class BudCleanCommand extends BudCommand {
     try {
       if (this.bud.hasChildren) {
         return await Promise.all(
-          Object.values(this.bud.children).map(async child => {
-            try {
-              await remove(child.path(`@dist`))
-              await this.renderOnce(
-                <Ink.Box>
-                  <Ink.Text color="green">
-                    ✔ emptied {child.path(`@dist`)}
-                  </Ink.Text>
-                </Ink.Box>,
-              )
-            } catch (error) {
-              throw error
-            }
-          }),
+          Object.values(this.bud.children)
+            .filter(this.filterCompiler)
+            .map(async child => {
+              try {
+                await remove(child.path(`@dist`))
+                await this.renderOnce(
+                  <Ink.Box>
+                    <Ink.Text color="green">
+                      ✔ emptied {child.path(`@dist`)}
+                    </Ink.Text>
+                  </Ink.Box>,
+                )
+              } catch (error) {
+                throw error
+              }
+            }),
         )
       }
 
@@ -97,23 +106,62 @@ export default class BudCleanCommand extends BudCommand {
   }
 
   @bind
+  public async cleanCache() {
+    try {
+      if (this.bud.hasChildren) {
+        return await Promise.all(
+          Object.values(this.bud.children)
+            .filter(this.filterCompiler)
+            .map(async child => {
+              try {
+                await remove(child.cache.cacheDirectory)
+                await this.renderOnce(
+                  <Ink.Box>
+                    <Ink.Text color="green">
+                      ✔ emptied {child.cache.cacheDirectory}
+                    </Ink.Text>
+                  </Ink.Box>,
+                )
+              } catch (error) {
+                throw error
+              }
+            }),
+        )
+      }
+
+      await remove(this.bud.cache.cacheDirectory)
+      await this.renderOnce(
+        <Ink.Box>
+          <Ink.Text color="green">
+            ✔ emptied {this.bud.cache.cacheDirectory}
+          </Ink.Text>
+        </Ink.Box>,
+      )
+    } catch (error) {
+      throw error
+    }
+  }
+
+  @bind
   public async cleanStorage() {
     if (this.bud.hasChildren) {
       return await Promise.all(
-        Object.values(this.bud.children).map(async child => {
-          try {
-            await remove(child.path(`@dist`))
-            await this.renderOnce(
-              <Ink.Box>
-                <Ink.Text color="green">
-                  ✔ emptied {child.path(`@storage`)}
-                </Ink.Text>
-              </Ink.Box>,
-            )
-          } catch (error) {
-            throw error
-          }
-        }),
+        Object.values(this.bud.children)
+          .filter(this.filterCompiler)
+          .map(async child => {
+            try {
+              await remove(child.path(`@dist`))
+              await this.renderOnce(
+                <Ink.Box>
+                  <Ink.Text color="green">
+                    ✔ emptied {child.path(`@storage`)}
+                  </Ink.Text>
+                </Ink.Box>,
+              )
+            } catch (error) {
+              throw error
+            }
+          }),
       )
     }
 

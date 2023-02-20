@@ -2,7 +2,6 @@
 /** @param {import('@roots/bud').Bud} bud */
 export default async bud => {
   bud
-    .setPath(`@src`, `src`)
     .copy([`images`])
     .entry(`app`, [`scripts/app`, `styles/app`])
     .watch([bud.path(`@src`, `*.html`), bud.path(`@src`, `images`)])

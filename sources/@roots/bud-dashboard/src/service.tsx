@@ -21,14 +21,26 @@ type Compilations = Array<Omit<StatsCompilation, `children`>>
  * Dashboard service
  */
 export class Dashboard extends Service implements Contract {
+  /**
+   * Renderer instance
+   */
   public renderer?: any
 
+  /**
+   * Received stats
+   */
   public stats?: StatsCompilation
 
+  /**
+   * Is silent?
+   */
   public get silent() {
     return this.app.isCLI() && this.app.context.args.log === false
   }
 
+  /**
+   * Set renderer instance
+   */
   @bind
   public setRenderer(renderer: any): this {
     this.renderer = renderer
@@ -37,24 +49,17 @@ export class Dashboard extends Service implements Contract {
 
   /**
    * Run dashboard
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public async update(stats: MultiStats): Promise<this> {
-    if (!stats) {
-      this.logger.info(`dashboard called but no stats received.`)
-      return this
-    }
-    if (this.silent) {
-      this.logger.info(`dashboard called but --silent flag is set.`)
-      return this
-    }
-
-    this.logger.info(`stats received`, stats)
+    if (!stats) return this
 
     this.stats = stats
+
+    if (this.silent) {
+      this.logger.log(`dashboard called but --silent flag is set.`)
+      return this
+    }
 
     if (isUndefined(this.renderer)) {
       if (this.app.isCLI() && this.app.context.stdout) {
@@ -70,59 +75,46 @@ export class Dashboard extends Service implements Contract {
     }
 
     if (!this.app.isCLI() || this.app.context.args.ci === true) {
-      const stringCompilation = stats.toString({
-        preset: `minimal`,
-        colors: true,
-      })
-
-      await this.renderer.once(
-        <Ink.Box flexDirection="column">
-          <Console messages={this.app.consoleBuffer.fetchAndRemove()} />
-          <Ink.Text>{stringCompilation}</Ink.Text>
-        </Ink.Box>,
-      )
-
+      await this.renderString(stats)
       return this
     }
 
     try {
-      await this.renderCompilation(
-        stats.toJson(this.app.hooks.filter(`build.stats`)),
-      )
+      await this.render(stats.toJson(this.app.hooks.filter(`build.stats`)))
     } catch (error) {
-      throw error
+      await this.renderString(stats)
     }
 
     return this
   }
 
   /**
-   * Render compilations from webpack stats
-   *
-   * @public
-   * @decorator `@bind`
+   * Render webpack stats
    */
   @bind
-  public async renderCompilation?(stats: StatsCompilation) {
-    const Dashboard = await import(`./dashboard/index.js`)
-
-    const tagInnerChilds = ({children}: StatsCompilation) =>
-      children.map(child => ({...child, isChild: true}))
-
-    const compilations: Compilations = stats.children?.length
-      ? [...stats.children, ...stats.children?.map(tagInnerChilds)].flat()
-      : [stats]
-
-    const Render = this.app.isProduction
-      ? this.renderer.once
-      : this.renderer.render
-
-    const App =
-      process.stdout.isTTY && !this.app.isProduction
-        ? Dashboard.TTYApp
-        : Dashboard.App
-
+  public async render(stats: StatsCompilation) {
     try {
+      const Dashboard = await import(`./dashboard/index.js`)
+
+      const tagInnerChilds = ({children}: StatsCompilation) =>
+        children.map(child => ({...child, isChild: true}))
+
+      const compilations: Compilations = stats.children?.length
+        ? [
+            ...stats.children,
+            ...stats.children?.map(tagInnerChilds),
+          ].flat()
+        : [stats]
+
+      const Render = this.app.isProduction
+        ? this.renderer.once
+        : this.renderer.render
+
+      const App =
+        process.stdout.isTTY && !this.app.isProduction
+          ? Dashboard.TTYApp
+          : Dashboard.App
+
       await Render(
         <Ink.Box flexDirection="column" marginTop={1}>
           <Console messages={this.app.consoleBuffer.fetchAndRemove()} />
@@ -150,9 +142,20 @@ export class Dashboard extends Service implements Contract {
   }
 
   /**
+   * Render stats as a simple string
+   */
+  @bind
+  public async renderString(stats: MultiStats) {
+    const stringCompilation = stats.toString({
+      preset: `minimal`,
+      colors: true,
+    })
+
+    await this.renderer.text(stringCompilation)
+  }
+
+  /**
    * Error formatter
-   *
-   * @public
    */
   @bind
   public compilationErrors?(errors: StatsError[]) {

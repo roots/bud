@@ -5,6 +5,7 @@ export const notifierPath = resolve(
   dirname(fileURLToPath(import.meta.url)),
   `..`,
   `..`,
+  `..`,
   `vendor`,
   `mac.no-index`,
   `roots-notifier.app`,

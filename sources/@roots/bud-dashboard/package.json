@@ -48,13 +48,13 @@
       "types": "./lib/index.d.ts",
       "default": "./lib/index.js"
     },
+    "./app": {
+      "types": "./lib/app/index.d.ts",
+      "default": "./lib/app/index.js"
+    },
     "./service": {
       "types": "./lib/service.d.ts",
       "default": "./lib/service.js"
-    },
-    "./renderer": {
-      "types": "./lib/renderer.d.ts",
-      "default": "./lib/renderer.js"
     }
   },
   "typesVersions": {
@@ -62,8 +62,8 @@
       ".": [
         "./lib/index.d.ts"
       ],
-      "renderer": [
-        "./lib/renderer.d.ts"
+      "app": [
+        "./lib/app/index.d.ts"
       ],
       "service": [
         "./lib/service.d.ts"

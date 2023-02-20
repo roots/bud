@@ -59,7 +59,7 @@ export default class BudUpgradeCommand extends BudCommand {
   public override async execute() {
     await this.makeBud(this)
     await this.healthcheck(this)
-    await this.run(this)
+    await this.bud.run()
 
     if (isInternalDevelopmentEnv(this.bud)) {
       throw new Error(`Internal development environment`)

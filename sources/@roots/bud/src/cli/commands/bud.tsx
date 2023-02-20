@@ -1,6 +1,7 @@
+import {platform} from 'node:os'
+
 import {checkDependencies} from '@roots/bud/cli/helpers/checkDependencies'
 import {checkPackageManagerErrors} from '@roots/bud/cli/helpers/checkPackageManagerErrors'
-import {isInternalDevelopmentEnv} from '@roots/bud/cli/helpers/isInternalDevelopmentEnv'
 import {isset} from '@roots/bud/cli/helpers/isset'
 import {Bud} from '@roots/bud-framework'
 import type {
@@ -9,14 +10,12 @@ import type {
 } from '@roots/bud-framework/options/context'
 import {BaseContext, Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators'
-import figures from '@roots/bud-support/figures'
 import Ink, {React, Renderer} from '@roots/bud-support/ink'
 import isString from '@roots/bud-support/lodash/isString'
-import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import * as t from '@roots/bud-support/typanion'
 
-import type {Notifier} from '../../notifier/index.js'
 import * as Display from '../components/Error.js'
+import {Menu} from '../components/Menu.js'
 import {WinError} from '../components/WinError.js'
 import {isWindows} from '../helpers/isWindows.js'
 
@@ -35,17 +34,32 @@ export const ArgsModifier: ArgsModifier = from => async on => ({
  * Bud command
  */
 export default class BudCommand extends Command<CommandContext> {
+  /**
+   * Bud instance
+   */
   public declare bud?: (Bud & {context: CommandContext}) | undefined
 
+  /**
+   * Binary (node, ts-node, bun)
+   */
   public get bin() {
     // eslint-disable-next-line n/no-process-env
     return process.env.BUD_JS_BIN
   }
 
+  /**
+   * {@link Command.context}
+   */
   public declare context: CommandContext
 
+  /**
+   * {@link Command.paths}
+   */
   public static override paths = [[]]
 
+  /**
+   * {@link Command.usage}
+   */
   public static override usage = Command.Usage({
     description: `Run \`bud --help\` for usage information`,
     details: `\
@@ -76,9 +90,8 @@ export default class BudCommand extends Command<CommandContext> {
     bud: BudCommand[`bud`],
   ) => Promise<BudCommand[`bud`]>
 
-  public declare notifier?: Notifier
-  public notify: boolean = Option.Boolean(`--notify`, undefined, {
-    description: `Enable notification`,
+  public notify: boolean = Option.Boolean(`--notify`, platform() === `darwin`, {
+    description: `Enable notification (default on macOS, experimental on other platforms)`,
   })
 
   public cwd = Option.String(`--basedir,--cwd`, undefined, {
@@ -145,13 +158,13 @@ export default class BudCommand extends Command<CommandContext> {
       error = normalizeError(value)
     } catch (e) {}
 
-    if (this.notifier?.notify) {
+    if (this.bud.notifier?.notify) {
       try {
-        this.notifier.notify({
+        this.bud.notifier.notify({
           title: `bud.js`,
-          subtitle: `Configuration error`,
+          subtitle: `Error`,
           message: error.message,
-          group: this.bud.path(),
+          group: this.bud.label,
         })
       } catch (error) {
         // fallthrough
@@ -164,26 +177,19 @@ export default class BudCommand extends Command<CommandContext> {
           <Display.Error
             name={error.name}
             message={error.message}
-            stack={this.bud.context.args.debug && error.stack}
+            stack={error.stack}
           />
-          {isWindows() && <WinError />}
+
+          {isWindows() ? <WinError /> : null}
         </Ink.Box>,
       )
-    } catch (error) {
-      this.context.stderr.write(value.toString())
-    }
-
-    if (this.bud?.isProduction) {
-      this.bud.close()
-      this.renderer.cleanup()
-      await this.renderer.instance?.waitUntilExit()
-    }
+    } catch (error) {}
   }
 
   public async makeBud<T extends BudCommand>(command: T) {
     command.context.mode = command.mode ?? command.context.mode
 
-    command.context.args = {
+    command.context.args = Object.entries({
       ...command.context.args,
       basedir: command.context.basedir,
       debug: command.debug,
@@ -192,7 +198,12 @@ export default class BudCommand extends Command<CommandContext> {
       notify: command.notify,
       target: command.filter,
       verbose: command.verbose,
-    }
+    })
+      .filter(([k, v]) => v !== undefined)
+      .reduce((acc, [k, v]) => {
+        acc[k] = v
+        return acc
+      }, {} as Record<string, unknown>)
 
     if (command.withArguments) {
       command.context.args = await command.withArguments(
@@ -218,11 +229,6 @@ export default class BudCommand extends Command<CommandContext> {
 
     command.bud = bud
 
-    if (isUndefined(command.notify) || command.notify === true) {
-      const {Notifier} = await import(`../../notifier/index.js`)
-      command.notifier = new Notifier().setBud(command.bud)
-    }
-
     await command.applyBudEnv(command.bud)
     await command.applyBudManifestOptions(command.bud)
     await command.applyBudArguments(command.bud)
@@ -236,16 +242,8 @@ export default class BudCommand extends Command<CommandContext> {
     if (command.withBud) {
       command.bud = await command.withBud(command.bud)
     }
-  }
 
-  public async run(command: BudCommand) {
     await command.applyBudArguments(command.bud)
-
-    try {
-      await command.bud.run()
-    } catch (error) {
-      throw error
-    }
   }
 
   @bind
@@ -261,8 +259,6 @@ export default class BudCommand extends Command<CommandContext> {
   }
 
   public async healthcheck(command: BudCommand) {
-    if (isInternalDevelopmentEnv(command.bud)) return
-
     checkPackageManagerErrors(command.bud)
     await checkDependencies(command.bud)
   }
@@ -383,18 +379,6 @@ export default class BudCommand extends Command<CommandContext> {
     }
 
     /**
-     * Filter instances
-     */
-    if (args.filter?.length && bud.hasChildren) {
-      Object.values(bud.children)
-        .filter(child => !args.filter.includes(child.label))
-        .map(child => {
-          delete bud.children[child.label]
-          bud.log(`removing ${child.label} instance from the cli`)
-        })
-    }
-
-    /**
      * Override settings for either:
      * - the parent (if children do not exist), or;
      * - all children but not the parent (if children exist)
@@ -468,83 +452,10 @@ export default class BudCommand extends Command<CommandContext> {
     }
   }
 
+  /**
+   * Execute command
+   */
   public async execute() {
-    const options: Array<[string, string, Array<string>]> = [
-      [
-        `build production`,
-        `build application for production`,
-        [`build`, `production`],
-      ],
-      [
-        `build development`,
-        `start development server`,
-        [`build`, `development`],
-      ],
-      [
-        `doctor`,
-        `check bud.js configuration for common errors and issues`,
-        [`doctor`],
-      ],
-      [
-        `repl`,
-        `open a repl to explore bud just prior to compilation`,
-        [`repl`],
-      ],
-      [
-        `upgrade`,
-        `upgrade bud.js and extensions to the latest stable version`,
-        [`upgrade`],
-      ],
-    ]
-
-    const Menu = () => {
-      const [selected, setSelected] = React.useState(0)
-      const [running, setRunning] = React.useState(false)
-
-      Ink.useInput((key, input) => {
-        if (running) return
-
-        input[`downArrow`] && setSelected(selected + 1)
-        input[`upArrow`] && setSelected(selected - 1)
-
-        if (input.escape) {
-          // eslint-disable-next-line n/no-process-exit
-          process.exit(0)
-        }
-
-        if (input.return) {
-          setRunning(true)
-          this.cli.run(options[selected][2])
-        }
-      })
-
-      React.useEffect(() => {
-        if (selected > options.length - 1) setSelected(0)
-        if (selected < 0) setSelected(options.length - 1)
-      }, [selected])
-
-      return (
-        <Ink.Box flexDirection="column" marginTop={1}>
-          {options.map(([option, description, command], index) => {
-            return (
-              <Ink.Text
-                key={index}
-                color={selected === index ? `blue` : `white`}
-              >
-                {selected === index ? figures.radioOn : figures.radioOff}
-                {`  `}
-                {option}
-                <Ink.Text color="white" dimColor>
-                  {` `}
-                  {description}
-                </Ink.Text>
-              </Ink.Text>
-            )
-          })}
-        </Ink.Box>
-      )
-    }
-
-    this.render(<Menu />)
+    this.render(<Menu cli={this.cli} />)
   }
 }

@@ -14,9 +14,6 @@ import BudCommand, {ArgsModifier} from './bud.js'
 
 /**
  * `bud repl`
- *
- * @public
- * @decorator `@dry` - dry run
  */
 @dry
 export default class BudReplCommand extends BudCommand {
@@ -43,14 +40,11 @@ export default class BudReplCommand extends BudCommand {
 
   /**
    * Execute command
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public override async execute() {
     await this.makeBud(this)
-    await this.run(this)
+    await this.bud.run()
 
     await this.render(
       <Repl app={this.bud} indent={this.indent} depth={this.depth} />,
