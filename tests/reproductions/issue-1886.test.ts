@@ -6,7 +6,7 @@ import {readFile} from '@roots/bud-support/fs'
 
 describe('issue-1886', () => {
   it('should generate webp from png included in js source', async () => {
-    await execa(`yarn`, [`bud`, `clean`, `dist`, `storage`], {
+    await execa(`yarn`, [`bud`, `clean`], {
       cwd: join(paths.tests, `reproductions`, `issue-1886`),
     })
 
@@ -29,6 +29,14 @@ describe('issue-1886', () => {
   })
 
   it('should generate jpg from png included in js source', async () => {
+    await execa(`yarn`, [`bud`, `clean`], {
+      cwd: join(paths.tests, `reproductions`, `issue-1886`),
+    })
+
+    await execa(`yarn`, [`bud`, `build`, `--no-log`, `--debug`], {
+      cwd: join(paths.tests, `reproductions`, `issue-1886`),
+    })
+
     const dist = await readFile(
       join(
         paths.tests,
@@ -44,6 +52,14 @@ describe('issue-1886', () => {
   })
 
   it('should generate webp@50 from png included in js source', async () => {
+    await execa(`yarn`, [`bud`, `clean`], {
+      cwd: join(paths.tests, `reproductions`, `issue-1886`),
+    })
+
+    await execa(`yarn`, [`bud`, `build`, `--no-log`, `--debug`], {
+      cwd: join(paths.tests, `reproductions`, `issue-1886`),
+    })
+
     const image = await readFile(
       join(
         paths.tests,
@@ -59,6 +75,14 @@ describe('issue-1886', () => {
   })
 
   it('should generate webp from png included in css source', async () => {
+    await execa(`yarn`, [`bud`, `clean`], {
+      cwd: join(paths.tests, `reproductions`, `issue-1886`),
+    })
+
+    await execa(`yarn`, [`bud`, `build`, `--no-log`, `--debug`], {
+      cwd: join(paths.tests, `reproductions`, `issue-1886`),
+    })
+
     const image = await readFile(
       join(
         paths.tests,

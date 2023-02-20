@@ -6,7 +6,7 @@ import {readFile} from '@roots/bud-support/fs'
 
 describe('issue-1886', () => {
   it('should generate scripts', async () => {
-    await execa(`yarn`, [`bud`, `clean`, `dist`, `storage`], {
+    await execa(`yarn`, [`bud`, `clean`], {
       cwd: join(paths.tests, `reproductions`, `issue-1890`),
     })
 
@@ -64,47 +64,5 @@ describe('issue-1886', () => {
     expect(mixedNormalJs.length).toBeGreaterThan(0)
     expect(mixedSimpleJs.length).toBeGreaterThan(0)
 
-  })
-  it('should generate simple.js', async () => {
-    const file = await readFile(
-      join(
-        paths.tests,
-        `reproductions`,
-        `issue-1890`,
-        `dist`,
-        `js`,
-        `simple.js`,
-      ),
-      `utf-8`,
-    )
-    expect(file.length).toBeGreaterThan(0)
-  })
-  it('should generate mixedNormal.js', async () => {
-    const file = await readFile(
-      join(
-        paths.tests,
-        `reproductions`,
-        `issue-1890`,
-        `dist`,
-        `js`,
-        `mixedNormal.js`,
-      ),
-      `utf-8`,
-    )
-    expect(file.length).toBeGreaterThan(0)
-  })
-  it('should generate mixedSimple.js', async () => {
-    const file = await readFile(
-      join(
-        paths.tests,
-        `reproductions`,
-        `issue-1890`,
-        `dist`,
-        `js`,
-        `mixedSimple.js`,
-      ),
-      `utf-8`,
-    )
-    expect(file.length).toBeGreaterThan(0)
   })
 })
