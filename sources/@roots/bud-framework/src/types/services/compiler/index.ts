@@ -52,7 +52,9 @@ interface Service extends BaseService {
 
   onError(error: Error): Promise<void>
 
-  sourceErrors(errors: Array<StatsError>): Array<ErrorWithSourceFile | StatsError>
+  sourceErrors(
+    errors: Array<StatsError>,
+  ): Array<ErrorWithSourceFile | StatsError>
 }
 
 export type BudError = {

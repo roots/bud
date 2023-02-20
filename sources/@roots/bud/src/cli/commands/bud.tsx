@@ -90,9 +90,13 @@ export default class BudCommand extends Command<CommandContext> {
     bud: BudCommand[`bud`],
   ) => Promise<BudCommand[`bud`]>
 
-  public notify: boolean = Option.Boolean(`--notify`, platform() === `darwin`, {
-    description: `Enable notification (default on macOS, experimental on other platforms)`,
-  })
+  public notify: boolean = Option.Boolean(
+    `--notify`,
+    platform() === `darwin`,
+    {
+      description: `Enable notification (default on macOS, experimental on other platforms)`,
+    },
+  )
 
   public cwd = Option.String(`--basedir,--cwd`, undefined, {
     description: `project base directory`,

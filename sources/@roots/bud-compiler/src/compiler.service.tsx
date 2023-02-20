@@ -97,7 +97,6 @@ export class Compiler extends Service implements Contract.Service {
 
     const statsUpdate = this.app.dashboard.update(stats)
 
-
     if (stats.hasErrors()) {
       process.exitCode = 1
 

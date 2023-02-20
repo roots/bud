@@ -7124,6 +7124,7 @@ __metadata:
   resolution: "@roots/bud-compiler@workspace:sources/@roots/bud-compiler"
   dependencies:
     "@roots/bud-api": "workspace:sources/@roots/bud-api"
+    "@roots/bud-dashboard": "workspace:sources/@roots/bud-dashboard"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
@@ -7830,6 +7831,7 @@ __metadata:
     remark-html: 15.0.1
     remark-loader: 5.0.0
     signale: 1.4.0
+    strip-ansi: 7.0.1
     style-loader: 3.3.1
     terser-webpack-plugin: 5.3.6
     toml: 3.0.0

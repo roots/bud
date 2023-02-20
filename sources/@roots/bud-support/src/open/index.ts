@@ -13,4 +13,11 @@ interface ErrorWithSourceFile extends Error {
 }
 
 export {open, openEditor}
-export type {App, Options, AppName, OpenAppOptions, SourceFile, ErrorWithSourceFile}
+export type {
+  App,
+  Options,
+  AppName,
+  OpenAppOptions,
+  SourceFile,
+  ErrorWithSourceFile,
+}

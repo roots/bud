@@ -126,9 +126,7 @@ export class Notifier extends Service {
 
     const files = Array.isArray(input) ? input : [input]
 
-    files.map(file =>
-      this.app.info(`opening`, file, `in`, this.editor),
-    )
+    files.map(file => this.app.info(`opening`, file, `in`, this.editor))
 
     return openEditor(files, {editor: this.editor})
   }
