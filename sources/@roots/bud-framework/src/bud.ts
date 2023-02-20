@@ -158,7 +158,7 @@ export class Bud {
 
   public hooks: Hooks
 
-  public notifier: any
+  public notifier: Services.Notifier
 
   public project: Services.Project.Service
 

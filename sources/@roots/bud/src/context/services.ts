@@ -10,5 +10,5 @@ export default [
   `@roots/bud-server`,
   `@roots/bud/services/project`,
   `@roots/bud-framework/services/console`,
-  `@roots/bud/services/notifier`,
+  `@roots/bud-framework/services/notifier`,
 ]

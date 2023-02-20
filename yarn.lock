@@ -7339,7 +7339,13 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/js-yaml": 4.0.5
     "@types/node": 18.11.18
+    execa: 7.0.0
     tslib: 2.4.1
+  peerDependencies:
+    execa: ">=6.1.0"
+  peerDependenciesMeta:
+    execa:
+      optional: true
   languageName: unknown
   linkType: soft
 
@@ -8278,7 +8284,6 @@ __metadata:
     "@roots/bud-terser": "workspace:sources/@roots/bud-terser"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.11.18
-    execa: 7.0.0
     tslib: 2.4.1
   peerDependencies:
     "@roots/browserslist-config": "*"
@@ -8295,7 +8300,6 @@ __metadata:
     "@roots/bud-server": "*"
     "@roots/bud-support": "*"
     "@roots/bud-terser": "*"
-    execa: ">=6.1.0"
     tslib: ">=2.4.0"
   peerDependenciesMeta:
     "@roots/browserslist-config":
@@ -8325,8 +8329,6 @@ __metadata:
     "@roots/bud-support":
       optional: true
     "@roots/bud-terser":
-      optional: true
-    execa:
       optional: true
     tslib:
       optional: true

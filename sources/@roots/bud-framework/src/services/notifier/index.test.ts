@@ -14,7 +14,7 @@ describe(`notifier`, () => {
 
     bud = await factory({args: {notify: true}})
     notifier = new Notifier(() => bud)
-    await notifier.register()
+    await notifier.boot(bud)
     notifier.notify = vi.fn()
   })
 

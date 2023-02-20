@@ -1,6 +1,6 @@
 import {platform} from 'node:os'
 
-import {Service} from '@roots/bud-framework'
+import {Bud, Service} from '@roots/bud-framework'
 import {bind} from '@roots/bud-support/decorators'
 import isEmpty from '@roots/bud-support/lodash/isEmpty'
 import isString from '@roots/bud-support/lodash/isString'
@@ -8,8 +8,7 @@ import type {
   Notification as NodeNotification,
   NotificationCallback,
 } from '@roots/bud-support/node-notifier'
-import {open, openEditor, SourceFile} from '@roots/bud-support/open'
-import type {StatsCompilation} from '@roots/bud-support/webpack'
+import {open, openEditor} from '@roots/bud-support/open'
 
 import {notifierPath} from './notifierPath.js'
 
@@ -17,7 +16,7 @@ interface Notification extends NodeNotification {
   sound?: boolean | string | undefined
   subtitle?: string | undefined
   contentImage?: string | undefined
-  open?: string | undefined
+  open?: string | URL | undefined
   timeout?: number | false | undefined
   closeLabel?: string | undefined
   actions?: string | string[] | undefined
@@ -30,9 +29,19 @@ interface Notification extends NodeNotification {
  * Notifier
  */
 export class Notifier extends Service {
+  /**
+   * Browser to open on error
+   */
   public browser: string | boolean
-  public stats?: StatsCompilation | undefined
+
+  /**
+   * Editor to open on error
+   */
   public editor: string | boolean
+
+  /**
+   * Node-notifier notification center instance
+   */
   public notificationCenter: {
     notify(
       notification?: Notification,
@@ -74,8 +83,11 @@ export class Notifier extends Service {
     return this.app.isCLI() && this.app?.context.args.browser === true
   }
 
+  /**
+   * {@link Service.boot}
+   */
   @bind
-  public override async register() {
+  public override async boot(bud: Bud) {
     if (this.notificationsEnabled) {
       const {NotificationCenter} = await import(
         `@roots/bud-support/node-notifier`
@@ -86,12 +98,12 @@ export class Notifier extends Service {
           : new NotificationCenter({customPath: notifierPath})
     }
 
-    if (this.app.env.has(`BUD_EDITOR`)) {
-      this.editor = this.app.env.get(`BUD_EDITOR`)
-    } else if (this.app.env.has(`VISUAL`)) {
-      this.editor = this.app.env.get(`VISUAL`)
-    } else if (this.app.env.has(`EDITOR`)) {
-      this.editor = this.app.env.get(`EDITOR`)
+    if (bud.env.has(`BUD_EDITOR`)) {
+      this.editor = bud.env.get(`BUD_EDITOR`)
+    } else if (bud.env.has(`VISUAL`)) {
+      this.editor = bud.env.get(`VISUAL`)
+    } else if (bud.env.has(`EDITOR`)) {
+      this.editor = bud.env.get(`EDITOR`)
     }
   }
 
@@ -119,10 +131,10 @@ export class Notifier extends Service {
    * Open editor on error
    */
   @bind
-  public openEditor(input?: Array<SourceFile> | SourceFile) {
+  public openEditor(input: Array<string> | string) {
     if (!this.openEditorEnabled) return
-    if (!input || isEmpty(input)) return
     if (!isString(this.editor)) return
+    if (!input || isEmpty(input)) return
 
     const files = Array.isArray(input) ? input : [input]
 
