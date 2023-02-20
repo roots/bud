@@ -129,6 +129,14 @@ export class BudTerser extends Extension<Options> {
    * @deprecated Use {@link BudTerser.dropComments} instead
    */
   @bind
+  @deprecated(`bud.terser`, `Use bud.terser.dropComments instead`, [
+    [`Drop comments`, `bud.terser.dropComments()`],
+    [`Preserve comments`, `bud.terser.dropComments(false)`],
+    [
+      `Alternative (using bud.terser.set)`,
+      `bud.terser.set('terserOptions.format.comments', true)`,
+    ],
+  ])
   public comments(comments: boolean = true): this {
     this.set(`terserOptions.format.comments`, comments)
     return this
