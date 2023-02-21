@@ -9,6 +9,7 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
+import {deprecated} from '@roots/bud-support/decorators'
 import parseSemver from '@roots/bud-support/parse-semver'
 import type {
   RuleSetRule,
@@ -49,6 +50,10 @@ export default class Vue extends Extension<
    * ```
    */
   @bind
+  @deprecated(`bud.vue`, `Use bud.vue.set instead`, [
+    [`Enable runtimeOnly`, `bud.vue.set('runtimeOnly', true)`],
+    [`Disable runtimeOnly`, `bud.vue.set('runtimeOnly', false)`],
+  ])
   public runtimeOnly(enabled: Options[`runtimeOnly`] = true): this {
     this.set(`runtimeOnly`, enabled)
     return this

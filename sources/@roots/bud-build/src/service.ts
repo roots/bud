@@ -57,7 +57,7 @@ export class Build extends Service implements Base.Service {
   @bind
   public async make(): Promise<Configuration> {
     this.logger.log(`bud.build.make called`)
-    await this.app.hooks.fire(`build.before`)
+    await this.app.hooks.fire(`build.before`, this.app)
 
     await import(`./config/index.js`).then(
       async (records: Records) =>
@@ -77,7 +77,7 @@ export class Build extends Service implements Base.Service {
     )
 
     this.logger.success(`configuration successfully built`)
-    await this.app.hooks.fire(`build.after`)
+    await this.app.hooks.fire(`build.after`, this.app)
 
     return this.config
   }

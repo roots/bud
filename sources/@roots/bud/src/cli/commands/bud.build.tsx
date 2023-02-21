@@ -1,8 +1,6 @@
 import type {CommandContext} from '@roots/bud/cli/commands/bud'
 import BudCommand from '@roots/bud/cli/commands/bud'
 import {Command, Option} from '@roots/bud-support/clipanion'
-import {bind} from '@roots/bud-support/decorators'
-import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import * as t from '@roots/bud-support/typanion'
 
 /**
@@ -23,19 +21,6 @@ export default class BudBuildCommand extends BudCommand {
     examples: [[`compile source assets`, `$0 build`]],
   })
 
-  public override withBud = async (bud: BudCommand[`bud`]) => {
-    if (!isUndefined(this.notifier)) {
-      bud.hooks.action(`compiler.after`, async () => {
-        bud.compiler.instance.hooks.done.tap(
-          `bud-cli-notifier`,
-          this.notifier.compilationNotification,
-        )
-      })
-    }
-
-    return bud
-  }
-
   public cache = Option.String(`--cache`, undefined, {
     description: `Utilize compiler's filesystem cache`,
     tolerateBoolean: true,
@@ -47,9 +32,11 @@ export default class BudBuildCommand extends BudCommand {
     ]),
     env: `APP_CACHE`,
   })
+
   public clean = Option.Boolean(`--clean`, undefined, {
     description: `Clean artifacts and distributables prior to compilation`,
   })
+
   public devtool = Option.String(`--devtool`, undefined, {
     description: `Set devtool option`,
     validator: t.isOneOf([
@@ -197,14 +184,10 @@ export default class BudBuildCommand extends BudCommand {
 
   /**
    * Execute command
-   *
-   * @public
-   * @decorator `@bind`
    */
-  @bind
   public override async execute() {
     await this.makeBud(this)
     await this.healthcheck(this)
-    await this.run(this)
+    await this.bud.run()
   }
 }

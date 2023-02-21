@@ -7124,6 +7124,7 @@ __metadata:
   resolution: "@roots/bud-compiler@workspace:sources/@roots/bud-compiler"
   dependencies:
     "@roots/bud-api": "workspace:sources/@roots/bud-api"
+    "@roots/bud-dashboard": "workspace:sources/@roots/bud-dashboard"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
@@ -7137,6 +7138,7 @@ __metadata:
   dependencies:
     "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
+    "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.11.18
     compression-webpack-plugin: ^10.0.0
@@ -7337,7 +7339,13 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/js-yaml": 4.0.5
     "@types/node": 18.11.18
+    execa: 7.0.0
     tslib: 2.4.1
+  peerDependencies:
+    execa: ">=6.1.0"
+  peerDependenciesMeta:
+    execa:
+      optional: true
   languageName: unknown
   linkType: soft
 
@@ -7809,6 +7817,7 @@ __metadata:
     html-loader: ^4.2.0
     html-webpack-plugin: 5.5.0
     http-proxy-middleware: 3.0.0-beta.0
+    human-readable: 0.2.1
     import-meta-resolve: 2.2.1
     ink: 3.2.0
     ink-link: 2.0.1
@@ -7830,6 +7839,7 @@ __metadata:
     remark-html: 15.0.1
     remark-loader: 5.0.0
     signale: 1.4.0
+    strip-ansi: 7.0.1
     style-loader: 3.3.1
     terser-webpack-plugin: 5.3.6
     toml: 3.0.0
@@ -8274,7 +8284,6 @@ __metadata:
     "@roots/bud-terser": "workspace:sources/@roots/bud-terser"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.11.18
-    execa: 7.0.0
     tslib: 2.4.1
   peerDependencies:
     "@roots/browserslist-config": "*"
@@ -8291,7 +8300,6 @@ __metadata:
     "@roots/bud-server": "*"
     "@roots/bud-support": "*"
     "@roots/bud-terser": "*"
-    execa: ">=6.1.0"
     tslib: ">=2.4.0"
   peerDependenciesMeta:
     "@roots/browserslist-config":
@@ -8321,8 +8329,6 @@ __metadata:
     "@roots/bud-support":
       optional: true
     "@roots/bud-terser":
-      optional: true
-    execa:
       optional: true
     tslib:
       optional: true

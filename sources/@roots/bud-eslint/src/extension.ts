@@ -1,16 +1,20 @@
 import {Bud, Extension} from '@roots/bud-framework'
 import {
   bind,
+  dependsOn,
   expose,
   label,
   options,
   plugin,
 } from '@roots/bud-framework/extension/decorators'
+import {deprecated} from '@roots/bud-support/decorators'
 import type {Options} from 'eslint-webpack-plugin'
 import EslintPlugin from 'eslint-webpack-plugin'
 
+import type BudEslintCacheFix from './cache-fix/index.js'
+
 /**
- * Eslint webpack plugin adapter
+ * Eslint configuration
  */
 @label(`@roots/bud-eslint`)
 @expose(`eslint`)
@@ -21,11 +25,17 @@ import EslintPlugin from 'eslint-webpack-plugin'
   fix: false,
   context: app => app.path(),
   resolvePluginsRelativeTo: app => app.path(),
-  threads: false,
+  threads: true,
 })
+@dependsOn([`@roots/bud-eslint/cache-fix`])
 export class BudEslint extends Extension<Options, EslintPlugin> {
   /**
-   * `register` callback
+   * Persistent cache fix
+   */
+  public cacheFix: BudEslintCacheFix
+
+  /**
+   * {@link Extension.register}
    */
   @bind
   public override async register(bud: Bud) {
@@ -40,12 +50,11 @@ export class BudEslint extends Extension<Options, EslintPlugin> {
     this.set(`baseConfig`, flatConfig.module)
   }
 
-  /**
-   * auto-fix rule violations
-   *
-   * @deprecated - Use `bud.eslint.set('fix', true)` instead.
-   */
   @bind
+  @deprecated(`bud.eslint`, `Use bud.eslint.set instead`, [
+    [`Enable autofix`, `bud.eslint.set('fix', true)`],
+    [`Disable autofix`, `bud.eslint.set('fix', false)`],
+  ])
   public fix(fix: boolean = true): this {
     this.set(`fix`, fix)
     return this

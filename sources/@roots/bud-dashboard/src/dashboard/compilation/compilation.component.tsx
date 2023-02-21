@@ -87,18 +87,18 @@ const Compilation = ({
         <Ink.Text>{compilation.name}</Ink.Text>
         <Ink.Text> {``}</Ink.Text>
 
-        {compilation.outputPath && (
+        {compilation.outputPath ? (
           <Ink.Text color={color.blue}>
             ./{relative(context.basedir, compilation.outputPath)}
           </Ink.Text>
-        )}
+        ) : null}
 
         <Ink.Text>{` `}</Ink.Text>
 
         <Ink.Text dimColor>[{compilation.hash}]</Ink.Text>
       </Ink.Box>
 
-      {!compilation.isChild && (
+      {!compilation.isChild ? (
         <>
           <Ink.Text dimColor>{VERT}</Ink.Text>
 
@@ -178,7 +178,7 @@ const Compilation = ({
                       <Ink.Text> </Ink.Text>
                     </Space>
 
-                    {truncatedAssets?.length > 0 && (
+                    {truncatedAssets?.length > 0 ? (
                       <Space>
                         <Ink.Text dimColor>
                           {` `}
@@ -189,14 +189,14 @@ const Compilation = ({
                           additional asset(s) not shown
                         </Ink.Text>
                       </Space>
-                    )}
+                    ) : null}
                   </>
                 ) : null}
               </Ink.Box>
             </>
           ) : null}
         </>
-      )}
+      ) : null}
 
       <Space>
         <Ink.Text> </Ink.Text>

@@ -17,27 +17,19 @@ import type * as Services from './types/services/index.js'
 import Value from './value.js'
 
 /**
- * Framework abstract
+ * Bud core class
  */
 export class Bud {
   /**
    * Context
-   *
-   * @public
    */
   public context:
     | Options.CommandContext
     | Options.CLIContext
     | Options.Context
 
-  public isCLI(): this is Bud & {context: Options.CommandContext} {
-    return `args` in this.context
-  }
-
   /**
    * Implementation
-   *
-   * @public
    */
   public implementation: new () => Bud
 
@@ -49,17 +41,14 @@ export class Bud {
    *
    * @readonly
    * @defaultValue `production`
-   * @public
    */
   public get mode(): `development` | `production` {
     return this.context.mode ?? `production`
   }
 
   /**
-   * Name
-   *
+   * Label
    * @readonly
-   * @public
    */
   public get label() {
     return this.context.label
@@ -67,9 +56,7 @@ export class Bud {
 
   /**
    * Parent {@link Bud} instance
-   *
    * @readonly
-   * @public
    */
   public get root() {
     return this.context.root ?? this
@@ -77,8 +64,7 @@ export class Bud {
 
   /**
    * True when {@link Bud.mode} is `production`
-   *
-   * @public
+   * @readonly
    */
   public get isProduction(): boolean {
     return this.mode == `production`
@@ -86,8 +72,7 @@ export class Bud {
 
   /**
    * True when {@link Bud.mode} is `development`
-   *
-   * @public
+   * @readonly
    */
   public get isDevelopment(): boolean {
     return this.mode == `development`
@@ -95,9 +80,7 @@ export class Bud {
 
   /**
    * True when current instance is the parent instance
-   *
    * @readonly
-   * @public
    */
   public get isRoot(): boolean {
     return this.root.label === this.label
@@ -105,26 +88,27 @@ export class Bud {
 
   /**
    * True when current instance is a child instance
-   *
    * @readonly
-   * @public
    */
   public get isChild(): boolean {
     return this.root.label !== this.label
   }
 
   /**
-   * {@link Bud} instances
-   *
-   * @public
+   * True when current instance has context set by CLI
    */
-  public children?: Record<string, Bud>
+  public isCLI(): this is Bud & {context: Options.CommandContext} {
+    return `args` in this.context
+  }
+
+  /**
+   * {@link Bud} instances
+   */
+  public children?: Record<string, Bud> | undefined
 
   /**
    * True when child compilers
-   *
    * @readonly
-   * @public
    */
   public get hasChildren(): boolean {
     return (
@@ -157,6 +141,8 @@ export class Bud {
   public extensions: Services.Extensions.Service
 
   public hooks: Hooks
+
+  public notifier: Services.Notifier
 
   public project: Services.Project.Service
 
@@ -218,16 +204,11 @@ export class Bud {
 
   /**
    * Value helper
-   *
-   * @public
    */
   public value = Value
 
   /**
    * Creates a child with `bud.create` but returns the parent instance
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public async make(
@@ -322,7 +303,7 @@ export class Bud {
       `booted`,
     ].reduce(async (promised, event: keyof Registry.EventsStore) => {
       await promised
-      await this.hooks.fire(event)
+      await this.hooks.fire(event, this)
     }, Promise.resolve())
 
     return this
@@ -330,35 +311,24 @@ export class Bud {
 
   /**
    * Log a message
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public log(...messages: any[]) {
     this.context.logger.log(...messages)
-
     return this
   }
 
   /**
    * Log an `info` level message
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public info(...messages: any[]) {
     this.context.logger.info(...messages)
-
     return this
   }
 
   /**
    * Log a `success` level message
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public success(...messages: any[]) {
@@ -368,9 +338,6 @@ export class Bud {
 
   /**
    * Log a `warning` level message
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public warn(...messages: any[]) {
@@ -380,14 +347,7 @@ export class Bud {
   }
 
   /**
-   * Log an error.
-   *
-   * @remarks
-   * In `production` this error is treated as fatal
-   * and will kill the process.
-   *
-   * @public
-   * @decorator `@bind`
+   * Log an error
    */
   @bind
   public error(...messages: Array<any>): Bud {
@@ -396,14 +356,7 @@ export class Bud {
   }
 
   /**
-   * Log and display an error.
-   *
-   * @remarks
-   * This will always kill the process
-   *
-   * @public
-   * @decorator `@bind`
-   * @throws fatal error
+   * Log an error and mean it
    */
   @bind
   public fatal(error: Error) {

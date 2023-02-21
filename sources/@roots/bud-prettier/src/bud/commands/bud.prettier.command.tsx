@@ -17,7 +17,7 @@ export class BudPrettierCommand extends BudCommand {
 
   public override async execute() {
     await this.makeBud(this)
-    await this.run(this)
+    await this.bud.run()
 
     const prettier = await this.bud.module.getDirectory(`prettier`)
     const bin = join(prettier, `bin-prettier.js`)

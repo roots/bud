@@ -3,46 +3,20 @@ import type {Service as BaseService} from '../../../service.js'
 import type * as Registry from '../../registry/index.js'
 
 /**
- * Assign and filter callback to values.
- *
- * @example
- * Add a new entry to the `webpack.externals` configuration:
- *
- * ```ts
- * hooks.on(
- *   'build/externals',
- *   externals => ({
- *     ...externals,
- *     $: 'jquery',
- *   }),
- * )
- * ```
- *
- * @example
- * Change the `webpack.output.filename` format:
- *
- * ```ts
- * hooks.on(
- *   'build.output.filename',
- *   () => '[name].[hash:4]',
- * )
- * ```
+ * Hooks service
  */
 export default interface Hooks extends BaseService {
   /**
    * Async hooks value store
-   * @public
    */
   asyncStore: any
   /**
    * Sync hooks value store
-   * @public
    */
   syncStore: any
 
   /**
    * Events value store
-   * @public
    */
   events: any
 
@@ -62,8 +36,6 @@ export default interface Hooks extends BaseService {
    *   value => 'replaced by this string',
    * )
    * ```
-   *
-   * @public
    */
   on: <T extends `${keyof Registry.SyncStore & string}`>(
     id: T,
@@ -81,7 +53,6 @@ export default interface Hooks extends BaseService {
    * })
    * ```
    *
-   * @public
    */
   fromMap: (map: Partial<Registry.SyncCallback>) => Bud
 
@@ -96,7 +67,6 @@ export default interface Hooks extends BaseService {
    * )
    * ```
    *
-   * @public
    */
   async: <T extends keyof Registry.AsyncStore>(
     id: T,
@@ -114,7 +84,6 @@ export default interface Hooks extends BaseService {
    * })
    * ```
    *
-   * @public
    */
   fromAsyncMap: (map: Registry.AsyncCallback) => Bud
 
@@ -129,7 +98,6 @@ export default interface Hooks extends BaseService {
    * )
    * ```
    *
-   * @public
    */
   filter: <T extends keyof Registry.SyncStore>(
     id: T,
@@ -150,7 +118,6 @@ export default interface Hooks extends BaseService {
    * )
    * ```
    *
-   * @public
    */
   filterAsync: <T extends keyof Registry.AsyncRegistry & string>(
     id: T,
@@ -160,19 +127,18 @@ export default interface Hooks extends BaseService {
   /**
    * Execute an action
    *
-   * @public
    */
-  fire: <T extends `${keyof Registry.EventsStore & string}`>(
+  fire: <T extends `${keyof Registry.Events & string}`>(
     id: T,
+    obj: Registry.Events[T],
   ) => Promise<Bud>
 
   /**
    * Store callback to an action handler
    *
-   * @public
    */
-  action: <T extends keyof Registry.EventsStore & string>(
+  action: <T extends keyof Registry.Events & string>(
     id: T,
-    ...input: Array<Registry.EventsCallback>
+    ...input: Array<Registry.EventsCallback<T>>
   ) => Bud
 }

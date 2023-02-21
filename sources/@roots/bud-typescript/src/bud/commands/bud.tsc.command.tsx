@@ -18,7 +18,7 @@ export class BudTSCCommand extends BudCommand {
 
   public override async execute() {
     await this.makeBud(this)
-    await this.run(this)
+    await this.bud.run()
 
     const tsc = join(
       await this.bud.module.getDirectory(`tsc`),

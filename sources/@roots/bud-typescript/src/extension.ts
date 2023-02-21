@@ -7,6 +7,7 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
+import {deprecated} from '@roots/bud-support/decorators'
 import omit from '@roots/bud-support/lodash/omit'
 
 /**
@@ -31,12 +32,17 @@ export default class BudTypeScript extends Extension {
    * Disable or enable babel
    *
    * @deprecated Use {@link Extension.set} instead
+   *
    * @example
    * ```js
    * bud.typescript.set('babel', false)
    * ```
    */
   @bind
+  @deprecated(`bud.typescript`, `Use bud.typescript.set instead`, [
+    [`Enable babel`, `bud.typescript.set('babel', true)`],
+    [`Disable babel`, `bud.typescript.set('babel', false)`],
+  ])
   public useBabel(enable: boolean = true): this {
     this.set(`babel`, enable)
     return this

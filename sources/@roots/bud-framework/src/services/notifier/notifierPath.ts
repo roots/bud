@@ -3,8 +3,9 @@ import {fileURLToPath} from 'node:url'
 
 export const notifierPath = resolve(
   dirname(fileURLToPath(import.meta.url)),
-  `..`,
-  `..`,
+  `..`, // services
+  `..`, // src
+  `..`, // bud-framework
   `vendor`,
   `mac.no-index`,
   `roots-notifier.app`,

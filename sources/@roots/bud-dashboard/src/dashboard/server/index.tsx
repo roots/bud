@@ -76,9 +76,9 @@ export const Server = ({
               <Value label="dev (external)" value={publicDevUrl.origin} />
               <Value label="ipv4" value={ipv4.origin} last />
             </>
-          ) : devUrl ? (
+          ) : devUrl?.origin ? (
             <>
-              {devUrl && <Value label="dev" value={devUrl.origin} />}
+              <Value label="dev" value={devUrl.origin} />
               <Value label="ipv4" value={ipv4.origin} last />
             </>
           ) : null}
@@ -91,17 +91,17 @@ export const Server = ({
           >
             <Ink.Text>
               {figures.ellipsis} watching project sources
-              {watchedFilesCount > 0 && (
+              {watchedFilesCount > 0 ? (
                 <Ink.Text dimColor>
                   {` `}
                   (and {watchedFilesCount} other{` `}
                   {watchedFilesCount > 1 ? `files` : `file`}){` `}
                 </Ink.Text>
-              )}
+              ) : null}
             </Ink.Text>
 
             <Ink.Text>
-              {figures.info} <Ink.Text dimColor>ctrl+c to exit</Ink.Text>
+              {figures.info} <Ink.Text dimColor>esc to exit</Ink.Text>
             </Ink.Text>
           </Ink.Box>
         </>

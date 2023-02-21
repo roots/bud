@@ -6,6 +6,7 @@ import {
   options,
   plugin,
 } from '@roots/bud-framework/extension/decorators'
+import {deprecated} from '@roots/bud-support/decorators'
 import Plugin from 'compression-webpack-plugin'
 
 import type {Options} from './extension.js'
@@ -38,6 +39,16 @@ export default class BudBrotli extends Extension<Options, Plugin> {
    * @deprecated Use `bud.compress.brotli.setOptions()` instead.
    */
   @bind
+  @deprecated(
+    `bud.compress.brotli.config`,
+    `Use bud.compress.brotli.set instead`,
+    [
+      [
+        `set deleteOriginalAssets`,
+        `bud.compress.brotli.set('deleteOriginalAssets', true)`,
+      ],
+    ],
+  )
   public async config(options?: Options): Promise<Bud> {
     this.enable()
     options && this.setOptions(options)

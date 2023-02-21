@@ -8,6 +8,7 @@ import {
   options,
   production,
 } from '@roots/bud-framework/extension/decorators'
+import {deprecated} from '@roots/bud-support/decorators'
 import type Plugin from '@roots/bud-support/terser-webpack-plugin'
 
 /**
@@ -128,6 +129,14 @@ export class BudTerser extends Extension<Options> {
    * @deprecated Use {@link BudTerser.dropComments} instead
    */
   @bind
+  @deprecated(`bud.terser`, `Use bud.terser.dropComments instead`, [
+    [`Drop comments`, `bud.terser.dropComments()`],
+    [`Preserve comments`, `bud.terser.dropComments(false)`],
+    [
+      `Alternative (using bud.terser.set)`,
+      `bud.terser.set('terserOptions.format.comments', true)`,
+    ],
+  ])
   public comments(comments: boolean = true): this {
     this.set(`terserOptions.format.comments`, comments)
     return this
@@ -137,6 +146,14 @@ export class BudTerser extends Extension<Options> {
    * @deprecated Use {@link BudTerser.dropDebugger} instead
    */
   @bind
+  @deprecated(`bud.terser`, `Use bud.terser.dropDebugger instead`, [
+    [`Drop debugger statements`, `bud.terser.dropDebugger()`],
+    [`Preserve debugger statements`, `bud.terser.dropDebugger(false)`],
+    [
+      `Alternative (using bud.terser.set)`,
+      `bud.terser.set('terserOptions.compress.drop_debugger', true)`,
+    ],
+  ])
   public debugger(enable: boolean = true): this {
     this.set(`terserOptions.compress.drop_debugger`, enable)
     return this
@@ -151,6 +168,12 @@ export class BudTerser extends Extension<Options> {
    * ```
    */
   @bind
+  @deprecated(`bud.terser`, `Use bud.terser.set instead`, [
+    [
+      `Set the minifier`,
+      `bud.terser.set('terserOptions.minify', () => () => minifier)`,
+    ],
+  ])
   public setMinifier(minify: any): this {
     this.set(`terserOptions.minify`, minify)
     return this

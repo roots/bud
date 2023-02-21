@@ -20,7 +20,7 @@ export class BudTailwindCommand extends BudCommand {
 
   public override async execute() {
     await this.makeBud(this)
-    await this.run(this)
+    await this.bud.run()
 
     const tw = join(
       await this.bud.module.getDirectory(`tailwindcss`),

@@ -1,5 +1,6 @@
 import type * as Service from '../../service.js'
 import type FS from '../../services/fs.js'
+import type {Notifier} from '../../services/notifier/notifier.js'
 import type {Api} from './api/index.js'
 import type * as Build from './build/index.js'
 import type * as Cache from './cache/index.js'
@@ -26,6 +27,7 @@ export interface Registry extends Record<string, any> {
   extensions: Extensions.Service
   fs: FS & Service.Contract
   hooks: Hooks
+  notifier: Notifier
   project: Project.Service
   server: Server.Service
 }
@@ -39,6 +41,7 @@ export type {
   Env,
   Extensions,
   Hooks,
+  Notifier,
   Project,
   Server,
   FS,

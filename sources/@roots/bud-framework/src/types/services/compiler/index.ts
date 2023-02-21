@@ -1,28 +1,26 @@
+import type {ErrorWithSourceFile} from '@roots/bud-support/open'
 import type {
   Configuration,
   MultiCompiler,
   MultiStats,
   ProgressPlugin,
-  Stats,
   StatsCompilation,
+  StatsError,
 } from '@roots/bud-support/webpack'
 
 import type {Service as BaseService} from '../../../service.js'
 
 /**
- * Compiler service interface
- *
- * @remarks
- * Compiles {@link @roots/bud-Bud#Build.config | Build config}
- * and reports on stats, progress, and errors encountered during compilation.
+ * Compiler service
  */
 interface Service extends BaseService {
+  /**
+   * Compiler implementation
+   */
   implementation: any
 
   /**
    * The compiler instance
-   *
-   * @public
    */
   instance: MultiCompiler
 
@@ -30,8 +28,6 @@ interface Service extends BaseService {
 
   /**
    * Contains compilation stats, if available.
-   *
-   * @public
    */
   stats: StatsCompilation
 
@@ -49,14 +45,16 @@ interface Service extends BaseService {
    *   entry: {app: 'foo.js'}
    * }])
    * ```
-   *
-   * @public
    */
   compile(): Promise<MultiCompiler>
 
-  onStats(stats: Stats & MultiStats): Promise<void>
+  onStats(stats: MultiStats): Promise<void>
 
-  onError(error: any): void
+  onError(error: Error): Promise<void>
+
+  sourceErrors(
+    errors: Array<StatsError>,
+  ): Array<ErrorWithSourceFile | StatsError>
 }
 
 export type BudError = {

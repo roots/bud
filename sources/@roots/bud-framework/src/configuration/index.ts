@@ -79,7 +79,7 @@ export const process = async (app: Bud) => {
   }
 
   try {
-    await app.hooks.fire(`config.after`)
+    await app.hooks.fire(`config.after`, app)
   } catch (error) {
     const err = new Error(error?.toString() ?? ``)
     err.name = `Post configuration error`
@@ -91,7 +91,7 @@ export const process = async (app: Bud) => {
       Object.values(app.children).map(async child => {
         try {
           await child.api.processQueue()
-          await child.hooks.fire(`config.after`)
+          await child.hooks.fire(`config.after`, app)
         } catch (error) {
           const err = new Error(error?.toString() ?? ``)
           err.name = `Post config: error processing ${child.label}`

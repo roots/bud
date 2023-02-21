@@ -44,9 +44,7 @@
     "bin",
     "docs",
     "lib",
-    "config",
-    "scripts",
-    "vendor"
+    "config"
   ],
   "bin": {
     "bud": "./bin/bud.mjs",
@@ -107,10 +105,6 @@
       "types": "./lib/logger/index.d.ts",
       "import": "./lib/logger/index.js"
     },
-    "./notifier/*": {
-      "types": "./lib/notifier/*.d.ts",
-      "import": "./lib/notifier/*.js"
-    },
     "./services/*": {
       "types": "./lib/services/*/index.d.ts",
       "import": "./lib/services/*/index.js"
@@ -156,9 +150,6 @@
       "logger": [
         "lib/logger/index.d.ts"
       ],
-      "notifier": [
-        "lib/notifier/index.d.ts"
-      ],
       "services": [
         "lib/services/index.d.ts"
       ],
@@ -191,7 +182,6 @@
     "@roots/bud-server": "workspace:sources/@roots/bud-server",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@roots/bud-terser": "workspace:sources/@roots/bud-terser",
-    "execa": "7.0.0",
     "tslib": "2.4.1"
   },
   "peerDependencies": {
@@ -209,7 +199,6 @@
     "@roots/bud-server": "*",
     "@roots/bud-support": "*",
     "@roots/bud-terser": "*",
-    "execa": ">=6.1.0",
     "tslib": ">=2.4.0"
   },
   "peerDependenciesMeta": {
@@ -255,15 +244,9 @@
     "@roots/bud-terser": {
       "optional": true
     },
-    "execa": {
-      "optional": true
-    },
     "tslib": {
       "optional": true
     }
-  },
-  "scripts": {
-    "postinstall": "node scripts/postinstall.mjs"
   },
   "volta": {
     "extends": "../../../package.json"

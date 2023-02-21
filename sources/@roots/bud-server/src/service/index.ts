@@ -185,13 +185,13 @@ export class Server extends Service implements BaseService {
    */
   @bind
   public async run() {
-    await this.app.hooks.fire(`server.before`)
+    await this.app.hooks.fire(`server.before`, this.app)
 
     if (!this.app.isCLI() || !this.app.context.args.dry) {
       await this.connection.createServer(this.application)
       await this.connection.listen()
     }
 
-    await this.app.hooks.fire(`server.after`)
+    await this.app.hooks.fire(`server.after`, this.app)
   }
 }

@@ -10,14 +10,16 @@ export interface Service extends Contract {
   renderer?: any
   setRenderer(renderer: any): this
   renderLog?: any
-  renderCompilation?: any
 
   /**
-   * Render the dashboard
-   *
-   * @returns void
-   *
-   * @public
+   * Update the dashboard
    */
   update(stats: MultiStats): Promise<this>
+
+  /**
+   * Render stats fully
+   */
+  render: any
+
+  renderString(stats: MultiStats): Promise<void>
 }

@@ -18,7 +18,7 @@ export class BudEslintCommand extends BudCommand {
 
   public override async execute() {
     await this.makeBud(this)
-    await this.run(this)
+    await this.bud.run()
 
     const eslint = join(
       await this.bud.module.getDirectory(`eslint`),

@@ -23,6 +23,7 @@ declare module '@roots/bud-framework' {
       dropConsole: BudTerser[`dropConsole`]
       dropDebugger: BudTerser[`dropDebugger`]
       dropComments: BudTerser[`dropComments`]
+      debugger: BudTerser[`debugger`]
     }
   }
 

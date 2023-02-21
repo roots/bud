@@ -19,6 +19,7 @@ export const config: config = function (this: Bud, input): Bud {
 
   this.hooks.action(`build.after`, async app => {
     if (!app) return
+
     app.build.config = isFunction(input)
       ? input(app.build.config)
       : {...app.build.config, ...input}

@@ -63,6 +63,7 @@
     "@types/node": "18.11.18"
   },
   "dependencies": {
+    "@roots/bud-dashboard": "workspace:sources/@roots/bud-dashboard",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
   },
