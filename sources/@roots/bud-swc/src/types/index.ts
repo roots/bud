@@ -19,6 +19,7 @@ declare module '@roots/bud-framework' {
 
   interface Items {
     swc: Build.Item
+    'swc-js': Build.Item
   }
 
   interface Rules {

@@ -1,0 +1,10 @@
+{
+  "name": "@tests/swc-js",
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "@roots/bud": "workspace:sources/@roots/bud",
+    "@roots/bud-swc": "workspace:sources/@roots/bud-swc",
+    "lodash": "4.17.21"
+  }
+}
