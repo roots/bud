@@ -1,8 +1,0 @@
-{
-  "extends": "@roots/bud/config/tsconfig.json",
-  "compilerOptions": {
-    "types": ["node", "@roots/bud", "@roots/bud-swc"]
-  },
-  "include": ["./src"],
-  "exclude": ["./node_modules"]
-}
