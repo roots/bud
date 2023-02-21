@@ -7295,9 +7295,9 @@ __metadata:
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
-    "@types/eslint": 8.4.10
+    "@types/eslint": 8.21.1
     "@types/node": 18.11.18
-    eslint: 8.31.0
+    eslint: 8.34.0
     eslint-webpack-plugin: ^3.2.0
     webpack: 5.75.0
   peerDependencies:
@@ -8401,13 +8401,13 @@ __metadata:
     "@babel/eslint-parser": 7.19.1
     "@skypack/package-check": 0.2.2
     "@types/babel__core": 7.20.0
-    "@types/eslint": 8.4.10
+    "@types/eslint": 8.21.1
     "@types/eslint-plugin-prettier": ^3.1.0
     "@types/node": 18.11.18
     "@types/prettier": 2.7.2
     "@typescript-eslint/eslint-plugin": 5.48.0
     "@typescript-eslint/parser": 5.48.2
-    eslint: 8.31.0
+    eslint: 8.34.0
     eslint-config-prettier: 8.5.0
     eslint-plugin-import: 2.27.5
     eslint-plugin-jsx-a11y: ^6.7.1
@@ -9453,13 +9453,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint@npm:8.4.10":
-  version: 8.4.10
-  resolution: "@types/eslint@npm:8.4.10"
+"@types/eslint@npm:8.21.1":
+  version: 8.21.1
+  resolution: "@types/eslint@npm:8.21.1"
   dependencies:
     "@types/estree": "*"
     "@types/json-schema": "*"
-  checksum: 21e009ed9ed9bc8920fdafc6e11ff321c4538b4cc18a56fdd59dc5184ea7bbf363c71638c9bdb59fc1254dddcdd567485136ed68b0ee4750948d4e32cb79c689
+  checksum: 584068441e4000c7b41c8928274fdcc737bc62f564928c30eb64ec41bbdbac31612f9fedaf490bceab31ec8305e99615166428188ea345d58878394683086fae
   languageName: node
   linkType: hard
 
@@ -14253,7 +14253,7 @@ __metadata:
     "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
-    "@types/eslint": 8.4.10
+    "@types/eslint": 8.21.1
     "@types/express": 4.17.16
     "@types/fs-extra": 11.0.1
     "@types/lodash": 4.14.191
@@ -14263,7 +14263,7 @@ __metadata:
     "@typescript-eslint/parser": 5.48.2
     "@vitest/coverage-istanbul": 0.28.1
     "@vitest/ui": 0.27.2
-    eslint: 8.31.0
+    eslint: 8.34.0
     eslint-plugin-import: 2.27.5
     eslint-plugin-n: 15.6.1
     eslint-plugin-react: 7.32.1
@@ -18424,9 +18424,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:8.31.0":
-  version: 8.31.0
-  resolution: "eslint@npm:8.31.0"
+"eslint@npm:8.34.0":
+  version: 8.34.0
+  resolution: "eslint@npm:8.34.0"
   dependencies:
     "@eslint/eslintrc": ^1.4.1
     "@humanwhocodes/config-array": ^0.11.8
@@ -18469,7 +18469,7 @@ __metadata:
     text-table: ^0.2.0
   bin:
     eslint: bin/eslint.js
-  checksum: 5e5688bb864edc6b12d165849994812eefa67fb3fc44bb26f53659b63edcd8bcc68389d27cc6cc9e5b79ee22f24b6f311fa3ed047bddcafdec7d84c1b5561e4f
+  checksum: 4e13e9eb05ac2248efbb6acae0b2325091235d5c47ba91a4775c7d6760778cbcd358a773ebd42f4629d2ad89e27c02f5d66eb1f737d75d9f5fc411454f83b2e5
   languageName: node
   linkType: hard
 
