@@ -1,6 +1,5 @@
 export interface Logger {
   instance: any
-  setCommonPath(path: string): Promise<Logger>
   fatal(...messages: Array<unknown>): Logger
   time(label: string): Logger
   timeEnd(label: string): Logger

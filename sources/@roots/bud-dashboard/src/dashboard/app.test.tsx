@@ -1,7 +1,7 @@
 import {factory} from '@repo/test-kit/bud'
-import {render} from 'ink-testing-library'
 import {beforeEach, describe, expect, it} from 'vitest'
-import React from '@roots/bud-support/react'
+// @ts-ignore
+import {React, renderTest} from '@roots/bud-support/ink'
 
 import App from './app.js'
 
@@ -21,7 +21,7 @@ describe(`@roots/bud-dashboard app component`, () => {
   })
 
   it(`should render stats`, async () => {
-    const {lastFrame} = render(
+    const {lastFrame} = renderTest(
       <App
         context={bud.context}
         mode="development"
@@ -42,7 +42,7 @@ describe(`@roots/bud-dashboard app component`, () => {
   })
 
   it(`should render server info`, async () => {
-    const {lastFrame} = render(
+    const {lastFrame} = renderTest(
       // @ts-ignore
       <App
         context={bud.context}
@@ -66,7 +66,7 @@ describe(`@roots/bud-dashboard app component`, () => {
   })
 
   it(`should render server info`, async () => {
-    const {lastFrame} = render(
+    const {lastFrame} = renderTest(
       // @ts-ignore
       <App
         context={bud.context}
@@ -91,7 +91,7 @@ describe(`@roots/bud-dashboard app component`, () => {
   })
 
   it(`should render watch list`, async () => {
-    const {lastFrame} = render(
+    const {lastFrame} = renderTest(
       <App
         context={bud.context}
         mode="development"
@@ -112,7 +112,7 @@ describe(`@roots/bud-dashboard app component`, () => {
   })
 
   it(`should not render watch list in prod`, async () => {
-    const {lastFrame} = render(
+    const {lastFrame} = renderTest(
       <App
         context={bud.context}
         mode="production"

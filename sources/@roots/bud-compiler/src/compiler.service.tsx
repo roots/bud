@@ -6,11 +6,11 @@ import {Service} from '@roots/bud-framework/service'
 import type {Compiler as Contract} from '@roots/bud-framework/services'
 import {bind} from '@roots/bud-support/decorators'
 import {duration} from '@roots/bud-support/human-readable'
+import {React} from '@roots/bud-support/ink'
 import type {
   ErrorWithSourceFile,
   SourceFile,
 } from '@roots/bud-support/open'
-import React from '@roots/bud-support/react'
 import stripAnsi from '@roots/bud-support/strip-ansi'
 import type webpack from '@roots/bud-support/webpack'
 import type {

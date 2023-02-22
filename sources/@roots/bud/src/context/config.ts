@@ -13,10 +13,11 @@ interface get {
 }
 
 let files: Array<string> = []
-let data: Context[`config`] = {}
+let configs: Context[`config`] = {}
+let fs: Filesystem
 
-const get: get = async ({basedir, fs}) => {
-  const files = []
+const get: get = async ({basedir, fs: fsService}) => {
+  fs = fsService
 
   const baseConfig = await fs.list(basedir)
   if (baseConfig) {
@@ -27,76 +28,76 @@ const get: get = async ({basedir, fs}) => {
     files.push(...configDir)
   }
 
-  if (!files) return data
+  if (!files) return configs
 
-  await Promise.all(
-    files?.map(async (name: string) => {
-      try {
-        const file = await fs.inspect(name, {
-          mode: true,
-          absolutePath: true,
-        })
+  await Promise.all(files?.map(sourceConfigFile))
+  await Promise.all(Object.entries(configs).map(makeConfigObject))
 
-        set(data, [`${name}`], {
-          ...file,
-          path: file.absolutePath,
-          file: isEqual(file.type, `file`),
-          dir: isEqual(file.type, `dir`),
-          symlink: isEqual(file.type, `symlink`),
-          local: file.name.includes(`local`),
-          bud: name.includes(`bud`) && isEqual(file.type, `file`),
-          dynamic: isEqual(file.type, `file`)
-            ? isDynamicConfig(file.absolutePath)
-            : null,
-          type: name.includes(`production`)
-            ? `production`
-            : name.includes(`development`)
-            ? `development`
-            : `base`,
+  return configs
+}
 
-          extension: isEqual(file.type, `file`)
-            ? file.name.split(`.`).pop()
-            : null,
-        })
-      } catch (e) {}
-    }),
-  )
+export const sourceConfigFile = async (name: string) => {
+  try {
+    const file = await fs.inspect(name, {
+      mode: true,
+      absolutePath: true,
+    })
 
-  await Promise.all(
-    Object.entries(data).map(
-      async ([name, {bud, dynamic, extension, path}]) => {
-        try {
-          let config =
-            extension === `json`
-              ? await json.read(path)
-              : extension === `yml`
-              ? await yml.read(path)
-              : dynamic && bud
-              ? await import(path).then(mod => mod?.default ?? mod)
-              : undefined
+    set(configs, [`${name}`], {
+      ...file,
+      path: file.absolutePath,
+      file: isEqual(file.type, `file`),
+      dir: isEqual(file.type, `dir`),
+      symlink: isEqual(file.type, `symlink`),
+      local: file.name.includes(`local`),
+      bud: name.includes(`bud`) && isEqual(file.type, `file`),
+      dynamic: isEqual(file.type, `file`)
+        ? isDynamicConfig(file.absolutePath)
+        : null,
+      type: name.includes(`production`)
+        ? `production`
+        : name.includes(`development`)
+        ? `development`
+        : `base`,
 
-          !isUndefined(config) && set(data, [name, `module`], config)
-        } catch (e) {
-          if (bud) {
-            const error = new Error(e)
-            error.name = `Error reading config file`
-            error.message = [
-              `\n${name} appears to be a bud config file, but it could not be imported.`,
-              `Original error follows:\n${error.message}`,
-            ].join(`\n\n`)
+      extension: isEqual(file.type, `file`)
+        ? file.name.split(`.`).pop()
+        : null,
+    })
+  } catch (e) {}
+}
 
-            throw error
-          }
-        }
-      },
-    ),
-  )
+export const makeConfigObject = async ([
+  name,
+  {bud, dynamic, extension, path},
+]) => {
+  try {
+    let config =
+      extension === `json`
+        ? await json.read(path)
+        : extension === `yml`
+        ? await yml.read(path)
+        : dynamic && bud
+        ? await import(path).then(mod => mod?.default ?? mod)
+        : undefined
 
-  return data
+    !isUndefined(config) && set(configs, [name, `module`], config)
+  } catch (e) {
+    if (bud) {
+      const error = new Error(e)
+      error.name = `Error reading config file`
+      error.message = [
+        `\n${name} appears to be a bud config file, but it could not be imported.`,
+        `Original error follows:\n${error.message}`,
+      ].join(`\n\n`)
+
+      throw error
+    }
+  }
 }
 
 const isDynamicConfig = (path: string) =>
   [`js`, `cjs`, `mjs`, `ts`, `cts`, `mts`].some(ext => path.endsWith(ext))
 
-export {data, files, get}
+export {configs, files, get}
 export type {File}

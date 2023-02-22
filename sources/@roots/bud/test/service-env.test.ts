@@ -3,7 +3,7 @@ import {join} from 'node:path'
 import {paths} from '@repo/constants'
 import {beforeEach, describe, expect, it} from 'vitest'
 
-import Env from './env.js'
+import Env from '../src/context/env.js'
 
 const context = {
   basedir: join(
@@ -11,8 +11,7 @@ const context = {
     `sources`,
     `@roots`,
     `bud`,
-    `src`,
-    `context`,
+    `test`,
     `__fixtures__`,
     `mock`,
   ),

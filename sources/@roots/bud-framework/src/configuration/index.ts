@@ -18,11 +18,12 @@ export const process = async (app: Bud) => {
 
   const configuration = new Configuration(app)
   const configs = Object.values(app.context.config).filter(({bud}) => bud)
+  const logger = app.context.logger.scope(app.label, `config`)
 
   try {
     await Promise.all(
       findConfigs(`base`, false).map(async description => {
-        app.log(`processing base configuration`, description.name)
+        logger.log(`processing base configuration`, description.name)
         try {
           await configuration.run(description)
         } catch (error) {
@@ -35,7 +36,7 @@ export const process = async (app: Bud) => {
 
     await Promise.all(
       findConfigs(`base`, true).map(async description => {
-        app.log(`processing local configuration`, description.name)
+        logger.log(`processing local configuration`, description.name)
         try {
           await configuration.run(description)
         } catch (error) {
@@ -48,7 +49,10 @@ export const process = async (app: Bud) => {
 
     await Promise.all(
       findConfigs(app.mode, false).map(async description => {
-        app.log(`processing ${app.mode} configuration`, description.name)
+        logger.log(
+          `processing ${app.mode} configuration`,
+          description.name,
+        )
         try {
           await configuration.run(description)
         } catch (error) {
@@ -61,7 +65,7 @@ export const process = async (app: Bud) => {
 
     await Promise.all(
       findConfigs(app.mode, true).map(async description => {
-        app.log(
+        logger.log(
           `processing ${app.mode} local configuration`,
           description.name,
         )

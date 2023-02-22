@@ -1,5 +1,5 @@
-import React from '@roots/bud-support/react'
 import type {Except} from '@roots/bud-support/type-fest'
+import React from 'react'
 
 import {TextInput} from './TextInput.js'
 

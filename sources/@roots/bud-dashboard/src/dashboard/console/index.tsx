@@ -1,5 +1,4 @@
-import Ink from '@roots/bud-support/ink'
-import React from '@roots/bud-support/react'
+import Ink, {React} from '@roots/bud-support/ink'
 
 import {Log, LogProps, Stderr, Stdout} from './log.js'
 

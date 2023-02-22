@@ -39,8 +39,6 @@ export default async (
 
   extensions = getExtensions(manifest, options.find)
 
-  const logger = new Logger()
-
   const context: Context = {
     label: overrides?.label ?? manifest?.name ?? bud?.label ?? `default`,
     basedir,
@@ -63,11 +61,10 @@ export default async (
         ...(overrides?.extensions?.discovered ?? []),
       ],
     },
-    logger: overrides?.logger ?? logger,
+    logger: overrides?.logger ?? new Logger(overrides.stdout as any),
   }
 
   context.logger.scope(context.label).debug(omit(context, `env`))
-  await context.logger.setCommonPath(context.basedir)
 
   if (options.cache) {
     contexts[basedir] = context

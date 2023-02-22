@@ -54,6 +54,10 @@
       "types": "./lib/service/index.d.ts",
       "import": "./lib/service/index.js"
     },
+    "./types": {
+      "types": "./lib/types.d.ts",
+      "import": "./lib/types.js"
+    },
     "./*": {
       "types": "./lib/extensions/*/index.d.ts",
       "import": "./lib/extensions/*/index.js"
@@ -66,6 +70,9 @@
       ],
       "service": [
         "./lib/service/index.d.ts"
+      ],
+      "types": [
+        "./lib/types.d.ts"
       ],
       "*": [
         "./lib/extensions/*/index.d.ts"

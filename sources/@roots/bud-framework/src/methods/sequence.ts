@@ -4,7 +4,7 @@ interface Callback {
   (value?: Bud): Promise<unknown>
 }
 
-export interface sequence<T = Bud> {
+export interface sequence {
   (fns: Array<Callback>): Promise<Bud>
 }
 
@@ -14,9 +14,7 @@ export interface sequence<T = Bud> {
  * @remarks
  * Unlike {@link pipe} the value returned from each function is ignored.
  */
-export const sequence = async function (
-  fns: Array<Callback>,
-): Promise<Bud> {
+export async function sequence(fns: Array<Callback>): Promise<Bud> {
   const app = this as Bud
 
   await fns.reduce(async (_promised, fn) => {
@@ -41,9 +39,7 @@ export interface sequenceSync {
  * @remarks
  * Unlike {@link pipe} the value returned from each function is ignored.
  */
-export const sequenceSync: sequenceSync = (
-  fns: Array<SyncCallback>,
-): Bud => {
+export function sequenceSync(fns: Array<SyncCallback>): Bud {
   const app = this as Bud
 
   fns.map(fn => fn.call(this, app))

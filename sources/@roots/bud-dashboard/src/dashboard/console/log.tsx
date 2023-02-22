@@ -1,4 +1,4 @@
-import React from '@roots/bud-support/react'
+import {React} from '@roots/bud-support/ink'
 
 import {Message} from './message.js'
 

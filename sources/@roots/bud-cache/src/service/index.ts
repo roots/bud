@@ -112,7 +112,6 @@ export default class Cache
   @bind
   public override async booted?(bud: Bud) {
     await bud.extensions.add(InvalidateCacheExtension)
-    this.app.success(`cache initialized`)
   }
 
   /**

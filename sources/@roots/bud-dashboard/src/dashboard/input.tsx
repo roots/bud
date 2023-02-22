@@ -1,13 +1,11 @@
-import Ink from '@roots/bud-support/ink'
-import {useState} from '@roots/bud-support/react'
-import React from '@roots/bud-support/react'
+import Ink, {React} from '@roots/bud-support/ink'
 
 import {App, Props} from './index.js'
 
 export const TTYApp = (props: Props) => {
-  const [displayServerInfo, setDisplayServerInfo] = useState(true)
-  const [displayEntrypoints, setDisplayEntrypoints] = useState(true)
-  const [displayAssets, setDisplayAssets] = useState(false)
+  const [displayServerInfo, setDisplayServerInfo] = React.useState(true)
+  const [displayEntrypoints, setDisplayEntrypoints] = React.useState(true)
+  const [displayAssets, setDisplayAssets] = React.useState(false)
   const app = Ink.useApp()
 
   Ink.useInput((key, input) => {

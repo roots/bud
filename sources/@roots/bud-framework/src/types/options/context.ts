@@ -1,4 +1,4 @@
-import type {Readable, Writable} from 'node:stream'
+import type Stream from 'node:stream'
 
 import type {InspectResult} from '@roots/filesystem/filesystem'
 
@@ -24,9 +24,9 @@ export interface Context {
 }
 
 export interface CLIContext extends Context {
-  stdin: Readable
-  stdout: Writable
-  stderr: Writable
+  stdin: Stream.Readable
+  stdout: Stream.Writable
+  stderr: Stream.Writable
   colorDepth: number
 }
 

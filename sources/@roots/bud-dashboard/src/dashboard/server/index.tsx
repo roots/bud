@@ -1,8 +1,7 @@
 import figures from '@roots/bud-support/figures'
-import Ink from '@roots/bud-support/ink'
+import Ink, {React} from '@roots/bud-support/ink'
 import Link from '@roots/bud-support/ink-link'
 import {externalNetworkInterface} from '@roots/bud-support/os'
-import React from '@roots/bud-support/react'
 
 import {color} from '../format.js'
 import useWatchedFilesCount from './useWatchedFilesCount.js'

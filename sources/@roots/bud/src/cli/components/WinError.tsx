@@ -1,4 +1,4 @@
-import React from '@roots/bud-support/react'
+import {React} from '@roots/bud-support/ink'
 
 import {Error} from './Error.js'
 

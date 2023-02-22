@@ -1,8 +1,7 @@
-import chalk from '@roots/bud-support/chalk'
 import figures from '@roots/bud-support/figures'
-import Ink from '@roots/bud-support/ink'
-import React from '@roots/bud-support/react'
+import Ink, {React} from '@roots/bud-support/ink'
 import type {StatsCompilation} from '@roots/bud-support/webpack'
+import chalk from 'chalk'
 
 const Messages = ({
   figure,

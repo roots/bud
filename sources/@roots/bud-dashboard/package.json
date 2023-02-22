@@ -78,7 +78,7 @@
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "human-readable": "0.2.1"
+    "chalk": "5.2.0"
   },
   "volta": {
     "extends": "../../../package.json"

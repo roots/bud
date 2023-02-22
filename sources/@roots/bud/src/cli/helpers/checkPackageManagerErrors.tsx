@@ -1,5 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
-import React from '@roots/bud-support/react'
+import {React} from '@roots/bud-support/ink'
 
 import {Error} from '../components/Error.js'
 import {isLockConflict} from './isLockfileError.js'

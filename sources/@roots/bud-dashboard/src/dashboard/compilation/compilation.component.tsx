@@ -2,8 +2,7 @@ import {relative} from 'node:path/posix'
 
 import type {Context} from '@roots/bud-framework/options/context'
 import figures from '@roots/bud-support/figures'
-import Ink from '@roots/bud-support/ink'
-import React from '@roots/bud-support/react'
+import Ink, {React} from '@roots/bud-support/ink'
 import type {
   StatsAsset,
   StatsChunkGroup,

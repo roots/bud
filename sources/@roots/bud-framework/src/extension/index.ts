@@ -3,7 +3,7 @@ import get from '@roots/bud-support/lodash/get'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import set from '@roots/bud-support/lodash/set'
-import type {Instance as Signale} from '@roots/bud-support/signale'
+import type {Instance as Signale} from '@roots/bud-support/logger'
 
 import type {Bud} from '../bud.js'
 import type {Modules} from '../index.js'

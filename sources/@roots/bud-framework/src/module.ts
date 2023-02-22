@@ -2,7 +2,6 @@ import {createRequire} from 'node:module'
 import {join, normalize, relative} from 'node:path'
 import {fileURLToPath, pathToFileURL} from 'node:url'
 
-import chalk from '@roots/bud-support/chalk'
 import {bind} from '@roots/bud-support/decorators'
 import {resolve} from '@roots/bud-support/import-meta-resolve'
 
@@ -97,9 +96,7 @@ export class Module extends Service {
       const normalpath = normalize(fileURLToPath(resolvedPath))
 
       this.logger.info(
-        chalk.dim(
-          `resolved ${signifier} to ${this.app.root.relPath(normalpath)}`,
-        ),
+        `resolved ${signifier} to ${this.app.root.relPath(normalpath)}`,
       )
       return normalpath
     } catch (err) {
@@ -126,7 +123,7 @@ export class Module extends Service {
         throw new Error(`Could not import ${signifier}`)
       }
 
-      this.logger.info(chalk.dim(`imported ${signifier}`))
+      this.logger.info(`imported ${signifier}`)
 
       return `default` in result ? result.default : result
     } catch (error) {
@@ -150,13 +147,10 @@ export class Module extends Service {
     try {
       const modulePath = await this.resolve(signifier, context)
       const result = await import(modulePath)
-      this.logger.success(chalk.dim(`imported ${signifier} (optional)`))
+      this.logger.success(`imported ${signifier} (optional)`)
       return result?.default ?? result
     } catch (err) {
-      this.logger.info(
-        chalk.dim(`${signifier} could not be imported (optional)`),
-        err,
-      )
+      this.logger.info(signifier, `could not be imported (optional)`, err)
     }
   }
 

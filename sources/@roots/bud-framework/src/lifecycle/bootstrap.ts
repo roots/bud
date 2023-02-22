@@ -101,7 +101,7 @@ const instantiateServices =
     const label = camelCase(service.constructor.name)
 
     set(app, label, service)
-    app.success(`instantiated`, label, `from`, signifier)
+    app.context?.logger?.success(`instantiated`, label, `from`, signifier)
     app.services.push(label)
   }
 
@@ -112,7 +112,7 @@ const initializeCoreUtilities = (bud: Bud) => {
     bud[fn] = method.bind(bud)
   })
 
-  bud.context.logger.time(`initialize`)
+  bud.context?.logger?.time(`initialize`)
 }
 
 /**

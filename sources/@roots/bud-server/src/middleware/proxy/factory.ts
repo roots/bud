@@ -3,7 +3,6 @@ import {
   createProxyMiddleware,
   Options,
 } from '@roots/bud-support/http-proxy-middleware'
-import signale from '@roots/bud-support/signale'
 
 import type {MiddlewareFactory} from '../index.js'
 import * as responseInterceptor from './responseInterceptor.js'
@@ -71,7 +70,7 @@ export const makeOptions = (app: Bud): Options => {
       logger: app.hooks.filter(
         `dev.middleware.proxy.options.logger`,
         app.isCLI() && app.context.args.log
-          ? new signale().scope(app.label, `proxy`)
+          ? app.context.logger.scope(`proxy`)
           : app.isCLI()
           ? undefined
           : console,

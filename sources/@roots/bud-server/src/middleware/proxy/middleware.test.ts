@@ -1,5 +1,4 @@
 import {Bud, factory} from '@repo/test-kit/bud'
-import signale from '@roots/bud-support/signale'
 import {beforeEach, describe, expect, it} from 'vitest'
 
 import * as middleware from './factory.js'
@@ -38,7 +37,7 @@ describe(`proxy middleware`, () => {
     }
 
     // @ts-ignore
-    expect(middleware.makeOptions(bud).logger).toBeInstanceOf(signale)
+    expect(middleware.makeOptions(bud).logger).toBeDefined()
   })
 
   it(`should reflect changes made in bud.proxy`, async () => {

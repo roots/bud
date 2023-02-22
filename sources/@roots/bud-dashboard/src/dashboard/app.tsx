@@ -1,7 +1,6 @@
 import {platform} from 'node:os'
 
-import Ink from '@roots/bud-support/ink'
-import React from '@roots/bud-support/react'
+import Ink, {React} from '@roots/bud-support/ink'
 
 import Compilation from './compilation/compilation.component.js'
 import type {Props} from './index.js'

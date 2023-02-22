@@ -1,5 +1,4 @@
-import Ink from '@roots/bud-support/ink'
-import React from '@roots/bud-support/react'
+import Ink, {React} from '@roots/bud-support/ink'
 
 import Title from '../display/title.component.js'
 import {color} from '../format.js'

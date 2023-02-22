@@ -3,12 +3,9 @@ import type {Bud} from '@roots/bud-framework'
 import {bind} from '@roots/bud-framework/extension/decorators'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {highlight} from '@roots/bud-support/highlight'
-import Ink from '@roots/bud-support/ink'
-import {TextInput} from '@roots/bud-support/ink-text-input'
+import Ink, {Input, React} from '@roots/bud-support/ink'
 import chunk from '@roots/bud-support/lodash/chunk'
 import format from '@roots/bud-support/pretty-format'
-import {useEffect, useState} from '@roots/bud-support/react'
-import React from '@roots/bud-support/react'
 
 import BudCommand, {ArgsModifier} from './bud.js'
 
@@ -46,7 +43,7 @@ export default class BudReplCommand extends BudCommand {
     await this.makeBud(this)
     await this.bud.run()
 
-    await this.render(
+    await this.renderer.render(
       <Repl app={this.bud} indent={this.indent} depth={this.depth} />,
     )
   }
@@ -59,11 +56,11 @@ interface ReplProps {
 }
 
 const Repl = ({app, indent, depth}: ReplProps) => {
-  const [search, setSearch] = useState(``)
-  const [result, setResult] = useState(``)
-  const [paged, setPaged] = useState([])
-  const [page, setPage] = useState(0)
-  const [action, setAction] = useState(``)
+  const [search, setSearch] = React.useState(``)
+  const [result, setResult] = React.useState(``)
+  const [paged, setPaged] = React.useState([])
+  const [page, setPage] = React.useState(0)
+  const [action, setAction] = React.useState(``)
 
   const pageSize = 10
 
@@ -96,14 +93,14 @@ const Repl = ({app, indent, depth}: ReplProps) => {
     }
   })
 
-  useEffect(() => {
+  React.useEffect(() => {
     action !== `` &&
       setTimeout(() => {
         setAction(``)
       }, 500)
   }, [action])
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (result) {
       setPaged(
         chunk<string>(result.split(`\n`), pageSize).map(page =>
@@ -113,7 +110,7 @@ const Repl = ({app, indent, depth}: ReplProps) => {
     }
   }, [result, pageSize])
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (page > paged.length) {
       setPage(paged.length - 1)
     }
@@ -158,7 +155,7 @@ const Repl = ({app, indent, depth}: ReplProps) => {
       <Ink.Box marginY={1} flexDirection="column">
         <Ink.Box flexDirection="row" justifyContent="space-between">
           <Ink.Box flexDirection="row" justifyContent="flex-start">
-            <TextInput
+            <Input.TextInput
               placeholder="bud.build.config.entry"
               value={search}
               onChange={setSearch}

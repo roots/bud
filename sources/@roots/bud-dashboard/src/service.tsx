@@ -1,20 +1,17 @@
 /* eslint-disable no-console */
 import {Service} from '@roots/bud-framework/service'
 import type {Service as Contract} from '@roots/bud-framework/services/dashboard'
-import chalk from '@roots/bud-support/chalk'
 import {bind} from '@roots/bud-support/decorators'
 import figures from '@roots/bud-support/figures'
-import Ink from '@roots/bud-support/ink'
+import Ink, {React} from '@roots/bud-support/ink'
 import isString from '@roots/bud-support/lodash/isString'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
-import React from '@roots/bud-support/react'
 import type {
   MultiStats,
   StatsCompilation,
   StatsError,
 } from '@roots/bud-support/webpack'
-
-import {Console} from './dashboard/console/index.js'
+import chalk from 'chalk'
 
 type Compilations = Array<Omit<StatsCompilation, `children`>>
 
@@ -118,7 +115,6 @@ export class Dashboard extends Service implements Contract {
 
       await Render(
         <Ink.Box flexDirection="column" marginTop={1}>
-          <Console messages={this.app.consoleBuffer.fetchAndRemove()} />
           <App
             compilations={compilations.map(compilation => ({
               ...compilation,

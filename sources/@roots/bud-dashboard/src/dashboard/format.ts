@@ -1,6 +1,6 @@
 import figures from '@roots/bud-support/figures'
+import {duration, size} from '@roots/bud-support/human-readable'
 import type {StatsAsset, StatsChunkGroup} from '@roots/bud-support/webpack'
-import {durationFormatter, sizeFormatter} from 'human-readable'
 
 export const VERT = figures.lineVertical
 export const SPACE = ` `
@@ -17,16 +17,12 @@ export const color = {
   cyan: `#9aedfe`,
 }
 
-export const duration = durationFormatter({
-  allowMultiples: [`s`, `ms`],
-})
+export {duration, size}
 
 export const longestAssetNameLength = (chunks: StatsChunkGroup) =>
   chunks?.reduce((longest: number, asset: StatsAsset) => {
     return Math.max(asset.name?.length, longest)
   }, 0) + 1
-
-export const size: (int: number) => string = sizeFormatter()
 
 export const colorFromStats = (compilation: {
   errorsCount?: number

@@ -83,10 +83,6 @@
       "types": "./lib/html-loader/index.d.cts",
       "default": "./lib/html-loader/index.cjs"
     },
-    "./ink-link": {
-      "types": "./lib/ink-link/index.d.ts",
-      "import": "./lib/ink-link/index.js"
-    },
     "./remark-loader": {
       "types": "./lib/remark-loader/index.d.cts",
       "default": "./lib/remark-loader/index.cjs"
@@ -145,14 +141,18 @@
     "@types/react": "17.0.52",
     "@types/signale": "1.4.4",
     "@types/webpack-manifest-plugin": "3.0.5",
-    "@vercel/ncc": "0.36.0"
+    "fs-jetpack": "5.1.0",
+    "ink": "3.2.0",
+    "ink-link": "2.0.1",
+    "ink-testing-library": "2.1.0",
+    "ink-text-input": "4.0.3",
+    "react": "17.0.2"
   },
   "dependencies": {
     "@roots/filesystem": "workspace:sources/@roots/filesystem",
     "axios": "1.3.2",
     "chalk": "5.2.0",
     "chokidar": "3.5.3",
-    "clean-stack": "5.1.0",
     "clean-webpack-plugin": "4.0.0",
     "clipanion": "3.2.0-rc.14",
     "common-path": "1.0.1",
@@ -169,7 +169,6 @@
     "figures": "5.0.0",
     "file-loader": "^6.2.0",
     "fs-extra": "11.1.0",
-    "fs-jetpack": "5.1.0",
     "get-port": "6.1.2",
     "globby": "13.1.3",
     "helpful-decorators": "2.1.0",
@@ -179,9 +178,6 @@
     "http-proxy-middleware": "3.0.0-beta.0",
     "human-readable": "0.2.1",
     "import-meta-resolve": "2.2.1",
-    "ink": "3.2.0",
-    "ink-link": "2.0.1",
-    "ink-text-input": "4.0.3",
     "json5": "2.2.3",
     "lodash": "4.17.21",
     "mini-css-extract-plugin": "2.7.2",
@@ -194,7 +190,6 @@
     "parse5-htmlparser2-tree-adapter": "7.0.0",
     "patch-console": "2.0.0",
     "pretty-format": "29.4.1",
-    "react": "17.0.2",
     "remark": "14.0.2",
     "remark-html": "15.0.1",
     "remark-loader": "5.0.0",

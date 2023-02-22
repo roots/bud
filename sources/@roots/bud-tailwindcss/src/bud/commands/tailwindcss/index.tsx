@@ -53,8 +53,7 @@ export class BudTailwindCommand extends BudCommand {
       }
     }
 
-    this.text(`tailwindcss ${this.options.join(` `)}`)
-
+    await this.renderer.text(`tailwindcss ${this.options.join(` `)}`)
     await this.$(this.bin, [tw, ...(this.options ?? [])])
   }
 }

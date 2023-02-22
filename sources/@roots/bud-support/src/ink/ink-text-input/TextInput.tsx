@@ -1,8 +1,6 @@
-import chalk from '@roots/bud-support/chalk'
-import Ink from '@roots/bud-support/ink'
-import React, {useEffect, useState} from '@roots/bud-support/react'
-
-import {highlight} from '../highlight/index.js'
+import chalk from 'chalk'
+import Ink from 'ink'
+import React, {useEffect, useState} from 'react'
 
 interface Props {
   /**
@@ -47,16 +45,17 @@ interface Props {
   onSubmit?: (value: string) => void
 }
 
-const Prompt = ({
+const TextInput = ({
   value: originalValue,
   placeholder = ``,
   focus = true,
   mask,
+  highlightPastedText = false,
   showCursor = true,
   onChange,
   onSubmit,
 }: Props) => {
-  const [{cursorOffset}, setState] = useState({
+  const [{cursorOffset, cursorWidth}, setState] = useState({
     cursorOffset: (originalValue || ``).length,
     cursorWidth: 0,
   })
@@ -80,10 +79,39 @@ const Prompt = ({
     })
   }, [originalValue, focus, showCursor])
 
+  const cursorActualWidth = highlightPastedText ? cursorWidth : 0
+
   const value = mask ? mask.repeat(originalValue.length) : originalValue
+  let renderedValue = value
   let renderedPlaceholder = placeholder
     ? chalk.grey(placeholder)
     : undefined
+
+  // Fake mouse cursor, because it's too inconvenient to deal with actual cursor and ansi escapes
+  if (showCursor && focus) {
+    renderedPlaceholder =
+      placeholder.length > 0
+        ? chalk.inverse(placeholder[0]) + chalk.grey(placeholder.slice(1))
+        : chalk.inverse(` `)
+
+    renderedValue = value.length > 0 ? `` : chalk.inverse(` `)
+
+    let i = 0
+
+    for (const char of value) {
+      if (i >= cursorOffset - cursorActualWidth && i <= cursorOffset) {
+        renderedValue += chalk.inverse(char)
+      } else {
+        renderedValue += char
+      }
+
+      i++
+    }
+
+    if (value.length > 0 && cursorOffset === value.length) {
+      renderedValue += chalk.inverse(` `)
+    }
+  }
 
   Ink.useInput(
     (input, key) => {
@@ -162,11 +190,11 @@ const Prompt = ({
     <Ink.Text>
       {placeholder
         ? value.length > 0
-          ? highlight(`async (bud: Bud) => ${value}`)
+          ? renderedValue
           : renderedPlaceholder
-        : highlight(`async (bud: Bud) => ${value}`)}
+        : renderedValue}
     </Ink.Text>
   )
 }
 
-export {Prompt}
+export {TextInput}

@@ -15,8 +15,8 @@
     "types": ["express", "node", "react", "webpack"]
   },
   "files": ["types.d.ts"],
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.mts", "src/**/*.cts"],
-  "exclude": ["./lib", "./node_modules", "**/*.test.ts", "**/*.test.tsx"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.mts", "./src/**/*.cts"],
+  "exclude": ["./lib", "./node_modules", "**/*.test.ts", "**/*.test.tsx", "./src/ink/index.tsx", "./src/fs-jetpack/index.ts"],
   "references": [
     {"path": "./../filesystem/tsconfig.json"}
   ]

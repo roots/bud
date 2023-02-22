@@ -1,6 +1,5 @@
 import figures from '@roots/bud-support/figures'
-import Ink from '@roots/bud-support/ink'
-import React from '@roots/bud-support/react'
+import Ink, {React} from '@roots/bud-support/ink'
 
 import type BudCommand from '../commands/bud.js'
 

@@ -4,8 +4,7 @@ import {dry} from '@roots/bud/cli/decorators/command.dry'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators'
 import {ensureDir, remove} from '@roots/bud-support/fs'
-import Ink from '@roots/bud-support/ink'
-import React from '@roots/bud-support/react'
+import Ink, {React} from '@roots/bud-support/ink'
 
 /**
  * `bud clean`
@@ -78,7 +77,7 @@ export default class BudCleanCommand extends BudCommand {
             .map(async child => {
               try {
                 await remove(child.path(`@dist`))
-                await this.renderOnce(
+                await this.renderer.once(
                   <Ink.Box>
                     <Ink.Text color="green">
                       ✔ emptied {child.path(`@dist`)}
@@ -93,7 +92,7 @@ export default class BudCleanCommand extends BudCommand {
       }
 
       await remove(this.bud.path(`@dist`))
-      await this.renderOnce(
+      await this.renderer.once(
         <Ink.Box>
           <Ink.Text color="green">
             ✔ emptied {this.bud.path(`@dist`)}
@@ -115,7 +114,7 @@ export default class BudCleanCommand extends BudCommand {
             .map(async child => {
               try {
                 await remove(child.cache.cacheDirectory)
-                await this.renderOnce(
+                await this.renderer.once(
                   <Ink.Box>
                     <Ink.Text color="green">
                       ✔ emptied {child.cache.cacheDirectory}
@@ -130,7 +129,7 @@ export default class BudCleanCommand extends BudCommand {
       }
 
       await remove(this.bud.cache.cacheDirectory)
-      await this.renderOnce(
+      await this.renderer.once(
         <Ink.Box>
           <Ink.Text color="green">
             ✔ emptied {this.bud.cache.cacheDirectory}
@@ -151,7 +150,7 @@ export default class BudCleanCommand extends BudCommand {
           .map(async child => {
             try {
               await remove(child.path(`@dist`))
-              await this.renderOnce(
+              await this.renderer.once(
                 <Ink.Box>
                   <Ink.Text color="green">
                     ✔ emptied {child.path(`@storage`)}
@@ -168,7 +167,7 @@ export default class BudCleanCommand extends BudCommand {
     try {
       await ensureDir(this.bud.path(`@storage`))
       await remove(this.bud.path(`@storage`))
-      await this.renderOnce(
+      await this.renderer.once(
         <Ink.Box>
           <Ink.Text color="green">
             ✔ emptied {this.bud.path(`@storage`)}
