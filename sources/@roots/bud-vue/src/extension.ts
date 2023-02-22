@@ -49,7 +49,6 @@ export default class Vue extends Extension<
    * bud.vue.set('runtimeOnly', false)
    * ```
    */
-  @bind
   @deprecated(`bud.vue`, `Use bud.vue.set instead`, [
     [`Enable runtimeOnly`, `bud.vue.set('runtimeOnly', true)`],
     [`Disable runtimeOnly`, `bud.vue.set('runtimeOnly', false)`],

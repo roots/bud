@@ -1,8 +1,7 @@
 # secret
-.env
+**/.env
+!.env
 !tests/unit/bud/context/**/.env
-
-**/.swc
 
 coverage
 storage/**/*
