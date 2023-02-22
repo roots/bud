@@ -4,7 +4,7 @@ export interface run {
   (this: Bud): Promise<void>
 }
 
-export const run: run = async function (this: Bud) {
+export async function run (this: Bud): Promise<void> {
   const compilation = await this.compiler.compile()
 
   if (this.isProduction) {
