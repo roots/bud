@@ -1,6 +1,6 @@
 // @ts-nocheck
 
-import figures from '@roots/bud-support/figures'
+import figures from 'figures'
 import {format} from 'pretty-format'
 import type {
   Signale as Instance,
@@ -97,3 +97,4 @@ const make = (
 export default instance
 export {Logger, Instance, Options, make}
 export {format}
+export {figures}
