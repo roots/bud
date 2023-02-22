@@ -5,19 +5,54 @@
     "outDir": "lib",
     "strict": true,
     "paths": {
-      "@roots/bud-support": ["./src/index.ts"],
-      "@roots/bud-support/lodash-es": ["./src/lodash/index.ts"],
-      "@roots/bud-support/lodash-es/*": ["./src/lodash/*/index.ts"],
-      "@roots/bud-support/lodash": ["./src/lodash/index.ts"],
-      "@roots/bud-support/lodash/*": ["./src/lodash/*/index.ts"],
-      "@roots/bud-support/*": ["./src/*"]
+      "@roots/bud-support": [
+        "./src/index.ts"
+      ],
+      "@roots/bud-support/lodash-es": [
+        "./src/lodash/index.ts"
+      ],
+      "@roots/bud-support/lodash-es/*": [
+        "./src/lodash/*/index.ts"
+      ],
+      "@roots/bud-support/lodash": [
+        "./src/lodash/index.ts"
+      ],
+      "@roots/bud-support/lodash/*": [
+        "./src/lodash/*/index.ts"
+      ],
+      "@roots/bud-support/*": [
+        "./src/*"
+      ]
     },
-    "types": ["express", "node", "react", "webpack"]
+    "types": [
+      "express",
+      "node",
+      "react",
+      "webpack"
+    ]
   },
-  "files": ["types.d.ts"],
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.mts", "./src/**/*.cts"],
-  "exclude": ["./lib", "./node_modules", "**/*.test.ts", "**/*.test.tsx", "./src/ink/index.tsx", "./src/fs-jetpack/index.ts"],
+  "files": [
+    "types.d.ts"
+  ],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.mts",
+    "src/**/*.cts"
+  ],
+  "exclude": [
+    "./lib",
+    "./node_modules",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "./src/ink/index.tsx",
+    "./src/logger/index.ts",
+    "./src/fs-jetpack/index.ts",
+    "./src/highlight/index.ts"
+  ],
   "references": [
-    {"path": "./../filesystem/tsconfig.json"}
+    {
+      "path": "./../filesystem/tsconfig.json"
+    }
   ]
 }

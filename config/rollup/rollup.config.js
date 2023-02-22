@@ -9,9 +9,11 @@ import externals from 'rollup-plugin-node-externals'
 
 export default {
   input: {
+    [`figures`]: `figures`,
     [`ink/index`]: `sources/@roots/bud-support/src/ink/index.tsx`,
     [`fs-jetpack/index`]: `node_modules/fs-jetpack`,
     [`logger/index`]: `sources/@roots/bud-support/src/logger/index.ts`,
+    [`highlight/index`]: `sources/@roots/bud-support/src/highlight/index.ts`,
   },
   output: {
     dir: `./sources/@roots/bud-support/lib`,
@@ -43,6 +45,7 @@ export default {
         `webpack`,
         `wrap-ansi`,
         `yoga-layout-prebuilt`,
+        `@roots/bud-support`,
       ],
     }),
     resolve({

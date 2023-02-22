@@ -1,19 +1,24 @@
+// @ts-nocheck
+
 import Ink from 'ink'
-import Link from 'ink-link'
-import {render as renderTest} from 'ink-testing-library'
-import React from 'react'
-
-import * as Input from './ink-text-input/index'
-
-export {React, useState, useEffect}
-export {Renderer}
-export {renderTest}
-export {Input, Link}
 export default Ink
 
-const {useState, useEffect} = React
+import Link from 'ink-link'
+export {Link}
 
-class Renderer {
+export {render as renderTest} from 'ink-testing-library'
+
+import React from 'react'
+const {useState, useEffect} = React
+export {React, useState, useEffect}
+
+import patchConsole from 'patch-console'
+export {patchConsole}
+
+import * as Input from './ink-text-input/index'
+export {Input}
+
+export class Renderer {
   public declare instance: Ink.Instance | undefined
 
   public constructor(public stdout: NodeJS.WriteStream) {

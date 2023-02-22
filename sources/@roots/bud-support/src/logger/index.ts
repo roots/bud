@@ -1,7 +1,10 @@
 // @ts-nocheck
 
-import figures from 'figures'
-import {format} from 'pretty-format'
+import figures from '@roots/bud-support/figures'
+export {figures}
+
+export {format} from 'pretty-format'
+
 import type {
   Signale as Instance,
   SignaleConfig as Config,
@@ -28,7 +31,7 @@ const config: Config = {
   uppercaseLabel: false,
 }
 
-export const types = {
+const types = {
   error: {
     badge: figures.cross,
     color: `red`,
@@ -79,7 +82,7 @@ export const types = {
   },
 }
 
-let defaultOptions = {
+const defaultOptions = {
   config,
   scope: `@roots/bud`,
   types,
@@ -96,5 +99,3 @@ const make = (
 
 export default instance
 export {Logger, Instance, Options, make}
-export {format}
-export {figures}
