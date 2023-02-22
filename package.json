@@ -12,9 +12,7 @@
     "node": "18.12.1"
   },
   "volta": {
-    "node": "18.12.1",
-    "yarn": "1.22.19",
-    "npm": "8.19.2"
+    "node": "18.12.1"
   },
   "workspaces": {
     "packages": [
@@ -61,7 +59,6 @@
     "lodash": "4.17.21",
     "playwright": "1.29.2",
     "prettier": "2.8.3",
-    "puppeteer": "19.7.2",
     "rollup": "3.17.2",
     "rollup-plugin-es-module-interop": "2.1.0",
     "rollup-plugin-node-externals": "5.1.2",
