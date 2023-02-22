@@ -15,14 +15,8 @@ export default async () => {
     await execute(
       `yarn`,
       [`workspace`, `@repo/yarn-plugin-bud`, `build`],
-      {
-        stdin: process.stdin,
-        stdout: process.stdout,
-      },
     )
   } catch (e) {
-    e.name = `@bud cli build: ${e.name}`
-    throw e
   }
 
   try {
@@ -33,8 +27,6 @@ export default async () => {
       `config/rollup/rollup.externals.js`,
     ])
   } catch (e) {
-    e.name = `rollup error: ${e.name}`
-    throw e
   }
 
   try {
@@ -45,8 +37,6 @@ export default async () => {
       `config/rollup/rollup.support.js`,
     ])
   } catch (e) {
-    e.name = `rollup error: ${e.name}`
-    throw e
   }
 
   try {
