@@ -1,26 +1,24 @@
-/// <reference types="@roots/bud-framework" />
-
 import type {extractCss} from './api/extract.js'
-import type BudCriticalCssExtension from './extension.js'
+import type {BudCriticalCss} from './extension.js'
 
 declare module '@roots/bud-framework' {
   interface Bud {
     critical: {
-      set: BudCriticalCssExtension[`set`]
-      setOptions: BudCriticalCssExtension[`setOptions`]
-      get: BudCriticalCssExtension[`get`]
-      getOptions: BudCriticalCssExtension[`getOptions`]
-      options: BudCriticalCssExtension[`options`]
-      enable: BudCriticalCssExtension[`enable`]
-      enabled: BudCriticalCssExtension[`enabled`]
-      extract: BudCriticalCssExtension[`extract`]
-      width: BudCriticalCssExtension[`width`]
-      height: BudCriticalCssExtension[`height`]
-      request: BudCriticalCssExtension[`request`]
-      base: BudCriticalCssExtension[`base`]
-      ignore: BudCriticalCssExtension[`ignore`]
-      html: BudCriticalCssExtension[`html`]
-      src: BudCriticalCssExtension[`src`]
+      set: BudCriticalCss[`set`]
+      setOptions: BudCriticalCss[`setOptions`]
+      get: BudCriticalCss[`get`]
+      getOptions: BudCriticalCss[`getOptions`]
+      options: BudCriticalCss[`options`]
+      enable: BudCriticalCss[`enable`]
+      enabled: BudCriticalCss[`enabled`]
+      extract: BudCriticalCss[`extract`]
+      width: BudCriticalCss[`width`]
+      height: BudCriticalCss[`height`]
+      request: BudCriticalCss[`request`]
+      base: BudCriticalCss[`base`]
+      ignore: BudCriticalCss[`ignore`]
+      html: BudCriticalCss[`html`]
+      src: BudCriticalCss[`src`]
     }
     extractCss: extractCss
   }

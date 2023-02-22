@@ -44,11 +44,11 @@
   "exports": {
     ".": {
       "types": "./lib/index.d.ts",
-      "default": "./lib/index.js"
+      "import": "./lib/index.js"
     },
     "./types": {
       "types": "./lib/types.d.ts",
-      "default": "./lib/types.js"
+      "import": "./lib/types.js"
     }
   },
   "typesVersions": {

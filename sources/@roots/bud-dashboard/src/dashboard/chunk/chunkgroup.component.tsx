@@ -4,12 +4,7 @@ import Title from '../display/title.component.js'
 import {color} from '../format.js'
 import Asset from './asset.component.js'
 
-const ChunkGroup = ({
-  indent,
-  final,
-  minWidth,
-  ...chunk
-}: {
+interface Props extends React.ComponentProps {
   name?: string
   assetsSize?: number
   assets?: Array<any>
@@ -18,23 +13,23 @@ const ChunkGroup = ({
   minWidth?: number
   emitted?: boolean
   cached?: boolean
-}) => {
+}
+
+const ChunkGroup = ({indent, final, minWidth, name, assets}: Props) => {
   return (
     <Ink.Box flexDirection="column">
       <Ink.Box flexDirection="row">
         <Title indent={indent} final={final}>
-          <Ink.Text color={color.foregroundColor}>
-            {chunk.name ?? ``}
-          </Ink.Text>
+          <Ink.Text color={color.foregroundColor}>{name ?? ``}</Ink.Text>
         </Title>
       </Ink.Box>
 
-      {chunk.assets?.map((asset, index) => (
+      {assets?.map((asset, index) => (
         <Asset
           key={index}
           {...asset}
           minWidth={minWidth}
-          final={index == chunk.assets?.length - 1}
+          final={index == assets?.length - 1}
           indent={[true, !final]}
         />
       ))}

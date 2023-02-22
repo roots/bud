@@ -16,17 +16,11 @@
     "yarn": "1.22.19",
     "npm": "8.19.2"
   },
-  "bud": {
-    "extensions": {
-      "discovery": false
-    }
-  },
   "workspaces": {
     "packages": [
       "sources/@roots/*",
       "sources/@repo/*",
       "sources/@roots/*/test/**/*",
-      "sources/@roots/*/src/__fixtures__/*",
       "examples/node-api",
       "tests/util/project",
       "tests/reproductions/*"
@@ -67,6 +61,7 @@
     "lodash": "4.17.21",
     "playwright": "1.29.2",
     "prettier": "2.8.3",
+    "puppeteer": "19.7.2",
     "rollup": "3.17.2",
     "rollup-plugin-es-module-interop": "2.1.0",
     "rollup-plugin-node-externals": "5.1.2",

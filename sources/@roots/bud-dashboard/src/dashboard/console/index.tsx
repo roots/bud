@@ -12,7 +12,9 @@ export const Console = ({messages}: Props) => {
   return (
     <Ink.Box flexDirection="column">
       {messages.map((item, i) => (
-        <Log key={i} {...item} />
+        <Ink.Box key={i}>
+        <Log {...item} />
+        </Ink.Box>
       ))}
     </Ink.Box>
   )

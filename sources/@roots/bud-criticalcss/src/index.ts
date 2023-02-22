@@ -7,6 +7,6 @@
 
 import './types.js'
 
-import BudCriticalCssExtension from './extension.js'
+import {BudCriticalCss} from './extension.js'
 
-export default BudCriticalCssExtension
+export default BudCriticalCss

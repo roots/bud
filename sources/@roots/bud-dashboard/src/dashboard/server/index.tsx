@@ -1,6 +1,5 @@
 import figures from '@roots/bud-support/figures'
-import Ink, {React} from '@roots/bud-support/ink'
-import Link from '@roots/bud-support/ink-link'
+import Ink, {Link, React} from '@roots/bud-support/ink'
 import {externalNetworkInterface} from '@roots/bud-support/os'
 
 import {color} from '../format.js'

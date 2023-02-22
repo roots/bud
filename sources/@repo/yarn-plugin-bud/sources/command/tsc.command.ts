@@ -57,6 +57,5 @@ export class Tsc extends Command {
    */
   public async execute() {
     await this.$(this.withPassthrough(`yarn tsc -b ${this.tsconfig}`))
-    await this.$(`yarn rollup --config config/rollup/rollup.config.js`)
   }
 }

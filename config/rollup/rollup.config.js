@@ -11,6 +11,7 @@ export default {
   input: {
     [`ink/index`]: `sources/@roots/bud-support/src/ink/index.tsx`,
     [`fs-jetpack/index`]: `node_modules/fs-jetpack`,
+    [`logger/index`]: `sources/@roots/bud-support/src/logger/index.ts`,
   },
   output: {
     dir: `./sources/@roots/bud-support/lib`,
@@ -34,15 +35,13 @@ export default {
     externals({
       deps: false,
       devDeps: false,
-      peerDeps: true,
+      peerDeps: false,
       include: [
         `chalk`,
-        `webpack`,
-        `wrap-ansi`,
         `lodash`,
-        `signale`,
         `slice-ansi`,
         `webpack`,
+        `wrap-ansi`,
         `yoga-layout-prebuilt`,
       ],
     }),

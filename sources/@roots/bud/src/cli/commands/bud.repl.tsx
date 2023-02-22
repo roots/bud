@@ -5,7 +5,7 @@ import {Command, Option} from '@roots/bud-support/clipanion'
 import {highlight} from '@roots/bud-support/highlight'
 import Ink, {Input, React} from '@roots/bud-support/ink'
 import chunk from '@roots/bud-support/lodash/chunk'
-import format from '@roots/bud-support/pretty-format'
+import {format} from '@roots/bud-support/logger'
 
 import BudCommand, {ArgsModifier} from './bud.js'
 

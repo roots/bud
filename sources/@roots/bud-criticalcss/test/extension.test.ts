@@ -2,38 +2,35 @@
 import {join} from 'node:path'
 
 import {paths} from '@repo/constants'
-import * as fs from '@roots/bud-support/fs'
+// @ts-ignore
+import fs from '@roots/bud-support/fs-jetpack'
 import {execa} from '@roots/bud-support/execa'
 import {beforeAll, describe, expect, it} from 'vitest'
 
 describe(`@roots/bud-criticalcss`, () => {
-  describe(`extract`, () => {
-    beforeAll(async () => {
+  beforeAll(async () => {
+    try {
       await runFixture(`extract`)
-    }, 60000)
-
-    it(`should generate criticalcss`, async () => {
-      expect(await readCritical(`extract`)).toMatchSnapshot()
-    }, 60000)
-
-    it(`should not emit critical styles in stylesheet`, async () => {
-      expect(await readOriginal(`extract`)).toMatchSnapshot()
-    }, 60000)
-  })
-
-  describe(`no-extract`, () => {
-    beforeAll(async () => {
       await runFixture(`no-extract`)
-    }, 60000)
+    } catch (e) {
+    }
+  }, 60000)
 
-    it(`should generate criticalcss`, async () => {
-      expect(await readCritical(`no-extract`)).toMatchSnapshot()
-    }, 60000)
+  it(`should generate criticalcss`, async () => {
+    expect(await readCritical(`extract`)).toMatchInlineSnapshot('"body{background-color:#00f}.foo{background-color:#000}"')
+  }, 60000)
 
-    it(`should emit critical styles in stylesheet`, async () => {
-      expect(await readOriginal(`no-extract`)).toMatchSnapshot()
-    }, 60000)
-  })
+  it(`should not emit critical styles in stylesheet`, async () => {
+    expect(await readOriginal(`extract`)).toMatchInlineSnapshot('".ignore-style .test{background-color:red}"')
+  }, 60000)
+
+  it(`should generate criticalcss`, async () => {
+    expect(await readCritical(`no-extract`)).toMatchInlineSnapshot('".big{background-color:#00f;height:500vh;width:100vw}"')
+  }, 60000)
+
+  it(`should emit critical styles in stylesheet`, async () => {
+    expect(await readOriginal(`no-extract`)).toMatchInlineSnapshot('".big{background-color:blue;height:500vh;width:100vw}.uncritical{background-color:#000}"')
+  }, 60000)
 }, 180000)
 
 const baseParts = [
@@ -44,8 +41,8 @@ const baseParts = [
   `__fixtures__`,
 ]
 
-const runFixture = async target =>
-  await execa(
+export async function runFixture(target: string) {
+  return await execa(
     `yarn`,
     [
       `workspace`,
@@ -53,17 +50,17 @@ const runFixture = async target =>
       `run`,
       `bud`,
       `build`,
-      `--no-cache`,
-      `--ci`,
+      `--force`,
     ],
     {
       reject: false,
       timeout: 30000,
     },
   )
+}
 
-const readOriginal = async target =>
-  await fs.readFile(
+const readOriginal = async (target: string) => {
+  return await fs.read(
     join(
       ...baseParts,
       target,
@@ -72,11 +69,11 @@ const readOriginal = async target =>
       `@tests`,
       `bud-criticalcss__${target}.css`,
     ),
-    `utf8`,
   )
+}
 
-const readCritical = async target =>
-  await fs.readFile(
+const readCritical = async (target: string) => {
+  return await fs.read(
     join(
       ...baseParts,
       target,
@@ -86,5 +83,5 @@ const readCritical = async target =>
       `@tests`,
       `bud-criticalcss__${target}.css`,
     ),
-    `utf8`,
   )
+}

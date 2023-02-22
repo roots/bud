@@ -1,16 +1,14 @@
 import type {Bud} from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators'
-import format from '@roots/bud-support/pretty-format'
+import {format} from '@roots/bud-support/logger'
 
 /**
  * Project service
  */
-class Project extends Service {
+export class Project extends Service {
   /**
-   * `build.after` hook callback
-   *
-   * @public
+   * {@link Service.buildAfter}
    */
   @bind
   public override async buildAfter?(bud: Bud) {
@@ -65,5 +63,3 @@ class Project extends Service {
     }
   }
 }
-
-export {Project}

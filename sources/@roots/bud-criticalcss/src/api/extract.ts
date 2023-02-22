@@ -11,18 +11,16 @@ export const extractCss = function (
   assets: Array<string>,
   options?: Options,
 ): Bud {
-  const bud = this as Bud
-
-  bud.hooks.action(`compiler.close`, async () => {
+  this.hooks.action(`compiler.close`, async () => {
     options = {
-      ...(bud.extensions.get(`@roots/bud-criticalcss`).getOptions() ?? {}),
+      ...(this.critical.getOptions() ?? {}),
       ...(options ?? {}),
     }
 
     try {
       await Promise.all(
         assets.map(async from => {
-          const contents = await bud.fs.read(from, `buffer`)
+          const contents = await this.fs.read(from, `buffer`)
 
           const vfile = new vinyl({
             base: options.base,
@@ -45,10 +43,10 @@ export const extractCss = function (
           await critical
             .generate({...options, css: [vfile]})
             .then(async ({css, uncritical}) => {
-              await bud.fs.write(criticalPath, css)
+              await this.fs.write(criticalPath, css)
               options.extract
-                ? await bud.fs.write(from, uncritical)
-                : await bud.fs.write(uncriticalPath, uncritical)
+                ? await this.fs.write(from, uncritical)
+                : await this.fs.write(uncriticalPath, uncritical)
             })
         }),
       )
@@ -57,5 +55,5 @@ export const extractCss = function (
     }
   })
 
-  return bud
+  return this
 }

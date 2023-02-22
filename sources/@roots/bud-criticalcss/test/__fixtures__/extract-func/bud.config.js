@@ -1,7 +1,8 @@
 export default async bud => {
   bud.entry(`index.css`)
 
-  bud.critical.html(
+  bud.critical.set(
+    `html`,
     `<html>
         <body>
           <div class="foo"></div>

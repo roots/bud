@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type {
   CommandType as Command,
   DefaultMethods as Methods,

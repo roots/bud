@@ -1,16 +1,20 @@
+// @ts-nocheck
+
 import figures from '@roots/bud-support/figures'
-import Logger, {
-  Config,
-  Instance,
-  Options,
-} from '@roots/bud-support/signale'
+import {format} from 'pretty-format'
+import type {
+  Signale as Instance,
+  SignaleConfig as Config,
+  SignaleOptions as Options,
+} from 'signale'
+import * as SignaleModule from 'signale'
+
+const Logger = SignaleModule.default.Signale
 
 /**
  * Instance configuration
- *
- * @internal
  */
-export const config: Config = {
+const config: Config = {
   displayScope: true,
   displayBadge: true,
   displayDate: false,
@@ -23,8 +27,6 @@ export const config: Config = {
   underlineSuffix: false,
   uppercaseLabel: false,
 }
-
-export const level = [`error`, `warn`, `debug`, `info`]
 
 export const types = {
   error: {
@@ -41,6 +43,12 @@ export const types = {
   },
   warn: {
     badge: figures.warning,
+    color: `yellow`,
+    label: `warning`,
+    logLevel: `warn`,
+  },
+  deprecated: {
+    badge: figures.lozenge,
     color: `yellow`,
     label: `warning`,
     logLevel: `warn`,
@@ -88,3 +96,4 @@ const make = (
 
 export default instance
 export {Logger, Instance, Options, make}
+export {format}

@@ -18,8 +18,7 @@ export const deprecated =
     const originalMethod = descriptor.value
     descriptor.value = function (...args: any) {
       const warning = [
-        chalk.yellow(`${method}.${key}`),
-        `has been deprecated and will be removed in a future release.`,
+        `this function has been deprecated and will be removed in a future release.`,
       ]
       if (message)
         warning.push(
@@ -39,7 +38,7 @@ export const deprecated =
           ]),
         )
 
-      logger.warn(...warning)
+      logger.scope(method).deprecated(...warning)
       return originalMethod.apply(this, args)
     }
 

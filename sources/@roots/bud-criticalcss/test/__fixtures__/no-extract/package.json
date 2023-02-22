@@ -5,7 +5,7 @@
   "scripts": {
     "build": "bud build production"
   },
-  "devDependencies": {
+  "dependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-criticalcss": "workspace:sources/@roots/bud-criticalcss"
   }

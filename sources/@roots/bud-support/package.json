@@ -83,6 +83,10 @@
       "types": "./lib/html-loader/index.d.cts",
       "default": "./lib/html-loader/index.cjs"
     },
+    "./logger": {
+      "types": "./lib/logger/index.d.ts",
+      "import": "./lib/logger/index.js"
+    },
     "./remark-loader": {
       "types": "./lib/remark-loader/index.d.cts",
       "default": "./lib/remark-loader/index.cjs"
@@ -146,7 +150,9 @@
     "ink-link": "2.0.1",
     "ink-testing-library": "2.1.0",
     "ink-text-input": "4.0.3",
-    "react": "17.0.2"
+    "pretty-format": "29.4.1",
+    "react": "17.0.2",
+    "signale": "1.4.0"
   },
   "dependencies": {
     "@roots/filesystem": "workspace:sources/@roots/filesystem",
@@ -189,11 +195,9 @@
     "parse5": "7.1.2",
     "parse5-htmlparser2-tree-adapter": "7.0.0",
     "patch-console": "2.0.0",
-    "pretty-format": "29.4.1",
     "remark": "14.0.2",
     "remark-html": "15.0.1",
     "remark-loader": "5.0.0",
-    "signale": "1.4.0",
     "strip-ansi": "7.0.1",
     "style-loader": "3.3.1",
     "terser-webpack-plugin": "5.3.6",

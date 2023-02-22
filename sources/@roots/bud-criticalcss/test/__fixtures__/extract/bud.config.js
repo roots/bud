@@ -3,7 +3,8 @@ export default async bud => {
 
   bud.entry(`index.css`)
 
-  bud.critical.html(
+  bud.critical.set(
+    `html`,
       `<html>
         <body>
           <div class="foo"></div>
@@ -13,6 +14,6 @@ export default async bud => {
         </body>
       </html>`,
     )
-    .ignore({rule: [/\.ignore-style/]})
+    .set(`ignore`, {rule: [/\.ignore-style/]})
     .enable()
 }

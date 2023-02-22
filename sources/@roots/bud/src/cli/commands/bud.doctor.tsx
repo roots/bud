@@ -6,7 +6,7 @@ import {Command} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators'
 import figures from '@roots/bud-support/figures'
 import Ink, {React} from '@roots/bud-support/ink'
-import prettyFormat from '@roots/bud-support/pretty-format'
+import {format} from '@roots/bud-support/logger'
 import webpack from '@roots/bud-support/webpack'
 import type {InspectTreeResult} from 'fs-jetpack/types.js'
 
@@ -494,7 +494,7 @@ for a lot of edge cases so it might return a false positive.
         <Ink.Box key={`${name}-entry`} flexDirection="column">
           <Ink.Text>{name}</Ink.Text>
           <Ink.Text dimColor>
-            {prettyFormat(entry, {
+            {format(entry, {
               printBasicPrototype: false,
             })}
           </Ink.Text>

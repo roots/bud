@@ -1,19 +1,16 @@
 import type {Bud} from '../bud.js'
 
-/**
- * Run the build
- */
 export interface run {
-  (): Promise<void>
+  (this: Bud): Promise<void>
 }
 
-export const run: run = async function (this: Bud) {
+export async function run (this: Bud): Promise<void> {
   const compilation = await this.compiler.compile()
 
   if (this.isProduction) {
     if (!compilation) return
 
-    compilation.run(async (error, stats) => {
+    compilation.run(async (error) => {
       if (error) await this.compiler.onError(error)
 
       compilation.close(async error => {

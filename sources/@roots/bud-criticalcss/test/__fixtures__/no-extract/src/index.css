@@ -1,7 +1,9 @@
-body {
+.big {
   background-color: blue;
+  width: 100vw;
+  height: 500vh;
 }
 
-.foo {
+.uncritical {
   background-color: black;
 }

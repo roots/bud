@@ -5,11 +5,6 @@
   "scripts": {
     "build": "bud build"
   },
-  "bud": {
-    "extensions": {
-      "discover": false
-    }
-  },
   "devDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-criticalcss": "workspace:sources/@roots/bud-criticalcss"
