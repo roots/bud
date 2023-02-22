@@ -17,7 +17,6 @@
   },
   "dependencies": {
     "@repo/constants": "workspace:sources/@repo/constants",
-    "@repo/logger": "workspace:sources/@repo/logger",
     "@types/fs-extra": "11.0.1",
     "@types/lodash-es": "4.17.6",
     "@types/node": "18.11.18",

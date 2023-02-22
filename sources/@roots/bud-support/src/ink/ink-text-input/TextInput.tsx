@@ -1,6 +1,7 @@
 import chalk from 'chalk'
 import Ink from 'ink'
-import React, {useEffect, useState} from 'react'
+import React from 'react'
+import {useEffect, useState} from 'react'
 
 interface Props {
   /**

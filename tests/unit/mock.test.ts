@@ -1,4 +1,3 @@
-import * as console from '@repo/logger'
 import {Bud, factory, mockProject, repoPath} from '@repo/test-kit/bud'
 import {beforeAll, describe, expect, it} from 'vitest'
 
@@ -20,12 +19,10 @@ describe(`mock project`, () => {
   })
 
   it(`has the expected context`, async () => {
-    console.log(`mock path`, mockProject.path)
     expect(bud.context.basedir).toBe(mockProject.path)
   })
 
   it(`has the expected env`, async () => {
-    console.log(`mock path`, mockProject.path)
     expect(bud.context.basedir).toBe(mockProject.path)
   })
 })

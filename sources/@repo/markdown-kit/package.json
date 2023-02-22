@@ -21,7 +21,6 @@
     "@octokit/core": "4.2.0",
     "@octokit/plugin-paginate-rest": "6.0.0",
     "@repo/constants": "workspace:sources/@repo/constants",
-    "@repo/logger": "workspace:sources/@repo/logger",
     "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "dotenv": "16.0.3",

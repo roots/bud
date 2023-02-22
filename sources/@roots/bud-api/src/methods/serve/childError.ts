@@ -1,4 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
+// @ts-ignore
 import {highlight} from '@roots/bud-support/highlight'
 
 import type {Parameters} from './index.js'

@@ -30,7 +30,19 @@ export default async () => {
     await execute(`yarn`, [
       `rollup`,
       `--config`,
-      `config/rollup/rollup.config.js`,
+      `config/rollup/rollup.externals.js`,
+    ])
+  } catch (e) {
+    e.name = `rollup error: ${e.name}`
+    throw e
+  }
+
+  try {
+    process.stdout.write(`Rolling up bud dependencies...`)
+    await execute(`yarn`, [
+      `rollup`,
+      `--config`,
+      `config/rollup/rollup.support.js`,
     ])
   } catch (e) {
     e.name = `rollup error: ${e.name}`

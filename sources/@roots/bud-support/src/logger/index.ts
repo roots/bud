@@ -1,8 +1,5 @@
-// @ts-nocheck
-
+// @ts-ignore
 import figures from '@roots/bud-support/figures'
-export {figures}
-
 export {format} from 'pretty-format'
 
 import type {
@@ -10,9 +7,9 @@ import type {
   SignaleConfig as Config,
   SignaleOptions as Options,
 } from 'signale'
-import * as SignaleModule from 'signale'
+import SignaleModule from 'signale'
 
-const Logger = SignaleModule.default.Signale
+const Logger = SignaleModule.Signale
 
 /**
  * Instance configuration
@@ -32,6 +29,18 @@ const config: Config = {
 }
 
 const types = {
+  debug: {
+    badge: figures.lozengeOutline,
+    color: `red`,
+    label: `debug`,
+    logLevel: `info`,
+  },
+  fav: {
+    badge: figures.heart,
+    color: `red`,
+    label: `fav`,
+    logLevel: `debug`,
+  },
   error: {
     badge: figures.cross,
     color: `red`,
@@ -74,12 +83,6 @@ const types = {
     label: `info`,
     logLevel: `info`,
   },
-  debug: {
-    badge: figures.circleFilled,
-    color: `red`,
-    label: `log`,
-    logLevel: `info`,
-  },
 }
 
 const defaultOptions = {
@@ -88,7 +91,7 @@ const defaultOptions = {
   types,
 }
 
-let instance = new Logger(defaultOptions)
+let instance: Instance = new Logger(defaultOptions)
 
 const make = (
   options: Options = {},
@@ -98,4 +101,4 @@ const make = (
 }
 
 export default instance
-export {Logger, Instance, Options, make}
+export {Logger, make}

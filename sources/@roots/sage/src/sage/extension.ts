@@ -22,7 +22,7 @@ import {deprecated} from '@roots/bud-support/decorators'
 @expose(`sage`)
 export class Sage extends Extension {
   /**
-   * `register` callback
+   * {@link Extension.register}
    */
   @bind
   public override async register(bud: Bud) {
@@ -68,7 +68,6 @@ export class Sage extends Extension {
    *
    * @deprecated - This function is deprecated. It is unneeded; you can just remove the call.
    */
-  @bind
   @deprecated(
     `bud.sage`,
     `This function is no longer needed and should be removed.`,

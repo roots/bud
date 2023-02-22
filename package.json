@@ -27,7 +27,6 @@
   "type": "module",
   "dependencies": {
     "@repo/constants": "workspace:sources/@repo/constants",
-    "@repo/logger": "workspace:sources/@repo/logger",
     "@repo/test-kit": "workspace:sources/@repo/test-kit",
     "@rollup/plugin-commonjs": "24.0.1",
     "@rollup/plugin-json": "6.0.0",

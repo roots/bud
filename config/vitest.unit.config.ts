@@ -1,4 +1,6 @@
-export default {
+import { UserConfig } from 'vitest/config'
+
+const config: UserConfig = {
   test: {
     coverage: {
       provider: `istanbul`,
@@ -18,3 +20,5 @@ export default {
     ],
   },
 }
+
+export default config

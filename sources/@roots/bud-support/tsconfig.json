@@ -48,7 +48,7 @@
     "./src/ink/index.tsx",
     "./src/logger/index.ts",
     "./src/fs-jetpack/index.ts",
-    "./src/highlight/index.ts"
+    "./src/highlight/index.ts",
   ],
   "references": [
     {

@@ -1,15 +1,15 @@
 import {bind} from '@roots/bud-support/decorators'
-import {Instance, make, Options} from '@roots/bud-support/logger'
+import {make} from '@roots/bud-support/logger'
 
 import * as argv from '../context/argv.js'
 
 export class Logger {
-  public declare instance: Instance
+  public declare instance: ReturnType<typeof make>
 
   public constructor(public stdout?: NodeJS.WriteStream) {
     if (!this.stdout) this.stdout = process.stdout
 
-    let options: Options = {
+    let options: any = {
       stream: this.stdout,
     }
 

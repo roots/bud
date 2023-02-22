@@ -6793,7 +6793,6 @@ __metadata:
   resolution: "@repo/compile-kit@workspace:sources/@repo/compile-kit"
   dependencies:
     "@repo/constants": "workspace:sources/@repo/constants"
-    "@repo/logger": "workspace:sources/@repo/logger"
     "@types/fs-extra": 11.0.1
     "@types/lodash-es": 4.17.6
     "@types/node": 18.11.18
@@ -6851,18 +6850,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@repo/logger@workspace:sources/@repo/logger":
-  version: 0.0.0-use.local
-  resolution: "@repo/logger@workspace:sources/@repo/logger"
-  dependencies:
-    "@repo/constants": "workspace:sources/@repo/constants"
-    "@types/node": 18.11.18
-    "@types/signale": 1.4.4
-    signale: 1.4.0
-    vitest: 0.28.5
-  languageName: unknown
-  linkType: soft
-
 "@repo/markdown-kit@workspace:sources/@repo/markdown-kit":
   version: 0.0.0-use.local
   resolution: "@repo/markdown-kit@workspace:sources/@repo/markdown-kit"
@@ -6870,7 +6857,6 @@ __metadata:
     "@octokit/core": 4.2.0
     "@octokit/plugin-paginate-rest": 6.0.0
     "@repo/constants": "workspace:sources/@repo/constants"
-    "@repo/logger": "workspace:sources/@repo/logger"
     "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@types/fs-extra": 11.0.1
@@ -6908,7 +6894,6 @@ __metadata:
   resolution: "@repo/test-kit@workspace:sources/@repo/test-kit"
   dependencies:
     "@repo/constants": "workspace:sources/@repo/constants"
-    "@repo/logger": "workspace:sources/@repo/logger"
     "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
@@ -7969,29 +7954,20 @@ __metadata:
     dotenv-expand: "*"
     execa: "*"
     express: "*"
-    figures: "*"
     fs-extra: "*"
     fs-jetpack: "*"
     get-port: "*"
     globby: "*"
     helpful-decorators: "*"
-    highlight.js: "*"
     html-webpack-plugin: "*"
     http-proxy-middleware: "*"
     import-meta-resolve: "*"
-    ink-link: "*"
-    ink-text-input: "*"
     json5: "*"
     lodash: ">=4"
     mini-css-extract-plugin: ">=2"
     node-notifier: ">=10"
     open: ">=8"
     open-editor: ">=4"
-    parse5: ">=7"
-    parse5-htmlparser2-tree-adapter: ">=7"
-    patch-console: ">=2"
-    pretty-format: ">=29"
-    signale: ">=1"
     terser-webpack-plugin: "*"
     toml: "*"
     typanion: "*"
@@ -8043,17 +8019,11 @@ __metadata:
       optional: true
     helpful-decorators:
       optional: true
-    highlight.js:
-      optional: true
     html-webpack-plugin:
       optional: true
     http-proxy-middleware:
       optional: true
     import-meta-resolve:
-      optional: true
-    ink-link:
-      optional: true
-    ink-text-input:
       optional: true
     json5:
       optional: true
@@ -8070,12 +8040,6 @@ __metadata:
     parse5:
       optional: true
     parse5-htmlparser2-tree-adapter:
-      optional: true
-    patch-console:
-      optional: true
-    pretty-format:
-      optional: true
-    signale:
       optional: true
     terser-webpack-plugin:
       optional: true
@@ -14354,7 +14318,6 @@ __metadata:
   resolution: "bud@workspace:."
   dependencies:
     "@repo/constants": "workspace:sources/@repo/constants"
-    "@repo/logger": "workspace:sources/@repo/logger"
     "@repo/test-kit": "workspace:sources/@repo/test-kit"
     "@rollup/plugin-commonjs": 24.0.1
     "@rollup/plugin-json": 6.0.0

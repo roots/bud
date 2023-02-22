@@ -1,3 +1,4 @@
+// @ts-ignore
 import figures from '@roots/bud-support/figures'
 import Ink, {React} from '@roots/bud-support/ink'
 import type {StatsCompilation} from '@roots/bud-support/webpack'

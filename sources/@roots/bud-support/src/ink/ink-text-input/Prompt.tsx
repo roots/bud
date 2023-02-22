@@ -1,7 +1,10 @@
-import {highlight} from '@roots/bud-support/highlight'
+// @ts-nocheck
+
 import chalk from 'chalk'
 import Ink from 'ink'
 import React, {useEffect, useState} from 'react'
+
+import {highlight} from '../../highlight'
 
 interface Props {
   /**

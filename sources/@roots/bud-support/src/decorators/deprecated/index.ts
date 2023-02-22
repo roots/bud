@@ -1,5 +1,7 @@
+// @ts-nocheck
+import figures from '@roots/bud-support/figures'
 import {highlight} from '@roots/bud-support/highlight'
-import logger, {figures} from '@roots/bud-support/logger'
+import logger from '@roots/bud-support/logger'
 import chalk from 'chalk'
 
 /**

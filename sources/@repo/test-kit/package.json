@@ -23,7 +23,6 @@
   },
   "dependencies": {
     "@repo/constants": "workspace:sources/@repo/constants",
-    "@repo/logger": "workspace:sources/@repo/logger",
     "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",

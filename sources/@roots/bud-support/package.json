@@ -75,17 +75,30 @@
       "types": "./lib/csv-loader/index.d.cts",
       "default": "./lib/csv-loader/index.cjs"
     },
+    "./decorators": {
+      "types": "./lib/decorators/index.d.ts",
+      "import": "./lib/decorators/index.js"
+    },
+    "./decorators/deprecated": {
+      "types": "./lib/decorators/deprecated/index.d.ts",
+      "import": "./lib/decorators/deprecated/index.js"
+    },
+    "./figures": {
+      "import": "./lib/figures/index.js"
+    },
     "./file-loader": {
       "types": "./lib/file-loader/index.d.cts",
       "default": "./lib/file-loader/index.cjs"
+    },
+    "./highlight": {
+      "default": "./lib/highlight/index.js"
     },
     "./html-loader": {
       "types": "./lib/html-loader/index.d.cts",
       "default": "./lib/html-loader/index.cjs"
     },
     "./logger": {
-      "types": "./lib/logger/index.d.ts",
-      "import": "./lib/logger/index.js"
+      "default": "./lib/logger/index.js"
     },
     "./remark-loader": {
       "types": "./lib/remark-loader/index.d.cts",
@@ -145,6 +158,7 @@
     "@types/react": "17.0.52",
     "@types/signale": "1.4.4",
     "@types/webpack-manifest-plugin": "3.0.5",
+    "figures": "5.0.0",
     "fs-jetpack": "5.1.0",
     "highlight.js": "11.7.0",
     "ink": "3.2.0",
@@ -176,7 +190,6 @@
     "dotenv-expand": "10.0.0",
     "execa": "7.0.0",
     "express": "4.18.2",
-    "figures": "5.0.0",
     "file-loader": "^6.2.0",
     "fs-extra": "11.1.0",
     "get-port": "6.1.2",
@@ -227,29 +240,20 @@
     "dotenv-expand": "*",
     "execa": "*",
     "express": "*",
-    "figures": "*",
     "fs-extra": "*",
     "fs-jetpack": "*",
     "get-port": "*",
     "globby": "*",
     "helpful-decorators": "*",
-    "highlight.js": "*",
     "html-webpack-plugin": "*",
     "http-proxy-middleware": "*",
     "import-meta-resolve": "*",
-    "ink-link": "*",
-    "ink-text-input": "*",
     "json5": "*",
     "lodash": ">=4",
     "mini-css-extract-plugin": ">=2",
     "node-notifier": ">=10",
     "open": ">=8",
     "open-editor": ">=4",
-    "parse5": ">=7",
-    "parse5-htmlparser2-tree-adapter": ">=7",
-    "patch-console": ">=2",
-    "pretty-format": ">=29",
-    "signale": ">=1",
     "terser-webpack-plugin": "*",
     "toml": "*",
     "typanion": "*",
@@ -323,9 +327,6 @@
     "helpful-decorators": {
       "optional": true
     },
-    "highlight.js": {
-      "optional": true
-    },
     "html-webpack-plugin": {
       "optional": true
     },
@@ -333,12 +334,6 @@
       "optional": true
     },
     "import-meta-resolve": {
-      "optional": true
-    },
-    "ink-link": {
-      "optional": true
-    },
-    "ink-text-input": {
       "optional": true
     },
     "json5": {
@@ -363,15 +358,6 @@
       "optional": true
     },
     "parse5-htmlparser2-tree-adapter": {
-      "optional": true
-    },
-    "patch-console": {
-      "optional": true
-    },
-    "pretty-format": {
-      "optional": true
-    },
-    "signale": {
       "optional": true
     },
     "terser-webpack-plugin": {
