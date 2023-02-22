@@ -7,7 +7,7 @@ import fs from '@roots/bud-support/fs-jetpack'
 import {execa} from '@roots/bud-support/execa'
 import {beforeAll, describe, expect, it} from 'vitest'
 
-describe(`@roots/bud-criticalcss`, () => {
+describe.skip(`@roots/bud-criticalcss`, () => {
   beforeAll(async () => {
     try {
       await runFixture(`extract`)

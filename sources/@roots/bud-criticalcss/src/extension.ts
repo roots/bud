@@ -22,10 +22,7 @@ import {extractCss} from './api/extract.js'
 @expose(`critical`)
 @plugin(CriticalCssWebpackPlugin)
 @options<Options>({
-  base: (app: Bud) =>
-    app.publicPath() !== `auto` && app.publicPath() !== ``
-      ? app.publicPath()
-      : `/`,
+  base: `/`,
   extract: true,
   request: {https: {rejectUnauthorized: false}},
 })
