@@ -5,8 +5,8 @@
 
 coverage
 storage/**/*
-!storage/yarn.lock
 !storage/package.json
+!storage/package-lock.json
 
 # Yarn
 **/*.log
