@@ -11,3 +11,4 @@ const changeBg = () => {
 changeBg()
 
 module?.hot?.accept(err => changeBg())
+
