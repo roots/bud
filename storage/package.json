@@ -1,7 +1,6 @@
 {
   "name": "storage",
   "private": true,
-  "packageManager": "yarn@1.23.0",
   "nohoist": [
     "**/*"
   ],
