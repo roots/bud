@@ -1,3 +1,5 @@
+/* eslint-disable n/no-unpublished-import */
+
 import fs from 'fs-jetpack'
 import yaml from 'js-yaml'
 

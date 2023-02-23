@@ -14,7 +14,7 @@ import * as methods from '../methods/index.js'
  * Binds facade methods to the framework and provides a way to list them,
  * call them, and otherwise manipulate them.
  */
-export class Api extends ServiceContainer implements Contract {
+export class Api extends ServiceContainer {
   /**
    * Called methods
    *
@@ -36,7 +36,7 @@ export class Api extends ServiceContainer implements Contract {
    * @decorator `@bind`
    */
   @bind
-  public override async bootstrap?(_app: Bud) {
+  public override async bootstrap?(app: Bud) {
     Object.entries(methods).map(([k, v]) => this.bindFacade(k, v))
   }
 

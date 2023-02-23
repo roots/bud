@@ -5,12 +5,14 @@
 
 import {execaCommandSync} from 'execa'
 
-try {
-  execaCommandSync(`npx browserslist --update-db`, {
-    cwd: process.env.INIT_CWD ?? process.cwd(),
-    reject: false,
-    timeout: 10000,
-  })
-} catch (e) {}
+if (!process.env.CI) {
+  try {
+    execaCommandSync(`npx browserslist --update-db`, {
+      cwd: process.env.INIT_CWD ?? process.cwd(),
+      reject: false,
+      timeout: 10000,
+    })
+  } catch (e) {}
+}
 
 export {}

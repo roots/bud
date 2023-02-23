@@ -20,8 +20,8 @@
       "sources/@repo/*",
       "sources/@roots/*/test/**/*",
       "examples/node-api",
-      "tests/util/project",
-      "tests/reproductions/*"
+      "sources/tests/util/project",
+      "sources/tests/reproductions/*"
     ]
   },
   "type": "module",

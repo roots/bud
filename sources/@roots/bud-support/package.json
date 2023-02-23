@@ -90,6 +90,9 @@
       "types": "./lib/file-loader/index.d.cts",
       "default": "./lib/file-loader/index.cjs"
     },
+    "./fs-jetpack": {
+      "default": "./lib/fs-jetpack/index.js"
+    },
     "./highlight": {
       "default": "./lib/highlight/index.js"
     },

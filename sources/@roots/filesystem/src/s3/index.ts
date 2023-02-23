@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+/* eslint-disable n/no-unpublished-import */
 import type {Readable} from 'node:stream'
 
 import type {
@@ -7,7 +8,6 @@ import type {
   PutObjectCommandInput,
   S3Client,
 } from '@aws-sdk/client-s3'
-import {bind} from 'helpful-decorators'
 import isString from 'lodash/isString.js'
 import * as mimetypes from 'mime-types'
 
@@ -23,8 +23,6 @@ export class S3 {
 
   /**
    * constructor
-   *
-   * @public
    */
   public constructor() {
     this.config = new Config()
@@ -33,10 +31,7 @@ export class S3 {
 
   /**
    * S3 Client
-   *
-   * @public
    */
-  @bind
   public async getClient(): Promise<S3Client> {
     if (!this.config.credentials) {
       throw new Error(
@@ -53,8 +48,6 @@ export class S3 {
 
   /**
    * Identifier (for loggers, etc)
-   *
-   * @public
    */
   public get ident() {
     const maybeEndpoint = this.config.get(`endpoint`)
@@ -84,11 +77,7 @@ export class S3 {
    * @param raw - Whether to return raw response
    * @returns The file contents
    * @throws Error - If the file does not exist
-   *
-   * @public
-   * @decorator bind - {@link bind}
    */
-  @bind
   public async read(
     key: string,
     raw = false,
@@ -127,11 +116,7 @@ export class S3 {
    * @returns S3 instance {@link S3}
    * @throws Error - If the file does not exist
    * @throws Error - If the file could not be deleted
-   *
-   * @public
-   * @decorator bind - {@link bind}
    */
-  @bind
   public async delete(key: string) {
     try {
       const client = await this.getClient()
@@ -156,11 +141,7 @@ export class S3 {
    *
    * @param key - The file key
    * @returns boolean
-   *
-   * @public
-   * @decorator bind - {@link bind}
    */
-  @bind
   public async exists(key: string) {
     try {
       const files = (await this.list()) as Array<string>
@@ -179,11 +160,7 @@ export class S3 {
    *
    * @param props - {@link Omit<ListObjectsCommandInput, `Bucket`> command input props}
    * @returns Array of file keys
-   *
-   * @public
-   * @decorator bind - {@link bind}
    */
-  @bind
   public async list(
     props?: Omit<ListObjectsCommandInput, `Bucket`>,
   ): Promise<Array<string>> {
@@ -208,11 +185,7 @@ export class S3 {
    *
    * @param params - Either {@link PutObjectCommandInput} or the key and body
    * @returns S3 instance {@link S3}
-   *
-   * @public
-   * @decorator bind - {@link bind}
    */
-  @bind
   public async write(
     ...params:
       | [Omit<PutObjectCommandInput, `Bucket`>]

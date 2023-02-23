@@ -1,3 +1,5 @@
+/* eslint-disable n/no-unpublished-import */
+
 import fs from 'fs-jetpack'
 import json5 from 'json5'
 import stringify from 'safe-json-stringify'

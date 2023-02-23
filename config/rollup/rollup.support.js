@@ -8,8 +8,8 @@ import externals from 'rollup-plugin-node-externals'
 
 export default {
   input: {
-    [`ink/index`]: `sources/@roots/bud-support/src/ink/index.tsx`,
     [`highlight/index`]: `sources/@roots/bud-support/src/highlight/index.ts`,
+    [`ink/index`]: `sources/@roots/bud-support/src/ink/index.tsx`,
     [`logger/index`]: `sources/@roots/bud-support/src/logger/index.ts`,
   },
   output: {
@@ -27,7 +27,9 @@ export default {
         `node_modules`,
       ],
     }),
-    commonjs(),
+    commonjs({
+      extensions: [`.js`, `.ts`],
+    }),
     json(),
     esInterop(),
     externals({

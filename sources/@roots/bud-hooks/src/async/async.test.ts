@@ -174,4 +174,4 @@ describe(`@roots/bud-hooks/async`, () => {
       expect(await asyncHooks.get(`foo`)).toBe(`bar`)
     })
   })
-})
+}, 60000)

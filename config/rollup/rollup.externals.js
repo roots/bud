@@ -6,9 +6,9 @@ import terser from '@rollup/plugin-terser'
 
 export default {
   input: {
-    [`figures/index`]: `node_modules/figures`,
-    [`fs-jetpack/index`]: `node_modules/fs-jetpack`,
-    [`highlight.js/index`]: `node_modules/highlight.js`,
+    [`figures/index`]: `./node_modules/figures`,
+    [`fs-extra/index`]: `./node_modules/fs-extra`,
+    [`fs-jetpack/index`]: `./node_modules/fs-jetpack`,
   },
   output: {
     dir: `./sources/@roots/bud-support/lib`,

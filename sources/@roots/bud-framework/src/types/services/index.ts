@@ -14,8 +14,6 @@ import type * as Server from './server/index.js'
 
 /**
  * Service registry
- *
- * @virtual @public
  */
 export interface Registry extends Record<string, any> {
   api: Api

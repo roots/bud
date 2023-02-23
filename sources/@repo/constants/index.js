@@ -51,7 +51,7 @@ export const paths = {
   root: REPO_PATH,
   config: join(REPO_PATH, `config`),
   sources: join(REPO_PATH, `sources`),
-  tests: join(REPO_PATH, `tests`),
+  tests: join(REPO_PATH, `sources`, `tests`),
   storage: join(REPO_PATH, `storage`),
   mocks: join(REPO_PATH, `storage`, `mocks`),
 }

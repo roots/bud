@@ -18,6 +18,9 @@ storage/**/*
 **/.yarn
 !/.yarn
 
+# Rollup
+.rollup.cache
+
 # Netlify
 **/.netlify
 

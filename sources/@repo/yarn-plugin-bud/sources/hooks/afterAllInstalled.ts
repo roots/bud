@@ -20,46 +20,6 @@ export default async () => {
   }
 
   try {
-    process.stdout.write(`Rolling up bud dependencies...`)
-    await execute(`yarn`, [
-      `rollup`,
-      `--config`,
-      `config/rollup/rollup.externals.js`,
-    ])
-  } catch (e) {
-  }
-
-  try {
-    process.stdout.write(`Rolling up bud dependencies...`)
-    await execute(`yarn`, [
-      `rollup`,
-      `--config`,
-      `config/rollup/rollup.support.js`,
-    ])
-  } catch (e) {
-  }
-
-  try {
-    await execute(
-      `yarn`,
-      [
-        `workspace`,
-        `@roots/browserslist-config`,
-        `exec`,
-        `node`,
-        `./scripts/postinstall.mjs`,
-      ],
-      {
-        stdin: process.stdin,
-        stdout: process.stdout,
-      },
-    )
-  } catch (e) {
-    e.name = `@roots/browserslist-config postinstall error: ${e.name}`
-    throw e
-  }
-
-  try {
     await execute(`yarn`, [`@bud`, `build`, `--force`], {
       stdin: process.stdin,
       stdout: process.stdout,

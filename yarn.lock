@@ -5194,28 +5194,28 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fortawesome/fontawesome-common-types@npm:6.2.1":
-  version: 6.2.1
-  resolution: "@fortawesome/fontawesome-common-types@npm:6.2.1"
-  checksum: 1a6e202beac46bc7e7bf791b37b6164b15453cc70b078456121c77d516a1077a1cfdab8aa9c77358c71f87f54560c0d9cbfb440cfb871f6d0f1f4671aabf9a0a
+"@fortawesome/fontawesome-common-types@npm:6.3.0":
+  version: 6.3.0
+  resolution: "@fortawesome/fontawesome-common-types@npm:6.3.0"
+  checksum: ece71539190abb17144861c58d65b6cd818d38a28cc3c9694325f5dca13739b2d78655e7bc1cba58cc13947f5ca80659e87c5c8bee7beb77d7f991e508312146
   languageName: node
   linkType: hard
 
 "@fortawesome/fontawesome-svg-core@npm:^6.1.1":
-  version: 6.2.1
-  resolution: "@fortawesome/fontawesome-svg-core@npm:6.2.1"
+  version: 6.3.0
+  resolution: "@fortawesome/fontawesome-svg-core@npm:6.3.0"
   dependencies:
-    "@fortawesome/fontawesome-common-types": 6.2.1
-  checksum: 16caf6052b77c03826274325d4bd76d11cba486411c3101a635d3342dd764df8f5b4789456c9caa1667c232853a670f91dddf0449218e5fea7a27f4396b838af
+    "@fortawesome/fontawesome-common-types": 6.3.0
+  checksum: 2479d4b0dc45bba2638b05ba816df91fad6331cd3254d846705a0c342dc12259724706066c71461809804b4f41f15425439cfbabc42d7918e6c26b2b467b4b59
   languageName: node
   linkType: hard
 
 "@fortawesome/free-solid-svg-icons@npm:^6.1.1":
-  version: 6.2.1
-  resolution: "@fortawesome/free-solid-svg-icons@npm:6.2.1"
+  version: 6.3.0
+  resolution: "@fortawesome/free-solid-svg-icons@npm:6.3.0"
   dependencies:
-    "@fortawesome/fontawesome-common-types": 6.2.1
-  checksum: a24170b676fced926cccdd08171357b20714483ceddeb052985a9acae3a347ffe853de2e757bf95cc7add74807d82eb1cc578e17430c32ca2c6a844c8276f91a
+    "@fortawesome/fontawesome-common-types": 6.3.0
+  checksum: 5cffcdb954f9ea8d48c6872118f21840f206d6279a6b803a31563e48fee34fbf5bc05848f5dedf07fc16f60910712c6bd0dc83f7a4e408cf062153a48022525d
   languageName: node
   linkType: hard
 
@@ -8545,7 +8545,6 @@ __metadata:
     "@types/safe-json-stringify": 1.1.2
     fs-jetpack: 5.1.0
     globby: 13.1.3
-    helpful-decorators: 2.1.0
     js-yaml: 4.1.0
     json5: 2.2.3
     lodash: 4.17.21
@@ -9170,36 +9169,36 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@tests/issue-1798@workspace:tests/reproductions/issue-1798":
+"@tests/issue-1798@workspace:sources/tests/reproductions/issue-1798":
   version: 0.0.0-use.local
-  resolution: "@tests/issue-1798@workspace:tests/reproductions/issue-1798"
+  resolution: "@tests/issue-1798@workspace:sources/tests/reproductions/issue-1798"
   dependencies:
     "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-sass": "workspace:sources/@roots/bud-sass"
   languageName: unknown
   linkType: soft
 
-"@tests/issue-1886@workspace:tests/reproductions/issue-1886":
+"@tests/issue-1886@workspace:sources/tests/reproductions/issue-1886":
   version: 0.0.0-use.local
-  resolution: "@tests/issue-1886@workspace:tests/reproductions/issue-1886"
+  resolution: "@tests/issue-1886@workspace:sources/tests/reproductions/issue-1886"
   dependencies:
     "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-imagemin": "workspace:sources/@roots/bud-imagemin"
   languageName: unknown
   linkType: soft
 
-"@tests/issue-1986@workspace:tests/reproductions/issue-1986":
+"@tests/issue-1986@workspace:sources/tests/reproductions/issue-1986":
   version: 0.0.0-use.local
-  resolution: "@tests/issue-1986@workspace:tests/reproductions/issue-1986"
+  resolution: "@tests/issue-1986@workspace:sources/tests/reproductions/issue-1986"
   dependencies:
     "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss"
   languageName: unknown
   linkType: soft
 
-"@tests/issue-2088@workspace:tests/reproductions/issue-2088":
+"@tests/issue-2088@workspace:sources/tests/reproductions/issue-2088":
   version: 0.0.0-use.local
-  resolution: "@tests/issue-2088@workspace:tests/reproductions/issue-2088"
+  resolution: "@tests/issue-2088@workspace:sources/tests/reproductions/issue-2088"
   dependencies:
     "@fortawesome/fontawesome-svg-core": ^6.1.1
     "@fortawesome/free-solid-svg-icons": ^6.1.1
@@ -9208,9 +9207,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@tests/project@workspace:tests/util/project":
+"@tests/project@workspace:sources/tests/util/project":
   version: 0.0.0-use.local
-  resolution: "@tests/project@workspace:tests/util/project"
+  resolution: "@tests/project@workspace:sources/tests/util/project"
   dependencies:
     "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-react": "workspace:sources/@roots/bud-react"
@@ -23181,17 +23180,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"issue-1890@workspace:tests/reproductions/issue-1890":
+"issue-1890@workspace:sources/tests/reproductions/issue-1890":
   version: 0.0.0-use.local
-  resolution: "issue-1890@workspace:tests/reproductions/issue-1890"
+  resolution: "issue-1890@workspace:sources/tests/reproductions/issue-1890"
   dependencies:
     "@roots/bud": "workspace:sources/@roots/bud"
   languageName: unknown
   linkType: soft
 
-"issue-1955@workspace:tests/reproductions/issue-1955":
+"issue-1955@workspace:sources/tests/reproductions/issue-1955":
   version: 0.0.0-use.local
-  resolution: "issue-1955@workspace:tests/reproductions/issue-1955"
+  resolution: "issue-1955@workspace:sources/tests/reproductions/issue-1955"
   dependencies:
     "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel"

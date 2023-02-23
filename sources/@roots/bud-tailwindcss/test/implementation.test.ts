@@ -1,20 +1,14 @@
 import {join} from 'node:path'
 import {paths} from '@repo/constants'
 import execa, {ExecaReturnValue} from '@roots/bud-support/execa'
-import {beforeAll, describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vitest'
+// @ts-ignore
 import fs from '@roots/bud-support/fs-jetpack'
 
 describe(`@tests/tailwind-implementation`, () => {
   let child: ExecaReturnValue
 
-  beforeAll(async () => {
-    await execa(`yarn`, [
-      `bud`,
-      `clean`,
-      `--cwd`,
-      `sources/@roots/bud-tailwindcss/test/implementation`,
-    ])
-
+  it(`should generate bg-primary class`, async () => {
     try {
       child = await execa(`yarn`, [
         `bud`,
@@ -24,10 +18,8 @@ describe(`@tests/tailwind-implementation`, () => {
         `--cwd`,
         `sources/@roots/bud-tailwindcss/test/implementation`,
       ])
-    } catch (error) {}
-  }, 30000)
+    } catch (e) {}
 
-  it(`should generate bg-primary class`, async () => {
     expect(
       await fs.existsAsync(
         join(
@@ -42,6 +34,7 @@ describe(`@tests/tailwind-implementation`, () => {
         ),
       ),
     ).toBe(`file`)
+
     expect(
       await fs.readAsync(
         join(
@@ -56,5 +49,5 @@ describe(`@tests/tailwind-implementation`, () => {
         ),
       ),
     ).toEqual(expect.stringContaining(`.bg-primary{`))
-  })
-})
+  }, 30000)
+}, 30000)

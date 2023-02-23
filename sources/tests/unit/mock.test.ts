@@ -1,0 +1,28 @@
+import {Bud, factory, mockProject, repoPath} from '@repo/test-kit/bud'
+import {beforeAll, describe, expect, it} from 'vitest'
+
+describe(`mock project`, () => {
+  let bud: Bud
+
+  beforeAll(async () => {
+    bud = await factory()
+  })
+
+  it(`repoPath matches repo root`, async () => {
+    expect(repoPath(`sources/tests/unit/tests`)).toEqual(
+      expect.stringMatching(/sources\/tests\/unit\/tests/),
+    )
+  })
+
+  it(`mockProject.path matches project path`, async () => {
+    expect(mockProject.path).toBe(repoPath(`sources/tests/util/project`))
+  })
+
+  it(`has the expected context`, async () => {
+    expect(bud.context.basedir).toBe(mockProject.path)
+  })
+
+  it(`has the expected env`, async () => {
+    expect(bud.context.basedir).toBe(mockProject.path)
+  })
+})

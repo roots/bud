@@ -11,7 +11,7 @@ import type * as Options from '@roots/bud-framework/options'
 export const repoPath = (...path: Array<string>) =>
   join(paths.root, ...(path ?? []))
 
-export const basedir = repoPath(`tests`, `util`, `project`)
+export const basedir = repoPath(`sources`, `tests`, `util`, `project`)
 
 export const factory = async (
   overrides?: Partial<Options.CommandContext>,

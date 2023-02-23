@@ -48,11 +48,9 @@
   "types": "./lib/index.d.ts",
   "exports": {
     ".": "./lib/index.js",
-    "./directories": "./lib/directories.js",
     "./filesystem": "./lib/filesystem.js",
     "./json": "./lib/json.js",
     "./s3": "./lib/s3/index.js",
-    "./s3/*": "./lib/s3/*.js",
     "./yml": "./lib/yml.js"
   },
   "typesVersions": {
@@ -81,20 +79,17 @@
     }
   },
   "devDependencies": {
-    "@skypack/package-check": "0.2.2",
-    "@types/js-yaml": "4.0.5",
-    "@types/mime-types": "2.1.1",
-    "@types/node": "18.11.18",
-    "@types/safe-json-stringify": "1.1.2"
-  },
-  "dependencies": {
     "@aws-sdk/abort-controller": "3.226.0",
     "@aws-sdk/client-s3": "3.241.0",
     "@aws-sdk/lib-storage": "3.252.0",
+    "@skypack/package-check": "0.2.2",
+    "@types/js-yaml": "4.0.5",
     "@types/lodash-es": "4.17.6",
+    "@types/mime-types": "2.1.1",
+    "@types/node": "18.11.18",
+    "@types/safe-json-stringify": "1.1.2",
     "fs-jetpack": "5.1.0",
     "globby": "13.1.3",
-    "helpful-decorators": "2.1.0",
     "js-yaml": "4.1.0",
     "json5": "2.2.3",
     "lodash": "4.17.21",

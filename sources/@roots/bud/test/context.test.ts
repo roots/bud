@@ -11,7 +11,7 @@ describe(`context.get`, () => {
   beforeEach(async () => {
     context = await getContext(
       {
-        basedir: join(paths.root, `tests`, `util`, `project`),
+        basedir: join(paths.root, `sources`, `tests`, `util`, `project`),
       },
       {cache: false, find: true},
     )

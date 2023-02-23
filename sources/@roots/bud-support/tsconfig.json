@@ -47,12 +47,8 @@
     "**/*.test.tsx",
     "./src/ink/index.tsx",
     "./src/logger/index.ts",
+    "./src/fs-extra/index.ts",
     "./src/fs-jetpack/index.ts",
     "./src/highlight/index.ts",
-  ],
-  "references": [
-    {
-      "path": "./../filesystem/tsconfig.json"
-    }
   ]
 }
