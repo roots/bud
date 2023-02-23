@@ -12,12 +12,7 @@ interface Props extends React.ComponentProps {
   emitted?: boolean
 }
 
-const Chunk = ({
-  final,
-  indent,
-  minWidth,
-  ...chunk
-}: Props) => {
+const Chunk = ({final, indent, minWidth, ...chunk}: Props) => {
   return (
     <Ink.Box flexDirection="column">
       {chunk?.assets?.map((asset, index) => (

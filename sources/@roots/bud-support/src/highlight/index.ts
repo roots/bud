@@ -233,12 +233,13 @@ const colorizeNode = (node: any): string => {
           .map((node: any) => colorizeNode(node))
           .join(``)
 
-          // @ts-ignore
-          return isFunction(theme[token]) ? theme[token](nodeData) : nodeData
-
+        // @ts-ignore
+        return isFunction(theme[token]) ? theme[token](nodeData) : nodeData
       }
 
-      return node.childNodes.map((node: any) => colorizeNode(node)).join(``)
+      return node.childNodes
+        .map((node: any) => colorizeNode(node))
+        .join(``)
 
     case `text`:
       return node.data
@@ -266,7 +267,6 @@ const colorize = (code: string): string => {
 
 !hljs.listLanguages().includes(`scss`) &&
   hljs.registerLanguage(`scss`, scss)
-
 
 export const highlight = (code: string): string =>
   colorize(
