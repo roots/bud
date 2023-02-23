@@ -460,7 +460,7 @@ for a lot of edge cases so it might return a false positive.
     try {
       webpack.validate(this.configuration)
 
-      await this.renderer.renderOnce(
+      await this.renderer.once(
         <Ink.Box>
           <Ink.Text color="green">
             {figures.tick} webpack validated configuration
@@ -468,7 +468,7 @@ for a lot of edge cases so it might return a false positive.
         </Ink.Box>,
       )
     } catch (error) {
-      await this.renderer.renderOnce(
+      await this.renderer.once(
         <Ink.Box>
           <Ink.Text color="red">❌ {error?.message ?? error}</Ink.Text>
         </Ink.Box>,

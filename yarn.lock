@@ -7875,6 +7875,7 @@ __metadata:
     "@types/node-notifier": 8.0.2
     "@types/react": 17.0.52
     "@types/signale": 1.4.4
+    "@types/slice-ansi": ^5
     "@types/webpack-manifest-plugin": 3.0.5
     axios: 1.3.2
     chalk: 5.2.0
@@ -7926,6 +7927,7 @@ __metadata:
     remark-html: 15.0.1
     remark-loader: 5.0.0
     signale: 1.4.0
+    slice-ansi: 5.0.0
     strip-ansi: 7.0.1
     style-loader: 3.3.1
     terser-webpack-plugin: 5.3.6
@@ -7935,8 +7937,10 @@ __metadata:
     webpack: 5.75.0
     webpack-dev-middleware: 6.0.1
     webpack-manifest-plugin: 5.0.0
+    wrap-ansi: 8.1.0
     xml-loader: 1.2.1
     yml-loader: 2.1.0
+    yoga-layout-prebuilt: 1.10.0
     zod: 3.20.2
   peerDependencies:
     axios: "*"
@@ -10175,6 +10179,13 @@ __metadata:
   dependencies:
     "@types/node": "*"
   checksum: da244d14b069311afe0d800446e13ccc2f9e37492188cf632dffc5061fa662886a1eee8907f2c6e45643119dc574902fccf09a3d2b3385b858fdcda266ca4161
+  languageName: node
+  linkType: hard
+
+"@types/slice-ansi@npm:^5":
+  version: 5.0.0
+  resolution: "@types/slice-ansi@npm:5.0.0"
+  checksum: 468eb0044d50ba925a677cae301c1a008a03abae36b61e02a3087428f0a1f214177d4255bb1d2632a87a40b9ae98b35d8e8440e9d6e3cd000286e646e0dcf851
   languageName: node
   linkType: hard
 
@@ -32086,6 +32097,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"slice-ansi@npm:5.0.0, slice-ansi@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "slice-ansi@npm:5.0.0"
+  dependencies:
+    ansi-styles: ^6.0.0
+    is-fullwidth-code-point: ^4.0.0
+  checksum: 7e600a2a55e333a21ef5214b987c8358fe28bfb03c2867ff2cbf919d62143d1812ac27b4297a077fdaf27a03da3678e49551c93e35f9498a3d90221908a1180e
+  languageName: node
+  linkType: hard
+
 "slice-ansi@npm:^3.0.0":
   version: 3.0.0
   resolution: "slice-ansi@npm:3.0.0"
@@ -32105,16 +32126,6 @@ __metadata:
     astral-regex: ^2.0.0
     is-fullwidth-code-point: ^3.0.0
   checksum: 4a82d7f085b0e1b070e004941ada3c40d3818563ac44766cca4ceadd2080427d337554f9f99a13aaeb3b4a94d9964d9466c807b3d7b7541d1ec37ee32d308756
-  languageName: node
-  linkType: hard
-
-"slice-ansi@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "slice-ansi@npm:5.0.0"
-  dependencies:
-    ansi-styles: ^6.0.0
-    is-fullwidth-code-point: ^4.0.0
-  checksum: 7e600a2a55e333a21ef5214b987c8358fe28bfb03c2867ff2cbf919d62143d1812ac27b4297a077fdaf27a03da3678e49551c93e35f9498a3d90221908a1180e
   languageName: node
   linkType: hard
 
@@ -36374,6 +36385,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"wrap-ansi@npm:8.1.0":
+  version: 8.1.0
+  resolution: "wrap-ansi@npm:8.1.0"
+  dependencies:
+    ansi-styles: ^6.1.0
+    string-width: ^5.0.1
+    strip-ansi: ^7.0.1
+  checksum: 371733296dc2d616900ce15a0049dca0ef67597d6394c57347ba334393599e800bab03c41d4d45221b6bc967b8c453ec3ae4749eff3894202d16800fdfe0e238
+  languageName: node
+  linkType: hard
+
 "wrap-ansi@npm:^3.0.1":
   version: 3.0.1
   resolution: "wrap-ansi@npm:3.0.1"
@@ -36771,7 +36793,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yoga-layout-prebuilt@npm:^1.9.6":
+"yoga-layout-prebuilt@npm:1.10.0, yoga-layout-prebuilt@npm:^1.9.6":
   version: 1.10.0
   resolution: "yoga-layout-prebuilt@npm:1.10.0"
   dependencies:
