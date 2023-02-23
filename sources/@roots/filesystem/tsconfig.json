@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "rootDir": "./src",
+    "declaration": true,
+    "esModuleInterop": true,
+    "outDir": "lib",
+    "target": "es2021",
+  },
+  "include": [
+    "src/**/*"
+  ],
+}
