@@ -2,6 +2,7 @@ import {relative} from 'node:path/posix'
 
 import type {Context} from '@roots/bud-framework/options/context'
 import figures from '@roots/bud-support/figures'
+import {duration} from '@roots/bud-support/human-readable'
 import Ink from '@roots/bud-support/ink'
 import React from '@roots/bud-support/react'
 import type {
@@ -14,14 +15,9 @@ import Chunk from '../chunk/chunk.component.js'
 import ChunkGroup from '../chunk/chunkgroup.component.js'
 import Space from '../display/space.component.js'
 import Title from '../display/title.component.js'
-import {
-  color,
-  colorFromStats,
-  duration,
-  longestAssetNameLength,
-  VERT,
-} from '../format.js'
 import Messages from '../messages/messages.component.js'
+import {colorFromStats} from '../utility/colorFromStats.js'
+import {longestAssetNameLength} from '../utility/longestAssetNameLength.js'
 
 interface Props {
   displayAssets: boolean
@@ -88,7 +84,7 @@ const Compilation = ({
         <Ink.Text> {``}</Ink.Text>
 
         {compilation.outputPath ? (
-          <Ink.Text color={color.blue}>
+          <Ink.Text color="blue">
             ./{relative(context.basedir, compilation.outputPath)}
           </Ink.Text>
         ) : null}
@@ -100,18 +96,18 @@ const Compilation = ({
 
       {!compilation.isChild ? (
         <>
-          <Ink.Text dimColor>{VERT}</Ink.Text>
+          <Ink.Text dimColor>{figures.lineVertical}</Ink.Text>
 
           <Messages
             type="error"
-            color={color.red}
+            color="red"
             messages={compilation.errors}
             figure={figures.cross}
           />
 
           <Messages
             type="warning"
-            color={color.yellow}
+            color="yellow"
             messages={compilation.warnings}
             figure={figures.warning}
           />
@@ -136,7 +132,7 @@ const Compilation = ({
                           <Space>
                             <Ink.Text dimColor>
                               {` `}
-                              {VERT}
+                              {figures.lineVertical}
                               {` `}
                             </Ink.Text>
                           </Space>

@@ -77,8 +77,7 @@
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "human-readable": "0.2.1"
+    "@roots/bud-support": "workspace:sources/@roots/bud-support"
   },
   "volta": {
     "extends": "../../../package.json"

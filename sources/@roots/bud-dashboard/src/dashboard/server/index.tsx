@@ -4,7 +4,6 @@ import Link from '@roots/bud-support/ink-link'
 import {externalNetworkInterface} from '@roots/bud-support/os'
 import React from '@roots/bud-support/react'
 
-import {color} from '../format.js'
 import useWatchedFilesCount from './useWatchedFilesCount.js'
 
 interface Props {
@@ -45,7 +44,7 @@ export const Server = ({
   return (
     <Ink.Box flexDirection="column">
       <Ink.Box flexDirection="row">
-        <Ink.Text color={color.blue} dimColor={!displayServerInfo}>
+        <Ink.Text color="blue" dimColor={!displayServerInfo}>
           {figures.info} <Ink.Text underline>s</Ink.Text>erver
         </Ink.Text>
       </Ink.Box>

@@ -1,9 +1,9 @@
+import {size as formatSize} from '@roots/bud-support/human-readable'
 import Ink from '@roots/bud-support/ink'
 import React from '@roots/bud-support/react'
 import type {StatsAsset} from '@roots/bud-support/webpack'
 
 import Title from '../display/title.component.js'
-import {color, size as formatSize} from '../format.js'
 
 const Asset = ({
   minWidth,
@@ -27,12 +27,12 @@ const Asset = ({
   return (
     <Title indent={indent} final={final}>
       <Ink.Box minWidth={minWidth} marginRight={1}>
-        <Ink.Text color={color.dim}>{name}</Ink.Text>
+        <Ink.Text dimColor>{name}</Ink.Text>
       </Ink.Box>
 
       {size && size > 0 ? (
         <Ink.Box minWidth={10} justifyContent="flex-end">
-          <Ink.Text color={color.dim} dimColor>
+          <Ink.Text dimColor>
             {(formatSize(size) as string).trim()}
           </Ink.Text>
         </Ink.Box>

@@ -2,7 +2,7 @@ import Ink from '@roots/bud-support/ink'
 import React from '@roots/bud-support/react'
 import type {StatsAsset} from '@roots/bud-support/webpack'
 
-import {longestAssetNameLength} from '../format.js'
+import {longestAssetNameLength} from '../utility/longestAssetNameLength.js'
 import Asset from './asset.component.js'
 
 const Chunk = ({

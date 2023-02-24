@@ -1,4 +1,3 @@
-import chalk from '@roots/bud-support/chalk'
 import figures from '@roots/bud-support/figures'
 import Ink from '@roots/bud-support/ink'
 import React from '@roots/bud-support/react'
@@ -30,9 +29,9 @@ const Messages = ({
           </Ink.Box>
 
           <Ink.Box flexDirection="column">
-            <Ink.Text>{chalk.dim(figures.lineVertical)}</Ink.Text>
+            <Ink.Text dimColor>{figures.lineVertical}</Ink.Text>
             <Ink.Text>{message.trim()}</Ink.Text>
-            <Ink.Text dimColor>{chalk.dim(figures.lineVertical)}</Ink.Text>
+            <Ink.Text dimColor>{figures.lineVertical}</Ink.Text>
           </Ink.Box>
         </Ink.Box>
       ))}

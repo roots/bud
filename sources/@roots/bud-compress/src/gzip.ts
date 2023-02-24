@@ -39,7 +39,6 @@ export default class BudGzip extends Extension<Options, Plugin> {
   /**
    * @deprecated Use `bud.compress.gzip.setOptions()` instead.
    */
-  @bind
   @deprecated(
     `bud.compress.gzip.config`,
     `Use bud.compress.gzip.set instead`,

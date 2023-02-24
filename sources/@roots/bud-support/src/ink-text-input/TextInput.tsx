@@ -1,6 +1,6 @@
-import chalk from '@roots/bud-support/chalk'
 import Ink from '@roots/bud-support/ink'
 import React, {useEffect, useState} from '@roots/bud-support/react'
+import chalk from 'chalk'
 
 interface Props {
   /**

@@ -1,7 +1,6 @@
+import figures from '@roots/bud-support/figures'
 import Ink from '@roots/bud-support/ink'
 import React from '@roots/bud-support/react'
-
-import {VERT} from '../format.js'
 
 interface Props
   extends React.PropsWithChildren<{
@@ -14,7 +13,7 @@ const Title = ({children, final = false, indent = []}: Props) => {
   return (
     <Ink.Box flexDirection="row">
       <Ink.Text dimColor>
-        {indent.map(indent => (indent ? `${VERT} ` : `  `))}
+        {indent.map(indent => (indent ? `${figures.lineVertical} ` : `  `))}
         {final ? `└─ ` : `├─ `}
       </Ink.Text>
       {children}

@@ -38,7 +38,6 @@ export default class BudBrotli extends Extension<Options, Plugin> {
   /**
    * @deprecated Use `bud.compress.brotli.setOptions()` instead.
    */
-  @bind
   @deprecated(
     `bud.compress.brotli.config`,
     `Use bud.compress.brotli.set instead`,

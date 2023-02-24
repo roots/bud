@@ -2,7 +2,6 @@ import Ink from '@roots/bud-support/ink'
 import React from '@roots/bud-support/react'
 
 import Title from '../display/title.component.js'
-import {color} from '../format.js'
 import Asset from './asset.component.js'
 
 const ChunkGroup = ({
@@ -24,7 +23,7 @@ const ChunkGroup = ({
     <Ink.Box flexDirection="column">
       <Ink.Box flexDirection="row">
         <Title indent={indent} final={final}>
-          <Ink.Text color={color.foregroundColor}>
+          <Ink.Text>
             {chunk.name ?? ``}
           </Ink.Text>
         </Title>

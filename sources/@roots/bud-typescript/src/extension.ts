@@ -38,7 +38,6 @@ export default class BudTypeScript extends Extension {
    * bud.typescript.set('babel', false)
    * ```
    */
-  @bind
   @deprecated(`bud.typescript`, `Use bud.typescript.set instead`, [
     [`Enable babel`, `bud.typescript.set('babel', true)`],
     [`Disable babel`, `bud.typescript.set('babel', false)`],
@@ -51,7 +50,6 @@ export default class BudTypeScript extends Extension {
   /**
    * `register` callback
    */
-  @bind
   public override async register(bud: Bud) {
     bud.hooks.on(`build.resolve.extensions`, (extensions = new Set([])) =>
       extensions.add(`.ts`).add(`.jsx`).add(`.tsx`),

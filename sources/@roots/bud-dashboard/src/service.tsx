@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 import {Service} from '@roots/bud-framework/service'
 import type {Service as Contract} from '@roots/bud-framework/services/dashboard'
-import chalk from '@roots/bud-support/chalk'
 import {bind} from '@roots/bud-support/decorators'
 import figures from '@roots/bud-support/figures'
 import Ink from '@roots/bud-support/ink'
@@ -194,7 +193,7 @@ export class Dashboard extends Service implements Contract {
                 ln.replaceAll(new RegExp(this.app.path(), `g`), `.`),
               )
               /* Add left padding and vert line */
-              .map(ln => `${chalk.dim(figures.lineVertical)} ${ln}`)
+              .map(ln => `${figures.lineVertical} ${ln}`)
 
               /* Discard empty lines */
               .filter(

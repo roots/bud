@@ -7192,7 +7192,6 @@ __metadata:
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.11.18
-    human-readable: 0.2.1
     ink-testing-library: 2.1.0
   languageName: unknown
   linkType: soft
@@ -7337,7 +7336,6 @@ __metadata:
     "@roots/container": "workspace:sources/@roots/container"
     "@roots/filesystem": "workspace:sources/@roots/filesystem"
     "@skypack/package-check": 0.2.2
-    "@types/js-yaml": 4.0.5
     "@types/node": 18.11.18
     execa: 7.0.0
     tslib: 2.4.1
@@ -14644,17 +14642,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"caniuse-lite@npm:^1.0.0, caniuse-lite@npm:^1.0.30001400, caniuse-lite@npm:^1.0.30001407, caniuse-lite@npm:^1.0.30001426":
-  version: 1.0.30001442
-  resolution: "caniuse-lite@npm:1.0.30001442"
-  checksum: c1bff65bd4f53da2d288e7f55be40706ee0119b983eae5a9dcc884046990476891630aef72d708f7989f8f1964200c44e4c37ea40deecaa2fb4a480df23e6317
-  languageName: node
-  linkType: hard
-
-"caniuse-lite@npm:^1.0.30001449":
-  version: 1.0.30001452
-  resolution: "caniuse-lite@npm:1.0.30001452"
-  checksum: de02aad7b71112409f30de53e8080bef0fe612ed95bba8b14fb830f59683e8caabc27bdd520563686965be77f2cb56e239e44b920144630b91d7fe9911ba8ad5
+"caniuse-lite@npm:^1.0.0, caniuse-lite@npm:^1.0.30001400, caniuse-lite@npm:^1.0.30001407, caniuse-lite@npm:^1.0.30001426, caniuse-lite@npm:^1.0.30001449":
+  version: 1.0.30001457
+  resolution: "caniuse-lite@npm:1.0.30001457"
+  checksum: f311a7c5098681962402a86a0a367014ee91c3135395ee68bbfaf45caf0e36d581e42d7c5b1526ce99484a228e6cf5cf0e400678292c65f5a21512a3fc7a5fb6
   languageName: node
   linkType: hard
 

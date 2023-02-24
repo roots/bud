@@ -49,7 +49,6 @@ export default class Vue extends Extension<
    * bud.vue.set('runtimeOnly', false)
    * ```
    */
-  @bind
   @deprecated(`bud.vue`, `Use bud.vue.set instead`, [
     [`Enable runtimeOnly`, `bud.vue.set('runtimeOnly', true)`],
     [`Disable runtimeOnly`, `bud.vue.set('runtimeOnly', false)`],
@@ -60,7 +59,7 @@ export default class Vue extends Extension<
   }
 
   /**
-   * `register` callback
+   * {@link Extension.register}
    */
   @bind
   public override async register(bud: Bud) {
@@ -80,7 +79,7 @@ export default class Vue extends Extension<
   }
 
   /**
-   * `boot` callback
+   * {@link Extension.boot}
    */
   @bind
   public override async boot(bud: Bud) {
@@ -102,7 +101,7 @@ export default class Vue extends Extension<
   }
 
   /**
-   * `make` callback
+   * {@link Extension.make}
    */
   @bind
   public override async make(): Promise<WebpackPluginInstance> {

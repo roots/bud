@@ -128,7 +128,6 @@ export class BudTerser extends Extension<Options> {
   /**
    * @deprecated Use {@link BudTerser.dropComments} instead
    */
-  @bind
   @deprecated(`bud.terser`, `Use bud.terser.dropComments instead`, [
     [`Drop comments`, `bud.terser.dropComments()`],
     [`Preserve comments`, `bud.terser.dropComments(false)`],
@@ -145,7 +144,6 @@ export class BudTerser extends Extension<Options> {
   /**
    * @deprecated Use {@link BudTerser.dropDebugger} instead
    */
-  @bind
   @deprecated(`bud.terser`, `Use bud.terser.dropDebugger instead`, [
     [`Drop debugger statements`, `bud.terser.dropDebugger()`],
     [`Preserve debugger statements`, `bud.terser.dropDebugger(false)`],
@@ -167,7 +165,6 @@ export class BudTerser extends Extension<Options> {
    * bud.terser.set(`terserOptions.minify`, () => {})
    * ```
    */
-  @bind
   @deprecated(`bud.terser`, `Use bud.terser.set instead`, [
     [
       `Set the minifier`,
