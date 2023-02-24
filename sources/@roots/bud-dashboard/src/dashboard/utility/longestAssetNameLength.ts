@@ -1,4 +1,3 @@
-
 import type {StatsAsset, StatsChunkGroup} from '@roots/bud-support/webpack'
 
 export const longestAssetNameLength = (chunks: StatsChunkGroup) =>

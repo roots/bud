@@ -17,8 +17,7 @@ import {Plugin} from '@roots/bud-support/webpack-manifest-plugin'
 @options({
   fileName: `manifest.json`,
   writeToFileEmit: true,
-  publicPath: ({hooks}: Bud) =>
-    (hooks.filter(`build.output.publicPath`) ?? ``).replace(`auto`, ``),
+  publicPath: (app: Bud) => app.publicPath().replace(`auto`, ``),
 })
 export default class BudManifestExtension extends Extension<
   Options,

@@ -30,6 +30,7 @@ export default class CriticalCssWebpackPlugin {
    * @public
    */
   public options: Options = {
+    base: `/`,
     extract: true,
     width: 1300,
     height: 900,

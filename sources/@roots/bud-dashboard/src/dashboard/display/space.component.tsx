@@ -2,7 +2,6 @@ import figures from '@roots/bud-support/figures'
 import Ink from '@roots/bud-support/ink'
 import React from '@roots/bud-support/react'
 
-
 const Space = ({
   children,
   final = false,
@@ -13,7 +12,9 @@ const Space = ({
     <Ink.Box flexDirection="column">
       {arrayedChildren.map((Child, index) => (
         <Ink.Box key={index} flexDirection="row">
-          <Ink.Text dimColor>{!final ? figures.lineVertical : `  `}</Ink.Text>
+          <Ink.Text dimColor>
+            {!final ? figures.lineVertical : `  `}
+          </Ink.Text>
           {Child}
         </Ink.Box>
       ))}

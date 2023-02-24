@@ -15,7 +15,7 @@ export const extractCss = function (
 
   bud.hooks.action(`compiler.close`, async () => {
     options = {
-      ...(bud.extensions.get(`@roots/bud-criticalcss`).getOptions() ?? {}),
+      ...(bud.critical.options ?? {}),
       ...(options ?? {}),
     }
 

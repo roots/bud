@@ -13,7 +13,9 @@ const Title = ({children, final = false, indent = []}: Props) => {
   return (
     <Ink.Box flexDirection="row">
       <Ink.Text dimColor>
-        {indent.map(indent => (indent ? `${figures.lineVertical} ` : `  `))}
+        {indent.map(indent =>
+          indent ? `${figures.lineVertical} ` : `  `,
+        )}
         {final ? `└─ ` : `├─ `}
       </Ink.Text>
       {children}
