@@ -57,4 +57,7 @@ describe(`bud.path`, () => {
   it(`resolves @ext`, async () => {
     expect(path(`@ext`)).toEqual(`[ext]`)
   })
+
+  it(`resolves @dist/@name`, () =>
+    expect(path(`@dist/@name`)).toMatch(/dist\/\[name\]/))
 })
