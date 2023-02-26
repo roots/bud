@@ -51,9 +51,13 @@ describe(`bud.path`, () => {
   })
   it(`resolves @hash to empty string when disabled`, async () => {
     bud.hooks.on(`feature.hash`, false)
-    expect(path(`@hash`)).toEqual(``)
+    expect(path(`@hash`)).toEqual(`[contenthash:6]`)
   })
+
   it(`resolves @ext`, async () => {
     expect(path(`@ext`)).toEqual(`[ext]`)
   })
+
+  it(`resolves @dist/@name`, () =>
+    expect(path(`@dist/@name`)).toMatch(/dist\/\[name\]/))
 })
