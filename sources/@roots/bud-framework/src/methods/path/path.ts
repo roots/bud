@@ -75,16 +75,21 @@ export const path: path = function (base, ...segments) {
         `@name`,
         app.hooks.filter(`feature.hash`) ? `${name}.@hash` : name,
       )
-      .replace(`@hash`, app.hooks.filter(`feature.hash`) ? hash : ``)
+      .replace(`@hash`, hash)
       .replace(`@path`, `[path]`)
       .replace(`@ext`, `[ext]`)
 
-  if (
-    [`@file`, `@base`, `@name`, `@path`, `@ext`, `@hash`].some(
-      magicString => base?.includes(magicString),
-    )
+  const isMagic = [
+    `@file`,
+    `@base`,
+    `@name`,
+    `@path`,
+    `@ext`,
+    `@hash`,
+  ].some(
+    magicString =>
+      base?.includes(magicString) || segments?.includes(magicString),
   )
-    return transformMagicString(base)
 
   base = transformMagicString(base)
 
@@ -92,6 +97,9 @@ export const path: path = function (base, ...segments) {
 
   /* Parse `@` aliases. Should return an absolute path */
   if (base.startsWith(`@`)) base = parseAlias(app, base)
+
+  /* If magic string return it */
+  if (isMagic) return join(base, ...segments)
 
   /* Resolve any base path that isn't already absolute */
   if (!base.startsWith(sep)) base = resolve(app.context.basedir, base)
