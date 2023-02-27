@@ -82,7 +82,7 @@ export const fromStringFactory =
     from: isAbsolute(from) ? from : app.path(`@src`, from),
     to: isAbsolute(from)
       ? relative(app.path(`@src`), from)
-      : app.path(`@dist`, from, `@file`),
+      : app.path(from, `@file`),
     context: app.path(`@src`),
     filter: filterDotFiles,
     noErrorOnMissing: true,

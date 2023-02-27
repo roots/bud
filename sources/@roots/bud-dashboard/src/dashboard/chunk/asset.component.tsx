@@ -30,13 +30,9 @@ const Asset = ({
         <Ink.Text color={color.dim}>{name}</Ink.Text>
       </Ink.Box>
 
-      {size && size > 0 ? (
-        <Ink.Box minWidth={10} justifyContent="flex-end">
-          <Ink.Text color={color.dim} dimColor>
-            {(formatSize(size) as string).trim()}
-          </Ink.Text>
-        </Ink.Box>
-      ) : null}
+      <Ink.Box minWidth={10} justifyContent="flex-end">
+        <Ink.Text dimColor>{(formatSize(size) as string).trim()}</Ink.Text>
+      </Ink.Box>
     </Title>
   )
 }
