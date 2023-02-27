@@ -34,9 +34,7 @@ describe(`bud.assets`, () => {
       expect.arrayContaining([
         expect.objectContaining({
           from: expect.stringContaining(`images`),
-          to: expect.stringMatching(
-            /dist\/images\/\[path\]\[name\]\[ext\]$/,
-          ),
+          to: expect.stringMatching(/images\/\[path\]\[name\]\[ext\]$/),
           context: expect.stringContaining(`src`),
           toType: `template`,
           noErrorOnMissing: true,

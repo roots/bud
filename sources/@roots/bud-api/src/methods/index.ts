@@ -6,6 +6,8 @@ export {
   config as webpackConfig,
   config as override,
 } from './config/index.js'
+export {copyDir} from './copyDir/index.js'
+export {copyFile} from './copyFile/index.js'
 export {define} from './define/index.js'
 export {devtool} from './devtool/index.js'
 export {entry} from './entry/index.js'

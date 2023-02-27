@@ -35,7 +35,9 @@ interface AssetGroup extends StatsChunkGroup {
 }
 
 const onlyNotHot = ({name}: StatsAsset) => !name?.includes(`hot-update`)
-const onlyStatic = ({info}: StatsAsset) => info?.copied
+const onlyStatic = ({name}: StatsAsset) =>
+  ![`.css`, `.js`].some(ext => name?.includes(ext))
+
 const makeAssetGroupCallback =
   (assets?: {name: string}[]) =>
   (asset: Partial<StatsAsset>): Partial<StatsAsset> => {
