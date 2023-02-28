@@ -9,7 +9,7 @@
 <h1 align="center"><strong>@roots/bud-solid</strong></h1>
 
 <p align="center">
-  solid-js support for @roots/bud projects.
+  solid-js support for @roots/bud projects
 </p>
 
 ---
@@ -71,4 +71,7 @@ However, the amount of effort needed to maintain and develop new features and pr
 </a>
 <a href="https://worksitesafety.ca/careers/">
 <img src="https://cdn.roots.io/app/uploads/worksite-safety.svg" alt="Worksite Safety" width="200" height="150"/>
+</a>
+<a href="https://www.copiadigital.com/">
+<img src="https://cdn.roots.io/app/uploads/copia-digital.svg" alt="Copia Digital" width="200" height="150"/>
 </a>
