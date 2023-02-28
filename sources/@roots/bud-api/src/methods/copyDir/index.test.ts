@@ -26,23 +26,23 @@ describe(`bud.copyDir`, () => {
   })
 
   it(`should add job when passed a string`, async () => {
-    await copyDir(bud.path(`@src/images`))
+    await copyDir(`images`)
     expect(
       bud.extensions.get(`@roots/bud-extensions/copy-webpack-plugin`)
         .options.patterns,
     ).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          from: `**/*`,
-          to: bud.path(`@file`),
-          context: bud.path(`@src/images`),
+          from: `images`,
+          to: `images/[path][name][ext]`,
+          context: bud.path(`@src`),
         }),
       ]),
     )
   })
 
   it(`should add jobs when passed a tuple`, async () => {
-    await copyDir([bud.path(`@src/images`), `images`])
+    await copyDir([`images`, `foo/images`])
 
     const [patterna] = bud.extensions.get(
       `@roots/bud-extensions/copy-webpack-plugin`,
@@ -50,9 +50,9 @@ describe(`bud.copyDir`, () => {
 
     expect(patterna).toEqual(
       expect.objectContaining({
-        from: `**/*`,
-        to: `images/[name][ext]`,
-        context: bud.path(`@src/images`),
+        from: `images`,
+        to: `foo/images/[path][name][ext]`,
+        context: bud.path(`@src`),
       }),
     )
   })

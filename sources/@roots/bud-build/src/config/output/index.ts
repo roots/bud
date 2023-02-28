@@ -8,13 +8,14 @@ export const output: Factory<`output`> = async ({
   hooks: {filter},
   isProduction,
   path,
+  relPath,
 }) =>
   filter(`build.output`, {
-    assetModuleFilename: assetModuleFilename({filter, path}),
+    assetModuleFilename: assetModuleFilename({filter, relPath}),
     chunkFilename: chunkFilename({filter, path}),
     clean: filter(`build.output.clean`, isProduction),
     environment: filter(`build.output.environment`, undefined),
-    filename: filename({filter, path}),
+    filename: filename({filter, relPath}),
     module: filter(`build.output.module`, false),
     path: filter(`build.output.path`, path(`@dist`)),
     pathinfo: filter(`build.output.pathinfo`),

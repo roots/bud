@@ -34,9 +34,8 @@ describe(`bud.assets`, () => {
       expect.arrayContaining([
         expect.objectContaining({
           from: expect.stringContaining(`images`),
-          to: expect.stringMatching(/images\/\[path\]\[name\]\[ext\]$/),
+          to: expect.stringMatching(/\[path\]\[name\]\[ext\]$/),
           context: expect.stringContaining(`src`),
-          toType: `template`,
           noErrorOnMissing: true,
         }),
       ]),
@@ -58,24 +57,18 @@ describe(`bud.assets`, () => {
 
     expect(patterna).toEqual(
       expect.objectContaining({
-        from: expect.stringMatching(/tests\/util\/project\/src\/images$/),
-        to: expect.stringMatching(/tests\/util\/project\/dist\/images$/),
+        from: `images`,
+        to: `images/[path][name][ext]`,
         context: expect.stringMatching(/src$/),
-        toType: `template`,
         noErrorOnMissing: true,
       }),
     )
 
     expect(patternb).toEqual(
       expect.objectContaining({
-        from: expect.stringMatching(
-          /tests\/util\/project\/src\/fonts\/font.woff$/,
-        ),
-        to: expect.stringMatching(
-          /tests\/util\/project\/dist\/fonts\/font.woff$/,
-        ),
+        from: `fonts/font.woff`,
+        to: `fonts/font.woff`,
         context: expect.stringContaining(`src`),
-        toType: `template`,
         noErrorOnMissing: true,
       }),
     )

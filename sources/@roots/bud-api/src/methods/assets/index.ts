@@ -1,17 +1,15 @@
-import {isAbsolute, relative, sep} from 'node:path'
+import {isAbsolute, join, parse, relative} from 'node:path'
 
 import type {Bud} from '@roots/bud-framework'
 import type {Plugin as CopyPlugin} from '@roots/bud-support/copy-webpack-plugin'
 
-type FromToTuple = [CopyPlugin.StringPattern, CopyPlugin.StringPattern]
+type FromToTuple = [string, string]
 
 export type Parameters = [
   (
-    | CopyPlugin.StringPattern
+    | string
     | CopyPlugin.ObjectPattern
-    | Array<CopyPlugin.StringPattern>
-    | Array<FromToTuple>
-    | Array<CopyPlugin.ObjectPattern>
+    | Array<string | FromToTuple | CopyPlugin.ObjectPattern>
   ),
   Partial<CopyPlugin.ObjectPattern>?,
 ]
@@ -25,31 +23,20 @@ export const assets: assets = async function assets(
   request,
   overrides = {},
 ) {
-  /**
-   * tsc will complain about `this` context being lost
-   * when destructuring bud even though the context of
-   * this function will be bound.
-   */
   const app = this as Bud
 
   const makePatternObjectFromString = fromStringFactory(app, overrides)
   const makePatternObjectFromTuple = fromTupleFactory(app, overrides)
-
   const arrayedRequest = !Array.isArray(request) ? [request] : request
 
   const valueMapper = (
-    item:
-      | CopyPlugin.StringPattern
-      | FromToTuple
-      | CopyPlugin.ObjectPattern,
+    item: string | FromToTuple | CopyPlugin.ObjectPattern,
   ) => {
     if (typeof item === `string`) {
-      const copyPluginStringPattern = item
-      return makePatternObjectFromString(copyPluginStringPattern)
+      return makePatternObjectFromString(item)
     }
     if (Array.isArray(item)) {
-      const tuple: FromToTuple = item
-      return makePatternObjectFromTuple(tuple)
+      return makePatternObjectFromTuple(...item)
     }
     return {...item, ...overrides}
   }
@@ -78,17 +65,21 @@ export const assets: assets = async function assets(
  */
 export const fromStringFactory =
   (app: Bud, overrides: Partial<CopyPlugin.ObjectPattern>) =>
-  (from: string): CopyPlugin.ObjectPattern => ({
-    from: isAbsolute(from) ? from : app.path(`@src`, from),
-    to: isAbsolute(from)
+  (from: string): CopyPlugin.ObjectPattern => {
+    from = isAbsolute(from)
       ? relative(app.path(`@src`), from)
-      : app.path(from, `@file`),
-    context: app.path(`@src`),
-    filter: filterDotFiles,
-    noErrorOnMissing: true,
-    toType: `template`,
-    ...overrides,
-  })
+      : app.relPath(from)
+    from = parse(from).ext?.length > 0 ? from : join(from, `**`, `*`)
+
+    return {
+      from,
+      to: app.relPath(`@file`),
+      context: app.path(`@src`),
+      noErrorOnMissing: true,
+      globOptions: {dot: false},
+      ...overrides,
+    }
+  }
 
 /**
  * Take an input [from,to] tuple and return a {@link CopyPlugin.ObjectPattern}
@@ -97,15 +88,23 @@ export const fromStringFactory =
  */
 export const fromTupleFactory =
   (app: Bud, overrides: Partial<CopyPlugin.ObjectPattern>) =>
-  ([from, to]: [string, string]): CopyPlugin.ObjectPattern => ({
-    from: isAbsolute(from) ? from : app.path(`@src`, from),
-    to: isAbsolute(to) ? to : app.path(`@dist`, to, `@file`),
-    filter: filterDotFiles,
-    context: app.path(`@src`),
-    noErrorOnMissing: true,
-    toType: `template`,
-    ...overrides,
-  })
+  (from: string, to: string): CopyPlugin.ObjectPattern => {
+    from = isAbsolute(from)
+      ? relative(app.path(`@src`), from)
+      : app.relPath(from)
 
-const filterDotFiles = (resourcePath: string) =>
-  !resourcePath.split(sep).pop()?.startsWith(`.`)
+    to = isAbsolute(to) ? relative(app.path(`@dist`), to) : app.relPath(to)
+    to =
+      parse(from).ext?.length > 0 || to.includes(`[`)
+        ? to
+        : app.relPath(to, `@file`)
+
+    return {
+      from,
+      to,
+      context: app.path(`@src`),
+      noErrorOnMissing: true,
+      globOptions: {dot: false},
+      ...overrides,
+    }
+  }
