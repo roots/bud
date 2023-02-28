@@ -2,39 +2,35 @@
 title: Usage
 ---
 
+All paths are relative to `@src`. This can be changed with [the `context` parameter](#changing-context).
+
+## Copying a file
+
 Copy `@src/images/image.jpeg` to `@dist/images/image.jpeg`:
 
 ```typescript title=bud.config.js
 bud.copyFile(`images/image.jpeg`)
 ```
 
-Copy `./images/image.jpeg` to `@dist/new-directory/image.jpeg`.
+## Modifying the output path
+
+Copy `@src/images/image.jpeg` to `@dist/example/image.jpeg`.
 
 ```typescript title=bud.config.js
-bud.copyFile([
- `images/image.jpeg`,
- `new-directory/image.jpeg`,
-])
+bud.copyFile([`images/image.jpeg`, `example/image.jpeg`])
 ```
 
 ## Hashing copied files
 
-You can use a few helpful strings to apply a hash to your copied files (when hashing is enabled):
-
 The standard way would be to replace the filename with `@file`:
 
 ```typescript title=bud.config.js
-bud.copyFile([
- `images/image.jpeg`,
- `images/@file`,
-])
+bud.copyFile([`images/image.jpeg`, `images/@file`])
 ```
 
 ## Changing context
 
-Without specifying anything all paths are relative to `@src`.
-
-You can pass a second parameter to change the context.
+You can pass a second parameter to specify base directory of the task (the `context`):
 
 Copy `vendor/images/image.jpeg` to `@dist/images/image.jpeg`:
 
@@ -42,16 +38,16 @@ Copy `vendor/images/image.jpeg` to `@dist/images/image.jpeg`:
 bud.copyFile(`images/image.jpeg`, `vendor`)
 ```
 
-Example when renaming paths:
+Copy `vendor/images/image.jpeg` to `@dist/example/image.jpeg`
 
 ```typescript title=bud.config.js
 bud.copyFile(
-  [`images/image.jpeg`, `new-directory/image.jpeg`],
+  [`images/image.jpeg`, `example/image.jpeg`],
   `vendor`,
 )
 ```
 
-Copying from `node_modules`:
+Copying from `node_modules/@roots/bud/README.md` to `@dist/README.md`:
 
 ```typescript title=bud.config.js
 bud.copyFile(

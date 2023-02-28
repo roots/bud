@@ -8,7 +8,7 @@ All paths are `@src` relative.
 
 Copy the entire `@src/images` directory:
 
-```js title='bud.config.js'
+```js title=bud.config.js
 bud.assets('images')
 ```
 
@@ -16,7 +16,7 @@ bud.assets('images')
 
 Copy a single file:
 
-```js title='bud.config.js'
+```js title=bud.config.js
 bud.assets('images/image.png')
 ```
 
@@ -30,7 +30,7 @@ bud.assets([`images`, `fonts`])
 
 Or, call **bud.assets** more than once:
 
-```ts title='bud.config.js'
+```ts title=bud.config.js
 bud
   .assets(`images`)
   .assets(`fonts`)
@@ -42,7 +42,7 @@ For more granular control, you may specify [`CopyPlugin.ObjectPattern`](https://
 
 As an example, to copy all the images from `vendor/images` and preserve the directory structure:
 
-```js title='bud.config.js'
+```js title=bud.config.js
 bud.assets({
   from: `vendor/images/**/*`,
   context: bud.path(),

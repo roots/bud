@@ -108,11 +108,6 @@ export class Logger {
     return this
   }
   @bind
-  public fatal(...messages: Array<unknown>) {
-    this.instance.error(...this.format(...messages))
-    return this
-  }
-  @bind
   public debug(...messages: Array<unknown>) {
     if (!argv.has(`verbose`)) return this
     this.instance.debug(...this.format(...messages))

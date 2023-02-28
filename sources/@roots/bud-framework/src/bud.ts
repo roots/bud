@@ -215,12 +215,13 @@ export class Bud {
     request: Partial<Options.Context> | string,
     tap?: (app: Bud) => Promise<unknown>,
   ) {
-    if (!this.isRoot)
-      return this.fatal(
-        new Error(
-          `Child instances should be produced from the root context`,
-        ),
+    if (!this.isRoot) {
+      const error =  new Error(
+        `Child instances should be produced from the root context`,
       )
+      error.name = `ChildContextError`
+      throw error
+    }
 
     const context: Options.Context = isString(request)
       ? {...this.context, label: request, root: this}
@@ -304,6 +305,9 @@ export class Bud {
     ].reduce(async (promised, event: keyof Registry.EventsStore) => {
       await promised
       await this.hooks.fire(event, this)
+      if (this.api?.processQueue) {
+        await this.api.processQueue()
+      }
     }, Promise.resolve())
 
     return this
@@ -342,7 +346,6 @@ export class Bud {
   @bind
   public warn(...messages: any[]) {
     this.context.logger.warn(...messages)
-
     return this
   }
 
@@ -352,15 +355,6 @@ export class Bud {
   @bind
   public error(...messages: Array<any>): Bud {
     this.context.logger.error(...messages)
-    return this
-  }
-
-  /**
-   * Log an error and mean it
-   */
-  @bind
-  public fatal(error: Error) {
-    this.context.logger.fatal(error)
     return this
   }
 }

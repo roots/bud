@@ -19,7 +19,6 @@ import {
   colorFromStats,
   duration,
   longestAssetNameLength,
-  VERT,
 } from '../format.js'
 import Messages from '../messages/messages.component.js'
 
@@ -79,15 +78,18 @@ const Compilation = ({
   return (
     <Ink.Box flexDirection="column">
       <Ink.Box flexDirection="row">
+        <Ink.Text dimColor>
+          {figures.lineDownRightArc}
+          {figures.line}
+        </Ink.Text>
         <Ink.Text color={colorFromStats(compilation)}>
           {compilation.errorsCount > 0
-            ? figures.cross
-            : figures.circleFilled}
+            ? ` ${figures.cross}`
+            : ``}
         </Ink.Text>
-
-        <Ink.Text>{`  `}</Ink.Text>
+        <Ink.Text>{` `}</Ink.Text>
         <Ink.Text>{compilation.name}</Ink.Text>
-        <Ink.Text> {``}</Ink.Text>
+        <Ink.Text>{` `}</Ink.Text>
 
         {compilation.outputPath ? (
           <Ink.Text color={color.blue}>
@@ -102,7 +104,7 @@ const Compilation = ({
 
       {!compilation.isChild ? (
         <>
-          <Ink.Text dimColor>{VERT}</Ink.Text>
+          <Ink.Text dimColor>{figures.lineVertical}</Ink.Text>
 
           <Messages
             type="error"
@@ -126,7 +128,7 @@ const Compilation = ({
                     color={colorFromStats(compilation)}
                     dimColor={displayEntrypoints === false}
                   >
-                    <Ink.Text underline>e</Ink.Text>ntrypoints
+                    entrypoints
                   </Ink.Text>
                 </Title>
 
@@ -135,14 +137,6 @@ const Compilation = ({
                       .filter(({assets}) => assets.length > 0)
                       .map((chunk: StatsChunkGroup, id: number) => (
                         <Ink.Box key={id} flexDirection="column">
-                          <Space>
-                            <Ink.Text dimColor>
-                              {` `}
-                              {VERT}
-                              {` `}
-                            </Ink.Text>
-                          </Space>
-
                           <ChunkGroup
                             indent={[true]}
                             {...chunk}
@@ -168,7 +162,7 @@ const Compilation = ({
                     color={colorFromStats(compilation)}
                     dimColor={displayAssets === false}
                   >
-                    <Ink.Text underline>a</Ink.Text>ssets
+                    assets
                   </Ink.Text>
                 </Title>
 
@@ -200,10 +194,7 @@ const Compilation = ({
         </>
       ) : null}
 
-      <Space>
-        <Ink.Text> </Ink.Text>
-      </Space>
-      <Title final>
+      <Title final finalFigure={figures.lineUpRightArc}>
         <Ink.Text dimColor>
           compiled {compilation.modules?.length} modules in{` `}
           {duration(compilation.time) as string}

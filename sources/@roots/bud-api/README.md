@@ -38,8 +38,6 @@ For full documentation refer to [bud.js.org/docs](https://bud.js.org/docs).
 
 Include static assets in your compilation even if they aren't referenced in scripts or stylesheets.
 
-This is an older function and there are problems with it related to providing a single interface for handling files and directories. For the most part its fine but new projects should consider using [bud.copyFile](https://bud.js.org/docs/bud.copyFile) and/or [bud.copyDir](https://bud.js.org/docs/bud.copyDir) instead.
-
 ### bud.compilePaths
 
 **bud.compilePaths** is used to specify directories which should be treated as source directories.
@@ -57,7 +55,7 @@ However, some authors may publish uncompiled source code with the expectation th
 
 ### bud.copyFile
 
-**bud.copyFile** is used to copy a file from somewhere in the project to the [@dist directory](https://bud.js.org/docs/bud.path).
+**bud.copyFile** copies a directory to the [@dist directory](https://bud.js.org/docs/bud.path).
 
 ### bud.entry
 
