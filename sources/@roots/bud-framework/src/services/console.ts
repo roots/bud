@@ -64,6 +64,7 @@ export default class ConsoleBuffer extends Service {
       )
         return
 
+      this.messages.push({stream, message})
       this.app[stream === `stderr` ? `error` : `log`](message)
     })
   }

@@ -216,7 +216,7 @@ export class Bud {
     tap?: (app: Bud) => Promise<unknown>,
   ) {
     if (!this.isRoot) {
-      const error =  new Error(
+      const error = new Error(
         `Child instances should be produced from the root context`,
       )
       error.name = `ChildContextError`

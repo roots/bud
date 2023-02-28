@@ -10,7 +10,12 @@ interface Props
     indent?: Array<boolean>
   }> {}
 
-const Title = ({children, final = false, indent = [], finalFigure = figures.lineUpRight}: Props) => {
+const Title = ({
+  children,
+  final = false,
+  indent = [],
+  finalFigure = figures.lineUpRight,
+}: Props) => {
   return (
     <Ink.Box flexDirection="row">
       <Ink.Text dimColor>
