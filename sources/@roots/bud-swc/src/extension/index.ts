@@ -1,3 +1,5 @@
+import {join} from 'node:path'
+
 import {Bud, Extension} from '@roots/bud-framework'
 import {
   bind,
@@ -73,7 +75,7 @@ export default class BudSWC extends Extension<Options> {
     this.set(
       `jsc.experimental.cacheRoot` as any,
       (cacheRoot: string) =>
-        cacheRoot ?? bud.path(bud.cache.cacheDirectory, `swc`),
+        cacheRoot ?? join(bud.cache.cacheDirectory, `swc`),
     )
     bud.build.getItem(`swc`).setOptions(this.options)
   }

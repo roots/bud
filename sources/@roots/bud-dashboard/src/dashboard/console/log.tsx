@@ -19,6 +19,7 @@ export const Log = ({stream, message}: LogProps) => {
   switch (stream) {
     case `stdout`:
       return <Stdout message={message} />
+
     case `stderr`:
       return <Stderr message={message} />
   }

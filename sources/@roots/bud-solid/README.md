@@ -9,7 +9,7 @@
 <h1 align="center"><strong>@roots/bud-solid</strong></h1>
 
 <p align="center">
-  solid-js support for @roots/bud projects.
+  solid-js support for @roots/bud projects
 </p>
 
 ---

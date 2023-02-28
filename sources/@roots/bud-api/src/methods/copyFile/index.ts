@@ -1,11 +1,12 @@
 import type {Bud} from '@roots/bud-framework'
 import type {Plugin as CopyPlugin} from '@roots/bud-support/copy-webpack-plugin'
-import {dirname} from 'path'
+import {dirname, isAbsolute} from 'path'
 
-type FromToTuple = [CopyPlugin.StringPattern, CopyPlugin.StringPattern]
+type FromToTuple = [string, string]
 
 export type Parameters = [
-  CopyPlugin.StringPattern | FromToTuple,
+  string | FromToTuple,
+  string?,
   Partial<CopyPlugin.ObjectPattern>?,
 ]
 
@@ -16,17 +17,20 @@ export interface copyFile {
 export const copyFile: copyFile = async function copyFile(
   this: Bud,
   request,
+  context,
   overrides = {},
 ) {
   const app = this as Bud
-
   const makePatternObjectFromString = fromStringFactory(app, overrides)
   const makePatternObjectFromTuple = fromTupleFactory(app, overrides)
 
+  if (!context) context = app.path(`@src`)
+  if (!isAbsolute(context)) context = app.path(context)
+
   const result =
     typeof request === `string`
-      ? makePatternObjectFromString(request)
-      : makePatternObjectFromTuple(request)
+      ? makePatternObjectFromString(request, context)
+      : makePatternObjectFromTuple(...request, context)
 
   app.extensions
     .get(`@roots/bud-extensions/copy-webpack-plugin`)
@@ -47,10 +51,10 @@ export const copyFile: copyFile = async function copyFile(
  */
 export const fromStringFactory =
   (app: Bud, overrides: Partial<CopyPlugin.ObjectPattern>) =>
-  (from: string): CopyPlugin.ObjectPattern => ({
+  (from: string, context: string): CopyPlugin.ObjectPattern => ({
     from,
-    to: app.path(`@base`),
-    context: dirname(from),
+    to: app.relPath(dirname(from), `@file`),
+    context,
     ...overrides,
   })
 
@@ -61,9 +65,13 @@ export const fromStringFactory =
  */
 export const fromTupleFactory =
   (app: Bud, overrides: Partial<CopyPlugin.ObjectPattern>) =>
-  ([from, to]: [string, string]): CopyPlugin.ObjectPattern => ({
+  (
+    from: string,
+    to: string,
+    context: string,
+  ): CopyPlugin.ObjectPattern => ({
     from,
-    to: app.path(to, `@base`),
-    context: dirname(from),
+    to: app.relPath(to),
+    context,
     ...overrides,
   })

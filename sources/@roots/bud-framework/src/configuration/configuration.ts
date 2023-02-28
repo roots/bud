@@ -6,20 +6,15 @@ import type {File} from '../types/options/context.js'
 
 /**
  * User config parser
- * @public
  */
 class Configuration {
   /**
    * Class constructor
-   * @public
    */
   public constructor(public bud: Bud) {}
 
   /**
    * Process configuration
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public async run(description: File): Promise<unknown> {
@@ -30,6 +25,9 @@ class Configuration {
       : await this.staticConfig(description)
   }
 
+  /**
+   * Process dynamic configuration
+   */
   @bind
   public async dynamicConfig(description: any): Promise<unknown> {
     this.bud.log(`processing as dynamic configuration:`, description.name)
@@ -42,9 +40,6 @@ class Configuration {
 
   /**
    * Process static configuration
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public async staticConfig(

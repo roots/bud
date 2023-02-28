@@ -19,7 +19,7 @@ import {Plugin} from '@roots/bud-support/mini-css-extract-plugin'
   /**
    * css output filename
    */
-  filename: (app: Bud) => join(`css`, app.path(`@name.css`)),
+  filename: (app: Bud) => join(`css`, app.relPath(`@name.css`)),
 })
 @production
 export default class MiniCssExtract extends Extension<Options, Plugin> {}

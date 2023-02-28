@@ -26,7 +26,7 @@ const Asset = ({
 }) => {
   return (
     <Title indent={indent} final={final}>
-      <Ink.Box minWidth={minWidth} marginRight={1}>
+      <Ink.Box minWidth={minWidth}>
         <Ink.Text color={color.dim}>{name}</Ink.Text>
       </Ink.Box>
 

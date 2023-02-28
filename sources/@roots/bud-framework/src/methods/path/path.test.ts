@@ -24,12 +24,6 @@ describe(`bud.path`, () => {
     expect(path(`@src`, `test`)).toEqual(expect.any(String))
   })
 
-  it(`call app.hooks.hasSyncHook`, () => {
-    const hasSyncHookSpy = vi.spyOn(bud.hooks, `hasSyncHook`)
-    path(`@src`, `test`)
-    expect(hasSyncHookSpy).toHaveBeenCalledWith(`location.@src`)
-  })
-
   it(`resolves a relative path`, () => {
     const resolved = path(`foo`)
     expect(resolved).toBe(join(bud.context.basedir, `foo`))
@@ -40,22 +34,26 @@ describe(`bud.path`, () => {
   })
 
   it(`resolves @name`, async () => {
-    expect(path(`@name`)).toEqual(`[name]`)
+    expect(path(`@name`)).toEqual(join(bud.context.basedir, `[name]`))
   })
   it(`resolves @path`, async () => {
-    expect(path(`@path`)).toEqual(`[path]`)
+    expect(path(`@path`)).toEqual(join(bud.context.basedir, `[path]`))
   })
   it(`resolves @hash`, async () => {
     bud.hooks.on(`feature.hash`, true)
-    expect(path(`@hash`)).toEqual(`[contenthash:6]`)
+    expect(path(`@hash`)).toEqual(
+      join(bud.context.basedir, `[contenthash:6]`),
+    )
   })
   it(`resolves @hash to empty string when disabled`, async () => {
     bud.hooks.on(`feature.hash`, false)
-    expect(path(`@hash`)).toEqual(`[contenthash:6]`)
+    expect(path(`@hash`)).toEqual(
+      join(bud.context.basedir, `[contenthash:6]`),
+    )
   })
 
   it(`resolves @ext`, async () => {
-    expect(path(`@ext`)).toEqual(`[ext]`)
+    expect(path(`@ext`)).toEqual(join(bud.context.basedir, `[ext]`))
   })
 
   it(`resolves @dist/@name`, () =>

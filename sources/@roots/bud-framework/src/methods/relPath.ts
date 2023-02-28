@@ -1,18 +1,9 @@
 import {relative} from 'node:path'
 
-import type {Bud} from '../bud.js'
-
 export interface relPath {
-  (...parts: [string, string] | [string]): string
+  (...parts: Array<string>): string
 }
 
 export const relPath: relPath = function (...parts): string {
-  const app = this as Bud
-
-  const processedParts: string[] = parts.map(part => app.path(part as any))
-
-  return relative(
-    processedParts?.length > 1 ? processedParts.shift() : app.path(),
-    processedParts.shift(),
-  )
+  return relative(this.path(), this.path(...parts))
 }
