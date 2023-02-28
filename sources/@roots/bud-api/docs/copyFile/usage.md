@@ -2,27 +2,6 @@
 title: Usage
 ---
 
-Copy `./images/image.jpeg` to `./dist/image.jpeg`:
-
-```typescript title=bud.config.js
-bud.copyFile(
-  bud.path(`images/image.jpeg`),
-)
-```
-
-Copy `./images/image.jpeg` to `./dist/new-directory/image.jpeg`.
-
-```typescript title=bud.config.js
-bud.copyFile([
- bud.path(`images/image.jpeg`),
- `new-directory`,
-])
-```
-
----
-title: Usage
----
-
 Copy `@src/images/image.jpeg` to `@dist/images/image.jpeg`:
 
 ```typescript title=bud.config.js
