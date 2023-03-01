@@ -6,7 +6,7 @@
     "paths": {
       "@roots/blade-loader": ["./src/plugin.ts"],
       "@roots/blade-loader/asset-loader": ["./src/asset-loader.cts"],
-      "@roots/blade-loader/script-loader": ["./src/module-loader.cts"],
+      "@roots/blade-loader/module-loader": ["./src/module-loader.cts"],
       "@roots/blade-loader/plugin": ["./src/plugin.ts"]
     },
     "types": ["node"]
