@@ -43,7 +43,7 @@ describe(`bud.entry`, function () {
     expect(onSpy).toHaveBeenCalledWith(
       `build.entry`,
       expect.objectContaining({
-        [`@tests/project`]: {import: [`foo`]},
+        [`foo`]: {import: [`foo`]},
       }),
     )
   })
@@ -56,7 +56,7 @@ describe(`bud.entry`, function () {
     expect(onSpy).toHaveBeenCalledWith(
       `build.entry`,
       expect.objectContaining({
-        [`@tests/project`]: {import: [`foo`]},
+        [`foo`]: {import: [`foo`]},
       }),
     )
   })
@@ -69,7 +69,7 @@ describe(`bud.entry`, function () {
     expect(onSpy).toHaveBeenCalledWith(
       `build.entry`,
       expect.objectContaining({
-        [`@tests/project`]: {import: [`foo`]},
+        [`foo`]: {import: [`foo`]},
       }),
     )
   })

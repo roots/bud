@@ -20,7 +20,7 @@ export const factory: MiddlewareFactory = (app: Bud) =>
       ),
       publicPath: app.hooks.filter(
         `dev.middleware.dev.options.publicPath`,
-        app.hooks.filter(`build.output.publicPath`, `auto`),
+        app.publicPath(),
       ),
       writeToDisk: app.hooks.filter(
         `dev.middleware.dev.options.writeToDisk`,

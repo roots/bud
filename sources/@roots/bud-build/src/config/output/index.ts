@@ -12,7 +12,7 @@ export const output: Factory<`output`> = async ({
 }) =>
   filter(`build.output`, {
     assetModuleFilename: assetModuleFilename({filter, relPath}),
-    chunkFilename: chunkFilename({filter, path}),
+    chunkFilename: chunkFilename({filter, relPath}),
     clean: filter(`build.output.clean`, isProduction),
     environment: filter(`build.output.environment`, undefined),
     filename: filename({filter, relPath}),

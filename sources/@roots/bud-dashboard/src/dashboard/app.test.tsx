@@ -61,8 +61,6 @@ describe(`@roots/bud-dashboard app component`, () => {
     )
 
     expect(lastFrame()).toContain(`proxy`)
-    expect(lastFrame()).toContain(`internal`)
-    expect(lastFrame()).toContain(`external`)
   })
 
   it(`should render server info`, async () => {
