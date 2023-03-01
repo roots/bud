@@ -52,10 +52,13 @@ describe(`bud.setPath`, () => {
   })
 
   it(`sets multiple paths`, () => {
-    bud.path = vi.fn(() => `test-return`)
+    bud.relPath = vi.fn(() => `test-return`)
     const hooksOnSpy = vi.spyOn(bud.hooks, `on`)
 
-    setPath({'@src': `src-test`, '@dist': `dist-test`})
+    setPath({
+      '@src': `src-test`,
+      '@dist': `dist-test`
+    })
 
     expect(hooksOnSpy).toHaveBeenNthCalledWith(
       1,

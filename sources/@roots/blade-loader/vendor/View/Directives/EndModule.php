@@ -2,7 +2,7 @@
 
 namespace App\View\Directives;
 
-class Clean
+class EndModule
 {
     public function __invoke()
     {

@@ -2,7 +2,7 @@
 
 namespace App\View\Directives;
 
-class Capture
+class Module
 {
     public function __invoke()
     {

@@ -44,13 +44,11 @@ describe(`@roots/sage`, async () => {
 
     expect(setPathSpy).toHaveBeenCalledWith({
       '@src': `resources`,
-      '@resources': `@src`,
       '@fonts': `@src/fonts`,
       '@images': `@src/images`,
       '@scripts': `@src/scripts`,
       '@styles': `@src/styles`,
       '@dist': `public`,
-      '@public': `@dist`,
       '@views': `@src/views`,
     })
 

@@ -37,8 +37,7 @@ export const setPath: setPath = function (this: Bud, ...parameters) {
 
   /* Set basedir */
   if (isType.baseDir(parameters)) {
-    const [basedir] = validate.baseDir(parameters.shift())
-
+    const basedir = validate.baseDir(parameters)
     this.context.basedir = normalize(basedir)
     this.log(`basedir set to ${basedir}`)
 
@@ -56,7 +55,7 @@ export const setPath: setPath = function (this: Bud, ...parameters) {
 
   /* Set multiple paths */
   if (isType.pathMap(parameters)) {
-    Object.entries(parameters.shift()).map(setHookValue)
+    Object.entries(parameters[0]).map(setHookValue)
     return this
   }
 
@@ -72,7 +71,6 @@ const makeCallback =
   (bud: Bud) =>
   (pair: [string, string]): Bud => {
     const [key, value] = validate.stringPair(pair)
-
     const relativePath = bud.relPath(value)
 
     bud.hooks

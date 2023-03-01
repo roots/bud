@@ -17,7 +17,7 @@ export const all = (parameters: Parameters): Parameters => {
   return parameters
 }
 
-export const baseDir = (basedir: string): string => {
+export const baseDir = ([basedir]: [string]): string => {
   if (!isAbsolute(basedir)) {
     const error = new Error(
       `When only one parameter is provided, it must be an absolute path.\n\nDocs: https://bud.js.org/docs/bud.setPath`,

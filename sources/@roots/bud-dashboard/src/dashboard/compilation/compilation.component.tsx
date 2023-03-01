@@ -168,21 +168,23 @@ const Compilation = ({
                   <>
                     <Chunk assets={assets} indent={[true]} />
 
-                    <Space>
-                      <Ink.Text> </Ink.Text>
-                    </Space>
-
                     {truncatedAssets?.length > 0 ? (
-                      <Space>
-                        <Ink.Text dimColor>
-                          {` `}
-                          {figures.ellipsis}
-                          {` `}
-                          {truncatedAssets.length}
-                          {` `}
-                          additional asset(s) not shown
-                        </Ink.Text>
-                      </Space>
+                      <>
+                        <Space>
+                          <Ink.Text> </Ink.Text>
+                        </Space>
+
+                        <Space>
+                          <Ink.Text dimColor>
+                            {` `}
+                            {figures.ellipsis}
+                            {` `}
+                            {truncatedAssets.length}
+                            {` `}
+                            additional asset(s) not shown
+                          </Ink.Text>
+                        </Space>
+                      </>
                     ) : null}
                   </>
                 ) : null}
@@ -191,6 +193,10 @@ const Compilation = ({
           ) : null}
         </>
       ) : null}
+
+      <Space>
+        <Ink.Text> </Ink.Text>
+      </Space>
 
       <Title final finalFigure={figures.lineUpRightArc}>
         <Ink.Text dimColor>
