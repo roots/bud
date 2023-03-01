@@ -6,7 +6,7 @@ import * as fs from '@roots/bud-support/fs'
 import {execa} from '@roots/bud-support/execa'
 import {beforeAll, describe, expect, it} from 'vitest'
 
-describe(`@roots/bud-criticalcss`, () => {
+describe.skipIf(!process.env.CI)(`@roots/bud-criticalcss`, () => {
   describe(`extract`, () => {
     beforeAll(async () => {
       await runFixture(`extract`)
