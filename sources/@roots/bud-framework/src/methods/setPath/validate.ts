@@ -31,19 +31,25 @@ export const baseDir = ([basedir]: [string]): string => {
 
 export const stringPair = ([key, value]: [string, string]) => {
   if (!isString(value)) {
-    const error = new Error([`Tried to set path with a non-string value`,
-      `Path value must be a string. Received \`${typeof value}\``,
-      `Docs: https://bud.js.org/docs/bud.setPath`,
-    ].join(`\n\n`))
+    const error = new Error(
+      [
+        `Tried to set path with a non-string value`,
+        `Path value must be a string. Received \`${typeof value}\``,
+        `Docs: https://bud.js.org/docs/bud.setPath`,
+      ].join(`\n\n`),
+    )
     error.name = `bud.setPath`
     throw error
   }
 
   if (!isString(key)) {
-    const error = new Error([`Tried to set path with a non-string key`,
-      `Path label must be a string. Received \`${typeof key}\`.`,
-      `Docs: https://bud.js.org/docs/bud.setPath`,
-    ].join(`\n\n`))
+    const error = new Error(
+      [
+        `Tried to set path with a non-string key`,
+        `Path label must be a string. Received \`${typeof key}\`.`,
+        `Docs: https://bud.js.org/docs/bud.setPath`,
+      ].join(`\n\n`),
+    )
     error.name = `bud.setPath`
     throw error
   }

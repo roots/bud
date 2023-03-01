@@ -57,7 +57,7 @@ describe(`bud.setPath`, () => {
 
     setPath({
       '@src': `src-test`,
-      '@dist': `dist-test`
+      '@dist': `dist-test`,
     })
 
     expect(hooksOnSpy).toHaveBeenNthCalledWith(

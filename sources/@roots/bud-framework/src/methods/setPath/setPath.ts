@@ -59,7 +59,9 @@ export const setPath: setPath = function (this: Bud, ...parameters) {
     return this
   }
 
-  const error = new Error(`Invalid parameters passed.\n\nDocs: https://bud.js.org/docs/bud.setPath`)
+  const error = new Error(
+    `Invalid parameters passed.\n\nDocs: https://bud.js.org/docs/bud.setPath`,
+  )
   error.name = `bud.setPath`
   throw error
 }
