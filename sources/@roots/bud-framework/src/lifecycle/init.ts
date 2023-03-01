@@ -60,4 +60,6 @@ export const initialize = (bud: Bud): Bud =>
       hooks.fromMap({
         'dev.middleware.enabled': [`dev`, `hot`],
       }),
+      undefined,
+      `enabled default middleware when in development mode`,
     )

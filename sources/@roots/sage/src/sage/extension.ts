@@ -58,6 +58,7 @@ export class Sage extends Extension {
       bud.isProduction,
       () => bud.minimize().hash().splitChunks(),
       () => bud.devtool(),
+      `@roots\/bud\/sage: set minimize, hash, splitChunks in production and devtool in development`
     )
   }
 
@@ -66,7 +67,6 @@ export class Sage extends Extension {
    *
    * @deprecated - This function is deprecated. It is unneeded; you can just remove the call.
    */
-  @bind
   @deprecated(
     `bud.sage`,
     `This function is no longer needed and should be removed.`,

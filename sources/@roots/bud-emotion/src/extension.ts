@@ -20,12 +20,16 @@ export class BudEmotion extends Extension<{}, null> {
     bud
       .when(`babel` in bud, ({babel}) =>
         babel.setPlugin(`@emotion/babel-plugin`),
+        undefined,
+        `@roots\/bud-emotion: register \`@emotion/babel-plugin\``,
       )
       .when(`swc` in bud, ({swc}) =>
         swc.plugins((plugins = []) => [
           ...plugins,
           [`@swc/plugin-emotion`, {}],
         ]),
+        undefined,
+        `@roots\/bud-emotion: register \`@swc/plugin-emotion\``,
       )
   }
 }
