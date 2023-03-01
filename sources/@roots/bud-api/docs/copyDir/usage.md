@@ -2,19 +2,22 @@
 title: Usage
 ---
 
+All paths are relative to `@src`. This can be changed with [the `context` parameter](#changing-context).
+
+## Copying a directory
+
 Copy `@src/images` to `@dist/images`:
 
 ```typescript title=bud.config.js
 bud.copyDir(`images`)
 ```
 
-Copy `@src/images` to `@dist/new-directory`.
+## Modifying the output path
+
+Copy `@src/images` to `@dist/example`.
 
 ```typescript title=bud.config.js
-bud.copyDir([
-  `images`,
-  `new-directory`,
-])
+bud.copyDir([`images`, `example`])
 ```
 
 ## Changing context

@@ -7,7 +7,7 @@ import {App, Props} from './index.js'
 export const TTYApp = (props: Props) => {
   const [displayServerInfo, setDisplayServerInfo] = useState(true)
   const [displayEntrypoints, setDisplayEntrypoints] = useState(true)
-  const [displayAssets, setDisplayAssets] = useState(false)
+  const [displayAssets, setDisplayAssets] = useState(true)
   const app = Ink.useApp()
 
   Ink.useInput((key, input) => {

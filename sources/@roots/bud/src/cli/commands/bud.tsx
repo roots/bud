@@ -185,9 +185,6 @@ export default class BudCommand extends Command<CommandContext> {
     await command.applyBudEnv(command.bud)
     await command.applyBudManifestOptions(command.bud)
     await command.applyBudArguments(command.bud)
-
-    await command.bud.api.processQueue()
-
     await command.bud.processConfigs()
 
     if (command.withBud) {
@@ -285,8 +282,8 @@ export default class BudCommand extends Command<CommandContext> {
     if (isset(manifest.paths?.dist))
       bud.hooks.on(`location.@dist`, manifest.bud.paths.dist)
 
-    if (isset(manifest.paths?.[`storage`]))
-      bud.hooks.on(`location.@storage`, manifest.bud.paths[`storage`])
+    if (isset(manifest.paths?.storage))
+      bud.hooks.on(`location.@storage`, manifest.bud.paths.storage)
   }
 
   /**

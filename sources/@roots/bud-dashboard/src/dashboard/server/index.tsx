@@ -45,15 +45,17 @@ export const Server = ({
   return (
     <Ink.Box flexDirection="column">
       <Ink.Box flexDirection="row">
+        <Ink.Text dimColor>
+          {figures.lineDownRight}
+          {figures.line}
+        </Ink.Text>
         <Ink.Text color={color.blue} dimColor={!displayServerInfo}>
-          {figures.info} <Ink.Text underline>s</Ink.Text>erver
+          {` `}server
         </Ink.Text>
       </Ink.Box>
 
       {displayServerInfo ? (
         <>
-          <Ink.Text dimColor>{figures.lineVerticalDashed7}</Ink.Text>
-
           {hasMappedProxyUrl && proxyUrl && publicProxyUrl ? (
             <>
               <Value label="proxy (internal)" value={proxyUrl.origin} />
@@ -78,7 +80,7 @@ export const Server = ({
             </>
           ) : devUrl?.origin ? (
             <>
-              <Value label="dev" value={devUrl.origin} />
+              <Value label="dev" value={devUrl.origin} paddingLeft />
               <Value label="ipv4" value={ipv4.origin} last />
             </>
           ) : null}
@@ -114,16 +116,19 @@ const Value = ({
   label,
   value,
   last,
+  paddingLeft,
 }: {
   label: string
   value: string
   last?: boolean
+  paddingLeft?: boolean
 }) => (
   <Ink.Box flexDirection="row">
     <Ink.Box marginRight={1}>
       <Ink.Text dimColor>
         {last ? `└─` : `├─`} {label}:
       </Ink.Text>
+      {paddingLeft ? <Ink.Text>{` `}</Ink.Text> : null}
     </Ink.Box>
 
     <Ink.Box>
