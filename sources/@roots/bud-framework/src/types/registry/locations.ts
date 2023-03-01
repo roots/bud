@@ -10,8 +10,6 @@ export interface Locations {
   '@modules': string
 }
 
-export type Sync = Locations
-
-export type SyncRegistry = {
-  [P in keyof Sync as `location.${P & string}`]: Sync[P]
+export type Registry = {
+  [P in keyof Locations as `location.${P & string}`]: Locations[P]
 }

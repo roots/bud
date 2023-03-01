@@ -31,14 +31,12 @@ export class Sage extends Extension {
     /* Set paths */
     bud.setPath({
       '@src': `resources`,
-      '@resources': `@src`,
       '@fonts': `@src/fonts`,
       '@images': `@src/images`,
       '@scripts': `@src/scripts`,
       '@styles': `@src/styles`,
       '@views': `@src/views`,
       '@dist': `public`,
-      '@public': `@dist`,
     })
 
     /* Set aliases */

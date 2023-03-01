@@ -12,7 +12,7 @@ interface SyncRegistry
   extends Build.SyncRegistry,
     Dev.SyncRegistry,
     Flags.SyncRegistry,
-    Locations.SyncRegistry,
+    Locations.Registry,
     Patterns.SyncRegistry,
     Values.SyncRegistry {}
 

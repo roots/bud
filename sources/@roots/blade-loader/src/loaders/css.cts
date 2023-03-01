@@ -1,6 +1,6 @@
-export default function (source: string) {
-  return [...source.matchAll(/@css(?<content>[\s\S]*?)@endcss/g)]
-    .map(match => match.groups.content)
-    .filter(Boolean)
-    .join(`\n`)
-}
+import {extract} from './index.cjs'
+
+export const extension = `css`
+export const pattern = /@module\(['"]css['"]\)(?<content>[\s\S]*?)@endmodule/g
+
+export default (source: string) => extract(source, pattern)
