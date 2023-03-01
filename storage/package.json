@@ -2,8 +2,17 @@
   "name": "storage",
   "private": true,
   "packageManager": "yarn@1.23.0",
+  "nohoist": [
+    "**/*"
+  ],
+  "engines": {
+    "node": "18.12.1"
+  },
+  "volta": {
+    "node": "18.12.1"
+  },
   "dependencies": {
     "pm2": "^5.2.2",
-    "verdaccio": "^5.20.1"
+    "verdaccio": "^5.21.2"
   }
 }
