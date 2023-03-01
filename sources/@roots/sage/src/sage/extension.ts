@@ -58,7 +58,7 @@ export class Sage extends Extension {
       bud.isProduction,
       () => bud.minimize().hash().splitChunks(),
       () => bud.devtool(),
-      `@roots\/bud\/sage: set minimize, hash, splitChunks in production and devtool in development`
+      `set minimize, hash, splitChunks in production and devtool in development (@roots\/sage)`
     )
   }
 
