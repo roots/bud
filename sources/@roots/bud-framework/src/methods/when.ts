@@ -74,10 +74,11 @@ export function when(
   /* validate */
   if (![...whenTrue, ...whenFalse].every(isFunction)) {
     const error = new Error(
-      `All supplied conditional values must be functions. If you intended to pass a function to be called, wrap it in an arrow function.\n\nExample: bud.when(() => true, () => bud.vendor())`,
+      `All supplied conditional values must be functions. If you intended to pass a function to be called conditionally, wrap it in an arrow function.\n\nExample: bud.when(() => true, () => bud.vendor())`,
     )
     if (description)
       error.message = error.message.concat(`\n\nCalled when trying to ${description}`)
+    error.message = error.message.concat(`\n\n`).concat(error.stack.split(`\n`).slice(4, 5).join(`\n`).trim())
     error.name = `bud.when`
     throw error
   }
