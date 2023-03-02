@@ -1,5 +1,5 @@
 {
-  "name": "sage-vue-sass",
+  "name": "@tests/issue-2126",
   "type": "module",
   "private": true,
   "bud": {
