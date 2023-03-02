@@ -1,0 +1,13 @@
+{
+  "app": {
+    "js": [
+      "js/runtime.js",
+      "js/267.js",
+      "js/app.js"
+    ],
+    "css": [
+      "css/app.css"
+    ],
+    "dependencies": []
+  }
+}

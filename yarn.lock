@@ -9142,6 +9142,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@tests/issue-2126@workspace:tests/reproductions/issue-2126":
+  version: 0.0.0-use.local
+  resolution: "@tests/issue-2126@workspace:tests/reproductions/issue-2126"
+  dependencies:
+    "@roots/bud": "workspace:sources/@roots/bud"
+    "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss"
+    "@roots/bud-sass": "workspace:sources/@roots/bud-sass"
+    "@roots/bud-vue": "workspace:sources/@roots/bud-vue"
+    "@roots/sage": "workspace:sources/@roots/sage"
+  languageName: unknown
+  linkType: soft
+
 "@tests/project@workspace:tests/util/project":
   version: 0.0.0-use.local
   resolution: "@tests/project@workspace:tests/util/project"
