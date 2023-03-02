@@ -1,6 +1,7 @@
-export default function (source: string) {
-  return [...source.matchAll(/@vue(?<content>[\s\S]*?)@endvue/g)]
-    .map(match => match.groups.content)
-    .filter(Boolean)
-    .join(`\n`)
-}
+import {extract} from './index.cjs'
+
+export const extension = `vue`
+export const pattern =
+  /@module\(['"]vue['"]\)(?<content>[\s\S]*?)@endmodule/g
+
+export default (source: string) => extract(source, pattern)

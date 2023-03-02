@@ -1,6 +1,9 @@
+import {join} from 'node:path'
+
 import type {Context, File} from '@roots/bud-framework/options'
 import {Filesystem, json, yml} from '@roots/bud-support/filesystem'
 import isEqual from '@roots/bud-support/lodash/isEqual'
+import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import set from '@roots/bud-support/lodash/set'
 
 interface get {
@@ -13,32 +16,38 @@ let files: Array<string> = []
 let data: Context[`config`] = {}
 
 const get: get = async ({basedir, fs}) => {
-  files = await fs.list(basedir)
+  const files = []
+
+  const baseConfig = await fs.list(basedir)
+  if (baseConfig) {
+    files.push(...baseConfig)
+  }
+  const configDir = await fs.list(join(basedir, `config`))
+  if (configDir) {
+    files.push(...configDir)
+  }
+
   if (!files) return data
 
-  try {
-    await Promise.all(
-      files.map(async (name: string) => {
+  await Promise.all(
+    files?.map(async (name: string) => {
+      try {
         const file = await fs.inspect(name, {
-          checksum: `sha1` as `sha1`,
           mode: true,
           absolutePath: true,
         })
 
         set(data, [`${name}`], {
-          path: file.absolutePath,
           ...file,
+          path: file.absolutePath,
           file: isEqual(file.type, `file`),
           dir: isEqual(file.type, `dir`),
           symlink: isEqual(file.type, `symlink`),
-
           local: file.name.includes(`local`),
           bud: name.includes(`bud`) && isEqual(file.type, `file`),
-
           dynamic: isEqual(file.type, `file`)
             ? isDynamicConfig(file.absolutePath)
             : null,
-
           type: name.includes(`production`)
             ? `production`
             : name.includes(`development`)
@@ -49,28 +58,39 @@ const get: get = async ({basedir, fs}) => {
             ? file.name.split(`.`).pop()
             : null,
         })
-      }),
-    )
-  } catch (error) {}
+      } catch (e) {}
+    }),
+  )
 
-  try {
-    await Promise.all(
-      Object.entries(data).map(
-        async ([name, {bud, dynamic, extension, path}]) => {
-          let config: unknown
+  await Promise.all(
+    Object.entries(data).map(
+      async ([name, {bud, dynamic, extension, path}]) => {
+        try {
+          let config =
+            extension === `json`
+              ? await json.read(path)
+              : extension === `yml`
+              ? await yml.read(path)
+              : dynamic && bud
+              ? await import(path).then(mod => mod?.default ?? mod)
+              : undefined
 
-          try {
-            if (extension === `json`) config = await json.read(path)
-            else if (extension === `yml`) config = await yml.read(path)
-            else if (dynamic && bud)
-              config = await import(path).then(mod => mod?.default ?? mod)
+          !isUndefined(config) && set(data, [name, `module`], config)
+        } catch (e) {
+          if (bud) {
+            const error = new Error(e)
+            error.name = `Error reading config file`
+            error.message = [
+              `\n${name} appears to be a bud config file, but it could not be imported.`,
+              `Original error follows:\n${error.message}`,
+            ].join(`\n\n`)
 
-            set(data, [name, `module`], config)
-          } catch (error) {}
-        },
-      ),
-    )
-  } catch (error) {}
+            throw error
+          }
+        }
+      },
+    ),
+  )
 
   return data
 }

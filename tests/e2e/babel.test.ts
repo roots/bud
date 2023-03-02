@@ -65,7 +65,7 @@ describe(`html output of examples/babel`, () => {
 
 const update = async () =>
   fs.writeFile(
-    testPath(`babel`, `src`, `global.css`),
+    testPath(`babel`, `src`, `app.css`),
     `\
 html,
 body {

@@ -11,7 +11,7 @@ export const Console = ({messages}: Props) => {
   if (!messages?.length) return null
 
   return (
-    <Ink.Box>
+    <Ink.Box flexDirection="column">
       {messages.map((item, i) => (
         <Log key={i} {...item} />
       ))}

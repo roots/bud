@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "bud build"
+    "build": "bud build production"
   },
   "devDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",

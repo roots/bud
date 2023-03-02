@@ -4,7 +4,7 @@ import resolveConfig from 'tailwindcss/resolveConfig.js'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {Bud, factory} from '@repo/test-kit/bud'
 
-import {BudTailwindCss} from '@roots/bud-tailwindcss/extension'
+import BudTailwindCss from '@roots/bud-tailwindcss'
 
 describe(`@roots/bud-tailwindcss extension`, () => {
   let bud: Bud
@@ -14,14 +14,15 @@ describe(`@roots/bud-tailwindcss extension`, () => {
     bud = await factory()
     await bud.extensions.add(`@roots/bud-postcss`)
     extension = new BudTailwindCss(bud)
-    await extension.init()
+
+    if (extension.register) await extension.register(bud)
   })
 
   it(`basic checks`, () => {
     expect(extension.label).toBe(`@roots/bud-tailwindcss`)
     expect(extension.getOptions()).toEqual(extension.options)
     expect(extension.options.generateImports).toBe(
-      extension.getOption(`generateImports`),
+      extension.get(`generateImports`),
     )
   })
 
@@ -29,7 +30,7 @@ describe(`@roots/bud-tailwindcss extension`, () => {
     extension.setOption(`generateImports`, false)
     const extensionsAddSpy = vi.spyOn(bud.extensions, `add`)
 
-    await extension.configAfter(bud)
+    await extension.boot(bud)
 
     expect(extension.options.generateImports).toBe(false)
     expect(extensionsAddSpy).not.toHaveBeenCalled()
@@ -41,8 +42,8 @@ describe(`@roots/bud-tailwindcss extension`, () => {
     await bud.extensions.add(`@roots/bud-postcss`)
     const resolveSpy = vi.spyOn(bud.module, `resolve`)
 
-    await extension.init()
-    await extension.configAfter(bud)
+    if (extension.register) await extension.register(bud)
+    await extension.boot(bud)
 
     expect(resolveSpy).toHaveBeenNthCalledWith(1, `tailwindcss`)
     expect(resolveSpy).toHaveBeenNthCalledWith(
@@ -100,7 +101,7 @@ describe(`@roots/bud-tailwindcss extension`, () => {
   })
 
   it(`should set generateImports to an array`, async () => {
-    extension.generateImports([`colors`])
+    extension.set(`generateImports`, [`colors`])
     expect(extension.getOption(`generateImports`)).toStrictEqual([
       `colors`,
     ])
@@ -108,32 +109,32 @@ describe(`@roots/bud-tailwindcss extension`, () => {
 
   it(`should set importable values`, async () => {
     const importables = undefined
-    extension.generateImports(importables)
+    extension.set(`generateImports`, importables)
     expect(extension.importableKeys).toMatchSnapshot()
   })
 
   it(`should set importables when generateImports is called with array arg`, async () => {
     const importables = [`colors`]
-    extension.generateImports(importables)
+    extension.set(`generateImports`, importables)
     expect(extension.importableKeys).toBe(importables)
   })
 
   it(`should set importables when generateImports is called with false arg`, async () => {
     const importables = false
-    extension.generateImports(importables)
+    extension.set(`generateImports`, importables)
     expect(extension.importableKeys).toMatchSnapshot()
   })
 
   it(`should set importables when generateImports is called with true arg`, async () => {
-    extension.generateImports(true)
+    extension.set(`generateImports`, true)
     expect(extension.getOption(`generateImports`)).toBe(true)
   })
 
   it(`should not call extensions.add when generatedImports is not true`, async () => {
     const addExtensionSpy = vi.spyOn(bud.extensions, `add`)
 
-    extension.generateImports(false)
-    await extension.configAfter(bud)
+    extension.set(`generateImports`, false)
+    await extension.boot(bud)
 
     expect(addExtensionSpy).not.toHaveBeenCalled()
   })
@@ -141,14 +142,14 @@ describe(`@roots/bud-tailwindcss extension`, () => {
   it(`should call extensions.add when generateImports is not undefined`, async () => {
     const addExtensionSpy = vi.spyOn(bud.extensions, `add`)
 
-    extension.generateImports(true)
+    extension.set(`generateImports`, true)
     await extension.configAfter(bud)
 
     expect(addExtensionSpy).toHaveBeenCalled()
   })
 
   it(`should not register alias when generatedImports is not true`, async () => {
-    extension.generateImports(false)
+    extension.set(`generateImports`, false)
 
     const asyncSpy = vi.spyOn(bud.hooks, `async`)
     await extension.configAfter(bud)
@@ -157,9 +158,10 @@ describe(`@roots/bud-tailwindcss extension`, () => {
   })
 
   it(`should register alias when generateImports is not undefined`, async () => {
-    extension.generateImports()
+    extension.set(`generateImports`, true)
 
     const asyncSpy = vi.spyOn(bud.hooks, `async`)
+    await extension.boot(bud)
     await extension.configAfter(bud)
 
     expect(asyncSpy).toHaveBeenCalledTimes(1)
@@ -172,7 +174,7 @@ describe(`@roots/bud-tailwindcss extension`, () => {
   it(`should call postcss.setPlugins`, async () => {
     const setPluginsSpy = vi.spyOn(bud.postcss, `setPlugins`)
 
-    await extension.configAfter(bud)
+    await extension.boot(bud)
 
     expect(setPluginsSpy).toHaveBeenCalled()
   })

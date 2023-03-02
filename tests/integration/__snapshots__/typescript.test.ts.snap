@@ -1,13 +1,6 @@
 // Vitest Snapshot v1
 
-exports[`typescript > npm > manifest.json > matches snapshot 1`] = `
-{
-  "app.js": "js/app.js",
-  "index.html": "index.html",
-}
-`;
-
-exports[`typescript > yarn > manifest.json > matches snapshot 1`] = `
+exports[`examples/typescript > should compile js and css as expected 1`] = `
 {
   "app.js": "js/app.js",
   "index.html": "index.html",

@@ -1,21 +1,18 @@
 import {Bud, Extension} from '@roots/bud-framework'
 import {
   bind,
+  disabled,
   label,
   options,
   plugin,
 } from '@roots/bud-framework/extension/decorators'
+import {deprecated} from '@roots/bud-support/decorators'
 import Plugin from 'compression-webpack-plugin'
 
 import type {Options} from './extension.js'
 
 /**
- * Bud compression extension brotli adapter
- *
- * @public
- * @decorator `@label`
- * @decorator `@plugin`
- * @decorator `@options`
+ * Brotli compression configuration
  */
 @label(`@roots/bud-compress/brotli`)
 @plugin(Plugin)
@@ -28,12 +25,10 @@ import type {Options} from './extension.js'
   minRatio: 0.8,
   deleteOriginalAssets: false,
 })
+@disabled
 export default class BudBrotli extends Extension<Options, Plugin> {
   /**
    * `register` callback
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public override async register(bud: Bud) {
@@ -41,30 +36,24 @@ export default class BudBrotli extends Extension<Options, Plugin> {
   }
 
   /**
-   * `bud.brotli` fn
-   *
-   * @public
-   * @decorator `@bind`
+   * @deprecated Use `bud.compress.brotli.setOptions()` instead.
    */
   @bind
-  public async config(options: Options): Promise<Bud> {
-    this.app.hooks.on(`feature.brotli`, true)
-
+  @deprecated(
+    `bud.compress.brotli.config`,
+    `Use bud.compress.brotli.set instead`,
+    [
+      [
+        `set deleteOriginalAssets`,
+        `bud.compress.brotli.set('deleteOriginalAssets', true)`,
+      ],
+    ],
+  )
+  public async config(options?: Options): Promise<Bud> {
+    this.enable()
     options && this.setOptions(options)
-
     return this.app
   }
-
-  /**
-   * `when` callback
-   *
-   * @returns true when `feature.brotli` is true
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public override async when(bud: Bud) {
-    return bud.hooks.filter(`feature.brotli`)
-  }
 }
+
+export type {Options}

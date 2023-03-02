@@ -92,7 +92,7 @@ export class Hooks extends Base implements Service {
     this.fromAsyncMap = this.asyncStore.setRecords
 
     this.events = new EventHooks(app)
-    this.action = this.events.set
-    this.fire = this.events.get
+    this.action = this.events.set.bind(this.events.set)
+    this.fire = this.events.get.bind(this.events.get)
   }
 }

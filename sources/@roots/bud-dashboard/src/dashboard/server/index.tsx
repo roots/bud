@@ -1,9 +1,13 @@
+// @ts-nocheck
+
 import figures from '@roots/bud-support/figures'
 import Ink from '@roots/bud-support/ink'
 import Link from '@roots/bud-support/ink-link'
 import {externalNetworkInterface} from '@roots/bud-support/os'
 import React from '@roots/bud-support/react'
 
+import Space from '../display/space.component.js'
+import Title from '../display/title.component.js'
 import {color} from '../format.js'
 import useWatchedFilesCount from './useWatchedFilesCount.js'
 
@@ -27,10 +31,6 @@ export const Server = ({
   proxyUrl,
   publicProxyUrl,
 }: Props) => {
-  const hasMappedProxyUrl =
-    publicProxyUrl?.origin && publicProxyUrl?.origin !== proxyUrl.origin
-  const hasMappedDevUrl = publicDevUrl.origin !== devUrl.origin
-
   const ipv4 = externalNetworkInterface.ipv4Url(publicDevUrl.protocol)
   ipv4.port = publicDevUrl.port
 
@@ -39,105 +39,63 @@ export const Server = ({
   return (
     <Ink.Box flexDirection="column">
       <Ink.Box flexDirection="row">
+        <Ink.Text dimColor>
+          {figures.lineDownRightArc}
+          {figures.line}
+        </Ink.Text>
         <Ink.Text color={color.blue} dimColor={!displayServerInfo}>
-          {figures.info} <Ink.Text underline>s</Ink.Text>erver
+          {` `}server
         </Ink.Text>
       </Ink.Box>
 
-      {displayServerInfo ? (
+      {displayServerInfo && (
         <>
-          <Ink.Text dimColor>{figures.lineVerticalDashed7}</Ink.Text>
+          <Space>
+            <Ink.Text> </Ink.Text>
+          </Space>
 
-          {hasMappedProxyUrl ? (
-            <>
-              {proxyUrl && (
-                <Value label="proxy (internal)" value={proxyUrl.origin} />
-              )}
-              {publicProxyUrl && (
-                <Value
-                  label="proxy (external)"
-                  value={publicProxyUrl.origin}
-                />
-              )}
-              <Ink.Text dimColor>{figures.lineVertical}</Ink.Text>
-            </>
-          ) : (
-            <>
-              {proxyUrl && <Value label="proxy" value={proxyUrl.origin} />}
-              <Ink.Text dimColor>{figures.lineVertical}</Ink.Text>
-            </>
-          )}
+          <Ink.Box flexDirection="column">
+            {proxyUrl && (
+              <Title>
+                <Ink.Text>
+                  proxy:{` `}
+                  {publicProxyUrl && publicProxyUrl.href !== proxyUrl.href
+                    ? `${publicProxyUrl.href}`
+                    : proxyUrl.href}
+                </Ink.Text>
+              </Title>
+            )}
 
-          {hasMappedDevUrl ? (
-            <>
-              {devUrl && (
-                <Value label="dev (internal)" value={devUrl.origin} />
-              )}
-              {devUrl && (
-                <Value
-                  label="dev (external)"
-                  value={publicDevUrl.origin}
-                />
-              )}
-              <Ink.Text dimColor>{figures.lineVertical}</Ink.Text>
-            </>
-          ) : (
-            <>
-              {devUrl && <Value label="dev" value={devUrl.origin} />}
-              <Ink.Text dimColor>{figures.lineVertical}</Ink.Text>
-            </>
-          )}
+            {devUrl && (
+              <Title>
+                <Ink.Text>
+                  dev:{`   `}
+                  {publicDevUrl && publicDevUrl.href !== devUrl.href
+                    ? `${publicDevUrl.href}`
+                    : devUrl.href}
+                </Ink.Text>
+              </Title>
+            )}
+          </Ink.Box>
 
-          <Value label="ipv4" value={ipv4.origin} last />
+          <Space>
+            <Ink.Text> </Ink.Text>
+          </Space>
 
-          <Ink.Box
-            marginTop={1}
-            minWidth="100%"
-            flexDirection="row"
-            justifyContent="space-between"
-          >
-            <Ink.Text>
-              {figures.ellipsis} watching project sources
-              {watchedFilesCount > 0 && (
+          <Title final finalFigure={figures.lineUpRightArc}>
+            <Ink.Text dimColor>
+              watching project sources
+              {watchedFilesCount > 0 ? (
                 <Ink.Text dimColor>
                   {` `}
                   (and {watchedFilesCount} other{` `}
                   {watchedFilesCount > 1 ? `files` : `file`}){` `}
                 </Ink.Text>
-              )}
+              ) : null}
             </Ink.Text>
-
-            <Ink.Text>
-              {figures.info} <Ink.Text dimColor>ctrl+c to exit</Ink.Text>
-            </Ink.Text>
-          </Ink.Box>
+          </Title>
         </>
-      ) : null}
+      )}
     </Ink.Box>
   )
 }
-
-const Value = ({
-  label,
-  value,
-  last,
-}: {
-  label: string
-  value: string
-  last?: boolean
-}) => (
-  <Ink.Box flexDirection="row">
-    <Ink.Box marginRight={1}>
-      <Ink.Text dimColor>
-        {last ? `└─` : `├─`} {label}:
-      </Ink.Text>
-    </Ink.Box>
-
-    <Ink.Box>
-      {/* @ts-ignore */}
-      <Link url={value}>
-        <Ink.Text>{value}</Ink.Text>
-      </Link>
-    </Ink.Box>
-  </Ink.Box>
-)

@@ -1,4 +1,4 @@
-import type {Bud} from '@roots/bud'
+import type {Bud} from '@roots/bud-framework'
 import React from '@roots/bud-support/react'
 
 import {Error} from '../components/Error.js'
@@ -10,7 +10,7 @@ export const checkPackageManagerErrors = (bud: Bud): boolean => {
   if (isLockConflict(bud)) {
     bud.dashboard.renderer.once(
       <Error
-        label="Package manager conflict"
+        name="Package manager conflict"
         message="Both a yarn.lock and package-lock.json file were found. Please remove one of these files."
       />,
     )

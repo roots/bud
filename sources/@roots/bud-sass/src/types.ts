@@ -7,10 +7,18 @@ import type {BudResolveUrl} from './resolve-url/extension.js'
 
 declare module '@roots/bud-framework' {
   interface Bud {
-    sass: BudSass
+    sass: {
+      get: BudSass[`get`]
+      getOptions: BudSass[`getOptions`]
+      set: BudSass[`set`]
+      setOptions: BudSass[`setOptions`]
+      importGlobal: BudSass[`importGlobal`]
+      registerGlobal: BudSass[`registerGlobal`]
+    }
   }
+
   interface Modules {
-    '@roots/bud-sass': BudSass
+    '@roots/bud-sass': Bud[`sass`]
     '@roots/bud-sass/resolve-url': BudResolveUrl
   }
 

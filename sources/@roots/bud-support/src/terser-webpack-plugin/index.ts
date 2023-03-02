@@ -1,3 +1,3 @@
 import Plugin from 'terser-webpack-plugin'
 
-export {Plugin}
+export default Plugin

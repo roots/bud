@@ -48,27 +48,31 @@
   "exports": {
     ".": {
       "types": "./lib/index.d.ts",
-      "default": "./lib/index.js"
+      "import": "./lib/index.js"
     },
     "./babel-refresh": {
       "types": "./lib/babel-refresh/index.d.ts",
-      "default": "./lib/babel-refresh/index.js"
+      "import": "./lib/babel-refresh/index.js"
     },
     "./extension": {
       "types": "./lib/extension.d.ts",
-      "default": "./lib/extension.js"
+      "import": "./lib/extension.js"
     },
     "./react-refresh": {
       "types": "./lib/react-refresh/index.d.ts",
-      "default": "./lib/react-refresh/index.js"
+      "import": "./lib/react-refresh/index.js"
     },
     "./swc-refresh": {
       "types": "./lib/swc-refresh/index.d.ts",
-      "default": "./lib/swc-refresh/index.js"
+      "import": "./lib/swc-refresh/index.js"
     },
     "./typescript-refresh": {
       "types": "./lib/typescript-refresh/index.d.ts",
-      "default": "./lib/typescript-refresh/index.js"
+      "import": "./lib/typescript-refresh/index.js"
+    },
+    "./types": {
+      "types": "./lib/types.d.ts",
+      "import": "./lib/types.js"
     }
   },
   "typesVersions": {
@@ -90,19 +94,22 @@
       ],
       "typescript-refresh": [
         "./lib/typescript-refresh/index.d.ts"
+      ],
+      "types": [
+        "./lib/types.d.ts"
       ]
     }
   },
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "devDependencies": {
-    "@babel/core": "7.20.7",
+    "@babel/core": "7.20.12",
     "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-esbuild": "workspace:sources/@roots/bud-esbuild",
     "@roots/bud-swc": "workspace:sources/@roots/bud-swc",
     "@roots/bud-typescript": "workspace:sources/@roots/bud-typescript",
     "@skypack/package-check": "0.2.2",
-    "@types/babel__core": "7.1.20",
+    "@types/babel__core": "7.20.0",
     "@types/node": "18.11.18",
     "@types/react": "18.0.26",
     "@types/react-dom": "18.0.10",

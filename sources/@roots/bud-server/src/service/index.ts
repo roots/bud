@@ -15,27 +15,21 @@ import {bind} from '@roots/bud-support/decorators'
 export class Server extends Service implements BaseService {
   /**
    * Express instance
-   *
-   * @public
    */
   public application: Express.Application & {set: any; use: any}
 
   /**
    * Watcher instance
-   *
-   * @public
    */
   public watcher: Watcher
 
   /**
    * Server connections
-   * @public
    */
   public connection: Connection
 
   /**
    * Available middleware
-   * @public
    */
   public availableMiddleware = {
     proxy: `@roots/bud-server/middleware/proxy`,
@@ -46,7 +40,6 @@ export class Server extends Service implements BaseService {
 
   /**
    * Utilized middleware
-   * @public
    */
   public get enabledMiddleware(): BaseService['enabledMiddleware'] {
     return this.app.hooks.filter(`dev.middleware.enabled`, [])?.reduce(
@@ -60,7 +53,6 @@ export class Server extends Service implements BaseService {
 
   /**
    * Applied middleware
-   * @public
    */
   public appliedMiddleware: Partial<
     Record<keyof Middleware.Available, any>
@@ -81,11 +73,7 @@ export class Server extends Service implements BaseService {
   }
 
   /**
-   * `register` callback
-   *
-   * @public
-   * @decorator `@bind`
-   * @decorator `@once`
+   * {@link Service.register}
    */
   @bind
   public override async register?(bud: Bud) {
@@ -120,9 +108,6 @@ export class Server extends Service implements BaseService {
 
   /**
    * Set connection
-   * @public
-   * @decorator `@bind`
-   * @decorator `@once`
    */
   @bind
   public async setConnection(bud: Bud) {
@@ -139,9 +124,6 @@ export class Server extends Service implements BaseService {
 
   /**
    * Inject scripts
-   * @public
-   * @decorator `@bind`
-   * @decorator `@once`
    */
   @bind
   public async injectScripts() {
@@ -160,10 +142,6 @@ export class Server extends Service implements BaseService {
 
   /**
    * Apply middleware
-   *
-   * @public
-   * @decorator `@bind`
-   * @decorator `@once`
    */
   @bind
   public async applyMiddleware() {
@@ -203,19 +181,17 @@ export class Server extends Service implements BaseService {
 
   /**
    * Run development server
-   *
-   * @public
    * @decorator `@bind`
    */
   @bind
   public async run() {
-    await this.app.hooks.fire(`server.before`)
+    await this.app.hooks.fire(`server.before`, this.app)
 
     if (!this.app.isCLI() || !this.app.context.args.dry) {
       await this.connection.createServer(this.application)
       await this.connection.listen()
     }
 
-    await this.app.hooks.fire(`server.after`)
+    await this.app.hooks.fire(`server.after`, this.app)
   }
 }

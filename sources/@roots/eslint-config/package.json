@@ -61,9 +61,9 @@
     "./sage": "./sage.cjs"
   },
   "devDependencies": {
-    "@babel/core": "7.20.7",
+    "@babel/core": "7.20.12",
     "@skypack/package-check": "0.2.2",
-    "@types/babel__core": "7.1.20",
+    "@types/babel__core": "7.20.0",
     "@types/eslint": "8.4.10",
     "@types/eslint-plugin-prettier": "^3.1.0",
     "@types/node": "18.11.18",

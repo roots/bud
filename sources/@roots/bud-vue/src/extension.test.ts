@@ -11,6 +11,8 @@ describe(`@roots/bud-vue`, () => {
   beforeEach(async () => {
     bud = await factory()
     instance = new Vue(bud)
+    await instance.register(bud)
+    await instance.boot(bud)
   })
 
   it(`should be constructable`, () => {
@@ -50,15 +52,19 @@ describe(`@roots/bud-vue`, () => {
   })
 
   it(`should expose bud.vue interface`, async () => {
-    await bud.extensions.add(Vue)
-    expect(bud.vue).toBeInstanceOf(Vue)
+    expect(instance.app.vue).toBeInstanceOf(Vue)
   })
 
   it(`should register typescript support if @roots/bud-typescript is installed`, async () => {
     await bud.extensions.add(`@roots/bud-typescript`)
-    await bud.extensions.get(`@roots/bud-typescript`).configAfter(bud)
-    await instance.boot(bud)
+    await bud.extensions.add(`@roots/bud-vue`)
+    if (bud.extensions.configAfter) {
+      await bud.extensions.configAfter()
+    }
 
+    expect(bud.typescript.get(`appendTsSuffixTo`)).toStrictEqual(
+      expect.arrayContaining([/\.vue$/]),
+    )
     expect(bud.build.items.ts.getOptions().appendTsSuffixTo).toStrictEqual(
       expect.arrayContaining([/\.vue$/]),
     )

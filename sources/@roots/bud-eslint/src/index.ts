@@ -12,5 +12,5 @@
 
 import './types.js'
 
-import BudEslint from './extension.js'
+import {BudEslint} from './extension.js'
 export default BudEslint

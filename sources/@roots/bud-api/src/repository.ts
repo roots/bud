@@ -5,6 +5,8 @@ import type * as Assets from './methods/assets/index.js'
 import type * as Bundle from './methods/bundle/index.js'
 import type * as CompilePaths from './methods/compilePaths/index.js'
 import type * as Config from './methods/config/index.js'
+import type * as CopyDir from './methods/copyDir/index.js'
+import type * as CopyFile from './methods/copyFile/index.js'
 import type * as Define from './methods/define/index.js'
 import type * as Devtool from './methods/devtool/index.js'
 import type * as Entry from './methods/entry/index.js'
@@ -70,6 +72,20 @@ export interface Repository {
    * {@link https://bud.js.org/docs/bud.config 📕 Documentation}
    */
   config(...params: Config.Parameters): Bud
+
+  /**
+   * ## bud.copyFile
+   *
+   * {@link https://bud.js.org/docs/bud.copyDir 📕 Documentation}
+   */
+  copyDir(...params: CopyDir.Parameters): Bud
+
+  /**
+   * ## bud.copyFile
+   *
+   * {@link https://bud.js.org/docs/bud.copyFile 📕 Documentation}
+   */
+  copyFile(...params: CopyFile.Parameters): Bud
 
   /**
    * ## bud.override

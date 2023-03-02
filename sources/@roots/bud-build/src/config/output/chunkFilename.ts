@@ -6,13 +6,13 @@ import {scriptExtension} from '../../helpers/scriptExtension.js'
 
 interface Props {
   filter: Bud[`hooks`][`filter`]
-  path: Bud[`path`]
+  relPath: Bud[`relPath`]
 }
 
-export const chunkFilename = ({filter, path}: Props) =>
+export const chunkFilename = ({filter, relPath}: Props) =>
   filter(
     `build.output.chunkFilename`,
-    join(`js`, `dynamic`, path(`@name.chunk`)).concat(
+    join(`js`, `dynamic`, relPath(`@name.chunk`)).concat(
       scriptExtension(filter, `.mjs`, `.js`),
     ),
   )

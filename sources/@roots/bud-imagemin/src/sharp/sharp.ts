@@ -25,26 +25,19 @@ export class BudImageminSharp extends Extension {
 
   public implementation: typeof Plugin.sharpGenerate
 
+  /**
+   * Set encode options
+   */
   @bind
   public async setEncodeOptions<K extends keyof SharpEncodeOptions>(
     key: K,
     value: SharpEncodeOptions[K],
   ) {
-    this.setOptions({
-      ...(this.options ?? {}),
-      encodeOptions: {
-        ...(this.options.encodeOptions ?? {}),
-        [key]: value,
-      },
-    })
+    this.set(`encodeOptions.${key}`, value)
   }
 
   /**
    * Set generator
-   *
-   * @param label - key of {@link BudImageminExtension.generators}
-   * @param generator - value of {@link Generator}
-   * @decorator `@bind`
    */
   @bind
   public setGenerator(
@@ -62,12 +55,10 @@ export class BudImageminSharp extends Extension {
   }
 
   /**
-   * {@link Extension.init}
-   *
-   * @decorator `@bind`
+   * {@link Extension.register}
    */
   @bind
-  public override async init() {
+  public override async register() {
     this.generators = new Map()
     this.implementation = Plugin.sharpMinify
     this.setGenerator(`webp`, {

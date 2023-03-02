@@ -39,7 +39,6 @@ describe.skip(`node-api`, () => {
     const artifact = await fs.readFile(
       join(tmpProjectDir, `dist/manifest.json`),
     )
-
     expect(artifact.toString()).toMatchSnapshot()
   })
 
@@ -47,7 +46,6 @@ describe.skip(`node-api`, () => {
     const artifact = await fs.readFile(
       join(tmpProjectDir, `dist/js/app.js`),
     )
-
     expect(artifact.toString()).toMatchSnapshot()
   })
 }, 240000)

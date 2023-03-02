@@ -1,10 +1,11 @@
-const init = async () =>
-  window.requestAnimationFrame(async function ready() {
-    return document.body
-      ? await import('./components/main').then(({main}) => main())
-      : window.requestAnimationFrame(ready)
-  })
+import React from 'react'
+import ReactDOM from 'react-dom'
+import {App} from './components/App'
 
-init()
+ReactDOM.render(<React.StrictMode><App /></React.StrictMode>, document.getElementById('root'))
 
-import.meta.webpackHot?.accept(console.error)
+window.requestAnimationFrame(async function ready() {
+  return document.body
+    ? await import('./components/main').then(({main}) => main())
+    : window.requestAnimationFrame(ready)
+})

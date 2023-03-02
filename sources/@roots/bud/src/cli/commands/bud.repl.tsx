@@ -1,5 +1,5 @@
-import type {Bud} from '@roots/bud'
 import {dry} from '@roots/bud/cli/decorators'
+import type {Bud} from '@roots/bud-framework'
 import {bind} from '@roots/bud-framework/extension/decorators'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {highlight} from '@roots/bud-support/highlight'
@@ -14,9 +14,6 @@ import BudCommand, {ArgsModifier} from './bud.js'
 
 /**
  * `bud repl`
- *
- * @public
- * @decorator `@dry` - dry run
  */
 @dry
 export default class BudReplCommand extends BudCommand {
@@ -43,14 +40,11 @@ export default class BudReplCommand extends BudCommand {
 
   /**
    * Execute command
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public override async execute() {
     await this.makeBud(this)
-    await this.run(this)
+    await this.bud.run()
 
     await this.render(
       <Repl app={this.bud} indent={this.indent} depth={this.depth} />,

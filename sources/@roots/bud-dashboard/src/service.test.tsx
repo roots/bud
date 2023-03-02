@@ -1,7 +1,6 @@
 import {Bud, factory} from '@repo/test-kit/bud'
 import {Service} from '@roots/bud-framework/service'
 import {beforeEach, describe, expect, it} from 'vitest'
-import React from '@roots/bud-support/react'
 
 import Dashboard from './index.js'
 
@@ -11,7 +10,10 @@ describe(`Dashboard`, () => {
 
   beforeEach(async () => {
     bud = await factory()
-    bud.context.args.log = true
+    if (bud.isCLI()) {
+      bud.context.args.log = true
+    } else throw new Error(`bud.isCli() should be true`)
+
     dashboard = new Dashboard(() => bud)
   })
 

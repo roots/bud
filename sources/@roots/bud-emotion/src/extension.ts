@@ -5,39 +5,34 @@ import {
   dependsOnOptional,
   label,
 } from '@roots/bud-framework/extension/decorators'
-import isUndefined from '@roots/bud-support/lodash/isUndefined'
 
 /**
- * Emotion extension
- *
- * @public
- * @decorator `@label`
- * @decorator `@dependsOnOptional`
+ * Emotion configuration
  */
 @label(`@roots/bud-emotion`)
 @dependsOnOptional([`@roots/bud-babel`, `@roots/bud-swc`])
-export class BudEmotion extends Extension {
+export class BudEmotion extends Extension<{}, null> {
   /**
-   * `configAfter` callback
-   *
-   * @public
-   * @decorator `@bind`
+   * {@link Extension.boot}
    */
   @bind
-  public override async configAfter(bud: Bud) {
-    if (!isUndefined(bud.babel))
-      bud.babel.setPlugin(`@emotion/babel-plugin`)
-
-    if (!isUndefined(bud.swc)) {
-      const plugin: [string, Record<string, any>] = [
-        `@swc/plugin-emotion`,
-        {},
-      ]
-
-      bud.swc.plugins(plugins => {
-        plugins?.push(plugin)
-        return plugins ?? [plugin]
-      })
-    }
+  public override async boot(bud: Bud) {
+    bud
+      .when(
+        `babel` in bud,
+        ({babel}) => babel.setPlugin(`@emotion/babel-plugin`),
+        undefined,
+        `@roots\/bud-emotion: register \`@emotion/babel-plugin\``,
+      )
+      .when(
+        `swc` in bud,
+        ({swc}) =>
+          swc.plugins((plugins = []) => [
+            ...plugins,
+            [`@swc/plugin-emotion`, {}],
+          ]),
+        undefined,
+        `@roots\/bud-emotion: register \`@swc/plugin-emotion\``,
+      )
   }
 }

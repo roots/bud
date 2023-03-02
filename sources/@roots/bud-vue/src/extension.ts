@@ -9,196 +9,109 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
+import {deprecated} from '@roots/bud-support/decorators'
 import parseSemver from '@roots/bud-support/parse-semver'
-import type {
-  RuleSetRule,
-  WebpackPluginInstance,
-} from '@roots/bud-support/webpack'
+import type {WebpackPluginInstance} from '@roots/bud-support/webpack'
 
 interface Options {
   runtimeOnly: boolean
 }
 
 /**
- * Vue support
- *
- * @public
- * @decorator `@label`
- * @decorator `@options`
- * @decorator `@dependsOnOptional`
- * @decorator `@expose`
+ * Vue configuration
  */
 @label(`@roots/bud-vue`)
 @options({runtimeOnly: true})
-@dependsOnOptional([`@roots/bud-postcss`, `@roots/bud-sass`])
+@dependsOnOptional([
+  `@roots/bud-postcss`,
+  `@roots/bud-sass`,
+  `@roots/bud-typescript`,
+])
 @expose(`vue`)
 export default class Vue extends Extension<
   Options,
   WebpackPluginInstance
 > {
   /**
-   * Loader path
-   * @public
-   */
-  public declare loader: string
-
-  /**
-   * Style loader path
-   * @public
-   */
-  public declare styleLoader: string
-
-  /**
    * Resolved version
-   * @public
    */
   public declare version: string
 
   /**
    * Set `runtimeOnly` option
    *
-   * @param enabled - {@link Options.runtimeOnly}
-   * @returns {Vue}
-   *
-   * @public
-   * @decorator `@bind`
+   * @deprecated Use {@link Extension.set} instead
+   * @example
+   * ```js
+   * bud.vue.set('runtimeOnly', false)
+   * ```
    */
   @bind
+  @deprecated(`bud.vue`, `Use bud.vue.set instead`, [
+    [`Enable runtimeOnly`, `bud.vue.set('runtimeOnly', true)`],
+    [`Disable runtimeOnly`, `bud.vue.set('runtimeOnly', false)`],
+  ])
   public runtimeOnly(enabled: Options[`runtimeOnly`] = true): this {
-    this.setOption(`runtimeOnly`, enabled)
+    this.set(`runtimeOnly`, enabled)
     return this
   }
 
   /**
    * `register` callback
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
-  public override async register() {
-    this.loader = await this.resolve(`vue-loader`, import.meta.url)
-    this.styleLoader = await this.resolve(
-      `vue-style-loader`,
-      import.meta.url,
-    )
-  }
-
-  /**
-   * `boot` callback
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public override async boot(bud: Bud) {
+  public override async register(bud: Bud) {
     bud.build
-      .setLoader(`vue`, this.loader)
+      .setLoader(`vue`, await this.resolve(`vue-loader`, import.meta.url))
       .setItem(`vue`, {ident: `vue`, loader: `vue`})
-      .setLoader(`vue-style-loader`, this.styleLoader)
-      .setItem(`vue-style-loader`, {
+      .setLoader(
+        `vue-style`,
+        await this.resolve(`vue-style-loader`, import.meta.url),
+      )
+      .setItem(`vue-style`, {
         ident: `vue-style`,
-        loader: `vue-style-loader`,
+        loader: `vue-style`,
       })
-
-    bud.build.rules.css?.setUse((items = []) => [
-      `vue-style-loader`,
-      ...items,
-    ])
-    bud.build.rules.sass?.setUse((items = []) => [
-      `vue-style-loader`,
-      ...items,
-    ])
-    bud.build.items.precss?.setOptions({esModule: false})
-
-    bud.hooks.fromMap({
-      'build.module.rules.before': this.moduleRulesBefore,
-      'build.module.rules.oneOf': this.moduleRulesOneOf,
-      'build.resolve.extensions': (ext = new Set()) => ext.add(`.vue`),
-    })
-
-    bud.alias(this.resolveAlias)
-
-    bud.typescript?.set(`appendTsSuffixTo`, [
-      bud.hooks.filter(`pattern.vue`),
-    ])
   }
 
   /**
    * `make` callback
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
-  public override async make(): Promise<WebpackPluginInstance> {
+  public override async boot(bud: Bud) {
+    bud.alias(this.resolveAlias)
+
+    bud.build.rules.css?.setUse((items = []) => [`vue-style`, ...items])
+    bud.build.rules.sass?.setUse((items = []) => [`vue-style`, ...items])
+    bud.build.items.precss?.setOptions({esModule: false})
+
+    bud.typescript?.set(`appendTsSuffixTo`, [
+      bud.hooks.filter(`pattern.vue`),
+    ])
+
+    bud.hooks.fromMap({
+      'build.resolve.extensions': (ext = new Set()) => ext.add(`.vue`),
+    })
+
     const {VueLoaderPlugin} = await import(`vue-loader`)
-    return new VueLoaderPlugin()
-  }
-
-  /**
-   * `build.module.rules.before` callback
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public moduleRulesBefore(
-    ruleset: Array<RuleSetRule> = [],
-  ): Array<RuleSetRule> {
-    ruleset.push(
-      this.app.build
-        .makeRule()
-        .setTest(this.app.hooks.filter(`pattern.vue`))
-        .setInclude([this.app.path(`@src`)])
-        .setUse([this.app.build.items.vue])
-        .toWebpack(),
-      this.app.build.rules.css.toWebpack(),
-    )
-
-    if (this.app.typescript) {
-      ruleset.push(this.app.build.rules.ts.toWebpack())
-    }
-
-    if (this.app.sass) {
-      ruleset.push(this.app.build.rules.sass.toWebpack())
-    }
-
-    return ruleset
-  }
-
-  /**
-   * `build.module.rules.before` callback
-   *
-   * @public
-   * @decorator `@bind`
-   */
-  @bind
-  public moduleRulesOneOf(
-    ruleset: Array<RuleSetRule> = [],
-  ): Array<RuleSetRule> {
-    ruleset = ruleset.filter(
-      ({test}) => !(test instanceof RegExp) || !`.css`.match(test),
-    )
-
-    if (this.app.typescript)
-      ruleset = ruleset.filter(
-        ({test}) => !(test instanceof RegExp) || `.ts`.match(test),
-      )
-
-    if (this.app.sass)
-      ruleset = ruleset.filter(
-        ({test}) => !(test instanceof RegExp) || `.scss`.match(test),
-      )
-
-    return ruleset
+    bud.webpackConfig(config => {
+      config.module.rules = [
+        {
+          test: bud.hooks.filter(`pattern.vue`),
+          include: [bud.path(`@src`)],
+          use: [bud.build.items.vue.toWebpack()],
+        },
+        ...config.module.rules.flatMap(rule =>
+          typeof rule === `object` && `oneOf` in rule ? rule.oneOf : rule,
+        ),
+      ]
+      config.plugins.push(new VueLoaderPlugin())
+      return config
+    })
   }
 
   /**
    * `build.resolve.alias` callback
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public async resolveAlias(
@@ -215,9 +128,6 @@ export default class Vue extends Extension<
 
   /**
    * Returns true if user has installed a 2.x.x version of vue
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public isVue2(): boolean {
@@ -229,8 +139,6 @@ export default class Vue extends Extension<
       if (version) this.version = parseSemver(`vue@${version}`).version
     }
 
-    if (!this.version) return false
-
-    return this.version?.startsWith(`2`)
+    return !this.version ? false : this.version?.startsWith(`2`)
   }
 }

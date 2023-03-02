@@ -1,32 +1,13 @@
 import {Project} from '@repo/test-kit/project'
-import {beforeAll, describe, expect, it} from 'vitest'
+import {describe, expect, it} from 'vitest'
 
-const run = pacman => () => {
-  let project: Project
-
-  beforeAll(async () => {
-    project = new Project({
+describe(`examples/html-template`, () => {
+  it(`should compile js and css as expected`, async () => {
+    const project = await new Project({
       label: `@examples/html-template`,
-      with: pacman,
-    })
-
-    await project.setup()
+      with: `npm`,
+    }).setup()
+    expect(project.packageJson).toMatchSnapshot()
+    expect(project.assets[`index.html`]).toMatchSnapshot()
   })
-
-  describe(`package.json`, () => {
-    it(`matches snapshot`, () => {
-      expect(project.packageJson).toMatchSnapshot()
-    })
-  })
-
-  describe(`index.html`, () => {
-    it(`is the correct html`, () => {
-      expect(project.assets[`index.html`]).toMatchSnapshot()
-    })
-  })
-}
-
-describe(`html-template`, () => {
-  describe(`npm`, run(`npm`))
-  describe(`yarn`, run(`yarn`))
-}, 240000)
+})

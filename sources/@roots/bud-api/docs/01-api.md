@@ -1,7 +1,10 @@
 ---
 title: API
 parts:
+  - assets/overview.md
   - compilePaths/overview.md
+  - copyDir/overview.md
+  - copyFile/overview.md
   - entry/overview.md
   - html/overview.md
   - provide/overview.md

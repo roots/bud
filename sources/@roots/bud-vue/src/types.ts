@@ -20,12 +20,12 @@ declare module '@roots/bud-framework' {
 
   interface Loaders {
     vue: Build.Loader
-    'vue-style-loader': Build.Loader
+    'vue-style': Build.Loader
   }
 
   interface Items {
     vue: Build.Item
-    'vue-style-loader': Build.Item
+    'vue-style': Build.Item
   }
 
   interface Rules {

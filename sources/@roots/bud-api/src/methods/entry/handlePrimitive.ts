@@ -1,8 +1,10 @@
+import {join, parse} from 'node:path'
+
 import type {Bud} from '@roots/bud-framework'
 
 import {handleTypeError} from '../../errors/handleValidationTypeError.js'
 import * as schema from './schema.js'
-import type {Parameters} from './types.js'
+import type {EntryObject, Parameters} from './types.js'
 
 export async function handlePrimitive(bud: Bud, input: Parameters) {
   const [value] = input
@@ -13,14 +15,24 @@ export async function handlePrimitive(bud: Bud, input: Parameters) {
 
   if (!imports.success) return handleTypeError(bud, `bud.entry`, imports)
 
-  const current = bud.hooks.filter(`build.entry`, {})
+  const current = bud.hooks.filter(`build.entry`, {}) as Record<
+    string,
+    EntryObject
+  >
 
-  bud.hooks.on(`build.entry`, {
-    ...current,
-    [bud.label]: {
-      import: Array.isArray(imports.data) ? imports.data : [imports.data],
-    },
-  })
+  const modules = Array.isArray(imports.data)
+    ? imports.data
+    : [imports.data]
+
+  const {name, dir} = parse(modules[0])
+  const key = join(dir, name)
+
+  const definition = {
+    ...(current?.[key] ?? {}),
+    import: [...(current?.[key]?.import ?? []), ...modules],
+  }
+
+  bud.hooks.on(`build.entry`, {...current, [key]: definition})
 
   return bud
 }

@@ -8,6 +8,7 @@ import {
   options,
   plugin,
 } from '@roots/bud-framework/extension/decorators'
+import {deprecated} from '@roots/bud-support/decorators'
 import CriticalCssWebpackPlugin, {
   Options,
 } from '@roots/critical-css-webpack-plugin'
@@ -15,34 +16,7 @@ import CriticalCssWebpackPlugin, {
 import {extractCss} from './api/extract.js'
 
 /**
- * Adds critical css webpack plugin to compilation
- *
- * @example
- *
- * At minimum you will need to provide an html or src option:
- *
- * ```js
- *
- * ```
- *
- * More options:
- *
- * ```ts
- * bud.critical
- *   .src('https://example.test')
- *   .width(1200)
- *   .height(800)
- *   .request({https: {rejectUnauthorized: false}})
- *   .extract()
- *   .enable()
- * ```
- *
- * @public
- * @decorator `@label`
- * @decorator `@expose`
- * @decorator `@plugin`
- * @decorator `@options`
- * @decorator `@when`
+ * Critical css configuration
  */
 @label(`@roots/bud-criticalcss`)
 @expose(`critical`)
@@ -61,7 +35,7 @@ export default class BudCriticalCss extends Extension<
   CriticalCssWebpackPlugin
 > {
   /**
-   * `register` callback
+   * {@link Extension.register}
    */
   @bind
   public override async register(bud: Bud) {
@@ -71,116 +45,156 @@ export default class BudCriticalCss extends Extension<
   /**
    * Whether to extract styles
    *
-   * @param extract - extract styles
+   * @deprecated use {@link BudCriticalCss.set} instead
    *
-   * @public
-   * @decorator `@bind`
+   * @example
+   * ```js
+   * bud.critical.set('extract', true)
+   * ```
    */
   @bind
+  @deprecated(`bud.critical`, `Use bud.critical.set instead`, [
+    [`Enable extract`, `bud.critical.set('extract', true)`],
+    [`Disable extract`, `bud.critical.set('extract', false)`],
+  ])
   public extract(extract: boolean = true) {
-    this.setOption(`extract`, extract)
+    this.set(`extract`, extract)
     return this
   }
 
   /**
    * Set source url
    *
-   * @param src - source url
+   * @deprecated use {@link BudCriticalCss.set} instead
    *
-   * @public
-   * @decorator `@bind`
+   * @example
+   * ```js
+   * bud.critical.set('src', 'https://example.com')
+   * ```
    */
   @bind
+  @deprecated(`bud.critical`, `Use bud.critical.set instead`, [
+    [`Set src`, `bud.critical.set('src', 'https://example.com')`],
+  ])
   public src(src: string) {
-    this.setOption(`src`, src)
+    this.set(`src`, src)
     return this
   }
 
   /**
    * Set markup to use as source
    *
-   * @param html - source template as a string
+   * @deprecated use {@link BudCriticalCss.set} instead
    *
-   * @public
-   * @decorator `@bind`
+   * @example
+   * ```js
+   * bud.critical.set('html', '<html>...</html>')
+   * ```
    */
   @bind
+  @deprecated(`bud.critical`, `Use bud.critical.set instead`, [
+    [`Set html`, `bud.critical.set('html', '<html>...</html>')`],
+  ])
   public html(html: string) {
-    this.setOption(`html`, html)
+    this.set(`html`, html)
     return this
   }
 
   /**
    * Set base path
    *
-   * @remarks
-   * By default the base path is the public path.
-   * Relative public paths are not supported.
+   * @deprecated use {@link BudCriticalCss.set} instead
    *
-   * @param base - base path
-   *
-   * @public
-   * @decorator `@bind`
+   * @example
+   * ```js
+   * bud.critical.set('base', 'https://example.com/')
+   * ```
    */
   @bind
+  @deprecated(`bud.critical`, `Use bud.critical.set instead`, [
+    [`Set base`, `bud.critical.set('base', 'https://example.com/')`],
+  ])
   public base(base: string) {
-    this.setOption(`base`, base)
+    this.set(`base`, base)
     return this
   }
 
   /**
    * Set browser width
    *
-   * @param width - browser width
+   * @deprecated use {@link BudCriticalCss.set} instead
    *
-   * @public
-   * @decorator `@bind`
+   * @example
+   * ```js
+   * bud.critical.set('width', 1920)
+   * ```
    */
   @bind
+  @deprecated(`bud.critical`, `Use bud.critical.set instead`, [
+    [`Set width`, `bud.critical.set('width', 1920)`],
+  ])
   public width(width: number) {
-    this.setOption(`width`, width)
+    this.set(`width`, width)
     return this
   }
 
   /**
    * Set browser height
    *
-   * @param height - browser height
+   * @deprecated use {@link BudCriticalCss.set} instead
    *
-   * @public
-   * @decorator `@bind`
+   * @example
+   * ```js
+   * bud.critical.set('height', 1080)
+   * ```
    */
   @bind
+  @deprecated(`bud.critical`, `Use bud.critical.set instead`, [
+    [`Set height`, `bud.critical.set('height', 1080)`],
+  ])
   public height(height: number) {
-    this.setOption(`height`, height)
+    this.set(`height`, height)
     return this
   }
 
   /**
    * Ignore css
    *
-   * @param ignore - css ignore matcher
+   * @deprecated use {@link BudCriticalCss.set} instead
    *
-   * @public
-   * @decorator `@bind`
+   * @example
+   * ```js
+   * bud.critical.set('ignore', ['@font-face'])
+   * ```
    */
   @bind
+  @deprecated(`bud.critical`, `Use bud.critical.set instead`, [
+    [`Set ignore`, `bud.critical.set('ignore', ['@font-face'])`],
+  ])
   public ignore(ignore: Options['ignore']) {
-    this.setOption(`ignore`, ignore)
+    this.set(`ignore`, ignore)
     return this
   }
 
   /**
    * Set request options
    *
-   * @param request - http request options
+   * @deprecated use {@link BudCriticalCss.set} instead
    *
-   * @public
-   * @decorator `@bind`
+   * @example
+   * ```js
+   * bud.critical.set('request', {https: {rejectUnauthorized: false}})
+   * ```
    */
   @bind
+  @deprecated(`bud.critical`, `Use bud.critical.set instead`, [
+    [
+      `Set request options`,
+      `bud.critical.set('request', {https: {rejectUnauthorized: false}})`,
+    ],
+  ])
   public request(request: number) {
-    this.setOption(`request`, request)
+    this.set(`request`, request)
     return this
   }
 }

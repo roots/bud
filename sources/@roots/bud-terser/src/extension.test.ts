@@ -21,17 +21,20 @@ describe(`@roots/bud-terser`, () => {
   it(`has options prop`, () => {
     expect(bud.terser.options).toStrictEqual({
       extractComments: false,
-      include: /\.(mjs|jsx?)$/,
-      exclude: /(node_modules|bower_components)/,
       parallel: true,
       terserOptions: {
-        compress: false,
-        mangle: {
-          safari10: true,
+        compress: {
+          drop_console: false,
+          drop_debugger: true,
+          defaults: true,
+          unused: true,
         },
-        output: {
+        format: {
           ascii_only: true,
           comments: false,
+        },
+        mangle: {
+          safari10: true,
         },
       },
     })
@@ -43,17 +46,19 @@ describe(`@roots/bud-terser`, () => {
 
   it(`bud.terser.comments`, async () => {
     bud.terser.comments(true)
-    expect(bud.terser.options.terserOptions.output.comments).toBe(true)
+    expect(bud.terser.options.terserOptions.format.comments).toBe(true)
   })
 
   it(`bud.terser.dropComments`, async () => {
     bud.terser.dropComments()
-    expect(bud.terser.options.terserOptions.output.comments).toBe(false)
+    expect(bud.terser.options.terserOptions.format.comments).toBe(false)
   })
 
   it(`bud.terser.dropDebugger`, async () => {
     bud.terser.dropDebugger()
-    expect(bud.terser.options.terserOptions.output.debugger).toBe(false)
+    expect(bud.terser.options.terserOptions.compress.drop_debugger).toBe(
+      true,
+    )
   })
 
   it(`bud.terser.dropConsole`, async () => {

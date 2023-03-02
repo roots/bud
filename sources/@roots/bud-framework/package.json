@@ -42,7 +42,9 @@
   "files": [
     "docs",
     "lib",
-    "src"
+    "scripts",
+    "src",
+    "vendor"
   ],
   "type": "module",
   "exports": {
@@ -129,6 +131,10 @@
     "./services/fs": {
       "types": "./lib/services/fs.d.ts",
       "default": "./lib/services/fs.js"
+    },
+    "./services/notifier": {
+      "types": "./lib/services/notifier/index.d.ts",
+      "default": "./lib/services/notifier/index.js"
     },
     "./services/build/*": {
       "types": "./lib/types/services/build/*.d.ts",
@@ -236,7 +242,19 @@
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@roots/container": "workspace:sources/@roots/container",
     "@roots/filesystem": "workspace:sources/@roots/filesystem",
+    "execa": "7.0.0",
     "tslib": "2.4.1"
+  },
+  "peerDependencies": {
+    "execa": ">=6.1.0"
+  },
+  "peerDependenciesMeta": {
+    "execa": {
+      "optional": true
+    }
+  },
+  "scripts": {
+    "postinstall": "node scripts/postinstall.mjs"
   },
   "volta": {
     "extends": "../../../package.json"

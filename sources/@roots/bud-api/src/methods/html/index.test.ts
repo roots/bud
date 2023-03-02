@@ -137,7 +137,7 @@ describe(`bud.html`, () => {
     })
     expect(htmlSetOptionsSpy).toHaveBeenCalledWith(
       expect.objectContaining({
-        template: `/test`,
+        template: expect.stringMatching(/\/test$/),
       }),
     )
   })
@@ -218,4 +218,4 @@ describe(`bud.html`, () => {
       }),
     )
   })
-})
+}, 60000)

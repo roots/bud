@@ -46,12 +46,22 @@
   "type": "module",
   "exports": {
     ".": {
-      "default": "./lib/index.js",
-      "types": "./lib/index.d.ts"
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
     },
-    "./extension": {
-      "default": "./lib/extension.js",
-      "types": "./lib/extension.d.ts"
+    "./types": {
+      "types": "./lib/types.d.ts",
+      "import": "./lib/types.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./lib/index.d.ts"
+      ],
+      "./types": [
+        "./lib/types.d.ts"
+      ]
     }
   },
   "module": "./lib/index.js",
@@ -59,14 +69,14 @@
   "devDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
     "@skypack/package-check": "0.2.2",
-    "@types/babel__core": "7.1.20",
+    "@types/babel__core": "7.20.0",
     "@types/babel__plugin-transform-runtime": "7.9.2",
     "@types/babel__preset-env": "7.9.2",
     "@types/node": "18.11.18",
     "webpack": "5.75.0"
   },
   "dependencies": {
-    "@babel/core": "7.20.7",
+    "@babel/core": "7.20.12",
     "@babel/plugin-transform-runtime": "7.19.6",
     "@babel/preset-env": "7.20.2",
     "@babel/runtime": "7.20.13",

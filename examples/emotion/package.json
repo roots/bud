@@ -2,10 +2,9 @@
   "name": "@examples/emotion",
   "private": true,
   "browserslist": [
-    "extends @roots/browserslist-config/current"
+    "extends @roots/browserslist-config"
   ],
   "devDependencies": {
-    "@roots/browserslist-config": "latest",
     "@roots/bud": "latest",
     "@roots/bud-emotion": "latest",
     "@roots/bud-react": "latest"

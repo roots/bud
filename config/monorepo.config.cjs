@@ -81,6 +81,11 @@ module.exports = {
       title: `Worksite Safety`,
       url: `https://worksitesafety.ca/careers/`,
     },
+    {
+      image: `https://cdn.roots.io/app/uploads/copia-digital.svg`,
+      title: `Copia Digital`,
+      url: `https://www.copiadigital.com/`,
+    },
   ],
   packages: {
     core: [

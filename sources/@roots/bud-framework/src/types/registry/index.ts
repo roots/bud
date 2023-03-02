@@ -1,8 +1,7 @@
-import type {Bud} from '../../bud.js'
 import type Value from '../../value.js'
 import type * as Build from './build.js'
 import type * as Dev from './dev.js'
-import type * as Events from './events.js'
+import type {Events} from './events.js'
 import type * as Flags from './flags.js'
 import type * as Locations from './locations.js'
 import type * as Modules from './modules.js'
@@ -13,7 +12,7 @@ interface SyncRegistry
   extends Build.SyncRegistry,
     Dev.SyncRegistry,
     Flags.SyncRegistry,
-    Locations.SyncRegistry,
+    Locations.Registry,
     Patterns.SyncRegistry,
     Values.SyncRegistry {}
 
@@ -58,12 +57,12 @@ type AsyncStore = {
   >
 }
 
-type EventsCallback = (app?: Bud) => Promise<unknown>
+type EventsCallback<T extends keyof Events> = (
+  value: Events[T],
+) => Promise<unknown>
 
 type EventsStore = {
-  [K in keyof Events.Registry as `${K & string}`]?: Array<
-    Value<EventsCallback>
-  >
+  [K in keyof Events as `${K & string}`]: Array<EventsCallback<K>>
 }
 
 type Store = SyncStore & AsyncStore & EventsStore

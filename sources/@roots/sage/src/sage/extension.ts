@@ -1,4 +1,4 @@
-import type {Bud} from '@roots/bud'
+import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
@@ -6,6 +6,7 @@ import {
   expose,
   label,
 } from '@roots/bud-framework/extension/decorators'
+import {deprecated} from '@roots/bud-support/decorators'
 
 /**
  * roots/sage support extension
@@ -30,14 +31,12 @@ export class Sage extends Extension {
     /* Set paths */
     bud.setPath({
       '@src': `resources`,
-      '@resources': `@src`,
       '@fonts': `@src/fonts`,
       '@images': `@src/images`,
       '@scripts': `@src/scripts`,
       '@styles': `@src/styles`,
       '@views': `@src/views`,
       '@dist': `public`,
-      '@public': `@dist`,
     })
 
     /* Set aliases */
@@ -59,6 +58,7 @@ export class Sage extends Extension {
       bud.isProduction,
       () => bud.minimize().hash().splitChunks(),
       () => bud.devtool(),
+      `set minimize, hash, splitChunks in production and devtool in development (@roots\/sage)`,
     )
   }
 
@@ -67,17 +67,9 @@ export class Sage extends Extension {
    *
    * @deprecated - This function is deprecated. It is unneeded; you can just remove the call.
    */
-  @bind
-  /* istanbul ignore next -- @preserve */
-  public setAcornVersion(version: 'v2' | 'v3') {
-    /* istanbul ignore next -- @preserve */
-    this.logger.warn(
-      `\n\n`,
-      `bud.sage.setAcornVersion: This function is deprecated.\n It is unneeded; you can just remove the call.\n\n`,
-      `If you feel that you need to run it you can add the following to your config:\n\n`,
-      `bud.use(\`@roots/sage/acorn-v2-public-path\`)\n\n`,
-      `If you are experiencing an issue and adding this extension fixes it, please open an issue.\n\n`,
-      `https://github.com/roots/bud.\n\n`,
-    )
-  }
+  @deprecated(
+    `bud.sage`,
+    `This function is no longer needed and should be removed.`,
+  )
+  public setAcornVersion(version: 'v2' | 'v3') {}
 }

@@ -1,41 +1,37 @@
 import type {Bud} from '@roots/bud-framework'
+import type {Modules} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
-import {bind, label} from '@roots/bud-framework/extension/decorators'
-
-import Brotli from './brotli.js'
-import Gzip from './gzip.js'
+import {
+  bind,
+  dependsOn,
+  label,
+} from '@roots/bud-framework/extension/decorators'
 
 /**
- * Bud compression extension options
+ * Compression options
  */
 export interface Options {
   filename: string
   algorithm: string
   test: RegExp
-  compressionOptions: {
-    [key: string]: any
-  }
+  compressionOptions: Record<string, any>
   threshold: number
   minRatio: number
   deleteOriginalAssets: boolean
 }
 
 /**
- * Bud compression extension
- *
- * @public
- * @decorator `@label`
+ * Compression configuration
  */
 @label(`@roots/bud-compress`)
+@dependsOn([`@roots/bud-compress/brotli`, `@roots/bud-compress/gzip`])
 export default class BudCompressionExtension extends Extension<any, any> {
-  /**
-   * `register` callback
-   *
-   * @public
-   * @decorator `@bind`
-   */
+  public declare gzip: Modules[`@roots/bud-compress/gzip`]
+  public declare brotli: Modules[`@roots/bud-compress/brotli`]
+
   @bind
   public override async register(bud: Bud) {
-    await bud.extensions.add([Brotli, Gzip])
+    this.gzip = bud.extensions.get(`@roots/bud-compress/gzip`)
+    this.brotli = bud.extensions.get(`@roots/bud-compress/brotli`)
   }
 }

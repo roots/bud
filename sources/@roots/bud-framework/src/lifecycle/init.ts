@@ -11,11 +11,7 @@ import type {Bud} from '../bud.js'
 export const initialize = (bud: Bud): Bud =>
   bud.hooks
     .fromMap({
-      'feature.clean': () => bud.isProduction,
       'feature.hash': () => false,
-      'feature.manifest': () => true,
-      'feature.runtimeChunk': () => false,
-      'feature.splitChunks': () => false,
     })
     .hooks.fromMap({
       'pattern.js': /\.(mjs|jsx?)$/,
@@ -60,8 +56,12 @@ export const initialize = (bud: Bud): Bud =>
           ? bud.context.args.modules
           : `node_modules`,
     })
-    .when(bud.isDevelopment, ({hooks}) =>
-      hooks.fromMap({
-        'dev.middleware.enabled': [`dev`, `hot`],
-      }),
+    .when(
+      bud.isDevelopment,
+      ({hooks}) =>
+        hooks.fromMap({
+          'dev.middleware.enabled': [`dev`, `hot`],
+        }),
+      undefined,
+      `enabled default middleware when in development mode`,
     )

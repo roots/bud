@@ -32,31 +32,40 @@ npm install @roots/bud-swc --save-dev
 
 ## Configuration
 
-You have two options for configuring SWC:
-
-### bud.swc
-
-You may use `bud.swc` api in your bud configuration file:
-
-```ts
-bud.swc.setOptions({
-  jsc: {
-    // ...,
-  },
-});
-```
-
 ### .swcrc
 
-You may also use a standard `.swcrc` config file in the root of your project.
+Including a `.swcrc` config file in the root of your project will replace all default options.
+
+Be aware that extensions may still modify the options even if you use `.swcrc`. For example, [@roots/bud-react](https://bud.js.org/extensions/bud-react) will modify the `jsc.transform` option to support react refresh if `bud.react.refresh` is enabled.
+
+### API
+
+You can modify swc options directly using `bud.swc`. These options are passed in more or less directly to swc-loader.
+
+```ts
+bud.swc.set(`jsc.parser.dynamicImport`, false);
+```
+
+```ts
+bud.swc.setOptions((options) => ({
+  ...options,
+  jsc: {
+    ...(options?.jsc ?? {}),
+    parser: {
+      ...(options?.jsc?.parser ?? {}),
+      dynamicImports: false,
+    },
+  },
+}));
+```
 
 ## Typechecking
 
-`@roots/bud-swc` does not currently support typechecking during compilation.
+`@roots/bud-swc` does not currently support typechecking during compilation as swc does not natively support it yet.
 
-Our recommendation is to run typechecking as a separate process. You can use the `bud typecheck` command or even use `tsc` directly: `tsc --noEmit`.
+Our recommendation is to run typechecking as a separate process. You can use `tsc` directly: `tsc --noEmit`.
 
-You could also add the `fork-ts-webpack-plugin` in your bud configuration. This approach conflicts with bud.config files authored in typescript.
+You could also add the `fork-ts-webpack-plugin`.
 
 Subscribe to [swc-project/swc#571](https://github.com/swc-project/swc/issues/571) for more information on where swc-project is at with its typecheck implementation.
 
@@ -101,4 +110,7 @@ However, the amount of effort needed to maintain and develop new features and pr
 </a>
 <a href="https://worksitesafety.ca/careers/">
 <img src="https://cdn.roots.io/app/uploads/worksite-safety.svg" alt="Worksite Safety" width="200" height="150"/>
+</a>
+<a href="https://www.copiadigital.com/">
+<img src="https://cdn.roots.io/app/uploads/copia-digital.svg" alt="Copia Digital" width="200" height="150"/>
 </a>

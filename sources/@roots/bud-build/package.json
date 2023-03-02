@@ -40,43 +40,47 @@
     "node": ">=16"
   },
   "files": [
-    "docs/",
-    "lib/",
-    "src/"
+    "docs",
+    "lib",
+    "src"
   ],
   "type": "module",
-  "module": "./lib/index.js",
-  "types": "./lib/index.d.ts",
   "exports": {
     ".": {
       "types": "./lib/index.d.ts",
-      "default": "./lib/index.js"
+      "import": "./lib/index.js"
     },
     "./item": {
       "types": "./lib/item/index.d.ts",
-      "default": "./lib/item/index.js"
+      "import": "./lib/item/index.js"
     },
     "./items": {
       "types": "./lib/handlers/items/items.d.ts",
-      "default": "./lib/handlers/items/items.js"
+      "import": "./lib/handlers/items/items.js"
     },
     "./loader": {
       "types": "./lib/loader/index.d.ts",
-      "default": "./lib/loader/index.js"
+      "import": "./lib/loader/index.js"
     },
     "./loaders": {
       "types": "./lib/handlers/loaders/loaders.d.ts",
-      "default": "./lib/handlers/loaders/loaders.js"
+      "import": "./lib/handlers/loaders/loaders.js"
     },
     "./rule": {
       "types": "./lib/rule/index.d.ts",
-      "default": "./lib/rule/index.js"
+      "import": "./lib/rule/index.js"
     },
     "./rules": {
       "types": "./lib/handlers/rules/index.d.ts",
-      "default": "./lib/handlers/rules/index.js"
+      "import": "./lib/handlers/rules/index.js"
+    },
+    "./types": {
+      "types": "./lib/types.d.ts",
+      "import": "./lib/types.js"
     }
   },
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "devDependencies": {
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@roots/bud-hooks": "workspace:sources/@roots/bud-hooks",

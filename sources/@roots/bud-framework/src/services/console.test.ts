@@ -14,12 +14,12 @@ describe(`ConsoleBuffer`, () => {
   it(`should not patch the console in ci`, async () => {
     bud.context.args.ci = true
 
-    await consoleBuffer.init(bud)
+    await consoleBuffer.register(bud)
     expect(consoleBuffer.restore).not.toBeDefined()
   })
 
   it(`should store console.log to consoleBuffer.messages`, async () => {
-    await consoleBuffer.init(bud)
+    await consoleBuffer.register(bud)
 
     console.log(`log-test`)
     console.info(`info-test`)

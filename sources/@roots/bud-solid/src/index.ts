@@ -2,21 +2,13 @@
 // Licensed under the MIT license.
 
 /**
- * Add solid.js to Bud
+ * solidjs configuration extension
  *
  * @see https://bud.js.org
  * @see https://github.com/roots/bud
- *
- * @packageDocumentation
  */
 
-import '@roots/bud-babel'
-
-declare module '@roots/bud-framework' {
-  interface Modules {
-    '@roots/bud-solid': BudSolid
-  }
-}
+import './types.js'
 
 import BudSolid from './extension.js'
 export default BudSolid

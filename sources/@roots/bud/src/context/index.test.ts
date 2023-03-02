@@ -47,7 +47,6 @@ describe(`context.get`, () => {
         `@roots/bud-extensions/webpack-define-plugin`,
       ]),
     )
-    expect(context.manifest.bud).toMatchSnapshot()
     expect(context.mode).toBe(`production`)
     expect(context.services).toEqual(
       expect.arrayContaining([

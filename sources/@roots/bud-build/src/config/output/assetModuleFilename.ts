@@ -2,8 +2,8 @@ import type {Bud} from '@roots/bud-framework'
 
 interface Props {
   filter: Bud['hooks'][`filter`]
-  path: Bud['path']
+  relPath: Bud['relPath']
 }
 
-export const assetModuleFilename = ({filter, path}: Props) =>
-  filter(`build.output.assetModuleFilename`, path(`@file`))
+export const assetModuleFilename = ({filter, relPath}: Props) =>
+  filter(`build.output.assetModuleFilename`, relPath(`@file`))

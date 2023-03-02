@@ -26,7 +26,7 @@ export default class BudWebpackCommand extends BudCommand {
    */
   public override async execute() {
     await this.makeBud(this)
-    await this.run(this)
+    await this.bud.run()
 
     const bin = join(
       await this.bud.module.getDirectory(`webpack`),

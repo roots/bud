@@ -50,9 +50,9 @@
       "types": "./lib/index.d.ts",
       "default": "./lib/index.js"
     },
-    "./extension": {
-      "types": "./lib/extension.d.ts",
-      "default": "./lib/extension.js"
+    "./types": {
+      "types": "./lib/types.d.ts",
+      "default": "./lib/types.js"
     }
   },
   "module": "./lib/index.js",

@@ -22,7 +22,6 @@ type MessagesCache = Array<{
 export default class ConsoleBuffer extends Service {
   /**
    * Received messages
-   * @public
    */
   public messages: MessagesCache = []
 
@@ -32,8 +31,6 @@ export default class ConsoleBuffer extends Service {
    * @remarks
    * Returned from {@link patchConsole} call. This is called to restore
    * the normal {@link console} behavior.
-   *
-   * @public
    */
   public restore?: () => any
 
@@ -44,13 +41,10 @@ export default class ConsoleBuffer extends Service {
   }
 
   /**
-   * `init` callback
-   *
-   * @public
-   * @decorator `@bind`
+   * `register` callback
    */
   @bind
-  public override async init?(bud: Bud) {
+  public override async register(bud: Bud) {
     if (!bud.isCLI() || (bud.isCLI() && bud.context.args?.ci)) return
 
     // Patch the console, and assign the restore function
@@ -70,8 +64,8 @@ export default class ConsoleBuffer extends Service {
       )
         return
 
-      // Add message to buffer
       this.messages.push({stream, message})
+      this.app[stream === `stderr` ? `error` : `log`](message)
     })
   }
 }

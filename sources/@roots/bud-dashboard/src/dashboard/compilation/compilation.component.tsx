@@ -19,7 +19,6 @@ import {
   colorFromStats,
   duration,
   longestAssetNameLength,
-  VERT,
 } from '../format.js'
 import Messages from '../messages/messages.component.js'
 
@@ -35,7 +34,9 @@ interface AssetGroup extends StatsChunkGroup {
 }
 
 const onlyNotHot = ({name}: StatsAsset) => !name?.includes(`hot-update`)
-const onlyStatic = ({info}: StatsAsset) => info?.copied
+const onlyStatic = ({name}: StatsAsset) =>
+  ![`.css`, `.js`].some(ext => name?.includes(ext))
+
 const makeAssetGroupCallback =
   (assets?: {name: string}[]) =>
   (asset: Partial<StatsAsset>): Partial<StatsAsset> => {
@@ -77,30 +78,31 @@ const Compilation = ({
   return (
     <Ink.Box flexDirection="column">
       <Ink.Box flexDirection="row">
-        <Ink.Text color={colorFromStats(compilation)}>
-          {compilation.errorsCount > 0
-            ? figures.cross
-            : figures.circleFilled}
+        <Ink.Text dimColor>
+          {figures.lineDownRightArc}
+          {figures.line}
         </Ink.Text>
-
-        <Ink.Text>{`  `}</Ink.Text>
+        <Ink.Text color={colorFromStats(compilation)}>
+          {compilation.errorsCount > 0 ? ` ${figures.cross}` : ``}
+        </Ink.Text>
+        <Ink.Text>{` `}</Ink.Text>
         <Ink.Text>{compilation.name}</Ink.Text>
-        <Ink.Text> {``}</Ink.Text>
+        <Ink.Text>{` `}</Ink.Text>
 
-        {compilation.outputPath && (
+        {compilation.outputPath ? (
           <Ink.Text color={color.blue}>
             ./{relative(context.basedir, compilation.outputPath)}
           </Ink.Text>
-        )}
+        ) : null}
 
         <Ink.Text>{` `}</Ink.Text>
 
         <Ink.Text dimColor>[{compilation.hash}]</Ink.Text>
       </Ink.Box>
 
-      {!compilation.isChild && (
+      {!compilation.isChild ? (
         <>
-          <Ink.Text dimColor>{VERT}</Ink.Text>
+          <Ink.Text dimColor>{figures.lineVertical}</Ink.Text>
 
           <Messages
             type="error"
@@ -124,7 +126,7 @@ const Compilation = ({
                     color={colorFromStats(compilation)}
                     dimColor={displayEntrypoints === false}
                   >
-                    <Ink.Text underline>e</Ink.Text>ntrypoints
+                    entrypoints
                   </Ink.Text>
                 </Title>
 
@@ -142,56 +144,61 @@ const Compilation = ({
                         </Ink.Box>
                       ))
                   : null}
-                <Space>
-                  <Ink.Text> </Ink.Text>
-                </Space>
               </Ink.Box>
             ) : null}
           </Ink.Box>
 
           {assets?.length > 0 ? (
-            <Ink.Box flexDirection="column">
-              <Title>
-                <Ink.Text
-                  color={colorFromStats(compilation)}
-                  dimColor={displayAssets === false}
-                >
-                  <Ink.Text underline>a</Ink.Text>ssets
-                </Ink.Text>
-              </Title>
+            <>
+              <Space>
+                <Ink.Text> </Ink.Text>
+              </Space>
 
-              {displayAssets ? (
-                <>
-                  <Chunk assets={assets} indent={[true]} />
+              <Ink.Box flexDirection="column">
+                <Title>
+                  <Ink.Text
+                    color={colorFromStats(compilation)}
+                    dimColor={displayAssets === false}
+                  >
+                    assets
+                  </Ink.Text>
+                </Title>
 
-                  <Space>
-                    <Ink.Text> </Ink.Text>
-                  </Space>
+                {displayAssets ? (
+                  <>
+                    <Chunk assets={assets} indent={[true]} />
 
-                  {truncatedAssets?.length > 0 && (
-                    <Space>
-                      <Ink.Text dimColor>
-                        {` `}
-                        {figures.ellipsis}
-                        {` `}
-                        {truncatedAssets.length}
-                        {` `}
-                        additional asset(s) not shown
-                      </Ink.Text>
-                    </Space>
-                  )}
-                </>
-              ) : null}
-            </Ink.Box>
+                    {truncatedAssets?.length > 0 ? (
+                      <>
+                        <Space>
+                          <Ink.Text> </Ink.Text>
+                        </Space>
+
+                        <Space>
+                          <Ink.Text dimColor>
+                            {` `}
+                            {figures.ellipsis}
+                            {` `}
+                            {truncatedAssets.length}
+                            {` `}
+                            additional asset(s) not shown
+                          </Ink.Text>
+                        </Space>
+                      </>
+                    ) : null}
+                  </>
+                ) : null}
+              </Ink.Box>
+            </>
           ) : null}
-
-          <Space>
-            <Ink.Text> </Ink.Text>
-          </Space>
         </>
-      )}
+      ) : null}
 
-      <Title final={true}>
+      <Space>
+        <Ink.Text> </Ink.Text>
+      </Space>
+
+      <Title final finalFigure={figures.lineUpRightArc}>
         <Ink.Text dimColor>
           compiled {compilation.modules?.length} modules in{` `}
           {duration(compilation.time) as string}

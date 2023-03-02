@@ -6,9 +6,7 @@ import type {Compiler} from '@roots/bud-support/webpack'
  */
 export default class FixStyleOnlyEntrypoints {
   /**
-   * Webpack `apply` callback
-   *
-   * @public
+   * Apply plugin
    */
   public apply({hooks}: Compiler) {
     hooks.thisCompilation.tap(this.constructor.name, compilation =>
