@@ -46,9 +46,7 @@ class Configuration {
    * Process static configuration
    */
   @bind
-  public async staticConfig(
-    description: File,
-  ): Promise<unknown> {
+  public async staticConfig(description: File): Promise<unknown> {
     this.bud.log(`processing as static configuration:`, description.name)
 
     return await Promise.all(
@@ -68,11 +66,20 @@ class Configuration {
     const request = obj[key]
     const normalValue = isArray(value) ? value : [value]
 
-    const parsedValue = normalValue.map((v) => {
-      if (isString(v) && (v.startsWith(`_app.`) || v.startsWith(`_bud.`))) {
-        return get(this.bud, v.replace(`_app.`, ``).replace(`_bud.`, ``).trim())
+    const parsedValue = normalValue.map(v => {
+      if (
+        isString(v) &&
+        (v.startsWith(`_app.`) || v.startsWith(`_bud.`))
+      ) {
+        return get(
+          this.bud,
+          v.replace(`_app.`, ``).replace(`_bud.`, ``).trim(),
+        )
       }
-      if (isString(v) && (v.startsWith(`bud =>`) || v.startsWith(`app =>`))) {
+      if (
+        isString(v) &&
+        (v.startsWith(`bud =>`) || v.startsWith(`app =>`))
+      ) {
         return eval(v.trim())(this.bud)
       }
       if (isString(v) && v.startsWith(`=>`)) {
@@ -81,8 +88,7 @@ class Configuration {
       return v
     })
 
-    if (isFunction(request))
-      await request(...(parsedValue))
+    if (isFunction(request)) await request(...parsedValue)
 
     if (isObject(request))
       await Promise.all(
