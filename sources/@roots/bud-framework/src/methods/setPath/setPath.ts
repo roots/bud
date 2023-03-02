@@ -1,4 +1,4 @@
-import {normalize} from 'node:path'
+import {isAbsolute} from 'node:path'
 
 import type {Bud} from '../../bud.js'
 import type {SyncRegistry} from '../../types/registry/index.js'
@@ -38,7 +38,7 @@ export const setPath: setPath = function (this: Bud, ...parameters) {
   /* Set basedir */
   if (isType.baseDir(parameters)) {
     const basedir = validate.baseDir(parameters)
-    this.context.basedir = normalize(basedir)
+    this.context.basedir = basedir
     this.log(`basedir set to ${basedir}`)
 
     return this
@@ -73,11 +73,17 @@ const makeCallback =
   (bud: Bud) =>
   (pair: [string, string]): Bud => {
     const [key, value] = validate.stringPair(pair)
-    const relativePath = bud.relPath(value)
+    const normal = !isAbsolute(value) ? bud.relPath(value) : value
+
+    bud.log({
+      key,
+      value,
+      normal,
+    })
 
     bud.hooks
-      .on(`location.${key}` as keyof SyncRegistry, relativePath)
-      .log(`${key} set to ${relativePath}`)
+      .on(`location.${key}` as keyof SyncRegistry, normal)
+      .log(`${key} set to ${normal}`)
 
     return bud
   }
