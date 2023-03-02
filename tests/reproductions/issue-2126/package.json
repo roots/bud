@@ -1,0 +1,22 @@
+{
+  "name": "@tests/issue-2126",
+  "type": "module",
+  "private": true,
+  "bud": {
+    "extensions": {
+      "allowlist": [
+        "@roots/sage",
+        "@roots/bud-postcss",
+        "@roots/bud-sass",
+        "@roots/bud-vue"
+      ]
+    }
+  },
+  "dependencies": {
+    "@roots/bud": "workspace:sources/@roots/bud",
+    "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
+    "@roots/bud-sass": "workspace:sources/@roots/bud-sass",
+    "@roots/bud-vue": "workspace:sources/@roots/bud-vue",
+    "@roots/sage": "workspace:sources/@roots/sage"
+  }
+}
