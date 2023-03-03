@@ -46,12 +46,12 @@
       "default": "./lib/index.js"
     },
     "./block": {
-      "types": "./lib/block.d.ts",
-      "default": "./lib/block.js"
+      "types": "./lib/blocks.d.ts",
+      "default": "./lib/blocks.js"
     },
     "./blocks": {
-      "types": "./lib/block.d.ts",
-      "default": "./lib/block.js"
+      "types": "./lib/blocks.d.ts",
+      "default": "./lib/blocks.js"
     },
     "./cache": {
       "types": "./lib/cache.d.ts",
@@ -64,6 +64,9 @@
     "./format": {
       "types": "./lib/format.d.ts",
       "default": "./lib/format.js"
+    },
+    "./loader": {
+      "require": "./lib/loader.cjs"
     },
     "./plugin": {
       "types": "./lib/plugin.d.ts",

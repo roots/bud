@@ -1,5 +1,4 @@
 import {
-  BlockInstance,
   getBlockType,
   registerBlockStyle,
   registerBlockType,
@@ -57,8 +56,9 @@ const after = (changed?: Array<{name: string}>) => {
 
   const allBlocks = select(
     `core/block-editor`,
-  ).getBlocks() as Array<BlockInstance>
-  const modifiedBlocks = changed.map(module => module.name)
+  ).getBlocks()
+
+  const modifiedBlocks = changed.filter(Boolean).map(module => module.name)
 
   allBlocks.forEach(({name, clientId}) => {
     if (modifiedBlocks.includes(name)) {
@@ -73,7 +73,7 @@ const after = (changed?: Array<{name: string}>) => {
   selected = null
 }
 
-export const load = (getContext, callback): void => {
+export default (getContext, callback): void => {
   editor.load({
     getContext,
     callback,

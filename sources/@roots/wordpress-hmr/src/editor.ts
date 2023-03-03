@@ -19,19 +19,19 @@ export const load = ({
     const context = getContext()
     const changed = []
 
-    context.keys().forEach((key: string) => {
-      const module = context(key)
+    context?.keys().forEach((key: string) => {
+      const {default: {name, ...settings}} = context(key);
+      const registrable = {name, settings}
 
-      if (cache.is(key, module)) return
+      if (cache.is(key, registrable)) return
       if (cache.has(key)) unregister(cache.get(key))
 
-      register(module)
-      changed.push(module)
-      cache.set(key, module)
+      register(registrable)
+      changed.push(registrable)
+      cache.set(key, registrable)
     })
 
     isFunction(after) && after(changed)
-
     return context
   }
 
