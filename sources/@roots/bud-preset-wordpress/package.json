@@ -88,14 +88,16 @@
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@roots/bud-tailwindcss-theme-json": "workspace:sources/@roots/bud-tailwindcss-theme-json",
     "@roots/bud-wordpress-manifests": "workspace:sources/@roots/bud-wordpress-manifests",
-    "@roots/bud-wordpress-theme-json": "workspace:sources/@roots/bud-wordpress-theme-json"
+    "@roots/bud-wordpress-theme-json": "workspace:sources/@roots/bud-wordpress-theme-json",
+    "@roots/wordpress-hmr": "workspace:sources/@roots/wordpress-hmr"
   },
   "peerDependencies": {
     "@roots/bud": "*",
     "@roots/bud-preset-recommend": "*",
     "@roots/bud-react": "*",
     "@roots/bud-tailwindcss-theme-json": "*",
-    "@roots/bud-wordpress-manifests": "*"
+    "@roots/bud-wordpress-manifests": "*",
+    "@roots/wordpress-hmr": "*"
   },
   "peerDependenciesMeta": {
     "@roots/bud": {
@@ -111,6 +113,9 @@
       "optional": true
     },
     "@roots/bud-wordpress-manifests": {
+      "optional": true
+    },
+    "@roots/wordpress-hmr": {
       "optional": true
     }
   },

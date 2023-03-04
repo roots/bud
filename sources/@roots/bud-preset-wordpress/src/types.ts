@@ -12,4 +12,11 @@ declare module '@roots/bud-framework' {
     '@roots/bud-preset-wordpress': {}
     '@roots/bud-tailwind-theme-json'?: {}
   }
+
+  interface Loaders {
+    '@roots/wordpress-hmr/loader': any
+  }
+  interface Items {
+    '@roots/wordpress-hmr/loader': any
+  }
 }
