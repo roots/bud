@@ -54,14 +54,12 @@ const before = () => {
 const after = (changed?: Array<{name: string}>) => {
   if (!changed?.length) return
 
-  const allBlocks = select(
-    `core/block-editor`,
-  ).getBlocks()
+  const blocks = select(`core/block-editor`).getBlocks()
 
-  const modifiedBlocks = changed.filter(Boolean).map(module => module.name)
+  const modified = changed.filter(Boolean).map(module => module.name)
 
-  allBlocks.forEach(({name, clientId}) => {
-    if (modifiedBlocks.includes(name)) {
+  blocks.forEach(({name, clientId}) => {
+    if (modified.includes(name)) {
       dispatch(`core/block-editor`).selectBlock(clientId)
     }
   })

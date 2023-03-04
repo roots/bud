@@ -1,8 +1,14 @@
 import type {Bud} from '@roots/bud'
 import {Extension} from '@roots/bud-framework/extension'
-import {dependsOn, label, options} from '@roots/bud-framework/extension/decorators'
+import {
+  dependsOn,
+  label,
+  options,
+} from '@roots/bud-framework/extension/decorators'
 
-interface Options {hmr: boolean}
+interface Options {
+  hmr: boolean
+}
 
 /**
  * WordPress preset
