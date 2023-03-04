@@ -19,15 +19,17 @@ export class BudPrettierCommand extends BudCommand {
     await this.makeBud(this)
     await this.bud.run()
 
-    const prettier = await this.bud.module.getDirectory(`prettier`)
-    const bin = join(prettier, `bin-prettier.js`)
+    const prettier = join(
+      await this.bud.module.getDirectory(`prettier`),
+      `bin-prettier.js`,
+    )
 
-    if (!this.options)
+    if (!this.options?.length)
       this.options = [
-        this.bud.path(`@src`, `**/*.{ts,tsx,js,jsx,css,scss,sass}`),
+        this.bud.path(`@src`, `**`, `*.{ts,tsx,js,jsx,css,scss,sass}`),
         `--write`,
       ]
 
-    await this.$(this.bin, [bin, ...(this.options ?? [])])
+    await this.$(this.bin, [prettier, ...this.options])
   }
 }
