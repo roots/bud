@@ -20,15 +20,14 @@ export const load = ({
     const changed = []
 
     context?.keys().forEach((key: string) => {
-      const {
-        default: {name, ...settings},
-      } = context(key)
-      const registrable = {name, settings}
+      const mod = context(key)
+      const registrable = mod.default || mod
 
       if (cache.is(key, registrable)) return
       if (cache.has(key)) unregister(cache.get(key))
 
       register(registrable)
+
       changed.push(registrable)
       cache.set(key, registrable)
     })

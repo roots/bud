@@ -13,7 +13,7 @@ import * as editor from './editor.js'
 /**
  * Register block
  */
-export const register = ({name, settings, filters, styles}) => {
+export const register = ({name, filters, styles, ...settings}) => {
   if (getBlockType(name)) {
     unregister({name, filters, styles})
   }

@@ -12,7 +12,7 @@ export default (source: string) => {
   load(
     () => {
       if (import.meta.webpackContext) return import.meta.webpackContext('${value}',
-        {recursive: true, regExp: /index\\..*$/}
+        {recursive: true, regExp: /.*\\.block\\..*$/}
       )
     },
     (context, load) => {

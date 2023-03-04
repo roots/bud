@@ -11,19 +11,53 @@ The [@roots/bud-preset-wordpress](/extensions/bud-preset-wordpress) package is a
 
 If you plan on using it in a WordPress theme you should consider using [@roots/sage](https://github.com/roots/sage).
 
-It's companion preset leverages this preset as its base.
-
 It includes the following extensisons:
 
 - [@roots/bud-babel](/extensions/bud-babel)
 - [@roots/bud-postcss](/extensions/bud-postcss)
 - [@roots/bud-react](/extensions/bud-react)
 - [@roots/bud-entrypoints](/extensions/bud-entrypoints)
-- @roots/bud-wordpress-manifests
-- @roots/bud-wordpress-externals - maps bundled packages to wordpress provided window variables in emitted files
-- @roots/bud-wordpress-dependencies – lists used packages in a wordpress specific manifests
-- @roots/bud-wordpress-manifests - merges the `@roots/bud-entrypoints` and `@roots/bud-wordpress-dependencies` manifests
+- [@roots/bud-wordpress-manifests](/extensions/bud-wordpress-manifests)
 
 ## Installation
 
 <Install packages="@roots/bud-preset-wordpress" />
+
+## Registering blocks
+
+In your entrypoint call `import.meta.blocks` and provide the path to your blocks directory. If your blocks are in the same directory as your entrypoint you can use `./`.
+
+```js title=src/index.js
+/* look for blocks in `./blocks` */
+import.meta.blocks('@src/blocks')
+```
+
+Block modules must be named with the `.block.js` extension. They should export the block settings and the block name.
+
+Minimal example using a default export:
+
+```js title=src/blocks/example.block.js
+export default {
+  name: `bud-project/example-block`,
+  title: `Example block`,
+  edit: () => <div><h1>Hello world!</h1></div>,
+}
+```
+
+Or using named exports:
+
+```js title=src/blocks/example.block.js
+export const name = `bud-project/example-block`
+export const title = `Example block`
+export const edit = () => <div><h1>Hello world!</h1></div>
+```
+
+Named exports are kind of nice because you can re-export from other modules.
+
+```js title-src/blocks/example.block.js
+export const name = `bud-project/example-block`
+export const title = `Example block`
+export {Edit as edit} from './edit.js'
+```
+
+That's it! Any `*.block.js` files will be automatically registered in both development and production.
