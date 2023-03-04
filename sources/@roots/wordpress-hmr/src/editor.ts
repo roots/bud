@@ -1,41 +1,50 @@
 import {Cache} from './cache.js'
+import type {AcceptCallback, ContextFactory} from './index.js'
 
-const isFunction = (value: any): boolean => typeof value === `function`
-const noop = (...args: Array<any>) => null
+export interface Props {
+  api: {
+    register: (...args: Array<any>) => void
+    unregister: (...args: Array<any>) => void
+  }
+  getContext: ContextFactory
+  accept: AcceptCallback
+  before?: () => unknown
+  after?: (changed?: Array<{name: string}>) => unknown
+}
 
 export const load = ({
+  api,
   getContext,
-  callback,
-  register,
-  unregister,
-  before = noop,
-  after = noop,
-}) => {
+  accept,
+  before = () => null,
+  after = () => null,
+}: Props) => {
   const cache = new Cache()
 
-  const loadModules = () => {
-    isFunction(before) && before()
-
-    const context = getContext()
+  const handler = () => {
     const changed = []
 
+    before()
+
+    const context = getContext()
+
     context?.keys().forEach((key: string) => {
-      const mod = context(key)
-      const registrable = mod.default || mod
+      const raw = context(key)
+      const source = raw.default || raw
 
-      if (cache.is(key, registrable)) return
-      if (cache.has(key)) unregister(cache.get(key))
+      if (cache.is(key, source)) return
+      if (cache.has(key)) api.unregister(cache.get(key))
 
-      register(registrable)
-
-      changed.push(registrable)
-      cache.set(key, registrable)
+      api.register(source)
+      changed.push(source)
+      cache.set(key, source)
     })
 
-    isFunction(after) && after(changed)
+    after(changed)
+
     return context
   }
 
-  const context = loadModules()
-  callback(context, loadModules)
+  const {id} = handler()
+  accept(id, handler)
 }

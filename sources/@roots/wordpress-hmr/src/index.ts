@@ -1,7 +1,20 @@
-import blocks from './blocks.js'
-import * as cache from './cache.js'
-import * as editor from './editor.js'
-import * as format from './format.js'
-import * as plugin from './plugin.js'
+export * as blocks from './blocks.js'
+export * as cache from './cache.js'
+export * as editor from './editor.js'
+export * as formats from './formats.js'
+export * as plugins from './plugins.js'
 
-export {blocks, blocks as block, cache, editor, format, plugin}
+export interface ContextFactory {
+  (): __WebpackModuleApi.RequireContext
+}
+
+export interface AcceptCallback {
+  (
+    id: string | number,
+    context: () => __WebpackModuleApi.RequireContext,
+  ): void
+}
+
+export interface RegisterFn {
+  (getContext: ContextFactory, accept: AcceptCallback): void
+}

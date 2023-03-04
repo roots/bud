@@ -1,68 +1,29 @@
-import {
-  getBlockType,
-  registerBlockStyle,
-  registerBlockType,
-  unregisterBlockStyle,
-  unregisterBlockType,
-} from '@wordpress/blocks'
 import {dispatch, select} from '@wordpress/data'
-import {addFilter, removeFilter} from '@wordpress/hooks'
 
+import * as api from './block.js'
 import * as editor from './editor.js'
-
-/**
- * Register block
- */
-export const register = ({name, filters, styles, ...settings}) => {
-  if (getBlockType(name)) {
-    unregister({name, filters, styles})
-  }
-
-  registerBlockType(name, settings)
-
-  styles?.map(style => registerBlockStyle(name, style))
-  filters?.map(({name, namespace, callback}) => {
-    addFilter(name, namespace, callback)
-  })
-}
-
-/**
- * Unregister block
- */
-export const unregister = ({name, filters, styles}) => {
-  unregisterBlockType(name)
-
-  filters?.map(({hook, namespace}) => {
-    removeFilter(hook, namespace)
-  })
-  styles?.map(style => unregisterBlockStyle(name, style.name))
-}
+import type {RegisterFn} from './index.js'
 
 let selected = null
 
-/**
- * Before update
- */
 const before = () => {
   selected = select(`core/block-editor`).getSelectedBlockClientId()
   dispatch(`core/block-editor`).clearSelectedBlock()
 }
 
-/**
- * After update
- */
 const after = (changed?: Array<{name: string}>) => {
   if (!changed?.length) return
 
-  const blocks = select(`core/block-editor`).getBlocks()
-
-  const modified = changed.filter(Boolean).map(module => module.name)
-
-  blocks.forEach(({name, clientId}) => {
-    if (modified.includes(name)) {
-      dispatch(`core/block-editor`).selectBlock(clientId)
-    }
-  })
+  select(`core/block-editor`)
+    .getBlocks()
+    .forEach(
+      ({name, clientId}) =>
+        changed
+          .filter(Boolean)
+          .map(module => module.name)
+          .includes(name) &&
+        dispatch(`core/block-editor`).selectBlock(clientId),
+    )
 
   selected
     ? dispatch(`core/block-editor`).selectBlock(selected)
@@ -71,13 +32,5 @@ const after = (changed?: Array<{name: string}>) => {
   selected = null
 }
 
-export default (getContext, callback): void => {
-  editor.load({
-    getContext,
-    callback,
-    register,
-    unregister,
-    before,
-    after,
-  })
-}
+export const register: RegisterFn = (getContext, accept) =>
+  editor.load({api, getContext, accept, before, after})

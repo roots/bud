@@ -45,32 +45,16 @@
       "types": "./lib/index.d.ts",
       "default": "./lib/index.js"
     },
-    "./block": {
-      "types": "./lib/blocks.d.ts",
-      "default": "./lib/blocks.js"
-    },
     "./blocks": {
       "types": "./lib/blocks.d.ts",
       "default": "./lib/blocks.js"
     },
-    "./cache": {
-      "types": "./lib/cache.d.ts",
-      "default": "./lib/cache.js"
-    },
-    "./editor": {
-      "types": "./lib/editor.d.ts",
-      "default": "./lib/editor.js"
-    },
-    "./format": {
-      "types": "./lib/format.d.ts",
-      "default": "./lib/format.js"
+    "./formats": {
+      "types": "./lib/formats.d.ts",
+      "default": "./lib/formats.js"
     },
     "./loader": {
       "require": "./lib/loader.cjs"
-    },
-    "./plugin": {
-      "types": "./lib/plugin.d.ts",
-      "default": "./lib/plugin.js"
     },
     "./plugins": {
       "types": "./lib/plugins.d.ts",
