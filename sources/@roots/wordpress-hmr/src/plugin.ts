@@ -1,29 +1,39 @@
-import {addFilter, removeFilter} from '@wordpress/hooks'
 import type {Plugin} from '@wordpress/plugins'
 import {registerPlugin, unregisterPlugin} from '@wordpress/plugins'
 
 import type * as Filter from './filter.js'
+import * as blockFilter from './filter.js'
 
 export interface Props extends Plugin {
   name: string
-  filters: Filter.Registry,
+  filters?: Record<string, Record<string, Filter.Fn>>
   settings: Record<string, any>
 }
 
-export const register = ({name, filters, ...settings}: Props) => {
+export const register = ({name, filters = {}, ...settings}: Props) => {
   registerPlugin(name, settings)
-  filters && Object.entries(filters)?.map(([hookName, registrations]) =>
-    Object.entries(registrations).map(([namespace, handler]) => {
-      addFilter(hookName, namespace, handler)
+
+  Object.entries(filters)?.map(([hook, filterRecords]) =>
+    Object.entries(filterRecords).map(([filterName, callback]) => {
+      filterName = filterName.startsWith(name)
+        ? filterName
+        : `${name}/${filterName}`
+
+      blockFilter.register({hook, name: filterName, callback})
     }),
   )
 }
 
 export const unregister = ({name, filters}) => {
   unregisterPlugin(name)
-  filters && Object.entries(filters)?.map(([hookName, registrations]) =>
-    Object.keys(registrations).map((namespace) => {
-      removeFilter(hookName, namespace)
+
+  Object.entries(filters)?.map(([hook, filterRecords]) =>
+    Object.entries(filterRecords).map(([filterName, callback]) => {
+      filterName = filterName.startsWith(name)
+        ? filterName
+        : `${name}/${filterName}`
+
+      blockFilter.unregister({hook, name: filterName, callback})
     }),
   )
 }

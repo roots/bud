@@ -3,6 +3,8 @@ export * as cache from './cache.js'
 export * as editor from './editor.js'
 export * as formats from './formats.js'
 export * as plugins from './plugins.js'
+export * as styles from './styles.js'
+export * as variations from './variations.js'
 
 export interface ContextFactory {
   (): __WebpackModuleApi.RequireContext

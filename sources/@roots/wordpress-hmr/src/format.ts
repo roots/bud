@@ -5,10 +5,10 @@ import {
 } from '@wordpress/rich-text'
 
 export interface Props extends FormatConfiguration {
-  name: string
+  block: string
 }
 
-export const register = ({name, ...settings}: Props) =>
-  registerFormatType(name, settings)
+export const register = ({block, ...settings}: Props) =>
+  registerFormatType(block, settings)
 
-export const unregister = ({name}) => unregisterFormatType(name)
+export const unregister = ({block}) => unregisterFormatType(block)

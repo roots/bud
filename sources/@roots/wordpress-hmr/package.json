@@ -45,9 +45,25 @@
       "types": "./lib/index.d.ts",
       "default": "./lib/index.js"
     },
+    "./block": {
+      "types": "./lib/block.d.ts",
+      "default": "./lib/block.js"
+    },
     "./blocks": {
       "types": "./lib/blocks.d.ts",
       "default": "./lib/blocks.js"
+    },
+    "./filter": {
+      "types": "./lib/filter.d.ts",
+      "default": "./lib/filter.js"
+    },
+    "./filters": {
+      "types": "./lib/filters.d.ts",
+      "default": "./lib/filters.js"
+    },
+    "./format": {
+      "types": "./lib/format.d.ts",
+      "default": "./lib/format.js"
     },
     "./formats": {
       "types": "./lib/formats.d.ts",
@@ -56,9 +72,21 @@
     "./loader": {
       "require": "./lib/loader.cjs"
     },
+    "./plugin": {
+      "types": "./lib/plugin.d.ts",
+      "default": "./lib/plugin.js"
+    },
     "./plugins": {
       "types": "./lib/plugins.d.ts",
       "default": "./lib/plugins.js"
+    },
+    "./variation": {
+      "types": "./lib/variation.d.ts",
+      "default": "./lib/variation.js"
+    },
+    "./variations": {
+      "types": "./lib/variations.d.ts",
+      "default": "./lib/variations.js"
     }
   },
   "module": "./lib/index.js",

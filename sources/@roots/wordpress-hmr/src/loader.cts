@@ -1,6 +1,6 @@
 export default (source: string) => {
   const matches = source.matchAll(
-    /roots\.register\.(plugin|block|format)s\(['"](.*)['"]\)/g,
+    /roots\.register\.(plugin|block|format|filter|variation)s\(['"](.*)['"]\)/g,
   )
 
   ;[...matches].map(([match, type, query]) => {

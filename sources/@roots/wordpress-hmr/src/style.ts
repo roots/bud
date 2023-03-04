@@ -1,17 +1,19 @@
 import {
-  BlockStyle as Style,
+  BlockStyle,
   registerBlockStyle,
   unregisterBlockStyle,
 } from '@wordpress/blocks'
 
-export type {Style}
+export interface Style extends BlockStyle {
+  block: string
+}
 
 export type Registry = {
   [key: string]: Style
 }
 
-export const unregister = (name: string, style: Style) =>
-  unregisterBlockStyle(name, style.label)
+export const unregister = ({block, ...style}: Style) =>
+  unregisterBlockStyle(block, style.label)
 
-export const register = (name: string, style: Style) =>
-  registerBlockStyle(name, style)
+export const register = ({block, ...style}: Style) =>
+  registerBlockStyle(block, style)

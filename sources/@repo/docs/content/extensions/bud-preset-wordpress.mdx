@@ -23,18 +23,30 @@ It includes the following extensisons:
 
 <Install packages="@roots/bud-preset-wordpress" />
 
-## Registering blocks
+## Registering block editor extensions
 
-In your entrypoint call `import.meta.blocks` and provide the path to your blocks directory. If your blocks are in the same directory as your entrypoint you can use `./`.
+There is built-in support for registering blocks, filters, formats, styles, variations and plugins. All of them follow the same pattern.
+
+In your entrypoint call `roots.register.[type]`, supplying the root directory where registrables are found.
+
+It can be the root directory but you may want to organize your code into subdirectories.
+
+You can register more than one type:
 
 ```js title=src/index.js
-/* look for blocks in `./blocks` */
-import.meta.blocks('@src/blocks')
+roots.register.blocks('@src/blocks')
+roots.register.filters('@src/filters')
+roots.register.formats('@src/formats')
+roots.register.plugins('@src/plugins')
+roots.register.styles('@src/styles')
+roots.register.variations('@src/variations')
 ```
 
-Block modules must be named with the `.block.js` extension. They should export the block settings and the block name.
+For each type create a module in the specified directory, named `*.[type].js`.
 
-Minimal example using a default export:
+The module should export the required settings and the namespace (as `name`).
+
+You can use either default exports or named exports.
 
 ```js title=src/blocks/example.block.js
 export default {
@@ -44,7 +56,31 @@ export default {
 }
 ```
 
-Or using named exports:
+Named exports are kind of nice because you can re-export other modules.
+
+```js title=src/blocks/example.block.js
+export const name = `bud-project/example-block`
+export const title = `Example block`
+export const {Edit as edit} from '@src/blocks/example.block.js'
+```
+
+## Registering blocks
+
+```js title=src/index.js
+roots.register.blocks('@src/blocks')
+```
+
+Default export:
+
+```js title=src/blocks/example.block.js
+export default {
+  name: `bud-project/example-block`,
+  title: `Example block`,
+  edit: () => <div><h1>Hello world!</h1></div>,
+}
+```
+
+Named exports:
 
 ```js title=src/blocks/example.block.js
 export const name = `bud-project/example-block`
@@ -52,12 +88,148 @@ export const title = `Example block`
 export const edit = () => <div><h1>Hello world!</h1></div>
 ```
 
-Named exports are kind of nice because you can re-export from other modules.
+## Registering styles
 
-```js title-src/blocks/example.block.js
-export const name = `bud-project/example-block`
-export const title = `Example block`
-export {Edit as edit} from './edit.js'
+```js title=src/index.js
+roots.register.styles('@src/styles')
 ```
 
-That's it! Any `*.block.js` files will be automatically registered in both development and production.
+Default export:
+
+```js title=src/styles/example.style.js
+export default {
+  block: `core/list`,
+  name: `custom`,
+  label: `Custom`,
+  isDefault: false,
+}
+```
+
+Named exports:
+
+```js title=src/styles/example.style.js
+export const block = `core/list`
+export const name = `custom`
+export const label = `Custom`
+export const isDefault = false
+```
+
+## Registering variations
+
+```js title=src/index.js
+roots.register.variations('@src/variations')
+```
+
+Default export:
+
+```js title=src/variations/example.style.js
+export default {
+  block: `core/list`,
+  name: `custom`,
+  label: `Custom`,
+  isDefault: false,
+}
+```
+
+Named exports:
+
+```js title=src/variations/example.style.js
+export const block = `core/list`
+export const name = `custom`
+export const label = `Custom`
+export const isDefault = false
+```
+
+## Registering plugins
+
+```js title=src/index.js
+import.meta.plugins('@src/plugins')
+```
+
+Default export:
+
+```js title=src/plugins/example.plugin.js
+export default {
+  name: `bud-project/example-plugin`,
+  title: `Example plugin`,
+  render: () => null,
+}
+```
+
+Named exports:
+
+```js title=src/plugins/example.plugin.js
+export const name = `bud-project/example-plugin`
+export const title = `Example plugin`
+export const render = () => null
+```
+
+## Registering formats
+
+```js title=src/index.js
+import.meta.formats('@src/formats')
+```
+
+Default export:
+
+```js title=src/formats/example.format.js
+export default {
+  name: `bud-project/example-format`,
+  title: `Example format`,
+  tagName: 'span',
+  className: 'example-format',
+}
+```
+
+Named exports:
+
+```js title=src/formats/example.format.js
+export const name = `bud-project/example-format`
+export const title = `Example format`
+export const tagName = 'span'
+export const className = 'example-format'
+```
+
+## Registering filters
+
+```js title=src/index.js
+import.meta.filters('@src/filters')
+```
+
+Default export:
+
+```js title=src/filters/example.filter.js
+export const name = `example/filter/list`
+export const hook = `wp.blocks.registerBlockType`
+export const callback = (settings, name) => {
+  if (name !== 'core/list') return settings;
+  settings.example.attributes.values = `<li>👋</li>`
+  return settings;
+}
+```
+
+## Registering filters from a block or plugin
+
+You can export a `filters` recordset to register filters from either plugins or blocks. It is keyed by the filter name.
+
+You do not need to include the plugin or block `name` in the filter key, but you may. However, the filter key starting with the plugin or block name is enforced.
+
+So, if you register `examples/list` as a filter in a plugin named `sage`, it will be registered as `sage/examples/list`.
+
+Example plugin which registers a `sage/examples/list` filter on `wp.blocks.registerBlockType`:
+
+```js title=src/plugins/example.plugin.js
+export const name = 'sage';
+export const title = 'Sage Plugin';
+export const render = () => null;
+
+export const filters = {
+  'wp.blocks.registerBlockType': {
+    'examples/list': (settings, name) => {
+      if (name !== 'core/list') return settings;
+      settings.example.attributes.values = `<li>👋</li>`
+      return settings;
+    },
+  },
+}
+```

@@ -1,37 +1,54 @@
 import {
   BlockConfiguration,
-  BlockStyle,
   getBlockType,
-  registerBlockStyle,
   registerBlockType,
-  unregisterBlockStyle,
   unregisterBlockType,
 } from '@wordpress/blocks'
-import {addFilter, removeFilter} from '@wordpress/hooks'
 
 import type * as Filter from './filter.js'
+import * as blockFilter from './filter.js'
+import type {Style} from './style.js'
+import * as blockStyle from './style.js'
+import type {Variant} from './variation.js'
+import * as blockVariant from './variation.js'
 
 export interface Props extends BlockConfiguration<Record<string, any>> {
   name: string
-  filters: Filter.Registry
-  styles: Array<BlockStyle>
+  filters?: Record<string, Record<string, Filter.Fn>>
+  styles?: Array<Omit<Style, 'block'>>
+  variations?: Array<Omit<Variant, 'block'>>
 }
 
 /**
  * Register block
  */
-export const register = ({name, filters, styles, ...settings}: Props) => {
-  getBlockType(name) && unregister({name, filters, styles})
+export const register = ({
+  name,
+  filters = {},
+  styles,
+  variations,
+  ...settings
+}: Props) => {
+  getBlockType(name) && unregister({name, filters, styles, variations})
   registerBlockType(name, settings)
 
-  styles?.map(style => registerBlockStyle(name, style))
+  styles?.map(style => {
+    blockStyle.register({block: name, ...style})
+  })
 
-  filters &&
-    Object.entries(filters)?.map(([hookName, registrations]) =>
-      Object.entries(registrations).map(([namespace, handler]) => {
-        addFilter(hookName, namespace, handler)
-      }),
-    )
+  variations?.map(variation =>
+    blockVariant.register({block: name, ...variation}),
+  )
+
+  Object.entries(filters)?.map(([hook, filterRecords]) =>
+    Object.entries(filterRecords).map(([filterName, callback]) => {
+      filterName = filterName.startsWith(name)
+        ? filterName
+        : `${name}/${filterName}`
+
+      blockFilter.register({hook, name: filterName, callback})
+    }),
+  )
 }
 
 /**
@@ -41,15 +58,23 @@ export const unregister = ({
   name,
   filters,
   styles,
-}: Pick<Props, `name` | `filters` | `styles`>) => {
+  variations,
+}: Pick<Props, `name` | `filters` | `styles` | `variations`>) => {
   unregisterBlockType(name)
 
-  styles?.map(style => unregisterBlockStyle(name, style.name))
+  styles?.map(style => blockStyle.unregister({block: name, ...style}))
 
-  filters &&
-    Object.entries(filters)?.map(([hookName, registrations]) =>
-      Object.keys(registrations).map(namespace => {
-        removeFilter(hookName, namespace)
-      }),
-    )
+  variations?.map(variation =>
+    blockVariant.unregister({block: name, ...variation}),
+  )
+
+  Object.entries(filters)?.map(([hook, records]) =>
+    Object.entries(records).map(([filterName, callback]) => {
+      filterName = filterName.startsWith(name)
+        ? filterName
+        : `${name}/${filterName}`
+
+      blockFilter.unregister({hook, name: filterName, callback})
+    }),
+  )
 }
