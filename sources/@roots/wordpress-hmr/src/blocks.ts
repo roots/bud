@@ -16,14 +16,13 @@ const after = (changed?: Array<{name: string}>) => {
 
   select(`core/block-editor`)
     .getBlocks()
-    .forEach(
-      ({name, clientId}) =>
-        changed
-          .filter(Boolean)
-          .map(module => module.name)
-          .includes(name) &&
-        dispatch(`core/block-editor`).selectBlock(clientId),
-    )
+    .forEach(({name, clientId}) => {
+      changed
+        ?.filter(module => module?.name)
+        .map(module => module.name)
+        .includes(name) &&
+        dispatch(`core/block-editor`).selectBlock(clientId)
+    })
 
   selected
     ? dispatch(`core/block-editor`).selectBlock(selected)

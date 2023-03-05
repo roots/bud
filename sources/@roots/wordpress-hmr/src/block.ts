@@ -6,15 +6,15 @@ import {
 } from '@wordpress/blocks'
 
 import type * as Filter from './filter.js'
-import * as blockFilter from './filter.js'
 import type {Style} from './style.js'
 import * as blockStyle from './style.js'
+import {filterCallback} from './utility.js'
 import type {Variant} from './variation.js'
 import * as blockVariant from './variation.js'
 
 export interface Props extends BlockConfiguration<Record<string, any>> {
   name: string
-  filters?: Record<string, Record<string, Filter.Fn>>
+  filters?: Filter.KeyedFilters
   styles?: Array<Omit<Style, 'block'>>
   variations?: Array<Omit<Variant, 'block'>>
 }
@@ -35,20 +35,10 @@ export const register = ({
   styles?.map(style => {
     blockStyle.register({block: name, ...style})
   })
-
   variations?.map(variation =>
     blockVariant.register({block: name, ...variation}),
   )
-
-  Object.entries(filters)?.map(([hook, filterRecords]) =>
-    Object.entries(filterRecords).map(([filterName, callback]) => {
-      filterName = filterName.startsWith(name)
-        ? filterName
-        : `${name}/${filterName}`
-
-      blockFilter.register({hook, name: filterName, callback})
-    }),
-  )
+  filterCallback(filters, name, (filter, api) => api.register(filter))
 }
 
 /**
@@ -63,18 +53,8 @@ export const unregister = ({
   unregisterBlockType(name)
 
   styles?.map(style => blockStyle.unregister({block: name, ...style}))
-
   variations?.map(variation =>
     blockVariant.unregister({block: name, ...variation}),
   )
-
-  Object.entries(filters)?.map(([hook, records]) =>
-    Object.entries(records).map(([filterName, callback]) => {
-      filterName = filterName.startsWith(name)
-        ? filterName
-        : `${name}/${filterName}`
-
-      blockFilter.unregister({hook, name: filterName, callback})
-    }),
-  )
+  filterCallback(filters, name, (filter, api) => api.unregister(filter))
 }

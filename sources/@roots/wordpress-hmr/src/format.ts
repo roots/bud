@@ -1,3 +1,4 @@
+import {select} from '@wordpress/data'
 import {
   FormatConfiguration,
   registerFormatType,
@@ -5,10 +6,22 @@ import {
 } from '@wordpress/rich-text'
 
 export interface Props extends FormatConfiguration {
-  block: string
+  name: string
 }
 
-export const register = ({block, ...settings}: Props) =>
-  registerFormatType(block, settings)
+export const isRegistered = (name: string) => {
+  return select(`core/rich-text`)
+    .getFormatTypes()
+    .some(({name: registered}) => registered === name)
+}
 
-export const unregister = ({block}) => unregisterFormatType(block)
+export const register = ({name, ...settings}: Props) => {
+  if (!name || !settings) return
+  isRegistered(name) && unregister({name})
+  registerFormatType(name, settings)
+}
+
+export const unregister = ({name}) => {
+  if (!name) return
+  unregisterFormatType(name)
+}

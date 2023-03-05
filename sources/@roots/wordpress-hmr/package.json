@@ -53,6 +53,10 @@
       "types": "./lib/blocks.d.ts",
       "default": "./lib/blocks.js"
     },
+    "./editor": {
+      "types": "./lib/editor.d.ts",
+      "default": "./lib/editor.js"
+    },
     "./filter": {
       "types": "./lib/filter.d.ts",
       "default": "./lib/filter.js"

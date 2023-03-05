@@ -1,15 +1,29 @@
-import {addFilter, removeFilter} from '@wordpress/hooks'
+import {addFilter, hasFilter, removeFilter} from '@wordpress/hooks'
 
-export type Fn = (...args: any[]) => any
+export type Callback = (...args: any[]) => any
 
 export type Filter = {
   name: string
   hook: string
-  callback: Fn
+  callback: Callback
 }
 
-export const register = (filter: Filter) =>
-  addFilter(filter.hook, filter.name, filter.callback)
+export type KeyedFilters = Record<string, Record<string, Callback>>
 
-export const unregister = (filter: Filter) =>
-  removeFilter(filter.hook, filter.name)
+export interface UnregisterProps extends Partial<Filter> {
+  hook: string,
+  name: string
+}
+
+export interface RegistrationModule {
+  register: (filter: Filter) => void
+  unregister: (filter: Filter) => void
+}
+
+export const register = ({hook, name, callback}: Filter) => {
+  hasFilter(hook, name) && unregister({hook, name})
+  addFilter(hook, name, callback)
+}
+
+export const unregister = ({hook, name}: Partial<Filter> & {hook: string, name: string}) =>
+  removeFilter(hook, name)

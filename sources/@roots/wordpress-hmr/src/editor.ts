@@ -1,3 +1,5 @@
+import {dispatch} from '@wordpress/data'
+
 import {Cache} from './cache.js'
 import type {AcceptCallback, ContextFactory} from './index.js'
 
@@ -10,6 +12,12 @@ export interface Props {
   accept: AcceptCallback
   before?: () => unknown
   after?: (changed?: Array<{name: string}>) => unknown
+}
+
+let initial = false
+let notify = true
+export const setNotify = (value: boolean) => {
+  notify = value
 }
 
 export const load = ({
@@ -41,6 +49,16 @@ export const load = ({
     })
 
     after(changed)
+
+    if (notify && import.meta.webpackHot) {
+      if (!initial) {
+        initial = true
+        dispatch(`core/notices`).createInfoNotice(`🔥 Reload enabled`, {
+          id: `hmr-enabled`,
+          type: `snackbar`,
+        })
+      }
+    }
 
     return context
   }
