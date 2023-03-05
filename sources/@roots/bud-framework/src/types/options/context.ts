@@ -36,7 +36,8 @@ export interface CommandContext extends CLIContext {
     browser: string | boolean | undefined
     cache: `filesystem` | `memory` | true | false | undefined
     ci: boolean | undefined
-    clean: boolean | undefined | undefined
+    clean: boolean | undefined
+    config: Array<string> | undefined
     debug: boolean | undefined
     devtool?:
       | false

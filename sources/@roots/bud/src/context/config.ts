@@ -1,4 +1,4 @@
-import {join} from 'node:path'
+import {join, sep} from 'node:path'
 
 import type {Context, File} from '@roots/bud-framework/options'
 import {Filesystem, json, yml} from '@roots/bud-support/filesystem'
@@ -32,12 +32,14 @@ const get: get = async ({basedir, fs}) => {
   await Promise.all(
     files?.map(async (name: string) => {
       try {
+        const label = name.replace(`config${sep}`, ``)
+
         const file = await fs.inspect(name, {
           mode: true,
           absolutePath: true,
         })
 
-        set(data, [`${name}`], {
+        set(data, [label], {
           ...file,
           path: file.absolutePath,
           file: isEqual(file.type, `file`),

@@ -22,7 +22,7 @@ export const checkDependencies = async (bud: Bud) => {
     })
 
   mismatches?.length &&
-    bud.dashboard.renderer.once(
+    bud.dashboard?.renderer?.once(
       <Ink.Box flexDirection="column" marginY={1}>
         {mismatches.map(([k, v]: [string, string], key: number) => {
           return (

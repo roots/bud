@@ -25,10 +25,10 @@ export const sh: sh = function (
 
   const child = execa(commandInput.shift(), commandInput.filter(Boolean), {
     cwd: bud.context.basedir,
+    env: bud.env.all(),
+    stdio: `inherit`,
     ...options,
   })
 
-  child.stdout?.pipe(process.stdout)
-  child.stderr?.pipe(process.stderr)
   return child
 }

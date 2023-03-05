@@ -3,6 +3,7 @@ import {platform} from 'node:os'
 import {checkDependencies} from '@roots/bud/cli/helpers/checkDependencies'
 import {checkPackageManagerErrors} from '@roots/bud/cli/helpers/checkPackageManagerErrors'
 import {isset} from '@roots/bud/cli/helpers/isset'
+import * as instances from '@roots/bud/instances'
 import {Bud} from '@roots/bud-framework'
 import type {
   CommandContext,
@@ -47,19 +48,13 @@ export default class BudCommand extends Command<CommandContext> {
     return process.env.BUD_JS_BIN
   }
 
-  /**
-   * {@link Command.context}
-   */
+  /** {@link Command.context} */
   public declare context: CommandContext
 
-  /**
-   * {@link Command.paths}
-   */
+  /** {@link Command.paths} */
   public static override paths = [[]]
 
-  /**
-   * {@link Command.usage}
-   */
+  /** {@link Command.usage} */
   public static override usage = Command.Usage({
     description: `Run \`bud --help\` for usage information`,
     details: `\
@@ -97,13 +92,20 @@ export default class BudCommand extends Command<CommandContext> {
       description: `Enable notification (default on macOS, experimental on other platforms)`,
     },
   )
-
-  public cwd = Option.String(`--basedir,--cwd`, undefined, {
+  public config = Option.Array(`--config`, {
+    description: `Path to config file(s)`,
+    required: false,
+  })
+  public cwd = Option.String(`--basedir,--cwd`, {
     description: `project base directory`,
     hidden: true,
+    required: false,
   })
   public debug = Option.Boolean(`--debug`, undefined, {
     description: `Enable debug mode`,
+  })
+  public dry = Option.Boolean(`--dry`, true, {
+    description: `Dry run`,
   })
   public log = Option.Boolean(`--log`, undefined, {
     description: `Enable logging`,
@@ -146,6 +148,7 @@ export default class BudCommand extends Command<CommandContext> {
       ...command.context.args,
       basedir: command.context.basedir,
       debug: command.debug,
+      dry: command.dry,
       filter: command.filter,
       log: command.log,
       notify: command.notify,
@@ -174,9 +177,12 @@ export default class BudCommand extends Command<CommandContext> {
       await import(`../env.production.js`)
     }
 
-    const bud = await new Bud().lifecycle(command.context)
+    const bud = new Bud()
+    instances.set(command.context.basedir, bud)
+    await bud.lifecycle(command.context)
 
-    bud.dashboard.setRenderer(this.renderer)
+    if (!command.context.args.ci)
+      bud.dashboard?.setRenderer(this.renderer)
 
     if (!bud.isCLI()) throw new Error(`problem instantiating bud`)
 
@@ -185,6 +191,7 @@ export default class BudCommand extends Command<CommandContext> {
     await command.applyBudEnv(command.bud)
     await command.applyBudManifestOptions(command.bud)
     await command.applyBudArguments(command.bud)
+
     await command.bud.processConfigs()
 
     if (command.withBud) {
@@ -294,6 +301,18 @@ export default class BudCommand extends Command<CommandContext> {
   @bind
   public async applyBudArguments(bud: BudCommand[`bud`]) {
     const {args, logger} = bud.context
+
+    if (args.config) {
+      bud.context.config = Object.entries(bud.context.config).reduce(
+        (records, [name, config]) => {
+          if (config.bud && !args.config.includes(name)) {
+            return records
+          }
+          return {...records, [name]: config}
+        },
+        {},
+      )
+    }
 
     if (isset(args.input)) bud.setPath(`@src`, args.input)
     if (isset(args.output)) bud.setPath(`@dist`, args.output)

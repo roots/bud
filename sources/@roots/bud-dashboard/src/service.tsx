@@ -95,6 +95,8 @@ export class Dashboard extends Service implements Contract {
   @bind
   public async render(stats: StatsCompilation) {
     try {
+      if (!this.renderer) return
+
       const Dashboard = await import(`./dashboard/index.js`)
 
       const tagInnerChilds = ({children}: StatsCompilation) =>

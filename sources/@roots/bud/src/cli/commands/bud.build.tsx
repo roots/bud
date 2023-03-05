@@ -68,6 +68,10 @@ export default class BudBuildCommand extends BudCommand {
     ]),
     env: `APP_DEVTOOL`,
   })
+
+  public override dry = Option.Boolean(`--dry`, false, {
+    description: `Dry run`,
+  })
   public editor = Option.String(`--editor`, undefined, {
     description: `Open editor to file containing errors on unsuccessful development build`,
     tolerateBoolean: true,
@@ -160,6 +164,7 @@ export default class BudBuildCommand extends BudCommand {
       ci: this.ci,
       clean: this.clean,
       debug: this.debug,
+      dry: this.dry,
       discover: this.discover,
       devtool: this.devtool,
       editor: this.editor,

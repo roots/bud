@@ -99,7 +99,7 @@ export class Compiler extends Service implements Contract.Service {
 
     await this.app.hooks.fire(`compiler.stats`, stats)
 
-    const statsUpdate = this.app.dashboard.update(stats)
+    const statsUpdate = this.app.dashboard?.update(stats)
 
     if (stats.hasErrors()) {
       process.exitCode = 1
@@ -163,7 +163,7 @@ export class Compiler extends Service implements Contract.Service {
       group: this.app.label,
     })
 
-    await this.app.dashboard.renderer.once(
+    await this.app.dashboard?.renderer?.once(
       <App.Error
         name="Compiler error"
         message={error.message}
