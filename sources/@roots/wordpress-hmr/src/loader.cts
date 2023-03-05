@@ -9,7 +9,6 @@ export default function (source: string) {
   ].map(([match, type, query]) => {
     source = source.replace(match, makeCodeString(type, query))
   })
-
   ;[...source.matchAll(/roots\.register\.notify\(false\)/g)]?.map(
     ([match]) => {
       if (!match) return

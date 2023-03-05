@@ -1,4 +1,8 @@
-import type {KeyedFilters, RegisterProps, RegistrationModule} from './filter.js'
+import type {
+  KeyedFilters,
+  RegisterProps,
+  RegistrationModule,
+} from './filter.js'
 import * as api from './filter.js'
 
 export const enforceNamespace = (id: string, name: string) =>

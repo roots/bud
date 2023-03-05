@@ -7,7 +7,7 @@
 
 import '@roots/bud-tailwindcss-theme-json/types'
 
-import type { PublicExtensionApi } from '@roots/bud-framework/extension'
+import type {PublicExtensionApi} from '@roots/bud-framework/extension'
 
 import type WP from './extension.js'
 
