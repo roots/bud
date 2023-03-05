@@ -1,19 +1,26 @@
-export default (source: string) => {
+export default function (source: string) {
+  let registerNotifyFalse = false
+  const options = this.getOptions()
+
   ;[
     ...source.matchAll(
-      /roots\.register\.(plugin|block|format|filter|variation|style)s\(['"](.*)['"]\)/g,
+      /roots\.register\.(plugin|block|format|filter|variation|style)s\(['"`](.*)['"`]\)/g,
     ),
   ].map(([match, type, query]) => {
     source = source.replace(match, makeCodeString(type, query))
   })
 
-  /* no notify */
   ;[...source.matchAll(/roots\.register\.notify\(false\)/g)]?.map(
     ([match]) => {
       if (!match) return
+      registerNotifyFalse = true
       source = source.replace(match, makeNoNotifyString())
     },
   )
+
+  if (!registerNotifyFalse && options?.notify === false) {
+    source = [source, makeNoNotifyString()].join(`\n`)
+  }
 
   return source
 }

@@ -1,13 +1,15 @@
-import type {Bud} from '@roots/bud'
+import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
   dependsOn,
+  expose,
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
 
 interface Options {
   hmr: boolean
+  notify: boolean
 }
 
 /**
@@ -20,7 +22,11 @@ interface Options {
   `@roots/bud-wordpress-theme-json`,
   `@roots/bud-react`,
 ])
-@options<Options>({hmr: true})
+@options<Options>({
+  hmr: true,
+  notify: true,
+})
+@expose(`wp`)
 export default class BudPresetWordPress extends Extension<Options> {
   /**
    * {@link Extension.boot}
@@ -34,7 +40,7 @@ export default class BudPresetWordPress extends Extension<Options> {
   }
 
   /**
-   * {@link Extension.configAfter}
+   * {@link Extension.buildBefore}
    */
   public override async buildBefore({build}, options: Options) {
     if (!options.hmr) return
@@ -43,6 +49,9 @@ export default class BudPresetWordPress extends Extension<Options> {
       .setLoader(`@roots/wordpress-hmr/loader`)
       .setItem(`@roots/wordpress-hmr/loader`, {
         loader: `@roots/wordpress-hmr/loader`,
+        options: {
+          notify: this.get(`notify`),
+        },
       })
 
     build.rules.js?.setUse((items = []) => [

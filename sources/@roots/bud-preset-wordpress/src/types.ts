@@ -7,12 +7,18 @@
 
 import '@roots/bud-tailwindcss-theme-json/types'
 
+import type { PublicExtensionApi } from '@roots/bud-framework/extension'
+
+import type WP from './extension.js'
+
 declare module '@roots/bud-framework' {
+  interface Bud {
+    wp: PublicExtensionApi<WP>
+  }
   interface Modules {
     '@roots/bud-preset-wordpress': {}
     '@roots/bud-tailwind-theme-json'?: {}
   }
-
   interface Loaders {
     '@roots/wordpress-hmr/loader': any
   }

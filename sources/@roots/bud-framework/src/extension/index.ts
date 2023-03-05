@@ -33,6 +33,18 @@ export interface Constructor {
   new (...args: any[]): Extension
 }
 
+export interface PublicExtensionApi<E extends Extension = Extension> {
+  get: E[`get`]
+  set: E[`set`]
+  getOption: E[`getOption`]
+  setOption: E[`setOption`]
+  getOptions: E[`getOptions`]
+  setOptions: E[`setOptions`]
+  enabled: E['enabled']
+  enable: E['enable']
+  options: E['options']
+}
+
 export type ExtensionLiteral = Partial<Extension>
 
 /**

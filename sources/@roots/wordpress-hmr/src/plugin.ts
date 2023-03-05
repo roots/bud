@@ -1,5 +1,9 @@
 import type {Plugin} from '@wordpress/plugins'
-import {getPlugins, registerPlugin, unregisterPlugin} from '@wordpress/plugins'
+import {
+  getPlugins,
+  registerPlugin,
+  unregisterPlugin,
+} from '@wordpress/plugins'
 
 import type * as Filter from './filter.js'
 import {filterCallback} from './utility.js'
