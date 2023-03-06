@@ -29,9 +29,7 @@ There is built-in support for registering blocks, filters, formats, styles, vari
 
 In your entrypoint call `roots.register.[type]`, supplying the root directory where registrables are found.
 
-It can be the root directory but you may want to organize your code into subdirectories.
-
-You can register more than one type:
+You can register more than one type in a single entrypoint:
 
 ```js title=src/index.js
 roots.register.blocks('@src/blocks')
@@ -232,4 +230,14 @@ export const filters = {
     },
   },
 }
+```
+
+## Disabling snackbar notification(s)
+
+There is a snackbar message when the hot reload fires for the first time. There will probably be a couple more in the future (errors, warnings).
+
+Disable snackbar notices:
+
+```js title=bud.config.js
+bud.wp.set(`notify`, false)
 ```

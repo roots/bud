@@ -1,0 +1,11 @@
+{
+  "name": "@examples/wordpress-editor",
+  "private": true,
+  "browserslist": [
+    "extends @roots/browserslist-config"
+  ],
+  "devDependencies": {
+    "@roots/bud": "latest",
+    "@roots/bud-preset-wordpress": "latest"
+  }
+}
