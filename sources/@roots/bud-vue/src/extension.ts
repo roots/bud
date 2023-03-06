@@ -11,10 +11,7 @@ import {
 } from '@roots/bud-framework/extension/decorators'
 import {deprecated} from '@roots/bud-support/decorators'
 import parseSemver from '@roots/bud-support/parse-semver'
-import type {
-  RuleSetRule,
-  WebpackPluginInstance,
-} from '@roots/bud-support/webpack'
+import type {WebpackPluginInstance} from '@roots/bud-support/webpack'
 
 interface Options {
   runtimeOnly: boolean
@@ -66,8 +63,6 @@ export default class Vue extends Extension<
     bud.build
       .setLoader(`vue`, await this.resolve(`vue-loader`, import.meta.url))
       .setItem(`vue`, {ident: `vue`, loader: `vue`})
-
-    bud.build
       .setLoader(
         `vue-style`,
         await this.resolve(`vue-style-loader`, import.meta.url),
@@ -94,70 +89,24 @@ export default class Vue extends Extension<
     ])
 
     bud.hooks.fromMap({
-      'build.module.rules.before': this.moduleRulesBefore,
-      'build.module.rules.oneOf': this.moduleRulesOneOf,
       'build.resolve.extensions': (ext = new Set()) => ext.add(`.vue`),
     })
-  }
 
-  /**
-   * {@link Extension.make}
-   */
-  @bind
-  public override async make(): Promise<WebpackPluginInstance> {
     const {VueLoaderPlugin} = await import(`vue-loader`)
-    return new VueLoaderPlugin()
-  }
-
-  /**
-   * `build.module.rules.before` callback
-   */
-  @bind
-  public moduleRulesBefore(
-    ruleset: Array<RuleSetRule> = [],
-  ): Array<RuleSetRule> {
-    const vue = this.app.build
-      .makeRule()
-      .setTest(this.app.hooks.filter(`pattern.vue`))
-      .setInclude([this.app.path(`@src`)])
-      .setUse([this.app.build.items.vue])
-      .toWebpack()
-
-    ruleset.push(vue, this.app.build.rules.css.toWebpack())
-
-    if (this.app.typescript) {
-      ruleset.push(this.app.build.rules.ts.toWebpack())
-    }
-
-    if (this.app.sass) {
-      ruleset.push(this.app.build.rules.sass.toWebpack())
-    }
-
-    return ruleset
-  }
-
-  /**
-   * `build.module.rules.before` callback
-   */
-  @bind
-  public moduleRulesOneOf(
-    ruleset: Array<RuleSetRule> = [],
-  ): Array<RuleSetRule> {
-    ruleset = ruleset.filter(
-      ({test}) => !(test instanceof RegExp) || !`.css`.match(test),
-    )
-
-    if (this.app.typescript)
-      ruleset = ruleset.filter(
-        ({test}) => !(test instanceof RegExp) || `.ts`.match(test),
-      )
-
-    if (this.app.sass)
-      ruleset = ruleset.filter(
-        ({test}) => !(test instanceof RegExp) || `.scss`.match(test),
-      )
-
-    return ruleset
+    bud.webpackConfig(config => {
+      config.module.rules = [
+        {
+          test: bud.hooks.filter(`pattern.vue`),
+          include: [bud.path(`@src`)],
+          use: [bud.build.items.vue.toWebpack()],
+        },
+        ...config.module.rules.flatMap(rule =>
+          typeof rule === `object` && `oneOf` in rule ? rule.oneOf : rule,
+        ),
+      ]
+      config.plugins.push(new VueLoaderPlugin())
+      return config
+    })
   }
 
   /**
@@ -189,8 +138,6 @@ export default class Vue extends Extension<
       if (version) this.version = parseSemver(`vue@${version}`).version
     }
 
-    if (!this.version) return false
-
-    return this.version?.startsWith(`2`)
+    return !this.version ? false : this.version?.startsWith(`2`)
   }
 }

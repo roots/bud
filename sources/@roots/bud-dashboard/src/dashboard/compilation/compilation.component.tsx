@@ -31,7 +31,9 @@ interface AssetGroup extends StatsChunkGroup {
 }
 
 const onlyNotHot = ({name}: StatsAsset) => !name?.includes(`hot-update`)
-const onlyStatic = ({info}: StatsAsset) => info?.copied
+const onlyStatic = ({name}: StatsAsset) =>
+  ![`.css`, `.js`].some(ext => name?.includes(ext))
+
 const makeAssetGroupCallback =
   (assets?: {name: string}[]) =>
   (asset: Partial<StatsAsset>): Partial<StatsAsset> => {
@@ -73,18 +75,19 @@ const Compilation = ({
   return (
     <Ink.Box flexDirection="column">
       <Ink.Box flexDirection="row">
-        <Ink.Text color={colorFromStats(compilation)}>
-          {compilation.errorsCount > 0
-            ? figures.cross
-            : figures.circleFilled}
+        <Ink.Text dimColor>
+          {figures.lineDownRightArc}
+          {figures.line}
         </Ink.Text>
-
-        <Ink.Text>{`  `}</Ink.Text>
-        <Ink.Text>{compilation.name}</Ink.Text>
-        <Ink.Text> {``}</Ink.Text>
+        <Ink.Text color={colorFromStats(compilation)}>
+          {compilation.errorsCount > 0 ? ` ${figures.cross}` : ``}
+        </Ink.Text>
+        <Ink.Text>{` `}</Ink.Text>
+        <Ink.Text color={colorFromStats(compilation) === `green` ? `blue` : colorFromStats(compilation)}>{compilation.name}</Ink.Text>
+        <Ink.Text>{` `}</Ink.Text>
 
         {compilation.outputPath ? (
-          <Ink.Text color="blue">
+          <Ink.Text>
             ./{relative(context.basedir, compilation.outputPath)}
           </Ink.Text>
         ) : null}
@@ -120,7 +123,7 @@ const Compilation = ({
                     color={colorFromStats(compilation)}
                     dimColor={displayEntrypoints === false}
                   >
-                    <Ink.Text underline>e</Ink.Text>ntrypoints
+                    entrypoints
                   </Ink.Text>
                 </Title>
 
@@ -129,14 +132,6 @@ const Compilation = ({
                       .filter(({assets}) => assets.length > 0)
                       .map((chunk: StatsChunkGroup, id: number) => (
                         <Ink.Box key={id} flexDirection="column">
-                          <Space>
-                            <Ink.Text dimColor>
-                              {` `}
-                              {figures.lineVertical}
-                              {` `}
-                            </Ink.Text>
-                          </Space>
-
                           <ChunkGroup
                             indent={[true]}
                             {...chunk}
@@ -162,7 +157,7 @@ const Compilation = ({
                     color={colorFromStats(compilation)}
                     dimColor={displayAssets === false}
                   >
-                    <Ink.Text underline>a</Ink.Text>ssets
+                    assets
                   </Ink.Text>
                 </Title>
 
@@ -170,21 +165,23 @@ const Compilation = ({
                   <>
                     <Chunk assets={assets} indent={[true]} />
 
-                    <Space>
-                      <Ink.Text> </Ink.Text>
-                    </Space>
-
                     {truncatedAssets?.length > 0 ? (
-                      <Space>
-                        <Ink.Text dimColor>
-                          {` `}
-                          {figures.ellipsis}
-                          {` `}
-                          {truncatedAssets.length}
-                          {` `}
-                          additional asset(s) not shown
-                        </Ink.Text>
-                      </Space>
+                      <>
+                        <Space>
+                          <Ink.Text> </Ink.Text>
+                        </Space>
+
+                        <Space>
+                          <Ink.Text dimColor>
+                            {` `}
+                            {figures.ellipsis}
+                            {` `}
+                            {truncatedAssets.length}
+                            {` `}
+                            additional asset(s) not shown
+                          </Ink.Text>
+                        </Space>
+                      </>
                     ) : null}
                   </>
                 ) : null}
@@ -197,7 +194,8 @@ const Compilation = ({
       <Space>
         <Ink.Text> </Ink.Text>
       </Space>
-      <Title final>
+
+      <Title final finalFigure={figures.lineUpRightArc}>
         <Ink.Text dimColor>
           compiled {compilation.modules?.length} modules in{` `}
           {duration(compilation.time) as string}

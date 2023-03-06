@@ -2,6 +2,7 @@ import {Bud} from './bud.command'
 import {CI} from './ci.command'
 import {Clean} from './clean.command'
 import {Compile} from './compile.command'
+import {Contributors} from './contributors.command'
 import {Dev} from './dev.command'
 import {DocsDev} from './docs/dev.command'
 import {Docs} from './docs/docs.command'
@@ -31,6 +32,7 @@ export const Commands = {
   Clean,
   CI,
   Compile,
+  Contributors,
   Dev,
   Docs,
   DocsDev,

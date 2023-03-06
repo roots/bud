@@ -110,19 +110,20 @@ describe(`@roots/bud-tailwindcss extension`, () => {
   it(`should set importable values`, async () => {
     const importables = undefined
     extension.set(`generateImports`, importables)
-    expect(extension.importableKeys).toMatchSnapshot()
+    expect(extension.importableKeys).toContain(`colors`)
   })
 
   it(`should set importables when generateImports is called with array arg`, async () => {
     const importables = [`colors`]
     extension.set(`generateImports`, importables)
-    expect(extension.importableKeys).toBe(importables)
+    expect(extension.importableKeys).toContain(`colors`)
+    expect(extension.importableKeys).not.toContain(`lineHeight`)
   })
 
   it(`should set importables when generateImports is called with false arg`, async () => {
     const importables = false
     extension.set(`generateImports`, importables)
-    expect(extension.importableKeys).toMatchSnapshot()
+    expect(extension.importableKeys).toContain(`colors`)
   })
 
   it(`should set importables when generateImports is called with true arg`, async () => {

@@ -8,6 +8,8 @@ exports[`@roots/bud-api > should add methods when bootstrapped 1`] = `
   "compilePaths": [Function],
   "config": [Function],
   "copy": [Function],
+  "copyDir": [Function],
+  "copyFile": [Function],
   "define": [Function],
   "devtool": [Function],
   "entry": [Function],

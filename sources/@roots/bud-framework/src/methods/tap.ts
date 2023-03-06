@@ -1,7 +1,7 @@
 import type {Bud} from '../bud.js'
 
 export interface tap<T = Bud> {
-  (fn: (app: Bud) => unknown, bound?: boolean): Bud
+  (fn: (app: Bud) => unknown): Bud
 }
 
 /**
@@ -29,18 +29,15 @@ export interface tap<T = Bud> {
  * ```
  */
 export const tap: tap = function (
+  this: Bud,
   fn: (app: Bud) => unknown,
-  bound: boolean = true,
 ): Bud {
-  const app = this
-  const thisValue = bound ? app : null
-  fn.call(thisValue, app)
-
-  return app
+  fn.call(this, this)
+  return this
 }
 
 export interface tapAsync<T = Bud> {
-  (fn: (app: Bud) => Promise<unknown>, bound?: boolean): Promise<Bud>
+  (fn: (app: Bud) => Promise<unknown>): Promise<Bud>
 }
 
 /**
@@ -67,10 +64,10 @@ export interface tapAsync<T = Bud> {
  * ```
  */
 export const tapAsync: tapAsync = async function (
+  this: Bud,
   fn: (app: Bud) => Promise<unknown>,
-  bound: boolean = true,
 ): Promise<Bud> {
-  await fn.call(bound ? this : null, this)
+  await fn.call(this, this)
 
   return this
 }

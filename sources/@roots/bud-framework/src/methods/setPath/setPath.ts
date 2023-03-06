@@ -1,10 +1,9 @@
-import {isAbsolute, normalize} from 'node:path'
-
-import isString from '@roots/bud-support/lodash/isString'
-import isUndefined from '@roots/bud-support/lodash/isUndefined'
+import {isAbsolute} from 'node:path'
 
 import type {Bud} from '../../bud.js'
-import type * as Locations from '../../types/registry/locations.js'
+import type {SyncRegistry} from '../../types/registry/index.js'
+import * as isType from './isType.js'
+import * as validate from './validate.js'
 
 export type Parameters =
   | [string]
@@ -16,7 +15,7 @@ export interface setPath {
 }
 
 /**
- * Set a {@link Locations} value
+ * Set a project path.
  *
  * @remarks
  * All values should be relative to the project directory.
@@ -31,37 +30,60 @@ export interface setPath {
  * ```js
  * bud.setPath('@src', 'custom/src')
  * ```
- *
- * @param arg1 - path handler
- * @param arg2 - path value
  */
 export const setPath: setPath = function (this: Bud, ...parameters) {
-  const [arg1, arg2] = parameters
+  /* Validate parameters */
+  parameters = validate.all(parameters)
 
-  if (isString(arg1) && isUndefined(arg2)) {
-    Object.assign(this.context, {basedir: normalize(arg1)})
+  /* Set basedir */
+  if (isType.baseDir(parameters)) {
+    const basedir = validate.baseDir(parameters)
+    this.context.basedir = basedir
+    this.log(`basedir set to ${basedir}`)
+
     return this
   }
 
-  Object.entries(isString(arg1) ? {[arg1]: arg2} : arg1).map(
-    ([key, value]: [`${keyof Locations.Sync & string}`, string]) => {
-      if (!key.startsWith(`@`)) {
-        throw new Error(
-          `bud path keys should start with \`@\`. Please change \`${key}\` to \`@${key}\``,
-        )
-      }
+  /* Setter */
+  const setHookValue = makeCallback(this)
 
-      const path = this.path(value)
+  /* Set path from key, value */
+  if (isType.stringPair(parameters)) {
+    setHookValue(parameters)
+    return this
+  }
 
-      if (!isAbsolute(path))
-        throw new Error(
-          `the final result of a bud.setPath transform was not absolute: ${key} => ${value} => ${path}`,
-        )
+  /* Set multiple paths */
+  if (isType.pathMap(parameters)) {
+    Object.entries(parameters[0]).map(setHookValue)
+    return this
+  }
 
-      this.hooks.on(`location.${key}`, this.path(value))
-      this.log(`${key} set to ${value}`)
-    },
+  const error = new Error(
+    `Invalid parameters passed.\n\nDocs: https://bud.js.org/docs/bud.setPath`,
   )
-
-  return this
+  error.name = `bud.setPath`
+  throw error
 }
+
+/**
+ * Make {@link Bud.hooks} callback
+ */
+const makeCallback =
+  (bud: Bud) =>
+  (pair: [string, string]): Bud => {
+    const [key, value] = validate.stringPair(pair)
+    const normal = !isAbsolute(value) ? bud.relPath(value) : value
+
+    bud.log({
+      key,
+      value,
+      normal,
+    })
+
+    bud.hooks
+      .on(`location.${key}` as keyof SyncRegistry, normal)
+      .log(`${key} set to ${normal}`)
+
+    return bud
+  }

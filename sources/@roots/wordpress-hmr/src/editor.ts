@@ -1,40 +1,68 @@
-import {Cache} from './cache.js'
+import {dispatch} from '@wordpress/data'
 
-const isFunction = (value: any): boolean => typeof value === `function`
-const noop = (...args: Array<any>) => null
+import {Cache} from './cache.js'
+import type {AcceptCallback, ContextFactory} from './index.js'
+
+export interface Props {
+  api: {
+    register: (...args: Array<any>) => void
+    unregister: (...args: Array<any>) => void
+  }
+  getContext: ContextFactory
+  accept: AcceptCallback
+  before?: () => unknown
+  after?: (changed?: Array<{name: string}>) => unknown
+}
+
+let initial = false
+let notify = true
+export const setNotify = (value: boolean) => {
+  notify = value
+}
 
 export const load = ({
+  api,
   getContext,
-  callback,
-  register,
-  unregister,
-  before = noop,
-  after = noop,
-}) => {
+  accept,
+  before = () => null,
+  after = () => null,
+}: Props) => {
   const cache = new Cache()
 
-  const loadModules = () => {
-    isFunction(before) && before()
-
-    const context = getContext()
+  const handler = () => {
     const changed = []
 
-    context.keys().forEach((key: string) => {
-      const module = context(key)
+    before()
 
-      if (cache.is(key, module)) return
-      if (cache.has(key)) unregister(cache.get(key))
+    const context = getContext()
 
-      register(module)
-      changed.push(module)
-      cache.set(key, module)
+    context?.keys().forEach((key: string) => {
+      const raw = context(key)
+      const source = raw.default || raw
+
+      if (cache.is(key, source)) return
+      if (cache.has(key)) api.unregister(cache.get(key))
+
+      api.register(source)
+      changed.push(source)
+      cache.set(key, source)
     })
 
-    isFunction(after) && after(changed)
+    after(changed)
+
+    if (notify && import.meta.webpackHot) {
+      if (!initial) {
+        initial = true
+        dispatch(`core/notices`).createInfoNotice(`🔥 Reload enabled`, {
+          id: `hmr-enabled`,
+          type: `snackbar`,
+        })
+      }
+    }
 
     return context
   }
 
-  const context = loadModules()
-  callback(context, loadModules)
+  const {id} = handler()
+  accept(id, handler)
 }

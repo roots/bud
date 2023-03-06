@@ -56,7 +56,7 @@ const App = ({
       ) : null}
 
       {compilations.map((compilation, id) => (
-        <Ink.Box key={id} flexDirection="column" paddingY={1}>
+        <Ink.Box key={id} flexDirection="column" paddingBottom={1}>
           <Compilation
             compilation={compilation}
             context={context}
@@ -67,14 +67,16 @@ const App = ({
       ))}
 
       {mode === `development` ? (
-        <Server
-          devUrl={devUrl}
-          publicDevUrl={publicDevUrl}
-          proxyUrl={proxyUrl}
-          publicProxyUrl={publicProxyUrl}
-          watchFiles={watchFiles}
-          displayServerInfo={displayServerInfo}
-        />
+        <Ink.Box flexDirection="column" paddingBottom={1}>
+          <Server
+            devUrl={devUrl}
+            publicDevUrl={publicDevUrl}
+            proxyUrl={proxyUrl}
+            publicProxyUrl={publicProxyUrl}
+            watchFiles={watchFiles}
+            displayServerInfo={displayServerInfo}
+          />
+        </Ink.Box>
       ) : null}
     </Ink.Box>
   )

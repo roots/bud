@@ -1,18 +1,21 @@
-import {relative} from 'node:path'
+import {isAbsolute, relative} from 'node:path'
 
 import type {Bud} from '../bud.js'
 
+/**
+ * ## bud.relPath
+ */
 export interface relPath {
-  (...parts: [string, string] | [string]): string
+  (...segments: Array<string>): string
 }
 
-export const relPath: relPath = function (...parts): string {
+export const relPath: relPath = function (...segments) {
   const app = this as Bud
 
-  const processedParts: string[] = parts.map(part => app.path(part as any))
+  /* Exit early with context.basedir if no path was passed */
+  if (!segments?.length) return ``
 
-  return relative(
-    processedParts?.length > 1 ? processedParts.shift() : app.path(),
-    processedParts.shift(),
-  )
+  const value = app.path(...segments)
+
+  return isAbsolute(value) ? relative(app.context.basedir, value) : value
 }

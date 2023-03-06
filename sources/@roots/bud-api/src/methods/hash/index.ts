@@ -1,5 +1,4 @@
 import type {Bud} from '@roots/bud-framework'
-import isUndefined from '@roots/bud-support/lodash/isUndefined'
 
 export type Parameters = [
   (boolean | undefined | ((hash: boolean | undefined) => boolean))?,
@@ -11,9 +10,11 @@ export interface hash {
 
 export const hash: hash = function (
   this: Bud,
-  value: boolean | undefined | ((hash: boolean | undefined) => boolean),
+  value:
+    | boolean
+    | undefined
+    | ((hash: boolean | undefined) => boolean) = true,
 ) {
-  if (isUndefined(value)) value = true
   this.hooks.on(`feature.hash`, value)
   this.success(`file hashing ${value ? `enabled` : `disabled`}`)
 

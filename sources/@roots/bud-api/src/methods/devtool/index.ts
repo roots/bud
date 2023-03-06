@@ -16,7 +16,6 @@ export const devtool: devtool = async function (
   input = `cheap-module-source-map`,
 ) {
   this.hooks.on(`build.devtool`, input)
-
-  this.api.logger.success(`bud.devtool: devtool set`)
+  this.api.logger.success(`bud.devtool: devtool set to`, input)
   return this
 }

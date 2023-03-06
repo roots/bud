@@ -28,7 +28,7 @@ export default async function (bud: Bud) {
 const writeIfEnabled = async (bud: Bud) => {
   if (
     !bud.extensions.has(`@roots/sage`) ||
-    !(await bud.extensions.get(`@roots/sage`).isEnabled())
+    !bud.extensions.get(`@roots/sage`).isEnabled()
   )
     return
 
@@ -45,7 +45,7 @@ const writeJson = async function (bud: Bud) {
     new URL(`http://0.0.0.0`),
   )
 
-  const publicPath = bud.root.hooks.filter(`build.output.publicPath`)
+  const publicPath = bud.publicPath()
   const writePath = bud.path(`@dist`, `hmr.json`)
 
   await bud.fs.exists(writePath)

@@ -20,41 +20,6 @@ module.exports = {
     twitter: `https://twitter.com/rootswp`,
     favicon: `https://roots.io/favicon.ico`,
   },
-  contributors: {
-    kellymears: {
-      type: [`🚀 steward`, `💻 dev`, `📕 docs`],
-    },
-    qwp6t: {
-      type: [`🚀 steward`, `💻 dev`, `📕 docs`],
-    },
-    retlehs: {
-      type: [`🚀 steward`, `📕 docs`],
-    },
-    swalkinshaw: {
-      type: [`🚀 steward`, `💻 dev`, `📕 docs`],
-    },
-    joshuafredrickson: {
-      type: [`💻 dev`, `📕 docs`],
-    },
-    alwaysblank: {
-      type: [`🚀 steward`, `📕 docs`],
-    },
-    alexdanylyschyn: {
-      type: [`💻 dev`],
-    },
-    clayrisser: {
-      type: [`📕 docs`],
-    },
-    catgofire: {
-      type: [`📕 docs`],
-    },
-    unlocdavid: {
-      type: [`📕 docs`],
-    },
-    robrecord: {
-      type: [`📕 docs`],
-    },
-  },
   sponsors: [
     {
       image: `https://cdn.roots.io/app/uploads/km-digital.svg`,
@@ -80,6 +45,11 @@ module.exports = {
       image: `https://cdn.roots.io/app/uploads/worksite-safety.svg`,
       title: `Worksite Safety`,
       url: `https://worksitesafety.ca/careers/`,
+    },
+    {
+      image: `https://cdn.roots.io/app/uploads/copia-digital.svg`,
+      title: `Copia Digital`,
+      url: `https://www.copiadigital.com/`,
     },
   ],
   packages: {

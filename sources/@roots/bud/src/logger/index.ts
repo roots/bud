@@ -78,29 +78,9 @@ export class Logger {
     return this
   }
   @bind
-  public fatal(...messages: Array<unknown>) {
-    this.instance.error(...messages)
-    return this
-  }
-  @bind
   public debug(...messages: Array<unknown>) {
     if (!argv.has(`verbose`)) return this
     this.instance.debug(...messages)
-    return this
-  }
-  @bind
-  public fav(...messages: Array<unknown>) {
-    this.instance.fav(...messages)
-    return this
-  }
-  @bind
-  public pending(...messages: Array<unknown>) {
-    this.instance.pending(...messages)
-    return this
-  }
-  @bind
-  public star(...messages: Array<unknown>) {
-    this.instance.star(...messages)
     return this
   }
   @bind

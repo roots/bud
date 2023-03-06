@@ -139,53 +139,6 @@ export default class BudCommand extends Command<CommandContext> {
     this.renderer = new Renderer(process.stdout)
   }
 
-  public override async catch(value: unknown) {
-    let error: Error
-    process.exitCode = 1
-
-    const normalizeError = (value: unknown): Error => {
-      if (value instanceof Error) return value
-      if (isString(value)) return new Error(value.trim())
-
-      if (value instanceof Object) {
-        try {
-          if (isString(error.message))
-            return new Error(error.message.trim())
-          return new Error(JSON.stringify(value, null, 2))
-        } catch (error) {
-          return new Error(value.toString().trim())
-        }
-      }
-    }
-
-    try {
-      error = normalizeError(value)
-    } catch (e) {}
-
-    if (this.bud?.notifier?.notify) {
-      try {
-        this.bud.notifier.notify({
-          title: this.bud.label ?? `bud.js`,
-          subtitle: error.name ?? `Error`,
-          message: error.message,
-          group: this.bud.label,
-        })
-      } catch (error) {
-        // fallthrough
-      }
-    }
-
-    try {
-      await this.renderOnce(
-        <Ink.Box flexDirection="column">
-          <Display.Error name={error.name} message={error.message} />
-
-          {isWindows() ? <WinError /> : null}
-        </Ink.Box>,
-      )
-    } catch (error) {}
-  }
-
   public async makeBud<T extends BudCommand>(command: T) {
     command.context.mode = command.mode ?? command.context.mode
 
@@ -232,11 +185,6 @@ export default class BudCommand extends Command<CommandContext> {
     await command.applyBudEnv(command.bud)
     await command.applyBudManifestOptions(command.bud)
     await command.applyBudArguments(command.bud)
-
-    if (command.context.args.use) {
-      await command.bud.extensions.add(command.context.args.use as any)
-    }
-
     await command.bud.processConfigs()
 
     if (command.withBud) {
@@ -334,8 +282,8 @@ export default class BudCommand extends Command<CommandContext> {
     if (isset(manifest.paths?.dist))
       bud.hooks.on(`location.@dist`, manifest.bud.paths.dist)
 
-    if (isset(manifest.paths?.[`storage`]))
-      bud.hooks.on(`location.@storage`, manifest.bud.paths[`storage`])
+    if (isset(manifest.paths?.storage))
+      bud.hooks.on(`location.@storage`, manifest.bud.paths.storage)
   }
 
   /**
@@ -450,6 +398,12 @@ export default class BudCommand extends Command<CommandContext> {
       bud.log(`overriding splitChunks setting from cli`)
       override((bud: Bud) => bud.splitChunks(args.splitChunks))
     }
+
+    if (args.use) {
+      await bud.extensions.add(args.use as any)
+    }
+
+    await bud.api.processQueue()
   }
 
   /**
@@ -457,5 +411,55 @@ export default class BudCommand extends Command<CommandContext> {
    */
   public async execute() {
     this.render(<Menu cli={this.cli} />)
+  }
+
+  /**
+   * Handle errors
+   */
+  public override async catch(value: unknown) {
+    let error: Error
+    process.exitCode = 1
+
+    const normalizeError = (value: unknown): Error => {
+      if (value instanceof Error) return value
+      if (isString(value)) return new Error(value.trim())
+
+      if (value instanceof Object) {
+        try {
+          if (isString(error.message))
+            return new Error(error.message.trim())
+          return new Error(JSON.stringify(value, null, 2))
+        } catch (error) {
+          return new Error(value.toString().trim())
+        }
+      }
+    }
+
+    try {
+      error = normalizeError(value)
+    } catch (e) {}
+
+    if (this.bud?.notifier?.notify) {
+      try {
+        this.bud.notifier.notify({
+          title: this.bud.label ?? `bud.js`,
+          subtitle: error.name ?? `Error`,
+          message: error.message,
+          group: this.bud.label,
+        })
+      } catch (error) {
+        // fallthrough
+      }
+    }
+
+    try {
+      await this.renderOnce(
+        <Ink.Box flexDirection="column">
+          <Display.Error name={error.name} message={error.message} />
+
+          {isWindows() ? <WinError /> : null}
+        </Ink.Box>,
+      )
+    } catch (error) {}
   }
 }

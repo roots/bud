@@ -56,8 +56,12 @@ export const initialize = (bud: Bud): Bud =>
           ? bud.context.args.modules
           : `node_modules`,
     })
-    .when(bud.isDevelopment, ({hooks}) =>
-      hooks.fromMap({
-        'dev.middleware.enabled': [`dev`, `hot`],
-      }),
+    .when(
+      bud.isDevelopment,
+      ({hooks}) =>
+        hooks.fromMap({
+          'dev.middleware.enabled': [`dev`, `hot`],
+        }),
+      undefined,
+      `enabled default middleware when in development mode`,
     )

@@ -6,21 +6,29 @@ interface Props
   extends React.PropsWithChildren<{
     final?: boolean
     inset?: number
+    finalFigure?: string
     indent?: Array<boolean>
   }> {}
 
-const Title = ({children, final = false, indent = []}: Props) => {
+const TreeBox = ({
+  children,
+  final = false,
+  indent = [],
+  finalFigure = figures.lineUpRight,
+}: Props) => {
   return (
     <Ink.Box flexDirection="row">
       <Ink.Text dimColor>
         {indent.map(indent =>
           indent ? `${figures.lineVertical} ` : `  `,
-        )}
-        {final ? `└─ ` : `├─ `}
+          )}
+        {final ? finalFigure : figures.lineUpDownRight}
+        {figures.line}
+        {` `}
       </Ink.Text>
       {children}
     </Ink.Box>
   )
 }
 
-export default Title
+export default TreeBox

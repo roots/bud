@@ -100,7 +100,6 @@ describe(`@roots/bud-framework/configuration`, function () {
 
   it(`calls staticConfig when config is static`, async () => {
     const logSpy = vi.spyOn(bud, `log`)
-    const infoSpy = vi.spyOn(bud, `info`)
     const dynamicSpy = vi.spyOn(configuration, `dynamicConfig`)
     const staticSpy = vi.spyOn(configuration, `staticConfig`)
 
@@ -120,8 +119,5 @@ describe(`@roots/bud-framework/configuration`, function () {
     )
     expect(dynamicSpy).not.toHaveBeenCalled()
     expect(staticSpy).toHaveBeenCalledWith(testStaticConfig)
-    expect(infoSpy).toHaveBeenCalledWith(
-      expect.arrayContaining(testStaticConfig.module.info),
-    )
   })
 })

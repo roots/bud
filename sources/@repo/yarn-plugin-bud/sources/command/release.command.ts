@@ -1,45 +1,33 @@
-import {REPO_PATH} from '@repo/constants'
+/* eslint-disable n/no-process-env */
 import {CommandClass, Option} from 'clipanion'
-import {emptyDir, readJson, writeJson} from 'fs-extra'
-import {parse} from 'semver'
 
 import {Command} from './base.command'
 
 /**
  * Execution steps
- *
- * @internal
  */
 export type EXECUTION_STEPS = 'preflight' | 'bump' | 'make' | 'publish'
 
 /**
  * Release command
- *
- * @internal
  */
 export class Release extends Command {
   /**
    * Command name
-   *
-   * @internal
    */
   public static label = `@bud release`
 
   /**
    * Command paths
-   *
-   * @internal
    */
   public static paths: CommandClass['paths'] = [[`@bud`, `release`]]
 
   /**
    * Command usage
-   *
-   * @internal
    */
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
-    description: `Do a release.`,
+    description: `Cut a release.`,
     examples: [
       [
         `Bump packages to x.y.z and publish`,
@@ -50,8 +38,6 @@ export class Release extends Command {
 
   /**
    * --version flag
-   *
-   * @internal
    */
   public version = Option.String(`-v,--version`, null, {
     description: `version`,
@@ -59,52 +45,85 @@ export class Release extends Command {
 
   /**
    * --tag flag
-   *
-   * @internal
    */
   public tag = Option.String(`-t,--tag`, null, {
-    description: `tag`,
+    description: `release tag (latest, nightly, etc.)`,
   })
-
-  public _registry = Option.String(`-r,--registry`, null, {
-    description: `Registry to publish to. Defaults to npm in CI.`,
-  })
-  public get registry() {
-    // eslint-disable-next-line n/no-process-env
-    return this._registry ?? `https://registry.npmjs.org/`
-  }
 
   /**
-   * Execute command
-   *
-   * @remarks
-   * You must be in the roots staff channel to see this link. It is
-   * just a broader overview of the steps.
-   *
-   * @internal
+   * --registry flag
    */
+  public registry = Option.String(
+    `-r,--registry`,
+    process.env.CI
+      ? `https://registry.npmjs.org/`
+      : `http://localhost:4873`,
+    {
+      description: `Registry to publish to. Defaults to npm in CI.`,
+    },
+  )
+
   public async execute() {
+    /**
+     * Install everything
+     */
     await this.$(`yarn install --immutable`)
 
-    if (this.tag === `nightly`) {
-      const date = new Date()
-      const utcSemver = `${date.getUTCFullYear()}.${date.getUTCMonth() + 1}.${date.getUTCDate()}`
+    /**
+     * For local dev we want to publish to the local registry
+     * so we'll make sure it's running
+     */
+    if (!process.env.CI) {
       try {
-        // eslint-disable-next-line n/no-process-env
-        await this.$(`npm show @roots/bud@${utcSemver} --tag nightly --registry ${this.registry}`)
+        await this.$(`yarn @bud registry start`)
+      } catch {}
+    }
+
+    /**
+     * If no version specified, generate one
+     */
+    if (!this.version) {
+      const date = new Date()
+      const utcSemver = `${date.getUTCFullYear()}.${
+        date.getUTCMonth() + 1
+      }.${date.getUTCDate()}`
+      try {
+        await this.$(
+          `npm show @roots/bud@${utcSemver} --tag ${this.tag} --registry ${this.registry}`,
+        )
         this.version = `${utcSemver}-${date.getUTCHours()}${date.getUTCMinutes()}`
       } catch (e) {
         this.version = utcSemver
       }
     }
 
-    if (this.version) {
-      await this.$(`yarn @bud version ${this.version}`)
+    /**
+     * If there is still no version there is a problem
+     */
+    if (!this.version) {
+      throw new Error(`Unable to determine version`)
     }
 
+    /** Version all packages */
+    await this.$(`yarn @bud version ${this.version}`)
+    /** Build one last time */
     await this.$(`yarn @bud build --force`)
+    /** Publish all packages */
     await this.$(
-      `yarn workspaces foreach --no-private npm publish --access public --tag ${this.tag ?? `latest`}`,
+      `yarn workspaces foreach --no-private npm publish --access public --tag ${
+        this.tag ?? `latest`
+      }`,
     )
+  
+    /**
+     * For local dev reset all the package versions and 
+     * make sure .yarnrc.yml doesn't get messed up
+     */
+    if (!process.env.CI) {
+      await this.$(`yarn @bud version 0.0.0`)
+      await this.$(`yarn @bud registry stop`)
+      await this.$(`yarn`)
+      await this.$(`yarn @bud registry start`)
+    }
   }
 }

@@ -31,14 +31,12 @@ export class Sage extends Extension {
     /* Set paths */
     bud.setPath({
       '@src': `resources`,
-      '@resources': `@src`,
       '@fonts': `@src/fonts`,
       '@images': `@src/images`,
       '@scripts': `@src/scripts`,
       '@styles': `@src/styles`,
       '@views': `@src/views`,
       '@dist': `public`,
-      '@public': `@dist`,
     })
 
     /* Set aliases */
@@ -60,6 +58,7 @@ export class Sage extends Extension {
       bud.isProduction,
       () => bud.minimize().hash().splitChunks(),
       () => bud.devtool(),
+      `set minimize, hash, splitChunks in production and devtool in development (@roots\/sage)`,
     )
   }
 

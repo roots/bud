@@ -6,72 +6,129 @@ sidebar_label: Alternative config syntaxes
 
 import Tabs from '@theme/Tabs'
 import TabItem from '@theme/TabItem'
+import CodeBlock from '@theme/CodeBlock'
+import YML from '!!raw-loader!@site/../../../examples/config-yml/bud.config.yml'
 
-Out of the box, **bud.js** supports configuration files authored with `json5` and `yml`.
+In addition to `.js`, `.cjs` and `.mjs` configurations, **bud.js** supports configuration files authored with json5 and yml.
 
-`ts` support is relatively easy to add.
+[TypeScript support is relatively easy to add.](#typescript)
 
-## Static config (json or yml)
+## YML
 
-Create either a `bud.config.json` or `bud.config.yml` in the root of your project (or `config` directory).
+For instance, the equivalent of the following JS configuration:
 
-Config function names are used as keys. Their values are used as function parameters.
-
-<Tabs
-  defaultValue="yml"
-  values={[
-    {label: 'yml', value: 'yml'},
-    {label: 'json', value: 'json'},
-  ]}>
-  <TabItem value="yml">
-
-```yml title="bud.config.yml"
-entry:
-  app:
-    - index.js
-    - index.css
+```js
+bud.entry('app', 'app.js')
 ```
 
-  </TabItem>
-  <TabItem value="json">
+Would be:
 
-```json5 title="bud.config.json"
+```yml
+entry: ['app', 'app.js']
+```
+
+There is some flexibility here if you are passing a single value and it is NOT an array. So, this is okay:
+
+```yml
+entry:
+  app: app.js
+```
+
+But, this would cause an error. it will be parsed as if it were a multi-parameter call:
+
+```yml
+# This is incorrect
+assets: ['src/**/*.html', 'app/**/*.html']
+```
+
+You can access nested properties no problem.
+
+```yml
+babel:
+  setPluginOptions:
+    - '@babel/plugin-transform-runtime'
+    - {helpers: true}
+```
+
+### Referencing bud values
+
+You can make reference to the `bud` object with `_bud`.
+
+```yml
+splitChunks: _bud.isProduction
+```
+
+You can tap `bud` with an arrow fn if needed. These functions will be called
+as they are encountered and supplied with the bud instance.
+
+```yml
+minimize: bud => bud.isProduction
+```
+
+### Treating a value as a function
+
+You can prefix a string with `=>` to indicate that it should be treated as a function. These functions will be called
+as they are encountered.
+
+This will log `4`:
+
+```yml
+log: => 2 + 2
+```
+
+### Handling callbacks
+
+Some functions accept functions as a value. In cases like these wrap the function in an additional `=>` so that the
+config parser does not call the function itself.
+
+```yml
+webpackConfig: >
+  => config => ({...config, parallelism: 1})
+```
+
+[bud.tap](/docs/bud.tap) and [bud.tapAsync](/docs/bud.tapAsync) can be helpful for dynamic configuration and work like this:
+
+```yml
+tap: >
+  => bud => {
+    // this is a very flexible
+    // area to do all sorts of dynamic config stuff
+    bud.log('hi!')
+  }
+
+tapAsync: >
+  => async bud => {
+    // same as above but async
+    bud.log('hi!', '...eventually')
+  }
+```
+
+If you're doing a lot of this remember that you can create JS configurations in addition to the yml one.
+
+## JSON
+
+JSON works by the same rules as yml and you can use json5 syntax (comments, non-quoted keys).
+
+```json
 {
-  /**
-   * You can include comments.
-   */
-  entry: {
-    // keys do not need to be quoted
-    app: ['index.js', 'index.css'],
+  entry: ['app', ['app.js']],
+  runtime: [true],
+  assets: [['src/**/*.html']],
+  babel: {
+    setPluginOptions: [
+      "@babel/plugin-transform-runtime",
+      {helpers: false, regenerator: false},
+    ],
   },
 }
 ```
 
-  </TabItem>
-</Tabs>
-
-### Limitations
-
-Things to think about:
-
-- If you need to specify a callback or anything that isn't a simple primitive as a parameter a static config is not for you.
-- Static configurations will likely never have total parity with JavaScript configurations due to inherent limitations.
+If you are doing a lot of dynamic configuration you may find it easier to use YML or JS. Ultimately, it's your choice, but
+we recommend using yml over json for more complicated configs.
 
 ## TypeScript
 
-You can use TypeScript to configure your build. In general we would recommend using JavaScript with typedoc comments, but TypeScript is supported with a couple caveats.
-
-### Configuration
-
-TypeScript 4.7.2 offers two new TypeScript extensions to deal with CJS/ESM compatibility issues: .cts and .mts (they have their own declaration file extensions as well: .d.cts and .d.mts).
-
-Depending on your project, you want to use one of the following
-
-| Extension      | Description                                            |
-| -------------- | ------------------------------------------------------ |
-| bud.config.ts  | Project has opted in to ESM with `{type: module}`      |
-| bud.config.mts | Project has not opted in to ESM but is using `import`  |
-| bud.config.cts | Project has not opted in to ESM and is using `require` |
+You can use TypeScript to configure your build. In general we would recommend using JavaScript with typedoc comments, but TypeScript is supported.
 
 ### ts-bud
 
