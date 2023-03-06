@@ -7464,6 +7464,7 @@ __metadata:
     "@roots/bud-tailwindcss-theme-json": "workspace:sources/@roots/bud-tailwindcss-theme-json"
     "@roots/bud-wordpress-manifests": "workspace:sources/@roots/bud-wordpress-manifests"
     "@roots/bud-wordpress-theme-json": "workspace:sources/@roots/bud-wordpress-theme-json"
+    "@roots/wordpress-hmr": "workspace:sources/@roots/wordpress-hmr"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.11.18
   peerDependencies:
@@ -7472,6 +7473,7 @@ __metadata:
     "@roots/bud-react": "*"
     "@roots/bud-tailwindcss-theme-json": "*"
     "@roots/bud-wordpress-manifests": "*"
+    "@roots/wordpress-hmr": "*"
   peerDependenciesMeta:
     "@roots/bud":
       optional: true
@@ -7482,6 +7484,8 @@ __metadata:
     "@roots/bud-tailwindcss-theme-json":
       optional: true
     "@roots/bud-wordpress-manifests":
+      optional: true
+    "@roots/wordpress-hmr":
       optional: true
   languageName: unknown
   linkType: soft

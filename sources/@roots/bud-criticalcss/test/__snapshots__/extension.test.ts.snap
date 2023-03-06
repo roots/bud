@@ -1,16 +1,8 @@
 // Vitest Snapshot v1
 
-exports[`@roots/bud-criticalcss > extract > should generate criticalcss 1`] = `"body{background-color:#00f}.foo{background-color:#000}"`;
-
-exports[`@roots/bud-criticalcss > extract > should not emit critical styles in stylesheet 1`] = `".ignore-style .test{background-color:red}"`;
-
 exports[`@roots/bud-criticalcss > extract 1`] = `"body{background-color:#00f}.foo{background-color:#000}"`;
 
 exports[`@roots/bud-criticalcss > extract 2`] = `".ignore-style .test{background-color:red}"`;
-
-exports[`@roots/bud-criticalcss > no-extract > should emit critical styles in stylesheet 1`] = `"body{background-color:blue}.foo{background-color:#000}"`;
-
-exports[`@roots/bud-criticalcss > no-extract > should generate criticalcss 1`] = `"body{background-color:#00f}"`;
 
 exports[`@roots/bud-criticalcss > no-extract 1`] = `"body{background-color:#00f}"`;
 
