@@ -8,7 +8,6 @@ import React from '@roots/bud-support/react'
 
 import Space from '../display/space.component.js'
 import Title from '../display/title.component.js'
-import {color} from '../format.js'
 import useWatchedFilesCount from './useWatchedFilesCount.js'
 
 interface Props {
@@ -43,7 +42,7 @@ export const Server = ({
           {figures.lineDownRightArc}
           {figures.line}
         </Ink.Text>
-        <Ink.Text color={color.blue} dimColor={!displayServerInfo}>
+        <Ink.Text color="blue" dimColor={!displayServerInfo}>
           {` `}server
         </Ink.Text>
       </Ink.Box>
