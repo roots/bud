@@ -18,6 +18,11 @@
       "name": "Ben Word",
       "email": "ben@benword.com",
       "url": "https://github.com/retlehs"
+    },
+    {
+      "name": "Brandon",
+      "email": "brandon@tendency.me",
+      "url": "https://github.com/Log1x"
     }
   ],
   "license": "MIT",
