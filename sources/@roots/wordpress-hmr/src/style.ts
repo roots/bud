@@ -13,7 +13,7 @@ export type Registry = {
 }
 
 export const unregister = ({block, ...style}: Style) =>
-  unregisterBlockStyle(block, style.label)
+  unregisterBlockStyle(block, style.name)
 
 export const register = ({block, ...style}: Style) =>
   registerBlockStyle(block, style)
