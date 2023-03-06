@@ -21,7 +21,7 @@ const TreeBox = ({
       <Ink.Text dimColor>
         {indent.map(indent =>
           indent ? `${figures.lineVertical} ` : `  `,
-          )}
+        )}
         {final ? finalFigure : figures.lineUpDownRight}
         {figures.line}
         {` `}

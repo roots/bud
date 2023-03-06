@@ -83,7 +83,15 @@ const Compilation = ({
           {compilation.errorsCount > 0 ? ` ${figures.cross}` : ``}
         </Ink.Text>
         <Ink.Text>{` `}</Ink.Text>
-        <Ink.Text color={colorFromStats(compilation) === `green` ? `blue` : colorFromStats(compilation)}>{compilation.name}</Ink.Text>
+        <Ink.Text
+          color={
+            colorFromStats(compilation) === `green`
+              ? `blue`
+              : colorFromStats(compilation)
+          }
+        >
+          {compilation.name}
+        </Ink.Text>
         <Ink.Text>{` `}</Ink.Text>
 
         {compilation.outputPath ? (

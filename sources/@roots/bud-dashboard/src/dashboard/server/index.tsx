@@ -58,7 +58,9 @@ export const Server = ({
             {proxyUrl && (
               <Title>
                 <Ink.Text>
-                  proxy{` `}<Ink.Text dimColor>{`=>`}</Ink.Text>{` `}
+                  proxy{` `}
+                  <Ink.Text dimColor>{`=>`}</Ink.Text>
+                  {` `}
                   {publicProxyUrl && publicProxyUrl.href !== proxyUrl.href
                     ? `${publicProxyUrl.href}`
                     : proxyUrl.href}
@@ -69,7 +71,9 @@ export const Server = ({
             {devUrl && (
               <Title>
                 <Ink.Text>
-                  dev{` `}<Ink.Text dimColor>{`=>`}</Ink.Text>{proxyUrl ? `   ` : ` `}
+                  dev{` `}
+                  <Ink.Text dimColor>{`=>`}</Ink.Text>
+                  {proxyUrl ? `   ` : ` `}
                   {publicDevUrl && publicDevUrl.href !== devUrl.href
                     ? `${publicDevUrl.href}`
                     : devUrl.href}
