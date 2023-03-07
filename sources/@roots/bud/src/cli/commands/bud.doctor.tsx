@@ -154,9 +154,30 @@ for a lot of edge cases so it might return a false positive.
       )
     }
 
+    if (this.bud.hasChildren) {
+      await this.renderOnce(
+        <Ink.Box flexDirection="column">
+          <Ink.Text color="blue">Child compilers{`\n`}</Ink.Text>
+          {Object.values(this.bud.children).map((child, i) => (
+            <Ink.Box key={i} flexDirection="row">
+              <Ink.Text>{figures.triangleRightSmall}</Ink.Text>
+              <Ink.Text>{` `}</Ink.Text>
+              <Ink.Text>{child.label}</Ink.Text>
+            </Ink.Box>
+          ))}
+          <Ink.Text>{` `}</Ink.Text>
+          <Ink.Text>
+            Note that not all `bud doctor` checks are not currently
+            compatible with multi-compiler builds.
+          </Ink.Text>
+        </Ink.Box>,
+      )
+    }
+
     await this.renderOnce(
       <Ink.Box flexDirection="column">
-        <Ink.Text color="blue">Project paths{`\n`}</Ink.Text>
+        <Ink.Text color="blue">Project paths</Ink.Text>
+        <Ink.Text>{` `}</Ink.Text>
         <Ink.Text>project: {this.bud.path()}</Ink.Text>
         <Ink.Text>
           input:{` `}
@@ -180,8 +201,9 @@ for a lot of edge cases so it might return a false positive.
     await this.renderOnce(
       <Ink.Box flexDirection="column">
         <Ink.Text color="blue">
-          Checking versions of core packages{`\n`}
+          Checking versions of core packages
         </Ink.Text>
+        <Ink.Text>{` `}</Ink.Text>
         {await this.packageCheck(`@roots/bud-api`)}
         {await this.packageCheck(`@roots/bud-build`)}
         {await this.packageCheck(`@roots/bud-cache`)}
@@ -209,19 +231,14 @@ for a lot of edge cases so it might return a false positive.
           if (!manifest.dependencies) return
 
           Object.entries(manifest.dependencies).forEach(
-            ([k, v]: [string, string]) => {
-              this.resolvedDependencies[k] = v
+            ([signifier, version]: [string, string]) => {
+              this.resolvedDependencies[signifier] = version
             },
           )
 
           await Promise.all(
             Object.entries(manifest.dependencies)
-              .filter(
-                ([dep, ver]) =>
-                  dep.startsWith(`@roots/bud-`) &&
-                  dep !== `@roots/bud` &&
-                  dep !== `@roots/bud-support`,
-              )
+              .filter(([signifier]) => signifier.startsWith(`@roots`))
               .flatMap(check()),
           )
         } catch (e) {}
@@ -238,6 +255,7 @@ for a lot of edge cases so it might return a false positive.
             : []),
         ]
           .filter(Boolean)
+          .filter(([signifier]) => signifier.startsWith(`@roots`))
           .map(check(true)),
       )
     } catch (e) {}
@@ -398,6 +416,7 @@ for a lot of edge cases so it might return a false positive.
     }
 
     if (
+      !this.bud.hasChildren &&
       this.entrypoints.length === 1 &&
       this.entrypoints[0][0] === `main` &&
       this.entrypoints[0][1].import[0] === `index` &&
@@ -540,7 +559,8 @@ for a lot of edge cases so it might return a false positive.
       return (
         <Error
           name={signifier}
-          message={`${signifier} is not installed at the same version as @roots/bud (required: ${this.bud.context.bud.version}, installed: ${packageVersion}). Your installation may be corrupted; consider reinstalling with the \`--force\` flag.`}
+          message={`${signifier} is not installed at the same version as @roots/bud (required: ${this.bud.context.bud.version}, installed: ${packageVersion}).
+          Your installation may be corrupted or your package manager may have cached an outdated module; consider reinstalling with the \`--force\` flag.`}
         />
       )
     } else {
@@ -558,43 +578,41 @@ for a lot of edge cases so it might return a false positive.
   }
 
   @bind
-  public formatDepCheck([dependency, requestedVersion], key) {
+  public formatDepCheck(
+    [dependency, requestedVersion],
+    key: string | number,
+  ) {
+    if (dependency.startsWith(`@roots`)) return null
+
+    const renderMessage = (type: `dependencies` | `devDependencies`) => (
+      <Ink.Text key={key}>
+        <Ink.Text color="yellow">
+          {figures.warning}
+          {`  `}
+          {dependency}
+        </Ink.Text>
+        {` `}is overridden in your project `{type}`. If you do not require
+        a custom version of{` `}
+        {dependency} you should remove it.
+      </Ink.Text>
+    )
+
     if (
       this.bud.context.manifest.devDependencies &&
       Object.keys(this.bud.context.manifest.devDependencies).includes(
         dependency,
       )
     ) {
-      return (
-        <Ink.Text key={key}>
-          <Ink.Text color="yellow">
-            {figures.warning}
-            {`  `}
-            {dependency}
-          </Ink.Text>
-          {` `}is overridden in your project `devDependencies`. If you do
-          not need a custom version of{` `}
-          {dependency} you should remove it.
-        </Ink.Text>
-      )
-    } else if (
+      return renderMessage(`devDependencies`)
+    }
+
+    if (
       this.bud.context.manifest.dependencies &&
       Object.keys(this.bud.context.manifest.dependencies).includes(
         dependency,
       )
     ) {
-      return (
-        <Ink.Text key={key}>
-          <Ink.Text color="yellow">
-            {figures.warning}
-            {`  `}
-            {dependency}
-          </Ink.Text>
-          {` `}is overridden in your project `dependencies`. If you do not
-          need a custom version of{` `}
-          {dependency} you should remove it.
-        </Ink.Text>
-      )
+      return renderMessage(`dependencies`)
     }
 
     return (

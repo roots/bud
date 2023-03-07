@@ -1,17 +1,7 @@
 /* eslint-disable n/no-process-env */
-import {REPO_PATH} from '@repo/constants'
 import {CommandClass, Option} from 'clipanion'
-import {emptyDir, readJson, writeJson} from 'fs-extra'
-import {parse} from 'semver'
 
 import {Command} from './base.command'
-
-/**
- * Execution steps
- *
- * @internal
- */
-export type EXECUTION_STEPS = 'preflight' | 'bump' | 'make' | 'publish'
 
 /**
  * Release command
@@ -21,22 +11,16 @@ export type EXECUTION_STEPS = 'preflight' | 'bump' | 'make' | 'publish'
 export class Release extends Command {
   /**
    * Command name
-   *
-   * @internal
    */
   public static label = `@bud release`
 
   /**
    * Command paths
-   *
-   * @internal
    */
   public static paths: CommandClass['paths'] = [[`@bud`, `release`]]
 
   /**
    * Command usage
-   *
-   * @internal
    */
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
@@ -50,30 +34,31 @@ export class Release extends Command {
   }
 
   /**
-   * --version flag
-   *
-   * @internal
+   * --tag
    */
-  public version = Option.String(`-v,--version`, null, {
-    description: `version`,
+  public tag = Option.String(`-t,--tag`, {
+    description: `Release tag`,
+    required: true,
   })
 
   /**
-   * --tag flag
-   *
-   * @internal
+   * --version
    */
-  public tag = Option.String(`-t,--tag`, null, {
-    description: `release tag (latest, nightly, etc.)`,
+  public version = Option.String(`-v,--version`, {
+    description: `Release version`,
+    required: false,
   })
 
+  /**
+   * --registry
+   */
   public registry = Option.String(
     `-r,--registry`,
     process.env.CI
       ? `https://registry.npmjs.org/`
       : `http://localhost:4873`,
     {
-      description: `Registry to publish to. Defaults to npm in CI.`,
+      description: `Release registry`,
     },
   )
 
@@ -86,7 +71,7 @@ export class Release extends Command {
       } catch {}
     }
 
-    if (!process.env.CI && !this.version) {
+    if (this.tag !== `latest` && !this.version) {
       const date = new Date()
       const utcSemver = `${date.getUTCFullYear()}.${
         date.getUTCMonth() + 1
@@ -107,11 +92,9 @@ export class Release extends Command {
 
     await this.$(`yarn @bud build --force`)
     await this.$(
-      `yarn workspaces foreach --no-private npm publish --access public --tag ${
-        this.tag ?? `latest`
-      }`,
+      `yarn workspaces foreach --no-private npm publish --access public --tag ${this.tag}`,
     )
-    
+
     if (!process.env.CI) {
       await this.$(`yarn @bud version 0.0.0`)
       await this.$(`yarn @bud registry stop`)
