@@ -49,6 +49,7 @@ export class TestIntegration extends Command {
     await this.$(`yarn @bud registry start`)
     await this.$(`yarn @bud registry clean`)
     await this.$(`yarn @bud release --tag latest`)
+    await this.$(`yarn @bud registry start`)
 
     try {
       await this.$(

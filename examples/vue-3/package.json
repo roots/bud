@@ -6,7 +6,6 @@
   ],
   "type": "module",
   "devDependencies": {
-    "@roots/browserslist-config": "latest",
     "@roots/bud": "latest",
     "@roots/bud-sass": "latest",
     "@roots/bud-vue": "latest"

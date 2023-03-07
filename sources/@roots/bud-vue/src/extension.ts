@@ -4,7 +4,6 @@ import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
-  dependsOnOptional,
   expose,
   label,
   options,
@@ -22,11 +21,6 @@ interface Options {
  */
 @label(`@roots/bud-vue`)
 @options({runtimeOnly: true})
-@dependsOnOptional([
-  `@roots/bud-postcss`,
-  `@roots/bud-sass`,
-  `@roots/bud-typescript`,
-])
 @expose(`vue`)
 export default class Vue extends Extension<
   Options,
@@ -74,10 +68,10 @@ export default class Vue extends Extension<
   }
 
   /**
-   * {@link Extension.boot}
+   * {@link Extension.buildBefore}
    */
   @bind
-  public override async boot(bud: Bud) {
+  public override async buildBefore(bud: Bud) {
     bud.alias(this.resolveAlias)
 
     bud.build.rules.css?.setUse((items = []) => [`vue-style`, ...items])
