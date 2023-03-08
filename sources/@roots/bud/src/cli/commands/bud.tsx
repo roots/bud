@@ -1,7 +1,6 @@
 import {platform} from 'node:os'
 
 import {checkDependencies} from '@roots/bud/cli/helpers/checkDependencies'
-import {checkPackageManagerErrors} from '@roots/bud/cli/helpers/checkPackageManagerErrors'
 import {isset} from '@roots/bud/cli/helpers/isset'
 import {Bud} from '@roots/bud-framework'
 import type {
@@ -147,7 +146,6 @@ export default class BudCommand extends BaseCommand {
    * Healthcheck
    */
   public async healthcheck(command: BudCommand) {
-    checkPackageManagerErrors(command.bud)
     await checkDependencies(command.bud)
   }
 
