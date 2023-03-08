@@ -16,7 +16,7 @@ jobs:
         node:
           - 18.12.1
 
-    name: test node@${{matrix.node}}/${{matrix.platform}}
+    name: e2e test (node@v${{matrix.node}}/${{matrix.platform}})
     runs-on: ${{matrix.platform}}
 
     steps:
@@ -35,4 +35,4 @@ jobs:
         run: yarn
 
       - name: yarn @bud test e2e
-        run: yarn @bud test e2e
+        run: yarn @bud test e2e run
