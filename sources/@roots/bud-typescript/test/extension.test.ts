@@ -21,7 +21,7 @@ describe(`@roots/bud-typescript`, () => {
     const typescript = new Extension(bud)
 
     await typescript.register(bud)
-    await typescript.configAfter(bud)
+    await typescript.buildBefore(bud)
     expect(typescript.app.build.rules.ts).toBeDefined()
   })
 
@@ -29,7 +29,7 @@ describe(`@roots/bud-typescript`, () => {
     const bud = await factory()
     const typescript = new Extension(bud)
     await typescript.register(bud)
-    await typescript.configAfter(bud)
+    await typescript.buildBefore(bud)
 
     expect(
       typescript.app.hooks.filter(`build.resolve.extensions`),
@@ -40,7 +40,7 @@ describe(`@roots/bud-typescript`, () => {
     const bud = await factory()
     const typescript = new Extension(bud)
     await typescript.register(bud)
-    await typescript.configAfter(bud)
+    await typescript.buildBefore(bud)
 
     expect(
       typescript.app.hooks.filter(`build.resolve.extensions`),

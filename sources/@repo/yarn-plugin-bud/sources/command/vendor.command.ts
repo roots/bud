@@ -5,29 +5,21 @@ import {join} from 'path'
 import {Command} from './base.command'
 
 /**
- * `@bud vendor` command
- *
- * @internal
+ * Vendor command
  */
 export class Vendor extends Command {
   /**
    * Command label
-   *
-   * @internal
    */
   public static label = `@bud vendor`
 
   /**
    * Command paths
-   *
-   * @internal
    */
   public static paths: CommandClass['paths'] = [[`@bud`, `vendor`]]
 
   /**
    * Command usage
-   *
-   * @internal
    */
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
@@ -36,15 +28,11 @@ export class Vendor extends Command {
 
   /**
    * Rest parameters
-   *
-   * @internal
    */
   public request = Option.Rest()
 
   /**
    * Command execute
-   *
-   * @internal
    */
   public async execute() {
     const tsConfig = join(paths.config, `tsconfig.json`)

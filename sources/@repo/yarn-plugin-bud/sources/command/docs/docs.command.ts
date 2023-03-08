@@ -5,28 +5,20 @@ import {Command} from '../base.command'
 
 /**
  * Docs command class
- *
- * @internal
  */
 export class Docs extends Command {
   /**
    * Command name
-   *
-   * @internal
    */
   public static label = `@bud docs`
 
   /**
    * Command paths
-   *
-   * @internal
    */
   public static paths: CommandClass['paths'] = [[`@bud`, `docs`]]
 
   /**
    * Command usage
-   *
-   * @internal
    */
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
@@ -40,8 +32,6 @@ export class Docs extends Command {
 
   /**
    * --site option
-   *
-   * @internal
    */
   public site = Option.Boolean(`-s,--site`, false, {
     description: `build site files`,
@@ -49,8 +39,6 @@ export class Docs extends Command {
 
   /**
    * --readme option
-   *
-   * @internal
    */
   public readme = Option.Boolean(`-r,--readme`, false, {
     description: `build readme files`,
@@ -58,8 +46,6 @@ export class Docs extends Command {
 
   /**
    * Execute command
-   *
-   * @internal
    */
   public async execute() {
     const all = !this.site && !this.readme

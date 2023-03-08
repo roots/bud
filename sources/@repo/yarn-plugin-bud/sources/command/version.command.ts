@@ -4,28 +4,20 @@ import {Command} from './base.command'
 
 /**
  * Version command
- *
- * @internal
  */
 export class Version extends Command {
   /**
    * Command name
-   *
-   * @internal
    */
   public static label = `@bud version`
 
   /**
    * Command paths
-   *
-   * @internal
    */
   public static paths: CommandClass['paths'] = [[`@bud`, `version`]]
 
   /**
    * Command usage
-   *
-   * @internal
    */
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
@@ -35,15 +27,11 @@ export class Version extends Command {
 
   /**
    * version (positional)
-   *
-   * @internal
    */
   public version = Option.String()
 
   /**
    * execute command
-   *
-   * @internal
    */
   public async execute() {
     if (!this.version) {

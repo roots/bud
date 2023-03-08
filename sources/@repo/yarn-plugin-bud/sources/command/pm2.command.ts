@@ -1,41 +1,30 @@
 /* eslint-disable no-console */
 import {paths} from '@repo/constants'
 import {CommandClass, Option} from 'clipanion'
-import {realpath} from 'fs-extra'
 
-import {Command} from '../base.command'
+import {Command} from './base.command'
 
 /**
- * `@bud registry start` command class
- *
- * @internal
+ * bud pm2 command class
  */
 export class Pm2 extends Command {
   /**
    * Command name
-   *
-   * @internal
    */
   public static label = `@bud pm2`
 
   /**
    * Command paths
-   *
-   * @internal
    */
   public static paths: CommandClass['paths'] = [[`@bud`, `pm2`]]
 
   /**
    * Variadic arguments
-   *
-   * @internal
    */
   public passthrough = Option.Proxy({name: `pm2 options`})
 
   /**
    * Command usage
-   *
-   * @internal
    */
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
@@ -43,21 +32,19 @@ export class Pm2 extends Command {
     examples: [[`work with pm2`, `yarn @bud pm2`]],
   }
 
+  /**
+   * Execute command
+   */
   public async execute() {
-    const pm2BinaryAvailable = await realpath(
-      `${paths.root}/storage/node_modules/pm2/bin/pm2`,
-    )
-
-    if (!pm2BinaryAvailable) {
-      await this.tryExecuting(`yarn`, [`@bud`, `registry`, `install`])
-    }
-
+    await this.cli.run([`@bud`, `registry`, `install`])
+    
     await this.tryExecuting(
       `node`,
       [
         `${paths.root}/storage/node_modules/pm2/bin/pm2`,
         ...(this.passthrough ?? []),
       ].filter(Boolean),
+      {stdout: `ignore`, stderr: `ignore`},
     )
   }
 }

@@ -10,28 +10,20 @@ const commands = [TestE2E, TestIntegration, TestUnit]
 
 /**
  * Run tests
- *
- * @internal
  */
 export class TestRun extends Command {
   /**
    * Command name
-   *
-   * @internal
    */
   public static label = `@bud test`
 
   /**
    * Command paths
-   *
-   * @internal
    */
   public static paths: CommandClass['paths'] = [[`@bud`, `test`]]
 
   /**
    * Command usage
-   *
-   * @internal
    */
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
@@ -45,11 +37,9 @@ export class TestRun extends Command {
 
   /**
    * Execute command
-   *
-   * @internal
    */
   public async execute() {
-    process.stdout.write(`    
+    process.stdout.write(`
  _               _
 | |__  _   _  __| |
 |  _ \\| | | |/ _  |

@@ -3,22 +3,16 @@ import {CommandClass} from 'clipanion'
 import {Command} from '../base.command'
 
 /**
- * Skypack command class
- *
- * @internal
+ * bud lint exports
  */
 export class LintExports extends Command {
   /**
    * Command name
-   *
-   * @internal
    */
   public static label = `@bud lint exports`
 
   /**
    * Command paths
-   *
-   * @internal
    */
   public static paths: CommandClass['paths'] = [
     [`@bud`, `lint`, `exports`],
@@ -26,8 +20,6 @@ export class LintExports extends Command {
 
   /**
    * Command usage
-   *
-   * @internal
    */
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
@@ -39,12 +31,8 @@ export class LintExports extends Command {
 
   /**
    * Execute command
-   *
-   * @internal
    */
   public async execute() {
-    await this.$(
-      `yarn workspaces foreach --no-private exec yarn run package-check`,
-    )
+    await this.cli.run([`workspaces`, `foreach`, `--no-private`, `exec`, `yarn`, `run`, `package-check`])
   }
 }

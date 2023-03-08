@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import {paths} from '@repo/constants'
 import {CommandClass, Option} from 'clipanion'
-import {ensureDir, ensureFile, remove} from 'fs-extra'
+import {ensureDir, ensureFile, rm} from 'fs-extra'
 import {join} from 'path/posix'
 
 import {Command} from '../base.command'
@@ -31,6 +31,8 @@ export class TestIntegration extends Command {
     examples: [[`run integration tests`, `yarn @bud test integration`]],
   }
 
+  public watch = Option.Boolean(`--watch`, false)
+
   /**
    * Variadic arguments
    */
@@ -40,29 +42,31 @@ export class TestIntegration extends Command {
    * Execute command
    */
   public async execute() {
-    await ensureFile(join(paths.root, `storage/yarn.lock`))
+    this.log(`Preparing filesystem...`)
     await ensureDir(join(paths.root, `storage/mocks`))
-    await remove(join(paths.root, `storage/mocks`))
+    await rm(join(paths.root, `storage/mocks`), {recursive: true})
 
-    this.log(`integration tests directory cleaned`)
-
-    await this.$(`yarn @bud registry start`)
-    await this.$(`yarn @bud registry clean`)
-    await this.$(`yarn @bud release --tag latest`)
+    await this.cli.run([`@bud`, `registry`, `clean`])
+    await this.cli.run([`@bud`, `release`, `--tag`, `latest`])
+    await this.cli.run([`@bud`, `registry`, `start`])
 
     try {
-      await this.$(
-        this.withPassthrough(
-          `yarn vitest --config ${join(
-            paths.root,
-            `config/vitest.integration.config.js`,
-          )}`,
-        ),
-      )
+      await this.$([
+        `yarn`,
+        [
+          `vitest`,
+          `--config`,
+          join(paths.root, `config/vitest.integration.config.ts`),
+          !this.watch ? `run` : ``,
+        ],
+        {stdout: this.context.stdout, stderr: this.context.stderr},
+        true,
+      ])
     } catch (e) {
-      await this.$(`yarn @bud registry stop`)
+      await this.cli.run([`@bud`, `registry`, `stop`])
+      throw e
     }
 
-    await this.$(`yarn @bud registry stop`)
+    await this.cli.run([`@bud`, `registry`, `stop`])
   }
 }

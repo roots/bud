@@ -5,8 +5,6 @@ import {Command} from './base.command'
 
 /**
  * Release command
- *
- * @internal
  */
 export class Release extends Command {
   /**
@@ -54,52 +52,55 @@ export class Release extends Command {
    */
   public registry = Option.String(
     `-r,--registry`,
-    process.env.CI
-      ? `https://registry.npmjs.org/`
-      : `http://localhost:4873`,
+    `http://localhost:4873`,
     {
       description: `Release registry`,
     },
   )
 
+  /**
+   * Execute command
+   */
   public async execute() {
+    this.log(
+      `Publishing packages\n\nInitial env:\n\nci: ${process.env.CI}\n--registry: ${this.registry}\n--tag: ${this.tag}\n--version: ${this.version}\n\n`,
+    )
+
     await this.$(`yarn install --immutable`)
 
-    if (!process.env.CI) {
-      try {
-        await this.$(`yarn @bud registry start`)
-      } catch {}
+    if (this.registry === `http://localhost:4873`) {
+      await this.cli.run([`@bud`, `registry`, `start`])
     }
 
-    if (this.tag !== `latest` && !this.version) {
+    await this.cli.run([`@bud`, `tsc`, `--force`])
+
+    if (!this.version) {
       const date = new Date()
       const utcSemver = `${date.getUTCFullYear()}.${
         date.getUTCMonth() + 1
       }.${date.getUTCDate()}`
+
       try {
         await this.$(
           `npm show @roots/bud@${utcSemver} --tag ${this.tag} --registry ${this.registry}`,
         )
+
         this.version = `${utcSemver}-${date.getUTCHours()}${date.getUTCMinutes()}`
       } catch (e) {
         this.version = utcSemver
       }
     }
 
-    if (this.version) {
-      await this.$(`yarn @bud version ${this.version}`)
-    }
+    await this.cli.run([`@bud`, `version`, this.version])
 
-    await this.$(`yarn @bud build --force`)
     await this.$(
       `yarn workspaces foreach --no-private npm publish --access public --tag ${this.tag}`,
     )
 
-    if (!process.env.CI) {
-      await this.$(`yarn @bud version 0.0.0`)
-      await this.$(`yarn @bud registry stop`)
+    if (this.registry === `http://localhost:4873`) {
+      await this.$([`yarn`, [`@bud`, `version`, `0.0.0`]])
+      await this.$([`yarn`, [`@bud`, `registry`, `stop`]])
       await this.$(`yarn`)
-      await this.$(`yarn @bud registry start`)
     }
   }
 }
