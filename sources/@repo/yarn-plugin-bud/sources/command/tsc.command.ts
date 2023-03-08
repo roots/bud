@@ -56,6 +56,6 @@ export class Tsc extends Command {
    * @public
    */
   public async execute() {
-    await this.$(this.withPassthrough(`yarn tsc -b ${this.tsconfig}`))
+    await this.$([`yarn`,  [`tsc`, `-b`, this.tsconfig, ...this.passthrough]])
   }
 }

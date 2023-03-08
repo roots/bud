@@ -1,6 +1,6 @@
 import {CommandClass, Option} from 'clipanion'
 
-import {Command} from '../base.command'
+import {Command} from './base.command'
 
 /**
  * Format command class
@@ -10,22 +10,20 @@ import {Command} from '../base.command'
 export class Format extends Command {
   /**
    * Command name
-   *
-   * @internal
    */
   public static label = `@bud lint format`
 
   /**
    * Command paths
-   *
-   * @internal
    */
-  public static paths: CommandClass['paths'] = [[`@bud`, `format`]]
+  public static paths: CommandClass['paths'] = [
+    [`@bud`, `format`],
+    [`@bud`, `prettier`],
+    [`format`],
+  ]
 
   /**
    * Command usage
-   *
-   * @internal
    */
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
@@ -38,23 +36,33 @@ export class Format extends Command {
 
   /**
    * `--fix` option
-   *
-   * @internal
    */
   public fix = Option.Boolean(`-f,--fix`, true, {
     description: `fix`,
   })
 
   /**
+   * Variadic arguments
+   */
+  public passthrough = Option.Proxy({name: `prettier options`})
+
+  /**
    * Execute command
-   *
-   * @internal
    */
   public async execute() {
-    await this.$(
-      `yarn prettier ./sources/@roots/*/src/**/* ${
-        this.fix ? `--write` : `--check`
-      } --config ./config/prettier.config.cjs --ignore-unknown --no-error-on-unmatched-pattern`,
-    )
+    await this.$([
+      `yarn`,
+      [
+        `prettier`,
+        `./sources/@roots/*/src/**/*`,
+        this.fix ? `--write` : `--check`,
+        `--config`,
+        `./config/prettier.config.cjs`,
+        `--ignore-unknown`,
+        `--no-error-on-unmatched-pattern`,
+        ...this.passthrough ?? [],
+      ],
+      {stderr: this.context.stderr},
+    ])
   }
 }

@@ -44,20 +44,15 @@ export class Pm2 extends Command {
   }
 
   public async execute() {
-    const pm2BinaryAvailable = await realpath(
-      `${paths.root}/storage/node_modules/pm2/bin/pm2`,
-    )
-
-    if (!pm2BinaryAvailable) {
-      await this.tryExecuting(`yarn`, [`@bud`, `registry`, `install`])
-    }
-
+    await this.cli.run([`@bud`, `registry`, `install`])
+    
     await this.tryExecuting(
       `node`,
       [
         `${paths.root}/storage/node_modules/pm2/bin/pm2`,
         ...(this.passthrough ?? []),
       ].filter(Boolean),
+      {stdout: `ignore`, stderr: `ignore`},
     )
   }
 }

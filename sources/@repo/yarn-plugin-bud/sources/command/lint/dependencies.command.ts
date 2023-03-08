@@ -4,21 +4,15 @@ import {Command} from '../base.command'
 
 /**
  * `@bud lint dependencies` command class
- *
- * @internal
  */
 export class LintDependencies extends Command {
   /**
    * Command name
-   *
-   * @internal
    */
   public static label = `@bud lint dependencies`
 
   /**
    * Command paths
-   *
-   * @internal
    */
   public static paths: CommandClass['paths'] = [
     [`@bud`, `lint`, `dependencies`],
@@ -26,8 +20,6 @@ export class LintDependencies extends Command {
 
   /**
    * Command usage
-   *
-   * @internal
    */
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
@@ -39,12 +31,17 @@ export class LintDependencies extends Command {
 
   /**
    * Execute command
-   *
-   * @internal
    */
   public async execute() {
-    await this.$(
-      `yarn syncpack list-mismatches --config ./config/syncpack.config.cjs`,
-    )
+    await this.$([
+      `yarn`,
+      [
+        `syncpack`,
+        `list-mismatches`,
+        `--config`,
+        `./config/syncpack.config.cjs`,
+      ],
+      {stderr: this.context.stderr},
+    ])
   }
 }

@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import {paths} from '@repo/constants'
 import {CommandClass} from 'clipanion'
-import {ensureDir, pathExists, readJson, remove, writeJson} from 'fs-extra'
+import {ensureDir, pathExists, readJson, rm, writeJson} from 'fs-extra'
 import {join} from 'path'
 
 import {Command} from '../base.command'
@@ -43,7 +43,7 @@ export class RegistryClean extends Command {
 
   public async execute() {
       await ensureDir(join(paths.root, `storage`, `packages`))
-      await remove(join(paths.root, `storage`, `packages`))
+      await rm(join(paths.root, `storage`, `packages`), {recursive: true})
 
       const verdaccioDbExists = await pathExists(
         join(paths.root, `storage`, `.verdaccio-db.json`),

@@ -9,28 +9,20 @@ const ncc = join(paths.sources, `@repo/compile-kit/src/cjs`)
 
 /**
  * `@bud compile` Command class
- *
- * @internal
  */
 export class Compile extends Command {
   /**
    * Command name
-   *
-   * @internal
    */
   public static label = `@bud compile`
 
   /**
    * Command paths
-   *
-   * @internal
    */
   public static paths: CommandClass['paths'] = [[`@bud`, `compile`]]
 
   /**
    * Command usage
-   *
-   * @internal
    */
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
@@ -43,15 +35,11 @@ export class Compile extends Command {
 
   /**
    * `--package` option
-   *
-   * @internal
    */
   public package = Option.String(`package to transpile`, `all`)
 
   /**
    * Command execute
-   *
-   * @internal
    */
   public async execute() {
     await this.$(

@@ -9,22 +9,16 @@ const ncc = `${REPO_PATH}/sources/@repo/compile-kit/src/cjs @roots/bud-support`
 export class Dev extends Command {
   /**
    * Command name
-   *
-   * @internal
    */
   public static label = `@bud dev`
 
   /**
    * Command paths
-   *
-   * @internal
    */
   public static paths: CommandClass['paths'] = [[`@bud`, `dev`]]
 
   /**
    * Command usage
-   *
-   * @internal
    */
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
@@ -38,14 +32,20 @@ export class Dev extends Command {
    * @public
    */
   public async execute() {
-    await this.$(`yarn @bud tsc --force`)
+    await this.cli.run([`@bud`, `tsc`, `--force`])
 
     try {
-      await this.$(
-        `yarn @bud tsc --watch`,
-        `yarn @bud test unit`,
-        `yarn @bud docs dev`,
-      )
+      await Promise.all([
+        this.cli.run(
+          [`@bud`, `tsc`, `--watch`],
+        ),
+        this.cli.run(
+          [`@bud`, `test`, `unit`],
+        ),
+        this.cli.run(
+          [`@bud`, `docs`, `dev`],
+        ),
+      ])
     } catch (e) {
       this.context.stderr.write(e)
     }

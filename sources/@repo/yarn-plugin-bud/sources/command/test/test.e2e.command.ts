@@ -8,28 +8,20 @@ import {Command} from '../base.command'
 
 /**
  * Run tests
- *
- * @internal
  */
 export class TestE2E extends Command {
   /**
    * Command name
-   *
-   * @internal
    */
   public static label = `@bud test`
 
   /**
    * Command paths
-   *
-   * @internal
    */
   public static paths: CommandClass['paths'] = [[`@bud`, `test`, `e2e`]]
 
   /**
    * Command usage
-   *
-   * @internal
    */
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
@@ -38,35 +30,46 @@ export class TestE2E extends Command {
   }
 
   /**
+   * --watch
+   */
+  public watch = Option.Boolean(`--watch`, false)
+
+  /**
    * Variadic arguments
-   *
-   * @internal
    */
   public passthrough = Option.Proxy({name: `vitest passthrough options`})
 
   /**
    * Execute command
-   *
-   * @internal
    */
   public async execute() {
-    await this.$(`yarn @bud registry start`)
-    await this.$(`yarn @bud registry clean`)
-    await this.$(`yarn @bud release --tag latest`)
+    this.log(`Preparing filesystem...`)
+
+    await ensureFile(join(paths.root, `storage/yarn.lock`))
+    await ensureDir(join(paths.root, `storage/mocks`))
+    await remove(join(paths.root, `storage/mocks`))
+
+    await this.cli.run([`@bud`, `registry`, `clean`])
+    await this.cli.run([`@bud`, `release`, `--tag`, `latest`])
+    await this.cli.run([`@bud`, `registry`, `start`])
 
     try {
-      await this.$(
-        this.withPassthrough(
-          `yarn vitest --config ${join(
-            paths.root,
-            `config/vitest.e2e.config.ts`,
-          )}`,
-        ),
-      )
+      await this.$([
+        `yarn`,
+        [
+          `vitest`,
+          `--config`,
+          join(paths.root, `config/vitest.e2e.config.ts`),
+          !this.watch ? `run` : ``,
+        ],
+        {stdout: this.context.stdout, stderr: this.context.stderr},
+        true,
+      ])
     } catch (e) {
-      await this.$(`yarn @bud registry stop`)
+      await this.cli.run([`@bud`, `registry`, `stop`])
+      throw e
     }
 
-    await this.$(`yarn @bud registry stop`)
+    await this.cli.run([`@bud`, `registry`, `stop`])
   }
 }

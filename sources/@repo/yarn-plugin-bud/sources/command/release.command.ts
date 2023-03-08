@@ -63,15 +63,22 @@ export class Release extends Command {
   )
 
   public async execute() {
+    this.log(
+      `Publishing packages\n\nInitial env:\n\nci: ${process.env.CI}\n--registry: ${this.registry}\n--tag: ${this.tag}\n--version: ${this.version}\n\n`,
+    )
+
     await this.$(`yarn install --immutable`)
+
+    if (this.registry === `http://localhost:4873`) 
+      await this.cli.run([`@bud`, `registry`, `start`])
 
     if (!process.env.CI) {
       try {
-        await this.$(`yarn @bud registry start`)
+        await this.cli.run([`@bud`, `tsc`, `--force`])
       } catch {}
     }
 
-    if (this.tag !== `latest` && !this.version) {
+    if (!this.version) {
       const date = new Date()
       const utcSemver = `${date.getUTCFullYear()}.${
         date.getUTCMonth() + 1
@@ -86,20 +93,16 @@ export class Release extends Command {
       }
     }
 
-    if (this.version) {
-      await this.$(`yarn @bud version ${this.version}`)
-    }
+    await this.cli.run([`@bud`, `version`, this.version])
 
-    await this.$(`yarn @bud build --force`)
     await this.$(
       `yarn workspaces foreach --no-private npm publish --access public --tag ${this.tag}`,
     )
 
     if (!process.env.CI) {
-      await this.$(`yarn @bud version 0.0.0`)
-      await this.$(`yarn @bud registry stop`)
+      await this.cli.run([`@bud`, `version`, `0.0.0`])
+      await this.cli.run([`@bud`, `registry`, `stop`])
       await this.$(`yarn`)
-      await this.$(`yarn @bud registry start`)
     }
   }
 }

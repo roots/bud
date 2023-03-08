@@ -24,6 +24,7 @@
     "helpful-decorators": "2.1.0",
     "js-yaml": "4.1.0",
     "lodash": "4.17.21",
+    "ora": "6.1.2",
     "pm2": "5.2.2",
     "semver": "7.3.8",
     "tslib": "2.4.1",

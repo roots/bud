@@ -4,7 +4,6 @@ import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
-  dependsOnOptional,
   expose,
   label,
   options,
@@ -22,11 +21,6 @@ interface Options {
  */
 @label(`@roots/bud-vue`)
 @options({runtimeOnly: true})
-@dependsOnOptional([
-  `@roots/bud-postcss`,
-  `@roots/bud-sass`,
-  `@roots/bud-typescript`,
-])
 @expose(`vue`)
 export default class Vue extends Extension<
   Options,
@@ -75,23 +69,29 @@ export default class Vue extends Extension<
   }
 
   /**
-   * `make` callback
+   * {@link Extension.configAfter}
    */
   @bind
-  public override async boot(bud: Bud) {
+  public override async configAfter(bud: Bud) {
     bud.alias(this.resolveAlias)
-
-    bud.build.rules.css?.setUse((items = []) => [`vue-style`, ...items])
-    bud.build.rules.sass?.setUse((items = []) => [`vue-style`, ...items])
-    bud.build.items.precss?.setOptions({esModule: false})
-
-    bud.typescript?.set(`appendTsSuffixTo`, [
-      bud.hooks.filter(`pattern.vue`),
-    ])
 
     bud.hooks.fromMap({
       'build.resolve.extensions': (ext = new Set()) => ext.add(`.vue`),
     })
+
+    bud.typescript?.set(`appendTsSuffixTo`, [
+      bud.hooks.filter(`pattern.vue`),
+    ])
+  }
+
+  /**
+   * {@link Extension.buildBefore}
+   */
+  @bind
+  public override async buildBefore(bud: Bud) {
+    bud.build.rules.css?.setUse((items = []) => [`vue-style`, ...items])
+    bud.build.rules.sass?.setUse((items = []) => [`vue-style`, ...items])
+    bud.build.items.precss?.setOptions({esModule: false})
 
     const {VueLoaderPlugin} = await import(`vue-loader`)
     bud.webpackConfig(config => {

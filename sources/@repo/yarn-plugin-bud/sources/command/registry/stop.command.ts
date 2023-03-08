@@ -46,22 +46,13 @@ export class RegistryStop extends Command {
    */
   public async execute() {
     try {
-      const pm2BinaryAvailable = await realpath(
-        `${paths.root}/storage/node_modules/pm2/bin/pm2`,
+      await this.cli.run(
+        [`@bud`, `pm2`, `stop`, `verdaccio`],
       )
 
-      if (!pm2BinaryAvailable) {
-        return
-      }
-
-      await this.tryExecuting(`yarn`, [`@bud`, `pm2`, `stop`, `verdaccio`])
-
-      await this.tryExecuting(`yarn`, [
-        `@bud`,
-        `pm2`,
-        `delete`,
-        `verdaccio`,
-      ])
+      await this.cli.run(
+        [`@bud`, `pm2`, `delete`, `verdaccio`],
+      )
     } catch (e) {}
 
     try {
