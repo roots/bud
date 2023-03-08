@@ -50,13 +50,15 @@ export class TestUnit extends Command {
    * @internal
    */
   public async execute() {
-    await this.$(
-      this.withPassthrough(
-        `yarn vitest --config ${join(
-          paths.root,
-          `config/vitest.unit.config.ts`,
-        )}`,
-      ),
-    )
+    await this.$([
+      `yarn`,
+      [
+        `vitest`,
+        `--config`,
+        join(paths.root, `config/vitest.unit.config.ts`),
+      ],
+      {stdout: this.context.stdout, stderr: this.context.stderr},
+      true,
+    ])
   }
 }

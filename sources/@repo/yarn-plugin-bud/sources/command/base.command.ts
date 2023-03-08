@@ -1,32 +1,31 @@
+/* eslint-disable n/no-process-env */
 import {BaseCommand} from '@yarnpkg/cli'
 import {Configuration, Manifest, Project} from '@yarnpkg/core'
-import {execute} from '@yarnpkg/shell'
+import {execute, UserOptions} from '@yarnpkg/shell'
 import {bind} from 'helpful-decorators'
+import ora, {Ora} from 'ora'
 
 /**
  * Base class
- *
- * @internal
  */
 export abstract class Command extends BaseCommand {
   /**
    * Command paths
-   *
-   * @internal
    */
   public name: string
 
   /**
+   * Spinner
+   */
+  public spinner: Ora
+
+  /**
    * Variadic arguments
-   *
-   * @internal
    */
   public passthrough?: Array<string>
 
   /**
    * Get manifest contents
-   *
-   * @internal
    */
   @bind
   public async getManifest(): Promise<Manifest> {
@@ -35,8 +34,6 @@ export abstract class Command extends BaseCommand {
 
   /**
    * Get project configuration
-   *
-   * @internal
    * @decorator `@bind`
    */
   @bind
@@ -51,23 +48,19 @@ export abstract class Command extends BaseCommand {
 
   /**
    * Get project info
-   *
-   * @internal
    * @decorator `@bind`
    */
   @bind
   public async getProject() {
-    const configuration = await this.getConfiguration()
-
-    const {project} = await Project.find(configuration, this.context.cwd)
-
+    const {project} = await Project.find(
+      await this.getConfiguration(),
+      this.context.cwd,
+    )
     return project
   }
 
   /**
    * Append passthrough arguments to the command
-   *
-   * @internal
    */
   @bind
   public withPassthrough(str: string): string {
@@ -78,65 +71,93 @@ export abstract class Command extends BaseCommand {
 
   /**
    * Logs message to process.stdout
-   *
-   * @internal
    */
   @bind
-  public log(message: string): void {
+  public log(...messages: Array<string>): void {
     const label = this.name ?? `@bud`
-    process.stdout.write(`[${label}] ${message}\n`)
+    messages.map(message =>
+      process.stdout.write(`[${label}] ${message}\n`),
+    )
   }
 
   /**
    * Logs message to process.stderr
-   *
-   * @internal
    */
   @bind
   public err(error: string | Error): void {
     const label = this.name ?? `@bud`
-    throw Error(
+
+    throw new Error(
       `[${label}] ${typeof error === `string` ? error : error.message}\n`,
     )
   }
 
   /**
    * Execute a series of tasks
-   *
-   * @internal
    */
   @bind
-  public async $(...tasks: Array<string>): Promise<void> {
+  public async $(
+    ...tasks: Array<
+      string | [string, Array<string>, Partial<UserOptions>?, boolean?]
+    >
+  ): Promise<number> {
+    let code = 0;
+
     const project = await this.getProject()
 
     await Promise.all(
       tasks.map(async task => {
         if (!task) return
 
-        this.log(task)
+        const [bin, args, options, disableSpinner]: [
+          string,
+          Array<string>,
+          Partial<UserOptions>?,
+          boolean?,
+        ] = Array.isArray(task) ? task : [task, [], {}, false]
 
-        const code = await execute(task, [], {cwd: project.cwd})
+        const ident = `${bin} ${args.join(` `)}`.replace(project.cwd, `.`)
+        if (!disableSpinner) {
+          this.spinner = ora({
+            stream: this.context.stdout,
+          })      
+          this.spinner.start(ident)
+        }
 
-        if (code !== 0)
-          throw new Error(`${task} failed with code ${code}`)
+        try {
+          const result = await execute(bin, args, {
+            // @ts-ignore
+            stdout: `ignore`,
+            // @ts-ignore
+            stderr: `ignore`,
+            cwd: project.cwd,
+            ...(options ?? {}),
+          })
+
+          if (result !== 0) {
+            code = result
+            throw new Error(`failed with code ${result}`)
+          }
+
+          if (!disableSpinner) this.spinner.succeed()
+        } catch (e) {
+          if (!disableSpinner) this.spinner.fail()
+          throw e
+        }
       }),
     )
+
+    return code
   }
 
   /**
    * Try executing a shell command
-   *
-   * @internal
    */
   public async tryExecuting(bin: string, args: string[], opts: any = {}) {
     try {
-      const code = await execute(bin, args, opts)
-      if (code !== 0) {
-        throw new Error(`❌ ${bin} ${args.join(` `)} failed`)
-      }
+      const code = await this.$([bin, args, opts, true])
       return code
     } catch (e) {
-      this.context.stderr.write(e.message)
     }
   }
 }

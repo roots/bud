@@ -1,6 +1,8 @@
 /* eslint-disable no-console */
 import {paths} from '@repo/constants'
 import {CommandClass} from 'clipanion'
+import {realpath} from 'fs-extra'
+import { join } from 'path'
 
 import {Command} from '../base.command'
 
@@ -40,8 +42,18 @@ export class RegistryInstall extends Command {
   }
 
   public async execute() {
-    await this.tryExecuting(`npm`, [`install`, `pm2`, `verdaccio`], {
-      cwd: `${paths.root}/storage` as any,
-    })
+    let pm2Binary: string | false = false
+
+    try {
+      pm2Binary = await realpath(
+        join(paths.root, `storage/node_modules/pm2/bin/pm2`),
+      )
+    } catch {}
+
+    if (!pm2Binary) {
+      await this.tryExecuting(`npm`, [`install`, `pm2`, `verdaccio`], {
+        cwd: join(paths.root, `storage`),
+      })
+    }
   }
 }

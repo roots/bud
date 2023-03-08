@@ -12,7 +12,7 @@ describe(`@roots/bud-vue`, () => {
     bud = await factory()
     instance = new Vue(bud)
     await instance.register(bud)
-    await instance.boot(bud)
+    await instance.configAfter(bud)
   })
 
   it(`should be constructable`, () => {
@@ -56,10 +56,16 @@ describe(`@roots/bud-vue`, () => {
   })
 
   it(`should register typescript support if @roots/bud-typescript is installed`, async () => {
+    const bud = await factory()
+
     await bud.extensions.add(`@roots/bud-typescript`)
     await bud.extensions.add(`@roots/bud-vue`)
+
     if (bud.extensions.configAfter) {
-      await bud.extensions.configAfter()
+      await bud.extensions.configAfter(bud)
+    }
+    if (bud.extensions.buildBefore) {
+      await bud.extensions.buildBefore(bud)
     }
 
     expect(bud.typescript.get(`appendTsSuffixTo`)).toStrictEqual(
