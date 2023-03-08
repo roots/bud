@@ -54,9 +54,7 @@ export class Release extends Command {
    */
   public registry = Option.String(
     `-r,--registry`,
-    process.env.CI
-      ? `https://registry.npmjs.org/`
-      : `http://localhost:4873`,
+    `http://localhost:4873`,
     {
       description: `Release registry`,
     },
@@ -69,14 +67,11 @@ export class Release extends Command {
 
     await this.$(`yarn install --immutable`)
 
-    if (this.registry === `http://localhost:4873`) 
+    if (this.registry === `http://localhost:4873`) {
       await this.cli.run([`@bud`, `registry`, `start`])
-
-    if (!process.env.CI) {
-      try {
-        await this.cli.run([`@bud`, `tsc`, `--force`])
-      } catch {}
     }
+
+    await this.cli.run([`@bud`, `tsc`, `--force`])
 
     if (!this.version) {
       const date = new Date()
