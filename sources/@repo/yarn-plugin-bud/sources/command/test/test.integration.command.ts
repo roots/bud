@@ -43,7 +43,6 @@ export class TestIntegration extends Command {
    */
   public async execute() {
     this.log(`Preparing filesystem...`)
-    await ensureFile(join(paths.root, `storage/yarn.lock`))
     await ensureDir(join(paths.root, `storage/mocks`))
     await rm(join(paths.root, `storage/mocks`), {recursive: true})
 

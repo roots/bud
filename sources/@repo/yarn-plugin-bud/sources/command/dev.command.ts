@@ -1,11 +1,10 @@
-import {paths, REPO_PATH} from '@repo/constants'
-import {CommandClass, Option} from 'clipanion'
-import {join} from 'path'
+import {CommandClass} from 'clipanion'
 
 import {Command} from './base.command'
 
-const ncc = `${REPO_PATH}/sources/@repo/compile-kit/src/cjs @roots/bud-support`
-
+/**
+ * Dev command
+ */
 export class Dev extends Command {
   /**
    * Command name

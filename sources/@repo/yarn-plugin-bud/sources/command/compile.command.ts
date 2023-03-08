@@ -8,7 +8,7 @@ const tsConfig = join(paths.config, `tsconfig.json`)
 const ncc = join(paths.sources, `@repo/compile-kit/src/cjs`)
 
 /**
- * `@bud compile` Command class
+ * Compile command
  */
 export class Compile extends Command {
   /**

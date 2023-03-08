@@ -4,28 +4,20 @@ import {Command} from './base.command'
 
 /**
  * Lint command class
- *
- * @internal
  */
 export class Lint extends Command {
   /**
    * Command name
-   *
-   * @internal
    */
   public static label = `@bud lint`
 
   /**
    * Command paths
-   *
-   * @internal
    */
   public static paths: CommandClass['paths'] = [[`@bud`, `lint`], [`@bud`, `eslint`], [`lint`]]
 
   /**
    * Command usage
-   *
-   * @internal
    */
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
@@ -35,8 +27,6 @@ export class Lint extends Command {
 
   /**
    * Execute command
-   *
-   * @internal
    */
   public async execute() {
     await this.$([

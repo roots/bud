@@ -39,7 +39,7 @@ export class TestRun extends Command {
    * Execute command
    */
   public async execute() {
-    process.stdout.write(`    
+    process.stdout.write(`
  _               _
 | |__  _   _  __| |
 |  _ \\| | | |/ _  |

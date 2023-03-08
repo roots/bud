@@ -3,7 +3,7 @@ import {CommandClass} from 'clipanion'
 import {Command} from '../base.command'
 
 /**
- * `@bud lint dependencies` command class
+ * bud lint dependencies command class
  */
 export class LintDependencies extends Command {
   /**

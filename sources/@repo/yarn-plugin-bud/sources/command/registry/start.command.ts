@@ -6,7 +6,7 @@ import {join} from 'path'
 import {Command} from '../base.command'
 
 /**
- * `@bud registry start` command class
+ * bud registry start command class
  */
 export class RegistryStart extends Command {
   /**

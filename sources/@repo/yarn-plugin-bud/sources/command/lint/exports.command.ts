@@ -3,7 +3,7 @@ import {CommandClass} from 'clipanion'
 import {Command} from '../base.command'
 
 /**
- * Skypack command class
+ * bud lint exports
  */
 export class LintExports extends Command {
   /**

@@ -5,7 +5,7 @@ import {join} from 'path'
 import {Command} from './base.command'
 
 /**
- * `@bud tsc` command
+ * TSC Command
  */
 export class Tsc extends Command {
   /**
@@ -52,8 +52,6 @@ export class Tsc extends Command {
 
   /**
    * Command execute
-   *
-   * @public
    */
   public async execute() {
     await this.$([`yarn`,  [`tsc`, `-b`, this.tsconfig, ...this.passthrough]])
