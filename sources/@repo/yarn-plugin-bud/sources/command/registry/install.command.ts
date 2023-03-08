@@ -42,11 +42,15 @@ export class RegistryInstall extends Command {
   }
 
   public async execute() {
-    const pm2BinaryAvailable = await realpath(
-      join(paths.root, `storage/node_modules/pm2/bin/pm2`),
-    )
+    let pm2Binary: string | false = false
 
-    if (!pm2BinaryAvailable) {
+    try {
+      pm2Binary = await realpath(
+        join(paths.root, `storage/node_modules/pm2/bin/pm2`),
+      )
+    } catch {}
+
+    if (!pm2Binary) {
       await this.tryExecuting(`npm`, [`install`, `pm2`, `verdaccio`], {
         cwd: join(paths.root, `storage`),
       })

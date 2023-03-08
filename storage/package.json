@@ -1,7 +1,6 @@
 {
   "name": "storage",
   "private": true,
-  "packageManager": "yarn@1.23.0",
   "nohoist": [
     "**/*"
   ],
@@ -13,6 +12,6 @@
   },
   "dependencies": {
     "pm2": "^5.2.2",
-    "verdaccio": "^5.22.0"
+    "verdaccio": "^5.22.1"
   }
 }
