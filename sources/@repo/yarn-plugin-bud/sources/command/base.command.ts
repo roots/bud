@@ -109,12 +109,7 @@ export abstract class Command extends BaseCommand {
       tasks.map(async task => {
         if (!task) return
 
-        const [bin, args, options, disableSpinner]: [
-          string,
-          Array<string>,
-          Partial<UserOptions>?,
-          boolean?,
-        ] = Array.isArray(task) ? task : [task, [], {}, false]
+        const [bin, args, options, disableSpinner] = Array.isArray(task) ? task : [task, [], {}, false]
 
         const ident = `${bin} ${args.join(` `)}`.replace(project.cwd, `.`)
         if (!disableSpinner) {

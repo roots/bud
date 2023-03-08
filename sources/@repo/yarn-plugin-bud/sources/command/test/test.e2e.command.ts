@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import {paths} from '@repo/constants'
 import {CommandClass, Option} from 'clipanion'
-import {ensureDir, ensureFile, remove} from 'fs-extra'
+import {ensureDir, rm} from 'fs-extra'
 import {join} from 'path/posix'
 
 import {Command} from '../base.command'
@@ -44,10 +44,8 @@ export class TestE2E extends Command {
    */
   public async execute() {
     this.log(`Preparing filesystem...`)
-
-    await ensureFile(join(paths.root, `storage/yarn.lock`))
     await ensureDir(join(paths.root, `storage/mocks`))
-    await remove(join(paths.root, `storage/mocks`))
+    await rm(join(paths.root, `storage/mocks`), {recursive: true})
 
     await this.cli.run([`@bud`, `registry`, `clean`])
     await this.cli.run([`@bud`, `release`, `--tag`, `latest`])

@@ -24,11 +24,5 @@ jobs:
         run: |
           yarn config set npmAuthToken ${{ secrets.NODE_AUTH_TOKEN }}
 
-      - name: Set npmPublishRegistry
-        run: yarn config set npmPublishRegistry https://registry.npmjs.org/
-
-      - name: Set npmRegistryServer
-        run: yarn config set npmRegistryServer https://registry.npmjs.org/
-
       - name: Release nightly
-        run: yarn @bud release --tag nightly
+        run: yarn @bud release --tag nightly --registry https://registry.npmjs.org

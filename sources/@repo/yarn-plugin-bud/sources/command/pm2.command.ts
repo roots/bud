@@ -2,10 +2,10 @@
 import {paths} from '@repo/constants'
 import {CommandClass, Option} from 'clipanion'
 
-import {Command} from '../base.command'
+import {Command} from './base.command'
 
 /**
- * `@bud registry start` command class
+ * bud pm2 command class
  */
 export class Pm2 extends Command {
   /**

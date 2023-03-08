@@ -6,28 +6,20 @@ import {Command} from './base.command'
 
 /**
  * Clean command
- *
- * @internal
  */
 export class Clean extends Command {
   /**
    * Command name
-   *
-   * @internal
    */
   public static label = `@bud clean`
 
   /**
    * Command paths
-   *
-   * @internal
    */
   public static paths: CommandClass['paths'] = [[`@bud`, `clean`]]
 
   /**
    * Command usage
-   *
-   * @internal
    */
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
@@ -41,17 +33,24 @@ export class Clean extends Command {
 
   /**
    * Command execution
-   *
-   * @internal
    */
   public async execute() {
     await this.$(
+      /**
+       * ./
+       */
       `rm -rf **/.budfiles`,
       `rm -rf ${join(repo.paths.root, `node_modules`)}`,
+      /**
+       * ./sources
+       */
       `rm -rf ${join(repo.paths.sources, `@roots/*/lib`)}`,
       `rm -rf ${join(repo.paths.sources, `@roots/*/node_modules`)}`,
       `rm -rf ${join(repo.paths.sources, `@roots/*/types`)}`,
       `rm -rf ${join(repo.paths.sources, `**/.tsbuildinfo`)}`,
+      /**
+       * ./storage
+       */
       `rm -rf ${join(repo.paths.storage, `packages`)}`,
       `rm -rf ${join(repo.paths.storage, `mocks`)}`,
       `rm -rf ${join(repo.paths.storage, `node_modules`)}`,

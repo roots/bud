@@ -4,8 +4,6 @@ import {Command} from './base.command'
 
 /**
  * Format command class
- *
- * @internal
  */
 export class Format extends Command {
   /**

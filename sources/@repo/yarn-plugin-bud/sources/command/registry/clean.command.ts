@@ -7,22 +7,16 @@ import {join} from 'path'
 import {Command} from '../base.command'
 
 /**
- * `@bud registry start` command class
- *
- * @internal
+ * bud registry clean command class
  */
 export class RegistryClean extends Command {
   /**
    * Command name
-   *
-   * @internal
    */
   public static label = `@bud registry clean`
 
   /**
    * Command paths
-   *
-   * @internal
    */
   public static paths: CommandClass['paths'] = [
     [`@bud`, `registry`, `clean`],
@@ -30,8 +24,6 @@ export class RegistryClean extends Command {
 
   /**
    * Command usage
-   *
-   * @internal
    */
   public static usage: CommandClass['usage'] = {
     category: `@bud`,

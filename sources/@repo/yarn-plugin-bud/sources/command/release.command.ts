@@ -60,6 +60,9 @@ export class Release extends Command {
     },
   )
 
+  /**
+   * Execute command
+   */
   public async execute() {
     this.log(
       `Publishing packages\n\nInitial env:\n\nci: ${process.env.CI}\n--registry: ${this.registry}\n--tag: ${this.tag}\n--version: ${this.version}\n\n`,
@@ -78,10 +81,12 @@ export class Release extends Command {
       const utcSemver = `${date.getUTCFullYear()}.${
         date.getUTCMonth() + 1
       }.${date.getUTCDate()}`
+
       try {
         await this.$(
           `npm show @roots/bud@${utcSemver} --tag ${this.tag} --registry ${this.registry}`,
         )
+
         this.version = `${utcSemver}-${date.getUTCHours()}${date.getUTCMinutes()}`
       } catch (e) {
         this.version = utcSemver
@@ -94,9 +99,9 @@ export class Release extends Command {
       `yarn workspaces foreach --no-private npm publish --access public --tag ${this.tag}`,
     )
 
-    if (!process.env.CI) {
-      await this.cli.run([`@bud`, `version`, `0.0.0`])
-      await this.cli.run([`@bud`, `registry`, `stop`])
+    if (this.registry === `http://localhost:4873`) {
+      await this.$([`yarn`, [`@bud`, `version`, `0.0.0`]])
+      await this.$([`yarn`, [`@bud`, `registry`, `stop`]])
       await this.$(`yarn`)
     }
   }

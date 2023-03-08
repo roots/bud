@@ -4,28 +4,20 @@ import {Command} from '../base.command'
 
 /**
  * Docs command class
- *
- * @internal
  */
 export class DocsDev extends Command {
   /**
    * Command name
-   *
-   * @internal
    */
   public static label = `@bud docs dev`
 
   /**
    * Command paths
-   *
-   * @internal
    */
   public static paths: CommandClass['paths'] = [[`@bud`, `docs`, `dev`]]
 
   /**
    * Command usage
-   *
-   * @internal
    */
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
@@ -35,8 +27,6 @@ export class DocsDev extends Command {
 
   /**
    * Execute command
-   *
-   * @internal
    */
   public async execute() {
     await this.$(`yarn workspace @repo/docs docusaurus start`)
