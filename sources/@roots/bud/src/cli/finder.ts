@@ -2,7 +2,7 @@
 import {dirname, join} from 'node:path/posix'
 import {fileURLToPath} from 'node:url'
 
-import type * as cli from '@roots/bud/cli/app'
+import type {Cli} from '@roots/bud/cli/app'
 import type {Context} from '@roots/bud-framework/options'
 import {bind} from '@roots/bud-support/decorators'
 import globby from '@roots/bud-support/globby'
@@ -23,14 +23,14 @@ export class Commands {
    */
   private constructor(
     public context: Partial<Context>,
-    public application: cli.Cli,
+    public application: Cli,
   ) {}
 
   /**
    * @public
    * @static
    */
-  public static get(application: cli.Cli, context: Partial<Context>) {
+  public static get(application: Cli, context: Partial<Context>) {
     if (Commands.instance) return Commands.instance
     else {
       Commands.instance = new Commands(context, application)
@@ -114,13 +114,13 @@ export class Commands {
 
   public static async importCommandsFromPaths(
     paths: Array<string>,
-  ): Promise<any> {
+  ): Promise<Array<(app: Cli) => Promise<Cli>>> {
     try {
       return await Promise.all(
         paths.map(async path => {
           try {
             return await import(path).then(
-              ({default: register}) => register,
+              ({default: register}: {default: (app: Cli) => Promise<Cli>}) => register,
             )
           } catch (error) {}
         }),

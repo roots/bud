@@ -5,24 +5,31 @@ import {dry} from '@roots/bud/cli/decorators/command.dry'
 import {Command, Option} from '@roots/bud-support/clipanion'
 
 /**
- * `bud webpack` command
+ * bud webpack command
  */
 @dry
 export default class BudWebpackCommand extends BudCommand {
+  /**
+   * Paths
+   */
   public static override paths = [[`webpack`]]
 
+  /**
+   * Usage
+   */
   public static override usage = Command.Usage({
     description: `Webpack CLI passthrough`,
     category: `tools`,
     examples: [[`View webpack usage information`, `$0 webpack --help`]],
   })
 
+  /**
+   * Options
+   */
   public options = Option.Proxy({name: `webpack passthrough options`})
 
   /**
    * Command execute
-   *
-   * @public
    */
   public override async execute() {
     await this.makeBud(this)
@@ -33,8 +40,6 @@ export default class BudWebpackCommand extends BudCommand {
       `bin`,
       `webpack.js`,
     )
-
-    this.text(`\n\n$ ${this.bin} ${bin}\n\n`)
 
     await this.$(this.bin, [
       bin,

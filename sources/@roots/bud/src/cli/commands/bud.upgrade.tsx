@@ -3,18 +3,19 @@ import {dry} from '@roots/bud/cli/decorators/command.dry'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators'
 
-import {detectPackageManager} from '../helpers/detectPackageManager.js'
-import {isInternalDevelopmentEnv} from '../helpers/isInternalDevelopmentEnv.js'
-
 /**
- * `bud upgrade` command
- *
- * @public
- * @decorator `@dry`
+ * bud upgrade command
  */
 @dry
 export default class BudUpgradeCommand extends BudCommand {
+  /**
+   * Command paths
+   */
   public static override paths = [[`upgrade`], [`version`, `set`]]
+
+  /**
+   * Command usage
+   */
   public static override usage = Command.Usage({
     description: `Set bud.js version`,
     details: `
@@ -38,55 +39,50 @@ export default class BudUpgradeCommand extends BudCommand {
       ],
     ],
   })
+
   public override withArguments = ArgsModifier({dry: true})
 
+  /**
+   * --version
+   */
   public version = Option.String({required: false})
 
+  /**
+   * --registry
+   */
   public registry = Option.String(`--registry`, undefined, {
     description: `custom registry`,
   })
 
-  public get pacman(): `yarn` | `npm` {
-    const pacman = detectPackageManager(this.bud)
-    if (pacman === false) throw new Error(`Package manager is ambiguous`)
-    return pacman
-  }
-
-  public get command() {
-    return this.pacman === `npm` ? `install` : `add`
-  }
-
+  /**
+   * Execute command
+   */
   public override async execute() {
     await this.makeBud(this)
-    await this.healthcheck(this)
     await this.bud.run()
-
-    if (isInternalDevelopmentEnv(this.bud)) {
-      throw new Error(`Internal development environment`)
-    }
 
     if (!this.version) {
       const get = await import(`@roots/bud-support/axios`).then(
         ({default: axios}) => axios.get,
       )
+
       this.version = await get(
         `https://registry.npmjs.org/@roots/bud/latest`,
       ).then(async res => res.data?.version)
     }
 
     if (this.hasUpgradeableDependencies(`devDependencies`)) {
-      await this.$(this.pacman, [
-        this.command,
+      await this.cli.run([`add`,
+        ...(this.registry ? [`--registry`, this.registry] : []),
+        `--dev`,
         ...this.getUpgradeableDependencies(`devDependencies`),
-        ...this.getFlags(`devDependencies`),
       ])
     }
 
     if (this.hasUpgradeableDependencies(`dependencies`)) {
-      await this.$(this.pacman, [
-        this.command,
-        ...this.getUpgradeableDependencies(`dependencies`),
-        ...this.getFlags(`dependencies`),
+      await this.cli.run([`add`,
+        ...(this.registry ? [`--registry`, this.registry] : []),
+        ...this.getUpgradeableDependencies(`devDependencies`),
       ])
     }
   }
@@ -113,6 +109,7 @@ export default class BudUpgradeCommand extends BudCommand {
     if (this.bud?.context.manifest?.[type]) {
       return Object.keys(this.bud.context.manifest[type])
     }
+
     return []
   }
 
@@ -121,29 +118,5 @@ export default class BudUpgradeCommand extends BudCommand {
     type: `devDependencies` | `dependencies`,
   ): boolean {
     return this.getUpgradeableDependencies(type)?.length > 0
-  }
-
-  @bind
-  public getFlags(type: `devDependencies` | `dependencies`) {
-    const flags = []
-
-    if (type === `devDependencies`) {
-      switch (this.pacman) {
-        case `npm`:
-          flags.push(`--save-dev`)
-          break
-        case `yarn`:
-          flags.push(`--dev`)
-          break
-      }
-    }
-
-    if (type === `dependencies` && this.pacman === `npm`) {
-      flags.push(`--save`)
-    }
-
-    if (this.registry) flags.push(`--registry`, this.registry)
-
-    return flags
   }
 }

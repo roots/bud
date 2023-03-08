@@ -10,14 +10,12 @@ import type {
 } from '@roots/bud-framework/options/context'
 import {BaseContext, Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators'
-import Ink, {React, Renderer} from '@roots/bud-support/ink'
+import {React} from '@roots/bud-support/ink'
 import isString from '@roots/bud-support/lodash/isString'
 import * as t from '@roots/bud-support/typanion'
 
-import * as Display from '../components/Error.js'
 import {Menu} from '../components/Menu.js'
-import {WinError} from '../components/WinError.js'
-import {isWindows} from '../helpers/isWindows.js'
+import BaseCommand from './base.js'
 
 export type {BaseContext, CommandContext, Context}
 export {Option}
@@ -33,25 +31,7 @@ export const ArgsModifier: ArgsModifier = from => async on => ({
 /**
  * Bud command
  */
-export default class BudCommand extends Command<CommandContext> {
-  /**
-   * Bud instance
-   */
-  public declare bud?: (Bud & {context: CommandContext}) | undefined
-
-  /**
-   * Binary (node, ts-node, bun)
-   */
-  public get bin() {
-    // eslint-disable-next-line n/no-process-env
-    return process.env.BUD_JS_BIN
-  }
-
-  /**
-   * {@link Command.context}
-   */
-  public declare context: CommandContext
-
+export default class BudCommand extends BaseCommand {
   /**
    * {@link Command.paths}
    */
@@ -70,26 +50,6 @@ export default class BudCommand extends Command<CommandContext> {
     examples: [[`compile source assets`, `$0 build`]],
   })
 
-  public declare withArguments?: (
-    args: CommandContext[`args`],
-  ) => Promise<CommandContext[`args`]>
-
-  public declare withSubcommandArguments?: (
-    args: CommandContext[`args`],
-  ) => Promise<CommandContext[`args`]>
-
-  public declare withContext?: (
-    context: CommandContext,
-  ) => Promise<CommandContext>
-
-  public declare withSubcommandContext?: (
-    context: CommandContext,
-  ) => Promise<CommandContext>
-
-  public declare withBud?: (
-    bud: BudCommand[`bud`],
-  ) => Promise<BudCommand[`bud`]>
-
   public notify: boolean = Option.Boolean(
     `--notify`,
     platform() === `darwin`,
@@ -102,16 +62,20 @@ export default class BudCommand extends Command<CommandContext> {
     description: `project base directory`,
     hidden: true,
   })
+
   public debug = Option.Boolean(`--debug`, undefined, {
     description: `Enable debug mode`,
   })
+
   public log = Option.Boolean(`--log`, undefined, {
     description: `Enable logging`,
     hidden: true,
   })
+
   public verbose = Option.Boolean(`--verbose`, undefined, {
     description: `Log verbose output`,
   })
+
   public mode = Option.String(`--mode`, undefined, {
     description: `Compilation mode`,
     validator: t.isOneOf([
@@ -119,25 +83,10 @@ export default class BudCommand extends Command<CommandContext> {
       t.isLiteral(`development`),
     ]),
   })
+
   public filter = Option.Array(`--filter`, undefined, {
     description: `Limit command to particular compilers`,
   })
-
-  public declare renderer: Renderer
-  public async render(children: React.ReactElement) {
-    await this.renderer?.render(children)
-  }
-  public async renderOnce(children: React.ReactElement) {
-    await this.renderer?.once(children)
-  }
-  public async text(text: string) {
-    await this.renderer?.text(text)
-  }
-
-  public constructor() {
-    super()
-    this.renderer = new Renderer(process.stdout)
-  }
 
   public async makeBud<T extends BudCommand>(command: T) {
     command.context.mode = command.mode ?? command.context.mode
@@ -194,23 +143,17 @@ export default class BudCommand extends Command<CommandContext> {
     await command.applyBudArguments(command.bud)
   }
 
-  @bind
-  public async $(bin: string, args: Array<string>, options = {}) {
-    const {execa: command} = await import(`@roots/bud-support/execa`)
-    return await command(bin, args.filter(Boolean), {
-      cwd: this.bud.path(),
-      encoding: `utf8`,
-      env: {NODE_ENV: `development`},
-      stdio: `inherit`,
-      ...options,
-    })
-  }
-
+  /**
+   * Healthcheck
+   */
   public async healthcheck(command: BudCommand) {
     checkPackageManagerErrors(command.bud)
     await checkDependencies(command.bud)
   }
 
+  /**
+   * Apply env values to bud instance
+   */
   @bind
   public async applyBudEnv(bud: Bud) {
     if (bud.env.isString(`APP_MODE`)) {
@@ -411,55 +354,5 @@ export default class BudCommand extends Command<CommandContext> {
    */
   public async execute() {
     this.render(<Menu cli={this.cli} />)
-  }
-
-  /**
-   * Handle errors
-   */
-  public override async catch(value: unknown) {
-    let error: Error
-    process.exitCode = 1
-
-    const normalizeError = (value: unknown): Error => {
-      if (value instanceof Error) return value
-      if (isString(value)) return new Error(value.trim())
-
-      if (value instanceof Object) {
-        try {
-          if (isString(error.message))
-            return new Error(error.message.trim())
-          return new Error(JSON.stringify(value, null, 2))
-        } catch (error) {
-          return new Error(value.toString().trim())
-        }
-      }
-    }
-
-    try {
-      error = normalizeError(value)
-    } catch (e) {}
-
-    if (this.bud?.notifier?.notify) {
-      try {
-        this.bud.notifier.notify({
-          title: this.bud.label ?? `bud.js`,
-          subtitle: error.name ?? `Error`,
-          message: error.message,
-          group: this.bud.label,
-        })
-      } catch (error) {
-        // fallthrough
-      }
-    }
-
-    try {
-      await this.renderOnce(
-        <Ink.Box flexDirection="column">
-          <Display.Error name={error.name} message={error.message} />
-
-          {isWindows() ? <WinError /> : null}
-        </Ink.Box>,
-      )
-    } catch (error) {}
   }
 }

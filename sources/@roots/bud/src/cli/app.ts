@@ -4,6 +4,7 @@ import BudBuildDevelopmentCommand from '@roots/bud/cli/commands/bud.build.develo
 import BudBuildProductionCommand from '@roots/bud/cli/commands/bud.build.production'
 import BudCleanCommand from '@roots/bud/cli/commands/bud.clean'
 import BudDoctorCommand from '@roots/bud/cli/commands/bud.doctor'
+import BudInstallCommand from '@roots/bud/cli/commands/bud.install'
 import BudReplCommand from '@roots/bud/cli/commands/bud.repl'
 import BudUpgradeCommand from '@roots/bud/cli/commands/bud.upgrade'
 import BudViewCommand from '@roots/bud/cli/commands/bud.view'
@@ -33,6 +34,7 @@ application.register(BudBuildDevelopmentCommand)
 application.register(BudBuildProductionCommand)
 application.register(BudCleanCommand)
 application.register(BudDoctorCommand)
+application.register(BudInstallCommand)
 application.register(BudReplCommand)
 application.register(BudUpgradeCommand)
 application.register(BudViewCommand)
@@ -51,6 +53,7 @@ application.runExit(argv, {
   stdin: process.stdin,
   stdout: process.stdout,
   stderr: process.stderr,
+  env: context.env,
   colorDepth: 256,
 })
 
