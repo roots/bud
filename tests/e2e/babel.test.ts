@@ -44,7 +44,7 @@ describe(`html output of examples/babel`, () => {
     const root = await page.$(`#root`)
     expect(root).toBeTruthy()
 
-    const color = await root.evaluate(el => {
+    const color = await root?.evaluate(el => {
       return window.getComputedStyle(el).getPropertyValue(`background`)
     })
     expect(color).toMatchSnapshot(
@@ -54,7 +54,7 @@ describe(`html output of examples/babel`, () => {
     await update()
     await page.waitForTimeout(12000)
 
-    const color2 = await root.evaluate(el => {
+    const color2 = await root?.evaluate(el => {
       return window.getComputedStyle(el).getPropertyValue(`background`)
     })
     expect(color2).toMatchSnapshot(

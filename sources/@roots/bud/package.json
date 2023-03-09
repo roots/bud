@@ -182,7 +182,8 @@
     "@roots/bud-server": "workspace:sources/@roots/bud-server",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@roots/bud-terser": "workspace:sources/@roots/bud-terser",
-    "tslib": "2.4.1"
+    "tslib": "2.4.1",
+    "webpack": "5.75.0"
   },
   "peerDependencies": {
     "@roots/browserslist-config": "*",
@@ -199,7 +200,8 @@
     "@roots/bud-server": "*",
     "@roots/bud-support": "*",
     "@roots/bud-terser": "*",
-    "tslib": ">=2.4.0"
+    "tslib": ">=2.4.0",
+    "webpack": "5.75.0"
   },
   "peerDependenciesMeta": {
     "@roots/browserslist-config": {
@@ -245,6 +247,9 @@
       "optional": true
     },
     "tslib": {
+      "optional": true
+    },
+    "webpack": {
       "optional": true
     }
   },

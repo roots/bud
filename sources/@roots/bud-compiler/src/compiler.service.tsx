@@ -82,6 +82,7 @@ export class Compiler extends Service implements Contract.Service {
     })
 
     await this.app.hooks.fire(`compiler.after`, this.app)
+
     return this.instance
   }
 

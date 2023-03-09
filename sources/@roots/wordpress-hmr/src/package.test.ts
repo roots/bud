@@ -2,7 +2,7 @@ import {describe, expect, it} from 'vitest'
 
 import {Cache} from './cache.js'
 import * as Editor from './editor.js'
-import * as Plugin from './plugin.js'
+import * as Plugins from './plugins.js'
 
 describe(`@roots/wordpress-hmr`, () => {
   it(`cache should be constructable`, () => {
@@ -14,6 +14,6 @@ describe(`@roots/wordpress-hmr`, () => {
   })
 
   it(`plugin should be constructable`, () => {
-    expect(Plugin.load).toBeInstanceOf(Function)
+    expect(Plugins.register).toBeInstanceOf(Function)
   })
 })

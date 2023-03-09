@@ -9,7 +9,7 @@ For example, in WordPress, React is provided via `window.React` and you don't ne
 
 **bud.externals** allows you to use the import syntax that is standard to React component libraries:
 
-```js title='bud.config.js'
+```js title=bud.config.js
 import React from 'react'
 ```
 
@@ -17,7 +17,7 @@ While also ensuring that these imports reference `window.React` in your bundled 
 
 ## Usage
 
-```js title='bud.config.js'
+```js title=bud.config.js
 bud.externals({
   jQuery: 'window.jquery',
 })

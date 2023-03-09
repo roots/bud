@@ -70,7 +70,7 @@ export default class BudTypeScript extends Extension {
    * `configAfter` callback
    */
   @bind
-  public override async configAfter(bud: Bud) {
+  public override async buildBefore(bud: Bud) {
     this.set(`context`, bud.context.basedir)
 
     bud.build.items.ts.setOptions(omit(this.options, `babel`))

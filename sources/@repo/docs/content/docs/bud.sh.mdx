@@ -1,6 +1,6 @@
 ---
 title: bud.sh
-description: Access the bud object through a callback
+description: Execute arbitrary shell commands
 ---
 
 **bud.sh** is used to execute arbitrary shell commands. It is a wrapper around the [execa](https://github.com/sindresorhus/execa) package.
@@ -9,7 +9,7 @@ It's async and returns the `ExecaChildProcess` object. It will pipe the process 
 
 ## Usage
 
-```js title=bud.config.mjs
+```js title=bud.config.js
 export default async bud => {
   await bud.sh(`ls -la`)
 }
@@ -17,7 +17,7 @@ export default async bud => {
 
 You may use an array of arguments instead of a string:
 
-```js title='bud.config.js'
+```js title=bud.config.js
 export default async bud => {
   await bud.sh([`ls`, `-la`])
 }
@@ -25,7 +25,7 @@ export default async bud => {
 
 Additionally, you can pass on configuration options to the underlying package:
 
-```js title='bud.config.js'
+```js title=bud.config.js
 export default async bud => {
   await bud.sh([`ls`, `-la`], {
     shell: true,

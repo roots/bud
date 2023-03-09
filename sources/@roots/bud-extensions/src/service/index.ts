@@ -143,7 +143,7 @@ export default class Extensions
    * `configAfter` callback
    */
   @bind
-  public override async configAfter?(): Promise<void> {
+  public override async configAfter?() {
     await this.runAll(`configAfter`)
   }
 
@@ -151,7 +151,7 @@ export default class Extensions
    * `buildBefore` callback
    */
   @bind
-  public override async buildBefore?(): Promise<void> {
+  public override async buildBefore?() {
     await this.runAll(`buildBefore`)
   }
 
@@ -159,7 +159,7 @@ export default class Extensions
    * `buildBefore` callback
    */
   @bind
-  public override async buildAfter?(): Promise<void> {
+  public override async buildAfter?() {
     await this.runAll(`buildAfter`)
   }
 

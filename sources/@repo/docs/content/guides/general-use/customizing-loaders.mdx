@@ -64,7 +64,7 @@ bud.build.loaders.babel.setSrc('example')
 
 With automatic resolution:
 
-```js title=bud.config.mjs
+```js title=bud.config.js
 export default async bud => {
   bud.build.setLoader(`babel-loader`)
 }
@@ -72,7 +72,7 @@ export default async bud => {
 
 With explicit resolution:
 
-```js title=bud.config.mjs
+```js title=bud.config.js
 export default async bud => {
   bud.build.setLoader(
     `babel-loader`,
@@ -82,7 +82,7 @@ export default async bud => {
 
 Using the callback API:
 
-```js title=bud.config.mjs
+```js title=bud.config.js
 export default async bud => {
   bud.build.setLoader(
     `babel-loader`,
@@ -118,7 +118,7 @@ bud.build.items.example.setLoader(`example`)
 
 Declaratively:
 
-```js title=bud.config.mjs
+```js title=bud.config.js
 export default async bud => {
   bud.build.setItem(`babel`, {
     loader: `babel-loader`,
@@ -131,7 +131,7 @@ export default async bud => {
 
 Using the callback API:
 
-```js title=bud.config.mjs
+```js title=bud.config.js
 export default async bud => {
   bud.build.setItem(`babel`, item =>
     item.setLoader(`babel-loader`).setOptions({
@@ -194,7 +194,7 @@ bud.build.rules.js.setUse(items => [...items, 'babel'])
 
 Declaratively:
 
-```js title=bud.config.mjs
+```js title=bud.config.js
 export default async bud => {
   bud.build.setRule(`js`, {
     test: /\.js$/,
@@ -205,7 +205,7 @@ export default async bud => {
 
 Using the callback API:
 
-```js title=bud.config.mjs
+```js title=bud.config.js
 export default async bud =>
   bud.build.setRule(`js`, rule => rule.setTest(/\.js$/).setUse([`babel`]))
 ```

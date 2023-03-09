@@ -5,13 +5,13 @@ sidebar_label: Assets
 
 ## Application entrypoints
 
-Bud uses the concept of "entrypoints" to group application scripts and styles. Entrypoints are defined using [bud.entry](/docs/bud.entry).
+bud.js uses the concept of "entrypoints" to group application scripts and styles. Entrypoints are defined using [bud.entry](/docs/bud.entry).
 
 You can think of an entrypoint as a "page" in your application. Each entrypoint will have its own output file.
 
 If you only have a single entrypoint then it is enough to just pass the filename:
 
-```js title='bud.config.mjs'
+```js title=bud.config.js
 export default async bud => {
   bud.entry('app') // src/app.js
 }
@@ -19,7 +19,7 @@ export default async bud => {
 
 If you have more than one file to include in the bundle, you can use an array:
 
-```js title='bud.config.mjs'
+```js title=bud.config.js
 export default async bud => {
   bud.entry(['app.js', 'global.css'])
 }
@@ -29,7 +29,7 @@ If you have additional entrypoints you may call [bud.entry](/docs/bud.entry) mul
 
 But, it might be preferable to use an object:
 
-```js title='bud.config.mjs'
+```js title=bud.config.js
 export default async bud => {
   bud.entry({
     app: ['app.js', 'global.css'],
@@ -47,7 +47,7 @@ The [bud.assets](/docs/bud.assets) function is used to copy files to the output 
 
 The simplest way to use it is to pass an array of directories (relative to [your project `@src` directory](#project-paths)) you would like to copy:
 
-```js title='bud.config.mjs'
+```js title=bud.config.js
 export default async bud => {
   bud.assets(['images', 'fonts'])
 }
@@ -55,7 +55,7 @@ export default async bud => {
 
 If you want more control over the directory being output to, you can use an array of from/to pairs:
 
-```js title='bud.config.mjs'
+```js title=bud.config.js
 export default async bud => {
   bud.assets([
     ['images', 'assets/images'], // from `@src/images` to `@dist/assets/images`
@@ -66,7 +66,7 @@ export default async bud => {
 
 For complete control, you can pass an object:
 
-```js title='bud.config.mjs'
+```js title=bud.config.js
 export default async bud => {
   bud.assets({
     from: bud.path(`@src`, 'images'),

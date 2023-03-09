@@ -5,28 +5,20 @@ import {Command} from './base.command'
 
 /**
  * `@bud` command class
- *
- * @internal
  */
 export class Bud extends Command {
   /**
    * Command name
-   *
-   * @internal
    */
   public static label = `@bud`
 
   /**
    * Command paths
-   *
-   * @internal
    */
   public static paths: CommandClass['paths'] = [[`@bud`]]
 
   /**
    * Command execute
-   *
-   * @internal
    */
   public async execute() {
     process.stdout.write(`    

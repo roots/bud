@@ -1,19 +1,27 @@
+import {select} from '@wordpress/data'
 import {
+  FormatConfiguration,
   registerFormatType,
   unregisterFormatType,
 } from '@wordpress/rich-text'
 
-import * as editor from './editor.js'
+export interface Props extends FormatConfiguration {
+  name: string
+}
 
-export const register = ({name, settings}) =>
+export const isRegistered = (name: string) => {
+  return select(`core/rich-text`)
+    .getFormatTypes()
+    .some(({name: registered}) => registered === name)
+}
+
+export const register = ({name, ...settings}: Props) => {
+  if (!name || !settings) return
+  isRegistered(name) && unregister({name})
   registerFormatType(name, settings)
+}
 
-export const unregister = ({name}) => unregisterFormatType(name)
-
-export const load = (getContext, callback) =>
-  editor.load({
-    getContext,
-    callback,
-    register,
-    unregister,
-  })
+export const unregister = ({name}) => {
+  if (!name) return
+  unregisterFormatType(name)
+}

@@ -210,7 +210,7 @@
     "webpack-manifest-plugin": "5.0.0",
     "xml-loader": "1.2.1",
     "yml-loader": "2.1.0",
-    "zod": "3.20.2"
+    "zod": "3.20.6"
   },
   "peerDependencies": {
     "axios": "*",
@@ -255,7 +255,7 @@
     "toml": "*",
     "typanion": "*",
     "type-fest": "*",
-    "webpack": "*",
+    "webpack": "5.75.0",
     "webpack-dev-middleware": "*",
     "webpack-manifest-plugin": "*",
     "zod": "*"

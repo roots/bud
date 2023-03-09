@@ -1,28 +1,22 @@
 /* eslint-disable no-console */
 import {paths} from '@repo/constants'
 import {CommandClass} from 'clipanion'
-import {ensureDir, pathExists, readJson, remove, writeJson} from 'fs-extra'
+import {ensureDir, pathExists, readJson, rm, writeJson} from 'fs-extra'
 import {join} from 'path'
 
 import {Command} from '../base.command'
 
 /**
- * `@bud registry start` command class
- *
- * @internal
+ * bud registry clean command class
  */
 export class RegistryClean extends Command {
   /**
    * Command name
-   *
-   * @internal
    */
   public static label = `@bud registry clean`
 
   /**
    * Command paths
-   *
-   * @internal
    */
   public static paths: CommandClass['paths'] = [
     [`@bud`, `registry`, `clean`],
@@ -30,8 +24,6 @@ export class RegistryClean extends Command {
 
   /**
    * Command usage
-   *
-   * @internal
    */
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
@@ -42,8 +34,16 @@ export class RegistryClean extends Command {
   }
 
   public async execute() {
+      try {
+        await ensureDir(join(paths.root, `storage/mocks`))
+      } catch (e) {}
+
+      try {
+        await rm(join(paths.root, `storage/mocks`), {recursive: true})
+      } catch (e) {}
+
       await ensureDir(join(paths.root, `storage`, `packages`))
-      await remove(join(paths.root, `storage`, `packages`))
+      await rm(join(paths.root, `storage`, `packages`), {recursive: true})
 
       const verdaccioDbExists = await pathExists(
         join(paths.root, `storage`, `.verdaccio-db.json`),

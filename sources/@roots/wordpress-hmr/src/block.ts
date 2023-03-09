@@ -1,85 +1,60 @@
 import {
-  BlockInstance,
+  BlockConfiguration,
   getBlockType,
-  registerBlockStyle,
   registerBlockType,
-  unregisterBlockStyle,
   unregisterBlockType,
 } from '@wordpress/blocks'
-import {dispatch, select} from '@wordpress/data'
-import {addFilter, removeFilter} from '@wordpress/hooks'
 
-import * as editor from './editor.js'
+import type * as Filter from './filter.js'
+import type {Style} from './style.js'
+import * as blockStyle from './style.js'
+import {filterCallback} from './utility.js'
+import type {Variant} from './variation.js'
+import * as blockVariant from './variation.js'
+
+export interface Props extends BlockConfiguration<Record<string, any>> {
+  name: string
+  filters?: Filter.KeyedFilters
+  styles?: Array<Omit<Style, 'block'>>
+  variations?: Array<Omit<Variant, 'block'>>
+}
 
 /**
  * Register block
  */
-export const register = ({name, settings, filters, styles}) => {
-  if (getBlockType(name)) {
-    unregister({name, filters, styles})
-  }
-
+export const register = ({
+  name,
+  filters = {},
+  styles,
+  variations,
+  ...settings
+}: Props) => {
+  getBlockType(name) && unregister({name, filters, styles, variations})
   registerBlockType(name, settings)
 
-  styles?.map(style => registerBlockStyle(name, style))
-  filters?.map(({name, namespace, callback}) => {
-    addFilter(name, namespace, callback)
+  styles?.map(style => {
+    blockStyle.register({block: name, ...style})
   })
+  variations?.map(variation =>
+    blockVariant.register({block: name, ...variation}),
+  )
+  filterCallback(filters, name, (filter, api) => api.register(filter))
 }
 
 /**
  * Unregister block
  */
-export const unregister = ({name, filters, styles}) => {
+export const unregister = ({
+  name,
+  filters,
+  styles,
+  variations,
+}: Pick<Props, `name` | `filters` | `styles` | `variations`>) => {
   unregisterBlockType(name)
 
-  filters?.map(({hook, namespace}) => {
-    removeFilter(hook, namespace)
-  })
-  styles?.map(style => unregisterBlockStyle(name, style.name))
-}
-
-let selected = null
-
-/**
- * Before update
- */
-const before = () => {
-  selected = select(`core/block-editor`).getSelectedBlockClientId()
-  dispatch(`core/block-editor`).clearSelectedBlock()
-}
-
-/**
- * After update
- */
-const after = (changed?: Array<{name: string}>) => {
-  if (!changed?.length) return
-
-  const allBlocks = select(
-    `core/block-editor`,
-  ).getBlocks() as Array<BlockInstance>
-  const modifiedBlocks = changed.map(module => module.name)
-
-  allBlocks.forEach(({name, clientId}) => {
-    if (modifiedBlocks.includes(name)) {
-      dispatch(`core/block-editor`).selectBlock(clientId)
-    }
-  })
-
-  selected
-    ? dispatch(`core/block-editor`).selectBlock(selected)
-    : dispatch(`core/block-editor`).clearSelectedBlock()
-
-  selected = null
-}
-
-export const load = (getContext, callback): void => {
-  editor.load({
-    getContext,
-    callback,
-    register,
-    unregister,
-    before,
-    after,
-  })
+  styles?.map(style => blockStyle.unregister({block: name, ...style}))
+  variations?.map(variation =>
+    blockVariant.unregister({block: name, ...variation}),
+  )
+  filterCallback(filters, name, (filter, api) => api.unregister(filter))
 }

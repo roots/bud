@@ -26,14 +26,8 @@ jobs:
         run: |
           yarn config set npmAuthToken ${{ secrets.NODE_AUTH_TOKEN }}
 
-      - name: Set npmPublishRegistry
-        run: yarn config set npmPublishRegistry https://registry.npmjs.org/
-
-      - name: Set npmRegistryServer
-        run: yarn config set npmRegistryServer https://registry.npmjs.org/
-
       - name: Release v${{ github.event.inputs.version }}
-        run: yarn @bud release --tag latest --version ${{ github.event.inputs.version }}
+        run: yarn @bud release --tag latest --version ${{ github.event.inputs.version }} --registry https://registry.npmjs.org
 
       - name: Reset npmAuthToken
         run: yarn config set npmAuthToken "${NPM_AUTH_TOKEN:-fallback}"

@@ -6,7 +6,7 @@ sidebar_label: Layered configurations
 
 ## Configuration files
 
-It is possible to create more than one bud configuration file. Each configuration file is applied
+It is possible to create more than one bud.js configuration file. Each configuration file is applied
 in the following order:
 
 1. `bud.config` - the standard, base configuration. always applied.
@@ -29,7 +29,7 @@ The following `.env` values will be applied to your build automatically, if pres
 
 You may also use the `bud` key in `package.json` to modify certain base values:
 
-```json5 title='package.json'
+```json5 title=package.json
 {
   "bud": {
     "paths": {
@@ -48,11 +48,11 @@ You may also use the `bud` key in `package.json` to modify certain base values:
 }
 ```
 
-If you are using a multi-instance configuration, you can specify `extensions` to load on a per-instance basis:
+If you are using a multi-instance configuration, you can specify `extensions` to load specific to each instance:
 
 The top level `extensions` key will be applied to all instances.
 
-```json5 title='package.json'
+```json5 title=package.json
 {
   "bud": {
     "extensions": {
@@ -84,12 +84,12 @@ The CLI has many flags for configuring your build. Check the [CLI documentation]
 
 ## Order of application
 
-The following is the order in which bud will apply configuration values:
+The following is the order in which bud.js will apply configuration values:
 
 1. `.env` values
 2. `package.json` values
 3. all config files
 4. CLI arguments and flags
 
-So, your `bud.config.mjs` will override any values set in `package.json` or `.env`. Likewise, the CLI arguments will override
+So, your `bud.config.js` will override any values set in `package.json` or `.env`. Likewise, the CLI arguments will override
 any values set in the config.
