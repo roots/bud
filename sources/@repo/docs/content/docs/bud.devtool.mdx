@@ -13,24 +13,24 @@ For more information on sourcemap options see [webpack's documentation](https://
 
 Enable sourcemaps
 
-```js title='bud.config.js'
+```js title=bud.config.js
 bud.devtool()
 ```
 
 Disable sourcemaps
 
-```js title='bud.config.js'
+```js title=bud.config.js
 bud.devtool(false)
 ```
 
 Override the default configuration
 
-```js title='bud.config.js'
+```js title=bud.config.js
 bud.devtool('inline-cheap-module-source-map')
 ```
 
 Enable sourcemaps only in development (see [bud.when](bud.when) for extra clarity)
 
-```js title='bud.config.js'
+```js title=bud.config.js
 bud.when(bud.isDevelopment, bud => bud.devtool())
 ```

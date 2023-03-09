@@ -24,7 +24,7 @@ import {Install} from '@site/src/docs/Install'
 
 Presets are registered to `bud.babel.presets`.
 
-```js title='bud.config.mjs'
+```js title=bud.config.js
 console.dir(bud.babel.presets)
 ```
 
@@ -32,7 +32,7 @@ console.dir(bud.babel.presets)
 
 It will be appended to whatever presets are already registered.
 
-```js title='bud.config.mjs'
+```js title=bud.config.js
 bud.babel.setPreset('@babel/preset-env')
 ```
 
@@ -40,7 +40,7 @@ bud.babel.setPreset('@babel/preset-env')
 
 Use `bud.babel.unsetPreset` to remove a preset, if present.
 
-```js title='bud.config.mjs'
+```js title=bud.config.js
 bud.babel.unsetPreset('@babel/preset-env')
 ```
 
@@ -48,13 +48,13 @@ bud.babel.unsetPreset('@babel/preset-env')
 
 Pass an array of presets to `bud.babel.setPresets` to fully replace the existing presents configuration.
 
-```js title='bud.config.mjs'
+```js title=bud.config.js
 bud.babel.setPresets(['@babel/preset-env'])
 ```
 
 ### Set options on a preset
 
-```js title='bud.config.mjs'
+```js title=bud.config.js
 bud.babel.setPresetOptions('@babel/preset-env', {
   useBuiltIns: 'entry',
 })
@@ -66,25 +66,25 @@ Managing plugins uses nearly the exact same API.
 
 ### Add a plugin
 
-```js title='bud.config.mjs'
+```js title=bud.config.js
 bud.babel.setPlugin('@babel/plugin-transform-runtime')
 ```
 
 ### Add a plugin with options
 
-```ts title='bud.config.mjs'
+```ts title=bud.config.js
 bud.babel.setPlugin(['@babel/plugin-transform-runtime', {helpers: false}])
 ```
 
 ### Remove a plugin
 
-```ts title='bud.config.mjs'
+```ts title=bud.config.js
 bud.babel.unsetPlugin('@babel/plugin-transform-runtime')
 ```
 
 ### Override any plugin options
 
-```js title='bud.config.mjs'
+```js title=bud.config.js
 bud.babel.setPluginOptions('@babel/plugin-transform-runtime', {
   helpers: false,
 })
@@ -92,6 +92,6 @@ bud.babel.setPluginOptions('@babel/plugin-transform-runtime', {
 
 ### Fully override plugins
 
-```ts title='bud.config.mjs'
+```ts title=bud.config.js
 bud.babel.setPlugins(['@babel/plugin-transform-runtime'])
 ```

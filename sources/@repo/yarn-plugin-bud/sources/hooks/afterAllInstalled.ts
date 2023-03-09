@@ -1,57 +1,31 @@
-/* eslint-disable no-console */
+/* eslint-disable n/no-process-env */
 import {execute} from '@yarnpkg/shell'
 
 export default async () => {
-  try {
-    await execute(
+  await execute(
     `yarn`,
-    [`@bud`, `registry`,  `install`],
-    {
-      stdin: process.stdin,
-      stdout: process.stdout,
-    },
+    [`@bud`, `plugin`, `rebuild`],
   )
-  } catch (e) {
-    console.error(e.message)
+  await execute(
+    `yarn`,
+    [`@bud`, `registry`, `start`],
+  )
+
+  if (!process.env.ci) {
+    await execute(
+      `yarn`,
+      [
+        `workspace`,
+        `@roots/browserslist-config`,
+        `exec`,
+        `node`,
+        `./scripts/postinstall.mjs`,
+      ],
+      {stderr: process.stderr},
+    )
   }
 
-  try {
-    await execute(
-    `yarn`,
-    [`@bud`, `registry`,  `start`],
-    {
-      stdin: process.stdin,
-      stdout: process.stdout,
-    },
-  )
-  } catch (e) {
-    console.error(e.message)
-  }
-
-  await execute(
-    `yarn`,
-    [`workspace`, `@repo/yarn-plugin-bud`, `build`],
-    {
-      stdin: process.stdin,
-      stdout: process.stdout,
-    },
-  )
-
-  await execute(
-    `yarn`,
-    [`workspace`, `@roots/browserslist-config`, `exec`, `node`, `./scripts/postinstall.mjs`],
-    {
-      stdin: process.stdin,
-      stdout: process.stdout,
-    },
-  )
-
-  await execute(
-    `yarn`,
-    [`@bud`, `build`,  `--force`],
-    {
-      stdin: process.stdin,
-      stdout: process.stdout,
-    },
-  )
+  await execute(`yarn`, [`@bud`, `build`, `--force`], {
+    stderr: process.stderr,
+  })
 }

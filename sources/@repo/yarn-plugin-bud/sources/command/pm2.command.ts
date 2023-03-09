@@ -36,15 +36,13 @@ export class Pm2 extends Command {
    * Execute command
    */
   public async execute() {
-    await this.cli.run([`@bud`, `registry`, `install`])
-    
-    await this.tryExecuting(
-      `node`,
-      [
-        `${paths.root}/storage/node_modules/pm2/bin/pm2`,
-        ...(this.passthrough ?? []),
-      ].filter(Boolean),
-      {stdout: `ignore`, stderr: `ignore`},
-    )
+    try {
+      await this.$([
+        `yarn`,
+        [`pm2`, ...(this.passthrough ?? [])].filter(Boolean),
+        {stdout: this.context.stdout, stderr: this.context.stderr},
+        true,
+      ])
+    } catch (e) {}
   }
 }

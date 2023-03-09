@@ -1,6 +1,6 @@
 ---
 title: Running multiple instances
-description: It is possible to configure more than one Webpack compiler from a single bud config.
+description: Configure multiple instances from a single bud.js config.
 ---
 
 :::info Experimental
@@ -21,7 +21,7 @@ To create a new child instance, we can use [bud.make](/docs/bud.make).
 
 The simplest implementation sets the `label` of the compiler with a `string`, and provides a configuration callback:
 
-```ts title='bud.config.js'
+```ts title=bud.config.js
 export default async bud => {
   await bud.make('theme', async theme => theme.entry('index'))
 }
@@ -29,7 +29,7 @@ export default async bud => {
 
 More complex implementations can be achieved by supplying **context** overrides using an object:
 
-```ts title='bud.config.js'
+```ts title=bud.config.js
 export default async bud => {
   await bud.make(
     {label: `plugin`, basedir: bud.path(`plugin`)},
@@ -67,7 +67,7 @@ to prevent extensions from being automatically injected.
 
 Then, you can manually load the extensions on a per-compiler basis:
 
-```ts title='bud.config.mjs'
+```ts title=bud.config.js
 export default async bud => {
   await bud.make('theme', async theme => {
     theme
@@ -95,7 +95,7 @@ This includes:
 - [bud.proxy](/docs/bud.proxy)
 - [bud.watch](/docs/bud.watch)
 
-```ts title='bud.config.mjs'
+```ts title=bud.config.js
 export default async bud => {
   /**
    * Configure dev server in the parent context
@@ -112,7 +112,7 @@ export default async bud => {
 
 Child instances do not feature their own development server. This is incorrect:
 
-```ts title='bud.config.mjs'
+```ts title=bud.config.js
 export default async bud => {
   await bud.make(`app`, async app => {
     app

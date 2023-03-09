@@ -11,13 +11,13 @@ description: Property that is `true` when bud.mode is `production`
 
 Very useful in conditionals:
 
-```js title='bud.config.js'
+```js title=bud.config.js
 export default async bud => bud.isProduction && bud.devtool('source-map')
 ```
 
 Pairs well with [bud.when](/docs/bud.when):
 
-```js {2} title='bud.config.js'
+```js {2} title=bud.config.js
 bud.when(bud.isProduction, bud => bud.minify())
 ```
 

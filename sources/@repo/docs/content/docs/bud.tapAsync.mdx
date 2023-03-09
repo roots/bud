@@ -1,18 +1,18 @@
 ---
 title: bud.tapAsync
-description: Access the bud object through an async callback
+description: Access the bud.js object through an async callback
 ---
 
-Access the bud object through an async callback. Useful to maintain a function chain.
+Access the bud.js object through an async callback. Useful to maintain a function chain.
 
 ## Usage
 
-```js title=bud.config.mjs
+```js title=bud.config.js
 export default async bud => {
   await bud.tapAsync(bud => {
-    /* Do something with the bud object */
+    await bud.sh(`echo 'hello world!'`)
   })
 }
 ```
 
-It may be helpful to consider that the bud.config.mjs export is esssentially just a `bud.tapAsync` callback.
+It may be helpful to consider that the `bud.config.js` export is esssentially just a **bud.tapAsync** callback.

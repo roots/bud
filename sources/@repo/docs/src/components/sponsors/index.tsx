@@ -3,7 +3,7 @@ import React from 'react'
 
 import styles from './sponsors.module.css'
 
-export const Component = () => {
+export const Sponsors = () => {
   const {
     siteConfig: {customFields: manifest},
   } = useDocusaurusContext()

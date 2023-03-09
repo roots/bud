@@ -7,7 +7,7 @@ sidebar_label: CLI
 import CodeBlock from '@theme/CodeBlock'
 import Help from '!!raw-loader!@site/generated/cli/help.md'
 
-The `bud` command is your primary means of interfacing with the **bud** framework.
+The `bud` command is your primary means of interfacing with the **bud.js** framework.
 
 To explore what all is available to you, use `bud help`. You can also learn about any subcommand using the `--help` flag.
 
@@ -21,3 +21,7 @@ When using a configuring authored in TypeScript, you will need to either:
 
 - use the `ts-bud` command in place of `bud`
 - use [`ts-node`](https://www.npmjs.com/package/ts-node) to execute the `bud` CLI bin
+
+## Bun binary
+
+If you use the [bun runtime](https://bun.sh/) you can execute `bud` with it and have it used in place of `node` globally by using the `bund` command

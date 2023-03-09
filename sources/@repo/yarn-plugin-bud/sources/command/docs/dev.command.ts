@@ -29,6 +29,11 @@ export class DocsDev extends Command {
    * Execute command
    */
   public async execute() {
-    await this.$(`yarn workspace @repo/docs docusaurus start`)
+    await this.cli.run([
+      `workspace`,
+      `@repo/docs`,
+      `docusaurus`,
+      `start`,
+    ])
   }
 }
