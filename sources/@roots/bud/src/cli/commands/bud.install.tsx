@@ -12,7 +12,7 @@ export default class Install extends BudCommand {
   /**
    * Command paths
    */
-  public static override paths = [[`install`], [`add`]]
+  public static override paths = [[`install`]]
 
   /**
    * --dev

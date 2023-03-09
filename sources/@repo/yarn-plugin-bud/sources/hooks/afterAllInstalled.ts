@@ -2,14 +2,8 @@
 import {execute} from '@yarnpkg/shell'
 
 export default async () => {
-  await execute(
-    `yarn`,
-    [`@bud`, `plugin`, `rebuild`],
-  )
-  await execute(
-    `yarn`,
-    [`@bud`, `registry`, `start`],
-  )
+  await execute(`yarn`, [`@bud`, `plugin`, `rebuild`])
+  await execute(`yarn`, [`@bud`, `registry`, `start`])
 
   if (!process.env.ci) {
     await execute(

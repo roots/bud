@@ -72,7 +72,8 @@ export default class BudUpgradeCommand extends BudCommand {
     }
 
     if (this.hasUpgradeableDependencies(`devDependencies`)) {
-      await this.cli.run([`add`,
+      await this.cli.run([
+        `install`,
         ...(this.registry ? [`--registry`, this.registry] : []),
         `--dev`,
         ...this.getUpgradeableDependencies(`devDependencies`),
@@ -80,7 +81,8 @@ export default class BudUpgradeCommand extends BudCommand {
     }
 
     if (this.hasUpgradeableDependencies(`dependencies`)) {
-      await this.cli.run([`add`,
+      await this.cli.run([
+        `install`,
         ...(this.registry ? [`--registry`, this.registry] : []),
         ...this.getUpgradeableDependencies(`devDependencies`),
       ])

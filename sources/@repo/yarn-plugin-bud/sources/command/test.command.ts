@@ -77,7 +77,14 @@ export class TestRun extends Command {
       await rm(join(paths.root, `storage/mocks`), {recursive: true})
     } catch (e) {}
 
-    await this.cli.run([`@bud`, `release`, `--tag`, `latest`, `--registry`, `http://localhost:4873`])
+    await this.cli.run([
+      `@bud`,
+      `release`,
+      `--tag`,
+      `latest`,
+      `--registry`,
+      `http://localhost:4873`,
+    ])
   }
 
   /**

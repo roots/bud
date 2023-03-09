@@ -1,17 +1,14 @@
-import {isInternalDevelopmentEnv} from '@roots/bud/cli/helpers/isInternalDevelopmentEnv'
 import type {Bud} from '@roots/bud-framework'
 import Ink from '@roots/bud-support/ink'
 import React from '@roots/bud-support/react'
 
 export const checkDependencies = async (bud: Bud) => {
-  if (isInternalDevelopmentEnv(bud)) return false
-
   const mismatches = Object.entries({
     ...(bud.context.manifest?.dependencies ?? {}),
     ...(bud.context.manifest?.devDependencies ?? {}),
   })
     .filter(([name]) => name.startsWith(`@roots/`))
-    .filter(([signifier, version]: [string, string]) => {
+    .filter(([, version]: [string, string]) => {
       version = version.replace(`^`, ``)
       return (
         version !== `latest` &&

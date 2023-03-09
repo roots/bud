@@ -39,7 +39,15 @@ export class RegistryStart extends Command {
         `@bud`,
         `pm2`,
         `start`,
-        join(paths.root,`node_modules`, `verdaccio`, `build`, `lib`, `cli`, `cli.js`),
+        join(
+          paths.root,
+          `node_modules`,
+          `verdaccio`,
+          `build`,
+          `lib`,
+          `cli`,
+          `cli.js`,
+        ),
         `-n`,
         `verdaccio`,
         `--`,
@@ -49,11 +57,7 @@ export class RegistryStart extends Command {
     } catch {}
 
     try {
-      await this.cli.run([
-        `@bud`,
-        `pm2`,
-        `save`,
-      ])
+      await this.cli.run([`@bud`, `pm2`, `save`])
     } catch {}
   }
 }

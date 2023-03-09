@@ -5,5 +5,4 @@ import {BudSageCommand} from './bud.sage.add.js'
 /**
  * Register bud cli commands
  */
-export default async (clipanion: Cli) =>
-  clipanion.register(BudSageCommand)
+export default async (clipanion: Cli) => clipanion.register(BudSageCommand)

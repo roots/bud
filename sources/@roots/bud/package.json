@@ -65,10 +65,6 @@
       "types": "./lib/instances.d.ts",
       "import": "./lib/instances.js"
     },
-    "./cli/*": {
-      "types": "./lib/cli/*.d.ts",
-      "import": "./lib/cli/*.js"
-    },
     "./cli/commands/*": {
       "types": "./lib/cli/commands/*.d.ts",
       "import": "./lib/cli/commands/*.js"
@@ -84,6 +80,10 @@
     "./cli/helpers/*": {
       "types": "./lib/cli/helpers/*.d.ts",
       "import": "./lib/cli/helpers/*.js"
+    },
+    "./cli/*": {
+      "types": "./lib/cli/*.d.ts",
+      "import": "./lib/cli/*.js"
     },
     "./context": {
       "types": "./lib/context/index.d.ts",

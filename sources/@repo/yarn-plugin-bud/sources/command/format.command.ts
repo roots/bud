@@ -51,13 +51,14 @@ export class Format extends Command {
       `yarn`,
       [
         `prettier`,
-        `./sources/@roots/*/src/**/*`,
-        this.fix ? `--write` : `--check`,
+        `./sources/{@roots,@repo}/*/src/**/*.{ts,tsx,js,jsx}`,
+        `./sources/{@roots,@repo}/*/sources/**/*.{ts,tsx,js,jsx}`,
         `--config`,
         `./config/prettier.config.cjs`,
         `--ignore-unknown`,
         `--no-error-on-unmatched-pattern`,
-        ...this.passthrough ?? [],
+        this.fix === false ? `--check` : `--write`,
+        ...(this.passthrough ?? []),
       ],
       {stderr: this.context.stderr},
     ])

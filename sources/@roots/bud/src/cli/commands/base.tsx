@@ -1,7 +1,5 @@
-import type { Bud } from '@roots/bud'
-import type {
-  CommandContext,
-} from '@roots/bud-framework/options/context'
+import type {Bud} from '@roots/bud'
+import type {CommandContext} from '@roots/bud-framework/options/context'
 import {Command} from '@roots/bud-support/clipanion'
 import Ink, {React, Renderer} from '@roots/bud-support/ink'
 import isString from '@roots/bud-support/lodash/isString'

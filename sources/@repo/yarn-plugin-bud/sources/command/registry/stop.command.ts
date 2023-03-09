@@ -34,13 +34,9 @@ export class RegistryStop extends Command {
    */
   public async execute() {
     try {
-      await this.cli.run(
-        [`@bud`, `pm2`, `stop`, `verdaccio`],
-      )
+      await this.cli.run([`@bud`, `pm2`, `stop`, `verdaccio`])
 
-      await this.cli.run(
-        [`@bud`, `pm2`, `delete`, `verdaccio`],
-      )
+      await this.cli.run([`@bud`, `pm2`, `delete`, `verdaccio`])
     } catch (e) {}
   }
 }

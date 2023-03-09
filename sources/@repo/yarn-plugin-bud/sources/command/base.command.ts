@@ -81,35 +81,30 @@ export abstract class Command extends BaseCommand {
   }
 
   public async useLocalRegistry() {
-      await this.$([
-        `yarn`,
-        [`config`, `set`, `npmPublishRegistry`, `http://localhost:4873`],
-      ])
-      await this.$([
-        `yarn`,
-        [`config`, `set`, `npmRegistryServer`, `http://localhost:4873`],
-      ])
+    await this.$([
+      `yarn`,
+      [`config`, `set`, `npmPublishRegistry`, `http://localhost:4873`],
+    ])
+    await this.$([
+      `yarn`,
+      [`config`, `set`, `npmRegistryServer`, `http://localhost:4873`],
+    ])
   }
 
   public async useNpmRegistry() {
-      await this.$([
-        `yarn`,
-        [
-          `config`,
-          `set`,
-          `npmPublishRegistry`,
-          `https://registry.npmjs.org`,
-        ],
-      ])
-      await this.$([
-        `yarn`,
-        [
-          `config`,
-          `set`,
-          `npmRegistryServer`,
-          `https://registry.npmjs.org`,
-        ],
-      ])
+    await this.$([
+      `yarn`,
+      [
+        `config`,
+        `set`,
+        `npmPublishRegistry`,
+        `https://registry.npmjs.org`,
+      ],
+    ])
+    await this.$([
+      `yarn`,
+      [`config`, `set`, `npmRegistryServer`, `https://registry.npmjs.org`],
+    ])
   }
 
   /**

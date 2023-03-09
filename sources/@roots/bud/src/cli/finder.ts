@@ -9,17 +9,25 @@ import globby from '@roots/bud-support/globby'
 import {resolve} from '@roots/bud-support/import-meta-resolve'
 import isString from '@roots/bud-support/lodash/isString'
 
+interface CommandModule {
+  default: RegisterFn
+}
+
+interface RegisterFn {
+  (app: Cli): Promise<Cli>
+}
+
 /**
  * Command finder class
  */
 export class Commands {
   /**
-   * @public
+   * Singleton instance
    */
   public static instance: Commands
 
   /**
-   * @internal
+   * Static constructor
    */
   private constructor(
     public context: Partial<Context>,
@@ -27,8 +35,7 @@ export class Commands {
   ) {}
 
   /**
-   * @public
-   * @static
+   * Get singleton instance
    */
   public static get(application: Cli, context: Partial<Context>) {
     if (Commands.instance) return Commands.instance
@@ -39,30 +46,19 @@ export class Commands {
   }
 
   /**
-   * @decorator `@bind`
-   * @public
-   */
-  @bind
-  public async getCommands() {
-    const resolvedExtensionPaths = await this.getRegistrationModulePaths()
-    return resolvedExtensionPaths.filter(Boolean)
-  }
-
-  /**
-   * @decorator `@bind`
-   * @public
+   * Get registration module paths
    */
   @bind
   public async getRegistrationModulePaths(): Promise<Array<any>> {
     return await this.resolveExtensionCommandPaths(
       this.getProjectDependencySignifiers(),
-    ).then(this.findExtensionCommandPaths)
+    )
+      .then(this.findExtensionCommandPaths)
+      .then(commandPaths => commandPaths.filter(Boolean))
   }
 
   /**
    * Get array of project dependency and devDependency signifiers
-   * @decorator `@bind`
-   * @public
    */
   @bind
   public getProjectDependencySignifiers(): Array<string> {
@@ -74,8 +70,6 @@ export class Commands {
 
   /**
    * Find commands shipped with a given extension
-   * @decorator `@bind`
-   * @public
    */
   @bind
   public async findExtensionCommandPaths(paths: Array<string>) {
@@ -84,7 +78,7 @@ export class Commands {
         .map(dirname)
         .map(
           async path =>
-            await globby(join(path, join(`bud`, `commands`, `index.js`))),
+            await globby(join(path, `bud`, `commands`, `index.js`)),
         ),
     ).then(results => results.flat())
   }
@@ -100,27 +94,17 @@ export class Commands {
   }
 
   /**
-   * Import and register commands with the clipanion app
-   * @decorator `@bind`
+   * Import commands from an array of paths
    */
-  @bind
-  public async registerExtensionCommandPaths(
-    registerCallback: CallableFunction,
-  ) {
-    try {
-      await registerCallback(this.application)
-    } catch (error) {}
-  }
-
   public static async importCommandsFromPaths(
     paths: Array<string>,
-  ): Promise<Array<(app: Cli) => Promise<Cli>>> {
+  ): Promise<Array<RegisterFn>> {
     try {
       return await Promise.all(
         paths.map(async path => {
           try {
             return await import(path).then(
-              ({default: register}: {default: (app: Cli) => Promise<Cli>}) => register,
+              ({default: register}: CommandModule) => register,
             )
           } catch (error) {}
         }),

@@ -34,31 +34,31 @@ export class RegistryClean extends Command {
   }
 
   public async execute() {
-      try {
-        await ensureDir(join(paths.root, `storage/mocks`))
-      } catch (e) {}
+    try {
+      await ensureDir(join(paths.root, `storage/mocks`))
+    } catch (e) {}
 
-      try {
-        await rm(join(paths.root, `storage/mocks`), {recursive: true})
-      } catch (e) {}
+    try {
+      await rm(join(paths.root, `storage/mocks`), {recursive: true})
+    } catch (e) {}
 
-      await ensureDir(join(paths.root, `storage`, `packages`))
-      await rm(join(paths.root, `storage`, `packages`), {recursive: true})
+    await ensureDir(join(paths.root, `storage`, `packages`))
+    await rm(join(paths.root, `storage`, `packages`), {recursive: true})
 
-      const verdaccioDbExists = await pathExists(
+    const verdaccioDbExists = await pathExists(
+      join(paths.root, `storage`, `.verdaccio-db.json`),
+    )
+
+    if (verdaccioDbExists) {
+      const verdaccioDb = await readJson(
         join(paths.root, `storage`, `.verdaccio-db.json`),
       )
+      verdaccioDb.list = []
 
-      if (verdaccioDbExists) {
-        const verdaccioDb = await readJson(
-          join(paths.root, `storage`, `.verdaccio-db.json`),
-        )
-        verdaccioDb.list = []
-
-        await writeJson(
-          `${paths.root}/storage/.verdaccio-db.json`,
-          verdaccioDb,
-        )
-      }
+      await writeJson(
+        `${paths.root}/storage/.verdaccio-db.json`,
+        verdaccioDb,
+      )
+    }
   }
 }
