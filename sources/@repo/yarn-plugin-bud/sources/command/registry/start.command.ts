@@ -34,28 +34,26 @@ export class RegistryStart extends Command {
    * Execute command
    */
   public async execute() {
-    await this.cli.run([
-      `@bud`,
-      `pm2`,
-      `start`,
-      join(paths.root, `storage/node_modules/.bin/verdaccio`),
-      `--`,
-      `--config`,
-      join(paths.root, `config/verdaccio/config.yaml`),
-    ])
+    try {
+      await this.cli.run([
+        `@bud`,
+        `pm2`,
+        `start`,
+        join(paths.root,`node_modules`, `verdaccio`, `build`, `lib`, `cli`, `cli.js`),
+        `-n`,
+        `verdaccio`,
+        `--`,
+        `--config`,
+        join(paths.root, `config`, `verdaccio`, `config.yaml`),
+      ])
+    } catch {}
 
-    await this.cli.run([
-      `config`,
-      `set`,
-      `npmPublishRegistry`,
-      `http://localhost:4873`,
-    ])
-
-    await this.cli.run([
-      `config`,
-      `set`,
-      `npmRegistryServer`,
-      `http://localhost:4873`,
-    ])
+    try {
+      await this.cli.run([
+        `@bud`,
+        `pm2`,
+        `save`,
+      ])
+    } catch {}
   }
 }

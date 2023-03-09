@@ -91,9 +91,9 @@ In other words, an asset will be deleted when:
 
 If bud.js attempts to delete an asset and it is not present in the bucket (for example: manually renamed or moved), it will silently move on to the next item.
 
-bud.js will not attempt to delete any file which is not listed in `uploads-manifest.json`. It is prefererred to keep a bucket solely for usage with the bud s3 uploader, but it should be safe to put other files in the bucket.
+bud.js will not attempt to delete any file which is not listed in `uploads-manifest.json`. It is prefererred to keep a bucket solely for usage with the bud.js s3 uploader, but it should be safe to put other files in the bucket.
 
-If `uploads-manifest.json` is deleted bud will have no way of knowing which files were once a part of a build and will ignore everything. It will begin tracking again on the next compilation but any stale files will need to be dealt with manually.
+If `uploads-manifest.json` is deleted bud.js will have no way of knowing which files were once a part of a build and will ignore everything. It will begin tracking again on the next compilation but any stale files will need to be dealt with manually.
 
 To disable tracking, you can pass `false` as the value of `keep`:
 

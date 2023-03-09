@@ -20,3 +20,9 @@
   to = "https://bud.js.org/docs/bud.html"
   status = 301
   force = true
+
+[[redirects]]
+  from = "https://bud.js.org/packages/wordpress-hmr"
+  to = "https://bud.js.org/extensions/bud-preset-wordpress"
+  status = 301
+  force = true

@@ -50,7 +50,7 @@ babel:
     - {helpers: true}
 ```
 
-### Referencing bud values
+### Referencing bud.js values
 
 You can make reference to the `bud` object with `_bud`.
 
@@ -59,7 +59,7 @@ splitChunks: _bud.isProduction
 ```
 
 You can tap `bud` with an arrow fn if needed. These functions will be called
-as they are encountered and supplied with the bud instance.
+as they are encountered and supplied with the bud.js instance.
 
 ```yml
 minimize: bud => bud.isProduction

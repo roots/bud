@@ -58,6 +58,7 @@ export class Tsc extends Command {
       `yarn`,
       [`tsc`, `-b`, this.tsconfig, ...this.passthrough],
       {stderr: this.context.stderr, stdout: this.context.stdout},
+      false,
     ])
   }
 }

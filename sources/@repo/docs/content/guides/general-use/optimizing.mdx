@@ -9,7 +9,7 @@ sidebar_label: Optimizing
 
 Minify css and js output using [bud.minimize](/docs/bud.minimize)
 
-```js {4} title='bud.config.js'
+```js {4} title=bud.config.js
 export default async bud => {
   bud.minimize()
 }
@@ -19,7 +19,7 @@ export default async bud => {
 
 Add filename hashing using [bud.hash](/docs/bud.hash)
 
-```js {14} title='bud.config.js'
+```js {14} title=bud.config.js
 export default async bud => bud.hash()
 ```
 
@@ -27,7 +27,7 @@ export default async bud => bud.hash()
 
 We can leverage code splitting using [bud.runtime](/docs/bud.runtime)
 
-```js {15} title='bud.config.js'
+```js {15} title=bud.config.js
 export default async bud => bud.runtime('single')
 ```
 
@@ -36,7 +36,7 @@ export default async bud => bud.runtime('single')
 We'll probably end up with project dependencies. We can use [bud.splitChunks](/docs/bud.splitChunks) to ensure
 they are always packaged separately from our application code.
 
-```js {16} title='bud.config.js'
+```js {16} title=bud.config.js
 export default async bud => bud.splitChunks()
 ```
 

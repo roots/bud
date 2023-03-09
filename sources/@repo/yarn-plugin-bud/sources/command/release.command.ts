@@ -62,17 +62,8 @@ export class Release extends Command {
    * Execute command
    */
   public async execute() {
-    this.log(
-      `Publishing packages\n\nInitial env:\n\nci: ${process.env.CI}\n--registry: ${this.registry}\n--tag: ${this.tag}\n--version: ${this.version}\n\n`,
-    )
-
-    await this.$(`yarn install --immutable`)
-
-    if (this.registry === `http://localhost:4873`) {
-      await this.cli.run([`@bud`, `registry`, `start`])
-    }
-
-    await this.cli.run([`@bud`, `tsc`, `--force`])
+    if (this.registry === `http://localhost:4873`)
+      await this.useLocalRegistry()
 
     if (!this.version) {
       const date = new Date()
@@ -81,26 +72,32 @@ export class Release extends Command {
       }.${date.getUTCDate()}`
 
       try {
-        await this.$(
-          `npm show @roots/bud@${utcSemver} --tag ${this.tag} --registry ${this.registry}`,
-        )
+        await this.$([
+          `yarn`,
+          [
+            `exec`,
+            `npm`,
+            `show`,
+            `@roots/bud@${utcSemver}`,
+            `--tag`,
+            this.tag,
+            `--registry`,
+            this.registry,
+          ],
+        ])
 
         this.version = `${utcSemver}-${date.getUTCHours()}${date.getUTCMinutes()}`
       } catch (e) {
         this.version = utcSemver
       }
     }
-
-    await this.cli.run([`@bud`, `version`, this.version])
+    await this.$([`yarn`, [`@bud`, `version`, this.version]])
 
     await this.$(
       `yarn workspaces foreach --no-private npm publish --access public --tag ${this.tag}`,
     )
 
-    if (this.registry === `http://localhost:4873`) {
-      await this.$([`yarn`, [`@bud`, `version`, `0.0.0`]])
-      await this.$([`yarn`, [`@bud`, `registry`, `stop`]])
-      await this.$(`yarn`)
-    }
+    await this.$([`yarn`, [`@bud`, `version`, `0.0.0`]])
+    await this.useNpmRegistry()
   }
 }

@@ -9,16 +9,13 @@ import {Format} from './format.command'
 import {Lint} from './lint.command'
 import {LintDependencies} from './lint/dependencies.command'
 import {LintExports} from './lint/exports.command'
+import {Plugin} from './plugin.rebuild.command'
 import {Pm2} from './pm2.command'
 import {RegistryClean} from './registry/clean.command'
-import {RegistryInstall} from './registry/install.command'
 import {RegistryStart} from './registry/start.command'
 import {RegistryStop} from './registry/stop.command'
 import {Release} from './release.command'
-import {TestRun} from './test/test.command'
-import {TestE2E} from './test/test.e2e.command'
-import {TestIntegration} from './test/test.integration.command'
-import {TestUnit} from './test/test.unit.command'
+import {TestRun} from './test.command'
 import {Tsc} from './tsc.command'
 import {Vendor} from './vendor.command'
 import {Version} from './version.command'
@@ -35,15 +32,12 @@ export const Commands = {
   Lint,
   LintDependencies,
   LintExports,
+  Plugin,
   Pm2,
   RegistryClean,
-  RegistryInstall,
   RegistryStart,
   RegistryStop,
   Release,
-  TestE2E,
-  TestIntegration,
-  TestUnit,
   TestRun,
   Tsc,
   Vendor,

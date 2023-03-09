@@ -16,7 +16,7 @@ Callbacks and raw values are registered with `bud.hooks.on`
 
 ### Example defined with a raw value
 
-```js title='bud.config.js'
+```js title=bud.config.js
 bud.hooks.on('build.externals', {
   $: 'jquery',
 })
@@ -26,7 +26,7 @@ bud.hooks.on('build.externals', {
 
 You should always assume the value passed to the callback may be **undefined** and handle it appropriately.
 
-```js title='bud.config.js'
+```js title=bud.config.js
 bud.hooks.on('build.externals', (externals = {}) => ({
   ...externals,
   $: 'jquery',
@@ -62,7 +62,7 @@ const result = bud.hooks.filter('my.filter.key', initialValue)
 
 Some hooks are asynchronous. An example of this are values for `build.resolve.modules`:
 
-```js title='bud.config.js'
+```js title=bud.config.js
 bud.hooks.async('build.resolve.modules', async (paths = []) => [
   ...paths,
   bud.path(`modules`),
@@ -116,7 +116,7 @@ await bud.hooks.fire('my.action.key')
 
 ## Putting it together
 
-```js title='bud.config.js'
+```js title=bud.config.js
 bud.hooks.filter(`my.hook`, 1)
 // => 1
 

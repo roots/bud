@@ -96,14 +96,13 @@ export class Server extends Service implements BaseService {
 
     this.application.set(`x-powered-by`, false)
 
-    bud.hooks.action(
-      `server.before`,
-      this.setConnection.bind(this),
-      this.injectScripts.bind(this),
-      bud.compiler.compile.bind(bud.compiler),
-      this.applyMiddleware.bind(this),
-      this.watcher.watch.bind(this.watcher),
-    )
+    bud.hooks.action(`server.before`, async () => {
+      await this.setConnection(bud)
+      await this.injectScripts()
+      await bud.compiler.compile()
+      await this.applyMiddleware()
+      await this.watcher.watch()
+    })
   }
 
   /**

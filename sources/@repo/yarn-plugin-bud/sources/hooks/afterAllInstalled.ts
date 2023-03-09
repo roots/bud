@@ -1,39 +1,31 @@
+/* eslint-disable n/no-process-env */
 import {execute} from '@yarnpkg/shell'
 
 export default async () => {
   await execute(
     `yarn`,
-    [`@bud`, `registry`,  `install`],
-    {
-      stdin: process.stdin,
-      stdout: process.stdout,
-    },
+    [`@bud`, `plugin`, `rebuild`],
   )
-
   await execute(
     `yarn`,
-    [`workspace`, `@repo/yarn-plugin-bud`, `build`],
-    {
-      stdin: process.stdin,
-      stdout: process.stdout,
-    },
+    [`@bud`, `registry`, `start`],
   )
 
-  await execute(
-    `yarn`,
-    [`workspace`, `@roots/browserslist-config`, `exec`, `node`, `./scripts/postinstall.mjs`],
-    {
-      stdin: process.stdin,
-      stdout: process.stdout,
-    },
-  )
+  if (!process.env.ci) {
+    await execute(
+      `yarn`,
+      [
+        `workspace`,
+        `@roots/browserslist-config`,
+        `exec`,
+        `node`,
+        `./scripts/postinstall.mjs`,
+      ],
+      {stderr: process.stderr},
+    )
+  }
 
-  await execute(
-    `yarn`,
-    [`@bud`, `build`,  `--force`],
-    {
-      stdin: process.stdin,
-      stdout: process.stdout,
-    },
-  )
+  await execute(`yarn`, [`@bud`, `build`, `--force`], {
+    stderr: process.stderr,
+  })
 }

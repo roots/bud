@@ -9,7 +9,7 @@ There are a number of optional optimizations you can perform on your application
 
 Use the [bud.hash](/docs/bud.hash) function to generate a hash for each file in the bundle. This hash will be added to outputted files.
 
-```js title='bud.config.mjs'
+```js title=bud.config.js
 export default async bud => {
   bud.hash()
 }
@@ -19,7 +19,7 @@ export default async bud => {
 
 Use the [bud.minimize](/docs/bud.minimize) function to run your application code through a minifier.
 
-```js title='bud.config.mjs'
+```js title=bud.config.js
 export default async bud => {
   bud.minimize()
 }
@@ -30,7 +30,7 @@ export default async bud => {
 You may create an application runtime using [bud.runtime](/docs/bud.runtime). Using the `single` option is probably
 the simplest and best solution for most applications:
 
-```js title='bud.config.mjs'
+```js title=bud.config.js
 export default async bud => {
   bud.runtime('single')
 }
@@ -40,7 +40,7 @@ export default async bud => {
 
 You can perform general code splitting with [bud.splitChunks](/docs/bud.splitChunks).
 
-```js title='bud.config.mjs'
+```js title=bud.config.js
 export default async bud => {
   bud.splitChunks()
 }
@@ -52,7 +52,7 @@ At the end of the day, you may find yourself needing to override the config. You
 
 The most versatile way to do this is using a calback function:
 
-```js title='bud.config.mjs'
+```js title=bud.config.js
 export default async bud => {
   bud.config(config => ({
     ...config,

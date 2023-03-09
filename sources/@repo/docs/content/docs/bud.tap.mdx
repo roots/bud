@@ -1,13 +1,13 @@
 ---
 title: bud.tap
-description: Access the bud object through a callback
+description: Access the bud.js object through a callback
 ---
 
 Access the bud object through a callback. Useful to maintain a function chain.
 
 ## Usage
 
-```js title=bud.config.mjs
+```js title=bud.config.js
 export default async bud => {
   bud.tap(bud => {
     bud.entry('index.js')
@@ -15,4 +15,4 @@ export default async bud => {
 }
 ```
 
-It may be helpful to consider that the bud.config.mjs export is esssentially just a bud.tap callback.
+It may be helpful to consider that the `bud.config.js` export is esssentially just a **bud.tap** callback.
