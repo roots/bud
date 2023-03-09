@@ -73,17 +73,17 @@ export class Release extends Command {
 
       try {
         await this.$([
-          `npm`,
+          `yarn`,
           [
+            `exec`,
+            `npm`,
             `show`,
             `@roots/bud@${utcSemver}`,
             `--tag`,
-            `${this.tag}`,
+            this.tag,
             `--registry`,
-            `${this.registry}`,
+            this.registry,
           ],
-          // @ts-ignore
-          {stderr: `ignore`},
         ])
 
         this.version = `${utcSemver}-${date.getUTCHours()}${date.getUTCMinutes()}`

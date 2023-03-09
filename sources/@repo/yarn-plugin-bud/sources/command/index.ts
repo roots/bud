@@ -9,9 +9,9 @@ import {Format} from './format.command'
 import {Lint} from './lint.command'
 import {LintDependencies} from './lint/dependencies.command'
 import {LintExports} from './lint/exports.command'
+import {Plugin} from './plugin.rebuild.command'
 import {Pm2} from './pm2.command'
 import {RegistryClean} from './registry/clean.command'
-import {RegistryInstall} from './registry/install.command'
 import {RegistryStart} from './registry/start.command'
 import {RegistryStop} from './registry/stop.command'
 import {Release} from './release.command'
@@ -32,9 +32,9 @@ export const Commands = {
   Lint,
   LintDependencies,
   LintExports,
+  Plugin,
   Pm2,
   RegistryClean,
-  RegistryInstall,
   RegistryStart,
   RegistryStop,
   Release,
