@@ -7857,7 +7857,7 @@ __metadata:
     toml: "*"
     typanion: "*"
     type-fest: "*"
-    webpack: "*"
+    webpack: 5.75.0
     webpack-dev-middleware: "*"
     webpack-manifest-plugin: "*"
     zod: "*"
@@ -8248,6 +8248,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/node": 18.11.18
     tslib: 2.4.1
+    webpack: 5.75.0
   peerDependencies:
     "@roots/browserslist-config": "*"
     "@roots/bud-api": "*"
@@ -8264,6 +8265,7 @@ __metadata:
     "@roots/bud-support": "*"
     "@roots/bud-terser": "*"
     tslib: ">=2.4.0"
+    webpack: 5.75.0
   peerDependenciesMeta:
     "@roots/browserslist-config":
       optional: true
@@ -8294,6 +8296,8 @@ __metadata:
     "@roots/bud-terser":
       optional: true
     tslib:
+      optional: true
+    webpack:
       optional: true
   bin:
     bud: ./bin/bud.mjs
@@ -8352,7 +8356,7 @@ __metadata:
     tslib: 2.4.1
     webpack: 5.75.0
   peerDependencies:
-    webpack: ">=5"
+    webpack: "*"
   languageName: unknown
   linkType: soft
 

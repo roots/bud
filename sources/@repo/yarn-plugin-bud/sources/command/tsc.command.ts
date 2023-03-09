@@ -22,12 +22,12 @@ export class Tsc extends Command {
   ]
 
   /**
-   * TSConfig path
+   * tsconfig path
    */
   public tsconfig = join(paths.config, `tsconfig.json`)
 
   /**
-   * Variadic arguments
+   * Passthrough
    */
   public passthrough = Option.Proxy({name: `tsc options`})
 
@@ -54,6 +54,11 @@ export class Tsc extends Command {
    * Command execute
    */
   public async execute() {
-    await this.$([`yarn`,  [`tsc`, `-b`, this.tsconfig, ...this.passthrough]])
+    await this.$([
+      `yarn`,
+      [`tsc`, `-b`, this.tsconfig, ...this.passthrough],
+      {stderr: this.context.stderr, stdout: this.context.stdout},
+      false,
+    ])
   }
 }

@@ -42,21 +42,5 @@ export class RegistryStop extends Command {
         [`@bud`, `pm2`, `delete`, `verdaccio`],
       )
     } catch (e) {}
-
-    try {
-      await execute(`yarn`, [
-        `config`,
-        `set`,
-        `npmPublishRegistry`,
-        `https://registry.npmjs.org`,
-      ])
-
-      await execute(`yarn`, [
-        `config`,
-        `set`,
-        `npmRegistryServer`,
-        `https://registry.npmjs.org`,
-      ])
-    } catch (e) {}
   }
 }
