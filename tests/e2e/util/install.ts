@@ -34,8 +34,8 @@ export const runDev = async (
 
   try {
     return execa(
-      `./node_modules/.bin/bud`,
-      [`dev`, `--no-cache`, `--html`, `--port`, `${port}`],
+      `npx`,
+      [`bud`, `dev`, `--no-cache`, `--html`, `--port`, `${port}`],
       {cwd: fs.testPath(dirname)},
     )
   } catch (error) {

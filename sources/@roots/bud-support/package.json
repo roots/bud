@@ -255,7 +255,7 @@
     "toml": "*",
     "typanion": "*",
     "type-fest": "*",
-    "webpack": "*",
+    "webpack": "5.75.0",
     "webpack-dev-middleware": "*",
     "webpack-manifest-plugin": "*",
     "zod": "*"

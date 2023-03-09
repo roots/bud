@@ -13,6 +13,7 @@ describe(`@roots/bud-hooks`, function () {
     hooks = new Hooks(() => bud)
     hooks.syncStore.store = {}
     hooks.asyncStore.store = {}
+    // @ts-ignore
     hooks.events.store = {}
   })
 
