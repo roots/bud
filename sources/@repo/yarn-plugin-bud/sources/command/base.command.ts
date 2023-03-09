@@ -80,16 +80,36 @@ export abstract class Command extends BaseCommand {
     )
   }
 
-  /**
-   * Logs message to process.stderr
-   */
-  @bind
-  public err(error: string | Error): void {
-    const label = this.name ?? `@bud`
+  public async useLocalRegistry() {
+      await this.$([
+        `yarn`,
+        [`config`, `set`, `npmPublishRegistry`, `http://localhost:4873`],
+      ])
+      await this.$([
+        `yarn`,
+        [`config`, `set`, `npmRegistryServer`, `http://localhost:4873`],
+      ])
+  }
 
-    throw new Error(
-      `[${label}] ${typeof error === `string` ? error : error.message}\n`,
-    )
+  public async useNpmRegistry() {
+      await this.$([
+        `yarn`,
+        [
+          `config`,
+          `set`,
+          `npmPublishRegistry`,
+          `https://registry.npmjs.org`,
+        ],
+      ])
+      await this.$([
+        `yarn`,
+        [
+          `config`,
+          `set`,
+          `npmRegistryServer`,
+          `https://registry.npmjs.org`,
+        ],
+      ])
   }
 
   /**
@@ -101,7 +121,7 @@ export abstract class Command extends BaseCommand {
       string | [string, Array<string>, Partial<UserOptions>?, boolean?]
     >
   ): Promise<number> {
-    let code = 0;
+    let code = 0
 
     const project = await this.getProject()
 
@@ -109,13 +129,15 @@ export abstract class Command extends BaseCommand {
       tasks.map(async task => {
         if (!task) return
 
-        const [bin, args, options, disableSpinner] = Array.isArray(task) ? task : [task, [], {}, false]
+        const [bin, args, options, disableSpinner] = Array.isArray(task)
+          ? task
+          : [task, [], {}, false]
 
         const ident = `${bin} ${args.join(` `)}`.replace(project.cwd, `.`)
         if (!disableSpinner) {
           this.spinner = ora({
             stream: this.context.stdout,
-          })      
+          })
           this.spinner.start(ident)
         }
 
@@ -124,7 +146,7 @@ export abstract class Command extends BaseCommand {
             // @ts-ignore
             stdout: `ignore`,
             // @ts-ignore
-            stderr: `ignore`,
+            stderr: `inherit`,
             cwd: project.cwd,
             ...(options ?? {}),
           })
@@ -152,7 +174,6 @@ export abstract class Command extends BaseCommand {
     try {
       const code = await this.$([bin, args, opts, true])
       return code
-    } catch (e) {
-    }
+    } catch (e) {}
   }
 }

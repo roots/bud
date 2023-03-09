@@ -1,7 +1,9 @@
+/* eslint-disable no-console */
 import {execute} from '@yarnpkg/shell'
 
 export default async () => {
-  await execute(
+  try {
+    await execute(
     `yarn`,
     [`@bud`, `registry`,  `install`],
     {
@@ -9,6 +11,22 @@ export default async () => {
       stdout: process.stdout,
     },
   )
+  } catch (e) {
+    console.error(e.message)
+  }
+
+  try {
+    await execute(
+    `yarn`,
+    [`@bud`, `registry`,  `start`],
+    {
+      stdin: process.stdin,
+      stdout: process.stdout,
+    },
+  )
+  } catch (e) {
+    console.error(e.message)
+  }
 
   await execute(
     `yarn`,

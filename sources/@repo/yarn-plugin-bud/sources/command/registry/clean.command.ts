@@ -34,6 +34,14 @@ export class RegistryClean extends Command {
   }
 
   public async execute() {
+      try {
+        await ensureDir(join(paths.root, `storage/mocks`))
+      } catch (e) {}
+
+      try {
+        await rm(join(paths.root, `storage/mocks`), {recursive: true})
+      } catch (e) {}
+
       await ensureDir(join(paths.root, `storage`, `packages`))
       await rm(join(paths.root, `storage`, `packages`), {recursive: true})
 

@@ -70,7 +70,7 @@ export class Docs extends Command {
       /**
        * Build docs
        */
-      await this.$(`yarn workspace @repo/docs run build`)
+      await this.cli.run([`workspace`, `@repo/docs`, `run`, `build`])
     }
 
     if (all || this.readme) {
