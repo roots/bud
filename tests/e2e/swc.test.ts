@@ -16,15 +16,11 @@ import {testPath} from './util/copy'
 describe(`html output of examples/swc`, () => {
   let browser: Browser
   let page: Page
-  let dev: Promise<ExecaReturnValue>
   let port: number
 
-  beforeAll(async () => {
-    port = await e2eBeforeAll(`swc`)
-  })
-
   beforeEach(async () => {
-    dev = runDev(`swc`, port)
+    port = await e2eBeforeAll(`swc`)
+    runDev(`swc`, port)
     browser = await chromium.launch()
     page = await browser?.newPage()
     await page?.waitForTimeout(5000)

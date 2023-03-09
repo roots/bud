@@ -15,10 +15,7 @@ import {RegistryInstall} from './registry/install.command'
 import {RegistryStart} from './registry/start.command'
 import {RegistryStop} from './registry/stop.command'
 import {Release} from './release.command'
-import {TestRun} from './test/test.command'
-import {TestE2E} from './test/test.e2e.command'
-import {TestIntegration} from './test/test.integration.command'
-import {TestUnit} from './test/test.unit.command'
+import {TestRun} from './test.command'
 import {Tsc} from './tsc.command'
 import {Vendor} from './vendor.command'
 import {Version} from './version.command'
@@ -41,9 +38,6 @@ export const Commands = {
   RegistryStart,
   RegistryStop,
   Release,
-  TestE2E,
-  TestIntegration,
-  TestUnit,
   TestRun,
   Tsc,
   Vendor,

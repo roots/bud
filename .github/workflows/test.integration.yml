@@ -35,4 +35,4 @@ jobs:
         run: yarn
 
       - name: yarn @bud test integration
-        run: yarn @bud test integration run
+        run: yarn @bud test integration

@@ -17,7 +17,6 @@ export class Format extends Command {
   public static paths: CommandClass['paths'] = [
     [`@bud`, `format`],
     [`@bud`, `prettier`],
-    [`format`],
   ]
 
   /**
