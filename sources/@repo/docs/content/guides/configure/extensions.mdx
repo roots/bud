@@ -10,7 +10,7 @@ along with **bud.js**. So, if you want to use React, you can simply install [@ro
 
 If you want to add your own extensions after **bud.js** has bootstrapped, you can do so using [bud.use](/docs/bud.use).
 
-```js title='bud.config.mjs'
+```js title=bud.config.js
 import {BudExtension} from './extensions'
 
 export default async bud => {
@@ -22,7 +22,7 @@ export default async bud => {
 
 In addition to supporting ad-hoc extensions, [bud.use](/docs/bud.use) supports any off-the-shelf webpack plugin:
 
-```js title='bud.config.mjs'
+```js title=bud.config.js
 import WebpackBar from 'webpackbar'
 
 export default async bud => {

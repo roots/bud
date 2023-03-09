@@ -1,8 +1,0 @@
-.tweet {
-  font-size: 15px;
-}
-
-.tweetMeta,
-.tweetMeta:hover {
-  color: var(--ifm-color-emphasis-700);
-}

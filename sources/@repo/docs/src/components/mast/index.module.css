@@ -176,16 +176,16 @@
   }
 }
 
-.tweetsSection {
+.testimonialsSection {
   margin-top: -2rem;
 }
 
-.tweetsSection > :global(.col) {
+.testimonialsSection > :global(.col) {
   padding-top: 2rem;
   margin-top: -2rem;
 }
 
-.tweetsSection > :global(.col) > * {
+.testimonialsSection > :global(.col) > * {
   margin-top: 2rem;
 }
 
@@ -224,4 +224,68 @@
 .featureSvg {
   height: 200px;
   width: 200px;
+}
+
+.comparison {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.comparison table {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  display: inline-table;
+}
+
+.comparison table thead {
+  background-color: transparent;
+  border: none;
+}
+
+.comparison table th {
+  background-color: transparent;
+  color: var(--ifm-table-head-color);
+  font-weight: var(--ifm-table-head-font-weight);
+  text-align: left;
+  border: none;
+}
+
+.comparison table th:not(:first-child) {
+  text-align: center;
+}
+
+.comparison table thead tr {
+  border-bottom: none;
+  border-top: none;
+}
+
+.comparison table tr {
+  background-color: transparent;
+}
+
+.comparison table td {
+  border: none;
+}
+
+.comparison table td:not(:first-child) {
+  text-align: center;
+  max-width: 10vw;
+  width: 10vw;
+}
+
+.comparison .success {
+  background: rgba(38, 178, 38, 0.2);
+  border: 1px solid white !important;
+}
+
+.comparison .error {
+  background: rgba(178, 38, 38, 0.2);
+  border: 1px solid white !important;
+}
+
+.comparison .warning {
+  background: rgba(255, 162, 0, 0.2);
+  border: 1px solid white !important;
 }

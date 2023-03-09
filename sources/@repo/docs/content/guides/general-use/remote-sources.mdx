@@ -89,7 +89,7 @@ Registered sources are stored as a `Map` in `bud.cdn.sources`.
 
 To add your own source:
 
-```ts title="bud.config.mjs"
+```ts title=bud.config.js
 bud.cdn.sources.set('localhost', 'https://localhost:8080/')
 ```
 
@@ -101,6 +101,6 @@ import test from 'localhost:8080/test.js'
 
 To remove a source (built-in or custom):
 
-```ts title="bud.config.mjs"
+```ts title=bud.config.js
 bud.cdn.sources.delete('gist')
 ```
