@@ -17,6 +17,7 @@ module.exports = {
   tagline: config.description,
   url: config.url.docs,
   baseUrl: `/`,
+  trailingSlash: false,
   onBrokenLinks: `warn`,
   onBrokenMarkdownLinks: `warn`,
   favicon: config.organization.favicon,
