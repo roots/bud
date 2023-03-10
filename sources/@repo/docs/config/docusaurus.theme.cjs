@@ -101,7 +101,10 @@ const metadata = [
   /**
    * Google
    */
-  {name: `google-site-verification`, content: `PHCTrbi0cn0A3I_eE3g2Gr9WnsFMsvtKRxVP8ghfCfM`},
+  {
+    name: `google-site-verification`,
+    content: `PHCTrbi0cn0A3I_eE3g2Gr9WnsFMsvtKRxVP8ghfCfM`,
+  },
 ]
 
 /** @type {import('@docusaurus/preset-classic').ThemeConfig['navbar']} */
@@ -136,6 +139,7 @@ const navbar = {
       label: `Releases`,
       position: `left`,
       items: [
+        {to: `/releases/tags/6-11`, label: `6.11`},
         {to: `/releases/tags/6-9`, label: `6.9`},
         {to: `/releases/tags/6-8`, label: `6.8`},
         {to: `/releases/tags/6-7`, label: `6.7`},

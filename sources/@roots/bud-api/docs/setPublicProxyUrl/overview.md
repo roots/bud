@@ -1,5 +1,5 @@
 ---
-title: bud.setPublicUrl
+title: bud.setPublicProxyUrl
 ---
 
 **bud.setPublicProxyUrl** is used to specify the site-accessible URL for the proxy server (if it differs from the internal URL).
