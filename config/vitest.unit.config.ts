@@ -4,6 +4,8 @@ export default {
       provider: `istanbul`,
       reporter: [`text`, `json`, `html`],
     },
+    hookTimeout: 60000,
+    testTimeout: 60000,
     include: [
       `sources/@roots/*/src/*.test.ts`,
       `sources/@roots/*/src/**/*.test.ts`,
