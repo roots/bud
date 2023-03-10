@@ -1,10 +1,13 @@
-name: Release latest version
+name: Deprecate
 
 on:
   workflow_dispatch:
     inputs:
       version:
         description: Version number (x.y.z format)
+        required: true
+      reason:
+        description: Reason for deprecation
         required: true
 
 jobs:
@@ -27,5 +30,4 @@ jobs:
           yarn config set npmAuthToken ${{ secrets.NODE_AUTH_TOKEN }}
 
       - name: Release v${{ github.event.inputs.version }}
-        run: yarn @bud deprecate ${{ github.event.inputs.version }}
-
+        run: yarn @bud deprecate ${{ github.event.inputs.version }} "${{ github.events.inputs.reason }}"

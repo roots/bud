@@ -53,7 +53,7 @@ export class Deprecate extends Command {
     await Promise.all(
       results.map(this.formatCommand).map(async command => {
         this.context.stdout.write(`▶ ${command}\n`)
-        // await this.$(command)
+        await this.$(command)
       }),
     )
   }
