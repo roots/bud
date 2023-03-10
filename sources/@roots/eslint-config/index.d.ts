@@ -3,6 +3,4 @@
 
 /**
  * Recommended eslint configs for Roots projects
- *
- * @packageDocumentation
  */
