@@ -41,7 +41,7 @@ application.register(BudViewCommand)
 application.register(BudWebpackCommand)
 
 await Commands.get(application, context)
-  .getCommands()
+  .getRegistrationModulePaths()
   .then(Commands.importCommandsFromPaths)
   .then(
     async fns =>

@@ -10,7 +10,7 @@ export default class BudBuildCommand extends BudCommand {
   public static override paths = [[`build`]]
   public static override usage = Command.Usage({
     category: `build`,
-    description: `Compile source assets`,
+    description: `Compile application source`,
     details: `\
       \`bud build production\` compiles source assets in \`production\` mode. Run \`bud build production --help\` for usage.
 
@@ -18,9 +18,20 @@ export default class BudBuildCommand extends BudCommand {
 
       If you run this command without a configuration file \`bud\` will look for an entrypoint at \`@src/index.js\`.
     `,
-    examples: [[`compile source assets`, `$0 build`]],
+    examples: [
+      [`compile source assets (production)`, `$0 build`],
+      [
+        `force recompilation of all modules regardless of cache state`,
+        `$0 build --force`,
+      ],
+      [`start bud.js server`, `$0 build development`],
+      [`compile using an html template`, `$0 build --html`],
+    ],
   })
 
+  /**
+   * --cache
+   */
   public cache = Option.String(`--cache`, undefined, {
     description: `Utilize compiler's filesystem cache`,
     tolerateBoolean: true,
@@ -33,10 +44,16 @@ export default class BudBuildCommand extends BudCommand {
     env: `APP_CACHE`,
   })
 
+  /**
+   * --clean
+   */
   public clean = Option.Boolean(`--clean`, undefined, {
     description: `Clean artifacts and distributables prior to compilation`,
   })
 
+  /**
+   * --devtool
+   */
   public devtool = Option.String(`--devtool`, undefined, {
     description: `Set devtool option`,
     validator: t.isOneOf([
@@ -68,19 +85,39 @@ export default class BudBuildCommand extends BudCommand {
     ]),
     env: `APP_DEVTOOL`,
   })
+
+  /**
+   * --editor
+   */
   public editor = Option.String(`--editor`, undefined, {
     description: `Open editor to file containing errors on unsuccessful development build`,
     tolerateBoolean: true,
   })
+
+  /**
+   * --esm
+   */
   public esm = Option.Boolean(`--esm`, undefined, {
     description: `build as es modules`,
   })
+
+  /**
+   * --flush
+   */
   public flush = Option.Boolean(`--flush,--force`, undefined, {
     description: `Force clearing bud internal cache`,
   })
+
+  /**
+   * --hash
+   */
   public hash = Option.Boolean(`--hash`, undefined, {
     description: `Hash compiled filenames`,
   })
+
+  /**
+   * --html
+   */
   public html = Option.String(`--html`, undefined, {
     description: `Generate an html template`,
     tolerateBoolean: true,

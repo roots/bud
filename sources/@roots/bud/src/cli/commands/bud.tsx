@@ -40,13 +40,15 @@ export default class BudCommand extends BaseCommand {
    * {@link Command.usage}
    */
   public static override usage = Command.Usage({
-    description: `Run \`bud --help\` for usage information`,
+    description: `The bud.js CLI`,
     details: `\
-      \`bud build production\` compiles source assets in \`production\` mode. Run \`bud build production --help\` for usage.
-
-      \`bud build development\` compiles source assets in \`development\` mode and serves updated modules. Run \`bud build development --help\` for usage.
+      \`bud build production\` compiles source assets in \`production\` mode.
+      \`bud build development\` compiles source assets in \`development\` mode and serves updated modules.
     `,
-    examples: [[`compile source assets`, `$0 build`]],
+    examples: [
+      [`compile source assets`, `$0 build`],
+      [`spot check common mistakes or problems`, `$0 repl`],
+    ],
   })
 
   public notify: boolean = Option.Boolean(
@@ -54,6 +56,7 @@ export default class BudCommand extends BaseCommand {
     platform() === `darwin`,
     {
       description: `Enable notification (default on macOS, experimental on other platforms)`,
+      hidden: true,
     },
   )
 
