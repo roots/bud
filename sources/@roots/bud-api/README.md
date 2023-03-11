@@ -55,7 +55,7 @@ However, some authors may publish uncompiled source code with the expectation th
 
 ### bud.copyFile
 
-**bud.copyFile** copies a directory to the [@dist directory](https://bud.js.org/docs/bud.path).
+**bud.copyFile** copies a file to the [@dist directory](https://bud.js.org/docs/bud.path).
 
 ### bud.entry
 
@@ -75,23 +75,35 @@ If no entrypoint is provided **bud.js** will attempt to compile **src/index.js**
 
 **bud.proxy** is a method that configures a proxy server for your development environment. This is useful when you need to proxy requests to a backend server, such as a WordPress site.
 
+If you only need to modify the [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL) of the proxy server you should consider using [bud.setProxyUrl](https://bud.js.org/docs/bud.setProxyUrl) and [bud.setPublicProxyUrl](https://bud.js.org/docs/bud.setPublicProxyUrl).
+
 ### bud.serve
 
 **bud.serve** is used to configure the development server.
 
 You don't need to call this function unless you want to change the default server configuration.
 
+If you only need to modify the [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL) of the dev server you should consider using [bud.setUrl](https://bud.js.org/docs/bud.setUrl) and [bud.setPublicUrl](https://bud.js.org/docs/bud.setPublicUrl)
+
+### bud.setProxyUrl
+
+**bud.setProxyUrl** is used to specify the URL of the proxy target.
+
+### bud.setPublicProxyUrl
+
+**bud.setPublicProxyUrl** is used to specify the site-accessible URL for the proxy server (if it differs from the internal URL).
+
+For example: a dockerized app that has a service which needs to be accessible from the host at `http://example.test` but serves over `http://0.0.0.0`.
+
+### bud.setUrl
+
+**bud.setUrl** is used to specify the URL for the dev server.
+
 ### bud.setPublicUrl
 
 **bud.setPublicUrl** is used to specify the site-accessible URL for the dev server (if it differs from the internal URL).
 
 For example: a dockerized app that needs to be accessible from the host at `http://example.test` but serves over `http://0.0.0.0:8080`.
-
-### bud.setPublicUrl
-
-**bud.setPublicProxyUrl** is used to specify the site-accessible URL for the proxy server (if it differs from the internal URL).
-
-For example: a dockerized app that has a service which needs to be accessible from the host at `http://example.test` but serves over `http://0.0.0.0`.
 
 ### bud.watch
 
