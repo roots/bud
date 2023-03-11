@@ -6,7 +6,7 @@ For general information on configuring eslint see [the official Eslint user guid
 
 As a courtesy, there is a recommended eslint configuration available for you to use as a base in your project:
 
-```js title=".eslintrc"
+```js title=".eslintrc.cjs"
 module.exports = {
   root: true,
   extends: [`@roots/bud-eslint/config`],
