@@ -25,9 +25,9 @@ jobs:
           node-version: 18.12.1
           cache: yarn
 
-      - name: set npmAuthToken
+      - name: Auth
         run: |
           yarn config set npmAuthToken ${{ secrets.NODE_AUTH_TOKEN }}
 
-      - name: Release v${{ github.event.inputs.version }}
+      - name: Deprecate ${{ github.event.inputs.version }}
         run: yarn @bud deprecate ${{ github.event.inputs.version }} "${{ github.events.inputs.reason }}"
