@@ -1,6 +1,6 @@
 import {CommandClass, Option} from 'clipanion'
 
-import {Command} from '../base.command'
+import {Command} from './base.command'
 
 /**
  * Docs command class
@@ -14,10 +14,7 @@ export class DocsNetlify extends Command {
   /**
    * Command paths
    */
-  public static paths: CommandClass['paths'] = [
-    [`@bud`, `netlify`],
-    [`@bud`, `docs`, `netlify`],
-  ]
+  public static paths: CommandClass['paths'] = [[`@bud`, `netlify`]]
 
   /**
    * Command usage
@@ -37,6 +34,11 @@ export class DocsNetlify extends Command {
    * Execute command
    */
   public async execute() {
-    await this.$(this.withPassthrough(`yarn workspace @repo/docs netlify`))
+    await this.cli.run([
+      `workspace`,
+      `@repo/docs`,
+      `netlify`,
+      ...(this.passthrough ?? []),
+    ])
   }
 }

@@ -10,8 +10,10 @@ parts:
   - provide/overview.md
   - proxy/overview.md
   - serve/overview.md
-  - setPublicUrl/overview.md
+  - setProxyUrl/overview.md
   - setPublicProxyUrl/overview.md
+  - setUrl/overview.md
+  - setPublicUrl/overview.md
   - watch/overview.md
 ---
 

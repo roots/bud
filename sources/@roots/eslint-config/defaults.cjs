@@ -4,15 +4,15 @@
  * @public
  */
 module.exports = {
-  extends: ['eslint:recommended'],
-  plugins: ['import'],
+  extends: [`eslint:recommended`],
+  plugins: [`import`],
   env: {
     browser: true,
     es6: true,
     node: true,
   },
   parserOptions: {
-    sourceType: 'module',
+    sourceType: `module`,
     ecmaFeatures: {
       globalReturn: false,
       jsx: true,
