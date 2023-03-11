@@ -1,6 +1,7 @@
 import {Bud} from './bud.command'
 import {Clean} from './clean.command'
 import {Compile} from './compile.command'
+import {Deprecate} from './deprecate.command'
 import {Dev} from './dev.command'
 import {DocsDev} from './docs/dev.command'
 import {Docs} from './docs/docs.command'
@@ -24,6 +25,7 @@ export const Commands = {
   Bud,
   Clean,
   Compile,
+  Deprecate,
   Dev,
   Docs,
   DocsDev,
