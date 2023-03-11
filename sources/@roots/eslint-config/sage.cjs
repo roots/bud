@@ -4,5 +4,5 @@
  * @public
  */
 module.exports = {
-  extends: ['./wordpress.cjs', './recommended.cjs'],
+  extends: [`./wordpress.cjs`, `./recommended.cjs`],
 }

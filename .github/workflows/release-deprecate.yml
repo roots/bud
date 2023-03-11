@@ -1,9 +1,14 @@
-name: Release nightly version
+name: Deprecate
 
 on:
-  schedule:
-    - cron: '0 0 * * *'
   workflow_dispatch:
+    inputs:
+      version:
+        description: Version number (x.y.z format)
+        required: true
+      reason:
+        description: Reason for deprecation
+        required: true
 
 jobs:
   release:
@@ -20,12 +25,9 @@ jobs:
           node-version: 18.12.1
           cache: yarn
 
-      - name: yarn
-        run: yarn
-
-      - name: set npmAuthToken
+      - name: Auth
         run: |
           yarn config set npmAuthToken ${{ secrets.NODE_AUTH_TOKEN }}
 
-      - name: Release nightly
-        run: yarn @bud release --tag nightly --registry https://registry.npmjs.org
+      - name: Deprecate ${{ github.event.inputs.version }}
+        run: yarn @bud deprecate ${{ github.event.inputs.version }} "${{ github.events.inputs.reason }}"

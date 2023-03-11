@@ -4,17 +4,17 @@
  * @public
  */
 module.exports = {
-  extends: ['./defaults.cjs'],
+  extends: [`./defaults.cjs`],
   rules: {
-    'no-console': 0,
-    'comma-dangle': [
-      'error',
+    [`no-console`]: 0,
+    [`comma-dangle`]: [
+      `error`,
       {
-        arrays: 'always-multiline',
-        objects: 'always-multiline',
-        imports: 'always-multiline',
-        exports: 'always-multiline',
-        functions: 'ignore',
+        arrays: `always-multiline`,
+        objects: `always-multiline`,
+        imports: `always-multiline`,
+        exports: `always-multiline`,
+        functions: `ignore`,
       },
     ],
   },

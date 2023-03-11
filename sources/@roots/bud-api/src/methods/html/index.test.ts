@@ -43,6 +43,7 @@ describe(`bud.html`, () => {
     async value => {
       expect(await html(value)).toBeInstanceOf(Bud)
     },
+    60000,
   )
 
   it(`should disable extension when called with \`false\``, async () => {

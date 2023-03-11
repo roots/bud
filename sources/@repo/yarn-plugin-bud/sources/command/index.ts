@@ -1,14 +1,15 @@
 import {Bud} from './bud.command'
 import {Clean} from './clean.command'
 import {Compile} from './compile.command'
+import {Deprecate} from './deprecate.command'
 import {Dev} from './dev.command'
 import {DocsDev} from './docs/dev.command'
 import {Docs} from './docs/docs.command'
-import {DocsNetlify} from './docs/netlify.command'
 import {Format} from './format.command'
 import {Lint} from './lint.command'
 import {LintDependencies} from './lint/dependencies.command'
 import {LintExports} from './lint/exports.command'
+import {DocsNetlify} from './netlify.command'
 import {Plugin} from './plugin.rebuild.command'
 import {Pm2} from './pm2.command'
 import {RegistryClean} from './registry/clean.command'
@@ -24,6 +25,7 @@ export const Commands = {
   Bud,
   Clean,
   Compile,
+  Deprecate,
   Dev,
   Docs,
   DocsDev,
