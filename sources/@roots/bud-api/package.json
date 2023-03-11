@@ -89,8 +89,6 @@
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "devDependencies": {
-    "@roots/bud-extensions": "workspace:sources/@roots/bud-extensions",
-    "@roots/bud-terser": "workspace:sources/@roots/bud-terser",
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.11.18"
   },
@@ -98,7 +96,32 @@
     "@roots/bud-extensions": "workspace:sources/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
+    "@roots/bud-terser": "workspace:sources/@roots/bud-terser",
     "@roots/container": "workspace:sources/@roots/container"
+  },
+  "peerDependencies": {
+    "@roots/bud-extensions": "workspace:*",
+    "@roots/bud-framework": "workspace:*",
+    "@roots/bud-support": "workspace:*",
+    "@roots/bud-terser": "workspace:*",
+    "@roots/container": "workspace:*"
+  },
+  "peerDependenciesMeta": {
+    "@roots/bud-extensions": {
+      "optional": true
+    },
+    "@roots/bud-framework": {
+      "optional": true
+    },
+    "@roots/bud-support": {
+      "optional": true
+    },
+    "@roots/bud-terser": {
+      "optional": true
+    },
+    "@roots/container": {
+      "optional": true
+    }
   },
   "volta": {
     "extends": "../../../package.json"

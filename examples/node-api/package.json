@@ -9,6 +9,7 @@
     "@roots/browserslist-config": "workspace:sources/@roots/browserslist-config",
     "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-swc": "workspace:sources/@roots/bud-swc",
+    "webpack": "5.75.0",
     "webpack-cli": "5.0.1"
   }
 }

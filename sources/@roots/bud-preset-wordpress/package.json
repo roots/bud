@@ -92,12 +92,12 @@
     "@roots/wordpress-hmr": "workspace:sources/@roots/wordpress-hmr"
   },
   "peerDependencies": {
-    "@roots/bud": "*",
-    "@roots/bud-preset-recommend": "*",
-    "@roots/bud-react": "*",
-    "@roots/bud-tailwindcss-theme-json": "*",
-    "@roots/bud-wordpress-manifests": "*",
-    "@roots/wordpress-hmr": "*"
+    "@roots/bud": "workspace:*",
+    "@roots/bud-preset-recommend": "workspace:*",
+    "@roots/bud-react": "workspace:*",
+    "@roots/bud-tailwindcss-theme-json": "workspace:*",
+    "@roots/bud-wordpress-manifests": "workspace:*",
+    "@roots/wordpress-hmr": "workspace:*"
   },
   "peerDependenciesMeta": {
     "@roots/bud": {

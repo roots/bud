@@ -71,11 +71,11 @@
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss"
   },
   "peerDependencies": {
-    "@roots/bud": "*",
-    "@roots/bud-babel": "*",
-    "@roots/bud-esbuild": "*",
-    "@roots/bud-postcss": "*",
-    "@roots/bud-swc": "*"
+    "@roots/bud": "workspace:*",
+    "@roots/bud-babel": "workspace:*",
+    "@roots/bud-esbuild": "workspace:*",
+    "@roots/bud-postcss": "workspace:*",
+    "@roots/bud-swc": "workspace:*"
   },
   "peerDependenciesMeta": {
     "@roots/bud": {

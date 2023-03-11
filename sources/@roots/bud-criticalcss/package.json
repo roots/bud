@@ -77,13 +77,21 @@
     "vinyl": "3.0.0"
   },
   "peerDependencies": {
-    "@roots/bud": "*",
-    "@roots/critical-css-webpack-plugin": "*",
+    "@roots/bud": "workspace:*",
+    "@roots/bud-framework": "workspace:*",
+    "@roots/bud-support": "workspace:*",
+    "@roots/critical-css-webpack-plugin": "workspace:*",
     "critical": "*",
     "vinyl": "*"
   },
   "peerDependenciesMeta": {
     "@roots/bud": {
+      "optional": true
+    },
+    "@roots/bud-framework": {
+      "optional": true
+    },
+    "@roots/bud-support": {
       "optional": true
     },
     "@roots/critical-css-webpack-plugin": {

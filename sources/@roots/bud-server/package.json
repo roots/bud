@@ -100,10 +100,18 @@
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
   },
   "peerDependencies": {
-    "@roots/bud-client": "*"
+    "@roots/bud-client": "workspace:*",
+    "@roots/bud-framework": "workspace:*",
+    "@roots/bud-support": "workspace:*"
   },
   "peerDependenciesMeta": {
     "@roots/bud-client": {
+      "optional": true
+    },
+    "@roots/bud-framework": {
+      "optional": true
+    },
+    "@roots/bud-support": {
       "optional": true
     }
   },

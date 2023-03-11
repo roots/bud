@@ -246,10 +246,26 @@
     "tslib": "2.4.1"
   },
   "peerDependencies": {
-    "execa": ">=6.1.0"
+    "@roots/bud-support": "workspace:*",
+    "@roots/container": "workspace:*",
+    "@roots/filesystem": "workspace:*",
+    "execa": "7.0.0",
+    "tslib": "2.4.1"
   },
   "peerDependenciesMeta": {
+    "@roots/bud-support": {
+      "optional": true
+    },
+    "@roots/container": {
+      "optional": true
+    },
+    "@roots/filesystem": {
+      "optional": true
+    },
     "execa": {
+      "optional": true
+    },
+    "tslib": {
       "optional": true
     }
   },

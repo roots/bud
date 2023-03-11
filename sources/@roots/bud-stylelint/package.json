@@ -75,7 +75,7 @@
     "stylelint-webpack-plugin": "3.3.0"
   },
   "peerDependencies": {
-    "@roots/bud": "*",
+    "@roots/bud": "workspace:*",
     "stylelint": "*",
     "stylelint-config-standard": "*",
     "stylelint-scss": "*",

@@ -69,6 +69,18 @@
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
   },
+  "peerDependencies": {
+    "@roots/bud-framework": "workspace:*",
+    "@roots/bud-support": "workspace:*"
+  },
+  "peerDependenciesMeta": {
+    "@roots/bud-framework": {
+      "optional": true
+    },
+    "@roots/bud-support": {
+      "optional": true
+    }
+  },
   "volta": {
     "extends": "../../../package.json"
   }

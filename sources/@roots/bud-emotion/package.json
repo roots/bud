@@ -91,7 +91,11 @@
     "@emotion/css": "*",
     "@emotion/react": "*",
     "@emotion/styled": "*",
-    "@roots/bud": "*"
+    "@roots/bud": "workspace:*",
+    "@roots/bud-babel": "workspace:*",
+    "@roots/bud-framework": "workspace:*",
+    "@roots/bud-support": "workspace:*",
+    "@roots/bud-swc": "workspace:*"
   },
   "peerDependenciesMeta": {
     "@babel/core": {
@@ -113,6 +117,12 @@
       "optional": true
     },
     "@roots/bud-babel": {
+      "optional": true
+    },
+    "@roots/bud-framework": {
+      "optional": true
+    },
+    "@roots/bud-support": {
       "optional": true
     },
     "@roots/bud-swc": {

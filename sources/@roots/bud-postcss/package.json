@@ -47,12 +47,14 @@
   "type": "module",
   "exports": {
     ".": {
-      "default": "./lib/index.js",
-      "types": "./lib/index.d.ts"
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js",
+      "default": "./lib/index.js"
     },
     "./types": {
-      "default": "./lib/types.d.ts",
-      "types": "./lib/types.d.ts"
+      "types": "./lib/types.d.ts",
+      "import": "./lib/types.js",
+      "default": "./lib/types.d.ts"
     }
   },
   "typesVersions": {
@@ -85,7 +87,7 @@
     "postcss-preset-env": "8.0.0"
   },
   "peerDependencies": {
-    "@roots/bud": "*",
+    "@roots/bud": "workspace:*",
     "postcss": "*",
     "postcss-import": "*",
     "postcss-loader": "*",

@@ -80,6 +80,18 @@
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "human-readable": "0.2.1"
   },
+  "peerDependencies": {
+    "@roots/bud-framework": "workspace:*",
+    "@roots/bud-support": "workspace:*"
+  },
+  "peerDependenciesMeta": {
+    "@roots/bud-framework": {
+      "optional": true
+    },
+    "@roots/bud-support": {
+      "optional": true
+    }
+  },
   "volta": {
     "extends": "../../../package.json"
   }

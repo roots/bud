@@ -41,7 +41,8 @@ export class LintDependencies extends Command {
         `--config`,
         `./config/syncpack.config.cjs`,
       ],
-      {stderr: this.context.stderr},
+      {stdout: this.context.stdout, stderr: this.context.stderr},
+      true,
     ])
   }
 }

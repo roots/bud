@@ -147,14 +147,30 @@
     "@roots/container": "workspace:sources/@roots/container"
   },
   "peerDependencies": {
-    "@roots/bud": "*",
-    "@roots/bud-preset-wordpress": "*"
+    "@roots/blade-loader": "workspace:*",
+    "@roots/bud-build": "workspace:*",
+    "@roots/bud-framework": "workspace:*",
+    "@roots/bud-preset-wordpress": "workspace:*",
+    "@roots/bud-support": "workspace:*",
+    "@roots/container": "workspace:*"
   },
   "peerDependenciesMeta": {
-    "@roots/bud": {
+    "@roots/blade-loader": {
+      "optional": true
+    },
+    "@roots/bud-build": {
+      "optional": true
+    },
+    "@roots/bud-framework": {
       "optional": true
     },
     "@roots/bud-preset-wordpress": {
+      "optional": true
+    },
+    "@roots/bud-support": {
+      "optional": true
+    },
+    "@roots/container": {
       "optional": true
     }
   },

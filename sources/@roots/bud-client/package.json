@@ -62,7 +62,7 @@
     "@types/webpack-env": "1.18.0"
   },
   "peerDependencies": {
-    "@roots/bud": "*",
+    "@roots/bud": "workspace:*",
     "@types/webpack-env": "*"
   },
   "peerDependenciesMeta": {

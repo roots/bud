@@ -7,7 +7,7 @@ import {
 } from '@roots/bud-framework/extension/decorators'
 
 /**
- * Solid configuration
+ * SolidJS configuration
  */
 @label(`@roots/bud-solid`)
 @dependsOn([`@roots/bud-babel`])

@@ -67,6 +67,7 @@
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "devDependencies": {
+    "@roots/bud": "workspace:sources/@roots/bud",
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.11.18"
   },
@@ -75,10 +76,18 @@
     "@roots/entrypoints-webpack-plugin": "workspace:sources/@roots/entrypoints-webpack-plugin"
   },
   "peerDependencies": {
-    "@roots/bud": "*"
+    "@roots/bud": "workspace:*",
+    "@roots/bud-framework": "workspace:*",
+    "@roots/entrypoints-webpack-plugin": "workspace:*"
   },
   "peerDependenciesMeta": {
     "@roots/bud": {
+      "optional": true
+    },
+    "@roots/bud-framework": {
+      "optional": true
+    },
+    "@roots/entrypoints-webpack-plugin": {
       "optional": true
     }
   },

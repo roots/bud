@@ -72,7 +72,7 @@
     "swc-loader": "0.2.3"
   },
   "peerDependencies": {
-    "@roots/bud": "*",
+    "@roots/bud": "workspace:*",
     "@swc/core": "*",
     "@swc/helpers": "*",
     "swc-loader": "*"

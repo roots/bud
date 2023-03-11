@@ -70,8 +70,8 @@
     "@roots/wordpress-dependencies-webpack-plugin": "workspace:sources/@roots/wordpress-dependencies-webpack-plugin"
   },
   "peerDependencies": {
-    "@roots/bud": "*",
-    "@roots/wordpress-dependencies-webpack-plugin": "*"
+    "@roots/bud": "workspace:*",
+    "@roots/wordpress-dependencies-webpack-plugin": "workspace:*"
   },
   "peerDependenciesMeta": {
     "@roots/bud": {

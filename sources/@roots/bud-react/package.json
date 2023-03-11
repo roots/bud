@@ -123,21 +123,26 @@
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-refresh": "^0.14.0"
+    "react-refresh": "0.14.0"
   },
   "peerDependencies": {
     "@babel/core": "*",
     "@babel/preset-react": "*",
     "@pmmmwh/react-refresh-webpack-plugin": "*",
-    "@roots/bud": "*",
-    "@roots/bud-babel": "*",
+    "@roots/bud": "workspace:*",
+    "@roots/bud-babel": "workspace:*",
+    "@roots/bud-esbuild": "workspace:*",
+    "@roots/bud-framework": "workspace:*",
+    "@roots/bud-support": "workspace:*",
+    "@roots/bud-swc": "workspace:*",
+    "@roots/bud-typescript": "workspace:*",
     "@types/babel__core": "*",
     "@types/react": "*",
     "@types/react-dom": "*",
     "react": "*",
     "react-dom": "*",
     "react-refresh": "0.14.0",
-    "webpack": "*"
+    "webpack": "5.75.0"
   },
   "peerDependenciesMeta": {
     "@babel/core": {
@@ -149,10 +154,19 @@
     "@pmmmwh/react-refresh-webpack-plugin": {
       "optional": true
     },
+    "@roots/bud": {
+      "optional": true
+    },
     "@roots/bud-babel": {
       "optional": true
     },
     "@roots/bud-esbuild": {
+      "optional": true
+    },
+    "@roots/bud-framework": {
+      "optional": true
+    },
+    "@roots/bud-support": {
       "optional": true
     },
     "@roots/bud-swc": {

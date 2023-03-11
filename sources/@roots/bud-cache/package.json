@@ -86,6 +86,22 @@
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "strip-ansi": "7.0.1"
   },
+  "peerDependencies": {
+    "@roots/bud-framework": "workspace:*",
+    "@roots/bud-support": "workspace:*",
+    "strip-ansi": "*"
+  },
+  "peerDependenciesMeta": {
+    "@roots/bud-framework": {
+      "optional": true
+    },
+    "@roots/bud-support": {
+      "optional": true
+    },
+    "strip-ansi": {
+      "optional": true
+    }
+  },
   "volta": {
     "extends": "../../../package.json"
   }

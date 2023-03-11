@@ -2,7 +2,7 @@
 // Licensed under the MIT license.
 
 /**
- * solidjs configuration extension
+ * SolidJS support extension
  *
  * @see https://bud.js.org
  * @see https://github.com/roots/bud

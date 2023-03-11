@@ -70,7 +70,6 @@
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "devDependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-swc": "workspace:sources/@roots/bud-swc",
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.11.18"
@@ -81,18 +80,22 @@
     "terser-webpack-plugin": "5.3.6"
   },
   "peerDependencies": {
-    "@roots/bud": "*",
-    "@roots/bud-support": "*",
-    "terser-webpack-plugin": "*"
+    "@roots/bud-framework": "workspace:*",
+    "@roots/bud-support": "workspace:*",
+    "terser-webpack-plugin": "5.3.6",
+    "webpack": "5.75.0"
   },
   "peerDependenciesMeta": {
-    "@roots/bud": {
+    "@roots/bud-framework": {
       "optional": true
     },
     "@roots/bud-support": {
       "optional": true
     },
     "terser-webpack-plugin": {
+      "optional": true
+    },
+    "webpack": {
       "optional": true
     }
   },

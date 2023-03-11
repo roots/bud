@@ -79,7 +79,7 @@
     "vue-template-compiler": "^2.7.14"
   },
   "peerDependencies": {
-    "@roots/bud": "*",
+    "@roots/bud": "workspace:*",
     "@vue/compiler-sfc": "*",
     "vue": "*",
     "vue-loader": "*",

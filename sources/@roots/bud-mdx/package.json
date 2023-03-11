@@ -76,16 +76,27 @@
   },
   "peerDependencies": {
     "@mdx-js/loader": "*",
-    "@roots/bud": "*",
-    "@roots/bud-babel": "*",
-    "@roots/bud-react": "*",
-    "webpack": "*"
+    "@roots/bud": "workspace:*",
+    "@roots/bud-babel": "workspace:*",
+    "@roots/bud-build": "workspace:*",
+    "@roots/bud-framework": "workspace:*",
+    "@roots/bud-react": "workspace:*",
+    "webpack": "5.75.0"
   },
   "peerDependenciesMeta": {
     "@mdx-js/loader": {
       "optional": true
     },
+    "@roots/bud": {
+      "optional": true
+    },
     "@roots/bud-babel": {
+      "optional": true
+    },
+    "@roots/bud-build": {
+      "optional": true
+    },
+    "@roots/bud-framework": {
       "optional": true
     },
     "@roots/bud-react": {

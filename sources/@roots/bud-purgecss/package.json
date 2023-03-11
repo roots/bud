@@ -78,8 +78,8 @@
   },
   "peerDependencies": {
     "@fullhuman/postcss-purgecss": "*",
-    "@roots/bud": "*",
-    "@roots/bud-postcss": "*",
+    "@roots/bud": "workspace:*",
+    "@roots/bud-postcss": "workspace:*",
     "postcss": "*"
   },
   "peerDependenciesMeta": {

@@ -87,11 +87,19 @@
     "webpack": "5.75.0"
   },
   "peerDependencies": {
-    "@roots/bud": "*",
+    "@roots/bud": "workspace:*",
+    "@roots/bud-framework": "workspace:*",
+    "@roots/bud-support": "workspace:*",
     "compression-webpack-plugin": "*"
   },
   "peerDependenciesMeta": {
     "@roots/bud": {
+      "optional": true
+    },
+    "@roots/bud-framework": {
+      "optional": true
+    },
+    "@roots/bud-support": {
       "optional": true
     },
     "compression-webpack-plugin": {

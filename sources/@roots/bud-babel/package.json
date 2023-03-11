@@ -89,7 +89,9 @@
     "@babel/plugin-transform-runtime": "*",
     "@babel/preset-env": "*",
     "@babel/runtime": "*",
-    "@roots/bud": "*",
+    "@roots/bud": "workspace:*",
+    "@roots/bud-framework": "workspace:*",
+    "@roots/bud-support": "workspace:*",
     "@types/babel__core": "*",
     "@types/babel__plugin-transform-runtime": "*",
     "@types/babel__preset-env": "*",
@@ -110,6 +112,12 @@
       "optional": true
     },
     "@roots/bud": {
+      "optional": true
+    },
+    "@roots/bud-framework": {
+      "optional": true
+    },
+    "@roots/bud-support": {
       "optional": true
     },
     "@types/babel__core": {

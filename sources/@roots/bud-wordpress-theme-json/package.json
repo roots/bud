@@ -67,7 +67,7 @@
     "@roots/wordpress-theme-json-webpack-plugin": "workspace:sources/@roots/wordpress-theme-json-webpack-plugin"
   },
   "peerDependencies": {
-    "@roots/bud": "*"
+    "@roots/bud": "workspace:*"
   },
   "peerDependenciesMeta": {
     "@roots/bud": {

@@ -71,10 +71,10 @@
     "@roots/merged-manifest-webpack-plugin": "workspace:sources/@roots/merged-manifest-webpack-plugin"
   },
   "peerDependencies": {
-    "@roots/bud": "*",
-    "@roots/bud-wordpress-dependencies": "*",
-    "@roots/bud-wordpress-externals": "*",
-    "@roots/merged-manifest-webpack-plugin": "*"
+    "@roots/bud": "workspace:*",
+    "@roots/bud-wordpress-dependencies": "workspace:*",
+    "@roots/bud-wordpress-externals": "workspace:*",
+    "@roots/merged-manifest-webpack-plugin": "workspace:*"
   },
   "peerDependenciesMeta": {
     "@roots/bud": {

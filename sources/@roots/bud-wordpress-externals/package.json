@@ -66,8 +66,8 @@
     "@roots/wordpress-externals-webpack-plugin": "workspace:sources/@roots/wordpress-externals-webpack-plugin"
   },
   "peerDependencies": {
-    "@roots/bud": "*",
-    "@roots/wordpress-externals-webpack-plugin": "*"
+    "@roots/bud": "workspace:*",
+    "@roots/wordpress-externals-webpack-plugin": "workspace:*"
   },
   "peerDependenciesMeta": {
     "@roots/bud": {

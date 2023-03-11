@@ -48,21 +48,26 @@
   "exports": {
     ".": {
       "types": "./lib/index.d.ts",
-      "import": "./lib/index.js"
+      "import": "./lib/index.js",
+      "default": "./lib/index.js"
     },
     "./extension": {
       "types": "./lib/extension.d.ts",
-      "import": "./lib/extension.js"
+      "import": "./lib/extension.js",
+      "default": "./lib/extension.js"
     },
     "./resolve-url": {
       "types": "./lib/resolve-url/index.d.ts",
-      "import": "./lib/resolve-url/index.js"
+      "import": "./lib/resolve-url/index.js",
+      "default": "./lib/resolve-url/index.js"
     },
     "./stylelint-config": {
-      "require": "./config/stylelint.cjs"
+      "require": "./config/stylelint.cjs",
+      "default": "./config/stylelint.cjs"
     },
     "./config/stylelint": {
-      "require": "./config/stylelint.cjs"
+      "require": "./config/stylelint.cjs",
+      "default": "./config/stylelint.cjs"
     }
   },
   "typesVersions": {
@@ -103,7 +108,10 @@
     "stylelint-scss": "^4.3.0"
   },
   "peerDependencies": {
-    "@roots/bud": "*",
+    "@roots/bud": "workspace:*",
+    "@roots/bud-build": "workspace:*",
+    "@roots/bud-framework": "workspace:*",
+    "@roots/bud-postcss": "workspace:*",
     "postcss-scss": "*",
     "sass": "*",
     "sass-loader": "*",

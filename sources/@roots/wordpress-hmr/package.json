@@ -109,6 +109,18 @@
     "@wordpress/plugins": "5.5.0",
     "@wordpress/rich-text": "6.4.0"
   },
+  "peerDependencies": {
+    "react": "*",
+    "react-dom": "*"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    }
+  },
   "volta": {
     "extends": "../../../package.json"
   }

@@ -74,7 +74,7 @@
     "webpack": "5.75.0"
   },
   "peerDependencies": {
-    "@roots/bud": "*",
+    "@roots/bud": "workspace:*",
     "esbuild-loader": "*",
     "ts-node": "*"
   },
