@@ -16,9 +16,6 @@ import {Hooks} from '../base/base.js'
 export class SyncHooks extends Hooks<SyncStore> {
   /**
    * Set a value
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public set<T extends `${keyof SyncStore & string}`>(
@@ -37,9 +34,6 @@ export class SyncHooks extends Hooks<SyncStore> {
 
   /**
    * Set multiple values
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public setRecords(map: Partial<SyncCallback>): Bud {
@@ -49,9 +43,6 @@ export class SyncHooks extends Hooks<SyncStore> {
 
   /**
    * Get a value
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public get<T extends `${keyof SyncRegistry & string}`>(

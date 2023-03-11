@@ -5,7 +5,7 @@ import * as schema from './schema.js'
 import type {Parameters} from './types.js'
 
 /**
- * @public
+ * Handle callback
  */
 export async function handleCallback(bud: Bud, input: Parameters) {
   const validation = await schema.callback.safeParseAsync(input[0])

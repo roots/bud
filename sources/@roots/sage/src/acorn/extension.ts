@@ -6,17 +6,11 @@ import eventCompilerDone from './hooks/event.compiler.done.js'
 
 /**
  * Acorn adapter
- *
- * @public
- * @decorator `@label`
  */
 @label(`@roots/sage/acorn`)
 export default class Acorn extends Extension {
   /**
    * `register` callback
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public override async register(bud: Bud) {

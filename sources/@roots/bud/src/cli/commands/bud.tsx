@@ -288,8 +288,6 @@ export default class BudCommand extends Command<CommandContext> {
 
   /**
    * Apply context from argv
-   *
-   * @public
    */
   @bind
   public async applyBudArguments(bud: BudCommand[`bud`]) {

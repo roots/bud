@@ -6,8 +6,7 @@ import isFunction from '@roots/bud-support/lodash/isFunction'
 export default class Base implements BuildBase {
   /**
    * Application getter
-   *
-   * @readonly @public
+   * @readonly
    */
   public get app(): Bud {
     return this._app()
@@ -15,8 +14,6 @@ export default class Base implements BuildBase {
 
   /**
    * Constructor
-   *
-   * @public
    */
   public constructor(public _app: () => Bud) {}
 

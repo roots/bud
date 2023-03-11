@@ -1,7 +1,5 @@
 /**
  * Registered locations
- *
- * @virtual @public
  */
 export interface Locations {
   '@src': string

@@ -23,7 +23,6 @@ export default class BudReact extends Extension {
    * Use babel
    *
    * @readonly
-   * @public
    */
   public get useBabel(): boolean {
     if (!isUndefined(this.options.babel)) return this.options.babel
@@ -41,7 +40,6 @@ export default class BudReact extends Extension {
    * Accessor for `@roots/bud-react/react-refresh`
    *
    * @readonly
-   * @public
    */
   public get refresh(): BudReactRefresh {
     return this.app.extensions.get(
@@ -55,9 +53,6 @@ export default class BudReact extends Extension {
    * @remarks
    * Adds the `@babel/preset-react` preset to babel if `@roots/bud-esbuild` is not
    * registered and `@roots/bud-babel` is available.
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public override async configAfter(bud: Bud) {
@@ -71,9 +66,6 @@ export default class BudReact extends Extension {
 
   /**
    * Ensure babel extension is loaded
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public async ensureBabelIsLoaded() {

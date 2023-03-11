@@ -60,8 +60,6 @@ export const assets: assets = async function assets(
 
 /**
  * Take an input string and return a {@link CopyPlugin.ObjectPattern}
- *
- * @internal
  */
 export const fromStringFactory =
   (app: Bud, overrides: Partial<CopyPlugin.ObjectPattern>) =>
@@ -83,8 +81,6 @@ export const fromStringFactory =
 
 /**
  * Take an input [from,to] tuple and return a {@link CopyPlugin.ObjectPattern}
- *
- * @internal
  */
 export const fromTupleFactory =
   (app: Bud, overrides: Partial<CopyPlugin.ObjectPattern>) =>

@@ -53,8 +53,7 @@ export const serve: serve = async function (this: Bud, input, options) {
 }
 
 /**
- * Process specification object
- * @public
+ * Make {@link URL} from object parameter
  */
 const makeURLFromObject = async function (
   bud: Bud,

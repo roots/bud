@@ -10,12 +10,6 @@ import StylelintPlugin from 'stylelint-webpack-plugin'
 
 /**
  * Bud stylelint extension
- *
- * @public
- * @decorator `@label`
- * @decorator `@plugin`
- * @decorator `@options`
- * @decorator `@expose`
  */
 @label(`@roots/bud-stylelint`)
 @plugin(StylelintPlugin)
@@ -27,9 +21,6 @@ export default class BudStylelintWebpackPlugin extends Extension<
 > {
   /**
    * Fail build on stylelint error
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public failOnError(fail: boolean = true): this {
@@ -39,9 +30,6 @@ export default class BudStylelintWebpackPlugin extends Extension<
 
   /**
    * Fail build on stylelint warning
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public failOnWarning(fail: boolean = true): this {

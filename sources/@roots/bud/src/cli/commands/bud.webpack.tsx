@@ -21,8 +21,6 @@ export default class BudWebpackCommand extends BudCommand {
 
   /**
    * Command execute
-   *
-   * @public
    */
   public override async execute() {
     await this.makeBud(this)

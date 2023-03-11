@@ -13,8 +13,6 @@ import type {Compiler, Stats} from 'webpack'
 export default class MergedManifestWebpackPlugin {
   /**
    * Plugin ident
-   *
-   * @public
    */
   public plugin = {
     name: `MergedManifestPlugin`,
@@ -22,36 +20,26 @@ export default class MergedManifestWebpackPlugin {
 
   /**
    * Directory where the manifest will be written.
-   *
-   * @public
    */
   public dir: string
 
   /**
    * Output file
-   *
-   * @public
    */
   public file = `entrypoints.json`
 
   /**
    * Entrypoints manifest
-   *
-   * @public
    */
   public entrypointsName = `entrypoints.json`
 
   /**
    * WordPress manifest
-   *
-   * @public
    */
   public wordpressName = `wordpress.json`
 
   /**
    * Plugin constructor
-   *
-   * @public
    */
   public constructor(options?: {
     entrypointsName?: string
@@ -64,9 +52,6 @@ export default class MergedManifestWebpackPlugin {
       })
   }
 
-  /**
-   * @public
-   */
   @bind
   public apply(compiler: Compiler): void {
     this.dir = compiler.options.output.path
@@ -74,9 +59,6 @@ export default class MergedManifestWebpackPlugin {
     compiler.hooks.done.tapAsync(this.plugin, this.done)
   }
 
-  /**
-   * @public
-   */
   @bind
   public async done(_stats: Stats, callback): Promise<CallableFunction> {
     // Missing manifests
@@ -133,9 +115,6 @@ export default class MergedManifestWebpackPlugin {
     return callback()
   }
 
-  /**
-   * @public
-   */
   @bind
   public format(object: {
     [key: string]: {
@@ -145,9 +124,6 @@ export default class MergedManifestWebpackPlugin {
     return JSON.stringify(object, null, 2)
   }
 
-  /**
-   * @public
-   */
   @bind
   public isBuildable(): boolean {
     return (
@@ -156,25 +132,16 @@ export default class MergedManifestWebpackPlugin {
     )
   }
 
-  /**
-   * @public
-   */
   @bind
   public manifestPath(file: string): string {
     return path.resolve(this.dir, file)
   }
 
-  /**
-   * @public
-   */
   @bind
   public manifestExists(file: string): boolean {
     return fs.existsSync(this.manifestPath(file))
   }
 
-  /**
-   * @public
-   */
   @bind
   public async manifestContent(file: string): Promise<any> {
     return await fs.readJson(this.manifestPath(file))

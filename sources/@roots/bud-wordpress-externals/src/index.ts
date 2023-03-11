@@ -13,8 +13,6 @@
  * @remarks
  * Best used with {@link @roots/bud-entrypoints# | @roots/bud-entrypoints extension}
  * as a peer extension.
- *
- * @packageDocumentation
  */
 
 import './types.js'

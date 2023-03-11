@@ -5,7 +5,8 @@ import noop from '@roots/bud-support/lodash/noop'
 import type {Bud} from '../index.js'
 
 /**
- * @public
+ * ## bud.when
+ * @see {@link https://bud.js.org/docs/bud.when}
  */
 export interface when {
   (
@@ -20,30 +21,8 @@ export interface when {
 }
 
 /**
- * Executes a function if a given test is `true`.
- *
- * @remarks
- * - The first parameter is the conditional check.
- * - The second parameter is the function to run if `true`.
- * - The third parameter is optional; executed if the conditional is not `true`.
- *
- * @example
- * Only produce a vendor bundle when running in `production`:
- *
- * ```js
- * bud.when(bud.isProduction, () => bud.vendor())
- * ```
- *
- * @example
- * Use `eval` sourcemap in development mode and `hidden-source-map` in production:
- *
- * ```js
- * bud.when(
- *   bud.isDevelopment,
- *   () => bud.devtool('eval'),
- *   () => bud.devtool('hidden-source-map'),
- * )
- * ```
+ * ## bud.when
+ * @see {@link https://bud.js.org/docs/bud.when}
  */
 export function when(
   test:
@@ -76,6 +55,7 @@ export function when(
     const error = new Error(
       `All supplied conditional values must be functions. If you intended to pass a function to be called conditionally, wrap it in an arrow function.\n\nExample: bud.when(() => true, () => bud.vendor())`,
     )
+
     if (description)
       error.message = error.message.concat(
         `\n\nCalled when trying to ${description}`,

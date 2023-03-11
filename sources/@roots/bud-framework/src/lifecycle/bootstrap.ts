@@ -58,7 +58,6 @@ export const DEVELOPMENT_SERVICES: Array<string> = [`@roots/bud-server`]
 
 /**
  * Mapped hooks to callbacks
- * @public
  */
 export const LIFECYCLE_EVENT_MAP: Partial<
   Record<keyof Registry.EventsStore, keyof Service>
@@ -117,11 +116,6 @@ const initializeCoreUtilities = (bud: Bud) => {
 
 /**
  * Bootstrap application
- *
- * @param this - Bud instance
- * @param context - Bud context
- *
- * @returns void
  */
 export const bootstrap = async function (
   this: Bud,

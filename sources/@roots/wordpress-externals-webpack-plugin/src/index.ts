@@ -5,8 +5,6 @@
  * Externalizes dependencies which should be enqueued through WordPress' API
  *
  * @see https://github.com/roots/bud/tree/stable/src/wordpress-externals-webpack-plugin
- *
- * @packageDocumentation
  */
 
 import WordPressExternalsWebpackPlugin from './plugin.js'

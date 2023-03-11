@@ -15,8 +15,6 @@ export class HtmlEmitter {
    *
    * @param compilation - webpack compilation
    * @param publicPath - asset publicPath
-   *
-   * @public
    */
   public constructor(
     public compilation: Webpack.Compilation,
@@ -29,9 +27,6 @@ export class HtmlEmitter {
    *
    * @param file - asset file
    * @returns - asset file contents
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public getCompiledAsset(file: string) {
@@ -43,9 +38,6 @@ export class HtmlEmitter {
 
   /**
    * Reduce an entrypoint entry to markup
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public entrypointsReducer(
@@ -62,9 +54,6 @@ export class HtmlEmitter {
 
   /**
    * Reduce a stylesheet from entry item to markup
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public styleReducer(acc: string, file: string): string {
@@ -73,9 +62,6 @@ export class HtmlEmitter {
 
   /**
    * Reduce a script from entry item to markup
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public scriptReducer(acc: string, src: string): string {
@@ -97,9 +83,6 @@ export class HtmlEmitter {
 
   /**
    * Reduce a js filename to markup
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public makeScript(
@@ -122,9 +105,6 @@ export class HtmlEmitter {
 
   /**
    * Reduce entrypoint assets to markup
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public emit(): void {

@@ -15,8 +15,6 @@ import type {Generator, GeneratorMap} from '../index.js'
  *
  * @see {@link https://bud.js.org/extensions/bud-imagemin}
  *
- * @decorator `@label`
- * @decorator `@options`
  */
 @label(`@roots/bud-imagemin/sharp`)
 @options({encodeOptions: {}})
@@ -70,8 +68,6 @@ export class BudImageminSharp extends Extension {
 
   /**
    * {@link Extension.configAfter}
-   *
-   * @decorator `@bind`
    */
   @bind
   public override async configAfter(bud: Bud) {

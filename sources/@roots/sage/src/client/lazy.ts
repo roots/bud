@@ -17,9 +17,6 @@ interface lazy {
 
 /**
  * Default error handler
- *
- * @throws Error
- * @public
  */
 const defaultErrorHandler = (err: string) => {
   throw new Error(err)

@@ -11,37 +11,22 @@ import type {ServiceContainer} from '../../../service.js'
 export interface Api extends ServiceContainer {
   /**
    * Queued method calls
-   *
-   * @public
    */
   queue: Array<[string, ...any[]] | undefined>
 
   /**
    * Trace of all method calls
-   *
-   * @public
    */
   trace: Array<[string, ...any[]]>
 
   /**
    * Logger
-   *
-   * @public
    */
   logger: ServiceContainer['logger']
 
-  /**
-   * @public
-   */
   processQueue(): Promise<void>
 
-  /**
-   * @public
-   */
   call(name: string, ...args: Array<any>): Promise<Bud>
 
-  /**
-   * @public
-   */
   bindFacade(key: string, fn: CallableFunction): void
 }

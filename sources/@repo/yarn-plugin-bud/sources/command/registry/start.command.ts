@@ -30,6 +30,16 @@ export class RegistryStart extends Command {
     examples: [[`start verdaccio server`, `yarn @bud registry start`]],
   }
 
+  public verdaccioBinary = join(
+    paths.root,
+    `node_modules`,
+    `verdaccio`,
+    `build`,
+    `lib`,
+    `cli`,
+    `cli.js`,
+  )
+
   /**
    * Execute command
    */
@@ -39,7 +49,7 @@ export class RegistryStart extends Command {
         `@bud`,
         `pm2`,
         `start`,
-        join(paths.root,`node_modules`, `verdaccio`, `build`, `lib`, `cli`, `cli.js`),
+        this.verdaccioBinary,
         `-n`,
         `verdaccio`,
         `--`,
@@ -49,11 +59,7 @@ export class RegistryStart extends Command {
     } catch {}
 
     try {
-      await this.cli.run([
-        `@bud`,
-        `pm2`,
-        `save`,
-      ])
+      await this.cli.run([`@bud`, `pm2`, `save`])
     } catch {}
   }
 }

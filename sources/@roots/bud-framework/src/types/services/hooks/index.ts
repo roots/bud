@@ -52,7 +52,6 @@ export default interface Hooks extends BaseService {
    * 'namespace.name.value2': value => value.push('modified by this string'),
    * })
    * ```
-   *
    */
   fromMap: (map: Partial<Registry.SyncCallback>) => Bud
 
@@ -66,7 +65,6 @@ export default interface Hooks extends BaseService {
    *   value => 'replaced by this string',
    * )
    * ```
-   *
    */
   async: <T extends keyof Registry.AsyncStore>(
     id: T,
@@ -83,7 +81,6 @@ export default interface Hooks extends BaseService {
    * 'namespace.name.value2': async value => value.push('modified by this string'),
    * })
    * ```
-   *
    */
   fromAsyncMap: (map: Registry.AsyncCallback) => Bud
 
@@ -97,7 +94,6 @@ export default interface Hooks extends BaseService {
    *   ['array', 'of', 'items'],
    * )
    * ```
-   *
    */
   filter: <T extends keyof Registry.SyncStore>(
     id: T,
@@ -117,7 +113,6 @@ export default interface Hooks extends BaseService {
    *   ['array', 'of', 'items'],
    * )
    * ```
-   *
    */
   filterAsync: <T extends keyof Registry.AsyncRegistry & string>(
     id: T,
@@ -126,7 +121,6 @@ export default interface Hooks extends BaseService {
 
   /**
    * Execute an action
-   *
    */
   fire: <T extends `${keyof Registry.Events & string}`>(
     id: T,
@@ -135,7 +129,6 @@ export default interface Hooks extends BaseService {
 
   /**
    * Store callback to an action handler
-   *
    */
   action: <T extends keyof Registry.Events & string>(
     id: T,

@@ -21,21 +21,16 @@ export abstract class BaseServer implements Connection {
    * Create server
    *
    * @virtual
-   * @public
    */
   public abstract createServer(app: any): Promise<HttpServer | HttpsServer>
 
   /**
    * Server instance
-   *
-   * @public
    */
   public instance: Connection['instance']
 
   /**
    * Logger
-   *
-   * @public
    */
   public get logger(): Bud[`context`][`logger`] {
     return this.app.context.logger.scope(
@@ -45,8 +40,6 @@ export abstract class BaseServer implements Connection {
 
   /**
    * Options
-   *
-   * @public
    */
   public get options(): Server.Options {
     return this.app.hooks.filter(`dev.options`, {})
@@ -56,15 +49,11 @@ export abstract class BaseServer implements Connection {
    * Constructor
    *
    * @param app - Bud
-   * @public
    */
   public constructor(public app: Bud) {}
 
   /**
    * Listen
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public async listen() {
@@ -88,9 +77,6 @@ export abstract class BaseServer implements Connection {
 
   /**
    * Server listen event
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public onListening(...param: any[]) {
@@ -99,9 +85,6 @@ export abstract class BaseServer implements Connection {
 
   /**
    * Server request event
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public async onRequest(
@@ -119,9 +102,6 @@ export abstract class BaseServer implements Connection {
 
   /**
    * Server error event
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public onError(error: Error) {

@@ -2,8 +2,6 @@ import * as Pkg from '@roots/container'
 
 /**
  * container function interface
- *
- * @internal
  */
 export interface container<T = any> {
   <T>(repository?: T): Pkg.Container<T>

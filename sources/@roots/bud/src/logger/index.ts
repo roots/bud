@@ -46,9 +46,8 @@ export class Logger {
    * Format logger messages
    *
    * @param messages - any
-   * @public
-   * @decorator `@bind`
-   */
+
+    */
   @bind
   public format(...messages: Array<unknown>) {
     return messages.map(message => {

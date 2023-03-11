@@ -14,12 +14,12 @@ import isString from '@roots/bud-support/lodash/isString'
  */
 export class Commands {
   /**
-   * @public
+   * Commands instance
    */
   public static instance: Commands
 
   /**
-   * @internal
+   * Class constructor
    */
   private constructor(
     public context: Partial<Context>,
@@ -27,8 +27,7 @@ export class Commands {
   ) {}
 
   /**
-   * @public
-   * @static
+   * Get instance
    */
   public static get(application: cli.Cli, context: Partial<Context>) {
     if (Commands.instance) return Commands.instance
@@ -39,8 +38,7 @@ export class Commands {
   }
 
   /**
-   * @decorator `@bind`
-   * @public
+   * Get command
    */
   @bind
   public async getCommands() {
@@ -49,8 +47,7 @@ export class Commands {
   }
 
   /**
-   * @decorator `@bind`
-   * @public
+   * Get registration module paths
    */
   @bind
   public async getRegistrationModulePaths(): Promise<Array<any>> {
@@ -60,9 +57,7 @@ export class Commands {
   }
 
   /**
-   * Get array of project dependency and devDependency signifiers
-   * @decorator `@bind`
-   * @public
+   * Get project dependencies
    */
   @bind
   public getProjectDependencySignifiers(): Array<string> {
@@ -73,9 +68,7 @@ export class Commands {
   }
 
   /**
-   * Find commands shipped with a given extension
-   * @decorator `@bind`
-   * @public
+   * Find extension command paths
    */
   @bind
   public async findExtensionCommandPaths(paths: Array<string>) {
@@ -89,6 +82,9 @@ export class Commands {
     ).then(results => results.flat())
   }
 
+  /**
+   * Resolve extension command paths
+   */
   public async resolveExtensionCommandPaths(paths: Array<string>) {
     return await Promise.all(
       paths.map(async path => {
@@ -101,7 +97,6 @@ export class Commands {
 
   /**
    * Import and register commands with the clipanion app
-   * @decorator `@bind`
    */
   @bind
   public async registerExtensionCommandPaths(
@@ -112,6 +107,9 @@ export class Commands {
     } catch (error) {}
   }
 
+  /**
+   * Import commands from paths
+   */
   public static async importCommandsFromPaths(
     paths: Array<string>,
   ): Promise<any> {

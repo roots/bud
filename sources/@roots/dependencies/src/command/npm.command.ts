@@ -7,9 +7,6 @@ import {Command} from './base.command.js'
  * Npm command
  */
 export class Npm extends Command implements IDependencyManager {
-  /**
-   * @public
-   */
   @bind
   public install(
     dependencies: Array<string | [string, string]>,
@@ -25,9 +22,6 @@ export class Npm extends Command implements IDependencyManager {
     ])
   }
 
-  /**
-   * @public
-   */
   @bind
   public uninstall(
     dependencies: Array<string | [string, string]>,
@@ -45,8 +39,6 @@ export class Npm extends Command implements IDependencyManager {
 
   /**
    * Get the latest version of a package from the npm registry
-   *
-   * @public
    */
   @bind
   public async getLatestVersion(signifier: string): Promise<string> {

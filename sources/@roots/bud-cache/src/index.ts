@@ -6,8 +6,6 @@
  *
  * @see {@link https://bud.js.org}
  * @see {@link https://github.com/roots/bud}
- *
- * @packageDocumentation
  */
 
 import './types.js'

@@ -7,9 +7,6 @@ import {Command} from './base.command.js'
  * Yarn command
  */
 export class Yarn extends Command implements IDependencyManager {
-  /**
-   * @public
-   */
   @bind
   public async install(
     dependencies: Array<string | [string, string]>,
@@ -23,9 +20,6 @@ export class Yarn extends Command implements IDependencyManager {
     ])
   }
 
-  /**
-   * @public
-   */
   @bind
   public async uninstall(
     dependencies: Array<string | [string, string]>,
@@ -41,8 +35,6 @@ export class Yarn extends Command implements IDependencyManager {
 
   /**
    * Get the latest version of a package from the registry
-   *
-   * @public
    */
   @bind
   public async getLatestVersion(signifier: string): Promise<string> {

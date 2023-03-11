@@ -9,14 +9,12 @@ export const injectEvents = (
    * @remarks
    * wraps EventSource in a function to allow for
    * mocking in tests
-   *
-   * @public
    */
   return class Events extends eventSource {
     /**
      * Registered listeners
      *
-     * @public
+
      */
     public listeners: Set<Listener> = new Set<Listener>()
 
@@ -26,7 +24,7 @@ export const injectEvents = (
      * @remarks
      * Singleton interface, so this is private.
      *
-     * @public
+
      */
     private constructor(
       public options: Partial<Options> & {name: string; path: string},
@@ -41,7 +39,7 @@ export const injectEvents = (
     /**
      * Singleton constructor
      *
-     * @public
+
      */
     public static make(
       options: Partial<Options> & {name: string; path: string},
@@ -56,13 +54,13 @@ export const injectEvents = (
 
     /**
      * EventSource `onopen` handler
-     * @public
+
      */
     public override onopen = function () {}
 
     /**
      * EventSource `onmessage` handler
-     * @public
+
      */
     public override onmessage = async function (payload: MessageEvent) {
       if (!payload?.data || payload.data == `\uD83D\uDC93`) {
@@ -83,7 +81,7 @@ export const injectEvents = (
 
     /**
      * EventSource `addMessageListener` handler
-     * @public
+
      */
     public addListener(listener: Listener): this {
       this.listeners.add(listener)

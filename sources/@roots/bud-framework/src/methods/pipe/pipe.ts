@@ -3,40 +3,23 @@ import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import type {Bud} from '../../bud.js'
 
 /**
- * Pipe callback
- *
- * @remarks
- * The output of this function becomes the input to the next
+ * Callback function
  */
 interface Callback<T = any> {
   (input: T): Promise<T>
 }
 
 /**
- * @public
+ * ## bud.pipe
+ * @see {@link https://bud.js.org/docs/bud.pipe}
  */
 export interface pipe {
   <T = Bud>(fns: Array<Callback<T>>, value?: T): Promise<T>
 }
 
 /**
- * Pipe a value through an array of functions. The return value of each callback is used as input for the next.
- *
- * @remarks
- * If no value is provided the value is assumed to be the {@link Bud} itself
- *
- * {@link sequence} is a non-mutational version of this method.
- *
- * @example
- * ```js
- * app.pipe(
- *   [
- *     value => value + 1,
- *     value => value + 1,
- *   ],
- *   1, // initial value
- * ) // resulting value is 3
- * ```
+ * ## bud.pipe
+ * @see {@link https://bud.js.org/docs/bud.pipe}
  */
 export const pipe: pipe = async function <T = unknown>(
   this: Bud,

@@ -6,18 +6,12 @@ import {spawn} from 'child_process'
 export abstract class Command {
   public abstract getLatestVersion(signifier: string): Promise<string>
 
-  /**
-   * @public
-   */
   public constructor(
     public path: string,
     public onMessage?: (message: string) => void,
     public onError?: (...message: unknown[]) => void,
   ) {}
 
-  /**
-   * @public
-   */
   public async execute(commandArgs: Array<string>): Promise<any> {
     const [bin, ...args] = commandArgs
     return new Promise((resolve, reject) => {
@@ -40,9 +34,6 @@ export abstract class Command {
     })
   }
 
-  /**
-   * @public
-   */
   public normalizeDependencies(
     dependencies: Array<string | [string, string]>,
   ): Array<string> {

@@ -5,8 +5,6 @@
  * `@roots/wordpress-dependencies-webpack-plugin` adapter
  *
  * @see https://bud.js.org
- *
- * @packageDocumentation
  */
 
 import './types.js'

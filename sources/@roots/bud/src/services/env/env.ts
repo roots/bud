@@ -8,9 +8,6 @@ import {bind} from '@roots/bud-support/decorators'
 export default class Env extends ServiceContainer {
   /**
    * Bootstrap event callback
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public override async bootstrap?(bud: Bud) {
@@ -19,10 +16,6 @@ export default class Env extends ServiceContainer {
 
   /**
    * Get entries from .env which include `APP_PUBLIC` in their name
-   *
-   * @public
-   * @decorator `@bind`
-   * @decorator `@once`
    */
   @bind
   public getPublicEnv(): Record<string, any> {
@@ -34,9 +27,6 @@ export default class Env extends ServiceContainer {
 
   /**
    * Transform public env
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public transformPublicEnv([rawKey, rawValue]: [string, string]): [
@@ -48,8 +38,6 @@ export default class Env extends ServiceContainer {
 
   /**
    * Filter public env
-   *
-   * @public
    */
   @bind
   public filterPublicEnv([key]: [string, string]): boolean {

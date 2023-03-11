@@ -41,7 +41,6 @@ interface Contract {
    *
    * @remarks
    * Called once all Service instances are available
-
    */
   bootstrapped?(app?: Bud): Promise<any>
 
@@ -59,7 +58,6 @@ interface Contract {
    *
    * @remarks
    * `registered` is called after `register` is complete
-
    */
   registered?(app?: Bud): Promise<any>
 
@@ -68,7 +66,6 @@ interface Contract {
    *
    * @remarks
    * `boot` is called once all services are registered.
-
    */
   boot?(app?: Bud): Promise<any>
 
@@ -136,7 +133,6 @@ abstract class Base implements Partial<Contract> {
    *
    * @remarks
    * Called once all Service instances are available
-
    */
   public bootstrapped?(app?: Bud): Promise<any>
 
@@ -154,7 +150,6 @@ abstract class Base implements Partial<Contract> {
    *
    * @remarks
    * `registered` is called after `register` is complete
-
    */
   public registered?(app?: Bud): Promise<any>
 
@@ -163,7 +158,6 @@ abstract class Base implements Partial<Contract> {
    *
    * @remarks
    * `boot` is called once all services are registered.
-
    */
   public boot?(app?: Bud): Promise<any>
 

@@ -8,47 +8,26 @@ interface Manifest {
 }
 
 /**
- * @public
+ * WordPress dependencies webpack plugin
  */
 export default class WordPressDependenciesWebpackPlugin {
-  /**
-   * @public
-   */
   public plugin = {
     name: `WordPressDependenciesWebpackPlugin`,
     stage: Infinity,
   }
 
-  /**
-   * @public
-   */
   protected compilation: Webpack.Compilation
 
-  /**
-   * @public
-   */
   public fileName: string
 
-  /**
-   * @public
-   */
   public manifest: Manifest = {}
 
-  /**
-   * @public
-   */
   public usedDependencies = {}
 
-  /**
-   * @public
-   */
   public constructor(options?: {fileName: string}) {
     this.fileName = options?.fileName ?? `wordpress.json`
   }
 
-  /**
-   * @public
-   */
   @bind
   public apply(compiler: Webpack.Compiler): void {
     compiler.hooks.normalModuleFactory.tap(
@@ -65,9 +44,6 @@ export default class WordPressDependenciesWebpackPlugin {
     })
   }
 
-  /**
-   * @public
-   */
   @bind
   public normalModuleFactory(factory) {
     factory.hooks.beforeResolve.tap(
@@ -88,9 +64,6 @@ export default class WordPressDependenciesWebpackPlugin {
     )
   }
 
-  /**
-   * @public
-   */
   @bind
   public processAssets(assets: Webpack.Compilation['assets']) {
     this.compilation.entrypoints.forEach(entry => {

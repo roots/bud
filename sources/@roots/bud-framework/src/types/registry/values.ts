@@ -4,8 +4,6 @@ export interface Sync {
    *
    * @remarks
    * do not include extension
-   *
-   * @public
    */
   fileFormat: string
 
@@ -16,8 +14,6 @@ export interface Sync {
    * do not include extension
    *
    * @defaultValue '[name].[contenthash:6]'
-   *
-   * @public
    */
   hashFormat: string
 }

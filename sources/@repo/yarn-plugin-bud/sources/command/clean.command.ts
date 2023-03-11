@@ -1,5 +1,6 @@
 import * as repo from '@repo/constants'
 import {CommandClass} from 'clipanion'
+import {rm} from 'fs-extra'
 import {join} from 'path'
 
 import {Command} from './base.command'
@@ -27,35 +28,28 @@ export class Clean extends Command {
     examples: [[`clean project artifacts`, `yarn @bud clean`]],
   }
 
-  public err(err) {
-    this.log(err)
-  }
+  public targets = [
+    `node_modules`,
+    `sources/@roots/*/lib`,
+    `sources/**/node_modules`,
+    `sources/**/.tsbuildinfo`,
+    `storage/mocks`,
+    `storage/packages`,
+    `storage/yarn`,
+    `storage/.verdaccio-db.json`,
+  ].map(path => join(repo.paths.root, path))
 
   /**
    * Command execution
    */
   public async execute() {
-    await this.$(
-      /**
-       * ./
-       */
-      `rm -rf **/.budfiles`,
-      `rm -rf ${join(repo.paths.root, `node_modules`)}`,
-      /**
-       * ./sources
-       */
-      `rm -rf ${join(repo.paths.sources, `@roots/*/lib`)}`,
-      `rm -rf ${join(repo.paths.sources, `@roots/*/node_modules`)}`,
-      `rm -rf ${join(repo.paths.sources, `@roots/*/types`)}`,
-      `rm -rf ${join(repo.paths.sources, `**/.tsbuildinfo`)}`,
-      /**
-       * ./storage
-       */
-      `rm -rf ${join(repo.paths.storage, `packages`)}`,
-      `rm -rf ${join(repo.paths.storage, `mocks`)}`,
-      `rm -rf ${join(repo.paths.storage, `node_modules`)}`,
-      `rm -rf ${join(repo.paths.storage, `yarn`)}`,
-      `rm -rf ${join(repo.paths.storage, `.verdaccio-db.json`)}`,
+    await Promise.all(
+      this.targets.map(async path => {
+        this.log(`cleaning ${path}`)
+        try {
+          await rm(path, {recursive: true})
+        } catch (e) {}
+      }),
     )
   }
 }

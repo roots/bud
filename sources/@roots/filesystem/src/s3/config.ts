@@ -6,36 +6,26 @@ import type {S3ClientConfig} from '@aws-sdk/client-s3'
 export class Config {
   /**
    * S3 credentials
-   *
-   * @public
    */
   public credentials: S3ClientConfig[`credentials`]
 
   /**
    * S3 region
-   *
-   * @public
    */
   public region: S3ClientConfig[`region`] = `us-east-1`
 
   /**
    * S3 endpoint
-   *
-   * @public
    */
   public endpoint: S3ClientConfig[`endpoint`]
 
   /**
    * S3 bucket
-   *
-   * @public
    */
   public bucket: string
 
   /**
    * Treat bucket contents as public
-   *
-   * @public
    */
   public public: boolean = true
 
@@ -44,7 +34,6 @@ export class Config {
    *
    * @param key - {@link S3ClientConfig} key
    * @returns value - {@link S3ClientConfig} value
-   * @public
    */
   public get<
     K extends `${
@@ -60,7 +49,6 @@ export class Config {
    * @param key - {@link S3ClientConfig} key
    * @param value - {@link S3ClientConfig} value
    * @returns void
-   * @public
    */
   public set<
     K extends `${

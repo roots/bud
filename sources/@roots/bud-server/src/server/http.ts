@@ -14,8 +14,6 @@ import {bind} from '@roots/bud-support/decorators'
 export class Server extends BaseServer implements Connection {
   /**
    * Server instance
-   *
-   * @public
    */
   public override instance: HttpServer
 
@@ -24,9 +22,6 @@ export class Server extends BaseServer implements Connection {
    *
    * @param express - Express application
    * @returns server - {@link HttpServer}
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public async createServer(

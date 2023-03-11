@@ -3,34 +3,15 @@ import {sep} from 'node:path'
 import type {Bud} from '../bud.js'
 
 /**
- * @public
+ * ## bud.setPublicPath
+ * @see {@link https://bud.js.org/docs/bud.setPublicPath}
  */
 export interface setPublicPath {
   (publicPath: string | ((publicPath: string) => string)): Bud
 }
 
 /**
- * Set the application public path (e.g. `/assets`)
- *
- * @remarks
- * The default public path is `/`
- *
- * @example
- * Set the default path using a string
- *
- * ```js
- * app.setPublicPath('/app/themes/sage/dist')
- * ```
- *
- * @example
- * Set the publicPath using a function.
- *
- * ```js
- * app.setPublicPath(publicPath => {
- *   return `web/assets/${publicPath}`
- * })
- * ```
- *
+ * ## bud.setPublicPath
  * @see {@link https://bud.js.org/docs/bud.setPublicPath}
  */
 export const setPublicPath: setPublicPath = function (publicPath) {

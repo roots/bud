@@ -20,16 +20,12 @@ export default class Extensions
 {
   /**
    * Registered extensions
-   *
-   * @public
    */
   // @ts-ignore
   public repository: Modules = {}
 
   /**
    * Resolved options
-   *
-   * @public
    */
   public options: Container<{
     allowlist: Array<string>
@@ -45,7 +41,7 @@ export default class Extensions
 -   * be used in the context of trying to import `optionalDependencies`
 -   * of a given extension module.
 -   *
--   * @public
+-
 -   */
   public unresolvable: Set<string> = new Set()
 
