@@ -11,13 +11,13 @@ class Project extends Service {
    * `build.after` hook callback
    */
   @bind
-  public override async buildAfter?(bud: Bud) {
+  public override async buildAfter(bud: Bud) {
     if (!bud.isCLI()) {
-      bud.info(`not a CLI build. skipping project profile.`)
+      this.logger.info(`not a CLI build. skipping project profile.`)
       return
     }
     if (!bud.context.args?.debug) {
-      bud.info(`--debug not \`true\`. skipping fs write.`)
+      this.logger.info(`--debug not \`true\`. skipping fs write.`)
       return
     }
 
@@ -48,18 +48,18 @@ class Project extends Service {
         ),
       )
 
-      bud.success(`profile written to `, path)
+      this.logger.success(`profile written to `, path)
     } catch (error) {
-      bud.error(`failed to write profile`, error)
+      this.logger.error(`failed to write profile`, error)
     }
 
     try {
       const path = bud.path(`@storage`, bud.label, `webpack.config.dump`)
       await bud.fs.write(path, format(bud.build.config))
 
-      bud.success(`webpack.config.dump written to`, path)
+      this.logger.success(`webpack.config.dump written to`, path)
     } catch (error) {
-      bud.error(`failed to write webpack.config.dump`, error)
+      this.logger.error(`failed to write webpack.config.dump`, error)
     }
   }
 }

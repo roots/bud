@@ -3,7 +3,6 @@ import BudCommand from '@roots/bud/cli/commands/bud'
 import {dry} from '@roots/bud/cli/decorators/command.dry'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators'
-import {ensureDir, remove} from '@roots/bud-support/fs'
 import Ink from '@roots/bud-support/ink'
 import React from '@roots/bud-support/react'
 
@@ -70,6 +69,8 @@ export default class BudCleanCommand extends BudCommand {
 
   @bind
   public async cleanOutput() {
+    const {remove} = await import(`@roots/bud-support/fs`)
+
     try {
       if (this.bud.hasChildren) {
         return await Promise.all(
@@ -107,6 +108,8 @@ export default class BudCleanCommand extends BudCommand {
 
   @bind
   public async cleanCache() {
+    const {remove} = await import(`@roots/bud-support/fs`)
+
     try {
       if (this.bud.hasChildren) {
         return await Promise.all(
@@ -144,6 +147,8 @@ export default class BudCleanCommand extends BudCommand {
 
   @bind
   public async cleanStorage() {
+    const {ensureDir, remove} = await import(`@roots/bud-support/fs`)
+
     if (this.bud.hasChildren) {
       return await Promise.all(
         Object.values(this.bud.children)

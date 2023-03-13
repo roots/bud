@@ -21,7 +21,7 @@ export default async function (bud: Bud) {
       await writeIfEnabled(bud)
     }
   } catch (error) {
-    bud.error(error)
+    bud.sage.logger.error(error)
   }
 }
 

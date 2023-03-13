@@ -215,7 +215,7 @@ export default class BudCommand extends Command<CommandContext> {
   public async applyBudEnv(bud: Bud) {
     if (bud.env.isString(`APP_MODE`)) {
       bud.hooks.on(`build.mode`, bud.env.get(`APP_MODE`))
-      bud.success(
+      bud.context.logger.success(
         `mode set to`,
         bud.env.get(`APP_MODE`),
         `from environment`,
@@ -223,7 +223,7 @@ export default class BudCommand extends Command<CommandContext> {
     }
     if (bud.env.isString(`APP_BASE_PATH`)) {
       bud.context.basedir = bud.env.get(`APP_BASE_PATH`)
-      bud.success(
+      bud.context.logger.success(
         `project base path set to`,
         bud.env.get(`APP_BASE_PATH`),
         `from environment`,
@@ -234,7 +234,7 @@ export default class BudCommand extends Command<CommandContext> {
         `build.output.publicPath`,
         bud.env.get(`APP_PUBLIC_PATH`),
       )
-      bud.success(
+      bud.context.logger.success(
         `public path set to`,
         bud.env.get(`APP_PUBLIC_PATH`),
         `from environment`,
@@ -242,7 +242,7 @@ export default class BudCommand extends Command<CommandContext> {
     }
     if (bud.env.isString(`APP_SRC_PATH`)) {
       bud.hooks.on(`location.@src`, bud.env.get(`APP_SRC_PATH`))
-      bud.success(
+      bud.context.logger.success(
         `src path set to`,
         bud.env.get(`APP_SRC_PATH`),
         `from environment`,
@@ -251,7 +251,7 @@ export default class BudCommand extends Command<CommandContext> {
     if (bud.env.isString(`APP_DIST_PATH`)) {
       bud.hooks.on(`location.@dist`, bud.env.get(`APP_DIST_PATH`))
 
-      bud.success(
+      bud.context.logger.success(
         `dist path set to`,
         bud.env.get(`APP_DIST_PATH`),
         `from environment`,
@@ -260,7 +260,7 @@ export default class BudCommand extends Command<CommandContext> {
     if (bud.env.isString(`APP_STORAGE_PATH`)) {
       bud.hooks.on(`location.@storage`, bud.env.get(`APP_STORAGE_PATH`))
 
-      bud.success(
+      bud.context.logger.success(
         `storage path set to`,
         bud.env.get(`APP_STORAGE_PATH`),
         `from environment`,
@@ -291,7 +291,7 @@ export default class BudCommand extends Command<CommandContext> {
    */
   @bind
   public async applyBudArguments(bud: BudCommand[`bud`]) {
-    const {args, logger} = bud.context
+    const {args} = bud.context
 
     if (isset(args.input)) bud.setPath(`@src`, args.input)
     if (isset(args.output)) bud.setPath(`@dist`, args.output)
@@ -300,7 +300,7 @@ export default class BudCommand extends Command<CommandContext> {
     if (isset(args.modules)) bud.setPath(`@modules`, args.modules)
 
     if (isset(args.hot)) {
-      bud.log(`disabling hot module replacement`)
+      bud.context.logger.log(`disabling hot module replacement`)
       bud.hooks.on(`dev.middleware.enabled`, (middleware = []) =>
         middleware.filter(key =>
           args.hot === false ? key !== `hot` : args.hot,
@@ -309,7 +309,7 @@ export default class BudCommand extends Command<CommandContext> {
     }
 
     if (isset(args.port)) {
-      bud.log(`overriding port from cli`)
+      bud.context.logger.log(`overriding port from cli`)
       bud.hooks.on(`dev.url`, (url = new URL(`http://0.0.0.0:3000`)) => {
         url.port = args.port
         return url
@@ -317,7 +317,7 @@ export default class BudCommand extends Command<CommandContext> {
     }
 
     if (isset(args.proxy)) {
-      bud.log(`overriding proxy from cli`)
+      bud.context.logger.log(`overriding proxy from cli`)
       bud.hooks.on(
         `dev.middleware.proxy.options.target`,
         new URL(args.proxy),
@@ -335,37 +335,37 @@ export default class BudCommand extends Command<CommandContext> {
         : override(bud)
 
     if (isset(args.manifest)) {
-      bud.log(`overriding manifest setting from cli`)
+      bud.context.logger.log(`overriding manifest setting from cli`)
       override(bud => bud.manifest.enable(args.manifest))
     }
 
     if (isset(args.cache)) {
-      bud.log(`overriding cache settings from cli`)
+      bud.context.logger.log(`overriding cache settings from cli`)
       override(bud => bud.persist(args.cache))
     }
 
     if (isset(args.minimize)) {
-      bud.log(`overriding minimize setting from cli`)
+      bud.context.logger.log(`overriding minimize setting from cli`)
       override(bud => bud.minimize(args.minimize))
     }
 
     if (isset(args.devtool)) {
-      bud.log(`overriding devtool from cli`)
+      bud.context.logger.log(`overriding devtool from cli`)
       override(bud => bud.devtool(args.devtool))
     }
 
     if (isset(args.esm)) {
-      bud.log(`overriding esm from cli`)
+      bud.context.logger.log(`overriding esm from cli`)
       override((bud: Bud) => bud.esm.enable(args.esm))
     }
 
     if (isset(args.immutable)) {
-      bud.log(`overriding immutable from cli`)
+      bud.context.logger.log(`overriding immutable from cli`)
       override((bud: Bud) => bud.cdn.freeze(args.immutable))
     }
 
     if (isset(args.clean)) {
-      bud.log(`overriding clean setting from cli`)
+      bud.context.logger.log(`overriding clean setting from cli`)
       override((bud: Bud) => {
         bud.extensions
           .get(`@roots/bud-extensions/clean-webpack-plugin`)
@@ -376,24 +376,24 @@ export default class BudCommand extends Command<CommandContext> {
     }
 
     if (isset(args.hash)) {
-      logger.log(`overriding hash setting from cli`)
+      bud.context.logger.log(`overriding hash setting from cli`)
       override((bud: Bud) => bud.hash(args.hash))
     }
 
     if (isset(args.html)) {
-      logger.log(`overriding html setting from cli`)
+      bud.context.logger.log(`overriding html setting from cli`)
       override((bud: Bud) =>
         isString(args.html) ? bud.html({template: args.html}) : bud.html(),
       )
     }
 
     if (isset(args.runtime)) {
-      bud.log(`overriding runtime setting from cli`)
+      bud.context.logger.log(`overriding runtime setting from cli`)
       override((bud: Bud) => bud.runtime(args.runtime))
     }
 
     if (isset(args.splitChunks)) {
-      bud.log(`overriding splitChunks setting from cli`)
+      bud.context.logger.log(`overriding splitChunks setting from cli`)
       override((bud: Bud) => bud.splitChunks(args.splitChunks))
     }
 

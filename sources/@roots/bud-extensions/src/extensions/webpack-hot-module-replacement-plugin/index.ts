@@ -18,7 +18,13 @@ export default class BudHMR extends Extension<
   public override async make() {
     const {HotModuleReplacementPlugin} = await this.import(
       `@roots/bud-support/webpack`,
+      import.meta.url,
     )
+
+    if (!HotModuleReplacementPlugin)
+      throw new Error(
+        `@roots/bud-support/HotModuleReplacementPlugin not found`,
+      )
 
     return new HotModuleReplacementPlugin()
   }

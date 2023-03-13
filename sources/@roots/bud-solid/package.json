@@ -80,7 +80,8 @@
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "babel-preset-solid": "1.6.9",
-    "solid-js": "1.6.9"
+    "solid-js": "1.6.9",
+    "tslib": "2.5.0"
   },
   "peerDependencies": {
     "@babel/plugin-syntax-jsx": "*",

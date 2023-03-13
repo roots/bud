@@ -26,20 +26,23 @@ export class BudSass extends Extension {
    */
   @bind
   public override async register(bud: Bud) {
-    const implementation = await this.import(`sass`)
+    const loader = await this.resolve(`sass-loader`, import.meta.url)
+    if (!loader) throw new Error(`sass-loader not found`)
+    const implementation = await this.import(`sass`, import.meta.url)
+    if (!implementation) throw new Error(`sass not found`)
+
     this.setOptions({implementation, sourceMap: true})
 
-    bud.build
-      .setLoader(`sass-loader`, await this.resolve(`sass-loader`))
-      .setItem(`sass`, {
-        ident: `sass`,
-        loader: `sass-loader`,
-        options: () => this.options,
-      })
-      .setRule(`sass`, {
-        test: (app: Bud) => app.hooks.filter(`pattern.sass`),
-        include: [app => app.path(`@src`)],
-      })
+    bud.build.setLoader(`sass-loader`, loader)
+    bud.build.setItem(`sass`, {
+      ident: `sass`,
+      loader: `sass-loader`,
+      options: () => this.options,
+    })
+    bud.build.setRule(`sass`, {
+      test: (app: Bud) => app.hooks.filter(`pattern.sass`),
+      include: [app => app.path(`@src`)],
+    })
 
     bud.hooks.on(`build.resolve.extensions`, ext =>
       ext.add(`.scss`).add(`.sass`),

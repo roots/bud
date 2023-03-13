@@ -27,23 +27,24 @@ export class BudMDX extends Extension {
    */
   @bind
   public override async register(bud: Bud) {
+    const loader = await this.resolve(`@mdx-js/loader`, import.meta.url)
+    if (!loader) throw new Error(`@mdx-js/loader not found`)
+
+    bud.build.setLoader(`mdx`, loader).setItem(`mdx`, {
+      loader: `mdx`,
+      options: () => ({
+        rehypePlugins: this.get(`rehypePlugins`)
+          ? Object.values(this.get(`rehypePlugins`))
+          : [],
+        remarkPlugins: this.get(`remarkPlugins`)
+          ? Object.values(this.get(`remarkPlugins`))
+          : [],
+      }),
+    })
+
     bud.hooks.on(`build.resolve.extensions`, ext =>
       ext.add(`.md`).add(`.mdx`),
     )
-
-    bud.build
-      .setLoader(`mdx`, await this.resolve(`@mdx-js/loader`))
-      .setItem(`mdx`, {
-        loader: `mdx`,
-        options: () => ({
-          rehypePlugins: this.get(`rehypePlugins`)
-            ? Object.values(this.get(`rehypePlugins`))
-            : [],
-          remarkPlugins: this.get(`remarkPlugins`)
-            ? Object.values(this.get(`remarkPlugins`))
-            : [],
-        }),
-      })
   }
 
   /**

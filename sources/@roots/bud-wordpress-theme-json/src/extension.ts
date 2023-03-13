@@ -33,13 +33,16 @@ export interface Mutator {
  *
  * @example
  * ```ts
- * bud.themeJson(theme =>
- *   theme.set('color', {})
- * )
+ * bud.wpjson.settings(theme => theme.set('color', {}))
+ * ```
+ *
+ * @example
+ * ```ts
+ * bud.wpjson.set(`settings.color.custom`, true)
  * ```
  */
 @label(`@roots/bud-wordpress-theme-json`)
-@options({
+@options<Options>({
   path: ({path}) => path(`./theme.json`),
   settings: {
     color: {
@@ -67,6 +70,16 @@ export class WordPressThemeJSON extends Extension<
   Options,
   ThemeJsonWebpackPlugin
 > {
+  /**
+   * ## bud.wpjson.settings
+   *
+   * Configure the `settings` property of the `theme.json` file.
+   *
+   * @example
+   * ```ts
+   * bud.wpjson.settings(theme => theme.set('color', {}))
+   * ```
+   */
   @bind
   public settings(
     input?:
@@ -90,10 +103,7 @@ export class WordPressThemeJSON extends Extension<
       ? this.options.settings
       : input
 
-    this.setOption(
-      `settings`,
-      value instanceof Container ? value.all() : value,
-    )
+    this.set(`settings`, value instanceof Container ? value.all() : value)
 
     return this
   }

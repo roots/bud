@@ -39,7 +39,7 @@ export const minimize: minimize = function (this: Bud, value = true) {
   this.terser.enable(value)
   this.minimizeCss.enable(value)
 
-  this.success(`minimize`, value)
+  this.api.logger.success(`minimize`, value)
 
   return this
 }

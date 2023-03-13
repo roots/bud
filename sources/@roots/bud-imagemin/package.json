@@ -81,6 +81,7 @@
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "image-minimizer-webpack-plugin": "^3.8.1",
     "sharp": "0.31.3",
+    "tslib": "2.5.0",
     "webpack": "5.75.0"
   },
   "peerDependencies": {

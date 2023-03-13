@@ -45,71 +45,248 @@
   "exports": {
     ".": {
       "types": "./lib/index.d.ts",
+      "import": "./lib/index.js",
       "default": "./lib/index.js"
     },
     "./axios": {
       "types": "./lib/axios/index.d.ts",
-      "import": "./lib/axios/index.js"
+      "import": "./lib/axios/index.js",
+      "default": "./lib/axios/index.js"
     },
     "./chalk": {
       "types": "./lib/chalk/index.d.ts",
-      "import": "./lib/chalk/index.js"
+      "import": "./lib/chalk/index.js",
+      "default": "./lib/chalk/index.js"
     },
     "./chokidar": {
       "types": "./lib/chokidar/index.d.ts",
-      "import": "./lib/chokidar/index.js"
+      "import": "./lib/chokidar/index.js",
+      "default": "./lib/chokidar/index.js"
     },
     "./clean-stack": {
       "types": "./lib/clean-stack/index.d.ts",
-      "import": "./lib/clean-stack/index.js"
+      "import": "./lib/clean-stack/index.js",
+      "default": "./lib/clean-stack/index.js"
     },
     "./clean-webpack-plugin": {
       "types": "./lib/clean-webpack-plugin/index.d.ts",
-      "import": "./lib/clean-webpack-plugin/index.js"
+      "import": "./lib/clean-webpack-plugin/index.js",
+      "default": "./lib/clean-webpack-plugin/index.js"
+    },
+    "./clipanion": {
+      "types": "./lib/clipanion/index.d.ts",
+      "import": "./lib/clipanion/index.js",
+      "default": "./lib/clipanion/index.js"
+    },
+    "./common-path": {
+      "types": "./lib/common-path/index.d.ts",
+      "import": "./lib/common-path/index.js",
+      "default": "./lib/common-path/index.js"
+    },
+    "./cookie-parser": {
+      "types": "./lib/cookie-parser/index.d.ts",
+      "import": "./lib/cookie-parser/index.js",
+      "default": "./lib/cookie-parser/index.js"
+    },
+    "./copy-webpack-plugin": {
+      "types": "./lib/copy-webpack-plugin/index.d.ts",
+      "import": "./lib/copy-webpack-plugin/index.js",
+      "default": "./lib/copy-webpack-plugin/index.js"
     },
     "./css-loader": {
       "types": "./lib/css-loader/index.d.cts",
+      "require": "./lib/css-loader/index.cjs",
       "default": "./lib/css-loader/index.cjs"
+    },
+    "./css-minimizer-webpack-plugin": {
+      "types": "./lib/css-minimizer-webpack-plugin/index.d.ts",
+      "import": "./lib/css-minimizer-webpack-plugin/index.js",
+      "default": "./lib/css-minimizer-webpack-plugin/index.js"
     },
     "./csv-loader": {
       "types": "./lib/csv-loader/index.d.cts",
+      "require": "./lib/csv-loader/index.cjs",
       "default": "./lib/csv-loader/index.cjs"
+    },
+    "./decorators": {
+      "types": "./lib/decorators/index.d.ts",
+      "import": "./lib/decorators/index.js",
+      "default": "./lib/decorators/index.js"
+    },
+    "./dotenv": {
+      "types": "./lib/dotenv/index.d.ts",
+      "import": "./lib/dotenv/index.js",
+      "default": "./lib/dotenv/index.js"
+    },
+    "./execa": {
+      "types": "./lib/execa/index.d.ts",
+      "import": "./lib/execa/index.js",
+      "default": "./lib/execa/index.js"
+    },
+    "./express": {
+      "types": "./lib/express/index.d.ts",
+      "import": "./lib/express/index.js",
+      "default": "./lib/express/index.js"
+    },
+    "./figures": {
+      "types": "./lib/figures/index.d.ts",
+      "import": "./lib/figures/index.js",
+      "default": "./lib/figures/index.js"
     },
     "./file-loader": {
       "types": "./lib/file-loader/index.d.cts",
+      "require": "./lib/file-loader/index.cjs",
       "default": "./lib/file-loader/index.cjs"
+    },
+    "./filesystem": {
+      "types": "./lib/filesystem/index.d.ts",
+      "import": "./lib/filesystem/index.js",
+      "default": "./lib/filesystem/index.js"
+    },
+    "./fs": {
+      "types": "./lib/fs/index.d.ts",
+      "import": "./lib/fs/index.js",
+      "default": "./lib/fs/index.js"
+    },
+    "./fs-jetpack": {
+      "types": "./lib/fs-jetpack/index.d.ts",
+      "import": "./lib/fs-jetpack/index.js",
+      "default": "./lib/fs-jetpack/index.js"
+    },
+    "./get-port": {
+      "types": "./lib/get-port/index.d.ts",
+      "import": "./lib/get-port/index.js",
+      "default": "./lib/get-port/index.js"
+    },
+    "./globby": {
+      "types": "./lib/globby/index.d.ts",
+      "import": "./lib/globby/index.js",
+      "default": "./lib/globby/index.js"
+    },
+    "./highlight": {
+      "types": "./lib/highlight/index.d.ts",
+      "import": "./lib/highlight/index.js",
+      "default": "./lib/highlight/index.js"
     },
     "./html-loader": {
       "types": "./lib/html-loader/index.d.cts",
+      "require": "./lib/html-loader/index.cjs",
       "default": "./lib/html-loader/index.cjs"
+    },
+    "./html-webpack-plugin": {
+      "types": "./lib/html-webpack-plugin/index.d.ts",
+      "import": "./lib/html-webpack-plugin/index.js",
+      "default": "./lib/html-webpack-plugin/index.js"
+    },
+    "./http-proxy-middleware": {
+      "types": "./lib/http-proxy-middleware/index.d.ts",
+      "import": "./lib/http-proxy-middleware/index.js",
+      "default": "./lib/http-proxy-middleware/index.js"
+    },
+    "./human-readable": {
+      "types": "./lib/human-readable/index.d.ts",
+      "import": "./lib/human-readable/index.js",
+      "default": "./lib/human-readable/index.js"
+    },
+    "./import-meta-resolve": {
+      "types": "./lib/import-meta-resolve/index.d.ts",
+      "import": "./lib/import-meta-resolve/index.js",
+      "default": "./lib/import-meta-resolve/index.js"
+    },
+    "./ink": {
+      "types": "./lib/ink/index.d.ts",
+      "import": "./lib/ink/index.js",
+      "default": "./lib/ink/index.js"
     },
     "./ink-link": {
       "types": "./lib/ink-link/index.d.ts",
-      "import": "./lib/ink-link/index.js"
+      "import": "./lib/ink-link/index.js",
+      "default": "./lib/ink-link/index.js"
+    },
+    "./ink-text-input": {
+      "types": "./lib/ink-text-input/index.d.ts",
+      "import": "./lib/ink-text-input/index.js",
+      "default": "./lib/ink-text-input/index.js"
+    },
+    "./json5": {
+      "types": "./lib/json5/index.d.ts",
+      "import": "./lib/json5/index.js",
+      "default": "./lib/json5/index.js"
+    },
+    "./lodash/*": {
+      "types": "./lib/lodash/*/index.d.ts",
+      "import": "./lib/lodash/*/index.js",
+      "default": "./lib/lodash/*/index.js"
+    },
+    "./logger": {
+      "types": "./lib/logger/index.d.ts",
+      "import": "./lib/logger/index.js",
+      "default": "./lib/logger/index.js"
+    },
+    "./mini-css-extract-plugin": {
+      "types": "./lib/mini-css-extract-plugin/index.d.ts",
+      "import": "./lib/mini-css-extract-plugin/index.js",
+      "default": "./lib/mini-css-extract-plugin/index.js"
+    },
+    "./mini-svg-data-uri": {
+      "types": "./lib/mini-svg-data-uri/index.d.ts",
+      "import": "./lib/mini-svg-data-uri/index.js",
+      "default": "./lib/mini-svg-data-uri/index.js"
+    },
+    "./node-notifier": {
+      "types": "./lib/node-notifier/index.d.ts",
+      "import": "./lib/node-notifier/index.js",
+      "default": "./lib/node-notifier/index.js"
+    },
+    "./open": {
+      "types": "./lib/open/index.d.ts",
+      "import": "./lib/open/index.js",
+      "default": "./lib/open/index.js"
+    },
+    "./os": {
+      "types": "./lib/os/index.d.ts",
+      "import": "./lib/os/index.js",
+      "default": "./lib/os/index.js"
+    },
+    "./parse-semver": {
+      "types": "./lib/parse-semver/index.d.ts",
+      "import": "./lib/parse-semver/index.js",
+      "default": "./lib/parse-semver/index.js"
+    },
+    "./patch-console": {
+      "types": "./lib/patch-console/index.d.ts",
+      "import": "./lib/patch-console/index.js",
+      "default": "./lib/patch-console/index.js"
+    },
+    "./pretty-format": {
+      "types": "./lib/pretty-format/index.d.ts",
+      "import": "./lib/pretty-format/index.js",
+      "default": "./lib/pretty-format/index.js"
     },
     "./remark-loader": {
       "types": "./lib/remark-loader/index.d.cts",
+      "require": "./lib/remark-loader/index.cjs",
       "default": "./lib/remark-loader/index.cjs"
     },
     "./style-loader": {
       "types": "./lib/style-loader/index.d.cts",
+      "require": "./lib/style-loader/index.cjs",
       "default": "./lib/style-loader/index.cjs"
     },
     "./terser-webpack-plugin": {
       "types": "./lib/terser-webpack-plugin/index.d.ts",
-      "import": "./lib/terser-webpack-plugin/index.js"
+      "import": "./lib/terser-webpack-plugin/index.js",
+      "default": "./lib/terser-webpack-plugin/index.js"
     },
     "./xml-loader": {
       "types": "./lib/xml-loader/index.d.cts",
+      "require": "./lib/xml-loader/index.cjs",
       "default": "./lib/xml-loader/index.cjs"
     },
     "./yml-loader": {
       "types": "./lib/yml-loader/index.d.cts",
+      "require": "./lib/yml-loader/index.cjs",
       "default": "./lib/yml-loader/index.cjs"
-    },
-    "./lodash-es": {
-      "types": "./lib/lodash/index.d.ts",
-      "default": "./lib/lodash/index.js"
     },
     "./lodash-es/*": {
       "types": "./lib/lodash/*/index.d.ts",
@@ -154,7 +331,7 @@
     "chokidar": "3.5.3",
     "clean-stack": "5.1.0",
     "clean-webpack-plugin": "4.0.0",
-    "clipanion": "3.2.0-rc.14",
+    "clipanion": "3.2.0",
     "common-path": "1.0.1",
     "connect": "3.7.0",
     "cookie-parser": "1.4.6",
@@ -203,6 +380,7 @@
     "style-loader": "3.3.1",
     "terser-webpack-plugin": "5.3.6",
     "toml": "3.0.0",
+    "tslib": "2.5.0",
     "typanion": "3.12.1",
     "type-fest": "3.5.0",
     "webpack": "5.75.0",
@@ -211,193 +389,5 @@
     "xml-loader": "1.2.1",
     "yml-loader": "2.1.0",
     "zod": "3.20.6"
-  },
-  "peerDependencies": {
-    "axios": "*",
-    "chalk": ">=5",
-    "chokidar": "*",
-    "clean-stack": "*",
-    "clean-webpack-plugin": "*",
-    "clipanion": "*",
-    "common-path": "*",
-    "connect": "*",
-    "cookie-parser": "*",
-    "copy-webpack-plugin": "*",
-    "css-minimizer-webpack-plugin": "*",
-    "dotenv": "*",
-    "dotenv-expand": "*",
-    "execa": "*",
-    "express": "*",
-    "figures": "*",
-    "fs-extra": "*",
-    "fs-jetpack": "*",
-    "get-port": "*",
-    "globby": "*",
-    "helpful-decorators": "*",
-    "highlight.js": "*",
-    "html-webpack-plugin": "*",
-    "http-proxy-middleware": "*",
-    "import-meta-resolve": "*",
-    "ink-link": "*",
-    "ink-text-input": "*",
-    "json5": "*",
-    "lodash": ">=4",
-    "mini-css-extract-plugin": ">=2",
-    "node-notifier": ">=10",
-    "open": ">=8",
-    "open-editor": ">=4",
-    "parse5": ">=7",
-    "parse5-htmlparser2-tree-adapter": ">=7",
-    "patch-console": ">=2",
-    "pretty-format": ">=29",
-    "signale": ">=1",
-    "terser-webpack-plugin": "*",
-    "toml": "*",
-    "typanion": "*",
-    "type-fest": "*",
-    "webpack": "5.75.0",
-    "webpack-dev-middleware": "*",
-    "webpack-manifest-plugin": "*",
-    "zod": "*"
-  },
-  "peerDependenciesMeta": {
-    "axios": {
-      "optional": true
-    },
-    "chalk": {
-      "optional": true
-    },
-    "chokidar": {
-      "optional": true
-    },
-    "clean-stack": {
-      "optional": true
-    },
-    "clean-webpack-plugin": {
-      "optional": true
-    },
-    "clipanion": {
-      "optional": true
-    },
-    "common-path": {
-      "optional": true
-    },
-    "connect": {
-      "optional": true
-    },
-    "cookie-parser": {
-      "optional": true
-    },
-    "copy-webpack-plugin": {
-      "optional": true
-    },
-    "css-minimizer-webpack-plugin": {
-      "optional": true
-    },
-    "dotenv": {
-      "optional": true
-    },
-    "dotenv-expand": {
-      "optional": true
-    },
-    "execa": {
-      "optional": true
-    },
-    "express": {
-      "optional": true
-    },
-    "figures": {
-      "optional": true
-    },
-    "fs-extra": {
-      "optional": true
-    },
-    "fs-jetpack": {
-      "optional": true
-    },
-    "get-port": {
-      "optional": true
-    },
-    "globby": {
-      "optional": true
-    },
-    "helpful-decorators": {
-      "optional": true
-    },
-    "highlight.js": {
-      "optional": true
-    },
-    "html-webpack-plugin": {
-      "optional": true
-    },
-    "http-proxy-middleware": {
-      "optional": true
-    },
-    "import-meta-resolve": {
-      "optional": true
-    },
-    "ink-link": {
-      "optional": true
-    },
-    "ink-text-input": {
-      "optional": true
-    },
-    "json5": {
-      "optional": true
-    },
-    "lodash": {
-      "optional": true
-    },
-    "mini-css-extract-plugin": {
-      "optional": true
-    },
-    "node-notifier": {
-      "optional": true
-    },
-    "open": {
-      "optional": true
-    },
-    "open-editor": {
-      "optional": true
-    },
-    "parse5": {
-      "optional": true
-    },
-    "parse5-htmlparser2-tree-adapter": {
-      "optional": true
-    },
-    "patch-console": {
-      "optional": true
-    },
-    "pretty-format": {
-      "optional": true
-    },
-    "signale": {
-      "optional": true
-    },
-    "terser-webpack-plugin": {
-      "optional": true
-    },
-    "toml": {
-      "optional": true
-    },
-    "typanion": {
-      "optional": true
-    },
-    "type-fest": {
-      "optional": true
-    },
-    "webpack": {
-      "optional": true
-    },
-    "webpack-dev-middleware": {
-      "optional": true
-    },
-    "webpack-manifest-plugin": {
-      "optional": true
-    },
-    "zod": {
-      "optional": true
-    }
   }
 }

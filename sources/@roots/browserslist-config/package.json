@@ -45,26 +45,32 @@
   ],
   "exports": {
     ".": {
-      "require": "./default.cjs"
+      "require": "./default.cjs",
+      "default": "./default.cjs"
     },
     "./default": {
-      "require": "./default.cjs"
+      "require": "./default.cjs",
+      "default": "./default.cjs"
     },
     "./broad": {
-      "require": "./last-3-versions.cjs"
+      "require": "./last-3-versions.cjs",
+      "default": "./last-3-versions.cjs"
     },
     "./current": {
-      "require": "./last-2-versions.cjs"
+      "require": "./last-2-versions.cjs",
+      "default": "./last-2-versions.cjs"
     },
     "./next": {
-      "require": "./next.cjs"
+      "require": "./next.cjs",
+      "default": "./next.cjs"
     },
     "./wordpress": {
-      "require": "./wordpress.cjs"
+      "require": "./wordpress.cjs",
+      "default": "./wordpress.cjs"
     }
   },
-  "main": "./index.cjs",
-  "module": "./index.cjs",
+  "main": "./default.cjs",
+  "module": "./default.cjs",
   "types": "./types.d.ts",
   "devDependencies": {
     "@roots/bud-support": "workspace:sources/@roots/bud-support",

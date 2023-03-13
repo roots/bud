@@ -1,7 +1,4 @@
-import commonPath from '@roots/bud-support/common-path'
 import {bind} from '@roots/bud-support/decorators'
-import {resolve} from '@roots/bud-support/import-meta-resolve'
-import prettyFormat from '@roots/bud-support/pretty-format'
 import Signale, {
   Instance,
   Options as SignaleOptions,
@@ -14,21 +11,35 @@ interface Options extends SignaleOptions {
   logLevel?: `log` | `info` | `warn`
 }
 
+/**
+ * Logger
+ */
 export class Logger {
-  public commonPath: string = ``
-
+  /**
+   * Logger instance
+   */
   public declare instance: Instance
 
+  /**
+   * Class constructor
+   */
   public constructor(options: Options = {}) {
     options = {...defaults, ...options}
-    if (argv.has(`no-log`)) options.disabled = true
-    if (argv.has(`log`)) options.logLevel = `log`
-    if (argv.has(`verbose`)) options.logLevel = `info`
-    if (!argv.has(`log`) && !argv.has(`no-log`)) options.logLevel = `warn`
+
+    if (argv.has(`no-log`)) {
+      options.disabled = true
+    } else {
+      options.logLevel = `warn`
+      if (argv.has(`verbose`)) options.logLevel = `info`
+      if (argv.has(`log`)) options.logLevel = `log`
+    }
 
     this.instance = new Signale(options)
   }
 
+  /**
+   * Make scoped logger instance
+   */
   @bind
   public make(...scope: Array<string>) {
     const logger = new Logger().scope(...scope)
@@ -36,100 +47,58 @@ export class Logger {
   }
 
   @bind
-  public async setCommonPath(path: string) {
-    const sharedModulePath = await resolve(`webpack`, import.meta.url)
-    this.commonPath = commonPath([path, sharedModulePath]).commonDir
-    return this
-  }
-
-  /**
-   * Format logger messages
-   *
-   * @param messages - any
-
-    */
-  @bind
-  public format(...messages: Array<unknown>) {
-    return messages.map(message => {
-      if (typeof message !== `string`) {
-        try {
-          return prettyFormat(message, {
-            highlight: false,
-            maxDepth: 3,
-            printFunctionName: false,
-            printBasicPrototype: false,
-          })
-        } catch (e) {
-          return message
-        }
-      }
-
-      return message
-        .replaceAll(/file:\/\//g, ``)
-        .replaceAll(new RegExp(this.commonPath, `g`), ``)
-    })
-  }
-
-  @bind
   public log(...messages: Array<unknown>) {
-    this.instance.log(...this.format(...messages))
+    this.instance.log(...messages)
     return this
   }
+
   @bind
   public time(label: string) {
     this.instance.time(label)
     return this
   }
+
   @bind
   public timeEnd(label: string) {
     this.instance.timeEnd(label)
     return this
   }
+
   @bind
   public success(...messages: Array<unknown>) {
-    this.instance.success(...this.format(...messages))
+    this.instance.success(...messages)
     return this
   }
+
   @bind
   public info(...messages: Array<unknown>) {
     if (!argv.has(`verbose`)) return this
-    this.instance.info(...this.format(...messages))
+    this.instance.info(...messages)
     return this
   }
+
   @bind
   public warn(...messages: Array<unknown>) {
-    this.instance.warn(...this.format(...messages))
+    this.instance.warn(...messages)
     return this
   }
+
   @bind
   public error(...messages: Array<unknown>) {
-    this.instance.error(...this.format(...messages))
+    this.instance.error(...messages)
     return this
   }
+
   @bind
   public debug(...messages: Array<unknown>) {
     if (!argv.has(`verbose`)) return this
-    this.instance.debug(...this.format(...messages))
+    this.instance.debug(...messages)
     return this
   }
-  @bind
-  public fav(...messages: Array<unknown>) {
-    this.instance.fav(...this.format(...messages))
-    return this
-  }
-  @bind
-  public pending(...messages: Array<unknown>) {
-    this.instance.pending(...this.format(...messages))
-    return this
-  }
-  @bind
-  public star(...messages: Array<unknown>) {
-    this.instance.star(...this.format(...messages))
-    return this
-  }
+
   @bind
   public await(...messages: Array<unknown>) {
-    this.instance.await(...this.format(...messages))
+    this.instance.await(...messages)
     return this
   }
   @bind

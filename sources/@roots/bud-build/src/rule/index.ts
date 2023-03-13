@@ -247,7 +247,7 @@ class Rule extends Base implements Interface {
       return {...a, [k]: v}
     }, {})
 
-    this.app.info(output)
+    this.app.build.logger.info(output)
 
     return output
   }

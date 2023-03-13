@@ -2,11 +2,7 @@ import {dry} from '@roots/bud/cli/decorators'
 import type {Bud} from '@roots/bud-framework'
 import {bind} from '@roots/bud-framework/extension/decorators'
 import {Command, Option} from '@roots/bud-support/clipanion'
-import {highlight} from '@roots/bud-support/highlight'
 import Ink from '@roots/bud-support/ink'
-import {TextInput} from '@roots/bud-support/ink-text-input'
-import chunk from '@roots/bud-support/lodash/chunk'
-import format from '@roots/bud-support/pretty-format'
 import {useEffect, useState} from '@roots/bud-support/react'
 import React from '@roots/bud-support/react'
 
@@ -43,11 +39,27 @@ export default class BudReplCommand extends BudCommand {
    */
   @bind
   public override async execute() {
+    const {highlight} = await import(`@roots/bud-support/highlight`)
+    const {TextInput} = await import(`@roots/bud-support/ink-text-input`)
+    const {default: chunk} = await import(
+      `@roots/bud-support/lodash/chunk`
+    )
+    const {default: format} = await import(
+      `@roots/bud-support/pretty-format`
+    )
     await this.makeBud(this)
     await this.bud.run()
 
     await this.render(
-      <Repl app={this.bud} indent={this.indent} depth={this.depth} />,
+      <Repl
+        app={this.bud}
+        indent={this.indent}
+        depth={this.depth}
+        highlight={highlight}
+        TextInput={TextInput}
+        chunk={chunk}
+        format={format}
+      />,
     )
   }
 }
@@ -56,9 +68,21 @@ interface ReplProps {
   app: Bud
   indent: string
   depth: string
+  highlight: any
+  TextInput: any
+  chunk: any
+  format: any
 }
 
-const Repl = ({app, indent, depth}: ReplProps) => {
+const Repl = ({
+  app,
+  indent,
+  depth,
+  highlight,
+  TextInput,
+  chunk,
+  format,
+}: ReplProps) => {
   const [search, setSearch] = useState(``)
   const [result, setResult] = useState(``)
   const [paged, setPaged] = useState([])
@@ -106,12 +130,10 @@ const Repl = ({app, indent, depth}: ReplProps) => {
   useEffect(() => {
     if (result) {
       setPaged(
-        chunk<string>(result.split(`\n`), pageSize).map(page =>
-          page.join(`\n`),
-        ),
+        chunk(result.split(`\n`), pageSize).map(page => page.join(`\n`)),
       )
     }
-  }, [result, pageSize])
+  }, [chunk, result, pageSize])
 
   useEffect(() => {
     if (page > paged.length) {

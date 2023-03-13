@@ -43,15 +43,18 @@
   "exports": {
     ".": {
       "types": "./lib/index.d.ts",
-      "import": "./lib/index.js"
+      "import": "./lib/index.js",
+      "default": "./lib/index.js"
     },
     "./css-minimizer": {
       "types": "./lib/css-minimizer/index.d.ts",
-      "import": "./lib/css-minimizer/index.js"
+      "import": "./lib/css-minimizer/index.js",
+      "default": "./lib/css-minimizer/index.js"
     },
     "./types": {
       "types": "./lib/types.d.ts",
-      "import": "./lib/types.js"
+      "import": "./lib/types.js",
+      "default": "./lib/types.js"
     }
   },
   "typesVersions": {
@@ -77,7 +80,8 @@
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "terser-webpack-plugin": "5.3.6"
+    "terser-webpack-plugin": "5.3.6",
+    "tslib": "2.5.0"
   },
   "peerDependencies": {
     "@roots/bud-framework": "workspace:*",

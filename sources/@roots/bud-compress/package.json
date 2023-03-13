@@ -84,6 +84,7 @@
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "compression-webpack-plugin": "^10.0.0",
+    "tslib": "2.5.0",
     "webpack": "5.75.0"
   },
   "peerDependencies": {

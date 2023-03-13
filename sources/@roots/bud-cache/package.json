@@ -84,7 +84,8 @@
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "strip-ansi": "7.0.1"
+    "strip-ansi": "7.0.1",
+    "tslib": "2.5.0"
   },
   "peerDependencies": {
     "@roots/bud-framework": "workspace:*",

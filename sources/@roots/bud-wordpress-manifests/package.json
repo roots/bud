@@ -68,7 +68,8 @@
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-wordpress-dependencies": "workspace:sources/@roots/bud-wordpress-dependencies",
     "@roots/bud-wordpress-externals": "workspace:sources/@roots/bud-wordpress-externals",
-    "@roots/merged-manifest-webpack-plugin": "workspace:sources/@roots/merged-manifest-webpack-plugin"
+    "@roots/merged-manifest-webpack-plugin": "workspace:sources/@roots/merged-manifest-webpack-plugin",
+    "tslib": "2.5.0"
   },
   "peerDependencies": {
     "@roots/bud": "workspace:*",

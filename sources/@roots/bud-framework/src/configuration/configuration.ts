@@ -34,7 +34,10 @@ class Configuration {
    */
   @bind
   public async dynamicConfig(description: any): Promise<unknown> {
-    this.bud.log(`processing as dynamic configuration:`, description.name)
+    this.bud.context.logger?.log(
+      `processing as dynamic configuration:`,
+      description.name,
+    )
 
     const configCallable =
       description.module?.default ?? description.module
@@ -47,7 +50,10 @@ class Configuration {
    */
   @bind
   public async staticConfig(description: File): Promise<unknown> {
-    this.bud.log(`processing as static configuration:`, description.name)
+    this.bud.context.logger?.log(
+      `processing as static configuration:`,
+      description.name,
+    )
 
     return await Promise.all(
       Object.entries(description.module).map(async ([key, value]) => {

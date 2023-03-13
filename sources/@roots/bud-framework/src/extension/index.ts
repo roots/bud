@@ -7,6 +7,7 @@ import type {Instance as Signale} from '@roots/bud-support/signale'
 
 import type {Bud} from '../bud.js'
 import type {Modules} from '../index.js'
+import type {Service} from '../service.js'
 import type {ApplyPluginConstructor} from './decorators/plugin.js'
 
 export type Options<T = Record<string, any>> = {
@@ -105,6 +106,7 @@ export class Extension<
   public label: keyof Modules & string
 
   /**
+   * Logger
    */
   public logger: Signale
 
@@ -129,7 +131,7 @@ export class Extension<
   }
 
   /**
-   * `init` callback
+   * {@link Service.init} callback
    */
   public async init?(
     app: Bud,
@@ -137,7 +139,7 @@ export class Extension<
   ): Promise<unknown>
 
   /**
-   * `register` callback
+   * {@link Service.register} callback
    */
   public async register?(
     app: Bud,
@@ -145,10 +147,7 @@ export class Extension<
   ): Promise<unknown>
 
   /**
-   * `boot` callback
-   *
-   * @param options - Extension options
-   * @param app - Bud instance
+   * {@link Service.boot} callback
    */
   public async boot?(
     app: Bud,
@@ -156,26 +155,26 @@ export class Extension<
   ): Promise<unknown>
 
   /**
-   * `configAfter` callback
+   * {@link Service.configAfter} callback
    */
   public async configAfter?(
-    app: Bud,
+    bud: Bud,
     options?: ExtensionOptions,
   ): Promise<unknown>
 
   /**
-   * `buildBefore` callback
+   * {@link Service.buildBefore} callback
    */
   public async buildBefore?(
-    app: Bud,
+    bud: Bud,
     options?: ExtensionOptions,
   ): Promise<unknown>
 
   /**
-   * `buildAfter` callback
+   * {@link Service.buildAfter} callback
    */
   public async buildAfter?(
-    app: Bud,
+    bud: Bud,
     options?: ExtensionOptions,
   ): Promise<unknown>
 
@@ -304,14 +303,8 @@ export class Extension<
    */
   @bind
   public async _make() {
-    if (isUndefined(this.make) && isUndefined(this.plugin)) {
-      return false
-    }
-
-    const enabled = await this.isEnabled()
-    if (enabled === false) {
-      return false
-    }
+    if (isUndefined(this.make) && isUndefined(this.plugin)) return false
+    if (this.isEnabled() === false) return false
 
     try {
       if (!isUndefined(this.apply)) {
@@ -444,62 +437,25 @@ export class Extension<
   }
 
   /**
-   * Returns true if extension property is set and is a function
-   */
-  @bind
-  public isFunction<K extends `${keyof Extension}`>(key: K): boolean {
-    return key in this && isFunction(this[key]) ? true : false
-  }
-
-  /**
    * Resolve module using `import.meta.resolve` api
    */
   @bind
   public async resolve(
     signifier: string,
-    context?: string,
-  ): Promise<string> {
-    let modulePath: string
-
-    modulePath = await this.app.module.resolve(signifier)
-
-    if (!modulePath && context) {
-      modulePath = await this.app.module.resolve(signifier, context)
-    }
-
-    if (!modulePath) {
-      const error = new Error(`could not resolve ${signifier}`)
-      error.name = `Extension Dependency Error`
-      throw error
-    }
-
-    return modulePath
+    context: string,
+  ): Promise<string | false> {
+    return await this.app.module.resolve(signifier, context)
   }
 
   /**
    * Import ESM module
    */
   @bind
-  public async import<T = any>(signifier: string): Promise<T | undefined> {
-    try {
-      const path = await this.resolve(signifier)
-
-      if (!path) {
-        this.logger.error(`could not import`, signifier)
-        return
-      }
-
-      const result = await this.app.module.import(path)
-      if (!result) {
-        this.logger.error(`could not import`, signifier)
-        return
-      }
-
-      this.logger.success(`imported`, signifier)
-      return result?.default ?? result ?? undefined
-    } catch (error) {
-      this.logger.error(`error importing`, signifier)
-    }
+  public async import<T = any>(
+    signifier: string,
+    context: string,
+  ): Promise<T | false> {
+    return await this.app.module.import(signifier, context)
   }
 
   /**

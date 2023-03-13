@@ -74,7 +74,8 @@
   },
   "dependencies": {
     "@fullhuman/postcss-purgecss": "5.0.0",
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "tslib": "2.5.0"
   },
   "peerDependencies": {
     "@fullhuman/postcss-purgecss": "*",

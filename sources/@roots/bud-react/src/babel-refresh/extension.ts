@@ -22,9 +22,12 @@ export default class BudBabelRefresh extends Extension {
     if (!bud.react.useBabel) return
     await bud.react.ensureBabelIsLoaded()
 
-    bud.babel.setPlugin(
+    const plugin = await this.resolve(
       `react-refresh/babel`,
-      await this.resolve(`react-refresh/babel`),
+      import.meta.url,
     )
+    if (!plugin) throw new Error(`react-refresh/babel not found`)
+
+    bud.babel.setPlugin(`react-refresh/babel`, plugin)
   }
 }

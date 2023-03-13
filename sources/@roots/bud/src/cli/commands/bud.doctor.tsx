@@ -4,12 +4,9 @@ import type {Extension} from '@roots/bud-framework'
 import type {CommandContext} from '@roots/bud-framework/options'
 import {Command} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators'
-import figures from '@roots/bud-support/figures'
 import Ink from '@roots/bud-support/ink'
-import prettyFormat from '@roots/bud-support/pretty-format'
 import React from '@roots/bud-support/react'
-import webpack from '@roots/bud-support/webpack'
-import type {InspectTreeResult} from 'fs-jetpack/types.js'
+import type webpack from '@roots/bud-support/webpack'
 
 import {Error} from '../components/Error.js'
 import {WinError} from '../components/WinError.js'
@@ -62,10 +59,26 @@ for a lot of edge cases so it might return a false positive.
   }
   public timings: Record<string, string> = {}
 
+  protected figures
+  protected chalk
+  protected format
+  protected webpack
+
   /**
    * Execute command
    */
   public override async execute() {
+    const {default: chalk} = await import(`@roots/bud-support/chalk`)
+    const {default: figures} = await import(`@roots/bud-support/figures`)
+    const {default: format} = await import(
+      `@roots/bud-support/pretty-format`
+    )
+    const {default: webpack} = await import(`@roots/bud-support/webpack`)
+    this.figures = figures
+    this.chalk = chalk
+    this.format = format
+    this.webpack = webpack
+
     try {
       const buildTimer = this.makeTimer()
       await this.makeBud(this)
@@ -103,7 +116,7 @@ for a lot of edge cases so it might return a false positive.
       await this.renderOnce(
         <Ink.Box flexDirection="column">
           <Ink.Text color="yellow">
-            {figures.info} Detected compilation cache
+            {this.figures.info} Detected compilation cache
           </Ink.Text>
           <Ink.Spacer />
           <Ink.Text>
@@ -111,12 +124,12 @@ for a lot of edge cases so it might return a false positive.
             clearing the cache.{`\n`}
           </Ink.Text>
           <Ink.Text>
-            {figures.triangleRightSmall} To delete this directory with the
-            CLI run{` `}
+            {this.figures.triangleRightSmall} To delete this directory with
+            the CLI run{` `}
             <Ink.Text color="green">`bud clean`</Ink.Text>, or;
           </Ink.Text>
           <Ink.Text>
-            {figures.triangleRightSmall} Use the{` `}
+            {this.figures.triangleRightSmall} Use the{` `}
             <Ink.Text color="green">`--force`</Ink.Text> flag on your next
             build
           </Ink.Text>
@@ -132,13 +145,13 @@ for a lot of edge cases so it might return a false positive.
         <Ink.Box flexDirection="column">
           <Ink.Text>
             {process.version.match(/v1[6|7|8|9]/)
-              ? figures.tick
-              : figures.cross}
+              ? this.figures.tick
+              : this.figures.cross}
             {` `}
             node: {process.version}
           </Ink.Text>
           <Ink.Text>
-            {isWindows() ? figures.cross : figures.tick} os:{` `}
+            {isWindows() ? this.figures.cross : this.figures.tick} os:{` `}
             {process.platform}
           </Ink.Text>
         </Ink.Box>
@@ -160,7 +173,7 @@ for a lot of edge cases so it might return a false positive.
           <Ink.Text color="blue">Child compilers{`\n`}</Ink.Text>
           {Object.values(this.bud.children).map((child, i) => (
             <Ink.Box key={i} flexDirection="row">
-              <Ink.Text>{figures.triangleRightSmall}</Ink.Text>
+              <Ink.Text>{this.figures.triangleRightSmall}</Ink.Text>
               <Ink.Text>{` `}</Ink.Text>
               <Ink.Text>{child.label}</Ink.Text>
             </Ink.Box>
@@ -194,6 +207,44 @@ for a lot of edge cases so it might return a false positive.
         <Ink.Text>
           cache: {` `}
           @project/{this.bud.relPath(this.bud.cache.cacheDirectory)}
+        </Ink.Text>
+      </Ink.Box>,
+    )
+
+    await this.renderOnce(
+      <Ink.Box flexDirection="column">
+        <Ink.Text color="blue">Resolved modules</Ink.Text>
+        <Ink.Text>{` `}</Ink.Text>
+        <Ink.Text>
+          {Object.entries(this.bud.module.resolved).map(
+            ([signifier, path]) =>
+              `${chalk.green(
+                this.figures.triangleRightSmall,
+              )} ${chalk.green(
+                this.bud.relPath(signifier),
+              )} => ${this.bud.relPath(path)}\n`,
+          )}
+        </Ink.Text>
+      </Ink.Box>,
+    )
+
+    await this.renderOnce(
+      <Ink.Box flexDirection="column">
+        <Ink.Text color="blue">Unresolvable modules</Ink.Text>
+        <Ink.Text>{` `}</Ink.Text>
+        <Ink.Text>
+          {Object.entries(this.bud.module.unresolvable)?.length
+            ? Object.entries(this.bud.module.unresolvable).map(
+                ([signifier, path]) =>
+                  `${chalk.yellow(
+                    this.figures.triangleRightSmall,
+                  )} ${chalk.yellow(
+                    this.bud.relPath(signifier),
+                  )} => ${this.bud.relPath(path)}\n`,
+              )
+            : chalk.green(
+                `${this.figures.tick} All modules resolved successfully`,
+              )}
         </Ink.Text>
       </Ink.Box>,
     )
@@ -288,7 +339,7 @@ for a lot of edge cases so it might return a false positive.
           {configFiles.map(({name, path}, i) => (
             <Ink.Box key={i}>
               <Ink.Text>
-                {figures.triangleRightSmall} {name}
+                {this.figures.triangleRightSmall} {name}
               </Ink.Text>
               <Ink.Text>{` `}</Ink.Text>
               <Ink.Text dimColor>
@@ -320,7 +371,7 @@ for a lot of edge cases so it might return a false positive.
             this.bud.api.trace.map(([fn, args], i) => (
               <Ink.Box flexDirection="row" key={i}>
                 <Ink.Text>
-                  {figures.triangleRightSmall} {fn}
+                  {this.figures.triangleRightSmall} {fn}
                 </Ink.Text>
                 <Ink.Text>{` `}</Ink.Text>
                 <Ink.Text dimColor>
@@ -373,7 +424,7 @@ for a lot of edge cases so it might return a false positive.
             {this.bud.env.getEntries().map(([key, value]) => {
               return (
                 <Ink.Box key={key} flexDirection="row">
-                  <Ink.Text>{figures.triangleRightSmall}</Ink.Text>
+                  <Ink.Text>{this.figures.triangleRightSmall}</Ink.Text>
                   <Ink.Text>{` `}</Ink.Text>
                   <Ink.Text>{key}</Ink.Text>
                   <Ink.Text>{` `}</Ink.Text>
@@ -468,7 +519,7 @@ for a lot of edge cases so it might return a false positive.
               .map((script, key) => {
                 return (
                   <Ink.Text key={key}>
-                    {figures.triangleRightSmall} {script}
+                    {this.figures.triangleRightSmall} {script}
                   </Ink.Text>
                 )
               })}
@@ -483,7 +534,7 @@ for a lot of edge cases so it might return a false positive.
       await this.renderOnce(
         <Ink.Box>
           <Ink.Text color="green">
-            {figures.tick} webpack validated configuration
+            {this.figures.tick} webpack validated configuration
           </Ink.Text>
         </Ink.Box>,
       )
@@ -500,7 +551,7 @@ for a lot of edge cases so it might return a false positive.
     return extensions.map(([name, extension]) => (
       <Ink.Box key={`extension-${name}`} flexDirection="column">
         <Ink.Text color="white">
-          {figures.triangleRightSmall} {name}
+          {this.figures.triangleRightSmall} {name}
         </Ink.Text>
       </Ink.Box>
     ))
@@ -514,7 +565,7 @@ for a lot of edge cases so it might return a false positive.
         <Ink.Box key={`${name}-entry`} flexDirection="column">
           <Ink.Text>{name}</Ink.Text>
           <Ink.Text dimColor>
-            {prettyFormat(entry, {
+            {this.format(entry, {
               printBasicPrototype: false,
             })}
           </Ink.Text>
@@ -524,7 +575,7 @@ for a lot of edge cases so it might return a false positive.
   }
 
   public async ls(path: string) {
-    const formatFilesArray = (files: Array<InspectTreeResult>) => {
+    const formatFilesArray = (files: Array<any>) => {
       return files.map((file, id) => {
         return (
           <Ink.Box
@@ -533,7 +584,9 @@ for a lot of edge cases so it might return a false positive.
           >
             <Ink.Text>
               <Ink.Text dimColor>
-                {file.children ? figures.ellipsis : figures.pointerSmall}
+                {file.children
+                  ? this.figures.ellipsis
+                  : this.figures.pointerSmall}
               </Ink.Text>
               {` `}
               {file.name}
@@ -567,7 +620,7 @@ for a lot of edge cases so it might return a false positive.
       return (
         <Ink.Text>
           <Ink.Text color="green">
-            {figures.tick} {signifier} meets requirements
+            {this.figures.tick} {signifier} meets requirements
           </Ink.Text>
           {` `}
           (required:{` `}
@@ -587,7 +640,7 @@ for a lot of edge cases so it might return a false positive.
     const renderMessage = (type: `dependencies` | `devDependencies`) => (
       <Ink.Text key={key}>
         <Ink.Text color="yellow">
-          {figures.warning}
+          {this.figures.warning}
           {`  `}
           {dependency}
         </Ink.Text>
@@ -618,7 +671,7 @@ for a lot of edge cases so it might return a false positive.
     return (
       <Ink.Text key={key}>
         <Ink.Text color="green">
-          {figures.tick} {dependency}
+          {this.figures.tick} {dependency}
         </Ink.Text>
         {` `}
         is managed by bud.js ({requestedVersion})

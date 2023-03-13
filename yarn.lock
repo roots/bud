@@ -6821,7 +6821,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@repo/constants@workspace:sources/@repo/constants":
+"@repo/constants@workspace:*, @repo/constants@workspace:sources/@repo/constants":
   version: 0.0.0-use.local
   resolution: "@repo/constants@workspace:sources/@repo/constants"
   dependencies:
@@ -6915,7 +6915,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@repo/test-kit@workspace:sources/@repo/test-kit":
+"@repo/test-kit@workspace:*, @repo/test-kit@workspace:sources/@repo/test-kit":
   version: 0.0.0-use.local
   resolution: "@repo/test-kit@workspace:sources/@repo/test-kit"
   dependencies:
@@ -6995,6 +6995,7 @@ __metadata:
     helpful-decorators: 2.1.0
     lodash: 4.17.21
     memfs: 3.4.13
+    tslib: 2.5.0
     webpack: 5.75.0
   languageName: unknown
   linkType: soft
@@ -7033,6 +7034,7 @@ __metadata:
     "@roots/container": "workspace:sources/@roots/container"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.11.18
+    tslib: 2.5.0
   peerDependencies:
     "@roots/bud-extensions": "workspace:*"
     "@roots/bud-framework": "workspace:*"
@@ -7070,6 +7072,7 @@ __metadata:
     "@types/babel__preset-env": 7.9.2
     "@types/node": 18.11.18
     babel-loader: 9.1.2
+    tslib: 2.5.0
     webpack: 5.75.0
   peerDependencies:
     "@babel/core": "*"
@@ -7083,7 +7086,7 @@ __metadata:
     "@types/babel__plugin-transform-runtime": "*"
     "@types/babel__preset-env": "*"
     babel-loader: "*"
-    webpack: "*"
+    webpack: 5.75.0
   peerDependenciesMeta:
     "@babel/core":
       optional: true
@@ -7122,6 +7125,7 @@ __metadata:
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.11.18
+    tslib: 2.5.0
   peerDependencies:
     "@roots/bud-api": "workspace:*"
     "@roots/bud-framework": "workspace:*"
@@ -7147,6 +7151,7 @@ __metadata:
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
     strip-ansi: 7.0.1
+    tslib: 2.5.0
   peerDependencies:
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-support": "workspace:*"
@@ -7169,6 +7174,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/node": 18.11.18
     "@types/webpack-env": 1.18.0
+    tslib: 2.5.0
   peerDependencies:
     "@roots/bud": "workspace:*"
     "@types/webpack-env": "*"
@@ -7190,6 +7196,7 @@ __metadata:
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.11.18
+    tslib: 2.5.0
   peerDependencies:
     "@roots/bud-api": "workspace:*"
     "@roots/bud-dashboard": "workspace:*"
@@ -7217,6 +7224,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/node": 18.11.18
     compression-webpack-plugin: ^10.0.0
+    tslib: 2.5.0
     webpack: 5.75.0
   peerDependencies:
     "@roots/bud": "workspace:*"
@@ -7247,6 +7255,7 @@ __metadata:
     "@types/node": 18.11.18
     "@types/vinyl": 2.0.7
     critical: 5.0.4
+    tslib: 2.5.0
     vinyl: 3.0.0
   peerDependencies:
     "@roots/bud": "workspace:*"
@@ -7281,6 +7290,7 @@ __metadata:
     "@types/node": 18.11.18
     human-readable: 0.2.1
     ink-testing-library: 2.1.0
+    tslib: 2.5.0
   peerDependencies:
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-support": "workspace:*"
@@ -7309,6 +7319,7 @@ __metadata:
     "@swc/plugin-emotion": 2.5.40
     "@types/babel__core": 7.20.0
     "@types/node": 18.11.18
+    tslib: 2.5.0
   peerDependencies:
     "@babel/core": 7.20.7
     "@emotion/babel-plugin": "*"
@@ -7357,6 +7368,7 @@ __metadata:
     "@roots/entrypoints-webpack-plugin": "workspace:sources/@roots/entrypoints-webpack-plugin"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.11.18
+    tslib: 2.5.0
   peerDependencies:
     "@roots/bud": "workspace:*"
     "@roots/bud-framework": "workspace:*"
@@ -7382,6 +7394,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/node": 18.11.18
     esbuild-loader: 2.21.0
+    tslib: 2.5.0
     webpack: 5.75.0
   peerDependencies:
     "@roots/bud": "workspace:*"
@@ -7409,6 +7422,7 @@ __metadata:
     "@types/node": 18.11.18
     eslint: 8.34.0
     eslint-webpack-plugin: ^3.2.0
+    tslib: 2.5.0
     webpack: 5.75.0
   peerDependencies:
     "@roots/bud": "workspace:*"
@@ -7441,6 +7455,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/node": 18.11.18
     palette-webpack-plugin: 1.0.5
+    tslib: 2.5.0
     webpack: 5.75.0
   peerDependencies:
     "@roots/bud-framework": "workspace:*"
@@ -7475,18 +7490,12 @@ __metadata:
     "@roots/bud-support": "workspace:*"
     "@roots/container": "workspace:*"
     "@roots/filesystem": "workspace:*"
-    execa: 7.0.0
-    tslib: 2.4.1
   peerDependenciesMeta:
     "@roots/bud-support":
       optional: true
     "@roots/container":
       optional: true
     "@roots/filesystem":
-      optional: true
-    execa:
-      optional: true
-    tslib:
       optional: true
   languageName: unknown
   linkType: soft
@@ -7499,6 +7508,7 @@ __metadata:
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.11.18
+    tslib: 2.5.0
   peerDependencies:
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-support": "workspace:*"
@@ -7521,6 +7531,7 @@ __metadata:
     "@types/node": 18.11.18
     image-minimizer-webpack-plugin: ^3.8.1
     sharp: 0.31.3
+    tslib: 2.5.0
     webpack: 5.75.0
   peerDependencies:
     "@roots/bud": "workspace:*"
@@ -7558,6 +7569,7 @@ __metadata:
     "@types/react-dom": 18.0.10
     react: 18.2.0
     react-dom: 18.2.0
+    tslib: 2.5.0
     webpack: 5.75.0
   peerDependencies:
     "@mdx-js/loader": "*"
@@ -7601,6 +7613,7 @@ __metadata:
     postcss-loader: 7.0.2
     postcss-nested: 6.0.0
     postcss-preset-env: 8.0.0
+    tslib: 2.5.0
     webpack: 5.75.0
   peerDependencies:
     "@roots/bud": "workspace:*"
@@ -7638,6 +7651,7 @@ __metadata:
     "@roots/bud-swc": "workspace:sources/@roots/bud-swc"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.11.18
+    tslib: 2.5.0
   peerDependencies:
     "@roots/bud": "workspace:*"
     "@roots/bud-babel": "workspace:*"
@@ -7673,6 +7687,7 @@ __metadata:
     "@roots/wordpress-hmr": "workspace:sources/@roots/wordpress-hmr"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.11.18
+    tslib: 2.5.0
   peerDependencies:
     "@roots/bud": "workspace:*"
     "@roots/bud-preset-recommend": "workspace:*"
@@ -7707,6 +7722,7 @@ __metadata:
     "@types/node": 18.11.18
     "@types/prettier": 2.7.2
     prettier: 2.8.3
+    tslib: 2.5.0
   peerDependencies:
     "@roots/bud": "workspace:*"
     prettier: "*"
@@ -7728,6 +7744,7 @@ __metadata:
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.11.18
+    tslib: 2.5.0
   peerDependencies:
     "@fullhuman/postcss-purgecss": "*"
     "@roots/bud": "workspace:*"
@@ -7767,6 +7784,7 @@ __metadata:
     react: 18.2.0
     react-dom: 18.2.0
     react-refresh: 0.14.0
+    tslib: 2.5.0
     webpack: 5.75.0
   peerDependencies:
     "@babel/core": "*"
@@ -7842,6 +7860,7 @@ __metadata:
     stylelint: 14.16.1
     stylelint-config-recommended-scss: ^8.0.0
     stylelint-scss: ^4.3.0
+    tslib: 2.5.0
     webpack: 5.75.0
   peerDependencies:
     "@roots/bud": "workspace:*"
@@ -7878,6 +7897,7 @@ __metadata:
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
+    tslib: 2.5.0
   peerDependencies:
     "@roots/bud-client": "workspace:*"
     "@roots/bud-framework": "workspace:*"
@@ -7907,6 +7927,7 @@ __metadata:
     "@types/node": 18.11.18
     babel-preset-solid: 1.6.9
     solid-js: 1.6.9
+    tslib: 2.5.0
   peerDependencies:
     "@babel/plugin-syntax-jsx": "*"
     "@roots/bud-babel": "workspace:*"
@@ -7947,6 +7968,7 @@ __metadata:
     stylelint: 14.16.1
     stylelint-config-standard: 29.0.0
     stylelint-webpack-plugin: 3.3.0
+    tslib: 2.5.0
     webpack: 5.75.0
   peerDependencies:
     "@roots/bud": "workspace:*"
@@ -7991,7 +8013,7 @@ __metadata:
     chokidar: 3.5.3
     clean-stack: 5.1.0
     clean-webpack-plugin: 4.0.0
-    clipanion: 3.2.0-rc.14
+    clipanion: 3.2.0
     common-path: 1.0.1
     connect: 3.7.0
     cookie-parser: 1.4.6
@@ -8040,6 +8062,7 @@ __metadata:
     style-loader: 3.3.1
     terser-webpack-plugin: 5.3.6
     toml: 3.0.0
+    tslib: 2.5.0
     typanion: 3.12.1
     type-fest: 3.5.0
     webpack: 5.75.0
@@ -8048,146 +8071,6 @@ __metadata:
     xml-loader: 1.2.1
     yml-loader: 2.1.0
     zod: 3.20.6
-  peerDependencies:
-    axios: "*"
-    chalk: ">=5"
-    chokidar: "*"
-    clean-stack: "*"
-    clean-webpack-plugin: "*"
-    clipanion: "*"
-    common-path: "*"
-    connect: "*"
-    cookie-parser: "*"
-    copy-webpack-plugin: "*"
-    css-minimizer-webpack-plugin: "*"
-    dotenv: "*"
-    dotenv-expand: "*"
-    execa: "*"
-    express: "*"
-    figures: "*"
-    fs-extra: "*"
-    fs-jetpack: "*"
-    get-port: "*"
-    globby: "*"
-    helpful-decorators: "*"
-    highlight.js: "*"
-    html-webpack-plugin: "*"
-    http-proxy-middleware: "*"
-    import-meta-resolve: "*"
-    ink-link: "*"
-    ink-text-input: "*"
-    json5: "*"
-    lodash: ">=4"
-    mini-css-extract-plugin: ">=2"
-    node-notifier: ">=10"
-    open: ">=8"
-    open-editor: ">=4"
-    parse5: ">=7"
-    parse5-htmlparser2-tree-adapter: ">=7"
-    patch-console: ">=2"
-    pretty-format: ">=29"
-    signale: ">=1"
-    terser-webpack-plugin: "*"
-    toml: "*"
-    typanion: "*"
-    type-fest: "*"
-    webpack: 5.75.0
-    webpack-dev-middleware: "*"
-    webpack-manifest-plugin: "*"
-    zod: "*"
-  peerDependenciesMeta:
-    axios:
-      optional: true
-    chalk:
-      optional: true
-    chokidar:
-      optional: true
-    clean-stack:
-      optional: true
-    clean-webpack-plugin:
-      optional: true
-    clipanion:
-      optional: true
-    common-path:
-      optional: true
-    connect:
-      optional: true
-    cookie-parser:
-      optional: true
-    copy-webpack-plugin:
-      optional: true
-    css-minimizer-webpack-plugin:
-      optional: true
-    dotenv:
-      optional: true
-    dotenv-expand:
-      optional: true
-    execa:
-      optional: true
-    express:
-      optional: true
-    figures:
-      optional: true
-    fs-extra:
-      optional: true
-    fs-jetpack:
-      optional: true
-    get-port:
-      optional: true
-    globby:
-      optional: true
-    helpful-decorators:
-      optional: true
-    highlight.js:
-      optional: true
-    html-webpack-plugin:
-      optional: true
-    http-proxy-middleware:
-      optional: true
-    import-meta-resolve:
-      optional: true
-    ink-link:
-      optional: true
-    ink-text-input:
-      optional: true
-    json5:
-      optional: true
-    lodash:
-      optional: true
-    mini-css-extract-plugin:
-      optional: true
-    node-notifier:
-      optional: true
-    open:
-      optional: true
-    open-editor:
-      optional: true
-    parse5:
-      optional: true
-    parse5-htmlparser2-tree-adapter:
-      optional: true
-    patch-console:
-      optional: true
-    pretty-format:
-      optional: true
-    signale:
-      optional: true
-    terser-webpack-plugin:
-      optional: true
-    toml:
-      optional: true
-    typanion:
-      optional: true
-    type-fest:
-      optional: true
-    webpack:
-      optional: true
-    webpack-dev-middleware:
-      optional: true
-    webpack-manifest-plugin:
-      optional: true
-    zod:
-      optional: true
   languageName: unknown
   linkType: soft
 
@@ -8203,6 +8086,7 @@ __metadata:
     "@swc/helpers": 0.4.14
     "@types/node": 18.11.18
     swc-loader: 0.2.3
+    tslib: 2.5.0
     webpack: 5.75.0
   peerDependencies:
     "@roots/bud": "workspace:*"
@@ -8232,6 +8116,7 @@ __metadata:
     "@roots/bud-wordpress-theme-json": "workspace:sources/@roots/bud-wordpress-theme-json"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.11.18
+    tslib: 2.5.0
   peerDependencies:
     "@roots/bud": "workspace:*"
     "@roots/bud-framework": "workspace:*"
@@ -8265,6 +8150,7 @@ __metadata:
     "@types/tailwindcss": 3.1.0
     "@types/webpack-virtual-modules": 0.1.1
     tailwindcss: 3.2.7
+    tslib: 2.5.0
     webpack: 5.75.0
     webpack-virtual-modules: 0.5.0
   peerDependencies:
@@ -8288,6 +8174,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/node": 18.11.18
     terser-webpack-plugin: 5.3.6
+    tslib: 2.5.0
   peerDependencies:
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-support": "workspace:*"
@@ -8322,6 +8209,7 @@ __metadata:
     react-refresh-typescript: 2.0.7
     ts-loader: ^9.4.2
     ts-node: 10.9.1
+    tslib: 2.5.0
     typescript: 4.9.4
     webpack: 5.75.0
   peerDependencies:
@@ -8360,6 +8248,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/node": 18.11.18
     "@vue/compiler-sfc": ^3.2.45
+    tslib: 2.5.0
     vue: ^3.2.45
     vue-loader: ^17.0.1
     vue-style-loader: ^4.1.3
@@ -8397,6 +8286,7 @@ __metadata:
     "@roots/wordpress-dependencies-webpack-plugin": "workspace:sources/@roots/wordpress-dependencies-webpack-plugin"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.11.18
+    tslib: 2.5.0
   peerDependencies:
     "@roots/bud": "workspace:*"
     "@roots/wordpress-dependencies-webpack-plugin": "workspace:*"
@@ -8417,6 +8307,7 @@ __metadata:
     "@roots/wordpress-externals-webpack-plugin": "workspace:sources/@roots/wordpress-externals-webpack-plugin"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.11.18
+    tslib: 2.5.0
   peerDependencies:
     "@roots/bud": "workspace:*"
     "@roots/wordpress-externals-webpack-plugin": "workspace:*"
@@ -8439,6 +8330,7 @@ __metadata:
     "@roots/merged-manifest-webpack-plugin": "workspace:sources/@roots/merged-manifest-webpack-plugin"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.11.18
+    tslib: 2.5.0
   peerDependencies:
     "@roots/bud": "workspace:*"
     "@roots/bud-wordpress-dependencies": "workspace:*"
@@ -8460,17 +8352,26 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-wordpress-theme-json@workspace:sources/@roots/bud-wordpress-theme-json"
   dependencies:
-    "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@roots/container": "workspace:sources/@roots/container"
     "@roots/wordpress-theme-json-webpack-plugin": "workspace:sources/@roots/wordpress-theme-json-webpack-plugin"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.11.18
+    tslib: 2.5.0
   peerDependencies:
-    "@roots/bud": "workspace:*"
+    "@roots/bud-framework": "workspace:*"
+    "@roots/bud-support": "workspace:*"
+    "@roots/container": "workspace:*"
+    "@roots/wordpress-theme-json-webpack-plugin": "workspace:*"
   peerDependenciesMeta:
-    "@roots/bud":
+    "@roots/bud-framework":
+      optional: true
+    "@roots/bud-support":
+      optional: true
+    "@roots/container":
+      optional: true
+    "@roots/wordpress-theme-json-webpack-plugin":
       optional: true
   languageName: unknown
   linkType: soft
@@ -8479,6 +8380,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud@workspace:sources/@roots/bud"
   dependencies:
+    "@repo/constants": "workspace:*"
+    "@repo/test-kit": "workspace:*"
     "@roots/browserslist-config": "workspace:sources/@roots/browserslist-config"
     "@roots/bud-api": "workspace:sources/@roots/bud-api"
     "@roots/bud-build": "workspace:sources/@roots/bud-build"
@@ -8496,6 +8399,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/node": 18.11.18
     tslib: 2.4.1
+    vitest: 0.29.2
     webpack: 5.75.0
   peerDependencies:
     "@roots/browserslist-config": "workspace:*"
@@ -8562,6 +8466,7 @@ __metadata:
     "@types/node": 18.11.18
     helpful-decorators: 2.1.0
     lodash: 4.17.21
+    tslib: 2.5.0
     type-fest: 3.5.0
   languageName: unknown
   linkType: soft
@@ -8575,6 +8480,7 @@ __metadata:
     "@types/vinyl": 2.0.7
     critical: 5.0.4
     helpful-decorators: 2.1.0
+    tslib: 2.5.0
     vinyl: 3.0.0
     webpack: 5.75.0
   peerDependencies:
@@ -8589,6 +8495,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/node": 18.11.18
     helpful-decorators: 2.1.0
+    tslib: 2.5.0
   languageName: unknown
   linkType: soft
 
@@ -8601,10 +8508,8 @@ __metadata:
     "@types/node": 18.11.18
     helpful-decorators: 2.1.0
     lodash: 4.17.21
-    tslib: 2.4.1
+    tslib: 2.5.0
     webpack: 5.75.0
-  peerDependencies:
-    webpack: "*"
   languageName: unknown
   linkType: soft
 
@@ -8630,6 +8535,7 @@ __metadata:
     eslint-plugin-react: 7.32.1
     eslint-plugin-react-hooks: 4.6.0
     prettier: 2.8.3
+    tslib: 2.5.0
   peerDependencies:
     "@babel/core": "*"
     "@babel/eslint-parser": "*"
@@ -8700,6 +8606,7 @@ __metadata:
     lodash: 4.17.21
     mime-types: 2.1.35
     safe-json-stringify: 1.2.0
+    tslib: 2.5.0
   languageName: unknown
   linkType: soft
 
@@ -8712,6 +8619,7 @@ __metadata:
     "@types/node": 18.11.18
     fs-extra: 11.1.0
     helpful-decorators: 2.1.0
+    tslib: 2.5.0
     webpack: 5.75.0
   languageName: unknown
   linkType: soft
@@ -8729,6 +8637,7 @@ __metadata:
     "@roots/container": "workspace:sources/@roots/container"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.11.18
+    tslib: 2.5.0
   peerDependencies:
     "@roots/blade-loader": "workspace:*"
     "@roots/bud-build": "workspace:*"
@@ -8760,6 +8669,7 @@ __metadata:
     "@types/node": 18.11.18
     helpful-decorators: 2.1.0
     lodash: 4.17.21
+    tslib: 2.5.0
     webpack: 5.75.0
   languageName: unknown
   linkType: soft
@@ -8771,6 +8681,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/node": 18.11.18
     lodash: 4.17.21
+    tslib: 2.5.0
     webpack: 5.75.0
   languageName: unknown
   linkType: soft
@@ -8791,6 +8702,7 @@ __metadata:
     "@wordpress/hooks": 3.24.0
     "@wordpress/plugins": 5.5.0
     "@wordpress/rich-text": 6.4.0
+    tslib: 2.5.0
   peerDependencies:
     react: "*"
     react-dom: "*"
@@ -8812,6 +8724,7 @@ __metadata:
     fs-extra: 11.1.0
     helpful-decorators: 2.1.0
     lodash: 4.17.21
+    tslib: 2.5.0
     webpack: 5.75.0
   languageName: unknown
   linkType: soft
@@ -11033,6 +10946,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@vitest/expect@npm:0.29.2":
+  version: 0.29.2
+  resolution: "@vitest/expect@npm:0.29.2"
+  dependencies:
+    "@vitest/spy": 0.29.2
+    "@vitest/utils": 0.29.2
+    chai: ^4.3.7
+  checksum: 4366177b7b73da9e9779b789bbfafcf3541203ab6849d148527a5ce4d9e62601383d84efce4dbd2b55eee4bab17327ab20f6ccd9e9b6fb7d996ad8a477b564e0
+  languageName: node
+  linkType: hard
+
 "@vitest/runner@npm:0.28.1":
   version: 0.28.1
   resolution: "@vitest/runner@npm:0.28.1"
@@ -11055,6 +10979,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@vitest/runner@npm:0.29.2":
+  version: 0.29.2
+  resolution: "@vitest/runner@npm:0.29.2"
+  dependencies:
+    "@vitest/utils": 0.29.2
+    p-limit: ^4.0.0
+    pathe: ^1.1.0
+  checksum: 7778aa53dac58f741589a13b1faa2ade9856855eba2a9c885b29b6562c8a70e11ad07ddc9dc77ff8c8de0d4c6ab487a8ec44ffa8ef453e50d5e71a809d65c660
+  languageName: node
+  linkType: hard
+
 "@vitest/spy@npm:0.28.1":
   version: 0.28.1
   resolution: "@vitest/spy@npm:0.28.1"
@@ -11070,6 +11005,15 @@ __metadata:
   dependencies:
     tinyspy: ^1.0.2
   checksum: 3c5583ee3320f445682f06ec538ac9a13f5a1cf2ad08afbd7f714a651e97b93573bc4b6d5e0b2bd680ff4c10f1e45749213e6bf2c128af9f03cd378d66b143c7
+  languageName: node
+  linkType: hard
+
+"@vitest/spy@npm:0.29.2":
+  version: 0.29.2
+  resolution: "@vitest/spy@npm:0.29.2"
+  dependencies:
+    tinyspy: ^1.0.2
+  checksum: ad43b97c6f681e9bc09a10b522d0d7341f895136dde9b46ff0cc7444969a343b6ad430271338468012870bde14bc6ab18e18879390c3a7d86978228a54da34db
   languageName: node
   linkType: hard
 
@@ -11107,6 +11051,19 @@ __metadata:
     picocolors: ^1.0.0
     pretty-format: ^27.5.1
   checksum: db57a66550db8031ab8f1a815501ca5ef0b22134dcc0e989314469b58b1a17e2ea3bcad8f540a471a0d9318105aee5b0c1fe51293257898941d5113554875947
+  languageName: node
+  linkType: hard
+
+"@vitest/utils@npm:0.29.2":
+  version: 0.29.2
+  resolution: "@vitest/utils@npm:0.29.2"
+  dependencies:
+    cli-truncate: ^3.1.0
+    diff: ^5.1.0
+    loupe: ^2.3.6
+    picocolors: ^1.0.0
+    pretty-format: ^27.5.1
+  checksum: f6b0dd0c38475de74ae0d09b44ea6bc4ee9d192587f8c5a46edc33234653b036b230a238a3ed4c3c778ecfc3585037b4bf7a1fde83401941ce5c7105ce0b53d4
   languageName: node
   linkType: hard
 
@@ -14904,9 +14861,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.0, caniuse-lite@npm:^1.0.30001400, caniuse-lite@npm:^1.0.30001407, caniuse-lite@npm:^1.0.30001426, caniuse-lite@npm:^1.0.30001449":
-  version: 1.0.30001464
-  resolution: "caniuse-lite@npm:1.0.30001464"
-  checksum: 82f711ecca1c22d66a0ffc166a818b75ea720c04a3d937c9ccf2bb3e3c10c9f347e95b66d4da4f5745e838e7f88ab6648441b0369a6298b747e6712f2ab5e006
+  version: 1.0.30001465
+  resolution: "caniuse-lite@npm:1.0.30001465"
+  checksum: e4424af13cf1d643b6bb9c02af60cf0ae939ab9283ffa05b5ee6533f7d341ca6dcc5786e429e74e4bc6a15c91b443a7e1389e0eb8a2bf5e4e6f7a8fea7d3876e
   languageName: node
   linkType: hard
 
@@ -34384,6 +34341,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tslib@npm:2.5.0":
+  version: 2.5.0
+  resolution: "tslib@npm:2.5.0"
+  checksum: e32fc99cc730dd514e53c44e668d76016e738f0bcc726aad5dbd2d335cf19b87a95a9b1e4f0a9993e370f1d702b5e471cdd4acabcac428a3099d496b9af2021e
+  languageName: node
+  linkType: hard
+
 "tslib@npm:^1.11.1, tslib@npm:^1.13.0, tslib@npm:^1.8.1, tslib@npm:^1.9.0":
   version: 1.14.1
   resolution: "tslib@npm:1.14.1"
@@ -35729,6 +35693,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"vite-node@npm:0.29.2":
+  version: 0.29.2
+  resolution: "vite-node@npm:0.29.2"
+  dependencies:
+    cac: ^6.7.14
+    debug: ^4.3.4
+    mlly: ^1.1.0
+    pathe: ^1.1.0
+    picocolors: ^1.0.0
+    vite: ^3.0.0 || ^4.0.0
+  bin:
+    vite-node: vite-node.mjs
+  checksum: e4980986de74751f7c3823b4a1b54f3d4f74273066ed5003cf3c283310c3cafd609f18517706c666a06ee07351b9c8409a75c5f6821e9cd6be56eac38d0e45d8
+  languageName: node
+  linkType: hard
+
 "vite@npm:4.0.4":
   version: 4.0.4
   resolution: "vite@npm:4.0.4"
@@ -35904,6 +35884,57 @@ __metadata:
   bin:
     vitest: vitest.mjs
   checksum: da08e78737536a4410f375dfe4b717adc001b2be29abf8d06c97074d7ccba336b83eb439351c9f3773bd3d30f3a0c517be0dd24c35e867e9cb930ffab953d336
+  languageName: node
+  linkType: hard
+
+"vitest@npm:0.29.2":
+  version: 0.29.2
+  resolution: "vitest@npm:0.29.2"
+  dependencies:
+    "@types/chai": ^4.3.4
+    "@types/chai-subset": ^1.3.3
+    "@types/node": "*"
+    "@vitest/expect": 0.29.2
+    "@vitest/runner": 0.29.2
+    "@vitest/spy": 0.29.2
+    "@vitest/utils": 0.29.2
+    acorn: ^8.8.1
+    acorn-walk: ^8.2.0
+    cac: ^6.7.14
+    chai: ^4.3.7
+    debug: ^4.3.4
+    local-pkg: ^0.4.2
+    pathe: ^1.1.0
+    picocolors: ^1.0.0
+    source-map: ^0.6.1
+    std-env: ^3.3.1
+    strip-literal: ^1.0.0
+    tinybench: ^2.3.1
+    tinypool: ^0.3.1
+    tinyspy: ^1.0.2
+    vite: ^3.0.0 || ^4.0.0
+    vite-node: 0.29.2
+    why-is-node-running: ^2.2.2
+  peerDependencies:
+    "@edge-runtime/vm": "*"
+    "@vitest/browser": "*"
+    "@vitest/ui": "*"
+    happy-dom: "*"
+    jsdom: "*"
+  peerDependenciesMeta:
+    "@edge-runtime/vm":
+      optional: true
+    "@vitest/browser":
+      optional: true
+    "@vitest/ui":
+      optional: true
+    happy-dom:
+      optional: true
+    jsdom:
+      optional: true
+  bin:
+    vitest: vitest.mjs
+  checksum: 8300eb9c7399ce8a8f873e21f62c8868c95380164d3a73f832428c179408cec8a138475162d1d0a945c7bcc050f9f08bbb0310f9ccb52c822b652e3e4c2bb0b2
   languageName: node
   linkType: hard
 

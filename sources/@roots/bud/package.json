@@ -164,8 +164,11 @@
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "devDependencies": {
+    "@repo/constants": "workspace:*",
+    "@repo/test-kit": "workspace:*",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.11.18"
+    "@types/node": "18.11.18",
+    "vitest": "0.29.2"
   },
   "dependencies": {
     "@roots/browserslist-config": "workspace:sources/@roots/browserslist-config",

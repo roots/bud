@@ -84,9 +84,9 @@ export const LIFECYCLE_EVENT_MAP: Partial<
  */
 const filterServices =
   (app: Bud) =>
-  (signifier: string): Boolean =>
-    (app.isDevelopment || !DEVELOPMENT_SERVICES.includes(signifier)) &&
-    (app.isRoot || !PARENT_SERVICES.includes(signifier))
+  (service: string): Boolean =>
+    (app.isDevelopment || !DEVELOPMENT_SERVICES.includes(service)) &&
+    (app.isRoot || !PARENT_SERVICES.includes(service))
 
 /**
  * Import and bind framework services
@@ -99,9 +99,9 @@ const instantiateServices =
     const service = new imported(() => app)
     const label = camelCase(service.constructor.name)
 
-    set(app, label, service)
+    set(app.services, label, service)
+    set(app, label, app.services[label])
     app.success(`instantiated`, label, `from`, signifier)
-    app.services.push(label)
   }
 
 const initializeCoreUtilities = (bud: Bud) => {
@@ -110,8 +110,6 @@ const initializeCoreUtilities = (bud: Bud) => {
   Object.entries(methods).map(([fn, method]) => {
     bud[fn] = method.bind(bud)
   })
-
-  bud.context.logger.time(`initialize`)
 }
 
 /**
@@ -122,6 +120,7 @@ export const bootstrap = async function (
   context: Options.Context,
 ) {
   this.context = {...context}
+  this.context.logger.time(`initialize`)
 
   initializeCoreUtilities(this)
 

@@ -19,17 +19,8 @@ export interface glob {
 export const globSync: globSync = function (...searches) {
   const app = this as Bud
 
-  try {
-    const paths = searches.flatMap(search => transformPaths(app, search))
-    app.info(`glob (sync)`, `[paths]`, paths)
-
-    const results = globbySync(paths)
-    app.info(`glob (sync)`, `[results]`, results)
-
-    return results
-  } catch (error) {
-    app.error(error)
-  }
+  const paths = searches.flatMap(search => transformPaths(app, search))
+  return globbySync(paths)
 }
 
 /**
@@ -41,17 +32,8 @@ export const globSync: globSync = function (...searches) {
 export const glob: glob = async function (...searches) {
   const app = this as Bud
 
-  try {
-    const paths = searches.flatMap(search => transformPaths(app, search))
-    app.info(`glob (async)`, ...paths)
-
-    const results = await globby(paths)
-    app.success(`glob (sync)`, ...results)
-
-    return results
-  } catch (error) {
-    app.error(error)
-  }
+  const paths = searches.flatMap(search => transformPaths(app, search))
+  return await globby(paths)
 }
 
 const transformPaths = (app: Bud, search: Array<string> | string) =>

@@ -49,10 +49,6 @@ export default class BudReact extends Extension {
 
   /**
    * {@link Extension.configAfter}
-   *
-   * @remarks
-   * Adds the `@babel/preset-react` preset to babel if `@roots/bud-esbuild` is not
-   * registered and `@roots/bud-babel` is available.
    */
   @bind
   public override async configAfter(bud: Bud) {
@@ -60,8 +56,12 @@ export default class BudReact extends Extension {
 
     await this.ensureBabelIsLoaded()
 
-    const Preset = await this.resolve(`@babel/preset-react`)
-    bud.babel.setPreset(`@babel/preset-react`, Preset)
+    const preset = await this.resolve(
+      `@babel/preset-react`,
+      import.meta.url,
+    )
+    if (!preset) throw new Error(`@babel/preset-react not found`)
+    bud.babel.setPreset(`@babel/preset-react`, preset)
   }
 
   /**
@@ -70,6 +70,9 @@ export default class BudReact extends Extension {
   @bind
   public async ensureBabelIsLoaded() {
     if (this.app.extensions.has(`@roots/bud-babel`)) return
-    await this.app.extensions.add(await this.import(`@roots/bud-babel`))
+    const babel = await this.import(`@roots/bud-babel`, import.meta.url)
+    if (!babel) throw new Error(`@roots/bud-babel not found`)
+
+    await this.app.extensions.add(babel)
   }
 }

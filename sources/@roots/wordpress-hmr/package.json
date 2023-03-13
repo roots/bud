@@ -123,5 +123,8 @@
   },
   "volta": {
     "extends": "../../../package.json"
+  },
+  "dependencies": {
+    "tslib": "2.5.0"
   }
 }

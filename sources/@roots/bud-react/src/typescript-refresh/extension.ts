@@ -27,7 +27,11 @@ export default class BudTypeScriptRefresh extends Extension {
   public async registerTransform(bud: Bud) {
     this.logger.log(`Registering react-refresh-typescript transformer`)
 
-    const transform = await this.import(`react-refresh-typescript`)
+    const transform = await this.import(
+      `react-refresh-typescript`,
+      import.meta.url,
+    )
+    if (!transform) throw new Error(`react-refresh-typescript not found`)
 
     bud.extensions
       .get(`@roots/bud-typescript`)

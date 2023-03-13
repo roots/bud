@@ -89,7 +89,8 @@
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/bud-support": "workspace:sources/@roots/bud-support"
+    "@roots/bud-support": "workspace:sources/@roots/bud-support",
+    "tslib": "2.5.0"
   },
   "peerDependencies": {
     "@roots/bud-api": "workspace:*",

@@ -54,11 +54,13 @@ export class Tsc extends Command {
    * Command execute
    */
   public async execute() {
-    await this.$([
-      `yarn`,
-      [`tsc`, `-b`, this.tsconfig, ...this.passthrough],
-      {stderr: this.context.stderr, stdout: this.context.stdout},
-      false,
+    await this.cli.run([
+      `exec`,
+      `node`,
+      join(paths.root, `node_modules/.bin/tsc`),
+      `-b`,
+      this.tsconfig,
+      ...this.passthrough,
     ])
   }
 }

@@ -82,7 +82,8 @@
     "@babel/runtime": "7.20.13",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "babel-loader": "9.1.2"
+    "babel-loader": "9.1.2",
+    "tslib": "2.5.0"
   },
   "peerDependencies": {
     "@babel/core": "*",
@@ -96,7 +97,7 @@
     "@types/babel__plugin-transform-runtime": "*",
     "@types/babel__preset-env": "*",
     "babel-loader": "*",
-    "webpack": "*"
+    "webpack": "5.75.0"
   },
   "peerDependenciesMeta": {
     "@babel/core": {

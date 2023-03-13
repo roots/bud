@@ -38,7 +38,6 @@ export default class BudTypeScript extends Extension {
    * bud.typescript.set('babel', false)
    * ```
    */
-  @bind
   @deprecated(`bud.typescript`, `Use bud.typescript.set instead`, [
     [`Enable babel`, `bud.typescript.set('babel', true)`],
     [`Disable babel`, `bud.typescript.set('babel', false)`],
@@ -53,17 +52,19 @@ export default class BudTypeScript extends Extension {
    */
   @bind
   public override async register(bud: Bud) {
+    const loader = await this.resolve(`ts-loader`, import.meta.url)
+    if (!loader) throw new Error(`ts-loader not found`)
+
+    bud.build.setLoader(`ts`, loader)
+    bud.build.setItem(`ts`, {loader: `ts`})
+    bud.build.setRule(`ts`, {
+      test: ({hooks}) => hooks.filter(`pattern.ts`),
+      include: [({path}) => path(`@src`)],
+    })
+
     bud.hooks.on(`build.resolve.extensions`, (extensions = new Set([])) =>
       extensions.add(`.ts`).add(`.jsx`).add(`.tsx`),
     )
-
-    bud.build
-      .setLoader(`ts`, await this.resolve(`ts-loader`))
-      .setItem(`ts`, {loader: `ts`})
-      .setRule(`ts`, {
-        test: ({hooks}) => hooks.filter(`pattern.ts`),
-        include: [({path}) => path(`@src`)],
-      })
   }
 
   /**

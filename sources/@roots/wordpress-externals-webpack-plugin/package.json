@@ -62,6 +62,7 @@
   },
   "dependencies": {
     "lodash": "4.17.21",
+    "tslib": "2.5.0",
     "webpack": "5.75.0"
   },
   "volta": {

@@ -77,17 +77,21 @@ export default class BudEsbuild extends Extension<Options> {
    */
   @bind
   public override async register(bud: Bud) {
-    bud.hooks
-      .on(`build.resolve.extensions`, ext => ext.add(`.ts`).add(`.tsx`))
-      .build.setLoader(`esbuild`, await this.resolve(`esbuild-loader`))
-      .setItem(`esbuild-js`, {
-        loader: `esbuild`,
-        options: () => this.options.js,
-      })
-      .setItem(`esbuild-ts`, {
-        loader: `esbuild`,
-        options: () => this.options.ts,
-      })
+    const loader = await this.resolve(`esbuild-loader`, import.meta.url)
+    if (!loader) throw new Error(`esbuild-loader not found`)
+
+    bud.build.setLoader(`esbuild`, loader)
+    bud.build.setItem(`esbuild-js`, {
+      loader: `esbuild`,
+      options: () => this.options.js,
+    })
+    bud.build.setItem(`esbuild-ts`, {
+      loader: `esbuild`,
+      options: () => this.options.ts,
+    })
+    bud.hooks.on(`build.resolve.extensions`, ext =>
+      ext.add(`.ts`).add(`.tsx`),
+    )
   }
 
   /**

@@ -57,6 +57,7 @@
   "dependencies": {
     "fs-extra": "11.1.0",
     "helpful-decorators": "2.1.0",
+    "tslib": "2.5.0",
     "webpack": "5.75.0"
   },
   "volta": {

@@ -13,7 +13,7 @@ interface Contract {
   /**
    * Bud instance
    */
-  app?: Bud & {context: CommandContext | CLIContext | Context}
+  app: Bud & {context: CommandContext | CLIContext | Context}
 
   /**
    * Scoped logger
@@ -26,7 +26,7 @@ interface Contract {
    * @remarks
    * `init` is called when the Service is instantiated
    */
-  init?(app?: Bud): Promise<void>
+  init(app: Bud): Promise<void | unknown>
 
   /**
    * Lifecycle method: bootstrap
@@ -34,7 +34,7 @@ interface Contract {
    * @remarks
    * `bootstrap` is called when the Service is instantiated (but before all services are guaranteed to be instantiated).
    */
-  bootstrap?(app?: Bud): Promise<void>
+  bootstrap(app: Bud): Promise<void | unknown>
 
   /**
    * Lifecycle method: bootstrapped
@@ -42,7 +42,7 @@ interface Contract {
    * @remarks
    * Called once all Service instances are available
    */
-  bootstrapped?(app?: Bud): Promise<any>
+  bootstrapped(app: Bud): Promise<void | unknown>
 
   /**
    * Lifecycle method: register
@@ -51,7 +51,7 @@ interface Contract {
    * Intended for Service instances to register functionalities, modules,
    * and bind functions to {@link Bud}
    */
-  register?(app?: Bud): Promise<any>
+  register(app: Bud): Promise<void | unknown>
 
   /**
    * Lifecycle method: registered
@@ -59,7 +59,7 @@ interface Contract {
    * @remarks
    * `registered` is called after `register` is complete
    */
-  registered?(app?: Bud): Promise<any>
+  registered(app: Bud): Promise<void | unknown>
 
   /**
    * Lifecycle method: boot
@@ -67,7 +67,7 @@ interface Contract {
    * @remarks
    * `boot` is called once all services are registered.
    */
-  boot?(app?: Bud): Promise<any>
+  boot(app: Bud): Promise<void | unknown>
 
   /**
    * Lifecycle method: booted
@@ -75,32 +75,32 @@ interface Contract {
    * @remarks
    * `booted` is called after `boot`
    */
-  booted?(app?: Bud): Promise<any>
+  booted(app: Bud): Promise<void | unknown>
 
   /**
    * After config callback
    */
-  configAfter?(app?: Bud): Promise<void>
+  configAfter(app: Bud): Promise<void | unknown>
 
   /**
    * Before build service
    */
-  buildBefore?(app?: Bud): Promise<void>
+  buildBefore(app: Bud): Promise<void | unknown>
 
   /**
    * After build service
    */
-  buildAfter?(app?: Bud): Promise<void>
+  buildAfter(app: Bud): Promise<void | unknown>
 
   /**
    * Before Compiler service
    */
-  compilerBefore?(app?: Bud): Promise<void>
+  compilerBefore(app: Bud): Promise<void | unknown>
 
   /**
    * After Compiler service
    */
-  compilerAfter?(app?: Bud): Promise<void>
+  compilerAfter(app: Bud): Promise<void | unknown>
 }
 
 /**
@@ -118,7 +118,7 @@ abstract class Base implements Partial<Contract> {
    * @remarks
    * `init` is called when the Service is instantiated
    */
-  public init?(app?: Bud): Promise<void>
+  public async init(app: Bud) {}
 
   /**
    * Lifecycle method: bootstrap
@@ -126,7 +126,7 @@ abstract class Base implements Partial<Contract> {
    * @remarks
    * `bootstrap` is called when the Service is instantiated (but before all services are guaranteed to be instantiated).
    */
-  public bootstrap?(app?: Bud): Promise<any>
+  public async bootstrap(app: Bud) {}
 
   /**
    * Lifecycle method: bootstrapped
@@ -134,7 +134,7 @@ abstract class Base implements Partial<Contract> {
    * @remarks
    * Called once all Service instances are available
    */
-  public bootstrapped?(app?: Bud): Promise<any>
+  public async bootstrapped(app: Bud) {}
 
   /**
    * Lifecycle method: register
@@ -143,7 +143,7 @@ abstract class Base implements Partial<Contract> {
    * Intended for Service instances to register functionalities, modules,
    * and bind functions to {@link Bud}
    */
-  public register?(app?: Bud): Promise<any>
+  public async register(app: Bud) {}
 
   /**
    * Lifecycle method: registered
@@ -151,7 +151,7 @@ abstract class Base implements Partial<Contract> {
    * @remarks
    * `registered` is called after `register` is complete
    */
-  public registered?(app?: Bud): Promise<any>
+  public async registered(app: Bud) {}
 
   /**
    * Lifecycle method: boot
@@ -159,7 +159,7 @@ abstract class Base implements Partial<Contract> {
    * @remarks
    * `boot` is called once all services are registered.
    */
-  public boot?(app?: Bud): Promise<any>
+  public async boot(app: Bud) {}
 
   /**
    * Lifecycle method: booted
@@ -167,32 +167,32 @@ abstract class Base implements Partial<Contract> {
    * @remarks
    * `booted` is called after `boot`
    */
-  public booted?(app?: Bud): Promise<any>
+  public async booted(app: Bud) {}
 
   /**
    * After config callback
    */
-  public configAfter?(app?: Bud): Promise<void>
+  public async configAfter(app: Bud) {}
 
   /**
    * Before build service
    */
-  public buildBefore?(app?: Bud): Promise<void>
+  public async buildBefore(app: Bud) {}
 
   /**
    * After build service
    */
-  public buildAfter?(app?: Bud): Promise<void>
+  public async buildAfter(app: Bud) {}
 
   /**
    * Before Compiler service
    */
-  public compilerBefore?(app?: Bud): Promise<void>
+  public async compilerBefore(app: Bud) {}
 
   /**
    * After Compiler service
    */
-  public compilerAfter?(app?: Bud): Promise<void>
+  public async compilerAfter(app: Bud) {}
 
   /**
    * Bud instance
@@ -251,7 +251,7 @@ abstract class BaseContainer
    * @remarks
    * `init` is called when the Service is instantiated
    */
-  public init?(app?: Bud): Promise<void>
+  public async init(app: Bud) {}
 
   /**
    * Lifecycle method: bootstrap
@@ -259,7 +259,7 @@ abstract class BaseContainer
    * @remarks
    * `bootstrap` is called when the Service is instantiated (but before all services are guaranteed to be instantiated).
    */
-  public bootstrap?(app?: Bud): Promise<void>
+  public async bootstrap(app: Bud) {}
 
   /**
    * Lifecycle method: bootstrapped
@@ -267,7 +267,7 @@ abstract class BaseContainer
    * @remarks
    * Called once all Service instances are available
    */
-  public bootstrapped?(app?: Bud): Promise<void>
+  public async bootstrapped(app: Bud) {}
 
   /**
    * Lifecycle method: register
@@ -276,7 +276,7 @@ abstract class BaseContainer
    * Intended for Service instances to register functionalities, modules,
    * and bind functions to {@link Bud}
    */
-  public register?(app?: Bud): Promise<void>
+  public async register(app: Bud) {}
 
   /**
    * Lifecycle method: registered
@@ -284,7 +284,7 @@ abstract class BaseContainer
    * @remarks
    * `registered` is called after `register` is complete
    */
-  public registered?(app?: Bud): Promise<void>
+  public async registered(app: Bud) {}
 
   /**
    * Lifecycle method: boot
@@ -292,7 +292,7 @@ abstract class BaseContainer
    * @remarks
    * `boot` is called once all services are registered.
    */
-  public boot?(app?: Bud): Promise<void>
+  public async boot(app: Bud) {}
 
   /**
    * Lifecycle method: booted
@@ -300,32 +300,32 @@ abstract class BaseContainer
    * @remarks
    * `booted` is called after `boot`
    */
-  public booted?(app?: Bud): Promise<void>
+  public async booted(app: Bud) {}
 
   /**
    * After config callback
    */
-  public configAfter?(app?: Bud): Promise<void>
+  public async configAfter(app: Bud) {}
 
   /**
    * Before build service
    */
-  public buildBefore?(app?: Bud): Promise<void>
+  public async buildBefore(app: Bud) {}
 
   /**
    * After build service
    */
-  public buildAfter?(app?: Bud): Promise<void>
+  public async buildAfter(app: Bud) {}
 
   /**
    * Before Compiler service
    */
-  public compilerBefore?(app?: Bud): Promise<void>
+  public async compilerBefore(app: Bud) {}
 
   /**
    * After Compiler service
    */
-  public compilerAfter?(app?: Bud): Promise<void>
+  public async compilerAfter(app: Bud) {}
 
   /**
    * Class constructor

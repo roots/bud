@@ -45,13 +45,27 @@ export class BudPostCss extends Extension<Options> {
    */
   @bind
   public override async register({build}: Bud): Promise<void> {
+    const importPlugin = await this.resolve(
+      `postcss-import`,
+      import.meta.url,
+    )
+    const nestingPlugin = await this.resolve(
+      `postcss-nested`,
+      import.meta.url,
+    )
+    const envPlugin = await this.resolve(
+      `postcss-preset-env`,
+      import.meta.url,
+    )
+
+    if (!importPlugin || !nestingPlugin || !envPlugin)
+      throw new Error(`postcss plugins not found`)
+
     this.setPlugins({
-      import: await this.resolve(`postcss-import`),
-      nesting: await this.resolve(`postcss-nested`),
+      import: importPlugin,
+      nesting: nestingPlugin,
       env: [
-        await this.resolve(`postcss-preset-env`).then(path =>
-          path.replace(`.mjs`, `.cjs`),
-        ),
+        envPlugin.replace(`.mjs`, `.cjs`),
         {
           stage: 1,
           features: {
@@ -61,15 +75,17 @@ export class BudPostCss extends Extension<Options> {
       ],
     })
 
-    build
-      .setLoader(`postcss`, await this.resolve(`postcss-loader`))
-      .setItem(`postcss`, {
-        loader: `postcss`,
-        options: () => ({
-          postcssOptions: this.postcssOptions,
-          sourceMap: this.get(`sourceMap`),
-        }),
-      })
+    const loader = await this.resolve(`postcss-loader`, import.meta.url)
+    if (!loader) throw new Error(`postcss-loader not found`)
+
+    build.setLoader(`postcss`, loader)
+    build.setItem(`postcss`, {
+      loader: `postcss`,
+      options: () => ({
+        postcssOptions: this.postcssOptions,
+        sourceMap: this.get(`sourceMap`),
+      }),
+    })
 
     build.rules.css.setUse((items = []) => [...items, `postcss`])
     build.rules.cssModule?.setUse((items = []) => [...items, `postcss`])
@@ -190,7 +206,8 @@ export class BudPostCss extends Extension<Options> {
    */
   @bind
   public getPluginOptions(plugin: string): Record<string, any> {
-    if (!this.plugins.has(plugin)) this.app.error(plugin, `does not exist`)
+    if (!this.plugins.has(plugin))
+      this.logger.error(plugin, `does not exist`)
 
     return this.plugins.has(plugin) &&
       this.plugins.get(plugin).length &&
@@ -210,7 +227,7 @@ export class BudPostCss extends Extension<Options> {
       | ((options: Record<string, any>) => Record<string, any>),
   ): this {
     if (!this.plugins.has(plugin)) {
-      this.app.error(plugin, `does not exist`)
+      this.logger.error(plugin, `does not exist`)
     }
 
     this.plugins.set(plugin, [

@@ -99,7 +99,8 @@
     "json5": "2.2.3",
     "lodash": "4.17.21",
     "mime-types": "2.1.35",
-    "safe-json-stringify": "1.2.0"
+    "safe-json-stringify": "1.2.0",
+    "tslib": "2.5.0"
   },
   "volta": {
     "extends": "../../../package.json"

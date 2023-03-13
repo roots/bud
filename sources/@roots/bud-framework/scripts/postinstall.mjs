@@ -5,35 +5,51 @@ import {writeFileSync} from 'node:fs'
 import {dirname, join, resolve} from 'node:path'
 import {fileURLToPath} from 'node:url'
 
-import {execaCommandSync} from 'execa'
+const logErr = path => {
+  process.stderr.write(
+    [
+      `📦  @roots/bud-framework`,
+      `  ⚠️  Failed to grant execution permissions to roots-notifier`,
+      `  Please run the following command manually:`,
+      `    chmod u+x ${path}`,
+    ].join(`\n\n`),
+  )
+}
+
+const cwd = resolve(dirname(fileURLToPath(import.meta.url)), `..`)
+
+const notifierPath = join(
+  cwd,
+  `vendor`,
+  `mac.no-index`,
+  `roots-notifier.app`,
+  `Contents`,
+  `MacOS`,
+  `roots-notifier`,
+)
 
 try {
   if (process.platform === `darwin`) {
-    const cwd = resolve(dirname(fileURLToPath(import.meta.url)), `..`)
-    console.log(`[bud-framework] cwd:`, cwd)
+    const {execaCommand: $} = await import(`execa`)
 
-    const notifierPath = join(
-      cwd,
-      `vendor`,
-      `mac.no-index`,
-      `roots-notifier.app`,
-      `Contents`,
-      `MacOS`,
-      `roots-notifier`,
-    )
-    console.log(`[bud-framework] notifierPath:`, notifierPath)
-
-    const results = execaCommandSync(`chmod u+x ${notifierPath}`, {
+    const results = await $(`chmod u+x ${notifierPath}`, {
       cwd,
       reject: false,
       timeout: 10000,
     })
 
     if (results.exitCode !== 0) {
-      console.log(`[bud-framework] notifier permissions could not be set`)
-      writeFileSync(join(cwd, `install.stderr.log`), results.stderr, `utf8`)
+      writeFileSync(
+        join(cwd, `install.stderr.log`),
+        results.stderr,
+        `utf8`,
+      )
+    } else {
+      logErr(notifierPath)
     }
   }
-} catch (e) {}
+} catch (e) {
+  logErr(notifierPath)
+}
 
 export {}

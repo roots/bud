@@ -1,7 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
 import {ServiceContainer} from '@roots/bud-framework/service'
 import type {Api as Contract} from '@roots/bud-framework/services'
-import chalk from '@roots/bud-support/chalk'
 import {bind} from '@roots/bud-support/decorators'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 
@@ -9,11 +8,7 @@ import {factory} from '../facade/facade.factory.js'
 import * as methods from '../methods/index.js'
 
 /**
- * API service
- *
- * @remarks
- * Binds facade methods to the framework and provides a way to list them,
- * call them, and otherwise manipulate them.
+ * API {@link ServiceContainer}
  */
 export class Api extends ServiceContainer implements Contract {
   /**
@@ -30,7 +25,7 @@ export class Api extends ServiceContainer implements Contract {
    * `bootstrap` callback
    */
   @bind
-  public override async bootstrap?(_app: Bud) {
+  public override async bootstrap(app: Bud) {
     Object.entries(methods).map(([k, v]) => this.bindFacade(k, v))
   }
 
@@ -54,7 +49,7 @@ export class Api extends ServiceContainer implements Contract {
    */
   @bind
   public async call(name: string, args: Array<any>): Promise<Bud> {
-    this.app.log(chalk.blue(name), args)
+    this.logger.log(`executing`, `${name}(`, ...args, `)`)
 
     if (!this.has(name)) {
       throw new Error(`bud.api.call error: ${name} is not a function`)

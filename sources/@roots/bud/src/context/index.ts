@@ -21,6 +21,8 @@ export default async (
     find: false,
   },
 ): Promise<Context> => {
+  const logger = new Logger()
+
   if (!basedir) basedir = argv.basedir
   if (options.cache && contexts[basedir]) return contexts[basedir]
 
@@ -38,8 +40,6 @@ export default async (
   }
 
   extensions = getExtensions(manifest, options.find)
-
-  const logger = new Logger()
 
   const context: Context = {
     label: overrides?.label ?? manifest?.name ?? bud?.label ?? `default`,
@@ -67,7 +67,6 @@ export default async (
   }
 
   context.logger.scope(context.label).debug(omit(context, `env`))
-  await context.logger.setCommonPath(context.basedir)
 
   if (options.cache) {
     contexts[basedir] = context

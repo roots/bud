@@ -218,9 +218,9 @@ export default class Cdn extends Extension<Options, null> {
       ])
     })
 
-    const {NormalModuleReplacementPlugin} = await import(`webpack`).then(
-      m => m.default,
-    )
+    const {NormalModuleReplacementPlugin} = await import(
+      `@roots/bud-support/webpack`
+    ).then(m => m.default)
 
     for (const [ident, url] of this.sources.entries()) {
       await bud.extensions.add({

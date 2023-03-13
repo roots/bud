@@ -10,7 +10,7 @@ export default class Env extends ServiceContainer {
    * Bootstrap event callback
    */
   @bind
-  public override async bootstrap?(bud: Bud) {
+  public override async bootstrap(bud: Bud) {
     this.setStore(bud.context.env)
   }
 

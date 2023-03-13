@@ -1,5 +1,4 @@
 import {bind} from '@roots/bud-support/decorators'
-import isFunction from '@roots/bud-support/lodash/isFunction'
 import isNull from '@roots/bud-support/lodash/isNull'
 import isString from '@roots/bud-support/lodash/isString'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
@@ -7,7 +6,7 @@ import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import {bootstrap, LIFECYCLE_EVENT_MAP} from './lifecycle/bootstrap.js'
 import type * as methods from './methods/index.js'
 import type {Module} from './module.js'
-import type {Service} from './service.js'
+import type {Service, ServiceContainer} from './service.js'
 import type ConsoleBuffer from './services/console.js'
 import type FS from './services/fs.js'
 import type * as Options from './types/options/index.js'
@@ -124,7 +123,7 @@ export class Bud {
 
   public module: Module
 
-  public services: Array<string> = []
+  public services: Record<string, Service | ServiceContainer> = {}
 
   public api: Services.Api
 
@@ -232,7 +231,7 @@ export class Bud {
       !isUndefined(this.context.args.filter) &&
       !this.context.args.filter.includes(context.label)
     ) {
-      this.log(
+      this.context.logger?.log(
         `skipping child instance based on --filter flag:`,
         context.label,
       )
@@ -240,11 +239,14 @@ export class Bud {
     }
 
     if (this.children && this.children[context.label]) {
-      this.log(`returning requested child instance:`, context.label)
+      this.context.logger?.log(
+        `returning requested child instance:`,
+        context.label,
+      )
       return this.get(context.label)
     }
 
-    this.log(`instantiating new bud instance`)
+    this.context.logger?.log(`instantiating new bud instance`)
     const child = await new Bud().lifecycle(context)
 
     if (!this.children) this.children = {[context.label]: child}
@@ -274,24 +276,10 @@ export class Bud {
         keyof Registry.EventsStore,
         keyof Service,
       ]) =>
-        this.services
-          .map(service => [service, this[service]])
-          .map(([label, service]) => {
-            if (!service) {
-              this.error(`service not found: ${label}`, this.services)
-            }
-
-            if (!isFunction(service[callbackName])) return
-
-            this.hooks.action(
-              eventHandle,
-              service[callbackName].bind(service),
-            )
-            this.success(
-              `registered service callback:`,
-              `${label}.${callbackName}`,
-            )
-          }),
+        Object.entries(this.services).map(([_label, service]) => {
+          if (typeof service[callbackName] !== `function`) return
+          this.hooks.action(eventHandle, service[callbackName] as any)
+        }),
     )
 
     await [
@@ -313,48 +301,28 @@ export class Bud {
     return this
   }
 
-  /**
-   * Log a message
-   */
-  @bind
   public log(...messages: any[]) {
-    this.context.logger.log(...messages)
+    this.context.logger?.log(...messages)
     return this
   }
 
-  /**
-   * Log an `info` level message
-   */
-  @bind
   public info(...messages: any[]) {
-    this.context.logger.info(...messages)
+    this.context.logger?.info(...messages)
     return this
   }
 
-  /**
-   * Log a `success` level message
-   */
-  @bind
   public success(...messages: any[]) {
-    this.context.logger.success(...messages)
+    this.context.logger?.success(...messages)
     return this
   }
 
-  /**
-   * Log a `warning` level message
-   */
-  @bind
   public warn(...messages: any[]) {
-    this.context.logger.warn(...messages)
+    this.context.logger?.warn(...messages)
     return this
   }
 
-  /**
-   * Log an error
-   */
-  @bind
   public error(...messages: Array<any>): Bud {
-    this.context.logger.error(...messages)
+    this.context.logger?.error(...messages)
     return this
   }
 }

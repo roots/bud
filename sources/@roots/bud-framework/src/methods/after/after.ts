@@ -26,10 +26,10 @@ export const after: after = function (
       errorHandler(error)
     }
 
-    bud.success(`bud.after action executed`)
+    bud.context.logger?.success(`bud.after`, `executed callback`)
   })
 
-  bud.success(`bud.after: registered action`)
+  bud.context.logger?.success(`bud.after: registered callback`)
 
   return bud
 }

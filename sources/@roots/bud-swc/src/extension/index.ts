@@ -41,12 +41,14 @@ export default class BudSWC extends Extension<Options> {
       }
     } catch (e) {}
 
-    bud.build
-      .setLoader(`swc`, await this.resolve(`swc-loader`))
-      .setItem(`swc`, {
-        loader: bud.build.getLoader(`swc`),
-        options: () => this.options,
-      })
+    const swcLoader = await this.resolve(`swc-loader`, import.meta.url)
+    if (!swcLoader) throw new Error(`swc-loader not found`)
+    bud.build.setLoader(`swc`, swcLoader)
+
+    bud.build.setItem(`swc`, {
+      loader: bud.build.getLoader(`swc`),
+      options: () => this.options,
+    })
 
     bud.hooks.on(`build.resolve.extensions`, (extensions = new Set()) =>
       extensions.add(`.ts`).add(`.tsx`).add(`.jsx`),

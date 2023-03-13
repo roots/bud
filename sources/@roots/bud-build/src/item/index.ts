@@ -138,7 +138,10 @@ class Item extends Base implements Build.Item {
     }
 
     if (!output.loader) {
-      this.app.error(`error in ${this.ident}`, `no loader registered`)
+      this.app.build.logger.error(
+        `error in ${this.ident}`,
+        `no loader registered`,
+      )
     }
 
     return Object.entries(output).reduce(

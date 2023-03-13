@@ -43,7 +43,7 @@ export class Build extends Service implements Base.Service {
    * `loaders`, `items`, and `rules` are instantiated dumbly
    * because it is painful to think about how to map the typings..
    */
-  public override register? = register.bind(this)
+  public override register = register.bind(this)
 
   /**
    * Make webpack configuration
@@ -72,7 +72,6 @@ export class Build extends Service implements Base.Service {
 
     this.logger.success(`configuration successfully built`)
     await this.app.hooks.fire(`build.after`, this.app)
-
     return this.config
   }
 

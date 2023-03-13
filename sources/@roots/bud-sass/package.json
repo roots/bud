@@ -105,7 +105,8 @@
     "sass": "^1.58.1",
     "sass-loader": "^13.2.0",
     "stylelint-config-recommended-scss": "^8.0.0",
-    "stylelint-scss": "^4.3.0"
+    "stylelint-scss": "^4.3.0",
+    "tslib": "2.5.0"
   },
   "peerDependencies": {
     "@roots/bud": "workspace:*",

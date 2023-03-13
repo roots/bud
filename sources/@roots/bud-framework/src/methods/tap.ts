@@ -24,7 +24,7 @@ export interface tap<T = Bud> {
  *
  * ```ts
  * bud.tap(function () {
- *  this.log('this references bud from the outer scope')
+ *   console.log(this.label) // => `project-name`
  * })
  * ```
  */

@@ -49,7 +49,18 @@ export class Compiler extends Service implements Contract.Service {
    */
   @bind
   public async compile(): Promise<MultiCompiler> {
-    this.implementation = await this.app.module.import(`webpack`)
+    const implementation = await this.app.module.import(
+      `@roots/bud-support/webpack`,
+    )
+    if (!implementation) {
+      const error = new Error(
+        `compiler implementation (webpack) could not be imported`,
+      )
+      error.name = `bud.compiler: compiler implementation unresolvable`
+      throw error
+    }
+
+    this.implementation = implementation
     this.logger.log(`imported webpack`, this.implementation.version)
 
     this.config = !this.app.hasChildren
@@ -215,7 +226,10 @@ export class Compiler extends Service implements Contract.Service {
 
       return errors?.map(parseError).filter(Boolean)
     } catch (error) {
-      this.app.warn(`error parsing errors`, error)
+      this.app.context.logger?.warn(
+        `an error was encountering while parsing errors returned from the compiler`,
+        error,
+      )
       return []
     }
   }

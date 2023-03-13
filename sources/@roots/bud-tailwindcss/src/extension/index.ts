@@ -64,12 +64,14 @@ export class BudTailwindCss extends Extension<Options> {
    */
   @bind
   public async getSource(): Promise<Config> {
-    let config: Config
-
     if (this.path) {
       try {
-        config = await this.app.module.import(this.path)
-        return config
+        const configModule = await this.app.module.import(
+          this.path,
+          import.meta.url,
+        )
+
+        return configModule ?? defaultConfig
       } catch (error) {}
     }
 
@@ -172,13 +174,18 @@ export class BudTailwindCss extends Extension<Options> {
    */
   @bind
   public override async register(_bud: Bud) {
-    this.dependencies.tailwindcss = await this.resolve(`tailwindcss`)
-    this.dependencies.nesting = await this.resolve(
+    const tailwind = await this.resolve(`tailwindcss`, import.meta.url)
+    if (!tailwind) throw new Error(`tailwindcss not found`)
+    this.dependencies.tailwindcss = tailwind
+
+    const nesting = await this.resolve(
       `tailwindcss/nesting/index.js`,
+      import.meta.url,
     )
+    if (!nesting) throw new Error(`tailwindcss/nesting not found`)
+    this.dependencies.nesting = nesting
 
     this.source = await this.getSource()
-
     const resolvedConfig = resolveConfig(this.source)
     if (!resolvedConfig) return
 
@@ -197,12 +204,17 @@ export class BudTailwindCss extends Extension<Options> {
       )
     }
 
+    if (!this.dependencies.nesting || !this.dependencies.tailwindcss)
+      throw new Error(
+        `@roots/bud-tailwindcss: required dependencies not found`,
+      )
+
     bud.postcss.setPlugins({
       nesting: this.dependencies.nesting,
       tailwindcss: [this.dependencies.tailwindcss, this.path],
     })
 
-    this.logger.success(`postcss configured for tailwindcss`)
+    this.logger.success(`tailwindcss configured`)
   }
 
   /**

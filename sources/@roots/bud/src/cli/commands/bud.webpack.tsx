@@ -32,8 +32,6 @@ export default class BudWebpackCommand extends BudCommand {
       `webpack.js`,
     )
 
-    this.text(`\n\n$ ${this.bin} ${bin}\n\n`)
-
     await this.$(this.bin, [
       bin,
       ...this.options.filter(key => key !== `--log`),

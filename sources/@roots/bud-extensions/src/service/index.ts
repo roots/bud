@@ -41,7 +41,6 @@ export default class Extensions
 -   * be used in the context of trying to import `optionalDependencies`
 -   * of a given extension module.
 -   *
--
 -   */
   public unresolvable: Set<string> = new Set()
 
@@ -62,7 +61,7 @@ export default class Extensions
    * `allowList` and `denyList`. It can be removed in a future release. (2022-10-18)
    */
   @bind
-  public override async register?(bud: Bud): Promise<void> {
+  public override async register(bud: Bud): Promise<void> {
     handleManifestSchemaWarning.bind(this)(bud)
   }
 
@@ -70,7 +69,7 @@ export default class Extensions
    * `booted` callback
    */
   @bind
-  public override async booted?(bud: Bud): Promise<void> {
+  public override async booted(bud: Bud): Promise<void> {
     const {extensions, manifest} = bud.context
 
     if (manifest?.bud?.extensions) {
@@ -139,7 +138,7 @@ export default class Extensions
    * `configAfter` callback
    */
   @bind
-  public override async configAfter?() {
+  public override async configAfter(bud: Bud) {
     await this.runAll(`configAfter`)
   }
 
@@ -147,7 +146,7 @@ export default class Extensions
    * `buildBefore` callback
    */
   @bind
-  public override async buildBefore?() {
+  public override async buildBefore(bud: Bud) {
     await this.runAll(`buildBefore`)
   }
 
@@ -155,7 +154,7 @@ export default class Extensions
    * `buildBefore` callback
    */
   @bind
-  public override async buildAfter?() {
+  public override async buildAfter(bud: Bud) {
     await this.runAll(`buildAfter`)
   }
 
@@ -258,13 +257,10 @@ export default class Extensions
       return
     }
 
-    const extensionClass: Extension = fatalOnError
-      ? await this.app.module.import(signifier)
-      : await this.app.module.tryImport(signifier)
+    const source = await this.app.module.import(signifier)
+    if (!source) return
 
-    if (!extensionClass) return
-
-    const instance = await this.instantiate(extensionClass)
+    const instance = await this.instantiate(source)
 
     if (instance.dependsOn)
       await Promise.all(

@@ -10,14 +10,12 @@ export interface persist {
 export const persist: persist = function (this: Bud, type = `filesystem`) {
   if (type === false) {
     this.cache.enabled = false
-    this.success(`cache disabled`)
+    this.api.logger.success(`cache disabled`)
     return this
   }
 
   this.cache.enabled = true
   this.cache.type = isString(type) ? type : `filesystem`
-
-  this.success(`cache enabled`)
-
+  this.api.logger.success(`cache enabled`)
   return this
 }

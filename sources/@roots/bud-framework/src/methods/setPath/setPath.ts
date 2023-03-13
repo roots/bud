@@ -39,7 +39,7 @@ export const setPath: setPath = function (this: Bud, ...parameters) {
   if (isType.baseDir(parameters)) {
     const basedir = validate.baseDir(parameters)
     this.context.basedir = basedir
-    this.log(`basedir set to ${basedir}`)
+    this.context.logger.log(`bud.setPath`, `basedir set to ${basedir}`)
 
     return this
   }
@@ -75,15 +75,7 @@ const makeCallback =
     const [key, value] = validate.stringPair(pair)
     const normal = !isAbsolute(value) ? bud.relPath(value) : value
 
-    bud.log({
-      key,
-      value,
-      normal,
-    })
-
-    bud.hooks
-      .on(`location.${key}` as keyof SyncRegistry, normal)
-      .log(`${key} set to ${normal}`)
+    bud.hooks.on(`location.${key}` as keyof SyncRegistry, normal)
 
     return bud
   }

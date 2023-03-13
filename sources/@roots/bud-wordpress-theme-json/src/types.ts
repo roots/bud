@@ -1,4 +1,4 @@
-/// <reference types="@roots/bud" />
+/// <reference types="@roots/bud-framework" />
 
 import type {WordPressThemeJSON} from './extension.js'
 

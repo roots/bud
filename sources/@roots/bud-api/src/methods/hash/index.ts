@@ -16,7 +16,7 @@ export const hash: hash = function (
     | ((hash: boolean | undefined) => boolean) = true,
 ) {
   this.hooks.on(`feature.hash`, value)
-  this.success(`file hashing ${value ? `enabled` : `disabled`}`)
+  this.api.logger.success(`file hashing ${value ? `enabled` : `disabled`}`)
 
   return this
 }
