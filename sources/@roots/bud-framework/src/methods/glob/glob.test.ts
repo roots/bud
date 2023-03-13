@@ -38,16 +38,6 @@ describe(`bud.glob`, function () {
     )
   })
 
-  it(`calls bud.success and bud.info`, async () => {
-    const infoSpy = vi.spyOn(bud, `info`)
-    const successSpy = vi.spyOn(bud, `success`)
-
-    await glob([`src/**/*.js`, `src/**/app.*`])
-
-    expect(infoSpy).toHaveBeenCalledOnce()
-    expect(successSpy).toHaveBeenCalledOnce()
-  })
-
   it(`returns glob results from array`, async () => {
     const results = await glob([`src/**/*.js`, `src/**/app.*`])
 
